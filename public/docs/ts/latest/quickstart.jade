@@ -3,69 +3,106 @@ include _util-fns
 :marked
   Our QuickStart goal is to build and run a super-simple Angular 2 application in TypeScript.
 
+  在“快速开始”中，我们的目标是构建和运行一个超简单的Angular 2应用 —— 使用TypeScript语言
+
   # Download the code
+  # 下载代码
   In a hurry?
   [Download the QuickStart source](https://github.com/angular/quickstart/blob/master/README.md)
   and start coding.
-  
-  # See it run
+
+  等不及了？可[下载QuickStart源码](https://github.com/angular/quickstart/blob/master/README.md)
+  开始写代码！
+
+  ## See It Run!
+  ## 让它跑起来！
 
   Try this <a href="/resources/live-examples/quickstart/ts/plnkr.html" target="_blank">live example</a>
   which loads the sample app in <a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>
   and displays a simple message:
 
+  试试这个 <a href="/resources/live-examples/quickstart/ts/plnkr.html" target="_blank">活的例子</a>
+  它将在<a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>中加载这个范例，并显示一条简短的消息
+
 figure.image-display
-  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="Output of QuickStart app")
+  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="QuickStart应用的输出")
+
 
 :marked
   # Learn
+  # 学习
   Of course we don't build apps to run in plunker.
   The following steps establish a development environment for the documentation samples
   that also can be the foundation for our real world applications. At a high level, we will
   
+  当然，为了在plunker中运行起来，我们不必构建这些应用。
+  下列步骤会指引你为本文档中的这些例子建立开发环境，它同样能作为将来我们开发真实应用的基础。大体来说，我们将：
+
   - set up the [development environment](#devenv)
+  - 安装 [开发环境](#devenv)
   - write the app's Angular [root component](#component)
+  - 写本应用的Angular[根组件（root component）](#component)
   - write [main.ts](#main) which tells Angular to display the root component
+  - 写一个 [main.ts](#main) 它将告诉Angular如何显示根组件
   - write the [host web page](#index) (`index.html`)
+  - 写 [宿主页面](#index) (`index.html`)
 
 .l-sub-section
   :marked
     We'll see many code blocks as we pursue this agenda. They're all easy to copy and paste:
+    我们将看到很多代码块作为我们的实现步骤。它们都很容易拷贝和粘贴：
   code-example(format='.', language='html').
     Click the glyph on the right to copy code snippets to the clipboard  ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨
-    
+    点击右边的图标来把代码片段拷贝到剪贴板 ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨
+
 button(class="verbose off md-primary md-button md-ink-ripple", type="button", onclick="verbose(false)").
   Hide explanations
+  隐藏解释
 button(class="verbose on md-primary md-button md-ink-ripple", type="button", onclick="verbose(true)").
   View explanations
+  查看解释
 .l-verbose-section
   :marked
     *Explanations* describe the concepts and reasons behind the instructions.
     Explanations have a thin border on the left like *this* block of text.
         
-    Click *Hide Explanations* to show only the instructions. 
+    *解释* 描述指令背后的概念和理由。解释就像 *这块儿* 文字一样，在左侧有一个细边框。
+
+    Click *Hide Explanations* to show only the instructions.
     Click it again to see everything again.
+
+    点击 *隐藏解释* 可以只显示指令。再点一次可以再次看到所有内容。
 
 a(id="devenv")
 .l-main-section
 :marked
   ## Development Environment
-  
+  ## 开发环境
+
   We need to set up our development environment: 
+  我们要设置开发环境：
   * install node and npm
+  * 安装 node 和 npm
   * create an [application project folder](#app-folder)
+  * 创建一个 [应用项目目录](#app-folder)
   * add a [tsconfig.json](#tsconfig) to guide the TypeScript compiler
+  * 添加一个[tsconfig.json](#tsconfig)为TypeScript编译器提供指导
   * add a [typings.json](#typings) that identifies missing TypeScript definition files
+  * 添加一个[typings.json](#typings)来存放缺失的TypeScript定义文件
   * add a [package.json](#package-json) that defines the packages and scripts we need
+  * 添加一个[package.json](#package-json)来定义我们所需的依赖包和脚本
   * install the npm packages and typings files
-  
+  * 安装npm包和typings文件
+
 a(id="install-npm")
 :marked
   **Install [node and npm](https://nodejs.org/en/download/)** if not already on your machine.
-  
+  **安装[node and npm](https://nodejs.org/en/download/)** ，如果你机器上还没有。
+
 a(id="app-folder")
 :marked
   Create a **new project folder**
+  创建一个 **新项目目录**
 code-example(format="").
   mkdir angular2-quickstart
   cd    angular2-quickstart
@@ -73,6 +110,7 @@ code-example(format="").
 a(id="tsconfig")
 :marked
   Add a **tsconfig.json** file to the project folder and copy/paste the following:
+  添加一个 **tsconfig.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
 +makeJson('quickstart/ts/tsconfig.1.json', null, 'tsconfig.json')(format=".")
 
 :marked
@@ -80,9 +118,13 @@ a(id="tsconfig")
   Learn more about it in the 
   <a href="guide/typescript-configuration.html#tsconfig" target="_blank">TypeScript Configuration</a> chapter.
 
+  这个`tsconfig.json`文件将为TypeScript编译器提供指引。
+  到<a href="guide/typescript-configuration.html#tsconfig" target="_blank">TypeScript Configuration</a>一节可以了解更多。
+
 a(id="typings")
 :marked
   Add a **typings.json** file to the project folder and copy/paste the following:
+  添加一个 **typings.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
 +makeJson('quickstart/ts/typings.1.json', null, 'typings.json')(format=".")
 
 .l-verbose-section
@@ -91,51 +133,92 @@ a(id="typings")
     that the TypeScript compiler doesn't recognize natively. We teach it about these capabilities with
     <a href="http://www.typescriptlang.org/Handbook#writing-dts-files" target="_blank">TypeScript type definition files</a>
     &mdash; *d.ts files* &mdash; which we identify in a `typings.json` file.
-    
+
+    有很多JavaScript库扩展了JavaScript开发环境，使其支持原生TypeScript编译器无法自动识别的特性和语法。
+    我们通过
+    <a href="http://www.typescriptlang.org/Handbook#writing-dts-files" target="_blank">TypeScript类型定义文件</a>
+    让它具备这些能力。&mdash; *d.ts 文件* &mdash; 我们把这些记录在 `typings.json` 文件中。
+
     We go a little deeper into *typings* in the 
     <a href="guide/typescript-configuration.html#typings" target="_blank">TypeScript Configuration</a> chapter.
+
+    我们将在
+    <a href="guide/typescript-configuration.html#typings" target="_blank">TypeScript配置</a>一章中深入讲解 *typings*
 
 a(id="package-json")
 :marked
   Add a **package.json** file to the project folder and copy/paste the following:
+  添加一个 **package.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
 +makeJson('quickstart/ts/package.1.json', null, 'package.json')(format=".")
 
 .l-verbose-section
   :marked
     ### Adding the libraries we need with *npm*
+    ### 用 *npm* 添加我们所需的库
     Angular application developers rely on the  <a href="https://docs.npmjs.com/" target="_blank"><i>npm</i></a>
     package manager to install the libraries their apps require. 
     The Angular team recommends the starter-set of packages specified in the `dependencies` and `devDependencies`
     sections.
     See the [npm packages](guide/npm-packages.html) chapter for details.
     
+    Angular应用程序开发者靠 <a href="https://docs.npmjs.com/" target="_blank"><i>npm</i></a> 安装应用程序所需的库。
+    Angular开发组在`dependencies`和`devDependencies`中指定了建议初学者们使用的依赖包。
+    查看[npm packages](guide/npm-packages.html)一章以了解详情。
+
     ### Helpful scripts
+    ### 有用的脚本
     We've included a number of npm scripts in our suggested `package.json` to handle common development tasks:
-  +makeJson('quickstart/ts/package.1.json',{ paths: 'scripts'}, 'package.json (scripts)')(format=".") 
+    我们在建议的`package.json`中包括了几个npm脚本来处理常见的开发任务：
+  +makeJson('quickstart/ts/package.1.json',{ paths: 'scripts'}, 'package.json (scripts)')(format=".")
 
   :marked
     We execute most npm scripts in the following way: `npm run` + *script-name*. 
     Some commands (such as `start` don't require the `run` keyword).
     
+    我们可以通过运行`npm run` + *script-name* 的形式执行大多数npm脚本。
+    有些命令（例如`start`）不需要`run`关键字。
+
     Here's what these scripts do:
     
-    * `npm start` - runs the compiler and a server  at the same time, both in "watch mode"
+    下面是这些脚本所做的事情：
+
+    * `npm start` - run the compiler and a server  at the same time, both in "watch mode"
     
-    * `npm run tsc` - runs the TypeScript compiler once
+    * `npm start` - 同时运行编译器和一个服务器，并且开启"监听模式"
+
+    * `npm run tsc` - run the TypeScript compiler once
     
-    * `npm run tsc:w` - runs the TypeScript compiler in watch mode; 
-    the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them
+    * `npm run tsc` - 运行一次TypeScript编译器
+
+    * `npm run tsc:w` - run the TypeScript compiler in watch mode;
+    the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
     
-    * `npm run lite` - runs the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>, 
-    a light-weight, static file server with excellent support for Angular apps that use routing
+    * `npm run tsc:w` - 运行TypeScript编译器在监听模式；
+    进程持续运行，等待TypeScript文件发生变化，一旦变化就重新编译它。
+
+    * `npm run lite` - run the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>,
+    a light-weight, static file server, written and maintained by 
+    <a href="http://johnpapa.net/" target="_blank">John Papa</a> 
+    with excellent support for Angular apps that use routing.
     
+    * `npm run lite` - 运行 <a href="https://www.npmjs.com/package/lite-server" target="_blank">轻量级服务器</a>,
+    一个轻量级的静态文件服务器，由
+    <a href="http://johnpapa.net/" target="_blank">John Papa</a>
+    编写和维护，对使用了路由的Angular应用提供了很好的支持。
+
     * `npm run typings` - runs the [*typings* tool](#typings)
     
-    * `npm run postinstall` - called by *npm* automatically *after* it successfully completes package installation.
-    This script installs the [TypeScript definition files](#typings) defined in `typings.json`
+    * `npm run typings` - 运行 [*typings*工具](#typings)
+
+    * `npm postinstall` - called by *npm* automatically *after* it successfully completes package installation.
+    This script installs the [TypeScript definition files](#typings) this app requires.
+
+    * `npm postinstall` - 由 *npm* 在成功安装了依赖包 *之后* 自动调用。
+    这个脚本安装本应用所需的[TypeScript定义文件](#typings)
 
 :marked
   **Install these packages** by entering the following *npm* command in a terminal window (command window in Windows):
+  通过在终端窗口（Windows下是command窗口）中输入下列 *npm* 命令来 **安装这些依赖包** ：
 code-example(format="").
   npm install
 
@@ -143,31 +226,51 @@ code-example(format="").
   :marked
     Scary <span style="color:red; font-weight: bold">error messages in red</span> may appear **during** install. 
     The install typically recovers from these errors and finishes successfully.
+
+    在 **安装过程中** ，可能出现可怕的<span style="color:red; font-weight: bold">红色错误信息</span>。
+    不用担心，安装过程通常能从这些错误中自行恢复，并最终成功。
   .l-verbose-section(class="l-verbose-inherit")
     :marked
       #### npm errors and warnings
-      
+      #### npm错误和警告
+
       All is well if there are no console messages starting with `npm ERR!` *at the end* of **npm install**. 
       There might be a few `npm WARN` messages along the way &mdash; and that is perfectly fine.
-      
+
+      如果在 **npm install** 的 *末尾* 没有以`npm ERR!`开头的控制台信息，就说明没问题。
+      还可能有一些类似的`npm WARN`开头的信息 &mdash; 这也没问题。
+
       We often see an `npm WARN` message after a series of `gyp ERR!` messages. 
       Ignore them. A package may try to re-compile itself using `node-gyp`.
       If the re-compile fails, the package recovers (typically with a pre-built version)
       and everything works.
       
+      我们通常会在一系列`gyp ERR!`消息后面看到一个`npm WARN`消息。
+      忽略它们。依赖包可能尝试使用`node-gyp`重新编译自己。
+      如果重新编译失败，依赖包会尝试恢复（通常使用一个预编译的版本），它们仍然能正常工作。
+
       Just make sure there are no `npm ERR!` messages at the end of `npm install`.
+
+      只要确保在`npm install`的末尾没有`npm ERR!`消息就可以了！
 
 :marked
   **We're all set.** Let's write some code.
+
+  **全部设置完毕！** 写点代码吧。
 
 
 a(id="component")
 .l-main-section
 :marked
   ## Our First Angular Component
+  ## 我们的第一个Angular组件
   Let's create a folder to hold our application and add a super-simple Angular component.
 
+  让我们创建一个目录来存放我们的应用程序，并且添加一个超级简单的Angular组件。
+
   **Create an *app* sub-folder** off the root directory and make it the current directory
+
+  在根目录下 **创建一个 *app* 子目录** 并且让它成为当前目录
 code-example(format="").
   mkdir app
   cd    app
@@ -175,15 +278,19 @@ code-example(format="").
 a(id="app-component")
 :marked
   **Add a component file** named *app.component.ts* and paste the following lines:
+  **添加一个组件文件** ，命名为 *app.component.ts* 并粘贴下列代码：
 +makeExample('quickstart/ts/app/app.component.ts', null, 'app/app.component.ts')(format=".")
   
 .l-verbose-section
   :marked
     ### AppComponent is the root of the application
-    
+    ### AppComponent就是应用的根
+
     Every Angular app has at least one root component, conventionally named `AppComponent`,
     that hosts the client user experience.
     
+    每个Angular应用都有至少一个根组件，按照规约命名为`AppComponent`，用于作为用户界面的宿主。
+
     Components are the basic building blocks of Angular applications.
     A component controls a portion of the screen &mdash; a *view* &mdash; through its associated template.
 
@@ -432,10 +539,10 @@ code-example(format="").
   ## Add some style
   Styles aren't essential but they're nice and the `index.html` assumes we have
   a stylesheet called `styles.css`.
-   
+
   Create a `styles.css` in the root folder and start styling, perhaps with this set:
 +makeExample('quickstart/ts/styles.1.css', null, 'styles.css (excerpt)')(format=".")
-  
+
 .l-main-section
 :marked
   ## Compile and run!
@@ -496,12 +603,12 @@ figure.image-display
     quickstart/ts/package.1.json,
     quickstart/ts/tsconfig.1.json,
     quickstart/ts/typings.1.json,
-    quickstart/ts/styles.1.css    
+    quickstart/ts/styles.1.css
   `,null,
-  `app/app.component.ts, 
-  app/main.ts, 
-  index.html,package.json, 
-  tsconfig.json, 
+  `app/app.component.ts,
+  app/main.ts,
+  index.html,package.json,
+  tsconfig.json,
   typings.json,
   styles.css`)
 :marked
