@@ -42,7 +42,7 @@ mixin makeJson( filePath, jsonConfig, title, stylePatterns)
     .example-title #{title}
   code-example(language="#{language}" format="#{format}")
     if (jsonExtract == 'ERROR')
-      err ERROR: Unable to extract json using config: "#{jsonConfig.toString()}"
+      err 错误: 无法通过配置"#{jsonConfig.toString()}"解析JSON
     else
       != styleString(jsonExtract, stylePatterns)
 
@@ -149,7 +149,7 @@ script.
 -   var fullFileName = getFragFilePath(filePath, region);
 -   var frag = partial(fullFileName);
 -   if (frag == null) {
--     return "BAD FILENAME: " + fullFileName + "   Current path: " + current.path +  " PathToDocs: " + getPathToDocs();
+-     return "出错的文件: " + fullFileName + "   所在路径: " + current.path +  " 文档路径: " + getPathToDocs();
 -   } else {
 -     // ``` gets translated to <pre><code>.....</code></pre> and we need
 -     // to remove this from the fragment prefix is 11 long and suffix is 13 long

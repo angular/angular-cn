@@ -1,4 +1,3 @@
-
 <!-- Speed & Performance -->
 .grid-fluid.l-space-bottom-8
   .c3.text-center
@@ -9,7 +8,9 @@
       Angular 2 is dramatically faster than Angular 1 with support for fast initial loads through
       server-side pre-rendering, offline compile for fast startup, and ultrafast change detection
       and view caching for smooth virtual scrolling and snappy view transitions.
-
+    h3.text-headline.text-uppercase  速度与性能
+    p.text-body.
+      Angular 2的性能相对Angular 1已经有了戏剧性的提升，包括通过服务端渲染完成初次加载、离线编译来获得更快的启动速度、超快的变更检测，以及通过视图缓存来实现平滑的虚拟滚动和干净利落的场景切换。
 <!-- Simplicity -->
 .grid-fluid.l-space-bottom-8
   .c3.text-center
@@ -20,6 +21,9 @@
       Make your intention clear using natural, easy-to-write syntax.
       Reduce complexity for your team: new, structure-rich templates are
       readable and easy to understand at a glance.
+    h3.text-headline.text-uppercase  简单而丰富
+    p.text-body.
+      通过自然、易写的语法，清晰表达你的意图。降低开发组的复杂度：新的、富结构化的模板富有可读性，容易被快速理解。
 
 
 <!-- Cross-Platform -->
@@ -33,7 +37,9 @@
       Android, and iOS. Angular Universal provides for server-side rendering for fast initial
       views on mobile web. Ionic and NativeScript let you build hybrid and native UI mobile apps.
       Web worker support keeps your app UI fully responsive no matter how heavy the load.
-
+    h3.text-headline.text-uppercase  跨平台
+    p.text-body.
+      学习Angular 2让你有了一个工具，可以构建桌面应用、移动网页、安卓版应用、iOS版应用。Angular Universal提供了一个服务端渲染工具，可以快速的在移动设备上提供起始页面。Ionic和NativeScript让你构建混合式（hybrid）和原生界面的移动应用。Web worker让你的应用界面保持迅速及时的响应，而不用担心负载过重。
 
 <!-- Seamless Upgrade -->
 .grid-fluid.l-space-bottom-8
@@ -44,7 +50,9 @@
     p.text-body.
       Upgrade your Angular 1 application at your own pace by mixing in Angular 2 components,
       directives, pipes, services and more by using the ngUpgrade APIs.
-
+    h3.text-headline.text-uppercase 从Angular 1无缝升级
+    p.text-body.
+      使用ngUpgrade API，可以一小步一小步的把Angular 2的组件、指令、管道、服务等混入Angular1应用，完成无缝平滑升级。
 
 <!-- Flexible Development -->
 .grid-fluid.l-space-bottom-8
@@ -56,7 +64,9 @@
       The choice of language is up to you. In addition to full support for 
       ES5, TypeScript, and Dart, Angular 2 works equally well with ES2015 and other languages 
       that compile to JavaScript.
-
+    h3.text-headline.text-uppercase  灵活的开发
+    p.text-body.
+      选择什么语言取决于你。它不仅完全支持ES5、TypeScript和Dart，Angular 2在ES2015和其他能编译成JavaScript的语言下也能工作得一样好。
 
 <!-- Routing  -->
 .grid-fluid.l-space-bottom-8
@@ -72,7 +82,13 @@
       lazy loading for mobile users.
       If you already use routing from a prior version of Angular,
       you can easily migrate to Angular 2 routing.
-
+    h3.text-headline.text-uppercase 全面的路由
+    p.text-body.
+      经过精密设计的视图：
+      映射URL路径到应用组件，
+      使用嵌套路由、兄弟路由等高级特性。
+      为移动用户，Angular 2提供了卡片式导航、转场动画和延迟加载特性。
+      如果你还在使用来自Angular老版本的路由，你可以轻易迁移到Angular 2路由。
 
 <!-- Dependency Injection  -->
 .grid-fluid.l-space-bottom-8
@@ -85,6 +101,10 @@
       allowing you to maintain modular applications without writing tedious glue code.
       Dependency injection helps you write tests
       by making it easy to inject test doubles.
+    h3.text-headline.text-uppercase 依赖注入
+    p.text-body.
+      Angular 2具有强力、易于使用的依赖注入机制，允许你管理模块化的应用，而不用写枯燥的胶水代码。
+      通过让注入测试副本，依赖注入可以帮助你更容易的写测试。
 
 <!-- Legacy Browsers -->
 .grid-fluid.l-space-bottom-8
@@ -95,7 +115,10 @@
     p.text-body.
       In addition to fully supporting latest versions of Chrome, Edge, Firefox, IE, and Safari,
       Angular 2 is also tested for older browsers including IE9+ and Android 4.1+.
-
+  .c7
+    h3.text-headline.text-uppercase  老旧浏览器支持
+    p.text-body.
+      除了完全支持Chrome、Edge、Firefox、IE和Safari的最新版本外，Angular2还支持老旧浏览器，如IE9+、Android 4.1+。
 
 <!-- Animations  -->
 .grid-fluid.l-space-bottom-8
@@ -110,7 +133,11 @@
       intelligently handle changes to animations in response to user events.
       Plan complex animation flows by sequencing the behavior of
       an entire website on a timeline.
-
+    h3.text-headline.text-uppercase 动画
+    p.text-body.
+      [开发中]通过简单易用的Angular事件，在移动和桌面环境下深入底层提供动画支持。
+      你可以使用CSS、JavaScript和Web Animations API来智能处理动画的变化来响应用户事件。
+      还计划通过控制整个网站在时间线上的一连串行为来支持复杂的动画流程。
 
 <!-- Internationalization & Accessibility -->
 .grid-fluid.l-space-bottom-8
@@ -126,6 +153,13 @@
       Generate static applications for each locale.
       Easily promote accessibility via screen readers and assistive devices by automatically
       generating appropriate ARIA attributes.
+    h3.text-headline.text-uppercase 国际化(I18N)与可访问性
+    p.text-body(ng-non-bindable).
+      [开发中] 抵达所有用户。可以在Angular插值表达式中使用熟悉的ICU消息格式，包括复数化和性别化规则。
+      自动提取消息、伪本地化和翻译更新。
+      为每一个区域（locale）生成一个静态应用。
+      通过自动生成相应的ARIA属性，可以更容易的通过屏幕阅读器和辅助设备提升可访问性。
+
 
 
 

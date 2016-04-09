@@ -1,10 +1,10 @@
 - var language = current.path[1]
-- var lang = 'your choosen language'
+- var lang = '你选中的语言'
 
 if language == 'dart'
   - lang = 'Dart'
 if language == 'js'
-  - lang = 'JavaScript'  
+  - lang = 'JavaScript'
 if language == 'ts'
   - lang = 'TypeScript'
 
@@ -20,14 +20,14 @@ if secondaryPath
   - var data = secondaryPath._data
   - var listType = data._listtype
   - var items = listType == 'api' ? secondaryPath : data
-  
+
   for item, slug in items
     if slug == current.path[4]
       - name = 'the <b><i>' + item.title + '</i></b> chapter'
-    
+
 p.
-  This chapter is not yet available in #{lang}.
-  We recommend reading the TypeScript version.
+  这个章节在 #{lang} 语种下还不可用。
+  建议您阅读TypeScript版本。
 a(href=path, class='md-primary md-button md-ink-ripple').
-  Read !{name} in TypeScript
+  阅读!{name}TypeScript版本
 // != partial(path)

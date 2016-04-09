@@ -4,21 +4,29 @@ div(layout-gt-sm='row' style='margin: 0 -24px')
   div(flex=33 style='padding:0 24px')
     h3.text-headline Fast
     p.text-body Angular computes updates based on changes to data, not DOM, for fast updates that scale to the largest data sets with minimal memory overhead.
+    h3.text-headline 快速
+    p.text-body Angular基于数据的变更来计算更新，而不是DOM，当处理极大规模的数据集时，能以很小的内存开销提供快速更新。
   div(flex=33 style='padding:0 24px')
     h3.text-headline Mobile
     p.text-body With Angular Universal for server-side rendering and Web Workers for smooth scrolling and transitions, Angular 2 solves the core challenges in mobile web performance.
+    h3.text-headline 移动优先
+    p.text-body 通过Angular Universal提供服务端渲染，通过Web Workers提供平滑的滚动和转场效果。据此，Angular 2解决了移动网站性能问题的核心挑战。
   div(flex=33 style='padding:0 24px')
     h3.text-headline Flexible
     p.text-body Supports several languages including plain JavaScript, TypeScript, and Dart. Also supports both object-style data structure with POJO data-binding  and functional reactive style with unidirectional data flow and support for observables and immutable data structures.
+    h3.text-headline 弹性
+    p.text-body 支持一系列语言，包括普通JavaScript、TypeScript和Dart。同样支持基于POJO数据绑定的对象式数据结构和基于单向数据流的函数式响应式（reactive）风格，还支持基于监听（observable）和不可变（immutable）对象的数据结构。
 br
 div
   h3.text-headline The Basics
   p.text-body In Angular you display data by defining components.  Data in your component classes is automatically available to display in your templates or control how they render as in the example below.
+  h3.text-headline 基础
   p.text-body While this example uses TypeScript, Angular works equally well with ES5, ES6 and Dart as well.
+  p.text-body 虽然这个范例使用了TypeScript，但是Angular在ES5、ES6和Dart中也能很好的工作。
   p(style='text-align:right')
     md-button.md-primary(href='/resources/live-examples/homepage-hello-world/ts/plnkr.html' target='_blank')
       span.icon-open-in-new
-      |   Try in Plunker
+      |   在Plunker中试用
   +makeTabs(`
     ../docs/_fragments/homepage-hello-world/ts/app/hello_world.html,
     ../docs/_fragments/homepage-hello-world/ts/app/hello_world.ts,
@@ -32,12 +40,15 @@ div
 br
 div
   h3.text-headline Structuring Apps With Components
+  h3.text-headline 应用程序的组件式结构
   p.text-body Groups of coordinated components divide the responsibilities of our application.  This ToDo list app has a separate component for the form, the list, and the core app logic.  Where the previous example component referenced templates in separate files, this one shows using inline templates.
+  p.text-body 我们把应用的职责拆分成一组相互合作的组件。这个TODO List应用包括一组独立的组件，它们组成了表单、列表和核心应用逻辑。虽然前面的范例组件使用了独立文件来存放模板，但这个范例将使用内联模板。
   p.text-body Defining types as we do here in Todo.ts communicates our intention to other developers, helps us find bugs in our code, and lets IDEs do more work for us in refactoring, code navigation, and code completion.
+  p.text-body 就像我们在Todo.ts中的做法，定义类型（types）可以像其他开发者展示我们的意图，帮助我们发现代码中的BUG，以及让我们的IDE更好的帮助我们：重构、代码导航、以及代码自动完成（Code completion）。
   p(style='text-align:right')
     md-button.md-primary(href='/resources/live-examples/homepage-todo/ts/plnkr.html' target='_blank')
       span.icon-open-in-new
-      |   Try in Plunker
+      |   在Plunker中试用
   +makeTabs(`
     ../docs/_fragments/homepage-todo/ts/app/todo_app.ts,
     ../docs/_fragments/homepage-todo/ts/app/todo_form.ts,
@@ -55,12 +66,15 @@ div
 br
 div
   h3.text-headline Advanced Component Communication
+  h3.text-headline 高级组件通讯
   p.text-body This demo shows an efficient implementation of tabs/panes. Each pane is only instantiated while it is visible. Panes which are not visible are released and do not have associated memory, DOM and change detection cost.
+  p.text-body 这个范例展示了一个高效的页标签（tabs）/面板（panes）实现。只有可见的面板才会被实例化，不可见的则被释放，并且没有相关的内存、DOM和变更检测的开销。
   p.text-body The demo also showcases dependency injection and the ability of one component to query for other components. Such queries automatically update even as detail panes are added. This allows the tabs component to work with <code>ngFor</code> without any special knowledge of it.
+  p.text-body 这个范例也示范了依赖注入和从一个组件查询其它组件的能力。这些查询会自动更新 —— 即使加入了新的面板也能正常工作。这让tabs组件可以很好的和<code>ngFor</code>协作，而不需要了解特别的知识。
   p(style='text-align:right')
     md-button.md-primary(href='/resources/live-examples/homepage-tabs/ts/plnkr.html' target='_blank')
       span.icon-open-in-new
-      |   Try in Plunker
+      |   在Plunker中试用
   +makeTabs(`
     ../docs/_fragments/homepage-tabs/ts/app/di_demo.ts,
     ../docs/_fragments/homepage-tabs/ts/app/ui_tabs.ts,

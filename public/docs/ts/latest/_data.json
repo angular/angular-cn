@@ -1,68 +1,68 @@
 {
   "index": {
     "icon": "home",
-    "title": "Angular Docs",
-    "menuTitle": "Docs Home",
-    "banner": "Welcome to <b>Angular in TypeScript</b>! The current Angular 2 release is <b>beta.14</b>. Please consult the <a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>  Change Log</a> about recent enhancements, fixes, and breaking changes."
+    "title": "Angular文档",
+    "menuTitle": "文档首页",
+    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>beta.14</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>Change Log</a>来了解最近的增强、修正和破坏性变更。"
   },
 
   "quickstart": {
     "icon": "query-builder",
-    "title": "5 Min Quickstart",
-    "description": "Get up and running with Angular 2"
+    "title": "五分钟快速开始",
+    "description": "Angular 2起跑"
   },
 
   "tutorial": {
     "icon": "list",
-    "title": "Tutorial",
-    "banner": "Angular 2 is currently in Beta."
+    "title": "教程",
+    "banner": "Angular 2正处于Beta阶段。"
   },
 
   "guide": {
     "icon": "list",
-    "title": "Developer Guides",
-    "banner": "Angular 2 is currently in Beta."
+    "title": "开发人员指南",
+    "banner": "Angular 2正处于Beta阶段。"
   },
 
   "cookbook": {
     "icon": "list",
     "title": "Cookbook",
-    "banner": "How to solve common implementation challenges."
+    "banner": "教你解决常见的“该怎么做”问题。"
   },
 
   "api/": {
     "icon": "book",
-    "title": "API Preview",
+    "title": "API预览",
     "reference": true
   },
 
   "cheatsheet": {
-    "title": "Angular Cheat Sheet",
-    "intro": "A quick guide to Angular syntax.",
+    "title": "Angular小抄",
+    "intro": "关于Angular语法的快速指南",
     "reference": true
   },
 
   "glossary": {
-    "title": "Glossary",
-    "intro": "Brief definitions of the most important words in the Angular 2 vocabulary",
+    "title": "词汇表",
+    "intro": "Angular 2中那些最重要的词汇的简短定义",
     "reference": true
   },
 
   "resources": {
     "icon": "play-circle-fill",
-    "title": "Angular Resources",
-    "banner": "Angular 2 is currently in Beta.",
+    "title": "Angular资源",
+    "banner": "Angular 2正处于Beta阶段",
     "resources": true
   },
 
   "help": {
     "icon": "chat",
-    "title": "Help & Support",
+    "title": "帮助与支持",
     "resources": true
   },
 
   "styleguide": {
-    "title": "Docs Style Guide",
-    "intro": "Design & Layout Patterns For Documentation"
+    "title": "文档风格指南",
+    "intro": "文档的设计与布局模式"
   }
 }
