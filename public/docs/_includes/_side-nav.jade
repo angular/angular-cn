@@ -43,30 +43,30 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
   // SEARCH BAR
   header.side-nav-search.st-input-wrapper
     form.st-input-inner
-      label(for="search-io" class="is-hidden") Search Docs
-      input(type="search" id="search-io" placeholder="SEARCH DOCS...")
-    button(class="mobile-trigger button" aria-label="View Docs Menu" ng-click="appCtrl.toggleDocsMenu($event)" md-button) Docs <span class="icon icon-arrow-drop-down"></span>
+      label(for="search-io" class="is-hidden") 搜索文档
+      input(type="search" id="search-io" placeholder="搜索文档...")
+    button(class="mobile-trigger button" aria-label="查看文档菜单" ng-click="appCtrl.toggleDocsMenu($event)" md-button) 文档 <span class="icon icon-arrow-drop-down"></span>
 
   div(class="side-nav-secondary" ng-class="appCtrl.showDocsNav ? 'is-visible' : ''")
     .nav-blocks
-      .nav-title Tutorial
+      .nav-title 指南
       .nav-primary-link(class="#{qs.class}")
         a(href="#{qs.href}" title="#{qs.tooltip}") #{qs.navTitle}
-      .nav-sub-title Case Study: Tour of Heroes
+      .nav-sub-title 案例: 英雄之旅
       .nav-ordered-lists
         ol
           each item in tutorial
             li(class="#{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     .nav-blocks
-      .nav-title Basics
+      .nav-title 基础知识
       .nav-ordered-lists
         ol
           each item in basics
             li(class="#{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}    
 
     .nav-blocks
-      .nav-title Developer Guide
+      .nav-title 开发人员指南
       .nav-unordered-lists
         ul
           each item in guide
@@ -80,7 +80,7 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
             li(class="#{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     .nav-blocks
-      .nav-title Reference
+      .nav-title 参考
       .nav-unordered-lists
         ul
           each item in reference

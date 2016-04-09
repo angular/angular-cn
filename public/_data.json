@@ -1,33 +1,33 @@
 {
   "index": {
     "hero": "home",
-    "title": "One framework.",
-    "subtitle": "Mobile and desktop."
+    "title": "一个框架",
+    "subtitle": "适用于手机与桌面"
   },
 
   "features": {
-    "title": "Features & Benefits",
-    "subtitle": "Powerful Features for Developing Apps"
+    "title": "特性与优点",
+    "subtitle": "开发应用程序的强力特性"
   },
 
   "contribute": {
-    "title": "Contribute to Angular",
-    "subtitle": "Help us build the framework of the future!",
+    "title": "为Angular做贡献",
+    "subtitle": "帮我们构建未来时代的框架",
     "autoformat": "true"
   },
 
   "news": {
-    "title": "News",
-    "subtitle": "Check out what we are up to"
+    "title": "新闻",
+    "subtitle": "看看我们正在做什么"
   },
 
   "events": {
-    "title": "Events",
-    "subtitle": "Where we'll be presenting"
+    "title": "事件",
+    "subtitle": "我们将在哪里开会"
   },
 
   "support": {
-    "title": "Support",
-    "subtitle": "Get help from the Angular Community"
+    "title": "支持",
+    "subtitle": "从Angular社区获得支持"
   }
 }

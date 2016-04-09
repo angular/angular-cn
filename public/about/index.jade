@@ -2,12 +2,14 @@
   .c2 &nbsp;
 
   .c8.text-center
-    h3.text-headline.text-uppercase  Building For the Future
+    h3.text-headline.text-uppercase  为未来构建
     p.text-body.
       Angular is built by a team of engineers who share a passion for
       making web development feel effortless. We believe that writing
       beautiful apps should be joyful and fun. We're building a
       platform for the future.
+      Angular由一个工程师组织打造，我们拥有共同的热情 —— 让Web开发变得更简单。我们深信，写漂亮的程序快乐而有趣。
+      我们正在构建一个面向未来的平台。
 
   .c2 &nbsp;
   .clear
@@ -15,6 +17,7 @@
 .grid-fluid.l-space-bottom-6
 
   h3.text-headline.text-uppercase.text-center Current Contributors
+  h3.text-headline.text-uppercase.text-center 目前的贡献者
 
   <!-- BIO CARDS -->
   for type in [ 'Lead', 'Google', 'Community' ]
@@ -27,7 +30,7 @@
               image(src="#{person.picture}" alt="#person.name")
 
               nav
-                button(aria-label="View Bio") View Bio
+                button(aria-label="View Bio") 个人经历
 
                 if person.twitter
                   a(title="twitter" href="https://twitter.com/#{person.twitter}" ng-click="$event.stopPropagation()") <span class="icon-twitter"></span>
