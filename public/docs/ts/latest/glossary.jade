@@ -61,35 +61,50 @@ include _util-fns
 .l-main-section
 :marked
   ## Barrel
-  ## 桶（Barrel）
+  ## 封装桶（Barrel）
 .l-sub-section
   :marked
     A **barrel** is an Angular library module consisting of a logical grouping of single-purpose modules
     such as `Component` and `Directive`.
 
+    一个**封装桶**是一个模块库，包含了按照逻辑分组到一起的单一用途的多个模块，比如组件和指令。
+
     Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
     `angular2/http`, and `angular2/router`.
+
+    你熟悉的封装桶包含`angular2/core`, `angular2/common`, `angular2/platform/browser`,
+       `angular2/http`, 和 `angular2/router`.
 
     Barrels are packaged and shipped as [**bundles**](#bundle) that
     we may load with script tags in our `index.html`.
 
+    封装桶被当做捆绑包[**bundles**](#bundle)打包和发布，以便我们通过Script标签在`index.html`页面里面装载。
+
     The script, `angular2.dev.js`, is a bundle.
+    `angular2.dev.js`脚本就是一个捆绑包（bundle）
 
     Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
-
+    获取更多关于模块，封装桶和捆绑包的信息："[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"
 :marked
   ## Binding
+  ## 绑定
 .l-sub-section
   :marked
     Almost always refers to [Data Binding](#data-binding) and the act of
     binding an HTML object property to a data object property.
 
+    几乎都是指的数据绑定[Data Binding](#data-binding)和将一个HTML对象属性绑定到一个数据对象属性的行为。
+
     May refer to a [Dependency Injection](#dependency-injection) binding
     between a "token" or "key" and a dependency [provider](#provider).
     This more rare usage should be clear in context.
 
+    有可能指的是依赖注入[Dependency Injection](#dependency-injection)在一个标志(Token)或钥匙(Key)和一个依赖提供商Dependency [provider](#provider)之间的绑定。
+    这个用法很少，而且一般都应该在上下文中明确标示。
+
 :marked
   ## Bootstrap
+  ## 引导程序
 .l-sub-section
   :marked
     We launch an Angular application by "bootstrapping" it with the `bootstrap` method.
@@ -97,58 +112,94 @@ include _util-fns
     and optionally registers service [providers](#provider) with the
     [dependency injection system](#dependency-injection).
 
+    要启动一个Angular的应用程序，我们通过一个名叫`bootstrap`的函数方法来引导装入。这个`bootstrap`函数方法会识别应用程序的顶级“根”组件"root" [Component](#component)，
+    并通过依赖注入系统[dependency injection system](#dependency-injection)选择性的注册服务提供商service [providers](#provider)。
+
     One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
+    你可以在同一个`index.html`启动多个程序，每个程序都有自己的顶级根组件。
 
 :marked
   ## Bundle
+  ## 捆绑包
 .l-sub-section
   :marked
     Angular JavaScript libraries are shipped in **bundles** within an **npm package**
     such as [angular2](https://www.npmjs.com/package/angular2).
 
+    Angular Javascript库是以一个**NPM包**（**npm package**），捆绑多个**捆绑包**（**bundles**）的形式发布的。
+    比如[angular2](https://www.npmjs.com/package/angular2).
+
     The scripts `angular2.dev.js`, `http.js`, `router.js`, and `Rx.js` are
     familiar examples of bundles.
+
+    `angular2.dev.js`, `http.js`, `router.js`, 和 `Rx.js`等脚本文件是比较常见的捆绑包（bundle）例子。
+
 
     A bundle contains one more more [**barrels**](#barrel)
     and each barrel contains a collection of logically related [modules](#module)
 
+    一个捆绑包（bundle）包含了一个或多个**封装桶**[**barrels**](#barrel)
+
     Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
     `angular2/http`, `angular2/router`.
 
+    常见的封装桶包括`angular2/core`, `angular2/common`, `angular2/platform/browser`,
+        `angular2/http`, `angular2/router`等。
+
     Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
+    获取更多关于模块，封装头和捆绑包的知识："[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"。
 
 <a id="C"></a>
 .l-main-section
 :marked
   ## camelCase
+  ## 驼峰式命名法
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter 
     _except the first letter which is a lowercase letter_. 
-    
+
+    除了首字母外小写外，每一个单词或简写以大写字母开始的编写词汇或短语的方法叫做驼峰式命名法。
+
     Function, property, and method names are typically spelled in camelCase. Examples include: `square`, `firstName` and `getHeroes`.
-    
+
+    函数、属性和方法名字一般都是以驼峰式大小写的方式命名。比如`square`, `firstName` 和 `getHeroes`等。
+
     This form is also known as **lower camel case**, to distinguish it from **upper camel case** which we call [PascalCase](#pascalcase).
     When we write "camelCase" in this documentation we always mean *lower camel case*.
 
+    这种形式也被叫做**小驼峰式命名法**（**lower camel case**），以便区分**大驼峰式命名法**（我们叫帕斯卡命名法）。
+    当我们文档中使用“小驼峰式命名法” （“camelCase”）的时候，我们永远指的是小驼峰命名法。
+
 :marked
   ## Component
+  ## 组件
 .l-sub-section
   :marked
     An Angular class responsible for exposing data
     to a [View](#view) and handling most of the view’s display
     and user-interaction logic.
 
+    组件是一个用来展示数据到视图[View](#view)，并处理几乎所有视图显示和用户互动逻辑的Angular类（Angular Class）。
+
     The Component is one of the most important building blocks in the Angular system.
     It is, in fact, an Angular [Directive](#directive) with a companion [Template](#template).
+
+    组件是Angular系统的最重要的基本单位之一。
+    它其实是一个拥有模板[Template](#template)的指令[Directive](#directive)。
 
     The  developer applies the `#{atSym}Component` !{decorator} to
     the component class, thereby attaching to the class the essential component metadata
     that Angular needs to create a component instance and render it with its template
     as a view.
 
+    开发人员在使用`#{atSym}Component` !{修饰器}!{decorator}来修饰一个组件类，就是把这个类附加到基本组件元数据（essential component metadata）上面。
+    Angular需要利用这个基本组件元数的信息，来建立一个组件实例，把一个组件的模板作为视图画出来。
+
     Those familiar with "MVC" and "MVVM" patterns will recognize
     the Component in the role of "Controller" or "View Model".
+
+    那些熟悉 "MVC" 和 "MVVM" 架构模式的应该能意识到组件充当了控制和视图模型的角色。
 // #enddocregion b-c
 
 // #docregion d1
@@ -156,16 +207,23 @@ include _util-fns
 .l-main-section
 :marked
   ## dash-case
+  ## 横杠分隔命名法
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
-    
+
+    使用横杠来分隔每个单词来编写词汇或短语的方法叫做横杠分隔命名法
+
     Directive selectors and the root of filenames are often spelled in dash-case. Examples include: `my-app` and the `hero-list.component.ts`.
-    
+
+    指令的选择器和文件名通常都是通过横杠分隔命名法来命名的。比如`my-app` and the `hero-list.component.ts`
+
     This form is also known as [kebab-case](#kebab-case).
+    这种命名法也被叫做可芭比命名法[kebab-case](#kebab-case)
 
 :marked
   ## Data Binding
+  ## 数据绑定
 .l-sub-section
   :marked
     Applications display data values to a user and respond to user
