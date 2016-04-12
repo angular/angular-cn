@@ -3,14 +3,19 @@ include ../_util-fns
 // #docregion intro
 :marked
   # Tour of Heroes: the vision
+  # 《英雄之旅》目标概览
 
   Our grand plan is to build an app to help a staffing agency manage its stable of heroes.
   Even heroes need to find work.
+  
+  我们的终极计划是构建一个程序，来帮助员工管理英雄们的马厩。即使英雄们也需要找工作。
 
   Of course we'll only make a little progress in this tutorial. What we do build will
   have many of the features we expect to find in a full-blown, data-driven application: acquiring and displaying
   a list of heroes, editing a selected hero's detail, and navigating among different
   views of heroic data.
+
+  当然，我们在这个教程中，我们只完成一小步。我们这次构建的应用将用到很多对特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在全面、数据驱动的应用中经常见到。
 
   The Tour of Heroes covers the core fundamentals of Angular.
   We’ll use built-in directives to show/hide elements and display lists of hero data.
@@ -20,70 +25,114 @@ include ../_util-fns
   We’ll learn to select a hero from a master list and edit that hero in the details view. We'll
   format data with pipes. We'll create a shared service to assemble our heroes. And we'll use routing to navigate among different views and their components.
 
+  这篇《英雄之旅》覆盖了Angular的核心原则。
+  我们将使用内建指令来显示/隐藏元素，并且显示英雄数据的列表。
+  我们将创建一个组件来显示英雄的详情，另一个组件则用来显示英雄列表。
+  我们将对只读数据使用单向数据绑定。我们将添加一些可编辑字段，并使用双向数据绑定更新模型。
+  我们将把组件上的方法绑定到用户事件上，比如按键和点击。
+  我们将学习从主列表视图中选择一个英雄，然后在详情视图中编辑它。
+  我们将通过管道对数据进行格式化。
+  我们将创建一个共享服务来管理我们的英雄们。
+  我们将使用路由在不同的视图及其组件之间进行导航。
+
   We’ll learn enough core Angular to get started and gain confidence that
   Angular can do whatever we need it to do.
   We'll be covering a lot of ground at an introductory level but we’ll find plenty of links
   to chapters with greater depth.
+  
+  我们将学习足够的Angular核心技术，以尝试起步，并建立信心 —— Angular确实能做到我们需要它做的这些。
+  我们将覆盖大部分“简介级”知识，但是我们还会找到大量的链接，指向更深的章节。
+  
 // #enddocregion intro
 
 :marked
   [Run the live example](/resources/live-examples/tutorial/ts/plnkr.html)
+  
+  [运行鲜活范例](/resources/live-examples/tutorial/ts/plnkr.html)
 
 // #docregion main
 .l-main-section
 :marked
   ## The End Game
+  ## 终极游戏
 
   Here's a visual idea of where we're going in this tour, beginning with the "Dashboard"
   view and our most heroic heroes:
+  
+  在这个教程中，还有一些可视化思想。放一个“黑板报（Dashboard）”视图，来展示我们最勇敢的英雄。
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/heroes-dashboard-1.png' alt="Output of heroes dashboard")
+  img(src='/resources/images/devguide/toh/heroes-dashboard-1.png' alt="英雄黑板报的输出")
 
 :marked
   Above the dashboard are two links ("Dashboard" and "Heroes").
   We could click them to navigate between this Dashboard and a Heroes view.
 
+  这个仪表盘中有两个链接：“黑板报”和“英雄”。
+  我们将点它们来在“黑板报”和“英雄”视图之间导航。
+
   Instead we click the dashboard hero named "Magneta" and the router takes us to a "Hero Details" view
   of that hero where we can change the hero's name.
 
+  当我们点击黑板报上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
+  
 figure.image-display
-  img(src='/resources/images/devguide/toh/hero-details-1.png' alt="Details of hero in app")
+  img(src='/resources/images/devguide/toh/hero-details-1.png' alt="英雄详情的输出")
 
 :marked
   Clicking the "Back" button would return us to the "Dashboard".
   Links at the top can take us to either of the main views.
   We'll click "Heroes". The app takes to the "Heroes" master list view.
 
+  点击“后退（Back）”按钮将把我们带回“黑板报”。
+  顶部的链接可以把我们带到任何一个主视图。
+  如果我们点击“英雄”链接，本应用将把我们带到“英雄”列表主视图。
+  
 figure.image-display
-  img(src='/resources/images/devguide/toh/heroes-list-2.png' alt="Output of heroes list app")
+  img(src='/resources/images/devguide/toh/heroes-list-2.png' alt="英雄列表的输出")
 
 :marked
   We click a different hero and the readonly mini-detail beneath the list reflects our new choice.
+  
+  当我们点击另一位英雄时，一个只读的“微型视图”会显示在列表下方，以反应我们的选择。
 
   We click the "View Details" button to drill into the
   editable details of our selected hero.
+  
+  我们可以点击其中的“查看详情”按钮来进入所选英雄的“编辑视图”。
 
   The following diagram captures all of our navigation options.
+  
+  下列图标汇总了我们的所有可选导航路径。
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/nav-diagram.png' alt="View navigations")
+  img(src='/resources/images/devguide/toh/nav-diagram.png' alt="查看导航")
 
 :marked
   Here's our app in action
+  
+  下面是我们应用的所有动作
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/toh-anim.gif' alt="Tour of Heroes in Action")
+  img(src='/resources/images/devguide/toh/toh-anim.gif' alt="英雄之旅的所有动作")
 
 .l-main-section
 :marked
   ## Up Next
+  ## 接下来
 
   We’ll build this Tour of Heroes together, step by step.
   We'll motivate each step with a requirement that we've
   met in countless applications. Everything has a reason.
 
+  我们将共同一步步的构建出《英雄之旅》。
+  我们将通过与无数应用中类似的需求，驱动我们走向下一步。任何事，都会有理由。
+
   And we’ll meet many of the core fundamentals of Angular along the way.
+  
+  这一路，我们将遇到Angular的大量核心原则。
 
   [Let's get started!](./toh-pt1.html)
+  
+  [勇敢的前进吧！](./toh-pt1.html)
 // #enddocregion main
