@@ -229,17 +229,25 @@ include _util-fns
     Applications display data values to a user and respond to user
     actions (clicks, touches, keystrokes).
 
+    应用程序一般会显示数据给用户，并对用户的操作（点击、触屏、按键）做出回应。
+    
     We could push application data values into HTML, attach
     event listeners, pull changed values from the screen, and
     update application data values ... all by hand.
+    
+    我们自己处理这些操作：将数据显示到HTML网页，配加事件监听器，从屏幕获取数据变化，并更新数据等等。。。
 
     Or we could declare the relationship between an HTML widget
     and an application data source ... and let a data binding
     framework handle the details.
+    
+    或者，我们可以声明HTML小件和数据源的关系等，让一个数据绑定的框架工具来处理所有细节。
 
     Data Binding is that second approach. Angular has a rich
     data binding framework with a variety of data binding
     operations and supporting declaration syntax.
+    
+    数据绑定是第二种方法。Angular有一个非常强大的数据绑定框架工具，具有多种用来数据绑定操作，支持声明语法规则。
 
      The many forms of binding include:
      * [Interpolation](template-syntax.html#interpolation)
@@ -250,8 +258,18 @@ include _util-fns
      * [Style Binding](template-syntax.html#style-binding)
      * [Two-way data binding with ngModel](template-syntax.html#ng-model)
 
+     绑定模式包括：
+     * [插补Interpolation](template-syntax.html#interpolation)
+     * [属性绑定Property Binding](template-syntax.html#property-binding)
+     * [事件绑定Event Binding](template-syntax.html#event-binding)
+     * [特征绑定Attribute Binding](template-syntax.html#attribute-binding)
+     * [类绑定Class Binding](template-syntax.html#class-binding)
+     * [样式绑定Style Binding](template-syntax.html#style-binding)
+     * [使用ngModel进行双向数据绑定Two-way data binding with ngModel](template-syntax.html#ng-model)
+     
     Learn more about data binding in the
     [Template Syntax](template-syntax.html#data-binding) chapter.
+    到[模板语法Template Syntax](template-syntax.html#data-binding)章节获取更多关于数据绑定的知识。
 
 // #enddocregion d1
 <a id="decorator"></a> <a id="decoration"></a>
