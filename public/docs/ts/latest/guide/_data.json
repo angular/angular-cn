@@ -1,126 +1,126 @@
 {
   "index": {
-    "title": "Documentation Overview",
-    "navTitle": "Overview",
-    "description": "How to read and use this documentation",
+    "title": "文档概览",
+    "navTitle": "概览",
+    "description": "如何阅读本文档",
     "nextable": true,
     "basics": true
   },
 
   "architecture": {
-    "title": "Architecture Overview",
-    "navTitle": "Architecture",
-    "intro": "The basic building blocks of Angular 2 applications",
+    "title": "架构概览",
+    "navTitle": "架构",
+    "intro": "Angular 2应用的基本构造块",
     "nextable": true,
     "basics": true
   },
 
   "displaying-data": {
-    "title": "Displaying Data",
-    "intro": "Interpolation and other forms of property binding help us show app data in the UI.",
+    "title": "显示数据",
+    "intro": "通过插值表达式和其他形式的属性绑定把应用的数据显示到UI上。",
     "nextable": true,
     "basics": true
   },
 
   "user-input": {
-    "title": "User Input",
-    "intro": "User input triggers DOM events. We listen to those events with event bindings that funnel updated values back into our components and models.",
+    "title": "用户输入",
+    "intro": "用户输入触发DOM事件。我们通过事件绑定来监听它们，把更新过的数据导入回我们的组件和model。",
     "nextable": true,
     "basics": true
   },
 
   "forms": {
-    "title": "Forms",
-    "intro": "A form creates a cohesive, effective, and compelling data entry experience. An Angular form coordinates a set of data-bound user controls, tracks changes, validates input, and presents errors.",
+    "title": "表单",
+    "intro": "表单创建一个有机、有效、引人注目的数据输入体验。Angular表单协调一组数据绑定控件，跟踪变更，验证输入的有效性，并且展示错误信息。",
     "nextable": true,
     "basics": true
   },
 
   "dependency-injection": {
-    "title": "Dependency Injection",
-    "intro": "Angular's dependency injection system creates and delivers dependent services \"just-in-time\".",
+    "title": "依赖注入",
+    "intro": "Angular的依赖注入系统能够JIT（刚好及时）的创建和交付所依赖的服务。",
     "nextable": true,
     "basics": true
   },
 
   "template-syntax": {
-    "title": "Template Syntax",
-    "intro": "Learn how to write templates that display data and consume user events with the help of data binding.",
+    "title": "模板语法",
+    "intro": "学习如何写模板来显示数据，以及在数据绑定的帮助下响应用户事件。",
     "nextable": true,
     "basics": true
   },
 
   "cheatsheet": {
-    "title": "Angular Cheat Sheet",
-    "intro": "A quick guide to Angular syntax.",
+    "title": "Angular小抄",
+    "intro": "一份Angular语法的快速指南",
     "nextable": true,
     "basics": true
   },
 
   "attribute-directives": {
-    "title": "Attribute Directives",
-    "intro": "Attribute directives attach behavior to elements."
+    "title": "属性型指令",
+    "intro": "属性型指令把行为添加到现有元素上。"
   },
 
   "component-styles": {
-    "title": "Component Styles",
-    "intro": "Learn how to apply CSS styles to components."
+    "title": "组件样式",
+    "intro": "学习如何给组件应用CSS样式。"
   },
 
   "hierarchical-dependency-injection": {
-    "title": "Hierarchical Dependency Injectors",
-    "navTitle": "Hierarchical Injectors",
-    "intro": "Angular's hierarchical dependency injection system supports nested injectors in parallel with the component tree."
+    "title": "多级依赖注入器",
+    "navTitle": "多级注入器",
+    "intro": "Angular的多级依赖注入系统支持与组件树并行的嵌套式注入器。"
   },
 
   "server-communication": {
-    "title": "Http Client",
-    "intro": "Talk to a remote server with the Angular Http Client."
+    "title": "Http客户端",
+    "intro": "通过Angular Http客户端与远程服务器对话。"
   },
 
   "lifecycle-hooks": {
-    "title": "Lifecycle Hooks",
-    "intro": "Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them."
+    "title": "生命周期挂钩点",
+    "intro": "Angular调用指令和组件的生命周期挂钩函数，包括它的创建、变更和销毁时。"
   },
 
   "npm-packages": {
-    "title": "Npm Packages",
-    "intro": "Details of the recommended npm packages and the different kinds of package dependencies"
+    "title": "Npm包",
+    "intro": "推荐的npm包细节以及不同形式的包依赖"
   },
 
   "pipes": {
-    "title": "Pipes",
-    "intro": "Pipes transform displayed values within a template."
+    "title": "管道",
+    "intro": "管道可以在模板中转换显示的内容。"
   },
 
   "router": {
-    "title": "Routing & Navigation",
-    "intro": "Discover the basics of screen navigation with the Angular 2 router."
+    "title": "路由与导航",
+    "intro": "揭示通过Angular 2路由在屏幕上导航的基本原理。"
   },
 
   "structural-directives": {
-    "title": "Structural Directives",
-    "intro": "Angular has a powerful template engine that lets us easily manipulate the DOM structure of our elements."
+    "title": "结构型指令",
+    "intro": "Angular有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
   },
 
   "testing": {
-    "title": "Testing",
-    "intro": "Techniques and practices for testing an Angular 2 app"
+    "title": "测试",
+    "intro": "Angular 2应用的测试技术与实践。"
   },
 
   "typescript-configuration": {
-    "title": "TypeScript Configuration",
-    "intro": "TypeScript configuration for Angular 2 developers"
+    "title": "TypeScript配置",
+    "intro": "Angular 2开发者的TypeScript配置"
   },
 
   "upgrade": {
-    "title": "Upgrading from 1.x",
-    "intro": "Angular 1 applications can be incrementally upgraded to Angular 2."
+    "title": "从1.x升级",
+    "intro": "Angular 1应用可以逐步升级到Angular 2。"
   },
 
   "glossary": {
-    "title": "Glossary",
-    "intro": "Brief definitions of the most important words in the Angular 2 vocabulary",
+    "title": "词汇表",
+    "intro": "Angular 2重要词汇的简短定义。",
     "hide": true
   }
 }

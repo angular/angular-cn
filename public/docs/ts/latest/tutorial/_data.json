@@ -1,33 +1,33 @@
 {
   "index": {
-    "title": "Tutorial: Tour of Heroes",
-    "navTitle": "Introduction",
-    "intro": "The Tour of Heroes tutorial takes us through the steps of creating an Angular application in TypeScript.",
+    "title": "教程: 英雄之旅",
+    "navTitle": "简介",
+    "intro": "英雄之旅教程带我们一步步使用TypeScript创建Angular应用。",
     "nextable": true
   },
   "toh-pt1": {
-    "title": "The Hero Editor",
-    "intro": "We build a simple hero editor",
+    "title": "英雄编辑器",
+    "intro": "我们构建一个简单的英雄编辑器",
     "nextable": true
   },
   "toh-pt2": {
-    "title": "Master/Detail",
-    "intro": "We build a master/detail page with a list of heroes",
+    "title": "主从结构",
+    "intro": "我们构建一个主从结构的页面，用于展现英雄列表",
     "nextable": true
   },
   "toh-pt3": {
-    "title": "Multiple Components",
-    "intro": "We refactor the master/detail view into separate components",
+    "title": "多个组件",
+    "intro": "我们把主从结构的页面重构成多个组件",
     "nextable": true
   },
   "toh-pt4": {
-    "title": "Services",
-    "intro": "We create a reusable service to manage our hero data calls",
+    "title": "服务",
+    "intro": "我们创建一个可复用的服务来调用英雄的数据",
     "nextable": true
   },
   "toh-pt5": {
-    "title": "Routing",
-    "intro": "We add the Angular Component Router and learn to navigate among the views",
+    "title": "路由",
+    "intro": "我们添加一个Angular组件路由，并且学习在视图之间导航",
     "nextable": true
   }
 }

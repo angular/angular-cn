@@ -1,33 +1,28 @@
 {
   "index": {
     "title": "Cookbook",
-    "navTitle": "Overview",
-    "description": "A collection of recipes for common Angular application scenarios"
+    "navTitle": "概览",
+    "description": "一组常见Angular应用场景的“菜谱”"
   },
-  
   "a1-a2-quick-reference": {
-    "title": "Angular 1 to 2 Quick Reference",
-    "navTitle": "Angular 1 to 2 Quick Ref",
-    "intro": "Learn how Angular 1 concepts and techniques map to Angular 2"
+    "title": "Angular从1到2快速参考",
+    "navTitle": "Angular从1到2快速参考",
+    "intro": "学习如何把Angular 1的概念和技术对应到Angular 2"
   },
-  
   "component-communication": {
-    "title": "Component Interaction",
-    "intro": "Share information between different directives and components"
+    "title": "组件交互",
+    "intro": "在不同的指令和组件之间共享信息"
   },
-
   "dependency-injection": {
-    "title": "Dependency Injection",
-    "intro": "Techniques for Dependency Injection"
+    "title": "依赖注入",
+    "intro": "依赖注入技术"
   },
-
   "dynamic-form": {
-    "title": "Dynamic Form",
-    "intro": "Render dynamic forms with NgFormModel"
+    "title": "动态表单",
+    "intro": "通过NgFormModel渲染动态表单"
   },
-
   "ts-to-js": {
-    "title": "TypeScript to JavaScript",
-    "intro": "Convert Angular 2 TypeScript examples into ES5 JavaScript"
+    "title": "从TypeScript到JavaScript",
+    "intro": "把Angular 2的TypeScript范例转换为ES5 JavaScript"
   }
 }
