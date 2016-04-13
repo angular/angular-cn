@@ -67,7 +67,7 @@ include _util-fns
     A **barrel** is an Angular library module consisting of a logical grouping of single-purpose modules
     such as `Component` and `Directive`.
 
-    一个**封装桶**是一个模块库，包含了按照逻辑分组到一起的单一用途的多个模块，比如组件和指令。
+    一个**封装桶**是一个模块库，由单一用途的多个模块，比如组件和指令等组成。
 
     Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
     `angular2/http`, and `angular2/router`.
@@ -78,13 +78,15 @@ include _util-fns
     Barrels are packaged and shipped as [**bundles**](#bundle) that
     we may load with script tags in our `index.html`.
 
-    封装桶被当做捆绑包[**bundles**](#bundle)打包和发布，以便我们通过Script标签在`index.html`页面里面装载。
+    封装桶被当做[**捆绑包bundles**](#bundle)打包和发布，以便我们通过Script标签在`index.html`页面里面装载。
 
     The script, `angular2.dev.js`, is a bundle.
     `angular2.dev.js`脚本就是一个捆绑包（bundle）
 
     Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
+    
     获取更多关于模块，封装桶和捆绑包的信息："[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"
+    
 :marked
   ## Binding
   ## 绑定
@@ -93,13 +95,13 @@ include _util-fns
     Almost always refers to [Data Binding](#data-binding) and the act of
     binding an HTML object property to a data object property.
 
-    几乎都是指的数据绑定[Data Binding](#data-binding)和将一个HTML对象属性绑定到一个数据对象属性的行为。
+    几乎都是指的[数据绑定](#data-binding)和将一个HTML对象属性绑定到一个数据对象属性的行为。
 
     May refer to a [Dependency Injection](#dependency-injection) binding
     between a "token" or "key" and a dependency [provider](#provider).
     This more rare usage should be clear in context.
 
-    有可能指的是依赖注入[Dependency Injection](#dependency-injection)在一个标志(Token)或钥匙(Key)和一个依赖提供商Dependency [provider](#provider)之间的绑定。
+    有可能指的是[依赖注入](#dependency-injection)在一个符记(Token)或钥匙(Key)和一个[依赖提供商](#provider)之间的绑定。
     这个用法很少，而且一般都应该在上下文中明确标示。
 
 :marked
@@ -112,8 +114,8 @@ include _util-fns
     and optionally registers service [providers](#provider) with the
     [dependency injection system](#dependency-injection).
 
-    要启动一个Angular的应用程序，我们通过一个名叫`bootstrap`的函数方法来引导装入。这个`bootstrap`函数方法会识别应用程序的顶级“根”组件"root" [Component](#component)，
-    并通过依赖注入系统[dependency injection system](#dependency-injection)选择性的注册服务提供商service [providers](#provider)。
+    我们通过一个名叫`bootstrap`的函数方法来引导装入Angular应用程序。这个`bootstrap`函数方法会识别应用程序的顶级“根”[组件](#component)，
+    并可能通过[依赖注入系统](#dependency-injection)注册[服务提供商](#provider)。
 
     One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
     你可以在同一个`index.html`启动多个程序，每个程序都有自己的顶级根组件。
@@ -126,7 +128,7 @@ include _util-fns
     Angular JavaScript libraries are shipped in **bundles** within an **npm package**
     such as [angular2](https://www.npmjs.com/package/angular2).
 
-    Angular Javascript库是以一个**NPM包**（**npm package**），捆绑多个**捆绑包**（**bundles**）的形式发布的。
+    Angular Javascript库是以将多个**捆绑包**（**bundles**）捆绑到一起，以一个**NPM包**（**npm package**）的形式发布的。
     比如[angular2](https://www.npmjs.com/package/angular2).
 
     The scripts `angular2.dev.js`, `http.js`, `router.js`, and `Rx.js` are
@@ -138,7 +140,7 @@ include _util-fns
     A bundle contains one more more [**barrels**](#barrel)
     and each barrel contains a collection of logically related [modules](#module)
 
-    一个捆绑包（bundle）包含了一个或多个**封装桶**[**barrels**](#barrel)
+    一个捆绑包（bundle）包含了一个或多个[**封装桶**](#barrel)
 
     Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
     `angular2/http`, `angular2/router`.
@@ -147,7 +149,8 @@ include _util-fns
         `angular2/http`, `angular2/router`等。
 
     Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
-    获取更多关于模块，封装头和捆绑包的知识："[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"。
+    
+    获取更多关于模块，封装桶和捆绑包的知识："[模块，封装桶和捆绑包](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"。
 
 <a id="C"></a>
 .l-main-section
@@ -159,17 +162,17 @@ include _util-fns
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter 
     _except the first letter which is a lowercase letter_. 
 
-    除了首字母外小写外，每一个单词或简写以大写字母开始的编写词汇或短语的方法叫做驼峰式命名法。
+    驼峰式命名法是除了首字母小写外，每一个单词或简写以大写字母开始编写词汇或短语的实践方法。
 
     Function, property, and method names are typically spelled in camelCase. Examples include: `square`, `firstName` and `getHeroes`.
 
-    函数、属性和方法名字一般都是以驼峰式大小写的方式命名。比如`square`, `firstName` 和 `getHeroes`等。
+    函数、属性和方法命名一般都使用驼峰式大小写命名法。比如`square`, `firstName` 和 `getHeroes`等。
 
     This form is also known as **lower camel case**, to distinguish it from **upper camel case** which we call [PascalCase](#pascalcase).
     When we write "camelCase" in this documentation we always mean *lower camel case*.
 
-    这种形式也被叫做**小驼峰式命名法**（**lower camel case**），以便区分**大驼峰式命名法**（我们叫帕斯卡命名法）。
-    当我们文档中使用“小驼峰式命名法” （“camelCase”）的时候，我们永远指的是小驼峰命名法。
+    这种形式也被叫做**小驼峰式命名法**（**lower camel case**），以便区分**大驼峰式命名法**（我们也叫帕斯卡命名法）。
+    当我们文档中使用“驼峰式命名法” （“camelCase”）的时候，我们永远指的都是小驼峰命名法。
 
 :marked
   ## Component
@@ -180,21 +183,21 @@ include _util-fns
     to a [View](#view) and handling most of the view’s display
     and user-interaction logic.
 
-    组件是一个用来展示数据到视图[View](#view)，并处理几乎所有视图显示和用户互动逻辑的Angular类（Angular Class）。
+    组件是一个用来展示数据到[视图](#view)，并处理几乎所有视图显示以及用户互动逻辑的Angular类（Angular Class）。
 
     The Component is one of the most important building blocks in the Angular system.
     It is, in fact, an Angular [Directive](#directive) with a companion [Template](#template).
 
     组件是Angular系统的最重要的基本单位之一。
-    它其实是一个拥有模板[Template](#template)的指令[Directive](#directive)。
+    它其实是一个拥有[模板](#template)的[指令](#directive)。
 
     The  developer applies the `#{atSym}Component` !{decorator} to
     the component class, thereby attaching to the class the essential component metadata
     that Angular needs to create a component instance and render it with its template
     as a view.
 
-    开发人员在使用`#{atSym}Component` !{修饰器}!{decorator}来修饰一个组件类，就是把这个类附加到基本组件元数据（essential component metadata）上面。
-    Angular需要利用这个基本组件元数的信息，来建立一个组件实例，把一个组件的模板作为视图画出来。
+    开发人员在使用`#{atSym}Component`来修饰一个组件类，就是把这个类附加到核心组件元数据（essential component metadata）上面。
+    Angular利用这个核心组件元数的信息，来建立一个组件实例，把一个组件的模板作为视图画出来。
 
     Those familiar with "MVC" and "MVVM" patterns will recognize
     the Component in the role of "Controller" or "View Model".
@@ -229,25 +232,25 @@ include _util-fns
     Applications display data values to a user and respond to user
     actions (clicks, touches, keystrokes).
 
-    应用程序一般会显示数据给用户，并对用户的操作（点击、触屏、按键）做出回应。
+    应用程序一般将数据展示给用户，并对用户的操作（点击、触屏、按键）做出回应。
     
     We could push application data values into HTML, attach
     event listeners, pull changed values from the screen, and
     update application data values ... all by hand.
     
-    我们自己处理这些操作：将数据显示到HTML网页，配加事件监听器，从屏幕获取数据变化，并更新数据等等。。。
+    我们可以自己处理这些操作：将数据显示到HTML网页，添加事件监听器，从屏幕获取数据变化，然后更新数据等等。。。
 
     Or we could declare the relationship between an HTML widget
     and an application data source ... and let a data binding
     framework handle the details.
     
-    或者，我们可以声明HTML小件和数据源的关系等，让一个数据绑定的框架工具来处理所有细节。
+    或者，我们可以声明HTML小部件和数据源的关系...，让一个数据绑定框架工具来处理所有细节。
 
     Data Binding is that second approach. Angular has a rich
     data binding framework with a variety of data binding
     operations and supporting declaration syntax.
     
-    数据绑定是第二种方法。Angular有一个非常强大的数据绑定框架工具，具有多种用来数据绑定操作，支持声明语法规则。
+    数据绑定是第二种方法。Angular有一个非常强大的数据绑定框架工具，具有多种用来数据绑定的操作，并支持声明语法规则。
 
      The many forms of binding include:
      * [Interpolation](guide/template-syntax.html#interpolation)
@@ -269,26 +272,41 @@ include _util-fns
      
     Learn more about data binding in the
     [Template Syntax](guide/template-syntax.html#data-binding) chapter.
-    到[模板语法Template Syntax](guide/template-syntax.html#data-binding)章节获取更多关于数据绑定的知识。
+    
+    到[模板语法](guide/template-syntax.html#data-binding)章节获取更多关于数据绑定的知识。
 
 // #enddocregion d1
 <a id="decorator"></a> <a id="decoration"></a>
 :marked
   ## Decorator | Decoration
+  ## 修饰器
 .l-sub-section
   :marked
     A Decorator is a **function** that adds metadata to a class, its members (properties, methods) and function arguments.
-
+    
+    一个修饰器是一个**函数**，这个函数将元数据添加到一个类、类成员（属性、方法）和函数上。
+    
     Decorators are a JavaScript language [feature](https://github.com/wycats/javascript-decorators), implemented in TypeScript and proposed for ES2016 (AKA ES7).
+    
+    修饰器是一个Javascript的语言[特征](https://github.com/wycats/javascript-decorators)，修饰器在TypeScript里面已经采用并实施了，它也被推举到ES2016 （也就是ES7）
 
     We apply a decorator by positioning it
     immediately above or to the left of the thing it decorates.
+    
+    我们应用修饰器的方法是把修饰器放到被修饰的对象的上面或者左边。
 
     Angular has its own set of decorators to help it interoperate with our application parts.
     Here is an example of a `@Component` decorator that identifies a
     class as an Angular [Component](#component) and an `@Input` decorator applied to a property
     of that component.
+    
+    Angular使用一套自己的修饰器来实现应用程序的各部分的相互操作。
+    下面的例子是一个使用`@Component`修饰器来将一个类标示为一个Angular[组件](#component)，并使用`@Input`修饰器修饰这个组件的一个属性。
+    
     The elided object argument to the `@Component` decorator would contain the pertinent component metadata.
+    
+    被省略的`@Component`修饰器的参数对象可能包含了相关的组件元数据。
+    
     ```
     @Component({...})
     export class AppComponent {
@@ -300,49 +318,72 @@ include _util-fns
     The scope of a decorator is limited to the language feature
     that it decorates. None of the decorations shown here will "leak" to other
     classes appearing below it in the file.
+    
+    一个修饰器的作用范围会被限制在被修饰的作用范围之内。在以上的例子中，没有一个修饰器会“泄露”到其他类，就算这些其他类在同一个文件紧跟着上面的类。
+    
 
   .alert.is-important
     :marked
       Always include the parentheses `()` when applying a decorator.
       A decorator is a **function** that must be called when applied.
+      
+      总是在修饰器后面加包括`()`。因为修饰器是**函数**，在修饰的时候一定会被运行。
 
 // #docregion d2
 :marked
   ## Dependency Injection
+  ## 依赖注入
 .l-sub-section
   :marked
     Dependency Injection is both a design pattern and a mechanism
     for creating and delivering parts of an application to other
     parts of an application that request them.
+    
+    依赖注入是设计架构，同时也是一个机制。当应用程序的一些部件需要另一些部件的时候，使用依赖注入机制来新建被请求的部件并将其注入到发出请求的部件。
 
     Angular developers prefer to build applications by defining many simple parts
     that each do one thing well and then wire them together at runtime.
+    
+    Angular开发者比较倾向的开发应用程序的方法是，定义许多精简小部件，每个小部件只做一件事并做好自己那件事，然后在运行时间把这些精简小部件连在一起组成应用程序。
 
     These parts often rely on other parts. An Angular [Component](#component)
     part might rely on a service part to get data or perform a calculation. When a
     part "A" relies on another part "B", we say that "A" depends on "B" and
     that "B" is a dependency of "A".
+    
+    这些小部件通常依赖其他小部件。一个Angular[组件](#component)可能依赖一个服务部件来获取数据或者处理运算。当部件A依赖部件B，我们说A依赖B，B是A的依赖部件。
 
     We can ask a "Dependency Injection System" to create "A"
     for us and handle all the dependencies.
     If "A" needs "B" and "B" needs "C", the system resolves that chain of dependencies
     and returns a fully prepared instance of "A".
+    
+    我们可以让“依赖注入系统”为我们新建一个部件A并处理所有A的依赖部件群。如果A需要B，B需要C，这个系统便解析这个依赖链，返回给我们一个完整准备妥当的A实例。
 
     Angular provides and relies upon its own sophisticated
     [Dependency Injection](dependency-injection.html) system
     to assemble and run applications by "injecting" application parts
     into other application parts where and when needed.
+    
+    Angular提供并依赖自带的尖端[依赖注入](dependency-injection.html) 系统来组装和运行应用程序：按时按需的将一些部件“注入”到另一些部件里面。
 
     At the core is an [`Injector`](#injector) that returns dependency values on request.
     The expression `injector.get(token)` returns the value associated with the given token.
+    
+    依赖注入的核心是一个[`注入器`](#injector)，这个注入器按需返回依赖部件。`injector.get(token)`方法返回和提供的符记参数相关的依赖部件。
 
     A token is an Angular type (`OpaqueToken`). We rarely deal with tokens directly; most
     methods accept a class name (`Foo`) or a string ("foo") and Angular converts it
     to a token. When we write `injector.get(Foo)`, the injector returns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
+    
+    符记是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触符记。绝大多数函数方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为符记。
+    当我们使用`injector.get(Foo)`，注入器返回与 `Foo`的类相关的符记的值，这个符记值一般是`Foo`类实例。
 
     Angular makes similar requests internally during many of its operations
     as when it creates a [`Component`](#AppComponent) for display.
+    
+     
 
     The `Injector` maintains an internal map of tokens to dependency values.
     If the `Injector` can't find a value for a given token, it creates
