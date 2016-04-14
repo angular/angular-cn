@@ -196,7 +196,7 @@ include _util-fns
     that Angular needs to create a component instance and render it with its template
     as a view.
 
-    开发人员在使用`#{atSym}Component`!{decorator}来修饰一个组件类，就是把这个类附加到核心组件元数据（essential component metadata）上面。
+    开发人员在使用`#{atSym}Component`!{decorator}来装饰一个组件类，就是把这个类附加到核心组件元数据（essential component metadata）上面。
     Angular利用这个核心组件的元数据信息，来建立一个组件实例，并把组件的模板作为视图渲染出来。
 
     Those familiar with "MVC" and "MVVM" patterns will recognize
@@ -280,33 +280,33 @@ include _util-fns
 <a id="decorator"></a> <a id="decoration"></a>
 :marked
   ## Decorator | Decoration
-  ## 修饰器
+  ## 装饰器
 .l-sub-section
   :marked
     A Decorator is a **function** that adds metadata to a class, its members (properties, methods) and function arguments.
     
-    一个修饰器是一个**函数**，这个函数将元数据添加到一个类、类成员（属性、方法）和函数上。
+    一个装饰器是一个**函数**，这个函数将元数据添加到一个类、类成员（属性、方法）和函数上。
     
     Decorators are a JavaScript language [feature](https://github.com/wycats/javascript-decorators), implemented in TypeScript and proposed for ES2016 (AKA ES7).
     
-    修饰器是一个Javascript的语言[特征](https://github.com/wycats/javascript-decorators)，修饰器在TypeScript里面已经采用并实施了，它也被推荐到ES2016（也就是ES7）
+    装饰器是一个Javascript的语言[特征](https://github.com/wycats/javascript-decorators)，装饰器在TypeScript里面已经采用并实施了，它也被推荐到ES2016（也就是ES7）
 
     We apply a decorator by positioning it
     immediately above or to the left of the thing it decorates.
     
-    我们应用修饰器的方法是把修饰器放到被修饰的对象的上面或者左边。
+    我们应用装饰器的方法是把装饰器放到被装饰的对象的上面或者左边。
 
     Angular has its own set of decorators to help it interoperate with our application parts.
     Here is an example of a `@Component` decorator that identifies a
     class as an Angular [Component](#component) and an `@Input` decorator applied to a property
     of that component.
     
-    Angular使用一套自己的修饰器来实现应用程序的各部分的相互操作。
-    下面的例子是一个使用`@Component`修饰器来将一个类标示为一个Angular[组件](#component)，并使用`@Input`修饰器修饰这个组件的一个属性。
+    Angular使用一套自己的装饰器来实现应用程序的各部分的相互操作。
+    下面的例子是一个使用`@Component`装饰器来将一个类标示为一个Angular[组件](#component)，并使用`@Input`装饰器装饰这个组件的一个属性。
     
     The elided object argument to the `@Component` decorator would contain the pertinent component metadata.
     
-    被省略的`@Component`修饰器的参数对象可能包含了相关的组件元数据。
+    被省略的`@Component`装饰器的参数对象可能包含了相关的组件元数据。
     
     ```
     @Component({...})
@@ -320,7 +320,7 @@ include _util-fns
     that it decorates. None of the decorations shown here will "leak" to other
     classes appearing below it in the file.
     
-    一个修饰器的作用范围会被限制在被修饰的作用范围之内。在以上的例子中，没有一个修饰器会“泄露”到其他类，就算这些其他类在同一个文件紧跟着上面的类。
+    一个装饰器的作用范围会被限制在被装饰的作用范围之内。在以上的例子中，没有一个装饰器会“泄露”到其他类，就算这些其他类在同一个文件紧跟着上面的类。
     
 
   .alert.is-important
@@ -328,7 +328,7 @@ include _util-fns
       Always include the parentheses `()` when applying a decorator.
       A decorator is a **function** that must be called when applied.
       
-      总是在修饰器后面加包括`()`。因为修饰器是**函数**，在修饰的时候一定会被运行。
+      总是在装饰器后面加包括`()`。因为装饰器是**函数**，在装饰的时候一定会被运行。
 
 // #docregion d2
 :marked
@@ -379,62 +379,88 @@ include _util-fns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
     
     令牌是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触令牌。绝大多数函数方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为令牌。
-    当我们使用`injector.get(Foo)`，注入器返回与 `Foo`的类相关的令牌的值，这个令牌值一般是`Foo`类实例。
+    当我们使用`injector.get(Foo)`，注入器返回用 `Foo`类生成的的令牌对应的依赖值，这个依赖值一般是`Foo`类实例。
 
     Angular makes similar requests internally during many of its operations
     as when it creates a [`Component`](#AppComponent) for display.
     
-     
+    Angular新建一个[组件](#AppComponent)的过程中，会在内部有很多类似的（依赖注入）请求。
 
     The `Injector` maintains an internal map of tokens to dependency values.
     If the `Injector` can't find a value for a given token, it creates
     a new value using a `Provider` for that token.
+    
+    `注入器`维护一个令牌与其对应的依赖值对照图。如果`注入器`不能找到一个令牌对应的依赖值，它就会使用`提供者(Provider)`新建一个依赖值。
 
     A [Provider](#provider) is a recipe for
     creating new instances of a dependency value associated with a particular token.
+    
+    一个`提供者(Provider)`(#provider)是一个使用指定令牌来新建其对应的依赖实例的方法。
 
     An injector can only create a value for a given token if it has
     a `Provider` for that token in its internal provider registry.
     Registering providers is a critical preparatory step.
+    
+    如果在注入器的内部注册表里面，一个令牌对应的依赖值是一个`提供者`，那么注入器只能为令牌创建一个依赖值。注册提供者是一个非常关键的准备步骤。
 
     Angular registers some of its own providers with every injector.
     We can register our own providers. Quite often the best time to register a `Provider`
     is when we [bootstrap](#bootstrap) the application.
     There are other opportunities to register as well.
+    
+    Angular为每个注册器注册很多自己的提供者。我们可以注册一些自己的提供者。一般最好的注册提供者的时间是在应用程序的[引导程序Bootstrap](#bootstrap)的时候。
+    我们也有其他很多机会注册提供者。
 
     Learn more in the [Dependency Injection](guide/dependency-injection.html) chapter.
+    
+    到[依赖注入](guide/dependency-injection.html)章节学习更多关于依赖注入的知识
+    
 :marked
   ## Directive
+  ## 指令
 .l-sub-section
   :marked
     An Angular class responsible for creating, re-shaping, and interacting with HTML elements
     in the browser DOM. Directives are Angular's most fundamental feature.
+
+    指令是一个Angular类，这个类负责新建和重塑浏览器DOM里面HTML元素，同时负责与HTML元素的互动。指令是Angular的最基本的特征。
 
     A Directive is almost always associated with an HTML element or attribute.
     We often refer to such an element or attribute as the directive itself.
     When Angular finds a directive in an HTML template,
     it creates the matching directive class instance
     and gives that instance control over that portion of the browser DOM.
+    
+    指令几乎都是对HTML元素或元素的特征关联的。我们通常把这些关联的HTML元素或者元素特征当做指令本身。
+    当Angular在一个HTML模板里面遇到一个指令的时候，它新建一个与该指令配套类的实例，然后把浏览器这个部分的DOM的控制交给这个类。
 
     Developers can invent custom HTML markup (e.g., `<my-directive>`) to
     associate with their custom directives. They add this custom markup to HTML templates
     as if they were writing native HTML. In this way, directives become extensions of
     HTML itself.
+    
+    开发人员可以为自制指令指定自定义的HTML标记（比如`<my-directive>`），然后，他们便可以像使用HTML自带标记一样把这些自定义的标记放到HTML模板里。
+    这样，指令就变成了HTML的拓展了。
 
     Directives fall into one of three categories:
-
+    
+    指令包括了一下三个类别：
+    
     1. [Components](#component) that combine application logic with an HTML template to
     render application [views]. Components are usually represented as HTML elements.
     They are the building blocks of an Angular application and the
-    developer can expect to write a lot of them.
+    developer can expect to write a lot of them.    
+     [组件](#component): 结合了程序逻辑和一个用来渲染试图的HTML模板[views]。组件一般由HTML元素代表。它们是用来组建Angular应用程序的基本单元，所以可以预料到开发人员会写很多很多组件。
 
     1. [Attribute Directives](#attribute-directive) that can listen to and modify the behavior of
     other HTML elements, attributes, properties, and components. They are usually represented
     as HTML attributes, hence the name.
+     [特征指令](#attribute-directive)：可以监控和修改HTML元素、元素特征、属性和组件等的行为。它们一般有HTML元素特征（名）来体现。
 
     1. [Structural Directives](#structural-directive), a directive responsible for
     shaping or re-shaping HTML layout, typically by adding, removing, or manipulating
     elements and their children.
+     [结构型指针](#structural-directive)：负责塑造或重塑HTML布局。一般都是通过添加、删除或者操作HTML元素和他的子级元素来实现的。
 // #enddocregion d2
 
 // #docregion e1
