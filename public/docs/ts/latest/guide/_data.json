@@ -103,6 +103,12 @@
     "intro": "Angular有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
   },
 
+  "style-guide": {
+    "title": "风格指南",
+    "intro": "按正确的风格编写Angular 2应用。",
+    "hide": true
+  },
+
   "testing": {
     "title": "测试",
     "intro": "Angular 2应用的测试技术与实践。"

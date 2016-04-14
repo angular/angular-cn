@@ -3,7 +3,7 @@
     "icon": "home",
     "title": "Angular文档",
     "menuTitle": "文档首页",
-    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>beta.14</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>Change Log</a>来了解最近的增强、修正和破坏性变更。"
+    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>beta.15</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>Change Log</a>来了解最近的增强、修正和破坏性变更。"
   },
 
   "quickstart": {
