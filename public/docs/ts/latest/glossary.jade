@@ -172,7 +172,7 @@ include _util-fns
     When we write "camelCase" in this documentation we always mean *lower camel case*.
 
     这种形式也被叫做**小驼峰式命名法**（**lower camel case**），以便区分**大驼峰式命名法**（我们也叫帕斯卡命名法）。
-    当我们文档中使用“驼峰式命名法” （“camelCase”）的时候，我们永远指的都是小驼峰命名法。
+    当我们文档中提到“驼峰式命名法” （“camelCase”）的时候，所指的都是小驼峰命名法。
 
 :marked
   ## Component
@@ -183,7 +183,7 @@ include _util-fns
     to a [View](#view) and handling most of the view’s display
     and user-interaction logic.
 
-    组件是一个用来展示数据到[视图](#view)，并处理几乎所有视图显示以及用户互动逻辑的Angular类（Angular Class）。
+    组件是一个用来展示数据到[视图](#view)，并处理几乎所有视图显示以及用户交互逻辑的Angular类（Angular Class）。
 
     The Component is one of the most important building blocks in the Angular system.
     It is, in fact, an Angular [Directive](#directive) with a companion [Template](#template).
@@ -196,8 +196,8 @@ include _util-fns
     that Angular needs to create a component instance and render it with its template
     as a view.
 
-    开发人员在使用`#{atSym}Component`来修饰一个组件类，就是把这个类附加到核心组件元数据（essential component metadata）上面。
-    Angular利用这个核心组件元数的信息，来建立一个组件实例，把一个组件的模板作为视图画出来。
+    开发人员在使用`#{atSym}Component`!{decorator}来修饰一个组件类，就是把这个类附加到核心组件元数据（essential component metadata）上面。
+    Angular利用这个核心组件的元数据信息，来建立一个组件实例，并把组件的模板作为视图渲染出来。
 
     Those familiar with "MVC" and "MVVM" patterns will recognize
     the Component in the role of "Controller" or "View Model".
@@ -215,14 +215,15 @@ include _util-fns
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
 
-    使用横杠来分隔每个单词来编写词汇或短语的方法叫做横杠分隔命名法
+    使用横杠来分隔每个单词来编写词汇或短语的方法叫做横杠分隔命名法（dash-case）。
 
     Directive selectors and the root of filenames are often spelled in dash-case. Examples include: `my-app` and the `hero-list.component.ts`.
 
-    指令的选择器和文件名通常都是通过横杠分隔命名法来命名的。比如`my-app` and the `hero-list.component.ts`
+    指令的选择器和文件名通常都是通过横杠分隔命名法来命名的。比如`my-app` 和 `hero-list.component.ts`。
 
     This form is also known as [kebab-case](#kebab-case).
-    这种命名法也被叫做可芭比命名法[kebab-case](#kebab-case)
+
+    这种命名法也被叫做可芭比命名法[kebab-case](#kebab-case)。
 
 :marked
   ## Data Binding
@@ -262,7 +263,7 @@ include _util-fns
      * [Two-way data binding with ngModel](guide/template-syntax.html#ng-model)
 
      绑定模式包括：
-     * [插补Interpolation](guide/template-syntax.html#interpolation)
+     * [插值Interpolation](guide/template-syntax.html#interpolation)
      * [属性绑定Property Binding](guide/template-syntax.html#property-binding)
      * [事件绑定Event Binding](guide/template-syntax.html#event-binding)
      * [特征绑定Attribute Binding](guide/template-syntax.html#attribute-binding)
@@ -288,7 +289,7 @@ include _util-fns
     
     Decorators are a JavaScript language [feature](https://github.com/wycats/javascript-decorators), implemented in TypeScript and proposed for ES2016 (AKA ES7).
     
-    修饰器是一个Javascript的语言[特征](https://github.com/wycats/javascript-decorators)，修饰器在TypeScript里面已经采用并实施了，它也被推举到ES2016 （也就是ES7）
+    修饰器是一个Javascript的语言[特征](https://github.com/wycats/javascript-decorators)，修饰器在TypeScript里面已经采用并实施了，它也被推荐到ES2016（也就是ES7）
 
     We apply a decorator by positioning it
     immediately above or to the left of the thing it decorates.
@@ -339,7 +340,7 @@ include _util-fns
     for creating and delivering parts of an application to other
     parts of an application that request them.
     
-    依赖注入是设计架构，同时也是一个机制。当应用程序的一些部件需要另一些部件的时候，使用依赖注入机制来新建被请求的部件并将其注入到发出请求的部件。
+    依赖注入既是设计模式，同时也是一种机制：当应用程序的一些部件需要另一些部件的时候，使用依赖注入机制来新建被请求的部件并将其注入到发出请求的部件。
 
     Angular developers prefer to build applications by defining many simple parts
     that each do one thing well and then wire them together at runtime.
@@ -351,21 +352,21 @@ include _util-fns
     part "A" relies on another part "B", we say that "A" depends on "B" and
     that "B" is a dependency of "A".
     
-    这些小部件通常依赖其他小部件。一个Angular[组件](#component)可能依赖一个服务部件来获取数据或者处理运算。当部件A依赖部件B，我们说A依赖B，B是A的依赖部件。
+    这些小部件通常依赖其他小部件。一个Angular[组件](#component)可能依赖一个服务部件来获取数据或者处理运算。当部件A依赖部件B，我们说A依赖B，B是A的“依赖”。
 
     We can ask a "Dependency Injection System" to create "A"
     for us and handle all the dependencies.
     If "A" needs "B" and "B" needs "C", the system resolves that chain of dependencies
     and returns a fully prepared instance of "A".
     
-    我们可以让“依赖注入系统”为我们新建一个部件A并处理所有A的依赖部件群。如果A需要B，B需要C，这个系统便解析这个依赖链，返回给我们一个完整准备妥当的A实例。
+    我们可以让“依赖注入系统”为我们新建一个部件A并处理所有A的“依赖”。如果A需要B，B需要C，这个系统便解析这个依赖链，返回给我们一个完整准备妥当的A实例。
 
     Angular provides and relies upon its own sophisticated
     [Dependency Injection](dependency-injection.html) system
     to assemble and run applications by "injecting" application parts
     into other application parts where and when needed.
     
-    Angular提供并依赖自带的尖端[依赖注入](dependency-injection.html) 系统来组装和运行应用程序：按时按需的将一些部件“注入”到另一些部件里面。
+    Angular提供并使用自己设计精密的[依赖注入](dependency-injection.html)系统来组装和运行应用程序：按时按需的将一些部件“注入”到另一些部件里面。
 
     At the core is an [`Injector`](#injector) that returns dependency values on request.
     The expression `injector.get(token)` returns the value associated with the given token.
@@ -377,8 +378,8 @@ include _util-fns
     to a token. When we write `injector.get(Foo)`, the injector returns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
     
-    符记是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触符记。绝大多数函数方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为符记。
-    当我们使用`injector.get(Foo)`，注入器返回与 `Foo`的类相关的符记的值，这个符记值一般是`Foo`类实例。
+    令牌是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触令牌。绝大多数函数方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为令牌。
+    当我们使用`injector.get(Foo)`，注入器返回与 `Foo`的类相关的令牌的值，这个令牌值一般是`Foo`类实例。
 
     Angular makes similar requests internally during many of its operations
     as when it creates a [`Component`](#AppComponent) for display.
