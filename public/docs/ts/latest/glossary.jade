@@ -677,7 +677,7 @@ include _util-fns
     A module **exports** something of value in that code, typically one thing such as a class.
     A module that needs that thing, **imports** it.
     
-    模块**输出**一些东西，一般都是一个东西：类。
+    模块一般**输出**一个东西：类。
     模块如果需要什么东西，那就**导入**它。
 
     The structure of Angular modules and the import/export syntax
@@ -767,7 +767,7 @@ include _util-fns
     name in our HTML to declaratively transform values on screen.
     
     Angular的管道是一个函数，用来把输入值转变为输出值给视图 [view](#view)。我们使用 `#{atSym}Pipe` !{decorator}来把管道函数链接到它的名字上。
-    然后，我们可以在HTML中使用它的名字来，用声明的形式，在屏幕上把输入值转变输出值。
+    然后，我们可以在HTML中使用它的名字来，用声明的形式，在显示时把输入值转变输出值。
     
     Here's an example that uses the built-in `currency` pipe to display
     a numeric value in the local currency.
@@ -788,12 +788,19 @@ include _util-fns
   :marked
     A Provider creates a new instance of a dependency for the Dependency Injection system.
     It relates a lookup token to code - sometimes called a "recipe" - that can create a dependency value.
-
+    
+    提供者为依赖注入系统新建一个依赖的实例。它是关于通过令牌查询代码，有时被叫做“方剂”，可以创建依赖值。
+    
     For example, `new Provider(Foo, {useClass: Foo})` creates a `Provider`
     that relates the `Foo` token to a function that creates a new instance of the `Foo` class.
+    
+    比如，`new Provider(Foo, {useClass: Foo})`新建一个`提供者`，把`Foo`令牌联系到一个函数，这个函数新建一个`Foo`类的实例。
 
     There are other ways to create tokens and recipes.
     See [Dependency Injection](#dependency-injection) chapter to learn more.
+    
+    还有其他一些方法建立令牌和方剂。
+    请看[依赖注入Dependency Injection](#dependency-injection)以获取更多信息。 
 
 .l-main-section
 <a id="Q"></a>
@@ -807,10 +814,15 @@ include _util-fns
     The user navigates among them by clicking links and buttons
     and taking other similar actions that cause the application to
     replace one view with another.
+    
+    大部分应用程序包含多个屏或视图[views](#view)。用户通过点击链接、按钮和其他类似动作，在他们之间穿梭，这样应用程序从一个视图变换到另一个视图。
 
     The Angular [Component Router](guide/router.html) is a richly featured mechanism for configuring
     and managing the entire view navigation process including the creation and destruction
     of views.
+    
+    Angular的[组件路由器Component Router](guide/router.html)是一个设置和管理整个视图导航过程的特征非常丰富的机制，包括建立和销毁视图。
+    
 :marked
   ## Routing Component
   ## 路由组件
@@ -818,12 +830,20 @@ include _util-fns
   :marked
     A [Component](#component) with an attached router.
 
+    路由组件是一个附加了路由的[组件Component](#component)。
+
     In most cases, the component became attached to a [router](#router) by means
     of a `#{atSym}RouterConfig` #{decorator} that defined routes to views controlled by this component.
+    
+    在大部分情况下，通过`#{atSym}RouterConfig` #{decorator}装饰器，这个组件通常会被附加一个[router路由器](#router)，来定义被这个组件控制的多个视图的路径。
 
     The component's template has a `RouterOutlet` element where it can display views produced by the router.
+    
+    组件的模板有一个`路由出口RouterOutlet`元素，用来显示被路由器提供的视图。
 
     It likely has anchor tags or buttons with `RouterLink` directives that users can click to navigate.
+    
+    它很大可能还会有一些有`RouterLink`指令的锚标记或按钮，用户可以用来点击导航。
 
 <a id="S"></a>
 .l-main-section
@@ -836,8 +856,13 @@ include _util-fns
     shape or re-shape HTML layout, typically by adding, removing, or manipulating
     elements and their children.
 
+    一类可以通过添加、删除或操作元素和其子级，来塑造或重塑HTML布局的指令，
+    
     The `ngIf` "conditional element" directive and the `ngFor` "repeater" directive are
     good examples in this category.
+    
+    `ngIf`"有条件的元素conditional element"指令和 `ngFor` "中继器repeater"指令是很好的结构型指令。
+    
 // #enddocregion n-s
 
 // #docregion t1
@@ -852,7 +877,11 @@ include _util-fns
     the support and continuing guidance of an Angular [Directive](#directive),
     most notably a [Component](#component).
 
+    模板是一块HTML。在Angular指令（最典型的 指令[组件Component](#component)）的支持和范围下，Angular用它来渲染试图。
+    
     We write templates in a special [Template Syntax](guide/template-syntax.html).
+    
+    我们使用特殊的[模板语法Template Syntax](guide/template-syntax.html)来编写模板。
 
 :marked
   ## Template Expression
