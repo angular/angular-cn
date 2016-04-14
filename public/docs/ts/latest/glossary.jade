@@ -469,45 +469,63 @@ include _util-fns
 // #docregion e2
 .l-main-section
 :marked
-  ## ECMAScript
+  ## ECMAScript  
 .l-sub-section
   :marked
     The [official JavaScript language specification](https://en.wikipedia.org/wiki/ECMAScript).
-
+    
+    [官方Javascript语言规范](https://en.wikipedia.org/wiki/ECMAScript)
+    
     The latest approved version of JavaScript is
     [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)
     (AKA "ES2015" or "ES6") and many Angular 2 developers will write their applications
     either in this version of the language or a dialect that strives to be
     compatible with it such as [TypeScript](#typesScript).
-
+    
+    最新的被认可的Javascript版本是[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)，（也交“ES2015”或“ES6”）。Angular 2的开发者要么这个版本的Javascript，要么使用与这个版本兼容的语言，比如[TypeScript](#typesScript)。
+   
     Most modern browsers today only support the prior "ECMAScript 5" (AKA ES5) standard.
     Applications written in ES2015 or one of its dialects must be "[transpiled](#transpile)"
     to ES5 JavaScript.
+    
+    目前，几乎所有现代游览器都只支持上一版本“ECMAScript 5” （也就是ES5）标准。使用ES2015或者其他兼容语言开发的应用程序，都必须被编译“[transpiled](#transpile)”成ES5 Javascript。
 
     Angular 2 developers may choose to write in ES5 directly.
+    
+    Angular 2的开发者也可以选择直接使用ES5编程。
+    
 :marked
-  ## ECMAScript 2015
+  ## ECMAScript 2015  
 .l-sub-section
   :marked
     The lastest released version of JavaScript,
     [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)
     (AKA "ES2015" or "ES6")
+    
+    最新发布的Javascript版本，[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)
+    (即 "ES2015" 或 "ES6")
 :marked
   ## ES2015
 .l-sub-section
   :marked
     Short hand for "[ECMAScript 2015](#ecmascript=2015)".
+    
+    “[ECMAScript 2015](#ecmascript=2015)”的简写。
 :marked
   ## ES6
 .l-sub-section
   :marked
     Short hand for "[ECMAScript 2015](#ecmascript=2015)".
+    
+    [ECMAScript 2015](#ecmascript=2015)的简写。
 :marked
   ## ES5
 .l-sub-section
   :marked
     Short hand for "ECMAScript 5", the version of JavaScript run by most modern browsers.
     See [ECMAScript](#ecmascript).
+    
+    “ECMAScript 5”的简写，大部分现代浏览器使用的Javascript版本。请看[ECMAScript](#ecmascript)。
 // #enddocregion e2
 
 // #docregion f-l
@@ -518,12 +536,14 @@ include _util-fns
 .l-main-section
 :marked
   ## Injector
+  ## 注入器
 .l-sub-section
   :marked
     An object in the Angular [dependency injection system](#dependency-injection)
     that can find a named "dependency" in its cache or create such a thing
     with a registered [provider](#provider).
 
+    一个Angular[依赖注入系统](#dependency-injection)内部的对象，它可以在自己的内部缓存找到已点名的依赖或者利用一个注册过的[提供者provider](#provider)新建一个依赖。
 :marked
   ## Input
 .l-sub-section
@@ -532,11 +552,16 @@ include _util-fns
     [Property Binding](guide/template-syntax.html#property-binding).
     Data values flow *into* this property from the data source identified
     in the template expression to the right of the equal sign.
+    
+    一个指令属性：是[属性绑定Property Binding](guide/template-syntax.html#property-binding)的目标。数据值从处于模板表达式等号右边的数据源中，流入这个指令属性。
 
     See the [Template Syntax](guide/template-syntax.html#inputs-outputs) chapter.
+    
+    请看[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)章节。
 
 :marked
   ## Interpolation
+  ## 插值表达式
 .l-sub-section
   :marked
     A form of [Property Data Binding](#data-binding) in which a
@@ -544,6 +569,8 @@ include _util-fns
     renders as text.  That text may be concatenated with neighboring text
     before it is assigned to an element property
     or displayed between element tags as in this example.
+    
+    一种[属性数据绑定Property Data Binding](#data-binding) 的方式：在双大括号中间的[模板表达式](#template-expression)被渲染成文本。在被指派给元素属性或者在元素标记中间显示之前，这些文本可能与傍边的文本先合并，请看下面的例子。
 
   code-example(language="html" escape="html").
     <label>My current hero is {{hero.name}}</label>
@@ -551,7 +578,8 @@ include _util-fns
   :marked
     Learn more about interpolation in the
     [Template Syntax](guide/template-syntax.html#interpolation) chapter.
-
+    
+    从[模板语法Template Syntax](guide/template-syntax.html#interpolation)章节学习更多关于插值表达式的知识。
 
 <a id="J"></a>
 
@@ -559,22 +587,32 @@ include _util-fns
 <a id="K"></a>
 :marked
   ## kebab-case
+  ## 可芭比命名法
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
+     
+    使用横杠来分割每个单词的编写复合词或短语的命名方法。
     
     Directive selectors and the root of filenames are often spelled in kebab-case. Examples include: `my-app` and the `hero-list.component.ts`.
     
+    指令选择器和文件名字等一般都用可芭比命名法Kebab-case。比如`my-app`和`hero-list.component.ts`。
+    
     This form is also known as [dash-case](#dash-case).
+    
+    这种命名法也被叫做[横杠命名法dash-case](#dash-case)
 
 <a id="L"></a>
 .l-main-section
 :marked
   ## Lifecycle Hooks
+  ## 生命周期钩子
 .l-sub-section
   :marked
     [Directives](#directive) and [Components](#component) have a lifecycle
     managed by Angular as it creates, updates and destroys them.
+    
+    [指令Directives](#directive)和[组件Components](#component)有生命周期，由Angular在新建、更新和销毁的过程中管理。
 
     Developers can tap into key moments in that lifecycle by implementing
     one or more of the "Lifecycle Hook" interfaces.
