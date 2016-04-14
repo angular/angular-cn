@@ -892,6 +892,7 @@ include _util-fns
     a [data binding](#data-binding).  Learn how to write template expressions
     in the [Template Syntax](guide/template-syntax.html#template-expressions) chapter.
 
+    Angular在[数据绑定data binding](#data-binding)内评估的类似Javascript语法的表达式。在[模板语法Template Syntax](guide/template-syntax.html#template-expressions)章节了解更多模板表达式的知识。
 // #enddocregion t1
 // #docregion t2
 :marked
@@ -902,6 +903,7 @@ include _util-fns
     The process of transforming code written in one form of JavaScript
     (e.g., TypeScript) into another form of JavaScript  (e.g., [ES5](#es5)).
 
+    把用Javascript形式语言（比如TypeScript）编写的程序转换到另一个形式的JavaScript（例如[ES5](#es5))。
  :marked
   ## TypeScript
 .l-sub-section
@@ -909,18 +911,29 @@ include _util-fns
     A version of JavaScript that supports most [ECMAScript 2015](#ecmascript=2015)
     language features and many features that may arrive in future versions
     of JavaScript such as [Decorators](#decorator).
+    
+    一个支持几乎所有[ECMAScript 2015](#ecmascript=2015)语言特性和一些将来版本可能有的特性（比如装饰器[Decorators](#decorator)）的JavaScript语言。
 
     TypeScript is also noteable for its optional typing system which gives
     us compile-time type-checking and strong tooling support (e.g. "intellisense",
     code completion, refactoring, and intelligent search). Many code editors
     and IDEs support TypeScript either natively or with plugins.
+    
+    TypeScript同时也以其可选的类型系统出名。该类型系统给我们提供编译时间类型检查和强大的工具支持（比如“Intellisense”， 自动代码补齐，重构和智能搜索等）。许多程序编辑器和开发环境自带TypeScript支持或者通过插件支持。
 
     TypeScript is the preferred language for Angular 2 development although
     we are welcome to write in other JavaScript dialects such as [ES5](#es5).
+    
+    TypeScript是Angular 2推荐使用的语言，当然，我们也欢迎使用其他JavaScript语言，比如[ES5](#es5)。
 
     Angular 2 itself is written in TypeScript.
+    
+    Angular 2自身是用TypeScript编写的。
 
     Learn more about TypeScript on its [website](http://www.typescriptlang.org/).
+    
+    在TypeScript[官方网站](http://www.typescriptlang.org/)了解更多情况。
+    
 // #enddocregion t2
 
 // #docregion u-z
@@ -935,14 +948,21 @@ include _util-fns
     A view is a portion of the screen that displays information and responds
     to user actions such as clicks, mouse moves, and keystrokes.
 
+    视图是屏幕的一块用于显示信息并回应用户动作，比如点击、移动鼠标和按键等。
+
     Angular renders a view under the control of one or more [Directives](#directive),
     especially  [Component](#component) directives and their companion [Templates](#template).
     The Component plays such a prominent role that we often
     find it convenient to refer to a component as a view.
+    
+    Angular在一个或多个[指令](#directive)的控制下渲染视图，尤其是[组件](#component)指令和它配带的[模板](#template)。
+    组件扮演非常突出的角色，我们甚至经常为了方便，把组件代替视图来提及。
 
     Views often contain other views and any view might be loaded and unloaded
     dynamically as the user navigates through the application, typically
     under the control of a [router](#router).
+    
+    视图一般包含其他视图，任何视图在用户在应用程序中导航的时候，可能被动态加载或卸载，一般[路由器](#router)的控制下进行。
 
 .l-main-section
 <a id="W"></a>
@@ -956,20 +976,30 @@ include _util-fns
   :marked
     Zones are a mechanism for encapsulating and intercepting
     a JavaScript application's asynchronous activity.
+    
+    区域是一个封装和截听JavaScript应用程序异步动作的机制。
 
     The browser DOM and JavaScript have a limited number
     of asynchronous activities, activities such as DOM events (e.g., clicks),
     [promises](#promise), and
     [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
     calls to remote servers.
+    
+    浏览器DOM和JavaScript之间有一些有限数量的异步活动，比如Dom事件（比如点击）、[契约promises](#promise)、和[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)查询远程服务等。
 
     Zones intercept all of these activities and give a "zone client" the opportunity
     to take action before and after the async activity completes.
+    
+    区域能截听所有这些活动，并给“区域客户端”机会在异步活动完成之前和之后采取行动。
 
     Angular runs our application in a zone where it can respond to
     asynchronous events by checking for data changes and updating
     the information it displays via [data binding](#data-binding).
+    
+    Angular在一个区域内运行我们的应用程序，在这个区域内，它可以对异步事件做出反应，通过检查数据变化、利用数据绑定[data binding](#data-binding)更新信息显示。
 
     Learn more about zones in this
     [Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U).
+    
+    在这里学习 [Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U)更多关于区域的知识。
 // #enddocregion u-z
