@@ -179,30 +179,47 @@ code-example(format="." language="bash").
 
 :marked
   #### The *hero* property is an ***input***
-  #### *hero* 属性是一个 ***输入***
+  #### *hero* 是一个 ***输入*** 属性
   
   The `HeroDetailComponent` must be told what hero to display. Who will tell it? The parent `AppComponent`! 
+  
+  还得告诉`HeroDetailComponent`显示哪个英雄。谁告诉它呢？自然是父组件`AppComponent`！
   
   The `AppComponent` knows which hero to show: the hero that the user selected from the list. 
   The user's selection is in its `selectedHero` property.
   
+  `AppComponent`自然知道该显示哪个英雄：用户从列表中选中的那个。
+  这个英雄就是`selectedHero`属性的值。
+  
   We will soon update the `AppComponent` template so that it binds its `selectedHero` property
   to the `hero` property of our `HeroDetailComponent`. The binding *might* look like this:
+  
+  我们马上就要升级`AppComponent`模板，以便把该组件的`selectedHero`属性绑定到`HeroDetailComponent`组件的`hero`属性上。
+  绑定看起来可能是这样的：
 code-example(format=".").
   &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
 :marked
   Notice that the `hero` property is the ***target*** of a property binding &mdash; it's in square brackets to the left of the (=).
   
+  注意，在等号（=）左边方括号中的这个`hero`是属性绑定的目标。
+  
   Angular insists that we declare a ***target*** property to be an ***input*** property.
   If we don't, Angular rejects the binding and throws an error.
+  
+  Angular期望我们把 ***目标属性*** 定义成组件的 ***输入属性*** ，否则，Angular会拒绝绑定，并且抛出一个错误。
 .l-sub-section
   :marked
     We explain input properties in more detail [here](../guide/attribute-directives.html#why-input) 
-    where we also explain why *target* properties require this special treament and 
+    where we also explain why *target* properties require this special treatment and 
     *source* properties do not.
+    
+    我们在[这里](../guide/attribute-directives.html#why-input)详细解释了输入属性，以及为什么 *目标属性* 需要这种特殊待遇，而 *来源属性* 却不需要。
 :marked
   There are a couple of ways we can declare that `hero` is an *input*. 
   We'll do it the way we *prefer*, by annotating the `hero` property with the `@Input` decorator that we imported earlier.
+  
+  我们有一大堆方式把`hero`声明成 *输入属性* 。
+  这里我们采用建议的方式：使用我们前面导入的`@Input`装饰器，为`hero`属性加上注解。
 +makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero-input')(format='.')
   
 .l-sub-section
@@ -210,65 +227,106 @@ code-example(format=".").
     Learn more about the `@Input()` decorator in the 
     [Attribute Directives](../guide/attribute-directives.html#input) chapter.
 
+    要了解`@Input()`装饰器的更多知识，参见[属性型指令](../guide/attribute-directives.html#input)一章。
 .l-main-section
 :marked
   ## Refresh the AppComponent
+  ## 刷新AppComponent
   We return to the `AppComponent` and teach it to use the `HeroDetailComponent`.
+
+  回到`AppComponent`组件，我们要教它使用`HeroDetailComponent`组件。
 
   We begin by importing the `HeroDetailComponent` so we can refer to it.
 
+  我们先导入`HeroDetailComponent`组件，好让我们可以引用它。
 +makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-import')
 
 :marked
   Find the location in the template where we removed the *Hero Detail* content
   and add an element tag that represents the `HeroDetailComponent`.
+  
+  找到我们刚刚从模板中移除 *英雄详情* 的地方，放上用来表示`HeroDetailComponent`组件的HTML标记。
 code-example(format=".").
   &lt;my-hero-detail>&lt;/my-hero-detail>
 .l-sub-section
   :marked
     *my-hero-detail* is the name we set as the  `selector` in the `HeroDetailComponent` metadata.
+    
+    *my-hero-detail*是我们在`HeroDetailComponent`元数据中的`selector`属性所指定的名字。
 :marked
  The two components won't coordinate until we bind the `selectedHero` property of the `AppComponent` 
  to the `HeroDetailComponent` element's `hero` property  like this:
+ 
+ 这两个组件目前还不能协同工作，直到我们把`AppComponent`组件的`selectedHero`属性和`HeroDetailComponent`组件的`hero`属性绑定在一起，就像这样：
 code-example(format=".")
   &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
 :marked
   The `AppComponent`’s template should now look like this
+  
+  `AppComponent`的模板是这样的：
 
-+makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (Template)')
++makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (模板)')
 :marked
   Thanks to the binding, the `HeroDetailComponent` should receive the hero from the `AppComponent` and display that hero's detail beneath the list.
   The detail should update every time the user picks a new hero.
   
+  感谢数据绑定机制，`HeroDetailComponent`组件可以从`AppComponent`组件中获取英雄数据，并且在列表的下方显示英雄的详情。
+  每当用户选中一个新的英雄时，详情信息应该随之更新。
+  
   It's not happening yet!
+  
+  但什么也没有发生！
   
   We click among the heroes. No details. We look for an error in the console of the browser development tools. No error.
   
+  我们点击了一个英雄，但没有显示详情。我们打开浏览器开发工具的控制台窗口，也看不到任何错误。
+  
   It is as if Angular were ignoring the new tag. That's because *it is ignoring the new tag*.
   
+  看起来像是Angular忽略了这个新标记。确实，这是因为 *它忽略了不认识的标记* 。
   ### The *directives* array
+  ### *directives* 数组
   A browser ignores HTML tags and attributes that it doesn't recognize. So does Angular.
+  
+  浏览器会忽略它不认识的HTML标记和属性。Angular也是这样。
   
   We've imported `HeroDetailComponent`, we've used it in the template, but we haven't told Angular about it.
   
+  我们引入了`HeroDetailComponent`，并在模板中使用它，但Angular还不知道它。
+  
   We tell Angular about it by listing it in the metadata `directives` array. Let's add that array property to the bottom of the
   `@Component` configuration object, immediately after the `template` and `styles` properties.
+  
+  我们把它列在元数据的`directies`数组中，这样Angular才会知道它。
+  我们把这个数组属性加在`@Component`配置对象的底部，`template`和`styles`属性中间。
+  
 +makeExample('toh-3/ts/app/app.component.ts', 'directives')
 
 
 :marked
   ### It works!
+  ### 搞定！
   When we view our app in the browser we see the list of heroes. 
   When we select a hero we can see the selected hero’s details. 
+  
+  当在浏览器中查看应用时，我们看到了英雄列表。
+  当选中一个英雄时，我们还能看到所选英雄的详情。
   
   What's fundamentally new is that we can use this `HeroDetailComponent`
   to show hero details anywhere in the app.
 
+  我们所关注的进步是：我们可以在应用中的任何地方使用这个`HeroDetailComponent`组件来显示英雄详情了。
+
   We’ve created our first reusable component!
+  
+  我们创建了第一个可复用组件！
 
   ### Reviewing the App Structure
+  ### 回顾应用结构
   Let’s verify that we have the following structure after all of our good refactoring in this chapter:
 
+  来验证下吧，在本章中，经过这些漂亮的重构，我们应该得到下列结构：
+  
 .filetree
   .file angular2-tour-of-heroes
   .children
@@ -286,6 +344,8 @@ code-example(format=".")
     .file typings.json
 :marked
   Here are the code files we discussed in this chapter.
+  
+  这就是我们在本章讨论过的这些源码文件：
 
 +makeTabs(`
   toh-3/ts/app/hero-detail.component.ts,
@@ -300,23 +360,41 @@ code-example(format=".")
 .l-main-section
 :marked
   ## The Road We’ve Travelled
+  ## 走过的路
   Let’s take stock of what we’ve built.
+  
+  来盘点一下我们已经构建完的部分。
 
   * We created a reusable component
+  * 我们创建了一个可复用组件
   * We learned how to make a component accept input
+  * 我们学会了如何让一个组件接收输入
   * We learned to bind a parent component to a child component.
+  * 我们学会了把父组件绑定到子组件。
   * We learned to declare the application directives we need in a `directives` array.
+  * 我们学会了在`directives`中定义应用所需的指令。
 
   [Run the live example for part 3](/resources/live-examples/toh-3/ts/plnkr.html).
+  
+  [运行第三部分的鲜活范例](/resources/live-examples/toh-3/ts/plnkr.html).
 
 .l-main-section
 :marked
   ## The Road Ahead
+  ## 前方的路
   Our Tour of Heroes has become more reusable with shared components. 
+  
+  通过抽取共享组件，我们的《英雄之旅》变得更加可复用了。
   
   We're still getting our (mock) data within the `AppComponent`.
   That's not sustainable. 
   We should refactor data access to a separate service
   and share it among the components that need data. 
   
+  在`AppComponent`中，我们仍然使用着mock数据。
+  这种方式可没法“可持续发展”。
+  我们要把数据访问逻辑抽取到一个独立的服务中，并在需要数据的组件之间共享。
+  
   We’ll learn to create services in the [next tutorial](toh-pt4.html) chapter.
+  
+  在[下一步](toh-pt4.html)中，我们将学习如何创建服务。
