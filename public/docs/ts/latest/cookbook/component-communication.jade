@@ -85,23 +85,32 @@ figure.image-display
   
 :marked
   ### Test it
-  
+  ### 测试
   E2E test that all children were instantiated and displayed as expected:
+  
+  重头到脚的测试，确认所有子级初始化和显示的和我们预期的一样。
   
 +makeExample('cb-component-communication/e2e-spec.js', 'parent-to-child')
 
 :marked
   [Back to top](#top)
-
+  
+  [返回到顶部](#top)
 .l-main-section
 <a id="parent-to-child-setter"></a>
 :marked
   ## Intercept input property changes with a setter
+  
+  ## 通过setter截听Input属性值的变化Intercept
 
   Use an input property setter to intercept and act upon a value from the parent.
   
+  使用一个Input属性setter，在父级监听子级属性，并对属性值变化采取行动。
+  
   The setter of the `name` input property in the child `NameChildComponent` 
-  trims the whitespace from a name and replaces an empty value with default text. 
+  trims the whitespace from a name and replaces an empty value with default text.
+  
+  这个 
   
 +makeExample('cb-component-communication/ts/app/name-child.component.ts')
 
