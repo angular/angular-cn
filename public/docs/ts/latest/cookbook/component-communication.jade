@@ -5,15 +5,19 @@ include ../_util-fns
   This cookbook contains recipes for common component communication scenarios
   in which two or more components share information.
 
+  本文包含了当两个或多个组件之间需要共享信息时，常见的组件之间的交互方法。
 //
   .l-sub-section
     :marked
       For an in-depth look at each fundamental concepts in component communication, we can find detailed description and
-      samples in the [Component Communication]() document.
+      samples in the [Component Communication]() document.      
+      
+      要深度的了解组件交互的每个基本概念在，我们可以在[组件交互Component Communication]()文档中可以找到详细的描述和例子。
 
 <a id="toc"></a>
 :marked
   ## Table of contents
+  ## 目录
   
   [Pass data from parent to child with input binding](#parent-to-child)
 
@@ -29,28 +33,52 @@ include ../_util-fns
 
   [Parent and children communicate via a service](#bidirectional-service)
 
+  [使用输入Input绑定，从父级传数据到子级Pass data from parent to child with input binding](#parent-to-child)
+
+  [通过setter截听Input属性值的变化Intercept input property changes with a setter](#parent-to-child-setter)
+
+  [使用*ngOnChanges*截听Input属性值的变化Intercept input property changes with *ngOnChanges*](#parent-to-child-on-changes)
+
+  [父级监听子级事件Parent listens for child event](#child-to-parent)
+  
+  [父级与子级通过*本地变量local variable*互动Parent interacts with child via a *local variable*](#parent-to-child-local-var)
+  
+  [父级调用一个*ViewChild*Parent calls a *ViewChild*](#parent-to-view-child)
+
+  [父级和子级通过一个服务来交互Parent and children communicate via a service](#bidirectional-service)
 :marked
   **See the [live example](/resources/live-examples/cb-component-communication/ts/plnkr.html)**.
+  
+  **请看[在线例子](/resources/live-examples/cb-component-communication/ts/plnkr.html)**
 
 .l-main-section
 <a id="parent-to-child"></a>
 :marked
   ## Pass data from parent to child with input binding
+  ## 通过Input绑定从父级传送数据给子级。
   
   `HeroChildComponent` has two ***input properties***, 
   typically adorned with [@Input decorations](../guide/template-syntax.html#inputs-outputs).
+  
+  `HeroChildComponent` 有两个***Input属性***, 通常被[@Input声明](../guide/template-syntax.html#inputs-outputs)装饰
   
 +makeExample('cb-component-communication/ts/app/hero-child.component.ts')
 :marked
   The second `@Input` aliases the child component property name `masterName` as `'master'`.
   
+  第二个`@Input`是为子组件的属性名`masterName`起别名为`master`.
+  
   The `HeroParentComponent` nests the child `HeroChildComponent` inside an `*ngFor` repeater, 
   binding its `master` string property to the child's `master` alias
   and each iteration's `hero` instance to the child's `hero` property.
+  
+  父级`HeroParentComponent`把子级 `HeroChildComponent`放到一个 `*ngFor`循环器中，把子级的`master`字符串属性绑定到子级的`master`别名上，并把每个循环的`hero`实例绑定到子级的`hero`属性。
 
 +makeExample('cb-component-communication/ts/app/hero-parent.component.ts')
 :marked
   The running application displays three heroes:
+  
+  运行的应用程序显示三个英雄：
   
 figure.image-display
   img(src="/resources/images/cookbooks/component-communication/parent-to-child.png" alt="Parent-to-child")
