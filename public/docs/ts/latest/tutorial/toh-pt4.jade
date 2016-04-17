@@ -24,7 +24,7 @@ include ../_util-fns
   Because data services are invariably asynchronous, 
   we'll finish the chapter with a promise-based version of the data service.
 
-  因为数据服务通常都是异步的，所以在本章的最后，我们会把它重构为基于Promise（即“承诺”，一种异步编程模式）的版本。
+  因为数据服务通常都是异步的，所以在本章的最后，我们会把它重构为基于承诺（Promise，一种异步编程模式）的版本。
 :marked
   [Run the live example for part 4](/resources/live-examples/toh-4/ts/plnkr.html)
   
@@ -371,105 +371,178 @@ code-example(format="." language="html").
   
   We pause to think. We can call the service and get the data in one line.
   
-  停下来想一想。在同一行中，我们调用了服务并且获得了数据。
+  停下来想一想。我们可以在同一行中调用服务并获得数据。
 +makeExample('toh-4/ts/app/app.component.1.ts', 'get-heroes')(format=".")
 :marked
   We don't really need a dedicated method to wrap one line.  We write it anyway:
+  
+  在真实的世界中，我们并不需要把一行代码包装成一个专门的方法，但无论如何，我们在演示代码中先这么写：
 +makeExample('toh-4/ts/app/app.component.1.ts', 'getHeroes', 'app.component.ts (getHeroes)')(format=".")
 
 <a id="oninit"></a>
 :marked
   ### The *ngOnInit* Lifecycle Hook
+  ### *ngOnInit* 生命周期钩子 
   `AppComponent` should fetch and display heroes without a fuss.
   Where do we call the `getHeroes` method? In a constructor? We do *not*!
   
+  毫无疑问，`AppComponent`应该获取英雄数据并显示它。
+  我们该在哪里调用`getHeroes`方法呢？在构造函数中吗？ *不* ！
+  
   Years of experience and bitter tears have taught us to keep complex logic out of the constructor,
   especially anything that might call a server as a data access method is sure to do.
+  
+  多年的经验和惨痛的教训教育我们，把复杂的逻辑扔到构造函数外面去，特别是那些需要从服务器获取数据的逻辑更是如此。
   
   The constructor is for simple initializations like wiring constructor parameters to properties.
   It's not for heavy lifting. We should be able to create a component in a test and not worry that it 
   might do real work &mdash; like calling a server!  &mdash; before we tell it to do so.
   
+  构造函数是为了初始化而设计的，比如把构造函数的参数赋值给属性。
+  它的负担不是应该过于沉重。我们应该能在测试中创建一个测试，而不用担心它会完成实际的工作 —— 比如和服务器通讯，我们将来才会主动要求它做这些。
+  
   If not the constructor, something has to call `getHeroes`.
+  
+  如果不在构造函数中，总要有地方调用`getHeroes`吧。
   
   Angular will call it if we implement the Angular **ngOnInit** *Lifecycle Hook*.
   Angular offers a number of interfaces for tapping into critical moments in the component lifecycle:
   at creation, after each change, and at its eventual destruction.
   
+  只要我们实现了Angular的 **ngOnInit** *生命周期钩子* ，Angular就会调用这个钩子。
+  Angular提供了一些接口，用来介入组件生命周期的几个关键时间点：刚创建时、每次变化时，以及最终被销毁时。
+  
   Each interface has a single method. When the component implements that method, Angular calls it at the appropriate time.
+  
+  每个接口都是一个单独的方法。只要组件实现了这个方法，Angular就会在合适的时间调用它。
 .l-sub-section
   :marked
     Learn more about lifecycle hooks in the [Lifecycle Hooks](../guide/lifecycle-hooks.html) chapter.
+    
+    要了解关于生命周期钩子的更多知识，请参见 [生命周期钩子](../guide/lifecycle-hooks.html) 一章。
 :marked
   Here's the essential outline for the `OnInit` interface:
-+makeExample('toh-4/ts/app/app.component.1.ts', 'on-init', 'app.component.ts (OnInit protocol)')(format=".")
+  
+  这是`OnInit`接口的基本轮廓：
++makeExample('toh-4/ts/app/app.component.1.ts', 'on-init', 'app.component.ts (OnInit协议)')(format=".")
 :marked
   We write an `ngOnInit` method with our initialization logic inside and leave it to Angular to call it
   at the right time. In our case, we initialize by calling `getHeroes`.
-+makeExample('toh-4/ts/app/app.component.1.ts', 'ng-on-init', 'app.component.ts (OnInit protocol)')(format=".")
+  
+  我们写下带有初始化逻辑的`ngOnInit`方法，然后留给Angular，供其在正确的时刻调用。在这个例子中，我们通过调用`getHeroes`来完成初始化。
++makeExample('toh-4/ts/app/app.component.1.ts', 'ng-on-init', 'app.component.ts (OnInit协议)')(format=".")
 :marked
   Our application should be running as expected, showing a list of heroes and a hero detail view
   when we click on a hero name.
   
+  我们的应用将会像期望的那样运行，显示英雄列表，并且在我们点击英雄的名字时，显示英雄的详情。
+  
   We're getting closer. But something isn't quite right.
+  
+  我们就快完成了，但还有点事不太对劲。
 
   ## Async Services and Promises
+  ## 异步服务与承诺（Promise）
   Our `HeroService` returns a list of mock heroes immediately. 
   Its `getHeroes` signature is synchronous
+  
+  我们的`HeroService`立即返回一个模拟的英雄列表，它的`getHeroes`函数签名是同步的。
 +makeExample('toh-4/ts/app/app.component.1.ts', 'get-heroes')(format=".")
 :marked
   Ask for heroes and they are there in the returned result.
+  
+  请求英雄数据，并且直接在结果中返回它。
    
   Someday we're going to get heroes from a remote server. We don’t call http yet, but we aspire to in later chapters.
+  
+  将来，我们会从远端服务器上获取英雄数据。我们还没调用http，但是我们希望在将来的章节中这么做。
   
   When we do, we'll have to wait for the server to respond and we won't be able to block the UI while we wait, 
   even if we want to (which we shouldn't) because the browser won't block.
   
+  那时候，我们不得不等待服务器返回，并且在等待时，我们没法停止UI响应，即使我们想这么做，也做不到，因为浏览器不会停止。
+  
   We'll have to use some kind of asynchronous technique and that will change the signature of our `getHeroes` method.
+  
+  我们不得不使用一些异步技术，而这将改变`getHeroes`方法的签名。
   
   We'll use  *promises*.
   
+  我们将使用 *承诺* 。
+  
   ### The Hero Service makes a promise  
+  ### `HeroService`生成一个承诺
 
   A **promise** is ... well it's a promise to call us back later when the results are ready. 
   We ask an asynchronous service to do some work and give it a callback function. 
   It does that work (somewhere) and eventually it calls our function with the results of the work or an error.
+  
+  **承诺** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
+  我们请求一个异步服务去做点什么，然后给它一个回调函数。
+  它会去做（无论用哪种方式），完成的时候，它调用我们的回调函数，并通过参数把工作成果或者错误信息传给我们。
 .l-sub-section
   :marked
     We are simplifying. Learn about ES2015 Promises [here](http://exploringjs.com/es6/ch_promises.html) and elsewhere on the web.
+    
+    这里只是粗浅的说说，要了解更多，请参见[这里](http://exploringjs.com/es6/ch_promises.html)以及在Web上搜索其他学习资源。
 :marked
   Update the `HeroService` with this promise-returning `getHeroes` method:
+  
+  把`HeroService`的`getHeroes`方法改写为返回承诺的形式：
 +makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes', 'hero.service.ts (getHeroes)')(format=".")
 :marked
   We're still mocking the data. We're simulating the behavior of an ultra-fast, zero-latency server,
   by returning an **immediately resolved promise** with our mock heroes as the result.
   
+  我们继续使用模拟数据。我们通过返回一个 *立即完成的承诺* 的方式，模拟了一个超快、零延迟的超级服务器。
   ### Act on the Promise
+  ### 基于承诺的行动
   Returning to the `AppComponent` and its `getHeroes` method, we see that it still looks like this:
-+makeExample('toh-4/ts/app/app.component.1.ts', 'getHeroes', 'app.component.ts (getHeroes - old)')(format=".")
+  
+  回到`AppComponent`和它的`getHeroes`方法，我们看到它看起来还是像这样的：
++makeExample('toh-4/ts/app/app.component.1.ts', 'getHeroes', 'app.component.ts (getHeroes - 老的)')(format=".")
 :marked
   As a result of our change to `HeroService`, we're now setting `this.heroes` to a promise rather than an array of heroes. 
+  
+  作为我们修改`HeroService`的结果，我们正在把`this.heroes`替换为一个承诺，而不再是一个英雄数组。
   
   We have to change our implementation to *act on the promise when it resolves*.
   When the promise resolves successfully, *then* we will have heroes to display.
   
+  我们得修改我们的实现，把它变成 *基于承诺* 的，并且在承诺完成时再行动。
+  一旦承诺成功的完成了，我们就会显示英雄数据。
+  
   We pass our callback function as an argument to the promise's **then** method:
-+makeExample('toh-4/ts/app/app.component.ts', 'get-heroes', 'app.component.ts (getHeroes - revised)')(format=".")
+  
+  我们把回调函数作为参数传给承诺对象的 **then** 函数：
++makeExample('toh-4/ts/app/app.component.ts', 'get-heroes', 'app.component.ts (getHeroes - 修改版)')(format=".")
 .l-sub-section
   :marked
     The [ES2015 arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
     in the callback is more succinct than the equivalent function expression and gracefully handles *this*.
+    
+    回调中所用的[ES2015箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+    能比等价的函数表达式更加简明、优雅的处理 *this* 指针。
 :marked
   Our callback sets the component's `heroes` property to the array of heroes returned by the service. That's all there is to it!
   
+  在回调中，我们把由服务返回的英雄数组赋值给组件的`heroes`属性。是的，这就搞定了。
+  
   Our app should still be running, still showing a list of heroes, and still
   responding to a name selection with a detail view.
+  
+  我们的程序仍在运行，仍在显示英雄列表，在选择英雄时，仍然会把他/她显示在详情页面中。
 .l-sub-section
   :marked
     Checkout the "[Take it slow](#slow)" appendix to see what the app might be like with a poor connection.
+    
+    查看附件中的“[慢一点儿](#slow)”一节，以了解在较差的网络连接中这个应用会是什么样的。
 :marked
   ### Review the App Structure
+  ### 回顾应用结构
   Let’s verify that we have the following structure after all of our good refactoring in this chapter:
+  
+  再检查下，经历了本章的所有重构之后，我们应该有了下列文件结构：
 
 .filetree
   .file angular2-tour-of-heroes
@@ -490,6 +563,8 @@ code-example(format="." language="html").
     .file typings.json
 :marked
   Here are the code files we discussed in this chapter.
+  
+  这就是我们在本章讨论过的这些源码文件：
 
 +makeTabs(`
   toh-4/ts/app/hero.service.ts,
@@ -502,50 +577,87 @@ code-example(format="." language="html").
   `)
 :marked
   ## The Road We’ve Travelled
+  ## 走过的路
   Let’s take stock of what we’ve built.
+  
+  来盘点一下我们已经构建完的部分。  
 
   * We created a service class that can be shared by many components
+  * 我们创建了一个能被多个组件共享的服务类
   * We used the `ngOnInit` Lifecycle Hook to get our heroes when our `AppComponent` activates
+  * 我们使用`ngOnInit`生命周期钩子，以便在`AppComponent`激活时获取英雄数据。
   * We defined our `HeroService` as a provider for our `AppComponent`
+  * 我们把`HeroService`定义为`AppComponent`的一个供应商（provider）
   * We created mock hero data and imported them into our service
+  * 我们创建了一个模拟的英雄数据，并且把它导入我们的服务中
   * We designed our service to return a promise and our component to get our data from the promise
+  * 我们把服务改造为返回承诺的，并且让组件从承诺获取数据
 
   [Run the live example for part 4](/resources/live-examples/toh-4/ts/plnkr.html)
+  
+  [运行第四部分的鲜活范例](/resources/live-examples/toh-4/ts/plnkr.html)
 
   ### The Road Ahead
+  ### 前方的路
   Our Tour of Heroes has become more reusable using shared components and services.
   We want to create a dashboard, add menu links that route between the views, and format data in a template.
   As our app evolves, we’ll learn how to design it to make it easier to grow and maintain.
   
+  通过使用共享组件和服务，我们的《英雄之旅》具有了更高的可复用性。
+  我们还要创建一个黑板报，还要添加菜单链接，路由到各个视图，还要在模板中格式化数据。
+  随着我们应用的进化，我们还会学到如何进行设计，让它更容易扩展和维护。
+  
   We learn about Angular Component Router and navigation among the views in the [next tutorial](toh-pt5.html) chapter.
+  
+  我们将在[下一章](toh-pt5.html)学习Angular组件路由，以及在视图间导航的知识。
   
 .l-main-section
 <a id="slow"></a>
 :marked
   ### Appendix: Take it slow
+  ### 附件：慢一点儿
   
   We can simulate a slow connection.
   
+  我们可以模拟慢速连接。
+  
   Import the `Hero` symbol and add the following `getHeroesSlowly` method to the `HeroService`
+  
+  导入`Hero`类，并且在`HeroService`中添加如下的`getHeroesSlowly`方法：
 +makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes-slowly', 'hero.service.ts (getHeroesSlowy)')(format=".")
 :marked
   Like `getHeroes`, it also returns a promise. 
   But this promise waits 2 seconds before resolving the promise with mock heroes.
   
+  像`getHeroes`一样，它也返回一个承诺。
+  但是，这个承诺会在使用模拟数据完成任务之前等待两秒钟。
+  
   Back in the `AppComponent`, replace `_heroService.getHeroes` with `_heroService.getHeroesSlowly`
   and see how the app behaves.
+  
+  回到`AppComponent`中，把`_heroService.getHeroes`替换为`_heroService.getHeroesSlowly`，看看应用的行为有什么变化。
   
 .l-main-section
 <a id="shadow-provider"></a>
 :marked
   ### Appendix: Shadowing the parent's service
+  ### 附件：遮蔽父组件的服务
   
   We stated [earlier](#child-component) that if we injected the parent `AppComponent` `HeroService`
   into the `HeroDetailComponent`, *we must not add a providers array* to the `HeroDetailComponent` metadata.
-
+  
+  我们在[前面](#child-component)说过，如果我们把父组件`AppComponent`中的`HeroService`服务注入到`HeroDetailComponent`， 
+  *我们就不应该添加一个providers数组* 到`HeroDetailComponent`的元数据中。
+  
   Why?  Because that tells Angular to create a new instance of the `HeroService` at the `HeroDetailComponent` level.
   The `HeroDetailComponent` doesn't want its *own*  service instance; it wants its *parent's* service instance.
   Adding the `providers` array creates a new service instance that shadows the parent instance.
   
+  为什么呢？因为那会告诉Angular在`HeroDetailComponent`这一层创建一个新的`HeroService`实例。
+  显然，在这个例子中，`HeroDetailComponent`不会希望创建 *自己的* 服务实例，它想要的是就父组件的服务实例。
+  给组件添加一个`providers`数组（即：注册provider），就会创建一个新的服务实例，它会遮蔽父组件中的同名实例。
+  
   Think carefully about where and when to register a provider. 
   Understand the scope of that registration. Be careful not to create a new service instance at the wrong level.
+
+  要想清楚，在哪里、在什么时候注册供应商（provider）。要理解注册的范围。小心！不要在错误的级别创建新的服务实例。
