@@ -1,8 +1,8 @@
 {
   "index": {
-    "title": "教程: 英雄之旅",
+    "title": "教程: 英雄指南",
     "navTitle": "简介",
-    "intro": "英雄之旅教程带我们一步步使用TypeScript创建Angular应用。",
+    "intro": "英雄指南教程带我们一步步使用TypeScript创建Angular应用。",
     "nextable": true
   },
   "toh-pt1": {

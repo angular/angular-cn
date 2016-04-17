@@ -3,7 +3,7 @@ include ../_util-fns
 // #docregion intro
 :marked
   # Tour of Heroes: the vision
-  # 《英雄之旅》目标概览
+  # 《英雄指南》目标概览
 
   Our grand plan is to build an app to help a staffing agency manage its stable of heroes.
   Even heroes need to find work.
@@ -25,7 +25,7 @@ include ../_util-fns
   We’ll learn to select a hero from a master list and edit that hero in the details view. We'll
   format data with pipes. We'll create a shared service to assemble our heroes. And we'll use routing to navigate among different views and their components.
 
-  这篇《英雄之旅》覆盖了Angular的核心原则。
+  这篇《英雄指南》覆盖了Angular的核心原则。
   我们将使用内建指令来显示/隐藏元素，并且显示英雄数据的列表。
   我们将创建一个组件来显示英雄的详情，另一个组件则用来显示英雄列表。
   我们将对只读数据使用单向数据绑定。我们将添加一些可编辑字段，并使用双向数据绑定更新模型。
@@ -59,22 +59,22 @@ include ../_util-fns
   Here's a visual idea of where we're going in this tour, beginning with the "Dashboard"
   view and our most heroic heroes:
   
-  在这个教程中，还有一些可视化思想。放一个“黑板报（Dashboard）”视图，来显示我们最勇敢的英雄。
+  在这个教程中，还有一些可视化思想。放一个“仪表盘（Dashboard）”视图，来显示我们最勇敢的英雄。
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/heroes-dashboard-1.png' alt="英雄黑板报的输出")
+  img(src='/resources/images/devguide/toh/heroes-dashboard-1.png' alt="英雄仪表盘的输出")
 
 :marked
   Above the dashboard are two links ("Dashboard" and "Heroes").
   We could click them to navigate between this Dashboard and a Heroes view.
 
-  这个仪表盘中有两个链接：“黑板报”和“英雄”。
-  我们将点它们来在“黑板报”和“英雄”视图之间导航。
+  这个仪表盘中有两个链接：“仪表盘”和“英雄”。
+  我们将点它们来在“仪表盘”和“英雄”视图之间导航。
 
   Instead we click the dashboard hero named "Magneta" and the router takes us to a "Hero Details" view
   of that hero where we can change the hero's name.
 
-  当我们点击黑板报上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
+  当我们点击仪表盘上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
   
 figure.image-display
   img(src='/resources/images/devguide/toh/hero-details-1.png' alt="英雄详情的输出")
@@ -84,7 +84,7 @@ figure.image-display
   Links at the top can take us to either of the main views.
   We'll click "Heroes". The app takes to the "Heroes" master list view.
 
-  点击“后退（Back）”按钮将把我们带回“黑板报”。
+  点击“后退（Back）”按钮将把我们带回“仪表盘”。
   顶部的链接可以把我们带到任何一个主视图。
   如果我们点击“英雄”链接，本应用将把我们带到“英雄”列表主视图。
   
@@ -114,7 +114,7 @@ figure.image-display
   下面是我们应用的所有动作
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/toh-anim.gif' alt="英雄之旅的所有动作")
+  img(src='/resources/images/devguide/toh/toh-anim.gif' alt="英雄指南的所有动作")
 
 .l-main-section
 :marked
@@ -125,7 +125,7 @@ figure.image-display
   We'll motivate each step with a requirement that we've
   met in countless applications. Everything has a reason.
 
-  我们将共同一步步的构建出《英雄之旅》。
+  我们将共同一步步的构建出《英雄指南》。
   我们将通过与无数应用中类似的需求，驱动我们走向下一步。任何事，都会有理由。
 
   And we’ll meet many of the core fundamentals of Angular along the way.
