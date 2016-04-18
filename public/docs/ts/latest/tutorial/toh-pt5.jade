@@ -753,108 +753,182 @@ code-example(format='').
    Going back too far could take us out of the application. 
    That's acceptable in a demo. We'd guard against it in a real application,
    perhaps with the [*routerCanDeactivate* hook](/docs/ts/latest/api/router/CanDeactivate-interface.html).
+   
+   回退太多步儿会离开我们的应用。
+   在Demo中，这算不上问题。但在真实的应用中，我们需要对此进行防范。
+   或许你该用[*routerCanDeactivate* 钩子](/docs/ts/latest/api/router/CanDeactivate-interface.html)。
 :marked
   Then we wire this method with an event binding to a *Back* button that we add to the bottom of the component template.
+  
+  然后，我们通过一个事件绑定把此方法绑定到模板底部的 *后退(Back)* 按钮上。
 +makeExample('toh-5/ts/app/hero-detail.component.html', 'back-button')(format=".")
 :marked
   Modifing the template to add this button spurs us to take one more incremental improvement and migrate the template to its own file
   called `hero-detail.component.html`
+  
+  修改模板，添加这个按钮以提醒我们还要做更多的改进，并把模板移到独立的`hero-detail.component.html`文件中去。
 +makeExample('toh-5/ts/app/hero-detail.component.html', '', 'app/hero-detail.component.html')(format=".")
 :marked
   We update the component metadata with a `templateUrl` pointing to the template file that we just created.
+  
+  然后更新组件的元数据，用一个`templateUrl`属性指向我们刚刚创建的模板文件。
 +makeExample('toh-5/ts/app/hero-detail.component.ts', 'template-url', 'app/hero-detail.component.ts (templateUrl)')(format=".")
 :marked
   Here's the (nearly) finished `HeroDetailComponent`:
-+makeExample('toh-5/ts/app/hero-detail.component.ts', 'v2', 'app/hero-detail.component.ts (latest)')(format=".")
+  
+  下面是（几乎）完成的`HeroDetailComponent`：
++makeExample('toh-5/ts/app/hero-detail.component.ts', 'v2', 'app/hero-detail.component.ts (最新版)')(format=".")
 :marked
 
 
 .l-main-section
 :marked
   ## Select a *Dashboard* Hero
+  ## 选择一个 *仪表盘* 中的英雄
   When a user selects a hero in the dashboard, the app should navigate to the `HeroDetailComponent` to view and edit the selected hero.. 
   
+  当用户从仪表盘中选择了一位英雄时，应用应该导航到`HeroDetailComponent`以查看和编辑所选的英雄。
+  
   In the dashboard template we bound each hero's click event to the `gotoDetail` method, passing along the selected `hero` entity.
-+makeExample('toh-5/ts/app/dashboard.component.html','click', 'app/dashboard.component.html (click binding)')(format=".")
+  
+  在仪表盘模板中，我们把每个英雄的click事件都绑定成`gotoDetail`方法，并且传入选中的这个`hero`实体对象。
++makeExample('toh-5/ts/app/dashboard.component.html','click', 'app/dashboard.component.html (click绑定)')(format=".")
 :marked
   We stubbed the `gotoDetail` method when we rewrote the `DashboardComponent`. 
   Now we give it a real implementation. 
+  
+  当初我们重写`DashboardComponent`的时候，`gotoDetail`还是一个“桩方法”。
+  现在，我们给它一个真正的实现。
 +makeExample('toh-5/ts/app/dashboard.component.ts','goto-detail', 'app/dashboard.component.ts (gotoDetail)')(format=".")
 :marked
   The `gotoDetail` method navigates in two steps:
   1. set a route *link parameters array*
   1. pass the array to the router's navigate method.
   
+  `gotoDetail`方法分两步完成导航：
+  1. 生成路由的 *链接参数数组*
+  1. 把这个数组传给路由器的navigate方法。
+  
   We wrote *link parameters arrays* in the `AppComponent` for the navigation links.
   Those arrays had only one element, the name of the destination route.
+  
+  我们当初在`AppComponent`中生成导航链接的时候曾经写过 *链接参数数组* 。
   
   This array has two elements, the ***name*** of the destination route and a ***route parameter object*** 
   with an `id` field set to the value of the selected hero's `id`.
   
+  这个数组有两个元素，目标路由的 ***名称(name)*** ，和一个 ***路由参数对象*** ，其中包括一个`id`字段，它的取值是所选英雄的`id`。
+  
   The two array items align with the ***name*** and ***:id*** token in the parameterized `HeroDetail` route configuration we added to `AppComponent` earlier in the chapter.
-+makeExample('toh-5/ts/app/app.component.ts','hero-detail-route', 'app/app.component.ts (hero detail route)')(format=".")
+  
+  当初我们在`AppComponent`中添加路由的时候，这两个数组元素以 ***name*** 和 ***:id*** 为代号被参数化在路由配置对象`HeroDetail`中。
++makeExample('toh-5/ts/app/app.component.ts','hero-detail-route', 'app/app.component.ts (英雄详情路由)')(format=".")
 :marked
   The `DashboardComponent` doesn't have the router yet. We obtain it in the usual way: 
   `import` the `router` reference and inject it in the constructor (along with the `HeroService`):
 
-+makeExample('toh-5/ts/app/dashboard.component.ts','import-router', 'app/dashboard.component.ts (excerpts)')(format=".")
+  `DashboardComponent`还没有路由器。我们使用常规的方式为它加上路由：
+  `import` `router`对象的引用，并且把它注入到构造函数中（就像`HeroService`那样）：
+  
++makeExample('toh-5/ts/app/dashboard.component.ts','import-router', 'app/dashboard.component.ts (节选)')(format=".")
 +makeExample('toh-5/ts/app/dashboard.component.ts','ctor')(format=".")
 :marked
   Refresh the browser and select a hero from the dashboard; the app should navigate directly to that hero’s details.
+  
+  刷新浏览器，并且从仪表盘中选择一位英雄；应用就会直接导航到英雄的详情。
 
 .l-main-section
 :marked
   ## Select a Hero in the *HeroesComponent*
+  ## 在 *HeroesComponent* 中选择一位英雄
   We'll do something similar in the `HeroesComponent`.
+  
+  我们要做的事和`HeroesComponent`中很像。
   
   That component's current template exhibits a "master/detail" style with the list of heroes
   at the top and details of the selected hero below.
-+makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (current template)')(format=".")
+  
+  那个组件现在的模板展示了一个主从风格的界面：上方是英雄列表，底下是所选英雄的详情。
++makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (当前的模板)')(format=".")
 :marked
   Delete the last line of the template with the `<my-hero-detail>` tags.
   
+  删除模板最后带有`<my-hero-detail>`标签的那一行。
+  
   We'll no longer show the full `HeroDetailComponent` here. 
   We're going to display the hero detail on its own page and route to it as we did in the dashboard.
+  
+  这里我们不再展示完整的`HeroDetailComponent`了。
+  我们要在它自己的页面中显示英雄详情，并且像我们在仪表盘中所做的那样路由到它。
   
   But we'll throw in a small twist for variety. 
   When the user selects a hero from the list, we *won't* go to the detail page.
   We'll show a *mini-detail* on *this* page instead and make the user click a button to navigate to the *full detail *page.
   
+  但是，我们要做一点小小的改动。
+  当用户从这个列表中选择一个英雄时，我们 *不会* 再跳转到详情页。
+  而是在本页中显示一个 *Mini版英雄详情* ，并且让用户点击一个按钮，来导航到 *完整版英雄详情* 页。
   ### Add the *mini-detail*
+  ### 添加 *Mini版英雄详情*
   Add the following HTML fragment at the bottom of the template where the `<my-hero-detail>` used to be:
+  
+  在模板底部原来放`<my-hero-detail>`的地方添加下列HTML片段：
 +makeExample('toh-5/ts/app/heroes.component.html','mini-detail')(format=".")
 :marked
   After clicking a hero, the user should see something like this below the hero list:
   
+  点击一个英雄，用户将会在英雄列表的下方看到这些：
+  
 figure.image-display
-  img(src='/resources/images/devguide/toh/mini-hero-detail.png' alt="Mini Hero Detail" height="70")
+  img(src='/resources/images/devguide/toh/mini-hero-detail.png' alt="Mini版英雄详情" height="70")
 :marked
   ### Format with the *UpperCasePipe*
+  ### 使用 *UpperCasePipe* 格式化
   
   Notice that the hero's name is displayed in CAPITAL LETTERS. That's the effect of the `UpperCasePipe`
   that we slipped into the interpolation binding. Look for it right after the pipe operator, ( | ).
+  
+  注意，英雄的名字全被显示成大写字母。那是 `UpperCasePipe`的效果，借助它，我们能插手“插值表达式绑定”的过程。去管道操作符 ( | ) 后面找它。
 +makeExample('toh-5/ts/app/heroes.component.html','pipe')(format=".")
 :marked
   Pipes are a good way to format strings, currency amounts, dates and other display data.
   Angular ships with several pipes and we can write our own.
+  
+  管道擅长做下列工作：格式化字符串、金额、日期和其它显示数据。
+  Angular自带了好几个管道，并且我们还可以写自己的管道。
 .l-sub-section
   :marked
     Learn about pipes in the [Pipes](../guide/pipes.html) chapter.
+    
+    要学习关于管道的更多知识，参见[管道](../guide/pipes.html)一章。
 :marked
   ### Move content out of the component file
+  ### 把内容移出组件文件
   We are not done. We still have to update the component class to support navigation to the
   `HeroDetailComponent` when the user clicks the *View Details* button.
   
+  还没完呢。在用户点击 *查看详情* 按钮时，要让他能导航到 `HeroDetailComponent`，我们仍然不得不修改组件类。
+  
   This component file is really big. Most of it is either template or CSS styles. 
   It's difficult to find the component logic amidst the noise of HTML and CSS.
+  
+  这个组件文件太大了。它大部分都是模板或css样式。
+  要想在HTML和CSS的噪音中找出组件的工作逻辑太难了。
   
   Let's migrate the template and the styles to their own files before we make any more changes:
   1. *Cut-and-paste* the template contents into a new `heroes.component.html` file.
   1. *Cut-and-paste* the styles contents into a new `heroes.component.css` file.
   1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
   
+  在做更多修改之前，我们先把模板和样式移到它们自己的文件中去：
+  1. *剪切并粘贴* 模板内容到新的`heroes.component.html`文件。
+  1. *剪切并粘贴* 样式内容到新的`heroes.component.css`文件。
+  1. *设置* 组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
+  
   The revised component data looks like this:
-+makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (revised metadata)')(format=".")
+  
+  修改过的组件数据是这样的：
++makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (修改过的元数据)')(format=".")
 :marked
   Now we can see what's going on as we update the component class along the same lines as the dashboard:
   1. Import the `router`
@@ -862,32 +936,58 @@ figure.image-display
   1. Implement the `gotoDetail` method by calling the `router.navigate` method 
   with a two-part 'HeroDetail' *link parameters array*.
   
+  现在，我们一下就明白该怎么像仪表盘中那样更新组件类了：
+  1. 导入`router`
+  1. 把`router`注入到构造函数中（就像`HeroService`那样）
+  1. 实现`gotoDetail`方法：以`HeroDetail`和 *链接参数数组* 为参数调用`router.navigate`方法。
+  
   Here's the revised component class:
-+makeExample('toh-5/ts/app/heroes.component.ts', 'class', 'app/heroes.component.ts (class)')
+  
+  下面是修改过的组件类：
++makeExample('toh-5/ts/app/heroes.component.ts', 'class', 'app/heroes.component.ts (类)')
 :marked
   Refresh the browser and start clicking. 
   We can navigate around the app, from the dashboard to hero details and back,
   for heroes list to the mini-detail to the hero details and back to the heroes again. 
   We can jump back and forth between the dashboard and the heroes.
   
+  刷新浏览器，并且开始点击。
+  我们能在应用中导航：从仪表盘到英雄详情再回来，从英雄列表到Mini版英雄详情到英雄详情，然后再回到英雄列表。
+  我们可以在仪表盘和英雄列表之间跳来跳去。
+  
   We've met all of the navigational requirements that propelled this chapter.
+  
+  我们已经达成了本章最初设定的所有导航需求。
 
 .l-main-section
 :marked
   ## Styling the App
+  ## 美化本应用
   The app is functional but pretty ugly.
   Our creative designer team provided some CSS files to make it look better.
+  
+  应用的功能已经正常了，但还太丑。
+  我们富有创意的设计师团队提供了一些CSS文件，能让它更好看一些。
 
   ### A Dashboard with Style
+  ### 具有样式的仪表盘
   The designers think we should display the dashboard heroes in a row of rectangles. 
   They've given us ~60 lines of CSS for this purpose including some simple media queries for responsive design.
+
+  设计师认为我们应该把仪表盘的英雄们显示在一排方块中。
+  他们给了我们大约60行CSS来实现它，包括一些简单的媒体查询语句以实现响应式设计。
 
   If we paste these ~60 lines into the component `styles` metadata,
   they'll completely obscure the component logic. 
   Let's not do that. It's easier to edit CSS in a separate `*.css` file anyway. 
+  
+  如果我们把这60来行CSS粘贴到组件元数据的`styles`中，它们会完全淹没组件的工作逻辑。
+  不能那么做。在一个独立的`*.css`文件中编辑CSS当然会更简单。
 
   Add a `dashboard.component.css` file to the `app` folder and reference 
   that file in the component metadata's `styleUrls` array property like this:
+  
+  把`dashboard.component.css`文件添加到`app`目录下，并且在组件元数据的`styleUrls`数组属性中引用它。就像这样：
 +makeExample('toh-5/ts/app/dashboard.component.ts', 'css', 'app/dashboard.component.ts (styleUrls)')(format=".")
 :marked
 .l-sub-section
@@ -895,14 +995,25 @@ figure.image-display
     The `styleUrls` property is an array of style file names (with paths).
     We could list multiple style files from different locations if we needed them.
     As with `templateUrl`, we must specify the path _all the way back to the application root_.
+    
+    `styleUrls`属性是一个由样式文件的文件名（包括路径）组成的数组。
+    如果需要，我们还可以列出来自多个不同位置的样式文件。
+    和`templateUrl`一样，我们必须指定 _相对于此应用根目录_ 的路径。
 :marked
   ### Stylish Hero Details
+  ### 美化英雄详情
   The designers also gave us CSS styles specifically for the `HeroDetailComponent`.
+  
+  设计师还给了我们`HeroDetailComponent`特有的CSS风格。
   
   Add a `hero-detail.component.css` to the `app` folder and refer to that file inside 
   the `styleUrls` array as we did for `DashboardComponent`.
   
+  在`app`目录下添加`hero-detail.component.css`文件，并且在`styleUrls`数组中引用它 —— 就像当初在`DashboardComponent`中做过的那样。
+  
   Here's the content for the aforementioned component CSS files.  
+  
+  上述组件的CSS文件内容如下：
 +makeTabs(
   `toh-5/ts/app/hero-detail.component.css,
   toh-5/ts/app/dashboard.component.css`,
@@ -911,47 +1022,76 @@ figure.image-display
   app/dashboard.component.css`)
 :marked
   ### Style the Navigation Links
+  ### 美化导航链接
   The designers gave us CSS to make the navigation links in our `AppComponent` look more like selectable buttons.
   We cooperated by surrounding those links in `<nav>` tags.
   
+  设计师还给了我们一些CSS，用于让`AppComponent`中的导航链接看起来更像可被选择的按钮。
+  要想让它们协同工作，我们只需要把那些链接包含在`<nav>`标签中。
+  
   Add a `app.component.css` file to the `app` folder with the following content.
-+makeExample('toh-5/ts/app/app.component.css', 'css', 'app/app.component.css (Navigation Styles)')
+  
+  在`app`目录下添加一个`app.component.css`文件，内容如下：
++makeExample('toh-5/ts/app/app.component.css', 'css', 'app/app.component.css (导航样式)')
 .l-sub-section
   :marked
     **The *router-link-active* class**
     
+    ** *router-link-active* 类**
+    
     The Angular Router adds the `router-link-active` class to the HTML navigation element 
     whose route matches the active route. All we have to do is define the style for it. Sweet!
+    
+    Angular路由器会为与当前激活路由匹配的路由所在的导航元素加上`router-link-active`类。
+    我们唯一要做的就是为它(`.router-link-active`类)定义样式。真好！
 :marked
   Set the `AppComponent`’s `styleUrls` property to this CSS file. 
+  
+  设置`AppComponent`的`styleUrls`属性，指向这个CSS文件。
 +makeExample('toh-5/ts/app/app.component.ts','style-urls', 'app/app.component.ts (styleUrls)')(format=".")
 :marked
   ### Global application styles
+  ### 应用的全局样式
   When we add styles to a component, we're keeping everything a component needs 
   &mdash; HTML, the CSS, the code &mdash; together in one convenient place.
   It's pretty easy to package it all up and re-use the component somewhere else.
   
+  当我们把样式添加到组件中时，我们假定组件所需的一切 —— HTML、CSS、程序代码 —— 都在紧邻的地方。
+  这样，把它们打包在一起并在别的组件中复用它都会很容易。
+  
   We can also create styles at the *application level* outside of any component.
+  
+  我们也可以在应用中所有组件之外的地方创建样式。
 
   Our designers provided some basic styles to apply to elements across the entire app. 
   Add the following to a new file named `styles.css` in the root folder.
-+makeExample('toh-5/ts/styles.1.css', '', 'styles.css (App Styles)')(format=".")
+  
+  我们的设计师提供了一组基础样式，这些样式适用的元素横跨整个应用。
+  把下面这个名叫`styles.css`的新文件添加到根目录中：
++makeExample('toh-5/ts/styles.1.css', '', 'styles.css (应用级样式)')(format=".")
 
 :marked
   Reference this stylesheet within the `index.html` in the traditional manner.
+  
+  用传统的方式，在`index.html`中引用这个样式表。
 +makeExample('toh-5/ts/index.html','css', 'index.html (link ref)')(format=".")
 :marked
  Look at the app now. Our dashboard, heroes, and navigation links are styling!
  
+ 看看现在的应用！我们的仪表盘、英雄列表和导航链接都漂亮多了！
+ 
 figure.image-display
-  img(src='/resources/images/devguide/toh/dashboard-top-heroes.png' alt="View navigations")
+  img(src='/resources/images/devguide/toh/dashboard-top-heroes.png' alt="查看导航栏")
 
 .l-main-section
 :marked
   ## Application structure and code
+  ## 应用结构和代码
   
   Review the sample source code [in the live example for this chapter](/resources/live-examples/toh-5/ts/plnkr.html).
   Verify that we have the following structure:
+  
+  在[本章的鲜活范例](/resources/live-examples/toh-5/ts/plnkr.html)中回顾范例代码。请验证一下我们已经有了下列结构：
 
 .filetree
   .file angular2-tour-of-heroes
@@ -985,8 +1125,10 @@ figure.image-display
 .l-main-section
 :marked
   ## Recap
+  ## 总结
 
   ### The Road Behind
+  ### 走过的路
   We travelled a great distance in this chapter.
   - We added the Angular *Component Router* to navigate among different components.
   - We learned how to create router links to represent navigation menu items
@@ -994,10 +1136,24 @@ figure.image-display
   - We shared the `HeroService` among multiple components
   - We moved HTML and CSS out of the component file and into their own files.
   - We added the `uppercase` pipe to format data
+  
+  在本章中，我们往前走了很远：
+  - 我们添加了Angular *组件路由器* 在各个不同的组件之间导航。
+  - 我们学会了如何创建路由链接来表示导航栏的菜单项。
+  - 我们使用路由参数来导航到用户所选的英雄详情。
+  - 我们在多个组件之间共享了`HeroService`服务。
+  - 我们把HTML和CSS从组件中移出来，放到它们自己的文件中去。
+  - 我们添加了一个`uppercase`管道，来格式化数据。
 
   ### The Road Ahead
+  ### 前方的路
   We have much of the foundation we need to build an application.
   We're still missing a key piece: remote data access. 
   
+  我们有了很多用于构建应用的基石。
+  但我们仍然缺少很关键的一部分：远程数据存取。
+  
   In a forthcoming tutorial chapter, 
   we’ll replace our mock data with data retrieved from a server using http.
+  
+  在即将到来的章节中，我们将从硬编码模拟数据改为使用http服务从服务器获取数据。
