@@ -114,7 +114,7 @@ include _util-fns
     and optionally registers service [providers](#provider) with the
     [dependency injection system](#dependency-injection).
 
-    我们通过一个名叫`bootstrap`的函数方法来引导装入Angular应用程序。这个`bootstrap`函数方法会识别应用程序的顶级“根”[组件](#component)，
+    我们通过一个名叫`bootstrap`的类方法来引导装入Angular应用程序。这个`bootstrap`类方法会识别应用程序的顶级“根”[组件](#component)，
     并可能通过[依赖注入系统](#dependency-injection)注册[服务提供商](#provider)。
 
     One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
@@ -378,7 +378,7 @@ include _util-fns
     to a token. When we write `injector.get(Foo)`, the injector returns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
     
-    令牌是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触令牌。绝大多数函数方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为令牌。
+    令牌是一个Angular的类型(`OpaqueToken`)。我们很少需要直接接触令牌。绝大多数类方法都接受类名称 (`Foo`)或者字符串("foo")，Angular把这些类名称和字符串转换为令牌。
     当我们使用`injector.get(Foo)`，注入器返回用 `Foo`类生成的的令牌对应的依赖值，这个依赖值一般是`Foo`类实例。
 
     Angular makes similar requests internally during many of its operations
@@ -622,11 +622,11 @@ include _util-fns
     Each interface has a single hook method whose name is the interface name prefixed with `ng`.
     For example, the `OnInit` interface has a hook method names `ngOnInit`.
     
-    每个接口有一个唯一的钩子函数方法方法，它的名字一般是接口的名字加前缀 `ng`。比如，`OnInit`接口的钩子函数方法方法名字为 `ngOnInit`。
+    每个接口有一个唯一的钩子类方法方法，它的名字一般是接口的名字加前缀 `ng`。比如，`OnInit`接口的钩子类方法方法名字为 `ngOnInit`。
 
     Angular calls these hook methods in the following order:
     
-    Angular会按照下面的顺序调用钩子函数方法：
+    Angular会按照下面的顺序调用钩子类方法：
     
     * `ngOnChanges` - called when an [input](#input)/[output](#output) binding values change
     * `ngOnInit` - after the first `ngOnChanges`

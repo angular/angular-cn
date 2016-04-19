@@ -43,9 +43,9 @@ include ../_util-fns
   
   [父级与子级通过*本地变量local variable*互动Parent interacts with child via a *local variable*](#parent-to-child-local-var)
   
-  [父级调用一个*ViewChild*Parent calls a *ViewChild*](#parent-to-view-child)
+  [父级调用*ViewChild*Parent calls a *ViewChild*](#parent-to-view-child)
 
-  [父级和子级通过一个服务来交互Parent and children communicate via a service](#bidirectional-service)
+  [父级和子级通过服务来交互Parent and children communicate via a service](#bidirectional-service)
 :marked
   **See the [live example](/resources/live-examples/cb-component-communication/ts/plnkr.html)**.
   
@@ -146,7 +146,7 @@ figure.image-display
 
   Detect and act upon changes to input property values with the `ngOnChanges` method of the `OnChanges` lifecycle hook interface.
   
-  使用`ngOnChanges`函数方法和`OnChanges`生命周期接口来监测Input属性值得变化并回应。
+  使用`ngOnChanges`类方法和`OnChanges`生命周期接口来监测Input属性值得变化并回应。
   
 .l-sub-section
   :marked
@@ -168,7 +168,7 @@ figure.image-display
 :marked
   The `VersionParentComponent` supplies the `minor` and `major` values and binds buttons to methods that change them.
   
-  `VersionParentComponent`提供`minor`和`major`值，将变换他们值得函数方法绑定到按钮上。
+  `VersionParentComponent`提供`minor`和`major`值，将变换他们值得类方法绑定到按钮上。
   
 +makeExample('cb-component-communication/ts/app/version-parent.component.ts')
 
@@ -229,7 +229,7 @@ figure.image-display
   The framework passes the event argument &mdash; represented by `$event` &mdash; to the handler method, 
   and the method processes it:
   
-  框架（Angular）传递用`$event`代表的事件参数给事件处理器函数方法，由这个函数方法来处理：
+  框架（Angular）传递用`$event`代表的事件参数给事件处理器类方法，由这个类方法来处理：
   
 figure.image-display
   img(src="/resources/images/cookbooks/component-communication/child-to-parent.gif" alt="Child-to-parent")
@@ -260,7 +260,7 @@ parent-to-child-local-var
   and then reference that variable *within the parent template*
   as seen in the following example.
   
-  一个父级组件不能使用数据绑定来读取子级属性或者调用子级函数方法。我们可以在父级模板里，新建一个本地变量来代表子组件，然后实用这个变量来读取子级属性和调用子级函数方法，如下例所示。
+  一个父级组件不能使用数据绑定来读取子级属性或者调用子级类方法。我们可以在父级模板里，新建一个本地变量来代表子组件，然后实用这个变量来读取子级属性和调用子级类方法，如下例所示。
 
   <a id="countdown-timer-example"></a>
   We have a child `CountdownTimerComponent` that repeatedly counts down to zero and launches a rocket.
@@ -321,7 +321,7 @@ a(id="countdown-tests")
 <a id="parent-to-view-child"></a>
 :marked
   ## Parent calls a *ViewChild*
-  ## 父级调用一个*ViewChild*
+  ## 父级调用*ViewChild*
   
   The *local variable* approach is simple and easy. But it is limited because 
   the parent-child wiring must be done entirely within the parent template.
@@ -359,59 +359,90 @@ a(id="countdown-tests")
 :marked
   It takes a bit more work to get the child view into the parent component classs.
   
-   
+  把子级视图插入到父级组件类需要一点额外的工作。
   
   We import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
   
+  我们导入`ViewChild`装饰器和应用`AfterViewInit`生命周期钩子。
+  
   We inject the child `CountdownTimerComponent` into the private `_timerComponent` property
   via the `@ViewChild` property decoration.
+  
+  我们通过`@ViewChild`属性装饰器，将子级`CountdownTimerComponent`注入到私有属性`_timerComponent`里面。
   
   The `#timer` local variable is gone from the component metadata. 
   Instead we bind the buttons to the parent component's own `start` and `stop` methods and
   present the ticking seconds in an interpolation around the parent component's `seconds` method.
   
+  我们在组件元素据里面就不需要`#timer`本地变量了。取而代之，我们把按钮绑定到父级组件自己的`start`和`stop`方法，在一个父级组件的`seconds`方法的插值表达式中展示秒钟变化。
+  
   These methods access the injected timer component directly.
+  
+  这些类方法直接访问插入的计时器组件。
   
   The `ngAfterViewInit` lifecycle hook is an important wrinkle.
   The timer component isn't available until *after* Angular displays the parent view.
   So we display `0` seconds initially.
+  
+  `ngAfterViewInit`生命周期钩子是一个非常重要的技巧。计时器组件只在Angular显示了父级视图之后才可以被访问，所以我们先显示秒钟为0.
   
   Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late*
   to update the parent view's display of the countdown seconds.
   Angular's unidirectional data flow rule prevents us from updating the parent view's
   in the same cycle. We have to *wait one turn* before we can display the seconds.
   
+  然后Angular调用`ngAfterViewInit`生命周期钩子，但是这时候更新父级视图的倒计时就已经太晚了。Angular的单向数据流动规则防止在我们同一个周期更新父级视图。我们在显示秒钟之前需要被迫*等待一轮*。
+  
   We use `setTimeout` to wait one tick and then revise the `seconds` method so 
   that it takes future values from the timer component.
+  
+  我们使用`setTimeout`来等待一轮，然后重组`seconds`方法，这样它接下来从计时器组件里面获取秒钟的值。
 
   ### Test it
+  ## 测试
   Use [the same countdown timer tests](#countdown-tests) as before.
+  
+  使用之前的[一样的倒计时测试](#countdown-tests)。
 :marked
   [Back to top](#top)
+  
+  [回到顶部]('#top')
   
 .l-main-section
 <a id="bidirectional-service"></a>
 :marked
   ## Parent and children communicate via a service
+  ## 父级和子级通过服务来交互
 
   A parent component and its children share a service whose interface enables bi-directional communication
   *within the family*.
+  
+  一个父级组件和它的子级组件共享一个服务，这个服务的接口*在本家庭之内*实现双向交互能力。
 
   The scope of the service instance is the parent component and its children. 
   Components outside this component subtree have no access to the service or their communications.
   
+  该服务实例的作用范围限制在父级组件和其子级组件内。在这个组件子树之外的组件无法访问该服务或者它们之间的交互。
+  
   This `MissionService` connects the `MissionControlComponent` to multiple `AstronautComponent` children.
+  
+  这个`MissionService`连接`MissionControlComponent`和多个`AstronautComponent`子级。
 
 +makeExample('cb-component-communication/ts/app/mission.service.ts')
 :marked
   The `MissionControlComponent` both provides the instance of the service that it shares with its children
   (through the `providers` metadata array) and injects that instance into itself through its constructor:
   
+  `MissionControlComponent`同时提供服务的实例并共享给它的子级（通过`providers`元素据序列），和通过自身的构造函数将该实例注入给自己。
+  
 +makeExample('cb-component-communication/ts/app/missioncontrol.component.ts')
 
 :marked
   The `AstronautComponent` also injects the service in its constructor.
   Each `AstronautComponent` is a child of the `MissionControlComponent` and therefore receives its parent's service instance:
+  
+  `AstronautComponent`也通过自己的构造函数注入该服务。
+  每个`AstronautComponent`都是`MissionControlComponent`的子级，所以他们获取它们父级的服务的实例。
   
 +makeExample('cb-component-communication/ts/app/astronaut.component.ts')
 
@@ -422,23 +453,34 @@ a(id="countdown-tests")
     lifetime of a `AstronautComponent` is the same as the lifetime of the app itself.
     That *would not* always be true in a more complex application.
     
+    注意，我们通过`subscription`获取任务，并在`AstronautComponent`被销毁的时候退订。这是一个防止内存泄漏的保护措施。在这个应用程序中，实际上没有这个风险，因为`AstronautComponent`的生命期和应用程序的生命期一样。
+    但是在更复杂的应用程序中就不一定了。
+    
     We do not add this guard to the `MissionControlComponent` because, as the parent,
     it controls the lifetime of the `MissionService`.
+    
+    我们不需要在`MissionControlComponent`中添加这个保护措施，因为作为父级，他控制`MissionService`的生命期。
 :marked
   The *History* log demonstrates that messages travel in both directions between
   the parent `MissionControlComponent` and the `AstronautComponent` children,
   facilitated by the service:
+  
+  *History*日志展示了信息在父级`MissionControlComponent`和子级`AstronautComponent`之间，通过该服务双向传递。
   
 figure.image-display
   img(src="/resources/images/cookbooks/component-communication/bidirectional-service.gif" alt="bidirectional-service")
   
 :marked
   ### Test it
-  
+  ### 测试
   Tests click buttons of both the parent `MissionControlComponent` and the `AstronautComponent` children
   and verify that the *History* meets expectations:
+  
+  测试点击父级`MissionControlComponent`和子级`AstronautComponent`两个的组件的按钮，确认*History*日志和预期的一样。
   
 +makeExample('cb-component-communication/e2e-spec.js', 'bidirectional-service')
 
 :marked
   [Back to top](#top)
+  
+  [回到顶部](#top)
