@@ -138,7 +138,7 @@ include ../_util-fns
 :marked
   `DynamicForm` expects the list of questions in the form of an array bound to  `@Input() questions`.
 
-   `DynamicForm`预期得到一个问题列表，该列表是一个关联到`@Input() questions`排列。
+   `DynamicForm`预期得到一个问题列表，该列表是一个关联到`@Input() questions`数组。
     
    The set of questions we have defined for the job application is returned from the `QuestionService`. 
    In a real app we'd retrieve these questions from storage.
@@ -148,7 +148,7 @@ include ../_util-fns
    The key point is that we control the hero job application questions entirely through the objects returned from `QuestionService`. 
    Questionnaire maintenance is a simple matter of adding, updating, and removing objects from the `questions` array.
    
-   最关键的点是，我们全部通过从`QuestionService`返回的对象，来控制英雄工作申请问卷。要维护问卷，我们要做的是非常简单的添加、更新和删除`问题`排列中的对象。
+   最关键的点是，我们全部通过从`QuestionService`返回的对象，来控制英雄工作申请问卷。要维护问卷，我们要做的是非常简单的添加、更新和删除`问题`数组中的对象。
    
 +makeExample('cb-dynamic-form/ts/app/question.service.ts','','app/question.service.ts')  
 

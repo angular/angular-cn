@@ -1,32 +1,59 @@
 :marked
   We write **unit tests** to explore and confirm the **behavior** of parts of our application.
 
+  我们编写**单元测试**来探索和确认我们应用程序的**行为**部分。
+  
   1. They **guard** against breaking existing code (“regressions”) when we make changes.
+  
+  1. 当我们改变代码是，他们**守护**已有代码，以防被破坏。
   1. They **clarify** what  the code does both when used as intended and when faced with deviant conditions.
+  
+  1. 在我们正确使用代码和面对异常情况时，他们**澄清**代码做什么。
   1. They **reveal** mistakes in design and implementation. Tests force us to look at our code from many angles. When a part of our application seems hard to test, we may have discovered a design flaw, something we can cure now rather than later when it becomes expensive to fix.
+  
+  1.他们**揭露**我们设计的执行的错误。测试强迫我们从多个角度看代码。当应用程序的一个部分看起来很难测试，我们可能会发现设计缺陷，这是我们可以立刻修复的，而不是等到它变的很难修复的时候。
     
 a(id="top")
 :marked
-  # Table of Contents
-
+  # Table of Contents  
+  # 目录
   1. [Jasmine Testing 101](#jasmine-101)
     - setup to run Jasmine tests in the browser
     - basic Jasmine testing skills
     - write simple Jasmine tests in TypeScript
     - debug a test in the browser
-  
+    
+  1. [Jasmine测试101](#jasmine-101)
+    - 设置浏览器来运行Jasmine测试
+    - 基础Jasmine测试技能
+    - 实用TypeScript来编写简单的Jasmine测试
+    - 在浏览器里调试测试
+    
   1. [The Application Under Test](#aut)
+  
+  1. [被测试的应用程序](#aut)
   
   1. [First app test](#first-app-tests)
     - test a simple application interface outside of Angular
     - where to put the test file
     - load a test file with systemJS
-  
+    
+  1. [第一个应用程序测试](#first-app-tests)
+    - 在Angular之外，测试一个简单的应用程序接口
+    - 测试文件存放到哪儿
+    - 使用systemJS调用一个测试文件
+    
   1. [Pipe driven development](#pipe-testing)
     - create a test before creating a class
     - load multiple test files in our test harness, using system.js
     - add the Angular 2 library to our test harness
     - watch the new test fail, and fix it
+  
+  1. [测试驱动开发一个管道](#pipe-testing)
+    - 在新建类之前，新建一个测试
+    - 使用system.js，加载多个测试文件到我们的测试套装里
+    - 添加Angular 2的类库到我们的测试套装里
+    - 看着新测试失败，然后修复它
   
   1. Test an Asynchronous Service (forthcoming)
     - test an asynchronous service class outside of Angular
@@ -67,6 +94,7 @@ a(href="#top").to-top Back to top
 a(id="jasmine-101")
 :marked
   # Jasmine Testing 101
+  # Jasmine测试101
 != partial("../testing/jasmine-testing-101")
 a(href="#top").to-top Back to top
 
@@ -74,6 +102,7 @@ a(href="#top").to-top Back to top
 a(id="aut")
 :marked
   # The Application to Test
+  # 被测试的应用程序
 != partial("../testing/application-under-test")
 a(href="#top").to-top Back to top
 
@@ -81,6 +110,7 @@ a(href="#top").to-top Back to top
 a(id="first-app-tests")
 :marked
   # First app test
+  # 第一个应用程序测试
 != partial("../testing/first-app-tests")
 a(href="#top").to-top Back to top
 
@@ -88,6 +118,7 @@ a(href="#top").to-top Back to top
 a(id="pipe-testing")
 :marked
   # Pipe driven development
+  # 测试驱动开发一个管道
 != partial("../testing/testing-an-angular-pipe")
 a(href="#top").to-top Back to top
 
@@ -95,3 +126,5 @@ a(href="#top").to-top Back to top
   :marked
     The testing chapter is still under development.
     Please bear with us as we both update and complete it.
+    
+    测试章节正在开发中，请耐心，我们会更新并完成它。
