@@ -90,9 +90,7 @@ code-example(format="." language="bash").
   Second, we can't easily share that list of heroes with other components and views. 
 
   目前，`AppComponent`显示的是自己定义的一个mock英雄数据。
-  我们的改进点至少有两个：
-  1. 定义英雄数据不应该是这个组件的任务。
-  2. 要想把这个英雄列表数据共享给其它组件和视图可不容易。
+  我们的改进点至少有两个：1. 定义英雄数据不应该是这个组件的任务。2. 要想把这个英雄列表数据共享给其它组件和视图可不容易。
 
   We can refactor this hero data acquisition business to a single service that provides heroes and 
   share that service with all components that need heroes.
@@ -270,11 +268,11 @@ code-example(format="." language="bash").
   ### 注入 *HeroService*
   
   Two lines replace the one line of *new*:
-  1. we add a constructor.
-  1. we add to the component's `providers` metadata
   
   用两行代码代替用`new`时的一行：
+  1. we add a constructor.
   1. 添加一个构造函数
+  1. we add to the component's `providers` metadata
   1. 添加组件的`providers`元数据
   
   Here's the constructor:

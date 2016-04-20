@@ -728,12 +728,13 @@ code-example(format="").
   npm start
 :marked
   That command runs two parallel node processes
-  1. The TypeScript compiler in watch mode
-  1. A static server called **lite-server** that loads `index.html` in a browser
-  and refreshes the browser when application files change
 
   此命令会运行两个并行的node进程：
+
+  1. The TypeScript compiler in watch mode
   1. TypeScript编译器，运行在监视（watch）模式
+  1. A static server called **lite-server** that loads `index.html` in a browser
+  and refreshes the browser when application files change
   1. 一个名叫 **lite-server** 的静态服务器，它把`index.html`加载到浏览器中
   这样，当应用的文件发生变化时，它会自动刷新浏览器。
 

@@ -558,13 +558,13 @@ code-example(format="." language="bash").
 
   Although we display the details of a selected hero at the bottom of the `HeroesComponent`,
   we don't yet *navigate* to the `HeroDetailComponent` in the three ways specified in our requirements:
-  1. from the *Dashboard* to a selected hero.
-  1. from the *Heroes* list to a selected hero.
-  1. from a "deep link" URL pasted into the browser address bar.
   
   虽然我们在`HeroesComponent`组件的底部显示了所选英雄的详情，但我们还从没有 *导航* 到`HeroDetailComponent`组件，不管用我们需求中指定的三种方式中的哪一种：
+  1. from the *Dashboard* to a selected hero.
   1. 从 *仪表盘(Dashboard)* 导航到一个选定的英雄。
+  1. from the *Heroes* list to a selected hero.
   1. 从 *英雄列表(Heroes)* 导航到一个选定的英雄。
+  1. from a "deep link" URL pasted into the browser address bar.
   1. 把一个指向他的"深链接"URL粘贴到浏览器的地址栏。
   
   Adding a `'HeroDetail'` route seem an obvious place to start.
@@ -802,11 +802,11 @@ code-example(format='').
 +makeExample('toh-5/ts/app/dashboard.component.ts','goto-detail', 'app/dashboard.component.ts (gotoDetail)')(format=".")
 :marked
   The `gotoDetail` method navigates in two steps:
-  1. set a route *link parameters array*
-  1. pass the array to the router's navigate method.
   
   `gotoDetail`方法分两步完成导航：
+  1. set a route *link parameters array*
   1. 生成路由的 *链接参数数组*
+  1. pass the array to the router's navigate method.
   1. 把这个数组传给路由器的navigate方法。
   
   We wrote *link parameters arrays* in the `AppComponent` for the navigation links.
@@ -916,13 +916,13 @@ figure.image-display
   要想在HTML和CSS的噪音中找出组件的工作逻辑太难了。
   
   Let's migrate the template and the styles to their own files before we make any more changes:
-  1. *Cut-and-paste* the template contents into a new `heroes.component.html` file.
-  1. *Cut-and-paste* the styles contents into a new `heroes.component.css` file.
-  1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
   
   在做更多修改之前，我们先把模板和样式移到它们自己的文件中去：
+  1. *Cut-and-paste* the template contents into a new `heroes.component.html` file.
   1. *剪切并粘贴* 模板内容到新的`heroes.component.html`文件。
+  1. *Cut-and-paste* the styles contents into a new `heroes.component.css` file.
   1. *剪切并粘贴* 样式内容到新的`heroes.component.css`文件。
+  1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
   1. *设置* 组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
   
   The revised component data looks like this:
@@ -931,14 +931,14 @@ figure.image-display
 +makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (修改过的元数据)')(format=".")
 :marked
   Now we can see what's going on as we update the component class along the same lines as the dashboard:
-  1. Import the `router`
-  1. Inject the `router` in the constructor (along with the `HeroService`)
-  1. Implement the `gotoDetail` method by calling the `router.navigate` method 
-  with a two-part 'HeroDetail' *link parameters array*.
   
   现在，我们一下就明白该怎么像仪表盘中那样更新组件类了：
+  1. Import the `router`
   1. 导入`router`
+  1. Inject the `router` in the constructor (along with the `HeroService`)
   1. 把`router`注入到构造函数中（就像`HeroService`那样）
+  1. Implement the `gotoDetail` method by calling the `router.navigate` method 
+  with a two-part 'HeroDetail' *link parameters array*.
   1. 实现`gotoDetail`方法：以`HeroDetail`和 *链接参数数组* 为参数调用`router.navigate`方法。
   
   Here's the revised component class:
@@ -1130,19 +1130,18 @@ figure.image-display
   ### The Road Behind
   ### 走过的路
   We travelled a great distance in this chapter.
-  - We added the Angular *Component Router* to navigate among different components.
-  - We learned how to create router links to represent navigation menu items
-  - We used router parameters to navigate to the details of user selected hero
-  - We shared the `HeroService` among multiple components
-  - We moved HTML and CSS out of the component file and into their own files.
-  - We added the `uppercase` pipe to format data
-  
   在本章中，我们往前走了很远：
+  - We added the Angular *Component Router* to navigate among different components.
   - 我们添加了Angular *组件路由器* 在各个不同的组件之间导航。
+  - We learned how to create router links to represent navigation menu items
   - 我们学会了如何创建路由链接来表示导航栏的菜单项。
+  - We used router parameters to navigate to the details of user selected hero
   - 我们使用路由参数来导航到用户所选的英雄详情。
+  - We shared the `HeroService` among multiple components
   - 我们在多个组件之间共享了`HeroService`服务。
+  - We moved HTML and CSS out of the component file and into their own files.
   - 我们把HTML和CSS从组件中移出来，放到它们自己的文件中去。
+  - We added the `uppercase` pipe to format data
   - 我们添加了一个`uppercase`管道，来格式化数据。
 
   ### The Road Ahead
