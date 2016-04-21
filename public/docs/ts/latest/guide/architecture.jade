@@ -385,76 +385,115 @@ figure
   
   Here we see a few of the possible `@Component` configuration options:
   
+  这里，我们看到`@Component`中的一些配置项：
+  
   * `selector` - a css selector that tells Angular to create and insert an instance of this component 
   where it finds a `<hero-list>` tag in *parent* HTML. 
   If the template of the application shell (a Component) contained
+  
+  * `selector` - 一个css选择器，用来告诉Angular在 *父* HTML中，去寻找一个`<hero-list>`标签，然后创建组件，并插在此标签中。
+  比如，如果应用“壳”组件的模板包含：
 <div style="margin-left:30px">
 code-example(language="html").
     &lt;hero-list>&lt;/hero-list>
 </div>  
 :marked
   >Angular inserts an instance of the `HeroListComponent` view between those tags.
+  >Angular就会在这些标签中插入一个`HeroListComponent`视图的一个实例。
   
   * `templateUrl` - the address of this component's template which we showed [above](#template).
-  
+  * `templateUrl` - 组件模板的地址，我们在[前面](#template)看到过。
   * `directives` - an array of the Components or Directives that *this* template requires.
   We saw in the last line of our template that we expect Angular to insert a `HeroDetailComponent`
   in the space indicated by `<hero-detail>` tags. 
   Angular will do so only if we mention the `HeroDetailComponent` in this `directives` array.
-  
+  * `directives` - 一个数组，包含 *此* 模板需要的组件或指令。
+  看看模板的最后一行，这表示我们希望Angular把`HeroDetailComponent`的实例放在`<hero-detail>`标签中。
+  但，只有当我们在`directives`数组中引用了`HeroDetailComponent`的时候，Angular才会这么做。
   * `providers` - an array of **dependency injection providers** for services that the component requires.
   This is one way to tell Angular that our component's constructor requires a `HeroService` 
   so it can get the list of heroes to display. We'll get to dependency injection in a moment.
+  * `providers` - 一个数组，包含组件所依赖的用于提供服务的 *依赖注入供应者* 。 
+  这是我们让Angular知道组件的构造器需要一个`HeroService`服务的方式之一。这让组件能获得英雄的列表数据，并显示出来。
+  接下来我们就开始讲依赖注入。
 figure
-  img(src="/resources/images/devguide/architecture/template-metadata-component.png" alt="Metadata" align="left" style="height:200px; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/template-metadata-component.png" alt="元数据" align="left" style="height:200px; margin-left:-40px;margin-right:10px" )
 :marked
   The `@Component` function takes the configuration object and turns it into metadata that it attaches
   to the component class definition. Angular discovers this metadata at runtime and thus knows how to do "the right thing".
   
+  `@Component`函数接收一个配置对象，并且把它转换为元数据，附加到组件类的定义上。
+  Angular在运行期间会发现这个元数据，并且据此了解到该如何“做正确的事”。
+  
   The template, metadata, and component together describe the view.
+  
+  模板、元数据和组件加在一起描绘这个视图。
 
   We apply other metadata decorators in a similar fashion to guide Angular behavior. 
   The `@Injectable`, `@Input`, `@Output`, `@RouterConfig` are a few of the more popular decorators
   we'll master as our Angular knowledge grows.
+  
+  我们也会用类似的方式，通过其它的元数据装饰器来指导Angular的行为。
+  `@Injectable`、`@Input`、`@Output`、`@RouterConfig`是一些最常用的装饰器。
+  随着Angular知识的逐步增长，我们将逐步掌握它们。
 <br clear="all">
 :marked
   The architectural take-away is that we must add metadata to our code
   so that Angular knows what to do.
+  
+  架构所决定的是：我们必须在代码中添加元数据，以便Angular知道该做什么。
 
 .l-main-section
 <a id="data-binding"></a>
 :marked
   ## Data Binding
+  ## 数据绑定
   Without a framework, we would be responsible for pushing data values into the HTML controls and turning user responses
   into actions and value updates. Writing such push/pull logic by hand is tedious, error-prone and a nightmare to
   read as the experienced jQuery programmer can attest.
+  
+  如果没有框架，我们就需要自己把数据值推送到HTML控件中，并且把用户的反馈转换成动作并更新值。
+  如果手动写实现这些推/拉逻辑的代码，肯定会枯燥乏味、容易出错、很难读懂 —— 有经验的jQuery程序员大概对此深有体会。
 figure
-  img(src="/resources/images/devguide/architecture/databinding.png" alt="Data Binding" style="width:220px; float:left; margin-left:-40px;margin-right:20px" )
+  img(src="/resources/images/devguide/architecture/databinding.png" alt="数据绑定" style="width:220px; float:left; margin-left:-40px;margin-right:20px" )
 :marked
   Angular supports **data binding**, 
   a mechanism for coordinating parts of a template with parts of a component.
   We add binding markup to the template HTML to tell Angular how to connect both sides.
   
+  Angular支持 **数据绑定** ，一种让模板片段与组件片段相互合作的机制。
+  我们往模板HTML中添加绑定标记，来告诉Angular如何连接两者。
+  
   There are four forms of data binding syntax. Each form has a direction - to the DOM, from the DOM, or in both directions -
   as indicated by the arrows in the diagram.
+  
+  数据绑定的语法有四种形式。每种形式都具有方向 —— 从DOM来、到DOM去、双向，就像图中的箭头所表示那样。
 <br clear="all">
 :marked
   We saw three forms of data binding in our [example](#template) template:
-+makeExample('architecture/ts/app/hero-list.component.1.html', 'binding', 'app/hero-list.component.html (excerpt)')(format=".")
+  
+  在[范例](#template)模板中，我们看到了数据绑定的三种形式：
++makeExample('architecture/ts/app/hero-list.component.1.html', 'binding', 'app/hero-list.component.html (节选)')(format=".")
 :marked
   * The {{hero.name}} "[interpolation](displaying-data.html#interpolation)" 
   displays the component's `hero.name` property value within the `<div>` tags.
+  * {{hero.name}} "[插值表达式](displaying-data.html#interpolation)"在`<div>`标签中显示了组件的`hero.name`属性的值。 
   
   * The `[hero]` [property binding](template-syntax.html#property-binding) passes the `selectedHero` from
   the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.
+  * `[hero]`[属性绑定](template-syntax.html#property-binding)把父组件`HeroListComponent`的`selectedHero`传到子组件`HeroDetailComponent`的`hero`属性中。
   
   * The `(click)` [event binding](user-input.html#click) calls the Component's `selectHero` method when the user clicks
   on a hero's name
+  * `(click)`[事件绑定](user-input.html#click)
 
   **Two-way data binding** is an important fourth form
   that combines property and event binding in a single notation using the `ngModel` directive. 
   We didn't have a two-way binding in the `HeroListComponent` template; 
   here's an example from the `HeroDetailComponent` template (not shown):
+  
+  **双向数据绑定** 是很重要的第四种绑定形式，它在`ngModel`指令这个单一的标记中同时实现了属性绑定和事件绑定的功能。
+  在`HeroListComponent`模板中，没有双向绑定；下面是一个`HeroDetailComponent`模板中的范例(未显示)：
 
 +makeExample('architecture/ts/app/hero-detail.component.html', 'ngModel')(format=".")
 :marked
@@ -462,139 +501,223 @@ figure
   The user's changes also flow back to the component, resetting the property to the latest value,
   as with event binding.
   
+  在双向绑定中，组件中表示数据的属性值会由属性绑定传给输入框。用户的修改也会传回组件，通过事件绑定把最近的值传给属性。
+  
   Angular processes *all* data bindings once per JavaScript event cycle, 
   depth-first from the root of the application component tree. 
+  
+  Angular在每次JavaScript事件周期中处理一次 *所有的* 数据绑定，从组件树的根部开始进行深度优先遍历。
 figure
-  img(src="/resources/images/devguide/architecture/component-databinding.png" alt="Data Binding" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/component-databinding.png" alt="数据绑定" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
 :marked
   We don't know all the details yet
   but it's clear from these examples that data binding plays an important role in communication 
   between a template and its component ...
+  
+  虽然我们还没看懂所有细节，但从这些范例中，至少明白了一点：数据绑定在模板与相应组件的通讯中扮演了一个很重要的角色。
 <br clear="all">  
 figure
-  img(src="/resources/images/devguide/architecture/parent-child-binding.png" alt="Parent/Child binding" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/parent-child-binding.png" alt="父/子绑定" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
 :marked
   ... ***and*** between parent and child components
+  
+  ... ***并且*** 在父组件和子组件之间。
 <br clear="all">
 
 .l-main-section
 <a id="directive"></a>
 :marked
   ## The Directive
+  ## 指令
 figure
-  img(src="/resources/images/devguide/architecture/directive.png" alt="Parent child" style="float:left; width:150px; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/directive.png" alt="父与子" style="float:left; width:150px; margin-left:-40px;margin-right:10px" )
 :marked
   Our Angular templates are *dynamic*. When Angular renders them, it transforms the DOM 
   according to the instructions given by a **directive**.
   
+  我们的Angular模板是 *动态的* 。当Angular渲染它们时，它根据 **指令** 所提供的操作指南去转换DOM。
+  
   A directive is a class with directive metadata. In TypeScript we'd apply the `@Directive` decorator
   to attach metadata to the class.
+  
+  指令是一个带有“指令元数据”的类。在TypeScript中，我们得通过`@Directive`装饰器把元数据附加到类上。
 <br clear="all">
 :marked
   We already met one form of directive: the component. A component is a *directive-with-a-template*
   and the `@Component` decorator is actually a `@Directive` decorator extended with template-oriented features.
+  
+  我们已经遇到了指令的一种形式：组件。组件是一个 *带模板的指令* ，而且`@Component`装饰器实际上就是一个`@Directive`装饰器，只是扩展出了面向模板的属性。
 
 .l-sub-section
   :marked
     While the **component is technically a directive**, 
     it is so distinctive and central to Angular applications that we chose
     to separate the component from the directive in our architectural overview.
+    
+    虽然 **组件从技术角度上说就是一个指令** ，它与众不同，而且在Angular位于中心地位，所以我们选择把它和指令分开画在我们的架构视图中。
 :marked
   There are two *other* kinds of directives as well that we call "structural" and "attribute" directives.
+  
+  有两个 *其它* 类型的指令，我们称之为“结构型”和“属性型”指令。
   
   They tend to appear within an element tag like attributes, 
   sometimes by name but more often as the target of an assignment or a binding.
   
+  它们倾向于出现在元素标签中，比如属性（也有时是元素名），但通常还是作为赋值或绑定的目标。
+  
   **Structural** directives alter layout by adding, removing, and replacing elements in DOM.
   
+  **结构型指令** 通过在DOM中添加、移除和替换元素来修改布局。
+  
   We see two built-in structural directives at play in our [example](#template) template:
+  
+  我们在[范例](#template)模板中会看到两个内置的结构型指令。
 +makeExample('architecture/ts/app/hero-list.component.1.html', 'structural')(format=".")
 :marked
   * [`*ngFor`](displaying-data.html#ngFor) tells Angular to stamp out one `<div>` per hero in the `heroes` list.
+  * [`*ngFor`](displaying-data.html#ngFor)告诉Angular为`heroes`列表中的每个英雄生成一个`<div>`标签。
   * [`*ngIf`](displaying-data.html#ngIf) includes the `HeroDetail` component only if a selected hero exists.
+  * [`*ngIf`](displaying-data.html#ngIf)表示只有在已经选择了一个英雄时才会包含`HeroDetail`组件。
   
   **Attribute** directives alter the appearance or behavior of an existing element. 
   In templates they look like regular HTML attributes, hence the name.
   
+  **属性型指令** 修改一个现有元素的外观或行为。在模板中，他们看起来就像是标准的HTML属性，故名。
+  
   The `ngModel` directive, which implements two-way data binding, is an example of an attribute directive.
+  
+  `ngModel`指令是一个属性型指令的范例，它实现了双向数据绑定。
 +makeExample('architecture/ts/app/hero-detail.component.html', 'ngModel')(format=".")
 :marked
   It modifies the behavior of an existing element (typically an `<input>`) 
   by setting its display value property and responding to change events.
+  
+  它修改了现有元素（`<input>`就是典型）的行为，让它显示属性值，并从修改事件中得到回应。
   
   Angular ships with a few other directives that either alter the layout structure 
   (e.g. [ngSwitch](template-syntax.html#ngSwitch))
   or modify aspects of DOM elements and components 
   (e.g. [ngStyle](template-syntax.html#ngStyle) and [ngClass](template-syntax.html#ngClass)).
   
+  Angular内置了少量其它指令，或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)）或修改DOM元素和组件的各个方面
+  （比如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass)）。
+  
   And of course we can write our own directives.
+  
+  而且，当然，我们还能写自己的指令。
 
 .l-main-section
 <a id="service"></a>
 :marked
   ## The Service
+  ## 服务
 figure
-  img(src="/resources/images/devguide/architecture/service.png" alt="Service" style="float:left; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/service.png" alt="服务" style="float:left; margin-left:-40px;margin-right:10px" )
 :marked
   "Service" is a broad category encompassing any value, function or feature that our application needs.
   
+  “服务”分为很多种，包括：值、函数，以及应用所需的任何特性。
+  
   Almost anything can be a service. 
   A service is typically a class with a narrow, well-defined purpose. It should do something specific and do it well.
+  
+  几乎任何东西都能是一个服务。
+  服务是一个典型的类，具有专注的、定义良好的用途。它应该做一些指定的事，并且做好。
 <br clear="all">
 :marked
   Examples include:
+  例如：
   * logging service
+  * 日志服务
   * data service
+  * 数据服务
   * message bus
+  * 消息总线
   * tax calculator
+  * 税款计算器
   * application configuration
+  * 应用配置
   
   There is nothing specifically *Angular* about services. Angular itself has no definition of a *service*. 
   There is no *ServiceBase* class.
   
+  Angular对于服务没什么特别的要求。
+  Angular自己对于服务也没有什么限定。
+  Angular甚至都没有一个 *ServiceBase* 类。
+  
   Yet services are fundamental to any Angular application. 
   
+  即便如此，服务仍然是任何Angular应用的基础。
+  
   Here's an example of a service class that logs to the browser console
-+makeExample('architecture/ts/app/logger.service.ts', 'class', 'app/logger.service.ts (class only)')(format=".")
+  
+  这里是一个“服务”类的范例，用于把日志记录到浏览器的控制台：
++makeExample('architecture/ts/app/logger.service.ts', 'class', 'app/logger.service.ts (只有类)')(format=".")
 :marked
   Here's a `HeroService` that fetches heroes and returns them in a resolved [promise](http://exploringjs.com/es6/ch_promises.html). 
   The `HeroService` depends on the `LoggerService` and another `BackendService` that handles the server communication grunt work.
-+makeExample('architecture/ts/app/hero.service.ts', 'class', 'app/hero.service.ts (class only)')(format=".")
+  
+  下面是一个`HeroService`，用于获取英雄数据，并且通过一个解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
+  `HeroService`依赖`LoggerService`和另一个`BackendService`，用于处理服务器通讯工作。
++makeExample('architecture/ts/app/hero.service.ts', 'class', 'app/hero.service.ts (只有类)')(format=".")
 :marked
   Services are everywhere. 
+  
+  服务无处不在。
 
   Our components are big consumers of services. They depend upon services to handle most chores. 
   They don't fetch data from the server, they don't validate user input, they don't log directly to the console. 
   They delegate such tasks to services.
   
+  我们的组件是服务的主要消费者。它们依赖服务来处理大多数“苦差事”。
+  它们不需要从服务器获得数据，它们不需要验证输入，它们不需要直接往控制台写日志。
+  它们把任务委托给这些服务。
+  
   A component's job is to enable the user experience and nothing more. It mediates between the view (rendered by the template)
   and the application logic (which often includes some notion of a "model").  A good component presents
   properties and methods for data binding. It delegates everything non-trivial to services.
+  
+  组件的任务就是提供用户体验，仅此而已。它介于视图（由模板渲染）和应用逻辑（通常包括“模型model”的观念）之间。
+  设计良好的组件会提供属性和方法供数据绑定，而把那些不重要的事情都委托给服务。
 
   Angular doesn't *enforce* these principles. 
   It won't complain if we write a "kitchen sink" component with 3000 lines.
   
+  Angular不 *强制要求* 我们遵循这些原则。
+  即使我们用3000行写了一个“厨房洗碗槽”组件，它也不会抱怨什么。
+  
   Angular does help us *follow* these principles by making it easy to factor our
   application logic into services and make those services available to components through *dependency injection*.
+  
+  Angular帮助我们 *追随* 这些原则 —— 通过让我们能更容易的把应用逻辑拆分成组件，并通过 *依赖注入* 来让这些服务可以在组件中使用。
 
 .l-main-section
 <a id="dependency-injection"></a>
 :marked
   ## Dependency Injection
+  ## 依赖注入
 figure
-  img(src="/resources/images/devguide/architecture/dependency-injection.png" alt="Service" style="float:left; width:200px; margin-left:-40px;margin-right:10px" )
+  img(src="/resources/images/devguide/architecture/dependency-injection.png" alt="服务" style="float:left; width:200px; margin-left:-40px;margin-right:10px" )
 :marked
   "Dependency Injection" is a way to supply a new instance of a class 
   with the fully-formed dependencies it requires. Most dependencies are services.
   Angular uses dependency injection to provide new components with the services they need.
+  
+  “依赖注入”是提供类的新实例的一种方式，还包括它所需的全部依赖。大多数依赖也是服务。
+  Angular也使用依赖注入提供我们需要的组件，包括组件依赖的服务。
 <br clear="all">
 :marked
   In TypeScript, Angular can tell which services a component needs by looking at the types of its constructor parameters.
   For example, the constructor of our `HeroListComponent` needs the `HeroService`:
-+makeExample('architecture/ts/app/hero-list.component.ts', 'ctor', 'app/hero-list.component (constructor)')(format=".")
+  
+  借助TypeScript，Angular能通过查看构造函数的参数类型告诉组件需要哪些服务。
+  例如，我们`HeroListComponent`组件的构造函数需要`HeroService`：
++makeExample('architecture/ts/app/hero-list.component.ts', 'ctor', 'app/hero-list.component (构造函数)')(format=".")
 :marked
   When Angular creates a component, it first asks an **Injector** for
   the services that the component requires. 
+  
+  当Angular创建组件时，会首先为组件所需的服务找一个 **注入器Injector** 。
   
   An `Injector` maintains a container of service instances that it has previously created.
   If a requested service instance is not in the container, the injector makes one and adds it to the container
@@ -603,90 +726,155 @@ figure
   Angular can call the component's constructor with those services as arguments.
   This is what we mean by *dependency injection*.
   
+  注入器会维护一个服务实例的容器，存放着以前创建的实例。
+  如果容器中还没有所请求的服务实例，注入器就创建一个，并且添加到容器中，然后把这个服务返回给Angular。
+  当所有的服务都被解析完并返回时，Angular会以这些服务为参数去调用组件的构造函数。
+  这就是我们称其为 *依赖注入* 的原因。
+  
   The process of `HeroService` injection looks a bit like this:
+  
+  `HeroService`注入的过程看起来有点像这样：
 figure
-  img(src="/resources/images/devguide/architecture/injector-injects.png" alt="Service" )
+  img(src="/resources/images/devguide/architecture/injector-injects.png" alt="服务" )
 :marked
   If the `Injector` doesn't have a `HeroService`, how does it know how to make one?
+  
+  如果注入器还没有`HeroService`，它怎么知道该如何创建一个呢？
   
   In brief, we must have previously registered a **provider** of the `HeroService` with the `Injector`.
   A provider is something that can create or return a service, typically  the service class itself.
   
+  简单的说，我们必须有以前通过注入器注册过的`HeroService` **提供者**。
+  提供者就是某些我们用来创建并返回服务的东西，通常是这个服务类本身。
+  
   We can register providers at any level of the application component tree.
   We often do so at the root when we bootstrap the application so that
   the same instance of a service is available everywhere.
-+makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (excerpt)')(format=".")
+  
+  我们可以在应用的组件树中的任何级别上注册提供者。
+  我们通常在应用启动时注册在根组件上，以便此服务的同一个实例在任何地方都时可用的。
++makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (节选)')(format=".")
 :marked
   Alternatively, we might register at a component level ...
-+makeExample('architecture/ts/app/hero-list.component.ts', 'providers','app/hero-list.component.ts (excerpt)')(format=".")
+  
+  或者，我们也可以注册在组件层……
++makeExample('architecture/ts/app/hero-list.component.ts', 'providers','app/hero-list.component.ts (节选)')(format=".")
 :marked
   ... in which case we get a new instance of the
   service with each new instance of that component.
   
+  …… 在这种情况下，那个组件的每一个新实例都会有一个本服务的新实例。
+  
   We've vastly over-simplified dependency injection for this overview.
   We can learn the full story in the [Dependency Injection](dependency-injection.html) chapter.
   
+  在这个概览中，我们极大的简化了依赖注入机制。
+  在[依赖注入](dependency-injection.html)一章中，我们能学到关于它的全部知识。
+  
   The points to remember are:
+  需要记住的要点是：
   * dependency injection is wired into the framework and used everywhere.<br><br>
+  * 依赖注入渗透到本框架中，并且随处可用。<br><br>
   * the `Injector` is the main mechanism.
+  * 注入器是本机制的核心。
     * an injector maintains a *container* of service instances that it created.
+    * 注入器负责维护一个用于存放它创建的服务实例的 *容器* 。
     * an injector can create a new service instance using a *provider*.
+    * 注入器能通过 *提供者* 创建一个新的服务实例。
   * a *provider* is a recipe for creating a service.
+  * *提供者* 是一个用于创建服务的“菜谱”。
  
   * we register *providers* with injectors.
+  * 我们通过注入器注册 *供应者* 。
 
 <a id="other-stuff"></a>  
 .l-main-section
 :marked
   ## Wrap up
+  ## 总结
   We've learned just a bit about the eight main building blocks of an Angular application
   
+  我们已经学到的这些只是关于应用的八个主要构造块儿的一点皮毛
+  
   1. [Module](#module)   
+  1. [模块Module](#module)   
   1. [Component](#component)
+  1. [组件Component](#component)
   1. [Template](#template)
+  1. [模板Template](#template)
   1. [Metadata](#metadata)
+  1. [元数据Metadata](#metadata)
   1. [Data Binding](#data-binding)
+  1. [数据绑定Data Binding](#data-binding)
   1. [Service](#service)
+  1. [服务Service](#service)
   1. [Directive](#directive)
+  1. [指令Directive](#directive)
   1. [Dependency Injection](#dependency-injection)
+  1. [依赖注入Dependency Injection](#dependency-injection)
   
   That's a foundation for everything else in an Angular application
   and it's more than enough to get going.
   But it doesn't include everything we'll need or want to know.
     
+  这是Angular应用中所有其他东西的基础，而且它已经绰绰有余了。
+  但它还没有包括我们所要用的或想知道的一切。
 <a id="other-stuff"></a>  
 .l-main-section
 :marked
   ## The Other Stuff
+  ## 其他东西
   
   Here is a brief, alphabetical list of other important Angular features and services. 
   Most of them are covered in this Developers Guide (or soon will be):
   
+  这里是一个简短的、按字母排序的列表，列出了其它重要的Angular特性和服务。
+  它们大多数已经（或即将）包括在这个《开发人员指南》中：
+  
   >**Animations** - A forthcoming animation library makes it easy for developers to animate component behavior
   without deep knowledge of animation techniques or css.
     
+  >**动画Animations** - 即将到来的动画库让开发人员给组件添加动画行为变得更容易，而不需要对动画技术或css有深入了解。
+  
   >**Bootstrap** - A method to configure and launch the root application component.
+  
+  >**启动Bootstrap** - 配置和启动应用的根组件的一种方法。
   
   >**Change Detection** - Learn how Angular decides that a component property value has changed and 
   when to update the screen. 
   Learn how it uses **zones** to intercept asynchronous activity and run its change detection strategies. 
   
+  >**变更检测Change Detection** - 学会Angular如何决定组件的哪些属性值发生了变化，以及什么时候该更新到屏幕。 
+  学会它如何使用 **zones** 来拦截异步行为，以及它如何运行变更检测策略。
+  
   >**[Component Router](router.html)** - With the Component Router service, users can navigate a multi-screen application 
   in a familiar web browsing style using URLs.
+  
+  >**[组件路由Component Router](router.html)** - 通过组件路由服务，可以让用户使用浏览器中熟悉的URL形式，在多屏应用之间导航。
   
   >**Events** - The DOM raises events. So can components and services. Angular offers mechanisms for
   publishing and subscribing to events including an implementation of the [RxJS Observable](https://github.com/zenparsing/es-observable) proposal.
   
+  >**事件Events** - DOM能触发事件。组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实现。
+  
   >**[Forms](forms.html)** - Support complex data entry scenarios with HTML-based validation and dirty checking.
   
+  >**[表单Forms](forms.html)** - 通过基于HTML的验证和脏检查机制支持复杂的数据输入场景。
+  
   >**HTTP** - Communicate with a server to get data, save data, and invoke server-side actions with this Angular HTTP client.
+  
+  >**HTTP** - 通过这个Angular HTTP客户端，可以与服务器通讯来获得数据、保存数据和触发服务端动作。
   
   >**[Lifecycle Hooks](lifecycle-hooks.html)** - We can tap into key moments in the lifetime of a component, from its creation to its destruction, 
   by implementing the "Lifecycle Hook" interfaces.
   
+  >**[生命周期钩子Lifecycle Hooks](lifecycle-hooks.html)** - 通过实现“生命周期钩子”接口，我们可以切入组件生命中的几个关键点：从创建到销毁。
+  
   >**[Pipes](pipes.html)** - Services that transform values for display. 
   We can put pipes in our templates to improve the user experience. For example,
   this `currency` pipe expression,
+  
+  >**[管道Pipes](pipes.html)** - 服务转换值并且显示。我们可以把管道放在模板中，以增强用户体验。比如这个`currency`管道表达式，
 <div style="margin-left:40px">
 code-example(language="javascript" linenumbers=".").
   price | currency:'USD':true
@@ -694,5 +882,9 @@ code-example(language="javascript" linenumbers=".").
 :marked
   >displays a price of "42.33" as `$42.33`.
   
+  >把"42.33"显示为`$42.33`。
+  
   >**[Testing](../testing/index.html)** - Angular provides a testing library for "unit testing" our application parts as they
   interact with the Angular framework.
+
+  >**[Testing](../testing/index.html)** - Angular提供了一个用于对我们应用中的各个部分进行“单元测试”的测试库，就像它们与Angular框架交互时一样。
