@@ -196,15 +196,25 @@ pre.prettyprint.lang-bash
   ## 添加一个describe和其他测试
 
   We can’t tell what file produced these test results. We only have one file at the moment but soon we’ll write more.
-
-  We should wrap this test into something that identifies the file. In Jasmine that “something” is a `describe` function.  Every test file should have at least one `describe` that identifies the file holding the test(s).
+  
+  我们不知道什么文件生成了这些测试结果。虽然我们目前只有一个文件但是我们会编写更多。
+  
+  We should wrap this test into something that identifies the file. In Jasmine that “something” is a `describe` function.  
+  Every test file should have at least one `describe` that identifies the file holding the test(s).
+  
+  我们应该把这个测试包裹到一个可以识别这个文件的东西。在Jasmine里，这个东西是一个`describe`函数。
+  每个测试文件都应该至少有一个`describe`来标识这个文件测试了什么。
 
   Here’s what our revised `1st.spec.ts` looks like when wrapped in a `describe`:
+  
+  下面是我们修改`1st.spec.ts`，用`describe`包裹后的结果：
 
 +makeExample('testing/ts/1st.spec.ts', 'describe')
 
 :marked
   And here’s how the test report displays it.
+  
+  下面是测试报告的显示：
 
 figure.image-display
     img(src='/resources/images/devguide/jasmine-testing-101/test-report-1-spec-0-failures.png' style="height:100px;" alt="1 spec, 0 failures")
@@ -212,10 +222,14 @@ figure.image-display
 :marked
   Let’s add another Jasmine test to `1st.spec.ts`
   
+  让我们添加另一个测试到`1st.spec.ts`
+  
 +makeExample('testing/ts/1st.spec.ts', 'another-test')(format=".")
 
 :marked
   You knew that right?  Let’s prove it with this test. The browser should refresh after you paste that test, and show:
+
+  你知道这个吧？让我们用这个测试来证明。浏览器应该在你粘贴那个测试后更新，然后显示：
 
 figure.image-display
     img(src='/resources/images/devguide/jasmine-testing-101/test-report-2-specs-0-failures.png' style="height:100px;" alt="refreshed 2 specs, 0 failures")
@@ -223,46 +237,72 @@ figure.image-display
 :marked
   What does a failing test look like? Remove the `.not`. The browser refreshes and shows:
 
+  测试失败是什么样子？删除`.net`，刷新浏览器：
 figure.image-display
     img(src='/resources/images/devguide/jasmine-testing-101/test-report-2-specs-1-failure.png' style="height:190px;" alt="failing test 2 specs, 1 failure")
 
 :marked
   Click the `Spec List` link just below “2 specs, 1 failure” to see the summary again:
+  
+  点击“2 Specs, 1 failure”下面的`Spec List`链接，看看总结：
 
 figure.image-display
     img(src='/resources/images/devguide/jasmine-testing-101/spec-list-2-specs-1-failure.png' style="height:140px;" alt="2 specs, 1 failure")
 
 :marked
   We can re-run just the failing test by double-clicking it.  Try it!
+  
+  我们可以只重新运行失败的测试，点击它就可以了。试试!
 
 .l-main-section
 :marked
   ## Debug the test
+  ## 调试测试
   Suppose we didn’t know what was going on.  We can debug it in the browser.
+  
+  假设我们不知道是怎么回事。我们都能在浏览器里面调试它。
 
     - Open the browser’s “Developer Tools” (F12 or Ctrl-Shift-I).
+    - 打开浏览器的“开发者工具”（F12或者Ctrl-Shift-I)
     - Pick the “sources” section
+    - 选择"sources"标签
     - Open the `1st.spec.ts` test file (Ctrl-P, then start typing the name of the file).
+    - 打开`1st.spec.ts`测试文件（Ctrl-P, 然后开始输入文件名字）
     - Set a breakpoint on the second line of the failing test
+    - 在失败的测试的第二行，设置一个断点
     - Refresh the browser … and it stops at our breakpoint.
+    - 刷新浏览器...然后它停在我们的断点上
     - Open the console window at the bottom  (press Esc)
+    - 在底部打开console窗口（按Esc键）
     - Type `null === undefined` … … and we should see this:
+    - 输入`null === undefined`...然后我们可以看到这个：
 
 figure.image-display
     img(src='/resources/images/devguide/jasmine-testing-101/null-to-equal-undefined.png' style="height:500px;" alt="null === undefined")
 
 :marked
   How about that!  They really aren’t equal.
+  你觉得怎么样？它们真的不相等。
     - remove the breakpoint (right-click in the “Breakpoints” section and chose “Remove breakpoint”)
+    - 移除断点（在“Breakpoints”区域，右键点击“Remove breakpoint”)
     - Click the “play” icon to resume the test  (or F8)
+    - 点击“play”图标来继续运行测试（或F8）
 
   And the test finishes.  Close the browser tools (click the close box or press F12 or Ctrl-Shift-I)
+  
+  然后测试完成。关闭浏览器工具（点击关闭图标或者按F12或Ctrl-Shift-I)
 
   Fix the test (restore the `.not`);  the browser should refresh automatically and all tests pass.
+  
+  修复测试（恢复`.not`）；浏览器应该自动刷新，所有测试都通过。
 
   Congratulations … you’ve completed Jasmine testing 101.
   
+  恭喜...你完成了Jasmine测试101。
+  
   Now that we’re familiar with Jasmine on its own, we’re ready to test an application.
+  
+  现在，我们熟悉了Jasmine的独立运作，我们已做好准备测试一个应用程序了。
 
   <!-- TODO
   .l-main-section
