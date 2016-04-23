@@ -5,17 +5,27 @@ include ../_util-fns
   we want to know about it. These user actions all raise DOM events.
   In this chapter we learn to bind to those events using the Angular
   event binding syntax.
+  
+  当用户点击连接、按下按钮或者输入文字时，我们得知道发生了什么。这些用户操作都会产生DOM事件。
+  本章中，我们将学会如何使用Angular事件绑定语法来绑定这些事件。
 
   [Run the live example](/resources/live-examples/user-input/ts/plnkr.html)
+  
+  [运行鲜活范例](/resources/live-examples/user-input/ts/plnkr.html)
 
 :marked
   ## Binding to user input events
+  ## 绑定到用户输入事件
 
   We can use [Angular event bindings](./template-syntax.html#event-binding)
   to respond to [any DOM event](https://developer.mozilla.org/en-US/docs/Web/Events).
+  
+  我们可以使用[Angular事件绑定](./template-syntax.html#event-binding)机制来响应[任何DOM事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 
   The syntax is simple. We surround the DOM event name in parentheses and assign a quoted template statement to it.
   As an example, here's an event binding that implements a click handler:
+  
+  语法非常简单。我们只要把DOM事件的一个包裹在圆括号中，然后用一个放在引号中的模板语句对它赋值就可以了。
 +makeExample('user-input/ts/app/click-me.component.ts', 'click-me-button')(format=".", language="html")
 
 <a id="click"></a>
@@ -24,43 +34,71 @@ include ../_util-fns
   The text within quotes on the right is the **template statement** in which we
   respond to the click event by calling the component's `onClickMe` method. A [template statement](./template-syntax.html#template-statements) is a subset
   of JavaScript with restrictions and a few added tricks.
+  
+  等号左边的`(click)`表示用此按钮的click事件作为 **绑定目标** 。
+  等号右边放在引号中的文本是一个 **模板语句** ，在这里我们通过调用组件的`onClickMe`方法来响应这个click事件。
+  [模板语句](./template-syntax.html#template-statements)的语法是JavaScript语法的一个受限子集，但是它也添加了少量“小花招”。
 
   When writing a binding we must be aware of a template statement's **execution context**.
   The identifiers appearing within a statement belong to a specific context object.
   That object is usually the Angular component that controls the template  ... which it definitely is
   in this case because that snippet of HTML belongs to the following component:
+  
+  写一个绑定时，我们必须知道模板语句的 **执行上下文** 。
+  出现在语句中的各个标识符，全都属于一个特殊的上下文对象。
+  这个对象通常都是控制此模板的Angular组件 …… 在本例子它是明确的，因为这段HTML片段属于下面这个组件：
 
 +makeExample('user-input/ts/app/click-me.component.ts', 'click-me-component', 'app/click-me.component.ts')(format=".")
 :marked
   When the user clicks the button, Angular calls the component's `onClickMe` method.
+  
+  当用户点击此按钮时，Angular调用组件的`onClickMe`方法。
 
 .l-main-section
 :marked
   ## Get user input from the $event object
+  ## 通过$event对象取得用户输入
   We can bind to all kinds of events. Let's bind to the keyup event of an input box and replay
   what the user types back onto the screen.
+  
+  我们可以绑定到所有类型的事件。我们来绑定到一个输入框的keyup事件，并且把用户输入的东西回显到屏幕上。
 
   This time we'll (1) listen to an event and (2) grab the user's input.
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-template', 'app/keyup.components.ts (template v.1)')(format=".")
+  
+  这次，我们将（1）监听一个事件（2）捕获用户输入。
++makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-template', 'app/keyup.components.ts (模板 v.1)')(format=".")
 :marked
   Angular makes an event object available in the **`$event`** variable,
   which we pass to the component's `onKey()` method.
   The user data we want is in that variable somewhere.
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class-no-type', 'app/keyup.components.ts (class v.1)')(format=".")
+  
+  Angular把事件对象存入 **`$event`** 变量中，也就是我们传入组件的`onKey()`方法中的那个。
+  我们希望得到的用户数据就在这个变量中的某个地方。
++makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class-no-type', 'app/keyup.components.ts (类 v.1)')(format=".")
 :marked
   The shape of the `$event` object is determined by whatever raises the event.
   The `keyup` event comes from the DOM, so `$event` must be a [standard DOM event object](https://developer.mozilla.org/en-US/docs/Web/API/Event).
   The `$event.target` gives us an
   [`HTMLInputElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), which
   has a `value` property that contains our user input data.
+  
+  `$event`对象的形态取决于所触发的事件。
+  这个`keyup`事件来自DOM，所以`$event`必须是一个[标准的DOM事件对象](https://developer.mozilla.org/en-US/docs/Web/API/Event)。
+  `$event.target`给了我们一个[`HTMLInputElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)，它有一个`value`属性，是用户所输入的数据。
 
   The `onKey()` component method is where we extract the user's input
   from the event object, adding that input to the list of user data that we're accumulating in the component's `values` property.
   We then use [interpolation](./template-syntax.html#interpolation)
   to display the accumulating `values` property back on screen.
 
+  组件的`onKey()`方法是我们从事件对象中提取出用户输入的地方，然后把这个输入加入用户数据的列表，并累加到组件的`values`属性上。
+  然后使用[插值表达式](./template-syntax.html#interpolation)来把存放累加结果的`values`属性回显到屏幕上。
+  
   Enter the letters "abc", and then backspace to remove them.
   Here's what the UI displays:
+  
+  输入字母"abc"，然后用退格键删除它们。
+  UI上的显示如下：
 code-example().
   a | ab | abc | ab | a | |
 figure.image-display
@@ -72,25 +110,41 @@ figure.image-display
     We cast the `$event` as an `any` type, which means we've abandoned strong typing
     to simplify our code. We generally prefer the strong typing that TypeScript affords.
     We can rewrite the method, casting to HTML DOM objects like this.
-  +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class', 'app/keyup.components.ts (class v.1 - strongly typed )')(format=".")
+    
+    我们把`$event`变量声明成了`any`类型，这意味着我们放弃了强类型，以简化代码。我们更建议您好好使用TypeScript提供的强类型机制。
+    我们可以重写此方法，把它声明为HTML DOM对象，就像这样：
+  +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class', 'app/keyup.components.ts (类 v.1 - 强类型版本)')(format=".")
   :marked
     <br>Strong typing reveals a serious problem with passing a DOM event into the method:
     too much awareness of template details, too little separation of concerns.
 
+    <br>强类型暴露出了把DOM事件对象传入方法导致的一个严重问题：关心模板细节太多，关注点分离得太少。（译注：比如需要进行丑陋的强制类型转换）
+
     We'll address this problem in our next try at processing user keystrokes.
+    
+    我们先记下这个问题，以后再继续尝试处理用户按键。
 :marked
 
 .l-main-section
 :marked
   ## Get user input from a local template variable
+  ## 从一个局部模板变量中获得用户输入
   There's another way to get the user data without the `$event` variable.
+  
+  还有另一种方式，不用通过`$event`变量获得用户数据。
 
   Angular has a syntax feature called [**local template variables**](./template-syntax.html#local-vars).
   These variables grant us direct access to an element.
   We declare a local template variable by preceding an identifier with a hash/pound character (#).
+  
+  Angular有一个叫做[**局部模板变量**](./template-syntax.html#local-vars)的语法特性。
+  这些变量给了我们直接访问元素的能力。
+  通过在标识符前加上井号（#），我们就能定义一个局部模板变量。
 
   Here's an example of using a local template variable
   to implement a clever keystroke loopback in an ultra-simple template.
+  
+  下面的例子就通过使用局部模板变量，在一个超级简单的模板中实现了一个聪明的按键反馈循环。
 +makeExample('user-input/ts/app/loop-back.component.ts', 'loop-back-component', 'app/loop-back.component.ts')(format=".")
 :marked
   We've declared a template local variable named `box` on the `<input>` element.
@@ -98,128 +152,214 @@ figure.image-display
   grab the input element's `value` and display it
   with interpolation between `<p>` tags.
 
+  我们在`<input>`元素上定义了一个名叫`box`的局部模板变量。
+  `box`变量引用的就是`<input>`元素本身，这意味着我们可以获得input元素的`value`值，并且通过插值表达式把它显示在`<p>`标签中。
+  
   The template is completely self contained. It doesn't bind to the component,
   and the component does nothing.
 
+  本模板完全是自包含的。它不需要绑定到组件，即使要绑定，组件也不需要做什么。
+
   Type in the input box, and watch the display update with each keystroke. *Voila!*
+  
+  在输入框中输入，就会看到每次按键时，显示也随之更新了。*完工！*
 
 figure.image-display
-    img(src='/resources/images/devguide/user-input/keyup-loop-back-anim.gif' alt="loop back")
+    img(src='/resources/images/devguide/user-input/keyup-loop-back-anim.gif' alt="反馈")
 .l-sub-section
   :marked
     **This won't work at all unless we bind to an event**.
+    
+    **除非我们绑定到一个事件，否则这将完全无法工作。
 
     Angular only updates the bindings (and therefore the screen)
     if we do something in response to asynchronous events such as keystrokes.
+    
+    如果我们在异步事件（如击键）的响应中做点什么，Angular只会更新绑定（并最终影响到屏幕）。
 
     That's why we bind the `keyup` event to a statement that does ... well, nothing.
     We're binding to the number 0, the shortest statement we can think of.
     That is all it takes to keep Angular happy. We said it would be clever!
+    
+    这就是我们为什么需要把`keyup`事件绑定到一个语句，它做了……好吧，它啥也没做。
+    它被绑定到了数字0，这是我们所能想到的最短的语句。
+    这么做完全是为了讨好Angular。我们认为，还应该有更聪明的方式！
 :marked
   That local template variable is intriguing. It's clearly easier to get to the textbox with that
   variable than to go through the `$event` object. Maybe we can rewrite our previous
   keyup example so that it uses the variable to get the user's input. Let's give it a try.
+  
+  局部模板变量很有意思。它用一个变量就简洁明了的获取了文本框，而不再需要通过`$event`对象。
+  也许我们可以重写前面的keyup范例，以便它能用这个变量来获得用户输入。我们这就试试看。
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-2' ,'app/keyup.components.ts (v2)')(format=".")
 :marked
   That sure seems easier.
   An especially nice aspect of this approach is that our component code gets clean data values from the view.
   It no longer requires knowledge of the `$event` and its structure.
+  
+  看起来真是简单多了。
+  这个方案最漂亮的一点是：我们的组件代码从视图中获得了干净的数据值。再也不需要知道`$event`变量及其结构了。
 
 <a id="key-event"></a>
 .l-main-section
 :marked
   ## Key event filtering (with `key.enter`)
+  ## 按键事件过滤（通过`key.enter`）
   Perhaps we don't care about every keystroke.
   Maybe we're only interested in the input box value when the user presses Enter, and we'd like to ignore all other keys.
   When we bind to the `(keyup)` event, our event handling statement hears *every keystroke*.
   We could filter the keys first, examining every `$event.keyCode`, and update the `values` property only if the key is Enter.
+  
+  或许我们并不关心每一次按键，只在用户按下回车（enter）键的时候，我们才会关心输入框的值，所有其它按键都可以忽略。
+  当绑定到`(keyup)`事件的时候，我们的事件处理语句会听到 *每一次按键* 。
+  我们应该先过滤一下按键，比如每一个`$event.keyCode`，并且只有当这个按键是回车键的时候才更新`values`属性。
 
   Angular can filter the key events for us. Angular has a special syntax for keyboard events.
   We can listen for just the Enter key by binding to Angular's `keyup.enter` pseudo-event.
+  
+  Angular可以为我们过滤键盘事件。Angular有一个关于键盘事件的特殊语法。
+  通过绑定到Angular的`keyup.enter`伪事件，我们可以只监听回车键的事件。
 
   Only then do we update the component's `values` property. (In this example,
   the update happens inside the event binding statement. A better practice
   would be to put the update code in the component.)
+  
+  只有在这种情况下，我们才更新组件的`values`属性。（在这个例子中，更新代码是写在事件绑定语句中的。但在实践中更好的方式是把更新代码放到组件中。）
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-3' ,'app/keyup.components.ts (v3)')(format=".")
 :marked
   Here's how it works.
+  
+  下面展示了它是如何工作的。
 figure.image-display
     img(src='/resources/images/devguide/user-input/keyup3-anim.gif' alt="key up 3")
 
 .l-main-section
 :marked
   ## On blur
+  ## blur（失去焦点）事件
 
   Our previous example won't transfer the current state of the input box if the user mouses away and clicks
   elsewhere on the page. We update the component's `values` property only when the user presses Enter
   while the focus is inside the input box.
 
+  前一个例子中，如果用户移开了鼠标，并且点击了页面中别的地方，它不会传出输入框的值。而我们希望它在失去焦点时的行为也等同于按下回车键。
+  只有在输入框得到焦点，并且用户按下了回车键的时候，我们才能更新组件的`values`属性。
+  
   Let's fix that by listening to the input box's blur event as well.
+  
+  我们来修正这个问题 —— 通过同时监听输入框失去焦点的事件。
 
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-4' ,'app/keyup.components.ts (v4)')(format=".")
 
 .l-main-section
 :marked
   ## Put it all together
+  ## 把它们放在一起
   We learned how to [display data](./displaying-data.html) in the previous chapter.
   We've acquired a small arsenal of event binding techniques in this chapter.
+  
+  在前一章中，我们学到了如何[显示数据](./displaying-data.html)。
+  在本章中，我们得到了一个关于事件绑定技术的小型武器库。
 
   Let's put it all together in a micro-app
   that can display a list of heroes and add new heroes to that list.
   The user can add a hero by first typing in the input box and then
   pressing Enter, clicking the Add button, or clicking elsewhere on the page.
+  
+  让我们在一个微型应用中把它们放在一起，它能显示一个英雄列表，并且把新的英雄加到列表中。
+  用户可以通过下列步骤田家英雄：先在输入框中输入，然后按下回车键、按下添加按钮或点击页面中的其它地方。
 
 figure.image-display
-    img(src='/resources/images/devguide/user-input/little-tour-anim.gif' alt="Little Tour of Heroes")
+    img(src='/resources/images/devguide/user-input/little-tour-anim.gif' alt="简版英雄指南")
 :marked
   Below is the "Little Tour of Heroes"  component.
   We'll call out the highlights after we bask briefly in its minimalist glory.
+  
+  下面就是“简版英雄指南”组件。
+  短暂看一下即可，我们接下来将对它们分别讲解。
 
 +makeExample('user-input/ts/app/little-tour.component.ts', 'little-tour', 'app/little-tour.component.ts')(format=".")
 :marked
   We've seen almost everything here before. A few things are new or bear repeating.
+  
+  我们在这里看到了以前接触过的几乎每一个概念。有少量新东西，其它是复习。
 
   ### Use template variables to refer to elements
+  ### 使用模板变量引用元素
 
   The `newHero` template variable refers to the `<input>` element.
   We can use `newHero` from any sibling or child of the `<input>` element.
+  
+  `newHero`模板变量引用了`<input>`元素。
+  我们可以在`<input>`元素的任何兄弟组件或子组件中使用`newHero`。
 
   Getting the element from a template variable makes the button click handler
   simpler. Without the variable, we'd have to use a fancy CSS selector
   to find the input element.
+  
+  从模板变量中获得元素让按钮click事件的处理变得更简单。
+  如果没有变量，我们就不得不使用“时髦的”CSS选择器来查找这个input元素。
 
   ### Pass values, not elements
+  ### 传入值，不要传元素
 
   We could have passed the `newHero` into the component's `addHero` method.
+  
+  我们可以把`newHero`传入组件的`addHero`方法。
 
   But that would require `addHero` to pick its way through the `<input>` DOM element,
   something we learned to dislike in our first try at a [keyup component](#keyup1).
+  
+  但是那将需要`addHero`通过访问`<input>`DOM元素的方式先取得它 —— 我们以前在[keyup组件](#keyup1)中学过的那种讨厌的方式。
 
   Instead, we grab the input box *value* and pass *that* to `addHero`.
   The component knows nothing about HTML or the DOM, which is the way we like it.
+  
+  该怎么做呢？我们获得输入框的 *value* ，并且把它传入`addHero`。
+  该组件不需要知道关于HTML或DOM的任何知识，我们更喜欢这种方式。
 
   ### Keep template statements simple
+  ### 保持模板中的语句简洁
   We bound `(blur)` to *two* JavaScript statements.
+  
+  我们把`(blue)`事件绑定到了 *两个* JavaScript语句。
 
   We like the first one, which calls `addHero`.
   We do not like the second one, which assigns an empty string to the input box value.
+  
+  我们喜欢前一个，它调用了`addHero`。
+  我们不喜欢第二个，它把一个空值赋值给了输入框的`value`。
 
   The second statement exists for a good reason. We have to clear the input box after adding the new hero to the list.
   The component has no way to do that itself because it has no access to the
   input box (our design choice).
+  
+  第二个语句的存在有一个好理由：在把新的英雄加入列表中之后，我们得清除输入框的值。
+  组件自己做不到这一点，它不能访问输入框（我们的设计就是这样）。
 
   Although the example *works*, we are rightly wary of JavaScript in HTML.
   Template statements are powerful. We're supposed to use them responsibly.
   Complex JavaScript in HTML is irresponsible.
+  
+  虽然范例 *能工作* ，但我们得对HTML中的JavaScript保持警惕。
+  模板语句很强大。我们要负责任的使用它们。
+  但显然，在HTML中使用复杂的JavaScript是不负责任的表现。
 
   Should we reconsider our reluctance to pass the input box into the component?
+  
+  我们要重新考虑我们是否不得不把输入框传给组件？
 
   There should be a better third way. And there is, as we'll see when we learn about `NgModel` in the [Forms](forms.html) chapter.
+  
+  应该有一种更好的第三条道路。确实有！当我们在[表单](forms.html)一章学到`ngModel`时就明白了。
 .l-main-section
 :marked
   ## Source code
+  ## 源码
 
   Here is all the code we talked about in this chapter.
+  
+  下面是我们在本章中讨论的所有源码。
 +makeTabs(`
   user-input/ts/app/click-me.component.ts,
   user-input/ts/app/keyup.components.ts,
@@ -234,11 +374,18 @@ figure.image-display
 .l-main-section
 :marked
   ## Summary
+  ## 小结
 
   We've mastered the basic primitives for responding to user input and gestures.
   As powerful as these primitives are, they are a bit clumsy for handling
   large amounts of user input. We're operating down at the low level of events when
   we should be writing two-way bindings between data entry fields and model properties.
+  
+  我们已经掌握了响应用户输入和操作的基础技术。
+  虽然这些基础技术确实强大，但在处理大量用户输入时难免显得笨拙。
+  我们正在事件底层操作。我们应该在数据输入字段和模型属性之间建立双向数据绑定。
 
   Angular has a two-way binding called `NgModel`, which we'll learn about
   in the `Forms` chapter.
+  
+  Angular有一种叫做`NgModel`的双向数据绑定机制，我们将在`Forms`一章中学到它。
