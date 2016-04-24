@@ -4,28 +4,49 @@ include ../_util-fns
   Dependency Injection is a powerful pattern for managing code dependencies. 
   In this cookbook we will explore many of the features of Dependency Injection (DI) in Angular.
   
+  依赖注入是一个强大的管理代码依赖链的架构模式。在这个“食谱”中，我们会讨论Angular依赖注入的许多特性。
 <a id="toc"></a>
 :marked
   ## Table of contents
+  ## 目录
 
   [Application-wide dependencies](#app-wide-dependencies)
+  
+  [应用程序全范围依赖](#app-wide-dependencies)
 
   [External module configuration](#external-module-configuration)
-
+  
+  [外部模块设置](#external-module-configuration)
   [*@Injectable* and nested service dependencies](#nested-dependencies)
+  
+  [*@Injectable*和嵌套服务的依赖](#nested-dependencies)  
 
   [Limit service scope to a component subtree](#service-scope)
-
+  
+  [服务作用范围限制在一个组件数内](#service-scope)
+  
   [Multiple service instances (sandboxing)](#multiple-service-instances)
-
+  
+  [多个服务实例(sandboxing)](#multiple-service-instances)
+  
   [Qualify dependency lookup with *@Optional* and *@Host*](#qualify-dependency-lookup)
-
+  
+  [ 使用*@Optional*和*@Host*装饰来调用依赖](#qualify-dependency-lookup)
+  
   [Inject the component's DOM element](#component-element)
-
+  
+  [注入组件的DOM元素](#component-element)
+  
   [Define dependencies with providers](#providers)
+  
+  [使用提供者（providers）定义依赖](#providers)
+  
   * [The *provide* function](#provide)
-  * [useValue - the *value provider*](#usevalue)
-  * [useClass - the *class provider*](#useclass)
+  
+  * [*提供者provide*功能](#provide)
+  
+  * [useValue - the *value provider*](#usevalue)  
+  * [useClass - the *class provider*](#useclass)  
   * [useExisting - the *alias provider*](#useexisting)
   * [useFactory - the *factory provider*](#usefactory)  
 
