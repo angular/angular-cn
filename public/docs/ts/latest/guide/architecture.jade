@@ -744,14 +744,14 @@ figure
   In brief, we must have previously registered a **provider** of the `HeroService` with the `Injector`.
   A provider is something that can create or return a service, typically  the service class itself.
   
-  简单的说，我们必须有以前通过注入器注册过的`HeroService` **提供者**。
-  提供者就是某些我们用来创建并返回服务的东西，通常是这个服务类本身。
+  简单的说，我们必须有以前通过注入器注册过的`HeroService` **Provider**。
+  Provider就是某些我们用来创建并返回服务的东西，通常是这个服务类本身。
   
   We can register providers at any level of the application component tree.
   We often do so at the root when we bootstrap the application so that
   the same instance of a service is available everywhere.
   
-  我们可以在应用的组件树中的任何级别上注册提供者。
+  我们可以在应用的组件树中的任何级别上注册Provider。
   我们通常在应用启动时注册在根组件上，以便此服务的同一个实例在任何地方都时可用的。
 +makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (节选)')(format=".")
 :marked
@@ -780,9 +780,9 @@ figure
     * an injector maintains a *container* of service instances that it created.
     * 注入器负责维护一个用于存放它创建的服务实例的 *容器* 。
     * an injector can create a new service instance using a *provider*.
-    * 注入器能通过 *提供者* 创建一个新的服务实例。
+    * 注入器能通过 *Provider* 创建一个新的服务实例。
   * a *provider* is a recipe for creating a service.
-  * *提供者* 是一个用于创建服务的“菜谱”。
+  * *Provider* 是一个用于创建服务的“菜谱”。
  
   * we register *providers* with injectors.
   * 我们通过注入器注册 *供应者* 。
