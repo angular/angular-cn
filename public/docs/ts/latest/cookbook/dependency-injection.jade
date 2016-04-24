@@ -23,7 +23,7 @@ include ../_util-fns
 
   [Limit service scope to a component subtree](#service-scope)
   
-  [服务作用范围限制在一个组件数内](#service-scope)
+  [限制服务作用范围到一个组件支树](#service-scope)
   
   [Multiple service instances (sandboxing)](#multiple-service-instances)
   
@@ -31,7 +31,7 @@ include ../_util-fns
   
   [Qualify dependency lookup with *@Optional* and *@Host*](#qualify-dependency-lookup)
   
-  [ 使用*@Optional*和*@Host*装饰来调用依赖](#qualify-dependency-lookup)
+  [使用*@Optional*和*@Host*装饰来认证依赖调用过程](#qualify-dependency-lookup)
   
   [Inject the component's DOM element](#component-element)
   
@@ -98,10 +98,12 @@ include ../_util-fns
     A *provider* is something that can create or deliver a service.
     Angular creates a service instance from a class provider by "new-ing" it.
     Learn more about providers [below](#providers).
-    一个*provider*
+    一个*provider*是用来新建或者送交服务的。Angular从一个类provider里面，通过“new-ing”来新建服务实例的。从[下面](#providers)学习更多关于provders的知识。
 :marked
-  Now that we've registered these services, 
+  Now that we've registered these services,   
   Angular can inject them into the constructor of *any* component or service, *anywhere* in the application.
+  
+  现在我们已经注册了这些服务，Angular能在应用程序的*任何地方*，将它们注入到*任何*组件和服务的构造函数里面。
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (component constructor injection)')(format='.') 
 
 +makeExample('cb-dependency-injection/ts/app/user-context.service.ts','ctor','app/user-context.service.ts (service constructor injection)')(format='.')    
@@ -110,23 +112,36 @@ include ../_util-fns
 .l-main-section
 :marked
   ## External module configuration
+  ## 外部模块设置
   We can register _certain_ module providers when bootstrapping rather than in the root application component. 
+  
+  与其在应用程序根组件里面，我们可以在引导过程中注册_某些_模块providers。
   
   We'd do this when we expect to select or configure external modules that support our application
   but (a) aren't conceptually part of the application and (b) that we could change later without
   altering the essential logic of the application.
   
+  当使用支持我们的应用程序，并满足下面两个条件外来组件时，我们应该这样做（在引导过程中注册）：
+  a）在概念上不是我们程序的一部分
+  b）在未来，我们可能需要在不变化主要应用程序逻辑的情况下，更改或更换它。
+  
   For example, we might configure the Component Router with different 
   [location strategies](../guide/router.html#location-strategy)  based on environmental factors. 
   The choice of location strategy doesn't matter to the application itself.
+  
+  比如，我们可能用不同的[location strategies](../guide/router.html#location-strategy)，根据不同的环境因数设置不同的组件路由。这个location strategy不直接影响应用程序本身。
   
   We could sneak in a fake HTTP backend with sample data during development rather than 
   allow http calls to a remote server (that might not yet exist). 
   We'll switch to the real backend in production. 
   The application shouldn't know or care one way or the other.
   
+  在开发过程中，我们可以偷偷把一个假的带有例子数据的HTTP后端嵌入进来，来取代对一个远程服务器（可能还不存在）进行http查询。我们在产品发布时再切换到真正的后端。应用程序不需要知道，也不在乎哪个后端。
+  
   See both examples in the following `main.ts`
   where we list their service providers in an array in the second parameter of the `bootstrap` method.
+  
+  在下面`main.ts`的两个例子中，我们在`bootstrap`类方法的第二个参数的数组中，我们列出了它们的service providers（服务提供者）。
   
 +makeExample('cb-dependency-injection/ts/app/main.ts','bootstrap','app/main.ts')(format='.') 
 
@@ -135,20 +150,31 @@ a(id="nested-dependencies")
 .l-main-section
 :marked
   ## *@Injectable* and nested service dependencies
+  ## *@Injectable*和嵌套服务依赖
+  
   The consumer of an injected service does not know how to create that service.
   It shouldn't care.
   It's the dependency injection's job to create and cache that service.
+  
+  被注入服务的使用者不应该知道怎么创建这个服务。它不应该在在乎。新建和缓存这个服务是依赖注入的工作。
   
   Sometimes a service depends on other services ... which may depend on yet other services.
   Resolving these nested dependencies in the correct order is also the framework's job.
   At each step, the consumer of dependencies simply declares what it requires in its constructor and the framework takes over.
   
+  有时候一个服务依赖其他服务...（其他服务）可能依赖另外的服务。按正确的顺序来解析这些嵌套依赖也是框架工具（Angualar 2依赖注入）的工作。
+  在每一步，依赖的使用者只是在它的构造函数里简单地声明它需要什么，框架工具会做剩余的事情。
+  
   For example, we inject both the `LoggerService` and the `UserContext` in the `AppComponent`. 
+  
+  比如，我们在`AppComponent`里注入`LoggerService`和`UserContext`。
 +makeExample('cb-dependency-injection/ts/app/app.component.ts','ctor','app/app.component.ts')(format='.') 
 
 :marked
   The `UserContext` in turn has dependencies on both the `LoggerService` (again) and 
   a `UserService` that gathers information about a particular user.
+  
+  `UserContext`有两个依赖`LoggerService`（再次）和负责获取特定用户信息的`UserService`。
   
 +makeExample('cb-dependency-injection/ts/app/user-context.service.ts','injectables','user-context.service.ts (injection)')(format='.')
 
@@ -158,107 +184,160 @@ a(id="nested-dependencies")
  The `UserContextService` needs the `LoggerService`, which the framework already has, and the `UserService`, which it has yet to create. 
  The `UserService` has no dependencies so the dependency injection framework can just `new` one into existence.
  
+ 当Angular新建一个`AppComponent`，依赖注入框架工具创建一个`LoggerService`的实例，和开始创建`UserContextService`。`UserContextService`需要框架工具已经有了的`LoggerService`和还没创建的`UserService`。
+ `UserService`没有其他依赖，所以依赖注入框架工具可以直接`new`一个实例。
+ 
  The beauty of dependency injection is that the author of `AppComponent` didn't care about any of this. 
  The author simply declared what was needed in the constructor (`LoggerService` and `UserContextService`) and the framework did the rest.
  
+ 依赖注入美丽的地方在于，`AppComponent`的作者不需要在乎这一切。作者只是在构造函数(`LoggerService`和`UserContextService`)里面简单地声明一下，框架工具来做剩下的工作。
+ 
  Once all the dependencies are in place, the `AppComponent` displays the user information:
-  
+ 
+ 一旦所有依赖都准备好了，`AppComponent`显示用户信息：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/logged-in-user.png" alt="Logged In User")
 :marked
   ### *@Injectable()*
+  ### *@Injectable()*
   Notice the `@Injectable()`decorator on the `UserContextService` class. 
+  
+  请注意在`UserContextService`类里面的`@Injectable()`装饰器。
 +makeExample('cb-dependency-injection/ts/app/user-context.service.ts','injectable','user-context.service.ts (@Injectable)')(format='.')
 :marked
   That decorator makes it possible for Angular to identify the types of its two dependencies, `LoggerService` and `UserService`.
+  
+  该装饰器让Angular有能力辨认它的两个依赖 `LoggerService` 和 `UserService`。
   
   Technically, the `@Injectable()`decorator is only _required_ for a service class that has _its own dependencies_.
   The `LoggerService` doesn't depend on anything. The logger would work if we omitted `@Injectable()`
   and the generated code would be slightly smaller. 
   
+  技术上讲，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。`LoggerService`不依赖任何东西。该日志在没有`@Injectable()`的时候应该也工作，生成的代码也小一些。
   But the service would break the moment we gave it a dependency and we'd have to go back and
   and add `@Injectable()` to fix it. We add `@Injectable()` from the start for the sake of consistency and to avoid future pain.
+  
+  但是该服务在我们添加依赖给它的那一刻就会停止工作，要修复它，我们就必须要添加`@Injectable()`。为了保持一致性和防止将来的麻烦，我们从一开始就添加`@Injectable()`。
 
 .alert.is-helpful
   :marked
     Although we recommend applying `@Injectable` to all service classes, do not feel bound by it.
     Some developers prefer to add it only where needed and that's a reasonable policy too.
+    
+    虽然我们推荐在所有服务中使用`@Injectable`，你不需要一定要这么做。一些开发者宁可在需要添加的地方才添加，这也是一个合理的策略。
 
 .l-sub-section
   :marked
     The `AppComponent` class had two dependencies as well but no `@Injectable()`.
     It didn't need `@Injectable()` because that component class has the `@Component` decorator.
     In Angular with TypeScript, a *single* decorator &mdash; *any* decorator &mdash; is sufficient to identify dependency types.
-
-
+    
+    `AppComponent`类有两个依赖，但是没有`@Injectable()`。它不需要`@Injectable()`是因为组件类有`@Component`装饰器。
+    在用TypeScript的Angular（应用程序）里，一个 *单独的* 装饰器 &mdash; *任何* 装饰器 &mdash; 来辨识依赖类别就足够了。
 <a id="service-scope"></a>
 .l-main-section
 :marked
   ## Limit service scope to a component subtree
-  
+  ## 限制服务作用范围到一个组件支树
   All injected service dependencies are singletons meaning that, 
   for a given dependency injector ("injector"), there is only one instance of service. 
+    
+  所有注入的服务依赖都是单例（singletons)，意思是，在任意一个依赖注入器("injector")中，每个服务只有一个唯一的实例。
   
   But an Angular application has multiple dependency injectors, arranged in a tree hierarchy that parallels the component tree.
   So a particular service can be *provided* (and created) at any component level and multiple times
   if provided in multiple components.
+    
+  但是一个Angular应用程序有多个依赖注入器，组织在一个与组件树平行的树形结构中。所以，在任何组件级别，一个特定的服务能被*提供*（和被建立）。如果在多个组件中注入，可以被新建或提供多次。
   
   By default, a service dependency provided in one component is visible to all of its child components and 
   Angular injects the same service instance into all child components that ask for that service.
   
+  默认情况下，在一个组件中注入的服务依赖，在所有该组件的子组件中都可见，而且Angular会注入同样的服务实例，到所有要求该服务的子组件中。
+  
   Accordingly, dependencies provided in the root `AppComponent` can be injected into *any* component *anywhere* in the application.
+  
+  同样，在根部`AppComponent`提供的依赖能被注入到*任何*组件，到应用程序的*任何地方*。
   
   That isn't always desireable. 
   Sometimes we want to restrict service availability to a particular region of the application.
   
+  这不一定总是想要的。有时候我们想要把服务的有效性限制到应用程序的一个特定区域。
+  
   We can limit the scope of an injected service to a *branch* of the application hierarchy
   by providing that service *at the sub-root component for that branch*.
   Here we provide the `HeroService` to the `HeroesBaseComponent` by listing it in the `providers` array:
+  
+  通过*在该分支的子级根部组件*中提供该服务， 我们能把一个注入服务的作用范围局限到一个应用程序结构的该*分支*中。
+  这里我们通过列入`providers`数列，在`HeroesBaseComponent`中提供了`HeroService`：
 +makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','injection','app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)')
 :marked
   When Angular creates the `HeroesBaseComponent`, it also creates a new instance of `HeroService` 
   that is visible only to the component and its children (if any).
   
+  当Angular新建`HeroBaseComponent`的时候，它会同时建立一个`HeroService`实例，该实例只在该组件和其子组件（如果有）中可见。
+  
   We could also provide the `HeroService` to a *different* component elsewhere in the application. 
   That would result in a *different* instance of the service, living in a *different* injector.
+  
+  我们也可以在应用程序的另外的地方的*不同的*组件里提供`HeroService`。这样的结果是一个*不同的*该服务的实例，在一个*不同的*注入器内存在。 
 .l-sub-section
   :marked
     We examples of such scoped `HeroService` singletons appear throughout the accompanying sample code, 
     including the `HeroBiosComponent`, `HeroOfTheMonthComponent`, and `HeroesBaseComponent`. 
     Each of these components has its own `HeroService` instance managing its own independent collection of heroes.
+    
+    我们这个局限范围的`HeroService`单例的例子，贯穿伴随例子代码，包括`HeroBiosComponent`, `HeroOfTheMonthComponent`和`HeroBaseComponent`。
+    这些组件中每个都有自己的`HeroService`实例，管理自己独立的英雄库。
 
 .l-main-section
 .alert.is-helpful
   :marked
     ### Take a break!
+    ### 休息一下！
     This much Dependency Injection knowledge may be all that many Angular developers
     ever need to build their applications. It doesn't always have to be more complicated.
+    对一些Angular开发者来说，这么多依赖注入知识可能是所有需要的全部知识。不一定都要更加复杂。
     
 <a id="multiple-service-instances"></a>
 .l-main-section
 :marked
   ## Multiple service instances (sandboxing)
+  ## 多个服务实例（sandboxing)
   
   Sometimes we want multiple instances of a service at *the same level of the component hierarchy*.
+  
+  在*同一个级别的组件树*里，我们有时需要一个服务的多个实例。
   
   A good example is a service that holds state for its companion component instance. 
   We need a separate instance of the service for each component.
   Each service has its own work-state, isolated from the service-and-state of a different component.
   We call this *sandboxing* because each service and component instance has its own sandbox to play in.
   
+  一个管理自己伴随组件实例状态的服务是个好例子。
+  对每个组件，我们都需要该服务的单独实例。每个服务有自己的工作-状态，与其他组件的服务-和-状态隔离。我们叫这个*sandboxing*，因为每个服务和组件实例都在自己的沙盒里运行。
+  
   <a id="hero-bios-component"></a>
   Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`. 
+  
+  想象一下，一个`HeroBioComponent`，显示三个`HeroBioComponent`的实例。
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','simple','ap/hero-bios.component.ts')
 :marked
   Each `HeroBioComponent` can edit a single hero's biography. 
   A `HeroBioComponent` relies on a `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
+  
+  每个`HeroBioComponent`都能编辑一个英雄的生平。一个`HeroBioComponent`依赖一个`HeroCacheService`来对该英雄进行读取、缓存和执行其他持久性质的操作。
 +makeExample('cb-dependency-injection/ts/app/hero-cache.service.ts','service','app/hero-cache.service.ts')  
 :marked
   Clearly the three instances of the `HeroBioComponent` can't share the same `HeroCacheService`. 
   They'd be competing with each other to determine which hero to cache.
   
+  很明显，这三个`HeroBioComponent`实例不能共享一样的`HeroCacheService`。要不然它们会相互竞争冲突，取决于哪个英雄在缓存里面。
+  
   Each `HeroBioComponent` gets its *own* `HeroCacheService` instance 
   by listing the `HeroCacheService` in its metadata `providers` array.
+  
+  通过在自己的元数据（metadata)提供者(providers)数组里面列出`HeroCacheService`, 每个`HeroBioComponent`有自己*拥有*的`HeroCacheService`实例。
 +makeExample('cb-dependency-injection/ts/app/hero-bio.component.ts','component','app/hero-bio.component.ts')  
 :marked
   The parent `HeroBiosComponent` binds a value to the `heroId`.
@@ -266,8 +345,12 @@ figure.image-display
   The getter for the `hero` property pulls the cached hero from the service.
   And the template displays this data-bound property.
   
+  此父级`HeroBioComponent`绑定一个变量到`HeroId`。`ngOnInit`传递该`id`到服务，服务再获取和缓存英雄。`hero`属性的getter从服务里面获取缓冲的英雄，并在模板里面显示该数据绑定的属性。
+  
   Find this example in [live code](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
   and confirm that the three `HeroBioComponent` instances have their own cached hero data. 
+  
+  在[在线代码](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)找到这个例子，确认三个`HeroBioComponent`实例有自己拥有的缓冲的英雄数据。
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bios.png" alt="Bios")    
   
@@ -276,69 +359,107 @@ a(id="qualify-dependency-lookup")
 .l-main-section
 :marked
   ## Qualify dependency lookup with *@Optional* and *@Host*
+  ## 使用*@Optional*和*@Host*装饰来认证依赖调用过程
+  
   We learned that dependencies can be registered at any level in the component hierarchy. 
+  
+  我们学习了依赖可以在任何组件级别注册依赖。
   
   When a component requests a dependency, Angular starts with that component's injector and walks up the injector tree 
   until it finds the first suitable provider.  Angular throws an error if it can't find the dependency during that walk. 
+    
+  当一个组件请求一个依赖，Angular以该组件注入器开始，然后往上面以及的注入器树走，知道它找到第一个合适的provider。如果Angular不能再这个过程中找不到合适的依赖，它就抛出一个错误。
    
   We *want* this behavior most of the time. 
   But sometimes we need to limit the search and/or accommodate a missing dependency.
   We can modify Angular's search behavior with the `@Host` and `@Optional` qualifying decorators,
   used individually or together.
   
+  在大部分时候，我们*想要*这个行为。
+  但是有时候，我们需要限制这个（依赖）搜索，并且/或者提供一个缺失的依赖。
+  单独使用或者一起使用`@Host`和`@Optional`认证装饰器，我们能修改Angular的搜索行为。
+  
   The `@Optional` decorator tells Angular to continue when it can't find the dependency. 
   Angular sets the injection parameter to `null` instead.
   
+  当Angular找不到依赖时，`@Optional`装饰器告诉Angular继续执行。Angular设置该注入参数为`null`（取代抛出错误得行为）。
+  
   The `@Host` decorator stops the upward search at the *host component*. 
+  
+  `@Host`装饰器将往上搜索的行为停止到*主持组件host component*
   
   The host component is typically the component requesting the dependency. 
   But when this component is projected into a *parent* component, that parent component becomes the host.
   We look at this second, more interesting case in our next example.
   
+  该主持组件一般为请求依赖的组件。但是当这个组件被投放到一个*父级*组件后，该父级组件变成了主持。我们考虑一会，更多有趣的案例还在后面的例子里。
+  
   ### Demonstration
+  ### 示范
   The `HeroBiosAndContactsComponent` is a revision of the `HeroBiosComponent` that we looked at [above](#hero-bios-component).
+  
+  该`HeroBiosAndContactsComponent`是[上面](#hero-bios-component)我们看过的`HeroBiosComponent`的修改版。
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','hero-bios-and-contacts','app/hero-bios.component.ts (HeroBiosAndContactsComponent)')
 :marked
   Focus on the template:
+  
+  注意它的模板：
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','template')(format='.')
 :marked
   We've inserted a `<hero-contact>` element between the `<hero-bio>` tags.
   Angular *projects* (*transcludes*) the corresponding `HeroContactComponent` into the `HeroBioComponent` view, 
   placing it in the `<ng-content>` slot of the `HeroBioComponent` template:
+  
+  我们在`<hero-bio>`标签里插入了`<hero-contact>`元素。Angular*投放*（*transcludes*)对应的`HeroContactComponent`到`HeroBioComponent`视图里，将它放到`HeroBioComponent`模板的`<ng-content>`槽里面。
 +makeExample('cb-dependency-injection/ts/app/hero-bio.component.ts','template','app/hero-bio.component.ts (template)')(format='.')
 :marked
   It looks like this, with the heroe's telephone number from `HeroContactComponent` projected above the hero description:
+  
+  从`HeroContactComponent`来的英雄的电话号码被投放到上面的英雄说明里面，看起来像这样：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bio-and-content.png" alt="bio and contact")    
 :marked
   Here's the `HeroContactComponent` which demonstrates the qualifying decorators that we're talking about in this section:
+  
+  下面是`HeroContactComponent`，示范了我们在本节一直在讨论的认证装饰器(Qualifying decorators)：
 +makeExample('cb-dependency-injection/ts/app/hero-contact.component.ts','component','app/hero-contact.component.ts')
 :marked
   Focus on the constructor parameters
+  请注意看构造函数的参数。
 +makeExample('cb-dependency-injection/ts/app/hero-contact.component.ts','ctor-params','app/hero-contact.component.ts')(format='.')
 :marked
   The `@Host()` function decorating the  `_heroCache` property ensures that 
   we get a reference to the cache service from the parent `HeroBioComponent`.
   Angular throws if the parent lacks that service, even if a component higher in the component tree happens to have that service.
   
+  `@Host()`函数装饰`_heroCache`属性，确保我们从其父级`HeroBioComponent`得到一个缓冲服务的引用。如果该父级不存在这个服务，Angular则抛错，就算组件树里再上级有一个组件拥有这个服务（Angular也抛错）。
   A second `@Host()` function decorates the `_loggerService` property.
   We know the only `LoggerService` instance in the app is provided at the `AppComponent` level.
   The host `HeroBioComponent` doesn't have its own `LoggerService` provider.
   
+  另外一个`@Host()`函数装饰`_loggerService`属性，我们知道在应用程序中，只有一个`LoggerService`实例，在`AppComponent`级别提供的。该主持`HeroBioComponent`没有自己的`LoggerService`provider。
+  
   Angular would throw an error if we hadn't also decorated the property with the `@Optional()` function.
   Thanks to `@Optional()`, Angular sets the `loggerService` to null and the rest of the component adapts.
+  
+  如果我们没有同时使用`@Optional()`来装饰该属性的话，Angular会抛错。感谢`@Optional()`，Angular将`loggerService`设置为null，并继续改组件的执行。
   
 .l-sub-section
   :marked
     We'll come back to the `elementRef` property shortly.
+    
+    我们将很快回到`elementRef`属性。
 :marked
   Here's the `HeroBiosAndContactsComponent` in action.
+  下面是`HeroBiosAndContactsComponent`的执行结果：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bios-and-contacts.png" alt="Bios with contact into")
 :marked
   If we comment out the `@Host()` decorator, Angular now walks up the injector ancestor tree 
   until it finds the logger at the `AppComponent` level. The logger logic kicks in and the hero display updates
   with the gratuituous "!!!", indicating that the logger was found.
+  
+  如果我们 
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bio-contact-no-host.png" alt="Without @Host") 
 :marked
