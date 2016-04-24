@@ -12,7 +12,7 @@ include ../_util-fns
 
   [Application-wide dependencies](#app-wide-dependencies)
   
-  [应用程序全范围依赖](#app-wide-dependencies)
+  [应用程序全局依赖](#app-wide-dependencies)
 
   [External module configuration](#external-module-configuration)
   
@@ -39,11 +39,11 @@ include ../_util-fns
   
   [Define dependencies with providers](#providers)
   
-  [使用提供者（providers）定义依赖](#providers)
+  [使用Provider定义依赖](#providers)
   
   * [The *provide* function](#provide)
   
-  * [*提供者provide*功能](#provide)
+  * [*provide*功能](#provide)
   
   * [useValue - the *value provider*](#usevalue)  
   * [useClass - the *class provider*](#useclass)  
@@ -70,28 +70,35 @@ include ../_util-fns
 :marked
    **See the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**
    of the code supporting this cookbook.        
-   
+   获取本“食谱”的代码支持，**请看[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
 .l-main-section
 
 <a id="app-wide-dependencies"></a>
 :marked
   ## Application-wide dependencies   
+  ## 应用程序全局依赖
   Register providers for dependencies used throughout the application in the root application component, `AppComponent`.
   
+  在应用程序根组件`AppComponent`注册那些被应用程序全局使用的依赖providers。
   In the following example, we import and register several services 
   (the `LoggerService`, `UserContext`, and the `UserService`)
   in the `@Component` metadata `providers` array.
+  
+  在下面的例子中，我们在`@Component`元数据的`providers`数组中，导入和注册了几个服务（`LoggerService`, `UserContext`和`UserService`)。
 
 +makeExample('cb-dependency-injection/ts/app/app.component.ts','import-services','app/app.component.ts (excerpt)')(format='.') 
 :marked
   All of these services are implemented as classes. 
   Service classes can act as their own providers which is why listing them in the `providers` array
   is all the registration we need.
+  
+  所有上面这些服务都是用类来实现的。服务类能充当它们自己的Providers，这就是为什么把它们列到一个`providers`数组里是唯一的注册要求。
 .l-sub-section
   :marked
     A *provider* is something that can create or deliver a service.
     Angular creates a service instance from a class provider by "new-ing" it.
     Learn more about providers [below](#providers).
+    一个*provider*
 :marked
   Now that we've registered these services, 
   Angular can inject them into the constructor of *any* component or service, *anywhere* in the application.
