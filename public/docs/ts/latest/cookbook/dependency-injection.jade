@@ -459,7 +459,7 @@ figure.image-display
   until it finds the logger at the `AppComponent` level. The logger logic kicks in and the hero display updates
   with the gratuituous "!!!", indicating that the logger was found.
   
-  如果我们 
+  如果我们注释掉`@Host()`装饰器，Angular沿着注入器树就会往上走，直到在`AppComponent`找到该日志服务。这个日志服务的逻辑加入进来，英雄显示更新，表明日志服务已找到。
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bio-contact-no-host.png" alt="Without @Host") 
 :marked
@@ -467,31 +467,47 @@ figure.image-display
   the application fails for lack of the required logger at the host component level.
   <br>
   `EXCEPTION: No provider for LoggerService! (HeroContactComponent -> LoggerService)`
+  
+  另一方面，如果我们恢复`@Host()`装饰器，注释掉`@Optional`，我们的应用程序会（运行）失败，因为它在主持组件级别找不到需要的日志服务。
+  <br>
+  `EXCEPTION: No provider for LoggerService! (HeroContactComponent -> LoggerService)`
 
 <a id="component-element"></a>
 :marked
   ## Inject the component's element
+  ## 注入一个组件的元素
   
   On occasion we might need to access a component's corresponding DOM element. 
   Although we strive to avoid it, many visual effects and 3rd party tools (such as jQuery)
   require DOM access. 
   
+  偶尔，我们可能需要访问一个组件对应的DOM元素。我们力争避免这样做，但是很多视觉效果和第三方工具需要访问DOM。
+  
   To illustrate, we've written a simplified version of the `HighlightDirective` from 
   the [Attribute Directives](../guide/attribute-directives.html) chapter.
+  
+  为了示范，我们在[属性指令Attribute Directives](../guide/attribute-directives.html)的`HighlightDirective`的基础上，编写了一个简化版本。
 +makeExample('cb-dependency-injection/ts/app/highlight.directive.ts','','app/highlight.directive.ts')
 :marked
   The directive sets the background to a highlight color when the user mouses over the
   DOM element to which it is applied.
   
+  当用户鼠标移到DOM元素是，该指令将该元素的背景设置为一个高亮颜色。
+  
   Angular set the constructor's `el` parameter to the injected `ElementRef` which is 
   a wrapper around that DOM element. 
   Its `nativeElement` property exposes the DOM element for the directive to manipulate.
   
+  Angular在构造函数的参数`el`设置到注入的`ElementRef`，该`ElementRef`代表了（主持host）DOM元素， 它的`nativeElement`属性暴露该DOM元素给指令。
+  
   The sample code applies the directive's `myHighlight` attribute to two `<div>` tags, 
   first without a value (yielding the default color) and then with an assigned color value.
+  
+  下面的代码把指令`myHighlight`属性使用到两个`<div>`标签里，一个没有赋值，一个赋值了颜色。
 +makeExample('cb-dependency-injection/ts/app/app.component.html','highlight','app/app.component.html (highlight)')(format='.')
 :marked
   The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
+  下图显示了鼠标移到`<hero-bios-and-contacts>`标签的效果：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/highlight.png" alt="Highlighted bios")
 :marked
@@ -500,52 +516,80 @@ figure.image-display
 .l-main-section
 :marked
   ## Define dependencies with providers
-  
+  ## 使用providers来定义依赖
   In this section we learn to write providers that deliver dependent services.
   
+  在这个部分，我们学习如何编写providers来提供依赖服务。
+  
   ### Background
+  ### 背景知识
   We get a service from a dependency injector by giving it a ***token***. 
   
+  我们从一个依赖注入器，通过给他一个***令牌（token）***来获取一个服务。  
   We usually let Angular handle this transaction for us by specifying a constructor parameter and its type.
   The parameter type serves as the injector lookup *token*. 
   Angular passes this token to the injector and assigns the result to the parameter.
   Here's a typical example:
+  
+  我们通常在构造函数的参数里面，制定一个参数给对应的类型，让Angular来处理该过程（依赖注入）。该参数类型是我们注入器寻找的*令牌*。
+  Angular把该令牌传递给注入器，然后把结果赋给参数。下例是一个典型的例子：
 
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (component constructor injection)')(format='.') 
 :marked
   Angular asks the injector for the service associated with the `LoggerService` and
   and assigns the returned value to the `logger` parameter.
   
+  Angular找注入器要`LoggerService`对应的服务，并将返回的值赋值给`logger`参数。
   Where did the injector get that value?
   It may already have that value in its internal container. 
   It it doesn't, it may be able to make one with the help of a ***provider***.
   A *provider* is a recipe for delivering a service associated with a *token*.
+  
+  注入器在哪儿得到的返回值？
+  它可能在自己内部容器里已经有该值了。
+  如果它没有，他可能能在***provider***的帮助下新建一个。
+  一个*provider*是一个通过指令派送对应的服务方法。
 .l-sub-section
   :marked
     If the injector doesn't have a provider for the requested *token*, it delegates the request 
     to its parent injector, where the process repeats until there are no more injectors. 
     If the search is futile, the injector throws an error ... unless the request was [optional](#optional).
     
+    如果注入器对请求的令牌没有一个对应的provider，它便将这个请求交给它父级的注入器，这个过程反复从夫，知道没有更多注入器位置。
+    如果搜索无用，注入器便抛出一个错误...除非这个请求是[optional](#optional)。
+    
     Let's return our attention to providers themselves.
+    让我们把注意力转回到providers。
 :marked
   A new injector has no providers.
+  
+  一个新的注入器没有providers。
   Angular initializes the injectors it creates with some providers it cares about.
   We have to register our _own_ application providers manually, 
   usually in the `providers` array of the `Component` or `Directive` metadata:
+  
+  Angular初始化一些他自己建立和需要的注入器，附带一些providers。我们必须要亲自手动注册属于_自己_的providers，通常在`组件`或者`指令`的元数据里面的`providers`数组（里面注册）。
 +makeExample('cb-dependency-injection/ts/app/app.component.ts','providers','app/app.component.ts (providers)') 
 :marked
   ### Defining providers
+  ### 定义providers
   
   The simple class provider is the most typical by far.
   We mention the class in the `providers` array and we're done.
+  
+  目前一个简单的类provider是最典型的例子。
+  我们在`providers`的数值里面提到该类就行了。
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','class-provider','app/hero-bios.component.ts (class provider)')(format='.') 
 :marked
   It's that simple because the most common injected service is an instance of a class.
   But not every dependency can be satisfied by creating a new instance of a class.
   We need other ways to deliver dependency values and that means we need other ways to specify a provider.
   
+  这就是那么简单，因为最常见的被注入的服务是一个类的实例。但是，不是所有的依赖能在能建立一个类的新实例就够了的。我们需要其他的提交依赖值得方法，也就是说我们需要其他方法来制定一个provider。
+  
   The `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why we need them. 
   
+  `HeroOfTheMonthComponent`例子示范了一些备择方案，揭示了为什么我们需要他们。
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-of-month.png" alt="Hero of the month" width="300px")
 :marked
