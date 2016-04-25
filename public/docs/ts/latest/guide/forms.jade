@@ -772,10 +772,10 @@ figure.image-display
     and we only ever apply *one* of these directives to an element tag.
     Consistency rules!
     
-    起初这看起来很直观，直到我们发现Angular表单一族的 *所有* 控件指令 —— 包括`NgForm`、`NgModel`、`NgControlName`和`NgControlGroup` —— 都 
-    *exportAs* 了 “ngForm”。
-    我们刚才不过是把这些指令 *之一* 用了一个元素标签上。
-    多么统一的规则！
+    起初这看起来不直观，直到我们发现Angular表单一族的 *所有* 控件指令 —— 包括`NgForm`、`NgModel`、`NgControlName`和`NgControlGroup` —— 都 
+    *exportAs* 了 “ngForm”，
+    原来我们刚才不过是把这些指令 *之一* 用在了一个元素标签上。
+    一致性统治一切！
 
   Now we can control visibility of the "name" error message by binding properties of the `name` control to the message `<div>` element's `hidden` property.
   
