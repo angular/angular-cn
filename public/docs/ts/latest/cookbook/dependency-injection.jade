@@ -679,14 +679,18 @@ a(id='useclass')
   The alternative could implement a different strategy, extend the default class,
   or fake the behavior of the real class in a test case.
   
-  
+  使用此项技术来为公共或默认类***提供候选实现***。该候选方法能实现一个不同的策略，拓展默认类，或者在测试的时候假冒正真类的行为。
   
   We see two examples in the `HeroOfTheMonthComponent`:
+  
+  请看下面`HeroOfTheMonthComponent`里的两个例子：
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-class')(format='.')   
 :marked
   The first provider is the *de-sugared*, expanded form of the most typical case in which the
   class to be created (`HeroService`) is also the provider's injection token. 
   We wrote it in this long form to de-mystify the preferred short form.
+  
+  第一个provider是*无语法糖的*，几乎所有典型的provider拓展的形式
   
   The second provider substitutes the `DateLoggerService` for the `LoggerService`.
   The `LoggerService` is already registered at the `AppComponent` level.
