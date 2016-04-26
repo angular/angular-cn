@@ -594,61 +594,92 @@ figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-of-month.png" alt="Hero of the month" width="300px")
 :marked
   It's visually simple: a few properties and the output of a logger. The code behind it gives us plenty to talk about.
+  
+  它看起来很简单：一些属性和一个日志output。但是后面的代码给我们很多议论点。
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','hero-of-the-month','hero-of-the-month.component.ts')   
 
 .l-main-section
 a(id='provide')
 :marked
   #### The *provide* function
+  #### *provide*函数
   
   The imported Angular `provide` function creates an instance of 
   the Angular [Provider](../api/core/Provider-class.html) class.
   
+  被导入的Angular `provide`函数新建一个Angular [Provider](../api/core/Provider-class.html)类的实例。
+  
   The `provide` function takes a *token* and a *definition object*.
   The *token* is usually a class but [it doesn't have to be](#tokens).
   
+  该`provide`函数需要一个*令牌*和一个*定义对象*。该*令牌*通常是一个类，但是[他不是一定是](#tokens)
+  
   The *definition* object has one main property, (e.g. `useValue`) that indicates how the provider 
   should create or return the provided value.
+  
+  该*定义*项目有一个主要属性，（即为`userValue`)来标识该provider应该怎么新建和返回被提供的结果。
 
 .l-main-section
 a(id='usevalue')
 :marked
   #### useValue - the *value provider*
+  #### useValue - *值provider*
   
   Set the `useValue` property to a ***fixed value*** that the provider can return as the dependency object.
   
+  把一个***固定的值**，也就是该provider可以当作依赖对象返回的值，赋给`userValue`属性。
+    
   Use this technique to provide *runtime configuration constants* such as web-site base addresses and feature flags.
   We often use a *value provider* in a unit test to replace a production service with a fake or mock.
+  
+  使用该技巧来提供*运行时间设置常量*，比如网站的基础地址和功能标志等。我们通常在单元测试中使用一个*value provider*，用一个假的或模仿的（服务）来取代一个成品服务。
   
   The `HeroOfTheMonthComponent` example has two *value providers*.
   The first provides an instance of the `Hero` class; 
   the second specifies a literal string resource:
+  
+  `HeroOfTheMonthComponent`例子有两个*value providers*。
+  第一个提供了一个`Hero`类的实例；第二个指定了一个文字字符串资源：
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-value')(format='.')   
 :marked
   The `Hero` provider token is a class which makes sense because the value is a `Hero`
   and the consumer of the injected hero would want the type information.
   
+  该`Hero`provider令牌是一个类，这很合理，因为提供的结果是一个`Hero`，而且使用这个被注入英雄的组件也想要知道这个类型信息。
+  
   The `TITLE` provider token is *not a class*.
   It's a special kind of provider lookup key called an [OpaqueToken](#opaquetoken).
   We often use an `OpaqueToken` when the dependency is a simple value like a string, a number, or a function.
   
+  `TITLE` provider令牌*不是一个类*。它是一个特别类型的provider查询键，名叫[OpaqueToken](#opaquetoken).
+  
   The value of a *value provider* must be defined *now*. We can't create the value later. 
   Obviously the title string literal is immediately available. 
   The `someHero` variable in this example was set earlier in the file:
+  
+  一个*value provider*的值必须要*立刻*定义。我们不能过后定义它的值。很显然，该标题字符串立刻可用。
+  该例中的`someHero`变量是于早先，在下面的文件里面定义的：
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','some-hero')
 :marked
   The other providers create their values *lazily* when they're needed for injection.
+  
+  其他providers只在注入需要他们的时候才创建他们值 - *延迟加载*
 
 .l-main-section
 a(id='useclass')
 :marked
   #### useClass - the *class provider*
+  #### useClass - *类provider*
   
   The `useClass` provider creates and returns new instance of the specified class.
+  
+  `userClass` provider创建并返回一个特定类的新实例。
   
   Use this technique to ***substitute an alternative implementation*** for a common or default class.
   The alternative could implement a different strategy, extend the default class,
   or fake the behavior of the real class in a test case.
+  
+  
   
   We see two examples in the `HeroOfTheMonthComponent`:
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-class')(format='.')   
