@@ -690,43 +690,61 @@ a(id='useclass')
   class to be created (`HeroService`) is also the provider's injection token. 
   We wrote it in this long form to de-mystify the preferred short form.
   
-  第一个provider是*无语法糖的*，几乎所有典型的provider拓展的形式
+  第一个provider是*无语法糖的*，是从典型的情况扩展的，一般被新建的类(`HeroService`)同时也是该provider的注入令牌。
+  我们使用长的形式来编写它来解释首选的短形式。
   
   The second provider substitutes the `DateLoggerService` for the `LoggerService`.
   The `LoggerService` is already registered at the `AppComponent` level.
   When _this component_ requests the `LoggerService`, it receives the `DateLoggerService` instead.
+  
+  第二个provider使用`DateLoggerService`来满足`LoggerService`。该`LoggerService`在`AppComponent`级别已经被注册。当_这个组件_要求`LoggerService`的时候，取而代之，它得到的是`DateLoggerService`服务。
 .l-sub-section
   :marked
     This component and its tree of child components receive the `DateLoggerService` instance.
     Components outside the tree continue to receive the original `LoggerService` instance.
+    
+    这个组件和它的子级组件树得到`DateLoggerService`实例。在这些组件之外的组件树得到的还是`LoggerService`实例。
 :marked
   The `DateLoggerService` inherits from `LoggerService`; it appends the current date/time to each message:  
+  
+  `DateLoggerService`从`LoggerService`继承；它把当前的日期/时间附加到每条信息上。
 +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','date-logger-service','app/date-logger.service.ts')(format='.')   
 
 .l-main-section
 a(id='useexisting')
 :marked
   #### useExisting - the *alias provider*
+  #### useExisting - *别名provider*
   
   The `useExisting` provider maps one token to another. 
   In effect, the first token is an ***alias*** for the service associated with second token,
   creating ***two ways to access the same service object***.
+  
+  使用`useExisting` provider来把一个令牌映射到另一个。实际上，第一个令牌是第二个令牌所对应的服务的一个***别名***，构成***对一个服务对象的两种访问方法***。
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
 :marked
   Narrowing an API through an aliasing interface is _one_ important use case for this technique.
   We're aliasing for that very purpose here.
   Imagine that the `LoggerService` had a large API (it's actually only three methods and a property).
   We want to shrink that API surface to just the two members exposed by the `MinimalLogger` [*class-interface*](#class-interface):
+  
+  通过使用别名接口，把一个API变窄，是_一个_很重要的该技术的使用例子。我们在这里就是为了这个目的使用了别名。
+  想象一下如果`LoggerService`有个很大的API(它其实只有三个方法，一个属性)，我们通过使用`MinimalLogger`[*类-接口*](#class-interface)别名要把这个API界面缩小到只暴露两个成员：
 
 +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger','app/date-logger.service.ts (MinimalLogger)')(format='.')   
 :marked
   The constructor's `logger` parameter is typed as `MinimalLogger` so only its two members are visible in TypeScript:
+  
+  构造函数的`logger`参数是一个`MinimalLogger`类型，所有它只有两个成员在TypeScript里面可见：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/minimal-logger-intellisense.png" alt="MinimalLogger restricted API")
 :marked
   Angular actually sets the `logger` parameter to the injector's full version of the `LoggerService` 
   which happens to be the `DateLoggerService` thanks to the override provider registered previously via `useClass`.
   The following image, which displays the logging date, confirms the point:
+  
+  Angular实际上设置`logger`参数给注入器里的`LoggerService`的完整版本，该完整版本被`DateLoggerService`所取代，多谢在之前provder注册里使用`useClass`。
+  在下面的图片中，显示了日志日期，确认了这点：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/date-logger-entry.png" alt="DateLoggerService entry" width="300px")
 
@@ -734,35 +752,52 @@ figure.image-display
 a(id='usefactory')
 :marked
   #### useFactory - the *factory provider*
+  #### useFactory - *factory provider*
   
   The `useFactory` provider creates a dependency object by calling a factory function
   as seen in this example.
+  
+  `useFactory` provider通过调用一个在下例看到的factory函数来新建一个依赖对象。
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-factory')
 :marked
   Use this technique to ***create a dependency object*** 
   with a factory function whose inputs are some ***combination of injected services and local state***.
   
+  使用这个技巧，利用一个包含了一些***依赖服务和本地状态***的输入的factory函数，来***建立一个依赖对象***。
+  
   The *dependency object* doesn't have to be a class instance. It could be anything.
   In this example, the *dependency object* is a string of the names of the runners-up
   to the "Hero of the Month" contest.
+  
+  该*依赖对象*不一定是一个类实例。它可以是任何东西。在这个例子里，*依赖对象*是一个字符串，代表了**本月英雄**比赛的亚军的名字。
 
   The local state is the number `2`, the number of runners-up this component should show.
   We execute `runnersUpFactory` immediately with `2`. 
   
+  本地状态是数字`2`，该组件应该显示的亚军的个数。我们立刻用`2`来执行`runnersUpFactory`。
+  
   The `runnersUpFactory` itself isn't the provider factory function.
   The true provider factory function is the function that `runnersUpFactory` returns.
+  
+  `runnersUpFactory`自己provider factory函数。真正的provider factory函数是一个`runnersUpFactory`返回的函数。
   
 +makeExample('cb-dependency-injection/ts/app/runners-up.ts','factory-synopsis','runners-up.ts (excerpt)')(format='.')   
 :marked
   That returned function takes a winning `Hero` and a `HeroService` as arguments.
+  
+  这个返回的函数需要一个`Hero`和一个`HeroService`参数。
   
   Angular supplies these arguments from injected values identified by 
   the two *tokens* in the `deps` array. 
   The two `deps` values are *tokens* that the injector uses
   to provide these factory function dependencies.
   
+  Angular通过注入值提供这些参数，这些值是从`deps`数组中使用两个*令牌*来提取的。这两个`deps`值是注入器使用*令牌*来提供的factory函数依赖。
+  
   After some undisclosed work, the function returns the string of names 
   and Angular injects it into the `runnersUp` parameter of the `HeroOfTheMonthComponent`.
+  
+  一些没有公开的工作后，这个函数返回名字字符串，Angular将其注入到`HeroOfTheMonthComponent`组件的`runnersUp`参数里面。
   
 .l-sub-section
   :marked
@@ -770,24 +805,33 @@ a(id='usefactory')
     takes `2` of them to be the runners-up, and returns their concatenated names.
     Look at the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
     for the full source code.
+      
+    该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字合并起来。亲到[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)看全部原代码。
 
 
 a(id="tokens")
 .l-main-section
 :marked
   ## Provider token alternatives: the *class-interface* and *OpaqueToken*
+  ## 可选Provider令牌：**类-接口*和*OpaqueToken*
 
   Angular dependency injection is easiest when the provider *token* is a class
   that is also the type of the returned dependency object (what we usually call the *service*).
+  
+  Angular依赖注入在*令牌*为类，并且该类同时也是返回依赖的对象的时候最为容易（我们通常叫*服务*）。
   
   But the token doesn't have to be a class and even when it is a class,
   it doesn't have to be the same type as the returned object.
   That's the subject of our next section. 
   
+  但是令牌不一定非要是类，就算它是一个类，它也不一定非要是返回对象相同类型的类。这是我们下一节的课题。
+  
   <a id="class-interface"></a>
   ### class-interface
+  ### 类-接口
   In the previous *Hero of the Month* example, we used the `MinimalLogger` class
   as the token for a provider of a `LoggerService`.
+  
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
 :marked
   The `MinimalLogger` is an abstract class. 
