@@ -1,5 +1,5 @@
 // #docregion
-import {Component, Input} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {Todo} from './todo';
 
 @Component({
@@ -12,7 +12,7 @@ import {Todo} from './todo';
   ],
   template: `
     <ul class="list-unstyled">
-      <li *ngFor="#todo of todos">
+      <li *ngFor="let todo of todos">
         <input type="checkbox" [(ngModel)]="todo.done">
         <span class="done-{{todo.done}}">{{todo.text}}</span>
       </li>

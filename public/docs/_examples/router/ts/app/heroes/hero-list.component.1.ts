@@ -2,16 +2,16 @@
 
 // #docregion
 // TODO SOMEDAY: Feature Componetized like HeroCenter
-import {Component, OnInit}   from 'angular2/core';
+import {Component, OnInit}   from '@angular/core';
 import {Hero, HeroService}   from './hero.service';
-import {Router}              from 'angular2/router';
+import {Router}              from '@angular/router-deprecated';
 
 @Component({
   // #docregion template
   template: `
     <h2>HEROES</h2>
     <ul class="items">
-      <li *ngFor="#hero of heroes"
+      <li *ngFor="let hero of heroes"
         (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>

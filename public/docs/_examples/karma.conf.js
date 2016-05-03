@@ -20,26 +20,35 @@ module.exports = function(config) {
         flags: ['--no-sandbox']
       }
     },
-
     files: [
-      // Angular and shim libraries loaded by Karma
-      { pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: true, watched: true },
-      { pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: true },
-      { pattern: 'node_modules/es6-shim/es6-shim.js', included: true, watched: true },
-      { pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: true },
-      { pattern: 'node_modules/rxjs/bundles/Rx.js', included: true, watched: true },
-      { pattern: 'node_modules/angular2/bundles/angular2.js', included: true, watched: true },
-      { pattern: 'node_modules/angular2/bundles/testing.dev.js', included: true, watched: true },
+      // Polyfills.
+      'node_modules/es6-shim/es6-shim.js',
 
-      // External libraries loaded by Karma
-      { pattern: 'node_modules/angular2/bundles/http.dev.js', included: true, watched: true },
-      { pattern: 'node_modules/angular2/bundles/router.dev.js', included: true, watched: true },
-      { pattern: 'node_modules/a2-in-memory-web-api/web-api.js', included: true, watched: true },
+      // Zone.js dependencies
+      // Note - do not include zone.js itself here, it is already
+      // included in angular2-polyfills
+      'node_modules/zone.js/dist/zone.js',
+      'node_modules/zone.js/dist/jasmine-patch.js',
+      'node_modules/zone.js/dist/async-test.js',
+      'node_modules/zone.js/dist/fake-async-test.js',
 
-      // Configures module loader w/ app and specs, then launch karma
-      { pattern: 'karma-test-shim.js', included: true, watched: true },
+      { pattern: 'node_modules/reflect-metadata/Reflect.js', included: true, watched: false },
+      { pattern: 'https://code.angularjs.org/tools/system.js', included: true, watched: false },
 
-      // transpiled application & spec code paths loaded via module imports
+      // RxJs.
+      { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+
+      {pattern: 'karma-test-shim.js', included: true, watched: true},
+      {pattern: 'built/test/matchers.js', included: true, watched: true},
+
+      // paths loaded via module imports
+      {pattern: 'built/**/*.js', included: false, watched: true},
+
+      {pattern: 'node_modules/@angular/**/*.js', included: false, watched: true},
+      {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true},
+
+      // transpiled application & spec code paths to be loaded via module imports
       {pattern: appBase + '**/*.js', included: false, watched: true},
 
       // asset (HTML & CSS) paths loaded via Angular's component compiler

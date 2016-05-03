@@ -180,8 +180,8 @@ figure.image-display
 <a id="ngFor"></a>
 .l-main-section
 :marked
-  ## Showing an array property with NgFor
-  ## 使用NgFor显示数组属性
+  ## Showing an array property with ***ngFor***
+  ## 使用 ***ngFor*** 显示数组属性
 
   We want to display a list of heroes. We begin by adding a mock heroes name array to the component,
   just above `myHero`, and redefine `myHero` to be the first name in the array.
@@ -190,7 +190,7 @@ figure.image-display
 +makeExample('displaying-data/ts/app/app.component.2.ts', 'mock-heroes', 'app/app.component.ts (类)')(format=".")
 
 :marked
-  Now we use the Angular `NgFor` "repeater" directive in the template to display
+  Now we use the Angular `ngFor` "repeater" directive in the template to display
   each item in the `heroes` list.
   
   现在我们在模板中使用Angular的`NgFor`“重复器”指令来显示`heroes`列表中的每一个条目。
@@ -214,18 +214,16 @@ figure.image-display
 .alert.is-important
   :marked
     Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
-    Learn more about this and `NgFor` in the [Template Syntax](./template-syntax.html#ngFor) chapter.
+    Learn more about this and `ngFor` in the [Template Syntax](./template-syntax.html#ngFor) chapter.
     
     不要忘记`*ngFor`中的前导星号(\*)。它是语法中不可或缺的一部分。
     要了解关于此语法和`NgFor`的更多知识，请参见[模板语法](./template-syntax.html#ngFor)一章。
 :marked
-  Notice the `#hero` in the `NgFor` double-quoted instruction.
-  The `#hero` is a [local template variable](./template-syntax.html#local-vars) declaration.
-  The `#` prefix declares a local variable name named `hero`.
-  
-  注意`NgFor`的双引号表达式中的`#hero`部分。
-  `#hero`是一个[局部模板变量](./template-syntax.html#local-vars)的定义。
-  `#`前缀定义了一个名叫`hero`的局部变量。
+  Notice the `hero` in the `NgFor` double-quoted instruction;
+  it is an example of a [template input variable](./template-syntax.html#ngForMicrosyntax).
+
+  注意`ngFor`的双引号表达式中的`hero`部分。
+  它是一个[模板输入变量](./template-syntax.html#ngForMicrosyntax)。
 
   Angular duplicates the `<li>` for each item in the list, setting the `hero` variable
   to the item (the hero) in the current iteration. Angular uses that variable as the
@@ -235,8 +233,8 @@ figure.image-display
   Angular把`hero`变量作为双花括号中插值表达式的上下文。
 .l-sub-section
   :marked
-    We happened to give `NgFor` an array to display.
-    In fact, `NgFor` can repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+    We happened to give `ngFor` an array to display.
+    In fact, `ngFor` can repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
     object.
     
     我们这里所做的是给`NgFor`一个数组供它显示。
@@ -340,7 +338,7 @@ figure.image-display
   
   在我们的例子中，如果有大量的英雄 —— 比如大于3，我们会希望显示一条消息。
 
-  The Angular `NgIf` directive inserts or removes an element based on a truthy/falsey condition.
+  The Angular `ngIf` directive inserts or removes an element based on a truthy/falsey condition.
   We can see it in action by adding the following paragraph at the bottom of the template:
   
   Angular的`NgIf`指令会基于条件的真假来显示或移除一个元素。
@@ -349,7 +347,7 @@ figure.image-display
 .alert.is-important
   :marked
     Don't forget the leading asterisk (\*) in `*ngIf`. It is an essential part of the syntax.
-    Learn more about this and `NgIf` in the [Template Syntax](./template-syntax.html#ngIf) chapter.
+    Learn more about this and `ngIf` in the [Template Syntax](./template-syntax.html#ngIf) chapter.
 
     不要忘了`*ngIf`中的前导星号(\*)。它是本语法中不可或缺的一部分。
     要学习此语法和`NgIf`，参见[模板语法](./template-syntax.html#ngIf)一章。
@@ -365,7 +363,7 @@ figure.image-display
 .alert.is-helpful
   :marked
     Angular isn't showing and hiding the message. It is adding and removing the paragraph element from the DOM.
-    That hardly matters here. It would matter a great deal from a performance perspective if
+    That hardly matters here. But it would matter a great deal, from a performance perspective, if
     we were conditionally including or excluding a big chunk of HTML with many data bindings.
     
     Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这段元素。
@@ -386,12 +384,12 @@ figure.image-display
   现在我们知道了如何使用：
   - **interpolation** with double curly braces to display a component property
   - 带有双花括号的 **插值表达式interpolation** 用来显示组件的一个属性
-  - **`NgFor`** to display a list of items
-  - **`NgFor`** 用来显示条目列表
+  - **`ngFor`** to display a list of items
+  - **`ngFor`** 用来显示条目列表
   - a TypeScript class to shape the **model data** for our component and display properties of that model
   - 一个TypeScript类，用来为我们的组件描述 **模型数据** 并且显示模型的那些属性。
-  - **`NgIf`** to conditionally display a chunk of HTML based on a boolean expression
-  - **`NgIf`** 用来基于一个boolean表达式有条件的显示一段HTML
+  - **`ngIf`** to conditionally display a chunk of HTML based on a boolean expression
+  - **`ngIf`** 用来基于一个boolean表达式有条件的显示一段HTML
 
   Here's our final code:
   

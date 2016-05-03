@@ -1,6 +1,6 @@
 // #docplaster
 //#docregion
-import {Component, Injector}  from 'angular2/core';
+import {Component, Injector}  from '@angular/core';
 
 import {Car, Engine, Tires}   from './car/car';
 import {HeroService}          from './heroes/hero.service';
@@ -30,7 +30,7 @@ export class InjectorComponent {
   hero = this.heroService.getHeroes()[0];
 
   get rodent() {
-    let rous = this._injector.getOptional(ROUS);
+    let rous = this._injector.get(ROUS, null);
     if (rous) {
       throw new Error('Aaaargh!')
     }

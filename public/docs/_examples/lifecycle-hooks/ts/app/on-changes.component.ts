@@ -3,7 +3,7 @@
 import {
   Component, Input, ViewChild,
   OnChanges, SimpleChange
-} from 'angular2/core';
+} from '@angular/core';
 
 
 class Hero {
@@ -17,7 +17,7 @@ class Hero {
     <p>{{hero.name}} can {{power}}</p>
 
     <h4>-- Change Log --</h4>
-    <div *ngFor="#chg of changeLog">{{chg}}</div>
+    <div *ngFor="let chg of changeLog">{{chg}}</div>
   </div>
   `,
   styles: [
@@ -59,13 +59,13 @@ export class OnChangesParentComponent {
   hero: Hero;
   power: string;
   title = 'OnChanges';
-  @ViewChild(OnChangesComponent) childView:OnChangesComponent;
+  @ViewChild(OnChangesComponent) childView: OnChangesComponent;
 
   constructor() {
     this.reset();
   }
 
-  reset(){
+  reset() {
     // new Hero object every time; triggers onChanges
     this.hero = new Hero('Windstorm');
     // setting power only triggers onChanges if this value is different

@@ -5,7 +5,7 @@
 {% block body %}
 include {$ relativePath(doc.path, '_util-fns') $}
 
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") What it does
   div(flex="80" flex-xs="100")
@@ -16,7 +16,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
       *Not yet documented*
     {% endif %}
 
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") How to use
   div(flex="80" flex-xs="100")
@@ -27,11 +27,11 @@ include {$ relativePath(doc.path, '_util-fns') $}
       *Not yet documented*
     {% endif %}
 
-.div(class="row-margin" layout="row" layout-xs="column")
+.div(layout="row" layout-xs="column" class="ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Class Overview
   div(flex="80" flex-xs="100")
-    code(class="no-bg api-doc-code") class {$ doc.name $} {
+    code(class="no-bg api-doc-code openParens") class {$ doc.name $} {
 
     {% if doc.statics.length %}
     .div(layout="column")
@@ -58,24 +58,22 @@ include {$ relativePath(doc.path, '_util-fns') $}
           code(class="api-doc-code") {$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
       {% endif %}{% endfor %}
     {% endif %}
-    p.selector
+    p(class="selector endParens")
       code(class="api-doc-code no-bg") }
 
 {% block additional %}
 {% endblock %}
 
-.div(class="row-margin" layout="row" layout-xs="column")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Class Description
   div(class="code-links" flex="80" flex-xs="100")
     :marked
     {%- if doc.description.length > 2 %}
 {$ doc.description | indentForMarkdown(6) | trimBlankLines $}
-    {% else %}
-      *Not yet documented*
     {% endif %}
 
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Class Export
   div(flex="80" flex-xs="100")
@@ -85,7 +83,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
 
 {%- if doc.decorators.length %}
 {% block annotations %}
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Annotations
   div(flex="80" flex-xs="100")
@@ -94,9 +92,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
         code(class="api-doc-code")
           @{$ decorator.name $}{$ paramList(decorator.arguments) | indent(10, false) $}
       :marked
-      {%- if decorator.notYetDocumented %}
-        *Not yet documented*
-      {% else %}
+      {%- if not decorator.notYetDocumented %}
         {$ decorator.description | indentForMarkdown(8) | trimBlankLines $}
       {% endif %}
     {% endfor %}
@@ -104,7 +100,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
 {% endif %}
 
 {%- if doc.constructorDoc and not doc.constructorDoc.internal %}
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Constructor
   div(flex="80" flex-xs="100")
@@ -113,15 +109,13 @@ include {$ relativePath(doc.path, '_util-fns') $}
       code(class="api-doc-code").
         {$ doc.constructorDoc.name $}{$ paramList(doc.constructorDoc.parameters) | indent(8, false) | trim $}
     :marked
-      {%- if doc.constructorDoc.notYetDocumented %}
-      *Not yet documented*
-      {% else %}
+      {%- if not doc.constructorDoc.notYetDocumented %}
 {$ doc.constructorDoc.description | indentForMarkdown(6) | replace('### Example', '') | replace('## Example', '') | replace('# Example', '') | trimBlankLines $}
       {% endif %}
 {% endif %}
 
 {% if doc.statics.length %}
-.div(layout="row" layout-xs="column" class="row-margin")
+.div(layout="row" layout-xs="column" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Static Members
   div(class="code-links" flex="80" flex-xs="100")
@@ -131,9 +125,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
       code(class="api-doc-code").
         {$ member.name $}{$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
     :marked
-      {%- if member.notYetDocumented %}
-      *Not yet documented*
-      {% else %}
+      {%- if not member.notYetDocumented %}
 {$ member.description | indentForMarkdown(6) | replace('### Example', '') | replace('## Example', '') | replace('# Example', '') | trimBlankLines $}
       {% endif %}
 
@@ -145,10 +137,10 @@ include {$ relativePath(doc.path, '_util-fns') $}
 {% endif %}
 
 {% if doc.members.length %}
-.div(layout="row" layout-xs="column" class="instance-members" class="row-margin")
+.div(layout="row" layout-xs="column" class="instance-members" class="row-margin ng-cloak")
   div(flex="20" flex-xs="100")
     h2(class="h2-api-docs") Class Details
-  div(flex="80" flex-xs="100")
+  div(class="code-links" flex="80" flex-xs="100")
     {% for member in doc.members %}{% if not member.internal %}
     a(name="{$ member.name $}-anchor" class="anchor-offset")
     pre(class="prettyprint no-bg" ng-class="{ 'anchor-focused': appCtrl.isApiDocMemberFocused('{$ member.name $}') }")
@@ -156,9 +148,7 @@ include {$ relativePath(doc.path, '_util-fns') $}
         {$ member.name $}{$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
 
     :marked
-      {%- if member.notYetDocumented %}
-      *Not yet documented*
-      {% else %}
+      {%- if not member.notYetDocumented %}
 {$ member.description | indentForMarkdown(6) | replace('### Example', '') | replace('## Example', '') | replace('# Example', '') | trimBlankLines $}
       {% endif -%}
 

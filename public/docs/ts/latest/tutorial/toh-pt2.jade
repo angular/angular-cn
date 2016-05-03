@@ -41,6 +41,8 @@ include ../_util-fns
     .file typings ...      
     .file index.html
     .file package.json
+    .file styles.css
+    .file systemjs.config.js
     .file tsconfig.json
     .file typings.json
 :marked
@@ -157,17 +159,17 @@ code-example(format="." language="bash").
 
     引号中赋值给`ngFor`的那段文本表示“*从`heroes`数组中取出每个英雄，存入一个局部的`hero`变量，并让它在其对应的模板实例中可用*”
 
-    The `#` prefix before "hero" identifies the `hero` as a local template variable.
+    The `let` keyword before "hero" identifies the `hero` as a template input variable.
     We can reference this variable within the template to access a hero’s properties.
 
-    `hero`前的`#`前缀表示`hero`是一个局部的模板变量。
+    `hero`前的`let`关键字表示`hero`是一个模板输入变量。
     在模板中，我们可以引用这个变量来存取一位英雄的属性。
-    
-    Learn more about `ngFor` and local template variables in the
+
+    Learn more about `ngFor` and template input variables in the
     [Displaying Data](../guide/displaying-data.html#ngFor) and
     [Template Syntax](../guide/template-syntax.html#ngFor) chapters.
 
-    学习关于`ngFor`和局部模板变量的知识，参见[显示数据](../guide/displaying-data.html#ngFor)和
+    学习关于`ngFor`和模板输入变量的知识，参见[显示数据](../guide/displaying-data.html#ngFor)和
     [模板语法](../guide/template-syntax.html#ngFor)章节。
 
 :marked
@@ -259,7 +261,7 @@ code-example(format="." language="bash").
   :marked
     The parenthesis identify the `<li>` element’s  `click` event as the target.
     The expression to the right of the equal sign calls the  `AppComponent` method, `onSelect()`,
-    passing the local template variable `hero` as an argument.
+    passing the template input variable `hero` as an argument.
     That’s the same `hero` variable we defined previously in the `ngFor`.
     
     圆括号表示`<li>`元素上的`click`事件是我们要绑定的目标。
@@ -295,6 +297,7 @@ code-example(format="." language="bash").
 
     ### Expose the selected hero
     ### 导出“当前选中的英雄”
+
     We no longer need the static `hero` property of the `AppComponent`.
     **Replace** it with this simple `selectedHero` property:
 

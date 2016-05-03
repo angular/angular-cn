@@ -44,8 +44,8 @@ include ../_util-fns
   - displaying validation errors to users and enable/disable form controls
   - 给用户显示有效性验证的错误信息，以及禁用/使能表单控件
 
-  - sharing information among controls with template local variables
-  - 在控件和局部模板变量之间共享信息
+  - sharing information among controls with template reference variables
+  - 在控件和模板引用变量之间共享信息
   
   [Live Example](/resources/live-examples/forms/ts/plnkr.html)
   
@@ -366,7 +366,7 @@ ol
   我们先在`HeroFormComponent`中内部维护这个列表。
 
   We'll add a `select` to our
-  form and bind the options to the `powers` list using `NgFor`,
+  form and bind the options to the `powers` list using `ngFor`,
   a technique we might have seen before in the [Displaying Data](./displaying-data.html) chapter.
   
   我们将添加一个`select`到表单中，并且通过`NgFor`把`powers`列表绑定到候选项（options）。
@@ -379,7 +379,7 @@ ol
 
 :marked
   We are repeating the `<options>` tag for each power in the list of Powers.
-  The `#p` local template variable is a different power in each iteration;
+  The `p` template input variable is a different power in each iteration;
   we display its name using the interpolation syntax with the double-curly-braces.
   
   我们为列表中的每一项超能力重复渲染`<option>`标签。
@@ -650,7 +650,7 @@ table
     td <code>ng-valid</code>
     td <code>ng-invalid</code>
 :marked
-  Let's add a temporary [local template variable](./template-syntax.html#local-vars) named **spy**
+  Let's add a temporary [template reference variable](./template-syntax.html#ref-vars) named **spy**
   to the "Name" `<input>` tag and use the spy to display those classes.
   
   我们往姓名`<input>`标签上添加一个名叫 **spy** 的临时[局部模板变量](./template-syntax.html#local-vars)，然后用这个spy来显示它上面的所有css类。
@@ -739,8 +739,8 @@ figure.image-display
   To achieve this effect we extend the `<input>` tag with
   
   要达到这个效果，我们得通过下列方式扩展`<input>`标签：
-  1. a [local template variable](./template-syntax.html#local-vars)
-  1. 一个[局部模板变量](./template-syntax.html#local-vars)
+  1. a [template reference variable](./template-syntax.html#ref-vars)
+  1. 一个[模板引用变量](./template-syntax.html#ref-vars)
   1. the "*is required*" message in a nearby `<div>` which we'll display only if the control is invalid.
   1. “本项必须填写”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
 
@@ -751,7 +751,7 @@ figure.image-display
   'name-with-error-msg', 
   'app/hero-form.component.html (节选)')(format=".")
 :marked
-  We need a template local variable to access the input box's Angular control from within the template.
+  We need a template reference variable to access the input box's Angular control from within the template.
   Here we created a variable called `name` and gave it the value "ngForm".
   
   我们需要一个局部模板变量来访问模板中输入框的Angular控件。
@@ -760,7 +760,7 @@ figure.image-display
   :marked
     Why "ngForm"? 
     A directive's [exportAs](../api/core/DirectiveMetadata-class.html#!#exportAs) property 
-    tells Angular how to link local variable to the directive.
+    tells Angular how to link the reference variable to the directive.
     We set `name` to `ngForm` because the `NgControlName` directive's `exportAs` property happens to be "ngForm".
     
     为什么是"ngForm"？
@@ -921,9 +921,9 @@ figure.image-display
 
 :marked
   We slipped in something extra there at the end!  We defined a
-  template local variable, **`#heroForm`**, and initialized it with the value, "ngForm".
+  template reference variable, **`#heroForm`**, and initialized it with the value, "ngForm".
   
-  最后，我们发现了一些额外的东西！我们定义了一个局部模板变量 **`#heroForm`** ，并且把它初始化为"ngForm"。
+  最后，我们发现了一些额外的东西！我们定义了一个模板引用变量 **`#heroForm`** ，并且把它初始化为"ngForm"。
 
   The variable `heroForm` is now a reference to the `NgForm` directive that governs the form as a whole.
   
@@ -975,8 +975,8 @@ figure.image-display
   For us, it was as simple as
   
   对于我们来说，它非常简单：
-  1. Define a template local variable on the (enhanced) form element
-  1. 定义一个局部模板变量，放在(强化过的)form元素上
+  1. Define a template reference variable on the (enhanced) form element
+  1. 定义一个模板引用变量，放在(强化过的)form元素上
   2. Reference that variable in a button some 50 lines away.
   2. 从50行之外的按钮上引用这个变量。
 
@@ -1070,14 +1070,14 @@ figure.image-display
   - 带有`Component`装饰器的组件类。
   - The `ngSubmit` directive for handling the form submission.
   - 用来处理表单提交的`ngSubmit`指令。
-  - Template local variables such as `#heroForm`, `#name`, `#alter-ego` and `#power`.
-  - 局部模板变量，如`#heroForm`、`#name`、`#alter-ego`和`power`。
+  - Template reference variables such as `#heroForm`, `#name`, `#alter-ego` and `#power`.
+  - 模板引用变量，如`#heroForm`、`#name`、`#alter-ego`和`#power`。
   - The `[(ngModel)]` syntax for two-way data binding.
   - 用于双向数据绑定的`[(ngModel)]`语法
   - The `ngControlName` directive for validation and form element change tracking.
   - 用于验证和表单元素变化跟踪的`ngControlName`指令
-  - The local variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
-  - 代表输入控件的局部变量上的`valid`属性，用于检查控件是否有效、是否显示/隐藏错误信息。
+  - The reference variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
+  - 指向input控件的引用变量上的`valid`属性，用于检查控件是否有效、是否显示/隐藏错误信息。
   - Controlling the submit button's enabled state by binding to `NgForm` validity.
   - 通过绑定到`NgForm`的有效性状态，控制提交按钮的禁用状态。
   - Custom CSS classes that provide visual feedback to users about invalid controls.

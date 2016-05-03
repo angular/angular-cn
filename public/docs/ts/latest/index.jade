@@ -1,30 +1,42 @@
-div.card-row(layout='row')
-  div(flex)
+div.card-row.docs-landing.layout-align-space-around-center.layout-row.flex
+  div.card-row-container
     md-card.card
-      md-card-content
-        h3.text-headline.text-uppercase <span class="icon-query-builder"></span> Quickstart
-        p.text-body 起步
+      md-card-content.layout-align-space-between-center.layout-column.flex
+        div
+          h2.text-headline.text-uppercase 5 Minute Quickstart
+          h2.text-headline.text-uppercase 5分钟Quickstart
+          p A short beginner guide explaining the basic concepts of Angular
+          p 一个简短的初学者向导，用于解释Angular的基本概念
+          
+        footer
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/quickstart.html") View Quickstart
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/quickstart.html") 查看Quickstart
+
+
+  div.card-row-container
+    md-card.card
+      md-card-content.layout-align-space-between-center.layout-column.flex
+        div
+          h2.text-headline.text-uppercase Developer Guide
+          h2.text-headline.text-uppercase 开发人员指南
+          p An intermediate development guide covering all major features of Angular
+          p 一个中级开发指南，覆盖Angular的所有主要特性
 
         footer
-          a(href="/docs/#{current.path[1]}/#{current.path[2]}/quickstart.html" class="button" md-button) 浏览Quickstart
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/guide/") View Guide
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/guide/") 查看指南
 
 
-  div(flex)
+  div.card-row-container
     md-card.card
-      md-card-content
-        h3.text-headline.text-uppercase <span class="icon-list"></span> 指南
-        p.text-body 单步指南
+      md-card-content.layout-align-space-between-center.layout-column.flex
+        div
+          h2.text-headline.text-uppercase API Reference
+          h2.text-headline.text-uppercase API参考
+          p An advanced reference of all Angular Classes, Methods, etc.
+          p 一个高级参考，包括所有Angular类、方法等。
 
         footer
-          a(href="/docs/#{current.path[1]}/#{current.path[2]}/guide/" class="button button-primary" md-button) 浏览指南
-
-
-  div(flex)
-    md-card.card
-      md-card-content
-        h3.text-headline.text-uppercase <span class="icon-book"></span> API预览
-        p.text-body API 2.0预览
-
-        footer
-          a(href="/docs/#{current.path[1]}/#{current.path[2]}/api/" class="button" md-button) 浏览API
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/api/") View API
+          a.button.md-button(href="/docs/#{current.path[1]}/#{current.path[2]}/api/") 查看API
 

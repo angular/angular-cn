@@ -64,29 +64,56 @@ include _util-fns
   ## 封装桶（Barrel）
 .l-sub-section
   :marked
-    A **barrel** is an Angular library module consisting of a logical grouping of single-purpose modules
-    such as `Component` and `Directive`.
-
-    一个**封装桶**是一个模块库，由单一用途的多个模块，比如组件和指令等组成。
-
-    Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
-    `angular2/http`, and `angular2/router`.
-
-    你熟悉的封装桶包含`angular2/core`, `angular2/common`, `angular2/platform/browser`,
-       `angular2/http`, 和 `angular2/router`.
-
-    Barrels are packaged and shipped as [**bundles**](#bundle) that
-    we may load with script tags in our `index.html`.
-
-    封装桶被当做[**捆绑包bundles**](#bundle)打包和发布，以便我们通过Script标签在`index.html`页面里面装载。
-
-    The script, `angular2.dev.js`, is a bundle.
-    `angular2.dev.js`脚本就是一个捆绑包（bundle）
-
-    Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
+    A barrel is a way to *rollup exports* from several modules into a single convenience module.
+    The barrel itself is a module file that re-exports *selected* exports of other modules.
     
-    获取更多关于模块，封装桶和捆绑包的信息："[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"
+    封装桶是把一系列模块中的 *导出结果* 归纳进一个单一的快捷模块的一种方式。
+    封装桶本身是一个模块文件，它重新导出来自其它模块的 *选中的* 导出
     
+    Imagine three modules in a `heroes` folder:
+    
+    假设在`heroes`目录下有三个模块：
+  code-example(format='').
+    // heroes/hero.component.ts
+    export class HeroComponent {}
+    
+    // heroes/hero.model.ts
+    export class Hero {}
+    
+    // heroes/hero.service.ts
+    export class HeroService {}
+  :marked
+    Without a barrel, a consumer would need three import statements:
+    
+    假如没有封装桶，消费者就需要三条import语句：
+  code-example(format='').
+    import { HeroComponent } from '../heroes/hero.component.ts';
+    import { Hero }          from '../heroes/hero.model.ts';
+    import { HeroService }   from '../heroes/hero.service.ts';
+  :marked
+    We can add a barrel to the `heroes` folder (called `index` by convention) that exports all of these items:
+    
+    我们可以在`heroes`目录下添加一个封装桶（按规约叫做`index`），它导出所有这三条：
+  code-example(format='').
+    import * from './hero.model.ts';   // re-export all of its exports
+    import * from './hero.service.ts'; // re-export all of its exports
+    export { HeroComponent } from './hero.component.ts'; // re-export the named thing
+  :marked
+    Now a consumer can import what it needs from the barrel.
+  code-example(format='').
+    import { Hero, HeroService } from '../heroes'; // index is implied
+  :marked
+    The Angular [scoped packages](#scoped-package) each have a barrel named `index`.
+    
+    Angular的每个[范围化包](#scoped-package)都有一个叫做`index`的封装桶。
+// #enddocregion b-c
+:marked
+  That's why we can write this:
+  
+  这就是为什么我们可以这样写的原因：
++makeExample('../docs/_fragments/quickstart/ts/app/app.component.ts', 'import')(format=".")
+// #docregion b-c
+
 :marked
   ## Binding
   ## 绑定
@@ -119,38 +146,6 @@ include _util-fns
 
     One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
     你可以在同一个`index.html`启动多个程序，每个程序都有自己的顶级根组件。
-
-:marked
-  ## Bundle
-  ## 捆绑包
-.l-sub-section
-  :marked
-    Angular JavaScript libraries are shipped in **bundles** within an **npm package**
-    such as [angular2](https://www.npmjs.com/package/angular2).
-
-    Angular Javascript库是以将多个**捆绑包**（**bundles**）捆绑到一起，以一个**NPM包**（**npm package**）的形式发布的。
-    比如[angular2](https://www.npmjs.com/package/angular2).
-
-    The scripts `angular2.dev.js`, `http.js`, `router.js`, and `Rx.js` are
-    familiar examples of bundles.
-
-    `angular2.dev.js`, `http.js`, `router.js`, 和 `Rx.js`等脚本文件是比较常见的捆绑包（bundle）例子。
-
-
-    A bundle contains one more more [**barrels**](#barrel)
-    and each barrel contains a collection of logically related [modules](#module)
-
-    一个捆绑包（bundle）包含了一个或多个[**封装桶**](#barrel)
-
-    Familiar barrels include `angular2/core`, `angular2/common`, `angular2/platform/browser`,
-    `angular2/http`, `angular2/router`.
-
-    常见的封装桶包括`angular2/core`, `angular2/common`, `angular2/platform/browser`,
-        `angular2/http`, `angular2/router`等。
-
-    Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
-    
-    获取更多关于模块，封装桶和捆绑包的知识："[模块，封装桶和捆绑包](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"。
 
 <a id="C"></a>
 .l-main-section
@@ -702,16 +697,11 @@ include _util-fns
     模块一般与他输出的东西的所在文件同名。比如, Angular的[日期管道DatePipe](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts)类属于名叫`date_pipe`的特性模块，在文件`date_pipe.ts`里。
     
     Developers rarely access Angular feature modules directly.
-    We usually import them from public-facing **library modules**
-    called [**barrels**](#barrel). Barrels are groups of logically related modules.
-    The `angular2/core` barrel is a good example.
-    
-    开发者很少需要直接访问Angular的特性模块。我们通常从名为[**封装桶**](#barrel)的公共**模块库**里面导入他们。封装通是有逻辑关联的模块的集合。封装通`angular2/core`是一个很好的例子。
+    We usually import them from one of the Angular [scoped packages](#scoped-package) such as `@angular/core`.
 
-    Learn more in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
-    
-    更多信息请看"[模块、封装桶和捆绑包](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".
-    
+    开发者很少需要直接访问Angular的特性模块。
+    我们通常从一个Angular的[**范围化包**](#scoped-package)中导入它们，比如`@angular/core`。
+
 // #enddocregion m2
 
 // #docregion n-s
@@ -847,6 +837,22 @@ include _util-fns
 
 <a id="S"></a>
 .l-main-section
+:marked
+  ## Scoped Package
+.l-sub-section
+  :marked
+    Angular modules are delivered within *scoped packages* such as `@angular/core`, `@angular/common`, `@angular/platform-browser-dynamic`,
+    `@angular/http`, and `@angular/router`.
+
+    A [*scoped package*](https://docs.npmjs.com/misc/scope) is a way to group related *npm* packages.
+    
+    We import a scoped package the same way we'd import a *normal* package. 
+    The only difference, from a consumer perspective, 
+    is that the package name begins with the Angular *scope name*, `@angular`.
+// #enddocregion n-s
++makeExample('../docs/_fragments/architecture/ts/app/app.component.ts', 'import')(format=".")
+// #docregion n-s
+
 :marked
   ## Structural Directive
   ## 结构型指令

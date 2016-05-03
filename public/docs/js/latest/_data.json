@@ -3,7 +3,7 @@
     "icon": "home",
     "title": "Angular Docs",
     "menuTitle": "Docs Home",
-    "banner": "Welcome to <b>Angular in JavaScript</b>! The current Angular 2 release is <b>beta.15</b>. Please consult the <a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>  Change Log</a> about recent enhancements, fixes, and breaking changes."
+    "banner": "Welcome to <b>Angular in JavaScript</b>! The current Angular 2 release is <b>rc.0</b>. Please consult the <a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>  Change Log</a> about recent enhancements, fixes, and breaking changes."
   },
 
   "quickstart": {
@@ -39,13 +39,13 @@
   "cheatsheet": {
     "title": "Angular Cheat Sheet",
     "intro": "A quick guide to Angular syntax.",
-    "reference": true
+    "reference": false
   },
 
   "glossary": {
     "title": "Glossary",
     "intro": "Brief definitions of the most important words in the Angular 2 vocabulary",
-    "reference": true
+    "reference": false
   },
 
   "resources": {

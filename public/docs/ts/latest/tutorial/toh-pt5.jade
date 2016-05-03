@@ -64,6 +64,8 @@ figure.image-display
     .file typings ...      
     .file index.html
     .file package.json
+    .file styles.css
+    .file systemjs.config.js
     .file tsconfig.json
     .file typings.json
 :marked
@@ -218,25 +220,14 @@ code-example(format="." language="bash").
   换句话说，我们希望通过导航显示英雄列表。
   
   We'll need the Angular *Component Router*.
-  
+
   我们需要Angular的 *组件路由器* 。
   
-  ### Include the Router Library
-  ### 包含路由库
-  Not all apps need routing which is why the Angular *Component Router* is in a separate, optional module library.
+  ### Set the base tag
+  ### 设置base标签
+  Open the `index.html` and add `<base href="/">` at the top of the `<head>` section. 
   
-  不是所有的应用都需要路由，所以Angular的 *组件路由器* 是一个独立的、可选的模块库。
-
-  Our Tour of Heroes needs routing, 
-  so we load the library in the `index.html` in a script tag immediately *after* the angular script itself.
-  
-  我们的《英雄指南》需要路由。
-  所以我们在`index.html`的script标签中加载这个库，仅在加载Angular脚本之后。
-+makeExample('toh-5/ts/index.html', 'router', 'index.html (路由)')(format=".")
-:marked
-  While we're in `index.html`, we add `<base href="/">` at the top of the `<head>` section. 
-  
-  在`index.html`中，我们还要添加在`<head>`区的顶部添加`<base href="/">`语句。
+  打开`index.html`并且在`<head>`区的顶部添加`<base href="/">`语句。
 +makeExample('toh-5/ts/index.html', 'base-href', 'index.html (base href)')(format=".")
 .callout.is-important
   header base href is essential
@@ -1156,3 +1147,4 @@ figure.image-display
   we’ll replace our mock data with data retrieved from a server using http.
   
   在即将到来的章节中，我们将从硬编码模拟数据改为使用http服务从服务器获取数据。
+

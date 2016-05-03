@@ -2,10 +2,10 @@
 
 // TODO SOMEDAY: Feature Componetized like CrisisCenter
 // #docregion
-import {Component, OnInit}   from 'angular2/core';
+import {Component, OnInit}   from '@angular/core';
 import {Hero, HeroService}   from './hero.service';
 // #docregion import-route-params
-import {Router, RouteParams} from 'angular2/router';
+import {Router, RouteParams} from '@angular/router-deprecated';
 // #enddocregion import-route-params
 
 @Component({
@@ -13,7 +13,7 @@ import {Router, RouteParams} from 'angular2/router';
   template: `
     <h2>HEROES</h2>
     <ul class="items">
-      <li *ngFor="#hero of heroes"
+      <li *ngFor="let hero of heroes"
         [class.selected]="isSelected(hero)"
         (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span> {{hero.name}}

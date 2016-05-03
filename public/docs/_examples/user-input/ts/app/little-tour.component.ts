@@ -1,5 +1,5 @@
 // #docregion
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 
 // #docregion little-tour
 @Component({
@@ -11,7 +11,7 @@ import {Component} from 'angular2/core';
 
     <button (click)=addHero(newHero.value)>Add</button>
 
-    <ul><li *ngFor="#hero of heroes">{{hero}}</li></ul>
+    <ul><li *ngFor="let hero of heroes">{{hero}}</li></ul>
   `
 })
 export class LittleTourComponent {
