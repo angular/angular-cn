@@ -832,28 +832,43 @@ a(id="tokens")
   In the previous *Hero of the Month* example, we used the `MinimalLogger` class
   as the token for a provider of a `LoggerService`.
   
+  在前面的*每月英雄*的例子中，我们用`MinimalLogger`类当做`LoggerService` provider的令牌。
+  
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
 :marked
   The `MinimalLogger` is an abstract class. 
+  
+  该`MinimalLogger`是一个抽象类。
 +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger')(format='.')   
 :marked
   We usually inherit from an abstract class.
   But `LoggerService` doesn't inherit from `MinimalLogger`. *No class* inherits from it.
   Instead, we use it like an interface.
   
+  我们通常从一个抽象类继承。但是`LoggerService`并不继承`MinimalLogger`。*没有类*继承它。取而代之，我们把它当接口来使用。
+  
   Look again at the declaration for `DateLoggerService`
+  
+  请再看`DateLoggerService`的声明。
 +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','date-logger-service-signature')(format='.')   
 :marked
   `DateLoggerService` inherits (extends) from `LoggerService`, not `MinimalLogger`.
   The `DateLoggerService` *implements* `MinimalLogger` as if `MinimalLogger` were an *interface*.
   
+  `DateLoggerService`继承（延续）`LoggerService`，不是`MinimalLogger`。该`DateLoggerService`*实现*`MinimalLogger`，就像`MinimalLogger`是一个接口。
+  
   We call a class used in this way a ***class-interface***.
   The key benefit of a *class-interface* is that we can get the strong-typing of an interface
   and we can ***use it as a provider token*** in the same manner as a normal class.
   
+  我们称这种用法的类叫做*类-接口*。它关键的好处是一个*类-接口*给我们提供了一个接口的强类型，同时，我们能想正常类一样***使用它作为一个provider令牌***。
+  
   A ***class-interface*** should define *only* the members that its consumers are allowed to call.
   Such a narrowing interface helps decouple the concrete class from its consumers.
   The `MinimalLogger` defines just two of the `LoggerClass` members.
+  
+  一个***类-接口***应该*只*定义它的消费者容许调用的成员。这样一个窄的接口帮助我们分离该类的具体类实例和他的消费者。
+  该`MinimalLogger`只定义了两个`LoggerClass`的成员。
 
 .l-sub-section
   :marked
@@ -863,13 +878,22 @@ a(id="tokens")
     They exist only in the TypeScript design space. 
     They disappear after the code is transpiled to JavaScript.
     
+    ### 为什么*MinimalLogger*是一个类而不是一个接口？因为我们不能把一个接口当做一个provider的令牌，因为接口不是JavaScript对象。
+    它们只存在在TypeScript的设计空间里。它们会在被编译到JavaScript之后消失。
+    
     A provider token must be a real JavaScript object of some kind: 
     a function, an object, a string ... a class.
     
+    一个provider令牌必须是一个真实的JavaScript对象，比如：一个函数，一个对象，一个字符串 ...一个类。
+    
     Using a class as an interface gives us the characteristics of an interface in a JavaScript object.
+    
+    把一个类当做接口使用，为我们在一个JavaScript对象上提供了接口的特征。
     
     The minimize memory cost, the class should have *no implementation*. 
     The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript:
+    
+    为了节省内存费用，该类不应该有*执行*。该`MinimalLogger`翻译到一个下面这个没有优化的，最小化之前的JavaScript：
   +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger-transpiled')(format='.')
   :marked
      It never grows larger no matter how many members we add *as long as they are typed but not implemented*.
