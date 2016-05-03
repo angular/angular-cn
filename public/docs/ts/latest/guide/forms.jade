@@ -44,8 +44,8 @@ include ../_util-fns
   - displaying validation errors to users and enable/disable form controls
   - 给用户显示有效性验证的错误信息，以及禁用/使能表单控件
 
-  - sharing information among controls with template local variables
-  - 在控件和局部模板变量之间共享信息
+  - sharing information among controls with template reference variables
+  - 在控件和模板引用变量之间共享信息
   
   [Live Example](/resources/live-examples/forms/ts/plnkr.html)
   
@@ -158,7 +158,7 @@ include ../_quickstart_repo
   and one optional field (`alterEgo`).
   
   最简单的模型就是一个“属性包儿”，用来存放关于应用中一个重要事物的那些事实。
-  这里我们使用三个必备字段（`id`、`name`、`power`），和一个可选字段（`alterEgo`，中文含义：闺蜜/好基友）。
+  这里我们使用三个必备字段（`id`、`name`、`power`），和一个可选字段（`alterEgo`，中文含义：第二人格）。
 
   Create a new file in the app folder called `hero.ts` and give it the following class definition:
   
@@ -366,7 +366,7 @@ ol
   我们先在`HeroFormComponent`中内部维护这个列表。
 
   We'll add a `select` to our
-  form and bind the options to the `powers` list using `NgFor`,
+  form and bind the options to the `powers` list using `ngFor`,
   a technique we might have seen before in the [Displaying Data](./displaying-data.html) chapter.
   
   我们将添加一个`select`到表单中，并且通过`NgFor`把`powers`列表绑定到候选项（options）。
@@ -379,7 +379,7 @@ ol
 
 :marked
   We are repeating the `<options>` tag for each power in the list of Powers.
-  The `#p` local template variable is a different power in each iteration;
+  The `p` template input variable is a different power in each iteration;
   we display its name using the interpolation syntax with the double-curly-braces.
   
   我们为列表中的每一项超能力重复渲染`<option>`标签。
@@ -459,7 +459,7 @@ figure.image-display
   and add a new binding at the top to the component's `diagnostic` property.
   Then we can confirm that two-way data binding works *for the entire Hero model*.
   
-  让我们用类似的方式添加`[(ngModel)]`到 *好基友* 和 *超能力* 属性。
+  让我们用类似的方式添加`[(ngModel)]`到 *alterEgo* 和 *power* 属性。
   我们将抛弃输入框的绑定消息，并在组件顶部的`diagnostic`属性上添加一个新的绑定。
   然后我们能确认双向数据绑定 *在整个Hero模型上* 都是能工作的。
 
@@ -650,7 +650,7 @@ table
     td <code>ng-valid</code>
     td <code>ng-invalid</code>
 :marked
-  Let's add a temporary [local template variable](./template-syntax.html#local-vars) named **spy**
+  Let's add a temporary [template reference variable](./template-syntax.html#ref-vars) named **spy**
   to the "Name" `<input>` tag and use the spy to display those classes.
   
   我们往姓名`<input>`标签上添加一个名叫 **spy** 的临时[局部模板变量](./template-syntax.html#local-vars)，然后用这个spy来显示它上面的所有css类。
@@ -739,8 +739,8 @@ figure.image-display
   To achieve this effect we extend the `<input>` tag with
   
   要达到这个效果，我们得通过下列方式扩展`<input>`标签：
-  1. a [local template variable](./template-syntax.html#local-vars)
-  1. 一个[局部模板变量](./template-syntax.html#local-vars)
+  1. a [template reference variable](./template-syntax.html#ref-vars)
+  1. 一个[模板引用变量](./template-syntax.html#ref-vars)
   1. the "*is required*" message in a nearby `<div>` which we'll display only if the control is invalid.
   1. “本项必须填写”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
 
@@ -751,7 +751,7 @@ figure.image-display
   'name-with-error-msg', 
   'app/hero-form.component.html (节选)')(format=".")
 :marked
-  We need a template local variable to access the input box's Angular control from within the template.
+  We need a template reference variable to access the input box's Angular control from within the template.
   Here we created a variable called `name` and gave it the value "ngForm".
   
   我们需要一个局部模板变量来访问模板中输入框的Angular控件。
@@ -760,7 +760,7 @@ figure.image-display
   :marked
     Why "ngForm"? 
     A directive's [exportAs](../api/core/DirectiveMetadata-class.html#!#exportAs) property 
-    tells Angular how to link local variable to the directive.
+    tells Angular how to link the reference variable to the directive.
     We set `name` to `ngForm` because the `NgControlName` directive's `exportAs` property happens to be "ngForm".
     
     为什么是"ngForm"？
@@ -863,52 +863,83 @@ figure.image-display
     Upon reflection, we realize that Angular cannot distinguish between
     replacing the entire hero and clearing the `name` property programmatically.
     Angular makes no assumptions and leaves the control in its current, dirty state.
+    
+    这反映出，在这种实现方式下，Angular没办法区分是替换了整个英雄数据还是用程序单独清除了`name`属性。
+    Angular不能作出假设，因此只好让控件保留当前状态 —— 脏状态。
 :marked
   We'll have to reset the form controls manually with a small trick. 
   We add an `active` flag to the component, initialized to `true`. When we add a new hero,
   we toggle `active` false and then immediately back to true with a quick `setTimeout`.
+  
+  我们不得不使用一个小花招来重置表单标志。
+  我们给组件添加一个`active`标记，把它初始化为`true`。当我们添加一个新的英雄时，它把`active`标记设置为`false`，
+  然后通过一个快速的`setTimeout`函数迅速把它设置回`true`。
 +makeExample('forms/ts/app/hero-form.component.ts', 
   'new-hero', 
-  'app/hero-form.component.ts (New Hero method - final)')(format=".")
+  'app/hero-form.component.ts (新增英雄 - 最终版)')(format=".")
 :marked
   Then we bind the form element to this `active` flag.
+  
+  然后，我们把form元素绑定到这个`active`标志上。
 +makeExample('forms/ts/app/hero-form.component.html', 
   'form-active', 
-  'app/hero-form.component.html (Form tag)')
+  'app/hero-form.component.html (Form标签)')
 :marked
   With `NgIf` bound to the `active` flag, 
   clicking "New Hero" removes the form from the DOM and recreates it in a blink of an eye.
   The re-created form is in a pristine state. The error message is hidden.
+  
+  在通过`NgIf`绑定到`active`标志之后，点击“新增英雄”将从DOM中移除这个表单，并且在一眨眼的功夫重建它。
+  重新创建的表单处于“全新”状态。错误信息被隐藏了。
 .l-sub-section
   :marked
     This is a temporary workaround while we await a proper form reset feature.
+    
+    这只是一个临时的变通方案，将来我们会有一个更合适的方案来重置表单。
 :marked
   
 .l-main-section
 :marked
   ## Submit the form with **ngSubmit**
+  ## 通过 **ngSubmit** 来提交表单
   The user should be able to submit this form after filling it in.
   The Submit button at the bottom of the form
   does nothing on its own but it will
   trigger a form submit because of its type (`type="submit"`).
+  
+  在填写完之后，用户还应该能提交这个表单。
+  提交按钮位于表单的底部，它自己不会做任何事，但因为它特殊的type值(`type="submit"`)，它会触发一次表单提交。
 
   A "form submit" is useless at the moment.
   To make it useful, we'll update the `<form>` tag with another Angular directive, `NgSubmit`,
   and bind it to the `HeroFormComponent.submit()` method with an  event binding
+  
+  仅仅触发“表单提交”目前是没用的。
+  要让它有用，我们还要使用另一个Angular指令更新`<form>`标签 —— `NgSubmit`，
+  并且通过事件绑定机制把它绑定到`HeroFormComponent.submit()`方法上。
 +makeExample('forms/ts/app/hero-form.component.html', 'ngSubmit')(format=".")
 
 :marked
   We slipped in something extra there at the end!  We defined a
-  template local variable, **`#heroForm`**, and initialized it with the value, "ngForm".
+  template reference variable, **`#heroForm`**, and initialized it with the value, "ngForm".
+  
+  最后，我们发现了一些额外的东西！我们定义了一个模板引用变量 **`#heroForm`** ，并且把它初始化为"ngForm"。
 
   The variable `heroForm` is now a reference to the `NgForm` directive that governs the form as a whole.
+  
+  这个`heroForm`变量现在引用的是`NgForm`指令，它代表的是作为整体的表单。
 <a id="ngForm"></a>
 .l-sub-section
   :marked
     ### The NgForm directive
+    ### NgForm指令
     What `NgForm` directive? We didn't add an [NgForm](../api/common/NgForm-directive.html) directive!
     
+    什么是`NgForm`指令？我们没有添加过[NgForm](../api/common/NgForm-directive.html)指令！
+    
     Angular did. Angular creates and attaches an `NgForm` directive to the `<form>` tag automatically.
+    
+    Angular替我们做了。Angular自动创建了`NgForm`指令，并且把它附加到`<form>`标签上。
 
     The `NgForm` directive  supplements the `form` element with additional features.
     It holds the controls we created for the elements with `ngControl` attributes
@@ -916,27 +947,46 @@ figure.image-display
     It also has its own `valid` property which is true only *if every contained
     control* is valid.
     
+    `NgForm`指令使用额外的特性扩充了`form`元素。
+    它保存我们通过`ngControl`属性为各个元素创建的控件类，并且监听他们的属性变化，包括有效性。
+    它还有自己的`valid`属性，只有当 *每一个被包含的控件* 都有效时，它才有效。
+    
 :marked
   Later in the template we bind the button's `disabled` property to the form's over-all validity via
   the `heroForm` variable. Here's that bit of markup:
+  
+  模板中稍后的部分，通过`heroForm`变量，我们把按钮的`disabled`属性绑定到了表单的全员有效性。这里是那点儿HTML：
 +makeExample('forms/ts/app/hero-form.component.html', 'submit-button')
 :marked
   Re-run the application. The form opens in a valid state and the button is enabled.
+  
+  重新运行应用。表单打开时，状态是有效的，按钮是可用的。
 
   Now delete the *Name*. We violate the "name required" rule which
   is duely noted in our error message as before. And now the Submit button is also disabled.
+  
+  现在，删除 *姓名* 。我们违反了“必填姓名”规则，它还是像以前那样显示了错误信息来提醒我们。同时，提交按钮也被禁用了。
 
   Not impressed?  Think about it for a moment. What would we have to do to
   wire the button's enable/disabled state to the form's validity without Angular's help?
+  
+  没想明白？再想一会儿。如果没有Angular `NgForm`的帮助，我们该怎么让按钮的禁用/使能状态和表单的有效性关联起来呢？
 
   For us, it was as simple as
-  1. Define a template local variable on the (enhanced) form element
+  
+  对于我们来说，它非常简单：
+  1. Define a template reference variable on the (enhanced) form element
+  1. 定义一个模板引用变量，放在(强化过的)form元素上
   2. Reference that variable in a button some 50 lines away.
+  2. 从50行之外的按钮上引用这个变量。
 
 .l-main-section
 :marked
   ## Toggle two form regions (extra credit)
+  ## 切换两个表单区域（额外的荣誉）
   Submitting the form isn't terribly dramatic at the moment.
+  
+  现在就提交表单还不够激动人心
 .l-sub-section
   :marked
     An unsurprising observation for a demo. To be honest,
@@ -945,19 +995,30 @@ figure.image-display
     binding skills.
     If you're not interested, you can skip to the chapter's conclusion
     and not miss a thing.
+    
+    对演示来说，这是一个平淡的结尾。老实说，即使让它更出彩，也无法教给我们任何关于表单的新知识。
+    但这是一个锻炼我们新学到的绑定类技能的好机会。
+    如果你不感兴趣，可以跳过本章的下面这部分，而不会错失任何东西。
 :marked
   Let's do something more strikingly visual.
   Let's hide the data entry area and display something else.
+  
+  我们来做一些更明显的视觉效果吧。
+  隐藏掉数据输入框，并且显示一些别的东西。
 
   Start by wrapping the form in a `<div>` and bind
   its `hidden` property to the `HeroFormComponent.submitted` property.
+  
+  先把表单包裹进`<div>`中，并且把它的`hidden`属性绑定到`HeroFormComponent.submitted`属性上。
 
-+makeExample('forms/ts/app/hero-form.component.html', 'edit-div', 'app/hero-form.component.html (excerpt)')(format=".")
++makeExample('forms/ts/app/hero-form.component.html', 'edit-div', 'app/hero-form.component.html (节选)')(format=".")
 
 :marked
   The main form is visible from the start because the
   the `submitted` property is false until we submit the form,
   as this fragment from the `HeroFormComponent` reminds us:
+  
+  主表单从一开始就是可见的，因为`submitted`属性是false，直到我们提交了这个表单，因为这个来自`HeroFormComponent`的片段提醒我们：
 
 +makeExample('forms/ts/app/hero-form.component.ts', 'submitted')(format=".")
 
@@ -965,38 +1026,66 @@ figure.image-display
   When we click the Submit button, the `submitted` flag becomes true and the form disappears
   as planned.
 
+  当我们点击提交按钮时，`submitted`标志会变成true，并且表单像预想中一样消失了。
+
   Now we need to show something else while the form is in the submitted state.
   Add the following block of HTML below the `<div>` wrapper we just wrote:
-+makeExample('forms/ts/app/hero-form.component.html', 'submitted', 'app/hero-form.component.html (excerpt)')
+  
+  现在，当表单处于已提交状态时，我们需要显示一些别的东西。
+  在我们刚刚写的`<div>`包装下方，添加下列HTML块儿：
++makeExample('forms/ts/app/hero-form.component.html', 'submitted', 'app/hero-form.component.html (节选)')
 
 :marked
   There's our hero again, displayed read-only with interpolation bindings.
   This slug of HTML only appears while the component is in the submitted state.
+  
+  我们的英雄又来了，它通过插值表达式绑定显示为只读内容。
+  这一小段儿HTML只在组件处于已提交状态时才会显示。
 
   We added an Edit button whose click event is bound to an expression
   that clears the `submitted` flag.
 
+  我们添加了一个编辑按钮，它的click事件被绑定到了一个表达式，它会清除`submitted`标志。
+  
   When we click it, this block disappears and the editable form reappears.
+  
+  当我们点它时，这个只读块消失了，可编辑的表单重新出现了。
 
   That's as much drama as we can muster for now.
+  
+  现在，它比我们那个恰好够用的版本好看多了。
 
 .l-main-section
 :marked
   ## Conclusion
+  ## 结论
 
   The Angular 2 form discussed in this chapter takes advantage of the following framework features to provide support for data modification, validation and more:
+  
+  从本章对Angular 2表单的讨论中得到的用来支持数据修改、验证等的框架高级特性如下：
 
   - An Angular HTML form template.
+  - Angular HTML表单模板。
   - A form component class with a `Component` decorator.
+  - 带有`Component`装饰器的组件类。
   - The `ngSubmit` directive for handling the form submission.
-  - Template local variables such as `#heroForm`, `#name`, `#alter-ego` and `#power`.
+  - 用来处理表单提交的`ngSubmit`指令。
+  - Template reference variables such as `#heroForm`, `#name`, `#alter-ego` and `#power`.
+  - 模板引用变量，如`#heroForm`、`#name`、`#alter-ego`和`#power`。
   - The `[(ngModel)]` syntax for two-way data binding.
+  - 用于双向数据绑定的`[(ngModel)]`语法
   - The `ngControlName` directive for validation and form element change tracking.
-  - The local variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
+  - 用于验证和表单元素变化跟踪的`ngControlName`指令
+  - The reference variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
+  - 指向input控件的引用变量上的`valid`属性，用于检查控件是否有效、是否显示/隐藏错误信息。
   - Controlling the submit button's enabled state by binding to `NgForm` validity.
+  - 通过绑定到`NgForm`的有效性状态，控制提交按钮的禁用状态。
   - Custom CSS classes that provide visual feedback to users about invalid controls.
+  - 对无效控件，定制CSS类来给用户提供视觉反馈。
 
   Our final project folder structure should look like this:
+  
+  我们最终的项目目录结构看起来是这样：
 .filetree
   .file angular2-forms
   .children
@@ -1015,6 +1104,8 @@ figure.image-display
     .file typings.json
 :marked
   Here’s the final version of the source:
+  
+  这里是源码的最终版本：
 
 +makeTabs(
   `forms/ts/app/hero-form.component.ts,

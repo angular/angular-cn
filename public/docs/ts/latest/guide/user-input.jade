@@ -127,27 +127,27 @@ figure.image-display
 
 .l-main-section
 :marked
-  ## Get user input from a local template variable
-  ## 从一个局部模板变量中获得用户输入
+  ## Get user input from a template reference variable
+  ## 从一个模板引用变量中获得用户输入
   There's another way to get the user data without the `$event` variable.
   
   还有另一种方式，不用通过`$event`变量获得用户数据。
 
-  Angular has a syntax feature called [**local template variables**](./template-syntax.html#local-vars).
+  Angular has a syntax feature called [**template reference variables**](./template-syntax.html#ref-vars).
   These variables grant us direct access to an element.
-  We declare a local template variable by preceding an identifier with a hash/pound character (#).
+  We declare a template reference variable by preceding an identifier with a hash/pound character (#).
   
-  Angular有一个叫做[**局部模板变量**](./template-syntax.html#local-vars)的语法特性。
+  Angular有一个叫做[**模板引用变量**](./template-syntax.html#ref-vars)的语法特性。
   这些变量给了我们直接访问元素的能力。
-  通过在标识符前加上井号（#），我们就能定义一个局部模板变量。
+  通过在标识符前加上井号（#），我们就能定义一个模板引用变量。
 
-  Here's an example of using a local template variable
+  Here's an example of using a template reference variable
   to implement a clever keystroke loopback in an ultra-simple template.
   
   下面的例子就通过使用局部模板变量，在一个超级简单的模板中实现了一个聪明的按键反馈循环。
 +makeExample('user-input/ts/app/loop-back.component.ts', 'loop-back-component', 'app/loop-back.component.ts')(format=".")
 :marked
-  We've declared a template local variable named `box` on the `<input>` element.
+  We've declared a template reference variable named `box` on the `<input>` element.
   The `box` variable is a reference to the `<input>` element itself, which means we can
   grab the input element's `value` and display it
   with interpolation between `<p>` tags.
@@ -185,7 +185,7 @@ figure.image-display
     它被绑定到了数字0，这是我们所能想到的最短的语句。
     这么做完全是为了讨好Angular。我们认为，还应该有更聪明的方式！
 :marked
-  That local template variable is intriguing. It's clearly easier to get to the textbox with that
+  That template reference variable is intriguing. It's clearly easier to get to the textbox with that
   variable than to go through the `$event` object. Maybe we can rewrite our previous
   keyup example so that it uses the variable to get the user's input. Let's give it a try.
   

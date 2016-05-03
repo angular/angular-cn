@@ -57,6 +57,12 @@
     "basics": true
   },
 
+  "style-guide": {
+    "title": "风格指南",
+    "intro": "如何写Angular2风格的程序",
+    "basics": true
+  },
+
   "attribute-directives": {
     "title": "属性型指令",
     "intro": "属性型指令把行为添加到现有元素上。"
@@ -101,12 +107,6 @@
   "structural-directives": {
     "title": "结构型指令",
     "intro": "Angular有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
-  },
-
-  "style-guide": {
-    "title": "风格指南",
-    "intro": "按正确的风格编写Angular 2应用。",
-    "hide": true
   },
 
   "testing": {

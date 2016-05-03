@@ -45,10 +45,10 @@ figure
   1. [元数据(Metadata)](#metadata)
   1. [Data Binding](#data-binding)
   1. [数据绑定(Data Binding)](#data-binding)
-  1. [Service](#service)
-  1. [服务(Service)](#service)
   1. [Directive](#directive)
   1. [指令(Directive)](#directive)
+  1. [Service](#service)
+  1. [服务(Service)](#service)
   1. [Dependency Injection](#dependency-injection)
   1. [依赖注入(Dependency Injection)](#dependency-injection)
 
@@ -144,32 +144,29 @@ figure
   
   有些模块是其它模块的库。
   
-  Angular itself ships as a collection of library modules called "barrels". 
-  Each Angular library is actually a public façade over several logically related private modules.
+  Angular itself ships as a collection of library modules within several npm packages.
+  Their names begin with the `@angular` prefix. 
+  Each Angular library contains a [barrel](../glossary.html#barrel) module
+  that is actually a public façade over several logically-related private modules.
+
+  Angular本身就是用一组库模块的形式发布的，它们都以`@angular`为前缀。
+  每个Angular库都包含一个[封装桶](../glossary.html#barrel)模块。
+  它实际上是一个公开的外观层（façade），囊括了许多逻辑上相关的私有模块。
   
-  Angular本身就是用一组库模块的形式发布的，我们称之为“封装桶(barrel)”。
-  每个Angular库实际上是一个公开的外观层（façade），囊括了许多逻辑上相关的私有模块。
-  
-  The `angular2/core` library is the primary Angular library module from which we get most of what we need.
+  The `@angular/core` library is the primary Angular library module from which we get most of what we need.
   
   `angular2/core`库是主要的Angular库模块，从这里我们能获得所需的大部分东西。
   <br clear="all">
   
-  There are other important Angular library modules too such as `angular2/common`, `angular2/router`, and `angular2/http`.
+  There are other important Angular library modules too such as `@angular/common`, `@angular/router`, and `@angular/http`.
   
-  还有其它重要的Angular库，比如`angular2/common`, `angular2/router` 和 `angular2/http`。
-.l-sub-section
-  :marked
-     Learn more about how Angular organizes and distributes modules 
-     in "[Modules, barrels and bundles](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)".  
-     
-     要学习Angular如何组织和分发模块的知识，参见"[模块、封装桶(barrel)和捆绑包(bundle)](https://github.com/angular/angular/blob/master/modules/angular2/docs/bundles/overview.md)"
-:marked
-  We import what we need from an Angular library module in much the same way. 
-  For example, we import the Angular **`Component` *function*** from the *angular2/core* module like this:
+  还有另外一些重要的Angular库模块，比如`@angular/common`、`@angular/router` 和 `@angular/http`。
+
+  We import what we need from an Angular library module in much the same way.
+  For example, we import the Angular **`Component` *function*** from the *@angular/core* module like this:
   
-  我们从Angular库模块中导入的方式基本上都是如此。
-  比如，我们从 *angular2/core* 中导入Angular **`Component` *函数* ** 的代码是这样的：
+  我们从Angular库模块中导入所需内容的方式都与此类似。
+  比如，我们从 *@angular2/core* 中导入Angular **`Component` *函数* ** 的代码是这样的：
 +makeExample('architecture/ts/app/app.component.ts', 'import')(format=".")
 :marked
   Compare that syntax to our previous import of `AppComponent`.
@@ -179,7 +176,7 @@ figure
 :marked
   Notice the difference? 
   In the first case, when importing from an Angular library module,
-  the import statement refers to the bare module name, `angular2/core`, *without a path prefix*.
+  the import statement refers to the bare module name, `@angular/core`, *without a path prefix*.
   
   注意到不同之处了吗？
   前面的方式中，当从Angular库模块中导入时，import语句引用的是一个裸模块名 —— `angular2/core` —— *没有路径前缀* 。
@@ -806,10 +803,10 @@ figure
   1. [元数据Metadata](#metadata)
   1. [Data Binding](#data-binding)
   1. [数据绑定Data Binding](#data-binding)
-  1. [Service](#service)
-  1. [服务Service](#service)
   1. [Directive](#directive)
   1. [指令Directive](#directive)
+  1. [Service](#service)
+  1. [服务Service](#service)
   1. [Dependency Injection](#dependency-injection)
   1. [依赖注入Dependency Injection](#dependency-injection)
   
@@ -861,9 +858,9 @@ figure
   
   >**[表单Forms](forms.html)** - 通过基于HTML的验证和脏检查机制支持复杂的数据输入场景。
   
-  >**HTTP** - Communicate with a server to get data, save data, and invoke server-side actions with this Angular HTTP client.
+  >**[HTTP](server-communication.html)** - Communicate with a server to get data, save data, and invoke server-side actions with this Angular HTTP client.
   
-  >**HTTP** - 通过这个Angular HTTP客户端，可以与服务器通讯来获得数据、保存数据和触发服务端动作。
+  >**[HTTP](server-communication.html)** - 通过这个Angular HTTP客户端，可以与服务器通讯来获得数据、保存数据和触发服务端动作。
   
   >**[Lifecycle Hooks](lifecycle-hooks.html)** - We can tap into key moments in the lifetime of a component, from its creation to its destruction, 
   by implementing the "Lifecycle Hook" interfaces.

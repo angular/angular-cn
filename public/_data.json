@@ -1,13 +1,12 @@
 {
   "index": {
     "hero": "home",
-    "title": "一个框架",
-    "subtitle": "适用于手机与桌面"
+    "title": "一套框架，多个平台",
+    "subtitle": "同时适用手机与桌面"
   },
 
   "features": {
-    "title": "特性与优点",
-    "subtitle": "开发应用程序的强力特性"
+    "title": "特性与优点"
   },
 
   "contribute": {
@@ -17,8 +16,7 @@
   },
 
   "news": {
-    "title": "新闻",
-    "subtitle": "看看我们正在做什么"
+    "title": "新闻"
   },
 
   "events": {
@@ -29,5 +27,29 @@
   "support": {
     "title": "支持",
     "subtitle": "从Angular社区获得支持"
+  },
+
+  "presskit": {
+    "title": "出版工具"
+  },
+
+  "books": {
+    "title": "书籍"
+  },
+
+  "training": {
+    "title": "培训"
+  },
+
+  "communities": {
+    "title": "社区"
+  },
+
+  "tooling": {
+    "title": "工具与库"
+  },
+
+  "all-resources": {
+    "title": "资源"
   }
 }

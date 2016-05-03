@@ -1,5 +1,5 @@
 // #docregion
-import {Component}      from 'angular2/core';
+import {Component}      from '@angular/core';
 import {VoterComponent} from './voter.component';
 
 @Component({
@@ -7,7 +7,7 @@ import {VoterComponent} from './voter.component';
   template: `
     <h2>Should mankind colonize the Universe?</h2>
     <h3>Agree: {{agreed}}, Disagree: {{disagreed}}</h3>
-    <my-voter *ngFor="#voter of voters"
+    <my-voter *ngFor="let voter of voters"
       [name]="voter"
       (onVoted)="onVoted($event)">
     </my-voter>

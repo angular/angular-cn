@@ -336,11 +336,11 @@ a(id="component-import")
     Angular本身也是模块化的。它包括一系列的库模块，这些模块包括了一系列相关的特性，以便我们可以拿来构建自己的应用。
     
     When we need something from a module, we import it. 
-    Here we import the Angular `Component` decorator function from the
-    main Angular library module because we need it to define our component.
+    Here we import the Angular `Component` decorator function from
+    `@angular/core` because we need it to define our component.
 
     当我们需要一个模块中的某些东西时，我们引入（import）它。
-    在这里，我们从Angular的主模块中引入了`Component`装饰器，我们需要它来定义我们的组件。
+    在这里，我们从`@angular/core`中引入了`Component`装饰器，我们需要它来定义我们的组件。
 
   +makeExample('quickstart/ts/app/app.component.ts', 'import', 'app/app.component.ts (导入)')(format=".")
 
@@ -445,10 +445,10 @@ a(id="main")
  
     ### Bootstrapping is platform-specific
     ### “启动”是平台相关的
-    Notice that we import the `bootstrap` function from `angular2/platform/browser`,
-    not `angular2/core`.
+    Notice that we import the `bootstrap` function from `@angular/platform-browser-dynamic`,
+    not `@angular/core`.
 
-    注意，我们是从`angular2/platform/browser`中引入的`bootstrap`函数，而不是`angular2/core`中。
+    注意，我们是从`@angular/platform-browser-dynamic`中引入的`bootstrap`函数，而不是`@angular2/core`中。
 
     Bootstrapping isn't core because there isn't a single way to bootstrap the app.
     True, most applications that run in a browser call the bootstrap function from
@@ -525,7 +525,7 @@ code-example(format="").
     1. JavaScript [库](#libraries)
     
     2. Configuration of [SystemJS](#systemjs) where we also import and run the
-    `main` file that we just wrote.
+    `main` file that we just wrote. //TODO reword this a bit
     
     2. 配置[SystemJS](#systemjs)，以便引入和运行我们刚才写的`main`文件。
     
@@ -547,38 +547,30 @@ code-example(format="").
     IE requires polyfills to run
     an application that relies on ES2015 promises and dynamic module loading.
     Most applications need those capabilities and most applications
-    should run in Internet Explorer.
+    should run in Internet Explorer. //TODO es6-shim are not IE polyfills or they are?
 
     一开始，我们先进行IE的polyfill（译注：指填充，用js来弥补浏览器原本不具备的能力）。
     IE需要填充才能正确运行依赖ES2015 promise（译注：ES2015的新特性，用于支持异步代码）和动态模块加载特性的应用程序。
     大多数应用还是得运行在IE中，所以我们需要这些能力。
 
-    Next are the polyfills for Angular2, `angular2-polyfills.js`.
+    Next are the polyfills for Angular2, `zone.js` and `reflect-metadata`.
     
-    下一个是Angular2的polyfill —— `angular2-polyfills.js`。
+    接下来是Angular2的填充库(Polyfill)、`zone.js` 和 `reflect-metadata`。
     
-    Then the [SystemJS](#systemjs) library for module loading,
-    followed by the Reactive Extensions RxJS library.
+    Then the [SystemJS](#systemjs) library for module loading.
     
-    下一个是响应式编程的扩展库RxJS。
-    
-    最后则是为实现模块加载功能而引入的[SystemJS](#systemjs)库。
-
+    然后是为实现模块加载功能而引入的[SystemJS](#systemjs)库。
   .l-sub-section
     :marked
       Our QuickStart doesn't use the Reactive Extensions 
       but any substantial application will want them
       when working with observables.
-      We added the library here in QuickStart so we don't forget later.
+      We added the library here in QuickStart so we don't forget later.//TODO this subsection needs to be moved for when we cover the systemjs.config.js
       
       我们的QuickStart不会用到响应式扩展，但是大量的应用需要它们来提供observable（译注：响应式编程的核心特性，指监听数据的变更以便做出响应）特性。
-      我们把它加到QuickStart中，以免将来忘了。
+      我们把它加到QuickStart中，以免将来忘了。//TODO this subsection needs to be moved for when we cover the systemjs.config.js
 
   :marked
-    Finally, we loaded the web development version of Angular 2 itself.
-    
-    最后，我们加载Angular2的“Web开发版”。
-
     We'll make different choices as we gain experience and
     become more concerned about production qualities such as
     load times and memory footprint.
@@ -617,13 +609,8 @@ code-example(format="").
     
     好好记住这些，我们再来看看QuickStart中的配置做了点什么。
 
-  +makeExample('quickstart/ts/index.html', 'systemjs', 'index.html (系统配置)')(format=".")
+  +makeExample('quickstart/ts/systemjs.config.1.js', null, 'systemjs.config.js')(format=".")
   :marked
-    The `packages` node tells SystemJS what to do when it sees a request for a 
-    module from the `app/` folder. 
-    
-    `package`节点告诉SystemJS，当看到请求`app/`目录的模块时要做什么。
-    
     Our QuickStart makes such requests when one of its
     application TypeScript files has an import statement like this:
     
@@ -788,10 +775,14 @@ figure.image-display
       .file app.component.ts
       .file main.ts
     .file node_modules ...
-    .file typings ...
+    .file typings    
+    .children
+      .file typings.d.ts
+      .file ...
     .file index.html
     .file package.json
     .file styles.css
+    .file system.config.js
     .file tsconfig.json
     .file typings.json
 :marked
@@ -799,6 +790,7 @@ figure.image-display
   
   一共有这些文件：
   
+    quickstart/ts/typings/typings.d.1.ts
 +makeTabs(`
     quickstart/ts/app/app.component.ts,
     quickstart/ts/app/main.ts,
@@ -806,14 +798,17 @@ figure.image-display
     quickstart/ts/package.1.json,
     quickstart/ts/tsconfig.1.json,
     quickstart/ts/typings.1.json,
-    quickstart/ts/styles.1.css
-  `,null,
-  `app/app.component.ts,
-  app/main.ts,
-  index.html,package.json,
-  tsconfig.json,
+    quickstart/ts/styles.1.css,
+    quickstart/ts/system.config.1.js`
+  ,null,
+  `app/app.component.ts, 
+  app/main.ts, 
+  index.html,
+  package.json, 
+  tsconfig.json, 
   typings.json,
-  styles.css`)
+  styles.css,
+  system.config.js`)
 :marked
 
 .l-main-section

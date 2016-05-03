@@ -1,5 +1,5 @@
 // #docregion
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 // #docregion import-hero
 import {Hero} from './hero';
 // #enddocregion import-hero
@@ -12,7 +12,7 @@ import {Hero} from './hero';
     <h2>My favorite hero is: {{myHero.name}}</h2>
     <p>Heroes:</p>
     <ul>
-      <li *ngFor="#hero of heroes">
+      <li *ngFor="let hero of heroes">
         {{ hero.name }}
       </li>
     </ul>

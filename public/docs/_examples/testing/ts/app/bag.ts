@@ -1,18 +1,9 @@
 // Based on https://github.com/angular/angular/blob/master/modules/angular2/test/testing/testing_public_spec.ts
 /* tslint:disable:forin */
 import { Component, EventEmitter, Injectable, Input, Output,
-         OnInit, OnChanges, OnDestroy, SimpleChange } from 'angular2/core';
+         OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
 
-// Let TypeScript know about the special SystemJS __moduleName variable
-declare var __moduleName: string;
-
-// moduleName is not set in some module loaders; set it explicitly
-if (!__moduleName) {
-  __moduleName = `http://${location.host}/${location.pathname}/app/`;
-}
-// console.log(`The __moduleName is ${__moduleName} `);
-
-
+import { Observable }     from 'rxjs/Rx';
 
 ////////// The App: Services and Components for the tests. //////////////
 
@@ -21,7 +12,16 @@ if (!__moduleName) {
 @Injectable()
 export class FancyService {
   value: string = 'real value';
+
   getAsyncValue() { return Promise.resolve('async value'); }
+
+  getObservableValue() { return Observable.of('observable value'); }
+
+  getTimeoutValue() {
+    return new Promise((resolve, reject) => { setTimeout(() => {resolve('timeout value'); }, 10); });
+  }
+
+  getObservableDelayValue() { return Observable.of('observable delay value').delay(10); }
 }
 
 @Injectable()
@@ -125,7 +125,7 @@ export class TestViewProvidersComp {
 
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'external-template-comp',
   templateUrl: 'bag-external-template.html'
 })
@@ -149,7 +149,7 @@ export class BadTemplateUrl { }
       <label>Child value: <input [(ngModel)]="childValue"> </label>
     </div>
     <p><i>Change log:</i></p>
-    <div *ngFor="#log of changeLog; #i=index">{{i + 1}} - {{log}}</div>`
+    <div *ngFor="let log of changeLog; let i=index">{{i + 1}} - {{log}}</div>`
 })
 export class MyIfChildComp implements OnInit, OnChanges, OnDestroy {
   @Input() value = '';

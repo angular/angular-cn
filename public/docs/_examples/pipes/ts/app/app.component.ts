@@ -1,6 +1,6 @@
 // #docregion
-import {Component} from 'angular2/core';
-import {HTTP_PROVIDERS}    from 'angular2/http';
+import {Component} from '@angular/core';
+import {HTTP_PROVIDERS}    from '@angular/http';
 
 import {FlyingHeroesComponent,
         FlyingHeroesImpureComponent} from './flying-heroes.component';
@@ -10,7 +10,6 @@ import {HeroBirthday2} from './hero-birthday2.component';
 import {HeroListComponent} from './hero-list.component';
 import {PowerBooster} from './power-booster.component';
 import {PowerBoostCalculator} from './power-boost-calculator.component';
-import {RandomPipeComponent} from './random-pipe.component';
 
 @Component({
   selector: 'my-app',
@@ -21,8 +20,7 @@ import {RandomPipeComponent} from './random-pipe.component';
     HeroBirthday,
     HeroBirthday2,
     HeroListComponent,
-    PowerBooster, PowerBoostCalculator,
-    RandomPipeComponent
+    PowerBooster, PowerBoostCalculator
   ],
   providers:[HTTP_PROVIDERS]
 })

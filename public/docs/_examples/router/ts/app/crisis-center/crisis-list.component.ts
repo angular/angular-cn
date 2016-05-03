@@ -1,14 +1,14 @@
 // #docplaster
 
 // #docregion
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from '@angular/core';
 import {Crisis, CrisisService} from './crisis.service';
-import {Router, RouteParams} from 'angular2/router';
+import {Router, RouteParams} from '@angular/router-deprecated';
 
 @Component({
   template: `
     <ul class="items">
-      <li *ngFor="#crisis of crises"
+      <li *ngFor="let crisis of crises"
         [class.selected]="isSelected(crisis)"
         (click)="onSelect(crisis)">
         <span class="badge">{{crisis.id}}</span> {{crisis.name}}

@@ -1,9 +1,9 @@
 // #docplaster
 // #docregion on-init
-import {OnInit} from 'angular2/core';
+import {OnInit} from '@angular/core';
 
 // #enddocregion on-init
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Hero} from './hero';
 import {HeroDetailComponent} from './hero-detail.component';
 // #docregion hero-service-import
@@ -14,7 +14,7 @@ import {HeroService} from './hero.service.1';
 @Component({
   selector: 'my-app',
   template: `
-  <div *ngFor="#hero of heroes" (click)="onSelect(hero)">
+  <div *ngFor="let hero of heroes" (click)="onSelect(hero)">
     {{hero.name}}
   </div>
   <my-hero-detail [hero]="selectedHero"></my-hero-detail>

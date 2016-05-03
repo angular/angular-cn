@@ -4,13 +4,20 @@ mixin includeShared(filePath, region)
   - var newPath = translatePath(filePath, region);
   !=partial(newPath)
 
-mixin makeExample(filePath, region, title, stylePatterns)
+mixin makeExample(_filePath, region, _title, stylePatterns)
+  - var filePath = adjustExamplePath ? adjustExamplePath(_filePath) : _filePath;
+  - var title = adjustExampleTitle ? adjustExampleTitle(_title) : _title;
   - var language = attributes.language || getExtn(filePath);
   - var frag = getFrag(filePath, region);
   - var defaultFormat = frag.split('\n').length > 2 ? "linenums" : "";
   - var format = attributes.format || defaultFormat;
+  - var avoid = !!attributes.avoid;
+
   if (title)
-    .example-title #{title}
+    if (avoid)
+      .example-title.avoid AVOID: #{title}
+    else
+      .example-title #{title}
   code-example(language="#{language}" format="#{format}")
     != styleString(frag, stylePatterns)
 
@@ -37,9 +44,13 @@ mixin makeJson( filePath, jsonConfig, title, stylePatterns)
   - var frag = getFrag(filePath, '');
   - var json = unescapeHtml(frag);
   - var jsonExtract = extractJson(json, jsonConfig);
+  - var avoid = !!attributes.avoid;
 
   if (title)
-    .example-title #{title}
+    if (avoid)
+      .example-title.avoid #{title}
+    else
+      .example-title #{title}
   code-example(language="#{language}" format="#{format}")
     if (jsonExtract == 'ERROR')
       err 错误: 无法通过配置"#{jsonConfig.toString()}"解析JSON

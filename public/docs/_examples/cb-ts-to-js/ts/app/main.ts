@@ -1,12 +1,14 @@
 // #docregion ng2import
 import {provide}
-  from 'angular2/core';
+  from '@angular/core';
 import {bootstrap}
-  from 'angular2/platform/browser';
+  from '@angular/platform-browser-dynamic';
+import {
+} from '@angular/router';
 import {
   LocationStrategy,
   HashLocationStrategy
-} from 'angular2/router';
+} from '@angular/common';
 // #enddocregion ng2import
 
 // #docregion appimport

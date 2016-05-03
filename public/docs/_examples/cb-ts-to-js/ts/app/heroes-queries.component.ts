@@ -4,7 +4,7 @@ import {
   ContentChild,
   QueryList,
   Input
-} from 'angular2/core';
+} from '@angular/core';
 
 @Component({
   selector: 'active-label',
@@ -48,7 +48,7 @@ class HeroComponent {
 @Component({
   selector: 'heroes-queries',
   template: `
-    <hero *ngFor="#hero of heroData"
+    <hero *ngFor="let hero of heroData"
           [hero]="hero">
       <active-label></active-label>
     </hero>

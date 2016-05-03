@@ -8,46 +8,42 @@ else
   - var styleguide = "/docs/ts/latest/styleguide.html"
 
 .main-footer
-  nav.background-silver.grid-fluid
+  nav.background-blue-grey-900.grid-fluid
 
     .c3.main-footer-branding
       .logo-inverse-large
 
-    .c2
-      h3.text-headline 库
+    .c3
+      h3.text-headline 资源
 
       ul.text-body
-        li <a href="/"> Angular 2.0</a>
-        li <a href="https://angularjs.org/"> Angular 1 for JS</a>
-        li <a href="https://material.angularjs.org"> Angular Material</a>
-        li <a href="https://www.firebase.com/docs/web/libraries/angular/"> AngularFire</a>
+        // TODO: (ericjim) make a libraries page to showcase all angular 2 libraries
+        //li <a href="/libraries.html">Libraries</a>
+        li <a href="/about/">关于</a>
+        li <a href="/resources/">书籍与培训</a>
+        li <a href="/resources/">工具与库</a>
+        li <a href="/resources/">社区</a>
+        li <a href="/presskit.html">出版工具</a>
 
-    .c2
-      h3.text-headline 学习资源
-
-      ul.text-body
-        li <a href="/docs/ts/latest/quickstart.html"> 5分钟快速开始 </a>
-        li <a href="/docs/ts/latest/guide/"> 单步指南 </a>
-        li <a href="/docs/ts/latest/api/"> 全部API</a>
-        li <a href="/docs/ts/latest/resources.html"> 资源 </a>
-        li <a href="http://goo.gl/sj0Nk1">设计文档 &amp; 记录</a>
-
-    .c2
+    .c3
       h3.text-headline 帮助
 
       ul.text-body
+        li <a href="http://stackoverflow.com/questions/tagged/angular2">Stack Overflow</a>
+        li <a href="https://gitter.im/angular/angular">Gitter</a>
         li <a href="https://groups.google.com/forum/#!forum/angular"> Google Group</a>
-        li <a href="https://gitter.im/angular/angular"> 聊天室 </a>
-        li <a href="https://github.com/angular/angular/issues"> 报告BUG </a>
+        li <a href="https://github.com/angular/angular/issues"> 报告问题 </a>
+        li <a class="footer-feedback" ng-click="appCtrl.openFeedback()" aria-label="Submit feedback on this page"> 站内反馈 </a>
 
     .c3
       h3.text-headline 社区
 
       ul.text-body
-        li <a href="https://blog.angularjs.org/">官方博客</a>
-        li <a href="https://plus.sandbox.google.com/+AngularJS/posts"> Google+</a>
+        li <a href="/events.html">Events</a>
+        li <a href="http://www.meetup.com/topics/angularjs/">Meetups</a>
         li <a href="https://twitter.com/angularjs"> Twitter</a>
         li <a href="https://github.com/angular/angular"> GitHub</a>
+        li <a href="/contribute.html"> Contribute</a>
 
 
   footer(class="background-steel")

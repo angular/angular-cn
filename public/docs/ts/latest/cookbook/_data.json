@@ -4,11 +4,13 @@
     "navTitle": "概览",
     "description": "一组常见Angular应用场景的“菜谱”"
   },
+
   "a1-a2-quick-reference": {
     "title": "Angular从1到2快速参考",
     "navTitle": "Angular从1到2快速参考",
     "intro": "学习如何把Angular 1的概念和技术对应到Angular 2"
   },
+
   "component-communication": {
     "title": "组件交互",
     "intro": "在不同的指令和组件之间共享信息"
@@ -21,6 +23,12 @@
     "title": "动态表单",
     "intro": "通过NgFormModel渲染动态表单"
   },
+
+  "set-document-title": {
+    "title": "设置文档标题",
+    "intro": "使用Title服务来设置文档标题或窗口标题"
+  },
+
   "ts-to-js": {
     "title": "从TypeScript到JavaScript",
     "intro": "把Angular 2的TypeScript范例转换为ES5 JavaScript"
