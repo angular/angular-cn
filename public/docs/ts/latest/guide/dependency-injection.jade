@@ -455,6 +455,7 @@ include ../_util-fns
   
   `HeroListComponent`应该从注入进来的`HeroService`获取英雄数据。
   遵照依赖注入模式的要求，组件必须在它的构造函数中请求这些服务，[就像我们以前解释过的那样](#ctor-injection)。
+  只是个小改动：
   
 // #enddocregion di-prepare-for-injection-1
 +makeTabs(
@@ -467,8 +468,11 @@ include ../_util-fns
 .l-sub-section
   :marked
     ### Focus on the constructor
+    ### 来看构造函数
 
     Adding a parameter to the constructor isn't all that's happening here.
+    
+    往构造函数中添加一个参数并不是这里所做的一切。
 
   +makeExample('dependency-injection/ts/app/heroes/hero-list.component.2.ts', 'ctor')(format=".")
 
@@ -476,19 +480,30 @@ include ../_util-fns
   :marked
     We're writing in TypeScript and have followed the parameter name with a type annotation, `:HeroService`.
     The class is also decorated with the `@Component` decorator (scroll up to confirm that fact).
+    
+    我们正在写TypeScript，并且在参数名后面带有一个类型注解：`:HeroService`。
+    这个类还有一个`@Component`的装饰器（往上翻翻就知道了）。
 
     When the TypeScript compiler evaluates this class, it sees the `@Component` decorator and adds class metadata
     into the generated JavaScript code. Within that metadata lurks the information that
     associates the `heroService` parameter with the `HeroService` class.
+    
+    当TypeScript编译器编译这个类时，它会看到`@Component`装饰器，并且把类的元数据添加到所生成的JavaScript代码中。
+    藏在元数据中的信息会把`heroService`参数和`HeroService`类关联在一起。
 
     That's how the Angular injector knows to inject an instance of the `HeroService` when it
     creates a new `HeroListComponent`.
+    
+    为什么Angular的注入器会知道当创建`HeroListComponent`时需要注入一个`HeroService`的实例？这就是原理。
 // #docregion di-create-injector-implicitly-1
 :marked
   <a id="di-metadata"></a>
   ### Creating the injector (implicitly)
+  ### 创建注入器（隐式的）
   When we introduced the idea of an injector above, we showed how to create
   an injector and use it to create a new `Car`.
+  
+  我们前面在引入注入器的概念时，曾展示过如何创建一个注入器。
 // #enddocregion di-create-injector-implicitly-1
 +makeExample('dependency-injection/ts/app/car/car-injector.ts','injector-create-and-call')(format=".")
 // #docregion di-create-injector-implicitly-2
@@ -499,28 +514,46 @@ include ../_util-fns
   when it creates components for us &mdash; whether through HTML markup, as in `<hero-list></hero-list>`,
   or after navigating to a component with the [router](./router.html).
   If we let Angular do its job, we'll enjoy the benefits of automated dependency injection.
+  
+  但无论在《英雄指南》还是其它范例中，我们都没有发现这样的代码。
+  在必要时，我们 *可以* 写[使用显式注入器的代码](#explicit-injector)，但却很少这样做。
+  当Angular为我们创建组件时 —— 无论通过像`<hero-list></hero-list>`这样的HTML标签还是通过[路由](./router.html)导航到组件 —— 它都会自己管理好注入器的创建和调用。
+  只要让Angular做好它自己的工作，我们就能安心享受自动依赖注入带来的好处。
 // #enddocregion di-create-injector-implicitly-2
 // #docregion di-singleton-services
 :marked
   ### Singleton services
+  ### 单例服务
   Dependencies are singletons within the scope of an injector.
   In our example, a single `HeroService` instance is shared among the
   `HeroesComponent` and its `HeroListComponent` children.
+  
+  在一个注入器的范围内，依赖都是单例的。
+  在我们这个例子中，一个单一的`HeroService`实例被`HeroesComponent`和它的子组件`HeroListComponent`共享。
 
   However, Angular DI is an hierarchical injection
   system, which means that nested injectors can create their own service instances.
   Learn more about that in the [Hierarchical Injectors](./hierarchical-dependency-injection.html) chapter.
+  
+  然而，Angular DI是一个分层的依赖注入系统，这意味着被嵌套的注入器可以创建它们自己的服务实例。
+  要了解更多知识，参见[分层注入器](./hierarchical-dependency-injection.html)一章。
 // #enddocregion di-singleton-services
 
 // Skip this for Dart, for now
 // #docregion di-testing-component-1
 :marked
   ### Testing the component
+  ### 测试组件
   We emphasized earlier that designing a class for dependency injection makes the class easier to test.
   Listing dependencies as constructor parameters may be all we need to test application parts effectively.
+  
+  我们前面强调过，设计一个适合依赖注入的类，可以让这个类更容易测试。
+  在构造函数的参数中列出依赖，就是当我们要对应用的一部分进行有效测试时所要做的一切了。
 
   For example, we can create a new `HeroListComponent` with a mock service that we can manipulate
   under test:
+  
+  比如，我们可以使用一个mock服务来创建新的`HeroListComponent`实例，以便我们可以在测试中操纵它：
 // #enddocregion di-testing-component-1
 +makeExample('dependency-injection/ts/app/test.component.ts', 'spec')(format='.')
 // #docregion di-testing-component-2
