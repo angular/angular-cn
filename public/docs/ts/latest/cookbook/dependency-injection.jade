@@ -1016,51 +1016,77 @@ a(id="find-parent")
   But sometimes it makes sense for one component to have a direct reference to another component
   perhaps to access values or call methods on that component.
   
-  
+  应用程序组件经常需要共享信息。我们喜欢更加松散结合的技术，比如数据绑定和服务共享。
+  但是有时候一个组件拥有一个直接的另一个组件的引用会更加合理，可能用来访问值或者调用该组件的函数方法。
    
   Obtaining a component reference is a bit tricky in Angular.
   Although an Angular application is a tree of components,
   there is no public API for inspecting and traversing that tree. 
   
+  在Angular里面获取一个组件的引用比较复杂。虽然一个Angular应用程序是一个组件树，但是没有公共API来在该树种巡查和穿梭。
+  
   There is an API for acquiring a child reference
   (checkout `Query`, `QueryList`, `ViewChildren`, and `ContentChildren`).
+  
+  有一个API可以获取一个子级引用（请看`Query`, `QueryList`, `ViewChildren`,和`ContentChildren`)。
   
   There is no public API for acquiring a parent reference.
   But because every component instance is added to an injector's container,
   we can use Angular dependency injection to reach a parent component.
   
+  没有公共API来获取一个父级组件的引用。但是因为每个组件实例都被加到了一个注入器的容器中，我们能使用Angular依赖注入来抓住一个父级组件。
+  
   This section describes some techniques for doing that.
+  
+  该节描述了怎么做这个的技巧。
   
   <a id="known-parent"></a>
   ### Find a parent component of known type
   
+  ### 找到一个已知类型的父级组件
+  
   We use standard class injection to acquire a parent component whose type we know.
   
+  我们使用一个标准类注入来获取一个已知类型的父级组件。
+  
   In the following example, the parent `AlexComponent` has several children including a `CathyComponent`:
+  
+  在下面的例子中，父级`AlexComponent`有几个子级，包括一个`CathyComponent`:
 a(id='alex')
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-1','parent-finder.component.ts (AlexComponent v.1)')(format='.')
 :marked
   *Cathy* reports whether or not she has access to *Alex*
   after injecting an `AlexComponent` into her constructor:
+  
+  在注入一个*AlexComponent`进来后，*Cathy*报告她是否对*Alex*有访问权：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','cathy','parent-finder.component.ts (CathyComponent)')(format='.')
 :marked
   We added the [@Optional](#optional) qualifier for safety but
   the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
   confirms that the `alex` parameter is set.
+  
+  为了安全，我们添加了[@Optional](#optional)装饰器，但是[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)确认了`alex`参数被设置了。
 
   <a id="base-parent"></a>
   ### Cannot find a parent by its base class
+  ### 不能通过它的基本类找到一个父级
   
   What if we do *not* know the concrete parent component class?
+  
+  如果我们*不*知道父级组件类的具体实体怎么办？
   
   A re-usable component might be a child of multiple components.
   Imagine a component for rendering breaking news about a financial instrument.
   For sound (cough) business reasons, this news component makes frequent calls 
   directly into its parent instrument as changing market data stream by.
   
+  一个可重复使用的组件可能是多个组件的子级。想想一个用来渲染金融工具头条新闻的组件。为了合理（咳嗽）的商业理由，该新闻组件在实时变化的市场数据流过时要频繁的直接调用其父级工具
+  
   The app probably defines more than a dozen financial instrument components.
   If we're lucky, they all implement the same base class
   whose API our `NewsComponent` understands.
+  
+  该应用程序可能定义多于一打的金融工具组件。如果我们幸运，它们可能实现同一个基本类，其API是我们`NewsComponent`组件明白的。
   
 .l-sub-section
   :marked
