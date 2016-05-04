@@ -1093,15 +1093,23 @@ a(id='alex')
     Looking for components that implement an interface would be better.
     That's not possible because TypeScript interfaces disappear from the transpiled JavaScript
     which doesn't support interfaces. There's no artifact we could look for.
+    
+    找一个实现一个接口的组件会好一些。但是这不可能，因为TypeScript的借口在编译成JavaScript以后就消失了，JavaScript不支持接口。我们没有东西可查。
 :marked
   We're not claiming this is good design. 
   We are asking *can a component inject its parent via the parent's base class*?
   
+  我们没有说这是一个好的设计。我们在问*一个组件是否能通过它父级的基本类来注入它的父级呢*？
+  
   The sample's `CraigComponent` explores this question. [Looking back](#alex) 
   we see that the `Alex` component *extends* (*inherits*) from a class named `Base`.
+  
+  `CraigComponent`例子探究了这个问题。[往回看]{#alex}，我们看到`Alex`组件从一个叫`Base`的类*延伸*（*衍生*）。
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (Alex class signature)')(format='.')
 :marked
   The `CraigComponent` tries to inject `Base` into its `alex` constructor parameter and reports if it succeeded.
+  
+  `CraigComponent`试图注入`Base`到它的`alex`构造函数参数，并报告是否成功。
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','craig','parent-finder.component.ts (CraigComponent)')(format='.')
 :marked
   Unfortunately, this does not work. 
@@ -1109,38 +1117,59 @@ a(id='alex')
   confirms that the `alex` parameter is null.
   *We cannot inject a parent by its base class.*
   
+  可喜，这样不行。[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)确认了`alex`参数是null。
+  *我们不能通过基本类注入父级*
+  
   <a id="class-interface-parent"></a>
   ### Find a parent by its class-interface
+  ### 通过类-接口找到一个父级
   
   We can find a parent component with a [class-interface](#class-interface).
+  
+  我们能通过[类-接口](#class-interface)找到一个父级组件。
 
   The parent must cooperate by providing an *alias* to itself in the name of a *class-interface* token. 
+  
+  该父级必须通过提供一个与*类-接口*令牌同名的*别名*来进行合作。
 
   Recall that Angular always adds a component instance to its own injector; 
   that's why we could inject *Alex* into *Carol* [earlier](#known-parent).
+  
+  请记住Angular总是从它自己的注入器添加一个组件实例；这就是为什么在[之前](#known-parent)我们可以*Alex*注入到*Carol*。
 
   We write an [*alias provider*](#useexisting) &mdash; a `provide` function with a `useExisting` definition &mdash;
   that creates an *alternative* way to inject the same component instance
   and add that provider to the `providers` array of the `@Component` metadata for the `AlexComponent`:
+  
+  我们编写一个[*别名provider*](#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
+  它新建一个*可选的*方法来注入一样的组件实例，并添加这个provider到`AlexComponent`的`@Component`元数据里的`providers`数组。
 a(id="alex-providers")
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
 :marked
   [Parent](#parent-token) is the provider's *class-interface* token. 
   The [*forwardRef*](#forwardref) breaks the circular reference we just created by having the `AlexComponent` refer to itself.
-
+  
+  [父级](#parent-token)是该provider的*类-接口*令牌。我们刚通过在`AlexComponent`引用了自己的建立了一个引用循环， 这个[*forwardRef*](#forwardRef)打破了该循环。
   *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter, the same way we've done it before:
+  
+  *Carol*，该*Alex*子级组件的第三个组件，注入了父级到自己的`parent`参数，和我们之前做的一样：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','carol-class','parent-finder.component.ts (CarolComponent class)')(format='.')
 :marked
   Here's *Alex* and family in action:
+  
+  下面是*Alex*和其家庭的运行结果：
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/alex.png" alt="Alex in action")
   
 a(id="parent-tree")
 :marked
   ### Find the parent in a tree of parents
+  ### 通过父级树找到父级
   
   Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*. 
   Both *Alice* and *Barry* implement the `Parent` *class-interface*.
+  
+  
   
   *Barry* is the problem. He needs to reach his parent, *Alice*, and also be a parent to *Carol*.
   That means he must both *inject* the `Parent` *class-interface* to get *Alice* and
