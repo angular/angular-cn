@@ -897,25 +897,36 @@ a(id="tokens")
   +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger-transpiled')(format='.')
   :marked
      It never grows larger no matter how many members we add *as long as they are typed but not implemented*.
+     
+     *只要我们不实现它*，不管我们添加多少成员，它永远不会增长大小。
 
 a(id='opaque-token')
 :marked
   ### OpaqueToken
+  ### OpaqueToken
   
   Dependency objects can be simple values like dates, numbers and strings or 
   shapeless objects like arrays and functions.
+  
+  依赖对象可以是一个简单的只，比如日期，数字和字符串，或者一个没有形状的对象，比如数组和函数。
   
   Such objects don't have application interfaces and therefore aren't well represented by a class.
   They're better represented by a token that is both unique and symbolic, 
   a JavaScript object that has a friendly name but won't conflict with 
   another token that happens to have the same name.
   
+  这样的对象没有应用程序接口，所以不能用一个类来表示。它们可被一个唯一的和标志性的令牌更好的表达，一个JavaScript对象，拥有一个友好的名字但是不会与其他名字相同的令牌有冲突。
+  
   The `OpaqueToken` has these characteristics.
   We encountered them twice in the *Hero of the Month* example, 
   in the *title* value provider and in the *runnersUp* factory provider.
+  
+  `OpaqueToken`具有这些特征。我们在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* factory provider。
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','provide-opaque-token')(format='.')   
 :marked
   We created the `TITLE` token like this:
+  
+  我们这样创建该`TITLE`令牌：
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','opaque-token')(format='.')   
 
   
@@ -923,13 +934,19 @@ a(id="di-inheritance")
 .l-main-section
 :marked
   ## Inject into a derived class
+  ## 注入一个衍生类
+  
   We must take care when writing a component that inherits from another component.
   If the base component has injected dependencies, 
   we must re-provide and re-inject them in the derived class
   and then pass them down to the base class through the constructor.
   
+  当编写一个从另一个组件衍生的组件的时候，我们要格外小心。如果基础组件有注入的依赖，我们必须要在衍生类中重新提供和重新注入它们，并且将他们通过构造函数传给基本类。
+  
   In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent` 
   to display a *sorted* list of heroes.
+  
+  在这个人为的例子里，`SortedHeroesComponent`从`HeroesBaseComponent`衍生，显示一个*被排序*的英雄列表。
   
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/sorted-heroes.png" alt="Sorted Heroes")
@@ -938,6 +955,8 @@ figure.image-display
   It demands its own instance of the `HeroService` to get heroes
   and displays them in the order they arrive from the database.
   
+  `HeroesBaseComponent`能自己独立运行。它在自己的实例里要求`HeroService`，用来得到英雄，并将它们按照数据库返回的顺序显示出来。
+  
 +makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','heroes-base','app/sorted-heroes.component.ts (HeroesBaseComponent)') 
 .l-sub-section
   :marked
@@ -945,7 +964,12 @@ figure.image-display
     This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
     That's why we call the `HeroService` from within the `ngOnInit` rather than the constructor.
     
+    我们强烈的推荐简单的结构函数。它们应该只用来初始化变量。这个规则让组件在测试环境中被安全的构造，免除他可能要去做一些非常戏剧化的动作（比如连接服务）的担心。
+    这就是为什么我们在`ngOnInit`里面调用`HeroService`，而不是在构造函数中。
+    
     We explain the mysterious `_afterGetHeroes` below.
+    
+    我们在下面解释这个神秘的`_afterGetHeroes`。
 :marked
   Users want to see the heroes in alphabetical order.
   Rather than modify the original component, we sub-class it and create a
@@ -953,9 +977,14 @@ figure.image-display
   The `SortedHeroesComponent` lets the base class fetch the heroes.
   (we said it was contrived).
   
+  用户希望看到英雄按字母顺序排序。与其修改原始的组件，我们衍生它，建立一个`SortedHeroesComponent`，用来在展示英雄之前进行排序。
+  该`SortedHeroesComponent`让基本类来获取英雄。（我们说过这个是人为的）。
+  
   Unfortunately, Angular cannot inject the `HeroService` directly into the base class.
   We must provide the `HeroService` again for *this* component, 
   then pass it down to the base class inside the constructor.
+  
+  可惜，Angular不能直接在基本类里直接注入`HeroService`。我们必须在*这个*组件里再次提供`HeroService`，然后通过构造函数传给基础类。
     
 +makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','sorted-heroes','app/sorted-heroes.component.ts (SortedHeroesComponent)') 
 :marked
@@ -964,19 +993,30 @@ figure.image-display
   But Angular calls the *derived* class's `ngOnInit` *before* calling the base class's `ngOnInit` 
   so we'd be sorting the heroes array *before they arrived*. That produces a nasty error.
   
+  现在，请注意`_afterGetHeroes`方法。
+  
+  我们第一反应是在`SortedHeroesComponent`组件里面建一个`ngOnInit`方法来做排序。但是Angular先调用*衍生*类的`ngOnInit`，后调用基本类的`ngOnInit`，
+  所以我们可能在*英雄到达之前*开始排序。这便产生了一个可恶的错误。
+  
   Overriding the base class's `_afterGetHeroes` method solves the problem
   
+  覆盖基本类的`_afterGetHeroes`方法解决了这个问题。
+  
   These complications argue for *avoiding component inheritance*. 
+  
+  这些复杂性强调了*避免使用组件衍生*（的潜规则）。
 
 a(id="find-parent")
 .l-main-section
 :marked
   ## Find a parent component by injection
-  
+  ## 通过注入来找到一个父级组件
   Application components often need to share information.
   We prefer the more loosely coupled techniques such as data binding and service sharing.
   But sometimes it makes sense for one component to have a direct reference to another component
   perhaps to access values or call methods on that component.
+  
+  
    
   Obtaining a component reference is a bit tricky in Angular.
   Although an Angular application is a tree of components,
