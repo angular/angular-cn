@@ -1169,19 +1169,27 @@ a(id="parent-tree")
   Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*. 
   Both *Alice* and *Barry* implement the `Parent` *class-interface*.
   
-  
+  想象一下一个组件层次的一个分支为：*Alice* -> *Barry* -> *Carol*。
+  *Alice*和*Barry*两个都实现`父级`*类-接口*。
   
   *Barry* is the problem. He needs to reach his parent, *Alice*, and also be a parent to *Carol*.
   That means he must both *inject* the `Parent` *class-interface* to get *Alice* and
   *provide* a `Parent` to satisfy *Carol*.
   
+  *Barry*是一个问题。他需要访问它的父级*Alice*，同时他也是*Carol*的父级。这个意味着它必须同时*注入*`父级`*类-接口*来得到*Alice*，和*提供*一个`父级`来满足*Carol*。
+  
   Here's *Barry*:
+  下面是*Barry*：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','barry','parent-finder.component.ts (BarryComponent)')(format='.')
 :marked
   *Barry*'s `providers` array looks just like [*Alex*'s](#alex-providers).
   If we're going to keep writing [*alias providers*](#useexisting) like this we should create a [helper function](#provideparent).
   
+  *Barry*的`providers`数组看起来像[*Alex*的]（#alex-providers).
+  如果我们一直要像这样编写[*别名providers*](#useexisting)的话，我们应该建立一个[帮助函数](#provideparent)。
+  
   For now, focus on *Barry*'s constructor:
+  眼下，集中主意*Barry*的构造函数：
 +makeTabs(
   'cb-dependency-injection/ts/app/parent-finder.component.ts, cb-dependency-injection/ts/app/parent-finder.component.ts',
   'barry-ctor, carol-ctor',
@@ -1190,16 +1198,28 @@ a(id="parent-tree")
 :marked
   It's identical to *Carol*'s constructor except for the additional `@SkipSelf` decorator.
   
+  除了添加了一个额外的`@SkipSelf`外，它和*Carol*的构造函数一样。
+  
   `@SkipSelf` is essential for two reasons:
+  
+  使用`@SkipSelf`主要是为了下面两个原因：
    
   1. It tell the injector to start its search for a `Parent` dependency in a component *above* itself,
   which *is* what parent means.
   
+  1. 它告诉注入器从一个在自己*上面*的组件开始搜索一个`Parent`依赖。
+  
   2. Angular throws a cyclic dependency error if we omit the `@SkipSelf` decorator.
   
+  2. 如果我们缺少`@SkipSelf`装饰器的话，Angular会抛出一个循环依赖错误。
+  
     `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
+    
+    `不能创建循环依赖实例！(BethComponent -> Parent -> BethComponent)`
 
   Here's *Alice*, *Barry* and family in action:
+  
+  这里是*Alice*，*Barry*和该家庭的实际代码：
 
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/alice.png" alt="Alice in action")
@@ -1207,48 +1227,75 @@ figure.image-display
 a(id="parent-token")
 :marked
   ### The *Parent* class-interface
+  ### *父级*类-接口
   We [learned earlier](#class-interface) that a *class-interface* is an abstract class used as an interface rather than as a base class.
+  
+  我们[之前学到](#class-interface)：一个*类-接口*是一个抽象类，被当做一个接口来使用，而非被当做基本类使用。
 
   Our example defines a `Parent` *class-interface* .
+  
+  我们的例子定义了一个`Parent`*类-接口*。
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','parent','parent-finder.component.ts (Parent class-interface)')(format='.')
 :marked
   The `Parent` *class-interface* defines a `name` property with a type declaration but *no implementation*., 
   The `name` property is the only member of a parent component that a child component can call.
   Such a narrowing interface helps decouple the child component class from its parent components.
   
+  该`Parent` *类-接口*定义了一个`Name`属性，它有一个类型声明，但是*没有实现*，该`name`是该父级组件的子级组件们唯一能调用的属性。
+  这样一个窄的接口帮助分离子级类和它的父级组件。
+  
   A component that could serve as a parent *should* implement the *class-interface* as the `AliceComponent` does:
+  
+  一个能当做父级的组件*应该*实现*类-接口*，和下面的`AliceComponent`的做法一样：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alice-class-signature','parent-finder.component.ts (AliceComponent class signature)')(format='.')
 :marked
   Doing so adds clarity to the code.  But it's not technically necessary. 
   Although the `AlexComponent` has a `name` property (as required by its `Base` class) 
   its class signature doesn't mention `Parent`:
+  
+  这样做增加了代码的清晰度。但是技术并不一定需要它。虽然`AlexComponent`有一个`name`属性(被他的`基本`类要求)，它的类签名并不提及`Parent`。
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (AlexComponent class signature)')(format='.')
 .l-sub-section
   :marked
     The `AlexComponent` *should* implement `Parent` as a matter of proper style. 
     It doesn't in this example *only* to demonstrate that the code will compile and run without the interface 
     
+    为了正确的代码风格，该`AlexComponent`*应该*实现`Parent`。在这个例子里面它不这样，仅仅是为了演示在没有该接口的情况下，该代码会被编译并执行。
+    
 a(id="provideparent")
 :marked
   ### A *provideParent* helper function
+  ### 一个*privdeParent*帮助函数
   
   Writing variations of the same parent *alias provider* gets old quickly, 
-  especially this awful mouthful with a [*forwardRef*](#forwardref):
+  especially this awful mouthful with a [*forwardRef*](#forwardref): 
+  
+  编写同一个父级的各种*别名provider*很快就变得很啰嗦，在用[*forwardRef](#forwardRef)的时候尤其绕口：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers')(format='.')
 :marked
   We can extract that logic into a helper function like this:
+  
+  我们可以像这样把这个逻辑提取到一个帮助函数里面：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','provide-the-parent')(format='.')
 :marked
   Now we can add a simpler, more meaningful parent provider to our components:
+  
+  现在我们就可以为我们的组件添加一个简单点的，更加直观的父级provider：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alice-providers')(format='.')
 :marked
   We can do better. The current version of the helper function can only alias the `Parent` *class-interface*.
   Our application might have a variety of parent types, each with its own *class-interface* token.
   
+  我们可以做的更好。当前版本的帮助函数只能为`父级`*类-接口*提供别名。我们的应用程序可能有很多类型的父级，每个父级有自己的*类-接口*令牌。
+  
   Here's a revised version that defaults to `parent` but also accepts an optional second parameter for a different parent *class-interface*.
+  
+  这里是一个修改版本，默认接受一个`父级`，但是同时接受一个可选的第二个参数，可以用来指定一个不同的父级*类-接口*。
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','provide-parent')(format='.')
 :marked
   And here's how we could use it with a different parent type:
+  
+  下面是我们如何使用它添加一个不同类型的父级：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','beth-providers')(format='.')
 :marked
 
@@ -1256,30 +1303,50 @@ a(id="forwardref")
 .l-main-section
 :marked
   ## Break circularities with a forward class reference (*forwardRef*)
+  ## 使用一个转寄类引用(*forwardRef*)来来打破循环
   
   The order of class declaration matters in TypeScript.
   We can't refer directly to a class until it's been defined.
+  
+  在TypeScript里面，类声明的顺序是有重要关系的。在一个类没有被定义之前，我们不能引用它。
   
   This isn't usually a problem, especially if we adhere to the recommended *one class per file* rule.
   But sometimes circular references are unavoidable. 
   We're in a bind when class 'A refers to class 'B' and 'B' refers to 'A'.
   One of them has to be defined first. 
   
+  它通常不是一个问题，特别是当我们遵循*一个类一个文件*规则的时候。
+  但是有时候循环引用可能不能避免。当一个类*A引用类B*，同时'B'引用'A'的时候，我们就遇到困境了：它们中间的一个必须要先定义。
+  
   The Angular `forwardRef` function creates an *indirect* reference that Angular can resolve later.
+  
+  Angular的`forwardRef`函数建立一个*间接地*引用，Angular可以随后解析。
   
   The *Parent Finder* sample is full of circular class references that are impossible to break.
   
+  这个*父级寻找器*例子是到处都是类循环引用，我们无法打破。
+  
   In the [*Alex/Cathy* example](#known-parent) above:
+  
+  在上面的[*Alex/Cathy*例子](#known-parent)中：
   
   * the `AlexComponent` lists the `CathyComponent` in its component metadata `directives` array
   so it can display *Cathy* in its template.
   
+  * `AlexComponent`在它的组件元数据`指令`数值里面列出`CathyComponent`，这样它可以在自己的模板中显示*Cathy*。
+  
   * the `CathyComponent` constructor injects the parent `AlexComponent` which means that the `alex` parameter
   of its constructor has the `AlexComponent` type.
   
+  * `CathyComponent`的构造函数注入父级`AlexComponent`，这样的话，构造函数参数`alex`是`AlexComponent`类型。
+  
   *Alex* refers to *Cathy* and *Cathy* refers to *Alex*. We're stuck. We must define one of them first. 
   
-  We defined *Alex* first and built its `C_DIRECTIVES` array with a forward reference to *Cathy*: 
+  *Alex* 引用了*Cathy*，同时，*Cathy*引用了*Alex*。我们被卡住了。我们必须要先它们中的一个。
+  
+  We defined *Alex* first and built its `C_DIRECTIVES` array with a forward reference to *Cathy*:
+  
+  我们先定义了*Alex*，使用一个*Cathy*的转寄引用，建筑了它的`C_DIRECTIVES`数值：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','C_DIRECTIVES','parent-finder.component.ts (C_DIRECTIVES)')(format='.')
 :marked
 .l-sub-section
@@ -1287,15 +1354,23 @@ a(id="forwardref")
     Defining *Alex* and *Cathy* in separate files won't help. 
     *Alex* would have to import *Cathy* and *Cathy* would have to import *Alex*.
     
+    在单独的文件里面定义*Alex*和*Cathy*并不能帮忙。*Alex*必须要导入*Cathy*，*Cathy*必须要导入*Alex*。
     We *had* to define *Alex* first because, 
     while we can add `forwardRef(CathyComponent)` to *Alex*'s `directives` array,
     we can't write `public alex: forwardRef(AlexComponent))` in *Cathy*'s constructor. 
+    
+    我们*被迫*先定义*Alex*，因为我们可以添加`forwardRef(CathyComponent)`到*Alex*的`指令`数组里面，但是我们不能在*Cathy*的构造函数里面使用`public alex: forwardRef(AlexComponent))`。
 :marked
   We face a similar dilemma when a class makes *a reference to itself*
   as does the `AlexComponent` in its `providers` array. 
   The `providers` array is a property of the `@Component` decorator function which must
   appear *above* the class definition.
   
+  当一个类使用*一个自己的引用*的时候，我们面临同样的窘境，就像`AlexComponent`的`provdiers`数组里的困境一样。
+  该`providers`数组是一个`@Component`装饰器函数的一个属性，它必须要在类定义*之前*出现。
+  
   Again we break the circularity with `forwardRef`:
+  
+  我们又一次使用`forwardRef`来打破该循环：
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
 :marked
