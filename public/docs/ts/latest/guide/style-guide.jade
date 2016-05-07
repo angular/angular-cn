@@ -2,99 +2,157 @@ include ../_util-fns
 
 :marked
   Welcome to the Angular 2 Style Guide
+  
+  欢迎光临Angular 2风格指南
 
   ## Purpose
+  ## 目的
 
   If you are looking for an opinionated style guide for syntax, conventions, and structuring Angular applications, then step right in.
+  
+  如果你在为语法，规则和Angular应用程序结构寻找一个特定的风格指南，请继续阅读。
 
   The purpose of this style guide is to provide guidance on building Angular applications by showing the conventions we use and, more importantly, why we choose them.
+  
+  本风格指南的目的是，通过展示我们使用的规则，更加重要的，展示我们为什么要选择他们，来为建造Angular应用程序提供一个向导。
 .l-main-section
 
 :marked
   ## Style Vocabulary
+  ## 风格词汇
 
   Each guideline describes either a good or bad practice, and all have a consistent presentation.
+  
+  每一个向导描述一个好的或者坏的实践，所有的向导都有一个统一的展示。
 
   The wording of each guideline indicates how strong the recommendation is.
+  
+  每个向导使用词汇来标志我们推荐的强度。
 
 .s-rule.do
   :marked
-    **Do** is one that should always be followed.
-    _Always_ might be a bit too strong of a word.
+    **Do** is one that should always be followed.   
+    _Always_ might be a bit too strong of a word.    
     Guidelines that literally should always be followed are extremely rare.
     On the other hand, we need a really unusual case for breaking a *Do* guideline.
+    **做**是我们一直要遵循的规则。
+    _一直_该词可能有点太强。
+    指南中标明应该一直遵循的非常少见。但另一方面，我们需要一个非常不常见的情况来打破一个*做*的指南。
 
 .s-rule.consider
   :marked
     **Consider** guidelines should generally be followed.
+    **考虑**指南是通常应该遵循的。    
     If you fully understand the meaning behind the guideline and have a good reason to deviate, then do so. Please strive to be consistent.
+    如果你能完全理解指南背后的意思，并且有一个很好的理由越轨，那就这么办。但是请保持一致性。
 
 .s-rule.avoid
   :marked
     **Avoid** indicates something we should almost never do. Code examples to *avoid* have an unmistakeable red header.
+    **避免**表示我们永远不应该这么做某事。需要*避免*的代码例子会有一个不会错过红色标题。
 .l-main-section
 
 :marked
   ## File Structure Conventions
+  ## 文件结构规则
 
   Some code examples display a file that has one or more similarly named companion files. (e.g. hero.component.ts and hero.component.html).
+  
+  一些代码例子中会有一个文件，拥有一个或多个相似名字的伴随文件。（比如，hero.component.ts和hero.component.html)。
 
   The guideline will use the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
+  
+  该指南将会使用`hero.component.ts|html|css|spec`的简写来表示上面的多个文件。使用这个简写可以让本指南文件结构更容易被阅读，更加简洁。
 
 .l-main-section
 a(id='toc')
 
 :marked
   ## Table of Contents
+  ## 目录
 
-    1. [Single Responsibility](#single-responsibility)
+    1. [Single Responsibility](#single-responsibility)    
+    1. [单一职责](#single-responsibility)    
     1. [Naming](#naming)
+    1. [命名规则](#naming)    
     1. [Coding Conventions](#coding-conventions)
+    1. [代码规则](#coding-conventions)    
     1. [Application Structure](#application-structure)
+    1. [应用程序结构](#application-structure)    
     1. [Components](#components)
+    1. [组件](#components)    
     1. [Directives](#directives)
+    1. [指令](#directives)    
     1. [Services](#services)
+    1. [服务](#services)    
     1. [Data Services](#data-services)
+    1. [数据服务](#data-services)    
     1. [Lifecycle Hooks](#lifecycle-hooks)
+    1. [生命周期钩子](#lifecycle-hooks)    
     1. [Routing](#routing)
+    1. [路由](#routing)    
     1. [Appendix](#appendix)
+    1. [附录](#appendix)    
 
 .l-main-section
 :marked
   ## Single Responsibility
+  ## 单一职责
 
-  We apply the [Single Responsibility Principle](https:\/\/en.wikipedia.org/wiki/Single_responsibility_principle) to all Components, Services, and other symbols we create. This helps make our app cleaner, easier to read and maintain, and more testable.
+  We apply the [Single Responsibility Principle](https:\/\/en.wikipedia.org/wiki/Single_responsibility_principle) to all Components, Services, and other symbols we create. 
+  This helps make our app cleaner, easier to read and maintain, and more testable.
+  
+  我们对我们创建的所有组件、服务和其他标志等，应用[单一职责原则](https:\/\/en.wikipedia.org/wiki/Single_responsibility_principle)。这样能帮助把我们的应用程序弄的干净、易读、易于维护和易测试。
 
   ### Rule of One
+  ### 单一规则
   <a id="01-01"></a>
   #### Style 01-01
+  #### 风格 01-01
 .s-rule.do
   :marked
     **Do** define one thing (e.g. service or component) per file.
+    
+    **做** 每个文件定义一个东西（比如服务或者组件）。
 
 .s-rule.consider
   :marked
     **Consider** limiting files to 400 lines of code.
+    
+    **考虑** 限制文件到400行代码之内。
 
 .s-why
   :marked
     **Why?** One component per file makes it far easier to read, maintain, and avoid collisions with teams in source control.
+    
+    **为什么？** 一个组件一个文件，让它非常容易阅读、维护，并且能防止在版本控制里与团队冲突。
 
 .s-why
   :marked
-    **Why?** One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, or unwanted coupling with dependencies.
+    **Why?** One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, 
+    or unwanted coupling with dependencies.
+    
+    **为什么？** 一个组件一个文件可以防止一些隐蔽错误，这些错误在经常在合并一些共享变量的组件到一个文件时发生，创建不希望的闭合或者依赖耦合。
 
 .s-why.s-why-last
   :marked
     **Why?** A single component can be the default export for its file which facilitates lazy loading with the Component Router.
+    
+    **为什么？** 一个单独的组件能是该文件默认的输出，可以支持组件路由的懒加载。
 :marked
   The key is to make the code more reusable, easier to read, and less mistake prone.
+  
+  关键是让代码可以重用，更易阅读和少一些易出的错误。
 
   The following *negative* example defines the `AppComponent`, bootstraps the app, defines the `Hero` model object, and loads heroes from the server ... all in the same file. *Don't do this*.
+  
+  下面的*负面*例子定义了一个`AppComponent`，该组件引导了应用程序，定义了`Hero`模型对象，并且从服务器加载了英雄 ... 所有都在同一个文件。 *不要这么做*。
 
 +makeExample('style-guide/ts/01-01/app/heroes/hero.component.avoid.ts', '', 'app/heroes/hero.component.ts')(avoid=1)
 :marked
   Better to redistribute the component and supporting activities into their own dedicated files.
+  
+  将组件和支持行为重新分配到它们自己独立的文件会更好。
 
 +makeTabs(
   `style-guide/ts/01-01/app/main.ts,
@@ -113,127 +171,186 @@ a(id='toc')
 
 :marked
   As the app grows, this rule becomes even more important.
+  
+  随着应用程序的长大，本规则会变得更加重要。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
   ### Small Functions
+  ### 小函数
   <a id="01-02"></a>
   #### Style 01-02
+  ### 风格01-02
 .s-rule.do
   :marked
     **Do** define small functions
+    **做** 定义小的函数
 
 .s-rule.consider
   :marked
     **Consider** limiting to no more than 75 lines.
-
+    **考虑** 限制在75行之内
 .s-why
   :marked
     **Why?** Small functions are easier to test, especially when they do one thing and serve one purpose.
+    
+    **为什么？** 小函数更加容易被测试，特别是当他们只做一件事，为一个目的服务的时候。
 
 .s-why
   :marked
     **Why?** Small functions promote reuse.
+    
+    **为什么？** 小函数促进代码重用。
 
 .s-why
   :marked
     **Why?** Small functions are easier to read.
+    
+    **为什么？** 小函数更加容易阅读。
 
 .s-why
   :marked
     **Why?** Small functions are easier to maintain.
+    
+    **为什么？** 小函数更加容易维护。
 
 .s-why.s-why-last
   :marked
     **Why?** Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
+    
+    **为什么？** 小函数帮助避免一些大函数与外界互相共享变量、创建不想要的闭合和依赖耦合时带来的一些隐蔽的错误。
 
 a(href="#toc") Back to top
 
 .l-main-section
 :marked
   ## Naming
+  ## 命名规则
 
   Naming conventions are hugely important to maintainability and readability. This guide recommends naming conventions for the file name and the symbol name.
+  
+  命名规则是一个对维护性和可读性非常重要。本指南为文件名和标志名字推荐了命名规则。 
 
 .l-main-section
 :marked
   ### General Naming Guidelines
+  ### 常规命名指南
   <a id="02-01"></a>
   #### Style 02-01
+  #### 风格02-01
 
 .s-rule.do
   :marked
     **Do** use consistent names for all symbols.
-
+    
+    **做** 为所有标志使用一致的名字。
+    
 .s-rule.do
   :marked
     **Do** follow a pattern that describes the symbol's feature then its type. The recommended pattern is `feature.type.ts`.
+    
+    **做** 遵循一个模式来描述一个标志的特性和它的类型。推荐的模式为`feature.type.ts`。
 
 .s-why
   :marked
-    **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. Consistency across a company provides tremendous efficiency.
+    **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. 
+    Consistency across a company provides tremendous efficiency.
+    
+    **为什么？** 命名规则帮助我们提供了一个持续的方法来快速找到内容。在整个项目内前后一致至关重要。在团队内前后一致也很重要。在公司内部保持一致性可以大幅提高效率。
 
 .s-why
   :marked
     **Why?** The naming conventions should simply help us find our code faster and make it easier to understand.
+    
+    **为什么？** 命名规则应该简单地帮助我们快速找到我们的代码并让它更加容易被理解。
 
 .s-why.s-why-last
   :marked
     **Why?** Names of folders and files should clearly convey their intent. For example, `app/heroes/hero-list.component.ts` may contain a component that manages a list of heroes.
+    
+    **为什么？** 目录的名字和文件应该清楚的说明它们的用途。比如`app/heroes/hero-list.component.ts`包含了一个用来维护英雄列表的组件。
 
 a(href="#toc") Back to top
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### Separate File Names with Dots and Dashes
+  ### 使用点和横杠来分离文件名字
   <a id="02-02"></a>
   #### Style 02-02
+  #### 风格02-02
 
 .s-rule.do
   :marked
     **Do** use dashes to separate words.
+    
+    **做** 使用横杠来分离单词。
 
 .s-rule.do
   :marked
     **Do** use dots to separate the descriptive name from the type.
+    
+    **做** 使用点来分离描述性名字和类型名字。
 
 .s-rule.do
   :marked
     **Do** use consistent names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
+    
+    **做** 对所有组件使用一致的命名规则，遵循这个模式：描述组件的特征，然后它的类型。一个推荐的模式为`feature.type.ts`。
 
 .s-rule.do
   :marked
     **Do** use conventional suffixes for the types including `*.service.ts`, `*.component.ts`, `*.pipe.ts`. Invent other suffixes where desired, but take care in having too many.
+    
+    **做** 使用依照惯例的后缀来描述类型，包括`*.service.ts`、`*.component.ts`、`*.pipe.ts`。如果你想，你可以发明其他的后缀，但是请注意不要有太多。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify what is in the file.
+    
+    **为什么？** 体统一个统一的方法来快速的确认一个文件是什么。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly find a specific file using an editor or IDE's fuzzy search techniques.
+    
+    **为什么？** 体统一个统一的方法，利用一个编辑器或者IDE的来快速的模糊搜索技巧，快速找到一个特定文件。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides pattern matching for any automated tasks.
+    
+    **为什么？** 为任何自动任务提供一个模式配对。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### Components and Directives
+  ### 组件和指令
   <a id="02-03"></a>
   #### Style 02-03
+  #### 风格02-03
 
 .s-rule.do
   :marked
     **Do** use consistent names for all assets named after what they represent.
+    **做** 为所有财产的使用统一的命名：以他们所代表的东西命名
 
 .s-rule.do
   :marked
     **Do** use upper camel case for symbols. Match the name of the symbol to the naming of the file.
+    
+    **做** 使用大写驼峰命名法来命名所有标志。配对标志的名字和它所在的文件名字。
 
 .s-rule.do
   :marked
