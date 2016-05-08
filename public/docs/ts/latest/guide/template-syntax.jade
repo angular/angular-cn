@@ -3,67 +3,104 @@ include ../_util-fns
 // #docregion intro
 :marked
   Our Angular application manages what the user sees and does through the interaction of a Component class instance (the *component*) and its user-facing template.
+  
+  我们的Angular应用管理着用户之所见，并通过组件类的实例以及组件面向用户的模板来与用户交互。
 
   Many of us are familiar with the component/template duality from our experience with model-view-controller (MVC) or model-view-viewmodel (MVVM). In Angular,  the component plays the part of the controller/viewmodel, and the template represents the view.
+  
+  从使用模型-视图-控制器(MVC)或模型-视图-视图模型(MVVM)的经验中，很多用户都熟悉了组件/模板这两个概念。
+  在Angular中，组件扮演着控制器部分或视图模型部分，模板则用来表示视图部分。
 
   Let’s find out what it takes to write a template for our view. We’ll cover these basic elements of template syntax:
+  
+  我们来看看写视图的模板都需要什么。我们将覆盖模板语法中的下列基本元素：
 
   * [HTML](#html)
   * [Interpolation](#interpolation)
+  * [插值表达式](#interpolation)
   * [Template expressions](#template-expressions)
+  * [模板表达式](#template-expressions)
   * [Template statements](#template-statements)
+  * [模板语句](#template-statements)
   * [Binding syntax](#binding-syntax)
+  * [绑定语法](#binding-syntax)
   * [Property binding](#property-binding)
+  * [属性绑定](#property-binding)
   * [Attribute, class, and style bindings](#other-bindings)
+  * [元素属性、class和style绑定](#other-bindings)
   * [Event binding](#event-binding)
+  * [事件绑定](#event-binding)
   * [Two-way data binding with `NgModel`](#ngModel)
+  * [使用`NgModel`进行双向数据绑定](#ngModel)
   * [Built-in directives](#directives)
+  * [内置指令](#directives)
     * [NgClass](#ngClass)
     * [NgStyle](#ngStyle)
     * [NgIf](#ngIf)
     * [NgSwitch](#ngSwitch)
     * [NgFor](#ngFor)
   * [* and &lt;template>](#star-template)
+  * [* 和 &lt;模板>](#star-template)
   * [Template reference variables](#ref-vars)
+  * [模板引用变量](#ref-vars)
   * [Input and output properties](#inputs-outputs)
+  * [输入输出属性](#inputs-outputs)
   * [Template expression operators](#expression-operators)
+  * [模板表达式操作符](#expression-operators)
     * [pipe](#pipe)
     * ["safe navigation operator" (?.)](#safe-navigation-operator)
+    * ["安全导航操作符" (?.)](#safe-navigation-operator)
 // #enddocregion intro
 .l-sub-section
   :marked
     The [live example](/resources/live-examples/template-syntax/ts/plnkr.html)
     demonstrates all of the syntax and code snippets described in this chapter.
 
+    这个[鲜活范例](/resources/live-examples/template-syntax/ts/plnkr.html)演示了本章中描述的所有语法和代码片段。
 // #docregion html-1
 .l-main-section
 :marked
   ## HTML
   HTML is the language of the Angular template. Our [QuickStart](../quickstart.html) application had a template that was pure HTML:
+  
+  HTML是Angular模板的“语言”。我们的[QuickStart](../quickstart.html)应用就有一个模板是纯HTML的：
 // #enddocregion html-1
 
 +makeExample('template-syntax/ts/app/app.component.html', 'my-first-app')(format=".")
 // #docregion html-2
 :marked
   Almost all HTML syntax is valid template syntax. The `<script>` element is a notable exception; it is forbidden, eliminating the risk of script injection attacks. (In practice, `<script>` is simply ignored.)
+  
+  几乎所有的HTML语法都是有效的模板语法。但值得注意的是`<script>`元素是个例外，它被禁用了，以阻止脚本注入攻击的风险。（在实践中，`<script>`只是被简单的忽略了。）
 
   Some legal HTML doesn’t make much sense in a template. The `<html>`, `<body>`, and `<base>` elements have no useful role in our repertoire. Pretty much everything else is fair game.
+  
+  在模板中，有些合法的HTML不会被用户感知。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。对所有其它的元素则一视同仁。
 
   We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. And we are about to learn how to get and set DOM values dynamically through data binding.
+  
+  我们可以通过组件和指令来扩展模板中的HTML词汇。它们看上去就是新元素和Attribute。我们即将学习如何通过数据绑定来动态获取/设置DOM的值。
 
   Let’s turn to the first form of data binding &mdash; interpolation &mdash; to see how much richer template HTML can be.
+  
+  我们拿数据绑定的第一种形式 —— 插值表达式 —— 来看看模板的HTML可以有多丰富。
 // #enddocregion html-2
 
 // #docregion interpolation-1
 .l-main-section
 :marked
   ## Interpolation
+  ## 插值表达式
   We met the double-curly braces of interpolation, `{{` and `}}`, early in our Angular education.
+  
+  在以前的Angular教程中，我们遇到过由双花括号括起来的插值表达式，`{{`和`}}`。
 // #enddocregion interpolation-1
 +makeExample('template-syntax/ts/app/app.component.html', 'first-interpolation')(format=".")
 // #docregion interpolation-2
 :marked
   We use interpolation to weave calculated strings into the text between HTML element tags and within attribute assignments.
+  
+  我们使用插值表达式来把计算所得的字符串插入HTML元素标签内的文本以及对标签Attribute进行赋值。
 // #enddocregion interpolation-2
 
 +makeExample('template-syntax/ts/app/app.component.html', 'title+image')(format=".")
@@ -72,27 +109,42 @@ include ../_util-fns
   The material between the braces is often the name of a component property. Angular replaces that name with the
   string value of the corresponding component property. In this example, Angular evaluates the `title` and `heroImageUrl` properties
   and "fills in the blanks", displaying first a bold application title and then a heroic image.
+  
+  在括号之间的“素材”，通常是组件属性的名字。Angular会使用组件中这个名字属性的字符串值，替换这个名字。
+  在这个例子中，Angualr计算`title`和`heroImageUrl`属性的值，并把它们填在空白处。首先显示一个粗体的应用标题，然后显示英雄的图片。
 
   More generally, the material between the braces is a **template expression** that Angular first **evaluates**
   and then **converts to a string**. The following interpolation illustrates the point by adding the two numbers within braces:
+  
+  更一般化的说法是：括号间的素材是一个 **模板表达式** ，Angular首先 **对它求值** 然后把它 **转换成字符串** 。下列插值表达式通过把括号中的两个数字相加说明了这一点：
 // #enddocregion interpolation-3
 +makeExample('template-syntax/ts/app/app.component.html', 'sum-1')(format=".")
 // #docregion interpolation-4
 :marked
   The expression can invoke methods of the host component, as we do here with `getVal()`:
+  
+  这个表达式可以调用所属组件的方法，就像下面用的`getVal()`：
 // #enddocregion interpolation-4
 +makeExample('template-syntax/ts/app/app.component.html', 'sum-2')(format=".")
 // #docregion interpolation-5
 :marked
   Angular evaluates all expressions in double curly braces, converts the expression results to strings, and concatenates them with neighboring literal strings. Finally,
   it assigns this composite interpolated result to an **element or directive property**.
+  
+  Angular求值所有双花括号中的表达式，把表达式的结果转换成字符串，并且把它们跟相邻的字符串字面量连接起来。最后，它把这个组合出的插值结果赋给一个 **元素或指令的属性** 。
 
   We appear to be inserting the result between element tags and assigning to attributes.
   It's convenient to think so, and we rarely suffer for this mistake.
   But it is not literally true. Interpolation is a special syntax that Angular converts into a
   [property binding](#property-binding), as we'll explain below.
+  
+  表面上看，我们在元素标签之间插入了结果或者对标签的Attribute进行了赋值。
+  这样思考很方便，并且很少给我们带来错误。
+  但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular把它转换成了一个[属性绑定](#property-binding)，我们后面将会解释这一点。
 
   But first, let's take a closer look at template expressions and statements.
+  
+  但是，让我们先仔细审视下模板表达式和模板语句。
 // #enddocregion interpolation-5
 
 // #docregion template-expressions-1
@@ -100,13 +152,20 @@ include ../_util-fns
 .l-main-section
 :marked
   ## Template expressions
+  ## 模板表达式
   A template **expression** produces a value.
   Angular executes the expression and assigns it to a property of a binding target;
   the target might be an HTML element, a component, or a directive.
+  
+  模板 **表达式** 产生一个值。
+  Angular执行这个表达式，并且把它赋值给绑定目标的一个属性（property），这个绑定目标可能是一个HTML元素、一个组件或一个指令。
 
   We put a template expression within the interpolation braces when we wrote `{{1 + 1}}`.
   We’ll see template expressions again in the [property binding](#property-binding) section,
   appearing in quotes to the right of the `=` symbol as in `[property]="expression"`.
+  
+  当我们写`{{1 + 1}}`时，我们往插值表达式的括号中放进了一个模板表达式。
+  我们会在[属性绑定](#property-binding)中再次看到模板表达式，它出现在`=`右侧的引号中，看起来像这样：`[property]="expression"`。
 // #enddocregion template-expressions-1
 
 // #docregion template-expressions-2
@@ -115,85 +174,143 @@ include ../_util-fns
   Many JavaScript expressions are legal template expressions, but not all.
   JavaScript expressions that have or promote side effects are prohibited,
   including:
+  
+  我们用来写模板表达式的是一种看起来很像JavaScript的语言。
+  很多JavaScript表达式也是合法的模板表达式，但不是全部。
+  JavaScript中那些具有或引发副作用的表达式是被禁止的，包括：
 
   * assignments (`=`, `+=`, `-=`)
+  * 赋值 (`=`, `+=`, `-=`)
   * the `new` operator
+  * `new`运算符
   * chaining expressions with `;` or `,`
+  * 使用`;`或`,`的链式表达式
   * increment and decrement operators (`++` and `--`)
+  * 自增或自减操作符(`++`和`--`)
 
   Other notable differences from JavaScript syntax include:
+  
+  其它和JavaScript语法的显著不同点包括：
 
   * no support for the bitwise operators `|` and `&`
+  * 不支持位运算 `|` 和 `&`
   * new [template expression operators](#expression-operators), such as `|` and `?.`
+  * 具有新的 [模板表达式运算符](#expression-operators)，比如`|`和`?.`
 // #enddocregion template-expressions-2
 
 // #docregion template-expressions-context
 - var lang = current.path[1]
 - var details = lang === 'dart' ? 'template expressions can’t refer to static properties, nor to top-level variables or functions, such as <code>window</code> or <code>document</code> from <code>dart:html</code>. They can’t directly call <code>print</code> or functions imported from <code>dart:math</code>. They are restricted to referencing members of the expression context.' : 'template expressions cannot refer to anything in the global namespace. They can’t refer to <code>window</code> or <code>document</code>. They can’t call <code>console.log</code> or <code>Math.max</code>. They are restricted to referencing members of the expression context.'
+- var detailsCn = lang === 'dart' ? '模板表达式不能引用静态属性或顶级变量或函数，比如<code>window</code> 或 来自于 <code>dart:html</code>的<code>document</code>。它们不能直接调用<code>print</code>或从<code>dart:math</code>的函数。它们被局限于只能引用来自表达式上下文中的可引用成员' : '模板表达式不能引用全局命名空间中的任何东西。它们不能引用<code>window</code>或<code>document</code>。它们不能调用<code>console.log</code>或<code>Math.max</code>。它们被局限于只能访问来自表达式上下文中的成员。'
 :marked
   <a id="expression-context"></a>
   ### Expression context
+  ### 表达式上下文
 
   Perhaps more surprising, !{details}
+  
+  你可能会感到惊讶，!{detailsCn}
 
   The *expression context* is typically the **component instance**, which is
   the source of binding values.
+  
+  典型的 *表达式上下文* 就是 **这个组件的实例** ，它是绑定值的源。
 
   When we see *title* wrapped in double-curly braces, <code>{{title}}</code>,
   we know that `title` is a property of the data-bound component.
   When we see *isUnchanged* in `[disabled]="isUnchanged"`,
   we know we are referring to that component's `isUnchanged` property.
+  
+  当看到包裹在双花括号中的 *title* （<code>{{title}}</code>）时，我们就知道`title`是这个数据绑定组件中的一个属性。
+  当看到`[disabled]="isUnchanged"`中的 *isUnchanged* 时，我们就知道我们正在引用该组件的`isUnchanged`属性。
 
   The component itself is usually the expression *context*, in which case
   the template expression usually references that component.
+  
+  组件本身通常就是表达式的 *上下文* ，这种情况下，模板表达式通常会引用那个组件。
 
   The expression context can include objects other than the component.
   A [template reference variable](#ref-vars) is one such alternative context object.
+  
+  表达式的上下文也可能包含组件之外的对象。
+  [template reference variable](#ref-vars)就是另外的上下文对象之一。
 // #enddocregion template-expressions-context
 
 // #docregion template-expressions-guidelines
 :marked
   <a id="no-side-effects"></a>
   ### Expression guidelines
+  ### 表达式指南
   Template expressions can make or break an application.
   Please follow these guidelines:
+  
+  模板表达式能成就或毁掉一个应用。请遵循下列指南：
 
   * [No visible side effects](#no-visible-side-effects)
+  * [没有可见的副作用](#no-visible-side-effects)
   * [Quick execution](#quick-execution)
+  * [执行迅速](#quick-execution)
   * [Simplicity](#simplicity)
+  * [非常简单](#simplicity)
   * [Idempotence](#idempotence)
+  * [幂等性](#idempotence)
 
   The only exceptions to these guidelines should be in specific circumstances that you thoroughly understand.
+  
+  这些指南中唯一的例外是：当你彻底理解了模板表达式之后，仍然觉得这个场景很特殊，那也可以不遵循它。
 
   #### No visible side effects
+  #### 没有可见的副作用
 
   A template expression should not change any application state other than the value of the
   target property.
+  
+  模板表达式除了目标属性的值以外，不应该改变应用的任何状态。
 
   This rule is essential to Angular's "unidirectional data flow" policy.
   We should never worry that reading a component value might change some other displayed value.
   The view should be stable throughout a single rendering pass.
+  
+  这条规则是Angular的“单向数据流”策略的基础。
+  我们永远不该担心读取一个模板值可能改变另外的显示值。
+  只要经过一遍渲染，视图就应该趋于稳定。
 
   #### Quick execution
+  #### 执行迅速
   Angular executes template expressions more often than we think.
   They can be called after every keypress or mouse move.
   Expressions should finish quickly or the user experience may drag, especially on slower devices.
   Consider caching values computed from other values when the computation is expensive.
+  
+  Angular执行模板表达式比我们想象的频繁。
+  它们可能在每一次按键或鼠标移动后被调用。表达式应该快速结束，否则用户就会感到拖沓，特别是在较慢的设备上。
+  当计算比较昂贵时，要考虑缓存那些从其它值计算而得出的值。
 
   #### Simplicity
+  #### 非常简单
   Although it's possible to write quite complex template expressions, we really shouldn't.
+  
+  虽然确实可能写出相当复杂的模板表达式，但我们真的不应该那样。
 
   A property name or method call should be the norm.
   An occasional Boolean negation (`!`) is OK.
   Otherwise, confine application and business logic to the component itself,
   where it will be easier to develop and test.
+  
+  一个属性名或方法调用属于常态。偶尔的逻辑取反(`!`)也还凑合。
+  其他情况下，组件会自己界定应用逻辑和业务逻辑，它将让开发和测试变得更容易。
 
   #### Idempotence
+  #### 幂等性
   An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is ideal because
   it is free of side effects and improves Angular's change detection performance.
 
+  一个[幂等的](https://en.wikipedia.org/wiki/Idempotence)表达式更加理想，因为它没有副作用，而且能提升Angular变更检测的性能。
+  
   In Angular terms, an idempotent expression always returns *exactly the same thing* until
   one of its dependent values changes.
+  
+  用Angular的术语说，一个幂等的表达式应该总是返回 *完全相同的东西* ，直到它所依赖的值中的一个变化了。
 // #enddocregion template-expressions-guidelines
 // #docregion template-expressions-guidelines-2
 :marked
@@ -201,6 +318,10 @@ include ../_util-fns
   If an idempotent expression returns a string or a number, it returns the same string or number
   when called twice in a row. If the expression returns an object (including a `Date` or `Array`),
   it returns the same object *reference* when called twice in a row.
+  
+  在单独的一次消息循环中，被依赖的值应该不变。
+  如果一个幂等的表达式返回了一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
+  如果表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的 *引用* 。
 // #enddocregion template-expressions-guidelines-2
 
 // #docregion template-statements-1
@@ -208,60 +329,97 @@ include ../_util-fns
 .l-main-section
 :marked
   ## Template statements
+  ## 模板语句
 
   A template **statement** responds to an **event** raised by a binding target
   such as an element, component, or directive.
+  
+  模板 **语句** 用来响应由绑定目标（如HTML元素、组件或指令）触发的 **事件** 对象。
 
   We’ll see template statements in the [event binding](#event-binding) section,
   appearing in quotes to the right of the `=` symbol as in `(event)="statement"`.
+  
+  我们将在[事件绑定](#event-binding)一节看到模板语句，它出现在`=`号右侧的引号中，就像这样：`(event)="statement"`。
 
   A template statement *has a side effect*.
   It's how we update application state from user input.
   There would be no point to responding to an event otherwise.
+  
+  模板语句 *有副作用* 。
+  这个副作用就是我们从用户的输入更新应用状态的方式。
+  除此之外，我们将没办法响应一个事件。
 
 .l-sub-section
   :marked
     Responding to events is the other side of Angular's "unidirectional data flow".
     We're free to change anything, anywhere, during this turn of the event loop.
+    
+    响应事件是Angular中“单向数据流”的另一面。
+    在事件循环的这一回合中，我们可以随意改变任何地方的任何东西。
 // #enddocregion template-statements-1
 // #docregion template-statements-2
 :marked
   Like template expressions, template *statements* use a language that looks like JavaScript.
   The template statement parser is different than the template expression parser and
   specifically supports both basic assignment (`=`) and chaining expressions with semicolons (`;`) and commas (`,`).
+  
+  和模板表达式一样，模板 *语句* 也是一个一个看起来很像JavaScript的语言。
+  模板语句解析器和模板表达式解析器不同，它的特别之处在于它既支持支持基本赋值（`=`）又支持使用分号（`;`）和逗号（`,`）把表达式串起来。
 
   However, certain JavaScript syntax is not allowed:
+  
+  但无论如何，某些JavaScript语法仍然是不允许的：
   * the `new` operator
+  * `new`运算符
   * increment and decrement operators, `++` and `--`
+  * 自增和自减运算符：`++`和`--`
   * operator assignment, such as `+=` and `-=`
+  * 操作并赋值，比如`+=`和`-=`
   * the bitwise operators `|` and `&`
+  * 位操作符`|`和`&`
   * the [template expression operators](#expression-operators)
+  * [模板表达式运算符](#expression-operators)
 // #enddocregion template-statements-2
 
 // #docregion template-statements-3
 - var lang = current.path[1]
 - var details = lang === 'dart' ? 'Template statements can’t refer to static properties on the class, nor to top-level variables or functions, such as <code>window</code> or <code>document</code> from <code>dart:html</code>. They can’t directly call <code>print</code> or functions imported from <code>dart:math</code>.' : 'Template statements cannot refer to anything in the global namespace. They can’t refer to <code>window</code> or <code>document</code>. They can’t call <code>console.log</code> or <code>Math.max</code>.'
+- var detailsCn = lang === 'dart' ? '模板语句不能引用静态属性或顶级变量或函数，比如<code>window</code> 或 来自于 <code>dart:html</code>的<code>document</code>。它们不能直接调用<code>print</code>或从<code>dart:math</code>的函数。' : '模板语句不能引用全局命名空间中的任何东西。它们不能引用<code>window</code>或<code>document</code>。它们不能调用<code>console.log</code>或<code>Math.max</code>。'
 :marked
   ### Statement context
+  ### 语句上下文
 
   As with expressions, statements can refer only to what's in the statement context — typically the
   **component instance** to which we're binding the event.
   !{details}
+  
+  和表达式中一样，语句只能引用语句上下文中 —— 典型的就是我们正在绑定事件的那个 **组件的实例** —— 中的内容。
 
   The *onSave* in `(click)="onSave()"` is sure to be a method of the data-bound component instance.
+  
+  `(click)="onSave()"`中的 *onSave* 就是数据绑定组件实例中的一个方法。
 
   The statement context may include an object other than the component.
   A [template reference variable](#ref-vars) is one such alternative context object.
   We'll frequently see the reserved `$event` symbol in event binding statements,
   representing the "message" or "payload" of the raised event.
+  
+  语句上下文可以包含组件之外的对象。
+  [模板引用对象](#ref-vars)就是这些候选上下文对象中的一个。
+  在事件绑定语句中，我们将频繁的看到保留的`$event`符号，代表来自所触发事件的“消息”或“有效载荷”。
 
   ### Statement guidelines
+  ### 语句指南
 
   As with expressions, avoid writing complex template statements.
   A method call or simple property assignment should be the norm.
+  
+  和表达式一样，要避免写复杂的模板语句。单一函数调用或者单一属性访问应该是常态。
 
   Now that we have a feel for template expressions and statements,
   we’re ready to learn about the varieties of data binding syntax beyond interpolation.
+  
+  现在，我们对模板表达式和语句有了一点感觉，是时候学习除了插值表达式之外多种多样的数据绑定语法了。
 // #enddocregion template-statements-3
 
 // #docregion binding-syntax-1
@@ -269,16 +427,27 @@ include ../_util-fns
 :marked
   <a id="binding-syntax"></a>
   ## Binding syntax: An overview
+  ## 绑定语法：概览
   Data binding is a mechanism for coordinating what users see with application data values.
   While we could push values to and pull values from HTML,
   the application is easier to write, read, and maintain if we turn these chores over to a binding framework.
   We simply declare bindings between binding sources and target HTML elements and let the framework do the work.
+  
+  数据绑定是一种机制，用来协调用户所见与应用数据的值。
+  虽然我们能往HTML推送值或者从HTML拉取值，但如果我们能把这些琐事放进数据绑定框架，应用就会更容易写、读以及维护。
+  我们只要简单的在绑定源和目标HTML元素之间建立绑定，框架就会完成这项工作。
 
   Angular provides many kinds of data binding, and we’ll discuss each of them in this chapter.
   First we'll take a high-level view of Angular data binding and its syntax.
+  
+  Angular提供很多种数据绑定，我们将在本章中逐一讨论它们。
+  首先，我们来看看Angular数据绑定的高层视角及其语法。
 
   We can group all bindings into three categories by the direction in which data flows.
   Each category has its distinctive syntax:
+  
+  根据数据流的方向，我们可以把所有绑定归为三类。
+  每一类都有它独特的语法：
 table
   tr
     th Data direction
@@ -297,54 +466,108 @@ table
       Attribute<br>
       Class<br>
       Style
-    tr
-      td One-way<br>from view target<br>to data source
-      td
-        code-example(format="" ).
-          (target) = "statement"
-          on-target = "statement"
-      td Event
-    tr
-      td Two-way
-      td
-        code-example(format="" ).
-          [(target)] = "expression"
-          bindon-target = "expression"
-      td Two-way
+  tr
+    td One-way<br>from view target<br>to data source
+    td
+      code-example(format="" ).
+        (target) = "statement"
+        on-target = "statement"
+    td Event
+  tr
+    td Two-way
+    td
+      code-example(format="" ).
+        [(target)] = "expression"
+        bindon-target = "expression"
+    td Two-way
+
+table
+  tr
+    th 数据流方向
+    th 语法
+    th 绑定类型
+  tr
+    td 单向<br>从数据源<br>到目标视图
+    td
+      code-example(format="" ).
+        {{expression}}
+        [target] = "expression"
+        bind-target = "expression"
+    td.
+      插值表达式<br>
+      属性<br>
+      Attribute<br>
+      类Class<br>
+      风格Style
+  tr
+    td 单向<br>从目标视图<br>到数据源
+    td
+      code-example(format="" ).
+        (target) = "statement"
+        on-target = "statement"
+    td 事件
+  tr
+    td 双向
+    td
+      code-example(format="" ).
+        [(target)] = "expression"
+        bindon-target = "expression"
+    td 双向
 
 :marked
   Binding types other than interpolation have a **target name** to the left of the equal sign,
   either surrounded by punctuation (`[]`, `()`) or preceded by a prefix (`bind-`, `on-`, `bindon-`).
+  
+  除了插值表达式之外的绑定类型，在等号左边都有一个 **目标名** ，无论是包在括号中（`[]`、`()`）还是带有前缀（`bind-`、`on-`、`bindon-`）。
 
   What is that target? Before we can answer that question, we must challenge ourselves to look at template HTML in a new way.
+  
+  什么是“目标”？在回答这个问题之前，我们必须挑战自我，尝试用另一种方式来审视模板中的HTML。
 
   ### A new mental model
+  ### 一个新的思维模型
 
   With all the power of data binding and our ability to extend the HTML vocabulary
   with custom markup, it is tempting to think of template HTML as *HTML Plus*.
+  
+  借助数据绑定的威力和我们的能力来使用自定义语言扩展HTML词汇，它误导我们把模板HTML当做 *HTML+* 。
 
   Well, it *is* HTML Plus.
   But it’s also significantly different than the HTML we’re used to.
   We really need a new mental model.
+  
+  也对，它 *是* HTML+ 。
+  但它也跟我们用过的那些HTML有着显著的不同。
+  我们需要一种新的思维模型。
 
   In the normal course of HTML development, we create a visual structure with HTML elements, and
   we modify those elements by setting element attributes with string constants.
+  
+  在通常的HTML开发过程中，我们使用HTML元素创建一个视觉结构，并且通过把字符串常量设置给元素的Attribute来修改那些元素。
 // #enddocregion binding-syntax-1
 
 +makeExample('template-syntax/ts/app/app.component.html', 'img+button')(format=".")
 // #docregion binding-syntax-2
 :marked
   We still create a structure and initialize attribute values this way in Angular templates.
+  
+  我们还创建了一个结构，并且在Angular模板中用这种方式初始化Attribute值。
 
   Then we learn to create new elements with components that encapsulate HTML
   and drop them into our templates as if they were native HTML elements.
+  
+  然后，我们学着通过包含HTML的组件创建新元素，然后，如果把它扔进我们的模板，就像它是原生的HTML元素一样。
 // #enddocregion binding-syntax-2
 +makeExample('template-syntax/ts/app/app.component.html', 'hero-detail-1')(format=".")
 // #docregion binding-syntax-3
 :marked
   That’s HTML Plus.
+  
+  这就是HTML+。
 
   Now we start to learn about data binding. The first binding we meet might look like this:
+  
+  现在我们开始学习数据绑定。我们碰到的第一种数据绑定看起来是这样的：
 // #enddocregion binding-syntax-3
 
 +makeExample('template-syntax/ts/app/app.component.html', 'disabled-button-1')(format=".")
@@ -353,82 +576,140 @@ table
   We’ll get to that peculiar bracket notation in a moment. Looking beyond it,
   our intuition tells us that we’re binding to the button's `disabled` attribute and setting
   it to the current value of the component’s `isUnchanged` property.
+  
+  我们首先会注意到这个怪异的括号注解。接下来，直觉告诉我们，我们正在绑定到这个按钮的`disabled` Attribute。
+  并且把它设置为组件的`isUnchanged`属性（property）的当前值。
 
   Our intuition is wrong! Our everyday HTML mental model is misleading us.
   In fact, once we start data binding, we are no longer working with HTML *attributes*. We aren't setting attributes.
   We are setting the *properties* of DOM elements, components, and directives.
+  
+  但我们的直觉是错的！以前的思维模型在误导我们。
+  实际上，一旦我们开始数据绑定，我们就不再跟Attribute一起玩儿了。我们不是在设置Attribute。
+  我们在设置DOM元素、组件和指令的属性。
 // #enddocregion binding-syntax-4
 
 // #docregion binding-syntax-attribute-vs-property
 .l-sub-section
   :marked
     ### HTML attribute vs. DOM property
+    ### HTML的Attribute vs. DOM的Property
 
     The distinction between an HTML attribute and a DOM property is crucial to understanding how Angular binding works.
+    
+    要想理解Angular绑定如何工作，清楚HTML Attribute和DOM Property之间的区别是至关重要的。
 
     **Attributes are defined by HTML. Properties are defined by the DOM (Document Object Model).**
+    
+    **Attribute是由HTML定义的。Property是由DOM（Document Object Model）定义的。**
 
     * A few HTML attributes have 1:1 mapping to properties. `id` is one example.
+    
+    * 少量HTML Attribute和Property之间有着1:1的映射。`id`就是一个例子。
 
     * Some HTML attributes don't have corresponding properties. `colspan` is one example.
+    
+    * 一些HTML Attribute没有对应的Property。`colspan`就是一个例子。
 
     * Some DOM properties don't have corresponding attributes. `textContent` is one example.
+    
+    * 一些DOM Property没有对应的Attribute。`textContent`就是一个例子。
 
     * Many HTML attributes appear to map to properties ... but not in the way we might think!
+    
+    * 许多HTML Attribute看起来映射到了Property…… 但却不是我们自以为的那样！
 
     That last category can be especially confusing ... until we understand this general rule:
+    
+    尤其最后一种更让人困惑…… 除非我们能理解这个普遍原则：
 
     **Attributes *initialize* DOM properties and then they are done.
     Property values can change; attribute values can't.**
+    
+    **Attribute *初始化* DOM Property，然后它们的任务就完成了。Property的值可以改变；Attribute的值不能改变。**
 
     For example, when the browser renders `<input type="text" value="Bob">`, it creates a
     corresponding DOM node with a `value` property *initialized* to "Bob".
+    
+    例如，当浏览器渲染`<input type="text" value="Bob">`时，它创建了一个对应的DOM节点，它的`value`Property被 *初始化为* “Bob”。
 
     When the user enters "Sally" into the input box, the DOM element `value` *property* becomes "Sally".
     But the HTML `value` *attribute* remains unchanged as we discover if we ask the input element
     about that attribute: `input.getAttribute('value') // returns "Bob"`
 
+    当用户在输入框中输入 “Sally” 时，DOM元素的`value` *Property* 变成了“Sally”。
+    但是这个HTML`value` *Attribute* 保持不变。
+    如果我们通过`input.getAttribute('value') // returns "Bob"`获取这个input元素的Attribute，就会明白这一点。
+
     The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
+    
+    HTML Attribute `value`指定了初始值；DOM的`value`Property 是 *当前* 值。
 
     The `disabled` attribute is another peculiar example. A button's `disabled` *property* is
     `false` by default so the button is enabled.
     When we add the `disabled` *attribute*, its presence alone initializes the  button's `disabled` *property* to `true`
     so the button is disabled.
+    
+    `disabled` Attribute是另一个古怪的例子。按钮的`disabled` *Property* 是`false`，因为默认情况下按钮是可用的。
+    当我们添加`disabled` *Attribute* 时，它只要出现就表示按钮的`disabled` *Property* 是`true`，于是按钮就被禁用了。
 
     Adding and removing the `disabled` *attribute* disables and enables the button. The value of the *attribute* is irrelevant,
     which is why we cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
+    
+    添加或删除`disabled` *Attribute* 会禁用或启用这个按钮。但 *Attribute* 的值无关紧要，这就是我们为什么没法通过
+    `<button disabled="false">仍被禁用</button>`这种写法来启用一个按钮的原因。
 
     Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
     The value of the *property* matters.
+    
+    设置按钮的`disabled` *Property* （比如，通过Angular绑定）可以禁用或启用这个按钮。
+    这就是 *Property* 的价值。
 
     **The HTML attribute and the DOM property are not the same thing, even when they have the same name.**
+    
+    **就算名字相同，HTML Attribute和DOM Property也不是同一样东西。**
 // #enddocregion binding-syntax-attribute-vs-property
 
 // #docregion binding-syntax-5
 :marked
   This is so important, we’ll say it again.
+  
+  这句话很重要，我们得再强调一次：
 
   **Template binding works with *properties* and *events*, not *attributes*.**
+  
+  **模板绑定是用 *Property* 和 *事件* 来工作的，而不是 *Attribute* 。**
 // #enddocregion binding-syntax-5
 
 // #docregion binding-syntax-world-without-attributes
 .callout.is-helpful
   header A world without attributes
+  header 一个没有Attribute的世界
   :marked
     In the world of Angular 2, the only role of attributes is to initialize element and directive state.
     When we data bind, we're dealing exclusively with element and directive properties and events.
     Attributes effectively disappear.
+    
+    在Angular 2的世界中，Attribute唯一的作用是用来初始化元素和指令的状态。
+    当进行数据绑定时，我们只是在与元素和指令的属性和事件打交道，而Attribute就完全靠边站了。
 // #enddocregion binding-syntax-world-without-attributes
 // #docregion binding-syntax-targets
 :marked
   With this model firmly in mind, let's learn about binding targets.
+  
+  请把这个模型牢牢的印在脑子里，接下来我们学习什么是“绑定目标”。
 
   ### Binding targets
+  ### 绑定目标
   The **target of a data binding** is something in the DOM.
   Depending on the binding type, the target can be an
   (element | component | directive) property, an
   (element | component | directive) event, or (rarely) an attribute name.
   The following table summarizes:
+  
+  **数据绑定的目标** 是DOM中的某些东西。
+  这个目标可能是（元素|组件|指令）的属性、（元素|组件|指令）的事件，或（极少数情况下）一个Attribute名。
+  下面是的汇总表：
 // #enddocregion binding-syntax-targets
 
 // If you update this table, UPDATE it in Dart & JS, too.
@@ -481,60 +762,134 @@ table
       +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-syntax-1')(format=".")
 </div>
 
+table
+  tr
+    th 绑定类型
+    th 目标
+    th 范例
+  tr
+    td 属性
+    td.
+      元素&nbsp;属性<br>
+      组件&nbsp;属性<br>
+      指令&nbsp;属性
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-syntax-1')(format=".")
+  tr
+    td 事件
+    td.
+      元素&nbsp;事件<br>
+      组件&nbsp;事件<br>
+      指令&nbsp;事件
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-syntax-1')(format=".")
+  tr
+    td 双向
+    td.
+      事件和属性
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', '2-way-binding-syntax-1')(format=".")
+  tr
+    td Attribute
+    td.
+      Attribute(例外情况)
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', 'attribute-binding-syntax-1')(format=".")
+  tr
+    td 类
+    td.
+      <code>class</code>属性
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-syntax-1')(format=".")
+  tr
+    td 样式
+    td.
+      <code>style</code>属性
+    td
+      +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-syntax-1')(format=".")
+</div>
+
 // #docregion binding-syntax-end
 :marked
   Let’s descend from the architectural clouds and look at each of these binding types in concrete detail.
+  
+  让我们从云端视角降下来，看看每种绑定类型的具体情况。
 // #enddocregion binding-syntax-end
 
 // #docregion property-binding-1
 .l-main-section
 :marked
   ## Property binding
+  ## 属性绑定
   We write a template **property binding** when we want to set a property of a view element to the value of
   a [template expression](#template-expressions).
+  
+  当想把一个视图元素的属性设置为[模板表达式](#template-expressions)时，我们就要写模板的 **属性绑定** 。
 
   The most common property binding sets an element property to a component property value. An example is
   binding the `src` property of an image element to a component’s `heroImageUrl` property:
+  
+  这种最常用的属性绑定把元素的属性设置为组件中属性的值。
+  下面这个例子中，把image元素的`src`属性绑定到组件的`heroImageUrl`属性上：
 // #enddocregion property-binding-1
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
 // #docregion property-binding-2
 :marked
   Another example is disabling a button when the component says that it `isUnchanged`:
+  
+  另一个例子是当组件说它`isUnchanged`时禁用一个按钮：
 // #enddocregion property-binding-2
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-2')(format=".")
 // #docregion property-binding-3
 :marked
   Another is setting a property of a directive:
+  
+  另一个例子是设置指令的属性：
 // #enddocregion property-binding-3
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-3')(format=".")
 // #docregion property-binding-4
 :marked
   Yet another is setting the model property of a custom component (a great way
   for parent and child components to communicate):
+  
+  还有另一个例子是设置一个自定义组件的模型属性（这是父子组件之间通讯的重要途径）：
 // #enddocregion property-binding-4
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-4')(format=".")
 // #docregion property-binding-5
 :marked
   ### One-way *in*
+  ### 单向 *输入*
   People often describe property binding as *one-way data binding* because it flows a value in one direction,
   from a component’s data property into a target element property.
+  
+  人们经常把属性绑定描述成 *单向数据绑定* ，因为值的流动是单向的，从组件中的属性数据，流动到目标元素的属性。
 
   We cannot use property binding to pull values *out* of the target element.
   We can't bind to a property of the target element to read it. We can only set it.
+  
+  我们不能使用属性绑定来从目标元素拉取值，也不能绑定到目标元素的属性来读取它。我们只能设置它。
 // #enddocregion property-binding-5
 
 // #docregion property-binding-6
 .l-sub-section
   :marked
     Nor can we use property binding to *call* a method on the target element.
+    
+    我们也不能使用属性绑定来 *调用* 目标元素上的方法。
 
     If the element raises events we can listen to them with an [event binding](#event-binding).
+    
+    如果这个元素触发了事件，我们可以通过[事件绑定](#event-binding)来监听它们。
 
     If we must read a target element property or call one of its methods,
     we'll need a different technique.
     See the API reference for
     [viewChild](../api/core/ViewChild-var.html) and
     [contentChild](../api/core/ContentChild-var.html).
+    
+    如果我们不得不读取目标元素上的属性或调用它的某个方法，我们得用另一种技术。
+    参见API参考中的[viewChild](../api/core/ViewChild-var.html)和
+    [contentChild](../api/core/ContentChild-var.html)。
 // #enddocregion property-binding-6
 
 // TODO (global): once we have api docs everywhere, change /docs/ts/latest/ to ../
@@ -542,22 +897,31 @@ table
 // #docregion property-binding-7
 :marked
   ### Binding target
+  ### 绑定目标
   An element property between enclosing square brackets identifies the target property. The target property in the following code is the image element’s `src` property.
+  
+  包裹在方括号中的元素属性名用于标记目标属性。下列代码中的目标属性是image元素的`src`属性。
 
 // #enddocregion property-binding-7
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
 // #docregion property-binding-8
 :marked
   Some people prefer the `bind-` prefix alternative, known as the *canonical form*:
+  
+  有些人喜欢用`bind-`前缀的可选形式，称之为 *规范形式* ：
 // #enddocregion property-binding-8
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-5')(format=".")
 // #docregion property-binding-9
 :marked
   The target name is always the name of a property, even when it appears to be the name of something else. We see `src` and may think it’s the name of an attribute. No. It’s the name of an image element property.
+  
+  目标名总是属性的名字。即使它看起来和别的名字一样。我们看到`src`时，可能会把它当做Attribute。不！它不是！它是image元素的属性名。
 
   Element properties may be the more common targets,
   but Angular looks first to see if the name is a property of a known directive,
   as it is in the following example:
+  
+  元素属性可能是最常见的绑定目标，但Angular会先去看这个名字是否一个已知指令的属性，就像下列范例中一样：
 // #enddocregion property-binding-9
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-3')(format=".")
 
@@ -567,57 +931,99 @@ table
     Technically, Angular is matching the name to a directive [input](#inputs-outputs),
     one of the property names listed in the directive’s `inputs` array or a property decorated with `@Input()`.
     Such inputs map to the directive’s own properties.
+    
+    从技术的角度看，Angular正在匹配一个[input](#inputs-outputs)指令的名字。这个名字是指令的`inputs`数组中所列的名字之一，或者是一个带有`@Input()`装饰器的属性。
+    这个inputs被映射到了指令自己的属性。
 :marked
   If the name fails to match a property of a known directive or element, Angular reports an “unknown directive” error.
+  
+  如果名字没有匹配上一个已知指令或元素的属性，Angular会报告一个“未知指令”的错误。
 
   ### Avoid side effects
+  ### 消除副作用
   As we've already discussed, evaluation of a template expression should have no visible side effects. The expression language itself does its part to keep us safe. We can’t assign a value to anything in a property binding expression nor use the increment and decrement operators.
+  
+  正如我们曾讨论过的，计算模板表达式不能有可见的副作用。表达式语言本身可以提供一部分安全保障。我们不能在属性绑定表达式中对任何东西赋值，也不能使用自增、自减运算符。
 
   Of course, our expression might invoke a property or method that has side effects. Angular has no way of knowing that or stopping us.
+  
+  当然，我们的表达式也可能会调用一个具有副作用的属性或方法。但Angular没法知道这一点，也没法防止我们误用。
 
   The expression could call something like `getFoo()`. Only we know what `getFoo()` does.
   If `getFoo()` changes something and we happen to be binding to that something, we risk an unpleasant experience. Angular may or may not display the changed value. Angular may detect the change and throw a warning error. Our general advice: stick to data properties and to methods that return values and do no more.
+  
+  表达式中可以调用像`getFoo()`这样的方法。只有我们才知道`getFoo()`干了什么。
+  如果`getFoo()`改变了什么，而我们把它绑定在什么地方，我们就可能把自己坑了。Angular可能显示也可能不显示变化后的值。Angular可能检测到变化，并抛出一个警告型错误。
+  我们具有普遍性的建议是：盯紧数据源的属性和方法，确保它们只返回值而不做别的。
 
   ### Return the proper type
+  ### 返回恰当的类型
   The template expression should evaluate to the type of value expected by the target property.
   Return a string if the target property expects a string.
   Return a number if the target property expects a number.
   Return an object if the target property expects an object.
+  
+  模板表达式应该返回一个目标属性所需类型的值。
+  如果目标属性想要个字符串，就返回字符串。
+  如果目标属性想要个数字，就返回数字。
+  如果目标属性想要个对象，就返回对象。
 
   The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what we’re sending in the property binding:
+  
+  `HeroDetail`组件的`hero`属性想要一个`Hero`对象，那我们就要在属性绑定中精确的给它一个`Hero`对象：
 // #enddocregion property-binding-10
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-4')(format=".")
 // #docregion property-binding-11
 :marked
   ### Remember the brackets
+  ### 别忘了括号
   The brackets tell Angular to evaluate the template expression.
   If we forget the brackets, Angular treats the string as a constant and *initializes the target property* with that string.
   It does *not* evaluate the string!
+  
+  括号会告诉Angular计算模板表达式。
+  如果我们忘了括号，Angular就把这个表达式当做一个字符串常量看待，并且用它 *初始化目标属性* 。
+  它 *不会* 计算这个字符串。
 
   Don't make the following mistake:
+  
+  不要出现这样的失误：
 // #enddocregion property-binding-11
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-6')(format=".")
 // #docregion property-binding-12
 a(id="one-time-initialization")
 :marked
   ### One-time string initialization
+  ### 一次性字符串初始化
   We *should* omit the brackets when all of the following are true:
+  当下列条件满足时，我们不应该带括号：
   * The target property accepts a string value.
+  * 目标属性接受字符串值。
   * The string is a fixed value that we can bake into the template.
+  * 我们想合并到模板中的字符串是一个固定值。
   * This initial value never changes.
+  * 这个初始值永不改变。
 
   We routinely initialize attributes this way in standard HTML, and it works
   just as well for directive and component property initialization.
   The following example initializes the `prefix` property of the `HeroDetailComponent` to a fixed string,
   not a template expression. Angular sets it and forgets it.
+  
+  我们像在标准HTML中一样用这种方式初始化Attribute，它在初始化指令和组件的属性时也同样工作得很好。
+  下面这个例子把`HeroDetailComponent`的`prefix`属性初始化成了一个固定的字符串，而不是模板表达式。Angular设置它，然后忘记它。
 // #enddocregion property-binding-12
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-7')(format=".")
 // #docregion property-binding-13
 :marked
   The `[hero]` binding, on the other hand, remains a live binding to the component's `currentHero` property.
+  
+  作为对比，这个`[hero]`绑定就保持了到组件的`currentHero`属性的活绑定，它会一直随着更新。
 
   ### Property binding or interpolation?
+  ### 属性绑定还是插值表达式？
   We often have a choice between interpolation and property binding. The following binding pairs do the same thing:
+  
+  我们通常得在插值表达式和属性绑定之间做出选择。下列这几对绑定做的事情完全相同：
 // #enddocregion property-binding-13
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation')(format=".")
 // #docregion property-binding-14
@@ -625,11 +1031,18 @@ a(id="one-time-initialization")
   Interpolation is a convenient alternative for property binding in many cases.
   In fact, Angular  translates those interpolations into the corresponding property bindings
   before rendering the view.
+  
+  在多数情况下，插值表达式是一个更方便的选择。实际上，在渲染视图之前，Angular把这些插值表达式翻译成了对应的属性绑定形式。
 
   There is no technical reason to prefer one form to the other.
   We lean toward readability, which tends to favor interpolation.
   We suggest establishing coding style rules for the organization and choosing the form that
   both conforms to the rules and feels most natural for the task at hand.
+  
+  没有技术上的理由能决定哪种形式更好。
+  我们倾向于可读性，所以倾向于插值表达式。
+  我们建议建立组织级的代码风格规定，然后选择一种形式，既能遵循规则，又能让手头儿的任务做起来更自然。
+  
 // #enddocregion property-binding-14
 
 // #docregion other-bindings-1
@@ -637,20 +1050,32 @@ a(id="one-time-initialization")
 :marked
   <a id="other-bindings"></a>
   ## Attribute, class, and style bindings
+  ## Attribute、class和style绑定
   The template syntax provides specialized one-way bindings for scenarios less well suited to property binding.
+  
+  模板语法为那些不太适合使用属性绑定的场景提供了专门的单向数据绑定形式。
 
   ### Attribute binding
+  ### Attribute绑定
   We can set the value of an attribute directly with an **attribute binding**.
+  
+  我们可以通过 **Attribute绑定** 来直接设置Attribute的值。
 // #enddocregion other-bindings-1
 // #docregion other-bindings-2
 .l-sub-section
   :marked
     This is the only exception to the rule that a binding sets a target property. This is the only binding that creates and sets an attribute.
+    
+    这是“绑定到目标属性”这条规则中唯一的例外。这是唯一的一个能创建和设置Attribute的绑定形式。
 
 :marked
   We have stressed throughout this chapter that setting an element property with a property binding is always preferred to setting the attribute with a string. Why does Angular offer attribute binding?
+  
+  在本章中，我们通篇都在说通过属性绑定来设置元素的属性总是好于用字符串设置Attribute。为什么Angular还提供了Attribute绑定呢？
 
   **We must use attribute binding when there is no element property to bind.**
+  
+  **因为当元素没有属性可绑的时候，我们不得不使用Attribute绑定。**
 
   Consider the [ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA),
   [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG), and
@@ -658,32 +1083,56 @@ a(id="one-time-initialization")
   They do not correspond to element properties, and they do not set element properties.
   There are no property targets to bind to.
 
+  考虑[ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA),
+  [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)和
+  table中的colspan/rowspan等Attribute。它们是纯粹的Attribute。
+  它们没有对应的属性可供绑定。
+
   We become painfully aware of this fact when we try to write something like this:
+  
+  如果我们想写出类似下面这样的东西，这一现状会令我们痛苦：
 code-example(language="html").
   &lt;tr>&lt;td colspan="{{1 + 1}}">Three-Four&lt;/td>&lt;/tr>
 :marked
   We get this error:
+  
+  我们会得到这个错误：
 code-example(format="", language="html").
   Template parse errors:
   Can't bind to 'colspan' since it isn't a known native property
+  
+  模板解析错误：不能绑定到'colspan'，因为它不是已知的原生属性
 :marked
   As the message says, the `<td>` element does not have a `colspan` property.
   It has the "colspan" *attribute*, but
   interpolation and property binding can set only *properties*, not attributes.
+  
+  正如消息中所说，`<td>`元素没有`colspan`属性。
+  但是插值表达式和属性绑定只能设置 *属性* ，而不是Attribute。
 
   We need attribute bindings to create and bind to such attributes.
+  
+  我们需要Attribute绑定来创建和绑定到这样的Attribute。
 
   Attribute binding syntax resembles property binding.
   Instead of an element property between brackets, we start with the prefix **`attr`**,
   followed by a dot (`.`) and the name of the attribute. We then set the attribute
   value, using an expression that resolves to a string.
+  
+  Attribute绑定在语法上类似于属性绑定。
+  但括号中的部分不是一个元素的属性名，而是由一个 **`attr`** 前缀，紧跟着一个点（`.`），再跟着Attribute的名字组成。
+  我们可以通过一个能求值为字符串的表达式来设置Attribute的值。
 
   Here we bind `[attr.colspan]` to a calculated value:
+  
+  这个例子中，我们把`[attr.colspan]`绑定成一个通过计算得到的值：
 // #enddocregion other-bindings-2
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-colspan')(format=".")
 // #docregion other-bindings-3
 :marked
   Here's how the table renders:
+  
+  这里是table渲染出来的样子：
   <table border="1px">
     <tr><td colspan="2">One-Two</td></tr>
     <tr><td>Five</td><td>Six</td></tr>
@@ -691,26 +1140,38 @@ code-example(format="", language="html").
 
   One of the primary use cases for attribute binding
   is to set ARIA attributes, as in this example:
+  
+  Attribute绑定的主要用例之一是设置ARIA Attribute（（译注：ARIA指可访问性，用于给残障人士访问互联网提供便利）），就像这个例子中一样：
 // #enddocregion other-bindings-3
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
 // #docregion other-bindings-class-1
 :marked
   ### Class binding
+  ### 类绑定
 
   We can add and remove CSS class names from an element’s `class` attribute with
   a **class binding**.
+  
+  借助 **类绑定** ，我们可以从元素的`class` Attribute上添加和移除CSS类名。
 
   Class binding syntax resembles property binding.
   Instead of an element property between brackets, we start with the prefix `class`,
   optionally followed by a dot (`.`) and the name of a CSS class: `[class.class-name]`.
+  
+  类绑定在语法上类似于属性绑定。但括号中的部分不是一个元素的属性名，而是包括一个 **`class`** 前缀，紧跟着一个点（`.`），再跟着CSS类的名字组成。
+  其中，后两部分是可选的。形如：`[class.class-name]`。
 
   The following examples show how to add and remove the application's "special" class
   with class bindings.  Here's how we set the attribute without binding:
+  
+  下列例子示范了如何通过类绑定来添加和移除应用的"special"类。不用绑定直接设置Attribute时是这样的：
 // #enddocregion other-bindings-class-1
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-1')(format=".")
 // #docregion other-bindings-class-2
 :marked
   We can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
+  
+  我们可以把它改写为一个绑定到所需类名的绑定；这是一个或者全有或者全无的替换型绑定（译注：即，当badCurly有值时class这个Attribute设置的内容会被完全覆盖）。
 // #enddocregion other-bindings-class-2
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-2')(format=".")
 // #docregion other-bindings-class-3
@@ -718,6 +1179,9 @@ code-example(format="", language="html").
   Finally, we can bind to a specific class name.
   Angular adds the class when the template expression evaluates to something truthy.
   It removes the class when the expression is falsey.
+  
+  最后，我们可以绑定到一个特定的类名。
+  当模板表达式的求值结果是真值时，Angular会添加这个类，反之则移除它。
 // #enddocregion other-bindings-class-3
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-3')(format=".")
 
@@ -726,23 +1190,33 @@ code-example(format="", language="html").
   :marked
     While this is a fine way to toggle a single class name,
     we generally prefer the [NgClass directive](#ngClass) for managing multiple class names at the same time.
+    
+    虽然这是一个切换单一类名的好办法，但我们通常更喜欢使用[NgClass指令](#ngClass)来同时管理多个类名。
 // #enddocregion other-bindings-class-4
 
 // #docregion other-bindings-style-1
 :marked
   ### Style binding
+  ### 样式绑定
 
   We can set inline styles with a **style binding**.
+  
+  通过 **样式绑定** ，我们可以设置内联样式。
 
   Style binding syntax resembles property binding.
   Instead of an element property between brackets, we start with the prefix `style`,
   followed by a dot (`.`) and the name of a CSS style property: `[style.style-property]`.
+  
+  样式绑定在语法上类似于属性绑定。但括号中的部分不是一个元素的属性名，而是包括一个 **`style`** 前缀，紧跟着一个点（`.`），再跟着CSS样式的属性名。
+  形如：`[style.style-property]`。
 
 // #enddocregion other-bindings-style-1
 +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-1')(format=".")
 // #docregion other-bindings-style-2
 :marked
   Some style binding styles have unit extension. Here we conditionally set the font size in  “em” and “%” units .
+  
+  有些样式绑定中的样式带有单位。在这里，我们根据条件用“em”和“%”来设置字体大小的单位。
 // #enddocregion other-bindings-style-2
 +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-2')(format=".")
 
@@ -751,68 +1225,104 @@ code-example(format="", language="html").
   :marked
     While this is a fine way to set a single style,
     we generally prefer the [NgStyle directive](#ngStyle) when setting several inline styles at the same time.
+    
+    虽然这是一个设置单一样式的好办法，但我们通常更喜欢使用[NgStyle指令](#ngStyle)来同时设置多个内联样式。
 // #enddocregion other-bindings-style-3
 
 // #docregion event-binding-1
 .l-main-section
 :marked
   ## Event binding
+  ## 事件绑定
   The bindings we’ve met so far flow data in one direction: *from the component to an element*.
+  
+  我们前面遇到过的那些绑定的数据流都是单向的：*从组件到元素* 。
 
   Users don’t just stare at the screen. They enter text into input boxes. They pick items from lists.
   They click buttons. Such user actions may result in a flow of data in the opposite direction:
   *from an element to the component*.
+  
+  用户不会只盯着屏幕看。他们会在输入框中输入文本。他们会从列表中选取条目。
+  他们会点击按钮。这类用户动作可能导致反向的数据流： *从元素到组件* 。
 
   The only way to know about a user action is to listen for certain events such as
   keystrokes, mouse movements, clicks, and touches.
   We declare our interest in user actions through Angular event binding.
+  
+  知道用户动作的唯一方式是监听正确的事件，比如击键、鼠标移动、点击和触屏。
+  我们可以通过Angular事件绑定来定义我们对哪些用户动作感兴趣。
 
   Event binding syntax consists of a **target event** within parentheses on the left of an equal sign, and a quoted
   [template statement](#template-statements) on the right.
   The following event binding listens for the button’s click event, calling
   the component's `onSave()` method whenever a click occurs:
+  
+  事件绑定语法由等号左侧带圆括号的 **目标事件** ，和右侧一个引号中的[模板语句](#template-statements)组成。
+  下列事件绑定监听按钮的点击事件。无论什么时候，发生点击时，都会调用组件的`onSave()`方法。
 // #enddocregion event-binding-1
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 // #docregion event-binding-2
 :marked
   ### Target event
+  ### 目标事件
   A **name between enclosing parentheses** &mdash; for example, `(click)` &mdash;
   identifies the target event. In the following example, the target is the button’s click event.
+  
+  **圆括号中的名称** —— 比如`(click)` —— 标记出目标事件。在下面这个例子中，目标是按钮的click事件。
 // #enddocregion event-binding-2
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 // #docregion event-binding-3
 :marked
   Some people prefer the `on-` prefix alternative, known as the *canonical form*:
+  
+  有些人更喜欢带`on-`前缀的可选形式，称之为 *规范形式* ：
 // #enddocregion event-binding-3
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-2')(format=".")
 // #docregion event-binding-4
 :marked
   Element events may be the more common targets, but Angular looks first to see if the name matches an event property
   of a known directive, as it does in the following example:
+  
+  元素事件可能是更常见的目标，但Angular会先看这个名字是否能匹配上已知指令的事件属性，就像下面这个例子：
 // #enddocregion event-binding-4
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-3')(format=".")
 // #docregion event-binding-5
 :marked
   If the name fails to match an element event or an output property of a known directive,
   Angular reports an “unknown directive” error.
+  
+  如果这个名字没能匹配到元素事件或已知指令的输出型属性，Angular就会报“未知指令”错误。
 
   ### $event and event handling statements
+  ### $event和事件处理语句
   In an event binding, Angular sets up an event handler for the target event.
+  
+  在事件绑定中，Angular会为目标事件设置事件处理器。
 
   When the event is raised, the handler executes the template statement.
   The template statement typically involves a receiver that wants to do something
   in response to the event, such as take a value from the HTML control and store it
   in a model.
+  
+  当事件发生时，这个处理器会执行模板语句。
+  典型的模板语句会让那些想在这个事件的响应过程中做点什么的接收器参与进来，例如从一个HTML控件中取得一个值，并存入一个模型。
 
   The binding conveys information about the event, including data values, through
   an **event object named `$event`**.
+  
+  这种绑定会通过一个 **名叫`$event`的事件对象** 表达关于此事件的信息（包括数据值）。
 
   The shape of the event object is determined by the target event itself.
   If the target event is a native DOM element event, the `$event` is a
   [DOM event object]( https://developer.mozilla.org/en-US/docs/Web/Events),
   with properties such as `target` and `target.value`.
+  
+  事件对象的形态取决于它是哪个目标事件。如果目标事件是一个原生DOM元素事件，
+  `$event`就是一个[DOM事件对象]( https://developer.mozilla.org/en-US/docs/Web/Events)，它有像`target`和`target.value`这样的属性。
 
   Consider this example:
+  
+  考虑这个范例：
 // #enddocregion event-binding-5
 +makeExample('template-syntax/ts/app/app.component.html', 'without-NgModel')(format=".")
 // #docregion event-binding-6
@@ -820,25 +1330,44 @@ code-example(format="", language="html").
   We’re binding the input box `value` to a `firstName` property, and we’re listening for changes by binding to the input box’s `input` event.
   When the user makes changes, the `input` event is raised, and the binding executes the statement within a context that includes the DOM event object, `$event`.
 
+  我们在把输入框的`value`绑定到`firstName`属性，并且我们正在通过绑定到输入框的`input`事件来监听更改。
+  当用户造成更改时，`input`事件被触发，并且在一个包含了DOM事件对象 —— `$event`的上下文中执行这条语句。
+
   To update the `firstName` property, we must get the changed text by following
   the path `$event.target.value`.
+  
+  要更改`firstName`属性，我们必须通过路径`$event.target.value`来获取更改后的值。
 
   If the event belongs to a directive (remember: components are directives), `$event` has whatever shape the directive chose to produce.
+  
+  如果这个事件属于指令（记住：组件是指令的一种），`$event`可以具有指令想生成的任何形态。
 
   <a id="eventemitter"></a>
   <a id="custom-event"></a>
   ### Custom events with EventEmitter
+  ### 使用EventEmitter实现自定义事件
 
   Directives typically raise custom events with an Angular [EventEmitter](../api/core/EventEmitter-class.html).
   A directive creates an `EventEmitter` and exposes it as a property.
   The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload that can be anything.
   Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
+  
+  典型的指令使用Angular的[EventEmitter](../api/core/EventEmitter-class.html)来触发自定义事件。
+  指令创建一个`EventEmitter`实例，并且把它作为一个属性暴露出来。
+  指令调用`EventEmitter.emit(payload)`来触发事件，传进去的消息载荷可以是任何东西。
+  父指令通过绑定到这个属性来监听这个事件，并且通过`$event`对象来访问这个载荷。
 
   Consider a `HeroDetailComponent` that presents hero information and responds to user actions.
   Although the `HeroDetailComponent` has a delete button it doesn't know how to delete the hero itself.
   The best it can do is raise an event reporting the user's delete request.
+  
+  考虑一个`HeroDetailComponent`，它展示英雄的信息，并响应用户的动作。
+  虽然`HeroDetailComponent`有一个删除按钮，但它自己并不知道该如何删除这个英雄。
+  最好的做法是触发一个事件来代表用户“要求删除”。
 
   Here are the pertinent excerpts from that `HeroDetailComponent`:
+  
+  这里是来自`HeroDetailComponent`的相关摘要：
 // #enddocregion event-binding-6
 +makeExample('template-syntax/ts/app/hero-detail.component.ts',
 'template-1', 'HeroDetailComponent.ts (template)')(format=".")
@@ -850,8 +1379,13 @@ code-example(format="", language="html").
   The component defines a `deleteRequest` property that returns an `EventEmitter`.
   When the user clicks *delete*, the component invokes the `delete()` method
   which tells the `EventEmitter` to emit a `Hero` object.
+  
+  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`。
+  当用户点击 *删除* 时，组件会调用`delete()`方法，这个方法告诉`EventEmitter`，发出一个`Hero`对象。
 
   Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
+  
+  现在，想象作为宿主的父组件绑定到了`HeroDetailComponent`的`deleteRequest`事件。
 // #enddocregion event-binding-7
 
 +makeExample('template-syntax/ts/app/app.component.html',
@@ -860,15 +1394,25 @@ code-example(format="", language="html").
 :marked
   When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
   passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
+  
+  当`deleteRequest`事件触发时，Angular调用父组件的`deleteHero`方法，在`$event`变量中传入 *要删除的英雄* （来自`HeroDetail`）。
 
   ### Template statements have side effects
+  ### 模板语句有副作用
   The `deleteHero` method has a side effect: It deletes a hero.
   Template statement side effects are not just OK, they are expected.
+  
+  `deleteHero`方法有一个副作用：它删除了一个英雄。
+  模板语句的副作用不仅没问题，而且正是我们所期待的。
 
   Deleting the hero updates the model, perhaps triggering other changes
   including queries and saves to a remote server.
   These changes percolate through the system and are ultimately displayed in this and other views.
   It's all good.
+  
+  删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
+  这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
+  这都是好事。
 // #enddocregion event-binding-8
 
 //
@@ -903,9 +1447,14 @@ code-example(format="", language="html").
 :marked
   <a id="ngModel"></a>
   ## Two-way binding with NgModel
+  ## 使用NgModel进行双向数据绑定
   When developing data entry forms, we often want to both display a data property and update that property when the user makes changes.
+  
+  当开发数据输入表单时，我们通常希望既显示数据的属性，也在用户修改时更新那个属性。
 
   The `[(NgModel)]` two-way data binding syntax makes that easy. Here's an example:
+  
+  `[(NgModel)]`双向数据绑定语法让它变得简单，这里是例子：
 // #enddocregion ngModel-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgModel-1')(format=".")
 // #docregion ngModel-2
@@ -913,19 +1462,30 @@ code-example(format="", language="html").
   header
     :marked
        <span style="font-family:consolas; monospace">[()]</span> = banana in a box
+       
+       <span style="font-family:consolas; monospace">[()]</span> = 盒子里的香蕉
   :marked
     To remember that the parentheses go inside the brackets, visualize a *banana in a box*.
+    
+    要记住“方括号中的圆括号”这种语法，就把它想象成 *盒子里的香蕉* 吧，是不是很形象？
 :marked
   Alternatively, we can use the canonical prefix form:
+  
+  另外，我们也可以使用规范前缀格式：
 // #enddocregion ngModel-2
 +makeExample('template-syntax/ts/app/app.component.html', 'NgModel-2')(format=".")
 // #docregion ngModel-3
 :marked
   There’s a story behind this construction, a story that builds on the property and event binding techniques we learned previously.
+  
+  在这个构造函数背后还有一个故事，一个关于如何构建我们以前学过的属性绑定和事件绑定技术的故事。
 
   ### Inside [(ngModel)]
+  ### [(ngModel)]内幕
   We could have achieved the same result with separate bindings to
   the `<input>` element's  `value` property and `input` event.
+  
+  通过分别绑定到`<input>`元素的`value`属性和`input`事件，我们能达到同样的效果。
 // #enddocregion ngModel-3
 +makeExample('template-syntax/ts/app/app.component.html', 'without-NgModel')(format=".")
 // #docregion ngModel-4
@@ -933,8 +1493,14 @@ code-example(format="", language="html").
   That’s cumbersome. Who can remember which element property to set and what event reports user changes?
   How do we extract the currently displayed text from the input box so we can update the data property?
   Who wants to look that up each time?
+  
+  这样很笨拙。谁能记住哪个元素属性用于设置，哪个用于汇报用户更改？
+  我们如何从输入框中提取出当前显示的文本，以便更新数据属性？
+  谁想每次都去查一遍？
 
   That `ngModel` directive hides these onerous details behind its own  `ngModel` input and `ngModelChange` output properties.
+  
+  `ngModel`指令通过它自己的`ngModel`输入属性和`ngModelChange`输出属性隐藏了这些繁琐的细节。
 // #enddocregion ngModel-4
 +makeExample('template-syntax/ts/app/app.component.html', 'NgModel-3')(format=".")
 // #docregion ngModel-5
@@ -947,11 +1513,18 @@ code-example(format="", language="html").
     We can't apply `[(ngModel)]` to our custom components until we write a suitable *value accessor*,
     a technique that is out of scope for this chapter.
 
+    `ngModel`输入属性设置元素的值属性，而`ngModelChange`输出属性监听元素值的变化。
+    细节由每种元素自行实现，`NgModel`指令只和元素一起工作，比如输入框，它由[ControlValueAccessor](../api/common/ControlValueAccessor-interface.html)提供支持。
+    除非写一个合适的 *值访问器* ，否则我们不能把`[(ngModel)]`用在我们自己的自定义组件上。但 *值访问器* 技术超出了本章的范围。
 :marked
   Separate `ngModel` bindings is an improvement. We can do better.
+  
+  把`ngModel`绑定分离开是一个提升，但我们还能做得更好。
 
   We shouldn't have to mention the data property twice. Angular should be able to capture the component’s data property and set it
   with a single declaration &mdash; which it can with the `[( )]` syntax:
+  
+  我们不该两次引用这个数据属性。Angular应该能捕获组件的数据属性，并且把它设置为一个简单的定义 —— 那就用`[( )]`语法吧：
 // #enddocregion ngModel-5
 +makeExample('template-syntax/ts/app/app.component.html', 'NgModel-1')(format=".")
 
@@ -962,26 +1535,40 @@ code-example(format="", language="html").
     into an `x` input property for property binding and an `xChange` output property for event binding.
     Angular constructs the event property binding's template statement by appending `=$event`
     to the literal string of the template expression.
+    
+    `[(ngModel)]`是一个更通用的模式中的具体例子，在这里，Angular把`[(x)]`语法去掉语法糖，变成了一个供属性绑定用的输入属性`x`，和一个供事件绑定用的输出属性`xChange`。
+    Angular通过在模板表达式的原始字符串后面追加上`=$event`，来构建出供事件绑定用的模板语句。
   code-example(format="." ).
     [(x)]="hero.name" &lt;==> [x]="hero.name" (xChange)="hero.name=$event"
 
   :marked
     We can write a two-way binding directive of our own to exploit this behavior.
+    
+    利用这一行为，我们也可以自己写出具有双向绑定功能的指令。
 
 :marked
   Is `[(ngModel)]` all we need? Is there ever a reason to fall back to its expanded form?
+  
+  `[(ngModel)]`就是我们所需的一切吗？有没有什么理由需要回落到它的展开形式？
 
   The `[( )]` syntax can only _set_ a data-bound property.
   If we need to do something more or something different, we need to write the expanded form ourselves.
 
+  `[( )]`语法只能 _设置_ 一个数据绑定属性。
+  如果需要做更多或不同的事情，我们得自己写它的展开形式。
+  
   Let's try something silly like forcing the input value to uppercase:
+  
+  来做点幼稚的事情吧，比如强制让输入值变成大写形式：
 // #enddocregion ngModel-6
 +makeExample('template-syntax/ts/app/app.component.html', 'NgModel-4')(format=".")
 // #docregion ngModel-7
 :marked
   Here are all variations in action, including the uppercase version:
+  
+  下面是实际操作中的所有变体形式，包括这个大写版本：
 figure.image-display
-    img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
+    img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel变体")
 // #enddocregion ngModel-7
 
 // #docregion directives-1
@@ -989,14 +1576,22 @@ figure.image-display
 :marked
   <a id="directives"></a>
   ## Built-in directives
+  ## 内建指令
 
   Earlier versions of Angular included over seventy built-in directives.
   The community contributed many more, and countless private directives
   have been created for internal applications.
+  
+  前一个版本的Angular包含了超过70个内建指令。
+  社区贡献了更多，还有为内部应用而创建的无数私有指令。
 
   We don’t need many of those directives in Angular 2.
   Quite often we can achieve the same results with the more capable and expressive Angular 2 binding system.
   Why create a directive to handle a click when we can write a simple binding such as this?
+  
+  在Angular 2中我们不需要那么多指令。
+  使用更强大、更富有表现力的Angular 2绑定系统，我们其实可以达到同样的效果。
+  如果我们能用一个这样的简单绑定达到目的，为什么还需要创建一个指令来处理点击事件？
 // #enddocregion directives-1
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 // #docregion directives-2
@@ -1004,8 +1599,14 @@ figure.image-display
   We still benefit from directives that simplify complex tasks.
   Angular still ships with built-in directives; just not as many.
   We'll write our own directives, just not as many.
+  
+  我们仍然可以从简化复杂任务的指令中获益。
+  Angular发布时仍然带有内建指令，只是没那么多了。
+  我们仍会写自己的指令，只是没那么多了。
 
   This segment reviews some of the most frequently used built-in directives.
+  
+  下面这部分要检阅一下那些最常用的内建指令。
 // #enddocregion directives-2
 
 // #docregion directives-ngClass-1
@@ -1017,24 +1618,37 @@ figure.image-display
   We typically control how elements appear
   by adding and removing CSS classes dynamically.
   We can bind to `NgClass` to add or remove several classes simultaneously.
+  
+  我们经常用动态添加或删除CSS类的方式来控制元素如何显示。
+  通过绑定到`NgClass`，我们可以同时添加或移除多个类。
 
   A [class binding](#class-binding) is a good way to add or remove a *single* class.
+  
+  [类绑定](#class-binding)是添加或删除 *单个* 类的最佳途径。
 // #enddocregion directives-ngClass-1
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-3a')(format=".")
 // #docregion directives-ngClass-2
 :marked
   The `NgClass` directive may be the better choice
   when we want to add or remove *many* CSS classes at the same time.
+  
+  当我们想要同时添加或移除 *多个* CSS类时，`NgClass`指令可能是更好的选择。
 
   A good way to apply `NgClass` is by binding it to a key:value control object. Each key of the object is a CSS class name; its value is `true` if the class should be added, `false` if it should be removed.
+  
+  绑定到一个 key:value 形式的控制对象，是应用`NgClass`的好途径之一。这个对象中的每个key都是一个CSS类名，如果它的value是`true`，这个类就会被加上，否则就会被移除。
 
   Consider a component method such as `setClasses` that manages the state of three CSS classes:
+  
+  考虑一个像`setClasses`这样的组件方法，用于管理三个CSS类的状态。
 // #enddocregion directives-ngClass-2
 +makeExample('template-syntax/ts/app/app.component.ts', 'setClasses')(format=".")
 // #docregion directives-ngClass-3
 :marked
   Now we can add an `NgClass` property binding that calls `setClasses`
   and sets the element's classes accordingly:
+  
+  现在，我们可以添加一个`NgClass`属性绑定，它会调用`setClasses`，并据此设置元素的类：
 // #enddocregion directives-ngClass-3
 +makeExample('template-syntax/ts/app/app.component.html', 'NgClass-1')(format=".")
 
@@ -1045,25 +1659,39 @@ figure.image-display
   ### NgStyle
   We can set inline styles dynamically, based on the state of the component.
   Binding to `NgStyle` lets us set many inline styles simultaneously.
+  
+  我们可以基于组件的状态动态设置内联样式。
+  绑定到`NgStyle`可以让我们同时设置很多内联样式。
 
   A [style binding](#style-binding) is an easy way to set a *single* style value.
+  
+  [样式绑定](#style-binding)是设置 *单一* 样式值的简单方式。
 // #enddocregion directives-ngStyle-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgStyle-1')(format=".")
 // #docregion directives-ngStyle-2
 :marked
   The `NgStyle` directive may be the better choice
   when we want to set *many* inline styles at the same time.
+  
+  如果我们要同时设置 *多个* 内联样式，`NgStyle`指令可能是更好的选择。
 
   We apply `NgStyle` by binding it to a key:value control object.
   Each key of the object is a style name; its value is whatever is appropriate for that style.
+  
+  我们通过把它绑定到一个 key:value 控制对象的形式使用`NgStyle`。
+  对象的每个key是样式名；它的取值就是能用于这个样式的任何值。
 
   Consider a component method such as `setStyles` that returns an object defining three styles:
+  
+  考虑一个类似于`setStyles`的组件方法，它返回一个定义三个样式的对象：
 // #enddocregion directives-ngStyle-2
 +makeExample('template-syntax/ts/app/app.component.ts', 'setStyles')(format=".")
 // #docregion directives-ngStyle-3
 :marked
   Now we just add an `NgStyle` property binding that calls `setStyles`
   and sets the element's styles accordingly:
+  
+  现在我们添加一个`NgStyle`属性绑定，让它调用`setStyles`，并且据此设置元素的样式：
 // #enddocregion directives-ngStyle-3
 +makeExample('template-syntax/ts/app/app.component.html', 'NgStyle-2')(format=".")
 
@@ -1073,6 +1701,8 @@ figure.image-display
 :marked
   ### NgIf
   We can add an element subtree (an element and its children) to the DOM  by binding an `NgIf` directive to a truthy expression.
+  
+  通过把`NgIf`指令绑定到一个真值表达式，我们可以把一个元素的子树（元素及其子元素）添加到DOM上。
 // #enddocregion directives-ngIf-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgIf-1')(format=".")
 
@@ -1081,35 +1711,56 @@ figure.image-display
   :marked
     Don't forget the asterisk (`*`) in front of `ngIf`.
     For more information, see [\* and &lt;template>](#star-template).
+    
+    不要忘记了`ngIf`前面的星号（`*`）。
+    要了解更多，参见[\* 和 &lt;模板>](#star-template)。
 // #enddocregion directives-ngIf-2
 // #docregion directives-ngIf-3
 :marked
   Binding to a falsey expression removes the element subtree from the DOM.
+  
+  绑定到一个假值表达式将从DOM中移除元素的子树。
 // #enddocregion directives-ngIf-3
 +makeExample('template-syntax/ts/app/app.component.html', 'NgIf-2')(format=".")
 
 // #docregion directives-ngIf-4
 :marked
   #### Visibility and NgIf are not the same
+  #### 可见性和NgIf不是一回事
   We can show and hide an element subtree (the element and its children) with a
   [class](#class-binding) or [style](#style-binding) binding:
+  
+  我们可以通过[类绑定](#class-binding)或[样式绑定](#style-binding)来显示和隐藏一个元素的子树（元素及其子元素）。
 // #enddocregion directives-ngIf-4
 +makeExample('template-syntax/ts/app/app.component.html', 'NgIf-3')(format=".")
 // #docregion directives-ngIf-5
 :marked
   Hiding a subtree is quite different from excluding a subtree with `NgIf`.
+  
+  隐藏一个子树和用`NgIf`排除一个子树是截然不同的。
 
   When we hide the element subtree, it remains in the DOM.
   Components in the subtree are preserved, along with their state.
   Angular may continue to check for changes even to invisible properties.
   The subtree may tie up substantial memory and computing resources.
+  
+  当我们隐藏一个子树时，它仍然留在DOM中。
+  子树中的组件及其状态仍然保留着。
+  即使对于不可见属性，Angular也会继续检查变更。
+  子树可能占用相当可观的内存和运算资源。
 
   When `NgIf` is `false`, Angular physically removes the element subtree from the DOM.
   It destroys components in the subtree, along with their state, potentially freeing up substantial resources and
   resulting in better performance for the user.
+  
+  当`NfIf`是`false`时，Angular从DOM中实际移除了这个元素的子树。
+  它销毁了子树中的组件及其状态，也潜在的释放了可观的资源，最终让用户体验到更好的性能。
 
   The show/hide technique is probably fine for small element trees.
   We should be wary when hiding large trees; `NgIf` may be the safer choice. Always measure before leaping to conclusions.
+  
+  显示/隐藏技术用在小型元素树上可能还不错。
+  但在隐藏大树时我们得小心；`NgIf`可能是更安全的选择。但要记住：永远得先测量，再下结论。
 // #enddocregion directives-ngIf-5
 
 // #docregion directives-ngSwitch-1
@@ -1120,7 +1771,7 @@ figure.image-display
   We bind to `NgSwitch` when we want to display *one* element tree (an element and its children)
   from a *set* of possible element trees, based on some condition.
   Angular puts only the *selected* element tree into the DOM.
-
+  
   Here’s an example:
 // #enddocregion directives-ngSwitch-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch')(format=".")
