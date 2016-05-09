@@ -1713,7 +1713,7 @@ figure.image-display
     For more information, see [\* and &lt;template>](#star-template).
     
     不要忘记了`ngIf`前面的星号（`*`）。
-    要了解更多，参见[\* 和 &lt;模板>](#star-template)。
+    要了解更多，参见[\*与&lt;template>](#star-template)。
 // #enddocregion directives-ngIf-2
 // #docregion directives-ngIf-3
 :marked
@@ -1772,40 +1772,71 @@ figure.image-display
   from a *set* of possible element trees, based on some condition.
   Angular puts only the *selected* element tree into the DOM.
   
+  当需要从 *一组* 可能的元素树中根据条件显示 *一个* 时，我们就把它绑定到`NgSwitch`。
+  Angular将只把 *选中的* 元素树放进DOM中。
+  
   Here’s an example:
+  
+  下面是例子：
 // #enddocregion directives-ngSwitch-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch')(format=".")
 // #docregion directives-ngSwitch-2
 :marked
   We bind the parent `NgSwitch` directive to an expression returning a *switch value*.
   The value is a string in this example, but it can be a value of any type.
+  
+  我们把作为父指令的`NgSwitch`绑定到一个能返回 *开关值* 的表达式。
+  本例中，这个值是字符串，但它也可能是任何类型的值。
 
   In this example, the parent `NgSwitch` directive controls a set of child `<span>` elements.
   A `<span>` is either pegged to a *match value* expression or marked as the default.
+  
+  这个例子中，父指令`NgSwitch`控制一组`<span>`子元素。
+  每个`<span>`或者挂在一个 *匹配值* 表达式上，或者被标记为默认情况。
 
   **At any particular moment, at most one of these *spans* is in the DOM.**
+  
+  **任何时候，这些 *span* 中最多只有一个会出现在DOM中。**
 
   If the *span*’s *match value* equals the switch value, Angular adds the `<span>` to the DOM.
   If none of the *spans* is a match, Angular adds the default *span* to the DOM.
   Angular removes and destroys all other *spans*.
+  
+  如果这个 *span* 的 *匹配值* 与 *开关值* 相等，Angular就把这个`<span>`添加到DOM中。
+  如果没有任何 *span* 匹配上，Angular就把默认的 *span* 添加到DOM中。
+  Angular会移除并销毁所有其它的 *span* 。
 .l-sub-section
   :marked
     We could substitute any element for the *span* in this example.
     That element could be a `<div>` with a vast subtree of its own elements.
     Only the matching `<div>` and its subtree would appear in the DOM;
     the others would be removed.
+    
+    我们可以用任何其它元素代替本例中的 *span* 。
+    那个元素可以是一个带有巨大子树的`<div>`。
+    只有匹配的`<div>`和它的子树会显示在DOM中，其它的则会被移除。
 :marked
   Three collaborating directives are at work here:
+  
+  这里有三个相互合作的指令：
   1. `ngSwitch`: bound to an expression that returns the switch value
+  1. `ngSwitch`：绑定到一个返回开关值的表达式
   1. `ngSwitchWhen`: bound to an expression returning a match value
+  1. `ngSwitchWhen`：绑定到一个返回匹配值的表达式
   1. `ngSwitchDefault`: a marker attribute on the default element
+  1. `ngSwitchDefault`：用于标记出默认元素的Attribute
 
 .alert.is-critical
   :marked
     **Do *not*** put the asterisk (`*`) in front of `ngSwitch`. Use the property binding instead.
+    
+    **不要** 在`ngSwitch`的前面放星号（`*`），而应该用属性绑定。
 
     **Do** put the asterisk (`*`) in front of `ngSwitchWhen` and `ngSwitchDefault`.
     For more information, see [\* and &lt;template>](#star-template).
+    
+    把星号（`*`） **放在** `ngSwitchWhen`和`ngSwitchDefault`的前面。
+    要了解更多信息，参见[\*与&lt;template>](#star-template)。
 // #enddocregion directives-ngSwitch-2
 
 // #docregion directives-ngFor-1
@@ -1814,16 +1845,25 @@ figure.image-display
 :marked
   ### NgFor
   `NgFor` is a _repeater_ directive &mdash; a way to customize data display.
+  
+  `NgFor`是一个 _重复器_ 指令 —— 自定义数据显示的一种方式。
 
   Our goal is to present a list of items. We define a block of HTML that defines how a single item should be displayed.
   We tell Angular to use that block as a template for rendering each item in the list.
+  
+  我们的目标是展示一个多个条目组成的列表。我们定义了一个HTML块儿，它规定单个条目应该如何显示。
+  我们告诉Angular把这个块儿当做模板，用于在列表中渲染每个条目。
 
   Here is an example of `NgFor` applied to a simple `<div>`:
+  
+  这里是一个例子，它把`NgFor`应用在一个简单的`<div>`上：
 // #enddocregion directives-ngFor-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgFor-1')(format=".")
 // #docregion directives-ngFor-2
 :marked
   We can also apply an `NgFor` to a component element, as in this example:
+  
+  我们也可以把`NgFor`应用在一个组件元素上，就像这个例子中一样：
 // #enddocregion directives-ngFor-2
 +makeExample('template-syntax/ts/app/app.component.html', 'NgFor-2')(format=".")
 
@@ -1832,54 +1872,84 @@ figure.image-display
   :marked
     Don't forget the asterisk (`*`) in front of `ngFor`.
     For more information, see [\* and &lt;template>](#star-template).
+    
+    不要忘了`ngFor`前面的星号（`*`）。
+    要了解更多，参见[\*与&lt;template>](#star-template)
 :marked
   The text assigned to `*ngFor` is the instruction that guides the repeater process.
+  
+  赋值给`*ngFor`的文本是一个用于指导重复器如何工作的“操作指南”。
 // #enddocregion directives-ngFor-3
 
 // #docregion directives-ngFor-4
 <a id="ngForMicrosyntax"></a>
 :marked
   #### NgFor microsyntax
+  #### NgFor微语法
   The string assigned to `*ngFor` is not a [template expression](#template-expressions).
   It’s a *microsyntax* &mdash; a little language of its own that Angular interprets. In this example, the string "let hero of heroes" means:
+  
+  赋值给`*ngFor`的字符串并不是一个[模板表达式](#template-expressions)。
+  它是一个 *微语法* —— 由Angular自己解释的小语言。在这个例子中，字符串`let hero of heroes`的含义是：
 
   >*Take each hero in the `heroes` array, store it in the local `hero` variable, and make it available to the templated HTML
   for each iteration.*
+  
+  >*取出`heroes`数组中的每个英雄，把它存在一个局部变量`hero`中，并且在每个迭代中让它对模板HTML可用*
 
   Angular translates this instruction into a new set of elements and bindings.
+  Angular把这份“操作指南”翻译成一组“元素和绑定”。
 // #enddocregion directives-ngFor-4
 // #docregion directives-ngFor-5
 :marked
   In the two previous examples, the `ngFor` directive iterates over the `heroes` array returned by the parent component’s `heroes` property,
   stamping out instances of the element to which it is applied.
   Angular creates a fresh instance of the template for each hero in the array.
+  
+  在前面的两个范例中，`ngFor`指令在`heroes`变量上进行迭代（它是由父组件的`heroes`属性返回的），以其应用到的元素为模板“冲压”出很多实例。
+  Angular为数组中的每个英雄创建了此模板的一个全新实例。
 
   The `let` keyword before "hero" creates a template input variable called `hero`.
+  
+  "hero"前面的`let`关键字创建了一个名叫`hero`的模板输入变量。
 
 .alert.is-critical
   :marked
      A template input variable is **not** the same as a [template reference variable](#ref-vars)!
+     
+     模板输入变量和[模板引用变量](#ref-vars)不是一回事儿！
 
 :marked
   We use this variable within the template to access a hero’s properties,
   as we’re doing in the interpolation.
   We can also pass the variable in a binding to a component element,
   as we're doing with `hero-detail`.
+  
+  我们在模板中使用这个变量来访问英雄的属性，就像在插值表达式中所做的那样。
+  我们也可以把这个变量传给组件元素上的一个绑定，就像我们对`hero-detail`所做的那样。
 // #enddocregion directives-ngFor-5
 
 // #docregion directives-ngFor-6
 :marked
   #### NgFor with index
+  #### 带索引的NgFor
   The `ngFor` directive supports an optional `index` that increases from 0 to the length of the array for each iteration.
   We can capture the index in a template input variable and use it in our template.
+  
+  `ngFor`指令支持一个可选的`index`，它在迭代过程中会从0增长到（当前数组的长度-1）。
+  我们可以通过模板输入变量来捕获这个index，并把它用在模板中。
 
   The next example captures the index in a variable named `i`, using it to stamp out rows like "1 - Hercules Son of Zeus".
+  
+  下一个例子把index捕获到了一个名叫`i`的变量中，使用它“冲压出”像"1 - Hercules Son of Zeus"这样的条目。
 // #enddocregion directives-ngFor-6
 +makeExample('template-syntax/ts/app/app.component.html', 'NgFor-3')(format=".")
 // #docregion directives-ngFor-7
 .l-sub-section
   :marked
     Learn about other special *index-like* values such as `last`, `even`, and `odd` in the [NgFor API reference](../api/common/NgFor-directive.html).
+    
+    要学习更多的 *类似于index* 的值，例如`last`、`even`和`odd`，请参阅[NgFor API 参考](../api/common/NgFor-directive.html)。
 // #enddocregion directives-ngFor-7
 
 // #docregion directives-ngForTrackBy-1
@@ -1887,22 +1957,38 @@ figure.image-display
   #### NgForTrackBy
   The `ngFor` directive has the potential to perform poorly, especially with large lists.
   A small change to one item, an item removed, or an item added can trigger a cascade of DOM manipulations.
+  
+  `ngFor`指令有时候会性能较差，特别是在大型列表中。
+  对一个条目的一点小更改、移除或添加，都会导致级联的DOM操作。
 
   For example, we could refresh the list of heroes by re-querying the server.
   The refreshed list probably contains most, if not all, of the previously displayed heroes.
+  
+  例如，我们可以通过重新从服务器查询来刷新英雄列表。
+  刷新后的列表可能包含很多（如果不是全部的话）以前显示过的英雄。
 
   *We* know this because the `id` of each hero hasn't changed.
   But Angular sees only a fresh list of new object references.
   It has no choice but to tear down the old list, discard those DOM elements, and re-build a new list with new DOM elements.
+  
+  *我们*知道这一点，是因为每个英雄的`id`没有变化。
+  但在Angular看来，它只是一个由新的对象引用构成的新列表，
+  所以它没有选择，只能清理老列表、舍弃那些DOM元素，并且用新的DOM元素来重建一个新列表。
 
   Angular can avoid this churn if we give it a *tracking* function that tells it what we know:
   that two objects with the same `hero.id` are the same *hero*. Here is such a function:
+  
+  如果我们给它一个 *追踪* 函数，Angular就可以避免这种折腾。追踪函数告诉Angular：我们知道两个具有相同`hero.id`的对象其实是同一个英雄。
+  下面就是这样一个函数：
 // #enddocregion directives-ngForTrackBy-1
 +makeExample('template-syntax/ts/app/app.component.ts', 'trackByHeroes')(format=".")
 // #docregion directives-ngForTrackBy-2
 :marked
   Now set the `NgForTrackBy` directive to that *tracking* function.
   Angular offers a variety of equivalent syntax choices including these two:
+  
+  现在，把`NgForTrackBy`指令设置为那个 *追踪* 函数。
+  Angular从语法上提供了等价的可选变体，比如这两个：
 // #enddocregion directives-ngForTrackBy-2
 +makeExample('template-syntax/ts/app/app.component.html', 'NgForTrackBy-2')(format=".")
 // #docregion directives-ngForTrackBy-3
@@ -1911,8 +1997,15 @@ figure.image-display
   Angular may have to update the DOM element if the same-hero *properties* have changed.
   But if the properties haven't changed &mdash; and most of the time they will not have changed &mdash;
   Angular can leave those DOM elements alone. The list UI will be smoother and more responsive.
+  
+  *追踪* 函数不会排除所有DOM更改。
+  如果用来判断是否同一个英雄的 *属性* 变化了，Angular就可能不得不更新DOM元素。
+  但是如果这个属性没有变化 —— 而且大多数时候它们不会变化 —— 
+  Angular就能留下这些DOM元素。列表界面就会更加平滑，提供更好的响应。
 
   Here is an illustration of the `NgForTrackBy` effect.
+  
+  这里是关于`NgForTrackBy`效果的一个插图。
 figure.image-display
   img(src='/resources/images/devguide/template-syntax/ng-for-track-by-anim.gif' alt="NgForTrackBy")
 // #enddocregion directives-ngForTrackBy-3
@@ -1923,92 +2016,137 @@ figure.image-display
 .l-main-section
 :marked
   ## * and &lt;template&gt;
+  ## *与&lt;template*&gt;
   When we reviewed the `NgFor`, `NgIf`, and `NgSwitch` built-in directives, we called out an oddity of the syntax: the asterisk (`*`) that appears before the directive names.
+  
+  当我们审视`NgFor`、`NgIf`和`NgSwitch`内置指令时，我们使用了古怪的语法：出现在指令名称前面的星号（`*`）。
 
   The `*` is a bit of syntactic sugar that makes it easier to read and write directives that modify HTML layout
   with the help of templates.
   `NgFor`, `NgIf`, and `NgSwitch` all add and remove element subtrees that are wrapped in `<template>` tags.
+  
+  `*`是一种语法糖，它让那些借助模板的帮助来修改HTML布局的指令更易于读写。
+  `NgFor`、`NgIf`和`NgSwitch`都会添加或移除包裹在`<template>`标签中的元素子树。
 
   We didn't see the `<template>` tags because the `*` prefix syntax allowed us to skip those tags and
   focus directly on the HTML element that we are including, excluding, or repeating.
+  
+  我们没有看到`<template>`标签，那是因为这种`*`前缀语法让我们忽略了这个标签，而把注意力直接聚焦在所要包含、排除或重复的那些HTML元素上。
 
   In this section we go under the hood and see how
   Angular strips away the `*` and expands the HTML into the `<template>` tags for us.
+  
+  在这一节，我们将掀开引擎盖儿，看看Angular是怎样替我们扒掉这个`*`，并且把这段HTML展开到`<template>`标签中的。
 // #enddocregion star-template
 
 // #docregion star-template-ngIf-1
 :marked
   ### Expanding `*ngIf`
+  ### 展开`*ngIf`
   We can do what Angular does ourselves and expand the `*` prefix syntax to template syntax. Here's some code with `*ngIf`:
+  
+  我们可以像Angular一样，自己把`*`前缀语法展开成template语法，这里是`*ngIf`的一些代码：
 // #enddocregion star-template-ngIf-1
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-1')(format=".")
 // #docregion star-template-ngIf-2a
 :marked
   The `currentHero` is referenced twice, first as the true/false condition for `NgIf` and
   again as the actual hero passed into the `HeroDetailComponent`.
+  
+  `currentHero`被引用了两次，第一次是作为`NgIf`的真/假条件，第二次作为实际的hero值传给了`HeroDetailComponent`。
 
   The first expansion step transports the `ngIf` (without the `*` prefix) and its contents
   into an expression assigned to a `template` directive.
+  
+  展开的第一步是把`ngIf`（没有`*`前缀）和它的内容传给一个表达式，再赋值给`template`指令。
 // #enddocregion star-template-ngIf-2a
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-2a')(format=".")
 // #docregion star-template-ngIf-2
 :marked
   The next (and final) step unfolds the HTML into a `<template>` tag and `[ngIf]` [property binding](#property-binding):
+  
+  下一步，也就是最后一步，是把HTML包裹进`<template>`标签和一个`[ngIf]`[属性绑定](#property-binding)中：
 // #enddocregion star-template-ngIf-2
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-2')(format=".")
 // #docregion star-template-ngIf-3
 :marked
   Notice that the `[hero]="currentHero"` binding remains on the child `<hero-detail>`
   element inside the template.
+  
+  注意，`[hero]="currengHero"`绑定留在了模板中的子元素`<hero-detail>`上。
 // #enddocregion star-template-ngIf-3
 
 // #docregion star-template-ngIf-4
 .callout.is-critical
   header Remember the brackets!
+  header 别忘了括号！
   :marked
     Don’t make the mistake of writing `ngIf="currentHero"`!
     That syntax assigns the *string* value "currentHero" to `ngIf`.
     In JavaScript a non-empty string is a truthy value, so `ngIf` would always be
     `true` and Angular would always display the `hero-detail`
     … even when there is no `currentHero`!
+    
+    不要误写为`ngIf="currentHero"`！
+    这种语法会把一个字符串"currentHero"赋值给`ngIf`。
+    在JavaScript中，非空的字符串是真值，所以`ngIf`总会是`true`，而Angular将永远显示`hero-detail` …… 即使根本没有`currentHero`！
 // #enddocregion star-template-ngIf-4
 
 // #docregion star-template-ngSwitch-1
 :marked
   ### Expanding `*ngSwitch`
+  ### 展开`*ngSwitch`
   A similar transformation applies to `*ngSwitch`. We can de-sugar the syntax ourselves.
   Here's an example, first with `*ngSwitchWhen` and `*ngSwitchDefault` and then again with `<template>` tags:
+  
+  类似的转换也作用于`*ngSwitch`上。我们可以自己解开这个语法糖。
+  这里是一个例子，首先是`*ngSwitchWhen`和`*ngSwitchDefault`，然后再解出`<template>`标签：
 // #enddocregion star-template-ngSwitch-1
 +makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch-expanded')(format=".")
 // #docregion star-template-ngSwitch-2
 :marked
   The `*ngSwitchWhen` and `*ngSwitchDefault` expand in exactly the same manner as `*ngIf`,
   wrapping their former elements in `<template>` tags.
+  
+  `*ngSwitchWhen`和`*ngSwitchDefault`用和`*ngIf`完全相同的方式展开，把它们以前的元素包裹在`<template>`标签中。
 
   Now we can see why the `ngSwitch` itself is not prefixed with an asterisk (*).
   It does not define content. It's job is to control a collection of templates.
+  
+  现在，我们应该明白为什么`ngSwitch`本身不能用星号（*）前缀的原因了吧？
+  它没有定义内容，它的工作是控制一组模板。
 
   In this case, it governs two sets of `NgSwitchWhen` and `NgSwitchDefault` directives.
   We should expect it to display the values of the selected template twice,
   once for the (*) prefixed version and once for the expanded template version.
   That's exactly what we see in this example:
+  
+  这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令。
+  我们期待它应该显示所选模板的值两次，一次是（*）前缀的版本，一次是展开模板后的版本。
+  这正是我们在这个例子中看到的：
 figure.image-display
     img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
 // #enddocregion star-template-ngSwitch-2
 // #docregion star-template-ngFor-1
 :marked
   ### Expanding `*ngFor`
+  ### 展开`*ngFor`
   The `*ngFor` undergoes a similar transformation. We begin with an `*ngFor` example:
+  `*ngFor`经历了同样的转换。我们从一个`*ngFor`的例子开始：
 // #enddocregion star-template-ngFor-1
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-3a')(format=".")
 // #docregion star-template-ngFor-2
 :marked
   Here's the same example after transporting the `ngFor` to the `template` directive:
+  
+  这里是在把`ngFor`传进`template`指令后的同一个例子：
 // #enddocregion star-template-ngFor-2
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-3')(format=".")
 // #docregion star-template-ngFor-3
 :marked
   And here it is expanded further into a `<template>` tag wrapping the original `<hero-detail>` element:
+  
+  这里，它被进一步扩展成了包裹着原始`<hero-detail>`元素的`<template>`标签：
 // #enddocregion star-template-ngFor-3
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-4')(format=".")
 // #docregion star-template-ngFor-4
@@ -2016,6 +2154,10 @@ figure.image-display
   The `NgFor` code is a bit more complex than `NgIf` because a repeater has more moving parts to configure.
   In this case, we have to remember to create and assign the `NgForOf` directive that identifies the list and the `NgForTrackBy` directive.
   Using the `*ngFor` syntax is much easier than writing out this expanded HTML ourselves.
+  
+  `NgFor`的代码相对`NgIf`更复杂一点，因为一个重复器有更多可配置的活动部分。
+  这种情况下，我们不得不记着创建并对用于标记列表的`NgForOf`指令和`NgForTrackBy`指令赋值。
+  使用`*ngFor`语法比直接写这些展开后的HTML本身要简单多了。
 // #enddocregion star-template-ngFor-4
 
 // #docregion ref-vars
@@ -2023,65 +2165,99 @@ figure.image-display
 .l-main-section
 :marked
   ## Template reference variables
+  ## 模板引用变量
 
   A **template reference variable** is a reference to an DOM element or directive within a template.
+  
+  **模板引用变量** 是模板中对DOM元素或指令的引用。
 
   It can be used with native DOM elements but also with Angular 2 components - in fact, it will work with any custom web component.
+  
+  它能被用作原生DOM元素，但也能用于Angular 2组件 —— 实际上，它可以和任何自定义Web组件协同工作。
 
 :marked
   ### Referencing a template reference variable
+  ### 引用一个模板引用变量
 
   We can reference a template reference variable on the same element, on a sibling element, or on
   any child elements.
+  
+  我们可以在同一元素、兄弟元素或任何子元素中引用模板引用变量。
 
   Here are two other examples of creating and consuming a Template reference variable:
+  
+  这里是关于创建和消费模板引用变量的另外两个例子：
 // #enddocregion ref-vars
 +makeExample('template-syntax/ts/app/app.component.html', 'ref-phone')(format=".")
 // #docregion ref-vars-value
 :marked
   The hash (`#`) prefix to "phone" means that we're defining a `phone` variable.
+  
+  "phone"的(`#`)前缀意味着我们将要定义一个`phone`变量。
 .l-sub-section
   :marked
     Folks who don't like using the `#` character can use its canonical alternative,
     the `ref-` prefix. For example, we can declare the our `phone` variable using
     either `#phone` or `ref-phone`.
+    
+    有些人不喜欢使用`#`字符，而是使用它的古典形式：`ref-`前缀。例如，我们既能用`#phone`，也能用`ref-phone`来定义我们的`phone`变量。
 
 :marked
   ### How a variable gets its value
+  ### 如何获取变量的值
 
   Angular sets the variable's value to the element on which it was defined.
   We defined these variables on the `input` elements.
   We’re passing those `input` element objects across to the
   button elements, where they're used in arguments to the `call` methods in the event bindings.
+  
+  Angular把这种变量的值设置为它所定义在的那个元素。
+  我们在这个`input`元素上定义了这些变量。
+  我们把那些`input`元素对象传给button元素，在这里，它们被当做参数传给了在事件绑定中的`call`方法。
 // #enddocregion ref-vars-value
 
 // #docregion ref-vars-form-1
 :marked
   ### NgForm and template reference variables
+  ### NgForm和模板引用变量
   Let's look at one final example: a form, the poster child for template reference variables.
+  
+  让我们看看最后一个例子：一个表单，使用模板引用变量的典范。
 
   The HTML for a form can be quite involved, as we saw in the [Forms](forms.html) chapter.
   The following is a *simplified* example &mdash; and it's not simple at all.
+  
+  正如我们在[表单](forms.html)一章中所见过的，此表单的HTML可以做得相当复杂。
+  下面是一个 *简化过的* 范例 —— 虽然仍然不那么简单。
 // #enddocregion ref-vars-form-1
 +makeExample('template-syntax/ts/app/app.component.html', 'ref-form')(format=".")
 // #docregion ref-vars-form-2
 :marked
   A template reference variable, `theForm`, appears three times in this example, separated
   by a large amount of HTML.
+  
+  模板引用变量`theForm`在这个例子中出现了三次，中间隔着一大段儿HTML。
 // #enddocregion ref-vars-form-2
 +makeExample('template-syntax/ts/app/app.component.html', 'ref-form-a')(format=".")
 // #docregion ref-vars-form-3
 :marked
   What is the value of `theForm`?
+  
+  `theForm`变量的值是什么？
 
   It would be the [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)
   if Angular hadn't taken it over.
   It's actually `ngForm`, a reference to the Angular built-in `NgForm` directive that wraps the native `HTMLFormElement`
   and endows it with additional superpowers such as the ability to
   track the validity of user input.
+  
+  如果Angular没有捕获它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
+  但实际上它是个`ngForm`，一个对Angular内建指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
 
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.
+  
+  这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量有点大的对象传给父组件的`onSubmit`方法。
 // #enddocregion ref-vars-form-3
 
 // #docregion inputs-outputs-1
@@ -2089,43 +2265,70 @@ figure.image-display
 .l-main-section
 :marked
   ## Input and output properties
+  ## 输入与输出属性
   So far, we’ve focused mainly on binding to component members within template expressions and statements
   that appear on the *right side of the binding declaration*.
   A member in that position is a data binding **source**.
+  
+  迄今为止，我们主要聚焦在绑定声明的右侧，学习如何在模板表达式和模板语句中绑定到组件成员上。
+  当一个成员出现在这个位置上，则称之为数据绑定的 **源** 。
 
   This section concentrates on binding to **targets**, which are directive
   properties on the *left side of the binding declaration*.
   These directive properties must be declared as **inputs** or **outputs**.
+  
+  这一节则专注于绑定到的 **目标** ，它位于 *绑定声明中的左侧* 。
+  这些指令的属性必须被声明成 **输入** 或 **输出** 。
 
 .alert.is-important
   :marked
     Remember: All **components** are **directives**.
+    
+    记住：所有 **组件** 皆为 **指令** 。
 :marked
 .l-sub-section
   :marked
     We're drawing a sharp distinction between a data binding **target** and a data binding **source**.
+    
+    我们要重点突出下绑定 **目标** 和绑定 **源** 的区别。
 
     The *target* of a binding is to the *left* of the `=`.
     The *source* is on the *right* of the `=`.
+    
+    绑定的 *目标* 是在`=` *左侧* 的部分， *源* 则是在`=` *右侧* 的部分。
 
     The *target* of a binding is the property or event inside the binding punctuation: `[]`, `()` or `[()]`.
     The *source* is either inside quotes (`" "`) or within an interpolation (`{}`).
+    
+    绑定的 *目标* 是绑定符：`[]`、`()`或`[()]`中的属性或事件名， *源* 则是引号（`" "`）中的部分或插值符号（`{}`）中的部分。
 
     Every member of a **source** directive is automatically available for binding.
     We don't have to do anything special to access a directive member in a template expression or statement.
+    
+    **源** 指令中的每个成员都会自动在绑定中可用。
+    我们不需要特别做什么，就能在模板表达式或语句中访问指令的成员。
 
     We have *limited* access to members of a **target** directive.
     We can only bind to properties that are explicitly identified as *inputs* and *outputs*.
+    
+    访问 **目标** 指令中的成员则 *受到限制* 。
+    我们只能绑定到那些显式标记为 *输入* 或 *输出* 的属性。
 :marked
   In the following example, `iconUrl` and `onSave` are members of a component
   that are referenced within quoted syntax to the right of the `=`.
+  
+  在下列范例中，`iconUrl`和`onSave`是组件的成员，他们在`=`右侧引号中的语法中被引用了。
 // #enddocregion inputs-outputs-1
 +makeExample('template-syntax/ts/app/app.component.html', 'io-1')(format=".")
 // #docregion inputs-outputs-2
 :marked
   They are *neither inputs nor outputs* of the component. They are data sources for their bindings.
+  
+  它们既不是组件的 *输入* 也不是 *输出* 。它们是绑定的数据源。
 
   Now look at `HeroDetailComponent` when it is the **target of a binding**.
+  
+  现在，看看`HeroDetailComponent`，它是 **绑定的目标** 。
 // #enddocregion inputs-outputs-2
 +makeExample('template-syntax/ts/app/app.component.html', 'io-2')(format=".")
 // #docregion inputs-outputs-3
@@ -2133,12 +2336,21 @@ figure.image-display
   Both `HeroDetailComponent.hero` and `HeroDetailComponent.deleteRequest` are on the **left side** of binding declarations.
   `HeroDetailComponent.hero` is inside brackets; it is the target of a property binding.
   `HeroDetailComponent.deleteRequest` is inside parentheses; it is the target of an event binding.
+  
+  `HeroDetailComponent.hero`和`HeroDetailComponent.deleteRequest`都在绑定声明的 **左侧** 。
+  `HeroDetailComponent.hero`在方括号中，它是一个属性绑定的目标。
+  `HeroDetailComponent.deleteRequest`在圆括号中，它是一个事件绑定的目标。
 
   ### Declaring input and output properties
+  ### 声明输入和输出属性
   Target properties must be explicitly marked as inputs or outputs.
+  
+  目标属性必须被显式的标记成输入或输出。
 
   When we peek inside `HeroDetailComponent`, we see that these properties are marked
   with decorators as input and output properties.
+  
+  当我们深入`HeroDetailComponent`内部，我们看到这些属性被装饰器标记成了输入和输出属性。
 // #enddocregion inputs-outputs-3
 +makeExample('template-syntax/ts/app/hero-detail.component.ts', 'input-output-1')(format=".")
 
@@ -2147,39 +2359,58 @@ figure.image-display
   :marked
     Alternatively, we can identify members in the `inputs` and `outputs` arrays
     of the directive metadata, as in this example:
+    
+    另外，我们还可以在指令元数据的`inputs`或`outputs`数组中标记出这些成员。比如这个例子：
   +makeExample('template-syntax/ts/app/hero-detail.component.ts', 'input-output-2')(format=".")
   <br>
   :marked
     We can specify an input/output property either with a decorator or in a metadata array.
     Don't do both!
+    
+    我们既可以通过装饰器，又可以通过元数据数组来指定输入/输出属性。但别同时用！
 // #docregion inputs-outputs-4
 :marked
   ### Input or output?
+  ### 输入或输出？
 
   *Input* properties usually receive data values.
   *Output* properties expose event producers, such as `EventEmitter` objects.
+  
+  *输入* 属性通常接收数据值。
+  *输出* 属性暴露事件生产者，比如`EventEmitter`对象。
 
   The terms _input_ and _output_ reflect the perspective of the target directive.
+  
+  _输入_ 和 _输出_ 这两个词是从目标指令的视角来说的。
 figure.image-display
-    img(src='/resources/images/devguide/template-syntax/input-output.png' alt="Inputs and outputs")
+    img(src='/resources/images/devguide/template-syntax/input-output.png' alt="输入和输出")
 :marked
   `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`
   because data flows *into* that property from a template binding expression.
+  
+  `HeroDetailComponent.hero`是一个相对于`HeroDetailComponent`视角的 **输入** 属性，因为数据流从模板绑定表达式流向那个属性。
 
   `HeroDetailComponent.deleteRequest` is an **output** property from the perspective of `HeroDetailComponent`
   because events stream *out* of that property and toward the handler in a template binding statement.
+  
+  `HeroDetailComponent.deleteRequest`是一个相对于`HeroDetailComponent`视角的 **输出** 属性，因为事件流来自这个属性，并且被模板绑定语句所处理。
 // #enddocregion inputs-outputs-4
 
 // #docregion inputs-outputs-5
 :marked
   ### Aliasing input/output properties
+  ### 输入/输出属性的别名
 
   Sometimes we want the public name of an input/output property to be different from the internal name.
+  
+  有时我们需要让输入/输出属性的公开名字不同于内部名字。
 
   This is frequently the case with [attribute directives](attribute-directives.html).
   Directive consumers expect to bind to the name of the directive.
   For example, when we apply a directive with a `myClick` selector to a `<div>` tag,
   we expect to bind to an event property that is also called `myClick`.
+  
+  这是使用[Attribute指令](attribute-directives.html)时的常见情况。
 // #enddocregion inputs-outputs-5
 +makeExample('template-syntax/ts/app/app.component.html', 'my-click')(format=".")
 // #docregion inputs-outputs-6
@@ -2187,13 +2418,22 @@ figure.image-display
   However, the directive name is often a poor choice for the name of a property within the directive class.
   The directive name rarely describes what the property does.
   The `myClick` directive name is not a good name for a property that emits click messages.
+  
+  无论如何，在指令类中，直接用指令名作为属性名通常都不是好的选择。
+  指令名很少能描述这个属性是干嘛的。
+  `myClick`这个指令名对于用来发出click消息的属性就算不上一个好名字。
 
   Fortunately, we can have a public name for the property that meets conventional expectations,
   while using a different name internally.
   In the example immediately above, we are actually binding *through the* `myClick` *alias* to
   the directive's own `clicks` property.
+  
+  幸运的是，我们有一个约定俗成的公开名字，同时在内部使用一个不同的名字。
+  在紧上面这个例子中，我们实际上是把`myClick`这个别名指向了指令自己的`clicks`属性。
 
   We can specify the alias for the property name by passing it into the input/output decorator like this:
+  
+  通过把别名传进@Input/@Output装饰器，我们可以为属性指定别名，就像这样：
 // #enddocregion inputs-outputs-6
 
 +makeExample('template-syntax/ts/app/my-click.directive.ts', 'my-click-output-1')(format=".")
@@ -2203,6 +2443,9 @@ figure.image-display
     We can also alias property names in the `inputs` and `outputs` arrays.
     We write a colon-delimited (`:`) string with
     the directive property name on the *left* and the public alias on the *right*:
+    
+    我们也能在`inputs`和`outputs`数组中为属性指定别名。
+    我们可以写一个冒号（`:`）分隔的字符串， *左侧* 是指令中的属性名， *右侧* 则是公开的别名。
   +makeExample('template-syntax/ts/app/my-click.directive.ts', 'my-click-output-2')(format=".")
 
 // #docregion expression-operators
@@ -2210,36 +2453,55 @@ figure.image-display
 .l-main-section
 :marked
   ## Template expression operators
+  ## 模板表达式操作符
   The template expression language employs a subset of JavaScript syntax supplemented with a few special operators
   for specific scenarios. We'll cover two of these operators: _pipe_ and _safe navigation operator_.
+  
+  模板表达式语言使用了JavaScript语法的一个子集，并补充了几个用于特定场景的特殊操作符。
+  这里我们讲其中的两个： _管道_ 和 _安全导航操作符_ 。
 // #enddocregion expression-operators
 
 // #docregion expression-operators-pipe-1
 :marked
   <a id="pipe"></a>
   ### The pipe operator ( | )
+  ### 管道操作符（ | ）
   The result of an expression might require some transformation before we’re ready to use it in a binding.  For example, we might want to display a number as a currency, force text to uppercase, or filter a list and sort it.
+  
+  在用到绑定中之前，表达式的结果可能需要一些转换。比如，我们可能希望把一个数字显示成金额、强制文本变成大写，或者过滤一个列表以及排序它。
 
   Angular [pipes](./pipes.html) are a good choice for small transformations such as these.
   Pipes are simple functions that accept an input value and return a transformed value.
   They're easy to apply within template expressions, using the **pipe operator (`|`)**:
+  
+  Angular [管道](./pipes.html)对像这样的小型转换是明智的选择。
+  管道是一个简单的函数，它接受一个输入值，并返回转换结果。
+  它们很容易用于模板表达式中，只要使用 **管道操作符（`|`）** 就行了。
 // #enddocregion expression-operators-pipe-1
 +makeExample('template-syntax/ts/app/app.component.html', 'pipes-1')(format=".")
 // #docregion expression-operators-pipe-2
 :marked
   The pipe operator passes the result of an expression on the left to a pipe function on the right.
+  
+  管道操作符会把它左侧的表达式结果传给它右侧的管道函数。
 
   We can chain expressions through multiple pipes:
+  
+  我们还可以通过多个管道串联出表达式：
 // #enddocregion expression-operators-pipe-2
 +makeExample('template-syntax/ts/app/app.component.html', 'pipes-2')(format=".")
 // #docregion expression-operators-pipe-3
 :marked
   And we can configure them too:
+  
+  我们还能配置它们：
 // #enddocregion expression-operators-pipe-3
 +makeExample('template-syntax/ts/app/app.component.html', 'pipes-3')(format=".")
 // #docregion expression-operators-pipe-4
 :marked
   The `json` pipe is particularly helpful for debugging our bindings:
+  
+  `json`管道是特别设计来帮助我们调试绑定的：
 // #enddocregion expression-operators-pipe-4
 +makeExample('template-syntax/ts/app/app.component.html', 'pipes-json')(format=".")
 
@@ -2247,81 +2509,129 @@ figure.image-display
 :marked
   <a id="safe-navigation-operator"></a>
   ### The safe navigation operator ( ?. ) and null property paths
+  ### 安全导航操作符（ ?. ）和空属性路径
 
   The Angular **safe navigation operator (`?.`)** is a fluent and convenient way to guard against null and undefined values in property paths.
   Here it is, protecting against a view render failure if the `currentHero` is null.
+  
+  Angular的 **安全导航操作符（`?.`）** 是一个流畅而便利的方式，用来保护出现在属性路径中null和undefined值。
+  意思是，当`currentHero`为空时，保护视图渲染器，让它免于失败。
 // #enddocregion expression-operators-safe-1
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-2')(format=".")
 // #docregion expression-operators-safe-2
 :marked
   Let’s elaborate on the problem and this particular solution.
+  
+  我们来详细阐述一下这个问题以及这个解决方案：
 
   What happens when the following data bound `title` property is null?
+  
+  如果下列数据绑定中`title`属性为空，会发生什么？
 // #enddocregion expression-operators-safe-2
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-1')(format=".")
 // #docregion expression-operators-safe-3
 :marked
   The view still renders but the displayed value is blank; we see only "The title is" with nothing after it.
   That is reasonable behavior. At least the app doesn't crash.
+  
+  这个视图仍然被渲染出来，但是显示的值是空；我们只能看到“The title is”，它后面却没有任何东西。
+  这是合理的行为。至少应用没有崩溃。
 
   Suppose the template expression involves a property path, as in this next example
   where we’re displaying the `firstName` of a null hero.
+  
+  假设模板表达式需要一个属性路径，在下一个例子中，我们要显示一个空（null）英雄的`firstName`。
 
 code-example(format="" language="html").
   The null hero's name is {{nullHero.firstName}}
+  
+  这个空英雄的名字是{{nullHero.firstName}}
 // #enddocregion expression-operators-safe-3
 // #docregion expression-operators-safe-4
 :marked
   JavaScript throws a null reference error, and so does Angular:
+  
+  JavaScript抛出了一个空引用错误，Angular也是如此。
 code-example(format="" language="html").
   TypeError: Cannot read property 'firstName' of null in [null]
+  
+  TypeError: Cannot read property 'firstName' of null in [null]
+  （类型错：无法读取null的'firstName'属性）
 // #enddocregion expression-operators-safe-4
 // #docregion expression-operators-safe-5
 :marked
   Worse, the *entire view disappears*.
+  
+  晕， *整个视图不见了* 。
 
   We could claim that this is reasonable behavior if we believed that the `hero` property must never be null.
   If it must never be null and yet it is null,
   we've made a programming error that should be caught and fixed.
   Throwing an exception is the right thing to do.
+  
+  如果确信`hero`属性永远不可能为空，我们就可以声称这是一个合理的行为。
+  如果它必须不能为空，但它仍然是空值，我们就可以制造一个编程错误，以便它被捕获和修复。
+  这种情况下，抛出一个异常正是我们应该做的。
 
   On the other hand, null values in the property path may be OK from time to time,
   especially when we know the data will arrive eventually.
+  
+  另一方面，属性路径中的空值可能只是暂时的，特别是当我们知道这些数据最终总会到达的时候。
 
   While we wait for data, the view should render without complaint, and
   the null property path should display as blank just as the `title` property does.
+  
+  当我们等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像`title`属性所做的那样。
 
   Unfortunately, our app crashes when the `currentHero` is null.
+  
+  不幸的是，当`currentHero`为空的时候，我们的应用崩溃了。
 
   We could code around that problem with [NgIf](#ngIf).
+  
+  我们可以通过写[NgIf](#ngIf)代码来解决这个问题。
 // #enddocregion expression-operators-safe-5
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-4')(format=".")
 // #docregion expression-operators-safe-6
 :marked
   Or we could try to chain parts of the property path with `&&`, knowing that the expression bails out
   when it encounters the first null.
+  
+  或者我们可以尝试通过`&&`来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
 // #enddocregion expression-operators-safe-6
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-5')(format=".")
 // #docregion expression-operators-safe-7
 :marked
   These approaches have merit but can be cumbersome, especially if the property path is long.
   Imagine guarding against a null somewhere in a long property path such as `a.b.c.d`.
+  
+  这些方法都有价值，但是会显得笨重，特别是当这个属性路径非常长的时候。
+  想象一下在一个很长的属性路径（如`a.b.c.d`）中对空值提供保护。
 // #enddocregion expression-operators-safe-7
 // #docregion expression-operators-safe-8
 :marked
   The Angular safe navigation operator (`?.`) is a more fluent and convenient way to guard against nulls in property paths.
   The expression bails out when it hits the first null value.
   The display is blank, but the app keeps rolling without errors.
+  
+  Angular安全导航操作符（`?.`）是在属性路径中保护空值的一个更加流畅、便利的方式。
+  表达式会在它遇到第一个空值的时候跳出。
+  显示是空的，但是应用正常工作，而没有发生错误。
 // #enddocregion expression-operators-safe-8
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-6')(format=".")
 // #docregion expression-operators-safe-9
 :marked
   It works perfectly with long property paths such as `a?.b?.c?.d`.
+  
+  在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。
 // #enddocregion expression-operators-safe-9
 
 // #docregion summary
 .l-main-section
 :marked
   ## Summary
+  ## 小结
   We’ve completed our survey of template syntax. Now it's time to put that knowledge to work as we write our own components and directives.
+  
+  我们完成了模板语法的概述。现在，我们该把如何写组件和指令的知识投入到实际工作当中了。
 // #enddocregion summary
