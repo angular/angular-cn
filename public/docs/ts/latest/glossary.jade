@@ -485,7 +485,7 @@ include _util-fns
     Applications written in ES2015 or one of its dialects must be "[transpiled](#transpile)"
     to ES5 JavaScript.
     
-    目前，几乎所有现代游览器都只支持上一版本“ECMAScript 5” （也就是ES5）标准。使用ES2015或者其它兼容语言开发的应用程序，都必须被编译“[transpiled](#transpile)”成ES5 JavaScript。
+    目前，几乎所有现代游览器都只支持上一个版本的“ECMAScript 5” （也就是ES5）标准。使用ES2015或者其它兼容语言开发的应用程序，都必须被“[转译](#transpile)”成ES5 JavaScript。
 
     Angular 2 developers may choose to write in ES5 directly.
     
@@ -522,7 +522,7 @@ include _util-fns
     Short hand for "ECMAScript 5", the version of JavaScript run by most modern browsers.
     See [ECMAScript](#ecmascript).
     
-    “ECMAScript 5”的简写，大部分现代浏览器使用的JavaScript版本。请看[ECMAScript](#ecmascript)。
+    “ECMAScript 5”的简写，大部分现代浏览器使用的JavaScript版本。参见[ECMAScript](#ecmascript)。
 // #enddocregion e2
 
 // #docregion f-l
@@ -540,7 +540,7 @@ include _util-fns
     that can find a named "dependency" in its cache or create such a thing
     with a registered [provider](#provider).
 
-    一个Angular[依赖注入系统](#dependency-injection)内部的对象，它可以在自己的内部缓存找到已点名的依赖或者利用一个注册过的[provider](#provider)创建一个依赖。
+    Angular[依赖注入系统](#dependency-injection)中的一个对象，它可以在自己的缓存中找到一个“有名字的依赖”或者利用一个已注册的[provider](#provider)创建这样的依赖。
 :marked
   ## Input
 .l-sub-section
@@ -550,11 +550,11 @@ include _util-fns
     Data values flow *into* this property from the data source identified
     in the template expression to the right of the equal sign.
     
-    一个指令属性：是[属性绑定Property Binding](guide/template-syntax.html#property-binding)的目标。数据值从处于模板表达式等号右边的数据源中，流入这个指令属性。
+    指令属性可以作为[属性绑定](guide/template-syntax.html#property-binding)的目标。数据值会从模板表达式等号右侧的数据源中，流入这个属性。
 
     See the [Template Syntax](guide/template-syntax.html#inputs-outputs) chapter.
     
-    请看[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)章节。
+    参见[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)一章。
 
 :marked
   ## Interpolation
@@ -567,7 +567,7 @@ include _util-fns
     before it is assigned to an element property
     or displayed between element tags as in this example.
     
-    一种[属性数据绑定Property Data Binding](#data-binding) 的方式：在双大括号中间的[模板表达式](#template-expression)被渲染成文本。在被指派给元素属性或者在元素标记中间显示之前，这些文本可能与傍边的文本先合并，请看下面的例子。
+    [属性数据绑定](#data-binding) 的格式之一：位于双大括号中的[模板表达式](#template-expression)会被渲染成文本。在被赋值给元素属性或者显示在元素标记中之前，这些文本可能先与周边的文本合并，参见下面的例子。
 
   code-example(language="html" escape="html").
     <label>My current hero is {{hero.name}}</label>
@@ -576,7 +576,7 @@ include _util-fns
     Learn more about interpolation in the
     [Template Syntax](guide/template-syntax.html#interpolation) chapter.
     
-    从[模板语法Template Syntax](guide/template-syntax.html#interpolation)章节学习更多关于插值表达式的知识。
+    要学习关于插值表达式的更多知识，参见[模板语法](guide/template-syntax.html#interpolation)一章。
 
 <a id="J"></a>
 
@@ -589,15 +589,15 @@ include _util-fns
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
      
-    使用中线来分割每个单词的编写复合词或短语的命名方法。
+    使用中线（-）分隔每个单词来书写复合词或短语的命名方法。
     
     Directive selectors and the root of filenames are often spelled in kebab-case. Examples include: `my-app` and the `hero-list.component.ts`.
     
-    指令选择器和文件名字等一般都用烤串命名法Kebab-case。比如`my-app`和`hero-list.component.ts`。
+    指令选择器和文件名等一般都用烤串命名法。比如`my-app`和`hero-list.component.ts`。
     
     This form is also known as [dash-case](#dash-case).
     
-    这种命名法也被叫做[中线命名法dash-case](#dash-case)
+    这种格式也叫[中线命名法](#dash-case)。
 
 <a id="L"></a>
 .l-main-section
@@ -609,43 +609,42 @@ include _util-fns
     [Directives](#directive) and [Components](#component) have a lifecycle
     managed by Angular as it creates, updates and destroys them.
     
-    [指令Directives](#directive)和[组件Components](#component)有生命周期，由Angular在创建、更新和销毁它们的过程中管理。
+    [指令Directives](#directive)和[组件Components](#component)具有生命周期，它们由Angular在创建、更新和销毁它们的过程中进行管理。
 
     Developers can tap into key moments in that lifecycle by implementing
     one or more of the "Lifecycle Hook" interfaces.
     
-    开发者可以通过实现一个或多个“生命周期钩子”接口，切入到这个生命周期的关键时间点中。
+    开发者可以通过实现一个或多个“生命周期钩子”接口，切入到生命周期中的关键时间点。
 
     Each interface has a single hook method whose name is the interface name prefixed with `ng`.
     For example, the `OnInit` interface has a hook method names `ngOnInit`.
     
-    每个接口有一个唯一的钩子类方法方法，它的名字一般是接口的名字加前缀 `ng`。比如，`OnInit`接口的钩子类方法方法名字为 `ngOnInit`。
+    每个接口只有一个钩子方法，方法名一般是接口的名字加前缀 `ng`。比如，`OnInit`接口的钩子类的方法名为 `ngOnInit`。
 
     Angular calls these hook methods in the following order:
     
     Angular会按照下面的顺序调用钩子类方法：
     
     * `ngOnChanges` - called when an [input](#input)/[output](#output) binding values change
-    * `ngOnInit` - after the first `ngOnChanges`
-    * `ngDoCheck` - developer's custom change detection
-    * `ngAfterContentInit` - after component content initialized
-    * `ngAfterContentChecked` - after every check of component content
-    * `ngAfterViewInit` - after component's view(s) are initialized
-    * `ngAfterViewChecked` - after every check of a component's view(s)
-    * `ngOnDestroy` - just before the directive is destroyed.
-    
     * `ngOnChanges` - 在[输入input](#input)/[输出output](#output)绑定的值变化的时候调用。
+    * `ngOnInit` - after the first `ngOnChanges`
     * `ngOnInit` - 在第一个`ngOnChanges`后调用。
+    * `ngDoCheck` - developer's custom change detection
     * `ngDoCheck` - 开发者自定义变化监测器。
+    * `ngAfterContentInit` - after component content initialized
     * `ngAfterContentInit` - 在组件初始化以后调用。
+    * `ngAfterContentChecked` - after every check of component content
     * `ngAfterContentChecked` - 在检查每个组件内容后调用。
+    * `ngAfterViewInit` - after component's view(s) are initialized
     * `ngAfterViewInit` - 在组件试图初始化后调用。
+    * `ngAfterViewChecked` - after every check of a component's view(s)
     * `ngAfterViewChecked` - 在检查每个组件试图后调用
+    * `ngOnDestroy` - just before the directive is destroyed.
     * `ngOnDestroy` - 在指令销毁前调用。
 
     Learn more in the [Lifecycle Hooks](guide/lifecycle-hooks.html) chapter.
     
-    请看[生命周期钩子Lifecycle Hooks](guide/lifecycle-hooks.html)章节。 
+    要了解更多，参见[生命周期钩子Lifecycle Hooks](guide/lifecycle-hooks.html)一章。 
 // #enddocregion f-l
 
 // #docregion m1
@@ -669,19 +668,19 @@ include _util-fns
 
     A typical module is a cohesive block of code dedicated to a single purpose.
     
-    一个典型的模块，是单一用途的代码块的凝聚。
+    典型的模块，是具有单一用途的内聚代码块。
 
     A module **exports** something of value in that code, typically one thing such as a class.
     A module that needs that thing, **imports** it.
     
-    模块一般**输出**一个东西：类。
-    模块如果需要什么东西，那就**导入**它。
+    模块一般 **输出** 一个东西：类。
+    模块如果需要什么东西，那就 **导入** 它。
 
     The structure of Angular modules and the import/export syntax
     is based on the [ES2015](#es2015) module standard
     described [here](http://www.2ality.com/2014/09/es6-modules-final.html).
     
-    Angular的模块结构和输出/导入语法是基于[ES2015](#es2015)模块标准上的，请看[这里](http://www.2ality.com/2014/09/es6-modules-final.html).
+    Angular的模块结构和输出/导入语法是基于[ES2015](#es2015)模块标准的，参见[这里](http://www.2ality.com/2014/09/es6-modules-final.html).
 
     An application that adheres to this standard requires a module loader to
     load modules on request and resolve inter-module dependencies.
@@ -729,7 +728,7 @@ include _util-fns
     
     See the [Template Syntax](guide/template-syntax.html#inputs-outputs) chapter.
     
-    请看[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)章节。
+    参见[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)章节。
 
 .l-main-section
 <a id="P"></a>
@@ -793,7 +792,7 @@ include _util-fns
     See [Dependency Injection](#dependency-injection) chapter to learn more.
     
     还有其它一些方法建立Token和方剂。
-    请看[依赖注入Dependency Injection](#dependency-injection)以获取更多信息。 
+    参见[依赖注入Dependency Injection](#dependency-injection)以获取更多信息。 
 
 .l-main-section
 <a id="Q"></a>
