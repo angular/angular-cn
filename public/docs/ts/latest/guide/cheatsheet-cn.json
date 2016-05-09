@@ -347,7 +347,7 @@
           "bold": [
             "constructor(myService: MyService, ...)"
           ],
-          "description": "<p>类的构造函数会在所有其他生命周期钩子之前调用。使用它来注入依赖，但是要避免用它做较重的工作。</p>\n"
+          "description": "<p>类的构造函数会在所有其它生命周期钩子之前调用。使用它来注入依赖，但是要避免用它做较重的工作。</p>\n"
         },
         {
           "syntax": "ngOnChanges(changeRecord) { ... }",
