@@ -226,6 +226,8 @@ a(href="#toc") 回到顶部
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ## Naming
@@ -275,6 +277,7 @@ a(href="#toc") Back to top
     **为什么？** 目录的名字和文件应该清楚的说明它们的用途。比如`app/heroes/hero-list.component.ts`包含了一个用来维护英雄列表的组件。
 
 a(href="#toc") Back to top
+
 a(href="#toc") 回到顶部
 
 
@@ -344,29 +347,38 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use consistent names for all assets named after what they represent.
-    **做** 为所有财产的使用统一的命名：以他们所代表的东西命名
+    **做** 为所有东西使用统一的命名：以它们所代表的东西命名
 
 .s-rule.do
   :marked
     **Do** use upper camel case for symbols. Match the name of the symbol to the naming of the file.
     
-    **做** 使用大写驼峰命名法来命名所有标志。配对标志的名字和它所在的文件名字。
+    **做** 使用大写驼峰命名法来命名所有符号（类）。配对符号的名字和它所在的文件名字。
 
 .s-rule.do
   :marked
     **Do** append the symbol name with the suffix that it represents.
+    
+    **做** 把符号所代表的（比如组件、服务、指令等）附加到符号名字右面。
+  
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference assets.
+    
+    **为什么？** 提供一个前后一致的方法，用来迅速辨识和引用东西。
 
 .s-why
   :marked
     **Why?** Upper camel case is conventional for identifying objects that can be instantiated using a constructor.
-
+    
+    **为什么？** 使用大写驼峰命名法是一个辨识可以使用构造函数来实例化的对象的常规。
+    
 .s-why.s-why-last
   :marked
     **Why?** The `Component` suffix is more commonly used and is more explicitly descriptive.
+    
+    **为什么？** `Component`后缀是更加常见的用法，它具有精准的描述性。
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -419,35 +431,53 @@ table(width="100%")
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ### Service Names
+  
+  ### 服务名字
   <a id="02-04"></a>
   #### Style 02-04
+  
+  #### 风格02-04
 
 .s-rule.do
   :marked
     **Do** use consistent names for all services named after their feature.
+    
+    **做** 为所有服务使用前后一致的命名规则，以它们的特性来命名。
 
 .s-rule.do
   :marked
     **Do** use upper camel case for services.
+    
+    **做** 使用大写驼峰命名法来命名服务。
 
 .s-rule.do
   :marked
     **Do** suffix services with `Service` when it is not clear what they are (e.g. when they are nouns).
+    
+    **做** 当不是很清楚它们是什么的时候（比如它们为名词时），添加`Service`后缀。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference services.
+    
+    **为什么？** 提供一个前后统一的方法来快速识别和引用服务。
 
 .s-why
   :marked
     **Why?** Clear service names such as `logger` do not require a suffix.
+    
+    **为什么？** 清楚的服务名字比如`logger`不需要一个后缀。
 
 .s-why.s-why-last
   :marked
     **Why?** Service names such as `Credit` are nouns and require a suffix and should be named with a suffix when it is not obvious if it is a service or something else.
+    
+    **为什么？** 服务名字比如`Credit`是名词，需要一个后缀，当不是很明显它是一个服务还是其他东西的时候，取名时应该跟上后缀。
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -484,75 +514,113 @@ table(width="100%")
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ### Bootstrapping
+  ### 引导程序
   <a id="02-05"></a>
   #### Style 02-05
+  #### 风格02-05
 
 .s-rule.do
   :marked
     **Do** put bootstrapping and platform logic for the app in a file named `main.ts`.
+    
+    **做** 把应用程序的引导程序和平台逻辑放到一个名字为`main.ts`的文件里。
 
 .s-rule.avoid
   :marked
     **Avoid** putting app logic in the `main.ts`. Instead consider placing it in a Component or Service.
+    
+    **避免** 把应用程序逻辑放到`main.ts`里。而是考虑把它放到一个组件或服务里面。
 
 .s-why
   :marked
     **Why?** Follows a consistent convention for the startup logic of an app.
+    
+    **为什么？** 遵循一个前后统一的规则来命名应用程序的启动逻辑。
 
 .s-why.s-why-last
   :marked
     **Why?** Follows a familiar convention from other technology platforms.
+    
+    **为什么？** 从其他技术平台借鉴一个熟悉的命名规则。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### Directive Selectors
+  ### 指令选择器
   <a id="02-06"></a>
   #### Style 02-06
+  #### 风格02-06
 
 .s-rule.do
   :marked
     **Do** Use lower camel case for naming the selectors of our directives.
+    
+    **做** 使用小驼峰命名法来命名指令的选择器。
 
 .s-why
   :marked
     **Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
+    
+    **为什么？** 保持指令里定义的属性名字与他们绑定的视图的HTML属性名字一致。
 
 .s-why.s-why-last
   :marked
     **Why?** The Angular 2 HTML parser is case sensitive and will recognize lower camel case.
+    
+    **为什么？** Angular 2 HTML剖析器是大小写敏感的，而且它识别小写驼峰写法。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### Custom Prefix for Components
+  ### 为组件自定义前缀
   <a id="02-07"></a>
   #### Style 02-07
+  #### 风格02-07
 
 .s-rule.do
   :marked
     **Do** use a custom prefix for the selector of our components. For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
+    
+    **做** 为组件的选择器使用一个自定义前缀。比如，前缀`tod`是从**T**our **o**f **H**eros来的，前缀`admin`代表了admin的特征区域。
 
 .s-rule.do
   :marked
     **Do** use a prefix that identifies the feature area or the app itself.
+    
+    **做** 使用一个前缀来识别特征区域或者应用程序本身。
 
 .s-why
   :marked
     **Why?** Prevents name collisions.
+    
+    **为什么？** 防止名字冲突。
 
 .s-why
   :marked
     **Why?** Makes it easier to promote and share our feature in other apps.
+    
+    **为什么？** 让在其他程序里面促销和共享我们的特性变得更加容易。
 
 .s-why.s-why-last
   :marked
     **Why?** Our Components and elements are easily identified.
+    
+    **为什么？** 我们的组件和元素更加容易被识别出来。
 
 +makeExample('style-guide/ts/02-07/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
 :marked
@@ -568,20 +636,28 @@ a(href="#toc") Back to top
 
 :marked
   ### Custom Prefix for Directives
+  ### 为指令自定义前缀
   <a id="02-08"></a>
   #### Style 02-08
+  #### 风格02-08
 
 .s-rule.do
   :marked
     **Do** use a custom prefix for the selector of our directives (for instance below we use the prefix `toh` from **T**our **o**f **H**eroes).
+    
+    **做** 为指令的选择器使用一个自定义的前缀（比如下面例子用，我们使用前缀`toh`，取自**T**our **o**f **H**eroes)。
 
 .s-why
   :marked
     **Why?** Prevents name collisions.
+    
+    **为什么？** 防止名字冲突。
 
 .s-why.s-why-last
   :marked
     **Why?** Our Directives are easily identified.
+    
+    **为什么？** 指令更加容易被识别。
 
 +makeExample('style-guide/ts/02-08/app/shared/validate.directive.avoid.ts', 'example', 'app/shared/validate.directive.ts')(avoid=1)
 :marked
@@ -591,19 +667,27 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ### Pipe Names
+  ### 管道名字
   <a id="02-09"></a>
   #### Style 02-09
+  #### 风格02-09
 
 .s-rule.do
   :marked
     **Do** use consistent names for all pipes, named after their feature.
+    
+    **做** 为所有管道使用前后一致的命名规则，用它们的特性来命名。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides a consistent way to quickly identify and reference pipes.
+    
+    **为什么？** 提供一个一致的方法快速识别和引用管道。
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -632,27 +716,39 @@ table(width="100%")
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ### Unit Test File Names
+  ### 单元测试文明命名
   <a id="02-10"></a>
   #### Style 02-10
+  #### 风格02-10
 
 .s-rule.do
   :marked
     **Do** name test specification files the same as the component they test.
+    
+    **做** 测试配置文件的取名应该和被测试的组件名字一样。
 
 .s-rule.do
   :marked
     **Do** name test specification files with a suffix of `.spec`.
+    
+    **做** 测试配置文件命名应该跟随后缀`.spec`。
 
 .s-why
   :marked
       **Why?** Provides a consistent way to quickly identify tests.
+      
+      **为什么？** 提供一个统一的方法来快速识别测试。
 
 .s-why.s-why-last
   :marked
       **Why?** Provides pattern matching for [karma](http://karma-runner.github.io/) or other test runners.
+      
+      **为什么？** 提供一个与[karma](http://karma-runner.github.io/)或者其他测试运行器相配的命名模式。
 
 :marked
 - var top="vertical-align:top"
@@ -700,20 +796,28 @@ a(href="#toc") Back to top
 .l-main-section
 :marked
   ### End to End Test File Names
+  ### 端对端测试文件名字
   <a id="02-11"></a>
   #### Style 02-11
+  #### 风格02-11
 
 .s-rule.do
   :marked
     **Do** name end-to-end test specification files after the feature they test with a suffix of `.e2e-spec`.
+    
+    **做** 端对端测试配置文件应该和它们所测试的特征同名，并加上后缀`.e2e-spec`。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify end-to-end tests.
+    
+    *为什么？** 提供一个统一的方法快速识别端对端测试文件。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides pattern matching for test runners and build automation.
+    
+    **为什么？** 提供一个模式，与测试运行器和自动建造相配。
 
 :marked
 :marked
@@ -737,29 +841,42 @@ table(width="100%")
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ## Coding Conventions
+  ## 代码规则
 
   Have consistent set of coding, naming, and whitespace conventions.
+  
+  采用一套前后一致的编码、命名和空格的规则。
 
 .l-main-section
 :marked
   ### Classes
+  ### 类
   <a id="03-01"></a>
   #### Style 03-01
+  #### 风格03-01
 
 .s-rule.do
   :marked
     **Do** use upper camel case when naming classes.
+    
+    **做** 使用大写驼峰命名法来命名类。
 
 .s-why
   :marked
     **Why?** Follows conventional thinking for class names.
+    
+    **为什么？** 遵循类命名传统规则。
 
 .s-why.s-why-last
   :marked
     **Why?** Classes can be instantiated and construct an instance. We often use upper camel case to indicate a constructable asset.
+    
+    **为什么？** 类是可以被实例化并建造一个实例的。我们通常使用大写驼峰命名规则来标示一个可以建造的东西。
 
 +makeExample('style-guide/ts/03-01/app/shared/exception.service.avoid.ts', 'example', 'app/shared/exception.service.ts')(avoid=1)
 :marked
@@ -769,23 +886,34 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
+
 .l-main-section
 :marked
   ### Constants
+  ### 常量
   <a id="03-02"></a>
   #### Style 03-02
+  #### 风格03-02
 
 .s-rule.do
   :marked
     **Do** use uppercase with underscores when naming constants.
+    
+    **做** 使用全大写，用下划线隔开的方法来命名常量。
 
 .s-why
   :marked
     **Why?** Follows conventional thinking for constants.
+    
+    **为什么？** 遵循传统的命名常量的方法。
 
 .s-why.s-why-last
   :marked
     **Why?** Constants can easily be identified.
+    
+    **为什么？** 常量可以很容易的被识别。
 
 +makeExample('style-guide/ts/03-02/app/shared/data.service.avoid.ts', 'example', 'app/shared/data.service.ts')(avoid=1)
 :marked
@@ -795,23 +923,34 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
+
 .l-main-section
 :marked
   ### Interfaces
+  ### 接口
   <a id="03-03"></a>
   #### Style 03-03
+  #### 风格03-03
 
 .s-rule.do
   :marked
     **Do** name an interface using upper camel case.
+    
+    **做** 使用大写驼峰命名法来命名接口。
 
 .s-rule.do
   :marked
     **Consider** naming an interface without an `I` prefix.
+    
+    **考虑** 不要在接口名字前面家`T`前缀。
 
 .s-why.s-why-last
   :marked
     **Why?** When we use types, we can often simply use the class as the type.
+    
+    **为什么？** 当我们使用类型时，我们可以经常简单地使用类来作为类型。
 
 +makeExample('style-guide/ts/03-03/app/shared/hero-collector.service.avoid.ts', 'example', 'app/shared/hero-collector.service.ts')(avoid=1)
 :marked
@@ -821,31 +960,45 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
+
 .l-main-section
 :marked
   ### Properties and Methods
+  ### 属性和方法
   <a id="03-04"></a>
   #### Style 03-04
+  #### 风格03-04
 
 .s-rule.do
   :marked
     **Do** use lower camel case to name properties and methods.
+    
+    **做** 使用小写驼峰命名法来命名属性和方法。
 
 .s-rule.avoid
   :marked
     **Avoid** prefixing private properties and methods with an underscore.
+    
+    **避免** 使用下划线为前缀来命名私有属性和方法。
 
 .s-why
   :marked
     **Why?** Follows conventional thinking for properties and methods.
+    **为什么？** 遵循传统的命名属性和方法的规则。
 
 .s-why
   :marked
     **Why?** JavaScript lacks a true private property or method.
+    
+    **为什么？** JavaScript不支持真正的私有属性和方法。
 
 .s-why.s-why-last
   :marked
     **Why?** TypeScript tooling makes it easy to identify private vs public properties and methods.
+    
+    **为什么？** TypeScript工具使识别私有或公有属性和方法变得很简单。
 
 +makeExample('style-guide/ts/03-04/app/shared/toast/toast.service.avoid.ts', 'example', 'app/shared/toast/toast.service.ts')(avoid=1)
 :marked
@@ -855,19 +1008,28 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
+
 .l-main-section
 :marked
   ### Import Destructuring Spacing
+  ### 导入声明解构空格
   <a id="03-05"></a>
   #### Style 03-05
+  #### 风格03-05
 
 .s-rule.do
   :marked
     **Do** leave one whitespace character inside of the `import` statements' curly braces when destructuring.
+    
+    **做** 在解构是，`import`声明的大括号里面留一个空格字符。
 
 .s-why.s-why-last
   :marked
     **Why?** Whitespace makes it easier to read the imports.
+    
+    **为什么？** 空格让导入声明更容易阅读。
 
 +makeExample('style-guide/ts/03-05/app/+heroes/shared/hero.service.avoid.ts', 'example', 'app/+heroes/shared/hero.service.ts')(avoid=1)
 :marked
@@ -877,31 +1039,45 @@ a(href="#toc") Back to top
 
 a(href="#toc") Back to top
 
+a(href="#toc") 回到顶部
+
 .l-main-section
 :marked
   ### Import Line Spacing
+  ### 导入声明空行
   <a id="03-06"></a>
   #### Style 03-06
+  #### 风格03-06
 
 .s-rule.do
   :marked
     **Do** leave one empty line between third party imports and imports of code we created.
+    
+    **做** 在第三方导入和自己创建的代码导入之间留一个空行。
 
 .s-rule.do
   :marked
     **Do** list import lines alphabetized by the module.
+    
+    **做** 按模块名字的字母顺排列导入行。
 
 .s-rule.do
   :marked
     **Do** list destructured imported assets alphabetically.
+    
+    **做** 按字母顺序排列解构导入行。
 
 .s-why
   :marked
     **Why?** The empty line makes it easy to read and locate imports.
+    
+    **为什么？** 空行可以让阅读和定位本地导入变得更加容易。
 
 .s-why.s-why-last
   :marked
     **Why?** Alphabetizing makes it easier to read and locate imports.
+    
+    **为什么？** 按字母顺序排列可以让阅读和定位本地导入更加容易。
 
 +makeExample('style-guide/ts/03-06/app/+heroes/shared/hero.service.avoid.ts', 'example', 'app/+heroes/shared/hero.service.ts')(avoid=1)
 :marked
@@ -910,6 +1086,9 @@ a(href="#toc") Back to top
 :marked
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
