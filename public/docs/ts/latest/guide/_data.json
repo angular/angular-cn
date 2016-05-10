@@ -17,7 +17,7 @@
 
   "displaying-data": {
     "title": "显示数据",
-    "intro": "利用插值表达式和其他形式的属性绑定机制，把数据显示到UI上。",
+    "intro": "利用插值表达式和其它形式的属性绑定机制，把数据显示到UI上。",
     "nextable": true,
     "basics": true
   },

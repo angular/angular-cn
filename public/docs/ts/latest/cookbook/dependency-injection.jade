@@ -70,7 +70,7 @@ include ../_util-fns
 :marked
    **See the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**
    of the code supporting this cookbook.        
-   获取本“食谱”的代码支持，**请看[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
+   获取本“食谱”的代码支持，**参见[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
 .l-main-section
 
 <a id="app-wide-dependencies"></a>
@@ -162,7 +162,7 @@ a(id="nested-dependencies")
   Resolving these nested dependencies in the correct order is also the framework's job.
   At each step, the consumer of dependencies simply declares what it requires in its constructor and the framework takes over.
   
-  有时候一个服务依赖其他服务...（其他服务）可能依赖另外的服务。按正确的顺序来解析这些嵌套依赖也是框架工具（Angualar 2依赖注入）的工作。
+  有时候一个服务依赖其它服务...而其它服务可能依赖另外的服务。按正确的顺序来解析这些嵌套依赖也是框架工具（Angualar 2依赖注入）的工作。
   在每一步，依赖的使用者只是在它的构造函数里简单地声明它需要什么，框架工具会做剩余的事情。
   
   For example, we inject both the `LoggerService` and the `UserContext` in the `AppComponent`. 
@@ -185,7 +185,7 @@ a(id="nested-dependencies")
  The `UserService` has no dependencies so the dependency injection framework can just `new` one into existence.
  
  当Angular新建一个`AppComponent`，依赖注入框架工具创建一个`LoggerService`的实例，和开始创建`UserContextService`。`UserContextService`需要框架工具已经有了的`LoggerService`和还没创建的`UserService`。
- `UserService`没有其他依赖，所以依赖注入框架工具可以直接`new`一个实例。
+ `UserService`没有其它依赖，所以依赖注入框架工具可以直接`new`一个实例。
  
  The beauty of dependency injection is that the author of `AppComponent` didn't care about any of this. 
  The author simply declared what was needed in the constructor (`LoggerService` and `UserContextService`) and the framework did the rest.
@@ -315,7 +315,7 @@ figure.image-display
   We call this *sandboxing* because each service and component instance has its own sandbox to play in.
   
   一个管理自己伴随组件实例状态的服务是个好例子。
-  对每个组件，我们都需要该服务的单独实例。每个服务有自己的工作-状态，与其他组件的服务-和-状态隔离。我们叫这个*sandboxing*，因为每个服务和组件实例都在自己的沙盒里运行。
+  对每个组件，我们都需要该服务的单独实例。每个服务有自己的工作-状态，与其它组件的服务-和-状态隔离。我们叫这个*sandboxing*，因为每个服务和组件实例都在自己的沙盒里运行。
   
   <a id="hero-bios-component"></a>
   Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`. 
@@ -326,7 +326,7 @@ figure.image-display
   Each `HeroBioComponent` can edit a single hero's biography. 
   A `HeroBioComponent` relies on a `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
   
-  每个`HeroBioComponent`都能编辑一个英雄的生平。一个`HeroBioComponent`依赖一个`HeroCacheService`来对该英雄进行读取、缓存和执行其他持久性质的操作。
+  每个`HeroBioComponent`都能编辑一个英雄的生平。一个`HeroBioComponent`依赖一个`HeroCacheService`来对该英雄进行读取、缓存和执行其它持久性质的操作。
 +makeExample('cb-dependency-injection/ts/app/hero-cache.service.ts','service','app/hero-cache.service.ts')  
 :marked
   Clearly the three instances of the `HeroBioComponent` can't share the same `HeroCacheService`. 
@@ -585,11 +585,11 @@ figure.image-display
   But not every dependency can be satisfied by creating a new instance of a class.
   We need other ways to deliver dependency values and that means we need other ways to specify a provider.
   
-  这就是那么简单，因为最常见的被注入的服务是一个类的实例。但是，不是所有的依赖能在能建立一个类的新实例就够了的。我们需要其他的提交依赖值得方法，也就是说我们需要其他方法来制定一个provider。
+  这就是那么简单，因为最常见的被注入的服务是一个类的实例。但是，不是所有的依赖能在能建立一个类的新实例就够了的。我们需要其它的提交依赖值得方法，也就是说我们需要其它方法来指定一个provider。
   
   The `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why we need them. 
   
-  `HeroOfTheMonthComponent`例子示范了一些备择方案，揭示了为什么我们需要他们。
+  `HeroOfTheMonthComponent`例子示范了一些备择方案，揭示了为什么我们需要它们。
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-of-month.png" alt="Hero of the month" width="300px")
 :marked
@@ -663,7 +663,7 @@ a(id='usevalue')
 :marked
   The other providers create their values *lazily* when they're needed for injection.
   
-  其他providers只在注入需要他们的时候才创建他们值 - *延迟加载*
+  其它providers只在注入需要它们的时候才创建它们值 - *延迟加载*
 
 .l-main-section
 a(id='useclass')
@@ -806,7 +806,7 @@ a(id='usefactory')
     Look at the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
     for the full source code.
       
-    该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字合并起来。亲到[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)看全部原代码。
+    该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字合并起来。请到[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)看全部原代码。
 
 
 a(id="tokens")
@@ -915,7 +915,7 @@ a(id='opaque-token')
   a JavaScript object that has a friendly name but won't conflict with 
   another token that happens to have the same name.
   
-  这样的对象没有应用程序接口，所以不能用一个类来表示。它们可被一个唯一的和标志性的令牌更好的表达，一个JavaScript对象，拥有一个友好的名字但是不会与其他名字相同的令牌有冲突。
+  这样的对象没有应用程序接口，所以不能用一个类来表示。它们可被一个唯一的和标志性的令牌更好的表达，一个JavaScript对象，拥有一个友好的名字但是不会与其它名字相同的令牌有冲突。
   
   The `OpaqueToken` has these characteristics.
   We encountered them twice in the *Hero of the Month* example, 
@@ -941,7 +941,7 @@ a(id="di-inheritance")
   we must re-provide and re-inject them in the derived class
   and then pass them down to the base class through the constructor.
   
-  当编写一个从另一个组件衍生的组件的时候，我们要格外小心。如果基础组件有注入的依赖，我们必须要在衍生类中重新提供和重新注入它们，并且将他们通过构造函数传给基本类。
+  当编写一个从另一个组件衍生的组件的时候，我们要格外小心。如果基础组件有注入的依赖，我们必须要在衍生类中重新提供和重新注入它们，并且将它们通过构造函数传给基本类。
   
   In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent` 
   to display a *sorted* list of heroes.
