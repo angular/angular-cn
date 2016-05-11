@@ -291,17 +291,17 @@ code-example(format=".").
   ### *directives* 数组
   A browser ignores HTML tags and attributes that it doesn't recognize. So does Angular.
   
-  浏览器会忽略它不认识的HTML标签和属性。Angular也是这样。
+  浏览器会忽略它不认识的HTML标签和属性。Angular也是如此。
   
   We've imported `HeroDetailComponent`, we've used it in the template, but we haven't told Angular about it.
   
-  我们引入了`HeroDetailComponent`，并在模板中使用它，但Angular还不知道它。
+  我们引入了`HeroDetailComponent`，并在模板中使用它，但还没有告诉Angular。
   
   We tell Angular about it by listing it in the metadata `directives` array. Let's add that array property to the bottom of the
   `@Component` configuration object, immediately after the `template` and `styles` properties.
   
-  我们把它列在元数据的`directies`数组中，这样Angular才会知道它。
-  我们把这个数组属性加在`@Component`配置对象的底部，`template`和`styles`属性中间。
+  我们要把它列在元数据的`directives`数组中，这样Angular才会知道它。
+  让我们把这个数组属性加在`@Component`配置对象的底部，紧跟在`template`和`styles`属性之后。
   
 +makeExample('toh-3/ts/app/app.component.ts', 'directives')
 
@@ -313,12 +313,12 @@ code-example(format=".").
   When we select a hero we can see the selected hero’s details. 
   
   当在浏览器中查看应用时，我们看到了英雄列表。
-  当选中一个英雄时，我们还能看到所选英雄的详情。
+  当选中一个英雄时，还能看到所选英雄的详情。
   
   What's fundamentally new is that we can use this `HeroDetailComponent`
   to show hero details anywhere in the app.
 
-  我们所关注的进步是：我们可以在应用中的任何地方使用这个`HeroDetailComponent`组件来显示英雄详情了。
+  值得关注的进步是：我们可以在应用中的任何地方使用这个`HeroDetailComponent`组件来显示英雄详情了。
 
   We’ve created our first reusable component!
   
@@ -328,7 +328,7 @@ code-example(format=".").
   ### 回顾应用结构
   Let’s verify that we have the following structure after all of our good refactoring in this chapter:
 
-  来验证下吧，在本章中，经过这些漂亮的重构，我们应该得到下列结构：
+  来验证下吧，在本章中，经过这些漂亮的重构，我们应该得到了下列结构：
   
 .filetree
   .file angular2-tour-of-heroes
@@ -348,7 +348,7 @@ code-example(format=".").
 :marked
   Here are the code files we discussed in this chapter.
   
-  这就是我们在本章讨论过的这些源码文件：
+  下面就是我们在本章讨论过的源码文件：
 
 +makeTabs(`
   toh-3/ts/app/hero-detail.component.ts,
@@ -387,17 +387,17 @@ code-example(format=".").
   ## 前方的路
   Our Tour of Heroes has become more reusable with shared components. 
   
-  通过抽取共享组件，我们的《英雄指南》变得更加可复用了。
+  通过抽取共享组件，我们的《英雄指南》变得更有复用性了。
   
   We're still getting our (mock) data within the `AppComponent`.
   That's not sustainable. 
   We should refactor data access to a separate service
   and share it among the components that need data. 
   
-  在`AppComponent`中，我们仍然使用着mock数据。
-  这种方式可没法“可持续发展”。
+  但在`AppComponent`中，我们仍然使用着mock数据。
+  显然，这种方式不能“可持续发展”。
   我们要把数据访问逻辑抽取到一个独立的服务中，并在需要数据的组件之间共享。
   
   We’ll learn to create services in the [next tutorial](toh-pt4.html) chapter.
   
-  在[下一步](toh-pt4.html)中，我们将学习如何创建服务。
+  在[下一步](toh-pt4.html)，我们将学习如何创建服务。
