@@ -8,14 +8,14 @@ include ../_util-fns
   Our grand plan is to build an app to help a staffing agency manage its stable of heroes.
   Even heroes need to find work.
   
-  我们的终极计划是构建一个程序，来帮助职业介绍所管理英雄选择器（译注：比如WoW登录后看到的那个列表就是“英雄选择器”）。毕竟，英雄们也得养家糊口嘛！
+  我们的终极计划是构建一个程序，来帮助职业介绍所管理英雄围栏（译注：比如WoW登录后看到的那个列表就是“英雄围栏”）。毕竟，英雄们也得养家糊口嘛！
 
   Of course we'll only make a little progress in this tutorial. What we do build will
   have many of the features we expect to find in a full-blown, data-driven application: acquiring and displaying
   a list of heroes, editing a selected hero's detail, and navigating among different
   views of heroic data.
 
-  当然，在这个教程中，我们只完成一小步。我们这次构建的应用将用到很多对特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在全面、数据驱动的应用中经常见到。
+  当然，在这个教程中，我们只完成一小步。我们这次构建的应用会涉及很多特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在成熟的、数据驱动的应用中经常见到。
 
   The Tour of Heroes covers the core fundamentals of Angular.
   We’ll use built-in directives to show/hide elements and display lists of hero data.
@@ -28,7 +28,7 @@ include ../_util-fns
   这个《英雄指南》覆盖了Angular的核心原理。
   我们将使用内建指令来显示/隐藏元素，并且显示英雄数据的列表。
   我们将创建一个组件来显示英雄的详情，另一个组件则用来显示英雄列表。
-  我们将对只读数据使用单向数据绑定。我们将添加一些可编辑字段，并使用双向数据绑定更新模型。
+  我们将对只读数据使用单向数据绑定。我们将添加一些可编辑字段，并通过双向数据绑定更新模型。
   我们将把组件上的方法绑定到用户事件上，比如按键和点击。
   我们将学习从主列表视图中选择一个英雄，然后在详情视图中编辑它。
   我们将通过管道对数据进行格式化。
@@ -40,8 +40,8 @@ include ../_util-fns
   We'll be covering a lot of ground at an introductory level but we’ll find plenty of links
   to chapters with greater depth.
   
-  我们将学习足够的Angular核心技术，以尝试起步，并建立信心 —— 证明Angular确实能做到我们需要它做的这些。
-  我们将覆盖大部分“简介级”知识，但是我们还会放上大量链接，指向更深入的章节。
+  我们将学习足够的Angular核心技术，来作为起步，并建立信心 —— 证明Angular确实能做到我们想让它做的。
+  虽然我们将覆盖大部分“简介级”知识，但还是会放上大量链接，指向更深入的章节。
   
 // #enddocregion intro
 
@@ -59,7 +59,7 @@ include ../_util-fns
   Here's a visual idea of where we're going in this tour, beginning with the "Dashboard"
   view and our most heroic heroes:
   
-  在这个教程中，还有一些可视化思想。放一个“仪表盘（Dashboard）”视图，来显示我们最勇敢的英雄。
+  在这个教程中，还引入了一些可视化思想：放一个“仪表盘（Dashboard）”视图，来展示我们最勇敢的英雄。
 
 figure.image-display
   img(src='/resources/images/devguide/toh/heroes-dashboard-1.png' alt="英雄仪表盘的输出")
@@ -69,7 +69,7 @@ figure.image-display
   We could click them to navigate between this Dashboard and a Heroes view.
 
   这个仪表盘中有两个链接：“仪表盘”和“英雄”。
-  我们将点击它们，以便在“仪表盘”和“英雄”视图之间导航。
+  我们将点击它们在“仪表盘”和“英雄”视图之间导航。
 
   Instead we click the dashboard hero named "Magneta" and the router takes us to a "Hero Details" view
   of that hero where we can change the hero's name.
@@ -94,7 +94,7 @@ figure.image-display
 :marked
   We click a different hero and the readonly mini-detail beneath the list reflects our new choice.
   
-  当我们点击另一位英雄时，一个只读的“微型视图”会显示在列表下方，以反应我们的选择。
+  当我们点击另一位英雄时，一个只读的“微型视图”会显示在列表下方，以体现我们的选择。
 
   We click the "View Details" button to drill into the
   editable details of our selected hero.
@@ -103,7 +103,7 @@ figure.image-display
 
   The following diagram captures all of our navigation options.
   
-  下列图标汇总了我们的所有可选导航路径。
+  下面这个图汇总了我们所有可能的导航路径。
 
 figure.image-display
   img(src='/resources/images/devguide/toh/nav-diagram.png' alt="查看导航")
@@ -111,7 +111,7 @@ figure.image-display
 :marked
   Here's our app in action
   
-  下面是我们应用的所有动作
+  下图演示了我们应用中的所有操作。
 
 figure.image-display
   img(src='/resources/images/devguide/toh/toh-anim.gif' alt="英雄指南的所有动作")
@@ -125,12 +125,12 @@ figure.image-display
   We'll motivate each step with a requirement that we've
   met in countless applications. Everything has a reason.
 
-  我们将共同一步步的构建出《英雄指南》。
-  我们将通过与无数应用中类似的需求，驱动我们走向下一步。任何事，都会有理由。
+  让我们一起，一步步构建出《英雄指南》。
+  我们将让和无数应用类似的需求，驱动我们走向下一步。任何事，都会有理由。
 
   And we’ll meet many of the core fundamentals of Angular along the way.
   
-  这一路，我们将遇到Angular的大量核心原则。
+  这一路上，我们将遇到很多Angular核心原理。
 
   [Let's get started!](./toh-pt1.html)
   
