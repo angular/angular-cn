@@ -192,7 +192,7 @@ a(id="package-json")
 
     * `npm start` - run the compiler and a server  at the same time, both in "watch mode"
     
-    * `npm start` - 同时运行编译器和一个服务器，并且都开启"监听模式"
+    * `npm start` - 同时运行编译器和一个服务器，并且都开启"监视模式"
 
     * `npm run tsc` - run the TypeScript compiler once
     
@@ -201,7 +201,7 @@ a(id="package-json")
     * `npm run tsc:w` - run the TypeScript compiler in watch mode;
     the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
     
-    * `npm run tsc:w` - 在监听模式运行TypeScript编译器：
+    * `npm run tsc:w` - 在监视模式运行TypeScript编译器：
     进程持续运行，并等待TypeScript文件发生变化，一旦变化就重新编译它。
 
     * `npm run lite` - run the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>,
@@ -578,7 +578,7 @@ code-example(format="").
       when working with observables.
       We added the library here in QuickStart so we don't forget later.//TODO this subsection needs to be moved for when we cover the systemjs.config.js
       
-      我们的QuickStart不会用到响应式扩展，但是大量的应用需要它们来提供Observable（译注：响应式编程的核心特性，指监听数据的变更以便做出响应）特性。
+      我们的QuickStart不会用到响应式扩展，但是大量的应用需要它们来提供Observable（译注：响应式编程的核心特性，指监视数据的变更以便做出响应）特性。
       我们把它加到QuickStart中，以免将来忘了。//TODO 当我们覆盖到systemjs.config.js时，我们得把这些内容移过去。
 
   :marked
@@ -760,7 +760,7 @@ figure.image-display
   They should detect the change, recompile the TypeScript into JavaScript,
   refresh the browser, and display the revised message.
 
-  TypeScript编译器和`lite-server`都在监听。
+  TypeScript编译器和`lite-server`都在监视。
   它们会检测到文件的变化，重新把这个TypeScript文件编译成JavaScript文件，刷新浏览器，并且显示修改过的消息。
 
   It's a nifty way to develop an application!
