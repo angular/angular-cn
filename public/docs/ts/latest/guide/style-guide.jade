@@ -1097,138 +1097,216 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ## Application Structure
+  ## 应用程序结构
 
   Have a near term view of implementation and a long term vision. Start small but keep in mind where the app is heading down the road.
+  
+  准备一个短期的执行方案和一个长期的执行方案。从零开始，但是时刻考虑应用程序接下来要走的路。
 
-  All of the app's code goes in a folder named `app`. All content is 1 feature per file. Each component, service, and pipe is in its own file. All 3rd party vendor scripts are stored in another folder and not in the `app` folder. We didn't write them and we don't want them cluttering our app. Use the naming conventions for files in this guide.
+  All of the app's code goes in a folder named `app`. All content is 1 feature per file. Each component, service, and pipe is in its own file. All 3rd party vendor scripts are stored 
+  in another folder and not in the `app` folder. We didn't write them and we don't want them cluttering our app. Use the naming conventions for files in this guide.
+  
+  把所有的应用程序源代码都放到一个名叫`app`的目录里。所有内容都遵循一个特征一个文件。每个组件、服务和管道都在自己的文件里。所有第三方程序包都被保存到其他目录里，并确保不在`app`目录里。
+  我们不会修改他们，所以我们不希望他们弄乱我们的应用程序。使用本指南介绍的文件命名规则。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### LIFT
+  ### LIFT (定位`L`ocate、识别`I`dentity、平坦`F`lattest、尝试`T`ry遵循不重复自己DRY - Do Not Repeat Yourself规则)
   <a id="04-01"></a>
   #### Style 04-01
+  #### 风格04-01
 
 .s-rule.do
   :marked
     **Do** structure the app such that we can `L`ocate our code quickly, `I`dentify the code at a glance, keep the `F`lattest structure we can, and `T`ry to be DRY.
+    
+    **做** 组织应用程序的结构，达到这些目的：快速定位(`L`ocate)代码、一眼识别(`I`dentify)代码、尽量保持结构平坦(`F`lattest)和尝试`T`ry遵循不重复自己DRY - Do Not Repeat Yourself规则。
 
 .s-rule.do
   :marked
     **Do** define the structure to follow these four basic guidelines, listed in order of importance.
+    
+    **做** 按照下面按照重要顺序列出的四个基本原则来定义结构。
 
 .s-why.s-why-last
   :marked
-    **Why?** LIFT Provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly. Another way to check our app structure is to ask ourselves: How quickly can we open and work in all of the related files for a feature?
+    **Why?** LIFT Provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly. 
+    Another way to check our app structure is to ask ourselves: How quickly can we open and work in all of the related files for a feature?
+    
+    **为什么？** LIFT提供了一个前后一致的结构，它扩展行强，模块化，并且因为能快速找到代码，让提高开发者效率变得更加容易。另外一个检查应用程序结构的方法是质问自己：我们打开和编辑一个特征相关的所有文件的速度如何？
 
 a(href="#toc") Back to top
 
 .l-main-section
 :marked
   ### Locate
+  ### 定位
   <a id="04-02"></a>
   #### Style 04-02
+  #### 风格04-02
 
 .s-rule.do
   :marked
     **Do** make locating our code intuitive, simple and fast.
+    
+    **做** 直观、简单和快速的定位我们的代码。
 
 .s-why.s-why-last
   :marked
-    **Why?** We find this to be super important for a project. If we cannot find the files we need to work on quickly, we will not be able to work as efficiently as possible, and the structure needs to change. We may not know the file name or where its related files are, so putting them in the most intuitive locations and near each other saves a ton of time. A descriptive folder structure can help with this.
+    **Why?** We find this to be super important for a project. If we cannot find the files we need to work on quickly, we will not be able to work as efficiently as possible, 
+    and the structure needs to change. We may not know the file name or where its related files are, so putting them in the most intuitive locations and near each other saves a ton of time. 
+    A descriptive folder structure can help with this.
+    
+    **为什么？** 我们发现定位对一个项目是非常重要的。如果我们不能快速找到需要工作的文件，我们就不能再最佳效率状态下面工作，结构就需要更换。我们可能不知道文件的名称或者文件所在目录，所以
+    我们把它们放到一个直观的地方，一个挨着一个，可以节省很多时间。采用一个说明性强的文件结构能够帮忙解决该问题。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
   ### Identify
+  ### 识别
   <a id="04-03"></a>
   #### Style 04-03
+  #### 风格04-03
 
 .s-rule.do
   :marked
     **Do** name the file such that we instantly know what it contains and represents.
+    
+    **做** 命名文件到这个程度：可以立刻知道它包含了什么，代表了什么。
 
 .s-rule.do
   :marked
     **Do** be descriptive with file names and keeping the contents of the file to exactly one component.
+    
+    **做** 文件名要具有说明性，并保存文件内容只包含一个组件。
 
 .s-rule.avoid
   :marked
     **Avoid** files with multiple components, multiple services, or a mixture.
+    
+    **避免** 包含很多组件、服务或者混合的文件。
 
 .s-why.s-why-last
   :marked
     **Why?** We spend less time hunting and pecking for code, and become more efficient. If this means we want longer file names, then so be it.
+    **为什么？** 我们花费更少的时间来查找和琢磨代码，变得更加有效率。如果这意味着更长的文件名，那就让它去吧。
 
 .l-sub-section
   :marked
     There are deviations of the 1 per file rule when we have a set of very small features that are all related to each other, as they are still easily identifiable.
+    
+    当我们有一套非常小并且互相关联的特征时，我们可能不采用单文件单组件的规则，因为他们还是非常容易被识别。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
+
 
 .l-main-section
 :marked
   ### Flat
+  ### 平坦
   <a id="04-04"></a>
   #### Style 04-04
+  #### 风格04-04
 
 .s-rule.do
   :marked
     **Do** keep a flat folder structure as long as possible.
+    
+    **做** 尽可能保持一个平坦的目录结构。
 
 .s-rule.consider
   :marked
     **Consider** creating fodlers when we get to seven or more files.
+    
+    **考虑** 当我们有7个或更多的文件时才新建目录。
 
 .s-why.s-why-last
   :marked
-    **Why?** Nobody wants to search seven levels of folders to find a file. In a folder structure there is no hard and fast number rule, but when a folder has seven to ten files, that may be time to create subfolders. We base it on our comfort level. Use a flatter structure until there is an obvious value (to help the rest of LIFT) in creating a new folder.
+    **Why?** Nobody wants to search seven levels of folders to find a file. In a folder structure there is no hard and fast number rule, but when a folder has seven to ten files, 
+    that may be time to create subfolders. We base it on our comfort level. Use a flatter structure until there is an obvious value (to help the rest of LIFT) in creating a new folder.
+    
+    **为什么？** 没有人愿意搜索7层目录来找一个文件。在一个目录结构中，没有一个硬数字规则，但是当一个文件有七到十个文件时，就是需要新建子目录的时候了。这是基于舒适级别来定的。
+    以一个平坦结构未开始，知道有很明显的价值来新建目录（来配合其他LIFT规则）
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
   ### T-DRY (Try to be DRY)
+  ### T-DRY （尝试遵循不重复自己DRY的规则）
   <a id="04-05"></a>
   #### Style 04-05
+  #### 风格04-05
 
 .s-rule.do
   :marked
     **Do** be DRY (Don't Repeat Yourself)
+    
+    **做** 不要重复自己（DRY）
 
 .s-rule.avoid
   :marked
     **Avoid** being so DRY that we sacrifice readability.
+    
+    **避免** 过度DRY，以致牺牲了阅读性。
 
 .s-why.s-why-last
   :marked
-    **Why?** Being DRY is important, but not crucial if it sacrifices the others in LIFT, which is why we call it T-DRY. We don’t want to type `hero-view.component.html` for a view because, well, it’s obviously a view. If it is not obvious or by convention, then we name it.
+    **Why?** Being DRY is important, but not crucial if it sacrifices the others in LIFT, which is why we call it T-DRY. We don’t want to type `hero-view.component.html` for a view because, 
+    well, it’s obviously a view. If it is not obvious or by convention, then we name it.
+    
+    **为什么？** 不重复自己很重要，但是如果它要牺牲其他的LIFT规则，它不是最重要的，这就是为什么我们叫做**尝试**不重复自己(T-DRY)。我们不愿意为了一个试图敲打`hero-view.component.html`，因为它很明显是一个试图。
+    如果它不是很明显是一个试图，那么我们就把视图单词加到它的名字里。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
   ### Overall Structural Guidelines
+  ### 总体结构原则
   <a id="04-06"></a>
   #### Style 04-06
+  #### 风格04-06
 
 .s-rule.do
   :marked
     **Do** start small but keep in mind where the app is heading down the road.
+    
+    **坐** 从零开始，但是时刻考虑应用程序接下来要走的路。
 
 .s-rule.do
   :marked
     **Do** have a near term view of implementation and a long term vision.
+    
+    **做** 有一个短期的执行方案和一个长期的执行方案。
 
 .s-rule.do
   :marked
     **Do** put all of the app's code in a folder named `app`.
+    
+    **做** 把所有源代码都放到名为`app`的目录里。
 
 .s-rule.consider
   :marked
     **Consider** creating a folder for each component including its `.ts`, `.html`, `.css` and `.spec` file.
+    
+    **考虑**
 
 .s-why
   :marked
