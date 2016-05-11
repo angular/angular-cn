@@ -90,7 +90,7 @@ code-example(format="" language="bash").
   :marked
     Learn more about interpolation in the [Displaying Data chapter](../guide/displaying-data.html).
     
-    想了解插值表达式的更多知识，参阅[“显示数据”一章](../guide/displaying-data.html)。
+    要了解插值表达式的更多知识，参阅[“显示数据”一章](../guide/displaying-data.html)。
 :marked
   ### Hero object
   ### Hero对象
@@ -98,7 +98,7 @@ code-example(format="" language="bash").
   At the moment, our hero is just a name.  Our hero needs more properties.
   Let's convert the `hero` from a literal string to a class.
 
-  此时此刻，我们的英雄还只有一个名字。显然，我们的英雄应该有更多的属性。
+  此时此刻，我们的英雄还只有一个名字。显然，他/她应该有更多属性。
   让我们把`hero`从一个字符串字面量换成一个类。
   
   Create a `Hero` class with `id` and `name` properties.
@@ -107,36 +107,36 @@ code-example(format="" language="bash").
   创建一个`Hero`类，它具有`id`和`name`属性。
   现在，把下列代码放在`app.component.ts`的顶部，仅次于import语句。
   
-+makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero class)')(format=".")
++makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero类)')(format=".")
 
 :marked
   Now that we have a `Hero` class, let’s refactor our component’s `hero` property to be of type `Hero`.
   Then initialize it with an id of `1` and the name, "Windstorm".
   
   现在，有了一个`Hero`类，我们就要把组件`hero`属性的类型换成`Hero`了。
-  然后把`1`作为id、把“Windstorm”作为名字，初始化它。
+  然后以`1`为id、以“Windstorm”为名字，初始化它。
 
-+makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'hero-property-1', 'app.component.ts (Hero属性)')(format=".")
++makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'hero-property-1', 'app.component.ts (hero属性)')(format=".")
 
 :marked
   Because we changed the hero from a string to an object,
   we update the binding in the template to refer to the hero’s `name` property.
 
-  我们把hero从一个字符串换成了对象，于是我们也得更新模板中的绑定表达式，来引用hero的`name`属性。
+  我们把`hero`从一个字符串换成了对象，所以也得更新模板中的绑定表达式，来引用`hero`的`name`属性。
   
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero-2')
 :marked
   The browser refreshes and continues to display our hero’s name.
   
-  浏览器自动刷新，并且继续显示这位英雄的名字。
+  浏览器自动刷新，并继续显示这位英雄的名字。
 
   ### Adding more HTML
   ### 添加更多的HTML
   Displaying a name is good, but we want to see all of our hero’s properties.
   We’ll add a `<div>` for our hero’s `id` property and another `<div>` for our hero’s `name`.
 
-  能显示名字就算不错了，但是我们还想看到我们这位英雄的所有属性。
-  我们将添加一个`<div>`来显示英雄的`id`属性，另一个`<div>`来显示英雄的`name`属性。
+  能显示名字虽然不错，但我们还想看到这位英雄的所有属性。
+  我们将添加一个`<div>`来显示英雄的`id`属性，用另一个`<div>`来显示英雄的`name`属性。
   
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero-properties')
 :marked
@@ -153,13 +153,13 @@ code-example(format="" language="bash").
   let’s take advantage of the template strings feature
   in ES2015 and TypeScript to maintain our sanity.
 
-  我们可以通过字符串加法来制作更可读的模板，但这样仍然太难看了 —— 难于阅读，容易出现拼写错误。
-  这样不行！我们要借助ES2015和TypeScript提供的模板字符串来保持清醒。
+  我们可以通过字符串加法来制作更可读的模板，但这样仍然太难看了 —— 难于阅读，容易拼错。
+  这样不行！我们要借助ES2015和TypeScript提供的模板字符串来保持清爽。
 
   Change the quotes around the template to back-ticks and
   put the `<h1>`, `<h2>` and `<div>` elements on their own lines.
 
-  把模板的双引号改成反引号，并且让`<h1>`， `<h2>` 和 `<div>`标签各占一行。
+  把模板的双引号改成反引号，并且让`<h1>`，`<h2>`和`<div>`标签各占一行。
   
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'multi-line-strings', 'app.component.ts (AppComponent的 模板)')
 
@@ -174,9 +174,9 @@ code-example(format="" language="bash").
       Everything between the back-ticks at the beginning and end of the template
       is part of a single template string.
       
-      **小心！**反引号（`）看起来很像单引号（'），但它们是截然不同的字符。
-      反引号能够做的可不只是标记字符串边界。
-      在这里，我们只用它来把我们的模板变成多行的，而不涉及更多用途。
+      **小心！**反引号（`）虽然看起来很像单引号（'），但它们是截然不同的字符。
+      反引号能做的可不仅仅是标记字符串的边界。
+      在这里，我们只用它来把我们的模板变成多行的，而没有涉及更多用途。
       所有被反引号引起来的部分，都是一个单一模板字符串的一部分。
 
 .l-main-section
@@ -190,7 +190,7 @@ code-example(format="" language="bash").
 
   Refactor the hero name `<label>` with `<label>` and `<input>` elements as shown below:
 
-  重构英雄的名字，从单纯的`<label>`到`<label>`和`<input>`元素的组合，就像下面这样：
+  把英雄的名字从单纯的`<label>`重构成`<label>`和`<input>`元素的组合，就像下面这样：
   
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'app.component.ts (input元素)')
 :marked
@@ -200,8 +200,8 @@ code-example(format="" language="bash").
   is not reflected in the `<h2>`. We won't get the desired behavior
   with a one-way binding to `<input>`.
 
-  在浏览器中，我们看到英雄的名字显示为了一个`<input>`文本框。但看起来还是有些不太对。
-  当修改名字时，我们的改动并没有反映到`<h2>`中。使用单向数据绑定，我们没法实现所期望的行为。
+  在浏览器中，我们看到英雄的名字显示成一个`<input>`文本框。但看起来还是有点儿不太对劲。
+  当修改名字时，我们的改动并没有反映到`<h2>`中。使用单向数据绑定，我们没法实现所期望的这种行为。
 
   ### Two-Way Binding
   ### 双向绑定
@@ -211,7 +211,7 @@ code-example(format="" language="bash").
   In short, we want two-way data binding.
 
   我们的期望是：在`<input>`中显示英雄的名字，修改它，并且在所有绑定到英雄名字的地方看到这些修改。
-  长话短说：我们需要双向数据绑定。
+  简而言之，我们需要双向数据绑定。
 
   Let’s update the template to use the  **`ngModel`** built-in directive for two-way binding.
   
@@ -223,7 +223,7 @@ code-example(format="" language="bash").
     [Forms](../guide/forms.html#ngModel) and
     [Template Syntax](../guide/template-syntax.html#ngModel) chapters.
     
-    学习`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
+    要学习关于`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
     [模板语法](../guide/template-syntax.html#ngModel)两章
 :marked
   Replace the `<input>` with the following HTML
@@ -237,7 +237,7 @@ code-example(language="html").
   The browser refreshes. We see our hero again. We can edit the hero’s name and
   see the changes reflected immediately in the `<h2>`.
 
-  浏览器刷新。再次见到我们的英雄。我们可以编辑英雄的名字，并且看到改动立刻体现在`<h2>`中。
+  浏览器刷新。又见到我们的英雄了。我们可以编辑英雄的名字，也能看到这个改动立刻体现在`<h2>`中。
   
 .l-main-section
 :marked
@@ -245,7 +245,7 @@ code-example(language="html").
   ## 我们已经走过的路
   Let’s take stock of what we’ve built.
   
-  我们来清点一下已经构建完成的。
+  我们来盘点一下已经构建完成的部分。
 
   * Our Tour of Heroes uses the double curly braces of interpolation (a form of one-way data binding)
   to display the application title and properties of a `Hero` object.
@@ -254,9 +254,9 @@ code-example(language="html").
   * 我们使用ES2105的模板字符串写了一个多行模板，来让我们的模板更有可读性。
   * We can both display and change the hero’s name after adding a two-way data binding to the `<input>` element
   using the built-in `ngModel` directive.
-  * 为了同时显示和修改英雄的名字，我们还使用了内建的`ngModel`指令，往`<input>`元素上添加双向数据绑定。
+  * 为了同时显示和修改英雄的名字，我们还使用了内建的`ngModel`指令，往`<input>`元素上添加了双向数据绑定。
   * The `ngModel` directive also propagates changes to every other binding of the `hero.name`.
-  * 通过`ngModel`指令，这些修改还影响到`hero.name`的每一个其它的绑定。
+  * 通过`ngModel`指令，这些修改还影响到了每一个对`hero.name`的其它绑定。
 
   [Run the live example for part 1](/resources/live-examples/toh-1/ts/plnkr.html)
   
@@ -278,7 +278,7 @@ code-example(language="html").
   template, and allow a user to select it in the
   [next tutorial chapter](./toh-pt2.html).
 
-  我们的《英雄指南》只显示了一个英雄，而我们真正想显示的是一个英雄列表。
-  我们还希望允许用户选择一个英雄，并且显示他的详情。
+  我们的《英雄指南》只显示了一个英雄，而我们真正要显示的是一个英雄列表。
+  我们还希望允许用户选择一个英雄，并且显示他/她的详情。
   我们还将学习更多：接收一个列表、把它们绑定到模板，以及让用户选择它。
   这些都在[教程的下一章](./toh-pt2.html)。
