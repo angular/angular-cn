@@ -160,7 +160,7 @@ include _util-fns
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter 
     _except the first letter which is a lowercase letter_. 
 
-    驼峰式命名法是指除了首字母要小写外，每个单词或缩写都以大写字母开头儿的形式来拼写复合词或短语的一种实践。
+    驼峰式命名法是指除了首字母要小写外，每个单词或缩写都以大写字母开头儿的形式来书写复合词或短语的一种实践。
 
     Function, property, and method names are typically spelled in camelCase. Examples include: `square`, `firstName` and `getHeroes`.
 
@@ -680,7 +680,7 @@ include _util-fns
     is based on the [ES2015](#es2015) module standard
     described [here](http://www.2ality.com/2014/09/es6-modules-final.html).
     
-    Angular的模块结构和输出/导入语法是基于[ES2015](#es2015)模块标准的，参见[这里](http://www.2ality.com/2014/09/es6-modules-final.html).
+    Angular的模块结构和输出/导入语法是基于[ES2015](#es2015)模块化标准的，参见[这里](http://www.2ality.com/2014/09/es6-modules-final.html).
 
     An application that adheres to this standard requires a module loader to
     load modules on request and resolve inter-module dependencies.
@@ -688,14 +688,14 @@ include _util-fns
     for any particular 3rd party library (although most samples use SystemJS).
     Application developers may pick any module library that conforms to the standard
     
-    采取这个标准的应用程序需要一个模块装载器来按需装载模块并解析模块的依赖关系。Angular不包含任何模块装载器，也不推荐任何第三方库(虽然几乎所有例子都使用SystemJs)。
-    应用程序开发者可以自己选择任何与这个标准兼容的模块装置库。
+    采用这个标准的应用程序需要一个模块装载器来按需装载模块并解析模块的依赖关系。Angular不包含任何模块装载器，也不偏爱哪一个第三方库(虽然几乎所有例子都使用SystemJs)。
+    应用程序开发者可以自己选择任何与这个标准兼容的模块化库。
 
     Modules are typically named after the file in which the exported thing is defined.
     The Angular [DatePipe](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts)
     class belongs to a feature module named `date_pipe` in the file `date_pipe.ts`.
 
-    模块一般与他输出的东西的所在文件同名。比如, Angular的[日期管道DatePipe](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts)类属于名叫`date_pipe`的特性模块，在文件`date_pipe.ts`里。
+    模块一般与它用于导出东西的文件同名。比如, Angular的[日期管道DatePipe](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts)类属于名叫`date_pipe`的特性模块，位于文件`date_pipe.ts`中。
     
     Developers rarely access Angular feature modules directly.
     We usually import them from one of the Angular [scoped packages](#scoped-package) such as `@angular/core`.
@@ -723,30 +723,30 @@ include _util-fns
     Events stream *out* of this property to the receiver identified
     in the template expression to the right of the equal sign.
     
-    输出（Output）是一个指令属性，它可以一个[事件绑定Event Binding](guide/template-syntax.html#property-binding)的**标靶**。
-    事件流可以通过指令属性，流到接收者（模板表达式等号的右边就是接收者）
+    输出（Output）是指令的一个属性，它可作为[事件绑定Event Binding](guide/template-syntax.html#property-binding)的 **目标** 。
+    事件流可以通过这个属性，流出到接收者（模板表达式等号的右边就是接收者）。
     
     See the [Template Syntax](guide/template-syntax.html#inputs-outputs) chapter.
     
-    参见[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)章节。
+    参见[模板语法Template Syntax](guide/template-syntax.html#inputs-outputs)一章。
 
 .l-main-section
 <a id="P"></a>
 :marked
   ## PascalCase
-  ## 帕斯卡命名法
+  ## Pascal命名法
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter. 
     Class names are typically spelled in PascalCase. Examples include: `Person` and `Customer`.
     
-    按照每一个单词都是以大写开头的规则的编写复合词或短语的命名方法叫做帕斯卡命名法。类的名字一般都采用帕斯卡命名法。比如`Person`和`Customer`
+    遵循“每个单词都用大写开头”的规则的书写复合词或短语的命名方法叫做Pascal命名法。类名一般都采用Pascal命名法。比如`Person`和`Customer`
     
     This form is also known as **upper camel case**, to distinguish it from **lower camel case** which we simply call [camelCase](#camelcase).
     In this documentation, "PascalCase" means *upper camel case* and  "camelCase" means *lower camel case*.
     
-    这种命名法也被叫做**大驼峰式命名法**，便于与**小驼峰式命名法”或[驼峰式命名法camelCase](#camelCase)。
-    在本教程中，“帕斯卡命名法”都是指的*大驼峰式命名法”，“驼峰式命名法”指的都是“小驼峰式命名法”
+    这种命名法也叫**大驼峰式命名法**，以区别于 **小驼峰式命名法”或[驼峰式命名法camelCase](#camelCase)** 。
+    在本教程中，“Pascal命名法”都是指的*大驼峰式命名法”，“驼峰式命名法”指的都是“小驼峰式命名法”
 
 :marked
   ## Pipe
@@ -758,30 +758,29 @@ include _util-fns
     to associate the pipe function with a name. We then can use that
     name in our HTML to declaratively transform values on screen.
     
-    Angular的管道是一个函数，用来把输入值转变为输出值给视图 [view](#view)。我们使用 `#{atSym}Pipe` !{decoratorCn}来把管道函数链接到它的名字上。
-    然后，我们可以在HTML中使用它的名字来，用声明的形式，在显示时把输入值转变输出值。
+    Angular的管道是一个函数，用于把输入值转换为输出值以供视图[view](#view)显示。我们使用 `#{atSym}Pipe` !{decoratorCn}来把管道函数关联到它的名字上。
+    然后，我们可以在HTML中利用它的名字来声明：如何在显示时把输入值转换为输出值。
     
     Here's an example that uses the built-in `currency` pipe to display
     a numeric value in the local currency.
     
-    下面是一个使用内建`货币`管道来把数字值显示为本地货币的例子。
+    下面这个例子就是用内建的`currency`管道把数字值显示为本地货币格式。
 
   code-example(language="html" escape="html").
     <label>Price: </label>{{product.price | currency}}
   :marked
     Learn more in the chapter on [pipes](guide/pipes.html) .
     
-    到[管道pipes](guide/pipes.html)章节获取更多。
+    要了解更多，参见[管道pipes](guide/pipes.html)一章。
 
 :marked
-  ## Provider
   ## Provider
 .l-sub-section
   :marked
     A Provider creates a new instance of a dependency for the Dependency Injection system.
     It relates a lookup token to code - sometimes called a "recipe" - that can create a dependency value.
     
-    Provider为依赖注入系统创建一个依赖的实例。它是关于通过Token查询代码，有时被叫做“方剂”，可以创建依赖值。
+    依赖注入系统依靠Provider来创建依赖的实例。它把一个查阅用的Token关联到代码（有时也叫“配方”），可以创建依赖值。
     
     For example, `new Provider(Foo, {useClass: Foo})` creates a `Provider`
     that relates the `Foo` token to a function that creates a new instance of the `Foo` class.
