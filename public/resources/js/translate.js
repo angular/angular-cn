@@ -1,17 +1,17 @@
 (function () {
-  var targets = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button');
+  var targets = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
   _.each(targets, function (node) {
     if (isTranslationResult(node)) {
       var prevNode = node.previousElementSibling;
-      if (prevNode && !prevNode.classList.contains('nav-list-item')) {
-        prevNode.classList.add('hidden');
+      if (prevNode && isOriginalEnglish(prevNode.innerText) && !prevNode.classList.contains('nav-list-item')) {
+        prevNode.classList.add('lang-english');
       }
       node.title = prevNode.innerText;
     }
   });
 
   function isOriginalEnglish(text) {
-    return /[\1-\255⇨]/.test(text);
+    return /^[\1-\255—]*$/.test(text);
   }
 
   function isClonedNode(node1, node2) {
