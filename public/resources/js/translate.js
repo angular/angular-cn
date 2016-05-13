@@ -4,7 +4,11 @@
     if (isTranslationResult(node)) {
       var prevNode = node.previousElementSibling;
       if (prevNode && isOriginalEnglish(prevNode.innerText) && !prevNode.classList.contains('nav-list-item')) {
-        prevNode.classList.add('lang-english');
+        if (location.hostname === 'localhost') {
+          prevNode.classList.add('original-english-debug');
+        } else {
+          prevNode.classList.add('original-english');
+        }
       }
       node.title = prevNode.innerText;
     }
