@@ -3,7 +3,7 @@
   _.each(nodes, function (node) {
     if (isTranslationResult(node)) {
       var prevNode = node.previousElementSibling;
-      if (prevNode && isOriginalEnglish(prevNode.innerText) && !prevNode.classList.contains('nav-list-item')) {
+      if (prevNode && isPureEnglish(prevNode.innerText) && !prevNode.classList.contains('nav-list-item')) {
         if (location.hostname === 'localhost') {
           prevNode.classList.add('original-english-debug');
         } else {
@@ -14,8 +14,8 @@
     }
   });
 
-  function isOriginalEnglish(text) {
-    return /^[\1-\255—]*$/.test(text);
+  function isPureEnglish(text) {
+    return /^[\1-\255—’]*$/.test(text);
   }
 
   function isClonedNode(node1, node2) {
@@ -37,6 +37,6 @@
 
   function isTranslationResult(node) {
     var prevNode = node.previousElementSibling;
-    return indexOf(node) % 2 === 1 && prevNode && isClonedNode(node, prevNode) && isOriginalEnglish(prevNode.innerText);
+    return indexOf(node) % 2 === 1 && prevNode && isClonedNode(node, prevNode) && isPureEnglish(prevNode.innerText);
   }
 })();
