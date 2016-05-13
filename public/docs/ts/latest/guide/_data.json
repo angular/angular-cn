@@ -64,8 +64,8 @@
   },
 
   "attribute-directives": {
-    "title": "属性型指令",
-    "intro": "属性型指令把行为添加到现有元素上。"
+    "title": "Attribute型指令",
+    "intro": "Attribute型指令把行为添加到现有元素上。"
   },
 
   "component-styles": {
