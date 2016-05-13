@@ -1,6 +1,6 @@
 (function () {
-  var targets = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
-  _.each(targets, function (node) {
+  var nodes = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
+  _.each(nodes, function (node) {
     if (isTranslationResult(node)) {
       var prevNode = node.previousElementSibling;
       if (prevNode && isOriginalEnglish(prevNode.innerText) && !prevNode.classList.contains('nav-list-item')) {
