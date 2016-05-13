@@ -15,7 +15,7 @@
   });
 
   function isPureEnglish(text) {
-    return /^[\1-\255—’]*$/.test(text);
+    return /^[\1-\255—’“”]*$/.test(text);
   }
 
   function isClonedNode(node1, node2) {
