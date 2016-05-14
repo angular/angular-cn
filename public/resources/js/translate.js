@@ -9,10 +9,11 @@
         } else {
           prevNode.classList.add('original-english');
         }
+        node.title = prevNode.innerText;
+        node.id = prevNode.id;
+        node.classList.add('translated');
+        node.classList.add('translated-cn');
       }
-      node.title = prevNode.innerText;
-      node.classList.add('translated');
-      node.classList.add('translated-cn');
     }
   });
 
