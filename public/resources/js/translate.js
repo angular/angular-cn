@@ -11,8 +11,8 @@
         }
       }
       node.title = prevNode.innerText;
-      node.classList.add('translate');
-      node.classList.add('translate-cn');
+      node.classList.add('translated');
+      node.classList.add('translated-cn');
     }
   });
 
