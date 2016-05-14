@@ -10,7 +10,8 @@
           prevNode.classList.add('original-english');
         }
         node.title = prevNode.innerText;
-        node.id = prevNode.id;
+        node.setAttribute('id', prevNode.id);
+        prevNode.removeAttribute('id');
         node.classList.add('translated');
         node.classList.add('translated-cn');
       }
