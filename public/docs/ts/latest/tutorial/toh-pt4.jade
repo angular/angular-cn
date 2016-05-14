@@ -322,13 +322,13 @@ code-example(format="." language="bash").
 code-example(format="." language="html").
     EXCEPTION: No provider for HeroService! (AppComponent -> HeroService)
     
-    EXCEPTION: No provider for HeroService! (AppComponent -> HeroService) —— 异常：没有HeroService的提供者(provider)！（AppComponent -> HeroService）
+    EXCEPTION: No provider for HeroService! (AppComponent -> HeroService) —— 异常：没有HeroService的供应商！（AppComponent -> HeroService）
 :marked
   We have to teach the *injector* how to make a `HeroService` by registering a `HeroService` **provider**.
   Do that by adding the following `providers` array property to the bottom of the component metadata
   in the `@Component` call.
 
-  我们还得注册一个`HeroService`**Provider**，来告诉*注入器*如何创建`HeroService`。
+  我们还得注册一个`HeroService`**供应商**，来告诉*注入器*如何创建`HeroService`。
   要做到这一点，我们应该在`@Component`组件的元数据底部添加`providers`数组属性如下：
 +makeExample('toh-4/ts/app/app.component.1.ts', 'providers', 'app.component.ts (提供HeroService)')
 :marked
@@ -588,7 +588,7 @@ code-example(format="." language="html").
   * We used the `ngOnInit` Lifecycle Hook to get our heroes when our `AppComponent` activates
   * 我们使用`ngOnInit`生命周期钩子，以便在`AppComponent`激活时获取英雄数据。
   * We defined our `HeroService` as a provider for our `AppComponent`
-  * 我们把`HeroService`定义为`AppComponent`的一个供应商（provider）
+  * 我们把`HeroService`定义为`AppComponent`的一个供应商
   * We created mock hero data and imported them into our service
   * 我们创建了一个模拟的英雄数据，并把它导入我们的服务中
   * We designed our service to return a promise and our component to get our data from the promise
@@ -648,7 +648,7 @@ code-example(format="." language="html").
   into the `HeroDetailComponent`, *we must not add a providers array* to the `HeroDetailComponent` metadata.
   
   我们在[前面](#child-component)说过，如果在父组件`AppComponent`中把`HeroService`服务注入到`HeroDetailComponent`， 
-  *我们就不应该在`HeroDetailComponent`的元数据中再添加一个providers数组*。
+  *我们就不应该在`HeroDetailComponent`的元数据中再添加一个`providers`数组*。
   
   Why?  Because that tells Angular to create a new instance of the `HeroService` at the `HeroDetailComponent` level.
   The `HeroDetailComponent` doesn't want its *own*  service instance; it wants its *parent's* service instance.
@@ -656,9 +656,9 @@ code-example(format="." language="html").
   
   为什么呢？因为那会告诉Angular在`HeroDetailComponent`这一层创建一个新的`HeroService`实例。
   显然，在这个例子中，`HeroDetailComponent`不会希望创建*自己的*服务实例，它想要的就是来自父组件的服务实例。
-  给组件添加一个`providers`数组（即：注册provider），就会创建一个新的服务实例，而它会遮蔽父组件中的同名实例。
+  给组件添加一个`providers`数组，就会创建一个新的服务实例，而它会遮蔽父组件中的同名实例。
   
   Think carefully about where and when to register a provider. 
   Understand the scope of that registration. Be careful not to create a new service instance at the wrong level.
 
-  务必想清楚，在哪里、在什么时候注册Provider。要理解注册的有效范围。小心点！不要在错误的级别上创建新的服务实例。
+  务必想清楚，在哪里、在什么时候注册供应商。要理解注册的有效范围。小心点！不要在错误的级别上创建新的服务实例。
