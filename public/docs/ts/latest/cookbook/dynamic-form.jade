@@ -1,41 +1,47 @@
 include ../_util-fns
 
 :marked
-   We can't always justify the cost and time to build handcrafted forms, 
-   especially if we'll need a great number of them, they're similar to each other, and they change frequently 
-   to meet rapidly changing business and regulatory requirements.
+   We can't always justify the cost and time to build handcrafted forms, especially if we'll need a great number of them, they're similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
    
-   我们不可能一直觉得手动编写表单和需要的工作量和时间成正比，特别是当我们需要编写大量的表单，它们非常类似，而且它们需要随着商务和政策需求的迅速变化而变化。
+   有时候手动编写和维护表单需要工作量和时间过多。特别是需要编写大量的表单时，表单都非常类似，而且随着商务和政策需求的迅速变化，表单也需要随之变化，维护成本过高。
    
    It may be more economical to create the forms dynamically, based on metadata that describe the business object model.
    
-   基于商务对象模型里面的元数据，动态建立表单可能更加划算。
+   基于商务对象模型元数据，动态建立表单可能更加划算。
    
    In this cookbook we show how to use `ngFormModel` to dynamically render a simple form with different control types and validation.
    It's a primitive start. 
    It might evolve to support a much richer variety of questions, more graceful rendering, and superior user experience.
    All such greatness has humble beginnings.
   
-   在本文中，我们会展示怎么利用`ngFormModel`动态渲染一个简单的表单， 包含不同类型控制器和验证规则。
-   这是一个原始的开始，任何伟大都是从谦卑开始的。我们可以在这个基础上添加种类丰富的问卷问题，更加优美的渲染和更优越的用户体验。
+   在本食谱中，我们会展示如何利用`ngFormModel`来动态渲染一个简单的表单，包括多种类型控制器和验证规则。
+   这只是一个初级的开始，但是任何伟大都是从谦卑开始的。我们可以在这个基础上添加种类丰富的问卷问题，更加优美的渲染和更加优越的用户体验。
    
    In our example we use a dynamic form to build an online application experience for heroes seeking employment.
    The agency is constantly tinkering with the application process.
    We can create the forms on the fly *without changing our application code*.
    
-   在这个例子中，我们使用动态表单，为正在找工作的英雄们创建一个在线申请体验。中介在不断的修改申请流程。我们可以在*不修改程序*的情况下，动态即时的建立一个表格 
+   在本例中，我们使用动态表单，为正在找工作的英雄们创建一个在线申请问卷表。职业中介在不断的修改申请流程。我们可以在*不修改程序*的情况下，动态建立一个表格。
    
 <a id="toc"></a>
 :marked
    ## Table of contents
    ## 目录  
-      [问卷问题模型Question Model](#object-model)
+      [Question Model](#object-model)
       
-      [表单组件Form Component](#form-component)
+      [问卷问题模型](#object-model)
+      
+      [Form Component](#form-component)
+      
+      [表单组件](#form-component)
 
-      [问卷元数据Questionnaire Metadata](#questionnaire-metadata)
+      [Questionnaire Metadata](#questionnaire-metadata)
       
-      [动态模板Dynamic Template](#dynamic-template)
+      [问卷元数据](#questionnaire-metadata)
+      
+      [Dynamic Template](#dynamic-template)
+      
+      [动态模板](#dynamic-template)
 
 :marked
    **See the [live example](/resources/live-examples/cb-dynamic-form/ts/plnkr.html)**.
@@ -52,11 +58,11 @@ include ../_util-fns
    The hero application process involves a form with a lot of questions. 
    The "question" is the most fundamental object in the model.
    
-   第一步是定义一个对象模型，用来描述所有表单功能需要的场景。英雄申请流程涉及到一个有很多问卷问题的表单。问卷问题是最基础的对象模型。
+   第一步是定义一个对象模型，用来描述所有表单功能需要的场景。英雄申请流程涉及到一个包含很多问卷问题的表单。问卷问题是最基础的对象模型。
 
    We have created `QuestionBase` as the most fundamental question class.
    
-   下面是我们建立的非常基础的问卷问题类，名叫`QuestionBase`。
+   下面是我们建立的非常基础的问卷问题基础类，名叫`QuestionBase`。
 
 +makeExample('cb-dynamic-form/ts/app/question-base.ts','','app/question-base.ts')
 
@@ -75,7 +81,7 @@ include ../_util-fns
 :marked
    `DropdownQuestion` presents a list of choices in a select box.
    
-   `DropdownQuestion`代表一个拥有一个列表可选项目的选择框。
+   `DropdownQuestion`代表一个拥有可选项目列表的选择框。
    
 +makeExample('cb-dynamic-form/ts/app/question-dropdown.ts',null,'app/question-dropdown.ts')(format='.')
 
@@ -83,7 +89,9 @@ include ../_util-fns
    Next we have defined `QuestionControlService`, a simple service for transforming our questions to an ngForm control group. 
    In a nutshell, the control group consumes the metadata from the question model and allows us to specify default values and validation rules.
    
-   下一步，我们定义了`QuestionControlService`，一个可以把我们的问卷问题转换为ngForm控制组的服务。简而言之，这个ngForm控制组使用问卷模型的元数据，允许我们制定默认值和验证规则。
+   接下来，我们定义了`QuestionControlService`，一个可以把我们的问卷问题转换为ngForm控制群的服务。
+   简而言之，这个ngForm控制群使用问卷模型的元数据，允许我们设置默认值和验证规则。
+   
 +makeExample('cb-dynamic-form/ts/app/question-control.service.ts',null,'app/question-control.service.ts')(format='.')
 
 <a id="form-component"></a>
@@ -92,12 +100,14 @@ include ../_util-fns
    ## 问卷表单组件
    
    Now that we have defined the complete model we are ready to create components to represent the dynamic form.
-   现在我们已经有一个已定义的完整模型，我们可以创建一个动态表单的组件。
+   
+   现在我们已经有一个已定义的完整模型了，我们可以开始创建一个动态表单的组件。
 
 :marked
   `DynamicForm` is the entry point and the main container for the form.
   
   `DynamicForm`是我们表单的主要载体和切入口。 
+  
 +makeTabs(
   `cb-dynamic-form/ts/app/dynamic-form.component.html,
    cb-dynamic-form/ts/app/dynamic-form.component.ts`,
@@ -110,7 +120,8 @@ include ../_util-fns
   The `<df-question>` tag matches the `DynamicFormQuestionComponent`,
   the component responsible for rendering the details of each _individual_ question based on values in the data-bound question object.  
   
-  它显示一个问卷问题的列表，每个问题都在`<df-question>`组件元素之内。`<df-question>`对应于`DynamicFormQuestionComponent`，该组件的作用是根据问卷问题对象的值来渲染每个问卷问题的细节。
+  它代表了问卷问题列表，每个问题都在`<df-question>`组件元素之内。
+  `<df-question>`标签是组件`DynamicFormQuestionComponent`，该组件的作用是根据每个问卷问题对象的值来动态渲染表单控制器。
   
 +makeTabs(
   `cb-dynamic-form/ts/app/dynamic-form-question.component.html,
@@ -124,31 +135,32 @@ include ../_util-fns
   We only have two types of questions at this point but we can imagine many more.
   The `ngSwitch` determines which type of question to display.
   
-  请注意，这个组件能代表模型里的任何问卷问题类型。目前，我们只有两种类型的问卷问题，但是我们可以添加更多类型。`ngSwitch`确定显示哪一个类型的问卷问题。
+  请注意，这个组件能代表模型里的任何问卷问题类型。目前，我们只有两种问卷问题类型，但是我们可以添加更多类型。`ngSwitch`判断显示哪一个类型的问卷问题。
   
   In both components  we're relying on Angular's **ngFormModel** to connect the template HTML to the
   underlying control objects, populated from the question model with display and validation rules.
   
-  在两个组件中，我们依赖Angular的**ngFormModel**来把模板HTML链接到底层控制对象，该对象已经从问卷问题模型里获取了显示和验证规则，
+  在两个组件中，我们依赖Angular的**ngFormModel**来把模板HTML链接到底层控制对象，该对象从问卷问题模型里获取渲染和验证规则。
 
 <a id="questionnaire-metadata"></a>
 :marked
    ## Questionnaire data
    ## 问卷数据
+   
 :marked
   `DynamicForm` expects the list of questions in the form of an array bound to  `@Input() questions`.
 
-   `DynamicForm`预期得到一个问题列表，该列表是一个关联到`@Input() questions`数组。
+   `DynamicForm`预期得到一个问题列表，该列表被绑定到`@Input() questions`属性。
     
    The set of questions we have defined for the job application is returned from the `QuestionService`. 
    In a real app we'd retrieve these questions from storage.
    
-   `QuestionService`返回我们在定义工作申请表的时候设定的这套问题。在一个真实的应用程序中，我们会从存储库里面提取。
+   `QuestionService`返回工作申请表的问卷问题列表。在一个真实的应用程序环境中，我们会从数据库里面提取问卷列表。
    
    The key point is that we control the hero job application questions entirely through the objects returned from `QuestionService`. 
    Questionnaire maintenance is a simple matter of adding, updating, and removing objects from the `questions` array.
    
-   最关键的点是，我们全部通过从`QuestionService`返回的对象，来控制英雄工作申请问卷。要维护问卷，我们要做的是非常简单的添加、更新和删除`问题`数组中的对象。
+   最关键的是，我们全部通过从`QuestionService`返回的对象，来控制英雄工作申请问卷。要维护问卷，我们要做的是非常简单的添加、更新和删除`问题`数组中的对象。
    
 +makeExample('cb-dynamic-form/ts/app/question.service.ts','','app/question.service.ts')  
 
@@ -163,6 +175,7 @@ include ../_util-fns
 :marked
    ## Dynamic Template
    ## 动态模板
+   
    Although in this example we're modelling a job application for heroes, there are no references to any specific hero question 
    outside the objects returned by `QuestionService`. 
    
@@ -174,19 +187,22 @@ include ../_util-fns
    without making any hardcoded assumptions about specific questions. 
    In addition to control metadata, we are also adding validation dynamically.
    
-   这点非常重要的，因为只要与我们的*问卷*对象模型兼容，它允许我们为任何类型的调查重复使用这些组件。关键是运用动态数据绑定的元数据来渲染表单，不对问卷问题有任何硬性的假设。除了控制起元数据外，我们还可以动态添加验证规则。
+   这点非常重要，因为只要与我们的*问卷*对象模型兼容，我们可以为任何类型的调查问卷重复使用这些组件。
+   关键是运用动态数据绑定的元数据来渲染表单，不对问卷问题有任何硬性的假设。除了控制器元数据外，我们还可以动态添加验证规则。
 
    The *Save* button is disabled until the form is in a valid state. 
    When the form is valid, we can click *Save* and the app renders the current form values as JSON. 
    This proves that any user input is bound back to the data model.
    Saving and retrieving the data is an exercise for another time.
    
-   在表单的验证通过之前，*保存*按钮是禁用的。当表单验证通过后，我们可以点击*保存*，程序会把当前的值渲染成为Json。它证明了任何用户输入都被传到了数据模型。如何储存和提取数据是另一个问题。
+   在表单的验证通过之前，*保存*按钮是禁用的。当表单验证通过后，我们可以点击*保存*，程序会把当前的值渲染成为Json。
+   它证明了任何用户输入都会被传到了数据模型里。如何储存和提取数据是另一话题。
 
 :marked
    The final form looks like this:
    
    完整表单看起来是这样：
+   
 figure.image-display
    img(src="/resources/images/cookbooks/dynamic-form/dynamic-form.png" alt="Dynamic-Form")
 
