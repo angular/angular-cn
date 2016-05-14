@@ -11,15 +11,32 @@
         }
       }
       node.title = prevNode.innerText;
+      node.classList.add('translate');
+      node.classList.add('translate-cn');
     }
   });
 
   function isPureEnglish(text) {
-    return /^[\1-\255—’“”]*$/.test(text);
+    return /^[\1-\255—’“”ç]*$/.test(text);
+  }
+
+  function attributesToString(node) {
+    return _.chain(node.attributes)
+      .map(function (value) {
+        if (value.name === 'id') {
+          return '';
+        } else {
+          return value.name + '=' + value.value;
+        }
+      })
+      .sortBy()
+      .value()
+      .join(';');
   }
 
   function isClonedNode(node1, node2) {
-    return node1.parentNode === node2.parentNode && node1.tagName === node2.tagName && node1.className === node2.className;
+    return node1.tagName === node2.tagName &&
+      attributesToString(node1) === attributesToString(node2.attributes);
   }
 
   function indexOf(node) {
