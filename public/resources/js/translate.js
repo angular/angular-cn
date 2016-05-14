@@ -36,7 +36,7 @@
 
   function isClonedNode(node1, node2) {
     return node1.tagName === node2.tagName &&
-      attributesToString(node1) === attributesToString(node2.attributes);
+      attributesToString(node1) === attributesToString(node2);
   }
 
   function indexOf(node) {

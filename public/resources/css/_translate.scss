@@ -11,3 +11,9 @@
     font-style: normal;
   }
 }
+
+td, th {
+  > p:last-child {
+    margin-bottom: 0;
+  }
+}
