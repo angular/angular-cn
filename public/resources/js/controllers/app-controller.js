@@ -8,7 +8,7 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
 
   vm.showDocsNav = false;
   vm.showMainNav = false;
-  vm.showMenu    = false;
+  vm.showMenu = false;
 
   // TOGGLE MAIN NAV (TOP) ON MOBILE
   vm.toggleDocsMenu = function () {
@@ -25,7 +25,7 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
     vm.showMenu = !vm.showMenu;
   };
 
-  vm.openFeedback = function() {
+  vm.openFeedback = function () {
     var configuration = {
       'productId': '410509',
       'authuser': '1',
@@ -36,7 +36,7 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
 
   // URL hash keeps track of which method the user wants to view in the API doc.
   // Refer to _api.scss (.anchor-focused) and class.template.html (where ng-class is used) for details.
-  vm.isApiDocMemberFocused = function(memberName) {
+  vm.isApiDocMemberFocused = function (memberName) {
     var apiDocFocusedMember = window.location.hash.replace('#!#', '').replace('-anchor', '');
     return apiDocFocusedMember === memberName;
   };
@@ -62,4 +62,17 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
 
   // TRIGGER PRETTYPRINT AFTER DIGEST LOOP COMPLETE
   $timeout(prettyPrint, 1);
-} ]);
+
+  vm.sourceVisible = debugging;
+  vm.toggleSource = function ($event) {
+    $event.preventDefault();
+    vm.sourceVisible = !vm.sourceVisible;
+    var nodes = document.querySelectorAll('.original-english');
+    var $nodes = angular.element(nodes);
+    if (vm.sourceVisible) {
+      $nodes.removeClass('hidden');
+    } else {
+      $nodes.addClass('hidden');
+    }
+  };
+}]);

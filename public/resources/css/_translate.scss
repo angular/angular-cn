@@ -1,9 +1,8 @@
 .original-english {
-  display: none !important;
-}
-
-.original-english-debug {
-  border-bottom: 1px dashed red;
+  border-top: 1px dashed $regal;
+  &.hidden {
+    display: none !important;
+  }
 }
 
 .translated-cn {
