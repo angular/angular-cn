@@ -15,9 +15,6 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         $node.attr('id', prevNode.id);
         $node.addClass('translated');
         $node.addClass('translated-cn');
-        if (!$node.attr('title')) {
-          $node.attr('title', '点击译文可显示/隐藏原文；点击原文可隐藏原文');
-        }
         $prevNode.removeAttr('id');
         $prevNode.addClass('original-english');
         if (!sourceVisible) {
