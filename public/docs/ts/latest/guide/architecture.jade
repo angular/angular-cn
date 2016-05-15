@@ -19,7 +19,7 @@ include ../_util-fns
   according to the instructions we provided.
   
   Angular在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。
-  
+
 <!-- figure img(src="/resources/images/devguide/architecture/airplane.png" alt="Us" align="left" style="width:200px; margin-left:-40px;margin-right:10px" ) -->
 :marked
   Of course there is more to it than this. We'll learn the details when we dive into the guide chapters.
@@ -57,9 +57,9 @@ figure
 
 .l-sub-section
   :marked
-      The code referenced in this chapter is available as a [live example](/resources/live-examples/architecture/ts/plnkr.html).
-      
-      本章所引用的代码可以从这个[在线例子](/resources/live-examples/architecture/ts/plnkr.html)中找到。
+    The code referenced in this chapter is available as a [live example](/resources/live-examples/architecture/ts/plnkr.html).
+    
+    本章所引用的代码可以从这个[在线例子](/resources/live-examples/architecture/ts/plnkr.html)中找到。
 <a id="module"></a>
 .l-main-section
 :marked
@@ -84,24 +84,24 @@ figure
   <br clear="all"><br>
 .l-sub-section
   :marked
-     ### Modules are optional
-     ### 模块是可选的
-     We highly recommend modular design. TypeScript has great support for ES2015 module syntax and our chapters assume we're taking a modular
-     approach using that syntax. That's why we list *Module* among the basic building blocks.
-     
-     我们强烈推荐使用模块化设计。TypeScript对ES2015的模块语法支持很好，本章就使用这种语法作为模块化方案。这就是为什么我们要把*模块*作为基本构造块之一。
-     
-     Angular itself doesn't require a modular approach nor this particular syntax. Don't use it if you don't want it.
-     Each chapter has plenty to offer after you steer clear of the `import` and `export` statements.
-     
-     Angular本身并不需要模块化方案或使用这种特定的语法。如果你不喜欢，可以不用它。
-     不过你得先弄明白`import`和`export`语句，它在每章中都会出现很多次。
-     
-     Find setup and organization clues in the JavaScript track (select it from the combo-box at the top of this page) 
-     which demonstrates Angular 2 development with plain old JavaScript and no module system. 
-     
-     在JavaScript（你可以从页面顶部的组合框选择它）分支下，可以找到如何安装和组织文件结构的线索。
-     它示范了如何用老版本的JavaScript语言，在没有模块化系统支持的情况下进行Angular 2开发。
+    ### Modules are optional
+    ### 模块是可选的
+    We highly recommend modular design. TypeScript has great support for ES2015 module syntax and our chapters assume we're taking a modular
+    approach using that syntax. That's why we list *Module* among the basic building blocks.
+    
+    我们强烈推荐使用模块化设计。TypeScript对ES2015的模块语法支持很好，本章就使用这种语法作为模块化方案。这就是为什么我们要把*模块*作为基本构造块之一。
+    
+    Angular itself doesn't require a modular approach nor this particular syntax. Don't use it if you don't want it.
+    Each chapter has plenty to offer after you steer clear of the `import` and `export` statements.
+    
+    Angular本身并不需要模块化方案或使用这种特定的语法。如果你不喜欢，可以不用它。
+    不过你得先弄明白`import`和`export`语句，它在每章中都会出现很多次。
+    
+    Find setup and organization clues in the JavaScript track (select it from the combo-box at the top of this page) 
+    which demonstrates Angular 2 development with plain old JavaScript and no module system. 
+    
+    在JavaScript（你可以从页面顶部的组合框选择它）分支下，可以找到如何安装和组织文件结构的线索。
+    它示范了如何用老版本的JavaScript语言，在没有模块化系统支持的情况下进行Angular 2开发。
 :marked
   Perhaps the first module we meet is a module that exports a *component* class. 
   The component is one of the basic Angular blocks, we write a lot of them,
@@ -151,7 +151,7 @@ figure
 
   Angular本身就是通过npm包发布的一组库模块，它们都以`@angular`为前缀。
   每个Angular库中都包含一个[封装桶](../glossary.html#barrel)模块。
-  它实际上是一个公开的外观层（façade），囊括了一些逻辑上相关的私有模块。
+  它实际上是一个公开的外观层façade，囊括了一些逻辑上相关的私有模块。
   
   The `@angular/core` library is the primary Angular library module from which we get most of what we need.
   
@@ -271,7 +271,7 @@ figure
 
     我们可能会好奇，谁来调用那个构造函数？谁为服务提供参数？
     目前，只要信任Angular就行了。它会在合适的时机调用构造函数，并在我们要用的时候给出一个合适的`HeroService`实例。
- 
+
 .l-main-section
 <a id="template"></a>
 :marked
@@ -392,7 +392,7 @@ figure
   比如，如果应用“壳”（组件）的模板包含如下代码：
 <div style="margin-left:30px">
 code-example(language="html").
-    &lt;hero-list>&lt;/hero-list>
+  &lt;hero-list>&lt;/hero-list>
 </div>  
 :marked
   >Angular inserts an instance of the `HeroListComponent` view between those tags.
@@ -561,7 +561,7 @@ figure
   They tend to appear within an element tag like attributes, 
   sometimes by name but more often as the target of an assignment or a binding.
   
-  它们往往以Attribute的形式出现在元素标签中，偶尔以名字的形式，但多数时候还是作为赋值或绑定的目标。
+  它们往往像Attribute一样出现在元素标签中，偶尔会以名字的形式出现（译注：如`<my-hero-detail name="superman"></my-hero-detail>`，表示把hero-detail组件的name属性赋值为"superman"，并且永不再变 —— 也就是一次性赋值，但不绑定），但多数时候还是作为赋值目标或绑定目标。
   
   **Structural** directives alter layout by adding, removing, and replacing elements in DOM.
   
@@ -584,21 +584,21 @@ figure
   
   The `ngModel` directive, which implements two-way data binding, is an example of an attribute directive.
   
-  `ngModel`指令是一个Attribute型指令的范例，它实现了双向数据绑定。
+  `ngModel`指令就是Attribute型指令的一个例子，它实现了双向数据绑定。
 +makeExample('architecture/ts/app/hero-detail.component.html', 'ngModel')(format=".")
 :marked
   It modifies the behavior of an existing element (typically an `<input>`) 
   by setting its display value property and responding to change events.
   
-  它修改了现有元素（`<input>`就是典型）的行为，让它显示属性值，并从修改事件中得到回应。
+  它修改了现有元素（典型的是`<input>`）的行为，让它显示属性值，并从change事件中得到回应。
   
   Angular ships with a few other directives that either alter the layout structure 
   (e.g. [ngSwitch](template-syntax.html#ngSwitch))
   or modify aspects of DOM elements and components 
   (e.g. [ngStyle](template-syntax.html#ngStyle) and [ngClass](template-syntax.html#ngClass)).
   
-  Angular内置了少量其它指令，或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)）或修改DOM元素和组件的各个方面
-  （比如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass)）。
+  Angular内置了少量其它指令，它们或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)），或者修改DOM元素和组件的各个方面
+  （如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass)）。
   
   And of course we can write our own directives.
   
@@ -619,11 +619,12 @@ figure
   Almost anything can be a service. 
   A service is typically a class with a narrow, well-defined purpose. It should do something specific and do it well.
   
-  几乎任何东西都能是一个服务。
-  服务是一个典型的类，具有专注的、定义良好的用途。它应该做一些指定的事，并且做好。
+  几乎任何东西都可以是一个服务。
+  典型的服务是一个类，具有专注的、经过良好定义的用途。它应该做一些具体的事情，并做好。
 <br clear="all">
 :marked
   Examples include:
+  
   例如：
   * logging service
   * 日志服务
@@ -634,14 +635,14 @@ figure
   * tax calculator
   * 税款计算器
   * application configuration
-  * 应用配置
+  * 应用程序配置
   
   There is nothing specifically *Angular* about services. Angular itself has no definition of a *service*. 
   There is no *ServiceBase* class.
   
   Angular对于服务没什么特别的要求。
-  Angular自己对于服务也没有什么限定。
-  Angular甚至都没有一个 *ServiceBase* 类。
+  Angular本身对于服务也没有什么定义。
+  它甚至都没有*ServiceBase*类。
   
   Yet services are fundamental to any Angular application. 
   
@@ -655,8 +656,8 @@ figure
   Here's a `HeroService` that fetches heroes and returns them in a resolved [promise](http://exploringjs.com/es6/ch_promises.html). 
   The `HeroService` depends on the `LoggerService` and another `BackendService` that handles the server communication grunt work.
   
-  下面是一个`HeroService`，用于获取英雄数据，并且通过一个解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
-  `HeroService`依赖`LoggerService`和另一个`BackendService`，用于处理服务器通讯工作。
+  下面是一个`HeroService`类，用于获取英雄数据，并通过一个已解决的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
+  `HeroService`还依赖于`LoggerService`和另一个用来处理服务器通讯工作的`BackendService`。
 +makeExample('architecture/ts/app/hero.service.ts', 'class', 'app/hero.service.ts (只有类)')(format=".")
 :marked
   Services are everywhere. 
@@ -669,7 +670,7 @@ figure
   
   我们的组件是服务的主要消费者。它们依赖服务来处理大多数“苦差事”。
   它们不需要从服务器获得数据，它们不需要验证输入，它们不需要直接往控制台写日志。
-  它们把任务委托给这些服务。
+  它们只要把任务委托给这些服务。
   
   A component's job is to enable the user experience and nothing more. It mediates between the view (rendered by the template)
   and the application logic (which often includes some notion of a "model").  A good component presents
@@ -681,13 +682,13 @@ figure
   Angular doesn't *enforce* these principles. 
   It won't complain if we write a "kitchen sink" component with 3000 lines.
   
-  Angular不 *强制要求* 我们遵循这些原则。
-  即使我们用3000行写了一个“厨房洗碗槽”组件，它也不会抱怨什么。
+  Angular不会*强制要求*我们遵循这些原则。
+  即使我们花3000行代码写了一个“厨房洗碗槽”组件，它也不会抱怨什么。
   
   Angular does help us *follow* these principles by making it easy to factor our
   application logic into services and make those services available to components through *dependency injection*.
   
-  Angular帮助我们 *追随* 这些原则 —— 通过让我们能更容易的把应用逻辑拆分成组件，并通过 *依赖注入* 来让这些服务可以在组件中使用。
+  Angular帮助我们*追随*这些原则 —— 它让我们能更轻易的把应用逻辑拆分成组件，并通过*依赖注入*来让这些服务在组件中可用。
 
 .l-main-section
 <a id="dependency-injection"></a>
@@ -701,8 +702,8 @@ figure
   with the fully-formed dependencies it requires. Most dependencies are services.
   Angular uses dependency injection to provide new components with the services they need.
   
-  “依赖注入”是提供类的新实例的一种方式，还包括它所需的全部依赖。大多数依赖也是服务。
-  Angular也使用依赖注入提供我们需要的组件，包括组件依赖的服务。
+  “依赖注入”是提供类的新实例的一种方式，还负责处理好它所需的全部依赖。大多数依赖都是服务。
+  Angular也使用依赖注入提供我们需要的组件，包括组件所需的服务。
 <br clear="all">
 :marked
   In TypeScript, Angular can tell which services a component needs by looking at the types of its constructor parameters.
@@ -715,7 +716,7 @@ figure
   When Angular creates a component, it first asks an **Injector** for
   the services that the component requires. 
   
-  当Angular创建组件时，会首先为组件所需的服务找一个 **注入器Injector** 。
+  当Angular创建组件时，会首先为组件所需的服务找一个**注入器Injector**。
   
   An `Injector` maintains a container of service instances that it has previously created.
   If a requested service instance is not in the container, the injector makes one and adds it to the container
@@ -725,7 +726,7 @@ figure
   This is what we mean by *dependency injection*.
   
   注入器会维护一个服务实例的容器，存放着以前创建的实例。
-  如果容器中还没有所请求的服务实例，注入器就创建一个，并且添加到容器中，然后把这个服务返回给Angular。
+  如果容器中还没有所请求的服务实例，注入器就会创建一个，并且添加到容器中，然后把这个服务返回给Angular。
   当所有的服务都被解析完并返回时，Angular会以这些服务为参数去调用组件的构造函数。
   这就是我们称其为 *依赖注入* 的原因。
   
@@ -742,20 +743,20 @@ figure
   In brief, we must have previously registered a **provider** of the `HeroService` with the `Injector`.
   A provider is something that can create or return a service, typically  the service class itself.
   
-  简单的说，我们必须有以前通过注入器注册过的`HeroService`**供应商（Provider）**。
-  供应商就是某些我们用来创建并返回服务的东西，通常是这个服务类本身。
+  简单的说，我们必须有以前通过注入器注册过的`HeroService`**供应商Provider**。
+  供应商就是某些我们用来创建并返回服务的东西，通常就是这个“服务类”本身。
   
   We can register providers at any level of the application component tree.
   We often do so at the root when we bootstrap the application so that
   the same instance of a service is available everywhere.
   
-  我们可以在应用的组件树中的任何级别上注册供应商。
-  我们通常在应用启动时注册在根组件上，以便此服务的同一个实例在任何地方都时可用的。
+  我们可以在应用程序的组件树中任何级别上注册供应商。
+  我们通常在应用启动时注册在根组件上，以便此服务的同一个实例在任何地方都是可用的。
 +makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (节选)')(format=".")
 :marked
   Alternatively, we might register at a component level ...
   
-  或者，我们也可以注册在组件层……
+  或者，我们也可以把它注册在组件层……
 +makeExample('architecture/ts/app/hero-list.component.ts', 'providers','app/hero-list.component.ts (节选)')(format=".")
 :marked
   ... in which case we get a new instance of the
@@ -770,15 +771,16 @@ figure
   在[依赖注入](dependency-injection.html)一章中，我们能学到关于它的全部知识。
   
   The points to remember are:
+  
   需要记住的要点是：
   * dependency injection is wired into the framework and used everywhere.<br><br>
-  * 依赖注入渗透到本框架中，并且随处可用。<br><br>
+  * 依赖注入渗透在整个框架中，并且随处可用。<br><br>
   * the `Injector` is the main mechanism.
-  * 注入器是本机制的核心。
+  * 注入器`Injector`是本机制的核心。
     * an injector maintains a *container* of service instances that it created.
-    * 注入器负责维护一个用于存放它创建的服务实例的 *容器* 。
+    * 注入器负责维护一个*容器*，用于存放它创建过的服务实例。
     * an injector can create a new service instance using a *provider*.
-    * 注入器能通过*供应商*创建一个新的服务实例。
+    * 注入器能使用*供应商*创建一个新的服务实例。
   * a *provider* is a recipe for creating a service.
   * *供应商*是一个用于创建服务的“配方”。
  
@@ -792,7 +794,7 @@ figure
   ## 总结
   We've learned just a bit about the eight main building blocks of an Angular application
   
-  我们已经学到的这些只是关于应用的八个主要构造块儿的一点皮毛
+  我们学到的这些只是关于应用的八个主要构造块儿的一点皮毛
   
   1. [Module](#module)   
   1. [模块Module](#module)   
@@ -815,8 +817,8 @@ figure
   and it's more than enough to get going.
   But it doesn't include everything we'll need or want to know.
     
-  这是Angular应用中所有其它东西的基础，而且它已经绰绰有余了。
-  但它还没有包括我们所要用的或想知道的一切。
+  这是Angular应用中所有其它东西的基础。要继续向前，这已经绰绰有余了。
+  但它仍然没有包含我们将要用到或想知道的全部。
 <a id="other-stuff"></a>  
 .l-main-section
 :marked
@@ -832,18 +834,18 @@ figure
   >**Animations** - A forthcoming animation library makes it easy for developers to animate component behavior
   without deep knowledge of animation techniques or css.
     
-  >**动画Animations** - 即将到来的动画库让开发人员给组件添加动画行为变得更容易，而不需要对动画技术或css有深入了解。
+  >**动画Animations** - 即将到来的动画库。它能让开发人员更轻易的给组件添加动画行为，而不需要对动画技术或css有深入的了解。
   
   >**Bootstrap** - A method to configure and launch the root application component.
   
-  >**启动Bootstrap** - 配置和启动应用的根组件的一种方法。
+  >**引导Bootstrap** - 配置和引导应用的根组件的方法。
   
   >**Change Detection** - Learn how Angular decides that a component property value has changed and 
   when to update the screen. 
   Learn how it uses **zones** to intercept asynchronous activity and run its change detection strategies. 
   
   >**变更检测Change Detection** - 学会Angular如何决定组件的哪些属性值发生了变化，以及什么时候该更新到屏幕。 
-  学会它如何使用 **zones** 来拦截异步行为，以及它如何运行变更检测策略。
+  学会它如何使用**zones**来拦截异步行为，以及它如何运行变更检测策略。
   
   >**[Component Router](router.html)** - With the Component Router service, users can navigate a multi-screen application 
   in a familiar web browsing style using URLs.
@@ -853,7 +855,7 @@ figure
   >**Events** - The DOM raises events. So can components and services. Angular offers mechanisms for
   publishing and subscribing to events including an implementation of the [RxJS Observable](https://github.com/zenparsing/es-observable) proposal.
   
-  >**事件Events** - DOM能触发事件。组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实现。
+  >**事件Events** - DOM能触发事件，组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实现。
   
   >**[Forms](forms.html)** - Support complex data entry scenarios with HTML-based validation and dirty checking.
   
@@ -861,7 +863,7 @@ figure
   
   >**[HTTP](server-communication.html)** - Communicate with a server to get data, save data, and invoke server-side actions with this Angular HTTP client.
   
-  >**[HTTP](server-communication.html)** - 通过这个Angular HTTP客户端，可以与服务器通讯来获得数据、保存数据和触发服务端动作。
+  >**[HTTP](server-communication.html)** - 通过这个Angular HTTP客户端，可以与服务器通讯，以获得数据、保存数据和触发服务端动作。
   
   >**[Lifecycle Hooks](lifecycle-hooks.html)** - We can tap into key moments in the lifetime of a component, from its creation to its destruction, 
   by implementing the "Lifecycle Hook" interfaces.
@@ -872,7 +874,7 @@ figure
   We can put pipes in our templates to improve the user experience. For example,
   this `currency` pipe expression,
   
-  >**[管道Pipes](pipes.html)** - 服务转换值并且显示。我们可以把管道放在模板中，以增强用户体验。比如这个`currency`管道表达式，
+  >**[管道Pipes](pipes.html)** - 这种服务会转换值以供显示。我们可以把管道放在模板中，以增强用户体验。比如这个`currency`管道表达式，
 <div style="margin-left:40px">
 code-example(language="javascript" linenumbers=".").
   price | currency:'USD':true
