@@ -614,13 +614,14 @@ figure.image-display
   
   We get a service from a dependency injector by giving it a ***token***. 
   
-  我们从一个依赖注入器，通过给他一个***令牌（token）***来获取一个服务。  
+  我们通过给依赖注入器提供***令牌（token）***来获取服务。
+  
   We usually let Angular handle this transaction for us by specifying a constructor parameter and its type.
   The parameter type serves as the injector lookup *token*. 
   Angular passes this token to the injector and assigns the result to the parameter.
   Here's a typical example:
   
-  我们通常在构造函数的参数里面，制定一个参数给对应的类型，让Angular来处理该过程（依赖注入）。该参数类型是我们注入器寻找的*令牌*。
+  我们通常在构造函数的参数里面，指定一个参数给对应的类型，让Angular来处理依赖注入。该参数类型是依赖注入器需要的*令牌*。
   Angular把该令牌传递给注入器，然后把结果赋给参数。下例是一个典型的例子：
 
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (component constructor injection)')(format='.') 
@@ -628,16 +629,18 @@ figure.image-display
   Angular asks the injector for the service associated with the `LoggerService` and
   and assigns the returned value to the `logger` parameter.
   
-  Angular找注入器要`LoggerService`对应的服务，并将返回的值赋值给`logger`参数。
+  Angular找注入器要与`LoggerService`对应的服务，并将返回的值赋值给`logger`参数。
+  
   Where did the injector get that value?
   It may already have that value in its internal container. 
   It it doesn't, it may be able to make one with the help of a ***provider***.
   A *provider* is a recipe for delivering a service associated with a *token*.
   
-  注入器在哪儿得到的返回值？
-  它可能在自己内部容器里已经有该值了。
-  如果它没有，他可能能在***供应商***的帮助下新建一个。
-  一个*供应商*是一个通过指令派送对应的服务方法。
+  注入器在哪儿得到的依赖？
+  它可能在自己内部容器里已经有该依赖了。
+  如果它没有，它可能能在***供应商***的帮助下新建一个。
+  *供应商*是通过令牌派送对应服务的方法。
+  
 .l-sub-section
   :marked
     If the injector doesn't have a provider for the requested *token*, it delegates the request 
