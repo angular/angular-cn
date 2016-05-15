@@ -1,11 +1,5 @@
 // TODO: refactor me!
-var debugging = location.hostname === 'localhost';
-var sourceVisible = localStorage.getItem('source-visible');
-if (_.isUndefined(sourceVisible)) {
-  sourceVisible = debugging;
-} else {
-  sourceVisible = sourceVisible === 'true';
-}
+var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
 (function ($) {
   var nodes = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
