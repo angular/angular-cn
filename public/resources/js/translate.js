@@ -1,4 +1,12 @@
+// TODO: refactor me!
 var debugging = location.hostname === 'localhost';
+var sourceVisible = localStorage.getItem('source-visible');
+if (_.isUndefined(sourceVisible)) {
+  sourceVisible = debugging;
+} else {
+  sourceVisible = sourceVisible === 'true';
+}
+
 (function ($) {
   var nodes = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
   _.each(nodes, function (node) {
@@ -18,7 +26,7 @@ var debugging = location.hostname === 'localhost';
         }
         $prevNode.removeAttr('id');
         $prevNode.addClass('original-english');
-        if (!debugging) {
+        if (!sourceVisible) {
           $prevNode.addClass('hidden');
         }
         if (node.tagName !== 'A' && node.tagName !== 'BUTTON') {

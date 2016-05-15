@@ -63,7 +63,7 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
   // TRIGGER PRETTYPRINT AFTER DIGEST LOOP COMPLETE
   $timeout(prettyPrint, 1);
 
-  vm.sourceVisible = debugging;
+  vm.sourceVisible = sourceVisible;
   vm.toggleSource = function ($event) {
     $event.preventDefault();
     vm.sourceVisible = !vm.sourceVisible;
@@ -74,5 +74,6 @@ angularIO.controller('AppCtrl', ['$mdDialog', '$timeout', '$http', '$sce', funct
     } else {
       $nodes.addClass('hidden');
     }
+    localStorage.setItem('source-visible', vm.sourceVisible);
   };
 }]);
