@@ -6,17 +6,17 @@ include ../_util-fns
   We typically display data in Angular by binding controls in an HTML template
   to properties of an Angular component.
 
-  Angular中典型的显示数据的方式就是把HTML模板中的控件绑定到Angular组件上的一个属性。
+  在Angular中最典型的数据显示方式，就是把HTML模板中的控件绑定到Angular组件的属性。
 
   In this chapter, we'll create a component with a list of heroes. Each hero has a name.
   We'll display the list of hero names and
   conditionally show a selected hero in a detail area below the list.
   
-  本章中，我们将创建一个英雄列表组件。每个英雄都有一个名字。我们将显示英雄名字的列表，并在列表下方的详情区显示所选英雄的详情。
+  本章中，我们将创建一个英雄列表组件。每位英雄都有一个名字。我们将显示英雄名字的列表，当选中一位英雄时，就在列表下方的详情区显示他/她的详情。
 
   The final UI looks like this:
   
-  最终的UI类似于这样：
+  最终的UI是这样的：
 
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/final.png" alt="最终的UI")
@@ -35,12 +35,12 @@ figure.image-display
   is to bind the property name through interpolation.
   With interpolation, we put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
   
-  显示组件属性的最简单方式就是通过插值表达式来绑定属性名。
-  通过插值表达式，我们把属性名放进视图模板中，包裹在双重花括号中。
+  要显示组件的属性，最简单的方式就是通过插值表达式Interpolation来绑定属性名。
+  要使用插值表达式，就把属性名包裹在双重花括号里放进视图模板，如`{{myHero}}`。
 
   Let's build a small illustrative example together.
   
-  接下来就我们一起构建一个简明的范例。
+  我们来一起做个简明的小例子。
 
   Create a new project folder (`displaying-data`) and follow the steps in the [QuickStart](../quickstart.html).
   
@@ -51,20 +51,20 @@ include ../_quickstart_repo
   Then modify the `app.component.ts` file by changing the template and the body of the component.
   When we're done, it should look like this:
   
-  然后，修改`app.component.ts`文件中的模板和组件体。
-  修改完之后，它看起来应该是这样：
+  然后，到`app.component.ts`文件中修改组件的模板和代码。
+  修改完之后，它看起来应该是这样的：
 
 +makeExample('displaying-data/ts/app/app.component.1.ts', null, 'app/app.component.ts')
 
 :marked
   We added two properties to the formerly empty component: `title` and `myHero`.
   
-  再添加两个属性`title`和`myHero`到以前的空白组件中。
+  再把两个属性`title`和`myHero`添加到以这个空白组件中。
 
   Our revised template displays the two component properties using double curly brace
   interpolation:
   
-  修改过的模板使用双花括号插值表达式来显示这两个模板属性：
+  修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
 
 +makeExample('displaying-data/ts/app/app.component.1.ts', 'template')(format=".")
 .l-sub-section
@@ -75,15 +75,15 @@ include ../_quickstart_repo
     is the ability to compose the string over several lines, which makes for
     much more readable HTML.
     
-    模板是包括在反引号(\`)中的一个多行字符串。
-    反引号(\`) —— 不是单引号(') —— 有很多好用的特性。我们在这里用到的是它把一个字符串写成多行的能力，以便写出更具可读性的HTML。
+    模板是包在反引号(\`)中的一个多行字符串。
+    反引号(\`) —— 不是单引号(') —— 有很多好用的特性。我们在这里用到的是它把一个字符串写在多行上的能力，这样我们就能写出更具可读性的HTML。
 
 :marked
   Angular automatically pulls the value of the `title` and `myHero` properties from the component and
   inserts those values into the browser. Angular updates the display
   when these properties change.
   
-  Angular自动从组件中拉取`title`和`myHero`属性的值，并且把这些值插入浏览器中。一旦这些属性发生变化，Angular就会刷新显示。
+  Angular会自动从组件中拉取`title`和`myHero`属性的值，并且把这些值插入浏览器中。一旦这些属性发生变化，Angular就会刷新显示。
 .l-sub-section
   :marked
     More precisely, the redisplay occurs after some kind of asynchronous event related to
@@ -91,14 +91,13 @@ include ../_quickstart_repo
     We don't have those in this sample.
     But then the properties aren't changing on their own either. For the moment we must operate on faith.
     
-    更准确的说，重新显示发生在某些关联到视图中的异步事件之后，比如：按键、定时器或收到异步`XHR`响应。
-    本例子中没有展示这些。但显然，属性肯定不会无缘无故的变化。现在，我们只要相信这一点就行了。
+    严格来说，“重新显示”是在某些与视图有关的异步事件之后发生的，比如：按键、定时器或收到异步`XHR`响应。本例中没有体现这一点。
+    显然，属性肯定不会无缘无故的变化。但现在，我们只要先相信Angular会处理好就行了。
 :marked
   Notice that we haven't called **new** to create an instance of the `AppComponent` class.
   Angular is creating an instance for us. How?
   
-  注意，我们从没调用 **new** 来创建`AppComponent`类的实例。
-  Angular为我们创建了一个实例。如何创建？
+  注意，我们从没调用过**new**来创建`AppComponent`类的实例，是Angular替我们创建了它。那么它是如何创建的呢？
 
   Notice the CSS `selector` in the `@Component` decorator that specifies an element named "my-app".
   Remember back in QuickStart that we added the `<my-app>` element to the body of our `index.html`
@@ -124,7 +123,7 @@ code-example(format="").
 :marked
   We should see the title and hero name:
   
-  我们应该看到标题和英雄名变了：
+  我们应该能看到标题和英雄名变了：
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/title-and-hero.png" alt="标题和英雄")
 :marked
@@ -140,8 +139,8 @@ figure.image-display
   Or we can define the template in a separate HTML file and link to it in
   the component metadata using the `@Component` decorator's `templateUrl` property.
   
-  我们可以把组件模板放在两种地方之一。
-  我们可以使用`template`属性把它定义为 *行内Inline* 的，就像这里所做的一样。
+  我们有两种地方可用来放组件模板。
+  我们可以使用`template`属性把它定义为 *内联Inline* 的，就像这里所做的一样。
   或者，可以把模板定义在一个独立的HTML文件中，并且在组件元数据中使用`@Component`装饰器的`templateUrl`属性链接到它。
 
   The choice between inline and separate HTML is a matter of taste,
@@ -149,12 +148,12 @@ figure.image-display
   Here we're using inline HTML because the template is small, and the demo
   is simpler without the HTML file.
   
-  选择行内HTML还是独立HTML，取决于：个人喜好、具体状况和组织级策略。
-  这里我们使用行内HTML，是因为模板很小，并且这个演示很简单，没必要用HTML文件。
+  到底选择内联HTML还是独立HTML取决于：个人喜好、具体状况和组织级策略。
+  这里我们选择内联HTML，是因为模板很小，而且这个演示很简单，没必要用HTML文件。
 
   In either style, the template data bindings have the same access to the component's properties.
   
-  无论哪种风格，模板中的数据绑定在访问组件属性方面都是完全一样的。
+  无论用哪种风格，模板中的数据绑定在访问组件属性方面都是完全一样的。
 
   ## Constructor or variable initialization?
   ## 用构造函数进行初始化还是用变量？
@@ -163,7 +162,7 @@ figure.image-display
   This is a wonderfully concise and compact technique.
   
   这里我们使用了变量赋值的方式初始化组件的属性。
-  这在技术上简洁明了。
+  这在技术上更加简洁。
 
   Some folks prefer to declare the properties and initialize them within a constructor like this:
   
@@ -181,12 +180,12 @@ figure.image-display
 .l-main-section
 :marked
   ## Showing an array property with ***ngFor***
-  ## 使用 ***ngFor*** 显示数组属性
+  ## 使用***ngFor***显示数组属性
 
   We want to display a list of heroes. We begin by adding a mock heroes name array to the component,
   just above `myHero`, and redefine `myHero` to be the first name in the array.
   
-  我们想显示一个英雄列表。我们先在组件的`myHero`属性上方添加一个模拟的英雄名字数组，并且把`myHero`重定义为数组中的第一个名字。
+  我们准备显示一个英雄列表。就先在组件的`myHero`属性上方添加一个模拟(Mock)的英雄名字数组，并把`myHero`重定义为数组中的第一个名字。
 +makeExample('displaying-data/ts/app/app.component.2.ts', 'mock-heroes', 'app/app.component.ts (类)')(format=".")
 
 :marked
@@ -396,7 +395,7 @@ figure.image-display
   下面是我们的最终代码：
 
 +makeTabs(`displaying-data/ts/app/app.component.ts,
-           displaying-data/ts/app/hero.ts,
-           displaying-data/ts/app/main.ts`,
-           'final,,',
-           'app/app.component.ts, app/hero.ts, main.ts')
+displaying - data / ts / app / hero.ts,
+displaying - data / ts / app / main.ts`,
+'final,,',
+'app/app.component.ts, app/hero.ts, main.ts')

@@ -127,7 +127,7 @@ code-example(format="." language="bash").
   We’ll need some help from Angular to do this. Let’s do this step by step.
 
   我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个儿显示他们。
-  这下，我们就得借助Angular的帮助来完成它了。我们来一步步儿实现它！
+  这下，我们就得借Angular的帮助来完成它了。我们来一步步儿实现它！
 
   First modify the `<li>` tag by adding the built-in directive `*ngFor`.
   
@@ -325,7 +325,7 @@ code-example(format="." language="bash").
     我们将把所选英雄的详细信息显示在模板中。目前，它仍然引用的是以前的`hero`属性。
     我们这就修改模板，让它绑定到新的`selectedHero`属性上去。
 
-  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (绑定到selectedHero的名字上)')
+  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (绑定到selectedHero的名字)')
   :marked
     ### Hide the empty detail with ngIf
     ### 利用ngIf隐藏空的详情
