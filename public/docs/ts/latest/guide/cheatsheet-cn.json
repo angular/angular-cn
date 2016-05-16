@@ -47,7 +47,7 @@
           "bold": [
             "[attr.role]"
           ],
-          "description": "<p>把Attribute <code>role</code> 绑定到表达式 <code>myAriaRole</code>的结果。</p>\n"
+          "description": "<p>把<code>role</code>这个Attribute绑定到表达式 <code>myAriaRole</code>的结果。</p>\n"
         },
         {
           "syntax": "<div [class.extra-sparkle]=\"isDelightful\">",
@@ -75,7 +75,7 @@
           "bold": [
             "{{ponyName}}"
           ],
-          "description": "<p>把属性绑定到一个插值表达式字符串，比如 &quot;Hello Seabiscuit&quot;. 等价于：\n<code>&lt;div [title]=&quot;&#39;Hello&#39; + ponyName&quot;&gt;</code></p>\n"
+          "description": "<p>把属性绑定到一个插值表达式字符串，比如 &quot;Hello Seabiscuit&quot;。它等价于：\n<code>&lt;div [title]=&quot;&#39;Hello&#39; + ponyName&quot;&gt;</code></p>\n"
         },
         {
           "syntax": "<p>Hello {{ponyName}}</p>",
@@ -118,7 +118,7 @@
           "bold": [
             "{{employer?.companyName}}"
           ],
-          "description": "<p>安全导航运算符(<code>?</code>)表示<code>employer</code>字段是可选的，如果它是<code>undefined</code>表达式剩下的部分将被忽略</p>\n"
+          "description": "<p>安全导航运算符(<code>?.</code>)表示<code>employer</code>字段是可选的，如果它是<code>undefined</code>，表达式剩下的部分将被忽略</p>\n"
         }
       ],
       "index": 1
@@ -198,7 +198,7 @@
           "bold": [
             "@Pipe({...})"
           ],
-          "description": "<p>声明当前类是一个管道，并且提供该管道的元数据。</p>\n"
+          "description": "<p>声明当前类是一个管道，并且提供关于该管道的元数据。</p>\n"
         },
         {
           "syntax": "@Injectable()\nclass MyService() {}",
@@ -319,7 +319,7 @@
           "bold": [
             "@ContentChildren(myPredicate)"
           ],
-          "description": "<p>把组件内容查询(MyPredicate)的全部结果，绑定到类的myChildComponents属性。</p>\n"
+          "description": "<p>把组件内容查询(myPredicate)的全部结果，绑定到类的myChildComponents属性。</p>\n"
         },
         {
           "syntax": "@ViewChild(myPredicate) myChildComponent;",
@@ -333,7 +333,7 @@
           "bold": [
             "@ViewChildren(myPredicate)"
           ],
-          "description": "<p>把组件视图查询(myPredicate)的所有结果绑定到类的myChildComponents属性。对指令无效。</p>\n"
+          "description": "<p>把组件视图查询(myPredicate)的全部结果绑定到类的myChildComponents属性。对指令无效。</p>\n"
         }
       ],
       "index": 7
@@ -361,7 +361,7 @@
           "bold": [
             "ngOnInit()"
           ],
-          "description": "<p>在构造函数、初始化输入属性、第一次调用完ngOnChanges之后调用。</p>\n"
+          "description": "<p>在执行构造函数、初始化输入属性、第一次调用完ngOnChanges之后调用。</p>\n"
         },
         {
           "syntax": "ngDoCheck() { ... }",
@@ -490,21 +490,21 @@
           "bold": [
             "routerOnReuse"
           ],
-          "description": "<p>当路由器可以复用一个组件实例时，它调用组件的routerOnReuse方法（如已定义）。</p>\n"
+          "description": "<p>当路由器发现可以复用一个组件实例时，它调用组件的routerOnReuse方法（如已定义）。</p>\n"
         },
         {
           "syntax": "routerCanDeactivate(nextInstruction, prevInstruction) { ... }",
           "bold": [
             "routerCanDeactivate"
           ],
-          "description": "<p>路由器会调用要完成导航所需移除的每个组件的routerCanDeactivate方法（如已定义）。当且仅当所有的该方法都返回true或者承诺（Promise）被解析（Resolve）时，导航才会继续。</p>\n"
+          "description": "<p>路由器会调用如果要完成导航就得移除的每个组件的routerCanDeactivate方法（如已定义）。当且仅当所有的该方法都返回true或者承诺（Promise）被解决时，导航才会继续。</p>\n"
         },
         {
           "syntax": "routerOnDeactivate(nextInstruction, prevInstruction) { ... }",
           "bold": [
             "routerOnDeactivate"
           ],
-          "description": "<p>在每个指令因为路由变更而被移除之前调用。可以返回一个承诺，来阻止移除本指令 —— 直到承诺（Promise）被解析（Resolve）。</p>\n"
+          "description": "<p>在每个指令因为路由变更而被移除之前调用。可以返回一个承诺，来阻止移除本指令 —— 直到承诺（Promise）被解决。</p>\n"
         }
       ],
       "index": 10
