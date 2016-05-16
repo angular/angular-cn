@@ -34,21 +34,37 @@ figure
   The architecture diagram identifies the eight main building blocks of an Angular 2 application:
   
   这个架构图展现了Angular应用中的8个主要构造块：
+  
   1. [Module](#module)   
+  
   1. [模块(Module)](#module)
+  
   1. [Component](#component)
+  
   1. [组件(Component)](#component)
+  
   1. [Template](#template)
+  
   1. [模板(Template)](#template)
+  
   1. [Metadata](#metadata)
+  
   1. [元数据(Metadata)](#metadata)
+  
   1. [Data Binding](#data-binding)
+  
   1. [数据绑定(Data Binding)](#data-binding)
+  
   1. [Directive](#directive)
+  
   1. [指令(Directive)](#directive)
+  
   1. [Service](#service)
+  
   1. [服务(Service)](#service)
+  
   1. [Dependency Injection](#dependency-injection)
+  
   1. [依赖注入(Dependency Injection)](#dependency-injection)
 
   Learn these eight and we're on our way.
@@ -60,6 +76,7 @@ figure
     The code referenced in this chapter is available as a [live example](/resources/live-examples/architecture/ts/plnkr.html).
     
     本章所引用的代码可以从这个[在线例子](/resources/live-examples/architecture/ts/plnkr.html)中找到。
+    
 <a id="module"></a>
 .l-main-section
 :marked
@@ -79,7 +96,7 @@ figure
   A typical module is a cohesive block of code dedicated to a single purpose.
   A module **exports** something of value in that code, typically one thing such as a class.
   
-  典型的组件是一个内聚的代码块，用以完成单一的目的。
+  典型的组件是一个内聚的代码块，用以实现单一的目的。
   在这些代码中，模块会*导出*一些东西，最典型的就是类。
   <br clear="all"><br>
 .l-sub-section
@@ -95,13 +112,14 @@ figure
     Each chapter has plenty to offer after you steer clear of the `import` and `export` statements.
     
     Angular本身并不需要模块化方案或使用这种特定的语法。如果你不喜欢，可以不用它。
-    不过你得先弄明白`import`和`export`语句，它在每章中都会出现很多次。
+    就算你避开`import`和`export`语句，每章都会为你提供很多（知识）。
     
     Find setup and organization clues in the JavaScript track (select it from the combo-box at the top of this page) 
     which demonstrates Angular 2 development with plain old JavaScript and no module system. 
     
     在JavaScript（你可以从页面顶部的组合框选择它）分支下，可以找到如何安装和组织文件结构的线索。
-    它示范了如何用老版本的JavaScript语言，在没有模块化系统支持的情况下进行Angular 2开发。
+    它示范了如何用老版本的JavaScript语言，在没有模块化系统支持的情况下进行Angular 2开发
+    。
 :marked
   Perhaps the first module we meet is a module that exports a *component* class. 
   The component is one of the basic Angular blocks, we write a lot of them,
@@ -110,31 +128,34 @@ figure
   
   我们遇到的第一个模块，很可能就是用于导出*组件*类的那个。
   组件是Angular中的基本构造块之一，我们会写很多。下一段儿，我们将会讨论组件。
-  但目前，我们只要知道组件类得从模块中导出就行了。
+  但目前，我们只要知道组件类是从模块中导出一种东西就行了。
   
   Most applications have an `AppComponent`. By convention, we'll find it in a file named `app.component.ts`. 
   Look inside such a file and we'll see an `export` statement like this one.
   
   大多数应用都有一个`AppComponent`。按照惯例，它位于一个名叫`app.component.ts`的文件中。
   打开它，我们将会看到一个`export`语句，就像这样：
+  
 +makeExample('architecture/ts/app/app.component.ts', 'export', 'app/app.component.ts (节选)')(format=".")
 :marked
   The `export` statement tells TypeScript that this is a module whose
   `AppComponent` class is public and accessible to other modules of the application.
   
-  `export`语句告诉TypeScript：这是一个模块，其中的`AppComponent`类是公开的，可以被应用中的其它模块访问。
+  `export`语句告诉TypeScript：这是一个模块，其中`AppComponent`类是公开的，可以被应用中的其它模块访问。
   
   When we need a reference to the `AppComponent`, we **import** it like this:
   
-  当我们需要引用`AppComponent`时，我们**导入**它，就像这样：
+  当需要引用`AppComponent`时，我们**导入**它，就像这样：
+  
 +makeExample('architecture/ts/app/main.ts', 'import', 'app/main.ts (节选)')(format=".")
 :marked
   The `import` statement tells the system it can get an `AppComponent` from a module named `app.component`
   located in a neighboring file. 
   The **module name** (AKA module id) is often the same as the filename without its extension.
   
-  `import`语句告诉系统，它能从附近一个名叫`app.component`的文件中获得一个`AppComponent`组件。
+  `import`语句告诉系统，它能从附近名叫`app.component`的文件中获得`AppComponent`组件。
   **模块名**（又叫模块ID）通常和去掉扩展名后的文件名相同。
+  
   ### Library Modules 
   ### 库模块
 figure
@@ -151,11 +172,11 @@ figure
 
   Angular本身就是通过npm包发布的一组库模块，它们都以`@angular`为前缀。
   每个Angular库中都包含一个[封装桶](../glossary.html#barrel)模块。
-  它实际上是一个公开的外观层façade，囊括了一些逻辑上相关的私有模块。
+  它实际上是一个公开的外观层（façade），囊括了一些逻辑相关的私有模块。
   
   The `@angular/core` library is the primary Angular library module from which we get most of what we need.
   
-  `@angular/core`库是主要的Angular库模块，从这里我们能获得所需的大部分东西。
+  `@angular/core`库是主要的Angular库模块，从这里我们能获得大部分可能需要的东西。
   <br clear="all">
   
   There are other important Angular library modules too such as `@angular/common`, `@angular/router`, and `@angular/http`.
@@ -165,8 +186,9 @@ figure
   We import what we need from an Angular library module in much the same way.
   For example, we import the Angular **`Component` *function*** from the *@angular/core* module like this:
   
-  我们从Angular库模块中导入所需内容的方式都跟这差不多。
+  我们从Angular库模块中导入所需内容的方式都差不多。
   比如，我们从*@angular2/core*中导入Angular **`Component`*函数***的代码是这样的：
+  
 +makeExample('architecture/ts/app/app.component.ts', 'import')(format=".")
 :marked
   Compare that syntax to our previous import of `AppComponent`.
@@ -205,20 +227,28 @@ figure
     
     “模块加载与导入”背后的基础设施，是一个很重要的话题，但它不在Angular简介的范围内。
     我们目前的焦点是讲解应用，你只要知道*import*和*export*就够了。
+    
 :marked
   The key take-aways are:
   
   这里的关键点是：
+  
   * Angular apps are composed of modules.
+  
   * Angular应用是由模块组成的。
+  
   * Modules export things &mdash; classes, function, values &mdash; that other modules import.
-  * 模块导出一些东西 —— 类，函数，值，而其它模块会导入它们。
+  
+  * 模块导出一些东西 —— 类，函数，值，供其它模块导入。
+  
   * We prefer to write our application as a collection of modules, each module exporting one thing.
+  
   * 首选的写法是把应用写成一组模块，每个模块只导出一样东西。
   
   The first module we write will most likely export a component.
   
   我们写的第一个模块很可能是导出一个组件。
+  
 .l-main-section
 <a id="component"></a>
 :marked
@@ -231,13 +261,13 @@ figure
   The shell at the application root with navigation links, that list of heroes, the hero editor ... 
   they're all views controlled by Components.
   
-  **组件**控制屏幕中补丁那么大的一小块儿地方，这块儿地方我们称之为*视图*。
+  **组件**控制屏幕中像补丁那么大的一小块儿地方，这块儿地方我们称之为*视图*。
   应用的“外壳”包括一些导航链接、英雄列表、英雄编辑器…… 它们都是由组件控制的视图。
   
   We define a Component's application logic - what it does to support the view - inside a class.
   The class interacts with the view through an API of properties and methods. 
   
-  我们定义了一个组件的应用逻辑（它被用来为视图提供支持）放在类中。
+  我们在类中定义组件的应用逻辑（它被用来为视图提供支持）。
   组件通过一些由属性和方法组成的API与视图交互。
   
   <a id="component-code"></a>
@@ -258,6 +288,7 @@ figure
   
   当用户在这个应用中“移动”时，Angular会创建、更新和销毁组件。
   开发人员可以通过[生命周期钩子](lifecycle-hooks.html)在组件生命周期的各个时间点上插入自己的操作。
+  
 .l-sub-section
   :marked
     We're not showing those hooks in this example 
@@ -270,7 +301,7 @@ figure
     appropriate `HeroService` when we need it.
 
     我们可能会好奇，谁来调用那个构造函数？谁为服务提供参数？
-    目前，只要信任Angular就行了。它会在合适的时机调用构造函数，并在我们要用的时候给出一个合适的`HeroService`实例。
+    目前，只要信任Angular就行了。它会在合适的时机调用构造函数，并在我们需要的时候给出一个合适的`HeroService`实例。
 
 .l-main-section
 <a id="template"></a>
@@ -283,12 +314,13 @@ figure
   We define a Component's view with its companion **template**. A template is a form of HTML
   that tells Angular how to render the Component.
   
-  我们通过组件的伴生**模板**来定义视图。模板是HTML的一种形式，它会告诉Angular如何渲染组件。
+  我们通过组件的自带的**模板**来定义视图。模板以HTML形式存在，用来告诉Angular如何渲染组件（试图）。
 
   A template looks like regular HTML much of the time ... and then it gets a bit strange. Here is a
   template for our `HeroList` component.
   
   多数情况下，模板看起来很像标准HTML……当然也有一小点儿奇怪的地方。下面是`HeroList`组件的一个模板。
+  
 +makeExample('architecture/ts/app/hero-list.component.html',null,'app/hero-list.component.html')
 :marked
   We recognize `<h2>` and  `<div>`. 
@@ -310,7 +342,7 @@ figure
   Before we do, focus attention on the last line. 
   The `<hero-detail>` tag is a custom element representing the `HeroDetailComponent`.
   
-  在开始前，先仔细看下最后那行。
+  在开始前，先仔细看看最后那行。
   `<hero-detail>`是一个自定义元素的标签，用来表示`HeroDetailComponent`组件。
   
   The `HeroDetailComponent` is a *different* component than the `HeroListComponent` we've been reviewing.
@@ -333,13 +365,16 @@ figure
   
   And in this manner we can and will compose complex component trees to build out our richly featured application.
   
-  在这种方式下，我们能而且将组合出复杂的组件树，来构建那些丰富多彩的应用。
+  在这种方式下，我们能够，并且将会组合出复杂的组件树，用来构建那些丰富多彩的应用。
+  
 <br clear="all">
 .l-main-section
 <a id="metadata"></a>
 :marked
   ## Angular Metadata
+  
   ## Angular元数据
+  
 figure
   img(src="/resources/images/devguide/architecture/metadata.png" alt="元数据" align="left" style="width:150px; margin-left:-40px;margin-right:10px" )
 :marked
@@ -355,7 +390,7 @@ figure
   
   In fact, it really is *just a class*. It's not a component until we *tell Angular about it*.
   
-  实际上，它真的*只是一个类*。直到我们*告诉Angular*这一点，它才会成为组件。
+  实际上，它真的*只是一个类*。直到我们*告诉Angular*这是一个组件为止。
   
   We tell Angular that `HeroListComponent` is a component by attaching **metadata** to the class.
   
@@ -390,6 +425,7 @@ figure
   
   * `selector` - 一个css选择器，它告诉Angular在*父*HTML中寻找一个`<hero-list>`标签，然后创建组件，并插入此标签中。
   比如，如果应用“壳”（组件）的模板包含如下代码：
+  
 <div style="margin-left:30px">
 code-example(language="html").
   &lt;hero-list>&lt;/hero-list>
@@ -400,19 +436,24 @@ code-example(language="html").
   >Angular就会在这些标签中插入`HeroListComponent`视图的一个实例。
   
   * `templateUrl` - the address of this component's template which we showed [above](#template).
+  
   * `templateUrl` - 组件模板的地址，我们在[前面](#template)见过。
+  
   * `directives` - an array of the Components or Directives that *this* template requires.
   We saw in the last line of our template that we expect Angular to insert a `HeroDetailComponent`
   in the space indicated by `<hero-detail>` tags. 
   Angular will do so only if we mention the `HeroDetailComponent` in this `directives` array.
+  
   * `directives` - 一个数组，包含*此*模板需要的组件或指令。
   看看模板的最后一行，这表示我们期待Angular把`HeroDetailComponent`的实例放在`<hero-detail>`标签中。
-  但是，只有当我们在`directives`数组中引用过`HeroDetailComponent`的时候，Angular才会这么做。
+  但是，只有当我们在`directives`数组中提及到`HeroDetailComponent`的时候，Angular才会这么做。
+  
   * `providers` - an array of **dependency injection providers** for services that the component requires.
   This is one way to tell Angular that our component's constructor requires a `HeroService` 
   so it can get the list of heroes to display. We'll get to dependency injection in a moment.
+  
   * `providers` - 一个数组，包含组件所依赖的用于提供服务的*依赖注入供应商*。 
-  这是我们告诉Angular该组件的构造器需要一个`HeroService`服务的方式之一。所以组件才能获得英雄的列表数据，并显示出来。
+  这是我们告诉Angular，该组件的构造函数需要一个`HeroService`服务。所以组件才能获得英雄的列表数据，并显示出来。
   这样我们就在一瞬间完成了依赖注入。
 figure
   img(src="/resources/images/devguide/architecture/template-metadata-component.png" alt="元数据" align="left" style="height:200px; margin-left:-40px;margin-right:10px" )
