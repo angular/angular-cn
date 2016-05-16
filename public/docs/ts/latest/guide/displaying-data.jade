@@ -192,14 +192,14 @@ figure.image-display
   Now we use the Angular `ngFor` "repeater" directive in the template to display
   each item in the `heroes` list.
   
-  现在我们在模板中使用Angular的`NgFor`“重复器”指令来显示`heroes`列表中的每一个条目。
+  现在，我们在模板中使用Angular的`ngFor`“重复器”指令来显示`heroes`列表中的每一个条目。
 
 +makeExample('displaying-data/ts/app/app.component.2.ts', 'template','app/app.component.ts (模板)')(format=".")
 
 :marked
   Our presentation is the familiar HTML unordered list with `<ul>` and `<li>` tags. Let's focus on the `<li>` tag.
   
-  我们的表现层是熟悉的HTML —— 由`<ul>`和`<li>`标签组成的无序列表。我们重点来看`<li>`标签。
+  我们看到了熟悉的HTML —— 由`<ul>`和`<li>`标签组成的无序列表。请聚焦在`<li>`标签上。
 +makeExample('displaying-data/ts/app/app.component.2.ts', 'li-repeater')(format=".")
 
 :marked
@@ -207,42 +207,42 @@ figure.image-display
   That's the Angular "repeater" directive.
   Its presence on the `<li>` tag marks that `<li>` element (and its children) as the "repeater template".
 
-  我们把看起来颇有神秘感的`*ngFor`属性添加到`<li>`元素上。
+  我们把看起来有点儿神秘的`*ngFor`加到`<li>`元素上。
   这就是Angular的“重复器”指令。
-  它出现在`<li>`标签上就表示把`<li>`元素（及其子元素）作为“重复器的模板”。
+  它出现在`<li>`标签上就表示把`<li>`及其子元素作为“重复器的模板”。
 .alert.is-important
   :marked
     Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
     Learn more about this and `ngFor` in the [Template Syntax](./template-syntax.html#ngFor) chapter.
     
     不要忘记`*ngFor`中的前导星号(\*)。它是语法中不可或缺的一部分。
-    要了解关于此语法和`NgFor`的更多知识，请参见[模板语法](./template-syntax.html#ngFor)一章。
+    要了解关于此语法和`ngFor`的更多知识，请参见[模板语法](./template-syntax.html#ngFor)一章。
 :marked
   Notice the `hero` in the `NgFor` double-quoted instruction;
   it is an example of a [template input variable](./template-syntax.html#ngForMicrosyntax).
 
-  注意`ngFor`的双引号表达式中的`hero`部分。
-  它是一个[模板输入变量](./template-syntax.html#ngForMicrosyntax)。
+  注意看`ngFor`双引号表达式中的`hero`。
+  它是一个[模板输入变量](./template-syntax.html#ngForMicrosyntax)（译注：即ngFor模板中从外界输入的变量）。
 
   Angular duplicates the `<li>` for each item in the list, setting the `hero` variable
   to the item (the hero) in the current iteration. Angular uses that variable as the
   context for the interpolation in the double curly braces.
   
   Angular为列表中的每一个条目复制`<li>`元素。在每个迭代中，都会把`hero`变量设置为当前条目（此英雄）。
-  Angular把`hero`变量作为双花括号中插值表达式的上下文。
+  Angular会把这个`hero`变量作为双花括号中插值表达式的上下文。
 .l-sub-section
   :marked
     We happened to give `ngFor` an array to display.
     In fact, `ngFor` can repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
     object.
     
-    我们这里所做的是给`NgFor`一个数组供它显示。
-    实际上，`NgFor`可以为任何[可迭代Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
+    这里我们传给了`ngFor`一个“数组”让它显示。
+    但实际上，`ngFor`可以为任何[可迭代Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
 :marked
   Assuming we're still running under the `npm start` command,
   we should see heroes appearing in an unordered list.
   
-  如果我们仍在运行`npm start`命令，我们将看到英雄们的数据展现在了一个无序列表中。
+  如果我们仍在运行着`npm start`命令，我们将看到英雄们的数据展现在了一个无序列表中。
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/hero-names-list.png" alt="ngfor之后")
 
@@ -255,9 +255,9 @@ figure.image-display
   That's fine for a demo but certainly isn't a best practice. It's not even a good practice.
   Although we won't do anything about that in this chapter, we'll make a mental note to fix this down the road.
   
-  我们在组件内部直接定义了我们的对象。
-  这对于演示来说挺不错，但它当然不是最佳实践。它甚至不是一个好的实践。
-  虽然我们在本章中不会改进它，但是我们先记下来，等将来再修复这个问题。
+  我们在组件内部直接定义了数据。
+  对于演示来说，这还不错，但它当然不是最佳实践。它甚至算不上一个好的实践。
+  我们在本章中先不管它，只是记下来，等将来再修复这个问题。
 
   At the moment, we're binding to an array of strings. We do that occasionally in real applications, but
   most of the time we're displaying objects &mdash; potentially instances of classes.
@@ -266,7 +266,7 @@ figure.image-display
 
   Let's turn our array of hero names into an array of `Hero` objects. For that we'll need a `Hero` class.
   
-  我们来把英雄名字的数组转换成`Hero`对象的数组。我们得先有一个`Hero`类。
+  我们来把英雄名字的数组转换成`Hero`对象的数组。但首先得有一个`Hero`类。
 
   Create a new file in the `app/` folder called `hero.ts` with the following short bit of code.
   
@@ -281,7 +281,7 @@ figure.image-display
   It might not look like we have properties, but we do. We're taking
   advantage of a TypeScript shortcut in our declaration of the constructor parameters.
   
-  它可能看上去不像是有属性的，但确实有。我们正在使用TypeScript的高级简写形式：用构造函数的参数定义属性。
+  它可能看上去不像是有属性的，但确实有。我们正在使用TypeScript的高级特性：简写形式 —— 用构造函数的参数直接定义属性。
   
   Consider the first parameter:
   
@@ -290,6 +290,7 @@ figure.image-display
 
 :marked
   That brief syntax does a lot:
+  
   这个简写语法做了很多：
   * declares a constructor parameter and its type
   * 定义了一个构造函数参数及其类型
@@ -305,7 +306,7 @@ figure.image-display
   Let's redefine the `heroes` property in our component to return an array of these Hero objects
   and also set the `myHero` property with the first of these mock heroes.
   
-  我们要把组件的`heroes`属性重定义为这些Hero对象构成的数组，并且把这个数组中的第一项赋值给`myHero`属性。
+  我们要把组件的`heroes`属性重定义为这些Hero对象的数组，并把这个数组中的第一项赋值给`myHero`属性。
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'heroes', 'app.component.ts (节选)')(format=".")
 
 :marked
@@ -314,7 +315,7 @@ figure.image-display
   Let's fix that so we interpolate the `hero.name` property.
   
   我们还得更新下模板。
-  现在它显示的是整个`hero`对象的值，它是被当做字符串值使用了。
+  现在它显示的是整个`hero`对象的值，这是被作为字符串值使用了。
   我们要修复它，所以，我们的插值表达式应该使用`hero.name`属性。
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'template','app.component.ts (模板)')(format=".")
 
@@ -331,11 +332,11 @@ figure.image-display
 
   Sometimes the app should display a view or a portion of a view only under specific circumstances.
   
-  有时候，本应用希望只在特定情况下才显示视图或视图的一部分。
+  有时候，本应用应该只在特定情况下才显示视图或视图的一部分。
 
   In our example, we'd like to display a message if we have a large number of heroes &mdash; say, more than 3.
   
-  在我们的例子中，如果有大量的英雄 —— 比如大于3，我们会希望显示一条消息。
+  在我们的例子中，如果有大量的英雄 —— 比如大于3位，我们会希望显示一条消息。
 
   The Angular `ngIf` directive inserts or removes an element based on a truthy/falsey condition.
   We can see it in action by adding the following paragraph at the bottom of the template:
@@ -349,14 +350,14 @@ figure.image-display
     Learn more about this and `ngIf` in the [Template Syntax](./template-syntax.html#ngIf) chapter.
 
     不要忘了`*ngIf`中的前导星号(\*)。它是本语法中不可或缺的一部分。
-    要学习此语法和`NgIf`，参见[模板语法](./template-syntax.html#ngIf)一章。
+    要学习关于此语法和`NgIf`的更多知识，请参见[模板语法](./template-syntax.html#ngIf)一章。
 :marked
   The [template expression](./template-syntax.html#template-expressions) inside the double quotes
   looks much like JavaScript and it _is_ much like JavaScript.
   When the component's list of heroes has more than 3 items, Angular adds the paragraph to the DOM and the message appears.
   If there are 3 or fewer items, Angular omits the paragraph, so no message appears.
 
-  双引号中的[模板表达式](./template-syntax.html#template-expressions)，看起来很像JavaScript，并且它 _只是_ 像JavaScript。
+  双引号中的[模板表达式](./template-syntax.html#template-expressions)，看起来很像JavaScript，但它也_只是_“像”JavaScript。
   当组件中的英雄列表有三个以上的条目时，Angular把这些语句添加到DOM中，于是消息显示了出来。
   如果少于或等于三个条目，Angular会移除这些语句，于是不显示任何消息。
 .alert.is-helpful
@@ -365,8 +366,8 @@ figure.image-display
     That hardly matters here. But it would matter a great deal, from a performance perspective, if
     we were conditionally including or excluding a big chunk of HTML with many data bindings.
     
-    Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这段元素。
-    在这个范例中，它们几乎等价。但是如果我们要根据条件包含或排除一大段具有很多数据绑定的HTML，性能上的区别就会很明显。
+    Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这些元素。
+    在这个范例中，它们几乎等价。但是如果我们想要有条件的包含或排除“一大堆”带着很多数据绑定的HTML，性能上的区别就会更加显著。
 :marked
   Try it out. Because the array has four items, the message should appear.
   Go back into `app.component.ts` and delete or comment out one of the elements from the hero array.
@@ -374,28 +375,29 @@ figure.image-display
 
   试一下。因为数组中有四个条目，所以消息应该显示出来。
   回到`app.component.ts`，并从英雄数组中删除或注释掉一个元素。
-  浏览器应该自动刷新，而且消息应该消失了。
+  浏览器应该自动刷新，而消息应该会消失。
 .l-main-section
 :marked
   ## Summary
   ## 小结
   Now we know how to use:
+  
   现在我们知道了如何使用：
   - **interpolation** with double curly braces to display a component property
-  - 带有双花括号的 **插值表达式interpolation** 用来显示组件的一个属性
+  - 用带有双花括号的**插值表达式Interpolation**来显示组件的一个属性
   - **`ngFor`** to display a list of items
-  - **`ngFor`** 用来显示条目列表
+  - 用**`ngFor`**来显示条目列表
   - a TypeScript class to shape the **model data** for our component and display properties of that model
-  - 一个TypeScript类，用来为我们的组件描述 **模型数据** 并且显示模型的那些属性。
+  - 用一个TypeScript类来为我们的组件描述**模型数据**并显示模型的各个属性。
   - **`ngIf`** to conditionally display a chunk of HTML based on a boolean expression
-  - **`ngIf`** 用来基于一个boolean表达式有条件的显示一段HTML
+  - **`ngIf`**用来根据一个布尔表达式有条件的显示一段HTML
 
   Here's our final code:
   
   下面是我们的最终代码：
 
 +makeTabs(`displaying-data/ts/app/app.component.ts,
-displaying - data / ts / app / hero.ts,
-displaying - data / ts / app / main.ts`,
+displaying-data/ts/app/hero.ts,
+displaying-data/ts/app/boot.ts`,
 'final,,',
-'app/app.component.ts, app/hero.ts, main.ts')
+'app/app.component.ts, app/hero.ts, boot.ts')
