@@ -15,29 +15,48 @@ include ../../../../_includes/_util-fns
   code examples to ES5, so that they can be applied to Angular 2 JavaScript
   applications.
   
+  因为TypeScript是一个很受欢迎的Angular 2的语言选择，你在网络上和本站看到的很多代码例子
+  都是以TypeScript编写的。本烹饪书包含如何把这些代码编译到ES5的食谱，这样它们可以被应用
+  到Angular 2的JavaScript应用程序里。
   
 
 <a id="toc"></a>
 :marked
   ## Table of contents
+  
+  ## 目录
 
   [Modularity: imports and exports](#modularity)
+  
+  [模块化：导入和导出](#modularity)
 
   [Classes and Class Metadata](#class-metadata)
   
+  [类和类元数据](#class-metadata)
+  
   [Input and Output Metadata](#property-metadata)
+  
+  [导入和导出元数据](#property-metadata)
   
   [Dependency Injection](#dependency-injection)
   
+  [依赖注入](#dependency-injection)
+  
   [Host and Query Metadata](#other-property-metadata)
+  
+  [宿主和查询元素据](#other-property-metadata)
 
   **Run and compare the live [TypeScript](/resources/live-examples/cb-ts-to-js/ts/plnkr.html) and 
   [JavaScript](/resources/live-examples/cb-ts-to-js/js/plnkr.html) code shown in this cookbook.**
+  
+  **运行并比较本烹饪书里面的在线[TypeScript](/resources/live-examples/cb-ts-to-js/ts/plnkr.html)和[JavaScript](/resources/live-examples/cb-ts-to-js/js/plnkr.html)代码**
 
 a(id="modularity")
 .l-main-section
 :marked
   ## Importing and Exporting
+
+  ## 导入和导出
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -51,20 +70,29 @@ table(width="100%")
       :marked
         ### Importing Angular 2 Code
 
+        ### 导入Angular 2代码
+
         In TypeScript code, Angular 2 classes, functions, and other members
         are imported with TypeScript `import` statements:
+        
+        在TypeScript代码中，Angular 2是利用TypeScript的`import`声明来导入类、函数和其他成员的。
 
       +makeExample('cb-ts-to-js/ts/app/main.ts', 'ng2import')(format="." )
 
     td
       :marked
         ### Accessing Angular 2 Code through the ng global
+        
+        ### 通过全局ng来访问Angular 2代码
 
         In JavaScript code, when using
         [the Angular 2 packages](../glossary.html#!#scoped-package),
         we can access Angular code through the global `ng` object. In the
         nested members of this object we'll find everything we would import
         from `angular2` in TypeScript:
+        
+        在JavaScript代码中，当使用[Angular 2库](../glossary.html#!#scoped-package)时，
+        我们可以通过全局的`ng`对象来访问Angular代码。在这个对象嵌套很多成员中，我们能找到所有在TypeScript里面导入的`angular2`
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'ng2import')(format="." )
 
@@ -73,15 +101,21 @@ table(width="100%")
       :marked
         ### Importing and Exporting Application Code
 
+        ### 导入和导出应用程序代码
+
         Each file in an Angular 2 TypeScript application constitutes a
         TypeScript module. When we want to make something from a module available
         to other modules, we `export` it.
+        
+        在Angular 2 TypeScript应用里，每个文件组成一个TypeScript模块。当需要让一个模块在其他模块中可见时，我们`export`它。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'appexport')(format="." )
 
       :marked
         In other modules we can then `import` things that have been exported
         elsewhere.
+        
+        然后，我们就可以在模块`import`其它地方导出的东西。
 
       +makeExample('cb-ts-to-js/ts/app/main.ts', 'appimport')(format="." )
 
@@ -89,9 +123,14 @@ table(width="100%")
       :marked
         ### Sharing Application Code
 
+        ### 共享应用程序代码
+
         In an Angular 2 JavaScript application, we load each file to the page
         using a `<script>` tag. Each file can make things available to other
         files via the shared global `window` scope.
+        
+        在Angular 2 JavaScript应用程序里，我们在页面里面通过`<script>`标签来加载每个文件。
+        每个文件都能通过把所有东西放到全局`window`来互相共享·
 
         We often introduce an application namespace
         object (such as `"app"`) onto `window` and attach everything we need
@@ -100,12 +139,18 @@ table(width="100%")
         [Immediately Invoked Function Expression (IIFE)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
         These practices together prevent our code from
         polluting the global scope.
+        
+        我们经常在`window`上附加一个应用程序命名空间对象（比如`"app"`），然后把所有需要共享的东西都附加到这个空间对象。
+        也可以把我们的代码包装到一个[立即调用函数表达式IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)。
+        使用这些实践可以防止我们的代码污染全局范围。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'appexport')(format="." )
 
       :marked
         We can then access anything from this shared namespace in
         other files.
+        
+        然后我们就可以从这个共享的命名空间来访问其他文件。
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'appimport')(format="." )
 
@@ -113,6 +158,9 @@ table(width="100%")
         Note that the order of `<script>` tags on the page is significant. 
         We must load a file that defines a shared member before
         a file that uses that member.
+        
+        注意，页面上的`<script>`标签的顺序非常重要。我们必须要先加载定义共享成员的文件，
+        然后再加载使用该共享成员的文件。
 
 .alert.is-helpful
   :marked
@@ -121,12 +169,18 @@ table(width="100%")
     use CommonJS modules and the `require` function to load Angular 2 framework code.
     We would then use `module.exports` and `require` to export and import application
     code.
+    
+    另外，我们可以在一个Angular 2 JavaScript项目中，使用模块加载器(比如Webpack或者Browserify)。
+    在这样的项目中，我们使用CommonJS模块和`require`函数来加载Angular 2框架代码。
+    然后用`module.exports`和`require`来导出和导入应用程序代码。
 
 
 a(id="class-metadata")
 .l-main-section
 :marked
   ## Classes and Class Metadata
+
+  ## 类和类元数据
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -139,8 +193,12 @@ table(width="100%")
     td
       :marked
         ### Classes
+        
+        ### 类
 
         We put most of our Angular 2 TypeScript code into TypeScript classes.
+        
+        我们把绝大多数Angular 2 TypeScript代码放到TypeScript类中。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'class')(format="." )
 
@@ -148,8 +206,12 @@ table(width="100%")
       :marked
         ### Constructors and Prototypes
 
+        ### 构造函数和原型
+
         ES5 JavaScript has no classes. We use the constructor
         pattern instead which works with Angular 2 as well as classes do.
+        
+        ES5 JavaScript不支持类。取而代之，我们使用构造模式（constructor pattern），和类一样，它可以跟Angular 2一起工作。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'constructorproto')(format="." )
 
@@ -158,9 +220,12 @@ table(width="100%")
       :marked
         ### Metadata with Decorators
 
+        ### 拥有装饰器的元数据
+
         Most Angular 2 classes have one or more TypeScript *decorators*
         attached to provide configuration and metadata. For example,
-        a component must have a [`@Component`](../api/core/Component-decorator.html) decorator.
+        a component must have a [`@Component`](../api/core/Component-decorator.html) decorator.     
+        
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'metadata')(format="." )
 
