@@ -31,11 +31,12 @@ figure.image-display
 :marked
   ## Showing component properties with interpolation
   ## 使用插值表达式显示组件属性
+  
   The easiest way to display a component property
   is to bind the property name through interpolation.
   With interpolation, we put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
   
-  要显示组件的属性，最简单的方式就是通过插值表达式Interpolation来绑定属性名。
+  要显示组件的属性，最简单的方式就是通过插值表达式(Interpolation)来绑定属性名。
   要使用插值表达式，就把属性名包裹在双重花括号里放进视图模板，如`{{myHero}}`。
 
   Let's build a small illustrative example together.
@@ -44,7 +45,7 @@ figure.image-display
 
   Create a new project folder (`displaying-data`) and follow the steps in the [QuickStart](../quickstart.html).
   
-  创建一个新的项目文件夹(`displaying-data`)，并且遵循[QuickStart](../quickstart.html)中的下列步骤。
+  创建一个新的项目文件夹(`displaying-data`)，并且完成[快速开始](../quickstart.html)中的步骤。
 
 include ../_quickstart_repo
 :marked
@@ -59,7 +60,7 @@ include ../_quickstart_repo
 :marked
   We added two properties to the formerly empty component: `title` and `myHero`.
   
-  再把两个属性`title`和`myHero`添加到以这个空白组件中。
+  再把两个属性`title`和`myHero`添加到之前空白的组件中。
 
   Our revised template displays the two component properties using double curly brace
   interpolation:
@@ -76,14 +77,14 @@ include ../_quickstart_repo
     much more readable HTML.
     
     模板是包在反引号(\`)中的一个多行字符串。
-    反引号(\`) —— 不是单引号(') —— 有很多好用的特性。我们在这里用到的是它把一个字符串写在多行上的能力，这样我们就能写出更具可读性的HTML。
+    反引号(\`) —— 不是单引号(') —— 有很多好用的特性。我们在这里用到的是它把一个字符串写在多行上的能力，这样我们的HTML模板更易于阅读。
 
 :marked
   Angular automatically pulls the value of the `title` and `myHero` properties from the component and
   inserts those values into the browser. Angular updates the display
   when these properties change.
   
-  Angular会自动从组件中拉取`title`和`myHero`属性的值，并且把这些值插入浏览器中。一旦这些属性发生变化，Angular就会刷新显示。
+  Angular会自动从组件中提取`title`和`myHero`属性的值，并且把这些值插入浏览器中。一旦这些属性发生变化，Angular就会自动刷新显示。
 .l-sub-section
   :marked
     More precisely, the redisplay occurs after some kind of asynchronous event related to
@@ -92,7 +93,7 @@ include ../_quickstart_repo
     But then the properties aren't changing on their own either. For the moment we must operate on faith.
     
     严格来说，“重新显示”是在某些与视图有关的异步事件之后发生的，比如：按键、定时器或收到异步`XHR`响应。本例中没有体现这一点。
-    显然，属性肯定不会无缘无故的变化。但现在，我们只要先相信Angular会处理好就行了。
+    很显然，属性肯定不会无缘无故的变化。但是目前我们只要先相信Angular会处理好就行了。
 :marked
   Notice that we haven't called **new** to create an instance of the `AppComponent` class.
   Angular is creating an instance for us. How?
@@ -103,7 +104,7 @@ include ../_quickstart_repo
   Remember back in QuickStart that we added the `<my-app>` element to the body of our `index.html`
   
   注意`@Component`装饰器中指定的CSS选择器`selector`，它指定了一个叫`my-app`的元素。
-  回忆下，在QuickStart中，我们曾把一个`<my-app>`元素添加到`index.html`的`body`里。
+  回忆下，在快速开始章节中，我们曾把一个`<my-app>`元素添加到`index.html`的`body`里。
 +makeExample('displaying-data/ts/index.html', 'my-app')(format=".")
 
 :marked
@@ -112,7 +113,7 @@ include ../_quickstart_repo
   inside the `<my-app>` tag.
   
   当我们通过`main.ts`中的`AppComponent`类启动时，Angular在`index.html`中查找一个`<my-app>`元素，
-  找到它，实例化一个`AppComponent`，然后把这个实例渲染进`<my-app>`标签中。
+  然后实例化一个`AppComponent`，并将其渲染进`<my-app>`标签中。
 
   We're ready to see changes in a running app by firing up the npm script that both compiles and serves our applications
   while watching for changes.
@@ -124,6 +125,7 @@ code-example(format="").
   We should see the title and hero name:
   
   我们应该能看到标题和英雄名变了：
+  
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/title-and-hero.png" alt="标题和英雄")
 :marked
@@ -132,6 +134,7 @@ figure.image-display
   我们来回顾一下以前所做的决定，看看还有哪些其它选择。
 
   ## Template inline or template file?
+  
   ## 行内模板还是模板文件？
 
   We can store our component's template in one of two places.
@@ -139,9 +142,9 @@ figure.image-display
   Or we can define the template in a separate HTML file and link to it in
   the component metadata using the `@Component` decorator's `templateUrl` property.
   
-  我们有两种地方可用来放组件模板。
+  我们有两种地方可用来存放组件模板。
   我们可以使用`template`属性把它定义为 *内联Inline* 的，就像这里所做的一样。
-  或者，可以把模板定义在一个独立的HTML文件中，并且在组件元数据中使用`@Component`装饰器的`templateUrl`属性链接到它。
+  或者，可以把模板定义在一个独立的HTML文件中，并且在组件元数据`@Component`装饰器中的`templateUrl`属性链接到它。
 
   The choice between inline and separate HTML is a matter of taste,
   circumstances, and organization policy.
@@ -156,6 +159,7 @@ figure.image-display
   无论用哪种风格，模板中的数据绑定在访问组件属性方面都是完全一样的。
 
   ## Constructor or variable initialization?
+  
   ## 用构造函数进行初始化还是用变量？
 
   We initialized our component properties using variable assignment.
@@ -180,6 +184,7 @@ figure.image-display
 .l-main-section
 :marked
   ## Showing an array property with ***ngFor***
+  
   ## 使用***ngFor***显示数组属性
 
   We want to display a list of heroes. We begin by adding a mock heroes name array to the component,
@@ -243,12 +248,14 @@ figure.image-display
   we should see heroes appearing in an unordered list.
   
   如果我们仍在运行着`npm start`命令，我们将看到英雄们的数据展现在了一个无序列表中。
+  
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/hero-names-list.png" alt="ngfor之后")
 
 .l-main-section
 :marked
   ## Creating a class for the data
+  
   ## 为数据创建一个类
 
   We are defining our data directly inside our component.
@@ -256,13 +263,13 @@ figure.image-display
   Although we won't do anything about that in this chapter, we'll make a mental note to fix this down the road.
   
   我们在组件内部直接定义了数据。
-  对于演示来说，这还不错，但它当然不是最佳实践。它甚至算不上一个好的实践。
+  对于演示来说，这还不错，但它显然不是最佳实践。它甚至算不上一个好的实践。
   我们在本章中先不管它，只是记下来，等将来再修复这个问题。
 
   At the moment, we're binding to an array of strings. We do that occasionally in real applications, but
   most of the time we're displaying objects &mdash; potentially instances of classes.
   
-  现在，我们绑定到了一个字符串数组。在真实的应用中，这是特例。大多数时候，我们显示的是对象 —— 由类创建的实例 —— 的数组。
+  现在，我们绑定到了一个字符串数组。在真实的应用中偶尔这么做。但绝大多数时候，我们显示的条目是对象 —— 很可能是类实例。
 
   Let's turn our array of hero names into an array of `Hero` objects. For that we'll need a `Hero` class.
   
@@ -271,6 +278,7 @@ figure.image-display
   Create a new file in the `app/` folder called `hero.ts` with the following short bit of code.
   
   在`app/`目录下创建一个名叫`hero.ts`的新文件，内容如下：
+  
 +makeExample('displaying-data/ts/app/hero.ts', null, 'app/hero.ts')(format = ".")
 
 :marked
@@ -281,32 +289,42 @@ figure.image-display
   It might not look like we have properties, but we do. We're taking
   advantage of a TypeScript shortcut in our declaration of the constructor parameters.
   
-  它可能看上去不像是有属性的，但确实有。我们正在使用TypeScript的高级特性：简写形式 —— 用构造函数的参数直接定义属性。
+  它可能看上去不像是有属性的，但确实有。我们利用的是TypeScript提供的简写形式 —— 用构造函数的参数直接定义属性。
   
   Consider the first parameter:
   
   来看第一个参数：
+  
 +makeExample('displaying-data/ts/app/hero.ts', 'id-parameter')
 
 :marked
   That brief syntax does a lot:
   
   这个简写语法做了很多：
+  
   * declares a constructor parameter and its type
+  
   * 定义了一个构造函数参数及其类型
+  
   * declares a public property of the same name
+  
   * 定义了一个同名的公开属性
+  
   * initializes that property with the corresponding argument when we "new" an instance of the class
+  
   * 当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值
 
 .l-main-section
 :marked
   ## Using the Hero class
+  
   ## 使用Hero类
+  
   Let's redefine the `heroes` property in our component to return an array of these Hero objects
   and also set the `myHero` property with the first of these mock heroes.
   
   我们要把组件的`heroes`属性重定义为这些Hero对象的数组，并把这个数组中的第一项赋值给`myHero`属性。
+  
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'heroes', 'app.component.ts (节选)')(format=".")
 
 :marked
@@ -314,7 +332,7 @@ figure.image-display
   At the moment it displays the entire `hero` object, which used to be a string value.
   Let's fix that so we interpolate the `hero.name` property.
   
-  我们还得更新下模板。
+  我们还得更新一下模板。
   现在它显示的是整个`hero`对象的值，这是被作为字符串值使用了。
   我们要修复它，所以，我们的插值表达式应该使用`hero.name`属性。
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'template','app.component.ts (模板)')(format=".")
@@ -322,27 +340,29 @@ figure.image-display
 :marked
   Our display looks the same, but now we know much better what a hero really is.
   
-  从显示上看还是那样，但现在除了名字之外，我们对该英雄有了更多了解。
+  从显示上看还是一样，但现在除了名字之外，我们有了更多英雄信息。
 
 <a id="ngIf"></a>
 .l-main-section
 :marked
   ## Conditional display with NgIf
+  
   ## 通过NgIf进行条件显示
 
   Sometimes the app should display a view or a portion of a view only under specific circumstances.
   
-  有时候，本应用应该只在特定情况下才显示视图或视图的一部分。
+  有时候，应用应该只在特定情况下才显示视图或视图的一部分。
 
   In our example, we'd like to display a message if we have a large number of heroes &mdash; say, more than 3.
   
-  在我们的例子中，如果有大量的英雄 —— 比如大于3位，我们会希望显示一条消息。
+  在我们的例子中，假设如果有大量的英雄 —— 比如大于3位，我们希望显示一条消息。
 
   The Angular `ngIf` directive inserts or removes an element based on a truthy/falsey condition.
   We can see it in action by adding the following paragraph at the bottom of the template:
   
   Angular的`NgIf`指令会基于条件的真假来显示或移除一个元素。
   我们来亲自动手试一下，把下列语句加到模板的底部：
+  
 +makeExample('displaying-data/ts/app/app.component.ts', 'message')
 .alert.is-important
   :marked
@@ -351,6 +371,7 @@ figure.image-display
 
     不要忘了`*ngIf`中的前导星号(\*)。它是本语法中不可或缺的一部分。
     要学习关于此语法和`NgIf`的更多知识，请参见[模板语法](./template-syntax.html#ngIf)一章。
+    
 :marked
   The [template expression](./template-syntax.html#template-expressions) inside the double quotes
   looks much like JavaScript and it _is_ much like JavaScript.
@@ -368,6 +389,7 @@ figure.image-display
     
     Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这些元素。
     在这个范例中，它们几乎等价。但是如果我们想要有条件的包含或排除“一大堆”带着很多数据绑定的HTML，性能上的区别就会更加显著。
+    
 :marked
   Try it out. Because the array has four items, the message should appear.
   Go back into `app.component.ts` and delete or comment out one of the elements from the hero array.
@@ -379,17 +401,27 @@ figure.image-display
 .l-main-section
 :marked
   ## Summary
+  
   ## 小结
+  
   Now we know how to use:
   
   现在我们知道了如何使用：
+  
   - **interpolation** with double curly braces to display a component property
+  
   - 用带有双花括号的**插值表达式Interpolation**来显示组件的一个属性
+  
   - **`ngFor`** to display a list of items
+  
   - 用**`ngFor`**来显示条目列表
+  
   - a TypeScript class to shape the **model data** for our component and display properties of that model
+  
   - 用一个TypeScript类来为我们的组件描述**模型数据**并显示模型的各个属性。
+  
   - **`ngIf`** to conditionally display a chunk of HTML based on a boolean expression
+  
   - **`ngIf`**用来根据一个布尔表达式有条件的显示一段HTML
 
   Here's our final code:
