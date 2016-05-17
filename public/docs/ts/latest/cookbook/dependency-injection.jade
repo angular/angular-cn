@@ -193,7 +193,7 @@ include ../_util-fns
   See both examples in the following `main.ts`
   where we list their service providers in an array in the second parameter of the `bootstrap` method.
   
-  在下面`main.ts`的两个例子中，在`bootstrap`函数方法的第二个参数的数组中，我们列出了它们的服务供应商。
+  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个参数的数组中，我们列出了它们的服务供应商。
   
 +makeExample('cb-dependency-injection/ts/app/main.ts','bootstrap','app/main.ts')(format='.') 
 
@@ -1153,7 +1153,7 @@ a(id="find-parent")
   perhaps to access values or call methods on that component.
   
   应用程序组件经常需要共享信息。我们喜欢更加松散结合的技术，比如数据绑定和服务共享。
-  但是有时候组件需要拥有另一个组件的引用，用来访问该组件的属性值或者调用它的函数方法。
+  但是有时候组件需要拥有另一个组件的引用，用来访问该组件的属性值或者调用它的方法。
    
   Obtaining a component reference is a bit tricky in Angular.
   Although an Angular application is a tree of components,
