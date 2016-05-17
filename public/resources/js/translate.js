@@ -11,7 +11,13 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     if (isTranslationResult(node, prevNode)) {
       var $prevNode = $(prevNode);
       var $node = $(node);
-      if (isPureEnglish($prevNode.text()) && !$prevNode.hasClass('nav-list-item')) {
+      if ($prevNode.hasClass('nav-list-item')) {
+        return;
+      }
+      if (isPureEnglish($node.text()) && $node.text() !== $prevNode.text()) {
+        return;
+      }
+      if (isPureEnglish($prevNode.text())) {
         $node.attr('id', prevNode.id);
         $node.addClass('translated');
         $node.addClass('translated-cn');
