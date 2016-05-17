@@ -13,7 +13,7 @@ include ../_util-fns
   user efficiently and effectively through the workflow behind the form.
 
   不管什么样的Web开发者，都能使用正确的标签“捏”出一个HTML。
-  但要想做出一个优秀的表单，让它具有贴心的数据输入体验，以指导用户明晰、高效的走通表单背后的工作流，这个挑战就大多了。
+  但要想做出一个优秀的表单，让它具有贴心的数据输入体验，以指导用户明晰、高效的通过表单完成背后的工作流程，这个挑战就大多了。
   
   *That* takes design skills that are, to be frank, well out of scope for this chapter.
   
@@ -28,24 +28,30 @@ include ../_util-fns
 
   We will build a simple form from scratch, one step at a time. Along the way we'll learn
   
-  我们将构建一个简单的表单，我们把它简化到只需要一次一步。通过这种方式，我们将学到：
+  我们将从零构建一个简单的表单，把它简化到一次一步。通过这种方式，我们将学到：
 
   - to build an Angular form with a component and template
+  
   - 使用组件和模板构建一个Angular表单
 
   - two-way data binding with `[(ngModel)]` syntax for reading and writing values to input controls
-  - 使用`[(ngModel)]`语法实现双向数据绑定，以便从输入控件中读取和写入值
+  
+  - 使用`[(ngModel)]`语法实现双向数据绑定，以便输入控件的值读取和写入
 
   - using `ngControl` to track the change state and validity of form controls
+  
   - 使用`ngControl`来跟踪变更状态并对表单控件做验证
 
   - the special CSS classes that `ngControl` adds to form controls and how we can use them to provide strong visual feedback
+  
   - `ngControl`添加到表单控件上的那些特殊的CSS类，以及我们该如何使用它们来提供强烈的视觉反馈
 
   - displaying validation errors to users and enable/disable form controls
+  
   - 向用户显示有效性验证的错误提示，以及禁用/使能表单控件
 
   - sharing information among controls with template reference variables
+  
   - 通过模板引用变量，在控件之间共享信息
   
   [Live Example](/resources/live-examples/forms/ts/plnkr.html)
@@ -54,17 +60,20 @@ include ../_util-fns
 .l-main-section
 :marked
   ## Template-Driven Forms
+  
   ## 模板驱动的表单
 
   Many of us will build forms by writing templates in the Angular [template syntax](./template-syntax.html) with
   the form-specific directives and techniques described in this chapter.
   
-  大多数人都可以使用表单特有的指令和本章所描述的技术，在模板中按照Angular[模板语法](./template-syntax.html)来构建表单。
+  我们大多数都可以使用表单特有的指令和本章所描述的技术，在模板中按照Angular[模板语法](./template-syntax.html)来构建表单。
+  
 .l-sub-section
   :marked
     That's not the only way to create a form but it's the way we'll cover in this chapter.
     
     这不是创建表单的唯一方式，但它是我们将在本章中使用的方式。
+    
 :marked
   We can build almost any form we need with an Angular template &mdash; login forms, contact forms ... pretty much any business forms.
   We can lay out the controls creatively, bind them to data, specify validation rules and display validation errors,
@@ -89,7 +98,7 @@ figure.image-display
   Here at the *Hero Employment Agency* we use this form to maintain personal information about the
   heroes in our stable. Every hero needs a job. It's our company mission to match the right hero with the right crisis!
   
-  这里是*英雄职介中心*，我们使用这个表单来维护我们候选英雄们的个人信息。每个英雄都需要一份工作。我们公司的任务就是让正确的英雄去解决他/她所擅长的危机！
+  这里是*英雄职介中心*，我们使用这个表单来维护我们候选英雄们的个人信息。每个英雄都需要一份工作。我们公司的任务就是让正确的英雄去解决他/她所擅长对付的危机！
 
   Two of the three fields on this form are required. Required fields have a green bar on the left to make them easy to spot.
   
@@ -118,40 +127,60 @@ figure.image-display
   我们将按照一系列很小的步骤来构建此表单：
 
   1. Create the `Hero` model class
+  
   1. 创建`Hero`模型类
+  
   1. Create the component that controls the form
+  
   1. 创建控制此表单的组件
+  
   1. Create a template with the initial form layout
+  
   1. 创建具有初始表单布局的模板
+  
   1. Bind data properties to each form input control with the `ngModel` two-way data binding syntax
+  
   1. 使用`ngModel`双向数据绑定语法把数据属性绑定到每个表单输入控件
+  
   1. Add the **ngControl** directive to each form input control
+  
   1. 往每个表单输入控件上添加**ngControl**指令
+  
   1. Add custom CSS to provide visual feedback
-  1. 添加自定义CSS来显示视觉反馈
+  
+  1. 添加自定义CSS来提供视觉反馈
+  
   1. Show and hide validation error messages
+  
   1. 显示和隐藏有效性验证的错误信息
+  
   1. Handle form submission with **ngSubmit**
+  
   1. 使用**ngSubmit**处理表单提交
+  
   1. Disable the form’s submit button until the form is valid
+  
   1. 禁用此表单的提交按钮，直到表单变为有效的
 
 :marked
   ## Setup
+  
   ## 起步
+  
   Create a new project folder (`angular2-forms`) and follow the steps in the [QuickStart](../quickstart.html).
   
-  创建一个新的项目文件夹（`angular2-forms`），并且遵循[QuickStart](../quickstart.html)中的步骤进行初始化。
+  创建一个新的项目文件夹（`angular2-forms`），并且完成[快速开始](../quickstart.html)中的步骤。
 
 include ../_quickstart_repo
 :marked
   ## Create the Hero Model Class
+  
   ## 创建一个Hero模型类
 
   As users enter form data, we capture their changes and update an instance of a model.
   We can't layout the form until we know what the model looks like.
   
-  当用户输入表单数据时，我们要捕获他们的更改，并更新到模型的一个实例中。
+  当用户输入表单数据时，我们要捕获他们的变化，并更新到模型的一个实例中。
   除非我们知道模型里有什么，否则没法设计表单。
 
   A model can be as simple as a "property bag" that holds facts about a thing of application importance.
@@ -193,6 +222,7 @@ code-example(format="").
 .l-main-section
 :marked
   ## Create a Form component
+  
   ## 创建一个表单组件
 
   An Angular form has two parts: an HTML-based template and a code-based Component to handle data and user interactions.
@@ -219,25 +249,30 @@ code-example(format="").
   要理解这个组件，只会用到前面章节中已经学过的那些概念：
 
   1. We import the `Component` decorator from the Angular library as we usually do.
+  
   1. 像往常一样，我们从Angular库中导入`Component`装饰器。
 
   1. The `@Component` selector value of "hero-form" means we can drop this form in a parent template with a `<hero-form>` tag.
+  
   1. `@Component`选择器的值"hero-form"表示我们将把此表单扔进父模板中的一个`<hero-form>`标签中。
 
   1. The `templateUrl` property points to a separate file for template HTML called `hero-form.component.html`.
+  
   1. `templateUrl`属性指向一个独立的HTML模板文件，名叫`hero-form.component.html`。
 
   1. We defined dummy data for `model` and `powers` as befits a demo.
   Down the road, we can inject a data service to get and save real data
   or perhaps expose these properties as [inputs and outputs](./template-syntax.html#inputs-outputs) for binding to a
   parent component. None of this concerns us now and these future changes won't affect our form.
+  
   1. 我们为`model`和`powers`定义了供演示用的假数据。
   接下来，我们可以注入一个用于获取和保存真实数据的服务，
   或者把这些属性暴露为[输入与输出属性](./template-syntax.html#inputs-outputs)，以绑定到父组件上。
-  我们现在所关注的这些变更点，即使将来真的发生了，也不会影响到我们的表单。
+  我们目前不关心这些，因为将来这些变化不会影响到我们的表单。
 
   1. We threw in a `diagnostic` property at the end to return a JSON representation of our model.
   It'll help us see what we're doing during our development; we've left ourselves a cleanup note to discard it later.
+  
   1. 我们在最后增加一个`diagnostic`属性，它返回这个模型的JSON形式。
   它会帮我们看清开发过程中发生的事，等最后做清理时我们会丢弃它。
 
@@ -251,7 +286,7 @@ code-example(format="").
   write (or read) large stretches of HTML and few editors are much help with files that have a mix of HTML and code.
   We also like short files with a clear and obvious purpose like this one.
   
-  没有什么回答在所有场合都是“正确”的。当行内模板足够短的时候，我们喜欢用它。
+  没有什么答案在所有场合都总是“正确”的。当行内联模板足够短的时候，我们喜欢用它。
   但大多数的表单模板都不短。普遍来讲，TypeScript和JavaScript文件不会是写大型HTML的好地方（也不好读）。
   而且没有几个编辑器能对混写的HTML和代码提供足够的帮助。
   我们还是喜欢写成像这个一样清晰明确的短文件。
@@ -266,6 +301,7 @@ code-example(format="").
 .l-main-section
 :marked
   ## Revise the *app.component.ts*
+  
   ## 修改*app.component.ts*文件
 
   `app.component.ts` is the application's root component. It will host our new `HeroFormComponent`.
@@ -274,7 +310,7 @@ code-example(format="").
 
   Replace the contents of the "QuickStart" version with the following:
   
-  把"QuickStart"版的内容替换成下列代码：
+  把"快速开始"的版本内容替换成下列代码：
 +makeExample('forms/ts/app/app.component.ts', null, 'app/app.component.ts')
 
 :marked
@@ -285,18 +321,22 @@ code-example(format="").
     只有三处修改：
 
     1. We import the new `HeroFormComponent`.
+    
     1. 导入了新的`HeroFormComponent`组件。
 
     1. The `template` is simply the new element tag identified by the component's `selector` property.
+    
     1. 直接把`template`的内容改成`HeroFormComponent`的`selector`属性中指定的新元素标签。
 
     1. The `directives` array tells Angular that our template depends upon the `HeroFormComponent`
     which is itself a Directive (as are all Components).
+    
     1. `directives`数组告诉Angular，我们的模板依赖于`HeroFormComponent`组件，它本身也是一个指令（所有组件都是指令）。
 
 .l-main-section
 :marked
   ## Create an initial HTML Form Template
+  
   ## 创建一个初始的HTML表单模板
 
   Create a new template file called `hero-form.component.html` and give it the following definition:
@@ -309,7 +349,7 @@ code-example(format="").
   That is plain old HTML 5. We're presenting two of the `Hero` fields, `name` and `alterEgo`, and
   opening them up for user input in input boxes.
   
-  这只是一段普通的旧式HTML 5代码。这里出现了两个`Hero`字段，`name`和`alterEgo`，并且开放它们，让用户可以在输入框中输入。
+  这只是一段普通的旧式HTML 5代码。这里出现了两个`Hero`字段，`name`和`alterEgo`，让用户可以在输入框中输入，修改他们。
 
   The *Name* `<input>` control has the HTML5 `required` attribute;
   the *Alter Ego* `<input>` control does not because `alterEgo` is optional.
@@ -335,7 +375,9 @@ code-example(format="").
 
 .callout.is-important
   header Angular Forms Do Not Require A Style Library
+  
   header Angular表单不需要任何样式库
+  
   :marked
     Angular makes no use of the `container`, `form-group`, `form-control`, and `btn` classes or
     the styles of any external library. Angular apps can use any CSS library
@@ -350,17 +392,21 @@ code-example(format="").
 
 ol
   li Open a terminal window in the application root folder and enter the command:
+  
   li 在应用的根目录下打开一个终端窗口，敲如下命令：
     code-example(language="html" escape="html").
       npm install bootstrap --save
   li Open <code>index.html</code> and add the following link to the <code>&lt;head></code>.
+  
   li 打开<code>index.html</code>文件并且把下列链接添加到<code>&lt;head></code>中。
       +makeExample('forms/ts/index.html', 'bootstrap')(format=".")
 :marked
 .l-main-section
 :marked
   ## Add Powers with ***ngFor**
+  
   ## 用***ngFor***添加超能力
+  
   Our hero may choose one super power from a fixed list of Agency-approved powers.
   We maintain that list internally (in `HeroFormComponent`).
   
@@ -377,6 +423,7 @@ ol
   Add the following HTML *immediately below* the *Alter Ego* group.
   
   在*Alter Ego*的紧下方添加如下HTML：
+  
 +makeExample('forms/ts/app/hero-form.component.html', 'powers', 'app/hero-form.component.html (节选)')(format=".")
 
 :marked
@@ -384,14 +431,16 @@ ol
   The `p` template input variable is a different power in each iteration;
   we display its name using the interpolation syntax with the double-curly-braces.
   
-  我们为列表中的每一项超能力重复渲染出`<option>`标签。
+  我们为列表中的每一项超能力渲染出一个`<option>`标签。
   模板输入变量`p`在每个迭代中都代表一个不同的超能力，我们使用双花括号中的插值表达式语法来显示它的名称。
 
 <a id="ngModel"></a>
 .l-main-section
 :marked
   ## Two-way data binding with **ngModel**
+  
   ## 使用**ngModel**进行双向数据绑定
+  
   Running the app right now would be disappointing.
   
   如果立即运行此应用，你将会失望。
@@ -448,6 +497,7 @@ figure.image-display
   
   如果我们现在运行这个应用，并且开始在*姓名*输入框中键入、添加和删除字符，我们将看到它们从插值结果中显示和消失。
   某一瞬间，它看起来可能是这样。
+  
 figure.image-display
   img(src="/resources/images/devguide/forms/ng-model-in-action.png" width="400px" alt="操作中的ngModel")
 :marked
@@ -476,6 +526,7 @@ figure.image-display
   If we ran the app right now and changed every Hero model property, the form might display like this:
   
   如果现在我们运行本应用，并且修改Hero模型的每一个属性，表单看起来像这样：
+  
 figure.image-display
   img(src="/resources/images/devguide/forms/ng-model-in-action-2.png" width="400px" alt="ngModel in super action")
 :marked
@@ -491,8 +542,11 @@ figure.image-display
 .l-sub-section
   :marked
     ### Inside [(ngModel)]
+    
     ### [(ngModel)]内幕
+    
     *This section is an optional deep dive into [(ngModel)]. Not interested? Skip ahead!*
+    
     *本节是对[(ngModel)]的深入剖析，它是可选的。如果不感兴趣，那就放心大胆的跳过它。*
     
     The punctuation in the binding syntax, <span style="font-family:courier"><b>[()]</b></span>, is a good clue to what's going on.
@@ -524,6 +578,7 @@ figure.image-display
     as we do in this re-write of the "Name" `<input>` binding:
     
     事实上，我们可以把`NgModel`绑定拆成两个独立的绑定，就像我们重写的“姓名”`<input>`绑定一样：
+    
   +makeExample('forms/ts/app/hero-form.component.html', 'ngModel-3','app/hero-form.component.html (节选)')(format=".")
 
   :marked
@@ -549,7 +604,7 @@ figure.image-display
     
     模板表达式中的另一个古怪之处是`model.name = $event`。
     我们以前看到的`$event`变量是来自DOM事件的。
-    但`ngModelChange`属性不处理DOM事件 —— 它是一个Angular `EventEmitter`类型的属性，当它触发时，
+    但`ngModelChange`属性不会生成DOM事件 —— 它是一个Angular `EventEmitter`类型的属性，当它触发时，
     它返回的是输入框的值 —— 它恰好和我们希望赋给模型上`name`属性的值一样。
 
     Nice to know but is it practical? We almost always prefer `[(ngModel)]`.
@@ -568,6 +623,7 @@ figure.image-display
 .l-main-section
 :marked
   ## Track change-state and validity with **ngControl**
+  
   ## 通过**ngControl**跟踪修改状态与有效性验证
 
   A form isn't just about data binding. We'd also like to know the state of the controls on our form.
@@ -596,7 +652,7 @@ figure.image-display
 :marked
   We set this particular `ngControl` to "name" which makes sense for our app. Any unique value will do.
   
-  对本应用来说，把这个`ngControl`设置为"name"会更容易理解。但也可以设置成任何唯一的值。
+  对本应用来说，把这个`ngControl`赋值为"name"会更容易理解。但也可以设置成任何唯一的值。
 
 .l-sub-section
   :marked
@@ -627,6 +683,7 @@ figure.image-display
 .l-main-section
 :marked
   ## Add Custom CSS for Visual Feedback
+  
   ## 添加自定义CSS以提供视觉反馈
 
   The *NgControl* directive doesn't just track state. 
@@ -641,10 +698,10 @@ table
       p 状态
     th 
       p Class if true
-      p 有此CSS类
+      p 为真时的CSS类
     th 
       p Class if false
-      p 无此CSS类
+      p 为假时的CSS类
   tr
     td 
       p Control has been visited
@@ -689,17 +746,25 @@ table
   然后严格按照下面四个步骤来做：
 
   1. Look but don't touch
+  
   1. 查看输入框，但别碰它
+  
   1. Click in the input box, then click outside the text input box
+  
   1. 点击输入框，然后点击输入框外面
+  
   1. Add slashes to the end of the name
+  
   1. 在名字的末尾添加一个斜杠
+  
   1. Erase the name
+  
   1. 删除名字
 
   The actions and effects are as follows:
   
   动作和它对应的效果如下：
+  
 figure.image-display
   img(src="/resources/images/devguide/forms/control-state-transitions-anim.gif"  alt="控件状态转换")
 :marked
@@ -732,14 +797,16 @@ figure.image-display
 :marked
   These styles select for the two Angular validity classes and the HTML 5 "required" attribute.
   
-  这些样式的选择器是这两个Angular有效性类和HTML5的“required” Attribute。
+  这些样式的选择器是这两个Angular有效性类和HTML5的“required” 属性。
 
   We update the `<head>` of the `index.html` to include this style sheet.
   
   我们更新`index.html`中的`<head>`标签来包含这个样式表。
+  
 +makeExample('forms/ts/index.html', 'styles', 'index.html (节选)')(format=".")
 :marked
   ## Show and Hide Validation Error messages
+  
   ## 显示和隐藏有效性校验的错误信息
 
   We can do better.
@@ -756,6 +823,7 @@ figure.image-display
   Here's the way it should look when the user deletes the name:
   
   当用户删除姓名时，显示方式应该是这样的：
+  
 figure.image-display
   img(src="/resources/images/devguide/forms/name-required-error.png" width="400px" alt="必须填写姓名")
 
@@ -763,14 +831,19 @@ figure.image-display
   To achieve this effect we extend the `<input>` tag with
   
   要达到这个效果，我们得通过下列方式扩展`<input>`标签：
+  
   1. a [template reference variable](./template-syntax.html#ref-vars)
+  
   1. 一个[模板引用变量](./template-syntax.html#ref-vars)
+  
   1. the "*is required*" message in a nearby `<div>` which we'll display only if the control is invalid.
-  1. “本项必须填写”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
+  
+  1. “is required”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
 
   Here's how we do it for the *name* input box:
   
   下面是我们应该对 *姓名* 输入框所要做的：
+  
 +makeExample('forms/ts/app/hero-form.component.html', 
   'name-with-error-msg', 
   'app/hero-form.component.html (节选)')(format=".")
@@ -804,6 +877,7 @@ figure.image-display
     Now we can control visibility of the "name" error message by binding properties of the `name` control to the message `<div>` element's `hidden` property.
     
     现在，通过把`div`元素的`hidden`属性绑定到`name`控件的属性，我们就可以控制“姓名”字段错误信息的可见性了。
+    
 +makeExample('forms/ts/app/hero-form.component.html', 
   'hidden-error-msg', 
   'app/hero-form.component.html (节选)')
@@ -847,12 +921,14 @@ figure.image-display
 .l-main-section
 :marked
   ## Add a hero and reset the form
+  
   ## 添加一个英雄，并且重置表单
+  
   We'd like to add a new hero in this form. 
   We place a "New Hero" button at the bottom of the form and bind its click event to a component method.
   
   我们希望在这个表单中添加一个新的英雄。
-  我们在表单的底部放一个“新增英雄”按钮，并且把它的click事件绑定到一个组件方法上。
+  我们在表单的底部放一个“新增英雄”按钮，并且把它的点击事件绑定到一个组件方法上。
 +makeExample('forms/ts/app/hero-form.component.html', 
   'new-hero-button', 
   'app/hero-form.component.html (新增英雄按钮)')
@@ -890,6 +966,7 @@ figure.image-display
     
     这反映出，在这种实现方式下，Angular没办法区分是替换了整个英雄数据还是用程序单独清除了`name`属性。
     Angular不能作出假设，因此只好让控件保留当前状态 —— 脏状态。
+    
 :marked
   We'll have to reset the form controls manually with a small trick. 
   We add an `active` flag to the component, initialized to `true`. When we add a new hero,
@@ -956,7 +1033,9 @@ figure.image-display
 .l-sub-section
   :marked
     ### The NgForm directive
+    
     ### NgForm指令
+    
     What `NgForm` directive? We didn't add an [NgForm](../api/common/NgForm-directive.html) directive!
     
     什么`NgForm`指令？我们没有添加过[NgForm](../api/common/NgForm-directive.html)指令啊！
@@ -971,8 +1050,8 @@ figure.image-display
     It also has its own `valid` property which is true only *if every contained
     control* is valid.
     
-    `NgForm`指令使用额外的特性扩充了`form`元素。
-    它保存我们通过`ngControl` Attribute为各个元素创建的控件类，并且监视它们的属性变化，包括有效性。
+    `NgForm`指令为普通的`form`元素扩充了额外的特性。
+    它保存我们通过`ngControl` 属性为各个元素创建的控件类，并且监视它们的属性变化，包括有效性。
     它还有自己的`valid`属性，只有当*每一个被包含的控件*都有效时，它才有效。
     
 :marked
@@ -999,15 +1078,21 @@ figure.image-display
   For us, it was as simple as
   
   有了Angular，它就是这么简单：
+  
   1. Define a template reference variable on the (enhanced) form element
+  
   1. 定义一个模板引用变量，放在(强化过的)form元素上
+  
   2. Reference that variable in a button some 50 lines away.
+  
   2. 从50行之外的按钮上引用这个变量。
 
 .l-main-section
 :marked
   ## Toggle two form regions (extra credit)
+  
   ## 切换两个表单区域（额外的荣誉）
+  
   Submitting the form isn't terribly dramatic at the moment.
   
   现在就提交表单还不够激动人心。
@@ -1027,7 +1112,7 @@ figure.image-display
   Let's do something more strikingly visual.
   Let's hide the data entry area and display something else.
   
-  我们来做一些更明显的视觉效果吧。
+  我们来实现一些更明显的视觉效果吧。
   隐藏掉数据输入框，并且显示一些别的东西。
 
   Start by wrapping the form in a `<div>` and bind
@@ -1082,34 +1167,53 @@ figure.image-display
 .l-main-section
 :marked
   ## Conclusion
+  
   ## 结论
 
   The Angular 2 form discussed in this chapter takes advantage of the following framework features to provide support for data modification, validation and more:
   
-  从本章对Angular 2表单的讨论中得到的用来支持数据修改、验证等的框架高级特性如下：
+  本章讨论的Angular 2表单利用了下列框架特征来支持数据修改、验证和更多操作：
 
   - An Angular HTML form template.
+  
   - Angular HTML表单模板。
+  
   - A form component class with a `Component` decorator.
+  
   - 带有`Component`装饰器的组件类。
+  
   - The `ngSubmit` directive for handling the form submission.
+  
   - 用来处理表单提交的`ngSubmit`指令。
+  
   - Template reference variables such as `#heroForm`, `#name`, `#alter-ego` and `#power`.
+  
   - 模板引用变量，如`#heroForm`、`#name`、`#alter-ego`和`#power`。
+  
   - The `[(ngModel)]` syntax for two-way data binding.
+  
   - 用于双向数据绑定的`[(ngModel)]`语法
+  
   - The `ngControlName` directive for validation and form element change tracking.
+  
   - 用于验证和表单元素变化跟踪的`ngControlName`指令
+  
   - The reference variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
+  
   - 指向input控件的引用变量上的`valid`属性，可用于检查控件是否有效、是否显示/隐藏错误信息。
+  
   - Controlling the submit button's enabled state by binding to `NgForm` validity.
+  
   - 通过绑定到`NgForm`的有效性状态，控制提交按钮的禁用状态。
+  
   - Custom CSS classes that provide visual feedback to users about invalid controls.
+  
   - 对无效控件，定制CSS类来给用户提供视觉反馈。
 
   Our final project folder structure should look like this:
   
   我们最终的项目目录结构看起来是这样：
+  
 .filetree
   .file angular2-forms
   .children
