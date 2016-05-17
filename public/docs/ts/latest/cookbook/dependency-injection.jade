@@ -4,7 +4,7 @@ include ../_util-fns
   Dependency Injection is a powerful pattern for managing code dependencies. 
   In this cookbook we will explore many of the features of Dependency Injection (DI) in Angular.
   
-  依赖注入是一个强大的管理代码依赖链的架构模式。在这个“菜谱”中，我们会讨论Angular依赖注入的许多特性。
+  依赖注入是一个用来管理代码依赖的强大模式。在这本“烹饪书”中，我们会讨论Angular依赖注入的许多特性。
   
 <a id="toc"></a>
 :marked
@@ -18,23 +18,23 @@ include ../_util-fns
 
   [External module configuration](#external-module-configuration)
   
-  [外部模块设置](#external-module-configuration)
+  [外部模块配置](#external-module-configuration)
   
   [*@Injectable* and nested service dependencies](#nested-dependencies)
   
-  [*@Injectable*和嵌套服务的依赖](#nested-dependencies)  
+  [*@Injectable*与嵌套服务的依赖](#nested-dependencies)  
 
   [Limit service scope to a component subtree](#service-scope)
   
-  [限制服务作用范围到一个组件支树](#service-scope)
+  [把服务作用范围限制到一个子组件树](#service-scope)
   
   [Multiple service instances (sandboxing)](#multiple-service-instances)
   
-  [多个服务实例(sandboxing)](#multiple-service-instances)
+  [多个服务实例(沙箱)](#multiple-service-instances)
   
   [Qualify dependency lookup with *@Optional* and *@Host*](#qualify-dependency-lookup)
   
-  [使用*@Optional*和*@Host*装饰来认证依赖调用过程](#qualify-dependency-lookup)
+  [使用*@Optional*和*@Host*装饰器来限定依赖查找方式](#qualify-dependency-lookup)
   
   [Inject the component's DOM element](#component-element)
   
@@ -46,7 +46,7 @@ include ../_util-fns
   
   * [The *provide* function](#provide)
   
-  * [*provide*功能](#provide)
+  * [*provide*函数](#provide)
   
   * [useValue - the *value provider*](#usevalue)  
   
@@ -66,7 +66,7 @@ include ../_util-fns
 
   [Provider token alternatives](#tokens)
   
-  [供应商可选令牌](#tokens)
+  [供应商可选Token](#tokens)
   
   * [class-interface](#class-interface)
   
@@ -82,23 +82,23 @@ include ../_util-fns
   
   [Find a parent component by injection](#find-parent)
   
-  [通过注入来锁定父级组件](#find-parent)
+  [通过注入来查找父组件](#find-parent)
   
     * [Find parent with a known component type](#known-parent)
     
-    * [通过已知组件类型锁定父级组件](#known-parent)
+    * [通过已知组件类型查找父组件](#known-parent)
     
     * [Cannot find a parent by its base class](#base-parent)
     
-    * [通过自己的基础类无法锁定父级组件](#base-parent)
+    * [无法通过自己的基类查找父组件](#base-parent)
     
     * [Find a parent by its class-interface](#class-interface-parent)
     
-    * [通过父级的类-接口锁定父级组件](#class-interface-parent)
+    * [通过类-接口查找父组件](#class-interface-parent)
     
     * [Find a parent in a tree of parents (*@SkipSelf*)](#parent-tree)
     
-    * [使用(*@SkipSelf*)在父级树里锁定一个父级组件](#parent-tree)
+    * [在父组件树里查找一个父组件(*@SkipSelf*)](#parent-tree)
     
     * [A *provideParent* helper function](#provideparent)
     
@@ -106,13 +106,13 @@ include ../_util-fns
   
   [Break circularities with a forward class reference (*forwardRef*)](#forwardref)
   
-  [使用一个forward类引用(*forwardRef*)打破环状依赖](#forwardref)
+  [使用类的前向引用(*forwardRef*)打破循环依赖](#forwardref)
     
 :marked
    **See the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**
    of the code supporting this cookbook.        
    
-   获取本“菜谱”的代码支持，**参见[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
+   要获取本“烹饪书”的代码，**参见[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
    
 .l-main-section
 
@@ -124,13 +124,13 @@ include ../_util-fns
   
   Register providers for dependencies used throughout the application in the root application component, `AppComponent`.
   
-  在应用程序根组件`AppComponent`注册那些被应用程序全局使用的依赖供应商。
+  在应用程序根组件`AppComponent`中注册那些被应用程序全局使用的依赖供应商。
   
   In the following example, we import and register several services 
   (the `LoggerService`, `UserContext`, and the `UserService`)
   in the `@Component` metadata `providers` array.
   
-  在下面的例子中，在`@Component`元数据的`Providers`数组中，导入和注册了几个服务（`LoggerService`, `UserContext`和`UserService`)。
+  在下面的例子中，通过`@Component`元数据的`providers`数组导入和注册了几个服务（`LoggerService`, `UserContext`和`UserService`)。
  
 +makeExample('cb-dependency-injection/ts/app/app.component.ts','import-services','app/app.component.ts (excerpt)')(format='.') 
 :marked
@@ -138,7 +138,7 @@ include ../_util-fns
   Service classes can act as their own providers which is why listing them in the `providers` array
   is all the registration we need.
   
-  所有上面这些服务都是用类来实现的。服务类能充当自己的供应商，这就是为什么把它们列到一个`providers`数组里是唯一的注册要求。
+  所有这些服务都是用类实现的。服务类能充当自己的供应商，这就是为什么只要把它们列在`providers`数组里就算注册成功了。
   
 .l-sub-section
   :marked
@@ -146,13 +146,13 @@ include ../_util-fns
     Angular creates a service instance from a class provider by "new-ing" it.
     Learn more about Providers [below](#providers).
     
-    *供应商*是用来新建或者送交服务的。Angular从一个类-供应商里面，通过“new-ing”来新建服务实例的。从[下面](#providers)学习更多关于供应商的知识。
+    *供应商*是用来新建或者交付服务的。Angular拿到“类供应商”之后，会通过“new”操作来新建服务实例。从[下面](#providers)可以学到更多关于供应商的知识。
     
 :marked
   Now that we've registered these services,   
   Angular can inject them into the constructor of *any* component or service, *anywhere* in the application.
   
-  现在已经注册了这些服务，Angular能够在应用程序的*任何地方*，将它们注入到*任何*组件和服务的构造函数里面。
+  现在我们已经注册了这些服务，这样Angular就能在应用程序的*任何地方*，把它们注入到*任何*组件和服务的构造函数里。
   
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (component constructor injection)')(format='.') 
 
@@ -162,38 +162,35 @@ include ../_util-fns
 .l-main-section
 :marked
   ## External module configuration
-  
   ## 外部模块设置
   
   We can register _certain_ module providers when bootstrapping rather than in the root application component. 
   
-  可以在引导过程中注册_某些_模块供应商，而非在应用程序根组件里。
+  也可以在引导过程中注册_某些_模块供应商，而非在应用程序根组件里。
   
   We'd do this when we expect to select or configure external modules that support our application
   but (a) aren't conceptually part of the application and (b) that we could change later without
   altering the essential logic of the application.
   
-  当使用支持我们的应用的外部组件时，在满足下面两个条件的时候，应该在引导过程中注册：
-  a）在概念上不是我们程序的一部分
-  b）在未来，可能需要在不变化主要应用程序逻辑的情况下更换它。
+  使用外部模块时，如果满足下面两个条件，就应该在引导过程中注册：a）它在概念上不是我们程序的一部分，以及 b）将来我们可能要在不改变主要应用逻辑的情况下更换它。
   
   For example, we might configure the Component Router with different 
   [location strategies](../guide/router.html#location-strategy)  based on environmental factors. 
   The choice of location strategy doesn't matter to the application itself.
   
-  比如，根据不同的环境因素设置不同的组件路由， 使用不同的[location strategies](../guide/router.html#location-strategy)。这个location strategy不直接影响应用程序本身。
+  比如，可能会根据不同的环境组件路由器，使用不同的[location策略](../guide/router.html#location-strategy)来配置组件路由器。而这个location策略不会直接影响到应用程序本身。
   
   We could sneak in a fake HTTP backend with sample data during development rather than 
   allow http calls to a remote server (that might not yet exist). 
   We'll switch to the real backend in production. 
   The application shouldn't know or care one way or the other.
   
-  在开发过程中，可以偷偷把一个假的带有例子数据的HTTP后端嵌入进来，来取代对一个远程服务器（可能还不存在）进行http查询。我们在产品发布时再切换到真正的后端。应用程序不需要知道，也不在乎哪个后端。
+  在开发过程中，可以偷偷把一个假的带样本数据的HTTP后端嵌入进来，以代替对一个远程服务器（可能还不存在）进行http查询。我们在产品发布时再切换到真正的后端。应用程序不用知道也不用管正在跟哪个后端打交道。
   
   See both examples in the following `main.ts`
   where we list their service providers in an array in the second parameter of the `bootstrap` method.
   
-  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个参数的数组中，我们列出了它们的服务供应商。
+  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个数组型参数中，我们列出了它们的服务供应商。
   
 +makeExample('cb-dependency-injection/ts/app/main.ts','bootstrap','app/main.ts')(format='.') 
 
@@ -209,18 +206,18 @@ a(id="nested-dependencies")
   It shouldn't care.
   It's the dependency injection's job to create and cache that service.
   
-  被注入服务的使用者不应该知道如何创建这个服务。它也不应该在乎。新建和缓存这个服务是依赖注入器的工作。
+  这些被注入服务的消费者不需要知道如何创建这个服务，它也不应该在乎。新建和缓存这个服务是依赖注入器的工作。
   
   Sometimes a service depends on other services ... which may depend on yet other services.
   Resolving these nested dependencies in the correct order is also the framework's job.
   At each step, the consumer of dependencies simply declares what it requires in its constructor and the framework takes over.
   
-  有时候一个服务依赖其它服务...而其它服务可能依赖另外的服务。按正确的顺序来解析这些嵌套依赖也是框架工具（Angualar 2依赖注入）的工作。
-  在每一步，依赖的使用者只是在它的构造函数里简单地声明它需要什么，框架工具会做剩余的事情。
+  有时候一个服务依赖其它服务...而其它服务可能依赖另外的更多服务。按正确的顺序解析这些嵌套依赖也是框架的工作。
+  在每一步，依赖的使用者只要在它的构造函数里简单声明它需要什么，框架就会完成所有剩下的事情。
   
   For example, we inject both the `LoggerService` and the `UserContext` in the `AppComponent`. 
   
-  比如，我们在`AppComponent`里注入`LoggerService`和`UserContext`。
+  比如，我们在`AppComponent`里注入的`LoggerService`和`UserContext`。
   
 +makeExample('cb-dependency-injection/ts/app/app.component.ts','ctor','app/app.component.ts')(format='.') 
 
@@ -238,24 +235,23 @@ a(id="nested-dependencies")
  The `UserContextService` needs the `LoggerService`, which the framework already has, and the `UserService`, which it has yet to create. 
  The `UserService` has no dependencies so the dependency injection framework can just `new` one into existence.
  
- 当Angular新建`AppComponent`时，依赖注入框架工具创建一个`LoggerService`的实例，并开始创建`UserContextService`实例。
- `UserContextService`需要框架工具已经创建了的`LoggerService`实例和还没创建的`UserService`实例。
- `UserService`没有其它依赖，所以依赖注入框架工具可以直接`new`一个实例。
+ 当Angular新建`AppComponent`时，依赖注入框架先创建一个`LoggerService`的实例，然后创建`UserContextService`实例。
+ `UserContextService`需要框架已经创建好的`LoggerService`实例和尚未创建的`UserService`实例。
+ `UserService`没有其它依赖，所以依赖注入框架可以直接`new`一个实例。
  
  The beauty of dependency injection is that the author of `AppComponent` didn't care about any of this. 
  The author simply declared what was needed in the constructor (`LoggerService` and `UserContextService`) and the framework did the rest.
  
- 依赖注入美丽的地方在于，`AppComponent`的作者不需要在乎这一切。作者只是在(`LoggerService`和`UserContextService`的)构造函数里面简单地声明一下，框架工具来做剩下的工作。
+ 依赖注入最帅的地方在于，`AppComponent`的作者不需要在乎这一切。作者只是在(`LoggerService`和`UserContextService`的)构造函数里面简单的声明一下，框架就完成了剩下的工作。
  
  Once all the dependencies are in place, the `AppComponent` displays the user information:
  
- 一旦所有依赖都准备好了，`AppComponent`显示用户信息：
+ 一旦所有依赖都准备好了，`AppComponent`就会显示用户信息：
  
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/logged-in-user.png" alt="Logged In User")
 :marked
   ### *@Injectable()*
-  
   ### *@Injectable()*
   
   Notice the `@Injectable()`decorator on the `UserContextService` class. 
@@ -266,27 +262,27 @@ figure.image-display
 :marked
   That decorator makes it possible for Angular to identify the types of its two dependencies, `LoggerService` and `UserService`.
   
-  该装饰器让Angular有能力辨认它的两个依赖 `LoggerService` 和 `UserService`。
+  该装饰器让Angular有能力识别这两个依赖 `LoggerService` 和 `UserService`的类型。
   
   Technically, the `@Injectable()`decorator is only _required_ for a service class that has _its own dependencies_.
   The `LoggerService` doesn't depend on anything. The logger would work if we omitted `@Injectable()`
   and the generated code would be slightly smaller. 
   
-  技术上讲，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
-  `LoggerService`不依赖任何东西，所以该日志服务在没有`@Injectable()`的时候应该也工作，生成的代码也小一些。
+  从技术上讲，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
+  `LoggerService`不依赖任何东西，所以该日志服务在没有`@Injectable()`的时候应该也能工作，生成的代码也更少一些。
   
   But the service would break the moment we gave it a dependency and we'd have to go back and
   and add `@Injectable()` to fix it. We add `@Injectable()` from the start for the sake of consistency and to avoid future pain.
   
-  但是在添加依赖给它的那一刻，该服务就会停止工作，要修复它，就必须要添加`@Injectable()`。
-  为了保持一致性和防止将来的麻烦，推荐从一开始就添加`@Injectable()`。
+  但是在给它添加依赖的那一瞬间，该服务就会停止工作，要想修复它，就必须要添加`@Injectable()`。
+  为了保持一致性和防止将来的麻烦，推荐从一开始就加上`@Injectable()`。
 
 .alert.is-helpful
   :marked
     Although we recommend applying `@Injectable` to all service classes, do not feel bound by it.
     Some developers prefer to add it only where needed and that's a reasonable policy too.
     
-    虽然我们推荐在所有服务中使用`@Injectable()`，但是你不需要一定要这么做。一些开发者宁可在需要添加的地方才添加，这也是一个合理的策略。
+    虽然我们推荐在所有服务中使用`@Injectable()`，但你也不需要一定要这么做。一些开发者就更喜欢在真正需要的地方才添加，这也是一个合理的策略。
 
 .l-sub-section
   :marked
@@ -294,41 +290,41 @@ figure.image-display
     It didn't need `@Injectable()` because that component class has the `@Component` decorator.
     In Angular with TypeScript, a *single* decorator &mdash; *any* decorator &mdash; is sufficient to identify dependency types.
     
-    `AppComponent`类有两个依赖，但是没有`@Injectable()`。
-    它不需要`@Injectable()`是因为组件类有`@Component`装饰器。
-    在用TypeScript的Angular应用里，有一个 *单独的* 装饰器 &mdash; *任何* 装饰器 &mdash; 来辨识依赖类别就足够了。
+    `AppComponent`类有两个依赖，但它没有`@Injectable()`。
+    它不需要`@Injectable()`，这是因为组件类有`@Component`装饰器。
+    在用TypeScript的Angular应用里，有一个*单独的*装饰器 &mdash; *任何*装饰器 &mdash; 来标识依赖的类型就够了。
     
 <a id="service-scope"></a>
 .l-main-section
 :marked
   ## Limit service scope to a component subtree
   
-  ## 限制服务作用范围到一个组件支树
+  ## 把服务作用范围限制到一个组件支树
   
   All injected service dependencies are singletons meaning that, 
   for a given dependency injector ("injector"), there is only one instance of service. 
     
-  所有注入的服务依赖都是单例（singletons)的，也就是说，在任意一个依赖注入器("injector")中，每个服务只有一个唯一的实例。
+  所有被注入的服务依赖都是单例的，也就是说，在任意一个依赖注入器("injector")中，每个服务只有唯一的实例。
   
   But an Angular application has multiple dependency injectors, arranged in a tree hierarchy that parallels the component tree.
   So a particular service can be *provided* (and created) at any component level and multiple times
   if provided in multiple components.
     
-  但是Angular应用程序有多个依赖注入器，组织在一个与组件树平行的树形结构中。所以，可以在任何组件级别*提供*（和建立）特定的服务。如果在多个组件中注入，服务就会被新建多个实例，分别组件中提供。
+  但是Angular应用程序有多个依赖注入器，组织成一个与组件树平行的树状结构。所以，可以在任何组件级别*提供*（和建立）特定的服务。如果在多个组件中注入，服务就会被新建出多个实例，分别提供给不同的组件。
   
   By default, a service dependency provided in one component is visible to all of its child components and 
   Angular injects the same service instance into all child components that ask for that service.
   
-  默认情况下，一个组件中注入的服务依赖，会在所有该组件的子组件中能见，而且Angular会注入同样的服务实例到要求该服务的子组件中。
+  默认情况下，一个组件中注入的服务依赖，会在该组件的所有子组件中可见，而且Angular会把同样的服务实例注入到需要该服务的子组件中。
   
   Accordingly, dependencies provided in the root `AppComponent` can be injected into *any* component *anywhere* in the application.
   
-  同样，在根部`AppComponent`提供的依赖的单一实例能被注入到*任何*组件，到应用程序的*任何地方*。
+  所以，在根部的`AppComponent`提供的依赖单例就能被注入到应用程序中*任何地方*的*任何*组件。
   
   That isn't always desireable. 
   Sometimes we want to restrict service availability to a particular region of the application.
   
-  这不一定总是我们想要的。有时候我们想要把服务的有效性限制到应用程序的一个特定区域。
+  但这不一定总是我们想要的。有时候我们想要把服务的有效性限制到应用程序的一个特定区域。
   
   We can limit the scope of an injected service to a *branch* of the application hierarchy
   by providing that service *at the sub-root component for that branch*.
@@ -469,7 +465,7 @@ a(id="qualify-dependency-lookup")
   But when this component is projected into a *parent* component, that parent component becomes the host.
   We look at this second, more interesting case in our next example.
   
-  宿主组件一般为请求依赖的组件。但是当这个组件被投放到一个*父级*组件后，该父级组件变成了主持。我们考虑一会，更多有趣的案例还在后面。
+  宿主组件一般为请求依赖的组件。但是当这个组件被投放到一个*父级*组件后，该父组件变成了主持。我们考虑一会，更多有趣的案例还在后面。
   
   ### Demonstration
   ### 示范
@@ -820,7 +816,7 @@ a(id='useclass')
     This component and its tree of child components receive the `DateLoggerService` instance.
     Components outside the tree continue to receive the original `LoggerService` instance.
     
-    这个组件和它的子级组件树得到`DateLoggerService`实例。在这些组件之外的组件树得到的还是`LoggerService`实例。
+    这个组件和它的子组件树得到`DateLoggerService`实例。在这些组件之外的组件树得到的还是`LoggerService`实例。
 :marked
   The `DateLoggerService` inherits from `LoggerService`; it appends the current date/time to each message:  
   
@@ -1145,7 +1141,7 @@ a(id="find-parent")
 :marked
   ## Find a parent component by injection
   
-  ## 通过注入来找到一个父级组件
+  ## 通过注入来找到一个父组件
   
   Application components often need to share information.
   We prefer the more loosely coupled techniques such as data binding and service sharing.
@@ -1170,7 +1166,7 @@ a(id="find-parent")
   But because every component instance is added to an injector's container,
   we can use Angular dependency injection to reach a parent component.
   
-  没有公共API来获取父级组件的引用。但是因为每个组件实例都被加到了依赖注入器容器中，我们可以使用Angular依赖注入来抓住父级组件。
+  没有公共API来获取父组件的引用。但是因为每个组件实例都被加到了依赖注入器容器中，我们可以使用Angular依赖注入来抓住父组件。
   
   This section describes some techniques for doing that.
   
@@ -1179,11 +1175,11 @@ a(id="find-parent")
   <a id="known-parent"></a>
   ### Find a parent component of known type
   
-  ### 找到已知类型的父级组件
+  ### 找到已知类型的父组件
   
   We use standard class injection to acquire a parent component whose type we know.
   
-  我们使用标准类注入来获取已知类型的父级组件。
+  我们使用标准类注入来获取已知类型的父组件。
   
   In the following example, the parent `AlexComponent` has several children including a `CathyComponent`:
   
@@ -1212,7 +1208,7 @@ a(id='alex')
   
   What if we do *not* know the concrete parent component class?
   
-  如果我们*不*知道父级组件类的具体实施怎么办？
+  如果我们*不*知道父组件类的具体实施怎么办？
   
   A re-usable component might be a child of multiple components.
   Imagine a component for rendering breaking news about a financial instrument.
@@ -1269,7 +1265,7 @@ a(id='alex')
   
   We can find a parent component with a [class-interface](#class-interface).
   
-  我们能通过[类-接口](#class-interface)找到一个父级组件。
+  我们能通过[类-接口](#class-interface)找到一个父组件。
 
   The parent must cooperate by providing an *alias* to itself in the name of a *class-interface* token. 
   
@@ -1297,7 +1293,7 @@ a(id="alex-providers")
   
   *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter, the same way we've done it before:
   
-  *Carol*，*Alex*的第三个子级组件，把父级注入到自己的`parent`参数，和我们之前做的一样：
+  *Carol*，*Alex*的第三个子组件，把父级注入到自己的`parent`参数，和我们之前做的一样：
   
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','carol-class','parent-finder.component.ts (CarolComponent class)')(format='.')
 :marked
@@ -1395,8 +1391,8 @@ a(id="parent-token")
   The `name` property is the only member of a parent component that a child component can call.
   Such a narrowing interface helps decouple the child component class from its parent components.
  
-  该`Parent` *类-接口*定义了`Name`属性，它有类型声明，但是*没有实施*，该`name`是该父级的所有子级组件们唯一能调用的属性。
-  这样一个窄的接口帮助分离子级类和它的父级组件。
+  该`Parent` *类-接口*定义了`Name`属性，它有类型声明，但是*没有实施*，该`name`是该父级的所有子组件们唯一能调用的属性。
+  这样一个窄的接口帮助分离子级类和它的父组件。
   
   A component that could serve as a parent *should* implement the *class-interface* as the `AliceComponent` does:
   
