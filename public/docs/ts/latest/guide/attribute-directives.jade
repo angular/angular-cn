@@ -2,65 +2,110 @@ include ../_util-fns
 
 :marked
   An **Attribute** directive changes the appearance or behavior of a DOM element.
+  
+  **Attribute**型指令用于改变一个DOM元素的外观或行为。
 
 :marked
   In this chapter we will
+  
+  本章中我们将：
   * write an attribute directive to change the background color
+  * 写一个用来改变背景色的Attribute型指令
   * apply the attribute directive to an element in a template
+  * 把这个Attribute型指令应用到模板中的元素
   * respond to user-initiated events
+  * 响应用户引发的事件
   * pass values into the directive using data binding
+  * 使用数据绑定把值传到指令中
 
   [Live Example](/resources/live-examples/attribute-directives/ts/plnkr.html)
+  
+  [在线例子](/resources/live-examples/attribute-directives/ts/plnkr.html)
 
   ## Directives overview
+  ## 指令概览
   
   There are three kinds of directives in Angular:
+  
+  在Angular中有三种类型的指令
   1. Components
+  1. 组件
   1. Structural directives  
+  1. 结构型指令
   1. Attribute directives
+  1. Attribute型指令
 
   The *Component* is really a directive with a template. 
   It's the most common of the three directives and we write lots of them as we build our application.
+  
+  *组件*其实是一个带模板的指令。
+  它是这三种指令中最常用的，我们在构建应用程序时会写大量组件。
 
   The [*Structural* directive](structural-directives.html) changes the DOM layout by adding and removing DOM elements. 
   [NgFor](template-syntax.html#ng-for) and [NgIf](template-syntax.html#ng-if) are two familiar examples.
+  
+  [*结构型*指令](structural-directives.html)会通过添加/删除DOM元素来更改DOM树布局。
+  [NgFor](template-syntax.html#ng-for)和[NgIf](template-syntax.html#ng-if)就是两个最熟悉的例子。
   
   The *Attribute* directive changes the appearance or behavior of an element.
   The built-in [NgStyle](template-syntax.html#ng-style) directive, for example,
   can change several element styles at the same time.
   
+  *Attribute型*指令改变一个元素的外观或行为。
+  比如，内建的[NgStyle](template-syntax.html#ng-style)指令可以同时修改元素的多种样式。
+  
   We are going to write our own attribute directive to set an element's background color
   when the user hovers over that element.
+  
+  我们准备写一个自己的Attribute型指令，当用户把鼠标悬浮在元素上时，它会设置元素的背景色。
 .l-sub-section
   :marked
     We don't need *any* directive to simply set the background color.
     We can set it with the special [Style Binding](template-syntax.html#style-binding) like this:
+    
+    其实我们并不需要*任何*指令来设置背景色。
+    我们可以通过[样式绑定](template-syntax.html#style-binding)来设置它，就像这样：
   code-example.
     &lt;p [style.background]="'lime'">I am green with envy!&lt;/p>
   <br>
   :marked
     That wouldn't be nearly as much fun as creating our own directive.
     
+    但这样的话就没法享受创建自定义指令的乐趣了。
+    
     Besides, we're not just *setting* the color; we'll be *changing* the color
     in response to a user action, a mouse hover.
+    
+    我们不仅要*设置*颜色，还要响应用户的动作（鼠标悬浮），来*修改*这个颜色。
 
 .l-main-section
 :marked
   ## Build a simple attribute directive
+  ## 创建一个简单的Attribute型指令
   An attribute directive minimally requires building a controller class annotated with a 
   `Directive` decorator. The `Directive` decorator specifies the selector identifying
   the attribute associated with the directive. 
   The controller class implements the desired directive behavior.
+  
+  Attribute型指令至少需要一个带有`Directive`装饰器的控制器类。`Directive`装饰器指定了一个选择器，用于指出与此指令相关的Attribute。
+  控制器类实现了指令需要具备的行为。
 
   Let's build a small illustrative example together.
+  
+  让我们构建一个小例子来说明它。
 
 :marked
   ### Our first draft
+  ### 第一个草稿
   Create a new project folder (`attribute-directives`) and follow the steps in the [QuickStart](../quickstart.html).
+  
+  创建一个项目文件夹(`attribute-directives`)并按照[快速起步](../quickstart.html)中的步骤进行初始化。
 
 include ../_quickstart_repo
 :marked
   Add a new file to the `app` folder called `highlight.directive.ts` and add the following code:
+  
+  在`app`文件夹中创建一个名叫`highlight.directive.ts`的文件，并且添加下列代码：
 +makeExample('attribute-directives/ts/app/highlight.directive.1.ts', null, 'app/highlight.directive.ts')
 
 :marked
@@ -70,6 +115,11 @@ include ../_quickstart_repo
   so we can access the DOM element.
   We don't need `Input` immediately but we will need it later in the chapter.
   
+  我们先从Angular库中导入一些符号。
+  我们要为使用`@Directive`装饰器而导入`Directive`。
+  我们要为[注入](dependency-injection.html)到指令的构造函数中而导入`ElementRef`，这样我们才能访问DOM元素。
+  虽然眼下还不需要`Input`，但在稍后的章节中我们很快就会用到它。
+  
   Then we define the directive metadata in a configuration object passed
   as an argument to the `@Directive` decorator function. 
   A `@Directive` decorator for an attribute directive requires a css selector to identify
@@ -77,16 +127,28 @@ include ../_quickstart_repo
   The [css selector for an attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
   is the attribute name in square brackets.
   
+  然后，我们通过给`@Directive`装饰器函数传入一个“配置对象”来定义指令的元数据。
+  Attribute型指令的`@Directive`装饰器需要一个css选择器，以便从模板中识别出关联到我们这个指令的HTML。
+  [css中的attribute选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是Attribute名称加方括号。
+  
   Our directive's selector is `[myHighlight]`. 
   Angular will locate all elements in the template that have an attribute named `myHighlight`. 
+  
+  我们这个指令的选择器是`[myHighlight]`，于是Angular就会在模板中找到带有`myHighlight`这个Attribute的元素。
 .l-sub-section
   :marked
     ### Why not call it "highlight"?
+    ### 为什么不直接叫做"highlight"？
     *highlight* is a nicer name than *myHighlight* and, technically, it would work if we called it that.
+    
+    从技术上说，*highlight*是一个比*myHighlight*更好的名字，而且在这里它确实能工作。
  
     However, we recommend picking a selector name with a prefix to ensure
     that it cannot conflict with any standard HTML attribute, now or in the future.
     There is also less risk of colliding with a third-party directive name when we give ours a prefix.
+    
+    不过，我们还是建议选择一个带前缀的选择器名称，以保证无论现在还是未来它都不会和任何标准HTML Attribute发生冲突。
+    
 
     We do **not** prefix our `highlight` directive name with **`ng`**.
     That prefix belongs to Angular and
