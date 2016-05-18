@@ -139,7 +139,7 @@ include ../_util-fns
   :marked
     We also leverage TypeScript's constructor syntax for declaring parameters and properties simultaneously.
     
-    我们同时借助TypeScript的构造器语法来同时定义参数和属性。
+    我们再次借助TypeScript的构造器语法来同时定义参数和属性。
 // #docregion why-3-2
 :marked
   Now we create a car by passing the engine and tires to the constructor.
@@ -503,7 +503,7 @@ include ../_util-fns
     That's how the Angular injector knows to inject an instance of the `HeroService` when it
     creates a new `HeroListComponent`.
     
-    Angular的注入器是怎么知道在创建`HeroListComponent`时注入一个`HeroService`的实例的？这就是原理。
+    Angular的注入器是怎么知道在创建`HeroListComponent`时该注入一个`HeroService`的实例的？这就是原因。
 // #docregion di-create-injector-implicitly-1
 :marked
   <a id="di-metadata"></a>
@@ -560,7 +560,7 @@ include ../_util-fns
   Listing dependencies as constructor parameters may be all we need to test application parts effectively.
   
   我们前面强调过，设计一个适合依赖注入的类，可以让这个类更容易测试。
-  要有效的测试应用的一部分，所有我们所需要做的，就只是在构造函数的参数中列出依赖。
+  要有效的测试应用中的一部分，需要我们做的一切，就只是在构造函数的参数中列出依赖。
 
   For example, we can create a new `HeroListComponent` with a mock service that we can manipulate
   under test:
@@ -594,7 +594,7 @@ include ../_util-fns
   
   Here is the revision compared to the original.
   
-  下面是在原来的类的基础上做的修改：
+  下面是在原始类的基础上所做的修改：
 // #enddocregion di-service-service-1
 +makeTabs(
   `dependency-injection/ts/app/heroes/hero.service.2.ts,
@@ -766,7 +766,7 @@ code-example(format, language="html").
   Our `HeroService` currently requires a `Logger`. What if we could get by without a logger?
   We'd use it if we had it, ignore it if we didn't. We can do that.
   
-  我们的`HeroService`目前需要`Logger`。如果我们在没有日志服务的时候可以照样继续工作？
+  我们的`HeroService`目前需要`Logger`。如果我们希望在没有日志服务的时候照样可以继续工作呢？
   我们有它就用，没它就忽略。这也好办。
   
 // #enddocregion logger-service-4
@@ -1142,7 +1142,7 @@ code-example(format, language="html").
     
     `deps`属性是一个[供应商令牌](#token)数组。
     `Logger`和`UserService`类作为它们自身供应商的令牌。
-    注入器解析这些令牌，并且把相应的服务注入到工厂函数参数中所对应的参数中去。
+    注入器解析这些令牌，并且把相应的服务注入到工厂函数中相应的参数中去。
 // #enddocregion providers-factory-4
 // #docregion providers-factory-5
 - var lang = current.path[1]
@@ -1365,8 +1365,8 @@ p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）�
   We rarely work directly with an injector.
   Here's an `InjectorComponent` that does.
   
-  我们很少直接使用注入器工作。
-  这里的`InjectorComponent`直接使用了注入器。
+  这里的`InjectorComponent`直接使用了注入器，
+  但我们很少直接使用注入器工作。
 // #enddocregion appendix-explicit-injector-1
 +makeExample('dependency-injection/ts/app/injector.component.ts', 'injector', 'app/injector.component.ts')
 // #docregion appendix-explicit-injector-2
