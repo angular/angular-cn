@@ -3,7 +3,7 @@ include _util-fns
 :marked
   Our QuickStart goal is to build and run a super-simple Angular 2 application in TypeScript.
 
-  在“QuickStart”中，我们的目标是构建并运行一个超级简单的Angular 2应用 —— 使用TypeScript语言
+  在“快速起步”中，我们的目标是构建并运行一个超级简单的Angular 2应用 —— 使用TypeScript语言
 
   # Download the code
   # 下载代码
@@ -11,7 +11,7 @@ include _util-fns
   [Download the QuickStart source](https://github.com/angular/quickstart/blob/master/README.md)
   and start coding.
 
-  等不及了？立刻[下载QuickStart源码](https://github.com/angular/quickstart/blob/master/README.md)
+  等不及了？立刻[下载“快速起步”源码](https://github.com/angular/quickstart/blob/master/README.md)
   开始写代码！
 
   ## See It Run!
@@ -25,7 +25,7 @@ include _util-fns
   它将在<a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>中加载这个范例，并显示一条简短的消息：
 
 figure.image-display
-  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="QuickStart应用的输出")
+  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
 
 
 :marked
@@ -310,7 +310,7 @@ a(id="app-component")
     This QuickStart has only one, extremely simple component.
     But it has the essential structure of every component we'll ever write:
 
-    这个QuickStart只有一个非常简单的组件，但麻雀虽小，五脏俱全 —— 它具备了我们将来写的组件的基本结构。
+    这个“快速起步”只有一个非常简单的组件，但麻雀虽小，五脏俱全 —— 它具备了我们将来写的组件的基本结构。
     
     * One or more <a href="javascript: why('component-import')">import</a>
     statements to reference the things we need.
@@ -419,7 +419,7 @@ a(id="app-component")
     Our `AppComponent` class is empty because we don't need it to do anything in this QuickStart.
 
     当我们打算构建一个真实的应用时，可以通过添加属性和应用逻辑来扩展这个类。
-    但我们不需要在这个QuickStart中做这些事，所以这里的`AppComponent`类是空的。
+    但我们不需要在这个“快速起步”中做这些事，所以这里的`AppComponent`类是空的。
 
     We **export** `AppComponent` so that we can **import** it elsewhere in our application,
     as we'll see when we create `main.ts`.
@@ -489,7 +489,7 @@ a(id="main")
     We could have folded its few lines into the `app.component` file
     and spared ourselves some complexity.
 
-    *main.ts* 文件非常小。它只是一个`QuickStart`，没几行代码。我们本可以把它装进`app.component`文件来减少不必要的复杂度。
+    *main.ts* 文件非常小。它只是一个“快速起步”，没几行代码。我们本可以把它装进`app.component`文件来减少不必要的复杂度。
 
     We'd rather demonstrate the proper way to structure an Angular application.
     App bootstrapping is a separate concern from presenting a view. 
@@ -579,8 +579,8 @@ code-example(format="").
       when working with observables.
       We added the library here in QuickStart so we don't forget later.//TODO this subsection needs to be moved for when we cover the systemjs.config.js
       
-      我们的QuickStart不会用到响应式扩展，但是大量的应用需要它们来提供Observable（译注：响应式编程的核心特性，指监视数据的变更以便做出响应）特性。
-      我们把它加到QuickStart中，以免将来忘了。//TODO 当我们覆盖到systemjs.config.js时，我们得把这些内容移过去。
+      我们的“快速起步”不会用到响应式扩展，但是大量的应用需要它们来提供Observable（译注：响应式编程的核心特性，指监视数据的变更以便做出响应）特性。
+      我们把它加到“快速起步”中，以免将来忘了。//TODO 当我们覆盖到systemjs.config.js时，我们得把这些内容移过去。
 
   :marked
     We'll make different choices as we gain experience and
@@ -600,7 +600,7 @@ code-example(format="").
     <a href="https://webpack.github.io/" target="_blank">webpack</a>.
     SystemJS happens to be a good choice but we want to be clear that it was a choice and not a preference.
     
-    本QuickStart使用<a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>来加载应用和库模块。
+    本“快速起步”使用<a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>来加载应用和库模块。
     还有一些其它候选者也能很好地工作，比如备受推崇的<a href="https://webpack.github.io/" target="_blank">webpack</a>。
     SystemJS是一个好的选择，但要清楚，它只是我们给你的“选择之一”，而不是“推荐”。
     
@@ -619,14 +619,14 @@ code-example(format="").
 
     With those cautions in mind, what are we doing in this QuickStart configuration?
     
-    好好记住这些，我们再来看看QuickStart中的配置做了点什么。
+    好好记住这些，我们再来看看“快速起步”中的配置做了点什么。
 
   +makeExample('quickstart/ts/systemjs.config.1.js', null, 'systemjs.config.js')(format=".")
   :marked
     Our QuickStart makes such requests when one of its
     application TypeScript files has an import statement like this:
     
-    在我们的QuickStart中，当应用中的TypeScript文件出现像这样的import语句时，SystemJS就会处理这些请求：
+    在我们的“快速起步”中，当应用中的TypeScript文件出现像这样的import语句时，SystemJS就会处理这些请求：
 
   +makeExample('quickstart/ts/app/main.ts', 'app-component', 'main.ts (摘录)')(format=".")
   :marked
@@ -743,7 +743,7 @@ code-example(format="").
   稍后，一个浏览器页标签就会打开并显示出来。
 
 figure.image-display
-  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="QuickStart应用的输出")
+  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
 
 :marked
   Congratulations!  We are in business.

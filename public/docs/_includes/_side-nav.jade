@@ -66,7 +66,7 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
 
   div(class="side-nav-secondary" ng-class="appCtrl.showDocsNav ? 'is-visible' : ''")
     .nav-blocks
-      a(class="nav-title #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") Quickstart
+      a(class="nav-title #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") 快速起步
 
     .nav-blocks
       a(class="nav-title #{anyItemSelected(tutorial)}" href="#{tutorial[0].href}" title="#{tutorial[0].tooltip}") 教程
@@ -111,8 +111,8 @@ script.
   (function scrollToSelectedLink() {
     var sideNav = document.getElementsByClassName('side-nav')[0];
     var link = sideNav.getElementsByClassName('is-selected')[0];
-    if(link && link.offsetTop > window.innerHeight){
-      sideNav.scrollTop = link.offsetTop - (window.innerHeight/2);
+    if (link && link.offsetTop > window.innerHeight) {
+      sideNav.scrollTop = link.offsetTop - (window.innerHeight / 2);
       //alert("offsetTop: " + link.offsetTop + " side-nav top is " + sideNav.scrollTop);
     }
   })()
