@@ -148,18 +148,25 @@ include ../_quickstart_repo
     There is also less risk of colliding with a third-party directive name when we give ours a prefix.
     
     不过，我们还是建议选择一个带前缀的选择器名称，以保证无论现在还是未来它都不会和任何标准HTML Attribute发生冲突。
-    
+    当我们使用自己的前缀时，也会减少和第三方指令发生命名冲突的风险。
 
     We do **not** prefix our `highlight` directive name with **`ng`**.
     That prefix belongs to Angular and
     we don't want to confuse our directives with their directives.
+    
+    我们**不能**给自己的`highlight`指令添加**`ng`**前缀。
+    那个前缀属于Angular，我们肯定不会希望自己的指令和内建指令相混淆。
 
     We need a prefix of our own, preferably short, and `my` will do for now.
+    
+    我们需要一个自己的前缀，最好短点儿，所以用`my`就不错。
     
 :marked
   After the `@Directive` metadata comes the directive's controller class which we are exporting
   to make it accessible to other components. 
   The directive's controller class contains the logic for the directive.
+  
+  在`@Directive`元数据的后面，是指令的控制器类，我们导出它，以便让它能被其它组件访问。类里的代码就是指令的逻辑。
   
   Angular creates a new instance of the directive's controller class for
   each matching element, injecting an Angular `ElementRef` 
