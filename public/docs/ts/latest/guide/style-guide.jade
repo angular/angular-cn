@@ -1948,7 +1948,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Components are derived from Directives, and thus their selectors can be elements, attributes, or other selectors. Defining the selector as an element provides consistency for components that represent content with a template.
     
-    **为何？**组件是从指令衍生的，所以它们的选择器可以是元素、特性或者其他选择器。把选择器作为元素来定义，统一了通过模块提供内容的组件。
+    **为何？**组件是从指令派生出来的，所以它们的选择器可以是元素、特性或者其他选择器。把选择器作为元素来定义，统一了通过模块提供内容的组件。
 
 .s-why.s-why-last
   :marked
@@ -2515,7 +2515,7 @@ a(href="#toc") 回到顶部
   :marked
     **Do** use the `@Injectable` class decorator instead of the `@Inject` parameter decorator when using types as tokens for the dependencies of a service.
     
-    **坚持**当使用类型作为Token来注入服务的依赖时，使用`@Injectable`类装饰器，而非`@Inject`参数装饰器。
+    **坚持**当使用类型作为令牌来注入服务的依赖时，使用`@Injectable`类装饰器，而非`@Inject`参数装饰器。
 
 .s-why
   :marked
@@ -2527,7 +2527,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** When a service accepts only dependencies associated with type tokens, the `@Injectable()` syntax is much less verbose compared to using `@Inject()` on each individual constructor parameter.
     
-    **为何？**当服务只接受类型Token相关的依赖时，比起在每个构造函数参数上使用`@Inject()`，`@Injectable()`的语法简洁多了。
+    **为何？**当服务只接受类型令牌相关的依赖时，比起在每个构造函数参数上使用`@Inject()`，`@Injectable()`的语法简洁多了。
 
 +makeExample('style-guide/ts/07-04/app/heroes/shared/hero-arena.service.avoid.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')(avoid=1)
 :marked

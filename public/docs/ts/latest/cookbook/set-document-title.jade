@@ -5,7 +5,7 @@ a(id='top')
   Our app should be able to make the browser title bar say whatever we want it to say.
   This cookbook explains how to do it.
   
-  应用程序应该能让浏览器标题栏显示我们想要它显示的内容。本*烹饪书*解释怎么做。
+  应用程序应该能让浏览器标题栏显示我们想让它显示的内容。本*烹饪书*解释怎么做。
 :marked
   **See the [live example](/resources/live-examples/cb-set-document-title/ts/plnkr.html)**.
   
@@ -25,7 +25,7 @@ a(id='top')
   
   The obvious approach is to bind a property of the component to the HTML `<title>` like this:
   
-  最显然的方法是绑定一个组件属性到HTML的`<title>`标签上，像这样：
+  显而易见的方法是把组件的属性绑定到HTML的`<title>`标签上，像这样：
   
 code-example(format='')
   &lt;title&gt;{{This_Does_Not_Work}}&lt;/title&gt;
@@ -34,12 +34,12 @@ code-example(format='')
   The root component of our application is an element contained within the `<body>` tag.
   The HTML `<title>` is in the document `<head>`, outside the body, making it inaccessible to Angular data binding.
   
-  对不起，但是这样不行。我们应用程序的是一个被包含在`<body>`标签里的元素。该HTML`<title>`在文档的`<head>`元素里，在主体内容之外，Angular的数据绑定无法访问它。
+  抱歉，这样不行。我们应用程序的根组件是一个包含在`<body>`标签里的元素。该HTML的`<title>`在文档的`<head>`元素里，在`<body>`之外，Angular的数据绑定无法访问到它。
 
   We could grab the browser `document` object and set the title manually. 
   That's dirty and undermines our chances of running the app outside of a browser someday. 
   
-  我们可以得到浏览器的`document`对象，并且手动设置标题。但是这样不干净，并且我们无法在将来在浏览器之外运行应用程序。
+  我们可以得到浏览器的`document`对象，并且手动设置标题。但是这样看起来很脏，而且我们将无法在浏览器之外运行应用程序。
   
 .l-sub-section
   :marked
@@ -48,8 +48,9 @@ code-example(format='')
     inside a Web Worker to improve your app's responsiveness by using multiple threads.  And it
     means that you could run your app inside Electron.js or Windows Universal to deliver it to the desktop.
     
-    在浏览器之外运行应用程序的意思是：利用服务器端预先渲染，实现几乎即时的第一应用程序渲染时间，同时支持SEO（搜索引擎优化）。它意味着你可以在一个
-    Web Worker中运行你的应用程序，通过使用多个线程增强应用程序的响应性。它还意味着你可以在Electron.js或者Windows Universal里面运行，发布给桌面（环境）。
+    在浏览器外运行应用程序意味着：利用服务器端预先渲染，为应用程序实现几乎实时的首次渲染，同时还能支持SEO（搜索引擎优化）。
+    意味着你可以在一个Web Worker中运行你的应用程序，通过多线程技术增强应用程序的响应性。
+    还意味着你可以在Electron.js或者Windows Universal里面运行，发布到桌面环境。
 
 :marked
   ## Use the *Title* service
@@ -60,41 +61,41 @@ code-example(format='')
   The [Title](../api/platform/browser/Title-class.html) service is a simple class that provides an API
   for getting and setting the current HTML document title:
     
-  幸运的是，Angular 2在*Browser platform*包中，提供了一个`Title`服务，桥接这个间隔。
-  [Title](../api/platform/browser/Title-class.html)服务是一个简单地类，提供了一个API，用来获取和设置当前HTML文档的标题。
+  幸运的是，Angular 2在*浏览器平台*的包中，提供了一个`Title`服务，弥补了这个差别。
+  [Title](../api/platform/browser/Title-class.html)服务是一个简单的类，提供了一个API，用来获取和设置当前HTML文档的标题。
 
   * `getTitle() : string` &mdash; Gets the title of the current HTML document.
   
-  *`getTitle():string` &mdash; 获取当前HTML文档的标题。
+  *`getTitle(): string` —— 获取当前HTML文档的标题。
   
   * `setTitle( newTitle : string )` &mdash; Sets the title of the current HTML document.
   
-  * `setTitle( newTitle: string)` &mdash; 设置当前HTML文档的标题。
+  * `setTitle( newTitle: string)` —— 设置当前HTML文档的标题。
 
   While this class is part of the Browser platform package, it is *not part of the default Browser 
   platform providers* that Angular loads automatically. 
   This means as we bootstrap our application using the Browser platform `boostrap()`
   function, we'll also have to include `Title` service explicitly as one of the bootstrap providers:
   
-  虽然该类是Browser platform包的一部分，它*不是*Angular自动默认装载的*Browser platform providers的一部分*。
-  这意味着，我们在使用Browser platform的`bootstrap()`函数来引导我们的应用程序时，我们必须要明确地把`Title`服务作为引导的供应商之一加入进来：
+  虽然该类是浏览器平台包的一部分，但它*没有被*Angular加载为*浏览器平台上的默认服务供应商*。
+  这意味着，我们在使用浏览器平台的`bootstrap()`函数来引导我们的应用程序时，我们必须要明确地把`Title`服务作为引导期的供应商之一加入进来：
 
 +makeExample( "cb-set-document-title/ts/app/main.ts", "bootstrap-title", "app/main.ts (provide Title service)" )(format='.')
 :marked
   Once we've explicitly provided the `Title` service we can then inject the `Title` service into any of our
   custom application components and services. 
   
-  一旦我们明确的提供了`Title`服务，我们就能把`Title`服务注入到任何一个应用程序内组件和服务里面。
+  一旦我们明确提供了`Title`服务，就能把`Title`服务注入到任何一个应用程序内组件和服务里面。
   
   Let's inject the `Title` service into the root `AppComponent` and expose a bindable `setTitle` method that calls it:
   
-  让我们把`Title`服务注入到根`AppComponent`组件，并暴露可以绑定的`setTitle`方法来调用该服务：
+  我们来把`Title`服务注入到根组件`AppComponent`，并暴露出可供绑定的`setTitle`方法让别人来调用该服务：
 
 +makeExample( "cb-set-document-title/ts/app/app.component.ts", "class", "app/app.component.ts (class)" )(format='.')
 :marked
   We bind that method to three anchor tags and, voila!
   
-  我们绑定这个方法到三个锚标签，瞧瞧！
+  我们把这个方法绑定到三个A标签，瞧瞧！
   
 figure.image-display
    img(src="/resources/images/cookbooks/set-document-title/set-title-anim.gif" alt="Set title")
@@ -121,16 +122,16 @@ figure.image-display
 :marked
   ## Why we provide the *Title* service in *bootstrap*
   
-  ## 我们为什么在*bootstrap*里面提供这个*Title*服务
+  ## 为什么我们要在*bootstrap*里面提供这个*Title*服务
   
   We generally recommended providing application-wide services in the root application component, `AppComponent`.
   
-  我们一般推荐在应用程序的根组件`AppComponent`提供应用程序全范围服务。
+  我们通常会推荐在应用程序的根组件`AppComponent`中提供应用程序级的服务。
   
   Here we recommend registering the title service during bootstrapping, 
   a location we reserve for configuring the runtime Angular enviroment.
   
-  这里，我们推荐在引导过程中注册这个标题服务，一个我们为设置Angular运行环境而保留的地方。
+  但这里，我们推荐在引导过程中注册这个Title服务，这个位置是我们为设置Angular运行环境而保留的。
   
   That's exactly what we're doing.
   The `Title` service is part of the Angular *browser platform*. 
@@ -138,7 +139,7 @@ figure.image-display
   we'll have to provide a different `Title` service that understands the concept of a "document title" for that specific platform.
   Ideally the application itself neither knows nor cares about the runtime environment.
   
-  这正好是我们要做的。`Title`服务是Angular *browser platform*的一部分。如果我们在另一个不同的平台上引导我们的应用程序，我们将会提供一个不同的，专门为这个平台准备的`Title`服务。
+  我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果我们在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。
 :marked
   [Back to top](#top)
   
