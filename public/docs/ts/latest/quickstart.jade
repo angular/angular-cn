@@ -1,11 +1,13 @@
 block includes
   include _util-fns
-  - var _Install = '安装'
+  - var _Install = 'Install'
+  - var _InstallCn = '安装'
   - var _prereq = 'Node.js'
   - var _angular_browser_uri = '@angular/platform-browser-dynamic'
   - var _angular_core_uri = '@angular/core'
   - var _appDir = 'app'
-  - var _indexHtmlDir = '项目的根'
+  - var _indexHtmlDir = 'project root'
+  - var _indexHtmlDirCn = '项目的根'
 
 :marked
   Our QuickStart goal is to build and run a super-simple
@@ -36,10 +38,10 @@ p
     | &nbsp;in #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]
   | &nbsp;and displays the simple message:
 p
-  | 试试#[+liveExampleLink2('在线范例', 'quickstart')]，它将加载此范例
+  | 试试#[+liveExampleLink2('在线范例', 'quickstart')]，它将把此范例加载
   +ifDocsFor('ts')
-    | &nbsp;in #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]
-  | &nbsp;并显示一个简单的消息：
+    | &nbsp;到 #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]中
+  | &nbsp;并显示一条简单的消息：
 
 figure.image-display
   img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
@@ -102,7 +104,7 @@ button(class="verbose on md-primary md-button md-ink-ripple", type="button", onc
     *Explanations* describe the concepts and reasons behind the instructions.
     Explanations have a thin border on the left like *this* block of text.
     
-    *解释*，负责描述概念和操作指南背后的理由。解释在左侧有一个细边框，就像*这块儿文本*。
+    *解释*，负责描述概念和操作指南背后的理由。解释在左侧有一个细边框，就像*这块儿文字*。
 
     Click *Hide Explanations* to show only the instructions.
     Click *View Explanations* to see everything again.
@@ -115,15 +117,14 @@ button(class="verbose on md-primary md-button md-ink-ripple", type="button", onc
     
     当我们构建这个“快速起步”应用时，会看到很多代码块儿。它们都很方便拷贝和粘贴：
   code-example(format="nocode").
-    Click the glyph on the right to copy code snippets to the clipboard  ==>
-  
     点击右侧的图标，来把代码片段拷贝到剪贴板 ==>
 
 .l-main-section
 h2#create-and-configure Step 1: Create and configure the project
 h2#create-and-configure 步骤1：创建并配置项目
 
-- var _package_and_config_files = _docsFor == 'dart' ? 'pubspec.yaml' : '包定义与配置文件'
+- var _package_and_config_files = _docsFor == 'dart' ? 'pubspec.yaml' : 'package definition and configuration files'
+- var _package_and_config_filesCn = _docsFor == 'dart' ? 'pubspec.yaml' : '包定义与配置文件'
 
 :marked
   In this step we:
@@ -132,9 +133,9 @@ h2#create-and-configure 步骤1：创建并配置项目
   * [(a) Create the project folder](#create-the-project-folder)
   * [(a) 创建项目目录](#create-the-project-folder)
   * [(b) Add #{_package_and_config_files}](#add-config-files)
-  * [(b) 添加#{_package_and_config_files}](#add-config-files)
+  * [(b) 添加#{_package_and_config_filesCn}](#add-config-files)
   * [(c) #{_Install} packages](#install-packages)
-  * [(c) #{_Install}依赖包](#install-packages)
+  * [(c) #{_InstallCn}依赖包](#install-packages)
 
 h3 (a) Create the project folder
 h3 (a) 创建项目文件夹
@@ -144,7 +145,7 @@ code-example(language="sh").
   cd    angular2-quickstart
 
 h3#add-config-files (b) Add #{_package_and_config_files}
-h3#add-config-files (b) 添加#{_package_and_config_files}
+h3#add-config-files (b) 添加#{_package_and_config_filesCn}
 block package-and-config-files
   - var _tsconfigUri = 'guide/typescript-configuration.html#tsconfig'
   - var _typingsUri = 'guide/typescript-configuration.html#!#typings'
@@ -191,7 +192,8 @@ block package-and-config-files
       systemjs.config.js
     `)
 
-h3#install-packages (c) #{_Install}依赖包儿
+h3#install-packages (c) #{_Install} packages
+h3#install-packages (c) #{_InstallCn}依赖包
 block install-packages
   :marked
     We install the packages listed in `package.json` using `npm`. Enter the
@@ -227,7 +229,7 @@ block install-packages
         
         我们通常会在一系列`gyp ERR!`消息后面看到一个`npm WARN`消息。直接忽略即可。
         有些依赖包可能会尝试用`node-gyp`重新编译它自己。
-        如果重新编译失败了，这个包儿就会自行恢复（通常是下载一个预编译版本），最终不会影响使用。
+        如果重新编译失败了，这个包就会自行恢复（通常是下载一个预编译版本），最终不会影响使用。
 
         Just make sure there are no `npm ERR!` messages at the end of `npm install`.
         
@@ -236,7 +238,7 @@ block install-packages
   .l-verbose-section
     :marked
       #### Adding the libraries and packages we need with *npm*
-      ####用*npm*添加我们需要的库和依赖包
+      #### 用*npm*添加我们需要的库和依赖包
       
       Angular application developers rely on the _[npm](https://docs.npmjs.com)_
       package manager to install the libraries and packages their apps require.
@@ -244,7 +246,7 @@ block install-packages
       `dependencies` and `devDependencies` sections.
       See the [npm packages](guide/npm-packages.html) chapter for details.
       
-      Angular应用开发者依靠_[npm](https://docs.npmjs.com)_包儿管理器来安装应用所需的库和依赖包。
+      Angular应用开发者依靠_[npm](https://docs.npmjs.com)_包管理器来安装应用所需的库和依赖包。
       Angular开发组建议的那组初学者包是通过`dependencies`和`devDependencies`指定的。
       要了解详情，参见[npm包](guide/npm-packages.html)一章。
 
@@ -252,7 +254,7 @@ block install-packages
       #### 有用的脚本
       We've included a number of npm scripts in our suggested `package.json` to handle common development tasks:
       
-      在我们建议的这个`package.json`中，包含了几个npm脚本，用来处理常用的开发任务：
+      在我们推荐的这个`package.json`中，包含了几个npm脚本，用来处理常用的开发任务：
     +makeJson('quickstart/ts/package.1.json',{ paths: 'scripts'}, 'package.json (脚本)')(format=".")
 
     :marked
@@ -277,7 +279,7 @@ block install-packages
       * `npm run tsc:w` - runs the TypeScript compiler in watch mode;
       the process keeps running, awaiting changes to TypeScript files and recompiling when it sees them
       
-      *`npm run tsc:w` - 在“监视模式”下运行TypeScript编译器，进程持续运行，等待TypeScript文件的变化，一旦变化，就重新编译它们。
+      * `npm run tsc:w` - 在“监视模式”下运行TypeScript编译器，进程持续运行，等待TypeScript文件的变化，一旦变化，就重新编译它们。
 
       * `npm run lite` - runs the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>,
       a light-weight, static file server with excellent support for Angular apps that use routing
@@ -306,6 +308,7 @@ h2#root-component 步骤2：我们的第一个Angular组件
   我们来创建一个文件夹，用于保存我们的应用，并且添加一个超级简单的Angular组件。
 
   **Create #{_an} #{_appDir} subfolder** off the project root directory:
+  
   在项目的根目录下**创建一个#{_appDir}子目录**：
 
 code-example.
@@ -351,7 +354,7 @@ p.
     * 一个[组件类](#component-class)
     来通过它的模板控制一个视图的外观和行为。
 
-a#component-import
+  a#component-import
   :marked
     ### Import
     ### 导入
@@ -386,7 +389,7 @@ a#component-import
     component class.
     The metadata tells Angular how to create and use this component.
     
-    `@Component` 是#{_a}*#{_decoratorCn}*，它允许我们把*元数据*关联到组件类上。这些元数据会告诉Angular如何创建和使用我们的类。
+    `@Component` 是一个*#{_decoratorCn}*，它允许我们把*元数据*关联到组件类上。这些元数据会告诉Angular如何创建和使用我们的类。
 
   +makeExcerpt('app/app.component.ts', 'metadata')
 
@@ -531,7 +534,7 @@ h2#index 步骤4：添加#[code index.html]
   In the *#{_indexHtmlDir}* folder
   create an `index.html` file and paste the following lines into it:
   
-  在*#{_indexHtmlDir}*目录下创建一个`index.html`文件，并粘贴下列内容：
+  在*#{_indexHtmlDirCn}*目录下创建一个`index.html`文件，并粘贴下列内容：
 
 +makeProjExample('index.html')
 
@@ -728,7 +731,7 @@ h2#index 步骤4：添加#[code index.html]
   styles shown below. For the full set of master styles used by the documentation samples,
   see [styles.css](https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css).
   
-  在*#{_indexHtmlDir}*目录下创建一个`styles.css`文件来加上样式，可能是像下面这样的最小化版本。
+  在*#{_indexHtmlDirCn}*目录下创建一个`styles.css`文件来加上样式，可能是像下面这样的最小化版本。
   要查看本文档中所用到的主样式表的完整集合，参见
   [styles.css](https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css)
 +makeExcerpt('styles.1.css')
