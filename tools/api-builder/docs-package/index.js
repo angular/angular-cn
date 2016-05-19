@@ -1,7 +1,7 @@
 var Package = require('dgeni').Package;
 var jsdocPackage = require('dgeni-packages/jsdoc');
 var nunjucksPackage = require('dgeni-packages/nunjucks');
-var typescriptPackage = require('../typescript-package');
+var typescriptPackage = require('dgeni-packages/typescript');
 var linksPackage = require('../links-package');
 var gitPackage = require('dgeni-packages/git');
 var path = require('canonical-path');
@@ -49,6 +49,14 @@ module.exports = new Package('angular-v2-docs', [jsdocPackage, nunjucksPackage, 
     '*/src/**/*.@(js|es6|ts)'
   ];
   readTypeScriptModules.basePath = path.resolve(angular_repo_path, 'modules');
+  readTypeScriptModules.ignoreExportsMatching = [
+    '___esModule',
+    '___core_private_types__',
+    '___platform_browser_private__',
+    '___compiler_private__',
+    '__core_private__',
+    '___core_private__'
+  ];
 })
 
 

@@ -344,12 +344,13 @@ a(id="countdown-tests")
   把子组件的视图插入到父组件类需要做一点额外的工作。
   
   We import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
-  
+ 
   我们需要通过`ViewChild`装饰器导入这个引用，并挂上`AfterViewInit`生命周期钩子。
   
-  We inject the child `CountdownTimerComponent` into the private `_timerComponent` property via the `@ViewChild` property decoration.
+  We inject the child `CountdownTimerComponent` into the private `timerComponent` property
+  via the `@ViewChild` property decoration.
   
-  我们通过`@ViewChild`属性装饰器，将子组件`CountdownTimerComponent`注入到私有属性`_timerComponent`里面。
+  我们通过`@ViewChild`属性装饰器，将子组件`CountdownTimerComponent`注入到私有属性`timerComponent`里面。
   
   The `#timer` local variable is gone from the component metadata. Instead we bind the buttons to the parent component's own `start` and `stop` methods and present the ticking seconds in an interpolation around the parent component's `seconds` method.
   

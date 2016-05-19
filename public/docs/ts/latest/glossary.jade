@@ -95,8 +95,8 @@ include _util-fns
     
     我们可以在`heroes`目录下添加一个封装桶（按规约叫做`index`），它导出所有这三条：
   code-example(format='').
-    import * from './hero.model.ts';   // re-export all of its exports
-    import * from './hero.service.ts'; // re-export all of its exports
+    export * from './hero.model.ts';   // re-export all of its exports
+    export * from './hero.service.ts'; // re-export all of its exports
     export { HeroComponent } from './hero.component.ts'; // re-export the named thing
   :marked
     Now a consumer can import what it needs from the barrel.
@@ -309,8 +309,7 @@ include _util-fns
     @Component({...})
     export class AppComponent {
       constructor(@Inject('SpecialFoo') public foo:Foo) {}
-      @Input()
-      name:string;
+      @Input() name:string;
     }
     ```
     
@@ -988,7 +987,8 @@ include _util-fns
 
     The browser DOM and JavaScript have a limited number
     of asynchronous activities, activities such as DOM events (e.g., clicks),
-    [promises](#promise), and
+    [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/
+    Promise), and
     [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
     calls to remote servers.
     

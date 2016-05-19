@@ -1,60 +1,65 @@
-include _util-fns
+block includes
+  include _util-fns
+  - var _Install = 'Install'
+  - var _prereq = 'Node.js'
+  - var _angular_browser_uri = '@angular/platform-browser-dynamic'
+  - var _angular_core_uri = '@angular/core'
+  - var _appDir = 'app'
+  - var _indexHtmlDir = 'project root'
 
 :marked
-  Our QuickStart goal is to build and run a super-simple Angular 2 application in TypeScript.
+  Our QuickStart goal is to build and run a super-simple
+  Angular 2 application in #{_Lang}, and
+  establish a development environment for the remaining documentation samples
+  that also can be the foundation for real world applications.
 
-  在“快速起步”中，我们的目标是构建并运行一个超级简单的Angular 2应用 —— 使用TypeScript语言
+.callout.is-helpful
+  header Don't want #{_Lang}?
+  p.
+    Although we're getting started in #{_Lang}, you can also write Angular 2 apps
+    in #{_docsFor == 'ts' ? 'Dart' : 'TypeScript'} and JavaScript.
+    Just select either of those languages from the combo-box in the banner.
 
-  # Download the code
-  # 下载代码
-  In a hurry?
-  [Download the QuickStart source](https://github.com/angular/quickstart/blob/master/README.md)
-  and start coding.
-
-  等不及了？立刻[下载“快速起步”源码](https://github.com/angular/quickstart/blob/master/README.md)
-  开写！
-
-  ## See It Run!
-  ## 让它跑起来！
-
-  Try this <a href="/resources/live-examples/quickstart/ts/plnkr.html" target="_blank">live example</a>
-  which loads the sample app in <a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>
-  and displays a simple message:
-
-  试试这个 <a href="/resources/live-examples/quickstart/ts/plnkr.html" target="_blank">在线例子</a>，
-  它将在<a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>中加载这个范例，并显示一条简短的消息：
+h1 Try it!
+p
+  | Try the #[+liveExampleLink2('live example', 'quickstart')] which loads the sample app
+  +ifDocsFor('ts')
+    | &nbsp;in #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]
+  | &nbsp;and displays the simple message:
 
 figure.image-display
   img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
 
-
+h1 Build this app!
 :marked
-  # Learn
-  # 学习
-  Of course we don't build apps to run in plunker.
-  The following steps establish a development environment for the documentation samples
-  that also can be the foundation for our real world applications. At a high level, we will
-  
-  当然，如果只是想在plunker中跑起来，我们不需要构建这些应用。
-  下列步骤是用来指引你为文档中的这些例子建立开发环境的，它同样也能作为将来我们开发真实应用的基础。大体来说，我们将：
+  - [Prerequisite](#prereq): Install #{_prereq}
+  - [Step 1](#create-and-configure): Create the app’s project folder and
+    define package dependencies and special project setup
+  - [Step 2](#root-component): Create the app’s Angular root component
+  - [Step 3](#main): Add `main.#{_docsFor}`, identifying the root component to Angular
+  - [Step 4](#index): Add `index.html`, the web page that hosts the application
+  - [Step 5](#build-and-run): Build and run the app
+  - [Make some changes to the app](#make-some-changes)
+  - [Wrap up](#wrap-up)
 
-  - set up the [development environment](#devenv)
-  - 安装 [开发环境](#devenv)
-  - write the app's Angular [root component](#component)
-  - 写本应用的Angular[根组件](#component)
-  - write [main.ts](#main) which tells Angular to display the root component
-  - 写一个 [main.ts](#main)，它将告诉Angular如何显示根组件
-  - write the [host web page](#index) (`index.html`)
-  - 写一个[宿主页面](#index)(`index.html`)
+.l-main-section
+h2#prereq Prerequisite: #{_prereq}
 
-.l-sub-section
+block setup-tooling
   :marked
-    We'll see many code blocks as we pursue this agenda. They're all easy to copy and paste:
-    
-    在此日程中，我们将会看到很多代码块。它们都很容易拷贝和粘贴：
-  code-example(format='.', language='html').
-    点击右边的图标来把代码片段拷贝到剪贴板 ==========>
+    Install **[Node.js® and npm](https://nodejs.org/en/download/)**
+    if they are not already on your machine.
 
+block download-source
+  .l-main-section
+  .callout.is-helpful
+    header Download the source
+    :marked
+      Instead of following each step of these instructions, we can
+      [download the QuickStart source](https://github.com/angular/quickstart/blob/master/README.md)
+      from github and follow its brief instructions.
+
+.l-main-section
 button(class="verbose off md-primary md-button md-ink-ripple", type="button", onclick="verbose(false)").
   Hide explanations
 button(class="verbose off md-primary md-button md-ink-ripple", type="button", onclick="verbose(false)").
@@ -67,241 +72,156 @@ button(class="verbose on md-primary md-button md-ink-ripple", type="button", onc
   :marked
     *Explanations* describe the concepts and reasons behind the instructions.
     Explanations have a thin border on the left like *this* block of text.
-        
-    *解释* 描述操作指南背后的概念和理由。解释就像 *现在这块儿* 文字一样，会在左侧显示一个细边框。
 
     Click *Hide Explanations* to show only the instructions.
-    Click it again to see everything again.
+    Click *View Explanations* to see everything again.
 
-    点击 *隐藏解释* 可以只显示操作指南。再点一次就可以再次看到所有内容。
+.l-sub-section
+  :marked
+    We'll see many code blocks as we build the QuickStart app. They're all easy to copy and paste:
+  code-example(format="nocode").
+    Click the glyph on the right to copy code snippets to the clipboard  ==>
 
-a(id="devenv")
 .l-main-section
-:marked
-  ## Development Environment
-  ## 开发环境
+h2#create-and-configure Step 1: Create and configure the project
 
-  We need to set up our development environment: 
-  
-  我们要设置开发环境：
-  * install node and npm
-  * 安装 node 和 npm
-  * create an [application project folder](#app-folder)
-  * 创建一个 [应用项目目录](#app-folder)
-  * add a [tsconfig.json](#tsconfig) to guide the TypeScript compiler
-  * 添加一个[tsconfig.json](#tsconfig)来为TypeScript编译器提供指导
-  * add a [typings.json](#typings) that identifies missing TypeScript definition files
-  * 添加一个[typings.json](#typings)来指出所缺的TypeScript定义文件
-  * add a [package.json](#package-json) that defines the packages and scripts we need
-  * 添加一个[package.json](#package-json)来定义我们所需的依赖包和脚本
-  * install the npm packages and typings files
-  * 安装npm包和typings文件
+- var _package_and_config_files = _docsFor == 'dart' ? 'pubspec.yaml' : 'package definition and configuration files'
 
-a(id="install-npm")
 :marked
-  **Install [node and npm](https://nodejs.org/en/download/)** if not already on your machine.
-  
-  如果你机器上还没有的话，请**安装[node和npm](https://nodejs.org/en/download/)** 。
+  In this step we:
+  * [(a) Create the project folder](#create-the-project-folder)
+  * [(b) Add #{_package_and_config_files}](#add-config-files)
+  * [(c) #{_Install} packages](#install-packages)
 
-a(id="app-folder")
-:marked
-  Create a **new project folder**
-  
-  创建一个 **新项目目录**
-code-example(format="").
+h3 (a) Create the project folder
+
+code-example(language="sh").
   mkdir angular2-quickstart
   cd    angular2-quickstart
 
-a(id="tsconfig")
-:marked
-  Add a **tsconfig.json** file to the project folder and copy/paste the following:
-  
-  添加一个 **tsconfig.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
-+makeJson('quickstart/ts/tsconfig.1.json', null, 'tsconfig.json')(format=".")
+h3#add-config-files (b) Add #{_package_and_config_files}
+block package-and-config-files
+  - var _tsconfigUri = 'guide/typescript-configuration.html#tsconfig'
+  - var _typingsUri = 'guide/typescript-configuration.html#!#typings'
 
-:marked
-  This `tsconfig.json` file guides the TypeScript compiler.
-  Learn more about it in the 
-  <a href="guide/typescript-configuration.html#tsconfig" target="_blank">TypeScript Configuration</a> chapter.
+  p Add the following package definition and configuration files to the project folder:
+  ul
+    li.
+      #[b package.json] lists packages the QuickStart app depends on and
+      defines some useful scripts.
+      See #[a(href="guide/npm-packages.html") Npm Package Configuration] for details.
+    li.
+      #[b tsconfig.json] is the TypeScript compiler configuration file.
+      See #[a(href="#{_tsconfigUri}") TypeScript Configuration] for details.
+    li.
+      #[b typings.json] identifies TypeScript definition files.
+      See #[a(href="#{_typingsUri}") TypeScript Configuration] for details.
+    li.
+      #[b systemjs.config.js], the SystemJS configuration file.
+      See discussion #[a(href="#systemjs") below].
 
-  这个`tsconfig.json`文件将为TypeScript编译器提供指引。
-  要学习更多，参见<a href="guide/typescript-configuration.html#tsconfig" target="_blank">TypeScript配置</a>一章。
+  a#config-files
+  +makeTabs(`
+      quickstart/ts/package.1.json,
+      quickstart/ts/tsconfig.1.json,
+      quickstart/ts/typings.1.json,
+      quickstart/ts/systemjs.config.1.js
+    `, '', `
+      package.json,
+      tsconfig.json,
+      typings.json,
+      systemjs.config.js
+    `)
 
-a(id="typings")
-:marked
-  Add a **typings.json** file to the project folder and copy/paste the following:
-  
-  添加一个 **typings.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
-+makeJson('quickstart/ts/typings.1.json', null, 'typings.json')(format=".")
-
-.l-verbose-section
+h3#install-packages (c) #{_Install} packages
+block install-packages
   :marked
-    Many JavaScript libraries extend the JavaScript environment with features and syntax
-    that the TypeScript compiler doesn't recognize natively. We teach it about these capabilities with
-    <a href="http://www.typescriptlang.org/Handbook#writing-dts-files" target="_blank">TypeScript type definition files</a>
-    &mdash; *d.ts files* &mdash; which we identify in a `typings.json` file.
+    We install the packages listed in `package.json` using `npm`. Enter the
+    following command in a terminal window (command window in Windows):
 
-    有很多JavaScript库扩展了JavaScript开发环境，使其支持原生TypeScript编译器无法自动识别的特性和语法。
-    我们通过
-    <a href="http://www.typescriptlang.org/Handbook#writing-dts-files" target="_blank">TypeScript类型定义文件</a>
-    让它具备这些能力。&mdash; *d.ts 文件* &mdash; 我们把这些记录在 `typings.json` 文件中。
+  code-example(language="sh").
+    npm install
 
-    We go a little deeper into *typings* in the 
-    <a href="guide/typescript-configuration.html#typings" target="_blank">TypeScript Configuration</a> chapter.
-
-    我们将在
-    <a href="guide/typescript-configuration.html#typings" target="_blank">TypeScript配置</a>一章中深入讲解 *typings*
-
-a(id="package-json")
-:marked
-  Add a **package.json** file to the project folder and copy/paste the following:
-
-  添加一个 **package.json** 文件到项目文件夹，并且拷贝/粘贴下列内容：
-+makeJson('quickstart/ts/package.1.json', null, 'package.json')(format=".")
-
-.l-verbose-section
-  :marked
-    ### Adding the libraries we need with *npm*
-    ### 用 *npm* 添加我们所需的库
-    Angular application developers rely on the  <a href="https://docs.npmjs.com/" target="_blank"><i>npm</i></a>
-    package manager to install the libraries their apps require. 
-    The Angular team recommends the starter-set of packages specified in the `dependencies` and `devDependencies`
-    sections.
-    See the [npm packages](guide/npm-packages.html) chapter for details.
-    
-    Angular应用程序开发者靠 <a href="https://docs.npmjs.com/" target="_blank"><i>npm</i></a> 安装应用程序所需的库。
-    Angular开发组在`dependencies`和`devDependencies`中指定了建议初学者们使用的依赖包。
-    要了解详情，参见[npm包](guide/npm-packages.html)一章。
-
-    ### Helpful scripts
-    ### 有用的脚本
-    We've included a number of npm scripts in our suggested `package.json` to handle common development tasks:
-    
-    我们在建议的`package.json`中内置了几个npm脚本来处理常见的开发任务：
-  +makeJson('quickstart/ts/package.1.json',{paths: 'scripts'}, 'package.json (脚本)')(format=".")
-
-  :marked
-    We execute most npm scripts in the following way: `npm run` + *script-name*. 
-    Some commands (such as `start` don't require the `run` keyword).
-    
-    我们可以通过运行`npm run` + *脚本名* 的形式执行大多数npm脚本。
-    有些命令（如`start`）不需要用`run`关键字。
-
-    Here's what these scripts do:
-    
-    下面是这些脚本所做的事情：
-
-    * `npm start` - run the compiler and a server  at the same time, both in "watch mode"
-    
-    * `npm start` - 同时运行编译器和一个服务器，并且都开启"监视模式"
-
-    * `npm run tsc` - run the TypeScript compiler once
-    
-    * `npm run tsc` - 运行一次TypeScript编译器
-
-    * `npm run tsc:w` - run the TypeScript compiler in watch mode;
-    the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
-    
-    * `npm run tsc:w` - 在监视模式运行TypeScript编译器：
-    进程持续运行，并等待TypeScript文件发生变化，一旦变化就重新编译它。
-
-    * `npm run lite` - run the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>,
-    a light-weight, static file server, written and maintained by 
-    <a href="http://johnpapa.net/" target="_blank">John Papa</a> 
-    with excellent support for Angular apps that use routing.
-    
-    * `npm run lite` - 运行 <a href="https://www.npmjs.com/package/lite-server" target="_blank">轻量级服务器</a>,
-    一个轻量级的静态文件服务器，由
-    <a href="http://johnpapa.net/" target="_blank">John Papa</a>
-    编写和维护，为用到路由的Angular应用提供了卓越支持。
-
-    * `npm run typings` - runs the [*typings* tool](#typings)
-    
-    * `npm run typings` - 运行 [*typings*工具](#typings)
-
-    * `npm postinstall` - called by *npm* automatically *after* it successfully completes package installation.
-    This script installs the [TypeScript definition files](#typings) this app requires.
-
-    * `npm postinstall` - 由 *npm* 在依赖包安装成功 *之后* 自动调用。
-    这个脚本安装本应用所需的[TypeScript定义文件](#typings)
-
-:marked
-  **Install these packages** by entering the following *npm* command in a terminal window (command window in Windows):
-  
-  通过在终端窗口（Windows下是command窗口）中输入下列 *npm* 命令来 **安装这些依赖包** ：
-code-example(format="").
-  npm install
-
-.alert.is-important
-  :marked
-    Scary <span style="color:red; font-weight: bold">error messages in red</span> may appear **during** install. 
-    The install typically recovers from these errors and finishes successfully.
-
-    在 **安装过程中** ，可能出现可怕的<span style="color:red; font-weight: bold">红色错误信息</span>。
-    别担心，安装过程通常能从这些错误中自行恢复，并最终成功。
-  .l-verbose-section(class="l-verbose-inherit")
+  .alert.is-important
     :marked
-      #### npm errors and warnings
-      #### npm错误和警告
+      Scary <span style="color:red; font-weight: bold">error messages in red</span> may appear **during** install.
+      The install typically recovers from these errors and finishes successfully.
+    .l-verbose-section(class="l-verbose-inherit")
+      :marked
+        #### npm errors and warnings
 
-      All is well if there are no console messages starting with `npm ERR!` *at the end* of **npm install**. 
-      There might be a few `npm WARN` messages along the way &mdash; and that is perfectly fine.
+        All is well if there are no console messages starting with `npm ERR!` *at the end* of **npm install**.
+        There might be a few `npm WARN` messages along the way &mdash; and that is perfectly fine.
 
-      如果在 **npm install** 的 *末尾* 没有以`npm ERR!`开头的控制台信息，就说明没问题。
-      还可能有一些类似的`npm WARN`开头的信息 —— 这也没问题。
+        We often see an `npm WARN` message after a series of `gyp ERR!` messages.
+        Ignore them. A package may try to recompile itself using `node-gyp`.
+        If the recompile fails, the package recovers (typically with a pre-built version)
+        and everything works.
 
-      We often see an `npm WARN` message after a series of `gyp ERR!` messages. 
-      Ignore them. A package may try to re-compile itself using `node-gyp`.
-      If the re-compile fails, the package recovers (typically with a pre-built version)
-      and everything works.
-      
-      我们通常会在一系列`gyp ERR!`消息后面看到一个`npm WARN`消息。
-      忽略它们。依赖包可能尝试使用`node-gyp`重新编译自己。
-      如果重新编译失败，依赖包会尝试恢复（通常使用一个预编译的版本），它们仍然能正常工作。
+        Just make sure there are no `npm ERR!` messages at the end of `npm install`.
 
-      Just make sure there are no `npm ERR!` messages at the end of `npm install`.
+  .l-verbose-section
+    :marked
+      #### Adding the libraries and packages we need with *npm*
+      Angular application developers rely on the _[npm](https://docs.npmjs.com)_
+      package manager to install the libraries and packages their apps require.
+      The Angular team recommends the starter-set of packages specified in the
+      `dependencies` and `devDependencies` sections.
+      See the [npm packages](guide/npm-packages.html) chapter for details.
+
+      #### Helpful scripts
+      We've included a number of npm scripts in our suggested `package.json` to handle common development tasks:
+    +makeJson('quickstart/ts/package.1.json',{ paths: 'scripts'}, 'package.json (scripts)')(format=".")
+
+    :marked
+      We execute most npm scripts in the following way: `npm run` followed by a *script-name*.
+      Some commands (such as `start`) don't require the `run` keyword.
+
+      Here's what these scripts do:
+
+      * `npm start` - runs the compiler and a server  at the same time, both in "watch mode"
+
+      * `npm run tsc` - runs the TypeScript compiler once
+
+      * `npm run tsc:w` - runs the TypeScript compiler in watch mode;
+      the process keeps running, awaiting changes to TypeScript files and recompiling when it sees them
+
+      * `npm run lite` - runs the <a href="https://www.npmjs.com/package/lite-server" target="_blank">lite-server</a>,
+      a light-weight, static file server with excellent support for Angular apps that use routing
+
+      * `npm run typings` - runs the [*typings* tool](#{_typingsUri}) separately
+
+      * `npm run postinstall` - called by *npm* automatically *after* it successfully completes package installation.
+      This script installs the [TypeScript definition files](#{_typingsUri}) defined in `typings.json`
 
       只要确保在`npm install`的末尾没有`npm ERR!`消息就可以了！
 
 :marked
   **We're all set.** Let's write some code.
 
-  **全部设置完毕！** 写点代码吧。
-
-
-a(id="component")
 .l-main-section
+h2#root-component Step 2: Our first Angular component
 :marked
-  ## Our First Angular Component
-  ## 我们的第一个Angular组件
   Let's create a folder to hold our application and add a super-simple Angular component.
 
-  我们来创建一个文件夹来存放应用程序，并且添加一个超级简单的Angular组件。
+  **Create #{_an} #{_appDir} subfolder** off the project root directory:
 
-  **Create an *app* sub-folder** off the root directory and make it the current directory
+code-example.
+  mkdir #{_appDir}
 
-  在根目录下 **创建一个 *app* 子目录** 并且让它成为当前目录
-code-example(format="").
-  mkdir app
-  cd    app
+a#app-component
+p.
+  #[b Create the component file]
+  #[code #[+adjExPath('app/app.component.ts')]] (in this newly created directory) with the following content:
 
-a(id="app-component")
-:marked
-  **Add a component file** named *app.component.ts* and paste the following lines:
-  
-  **添加一个组件文件** ，命名为 *app.component.ts* 并粘贴下列代码：
-+makeExample('quickstart/ts/app/app.component.ts', null, 'app/app.component.ts')(format=".")
++makeProjExample('app/app.component.ts')
 
 .l-verbose-section
   :marked
     ### AppComponent is the root of the application
-    ### AppComponent就是应用的根
 
-    Every Angular app has at least one root component, conventionally named `AppComponent`,
+    Every Angular app has at least one **root component**, conventionally named `AppComponent`,
     that hosts the client user experience.
-    
-    每个Angular应用都有至少一个根组件，按照规约命名为`AppComponent`，作为用户界面的宿主。
-
     Components are the basic building blocks of Angular applications.
     A component controls a portion of the screen &mdash; a *view* &mdash; through its associated template.
 
@@ -310,74 +230,45 @@ a(id="app-component")
     This QuickStart has only one, extremely simple component.
     But it has the essential structure of every component we'll ever write:
 
-    这个“快速起步”只有一个非常简单的组件，但麻雀虽小，五脏俱全 —— 它具备了我们将来写的组件的基本结构。
-    
-    * One or more <a href="javascript: why('component-import')">import</a>
+    * One or more [import](#component-import)
     statements to reference the things we need.
-
-    * 一个或多个<a href="javascript: why('component-import')">import</a>语句来引入我们所需的文件。
-    
-    * A <a href="javascript: why('decorator')">@Component decorator</a> 
+    * A [@Component #{_decorator}](#component-decorator)
     that tells Angular what template to use and how to create the component.
-
-    * 一个<a href="javascript: why('decorator')">@Component装饰器</a>
-    来告诉Angular，使用哪个模板，以及怎样创建这个组件。
-
-    * A <a href="javascript: why('class')">component class</a>
+    * A [component class](#component-class)
     that controls the appearance and behavior of a view through its template.
 
-    * 一个<a href="javascript: why('class')">component类</a>
-    来通过它的模板控制一个视图的外观和行为。
-
-  a(id="component-import")
+  a#component-import
   :marked
     ### Import
-    ### 导入（Import）
 
     Angular apps are modular. They consist of many files each dedicated to a purpose.
-
-    Angular应用都是模块化的。它们由很多职责明确的文件组成。
-          
     Angular itself is modular. It is a collection of library modules
     each made up of several, related features that we'll use to build our application.
 
-    Angular本身也是模块化的。它包括一系列的库模块，这些模块包括了一系列相关的特性，以便我们可以拿来构建自己的应用。
-    
-    When we need something from a module, we import it. 
-    Here we import the Angular `Component` decorator function from
-    `@angular/core` because we need it to define our component.
+    When we need something from a module or library, we import it.
+    Here we import the Angular 2 core so that our component code can have access to
+    the `@Component` #{_decorator}.
 
-    当我们需要一个模块中的某些东西时，我们引入（import）它。
-    在这里，我们从`@angular/core`中引入了`Component`装饰器（Decorator），我们需要用它来定义我们的组件。
+  +makeExcerpt('app/app.component.ts', 'import')
 
-  +makeExample('quickstart/ts/app/app.component.ts', 'import', 'app/app.component.ts (导入)')(format=".")
-
-  a(id="component-decorator")
+  h3#component-decorator @Component #{_decorator}
+  +ifDocsFor('ts')
+    :marked
+      `Component` is a *decorator function* that takes a *metadata object* as argument.
+      We apply this function to the component class by prefixing the function with the
+      **@** symbol and invoking it with a metadata object, just above the class.
   :marked
-    ### @Component decorator
-    ### @Component装饰器
+    `@Component` is #{_a} *#{_decorator}* that allows us to associate *metadata* with the
+    component class.
+    The metadata tells Angular how to create and use this component.
 
-    `Component` is a **decorator** function that takes a *metadata* object.
-    The metadata tell Angular how to create and use this component.
+  +makeExcerpt('app/app.component.ts', 'metadata')
 
-    `Component`是一个 **装饰器** 函数，它用来获得一个 *元数据（Metadata）* 对象。
-    `元数据`会告诉Angular，如何创建和使用这个组件。
-
-    We apply this function to the component class 
-    by prefixing the function with the **@** symbol and invoking it with the metadata object
-    just above the class:
-
-    我们通过给这个组件类加上 **@Component** 前缀，并且传入元数据对象来使用它。
-
-  +makeExample('quickstart/ts/app/app.component.ts', 'metadata', 'app/app.component.ts (元数据)')(format=".")
+  block annotation-fields
+    :marked
+      This particular metadata object has two fields, a `selector` and a `template`.
   :marked
-    This particular metadata object has two fields, a `selector` and a `template`.
-
-    这个特别的元数据对象有两个字段：`selector`和`template`。
-
     The **selector** specifies a simple CSS selector for an HTML element that represents the component.
-
-    **selector**字段指定了一个简单的CSS选择器，用于指出放置此组件的HTML元素。
 
     >The element for this component is named `my-app`.
     Angular creates and displays an instance of our `AppComponent`
@@ -390,54 +281,36 @@ a(id="app-component")
     The **template** specifies the component's companion template,
     written in an enhanced form of HTML that tells Angular how to render this component's view.
 
-    **template**字段指定了此组件的模板。
-    它用一种增强的HTML形式写成，用来告诉Angular如何渲染此组件的视图。
-    
-    >Our template is a single line of HTML announcing "*My First Angular App*".
+    >Our template is a single line of HTML announcing "*My First Angular 2 App*".
 
-    >我们的模板中只有一行HTML：“*My First Angular App*”
-    
     >A more advanced template could contain data bindings to component properties
     and might identify other application compoents which have their own templates.
     These templates might identify yet other components.
     In this way an Angular application becomes a tree of components.
 
-    >更高级的模板还可以包含到组件属性的数据绑定。还可以包含其它组件，这些组件还可以有自己的模板。
-    这些模板中还可以进一步包含其它组件。从这个意义上讲，一个Angular应用就是一棵组件树。
-
-  a(id="component-class")
   :marked
     ### Component class
     ### Component类
     At the bottom of the file is an empty, do-nothing class named `AppComponent`.
-
-    文件的最底下，是一个空的，什么也不做的类，叫做`AppComponent`。
-  +makeExample('quickstart/ts/app/app.component.ts', 'export', 'app/app.component.ts (类)')(format=".")
+  +makeExcerpt('app/app.component.ts', 'class')
   :marked
-    When we're ready to build a substantive application, 
-    we can expand this class with properties and application logic. 
+    When we're ready to build a substantive application,
+    we can expand this class with properties and application logic.
     Our `AppComponent` class is empty because we don't need it to do anything in this QuickStart.
+  +ifDocsFor('ts')
+    :marked
+      We **export** `AppComponent` so that we can **import** it elsewhere in our application,
+      as we'll see when we create `main.ts`.
 
-    当我们打算构建一个真实的应用时，可以通过添加属性和应用逻辑来扩展这个类。
-    但我们不需要在这个“快速起步”中做这些事，所以这里的`AppComponent`类是空的。
-
-    We **export** `AppComponent` so that we can **import** it elsewhere in our application,
-    as we'll see when we create `main.ts`.
-
-    我们**导出**`AppComponent`，以便我们可以在应用的其它地方**导入**它 —— 比如我们创建`main.ts`时。
-a(id="main")
 .l-main-section
-:marked
-  ## Show it with *main.ts*
-  ## 通过 *main.ts* 显示它
-  Now we need something to tell Angular to load the root component
+h2#main Step 3: Add #[code #[+adjExPath('main.ts')]]
 
-  现在，我们还需要做点什么来让Angular加载这个根组件。
-  
-  Add a new file , `main.ts`, to the `app/` folder as follows:
+block create-main
+  p.
+    Now we need something to tell Angular to load the root component.
+    Create the file #[code #[+adjExPath('app/main.ts')]] with the following content:
 
-  添加一个新文件，`main.ts`，到`app/`目录下，比如：
-+makeExample('quickstart/ts/app/main.ts', null, 'app/main.ts')(format=".")
++makeProjExample('app/main.ts')
 
 .l-verbose-section
   :marked
@@ -448,53 +321,34 @@ a(id="main")
     1. Angular's browser `bootstrap` function
     1. Angular的浏览器`bootstrap`（引导）函数
     1. The application root component, `AppComponent`.
-    1. 应用的根组件：`AppComponent`。
-    
+
     Then we call `bootstrap` with `AppComponent`.
 
-    然后，我们调用`bootstrap`函数，并且把`AppComponent`传进去。
- 
     ### Bootstrapping is platform-specific
-    ### “启动”是平台相关的
-    Notice that we import the `bootstrap` function from `@angular/platform-browser-dynamic`,
-    not `@angular/core`.
-
-    注意，我们是从`@angular/platform-browser-dynamic`中引入的`bootstrap`函数，而不是从`@angular2/core`中。
-
+    Notice that we import the `bootstrap` function from `#{_angular_browser_uri}`,
+    not `#{_angular_core_uri}`.
     Bootstrapping isn't core because there isn't a single way to bootstrap the app.
     True, most applications that run in a browser call the bootstrap function from
     this library.
 
-    “引导”不是核心的一部分，因为没有单一的途径来启动应用。诚然，大部分应用都是在浏览器中调用`bootstrap`函数的。
-
     But it is possible to load a component in a different environment.
     We might load it on a mobile device with [Apache Cordova](https://cordova.apache.org/) or [NativeScript](https://www.nativescript.org/).
     We might wish to render the first page of our application on the server
-    to improve launch performance or facilitate 
+    to improve launch performance or facilitate
     [SEO](http://www.google.com/webmasters/docs/search-engine-optimization-starter-guide.pdf).
-
-    但从其它环境中加载组件也是可能的。
-    我们可能通过[Apache Cordova](https://cordova.apache.org/) 或 [NativeScript](https://www.nativescript.org/) 在移动设备中加载它。
-    我们可能希望在服务器中渲染我们的第一个页面来提高启动效率或
-    让[SEO](http://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)更加容易。
-
     These targets require a different kind of bootstrap function that we'd import from a different library.
 
-    要达成这些目标，我们需要从其它库中引入一个不同类型的`bootstrap`函数。
-  
-    ### Why create a separate ***main.ts*** file?
-    ### 为什么创建一个分离的 ***main.ts*** 文件？
+    ### Why create separate *main.#{_docsFor}* and app component files?
 
-    The *main.ts* file is tiny. This is just a QuickStart.
-    We could have folded its few lines into the `app.component` file
+    Both `main.#{_docsFor}` and the app component files are tiny.
+    This is just a QuickStart.
+    We could have merged these two files into one
     and spared ourselves some complexity.
 
-    *main.ts* 文件非常小。它只是一个“快速起步”，没几行代码。我们本可以把它装进`app.component`文件来减少不必要的复杂度。
-
     We'd rather demonstrate the proper way to structure an Angular application.
-    App bootstrapping is a separate concern from presenting a view. 
+    App bootstrapping is a separate concern from presenting a view.
     Mixing concerns creates difficulties down the road.
-    We might launch the `AppComponent` in multiple environments with different bootstrappers. 
+    We might launch the `AppComponent` in multiple environments with different bootstrappers.
     Testing the component is much easier if it doesn't also try to run the entire application.
     Let's make the small extra effort to do it *the right way*.
     
@@ -505,352 +359,235 @@ a(id="main")
     测试组件也变得更容易，因为不需要再运行整个程序才能跑测试。
     让我们多花一点精力来用*“正确的方式”*实现它。
 
-a(id="index")
 .l-main-section
+h2#index Step 4: Add #[code index.html]
 :marked
-  ## Add the `index.html`
-  ## 添加`index.html`
-  The `index.html` is the web page that hosts the application
-  
-  `index.html`是存放本应用的宿主页面。
-  
-  Navigate to the **project root folder**.
-  
-  切换到 **项目根目录**。
+  In the *#{_indexHtmlDir}* folder
+  create an `index.html` file and paste the following lines into it:
 
-code-example(format="").
-  cd ..
-:marked
-  Create an`index.html` file in this root folder and paste the following lines:
-  
-  在根目录下创建`index.html`文件并粘贴下列代码：
++makeProjExample('index.html')
 
-+makeExample('quickstart/ts/index.html', null, 'index.html')(format=".")
 .l-verbose-section
   :marked
-    There are three noteworthy sections of HTML
-    
-    HTML中有三点值得注意：
+    The `index.html` file defines the web page that hosts the application.
 
-    1. The JavaScript [libraries](#libraries)
-    
-    1. JavaScript [库](#libraries)
-    
-    2. Configuration of [SystemJS](#systemjs) where we also import and run the
-    `main` file that we just wrote. //TODO reword this a bit
-    
-    2. 配置[SystemJS](#systemjs)，以便引入和运行我们刚才写的`main`文件。
-    
-    3. The [&lt;my-app>](#my-app) tag in the `<body>` which is *where our app lives!*
-    
-    3. `<body>`中的[&lt;my-app>](#my-app)标签是*供我们的应用“生活”的地方。*
-
-  a(id="libraries")
-  :marked
-    ### Libraries
-    ### 库
-    We loaded the following scripts
-    
-    我们加载下列脚本：
-
-  +makeExample('quickstart/ts/index.html', 'libraries', 'index.html')(format=".")
-  :marked
-    We began with Internet Explorer polyfills. 
-    IE requires polyfills to run
-    an application that relies on ES2015 promises and dynamic module loading.
-    Most applications need those capabilities and most applications
-    should run in Internet Explorer. //TODO es6-shim are not IE polyfills or they are?
-
-    一开始，我们先进行IE的polyfill（译注：指填充，用js来弥补浏览器原本不具备的能力）。
-    IE需要填充才能正确运行依赖ES2015 Promise（译注：ES2015的新特性，用于支持异步代码）和动态模块加载特性的应用程序。
-    大多数应用还是得运行在IE中，所以我们需要这些能力。
-
-    Next are the polyfills for Angular2, `zone.js` and `reflect-metadata`.
-    
-    接下来是Angular2的填充库(Polyfill)、`zone.js` 和 `reflect-metadata`。
-    
-    Then the [SystemJS](#systemjs) library for module loading.
-    
-    然后是为实现模块加载功能而引入的[SystemJS](#systemjs)库。
-  .l-sub-section
+  block index-html-commentary-for-ts
     :marked
-      Our QuickStart doesn't use the Reactive Extensions 
-      but any substantial application will want them
-      when working with observables.
-      We added the library here in QuickStart so we don't forget later.//TODO this subsection needs to be moved for when we cover the systemjs.config.js
-      
-      我们的“快速起步”不会用到响应式扩展，但是大量的应用需要它们来提供Observable（译注：响应式编程的核心特性，指监视数据的变更以便做出响应）特性。
-      我们把它加到“快速起步”中，以免将来忘了。//TODO 当我们覆盖到systemjs.config.js时，我们得把这些内容移过去。
+      The noteworthy sections of HTML are:
 
-  :marked
-    We'll make different choices as we gain experience and
-    become more concerned about production qualities such as
-    load times and memory footprint.
-    
-    如果我们变得更有经验、更关心产品质量（如加载时间、内存足迹等），将来也可以做出不同的选择。
+      1. The JavaScript [libraries](#libraries)
+      2. Configuration file for [SystemJS](#systemjs), and a script
+         where we import and run the `app` module which refers to the `main` file that we just wrote.
+      3. The [`<my-app>`](#my-app) tag in the `<body>` which is *where our app lives!*
 
-  a(id="systemjs")
-  :marked
-    ### SystemJS Configuration
-    ### SystemJS配置
-
-    The QuickStart uses <a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>
-      to load application and library modules. 
-    There are alternatives that work just fine including the well-regarded 
-    <a href="https://webpack.github.io/" target="_blank">webpack</a>.
-    SystemJS happens to be a good choice but we want to be clear that it was a choice and not a preference.
-    
-    本“快速起步”使用<a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>来加载应用和库模块。
-    还有一些其它候选者也能很好地工作，比如备受推崇的<a href="https://webpack.github.io/" target="_blank">webpack</a>。
-    SystemJS是一个好的选择，但要清楚，它只是我们给你的“选择之一”，而不是“推荐”。
-    
-    All module loaders require configuration and all loader configuration 
-    becomes complicated rather quickly as soon as the file structure diversifies and
-    we start thinking about building for production and performance.
-    
-    所有loader（模块加载器）都需要配置，并且文件结构很快就会变得多样，loader的配置也会变得复杂，那时候我们就要开始考虑产品构建和性能问题了。
-    
-    We suggest becoming well-versed in the loader of your choice.
-    Learn more about SystemJS configuration
-    <a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md" target="_blank">here</a>.
-    
-    我们建议你要精通你所选的loader。
-    学习如何配置SystemJS的更多知识，参见<a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md" target="_blank">这里</a>。
-
-    With those cautions in mind, what are we doing in this QuickStart configuration?
-    
-    好好记住这些，我们再来看看“快速起步”中的配置做了点什么。
-
-  +makeExample('quickstart/ts/systemjs.config.1.js', null, 'systemjs.config.js')(format=".")
-  :marked
-    Our QuickStart makes such requests when one of its
-    application TypeScript files has an import statement like this:
-    
-    在我们的“快速起步”中，当应用中的TypeScript文件出现像这样的import语句时，SystemJS就会处理这些请求：
-
-  +makeExample('quickstart/ts/app/main.ts', 'app-component', 'main.ts (摘录)')(format=".")
-  :marked
-    Notice that the module name (after `from`) does not mention a filename extension. 
-    The `packages:` configuration tells SystemJS to default the extension to 'js', a JavaScript file.
-    
-    注意，模块名（`from`后面）并不包含文件的扩展名。
-    `package:`配置项告诉SystemJS使用'js'扩展名，也就是加载一个JavaScript文件。
-    
-    That makes sense because we transpile TypeScript to JavaScript
-    <i>before</i> running the application</a>.
-    
-    这是因为我们在运行应用程序<i>之前</i>会执行从TypeScript到JavaScript的转译（transpile）。
-
-  .l-sub-section
     :marked
-      #### Transpiling in the browser
-      #### 在浏览器中转译
-      In the live example on plunker we transpile (AKA compile) to JavaScript in the browser
-      on the fly. That's fine for a demo. That's not our preference for development or production.
-      
-      在plunker上的在线例子中，我们在浏览器中随时转译（也可以叫编译）到JavaScript。对于演示来说，这足够了。
-      但这并不是用在开发环境或产品环境时的推荐方式。
-      
-      We recommend transpiling (AKA compiling) to JavaScript during a build phase 
-      before running the application for several reasons including:
-      
-      我们建议在运行应用之前的build阶段转译（编译）到JavaScript，理由包括：
-      
-      * We see compiler warnings and errors that are hidden from us in the browser.
-      
-      * 我们可以看到编译器的警告和错误，但浏览器中不行。
-      
-      * Pre-compilation simpifies the module loading process and 
-      it's much easier to diagnose problems when this is a separate, external step.
-      
-      * 预编译简化了模块加载过程，而且当它成为分离、外部的步骤时，更容易诊断问题。
-        
-      * Pre-compilation means a faster user experience because the browser doesn't waste time compiling.
-      
-      * 预编译意味着更快的用户体验，因为浏览器不用浪费时间去编译了。
-      
-      * We iterate development faster because we only re-compile changed files.
-      We notice the difference as soon as the app grows beyond a handful of files.
-      
-      * 我们的迭代开发会更快，因为我们只需要重新编译那些有变化的文件。当应用程序快速膨胀成一大堆文件时，你会体验到这些差异。
-      
-      * Pre-compilation fits into a continuous integration process of build, test, deploy.
-      
-      * 预编译更适应CI（持续集成）过程：构建、测试、部署。
+      ### Libraries
+      We loaded the following scripts
+    +makeExcerpt('index.html', 'libraries')
+    :marked
+      We begin with es6-shim which monkey patches the global context (window) with essential features of ES2015 (ES6).
+      Next are the polyfills for Angular2, `zone.js` and `reflect-metadata`.
+      Then the [SystemJS](#systemjs) library for module loading.
 
-  :marked
-    The `System.import` call tells SystemJS to import the `main` file 
-    (`main.js` ... after transpiling `main.ts`, remember?).
-    `main` is where we tell Angular to launch the application.
-    We also catch and log launch errors to the console. 
-    
-    `System.import`调用告诉SystemJS引入`main`文件。（`main.js`，从`main.ts`转译而来的，还记得吧？）
-    `main`是我们让Angular启动应用的地方。
-    我们还会把启动过程中的错误捕获并记录到控制台中。
-    
-    All other modules are loaded upon request
-    either by an import statement or by Angular itself.
-    
-    在接下来的请求中，所有其它模块都会被加载 —— 不管是被import语句还是Angular自身。
+      We'll make different choices as we gain experience and
+      become more concerned about production qualities such as
+      load times and memory footprint.
+
+    h3#systemjs SystemJS
+    :marked
+      QuickStart uses <a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>
+      to load application and library modules. [Earlier](#add-config-files) we
+      added the `systemjs.config.js` file to the project root.
+      There are alternatives that work just fine including the well-regarded
+      [webpack](guide/webpack.html).
+      SystemJS happens to be a good choice.
+      But we want to be clear that it was a *choice* and not a *preference*.
+
+      All module loaders require configuration and all loader configuration
+      becomes complicated rather quickly as soon as the file structure diversifies and
+      we start thinking about building for production and performance.
+
+      We suggest becoming well-versed in the loader of your choice.
+      Learn more about SystemJS configuration
+      <a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md" target="_blank">here</a>.
+
+      With those cautions in mind, what are we doing in the
+      QuickStart [`systemjs.config.js` configuration file we added earlier](#config-files)?
+      First, we create a map to tell SystemJS where to look when we import some module.
+      Then, we register all our packages to SystemJS:
+      all the project dependencies and our application package, `app`.
+
+    .l-sub-section
+      :marked
+        Our QuickStart doesn't use all of the listed packages
+        but any substantial application will want many of them
+        and all of the listed packages are required by at least one of the documentation samples.
+
+        There is no runtime harm in listing packages that we don't need as they will only be loaded when requested.
+    :marked
+      The `app` package tells SystemJS what to do when it sees a request for a
+      module from the `app/` folder.
+
+      Our QuickStart makes such requests when one of its
+      application TypeScript files has an import statement like this:
+    +makeExcerpt('app/main.ts', 'import')
+    :marked
+      Notice that the module name (after `from`) does not mention a filename extension.
+      In the configuration we tell SystemJS to default the extension to `js`, a JavaScript file.
+
+      That makes sense because we transpile TypeScript to JavaScript
+      *before* running the application.
+
+    .l-sub-section
+      :marked
+        #### Transpiling in the browser
+        In the live example on plunker we transpile (AKA compile) to JavaScript in the browser
+        on the fly. _That's fine for a demo_.
+
+        **Do not transpile in the browser during development or for production**.
+
+        We strongly recommend transpiling (AKA compiling) to JavaScript during a build phase
+        before running the application for several reasons including:
+
+        * We see compiler warnings and errors that are hidden from us in the browser.
+
+        * Precompilation simpifies the module loading process and
+        it's much easier to diagnose problems when this is a separate, external step.
+
+        * Precompilation means a faster user experience because the browser doesn't waste time compiling.
+
+        * We iterate development faster because we only recompile changed files.
+        We notice the difference as soon as the app grows beyond a handful of files.
+
+        * Precompilation fits into a continuous integration process of build, test, deploy.
+
+    :marked
+      The `System.import` call tells SystemJS to import the `main` file
+      (`main.js` ... after transpiling `main.ts`, remember?);
+      `main` is where we tell Angular to launch the application.
+      We also catch and log launch errors to the console.
+
+      All other modules are loaded upon request
+      either by an import statement or by Angular itself.
+
+      ### *&lt;my-app&gt;*
 
   a(id="my-app")
   :marked
-    ### *&lt;my-app&gt;*
-    When Angular calls the `bootstrap` function in `main.ts`, it reads the `AppComponent`
+    When Angular calls the `bootstrap` function in `main.#{_docsFor}`, it reads the `AppComponent`
     metadata, finds the `my-app` selector, locates an element tag named `my-app`,
-    and loads our application between those tags.
+    and renders our application's view between those tags.
 
-    当Angular在`main.ts`中调用`bootstrap`函数时，它读取`AppComponent`的元数据，发现选择器是`my-app`，于是它定位到一个元素名为`my-app`的DOM元素，并且把我们的应用加载到这个标签中。
-.l-main-section
 :marked
-  ## Add some style
-  ## 添加一些样式
-  Styles aren't essential but they're nice and the `index.html` assumes we have
+  ### Add some style
+  Styles aren't essential but they're nice, and `index.html` assumes we have
   a stylesheet called `styles.css`.
 
-  样式不是必备的，但是它让我们的应用更漂亮。`index.html`假设我们有一个名叫`styles.css`的样式表。
-
-  Create a `styles.css` in the root folder and start styling, perhaps with this set:
-  
-  在根目录下创建一个`styles.css`文件来加上样式，这个文件可能是这样的：
-
-+makeExample('quickstart/ts/styles.1.css', null, 'styles.css (摘录)')(format=".")
+  Create a `styles.css` file in the *#{_indexHtmlDir}* folder and start styling, perhaps with the minimal
+  styles shown below. For the full set of master styles used by the documentation samples,
+  see [styles.css](https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css).
++makeExcerpt('styles.1.css')
 
 .l-main-section
-:marked
-  ## Compile and run!
-  ## 编译和运行
-  
-  Open a terminal window and enter this command:
-  
-  打开terminal（终端）窗口，并且敲如下命令：
-code-example(format="").
-  npm start
-:marked
-  That command runs two parallel node processes
+h2#build-and-run Step 5: Build and run the app!
+block run-app
+  :marked
+    Open a terminal window and enter this command:
+  code-example.
+    npm start
+  :marked
+    That command runs two parallel node processes
+    1. The TypeScript compiler in watch mode
+    1. A static server called **lite-server** that loads `index.html` in a browser
+    and refreshes the browser when application files change
 
-  此命令会运行两个并行的node进程：
-
-  1. The TypeScript compiler in watch mode
-  1. TypeScript编译器，运行在监视（watch）模式
-  1. A static server called **lite-server** that loads `index.html` in a browser
-  and refreshes the browser when application files change
-  1. 一个名叫 **lite-server** 的静态服务器，它把`index.html`加载到浏览器中
-  这样，当应用的文件发生变化时，它会自动刷新浏览器。
-
-  In a few moments, a browser tab should open and display
-  
-  稍后，一个浏览器页标签就会打开并显示出来。
+    In a few moments, a browser tab should open and display
 
 figure.image-display
-  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
+  img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="Output of QuickStart app")
 
 :marked
-  Congratulations!  We are in business.
-  
-  恭喜！我们的生意来了！
+  **Great job!**
 
-  ### Make some changes
-  ### 做点改变
-  
+block build-app
+  //- Nothing for ts.
+
+:marked
+  ## Make some changes
+
   Try changing the message to "My SECOND Angular 2 app".
-  
-  试着把消息内容改成“我的第二个Angular2应用”。
-  
-  The TypeScript compiler and `lite-server` are watching.
-  They should detect the change, recompile the TypeScript into JavaScript,
-  refresh the browser, and display the revised message.
+block server-watching
+  :marked
+    The TypeScript compiler and `lite-server` are watching.
+    They should detect the change, recompile the TypeScript into JavaScript,
+    refresh the browser, and display the revised message.
+    It's a nifty way to develop an application!
 
-  TypeScript编译器和`lite-server`都在监视。
-  它们会检测到文件的变化，重新把这个TypeScript文件编译成JavaScript文件，刷新浏览器，并且显示修改过的消息。
-
-  It's a nifty way to develop an application!
-  
-  这就是我们开发应用程序的方式，多漂亮！
-  
-  We close the terminal window when we're done to terminate both the compiler and the server.
-  
-  当终止了编译器和服务器之后，我们可以关闭terminal窗口。
+    We close the terminal window when we're done to terminate both the compiler and the server.
 
 .l-main-section
 :marked
-  ## Final structure
-  ## 最终结构
+  # Wrap up
+
   Our final project folder structure looks like this:
-  
-  最终的项目目录结构会是这样的：
+block project-file-structure
+  .filetree
+    .file angular2-quickstart
+    .children
+      .file app
+      .children
+        .file app.component.ts
+        .file main.ts
+      .file node_modules ...
+      .file typings ...
+      .file index.html
+      .file package.json
+      .file styles.css
+      .file systemjs.config.js
+      .file tsconfig.json
+      .file typings.json
+:marked
+  Here are the file contents:
 
-.filetree
-  .file angular2-quickstart
-  .children
-    .file app
-    .children
-      .file app.component.ts
-      .file main.ts
-    .file node_modules ...
-    .file typings    
-    .children
-      .file typings.d.ts
-      .file ...
-    .file index.html
-    .file package.json
-    .file styles.css
-    .file system.config.js
-    .file tsconfig.json
-    .file typings.json
-:marked
-  And here are the files:
-  
-  一共有这些文件：
-  
-+makeTabs(`
-quickstart/ts/app/app.component.ts,
-quickstart/ts/app/main.ts,
-quickstart/ts/index.html,
-quickstart/ts/package.1.json,
-quickstart/ts/tsconfig.1.json,
-quickstart/ts/typings.1.json,
-quickstart/ts/styles.1.css,
-quickstart/ts/system.config.1.js`
-,null,
-`app/app.component.ts,
-app/main.ts,
-index.html,
-package.json,
-tsconfig.json,
-typings.json,
-styles.css,
-system.config.js`)
-:marked
+block project-files
+  +makeTabs(`
+      quickstart/ts/app/app.component.ts,
+      quickstart/ts/app/main.ts,
+      quickstart/ts/index.html,
+      quickstart/ts/package.1.json,
+      quickstart/ts/tsconfig.1.json,
+      quickstart/ts/typings.1.json,
+      quickstart/ts/styles.1.css,
+      quickstart/ts/systemjs.config.1.js`
+    ,null,
+    `app/app.component.ts,
+    app/main.ts,
+    index.html,
+    package.json,
+    tsconfig.json,
+    typings.json,
+    styles.css,
+    systemjs.config.js`)
 
 .l-main-section
 :marked
-  ## Wrap Up
-  ## 完工！
+  ## What next?
   Our first application doesn't do much. It's basically "Hello, World" for Angular 2.
   
   我们的第一个应用没做什么，它只是Angular 2的“Hello, World”。
 
   We kept it simple in our first pass: we wrote a little Angular component,
-  we added some JavaScript libraries to `index.html`, and launched with a
+  created a simple `index.html`, and launched with a
   static file server. That's about all we'd expect to do for a "Hello, World" app.
 
-  我们让自己的Angular 2处女航保持简单：我们写一个小的Angular组件，添加一些JavaScript库到`index.html`，并且启动一个静态文件服务器。
-  这就是我们想通过“Hello, World”应用去表现的一切。
-
-  **We have greater ambitions.**
-  
-  **我们的雄心壮志**
-
-  The good news is that the overhead of setup is (mostly) behind us. 
-  We'll probably only touch the `package.json` to update libraries.
-  We'll likely open `index.html` only if we need to add a library or some css stylesheets.
-
-  好消息是：准备阶段已经结束了。
-  我们将来可能只是修改`package.json`来升级依赖库。
-  如果需要添加一些库或一些css样式表，我们可以打开`index.html`。
-
-  We're about to take the next step and build a small application that 
+  **We have greater ambitions!**
+block what-next-ts-overhead
+  :marked
+    The good news is that the overhead of setup is (mostly) behind us.
+    We'll probably only touch the `package.json` to update libraries.
+    We'll likely open `index.html` only if we need to add a library or some css stylesheets.
+:marked
+  We're about to take the next step and build a small application that
   demonstrates the great things we can build with Angular 2.
 
   我们将要开始下一步：构建一个小型应用，以示范更多有意思的Angular 2特性。

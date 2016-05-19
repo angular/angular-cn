@@ -1208,7 +1208,7 @@ a(href="#toc") 回到顶部
 
 .s-why.s-why-last
   :marked
-    **Why?** We find this to be super important for a project. If we cannot find the files we need to work on quickly, we will not be able to work as efficiently as possible, and the structure needs to change. We may not know the file name or where its related files are, so putting them in the most intuitive locations and near each other saves a ton of time. A descriptive folder structure can help with this.
+    **Why?** We find this to be super important for a project. If we cannot find the files we need to work on quickly, we will not be able to work as efficiently as possible, and the structure will need to change. We may not know the file name or where its related files are, so putting them in the most intuitive locations and near each other saves a ton of time. A descriptive folder structure can help with this.
     
     **为何？**定位对项目是非常重要的。如果我们不能快速找到需要工作的文件，我们就不可能在最佳效率状态下面工作，结构就需要更换。我们可能不知道文件的名称或者文件所在目录名，所以我们把它们放到直观的地方，一个挨着一个，这样可以节省很多时间。坚持说明性强的文件结构会有很大帮助。
 
@@ -1232,7 +1232,7 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** be descriptive with file names and keeping the contents of the file to exactly one component.
+    **Do** be descriptive with file names and keep the contents of the file to exactly one component.
     
     **坚持**文件名要具有说明性，并保证文件中只包含一个组件。
 
@@ -1390,7 +1390,7 @@ a(href="#toc") 回到顶部
       .children
         .file ...
       .file app.component.ts|html|css|spec.ts
-      .file main.ts
+    .file main.ts
     .file index.html
     .file ...
 :marked
@@ -1470,7 +1470,7 @@ a(href="#toc") 回到顶部
         .children
           .file ...
       .file app.component.ts|html|css|spec.ts
-      .file main.ts
+    .file main.ts
     .file index.html
     .file ...
 :marked
@@ -1561,7 +1561,7 @@ a(href="#toc") 回到顶部
           .file ...
         .file ...
       .file app.component.ts|html|css|spec.ts
-      .file main.ts
+    .file main.ts
     .file index.html
     .file ...
 :marked
@@ -1624,7 +1624,7 @@ a(href="#toc") 回到顶部
         .file index.ts
         .file ...
       .file app.component.ts|html|css|spec.ts
-      .file main.ts
+    .file main.ts
     .file index.html
     .file ...
 :marked
@@ -1715,7 +1715,7 @@ a(href="#toc") 回到顶部
         .file ...
         .file index.ts
       .file app.component.ts|html|css|spec.ts
-      .file main.ts
+    .file main.ts
     .file index.html
     .file ...
 :marked
@@ -2613,8 +2613,6 @@ a(href="#toc") Back to top
 .s-why.s-why-last
   :marked
     **Why?** We avoid unintentionally not calling the hook if we misspell the method.
-    
-    **为何？**避免在方法名字拼写错误时，造成无意间没有调用钩子的可能。
 
 +makeExample('style-guide/ts/09-01/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 :marked
@@ -2674,7 +2672,7 @@ a(href="#toc") 回到顶部
 .s-why
   :marked
     **Why?** A component that handles routing is known as the component router, thus this follows the Angular 2 routing pattern.
-    
+
     *为何？**处理路由的组件被称作组件路由器，它遵循Angular 2的路由模式。
 
 .s-why.s-why-last
@@ -2747,10 +2745,15 @@ a(href="#toc") 回到顶部
     
     **考虑**使用[Visual Studio Code](https://code.visualstudio.com/)的[代码片段](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)来实施本风格指南。
 
-:marked
-  [![Use Extension](https://github.com/johnpapa/vscode-angular2-snippets/raw/master/images/use-extension.gif)](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
+    [![Use Extension](https://github.com/johnpapa/vscode-angular2-snippets/raw/master/images/use-extension.gif)](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
   
-  [![使用插件](https://github.com/johnpapa/vscode-angular2-snippets/raw/master/images/use-extension.gif)](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
+    [![使用插件](https://github.com/johnpapa/vscode-angular2-snippets/raw/master/images/use-extension.gif)](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)
+
+    **Consider** using [snippets](https://atom.io/packages/angular-2-typescript-snippets) for [Atom](https://atom.io/) that follow these styles and guidelines.
+
+    **Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](http://www.sublimetext.com/) that follow these styles and guidelines.
+
+    **Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](http://www.vim.org/) that follow these styles and guidelines.
 
 a(href="#toc") Back to top
 

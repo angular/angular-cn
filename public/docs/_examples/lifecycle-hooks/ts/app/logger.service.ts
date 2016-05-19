@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LoggerService {
@@ -21,9 +21,6 @@ export class LoggerService {
   clear() { this.logs.length = 0; }
 
   // schedules a view refresh to ensure display catches up
-  tick() {
-    setTimeout(() => {
-    // console.log('tick')
-    }, 0);
-  }
+  tick() {  this.tick_then(() => { }); }
+  tick_then(fn: () => any) { setTimeout(fn, 0); }
 }

@@ -4,8 +4,8 @@ import {
   OnChanges, SimpleChange,
 } from '@angular/core';
 
-import {Spy} from './spy.directive';
-import {LoggerService}  from './logger.service';
+import { Spy } from './spy.directive';
+import { LoggerService }  from './logger.service';
 
 @Component({
   selector: 'my-counter',
@@ -33,9 +33,9 @@ export class MyCounter implements OnChanges {
     }
 
     // A change to `counter` is the only change we care about
-    let prop = changes['counter'];
-    let cur = prop.currentValue;
-    let prev = JSON.stringify(prop.previousValue); // first time is {}; after is integer
+    let chng = changes['counter'];
+    let cur = chng.currentValue;
+    let prev = JSON.stringify(chng.previousValue); // first time is {}; after is integer
     this.changeLog.push(`counter: currentValue = ${cur}, previousValue = ${prev}`);
   }
 
@@ -66,23 +66,23 @@ export class CounterParentComponent {
   value: number;
   spyLog: string[] = [];
 
-  private _logger: LoggerService;
+  private logger: LoggerService;
 
   constructor(logger: LoggerService) {
-    this._logger = logger;
+    this.logger = logger;
     this.spyLog = logger.logs;
     this.reset();
   }
 
   updateCounter() {
     this.value += 1;
-    this._logger.tick();
+    this.logger.tick();
   }
 
   reset() {
-    this._logger.log('-- reset --');
+    this.logger.log('-- reset --');
     this.value = 0;
-    this._logger.tick();
+    this.logger.tick();
   }
 }
 

@@ -604,7 +604,7 @@ include ../_util-fns
   app/heroes/hero.service (v.1)`)
 // #docregion di-service-service-2
 :marked
-  The constructor now asks for an injected instance of a `Logger` and stores it in a private property called `_logger`.
+  The constructor now asks for an injected instance of a `Logger` and stores it in a private property called `logger`.
   We call that property within our `getHeroes` method when anyone asks for heroes.
   
   现在，这个构造函数会要求一个`Logger`类的实例注入进来，并且把它存到一个名为`_logger`的私有属性中。
@@ -786,11 +786,11 @@ code-example(format, language="html").
 - var decorator = lang == 'dart' ? 'annotation' : 'decorator'
 - var decoratorCn = lang == 'dart' ? '注解' : '装饰器'
 :marked
-  #{rewrite} the constructor with the `@Optional()` #{decorator} preceding the private `_logger` parameter.
-  That tells the injector that `_logger` is optional.
-  
-  #{rewriteCn}使用`@Optional`#{decoratorCn}前缀重写构造函数的`private _logger`参数就可以了。
-  它就会告诉注入器`_logger`是可选的。
+  #{rewrite} the constructor with the `@Optional()` #{decorator} preceding the private `logger` parameter.
+  That tells the injector that `logger` is optional.
+
+  #{rewriteCn}使用`@Optional`#{decoratorCn}前缀重写构造函数的`private logger`参数就可以了。
+  它就会告诉注入器`logger`是可选的。
   
 // #enddocregion logger-service-5
 +makeExample('dependency-injection/ts/app/providers.component.ts','provider-10-ctor')(format='.')

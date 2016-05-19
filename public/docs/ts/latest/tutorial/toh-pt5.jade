@@ -26,7 +26,7 @@ figure.image-display
   我们将把Angular*组件路由器*加入应用中，以满足这些需求。（译注：硬件领域中的路由器是用来帮你找到另一台网络设备的，而这里的路由器用于帮你找到一个组件）
 .l-sub-section
   :marked
-    The [Routing and Navigation](../guide/router.html) chapter covers the router in more detail
+    The [Routing and Navigation](../guide/router-deprecated.html) chapter covers the router in more detail
     than we will in this tour.  
     
     [路由与导航](../guide/router.html)一章覆盖了比该教程中更详细的路由知识。
@@ -233,9 +233,9 @@ code-example(format="." language="bash").
   header base href is essential
   header base href是不可或缺的
   :marked
-    See the *base href* section of the [Router](../guide/router.html#!#base-href) chapter to learn why this matters.
-    
-    查看[路由器](../guide/router.html#!#base-href)一章的*base href*部分，了解为何如此。
+    See the *base href* section of the [Router](../guide/router-deprecated.html#!#base-href) chapter to learn why this matters.
+
+    查看[路由器](../guide/router-deprecated.html#!#base-href)一章的*base href*部分，了解为何如此。
 :marked
   ### Make the router available.
   ### 让路由可用。
@@ -304,9 +304,9 @@ code-example(format="." language="bash").
 
 .l-sub-section
   :marked
-    Learn more about defining routes with @RouteConfig in the [Routing](../guide/router.html) chapter.
+    Learn more about defining routes with @RouteConfig in the [Routing](../guide/router-deprecated.html) chapter.
     
-    要学习更多使用`@RouteConfig`定义路由的知识，请参见[路由](../guide/router.html)一章。
+    要学习更多使用`@RouteConfig`定义路由的知识，请参见[路由](../guide/router-deprecated.html)一章。
 :marked
   ### Router Outlet
   ### 路由插座（Outlet）
@@ -353,9 +353,9 @@ code-example(format="." language="bash").
   回来看路由配置表，我们清楚的看到，这个名称 —— `'Heroes'`就是指向`HeroesComponent`的那个路由的名称。
 .l-sub-section
   :marked
-    Learn about the *link parameters array* in the [Routing](../guide/router.html#link-parameters-array) chapter.
+    Learn about the *link parameters array* in the [Routing](../guide/router-deprecated.html#link-parameters-array) chapter.
     
-    学习关于 *链接参数数组* 的更多知识，参见[路由](../guide/router.html#link-parameters-array)一章。
+    学习关于 *链接参数数组* 的更多知识，参见[路由](../guide/router-deprecated.html#link-parameters-array)一章。
 :marked
   Refresh the browser.  We see only the app title. We don't see the heroes list. 
   
@@ -526,7 +526,7 @@ code-example(format="." language="bash").
 :marked
   We saw this kind of logic before in the `HeroesComponent`.
   * create a `heroes` array property
-  * inject the `HeroService` in the constructor and hold it in a private `_heroService` field.
+  * inject the `HeroService` in the constructor and hold it in a private `heroService` field.
   * call the service to get heroes inside the Angular `ngOnInit` lifecycle hook.
   
   在`HeroesComponent`之前，我们也看到过类似的逻辑：

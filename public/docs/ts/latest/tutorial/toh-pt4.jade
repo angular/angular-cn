@@ -284,15 +284,9 @@ code-example(format="." language="bash").
 +makeExample('toh-4/ts/app/app.component.1.ts', 'ctor', 'app.component.ts (构造函数)')
 :marked
   The constructor itself does nothing. The parameter simultaneously 
-  defines a private `_heroService` property and identifies it as a `HeroService` injection site.
+  defines a private `heroService` property and identifies it as a `HeroService` injection site.
   
-  构造函数自己什么也不用做，它在参数中定义了一个私有的`_heroService`属性，并把它标记为注入`HeroService`的靶点。
-.l-sub-section
-  :marked
-    We prefix private variables with an underscore (_) to warn readers of our code
-    that this variable is not part of the component's public API.
-    
-    我们给私有变量添加下划线（_）前缀，用以警告这些代码的读者：这个变量不是组件的公开API的一部分。
+  构造函数自己什么也不用做，它在参数中定义了一个私有的`heroService`属性，并把它标记为注入`HeroService`的靶点。
 :marked
   Now Angular will know to supply an instance of the `HeroService` when it creates a new `AppComponent`. 
   
@@ -366,9 +360,9 @@ code-example(format="." language="html").
 :marked
   ### *getHeroes* in the *AppComponent*
   ### *AppComponent* 中的 *getHeroes*
-  We've got the service in a `_heroService` private variable. Let's use it.
+  We've got the service in a `heroService` private variable. Let's use it.
   
-  我们已经获得了此服务，并把它存入了私有变量`_heroService`中。我们这就开始使用它。
+  我们已经获得了此服务，并把它存入了私有变量`heroService`中。我们这就开始使用它。
   
   We pause to think. We can call the service and get the data in one line.
   
@@ -625,7 +619,7 @@ code-example(format="." language="html").
   Import the `Hero` symbol and add the following `getHeroesSlowly` method to the `HeroService`
   
   导入`Hero`类，并且在`HeroService`中添加如下的`getHeroesSlowly`方法：
-+makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes-slowly', 'hero.service.ts (getHeroesSlowy)')(format=".")
++makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes-slowly', 'hero.service.ts (getHeroesSlowly)')(format=".")
 :marked
   Like `getHeroes`, it also returns a promise. 
   But this promise waits 2 seconds before resolving the promise with mock heroes.
@@ -633,10 +627,10 @@ code-example(format="." language="html").
   像`getHeroes`一样，它也返回一个承诺。
   但是，这个承诺会在使用模拟数据完成任务之前等待两秒钟。
   
-  Back in the `AppComponent`, replace `_heroService.getHeroes` with `_heroService.getHeroesSlowly`
+  Back in the `AppComponent`, replace `heroService.getHeroes` with `heroService.getHeroesSlowly`
   and see how the app behaves.
   
-  回到`AppComponent`中，把`_heroService.getHeroes`替换为`_heroService.getHeroesSlowly`，看看应用的行为有什么变化。
+  回到`AppComponent`中，把`heroService.getHeroes`替换为`heroService.getHeroesSlowly`，看看应用的行为有什么变化。
   
 .l-main-section
 <a id="shadow-provider"></a>

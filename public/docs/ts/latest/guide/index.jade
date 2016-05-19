@@ -1,4 +1,5 @@
-include ../_util-fns
+block includes
+  include ../_util-fns
 
 // #docregion intro
 - var langName = current.path[1] == 'ts' ? 'TypeScript' : 'JavaScript'
@@ -34,15 +35,21 @@ table(width="100%")
   col(width="15%")
   col
   tr(style=top)
+    td 
+      p <b>QuickStart</b>
+      p <b>快速起步</b>
+    td
+      :marked
+        The foundation for every chapter and sample in this documentation.
+        
+        本文档中每一个章节和范例的基础工作。
+
     td
       p <b>Tutorial</b>
       p <b>教程</b>
     td
       :marked
-        A step-by-step, immersive approach to learning Angular. 
-        It begins with the [QuickStart](../quickstart.html), 
-        the foundation for every chapter and sample in this documentation,
-        followed by the [*Tour of Heroes* tutorial](../tutorial) that
+        A step-by-step, immersive approach to learning Angular that
         introduces the major features of Angular in an application context.
         
         一场按部就班、沉浸式的Angular学习之旅。
@@ -63,7 +70,7 @@ table(width="100%")
       p <b>开发人员指南</b>
     td
       :marked
-        In depth analysis of Angular features and development practices.
+        In-depth analysis of Angular features and development practices.
         
         深入分析Angular的特性和开发实践。
   tr(style=top)
@@ -77,59 +84,49 @@ table(width="100%")
         一组解决实际应用中某些特定挑战的食谱，大部分是代码片段，也有少量的详细阐述。
   tr(style=top)
     td
-      p <b>Reference</b> 
-      p <b>参考</b>
+      p <b>API Reference</b> 
+      p <b>API 参考</b>
     td
       :marked
-        Angular-specific reference material, most notably the [API Guide](../api)
-        with its authoritative details about each member in the Angular libraries.
+        Authoritative details about each member of the Angular libraries.
         
-        特定于Angular的参考资料，最受欢迎的[API 指南](../api)，包括Angular库中每一个成员的详尽、权威的资料。
-  tr(style=top)
-    td
-      p <b>Resources</b> 
-      p <b>资源</b>
-    td
-      :marked
-        Other places to go for help and information.
-        
-        可以获得帮助、获取消息的其它地方。
+        关于Angular库中每一个成员的详尽、权威的资料。
 :marked
   # Learning Path
   # 学习路径
-  We don't have to read the guide straight through.  Most chapters stand on their own. 
+  We don't have to read the guide straight through.  Most chapters stand on their own.
   
   我们并不需要从头到尾依次阅读本指南。大部分章节都是独立的。
    
-  We recommend a learning path for those new to Angular. 
+  We recommend a learning path for those new to Angular.
   Most of that path runs through the *Basics* section:
 
   这里我们只给Angular新手推荐一个学习路径。
   此路径上的大部分文章都在*基础知识*区。
 
-  1. Read the [Architecture Overview](architecture.html) to get the big picture.
+  1. Read the [Architecture](architecture.html) overview to get the big picture.
   
   1. 阅读[架构概览](architecture.html)以获得宏观视图。
   
-  1. Try the [QuickStart](../quickstart.html). The QuickStart is the "Hello, World" of Angular 2. 
-  It shows us how to setup the libraries and tools we'll need to write *any* Angular app. 
-  
+  1. Try the [QuickStart](../quickstart.html). The QuickStart is the "Hello, World" of Angular 2.
+  It shows us how to set up the libraries and tools we'll need to write *any* Angular app.
+
   1. 试用[“快速起步”](../quickstart.html)。“快速起步”是Angular 2世界中的“Hello, World”。
   它会告诉我们如何安装写*任何*Angular应用时都会用到的那些库和工具。
   
-  1. Take the *Tour of Heroes* [Tutorial](../tutorial) which picks up from where the QuickStart leaves off 
-  and builds a simple data-driven app. 
+  1. Take the *Tour of Heroes* [Tutorial](../tutorial), which picks up from where the QuickStart leaves off
+  and builds a simple data-driven app.
   Simple, yes, but with the essential characteristics we'd expect of a professional application:
-  a sensible project structure, data binding, master/detail, services, dependency injection, navigation, and remote data access. 
-  
+  a sensible project structure, data binding, master/detail, services, dependency injection, navigation, and remote data access.
+
   1. 学习*英雄指南*[教程](../tutorial) ，它将从“快速起步”出发，最终构建出一个简单的“数据驱动”的应用。
   它虽简单，但也具有我们写一个专业应用时所需的一切基本特性：
   实用的项目结构、数据绑定、主从视图、服务、依赖注入、导航，以及远程数据访问。
   
   Return to the *Basics* section and continue in the suggested order:
-    
+  
   返回*基础知识*区，继续按建议的顺序前进：
-    
+  
   1. [Displaying Data](displaying-data.html) explains how to get information on to the screen.
   
   1. [显示数据](displaying-data.html)解释了如何把信息显示到屏幕上。
@@ -147,7 +144,7 @@ table(width="100%")
   
   1. [依赖注入](dependency-injection.html)这种方式，让我们能把小型、单一用途的部件组装成大型、可维护的应用。
   
-  1. [Template Syntax](template-syntax.html) is a comprehensive study of Angular template HTML. 
+  1. [Template Syntax](template-syntax.html) is a comprehensive study of Angular template HTML.
   
   1. [模板语法](template-syntax.html)是对Angular模板HTML的全面讲解。
 
@@ -160,34 +157,36 @@ table(width="100%")
   # Code Samples
   # 代码范例
   
-  Every chapter includes code snippets that we can reuse in our own applications. 
+  Every chapter includes code snippets that we can reuse in our own applications.
   These snippets are excerpts from a sample application that accompanies the chapter.
-  
+
   每一章都包含一些能在我们自己的应用中复用的代码片段。
   这些片段节选自那一章附带的范例应用。
-  
-  Look for a link to a running version of that sample near the top of each page
-  such as this [live example](/resources/live-examples/architecture/ts/plnkr.html) from the [Architecture](architecture.html) chapter.
-  
-  在每页靠近顶部的地方都可以看到一个链接，指向这个范例的可执行版本，比如[架构](architecture.html)一章中的[在线例子](/resources/live-examples/architecture/ts/plnkr.html)。
-  
-  The link launches a browser-based code editor where we can inspect, modify, save, and download the code.
-  
-  这个链接启动一个基于浏览器的代码编辑器，在这里，我们可以调试、修改、保存和下载这些代码。
-  
-  A few early chapters are written as tutorials and are clearly marked as such. 
-  Most chapters are *not* tutorials. 
+
+block example-links
+  :marked
+    Look for a link to a running version of that sample near the top of each page,
+    such as this [live example](/resources/live-examples/architecture/ts/plnkr.html) from the [Architecture](architecture.html) chapter.
+
+    在每页靠近顶部的地方都可以看到一个链接，指向这个范例的可执行版本，比如[架构](architecture.html)一章中的[在线例子](/resources/live-examples/architecture/ts/plnkr.html)。
+
+    The link launches a browser-based code editor where we can inspect, modify, save, and download the code.
+
+    这个链接启动一个基于浏览器的代码编辑器，在这里，我们可以调试、修改、保存和下载这些代码。
+:marked
+  A few early chapters are written as tutorials and are clearly marked as such.
+  Most chapters are *not* tutorials.
   They highlight key points in code rather than explain each step necessary to build the sample.
-  We can always get the full source by way of the live link.
+  We can always get the full source by way of the #{_liveLink}.
   
   少量早期章节是作为教程来写的，并被清晰的标注出来。
   但大部分章节都不在教程中。
   它们的目的是展示代码中的关键点，而不是解释构建这个范例所需的每一个步骤。
   我们可以从在线例子的链接找到完整的源代码。
+
+  # Reference pages
+  # 参考资料
   
-  ## References
-  ## 参考资料
-    
   The [Cheat Sheet](cheatsheet.html) lists Angular syntax for common scenarios.
   
   [小抄](cheatsheet.html)列出了Angular在常见场景下的语法。
@@ -196,22 +195,22 @@ table(width="100%")
   
   [词汇表](glossary.html)定义了Angular开发者需要知道的词汇。
   
-  The [API Guide](../api/) is the authority on every public-facing member of the Angular libraries.
+  The [API Reference](../api/) is the authority on every public-facing member of the Angular libraries.
   
   [API指南](../api/)是关于Angular库中每一个公有成员的权威指南。
- 
+  
   # Feedback
   # 提供反馈
-  
+
   We welcome feedback! Leave a comment by clicking the icon in upper right corner of the banner.
   
   我们期待您的反馈！请点击Banner右上角的图标，给我们留言。
   
-  Post *documentation* issues and pull requests on the 
+  Post *documentation* issues and pull requests on the
   [angular.io](https://github.com/angular/angular.io) github repository.
   
   如果有*文档方面*的问题或Pull Requests，请到Github上的[angular.io](https://github.com/angular/angular.io)仓库。
-  
+
   Post issues with *Angular 2 itself* to the [angular](https://github.com/angular/angular) github repository.
   
   如果有*Angular 2本身*的问题，请到Github上的[angular](https://github.com/angular/angular)仓库。

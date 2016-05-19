@@ -99,9 +99,16 @@
     "intro": "管道可以在模板中转换显示的内容。"
   },
 
+
+  "router-deprecated": {
+    "title": "Router (Deprecated Beta)",
+    "intro": "The deprecated Beta Router."
+  },
+
   "router": {
     "title": "路由与导航",
     "intro": "揭示通过Angular 2路由在屏幕上导航的基本原理。"
+    "hide": true
   },
 
   "structural-directives": {
@@ -122,6 +129,11 @@
   "upgrade": {
     "title": "从1.x升级",
     "intro": "Angular 1应用可以逐步升级到Angular 2。"
+  },
+
+  "webpack": {
+    "title": "Introduction to Webpack",
+    "intro": "Create your Angular 2 applications with a Webpack based tooling"
   },
 
   "glossary": {

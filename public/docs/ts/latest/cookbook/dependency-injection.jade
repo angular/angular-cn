@@ -321,7 +321,7 @@ figure.image-display
   
   所以，在根部的`AppComponent`提供的依赖单例就能被注入到应用程序中*任何地方*的*任何*组件。
   
-  That isn't always desireable. 
+  That isn't always desirable. 
   Sometimes we want to restrict service availability to a particular region of the application.
   
   但这不一定总是我们想要的。有时候我们想要把服务的有效性限制到应用程序的一个特定区域。
@@ -491,7 +491,7 @@ a(id="qualify-dependency-lookup")
   
 +makeExample('cb-dependency-injection/ts/app/hero-bio.component.ts','template','app/hero-bio.component.ts (template)')(format='.')
 :marked
-  It looks like this, with the heroe's telephone number from `HeroContactComponent` projected above the hero description:
+  It looks like this, with the hero's telephone number from `HeroContactComponent` projected above the hero description:
   
   从`HeroContactComponent`获得的英雄电话号码，被投射到上面的英雄描述里，看起来像这样：
   
@@ -510,17 +510,17 @@ figure.image-display
     
 +makeExample('cb-dependency-injection/ts/app/hero-contact.component.ts','ctor-params','app/hero-contact.component.ts')(format='.')
 :marked
-  The `@Host()` function decorating the  `_heroCache` property ensures that 
+  The `@Host()` function decorating the  `heroCache` property ensures that 
   we get a reference to the cache service from the parent `HeroBioComponent`.
   Angular throws if the parent lacks that service, even if a component higher in the component tree happens to have that service.
   
-  `@Host()`函数是`_heroCache`属性的装饰器，确保我们从其父组件`HeroBioComponent`得到一个缓存服务。如果该父组件不存在这个服务，Angular就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，Angular也会抛出错误。
+  `@Host()`函数是`heroCache`属性的装饰器，确保我们从其父组件`HeroBioComponent`得到一个缓存服务。如果该父组件不存在这个服务，Angular就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，Angular也会抛出错误。
   
-  A second `@Host()` function decorates the `_loggerService` property.
+  A second `@Host()` function decorates the `loggerService` property.
   We know the only `LoggerService` instance in the app is provided at the `AppComponent` level.
   The host `HeroBioComponent` doesn't have its own `LoggerService` provider.
   
-  另一个`@Host()`函数是属性`_loggerService`的装饰器，我们知道在应用程序中，只有一个`LoggerService`实例，也就是在`AppComponent`级提供的服务。
+  另一个`@Host()`函数是属性`loggerService`的装饰器，我们知道在应用程序中，只有一个`LoggerService`实例，也就是在`AppComponent`级提供的服务。
   该宿主`HeroBioComponent`没有自己的`LoggerService`供应商。
   
   Angular would throw an error if we hadn't also decorated the property with the `@Optional()` function.
@@ -544,8 +544,8 @@ figure.image-display
 :marked
   If we comment out the `@Host()` decorator, Angular now walks up the injector ancestor tree 
   until it finds the logger at the `AppComponent` level. The logger logic kicks in and the hero display updates
-  with the gratuituous "!!!", indicating that the logger was found.
-  
+  with the gratuitous "!!!", indicating that the logger was found.
+
   如果我们注释掉`@Host()`装饰器，Angular就会沿着注入器树往上走，直到在`AppComponent`中找到该日志服务。日志服务的逻辑加入进来，更新了英雄的显示信息，这表明确实找到了日志服务。
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bio-contact-no-host.png" alt="Without @Host") 
@@ -639,7 +639,7 @@ figure.image-display
   
   Where did the injector get that value?
   It may already have that value in its internal container. 
-  It it doesn't, it may be able to make one with the help of a ***provider***.
+  If it doesn't, it may be able to make one with the help of a ***provider***.
   A *provider* is a recipe for delivering a service associated with a *token*.
   
   注入器从哪儿得到的依赖？
@@ -1098,9 +1098,9 @@ figure.image-display
     我们强烈推荐简单的构造函数。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作（比如连接服务）。
     这就是为什么我们要在`ngOnInit`里面调用`HeroService`，而不是在构造函数中。
     
-    We explain the mysterious `_afterGetHeroes` below.
+    We explain the mysterious `afterGetHeroes` below.
     
-    我们在下面解释这个神秘的`_afterGetHeroes`。
+    我们在下面解释这个神秘的`afterGetHeroes`。
     
 :marked
   Users want to see the heroes in alphabetical order.
@@ -1120,7 +1120,7 @@ figure.image-display
     
 +makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','sorted-heroes','app/sorted-heroes.component.ts (SortedHeroesComponent)') 
 :marked
-  Now take note of the `_afterGetHeroes` method. 
+  Now take note of the `afterGetHeroes` method. 
   Our first instinct was to create an `ngOnInit` method in `SortedHeroesComponent` and do the sorting there.
   But Angular calls the *derived* class's `ngOnInit` *before* calling the base class's `ngOnInit` 
   so we'd be sorting the heroes array *before they arrived*. That produces a nasty error.
@@ -1129,9 +1129,9 @@ figure.image-display
   我们第一反应是在`SortedHeroesComponent`组件里面建一个`ngOnInit`方法来做排序。但是Angular会先调用*派生*类的`ngOnInit`，后调用基类的`ngOnInit`，
   所以我们可能在*英雄到达之前*就开始排序。这就产生了一个讨厌的错误。
   
-  Overriding the base class's `_afterGetHeroes` method solves the problem
+  Overriding the base class's `afterGetHeroes` method solves the problem
   
-  覆盖基类的`_afterGetHeroes`方法可以解决这个问题。
+  覆盖基类的`afterGetHeroes`方法可以解决这个问题。
   
   These complications argue for *avoiding component inheritance*. 
   

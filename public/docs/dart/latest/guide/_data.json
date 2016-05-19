@@ -100,9 +100,15 @@
     "intro": "Pipes transform displayed values within a template."
   },
 
+  "router-deprecated": {
+    "title": "Router (Deprecated Beta)",
+    "intro": "The deprecated Beta Router."
+  },
+
   "router": {
     "title": "Routing & Navigation",
-    "intro": "Discover the basics of screen navigation with the Angular 2 router."
+    "intro": "Discover the basics of screen navigation with the Angular 2 router.",
+    "hide": true
   },
 
   "structural-directives": {
@@ -125,6 +131,12 @@
   "upgrade": {
     "title": "Upgrading from 1.x",
     "intro": "Angular 1 applications can be incrementally upgraded to Angular 2.",
+    "hide": true
+  },
+
+  "webpack": {
+    "title": "Introduction to Webpack",
+    "intro": "Create your Angular 2 applications with a Webpack based tooling",
     "hide": true
   },
 

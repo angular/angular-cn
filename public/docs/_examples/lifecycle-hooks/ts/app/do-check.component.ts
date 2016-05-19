@@ -1,6 +1,6 @@
 /* tslint:disable:forin */
 // #docregion
-import {Component, DoCheck, OnChanges, Input, SimpleChange, ViewChild} from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, SimpleChange, ViewChild } from '@angular/core';
 
 class Hero {
   constructor(public name: string) {}
@@ -69,9 +69,9 @@ export class DoCheckComponent implements DoCheck, OnChanges {
   // Copied from OnChangesComponent
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
     for (let propName in changes) {
-      let prop = changes[propName];
-      let cur  = JSON.stringify(prop.currentValue);
-      let prev = JSON.stringify(prop.previousValue);
+      let chng = changes[propName];
+      let cur  = JSON.stringify(chng.currentValue);
+      let prev = JSON.stringify(chng.previousValue);
       this.changeLog.push(`OnChanges: ${propName}: currentValue = ${cur}, previousValue = ${prev}`);
     }
   }

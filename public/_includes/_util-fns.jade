@@ -1,5 +1,56 @@
 //- Mixins and associated functions
 
+//- _docsFor: used to identify the language this version of the docs if for;
+//- Should be one of: 'ts', 'dart' or 'js'. Set in lang specific _util-fns file.
+- var _docsFor = '';
+
+//- Should match `_docsFor`, but in this case provides the full capitalized
+//- name of the language.
+- var _Lang = 'TypeScript';
+
+//- Simple "macros" used via interpolation in text:
+//- e.g., the #{_priv}el variable has an `@Input` #{_decorator}.
+
+//- Use #{_decorator} whereever the word "decorator" is expected, provided it is not
+//- preceded by the article "a". (E.g., will be "annotation" for Dart)
+- var _decorator = 'decorator';
+
+//- Articles (which toggle between 'a' and 'an'). Used for, e.g.,
+//- array vs. list; decorator vs. annotation.
+- var _a = 'a';
+- var _an = 'an';
+
+//- TS arrays vs. Dart lists
+- var _array = 'array';
+//- Deprecate now that we have the articles _a and _an
+- var _an_array = 'an array';
+
+//- Promise vs. Future, etc
+- var _Promise = 'Promise';
+- var _Observable = 'Observable';
+
+//- Location of sample code
+- var _liveLink = 'live link';
+
+
+//- Used to prefix identifiers that are private. In Dart this will be '_'.
+- var _priv = '';
+
+//- Use to conditionally include the block that follows +ifDocsFor(...).
+//- Generally favor use of Jade named blocks instead. ifDocsFor is convenient
+//- for prose that should appear only in one language version.
+mixin ifDocsFor(lang)
+  if _docsFor.toLowerCase() === lang.toLowerCase()
+    block
+
+//- Use to map inlined (prose) TS paths into, say, Dart paths via the
+//- adjustExamplePath transformer function.
+mixin adjExPath(path)
+  if adjustExamplePath
+    | #{adjustExamplePath(path)}
+  else
+    | #{path}
+
 mixin includeShared(filePath, region)
   - var newPath = translatePath(filePath, region);
   !=partial(newPath)
@@ -11,6 +62,7 @@ mixin makeExample(_filePath, region, _title, stylePatterns)
   - var frag = getFrag(filePath, region);
   - var defaultFormat = frag.split('\n').length > 2 ? "linenums" : "";
   - var format = attributes.format || defaultFormat;
+  - if (attributes.format === '.') format = '';
   - var avoid = !!attributes.avoid;
 
   if (title)
@@ -21,10 +73,49 @@ mixin makeExample(_filePath, region, _title, stylePatterns)
   code-example(language="#{language}" format="#{format}")
     != styleString(frag, stylePatterns)
 
+//- Like makeExample, but the first argument is a path that is
+//- relative to the project root. Unless title is defined,
+//- the project relative path will be used.
+mixin makeProjExample(projRootRelativePath, region, title, stylePatterns)
+  - var relPath = projRootRelativePath.trim();
+  - var filePath = getExampleName() + '/ts/' + relPath;
+  - if (!title) {
+  -   // Is path like styles.1.css? Then drop the '.1' qualifier:
+  -   var matches = relPath.match(/^(.*)\.\d(\.\w+)$/);
+  -   title = matches ? matches[1] + matches[2] : relPath;
+  - }
+  +makeExample(filePath, region, title, stylePatterns)
+
+//- Like makeExample, but doesn't show line numbers, and the first
+//- argument is a path that is relative to the example project root.
+//- Unless title is defined, the project relative path will be used.
+//- Title will always end with a phrase in parentheses; if no such
+//- ending is given, then the title will be suffixed with
+//- either "(excerpt)", or "(#{region})" when region is defined.
+mixin makeExcerpt(projRootRelativePath, region, title, stylePatterns)
+  - var relPath = projRootRelativePath.trim();
+  - var filePath = getExampleName() + '/ts/' + relPath;
+  - if (!title) {
+  -   // Is path like styles.1.css? Then drop the '.1' qualifier:
+  -   var matches = relPath.match(/^(.*)\.\d(\.\w+)$/);
+  -   title = matches ? matches[1] + matches[2] : relPath;
+  - }
+  - var excerpt = region || 'excerpt';
+  - if (title && !title.match(/\([\w ]+\)$/)) title = title + ' (' + excerpt + ')';
+  +makeExample(filePath, region, title, stylePatterns)(format='.')
+
+//- Extract the doc example name from `current`.
+- var getExampleName = function() {
+-   var dir = current.path[current.path.length - 1];
+-   return dir == 'latest' ? current.source : dir;
+- };
+
 mixin makeTabs(filePaths, regions, tabNames, stylePatterns)
   - filePaths = strSplit(filePaths);
+  - if (adjustExamplePath) filePaths = filePaths.map(adjustExamplePath);
   - regions = strSplit(regions, filePaths.length);
   - tabNames = strSplit(tabNames, filePaths.length);
+  - if (adjustExampleTitle) tabNames = tabNames.map(adjustExampleTitle);
 
   code-tabs
       each filePath,index in filePaths
@@ -77,7 +168,7 @@ script.
     el.style.display = isVerbose ? 'block' : 'none';
     var el = document.querySelector('button.verbose.on');
     el.style.display = isVerbose ? 'none' : 'block';
-    
+
     CCSStylesheetRuleStyle('main','.l-verbose-section', 'display',
       isVerbose ? 'block' : 'none');
   }

@@ -1,8 +1,8 @@
 // ToH Promise Version
 // #docregion
-import {Component, OnInit} from '@angular/core';
-import {Hero}              from './hero';
-import {HeroService}       from './hero.service.1';
+import { Component, OnInit } from '@angular/core';
+import { Hero }              from './hero';
+import { HeroService }       from './hero.service.1';
 
 @Component({
   selector: 'hero-list',
@@ -12,7 +12,7 @@ import {HeroService}       from './hero.service.1';
 // #docregion component
 export class HeroListComponent implements OnInit {
 
-  constructor (private _heroService: HeroService) {}
+  constructor (private heroService: HeroService) {}
 
   errorMessage: string;
   heroes: Hero[];
@@ -21,15 +21,15 @@ export class HeroListComponent implements OnInit {
 
   // #docregion methods
   getHeroes() {
-    this._heroService.getHeroes()
+    this.heroService.getHeroes()
                      .then(
                        heroes => this.heroes = heroes,
                        error =>  this.errorMessage = <any>error);
   }
 
   addHero (name: string) {
-    if (!name) {return;}
-    this._heroService.addHero(name)
+    if (!name) { return; }
+    this.heroService.addHero(name)
                      .then(
                        hero  => this.heroes.push(hero),
                        error =>  this.errorMessage = <any>error);
