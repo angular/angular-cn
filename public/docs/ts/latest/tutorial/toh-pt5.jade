@@ -29,7 +29,7 @@ figure.image-display
     The [Routing and Navigation](../guide/router-deprecated.html) chapter covers the router in more detail
     than we will in this tour.  
     
-    [路由与导航](../guide/router.html)一章覆盖了比该教程中更详细的路由知识。
+    [路由与导航](../guide/router-deprecated.html)一章覆盖了比该教程中更详细的路由知识。
 :marked
   [Run the live example](/resources/live-examples/toh-5/ts/plnkr.html). 
   
@@ -525,13 +525,13 @@ code-example(format="." language="bash").
 +makeExample('toh-5/ts/app/dashboard.component.2.ts','component', 'app/dashboard.component.ts (类)')
 :marked
   We saw this kind of logic before in the `HeroesComponent`.
-  * create a `heroes` array property
-  * inject the `HeroService` in the constructor and hold it in a private `heroService` field.
-  * call the service to get heroes inside the Angular `ngOnInit` lifecycle hook.
   
   在`HeroesComponent`之前，我们也看到过类似的逻辑：
+  * create a `heroes` array property
   * 创建一个`heroes`数组属性
-  * 把`HeroService`注入构造函数中，并且把它保存在一个私有的`_heroService`字段中。
+  * inject the `HeroService` in the constructor and hold it in a private `heroService` field.
+  * 把`HeroService`注入构造函数中，并且把它保存在一个私有的`heroService`字段中。
+  * call the service to get heroes inside the Angular `ngOnInit` lifecycle hook.
   * 在Angular的`ngOnInit`生命周期钩子中调用这个服务，并且取得英雄列表。
   
   The noteworthy differences: we cherry-pick four heroes (2nd, 3rd, 4th, and 5th) with *slice*

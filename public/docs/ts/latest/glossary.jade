@@ -992,7 +992,8 @@ include _util-fns
     [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
     calls to remote servers.
     
-    浏览器DOM和JavaScript之间有一些有限数量的异步活动，比如Dom事件（比如点击）、[契约promises](#promise)、和[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)查询远程服务等。
+    浏览器DOM和JavaScript之间有一些有限数量的异步活动，比如Dom事件（比如点击）、[承诺promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/
+    Promise)、和[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)查询远程服务等。
 
     Zones intercept all of these activities and give a "zone client" the opportunity
     to take action before and after the async activity completes.

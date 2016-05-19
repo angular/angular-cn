@@ -101,14 +101,8 @@
 
 
   "router-deprecated": {
-    "title": "Router (Deprecated Beta)",
-    "intro": "The deprecated Beta Router."
-  },
-
-  "router": {
-    "title": "路由与导航",
-    "intro": "揭示通过Angular 2路由在屏幕上导航的基本原理。",
-    "hide": true
+    "title": "路由 (Beta版，已废弃)",
+    "intro": "废弃的Beta版路由"
   },
 
   "structural-directives": {
@@ -132,8 +126,8 @@
   },
 
   "webpack": {
-    "title": "Introduction to Webpack",
-    "intro": "Create your Angular 2 applications with a Webpack based tooling"
+    "title": "Webpack简介",
+    "intro": "使用基于Webpack的工具创建Angular 2应用"
   },
 
   "glossary": {

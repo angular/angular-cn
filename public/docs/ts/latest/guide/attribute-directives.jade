@@ -20,7 +20,7 @@ block includes
   * [使用数据绑定把值传到指令中](#bindings)
 
 p.
-  #[+liveExampleLink2('Live example', 'attribute-directives')].
+  #[+liveExampleLink2('在线例子', 'attribute-directives')].
 :marked
   ## Directives overview
   ## 指令概览
@@ -45,14 +45,14 @@ p.
   [NgFor](template-syntax.html#ngFor) and [NgIf](template-syntax.html#ngIf) are two familiar examples.
   
   [*结构型*指令](structural-directives.html)会通过添加/删除DOM元素来更改DOM树布局。
-  [NgFor](template-syntax.html#ng-for)和[NgIf](template-syntax.html#ng-if)就是两个最熟悉的例子。
+  [NgFor](template-syntax.html#ngFor)和[NgIf](template-syntax.html#ngIf)就是两个最熟悉的例子。
   
   An *Attribute* directive can change the appearance or behavior of an element.
   The built-in [NgStyle](template-syntax.html#ngStyle) directive, for example,
   can change several element styles at the same time.
   
   *Attribute型*指令改变一个元素的外观或行为。
-  比如，内建的[NgStyle](template-syntax.html#ng-style)指令可以同时修改元素的多种样式。
+  比如，内建的[NgStyle](template-syntax.html#ngStyle)指令可以同时修改元素的多种样式。
   
   We are going to write our own attribute directive to set an element's background color
   when the user hovers over that element.
@@ -116,7 +116,7 @@ block highlight-directive-1
     so we can access the DOM element.
     We don't need `Input` immediately but we will need it later in the chapter.
   
-    我们先从Angular库中导入一些符号。
+    我们先从Angular的`core`库中导入一些符号。
     我们要为使用`@Directive`装饰器而导入`Directive`。
     我们要为[注入](dependency-injection.html)到指令的构造函数中而导入`ElementRef`，这样我们才能访问DOM元素。
     虽然眼下还不需要`Input`，但在稍后的章节中我们很快就会用到它。
@@ -225,7 +225,7 @@ p
 
   We run the app and see that our directive highlights the paragraph text.
   
-  运行应用，就会看到我们的指令确实高亮了span中的文本。
+  运行应用，就会看到我们的指令确实高亮了段落中的文本。
   
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/first-highlight.png" alt="First Highlight")
@@ -284,14 +284,14 @@ a#respond-to-user
   1. detect when the user hovers into and out of the element,
   1. 检测用户的鼠标啥时候进入和离开这个元素。
   1. respond to those actions by setting and clearing the highlight color, respectively.
-  1. 通过设置和清除高亮的颜色来响应这些操作。
+  1. 通过设置和清除高亮色来响应这些操作。
   
   Let's start with event detection. 
   Add a `host` property to the directive metadata and give it a configuration object
   that specifies two mouse events and the directive methods to call when they are raised:
 
   从事件检测开始吧。
-  我们把`host`属性加入指令的元数据中，并给它一个配置对象，用来指定两个鼠标事件，并在它们被触发时，调用指令中的方法。
+  我们把`host`属性加入指令的元数据中，并给它一个配置对象，用来指定两个鼠标事件，并在它们被触发时，调用指令中的方法：
 +makeExample('attribute-directives/ts/app/highlight.directive.2.ts','host')(format=".")
 
 .l-sub-section
@@ -303,7 +303,7 @@ a#respond-to-user
     We could have attached event listeners by manipulating the host DOM element directly, but
     there are at least three problems with such an approach:
     
-    我们可以通过老旧的JavaScript方式来给这个原生元素(`el.nativeElement`)挂上一个事件监听器。
+    我们可以通过直接操纵DOM元素的方式给宿主DOM元素挂上一个事件监听器。
     但这种方法至少有三个问题：
     1. We have to write the listeners correctly.
     1. 我们必须正确的书写事件监听器。
@@ -337,7 +337,7 @@ a#respond-to-user
   We run the app and confirm that the background color appears as we move the mouse over the `p` and
   disappears as we move out.
   
-  运行本应用，我们就可以确认：当把鼠标移到`span`上的时候，背景色就出现了，而移开的时候，它消失了。
+  运行本应用，我们就可以确认：当把鼠标移到`p`上的时候，背景色就出现了，而移开的时候，它消失了。
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight")
 .l-main-section
@@ -350,7 +350,7 @@ a#bindings
   We should set the color externally with a binding like this:
 
   现在的高亮颜色是在指令中硬编码进去的。这样没有弹性。
-  我们应该通过绑定从外部设置这个高亮颜色。就像这样：
+  我们应该通过绑定从外部设置这个颜色。就像这样：
 +makeExample('attribute-directives/ts/app/app.component.html','pHost')
 :marked
   We'll extend our directive class with a bindable **input** `highlightColor` property and use it when we highlight text.
@@ -376,7 +376,7 @@ a#input
   We must add this input metadata or Angular will reject the binding.
   See the [appendix](#why-input) below to learn why.
   
-  这个`@Input`装饰器把元数据添加到了类上，这让`highlightColor`能被以`myHighlight`为别名进行绑定。
+  `@Input`把元数据添加到了类上，这让`highlightColor`能被以`myHighlight`为别名进行绑定。
   我们必须添加这个input元数据，否则Angular会拒绝绑定。
   参见下面的[附录](#why-input)来了解为何如此。
 .l-sub-section
