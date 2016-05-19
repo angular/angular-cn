@@ -107,7 +107,7 @@
 
   "router": {
     "title": "路由与导航",
-    "intro": "揭示通过Angular 2路由在屏幕上导航的基本原理。"
+    "intro": "揭示通过Angular 2路由在屏幕上导航的基本原理。",
     "hide": true
   },
 
