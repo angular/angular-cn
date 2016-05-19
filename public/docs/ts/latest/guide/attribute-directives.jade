@@ -588,13 +588,13 @@ figure.image-display
   Angular treats a *target* property differently for a good reason.
   A component or directive in target position needs protection.
   
-  Angular这样对待区别*目标*属性有充分的理由。
+  Angular这样区别对待*目标*属性有充分的理由。
   作为目标的组件或指令需要保护。
   
   Imagine that our `HighlightDirective` did truly wonderous things.
   We graciously made a gift of it to the world. 
   
-  想象一下，我们的`HighlightDirective`真是一个美好的东西。
+  假想一下，我们的`HighlightDirective`真是一个好东西。
   我们优雅的制做了这个礼物送给全世界。
   
   To our surprise, some people &mdash; perhaps naively &mdash;
@@ -602,9 +602,9 @@ figure.image-display
   Not just the one or two properties we expected them to target. *Every* property.
   That could really mess up our directive in ways we didn't anticipate and have no desire to support.
   
-  出乎意料的是，有些人（可能因为无知）开始绑定到这个指令中的*每一个*属性。
+  出乎意料的是，有些人（可能因为太天真）开始绑定到这个指令中的*每一个*属性。
   不仅仅是我们期望被作为目标使用的那一两个属性，而是*每一个*。
-  这可能会扰乱指令的工作方式 —— 我们既不希望如此也不想支持如此。
+  这可能会扰乱指令的工作方式 —— 我们既不想这样做也不想支持他们这样做。
   
   The *input* declaration ensures that consumers of our directive can only bind to
   the properties of our public API ... nothing else.
