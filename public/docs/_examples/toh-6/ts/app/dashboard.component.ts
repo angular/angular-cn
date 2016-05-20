@@ -1,7 +1,9 @@
+// #docplaster
+// #docregion
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router-deprecated';
+import { Router }           from '@angular/router-deprecated';
 
-import { Hero } from './hero';
+import { Hero }        from './hero';
 import { HeroService } from './hero.service';
 
 @Component({
@@ -10,12 +12,17 @@ import { HeroService } from './hero.service';
   styleUrls: ['app/dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService, private _router: Router) { }
+  constructor(
+    private _router: Router,
+    private _heroService: HeroService) {
+  }
 
   ngOnInit() {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes.slice(1,5));
+    this._heroService.getHeroes()
+      .then(heroes => this.heroes = heroes.slice(1,5));
   }
 
   gotoDetail(hero: Hero) {

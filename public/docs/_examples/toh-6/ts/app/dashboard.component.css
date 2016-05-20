@@ -1,3 +1,5 @@
+/* #docplaster */
+/* #docregion */
 [class*='col-'] {
   float: left;
 }
@@ -58,3 +60,4 @@ h4 {
 	  min-width: 60px;
 	}
 }
+/* #enddocregion */

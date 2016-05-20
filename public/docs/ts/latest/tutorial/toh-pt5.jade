@@ -917,10 +917,18 @@ figure.image-display
   1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
   1. *设置*组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
   
-  The revised component data looks like this:
+  We no longer display the `HeroDetailComponent` in the `HeroesComponent` template because we're navigating to it.
+  So we can remove it from the metadata `directives` array. The `directives` array is now empty so we delete it.
+  We might as well delete the `HeroDetailComponent` import statement too.
+  
+  在`HeroesComponent`模板中，不需要再显示`HeroDetailComponent`，因为我们要导航到它。
+  所以我们可以从元数据的`directives`数组中移除它。`directives`数组现在没东西了，因此我们也把它删掉。
+  我们也同样可以删掉`import` `HeroDetailComponent`的语句。
+  
+  The revised component metadata looks like this:
   
   修改过的组件数据是这样的：
-+makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (修改过的元数据)')(format=".")
++makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (revised metadata)')(format=".")
 :marked
   Now we can see what's going on as we update the component class along the same lines as the dashboard:
   
@@ -1110,6 +1118,7 @@ figure.image-display
     .file index.html
     .file package.json
     .file styles.css
+    .file systemjs.config.json
     .file tsconfig.json
     .file typings.json
 :marked
