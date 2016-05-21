@@ -4,29 +4,45 @@ block includes
 :marked
   We learned the basics of Angular Dependency injection in the
   [Dependency Injection](./dependency-injection.html) chapter.
+  
+  在[依赖注入](./dependency-injection.html)一章中，我们已经学过了Angular依赖注入的基础知识。
 
   Angular has a Hierarchical Dependency Injection system.
   There is actually a tree of injectors
   that parallel an application's component tree.
   We can re-configure the injectors at any level of that component tree with
   interesting and useful results.
+  
+  Angular有一个多级依赖注入系统。
+  实际上，应用程序中有一个与组件树平行的注入器树（译注：平行是指结构完全相同且一一对应）。
+  我们可以使用一些有趣又有用的注入供应商，在组件树中的任何级别上重新配置注入器。
 
   In this chapter we explore these points and write some code.
+  
+  在本章中，我们将浏览这些要点，并写点代码儿来验证它。
 p
   | Try the #[+liveExampleLink2('live example', 'hierarchical-dependency-injection')].
 
 .l-main-section
 :marked
   ## The Injector Tree
+  ## 注入器树
 
   In the [Dependency Injection](./dependency-injection.html) chapter
   we learned how to configure a dependency injector and how to retrieve dependencies where we need them.
+  
+  在[依赖注入](./dependency-injection.html)一章中，我们学过如何配置依赖注入器，以及如何在我们需要时用它获取依赖。
 
   We oversimplified. In fact, there is no such thing as ***the*** injector!
   An application may have multiple injectors!
+  
+  我们其实有点简化过度了。实际上，没有***那个(唯一的)***注入器这回事儿，因为一个应用中可能有很多注入器。
 
   An Angular application is a tree of components. Each component instance has its own injector!
   The tree of components parallels the tree of injectors.
+  
+  一个Angular应用是一个组件树。每个组件实例都有自己的注入器！
+  组件的树与注入器的树平行。
 
 
 .l-sub-section
@@ -34,37 +50,62 @@ p
     Angular doesn't *literally* create a separate injector for each component.
     Every component doesn't need its own injector and it would be horribly inefficient to create
     masses of injectors for no good purpose.
+    
+    Angular并没有像*字面上理解的*那样为每个组件都创建一个独立的注入器。
+    不是每个组件都需要它自己的注入器，盲目创建大量没有明确用途的注入器是非常低效的。
 
     But it is true that every component ***has an injector*** (even if it shares that injector with another component)
     and there may be many different injector instances operating at different levels of the component tree.
+    
+    但说每个组件都**有一个注入器**是没问题的（即使它与其它组件共享注入器也应该算**有**），并且确实可能会有大量不同的注入器实例工作在组件树的不同级别。
 
     It is useful to pretend that every component has its own injector.
+    
+    我们可以假装每个组件都有自己的注入器，因为这样有助于思考和理解。
 :marked
   Consider a simple variation on the Tour of Heroes application consisting of three different components:
   `HeroesApp`, `HeroesListComponent` and `HeroesCardComponent`.
   The `HeroesApp` holds a single instance of `HeroesListComponent`.
   The new twist is that the `HeroesListComponent` may hold and manage multiple instances of the `HeroesCardComponent`.
+  
+  考虑《英雄指南》应用的一个简单变种，它由三个不同的组件构成：`HeroesApp`、`HeroesListComponent`和`HeroesCardComponent`。
+  `HeroesApp`保存了`HeroesListComponent`的一个单例。
+  新的变化是，`HeroesListComponent`可以保存和管理`HeroesCardComponent`的多个实例。
 
   The following diagram represents the state of the component tree when there are three instances of `HeroesCardComponent`
   open simultaneously.
+  
+  下图展示了当`HeroesCardComponent`的三个实例同时展开时组件树的状态。
 
 figure.image-display
   img(src="/resources/images/devguide/dependency-injection/component-hierarchy.png" alt="injector tree" width="500")
 
 :marked
   Each component instance gets its own injector and an injector at one level is a child injector of the injector above it in the tree.
+  
+  每个组件实例获得了它自己的注入器，并且每个级别上的注入器都是它上级节点的子注入器。
 
   When a component at the bottom requests a dependency, Angular tries to satisfy that dependency with a provider registered in that component's own injector.
   If the component's injector lacks the provider, it passes the request up to its parent component's injector.
   If that injector can't satisfy the request, it passes it along to *its* parent component's injector.
   The requests keep bubbling up until we find an injector that can handle the request or run out of component ancestors.
   If we run out of ancestors, Angular throws an error.
+  
+  当一个底层的组件申请获得一个依赖时，Angular先尝试用该组件自己的注入器来满足它。
+  如果该组件的注入器没有找到对应的供应商，它就把这个申请转给它父组件的注入器来处理。
+  如果那个注入器也无法满足这个申请，它就继续转给*它的*父组件的注入器。
+  这个申请继续往上冒泡 —— 直到我们找到了一个能处理此申请的注入器或者超出了组件树中的祖先仍没找到。
+  如果超出了组件树中的祖先，Angular就会抛出一个错误。
 
 .l-sub-section
   :marked
     There's a third possibility. An intermediate component can declare that it is the "host" component.
     The hunt for providers will climb no higher than the injector for this host component.
      We'll reserve discussion of this option for another day.
+    
+    其实还有第三种可能性。一个中层的组件可以声称它自己是“宿主”组件。
+    向上查找供应商的过程会截止于这个“宿主”组件。
+    我们先保留这个问题，等改天再讨论这个选项。
 :marked
   Such a proliferation of injectors makes little sense until we consider the possibility that injectors at different levels can be
   configured with different providers. We don't *have* to re-configure providers at every level. But we *can*.
