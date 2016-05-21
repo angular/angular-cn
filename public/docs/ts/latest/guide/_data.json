@@ -80,8 +80,8 @@
   },
 
   "server-communication": {
-    "title": "Http客户端",
-    "intro": "通过Angular Http客户端与远程服务器对话。"
+    "title": "HTTP客户端",
+    "intro": "通过HTTP客户端与远程服务器对话。"
   },
 
   "lifecycle-hooks": {

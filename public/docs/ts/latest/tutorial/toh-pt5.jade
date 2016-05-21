@@ -466,9 +466,13 @@ code-example(format="." language="bash").
 +makeExample('toh-5/ts/app/dashboard.component.ts', 'template-url', 'app/dashboard.component.ts (templateUrl)')(format=".")
 .l-sub-section
   :marked
-    We specify the path _all the way back to the application root_. Angular doesn't support module-relative paths.
+    We specify the path _all the way back to the application root_ &mdash; `app/` in this case &mdash; 
+    because Angular doesn't support relative paths _by default_.
+    We _can_ switch to [component-relative paths](../cookbook/component-relative-paths) if we prefer.
     
-    我们指定的所有路径都是相对于该应用的根目录的。Angular不支持使用相对于当前模块的路径。
+    我们指定的所有路径_都是相对于该应用的根目录（这里是`app/`）的_。
+    因为Angular_默认_不支持使用相对于当前模块的路径。
+    只要喜欢，我们也_可以_切换成[相对于组件的路径](../cookbook/component-relative-paths)模式。
 :marked
   Create that file with these contents:
   

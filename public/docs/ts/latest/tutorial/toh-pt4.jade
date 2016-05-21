@@ -270,7 +270,7 @@ code-example(format="." language="bash").
   ### Inject the *HeroService*
   ### 注入 *HeroService*
   
-  Two lines replace the one line of *new*:
+  Two lines replace the one line that created with *new*:
   
   用这两行代码代替用`new`时的一行：
   1. we add a constructor.
@@ -292,15 +292,6 @@ code-example(format="." language="bash").
   
   现在，Angular将会知道，当它创建`AppComponent`实例时，需要先提供一个`HeroService`的实例。
   
-  Angular has to get that instance from somewhere. That's the role of the Angular *Dependency Injector*.
-  The **Injector** has a **container** of previously created services. 
-  Either it finds and returns a pre-existing `HeroService` from its container or it creates a new instance, adds
-  it to the container, and returns it to Angular.
-
-  Angular得想办法获得这个实例。这就是Angular *依赖注入器（Dependency Injector）* 扮演的角色。
-  这个 **注入器** 有一个包括以前创建过的所有服务的 **容器** 。
-  它既可以从容器中查找并返回一个已存在的`HeroService`实例，又可以创建一个新的实例，把它添加到容器中，然后把它返回给Angular。
-
 .l-sub-section
   :marked
     Learn more about Dependency Injection in the [Dependency Injection](../guide/dependency-injection.html) chapter.
@@ -328,35 +319,7 @@ code-example(format="." language="html").
 :marked
   The `providers` array  tells Angular to create a fresh instance of the `HeroService` when it creates a new `AppComponent`.
   The `AppComponent` can use that service to get heroes and so can every child component of its component tree.
-  
-  `providers`数组告诉Angular，在创建一个新的`AppComponent`时，也要创建一个`HeroService`的新鲜实例。
-  `AppComponent`可以用此服务来获取英雄列表，它组件树中的每一个子组件也可以这么做。
-<a id="child-component"></a>  
-.l-sub-section
-  :marked
-    ### Services and the component tree
-    ### 服务和组件树
-    
-    Recall that the `AppComponent` creates an instance of `HeroDetail` by virtue of the
-    `<my-hero-detail>` tag at the bottom of its template. That `HeroDetail` is a child of the `AppComponent`.
-    
-    回忆一下，`AppComponent`在它的模板底部包含了一个`<my-hero-detail>`标签，于是创建了一个`HeroDetail`的实例。这个`HeroDetail`就叫做`AppComponent`的子组件。
-    
-    If the `HeroDetailComponent` needed its parent component's `HeroService`,
-    it would ask Angular to inject the service into its constructor which would look just like the one for `AppComponent`:
-    
-    如果`HeroDetailComponent`需要访问来自它父组件的`HeroService`服务，它可以要求Angular把这个服务注入到自己的构造函数中 —— 就像在`AppComponent`中的做法一样。
-    
-  +makeExample('toh-4/ts/app/app.component.1.ts', 'ctor', 'hero-detail.component.ts (构造函数)')
-  :marked
-    The `HeroDetailComponent` must *not* repeat its parent's `providers` array! Guess [why](#shadow-provider).
-    
-    `HeroDetailComponent`不能再写一遍它父组件的`providers`数组！你猜这是[为什么](#shadow-provider)。
-    
-    The `AppComponent` is the top level component of our application. 
-    There should be only one instance of that component and only one instance of the `HeroService` in our entire app.
-    
-    `AppComponent`是我们应用的顶层组件。在我们的整个应用中，应该有唯一的一个顶层组件，应该有唯一的一个`HeroService`实例。
+a#child-component
 :marked
   ### *getHeroes* in the *AppComponent*
   ### *AppComponent* 中的 *getHeroes*
@@ -629,30 +592,3 @@ code-example(format="." language="html").
   
   Back in the `AppComponent`, replace `heroService.getHeroes` with `heroService.getHeroesSlowly`
   and see how the app behaves.
-  
-  回到`AppComponent`中，把`heroService.getHeroes`替换为`heroService.getHeroesSlowly`，看看应用的行为有什么变化。
-  
-.l-main-section
-<a id="shadow-provider"></a>
-:marked
-  ### Appendix: Shadowing the parent's service
-  ### 附件：遮蔽父组件的服务
-  
-  We stated [earlier](#child-component) that if we injected the parent `AppComponent` `HeroService`
-  into the `HeroDetailComponent`, *we must not add a providers array* to the `HeroDetailComponent` metadata.
-  
-  我们在[前面](#child-component)说过，如果在父组件`AppComponent`中把`HeroService`服务注入到`HeroDetailComponent`， 
-  *我们就不应该在`HeroDetailComponent`的元数据中再添加一个`providers`数组*。
-  
-  Why?  Because that tells Angular to create a new instance of the `HeroService` at the `HeroDetailComponent` level.
-  The `HeroDetailComponent` doesn't want its *own*  service instance; it wants its *parent's* service instance.
-  Adding the `providers` array creates a new service instance that shadows the parent instance.
-  
-  为什么呢？因为那会告诉Angular在`HeroDetailComponent`这一层创建一个新的`HeroService`实例。
-  显然，在这个例子中，`HeroDetailComponent`不会希望创建*自己的*服务实例，它想要的就是来自父组件的服务实例。
-  给组件添加一个`providers`数组，就会创建一个新的服务实例，而它会遮蔽父组件中的同名实例。
-  
-  Think carefully about where and when to register a provider. 
-  Understand the scope of that registration. Be careful not to create a new service instance at the wrong level.
-
-  务必想清楚，在哪里、在什么时候注册供应商。要理解注册的有效范围。小心点！不要在错误的级别上创建新的服务实例。

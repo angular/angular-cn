@@ -15,6 +15,12 @@
     "title": "组件通讯",
     "intro": "在不同的指令和组件之间共享信息"
   },
+
+  "component-relative-paths": {
+    "title": "相对于组件的路径",
+    "intro": "为组件的模板和样式指定相对于组件的路径"
+  },
+
   "dependency-injection": {
     "title": "依赖注入",
     "intro": "依赖注入技术"

@@ -32,12 +32,9 @@ block includes
   * [Appendix 1: Inspecting the generated runtime component styles](#inspect-generated-css)
   * [附录1: 审查生成的运行时组件样式](#inspect-generated-css)
   * [Appendix 2: Loading Styles with Relative URLs](#relative-urls)
-  * [附录2: 用相对URL加载样式](#relative-urls)
-p
-  | #[+liveExampleLink2('Run the live example', 'component-styles')]&nbsp;
-  | of the code shown in this chapter.
-p
-  | #[+liveExampleLink2('运行本章代码的在线范例', 'component-styles')]
+
+p Run the #[+liveExampleLink2()] of the code shown in this chapter.
+p 运行本章这些代码的#[+liveExampleLink2()]
 
 .l-main-section
 :marked
@@ -473,96 +470,12 @@ code-example(format='').
 
 block module-id
   :marked
-    We'd *prefer* to write this:
+    We can change the way Angular calculates the full URL be setting the component metadata's `moduleId` property to `module.id`.
     
-    我们期望的*首选*方式是这样写：
-
-  +makeExample('component-styles/ts/app/quest-summary.component.ts', 'urls')(format='.')
-
-  :marked
-    We can't do that by default. Angular can't find the files and throws an error:
-    
-    但默认情况下我们不能这么做。Angular找不到这个文件，并且抛出一个错误：
-
-    `EXCEPTION: Failed to load quest-summary.component.html`
-    
-    `异常：不能加载quest-summary.component.html文件（EXCEPTION: Failed to load quest-summary.component.html）`
-    
-    Why can't Angular calculate the HTML and CSS URLs from the component file's location? 
-    
-    为什么Angular不能根据组件文件的位置计算出HTML和CSS文件的URL呢？
-
-    Unfortunately, that location is not readily known. 
-    Angular apps can be loaded in many ways: from individual files, from SystemJS packages, or
-    from CommonJS packages, to name a few. 
-    With this diversity of load strategies, it's not easy to tell at runtime where these files actually reside.
-    
-    很不幸，当前的位置并不是已知的。
-    Angular应用可以用多种方式被加载：从独立的文件、从SystemJS包，或从CommonJS包等等。
-    由于存在这么多种加载策略，要想在运行期知道这些文件的实际位置，可不是一件容易的事。
-
-    The only location Angular can be sure of is the URL of the `index.html` home page.
-    So by default it resolves template and style paths relative to the URL of `index.html`.
-    That's why we previously wrote our CSS file URLs with an `app/` base path prefix.
-    
-    Angular唯一能够确定的位置，就是起始页`index.html`的URL。
-    所以，默认情况下，它都是以`index.html`的URL为基准来计算模板和样式的相对路径的。
-    这就是为什么我们以前写自身CSS文件的URL都以`app/`基本路径作为前缀。
-
-    Although this works with any code loading scheme, it is very inconvenient.
-    We move file folders around all the time during the evolution of our applications. 
-    It's no fun patching the style and template URLs when we do.
-    
-    虽然这能够和各种代码加载方案协同工作，但它很不方便。
-    在应用程序的进化过程中，我们经常要移动文件夹。整天被迫修改样式和模板的URL可一点儿都不好玩儿！
-
-    ### *moduleId*
-    ### *moduleId*
-
-    We can change the way Angular calculates the full URL be setting the component metadata's `moduleId` property.
-    
-    我们可以通过设置组件元数据中的`moduleId`属性，我们可以改变Angular计算完整URL的方式。
-
-    If we knew the component file's base path, we'd set `moduleId` to that and 
-    let Angular construct the full URL from this base path plus the CSS and template file names.
-    
-    如果我们知道组件文件的基本路径，我们就可以把`moduleId`设置成它，
-    让Angular可以用这个基本路径加上CSS和模板文件的名字来构造出完整URL。
-
-    Our challenge is to calculate the base path with minimal effort. 
-    If it's too hard, we shouldn't bother; we should just write the full path to the root and move on.
-    Fortunately, *certain* module loaders make it relatively easy to find the base path.
-    
-    我们的挑战是如何用最小的代价计算出这个基本路径。
-    如果太难，我们也不想自找麻烦，还不如直接写到程序根目录的全路径，然后继续。
-    幸运的是，在*某些*模块加载器中找到基本路径要相对简单一些。
-
-    SystemJS (starting in v.0.19.19) sets a *semi-global* variable to the URL of the component file.
-    That makes it trivial to set the component metadata `moduleId` property to the component's URL 
-    and let Angular determine the module-relative paths for style and template URLs from there.
-    
-    SystemJS(自从v.0.19.19起)设置了一个*半全局*变量来指向组件文件的URL。
-    有了它，把组件元数据的`moduleId`属性设置为组件本身的URL就简单多了，
-    这样Angular就能让样式和模板的URL使用相对于模块的路径。
-    
-    The name of the *semi-global* variable depends upon whether we told TypeScript to transpile to
-    'system' or 'commonjs' format (see the `module` option in the
-    [TypeScript compiler documentation](http://www.typescriptlang.org/docs/handbook/compiler-options.html)).
-    The variables are `__moduleName` and `module.id` respectively.
-    
-    这个*半全局*变量的名字取决于我们是告诉TypeScript转译成'system'还是'commonjs'格式
-    （参见[TypeScript编译器文档](http://www.typescriptlang.org/docs/handbook/compiler-options.html)中的`module`选项）。
-    这个变量分别是`__moduleName`（system格式）和`module.id`（commonjs格式）。
-    
-    Here's an example in which we set the metadata `moduleId` to `module.id`.
-    
-    下面的例子中示范了我们如何把元数据中的`moduleId`设置为`module.id`。
+    通过把组件元数据的`moduleId`属性设置为`module.id`，我们可以更改Angular计算完整URL的方式
 
   +makeExample('component-styles/ts/app/quest-summary.component.ts','', 'app/quest-summary.component.ts')
-
-  .l-sub-section
-    :marked
-      With a module bundler like Webpack we are more likely to set the `styles` and `template` properties with the bundler's
-      `require` mechanism rather than bother with `styleUrls` and `templateUrl`.
-      
-      如果使用像Webpack这样的模块打包器，我们更喜欢借助打包器本身的`require`机制来设置`styles`和`template`属性，而不是`styleUrls`和`templateUrl`。
+  :marked
+    Learn more about `moduleId` in the [Component-Relative Paths](../cookbook/component-relative-paths.html) chapter.
+    
+    要学习更多关于`moduleId`的知识，请参见[相对于组件的路径](../cookbook/component-relative-paths.html)一章。

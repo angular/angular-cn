@@ -268,7 +268,7 @@ code-example(format=".").
   
   `AppComponent`的模板是这样的：
 
-+makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (模板)')
++makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (Template)')(format='.')
 :marked
   Thanks to the binding, the `HeroDetailComponent` should receive the hero from the `AppComponent` and display that hero's detail beneath the list.
   The detail should update every time the user picks a new hero.
@@ -302,9 +302,7 @@ code-example(format=".").
   
   我们要把它列在元数据的`directives`数组中，这样Angular才会知道它。
   让我们把这个数组属性加在`@Component`配置对象的底部，紧跟在`template`和`styles`属性之后。
-  
-+makeExample('toh-3/ts/app/app.component.ts', 'directives')
-
++makeExample('toh-3/ts/app/app.component.ts', 'directives', 'app/app.component.ts (Directives)')
 
 :marked
   ### It works!
@@ -340,7 +338,7 @@ code-example(format=".").
       .file hero-detail.component.ts
       .file main.ts
     .file node_modules ...
-    .file typings ...      
+    .file typings ...
     .file index.html
     .file package.json
     .file tsconfig.json
