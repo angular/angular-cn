@@ -110,22 +110,38 @@ figure.image-display
 :marked
   Such a proliferation of injectors makes little sense until we consider the possibility that injectors at different levels can be
   configured with different providers. We don't *have* to re-configure providers at every level. But we *can*.
+  
+  除非注入器能在各个不同层次上使用不同的供应商进行配置，否则没必要让注入器分裂成这么多。
+  虽然我们并不是*必须*在每一层都重新配置供应商，但我们*可以*这样做。
 
   If we don't re-configure, the tree of injectors appears to be flat. All requests bubble up to the root injector that we
   configured with the `bootstrap` method.
+  
+  如果我们完全没有进行过重新配置，注入器的树看起来将是“平面”的。所有的申请都会被冒泡到“根注入器”进行处理，也就是我们在`bootstrap`方法中配置的那个。
 
   The ability to configure one or more providers at different levels opens up interesting and useful possibilities.
+  
+  在不同层次上重新配置一个或多个供应商的能力，开启了一些既有趣又有用的可能性。
 
   Let’s return to our Car example.
   Suppose we configured the root injector (marked as A) with providers for `Car`, `Engine` and `Tires`.
   We create a child component (B) that defines its own providers for `Car` and `Engine`
   This child is the parent of another component (C) that defines its own provider for `Car`.
+  
+  让我们回到“汽车(Car)”类的例子。
+  假设我们使用`Car`、`Engine`和`Tires`的供应商配置过“根注入器”（记为A）。
+  然后创建了一个子组件（B），它为`Car`和`Engine`类定义了自己的供应商。
+  这个子组件（B）又有另一个子组件（C），（C）也为`Car`定义了自己的供应商。
 
   Behind the scenes each component sets up its own injector with one or more providers defined for that component itself.
+  
+  幕后的情况是这样的：每个组件都设置了它自己的注入器，这些注入器都带着一个或多个为组件自身设计的供应商。
 
   When we resolve an instance of `Car` at the deepest component (C),
   its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
   `Tires` resolved by the root injector (A).
+  
+  当我们在最底层的组件（C）中试图解析出一个`Car`的实例时，它的注入器生产一个由注入器（C）解析出的`Car`类的实例，`Car`的实例带有一个由注入器（B）解析出的`Engine`类的实例，而`Engine`的实例带有一个由跟注入器（A）解析出的`Tires`类的实例。
 
 figure.image-display
   img(src="/resources/images/devguide/dependency-injection/injector-tree.png" alt="injector tree" width="600")
@@ -133,77 +149,135 @@ figure.image-display
 .l-main-section
 :marked
   ## Component Injectors
+  ## 组件注入器
 
   In the previous section, we talked about injectors and how they are organized like a tree. Lookups follow the injector tree upwards until they find the requested thing to inject. But when do we actually want to provide providers on the root injector and when do we want to provide them on a child injector?
+  
+  在前一节中，我们讨论了注入器以及它们是如何被组织成一棵树的。Angular会沿着注入器树往上逐级查找，直到发现了那个申请者要求注入的东西。
+  但是，我们什么时候该在根注入器上提供供应商，什么时候又该在子注入器上提供它们呢？
 
   Consider you are building a component to show a list of super heroes that displays each super hero in a card with its name and superpower. There should also be an edit button that opens up an editor to change the name and superpower of our hero.
+  
+  考虑我们正在构建一个组件，用来显示一个超级英雄的列表，它需要在每个卡片中显示一位超级英雄的名字和超能力。还要有一个编辑按钮来打开编辑器，以修改这位英雄的名字和超能力。
 
   One important aspect of the editing functionality is that we want to allow multiple heroes to be in edit mode at the same time and that one can always either commit or cancel the proposed changes.
+  
+  关于编辑功能的一个重要方面是，我们得允许多个英雄同时进入编辑模式，每一个都要始终允许提交或取消所做的修改。
 
   Let’s take a look at the `HeroesListComponent` which is the root component for this example.
+  
+  我们看看`HeroesListComponent`，也就是这个例子中的根组件。
 
 +makeExample('hierarchical-dependency-injection/ts/app/heroes-list.component.ts', null, 'app/heroes-list.component.ts')
 
 :marked
   Notice that it imports the `HeroService` that we’ve used before so we can skip its declaration. The only difference is that we’ve used a more formal approach for our `Hero`model and defined it upfront as such.
+  
+  注意，它导入了`HeroService`类，我们以前用到过这个类，所以直接跳过它的声明。
+  唯一的不同是，这里我们用一种更正规的方式使用`Hero`模型，把它定义在前面。
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero.ts', null, 'app/hero.ts')(format=".")
 
 :marked
   Our `HeroesListComponent` defines a template that creates a list of `HeroCardComponent`s and `HeroEditorComponent`s, each bound to an instance of hero that is returned from the `HeroService`. Ok, that’s not entirely true. It actually binds to an `EditItem<Hero>` which is a simple generic datatype that can wrap any type and indicate if the item being wrapped is currently being edited or not.
+  
+  我们的`HeroesListComponent`组件定义了一个模板，来创建`HeroCardComponent`和`HeroEditorComponent`的列表，
+  它们的每个条目都绑定到一个由`HeroService`返回的Hero实例。
+  好吧，这么说也不完全对。它实际上绑定到了一个`EditItem<Hero>`实例，这是一个简单的泛型数据类型，它可以包裹任何类型的实例，
+  并额外添加一个`editing`属性，用来标记被包裹的实例是否正在编辑状态。
 
 +makeExample('hierarchical-dependency-injection/ts/app/edit-item.ts', null, 'app/edit-item.ts')(format=".")
 
 :marked
   But how is `HeroCardComponent` implemented? Let’s take a look.
+  
+  但`HeroCardComponent`是怎么实现的？我们来看看。
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero-card.component.ts', null, 'app/hero-card.component.ts')
 
 :marked
   The `HeroCardComponent` is basically a component that defines a template to render a hero. Nothing more.
+  
+  `HeroCardComponent`基本是一个组件，它定义了一个模板来渲染英雄。没别的。
 
   Let’s get to the interesting part and take a look at the `HeroEditorComponent`
+  
+  让我们开始更有趣的部分，来看看`HeroEditorComponent`：
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero-editor.component.ts', null, 'app/hero-editor.component.ts')
 
 :marked
   Now here it’s getting interesting. The `HeroEditorComponent`defines a template with an input to change the name of the hero and a `cancel` and a `save` button. Remember that we said we want to have the flexibility to cancel our editing and restore the old value? This means we need to maintain two copies of our `Hero` that we want to edit. Thinking ahead, this is a perfect use case to abstract it into its own generic service since we have probably more cases like this in our app.
+  
+  现在，事情开始变得有趣儿了。`HeroEditorComponent`定义了一个模板，它有一个输入框来修改英雄的名字，以及一个`cancel`按钮和一个`save`按钮。
+  还记得吗？我们说过要能够灵活的取消编辑，并且回复原值吗？这意味着我们得维护这个待编辑`Hero`的两份实例。
+  想得超前一点，这是一个把它抽象成一个通用服务的完美案例，因为将来我们的应用中可能会需要更多与此类似的操作逻辑。
 
   And this is where the `RestoreService` enters the stage.
+  
+  该是`RestoreService`登场的时候了！
 
 +makeExample('hierarchical-dependency-injection/ts/app/restore.service.ts', null, 'app/restore.service.ts')
 
 :marked
   All this tiny service does is define an API to set a value of any type which can be altered, retrieved or set back to its initial value. That’s exactly what we need to implement the desired functionality.
+  
+  所有这些微型服务所做的都是定义一个API来设置一个任意类型的值，它可以被修改、获取或者恢复成初始值。
+  这正是我们需要实现的功能。
 
   Our `HeroEditComponent` uses this services under the hood for its `hero` property. It intercepts the `get` and `set` method to delegate the actual work to our `RestoreService` which in turn makes sure that we won’t work on the original item but on a copy instead.
+  
+  我们的`HeroEditComponent`组件悄悄把这个服务用在它的`hero`属性上。它拦截了`get`和`set`方法，并把真正的工作委托给我们的`RestoreService`服务，这样可以确保我们并不是在操作原始条目，而是一个副本。
 
   At this point we may be scratching our heads asking what this has to do with component injectors?
   Look closely at the metadata for our `HeroEditComponent`. Notice the `providers` property.
+  
+  这时，我们可能挠着头问，这跟组件注入器有什么关系？
+  凑近我们的`HeroEditComponent`的元数据看看。注意看它的`providers`属性。
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero-editor.component.ts', 'providers')
 :marked
   This adds a `RestoreService` provider to the injector of the `HeroEditComponent`.
   Couldn’t we simply alter our bootstrap call to this?
+  
+  它往`HeroEditComponent`的注入器中添加了一个`RestoreService`供应商。
+  不能简化点儿，直接把我们的bootstrap方法改成这样吗？
 
 +makeExample('hierarchical-dependency-injection/ts/app/main.ts', 'bad-alternative')
 :marked
   Technically we could, but our component wouldn’t quite behave the way it is supposed to. Remember that each injector treats the services that it provides as singletons. However, in order to be able to have multiple instances of `HeroEditComponent` edit multiple heroes at the same time we need to have multiple instances of the `RestoreService`. More specifically, each instance of `HeroEditComponent` needs to be bound to its own instance of the `RestoreService`.
+  
+  从技术上讲，可以。但我们的组件将不会像预期的那样工作。记住，每个注入器都会把它提供的服务处理成单例。
+  可是，我们需要同时用多个`HeroEditComponent`实例来编辑多个英雄，这就意味着我们需要`RestoreService`的多个实例。
+  更明确的说，每个`HeroEditComponent`的实例都得绑定到它自己的`RestoreService`实例。
 
   By configuring a provider for the `RestoreService` on the `HeroEditComponent`, we get exactly one new instance of the `RestoreService`per `HeroEditComponent`.
+  
+  通过在`HeroEditComponent`上配置`RestoreService`的供应商，我们可以精确的实现每个`HeroEditComponent`都有一个`RestoreService`的新实例。
 
   Does that mean that services aren’t singletons anymore in Angular 2? Yes and no.
   There can be only one instance of a service type in a particular injector.
   But we've learned that we can have multiple injectors operating at different levels of the application's component tree.
   Any of those injectors could have its own instance of the service.
+  
+  这是否意味着在Angular 2中服务再也不是单例的了？是，也不是。
+  对某一个具体的注入器来讲，仍然是每个服务类型只有一个实例。
+  但我们已经知道，在应用程序组件树的各个不同级别上可以有多个注入器。
+  任何一个注入器都可以有它自己的服务实例。
 
   If we defined a `RestoreService` provider only on the root component,
   we would have exactly one instance of that service and it would be shared across the entire application.
+  
+  如果我们只在根组件上定义了一个`RestoreService`供应商，我们就确实只有该服务的一个实例了，它会在整个应用程序中被共享。
 
   That’s clearly not what we want in this scenario. We want each component to have its own instance of the `RestoreService`.
   Defining (or re-defining) a provider at the component level creates a new instance of the service for each new instance
   of that component. We've made the `RestoreService` a kind of "private" singleton for each `HeroEditComponent`,
   scoped to that component instance and its child components.
+  
+  但很明显，这我们不希望它出现在这个场景下。我们希望每个组件都有它自己的`RestoreService`实例。
+  在组件级别上定义（或重定义）一个供应商，将会为该组件创建一个新的服务实例。
+  我们已经把在每个`HeroEditComponent`中，把`RestoreService`做成了一种“私有”单例，它的作用范围被局限在了该组件的实例及其子组件中。
 
   <!--
     ## Advanced Dependency Injection in Angular 2
