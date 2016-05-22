@@ -3,21 +3,33 @@ block includes
   - var _Http = 'Http'; // Angular `Http` library name.
   - var _Angular_Http = 'Angular <code>Http</code>'
   - var _Angular_http_library = 'Angular HTTP library'
+  - var _Angular_http_libraryCn = 'Angular HTTP库'
 
 :marked
   [HTTP](https://tools.ietf.org/html/rfc2616) is the primary protocol for browser/server communication.
+  
+  [HTTP](https://tools.ietf.org/html/rfc2616)是浏览器和服务器之间通讯的主要协议。
 .l-sub-section
   :marked
     The [`WebSocket`](https://tools.ietf.org/html/rfc6455) protocol is another important communication technology;
     we won't cover it in this chapter.
+    
+    [`WebSocket`](https://tools.ietf.org/html/rfc6455)协议是另一种重要的通讯技术，但我们本章不会涉及它。
 :marked
   Modern browsers support two HTTP-based APIs: 
   [XMLHttpRequest (XHR)](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) and 
   [JSONP](https://en.wikipedia.org/wiki/JSONP). A few browsers also support
   [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). 
   
+  现代浏览器支持两种基于HTTP的API：
+  [XMLHttpRequest (XHR)](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)和 
+  [JSONP](https://en.wikipedia.org/wiki/JSONP)。少数浏览器还支持
+  [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)。 
+
   The !{_Angular_http_library} simplifies application programming of the **XHR** and **JSONP** APIs
   as we'll learn in this chapter covering:
+  
+  !{_Angular_http_libraryCn}简化了**XHR**和**JSONP**的编程，我们在本章中将学到
 
 ul
   li #[a(href="#http-client") HTTP client sample overview]
