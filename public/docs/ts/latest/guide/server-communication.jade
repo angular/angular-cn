@@ -29,95 +29,150 @@ block includes
   The !{_Angular_http_library} simplifies application programming of the **XHR** and **JSONP** APIs
   as we'll learn in this chapter covering:
   
-  !{_Angular_http_libraryCn}简化了**XHR**和**JSONP**的编程，我们在本章中将学到
+  !{_Angular_http_libraryCn}简化了**XHR**和**JSONP**的编程，这就是本章所要讲的。
 
 ul
   li #[a(href="#http-client") HTTP client sample overview]
+  li #[a(href="#http-client") HTTP客户端范例概览]
   li #[a(href="#fetch-data") Fetch data with http.get]
+  li #[a(href="#fetch-data") 通过http.get获取数据]
   +ifDocsFor('ts')
     li #[a(href="#rxjs") RxJS Observable of HTTP Responses]
+    li #[a(href="#rxjs") HTTP响应中的RxJS 可观察对象(Observable)]
     li #[a(href="#enable-rxjs-operators") Enabling RxJS Operators]
+    li #[a(href="#enable-rxjs-operators") 启用RxJS操作(Operator)函数]
   li #[a(href="#extract-data") Extract JSON data]
+  li #[a(href="#extract-data") 提取JSON数据]
   li #[a(href="#error-handling") Error handling]
+  li #[a(href="#error-handling") 错误处理]
   li #[a(href="#update") Send data to the server]
+  li #[a(href="#update") 把数据发送到服务器]
   +ifDocsFor('ts')
     li #[a(href="#promises") Promises instead of observables]
+    li #[a(href="#promises") 把承诺(Promise)换成可观察对象(Observable)]
   li #[a(href="#cors") Cross-origin requests: Wikipedia example]
+  li #[a(href="#cors") 跨域请求：以Wikipedia为例]
   +ifDocsFor('ts')
     ul
       li #[a(href="#search-parameters") Set query string parameters]
+      li #[a(href="#search-parameters") 设置查询参数]
       li #[a(href="#more-observables") Debounce search term input]
+      li #[a(href="#more-observables") 限制搜索框条目输入频率]
   li #[a(href="#in-mem-web-api") Appendix: the in-memory web api service]
+  li #[a(href="#in-mem-web-api") 附录：内存中的Web API服务]
 p.
   We illustrate these topics with code that you can 
   #[+liveExampleLink2('run live in a browser')].
+p.
+  讲解这些主题的代码，可以在#[+liveExampleLink2('浏览器中运行在线版')].
   
 .l-main-section
 h1 Demos
+h1 演示
 p  This chapter describes server communication with the help of the following demos
+p 本章通过下面这些演示，描述了服务端通讯的用法。
 ul
   block demos-list
     li #[a(href="#http-client") HTTP client: Tour of Heroes with Observables]
+    li #[a(href="#http-client") HTTP客户端: 使用可观察对象的《英雄指南》]
     li #[a(href="#promises") HTTP client: Tour of Heroes with #{_Promise}s]
+    li #[a(href="#promises") HTTP客户端: 使用承诺的《英雄指南》]
     li #[a(href="#cors") JSONP client: Wikipedia to fetch data from a service that does not support CORS]
+    li #[a(href="#cors") JSONP客户端: Wikipedia，从一个不支持CORS的服务获取数据]
     li #[a(href="#more-observables") JSONP client: Wikipedia using observable operators to reduce server calls]
+    li #[a(href="#more-observables") JSONP客户端: Wikipedia，使用可观察对象的操作函数减少服务端调用]
 :marked
   These demos are orchestrated by the root `AppComponent`
+  
+  这些演示由根组件`AppComponent`统一指挥
 +makeExample('server-communication/ts/app/app.component.ts', null, 'app/app.component.ts')
 
 block rxjs-import
   :marked
     There is nothing remarkable here _except_ for the import of RxJS operators.
+    
+    这里唯一值得注意的是对RxJS操作函数的导入。
   +makeExample('server-communication/ts/app/app.component.ts', 'import-rxjs')(format='.')
   :marked
     We'll talk about that [below](#rxjs) when we're ready to explore observables.
+    
+    如果准备好学习可观察对象了，我们就[继续](#rxjs)。
 :marked
   First, we have to configure our application to use server communication facilities.
 
+  首先，我们必须配置应用程序才能使用服务器通讯设施。
 .l-main-section
 h1#http-providers Providing HTTP Services
+h1#http-providers 提供HTTP服务
 :marked
   We use the !{_Angular_Http} client to communicate with a server using a familiar HTTP request/response protocol.
   The `#{_Http}` client is one of a family of services in the !{_Angular_http_library}.
+  
+  我们使用!{_Angular_Http}客户端来与服务器通讯，它支持一组HTTP的请求(Request)/回应(Response)协议。
+  `#{_Http}`客户端是!{_Angular_http_libraryCn}所提供的服务大家庭中的一员。
 block system-config-of-http
   .l-sub-section
     :marked
       SystemJS knows how to load services from the !{_Angular_http_library} when we import from the `@angular/http` module
       because we registered that module name in the `system.config` file.
+      
+      当我们从`@angular/http`模块中导入服务时，SystemJS知道该如何从!{_Angular_http_libraryCn}中加载它们，这是因为我们已经在`system.config`文件中注册过这个模块名。
 :marked
     Before we can use the `#{_Http}` client , we'll have to register it as a service provider with the Dependency Injection system.
+    
+    要想使用`#{_Http}`客户端，我们得先通过依赖注入系统把它注册成一个服务供应商。
 .l-sub-section
   :marked
     Learn about providers in the [Dependency Injection](dependency-injection.html) chapter.
+    
+    了解关于供应商的更多知识，参见[依赖注入](dependency-injection.html)一章。
 
 p In this demo, we register providers in the #[code bootstrap] method of #[code #[+adjExPath('app/main.ts')]].
+p 下面这个演示中，我们在#[code #[+adjExPath('app/main.ts')]]文件的#[code bootstrap]方法中注册了供应商。
 +makeExample('server-communication/ts/app/main.ts', 'v1', 'app/main.ts (v1)')(format='.')
 
 block http-providers
   :marked
     We begin by importing the symbols we need, most of them familiar by now. The newcomer is `HTTP_PROVIDERS`, 
     a collection of service providers from the !{_Angular_http_library}.
+    
+    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，来自!{_Angular_http_libraryCn}的一组服务供应商。
  
     We register HTTP providers in the bootstrap method by passing them in an array as the second parameter after the root component.
+    
+    然后我们把这些HTTP服务供应商作为第二个参数传给bootstrap方法（第一个参数用来指定根组件），把它们注册进应用程序。
 
     ### Why register in *bootstrap*?
+    ### 为什么在*bootstrap*中注册？
     
     We prefer to register application-wide providers in the metadata `providers` array
     of the root `AppComponent` like this:
+    
+    要注册应用程序级的供应商，我们的首选方式把它放在根组件`AppComponent`元数据的`providers`数组中。就像这样：
   +makeExample('server-communication/ts/app/app.component.ts','http-providers')(format='.')
   :marked
     Here we register the providers in the `bootstrap` method in the `main.ts` file. Why?
+    
+    但这里我们却使用`main.ts`中的`bootstrap`方法注册了供应商。为什么呢？
     
     This is a *sample application* that doesn't talk to a real server.
     We're going to reconfigure the (typically-hidden) `XhrBackend` service with a fake provider
     that fetches and saves sample data from an in-memory data store.
     This replacement service is called the [*in-memory web api*](#in-mem-web-api).
     
+    因为这是一个*范例程序*，它不会跟真实的服务器打交道。
+    我们准备用一个伪造的供应商来重新配置（通常不可见的）`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。
+    这个用于替换的服务称为[*内存Web API*](#in-mem-web-api)。
+    
     Such sleight-of-hand is something the root application component should *not* know about.
     For this reason, and this reason *only*, we hide it *above* the `AppComponent` in `main.ts`.
+    
+    这种“偷梁换柱”的把戏是应用程序的根组件*不应该*察觉的。
+    因为这*唯一的*理由，我们把它藏在`main.ts`里，在层次上高于`AppComponent`。
 
 .l-main-section
 h1#http-client The Tour of Heroes #[i HTTP] Client Demo
+h1#http-client 《英雄指南》#[i HTTP]客户端的演示
 :marked
   Our first demo is a mini-version of the [tutorial](../tutorial)'s "Tour of Heroes" (ToH) application.
   This version gets some heroes from the server, displays them in a list, lets us add new heroes, and saves them to the server.
