@@ -5,33 +5,73 @@ block includes
 
 :marked
   # Component Lifecycle
+  
+  # 组件生命周期
+  
   A Component has a lifecycle managed by Angular itself. Angular creates it, renders it, creates and renders its children,
   checks it when its data-bound properties change, and destroys it before removing it from the DOM.
+  
+  一个组件有一个被Angular本身管理的生命周期。Angular创建它，渲染它，创建和渲染它的子级，在它的数据绑定属性变化时检查它，并在它被从DOM移除前销毁它。
 
   Angular offers **component lifecycle hooks**
   that give us visibility into these key moments and the ability to act when they occur.
+  
+  Angular提供**组件生命周期钩子**，提高了这些关键时刻的能见度，并给了我们在它们发生的时候采取行动的能力。
 
   We cover these hooks in this chapter and demonstrate how they work in code.
   
+  我们在本章节覆盖这些钩子，演示它们在代码中是怎么工作的。
+  
   * [The lifecycle hooks](#hooks-overview)
+  
+  * [生命周期钩子](#hooks-overview)
+  
   * [The hook-call sequence](#hook-sequence)
+  
+  * [钩子调用顺序](#hook-sequence)
+  
   * [Other Angular lifecycle hooks](#other-lifecycles)
+  
+  * [其他Angular生命周期钩子](#other-lifecycles)
   * [The lifecycle sample](#the-sample)
+  
+  * [生命周期例子](#the-sample)
+  
     * [All](#peek-a-boo)
-    * [Spying OnInit and OnDestroy](#spy) 
+    
+    * [全部](#peek-a-boo)
+    
+    * [Spying OnInit and OnDestroy](#spy)
+     
+    * [窥测OnInit和OnDestroy](#spy)
+     
     * [OnChanges](#onchanges)
+    
+    * [OnChanges](#onchanges)
+    
     * [DoCheck](#docheck)
+    
+    * [DoCheck](#docheck)
+    
     * [AfterViewInit and AfterViewChecked](#afterview)
-    * [AfterContentInit and AfterContentChecked](#aftercontent)
+    
+    * [AfterContentInit和AfterContentChecked](#aftercontent)
 
 p Try the #[+liveExampleLink2()].
+
+p 试一试#[+liveExampleLink2()]。
 
 a#hooks-overview
 .l-main-section
 :marked
   ## Component lifecycle Hooks
+  
+  ##组件生命周期钩子
+  
   Directive and component instances have a lifecycle
   as Angular creates, updates, and destroys them.
+  
+  指令和组件实例
 
   Developers can tap into key moments in that lifecycle by implementing
   one or more of the *Lifecycle Hook* interfaces in the Angular `core` library.
