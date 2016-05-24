@@ -14,13 +14,13 @@ include ../../../_includes/_util-fns
 - var _liveLink = 'sample repo';
 
 mixin liveExampleLink(linkText, exampleUrlPartName)
-  - var text = linkText || 'live example';
+  - var text = linkText || '在线例子';
   - var ex = exampleUrlPartName || getExampleName();
   - var href = 'http://angular-examples.github.io/' + ex;
   a(href='#{href}' target="_blank")= text
 
 mixin liveExampleLink2(linkText, exampleUrlPartName)
-  - var srcText = attributes.srcText || 'view source';
+  - var srcText = attributes.srcText || '查看源码';
   - var ex = exampleUrlPartName || attributes.example || getExampleName();
   - var href = 'http://github.com/angular-examples/' + ex;
   span #[+liveExampleLink(linkText, ex)] (#[a(href='#{href}' target="_blank") #{srcText}])
