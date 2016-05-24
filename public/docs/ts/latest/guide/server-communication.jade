@@ -201,51 +201,86 @@ figure.image-display
   When the user clicks the button, we pass that value to the component's `addHero` method and then
   clear it to make it ready for a new hero name.
   
+  它使用`ngFor`来展现这个英雄列表。
+  列表的下方是一个输入框和一个*Add Hero*按钮，在那里，我们可以输入新英雄的名字，并把他们加到数据库中。
+  我们在`(click)`事件绑定中使用[模板引用变量](template-syntax.html#ref-vars)`NewHeroName`来访问这个输入框的值。
+  当用户点击此按钮时，我们把这个值传给组件的`addHero`方法，然后清除它，以备输入新英雄的名字。
+  
   Below the button is an area for an error message.
+  
+  按钮的下方是一个错误信息区。
 
 a#oninit
 a#HeroListComponent
 :marked
   ## The *HeroListComponent* class
+  ## *HeroListComponent*类
   Here's the component class:
+  
+  下面是这个组件类：
 +makeExample('server-communication/ts/app/toh/hero-list.component.ts','component', 'app/toh/hero-list.component.ts (class)')  
 :marked
   Angular [injects](dependency-injection.html) a `HeroService` into the constructor
   and the component calls that service to fetch and save data.
+  
+  Angular会把一个`HeroService`[注入](dependency-injection.html)到组件的构造函数中，该组件将调用此服务来获取和保存数据。
 
   The component **does not talk directly to the !{_Angular_Http} client**!
   The component doesn't know or care how we get the data. 
   It delegates to the `HeroService`.
   
+  这个组件**不会直接和!{_Angular_Http}客户端打交道**！
+  它既不知道也不关心我们如何获取数据，这些都被委托给了`HeroService`去做。
+  
   This is a golden rule: **always delegate data access to a supporting service class**.
+  
+  这是一条“黄金法则”：**总是把数据访问工作委托给一个提供支持的服务类**。
 
   Although _at runtime_ the component requests heroes immediately after creation, 
   we do **not** call the service's `get` method in the component's constructor.
   We call it inside the `ngOnInit` [lifecycle hook](lifecycle-hooks.html) instead
   and count on Angular to call `ngOnInit` when it instantiates this component. 
+  
+  虽然_在运行期间_，组件会在创建之后立刻请求这些英雄数据，但我们**不会**在组件的构造函数中调用此服务的`get`方法。
+  而是在`ngOnInit`[生命周期钩子](lifecycle-hooks.html)中调用它，Angular会在初始化该组件时调用`ngOnInit`方法。
 .l-sub-section
   :marked
     This is a *best practice*. 
     Components are easier to test and debug when their constructors are simple and all real work 
     (especially calling a remote server) is handled in a separate method.
+    
+    这是一项*最佳实践*。
+    当组件的构造函数足够简单，而且所有真实的工作（尤其是调用远端服务器）都在一个独立的方法中处理时，组件会更加容易测试和调试。
 block getheroes-and-addhero
   :marked
     The service's `getHeroes()` and `addHero()` methods return an `Observable` of hero data that the !{_Angular_Http} client fetched from the server.
     
+    服务的`getHeroes()`和`addHero()`方法返回一个英雄数据的可观察对象（`Observable`），这些数据是由!{_Angular_Http}从服务器上获取的。
+    
     *Observables* are a big topic, beyond the scope of this chapter. 
     But we need to know a little about them to appreciate what is going on here.
+    
+    *可观察对象(Observable)*是一个很大的主题，远超本章所能覆盖的范围之外。
+    但我们还是要了解它们一点儿，这样才能理解它在本章中做的那些工作。
     
     We should think of an `Observable` as a stream of events published by some source.
     We listen for events in this stream by ***subscribing*** to the `Observable`. 
     In these subscriptions we specify the actions to take when the web request
     produces a success event (with the hero data in the event payload) or a fail event (with the error in the payload).
+    
+    我们可以把可观察对象`Observable`看做一个由某些“源”发布的事件流。
+    我们通过***订阅***到可观察对象`Observable`来监听这个流中的那些事件。
+    在这些订阅中，我们指定了当Web请求生成了一个成功事件(有效载荷是英雄数据)或失败事件(有效载荷是错误对象)时该如何采取行动。
 
 :marked
   With our basic intuitions about the component squared away, we're ready to look inside the `HeroService`.
+  
+  关于组件的浅显讲解已经结束了，我们准备到`HeroService`的内部实现中看看。
 
 .l-main-section
 a#HeroService
 h2#fetch-data Fetch data with the #[b HeroService]
+h2#fetch-data 通过#[b HeroService]获取数据
 :marked
   In many of our previous samples we faked the interaction with the server by
   returning mock heroes in a service like this one:
