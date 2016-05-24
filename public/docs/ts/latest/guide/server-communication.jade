@@ -284,96 +284,162 @@ h2#fetch-data 通过#[b HeroService]获取数据
 :marked
   In many of our previous samples we faked the interaction with the server by
   returning mock heroes in a service like this one:
+  
+  在前面的很多例子中，我们通过在服务中返回一个模拟的英雄列表来伪造了与服务器的交互过程。就像这样：
+  
 +makeExample('toh-4/ts/app/hero.service.ts', 'just-get-heroes')(format=".")
 :marked
   In this chapter, we revise that `HeroService` to get the heroes from the server using the !{_Angular_Http} client service: 
+  
+  在本章中，我们会修改`HeroService`，改用“!{_Angular_Http}客户端”服务来从服务器上获取英雄列表：
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'v1', 'app/toh/hero.service.ts (revised)')
 
 :marked
   Notice that the !{_Angular_Http} client service is
   [injected](dependency-injection.html) into the `HeroService` constructor.
+  
+  注意，这个“!{_Angular_Http}客户端”服务[被注入](dependency-injection.html)到了`HeroService`的构造函数中。
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'ctor')
 :marked
   Look closely at how we call `#{_priv}http.get`
+  
+  仔细看看我们是如何调用`#{_priv}http.get`的
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'http-get', 'app/toh/hero.service.ts (getHeroes)')(format=".")
 :marked
   We pass the resource URL to `get` and it calls the server which should return heroes.
+  
+  我们把资源的URL传进`get`函数，它调用了服务器，而服务器应该返回英雄列表。
 .l-sub-section
   :marked
     It *will* return heroes once we've set up the [in-memory web api](in-mem-web-api)
     described in the appendix below.
     Alternatively, we can (temporarily) target a JSON file by changing the endpoint URL:
+    
+    一旦我们按附录中所描述的那样配置好了[内存Web API](in-mem-web-api)，它*将*返回英雄列表。
+    但目前，我们只能（临时性的）使用一个JSON文件来代替这个“内存Web API”。只要修改下服务器的URL就行了：
   +makeExample('server-communication/ts/app/toh/hero.service.ts', 'endpoint-json')(format=".")
 
 block rxjs
   :marked
     <a id="rxjs"></a>
+    
     The return value may surprise us. 
     Many of us who are familiar with asynchronous methods in modern JavaScript would expect the `get` method to return a 
     [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
     We'd expect to chain a call to `then()` and extract the heroes.
     Instead we're calling a `map()` method. 
     Clearly this is not a promise.
+    
+    返回值可能会让我们感到意外。
+    如果按照很多人在现代JavaScript中所熟悉的那种异步调用方法，`get`方法应该返回一个
+    [承诺(promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+    我们没有把一个函数调用链接进`then()`方法中，并从回调参数中取得英雄列表，而是调用了一个`map()`方法。
+    显然，这并不是承诺(Promise)。
 
     In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
     and `map` is one of the RxJS *operators*.
+    
+    事实上，`http.get`方法返回了一个HTTP Response类型的**可观察对象**(`Observable<Response>`)，这个对象来自RxJS库，而`map`是RxJS的*操作函数*之一。
 
   .l-main-section
   :marked
     # RxJS Library
+    # RxJS库
     [RxJS](https://github.com/ReactiveX/RxJS) ("Reactive Extensions") is a 3rd party library, endorsed by Angular,
     that implements the [*asynchronous observable*](https://www.youtube.com/watch?v=UHI0AzD_WfY "Rob Wormald on observables") pattern.
+    
+    [RxJS](https://github.com/ReactiveX/RxJS)("Reactive Extensions"的缩写)是一个被Angular认可的第三方库，它实现了
+    [*异步可观察对象(asynchronous observable)*](https://www.youtube.com/watch?v=UHI0AzD_WfY "Rob Wormald on observables")模式。
 
     All of our Developer Guide samples have installed the RxJS npm package and loaded via `system.js`
     because observables are used widely in Angular applications.
     We certainly need it now when working with the HTTP client.
     And we must take a critical extra step to make RxJS observables usable.
+    
+    这本开发指南中的所有例子都安装了RxJS的npm包，而且都被`system.js`加载过了。这是因为可观察对象在Angular应用中使用非常广泛。
+    我们在使用HTTP客户端的时候当然就更需要它了。
+    不过仍然得经过一些额外的步骤才能让RxJS可观察对象在此处可用。
 
     ### Enable RxJS Operators
+    ### 启用RxJS操作函数
     The RxJS library is quite large. 
     Size matters when we build a production application and deploy it to mobile devices.
     We should include only those features that we actually need.
+    
+    RxJS库实在是太大了。
+    当我们构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。
+    我们应该只包含哪些我们确实需要的特性。
 
     Accordingly, Angular exposes a stripped down version of `Observable` in the `rxjs/Observable` module, 
     a version that lacks most of the operators including some we'd like to use here
     such as the `map` method we called above in `getHeroes`.
+    
+    因此，Angular在`rxjs/Observable`模块中导出了一个精简版的`Observable`类，这个版本缺少很多操作函数，
+    比如我们在上面的`getHeroes`方法中用过的`map`函数。
 
     It's up to us to add the operators we need. 
+    
+    这让我们可以自由决定添加哪些操作函数。
     
     We could add _every_ RxJS operators with a single import statement. 
     While that is the easiest thing to do, we'd pay a penalty in extended launch time and application size
     because the full library is so big. We only use a few operators in our app.
     
+    我们确实可以把_每一个_RxJS操作函数都通过单一的import语句添加进去。
+    虽然这是最简单的方式，但我们也得付出代价，主要是在启动时间和应用大小上，因为完整的库实在太大了。
+    而我们其实只要用到少量操作函数。
+    
     Instead, we'll import each `Observable` operator and static class method, one-by-one, until we have a custom *Observable* implementation tuned
     precisely to our requirements. We'll put the `import` statements in one `app/rxjs-operators.ts` file.
+    
+    替代方案是，我们将一个一个的导入`Observable`的操作函数和静态类方法，直到我们得到了一个精确贴合我们需求的自定义*Observable*实现。
+    我们将把这些`import`语句放进一个`app/rxjs-operators.ts`文件里。
   +makeExample('server-communication/ts/app/rxjs-operators.ts', null, 'app/rxjs-operators.ts')(format=".")
   :marked
     If we forget an operator, the TypeScript compiler will warn that it's missing and we'll update this file.
+    
+    如果我们忘了导入某个操作函数，TypeScript编译器就会警告说找不到它，那时候我们再来更新此文件。
   .l-sub-section
     :marked
       We don't need _all_ of these particular operators in the `HeroService` &mdash; just `map`, `catch` and `throw`.
       We'll need the other operators later, in a *Wiki* example [below](#more-observables).
+      
+      在`HeroService`中，我们并不需要这里导入的_全部_操作函数 —— 我们只用到了`map`、`catch`和`throw`。
+      我们稍后的[*Wiki*例子](#more-observables)中，还会用到其它操作函数。
   :marked
     Finally, we import `rxjs-operator`_itself_ in our `app.component.ts`:
+    
+    最后，我们把`rxjs-operator`_本身_导入`app.component.ts`文件中：
   +makeExample('server-communication/ts/app/app.component.ts', 'import-rxjs', 'app/app.component.ts (import rxjs)')(format=".")
   :marked
     Let's return to our study of the `HeroService`.
     
+    让我们回来继续学习`HeroService`。
 l-main-section
 a#extract-data
 :marked
   ## Process the response object
+  ## 处理Response响应对象
   Remember that our `getHeroes()` method mapped the `#{_priv}http.get` response object to heroes with an `#{_priv}extractData` helper method:
+  
+  记住，我们的`getHeroes()`借助一个`#{_priv}extractData`辅助方法来把`#{_priv}http.get`的响应对象映射成了英雄列表：
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'extract-data', 'app/toh/hero.service.ts (excerpt)')(format=".")
 :marked
   The `response` object does not hold our data in a form we can use directly. 
   To make it useful in our application we must parse the response data into a JSON object
+  
+  这个`response`对象并没有使用我们能直接处理的形式保存数据。
+  要让它在应用程序中可用，我们就必须把这个相应数据解析成一个JSON对象。
 
   #### Parse to JSON
+  #### 解析成JSON
 block parse-json
   :marked
     The response data are in JSON string form.
     We must parse that string into JavaScript objects which we do by calling `response.json()`.
+    
+    响应数据是JSON字符串格式的。
+    我们必须把这个字符串解析成JavaScript对象 —— 只要调一下`response.json()`就可以了。
 
   .l-sub-section
     :marked
@@ -381,6 +447,10 @@ block parse-json
       The Angular HTTP client follows the ES2015 specification for the
       [response object](https://fetch.spec.whatwg.org/#response-class) returned by the `Fetch` function.
       That spec defines a `json()` method that parses the response body into a JavaScript object.
+      
+      这不是Angular自己的设计。
+      Angular HTTP客户端遵循了ES2015的[响应对象](https://fetch.spec.whatwg.org/#response-class)规范，它由`Fetch`函数返回。
+      此规范中定义了一个`json()`函数，来把响应体解析成JavaScript对象。
 
 .l-sub-section
   :marked
@@ -389,64 +459,107 @@ block parse-json
     property. We have to unwrap it to get the heroes.
     This is conventional web api behavior, driven by 
     [security concerns](https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside).
+    
+    我们不能期待解码后的JSON直接就是一个英雄数组。
+    我们调用的这个服务器总会把JSON结果包装进一个带`data`属性的对象中。
+    我们必须解开它才能得到英雄数组。这是一个约定俗成的Web API行为规范，它是出于 
+    [安全方面的考虑](https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside)。
 .alert.is-important
   :marked
      Make no assumptions about the server API. 
      Not all servers return an object with a `data` property.
+     
+     不要对服务端API做任何假设。
+     并非所有服务器都会返回一个带`data`属性的对象。
 :marked
   ### Do not return the response object
+  ### 不要返回响应(Response)对象
   Our `getHeroes()` could have returned the HTTP response. Bad idea! 
   The point of a data service is to hide the server interaction details from consumers.
   The component that calls the `HeroService` wants heroes. 
   It has no interest in what we do to get them.
   It doesn't care where they come from.
   And it certainly doesn't want to deal with a response object.
+  
+  我们的`getHeroes()`确实可以返回HTTP响应对象。但这可不是一个好主意！
+  数据服务的重点在于，对消费者隐藏与服务器交互的细节。
+  调用`HeroService`的组件希望得到英雄数组。
+  它并不关心我们如何得到它们。
+  它也不在乎这些数据从哪里来。
+  毫无疑问，它也不希望直接和一个响应对象打交道。
 
 +ifDocsFor('ts')
   .callout.is-important
     header HTTP GET is delayed 
+    header HTTP的GET方法被推迟执行了
     :marked
       The `#{_priv}http.get` does **not send the request just yet!** This observable is
       [*cold*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)
       which means the request won't go out until something *subscribes* to the observable.
       That *something* is the [HeroListComponent](#subscribe).
+      
+      `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
+      [*冷淡的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
+      这意味着，知道有人*订阅*了这个可观察对象时，这个请求才会被发出。
+      这个场景中的*有人*就是[HeroListComponent](#subscribe)。
 
 a#error-handling
 :marked
   ### Always handle errors
+  ### 总是处理错误
 
   Whenever we deal with I/O we must be prepared for something to go wrong as it surely will. 
   We should catch errors in the `HeroService` and do something with them. 
   We may also pass an error message back to the component for presentation to the user
   but only if we can say something the user can understand and act upon.
+  
+  一旦开始与I/O打交道，我们就必须准备好接受墨菲定律：如果一件倒霉事*可能*发生，它就*迟早会*发生。
+  我们可以在`HeroService`中捕获错误，并对它们做些处理。
+  也可以把错误信息传回到组件，让组件展示给最终用户，但只能用一些他们可以理解并照办的表达方式。
 
   In this simple app we provide rudimentary error handling in both the service and the component.
+  
+  在这个简单的应用中，我们在服务中和组件中都只提供了最原始的错误处理方式。
 block error-handling
   :marked
     The eagle-eyed reader may have spotted our use of the `catch` operator in conjunction with a `handleError` method.
     We haven't discussed so far how that actually works. 
+    
+    眼尖的读者可能注意会到，我们联合使用了`catch`操作函数和`handleError`方法。
+    但我们还没讨论过它实际的工作方式。
 
     We use the Observable `catch` operator on the service level.
     It takes an error handling function with an error object as the argument.
     Our service handler, `handleError`, logs the response to the console, 
     transforms the error into a user-friendly message, and returns the message in a new, failed observable via `Observable.throw`.
+    
+    我们在服务层使用了可观察对象的`catch`操作函数。
+    它接受一个以error对象为参数的错误处理函数。
+    我们的服务处理器（`handleError`）把响应对象记录到控制台中，
+    把错误转换成对用户友好的消息，并且通过`Observable.throw`来把这个消息放进一个新的、用于表示“失败”的可观察对象。
 
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'error-handling', 'app/toh/hero.service.ts (excerpt)')(format=".")
 
 a#subscribe
 a#hero-list-component
 h4 #[b HeroListComponent] error handling
+h4 #[b HeroListComponent] 错误处理
 block hlc-error-handling
   :marked
     Back in the `HeroListComponent`, where we called `#{_priv}heroService.getHeroes()`, 
     we supply the `subscribe` function with a second function parameter to handle the error message.
     It sets an `errorMessage` variable which we've bound conditionally in the `HeroListComponent` template.
+    
+    回到`HeroListComponent`，这里我们调用了`#{_priv}heroService.getHeroes()`。我们提供了`subscribe`函数的第二个参数来处理错误信息。
+    它设置了一个`errorMessage`变量，我们把它有条件的绑定到了`HeroListComponent`模板中。
 
 +makeExample('server-communication/ts/app/toh/hero-list.component.ts', 'getHeroes', 'app/toh/hero-list.component.ts (getHeroes)')(format=".")
   
 .l-sub-section
   :marked
     Want to see it fail? Reset the api endpoint in the `HeroService` to a bad value. Remember to restore it!
+    
+    想看到它失败时的情况吗？在`HeroService`中把API的端点设置为一个无效值就行了。但别忘了恢复它。
 
   
 <a id="update"></a>
@@ -454,17 +567,25 @@ block hlc-error-handling
 .l-main-section
 :marked
   ## Send data to the server
+  ## 往服务器发送数据
   
   So far we've seen how to retrieve data from a remote location using an HTTP service. 
   Let's add the ability to create new heroes and save them in the backend.
+  
+  前面我们已经看到如何用一个HTTP服务从远端获取数据了。
+  但我们还能再给力一点，让它可以创建新的英雄，并把他们保存到后端。
 
   We'll create an easy method for the `HeroListComponent` to call, an `addHero()` method that takes
   just the name of a new hero:
+  
+  我们将为`HeroListComponent`创建一个简单的`addHero()`方法，它将接受新英雄的名字：
 
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'addhero-sig')(format=".")
 
 :marked
   To implement it, we need to know some details about the server's api for creating heroes.
+  
+  要实现它，我们得知道关于服务端API要如何创建英雄的一些细节。
   
   [Our data server](#server) follows typical REST guidelines.
   It expects a [`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5) request
@@ -473,6 +594,11 @@ block hlc-error-handling
   structured like a `Hero` entity but without the `id` property.
   The body of the request should look like this:
   
+  [我们的数据服务器](#server)遵循典型的REST指导原则。
+  它期待在和`GET`英雄列表的同一个端点上存在一个[`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5)请求。
+  它期待从请求体(body)中获得新英雄的数据，数据的结构和`Hero`对象相同，但是不带`id`属性。
+  请求体应该看起来像这样：
+  
 code-example(format="." language="javascript").
   { "name": "Windstorm" }
 :marked
@@ -480,7 +606,11 @@ code-example(format="." language="javascript").
   of the new hero including its generated id. The hero arrives tucked inside a response object
   with its own `data` property.
   
+  服务器将生成`id`，并且返回新英雄的完整`JSON`形式，包括这个生成的id。该英雄的数据被塞进一个响应对象的`data`属性中。
+  
   Now that we know how the API works, we implement `addHero()`like this:
+  
+  现在，我们知道了这个API如何工作，就可以像这样实现`addHero()`了：
 
 +ifDocsFor('ts')
   +makeExample('server-communication/ts/app/toh/hero.service.ts', 'import-request-options', 'app/toh/hero.service.ts (additional imports)')(format=".")  
@@ -488,30 +618,45 @@ code-example(format="." language="javascript").
 
 :marked
   ### Headers
+  ### 请求头(Headers)
 
   The `Content-Type` header allows us to inform the server that the body will represent JSON.
+  
+  我们通过这个`Content-Type`头告诉服务器，body是JSON格式的。
 
 +ifDocsFor('ts')
   :marked
     [Headers](../api/http/Headers-class.html) are one of the [RequestOptions](../api/http/RequestOptions-class.html).
     Compose the options object and pass it in as the *third* parameter of the `post` method, as shown above.
+    
+    [Headers](../api/http/Headers-class.html)是[RequestOptions](../api/http/RequestOptions-class.html)中的一员。
+    可以把这些配置对象组合起来，并且传给`post`方法的*第三个*参数，就像前面见过的那样。
 
 :marked
   ### Body
+  ### 请求体(Body)
 
   Despite the content type being specified as JSON, the POST body must actually be a *string*.
   Hence, we explicitly encode the JSON hero content before passing it in as the body argument.
+  
+  虽然内容的类型被指定为了JSON，可POST的请求体实际上仍然是一个*字符串*。
+  因此，我们需要显式的将英雄数据编码，然后把它当做body参数传过去。
 
 +ifDocsFor('ts')
   .l-sub-section
     :marked
       We may be able to skip the `JSON.stringify` step in the near future.
+      
+      用不了多久，我们就能跳过`JSON.stringify`这一步儿了。
 
 :marked
   ### JSON results
+  ### JSON结果
 
   As with `getHeroes()`, we [extract the data](#extract-data) from the response using the
   `#{_priv}extractData()` helper.
+  
+  像`getHeroes()`中一样，我们可以使用`#{_priv}extractData()`辅助函数从响应中[提取出数据](#extract-data)。
 
 block hero-list-comp-add-hero
   :marked
