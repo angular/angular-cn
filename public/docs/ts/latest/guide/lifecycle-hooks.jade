@@ -71,39 +71,63 @@ a#hooks-overview
   Directive and component instances have a lifecycle
   as Angular creates, updates, and destroys them.
   
-  指令和组件实例
+  在Angular新建、更新和销毁指令和组件的实例时，它们有一个生命周期。
 
   Developers can tap into key moments in that lifecycle by implementing
   one or more of the *Lifecycle Hook* interfaces in the Angular `core` library.
   
+  开发者可以介入这些生命周期的关键时刻，通过实现一个或多个Angular `Core`库里的*生命周期钩子*接口。
+  
   Each interface has a single hook method whose name is the interface name prefixed with `ng`.
   For example, the `OnInit` interface has a hook method named `ngOnInit`.
   We might implement it in a component class like this:
+  
+  每个接口都有单独一个钩子方法，它们的名字是对应接口名字加上前缀`ng`。比如，`OnInit`接口有一个钩子方法叫做`ngOnInit`。
+  我们可能在一个组件类像这样实现它：
 +makeExample('lifecycle-hooks/ts/app/peek-a-boo.component.ts', 'ngOnInit', 'peek-a-boo.component.ts (excerpt)')(format='.')
 :marked
   No directive or component will implement all of them and some of the hooks only make sense for components.
   Angular only calls a directive/component hook method *if it is defined*.
+  
+  没有指令或者组件实现所有的接口，有些钩子是针对组件的。Angular只有在指令/组件的钩子方法已经被定义时调用它们。
 block optional-interfaces
   .l-sub-section
     :marked
       ### Interface optional?
+      
+      ### 接口是可选的？
+      
       The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
       The JavaScript language doesn't have interfaces. 
       Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
+      
+      从纯粹的技术性方面来看，接口对JavaScript和TypeScript开发者是可选的。JavaScript语言本身没有接口。
+      Angular在运行是看不到TypeScript接口，因为它们在编译为JavaScript的时候消失了。
 
       Fortunately, they aren't necessary.
       We don't have to add the lifecycle hook interfaces to our directives and components to benefit from the hooks themselves.
+      
+      幸运的事，它们不是必须的。我们不需要在指令和组件上面添加生命周期钩子接口来获得钩子带来的好处。
 
       Angular instead inspects our directive and component classes and calls the hook methods *if they are defined*.
       Angular will find and call methods like `ngOnInit()`, with or without the interfaces.
+      
+      取而代之，Angular检测指令和组件类，并在钩子方法已经被定义时调用它们。
+      Agnular会找到并调用像`ngOnInit()`的钩子方法，有没有接口并不影响。      
 
       Nonetheless, we strongly recommend adding interfaces to TypeScript directive classes
-      in order to benefit from strong typing and editor tooling.  
+      in order to benefit from strong typing and editor tooling.
+      
+      虽然如此，我们强烈推荐在TypeScript指令类里添加接口，来获得强类型和编辑工具辅助等好处。  
   
 :marked
   Here are the component lifecycle hook methods:
+  
+  这里是组件生命周期钩子方法列表：
 
   ### Directives and Components
+  
+  ### 指令和组件
 
 table(width="100%")
   col(width="20%")
@@ -116,27 +140,37 @@ table(width="100%")
     td
       :marked
         Initialize the directive/component after Angular initializes the data-bound input properties.
+        
+        在Angular初始化数据绑定输入属性后，用来初始化指令或组件。
   tr(style=top)
     td ngOnChanges
     td
       :marked
         Respond after Angular sets a data-bound input property. 
         The method receives a `changes` object of current and previous values.
+        
+        在Angular设置一个数据绑定输入属性后作出反应。这个方法接受一个包含了当前和之前的值的`changes`对象。
   tr(style=top)
     td ngDoCheck
     td
       :marked
         Detect and act upon changes that Angular can or won't
         detect on its own. Called every change detection run.
+        
+        用来监测Angular自己可以或者不会检测的变化，并作出相应行动。贼每个变化监测运行时被调用。
   tr(style=top)
     td ngOnDestroy
     td
       :marked
         Cleanup just before Angular destroys the directive/component. 
         Unsubscribe observables and detach event handlers to avoid memory leaks.
+        
+        在Angular销毁指令或组件之前做一些清洁工作，不如退订监测和分离时间处理器，以防内存泄露。
 
 :marked
   ### Components only
+
+  ### 只适用于组件
 
 table(width="100%")
   col(width="20%")
@@ -149,30 +183,45 @@ table(width="100%")
     td
       :marked
         After Angular projects external content into its view.
+        
+        在Angular投射外来内容到自己的视图后调用。
   tr(style=top)
     td ngAfterContentChecked
     td
       :marked
-        After Angular checks the bindings of the external content that it projected into its view.
+        After Angular checks the bindings of the external content that it projected into its view.#
+        
+        在Angular检查它投射到自己视图的外部内容的绑定后调用。
   tr(style=top)
     td ngAfterViewInit
     td
       :marked
         After Angular creates the component's view(s).
+        
+        在Angular新建组件的视图后调用。
   tr(style=top)
     td ngAfterViewChecked
     td
       :marked
         After Angular checks the bindings of the component's view(s).
+        
+        在Angular检查组件视图的绑定后调用。
 :marked
   Angular does not call the hook methods in this order.
+  
+  Angular不会按照上面的顺序调用这些钩子方法。
 
 a(id="hook-sequence")
 .l-main-section
 :marked
   ## Lifecycle sequence
+  
+  ## 生命周期顺序
+  
   *After* Angular creates a component/directive by `new`-ing its constructor, 
-  it calls the lifecycle hook methods in the following sequence at specific moments:  
+  it calls the lifecycle hook methods in the following sequence at specific moments:
+  
+  Angular使用构造函数新建一个组件或指令后，它在特定的时刻按照下面的顺序调用生命周期钩子方法@  
 table(width="100%")
   col(width="20%")
   col(width="80%") 
@@ -184,82 +233,118 @@ table(width="100%")
     td
       :marked
         before `ngOnInit` and when a data-bound input property value changes.
+        
+        当数据绑定输入属性的值变化时，在`ngOnInit`之前调用。
   tr(style=top)
     td ngOnInit
     td
       :marked
         after the first `ngOnChanges`.
+        
+        在第一个`ngOnChanges`时候调用。
   tr(style=top)
     td ngDoCheck
     td
       :marked
         during every Angular change detection cycle.
+        
+        在每个Angular变化监测周期中调用。
   tr(style=top)
     td ngAfterContentInit
     td
       :marked
         after projecting content into the component.
+        
+        投射内容到组件后调用。
   tr(style=top)
     td ngAfterContentChecked
     td
       :marked
          after every check of projected component content.
+         
+         每次检查被投射的组件内容之后调用。
   tr(style=top)
     td ngAfterViewInit
     td
       :marked
         after initializing the component's views and child views.
+        
+        初始化组件视图和子视图之后调用。
   tr(style=top)
     td ngAfterViewChecked
     td
       :marked
          after every check of the component's views and child views.
+         
+         每次检查组件视图和子视图之后调用。
   tr(style=top)
     td ngOnDestroy
     td
       :marked
          just before Angular destroys the directive/component.
+         
+         在Angular销毁指令和组件之前调用。
 
 a(id="other-lifecycles")
 .l-main-section
 :marked
   ## Other lifecycle hooks
   
+  ## 其他生命周期钩子
+  
   Other Angular sub-systems may have their own lifecycle hooks apart from the component hooks we've listed. 
   The router, for instance, also has it's own [router lifecycle hooks](router.html#router-lifecycle-hooks)
   that allow us to tap into specific moments in route navigation.
   
+  其他Angular子系统除了有我们已经列出来的组件钩子外，可能有它们自己的生命周期钩子。比如路由器，它有自己的[路由器生命周期钩子](router.html#router-lifecycle-hooks)，
+  为我们提供了插入到特定的路由浏览时刻的能力。
+  
   A parallel can be drawn between `ngOnInit` and `routerOnActivate`. 
   Both are prefixed so as to avoid collision, and both run right when a component is 'booting' up.
   
+  一对平衡线可以在`ngOnInit`和`routerOnActivate`之间被划出来。两种都有前缀用来防止冲突，两者都是在一个组件刚刚“启动”时被调用。
+  
   3rd party libraries might implement their hooks as well in order to give us, the developers, more
   control over how these libraries are used.
+  
+  第三方库也可能实现它们自己的钩子，用来给我们开发者提供更多如何使用它们的控制。
 
 a#the-sample
 .l-main-section
 h2 Lifecycle exercises
+
+h2 生命周期练习
 p.  
   The #[+liveExampleLink()]
   demonstrates the lifecycle hooks in action through a series of exercises
   presented as components under the control of the root `AppComponent`.
+  
+  #[+liveExampleLink()] 通过一些在根组件`AppComponent`控制下的组件的练习，演示了生命周期钩子的运作。
+  
 :marked
   They follow a common pattern:  a *parent* component serves as a test rig for 
   a *child* component that illustrates one or more of the lifecycle hook methods.
   
+  它们遵循了一个常用的模式：一个*子级*组件演示一个或多个生命周期钩子方法，一个*父级*组件被当作该*子级*组件的测试台。
+  
   Here's a brief description of each exercise: 
+  
+  下面是每个练习简短的描述：
 
 table(width="100%")
   col(width="20%")
   col(width="80%") 
   tr
-    th Component
-    th Description
+    th Component 组件
+    th Description 描述
   tr(style=top)
     td <a href="#peek-a-boo">Peek-a-boo</a>
     td
       :marked
         Demonstrates every lifecycle hook.
         Each hook method writes to the on-screen log.
+        
+        展示每个生命周期钩子，每个钩子方法在屏幕上显示日志。
   tr(style=top)
     td <a href="#spy">Spy</a>
     td
@@ -268,8 +353,12 @@ table(width="100%")
         We create a `SpyDirective` that logs when the element it spies upon is 
         created or destroyed using the `ngOnInit` and `ngOnDestroy` hooks.
         
+        指令也有生命周期钩子。我们新建一个`SpyDirective`，利用`ngOnInit`和`ngOnDestroy`钩子，在每个被监视的元素被新建或销毁时输出日志。
+        
         We apply the `SpyDirective` to a `<div>` in an `ngFor` *hero* repeater
         managed by the parent `SpyComponent`.
+        
+        我们把`SpyDirective`应用到一个在父级组件里的`ngFor`*英雄*重复器的`<div>`里面。
   tr(style=top)
     td <a href="#onchanges">OnChanges</a>
     td
@@ -277,6 +366,8 @@ table(width="100%")
         See how Angular calls the `ngOnChanges` hook with a `changes` object
         every time one of the component input properties changes.
         Shows how to interpret the `changes` object.
+        
+        
   tr(style=top)
     td <a href="#docheck">DoCheck</a> 
     td
