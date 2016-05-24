@@ -168,7 +168,7 @@ block http-providers
     For this reason, and this reason *only*, we hide it *above* the `AppComponent` in `main.ts`.
     
     这种“偷梁换柱”的把戏是应用程序的根组件*不应该*察觉的。
-    因为这*唯一的*理由，我们把它藏在`main.ts`里，在层次上高于`AppComponent`。
+    正因为这*一个*理由，我们把它藏在`main.ts`里，在层次上高于`AppComponent`。
 
 .l-main-section
 h1#http-client The Tour of Heroes #[i HTTP] Client Demo
@@ -177,12 +177,20 @@ h1#http-client 《英雄指南》#[i HTTP]客户端的演示
   Our first demo is a mini-version of the [tutorial](../tutorial)'s "Tour of Heroes" (ToH) application.
   This version gets some heroes from the server, displays them in a list, lets us add new heroes, and saves them to the server.
   We use the !{_Angular_Http} client to communicate via `XMLHttpRequest (XHR)`.
+  
+  我们的第一个演示是《英雄指南(TOH)》教程的一个mini版。
+  这个版本从服务器获取一些英雄，把它们显示在列表中，还允许我们添加新的英雄并将其保存到服务器。
+  我们借助!{_Angular_Http}客户端，来通过`XMLHttpRequest (XHR)`与服务器通讯。
 
   It works like this.
+  
+  它跑起来是这样的：
 figure.image-display
   img(src='/resources/images/devguide/server-communication/http-toh.gif' alt="ToH mini app" width="250")
 :marked
   This demo has a single component, the `HeroListComponent`.  Here's its template:
+  
+  这个范例是一个单一组件`HeroListComponent`，其模板如下：
 +makeExample('server-communication/ts/app/toh/hero-list.component.html', null, 'app/toh/hero-list.component.html (template)')
 :marked
   It presents the list of heroes with an `ngFor`. 

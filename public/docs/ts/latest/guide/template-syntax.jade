@@ -28,7 +28,7 @@ include ../_util-fns
   * [Property binding](#property-binding)
   * [属性绑定](#property-binding)
   * [Attribute, class, and style bindings](#other-bindings)
-  * [元素属性、class和style绑定](#other-bindings)
+  * [HTML属性、class和style绑定](#other-bindings)
   * [Event binding](#event-binding)
   * [事件绑定](#event-binding)
   * [Two-way data binding with `NgModel`](#ngModel)
@@ -87,7 +87,7 @@ include ../_util-fns
 
   We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. And we are about to learn how to get and set DOM values dynamically through data binding.
   
-  我们可以通过组件和指令来扩展模板中的HTML词汇。它们看上去就是新元素和Attribute。我们将学习如何通过数据绑定来动态获取/设置DOM的值。
+  我们可以通过组件和指令来扩展模板中的HTML词汇。它们看上去就是新元素和属性。我们将学习如何通过数据绑定来动态获取/设置DOM的值。
 
   Let’s turn to the first form of data binding &mdash; interpolation &mdash; to see how much richer template HTML can be.
   
@@ -108,7 +108,7 @@ include ../_util-fns
 :marked
   We use interpolation to weave calculated strings into the text between HTML element tags and within attribute assignments.
   
-  我们使用插值表达式来把计算所得的字符串插入成HTML元素标签内的文本或对标签的Attribute进行赋值。
+  我们使用插值表达式来把计算所得的字符串插入成HTML元素标签内的文本或对标签的属性进行赋值。
 // #enddocregion interpolation-2
 
 +makeExample('template-syntax/ts/app/app.component.html', 'title+image')(format=".")
@@ -146,7 +146,7 @@ include ../_util-fns
   But it is not literally true. Interpolation is a special syntax that Angular converts into a
   [property binding](#property-binding), as we'll explain below.
   
-  表面上看，我们在元素标签之间插入了结果或者对标签的Attribute进行了赋值。
+  表面上看，我们在元素标签之间插入了结果或者对标签的属性进行了赋值。
   这样思考起来很方便，并且很少给我们带来错误。
   但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular把它转换成了一个[属性绑定](#property-binding)，我们后面将会解释这一点。
 
@@ -518,6 +518,16 @@ table
       p Two-way
       p 双向
 
+.alert.is-important
+  :marked
+    ### 译注
+    由于HTML的Attribute和DOM的Property在中文中都被翻译成了“属性”，无法加以区分，而接下来的部分重点是对它们进行比较的。
+    
+    我们无法改变历史，因此，在本章的翻译中，我们保留它们的英文形式，而不加翻译，以免混淆。
+    在本章中，如果有只提“属性”的地方，一定是指Property，因为在Angular 2中，实际上很少涉及Attribute。
+    
+    但在其它章节中，为简单起见，凡是能通过上下文明显区分开的，我们就仍统一译为“属性”，区分不明显的，我们会加注英文
+
 :marked
   Binding types other than interpolation have a **target name** to the left of the equal sign,
   either surrounded by punctuation (`[]`, `()`) or preceded by a prefix (`bind-`, `on-`, `bindon-`).
@@ -582,7 +592,7 @@ table
   it to the current value of the component’s `isUnchanged` property.
   
   我们首先会注意到这个怪异的括号注解。接下来，直觉告诉我们，我们正在绑定到这个按钮的`disabled` Attribute。
-  并且把它设置为组件的`isUnchanged`属性Property的当前值。
+  并且把它设置为组件的`isUnchanged`Property的当前值。
 
   Our intuition is wrong! Our everyday HTML mental model is misleading us.
   In fact, once we start data binding, we are no longer working with HTML *attributes*. We aren't setting attributes.
@@ -590,7 +600,7 @@ table
   
   但我们的直觉是错的！以前的思维模型在误导我们。
   实际上，一旦我们开始数据绑定，我们就不再跟Attribute打交道了。我们并不是在设置Attribute，
-  而是在设置DOM元素、组件和指令的属性。
+  而是在设置DOM元素、组件和指令的Property。
 // #enddocregion binding-syntax-4
 
 // #docregion binding-syntax-attribute-vs-property
@@ -695,7 +705,7 @@ table
     Attributes effectively disappear.
     
     在Angular 2的世界中，Attribute唯一的作用是用来初始化元素和指令的状态。
-    当进行数据绑定时，我们只是在与元素和指令的属性和事件打交道，而Attribute就完全靠边站了。
+    当进行数据绑定时，我们只是在与元素和指令的Property和事件打交道，而Attribute就完全靠边站了。
 // #enddocregion binding-syntax-world-without-attributes
 // #docregion binding-syntax-targets
 :marked
@@ -712,7 +722,7 @@ table
   The following table summarizes:
   
   **数据绑定的目标**是DOM中的某些东西。
-  这个目标可能是（元素|组件|指令）的属性、（元素|组件|指令）的事件，或（极少数情况下）一个Attribute名。
+  这个目标可能是（元素|组件|指令）的Property、（元素|组件|指令）的事件，或（极少数情况下）一个Attribute名。
   下面是的汇总表：
 // #enddocregion binding-syntax-targets
 
@@ -732,14 +742,14 @@ table
   tr
     td 
       p Property
-      p 属性
+      p Property
     td
       p Element&nbsp;property
-      p 元素的属性
+      p 元素的Property
       p Component&nbsp;property
-      p 组件的属性
+      p 组件的Property
       p Directive&nbsp;property
-      p 指令的属性
+      p 指令的Property
     td
       +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-syntax-1')(format=".")
   tr
@@ -761,14 +771,14 @@ table
       p 双向
     td
       p Event and property
-      p 事件与属性
+      p 事件与Property
     td
       +makeExample('template-syntax/ts/app/app.component.html', '2-way-binding-syntax-1')(format=".")
   tr
     td Attribute
     td
       p Attribute (the&nbsp;exception)
-      p 例外情况
+      p Attribute例外情况
     td
       +makeExample('template-syntax/ts/app/app.component.html', 'attribute-binding-syntax-1')(format=".")
   tr
@@ -777,7 +787,7 @@ table
       p 类
     td
       p <code>class</code> property
-      p <code>class</code>属性
+      p <code>class</code> property
     td
       +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-syntax-1')(format=".")
   tr
@@ -786,7 +796,7 @@ table
       p 样式
     td
       p <code>style</code> property
-      p <code>style</code>属性
+      p <code>style</code> property
     td
       +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-syntax-1')(format=".")
 </div>
@@ -802,7 +812,7 @@ table
 .l-main-section
 :marked
   ## Property binding
-  ## 属性绑定
+  ## 属性(Property)绑定
   We write a template **property binding** when we want to set a property of a view element to the value of
   a [template expression](#template-expressions).
   
@@ -1090,7 +1100,7 @@ code-example(format="", language="html").
   It has the "colspan" *attribute*, but
   interpolation and property binding can set only *properties*, not attributes.
   
-  正如消息中所说，`<td>`元素没有`colspan`属性。
+  正如消息中所说，`<td>`元素没有`colspan` Attribute。
   但是插值表达式和属性绑定只能设置*属性*，而不是Attribute。
 
   We need attribute bindings to create and bind to such attributes.
@@ -2399,7 +2409,7 @@ figure.image-display
   For example, when we apply a directive with a `myClick` selector to a `<div>` tag,
   we expect to bind to an event property that is also called `myClick`.
   
-  这是使用[Attribute指令](attribute-directives.html)时的常见情况。
+  这是使用[属性(Attribute)型指令](attribute-directives.html)时的常见情况。
 // #enddocregion inputs-outputs-5
 +makeExample('template-syntax/ts/app/app.component.html', 'my-click')(format=".")
 // #docregion inputs-outputs-6

@@ -390,7 +390,7 @@ a#inspect-generated-css
   encapsulation enabled, we see that each DOM element has some extra attributes
   attached to it:
   
-  当我们查看启用了“仿真”模式的Angular应用时，我们看到每个DOM元素都被加上了一些额外的Attribute。
+  当我们查看启用了“仿真”模式的Angular应用时，我们看到每个DOM元素都被加上了一些额外的属性。
   
 code-example(format="").
   &lt;hero-details _nghost-pmm-5>
@@ -403,11 +403,11 @@ code-example(format="").
 :marked
   We see two kinds of generated attributes:
   
-  我们看到了两种被生成的Attribute：
+  我们看到了两种被生成的属性：
   * An element that would be a Shadow DOM host in native encapsulation has a
     generated `_nghost` attribute. This is typically the case for component host elements.
     
-  * 如果一个元素在原生包装方式下将成为Shadow DOM的宿主，那么它将被自动添加上一个`_nghost` Attribute。
+  * 如果一个元素在原生包装方式下将成为Shadow DOM的宿主，那么它将被自动添加上一个`_nghost`属性。
     这是组件宿主元素的典型情况。
     
   * An element within a component's view has a `_ngcontent` attribute 

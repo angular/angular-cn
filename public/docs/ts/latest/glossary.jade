@@ -38,7 +38,7 @@ include _util-fns
 // #docregion a-2
 :marked
   ## Attribute Directive
-  ## Attribute型指令（Attribute Directive）
+  ## 属性型指令（Attribute Directive）
 .l-sub-section
   :marked
     A category of [Directive](#directive) that can listen to and modify the behavior of
@@ -50,7 +50,7 @@ include _util-fns
     The `ngClass` directive for adding and removing CSS class names is a good example of
     an Attribute Directive.
     
-    `ngClass`指令就是典型的Attribute型指令。它可以添加或移除CSS类名。
+    `ngClass`指令就是典型的属性型指令。它可以添加或移除CSS类名。
 // #enddocregion a-2
 
 // #docregion b-c
@@ -427,7 +427,7 @@ include _util-fns
     it creates the matching directive class instance
     and gives that instance control over that portion of the browser DOM.
     
-    指令几乎都是关联到HTML元素或Attribute的。我们通常把这些关联的HTML元素或者Attribute当做指令本身。
+    指令几乎都是关联到HTML元素或属性(Attribute)的。我们通常把这些关联的HTML元素或者属性(Attribute)当做指令本身。
     当Angular在HTML模板中遇到一个指令的时候，它就找出一个与该指令匹配的类，创建此类的实例，然后把浏览器中这部分DOM的控制权交给该实例。
 
     Developers can invent custom HTML markup (e.g., `<my-directive>`) to
@@ -451,7 +451,7 @@ include _util-fns
     1. [Attribute Directives](#attribute-directive) that can listen to and modify the behavior of
     other HTML elements, attributes, properties, and components. They are usually represented
     as HTML attributes, hence the name.
-    1. [Attribute指令](#attribute-directive)：可以监控和修改其它HTML元素、Attribute、属性和组件之类的行为。它们一般表示为HTML元素Attibute，故名。
+    1. [属性型指令](#attribute-directive)：可以监控和修改其它HTML元素、HTML属性(Attribute)、DOM属性(Property)以及组件等的行为。它们一般表示为HTML元素的属性(Attibute)，故名。
 
     1. [Structural Directives](#structural-directive), a directive responsible for
     shaping or re-shaping HTML layout, typically by adding, removing, or manipulating

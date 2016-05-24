@@ -4,16 +4,16 @@ block includes
 :marked
   An **Attribute** directive changes the appearance or behavior of a DOM element.
   
-  **Attribute**型指令用于改变一个DOM元素的外观或行为。
+  **属性**型指令用于改变一个DOM元素的外观或行为。
 
 :marked
   In this chapter we will
   
   本章中我们将：
   * [write an attribute directive to change the background color](#write-directive)
-  * [写一个用来改变背景色的Attribute型指令](#write-directive)
+  * [写一个用来改变背景色的属性型指令](#write-directive)
   * [apply the attribute directive to an element in a template](#apply-directive)
-  * [把这个Attribute型指令应用到模板中的元素](#apply-directive)
+  * [把这个属性型指令应用到模板中的元素](#apply-directive)
   * [respond to user-initiated events](#respond-to-user)
   * [响应用户引发的事件](#respond-to-user)
   * [pass values into the directive using data binding](#bindings)
@@ -33,7 +33,7 @@ p Try the #[+liveExampleLink2()].
   1. Structural directives  
   1. 结构型指令
   1. Attribute directives
-  1. Attribute型指令
+  1. 属性型指令
 
   A *Component* is really a directive with a template. 
   It's the most common of the three directives and we tend to write lots of them as we build applications.
@@ -51,13 +51,13 @@ p Try the #[+liveExampleLink2()].
   The built-in [NgStyle](template-syntax.html#ngStyle) directive, for example,
   can change several element styles at the same time.
   
-  *Attribute型*指令改变一个元素的外观或行为。
+  *属性型*指令改变一个元素的外观或行为。
   比如，内建的[NgStyle](template-syntax.html#ngStyle)指令可以同时修改元素的多种样式。
   
   We are going to write our own attribute directive to set an element's background color
   when the user hovers over that element.
   
-  我们准备写一个自己的Attribute型指令，当用户把鼠标悬浮在元素上时，它会设置元素的背景色。
+  我们准备写一个自己的属性型指令，当用户把鼠标悬浮在元素上时，它会设置元素的背景色。
 .l-sub-section
   :marked
     We don't need *any* directive to simply set the background color.
@@ -81,13 +81,13 @@ p Try the #[+liveExampleLink2()].
 a#write-directive
 :marked
   ## Build a simple attribute directive
-  ## 创建一个简单的Attribute型指令
+  ## 创建一个简单的属性型指令
   An attribute directive minimally requires building a controller class annotated with 
   `@Directive`, which specifies the selector identifying
   the attribute associated with the directive. 
   The controller class implements the desired directive behavior.
   
-  Attribute型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个选择器，用于指出与此指令相关的Attribute。
+  属性型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个选择器，用于指出与此指令相关的属性。
   控制器类实现了指令需要具备的行为。
 
   Let's build a small illustrative example together.
@@ -131,13 +131,13 @@ block highlight-directive-1
   The [CSS selector for an attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
   is the attribute name in square brackets.
  
-  Attribute型指令的`@Directive`装饰器需要一个css选择器，以便从模板中识别出关联到我们这个指令的HTML。
-  [css中的attribute选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是Attribute名称加方括号。
+  属性型指令的`@Directive`装饰器需要一个css选择器，以便从模板中识别出关联到我们这个指令的HTML。
+  [css中的attribute选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。
   
   Our directive's selector is `[myHighlight]`. 
   Angular will locate all elements in the template that have an attribute named `myHighlight`. 
   
-  我们这个指令的选择器是`[myHighlight]`，于是Angular就会在模板中找到带有`myHighlight`这个Attribute的元素。
+  我们这个指令的选择器是`[myHighlight]`，于是Angular就会在模板中找到带有`myHighlight`这个属性的元素。
 .l-sub-section
   :marked
     ### Why not call it "highlight"?
@@ -150,7 +150,7 @@ block highlight-directive-1
     that it cannot conflict with any standard HTML attribute, now or in the future.
     There is also less risk of colliding with a third-party directive name when we give ours a prefix.
     
-    不过，我们还是建议选择一个带前缀的选择器名称，以保证无论现在还是未来它都不会和任何标准HTML Attribute发生冲突。
+    不过，我们还是建议选择一个带前缀的选择器名称，以保证无论现在还是未来它都不会和任何标准HTML属性发生冲突。
     当我们使用自己的前缀时，也会减少和第三方指令发生命名冲突的风险。
 
     We do **not** prefix our `highlight` directive name with **`ng`**.
@@ -188,15 +188,15 @@ p
 a#apply-directive
 :marked
   ## Apply the attribute directive
-  ## 应用Attribute型指令
+  ## 应用属性型指令
   The `AppComponent` in this sample is a test harness for our `HighlightDirective`.
   Let's give it a new template that 
   applies the directive as an attribute to a paragraph (`p`) element.
   In Angular terms, the `<p>` element will be the attribute **host**.
   
   这个例子中的`AppComponent`只是我们用来测试`HighlightDirective`的一个壳儿。
-  我们来给它一个新的模板，把这个指令作为Attribute应用到一个段落(`p`)元素上。
-  用Angular的话说，`<p>`元素就是这个Attribute型指令的**宿主**。
+  我们来给它一个新的模板，把这个指令作为属性应用到一个段落(`p`)元素上。
+  用Angular的话说，`<p>`元素就是这个属性型指令的**宿主**。
 p
   | We'll put the template in its own 
   code #[+adjExPath('app.component.html')]
@@ -298,7 +298,7 @@ a#respond-to-user
   :marked
     The `host` property refers to the DOM element that hosts our attribute directive, the `<p>` in our case.
     
-    `host`属性引用的是我们这个Attribute指令的宿主元素，在这个例子中就是`<p>`。
+    `host`属性引用的是我们这个属性型指令的宿主元素，在这个例子中就是`<p>`。
      
     We could have attached event listeners by manipulating the host DOM element directly, but
     there are at least three problems with such an approach:
@@ -386,7 +386,7 @@ a#input
     The developer who uses this directive expects to bind to the attribute name, `myHighlight`.
     The directive property name is `highlightColor`. That's a disconnect.
     
-    使用我们这个指令的开发人员会期望绑定到Attribute名`myHighlight`上，
+    使用我们这个指令的开发人员会期望绑定到属性名`myHighlight`上，
     而指令中的属性名是`highlightColor`。两者联系不起来。
     
     We could resolve the discrepancy by renaming the property to `myHighlight` and define it as follows:
@@ -401,7 +401,7 @@ a#input
     passing `myHighlight` into the `@Input` #{_decorator}:
     
     但我们可能在指令中不想要那样一个属性名，因为它不能很好的表示我们的意图。
-    我们可以通过把`myHighlight`传给`@Input`#{_decoratorCn}来把这个Attribute名字作为`highlightColor`属性的别名。
+    我们可以通过把`myHighlight`传给`@Input`#{_decoratorCn}来把这个属性名作为`highlightColor`属性的别名。
   +makeExample('attribute-directives/ts/app/highlight.directive.ts', 'color')
 :marked
   Now that we're getting the highlight color as an input, we modify the `onMouseEnter()` method to use
@@ -496,7 +496,7 @@ code-example(format="." ).
 :marked
   We do the same thing with an attribute directive.
   
-  在Attribute型指令中也可以这样做。
+  在属性型指令中也可以这样做。
 +makeExample('attribute-directives/ts/app/app.component.html', 'defaultColor')(format=".")
 :marked
   Here we're binding the user's color choice to the `myHighlight` attribute as we did before.
@@ -519,13 +519,13 @@ figure.image-display
 
   现在，我们知道了该如何：
   - [build a simple **attribute directive** to attach behavior to an HTML element](#write-directive),
-  - [构建一个简单的**Attribute型指令**来为一个HTML元素添加行为](#write-directive)，
+  - [构建一个简单的**属性型指令**来为一个HTML元素添加行为](#write-directive)，
   - [use that directive in a template](#apply-directive),
   - [在模板中使用那个指令](#apply-directive)，
   - [respond to **events** to change behavior based on an event](#respond-to-user),
   - [响应**事件**，以便基于事件改变行为](#respond-to-user)，
   - and [use **binding** to pass values to the attribute directive](#bindings).
-  - 以及[使用**绑定**来把值传给Attribute型指令](#bindings)。
+  - 以及[使用**绑定**来把值传给属性型指令](#bindings)。
 
   The final source:
 

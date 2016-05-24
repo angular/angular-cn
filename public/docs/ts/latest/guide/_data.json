@@ -64,8 +64,8 @@
   },
 
   "attribute-directives": {
-    "title": "Attribute型指令",
-    "intro": "Attribute型指令把行为添加到现有元素上。"
+    "title": "属性型指令",
+    "intro": "属性型指令把行为添加到现有元素上。"
   },
 
   "component-styles": {
@@ -85,8 +85,8 @@
   },
 
   "lifecycle-hooks": {
-    "title": "生命周期挂钩点",
-    "intro": "Angular调用指令和组件的生命周期挂钩函数，包括它的创建、变更和销毁时。"
+    "title": "生命周期钩子",
+    "intro": "Angular调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
   },
 
   "npm-packages": {

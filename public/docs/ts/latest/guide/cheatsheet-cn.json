@@ -8,13 +8,13 @@
     "prerelease": [
       "local"
     ],
-    "build": "sha.48e03ae",
+    "build": "sha.89c197a",
     "version": "2.0.0-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.0.0-local+sha.48e03ae",
+    "full": "2.0.0-local+sha.89c197a",
     "branch": "master",
-    "commitSHA": "48e03ae748c0d68292380c4af2361faab5f6b497"
+    "commitSHA": "89c197a385e2ff5aeb8c190ed20db1389f477b3b"
   },
   "sections": [
     {
@@ -119,6 +119,20 @@
             "{{employer?.companyName}}"
           ],
           "description": "<p>安全导航运算符(<code>?.</code>)表示<code>employer</code>字段是可选的，如果它是<code>undefined</code>，表达式剩下的部分将被忽略</p>\n"
+        },
+        {
+          "syntax": "<svg:rect x=\"0\" y=\"0\" width=\"100\" height=\"100\"/>",
+          "bold": [
+            "svg:"
+          ],
+          "description": "<p>SVG模板需要在它们的根节点上带一个<code>svg:</code>前缀，以消除模板中HTML元素和SVG元素的歧义。</p>\n"
+        },
+        {
+          "syntax": "<svg>\n  <rect x=\"0\" y=\"0\" width=\"100\" height=\"100\"/>\n</svg>",
+          "bold": [
+            "svg"
+          ],
+          "description": "<p><code>&lt;svg&gt;</code>元素在无需前缀的情况下，也能被自动检测为SVG。</p>\n"
         }
       ],
       "index": 1
