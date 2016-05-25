@@ -798,7 +798,8 @@ function watchAndSync(options, cb) {
   execCommands(['npm run harp -- server .'], {}, cb);
 
   var browserSync = require('browser-sync').create();
-  browserSync.init({proxy: 'localhost:9000'});
+  browserSync.init({proxy: 'localhost:9000', 
+scrollRestoreTechnique: 'cookie'});
 
   if (options.devGuide) {
     devGuideExamplesWatch(_devguideShredOptions, browserSync.reload);
