@@ -500,8 +500,8 @@ block parse-json
       
       `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
       [*冷淡的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
-      这意味着，知道有人*订阅*了这个可观察对象时，这个请求才会被发出。
-      这个场景中的*有人*就是[HeroListComponent](#subscribe)。
+      这意味着，直到某人*订阅*了这个可观察对象时，这个请求才会被发出。
+      这个场景中的*某人*就是[HeroListComponent](#subscribe)。
 
 a#error-handling
 :marked
