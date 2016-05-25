@@ -423,7 +423,7 @@ figure
   where it finds a `<hero-list>` tag in *parent* HTML. 
   If the template of the application shell (a Component) contained
   
-  * `selector` - 一个css选择器，它告诉Angular在*父*HTML中寻找一个`<hero-list>`标签，然后创建组件，并插入此标签中。
+  * `selector` - 一个css选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
   比如，如果应用“壳”（组件）的模板包含如下代码：
   
 <div style="margin-left:30px">
@@ -444,7 +444,7 @@ code-example(language="html").
   in the space indicated by `<hero-detail>` tags. 
   Angular will do so only if we mention the `HeroDetailComponent` in this `directives` array.
   
-  * `directives` - 一个数组，包含*此*模板需要的组件或指令。
+  * `directives` - 一个数组，包含*此*模板需要（依赖的）的组件或指令。
   看看模板的最后一行，这表示我们期待Angular把`HeroDetailComponent`的实例放在`<hero-detail>`标签中。
   但是，只有当我们在`directives`数组中提及到`HeroDetailComponent`的时候，Angular才会这么做。
   
@@ -452,9 +452,10 @@ code-example(language="html").
   This is one way to tell Angular that our component's constructor requires a `HeroService` 
   so it can get the list of heroes to display. We'll get to dependency injection in a moment.
   
-  * `providers` - 一个数组，包含组件所依赖的用于提供服务的*依赖注入供应商*。 
-  这是一种方法，用来告诉Angular该组件的构造函数需要一个`HeroService`服务，这样组件可以从服务获得英雄的列表数据用来显示。
+  * `providers` - 一个数组，包含组件所依赖的服务所需要的*依赖注入供应商*。 
+  这是告诉Angular该组件的构造函数需要一个`HeroService`服务，这样组件可以从服务获得用来显示英雄列表的数据。
   我们一会儿就讲到了依赖注入。
+  
 figure
   img(src="/resources/images/devguide/architecture/template-metadata-component.png" alt="元数据" align="left" style="height:200px; margin-left:-40px;margin-right:10px" )
 :marked
@@ -473,7 +474,7 @@ figure
   we'll master as our Angular knowledge grows.
   
   我们也会沿用类似的风格，用其它元数据装饰器来指导Angular的行为。
-  `@Injectable`、`@Input`、`@Output`和`@RouterConfig`等是一些最常用的装饰器。
+  比如`@Injectable`、`@Input`、`@Output`和`@RouterConfig`等是一些最常用的装饰器。
   随着对Angular认识的逐步深化，我们也将逐步掌握它们。
   
 <br clear="all">
@@ -493,7 +494,7 @@ figure
   into actions and value updates. Writing such push/pull logic by hand is tedious, error-prone and a nightmare to
   read as the experienced jQuery programmer can attest.
   
-  如果没有框架，我们就得自己把数据值推送到HTML控件中，并把用户的反馈转换成动作并更新值。
+  如果没有框架，我们就得自己把数据值推送到HTML控件中，并把用户的反馈转换成动作和值更新。
   如果手工写代码来实现这些推/拉逻辑，肯定会枯燥乏味、容易出错，读起来简直是噩梦 —— 写过jQuery的程序员大概都对此深有体会。
   
 figure
@@ -518,10 +519,10 @@ figure
   在[范例](#template)模板中，我们看到了数据绑定的三种形式：
 +makeExample('architecture/ts/app/hero-list.component.1.html', 'binding', 'app/hero-list.component.html (节选)')(format=".")
 :marked
-  * The {{hero.name}} "[interpolation](displaying-data.html#interpolation)" 
+  * The `{{hero.name}}` "[interpolation](displaying-data.html#interpolation)" 
   displays the component's `hero.name` property value within the `<div>` tags.
   
-  * {{hero.name}} "[插值表达式](displaying-data.html#interpolation)："在`<div>`标签中显示了组件的`hero.name`属性的值。 
+  * `{{hero.name}}`“[插值表达式](displaying-data.html#interpolation)” ：在`<div>`标签中显示了组件的`hero.name`属性的值。 
   
   * The `[hero]` [property binding](template-syntax.html#property-binding) passes the `selectedHero` from
   the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.
@@ -531,7 +532,7 @@ figure
   * The `(click)` [event binding](user-input.html#click) calls the Component's `selectHero` method when the user clicks
   on a hero's name
   
-  * `(click)`[事件绑定](user-input.html#click)：当用户点击英雄的名字时，会调用组件的`selectHero`方法。
+  * `(click)`[事件绑定](user-input.html#click)：当用户点击英雄的名字时，调用组件的`selectHero`方法。
 
   * **Two-way data binding** is an important fourth form
   that combines property and event binding in a single notation using the `ngModel` directive. 
@@ -539,7 +540,7 @@ figure
   here's an example from the `HeroDetailComponent` template (not shown):
   
   * **双向数据绑定**：这是很重要的第四种绑定形式，它在`ngModel`指令这个单一标记中同时实现了属性绑定和事件绑定的功能。
-  在`HeroListComponent`模板中，没有双向绑定，下面是一个来自`HeroDetailComponent`模板的范例(以前没展示过)：
+  在`HeroListComponent`模板中没有双向绑定，下面是一个来自`HeroDetailComponent`模板的范例(以前没展示过)：
 
 +makeExample('architecture/ts/app/hero-detail.component.html', 'ngModel')(format=".")
 :marked
@@ -552,7 +553,7 @@ figure
   Angular processes *all* data bindings once per JavaScript event cycle, 
   depth-first from the root of the application component tree. 
   
-  Angular在每个JavaScript事件周期中一次性处理*所有的*数据绑定，它会从组件树的根部开始。进行深度-优先的往上更新。
+  Angular在每个JavaScript事件周期中一次性处理*所有的*数据绑定，它会从组件树的根部开始，从下往上处理。
   
 figure
   img(src="/resources/images/devguide/architecture/component-databinding.png" alt="数据绑定" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
@@ -561,7 +562,7 @@ figure
   but it's clear from these examples that data binding plays an important role in communication 
   between a template and its component ...
   
-  虽然还不清楚所有细节，但从我们从这些范例中至少弄明白一点：数据绑定在模板与相应组件的交互中扮演了一个很重要的角色。
+  虽然我们还不清楚所有细节，但是我们从这些范例中至少弄明白一点：数据绑定在模板与对应组件的交互中扮演了一个很重要的角色。
   
 <br clear="all">  
 figure
@@ -569,7 +570,7 @@ figure
 :marked
   ... ***and*** between parent and child components
   
-  ……在父组件与子组件的通讯中***也同样如此***。
+  ...在父组件与子组件的通讯中***也同样如此***。
   
 <br clear="all">
 
@@ -606,17 +607,17 @@ figure
     it is so distinctive and central to Angular applications that we chose
     to separate the component from the directive in our architectural overview.
     
-    虽然**组件从技术角度说就是一个指令**，但组件非常独特，并在Angular中位于中心地位，以至于我们在架构介绍中，把组件从指令中单独开来。
+    虽然**组件从技术角度上就是一个指令**，但是组件非常独特，并在Angular中位于中心地位，以至于我们在架构介绍中，把组件从指令中单独开来。
     
 :marked
   There are two *other* kinds of directives as well that we call "structural" and "attribute" directives.
   
-  有两种*其它*类型的指令，我们称之为“结构型”指令和“属性型”指令。
+  有两种*其它*类型的指令，我们称之为“结构型”指令和“属性（attribute）型”指令。
   
   They tend to appear within an element tag like attributes, 
   sometimes by name but more often as the target of an assignment or a binding.
   
-  它们往往像属性一样出现在元素标签中，偶尔会以名字的形式出现（参见[一次性绑定](./template-syntax.html#one-time-initialization)），但多数时候还是作为赋值目标或绑定目标。
+  它们往往像属性(attribute)一样出现在元素标签中，偶尔会以名字的形式出现（参见[一次性绑定](./template-syntax.html#one-time-initialization)），但多数时候还是作为赋值目标或绑定目标出现。
   
   **Structural** directives alter layout by adding, removing, and replacing elements in DOM.
   
@@ -634,7 +635,7 @@ figure
   
   * [`*ngIf`](displaying-data.html#ngIf) includes the `HeroDetail` component only if a selected hero exists.
   
-  * [`*ngIf`](displaying-data.html#ngIf)表示只有在已经选择了一个英雄时才会包含`HeroDetail`组件。
+  * [`*ngIf`](displaying-data.html#ngIf)表示只有在选择的英雄存在时，才会包含`HeroDetail`组件。
   
   **Attribute** directives alter the appearance or behavior of an existing element. 
   In templates they look like regular HTML attributes, hence the name.
@@ -650,14 +651,14 @@ figure
   It modifies the behavior of an existing element (typically an `<input>`) 
   by setting its display value property and responding to change events.
   
-  它修改了现有元素（典型的是`<input>`）的行为：它设置了显示属性值，并对change事件做出相应回应。
+  它修改了现有元素（典型的`<input>`）的行为：它设置了显示属性值，并对change事件做出相应回应。
   
   Angular ships with a few other directives that either alter the layout structure 
   (e.g. [ngSwitch](template-syntax.html#ngSwitch))
   or modify aspects of DOM elements and components 
   (e.g. [ngStyle](template-syntax.html#ngStyle) and [ngClass](template-syntax.html#ngClass)).
   
-  Angular内置了少量其它指令，它们或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)），或者修改DOM元素和组件的各个方面
+  Angular内置了一些其它指令，它们或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)），或者修改DOM元素和组件的各个方面
   （如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass)）。
   
   And of course we can write our own directives.
@@ -728,7 +729,7 @@ figure
   Here's a `HeroService` that fetches heroes and returns them in a resolved [promise](http://exploringjs.com/es6/ch_promises.html). 
   The `HeroService` depends on the `LoggerService` and another `BackendService` that handles the server communication grunt work.
   
-  下面是一个`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
+  下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
   `HeroService`还依赖于`LoggerService`和另一个用来处理服务器通讯工作的`BackendService`。
   
 +makeExample('architecture/ts/app/hero.service.ts', 'class', 'app/hero.service.ts (只有类)')(format=".")
@@ -743,7 +744,7 @@ figure
   
   我们的组件是服务的主要消费者。它们依赖服务来处理大多数“苦差事”。
   它们自己不需要从服务器获得数据，不需要验证输入，不需要直接往控制台写日志。
-  它们把任务委托给服务。
+  它们把这些任务委托给服务。
   
   A component's job is to enable the user experience and nothing more. It mediates between the view (rendered by the template)
   and the application logic (which often includes some notion of a "model").  A good component presents
@@ -777,15 +778,15 @@ figure
   with the fully-formed dependencies it requires. Most dependencies are services.
   Angular uses dependency injection to provide new components with the services they need.
   
-  “依赖注入”是提供类的新实例的一种方式，还负责处理好它所需的全部依赖。大多数依赖都是服务。
-  Angular也使用依赖注入提供我们需要的组件，包括组件所需的服务。
+  “依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。
+  Angular也使用依赖注入提供我们需要的组件以及这些组件所需的服务。
    
 <br clear="all">
 :marked
   In TypeScript, Angular can tell which services a component needs by looking at the types of its constructor parameters.
   For example, the constructor of our `HeroListComponent` needs the `HeroService`:
   
-  借助TypeScript，Angular能通过查看构造函数的参数类型，并得知组件需要哪些服务。
+  在TypeScript里，Angular能通过查看构造函数的参数类型，来得知组件需要哪些服务。
   例如，我们`HeroListComponent`组件的构造函数需要`HeroService`：
 +makeExample('architecture/ts/app/hero-list.component.ts', 'ctor', 'app/hero-list.component (构造函数)')(format=".")
 :marked
@@ -801,7 +802,7 @@ figure
   Angular can call the component's constructor with those services as arguments.
   This is what we mean by *dependency injection*.
   
-  注入器会维护一个服务实例的容器，存放着以前创建的实例。
+  注入器是一个维护服务实例的容器，存放着以前创建的实例。
   如果容器中还没有所请求的服务实例，注入器就会创建一个服务实例，并且添加到容器中，然后把这个服务返回给Angular。
   当所有的服务都被解析完并返回时，Angular会以这些服务为参数去调用组件的构造函数。
   这就是我们所说的*依赖注入* 。
@@ -820,14 +821,14 @@ figure
   In brief, we must have previously registered a **provider** of the `HeroService` with the `Injector`.
   A provider is something that can create or return a service, typically  the service class itself.
   
-  简单的说，我们必须有：之前通过注入器注册过的`HeroService`的**供应商Provider**。
+  简单的说，我们必须在（要求注入`HeroService`）之前，注册一个`HeroService`的**供应商Provider**到注入器。
   供应商可以创建并返回服务，通常返回的就是这个“服务类”本身。
   
   We can register providers at any level of the application component tree.
   We often do so at the root when we bootstrap the application so that
   the same instance of a service is available everywhere.
   
-  我们可以在应用程序的组件树中任何级别上注册供应商。
+  我们可以在应用程序的组件树中的任何级别上注册供应商。
   当我们需要一个服务的同一个实例在任何地方都是可用时，我们通常在应用引导程序中注册它。
   
 +makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (节选)')(format=".")
@@ -841,21 +842,21 @@ figure
   ... in which case we get a new instance of the
   service with each new instance of that component.
   
-  …… 在这种情况下，那个组件的每一个新实例都会有一个（在该组件注册的）服务的新实例。
+  ... 在这种情况下，那个组件的每一个新实例都会有一个（在该组件注册的）服务的新实例。
   
   We've vastly over-simplified dependency injection for this overview.
   We can learn the full story in the [Dependency Injection](dependency-injection.html) chapter.
   
-  在这个概览中，我们极大的简化了依赖注入机制。
-  在[依赖注入](dependency-injection.html)一章中，我们能学到关于它的全部知识。
+  在这个概览中，我们过度简化了依赖注入机制。
+  在[依赖注入](dependency-injection.html)一章中，我们能学到关于它更详尽的知识。
   
   The points to remember are:
   
   需要记住的要点是：
   
-  * dependency injection is wired into the framework and used everywhere.<br><br>
+  * dependency injection is wired into the framework and used everywhere.
   
-  * 依赖注入渗透在整个框架中，并且随处可用。<br><br>
+  * 依赖注入渗透在整个框架中，并且被到处使用。
   
   * the `Injector` is the main mechanism.
   
@@ -875,7 +876,7 @@ figure
  
   * we register *providers* with injectors.
   
-  * 我们通过注入器来注册*供应商*。
+  * 我们注册*供应商*到注入器。
 
 <a id="other-stuff"></a>  
 .l-main-section
@@ -886,7 +887,7 @@ figure
   
   We've learned just a bit about the eight main building blocks of an Angular application
   
-  我们学到的这些只是关于应用的八个主要构造块的一点皮毛
+  我们学到的这些只是关于Angular应用程序的八个主要构造块的一点皮毛
   
   1. [Module](#module)   
   
@@ -898,34 +899,34 @@ figure
   
   1. [Template](#template)
   
-  1. [模板=](#template)
+  1. [模板](#template)
   
   1. [Metadata](#metadata)
   
-  1. [元数据=](#metadata)
+  1. [元数据](#metadata)
   
   1. [Data Binding](#data-binding)
   
-  1. [数据绑定=](#data-binding)
+  1. [数据绑定](#data-binding)
   
   1. [Directive](#directive)
   
-  1. [指令=](#directive)
+  1. [指令](#directive)
   
   1. [Service](#service)
   
-  1. [服务=](#service)
+  1. [服务](#service)
   
   1. [Dependency Injection](#dependency-injection)
   
-  1. [依赖注入=](#dependency-injection)
+  1. [依赖注入](#dependency-injection)
   
   
   That's a foundation for everything else in an Angular application
   and it's more than enough to get going.
   But it doesn't include everything we'll need or want to know.
     
-  这是Angular应用中所有其它东西的基础，要使用Angular 2，以这些作为开端已经绰绰有余了。
+  这是Angular应用程序中所有其它东西的基础，要使用Angular 2，以这些作为开端就绰绰有余了。
   但它仍然没有包含我们需要的或想知道的全部。
   
 <a id="other-stuff"></a>  
@@ -954,8 +955,8 @@ figure
   when to update the screen. 
   Learn how it uses **zones** to intercept asynchronous activity and run its change detection strategies. 
   
-  >**变更检测Change Detection** - 学会Angular如何决定组件的哪些属性值发生了变化，以及什么时候该更新到屏幕。 
-  学会它如何使用**zones**来拦截异步行为，以及它如何运行变更检测策略。
+  >**变更检测Change Detection** - 学会Angular是如何决定组件的属性值变化和什么时候该更新到屏幕的。 
+  学会它如何使用**zones**来拦截异步行为和它如何执行变更检测策略。
   
   >**[Component Router](router.html)** - With the Component Router service, users can navigate a multi-screen application 
   in a familiar web browsing style using URLs.
