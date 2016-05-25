@@ -26,7 +26,7 @@ const template = `
   <h3>{{title}}</h3>
   <div>Winner: <strong>{{heroOfTheMonth.name}}</strong></div>
   <div>Reason for award: <strong>{{heroOfTheMonth.description}}</strong></div>
-  <div>Runners-up: <strong id="rups">{{runnersUp}}</strong></div>
+  <div>Runners-up: <strong id="rups1">{{runnersUp}}</strong></div>
 
   <p>Logs:</p>
   <div id="logs">

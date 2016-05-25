@@ -63,7 +63,11 @@ include ../_util-fns
   * [useFactory - the *factory provider*](#usefactory)  
   
   * [useFactory - *工厂供应商*](#usefactory)  
+  
+  [Define providers with object literals](#object-literals)
 
+  [使用对象文本定义供应商] (#object-literals)
+  
   [Provider token alternatives](#tokens)
   
   [供应商可选令牌](#tokens)
@@ -928,6 +932,23 @@ a(id='usefactory')
     for the full source code.
       
     该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字拼接起来。请到[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)查看全部原代码。
+
+<a id="object-literals"></a>
+.l-main-section
+:marked
+  ## Define providers with object literals
+  
+  ## 使用对象文本定义供应商
+
+:marked
+  In the previous section we learned to use the `provide` method to customize how dependencies are created. 
+  
+  Instead of calling the `provide` function, we can configure providers with _object literals_. 
+  It's a slightly more concise syntax and we don't have to import the `provide` function.
+  
+  Here's a set of providers that we saw earlier, re-written with object literals.
+
++makeExample('cb-dependency-injection/ts/app/hero-of-the-month-literals.component.ts','providers-using-object-literals')(format='.')  
 
 a(id="tokens")
 .l-main-section

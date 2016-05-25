@@ -6,8 +6,8 @@ import { HeroesComponent } from './+heroes/index';
 // #enddocregion example
 
 @Component({
-  selector: 'toh-app',
-  template: '<div>app</div>',
+  selector: 'sg-app',
+  template: '<toh-heroes></toh-heroes>',
   directives: [HeroesComponent]
 })
 export class AppComponent { }

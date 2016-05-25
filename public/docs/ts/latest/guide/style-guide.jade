@@ -315,9 +315,10 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use dashes to separate words.
+    **Do** use dashes to separate words in the descriptive name.
     
-    **坚持**使用横杠来分隔单词。
+    **坚持** 在描述性名字里面，使用横杠来分隔单词。
+    
 
 .s-rule.do
   :marked
@@ -327,27 +328,40 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use consistent names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
+    **Do** use consistent type names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
     
-    **坚持**对所有组件使用一致的命名规则，遵循这个模式：先描述组件的特性，再描述它的类型。推荐的模式为`feature.type.ts`。
+    **坚持**对所有组件使用一致的类型命名规则，遵循这个模式：先描述组件的特性，再描述它的类型。推荐的模式为`feature.type.ts`。
+    
 
 .s-rule.do
   :marked
-    **Do** use conventional suffixes for the types including `*.service.ts`, `*.component.ts`, `*.pipe.ts`. Invent other suffixes where desired, but take care in having too many.
+    **Do** use conventional type names including `.service`, `.component`, `.pipe`. 
+    Invent additional type names if you must but take care not to create too many.
+        
+    **坚持**使用惯用的后缀来描述类型，比如`*.service`、`*.component`、`*.pipe`。
+    创建额外的类型名字，但你必须注意不要创建太多。
     
-    **坚持**使用惯用的后缀来描述类型，比如`*.service.ts`、`*.component.ts`、`*.pipe.ts`。如果你愿意，也可以发明其它后缀，但注意不要太多。
 
 .s-why
   :marked
-    **Why?** Provides a consistent way to quickly identify what is in the file.
+    **Why?** Type names provide a consistent way to quickly identify what is in the file.
     
-    **为何？**提供一致的方法来快速的识别文件是什么。
+    **为何？**类型名字提供一致的方法来快速的识别文件是什么。
+    
 
 .s-why
   :marked
-    **Why?** Provides a consistent way to quickly find a specific file using an editor or IDE's fuzzy search techniques.
+    **Why?** Make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
     
-    **为何？**提供一致的方法，利用编辑器或者IDE的模糊搜索功能，快速找到特定文件。
+    **为何？** 可以让我们利用编辑器或者IDE的模糊搜索功能，很容易的找到特定文件。   
+
+.s-why
+  :marked
+    **Why?** Unabbreviated type names such as `.service` are descriptive and unambiguous.
+    Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
+    
+    **为何？** 没有被简写的类型名字比如`.service`很有描述性，不含糊。
+    简写可能造成混淆，比如`.srv`, `.svc`, 和 `.serv`。
 
 .s-why.s-why-last
   :marked
@@ -1054,10 +1068,10 @@ a(href="#toc") 回到顶部
     
     **为何？**TypeScript工具让识别私有或公有属性和方法变得很简单。
 
-+makeExample('style-guide/ts/03-04/app/shared/toast/toast.service.avoid.ts', 'example', 'app/shared/toast/toast.service.ts')(avoid=1)
++makeExample('style-guide/ts/03-04/app/shared/toast.service.avoid.ts', 'example', 'app/shared/toast.service.ts')(avoid=1)
 :marked
 
-+makeExample('style-guide/ts/03-04/app/shared/toast/toast.service.ts', 'example', 'app/shared/toast/toast.service.ts')
++makeExample('style-guide/ts/03-04/app/shared/toast.service.ts', 'example', 'app/shared/toast.service.ts')
 :marked
 
 a(href="#toc") Back to top
@@ -1959,7 +1973,7 @@ a(href="#toc") 回到顶部
 +makeExample('style-guide/ts/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/hero-button/hero-button.component.ts')(avoid=1)
 :marked
 
-+makeExample('style-guide/ts/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.html', '', 'app/heroes/hero-button/hero-button.component.html')(avoid=1)
++makeExample('style-guide/ts/05-03/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
 :marked
 
 +makeTabs(
