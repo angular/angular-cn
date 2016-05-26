@@ -3,49 +3,85 @@ include ../_util-fns
 :marked
   Angular applications and Angular itself depend upon features and functionality provided by a variety of third-party packages (including Angular itself).
   These packages are maintained and installed with the Node Package Manager (<a href="https://docs.npmjs.com/" target="_blank">npm</a>).
+  
+  Angular应用以及Angular本身都依赖于由很多第三方包（包括Angular自己）提供的特性和功能。
+  这些包由Node包管理器(<a href="https://docs.npmjs.com/" target="_blank">npm</a>)负责安装和维护。
 .l-sub-section
   :marked
     Node.js and npm are essential to Angular 2 development. 
     
+    Node.js和npm是做Angular 2开发的基础。
+    
     <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
     Get it now</a> if it's not already installed on your machine
+    
+    如果你的电脑上还没有装过，请
+    <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
+    立即获取它</a>！
  
     **Verify that you are running node `v5.x.x` and npm `3.x.x`**
     by running `node -v` and `npm -v` in a terminal/console window.
     Older and newer versions produce errors.
+    
+    通过在终端/控制台窗口中运行`node -v`和`npm -v`命令，来**验证下你是否正在使用node `v5.x.x`和npm `3.x.x`**。
+    过老或过新的版本都有可能出现问题。
 
     We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
+    
+    我们建议使用[nvm](https://github.com/creationix/nvm)来管理node和npm的多个版本。
 
 :marked
   We recommend a comprehensive starter-set of packages as specified in the `dependencies` and `devDependencies`
   sections of the QuickStart
   <a href="https://docs.npmjs.com/files/package.json" target="_blank">package.json</a> file:
+  
+  我们在“快速起步”一章中<a href="https://docs.npmjs.com/files/package.json" target="_blank">package.json</a>文件的
+  `dependencies`和`devDependencies`区中指定了一组适用于新手儿的综合依赖包。
 +makeJson('quickstart/ts/package.1.json',{ paths: 'dependencies, devDependencies'}, 'package.json (dependencies)')(format=".") 
 :marked
   There are other possible package choices and you're likely to add and subtract to meet your application needs. 
   We're recommending *this particular set* because (a) we know they  work well together and 
   (b) they include everything we'll need to build and run the sample applications in this documentation series.
+  
+  还有很多其他包可供选择，你可以根据自己的喜好进行增减，让它们更适合你的应用程序。
+  我们建议使用*这一组*是因为：(a) 我们知道它们可以很好的协同工作；(b) 它们包含了我们在个系列文档中构建和运行范例应用时所需的一切。
 .l-sub-section
   :marked
     *Almost* everything. A cookbook or guide chapter may require an additional library such as *jQuery*.
+    
+    **几乎**一切。烹饪宝典或开发指南中的章节可能需要额外的库，比如*jQuery*。
 :marked
   This is far more than we need for QuickStart. 
   Indeed, it's more than we need for most applications. 
   There is no harm in installing more than we need. 
   We only serve to the client those packages that the application actually requests.
   
+  它们远远超过了我们将在“快速起步”中用到的。
+  实际上，它比我们在大多数应用中需要的还多。
+  安装的包比我们实际需要的包多，其实并没有什么坏处。
+  我们最终只会往客户端发送程序中实际用到的那些包。
+  
   In this chapter we explain what each package does and why we include it.
   Feel free to make substitutions later to suit your tastes and experience.
+  
+  在本章中，我们会解释每一个包是干什么的，以及我们为什么要包含它。
+  以后你可以根据自己的喜好和经验，随意替换它们。
   
 .l-main-section
 :marked
   ## *dependencies* and *devDependencies*
+  ## *dependencies*和*devDependencies*
   The `package.json` distinguishes between two sets of packages, 
   [dependencies](#dependencies) and [devDependencies](#dev-dependencies).
+  
+  `package.json`把这些包分成了两组：[dependencies](#dependencies)和[devDependencies](#dev-dependencies)。
   
   The packages listed under *dependencies* are essential to *running* the application. 
   The *devDependencies* are only necessary to *develop* the application. 
   They can be excluded from production installations as in this example:
+  
+  列在*dependencies*下的这些包是*运行*本应用的基础，而*devDependencies*下的只在*开发*此应用时才用得到。
+  *devDependencies*下的这些包在产品环境下安装时会被排除，就像这样：
 code-example(format="." language="bash").
   npm install my-application --production
   
@@ -55,92 +91,157 @@ a(id="dependencies")
   ## *dependencies*
   There are three package categories in the `dependencies` section of the application `package.json`:
   
+  应用程序的`package.json`文件中，`dependencies`区下有三类包：
+  
   * ***Features*** - Feature packages provide our application with framework and utility capabilites.
+  * ***特性*** - 特性包为我们的应用程序提供了框架和工具方面的能力。
   
   * ***Polyfills*** - Polyfills plug gaps in the browser's JavaScript implementation.
+  * ***填充(Polyfills)*** - 填充包弥合了不同浏览器上的JavaScript实现方面的差异。 
  
   * ***Other*** - Other libraries that support the application such as `bootstrap` for HTML widgets and styling.
+  * ***其它*** - 其它库对本应用提供支持，比如`bootstrap`包提供了HTML中的小部件和样式。
   
 .l-main-section
 :marked
   ### Feature Packages
+  ### 特性包
   
   ***@angular/core*** - Critical runtime parts of the framework needed by every application. 
   Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
   
+  ***@angular/core*** - 框架中关键的运行期部件，每一个应用都需要它。
+  包括所有的元数据装饰器：`Component`、`Directive`，依赖注入系统，以及组件生命周期钩子。
+  
   ***@angular/common*** - The commonly needed services, pipes and directives provided by the Angular team.
+  
+  ***@angular/common*** - 常用的那些由Angular开发组提供的服务、管道和指令。
   
   ***@angular/compiler*** - Angular's *Template Compiler*. 
   It understand templates and can convert them to code that makes the app run and render. 
   Developers typically don’t interact with the compiler directly. 
   They use it indirectly via `platform-browser-dynamic` or the offline template compiler.
   
+  ***@angular/compiler*** - Angular的*模板编译器*。
+  它会理解模板，并且把模板转化成代码，以供应用程序运行和渲染。
+  开发人员通常不会直接跟这个编译器打交道，而是通过`platform-browser-dynamic`或离线模板编译器间接使用它。
+  
   ***@angular/platform-browser*** - Everything DOM and browser related, especially the pieces that help render into DOM.
   This package also includes the bootstrapStatic method for bootstrapping applications for production builds that pre-compile templates offline.
+  
+  ***@angular/platform-browser*** - 与DOM和浏览器相关的每样东西，特别是帮助往DOM中渲染的那部分。
+  这个包还包含bootstrapStatic方法，用来引导那些在产品构建时需要离线预编译模板的应用程序。
   
   ***@angular/platform-browser-dynamic*** - Providers and a bootstrap method for applications that
   compile templates on the client. don’t use offline compilation.
   We use this package for boostrapping during development and for boostrapping plunker samples
   
+  ***@angular/platform-browser-dynamic*** - 为应用程序提供一些供应商和一个bootstrap方法，以便在客户端编译模板。不要用于离线编译。
+  我们使用这个包在开发期间引导应用，以及引导plunker中的范例。
+  
   ***@angular/http*** - Angular's http client
+  
+  ***@angular/http*** - Angular的HTTP客户端。
   
   ***@angular/router*** - Component router.
   
+  ***@angular/router*** - 组件路由器。
+  
   ***@angular/upgrade*** - Set of utilities for upgrading Angular 1 applications.
+  
+  ***@angular/upgrade*** - 一组用于升级Angular 1应用的工具。
   
   ***[system.js](https://github.com/systemjs/systemjs)*** -  A dynamic module loader compatible with the 
   [ES2015 module](http://www.2ality.com/2014/09/es6-modules-final.html) specification.
   There are other viable choices including the well-regarded [webpack](https://webpack.github.io/).
   SystemJS happens to be the one we use in the documentation samples. It works.
   
+  ***[system.js](https://github.com/systemjs/systemjs)*** -  是一个动态的模块加载器，
+  与[ES2015 module](http://www.2ality.com/2014/09/es6-modules-final.html)规范兼容。
+  还有很多其他选择，比如广受欢迎的[webpack](https://webpack.github.io/)。
+  SystemJS被用在了我们的文档范例中。这只是因为它能工作。
+  
   Our applications are likely to require additional packages that provide
   HTML controls, themes, data access, and various utilities.
+  
+  我们的应用程序很可能还会需要一些额外的包，比如HTML控件、主题、数据访问，以及其它多种工具。
   
 
 a(id="polyfills")
 .l-main-section
 :marked
   ### Polyfill Packages
+  ### 填充(Polyfile)包
   
   Angular requires certain [polyfills](https://en.wikipedia.org/wiki/Polyfill) in the application environment.
   We install these polyfills with very specific npm packages that Angular lists in the *peerDependencies* section of its `package.json`.
   
+  在应用程序的运行环境中，Angular需要某些[填充物](https://en.wikipedia.org/wiki/Polyfill)。
+  我们通过特定的npm包来安装这些填充物，Angular本身把它列在了`package.json`中的*peerDependencies*区。
+  
   We must list these packages in the `dependencies` section of our own `package.json`.
+  
+  但我们必须把它列在我们`package.json`文件的`dependencies`区。
   
 .l-sub-section
   :marked
     See "[Why peerDependencies?](#why-peer-dependencies)" below for background on this requirement.
+    
+    查看下面的“[为什么用peerDependencies?](#why-peer-dependencies)”，以了解这项需求的背景。
 :marked
   ***core-js*** - monkey patches the global context (window) with essential features of ES2015 (ES6).
    Developers may substitute an alternative polyfill that provides the same core APIs. 
    This dependency should go away once these APIs are implemented by all supported ever-green browsers.
+   
+  ***core-js*** - 对全局上下文(window)做的猴子补丁(monkey patch)，提供了ES2015(ES6)的很多基础特性。
+  开发人员也可以把它换成提供了相同内核API的其它填充库。
+  如果有一天所有“长青浏览器”都实现了这些API，这个依赖就可以去掉了。
   
   ***reflect-metadata*** - a dependency shared between Angular and the ***TypeScript compiler***. 
   Developers should be able to update a TypeScript package without upgrading Angular, 
   which is why this is a dependency of the application and not a dependency of Angular.
+  
+  ***reflect-metadata*** - 一个由Angular和***TypeScript***编译器共享的依赖包。
+  开发人员需要能单独更新TypeScript包，而不用升级Angular。这就是为什么把它放在本应用程序的依赖中，而不是Angular的依赖中。
   
   ***rxjs*** - a polyfill for the [Observables specification](https://github.com/zenparsing/es-observable) currently before the 
   [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
   Developers should be able to pick a preferred version of *rxjs* (within a compatible version range) 
   without waiting for Angular updates.
   
+  ***rxjs*** - 一个为[可观察对象(Observable)规范](https://github.com/zenparsing/es-observable)提供的填充物，该规范已经提交给了
+  [TC39](http://www.ecma-international.org/memento/TC39.htm)委员会，以决定是否要在JavaScript语言中进行标准化。
+  开发人员应该能在兼容的版本中选择一个喜欢的*rxjs*版本，而不用等Angular升级。
+  
   ***zone.js*** - a polyfill for the [Zone specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the 
   [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
   Developers should be able to pick a preferred version of *zone.js* to use (within a compatible version range) 
   without waiting for Angular updates.
+  
+  ***zone.js*** - 一个为[Zone规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)提供的填充物，该规范已经提交给了
+  [TC39](http://www.ecma-international.org/memento/TC39.htm)委员会，以决定是否要在JavaScript语言中进行标准化。
+  开发人员应该能在兼容的版本中选择一个喜欢的*zone.js*版本，而不用等Angular升级。
 
 a(id="other")
 .l-main-section
 :marked
   ### Other helper libraries
+  ### 其它辅助库
   
   ***angular2-in-memory-web-api*** - An Angular-supported library that simulates a remote server's web api 
   without requiring an actual server or real http calls. 
   Good for demos, documentation samples, and early stage development (before we even have a server).
   Learn about it in the [Http Client](server-communication.html#appendix-tour-of-heroes-in-memory-server) chapter.
   
+  ***angular2-in-memory-web-api*** - 一个Angular的支持库，它能模拟一个远端服务器的Web API，而不需要依赖一个真实的服务器或发起真实的HTTP调用。
+  对演示、文档范例和开发的早期阶段（那时候我们可能还没有服务器呢）非常有用。
+  请到[Http客户端](server-communication.html#appendix-tour-of-heroes-in-memory-server)一章中了解更多知识。
+  
   ***bootstrap*** - [bootstrap](http://getbootstrap.com/) is a popular HTML and CSS framework for designing responsive web apps.
   Some of the documentation samples improve their appearance with *bootstrap*.
+  
+  ***bootstrap*** - [bootstrap](http://getbootstrap.com/)是一个广受欢迎的HTML和CSS框架，可用来设计响应式Web应用。
+  有些文档中的范例使用了*bootstrap*来强化它们的外观。
   
 a(id="dev-dependencies")
 .l-main-section
@@ -148,88 +249,161 @@ a(id="dev-dependencies")
   ## *devDependencies*
   The packages listed in the *devDependencies* section of the `package.json` help us develop the application.
   They do not have to be deployed with the production application although there is rarely harm in doing so.
+  
+  列在`package.json`文件中*devDependencies*区的包会帮助我们开发该应用程序。
+  它们不用部署到产品环境的应用程序中 —— 虽然这样做也没什么坏处。
 
   ***[concurrently](https://www.npmjs.com/package/concurrently)*** - 
   a utility to run multiple *npm* commands concurrently on OS/X, Windows, and Linux operating systems.
+  
+  ***[concurrently](https://www.npmjs.com/package/concurrently)*** - 一个用来在OS/X、Windows和Linux操作系统上同时运行多个*npm*命令的工具
   
   ***[lite-server](https://www.npmjs.com/package/lite-server)*** - 
   a light-weight, static file server, written and maintained by [John Papa](http://johnpapa.net/) 
   with excellent support for Angular apps that use routing.
   
+  ***[lite-server](https://www.npmjs.com/package/lite-server)*** - 一个轻量级、静态的服务器，
+  由[John Papa](http://johnpapa.net/)开发和维护。对使用到路由的Angular程序提供了很好的支持。 
+  
   ***[typescript](https://www.npmjs.com/package/typescript)*** - 
   the TypeScript language server including the *tsc* TypeScript compiler.
+  
+  ***[typescript](https://www.npmjs.com/package/typescript)*** - TypeScript语言的服务器，包含了TypeScript编译器*tsc*。
   
   ***[typings](https://www.npmjs.com/package/typings)*** - a manager for TypeScript definition files.
   Learn more about it in the [TypeScript Configuration](typescript-configuration.html#typings) chapter.
   
+  ***[typings](https://www.npmjs.com/package/typings)*** - 一个“TypeScript定义”文件的管理器。
+  要了解更多，请参见[TypeScript配置](typescript-configuration.html#typings)一章。
+  
   This section likely grows as we add more tools, testing, and build support. 
   The QuickStart set is sufficient for developing the documentation sample applications.
+  
+  当我们添加更多工具、测试和构建支持库的时候，这一区也会随之增长。
+  “快速起步”中的设置对这个文档中的范例程序来说已经够用了。
 
 .l-main-section
 a(id="why-peer-dependencies")
 :marked
   ## Why *peerDependencies*?
+  ## 为什么使用*peerDependencies*？
   
   We don't have a *peerDependencies* section in the QuickStart `package.json`. 
   But Angular itself has a *peerDependencies* section in 
   [*its* package.json](https://github.com/angular/angular/blob/master/modules/angular2/package.json) 
   and that has important consequences for our application. 
   
+  在“快速起步”的`package.json`文件中，并没有*peerDependencies*区。
+  但是Angular本身在[*它自己的* package.json](https://github.com/angular/angular/blob/master/modules/angular2/package.json)中有，
+  它对我们的应用程序有重要的影响。
+  
   It explains why we load the [polyfill](#polyfills) *dependency* packages in the QuickStart `package.json`,
   and why we'll need those packages in our own applications.
   
+  它解释了为什么我们要在“快速起步”的`package.json`文件中加载这些[填充库(polyfill)](#polyfills)依赖包，
+  以及为什么我们在自己的应用中会需要它们。
+  
   Let's briefly explain what [peer dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/) are about.
+  
+  我们先简短解释一下[平级依赖(peer dependencies)](https://nodejs.org/en/blog/npm/peer-dependencies/)是干嘛的。
   
   As we know, packages depend on other packages. For example, our application depends upon the Angular package.
   
+  我们知道，每个包都依赖其它的包，比如我们的应用程序就依赖于Angular包。
+  
   Two packages, 'A' and 'B', could depend on the same third package 'C'. 
   'A' and 'B' might both list 'C' among their *dependencies*.
+  
+  两个包，'A'和'B'，可能依赖共同的第三个包'C'。
+  'A'和'B'可能都在它们的*dependencies*中列出了'C'。
   
   What if 'A' and 'B' depend on different versions of 'C' ('C1' and 'C2'). The npm package system supports that! 
   It installs 'C1' in the `node_modules` folder for 'A' and 'C2' in the `node_modules` folder for 'B'.
   Now 'A' and 'B' have their own copies of 'C' and they run without interferring. This is great.
   
+  如果'A'和'B'依赖于'C'的不同版本('C1'和'C2')。npm包管理系统也能支持！
+  它会把'C1'安装到'A'的`node_modules`目录下给'A'用，把'C2'安装到'B'的`node_modules`目录下给'B'用。
+  现在，'A'和'B'都有了它们自己的一份'C'的复本，它们运行起来也互不干扰。这挺不错。
+  
   But there is a problem. Package 'A' may require the presence of 'C1' without actually calling upon it directly.
   'A' may only work if *everyone is using 'C1'*. It falls down if any part of the application relies on 'C2'.
   
+  但是有一个问题。包'A'可能只需要'C1'出现就行，而实际上并不会直接调用它。
+  'A'可能只有当*每个人都使用'C1'时*才能正常工作。如果程序中的任何一个部分依赖了'C2'，它就会失败。
+  
   The solution is for 'A' to declare that 'C1' is a *peer dependency*.
+  
+  要想解决这个问题，'A'就需要把'C1'定义为它的*平级依赖*。
   
   The difference between a `dependency` and a `peerDependency` is roughly this:
   
+  在`dependencies`和`peerDependencies`之间的区别大致是这样的：
+  
   >A **dependency** says, "I need this thing directly available to *me*."
+  
+  >**dependency**说：“我需要这东西*对我*直接可用。”
   >
   >A **peerDependency** says, "if you want to use me, you need this thing available to *you*."
+  >
+  >**peerDependency**说：“如果你想使用我，你得先让这东西*对你*可用”
    
   Angular finds itself in this situation. 
   Accordingly, the Angular `package.json` specifies several *peer dependency* packages, 
   each pinned to a particular version of a third-party package.
+  
+  Angular在这种情况下会自己找。
+  因此，Angular的`package.json`中指定了一系列*平级依赖*包，
+  把每个第三方包都固定在一个特定的版本上。
 
   ### We must install Angular's *peerDependencies* ourselves
+  ### 我们必须自己安装Angular的*peerDependencies*
   
   When *npm* installs packages listed in *our* `dependencies` section,
   it also installs the packages listed within *their* packages `dependencies` sections.
   The process is recursive.
   
+  当*npm*安装列在*我们的*`dependencies*区指定的包时，
+  它也会同时安装上在*那些包*的`dependencies`区所指定的那些包。
+  这个安装过程是递归的。
+  
   But as of version 3, *npm* does *not* install packages listed in *peerDependencies* sections.
+  
+  但是在第三版中，*npm* *不会*安装列在*peerDependencies*区的那些包。
   
   That means when our application installs Angular, ***npm* will not automatically install
   the packages listed in Angular's *peerDependencies* section**.
+  
+  这意味着，当我们的应用程序安装Angular时，***npm*将不会自动安装列在Angular的*peerDependencies*区的那些包**
   
   Fortunately, *npm* warns us (a) when any *peer dependencies* are missing or (b)
   when the application or any its other dependencies
   installs a different version of a *peer dependency*. 
   
+  幸运的是，*npm*会在下列情况下给我们警告：(a) 当任何*平级依赖*缺失时 或(b) 当应用程序或它的任何其他依赖安装了与*平级依赖*不同版本的包时。
+  
   These warnings are a critical guard against accidental failures due to version mismatches.
   They leave us in control of package and version resolution.
   
+  这些警告是很关键的保护措施，以避免因为版本不匹配而导致的意外错误。
+  它们让我们可以控制包和版本的解析过程。
+  
   It is our responsibility to list all *peer dependency* packages **among our own *devDependencies***.
+  
+  我们的责任是，把所有*平级依赖*包都**列在我们自己的*devDependencies**中*。
   
 .l-sub-section
   :marked
     #### The future of *peerDependencies*
+    #### *peerDependencies*的未来
     
     The Angular polyfill dependencies should be just a suggestion or a hint to developers so that they know what Angular expects.
     They should not be hard requirements as they are today. We don't have a way to make them optional today.
     
+    Angular的填充库依赖只是一个给开发人员的建议或提示，以便他们知道Angular期望用什么。
+    它们不应该像现在一样是硬需求，但目前我们也不知道该如何把它们设置为可选的。
+    
     There is a npm feature request for "optional peerDependencies" which would allow us to model this relationship better. 
     Once implemented, Angular will switch from *peerDependencies* to *optionalPeerDependencies* for all polyfills.
+    
+    有一个npm的新特性申请，叫做“可选的peerDependencies”，它将会允许我们更好的对这种关系建模。
+    一旦它被实现了，Angular将把所有填充库从*peerDependencies*区切换到*optionalPeerDependencies*区。
