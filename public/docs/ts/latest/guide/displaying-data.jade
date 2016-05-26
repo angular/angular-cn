@@ -127,7 +127,7 @@ include ../_quickstart_repo
   inside the `<my-app>` tag.
   
   当我们通过`main.ts`中的`AppComponent`类启动时，Angular在`index.html`中查找一个`<my-app>`元素，
-  然后实例化一个`AppComponent`，并将其渲染进`<my-app>`标签中。
+  然后实例化一个`AppComponent`，并将其渲染到`<my-app>`标签中。
 
   We're ready to see changes in a running app by firing up the npm script that both compiles and serves our applications
   while watching for changes.
@@ -157,7 +157,7 @@ figure.image-display
   the component metadata using the `@Component` decorator's `templateUrl` property.
   
   我们有两种地方可用来存放组件模板。
-  我们可以使用`template`属性把它定义为 *内联Inline* 的，就像这里所做的一样。
+  我们可以使用`template`属性把它定义为 *内联(Inline)* 的，就像这里所做的一样。
   或者，可以把模板定义在一个独立的HTML文件中，并且在组件元数据`@Component`装饰器中的`templateUrl`属性链接到它。
 
   The choice between inline and separate HTML is a matter of taste,
@@ -174,13 +174,13 @@ figure.image-display
 
   ## Constructor or variable initialization?
   
-  ## 用构造函数进行初始化还是用变量？
+  ## 初始化:构造函数还是变量？
 
   We initialized our component properties using variable assignment.
   This is a wonderfully concise and compact technique.
   
   这里我们使用了变量赋值的方式初始化组件的属性。
-  这在技术上更加简洁。
+  这是个特别简洁用法。
 
   Some folks prefer to declare the properties and initialize them within a constructor like this:
   
