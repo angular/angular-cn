@@ -83,6 +83,7 @@ a#write-directive
 :marked
   ## Build a simple attribute directive
   ## 创建一个简单的属性型指令
+  
   An attribute directive minimally requires building a controller class annotated with 
   `@Directive`, which specifies the selector identifying
   the attribute associated with the directive. 
@@ -176,14 +177,14 @@ p
   each matching element, injecting an Angular `ElementRef` 
   into the constructor.
   
-  Angular会为每个被指令匹配上的元素创建一个控制器类的实例，并把Angular的`ElementRef`注入进它的构造函数。
+  Angular会为每个被指令匹配上的元素创建一个该指令控制器类的实例，并把Angular的`ElementRef`注入进它的构造函数。
   
   `ElementRef` is a service that grants us direct access to the DOM element
   through its `nativeElement` property.
   That's all we need to set the element's background color using the browser DOM API.
   
-  `ElementRef`是一个服务，通过它的`nativeElement`属性，我们可以直接访问到这个DOM元素。
-  我们所要做的，就是使用浏览器的DOM API来设置这个元素的背景色。
+  `ElementRef`是一个服务，通过它的`nativeElement`属性，我们可以直接访问到指令所在DOM元素。
+  这就是使用浏览器的DOM API来设置这个元素的背景色所需要我们做的全部。
 
 .l-main-section
 a#apply-directive
