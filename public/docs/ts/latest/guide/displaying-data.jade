@@ -132,13 +132,13 @@ include ../_quickstart_repo
   We're ready to see changes in a running app by firing up the npm script that both compiles and serves our applications
   while watching for changes.
   
-  通过运行npm脚本（它能编译并启动一个能监视变化的服务器），我们能看到运行中的应用发生的变化。
+  通过运行npm脚本（它能编译并启动一个能监视文件变化的服务器），我们能看到运行中的应用发生的变化。
 code-example(format="").
   npm start
 :marked
   We should see the title and hero name:
   
-  我们应该能看到标题和英雄名变了：
+  我们应该能看到标题和英雄名：
   
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/title-and-hero.png" alt="标题和英雄")
@@ -149,16 +149,16 @@ figure.image-display
 
   ## Template inline or template file?
   
-  ## 行内模板还是模板文件？
+  ## 内联(inline)模板还是模板文件？
 
   We can store our component's template in one of two places.
   We can define it *inline* using the `template` property, as we do here.
   Or we can define the template in a separate HTML file and link to it in
   the component metadata using the `@Component` decorator's `templateUrl` property.
   
-  我们有两种地方可用来存放组件模板。
-  我们可以使用`template`属性把它定义为 *内联(Inline)* 的，就像这里所做的一样。
-  或者，可以把模板定义在一个独立的HTML文件中，并且在组件元数据`@Component`装饰器中的`templateUrl`属性链接到它。
+  我们有两种地方可以用来存放组件模板。
+  我们可以使用`template`属性把它定义为 *内联* 的，就像这里所做的一样。
+  或者，可以把模板定义在一个独立的HTML文件中，并且通过在`@Component`装饰器中的`templateUrl`属性把它链接到组件。
 
   The choice between inline and separate HTML is a matter of taste,
   circumstances, and organization policy.
@@ -174,7 +174,7 @@ figure.image-display
 
   ## Constructor or variable initialization?
   
-  ## 初始化:构造函数还是变量？
+  ## 初始化：使用构造函数还是变量？
 
   We initialized our component properties using variable assignment.
   This is a wonderfully concise and compact technique.
@@ -204,7 +204,7 @@ figure.image-display
   We want to display a list of heroes. We begin by adding a mock heroes name array to the component,
   just above `myHero`, and redefine `myHero` to be the first name in the array.
   
-  我们准备显示一个英雄列表。就先在组件的`myHero`属性上方添加一个模拟(Mock)的英雄名字数组，并把`myHero`重定义为数组中的第一个名字。
+  我们准备显示一个英雄列表。先在组件的`myHero`属性上方添加一个模拟(Mock)的英雄名字数组，然后把`myHero`重定义为数组中的第一个名字。
 +makeExample('displaying-data/ts/app/app.component.2.ts', 'mock-heroes', 'app/app.component.ts (类)')(format=".")
 
 :marked
