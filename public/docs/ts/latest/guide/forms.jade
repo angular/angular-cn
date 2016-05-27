@@ -12,8 +12,8 @@ include ../_util-fns
   It's more challenging to create a cohesive data entry experience that guides the
   user efficiently and effectively through the workflow behind the form.
 
-  不管什么样的Web开发者，都能使用正确的标签“捏”出一个HTML。
-  但要想做出一个优秀的表单，让它具有贴心的数据输入体验，以指导用户明晰、高效的通过表单完成背后的工作流程，这个挑战就大多了。
+  不管什么样的Web开发者，都能使用适当的标签“捏”出一个HTML。
+  但是，要想做出一个优秀的表单，让它具有贴心的数据输入体验，以指导用户明晰、高效的通过表单完成背后的工作流程，这个挑战就大多了。
   
   *That* takes design skills that are, to be frank, well out of scope for this chapter.
   
@@ -23,7 +23,7 @@ include ../_util-fns
   **two-way data binding, change tracking, validation, and error handling**
   ... which we shall cover in this chapter on Angular forms.
   
-  但它也需要框架支持，来实现**双向数据绑定、变更跟踪、有效性验证和错误处理**……
+  但是，它也需要框架支持，来实现**双向数据绑定、变更跟踪、有效性验证和错误处理**……
   这些Angular表单相关的内容，属于本章的范围。
 
   We will build a simple form from scratch, one step at a time. Along the way we'll learn
@@ -72,14 +72,14 @@ include ../_util-fns
   :marked
     That's not the only way to create a form but it's the way we'll cover in this chapter.
     
-    这不是创建表单的唯一方式，但它是我们将在本章中使用的方式。
+    这不是创建表单的唯一方式，但它是我们将在本章中使用的方式。（译注：Angular支持的另一种方式叫做模型驱动表单Model-Driven Forms）
     
 :marked
   We can build almost any form we need with an Angular template &mdash; login forms, contact forms ... pretty much any business forms.
   We can lay out the controls creatively, bind them to data, specify validation rules and display validation errors,
   conditionally enable or disable specific controls, trigger built-in visual feedback, and much more.
   
-  我们可以构建要用在Angular模板中的几乎所有表单 —— 登录表单、联系人表单…… 大量的各种商务表单。
+  利用Angular模板，我们可以构建几乎所有表单 —— 登录表单、联系人表单…… 大量的各种商务表单。
   我们可以创造性的摆放各种控件、把它们绑定到数据、指定校验规则、显示校验错误、有条件的禁用/启用特定的控件、触发内置的视觉反馈等等，不胜枚举。
 
   It will be pretty easy because Angular handles many of the repetitive, boiler plate tasks we'd
@@ -98,7 +98,7 @@ figure.image-display
   Here at the *Hero Employment Agency* we use this form to maintain personal information about the
   heroes in our stable. Every hero needs a job. It's our company mission to match the right hero with the right crisis!
   
-  这里是*英雄职介中心*，我们使用这个表单来维护我们候选英雄们的个人信息。每个英雄都需要一份工作。我们公司的任务就是让正确的英雄去解决他/她所擅长应对的危机！
+  这里是*英雄职介中心*，我们使用这个表单来维护候选英雄们的个人信息。每个英雄都需要一份工作。我们公司的任务就是让适当的英雄去解决他/她所擅长应对的危机！
 
   Two of the three fields on this form are required. Required fields have a green bar on the left to make them easy to spot.
   
@@ -160,12 +160,12 @@ figure.image-display
   
   1. Disable the form’s submit button until the form is valid
   
-  1. 禁用此表单的提交按钮，直到表单变为有效的
+  1. 禁用此表单的提交按钮，直到表单变为有效
 
 :marked
   ## Setup
   
-  ## 起步
+  ## 搭建
   
   Create a new project folder (`angular2-forms`) and follow the steps in the [QuickStart](../quickstart.html).
   
@@ -181,13 +181,13 @@ include ../_quickstart_repo
   We can't layout the form until we know what the model looks like.
   
   当用户输入表单数据时，我们要捕获他们的变化，并更新到模型的一个实例中。
-  除非我们知道模型里有什么，否则没法设计表单。
+  除非我们知道模型里有什么，否则无法设计表单。
 
   A model can be as simple as a "property bag" that holds facts about a thing of application importance.
   That describes well our `Hero` class with its three required fields (`id`, `name`, `power`)
   and one optional field (`alterEgo`).
   
-  最简单的模型就是一个“属性包”，用来存放关于应用中一件重要事物的某些事实。
+  最简单的模型就是一个“属性包”，用来存放应用中一件事物的事实。
   这里我们使用三个必备字段（`id`、`name`、`power`），和一个可选字段（`alterEgo`，译注：中文含义：第二人格，比如X战警中的Jean/黑凤凰）。
 
   Create a new file in the app folder called `hero.ts` and give it the following class definition:
@@ -199,7 +199,7 @@ include ../_quickstart_repo
 :marked
   It's an anemic model with few requirements and no behavior. Perfect for our demo.
   
-  这是一个贫血模型，没什么要求，也没有行为。对我们的演示来说很完美。
+  这是一个少量需求和零行为的贫血模型。对我们的演示来说很完美。
 
   The TypeScript compiler generates a public field for each `public` constructor parameter and
   assigns the parameter’s value to that field automatically when we create new heroes.
@@ -208,7 +208,7 @@ include ../_quickstart_repo
   
   The `alterEgo` is optional and the constructor lets us omit it; note the (?) in `alterEgo?`.
   
-  `alterEgo`是可选的，构造函数让我们可以省略掉它，注意`alterEgo?`中的问号（?）。
+  `alterEgo`是可选的，构造函数允许我们省略它，注意`alterEgo?`中的问号（?）。
 
   We can create a new hero like this:
   
@@ -246,7 +246,7 @@ code-example(format="").
 
   Understanding this component requires only the Angular 2 concepts we’ve learned in previous chapters
   
-  要理解这个组件，只会用到前面章节中已经学过的那些概念：
+  只需要用到前面章节中已经学过的那些概念，就可以完全理解这个组件：
 
   1. We import the `Component` decorator from the Angular library as we usually do.
   
@@ -254,7 +254,7 @@ code-example(format="").
 
   1. The `@Component` selector value of "hero-form" means we can drop this form in a parent template with a `<hero-form>` tag.
   
-  1. `@Component`选择器的值"hero-form"表示我们将把此表单扔进父模板中的一个`<hero-form>`标签中。
+  1. `@Component`选择器"hero-form"表示我们将把此表单扔进父模板中的一个`<hero-form>`标签中。
 
   1. The `templateUrl` property points to a separate file for template HTML called `hero-form.component.html`.
   
@@ -279,7 +279,7 @@ code-example(format="").
   Why don't we write the template inline in the component file as we often do
   elsewhere in the Developer Guide?
   
-  这次我们为什么不像开发人员指南中的其它地方那样写成组件的内联模板呢？
+  这次我们为什么不像在开发指南中的其它地方那样，以内联的方式把模板放到组件文件呢？
 
   There is no “right” answer for all occasions. We like inline templates when they are short.
   Most form templates won't be short. TypeScript and JavaScript files generally aren't the best place to
@@ -287,7 +287,7 @@ code-example(format="").
   We also like short files with a clear and obvious purpose like this one.
   
   没有什么答案在所有场合都总是“正确”的。当内联模板足够短的时候，我们更喜欢用它。
-  但大多数的表单模板都不短。普遍来讲，TypeScript和JavaScript文件不会是写大型HTML的好地方（也不好读）。
+  但大多数的表单模板都不短。普遍来讲，TypeScript和JavaScript文件不是写大型HTML的好地方（也不好读）。
   而且没有几个编辑器能对混写的HTML和代码提供足够的帮助。
   我们还是喜欢写成像这个一样清晰明确的短文件。
 
@@ -306,7 +306,7 @@ code-example(format="").
 
   `app.component.ts` is the application's root component. It will host our new `HeroFormComponent`.
   
-  `app.component.ts`是本应用的根组件，我们的`HeroFormComponent`将放在其中。
+  `app.component.ts`是本应用的根组件，我们的`HeroFormComponent`将被放在其中。
 
   Replace the contents of the "QuickStart" version with the following:
   
@@ -337,7 +337,7 @@ code-example(format="").
 :marked
   ## Create an initial HTML Form Template
   
-  ## 创建一个初始的HTML表单模板
+  ## 创建一个初始HTML表单模板
 
   Create a new template file called `hero-form.component.html` and give it the following definition:
   
@@ -432,7 +432,7 @@ ol
   we display its name using the interpolation syntax with the double-curly-braces.
   
   我们为列表中的每一项超能力渲染出一个`<option>`标签。
-  模板输入变量`p`在每个迭代中都代表一个不同的超能力，我们使用双花括号中的插值表达式语法来显示它的名称。
+  模板输入变量`p`在每个迭代中都代表一个不同的超能力，我们使用双花括号插值表达式语法来显示它的名称。
 
 <a id="ngModel"></a>
 .l-main-section
@@ -468,11 +468,11 @@ figure.image-display
   makes binding our form to the model super-easy.
   
   虽然可以在表单中再次使用这些技术。
-  但这次我们将引入一些新东西 —— `[(ngModel)]`语法，它使用一种超简单的方式把我们的表单绑定到模型。
+  但是，这里我们将引入一个新东西 —— `[(ngModel)]`语法，它使用一种超简单的方式把我们的表单绑定到模型。
 
   Find the `<input>` tag for the "Name" and update it like this
   
-  找到“姓名”对应的`<input>`标签，并且像这样修改它：
+  找到“Name”对应的`<input>`标签，并且像这样修改它：
 
 +makeExample('forms/ts/app/hero-form.component.html', 'ngModel-1','app/hero-form.component.html (节选)')(format=".")
 
@@ -483,20 +483,20 @@ figure.image-display
     We left ourselves a note to throw it away when we're done.
     
     我们在input标签后添加一个诊断用的插值表达式，以看清正在发生什么事。
-    等做完之后，别忘了移除它。
+    我们给自己留下了一个备注，提醒我们完成后移除它。
 
 :marked
   Focus on the binding syntax: `[(ngModel)]="..."`.
   
-  重点在`[(ngModel)]="..."`语法上。
+  聚焦到绑定语法`[(ngModel)]="..."`上。
 
   If we ran the app right now and started typing in the *Name* input box,
   adding and deleting characters, we'd see them appearing and disappearing
   from the interpolated text.
   At some point it might look like this.
   
-  如果我们现在运行这个应用，并且开始在*姓名*输入框中键入、添加和删除字符，我们将看到它们从插值结果中显示和消失。
-  某一瞬间，它看起来可能是这样。
+  如果我们现在运行这个应用，并且开始在*姓名*输入框中键入，添加和删除字符，我们将看到它们从插值结果中显示和消失。
+  某一瞬间，它看起来可能是这样：
   
 figure.image-display
   img(src="/resources/images/devguide/forms/ng-model-in-action.png" width="400px" alt="操作中的ngModel")
@@ -547,11 +547,11 @@ figure.image-display
     
     *This section is an optional deep dive into [(ngModel)]. Not interested? Skip ahead!*
     
-    *本节是对[(ngModel)]的深入剖析，它是可选的。如果不感兴趣，那就放心大胆的跳过它。*
+    *本节是对[(ngModel)]的深入剖析，它是可选的。不感兴趣？跳过它！*
     
     The punctuation in the binding syntax, <span style="font-family:courier"><b>[()]</b></span>, is a good clue to what's going on.
     
-    绑定语法中的<span style="font-family:courier"><b>[()]</b></span>是一个深入探索的优秀线索。
+    绑定语法中的<span style="font-family:courier"><b>[()]</b></span>是一个很好的线索。
 
     In a Property Binding, a value flows from the model to a target property on screen.
     We identify that target property by surrounding its name in brackets, <span style="font-family:courier"><b>[]</b></span>.
@@ -577,7 +577,7 @@ figure.image-display
     In fact, we can break the `NgModel` binding into its two separate modes
     as we do in this re-write of the "Name" `<input>` binding:
     
-    事实上，我们可以把`NgModel`绑定拆成两个独立的绑定，就像我们重写的“姓名”`<input>`绑定一样：
+    事实上，我们可以把`NgModel`绑定拆成两个独立的绑定，就像我们重写的“Name”`<input>`绑定一样：
     
   +makeExample('forms/ts/app/hero-form.component.html', 'ngModel-3','app/hero-form.component.html (节选)')(format=".")
 
