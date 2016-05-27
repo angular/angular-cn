@@ -1,124 +1,30 @@
-# Angular.io
-Angular.io is site for Angular 2 **documentation** . 
+# angular.io 中文版
 
-This site also includes links to other helpful angular resources including 
-Angular 2, Angular 1, Angular Material, and AngularFire.
+这里是angular.io字幕组，哦不对，是汉化组。译者汪志成(雪狼)和叶志敏(Rex)欢迎您的到访。
 
-## Issues
+我们将和官方英文版保持同步翻译，并同步发布到[国内镜像](http://www.angular.live)，
+将来还会发布到[官方中文版](https://cn.angular.io/)。
 
-Please file **Developer Guide, Cookbook, and code sample issues _only_** in this 
-[Angular.io](https://github.com/angular/angular.io/issues) github repo.
+# 授权协议
+本文档还遵循CC BY 4.0，请在**保持署名**、**非商业**的前提下自由使用，你甚至可以把它架设在自己的电脑或内网服务器上。
 
-**Angular API issues, cheatsheet corrections, feature requests, defect reports, and technical questions** concerning Angular itself
-belong in the [**angular source code**](https://github.com/angular/angular/issues) github repo.
-We can't handle those topics here and will ask you to re-post them on the angular repo.
+特别是：
 
-## How you can help
+- 不得去掉“关于中文版”的入口链接，也不得增删改“关于中文版”页的内容。
+- 如果您是商业网站（包括但不限于任何有广告或收费的网站）要转载，请联系我们 traveller@163.com 或 asnowwolf@gmail.com 。
 
-Filing issues is helpful but **pull requests** that improve the docs are even better!
+**违反上述授权协议将面临法律追究。**
 
-Learn how to [contribute to Angular.io](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md).
+# 编译与发布
 
-## Development Setup
-This site relies heavily on node and npm.
+1. 用`git clone https://github.com/angular/angular-cn.git`把本项目取到本地。
+1. 进入`angular-cn`目录
+1. 运行`npm install`安装依赖包
+1. 运行`gulp check-deploy`命令进行编译并预览（会自动打开浏览器并访问8080端口）
+1. 把`./www`目录发布到任何静态文件服务器上
 
-1. Make sure you are using the latest node and npm; 
-if not install [nvm](https://github.com/creationix/nvm) to get node going on your machine.
+如果是内网服务器，你还可以通过自建CI进行同步更新。
 
-1. install these npm packages *globally*: `npm install -g harp gulp protractor`
+# 更多信息
 
-1. clone this repo and the [angular source code repo](https://github.com/angular/angular) to the same parent directory.
-The two cloned repo directories must be sibling.
-
-1. cd into root directory `Angular.io/`
-
-1. install the *all-docs* local packages by running `npm install`
-> If running node v.5+, you probably must rebuild `node-sass` in a separate step: `npm rebuild node-sass`
-
-1. See [below](#code-sample-development) for code sample development preparation.
-
-## Content Development
-All documentation content is written in Jade which has [its own syntax](http://jade-lang.com/reference/).
-Be aware of the strict demands imposed by this significant-whitespace language.
-We strongly recommend running one of the gulp `serve-and-sync` commands [described below](#serve-and-sync)
-while editing content so you can see the effect of your changes *as you type*.
-
-The documentation relies on specific styles and mixins. 
-Learn about those in the [documentation styleguide](https://angular.io/docs/ts/latest/styleguide.html).
-
-The jade documentation files are language-specific directories under either `public/docs/`.
-For example, all of the TypeScript docs are in `public/docs/ts/latest`, e.g.
-- `public/docs/ts/latest/quickstart.jade`
-- `public/docs/ts/latest/guide/architecture.jade`
-- `public/docs/ts/latest/cookbook/component-communication.jade`
-- `public/docs/ts/latest/tutorial/toh-pt5.jade`
-
-### Local server with watches and browser reload
- 1. cd into root directory `Angular.io/`
- 1. run `gulp serve-and-sync`
- 1. browser will launch on localhost:3000 and stay refreshed automatically.
-
-<a id="serve-and-sync"></a>
-If you are only going to work on a specific part of the docs, such as the dev guide, then you can use one of the more specific gulp tasks to only watch those parts of the file system:
-
-* `gulp serve-and-sync` : watch all the local Jade/Sass files, the API source and examples, and the dev guide files
-* `gulp serve-and-sync-api` : watch only the API source and example files
-* `gulp serve-and-sync-devguide` : watch only the dev guide files
-* `gulp build-and-serve` : watch only the local Jade/Sass files
-
-## Code Sample Development
-
-All documentation is supported by sample code and plunkers. 
-Such code resides in the `public/docs/_examples` directory, under chapter-specific directories, further divided by language track.
-
-For example, the TypeScript QuickStart sample is in `public/docs/_examples/quickstart/ts`.
-
-All samples are in a consistent directory structure using the same styles and the same npm packages, including the latest release of Angular 2.
-This consistency is possible in part thanks to gulp-driven tooling. 
-To run the samples locally and confirm that they work properly, 
-take the following extra steps to prepare the environment:
-
-1. cd to `public/docs/_examples`
-
-1. install the canonical node packages for all samples by running `npm install`
-
-1. cd back up to `Angular.io` root: `cd ../../..`
-
-1. run `gulp add-example-boilerplate` (elevate to admin on Windows) 
-to copy canonical files to the sample directories and create symlinks there for node_modules and typings. 
-
-Now cd into any particular sample's language directory (e.g., `public/docs/_examples/quickstart/ts`) and try:
-- `npm start`  to simultaneously compile-with-watch and serve-in-browser-with-watch
-- `npm run tsc` to compile only
-- `npm run lite` to serve-and-watch in browser
-
-Look at the scripts in `package.json` for other options.
-Also, open any `plunkr.no-link.html` to see the code execute in plunker
-(you may have to run `gulp build-plunkers` first to create/update).
-
-### Sample end-to-end tests
-
-All samples should be covered to some degree by end-to-end tests:
-- `gulp run-e2e-tests` to run all TypeScript and JavaScript tests
-- `gulp run-e2e-tests --lang=dart` to run all Dart tests
-- `gulp run-e2e-tests --lang=all` to run TypeScript, JavaScript, and Dart tests
-- `gulp run-e2e-tests --filter=quickstart` to filter the examples to run, by name
-- `gulp run-e2e-tests --fast` to ignore npm install, webdriver update and boilerplate copy
-
-Any combination of options is possible.
-
-
-## Technology Used
-- Angular 1.x: The production ready version of Angular
-- Angular Material: An implementation of Material Design in Angular.js
-- Gulp: node-based tooling
-- Harp: The static web server with built-in preprocessing.
-- Sass: A professional grade CSS extension language
-- Normalize: A modern, HTML5-ready alternative to CSS resets
-- Grids: A highly customizable CSS Grid Framework built with Sass
-- Prettify: A JS module and CSS for syntax highlighting of source code snippets.
-- Icomoon: Custom built icon fonts
-
-
-## License
-Powered by Google ©2010-2016. Code licensed under an [MIT-style License](https://github.com/angular.io/blob/master/LICENSE). Documentation licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
+关于本中文版以及两位译者的更多信息，请参见“关于中文版”链接。
