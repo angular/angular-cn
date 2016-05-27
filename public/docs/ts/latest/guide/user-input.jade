@@ -7,7 +7,7 @@ include ../_util-fns
   event binding syntax.
   
   当用户点击链接、按下按钮或者输入文字时，我们得知道发生了什么。这些用户动作都会产生DOM事件。
-  本章中，我们将学会如何使用Angular事件绑定语法来绑定这些事件。
+  本章中，我们将学习如何使用Angular事件绑定语法来绑定这些事件。
 
   [Run the live example](/resources/live-examples/user-input/ts/plnkr.html)
   
@@ -26,6 +26,7 @@ include ../_util-fns
   As an example, here's an event binding that implements a click handler:
   
   语法非常简单。我们只要把DOM事件的名字包裹在圆括号中，然后用一个放在引号中的“模板语句”对它赋值就可以了。
+  下面的例子中，点击事件被绑定到了一个事件处理方法上：
 +makeExample('user-input/ts/app/click-me.component.ts', 'click-me-button')(format=".", language="html")
 
 <a id="click"></a>
@@ -35,8 +36,8 @@ include ../_util-fns
   respond to the click event by calling the component's `onClickMe` method. A [template statement](./template-syntax.html#template-statements) is a subset
   of JavaScript with restrictions and a few added tricks.
   
-  等号左边的`(click)`表示把该按钮的click事件作为**绑定目标**。
-  等号右边，引号中的文本是一个**模板语句**，在这里我们通过调用组件的`onClickMe`方法来响应这个click事件。
+  等号左边的`(click)`表示把该按钮的点击事件作为**绑定目标**。
+  等号右边，引号中的文本是一个**模板语句**，在这里我们通过调用组件的`onClickMe`方法来响应这个点击事件。
   [模板语句](./template-syntax.html#template-statements)的语法是JavaScript语法的一个受限子集，但它也添加了少量“小花招”。
 
   When writing a binding we must be aware of a template statement's **execution context**.
@@ -90,8 +91,8 @@ include ../_util-fns
   We then use [interpolation](./template-syntax.html#interpolation)
   to display the accumulating `values` property back on screen.
 
-  组件的`onKey()`方法是我们从事件对象中提取出用户输入的地方，然后把这个输入加入用户数据的列表，并累加到组件的`values`属性上。
-  最后使用[插值表达式](./template-syntax.html#interpolation)来把存放累加结果的`values`属性回显到屏幕上。
+  组件的`onKey()`方法是用来从事件对象中提取出用户输入的，它把输入的值累加组件的`values`属性里，我们利用这个属性来累计用户数据。
+  然后我们使用[插值表达式](./template-syntax.html#interpolation)来把存放累加结果的`values`属性回显到屏幕上。
   
   Enter the letters "abc", and then backspace to remove them.
   Here's what the UI displays:
@@ -117,11 +118,11 @@ figure.image-display
     <br>Strong typing reveals a serious problem with passing a DOM event into the method:
     too much awareness of template details, too little separation of concerns.
 
-    <br>开启强类型之后暴露出一个严重问题：直接把DOM事件对象传给方法会导致过多关心模板细节，而关注点分离得太少了。（译注：比如需要进行丑陋的强制类型转换）
+    <br>使用强类型后，我们就能看出直接把DOM事件对象传到方法里的做法有一个严重的问题：过多模板细节，太少关注点分离。(译注：onKey不应该理会模板的实现细节，只接收传入字符串。需要强制转换类型是代码的坏味道。)
 
     We'll address this problem in our next try at processing user keystrokes.
     
-    我们先记下这个问题，以后再继续尝试处理用户按键。
+    我们将在下次再处理用户按键时处理这个问题。
 :marked
 
 .l-main-section
@@ -169,7 +170,7 @@ figure.image-display
   :marked
     **This won't work at all unless we bind to an event**.
     
-    **我们必须绑定到一个事件，否则这将完全无法工作。**
+    **我们必须有一个事件绑定，否则这将完全无法工作。**
 
     Angular only updates the bindings (and therefore the screen)
     if we do something in response to asynchronous events such as keystrokes.
@@ -182,7 +183,7 @@ figure.image-display
     
     这就是我们为什么需要把`keyup`事件绑定到一个语句，它做了……好吧，它啥也没做。
     它被绑定到了数字0，因为这是我们所能想到的最短语句。
-    这么做完全是为了讨好Angular。我们认为，还应该有更聪明的方式！
+    这么做完全是为了讨好Angular。我们说过会很聪明！
 :marked
   That template reference variable is intriguing. It's clearly easier to get to the textbox with that
   variable than to go through the `$event` object. Maybe we can rewrite our previous
@@ -255,6 +256,7 @@ figure.image-display
 :marked
   ## Put it all together
   ## 把它们放在一起
+  
   We learned how to [display data](./displaying-data.html) in the previous chapter.
   We've acquired a small arsenal of event binding techniques in this chapter.
   
@@ -297,7 +299,7 @@ figure.image-display
   simpler. Without the variable, we'd have to use a fancy CSS selector
   to find the input element.
   
-  从模板变量中获得元素让按钮的click事件处理变得更简单。
+  从模板变量中获得元素，可以让按钮的点击click事件处理变得更简单。
   如果没有变量，我们就不得不使用“奇怪的”CSS选择器来查找这个input元素。
 
   ### Pass values, not elements
@@ -315,7 +317,7 @@ figure.image-display
   Instead, we grab the input box *value* and pass *that* to `addHero`.
   The component knows nothing about HTML or the DOM, which is the way we like it.
   
-  该怎么做呢？我们该取得输入框的*value*，并把它传给`addHero`。
+  该怎么做呢？我们该取得输入框的*值value*，并把它传给`addHero`。
   该组件不需要知道关于HTML或DOM的任何知识，我们更喜欢这种方式。
 
   ### Keep template statements simple
@@ -335,7 +337,7 @@ figure.image-display
   input box (our design choice).
   
   第二条语句的存在理由很充分：在把新的英雄加入列表中之后，我们得清除输入框的值。
-  组件自己做不到这一点，它不能访问输入框（我们的设计就是这样）。
+  组件自己做不到这一点，它不能访问输入框（我们的设计选择）。
 
   Although the example *works*, we are rightly wary of JavaScript in HTML.
   Template statements are powerful. We're supposed to use them responsibly.
@@ -343,11 +345,11 @@ figure.image-display
   
   虽然范例*能工作*，但我们得对HTML中的JavaScript保持警惕。
   模板语句很强大，所以我们更得认真负责的使用它们。
-  但显然，在HTML中使用复杂的JavaScript是不负责任的表现。
+  显然，在HTML中使用复杂的JavaScript是不负责任的表现。
 
   Should we reconsider our reluctance to pass the input box into the component?
   
-  我们要重新考虑下是否不得不把输入框传给组件？
+  我们是否要重新考虑我们的顾虑，把输入框直接传给组件？
 
   There should be a better third way. And there is, as we'll see when we learn about `NgModel` in the [Forms](forms.html) chapter.
   
@@ -383,7 +385,7 @@ figure.image-display
   
   我们已经掌握了响应用户输入和操作的基础技术。
   虽然这些基础技术确实强大，但在处理大量用户输入时难免显得笨拙。
-  我们正在事件底层操作。我们应该在数据输入字段和模型属性之间建立双向数据绑定。
+  我们在事件底层操作，但是真正应该做的是：在数据输入字段和模型属性之间建立双向数据绑定。
 
   Angular has a two-way binding called `NgModel`, which we'll learn about
   in the `Forms` chapter.
