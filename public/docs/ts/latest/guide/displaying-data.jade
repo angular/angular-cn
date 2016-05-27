@@ -247,21 +247,21 @@ figure.image-display
   to the item (the hero) in the current iteration. Angular uses that variable as the
   context for the interpolation in the double curly braces.
   
-  Angular为列表中的每一个条目复制`<li>`元素。在每个迭代中，都会把`hero`变量设置为当前条目（此英雄）。
-  Angular会把这个`hero`变量作为双花括号中插值表达式的上下文。
+  Angular为列表中的每一个条目复制一个`<li>`元素。在每个迭代中，都会把`hero`变量设置为当前条目（此英雄）。
+  Angular把`hero`变量作为双花括号插值表达式的上下文。
 .l-sub-section
   :marked
     We happened to give `ngFor` an array to display.
     In fact, `ngFor` can repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
     object.
     
-    这里我们传给了`ngFor`一个“数组”让它显示。
-    但实际上，`ngFor`可以为任何[可迭代Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
+    这里我们传给`ngFor`一个“数组”让它显示。
+    但实际上，`ngFor`可以为任何[可迭代(Iterable)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
 :marked
   Assuming we're still running under the `npm start` command,
   we should see heroes appearing in an unordered list.
   
-  如果我们仍在运行着`npm start`命令，我们将看到英雄们的数据展现在了一个无序列表中。
+  如果着`npm start`命令仍在运行，我们将在了一个无序列表中看到英雄们的数据。
   
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/hero-names-list.png" alt="ngfor之后")
@@ -277,7 +277,7 @@ figure.image-display
   Although we won't do anything about that in this chapter, we'll make a mental note to fix this down the road.
   
   我们在组件内部直接定义了数据。
-  对于演示来说，这还不错，但它显然不是最佳实践。它甚至算不上一个好的实践。
+  作为演示还可以，但它显然不是最佳实践。它甚至是一个很不好的实践。
   我们在本章中先不管它，只是记下来，等将来再修复这个问题。
 
   At the moment, we're binding to an array of strings. We do that occasionally in real applications, but
@@ -298,12 +298,12 @@ figure.image-display
 :marked
   We've defined a class with a constructor and two properties: `id` and `name`.
   
-  我们已经定义了一个带有构造函数和两个属性：`id`和`name`的类。
+  我们这样就定义了一个带有构造函数和两个属性：`id`和`name`的类。
 
   It might not look like we have properties, but we do. We're taking
   advantage of a TypeScript shortcut in our declaration of the constructor parameters.
   
-  它可能看上去不像是有属性的，但确实有。我们利用的是TypeScript提供的简写形式 —— 用构造函数的参数直接定义属性。
+  它可能看上去不像是有属性的类，但我们确实有。我们利用的是TypeScript提供的简写形式 —— 用构造函数的参数直接定义属性。
   
   Consider the first parameter:
   
@@ -337,7 +337,7 @@ figure.image-display
   Let's redefine the `heroes` property in our component to return an array of these Hero objects
   and also set the `myHero` property with the first of these mock heroes.
   
-  我们要把组件的`heroes`属性重定义为这些Hero对象的数组，并把这个数组中的第一项赋值给`myHero`属性。
+  我们要把组件的`heroes`属性重新定义为这些Hero对象的数组，并把这个数组中的第一项赋值给`myHero`属性。
   
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'heroes', 'app.component.ts (节选)')(format=".")
 
@@ -347,14 +347,14 @@ figure.image-display
   Let's fix that so we interpolate the `hero.name` property.
   
   我们还得更新一下模板。
-  现在它显示的是整个`hero`对象的值，这是被作为字符串值使用了。
+  现在它显示的是整个`hero`对象，它原来是字符串值。
   我们要修复它，所以，我们的插值表达式应该使用`hero.name`属性。
 +makeExample('displaying-data/ts/app/app.component.3.ts', 'template','app.component.ts (模板)')(format=".")
 
 :marked
   Our display looks the same, but now we know much better what a hero really is.
   
-  从显示上看还是一样，但现在除了名字之外，我们有了更多英雄信息。
+  从显示上看还是一样，但现在除了名字之外，我们可以有更多英雄信息。
 
 <a id="ngIf"></a>
 .l-main-section
@@ -369,7 +369,7 @@ figure.image-display
 
   In our example, we'd like to display a message if we have a large number of heroes &mdash; say, more than 3.
   
-  在我们的例子中，假设如果有大量的英雄 —— 比如大于3位，我们希望显示一条消息。
+  在我们的例子中，假设如果有大量的英雄 —— 比如大于3位的情况下，我们想要显示一条消息。
 
   The Angular `ngIf` directive inserts or removes an element based on a truthy/falsey condition.
   We can see it in action by adding the following paragraph at the bottom of the template:
@@ -394,7 +394,7 @@ figure.image-display
 
   双引号中的[模板表达式](./template-syntax.html#template-expressions)，看起来很像JavaScript，但它也_只是_“像”JavaScript。
   当组件中的英雄列表有三个以上的条目时，Angular把这些语句添加到DOM中，于是消息显示了出来。
-  如果少于或等于三个条目，Angular会移除这些语句，于是不显示任何消息。
+  如果少于或等于三个条目，Angular会移除这些语句，于是没有消息显示。
 .alert.is-helpful
   :marked
     Angular isn't showing and hiding the message. It is adding and removing the paragraph element from the DOM.
@@ -402,7 +402,7 @@ figure.image-display
     we were conditionally including or excluding a big chunk of HTML with many data bindings.
     
     Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这些元素。
-    在这个范例中，它们几乎等价。但是如果我们想要有条件的包含或排除“一大堆”带着很多数据绑定的HTML，性能上的区别就会更加显著。
+    在这个范例中，它们(在性能上)几乎等价。但是如果我们想要有条件的包含或排除“一大堆”带着很多数据绑定的HTML，性能上的区别就会更加显著。
     
 :marked
   Try it out. Because the array has four items, the message should appear.
@@ -424,7 +424,7 @@ figure.image-display
   
   - **interpolation** with double curly braces to display a component property
   
-  - 用带有双花括号的**插值表达式Interpolation**来显示组件的一个属性
+  - 用带有双花括号的**插值表达式(Interpolation)**来显示组件的一个属性
   
   - **`ngFor`** to display a list of items
   
@@ -432,7 +432,7 @@ figure.image-display
   
   - a TypeScript class to shape the **model data** for our component and display properties of that model
   
-  - 用一个TypeScript类来为我们的组件描述**模型数据**并显示模型的各个属性。
+  - 用一个TypeScript类来为我们的组件描述**数据模型**并显示模型的各个属性。
   
   - **`ngIf`** to conditionally display a chunk of HTML based on a boolean expression
   
