@@ -611,7 +611,7 @@ figure.image-display
     We might split the binding if we had to do something special in
     the event handling such as debounce or throttle the key strokes.
     
-    很高兴知道这些，但现实中呢？实践上我们几乎总是优先使用`[(ngModel)]`形式的双向绑定。
+    很高兴知道这些，但是这样现实吗？实践上我们几乎总是优先使用`[(ngModel)]`形式的双向绑定。
     只有当我们不得不在事件处理函数中做一些特别的事情（比如合并或限制按键频率）时，才需要拆分出独立的事件处理函数。
 
     Learn more about `NgModel` and other template syntax in the
@@ -640,14 +640,14 @@ figure.image-display
   We can leverage those class names to change the appearance of the
   control and make messages appear or disappear.
   
-  这个指令不仅仅跟踪状态，它还会使用上面列出的这些特殊CSS类更新此控件。
+  这个指令不仅仅跟踪状态，它还会使用下面列出的这些特殊CSS类更新此控件。
   我们可以通过定制这些CSS类的样式来更改控件的外观，以及让消息被显示或隐藏。
 
   We'll explore those effects soon. Right now
   we should **add `ngControl` to all three form controls**,
   starting with the *Name* input box
   
-  我们很快就会看到那些效果。现在，我们得先**把`ngControl`添加到所有这三个表单控件中**，就从*姓名*输入框开始吧：
+  我们很快就会看到那些效果。现在，我们得先**把`ngControl`添加到所有这三个表单控件中**，就从*Name*输入框开始吧：
 +makeExample('forms/ts/app/hero-form.component.html', 'ngControl-1', 'app/hero-form.component.html (节选)')(format=".")
 :marked
   We set this particular `ngControl` to "name" which makes sense for our app. Any unique value will do.
@@ -689,7 +689,7 @@ figure.image-display
   The *NgControl* directive doesn't just track state. 
   It updates the control with three classes that reflect the state.
   
-  *NgControl*指令不止跟踪状态。它还使用三个CSS类来更新控件，以便反映当前状态。
+  *NgControl*指令不仅仅跟踪状态。它还使用三个CSS类来更新控件，以便反映当前状态。
   
 table
   tr
@@ -791,7 +791,7 @@ figure.image-display
   We achieve this effect by adding two styles to a new `forms.css` file
   that we add to our project as a sibling to `index.html`.
   
-  通过添加两个样式定义到新的`forms.css`文件中，我们达到了预期效果。这个文件我们要添加到项目中，和`index.html`同级。
+  在新建的`forms.css`文件中，添加两个样式定义可以达到预期效果。我们把这个文件添加到项目中，和`index.html`相邻。
 
 +makeExample('forms/ts/forms.css',null,'forms.css')(format=".")
 :marked
@@ -913,7 +913,7 @@ figure.image-display
   power to valid value.
   
   英雄的*超能力*选项是必填的。
-  可以往`<select>`上添加相同的错误处理，只要我们希望如此。
+  只要愿意，我们可以往`<select>`上添加相同的错误处理。
   但是这没有那么迫切，因为这个选择框已经足够把“超能力”约束成有效值了。
   
 <a id="new-hero"></a>
@@ -956,7 +956,7 @@ figure.image-display
   Inspecting the element in the browser tools reveals that the *name* input box is no longer pristine.
   Replacing the hero *did not restore the pristine state* of the control.
   
-  使用浏览器工具审查这个元素就会发现，这个*姓名*输入框并不是全新的。
+  使用浏览器工具审查这个元素就会发现，这个*name*输入框并不是全新的。
   更换了英雄*并不会重置控件的“全新”状态*。
 .l-sub-section
   :marked
@@ -972,7 +972,7 @@ figure.image-display
   We add an `active` flag to the component, initialized to `true`. When we add a new hero,
   we toggle `active` false and then immediately back to true with a quick `setTimeout`.
   
-  我们不得不使用一个小花招来重置表单标志。
+  我们不得不使用一个小花招来重置表单控件。
   我们给组件添加一个`active`标记，把它初始化为`true`。当我们添加一个新的英雄时，它把`active`标记设置为`false`，
   然后通过一个快速的`setTimeout`函数迅速把它设置回`true`。
 +makeExample('forms/ts/app/hero-form.component.ts', 
@@ -1008,7 +1008,7 @@ figure.image-display
   does nothing on its own but it will
   trigger a form submit because of its type (`type="submit"`).
   
-  在填写完之后，用户还应该能提交这个表单。
+  在填表完成之后，用户还应该能提交这个表单。
   “提交”按钮位于表单的底部，它自己不会做任何事，但因为具有特殊的type值(`type="submit"`)，所以它会触发表单提交。
 
   A "form submit" is useless at the moment.
@@ -1106,7 +1106,7 @@ figure.image-display
     and not miss a thing.
     
     对演示来说，这是一个平淡的收场。老实说，即使让它更出彩，也无法教给我们任何关于表单的新知识。
-    但这是一个锻炼我们新学到的绑定类技能的好机会。
+    但这是一个锻炼我们新学到的绑定技能的好机会。
     如果你不感兴趣，可以跳过本章的下面这部分，而不用担心错失任何东西。
 :marked
   Let's do something more strikingly visual.
