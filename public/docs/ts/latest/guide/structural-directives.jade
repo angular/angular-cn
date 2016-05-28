@@ -8,27 +8,48 @@ block includes
   to the application state. In this chapter we'll to look at how Angular
   manipulates the DOM and how we can do it ourselves in our own directives.
 
+  单页面应用的基本特性之一，就是它要操纵DOM树。不同于以前那种用户每次浏览都重新从服务器取得整个页面的方式，
+  单页面应用中，DOM中的各个区域会根据应用程序的状态而出现或消失。
+  在本章中，我们将看看Angular如何操纵DOM树，以及我们该如何在自己的指令中这么做。
+
   In this chapter we will
+
+  在本章中，我们将：
   - [learn what structural directives are](#definition)
+  - [学习什么是结构型(structural)指令](#definition)
   - [study *ngIf*](#ngIf)
+  - [研究*ngIf*](#ngIf)
   - [discover the &lt;template> element](#template)
+  - [&lt;template>元素揭秘](#template)
   - [understand the asterisk (\*) in **ngFor*](#asterisk)
+  - [理解**ngFor*中的星号(\*)](#asterisk)
   - [write our own structural directive](#unless)
+  - [写我们自己的结构型指令](#unless)
 
 p Try the #[+liveExampleLink2()].
+p 试试#[+liveExampleLink2('在线例子')].
 
 <a id="definition"></a>
 .l-main-section
 :marked
   ## What are structural directives?
+  ## 什么是结构型指令？
 
   There are three kinds of Angular directives:
+
+  Angular指令可分为三种：
   1. Components
+  1. 组件
   1. Attribute directives
+  1. 属性型指令
   1. Structural directives
+  1. 结构型指令
 
   The *Component* is really a directive with a template.
   It's the most common of the three directives and we write lots of them as we build our application.
+
+  *组件*其实就是一个带模板的指令。
+  它是这三种指令中最常用的，我们会写大量的组件来构建应用程序。
 
   The [*Attribute* directive](attribute-directives.html) changes the appearance or behavior of an element.
   The built-in [NgStyle](template-syntax.html#ngStyle) directive, for example,
@@ -36,9 +57,17 @@ p Try the #[+liveExampleLink2()].
   We can use it to render text bold, italic, and lime green by binding to a
   component property that requests such a sickening result.
 
+  [*属性型*指令](attribute-directives.html)会修改元素的外观或行为。
+  比如，内建指令[NgStyle](template-syntax.html#ngStyle)就能同时修改元素的好几个样式。
+  通过绑定到组件的属性，我们可以把文本渲染成加粗、斜体、灰绿色这种恶心的效果。
+
   A *Structural* directive changes the DOM layout by adding and removing DOM elements.
   We've seen three of the built-in structural directives in other chapters: [ngIf](template-syntax.html#ngIf),
   [ngSwitch](template-syntax.html#ngSwitch) and [ngFor](template-syntax.html#ngFor).
+
+  *结构型*指令通过添加和删除DOM元素来改变DOM的布局。
+  我们会在其它章节看到三个内建的结构型指令：[ngIf](template-syntax.html#ngIf)、
+  [ngSwitch](template-syntax.html#ngSwitch)以及[ngFor](template-syntax.html#ngFor)。
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'structural-directives')(format=".")
 
@@ -47,10 +76,13 @@ p Try the #[+liveExampleLink2()].
 .l-main-section
 :marked
   ## NgIf Case Study
+  ## NgIf案例分析
 
   Let’s focus on `ngIf`. It's a great example of a structural
   directive: it takes a boolean and makes an entire chunk of DOM appear
   or disappear.
+
+  我们重点看下`ngIf`。它是一个很好的结构型指令案例：它接受一个布尔值，并据此让一整块儿DOM树出现或消失。
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'ngIf')(format=".")
 
@@ -58,15 +90,23 @@ p Try the #[+liveExampleLink2()].
   The `ngIf` directive does not hide the element.
   Using browser developer tools we can see that, when the condition is true, the top
   paragraph is in the DOM and the bottom disused paragraph is completely
-  absent from the DOM! In its place are empty `<script>` tags.
+  absent from the DOM! In its place are empty `&lt;script>` tags.
+
+  `ngIf`指令并不会隐藏元素。
+  使用浏览器的开发者工具就会看到：当`condition`为真的时候，只剩下了DOM顶部的段落，而底部无用的段落完全从DOM中消失了！
+  在它的位置上是空白的`&lt;script>`标签
 
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/element-not-in-dom.png' alt="element not in dom")
 
 :marked
   ### Why *remove* rather than *hide*?
+  ### 为什么*移除*而不是*隐藏*？
   We could hide the unwanted paragraph by setting its css `display` style to `none`.
   The element would remain in the DOM while invisible. Instead we removed it with `ngIf`.
+
+  其实也可以通过把CSS样式`display`设置为`none`来隐藏掉那个不想要的段落。
+  该元素仍然留在DOM中，只是看不到了。但我们却通过`ngIf`移除了它。
 
   The difference matters. When we hide an element,
   the component's behavior continues.
@@ -74,19 +114,32 @@ figure.image-display
   Angular keeps checking for changes that could affect data bindings.
   Whatever the component was doing it keeps doing.
 
+  不同之处在于：当我们隐藏掉一个元素时，组件的行为还在继续 —— 它仍然附加在它所属的DOM元素上，
+  它也仍在监听事件。Angular会继续检查哪些能影响数据绑定的变更。
+  组件原本要做的那些事情仍在继续。
+
   Although invisible, the component &mdash; and all of its descendent components &mdash;
   tie up resources that might be more useful elsewhere.
   The performance and memory burden can be substantial and the user may not benefit at all.
 
+  虽然不可见，组件及其各级子组件仍然占用着资源，而这些资源如果分配给别人可能会更有用。
+  在性能和内存方面的负担相当可观，而用户却可能无法从中受益。
+
   On the positive side, showing the element again is very quick.
   The component's previous state is preserved and ready to display.
   The component doesn't re-initialize &mdash; an operation that could be expensive.
+
+  当然，从积极的一面看，重新显示这个元素会非常快。
+  组件以前的状态被保留着，并随时可以显示。
+  组件不用重新初始化 —— 该操作可能会比较昂贵。
 
   `ngIf` is different.
   Setting `ngIf` to false **does** affect the component's resource consumption.
   Angular removes the element from DOM, stops change detection for the associated component,
   detaches it from DOM events (the attachments that it made) and destroys the component.
   The component can be garbage-collected (we hope) and free up memory.
+
+
 
   Components often have child components which themselves have children.
   All of them are destroyed when `ngIf` destroys the common ancestor.
