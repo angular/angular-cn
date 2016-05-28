@@ -553,8 +553,13 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   The pipe maintains a subscription to the input `#{_Observable}` and
   keeps delivering values from that `#{_Observable}` as they arrive.
 
+  而且它是有状态的。
+  该管道维护着一个到所输入的`Observable`的订阅，并且持续从那个`Observable`中发出新到的值。
+
   In this next example, we bind an `#{_Observable}` of message strings
   (`message#{_dollar}`) to a view with the `async` pipe.
+
+  在下个例子中，我们使用该`async`管道把一个消息字符串(`message#{_dollar}`)的`#{_Observable}`绑定到视图中。
 
 +makeExample('pipes/ts/app/hero-async-message.component.ts', null, 'app/hero-async-message.component.ts')
 
@@ -565,7 +570,11 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   and the component doesn't have to unsubscribe when it is destroyed
   (a potent source of memory leaks).
 
+  这个Async管道把样板数据存在了组件代码中。
+  组件不用订阅这个异步数据源，而且不用在被销毁时取消订阅（如果订阅了而忘了反订阅容易导致隐晦的内存泄露）。
+
   ### An impure caching pipe
+  ### 一个非纯而且带缓存的管道
 
   Let's write one more impure pipe, a pipe that makes an HTTP request to the server.
   Normally, that's a horrible idea.
@@ -574,23 +583,42 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   Remember that impure pipes are called every few microseconds.
   If we're not careful, this pipe will punish the server with requests.
 
+  我们来写更多的非纯管道：一个向服务器发起HTTP请求的管道。
+  这通常是一个可怕的主意。
+  不管我们怎么做，估计它都会是一个可怕的主意。
+  但即便如此，为了讲解这个技术点，我们还是写一个吧。
+  时刻记住，非纯管道可能每隔几微秒就会被调用一次。
+  如果我们不小心点儿，这个管道就会发起一大堆请求“攻击”服务器。
+
   We are careful. Our pipe only makes a server call if the request URL has changed.
   It caches the request URL and waits for a result which it also caches when it arrives.
   The pipe returns the cached result (which is null while a request is in flight)
   after every Angular call and only contacts the server as necessary.
 
+  我们确实得小心点儿。所以这个管道只有当所请求的URL发生变化时才会向服务器发起请求。
+  它会缓存这个请求的URL，并等待一个结果，当结果发回来时，就缓存它。
+  以后每当Angular调用此管道时，它都会返回这个缓存的结果（当请求尚未返回时，此结果是空），只在必要时才会去联系服务器。
+
   Here's the code, which uses the [Angular http](server-communication.html) facility
   to retrieve a `heroes.json` file:
+
+  下面就是使用[Angular http](server-communication.html)获取`heroes.json`文件的代码：
 
 +makeExample('pipes/ts/app/fetch-json.pipe.ts', null, 'app/fetch-json.pipe.ts')
 :marked
   Then we demonstrate it in a harness component whose template defines two bindings to this pipe.
+
+  接下来我们用一个测试台组件演示一下它，该组件的模板中定义了两个使用到此管道的绑定。
 +makeExample('pipes/ts/app/hero-list.component.ts', 'template', 'app/hero-list.component.ts (template)')
 :marked
   Despite the two bindings and what we know to be frequent pipe calls,
   the nework tab in the browser developer tools confirms that there is only one request for the file.
 
+  尽管这里有两个绑定，并且我们知道它们频繁的调用了管道，但在浏览器的开发者工具中的“Network”页，我们可以确认只发起了一次到该文件的请求。
+
   The component renders like this:
+
+  组件渲染起来是这样的：
 
 figure.image-display
     img(src='/resources/images/devguide/pipes/hero-list.png' alt="Hero List")
@@ -602,25 +630,38 @@ figure.image-display
   We take the same fetched results displayed in the first binding
   and display them again, this time in JSON format by chaining through to the built-in `JsonPipe`.
 
+  第二个绑定除了用到`FetchPipe`之外还链接了更多管道。
+  我们把获取数据的结果同时显示在第一个绑定和第二个绑定中。第二个绑定中，我们通过链接到一个内建管道`JsonPipe`把它转成了JSON格式。
+
 .callout.is-helpful
   header Debugging with the json pipe
+  header 借助json管道进行调试
   :marked
     The [JsonPipe](../api/common/JsonPipe-class.html)
     provides an easy way to diagnosis a mysteriously failing data binding or
     inspect an object for future binding.
 
+    [JsonPipe](../api/common/JsonPipe-class.html)为你诊断数据绑定的某些神秘错误或为做进一步绑定而探查数据时，提供了一个简单途径。
+
 :marked
   Here's the complete component implementation:
+
+  下面是组件完整的实现代码：
 
 +makeExample('pipes/ts/app/hero-list.component.ts', null, 'app/hero-list.component.ts')
 
 a(id="pure-pipe-pure-fn")
 :marked
   ### Pure pipes and pure functions
+  ### 纯管道与纯函数
 
   A pure pipe uses pure functions.
   Pure functions process inputs and return values without detectable side-effects.
   Given the same input they should always return the same output.
+
+  纯管道使用纯函数。
+  纯函数是指在处理输入并返回结果时，不会产生任何副作用的函数。
+  给定相同的输入，它们总是返回相同的输出。
 
   The pipes we saw earlier in this chapter were implemented with pure functions.
   The built-in `DatePipe` is a pure pipe with a pure function implementation.
@@ -628,28 +669,46 @@ a(id="pure-pipe-pure-fn")
   So is our `FlyingHeroesPipe`.
   A few steps back we reviewed the `FlyingHeroesImpurePipe` &mdash; *an impure pipe with a pure function*.
 
+  在本章中，我们见过的管道都是用纯函数实现的。
+  内建的`DatePipe`就是一个用纯函数实现的纯管道。
+  `ExponentialStrengthPipe`是如此，
+  `FlyingHeroesComponent`也是如此。
+  不久前我们刚看过的`FlyingHeroesImpurePipe`，是一个*用纯函数实现的非纯管道*。
+
   But a *pure pipe* must always be implemented with a *pure function*. Failure to heed this warning will bring about many a console errors regarding expressions that have changed after they were checked.
+
+  但是一个*纯管道*必须总是用*纯函数*实现。忽略这个警告将导致失败 —— 会因为绑定表达式在“变更检测”完成之后又发生改变而带来一大堆控制台错误。
 
 .l-main-section
 :marked
   ## Next Steps
+  ## 下一步
 
   Pipes are a great way to encapsulate and share common display-value
   transformations. We use them like styles, dropping them
   into our templates expressions to enrich the appeal and usability
   of our views.
 
+  管道能很好的封装和共享通用的“值-显示”转换逻辑。我们可以像样式一样使用它们，把它们扔到模板表达式中，以提升视图的表现力和可用性。
+
   Explore Angular's inventory of built-in pipes in the [API Reference](../api/#!?apiFilter=pipe).
   Try writing a custom pipe and perhaps contributing it to the community.
+
+  要浏览Angular的所有内建管道，请到[API参考](../api/#!?apiFilter=pipe)。
+  学着写写自定义管道，并贡献给开发社区。
 
 a(id="no-filter-pipe")
 .l-main-section
 :marked
   ## No *FilterPipe* or *OrderByPipe*
+  ## 没有*FilterPipe*或者*OrderByPipe*
 
   Angular does not ship with pipes for filtering or sorting lists.
   Developers familiar with Angular 1 know these as `filter` and `orderBy`.
   There are no equivalents in Angular 2.
+
+  Angular没有随身发布进行过滤或列表排序的管道。
+  熟悉Angular 1的开发人员应该知道`filter`和`orderBy`过滤器，但在Angular 2中它们没有等价物。
 
   This is not an oversight. Angular 2 is unlikely to offer such pipes because
   (a) they perform poorly and (b) they prevent aggressive minification.
@@ -657,14 +716,25 @@ a(id="no-filter-pipe")
   We learned earlier that such pipes must be  [*impure*](#pure-and-impure-pipes) and that
   Angular calls impure pipes in almost every change detection cycle.
 
+  这并不是疏忽。Angular 2不想提供这些管道，因为 (a) 它们性能堪忧，以及 (b) 它们会阻止比较激进的代码最小化(minification)。
+  无论是`filter`还是`orderBy`都需要它的参数引用对象型属性。
+  我们前面学过，这样的管道必然是[*非纯管道*](#pure-and-impure-pipes)，并且Angular会在几乎每一次变更检测周期中调用非纯管道。
+
   Filtering and especially sorting are expensive operations.
   The user experience can degrade severely for even moderate sized lists when Angular calls these pipe methods many times per second.
   The `filter` and `orderBy` have often been abused in Angular 1 apps, leading to complaints that Angular itself is slow.
   That charge is fair in the indirect sense that Angular 1 prepared this performance trap
   by offering `filter` and `orderBy` in the first place.
 
+  过滤，特别是排序是昂贵的操作。
+  当Angular每秒调用很多次这类管道函数时，即使是中等规模的列表都可能严重降低用户体验。
+  在Angular 1程序中，`filter`和`orderBy`经常被误用，结果连累到Angular自身，人们抱怨说它太慢。
+  从某种意义上，这也不冤：谁叫Angular 1把`filter`和`orderBy`作为首发队员呢？是它自己准备了这个性能陷阱。
+
   The minification hazard is also compelling if less obvious. Imagine a sorting pipe applied to a list of heroes.
   We might sort the list by hero `name` and `planet` of origin properties something like this:
+
+  虽然不是很明显，但代码最小化方面也存在风险。想象一个用于英雄列表的排序管道。我们可能根据英雄原始属性中的`name`和`planet`进行排序，就像这样：
 code-example(language="html")
   &lt;!-- NOT REAL CODE! -->
   &lt;div *ngFor="let hero of heroes | orderBy:'name,planet'">&lt;/div>
@@ -674,9 +744,17 @@ code-example(language="html")
   Unfortunately, aggressive minification *munges* the `Hero` property names so that `Hero.name` and `Hero.planet`
   becomes something like `Hero.a` and `Hero.b`. Clearly `hero['name']` is not going to work.
 
+  我们使用文本字符串来标记出排序字段，期望管道通过索引形式(如`hero['name']`)引用属性的值。
+  不幸的是，激进的代码最小化策略会*改变*`Hero`类的属性名，所以`Hero.name`和`Hero.planet`可能会被变成`Hero.a`和`Hero.b`。
+  显然，`hero['name']`是无法正常工作的。
+
   Some of us may not care to minify this aggressively. That's *our* choice.
   But the Angular product should not prevent someone else from minifying aggressively.
   Therefore, the Angular team decided that everything shipped in Angular will minify safely.
+
+  我们中的一些人可能不想做那么激进的最小化。但那不过是*我们的*选择而已。
+  Angular作为一个产品不应该拒绝那些想做激进的最小化的人。
+  所以，Angular开发组决定随Angular一起发布的每样东西，都应该能被安全的最小化。
 
   The Angular team and many experienced Angular developers strongly recommend that you move
   filtering and sorting logic into the component itself.
@@ -685,5 +763,11 @@ code-example(language="html")
   Any capabilities that you would have put in a pipe and shared across the app can be
   written in a filtering/sorting service and injected into the component.
 
+  Angular开发组和一些有经验的Angular开发者强烈建议你：把你的过滤和排序逻辑挪进组件本身。
+  组件可以对外暴露一个`filteredHeroes`或`sortedHeroes`属性，这样它就获得控制权，以决定要用什么频度去执行其它辅助逻辑。
+  你原本准备实现为管道，并在整个应用中共享的那些功能，都能被改写为一个过滤/排序的服务，并注入到组件中。
+
   If these performance and minification considerations do not apply to you, you can always create your own such pipes
   (along the lines of the [FlyingHeroesPipe](#impure-flying-heroes)) or find them in the community.
+
+  如果你不需要顾虑这些性能和最小化问题，也可以创建自己的管道来实现这些功能(参考[FlyingHeroesPipe](#impure-flying-heroes)中的写法)或到社区中去找找。
