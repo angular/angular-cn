@@ -4,5 +4,5 @@ import { HeroService }  from './heroes/hero.service';
 
 //#docregion bootstrap
 bootstrap(AppComponent,
-         [HeroService]); // DISCOURAGED (but works)
+         [HeroService]); // DISCOURAGED (but works)不推荐（但可用）
 //#enddocregion bootstrap

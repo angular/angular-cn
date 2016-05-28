@@ -14,7 +14,7 @@ include ../_util-fns
   In this chapter we'll learn what DI is and why we want it.
   Then we'll learn [how to use it](#angular-di) in an Angular app.
   
-  在本章中，我们将学习DI是什么，以及为什么我们需要它。
+  在本章中，我们将学习DI是什么，以及我们为什么需要它。
   然后，我们将学习在Angular应用中该[如何使用它](#angular-di)。
 // #enddocregion intro
 :marked
@@ -51,8 +51,8 @@ include ../_util-fns
   the `Car` constructor creates its own copies by "new-ing" them from
   the very specific classes, `Engine` and `Tires`.
 
-  我们的汽车（`Car`）类需要一个引擎（`Engine`）和轮胎（`Tires`），它没有去请求一个现成的实例，
-  而是在构造函数中用具体的类`Engine`和`Tires`新创建了一份只供自己用的副本。
+  我们的`Car`类需要一个`Engine`和`Tires`，它没有去请求一个现成的实例，
+  而是在构造函数中用具体的`Engine`和`Tires`类新创建了一份只供自己用的副本。
   
   What if the `Engine` class evolves and its constructor requires a parameter?
   Our `Car` is broken and stays broken until we rewrite it along the lines of
@@ -63,17 +63,17 @@ include ../_util-fns
   when the definion of `Engine` changes, our `Car` class must change.
   That makes `Car` brittle.
   
-  如果`Engine`类升级了，并且它的构造函数要求传入一个参数了怎么办？
-  我们这个`Car`类就被破坏了，并且直到我们把创建代码重写为`#{prefix}engine = new Engine(theNewParameter)`之前，它都坏着。
-  当我们首次写`Car`类时，我们不会在乎`Engine`构造函数的参数。就算现在我们也不想在乎。
-  但当`Engine`类的定义发生变化时，我们就不得不在乎了，`Car`类也不得不跟着改变。
+  如果`Engine`类升级了，并且它的构造函数要求传入一个参数了，该怎么办？
+  我们这个`Car`类就被破坏了，而且直到我们把创建引擎的代码重写为`#{prefix}engine = new Engine(theNewParameter)`之前，它都是坏的。
+  当我们首次写`Car`类时，我们不会在乎`Engine`构造函数的参数。现在我们也不想在乎。
+  但是当`Engine`类的定义发生变化时，我们就不得不在乎了，`Car`类也不得不跟着改变。
   这就会让`Car`类过于脆弱。
 
   What if we want to put a different brand of tires on our `Car`? Too bad.
   We're locked into whatever brand the `Tires` class creates. That makes our `Car` inflexible.
   
   如果我们想在我们的`Car`上用一个不同品牌的轮胎会怎样？太糟了。
-  我们被锁死在了`Tires`类创建时使用的那个品牌上。这让我们的`Car`类缺乏弹性。
+  我们被锁死在`Tires`类创建时使用的那个品牌上。这让我们的`Car`类缺乏弹性。
 
   Right now each new car gets its own engine. It can't share an engine with other cars.
   While that makes sense for an automobile engine,
@@ -108,7 +108,7 @@ include ../_util-fns
   When we can't control the dependencies, a class becomes difficult to test.
   
   我们没法控制这辆车背后隐藏的依赖。
-  而如果不能控制这些依赖，类就会变得难以测试。
+  当我们不能控制依赖时，类就会变得难以测试。
 
   How can we make `Car` more robust, flexible, and testable?
   
@@ -189,7 +189,7 @@ include ../_util-fns
   during each test:
   
   `Car`类非常容易测试，因为我们现在对它的依赖有了完全的控制权。
-  我们可以往构造函数中传入mock对象，在每个测试期间，它们可以做到我们想让它们做的事：
+  在每个测试期间，我们可以往构造函数中传入mock对象，做到我们想让它们做的事：
 // #enddocregion why-6
 - var stylePattern = { otl: /(new Car.*$)/gm };
 +makeExample('dependency-injection/ts/app/car/car-creations.ts', 'car-ctor-instantiation-with-mocks', '', stylePattern)(format=".")
@@ -197,7 +197,7 @@ include ../_util-fns
 :marked
   **We just learned what dependency injection is**.
   
-  **我们刚刚学过什么是依赖注入**
+  **我们刚刚学到了什么是依赖注入**
 
   It's a coding pattern in which a class receives its dependencies from external
   sources rather than creating them itself.
@@ -217,7 +217,7 @@ include ../_util-fns
 
   We could write a giant class to do that:
   
-  我们可以写一个巨型类来做这件事：
+  我们可以写一个巨型类来做这件事（不好的模式）：
 // #enddocregion why-7
 +makeExample('dependency-injection/ts/app/car/car-factory.ts', null, 'app/car/car-factory.ts')
 // #docregion why-8
@@ -234,7 +234,7 @@ include ../_util-fns
   Wouldn't it be nice if we could simply list the things we want to build without
   having to define which dependency gets injected into what?
   
-  如果我们能简单的列出我们想建造的东西，而不用定义要把哪些依赖注入哪些对象，那该多好！
+  如果我们能简单的列出我们想建造的东西，而不用定义该把哪些依赖注入到哪些对象中，那该多好！
 
   This is where the dependency injection framework comes into play.
   Imagine the framework had something called an _injector_.
@@ -256,7 +256,7 @@ include ../_util-fns
   We don't have a gigantic factory class to maintain.
   Both `Car` and consumer simply ask for what they need and the injector delivers.
   
-  多方皆赢的方式。`Car`不需要知道如何创建`Engine`和`Tires`的任何事。
+  多方皆赢。`Car`不需要知道如何创建`Engine`和`Tires`的任何事。
   消费者不知道如何创建`Car`的任何事。
   我们不需要一个巨大的工厂类来维护它们。
   `Car`和消费者只要简单的说出它们想要什么，注入器就会交给它们。
@@ -280,13 +280,13 @@ include ../_util-fns
   Angular ships with its own dependency injection framework. This framework can also be used
   as a standalone module by other applications and frameworks.
   
-  Angular自带了它自己的依赖注入框架。但此框架也能被当做独立模块用于其它应用和框架中。
+  Angular自带了它自己的依赖注入框架。此框架也能被当做独立模块用于其它应用和框架中。
 
   That sounds nice. What does it do for us when building components in Angular?
   Let's see, one step at a time.
   
   听起来很好。当我们在Angular中构建组件的时候，它到底能为我们做什么？
-  让我们看看，一次一步儿。
+  让我们一步一个脚印的看看。
 
   We'll begin with a simplified version of the `HeroesComponent`
   that we built in the [The Tour of Heroes](../tutorial/).
@@ -311,7 +311,7 @@ include ../_util-fns
   Our stripped down version has only one child, `HeroListComponent`,
   which displays a list of heroes.
   
-  `HeroesComponent`是*英雄*特性区域的根组件。它管理本分区的所有子组件。
+  `HeroesComponent`是*英雄*特性区域的根组件。它管理本区的所有子组件。
   我们简化后的版本只有一个子组件`HeroListComponent`，用来显示一个英雄列表。
 // #enddocregion di-2
 // #docregion di-3
@@ -325,7 +325,7 @@ include ../_util-fns
   
   现在`HeroListComponent`从`HEROES`获得英雄数据，一个在另一个文件中定义的内存数据集。
   它在开发的早期阶段可能还够用，但离完美就差得远了。
-  一旦我们开始测试此组件，或者想从远端服务器获得英雄数据，我们就不得不修改`heroes`的实现，并要修改每个用到了`HEROES`模拟数据的地方。
+  我们一旦开始测试此组件，或者想从远端服务器获得英雄数据，我们就不得不修改`heroes`的实现，并要修改每个用到了`HEROES`模拟数据的地方。
 
   Let's make a service that hides how we get hero data.
   
@@ -361,13 +361,14 @@ include ../_util-fns
     我们甚至没有假装这是一个真实的服务。
     如果我们真的从一个远端服务器获取数据，这个API必须是异步的，可能得返回
     [ES2015 承诺（Promise）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
+    我们也需要被迫重新处理组件如何消费该服务的方式。通常这个很重要，但是我们目前的故事不需要。
 // #enddocregion di-5
 // #docregion di-6
 :marked
   A service is nothing more than a class in Angular 2.
   It remains nothing more than a class until we register it with an Angular injector.
   
-  在Angular 2中，服务其实只不过是一个类。
+  在Angular 2中，服务只是一个类。
   除非我们把它注册进一个Angular注入器，否则它没有任何特别之处。
 // #enddocregion di-6
 // #docregion di-configure-injector-1
@@ -392,7 +393,7 @@ include ../_util-fns
   We'll explain what [providers](#providers) are later in this chapter.
   Before we do, let's see an example of provider registration during bootstrapping:
   
-  我们必须先注册**供应商Provider**来配置好注入器，这在创建应用所需的服务时会用到。
+  我们必须先注册**供应商Provider**来配置注入器，这些供应商为我们的应用程序创建所需服务。
   我们将在本章的稍后部分解释什么是[供应商](#providers)。
   在此之前，我们先来看一个在启动期间注册供应商的例子。
 // #enddocregion di-configure-injector-2
@@ -419,7 +420,7 @@ include ../_util-fns
   and nowhere else &mdash; the ideal place to register it is in the top-level `HeroesComponent`.
   
   首选的方式是在应用的组件中注册供应商。
-  因为`HeroService`是用于*英雄*功能区的 —— 并且没别处用它 —— 所以注册它的理想地点就是`HeroesComponent`的顶层。
+  因为`HeroService`是用于*英雄*功能区的 —— 并且没别处用它 —— 所以注册它的理想地点就是顶层的`HeroesComponent`。
 // #enddocregion di-configure-injector-3
 // #docregion di-register-providers-1
 :marked
@@ -490,7 +491,7 @@ include ../_util-fns
     We're writing in TypeScript and have followed the parameter name with a type annotation, `:HeroService`.
     The class is also decorated with the `@Component` decorator (scroll up to confirm that fact).
     
-    我们利用TypeScript编程，在参数名后面带有一个类型注解：`:HeroService`。
+    我们利用TypeScript编程，在参数名后面添加了一个类型注解：`:HeroService`。
     这个类还有一个`@Component`的装饰器（往上翻翻就知道了）。
 
     When the TypeScript compiler evaluates this class, it sees the `@Component` decorator and adds class metadata
@@ -547,7 +548,7 @@ include ../_util-fns
   Learn more about that in the [Hierarchical Injectors](./hierarchical-dependency-injection.html) chapter.
   
   然而，Angular DI是一个分层的依赖注入系统，这意味着被嵌套的注入器可以创建它们自己的服务实例。
-  要了解更多知识，参见[分层注入器](./hierarchical-dependency-injection.html)一章。
+  要了解更多知识，参见[多级依赖注入器](./hierarchical-dependency-injection.html)一章。
 // #enddocregion di-singleton-services
 
 // Skip this for Dart, for now
@@ -560,7 +561,7 @@ include ../_util-fns
   Listing dependencies as constructor parameters may be all we need to test application parts effectively.
   
   我们前面强调过，设计一个适合依赖注入的类，可以让这个类更容易测试。
-  要有效的测试应用中的一部分，需要我们做的一切，就只是在构造函数的参数中列出依赖。
+  要有效的测试应用中的一部分，在构造函数的参数中列出依赖就是我们需要做的一切。
 
   For example, we can create a new `HeroListComponent` with a mock service that we can manipulate
   under test:
