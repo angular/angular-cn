@@ -139,38 +139,63 @@ figure.image-display
   detaches it from DOM events (the attachments that it made) and destroys the component.
   The component can be garbage-collected (we hope) and free up memory.
 
-
+  而`ngIf`不同。
+  把`ngIf`设置为假**将会**影响到组件的资源消耗。
+  Angular会从DOM中移除该元素，停止相关组件的变更检测，把它从DOM事件中摘掉(事件是组件造成的附加项)，并销毁组件。
+  组件会被垃圾回收(希望如此)并释放内存。
 
   Components often have child components which themselves have children.
   All of them are destroyed when `ngIf` destroys the common ancestor.
   This cleanup effort is usually a good thing.
 
+  组件通常还有子组件，子组件还有自己的子组件。
+  当`ngIf`销毁这个祖先组件时，它们全都会被销毁。
+  这种清理工作通常会是好事。
+
   Of course it isn't *always* a good thing.
   It might be a bad thing if we need that particular component again soon.
+
+  当然，它也并不*总是*好事。
+  如果我们很快就会再次需要这个组件，它就变成坏事了。
 
   The component's state might be expensive to re-construct.
   When `ngIf` becomes `true` again, Angular recreates the component and its subtree.
   Angular runs every component's initialization logic again. That could be expensive ... as when
   a component re-fetches data that had been in memory just moments ago.
+
+  重建组件的状态可能是昂贵的。
+  当`ngIf`重新变为`true`的时候，Angular会重新创建该组件及其子树。
+  Angular会重新运行每个组件的初始化逻辑。那可能会很昂贵……比如当组件需要重新获取刚刚还在内存中的数据时。
 .l-sub-section
   :marked
     *Design thought*: minimize initialization effort and consider caching state in a
     companion service.
+
+    *设计思路*：要最小化初始化的成本，并考虑把状态缓存在一个伴生的服务中。
 :marked
   Although there are pros and cons to each approach,
   in general it is best to use `ngIf` to remove unwanted components rather than
   hide them.
 
+  虽然每种方法都有各自的优点和缺点，但使用`ngIf`来移除不需要的组件通常都会比隐藏它们更好一些。
+
   **These same considerations apply to every structural directive, whether built-in or custom.**
   We should ask ourselves &mdash; and the users of our directives &mdash; to think carefully
   about the consequences of adding and removing elements and of creating and destroying components.
+
+  **同样的考量也适用于每一个结构型指令，无论是内建的还是自定义的。**
+  我们应该让自己以及指令的使用者仔细考虑下添加元素、移除元素以及创建和销毁组件的后果。
 
   Let's see these dynamics at work. For fun, we'll stack the deck *against*
   our recommendation and consider a component called `heavy-loader` that
   ***pretends*** to load a ton of data when initialized.
 
+  让我们在实践中看看这些变化。为了好玩儿，我们设想在甲板上有个叫`heavy-loader`（重型起重机）的组件，它会***假装***在初始化时装载一吨数据。
+
   We'll display two instances of the component.  We toggle the visibility of the first one with CSS.
   We toggle the second into and out of the DOM with `ngIf`.
+
+  我们将显示该组件的两个实例。我们使用CSS切换第一个实例的可见性，用`ngIf`把第二个实例添加到DOM和将其移除。
 
 +makeTabs(
     `structural-directives/ts/app/structural-directives.component.html,
@@ -183,6 +208,9 @@ figure.image-display
   using the built-in `ngOnInit` and `ngOnDestroy` [lifecycle hooks](lifecycle-hooks.html).
   Here it is in action:
 
+  借助内建的`ngOnInit`和`ngOnDestroy`[生命周期钩子](lifecycle-hooks.html)，我们还能记录到组件的创建或销毁过程。
+  下面是它的操作效果：
+
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/heavy-loader-toggle.gif' alt="heavy loader toggle")
 
@@ -191,130 +219,222 @@ figure.image-display
   First we toggle the component's visibility repeatedly. The component never leaves the DOM.
   When visible it's always the same instance and the log is quiet.
 
+  开始的时候，两个组件都在DOM中。
+  首先我们重复切换组件的可见性。组件从未离开过DOM节点。
+  当可见时，它总是同一个实例，而日志里什么都没有。
+
   Then we toggle the second component with `ngIf`.
   We create a new instance every time and the log shows that we're paying
   a heavy price to create and destroy it.
+
+  当我们切换使用`ngIf`的第二个实例时。
+  我们每次都会创建新的实例，而日志中显示，我们为了创建和销毁它付出了沉重的代价。
 
   If we really expected to "wink" the component like this, toggling visibility would be the better choice.
   In most UIs, when we "close" a component we're unlikely see it again for a long time, if ever.
   The `ngIf` would be preferred in that case.
 
+  如果我们真的期望像这样让组件“眨眼”，切换可见性就会是更好的选择。
+  在大多数UI中，当我们“关闭”一个组件时，在相当长时间内都不大可能想再见到它 —— 假如不是再也不见的话。
+  在这种情况下，我们会更喜欢`ngIf`。
+
 <a id="template"></a>
 .l-main-section
 :marked
   ## The *&lt;template>* tag
+  ## *&lt;template>*标签
 
   Structural directives, like `ngIf`, do their magic by using the
   [HTML 5 template tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
 
-  Outside of an Angular app, the `<template>` tag's default CSS `display` property is `none`.
+  结构型指令，比如`ngIf`，使用[HTML 5的template标签](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  完成它们的“魔法”。
+
+  Outside of an Angular app, the `&lt;template>` tag's default CSS `display` property is `none`.
   It's contents are ***invisible*** within
   a hidden [document fragment](https://developer.mozilla.org/en/docs/Web/API/DocumentFragment).
 
-  Inside of an app, Angular ***removes*** the`<template>` tags and their children.
+  在Angular应用之外，`&lt;template>`标签的默认CSS属性`display`是`none`。
+  它的内容存在于一个***隐藏的***[文档片段](https://developer.mozilla.org/en/docs/Web/API/DocumentFragment)中。
+
+  Inside of an app, Angular ***removes*** the`&lt;template>` tags and their children.
   The contents are gone &mdash; but not forgotten as we'll see soon.
 
-  We can confirm these effects by wrapping the middle "hip" of the phrase "Hip! Hip! Hooray!" within a `<template>` tag.
+  而在Angular应用中，Angular会***移除***`&lt;template>`标签及其子元素。
+  这些内容不见了，但是并没有被“忘记”，我们很快就会再见到它。
+
+  We can confirm these effects by wrapping the middle "hip" of the phrase "Hip! Hip! Hooray!" within a `&lt;template>` tag.
+
+  我们可以通过把短语"Hip! Hip! Hooray!"中间的"hip"包在一个`&lt;template>`标签中来验证下这个效果。
+
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'template-tag')(format=".")
 :marked
   The display is a 'Hip! Hooray!', short of perfect enthusiasm. The DOM effects are different when Angular is in control.
+
+  这时候显示的内容是'Hip! Hooray!'，缺乏完美的热情（译注：因为少了一个词嘛）。在Angular的控制下，DOM的效果是不同的。
+
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/template-in-out-of-a2.png' alt="template outside angular")
 
 :marked
-  Evidently Angular replaces the `<template>` tag and its contents with empty `<script>` tags.
+  Evidently Angular replaces the `&lt;template>` tag and its contents with empty `&lt;script>` tags.
   That's just its default behavior.
-  It can do something different as we saw when applying a variety of `ngSwitch` directives to `<template>` tags:
+  It can do something different as we saw when applying a variety of `ngSwitch` directives to `&lt;template>` tags:
+
+  显然，Angular把`&lt;template>`标签及其内容替换成了一个空白的`&lt;script>`标签。
+  这只是它的默认行为。
+  当把`ngSwitch`家族的各种指令应用于`&lt;template>`标签时，我们就会看到有些东西不一样了：
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'ngSwitch')(format=".")
 :marked
   When one of those `ngSwitch` conditions is true, Angular inserts the template's content into the DOM.
 
-  What does this have to do with `ngIf` and `ngFor`?  We didn't use a `<template>` tag with those directives.
+  当这些`ngSwitch`的条件之一为真的时候，Angular把模板的内容插入到了DOM中。
+
+  What does this have to do with `ngIf` and `ngFor`?  We didn't use a `&lt;template>` tag with those directives.
+
+  这和我们用过的`ngIf`和`ngFor`有什么不同？很明显，我们在那些指令中并没有用到`&lt;template>`标签。
 
 <a id="asterisk"></a>
 .l-main-section
 :marked
   ## The asterisk (\*) effect
+  ## 星号(\*)效果
   Here are those directives again. See the difference?
+
+  下面也是那些指令。看出有什么不同了吗？
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'asterisk')(format=".")
 :marked
   We're prefixing these directive names with an asterisk (\*).
 
+  我们把那些指令名加上了星号(\*)前缀。
+
   The asterisk is "syntactic sugar". It simplifies `ngIf` and `ngFor` for both the writer and the reader.
-  Under the hood, Angular replaces the asterisk version with a more verbose `<template>` form.
+  Under the hood, Angular replaces the asterisk version with a more verbose `&lt;template>` form.
+
+  这个星号是一种“语法糖”。它简化了`ngIf`和`ngFor` —— 无论是写还是读。
 
   The next two `ngIf` examples are effectively the same and we may write in either style:
+
+  接下来这两个`ngIf`范例的效果完全相同，只是我们写成了另一种风格：
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'ngIf-template')(format=".")
 
 :marked
   Most of us would rather write in style (A).
 
+  大多数都喜欢用风格(A)来写。
+
   It's worth knowing that Angular expands style (A) into style (B).
-  It moves the paragraph and its contents inside a `<template>` tag.
-  It moves the directive up to the `<template>` tag where it becomes a property binding,
+  It moves the paragraph and its contents inside a `&lt;template>` tag.
+  It moves the directive up to the `&lt;template>` tag where it becomes a property binding,
   surrounded in square brackets. The boolean value of the host component's `condition` property
   determines whether the templated content is displayed or not.
 
+  要知道，Angular会把风格(A)写成风格(B)。
+  它把段落及其内容移到了`&lt;template>`标签中。
+  它把指令移到了`&lt;template>`标签上，成为该标签的一个属性绑定 —— 包装在方括号中。
+  宿主组件的`condition`属性的布尔值决定该模板的内容是否应该被显示。
+
   Angular transforms `*ngFor` in a similar manner:
+
+  Angular把`*ngFor`转换成一个类似的形式：
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'ngFor-template')(format=".")
 :marked
-  The basic pattern is the same:&nbsp; create a `<template>`, relocate the content,
-  and move the directive onto the `<template>`.
+  The basic pattern is the same:&nbsp; create a `&lt;template>`, relocate the content,
+  and move the directive onto the `&lt;template>`.
+
+  基本的转换模式是一样的：创建一个`&lt;template>`，将内容重定位，并且把指令移到`&lt;template>`上。
 
   There are extra nuances stemming from
   Angular's [ngFor micro-syntax](template-syntax.html#ngForMicrosyntax) which expands
   into an additional `ngForOf` property binding (the iterable) and
   the `hero` template input variable (the current item in each iteration).
 
+  这里面的一些细微差别来自于Angular的[ngFor微语法](template-syntax.html#ngForMicrosyntax)，
+  它被展开成了额外的`ngForOf`属性绑定(可迭代者)和一个模板输入变量`hero`(每次迭代中的当前条目)。
+
 <a id="unless"></a>
 .l-main-section
 :marked
   ## Make a structural directive
+  ## 制作一个结构型指令
   Let's write our own structural directive, an `Unless` directive, the not-so-evil twin of `ngIf`.
+
+  我们来写自己的结构型指令：`Unless`，这是`ngIf`指令不那么邪恶的孪生兄弟。
 
   Unlike `ngIf` which displays the template content when `true`,
   our directive displays the content when the condition is ***false***.
 
+  与`ngIf`当条件为`true`时才显示模板内容不同，我们这个指令只有当条件是***false***时才显示这些内容。
+
 block unless-intro
   :marked
     Creating a directive is similar to creating a component.
+
+    创建指令很像创建组件。
+
     * import the `Directive` decorator.
 
+    * 导入`Directive`装饰器。
+
     * add a CSS **attribute selector** (in brackets) that identifies our directive.
+
+    * 添加一个CSS**属性选择器**(括号中)，来标记出我们的指令。
 
     * specify the name of the public `input` property for binding
     (typically the name of the directive itself).
 
+    * 指定`input`属性用于绑定的公开名称（通常就是指令自己的名字）。
+
     * apply the decorator to our implementation class.
 
+    * 把这个装饰器应用到我们的实现类上。
+
     Here is how we begin:
+
+    下面是最初的样子：
 
 +makeExample('structural-directives/ts/app/unless.directive.ts', 'unless-declaration', 'unless.directive.ts (excerpt)')(format=".")
 .l-sub-section
   :marked
     ### Selector brackets [&nbsp;]
+    ### 选择器中的括号[&nbsp;]
     The CSS syntax for selecting an attribute is a name in square brackets.
     We surround our directive name in square brackets. See *Directive configuration* on the
     [cheatsheet](cheatsheet.html).
 
+    在CSS中，用于选择属性(Attribute)的选择器就是放在方括号中的名字。
+    于是我们把指令名包裹在方括号中。参见[小抄](cheatsheet.html)中的*指令配置项*。
+
     ### Selector name prefixes
+    ### 选择器名称前缀
 
     We recommend picking a selector name with a prefix to ensure
     that it cannot conflict with any standard HTML attribute, now or in the future.
+
+    我们建议在给选择器起名时加个前缀，以确保它不会和任何标准的HTML属性冲突，无论是现在还是未来。
 
     We do **not** prefix our `unless` directive name with **`ng`**.
     That prefix belongs to Angular and
     we don't want to confuse our directives with their directives.
 
+    我们**并没有**给`unless`指令名加上**`ng`**前缀。
+    那个前缀是属于Angular的，我们肯定不会希望自己的指令和Angular内建的指令冲突。
+
     Our prefix is `my`.
+
+    我们用的前缀是`my`。
 :marked
   We'll need access to the template *and* something that can render its contents.
   We access the template with a `TemplateRef`.  The renderer is a `ViewContainerRef`.
   We inject both into our constructor as private variables.
+
+  我们需要访问模板，并且*还*需要个渲染器来渲染它的内容。
+  我们通过`TemplateRef`来访问模板。而渲染器就是`ViewContainerRef`。
+  我们把它们都作为私有变量注入到构造函数中。
 
 +makeExample('structural-directives/ts/app/unless.directive.ts', 'unless-constructor')(format=".")
 
@@ -322,17 +442,29 @@ block unless-intro
   The consumer of our directive will bind a boolean value to our directive's `myUnless` input property.
   The directive adds or removes the template based on that value.
 
+  这个指令的使用者将把一个布尔值绑定到指令的输入属性`myUnless`上。
+  该指令会基于这个值添加或移除此模板。
+
   Let's add the `myUnless` property now as a setter-only property.
+
+  我们现在先把`myUnless`属性定义成一个“只写”属性。
 
 +makeExample('structural-directives/ts/app/unless.directive.ts', 'unless-set')(format=".")
 .l-sub-section
   :marked
     The `@Input()` annotation marks this property as an input for the directive.
+
+    `@Input()`装饰器表明这个属性对于指令来说是个输入属性。
+
 :marked
   Nothing fancy here: if the condition is false,
   we render the template, otherwise we clear the element content.
 
+  这里没什么特别的：如果条件为假，我们就渲染模板，否则就清空元素内容。
+
   The end result should look like this:
+
+  最终看起来是这样的：
 
 +makeExample('structural-directives/ts/app/unless.directive.ts', null, 'unless.directive.ts')
 
@@ -340,10 +472,16 @@ block unless-intro
   Now we add it to the `directives`array of the host component and try it.
   First we add some test HTML to the template:
 
+  现在，我们就来把它加到宿主组件的`directives`数组中，试一试。
+  我们首先把一些测试用的HTML添加到模板中：
+
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'myUnless')(format=".")
 :marked
   We run it and it behaves as expected, doing the opposite of `ngIf`.
-  When `condition` is `true`, the top paragraph is removed (replaced by `<script>` tags) and the bottom paragraph appears.
+  When `condition` is `true`, the top paragraph is removed (replaced by `&lt;script>` tags) and the bottom paragraph appears.
+
+  我们运行它，而且它的行为正如所预期的那样 —— 跟`ngIf`相反。
+  当`condition`为`true`时，顶部的段落被移除了(被替换为`&lt;script>`标签)，并且底部的段落显示了出来。
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/myUnless-is-true.png' alt="myUnless is true" )
 
@@ -351,18 +489,29 @@ figure.image-display
   Our `myUnless` directive is dead simple. Surely we left something out.
   Surely `ngIf` is more complex?
 
+  这个`myUnless`指令实在太简单了，我们肯定忘了点什么。
+  那么`ngIf`会更复杂吗？
+
   [Look at the source code](https://github.com/angular/angular/blob/master/modules/%40angular/common/src/directives/ng_if.ts).
   It's well documented and we shouldn't be shy
   about consulting the source when we want to know how something works.
+
+  [看下源码](https://github.com/angular/angular/blob/master/modules/%40angular/common/src/directives/ng_if.ts)。
+  它有很好的文档，况且，如果我们想了解某些东西的工作原理，也不用羞于“咨询”源码。
 
   `ngIf` isn't much different! There are a few
   additional checks to improve performance (don't clear or recreate the
   view unless necessary) but otherwise it's much the same.
 
+  `ngIf`也没多大不同嘛！它做了一些额外的检查来提升性能(除非必要，否则它不会清除或重新创建视图)，但其它的部分都跟我们写的一样。
+
 .l-main-section
 :marked
   ## Wrap up
+  ## 总结
   Here is the pertinent source for this chapter.
+
+  本章相关的代码如下：
 
 +makeTabs(`
   structural-directives/ts/app/unless.directive.ts,
@@ -381,9 +530,16 @@ figure.image-display
   structural directives like `ngFor` and `ngIf` and we
   wrote our own structural directive, `myUnless`, to do something similar.
 
+  我们学会了通过像`ngFor`和`ngIf`这样的结构型指令来操纵HTML的布局。我们还写出了我们的第一个结构型指令`myUnless`来做类似的事情。
+
   Angular offers more sophisticated techniques for managing layout
   such as *structural components* that can take external content
   and incorporate that content within their own templates.
   Tab and tab pane controls are good examples.
 
+  Angular提供了更多成熟的技术来管理布局，比如*结构性组件*可以接受外部内容，并把这些内容合并到组件自己的模板中。
+  多页标签及其面板控件就是很好的例子。
+
   We'll learn about structural components in a future chapter.
+
+  我们将在未来的章节中学到结构型指令。
