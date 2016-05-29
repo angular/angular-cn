@@ -80,7 +80,7 @@ ul
     li #[a(href="#cors") JSONP client: Wikipedia to fetch data from a service that does not support CORS]
     li #[a(href="#cors") JSONP客户端: Wikipedia，从一个不支持CORS的服务获取数据]
     li #[a(href="#more-observables") JSONP client: Wikipedia using observable operators to reduce server calls]
-    li #[a(href="#more-observables") JSONP客户端: Wikipedia，使用可观察对象的操作函数减少服务端调用]
+    li #[a(href="#more-observables") JSONP客户端: Wikipedia，使用可观察对象的操作符减少服务端调用]
 :marked
   These demos are orchestrated by the root `AppComponent`
   
@@ -91,7 +91,7 @@ block rxjs-import
   :marked
     There is nothing remarkable here _except_ for the import of RxJS operators.
     
-    这里唯一值得注意的是对RxJS操作函数的导入。
+    这里唯一值得注意的是对RxJS操作符的导入。
   +makeExample('server-communication/ts/app/app.component.ts', 'import-rxjs')(format='.')
   :marked
     We'll talk about that [below](#rxjs) when we're ready to explore observables.
@@ -339,7 +339,7 @@ block rxjs
     In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
     and `map` is one of the RxJS *operators*.
     
-    事实上，`http.get`方法返回了一个HTTP Response类型的**可观察对象**(`Observable<Response>`)，这个对象来自RxJS库，而`map`是RxJS的*操作函数*之一。
+    事实上，`http.get`方法返回了一个HTTP Response类型的**可观察对象**(`Observable<Response>`)，这个对象来自RxJS库，而`map`是RxJS的*操作符*之一。
 
   .l-main-section
   :marked
@@ -361,7 +361,7 @@ block rxjs
     不过仍然得经过一些额外的步骤才能让RxJS可观察对象在此处可用。
 
     ### Enable RxJS Operators
-    ### 启用RxJS操作函数
+    ### 启用RxJS操作符
     The RxJS library is quite large. 
     Size matters when we build a production application and deploy it to mobile devices.
     We should include only those features that we actually need.
@@ -374,38 +374,38 @@ block rxjs
     a version that lacks most of the operators including some we'd like to use here
     such as the `map` method we called above in `getHeroes`.
     
-    因此，Angular在`rxjs/Observable`模块中导出了一个精简版的`Observable`类，这个版本缺少很多操作函数，
+    因此，Angular在`rxjs/Observable`模块中导出了一个精简版的`Observable`类，这个版本缺少很多操作符，
     比如我们在上面的`getHeroes`方法中用过的`map`函数。
 
     It's up to us to add the operators we need. 
     
-    这让我们可以自由决定添加哪些操作函数。
+    这让我们可以自由决定添加哪些操作符。
     
     We could add _every_ RxJS operators with a single import statement. 
     While that is the easiest thing to do, we'd pay a penalty in extended launch time and application size
     because the full library is so big. We only use a few operators in our app.
     
-    我们确实可以把_每一个_RxJS操作函数都通过单一的import语句添加进去。
+    我们确实可以把_每一个_RxJS操作符都通过单一的import语句添加进去。
     虽然这是最简单的方式，但我们也得付出代价，主要是在启动时间和应用大小上，因为完整的库实在太大了。
-    而我们其实只要用到少量操作函数。
+    而我们其实只要用到少量操作符。
     
     Instead, we'll import each `Observable` operator and static class method, one-by-one, until we have a custom *Observable* implementation tuned
     precisely to our requirements. We'll put the `import` statements in one `app/rxjs-operators.ts` file.
     
-    替代方案是，我们将一个一个的导入`Observable`的操作函数和静态类方法，直到我们得到了一个精确贴合我们需求的自定义*Observable*实现。
+    替代方案是，我们将一个一个的导入`Observable`的操作符和静态类方法，直到我们得到了一个精确贴合我们需求的自定义*Observable*实现。
     我们将把这些`import`语句放进一个`app/rxjs-operators.ts`文件里。
   +makeExample('server-communication/ts/app/rxjs-operators.ts', null, 'app/rxjs-operators.ts')(format=".")
   :marked
     If we forget an operator, the TypeScript compiler will warn that it's missing and we'll update this file.
     
-    如果我们忘了导入某个操作函数，TypeScript编译器就会警告说找不到它，那时候我们再来更新此文件。
+    如果我们忘了导入某个操作符，TypeScript编译器就会警告说找不到它，那时候我们再来更新此文件。
   .l-sub-section
     :marked
       We don't need _all_ of these particular operators in the `HeroService` &mdash; just `map`, `catch` and `throw`.
       We'll need the other operators later, in a *Wiki* example [below](#more-observables).
       
-      在`HeroService`中，我们并不需要这里导入的_全部_操作函数 —— 我们只用到了`map`、`catch`和`throw`。
-      我们稍后的[*Wiki*例子](#more-observables)中，还会用到其它操作函数。
+      在`HeroService`中，我们并不需要这里导入的_全部_操作符 —— 我们只用到了`map`、`catch`和`throw`。
+      我们稍后的[*Wiki*例子](#more-observables)中，还会用到其它操作符。
   :marked
     Finally, we import `rxjs-operator`_itself_ in our `app.component.ts`:
     
@@ -525,7 +525,7 @@ block error-handling
     The eagle-eyed reader may have spotted our use of the `catch` operator in conjunction with a `handleError` method.
     We haven't discussed so far how that actually works. 
     
-    眼尖的读者可能注意会到，我们联合使用了`catch`操作函数和`handleError`方法。
+    眼尖的读者可能注意会到，我们联合使用了`catch`操作符和`handleError`方法。
     但我们还没讨论过它实际的工作方式。
 
     We use the Observable `catch` operator on the service level.
@@ -533,7 +533,7 @@ block error-handling
     Our service handler, `handleError`, logs the response to the console, 
     transforms the error into a user-friendly message, and returns the message in a new, failed observable via `Observable.throw`.
     
-    我们在服务层使用了可观察对象的`catch`操作函数。
+    我们在服务层使用了可观察对象的`catch`操作符。
     它接受一个以error对象为参数的错误处理函数。
     我们的服务处理器（`handleError`）把响应对象记录到控制台中，
     把错误转换成对用户友好的消息，并且通过`Observable.throw`来把这个消息放进一个新的、用于表示“失败”的可观察对象。
@@ -970,7 +970,7 @@ block wikipedia-jsonp+
     ## Observable的更多乐趣
     We can address these problems and improve our app with the help of some nifty observable operators. 
     
-    借助一些漂亮的可观察对象操作函数，我们可以解决这些问题，并提升我们的应用程序。
+    借助一些漂亮的可观察对象操作符，我们可以解决这些问题，并提升我们的应用程序。
 
     We could make our changes to the `WikipediaService`. 
     But we sense that our concerns are driven by the user experience so we update the component class instead.
@@ -1050,7 +1050,7 @@ block wikipedia-jsonp+
       We added the `debounceTime`, `distinctUntilChanged`, and `switchMap` operators to the RxJS `Observable` class
       in `rxjs-operators` as [described above](#rxjs)
       
-      在[前面提过的](#rxjs)`rxjs-operators`文件中，我们把`debounceTime`、`distinctUntilChanged`和`switchMap`操作函数加到了RxJS的`Observable`类中。
+      在[前面提过的](#rxjs)`rxjs-operators`文件中，我们把`debounceTime`、`distinctUntilChanged`和`switchMap`操作符加到了RxJS的`Observable`类中。
 
 a#in-mem-web-api
 .l-main-section
