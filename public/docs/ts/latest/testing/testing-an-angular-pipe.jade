@@ -3,52 +3,98 @@ include ../_util-fns
 :marked
   We’ll test an Angular pipe in this chapter.
 
+  在本章中，我们将测试一个Angular管道。
+
   An Angular pipe is a declarative way in HTML to transform some input into some displayable output.
-  
+
+  Angular管道是在HTML中用来声明把某些输入转换成某些可显示输出的方式。
+
   We don't have a pipe though, since in Tour of Heroes we didn't create any pipes. It uses a pipe though, the `uppercase` pipe that comes with Angular 2.
-  
+
+  我们还没有管道，因为在《英雄指南》中我们没有创建过任何管道。不过它用过一个来自Angular 2中的`uppercase`管道。
+
   We can make our own `my-uppercase` pipe that does exactly the same as the `uppercase` pipe and test that.
-  
+
+  我们可以做一个自己的`my-uppercase`管道兵测试它，该管道的功能和`uppercase`管道完全相同。
+
   Since we're getting ready to write some code we want to test, let's take this opportunity to talk just a little bit about [Test Driven Development](https://en.wikipedia.org/wiki/Test-driven_development). There's a lot written about this topic so we don't want to have an exhaustive description here, but rather a practical application.
-  
+
+  既然我们准备写一些待测试的代码，那就趁机讲一点关于[测试驱动开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development)的知识吧。
+  关于这个主题已经有了大量的著述，我们这里也就不再全面描述它了，而只是针对一个实际的应用来讲。
+
   We already know *exactly* what we want the `uppercase` pipe to do. We could say our ...expectations... of it are very well defined.
-  
+
+  我们已经*确切的*知道`uppercase`应该做什么。可以说，我们对它的……预期行为……是有良好定义的(well defined)。
+
   We always use expectations our expectations to guide development, but sometimes it's hard to see the forest for the trees when we're right in the middle of coding. This is especially evident in larger tasks.
-  
-  So one thing we can do is put those expectations down as cold hard test code. We were going to test things manually anyway, so doing it *before* we have even one line of code isn't going to hurt. 
-  
+
+  我们总是使用自己的预期(Expectation)来指导开发，但是有时候，也很容易见木不见林，特别是我们的代码走到中途的时候。在大型任务中，这种情况尤为明显。
+
+  So one thing we can do is put those expectations down as cold hard test code. We were going to test things manually anyway, so doing it *before* we have even one line of code isn't going to hurt.
+
+  我们所能做的就是把这些预期落实到冰冷的测试代码上。反正无论如何我们都会手动测试它们，那么在连一行代码都没有的时候写点测试代码也不会带来什么问题。
+
   Worst thing that can happen is have that test fail, but on the way to fixing it we'll end up creating our pipe. So in a sense, the failing test will *tell you what it wants* to pass.
-  
+
+  最坏的结果也只是测试会失败，但在我们创建管道的过程中，会逐渐修复它。于是，在这个意义上，失败的测试会*告诉我们它要的是什么*。
+
   We're just putting down expectations, nothing more. If we were to put them down on paper, they would look like this:
 
-  ```  
+  我们只要写下这些预期就行了，不用多。如果把它们写在纸上，大概是这样的：
+
+  ```
     MyUppercasePipe
       transforms "abc" to "ABC"
       transforms "abc def" to "ABC DEF"
       leaves "ABC DEF" unchanged
-  ```  
-   
-  All we need to know to put down our expectations as code is how a pipe class looks like from the outside. From the [pipe developer guide](pipes#custom-pipes) we know that a pipe implements a `transform` method. 
-  
+  ```
+
+  All we need to know to put down our expectations as code is how a pipe class looks like from the outside. From the [pipe developer guide](pipes#custom-pipes) we know that a pipe implements a `transform` method.
+
+  我们需要知道的一切就是：把我们的预期用代码的形式写下来，就意味着这个管道类从外界看起来应该是什么样的。
+  从[管道开发指南](pipes#custom-pipes)中，我们知道管道实现了一个`transform`方法。
+
   Putting it down as Jasmine expectations, they would look something like this:
-  
-+makeExample('testing/ts/app/my-uppercase.pipe.spec.ts', 'expectations')  
+
+  把它写成Jasmine中的“预期”，它们看起来是这样的：
+
++makeExample('testing/ts/app/my-uppercase.pipe.spec.ts', 'expectations')
 
 :marked
   In this chapter we will:
+
+  在本章中，我们将：
+
   - create a test before creating a class
+
+  - 在创建类之前创建一个测试
+
   - load multiple test files in our test harness, using system.js
+
+  - 使用SystemJS把多个测试文件加载到我们的测试挽具中
+
   - add the Angular 2 library to our test harness
+
+  - 往我们的测试挽具中添加Angular 2库
+
   - watch the new test fail, and fix it
+
+  - 监视新测试，如果失败，就修复它
 
 .callout.is-helpful
   header Prior Knowledge
+
+  header 准备知识
+
   :marked
     The Unit Testing chapters build upon each other. We recommend reading them in order.
     We're also assuming that you're already comfortable with basic Angular 2 concepts and the tools
     we introduced in the [QuickStart](../quickstart.html) and
     the [Tour of Heroes](../tutorial/) tutorial
     such as <code>npm</code>, <code>gulp</code>, and <code>live-server</code>.
+
+    这一章单元测试是在其它章节的基础上写的。我们建议你按顺序阅读它们。同时，我们假设你已经对Angular 2的原理、[“快速起步”](../quickstart.html)中介绍的工具、
+    [英雄指南](../tutorial)、<code>npm</code>、<code>gulp</code>和<code>live-server</code>等工具都已经有所了解。
 
 :marked
   ## Add another spec file
@@ -58,9 +104,9 @@ include ../_util-fns
   **Stop and restart the TypeScript compiler** to ensure we compile the new file.
 
   **Add** the following lines of rather obvious Jasmine test code.
-  
+
 +makeExample('testing/ts/app/my-uppercase.pipe.spec.ts', 'base-pipe-spec', 'app/my-uppercase.pipe.spec.ts')
-  
+
 :marked
   Note that each test is short (one line in our case).
   It has a clear label that accurately describes the test. And it makes exactly one expectation.
@@ -84,7 +130,7 @@ include ../_util-fns
 
   Fortunately, we can create a new `Promise` that wraps both import promises and waits
   for both to finish loading.
-    
+
 +makeExample('testing/ts/unit-tests-4.html', 'promise-all')(format=".")
 
 :marked
@@ -92,7 +138,7 @@ include ../_util-fns
 
   In future, when we add a new spec, we add another `System.import('app/some.spec')` to
   the array argument passed to `Promise.all`.
-  
+
   Try it. The browser should refresh and show the following in the console:
 
 code-example(format="" language="html" escape="html").
@@ -100,23 +146,23 @@ code-example(format="" language="html" escape="html").
 
 :marked
   Our test failed, as expected. We're importing something that doesn't exist and our test fails saying that. All is going according to plan.
-  
+
 :marked
   ## The pipe, if you please
-  
-  The test is asking for a pipe, and we shall deliver. 
-  
+
+  The test is asking for a pipe, and we shall deliver.
+
   **Create** a `my-uppercase.pipe.ts` in `app/`.
-  
+
   **Stop and restart the TypeScript compiler** to ensure we compile the new file.
-  
+
   **Add** a basic pipe that doesn't do anything. We know how to make strings uppercase, but we since we're letting the test take the lead let's wait for it to tell us what's next. Maybe it'll surprise us.
-  
+
 +makeExample('testing/ts/app/my-uppercase.pipe.1.ts', null, 'app/my-uppercase.pipe.ts')
 
 :marked
   Reload our test page and...
-  
+
 code-example(format="" language="html" escape="html").
   GET http://localhost:8080/angular2/core 404 (Not Found)
 
@@ -129,7 +175,7 @@ code-example(format="" language="html" escape="html").
   If it had depended on Angular, we’d still be staring at the Jasmine “big-time fail” screen:
 
 figure.image-display
-  img(src='/resources/images/devguide/testing-an-angular-pipe/big-time-fail-screen.png' 
+  img(src='/resources/images/devguide/testing-an-angular-pipe/big-time-fail-screen.png'
       alt="Jasmine's' big time fail screen")
 
 :marked
@@ -137,7 +183,7 @@ figure.image-display
   we were going to need Angular sooner or later. That time has come.
 
   `MyUppercasePipe` depends on Angular as is clear in the first few lines:
-  
+
 +makeExample('testing/ts/app/my-uppercase.pipe.ts', 'depends-on-angular')(format=".")
 
 :marked
@@ -151,42 +197,42 @@ figure.image-display
 
 :marked
   We should now be ready to see our 3 expectations fail when reloading our test page.
-  
+
 figure.image-display
   img(src='/resources/images/devguide/testing-an-angular-pipe/two-failures.png' alt="2 failed tests")
-    
+
 :marked
   ## Uppercase, if you please
-  
+
   The first two tests that passed were our old `hero` interface tests, so it makes sense that those passed. Of our three new expectations, one still passed though.
-  
-  ```  
+
+  ```
     MyUppercasePipe
       transforms "abc" to "ABC"
       transforms "abc def" to "ABC DEF"
       leaves "ABC DEF" unchanged
-  ```  
-  
+  ```
+
   Ah but of course! Our simple pipe doesn't transform the input at all, and the third test expected
   input to not be changed.
-  
+
   All we have to do now is actually transform text to uppercase in our pipe.
-  
+
 +makeExample('testing/ts/app/my-uppercase.pipe.ts', 'uppercase')(format=".")
 
 :marked
   Are we done now?
-  
+
 figure.image-display
   img(src='/resources/images/devguide/testing-an-angular-pipe/zero-failures.png' alt="0 failed tests")
-    
+
 :marked
   The glorious green is back with us again!
-  
+
   We tried a bit of test driven development and it seems to have guided us to success.
-  
-  But it's not always feasible. For instance, sometimes we need to write tests for existing functionality, like what we're about to do with the rest of Tour of Heroes. 
-  
+
+  But it's not always feasible. For instance, sometimes we need to write tests for existing functionality, like what we're about to do with the rest of Tour of Heroes.
+
   If we are writing new code though, writing tests might just be what we need to help us track our progress and keep the end result in sight at all times.
 
 :marked

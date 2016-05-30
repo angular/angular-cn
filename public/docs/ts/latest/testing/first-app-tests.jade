@@ -3,22 +3,31 @@ include ../_util-fns
 :marked
   In this chapter we'll setup the environment for testing our sample application and write a few easy Jasmine tests of the app's simplest parts.
 
-  在这个章节，我们将为我们的样本应用程序设置测试环境，针对应用程序的最简单的部分，编写几个简单的Jasmine测试。
+  本章中，我们将为范例应用设置测试环境，并针对应用程序中最简单的部分，写几个容易点儿的Jasmine测试。
 
   We'll learn:
 
   我们会学到：
+
   - to test one of our application files
-  - 测试我们应用程序的一个文件
+
+  - 测试我们应用程序中的一个文件
+
   - why we prefer our test files to be next to their corresponding source files
-  - 为什么我们比较喜欢把我们的测试文件放到它对应的源码旁边
+
+  - 为什么我们更喜欢把测试文件放在它对应的源码旁边
+
   - to run tests with an `npm` command
-  - 使用`npm`指令运行测试
+
+  - 用`npm`命令运行测试
+
   - load the test file with SystemJS
+
   - 使用SystemJs加载测试文件
 
 .callout.is-helpful
-  header Prior Knowledge 预先需要的知识
+  header Prior Knowledge
+  header 预备知识
   :marked
     The Unit Testing chapters build upon each other. We recommend reading them in order.
     We're also assuming that you're already comfortable with basic Angular 2 concepts and the tools
@@ -26,54 +35,55 @@ include ../_util-fns
     the [Tour of Heroes](../tutorial/) tutorial
     such as <code>npm</code>, <code>gulp</code>, and <code>live-server</code>.
 
-    本单元测试章节是在其它章节的基础上编写的。我们建议你按顺序阅读它们。我们同时假设你已经对Angular 2的原理、在[“快速起步”](../quickstart.html)里介绍的工具、
-    [英雄指南](../tutorial)和<code>npm</code>, <code>gulp</code>, and <code>live-server</code>等工具都所有了解。
+    这一章单元测试是在其它章节的基础上写的。我们建议你按顺序阅读它们。同时，我们假设你已经对Angular 2的原理、[“快速起步”](../quickstart.html)中介绍的工具、
+    [英雄指南](../tutorial)、<code>npm</code>、<code>gulp</code>和<code>live-server</code>等工具都已经有所了解。
 
 .l-main-section
 :marked
   ## Create the test-runner HTML
-  ## 新建一个测试运行器(test-runner) HTML
+
+  ## 创建测试运行器(test-runner)HTML
 
   Locate the folder that contains the application `index.html` for your testing copy of Tour of Heroes.
 
-  在英雄指南的测试拷贝版里面找到包含`index.html`的目录。
+  在《英雄指南》的测试拷贝版里找到含有`index.html`的目录。
 
   Create a new, sibling HTML file, ** `unit-tests.html` ** and copy over the same basic material from the  `unit-tests.html` in the [Jasmine 101](./jasmine-testing-101.html) chapter.
 
-  在隔壁建立一个新的HTML文件，**`unit-tests.html`**，从[Jasmine 101](./jasmine-testing-101.html)章节，将`unit-tests.html`里面的基础内容拷贝到此文件中。
+  新建一个同级的HTML文件**`unit-tests.html`**，从[Jasmine 101](./jasmine-testing-101.html)一章中，将`unit-tests.html`里面的基本素材拷贝进该文件。
 
 +makeExample('testing/ts/unit-tests-2.html', 'test-runner-base', 'unit-tests.html')
 
 :marked
   We're picking up right where we left off. All we've done is change the title.
 
-  我们将从上次的的基础上开始。我们只修改了标题。
+  我们把上次的重点作为起点。那时我们只修改完了标题。
 
 .l-main-section
 :marked
   ## Update `package.json` for testing
 
-  ## 为测试更新`package.json`
+  ## 为做测试更新`package.json`
 
   We must install the Jasmine package as well:
 
-  我们也必须安装Jasmine包：
+  我们还必须安装Jasmine包：
 
 pre.prettyprint.lang-bash
   code npm install jasmine-core --save-dev --save-exact
 
 .alert.is-important Be sure to install <code>jasmine-core</code> , not <code>jasmine</code>!
 
-.alert.is-important 请注意，安装<code>jasmine-core</code>,而不是<code>jasmine</code>!
+.alert.is-important 请确保安装的是<code>jasmine-core</code>，而不是<code>jasmine</code>！
 
 :marked
   Let's make one more change to the `package.json` script commands.
 
-  让我们在`package.json`的脚本命令部分再修改一项。
+  让我们在`package.json`的脚本命令区再做一项修改。
 
   **Open the `package.json` ** and scroll to the `scripts` node and add in a new one:
 
-  **打开`package.json`**，滚动到`scripts`节点，添加下面这行：
+  **打开`package.json`**，滚动到`scripts`节点，添加下面这一行：
 
 code-example(format="").
   "test": "live-server --open=unit-tests.html"
@@ -81,17 +91,17 @@ code-example(format="").
 :marked
   That command will launch `live-server` and open a browser to the `unit-tests.html` page we just wrote.
 
-  该指令将启动`live-server`，并使用浏览器，打开我们刚新建的`unit-tests.html`页面。
+  该指令将启动`live-server`，并在浏览器中打开我们刚写的`unit-tests.html`页面。
 
 .l-main-section
 :marked
   ## First app tests
-  
+
   ## 第一个应用程序测试
 
   We can start testing *some* of our app right away. For example, we can test the `Hero` interface:
 
-  我们可以立刻开始测试我们应用程序的*一些*代码。比如，我们可以测试`Hero`接口：
+  我们现在可以开始测试应用程序中的*某些*代码了。比如，我们可以测试`Hero`接口：
 
 +makeExample('testing/ts/app/hero.ts')
 
@@ -109,71 +119,123 @@ code-example(format="").
 
   Notice that we surrounded our tests with ** `describe('Hero')` **.
 
-  请注意，我们把我们的测试围在**`describe('Hero')`**里面。
+  请注意，我们把这些测试包裹在**`describe('Hero')`**中了。
 
   **By convention, our test always begin with a `describe` that identifies the application part under test.**
 
-  **按惯例，我们的测试都已`describe`开始，它是用来标识该测试是用来测试哪个应用程序部分的。
+  **按惯例，我们的测试总会以`describe`开始，它标识出所测的是应用程序的哪个部分。**
 
   The description should be sufficient to identify the tested application part and its source file.
   Almost any convention will do as long as you and your team follow it consistently and are never confused.
 
-  这个说明应该能足够标识被测试应用程序部分和相关源代码。几乎任何
+  这个说明要足以标识出所测的部件和相关源码。无论采用什么约定，都应该让你和你的团队始终如一的遵循它，并且不会导致混淆。
 
   But we haven't saved this test yet.
+
+  不过，我们现在还没保存这个测试呢。
 
 .l-main-section
 :marked
   ## Where do tests go?
 
+  ## 测试文件放在哪里？
+
   Some people like to keep their tests in a `tests` folder parallel to the application source folder.
 
+  有人喜欢把他们的测试保存在与应用程序源码平级的`tests`目录下。
+
   We are not those people. We like our unit tests to be close to the source code that they test. We prefer this approach because
+
+  但我们不喜欢。我们更喜欢让这些单元测试放得离它们要测的源码尽可能近一点。我们更喜欢这种方式是因为：
+
   - The tests are easy to find
+
+  - 更容易找到测试
+
   - We see at a glance if an application part lacks tests.
+
+  - 我们只要扫一眼就能知道应用程序中哪部分缺少测试
+
   - Nearby tests can teach us about how the part works; they express the developers intention and reveal how the developer thinks the part should behave under a variety of circumstances.
+
+  - 附近的测试能告诉我们这部分是如何工作的，它们能表达开发者的意图，并揭示出开发者认为在各种情况下这部分该有怎样的行为。
+
   - When we move the source (inevitable), we remember to move the test.
+
+  - 当我们移动源码时(难免的)，总能记得同时移动测试。
+
   - When we rename the source file (inevitable), we remember to rename the test file.
 
+  - 当我们重命名源码文件时(难免的)，总能记得同时改名测试文件。
+
   We can't think of a downside. The server doesn't care where they are.  They are easy to find and distinguish from application files when named conventionally.
+
+  我们想不到有什么负面效果。服务器不在乎它们放在哪里。如果按照约定命名它们，它们也很容易从应用本身的文件中找到和区分出来。
 
 .l-sub-section
   :marked
     You may put your tests elsewhere if you wish.
     We're putting ours inside the app, next to the source files that they test.
 
+    如果喜欢，你也可以自己的测试放在其它地方。
+    反正我们是把它们放进了我们的应用代码中，紧跟着它们所要测试的源码文件。
+
 .l-main-section
 :marked
   ## First spec file
 
+  ## 第一个规约文件
+
   **Create** a new file, ** `hero.spec.ts` ** in `app` next to `hero.ts`.
+
+  在`app`下，紧挨着`hero.ts`，**创建**一个名叫`hero.spec.ts`的新文件。
 
   Notice the ".spec" suffix in the test file's filename, appended to the name of the file holding the application part we're testing.
 
+  注意，测试文件名称中的“.spec”后缀，被追加到了被测试的应用程序部件的基本名后面。
+
 .alert.is-important  All of our unit test files follow this .spec naming pattern.
+
+.alert.is-important  我们所有的单元测试文件都遵循了这种.spec命名模式。
 
 :marked
   Save the tests we just made in `hero.spec.ts`:
+
+  保存我们刚刚在`hero.spec.ts`中写的这些测试：
 
 +makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')
 
 :marked
   ### Import the part we're testing
 
+  ### 导入我们准备测试的部件
+
   We have an `import {Hero} from './hero' ` statement.
+
+  这里我们有个`import {Hero} from './hero' `语句。
 
   If we forgot this import, a TypeScript-aware editor would warn us, with a squiggly red underline, that it can't find the definition of the `Hero` interface.
 
+  如果我们忘记了这条导入语句，支持TypeScript的编辑器就会通过一个红色曲线警告我们：它找不到`Hero`接口的定义。
+
   ### Update unit-tests.html
 
+  ### 更新unit-tests.html
+
   Next we update the `unit-tests.html` with a reference to our new `hero.spec.ts` file. Delete the inline test code.  The revised pertinent HTML looks like this:
+
+  接下来我们在`unit-tests.html`中用一个到这个新的`hero.spec.ts`文件的引用代替原来的内联测试代码。
+  修改过的HTML看起来是这样的：
 
 +makeExample('testing/ts/unit-tests-2.html', 'load-hero-and-spec')(format=".")
 
 :marked
   ### Run and Fail
+  ### 运行，并失败
 
   Look over at the browser (live-server will have reloaded it).  The browser displays
+
+  看看浏览器(live-server应该已经刷新了它)。其中显示的是：
 
 figure.image-display
   img(src='/resources/images/devguide/first-app-tests/Jasmine-not-running-tests.png' style="width:400px;" alt="Jasmine not running any tests")
@@ -181,7 +243,11 @@ figure.image-display
 :marked
   That's Jasmine saying "**things are _so_ bad that _I'm not running any tests_.**"
 
+  这是Jasmine在说“**事情_很糟_，因为_我没找到任何测试_。**”
+
   Open the browser's Developer Tools (F12, Ctrl-Shift-i). There's an error:
+
+  打开浏览器开发工具(F12或Ctrl-Shift-I)就会看到一个错误：
 
 code-example(format="" language="html").
   Uncaught ReferenceError: System is not defined
@@ -190,30 +256,59 @@ code-example(format="" language="html").
 :marked
   ## Load tests with SystemJS
 
+  ## 使用SystemJS加载这些测试
+
   The immediate cause of the error is the `export` statement in `hero.ts`.
   That error was there all along.
   It wasn't a problem until we tried to `import` the `Hero` interface in our tests.
 
+  导致这个错误的直接原因，就是`hero.ts`中的`export`语句。
+  那个错误一直都存在。
+  除非我们尝试把`Hero`接口`import`到测试中，否则这个问题会一直存在。
+
   Our test environment lacks support for module loading.
   Apparently we can't simply load our application and test scripts like we do with 3rd party JavaScript libraries.
+
+  我们的测试环境中缺少了对模块加载的支持。
+  显然，我们没法像使用第三方JavaScript库那样简单的加载起应用代码和测试脚本。
 
   We are committed to module loading in our application.
   Our app will call `import`.  Our tests must do so too.
 
+  我们得在本应用中引入模块加载机制。
+  我们在应用代码中要调用`import`，测试代码中也要如此。
+
   We add module loading support in four steps:
 
+  我们要通过四步儿来添加对模块加载的支持。
+
   1. add the *SystemJS* module management library
+
+  1. 添加*SystemJS*模块管理库
+
   1. configure *SystemJS* to look for JavaScript files by default
+
+  1. 配置*SystemJS*来默认查找JavaScript文件
+
   1. import our test files
+
+  1. 导入我们的测试文件
+
   1. tell Jasmine to run the imported tests
+
+  1. 让Jasmine运行已导入的测试
 
   These steps are all clearly visible, in exactly that order, in the following lines that
   replace the `<body>` contents in `unit-tests.html`:
+
+  在`unit-tests.html`中用于替换`<body>`内容的那些代码行中，这些步骤清晰可见：
 
 +makeExample('testing/ts/unit-tests-3.html', 'systemjs')(format=".")
 
 :marked
   Look in the browser window. Our tests pass once again.
+
+  到浏览器窗口中看看，我们的测试又一次通过了。
 
 figure.image-display
   img(src='/resources/images/devguide/first-app-tests/test-passed-once-again.png' style="width:400px;" alt="Tests passed once again")
@@ -223,38 +318,75 @@ figure.image-display
 :marked
   ## Observations
 
+  ## 观测结果
+
   ### System.config
   System.js demands that we specify a default extension for the filenames that correspond to whatever it is asked to import.
   Without that default, it would translate an import statement such as `import {Hero} from './hero'` to a request for the file named `hero`.
   Not `hero.js`. Just plain `hero`.  Our server error with "404 - not found" because it doesn't have a file of that name.
 
+  System.js强烈要求我们为想import的那些文件指定一个默认扩展名。
+  如果没有默认扩展名，它就会把import语句翻译成`import {Hero} from './hero'`来请求一个名叫`hero`的文件，而不是`hero.js`。服务器就会返回一个“404 - not found”，
+  因为它找不到那个不带扩展名的文件。
+
   Once configured with a default extension of 'js',&nbsp;  SystemJS requests `hero.js` which *does* exist and is promptly returned by our server.
 
+  一旦把默认扩展名配置为'js'，SystemJS就会请求`hero.js`，它存在，并且立即被服务器成功返回。
+
   ### Asynchronous System.import
+
+  ### 异步System.import
+
   The call to `System.import` shouldn't surprise us but it's asynchronous nature might.
   If we ponder this for a moment, we realize that it must be asynchronous because
   System.js may have to fetch the corresponding JavaScript file from the server.
   Accordingly, `System.import` returns a promise and we must wait for that promise to resolve.
   Only then can Jasmine start evaluating the imported tests.
 
+  对`System.import`的调用不会让我们感到意外 —— 除了它的异步性。
+  如果我们仔细考虑一会儿，就会认识到它必须是异步的，因为SystemJS不得不从服务器上取得相应的JavaScript文件。
+  因此，`System.import`会返回一个承诺(Promise)，我们得等待这个承诺被解决。
+  然后，Jasmine才能开始执行这些导入的测试。
+
   ### window.onload
   Jasmine doesn't have a `start` method.  It wires its own start to the browser window's `load` event.
   That makes sense if we're loading our tests with script tags.
   The browser raises the `load` event when it finishes loading all scripts.
 
+  Jasmine没有一个`start`方法。它把自己的启动代码挂接到了浏览器窗口的`load`事件上。
+  如果我们通过`script`标签来启动测试，这样做自然是有意义的。
+  当浏览器加载完所有脚本时，它就会触发`load`事件。
+
   But we're not loading test scripts inline anymore.
   We're using the SystemJS module loader and it won't be done until long after the browser raised the `load` event.
   Meanwhile, Jasmine started and ran to completion … with no tests to evaluate … before the import completed.
 
+  但我们不再用内联的方式加载测试脚本了。
+  我们在使用SystemJS模块加载器，除非浏览器触发了`load`事件，否则它什么也不会做。
+  同时，在这些import完成之前，Jasmine自己已经启动并且运行结束了，不过一个测试也没有执行。
+
   So we must wait until the import completes and only then call the window `onLoad` handler.
   Jasmine re-starts, this time with our imported test queued up.
+
+  所以我们必须等待import执行完，然后才能调用window的`onLoad`处理器。
+  Jasmine重新启动，但这次它带着我们导入的这个测试队列。
 
 .l-main-section
 :marked
   ## What's Next?
+
+  ## 下一步呢？
+
   We are able to test a part of our application with simple Jasmine tests.
   The part was a stand-alone interface that made no mention or use of Angular.
+
+  我们已经能用简单的Jasmine测试来测试应用的一部分。
+  这部分是一个独立的接口，它没有引用或使用任何来自Angular的东西。
 
   That's not rare but it's not typical either.
   Most of our application parts make some use of the Angular framework.
   Let's test a *pipe* class that does rely on Angular.
+
+  这虽然不算罕见，但也不够典型。
+  我们应用程序中的大部分都会使用到Angular框架的某些东西。
+  我们再来测试一个*管道*类，它依赖于Angular。

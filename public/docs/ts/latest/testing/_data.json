@@ -3,22 +3,22 @@
 
   "index": {
     "title": "测试概览",
-    "intro": "Angular 2应用测试的技术与实践"
+    "intro": "测试Angular 2应用的技术与实践"
   },
 
    "jasmine-testing-101": {
     "title": "Jasmine测试101",
-    "intro": "用Jasmine测试任何东西的基础知识"
+    "intro": "用Jasmine测试任何东西时所需的基础知识"
   },
 
   "application-under-test": {
-    "title": "准备测试的应用",
+    "title": "待测试的应用",
     "intro": "我们将要测试的应用概览"
   },
 
   "first-app-tests": {
-    "title": "第一个应用测试",
-    "intro": "首先测试应用中一个简单的，与Angular无关的部分"
+    "title": "应用的第一个测试",
+    "intro": "首先测试应用中一个简单的、与Angular无关的部分"
   },
 
   "testing-an-angular-pipe": {
