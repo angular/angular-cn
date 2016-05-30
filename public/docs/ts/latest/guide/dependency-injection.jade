@@ -628,7 +628,7 @@ include ../_util-fns
   As it happens, we could have added it to our first version of `HeroService`.
   We didn't bother because we didn't need it then.
 
-  注意上面这个服务类的 `@Injectable()` #{decorationCn}。但我们以前从没见过`@Injectable()`。
+  注意上面这个服务类的 `@Injectable()` #{decorationCn}。我们以前从没见过`@Injectable()`。
   其实我们可以把它加到第一版的`HeroService`上。
   但我们没有那么做，因为那时候还不需要它。
 
@@ -646,7 +646,7 @@ include ../_util-fns
 - var decorated = lang == 'dart' ? 'annotated' : 'decorated'
 - var decoratedCn = lang == 'dart' ? '注解' : '装饰器'
 - var any_decorator = lang == 'dart' ? '' : 'TypeScript generates metadata for any class with a decorator, and any decorator will do.'
-- var any_decoratorCn = lang == 'dart' ? '' : 'TypeScript会为任何带有装饰器的类生成元数据，而且会为任何装饰器都生成。'
+- var any_decoratorCn = lang == 'dart' ? '' : 'TypeScript会为任何带有装饰器的类生成元数据，任何装饰器都行。'
 .callout.is-helpful
   header Suggestion: add @Injectable() to every service class
   
@@ -747,9 +747,7 @@ code-example(format, language="html").
   `HeroService`, which it needed to
   create and inject into a new `HeroListComponent`.
   
-  Angular这是在告诉我们，依赖注入器找不到日志服务的*供应商*。
-  它需要这个供应商来创建一个`Logger`实例，以便注入到一个`HeroService`的新实例中，
-  而`HeroService`的新实例在创建`HeroListComponent`的新实例时需要被创建和注入。
+  Angular这是在告诉我们，依赖注入器找不到日志服务的*供应商*。在创建`HeroListComponent`的新实例时需要创建和注入`HeroService`，然后`HeroService`需要创建和注入一个`Logger`实例，Angular需要这个供应商来创建一个`Logger`实例。
 
   The chain of creations started with the `Logger` provider. The *provider* is the subject of our next section.
   
