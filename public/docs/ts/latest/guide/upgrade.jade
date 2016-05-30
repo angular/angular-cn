@@ -1323,7 +1323,7 @@ code-example(format="").
 
   在`index.html`中，我们启用SystemJS。添加一组用于加载SystemJS库和一个为它加载配置文件的`&lt;script>`标签。
   然后添加更多的`&lt;script>`标签，以通过SystemJS加载我们的应用。
-  它将会*替换掉*我们以前用来为应用程序加载组件的许多`&lt;script>`标签。
+  它将会*替换掉*我们以前用来为应用程序加载部件的许多`&lt;script>`标签。
 
 +makeExample('upgrade-phonecat/ts/typescript-conversion/app/index.html', 'scripts', 'app/index.html')
 
@@ -1532,7 +1532,7 @@ code-example(format="").
 
   这个项目中同时有基于Protractor的E2E测试和一些基于Karma的单元测试。
   对这两者来说，E2E测试的转换要快得多：根据定义，E2E测试通过与应用中显示的这些UI元素互动，从*外部*访问我们的应用来进行测试。
-  E2E测试实际上并不关心这些应用代码的内部结构。这也意味着，虽然我们已经修改了一点儿此应用程序，
+  E2E测试实际上并不关心这些应用中各部件的内部结构。这也意味着，虽然我们已经修改了一点儿此应用程序，
   但是E2E测试套件仍然应该能像以前一样全部通过。因为从用户的角度来说，我们并没有改变应用的行为。
 
   For unit tests, on the other hand, we'll do a bit of conversion work.
@@ -2634,7 +2634,7 @@ table
   but there isn't really any need for that anymore, and we can begin to
   pull out the last remnants of Angular 1.
 
-  此时，我们已经把所有的Angular 1程序代码替换成了它们在Angular 2中的对应物。该应用仍然是作为混合应用进行引导的，
+  此时，我们已经把所有的Angular 1程序的各部件替换成了它们在Angular 2中的对应物。该应用仍然是作为混合应用进行引导的，
   但实际上我们已经不需要它了，我们这就彻底移除Angular 1的残余势力。
 
   There are just two more things to do: We need to switch the router to
