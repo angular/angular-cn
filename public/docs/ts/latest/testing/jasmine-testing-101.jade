@@ -6,10 +6,10 @@ include ../_util-fns
 
   我们将使用[Jasmine测试框架](http://jasmine.github.io/2.3/introduction.html)编写我们的测试。
   我们以把*一些*测试弄成功为开始。
-  
-  We will learn  
-  
-  我们会学到：  
+
+  We will learn
+
+  我们会学到：
     - basic Jasmine testing skills
     - 基础Jasmine测试技能
     - to run our tests in the browser
@@ -20,8 +20,9 @@ include ../_util-fns
     - 在浏览器里调试一个测试
 
   **Create a new project folder** perhaps called `angular2-unit-testing`.
-  
+
   **新建一个项目目录**，起名为`angular2-unit-testing`。
+
 .l-main-section
 :marked
   ## Install npm packages locally
@@ -29,11 +30,11 @@ include ../_util-fns
 
   Next follow all of  the steps prescribed in  “Install npm packages locally” of the
   [QuickStart](../quickstart.html).
-  
+
   下一步，完成[“快速起步”](../quickstart.html)中的“本地安装npm包”的每一步。
 
   We’ll also add the Jasmine package via `npm`:
-  
+
   然后我们通过npm添加Jasmine包：
 
 pre.prettyprint.lang-bash
@@ -42,46 +43,46 @@ pre.prettyprint.lang-bash
 .alert.is-important
   :marked
     Be sure to install `jasmine-core` , not `jasmine`!
-    
+
     确认安装的是`jasmine-core`，不是`jasmine`！
 
 :marked
   **Create a sub-folder `src` ** for our tests and then **cd into it**.
-  
+
   为我们的测试**新建一个子目录`src`**，然后**cd到里面**。
 
   We are going to **display and control our tests in the browser**.
-  
+
   我们将会**在浏览器里面显示和控制我们的测试**。
 
 .l-sub-section
   :marked
-    The browser is nice during development of a few tests. It’s not the best venue for working with a lot of tests and it won’t do at all for build automation. 
+    The browser is nice during development of a few tests. It’s not the best venue for working with a lot of tests and it won’t do at all for build automation.
     We’ll switch to the karma test-runner when the time comes. But the browser will do for now.
-    
+
     在我们开发一些测试的过程中，浏览器很有帮助。它却并不是最好的开发很多测试的地方，它更不能用来做建构自动化。
     到时我们将会切换到Karma测试运行器。但是现在先用浏览器。
 
 :marked
   Create a new file called`unit-tests.html` and enter the following:
-  
+
   新建一个文件叫做`unit-tests.html`，并把下面的内容输入进去：
 +makeExample('testing/ts/unit-tests-0.html', 'no-script', 'unit-tests.html')
 
 :marked
   In the head we have three Jasmine scripts and one Jasmine css file. That’s the foundation for running any tests.
-  
+
   在head里面，我们有三个Jasmine脚本和一个Jasmine css文件。它们是运行任何测试的奠基石。
 
   We’ll write our first test with inline JavaScript inside the body tag:
-  
+
   我们接下来以内联JavaScript的形式在body表示里面，编写我们的第一个测试：
 
 +makeExample('testing/ts/unit-tests-0.html', 'body')(format='.')
 
 :marked
   Now open `unit-tests.html` in a browser and see the Jasmine HTML test output:
-  
+
   现在，在浏览器里打开`unit-tests.html`，看到Jasmine HTML的测试结果：
 
 figure.image-display
@@ -89,7 +90,7 @@ figure.image-display
 
 :marked
   It doesn’t get much simpler than that!
-  
+
   这个已经是简单的不能再简单了。
 
 .l-main-section
@@ -98,50 +99,50 @@ figure.image-display
   ## 第一个TypeScript测试
   Perhaps too simple. We won’t write our entire test suite inside one HTML file.
   Let’s **extract** that line of test code to a **new file in `src` called `1st.spec.ts` ** .
-  
+
   或许过于简单。我们不会再一个HTML文件里面编写整套测试。让我们把这行测试代码**提取**到**`src`目录下的新文件`1st.spec.ts`**。
 
 .l-sub-section
   :marked
     Among Jasmine developers, a test is known as a “spec” and test filenames include the word “spec”.  We’ll stick with that convention.
-    
+
     在Jasmine开发者中，一个测试通常被叫做“spec”，而且测试的文件名包含单词“spec”。我们将遵循这个规则。
 
 :marked
   The test we wrote is valid TypeScript because any JavaScript is valid TypeScript. But let’s make it more modern with an arrow function:
-  
+
   我们编写的测试是一个有效的TypeScript，因为所有的JavaScript都是有效的TypeScript。但是让我们使用箭头函数让它更加现代：
-  
+
 +makeExample('testing/ts/1st.spec.ts', 'it', '1st.spec.ts')
 
 :marked
   Now modify `unit-tests.html` to load the script:
   现在修改`unit-tests.html`来加载上面的脚本：
-  
+
 +makeExample('testing/ts/unit-tests-1.html', 'script')
 
 :marked
   Hold on! We wrote a TypeScript file but we’re loading a JavaScript file?
-  
+
   等等！我们编写了TypeScript文件，但是我们却加载了一个JavaScript文件？
-  
+
   That’s a reminder that we need to compile our TypeScript test files as we do our TypeScript application files.  Do that next.
-  
+
   这是一个提醒，我们需要编译我们的TypeScript测试文件，就像我们编译我们的TypeScript应用程序文件一样。我们接下来做这个。
 
 .l-main-section
 :marked
   ## Prepare for TypeScript
   ## 为TypeScript做准备
-  
+
   As we’ve seen before, we first have to tell the compiler how to compile our TypeScript files with
   a ** `tsconfig.json` **.
-  
+
   和我们见过的一样，我们必须通过*`tsconfig.json`*，告诉编译器怎么编译我们的TypeScript文件。
 
   We can copy one from the quickstart we wrote previously and paste it into our src sub-folder.
   It should look something like this:
-  
+
   我们可以从“快速起步”拷贝一个之前已写好的，粘贴到我们的src子目录，它应该像这样：
 
 +makeExample('testing/ts/tsconfig.1.json', null, 'tsconfig.json')
@@ -151,7 +152,7 @@ figure.image-display
   ## 编译和运行
 
   Compile in the terminal window using the npm script command
-  
+
   在终端窗口，使用npm脚本命令编译：
 
 pre.prettyprint.lang-bash
@@ -162,20 +163,20 @@ pre.prettyprint.lang-bash
     Our editor and the compiler may complain that they don’t know
     what `it` and `expect` are because they lack the typing files that describe Jasmine.
     We can ignore those annoying complaints for now as they are harmless.
-    
+
     我们的编辑器和编译器可能会抱怨，说它们不知道什么是`it`和`expect`，因为它们缺少描述Jasmine的typing文件。我们暂时可以忽略这些讨厌的抱怨，它们目前并无害处。
 
 :marked
   If we reload the browser, we should see the same Jasmine test-runner output as before.
-  
+
   如果我们刷新浏览器，我们会看到和以前一样的Jasmine测试运行器输出。
 
   We’ll be evolving these tests rapidly and it would be nice to have the browser refresh automatically as we make changes and recompile.
-  
+
   我们可以迅速进化这些测试，让浏览器在我们做出修改和重新编译时自动刷新的话就更方便了。
 
   Let’s launch with **live-server** in a second terminal window:
-  
+
   让我们在另一个终端窗口启动一个**live-server**。
 
 pre.prettyprint.lang-bash
@@ -183,11 +184,11 @@ pre.prettyprint.lang-bash
 
 :marked
   Now reload `unit-tests.html` in the browser
-  
+
   现在在浏览器刷新`unit-tests.html`
 
   We should get the same Jasmine test-runner output as before.
-  
+
   我们应该能看到一样的Jasmine测试运行器输出。
 
 .l-main-section
@@ -196,24 +197,24 @@ pre.prettyprint.lang-bash
   ## 添加一个describe和其它测试
 
   We can’t tell what file produced these test results. We only have one file at the moment but soon we’ll write more.
-  
+
   我们不知道什么文件生成了这些测试结果。虽然我们目前只有一个文件但是我们会编写更多。
-  
-  We should wrap this test into something that identifies the file. In Jasmine that “something” is a `describe` function.  
+
+  We should wrap this test into something that identifies the file. In Jasmine that “something” is a `describe` function.
   Every test file should have at least one `describe` that identifies the file holding the test(s).
-  
+
   我们应该把这个测试包裹到一个可以识别这个文件的东西。在Jasmine里，这个东西是一个`describe`函数。
   每个测试文件都应该至少有一个`describe`来标识这个文件测试了什么。
 
   Here’s what our revised `1st.spec.ts` looks like when wrapped in a `describe`:
-  
+
   下面是我们修改`1st.spec.ts`，用`describe`包裹后的结果：
 
 +makeExample('testing/ts/1st.spec.ts', 'describe')
 
 :marked
   And here’s how the test report displays it.
-  
+
   下面是测试报告的显示：
 
 figure.image-display
@@ -221,9 +222,9 @@ figure.image-display
 
 :marked
   Let’s add another Jasmine test to `1st.spec.ts`
-  
+
   让我们添加另一个测试到`1st.spec.ts`
-  
+
 +makeExample('testing/ts/1st.spec.ts', 'another-test')(format=".")
 
 :marked
@@ -243,7 +244,7 @@ figure.image-display
 
 :marked
   Click the `Spec List` link just below “2 specs, 1 failure” to see the summary again:
-  
+
   点击“2 Specs, 1 failure”下面的`Spec List`链接，看看总结：
 
 figure.image-display
@@ -251,15 +252,17 @@ figure.image-display
 
 :marked
   We can re-run just the failing test by double-clicking it.  Try it!
-  
+
   我们可以只重新运行失败的测试，点击它就可以了。试试!
 
 .l-main-section
 :marked
   ## Debug the test
+
   ## 调试测试
+
   Suppose we didn’t know what was going on.  We can debug it in the browser.
-  
+
   假设我们不知道是怎么回事。我们都能在浏览器里面调试它。
 
     - Open the browser’s “Developer Tools” (F12 or Ctrl-Shift-I).
@@ -282,26 +285,30 @@ figure.image-display
 
 :marked
   How about that!  They really aren’t equal.
+
   你觉得怎么样？它们真的不相等。
     - remove the breakpoint (right-click in the “Breakpoints” section and chose “Remove breakpoint”)
+
     - 移除断点（在“Breakpoints”区域，右键点击“Remove breakpoint”)
+
     - Click the “play” icon to resume the test  (or F8)
+    
     - 点击“play”图标来继续运行测试（或F8）
 
   And the test finishes.  Close the browser tools (click the close box or press F12 or Ctrl-Shift-I)
-  
+
   然后测试完成。关闭浏览器工具（点击关闭图标或者按F12或Ctrl-Shift-I)
 
   Fix the test (restore the `.not`);  the browser should refresh automatically and all tests pass.
-  
+
   修复测试（恢复`.not`）；浏览器应该自动刷新，所有测试都通过。
 
   Congratulations … you’ve completed Jasmine testing 101.
-  
+
   恭喜...你完成了Jasmine测试101。
-  
+
   Now that we’re familiar with Jasmine on its own, we’re ready to test an application.
-  
+
   现在，我们熟悉了Jasmine的独立运作，我们已做好准备测试一个应用程序了。
 
   <!-- TODO

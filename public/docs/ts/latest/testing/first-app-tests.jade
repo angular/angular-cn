@@ -2,10 +2,11 @@ include ../_util-fns
 
 :marked
   In this chapter we'll setup the environment for testing our sample application and write a few easy Jasmine tests of the app's simplest parts.
-  
+
   在这个章节，我们将为我们的样本应用程序设置测试环境，针对应用程序的最简单的部分，编写几个简单的Jasmine测试。
-  
+
   We'll learn:
+
   我们会学到：
   - to test one of our application files
   - 测试我们应用程序的一个文件
@@ -24,7 +25,7 @@ include ../_util-fns
     we introduced in the [QuickStart](../quickstart.html) and
     the [Tour of Heroes](../tutorial/) tutorial
     such as <code>npm</code>, <code>gulp</code>, and <code>live-server</code>.
-    
+
     本单元测试章节是在其它章节的基础上编写的。我们建议你按顺序阅读它们。我们同时假设你已经对Angular 2的原理、在[“快速起步”](../quickstart.html)里介绍的工具、
     [英雄指南](../tutorial)和<code>npm</code>, <code>gulp</code>, and <code>live-server</code>等工具都所有了解。
 
@@ -34,41 +35,44 @@ include ../_util-fns
   ## 新建一个测试运行器(test-runner) HTML
 
   Locate the folder that contains the application `index.html` for your testing copy of Tour of Heroes.
-  
+
   在英雄指南的测试拷贝版里面找到包含`index.html`的目录。
 
   Create a new, sibling HTML file, ** `unit-tests.html` ** and copy over the same basic material from the  `unit-tests.html` in the [Jasmine 101](./jasmine-testing-101.html) chapter.
-  
+
   在隔壁建立一个新的HTML文件，**`unit-tests.html`**，从[Jasmine 101](./jasmine-testing-101.html)章节，将`unit-tests.html`里面的基础内容拷贝到此文件中。
-  
+
 +makeExample('testing/ts/unit-tests-2.html', 'test-runner-base', 'unit-tests.html')
 
 :marked
   We're picking up right where we left off. All we've done is change the title.
-  
+
   我们将从上次的的基础上开始。我们只修改了标题。
 
 .l-main-section
 :marked
   ## Update `package.json` for testing
+
   ## 为测试更新`package.json`
 
   We must install the Jasmine package as well:
-  
+
   我们也必须安装Jasmine包：
 
 pre.prettyprint.lang-bash
   code npm install jasmine-core --save-dev --save-exact
 
-.alert.is-important Be sure to install <code>jasmine-core</code> , not <code>jasmine</code>! 请注意，安装<code>jasmine-core</code>,而不是<code>jasmine</code>!
+.alert.is-important Be sure to install <code>jasmine-core</code> , not <code>jasmine</code>!
+
+.alert.is-important 请注意，安装<code>jasmine-core</code>,而不是<code>jasmine</code>!
 
 :marked
   Let's make one more change to the `package.json` script commands.
-  
+
   让我们在`package.json`的脚本命令部分再修改一项。
 
   **Open the `package.json` ** and scroll to the `scripts` node and add in a new one:
-  
+
   **打开`package.json`**，滚动到`scripts`节点，添加下面这行：
 
 code-example(format="").
@@ -76,45 +80,46 @@ code-example(format="").
 
 :marked
   That command will launch `live-server` and open a browser to the `unit-tests.html` page we just wrote.
-  
+
   该指令将启动`live-server`，并使用浏览器，打开我们刚新建的`unit-tests.html`页面。
 
 .l-main-section
 :marked
   ## First app tests
+  
   ## 第一个应用程序测试
 
   We can start testing *some* of our app right away. For example, we can test the `Hero` interface:
-  
+
   我们可以立刻开始测试我们应用程序的*一些*代码。比如，我们可以测试`Hero`接口：
-  
-+makeExample('testing/ts/app/hero.ts')  
+
++makeExample('testing/ts/app/hero.ts')
 
 :marked
   Let's add a couple of simple tests in a new file.
-  
+
   让我们在一个新文件里面添加一些简单的测试。
 
-+makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')  
++makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')
 
 :marked
   That's the basic Jasmine we learned back in "Jasmine 101".
-  
+
   上面是我们在“Jasmine 101”学习的基本Jasmine知识。
 
   Notice that we surrounded our tests with ** `describe('Hero')` **.
-  
+
   请注意，我们把我们的测试围在**`describe('Hero')`**里面。
 
   **By convention, our test always begin with a `describe` that identifies the application part under test.**
-  
+
   **按惯例，我们的测试都已`describe`开始，它是用来标识该测试是用来测试哪个应用程序部分的。
 
-  The description should be sufficient to identify the tested application part and its source file. 
+  The description should be sufficient to identify the tested application part and its source file.
   Almost any convention will do as long as you and your team follow it consistently and are never confused.
-  
+
   这个说明应该能足够标识被测试应用程序部分和相关源代码。几乎任何
-  
+
   But we haven't saved this test yet.
 
 .l-main-section
@@ -134,7 +139,7 @@ code-example(format="").
 
 .l-sub-section
   :marked
-    You may put your tests elsewhere if you wish. 
+    You may put your tests elsewhere if you wish.
     We're putting ours inside the app, next to the source files that they test.
 
 .l-main-section
@@ -150,7 +155,7 @@ code-example(format="").
 :marked
   Save the tests we just made in `hero.spec.ts`:
 
-+makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')  
++makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')
 
 :marked
   ### Import the part we're testing
@@ -162,7 +167,7 @@ code-example(format="").
   ### Update unit-tests.html
 
   Next we update the `unit-tests.html` with a reference to our new `hero.spec.ts` file. Delete the inline test code.  The revised pertinent HTML looks like this:
-  
+
 +makeExample('testing/ts/unit-tests-2.html', 'load-hero-and-spec')(format=".")
 
 :marked
@@ -250,6 +255,6 @@ figure.image-display
   We are able to test a part of our application with simple Jasmine tests.
   The part was a stand-alone interface that made no mention or use of Angular.
 
-  That's not rare but it's not typical either. 
+  That's not rare but it's not typical either.
   Most of our application parts make some use of the Angular framework.
   Let's test a *pipe* class that does rely on Angular.
