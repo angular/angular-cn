@@ -1,88 +1,194 @@
 :marked
   We write **unit tests** to explore and confirm the **behavior** of parts of our application.
 
-  我们编写**单元测试**来探索和确认我们应用程序的**行为**部分。
-  
+  我们编写**单元测试**来探索并巩固应用程序中的**行为**部分。
+
   1. They **guard** against breaking existing code (“regressions”) when we make changes.
-  1. 当我们改变代码是，它们**守护**已有代码，以防被破坏。
   
+  1. 当我们做出修改时，它们会**守护**已有代码(回归测试)，防止其被破坏。
+
   1. They **clarify** what  the code does both when used as intended and when faced with deviant conditions.
-  1. 在我们正确使用代码和面对异常情况时，它们**澄清**代码做什么。
   
+  1. 当我们正确使用代码和面对异常情况时，它们会让代码的用途更加**明晰**。
+
   1. They **reveal** mistakes in design and implementation. Tests force us to look at our code from many angles. When a part of our application seems hard to test, we may have discovered a design flaw, something we can cure now rather than later when it becomes expensive to fix.
-  1. 它们**揭示**我们设计和实现的错误。测试强迫我们从多个角度看代码。当应用程序的一个部分看起来很难测试，我们可能会发现设计缺陷，这是我们可以立刻修复的，而不是等到它变得很难修复的时候。
-    
+  
+  1. 它们会**揭露**我们设计和实现中的错误。测试会强迫我们从多种角度看代码。如果应用程序的一个部分看起来很难测试，这可能就意味着存在设计缺陷。
+     我们可以立即修复它，而不用等到它变得不可收拾的那一天。
+
 a(id="top")
 :marked
-  # Table of Contents  
+  # Table of Contents
+  
   # 目录
+  
   1. [Jasmine Testing 101](#jasmine-101)
-  1. [Jasmine测试101](#jasmine-101)
+  
+  1. [Jasmine测试简介](#jasmine-101)
+  
     - setup to run Jasmine tests in the browser
-    - 设置浏览器来运行Jasmine测试
+    
+    - 设置浏览器，来运行Jasmine测试
+    
     - basic Jasmine testing skills
-    - 基础Jasmine测试技能
+    
+    - Jasmine测试的基本技能
+    
     - write simple Jasmine tests in TypeScript
-    - 实用TypeScript来编写简单的Jasmine测试
+    
+    - 用TypeScript编写简单的Jasmine测试
+    
     - debug a test in the browser
-    - 在浏览器里调试测试
     
+    - 在浏览器里调试一个测试
+
   1. [The Application Under Test](#aut)
-  
+
   1. [被测试的应用程序](#aut)
-  
+
   1. [First app test](#first-app-tests)
+  
   1. [第一个应用程序测试](#first-app-tests)
+  
     - test a simple application interface outside of Angular
-    - 在Angular之外，测试一个简单的应用程序接口
-    - where to put the test file
-    - 测试文件存放到哪儿
-    - load a test file with systemJS
-    - 使用systemJS调用一个测试文件
     
+    - 在Angular之外，测试一个简单的应用程序接口
+    
+    - where to put the test file
+    
+    - 测试文件存放到哪儿
+    
+    - load a test file with systemJS
+    
+    - 使用systemJS调用一个测试文件
+
   1. [Pipe driven development](#pipe-testing)
+  
   1. [测试驱动开发一个管道](#pipe-testing)
+  
     - create a test before creating a class
-    - 在新建类之前，新建一个测试
+    
+    - 创建类之前，先创建一个测试
+    
     - load multiple test files in our test harness, using system.js
-    - 使用system.js，加载多个测试文件到我们的测试套装里
+    
+    - 使用system.js，往我们的测试套件里加载多个测试文件
+    
     - add the Angular 2 library to our test harness
-    - 添加Angular 2的类库到我们的测试套装里
+    
+    - 往我们的测试套件里添加Angular 2的类库
+    
     - watch the new test fail, and fix it
+    
     - 看着新测试失败，然后修复它
-  
+
   1. Test an Asynchronous Service (forthcoming)
+  
+  1. 测试异步服务(即将到来)
+  
     - test an asynchronous service class outside of Angular
+    
+    - 在Angular外测试异步服务类
+    
     - write a test plan in code
+    
+    - 用代码写测试计划
+    
     - fake a dependency
+    
+    - 伪造一个依赖
+    
     - master the `catch(fail).then(done)` pattern
+    
+    - 掌握`catch(fail).then(done)`模式
+    
     - move setup to `beforeEach`
+    
+    - 把设置工作移入`beforeEach`
+    
     - test when a dependency fails
+    
+    - 测试依赖失败时的情况
+    
     - control async test timeout
-  
+    
+    - 控制异步测试的超时时间
+
   1. The Angular Test Environment (forthcoming)
+  
+  1. Angular测试环境（即将到来）
+  
     - the Angular test environment and why we need help
+    
+    - Angular测试环境以及我们为什么需要它的帮助
+    
     - add the Angular Test libraries to the  test harness
+    
+    - 把Angular测试库加入测试挽具中
+    
     - test the same async service using Angular Dependency Injection
+    
+    - 使用Angular依赖注入测试同一个异步服务
+    
     - reduce friction with test helpers
+    
+    - 减少与测试助手的摩擦
+    
     - introducing spies
-  
+    
+    - 引入侦探类
+
   1. Test a Component (forthcoming)
-     - test the component outside of Angular
+  
+  1. 测试组件（即将到来）
+  
+    - test the component outside of Angular
+    
+    - 在Angular外面测试组件
+    
     - mock the dependent asynchronous service
+    
+    - 模拟所依赖的异步服务
+    
     - simulate interaction with the view (no DOM)
+    
+    - 仿真与视图的交互（不涉及DOM）
+    
     - use a spy-promise to control asynchronous test flow
-  
+    
+    - 使用侦探型承诺(spy-promise)来控制异步测试工作流
+
   1. Test a Component in the DOM (forthcoming
-    - test the component inside the Angular test environment
-    - use the `TestComponentBuilder`
-    - more test helpers
-    - interact with the DOM
-    - bind to a mock dependent asynchronous service
   
+  1. 在DOM中测试组件（即将到来）
+  
+    - test the component inside the Angular test environment
+    
+    - 在Angular测试环境中测试组件
+    
+    - use the `TestComponentBuilder`
+    
+    - 使用`TestComponentBuilder`
+    
+    - more test helpers
+    
+    - 更多测试助手
+    
+    - interact with the DOM
+    
+    - 与DOM交互
+    
+    - bind to a mock dependent asynchronous service
+    
+    - 绑定到一个模拟的异步服务
+
   1. Run the tests with karma (forthcoming)
+  
+  1. 用Karma运行测试（即将到来）
 
   It’s a big agenda. Fortunately, you can learn a little bit at a time and put each lesson to use.
+  
+  这是一个很大的日程表。幸运的是，我们可以一次只学一小点，然后把它们投入实战。
 
 a(href="#top").to-top Back to top
 
@@ -90,37 +196,49 @@ a(href="#top").to-top Back to top
 a(id="jasmine-101")
 :marked
   # Jasmine Testing 101
-  # Jasmine测试101
+  
+  # Jasmine测试简介
+  
 != partial("../testing/jasmine-testing-101")
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 a(id="aut")
 :marked
   # The Application to Test
+  
   # 被测试的应用程序
+  
 != partial("../testing/application-under-test")
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 a(id="first-app-tests")
 :marked
   # First app test
+  
   # 第一个应用程序测试
+  
 != partial("../testing/first-app-tests")
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 a(id="pipe-testing")
 :marked
   # Pipe driven development
+  
   # 测试驱动开发一个管道
+  
 != partial("../testing/testing-an-angular-pipe")
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .alert.is-important
   :marked
     The testing chapter is still under development.
     Please bear with us as we both update and complete it.
-    
+
     测试章节正在开发中，请耐心，我们会更新并完成它。

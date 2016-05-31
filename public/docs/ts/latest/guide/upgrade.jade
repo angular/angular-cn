@@ -226,7 +226,7 @@ include ../_util-fns
   * JavaScript features new to ES2015, like arrow functions, `let`s and `const`s,
     default function parameters, and destructuring assignments can also be gradually
     added to make the code more expressive.
-  
+
   * 那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也能逐渐添加进来，让代码更有表现力。
 
   * Services and controllers can be turned into *classes*. That way they'll be a step
@@ -353,7 +353,7 @@ include ../_util-fns
   are another convenient feature that Angular 1.5 introduces. They all have nearly
   exact [equivalents in Angular 2](lifecycle-hooks.html), so organizing component lifecycle
   logic around them will ease the eventual Angular 2 upgrade process.
-  
+
   控制器的生命周期钩子`$onInit()`、`$onDestroy()`和`$onChanges()`是Angular 1.5引入的另一些便利特性。
   它们都很接近于[Angular 2中的等价物](lifecycle-hooks.html)，所以，围绕它们组织组件生命周期的逻辑会更容易升级。
 
@@ -798,7 +798,7 @@ figure
   Note that even though we are in an Angular 1 template, **we're using Angular 2
   attribute syntax to bind the inputs and outputs**. This is a requirement for downgraded
   components. The expressions themselves are still regular Angular 1 expressions.
-  
+
   注意，虽然我们正在Angular 1的模板中，**但却在使用Angular 2的属性(Attribute)语法来绑定到输入属性与输出属性**。
   这是降级的组件本身要求的。而表达式本身仍然是标准的Angular 1表达式。
 
@@ -809,16 +809,16 @@ figure
     There's one notable exception to the rule of using Angular 2 attribute syntax
     for downgraded components. It has to do with input or output names that consist
     of multiple words. In Angular 2 we would bind these attributes using camelCase:
-    
+
     为降级过的组件使用Angualr 2的属性(Attribute)语法规则时有一个值得注意的例外。
     它适用于由多个单词组成的输入或输出属性。在Angular 2中，我们要使用小驼峰命名法绑定这些属性：
   code-example(format="").
     [myHero]="hero"
   :marked
     But when using them from Angular 1 templates, we need to use kebab-case:
-    
+
     但是从Angular 1的模板中使用它们时，我们得使用中线命名法：
-    
+
   code-example(format="").
     [my-hero]="hero"
 
@@ -1147,7 +1147,7 @@ figure
 .l-main-section
 :marked
   # PhoneCat Upgrade Tutorial
-  
+
   # PhoneCat升级教程
 
   In this section and we will look at a complete example of
@@ -1239,7 +1239,7 @@ figure
 
   * Each component, service, and filter is in its own source file, as per the
   [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
-  
+
   * 每个组件、服务和过滤器都在它自己的源文件中 —— 就像[规则1](https://github.com/johnpapa/angular-styleguide#single-responsibility)所要求的。
 
   * The `core`, `phone-detail`, and `phone-list` modules are each in their
@@ -1256,13 +1256,13 @@ figure
   * Unit tests are located side-by-side with application code where they are easily
     found, as described in the rules for
     [Organizing Tests](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y197).
-  
+
   * 单元测试都和应用代码在一起，它们很容易找到。就像规则
     [组织测试文件](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y197)中要求的那样。
 
 :marked
   ## Switching to TypeScript
-  
+
   ## 切换到TypeScript
 
   Since we're going to be writing our Angular 2 code in TypeScript, it makes sense to
@@ -1347,7 +1347,7 @@ code-example(format="").
   compiled JavaScript is what actually gets executed. If you start
   the project HTTP server with `npm start`, you should see the fully functional
   application in your browser.
-  
+
   我们要做的下一件事是把JavaScript文件转换成TypeScript文件。
   由于TypeScript是ECMAScript 2015的一个超集，而ES2015又是ECMAScript 5的超集，所以我们可以简单的把文件的扩展名从`.js`换成`.ts`，
   它们就还会像以前一样工作。由于TypeScript编译器仍在运行，它会为每一个`.ts`文件生成对应的`.js`文件，而真正运行的是编译后的`.js`文件。
@@ -1355,7 +1355,7 @@ code-example(format="").
 
   Now that we have TypeScript though, we can start benefiting from some of its
   features. There's a lot of value the language can provide to Angular 1 applications.
-  
+
   有了TypeScript，我们就可以从它的一些特性中获益了。此语言可以为Angular 1应用提供很多价值。
 
   For one thing, TypeScript is a superset of ES2015. Any app that has previously
@@ -1363,7 +1363,7 @@ code-example(format="").
   start incorporating all of the JavaScript features that are new to ES2015.
   These include things like `let`s and `const`s, arrow functions, default function
   parameters, and destructuring assignments.
-  
+
   首先，TypeScript是一个ES2015的超集。任何以前用ES5写的程序（就像PhoneCat范例）都可以开始通过TypeScript
   纳入那些添加到ES2015中的新特性。
   这包括`let`、`const`、箭头函数、函数默认参数以及解构(destructure)赋值。
@@ -1372,7 +1372,7 @@ code-example(format="").
   actually partially already happened because of the Angular 1 typings we installed.
   TypeScript are checking that we are calling Angular 1 APIs correctly when we do
   things like register components to Angular modules.
-  
+
   我们能做的另一件事就是把*类型安全*添加到代码中。这实际上已经部分完成了，因为我们已经安装了Angular 1的类型定义。
   当我们正确调用Angular 1的API时，TypeScript会帮我们检查它 —— 比如王Angular模块中添加组件。
 
@@ -1380,7 +1380,7 @@ code-example(format="").
   out of TypeScript's type system. For instance, we can annotate the checkmark
   filter so that it explicitly expects booleans as arguments. This makes it clearer
   what the filter is supposed to do.
-  
+
   我们还能开始把*类型注解*添加到自己的代码中，来从TypeScript的类型系统中获得更多帮助。
   比如，我们可以给`checkmark`过滤器加上注解，表明它期待一个`boolean`类型的参数。
   这可以更清楚的表明此过滤器打算做什么
@@ -1390,7 +1390,7 @@ code-example(format="").
 :marked
   In the `Phone` service we can explicitly annotate the `$resource` service dependency
   as an `angular.resource.IResourceService` - a type defined by the Angular 1 typings.
-  
+
   在`Phone`服务中，我们可以明确的把`$resource`服务声明为`angular.resource.IResourceService`一个在Angular 1类型定义中提供的类型。
 
 +makeExample('upgrade-phonecat-1-typescript/ts/app/core/phone/phone.service.ts', null, 'app/core/phone/phone.service.ts')
@@ -1399,7 +1399,7 @@ code-example(format="").
   We can apply the same trick to the application's route configuration file in `app.config.ts`,
   where we are using the location and route services. By annotating them accordingly TypeScript
   can verify we're calling their APIs with the correct kinds of arguments.
-  
+
   我们可以在应用的路由配置中使用同样的技巧，那里我们用到了location和route服务。
   一旦给它们提供了类型信息，TypeScript就能检查我们是否在用类型正确的参数来调用它们了。
 
@@ -1411,7 +1411,7 @@ code-example(format="").
     we installed with Typings are not officially maintained by the Angular team,
     but are quite comprehensive. It is possible to make an Angular 1.x application
     fully type-annotated with the help of these definitions.
-    
+
     我们用typings工具安装的这个[Angular 1.x类型定义文件](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/angularjs)
     并不是由Angular开发组维护的，但它也已经足够全面了。借助这些类型定义的帮助，它可以为Angular 1.x程序加上全面的类型注解。
 
@@ -1442,7 +1442,7 @@ code-example(format="").
   这也就意味着只要我们把一个类注册为组件控制器，Angular 1就会愉快的使用它。
 
   Here's what our new class for the phone list component controller looks like:
-  
+
   新的“电话列表(phone list)”组件控制器类看起来是这样的：
 
 +makeExample('upgrade-phonecat/ts/classes/app/js/phone_list/phone_list.controller.ts', null, 'app/js/phone_list/phone_list.controller.ts')
@@ -1462,14 +1462,14 @@ code-example(format="").
   The last one of these isn't actually used in the TypeScript code since it's only
   referred to in the template, but for the sake of clarity we want to define all the
   members our controller will have.
-  
+
   该类额外声明了三个成员：电话列表、当前排序键的名字，以及搜索条件。
   这些东西我们以前就加到了控制器上，只是从来没有在任何地方显式定义过它们。最后一个成员从未真正在TypeScript代码中用过，
   因为它只是在模板中被引用过。但为了清晰起见，我们还是该定义出此控制器应有的所有成员。
 
   In the Phone detail controller we'll have two members: One for the phone
   that the user is looking at and another for the URL of the currently displayed image:
-  
+
   在电话详情控制器中，我们有两个成员：一个是用户正在查看的电话，另一个是正在显示的图像：
 
 +makeExample('upgrade-phonecat-1-typescript/ts/app/phone-detail/phone-detail.component.ts', null, 'app/phone-detail/phone-detail.component.ts')
@@ -1512,17 +1512,17 @@ code-example(format="").
 
   我们来使用SystemJS模块加载器把Angular 2安装到项目中。
   看看[“快速起步”](../quickstart.html)中的指南，并从那里获得如下配置：
-  
+
   * Add Angular 2 and the other new dependencies to `package.json`
-  
+
   * 把添加Angular 2和其它新依赖添加到`package.json`中
-  
+
   * Add the new typings into `typings.json`
-  
+
   * 把这些新的类型定义添加到`typings.json`中
-  
+
   * The SystemJS configuration file `systemjs.config.js` to the project root directory.
-  
+
   * 把SystemJS的配置文件`systemjs.config.js`添加到项目的根目录。
 
   Once these are done, run:
@@ -1538,14 +1538,14 @@ code-example(format="").
   but first we need to do some directory path adjustments. This is because we're going
   to need to load files from `node_modules` and the project root, whereas so far
   in this project everything has been loaded from the `/app` directory.
-  
+
   我们可以通过`index.html`来把Angular 2的依赖快速加载到应用中，
   但首先，我们得做一些目录结构调整。这是因为我们正准备从`node_modules`中加载文件，然而目前项目中的每一个文件都是从`/app`目录下加载的。
 
   Move the `app/index.html` file to the project root directory. Then change the
   development server root path in `package.json` to also point to the project root
   instead of `app`:
-  
+
   把`app/index.html`移入项目的根目录，然后把`package.json`中的开发服务器根目录也指向项目的根目录，而不再是`app`目录：
 
 +makeJson('upgrade-phonecat-2-hybrid/ts/package.ng1.json', {paths: 'scripts.start'}, 'package.json')
@@ -1555,7 +1555,7 @@ code-example(format="").
   want to have to change all the image and data paths used in the application code to match
   our development setup. For that reason, we'll add a `<base>` tag to `index.html`, which will
   cause relative URLs to be resolved back to the `/app` directory:
-  
+
   现在，我们能把项目根目录下的每一样东西发给浏览器了。但我们并不想修改在应用代码中用到的每一个图片和数据的路径，
   以适应我们开发环境中的设置。因此，我们往`index.html`中添加一个`<base>`标签，它将导致各种相对路径被解析回`/app`目录：
 
@@ -1565,7 +1565,7 @@ code-example(format="").
   Now we can load Angular 2 via SystemJS. We'll add the Angular 2 polyfills and the
   SystemJS config to the end of the `<head>` section, and then we'll use `System.import`
   to load the actual application:
-  
+
   现在我们可以通过SystemJS加载Angular 2了。我们将把Angular 2的填充库(polyfills)
   和SystemJS的配置加到`<head>`区的末尾，然后，我们就用`System.import`来加载实际的应用：
 
@@ -1575,7 +1575,7 @@ code-example(format="").
   In the `systemjs.config.js` file we got from the Quickstart we also need to make a couple
   of adjustments because of our project structure. We want to point the browser to the project
   root when loading things through SystemJS, instead of using the  `<base>` URL:
-  
+
   在我们从“快速起步”中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
   在使用SystemJS而不是`<base>` URL加载时，我们需要把浏览器指向项目的根目录。
 
@@ -1588,7 +1588,7 @@ code-example(format="").
   What we'll do next is bootstrap the application as a *hybrid application*
   that supports both Angular 1 and Angular 2 components. Once we've done that
   we can start converting the individual pieces to Angular 2.
-  
+
   我们后面将做的就是把该应用程序引导为一个同时支持Angular 1和Angular 2的*混合式应用*。
   一旦我们做完了，就能开始把这些不可分割的小块儿转换到Angular 2了.
 
@@ -1597,7 +1597,7 @@ code-example(format="").
   versions of the framework together. Let's import the `UpgradeAdapter` class into a
   new file `app/main.ts`. This file has been configured as the application entrypoint
   in `systemjs.config.js`, so it is already being loaded by the browser.
-  
+
   要引导一个混合式应用，我们首先得初始化一个`UpgradeAdapter`，它[提供了胶水](#upgrading-with-the-upgrade-adapter)
   来把框架的两个不同版本粘在一起。我们在一个新文件`app/main.ts`中导入`UpgradeAdapter`类。
   这个文件已经在`systemjs.config.js`文件中被配置成了应用的入口点，所以它已经被浏览器加载了。
@@ -1616,7 +1616,7 @@ code-example(format="").
   attached to the `<html>` element of the host page. This will no longer work with
   Angular 2. We should switch to a JavaScript-driven bootstrap instead. So, remove the
   `ng-app` attribute from `index.html`, and instead add this to `main.ts`:
-  
+
   我们的应用现在是使用宿主页面中附加到`<html>`元素上的`ng-app`指令引导的。
   但在Angular 2中，它不再工作了。我们得切换成JavaScript驱动的引导方式。
   所以，从`index.html`中移除`ng-app`属性，并把这些加载`main.ts`中：
@@ -1629,7 +1629,7 @@ code-example(format="").
   that we want to load. Since we're bootstrapping the app through
   an `UpgradeAdapter`, we're actually now running the app as a hybrid Angular 1+2
   app.
-  
+
   这里使用的参数是应用的根元素(也就是以前我们放`ng-app`的元素)，和我们准备加载的Angular 1.x模块。
   由于我们是通过`UpgradeAdapter`引导应用的，所以实际在运行的应用实际上是一个Angular 1+2的混合体。
 
@@ -1753,7 +1753,7 @@ code-example(format="").
   `UpgradeAdapter` has a `downgradeNg2Provider` method for the purpose of making
   Angular 2 services available to Angular 1 code. We can use it to plug in our
   `Phone` service:
-  
+
   `UpgradeAdapter`有个`downgradeNg2Provider`方法就是用来让Angular 2的服务在Angular 1的代码中可用的。
   我们可以使用它来插入我们的`Phone`服务：
 
@@ -1766,19 +1766,19 @@ code-example(format="").
 
   1. Register `Phone` as an **Angular 2 provider** with the `addProvider`
      method. That's the same method that we used earlier for `HTTP_PROVIDERS`.
-     
+
   1. 用`addProvider`方法注册了一个名叫`Phone`的**Angular 2供应商**。这和我们以前使用`HTTP_PROVIDERS`的方法一样。
-  
+
   2. Register an **Angular 1 factory** called `phone`, which will be a *downgraded*
      version of the `Phone` Angular 2 service.
-  
+
   2. 注册了一个名叫`phone`的**Angular 1工厂**，它是一个`Phones`服务的*降级*版。
-  
+
   Now that we are loading `phone.service.ts` through an import that is resolved
   by SystemJS, we should **remove the `<script>` tag** for the service from `index.html`.
   This is something we'll do to all our components as we upgrade them. Simultaneously
   with the Angular 1 to 2 upgrade we're also migrating our code from scripts to modules.
-  
+
   现在，我们正在用SystemJS加载`phone.service.ts`，我们应该从`index.html`中**移除该服务的`<script>`标签**。
   这也是我们在升级所有组件时将会做的事。在从Angular 1向2升级的同时，我们也把代码从脚本移植为模块。
 
@@ -1786,7 +1786,7 @@ code-example(format="").
   instead of the old one. We `$inject` it as the downgraded `phone` factory,
   but it's really an instance of the `Phone` class and we can annotate its type
   accordingly:
-  
+
   这时，我们可以把两个控制器从使用老的服务切换成使用新的。我们像降级过的`phones`工厂一样`$inject`它，
   但它实际上是一个`Phones`类的实例，并且我们可以据此注解它的类型：
 
@@ -1810,28 +1810,28 @@ code-example(format="").
     We could also use the `toPromise` method of `Observable` to turn those
     Observables into Promises in the service. This can in many cases further
     reduce the amount of changes needed in the component controllers.
-    
+
     我们也能使用`Observable`的`toPromise`方法来在服务中把这些可观察对象转变成承诺，以进一步减小组件控制器中需要修改的代码量。
 
 :marked
   ## Upgrading Components
-  
+
   ## 升级组件
 
   Next, let's upgrade our Angular 1 components to Angular 2 components. We'll
   do it one at a time, while still keeping the application in hybrid mode.
   As we make these conversions, we'll also be defining our first Angular 2 *pipes*.
-  
+
   接下来，我们把Angular 1的控制器升级成Angular 2的组件。我们每次升级一个，同时仍然保持应用运行在混合模式下。
   在做转换的同时，我们还将自定义首个Angular 2*管道*。
-  
+
 
   Let's look at the phone list component first. Right now it contains a TypeScript
   controller class and a component definition object. We can morph this into
   an Angular 2 component by just renaming the controller class and turning the
   Angular 1 component definition object into an Angular 2 `@Component` decorator.
   We can then also remove the static `$inject` property from the class:
-  
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.component.ts', 'initialclass', 'app/phone-list/phone-list.component.ts')
 
 :marked
@@ -1839,7 +1839,7 @@ code-example(format="").
   should go. In Angular 1 we do matching based on component names, but in Angular 2 we
   have these explicit selectors. This one will match elements with the name `phone-list`,
   just like the Angular 1 version did.
-  
+
   We now also need to convert the template of this component into Angular 2 syntax.
   In the search controls we need to use Angular 2 syntax for the two `ngModel`s.
   We should also no longer use the `$ctrl` prefix in expressions:
@@ -1851,7 +1851,7 @@ code-example(format="").
   `let var of iterable` syntax, which is [described in our
   Template Syntax guide](../guide/template-syntax.html#directives).
   For the images, we can replace `ng-src` with a binding to the standard `src` property.
-  
+
   在列表中，我们需要把`ng-repeat`替换为`*ngFor`以及它的`let var of iterable`语法，
   该语法在[模板语法指南中讲过](../guide/template-syntax.html#directives)。
   对于图片，我们可以把`ng-src`替换为一个标准的`src`属性(property)绑定。
@@ -1866,7 +1866,7 @@ code-example(format="").
   pipes for this purpose, but in this case it is more convenient to just implement the filtering
   and ordering logic in the component itself. We expect the `getPhones()` method to return a collection
   where the current filtering and ordering has been applied.
-  
+
   我们在这里做的另一件事就是移除了`filter`和`orderBy`过滤器的使用，并把它们换成对控制器中`getPhones()`方法的调用。
   内建的`filter`和`orderBy`在Angular 2中已经不存在了，所以我们得自己进行过滤和排序。
   我们可以为此定义自己的Angular 2管道，但是在这个案例中，在组件本身实现过滤和排序逻辑反倒更方便。
@@ -1894,12 +1894,12 @@ code-example(format="").
   降级方法(`downgradeNg2Component`)的返回值能作为指令工厂使用。
 
   At this point, also remove the `<script>` tag for the phone list component from `index.html`.
-  
+
   这时，也从`index.html`中移除电话列表组件的`<script>`标签。
 
   Now we can start looking at our other component, which is the one for
   the phone details. Set the contents of `phone-detail.component.ts` as follows:
-  
+
   现在我们可以开始看看另一个组件，那就是电话详情。把`phone-detail.component.ts`的内容设置为这样：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-detail/phone-detail.component.ts', 'initialclass', 'app/phone-detail/phone-detail.component.ts')
@@ -1910,7 +1910,7 @@ code-example(format="").
   Angular 2 injector what this dependency should map to. We have a dependency called
   `$routeParams` in the Angular 1 injector, where it is provided by the Angular 1 router.
   That is what we were already using when `PhoneDetails` was still an Angular 1 controller.
-  
+
   这和我们对电话列表所做的很相似。这里的一个新的更改是使用`@Inject`来获取`$routeParams`依赖。
   它告诉Angular 2的注入器这个依赖该被映射成什么。我们在Angular 1的注入器中有一个名叫`$routeParams`的依赖，
   它是由Angular 1路由器提供的。
@@ -1920,11 +1920,11 @@ code-example(format="").
   Angular 2 components, so if we were to run this now, it would not work. We need to explicitly
   tell the `UpgradeAdapter` to upgrade `$routeParams` so that it is available for injection in
   Angular 2. We can do it in `main.ts`:
-  
+
   问题是，Angular 1的依赖不会自动对Angular 2的组件可用，所以如果我们现在运行它，它将无法工作。
   我们得显式的告诉`UpgradeAdapter`去升级`$routeParams`，以便它能被注入到Angular 2中。
   我们可以在`main.ts`中这么做：
-  
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'routeparams', 'app/main.ts')
 
 
@@ -1949,7 +1949,7 @@ code-example(format="").
 
   * Just like we did in the phone list, we've replaced `ng-src` with property
   bindings for the standard `src` property.
-  
+
   * 正如我们在电话列表中做过的那样，我们把`ng-src`替换成了标准的`src`属性绑定。
 
   * We're using the property binding syntax around `ng-class`. Though Angular 2
@@ -1977,7 +1977,7 @@ code-example(format="").
     non-existing value. Unlike in Angular 1, Angular 2 expressions do not fail silently
     when we try to refer to properties on undefined objects. We need to be explicit
     about cases where this is expected.
-  
+
   * 我们把整个模板都包裹进了一个`ngIf`中，这导致只有当存在一个电话时它才会渲染。我们必须这么做，
     是因为组件首次加载时我们还没有`phone`变量，这些表达式就会引用到一个不存在的值。
     和Angular 1不同，当我们尝试引用未定义对象上的属性时，Angular 2中的表达式不会默默失败。
@@ -1987,7 +1987,7 @@ code-example(format="").
   In `main.ts` we'll now register a `phoneDetail` directive instead of a
   component. The directive is a downgraded version of the `PhoneDetail` Angular 2
   component.
-  
+
   在`main.ts`中，我们现在会注册一个`pcPhoneDetail`指令，而不再是组件。该指令是`PhoneDetail`组件的一个降级版。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-detail', 'app/main.ts')
@@ -2070,7 +2070,7 @@ code-example(format="").
 
   We should put this `<phonecat-app>` element in the HTML so that the root component
   has something to attach to. It replaces the old Angular 1 `ng-view` directive:
-  
+
   我们还要把这个`<pc-app>`元素放进HTML中，以便这个根组件可以附加上去。它代替了Angular 1中原来的`ng-view`指令：
 
 +makeExample('upgrade-phonecat-3-final/ts/index.html', 'appcomponent', 'index.html')
@@ -2091,7 +2091,7 @@ code-example(format="").
   With that, we're ready to switch the bootstrap method of the application from that
   of the `UpgradeAdapter` to the main Angular 2 `bootstrap`. Let's import it together
   with the router, the new app component, and everything else in `main.ts`
-  
+
   使用它，我们就可以把来自`UpgradeAdapter`中的`bootstrap`方法切换到Angular 2自己的`bootstrap`了。
   通过路由器和`main.ts`中新的应用组件，我们把它们导入到一起：
 
@@ -2117,12 +2117,12 @@ code-example(format="").
   We also configure a couple of things for the router here so that the application
   URL paths match exactly those we had in the Angular 1 app: We want the
   hash location strategy with the `!` prefix: `#!/phones`.
-  
+
   这里我们还为路由器配置了一组东西，以便应用的URL路径和我们在Angular 1应用中用过的完全匹配：
   我们希望hash地址策略使用`!`前缀：`#!/phones`。
 
   At this point we are running a pure Angular 2 application!
-  
+
   此时，我们就在运行一个纯Angular 2应用了。
 
   But there's actually one more cool thing we can do with the new router.
@@ -2139,14 +2139,14 @@ code-example(format="").
 
 :marked
   For this to work the directive just needs to be declared in the component:
-  
+
   要让该指令能够工作，我们只需要把它在组件中声明一下：
 
 +makeExample('upgrade-phonecat-3-final/ts/app/phone-list/phone-list.component.ts', 'top')
 
 :marked
   ## Saying Goodbye to Angular 1
-  ## 再见，Angular
+  ## 再见，Angular 1
 
   It is time to take off the training wheels and let our application begin
   its new life as a pure, shiny Angular 2 app. The remaining tasks all have to
@@ -2157,11 +2157,11 @@ code-example(format="").
 
   If you haven't already, remove all references to the `UpgradeAdapter` from `main.ts`.
   Also remove the Angular 1 bootstrap code.
-  
+
   请从`main.ts`中移除所有到`UpgradeAdapter`的引用，并移除Angular 1的引导代码。
 
   When you're done, this is what `main.ts` should look like:
-  
+
   都完成了之后，`main.ts`看起来应该像这样：
 
 +makeExample('upgrade-phonecat-3-final/ts/app/main.ts', null, 'app/main.ts')
@@ -2169,7 +2169,7 @@ code-example(format="").
 :marked
   You may also completely remove the following files. They are Angular 1
   module configuration files and not needed in Angular 2:
-  
+
   我们还要完全移除了下列文件。它们是Angular 1的模块配置文件和类型定义文件，在Angular 2中不需要了：
 
   * `app/app.module.ts`
@@ -2196,7 +2196,7 @@ code-example(format="").
   Finally, from `index.html`, remove all references to
   Angular 1 scripts, the Angular 2 upgrade module, and jQuery. When we're done,
   this is what it should look like:
-  
+
   最后，从`index.html`和`karma.conf.js`中，移除所有到Angular 1脚本的引用，比如jQuery。
   当这些全部做完时，`index.html`看起来应该是这样的：
 
@@ -2211,14 +2211,18 @@ code-example(format="").
 .l-main-section
 :marked
   # Appendix: Upgrading PhoneCat Tests
-  
+
   # 附录：升级PhoneCat的测试
 
   Tests can not only be retained through an upgrade process, but they can also be
   used as a valuable safety measure when ensuring that the application does not
   break during the upgrade. E2E tests are especially useful for this purpose.
-  
+
+  测试不仅要在升级过程中被保留，它还是确保应用在升级过程中不会被破坏的一个安全指示器。
+  要达到这个目的，E2E测试尤其有用。
+
   ## E2E Tests
+  ## E2E测试
 
   The PhoneCat project has both E2E Protractor tests and some Karma unit tests in it.
   Of these two, E2E tests can be dealt with much more easily: By definition,
@@ -2229,17 +2233,32 @@ code-example(format="").
   test suite should keep passing with just minor modifications. This is because
   we don't change how the application behaves from the user's point of view.
 
+  PhoneCat项目中同时有基于Protractor的E2E测试和一些基于Karma的单元测试。
+  对这两者来说，E2E测试的转换要容易得多：根据定义，E2E测试通过与应用中显示的这些UI元素互动，从*外部*访问我们的应用来进行测试。
+  E2E测试实际上并不关心这些应用中各部件的内部结构。这也意味着，虽然我们已经修改了一点儿此应用程序，
+  但是E2E测试套件仍然应该能像以前一样全部通过。因为从用户的角度来说，我们并没有改变应用的行为。
+
   During TypeScript conversion, there is nothing we have to do to keep E2E tests
   working. It is only when we start to upgrade components and their template to Angular 2
   that we need to make some changes. This is because the E2E tests have matchers
   that are specific to Angular 1. For PhoneCat we need to make the following changes
   in order to make things work with Angular 2:
 
+  在转成TypeScript期间，我们不用做什么就能让E2E测试正常工作。
+  只有当我们想做些修改而把组件及其模板升级到Angular 2时才需要做些处理。
+  这是因为E2E测试有一些匹配器是Angular 1中特有的。对于PhoneCat来说，为了让它能在Angular 2下工作，我们得做下列修改：
+
 table
   tr
-    th Previous code
-    th New code
-    th Notes
+    th
+      p Previous code
+      p 老代码
+    th
+      p New code
+      p 新代码
+    th
+      p Notes
+      p 说明
   tr
     td
       :marked
@@ -2250,6 +2269,8 @@ table
     td
       :marked
         The repeater matcher relies on Angular 1 `ng-repeat`
+
+        repeater匹配器依赖于Angular 1中的`ng-repeat`
   tr
     td
       :marked
@@ -2260,6 +2281,8 @@ table
     td
       :marked
         The repeater matcher relies on Angular 1 `ng-repeat`
+
+        repeater匹配器依赖于Angular 1中的`ng-repeat`
   tr
     td
       :marked
@@ -2270,6 +2293,8 @@ table
     td
       :marked
         The model matcher relies on Angular 1 `ng-model`
+
+        model匹配器依赖于Angular 1中的`ng-model`
   tr
     td
       :marked
@@ -2280,6 +2305,8 @@ table
     td
       :marked
         The model matcher relies on Angular 1 `ng-model`
+
+        model匹配器依赖于Angular 1中的`ng-model`
   tr
     td
       :marked
@@ -2291,6 +2318,7 @@ table
       :marked
         The binding matcher relies on Angular 1 data binding
 
+        binding匹配器依赖于Angular 1的数据绑定
 
 :marked
   When the bootstrap method is switched from that of `UpgradeAdapter` to
@@ -2298,6 +2326,10 @@ table
   At this point we need to tell Protractor that it should not be looking for
   an Angular 1 app anymore, but instead it should find *Angular 2 apps* from
   the page. The following change is then needed in `protractor-conf.js`:
+
+  当引导方式从`UpgradeAdapter`切换到纯Angular 2的时，Angular 1就从页面中完全消失了。
+  此时，我们需要告诉Protractor，它不用再找Angular 1应用了，而是从页面中查找*Angular 2*应用。
+  于是在`protractor-conf.js`中做下列修改：
 
 code-example(format="").
   useAllAngular2AppRoots: true,
@@ -2309,10 +2341,15 @@ code-example(format="").
   that use WebDriver's generic URL APIs instead. The first of these is
   the redirection spec:
 
+  同样，我们的测试代码中有两个Protractor API调用内部使用了`$location`。该服务没有了，
+  我们就得把这些调用用一个WebDriver的通用URL API代替。第一个API是“重定向(redirect)”规约：
+
 +makeExample('upgrade-phonecat-3-final/e2e-spec.js', 'redirect', 'e2e-tests/scenarios.js')
 
 :marked
   And the second is the phone links spec:
+
+  第二个是“电话链接(phone links)”规约：
 
 +makeExample('upgrade-phonecat-3-final/e2e-spec.js', 'links', 'e2e-tests/scenarios.js')
 
@@ -2321,16 +2358,26 @@ code-example(format="").
 :marked
   ## Unit Tests
 
+  ## 单元测试
+
   For unit tests, on the other hand, more conversion work is needed. Effectively
   they need to be *upgraded* along with the production code.
+
+  另一方面，对于单元测试来说，需要更多的转化工作。实际上，它们需要随着产品代码一起升级。
 
   During TypeScript conversion no changes are strictly necessary. But it may be
   a good idea to convert the unit test code into TypeScript as well, as the same
   benefits we from TypeScript in production code also applies to tests.
 
+  在转成TypeScript期间，严格来讲没有什么改动是必须的。但把单元测试代码转成TypeScript仍然是个好主意，
+  产品代码从TypeScript中获得的那些增益也同样适用于测试代码。
+
   For instance, in the phone detail component spec we can use not only ES2015
   features like arrow functions and block-scoped variables, but also type
   definitions for some of the Angular 1 services we're consuming:
+
+  比如，在这个电话详情组件的规约中，我们不仅用到了ES2015中的箭头函数和块作用域变量这些特性，还为所用的一些
+  Angular 1服务提供了类型定义。
 
 +makeExample('upgrade-phonecat-1-typescript/ts/app/phone-detail/phone-detail.component.spec.ts', null, 'app/phone-detail/phone-detail.component.spec.ts')
 
@@ -2339,14 +2386,21 @@ code-example(format="").
   are needed for Karma. We need to let SystemJS load all the new Angular 2 code,
   which can be done with the following kind of shim file:
 
+  一旦我们开始了升级过程并引入了SystemJS，还需要对Karma进行配置修改。
+  我们需要让SystemJS加载所有的Angular 2新代码，
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/karma-test-shim.1.js', null, 'karma-test-shim.js')
 
 :marked
   The shim first loads the SystemJS configuration, then Angular 2's test support libraries,
   and then the application's spec files themselves.
 
+  这个shim文件首先加载了SystemJS的配置，然后是Angular 2的测试支持库，然后是应用本身的规约文件。
+
   Karma configuration should then be changed so that it uses the application root dir
   as the base directory, instead of `app`.
+
+  然后需要修改Karma配置，来让它使用本应用的根目录作为基础目录(base directory)，而不是`app`。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/karma.conf.ng1.js', 'basepath', 'karma.conf.js')
 
@@ -2355,11 +2409,16 @@ code-example(format="").
   for loading application files so that they are *not* included to the page by Karma. We'll let
   the shim and SystemJS load them.
 
+  一旦这些完成了，我们就能加载SystemJS和其它依赖，并切换配置文件来加载那些应用文件，而*不用*在Karma页面中包含它们。
+  我们要让这个shim文件和SystemJS去加载它们。
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/karma.conf.ng1.js', 'files', 'karma.conf.js')
 
 :marked
   Since the HTML templates of Angular 2 components will be loaded as well, we need to help
   Karma out a bit so that it can route them to the right paths:
+
+  由于Angular 2组件中的HTML模板也同样要被加载，所以我们得帮Karma一把，帮它在正确的路径下找到这些模板：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/karma.conf.ng1.js', 'html', 'karma.conf.js')
 
@@ -2368,17 +2427,23 @@ code-example(format="").
   counterparts are switched. The specs for the checkmark pipe are probably the most straightforward,
   as the pipe has no dependencies:
 
+  如果产品代码被切换到了Angular 2，单元测试文件本身也需要切换过来。对勾儿(checkmark)管道的规约可能是最简单的，因为它没有任何依赖：
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/core/checkmark/checkmark.pipe.spec.ts', null, 'app/core/checkmark/checkmark.pipe.spec.ts')
 
 :marked
   The unit test for the phone service is a bit more involved. We need to switch from the mocked-out
   Angular 1 `$httpBackend` to a mocked-out Angular 2 Http backend.
 
+  `Phone`服务的测试会牵扯到一点别的。我们需要把模拟版的Angular 1 `$httpBackend`服务切换到模拟板的Angular 2 Http后端。
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/core/phone/phone.service.spec.ts', null, 'app/core/phone/phone.service.spec.ts')
 
 :marked
   For the component specs we can mock out the `Phone` service itself, and have it provide
   canned phone data. We use Angular's component unit testing APIs for both components.
+
+  对于组件的规约，我们可以模拟出`Phone`服务本身，并且让它提供电话的数据。我们可以对这些组件使用Angular的组件单元测试API。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-detail/phone-detail.component.spec.ts', null, 'app/phone-detail/phone-detail.component.spec.ts')
 
@@ -2390,10 +2455,15 @@ code-example(format="").
   router. For the details component we need to provide an Angular 2 `RouteParams` object
   instead of using the Angular 1 `$routeParams`.
 
+  最后，当我们切换到Angular 2路由时，我们需要重新过一遍这些组件测试。对详情组件来说，我们需要提供一个Angular 2的
+  `RouteParams`对象，而不再用Angular 1的`$routeParams`。
+
 +makeExample('upgrade-phonecat-3-final/ts/app/phone-detail/phone-detail.component.spec.ts', 'routeparams', 'app/phone-detail/phone-detail.component.spec.ts')
 
 :marked
   And for the phone list component we need to set up a few things for the router itself so that
   the route link directive will work.
+
+  对于电话列表组件来说，我们需要为路由器本身略作设置，以便它的路由链接(`routerLink`)指令能够正常工作。
 
 +makeExample('upgrade-phonecat-3-final/ts/app/phone-list/phone-list.component.spec.ts', 'routestuff', 'app/phone-list/phone-list.component.spec.ts')

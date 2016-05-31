@@ -105,6 +105,12 @@
     "intro": "废弃的Beta版路由"
   },
 
+  "router": {
+    "title": "路由与导航",
+    "intro": "揭示如何通过Angular 2路由进行基本的屏幕导航。",
+    "hide": true
+  },
+
   "structural-directives": {
     "title": "结构型指令",
     "intro": "Angular有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
