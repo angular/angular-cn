@@ -4,17 +4,23 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 (function ($) {
   var nodes = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, header, a, button, small');
   _.each(nodes, function (node) {
-    var prevNode = node.previousElementSibling;
-    if (!prevNode) {
-      return;
-    }
-    var $prevNode = $(prevNode);
     var $node = $(node);
 
     if (isLink(node) || isButton(node)) {
-      $node.on('click', function(event) {
+      $node.on('click', function (event) {
         event.stopPropagation();
       });
+
+      if (/^http?s:\/\//.test($node.attr('href')) && !$node.attr('target')) {
+        $node.attr('target', '_blank');
+      }
+    }
+
+    var prevNode = node.previousElementSibling;
+    var $prevNode = $(prevNode);
+
+    if (!prevNode) {
+      return;
     }
 
     if (isTranslationResult(node, prevNode)) {
@@ -48,11 +54,13 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
   });
 
   function isLink(node) {
-    return node.tagName === 'A';
+    return node.tagName.toUpperCase() === 'A';
   }
+
   function isButton(node) {
-    return node.tagName === 'BUTTON';
+    return node.tagName.toUpperCase() === 'BUTTON';
   }
+
   function isPureEnglish(text) {
     // accept &mdash; , quotes, ® and façade too.
     return /^[\1-\255—’“”ç®]*$/.test(text);
