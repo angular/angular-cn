@@ -8,15 +8,23 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     if (!prevNode) {
       return;
     }
+    var $prevNode = $(prevNode);
+    var $node = $(node);
+
+    if (isLink(node) || isButton(node)) {
+      $node.on('click', function(event) {
+        event.stopPropagation();
+      });
+    }
+
     if (isTranslationResult(node, prevNode)) {
-      var $prevNode = $(prevNode);
-      var $node = $(node);
       if ($prevNode.hasClass('nav-list-item')) {
         return;
       }
       if (isPureEnglish($node.text()) && $node.text() !== $prevNode.text()) {
         return;
       }
+
       if (isPureEnglish($prevNode.text())) {
         $node.attr('id', prevNode.id);
         $node.addClass('translated');
@@ -26,7 +34,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         if (!sourceVisible) {
           $prevNode.addClass('hidden');
         }
-        if (node.tagName !== 'A' && node.tagName !== 'BUTTON') {
+        if (!isLink(node) && !isButton(node)) {
           $node.on('click', function () {
             $prevNode.toggleClass('hidden');
           });
@@ -39,6 +47,12 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     }
   });
 
+  function isLink(node) {
+    return node.tagName === 'A';
+  }
+  function isButton(node) {
+    return node.tagName === 'BUTTON';
+  }
   function isPureEnglish(text) {
     // accept &mdash; , quotes, ® and façade too.
     return /^[\1-\255—’“”ç®]*$/.test(text);
