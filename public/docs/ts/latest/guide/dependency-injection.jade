@@ -839,7 +839,7 @@ code-example(format, language="html").
 
   We must register a service *provider* with the injector, or it won't know how to create the service.
   
-  我们必须通过注入器注册一个服务的*供应商*，否则它就不知道该如何创建此服务。
+  我们必须为注入器注册一个服务的*供应商*，否则它就不知道该如何创建此服务。
 
   Earlier we registered the `Logger` service in the `providers` array of the metadata for the `AppComponent` like this:
   
@@ -882,7 +882,7 @@ code-example(format, language="html").
 
   What matters is that the injector has a provider to go to when it needs a `Logger`.
   
-  问题是：当注入器需要一个`Logger`时，它得先有一个供应商。
+  最重要的是：当注入器需要一个`Logger`时，它得先有一个供应商。
   
 // #enddocregion providers-2
 // #docregion providers-provide-1
@@ -933,14 +933,18 @@ code-example(format, language="html").
 :marked
   Pick the syntax that you prefer. They all do the same thing.
   
+  挑选一种你自己喜欢的语法。它们都能做同样的事。
+  
   In each syntax, we supply two types of values.
+  
+  在每种语法中，我们提供了两个类型的值。
 // #enddocregion providers-provide-4-1
 // #docregion providers-provide-4-2
 :marked
   The first is the [token](#token) that serves as the key for both locating a dependency value
   and registering the provider.
   
-  第一个是[令牌token](#token)，它作为键值(key)使用，用于定位依赖值，以及注册这个供应商。
+  第一个是[令牌token](#token)，它作为键值key使用，用于定位依赖值，以及注册这个供应商。
 // #enddocregion providers-provide-4-2
 
 // Dart is different here (uses an optional parameter)
@@ -1001,7 +1005,7 @@ code-example(format, language="html").
   we can't update the old component to use it.
   
   假设一个老的组件依赖于一个`OldLogger`类。
-  `OldLogger`有和`NewLogger`相同的接口，但是由于某些原因，我们不能升级这个老组件来使用`NewLogger`。
+  `OldLogger`有和`NewLogger`相同的接口，但是由于某些原因，我们不能升级这个老组件并使用它。
 
   When the *old* component logs a message with `OldLogger`,
   we want the singleton instance of `NewLogger` to handle it instead.
@@ -1194,15 +1198,15 @@ code-example(format, language="html").
   The injector maintains an internal *token-provider* map that it references when
   asked for a dependency. The token is the key to the map.
   
-  当我们使用注入器注册一个供应商时，实际上是把这个供应商和一个DI令牌关联起来了。
+  当我们为注入器注册一个供应商时，实际上是把这个供应商和一个DI令牌关联起来了。
   注入器维护一个内部的*令牌-供应商*映射表，这个映射表会在请求一个依赖时被引用到。
-  令牌就是这个映射表中的键值（key）。
+  令牌就是这个映射表中的键值key。
 
   In all previous examples, the dependency value has been a class *instance*, and
   the class *type* served as its own lookup key.
   Here we get a `HeroService` directly from the injector by supplying the `HeroService` type as the token:
   
-  在以前的所有范例中，依赖值都是一个类*实例*，并且类的*类型*作为它自己的查找键值。
+  在以前的所有范例中，依赖值都是一个类*实例*，并且类的*类型*是它自己的查找键值。
   这种情况下，我们实际上是直接从注入器中以`HeroService`类型作为令牌，来获取一个`HeroService` 实例。
 // #enddocregion tokens-1
 +makeExample('dependency-injection/ts/app/injector.component.ts','get-hero-service')(format='.')
@@ -1267,7 +1271,7 @@ code-example(format, language="html").
 .l-sub-section
   :marked
     ### TypeScript interfaces aren't valid tokens
-    ### TypeScript接口不是一个有效的token
+    ### TypeScript接口不是一个有效的令牌
 
     The `CONFIG` constant has an interface, `Config`. Unfortunately, we
     cannot use a TypeScript interface as a token:
@@ -1299,7 +1303,7 @@ p.
   The solution is to define and use an !{opaquetoken}.
   The definition looks like this:
   
-p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）。定义方式类似于这样：
+p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。定义方式类似于这样：
 // #enddocregion tokens-opaque-1
 +makeExample('dependency-injection/ts/app/app.config.ts','token')(format='.')
 :marked
@@ -1360,7 +1364,7 @@ p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）�
   [Hierarchical Dependency Injection](hierarchical-dependency-injection.html) chapter.
   
   Angular依赖注入比我们描述的更能干。
-  我们还可以学到它的更多高级特性，从它对嵌套注入器的支持开始，参见[分层依赖注入](hierarchical-dependency-injection.html)一章。
+  我们还可以学到它的更多高级特性，从它对嵌套注入器的支持开始，参见[多级依赖注入器](hierarchical-dependency-injection.html)一章。
 // #enddocregion summary
 
 // #docregion appendix-explicit-injector-1
@@ -1407,7 +1411,7 @@ p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）�
     The technique we just described is an example of the
     [service locator pattern](https://en.wikipedia.org/wiki/Service_locator_pattern).
     
-    我们只通过一个范例描述过这项技术：[服务定位器模式](https://en.wikipedia.org/wiki/Service_locator_pattern)。
+    我们刚描述的这项技术是[服务定位器模式](https://en.wikipedia.org/wiki/Service_locator_pattern)的一个范例。
 
     We **avoid** this technique unless we genuinely need it.
     It encourages a careless grab-bag approach such as we see here.
@@ -1421,7 +1425,7 @@ p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）�
     它难以解释、理解和测试。
     仅通过阅读构造函数，我们没法知道这个类需要什么或者它将做什么。
     它可以从任何祖先组件中获得服务，而不仅仅是它自己。
-    我们被迫深入实现，去搞清楚它都做了啥。
+    我们会被迫深入它的实现，才可能明白它都做了啥。
 
     Framework developers may take this approach when they
     must acquire services generically and dynamically.
@@ -1459,6 +1463,6 @@ p 解决方案是定义和使用用一个!{opaquetoken}（不透明的令牌）�
     Avoid the problem altogether by defining components and services in separate files.
     
     在`forwardRef()`方法的帮助下，我们实际上也可以先定义组件。
-    它的原理解释在[这个博客中](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)。
+    它的原理解释在这个[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)中。
     但是为什么要先给自己找麻烦呢？
     还是通过在独立的文件中定义组件和服务，完全避免此问题吧。

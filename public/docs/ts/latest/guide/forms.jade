@@ -782,7 +782,7 @@ figure.image-display
 
   We realize we can do both at the same time with a colored bar on the left of the input box:
   
-  我们意识到，其实能同时满足这两个要求，只要在输入框的左侧添加一个带颜色的竖条就可以了。
+  我们意识到，只要在输入框的左侧添加一个带颜色的竖条，就可以同时满足这两个要求。
 
 figure.image-display
   img(src="/resources/images/devguide/forms/validity-required-indicator.png" width="400px" alt="无效表单")
@@ -791,7 +791,7 @@ figure.image-display
   We achieve this effect by adding two styles to a new `forms.css` file
   that we add to our project as a sibling to `index.html`.
   
-  在新建的`forms.css`文件中，添加两个样式定义可以达到预期效果。我们把这个文件添加到项目中，和`index.html`相邻。
+  在新建的`forms.css`文件中，添加两个样式的定义就达到了预期效果。我们把这个文件添加到项目中，和`index.html`相邻。
 
 +makeExample('forms/ts/forms.css',null,'forms.css')(format=".")
 :marked
@@ -817,7 +817,7 @@ figure.image-display
   don't know *what* is wrong or what to do about it.
   We can leverage the `ng-invalid` class to reveal a helpful message.
   
-  “姓名”输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但我们不知道错在哪里，或者如何纠正。
+  “Name”输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但我们不知道错在哪里，或者如何纠正。
   我们可以借助`ng-invalid`类来给出一个更有用的消息。
 
   Here's the way it should look when the user deletes the name:
@@ -838,11 +838,11 @@ figure.image-display
   
   1. the "*is required*" message in a nearby `<div>` which we'll display only if the control is invalid.
   
-  1. “is required”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
+  1. 将“is required”的消息放在附近的一个`<div>`元素中，只有当控件无效时，我们才显示它。
 
   Here's how we do it for the *name* input box:
   
-  下面是我们应该对 *姓名* 输入框所要做的：
+  下面是我们应该对*Name*输入框所要做的：
   
 +makeExample('forms/ts/app/hero-form.component.html', 
   'name-with-error-msg', 
