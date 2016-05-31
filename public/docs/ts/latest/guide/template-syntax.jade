@@ -87,7 +87,7 @@ code-example(language="html" escape="html").
 
   Some legal HTML doesn’t make much sense in a template. The `<html>`, `<body>`, and `<base>` elements have no useful role in our repertoire. Pretty much everything else is fair game.
   
-  在模板中，有些合法的HTML没有理由被用在一个模板中。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。基本上所有其它的元素都被平等使用。
+  在模板中，有些合法的HTML没有理由被用在一个模板中。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。基本上所有其它的元素都被一样使用。
 
   We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. And we are about to learn how to get and set DOM values dynamically through data binding.
   
@@ -140,8 +140,8 @@ code-example(language="html" escape="html").
   But it is not literally true. Interpolation is a special syntax that Angular converts into a
   [property binding](#property-binding), as we'll explain below.
   
-  表面上看，我们在元素标签之间插入了结果或者对标签的属性进行了赋值。
-  这样思考起来很方便，并且很少给我们带来错误。
+  表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
+  这样思考起来很方便，并且这个错误很少给我们带来麻烦。
   但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular把它转换成了一个[属性绑定](#property-binding)，我们后面将会解释这一点。
 
   But first, let's take a closer look at template expressions and statements.
@@ -169,12 +169,13 @@ code-example(language="html" escape="html").
 
   We write template expressions in a language that looks like #{_JavaScript}.
   Many #{_JavaScript} expressions are legal template expressions, but not all.
-
-  #{_JavaScript} expressions that have or promote side effects are prohibited,
-  including:
   
   我们用来写模板表达式的是一种看起来很像JavaScript的语言。
   很多JavaScript表达式也是合法的模板表达式，但不是全部。
+
+  #{_JavaScript} expressions that have or promote side effects are prohibited,
+  including:
+    
   JavaScript中那些具有或可能引发副作用的表达式是被禁止的，包括：
 
   * assignments (`=`, `+=`, `-=`, ...)
@@ -199,6 +200,8 @@ block notable-differences
     * 具有新的 [模板表达式运算符](#expression-operators)，比如`|`和`?.`
 
 h3#expression-context Expression context
+
+h3#expression-context 表达式上下文
 
 block template-expressions-cannot
   :marked
@@ -255,7 +258,7 @@ block template-expressions-cannot
 
   The only exceptions to these guidelines should be in specific circumstances that you thoroughly understand.
   
-  这些指南中唯一的例外应该出现在那些你确信自己已经彻底理解的特定场景中。
+  超出上面指南外的情况应该只出现在那些你确信自己已经彻底理解的特定场景中。
 
   #### No visible side effects
   #### 没有可见的副作用
@@ -271,7 +274,7 @@ block template-expressions-cannot
   
   这条规则是Angular“单向数据流”策略的基础。
   我们永远不应该担心读取一个组件值可能改变另外的显示值。
-  只要经过一遍渲染，视图就应该趋于稳定。
+  在一次单独的渲染过程中，视图应该总是稳定的。
 
   #### Quick execution
   #### 执行迅速
@@ -339,8 +342,8 @@ block template-expressions-cannot
   There would be no point to responding to an event otherwise.
   
   模板语句*有副作用*。
-  这个副作用就是我们从用户的输入更新应用状态的方式。
-  如果不是这样，我们就没办法响应一个事件。
+  这就是我们如何从用户的输入来更新应用状态。
+  不然，就没有什么意义来响应一个事件了。
 
 .l-sub-section
   :marked
@@ -356,7 +359,7 @@ block template-expressions-cannot
   (with !{__chaining_op}).
   
   和模板表达式一样，模板*语句*也是一个一个看起来很像JavaScript的语言。
-  模板语句解析器和模板表达式解析器有所不同，它的特别之处在于它既支持支持基本赋值（`=`）又支持使用分号（`;`）和逗号（`,`）把表达式串起来。
+  模板语句解析器和模板表达式解析器有所不同，它的特别之处在于它既支持基本赋值（`=`）又支持使用分号（`;`）和逗号（`,`）把表达式串起来。
 
   However, certain #{_JavaScript} syntax is not allowed:
 
@@ -379,13 +382,15 @@ block template-expressions-cannot
   As with expressions, statements can refer only to what's in the statement context — typically the
   **component instance** to which we're binding the event.
 
-  和表达式中一样，语句只能引用语句上下文中 —— 典型的就是我们正在绑定事件的那个**组件的实例** —— 中的内容。
+  和表达式中一样，语句只能引用语句上下文中 —— 典型的就是我们正在绑定事件的那个**组件的实例**中的内容。
 
 block statement-context
   :marked
     Template statements cannot refer to anything in the global namespace. They
     can’t refer to `window` or `document`. They can’t call `console.log` or
     `Math.max`.
+    
+    模板语句无法引用全局命名控件的任何东西。它们不能引用`window`或者`document`。它们不能调用`console.log`或者`Math.max`。
 
 :marked
   The *onSave* in `(click)="onSave()"` is sure to be a method of the data-bound component instance.
@@ -424,15 +429,15 @@ block statement-context
   the application is easier to write, read, and maintain if we turn these chores over to a binding framework.
   We simply declare bindings between binding sources and target HTML elements and let the framework do the work.
   
-  数据绑定是一种机制，用来协调用户所见与应用数据的值。
-  虽然我们能往HTML推送值或者从HTML拉取值，但如果我们能把这些琐事放进数据绑定框架，应用就会更容易写、读以及维护。
+  数据绑定是一种机制，用来协调用户所见和应用程序的数据值。
+  虽然我们能往HTML推送值或者从HTML拉取值，但是如果我们能把这些琐事放进数据绑定框架，应用就会更容易写、读以及维护。
   我们只要简单的在绑定源和目标HTML元素之间建立绑定，框架就会完成这项工作。
 
   Angular provides many kinds of data binding, and we’ll discuss each of them in this chapter.
   First we'll take a high-level view of Angular data binding and its syntax.
   
   Angular提供很多种数据绑定，我们将在本章中逐一讨论它们。
-  首先，我们来看看Angular数据绑定的高层视角及其语法。
+  首先，我们从高层视角来看看Angular数据绑定和它的语法。
 
   We can group all bindings into three categories by the direction in which data flows.
   Each category has its distinctive syntax:
@@ -467,7 +472,7 @@ table
       p Interpolation
       p 插值表达式
       p Property
-      p 属性
+      p Property
       p Attribute
       p Attribute
       p Class
@@ -546,12 +551,12 @@ table
 :marked
   We still create a structure and initialize attribute values this way in Angular templates.
   
-  我们还创建了一种结构，并在Angular模板中用这种方式初始化Attribute值。
+  在Angular模板中，我们使用同样的方法来创建一个模板结构和初始化Attribute值。
 
   Then we learn to create new elements with components that encapsulate HTML
   and drop them into our templates as if they were native HTML elements.
   
-  然后，我们学着用包含HTML的组件创建新元素，如果把它扔进我们的模板，它就和原生的HTML元素一般无二。
+  然后，我们学着用包含HTML模板的组件创建新元素，并把它们当作原生HTML元素在模板中使用。
 +makeExample('template-syntax/ts/app/app.component.html', 'hero-detail-1')(format=".")
 :marked
   That’s HTML Plus.
@@ -575,7 +580,7 @@ table
   In fact, once we start data binding, we are no longer working with HTML *attributes*. We aren't setting attributes.
   We are setting the *properties* of DOM elements, components, and directives.
   
-  但我们的直觉是错的！以前的思维模型在误导我们。
+  但我们的直觉是错的！我们的日常HTML思维模式在误导我们。
   实际上，一旦我们开始数据绑定，我们就不再跟Attribute打交道了。我们并不是在设置Attribute，
   而是在设置DOM元素、组件和指令的Property。
 
@@ -606,7 +611,7 @@ table
 
     * Many HTML attributes appear to map to properties ... but not in the way we might think!
     
-    * 大量HTML Attribute看起来映射到了Property…… 但却不像我们自以为的那样！
+    * 大量HTML Attribute看起来映射到了Property…… 但却不像我们想象的那样！
 
     That last category can be especially confusing ... until we understand this general rule:
     
@@ -628,7 +633,7 @@ table
 
     当用户在输入框中输入 “Sally” 时，DOM元素的`value` *Property* 变成了“Sally”。
     但是这个HTML`value` *Attribute* 保持不变。
-    如果我们通过`input.getAttribute('value') // returns "Bob"`语句获取这个input元素的Attribute，就会明白这一点。
+    如果我们通过`input.getAttribute('value') // 返回 "Bob"`语句获取这个input元素的Attribute，就会明白这一点。
 
     The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
     
@@ -772,12 +777,12 @@ table
 :marked
   Let’s descend from the architectural clouds and look at each of these binding types in concrete detail.
   
-  让我们从云端视角降下来，看看每种绑定类型的具体情况。
+  让我们从结构性云层中走出来，看看每种绑定类型的具体情况。
 
 .l-main-section
 :marked
   ## Property binding
-  ## 属性(Property)绑定
+  ## 属性绑定
   We write a template **property binding** when we want to set a property of a view element to the value of
   a [template expression](#template-expressions).
   
@@ -786,8 +791,8 @@ table
   The most common property binding sets an element property to a component property value. An example is
   binding the `src` property of an image element to a component’s `heroImageUrl` property:
   
-  这种最常用的属性绑定会把元素的属性设置为组件中属性的值。
-  下面这个例子中，会把image元素的`src`属性绑定到组件的`heroImageUrl`属性上：
+  最常用的属性绑定是把元素的属性设置为组件中属性的值。
+  下面这个例子中，image元素的`src`属性会被绑定到组件的`heroImageUrl`属性上：
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
 :marked
   Another example is disabling a button when the component says that it `isUnchanged`:
@@ -845,7 +850,7 @@ table
   ### 绑定目标
   An element property between enclosing square brackets identifies the target property. The target property in the following code is the image element’s `src` property.
   
-  包裹在方括号中的元素属性名用于标记出目标属性。下列代码中的目标属性是image元素的`src`属性。
+  包裹在方括号中的元素属性名标记着目标属性。下列代码中的目标属性是image元素的`src`属性。
 
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
 :marked
@@ -856,7 +861,7 @@ table
 :marked
   The target name is always the name of a property, even when it appears to be the name of something else. We see `src` and may think it’s the name of an attribute. No. It’s the name of an image element property.
   
-  目标名总是属性的名字。即使它看起来和别的名字一样。我们看到`src`时，可能会把它当做Attribute。不！它不是！它是image元素的属性名。
+  目标的名字总是属性的名字。即使它看起来和别的名字一样。我们看到`src`时，可能会把它当做Attribute。不！它不是！它是image元素的属性名。
 
   Element properties may be the more common targets,
   but Angular looks first to see if the name is a property of a known directive,
@@ -871,8 +876,8 @@ table
     one of the property names listed in the directive’s `inputs` array or a property decorated with `@Input()`.
     Such inputs map to the directive’s own properties.
     
-    从技术的角度看，Angular正在匹配一个[input](#inputs-outputs)指令的名字。这个名字是指令的`inputs`数组中所列的名字之一，或者是一个带有`@Input()`装饰器的属性。
-    这个inputs被映射到了指令自己的属性。
+    从技术的角度看，Angular正在匹配一个指令的[input](#inputs-outputs)的名字。这个名字是指令的`inputs`数组中所列的名字之一，或者是一个带有`@Input()`装饰器的属性。
+    这样的inputs被映射到了指令自己的属性。
 :marked
   If the name fails to match a property of a known directive or element, Angular reports an “unknown directive” error.
   
@@ -893,7 +898,7 @@ table
   
   表达式中可以调用像`getFoo()`这样的方法。只有我们才知道`getFoo()`干了什么。
   如果`getFoo()`改变了什么，而我们把它绑定在什么地方，我们就可能把自己坑了。Angular可能显示也可能不显示变化后的值。Angular还可能检测到变化，并抛出一个警告型错误。
-  更具普遍性的建议是：盯紧数据源的属性和方法，确保它们只返回值而不做别的。
+  更具普遍性的建议是：只使用数据属性和那些只返回值而不做其他事情的方法。
 
   ### Return the proper type
   ### 返回恰当的类型
@@ -917,13 +922,13 @@ block dart-type-exceptions
 
 :marked
   ### Remember the brackets
-  ### 别忘了括号
+  ### 别忘了方括号
   The brackets tell Angular to evaluate the template expression.
   If we forget the brackets, Angular treats the string as a constant and *initializes the target property* with that string.
   It does *not* evaluate the string!
   
-  括号会告诉Angular计算模板表达式。
-  如果我们忘了括号，Angular就会把这个表达式当做一个字符串常量看待，并且用它*初始化目标属性*。
+  括号会告诉Angular要计算模板表达式。
+  如果我们忘了括号，Angular就会把这个表达式当做一个字符串常量看待，并且用该字符串来*初始化目标属性*。
   它*不会*计算这个字符串。
 
   Don't make the following mistake:
@@ -953,7 +958,7 @@ a(id="one-time-initialization")
   The following example initializes the `prefix` property of the `HeroDetailComponent` to a fixed string,
   not a template expression. Angular sets it and forgets about it.
 
-  我们像在标准HTML中一样用这种方式初始化Attribute，它在初始化指令和组件的属性时也同样工作得很好。
+  我们经常这样在标准HTML中用这种方式初始化Attribute，并且这种方式也可以用在初始化指令和组件的属性。
   下面这个例子把`HeroDetailComponent`的`prefix`属性初始化成了一个固定的字符串，而不是模板表达式。Angular设置它，然后忘记它。
 // #enddocregion property-binding-12
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-7')(format=".")
@@ -982,7 +987,7 @@ a(id="one-time-initialization")
   
   没有技术上的理由能决定哪种形式更好。
   我们倾向于可读性，所以倾向于插值表达式。
-  我们建议建立组织级的代码风格规定，然后选择一种形式，既能遵循规则，又能让手头儿的任务做起来更自然。
+  我们建议建立组织级的代码风格规定，然后选择一种形式，既能遵循规则，又能让手头的任务做起来更自然。
   
 .l-main-section
 :marked
@@ -1056,7 +1061,7 @@ code-example(format="nocode").
   value, using an expression that resolves to a string.
   
   Attribute绑定在语法上类似于属性绑定。
-  但括号中的部分不是一个元素的属性名，而是由一个**`attr`**前缀，紧跟着一个点（`.`），再跟着Attribute的名字组成。
+  但方括号中的部分不是一个元素的属性名，而是由一个**`attr`**前缀，紧跟着一个点（`.`），再跟着Attribute的名字组成。
   我们可以通过一个能求值为字符串的表达式来设置Attribute的值。
 
   Here we bind `[attr.colspan]` to a calculated value:
@@ -1080,29 +1085,29 @@ code-example(format="nocode").
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
 :marked
   ### Class binding
-  ### 类绑定
+  ### CSS类绑定
 
   We can add and remove CSS class names from an element’s `class` attribute with
   a **class binding**.
   
-  借助**类绑定**，我们可以从元素的`class` Attribute上添加和移除CSS类名。
+  借助**CSS类绑定**，我们可以从元素的`class`Attribute上添加和移除CSS类名。
 
   Class binding syntax resembles property binding.
   Instead of an element property between brackets, we start with the prefix `class`,
   optionally followed by a dot (`.`) and the name of a CSS class: `[class.class-name]`.
   
-  类绑定在语法上类似于属性绑定。但括号中的部分不是一个元素的属性名，而是包括一个**`class`**前缀，紧跟着一个点（`.`），再跟着CSS类的名字组成。
+  CSS类绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`class`**前缀，紧跟着一个点（`.`），再跟着CSS类的名字组成。
   其中后两部分是可选的。形如：`[class.class-name]`。
 
   The following examples show how to add and remove the application's "special" class
   with class bindings.  Here's how we set the attribute without binding:
   
-  下列例子示范了如何通过类绑定来添加和移除应用的"special"类。不用绑定直接设置Attribute时是这样的：
+  下列例子示范了如何通过CSS类绑定来添加和移除应用的"special"类。不用绑定直接设置Attribute时是这样的：
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-1')(format=".")
 :marked
   We can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
   
-  我们可以把它改写为一个绑定到所需类名的绑定；这是一个或者全有或者全无的替换型绑定（译注：即当badCurly有值时class这个Attribute设置的内容会被完全覆盖）。
+  我们可以把它改写为一个绑定到所需CSS类名的绑定；这是一个或者全有或者全无的替换型绑定（译注：即当badCurly有值时class这个Attribute设置的内容会被完全覆盖）。
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-2')(format=".")
 
 block dart-class-binding-bug
@@ -1136,7 +1141,7 @@ block dart-class-binding-bug
   Instead of an element property between brackets, we start with the prefix `style`,
   followed by a dot (`.`) and the name of a CSS style property: `[style.style-property]`.
   
-  样式绑定在语法上类似于属性绑定。但括号中的部分不是一个元素的属性名，而是包括一个**`style`**前缀，紧跟着一个点（`.`），再跟着CSS样式的属性名。
+  样式绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`style`**前缀，紧跟着一个点（`.`），再跟着CSS样式的属性名。
   形如：`[style.style-property]`。
 
 +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-1')(format=".")
@@ -1158,6 +1163,9 @@ block dart-class-binding-bug
     Note that a _style property_ name can be written in either
     [dash-case](glossary.html#dash-case), as shown above, or
     [camelCase](glossary.html#camelcase), such as `fontSize`.
+    
+    注意，一个_样式属性_命名方法可以用[中线命名法](glossary.html#dash-case)，像上面的一样
+    也可以用[驼峰式命名法](glossary.html#camelcase)，比如`fontSize`。
 
 block style-property-name-dart-diff
   //- N/A
@@ -1217,6 +1225,7 @@ block style-property-name-dart-diff
     The `myClick` directive is further described below in the section
     on [Aliasing input/output properties](#aliasing-io).
 
+    [别名input/output属性](#aliasing-io)章节有更多关于该`myClick`指令的解释。
 :marked
   If the name fails to match an element event or an output property of a known directive,
   Angular reports an “unknown directive” error.
