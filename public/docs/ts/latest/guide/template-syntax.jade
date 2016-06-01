@@ -1341,7 +1341,7 @@ block style-property-name-dart-diff
   When the user clicks *delete*, the component invokes the `delete()` method
   which tells the `EventEmitter` to emit a `Hero` object.
   
-  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。）
+  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[输入和输出属性](#input-and-output-properties)和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。）
   当用户点击*删除*时，组件会调用`delete()`方法，这个方法告诉`EventEmitter`，发出一个`Hero`对象。
 
   Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
@@ -1913,7 +1913,7 @@ figure.image-display
 .l-main-section
 :marked
   ## `*` and &lt;template&gt;
-  ## `*`与&lt;template*&gt;
+  ## `*`与&lt;template&gt;
   When we reviewed the `NgFor`, `NgIf`, and `NgSwitch` built-in directives, we called out an oddity of the syntax: the asterisk (`*`) that appears before the directive names.
   
   当我们审视`NgFor`、`NgIf`和`NgSwitch`内建指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号（`*`）。
@@ -1923,7 +1923,7 @@ figure.image-display
   `NgFor`, `NgIf`, and `NgSwitch` all add and remove element subtrees that are wrapped in `<template>` tags.
   
   `*`是一种语法糖，它让那些需要借助模板来修改HTML布局的指令更易于读写。
-  `NgFor`、`NgIf`和`NgSwitch`都会添加或移除包裹在`<template>`标签中的元素子树。
+  `NgFor`、`NgIf`和`NgSwitch`都会添加或移除元素子树，这些元素子树被包裹在`<template>`标签中。
 
   We didn't see the `<template>` tags because the `*` prefix syntax allowed us to skip those tags and
   focus directly on the HTML element that we are including, excluding, or repeating.
@@ -1946,7 +1946,7 @@ figure.image-display
   The `currentHero` is referenced twice, first as the true/false condition for `NgIf` and
   again as the actual hero passed into the `HeroDetailComponent`.
   
-  `currentHero`被引用了两次，第一次是作为`NgIf`的真/假条件，第二次作为实际的hero值传给了`HeroDetailComponent`。
+  `currentHero`被引用了两次，第一次是作为`NgIf`的真/假条件，第二次把实际的hero值传给了`HeroDetailComponent`。
 
   The first expansion step transports the `ngIf` (without the `*` prefix) and its contents
   into an expression assigned to a `template` directive.
@@ -1966,12 +1966,12 @@ figure.image-display
 
 block remember-the-brackets
   .callout.is-critical
-    header Remember the brackets!
-    header 别忘了括号！
+    header Remember the brackets!    
+    header 别忘了括号！    
     :marked
       Don’t make the mistake of writing `ngIf="currentHero"`!
       That syntax assigns the *string* value "currentHero" to `ngIf`.
-      In JavaScript a non-empty string is a truthy value, so `ngIf` would always be
+      In JavaScript a non-empty string is a truthy value, so `ngIf` would always be 
       `true` and Angular would always display the `hero-detail`
       … even when there is no `currentHero`!
       
@@ -2005,9 +2005,8 @@ block remember-the-brackets
   once for the (*) prefixed version and once for the expanded template version.
   That's exactly what we see in this example:
   
-  这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令。
-  我们期待它应该显示所选模板的值两次，一次是（*）前缀的版本，一次是展开模板后的版本。
-  这正是我们在这个例子中看到的：
+  上面这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令，一次是（*）前缀的版本，一次是展开模板后的版本。
+  我们也期待它显示所选模板的值两次。这正是我们在这个例子中看到的：
 figure.image-display
     img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
 :marked
@@ -2032,8 +2031,8 @@ figure.image-display
   In this case, we have to remember to create and assign the `NgForOf` directive that identifies the list and the `NgForTrackBy` directive.
   Using the `*ngFor` syntax is much easier than writing out this expanded HTML ourselves.
   
-  `NgFor`的代码相对`NgIf`更复杂一点，因为一个重复器有更多可配置的活动部分。
-  这种情况下，我们不得不记着创建并对用于标记列表的`NgForOf`指令和`NgForTrackBy`指令赋值。
+  `NgFor`的代码相对`NgIf`更复杂一点，因为一个重复器有更多活动部分需要配置。
+  这种情况下，我们不得不记着为用于标记列表的`NgForOf`指令和`NgForTrackBy`指令的进行新建和赋值操作。
   使用`*ngFor`语法比直接写这些展开后的HTML本身要简单多了。
 
 <a id="ref-vars"></a>
@@ -2048,7 +2047,7 @@ figure.image-display
 
   It can be used with native DOM elements but also with Angular 2 components &mdash; in fact, it will work with any custom web component.
   
-  它能被用作原生DOM元素，但也能用于Angular 2组件 —— 实际上，它可以和任何自定义Web组件协同工作。
+  它能在原生DOM元素中使用，也能用于Angular 2组件 —— 实际上，它可以和任何自定义Web组件协同工作。
 
 :marked
   ### Referencing a template reference variable
@@ -2118,13 +2117,13 @@ figure.image-display
   and endows it with additional superpowers such as the ability to
   track the validity of user input.
   
-  如果Angular没有捕获它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
-  但实际上它是个`ngForm`，一个对Angular内建指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
+  如果Angular没有接管它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
+  实际上它是个`ngForm`，一个对Angular内建指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
 
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.
   
-  这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量略大的对象传给父组件的`onSubmit`方法。
+  这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量略大的对象传给父组件的`onSubmit`方法（译注：`onSubmit`方法可能会出发一个事件，被父组件监听，参见下面的`输入和输出属性`和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。）
 
 <a id="inputs-outputs"></a>
 .l-main-section
@@ -2255,10 +2254,8 @@ figure.image-display
   `HeroDetailComponent.deleteRequest`是一个相对于`HeroDetailComponent`视角的**输出**属性，因为事件流来自这个属性，并且被模板绑定语句所处理。
 
 h3#aliasing-io Aliasing input/output properties
+h3#aliasing-io 输入/输出属性别名
 :marked
-  ### Aliasing input/output properties
-  ### 输入/输出属性的别名
-
   Sometimes we want the public name of an input/output property to be different from the internal name.
   
   有时我们需要让输入/输出属性的公开名字不同于内部名字。
@@ -2275,7 +2272,7 @@ h3#aliasing-io Aliasing input/output properties
   The directive name rarely describes what the property does.
   The `myClick` directive name is not a good name for a property that emits click messages.
   
-  无论如何，在指令类中，直接用指令名作为属性名通常都不是好的选择。
+  无论如何，在指令类中，直接用指令名作为自己的属性名通常都不是好的选择。
   指令名很少能描述这个属性是干嘛的。
   `myClick`这个指令名对于用来发出click消息的属性就算不上一个好名字。
 
@@ -2284,7 +2281,7 @@ h3#aliasing-io Aliasing input/output properties
   In the example immediately above, we are actually binding *through the* `myClick` *alias* to
   the directive's own `clicks` property.
   
-  幸运的是，我们有一个约定俗成的公开名字，同时在内部使用一个不同的名字。
+  幸运的是，我们可以使用一个约定俗成的公开名字，同时在内部使用一个不同的名字。
   在紧上面这个例子中，我们实际上是把`myClick`这个别名指向了指令自己的`clicks`属性。
 
   We can specify the alias for the property name by passing it into the input/output decorator like this:
@@ -2419,18 +2416,18 @@ block null-deref-example
   Throwing an exception is the right thing to do.
   
   如果确信`hero`属性永远不可能为空，我们就可以声称这是一个合理的行为。
-  如果它必须不能为空，但它仍然是空值，我们就可以制造一个编程错误，以便它被捕获和修复。
+  如果它必须不能为空，但它仍然是空值，我们就制造了一个编程错误，以便它被捕获和修复。
   这种情况下，抛出一个异常正是我们应该做的。
 
   On the other hand, null values in the property path may be OK from time to time,
   especially when we know the data will arrive eventually.
   
-  另一方面，属性路径中的空值可能只是暂时的，特别是当我们知道这些数据最终总会到来的时候。
+  另一方面，属性路径中的空值可能会时常发生，特别是当我们知道这些数据最终总会到来的时候。
 
   While we wait for data, the view should render without complaint, and
   the null property path should display as blank just as the `title` property does.
   
-  当我们等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像`title`属性所做的那样。
+  当我们等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像上面`title`属性所做的那样。
 
   Unfortunately, our app crashes when the `currentHero` is null.
   
