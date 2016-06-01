@@ -519,20 +519,20 @@ figure
   在[范例](#template)模板中，我们看到了数据绑定的三种形式：
 +makeExample('architecture/ts/app/hero-list.component.1.html', 'binding', 'app/hero-list.component.html (节选)')(format=".")
 :marked
-  * The `{{hero.name}}` "[interpolation](displaying-data.html#interpolation)" 
+  * The `{{hero.name}}` [*interpolation*](displaying-data.html#interpolation) 
   displays the component's `hero.name` property value within the `<div>` tags.
   
-  * `{{hero.name}}`“[插值表达式](displaying-data.html#interpolation)” ：在`<div>`标签中显示了组件的`hero.name`属性的值。 
+  * `{{hero.name}}`[*插值表达式*](displaying-data.html#interpolation)：在`<div>`标签中显示了组件的`hero.name`属性的值。 
   
-  * The `[hero]` [property binding](template-syntax.html#property-binding) passes the `selectedHero` from
+  * The `[hero]` [*property binding*](template-syntax.html#property-binding) passes the `selectedHero` from
   the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.
   
-  * `[hero]`[属性绑定](template-syntax.html#property-binding)：把父组件`HeroListComponent`的`selectedHero`传到子组件`HeroDetailComponent`的`hero`属性中。
+  * `[hero]`[*属性绑定*](template-syntax.html#property-binding)：把父组件`HeroListComponent`的`selectedHero`传到子组件`HeroDetailComponent`的`hero`属性中。
   
-  * The `(click)` [event binding](user-input.html#click) calls the Component's `selectHero` method when the user clicks
+  * The `(click)` [*event binding*](user-input.html#click) calls the Component's `selectHero` method when the user clicks
   on a hero's name
   
-  * `(click)`[事件绑定](user-input.html#click)：当用户点击英雄的名字时，调用组件的`selectHero`方法。
+  * `(click)`[*事件绑定*](user-input.html#click)：当用户点击英雄的名字时，调用组件的`selectHero`方法。
 
   * **Two-way data binding** is an important fourth form
   that combines property and event binding in a single notation using the `ngModel` directive. 
@@ -996,7 +996,7 @@ code-example(language="javascript" linenumbers=".").
   
   >把"42.33"显示为`$42.33`。
   
-  >**[Testing](../testing/index.html)** - Angular provides a testing library for "unit testing" our application parts as they
+  >**[Testing](testing.html)** - Angular provides a testing library for "unit testing" our application parts as they
   interact with the Angular framework.
 
-  >**[Testing](../testing/index.html)** - Angular提供了一个测试库，在程序各个部分与Angular框架交互同时，用来“单元测试”它们。
+  >**[Testing](testing.html)** - Angular提供了一个测试库，在程序各个部分与Angular框架交互同时，用来“单元测试”它们。

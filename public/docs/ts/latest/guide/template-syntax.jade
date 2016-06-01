@@ -969,9 +969,11 @@ a(id="one-time-initialization")
 
   ### Property binding or interpolation?
   ### 属性绑定还是插值表达式？
-  We often have a choice between interpolation and property binding. The following binding pairs do the same thing:
+  We often have a choice between interpolation and property binding. 
+  The following binding pairs do the same thing:
   
-  我们通常得在插值表达式和属性绑定之间做出选择。下列这几对绑定做的事情完全相同：
+  我们通常得在插值表达式和属性绑定之间做出选择。
+  下列这几对绑定做的事情完全相同：  
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation')(format=".")
 :marked
   Interpolation is a convenient alternative for property binding in many cases.
@@ -989,6 +991,26 @@ a(id="one-time-initialization")
   我们倾向于可读性，所以倾向于插值表达式。
   我们建议建立组织级的代码风格规定，然后选择一种形式，既能遵循规则，又能让手头的任务做起来更自然。
   
+:marked
+  #### Content Security
+  #### 内容安全
+  Imagine the following *malicious content*.
+  
+  假设下面的*恶毒内容*
++makeExample('template-syntax/ts/app/app.component.ts', 'evil-title')(format=".")    
+:marked
+  Fortunately, Angular data binding is on alert for dangerous HTML.
+  It *sanitizes* the values before displaying them.
+  It **will not** allow HTML with script tags to leak into the browser, neither with interpolation
+  nor property binding.  
+  
++makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")    
+:marked
+  Interpolation handles the script tags differently than property binding but both approaches render the
+  content harmlessly.
+figure.image-display
+  img(src='/resources/images/devguide/template-syntax/evil-title.png' alt="evil title made safe" width='500px')
+
 .l-main-section
 :marked
   <a id="other-bindings"></a>
