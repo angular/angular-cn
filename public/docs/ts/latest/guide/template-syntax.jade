@@ -1341,7 +1341,7 @@ block style-property-name-dart-diff
   When the user clicks *delete*, the component invokes the `delete()` method
   which tells the `EventEmitter` to emit a `Hero` object.
   
-  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。
+  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。）
   当用户点击*删除*时，组件会调用`delete()`方法，这个方法告诉`EventEmitter`，发出一个`Hero`对象。
 
   Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
