@@ -1004,10 +1004,14 @@ a(id="one-time-initialization")
   It **will not** allow HTML with script tags to leak into the browser, neither with interpolation
   nor property binding.  
   
+  幸运的是，Angular数据绑定对危险HTML有防备。在显示它们之前，它对内容先进行*消毒*。不管是插值表达式还是属性绑定，都**不会**允许带有script标签的HTML泄漏到浏览器中。
+  
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")    
 :marked
   Interpolation handles the script tags differently than property binding but both approaches render the
   content harmlessly.
+  
+  插值表达式处理script标签与属性绑定有所不同，但是它们两个都只渲染没有危害的内容。
 figure.image-display
   img(src='/resources/images/devguide/template-syntax/evil-title.png' alt="evil title made safe" width='500px')
 
@@ -1266,7 +1270,7 @@ block style-property-name-dart-diff
   in a model.
   
   当事件发生时，这个处理器会执行模板语句。
-  典型的模板语句会让那些想在这个事件的响应过程中做点什么的接收器参与进来，例如从一个HTML控件中取得一个值，并存入一个模型。
+  典型的模板语句通常涉及到那些针对事件想作出相应处理的接收器，例如从一个HTML控件中取得一个值，并存入一个模型。
 
   The binding conveys information about the event, including data values, through
   an **event object named `$event`**.
@@ -1278,7 +1282,7 @@ block style-property-name-dart-diff
   [DOM event object]( https://developer.mozilla.org/en-US/docs/Web/Events),
   with properties such as `target` and `target.value`.
   
-  事件对象的形态取决于它是哪种目标事件。如果目标事件是一个原生DOM元素事件，
+  事件对象的形态取决于目标事件本身。如果目标事件是一个原生DOM元素事件，
   `$event`就是一个[DOM事件对象]( https://developer.mozilla.org/en-US/docs/Web/Events)，它有像`target`和`target.value`这样的属性。
 
   Consider this example:
@@ -1290,7 +1294,7 @@ block style-property-name-dart-diff
   When the user makes changes, the `input` event is raised, and the binding executes the statement within a context that includes the DOM event object, `$event`.
 
   我们在把输入框的`value`绑定到`firstName`属性，并且我们正在通过绑定到输入框的`input`事件来监听更改。
-  当用户造成更改时，`input`事件被触发，并且在一个包含了DOM事件对象 —— `$event`的上下文中执行这条语句。
+  当用户造成更改时，`input`事件被触发，并且在一个包含了DOM事件对象的`$event`的上下文中执行这条语句。
 
   To update the `firstName` property, we must get the changed text by following
   the path `$event.target.value`.
@@ -1299,7 +1303,7 @@ block style-property-name-dart-diff
 
   If the event belongs to a directive (remember: components are directives), `$event` has whatever shape the directive chose to produce.
   
-  如果这个事件属于指令（记住：组件是指令的一种），那么`$event`可以具有指令想生成的任何形态。
+  如果这个事件属于指令（记住：组件是指令的一种），那么`$event`便具有指令所生成的形态（译注：比如inputs）。
 
   <a id="eventemitter"></a>
   <a id="custom-event"></a>
@@ -1311,7 +1315,7 @@ block style-property-name-dart-diff
   The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload that can be anything.
   Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
   
-  典型的指令使用Angular的[EventEmitter](../api/core/EventEmitter-class.html)来触发自定义事件。
+  指令使用典型的Angular[EventEmitter](../api/core/EventEmitter-class.html)来触发自定义事件。
   指令创建一个`EventEmitter`实例，并且把它作为一个属性暴露出来。
   指令调用`EventEmitter.emit(payload)`来触发事件，传进去的消息载荷可以是任何东西。
   父指令通过绑定到这个属性来监听这个事件，并且通过`$event`对象来访问这个载荷。
@@ -1320,9 +1324,9 @@ block style-property-name-dart-diff
   Although the `HeroDetailComponent` has a delete button it doesn't know how to delete the hero itself.
   The best it can do is raise an event reporting the user's delete request.
   
-  考虑一个`HeroDetailComponent`，它展示英雄的信息，并响应用户的动作。
+  假设一个`HeroDetailComponent`，它展示英雄的信息，并响应用户的动作。
   虽然`HeroDetailComponent`有一个删除按钮，但它自己并不知道该如何删除这个英雄。
-  最好的做法是触发一个事件来报告用户“要求删除”。
+  最好的做法是触发一个事件来报告“删除用户”的请求。
 
   Here are the pertinent excerpts from that `HeroDetailComponent`:
   
@@ -1457,7 +1461,7 @@ block style-property-name-dart-diff
     a technique that is beyond the scope of this chapter.
 
     `ngModel`输入属性设置元素的值属性，而`ngModelChange`输出属性监听元素值的变化。
-    细节由每种元素自行实现，`NgModel`指令只和元素一起工作，比如输入框，它由[ControlValueAccessor](../api/common/ControlValueAccessor-interface.html)提供支持。
+    实现细节对每种元素都很特定，所以`NgModel`指令只和元素一起工作，比如输入框，它由[ControlValueAccessor](../api/common/ControlValueAccessor-interface.html)提供支持。
     除非写一个合适的*值访问器*，否则我们不能把`[(ngModel)]`用在我们自己的自定义组件上。但*值访问器*技术超出了本章的范围。
 :marked
   Separate `ngModel` bindings is an improvement. We can do better.
@@ -1479,17 +1483,17 @@ block style-property-name-dart-diff
     
     `[(ngModel)]`是一个更通用的模式中的具体例子，在这里，Angular会把`[(x)]`语法去掉语法糖，变成了一个供属性绑定用的输入属性`x`，和一个供事件绑定用的输出属性`xChange`。
     Angular通过在模板表达式的原始字符串后面追加上`=$event`，来构建出供事件绑定用的模板语句。
-
-    <span style="font-family:courier">[(_x_)]="_e_" &lt;==> [_x_]="_e_" (<i>x</i>Change)="_e_=$event"</span>
-
+    
     We can write a two-way binding directive of our own to exploit this behavior.
     
     利用这一行为，我们也可以自己写出具有双向绑定功能的指令。
 
+    <span style="font-family:courier">[(_x_)]="_e_" &lt;==> [_x_]="_e_" (<i>x</i>Change)="_e_=$event"</span>    
+
 :marked
   Is `[(ngModel)]` all we need? Is there ever a reason to fall back to its expanded form?
   
-  `[(ngModel)]`就是我们所需的一切吗？有没有什么理由需要退化到它的展开形式？
+  `[(ngModel)]`就是我们所需的一切吗？有没有什么理由需要仰仗到它的展开形式？
 
   The `[( )]` syntax can only _set_ a data-bound property.
   If we need to do something more or something different, we need to write the expanded form ourselves.
@@ -1556,7 +1560,7 @@ figure.image-display
 
   A [class binding](#class-binding) is a good way to add or remove a *single* class.
   
-  [类绑定](#class-binding)是添加或删除*单个*类的最佳途径。
+  [CSS类绑定](#class-binding)是添加或删除*单个*类的最佳途径。
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-3a')(format=".")
 :marked
   The `NgClass` directive may be the better choice
@@ -1670,7 +1674,7 @@ block dart-no-truthy-falsey
   It destroys components in the subtree, along with their state, potentially freeing up substantial resources and
   resulting in better performance for the user.
   
-  当`NfIf`为`false`时，Angular从DOM中实际移除了这个元素的子树。
+  当`NgIf`为`false`时，Angular从DOM中实际移除了这个元素的子树。
   它销毁了子树中的组件及其状态，也潜在释放了可观的资源，最终让用户体验到更好的性能。
 
   The show/hide technique is probably fine for small element trees.
@@ -1764,7 +1768,7 @@ block dart-no-truthy-falsey
   We tell Angular to use that block as a template for rendering each item in the list.
   
   我们的目标是展示一个由多个条目组成的列表。我们定义了一个HTML块儿，它规定了单个条目应该如何显示。
-  我们告诉Angular把这个块儿当做模板，在列表中渲染每个条目。
+  我们告诉Angular把这个块儿当做模板，渲染列表中的每个条目。
 
   Here is an example of `NgFor` applied to a simple `<div>`:
   
