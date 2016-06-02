@@ -76,7 +76,7 @@ p 试用#[+liveExampleLink2("在线例子")]。
     Besides, we're not just *setting* the color; we'll be *changing* the color
     in response to a user action, a mouse hover.
     
-    我们不仅要*设置*颜色，还要响应用户的动作（鼠标悬浮），来*修改*这个颜色。
+    再说，我们不仅要*设置*颜色，还要响应用户的动作（鼠标悬浮），来*更改*这个颜色。
 
 .l-main-section
 a#write-directive
@@ -89,7 +89,7 @@ a#write-directive
   the attribute associated with the directive. 
   The controller class implements the desired directive behavior.
   
-  属性型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个选择器，用于指出与此指令相关的属性。
+  属性型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个选择器，用于指出与此指令相关联的属性名字。
   控制器类实现了指令需要具备的行为。
 
   Let's build a small illustrative example together.
@@ -119,8 +119,8 @@ block highlight-directive-1
     We don't need `Input` immediately but we will need it later in the chapter.
   
     我们先从Angular的`core`库中导入一些符号。
-    我们要为使用`@Directive`装饰器而导入`Directive`。
-    我们要为[注入](dependency-injection.html)到指令的构造函数中而导入`ElementRef`，这样我们才能访问DOM元素。
+    我们需要为`@Directive`装饰器导入`Directive`。
+    我们需要导入[注入](dependency-injection.html)到指令构造函数中的`ElementRef`，这样我们才能访问DOM元素。
     虽然眼下还不需要`Input`，但在稍后的章节中我们很快就会用到它。
     
     Then we define the directive metadata in a configuration object passed
@@ -190,13 +190,13 @@ p
 a#apply-directive
 :marked
   ## Apply the attribute directive
-  ## 应用属性型指令
+  ## 使用属性型指令
   The `AppComponent` in this sample is a test harness for our `HighlightDirective`.
   Let's give it a new template that 
   applies the directive as an attribute to a paragraph (`p`) element.
   In Angular terms, the `<p>` element will be the attribute **host**.
   
-  这个例子中的`AppComponent`只是我们用来测试`HighlightDirective`的一个壳儿。
+  这个例子中，`AppComponent`是我们用来测试`HighlightDirective`的一个壳儿。
   我们来给它一个新的模板，把这个指令作为属性应用到一个段落(`p`)元素上。
   用Angular的话说，`<p>`元素就是这个属性型指令的**宿主**。
 p
@@ -251,7 +251,7 @@ figure.image-display
     We have to tell it by listing `HighlightDirective` in the `directives` metadata array.
     
     这是因为Angular检测到我们正在尝试绑定到*某些东西*，但它不认识。
-    我们得通过把`HighlightDirective`列在元数据的`directives`数组中来告诉它有这样一个指令。
+    我们必需把`HighlightDirective`列在元数据的`directives`数组中，来告诉它有这样一个指令。
 :marked
   Let's recap what happened.
   
@@ -277,8 +277,8 @@ a#respond-to-user
   Specifically, we want to set the color when the user hovers over an element.
   
   我们不能满足于设置元素的颜色。
-  我们的指令设置颜色是要用来响应用户的操作。
-  特别是，希望在用户的鼠标滑过当前元素时设置颜色。
+  我们的指令要响应用户的操作而设置颜色。
+  确切的说，希望在用户的鼠标滑过当前元素时设置颜色。
   
   We'll need to
   
@@ -453,7 +453,7 @@ a#input
     While it's cool that this technique works, we recommend adding the `color` property to the `AppComponent`.
     
     这是一个*很便利的*行为，但它也是*隐式的*行为，这容易让人困惑。
-    虽然用这种技术可能显得比较酷，但我们建议你还是要把`color`属性加到`AppComponent`中。
+    虽然这种样照样可行，但我们建议你还是要把`color`属性加到`AppComponent`中。
 
 :marked
   Here is our second version of the directive in action.
@@ -552,12 +552,12 @@ a#why-input
 .l-main-section
 :marked
   ### Appendix: Input properties
-  ### 附录：输入型属性
+  ### 附录：Input属性
   
   Earlier we declared the `highlightColor` property to be an ***input*** property of our
   `HighlightDirective`
   
-  我们前面曾把`highlightColor`定义为`HighlightDirective`指令的一个***输入型***属性。
+  我们前面曾把`highlightColor`定义为`HighlightDirective`指令的一个***input***属性。
  
   We've seen properties in bindings before. 
   We never had to declare them as anything. Why now?
@@ -592,7 +592,7 @@ a#why-input
   Angular rejects the binding with a clear error if we don't.
   
   `[myHighlight]="color"`中的'myHighlight'就是绑定***目标***。
-  我们必须把它定义为一个*输入*属性，否则，Angular就会拒绝这次绑定，并给出一个明确的错误。
+  我们必须把它定义为一个*Input*属性，否则，Angular就会拒绝这次绑定，并给出一个明确的错误。
   
   Angular treats a *target* property differently for a good reason.
   A component or directive in target position needs protection.
@@ -604,7 +604,7 @@ a#why-input
   We graciously made a gift of it to the world. 
   
   假想一下，我们的`HighlightDirective`真是一个好东西。
-  我们优雅的制做了这个礼物送给全世界。
+  我们优雅的把它当作礼物送给全世界。
   
   To our surprise, some people &mdash; perhaps naively &mdash;
   started binding to *every* property of our directive. 
