@@ -2344,14 +2344,14 @@ code-example(format="").
   同样，我们的测试代码中有两个Protractor API调用内部使用了`$location`。该服务没有了，
   我们就得把这些调用用一个WebDriver的通用URL API代替。第一个API是“重定向(redirect)”规约：
 
-+makeExample('upgrade-phonecat-3-final/e2e-spec.js', 'redirect', 'e2e-tests/scenarios.js')
++makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'redirect', 'e2e-tests/scenarios.ts')
 
 :marked
   And the second is the phone links spec:
 
   第二个是“电话链接(phone links)”规约：
 
-+makeExample('upgrade-phonecat-3-final/e2e-spec.js', 'links', 'e2e-tests/scenarios.js')
++makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'links', 'e2e-tests/scenarios.ts')
 
 
 

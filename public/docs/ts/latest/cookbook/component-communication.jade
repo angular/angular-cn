@@ -89,7 +89,7 @@ figure.image-display
   
   端到端测试，用于确保所有的子组件都像我们所期待的那样被初始化并显示出来。
   
-+makeExample('cb-component-communication/e2e-spec.js', 'parent-to-child')
++makeExample('cb-component-communication/e2e-spec.ts', 'parent-to-child')
 
 :marked
   [Back to top](#top)
@@ -131,7 +131,7 @@ figure.image-display
   
   端到端测试：输入属性的setter，分别使用空名字和非空名字。
   
-+makeExample('cb-component-communication/e2e-spec.js', 'parent-to-child-setter')
++makeExample('cb-component-communication/e2e-spec.ts', 'parent-to-child-setter')
 
 :marked
   [Back to top](#top)
@@ -188,7 +188,7 @@ figure.image-display
   
   测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges`应该被调用，属性的值也符合预期。
   
-+makeExample('cb-component-communication/e2e-spec.js', 'parent-to-child-onchanges')
++makeExample('cb-component-communication/e2e-spec.ts', 'parent-to-child-onchanges')
 
 :marked
   [Back to top](#top)
@@ -237,7 +237,7 @@ figure.image-display
   
   测试确保点击*Agree*和*Disagree*按钮时，计数器被正确更新。
   
-+makeExample('cb-component-communication/e2e-spec.js', 'child-to-parent')
++makeExample('cb-component-communication/e2e-spec.ts', 'child-to-parent')
 
 :marked
   [Back to top](#top)  
@@ -297,7 +297,7 @@ a(id="countdown-tests")
     
   测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击*Stop*按钮来停止倒计时：
   
-+makeExample('cb-component-communication/e2e-spec.js', 'countdown-timer-tests')
++makeExample('cb-component-communication/e2e-spec.ts', 'countdown-timer-tests')
 
 :marked
   [Back to top](#top)
@@ -443,7 +443,7 @@ figure.image-display
   
   测试确保点击父组件`MissionControlComponent`和子组件`AstronautComponent`两个的组件的按钮时，*History*日志和预期的一样。
   
-+makeExample('cb-component-communication/e2e-spec.js', 'bidirectional-service')
++makeExample('cb-component-communication/e2e-spec.ts', 'bidirectional-service')
 
 :marked
   [Back to top](#top)
