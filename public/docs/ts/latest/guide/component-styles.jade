@@ -34,7 +34,7 @@ block includes
   * [附录2：使用相对URL加载样式](#relative-urls)
 
 p Run the #[+liveExampleLink2()] of the code shown in this chapter.
-p 运行本章这些代码的#[+liveExampleLink2()]
+p 运行本章这些代码的#[+liveExampleLink2("在线例子")]
 
 .l-main-section
 :marked
@@ -45,8 +45,8 @@ p 运行本章这些代码的#[+liveExampleLink2()]
   but also the CSS styles that go with that template, 
   specifying any selectors, rules, and media queries that we need.
   
-  对于我们写的每个Angular 2组件来说，除了可以定义HTML模板之外，还有模板上的CSS样式。
-  只要需要，我们就可以指定任何选择器、规则和媒体查询。
+  对于我们写的每个Angular 2组件来说，除了定义HTML模板之外，我们还要用于模板的CSS样式、
+  指定需要的选择器、规则和媒体查询。
 
   One way to do this is to set the `styles` property in the component metadata.
   The `styles` property takes #{_an} #{_array} of strings that contain CSS code.
@@ -54,14 +54,14 @@ p 运行本章这些代码的#[+liveExampleLink2()]
   
   它的实现方式之一，是在组件的元数据中设置`styles`属性。
   `styles`属性可以接受一个包含CSS代码的字符串数组。
-  通常我们只给它一个字符串就行了，例子如下：
+  通常我们只给它一个字符串就行了，如同下例：
   
 +makeExample('component-styles/ts/app/hero-app.component.ts')(format='.')
 
 :marked
   Component styles differ from traditional, global styles in a couple of ways.
   
-  组件样式在很多方面都不同于传统的、全局性样式。
+  组件样式在很多方面都不同于传统的全局性样式。
   
   Firstly, the selectors we put into a component's styles *only apply within the template
   of that component*. The `h1` selector in the example above only applies to the `<h1>` tag
@@ -91,7 +91,7 @@ p 运行本章这些代码的#[+liveExampleLink2()]
   1. We can co-locate the CSS code of each component with the TypeScript and HTML code of the component,
      which leads to a neat and tidy project structure.
      
-  1. 我们可以让每个组件的CSS代码和它的TypeScript代码、HTML代码放在一起，这将产生清爽整洁的项目结构。
+  1. 我们可以让每个组件的CSS代码和它的TypeScript代码、HTML代码放在一起，这将促成清爽整洁的项目结构。
      
   1. We can change or remove component CSS code in the future without trawling through the
      whole application to see where else it may have been used. We just look at the component we're in.
@@ -244,9 +244,9 @@ a(id='loading-styles')
   ### 元数据中的样式表URL
   
   We can load styles from external CSS files by adding a `styleUrls` attribute
-  into a component's `@Component` or `@View` #{_decorator}:
+  into a component's `@Component` #{_decorator}:
   
-  我们还可以通过给组件的`@Component`或`@View`#{_decoratorCn}中添加一个`styleUrls`属性来从外部CSS文件中加载样式：
+  我们还可以通过给组件的`@Component`#{_decoratorCn}中添加一个`styleUrls`属性来从外部CSS文件中加载样式：
   
 +makeExample('component-styles/ts/app/hero-details.component.ts', 'styleurls')
 
@@ -343,14 +343,14 @@ a#view-encapsulation
     implementation to attach a Shadow DOM to the component's host element, and then puts the component
     view inside that Shadow DOM. The component's styles are included within the Shadow DOM.
   * `Native`模式使用浏览器原生的[Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
-    实现来为组件的宿主元素附加一个Shadow DOM。组件的样式被包裹在这个Shadow DOM中。
+    实现来为组件的宿主元素附加一个Shadow DOM。组件的样式被包裹在这个Shadow DOM中。(译注：不进不出，没有样式能进来，组件样式出不去。)
     
   * `Emulated` view encapsulation (**the default**) emulates the behavior of Shadow DOM by preprocessing
     (and renaming) the CSS code to effectively scope the CSS to the component's view.
     See [Appendix 1](#inspect-generated-css) for details.
     
   * `Emulated`模式（**默认值**）通过预处理（并改名）CSS代码来仿真Shadow DOM的行为，以达到把CSS样式局限在组件视图中的目的。
-    参见[附录1](#inspect-generated-css)了解详情。
+    参见[附录1](#inspect-generated-css)了解详情。（译注：只进不出，全局样式能进来，组件样式出不去）
     
   * `None` means that Angular does no view encapsulation. 
     Angular adds the CSS to the global styles. 
@@ -358,7 +358,7 @@ a#view-encapsulation
     This is essentially the same as pasting the component's styles into the HTML.
   * `None`意味着Angular不使用视图包装。
     Angular会把CSS添加到全局样式中。而不会应用上前面讨论过的那些局限化规则、隔离和保护等规则。
-    从本质上来说，这跟把组件的样式直接放进HTML是一样的。
+    从本质上来说，这跟把组件的样式直接放进HTML是一样的。（译注：能进能出。）
     
   Set the components encapsulation mode using the `encapsulation` property in the component metadata:
   
@@ -407,19 +407,19 @@ code-example(format="").
   * An element that would be a Shadow DOM host in native encapsulation has a
     generated `_nghost` attribute. This is typically the case for component host elements.
     
-  * 如果一个元素在原生包装方式下将成为Shadow DOM的宿主，那么它将被自动添加上一个`_nghost`属性。
+  * 一个元素在原生包装方式下可能是Shadow DOM的宿主，在这里被自动添加上一个`_nghost`属性。
     这是组件宿主元素的典型情况。
     
   * An element within a component's view has a `_ngcontent` attribute 
   that identifies to which host's emulated Shadow DOM this element belongs.
   
-  * 组件视图中的每一个元素，都有一个`_ngcontent`属性，它会标记出这个元素属于哪个Shadow DOM宿主。
+  * 组件视图中的每一个元素，都有一个`_ngcontent`属性，它会标记出该元素是哪个宿主的模拟Shadow DOM。
   
   The exact values of these attributes are not important. They are automatically
   generated and we never refer to them in application code. But they are targeted
   by the generated component styles, which we'll find in the `<head>` section of the DOM:
   
-  这些属性的精确值并不重要。它们是自动生成的，并且我们永远不会在程序代码中直接引用到它们。
+  这些属性的具体值并不重要。它们是自动生成的，并且我们永远不会在程序代码中直接引用到它们。
   但它们会作为生成的组件样式的目标，就像我们在DOM的`<head>`区所看到的：
   
 code-example(format="").
