@@ -199,7 +199,7 @@ a(id="loaders")
 :marked
   ... it applies the `test` RegEx patterns. When a pattern matches the filename, Webpack processes the file with the associated loader.
 
-  ……它会使用`test`正则表达式进行模式匹配。如果一个模式匹配上文件名，Webpack就用它所关联的加载器处理这个文件。
+  ……它会使用`test`后面的正则表达式进行模式匹配。如果一个模式匹配上文件名，Webpack就用它所关联的加载器处理这个文件。
 
   The first `import` file matches the `.ts` pattern so Webpack processes it with the `ts` (TypeScript) loader.
   The imported file doesn't match the second pattern so its loader is ignored.
@@ -212,8 +212,8 @@ a(id="loaders")
   the `css` loader first (to flatten CSS `@import` and `url(...)` statements) and
    then the `style` loader (to append the css inside *&lt;style&gt;* elements on the page).
 
-  第二个`import`匹配上了第二个`.css`模式，在它上面我们有两个用(!)字符串联起来的加载器。
-  Webpack会*从右到左*逐个应用串联的加载器，于是它先应用了`css`加载器(用来平面化`@import`和`url(...)`语句)，
+  第二个`import`匹配上了第二个`.css`模式，它有两个用叹号字符(`!`)串联起来的加载器。
+  Webpack会*从右到左*逐个应用串联的加载器，于是它先应用了`css`加载器(用来平面化CSS的`@import`和`url(...)`语句)，
   然后应用了`style`加载器(用来把css追加到页面上的*&lt;style&gt;*元素中)。
 
 a(id="plugins")
@@ -226,7 +226,7 @@ a(id="plugins")
   Webpack has a build pipeline with well-defined phases.
   We tap into that pipeline with plugins such as the `uglify` minification plugin:
 
-  Webpack有一条划分成多个良好定义的阶段(phase)的构建流水线。
+  Webpack有一条构建流水线，它被划分成多个经过精心定义的阶段(phase)。
   我们可以把插件（比如`uglify`代码最小化插件）挂到流水线上：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'plugins')(format=".")
@@ -239,7 +239,7 @@ a(id="configure-webpack")
 
   After that brief orientation, we are ready to build our own Webpack configuration for Angular 2 apps.
 
-  在简短的培训之后，我们准备为Angular 2应用构建一份自己的Webpack配置了。
+  经过简短的培训之后，我们准备为Angular 2应用构建一份自己的Webpack配置了。
 
   Begin by setting up the development environment.
 
@@ -277,7 +277,7 @@ code-example(format="").
   :marked
     Many of these files and much of their content should be familiar from other Angular 2 documentation chapters.
 
-    这些文件及其内容多数都在其它Angular 2文档中见过，应该比较熟悉了。
+    这些文件及其内容多数都在其它Angular 2文档中见过了，应该比较熟悉。
 
     Learn about the `package.json` in the [npm packages](../guide/npm-packages.html) chapter.
     We require packages for Webpack use in addition to the ones listed in that chapter.
@@ -319,7 +319,7 @@ a(id="common-configuration")
   Webpack is a NodeJS-based tool so its configuration is a JavaScript _commonjs_ module file
   that begins with `require` statements as such files do.
 
-  Webpack是一个基于NodeJS的工具，所以它的配置文件就是一个JavaScript的_CommonJS_模块文件，像常规的写法一样，它开始于`require`语句。
+  Webpack是一个基于NodeJS的工具，所以它的配置文件就是一个JavaScript的_CommonJS_模块文件，它像常规写法一样以`require`语句开始。
 
   The configuration exports several objects, beginning with the *entries* described earlier:
 
@@ -356,7 +356,7 @@ a(id="common-configuration")
   We _might_ write `import` statements with explicit extensions as in this example:
 
   我们的程序将需要`import`十多个(如果不是上百个的话)JavaScript和TypeScript文件。
-  我们_可能_会带着明确的扩展名来写这些`import`语句，就像下面的例子中这样：
+  我们_可以_带着明确的扩展名来写这些`import`语句，就像下面的例子中这样：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'single-import')(format=".")
 
@@ -396,7 +396,7 @@ a(id="common-configuration")
   * images/fonts - Images and fonts are bundled as well.
   * images/fonts - 图片和字体文件也能被打包。
   * css - The pattern matches application-wide styles; the second handles component-scoped styles (the ones specified in a component's `styleUrls` metadata property).
-  * css - 这个模式匹配应用级样式，第二个处理组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
+  * css - 第一个模式匹配应用级样式，第二个模式匹配组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
 .l-sub-section
   :marked
     The first pattern excludes `.css` files within the `/src/app` directories where our component-scoped styles sit.
@@ -452,7 +452,7 @@ a(id="html-webpack-plugin")
   Webpack can inject those scripts and links for us with the `HtmlWebpackPlugin`.
 
   Webpack生成了一些js和css文件。
-  我们_可以__手动_把它们插入到`index.html`中。那样既枯燥又容易出错。
+  虽然我们_可以手动_把它们插入到`index.html`中，但那样既枯燥又容易出错。
   Webpack可以通过`HtmlWebpackPlugin`自动为我们注入那些`script`和`link`标签。
 
 a(id="environment-configuration")
@@ -496,19 +496,19 @@ a(id="development-configuration")
   So we won't find any files in the `dist` folder (at least not any generated from `this development build`).
 
   虽然我们告诉Webpack把输出包儿放到`dist`目录，但实际上开发服务器把这些包儿都放在了内存里，而不会把它们写到硬盘中。
-  于是我们在`dist`目录下将找不到任何文件(至少现在这个开发环境下构建时没有)。
+  所以我们在`dist`目录下将找不到任何文件(至少现在这个开发环境下构建时没有)。
 
 
   The `HtmlWebpackPlugin` (added in `webpack.common.js`) use the *publicPath* and the *filename* settings to generate
   appropriate &lt;script&gt; and &lt;link&gt; tags into the `index.html`.
 
-  `HtmlWebpackPlugin`(添加自`webpack.common.js`)插件使用*`publicPath`*和*`filename`*设置来
-  向`index.html`中插入适当的&lt;script&gt;和&lt;link&gt;标签。
+  `HtmlWebpackPlugin`(添加自`webpack.common.js`)插件使用*`publicPath`*和*`filename`*设置，
+  来向`index.html`中插入适当的&lt;script&gt;和&lt;link&gt;标签。
 
   Our CSS are buried inside our Javascript bundles by default. The `ExtractTextPlugin` extracts them into
   external `.css` files that the `HtmlWebpackPlugin` inscribes as &lt;link&gt; tags into the `index.html`.
 
-  我们这些CSS默认情况下被埋没在JavaScript包儿中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
+  我们这些CSS默认情况下会被埋没在JavaScript包儿中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
   这样`HtmlWebpackPlugin`插件就会转而把一个&lt;link&gt;标签写进`index.html`了。
 
   Refer to the Webpack documentation for details on these and other configuration options in this file
@@ -538,7 +538,7 @@ a(id="production-configuration")
 :marked
   We don't use a development server. We're expected to deploy the application and its dependencies to a real production server.
 
-  我们不会使用开发服务器，而是希望把应用程序及其依赖部署到一个真实的产品服务器中。
+  我们不会在产品环境下使用开发服务器，而是希望把应用程序及其依赖都部署到一个真实的产品服务器中。
 
   This time the output bundle files are physically placed in the `dist` folder.
 
@@ -567,7 +567,7 @@ a(id="production-configuration")
 
   Thanks to the *DefinePlugin* and the `ENV` variable defined at top, we can enable Angular 2 production mode like this:
 
-  感谢*DefinePlugin*和顶部定义的`ENV`变量，我们可以像这样启用Angular 2的产品模式了：
+  感谢*DefinePlugin*和顶部定义的`ENV`变量，我们就可以像这样启用Angular 2的产品模式了：
 
 +makeExample('webpack/ts/src/main.ts', 'enable-prod')(format=".")
 
