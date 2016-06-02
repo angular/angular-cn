@@ -15,14 +15,14 @@ block includes
   
   Angular有一个多级依赖注入系统。
   实际上，应用程序中有一个与组件树平行的注入器树（译注：平行是指结构完全相同且一一对应）。
-  我们可以使用一些有趣又有用的注入供应商，在组件树中的任何级别上重新配置注入器。
+  我们可以在组件树中的任何级别上重新配置注入器，达到一些有趣和有用的效果。
 
   In this chapter we explore these points and write some code.
   
-  在本章中，我们将浏览这些要点，并写点代码儿来验证它。
+  在本章中，我们将浏览这些要点，并写点代码来验证它。
 
 p Try the #[+liveExampleLink2()].
-p 试试#[+liveExampleLink2()].
+p 试试#[+liveExampleLink2("在线例子")].
 
 .l-main-section
 :marked
@@ -58,7 +58,7 @@ p 试试#[+liveExampleLink2()].
     But it is true that every component ***has an injector*** (even if it shares that injector with another component)
     and there may be many different injector instances operating at different levels of the component tree.
     
-    但说每个组件都**有一个注入器**是没问题的（即使它与其它组件共享注入器也应该算**有**），并且确实可能会有大量不同的注入器实例工作在组件树的不同级别。
+    但是，每个组件都**有一个注入器**是真实的（就算它与其它组件共享注入器，也是*有注入器*），并且确实可能会有大量不同的注入器实例工作在组件树的不同级别。
 
     It is useful to pretend that every component has its own injector.
     
@@ -95,8 +95,8 @@ figure.image-display
   当一个底层的组件申请获得一个依赖时，Angular先尝试用该组件自己的注入器来满足它。
   如果该组件的注入器没有找到对应的供应商，它就把这个申请转给它父组件的注入器来处理。
   如果那个注入器也无法满足这个申请，它就继续转给*它的*父组件的注入器。
-  这个申请继续往上冒泡 —— 直到我们找到了一个能处理此申请的注入器或者超出了组件树中的祖先仍没找到。
-  如果超出了组件树中的祖先，Angular就会抛出一个错误。
+  这个申请继续往上冒泡 —— 直到我们找到了一个能处理此申请的注入器或者超出了组件树中的祖先位置为止。
+  如果超出了组件树中的祖先还未找到，Angular就会抛出一个错误。
 
 .l-sub-section
   :marked
@@ -129,7 +129,7 @@ figure.image-display
   This child is the parent of another component (C) that defines its own provider for `Car`.
   
   让我们回到“汽车(Car)”类的例子。
-  假设我们使用`Car`、`Engine`和`Tires`的供应商配置过“根注入器”（记为A）。
+  假设“根注入器”（记为A）配置过`Car`、`Engine`和`Tires`的供应商。
   然后创建了一个子组件（B），它为`Car`和`Engine`类定义了自己的供应商。
   这个子组件（B）又有另一个子组件（C），（C）也为`Car`定义了自己的供应商。
 
@@ -141,7 +141,8 @@ figure.image-display
   its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
   `Tires` resolved by the root injector (A).
   
-  当我们在最底层的组件（C）中试图解析出一个`Car`的实例时，它的注入器生产一个由注入器（C）解析出的`Car`类的实例，`Car`的实例带有一个由注入器（B）解析出的`Engine`类的实例，而`Engine`的实例带有一个由跟注入器（A）解析出的`Tires`类的实例。
+  当我们在最底层的组件（C）中试图解析出一个`Car`的实例时，注入器（C）解析出的`Car`类的实例，
+  该`Car`的实例带有一个`Engine`类的实例（由注入器（B）解析出）和一个`Tires`类的实例（由跟注入器（A）解析出）。
 
 figure.image-display
   img(src="/resources/images/devguide/dependency-injection/injector-tree.png" alt="injector tree" width="600")
@@ -174,7 +175,7 @@ figure.image-display
   Notice that it imports the `HeroService` that we’ve used before so we can skip its declaration. The only difference is that we’ve used a more formal approach for our `Hero`model and defined it upfront as such.
   
   注意，它导入了`HeroService`类，我们以前用到过这个类，所以直接跳过它的声明。
-  唯一的不同是，这里我们用一种更正规的方式使用`Hero`模型，把它定义在前面。
+  唯一的不同是，这里我们用一种更正规的方式使用`Hero`模型，提前定义它。
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero.ts', null, 'app/hero.ts')(format=".")
 
@@ -222,7 +223,7 @@ figure.image-display
 :marked
   All this tiny service does is define an API to set a value of any type which can be altered, retrieved or set back to its initial value. That’s exactly what we need to implement the desired functionality.
   
-  所有这些微型服务所做的都是定义一个API来设置一个任意类型的值，它可以被修改、获取或者恢复成初始值。
+  这个微型服务唯一所做的是定义一个API来设置一个任意类型的值，它可以被修改、获取或者恢复成初始值。
   这正是我们需要实现的功能。
 
   Our `HeroEditComponent` uses this services under the hood for its `hero` property. It intercepts the `get` and `set` method to delegate the actual work to our `RestoreService` which in turn makes sure that we won’t work on the original item but on a copy instead.
@@ -275,9 +276,9 @@ figure.image-display
   of that component. We've made the `RestoreService` a kind of "private" singleton for each `HeroEditComponent`,
   scoped to that component instance and its child components.
   
-  但很明显，这我们不希望它出现在这个场景下。我们希望每个组件都有它自己的`RestoreService`实例。
+  但很明显，这个场景下我们不希望这样。我们希望每个组件都有它自己的`RestoreService`实例。
   在组件级别上定义（或重定义）一个供应商，将会为该组件创建一个新的服务实例。
-  我们已经把在每个`HeroEditComponent`中，把`RestoreService`做成了一种“私有”单例，它的作用范围被局限在了该组件的实例及其子组件中。
+  我们已经为`HeroEditComponent`制造了一种“私有”`RestoreService`单例，它的作用范围被局限在了该组件的实例及其子组件中。
 
   <!--
     ## Advanced Dependency Injection in Angular 2
