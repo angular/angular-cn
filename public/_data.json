@@ -4,47 +4,40 @@
     "title": "一套框架，多种平台",
     "subtitle": "同时适用手机与桌面"
   },
-
+  "404": {
+    "title": "出错了！"
+  },
   "features": {
     "title": "特性与优点"
   },
-
   "contribute": {
     "title": "为Angular做贡献",
     "subtitle": "帮我们构建面向未来的框架",
     "autoformat": "true"
   },
-
   "news": {
     "title": "新闻"
   },
-
   "events": {
     "title": "事件",
     "subtitle": "我们将在哪里开会"
   },
-
   "support": {
     "title": "支持",
     "subtitle": "从Angular社区获得支持"
   },
-
   "presskit": {
     "title": "出版工具"
   },
-
   "books": {
     "title": "书籍"
   },
-
   "training": {
     "title": "培训"
   },
-
   "communities": {
     "title": "社区"
   },
-
   "tooling": {
     "title": "工具与库"
   }

@@ -114,8 +114,8 @@ a(id="entries-outputs")
   Here it sees that we're importing *@angular/core* so it adds that to its dependency list for (potential) inclusion in the bundle.
   It opens *@angular/core* and follows _its_ network of `import` statements until it has build the complete dependency graph from `app.ts` down.
 
-  这里，它看到我们正在导入*@angular/core*，于是它把这个文件加入它的依赖列表里，为(有可能)把它打进包儿中做准备。
-  它打开*@angular/core*并追踪由_它的_`import`语句构成的网络，直到构建出从`app.ts`往下的整个依赖图谱。
+  这里，Webpack看到我们正在导入*@angular/core*，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包儿中做准备。
+  它打开*@angular/core*并追踪由_该文件的_`import`语句构成的网络，直到构建出从`app.ts`往下的整个依赖图谱。
 
   Then it **outputs** these files to the `app.js` _bundle file_ designated in configuration:
 
@@ -128,7 +128,7 @@ a(id="entries-outputs")
   We'll load it later with a &lt;script&gt; tag in our index.html.
 
   这个`app.js`输出包儿是个单一的JavaScript文件，它包含我们程序的源码以及它的所有依赖。
-  后面我们将在`index.html`中用`&lt;script&gt;`标签来加载它。
+  后面我们将在`index.html`中用`<script>`标签来加载它。
 
   #### Multiple bundles
 
@@ -137,12 +137,11 @@ a(id="entries-outputs")
   We probably do not want one giant bundle of everything.
   We'll likely prefer to separate our volatile application app code from comparatively stable vendor code modules.
 
-  我们可能不会希望得到一个打进所有东西的巨型包儿。
-  我们可能更喜欢把多变的应用代码从相对稳定的第三方供应商模块中分离出来。
+  我们可能不会希望把所有东西打进一个巨型包儿，而更喜欢把多变的应用代码从相对稳定的第三方供应商模块中分离出来。
 
   We change the configuration so that we have two entry points, `app.ts` and `vendor.ts`:
 
-  我们修改配置，来获得两个入口点：`app.ts`和`vendor.ts`：
+  我们修改配置，获得两个入口点：`app.ts`和`vendor.ts`：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'two-entries','webpack.config.js (two entries)')(format=".")
 :marked
@@ -157,7 +156,7 @@ a(id="entries-outputs")
     The `[name]` in the output name is a Webpack *placeholder* that is replaced with the entry names.
     `app` and `vendor` respectively.
 
-    输出文件名中出现的`[name]`是一个Webpack的*占位符*，它将被替换为入口点的名字，分别是`app`和`vendor`。
+    在输出文件名中出现的`[name]`是一个Webpack的*占位符*，它将被替换为入口点的名字，分别是`app`和`vendor`。
 
     We need a plugin to make this work; we'll [cover that later](#commons-chunk-plugin) in the chapter.
 
@@ -166,7 +165,7 @@ a(id="entries-outputs")
 :marked
   We met `app.ts` earlier. We wrote `vendor.ts` such that it imports the vendor modules we need:
 
-  我们以前遇到过`app.ts`，就重复了。我们还要再写一个`vendor.ts`，让它导入所需的那些供应商模块：
+  我们以前见过`app.ts`，就不再赘述了。我们再写一个`vendor.ts`，让它导入我们要用的供应商模块：
 
 +makeExample('webpack/ts/src/vendor.ts', null,'src/vendor.ts')(format=".")
 
