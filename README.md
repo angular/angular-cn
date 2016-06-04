@@ -1,5 +1,7 @@
 # angular.io 中文版
 
+[![Join the chat at https://gitter.im/angular/angular-cn](https://badges.gitter.im/angular/angular-cn.svg)](https://gitter.im/angular/angular-cn?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 这里是angular.io字幕组，哦不对，是汉化组。译者汪志成(雪狼)和叶志敏(Rex)欢迎您的到访。
 
 我们将和官方英文版保持同步翻译，并同步发布到国内镜像 - <http://www.angular.live>，
