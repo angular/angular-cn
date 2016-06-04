@@ -1,6 +1,7 @@
-include ../_util-fns
+block includes
+  include ../_util-fns
+  - var _thisDot = 'this.';
 
-// #docregion intro
 :marked
   **Dependency injection** is an important application design pattern.
   Angular has its own dependency injection framework, and
@@ -10,59 +11,59 @@ include ../_util-fns
   **依赖注入**是一个很重要的程序设计模式。
   Angular有自己的依赖注入框架，离开了它，我们几乎没法构建Angular应用。
   它使用得非常广泛，以至于几乎每个人都会把它简称为_DI_。
-  
+
   In this chapter we'll learn what DI is and why we want it.
   Then we'll learn [how to use it](#angular-di) in an Angular app.
-  
+
   在本章中，我们将学习DI是什么，以及我们为什么需要它。
   然后，我们将学习在Angular应用中该[如何使用它](#angular-di)。
-// #enddocregion intro
-:marked
-  [Run the live example](/resources/live-examples/dependency-injection/ts/plnkr.html)
-  
-  [运行在线例子](/resources/live-examples/dependency-injection/ts/plnkr.html)
-// #docregion why-1
-<a id="why-di"></a>
-.l-main-section
+
+  - [Why dependency injection?](#why-dependency-injection)
+  - [Angular dependency injection](#angular-dependency-injection)
+  - [Injector providers](#injector-providers)
+  - [Dependency injection tokens](#dependency-injection-tokens)
+  - [Summary](#summary)
+
+p Run the #[+liveExampleLink2()].
+
+.l-main-section#why-di
 :marked
   ## Why dependency injection?
   ## 为什么需要依赖注入？
 
   Let's start with the following code.
-  
+
   我们从下列代码开始：
-// #enddocregion why-1
-+makeExample('dependency-injection/ts/app/car/car-no-di.ts', 'car', 'app/car/car.ts (没有 DI)')
-// #docregion why-2
-- var lang = current.path[1]
-- var prefix = lang == 'dart' ? '' : 'this.'
+
++makeExample('dependency-injection/ts/app/car/car-no-di.ts', 'car', 'app/car/car.ts (without DI)')
+
 :marked
   Our `Car` creates everything it needs inside its constructor.
   What's the problem?
-  
+
   我们的`Car`类会在它的构造函数中亲自创建所需的每样东西。
   问题何在？
 
   The problem is that our `Car` class is brittle, inflexible, and hard to test.
-  
+
   问题在于，我们这个`Car`类过于脆弱、缺乏弹性并且难以测试。
 
   Our `Car` needs an engine and tires. Instead of asking for them,
-  the `Car` constructor creates its own copies by "new-ing" them from
-  the very specific classes, `Engine` and `Tires`.
+  the `Car` constructor instantiates its own copies from
+  the very specific classes `Engine` and `Tires`.
 
   我们的`Car`类需要一个`Engine`和`Tires`，它没有去请求一个现成的实例，
   而是在构造函数中用具体的`Engine`和`Tires`类新创建了一份只供自己用的副本。
-  
+
   What if the `Engine` class evolves and its constructor requires a parameter?
   Our `Car` is broken and stays broken until we rewrite it along the lines of
-  `#{prefix}engine = new Engine(theNewParameter)`.
+  `#{_thisDot}engine = new Engine(theNewParameter)`.
   We didn't care about `Engine` constructor parameters when we first wrote `Car`.
   We don't really care about them now.
   But we'll *have* to start caring because
   when the definition of `Engine` changes, our `Car` class must change.
   That makes `Car` brittle.
-  
+
   如果`Engine`类升级了，并且它的构造函数要求传入一个参数了，该怎么办？
   我们这个`Car`类就被破坏了，而且直到我们把创建引擎的代码重写为`#{prefix}engine = new Engine(theNewParameter)`之前，它都是坏的。
   当我们首次写`Car`类时，我们不会在乎`Engine`构造函数的参数。现在我们也不想在乎。
@@ -71,7 +72,7 @@ include ../_util-fns
 
   What if we want to put a different brand of tires on our `Car`? Too bad.
   We're locked into whatever brand the `Tires` class creates. That makes our `Car` inflexible.
-  
+
   如果我们想在我们的`Car`上用一个不同品牌的轮胎会怎样？太糟了。
   我们被锁死在`Tires`类创建时使用的那个品牌上。这让我们的`Car`类缺乏弹性。
 
@@ -80,7 +81,7 @@ include ../_util-fns
   we can think of other dependencies that should be shared, such as the onboard
   wireless connection to the manufacturer's service center. Our `Car` lacks the flexibility
   to share services that have been created previously for other consumers.
-  
+
   现在，每辆车都有它自己的引擎。它不能和其它车辆共享引擎。
   虽然这对于汽车来说还算可以理解，但是我们设想一下那些应该被共享的依赖，比如用来联系厂家服务中心的车载无线。
   我们的车缺乏必要的弹性，无法共享当初给其他消费者创建的车载无线。
@@ -90,7 +91,7 @@ include ../_util-fns
   What does `Engine`itself depend upon? What does that dependency depend on?
   Will a new instance of `Engine` make an asynchronous call to the server?
   We certainly don't want that going on during our tests.
-  
+
   当我们给`Car`类写测试的时候，我们被它那些隐藏的依赖所摆布。
   你以为能在测试环境中成功创建一个新的`Engine`吗？
   `Engine`自己又依赖什么？那些依赖本身又依赖什么？
@@ -100,77 +101,76 @@ include ../_util-fns
   What if our `Car` should flash a warning signal when tire pressure is low?
   How do we confirm that it actually does flash a warning
   if we can't swap in low-pressure tires during the test?
-  
+
   如果我们的`Car`应该在轮胎气压低的时候闪动一个警示灯该怎么办？
   如果我们没法在测试期间换上一个低气压的轮胎，我们该如何确认它能正确的闪警示灯？
 
   We have no control over the car's hidden dependencies.
   When we can't control the dependencies, a class becomes difficult to test.
-  
+
   我们没法控制这辆车背后隐藏的依赖。
   当我们不能控制依赖时，类就会变得难以测试。
 
   How can we make `Car` more robust, flexible, and testable?
-  
+
   我们该如何让`Car`更强壮、有弹性以及可测试？
 
   That's super easy. We change our `Car` constructor to a version with DI:
-  
+
   答案超级简单。我们把`Car`的构造函数改造成使用DI的版本：
 
   <a id="ctor-injection"></a>
-// #enddocregion why-2
+  That's super easy. We change our `Car` constructor to a version with DI:
+
 +makeTabs(
   'dependency-injection/ts/app/car/car.ts, dependency-injection/ts/app/car/car-no-di.ts',
   'car-ctor, car-ctor',
+  'app/car/car.ts (excerpt with DI), app/car/car.ts (excerpt without DI)')(format=".")
+
   'app/car/car.ts (使用DI的代码节选), app/car/car.ts (不用DI的代码节选)')(format=".")
-// #docregion why-3-1
+
 :marked
   See what happened? We moved the definition of the dependencies to the constructor.
   Our `Car` class no longer creates an engine or tires.
   It just consumes them.
-  
+
   发生了什么？我们把依赖的定义移到了构造函数中。
   我们的`Car`类不再创建引擎或者轮胎。
   它仅仅“消费”它们。
-// #enddocregion why-3-1
-// TypeScript only
-.l-sub-section
-  :marked
-    We also leverage TypeScript's constructor syntax for declaring parameters and properties simultaneously.
-    
-    我们再次借助TypeScript的构造器语法来同时定义参数和属性。
-// #docregion why-3-2
+
+block ctor-syntax
+  .l-sub-section
+    :marked
+      We also leverage TypeScript's constructor syntax for declaring parameters and properties simultaneously.
+
+      我们再次借助TypeScript的构造器语法来同时定义参数和属性。
+
 :marked
   Now we create a car by passing the engine and tires to the constructor.
-  
+
   现在，我们通过往构造函数中传入引擎和轮胎来创建一辆车。
-  
-// #enddocregion why-3-2
-- var stylePattern = { otl: /(new Car.*$)/gm };
-+makeExample('dependency-injection/ts/app/car/car-creations.ts', 'car-ctor-instantiation', '', stylePattern)(format=".")
-// #docregion why-4
+
++makeExample('dependency-injection/ts/app/car/car-creations.ts', 'car-ctor-instantiation', '')(format=".")
+
 :marked
   How cool is that?
   The definition of the engine and tire dependencies are
   decoupled from the `Car` class itself.
   We can pass in any kind of engine or tires we like, as long as they
   conform to the general API requirements of an engine or tires.
-  
+
   酷！引擎和轮胎这两个“依赖”的定义从`Car`类本身解耦开了。
   只要喜欢，我们就可以传入任何类型的引擎或轮胎，只要它们能满足引擎或轮胎的通用API需求。
 
   If someone extends the `Engine` class, that is not `Car`'s problem.
-  
+
   如果有人扩展了`Engine`类，那就不再是`Car`类的烦恼了。
-  
-// #enddocregion why-4
-// Must copy the following, due to indented +make.
+
 .l-sub-section
   :marked
     The _consumer_ of `Car` has the problem. The consumer must update the car creation code to
     something like this:
-    
+
     `Car`的_消费者_也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
 
   - var stylePattern = { otl: /(new Car.*$)/gm };
@@ -179,29 +179,29 @@ include ../_util-fns
   :marked
     The critical point is this: `Car` itself did not have to change.
     We'll take care of the consumer's problem soon enough.
-    
+
     这里的要点是：`Car`本身不必变化。我们很快就来解决消费者的问题。
-// #docregion why-6
+
 :marked
   The `Car` class is much easier to test because we are in complete control
   of its dependencies.
   We can pass mocks to the constructor that do exactly what we want them to do
   during each test:
-  
+
   `Car`类非常容易测试，因为我们现在对它的依赖有了完全的控制权。
   在每个测试期间，我们可以往构造函数中传入mock对象，做到我们想让它们做的事：
-// #enddocregion why-6
+
 - var stylePattern = { otl: /(new Car.*$)/gm };
 +makeExample('dependency-injection/ts/app/car/car-creations.ts', 'car-ctor-instantiation-with-mocks', '', stylePattern)(format=".")
-// #docregion why-7
+
 :marked
   **We just learned what dependency injection is**.
-  
+
   **我们刚刚学到了什么是依赖注入**
 
   It's a coding pattern in which a class receives its dependencies from external
   sources rather than creating them itself.
-  
+
   它是一种编程模式，该模式可以让一个类从外部源中获得它的依赖，而不必亲自创建它们。
 
   Cool! But what about that poor consumer?
@@ -209,91 +209,88 @@ include ../_util-fns
   create all three parts: the `Car`, `Engine`, and `Tires`.
   The `Car` class shed its problems at the consumer's expense.
   We need something that takes care of assembling these parts for us.
-  
+
   酷！但是，可怜的消费者怎么办？
   那些希望得到一个`Car`的人们现在必须创建所有这三部分了：`Car`、`Engine`和`Tires`。
   `Car`类把它的快乐建立在了消费者的痛苦之上。
   我们需要某种机制把这三个部分装配好。
 
   We could write a giant class to do that:
-  
+
   我们可以写一个巨型类来做这件事（不好的模式）：
-// #enddocregion why-7
+
 +makeExample('dependency-injection/ts/app/car/car-factory.ts', null, 'app/car/car-factory.ts')
-// #docregion why-8
+
 :marked
   It's not so bad now with only three creation methods.
   But maintaining it will be hairy as the application grows.
   This factory is going to become a huge spiderweb of
   interdependent factory methods!
-  
+
   现在只需要三个创建方法，这还不算太坏。
   但是当应用规模变大之后，维护它将变得惊险重重。
   这个工厂类将变成一个由相互依赖的工厂方法构成的巨型蜘蛛网。
 
   Wouldn't it be nice if we could simply list the things we want to build without
   having to define which dependency gets injected into what?
-  
+
   如果我们能简单的列出我们想建造的东西，而不用定义该把哪些依赖注入到哪些对象中，那该多好！
 
   This is where the dependency injection framework comes into play.
   Imagine the framework had something called an _injector_.
   We register some classes with this injector, and it figures out how to create them.
-  
+
   到了让依赖注入框架一展身手的时候了！
   想象框架中有一个叫做_注入器Injector_的东西。
   我们使用这个注入器注册一些类，它会指出该如何创建它们。
 
   When we need a `Car`, we simply ask the injector to get it for us and we're good to go.
-  
+
   当我们需要一个`Car`时，就简单的找注入器取车就可以了。
-// #enddocregion why-8
+
 +makeExample('dependency-injection/ts/app/car/car-injector.ts','injector-call')(format=".")
-// #docregion why-9
+
 :marked
   Everyone wins. The `Car` knows nothing about creating an `Engine` or `Tires`.
   The consumer knows nothing about creating a `Car`.
   We don't have a gigantic factory class to maintain.
   Both `Car` and consumer simply ask for what they need and the injector delivers.
-  
+
   多方皆赢。`Car`不需要知道如何创建`Engine`和`Tires`的任何事。
   消费者不知道如何创建`Car`的任何事。
   我们不需要一个巨大的工厂类来维护它们。
   `Car`和消费者只要简单的说出它们想要什么，注入器就会交给它们。
 
   This is what a **dependency injection framework** is all about.
-  
+
   这就是“**依赖注入框架**”存在的原因。
 
   Now that we know what dependency injection is and appreciate its benefits,
   let's see how it is implemented in Angular.
-  
+
   现在，我们知道了依赖注入是什么，以及它的优点是什么。我们再来看看它在Angular中是怎么实现的。
-// #enddocregion why-9
-// #docregion di-1
-<a id="angular-di"></a>
-.l-main-section
+
+.l-main-section#angular-di
 :marked
   ## Angular dependency injection
   ## Angular依赖注入
 
   Angular ships with its own dependency injection framework. This framework can also be used
   as a standalone module by other applications and frameworks.
-  
+
   Angular自带了它自己的依赖注入框架。此框架也能被当做独立模块用于其它应用和框架中。
 
   That sounds nice. What does it do for us when building components in Angular?
   Let's see, one step at a time.
-  
+
   听起来很好。当我们在Angular中构建组件的时候，它到底能为我们做什么？
   让我们一步一个脚印的看看。
 
   We'll begin with a simplified version of the `HeroesComponent`
   that we built in the [The Tour of Heroes](../tutorial/).
-  
+
   我们从当初在[英雄指南](../tutorial/)中构建过的`HeroesComponent`的一个简化版本开始。
-  
-// #enddocregion di-1
+
 +makeTabs(
   `dependency-injection/ts/app/heroes/heroes.component.1.ts,
   dependency-injection/ts/app/heroes/hero-list.component.1.ts,
@@ -304,17 +301,16 @@ include ../_util-fns
   app/heroes/hero-list.component.ts,
   app/heroes/hero.ts,
   app/heroes/mock-heroes.ts`)
-// #docregion di-2
+
 :marked
   The `HeroesComponent` is the root component of the *Heroes* feature area.
   It governs all the child components of this area.
   Our stripped down version has only one child, `HeroListComponent`,
   which displays a list of heroes.
-  
+
   `HeroesComponent`是*英雄*特性区域的根组件。它管理本区的所有子组件。
   我们简化后的版本只有一个子组件`HeroListComponent`，用来显示一个英雄列表。
-// #enddocregion di-2
-// #docregion di-3
+
 :marked
   Right now `HeroListComponent` gets heroes from `HEROES`, an in-memory collection
   defined in another file.
@@ -322,87 +318,90 @@ include ../_util-fns
   As soon as we try to test this component or want to get our heroes data from a remote server,
   we'll have to change the implementation of `heroes` and
   fix every other use of the `HEROES` mock data.
-  
+
   现在`HeroListComponent`从`HEROES`获得英雄数据，一个在另一个文件中定义的内存数据集。
   它在开发的早期阶段可能还够用，但离完美就差得远了。
   我们一旦开始测试此组件，或者想从远端服务器获得英雄数据，我们就不得不修改`heroes`的实现，并要修改每个用到了`HEROES`模拟数据的地方。
 
   Let's make a service that hides how we get hero data.
-  
-  我们来制作一个服务，把获取英雄数据的代码封装起来。
-// #enddocregion di-3
 
-// Unnecessary for Dart
+  我们来制作一个服务，把获取英雄数据的代码封装起来。
+
 .l-sub-section
   :marked
-    Write this service in its own file. See [this note](#forward-ref) to understand why.
-    
-    把这个服务写在一个独立的文件中。参见[这里的说明](#forward-ref)来理解为什么要这样。
-    
+    Given that the service is a
+    [separate concern](https://en.wikipedia.org/wiki/Separation_of_concerns),
+    we suggest that you
+    write the service code in its own file.
+  +ifDocsFor('ts')
+    :marked
+      See [this note](#one-class-per-file) for details.
+
 +makeExample('dependency-injection/ts/app/heroes/hero.service.1.ts',null, 'app/heroes/hero.service.ts' )
-// #docregion di-4
+
 :marked
   Our `HeroService` exposes a `getHeroes` method that returns
   the same mock data as before, but none of its consumers need to know that.
-  
+
   我们的`HeroService`暴露了`getHeroes`方法，用于返回跟以前一样的模拟数据，但它的消费者不需要知道这一点。
-  
+
 // #enddocregion di-4
 // #docregion di-5
 .l-sub-section
   :marked
+    Notice the `@Injectable()` #{_decorator} above the service class.
+    We'll discuss its purpose [shortly](#injectable).
+
+- var _perhaps = _docsFor == 'dart' ? '' : 'perhaps';
+.l-sub-section
+  :marked
     We aren't even pretending this is a real service.
-    If we were actually getting data from a remote server, the API would have to be asynchronous,
-    perhaps returning
-    [ES2015 promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+    If we were actually getting data from a remote server, the API would have to be
+    asynchronous, #{_perhaps} returning a !{_PromiseLinked}.
     We'd also have to rewrite the way components consume our service.
     This is important in general, but not to our current story.
-    
+
     我们甚至没有假装这是一个真实的服务。
     如果我们真的从一个远端服务器获取数据，这个API必须是异步的，可能得返回
     [ES2015 承诺（Promise）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
     我们也需要被迫重新处理组件如何消费该服务的方式。通常这个很重要，但是我们目前的故事不需要。
-// #enddocregion di-5
-// #docregion di-6
+
 :marked
   A service is nothing more than a class in Angular 2.
   It remains nothing more than a class until we register it with an Angular injector.
-  
+
   在Angular 2中，服务只是一个类。
   除非我们把它注册进一个Angular注入器，否则它没有任何特别之处。
-// #enddocregion di-6
-// #docregion di-configure-injector-1
+
+#bootstrap
 :marked
   ### Configuring the injector
   ### 配置注入器
 
   We don't have to create an Angular injector.
   Angular creates an application-wide injector for us during the bootstrap process.
-  <a id="bootstrap"></a>
-  
+
   我们并不需要自己创建一个Angular注入器。
-  Angular在启动期间会自动为我们创建一个全应用级注入器。  
-  <a id="bootstrap"></a>
-  
-// #enddocregion di-configure-injector-1
-+makeExample('dependency-injection/ts/app/main.ts', 'bootstrap', 'app/main.ts (节选)')(format='.')
-// #docregion di-configure-injector-2
+  Angular在启动期间会自动为我们创建一个全应用级注入器。
+
++makeExample('dependency-injection/ts/app/main.ts', 'bootstrap', 'app/main.ts (excerpt)')(format='.')
+
 :marked
   We do have to configure the injector by registering the **providers**
   that create the services our application requires.
   We'll explain what [providers](#providers) are later in this chapter.
   Before we do, let's see an example of provider registration during bootstrapping:
-  
+
   我们必须先注册**供应商Provider**来配置注入器，这些供应商为我们的应用程序创建所需服务。
   我们将在本章的稍后部分解释什么是[供应商](#providers)。
   在此之前，我们先来看一个在启动期间注册供应商的例子。
-// #enddocregion di-configure-injector-2
-+makeExample('dependency-injection/ts/app/main.1.ts', 'bootstrap')(format='.')
-// #docregion di-configure-injector-3
+
++makeExample('dependency-injection/ts/app/main.1.ts', 'bootstrap-discouraged')(format='.')
+
 :marked
   The injector now knows about our `HeroService`.
   An instance of our `HeroService` will be available for injection across our entire application.
-  
+
   注入器现在知道了我们的`HeroService`类。
   这样，一个`HeroService`实例就可以在我们整个应用中都可用了。
 
@@ -410,7 +409,7 @@ include ../_util-fns
   It *will* work. It's just not a best practice.
   The bootstrap provider option is intended for configuring and overriding Angular's own
   preregistered services, such as its routing support.
-  
+
   当然，我们不禁要问，为什么注释中告诉我们不要这么做。
   它*能*工作，但不是最佳实践。
   bootstrap函数的供应商选项是用来配置和改写Angular自身的预注册服务的，比如它的路由支持。
@@ -418,172 +417,146 @@ include ../_util-fns
   The preferred approach is to register application providers in application components.
   Because the `HeroService` is used within the *Heroes* feature area &mdash;
   and nowhere else &mdash; the ideal place to register it is in the top-level `HeroesComponent`.
-  
+
   首选的方式是在应用的组件中注册供应商。
   因为`HeroService`是用于*英雄*功能区的 —— 并且没别处用它 —— 所以注册它的理想地点就是顶层的`HeroesComponent`。
-// #enddocregion di-configure-injector-3
-// #docregion di-register-providers-1
+
 :marked
   ### Registering providers in a component
   ### 在组件中注册供应商
-  
+
   Here's a revised `HeroesComponent` that registers the `HeroService`.
-  
+
   这里是注册了`HeroService`的修改版`HeroesComponent`。
-// #enddocregion di-register-providers-1
-+makeExample('dependency-injection/ts/app/heroes/heroes.component.1.ts',null,'app/heroes/heroes.component.ts')
-// #docregion di-register-providers-2
+
+- var stylePattern = { otl: /(providers:.*),/ };
++makeExample('dependency-injection/ts/app/heroes/heroes.component.1.ts', 'full','app/heroes/heroes.component.ts', stylePattern)(format='.')
+
 :marked
-  Look closely at the `providers` part of the `@Component` metadata:
-  
-  仔细看`@Component`元数据中的`providers`部分：
-  
-// #enddocregion di-register-providers-2
-+makeExample('dependency-injection/ts/app/heroes/heroes.component.1.ts','providers')(format='.')
-// #docregion di-register-providers-3
-:marked
+  Look closely at the `providers` part of the `@Component` metadata.
   An instance of the `HeroService` is now available for injection in this `HeroesComponent`
   and all of its child components.
-  
-  现在，一个`HeroService`的实例就可以被注入到`HeroesComponent`及其全部子组件了。
+
+  仔细看`@Component`元数据中的`providers`部分：现在，一个`HeroService`的实例就可以被注入到`HeroesComponent`及其全部子组件了。
 
   The `HeroesComponent` itself doesn't happen to need the `HeroService`.
   But its child `HeroListComponent` does, so we head there next.
-  
+
   `HeroesComponent`本身不需要`HeroService`，但它的子组件`HeroListComponent`需要，所以我们再往下看。
-  
-// #enddocregion di-register-providers-3
-// #docregion di-prepare-for-injection-1
+
 :marked
   ### Preparing the HeroListComponent for injection
   ### 为注入准备`HeroListComponent`
 
   The `HeroListComponent` should get heroes from the injected `HeroService`.
-  Per the dependency injection pattern, the component must ask for the service in its constructor, [as we explained
-  earlier](#ctor-injection).
+  Per the dependency injection pattern, the component must ask for the service in its
+  constructor, [as we explained earlier](#ctor-injection).
   It's a small change:
-  
+
   `HeroListComponent`应该从注入进来的`HeroService`获取英雄数据。
   遵照依赖注入模式的要求，组件必须在它的构造函数中请求这些服务，[就像我们以前解释过的那样](#ctor-injection)。
   只是个小改动：
-  
-// #enddocregion di-prepare-for-injection-1
+
 +makeTabs(
   `dependency-injection/ts/app/heroes/hero-list.component.2.ts,
   dependency-injection/ts/app/heroes/hero-list.component.1.ts`,
   null,
   `app/heroes/hero-list.component (with DI),
    app/heroes/hero-list.component (without DI)`)
-// Must copy the following, due to indented +make.
+
 .l-sub-section
   :marked
-    ### Focus on the constructor
+    #### Focus on the constructor
     ### 来看构造函数
 
     Adding a parameter to the constructor isn't all that's happening here.
-    
+
     往构造函数中添加一个参数并不是这里所做的一切。
 
   +makeExample('dependency-injection/ts/app/heroes/hero-list.component.2.ts', 'ctor')(format=".")
 
-  // TypeScript only
   :marked
-    We're writing in TypeScript and have followed the parameter name with a type annotation, `:HeroService`.
-    The class is also decorated with the `@Component` decorator (scroll up to confirm that fact).
-    
-    我们利用TypeScript编程，在参数名后面添加了一个类型注解：`:HeroService`。
-    这个类还有一个`@Component`的装饰器（往上翻翻就知道了）。
+    Note that the constructor parameter has the type `HeroService`, and that
+    the `HeroListComponent` class has an `@Component` #{_decorator}
+    (scroll up to confirm that fact).
+    Also recall that the parent component (`HeroesComponent`)
+    has `providers` information for `HeroService`.
 
-    When the TypeScript compiler evaluates this class, it sees the `@Component` decorator and adds class metadata
-    into the generated JavaScript code. Within that metadata lurks the information that
-    associates the `heroService` parameter with the `HeroService` class.
-    
-    当TypeScript编译器编译这个类时，它会看到`@Component`装饰器，并且把类的元数据添加到所生成的JavaScript代码中。
-    藏在元数据中的信息会把`heroService`参数和`HeroService`类关联在一起。
+    The constructor parameter type, the `@Component` #{_decorator},
+    and the parent's `providers` information combine to tell the
+    Angular injector to inject an instance of
+    `HeroService` whenever it creates a new `HeroListComponent`.
 
-    That's how the Angular injector knows to inject an instance of the `HeroService` when it
-    creates a new `HeroListComponent`.
-    
-    Angular的注入器是怎么知道在创建`HeroListComponent`时该注入一个`HeroService`的实例的？这就是原因。
-// #docregion di-create-injector-implicitly-1
+#di-metadata
 :marked
-  <a id="di-metadata"></a>
-  ### Creating the injector (implicitly)
-  ### 创建注入器（隐式的）
-  
-  When we introduced the idea of an injector above, we showed how to create
-  an injector and use it to create a new `Car`.
-  
-  我们前面在引入注入器的概念时，曾展示过如何创建一个注入器。
-// #enddocregion di-create-injector-implicitly-1
+  ### Implicit injector creation
+
+  When we introduced the idea of an injector above, we showed how to
+  use it to create a new `Car`. Here we also show how such an injector
+  would be explicitly created:
+
 +makeExample('dependency-injection/ts/app/car/car-injector.ts','injector-create-and-call')(format=".")
-// #docregion di-create-injector-implicitly-2
+
 :marked
   We won't find code like that in the Tour of Heroes or any of our other samples.
-  We *could* write [code with an explicit injector](#explicit-injector) if we *had* to, but we rarely do.
+  We *could* write code that [explicitly creates an injector](#explicit-injector) if we *had* to, but we rarely do.
   Angular takes care of creating and calling injectors
   when it creates components for us &mdash; whether through HTML markup, as in `<hero-list></hero-list>`,
   or after navigating to a component with the [router](./router.html).
   If we let Angular do its job, we'll enjoy the benefits of automated dependency injection.
-  
+
   但无论在《英雄指南》还是其它范例中，我们都没有发现这样的代码。
   在必要时，我们*可以*写[使用显式注入器的代码](#explicit-injector)，但却很少这样做。
   当Angular为我们创建组件时 —— 无论通过像`<hero-list></hero-list>`这样的HTML标签还是通过[路由](./router.html)导航到组件 —— 它都会自己管理好注入器的创建和调用。
   只要让Angular做好它自己的工作，我们就能安心享受“自动依赖注入”带来的好处。
-// #enddocregion di-create-injector-implicitly-2
-// #docregion di-singleton-services
+
 :marked
   ### Singleton services
   ### 单例服务
-  
+
   Dependencies are singletons within the scope of an injector.
   In our example, a single `HeroService` instance is shared among the
   `HeroesComponent` and its `HeroListComponent` children.
-  
+
   在一个注入器的范围内，依赖都是单例的。
   在我们这个例子中，一个单一的`HeroService`实例被`HeroesComponent`和它的子组件`HeroListComponent`共享。
 
   However, Angular DI is an hierarchical injection
   system, which means that nested injectors can create their own service instances.
   Learn more about that in the [Hierarchical Injectors](./hierarchical-dependency-injection.html) chapter.
-  
+
   然而，Angular DI是一个分层的依赖注入系统，这意味着被嵌套的注入器可以创建它们自己的服务实例。
   要了解更多知识，参见[多级依赖注入器](./hierarchical-dependency-injection.html)一章。
-// #enddocregion di-singleton-services
 
-// Skip this for Dart, for now
-// #docregion di-testing-component-1
 :marked
   ### Testing the component
   ### 测试组件
-  
+
   We emphasized earlier that designing a class for dependency injection makes the class easier to test.
   Listing dependencies as constructor parameters may be all we need to test application parts effectively.
-  
+
   我们前面强调过，设计一个适合依赖注入的类，可以让这个类更容易测试。
   要有效的测试应用中的一部分，在构造函数的参数中列出依赖就是我们需要做的一切。
 
   For example, we can create a new `HeroListComponent` with a mock service that we can manipulate
   under test:
-  
+
   比如，我们可以使用一个mock服务来创建新的`HeroListComponent`实例，以便我们可以在测试中操纵它：
-  
-// #enddocregion di-testing-component-1
+
 +makeExample('dependency-injection/ts/app/test.component.ts', 'spec')(format='.')
-// #docregion di-testing-component-2
+
 .l-sub-section
   :marked
     Learn more in [Testing](../testing/index.html).
-    
+
     要学习更多知识，参见[测试](../testing/index.html)。
-// #enddocregion di-testing-component-2
-// #docregion di-service-service-1
+
 :marked
   ### When the service needs a service
   ### 服务需要别的服务
-  
+
   Our `HeroService` is very simple. It doesn't have any dependencies of its own.
-  
+
   我们的`HeroService`非常简单。它本身不需要任何依赖。
 
   What if it had a dependency? What if it reported its activities through a logging service?
@@ -592,240 +565,143 @@ include ../_util-fns
 
   如果它有依赖呢？如果它需要通过一个日志服务来汇报自己的活动呢？
   我们同样用*构造函数注入*模式，来添加一个带有`Logger`参数的构造函数。
-  
+
   Here is the revision compared to the original.
-  
+
   下面是在原始类的基础上所做的修改：
-// #enddocregion di-service-service-1
+
 +makeTabs(
   `dependency-injection/ts/app/heroes/hero.service.2.ts,
   dependency-injection/ts/app/heroes/hero.service.1.ts`,
   null,
-  `app/heroes/hero.service (v.2),
-  app/heroes/hero.service (v.1)`)
-// #docregion di-service-service-2
+  `app/heroes/hero.service (v2),
+  app/heroes/hero.service (v1)`)
+
 :marked
-  The constructor now asks for an injected instance of a `Logger` and stores it in a private property called `logger`.
+  The constructor now asks for an injected instance of a `Logger` and stores it in a private property called `#{_priv}logger`.
   We call that property within our `getHeroes` method when anyone asks for heroes.
-  
+
   现在，这个构造函数会要求一个`Logger`类的实例注入进来，并且把它存到一个名为`_logger`的私有属性中。
   当别人要求获得英雄数据时，我们会在`getHeroes`方法中使用这个属性。
-  
-// #enddocregion di-service-service-2
-// #docregion di-injectable-1
-- var lang = current.path[1]
-- var decoration = lang == 'dart' ? 'annotation' : 'decoration'
-- var decorationCn = lang == 'dart' ? '注解' : '装饰器'
-- var tsmetadata = lang == 'ts' ? 'As <a href="#di-metadata">we mentioned earlier</a>, <b>TypeScript only generates metadata for classes that have a decorator.</b>' : ''
-- var tsmetadataCn = lang == 'ts' ? '就像<a href="#di-metadata">我们以前提过的</a>, <b>TypeScript只为有装饰器的类生成元数据。</b>' : ''
+
+//- FIXME refer to Dart API when that page becomes available.
+- var injMetaUrl = 'https://angular.io/docs/ts/latest/api/core/index/InjectableMetadata-class.html';
+h3#injectable Why @Injectable()?
 :marked
-  <a id="injectable"></a>
-  ### Why @Injectable?
-  ### 为什么要加@Injectable？
-  
-  Notice the `@Injectable()` #{decoration} above the service class.
-  We haven't seen `@Injectable()` before.
-  As it happens, we could have added it to our first version of `HeroService`.
-  We didn't bother because we didn't need it then.
+  **<a href="#{injMetaUrl}">@Injectable()</a>** marks a class as available to an
+  injector for instantiation. Generally speaking, an injector will report an
+  error when trying to instantiate a class that is not marked as
+  `@Injectable()`.
 
-  注意上面这个服务类的 `@Injectable()` #{decorationCn}。我们以前从没见过`@Injectable()`。
-  其实我们可以把它加到第一版的`HeroService`上。
-  但我们没有那么做，因为那时候还不需要它。
+block injectable-not-always-needed-in-ts
+  .l-sub-section
+    :marked
+      As it happens, we could have omitted `@Injectable()` from our first
+      version of `HeroService` because it had no injected parameters.
+      But we must have it now that our service has an injected dependency.
+      We need it because Angular requires constructor parameter metadata
+      in order to inject a `Logger`.
 
-  We need it now... now that our service has an injected dependency.
-  We need it because Angular requires constructor parameter metadata in order to inject a `Logger`. !{tsmetadata}
-  
-  现在，我们需要了…… 现在，该服务有了一个需要被注入的依赖。
-  之所以需要它，是因为Angular需要关于构造函数参数的元数据，有了元数据才能注入`Logger`。!{tsmetadataCn}
-// #enddocregion di-injectable-1
+  .callout.is-helpful
+    header Suggestion: add @Injectable() to every service class
+    :marked
+      We recommend adding `@Injectable()` to every service class, even those that don't have dependencies
+      and, therefore, do not technically require it. Here's why:
 
-// #docregion di-injectable-2
-- var lang = current.path[1]
-- var a_decorator = lang == 'dart' ? 'an annotation' : 'a decorator'
-- var a_decoratorCn = lang == 'dart' ? '一个注解' : '一个装饰器'
-- var decorated = lang == 'dart' ? 'annotated' : 'decorated'
-- var decoratedCn = lang == 'dart' ? '注解' : '装饰器'
-- var any_decorator = lang == 'dart' ? '' : 'TypeScript generates metadata for any class with a decorator, and any decorator will do.'
-- var any_decoratorCn = lang == 'dart' ? '' : 'TypeScript会为任何带有装饰器的类生成元数据，任何装饰器都行。'
-.callout.is-helpful
-  header Suggestion: add @Injectable() to every service class
-  
-  header 建议：为每一个服务类添加@Injectable()
-  
-  :marked
-    We recommend adding `@Injectable()` to every service class, even those that don't have dependencies
-    and, therefore, do not technically require it. Here's why:
-    
-    我们建议为每个服务类都添加`@Injectable()`装饰器，即使它们因为目前没有任何依赖，在技术上并不需要它。这是因为：
-  ul(style="font-size:inherit")
-    li <b>Future proofing:</b> No need to remember <code>@Injectable()</code> when we add a dependency later.
-    li <b>面向未来：</b> 在我们将来添加依赖时，不用怕忘了添加<code>@Injectable()</code>。
-    li <b>Consistency:</b> All services follow the same rules, and we don't have to wonder why #{a_decorator} is missing.
-    li <b>统一性：</b> 所有服务都遵循着同样的规则，我们就不必困惑为什么#{a_decoratorCn}被省略了。
+    ul(style="font-size:inherit")
+      li <b>Future proofing:</b> No need to remember <code>@Injectable()</code> when we add a dependency later.
+      li <b>Consistency:</b> All services follow the same rules, and we don't have to wonder why #{_a} #{_decorator} is missing.
 
-  :marked
-    Although we recommend applying `@Injectable` to all service classes, do not feel bound by it.
-    Some developers prefer to add it only where needed and that's a reasonable policy too.
-    
-    虽然我们建议给所有服务类都添加`@Injectable()`，但你也不必受此约束。
-    有些开发人员就是喜欢在需要的时候才添加，那也同样是一个合理的准则。
+:marked
+  Injectors are also responsible for instantiating components
+  like `HeroesComponent`. Why haven't we marked `HeroesComponent` as
+  `@Injectable()`?
 
-.l-sub-section
-  :marked
-    The `HeroesComponent` has an injected dependency too. Why don't we add `@Injectable()` to the `HeroesComponent`?
-    
-    `HeroesComponent`也有一个依赖。为什么我们没有往`HeroesComponent`上添加`@Injectable()`？
+  We *can* add it if we really want to. It isn't necessary because the
+  `HeroesComponent` is already marked with `@Component`, and this
+  !{_decorator} class (like `@Directive` and `@Pipe`, which we'll learn about later)
+  is a subtype of <a href="#{injMetaUrl}">InjectableMetadata</a>.  It is in
+  fact `InjectableMetadata` #{_decorator}s that
+  identify a class as a target for instantiation by an injector.
 
-    We *can* add it if we really want to. It isn't necessary because
-    the `HeroesComponent` is already #{decorated} with `@Component`. #{any_decorator}
-    
-    如果我们想那么做，当然也可以添加。但它不是必须的，因为`HeroesComponent`已经有了`@Component`#{decoratedCn}。#{any_decoratorCn}
-// #enddocregion di-injectable-2
+block ts-any-decorator-will-do
+  .l-sub-section
+    :marked
+      Injectors use a class's constructor metadata to determine dependent types as
+      identified by the constructor's parameter types.
+      TypeScript generates such metadata for any class with a decorator, and any decorator will do.
+      But of course, it is more meaningful to mark a class using the appropriate
+      <a href="#{injMetaUrl}">InjectableMetadata</a> #{_decorator}.
+
 .callout.is-critical
   header Always include the parentheses
-  header 总要带着括号
-  
-  :marked
-    Always use `@Injectable()`, not just `@Injectable`.
-    Our application will fail mysteriously if we forget the parentheses.
-    
-    总是使用`@Injectable()`的形式，不能只用`@Injectable`。
-    如果忘了括号，我们的应用就会神不知鬼不觉的失败！
 
-// #docregion logger-service-1
-.l-main-section
+  header 总要带着括号
+
+  block always-include-paren
+    :marked
+      Always write `@Injectable()`, not just `@Injectable`.
+      Our application will fail mysteriously if we forget the parentheses.
+
+      总是使用`@Injectable()`的形式，不能只用`@Injectable`。
+      如果忘了括号，我们的应用就会神不知鬼不觉的失败！
+
+.l-main-section#logger-service
 :marked
   ## Creating and registering a logger service
   ## 创建和注册日志服务
-  
+
   We're injecting a logger into our `HeroService` in two steps:
-  
+
   要把日志服务注入到`HeroService`中需要两步：
-  
+
   1. Create the logger service.
-  
+
   1. 创建日志服务。
-  
+
   1. Register it with the application.
-  
+
   1. 把它注册到应用中。
 
-  The logger service implementation is no big deal.
-  
-  实现日志服务很简单。
-// #enddocregion logger-service-1
-+makeExample(
-  'dependency-injection/ts/app/logger.service.ts',null, 'app/logger.service')
+  Our logger service is quite simple:
 
-// Copied into Dart, due to different directory structure
++makeExample('dependency-injection/ts/app/logger.service.ts', null, 'app/logger.service.ts')
+
+block real-logger
+  //- N/A
+
 :marked
   We're likely to need the same logger service everywhere in our application,
-  so we put it at the root level of the application in the `app/` folder, and
-  we register it in the `providers` array of the metadata for our application root component, `AppComponent`.
-  
-  我们很可能在应用的任何地方都使用同一个日志服务的实例。
-  所以，我们把它放到`app/`目录下，也就是应用的顶级，并把它注册到我们的根组件`AppComponent`上，放到元数据中的`providers`数组里。
-  
-+makeExample('dependency-injection/ts/app/providers.component.ts','providers-logger', 'app/app.component.ts (节选)')
-// #docregion logger-service-3
+  so we put it in the project's `#{_appDir}` folder, and
+  we register it in the `providers` #{_array} of the metadata for our application root component, `AppComponent`.
+
++makeExcerpt('app/providers.component.ts','providers-logger','app/app.component.ts (excerpt)')
+
 :marked
   If we forget to register the logger, Angular throws an exception when it first looks for the logger:
-  
+
   如果我们忘了注册这个日志服务，Angular会在首次查找这个日志服务时，抛出一个异常。
-  
-code-example(format, language="html").
+
+code-example(format="nocode").
   EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)
-  
+
+
   EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)
   （异常：Logger类没有供应商！(HeroListComponent -> HeroService -> Logger)）
-  
-// #enddocregion logger-service-3
-// #docregion logger-service-4
+
 :marked
   That's Angular telling us that the dependency injector couldn't find the *provider* for the logger.
   It needed that provider to create a `Logger` to inject into a new
   `HeroService`, which it needed to
   create and inject into a new `HeroListComponent`.
-  
+
   Angular这是在告诉我们，依赖注入器找不到日志服务的*供应商*。在创建`HeroListComponent`的新实例时需要创建和注入`HeroService`，然后`HeroService`需要创建和注入一个`Logger`实例，Angular需要这个供应商来创建一个`Logger`实例。
 
-  The chain of creations started with the `Logger` provider. The *provider* is the subject of our next section.
-  
+  The chain of creations started with the `Logger` provider. *Providers* are the subject of our next section.
+
   这个“创建链”始于`Logger`的供应商。这个*供应商*就是我们下一节的主题。
 
-  But wait!  What if the logger is optional?
-  
-  但是，等一下，如果这个日志服务是可选的呢？
-  
-  <a id="optional"></a>
-  ### Optional dependencies
-  
-  ### 可选的依赖
-
-  Our `HeroService` currently requires a `Logger`. What if we could get by without a logger?
-  We'd use it if we had it, ignore it if we didn't. We can do that.
-  
-  我们的`HeroService`目前需要`Logger`。如果我们希望在没有日志服务的时候照样可以继续工作呢？
-  我们有它就用，没它就忽略。这也好办。
-  
-// #enddocregion logger-service-4
-
-// TypeScript only?
-:marked
-  First import the `@Optional()` decorator.
-  
-  首先引入`@Optional()`装饰器。
-  
-+makeExample('dependency-injection/ts/app/providers.component.ts','import-optional')(format='.')
-
-// #docregion logger-service-5
-- var lang = current.path[1]
-- var rewrite = lang == 'dart' ? 'Just rewrite' : 'Then rewrite'
-- var rewriteCn = lang == 'dart' ? '只要' : '然后'
-- var decorator = lang == 'dart' ? 'annotation' : 'decorator'
-- var decoratorCn = lang == 'dart' ? '注解' : '装饰器'
-:marked
-  #{rewrite} the constructor with the `@Optional()` #{decorator} preceding the private `logger` parameter.
-  That tells the injector that `logger` is optional.
-
-  #{rewriteCn}使用`@Optional`#{decoratorCn}前缀重写构造函数的`private logger`参数就可以了。
-  它就会告诉注入器`logger`是可选的。
-  
-// #enddocregion logger-service-5
-+makeExample('dependency-injection/ts/app/providers.component.ts','provider-10-ctor')(format='.')
-// #docregion logger-service-6
-:marked
-  Be prepared for a null logger. If we don't register one somewhere up the line,
-  the injector will inject `null`. We have a method that logs.
-  What can we do to avoid a null reference exception?
-  
-  准备迎接一个空的日志服务。如果我们在代码中不注册一个，注入器就会注入`null`。
-  我们有一个需要记日志的方法，这时该如何消除空指针错误呢？
-
-  We could substitute a *do-nothing* logger stub so that calling methods continue to work:
-  
-  我们可以用一个*什么也不做*的日志服务桩对象来代替，以便调用它的方法可以照常工作：
-// #enddocregion logger-service-6
-+makeExample('dependency-injection/ts/app/providers.component.ts','provider-10-logger')(format='.')
-// #docregion logger-service-7
-:marked
-  Obviously we'd take a more sophisticated approach if the logger were optional
-  in multiple locations.
-  
-  显然，如果日志服务在很多地方都是可选的，那么我们需要一种更成熟的方式来处理。
-
-  But enough about optional loggers. In our sample application, the `Logger` is required.
-  We must register a `Logger` with the application injector using *providers*,
-  as we learn in the next section.
-  
-  但关于可选日志的讨论就先到此为止。在我们的范例程序中，`Logger`服务是必选的。
-  我们必须通过*供应商*往应用的注入器中注册一个`Logger`，就像我们接下来将学到的。
-// #enddocregion logger-service-7
-
-// #docregion providers-1
-:marked
-<a id="providers"></a>
-.l-main-section
+.l-main-section#providers
 :marked
   ## Injector providers
   ## 注入器的供应商们
@@ -833,39 +709,32 @@ code-example(format, language="html").
   A provider *provides* the concrete, runtime version of a dependency value.
   The injector relies on **providers** to create instances of the services
   that the injector injects into components and other services.
-  
+
   供应商*提供*所需依赖值的一个具体的运行期版本。
   注入器依靠**供应商们**来创建服务的实例，它会被注入器注入到组件或其它服务中。
 
   We must register a service *provider* with the injector, or it won't know how to create the service.
-  
+
   我们必须为注入器注册一个服务的*供应商*，否则它就不知道该如何创建此服务。
 
-  Earlier we registered the `Logger` service in the `providers` array of the metadata for the `AppComponent` like this:
-  
+  Earlier we registered the `Logger` service in the `providers` #{_array} of the metadata for the `AppComponent` like this:
+
   以前，我们通过`AppComponent`元数据中的`providers`数组注册过`Logger`服务，就像这样：
-  
-// #enddocregion providers-1
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-logger')
-// #docregion providers-2
-- var lang = current.path[1]
+
 - var implements = lang == 'dart' ? 'implements' : 'looks and behaves like a '
 - var implementsCn = lang == 'dart' ? '实现' : '表现和行为像'
 - var objectlike = lang == 'dart' ? '' : 'an object that behaves like '
 - var objectlikeCn = lang == 'dart' ? '' : '一个对象，其行为像'
 - var loggerlike = lang == 'dart' ? '' : 'We could provide a logger-like object. '
 - var loggerlikeCn = lang == 'dart' ? '' : '也就是可以提供一个像logger的对象。'
-:marked
-  The `providers` array appears to hold a service class.
-  In reality it holds an instance of the [Provider](../api/core/Provider-class.html) class that can create that service.
-  
-  这个`providers`数组看起来好像保存着一个服务类。
-  但事实上，它保存着一个[供应商](../api/core/Provider-class.html)类的实例，这个实例可以用来创建真正的服务。
 
+:marked
   There are many ways to *provide* something that #{implements} `Logger`.
-  The `Logger` class itself is an obvious and natural provider &mdash; it has the right shape and it's designed to be created.
+  The `Logger` class itself is an obvious and natural provider.
   But it's not the only way.
-  
+
   有很多方式可以*提供*一些#{implementsCn} `Logger`类的东西。
   `Logger`类本身是一个显而易见而且自然而然的供应商 —— 它有正确的形态，并且它设计出来就是等着被创建的。
   但它不是唯一的选项。
@@ -874,215 +743,213 @@ code-example(format, language="html").
   We could provide a substitute class. #{loggerlike}
   We could give it a provider that calls a logger factory function.
   Any of these approaches might be a good choice under the right circumstances.
-  
+
   我们可以使用另外的各种供应商来配置这个注入器，只要它们能交付#{objectlikeCn}`Logger`就可以了。
   我们可以提供一个替身类。#{loggerlikeCn}
   我们可以给它一个供应商，让它调用一个可以创建日志服务的工厂函数。
   所有这些方法，只要用在正确的场合，都可能是一个好的选择。
 
   What matters is that the injector has a provider to go to when it needs a `Logger`.
-  
-  最重要的是：当注入器需要一个`Logger`时，它得先有一个供应商。
-  
-// #enddocregion providers-2
-// #docregion providers-provide-1
-:marked
-  <a id="provide"></a>
-// #enddocregion providers-provide-1
 
-// Don't mention provide function in Dart
+  最重要的是：当注入器需要一个`Logger`时，它得先有一个供应商。
+
+//- Dart limitation: the provide function isn't const so it cannot be used in an annotation.
+- var __andProvideFn = _docsFor == 'dart' ? '' : 'and <i>provide</i> function';
+#provide
 :marked
-  ### The *Provider* class and *provide* function
-  
-  ### *Provider*类和*provide*函数
-  
-// #docregion providers-provide-1-1
+  ### The *Provider* class !{__andProvideFn}
+
 :marked
-  We wrote the `providers` array like this:
-  
-  我们把`providers`数组写成这样：
-// #enddocregion providers-provide-1-1
+  We wrote the `providers` #{_array} like this:
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-1')
-// #docregion providers-provide-2
+
 :marked
   This is actually a short-hand expression for a provider registration that creates a new instance of the
   [Provider](../api/core/Provider-class.html) class.
-  
+
   这实际上是供应商注册的一个简写形式，它会创建[Provider](../api/core/Provider-class.html)类的一个新实例。
-// #enddocregion providers-provide-2
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-2')
-// #docregion providers-provide-3
-// Skip for Dart, where the provide() function won't pass type checking.
-:marked
-  The [provide](../api/core/provide-function.html) function is the typical way to create a `Provider`:
-  
-  [provide](../api/core/provide-function.html)函数是典型的用来创建`Provider`的方法:
-  
-// #enddocregion providers-provide-3
-+makeExample('dependency-injection/ts/app/providers.component.ts','providers-3')
-// #docregion providers-provide-4-1
-// Modified for Dart.
 
-:marked
- Or we can declare a provider in an _object literal_ and skip the `provide` function.
-  
- 或者我们可以在一个_对象文本_声明一个提供商，并忽略`provide`函数。
+block provider-function-etc
+  :marked
+    The [provide](../api/core/provide-function.html) function is the typical way
+    to create a `Provider`:
 
-+makeExample('dependency-injection/ts/app/providers.component.ts','providers-3a')
+    [provide](../api/core/provide-function.html)函数是典型的用来创建`Provider`的方法:
 
-:marked
-  Pick the syntax that you prefer. They all do the same thing.
-  
-  挑选一种你自己喜欢的语法。它们都能做同样的事。
-  
-  In each syntax, we supply two types of values.
-  
-  在每种语法中，我们提供了两个类型的值。
-// #enddocregion providers-provide-4-1
-// #docregion providers-provide-4-2
+  +makeExample('dependency-injection/ts/app/providers.component.ts','providers-3')
+
+  :marked
+   Or we can declare a provider in an _object literal_ and skip the `provide` function.
+
+   或者我们可以在一个_对象文本_声明一个提供商，并忽略`provide`函数。
+
+  +makeExample('dependency-injection/ts/app/providers.component.ts','providers-3a')
+
+  :marked
+    Pick the syntax that you prefer. They all do the same thing.
+
+    挑选一种你自己喜欢的语法。它们都能做同样的事。
+
+block provider-ctor-args
+  - var _secondParam = 'provider definition object';
+  :marked
+    In each syntax, we supply two types of values.
+
+    在每种语法中，我们提供了两个类型的值。
+
+//- var _secondParam = _docsFor == 'dart' ? 'named parameter, such as <code>useClass</code>' : 'provider definition object';
 :marked
   The first is the [token](#token) that serves as the key for both locating a dependency value
   and registering the provider.
-  
-  第一个是[令牌token](#token)，它作为键值key使用，用于定位依赖值，以及注册这个供应商。
-// #enddocregion providers-provide-4-2
 
-// Dart is different here (uses an optional parameter)
-:marked
-  The second is a provider definition object,
+  第一个是[令牌token](#token)，它作为键值key使用，用于定位依赖值，以及注册这个供应商。
+
+  The second is a !{_secondParam},
   which we can think of as a *recipe* for creating the dependency value.
-  There are many ways to create dependency values... and many ways to write a recipe.
-  
-  第二个是一个供应商定义对象。
+  There are many ways to create dependency values ... and many ways to write a recipe.
+
+  第二个是一个!{_secondParam}。
   我们可以把它看做一个指导如何创建依赖值的*配方*。
   有很多方式创建依赖值…… 也有很多方式可以写配方。
-  
-// #docregion providers-alternative-1
+
+#class-provider
 :marked
-  <a id="class-provider"></a>
   ### Alternative class providers
-  
+
   ### 其他的“类”供应商
 
   Occasionally we'll ask a different class to provide the service.
   The following code tells the injector
   to return a `BetterLogger` when something asks for the `Logger`.
-  
+
   某些时候，我们会请求一个不同的类来提供服务。
   下列代码告诉注入器：当有人请求一个`Logger`时，请返回一个`BetterLogger`。
-// #enddocregion providers-alternative-1
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-4')
-// #docregion providers-alternative-2
+
+block dart-diff-const-metadata
+  //- N/A
+
 :marked
   ### Class provider with dependencies
-  
+
   ### 带依赖的类供应商
-  
+
   Maybe an `EvenBetterLogger` could display the user name in the log message.
   This logger gets the user from the injected `UserService`,
   which happens also to be injected at the application level.
-  
+
   也许一个`EvenBetterLogger`（更好的日志）可以在日志消息中显示用户名。
   这个日志服务从一个注入进来的`UserService`中取得用户，`UserService`通常也会在应用级被注入。
-  
-// #enddocregion providers-alternative-2
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','EvenBetterLogger')(format='.')
-// #docregion providers-alternative-3
+
 :marked
   Configure it like we did `BetterLogger`.
-  
+
   就像我们在`BetterLogger`中那样配置它。
-// #enddocregion providers-alternative-3
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-5')(format=".")
-// #docregion providers-aliased-1
+
 :marked
   ### Aliased class providers
-  
+
   ### 别名类供应商
 
   Suppose an old component depends upon an `OldLogger` class.
   `OldLogger` has the same interface as the `NewLogger`, but for some reason
   we can't update the old component to use it.
-  
+
   假设一个老的组件依赖于一个`OldLogger`类。
   `OldLogger`有和`NewLogger`相同的接口，但是由于某些原因，我们不能升级这个老组件并使用它。
 
   When the *old* component logs a message with `OldLogger`,
   we want the singleton instance of `NewLogger` to handle it instead.
-  
+
   当*老的*组件想使用`OldLogger`记录消息时，我们希望改用`NewLogger`的单例对象来记录。
 
   The dependency injector should inject that singleton instance
   when a component asks for either the new or the old logger.
   The `OldLogger` should be an alias for `NewLogger`.
-  
+
   不管组件请求的是新的还是老的日志服务，依赖注入器注入的都应该是同一个单例对象。
   也就是说，`OldLogger`应该是`NewLogger`的一个别名。
 
   We certainly do not want two different `NewLogger` instances in our app.
   Unfortunately, that's what we get if we try to alias `OldLogger` to `NewLogger` with `useClass`.
-  
+
   我们当然不会希望应用中有两个`NewLogger`的不同实例。
   不幸的是，如果我们尝试通过`useClass`来把`NewLogger`作为`OldLogger`的别名，就会导致这样的后果。
-// #enddocregion providers-aliased-1
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-6a')(format=".")
-// #docregion providers-aliased-2
+
 :marked
   The solution: Alias with the `useExisting` option.
-  
+
   解决方案：使用`useExisting`选项指定别名。
-  
-// #enddocregion providers-aliased-2
-+makeExample('dependency-injection/ts/app/providers.component.ts','providers-6b')(format=".")
-// #docregion providers-value-1
-<a id="value-provider"></a>
+
+- var stylePattern = { otl: /(useExisting: \w*)/gm };
++makeExample('dependency-injection/ts/app/providers.component.ts','providers-6b', '', stylePattern)(format=".")
+
+#value-provider
 :marked
   ### Value providers
-  
-  ### 值供应商
-  
-// #enddocregion providers-value-1
 
-// Typescript only
+  ### 值供应商
+
 :marked
   Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class.
-  
+
   有时，提供一个预先做好的对象会比请求注入器从类中创建它更容易。
-  
+
+block dart-diff-const-metadata-ctor
+  //- N/A
+
 +makeExample('dependency-injection/ts/app/providers.component.ts','silent-logger')(format=".")
+
 :marked
   Then we register a provider with the `useValue` option,
   which makes this object play the logger role.
-  
+
   于是我们可以通过`useValue`选项来注册一个供应商，它会让这个对象直接扮演logger的角色。
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-7')(format=".")
 
-// #docregion providers-factory-1
-<a id="factory-provider"></a>
+- var stylePattern = { otl: /(useValue: \w*)/gm };
++makeExample('dependency-injection/ts/app/providers.component.ts','providers-7', '', stylePattern)(format=".")
+
+:marked
+  See more `useValue` examples in the
+  [Non-class dependencies](#non-class-dependencies) and
+  [OpaqueToken](#opaquetoken) sections.
+
+#factory-provider
 :marked
   ### Factory providers
-  
+
   ### 工厂供应商
 
   Sometimes we need to create the dependent value dynamically,
   based on information we won't have until the last possible moment.
   Maybe the information changes repeatedly in the course of the browser session.
-  
+
   有时我们需要动态创建这个依赖值，因为它所需要的信息我们直到最后一刻才能确定。
   比如，也许这个信息会在浏览器的会话中不停的变化。
 
   Suppose also that the injectable service has no independent access to the source of this information.
-  
+
   假设这个可注入的服务没法通过独立的源访问此信息。
 
   This situation calls for a **factory provider**.
-  
+
   这种情况下，请呼叫**工厂供应商**。
 
   Let's illustrate by adding a new business requirement:
-  The HeroService must hide *secret* heroes from normal users.
+  the HeroService must hide *secret* heroes from normal users.
   Only authorized users should see secret heroes.
-  
+
   我们通过添加一个新的业务需求来说明这一点：
   HeroService必须对普通用户隐藏掉*秘密*英雄。
   只有获得授权的用户才能看到秘密英雄。
@@ -1091,7 +958,7 @@ code-example(format, language="html").
   It needs to know if the user is authorized to see secret heroes.
   That authorization can change during the course of a single application session,
   as when we log in a different user.
-  
+
   就像`EvenBetterLogger`那样，`HeroService`需要了解此用户的身份。
   它需要知道，这个用户是否有权看到隐藏英雄。
   这个授权可能在一个单一的应用会话中被改变，比如我们改用另一个用户的身份登录时。
@@ -1099,97 +966,94 @@ code-example(format, language="html").
   Unlike `EvenBetterLogger`, we can't inject the `UserService` into the `HeroService`.
   The `HeroService` won't have direct access to the user information to decide
   who is authorized and who is not.
-  
+
   和`EvenBetterLogger`不同，我们不能把`UserService`注入到`HeroService`中。
   `HeroService`无权访问用户信息，来决定谁有授权谁没有授权。
+
 .l-sub-section
   :marked
     Why? We don't know either. Stuff like this happens.
-    
+
     为什么？我们也不知道。这样的事经常发生。
+
 :marked
   Instead the `HeroService` constructor takes a boolean flag to control display of secret heroes.
-  
+
   让`HeroService`的构造函数带上一个布尔型的标志，来控制是否显示隐藏的英雄。
-  
-// #enddocregion providers-factory-1
-+makeExample('dependency-injection/ts/app/heroes/hero.service.ts','internals', 'app/heroes/hero.service.ts (节选)')(format='.')
-// #docregion providers-factory-2
+
++makeExample('dependency-injection/ts/app/heroes/hero.service.ts','internals', 'app/heroes/hero.service.ts (excerpt)')(format='.')
+
 :marked
   We can inject the `Logger`, but we can't inject the  boolean `isAuthorized`.
   We'll have to take over the creation of new instances of this `HeroService` with a factory provider.
-  
+
   我们可以注入`Logger`，但是我们不能注入逻辑型的`isAuthorized`。
   我们不得不通过通过一个工厂供应商创建这个`HeroService`的新实例。
 
   A factory provider needs a factory function:
-  
+
   工厂供应商需要一个工厂方法：
-  
-// #enddocregion providers-factory-2
-+makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','factory', 'app/heroes/hero.service.provider.ts (节选)')(format='.')
-// #docregion providers-factory-3
+
++makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','factory', 'app/heroes/hero.service.provider.ts (excerpt)')(format='.')
+
 :marked
   Although the `HeroService` has no access to the `UserService`, our factory function does.
-  
+
   虽然`HeroService`不能访问`UserService`，但是我们的工厂方法可以。
 
   We inject both the `Logger` and the `UserService` into the factory provider and let the injector pass them along to the factory function:
-  
+
   我们同时把`Logger`和`UserService`注入到工厂供应商中，并且让注入器把它们传给工厂方法：
-  
-// #enddocregion providers-factory-3
-+makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','provider', 'app/heroes/hero.service.provider.ts (节选)')(format='.')
-// #docregion providers-factory-4
+
++makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','provider', 'app/heroes/hero.service.provider.ts (excerpt)')(format='.')
+
 .l-sub-section
   :marked
     The `useFactory` field tells Angular that the provider is a factory function
     whose implementation is the `heroServiceFactory`.
-    
+
     `useFactory`字段告诉Angular：这个供应商是一个工厂方法，它的实现是`heroServiceFactory`。
 
-    The `deps` property is an array of [provider tokens](#token).
+    The `deps` property is #{_an} #{_array} of [provider tokens](#token).
     The `Logger` and `UserService` classes serve as tokens for their own class providers.
     The injector resolves these tokens and injects the corresponding services into the matching factory function parameters.
-    
+
     `deps`属性是一个[供应商令牌](#token)数组。
     `Logger`和`UserService`类作为它们自身供应商的令牌。
     注入器解析这些令牌，并且把相应的服务注入到工厂函数中相应的参数中去。
-// #enddocregion providers-factory-4
-// #docregion providers-factory-5
-- var lang = current.path[1]
+
 - var anexportedvar = lang == 'dart' ? 'a constant' : 'an exported variable'
 - var anexportedvarCn = lang == 'dart' ? '一个常量' : '一个导出的变量'
 - var variable = lang == 'dart' ? 'constant' : 'variable'
 - var variableCn = lang == 'dart' ? '常量' : '变量'
+
 :marked
-  Notice that we captured the factory provider in #{anexportedvar}, `heroServiceProvider`.
+  Notice that we captured the factory provider in #{_an} #{exportedvar}, `heroServiceProvider`.
   This extra step makes the factory provider reusable.
   We can register our `HeroService` with this #{variable} wherever we need it.
-  
+
   注意，我们在#{anexportedvarCn}中捕获了这个工厂供应商：`heroServiceProvider`。
   这个额外的步骤让工厂供应商可被复用。
   只要需要，我们就可以使用这个#{variableCn}注册`HeroService`，无论在哪儿。
 
   In our sample, we need it only in the `HeroesComponent`,
-  where it replaces the previous `HeroService` registration in the metadata `providers` array.
+  where it replaces the previous `HeroService` registration in the metadata `providers` #{_array}.
   Here we see the new and the old implementation side-by-side:
-  
+
   在这个例子中，我们只在`HeroesComponent`中需要它，
   这里，它代替了元数据`providers`数组中原来的`HeroService`注册。
   我们来对比一下新的和老的实现：
-  
-// #enddocregion providers-factory-5
+
+- var stylePattern = { otl: /(providers.*),$/gm };
 +makeTabs(
   `dependency-injection/ts/app/heroes/heroes.component.ts,
   dependency-injection/ts/app/heroes/heroes.component.1.ts`,
-  null,
-  `app/heroes/heroes.component (v.3),
-  app/heroes/heroes.component (v.2)`)
+  ',full',
+  `app/heroes/heroes.component (v3),
+  app/heroes/heroes.component (v2)`,
+  stylePattern)
 
-// #docregion tokens-1
-<a id="token"></a>
-.l-main-section
+.l-main-section#token
 :marked
   ## Dependency injection tokens
   ## 依赖注入令牌
@@ -1197,7 +1061,7 @@ code-example(format, language="html").
   When we register a provider with an injector, we associate that provider with a dependency injection token.
   The injector maintains an internal *token-provider* map that it references when
   asked for a dependency. The token is the key to the map.
-  
+
   当我们为注入器注册一个供应商时，实际上是把这个供应商和一个DI令牌关联起来了。
   注入器维护一个内部的*令牌-供应商*映射表，这个映射表会在请求一个依赖时被引用到。
   令牌就是这个映射表中的键值key。
@@ -1205,156 +1069,158 @@ code-example(format, language="html").
   In all previous examples, the dependency value has been a class *instance*, and
   the class *type* served as its own lookup key.
   Here we get a `HeroService` directly from the injector by supplying the `HeroService` type as the token:
-  
+
   在以前的所有范例中，依赖值都是一个类*实例*，并且类的*类型*是它自己的查找键值。
   这种情况下，我们实际上是直接从注入器中以`HeroService`类型作为令牌，来获取一个`HeroService` 实例。
-// #enddocregion tokens-1
+
 +makeExample('dependency-injection/ts/app/injector.component.ts','get-hero-service')(format='.')
-// #docregion tokens-2
+
 :marked
   We have similar good fortune when we write a constructor that requires an injected class-based dependency.
   We define a constructor parameter with the `HeroService` class type,
   and Angular knows to inject the
   service associated with that `HeroService` class token:
-  
+
   写一个需要基于类的依赖注入的构造函数对我们来说是很幸运的。
   我们只要以`HeroService`类为类型，定义一个构造函数参数，Angular就会知道把跟`HeroService`类令牌关联的服务注入进来：
-// #enddocregion tokens-2
-+makeExample('dependency-injection/ts/app/providers.component.ts','provider-8-ctor')(format=".")
-// #docregion tokens-3
+
++makeExample('dependency-injection/ts/app/heroes/hero-list.component.ts', 'ctor-signature')
+
 :marked
   This is especially convenient when we consider that most dependency values are provided by classes.
-  
-  这是一个特殊的规约，因为我们考虑到大多数依赖值都是以类的形式提供的。
-  
-// #enddocregion tokens-3
 
-// #docregion tokens-non-class-deps-1
-- var lang = current.path[1]
-- var objectexamples = lang == 'dart' ? 'a string or list literal, or maybe a function' : 'a string, a function, or an object'
-- var objectexamplesCn = lang == 'dart' ? '字符串、列表字面量或函数' : '字符串、函数或对象'
-// Is function injection useful? Should we show it?
+  这是一个特殊的规约，因为我们考虑到大多数依赖值都是以类的形式提供的。
+
+//- TODO: if function injection is useful explain or illustrate why.
 :marked
   ### Non-class dependencies
-  ### “非类”依赖
+p
+  | What if the dependency value isn't a class? Sometimes the thing we want to inject is a
+  block non-class-dep-eg
+    span string, function, or object.
+p
+  | Applications often define configuration objects with lots of small facts
+  | (like the title of the application or the address of a web API endpoint)
+  block config-obj-maps
+    | &nbsp;but these configuration objects aren't always instances of a class.
+    | They can be object literals
+  | &nbsp;such as this one:
 
-  What if the dependency value isn't a class?
-  Sometimes the thing we want to inject is #{objectexamples}.
-  
-  如果依赖值不是类呢？
-  有时候我们想注入#{objectexamplesCn}。
-// #enddocregion tokens-non-class-deps-1
++makeExample('dependency-injection/ts/app/app.config.ts','config','app/app-config.ts (excerpt)')(format='.')
 
-// TS/JS only
 :marked
-  Applications often define configuration objects with lots of small facts like the title of the application or the address of a web API endpoint.
-  These configuration objects aren't always instances of a class. They tend to be object hashes like this one:
-  
-  应用通常会定义带有很多小型信息的配置对象，比如应用的标题或WebAPI端点的地址等。
-  这些配置对象并不总是类的实例。它们很可能是像这样的哈希对象：
-+makeExample('dependency-injection/ts/app/app.config.ts','config','app/app-config.ts (节选)')(format='.')
-
-// TypeScript only?
-:marked
-  We'd like to make this `config` object available for injection.
+  We'd like to make this configuration object available for injection.
   We know we can register an object with a [value provider](#value-provider).
-  But what do we use for the token?
-  We don't have a class to serve as a token. There is no `Config` class.
-  
+
   我们想让这个`config`对象在注入时可用。
   我们已经知道可以使用一个[值供应商](#value-provider)来注册一个对象。
-  但是这种情况下我们要把什么用作令牌呢？
-  我们没办法找一个类来当做令牌，因为没有`Config`类。
 
-// Typescript only
-<a id="interface"></a>
-.l-sub-section
+block what-should-we-use-as-token
   :marked
-    ### TypeScript interfaces aren't valid tokens
-    ### TypeScript接口不是一个有效的令牌
+    But what should we use as the token?
+    We don't have a class to serve as a token.
+    There is no `AppConfig` class.
 
-    The `CONFIG` constant has an interface, `Config`. Unfortunately, we
-    cannot use a TypeScript interface as a token:
-    
-    `CONFIG`常量有一个接口：`Config`。不幸的是，我们不能把TypeScript接口用作令牌：
-  +makeExample('dependency-injection/ts/app/providers.component.ts','providers-9a-interface')(format=".")
-  +makeExample('dependency-injection/ts/app/providers.component.ts','provider-9a-ctor-interface')(format=".")
-  :marked
-    That seems strange if we're used to dependency injection in strongly typed languages, where
-    an interface is the preferred dependency lookup key.
-    
-    如果我们是在一个强类型的语言中使用依赖注入，这会看起来很奇怪，强类型语言中，接口是首选的用于查找依赖的主键。
+    但是这种情况下我们要把什么用作令牌呢？
+    我们没办法找一个类来当做令牌，因为没有`Config`类。
+  .l-sub-section#interface
+    :marked
+      ### TypeScript interfaces aren't valid tokens
+      ### TypeScript接口不是一个有效的令牌
 
-    It's not Angular's fault. An interface is a TypeScript design-time artifact. JavaScript doesn't have interfaces.
-    The TypeScript interface disappears from the generated JavaScript.
-    There is no interface type information left for Angular to find at runtime.
-    
-    这不是Angular的错。接口只是TypeScript的一个设计期概念。JavaScript没有接口。
-    在生成JavaScript代码时，TypeScript的接口就消失了。
-    在运行期，没有接口类型信息可供Angular查找。
+      The `HERO_DI_CONFIG` constant has an interface, `AppConfig`. Unfortunately, we
+      cannot use a TypeScript interface as a token:
+
+      `CONFIG`常量有一个接口：`Config`。不幸的是，我们不能把TypeScript接口用作令牌：
+    +makeExample('dependency-injection/ts/app/providers.component.ts','providers-9-interface')(format=".")
+    +makeExample('dependency-injection/ts/app/providers.component.ts','provider-9-ctor-interface')(format=".")
+    :marked
+      That seems strange if we're used to dependency injection in strongly typed languages, where
+      an interface is the preferred dependency lookup key.
+
+      如果我们是在一个强类型的语言中使用依赖注入，这会看起来很奇怪，强类型语言中，接口是首选的用于查找依赖的主键。
+
+      It's not Angular's fault. An interface is a TypeScript design-time artifact. JavaScript doesn't have interfaces.
+      The TypeScript interface disappears from the generated JavaScript.
+      There is no interface type information left for Angular to find at runtime.
+
+      这不是Angular的错。接口只是TypeScript的一个设计期概念。JavaScript没有接口。
+      在生成JavaScript代码时，TypeScript的接口就消失了。
+      在运行期，没有接口类型信息可供Angular查找。
 // end Typescript only
 
-// #docregion tokens-opaque-1
-<a id="opaque-token"></a>
-- var lang = current.path[1]
-- var opaquetoken = lang == 'dart' ? '<code>OpaqueToken</code>' : '<a href="../api/core/OpaqueToken-class.html"><code>OpaqueToken</code></a>'
-h3 OpaqueToken
-p.
-  The solution is to define and use an !{opaquetoken}.
+//- FIXME simplify once APIs are defined for Dart.
+- var opaquetoken = _docsFor == 'dart' ? '<b>OpaqueToken</b>' : '<a href="../api/core/OpaqueToken-class.html"><b>OpaqueToken</b></a>'
+:marked
+  ### OpaqueToken
+
+  One solution to choosing a provider token for non-class dependencies is
+  to define and use an !{opaquetoken}.
   The definition looks like this:
-  
-p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。定义方式类似于这样：
-// #enddocregion tokens-opaque-1
+
+  解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。定义方式类似于这样：
+
 +makeExample('dependency-injection/ts/app/app.config.ts','token')(format='.')
+
 :marked
   We register the dependency provider using the `OpaqueToken` object:
-  
-  我们使用这个`OpaqueToken`对象注册依赖的供应商：
-+makeExample('dependency-injection/ts/app/providers.component.ts','providers-9b')(format=".")
-// #docregion tokens-opaque-2
-- var lang = current.path[1]
-- var decorated = lang == 'dart' ? 'annotated' : 'decorated'
-- var decoratedCn = lang == 'dart' ? '带注解的' : '带装饰的'
-- var configuration = lang == 'dart' ? '' : 'configuration'
-- var configurationCn = lang == 'dart' ? '' : '配置'
-:marked
-  Now we can inject the #{configuration} object into any constructor that needs it, with
-  the help of an `@Inject` #{decorator} that tells Angular how to find the #{configuration} dependency value.
-  
-  现在，我们可以把这个#{configurationCn}对象注入到任何需要它的构造函数中，在`@Inject`#{decoratorCn}的帮助下，
-  告诉Angular如何找到这个#{configurationCn}依赖的值。
-// #enddocregion tokens-opaque-2
-+makeExample('dependency-injection/ts/app/providers.component.ts','provider-9b-ctor')(format=".")
 
-// begin Typescript only
+  我们使用这个`OpaqueToken`对象注册依赖的供应商：
+
++makeExample('dependency-injection/ts/app/providers.component.ts','providers-9')(format=".")
+
+:marked
+  Now we can inject the configuration object into any constructor that needs it, with
+  the help of an `@Inject` #{_decorator}:
+
+  现在，在`@Inject`#{decoratorCn}的帮助下，我们可以把这个配置对象注入到任何需要它的构造函数中：
+
++makeExample('dependency-injection/ts/app/app.component.2.ts','ctor')(format=".")
+
+- var configType = _docsFor == 'dart' ? '<code>Map</code>' : '<code>AppConfig</code>'
 .l-sub-section
   :marked
-    Although it plays no role in dependency injection,
-    the `Config` interface supports strong typing of the configuration object within the class.
-    
-    虽然`Config`接口不在依赖注入过程中没有任何作用，但它为该类中的配置对象提供了强类型信息。
-:marked
-// end typescript only
+    Although the !{configType} interface plays no role in dependency injection,
+    it supports typing of the configuration object within the class.
 
-// Skip for Dart (we have another example)
-:marked
-  Or we can provide and inject the configuration object in our top-level `AppComponent`.
-  
-  或者我们在顶级组件`AppComponent`中提供并注入这个配置对象。
-+makeExample('dependency-injection/ts/app/app.component.ts','providers', 'app/app.component.ts (providers)')(format=".")
-+makeExample('dependency-injection/ts/app/app.component.ts','ctor', 'app/app.component.ts (构造函数)')(format=".")
+    虽然`Config`!{configType}接口不在依赖注入过程中没有任何作用，但它为该类中的配置对象提供了强类型信息。
 
-// #docregion summary
+block dart-map-alternative
+  :marked
+    Or we can provide and inject the configuration object in our top-level `AppComponent`.
+
+    或者我们在顶级组件`AppComponent`中提供并注入这个配置对象。
+
+  +makeExcerpt('app/app.component.ts','providers')
+
+#optional
+:marked
+  ## Optional dependencies
+
+  Our `HeroService` *requires* a `Logger`, but what if it could get by without
+  a logger?
+  We can tell Angular that the dependency is optional by annotating the
+  constructor argument with `@Optional()`:
+
++ifDocsFor('ts')
+  +makeExample('dependency-injection/ts/app/providers.component.ts','import-optional', '')
++makeExample('dependency-injection/ts/app/providers.component.ts','provider-10-ctor', '')(format='.')
+
+:marked
+  When using `@Optional()`, our code must be prepared for a null value. If we
+  don't register a logger somewhere up the line, the injector will set the
+  value of `logger` to null.
+
 .l-main-section
 :marked
   ## Summary
   ## 总结
-  
+
   We learned the basics of Angular dependency injection in this chapter.
   We can register various kinds of providers,
   and we know how to ask for an injected object (such as a service) by
   adding a parameter to a constructor.
-  
+
   在本章中，我们学习了Angular依赖注入的基础。
   我们可以注册很多种类的供应商，还知道了该如何通过添加构造函数的参数来请求一个被注入对象（比如服务）。
 
@@ -1362,47 +1228,45 @@ p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。�
   We can learn more about its advanced features, beginning with its support for
   nested injectors, in the
   [Hierarchical Dependency Injection](hierarchical-dependency-injection.html) chapter.
-  
+
   Angular依赖注入比我们描述的更能干。
   我们还可以学到它的更多高级特性，从它对嵌套注入器的支持开始，参见[多级依赖注入](hierarchical-dependency-injection.html)一章。
-// #enddocregion summary
 
-// #docregion appendix-explicit-injector-1
-.l-main-section
-<a id="explicit-injector"></a>
+.l-main-section#explicit-injector
 :marked
-  ### Appendix: Working with injectors directly
+  ## Appendix: Working with injectors directly
   ### 附录：直接使用注入器工作
-  
+
   We rarely work directly with an injector.
   Here's an `InjectorComponent` that does.
-  
+
   这里的`InjectorComponent`直接使用了注入器，
   但我们很少直接使用注入器工作。
 // #enddocregion appendix-explicit-injector-1
 +makeExample('dependency-injection/ts/app/injector.component.ts', 'injector', 'app/injector.component.ts')
-// #docregion appendix-explicit-injector-2
+
 :marked
   The `Injector` is itself an injectable service.
-  
+
   `Injector`本身是一个可注入的服务。
+
 
   In this example, Angular injects the component's own `Injector` into the component's constructor.
   The component then asks the injected injector for the services it wants.
-  
+
   在这个例子中，Angular把组件自身的`Injector`注入到了组件的构造函数中。
   然后组件向注入进来的这个注入器请求它所需的服务。
 
   Note that the services themselves are not injected into the component.
   They are retrieved by calling `injector.get`.
-  
+
   注意，这些服务本身没有被注入到组件中，它们是通过调用`injector.get`获得的。
 
   The `get` method throws an error if it can't resolve the requested service.
   We can call `get` with a second parameter (the value to return if the service is not found) 
   instead, which we do in one case
   to retrieve a service (`ROUS`) that isn't registered with this or any ancestor injector.
-  
+
   `get`方法如果解析不出所请求的服务，它就会抛出一个异常。
   我们还可以带上第二个参数（如果服务没找到，就把它作为默认值返回）调用`get`，
   在该例子中，我们获取了一个服务(`ROUS`)，它没有在这个注入器或它的任何祖先中注册过。
@@ -1410,7 +1274,7 @@ p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。�
   :marked
     The technique we just described is an example of the
     [service locator pattern](https://en.wikipedia.org/wiki/Service_locator_pattern).
-    
+
     我们刚描述的这项技术是[服务定位器模式](https://en.wikipedia.org/wiki/Service_locator_pattern)的一个范例。
 
     We **avoid** this technique unless we genuinely need it.
@@ -1419,7 +1283,7 @@ p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。�
     We can't know by inspecting the constructor what this class requires or what it will do.
     It could acquire services from any ancestor component, not just its own.
     We're forced to spelunk the implementation to discover what it does.
-    
+
     我们要**避免使用**此技术，除非我们确实需要它。
     它会鼓励鲁莽的方法，就像我们在这里看到的。
     它难以解释、理解和测试。
@@ -1429,40 +1293,40 @@ p 解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。�
 
     Framework developers may take this approach when they
     must acquire services generically and dynamically.
-    
+
     框架的开发人员可能会需要此方法 —— 当他们不得不以通用和动态的方式获取服务时。
 // #enddocregion appendix-explicit-injector-2
 
-// TypeScript only? Unnecessary for Dart
-.l-main-section
-<a id="forward-ref"></a>
-:marked
-  ### Appendix: Why we recommend one class per file
-  ### 附录：为什么我们建议每个文件只放一个类
-
-  Having multiple classes in the same file is confusing and best avoided.
-  Developers expect one class per file. Keep them happy.
-  
-  在同一个文件中有多个类容易造成混淆，最好避免。
-  开发人员期望每个文件只放一个类。这会让他们开心点。
-
-  If we scorn this advice and, say,
-  combine our `HeroService` class with the `HeroesComponent` in the same file,
-  **define the component last!**
-  If we define the component before the service,
-  we'll get a runtime null reference error.
-  
-  如果我们蔑视这个建议，并且 —— 比如说 —— 把`HeroService`和`HeroesComponent`组合在同一个文件里，**就得把组件定义放在后面！**
-  如果我们把组件定义在了服务的前面，就会在运行时获得一个空指针错误。
-
-.l-sub-section
+block one-class-per-file-ts-tradeoffs
+  .l-main-section#one-class-per-file
   :marked
-    We actually can define the component first with the help of the `forwardRef()` method as explained
-    in this [blog post](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).
-    But why flirt with trouble?
-    Avoid the problem altogether by defining components and services in separate files.
-    
-    在`forwardRef()`方法的帮助下，我们实际上也可以先定义组件。
-    它的原理解释在这个[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)中。
-    但是为什么要先给自己找麻烦呢？
-    还是通过在独立的文件中定义组件和服务，完全避免此问题吧。
+    ## Appendix: Why we recommend one class per file
+    ## 附录：为什么我们建议每个文件只放一个类
+
+    Having multiple classes in the same file is confusing and best avoided.
+    Developers expect one class per file. Keep them happy.
+
+    在同一个文件中有多个类容易造成混淆，最好避免。
+    开发人员期望每个文件只放一个类。这会让他们开心点。
+
+
+    If we scorn this advice and, say,
+    combine our `HeroService` class with the `HeroesComponent` in the same file,
+    **define the component last!**
+    If we define the component before the service,
+    we'll get a runtime null reference error.
+
+    如果我们蔑视这个建议，并且 —— 比如说 —— 把`HeroService`和`HeroesComponent`组合在同一个文件里，**就得把组件定义放在后面！**
+    如果我们把组件定义在了服务的前面，就会在运行时获得一个空指针错误。
+
+  .l-sub-section
+    :marked
+      We actually can define the component first with the help of the `forwardRef()` method as explained
+      in this [blog post](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).
+      But why flirt with trouble?
+      Avoid the problem altogether by defining components and services in separate files.
+
+      在`forwardRef()`方法的帮助下，我们实际上也可以先定义组件。
+      它的原理解释在这个[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)中。
+      但是为什么要先给自己找麻烦呢？
+      还是通过在独立的文件中定义组件和服务，完全避免此问题吧。
