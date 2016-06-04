@@ -1076,7 +1076,7 @@ function getChangedExamplesForCommit(commit, relativePath) {
   return commit.getDiff().then(function(diffList) {
     var filePaths = [];
     diffList.forEach(function (diff) {
-      diff.patches().forEach(function (patch) {
+      diff.patches().then(function (patch) {
         if (patch.isAdded() || patch.isModified) {
           var filePath = path.normalize(patch.newFile().path());
           var isExample = filePath.indexOf(relativePath) >= 0;

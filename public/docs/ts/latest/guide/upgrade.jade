@@ -158,7 +158,7 @@ include ../_util-fns
   up with a project structure with a large number of relatively small files. This is
   a much neater way to organize things than a small number of large files, but it
   doesn't work that well if you have to load all those files to the HTML page with
-  `&lt;script>` tags. Especially when you also have to maintain those tags in the correct
+  &lt;script&gt; tags. Especially when you also have to maintain those tags in the correct
   order. That's why it's a good idea to start using a *module loader*.
 
   当我们把应用代码分解成每个文件中放一个组件之后，我们通常会得到一个由大量相对较小的文件组成的项目结构。
@@ -1775,7 +1775,7 @@ code-example(format="").
   2. 注册了一个名叫`phone`的**Angular 1工厂**，它是一个`Phones`服务的*降级*版。
 
   Now that we are loading `phone.service.ts` through an import that is resolved
-  by SystemJS, we should **remove the `<script>` tag** for the service from `index.html`.
+  by SystemJS, we should **remove the &lt;script&gt; tag** for the service from `index.html`.
   This is something we'll do to all our components as we upgrade them. Simultaneously
   with the Angular 1 to 2 upgrade we're also migrating our code from scripts to modules.
 
@@ -1893,7 +1893,7 @@ code-example(format="").
   这里的`<angular.IDirectiveFactory>`类型注解是为了让TypeScript编译器知道这个
   降级方法(`downgradeNg2Component`)的返回值能作为指令工厂使用。
 
-  At this point, also remove the `<script>` tag for the phone list component from `index.html`.
+  At this point, also remove the &lt;script&gt; tag for the phone list component from `index.html`.
 
   这时，也从`index.html`中移除电话列表组件的`<script>`标签。
 
@@ -1993,7 +1993,7 @@ code-example(format="").
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-detail', 'app/main.ts')
 
 :marked
-  We should now also remove the phone detail component `<script>` tag from `index.html`.
+  We should now also remove the phone detail component &lt;script&gt; tag from `index.html`.
 
   在`app.module.ts`中的路由器配置中，我们同样把详情路由改成实例化一个组件：
 
@@ -2016,7 +2016,7 @@ code-example(format="").
 
 :marked
   In the component we should now import and declare our newly created pipe (as well as
-  remove the filter `<script>` tag from `index.html`):
+  remove the filter &lt;script&gt; tag from `index.html`):
 
   当我们做这个修改时，也要同时从`core`模块文件中移除对该过滤器的注册。该模块的内容变成了：
 

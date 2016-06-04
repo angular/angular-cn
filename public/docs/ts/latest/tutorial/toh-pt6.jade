@@ -159,7 +159,7 @@ code-example(format="." language="bash").
   In this demo service we log the error to the console; we should do better in real life.
 
   We've also decided to return a user friendly form of the error to
-  to the caller in a rejected promise so that the caller can display a proper error message to the user.
+  the caller in a rejected promise so that the caller can display a proper error message to the user.
 
   ### Promises are Promises
   Although we made significant *internal* changes to `getHeroes()`, the public signature did not change.
@@ -235,7 +235,7 @@ code-example(format="." language="bash").
 :marked
   The same save method is used for both add and edit since `HeroService` will know when to call `post` vs `put` based on the state of the `Hero` object.
 
-  After we save a hero, we redirect the browser back to the to the previous page using the `goBack()` method.
+  After we save a hero, we redirect the browser back to the previous page using the `goBack()` method.
 
 +makeExample('toh-6/ts/app/hero-detail.component.ts', 'goback', 'app/hero-detail.component.ts (goBack)')(format=".")
 

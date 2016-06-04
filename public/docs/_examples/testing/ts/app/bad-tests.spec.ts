@@ -4,7 +4,7 @@
  * Tests that show what goes wrong when the tests are incorrectly written or have a problem
  */
 import {
-  BadTemplateUrl, ButtonComp,
+  BadTemplateUrlComp, ButtonComp,
   ChildChildComp, ChildComp, ChildWithChildComp,
   ExternalTemplateComp,
   FancyService, MockFancyService,
@@ -27,7 +27,6 @@ import {
 
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 
-import { provide }        from '@angular/core';
 import { ViewMetadata }   from '@angular/core';
 import { Observable }     from 'rxjs/Rx';
 
@@ -134,7 +133,7 @@ xdescribe('async & inject testing errors', () => {
 
     it('should fail with an error from a promise',
       async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-        tcb.createAsync(BadTemplateUrl);
+        tcb.createAsync(BadTemplateUrlComp);
       })));
 
     itPromise.then(
@@ -145,7 +144,7 @@ xdescribe('async & inject testing errors', () => {
   }, 10000);
 
   describe('using beforeEachProviders', () => {
-    beforeEachProviders(() => [provide(FancyService, {useValue: new FancyService()})]);
+    beforeEachProviders(() => [{ provide: FancyService, useValue: new FancyService() }]);
 
     beforeEach(
         inject([FancyService], (service: FancyService) => { expect(service.value).toEqual('real value'); }));
@@ -155,7 +154,7 @@ xdescribe('async & inject testing errors', () => {
       it('should fail when the injector has already been used', () => {
         patchJasmineBeforeEach();
         expect(() => {
-          beforeEachProviders(() => [provide(FancyService, {useValue: new FancyService()})]);
+          beforeEachProviders(() => [{ provide: FancyService, useValue: new FancyService() }]);
         })
         .toThrowError('beforeEachProviders was called after the injector had been used ' +
                       'in a beforeEach or it block. This invalidates the test injector');
