@@ -4,7 +4,7 @@ include ../_util-fns
   Angular applications and Angular itself depend upon features and functionality provided by a variety of third-party packages (including Angular itself).
   These packages are maintained and installed with the Node Package Manager (<a href="https://docs.npmjs.com/" target="_blank">npm</a>).
   
-  Angular应用以及Angular本身都依赖于由很多第三方包（包括Angular自己）提供的特性和功能。
+  Angular应用程序以及Angular本身都依赖于很多第三方包（包括Angular自己）提供的特性和功能。
   这些包由Node包管理器(<a href="https://docs.npmjs.com/" target="_blank">npm</a>)负责安装和维护。
 .l-sub-section
   :marked
@@ -15,9 +15,7 @@ include ../_util-fns
     <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
     Get it now</a> if it's not already installed on your machine
     
-    如果你的电脑上还没有装过，请
-    <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
-    立即获取它</a>！
+    如果你的电脑上还没有装过，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">立即获取它</a>！
  
     **Verify that you are running at least node `v5.x.x` and npm `3.x.x`**
     by running `node -v` and `npm -v` in a terminal/console window.
@@ -36,7 +34,7 @@ include ../_util-fns
   <a href="https://docs.npmjs.com/files/package.json" target="_blank">package.json</a> file:
   
   我们在“快速起步”一章中<a href="https://docs.npmjs.com/files/package.json" target="_blank">package.json</a>文件的
-  `dependencies`和`devDependencies`区中指定了一组适用于新手儿的综合依赖包。
+  `dependencies`和`devDependencies`区中指定了一组适用于新手的综合依赖包。
 +makeJson('quickstart/ts/package.1.json',{ paths: 'dependencies, devDependencies'}, 'package.json (dependencies)')(format=".") 
 :marked
   There are other possible package choices and you're likely to add and subtract to meet your application needs. 
@@ -56,7 +54,7 @@ include ../_util-fns
   There is no harm in installing more than we need. 
   We only serve to the client those packages that the application actually requests.
   
-  它们远远超过了我们将在“快速起步”中用到的。
+  它们远远超过了我们将在“快速起步”中所需要用到的。
   实际上，它比我们在大多数应用中需要的还多。
   安装的包比我们实际需要的包多，其实并没有什么坏处。
   我们最终只会往客户端发送程序中实际用到的那些包。
@@ -157,9 +155,9 @@ a(id="dependencies")
   SystemJS happens to be the one we use in the documentation samples. It works.
   
   ***[system.js](https://github.com/systemjs/systemjs)*** -  是一个动态的模块加载器，
-  与[ES2015 module](http://www.2ality.com/2014/09/es6-modules-final.html)规范兼容。
+  与[ES2015模块](http://www.2ality.com/2014/09/es6-modules-final.html)规范兼容。
   还有很多其他选择，比如广受欢迎的[webpack](https://webpack.github.io/)。
-  SystemJS被用在了我们的文档范例中。这只是因为它能工作。
+  SystemJS被用在了我们的文档范例中。因为它能工作。
   
   Our applications are likely to require additional packages that provide
   HTML controls, themes, data access, and various utilities.
@@ -176,8 +174,8 @@ a(id="polyfills")
   Angular requires certain [polyfills](https://en.wikipedia.org/wiki/Polyfill) in the application environment.
   We install these polyfills with very specific npm packages that Angular lists in the *peerDependencies* section of its `package.json`.
   
-  在应用程序的运行环境中，Angular需要某些[填充物](https://en.wikipedia.org/wiki/Polyfill)。
-  我们通过特定的npm包来安装这些填充物，Angular本身把它列在了`package.json`中的*peerDependencies*区。
+  在应用程序的运行环境中，Angular需要某些[填充库](https://en.wikipedia.org/wiki/Polyfill)。
+  我们通过特定的npm包来安装这些填充库，Angular本身把它列在了`package.json`中的*peerDependencies*区。
   
   We must list these packages in the `dependencies` section of our own `package.json`.
   
@@ -209,7 +207,7 @@ a(id="polyfills")
   Developers should be able to pick a preferred version of *rxjs* (within a compatible version range) 
   without waiting for Angular updates.
   
-  ***rxjs*** - 一个为[可观察对象(Observable)规范](https://github.com/zenparsing/es-observable)提供的填充物，该规范已经提交给了
+  ***rxjs*** - 一个为[可观察对象(Observable)规范](https://github.com/zenparsing/es-observable)提供的填充库，该规范已经提交给了
   [TC39](http://www.ecma-international.org/memento/TC39.htm)委员会，以决定是否要在JavaScript语言中进行标准化。
   开发人员应该能在兼容的版本中选择一个喜欢的*rxjs*版本，而不用等Angular升级。
   
@@ -218,7 +216,7 @@ a(id="polyfills")
   Developers should be able to pick a preferred version of *zone.js* to use (within a compatible version range) 
   without waiting for Angular updates.
   
-  ***zone.js*** - 一个为[Zone规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)提供的填充物，该规范已经提交给了
+  ***zone.js*** - 一个为[Zone规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)提供的填充库，该规范已经提交给了
   [TC39](http://www.ecma-international.org/memento/TC39.htm)委员会，以决定是否要在JavaScript语言中进行标准化。
   开发人员应该能在兼容的版本中选择一个喜欢的*zone.js*版本，而不用等Angular升级。
 
@@ -240,7 +238,7 @@ a(id="other")
   ***bootstrap*** - [bootstrap](http://getbootstrap.com/) is a popular HTML and CSS framework for designing responsive web apps.
   Some of the documentation samples improve their appearance with *bootstrap*.
   
-  ***bootstrap*** - [bootstrap](http://getbootstrap.com/)是一个广受欢迎的HTML和CSS框架，可用来设计响应式Web应用。
+  ***bootstrap*** - [bootstrap](http://getbootstrap.com/)是一个广受欢迎的HTML和CSS框架，可用来设计响应式网络应用。
   有些文档中的范例使用了*bootstrap*来强化它们的外观。
   
 a(id="dev-dependencies")
@@ -273,7 +271,7 @@ a(id="dev-dependencies")
   ***[typings](https://www.npmjs.com/package/typings)*** - a manager for TypeScript definition files.
   Learn more about it in the [TypeScript Configuration](typescript-configuration.html#typings) chapter.
   
-  ***[typings](https://www.npmjs.com/package/typings)*** - 一个“TypeScript定义”文件的管理器。
+  ***[typings](https://www.npmjs.com/package/typings)*** - 一个“TypeScript定义”文件管理器。
   要了解更多，请参见[TypeScript配置](typescript-configuration.html#typings)一章。
   
   This section likely grows as we add more tools, testing, and build support. 
@@ -344,13 +342,13 @@ a(id="why-peer-dependencies")
   >
   >A **peerDependency** says, "if you want to use me, you need this thing available to *you*."
   >
-  >**peerDependency**说：“如果你想使用我，你得先让这东西*对你*可用”
+  >**peerDependency**说：“如果你想使用我，你得先确保这东西*对你*可用”
    
   Angular finds itself in this situation. 
   Accordingly, the Angular `package.json` specifies several *peer dependency* packages, 
   each pinned to a particular version of a third-party package.
   
-  Angular在这种情况下会自己找。
+  Angular就存在这个问题。
   因此，Angular的`package.json`中指定了一系列*平级依赖*包，
   把每个第三方包都固定在一个特定的版本上。
 
@@ -361,13 +359,13 @@ a(id="why-peer-dependencies")
   it also installs the packages listed within *their* packages `dependencies` sections.
   The process is recursive.
   
-  当*npm*安装那些在*我们的*`dependencies*区指定的包时，
+  当*npm*安装那些在*我们的*`dependencies`区指定的包时，
   它也会同时安装上在*那些包*的`dependencies`区所指定的那些包。
   这个安装过程是递归的。
   
   But as of version 3, *npm* does *not* install packages listed in *peerDependencies* sections.
   
-  但是在第三版中，*npm* *不会*安装列在*peerDependencies*区的那些包。
+  但是在npm的第三版中，*它不会*安装列在*peerDependencies*区的那些包。
   
   That means when our application installs Angular, ***npm* will not automatically install
   the packages listed in Angular's *peerDependencies* section**.
