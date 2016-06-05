@@ -11,16 +11,16 @@ block includes
   A Component has a lifecycle managed by Angular itself. Angular creates it, renders it, creates and renders its children,
   checks it when its data-bound properties change, and destroys it before removing it from the DOM.
   
-  组件有一个被Angular管理的生命周期。Angular创建它，渲染它，创建并渲染它的子组件，在它被绑定的属性发生变化时检查它，并在它从DOM中被移除前销毁它。
+  每个组件都有一个被Angular管理的生命周期。Angular创建它，渲染它，创建并渲染它的子组件，在它被绑定的属性发生变化时检查它，并在它从DOM中被移除前销毁它。
 
   Angular offers **component lifecycle hooks**
   that give us visibility into these key moments and the ability to act when they occur.
   
-  Angular提供了**组件生命周期钩子**，让我们能看到这些关键时刻，并赋予我们对此采取行动的能力。
+  Angular提供了**组件生命周期钩子**，把这些关键时刻暴露出来，赋予我们在它们发生时采取行动的能力。
 
   We cover these hooks in this chapter and demonstrate how they work in code.
   
-  在本章中，我们将全面讲解这些钩子，演示下在代码层面它们是如何工作的。
+  在本章中，我们将全面讲解这些钩子，在代码层面演示它们是如何工作的。
   
   * [The lifecycle hooks](#hooks-overview)
   
@@ -76,7 +76,7 @@ a#hooks-overview
   Directive and component instances have a lifecycle
   as Angular creates, updates, and destroys them.
   
-  当Angular新建、更新和销毁指令和组件的实例时，就形成了一个生命周期。
+  指令和组件的实例有一个生命周期：新建、更新和销毁。
 
   Developers can tap into key moments in that lifecycle by implementing
   one or more of the *Lifecycle Hook* interfaces in the Angular `core` library.
@@ -87,14 +87,14 @@ a#hooks-overview
   For example, the `OnInit` interface has a hook method named `ngOnInit`.
   We might implement it in a component class like this:
   
-  每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上`ng`前缀构成的。比如，`OnInit`接口有一个钩子方法叫做`ngOnInit`。
+  每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上`ng`前缀构成的。比如，`OnInit`接口的钩子方法叫做`ngOnInit`。
   我们可以在一个组件类中实现它，就像这样：
 +makeExample('lifecycle-hooks/ts/app/peek-a-boo.component.ts', 'ngOnInit', 'peek-a-boo.component.ts (excerpt)')(format='.')
 :marked
   No directive or component will implement all of them and some of the hooks only make sense for components.
   Angular only calls a directive/component hook method *if it is defined*.
   
-  没有指令或者组件会实现所有这些接口，而有些钩子只对组件有意义。只有在指令/组件中*定义过的*那些钩子方法才会被Angular调用。
+  没有指令或者组件会实现所有这些接口，并且有些钩子只对组件有意义。只有在指令/组件中*定义过的*那些钩子方法才会被Angular调用。
 block optional-interfaces
   .l-sub-section
     :marked
@@ -117,7 +117,7 @@ block optional-interfaces
       Angular instead inspects our directive and component classes and calls the hook methods *if they are defined*.
       Angular will find and call methods like `ngOnInit()`, with or without the interfaces.
       
-      Angular会去检测我们的指令和组件类，一旦发现钩子方法被定义了，就调用它们。
+      Angular会去检测我们的指令和组件的类，一旦发现钩子方法被定义了，就调用它们。
       Agnular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。      
 
       Nonetheless, we strongly recommend adding interfaces to TypeScript directive classes
@@ -335,7 +335,7 @@ p.
   demonstrates the lifecycle hooks in action through a series of exercises
   presented as components under the control of the root `AppComponent`.
   
-p #[+liveExampleLink('运行在线范例')] 通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。
+p #[+liveExampleLink('运行在线范例')]通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。
   
 :marked
   They follow a common pattern:  a *parent* component serves as a test rig for 
@@ -625,7 +625,7 @@ figure.image-display
   
   Put cleanup logic in `ngOnDestroy`, the logic that *must* run before Angular destroys the directive.
   
-  把清理逻辑放在`ngOnDestroy`中，该逻辑*必须*在Angular销毁这个指令之前运行。
+  一些清理逻辑*必须*在Angular销毁指令之前运行，把它们放在`ngOnDestroy`中。
   
   This is the time to notify another part of the application that this component is going away.
   
@@ -659,12 +659,12 @@ figure.image-display
   [SimpleChange](../api/core/SimpleChange-class.html) object with the current and previous property values.
   We iterate over the changed properties and log them.
   
-  `ngOnChanges`方法获取了一个对象，它把每个变化了的属性名都映射到了一个[SimpleChange](../api/core/SimpleChange-class.html)对象，
+  `ngOnChanges`方法获取了一个对象，它把每个发生变化的属性名都映射到了一个[SimpleChange](../api/core/SimpleChange-class.html)对象，
   该对象中有属性的当前值和前一个值。我们在这些发生了变化的属性上进行迭代，并记录它们。
   
   The input properties for our example `OnChangesComponent` are `hero` and `power`.
   
-  我们这个例子中`OnChangesComponent`组件的输入属性是`hero`和`power`。
+  我们这个例子中的`OnChangesComponent`组件的输入属性是`hero`和`power`。
 +makeExample('lifecycle-hooks/ts/app/on-changes.component.ts', 'inputs')(format=".")
 :marked
   The parent binds to them like this:
@@ -897,7 +897,7 @@ figure.image-display
   * The *AfterView* hooks concern `ViewChildren`, the child components whose element tags
   appear *within* the component's template.
   
-  * *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*中*。
+  * *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
   
   * The *AfterContent* hooks concern `ContentChildren`, the child components that Angular
   projected into the component.
@@ -908,8 +908,7 @@ figure.image-display
   which we can only reach by querying for it via the property decorated with 
   [@ContentChild](../api/core/ContentChild-var.html). 
   
-  下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过
-  带有[@ContentChild](../api/core/ContentChild-var.html)装饰器的属性来查询到“子级内容”。
+  下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](../api/core/ContentChild-var.html)装饰器的属性来查询到“子级内容”。
 
 +makeExample('lifecycle-hooks/ts/app/after-content.component.ts', 'hooks', 'AfterContentComponent (class excerpts)')(format=".")
 
