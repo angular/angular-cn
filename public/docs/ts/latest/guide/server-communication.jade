@@ -96,7 +96,7 @@ block rxjs-import
   :marked
     We'll talk about that [below](#rxjs) when we're ready to explore observables.
     
-    如果准备好学习可观察对象了，我们就[继续](#rxjs)。
+    等准备好时，我们会在[后面](#rxjs)讲述可观察对象。
 :marked
   First, we have to configure our application to use server communication facilities.
 
@@ -136,7 +136,7 @@ block http-providers
     We begin by importing the symbols we need, most of them familiar by now. The newcomer is `HTTP_PROVIDERS`, 
     a collection of service providers from the !{_Angular_http_library}.
     
-    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，来自!{_Angular_http_libraryCn}的一组服务供应商。
+    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，它是来自!{_Angular_http_libraryCn}的一组服务供应商。
  
     We register HTTP providers in the bootstrap method by passing them in an array as the second parameter after the root component.
     
@@ -178,7 +178,7 @@ h1#http-client 《英雄指南》#[i HTTP]客户端的演示
   This version gets some heroes from the server, displays them in a list, lets us add new heroes, and saves them to the server.
   We use the !{_Angular_Http} client to communicate via `XMLHttpRequest (XHR)`.
   
-  我们的第一个演示是《英雄指南(TOH)》教程的一个mini版。
+  我们的第一个演示是《英雄指南(TOH)》教程的一个迷你版。
   这个版本从服务器获取一些英雄，把它们显示在列表中，还允许我们添加新的英雄并将其保存到服务器。
   我们借助!{_Angular_Http}客户端，来通过`XMLHttpRequest (XHR)`与服务器通讯。
 
@@ -203,7 +203,7 @@ figure.image-display
   
   它使用`ngFor`来展现这个英雄列表。
   列表的下方是一个输入框和一个*Add Hero*按钮，在那里，我们可以输入新英雄的名字，并把他们加到数据库中。
-  我们在`(click)`事件绑定中使用[模板引用变量](template-syntax.html#ref-vars)`NewHeroName`来访问这个输入框的值。
+  我们在`(click)`事件绑定中使用[模板引用变量](template-syntax.html#ref-vars)`newHeroName`来访问这个输入框的值。
   当用户点击此按钮时，我们把这个值传给组件的`addHero`方法，然后清除它，以备输入新英雄的名字。
   
   Below the button is an area for an error message.
@@ -269,7 +269,7 @@ block getheroes-and-addhero
     produces a success event (with the hero data in the event payload) or a fail event (with the error in the payload).
     
     我们可以把可观察对象`Observable`看做一个由某些“源”发布的事件流。
-    我们通过***订阅***到可观察对象`Observable`来监听这个流中的那些事件。
+    我们通过***订阅***到可观察对象`Observable`来监听这个流中的事件。
     在这些订阅中，我们指定了当Web请求生成了一个成功事件(有效载荷是英雄数据)或失败事件(有效载荷是错误对象)时该如何采取行动。
 
 :marked
@@ -322,18 +322,18 @@ h2#fetch-data 通过#[b HeroService]获取数据
 block rxjs
   :marked
     <a id="rxjs"></a>
-    
-    The return value may surprise us. 
+    The return value may surprise us.
     Many of us who are familiar with asynchronous methods in modern JavaScript would expect the `get` method to return a 
     [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
     We'd expect to chain a call to `then()` and extract the heroes.
     Instead we're calling a `map()` method. 
     Clearly this is not a promise.
-    
+
+    <a id="rxjs"></a>
     返回值可能会让我们感到意外。
     如果按照很多人在现代JavaScript中所熟悉的那种异步调用方法，`get`方法应该返回一个
-    [承诺(promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-    我们没有把一个函数调用链接进`then()`方法中，并从回调参数中取得英雄列表，而是调用了一个`map()`方法。
+    [承诺(promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
+    我们可能期待链接调用`then()`方法并从中取得英雄列表，取而代之，我们调用了一个`map()`方法。
     显然，这并不是承诺(Promise)。
 
     In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
@@ -358,7 +358,7 @@ block rxjs
     
     这本开发指南中的所有例子都安装了RxJS的npm包，而且都被`system.js`加载过了。这是因为可观察对象在Angular应用中使用非常广泛。
     我们在使用HTTP客户端的时候当然就更需要它了。
-    不过仍然得经过一些额外的步骤才能让RxJS可观察对象在此处可用。
+    不过仍然得经过一个关键步骤，能让RxJS可观察对象在此处可用。
 
     ### Enable RxJS Operators
     ### 启用RxJS操作符
@@ -385,14 +385,14 @@ block rxjs
     While that is the easiest thing to do, we'd pay a penalty in extended launch time and application size
     because the full library is so big. We only use a few operators in our app.
     
-    我们确实可以把_每一个_RxJS操作符都通过单一的import语句添加进去。
+    我们可以通过一条import语句把*每个*RxJS操作符都添加进来。
     虽然这是最简单的方式，但我们也得付出代价，主要是在启动时间和应用大小上，因为完整的库实在太大了。
-    而我们其实只要用到少量操作符。
+    而我们其实只需要用到少量操作符。
     
     Instead, we'll import each `Observable` operator and static class method, one-by-one, until we have a custom *Observable* implementation tuned
     precisely to our requirements. We'll put the `import` statements in one `app/rxjs-operators.ts` file.
     
-    替代方案是，我们将一个一个的导入`Observable`的操作符和静态类方法，直到我们得到了一个精确贴合我们需求的自定义*Observable*实现。
+    取而代之，我们将一个一个的导入`Observable`的操作符和静态类方法，直到我们得到了一个精确符合我们需求的自定义*Observable*实现。
     我们将把这些`import`语句放进一个`app/rxjs-operators.ts`文件里。
   +makeExample('server-communication/ts/app/rxjs-operators.ts', null, 'app/rxjs-operators.ts')(format=".")
   :marked
@@ -422,13 +422,13 @@ a#extract-data
   ## 处理Response响应对象
   Remember that our `getHeroes()` method mapped the `#{_priv}http.get` response object to heroes with an `#{_priv}extractData` helper method:
   
-  记住，我们的`getHeroes()`借助一个`#{_priv}extractData`辅助方法来把`#{_priv}http.get`的响应对象映射成了英雄列表：
+  记住，`getHeroes()`借助一个`#{_priv}extractData`辅助方法来把`#{_priv}http.get`的响应对象映射成了英雄列表：
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'extract-data', 'app/toh/hero.service.ts (excerpt)')(format=".")
 :marked
   The `response` object does not hold our data in a form we can use directly. 
   To make it useful in our application we must parse the response data into a JSON object
   
-  这个`response`对象并没有使用我们能直接处理的形式保存数据。
+  这个`response`对象并没有以一种我们能直接使用的格式来保存数据。
   要让它在应用程序中可用，我们就必须把这个相应数据解析成一个JSON对象。
 
   #### Parse to JSON
@@ -449,7 +449,7 @@ block parse-json
       That spec defines a `json()` method that parses the response body into a JavaScript object.
       
       这不是Angular自己的设计。
-      Angular HTTP客户端遵循了ES2015的[响应对象](https://fetch.spec.whatwg.org/#response-class)规范，它由`Fetch`函数返回。
+      Angular HTTP客户端遵循ES2015规范来处理`Fetch`函数返回[响应对象](https://fetch.spec.whatwg.org/#response-class)。
       此规范中定义了一个`json()`函数，来把响应体解析成JavaScript对象。
 
 .l-sub-section
@@ -462,7 +462,7 @@ block parse-json
     
     我们不能期待解码后的JSON直接就是一个英雄数组。
     我们调用的这个服务器总会把JSON结果包装进一个带`data`属性的对象中。
-    我们必须解开它才能得到英雄数组。这是一个约定俗成的Web API行为规范，它是出于 
+    我们必须解开它才能得到英雄数组。这是一个约定俗成的Web API行为规范，它是出于
     [安全方面的考虑](https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside)。
 .alert.is-important
   :marked
@@ -515,11 +515,11 @@ a#error-handling
   
   一旦开始与I/O打交道，我们就必须准备好接受墨菲定律：如果一件倒霉事*可能*发生，它就*迟早会*发生。
   我们可以在`HeroService`中捕获错误，并对它们做些处理。
-  也可以把错误信息传回到组件，让组件展示给最终用户，但只能用一些他们可以理解并照办的表达方式。
+  在用户可以理解并采取相应行动的时候，我们也可以把错误信息传回到组件，让组件展示给最终用户。
 
   In this simple app we provide rudimentary error handling in both the service and the component.
   
-  在这个简单的应用中，我们在服务中和组件中都只提供了最原始的错误处理方式。
+  在这个简单的应用中，我们在服务和组件中都只提供了最原始的错误处理方式。
 block error-handling
   :marked
     The eagle-eyed reader may have spotted our use of the `catch` operator in conjunction with a `handleError` method.
@@ -585,7 +585,7 @@ block hlc-error-handling
 :marked
   To implement it, we need to know some details about the server's api for creating heroes.
   
-  要实现它，我们得知道关于服务端API要如何创建英雄的一些细节。
+  要实现它，我们得知道关于服务端API如何创建英雄的一些细节。
   
   [Our data server](#server) follows typical REST guidelines.
   It expects a [`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5) request
@@ -684,7 +684,7 @@ block promises
       Don't rush to promises until you give observables a chance.
       
       可能“承诺”看起来更熟悉一些，但“可观察对象”有很多优越之处。
-      不要匆匆忙忙的就决定用“承诺”，你值得给“可观察对象”一次机会。
+      不要匆匆忙忙的就决定用“承诺”，值得给“可观察对象”一次机会。
   :marked
     Let's rewrite the `HeroService` using promises , highlighting just the parts that are different.
     
@@ -715,7 +715,7 @@ block promises
 
     We have to adjust the calling component to expect a `Promise` instead of an `Observable`.
     
-    为了用`Observable`代替`Promise`，我们还得对调用方组件进行调整。
+    我们还得对调用方组件进行调整，让它期待一个`Promise`而非`Observable`。
 
   +makeTabs(
     'server-communication/ts/app/toh/hero-list.component.promise.ts, server-communication/ts/app/toh/hero-list.component.ts', 
@@ -747,7 +747,7 @@ block promises
 
       Learn more about observables to understand the implications and consequences of subscriptions.
       
-      请学习更多关于可观察对象的知识，来理解订阅的实现和效果。
+      请学习更多关于可观察对象的知识，来理解订阅Subscription的实现和效果。
 
 h2#cors Cross-origin requests: Wikipedia example
 h2#cors 跨域请求：Wikipedia范例
@@ -764,7 +764,7 @@ h2#cors 跨域请求：Wikipedia范例
   The *origin* is the combination of URI scheme, hostname and port number. 
   This is called the [Same-origin Policy](https://en.wikipedia.org/wiki/Same-origin_policy).
   
-  出于安全的考虑，Web浏览器会阻止到与当前页面不“同源”的远端服务器的`XHR`调用。
+  出于安全的考虑，网络浏览器会阻止调用与当前页面不“同源”的远端服务器的`XHR`。
   所谓*源*就是URI的协议(scheme)、主机名(host)和端口号(port)这几部分的组合。
   这被称为[同源策略](https://en.wikipedia.org/wiki/Same-origin_policy)。
 
@@ -781,7 +781,7 @@ h2#cors 跨域请求：Wikipedia范例
   Some servers do not support CORS but do support an older, read-only alternative called [JSONP](https://en.wikipedia.org/wiki/JSONP).
   Wikipedia is one such server.
   
-  有些服务器不支持CORS，但支持一种老的、只读的（译注：即仅支持GET）替代协议，那就是[JSONP](https://en.wikipedia.org/wiki/JSONP)。
+  有些服务器不支持CORS，但支持一种老的、只读的（译注：即仅支持GET）替代协议，这就是[JSONP](https://en.wikipedia.org/wiki/JSONP)。
   Wikipedia就是一个这样的服务器。
 .l-sub-section
   :marked
@@ -806,8 +806,8 @@ block wikipedia-jsonp+
     All other HTTP methods throw an error because JSONP is a read-only facility. 
     
     Wikipedia提供了一个现代的`CORS` API和一个传统的`JSONP`搜索API。在这个例子中，我们使用后者。
-    Angular的`Jsonp`服务既通过JSONP扩展了`#{_Http}`服务，又限制了我们只能用`GET`请求。
-    尝试调用所有其它HTTP方法都将抛出一个错误，这是因为JSONP是只读的。
+    Angular的`Jsonp`服务不但通过JSONP扩展了`#{_Http}`服务，而且限制我们只能用`GET`请求。
+    尝试调用所有其它HTTP方法都将抛出一个错误，因为JSONP是只读的。
 
     As always, we wrap our interaction with an Angular data access client service inside a dedicated service, here called `WikipediaService`.
     
@@ -833,7 +833,7 @@ block wikipedia-jsonp+
     
     [Wikipedia 的 'opensearch' API](https://www.mediawiki.org/wiki/API:Opensearch)期待在所请求的URL中带四个查询参数（键/值对格式）。
     这些键(key)分别是`search`、`action`、`format`和`callback`。
-    `search`的值是一个用户提供的打算在Wikipedia中查找的关键字。
+    `search`的值是用户提供的用于在Wikipedia中查找的关键字。
     另外三个参数是固定值，分别是"opensearch"、"json"和"JSONP_CALLBACK"。
   .l-sub-section
     :marked
@@ -852,7 +852,7 @@ block wikipedia-jsonp+
   :marked
     In more parameterized examples we might prefer to build the query string with the Angular `URLSearchParams` helper as shown here:
     
-    在更为参数化的例子中，我们会首选Angular的`URLSearchParams`辅助类来构建查询字符串，就像这样：
+    在更加参数化的例子中，我们会首选Angular的`URLSearchParams`辅助类来构建查询字符串，就像这样：
   +makeExample('server-communication/ts/app/wiki/wikipedia.service.ts','search-parameters','app/wiki/wikipedia.service.ts (search parameters)')(format=".")
   :marked
     This time we call `jsonp` with *two* arguments: the `wikiUrl` and an options object whose `search` property is the `params` object.
@@ -990,7 +990,7 @@ block wikipedia-jsonp+
 
     We're binding to the search box `keyup` event and calling the component's `search` method after each keystroke.
     
-    我们正在绑定到搜索框的`keyup`事件，并且在每次按键之后调用组件的`search`方法。
+    我们绑定到搜索框的`keyup`事件，并且在每次按键之后调用组件的`search`方法。
 
     We turn these events into an observable stream of search terms using a `Subject` 
     which we import from the RxJS observable library:
