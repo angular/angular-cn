@@ -72,10 +72,11 @@ include ../_util-fns
 pre.prettyprint.lang-bash
   code npm install jasmine-core --save-dev --save-exact
 
-.alert.is-important Be sure to install <code>jasmine-core</code> , not <code>jasmine</code>!
+.alert.is-important 
+  :marked
+    Be sure to install <code>jasmine-core</code> , not <code>jasmine</code>!
 
-.alert.is-important 请确保安装的是<code>jasmine-core</code>，而不是<code>jasmine</code>！
-
+    请确保安装的是<code>jasmine-core</code>，而不是<code>jasmine</code>！
 :marked
   Let's make one more change to the `package.json` script commands.
 
@@ -128,7 +129,7 @@ code-example(format="").
   The description should be sufficient to identify the tested application part and its source file.
   Almost any convention will do as long as you and your team follow it consistently and are never confused.
 
-  这个说明要足以标识出所测的部件和相关源码。无论采用什么约定，都应该让你和你的团队始终如一的遵循它，并且不会导致混淆。
+  这个说明要足以标识出所测的部件和相关源码。无论采用什么约定，都应该让你和你的团队始终如一的遵循它，并且永不混淆它们。
 
   But we haven't saved this test yet.
 
@@ -194,14 +195,16 @@ code-example(format="").
 
   注意，测试文件名称中的“.spec”后缀，被追加到了被测试的应用程序部件的基本名后面。
 
-.alert.is-important  All of our unit test files follow this .spec naming pattern.
-
-.alert.is-important  我们所有的单元测试文件都遵循了这种.spec命名模式。
+.alert.is-important  
+  :marked
+    All of our unit test files follow this .spec naming pattern.
+    
+    我们所有的单元测试文件都遵循了这种.spec命名模式。
 
 :marked
   Save the tests we just made in `hero.spec.ts`:
 
-  保存我们刚刚在`hero.spec.ts`中写的这些测试：
+  把测试保存到我们刚新建的`hero.spec.ts`文件：
 
 +makeExample('testing/ts/app/hero.spec.ts', 'base-hero-spec')
 
@@ -318,7 +321,7 @@ figure.image-display
 :marked
   ## Observations
 
-  ## 观测结果
+  ## 回顾
 
   ### System.config
   System.js demands that we specify a default extension for the filenames that correspond to whatever it is asked to import.
