@@ -16,8 +16,7 @@ block includes
 
   一旦取到数据，我们可以把它们原始值的`toString`结果直接推入视图中。
   但这种做法很少能具备良好的用户体验。
-  比如，几乎每个人都更喜欢简单的日期格式，例如<samp>1988-04-15</samp>，而不是服务端传过来的原始字符串格
-  式 —— <samp>Fri Apr 15 1988 00:00:00 GMT-0700 (Pacific Daylight Time)</samp>。
+  比如，几乎每个人都更喜欢简单的日期格式，例如<samp>1988-04-15</samp>，而不是服务端传过来的原始字符串格式 —— <samp>Fri Apr 15 1988 00:00:00 GMT-0700 (Pacific Daylight Time)</samp>。
 
   Clearly some values benefit from a bit of massage. We soon discover that we
   desire many of the same transformations repeatedly, both within and across many applications.
@@ -128,7 +127,7 @@ p.
   That method toggles the component's `format` property between a short form
   (`'shortDate'`) and a longer form (`'fullDate'`).
 
-  我们还能把一个按钮添加到模板中，并把它的点击事件绑定到组件的`toggleFormat()`方法。
+  我们还能在模板中添加一个按钮，并把它的点击事件绑定到组件的`toggleFormat()`方法。
   此方法会在短日期格式(`'shortDate'`)和长日期格式(`'fullDate'`)之间切换组件的`format`属性。
 
 +makeExample('pipes/ts/app/hero-birthday2.component.ts', 'class', 'app/hero-birthday2.component.ts (class)')(format='.')
@@ -233,7 +232,7 @@ figure.image-display
 :marked
   Now we need a component to demonstrate our pipe.
 
-现在，我们需要一个组件来演示这个管道。
+  现在，我们需要一个组件来演示这个管道。
 +makeExample('pipes/ts/app/power-booster.component.ts',null,'app/power-booster.component.ts')(format='.')
 figure.image-display
     img(src='/resources/images/devguide/pipes/power-booster.png' alt="Power Booster")
@@ -268,7 +267,7 @@ p.
   we can probe its behavior by changing the value and the optional exponent in the template.
 
 p.
-  试试这个#[+liveExampleLink()]，然后在模板中修改能量值和可选的放大指数，就能看懂它的行为方式。
+  试试这个#[+liveExampleLink('在线例子')]，然后在模板中修改能量值和可选的放大指数，就能探测它行为方式。
 
 :marked
   ## Power Boost Calculator (extra-credit)
@@ -349,7 +348,7 @@ p.
   Every hero we add is a flying hero but none of them are displayed.
 
 p.
-  如果我们现在就运行这个例子，我们会看到一些古怪的行为（在#[+liveExampleLink()]中试试）。
+  如果我们现在就运行这个例子，我们会看到一些古怪的行为（在#[+liveExampleLink('在线例子')]中试试）。
   我们添加的每个英雄都会飞，但他们一个都没有显示出来。
 
 :marked
@@ -383,8 +382,8 @@ p.
   The *Flying Heroes* extends the
   code with checkbox switches and additional displays to help us experience these effects.
 
-  *如果我们**修改了**这个数组，不会执行任何管道，显示也没有更新。
-  如果我们**替换了**这个数组，管道就会被执行，显示也更新了。*
+  如果我们**修改了**这个数组，没有管道被执行，也没有显示被更新。
+  如果我们**替换了**这个数组，管道就会被执行，显示也更新了。
   这个*飞行英雄*的例子用检查框和额外的显示内容扩展了原有代码，来帮我们体验这些效果。
 
 figure.image-display
@@ -463,7 +462,7 @@ block pure-change
   pipe execution and a view update.
 
   这可能看起来是一种限制，但它保证了速度。
-  对象引用的检查是非常快的（比递归的深检查要快得多），所以Angular可以快速的决定是否应该在执行管道和更新视图时跳过它。
+  对象引用的检查是非常快的（比递归的深检查要快得多），所以Angular可以快速的决定是否应该跳过管道执行和视图更新。
 
   For this reason, we prefer a pure pipe if we can live with the change detection strategy.
   When we can't, we *may* turn to the impure pipe.
@@ -536,7 +535,7 @@ p.
 
 p.
   唯一的重大改动就是管道。
-  我们可以在#[+liveExampleLink()]中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
+  我们可以在#[+liveExampleLink('在线例子')]中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
 
 - var _dollar = _docsFor === 'ts' ? '$' : '';
 h3#async-pipe The impure #[i AsyncPipe]
@@ -554,12 +553,12 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   keeps delivering values from that `#{_Observable}` as they arrive.
 
   而且它是有状态的。
-  该管道维护着一个到所输入的`Observable`的订阅，并且持续从那个`Observable`中发出新到的值。
+  该管道维护着一个所输入的`Observable`的订阅，并且持续从那个`Observable`中发出新到的值。
 
   In this next example, we bind an `#{_Observable}` of message strings
   (`message#{_dollar}`) to a view with the `async` pipe.
 
-  在下个例子中，我们使用该`async`管道把一个消息字符串(`message#{_dollar}`)的`#{_Observable}`绑定到视图中。
+  在下面例子中，我们使用该`async`管道把一个消息字符串(`message#{_dollar}`)的`#{_Observable}`绑定到视图中。
 
 +makeExample('pipes/ts/app/hero-async-message.component.ts', null, 'app/hero-async-message.component.ts')
 
@@ -570,7 +569,7 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   and the component doesn't have to unsubscribe when it is destroyed
   (a potent source of memory leaks).
 
-  这个Async管道把样板数据存在了组件代码中。
+  这个Async管道节省了组件的样板代码。
   组件不用订阅这个异步数据源，而且不用在被销毁时取消订阅（如果订阅了而忘了反订阅容易导致隐晦的内存泄露）。
 
   ### An impure caching pipe
@@ -669,7 +668,7 @@ a(id="pure-pipe-pure-fn")
   So is our `FlyingHeroesPipe`.
   A few steps back we reviewed the `FlyingHeroesImpurePipe` &mdash; *an impure pipe with a pure function*.
 
-  在本章中，我们见过的管道都是用纯函数实现的。
+  我们在本章前面见过的管道都是用纯函数实现的。
   内建的`DatePipe`就是一个用纯函数实现的纯管道。
   `ExponentialStrengthPipe`是如此，
   `FlyingHeroesComponent`也是如此。
@@ -677,7 +676,7 @@ a(id="pure-pipe-pure-fn")
 
   But a *pure pipe* must always be implemented with a *pure function*. Failure to heed this warning will bring about many a console errors regarding expressions that have changed after they were checked.
 
-  但是一个*纯管道*必须总是用*纯函数*实现。忽略这个警告将导致失败 —— 会因为绑定表达式在“变更检测”完成之后又发生改变而带来一大堆控制台错误。
+  但是一个*纯管道*必须总是用*纯函数*实现。忽略这个警告将导致失败并带来一大堆这样的控制台错误：表达式在被检查后被变更。
 
 .l-main-section
 :marked
@@ -689,7 +688,7 @@ a(id="pure-pipe-pure-fn")
   into our templates expressions to enrich the appeal and usability
   of our views.
 
-  管道能很好的封装和共享通用的“值-显示”转换逻辑。我们可以像样式一样使用它们，把它们扔到模板表达式中，以提升视图的表现力和可用性。
+  管道能很好的封装和共享的通用“值-显示”转换逻辑。我们可以像样式一样使用它们，把它们扔到模板表达式中，以提升视图的表现力和可用性。
 
   Explore Angular's inventory of built-in pipes in the [API Reference](../api/#!?apiFilter=pipe).
   Try writing a custom pipe and perhaps contributing it to the community.
@@ -707,7 +706,7 @@ a(id="no-filter-pipe")
   Developers familiar with Angular 1 know these as `filter` and `orderBy`.
   There are no equivalents in Angular 2.
 
-  Angular没有随身发布进行过滤或列表排序的管道。
+  Angular没有随身发布过滤或列表排序的管道。
   熟悉Angular 1的开发人员应该知道`filter`和`orderBy`过滤器，但在Angular 2中它们没有等价物。
 
   This is not an oversight. Angular 2 is unlikely to offer such pipes because
@@ -726,7 +725,7 @@ a(id="no-filter-pipe")
   That charge is fair in the indirect sense that Angular 1 prepared this performance trap
   by offering `filter` and `orderBy` in the first place.
 
-  过滤，特别是排序是昂贵的操作。
+  过滤、 特别是排序是昂贵的操作。
   当Angular每秒调用很多次这类管道函数时，即使是中等规模的列表都可能严重降低用户体验。
   在Angular 1程序中，`filter`和`orderBy`经常被误用，结果连累到Angular自身，人们抱怨说它太慢。
   从某种意义上，这也不冤：谁叫Angular 1把`filter`和`orderBy`作为首发队员呢？是它自己准备了这个性能陷阱。
