@@ -11,7 +11,7 @@ include ../_util-fns
   It's an excellent alternative to the *SystemJS* approach we use throughout the documentation.
   In this guide we get a taste of Webpack and how to use it with Angular 2 applications.
 
-  这是我们在文档中到处使用的这个*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并学习如何在Angular 2程序中使用它。
+  它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并学习如何在Angular 2程序中使用它。
 
   <a id="top"></a>
   ## Table of contents
@@ -466,7 +466,7 @@ a(id="environment-configuration")
   We create separate, environment-specific configuration files that build on `webpack.common`
   by merging into it the peculiarities particular to their target environments.
 
-  `webpack.common.js`配置中做了大部分繁重的工作。
+  `webpack.common.js`配置做了大部分繁重的工作。
   通过合并它们特有的配置，我们可以基于`webpack.common`为目标环境创建独立的、环境相关的配置文件。
 
   These files tend to be short and simple.
@@ -502,7 +502,7 @@ a(id="development-configuration")
   The `HtmlWebpackPlugin` (added in `webpack.common.js`) use the *publicPath* and the *filename* settings to generate
   appropriate &lt;script&gt; and &lt;link&gt; tags into the `index.html`.
 
-  `HtmlWebpackPlugin`(添加自`webpack.common.js`)插件使用*`publicPath`*和*`filename`*设置，
+  `HtmlWebpackPlugin`(在`webpack.common.js`中)插件使用*`publicPath`*和*`filename`*设置，
   来向`index.html`中插入适当的&lt;script&gt;和&lt;link&gt;标签。
 
   Our CSS are buried inside our Javascript bundles by default. The `ExtractTextPlugin` extracts them into
@@ -624,7 +624,7 @@ a(id="test-configuration")
   The `karma-test-shim` tells Karma what files to pre-load and
   primes the Angular test framework with test versions of the providers that every app expects to be pre-loaded.
 
-  `karma-test-shim`告诉Karma那些文件需要预加载，首要的是：带有“测试版供应商”的Angular测试框架是每个应用都希望预加载的。
+  `karma-test-shim`告诉Karma哪些文件需要预加载，首要的是：带有“测试版供应商”的Angular测试框架是每个应用都希望预加载的。
 
 +makeExample('webpack/ts/config/karma-test-shim.js', null, 'config/karma-test-shim.js')(format=".")
 
