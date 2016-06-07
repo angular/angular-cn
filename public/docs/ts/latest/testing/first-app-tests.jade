@@ -357,21 +357,21 @@ figure.image-display
   The browser raises the `load` event when it finishes loading all scripts.
 
   Jasmine没有一个`start`方法。它把自己的启动代码挂接到了浏览器窗口的`load`事件上。
-  如果我们通过`script`标签来启动测试，这样做自然是有意义的。
+  如果我们通过`script`标签来启动测试，这样的设计自然很合理。
   当浏览器加载完所有脚本时，它就会触发`load`事件。
 
   But we're not loading test scripts inline anymore.
   We're using the SystemJS module loader and it won't be done until long after the browser raised the `load` event.
-  Meanwhile, Jasmine started and ran to completion … with no tests to evaluate … before the import completed.
+  Meanwhile, Jasmine started and ran to completion, with no tests to evaluate, before the import completed.
 
-  但我们不再用内联的方式加载测试脚本了。
+  但我们没有用内联的方式加载测试脚本了。
   我们在使用SystemJS模块加载器，除非浏览器触发了`load`事件，否则它什么也不会做。
   同时，在这些import完成之前，Jasmine自己已经启动并且运行结束了，不过一个测试也没有执行。
 
   So we must wait until the import completes and only then call the window `onLoad` handler.
   Jasmine re-starts, this time with our imported test queued up.
 
-  所以我们必须等待import执行完，然后才能调用window的`onLoad`处理器。
+  所以我们必须等待import执行完，然后才调用window的`onLoad`处理器。
   Jasmine重新启动，但这次它带着我们导入的这个测试队列。
 
 .l-main-section
