@@ -27,7 +27,7 @@ block includes
   我们甚至可以把它看做样式。
   事实上，我们确实更喜欢像样式那样把它们应用到HTML模板中。
 p.
-  Welcome, Angular pipes, the simple display-value transformations that we can declare in our HTML!
+  Introducing Angular pipes, a way to write display-value transformations that we can declare in our HTML!
   Try the #[+liveExampleLink2()].
 
 p.
@@ -41,7 +41,7 @@ p.
 
   A pipe takes in data as input and transforms it to a desired output.
   We'll illustrate by transforming a component's birthday property into
-  a human-friendly date:
+  a human-friendly date.
 
   管道把数据作为输入，然后转换它，给出期望的输出。
   我们将把组件的`birthday`属性转换成对人类更友好的日期格式，来说明这一点：
@@ -99,7 +99,7 @@ p.
   如果我们的管道可以接受多个参数，那么就用冒号来分隔这些参数值(比如`slice:1:5`)。
 
   We'll modify our birthday template to give the date pipe a format parameter.
-  After formatting the hero's April 15th birthday, it should render as **<samp>04/15/88</samp>**.
+  After formatting the hero's April 15th birthday, it should render as **<samp>04/15/88</samp>**:
 
   我们将通过修改生日模板来给这个日期管道提供一个格式化参数。
   当格式化完该英雄的4月15日生日之后，它应该被渲染成**<samp>04/15/88</samp>**。
@@ -156,7 +156,7 @@ figure.image-display
   We can chain pipes together in potentially useful combinations.
   In the following example, we chain the birthday to the `DatePipe` and on to the `UpperCasePipe`
   so we can display the birthday in uppercase. The following birthday displays as
-  **<samp>APR 15, 1988</samp>**
+  **<samp>APR 15, 1988</samp>**.
 
   我们可以把管道链在一起，以组合出一些潜在的有用功能。
   下面这个例子中，我们把`birthday`链到`DatePipe`管道，然后又链到`UpperCasePipe`，这样我们就可以把生日显示成大写形式了。
@@ -186,7 +186,7 @@ figure.image-display
 +makeExample('pipes/ts/app/exponential-strength.pipe.ts', null, 'app/exponential-strength.pipe.ts')(format=".")
 
 :marked
-  This pipe definition reveals several key points
+  This pipe definition reveals several key points:
 
   在这个管道的定义中体现了几个关键点：
 
