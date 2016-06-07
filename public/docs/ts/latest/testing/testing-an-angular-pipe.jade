@@ -7,7 +7,7 @@ include ../_util-fns
 
   An Angular pipe is a declarative way in HTML to transform some input into some displayable output.
 
-  Angular管道是在HTML中用来声明把某些输入转换成某些可显示输出的方式。
+  Angular管道一种以声明的方式，在HTML中把某些输入转换成易于显示的输出。
 
   We don't have a pipe though, since in Tour of Heroes we didn't create any pipes. It uses a pipe though, the `uppercase` pipe that comes with Angular 2.
 
@@ -15,7 +15,7 @@ include ../_util-fns
 
   We can make our own `my-uppercase` pipe that does exactly the same as the `uppercase` pipe and test that.
 
-  我们可以做一个自己的`my-uppercase`管道兵测试它，该管道的功能和`uppercase`管道完全相同。
+  我们可以做一个自己的`my-uppercase`管道并测试它，该管道的功能和`uppercase`管道完全相同。
 
   Since we're getting ready to write some code we want to test, let's take this opportunity to talk just a little bit about [Test Driven Development](https://en.wikipedia.org/wiki/Test-driven_development). There's a lot written about this topic so we don't want to have an exhaustive description here, but rather a practical application.
 
@@ -225,7 +225,7 @@ code-example(format="" language="html" escape="html").
   Yet we were able to load and test the application’s `Hero` interface.
 
   往回看`unit-tests.html`，我们认识到自己还没加载过Angular库。
-  但我们甚至都已经能加载应用中`Hero`接口的测试了。
+  但是我们可以加载和测试应用中`Hero`接口的测试了。
 
   **We were lucky!**  The `Hero` interface has no dependence on Angular.
   If it had depended on Angular, we’d still be staring at the Jasmine “big-time fail” screen:
@@ -318,7 +318,7 @@ figure.image-display
 
   But it's not always feasible. For instance, sometimes we need to write tests for existing functionality, like what we're about to do with the rest of Tour of Heroes.
 
-  但这也并不总是可行的。比如，优势我们需要为现有功能写测试，就像我们即将对《英雄指南》的其余部分所做的那样。
+  但这也并不总是可行的。比如，有时我们需要为现有功能写测试，就像我们即将对《英雄指南》的其余部分所做的那样。
 
   If we are writing new code though, writing tests might just be what we need to help us track our progress and keep the end result in sight at all times.
 
