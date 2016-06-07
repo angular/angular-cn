@@ -6,8 +6,8 @@ include ../_util-fns
   comes with built-in tools for migrating Angular 1 projects over to the
   Angular 2 platform.
 
-  已经有了一个Angular 1的程序并不表示我们就不能喜欢Angular 2提供的一切。
-  这是因为Angular 2带来了一些内建工具帮助我们把Angular 1的项目迁移到Angular 2平台。
+  已经有了一个Angular 1的程序并不表示我们就不能享受Angular 2提供的一切。
+  这是因为Angular 2带来了一些内建工具，来帮助我们把Angular 1的项目迁移到Angular 2平台。
 
   Some applications will be easier to upgrade than others, and there are
   ways in which we can make it easier for ourselves. It is possible to
@@ -17,8 +17,8 @@ include ../_util-fns
   tools. That means the preparation work will not only make the eventual upgrade
   easier, but will also generally improve our Angular 1 applications.
 
-  有些应用可能比其它的升级起来简单，还有一些方法能让我们自己把这项工作变得更简单。
-  即使在正式开始升级过程之前，让Angular 1的程序提前做些准备，并向Angular 2看齐也是有可能的。
+  有些应用可能比其它的升级起来简单，还有一些方法能让把这项工作变得更简单。
+  即使在正式开始升级过程之前，我们可以准备Angular 1的程序，让它向Angular 2看齐。
   这些准备步骤几乎都是关于如何让代码更加松耦合、更有可维护性，以及用现代开发工具提高速度的。
   这意味着，这种准备工作不仅能让最终的升级变得更简单，而且还能提升Angular 1程序的质量。
 
@@ -31,7 +31,7 @@ include ../_util-fns
   make incremental upgrading seamless.
 
   成功升级的关键之一是增量式的实现它，通过在同一个应用中一起运行这两个框架，并且逐个把Angular 1的组件迁移到Angular 2中。
-  这意味着可以在不必打断其他业务的前提下，升级更大、更复杂的应用程序，因为这项工作可以多人协作完成，并能在一段时间内逐渐铺开。
+  这意味着可以在不必打断其他业务的前提下，升级更大、更复杂的应用程序，因为这项工作可以多人协作完成，在一段时间内逐渐铺开。
   Angular 2 `upgrade`模块的设计目标就是让你渐进、无缝的完成升级。
 
   1. [Preparation](#preparation)
@@ -47,7 +47,7 @@ include ../_util-fns
   2. [Upgrading with The Upgrade Adapter](#upgrading-with-the-upgrade-adapter)
   2. [通过升级适配器进行升级](#upgrading-with-the-upgrade-adapter)
       1. [How The Upgrade Adapter Works](#how-the-upgrade-adapter-works)
-      1. [升级适配器如何工作](#how-the-upgrade-adapter-works)
+      1. [如何升级适配器](#how-the-upgrade-adapter-works)
       2. [Bootstrapping Hybrid Angular 1+2 Applications](#bootstrapping-hybrid-angular-1-2-applications)
       2. [引导Angular 1和2的混合(hybrid)应用](#bootstrapping-hybrid-angular-1-2-applications)
       3. [Using Angular 2 Components from Angular 1 Code](#using-angular-2-components-from-angular-1-code)
@@ -102,9 +102,8 @@ include ../_util-fns
   of information about how to write and organize Angular code - and equally
   importantly - how **not** to write and organize Angular code.
 
-  [Angular风格指南](https://github.com/johnpapa/angular-styleguide)收集了一些
-  已证明能写出干净且可维护的Angular 1程序的模式与实践。
-  它包含了很多关于如何书写和组织Angular代码的有价值信息，同样重要的是，**不应该**如何书写和组织Angular代码。
+  [Angular风格指南](https://github.com/johnpapa/angular-styleguide)收集了一些已证明能写出干净且可维护的Angular 1程序的模式与实践。
+  它包含了很多关于如何书写和组织Angular代码的有价值信息，同样重要的是，**不应该**采用的书写和组织Angular代码的方式。
 
   Angular 2 is a reimagined version of the best parts of Angular 1. In that
   sense, its goals are the same as the Angular Style Guide's: To preserve
@@ -115,7 +114,7 @@ include ../_util-fns
 
   Angular 2是一个基于Angular 1中最好的部分构思出来的版本。在这种意义上，它的目标和Angular风格指南是一样的：
   保留Angular 1中好的部分，去掉坏的部分。当然，Angular 2还做了更多。
-  说这些的意思是：*遵循这个风格指南可以让你写出的Angular 1程序更接近Angular 2程序*。
+  说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular 2程序的Angular 1程序*。
 
   There are a few rules in particular that will make it much easier to do
   *an incremental upgrade* using the Angular 2 `upgrade` module:
@@ -128,8 +127,8 @@ include ../_util-fns
     them between languages and frameworks one at a time. In this example application,
     each controller, component, service, and filter is in its own source file.
 
-  * [规则1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
-    规定应该每个文件中放一个组件。这不仅让组件更容易浏览和查找，而且还将允许我们逐个迁移它们的语言和框架。
+  * [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
+    规定每个文件应该只放一个组件。这不仅让组件更容易浏览和查找，而且还将允许我们逐个迁移它们的语言和框架。
     在这个范例程序中，每个控制器、工厂和过滤器都在它自己的源文件中。
 
   * The [Folders-by-Feature Structure](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
@@ -137,9 +136,7 @@ include ../_util-fns
     rules define similar principles on a higher level of abstraction: Different parts of the
     application should reside in different directories and Angular modules.
 
-  * [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
-    和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
-    规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
+  * [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
 
   When an application is laid out feature per feature in this way, it can also be
   migrated one feature at a time. For applications that don't already look like
@@ -162,7 +159,7 @@ include ../_util-fns
   order. That's why it's a good idea to start using a *module loader*.
 
   当我们把应用代码分解成每个文件中放一个组件之后，我们通常会得到一个由大量相对较小的文件组成的项目结构。
-  这比组织成少量大文件要整洁得多，但如果你不得不通过`<script>`标签在HTML页面中加载所有这些文件，那就不好玩儿了。
+  这比组织成少量大文件要整洁得多，但如果你不得不通过`<script>`标签在HTML页面中加载所有这些文件，那就不好玩了。
   尤其是当你不得不按正确的顺序维护这些标签时更是如此。
   这就是为什么开始使用*模块加载器*是一个好主意了。
 
@@ -209,7 +206,7 @@ include ../_util-fns
   因为TypeScript是ECMAScript 2015的一个超集，而ES2015又是ECMAScript 5的一个超集。
   这意味着除了安装一个TypeScript编译器，并把文件名都从`*.js`改成`*.ts`之外，其实什么都不用做。
   当然，如果仅仅这样做也没什么大用，也没什么令人兴奋之处。
-  下面这些额外步骤可以让我们抖擞起精神来：
+  下面这些额外步骤可以让我们精神抖擞起来：
 
   * For applications that use a module loader, TypeScript imports and exports
     (which are really ECMAScript 2015 imports and exports) can be used to organize
@@ -257,7 +254,7 @@ include ../_util-fns
   To be Angular 2 compatible, an Angular 1 component directive should configure
   these attributes:
 
-  要做成与Angular 2兼容的，Angular 1的组件型指令应该配置下列属性：
+  要与Angular 2兼容，Angular 1的组件型指令应该配置下列属性：
 
   * `restrict: 'E'`. Components are usually used as elements.
 
