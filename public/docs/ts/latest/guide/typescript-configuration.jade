@@ -76,7 +76,7 @@ a(id="tsconfig")
   We initialized the `noImplicitAny` flag to `false` in the QuickStart
   to make learning TypeScript development easier.
 
-  我们在“快速起步”中把`noImplicitAny`标志初始化为`false`，是为了让学习TypeScript开发更简单点儿。
+  我们在“快速起步”中把`noImplicitAny`标志初始化为`false`，是为了让学习TypeScript开发更简单点。
 
   When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
   the type, it still generates the JavaScript files. But it also **reports an error**.
@@ -99,7 +99,7 @@ a(id="tsconfig")
   We can suppress them with the following additional flag.
 
   如果我们把`noImplicitAny`标志设置为了`true`，我们可能会得到*隐式索引错*。
-  大多数程序员可能觉得*这种错误*是个是个烦恼而不是助力。
+  大多数程序员可能觉得*这种错误*是个烦恼而不是助力。
   我们可以使用下列附加标志来禁止它们。
 code-example(format=".").
   "suppressImplicitAnyIndexErrors":true
@@ -123,7 +123,7 @@ a(id="typings")
   &mdash; *d.ts files* &mdash; to tell the compiler about the libraries we load.
 
   我们可以使用[TypeScript类型定义文件](http://www.typescriptlang.org/Handbook#writing-dts-files)
-  —— *.d.ts文件* ——来告诉编译器，这些我们要加载的库的类型定义。
+  —— *.d.ts文件* ——来告诉编译器要加载的库的类型定义。
 
   TypeScript-aware editors leverage these same definition files to display type information about library features.
 
@@ -192,7 +192,7 @@ a(id="typings")
   typical ES2015 features or support testing right out-of-the-box.
 
   “快速起步”本身不需要这些类型定义，但是文档中的很多例子都需要。
-  如果没有写针对典型ES2015特性的代码或者写支持外部测试的代码，那我们多半儿会失望 —— 类型定义就没用了。
+  如果不能直接编写典型ES2015特性的代码或者写支持外部测试的代码，大部分读者会很失望（所以快速起步中有这些类型定义）。
 
   We can also run the *typings* tool ourselves.
   The following command (re)installs the typings files, as is sometimes necessary when the `postInstall` hook fails to do so.
@@ -213,15 +213,15 @@ code-example(format="").
   The following command installs or updates the typings file for the Jasmine test library from the *DefinitelyTyped* repository
   and updates the `typings.config` so we that we get it automatically the next time we install typings.
 
-  下列命令会从*DefinitelyTyped*仓库中为Jasmine测试库安装类型定义文件，并更新`typings.config`文件，以便当我们下次安装类型定义文件时会自动获取它。
+  下列命令会从*DefinitelyTyped*仓库中为Jasmine测试库安装类型定义文件，并更新`typings.config`文件，以便当我们下次安装类型定义文件时来自动获取它。
 code-example(format="").
   npm run typings -- install dt~jasmine --save --global
 .l-sub-section
   :marked
-    The [&ndash;&ndash; option](https://docs.npmjs.com/cli/run-script) is important;
+    The [`--`option](https://docs.npmjs.com/cli/run-script) is important;
     it tells npm to pass all arguments to the right of `--` to the *typings* command.
 
-    这个[&ndash;&ndash;选项](https://docs.npmjs.com/cli/run-script)是很重要的，
+    这个[`--`选项](https://docs.npmjs.com/cli/run-script)是很重要的，
     它告诉npm要把`--`右侧的所有参数都传给*typings*命令。
 
     Learn about the features of the *typings* tool at its [site on github](https://github.com/typings/typings/blob/master/README.md).
