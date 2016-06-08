@@ -1452,7 +1452,7 @@ code-example(format="").
   to the class using a static property `$inject`. At runtime this becomes the
   `PhoneListController.$inject` property.
 
-  以前在控制器函数中实现的一切现在都改由类的构造函数来实现了。类型注入注解通过静态属性`$inject`
+  以前在控制器函数中实现的一切，现在都改由类的构造函数来实现了。类型注入注解通过静态属性`$inject`
   被附加到了类上。在运行时，它们变成了`PhoneListController.$inject`。
 
   The class additionally declares three members: The array of phones, the name of
@@ -1639,7 +1639,7 @@ code-example(format="").
   exciting! We're not running any actual Angular 2 components yet though,
   so let's do that next.
 
-  我们现在同时运行着Angular 1和Angular 2。漂亮！不过我们还没有运行人和实际的Angular 2组件，接下来我们就做这件事。
+  我们现在同时运行着Angular 1和Angular 2。漂亮！不过我们还没有运行什么实际的Angular 2组件，接下来我们就做这件事。
 :marked
   ## Upgrading the Phone service
   ## 升级`Phone`服务
@@ -1707,7 +1707,7 @@ code-example(format="").
 
   `@Injectable`装饰器将把一些依赖注入相关的元数据附加到该类上，让Angular 2知道它的依赖信息。
   就像在[依赖注入指南](../guide/dependency-injection.html)中描述过的那样，
-  这是一个标记装饰器，我们要把它用在那些没有其它Angular 2装饰器但仍然有依赖需要被注入进来的类上。
+  这是一个标记装饰器，我们要把它用在那些没有其它Angular 2装饰器，并且自己有依赖注入的类上。
 
 
   In its constructor the class expects to get the `Http` service. It will
@@ -1834,6 +1834,10 @@ code-example(format="").
   Angular 1 component definition object into an Angular 2 `@Component` decorator.
   We can then also remove the static `$inject` property from the class:
 
+  让我们先看看电话列表组件。它目前包含一个TypeScript控制器类和一个组件定义对象。重命名控制器类，
+  并把Angular 1的组件定义对象更换为Angular 2 `@Component`装饰器，这样我们就把它变形为Angular 2
+  的组件了。然后，我们还从类中移除静态`$inject`属性。
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.component.ts', 'initialclass', 'app/phone-list/phone-list.component.ts')
 
 :marked
@@ -1842,9 +1846,15 @@ code-example(format="").
   have these explicit selectors. This one will match elements with the name `phone-list`,
   just like the Angular 1 version did.
 
+  `selector`属性是一个CSS选择器，用来定义组件应该被放在页面的哪儿。在Angular 1，我们基于组件名字来匹配，
+  但是在Angular 2中，我们要有一个专门指定的选择器。本组件将会对应元素名字`phone-list`，和Angular 1版本一样。
+
   We now also need to convert the template of this component into Angular 2 syntax.
   In the search controls we need to use Angular 2 syntax for the two `ngModel`s.
   We should also no longer use the `$ctrl` prefix in expressions:
+
+  现在，我们同时需要将组件的模版也转换为Angular 2语法。在搜索控制中，我们需要为两个`ngModel`使用Angular 2语法。
+  我们应该不需要再在表达式中使用`$ctrl`前缀：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.template.html', 'controls', 'app/phone-list/phone-list.template.html')
 
@@ -1997,7 +2007,7 @@ code-example(format="").
 :marked
   We should now also remove the phone detail component &lt;script&gt; tag from `index.html`.
 
-  在`app.module.ts`中的路由器配置中，我们同样把详情路由改成实例化一个组件：
+  我们现在应该从`index.html`中移除电话详情组件的&lt;script>。
 
   There's one additional step we need to take, which is to upgrade the
   `checkmark` filter that the template is using. We need an Angular 2
@@ -2012,7 +2022,7 @@ code-example(format="").
   rename the file to `checkmark.pipe.ts`:
 
   在升级适配器中并没有哪个方法可用于升级过滤器，但我们只要把过滤器函数转变成一个能满足Angular 2管道契约的类就可以了。
-  它的实现方式和前面一样。它只是到了一个不同类型的包而已。修改它的同时，也把它的文件名改为`checkmark.pipe.ts`：
+  它的实现方式和前面一样。它从一个不同类型的包而来。修改它的同时，也把它的文件名改为`checkmark.pipe.ts`：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/core/checkmark/checkmark.pipe.ts', null, 'app/core/checkmark/checkmark.pipe.ts')
 
@@ -2066,14 +2076,14 @@ code-example(format="").
   the Angular 2 counterparts of our two routes. They refer directly to the
   two components.
 
-  这个组件将被插入到页面中一个`<pc-app>`元素中，并且其模板是只包含一个“路由器出口(router outlet)”组件。
+  这个组件将被插入到页面中一个`<phonecat-app>`元素中，并且其模板是只包含一个“路由器出口(router outlet)”组件。
   这意味着该组件将只会渲染当前路由的内容，没别的。`@RouteConfig`装饰器定义了两个原有路由在Angular 2中的对应物。
   它们直接引用了这两个组件。
 
   We should put this `<phonecat-app>` element in the HTML so that the root component
   has something to attach to. It replaces the old Angular 1 `ng-view` directive:
 
-  我们还要把这个`<pc-app>`元素放进HTML中，以便这个根组件可以附加上去。它代替了Angular 1中原来的`ng-view`指令：
+  我们还要把这个`<phonecat-app>`元素放进HTML中，以便这个根组件可以附加上去。它代替了Angular 1中原来的`ng-view`指令：
 
 +makeExample('upgrade-phonecat-3-final/ts/index.html', 'appcomponent', 'index.html')
 
@@ -2237,7 +2247,7 @@ code-example(format="").
 
   PhoneCat项目中同时有基于Protractor的E2E测试和一些基于Karma的单元测试。
   对这两者来说，E2E测试的转换要容易得多：根据定义，E2E测试通过与应用中显示的这些UI元素互动，从*外部*访问我们的应用来进行测试。
-  E2E测试实际上并不关心这些应用中各部件的内部结构。这也意味着，虽然我们已经修改了一点儿此应用程序，
+  E2E测试实际上并不关心这些应用中各部件的内部结构。这也意味着，虽然我们已经修改了此应用程序，
   但是E2E测试套件仍然应该能像以前一样全部通过。因为从用户的角度来说，我们并没有改变应用的行为。
 
   During TypeScript conversion, there is nothing we have to do to keep E2E tests
