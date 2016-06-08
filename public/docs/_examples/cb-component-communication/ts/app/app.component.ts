@@ -16,9 +16,20 @@ import { MissionControlComponent } from './missioncontrol.component';
     NameParentComponent,
     VersionParentComponent,
     VoteTakerComponent,
-    CountdownLocalVarParentComponent,
-    CountdownViewChildParentComponent,
-    MissionControlComponent
-  ]
+    MissionControlComponent,
+  ];
+
+// Include Countdown examples
+// unless in e2e tests which they break.
+if (!/e2e/.test(location.search)) {
+  console.log('adding countdown timer examples');
+  directives.push(CountdownLocalVarParentComponent);
+  directives.push(CountdownViewChildParentComponent);
+}
+
+@Component({
+  selector: 'app',
+  templateUrl: 'app/app.component.html',
+  directives: directives
 })
 export class AppComponent { }
