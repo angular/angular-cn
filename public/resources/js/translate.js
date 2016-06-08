@@ -63,7 +63,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
   function isPureEnglish(text) {
     // accept &mdash; , quotes, ® and façade too.
-    return /^[\1-\255—’“”ç®]*$/.test(text);
+    return /^[\1-\255—’“”ç®…]*$/.test(text);
   }
 
   function attributesToString(node) {
