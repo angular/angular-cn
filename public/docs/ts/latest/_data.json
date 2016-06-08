@@ -6,6 +6,13 @@
     "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>rc.1</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>。"
   },
 
+  "cli-quickstart": {
+    "icon": "query-builder",
+    "title": "CLI Quickstart",
+    "description": "Use the CLI tool to build apps quickly in Angular 2",
+    "hide": true
+  },
+
   "quickstart": {
     "icon": "query-builder",
     "title": "五分钟“快速起步”",
