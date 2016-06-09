@@ -6,8 +6,8 @@ include ../../../../_includes/_util-fns
   matter of changing the way we organize our code and the way we access
   Angular 2 APIs.
   
-  所有能在TypeScript环境里面做的Angular 2事情，我们都能在JavaScript里面实现。
-  从一个语言翻译到另一个语言最多只能改变我们对源代码的管理方法和如何访问Angular 2的API。
+  所有能在Angular 2的TypeScript环境里面做的事情，我们都能在JavaScript里面实现。
+  从一个语言翻译到另一个语言最多只能改变对源代码的管理方法和如何访问Angular 2的API。
 
   Since TypeScript is a popular language option in Angular 2, many of the
   code examples you see on the Internet as well as on this site are written
@@ -92,7 +92,7 @@ table(width="100%")
         from `angular2` in TypeScript:
         
         在JavaScript代码中，当使用[Angular 2库](../glossary.html#!#scoped-package)时，
-        我们可以通过全局的`ng`对象来访问Angular代码。在这个对象嵌套很多成员中，我们能找到所有在TypeScript里面导入的`angular2`
+        我们可以通过全局的`ng`对象来访问Angular代码。在这个对象嵌套的很多成员中，我们能找到所有在TypeScript环境下能从`angular2`导入的对应物。
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'ng2import')(format="." )
 
@@ -219,7 +219,6 @@ table(width="100%")
     td
       :marked
         ### Metadata with Decorators
-
         ### 拥有装饰器的元数据
 
         Most Angular 2 classes have one or more TypeScript *decorators*
@@ -232,9 +231,8 @@ table(width="100%")
 
     td
       :marked
-        ### Metadata with the Annotations Array
-        
-        通过注解数组来提供元数据        
+        ### Metadata with the Annotations Array        
+        ### 通过注解数组来提供元数据        
 
         In JavaScript, we can attach an `annotations` array to a constructor
         to provide metadata. 
@@ -355,7 +353,7 @@ table(width="100%")
         In TypeScript, property decorators are often used to provide additional metadata
         for components and directives.
         
-        在TypeScript里，属性装饰器经常被用来为组件和指令提供额外的元素据。
+        在TypeScript里，属性装饰器经常被用来为组件和指令提供额外的元数据。
 
         For [inputs and outputs](../guide/template-syntax.html#inputs-outputs), 
         we use [`@Input`](../api/core/Input-var.html)
@@ -365,7 +363,7 @@ table(width="100%")
         
         我们使用[`@Input`](../api/core/Input-var.html) 和 [`@Output`](../api/core/Output-var.html)装饰器
         来装饰[输入和输出](../guide/template-syntax.html#inputs-outputs)。
-        如果我们想要他们有与类属性名字不同的名字，我们可以选择性的指定输入和输出的绑定名字。
+        如果想要他们有与类属性名字不同的名字，我们可以选择性的指定输入和输出的绑定名字。
 
       +makeExample('cb-ts-to-js/ts/app/hero-io.component.ts')(format="." )
 
@@ -461,7 +459,7 @@ table(width="100%")
         When the thing being injected doesn't correspond directly to a type,
         we use the `@Inject()` decorator to supply the injection token.
         
-        当被注入的东西不是一个类型时，我们使用`@inject()`装饰器来提供注入令牌。
+        当被注入的东西不是一个类型时，使用`@inject()`装饰器来提供注入令牌。
         
         In this example, we're injecting a string identified by the "heroName" token.
         
@@ -504,7 +502,7 @@ table(width="100%")
         and inject view child queries with [`@ViewQuery`](../api/core/ViewQuery-var.html).
         
         我们可以附加额外装饰器到构造函数来调整注入行为。我们使用[`@Optional`](../api/core/Optional-var.html)来标示依赖是可选的，
-        用[`@Attribute`](../api/core/Attribute-var.html)标示注入宿主元素属性
+        用[`@Attribute`](../api/core/Attribute-var.html)标示注入宿主元素属性，
         用[`@Query`](../api/core/Query-var.html)来注入内容子查询，用[`@ViewQuery`](../api/core/ViewQuery-var.html)来注入视图子查询。
 
       +makeExample('cb-ts-to-js/ts/app/hero-di-inject-additional.component.ts')(format="." )
@@ -523,7 +521,7 @@ table(width="100%")
         Use the injection support functions `Attribute`, `Host`, `Optional`, `Self`, `SkipSelf`,
         `Query` and `ViewQuery` to qualify dependency injection behavior.
         
-        使用注入的支持功能比如`Attribute`、 `Host`、 `Optional`、 `Self`、 `SkipSelf`、
+        使用注入支持的功能比如`Attribute`、 `Host`、 `Optional`、 `Self`、 `SkipSelf`、
         `Query` 和 `ViewQuery`等来调整依赖注入行为。
         
         Use a nested array to combine injection functions.
@@ -572,7 +570,7 @@ table(width="100%")
         host element events to component event handlers.
         
         我们可以使用宿主属性装饰器来绑定一个宿主元素到一个组件或者指令。
-        [`@HostBinding`](../api/core/HostBinding-var.html)装饰器绑定数组元素属性到组件数据属性。
+        [`@HostBinding`](../api/core/HostBinding-var.html)装饰器绑定宿主元素属性到组件数据属性。
          [`@HostListener`](../api/core/HostListener-var.html)装饰器绑定宿主元素事件到组件事件处理器。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-bindings.component.ts')(format="." )
@@ -640,8 +638,7 @@ table(width="100%")
         into its view from elsewhere.
         
         [`@ContentChild`](../api/core/ContentChild-var.html) 和
-        [`@ContentChildren`](../api/core/ContentChildren-var.html)属性装饰器允许一个组件查询
-        被从其它地方投影进自己视图里的其他组件的实例。
+        [`@ContentChildren`](../api/core/ContentChildren-var.html)属性装饰器允许一个组件查询那些被从其它地方投影进自己视图里的组件的实例。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-queries.component.ts', 'content')(format="." )
       
