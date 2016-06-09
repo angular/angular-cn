@@ -66,7 +66,7 @@ include ../_util-fns
   Our goal is to specify template and style URLs *relative* to their component class files,
   hence the term ***component-relative path***.
 
-  我们的目标是指定*相对*于组件类的模板和样式表的URL，因此得名***组件相对路径***。
+  我们的目标把模板和样式表的URL指定为*相对*于组件类的路径，因此得名***组件相对路径***。
 
   The key to success is following a convention that puts related component files in well-known locations.
 
@@ -90,7 +90,7 @@ include ../_util-fns
   We'll have more files and folders &mdash; and greater folder depth &mdash; as our application grows.
   We'll be fine as long as the component files travel together as the inseparable siblings they are.
 
-  当应用规模增长后，我们还会有更多的文件和目录以及更大的深度。
+  当应用规模增长后，我们还会有更多的文件和目录，目录深度也会增加。
   如果组件的所有文件总是像形影不离的兄弟那样共进退，那该多好啊！
 
   ### Set the *moduleId*
@@ -125,8 +125,7 @@ include ../_util-fns
   and download the source code from there
   or simply read the pertinent source here.
 
-  **我们可以参见[在线范例](/resources/live-examples/cb-component-relative-paths/ts/plnkr.html)**
-  并从中下载源码或只在这里阅读相关源码。
+  **参见[在线范例](/resources/live-examples/cb-component-relative-paths/ts/plnkr.html)**，并从中下载源码或只在这里阅读相关源码。
 
 +makeTabs(
   `cb-component-relative-paths/ts/app/some.component.ts,
@@ -197,7 +196,7 @@ a#why-default
   the absolute URL of the component class module file.
 
   但是，*如果*我们遵循了建议的指导原则，用`commonjs`格式编写模块，并使用一个*不错的*模块加载器，
-  那么我们这些应用开发人员就能知道存在一个可用的半全局变量`module.id`，并且其中包含着组件类模块文件的绝对URL。
+  然后，我们就知道，有一个可用的半全局变量`module.id`，它包含组件类模块文件的绝对URL。
 
   That knowledge enables us to tell Angular where the *component* file is
   by setting the `moduleId`:
@@ -215,7 +214,7 @@ a#webpack
 
   Webpack developers have an alternative to `moduleId`.
 
-  Webpack开发者有`moduleId`的另一个备选方案。
+  Webpack开发者可以采用`moduleId`的另一个替代方案。
 
   They can load templates and styles at runtime by setting the component metadata `template` and `style` properties
   with `require` statements that reference *component-relative* URLS.
