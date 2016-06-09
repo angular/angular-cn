@@ -3,7 +3,7 @@ include ../_util-fns
 :marked
   ## Write *Component-Relative* URLs to component templates and style files
 
-  ## 为组件模板和样式表文件写*相对于组件的*URL
+  ## 为组件模板和样式表文件提供*相对于组件的*URL
 
   Our components often refer to external template and style files.
   We identify those files with a URL in the `templateUrl` and `styleUrls` properties of the `@Component` metadata
@@ -17,8 +17,8 @@ include ../_util-fns
   By default, we *must* specify the full path back to the application root.
   We call this an ***absolute path*** because it is *absolute* with respect to the application root.
 
-  默认情况下，我们*必须*指定一个到应用根目录的完整路径。
-  我们称之为***绝对路径***，因为如果以应用程序的根目录为基准来看，它就是*绝对路径*。
+  默认情况下，我们*必须*指定一个一直到应用程序根目录的完整路径。
+  我们称之为***绝对路径***，因为它*绝对的*以应用程序的根目录为基准。
 
   There are two problems with an *absolute path*:
 
@@ -47,7 +47,7 @@ include ../_util-fns
     with a suitable package loader such as `systemjs` or `webpack`.
     Learn why [below](#why-default).
 
-    如果我们把应用构建成`commonjs`模块，并用一个合适的包加载器（比如`systemjs`或`webpack`）加载那些模块，就可以了。
+    如果把应用构建成`commonjs`模块，并用一个合适的包加载器（比如`systemjs`或`webpack`）加载那些模块，我们就可以用相对路径。
     [在下方](#why-default)可以学到原理。
 
     The Angular 2 CLI uses these technologies and defaults to the
@@ -56,7 +56,7 @@ include ../_util-fns
     how it works.
 
     Angular 2 CLI(命令行界面)使用这些技术，并默认采用这里所说的*组件相对路径*方法。
-    用CLI用户可以跳过本章，并且往后阅读来了解它是怎么工作的。
+    用CLI用户可以跳过本章，或者继续阅读来了解它是怎么工作的。
 
 .l-main-section
 :marked
