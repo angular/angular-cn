@@ -1001,7 +1001,7 @@ table(width="100%")
         This kept our controller code out of the global namespace.
 
         在Angular 1中，我们通常会定义一个立即调用的函数表达式（IIFE）来包裹我们的控制器代码。
-        以便让我们的控制器代码不会污染全局命名空间。
+        这样让控制器代码不会污染全局命名空间。
 
     td
       :marked
@@ -1010,7 +1010,7 @@ table(width="100%")
         We don't need to worry about this in Angular&nbsp;2 because we use ES 2015 modules
         and modules handle the namespacing for us.
 
-        在Angular 2中我们不用担心这个问题，因为我们使用ES 2015的模块，而模块会为我们处理命名空间问题。
+        在Angular 2中我们不用担心这个问题，因为我们使用ES 2015的模块，模块会替我们处理命名空间问题。
 
         For more information on modules see [Architecture Overview](../guide/architecture.html#module).
 
@@ -1088,7 +1088,7 @@ table(width="100%")
         that component, such as its selector (or tag) and its template.
 
         在Angular 2中，我们往组件类上添加了一个装饰器，以提供任何需要的元数据。
-        组件装饰器把该类声明为组件，并提供了关于该组件的元数据，比如它的选择器(或标签)及其模板。
+        组件装饰器把该类声明为组件，并提供了关于该组件的元数据，比如它的选择器(或标签)和模板。
 
         This is how we associate a template with code, which is defined in the component class.
 
@@ -1127,7 +1127,7 @@ table(width="100%")
         NOTE: If you are using TypeScript with Angular&nbsp;1 then the only difference here is
         that the component class must be exported using the `export` keyword.
 
-        注意：如果你正在用TypeScript写Angular 1，那么这里唯一的不同是哪个组件类必须用`export`关键字导出。
+        注意：如果你正在用TypeScript写Angular 1，那么这里唯一的不同是组件类必须用`export`关键字导出。
 
         For more information on components see [Architecture Overview](../guide/architecture.html#component).
 
@@ -1265,7 +1265,7 @@ a(id="string-dates")
   As a work around, subclass the Angular `DatePipe` with a version that can convert strings
   and substitute that pipe in the HTML:
 
-  作为一项工作，可以为Angular的`DatePipe`派生一个子类，它能够转换字符串，并在HTML中替换那个内置的管道：
+  为了解决这个问题，可以为Angular的`DatePipe`派生一个子类，它能够转换字符串，并在HTML中替换那个内置的管道：
 
 +makeExample('cb-a1-a2-quick-reference/ts/app/date.pipe.ts', 'date-pipe', 'date.pipe.ts')(format=".")
 :marked
