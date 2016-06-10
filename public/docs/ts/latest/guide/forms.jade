@@ -668,7 +668,7 @@ figure.image-display
     There is also a `NgControl` *abstract* directive which is *not the same thing*.
     We often ignore this technical distinction and refer to `NgControlName` more conveniently (albeit incorrectly) as the *NgControl* directive.
     
-    我们模板中的这个`ngControl`*属性*实际上被映射到了 [NgControlName](../api/common/NgControlName-directive.html)指令。
+    我们模板中的这个`ngControl`*属性*实际上被映射到了 [NgControlName](../api/common/index/NgControlName-directive.html)指令。
     虽然还有另一个叫`NgControl`的*抽象*指令，但和这个属性不是一回事。
     我们通常会忽略这点技术上的差异。为了更方便（尽管不正确），我们提起`NgControlName`时还是会把它叫做*NgControl*指令。
     
@@ -861,7 +861,7 @@ figure.image-display
     We set `name` to `ngForm` because the `NgControlName` directive's `exportAs` property happens to be "ngForm".
     
     为什么是"ngForm"？
-    指令的[exportAs](../api/core/DirectiveMetadata-class.html#!#exportAs)属性告诉Angular如何把局部变量链接到指令中。
+    指令的[exportAs](../api/core/index/DirectiveMetadata-class.html#!#exportAs)属性告诉Angular如何把局部变量链接到指令中。
     这里我们把`name`设置为`ngForm`就是因为`NgControlName`指令的`exportAs`属性设置为了“ngForm”。
     
     This seems unintuitive at first until we realize that *all* control directives in the 
@@ -1038,7 +1038,7 @@ figure.image-display
     
     What `NgForm` directive? We didn't add an [NgForm](../api/common/NgForm-directive.html) directive!
     
-    什么`NgForm`指令？我们没有添加过[NgForm](../api/common/NgForm-directive.html)指令啊！
+    什么`NgForm`指令？我们没有添加过[NgForm](../api/common/index/NgForm-directive.html)指令啊！
     
     Angular did. Angular creates and attaches an `NgForm` directive to the `<form>` tag automatically.
     

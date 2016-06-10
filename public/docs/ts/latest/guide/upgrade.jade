@@ -577,7 +577,7 @@ figure.image-display
   or anything like it.
 
   在Angular 2中，事情有点不一样。虽然变更检测仍然会在每一个事件之后发生，却不再需要每次调用`scope.$apply()`了。
-  这是因为所有Angular 2代码都运行在一个叫做[Angular zone](../api/core/NgZone-class.html)的地方。
+  这是因为所有Angular 2代码都运行在一个叫做[Angular zone](../api/core/index/NgZone-class.html)的地方。
   Angular总是知道什么时候代码执行完了，也就知道了它什么时候应该触发变更检测。代码本身并不需要调用`scope.$apply()`或其它类似的东西。
 
   In the case of hybrid applications, the `UpgradeAdapter` bridges the
@@ -621,7 +621,7 @@ figure.image-display
   just like we could if it hadn't been downgraded.
 
   当我们降级一个Angular 2组件，然后把它用于Angular 1中时，组件的输入属性就会被Angular 1的变更检测体系监视起来。
-  当那些输入属性发生变化时，组件中相应的属性就会被设置。我们也能通过实现[OnChanges](../api/core/OnChanges-interface.html)
+  当那些输入属性发生变化时，组件中相应的属性就会被设置。我们也能通过实现[OnChanges](../api/core/index/OnChanges-interface.html)
   接口来挂钩到这些更改，就像它未被降级时一样。
 
   Correspondingly, when we upgrade an Angular 1 component and use it from Angular 2,

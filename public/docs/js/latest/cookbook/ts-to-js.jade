@@ -225,7 +225,7 @@ table(width="100%")
         attached to provide configuration and metadata. For example,
         a component must have a [`@Component`](../api/core/Component-decorator.html) decorator.     
         
-        大部分Angular 2的类都有一个或者多个附加的TypeScript*装饰器*，用来提供配置和元数据。比如一个组件必须要有一个[`@Component`](../api/core/Component-decorator.html)装饰器。
+        大部分Angular 2的类都有一个或者多个附加的TypeScript*装饰器*，用来提供配置和元数据。比如一个组件必须要有一个[`@Component`](../api/core/index/Component-decorator.html)装饰器。
         
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'metadata')(format="." )
 
@@ -244,7 +244,7 @@ table(width="100%")
         In the following example, we create a new instance of `Component` that corresponds
         to the [`@Component`](../api/core/Component-decorator.html) TypeScript decorator.
         
-        在下面的例子中，我们新建了一个`Component`的新实例，与[`@Component`](../api/core/Component-decorator.html)TypeScript装饰器对应。
+        在下面的例子中，我们新建了一个`Component`的新实例，与[`@Component`](../api/core/index/Component-decorator.html)TypeScript装饰器对应。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'metadata')(format="." )
 
@@ -361,7 +361,7 @@ table(width="100%")
         They may optionally specify input and output binding names if we want them to be
         different from the class property names.
         
-        我们使用[`@Input`](../api/core/Input-var.html) 和 [`@Output`](../api/core/Output-var.html)装饰器
+        我们使用[`@Input`](../api/core/index/Input-var.html) 和 [`@Output`](../api/core/index/Output-var.html)装饰器
         来装饰[输入和输出](../guide/template-syntax.html#inputs-outputs)。
         如果想要他们有与类属性名字不同的名字，我们可以选择性的指定输入和输出的绑定名字。
 
@@ -501,9 +501,9 @@ table(width="100%")
         inject content child queries with [`@Query`](../api/core/Query-var.html)
         and inject view child queries with [`@ViewQuery`](../api/core/ViewQuery-var.html).
         
-        我们可以附加额外装饰器到构造函数来调整注入行为。我们使用[`@Optional`](../api/core/Optional-var.html)来标示依赖是可选的，
-        用[`@Attribute`](../api/core/Attribute-var.html)标示注入宿主元素属性，
-        用[`@Query`](../api/core/Query-var.html)来注入内容子查询，用[`@ViewQuery`](../api/core/ViewQuery-var.html)来注入视图子查询。
+        我们可以附加额外装饰器到构造函数来调整注入行为。我们使用[`@Optional`](../api/core/index/Optional-var.html)来标示依赖是可选的，
+        用[`@Attribute`](../api/core/index/Attribute-var.html)标示注入宿主元素属性，
+        用[`@Query`](../api/core/index/Query-var.html)来注入内容子查询，用[`@ViewQuery`](../api/core/index/ViewQuery-var.html)来注入视图子查询。
 
       +makeExample('cb-ts-to-js/ts/app/hero-di-inject-additional.component.ts')(format="." )
 
@@ -537,8 +537,8 @@ table(width="100%")
         by adding `new ng.core.Host()` or `ng.core.SkipSelf()` in the
         parameters array.
         
-        我们可以用同样的方法来应用其他额外的参数装饰器，比如[`@Host`](../api/core/Host-var.html) 和
-        [`@SkipSelf`](../api/core/SkipSelf-var.html)：添加`new ng.core.Host()` 或 `ng.core.SkipSelf()`到参数数组中。
+        我们可以用同样的方法来应用其他额外的参数装饰器，比如[`@Host`](../api/core/index/Host-var.html) 和
+        [`@SkipSelf`](../api/core/index/SkipSelf-var.html)：添加`new ng.core.Host()` 或 `ng.core.SkipSelf()`到参数数组中。
 
 
 a(id="other-property-metadata")
@@ -570,8 +570,8 @@ table(width="100%")
         host element events to component event handlers.
         
         我们可以使用宿主属性装饰器来绑定一个宿主元素到一个组件或者指令。
-        [`@HostBinding`](../api/core/HostBinding-var.html)装饰器绑定宿主元素属性到组件数据属性。
-         [`@HostListener`](../api/core/HostListener-var.html)装饰器绑定宿主元素事件到组件事件处理器。
+        [`@HostBinding`](../api/core/index/HostBinding-var.html)装饰器绑定宿主元素属性到组件数据属性。
+         [`@HostListener`](../api/core/index/HostListener-var.html)装饰器绑定宿主元素事件到组件事件处理器。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-bindings.component.ts')(format="." )
       
@@ -624,8 +624,8 @@ table(width="100%")
         allow a component to query instances of other components that are used in
         its view.
         
-        [`@ViewChild`](../api/core/ViewChild-var.html)和
-        [`@ViewChildren`](../api/core/ViewChildren-var.html)属性装饰器允许一个组件查询
+        [`@ViewChild`](../api/core/index/ViewChild-var.html)和
+        [`@ViewChildren`](../api/core/index/ViewChildren-var.html)属性装饰器允许一个组件查询
         在自己模板里使用过的其他组件的实例。
         
         
@@ -637,8 +637,8 @@ table(width="100%")
         allow a component to query instances of other components that have been projected
         into its view from elsewhere.
         
-        [`@ContentChild`](../api/core/ContentChild-var.html) 和
-        [`@ContentChildren`](../api/core/ContentChildren-var.html)属性装饰器允许一个组件查询那些被从其它地方投影进自己视图里的组件的实例。
+        [`@ContentChild`](../api/core/index/ContentChild-var.html) 和
+        [`@ContentChildren`](../api/core/index/ContentChildren-var.html)属性装饰器允许一个组件查询那些被从其它地方投影进自己视图里的组件的实例。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-queries.component.ts', 'content')(format="." )
       
