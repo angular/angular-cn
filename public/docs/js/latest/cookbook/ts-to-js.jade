@@ -6,8 +6,8 @@ include ../../../../_includes/_util-fns
   matter of changing the way we organize our code and the way we access
   Angular 2 APIs.
   
-  所有能在Angular 2的TypeScript环境里面做的事情，我们都能在JavaScript里面实现。
-  从一个语言换成到另一个语言，最多只会影响源代码的管理方式和Angular 2 API的访问方法。
+  在Angular 2中，所有能用TypeScript完成的事，也都能用JavaScript完成。
+  从一个语言换成另一个语言，最多只会影响源代码的组织方式和访问Angular 2 API的方法。
 
   Since TypeScript is a popular language option in Angular 2, many of the
   code examples you see on the Internet as well as on this site are written
@@ -15,9 +15,8 @@ include ../../../../_includes/_util-fns
   code examples to ES5, so that they can be applied to Angular 2 JavaScript
   applications.
   
-  因为TypeScript是一个很受欢迎的Angular 2的语言选择，你在网络上和本站上看到的很多代码例子
-  都是以TypeScript编写的。本烹饪宝典包含如何把这些代码编译到ES5的食谱，这样它们可以被应用
-  到Angular 2的JavaScript应用程序里。
+  TypeScript是个广受欢迎的Angular 2语言选项，你在网络上和本站上看到的很多范例代码都是用TypeScript写的。
+  本烹饪宝典包含如何把这些代码编译到ES5的菜谱，这样它们就可以被用到JavaScript版的Angular 2程序里了。
   
 
 <a id="toc"></a>
@@ -28,15 +27,15 @@ include ../../../../_includes/_util-fns
 
   [Modularity: imports and exports](#modularity)
   
-  [模块化：导入和导出](#modularity)
+  [模块化：导入与导出](#modularity)
 
   [Classes and Class Metadata](#class-metadata)
   
-  [类和类元数据](#class-metadata)
+  [类和“类的元数据”](#class-metadata)
   
   [Input and Output Metadata](#property-metadata)
   
-  [导入和导出元数据](#property-metadata)
+  [`Input`(输入)与`Output`(输出)元数据](#property-metadata)
   
   [Dependency Injection](#dependency-injection)
   
@@ -44,19 +43,19 @@ include ../../../../_includes/_util-fns
   
   [Host and Query Metadata](#other-property-metadata)
   
-  [宿主和查询元素据](#other-property-metadata)
+  [`Host`(宿主)与`Query`(查询)元数据](#other-property-metadata)
 
   **Run and compare the live [TypeScript](/resources/live-examples/cb-ts-to-js/ts/plnkr.html) and 
   [JavaScript](/resources/live-examples/cb-ts-to-js/js/plnkr.html) code shown in this cookbook.**
   
-  **运行并比较本烹饪宝典里面的在线[TypeScript](/resources/live-examples/cb-ts-to-js/ts/plnkr.html)和[JavaScript](/resources/live-examples/cb-ts-to-js/js/plnkr.html)代码**
+  **运行并比较本烹饪宝典里的在线[TypeScript](/resources/live-examples/cb-ts-to-js/ts/plnkr.html)和[JavaScript](/resources/live-examples/cb-ts-to-js/js/plnkr.html)代码**
 
 a(id="modularity")
 .l-main-section
 :marked
   ## Importing and Exporting
 
-  ## 导入和导出
+  ## 导入与导出
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -75,7 +74,7 @@ table(width="100%")
         In TypeScript code, Angular 2 classes, functions, and other members
         are imported with TypeScript `import` statements:
         
-        在TypeScript代码中，Angular 2是利用TypeScript的`import`声明来导入类、函数和其他成员的。
+        在TypeScript代码中，Angular 2是利用TypeScript的`import`语句来导入类、函数和其他成员的。
 
       +makeExample('cb-ts-to-js/ts/app/main.ts', 'ng2import')(format="." )
 
@@ -83,7 +82,7 @@ table(width="100%")
       :marked
         ### Accessing Angular 2 Code through the ng global
         
-        ### 通过全局ng来访问Angular 2代码
+        ### 通过全局变量`ng`来访问Angular 2代码
 
         In JavaScript code, when using
         [the Angular 2 packages](../glossary.html#!#scoped-package),
@@ -91,8 +90,8 @@ table(width="100%")
         nested members of this object we'll find everything we would import
         from `angular2` in TypeScript:
         
-        在JavaScript代码中，当使用[Angular 2库](../glossary.html#!#scoped-package)时，
-        我们可以通过全局的`ng`对象来访问Angular代码。在这个对象嵌套的很多成员中，我们能找到所有在TypeScript环境下能从`angular2`导入的对应物。
+        在JavaScript中，当使用[Angular 2库](../glossary.html#!#scoped-package)时，
+        我们可以通过全局的`ng`对象来访问Angular代码。在本对象内嵌的很多成员中，我们会发现TypeScript能从`@angular`库导入的所有对应物。
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'ng2import')(format="." )
 
@@ -101,13 +100,13 @@ table(width="100%")
       :marked
         ### Importing and Exporting Application Code
 
-        ### 导入和导出应用程序代码
+        ### 导入与导出应用程序代码
 
         Each file in an Angular 2 TypeScript application constitutes a
         TypeScript module. When we want to make something from a module available
         to other modules, we `export` it.
         
-        在Angular 2 TypeScript应用里，每个文件组成一个TypeScript模块。当需要让一个模块在其他模块中可见时，我们`export`它。
+        在TypeScript版的Angular 2程序里，每个文件都是一个TypeScript模块。当需要让一个模块在其它模块中可见时，我们要`export`它。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'appexport')(format="." )
 
@@ -115,7 +114,7 @@ table(width="100%")
         In other modules we can then `import` things that have been exported
         elsewhere.
         
-        然后，我们就可以在模块`import`其它地方导出的东西。
+        然后，我们就可以在其它模块中`import`这些在别处导出的东西。
 
       +makeExample('cb-ts-to-js/ts/app/main.ts', 'appimport')(format="." )
 
@@ -129,8 +128,8 @@ table(width="100%")
         using a `<script>` tag. Each file can make things available to other
         files via the shared global `window` scope.
         
-        在Angular 2 JavaScript应用程序里，我们在页面里面通过`<script>`标签来加载每个文件。
-        每个文件都能通过把所有东西放到全局`window`来互相共享·
+        在JavaScript版的Angular 2程序里，我们在页面中通过`<script>`标签来加载每个文件。
+        每个文件都要通过全局作用域`window`来互相共享自己的那些东西。
 
         We often introduce an application namespace
         object (such as `"app"`) onto `window` and attach everything we need
@@ -140,9 +139,9 @@ table(width="100%")
         These practices together prevent our code from
         polluting the global scope.
         
-        我们经常在`window`上附加一个应用程序命名空间对象（比如`"app"`），然后把所有需要共享的东西都附加到这个空间对象。
-        也可以把我们的代码包装到一个[立即调用函数表达式IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)。
-        使用这些实践可以防止我们的代码污染全局范围。
+        我们经常在`window`对象上附加一个应用程序命名空间对象（比如`"app"`），然后把所要共享一切都附加到这个对象上。
+        也可以把我们的代码包装进一个[立即调用函数表达式IIFE](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)。
+        这些实践可以防止我们的代码污染全局作用域。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'appexport')(format="." )
 
@@ -150,7 +149,7 @@ table(width="100%")
         We can then access anything from this shared namespace in
         other files.
         
-        然后我们就可以从这个共享的命名空间来访问其他文件。
+        然后我们就可以用这个共享的命名空间来访问来自其它文件中的东西了。
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'appimport')(format="." )
 
@@ -159,8 +158,8 @@ table(width="100%")
         We must load a file that defines a shared member before
         a file that uses that member.
         
-        注意，页面上的`<script>`标签的顺序非常重要。我们必须要先加载定义共享成员的文件，
-        然后再加载使用该共享成员的文件。
+        注意，页面中`<script>`标签的排列顺序非常重要。我们必须要先加载“定义”共享成员的文件，
+        然后再加载“使用”该共享成员的文件。
 
 .alert.is-helpful
   :marked
@@ -170,7 +169,7 @@ table(width="100%")
     We would then use `module.exports` and `require` to export and import application
     code.
     
-    另外，我们可以在一个Angular 2 JavaScript项目中，使用模块加载器(比如Webpack或者Browserify)。
+    另外，我们可以在JavaScript版的Angular 2项目中，使用模块加载器(比如Webpack或者Browserify)。
     在这样的项目中，我们使用CommonJS模块和`require`函数来加载Angular 2框架代码。
     然后用`module.exports`和`require`来导出和导入应用程序代码。
 
@@ -180,7 +179,7 @@ a(id="class-metadata")
 :marked
   ## Classes and Class Metadata
 
-  ## 类和类元数据
+  ## 类和“类的元数据”
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -198,7 +197,7 @@ table(width="100%")
 
         We put most of our Angular 2 TypeScript code into TypeScript classes.
         
-        我们把绝大多数Angular 2 TypeScript代码放到TypeScript类中。
+        在Angular 2中，我们把绝大多数TypeScript代码都放到TypeScript类中。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'class')(format="." )
 
@@ -211,7 +210,7 @@ table(width="100%")
         ES5 JavaScript has no classes. We use the constructor
         pattern instead which works with Angular 2 as well as classes do.
         
-        ES5 JavaScript不支持类。取而代之，我们使用构造模式（constructor pattern），和类一样，它可以跟Angular 2一起工作。
+        ES5 JavaScript不支持类，我们使用构造器模式（constructor pattern）来代替它，它可以和类一样与Angular 2协同工作。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'constructorproto')(format="." )
 
@@ -219,53 +218,54 @@ table(width="100%")
     td
       :marked
         ### Metadata with Decorators
-        ### 拥有装饰器的元数据
+        ### 使用装饰器提供元数据
 
         Most Angular 2 classes have one or more TypeScript *decorators*
         attached to provide configuration and metadata. For example,
         a component must have a [`@Component`](../api/core/Component-decorator.html) decorator.     
         
-        大部分Angular 2的类都有一个或者多个附加的TypeScript*装饰器*，用来提供配置和元数据。比如一个组件必须要有一个[`@Component`](../api/core/index/Component-decorator.html)装饰器。
+        大部分Angular 2中的类都会附加一个或多个TypeScript*装饰器*，用来提供配置和元数据。比如组件必须要有一个[`@Component`](../api/core/index/Component-decorator.html)装饰器。
         
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'metadata')(format="." )
 
     td
       :marked
         ### Metadata with the Annotations Array        
+        
         ### 通过注解数组来提供元数据        
 
         In JavaScript, we can attach an `annotations` array to a constructor
         to provide metadata. 
         Each item in the array corresponds to a TypeScript decorator.
         
-        在JavaScript里，我们可以为构造函数附加一个`注解`数组来提供元数据。
-        数组里的每一条项目对应一个TypeScript装饰器。
+        在JavaScript中，我们可以为构造函数附加一个`注解`数组来提供元数据。
+        数组里的每一个条目都对应一个TypeScript装饰器。
 
         In the following example, we create a new instance of `Component` that corresponds
         to the [`@Component`](../api/core/Component-decorator.html) TypeScript decorator.
         
-        在下面的例子中，我们新建了一个`Component`的新实例，与[`@Component`](../api/core/index/Component-decorator.html)TypeScript装饰器对应。
+        在下面的例子中，我们新建了一个`Component`的新实例，与[`@Component`](../api/core/index/Component-decorator.html)TypeScript装饰器相对应。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'metadata')(format="." )
 
       :marked
         ### Metadata with The Class Convenience API
         
-        ### 通过类便利API来提供元素据
+        ### 利用便捷API `Class`提供元数据
 
         The pattern of creating a constructor and decorating it with metadata
         is so common that Angular provides an alternative convenience API for it.
         This API lets us define everything in a single expression.
         
-        新建一个构造函数并用元数据来装饰它的模式非常常见，以至于Angular为它提供了一个可选便利API。
-        该API可以让我们只用单一表达式，就可以定义任何东西。
+        创建一个构造函数并用元数据来装饰它，这种模式非常常见，以至于Angular为它提供了一个可选的便捷API。
+        该API让我们能在单一表达式中定义任何东西。
 
         With this API we first call the `ng.core.Component` function,
         followed by a chained `Class` method call. The argument to `Class`
         is an object that defines the constructor and the instance methods
         of the component:
         
-        利用该API，我们先调用`ng.core.Component`函数，链接一个`Class`方法。该`Class`方法的参数是一个对象，
+        利用该API，我们先调用`ng.core.Component`函数，再链式调用一个`Class`方法。该`Class`方法的参数是一个对象，
         用来定义组件的构造函数和实例方法。
 
       +makeExample('cb-ts-to-js/js/app/hero-dsl.component.js', 'component')(format="." )
@@ -274,7 +274,7 @@ table(width="100%")
         Similar APIs are also available for other decorators. You can define a
         directive:
         
-        其他装饰器也有类似的API。你可以像这样定义一个指令：
+        其它装饰器也都有类似的API。比如你可以像这样定义指令：
         
       code-example.
         var MyDirective = ng.core.Directive({
@@ -286,7 +286,7 @@ table(width="100%")
       :marked
         Or a pipe:
         
-        或则一个管道：
+        或者一个管道：
         
       code-example.
         var MyPipe = ng.core.Pipe({
@@ -308,7 +308,7 @@ table(width="100%")
         are one example of this pattern. `ngOnInit` is defined in the `OnInit`
         interface.
         
-        当定义一个实现某个方法的类时，使用TypeScript接口来确保方法的签名正确是常见的手段。组件生命周期方法，比如`ngOnInit`是这个模式的其中一个例子。
+        当定义一个想实现某个方法的类时，常用TypeScript接口来确保方法的签名正确。组件生命周期方法，比如`ngOnInit`就是一个例子。
         `ngOnInit`是在`OnInit`接口里面定义的。
 
       +makeExample('cb-ts-to-js/ts/app/hero-lifecycle.component.ts')(format="." )
@@ -317,15 +317,15 @@ table(width="100%")
       :marked
         ### Implementing Methods without Interfaces
         
-        ### 实现方法，但忽略接口
+        ### 实现方法，但不用管接口
 
         TypeScript interfaces are purely for developer convenience
         and are not used by Angular 2 at runtime. This means that in JavaScript
         code we don't need to substitute anything for interfaces. We can just
         implement the methods.
         
-        TypeScript接口是纯为开发者的方便服务的，它不能被Angular 2在运行时使用。这就意味着在JavaScript代码里面，
-        我们不需要使用任何东西来代替接口。我们可以直接实现方法。
+        TypeScript的接口纯粹是为了方便开发者而设计的，它不能被Angular 2在运行时使用。这就意味着在JavaScript代码里，
+        我们不需要使用任何东西来代替接口。我们只要直接实现它的方法就行了。
 
       +makeExample('cb-ts-to-js/js/app/hero-lifecycle.component.js')(format="." )
 
@@ -334,7 +334,7 @@ a(id="property-metadata")
 :marked
   ## Input and Output Metadata
   
-  ## 输入和输出元素据
+  ## `Input`(输入)和`Output`(输出)元数据
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -348,7 +348,7 @@ table(width="100%")
       :marked
         ### Input and Output Decorators
         
-        ### 输入和输出装饰器
+        ### `Input`(输入)和`Output`(输出)装饰器
 
         In TypeScript, property decorators are often used to provide additional metadata
         for components and directives.
@@ -362,8 +362,8 @@ table(width="100%")
         different from the class property names.
         
         我们使用[`@Input`](../api/core/index/Input-var.html) 和 [`@Output`](../api/core/index/Output-var.html)装饰器
-        来装饰[输入和输出](../guide/template-syntax.html#inputs-outputs)。
-        如果想要他们有与类属性名字不同的名字，我们可以选择性的指定输入和输出的绑定名字。
+        来装饰[输入属性与输出属性](../guide/template-syntax.html#inputs-outputs)。
+        如果想让它们的名字与类属性名不同，我们可以(可选的)指定输入和输出的绑定名。
 
       +makeExample('cb-ts-to-js/ts/app/hero-io.component.ts')(format="." )
 
@@ -372,25 +372,25 @@ table(width="100%")
           In TypeScript we can also use the `inputs` and `outputs` array metadata 
           instead of the `@Input` and `@Output` property decorators.
           
-          在TypeScript里，我们也可以使用`inputs`和`outputs`元数据数组，来取代`@Input`和`@Output`属性装饰器。
+          在TypeScript里，我们同样可以使用`inputs`和`outputs`元数据数组，来代替`@Input`和`@Output`属性装饰器。
     td
       :marked
         ### Inputs and Outputs in Component Metadata
         
-        ### 组件元数据里的输入和输出
+        ### 组件元数据里的输入属性和输出属性
 
         There is no equivalent of a property decorator in ES5 JavaScript. Instead, 
         we add comparable information to the `Component` (or `Directive`) metadata.
         
-        在ES5 JavaScript里面没有对等的属性装饰器。取而代之，我们可以添加类似信息到`组件`（或者`指令`）的元数据。
+        在ES5 JavaScript里并没有属性装饰器的等价物，但我们可以往`Component`（或者`Directive`）的元数据中添加对应的信息。
         
         In this example, we add `inputs` and `outputs` array attributes
         containing the input and output property names. 
         If we need a binding name that is different from the
         property itself, we use the `propertyName: bindingName` syntax.
         
-        在这个例子中，我们添加`inputs`和`outputs`数组属性，它们包含了输入和输出的属性名字。
-        如果我们需要一个与属性名字不同的绑定名字，我们可以使用`propertyName: bindingName`的语法。
+        在这个例子中，我们添加了`inputs`和`outputs`数组属性，它们包含了输入属性名和输出属性名。
+        如果我们需要一个不同于属性名的绑定名，可以使用`propertyName: bindingName`的语法。
 
       +makeExample('cb-ts-to-js/js/app/hero-io.component.js')(format="." )
 
@@ -418,7 +418,7 @@ table(width="100%")
         Angular 2 can often use TypeScript type information to
         determine what needs to be injected.
         
-        Angular 2可以经常使用TypeScript的类型信息来确定需要注入什么。
+        Angular 2通常使用TypeScript的类型信息来确定需要注入什么。
 
       +makeExample('cb-ts-to-js/ts/app/hero-di.component.ts')(format="." )
 
@@ -431,13 +431,14 @@ table(width="100%")
         Since no type information is available in ES5 JavaScript,
         we must identify "injectables" in some other way.
         
-        因为在ES5 JavaScript里没有类型信息，所以我们必须要使用其他方法来识别“可以注入”的东西。
+        由于在ES5 JavaScript里没有类型信息，所以我们必须使用其它方法来标记出“可供注入”的东西。
 
         We attach a `parameters` array to the constructor function. 
         Each array item is the dependency injection token that identifies the thing to be injected. 
         Often the token is the constructor function for the class-like dependency.
         
-        我们给构造函数附加一个`参数`数组。每个数组项目都是一个依赖注入的令牌，用来识别被注入的东西。
+        我们可以为构造函数附加一个`parameters`数组。数组中的每个条目都是一个“依赖注入令牌”，用来标识出希望被注入进来的东西。
+        通常，对于“类”依赖，这个令牌就是它的构造函数。
 
       +makeExample('cb-ts-to-js/js/app/hero-di.component.js')(format="." )
 
@@ -445,7 +446,7 @@ table(width="100%")
         When using the class convenience API, we can also supply the parameter
         tokens by wrapping the constructor in an array.
         
-        当我们使用类便利API时，我们也可以把构造器包装到一个数组里面来提供参数令牌。
+        当我们使用便捷API `Class`时，也可以把构造器包装到一个数组里面来提供参数令牌。
 
       +makeExample('cb-ts-to-js/js/app/hero-di-inline.component.js')(format="." )
 
@@ -454,16 +455,16 @@ table(width="100%")
       :marked
         ### Injection with the @Inject decorator
         
-        ### 使用@Inject装饰器来注入
+        ### 使用`@Inject`装饰器来注入
 
         When the thing being injected doesn't correspond directly to a type,
         we use the `@Inject()` decorator to supply the injection token.
         
-        当被注入的东西不是一个类型时，使用`@inject()`装饰器来提供注入令牌。
+        当被注入的东西不是一个类型时，要使用`@Inject()`装饰器来提供注入令牌。
         
         In this example, we're injecting a string identified by the "heroName" token.
         
-        在这个例子中，通过令牌"heroName"，我们注入了一个字符串。
+        在下面这个例子中，我们用令牌"heroName"注入了一个字符串。
 
       +makeExample('cb-ts-to-js/ts/app/hero-di-inject.component.ts')(format="." )
 
@@ -471,11 +472,11 @@ table(width="100%")
       :marked
         ### Injection with plain string tokens
         
-        ### 利用字符串令牌来注入
+        ### 利用普通字符串令牌来注入
 
         In JavaScript we add the token string to the injection parameters array.
         
-        在JavaScript里，我们添加令牌字符串到注入参数数组中。
+        在JavaScript中，我们要把令牌字符串添加到注入参数的数组中。
 
       +makeExample('cb-ts-to-js/js/app/hero-di-inject.component.js','parameters')(format="." )
       
@@ -483,7 +484,7 @@ table(width="100%")
         Alternatively, we can create a token with the `Inject` method and
         add that to the constructor array in the annotations like this:
         
-        另外，我们可以使用`Inject`方法来新建一个令牌，像这样把它加到注解的constructor数组中：
+        另外，我们可以使用`Inject`方法新建一个令牌，然后把它加到注解里的constructor数组中，就像这样：
         
       +makeExample('cb-ts-to-js/js/app/hero-di-inject.component.js','ctor')(format="." )        
 
@@ -492,7 +493,7 @@ table(width="100%")
       :marked
         ### Additional Injection Decorators
         
-        ### 额外注入装饰器
+        ### 额外的注入装饰器
 
         We can attach additional decorators to constructor parameters
         to qualify the injection behavior. We can mark
@@ -501,9 +502,9 @@ table(width="100%")
         inject content child queries with [`@Query`](../api/core/Query-var.html)
         and inject view child queries with [`@ViewQuery`](../api/core/ViewQuery-var.html).
         
-        我们可以附加额外装饰器到构造函数来调整注入行为。我们使用[`@Optional`](../api/core/index/Optional-var.html)来标示依赖是可选的，
-        用[`@Attribute`](../api/core/index/Attribute-var.html)标示注入宿主元素属性，
-        用[`@Query`](../api/core/index/Query-var.html)来注入内容子查询，用[`@ViewQuery`](../api/core/index/ViewQuery-var.html)来注入视图子查询。
+        我们可以往构造函数中附加额外的装饰器来调整注入行为。比如使用[`@Optional`](../api/core/index/Optional-var.html)来标记依赖是可选的，
+        用[`@Attribute`](../api/core/index/Attribute-var.html)来注入宿主元素的属性(Attribute)，
+        用[`@Query`](../api/core/index/Query-var.html)来注入投影内容的子查询，用[`@ViewQuery`](../api/core/index/ViewQuery-var.html)来注入视图的子查询。
 
       +makeExample('cb-ts-to-js/ts/app/hero-di-inject-additional.component.ts')(format="." )
 
@@ -511,18 +512,18 @@ table(width="100%")
       :marked
         ### Additional Injection Metadata with Nested Arrays 
         
-        ### 利用嵌套数组来处理额外注入元数据
+        ### 利用嵌套数组来添加额外的注入元数据
 
         To achieve the same effect in JavaScript, use the constructor array notation
         in which the injection information precedes the constructor function itself.
         
-        在JavaScript，为了达到一样的效果，使用构造数组表示法，在其中，注入信息优先于构造函数自己本身。
+        在JavaScript中，为了达到同样的效果，要使用构造器数组表示法，其中的注入信息优先于构造函数自身的。
         
         Use the injection support functions `Attribute`, `Host`, `Optional`, `Self`, `SkipSelf`,
         `Query` and `ViewQuery` to qualify dependency injection behavior.
         
-        使用注入支持的功能比如`Attribute`、 `Host`、 `Optional`、 `Self`、 `SkipSelf`、
-        `Query` 和 `ViewQuery`等来调整依赖注入行为。
+        使用“注入支持函数”，比如`Attribute`、 `Host`、 `Optional`、 `Self`、 `SkipSelf`、
+        `Query` 和 `ViewQuery`等来调整依赖注入的行为。
         
         Use a nested array to combine injection functions.
         
@@ -537,8 +538,8 @@ table(width="100%")
         by adding `new ng.core.Host()` or `ng.core.SkipSelf()` in the
         parameters array.
         
-        我们可以用同样的方法来应用其他额外的参数装饰器，比如[`@Host`](../api/core/index/Host-var.html) 和
-        [`@SkipSelf`](../api/core/index/SkipSelf-var.html)：添加`new ng.core.Host()` 或 `ng.core.SkipSelf()`到参数数组中。
+        我们可以用同样的方法来使用其它的额外参数装饰器，比如[`@Host`](../api/core/index/Host-var.html) 和
+        [`@SkipSelf`](../api/core/index/SkipSelf-var.html)：往参数数组中添加`new ng.core.Host()` 或 `ng.core.SkipSelf()`。
 
 
 a(id="other-property-metadata")
@@ -546,7 +547,7 @@ a(id="other-property-metadata")
 :marked
   ## Host and Query Metadata
   
-  ## 宿主和查询元数据
+  ## `Host`(宿主)与`Query`(查询)元数据
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -561,7 +562,7 @@ table(width="100%")
       :marked
         ### Host Decorators
         
-        ### 宿主装饰器
+        ### `Host`(宿主)装饰器
 
         We can use host property decorators to bind a host element to a component or directive.
         The [`@HostBinding`](../api/core/HostBinding-var.html) decorator
@@ -569,9 +570,9 @@ table(width="100%")
         The [`@HostListener`](../api/core/HostListener-var.html) decorator binds
         host element events to component event handlers.
         
-        我们可以使用宿主属性装饰器来绑定一个宿主元素到一个组件或者指令。
-        [`@HostBinding`](../api/core/index/HostBinding-var.html)装饰器绑定宿主元素属性到组件数据属性。
-         [`@HostListener`](../api/core/index/HostListener-var.html)装饰器绑定宿主元素事件到组件事件处理器。
+        我们可以使用宿主属性装饰器来把宿主元素绑定到组件或指令。
+        [`@HostBinding`](../api/core/index/HostBinding-var.html)装饰器把宿主元素的属性绑定到组件的数据属性。
+         [`@HostListener`](../api/core/index/HostListener-var.html)装饰器把宿主元素的事件绑定到组件的事件处理器。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-bindings.component.ts')(format="." )
       
@@ -580,7 +581,7 @@ table(width="100%")
           In TypeScript we can also use `host` metadata 
           instead of the `@HostBinding` and `@HostListener` property decorators.
           
-          在TypeScript，我们也可以使用`host`元数据来取代`@HostBinding`和`@HostListener`属性装饰器。
+          在TypeScript中，我们也可以用`host`元数据来代替`@HostBinding`和`@HostListener`属性装饰器。
     td
       :marked
         ### Host Metadata
@@ -590,20 +591,20 @@ table(width="100%")
         We add a `host` attribute to the component metadata to achieve the
         same effect as `@HostBinding` and `@HostListener`.
         
-        我们添加一个`host`属性到组件元素据，来达到与`@HostBinding`和`@HostListener`一样的效果。 
+        我们添加一个`host`属性到组件的元数据，以达到和`@HostBinding`、`@HostListener`一样的效果。 
         
         The  `host` value is an object whose properties are host property and listener bindings:
         
-        `host`的值是一个对象，它属性包含了宿主属性和事件的绑定。
+        `host`的值是一个对象，它的属性中包含了宿主属性和事件监听器的绑定。
         
         * Each key follows regular Angular 2 binding syntax: `[property]` for host bindings
           or `(event)` for host listeners.
           
-        * 每个键值（key）都遵循常规Angular 2绑定语法：`[property]`代表宿主属性绑定或`(event)`来代表数组事件绑定。
+        * 每个键值(key)都遵循常规的Angular 2绑定语法：用`[property]`代表宿主属性绑定，用`(event)`代表数组事件绑定。
         
         * Each value identifies the corresponding component property or method.
         
-        * 每个值（value）代表了对应的的组件属性和方法。
+        * 每个值(value)代表了对应的组件属性或方法。
         
       +makeExample('cb-ts-to-js/js/app/heroes-bindings.component.js')(format="." )
 
@@ -612,12 +613,12 @@ table(width="100%")
       :marked
         ### Query Decorators
         
-        ### 查询装饰器
+        ### `Query`(查询)装饰器
         
         There are several property decorators for querying the descendants of
         a component or directive.
         
-        用来查询组件和指令子级的属性装饰器有好几个。
+        有好几个属性装饰器可以用来查询组件或指令的各级子节点。
         
         The [`@ViewChild`](../api/core/ViewChild-var.html) and 
         [`@ViewChildren`](../api/core/ViewChildren-var.html) property decorators
@@ -625,8 +626,8 @@ table(width="100%")
         its view.
         
         [`@ViewChild`](../api/core/index/ViewChild-var.html)和
-        [`@ViewChildren`](../api/core/index/ViewChildren-var.html)属性装饰器允许一个组件查询
-        在自己模板里使用过的其他组件的实例。
+        [`@ViewChildren`](../api/core/index/ViewChildren-var.html)属性装饰器允许组件查询
+        在自己模板里用到的其它组件实例。
         
         
       +makeExample('cb-ts-to-js/ts/app/heroes-queries.component.ts', 'view')(format="." )
@@ -638,7 +639,7 @@ table(width="100%")
         into its view from elsewhere.
         
         [`@ContentChild`](../api/core/index/ContentChild-var.html) 和
-        [`@ContentChildren`](../api/core/index/ContentChildren-var.html)属性装饰器允许一个组件查询那些被从其它地方投影进自己视图里的组件的实例。
+        [`@ContentChildren`](../api/core/index/ContentChildren-var.html)属性装饰器允许组件查询那些从其它地方投影到自己视图里的其它组件实例。
         
       +makeExample('cb-ts-to-js/ts/app/heroes-queries.component.ts', 'content')(format="." )
       
@@ -647,25 +648,25 @@ table(width="100%")
           In TypeScript we can also use the `queries` metadata 
           instead of the `@ViewChild` and `@ContentChild` property decorators.
           
-          在TypeScript我们也可以使用`queries`元数据来取代`@ViewChild`和`@ContentChild`属性装饰器。      
+          在TypeScript中，我们也可以使用`queries`元数据来代替`@ViewChild`和`@ContentChild`属性装饰器。      
     td
       :marked
         ### Query Metadata
         
-        ### 查询元数据
+        ### `Query`(查询)元数据
         
         We access a component's view children by adding a `queries` attribute to
         the component metadata. It should be an object where:
         
-        我们通过添加`queries`属性到组件元数据来访问一个组件的视图子级。它应该是一个对象：
+        我们通过往组件元数据中添加`queries`属性来访问一个组件的各级子节点。它应该是一个对象，其中：
         
         * Each key is the name of a component property that will hold the view children
         
-        * 每个键值（key）都是一个组件属性的名字，该属性是用来装载视图子级的。
+        * 每个键值(key)都是组件中的一个属性名，该属性用来保存当前视图的子节点。
         
         * Each value is an instance of either `ViewChild` or `ViewChildren`.
         
-        * 每个值都是一个`ViewChild`或者`ViewChildren`实例。
+        * 每个值都是一个`ViewChild`或者`ViewChildren`的实例。
         
       +makeExample('cb-ts-to-js/js/app/heroes-queries.component.js', 'view')(format="." )
 
@@ -673,6 +674,6 @@ table(width="100%")
         We add *content* child queries to the same `queries` attribute
         in the same manner, using instances of `ContentChild` or `ContentChildren`:
         
-        同样，我们利用`ContentChild`和`ContentChildren`来添加*content*子级查询到`queries`属性：
+        同样的，我们利用`ContentChild`和`ContentChildren`往`queries`属性中添加*投影内容*的子查询：
         
       +makeExample('cb-ts-to-js/js/app/heroes-queries.component.js', 'content')(format="." )
