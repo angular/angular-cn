@@ -223,7 +223,7 @@ code-example(language="bash").
   `AppComponent`该如何在运行中获得一个具体的`HeroService`实例呢？
   
   ### Do we *new* the *HeroService*? No way!
-  ### 我们要自己 *new* 出这个 *HeroService* 吗？没门！
+  ### 我们要自己 *new* 出这个 *HeroService* 吗？不！
   We could create a new instance  of the `HeroService` with "new" like this:
   
   固然，我们可以使用`new`关键字来创建`HeroService`的实例，就像这样：
@@ -238,7 +238,7 @@ code-example(language="bash").
   we'll have to find every place we create the service and fix it.
   Running around patching code is error prone and adds to the test burden.
   
-  * 我们的组件将不得不懂得该如何创建`HeroService`。
+  * 我们的组件将不得不弄清楚该如何创建`HeroService`。
   如果有一天我们修改了`HeroService`的构造函数，我们不得不找出创建过此服务的每一处代码，并修改它。
   而给代码打补丁的行为容易导致错误，并增加了测试的负担。
     
@@ -266,7 +266,7 @@ code-example(language="bash").
   We get it. Really we do. 
   But it is so ridiculously easy to avoid these problems that there is no excuse for doing it wrong.
 
-  有办法了，真的！这个办法真是简单得不可思议，它能解决这些问题，你就再也没有犯错误的接口了。
+  有办法了，真的！这个办法真是简单得不可思议，它能解决这些问题，你就再也没有犯错误的借口了。
 
   ### Inject the *HeroService*
   ### 注入 *HeroService*
@@ -307,8 +307,7 @@ code-example(language="bash").
   如果现在运行我们的代码，Angular就会失败，并报错：
 code-example(format="." language="html").
     EXCEPTION: No provider for HeroService! (AppComponent -> HeroService)
-    
-    EXCEPTION: No provider for HeroService! (AppComponent -> HeroService) —— 异常：没有HeroService的供应商！（AppComponent -> HeroService）
+    (异常：没有HeroService的供应商！(AppComponent -> HeroService))
 :marked
   We have to teach the *injector* how to make a `HeroService` by registering a `HeroService` **provider**.
   Do that by adding the following `providers` array property to the bottom of the component metadata

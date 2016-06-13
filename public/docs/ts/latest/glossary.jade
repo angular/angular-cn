@@ -118,7 +118,7 @@ include _util-fns
 
 :marked
   ## Binding
-  ## 绑定
+  ## 绑定(Binding)
 .l-sub-section
   :marked
     Almost always refers to [Data Binding](#data-binding) and the act of
@@ -135,7 +135,7 @@ include _util-fns
 
 :marked
   ## Bootstrap
-  ## 启动/引导
+  ## 启动/引导(Bootstrap)
 .l-sub-section
   :marked
     We launch an Angular application by "bootstrapping" it with the `bootstrap` method.
@@ -154,7 +154,7 @@ include _util-fns
 .l-main-section
 :marked
   ## camelCase
-  ## 驼峰式命名法
+  ## 驼峰式命名法(camelCase)
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter 
@@ -174,7 +174,7 @@ include _util-fns
 
 :marked
   ## Component
-  ## 组件
+  ## 组件(Component)
 .l-sub-section
   :marked
     An Angular class responsible for exposing data
@@ -208,7 +208,7 @@ include _util-fns
 .l-main-section
 :marked
   ## dash-case
-  ## 中线命名法
+  ## 中线命名法(dash-case)
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
@@ -225,7 +225,7 @@ include _util-fns
 
 :marked
   ## Data Binding
-  ## 数据绑定
+  ## 数据绑定(Data Binding)
 .l-sub-section
   :marked
     Applications display data values to a user and respond to user
@@ -277,7 +277,7 @@ include _util-fns
 <a id="decorator"></a> <a id="decoration"></a>
 :marked
   ## Decorator | Decoration
-  ## 装饰器
+  ## 装饰器(Decorator | Decoration)
 .l-sub-section
   :marked
     A Decorator is a **function** that adds metadata to a class, its members (properties, methods) and function arguments.
@@ -329,7 +329,7 @@ include _util-fns
 // #docregion d2
 :marked
   ## Dependency Injection
-  ## 依赖注入
+  ## 依赖注入(Dependency Injection)
 .l-sub-section
   :marked
     Dependency Injection is both a design pattern and a mechanism
@@ -413,7 +413,7 @@ include _util-fns
     
 :marked
   ## Directive
-  ## 指令
+  ## 指令(Directive)
 .l-sub-section
   :marked
     An Angular class responsible for creating, re-shaping, and interacting with HTML elements
@@ -532,7 +532,7 @@ include _util-fns
 .l-main-section
 :marked
   ## Injector
-  ## 注入器
+  ## 注入器(Injector)
 .l-sub-section
   :marked
     An object in the Angular [dependency injection system](#dependency-injection)
@@ -542,6 +542,7 @@ include _util-fns
     Angular[依赖注入系统](#dependency-injection)中的一个对象，它可以在自己的缓存中找到一个“有名字的依赖”或者利用一个已注册的[provider](#provider)创建这样的依赖。
 :marked
   ## Input
+  ## 输入属性(Input)
 .l-sub-section
   :marked
     A directive property that can be the ***target*** of a
@@ -557,7 +558,7 @@ include _util-fns
 
 :marked
   ## Interpolation
-  ## 插值表达式
+  ## 插值表达式(Interpolation)
 .l-sub-section
   :marked
     A form of [Property Data Binding](#data-binding) in which a
@@ -583,7 +584,7 @@ include _util-fns
 <a id="K"></a>
 :marked
   ## kebab-case
-  ## 烤串命名法
+  ## 烤串命名法(kebab-case)
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (-). 
@@ -602,7 +603,7 @@ include _util-fns
 .l-main-section
 :marked
   ## Lifecycle Hooks
-  ## 生命周期钩子
+  ## 生命周期钩子(Lifecycle Hooks)
 .l-sub-section
   :marked
     [Directives](#directive) and [Components](#component) have a lifecycle
@@ -653,7 +654,7 @@ include _util-fns
 .l-main-section
 :marked
   ## Module
-  ## 模块
+  ## 模块(Module)
 .l-sub-section
   :marked
     Angular apps are modular.
@@ -714,7 +715,7 @@ include _util-fns
 .l-main-section
 :marked
   ## Output
-  ## 输出
+  ## 输出(Output)
 .l-sub-section
   :marked
     A directive property that can be the ***target*** of an
@@ -733,7 +734,7 @@ include _util-fns
 <a id="P"></a>
 :marked
   ## PascalCase
-  ## Pascal命名法
+  ## Pascal命名法(PascalCase)
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter. 
@@ -749,7 +750,7 @@ include _util-fns
 
 :marked
   ## Pipe
-  ## 管道
+  ## 管道(Pipe)
 .l-sub-section
   :marked
     An Angular pipe is a function that transforms input values to output values for
@@ -774,12 +775,13 @@ include _util-fns
 
 :marked
   ## Provider
+  ## 供应商(Provider)
 .l-sub-section
   :marked
     A Provider creates a new instance of a dependency for the Dependency Injection system.
     It relates a lookup token to code - sometimes called a "recipe" - that can create a dependency value.
     
-    依赖注入系统依靠Provider来创建依赖的实例。它把一个查阅用的Token关联到代码（有时也叫“配方”），可以创建依赖值。
+    依赖注入系统依靠供应商来创建依赖的实例。它把一个查阅用的Token关联到代码（有时也叫“配方”），可以创建依赖值。
     
     For example, `new Provider(Foo, {useClass: Foo})` creates a `Provider`
     that relates the `Foo` token to a function that creates a new instance of the `Foo` class.
@@ -789,7 +791,7 @@ include _util-fns
     There are other ways to create tokens and recipes.
     See [Dependency Injection](#dependency-injection) chapter to learn more.
     
-    还有其它一些方法建立Token和方剂。
+    还有其它一些方法创建令牌(Token)和配方。
     参见[依赖注入Dependency Injection](#dependency-injection)以获取更多信息。 
 
 .l-main-section
@@ -797,7 +799,7 @@ include _util-fns
 <a id="R"></a>
 :marked
   ## Router
-  ## 路由器
+  ## 路由器(Router)
 .l-sub-section
   :marked
     Most applications consist of many screens or [views](#view).
@@ -815,7 +817,7 @@ include _util-fns
     
 :marked
   ## Routing Component
-  ## 路由组件
+  ## 路由组件(Routing Component)
 .l-sub-section
   :marked
     A [Component](#component) with an attached router.
@@ -839,23 +841,32 @@ include _util-fns
 .l-main-section
 :marked
   ## Scoped Package
+  ## 范围化包(Scoped Package)
 .l-sub-section
   :marked
     Angular modules are delivered within *scoped packages* such as `@angular/core`, `@angular/common`, `@angular/platform-browser-dynamic`,
     `@angular/http`, and `@angular/router`.
+    
+    Angular模块是用一系列*范围化包*的形式发布的，比如`@angular/core`, `@angular/common`, `@angular/platform-browser-dynamic`,
+    `@angular/http` 和 `@angular/router`
 
     A [*scoped package*](https://docs.npmjs.com/misc/scope) is a way to group related *npm* packages.
+    
+    [*范围化包*](https://docs.npmjs.com/misc/scope)是对有关联的*npm*包进行分组的一种方式。
     
     We import a scoped package the same way we'd import a *normal* package. 
     The only difference, from a consumer perspective, 
     is that the package name begins with the Angular *scope name*, `@angular`.
+    
+    我们使用和导入*普通*包相同的方式导入范围化包。
+    从消费者的视角看，唯一的不同是那些包的名字是用Angular的*范围名*`@angular`开头儿的。
 // #enddocregion n-s
 +makeExample('../docs/_fragments/architecture/ts/app/app.component.ts', 'import')(format=".")
 // #docregion n-s
 
 :marked
   ## Structural Directive
-  ## 结构型指令
+  ## 结构型指令(Structural Directive)
 .l-sub-section
   :marked
     A category of [Directive](#directive) that can
@@ -876,7 +887,7 @@ include _util-fns
 .l-main-section
 :marked
   ## Template
-  ## 模板
+  ## 模板(Template)
 .l-sub-section
   :marked
     A template is a chunk of HTML that Angular uses to render a [view](#view) with
@@ -891,7 +902,7 @@ include _util-fns
 
 :marked
   ## Template Expression
-  ## 模板表达式
+  ## 模板表达式(Template Expression)
 .l-sub-section
   :marked
     An expression in a JavaScript-like syntax that Angular evaluates within
@@ -903,7 +914,7 @@ include _util-fns
 // #docregion t2
 :marked
   ## Transpile
-  ## 编译
+  ## 转译(Transpile)
 .l-sub-section
   :marked
     The process of transforming code written in one form of JavaScript
@@ -948,7 +959,7 @@ include _util-fns
 .l-main-section
 :marked
   ## View
-  ## 视图
+  ## 视图(View)
 .l-sub-section
   :marked
     A view is a portion of the screen that displays information and responds
@@ -977,7 +988,7 @@ include _util-fns
 <a id="Z"></a>
 :marked
   ## Zones
-  ## 区域
+  ## 区域(Zones)
 .l-sub-section
   :marked
     Zones are a mechanism for encapsulating and intercepting
