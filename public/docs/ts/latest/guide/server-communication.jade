@@ -1068,8 +1068,8 @@ a#in-mem-web-api
     to mitigate the [security risk](http://stackoverflow.com/questions/3503102/what-are-top-level-json-arrays-and-why-are-they-a-security-risk)
     posed by top-level JSON arrays. 
     
-    我们把英雄数组包装在一个带有`data`属性的对象中，就像一个数据服务器所做的那样：
-    用于缓解由顶层的JSON数组带来的[安全风险](http://stackoverflow.com/questions/3503102/what-are-top-level-json-arrays-and-why-are-they-a-security-risk)。
+    我们把英雄数组包装进一个带`data`属性的对象中，就像一个真正的数据服务器所应该做的那样。
+    这样可以缓解由顶级JSON数组导致的[安全风险](http://stackoverflow.com/questions/3503102/what-are-top-level-json-arrays-and-why-are-they-a-security-risk)。
 :marked
   We'd set the endpoint to the JSON file like this:
   
@@ -1107,7 +1107,7 @@ a#in-mem-web-api
   
   Here's the class we created for this sample based on the JSON data:
   
-  这里是与范例中那个基于JSON的数据源完成相同功能的类：
+  这里是与范例中基于JSON的数据源完成相同功能的类：
 +makeExample('server-communication/ts/app/hero-data.ts', null, 'app/hero-data.ts')(format=".")
 :marked
   Ensure that the `HeroService` endpoint refers to the web API:
@@ -1123,7 +1123,7 @@ block redirect-to-web-api
     This redirection is easy to configure because Angular's `http` service delegates the client/server communication tasks
     to a helper service called the `XHRBackend`. 
     
-    这次重定向非常易于配置，这是因为Angular的`http`服务把客户端/服务器通讯的工作委托给了一个叫做`XHRBackend`的辅助服务。
+    这次重定向非常容易配置，这是因为Angular的`http`服务把客户端/服务器通讯的工作委托给了一个叫做`XHRBackend`的辅助服务。
 
     To enable our server simulation, we replace the default `XHRBackend` service with 
     the in-memory web API service using standard Angular provider registration techniques. 
