@@ -139,7 +139,7 @@ code-example(language="bash").
   当TypeScript看到`@Injectable()`装饰器时，就会记下本服务的元数据。如果Angular需要往这个服务中注入其它依赖，就会使用这些元数据。
   
   The `HeroService` doesn't have any dependencies *at the moment*. Add the decorator anyway.
-  It is a "best practice" to apply the `@Injectable()` decorator ​*from the start*​ 
+  It is a "best practice" to apply the `@Injectable()` decorator *from the start* 
   both for consistency and for future-proofing.
   
   此刻，`HeroService`还没有任何依赖，但我们还是得加上这个装饰器。作为一项最佳实践，无论是出于提高统一性还是减少变更的目的，都应该从一开始就加上`@Injectable()`装饰器。
@@ -260,7 +260,7 @@ code-example(language="bash").
   我们很难在别的场景中把它换成别的实现。
   比如，能离线操作吗？能在测试时使用不同的模拟版本吗？这可不容易。
   
-  *What if ... what if ... Hey, we've got work to do!*
+  * What if ... what if ... Hey, we've got work to do!*
   * 如果……如果……嘿！这下我们可有得忙了！
   
   We get it. Really we do. 
@@ -320,6 +320,9 @@ code-example(format="." language="html").
 :marked
   The `providers` array  tells Angular to create a fresh instance of the `HeroService` when it creates a new `AppComponent`.
   The `AppComponent` can use that service to get heroes and so can every child component of its component tree.
+  
+  `providers`数组告诉Angular，当它创建新的`AppComponent`组件时，也要创建一个`HeroService`的新实例。
+  `AppComponent`会使用那个服务来获取影响列表，在它组件树中的每一个子组件也同样如此。
 a#child-component
 :marked
   ### *getHeroes* in the *AppComponent*
