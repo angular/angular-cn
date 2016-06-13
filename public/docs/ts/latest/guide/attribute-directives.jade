@@ -285,12 +285,10 @@ a#respond-to-user
   我们需要：
   1. detect when the user hovers into and out of the element,
   1. 检测用户的鼠标啥时候进入和离开这个元素。
-  1. respond to those actions by setting and clearing the highlight color, respectively.
-  1. 通过设置和清除高亮色来响应这些操作。
+  2. respond to those actions by setting and clearing the highlight color, respectively.
+  2. 通过设置和清除高亮色来响应这些操作。
   
-  Let's start with event detection. 
-  Add a `host` property to the directive metadata and give it a configuration object
-  that specifies two mouse events and the directive methods to call when they are raised:
+  We use the `@HostListener` decorator on a method which is called when the event is raised.
 
   从事件检测开始吧。
   我们把`host`属性加入指令的元数据中，并给它一个配置对象，用来指定两个鼠标事件，并在它们被触发时，调用指令中的方法：
@@ -298,9 +296,9 @@ a#respond-to-user
 
 .l-sub-section
   :marked
-    The `host` property refers to the DOM element that hosts our attribute directive, the `<p>` in our case.
+    The `@HostListener` decorator refers to the DOM element that hosts our attribute directive, the `<p>` in our case.
     
-    `host`属性引用的是我们这个属性型指令的宿主元素，在这个例子中就是`<p>`。
+    `@HostListener`装饰器引用的是我们这个属性型指令的宿主元素，在这个例子中就是`<p>`。
      
     We could have attached event listeners by manipulating the host DOM element directly, but
     there are at least three problems with such an approach:
@@ -314,9 +312,9 @@ a#respond-to-user
     1. We'd be talking to DOM API directly which, we learned, is something to avoid.
     1. 我们必须直接和DOM API打交道，但正如我们学过的那样，应该避免这样做。
 
-    Let's roll with the `host` property. 
+    Let's roll with the `@HostListener` decorator. 
     
-    我们还是围绕`host`属性来吧。
+    我们还是围绕`@HostListener`装饰器来吧。
 :marked
   Now we implement the two mouse event handlers:
   

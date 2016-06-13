@@ -104,9 +104,9 @@ include ../_util-fns
    现在我们已经有一个定义好的完整模型了，接着就可以开始创建一个展现动态表单的组件。
 
 :marked
-  `DynamicForm` is the entry point and the main container for the form.
+  `DynamicFormComponent` is the entry point and the main container for the form. 
   
-  `DynamicForm`是我们表单的主要容器和入口点。 
+  `DynamicFormComponent`是我们表单的主要容器和入口点。 
   
 +makeTabs(
   `cb-dynamic-form/ts/app/dynamic-form.component.html,
@@ -148,7 +148,7 @@ include ../_util-fns
    ## 问卷数据
    
 :marked
-  `DynamicForm` expects the list of questions in the form of an array bound to  `@Input() questions`.
+  `DynamicFormComponent` expects the list of questions in the form of an array bound to  `@Input() questions`.
 
    `DynamicForm`期望得到一个问题列表，该列表被绑定到`@Input() questions`属性。
     
@@ -212,3 +212,4 @@ figure.image-display
    [Back to top](#top)
    
    [回到顶部](#top)
+
