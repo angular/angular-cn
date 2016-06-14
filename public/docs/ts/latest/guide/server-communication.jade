@@ -14,7 +14,7 @@ block includes
     The [`WebSocket`](https://tools.ietf.org/html/rfc6455) protocol is another important communication technology;
     we won't cover it in this chapter.
     
-    [`WebSocket`](https://tools.ietf.org/html/rfc6455)协议是另一种重要的通讯技术，但我们本章不会涉及它。
+    [`WebSocket`](https://tools.ietf.org/html/rfc6455)协议是另一种重要的通讯技术，但本章不会涉及它。
 :marked
   Modern browsers support two HTTP-based APIs: 
   [XMLHttpRequest (XHR)](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) and 
@@ -29,7 +29,7 @@ block includes
   The !{_Angular_http_library} simplifies application programming of the **XHR** and **JSONP** APIs
   as we'll learn in this chapter covering:
   
-  !{_Angular_http_libraryCn}简化了**XHR**和**JSONP**的编程，这就是本章所要讲的。
+  !{_Angular_http_libraryCn}简化了**XHR**和**JSONP** API的编程，这就是本章所要讲的。
 
 ul
   li #[a(href="#http-client") HTTP client sample overview]
@@ -49,9 +49,9 @@ ul
   li #[a(href="#update") 把数据发送到服务器]
   +ifDocsFor('ts')
     li #[a(href="#promises") Promises instead of observables]
-    li #[a(href="#promises") 把承诺(Promise)换成可观察对象(Observable)]
+    li #[a(href="#promises") 使用承诺(Promise)来取代可观察对象(Observable)]
   li #[a(href="#cors") Cross-origin requests: Wikipedia example]
-  li #[a(href="#cors") 跨域请求：以Wikipedia为例]
+  li #[a(href="#cors") 跨域请求：Wikipedia例子]
   +ifDocsFor('ts')
     ul
       li #[a(href="#search-parameters") Set query string parameters]
@@ -64,7 +64,7 @@ p.
   We illustrate these topics with code that you can 
   #[+liveExampleLink2('run live in a browser')].
 p.
-  讲解这些主题的代码，可以在#[+liveExampleLink2('浏览器中运行在线版')].
+  我们在#[+liveExampleLink2('在线版')]中展示了这些主题，你可以在浏览器中运行它们。
   
 .l-main-section
 h1 Demos
@@ -84,7 +84,7 @@ ul
 :marked
   These demos are orchestrated by the root `AppComponent`
   
-  这些演示由根组件`AppComponent`统一指挥
+  这些演示由根组件`AppComponent`统一演示。
 +makeExample('server-communication/ts/app/app.component.ts', null, 'app/app.component.ts')
 
 block rxjs-import
@@ -96,11 +96,11 @@ block rxjs-import
   :marked
     We'll talk about that [below](#rxjs) when we're ready to explore observables.
     
-    等准备好时，我们会在[后面](#rxjs)讲述可观察对象。
+    我们会在[后面](#rxjs)适当的时间来讲述可观察对象。
 :marked
   First, we have to configure our application to use server communication facilities.
 
-  首先，我们必须配置应用程序才能使用服务器通讯设施。
+  首先，我们必须配置应用程序，才能使用服务器通讯设施。
 .l-main-section
 h1#http-providers Providing HTTP Services
 h1#http-providers 提供HTTP服务
@@ -108,8 +108,7 @@ h1#http-providers 提供HTTP服务
   We use the !{_Angular_Http} client to communicate with a server using a familiar HTTP request/response protocol.
   The `#{_Http}` client is one of a family of services in the !{_Angular_http_library}.
   
-  我们使用!{_Angular_Http}客户端来与服务器通讯，它支持一组HTTP的请求(Request)/回应(Response)协议。
-  `#{_Http}`客户端是!{_Angular_http_libraryCn}所提供的服务大家庭中的一员。
+  我们通过!{_Angular_Http}客户端，使用熟悉的HTTP请求/回应协议与服务器通讯。`#{_Http}`客户端是!{_Angular_http_libraryCn}所提供的服务大家庭中的一员。
 block system-config-of-http
   .l-sub-section
     :marked
@@ -128,7 +127,7 @@ block system-config-of-http
     了解关于供应商的更多知识，参见[依赖注入](dependency-injection.html)一章。
 
 p In this demo, we register providers in the #[code bootstrap] method of #[code #[+adjExPath('app/main.ts')]].
-p 下面这个演示中，我们在#[code #[+adjExPath('app/main.ts')]]文件的#[code bootstrap]方法中注册了供应商。
+p 在这个例子中，我们在#[code #[+adjExPath('app/main.ts')]]文件的#[code bootstrap]方法中注册供应商。
 +makeExample('server-communication/ts/app/main.ts', 'v1', 'app/main.ts (v1)')(format='.')
 
 block http-providers
@@ -161,8 +160,7 @@ block http-providers
     This replacement service is called the [*in-memory web api*](#in-mem-web-api).
     
     因为这是一个*范例程序*，它不会跟真实的服务器打交道。
-    我们准备用一个伪造的供应商来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。
-    这个用于替换的服务称为[*内存Web API*](#in-mem-web-api)。
+    我们准备用一个伪造的供应商[*内存Web API*](#in-mem-web-api)来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。    
     
     Such sleight-of-hand is something the root application component should *not* know about.
     For this reason, and this reason *only*, we hide it *above* the `AppComponent` in `main.ts`.
@@ -180,7 +178,7 @@ h1#http-client 《英雄指南》#[i HTTP]客户端的演示
   
   我们的第一个演示是《英雄指南(TOH)》教程的一个迷你版。
   这个版本从服务器获取一些英雄，把它们显示在列表中，还允许我们添加新的英雄并将其保存到服务器。
-  我们借助!{_Angular_Http}客户端，来通过`XMLHttpRequest (XHR)`与服务器通讯。
+  借助!{_Angular_Http}客户端，我们通过`XMLHttpRequest (XHR)`与服务器通讯。
 
   It works like this.
   
@@ -203,7 +201,7 @@ figure.image-display
   
   它使用`ngFor`来展现这个英雄列表。
   列表的下方是一个输入框和一个*Add Hero*按钮，在那里，我们可以输入新英雄的名字，并把他们加到数据库中。
-  我们在`(click)`事件绑定中使用[模板引用变量](template-syntax.html#ref-vars)`newHeroName`来访问这个输入框的值。
+  在`(click)`事件绑定中，我们使用[模板引用变量](template-syntax.html#ref-vars)`newHeroName`来访问这个输入框的值。
   当用户点击此按钮时，我们把这个值传给组件的`addHero`方法，然后清除它，以备输入新英雄的名字。
   
   Below the button is an area for an error message.
@@ -234,14 +232,14 @@ a#HeroListComponent
   
   This is a golden rule: **always delegate data access to a supporting service class**.
   
-  这是一条“黄金法则”：**总是把数据访问工作委托给一个提供支持的服务类**。
+  这是一条“黄金法则”：**总是把数据访问工作委托给一个支持服务类**。
 
   Although _at runtime_ the component requests heroes immediately after creation, 
   we do **not** call the service's `get` method in the component's constructor.
   We call it inside the `ngOnInit` [lifecycle hook](lifecycle-hooks.html) instead
   and count on Angular to call `ngOnInit` when it instantiates this component. 
   
-  虽然_在运行期间_，组件会在创建之后立刻请求这些英雄数据，但我们**不会**在组件的构造函数中调用此服务的`get`方法。
+  虽然_在运行期间_，组件会在创建之后立刻请求这些英雄数据，但我们**不**在组件的构造函数中调用此服务的`get`方法。
   而是在`ngOnInit`[生命周期钩子](lifecycle-hooks.html)中调用它，Angular会在初始化该组件时调用`ngOnInit`方法。
 .l-sub-section
   :marked
@@ -249,8 +247,8 @@ a#HeroListComponent
     Components are easier to test and debug when their constructors are simple and all real work 
     (especially calling a remote server) is handled in a separate method.
     
-    这是一项*最佳实践*。
-    当组件的构造函数足够简单，而且所有真实的工作(尤其是调用远端服务器)都在一个独立的方法中处理时，组件会更加容易测试和调试。
+    这是*最佳实践*。
+    当组件的构造函数足够简单，并且所有真实的工作(尤其是调用远端服务器)都在一个独立的方法中处理时，组件会更加容易测试和调试。
 block getheroes-and-addhero
   :marked
     The service's `getHeroes()` and `addHero()` methods return an `Observable` of hero data that the !{_Angular_Http} client fetched from the server.
@@ -260,8 +258,8 @@ block getheroes-and-addhero
     *Observables* are a big topic, beyond the scope of this chapter. 
     But we need to know a little about them to appreciate what is going on here.
     
-    *可观察对象(Observable)*是一个很大的主题，远超本章所能覆盖的范围之外。
-    但我们还是要了解它们一点儿，这样才能理解它在本章中做的那些工作。
+    *可观察对象(Observable)*是一个很大的主题，远超本章所能覆盖的范围。
+    但我们还是要初略了解它们，这样才能理解它在本章实例中的作用。
     
     We should think of an `Observable` as a stream of events published by some source.
     We listen for events in this stream by ***subscribing*** to the `Observable`. 
@@ -269,13 +267,13 @@ block getheroes-and-addhero
     produces a success event (with the hero data in the event payload) or a fail event (with the error in the payload).
     
     我们可以把可观察对象`Observable`看做一个由某些“源”发布的事件流。
-    我们通过***订阅***到可观察对象`Observable`来监听这个流中的事件。
+    通过***订阅***到可观察对象`Observable`，我们监听这个流中的事件。
     在这些订阅中，我们指定了当Web请求生成了一个成功事件(有效载荷是英雄数据)或失败事件(有效载荷是错误对象)时该如何采取行动。
 
 :marked
   With our basic intuitions about the component squared away, we're ready to look inside the `HeroService`.
   
-  关于组件的浅显讲解已经结束了，我们准备到`HeroService`的内部实现中看看。
+  关于组件的浅显讲解已经结束了，我们可以到`HeroService`的内部实现中看看。
 
 .l-main-section
 a#HeroService
@@ -331,9 +329,8 @@ block rxjs
 
     <a id="rxjs"></a>
     返回值可能会让我们感到意外。
-    如果按照很多人在现代JavaScript中所熟悉的那种异步调用方法，`get`方法应该返回一个
-    [承诺(promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
-    我们可能期待链接调用`then()`方法并从中取得英雄列表，取而代之，我们调用了一个`map()`方法。
+    对熟悉现代JavaScript中的异步调用方法的人来说，我们期待`get`方法返回一个[承诺(promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
+    我们期待链接调用`then()`方法，并从中取得英雄列表。取而代之，这里调用了一个`map()`方法。
     显然，这并不是承诺(Promise)。
 
     In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
@@ -356,9 +353,8 @@ block rxjs
     We certainly need it now when working with the HTTP client.
     And we must take a critical extra step to make RxJS observables usable.
     
-    这本开发指南中的所有例子都安装了RxJS的npm包，而且都被`system.js`加载过了。这是因为可观察对象在Angular应用中使用非常广泛。
-    我们在使用HTTP客户端的时候当然就更需要它了。
-    不过仍然得经过一个关键步骤，能让RxJS可观察对象在此处可用。
+    本开发指南中的所有例子都安装了RxJS的npm包，而且都被`system.js`加载过了。这是因为可观察对象在Angular应用中使用非常广泛。
+    HTTP客户端更需要它。经过一个关键步骤，我们才能让RxJS可观察对象可用。
 
     ### Enable RxJS Operators
     ### 启用RxJS操作符
@@ -367,8 +363,8 @@ block rxjs
     We should include only those features that we actually need.
     
     RxJS库实在是太大了。
-    当我们构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。
-    我们应该只包含哪些我们确实需要的特性。
+    当构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。
+    我们应该只包含那些我们确实需要的特性。
 
     Accordingly, Angular exposes a stripped down version of `Observable` in the `rxjs/Observable` module, 
     a version that lacks most of the operators including some we'd like to use here
@@ -398,13 +394,13 @@ block rxjs
   :marked
     If we forget an operator, the TypeScript compiler will warn that it's missing and we'll update this file.
     
-    如果我们忘了导入某个操作符，TypeScript编译器就会警告说找不到它，那时候我们再来更新此文件。
+    如果忘了导入某个操作符，TypeScript编译器就会警告说找不到它，那时候我们再来更新此文件。
   .l-sub-section
     :marked
       We don't need _all_ of these particular operators in the `HeroService` &mdash; just `map`, `catch` and `throw`.
       We'll need the other operators later, in a *Wiki* example [below](#more-observables).
       
-      在`HeroService`中，我们并不需要这里导入的_全部_操作符 —— 我们只用到了`map`、`catch`和`throw`。
+      在`HeroService`中，我们并不需要在这里导入的_全部_操作符 —— 我们只用到了`map`、`catch`和`throw`。
       我们稍后的[*Wiki*例子](#more-observables)中，还会用到其它操作符。
   :marked
     Finally, we import `rxjs-operator`_itself_ in our `app.component.ts`:
@@ -414,7 +410,7 @@ block rxjs
   :marked
     Let's return to our study of the `HeroService`.
     
-    让我们回来继续学习`HeroService`。
+    让我们回来继续研究`HeroService`。
 l-main-section
 a#extract-data
 :marked
@@ -429,7 +425,7 @@ a#extract-data
   To make it useful in our application we must parse the response data into a JSON object
   
   这个`response`对象并没有以一种我们能直接使用的格式来保存数据。
-  要让它在应用程序中可用，我们就必须把这个相应数据解析成一个JSON对象。
+  要让它在应用程序中可用，我们就必须把这个响应数据解析成一个JSON对象。
 
   #### Parse to JSON
   #### 解析成JSON
@@ -449,7 +445,7 @@ block parse-json
       That spec defines a `json()` method that parses the response body into a JavaScript object.
       
       这不是Angular自己的设计。
-      Angular HTTP客户端遵循ES2015规范来处理`Fetch`函数返回[响应对象](https://fetch.spec.whatwg.org/#response-class)。
+      Angular HTTP客户端遵循ES2015规范来处理`Fetch`函数返回的[响应对象](https://fetch.spec.whatwg.org/#response-class)。
       此规范中定义了一个`json()`函数，来把响应体解析成JavaScript对象。
 
 .l-sub-section
@@ -460,8 +456,8 @@ block parse-json
     This is conventional web api behavior, driven by 
     [security concerns](https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside).
     
-    我们不能期待解码后的JSON直接就是一个英雄数组。
-    我们调用的这个服务器总会把JSON结果包装进一个带`data`属性的对象中。
+    我们不应该期待解码后的JSON直接就是一个英雄数组。
+    调用的这个服务器总会把JSON结果包装进一个带`data`属性的对象中。
     我们必须解开它才能得到英雄数组。这是一个约定俗成的Web API行为规范，它是出于
     [安全方面的考虑](https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside)。
 .alert.is-important
@@ -500,7 +496,7 @@ block parse-json
       
       `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
       [*冷淡的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
-      这意味着，直到某人*订阅*了这个可观察对象时，这个请求才会被发出。
+      也就是说，只有当某人*订阅*了这个可观察对象时，这个请求才会被发出。
       这个场景中的*某人*就是[HeroListComponent](#subscribe)。
 
 a#error-handling
@@ -515,7 +511,7 @@ a#error-handling
   
   一旦开始与I/O打交道，我们就必须准备好接受墨菲定律：如果一件倒霉事*可能*发生，它就*迟早会*发生。
   我们可以在`HeroService`中捕获错误，并对它们做些处理。
-  在用户可以理解并采取相应行动的时候，我们也可以把错误信息传回到组件，让组件展示给最终用户。
+  只有在用户可以理解并采取相应行动的时候，我们才把错误信息传回到组件，让组件展示给最终用户。
 
   In this simple app we provide rudimentary error handling in both the service and the component.
   
@@ -526,7 +522,7 @@ block error-handling
     We haven't discussed so far how that actually works. 
     
     眼尖的读者可能注意会到，我们联合使用了`catch`操作符和`handleError`方法。
-    但我们还没讨论过它实际的工作方式。
+    但还没有讨论过它的实际工作方式。
 
     We use the Observable `catch` operator on the service level.
     It takes an error handling function with an error object as the argument.
@@ -551,7 +547,7 @@ block hlc-error-handling
     It sets an `errorMessage` variable which we've bound conditionally in the `HeroListComponent` template.
     
     回到`HeroListComponent`，这里我们调用了`#{_priv}heroService.getHeroes()`。我们提供了`subscribe`函数的第二个参数来处理错误信息。
-    它设置了一个`errorMessage`变量，我们把它有条件的绑定到了`HeroListComponent`模板中。
+    它设置了一个`errorMessage`变量，被有条件的绑定到了`HeroListComponent`模板中。
 
 +makeExample('server-communication/ts/app/toh/hero-list.component.ts', 'getHeroes', 'app/toh/hero-list.component.ts (getHeroes)')(format=".")
   
