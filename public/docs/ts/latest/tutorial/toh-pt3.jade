@@ -41,7 +41,7 @@ p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-3')]。
 
   我们要启动TypeScript编译器，它会监视文件变更，并启动开发服务器。只要敲：
 
-code-example(format="." language="bash").
+code-example(language="bash").
   npm start
 
 :marked
@@ -82,7 +82,7 @@ code-example(format="." language="bash").
   
   在`app`目录下添加一个名叫`hero-detail.component.ts`的文件，并且创建`HeroDetailComponent`。代码如下：
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'v1', 'hero-detail.component.ts (初始版本)')(format=".")
++makeExample('toh-3/ts/app/hero-detail.component.ts', 'v1', 'app/hero-detail.component.ts (initial version)')(format=".")
 .l-sub-section
   :marked
     ### Naming conventions
@@ -100,10 +100,11 @@ code-example(format="." language="bash").
     
     我们的所有组件名都以`Component`结尾。所有组件的文件名都以`.component`结尾。
     
-    We spell our file names in lower dash case (AKA "kebab-case") so we don't worry about
+    We spell our file names in lower **[dash case](../guide/glossary.html#!#dash-case)** 
+    (AKA **[kebab-case](../guide/glossary.html#!#kebab-case)**) so we don't worry about
     case sensitivity on the server or in source control.
 
-    这里我们使用小写中线命名法(也叫烤串命名法)拼写文件名，所以不用担心它在服务器或者版本控制系统中出现大小写问题。
+    这里我们使用小写**[中线命名法](../guide/glossary.html#!#dash-case)**(也叫**[烤串命名法](../guide/glossary.html#!#kebab-case)**)拼写文件名，所以不用担心它在服务器或者版本控制系统中出现大小写问题。
     <!-- TODO
     .l-sub-section
       :marked
@@ -145,7 +146,8 @@ code-example(format="." language="bash").
   `HeroDetailComponent`组件将会有一个`hero`属性，而不是`selectedHero`属性。
   所以，我们要把模板中的所有`selectedHero`替换为`hero`。只改这些就够了。
   最终结果如下所示：
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'template', 'hero-detail.component.ts (模板)')(format=".")
+  
++makeExample('toh-3/ts/app/hero-detail.component.ts', 'template', 'app/hero-detail.component.ts (template)')(format=".")
 
 :marked
   Now our hero detail layout exists only in the `HeroDetailComponent`.
@@ -169,16 +171,16 @@ code-example(format="." language="bash").
   
   要解决这个问题，我们也得从`app.component.ts`文件中把`Hero`类移到属于它自己的`hero.ts`文件中。
 
-+makeExample('toh-3/ts/app/hero.ts', null, 'hero.ts (导出Hero类)')(format=".")
++makeExample('toh-3/ts/app/hero.ts', '', 'app/hero.ts')(format=".")
 
 :marked
   We export the `Hero` class from `hero.ts` because we'll need to reference it in both component files. 
-  Add the following import statement near the top of both `app.component.ts` and `hero-detail.component.ts`.
+  Add the following import statement near the top of **both `app.component.ts` and `hero-detail.component.ts`**.
   
   我们得从`hero.ts`中导出`Hero`类，因为我们要从那些组件文件中引用它。
-  在`app.component.ts`和`hero-detail.component.ts`的顶部添加下列import语句：
+  在**`app.component.ts`和`hero-detail.component.ts`**的顶部添加下列import语句：
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero-import', 'hero-detail.component.ts与app.component.ts(导入Hero类)')
++makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero-import')
 
 :marked
   #### The *hero* property is an ***input***
@@ -268,7 +270,7 @@ code-example(format=".").
   
   `AppComponent`的模板是这样的：
 
-+makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (Template)')(format='.')
++makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (template)')(format='.')
 :marked
   Thanks to the binding, the `HeroDetailComponent` should receive the hero from the `AppComponent` and display that hero's detail beneath the list.
   The detail should update every time the user picks a new hero.

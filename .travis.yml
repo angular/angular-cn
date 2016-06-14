@@ -10,6 +10,7 @@ env:
     - DISPLAY=:99.0
     - CHROME_BIN=chromium-browser
   matrix:
+    - SCRIPT="lint"
     - SCRIPT="run-e2e-tests --fast"
 before_install:
   - npm install -g gulp --no-optional

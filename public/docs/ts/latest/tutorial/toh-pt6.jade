@@ -80,7 +80,7 @@ code-example(language="bash").
 
 .alert.is-helpful
   :marked
-    This chaper is an introduction to the Angular http client.
+    This chapter is an introduction to the Angular http client.
     Please don't be distracted by the details of this backend substitution. Just follow along with the example.
 
     Learn more later about the *in-memory web api* in the [Http chapter](../guide/server-communication.html#!#in-mem-web-api).
@@ -217,6 +217,11 @@ code-example(language="bash").
   Loading heroes using `Http` required no changes outside of `HeroService`, but we added a few new features as well.
   In the following section we will update our components to use our new methods to add, edit and delete heroes.
 
+  Before we can add those methods, we need to initialize some variables with their respective imports.
+
++makeExample('toh-6/ts/app/hero-detail.component.ts', 'variables-imports', 'app/hero-detail.component.ts')(format=".")
+
+:marked
   ### Add/Edit in the *HeroDetailComponent*
 
   We already have `HeroDetailComponent` for viewing details about a specific hero. 

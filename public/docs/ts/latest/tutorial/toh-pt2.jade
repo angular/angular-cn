@@ -71,7 +71,7 @@ code-example(language="bash").
   
   我们先在`app.component.ts`的底部创建一个由十位英雄组成的数组。
 
-+makeExample('toh-2/ts/app/app.component.ts', 'hero-array', 'app.component.ts (英雄数组)')
++makeExample('toh-2/ts/app/app.component.ts', 'hero-array', 'app.component.ts (hero array)')
 
 :marked
   The `HEROES` array is of type `Hero`, the class defined in part one, 
@@ -84,11 +84,11 @@ code-example(language="bash").
 
   ### Exposing heroes
   ### 导出英雄们
-  Let’s create a property in `AppComponent` that exposes the heroes for binding.
+  Let’s create a public property in `AppComponent` that exposes the heroes for binding.
   
-  我们在`AppComponent`上创建一个属性，用来暴露这些英雄，以供绑定。
+  我们在`AppComponent`上创建一个公开属性，用来暴露这些英雄，以供绑定。
 
-+makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'hero-array-1', 'app.component.ts (英雄数组属性)')
++makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'hero-array-1', 'app.component.ts (hero array property)')
 
 :marked
   We did not have to define the `heroes` type.  TypeScript can infer it from the `HEROES` array.
@@ -113,7 +113,7 @@ code-example(language="bash").
   我们的组件有了`heroes`属性，我们再到模板中创建一个无序列表来显示他们。
   我们将在标题和英雄详情之间，插入下面这段HTML代码。
 
-+makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-template-1', 'app.component.ts (英雄模板)')
++makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-template-1', 'app.component.ts (heroes template)')
 
 :marked
   Now we have a template that we can fill with our heroes.
@@ -160,7 +160,7 @@ code-example(language="bash").
 
     引号中赋值给`ngFor`的那段儿文本表示“*从`heroes`数组中取出每个英雄，存入一个局部的`hero`变量，并让它在相应的模板实例中可用*”。
 
-    The `let` keyword before "hero" identifies the `hero` as a template input variable.
+    The `let` keyword before "hero" identifies `hero` as a template input variable.
     We can reference this variable within the template to access a hero’s properties.
 
     `hero`前的`let`关键字表示`hero`是一个模板输入变量。
@@ -199,12 +199,15 @@ code-example(language="bash").
 
   要想给我们的组件添加一些样式，请把`@Component`装饰器的`styles`属性设置为下列CSS类：
 
-+makeExample('toh-2/ts/app/app.component.ts', 'styles-1', 'app.component.ts (添加样式)')
++makeExample('toh-2/ts/app/app.component.ts', 'styles', 'app.component.ts (styles)')(format=".")
 
 :marked
   Notice that we again use the back-tick notation for multi-line strings.
   
   注意，我们又使用了反引号语法来书写多行字符串。
+
+  That's a lot of styles! We can put them inline as shown here, or we can move them out to their own file which will make it easier to code our component. 
+  We'll do this in a later chapter. For now let's keep rolling.
 
   When we assign styles to a component they are scoped to that specific component.
   Our styles will only apply to our `AppComponent` and won't "leak" to the outer HTML.
@@ -216,14 +219,7 @@ code-example(language="bash").
   
   用于显示英雄们的这个模板看起来像这样：
 
-+makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-styled', 'app.component.ts (带样式的英雄们)')
-
-:marked
-  That's a lot of styles! We can put them inline as shown here, or we can move them out to their own file which will make it easier to code our component. 
-  We'll do this in a later chapter. For now let's keep rolling.
-
-  样式有很多种写法！我们可以像这里一样内联在代码中，也可以把它们移出去，放到各自的文件中，以便给组件编码时更容易。
-  等到后面的章节中我们肯定会这么干，但现在，还是保持现在的节奏吧。
++makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-styled', 'app.component.ts (styled heroes)')
 
 .l-main-section
   :marked
@@ -251,7 +247,7 @@ code-example(language="bash").
 
     我们往`<li>`元素上插入一句Angular事件绑定代码，绑定到它的click事件。
 
-  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-click', 'app.component.ts (捕获click事件)')
+  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-click', 'app.component.ts (template excerpt)')
 
   :marked
     Focus on the event binding
@@ -305,7 +301,7 @@ code-example(language="bash").
     在`AppComponent`上，我们不再需要一个固定的`hero`属性。
     那就直接把它改为`selectedHero`属性。
 
-  +makeExample('toh-2/ts/app/app.component.ts', 'selected-hero-1', 'app.component.ts (selectedHero)')
+  +makeExample('toh-2/ts/app/app.component.ts', 'selected-hero', 'app.component.ts (selectedHero)')
 
   :marked
     We’ve decided that none of the heroes should be selected before the user picks a hero so
@@ -316,7 +312,8 @@ code-example(language="bash").
     Now **add an `onSelect` method** that sets the `selectedHero` property to the `hero` the user clicked.
     
     现在，**添加一个`onSelect`方法**，以便在用户点击一个英雄的时候，把它赋给`selectedHero`属性。
-  +makeExample('toh-2/ts/app/app.component.ts', 'on-select-1', 'app.component.ts (onSelect)')
+    
+  +makeExample('toh-2/ts/app/app.component.ts', 'on-select', 'app.component.ts (onSelect)')
 
   :marked
     We will be showing the selected hero's details in our template.
@@ -326,7 +323,7 @@ code-example(language="bash").
     我们将把所选英雄的详细信息显示在模板中。目前，它仍然引用的是以前的`hero`属性。
     我们这就修改模板，让它绑定到新的`selectedHero`属性上去。
 
-  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (绑定到selectedHero的名字)')
+  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (template excerpt)')
   :marked
     ### Hide the empty detail with ngIf
     ### 利用ngIf隐藏空的详情
@@ -428,19 +425,20 @@ code-example(language="bash").
     
     关键是CSS类的名字：`selected`。当两位英雄一致时，它为`true`，否则为`false`。
     也就是说：“*当两位英雄匹配时，应用上`selected`类，否则不应用*”。
-  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-1', 'app.component.ts (设置CSS类)')(format=".")
+  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-1', 'app.component.ts (setting the CSS class)')(format=".")
   :marked
     Notice in the template that the `class.selected` is surrounded in square brackets (`[]`).
-    This is the syntax for a Property Binding, a binding in which data flows one way
+    This is the syntax for a **property binding**, a binding in which data flows one way
     from the data source (the expression `hero === selectedHero`) to a property of `class`.
     
     注意，模板中的`class.selected`是括在一对方括号中的。
     这就是“属性绑定”的语法，一种从数据源(即`hero === selectedHero`表达式)到`class`属性的单向数据流。
-  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-2', 'app.component.ts (Styling each hero)')(format=".")
+    
+  +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-2', 'app.component.ts (styling each hero)')(format=".")
 
   .l-sub-section
     :marked
-      Learn more about [Property Binding](../guide/template-syntax.html#property-binding)
+      Learn more about [property bindings](../guide/template-syntax.html#property-binding)
       in the Template Syntax chapter.
 
       学习关于[属性绑定](../guide/template-syntax.html#property-binding)
@@ -464,7 +462,7 @@ code-example(language="bash").
     
     完整的`app.component.ts`文件如下：
 
-  +makeExample('toh-2/ts/app/app.component.ts', 'pt2', 'app.component.ts')
+  +makeExample('toh-2/ts/app/app.component.ts', '', 'app.component.ts')
 
 .l-main-section
 :marked
