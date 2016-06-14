@@ -24,7 +24,7 @@ include ../_util-fns
   Because data services are invariably asynchronous, 
   we'll finish the chapter with a promise-based version of the data service.
 
-  因为数据服务通常都是异步的，所以在本章的最后，我们会把它重构为基于承诺（Promise，一种异步编程模式）的版本。
+  因为数据服务通常都是异步的，所以在本章的最后，我们会把它重构为基于承诺(Promise，一种异步编程模式)的版本。
   
 p Run the #[+liveExampleLink2('', 'toh-4')] for this part.
 
@@ -111,8 +111,8 @@ code-example(language="bash").
     If the service name were multi-word, we'd spell the base filename with lower dash case (AKA "kebab-case").
     The `SpecialSuperHeroService` would be defined in the `special-super-hero.service.ts` file.
     
-    我们遵循的文件命名约定是：服务名称的小写形式（基本名），加上`.service`后缀。
-    如果服务名称包含多个单词，我们就把基本名部分写成中线形式（dash-case，也被称作烤串形式kebab-case）。
+    我们遵循的文件命名约定是：服务名称的小写形式(基本名)，加上`.service`后缀。
+    如果服务名称包含多个单词，我们就把基本名部分写成中线形式(dash-case，也被称作烤串形式kebab-case)。
     比如，`SpecialSuperHeroService`服务应该被定义在`special-super-hero.service.ts`文件中。
 :marked
   We name the class `HeroService` and export it for others to import.
@@ -403,7 +403,7 @@ a#child-component
   我们就快完成了，但还有点事情不太对劲儿。
 
   ## Async Services and Promises
-  ## 异步服务与承诺（Promise）
+  ## 异步服务与承诺(Promise)
   Our `HeroService` returns a list of mock heroes immediately. 
   Its `getHeroes` signature is synchronous
   
@@ -429,7 +429,7 @@ a#child-component
   
   We'll use  *promises*.
   
-  我们将使用 *承诺（Promise）* 。
+  我们将使用 *承诺(Promise)* 。
   
   ### The Hero Service makes a promise  
   ### `HeroService`会生成一个承诺
@@ -440,7 +440,7 @@ a#child-component
   
   **承诺** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
   我们请求一个异步服务去做点什么，然后给它一个回调函数。
-  它会去做（无论用哪种方式），一旦完成，它就会调用我们的回调函数，并通过参数把工作成果或者错误信息传给我们。
+  它会去做(无论用哪种方式)，一旦完成，它就会调用我们的回调函数，并通过参数把工作成果或者错误信息传给我们。
 .l-sub-section
   :marked
     We are simplifying. Learn about ES2015 Promises [here](http://exploringjs.com/es6/ch_promises.html) and elsewhere on the web.

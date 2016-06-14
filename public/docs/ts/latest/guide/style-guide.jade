@@ -59,7 +59,7 @@ include ../_util-fns
 
   Some code examples display a file that has one or more similarly named companion files. (e.g. hero.component.ts and hero.component.html).
   
-  在一些代码例子中，有的文件拥有一个或多个相似名字的伴随文件。（比如，hero.component.ts和hero.component.html)。
+  在一些代码例子中，有的文件拥有一个或多个相似名字的伴随文件。(比如，hero.component.ts和hero.component.html)。
 
   The guideline will use the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
   
@@ -135,7 +135,7 @@ a(id='toc')
   :marked
     **Do** define one thing (e.g. service or component) per file.
     
-    **坚持**每个文件只定义一样东西（比如服务或者组件）。
+    **坚持**每个文件只定义一样东西(比如服务或者组件)。
 
 .s-rule.consider
   :marked
@@ -392,13 +392,13 @@ a(href="#toc") 回到顶部
   :marked
     **Do** use upper camel case for symbols. Match the name of the symbol to the naming of the file.
     
-    **坚持**使用大写驼峰命名法来命名所有符号（类）。保持符号的名字与它所在的文件名字相同。
+    **坚持**使用大写驼峰命名法来命名所有符号(类)。保持符号的名字与它所在的文件名字相同。
 
 .s-rule.do
   :marked
     **Do** append the symbol name with the suffix that it represents.
     
-    **坚持**把符号的类型（比如组件、服务、指令等）附加到符号名的后面。
+    **坚持**把符号的类型(比如组件、服务、指令等)附加到符号名的后面。
   
 
 .s-why
@@ -500,7 +500,7 @@ a(href="#toc") 回到顶部
   :marked
     **Do** suffix services with `Service` when it is not clear what they are (e.g. when they are nouns).
     
-    **坚持**当不能从它们的名字里清楚的看出它们是什么的时候（比如它们的名字是名词时），添加`Service`后缀。
+    **坚持**当不能从它们的名字里清楚的看出它们是什么的时候(比如它们的名字是名词时)，添加`Service`后缀。
 
 .s-why
   :marked
@@ -690,7 +690,7 @@ a(href="#toc") 回到顶部
   :marked
     **Do** use a custom prefix for the selector of our directives (for instance below we use the prefix `toh` from **T**our **o**f **H**eroes).
     
-    **坚持**为指令的选择器使用自定义的前缀（比如下面例子中，我们使用前缀`toh`，取自**T**our **o**f **H**eroes)。
+    **坚持**为指令的选择器使用自定义的前缀(比如下面例子中，我们使用前缀`toh`，取自**T**our **o**f **H**eroes)。
 
 .s-why
   :marked
@@ -1297,7 +1297,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Nobody wants to search seven levels of folders to find a file. In a folder structure there is no hard and fast number rule, but when a folder has seven to ten files, that may be time to create subfolders. We base it on our comfort level. Use a flatter structure until there is an obvious value (to help the rest of LIFT) in creating a new folder.
     
-    **为何？**没有人愿意搜索7层目录来找一个文件。在目录结构中，没有硬数字约定，但是当目录有七到十个文件时，就是需要新建子目录的时候了。这是基于舒适级别而定的。以平面化结构开始，在有很明显的需求时再新建目录（来配合其他LIFT约定）
+    **为何？**没有人愿意搜索7层目录来找一个文件。在目录结构中，没有硬数字约定，但是当目录有七到十个文件时，就是需要新建子目录的时候了。这是基于舒适级别而定的。以平面化结构开始，在有很明显的需求时再新建目录(来配合其他LIFT约定)
 
 a(href="#toc") Back to top
 
@@ -1306,7 +1306,7 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ### T-DRY (Try to be DRY)
-  ### T-DRY（尝试遵循不重复自己DRY的约定）
+  ### T-DRY(尝试遵循不重复自己DRY的约定)
   <a id="04-05"></a>
   #### Style 04-05
   #### 风格04-05
@@ -1315,7 +1315,7 @@ a(href="#toc") 回到顶部
   :marked
     **Do** be DRY (Don't Repeat Yourself)
     
-    **坚持**不要重复自己（DRY）
+    **坚持**不要重复自己(DRY)
 
 .s-rule.avoid
   :marked
@@ -1375,7 +1375,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Components often have four files (e.g. `*.html`, `*.css`, `*.ts`, and `*.spec.ts`) and can clutter a folder quickly.
     
-    **为何?**组件通常有四个文件（例如`*.html`、 `*.css`、 `*.ts` 和 `*.spec.ts`），它们很容易把一个目录弄乱。
+    **为何?**组件通常有四个文件(例如`*.html`、 `*.css`、 `*.ts` 和 `*.spec.ts`)，它们很容易把一个目录弄乱。
 
 .example-title Overall Folder and File Structure 整体目录和文件结构
 .filetree
@@ -1413,7 +1413,7 @@ a(href="#toc") 回到顶部
   :marked
     While we prefer our Components to be in their own dedicated folder, another option for small apps is to keep Components flat (not in a dedicated folder). This adds up to four files to the existing folder, but also reduces the folder nesting. Be consistent.
     
-    虽然我们比较喜欢把组件放到它自己独立的目录里面，但是对于很小应用来说，另一个选项是保持平面化结构（不在自己独立的目录里）。这样我们添加最多四个文件到一个已有的目录，但是同时减少的目录的嵌套。保持前后一致就好。
+    虽然我们比较喜欢把组件放到它自己独立的目录里面，但是对于很小应用来说，另一个选项是保持平面化结构(不在自己独立的目录里)。这样我们添加最多四个文件到一个已有的目录，但是同时减少的目录的嵌套。保持前后一致就好。
 
 a(href="#toc") Back to top
 
@@ -1529,7 +1529,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** When there are a lot of files (e.g. 10+) locating them is easier with a consistent folder structures and more difficult in flat structures.
     
-    **为何？**当有很多文件（10个以上）的时候，在一致的目录结构下面，比在平面化结构下面定位它们要容易得多。
+    **为何？**当有很多文件(10个以上)的时候，在一致的目录结构下面，比在平面化结构下面定位它们要容易得多。
 
 :marked
   Below is an example of a small app with folders per component.
@@ -1928,7 +1928,7 @@ a(href="#toc") 回到顶部
   :marked
     **Do** use `kebab-case` for naming the element selectors of our components.
     
-    **坚持**使用`烤串命名法（中线命名法）`来命名组件的元素选择器。
+    **坚持**使用`烤串命名法(中线命名法)`来命名组件的元素选择器。
 
 .s-why.s-why-last
   :marked
@@ -2309,7 +2309,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Logic will be contained in one place (the Component class) instead of being spread in two places.
     
-    **为何？**所有逻辑都被放置到一个地方（组件类），而不被分离到两个地方。
+    **为何？**所有逻辑都被放置到一个地方(组件类)，而不被分离到两个地方。
 
 .s-why.s-why-last
   :marked
@@ -2475,7 +2475,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** When a service has multiple responsibilities, every Component or Service that injects it now carries the weight of them all.
     
-    **为何？**当服务有多个职责时，每个注入它的组件或者服务都会被迫承担它们的（多个职责）所有的重量。
+    **为何？**当服务有多个职责时，每个注入它的组件或者服务都会被迫承担它们的(多个职责)所有的重量。
 
 a(href="#toc") Back to top
 
@@ -2599,13 +2599,13 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** This makes it easier to test (mock or real) the data calls when testing a component that uses a data service.
     
-    **为何？**在测试使用数据服务的组件时，可以让数据调用更容易被测试（模仿或者真实）。
+    **为何？**在测试使用数据服务的组件时，可以让数据调用更容易被测试(模仿或者真实)。
 
 .s-why.s-why-last
   :marked
     **Why?** Data service implementation may have very specific code to handle the data repository. This may include headers, how to talk to the data, or other services such as `Http`. Separating the logic into a data service encapsulates this logic in a single place hiding the implementation from the outside consumers (perhaps a component), also making it easier to change the implementation.
     
-    **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头（headers）、如何与数据交谈或者其他服务（比如`Http`)。把逻辑分离到数据服务可以把该逻辑封装到一个地方，对外部使用者（比如组件）隐藏具体的实施细节。
+    **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头(headers)、如何与数据交谈或者其他服务(比如`Http`)。把逻辑分离到数据服务可以把该逻辑封装到一个地方，对外部使用者(比如组件)隐藏具体的实施细节。
 
 a(href="#toc") Back to top
 

@@ -112,12 +112,12 @@ figure
     Each chapter has plenty to offer after you steer clear of the `import` and `export` statements.
     
     Angular本身并不需要模块化方案，也不需要使用这种特定的语法。如果你不喜欢，可以不用它。
-    就算你避开`import`和`export`语句，每章也会为你提供很多（知识）。
+    就算你避开`import`和`export`语句，每章也会为你提供很多(知识)。
     
     Find setup and organization clues in the JavaScript track (select it from the combo-box at the top of this page) 
     which demonstrates Angular 2 development with plain old JavaScript and no module system. 
     
-    在JavaScript（你可以从页面顶部的组合框选择JavaScript）分支下，可以找到如何安装和组织的线索。
+    在JavaScript(你可以从页面顶部的组合框选择JavaScript)分支下，可以找到如何安装和组织的线索。
     它示范了如何用老版本的JavaScript语言，在没有模块化系统支持的情况下进行Angular 2应用程序的开发。
 :marked
   Perhaps the first module we meet is a module that exports a *component* class. 
@@ -153,7 +153,7 @@ figure
   The **module name** (AKA module id) is often the same as the filename without its extension.
   
   `import`语句告诉系统，它能从附近名叫`app.component`的文件中获得`AppComponent`组件。
-  **模块名**（又叫模块ID）通常和去掉扩展名后的文件名相同。
+  **模块名**(又叫模块ID)通常和去掉扩展名后的文件名相同。
   
   ### Library Modules 
   ### 模块库
@@ -171,7 +171,7 @@ figure
 
   Angular本身就是通过npm包发布的一组模块库，它们都以`@angular`为前缀。
   每个Angular库中都包含一个[封装桶](../glossary.html#barrel)模块。
-  它实际上是一个公开的外观层（façade），囊括了一些逻辑相关的私有模块。
+  它实际上是一个公开的外观层(façade)，囊括了一些逻辑相关的私有模块。
   
   The `@angular/core` library is the primary Angular library module from which we get most of what we need.
   
@@ -208,8 +208,8 @@ figure
   We could path up and around the application folder structure if the source module were somewhere else.
   
   当我们从*自己的*文件中导入时，模块名中带有路径前缀。
-  在这个例子中，前缀是一个相对路径（./）。这表示源模块和想导入它的模块位于同一个目录中（./）。
-  如果源模块位于其它位置，我们还可以向上引用应用目录结构中的任意路径（如`../../../somewhere/`）。
+  在这个例子中，前缀是一个相对路径(./)。这表示源模块和想导入它的模块位于同一个目录中(./)。
+  如果源模块位于其它位置，我们还可以向上引用应用目录结构中的任意路径(如`../../../somewhere/`)。
 .l-sub-section
   :marked
     We import and export in the ECMAScript 2015 (ES2015) module syntax. 
@@ -266,7 +266,7 @@ figure
   We define a Component's application logic - what it does to support the view - inside a class.
   The class interacts with the view through an API of properties and methods. 
   
-  我们在类中定义组件的应用逻辑（它被用来为视图提供支持）。
+  我们在类中定义组件的应用逻辑(它被用来为视图提供支持)。
   组件通过一些由属性和方法组成的API与视图交互。
   
   <a id="component-code"></a>
@@ -313,7 +313,7 @@ figure
   We define a Component's view with its companion **template**. A template is a form of HTML
   that tells Angular how to render the Component.
   
-  我们通过组件的自带的**模板**来定义视图。模板以HTML形式存在，用来告诉Angular如何渲染组件（视图）。
+  我们通过组件的自带的**模板**来定义视图。模板以HTML形式存在，用来告诉Angular如何渲染组件(视图)。
 
   A template looks like regular HTML much of the time ... and then it gets a bit strange. Here is a
   template for our `HeroList` component.
@@ -350,7 +350,7 @@ figure
   The `HeroDetailComponent` is a **child** of the `HeroListComponent`.
   
   `HeroDetailComponent`跟我们以前回顾过的`HeroListComponent`是*不同*的组件。
-  `HeroDetailComponent`（未展示代码）用于展现一个特定英雄的情况，这个英雄是用户从`HeroListComponent`列表中选择的。
+  `HeroDetailComponent`(未展示代码)用于展现一个特定英雄的情况，这个英雄是用户从`HeroListComponent`列表中选择的。
   `HeroDetailComponent`是`HeroListComponent`的*子组件*。
 
 figure
@@ -406,7 +406,7 @@ figure
   Here we see the `@Component` decorator which (no surprise) identifies the class
   immediately below it as a Component class.
   
-  这里我们看到`@Component`装饰器（毫无悬念的）把紧随其后的类标记成了组件类。
+  这里我们看到`@Component`装饰器(毫无悬念的)把紧随其后的类标记成了组件类。
   
   A decorator is a function. Decorators often have a configuration parameter. 
   The `@Component` decorator takes a required configuration object with the
@@ -424,7 +424,7 @@ figure
   If the template of the application shell (a Component) contained
   
   * `selector` - 一个css选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
-  比如，如果应用“壳”（组件）的模板包含如下代码：
+  比如，如果应用“壳”(组件)的模板包含如下代码：
   
 <div style="margin-left:30px">
 code-example(language="html").
@@ -612,12 +612,12 @@ figure
 :marked
   There are two *other* kinds of directives as well that we call "structural" and "attribute" directives.
   
-  有两种*其它*类型的指令，我们称之为“结构型”指令和“属性（attribute）型”指令。
+  有两种*其它*类型的指令，我们称之为“结构型”指令和“属性(attribute)型”指令。
   
   They tend to appear within an element tag like attributes, 
   sometimes by name but more often as the target of an assignment or a binding.
   
-  它们往往像属性(attribute)一样出现在元素标签中，偶尔会以名字的形式出现（参见[一次性绑定](./template-syntax.html#one-time-initialization)），但多数时候还是作为赋值目标或绑定目标出现。
+  它们往往像属性(attribute)一样出现在元素标签中，偶尔会以名字的形式出现(参见[一次性绑定](./template-syntax.html#one-time-initialization))，但多数时候还是作为赋值目标或绑定目标出现。
   
   **Structural** directives alter layout by adding, removing, and replacing elements in DOM.
   
@@ -651,15 +651,15 @@ figure
   It modifies the behavior of an existing element (typically an `<input>`) 
   by setting its display value property and responding to change events.
   
-  它修改了现有元素（典型的`<input>`）的行为：它设置了显示属性值，并对change事件做出相应回应。
+  它修改了现有元素(典型的`<input>`)的行为：它设置了显示属性值，并对change事件做出相应回应。
   
   Angular ships with a few other directives that either alter the layout structure 
   (e.g. [ngSwitch](template-syntax.html#ngSwitch))
   or modify aspects of DOM elements and components 
   (e.g. [ngStyle](template-syntax.html#ngStyle) and [ngClass](template-syntax.html#ngClass)).
   
-  Angular内置了一些其它指令，它们或者修改结构布局（如[ngSwitch](template-syntax.html#ngSwitch)），或者修改DOM元素和组件的各个方面
-  （如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass)）。
+  Angular内置了一些其它指令，它们或者修改结构布局(如[ngSwitch](template-syntax.html#ngSwitch))，或者修改DOM元素和组件的各个方面
+  (如[ngStyle](template-syntax.html#ngStyle)和[ngClass](template-syntax.html#ngClass))。
   
   And of course we can write our own directives.
   
@@ -750,7 +750,7 @@ figure
   and the application logic (which often includes some notion of a "model").  A good component presents
   properties and methods for data binding. It delegates everything non-trivial to services.
   
-  组件的任务就是提供用户体验，仅此而已。它介于视图（由模板渲染）和应用逻辑（通常包括“模型model”的观念）之间。
+  组件的任务就是提供用户体验，仅此而已。它介于视图(由模板渲染)和应用逻辑(通常包括“模型model”的观念)之间。
   设计良好的组件为数据绑定提供属性和方法，把那些其他对它们不重要的事情都委托给服务。
 
   Angular doesn't *enforce* these principles. 
@@ -842,7 +842,7 @@ figure
   ... in which case we get a new instance of the
   service with each new instance of that component.
   
-  ... 在这种情况下，那个组件的每一个新实例都会有一个（在该组件注册的）服务的新实例。
+  ... 在这种情况下，那个组件的每一个新实例都会有一个(在该组件注册的)服务的新实例。
   
   We've vastly over-simplified dependency injection for this overview.
   We can learn the full story in the [Dependency Injection](dependency-injection.html) chapter.
@@ -940,7 +940,7 @@ figure
   Most of them are covered in this Developers Guide (or soon will be):
   
   这里是一个简短的、按字母排序的列表，列出了其它重要的Angular特性和服务。
-  它们大多数已经（或即将）包括在这个《开发指南》中：
+  它们大多数已经(或即将)包括在这个《开发指南》中：
   
   >**Animations** - A forthcoming animation library makes it easy for developers to animate component behavior
   without deep knowledge of animation techniques or css.

@@ -205,7 +205,7 @@ block install-packages
     We install the packages listed in `package.json` using `npm`. Enter the
     following command in a terminal window (command window in Windows):
 
-    我们使用`npm`命令来安装`package.json`中列出的依赖包。请在终端窗口（或Windows的cmd窗口）中输入下列命令：
+    我们使用`npm`命令来安装`package.json`中列出的依赖包。请在终端窗口(或Windows的cmd窗口)中输入下列命令：
 
   code-example(language="sh").
     npm install
@@ -235,7 +235,7 @@ block install-packages
 
         我们通常会在一系列`gyp ERR!`消息后面看到一个`npm WARN`消息。直接忽略即可。
         有些依赖包可能会尝试用`node-gyp`重新编译它自己。
-        如果重新编译失败了，这个包就会自行恢复（通常是下载一个预编译版本），最终不会影响使用。
+        如果重新编译失败了，这个包就会自行恢复(通常是下载一个预编译版本)，最终不会影响使用。
 
         Just make sure there are no `npm ERR!` messages at the end of `npm install`.
 
@@ -268,7 +268,7 @@ block install-packages
       Some commands (such as `start`) don't require the `run` keyword.
 
       我们执行大多数npm脚本的方式都差不多：`npm run`后面跟着*脚本名*。
-      有些命令（比如`start`）不需要`run`关键字。
+      有些命令(比如`start`)不需要`run`关键字。
 
       Here's what these scripts do:
 
@@ -376,7 +376,7 @@ p.
     Here we import the Angular 2 core so that our component code can have access to
     the `@Component` #{_decorator}.
 
-    当我们需要一个模块中的某些东西时，我们引入（import）它。
+    当我们需要一个模块中的某些东西时，我们引入(import)它。
     在这里，我们导入了Angular 2核心库，以便我们的组件代码能够访问`@Component` #{_decoratorCn}。
   +makeExcerpt('app/app.component.ts', 'import')
 
@@ -476,7 +476,7 @@ block create-main
     我们引入了两样东西来启动本应用：
 
     1. Angular's browser `bootstrap` function
-    1. Angular的浏览器`bootstrap`（引导）函数
+    1. Angular的浏览器`bootstrap`(引导)函数
     1. The application root component, `AppComponent`.
     1. 应用的根组件：`AppComponent`。
 
@@ -530,7 +530,7 @@ block create-main
     但我们应该用正确的方式组织Angular应用的文件结构。
     启动App与展现视图是两个相互分离的关注点。
     把这些关注点混在一起会增加不必要的难度。
-    我们可以通过使用不同的引导器（bootstraper）来在不同的环境中启动`AppComponent`。
+    我们可以通过使用不同的引导器(bootstraper)来在不同的环境中启动`AppComponent`。
     测试组件也变得更容易，因为不需要再运行整个程序才能跑测试。
     让我们多花一点精力来用*“正确的方式”*实现它。
 
@@ -585,7 +585,7 @@ h2#index 步骤4：添加#[code index.html]
       become more concerned about production qualities such as
       load times and memory footprint.
 
-      等我们变得更有经验、更关心产品质量（如加载时间、内存足迹等），也可以做出不同的选择。
+      等我们变得更有经验、更关心产品质量(如加载时间、内存足迹等)，也可以做出不同的选择。
     h3#systemjs SystemJS
     :marked
       QuickStart uses <a href="https://github.com/systemjs/systemjs" target="_blank">SystemJS</a>
@@ -605,7 +605,7 @@ h2#index 步骤4：添加#[code index.html]
       becomes complicated rather quickly as soon as the file structure diversifies and
       we start thinking about building for production and performance.
 
-      所有loader（模块加载器）都需要配置，并且文件结构很快就会变得多样，
+      所有loader(模块加载器)都需要配置，并且文件结构很快就会变得多样，
       loader的配置也会变得复杂，那时候我们就要开始考虑产品构建和性能问题了。
 
       We suggest becoming well-versed in the loader of your choice.
@@ -654,13 +654,13 @@ h2#index 步骤4：添加#[code index.html]
       Notice that the module name (after `from`) does not mention a filename extension.
       In the configuration we tell SystemJS to default the extension to `js`, a JavaScript file.
 
-      注意，模块名（`from`后面）并不包含文件的扩展名。
+      注意，模块名(`from`后面)并不包含文件的扩展名。
       `package:`配置项告诉SystemJS使用'js'扩展名，也就是加载一个JavaScript文件。
 
       That makes sense because we transpile TypeScript to JavaScript
       *before* running the application.
 
-      这是因为我们在运行应用程序*之前*会执行从TypeScript到JavaScript的转译（transpile）。
+      这是因为我们在运行应用程序*之前*会执行从TypeScript到JavaScript的转译(transpile)。
     .l-sub-section
       :marked
         #### Transpiling in the browser
@@ -668,7 +668,7 @@ h2#index 步骤4：添加#[code index.html]
         In the live example on plunker we transpile (AKA compile) to JavaScript in the browser
         on the fly. _That's fine for a demo_.
 
-        在plunker上的在线例子中，我们在浏览器中随时转译（也可以叫编译）到JavaScript。对于演示来说，这足够了。
+        在plunker上的在线例子中，我们在浏览器中随时转译(也可以叫编译)到JavaScript。对于演示来说，这足够了。
 
         **Do not transpile in the browser during development or for production**.
 
@@ -677,7 +677,7 @@ h2#index 步骤4：添加#[code index.html]
         We strongly recommend transpiling (AKA compiling) to JavaScript during a build phase
         before running the application for several reasons including:
 
-        我们强烈建议在运行应用之前的build阶段转译（编译）到JavaScript，理由包括：
+        我们强烈建议在运行应用之前的build阶段转译(编译)到JavaScript，理由包括：
 
         * We see compiler warnings and errors that are hidden from us in the browser.
 
@@ -699,7 +699,7 @@ h2#index 步骤4：添加#[code index.html]
 
         * Precompilation fits into a continuous integration process of build, test, deploy.
 
-        * 预编译更适应CI（持续集成）过程：构建、测试、部署。
+        * 预编译更适应CI(持续集成)过程：构建、测试、部署。
 
     :marked
       The `System.import` call tells SystemJS to import the `main` file
@@ -707,7 +707,7 @@ h2#index 步骤4：添加#[code index.html]
       `main` is where we tell Angular to launch the application.
       We also catch and log launch errors to the console.
 
-      `System.import`调用告诉SystemJS引入`main`文件。（`main.js`，从`main.ts`转译而来的，还记得吧？）
+      `System.import`调用告诉SystemJS引入`main`文件。(`main.js`，从`main.ts`转译而来的，还记得吧？)
       `main`是我们让Angular启动应用的地方。
       我们还会把启动过程中的错误捕获并记录到控制台中。
 
@@ -758,7 +758,7 @@ block run-app
 
     这个命令运行两个并行的node进程
     1. The TypeScript compiler in watch mode
-    1. TypeScript编译器，运行在监视（watch）模式
+    1. TypeScript编译器，运行在监视(watch)模式
     1. A static server called **lite-server** that loads `index.html` in a browser
     and refreshes the browser when application files change
     1. 一个名叫 **lite-server** 的静态服务器，它把`index.html`加载到浏览器中
@@ -875,7 +875,7 @@ block what-next-ts-overhead
     We'll probably only touch the `package.json` to update libraries.
     We'll likely open `index.html` only if we need to add a library or some css stylesheets.
 
-    好消息是：准备阶段（几乎）已经结束了。
+    好消息是：准备阶段(几乎)已经结束了。
     我们将来可能只是修改`package.json`来升级依赖库。
     如果需要添加一些库或一些css样式表，我们可以打开`index.html`。
 :marked

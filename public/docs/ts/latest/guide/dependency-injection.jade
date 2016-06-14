@@ -222,7 +222,7 @@ block ctor-syntax
 
   We could write a giant class to do that:
 
-  我们可以写一个巨型类来做这件事（不好的模式）：
+  我们可以写一个巨型类来做这件事(不好的模式)：
 
 +makeExample('dependency-injection/ts/app/car/car-factory.ts', null, 'app/car/car-factory.ts')
 
@@ -375,7 +375,7 @@ block ctor-syntax
 
     我们甚至没有假装这是一个真实的服务。
     如果我们真的从一个远端服务器获取数据，这个API必须是异步的，可能得返回
-    [ES2015 承诺（Promise）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
+    [ES2015 承诺(Promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
     我们也需要被迫重新处理组件如何消费该服务的方式。通常这个很重要，但是我们目前的故事不需要。
 
 :marked
@@ -495,7 +495,7 @@ block ctor-syntax
     has `providers` information for `HeroService`.
 
     注意构造函数参数有类型`HeroService`，并且`HeroListComponent`类有一个`@Component`装饰器
-    （往上翻可以确认）。另外，记得父级组件（`HeroesComponent`）有`HeroService`的`providers`信息。
+    (往上翻可以确认)。另外，记得父级组件(`HeroesComponent`)有`HeroService`的`providers`信息。
 
     The constructor parameter type, the `@Component` #{_decorator},
     and the parent's `providers` information combine to tell the
@@ -658,7 +658,7 @@ block injectable-not-always-needed-in-ts
   fact `InjectableMetadata` #{_decorator}s that
   identify a class as a target for instantiation by an injector.
 
-  如果真的想要这样做，我们*可以*添加它。但是这不是必须的，因为`HerosComponent`已经被`@Component`标识，这个装饰器类（像`@Directive`和`@Pipe`一样，我们一会儿将会学到）
+  如果真的想要这样做，我们*可以*添加它。但是这不是必须的，因为`HerosComponent`已经被`@Component`标识，这个装饰器类(像`@Directive`和`@Pipe`一样，我们一会儿将会学到)
   是一个<a href="#{injMetaUrl}">InjectableMetadata</a>的子类型。实际上，`InjectableMetadata`装饰器标识着一个类是注入器实例化的目标。
 
 
@@ -730,7 +730,7 @@ block real-logger
 
 code-example(format="nocode").
   EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)
-  （异常：Logger类没有供应商！(HeroListComponent -> HeroService -> Logger)）
+  (异常：Logger类没有供应商！(HeroListComponent -> HeroService -> Logger))
 
 :marked
   That's Angular telling us that the dependency injector couldn't find the *provider* for the logger.
@@ -862,7 +862,7 @@ block dart-diff-const-metadata
   This logger gets the user from the injected `UserService`,
   which happens also to be injected at the application level.
 
-  也许一个`EvenBetterLogger`（更好的日志）可以在日志消息中显示用户名。
+  也许一个`EvenBetterLogger`(更好的日志)可以在日志消息中显示用户名。
   这个日志服务从一个注入进来的`UserService`中取得用户，`UserService`通常也会在应用级被注入。
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','EvenBetterLogger')(format='.')
@@ -1125,7 +1125,7 @@ block dart-diff-const-metadata-ctor
   the address of a web API endpoint) &nbsp;but these configuration objects aren't always instances of a class.
   They can be object literals &nbsp;such as this one:
 
-  应用程序经常为很多很小的因素（比如应用程序的标题，或者一个网络API终点的地址）定义配置对象，但是这些配置对象不总是类的实例。
+  应用程序经常为很多很小的因素(比如应用程序的标题，或者一个网络API终点的地址)定义配置对象，但是这些配置对象不总是类的实例。
   他们可能是对象，比如下面这个：
 
 +makeExample('dependency-injection/ts/app/app.config.ts','config','app/app-config.ts (excerpt)')(format='.')
@@ -1180,7 +1180,7 @@ block what-should-we-use-as-token
   to define and use an !{opaquetoken}.
   The definition looks like this:
 
-  解决方案是定义和使用一个!{opaquetoken}（不透明的令牌）。定义方式类似于这样：
+  解决方案是定义和使用一个!{opaquetoken}(不透明的令牌)。定义方式类似于这样：
 
 +makeExample('dependency-injection/ts/app/app.config.ts','token')(format='.')
 
@@ -1250,7 +1250,7 @@ block dart-map-alternative
   adding a parameter to a constructor.
 
   在本章中，我们学习了Angular依赖注入的基础。
-  我们可以注册很多种类的供应商，还知道了该如何通过添加构造函数的参数来请求一个被注入对象（比如服务）。
+  我们可以注册很多种类的供应商，还知道了该如何通过添加构造函数的参数来请求一个被注入对象(比如服务)。
 
   Angular dependency injection is more capable than we've described.
   We can learn more about its advanced features, beginning with its support for
@@ -1296,7 +1296,7 @@ block dart-map-alternative
   to retrieve a service (`ROUS`) that isn't registered with this or any ancestor injector.
 
   `get`方法如果解析不出所请求的服务，它就会抛出一个异常。
-  我们还可以带上第二个参数（如果服务没找到，就把它作为默认值返回）调用`get`，
+  我们还可以带上第二个参数(如果服务没找到，就把它作为默认值返回)调用`get`，
   在该例子中，我们获取了一个服务(`ROUS`)，它没有在这个注入器或它的任何祖先中注册过。
 .l-sub-section
   :marked

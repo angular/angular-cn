@@ -271,7 +271,7 @@ p.
 
 :marked
   ## Power Boost Calculator (extra-credit)
-  ## 能力倍增计算器（加分项）
+  ## 能力倍增计算器(加分项)
 
   It's not much fun updating the template to test our custom pipe.
   We could upgrade the example to a "Power Boost Calculator" that combines
@@ -308,7 +308,7 @@ a#change-detection
   The component in our next example uses the default, aggressive change detection strategy to monitor and update
   its display of every hero in the `heroes` #{_array}. Here's the template:
 
-  我们下一个例子中的组件使用默认的、激进（昂贵）的变更检测策略来检测和更新`heroes`数组中的每个英雄。下面是它的模板：
+  我们下一个例子中的组件使用默认的、激进(昂贵)的变更检测策略来检测和更新`heroes`数组中的每个英雄。下面是它的模板：
 
 +makeExample('pipes/ts/app/flying-heroes.component.html', 'template-1', 'app/flying-heroes.component.html (v1)')(format='.')
 
@@ -348,7 +348,7 @@ p.
   Every hero we add is a flying hero but none of them are displayed.
 
 p.
-  如果我们现在就运行这个例子，我们会看到一些古怪的行为（在#[+liveExampleLink('在线例子')]中试试）。
+  如果我们现在就运行这个例子，我们会看到一些古怪的行为(在#[+liveExampleLink('在线例子')]中试试)。
   我们添加的每个英雄都会飞，但他们一个都没有显示出来。
 
 :marked
@@ -462,7 +462,7 @@ block pure-change
   pipe execution and a view update.
 
   这可能看起来是一种限制，但它保证了速度。
-  对象引用的检查是非常快的（比递归的深检查要快得多），所以Angular可以快速的决定是否应该跳过管道执行和视图更新。
+  对象引用的检查是非常快的(比递归的深检查要快得多)，所以Angular可以快速的决定是否应该跳过管道执行和视图更新。
 
   For this reason, we prefer a pure pipe if we can live with the change detection strategy.
   When we can't, we *may* turn to the impure pipe.
@@ -570,7 +570,7 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   (a potent source of memory leaks).
 
   这个Async管道节省了组件的样板代码。
-  组件不用订阅这个异步数据源，而且不用在被销毁时取消订阅（如果订阅了而忘了反订阅容易导致隐晦的内存泄露）。
+  组件不用订阅这个异步数据源，而且不用在被销毁时取消订阅(如果订阅了而忘了反订阅容易导致隐晦的内存泄露)。
 
   ### An impure caching pipe
   ### 一个非纯而且带缓存的管道
@@ -596,7 +596,7 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
 
   我们确实得小心点儿。所以这个管道只有当所请求的URL发生变化时才会向服务器发起请求。
   它会缓存这个请求的URL，并等待一个结果，当结果发回来时，就缓存它。
-  以后每当Angular调用此管道时，它都会返回这个缓存的结果（当请求尚未返回时，此结果是空），只在必要时才会去联系服务器。
+  以后每当Angular调用此管道时，它都会返回这个缓存的结果(当请求尚未返回时，此结果是空)，只在必要时才会去联系服务器。
 
   Here's the code, which uses the [Angular http](server-communication.html) facility
   to retrieve a `heroes.json` file:

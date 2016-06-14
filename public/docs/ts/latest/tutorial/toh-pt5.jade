@@ -23,7 +23,7 @@ figure.image-display
 :marked
   We'll add Angular’s *Component Router* to our app to satisfy these requirements.
   
-  我们将把Angular*组件路由器*加入应用中，以满足这些需求。（译注：硬件领域中的路由器是用来帮你找到另一台网络设备的，而这里的路由器用于帮你找到一个组件）
+  我们将把Angular*组件路由器*加入应用中，以满足这些需求。(译注：硬件领域中的路由器是用来帮你找到另一台网络设备的，而这里的路由器用于帮你找到一个组件)
 .l-sub-section
   :marked
     The [Routing and Navigation](../guide/router-deprecated.html) chapter covers the router in more detail
@@ -248,7 +248,7 @@ code-example(language="bash").
   The Angular router is a combination of multiple services (`ROUTER_PROVIDERS`), multiple directives (`ROUTER_DIRECTIVES`), 
   and a configuration decorator (`RouteConfig`). We'll import them all together:
   
-  Angular路由器是由多个服务(`ROUTER_PROVIDERS`)和多个指令(`ROUTER_DIRECTIVES`)以及一个配置装饰器（`RouteConfig`）组成的。我们一次性导入它们。
+  Angular路由器是由多个服务(`ROUTER_PROVIDERS`)和多个指令(`ROUTER_DIRECTIVES`)以及一个配置装饰器(`RouteConfig`)组成的。我们一次性导入它们。
 +makeExample('toh-5/ts/app/app.component.2.ts', 'import-router', 'app.component.ts (导入router)')(format=".")
 :marked
   Next we update the `directives` and `providers` metadata arrays to *include* the router assets.
@@ -310,7 +310,7 @@ code-example(language="bash").
     要学习更多使用`@RouteConfig`定义路由的知识，请参见[路由](../guide/router-deprecated.html)一章。
 :marked
   ### Router Outlet
-  ### 路由插座（Outlet）
+  ### 路由插座(Outlet)
 
   If we paste the path, `/heroes`, into the browser address bar, 
   the router should match it to the `'Heroes'` route and display the `HeroesComponent`.
@@ -343,7 +343,7 @@ code-example(language="bash").
   We bind the `RouterLink` directive (another of the `ROUTER_DIRECTIVES`) to an array
   that tells the router where to navigate when the user clicks the link.
   
-  注意，a标签中的`[routerLink]`绑定。我们把`RouterLink`指令（`ROUTER_DIRECTIVES`中的另一个指令）绑定到一个数组。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
+  注意，a标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个数组。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
   
   We define a *routing instruction* with a *link parameters array*.
   The array only has one element in our little sample, the quoted ***name* of the route** to follow.
@@ -375,7 +375,7 @@ code-example(language="bash").
   We click the "Heroes" navigation link, the browser bar updates to `/heroes`, 
   and now we see the list of heroes. We are navigating at last!
   
-  我们点击“英雄列表（Heroes）”导航链接，浏览器地址栏更新为`/heroes`，并且看到了英雄列表。我们终于导航过去了！
+  我们点击“英雄列表(Heroes)”导航链接，浏览器地址栏更新为`/heroes`，并且看到了英雄列表。我们终于导航过去了！
 
   At this stage, our `AppComponent` looks like this.
   
@@ -471,7 +471,7 @@ code-example(language="bash").
     because Angular doesn't support relative paths _by default_.
     We _can_ switch to [component-relative paths](../cookbook/component-relative-paths.html) if we prefer.
     
-    我们指定的所有路径_都是相对于该应用的根目录（这里是`app/`）的_。
+    我们指定的所有路径_都是相对于该应用的根目录(这里是`app/`)的_。
     因为Angular_默认_不支持使用相对于当前模块的路径。
     只要喜欢，我们也_可以_切换成[相对于组件的路径](../cookbook/component-relative-paths.html)模式。
 :marked
@@ -542,7 +542,7 @@ code-example(language="bash").
   The noteworthy differences: we cherry-pick four heroes (2nd, 3rd, 4th, and 5th) with *slice*
   and stub the `gotoDetail` method until we're ready to implement it.
   
-  不同之处在于：我们使用*slice*函数挑选四个英雄（第2、3、4、5个），并暂时为`gotoDetail`方法提供桩实现 —— 直到我们准备好实现它。
+  不同之处在于：我们使用*slice*函数挑选四个英雄(第2、3、4、5个)，并暂时为`gotoDetail`方法提供桩实现 —— 直到我们准备好实现它。
   
   Refresh the browser and see four heroes in the new dashboard.
   
@@ -619,7 +619,7 @@ code-example(format='').
   The colon (:) in the path indicates that `:id` is a placeholder to be filled with a specific hero `id` 
   when navigating to the `HeroDetailComponent`.
   
-  路径中的冒号（:）表示`:id`是一个占位符，当导航到这个`HeroDetailComponent`组件时，它将被填入一个特定英雄的`id`。
+  路径中的冒号(:)表示`:id`是一个占位符，当导航到这个`HeroDetailComponent`组件时，它将被填入一个特定英雄的`id`。
 .l-sub-section
   :marked
     Of course we have to import the `HeroDetailComponent` before we create this route:
@@ -774,7 +774,7 @@ code-example(format='').
 :marked
   Here's the (nearly) finished `HeroDetailComponent`:
   
-  下面是（几乎）完成的`HeroDetailComponent`：
+  下面是(几乎)完成的`HeroDetailComponent`：
 +makeExample('toh-5/ts/app/hero-detail.component.ts', 'v2', 'app/hero-detail.component.ts (最新版)')(format=".")
 :marked
 
@@ -826,7 +826,7 @@ code-example(format='').
   `import` the `router` reference and inject it in the constructor (along with the `HeroService`):
 
   `DashboardComponent`还没有路由器。我们使用常规的方式为它加上路由：
-  `import` `router`对象的引用，并且把它注入到构造函数中（就像`HeroService`那样）：
+  `import` `router`对象的引用，并且把它注入到构造函数中(就像`HeroService`那样)：
   
 +makeExample('toh-5/ts/app/dashboard.component.ts','import-router', 'app/dashboard.component.ts (节选)')(format=".")
 +makeExample('toh-5/ts/app/dashboard.component.ts','ctor')(format=".")
@@ -942,7 +942,7 @@ figure.image-display
   1. Import the `router`
   1. 导入`router`
   1. Inject the `router` in the constructor (along with the `HeroService`)
-  1. 把`router`注入到构造函数中（就像`HeroService`那样）
+  1. 把`router`注入到构造函数中(就像`HeroService`那样)
   1. Implement the `gotoDetail` method by calling the `router.navigate` method 
   with a two-part 'HeroDetail' *link parameters array*.
   1. 实现`gotoDetail`方法：以`HeroDetail`和*链接参数数组*为参数调用`router.navigate`方法。
@@ -1002,7 +1002,7 @@ figure.image-display
     We could list multiple style files from different locations if we needed them.
     As with `templateUrl`, we must specify the path _all the way back to the application root_.
     
-    `styleUrls`属性是一个由样式文件的文件名（包括路径）组成的数组。
+    `styleUrls`属性是一个由样式文件的文件名(包括路径)组成的数组。
     如果需要，我们还可以列出来自多个不同位置的样式文件。
     和`templateUrl`一样，我们必须指定_相对于此应用根目录_的路径。
 :marked

@@ -38,7 +38,7 @@
 
   "dependency-injection": {
     "title": "依赖注入",
-    "intro": "Angular的依赖注入系统能够JIT（刚好及时）的创建和交付所依赖的服务。",
+    "intro": "Angular的依赖注入系统能够JIT(刚好及时)的创建和交付所依赖的服务。",
     "nextable": true,
     "basics": true
   },

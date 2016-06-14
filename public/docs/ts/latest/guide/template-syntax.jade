@@ -83,7 +83,7 @@ code-example(language="html" escape="html").
 :marked
   Almost all HTML syntax is valid template syntax. The `<script>` element is a notable exception; it is forbidden, eliminating the risk of script injection attacks. (In practice, `<script>` is simply ignored.)
 
-  几乎所有的HTML语法都是有效的模板语法。但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。（在实践中，`<script>`只是被忽略了。）
+  几乎所有的HTML语法都是有效的模板语法。但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。(在实践中，`<script>`只是被忽略了。)
 
   Some legal HTML doesn’t make much sense in a template. The `<html>`, `<body>`, and `<base>` elements have no useful role in our repertoire. Pretty much everything else is fair game.
 
@@ -224,7 +224,7 @@ block template-expressions-cannot
   When we see *isUnchanged* in `[disabled]="isUnchanged"`,
   we know we are referring to that component's `isUnchanged` property.
 
-  当看到包裹在双花括号中的*title*（<code>{{title}}</code>）时，我们就知道`title`是这个数据绑定组件中的一个属性。
+  当看到包裹在双花括号中的*title*(<code>{{title}}</code>)时，我们就知道`title`是这个数据绑定组件中的一个属性。
   当看到`[disabled]="isUnchanged"`中的*isUnchanged*时，我们就知道我们正在引用该组件的`isUnchanged`属性。
 
   The component itself is usually the expression *context*, in which case
@@ -320,7 +320,7 @@ block template-expressions-cannot
 
   在单独的一次消息循环中，被依赖的值不应该改变。
   如果一个幂等的表达式返回了一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
-  如果表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
+  如果表达式返回一个对象(包括`Date`或`Array`)，连续调用它两次，也应该返回同一个对象的*引用*。
 
 .l-main-section#template-statements
 :marked
@@ -330,7 +330,7 @@ block template-expressions-cannot
   A template **statement** responds to an **event** raised by a binding target
   such as an element, component, or directive.
 
-  模板**语句**用来响应由绑定目标（如HTML元素、组件或指令）触发的**事件**对象。
+  模板**语句**用来响应由绑定目标(如HTML元素、组件或指令)触发的**事件**对象。
 
   We’ll see template statements in the [event binding](#event-binding) section,
   appearing in quotes to the right of the `=` symbol as in `(event)="statement"`.
@@ -359,7 +359,7 @@ block template-expressions-cannot
   (with !{__chaining_op}).
 
   和模板表达式一样，模板*语句*也是一个一个看起来很像JavaScript的语言。
-  模板语句解析器和模板表达式解析器有所不同，它的特别之处在于它既支持基本赋值（`=`）又支持使用分号（`;`）和逗号（`,`）把表达式串起来。
+  模板语句解析器和模板表达式解析器有所不同，它的特别之处在于它既支持基本赋值(`=`)又支持使用分号(`;`)和逗号(`,`)把表达式串起来。
 
   However, certain #{_JavaScript} syntax is not allowed:
 
@@ -520,7 +520,7 @@ table
   Binding types other than interpolation have a **target name** to the left of the equal sign,
   either surrounded by punctuation (`[]`, `()`) or preceded by a prefix (`bind-`, `on-`, `bindon-`).
 
-  除了插值表达式之外的绑定类型，在等号左边都有一个**目标名**，无论是包在括号中（`[]`、`()`）还是用带前缀（`bind-`、`on-`、`bindon-`）的形式。
+  除了插值表达式之外的绑定类型，在等号左边都有一个**目标名**，无论是包在括号中(`[]`、`()`)还是用带前缀(`bind-`、`on-`、`bindon-`)的形式。
 
   What is that target? Before we can answer that question, we must challenge ourselves to look at template HTML in a new way.
 
@@ -595,7 +595,7 @@ table
 
     **Attributes are defined by HTML. Properties are defined by the DOM (Document Object Model).**
 
-    **Attribute是由HTML定义的。Property是由DOM（Document Object Model）定义的。**
+    **Attribute是由HTML定义的。Property是由DOM(Document Object Model)定义的。**
 
     * A few HTML attributes have 1:1 mapping to properties. `id` is one example.
 
@@ -656,7 +656,7 @@ table
     Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
     The value of the *property* matters.
 
-    设置按钮的`disabled` *Property*（比如，通过Angular绑定）可以禁用或启用这个按钮。
+    设置按钮的`disabled` *Property*(比如，通过Angular绑定)可以禁用或启用这个按钮。
     这就是*Property*的价值。
 
     **The HTML attribute and the DOM property are not the same thing, even when they have the same name.**
@@ -696,7 +696,7 @@ table
   The following table summarizes:
 
   **数据绑定的目标**是DOM中的某些东西。
-  这个目标可能是（元素|组件|指令）的Property、（元素|组件|指令）的事件，或（极少数情况下）一个Attribute名。
+  这个目标可能是(元素|组件|指令)的Property、(元素|组件|指令)的事件，或(极少数情况下)一个Attribute名。
   下面是的汇总表：
 
 // If you update this table, UPDATE it in Dart & JS, too.
@@ -797,7 +797,7 @@ table
 :marked
   Another example is disabling a button when the component says that it `isUnchanged`:
 
-  另一个例子是当组件说它`isUnchanged`（未改变）时禁用一个按钮：
+  另一个例子是当组件说它`isUnchanged`(未改变)时禁用一个按钮：
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-2')(format=".")
 :marked
   Another is setting a property of a directive:
@@ -808,7 +808,7 @@ table
   Yet another is setting the model property of a custom component (a great way
   for parent and child components to communicate):
 
-  还有另一个例子是设置一个自定义组件的模型属性（这是父子组件之间通讯的重要途径）：
+  还有另一个例子是设置一个自定义组件的模型属性(这是父子组件之间通讯的重要途径)：
 +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-4')(format=".")
 :marked
   ### One-way *in*
@@ -1087,7 +1087,7 @@ code-example(format="nocode").
   value, using an expression that resolves to a string.
 
   Attribute绑定在语法上类似于属性绑定。
-  但方括号中的部分不是一个元素的属性名，而是由一个**`attr`**前缀，紧跟着一个点（`.`），再跟着Attribute的名字组成。
+  但方括号中的部分不是一个元素的属性名，而是由一个**`attr`**前缀，紧跟着一个点(`.`)，再跟着Attribute的名字组成。
   我们可以通过一个能求值为字符串的表达式来设置Attribute的值。
 
   Here we bind `[attr.colspan]` to a calculated value:
@@ -1107,7 +1107,7 @@ code-example(format="nocode").
   One of the primary use cases for attribute binding
   is to set ARIA attributes, as in this example:
 
-  Attribute绑定的主要用例之一是设置ARIA Attribute（译注：ARIA指可访问性，用于给残障人士访问互联网提供便利），就像这个例子中一样：
+  Attribute绑定的主要用例之一是设置ARIA Attribute(译注：ARIA指可访问性，用于给残障人士访问互联网提供便利)，就像这个例子中一样：
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
 :marked
   ### Class binding
@@ -1122,7 +1122,7 @@ code-example(format="nocode").
   Instead of an element property between brackets, we start with the prefix `class`,
   optionally followed by a dot (`.`) and the name of a CSS class: `[class.class-name]`.
 
-  CSS类绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`class`**前缀，紧跟着一个点（`.`），再跟着CSS类的名字组成。
+  CSS类绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`class`**前缀，紧跟着一个点(`.`)，再跟着CSS类的名字组成。
   其中后两部分是可选的。形如：`[class.class-name]`。
 
   The following examples show how to add and remove the application's "special" class
@@ -1133,7 +1133,7 @@ code-example(format="nocode").
 :marked
   We can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
 
-  我们可以把它改写为一个绑定到所需CSS类名的绑定；这是一个或者全有或者全无的替换型绑定（译注：即当badCurly有值时class这个Attribute设置的内容会被完全覆盖）。
+  我们可以把它改写为一个绑定到所需CSS类名的绑定；这是一个或者全有或者全无的替换型绑定(译注：即当badCurly有值时class这个Attribute设置的内容会被完全覆盖)。
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-2')(format=".")
 
 block dart-class-binding-bug
@@ -1167,7 +1167,7 @@ block dart-class-binding-bug
   Instead of an element property between brackets, we start with the prefix `style`,
   followed by a dot (`.`) and the name of a CSS style property: `[style.style-property]`.
 
-  样式绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`style`**前缀，紧跟着一个点（`.`），再跟着CSS样式的属性名。
+  样式绑定在语法上类似于属性绑定。但方括号中的部分不是一个元素的属性名，而是包括一个**`style`**前缀，紧跟着一个点(`.`)，再跟着CSS样式的属性名。
   形如：`[style.style-property]`。
 
 +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-1')(format=".")
@@ -1275,7 +1275,7 @@ block style-property-name-dart-diff
   The binding conveys information about the event, including data values, through
   an **event object named `$event`**.
 
-  这种绑定会通过一个**名叫`$event`的事件对象**传达关于此事件的信息（包括数据值）。
+  这种绑定会通过一个**名叫`$event`的事件对象**传达关于此事件的信息(包括数据值)。
 
   The shape of the event object is determined by the target event itself.
   If the target event is a native DOM element event, the `$event` is a
@@ -1303,7 +1303,7 @@ block style-property-name-dart-diff
 
   If the event belongs to a directive (remember: components are directives), `$event` has whatever shape the directive chose to produce.
 
-  如果这个事件属于指令（记住：组件是指令的一种），那么`$event`便具有指令所生成的形态（译注：比如inputs）。
+  如果这个事件属于指令(记住：组件是指令的一种)，那么`$event`便具有指令所生成的形态(译注：比如inputs)。
 
   <a id="eventemitter"></a>
   <a id="custom-event"></a>
@@ -1341,7 +1341,7 @@ block style-property-name-dart-diff
   When the user clicks *delete*, the component invokes the `delete()` method
   which tells the `EventEmitter` to emit a `Hero` object.
   
-  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[输入和输出属性](#input-and-output-properties)和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。）
+  组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[输入和输出属性](#input-and-output-properties)和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。)
   当用户点击*删除*时，组件会调用`delete()`方法，这个方法告诉`EventEmitter`，发出一个`Hero`对象。
 
   Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
@@ -1354,7 +1354,7 @@ block style-property-name-dart-diff
   When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
   passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
 
-  当`deleteRequest`事件触发时，Angular调用父组件的`deleteHero`方法，在`$event`变量中传入*要删除的英雄*（来自`HeroDetail`）。
+  当`deleteRequest`事件触发时，Angular调用父组件的`deleteHero`方法，在`$event`变量中传入*要删除的英雄*(来自`HeroDetail`)。
 
   ### Template statements have side effects
   ### 模板语句有副作用
@@ -1420,7 +1420,7 @@ block style-property-name-dart-diff
     To remember that the parentheses go inside the brackets, visualize a *banana in a box*.
 
     要记住“方括号中的圆括号”这种语法，就把它想象成 *盒子里的香蕉* 吧，是不是很形象？
-    （译注：中国读者记起来更简单，方括号又叫中括号，圆括号又叫小括号，显然应该中的在外，小的在内）
+    (译注：中国读者记起来更简单，方括号又叫中括号，圆括号又叫小括号，显然应该中的在外，小的在内)
 :marked
   Alternatively, we can use the canonical prefix form:
 
@@ -1628,7 +1628,7 @@ figure.image-display
   ### NgIf
   We can add an element subtree (an element and its children) to the DOM  by binding an `NgIf` directive to a #{_truthy} expression.
 
-  通过把`NgIf`指令绑定到一个真值表达式，我们可以把一个元素的子树（元素及其子元素）添加到DOM上。
+  通过把`NgIf`指令绑定到一个真值表达式，我们可以把一个元素的子树(元素及其子元素)添加到DOM上。
 +makeExample('template-syntax/ts/app/app.component.html', 'NgIf-1')(format=".")
 
 .alert.is-critical
@@ -1636,7 +1636,7 @@ figure.image-display
     Don't forget the asterisk (`*`) in front of `ngIf`.
     For more information, see [\* and &lt;template>](#star-template).
 
-    不要忘记了`ngIf`前面的星号（`*`）。
+    不要忘记了`ngIf`前面的星号(`*`)。
     要了解更多，参见[\*与&lt;template>](#star-template)。
 :marked
   Binding to a #{_falsey} expression removes the element subtree from the DOM.
@@ -1653,7 +1653,7 @@ block dart-no-truthy-falsey
   We can show and hide an element subtree (the element and its children) with a
   [class](#class-binding) or [style](#style-binding) binding:
 
-  我们可以通过[类绑定](#class-binding)或[样式绑定](#style-binding)来显示和隐藏一个元素的子树（元素及其子元素）。
+  我们可以通过[类绑定](#class-binding)或[样式绑定](#style-binding)来显示和隐藏一个元素的子树(元素及其子元素)。
 +makeExample('template-syntax/ts/app/app.component.html', 'NgIf-3')(format=".")
 :marked
   Hiding a subtree is quite different from excluding a subtree with `NgIf`.
@@ -1747,12 +1747,12 @@ block dart-no-truthy-falsey
   :marked
     **Do *not*** put the asterisk (`*`) in front of `ngSwitch`. Use the property binding instead.
 
-    **不要**在`ngSwitch`的前面放星号（`*`），而应该用属性绑定。
+    **不要**在`ngSwitch`的前面放星号(`*`)，而应该用属性绑定。
 
     **Do** put the asterisk (`*`) in front of `ngSwitchWhen` and `ngSwitchDefault`.
     For more information, see [\* and &lt;template>](#star-template).
 
-    **要**把星号（`*`）放在`ngSwitchWhen`和`ngSwitchDefault`的前面。
+    **要**把星号(`*`)放在`ngSwitchWhen`和`ngSwitchDefault`的前面。
     要了解更多信息，参见[\*与&lt;template>](#star-template)。
 
 <a id="ngFor"></a>
@@ -1785,7 +1785,7 @@ block dart-no-truthy-falsey
     Don't forget the asterisk (`*`) in front of `ngFor`.
     For more information, see [\* and &lt;template>](#star-template).
 
-    不要忘了`ngFor`前面的星号（`*`）。
+    不要忘了`ngFor`前面的星号(`*`)。
     要了解更多，参见[\*与&lt;template>](#star-template)
 :marked
   The text assigned to `*ngFor` is the instruction that guides the repeater process.
@@ -1815,7 +1815,7 @@ block dart-no-truthy-falsey
   stamping out instances of the element to which it is applied.
   Angular creates a fresh instance of the template for each hero in the array.
 
-  在前面的两个例子中，`ngFor`指令在`heroes`变量上进行迭代（它是由父组件的`heroes`属性返回的），以其所在的元素为模板“冲压”出很多实例。
+  在前面的两个例子中，`ngFor`指令在`heroes`变量上进行迭代(它是由父组件的`heroes`属性返回的)，以其所在的元素为模板“冲压”出很多实例。
   Angular为数组中的每个英雄创建了此模板的一个全新实例。
 
   The `let` keyword before `hero` creates a template input variable called `hero`.
@@ -1868,7 +1868,7 @@ block dart-no-truthy-falsey
   The refreshed list probably contains most, if not all, of the previously displayed heroes.
 
   例如，我们可以通过重新从服务器查询来刷新英雄列表。
-  刷新后的列表可能包含很多（如果不是全部的话）以前显示过的英雄。
+  刷新后的列表可能包含很多(如果不是全部的话)以前显示过的英雄。
 
   *We* know this because the `id` of each hero hasn't changed.
   But Angular sees only a fresh list of new object references.
@@ -1916,7 +1916,7 @@ figure.image-display
   ## `*`与&lt;template&gt;
   When we reviewed the `NgFor`, `NgIf`, and `NgSwitch` built-in directives, we called out an oddity of the syntax: the asterisk (`*`) that appears before the directive names.
 
-  当我们审视`NgFor`、`NgIf`和`NgSwitch`内建指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号（`*`）。
+  当我们审视`NgFor`、`NgIf`和`NgSwitch`内建指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号(`*`)。
 
   The `*` is a bit of syntactic sugar that makes it easier to read and write directives that modify HTML layout
   with the help of templates.
@@ -1951,7 +1951,7 @@ figure.image-display
   The first expansion step transports the `ngIf` (without the `*` prefix) and its contents
   into an expression assigned to a `template` directive.
 
-  展开的第一步是把`ngIf`（没有`*`前缀）和它的内容传给一个表达式，再赋值给`template`指令。
+  展开的第一步是把`ngIf`(没有`*`前缀)和它的内容传给一个表达式，再赋值给`template`指令。
 +makeExample('template-syntax/ts/app/app.component.html', 'Template-2a')(format=".")
 :marked
   The next (and final) step unfolds the HTML into a `<template>` tag and `[ngIf]` [property binding](#property-binding):
@@ -1997,7 +1997,7 @@ block remember-the-brackets
   Now we can see why the `ngSwitch` itself is not prefixed with an asterisk (*).
   It does not define content. It's job is to control a collection of templates.
 
-  现在，我们应该明白为什么`ngSwitch`本身不能用星号（*）前缀的原因了吧？
+  现在，我们应该明白为什么`ngSwitch`本身不能用星号(*)前缀的原因了吧？
   它没有定义内容，它的工作是控制一组模板。
 
   In this case, it governs two sets of `NgSwitchWhen` and `NgSwitchDefault` directives.
@@ -2005,7 +2005,7 @@ block remember-the-brackets
   once for the (*) prefixed version and once for the expanded template version.
   That's exactly what we see in this example:
   
-  上面这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令，一次是（*）前缀的版本，一次是展开模板后的版本。
+  上面这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令，一次是(*)前缀的版本，一次是展开模板后的版本。
   我们也期待它显示所选模板的值两次。这正是我们在这个例子中看到的：
 figure.image-display
     img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
@@ -2123,7 +2123,7 @@ figure.image-display
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.
   
-  这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量略大的对象传给父组件的`onSubmit`方法（译注：`onSubmit`方法可能会出发一个事件，被父组件监听，参见下面的`输入和输出属性`和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。）
+  这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量略大的对象传给父组件的`onSubmit`方法(译注：`onSubmit`方法可能会出发一个事件，被父组件监听，参见下面的`输入和输出属性`和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。)
 
 <a id="inputs-outputs"></a>
 .l-main-section
@@ -2164,7 +2164,7 @@ figure.image-display
     The *target* of a binding is the property or event inside the binding punctuation: `[]`, `()` or `[()]`.
     The *source* is either inside quotes (`" "`) or within an interpolation (`{{}}`).
 
-    绑定的*目标*是绑定符：`[]`、`()`或`[()]`中的属性或事件名，*源*则是引号（`" "`）中的部分或插值符号（`{{}}`）中的部分。
+    绑定的*目标*是绑定符：`[]`、`()`或`[()]`中的属性或事件名，*源*则是引号(`" "`)中的部分或插值符号(`{{}}`)中的部分。
 
     Every member of a **source** directive is automatically available for binding.
     We don't have to do anything special to access a directive member in a template expression or statement.
@@ -2297,7 +2297,7 @@ h3#aliasing-io 输入/输出属性别名
     the directive property name on the *left* and the public alias on the *right*:
 
     我们也能在`inputs`和`outputs`数组中为属性指定别名。
-    我们可以写一个冒号（`:`）分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公开的别名。
+    我们可以写一个冒号(`:`)分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公开的别名。
   +makeExample('template-syntax/ts/app/my-click.directive.ts', 'my-click-output-2')(format=".")
 
 <a id="expression-operators"></a>
@@ -2314,7 +2314,7 @@ h3#aliasing-io 输入/输出属性别名
 :marked
   <a id="pipe"></a>
   ### The pipe operator ( | )
-  ### 管道操作符（ | ）
+  ### 管道操作符( | )
   The result of an expression might require some transformation before we’re ready to use it in a binding.  For example, we might want to display a number as a currency, force text to uppercase, or filter a list and sort it.
 
   在用到绑定中之前，表达式的结果可能需要一些转换。比如，我们可能希望把一个数字显示成金额、强制文本变成大写，或者过滤一个列表以及排序它。
@@ -2325,7 +2325,7 @@ h3#aliasing-io 输入/输出属性别名
 
   Angular[管道](./pipes.html)对像这样的小型转换来说是个明智的选择。
   管道是一个简单的函数，它接受一个输入值，并返回转换结果。
-  它们很容易用于模板表达式中，只要使用**管道操作符（`|`）**就行了。
+  它们很容易用于模板表达式中，只要使用**管道操作符(`|`)**就行了。
 +makeExample('template-syntax/ts/app/app.component.html', 'pipes-1')(format=".")
 :marked
   The pipe operator passes the result of an expression on the left to a pipe function on the right.
@@ -2361,12 +2361,12 @@ block json-pipe
 :marked
   <a id="safe-navigation-operator"></a>
   ### The safe navigation operator ( ?. ) and null property paths
-  ### 安全导航操作符（ ?. ）和空属性路径
+  ### 安全导航操作符( ?. )和空属性路径
 
   The Angular **safe navigation operator (`?.`)** is a fluent and convenient way to guard against null and undefined values in property paths.
   Here it is, protecting against a view render failure if the `currentHero` is null.
 
-  Angular的**安全导航操作符（`?.`）**是一种流畅而便利的方式，用来保护出现在属性路径中null和undefined值。
+  Angular的**安全导航操作符(`?.`)**是一种流畅而便利的方式，用来保护出现在属性路径中null和undefined值。
   这意味着，当`currentHero`为空时，保护视图渲染器，让它免于失败。
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-2')(format=".")
 
@@ -2392,7 +2392,7 @@ block dart-safe-nav-op
   Suppose the template expression involves a property path, as in this next example
   where we’re displaying the `firstName` of a null hero.
 
-  假设模板表达式需要一个属性路径，在下一个例子中，我们要显示一个空（null）英雄的`firstName`。
+  假设模板表达式需要一个属性路径，在下一个例子中，我们要显示一个空(null)英雄的`firstName`。
 
 code-example(language="html").
   The null hero's name is {{nullHero.firstName}}
@@ -2451,14 +2451,14 @@ block safe-op-alt
   Imagine guarding against a null somewhere in a long property path such as `a.b.c.d`.
 
   这些方法都有价值，但是会显得笨重，特别是当这个属性路径非常长的时候。
-  想象一下在一个很长的属性路径（如`a.b.c.d`）中对空值提供保护。
+  想象一下在一个很长的属性路径(如`a.b.c.d`)中对空值提供保护。
 
 :marked
   The Angular safe navigation operator (`?.`) is a more fluent and convenient way to guard against nulls in property paths.
   The expression bails out when it hits the first null value.
   The display is blank, but the app keeps rolling without errors.
 
-  Angular安全导航操作符（`?.`）是在属性路径中保护空值的一个更加流畅、便利的方式。
+  Angular安全导航操作符(`?.`)是在属性路径中保护空值的一个更加流畅、便利的方式。
   表达式会在它遇到第一个空值的时候跳出。
   显示是空的，但是应用正常工作，而没有发生错误。
 +makeExample('template-syntax/ts/app/app.component.html', 'safe-6')(format=".")

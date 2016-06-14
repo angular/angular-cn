@@ -140,7 +140,7 @@ block http-providers
  
     We register HTTP providers in the bootstrap method by passing them in an array as the second parameter after the root component.
     
-    然后我们把这些HTTP服务供应商作为第二个参数传给bootstrap方法（第一个参数用来指定根组件），把它们注册进应用程序。
+    然后我们把这些HTTP服务供应商作为第二个参数传给bootstrap方法(第一个参数用来指定根组件)，把它们注册进应用程序。
 
     ### Why register in *bootstrap*?
     ### 为什么在*bootstrap*中注册？
@@ -161,7 +161,7 @@ block http-providers
     This replacement service is called the [*in-memory web api*](#in-mem-web-api).
     
     因为这是一个*范例程序*，它不会跟真实的服务器打交道。
-    我们准备用一个伪造的供应商来重新配置（通常不可见的）`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。
+    我们准备用一个伪造的供应商来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。
     这个用于替换的服务称为[*内存Web API*](#in-mem-web-api)。
     
     Such sleight-of-hand is something the root application component should *not* know about.
@@ -250,12 +250,12 @@ a#HeroListComponent
     (especially calling a remote server) is handled in a separate method.
     
     这是一项*最佳实践*。
-    当组件的构造函数足够简单，而且所有真实的工作（尤其是调用远端服务器）都在一个独立的方法中处理时，组件会更加容易测试和调试。
+    当组件的构造函数足够简单，而且所有真实的工作(尤其是调用远端服务器)都在一个独立的方法中处理时，组件会更加容易测试和调试。
 block getheroes-and-addhero
   :marked
     The service's `getHeroes()` and `addHero()` methods return an `Observable` of hero data that the !{_Angular_Http} client fetched from the server.
     
-    服务的`getHeroes()`和`addHero()`方法返回一个英雄数据的可观察对象（`Observable`），这些数据是由!{_Angular_Http}从服务器上获取的。
+    服务的`getHeroes()`和`addHero()`方法返回一个英雄数据的可观察对象(`Observable`)，这些数据是由!{_Angular_Http}从服务器上获取的。
     
     *Observables* are a big topic, beyond the scope of this chapter. 
     But we need to know a little about them to appreciate what is going on here.
@@ -316,7 +316,7 @@ h2#fetch-data 通过#[b HeroService]获取数据
     Alternatively, we can (temporarily) target a JSON file by changing the endpoint URL:
     
     一旦我们按附录中所描述的那样准备好了[内存Web API](in-mem-web-api)，它*将*返回英雄列表。
-    但目前，我们只能（临时性的）使用一个JSON文件来代替这个“内存Web API”。只要修改下服务器的URL就行了：
+    但目前，我们只能(临时性的)使用一个JSON文件来代替这个“内存Web API”。只要修改下服务器的URL就行了：
   +makeExample('server-communication/ts/app/toh/hero.service.ts', 'endpoint-json')(format=".")
 
 block rxjs
@@ -535,7 +535,7 @@ block error-handling
     
     我们在服务层使用了可观察对象的`catch`操作符。
     它接受一个以error对象为参数的错误处理函数。
-    我们的服务处理器（`handleError`）把响应对象记录到控制台中，
+    我们的服务处理器(`handleError`)把响应对象记录到控制台中，
     把错误转换成对用户友好的消息，并且通过`Observable.throw`来把这个消息放进一个新的、用于表示“失败”的可观察对象。
 
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'error-handling', 'app/toh/hero.service.ts (excerpt)')(format=".")
@@ -781,7 +781,7 @@ h2#cors 跨域请求：Wikipedia范例
   Some servers do not support CORS but do support an older, read-only alternative called [JSONP](https://en.wikipedia.org/wiki/JSONP).
   Wikipedia is one such server.
   
-  有些服务器不支持CORS，但支持一种老的、只读的（译注：即仅支持GET）替代协议，这就是[JSONP](https://en.wikipedia.org/wiki/JSONP)。
+  有些服务器不支持CORS，但支持一种老的、只读的(译注：即仅支持GET)替代协议，这就是[JSONP](https://en.wikipedia.org/wiki/JSONP)。
   Wikipedia就是一个这样的服务器。
 .l-sub-section
   :marked
@@ -831,7 +831,7 @@ block wikipedia-jsonp+
     The value of the `search` key is the user-supplied search term to find in Wikipedia.
     The other three are the fixed values "opensearch", "json", and "JSONP_CALLBACK" respectively.
     
-    [Wikipedia 的 'opensearch' API](https://www.mediawiki.org/wiki/API:Opensearch)期待在所请求的URL中带四个查询参数（键/值对格式）。
+    [Wikipedia 的 'opensearch' API](https://www.mediawiki.org/wiki/API:Opensearch)期待在所请求的URL中带四个查询参数(键/值对格式)。
     这些键(key)分别是`search`、`action`、`format`和`callback`。
     `search`的值是用户提供的用于在Wikipedia中查找的关键字。
     另外三个参数是固定值，分别是"opensearch"、"json"和"JSONP_CALLBACK"。
@@ -896,7 +896,7 @@ block wikipedia-jsonp+
     
     `search(term)`方法委托我们的`WikipediaService`服务来完成实际操作。该服务返回的是一个字符串数组的可观察对象(`Observable<string[]`)。
     该组件的内部订阅了这个可观察对象，就像我们曾在`HeroListComponent`中所做的那样，
-    我们把这个可观察对象作为结果传给模板（通过`items`属性），模板中`ngFor`上的[async(异步)管道](pipes.html#async-pipe)会对这个订阅进行处理。
+    我们把这个可观察对象作为结果传给模板(通过`items`属性)，模板中`ngFor`上的[async(异步)管道](pipes.html#async-pipe)会对这个订阅进行处理。
   .l-sub-section
     :marked
       We often use the [async pipe](pipes.html#async-pipe) in read-only components where the component has no need to interact with the data.
@@ -911,7 +911,7 @@ block wikipedia-jsonp+
     Our wikipedia search makes too many calls to the server. 
     It is inefficient and potentially expensive on mobile devices with limited data plans.
     
-    我们这个Wikipedia搜索程序触发了过多的服务器调用（每次按键发一次）。
+    我们这个Wikipedia搜索程序触发了过多的服务器调用(每次按键发一次)。
     这样效率很低，而且在流量受限的移动设备上会显得过于昂贵。
 
     ### 1. Wait for the user to stop typing
@@ -1134,7 +1134,7 @@ block redirect-to-web-api
 
 p Here is the revised (and final) version of the #[code #[+adjExPath('app/main.ts')]] demonstrating these steps.
 
-p 下面是修改过的（也是最终的）#[code #[+adjExPath('app/main.ts')]]版本，用于演示这些步骤。
+p 下面是修改过的(也是最终的)#[code #[+adjExPath('app/main.ts')]]版本，用于演示这些步骤。
 +makeExample('server-communication/ts/app/main.ts', 'final', 'app/main.ts (final)')(format=".")
 
 p See the full source code in the #[+liveExampleLink2()].

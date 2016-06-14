@@ -69,7 +69,7 @@ a(id="tsconfig")
   the compiler silently defaults the type of a variable to `any` if it cannot infer
   the type based on how the variable is used. That's what we mean by *implicit `any`*.
 
-  当`noImplicitAny`标志是`false`（默认值）时，
+  当`noImplicitAny`标志是`false`(默认值)时，
   如果编译器无法根据变量的用途推断出变量的类型，它就会悄悄的把变量类型默认为`any`。
   这就是*隐式`any`*的含义。
 
@@ -155,7 +155,7 @@ a(id="typings")
   with npm (it's listed among the *devDependencies* in the `package.json`) and added an npm script
   to run that tool automatically after *npm* installation completes.
 
-  我们已经用npm安装了这个[typings](https://github.com/typings/typings/blob/master/README.md)工具（它被列在了`package.json`的*devDependencies*中）
+  我们已经用npm安装了这个[typings](https://github.com/typings/typings/blob/master/README.md)工具(它被列在了`package.json`的*devDependencies*中)
   并添加了一个npm脚本，以便在所有*npm*包安装完之后运行那个工具。
 
 +makeJson('quickstart/ts/package.1.json', {paths: 'scripts.postinstall'}, 'package.json (postinstall)')(format=".")
@@ -192,7 +192,7 @@ a(id="typings")
   typical ES2015 features or support testing right out-of-the-box.
 
   “快速起步”本身不需要这些类型定义，但是文档中的很多例子都需要。
-  如果不能直接编写典型ES2015特性的代码或者写支持外部测试的代码，大部分读者会很失望（所以快速起步中有这些类型定义）。
+  如果不能直接编写典型ES2015特性的代码或者写支持外部测试的代码，大部分读者会很失望(所以快速起步中有这些类型定义)。
 
   We can also run the *typings* tool ourselves.
   The following command (re)installs the typings files, as is sometimes necessary when the `postInstall` hook fails to do so.

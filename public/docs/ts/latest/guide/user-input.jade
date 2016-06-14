@@ -65,7 +65,7 @@ include ../_util-fns
 
   This time we'll (1) listen to an event and (2) grab the user's input.
   
-  这次，我们将（1）监听一个事件（2）捕获用户输入。
+  这次，我们将(1)监听一个事件(2)捕获用户输入。
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-template', 'app/keyup.components.ts (模板 v.1)')(format=".")
 :marked
   Angular makes an event object available in the **`$event`** variable,
@@ -139,7 +139,7 @@ figure.image-display
   
   Angular有一个叫做[**模板引用变量**](./template-syntax.html#ref-vars)的语法特性。
   这些变量给了我们直接访问元素的能力。
-  通过在标识符前加上井号（#），我们就能定义一个模板引用变量。
+  通过在标识符前加上井号(#)，我们就能定义一个模板引用变量。
 
   Here's an example of using a template reference variable
   to implement a clever keystroke loopback in an ultra-simple template.
@@ -175,7 +175,7 @@ figure.image-display
     Angular only updates the bindings (and therefore the screen)
     if we do something in response to asynchronous events such as keystrokes.
     
-    如果我们在异步事件（如击键）的响应中做点什么，Angular只会更新绑定（并最终影响到屏幕）。
+    如果我们在异步事件(如击键)的响应中做点什么，Angular只会更新绑定(并最终影响到屏幕)。
 
     That's why we bind the `keyup` event to a statement that does ... well, nothing.
     We're binding to the number 0, the shortest statement we can think of.
@@ -204,13 +204,13 @@ figure.image-display
 .l-main-section
 :marked
   ## Key event filtering (with `key.enter`)
-  ## 按键事件过滤（通过`key.enter`）
+  ## 按键事件过滤(通过`key.enter`)
   Perhaps we don't care about every keystroke.
   Maybe we're only interested in the input box value when the user presses Enter, and we'd like to ignore all other keys.
   When we bind to the `(keyup)` event, our event handling statement hears *every keystroke*.
   We could filter the keys first, examining every `$event.keyCode`, and update the `values` property only if the key is Enter.
   
-  或许我们并不关心每一次按键，只在用户按下回车（enter）键的时候，我们才会关心输入框的值，所有其它按键都可以忽略。
+  或许我们并不关心每一次按键，只在用户按下回车(enter)键的时候，我们才会关心输入框的值，所有其它按键都可以忽略。
   当绑定到`(keyup)`事件的时候，我们的事件处理语句会听到 *每一次按键* 。
   我们应该先过滤一下按键，比如每一个`$event.keyCode`，并且只有当这个按键是回车键的时候才更新`values`属性。
 
@@ -225,7 +225,7 @@ figure.image-display
   would be to put the update code in the component.)
   
   只有在这种情况下，我们才更新组件的`values`属性。
-  （在这个例子中，更新代码是写在事件绑定语句中的。但在实践中更好的方式是把更新代码放到组件中。）
+  (在这个例子中，更新代码是写在事件绑定语句中的。但在实践中更好的方式是把更新代码放到组件中。)
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-3' ,'app/keyup.components.ts (v3)')(format=".")
 :marked
   Here's how it works.
@@ -237,7 +237,7 @@ figure.image-display
 .l-main-section
 :marked
   ## On blur
-  ## blur（失去焦点）事件
+  ## blur(失去焦点)事件
 
   Our previous example won't transfer the current state of the input box if the user mouses away and clicks
   elsewhere on the page. We update the component's `values` property only when the user presses Enter
@@ -337,7 +337,7 @@ figure.image-display
   input box (our design choice).
   
   第二条语句的存在理由很充分：在把新的英雄加入列表中之后，我们得清除输入框的值。
-  组件自己做不到这一点，它不能访问输入框（我们的设计选择）。
+  组件自己做不到这一点，它不能访问输入框(我们的设计选择)。
 
   Although the example *works*, we are rightly wary of JavaScript in HTML.
   Template statements are powerful. We're supposed to use them responsibly.

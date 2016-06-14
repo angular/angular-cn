@@ -115,7 +115,7 @@ a(id="special-selectors")
   Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
   targeting elements *inside* the component's template):
   
-  使用`:host`伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
+  使用`:host`伪类选择器，用来选择组件*宿主*元素中的元素(相对于组件模板*内部*的元素)。
 
 +makeExample('component-styles/ts/app/hero-details.component.css', 'host')(format='.')
 
@@ -146,7 +146,7 @@ a(id="special-selectors")
   we want to change how our component looks based on that.
   
   有时候，基于某些来自组件视图*外部*的条件应用样式是很有用的。
-  比如，在文档的`<body>`元素上可能有一个用于表示样式主题（Theme）的CSS类，而我们应当基于它来决定组件的样式。
+  比如，在文档的`<body>`元素上可能有一个用于表示样式主题(Theme)的CSS类，而我们应当基于它来决定组件的样式。
 
   Use the `:host-context()` pseudo-class selector. It works just like the function
   form of `:host()`. It looks for a CSS class in *any ancestor* of the component host element, all the way
@@ -224,7 +224,7 @@ a(id='loading-styles')
   Each string in the #{_array} (usually just one string) defines the CSS.
   
   我们可以给`@Component`#{_decoratorCn}添加一个`styles`数组型属性。
-  这个数组中的每一个字符串（通常也只有一个）定义一份CSS。
+  这个数组中的每一个字符串(通常也只有一个)定义一份CSS。
 
 +makeExample('component-styles/ts/app/hero-app.component.ts')
   
@@ -349,8 +349,8 @@ a#view-encapsulation
     (and renaming) the CSS code to effectively scope the CSS to the component's view.
     See [Appendix 1](#inspect-generated-css) for details.
     
-  * `Emulated`模式（**默认值**）通过预处理（并改名）CSS代码来仿真Shadow DOM的行为，以达到把CSS样式局限在组件视图中的目的。
-    参见[附录1](#inspect-generated-css)了解详情。（译注：只进不出，全局样式能进来，组件样式出不去）
+  * `Emulated`模式(**默认值**)通过预处理(并改名)CSS代码来仿真Shadow DOM的行为，以达到把CSS样式局限在组件视图中的目的。
+    参见[附录1](#inspect-generated-css)了解详情。(译注：只进不出，全局样式能进来，组件样式出不去)
 
   * `None` means that Angular does no view encapsulation.
     Angular adds the CSS to the global styles. 
@@ -358,7 +358,7 @@ a#view-encapsulation
     This is essentially the same as pasting the component's styles into the HTML.
   * `None`意味着Angular不使用视图包装。
     Angular会把CSS添加到全局样式中。而不会应用上前面讨论过的那些局限化规则、隔离和保护等规则。
-    从本质上来说，这跟把组件的样式直接放进HTML是一样的。（译注：能进能出。）
+    从本质上来说，这跟把组件的样式直接放进HTML是一样的。(译注：能进能出。)
 
   Set the components encapsulation mode using the `encapsulation` property in the component metadata:
   

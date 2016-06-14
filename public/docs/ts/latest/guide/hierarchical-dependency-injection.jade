@@ -14,7 +14,7 @@ block includes
   interesting and useful results.
   
   Angular有一个多级依赖注入系统。
-  实际上，应用程序中有一个与组件树平行的注入器树（译注：平行是指结构完全相同且一一对应）。
+  实际上，应用程序中有一个与组件树平行的注入器树(译注：平行是指结构完全相同且一一对应)。
   我们可以在组件树中的任何级别上重新配置注入器，达到一些有趣和有用的效果。
 
   In this chapter we explore these points and write some code.
@@ -58,7 +58,7 @@ p 试试#[+liveExampleLink2("在线例子")].
     But it is true that every component ***has an injector*** (even if it shares that injector with another component)
     and there may be many different injector instances operating at different levels of the component tree.
     
-    但是，每个组件都**有一个注入器**是真实的（就算它与其它组件共享注入器，也是*有注入器*），并且确实可能会有大量不同的注入器实例工作在组件树的不同级别。
+    但是，每个组件都**有一个注入器**是真实的(就算它与其它组件共享注入器，也是*有注入器*)，并且确实可能会有大量不同的注入器实例工作在组件树的不同级别。
 
     It is useful to pretend that every component has its own injector.
     
@@ -129,9 +129,9 @@ figure.image-display
   This child is the parent of another component (C) that defines its own provider for `Car`.
   
   让我们回到“汽车(Car)”类的例子。
-  假设“根注入器”（记为A）配置过`Car`、`Engine`和`Tires`的供应商。
-  然后创建了一个子组件（B），它为`Car`和`Engine`类定义了自己的供应商。
-  这个子组件（B）又有另一个子组件（C），（C）也为`Car`定义了自己的供应商。
+  假设“根注入器”(记为A)配置过`Car`、`Engine`和`Tires`的供应商。
+  然后创建了一个子组件(B)，它为`Car`和`Engine`类定义了自己的供应商。
+  这个子组件(B)又有另一个子组件(C)，(C)也为`Car`定义了自己的供应商。
 
   Behind the scenes each component sets up its own injector with one or more providers defined for that component itself.
   
@@ -141,8 +141,8 @@ figure.image-display
   its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
   `Tires` resolved by the root injector (A).
   
-  当我们在最底层的组件（C）中试图解析出一个`Car`的实例时，注入器（C）解析出的`Car`类的实例，
-  该`Car`的实例带有一个`Engine`类的实例（由注入器（B）解析出）和一个`Tires`类的实例（由跟注入器（A）解析出）。
+  当我们在最底层的组件(C)中试图解析出一个`Car`的实例时，注入器(C)解析出的`Car`类的实例，
+  该`Car`的实例带有一个`Engine`类的实例(由注入器(B)解析出)和一个`Tires`类的实例(由跟注入器(A)解析出)。
 
 figure.image-display
   img(src="/resources/images/devguide/dependency-injection/injector-tree.png" alt="injector tree" width="600")
@@ -277,7 +277,7 @@ figure.image-display
   scoped to that component instance and its child components.
   
   但很明显，这个场景下我们不希望这样。我们希望每个组件都有它自己的`RestoreService`实例。
-  在组件级别上定义（或重定义）一个供应商，将会为该组件创建一个新的服务实例。
+  在组件级别上定义(或重定义)一个供应商，将会为该组件创建一个新的服务实例。
   我们已经为`HeroEditComponent`制造了一种“私有”`RestoreService`单例，它的作用范围被局限在了该组件的实例及其子组件中。
 
   <!--

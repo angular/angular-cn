@@ -72,7 +72,7 @@ include ../_util-fns
   :marked
     That's not the only way to create a form but it's the way we'll cover in this chapter.
     
-    这不是创建表单的唯一方式，但它是我们将在本章中使用的方式。（译注：Angular支持的另一种方式叫做模型驱动表单Model-Driven Forms）
+    这不是创建表单的唯一方式，但它是我们将在本章中使用的方式。(译注：Angular支持的另一种方式叫做模型驱动表单Model-Driven Forms)
     
 :marked
   We can build almost any form we need with an Angular template &mdash; login forms, contact forms ... pretty much any business forms.
@@ -169,7 +169,7 @@ figure.image-display
   
   Create a new project folder (`angular2-forms`) and follow the steps in the [QuickStart](../quickstart.html).
   
-  创建一个新的项目文件夹（`angular2-forms`），并且完成[“快速起步”](../quickstart.html)中的步骤。
+  创建一个新的项目文件夹(`angular2-forms`)，并且完成[“快速起步”](../quickstart.html)中的步骤。
 
 include ../_quickstart_repo
 :marked
@@ -188,7 +188,7 @@ include ../_quickstart_repo
   and one optional field (`alterEgo`).
   
   最简单的模型就是一个“属性包”，用来存放应用中一件事物的事实。
-  这里我们使用三个必备字段（`id`、`name`、`power`），和一个可选字段（`alterEgo`，译注：中文含义：第二人格，比如X战警中的Jean/黑凤凰）。
+  这里我们使用三个必备字段(`id`、`name`、`power`)，和一个可选字段(`alterEgo`，译注：中文含义：第二人格，比如X战警中的Jean/黑凤凰)。
 
   Create a new file in the app folder called `hero.ts` and give it the following class definition:
   
@@ -208,7 +208,7 @@ include ../_quickstart_repo
   
   The `alterEgo` is optional and the constructor lets us omit it; note the (?) in `alterEgo?`.
   
-  `alterEgo`是可选的，构造函数允许我们省略它，注意`alterEgo?`中的问号（?）。
+  `alterEgo`是可选的，构造函数允许我们省略它，注意`alterEgo?`中的问号(?)。
 
   We can create a new hero like this:
   
@@ -287,7 +287,7 @@ code-example(format="").
   We also like short files with a clear and obvious purpose like this one.
   
   没有什么答案在所有场合都总是“正确”的。当内联模板足够短的时候，我们更喜欢用它。
-  但大多数的表单模板都不短。普遍来讲，TypeScript和JavaScript文件不是写大型HTML的好地方（也不好读）。
+  但大多数的表单模板都不短。普遍来讲，TypeScript和JavaScript文件不是写大型HTML的好地方(也不好读)。
   而且没有几个编辑器能对混写的HTML和代码提供足够的帮助。
   我们还是喜欢写成像这个一样清晰明确的短文件。
 
@@ -331,7 +331,7 @@ code-example(format="").
     1. The `directives` array tells Angular that our template depends upon the `HeroFormComponent`
     which is itself a Directive (as are all Components).
     
-    1. `directives`数组告诉Angular，我们的模板依赖于`HeroFormComponent`组件，它本身也是一个指令（所有组件都是指令）。
+    1. `directives`数组告诉Angular，我们的模板依赖于`HeroFormComponent`组件，它本身也是一个指令(所有组件都是指令)。
 
 .l-main-section
 :marked
@@ -612,7 +612,7 @@ figure.image-display
     the event handling such as debounce or throttle the key strokes.
     
     很高兴知道这些，但是这样现实吗？实践上我们几乎总是优先使用`[(ngModel)]`形式的双向绑定。
-    只有当我们不得不在事件处理函数中做一些特别的事情（比如合并或限制按键频率）时，才需要拆分出独立的事件处理函数。
+    只有当我们不得不在事件处理函数中做一些特别的事情(比如合并或限制按键频率)时，才需要拆分出独立的事件处理函数。
 
     Learn more about `NgModel` and other template syntax in the
     [Template Syntax](./template-syntax.html) chapter.
@@ -670,7 +670,7 @@ figure.image-display
     
     我们模板中的这个`ngControl`*属性*实际上被映射到了 [NgControlName](../api/common/index/NgControlName-directive.html)指令。
     虽然还有另一个叫`NgControl`的*抽象*指令，但和这个属性不是一回事。
-    我们通常会忽略这点技术上的差异。为了更方便（尽管不正确），我们提起`NgControlName`时还是会把它叫做*NgControl*指令。
+    我们通常会忽略这点技术上的差异。为了更方便(尽管不正确)，我们提起`NgControlName`时还是会把它叫做*NgControl*指令。
     
     While we're under the hood, we might as well note that the `ngModel` in the 
     two-way binding syntax is now a property of the `NgControlName` directive. 
@@ -894,7 +894,7 @@ figure.image-display
   
   这种用户体验取决于开发人员的选择。有些人会希望任何时候都显示这条消息。
   如果忽略了`pristine`状态，我们就会只在值有效时隐藏此消息。
-  如果往这个组件中传入一个全新（空白）的英雄，或者一个无效的英雄，我们将立刻看到错误信息 —— 虽然我们还啥都没做。
+  如果往这个组件中传入一个全新(空白)的英雄，或者一个无效的英雄，我们将立刻看到错误信息 —— 虽然我们还啥都没做。
    
   Some folks find that behavior disconcerting. They only want to see the message when the user makes an invalid change.
   Hiding the message while the control is "pristine" achieves that goal.
@@ -951,7 +951,7 @@ figure.image-display
   This time we see an error message! Why? We don't want that when we display a new (empty) hero.
   
   输入一个名字，并再次点击*新增英雄*按钮。
-  这次，我们看到了错误信息！为什么？当我们显示一个新（空白）的英雄时，我们不希望如此。
+  这次，我们看到了错误信息！为什么？当我们显示一个新(空白)的英雄时，我们不希望如此。
   
   Inspecting the element in the browser tools reveals that the *name* input box is no longer pristine.
   Replacing the hero *did not restore the pristine state* of the control.
@@ -1092,7 +1092,7 @@ figure.image-display
 :marked
   ## Toggle two form regions (extra credit)
   
-  ## 切换两个表单区域（额外的荣誉）
+  ## 切换两个表单区域(额外的荣誉)
   
   Submitting the form isn't terribly dramatic at the moment.
   
