@@ -9,6 +9,7 @@ block includes
   [HTTP](https://tools.ietf.org/html/rfc2616) is the primary protocol for browser/server communication.
   
   [HTTP](https://tools.ietf.org/html/rfc2616)是浏览器和服务器之间通讯的主要协议。
+
 .l-sub-section
   :marked
     The [`WebSocket`](https://tools.ietf.org/html/rfc6455) protocol is another important communication technology;
@@ -33,32 +34,55 @@ block includes
 
 ul
   li #[a(href="#http-client") HTTP client sample overview]
+
   li #[a(href="#http-client") HTTP客户端范例概览]
+
   li #[a(href="#fetch-data") Fetch data with http.get]
+
   li #[a(href="#fetch-data") 通过http.get获取数据]
+
   +ifDocsFor('ts')
     li #[a(href="#rxjs") RxJS Observable of HTTP Responses]
+
     li #[a(href="#rxjs") HTTP响应中的RxJS 可观察对象(Observable)]
+
     li #[a(href="#enable-rxjs-operators") Enabling RxJS Operators]
+    
     li #[a(href="#enable-rxjs-operators") 启用RxJS操作(Operator)函数]
+
   li #[a(href="#extract-data") Extract JSON data]
+
   li #[a(href="#extract-data") 提取JSON数据]
+
   li #[a(href="#error-handling") Error handling]
+
   li #[a(href="#error-handling") 错误处理]
+
   li #[a(href="#update") Send data to the server]
+
   li #[a(href="#update") 把数据发送到服务器]
+  
   +ifDocsFor('ts')
     li #[a(href="#promises") Promises instead of observables]
+
     li #[a(href="#promises") 使用承诺(Promise)来取代可观察对象(Observable)]
+
   li #[a(href="#cors") Cross-origin requests: Wikipedia example]
+
   li #[a(href="#cors") 跨域请求：Wikipedia例子]
+
   +ifDocsFor('ts')
     ul
       li #[a(href="#search-parameters") Set query string parameters]
+
       li #[a(href="#search-parameters") 设置查询参数]
+
       li #[a(href="#more-observables") Debounce search term input]
+
       li #[a(href="#more-observables") 限制搜索框条目输入频率]
+
   li #[a(href="#in-mem-web-api") Appendix: the in-memory web api service]
+
   li #[a(href="#in-mem-web-api") 附录：内存中的Web API服务]
 p.
   We illustrate these topics with code that you can 
@@ -68,9 +92,13 @@ p.
   
 .l-main-section
 h1 Demos
+
 h1 演示
+
 p  This chapter describes server communication with the help of the following demos
+
 p 本章通过下面这些演示，描述了服务端通讯的用法。
+
 ul
   block demos-list
     li #[a(href="#http-client") HTTP client: Tour of Heroes with Observables]
@@ -103,7 +131,9 @@ block rxjs-import
   首先，我们必须配置应用程序，才能使用服务器通讯设施。
 .l-main-section
 h1#http-providers Providing HTTP Services
+
 h1#http-providers 提供HTTP服务
+
 :marked
   We use the !{_Angular_Http} client to communicate with a server using a familiar HTTP request/response protocol.
   The `#{_Http}` client is one of a family of services in the !{_Angular_http_library}.
@@ -212,7 +242,9 @@ a#oninit
 a#HeroListComponent
 :marked
   ## The *HeroListComponent* class
+
   ## *HeroListComponent*类
+  
   Here's the component class:
   
   下面是这个组件类：
@@ -341,7 +373,9 @@ block rxjs
   .l-main-section
   :marked
     # RxJS Library
+
     # RxJS库
+
     [RxJS](https://github.com/ReactiveX/RxJS) ("Reactive Extensions") is a 3rd party library, endorsed by Angular,
     that implements the [*asynchronous observable*](https://www.youtube.com/watch?v=UHI0AzD_WfY "Rob Wormald on observables") pattern.
     
@@ -357,7 +391,9 @@ block rxjs
     HTTP客户端更需要它。经过一个关键步骤，我们才能让RxJS可观察对象可用。
 
     ### Enable RxJS Operators
+
     ### 启用RxJS操作符
+
     The RxJS library is quite large. 
     Size matters when we build a production application and deploy it to mobile devices.
     We should include only those features that we actually need.
@@ -415,7 +451,9 @@ l-main-section
 a#extract-data
 :marked
   ## Process the response object
+
   ## 处理Response响应对象
+
   Remember that our `getHeroes()` method mapped the `#{_priv}http.get` response object to heroes with an `#{_priv}extractData` helper method:
   
   记住，`getHeroes()`借助一个`#{_priv}extractData`辅助方法来把`#{_priv}http.get`的响应对象映射成了英雄列表：
@@ -428,6 +466,7 @@ a#extract-data
   要让它在应用程序中可用，我们就必须把这个响应数据解析成一个JSON对象。
 
   #### Parse to JSON
+
   #### 解析成JSON
 block parse-json
   :marked
@@ -469,7 +508,9 @@ block parse-json
      并非所有服务器都会返回一个带`data`属性的对象。
 :marked
   ### Do not return the response object
+
   ### 不要返回响应(Response)对象
+
   Our `getHeroes()` could have returned the HTTP response. Bad idea! 
   The point of a data service is to hide the server interaction details from consumers.
   The component that calls the `HeroService` wants heroes. 
@@ -487,6 +528,7 @@ block parse-json
 +ifDocsFor('ts')
   .callout.is-important
     header HTTP GET is delayed 
+
     header HTTP的GET方法被推迟执行了
     :marked
       The `#{_priv}http.get` does **not send the request just yet!** This observable is
@@ -502,6 +544,7 @@ block parse-json
 a#error-handling
 :marked
   ### Always handle errors
+
   ### 总是处理错误
 
   Whenever we deal with I/O we must be prepared for something to go wrong as it surely will. 
@@ -539,6 +582,7 @@ block error-handling
 a#subscribe
 a#hero-list-component
 h4 #[b HeroListComponent] error handling
+
 h4 #[b HeroListComponent] 错误处理
 block hlc-error-handling
   :marked
@@ -563,6 +607,7 @@ block hlc-error-handling
 .l-main-section
 :marked
   ## Send data to the server
+
   ## 往服务器发送数据
   
   So far we've seen how to retrieve data from a remote location using an HTTP service. 
@@ -614,6 +659,7 @@ code-example(format="." language="javascript").
 
 :marked
   ### Headers
+
   ### 请求头(Headers)
 
   The `Content-Type` header allows us to inform the server that the body will represent JSON.
@@ -630,6 +676,7 @@ code-example(format="." language="javascript").
 
 :marked
   ### Body
+
   ### 请求体(Body)
 
   Despite the content type being specified as JSON, the POST body must actually be a *string*.
@@ -647,6 +694,7 @@ code-example(format="." language="javascript").
 
 :marked
   ### JSON results
+
   ### JSON结果
 
   As with `getHeroes()`, we [extract the data](#extract-data) from the response using the
@@ -665,6 +713,7 @@ block hero-list-comp-add-hero
 
 block promises
   h2#promises Fall back to Promises
+
   h2#promises 倒退为承诺(Promise)
   :marked
     Although the Angular `http` client API returns an `Observable<Response>` we can turn it into a 
@@ -786,6 +835,7 @@ h2#cors 跨域请求：Wikipedia范例
     这个[StackOverflow上的答案](http://stackoverflow.com/questions/2067472/what-is-jsonp-all-about/2067584#2067584)覆盖了关于JSONP的很多细节。
 :marked
   ### Search wikipedia
+
   ### 搜索Wikipedia
   
   Let's build a simple search that shows suggestions from wikipedia as we type in a text box.
@@ -865,6 +915,7 @@ block wikipedia-jsonp+
   <a id="wikicomponent"></a>
   :marked
     ### The WikiComponent
+
     ### WikiComponent组件
 
     Now that we have a service that can query the Wikipedia API, 
@@ -884,15 +935,15 @@ block wikipedia-jsonp+
     The component presents an `<input>` element *search box* to gather search terms from the user. 
     and calls a `search(term)` method after each `keyup` event.
     
-    该组件把一个`<input>`元素作为*搜索框*作为从用户那里手机搜索关键字的入口。
-    并在每次`keyup`事件被触发时，调用`search(term)`方法。
+    该组件有一个`<input>`元素，它是用来从用户获取搜索关键词的*搜索框*。
+    在每次`keyup`事件被触发时，它调用`search(term)`方法。
 
     The `search(term)` method delegates to our `WikipediaService` which returns an observable array of string results (`Observable<string[]`). 
     Instead of subscribing to the observable inside the component as we did in the `HeroListComponent`, 
     we forward the observable result to the template (via `items`) where the [async pipe](pipes.html#async-pipe)
     in the `ngFor` handles the subscription.
     
-    `search(term)`方法委托我们的`WikipediaService`服务来完成实际操作。该服务返回的是一个字符串数组的可观察对象(`Observable<string[]`)。
+    `search(term)`方法委托我们的`WikipediaService`服务来完成实际操作。该服务返回的是一个字符串数组的可观察对象(`Observable<string[]>`)。
     该组件的内部订阅了这个可观察对象，就像我们曾在`HeroListComponent`中所做的那样，
     我们把这个可观察对象作为结果传给模板(通过`items`属性)，模板中`ngFor`上的[async(异步)管道](pipes.html#async-pipe)会对这个订阅进行处理。
   .l-sub-section
@@ -904,7 +955,8 @@ block wikipedia-jsonp+
       但我们不能在`HeroListComponent`中使用这个管道，这是因为“添加新英雄”特性会把一个新创建的英雄追加到英雄列表中。
   :marked
     ## Our wasteful app
-    ## 我们这个奢侈的应用
+
+    ## 奢侈的应用程序
 
     Our wikipedia search makes too many calls to the server. 
     It is inefficient and potentially expensive on mobile devices with limited data plans.
@@ -913,18 +965,21 @@ block wikipedia-jsonp+
     这样效率很低，而且在流量受限的移动设备上会显得过于昂贵。
 
     ### 1. Wait for the user to stop typing
+
     ### 1. 等用户停止输入
+
     At the moment we call the server after every key stroke.
     The app should only make requests when the user *stops typing* .
     Here's how it *should* work &mdash; and *will* work  &mdash;  when we're done refactoring:
     
-    现在，我们会在每次按键之后调用服务器。
+    我们目前会在每次按键之后调用服务器。
     但合理的方式是只在用户*停止输入*之后才发起请求。
-    这是它*应该*而且*即将使用*的工作方式，我们马上就重构它：
+    这是它*应该*而且*即将使用*的工作方式，我们马上就重构它。
   figure.image-display
     img(src='/resources/images/devguide/server-communication/wiki-2.gif' alt="Wikipedia search app (v.2)" width="250")
   :marked
     ### 2. Search when the search term changes
+
     ### 2. 当搜索关键字变化了才搜索
 
     Suppose the user enters the word *angular* in the search box and pauses for a while. 
@@ -940,6 +995,7 @@ block wikipedia-jsonp+
     搜索关键词仍然是“angular”。这时应用程序不应该发起另一个请求。
 
     ### 3. Cope with out-of-order responses
+
     ### 3. 对付乱序响应体
 
     The user enters *angular*, pauses, clears the search box, and enters *http*. 
@@ -965,6 +1021,7 @@ block wikipedia-jsonp+
 
     <a id="more-observables"></a>
     ## More fun with Observables
+
     ## Observable的更多乐趣
     We can address these problems and improve our app with the help of some nifty observable operators. 
     
@@ -1005,6 +1062,7 @@ block wikipedia-jsonp+
   +makeExample('server-communication/ts/app/wiki/wiki-smart.component.ts', 'subject')(format='.')
   :marked
     ### Listen for search terms
+
     ### 监听搜索关键字
 
     Earlier, we passed each search term directly to the service and bound the template to the service results.
@@ -1054,11 +1112,13 @@ a#in-mem-web-api
 .l-main-section
 :marked
   ## Appendix: Tour of Heroes in-memory server
+
   ## 附录：《英雄指南》的内存(in-memory)服务器
 
   If we only cared to retrieve data, we could tell Angular to get the heroes from a `heroes.json` file like this one:
   
-  如果我们只关心获取到的数据，我们可以告诉Angular从一个从一个`heroes.json`文件中获取英雄列表，就像这样：
+  如果我们只关心获取到的数据，我们可以告诉Angular从一个`heroes.json`文件中获取英雄列表，就像这样：
+
 +makeJson('server-communication/ts/app/heroes.json', null, 'app/heroes.json')(format=".")
 .l-sub-section
   :marked
