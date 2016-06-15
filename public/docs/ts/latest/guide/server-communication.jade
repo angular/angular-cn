@@ -590,7 +590,7 @@ block hlc-error-handling
   structured like a `Hero` entity but without the `id` property.
   The body of the request should look like this:
   
-  [我们的数据服务器](#server)遵循典型的REST指导原则。
+  我们的[数据服务器](#server)遵循典型的REST指导原则。
   它期待在和`GET`英雄列表的同一个端点上存在一个[`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5)请求。
   它期待从请求体(body)中获得新英雄的数据，数据的结构和`Hero`对象相同，但是不带`id`属性。
   请求体应该看起来像这样：
@@ -606,7 +606,7 @@ code-example(format="." language="javascript").
   
   Now that we know how the API works, we implement `addHero()`like this:
   
-  现在，我们知道了这个API如何工作，就可以像这样实现`addHero()`了：
+  现在，知道了这个API如何工作，我们就可以像这样实现`addHero()`了：
 
 +ifDocsFor('ts')
   +makeExample('server-communication/ts/app/toh/hero.service.ts', 'import-request-options', 'app/toh/hero.service.ts (additional imports)')(format=".")  
@@ -618,7 +618,7 @@ code-example(format="." language="javascript").
 
   The `Content-Type` header allows us to inform the server that the body will represent JSON.
   
-  我们通过这个`Content-Type`头告诉服务器，body是JSON格式的。
+  我们通过`Content-Type`头告诉服务器，body是JSON格式的。
 
 +ifDocsFor('ts')
   :marked
@@ -665,7 +665,7 @@ block hero-list-comp-add-hero
 
 block promises
   h2#promises Fall back to Promises
-  h2#promises 退化为承诺(Promise)
+  h2#promises 倒退为承诺(Promise)
   :marked
     Although the Angular `http` client API returns an `Observable<Response>` we can turn it into a 
     [Promise<Response>](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) if we prefer.
@@ -722,7 +722,7 @@ block promises
     We give both methods the same functional arguments. 
     
     唯一一个比较明显的不同点是我们调用这个返回的承诺的`then`方法，而不再是`subscribe`。
-    而且我们给了这两个方法完全相同的调用参数。
+    我们给了这两个方法完全相同的调用参数。
   .l-sub-section
     :marked
       The less obvious but critical difference is that these two methods return very different results!
@@ -820,7 +820,9 @@ block wikipedia-jsonp+
   <a id="query-parameters"></a>
   :marked
     ### Search parameters
+
     ### 搜索参数
+    
     The [Wikipedia 'opensearch' API](https://www.mediawiki.org/wiki/API:Opensearch)
     expects four parameters (key/value pairs) to arrive in the request URL's query string.
     The keys are `search`, `action`, `format`, and `callback`.
