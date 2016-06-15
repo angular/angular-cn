@@ -2,7 +2,9 @@ include ../_util-fns
 
 :marked
   # It Takes Many Heroes
+  
   # 需要多个英雄
+  
   Our story needs more heroes.
   We’ll expand our Tour of Heroes app to display a list of heroes,
   allow the user to select a hero, and display the hero’s details.
@@ -24,7 +26,9 @@ p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-2')]。
 .l-main-section
 :marked
   ## Where We Left Off
+  
   ## 我们在哪儿
+  
   Before we continue with Part 2 of the Tour of Heroes,
   let’s verify we have the following structure after [Part 1](./toh-pt1.html).
   If not, we’ll need to go back to Part 1 and figure out what we missed.
@@ -48,7 +52,9 @@ p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-2')]。
     .file typings.json
 :marked
   ### Keep the app transpiling and running
+  
   ### 让应用代码保持转译和运行
+  
   We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
   
   我们要启动TypeScript编译器，它会监视文件变更，并启动开发服务器。我们只要敲：
@@ -64,9 +70,13 @@ code-example(language="bash").
 .l-main-section
 :marked
   ## Displaying Our Heroes
+  
   ## 显示我们的英雄
+  
   ### Creating heroes
+  
   ### 创建英雄
+  
   Let’s create an array of ten heroes at the bottom of `app.component.ts`.
   
   我们先在`app.component.ts`的底部创建一个由十位英雄组成的数组。
@@ -83,7 +93,9 @@ code-example(language="bash").
   我们当然希望从一个Web服务中获取这个英雄列表，但别急，我们得把步子迈得小一点儿 —— 先用一组Mock(模拟)出来的英雄。
 
   ### Exposing heroes
+  
   ### 导出英雄们
+  
   Let’s create a public property in `AppComponent` that exposes the heroes for binding.
   
   我们在`AppComponent`上创建一个公开属性，用来暴露这些英雄，以供绑定。
@@ -94,6 +106,7 @@ code-example(language="bash").
   We did not have to define the `heroes` type.  TypeScript can infer it from the `HEROES` array.
   
   我们并不需要明确定义`heroes`属性的数据类型，TypeScript能从`HEROES`数组中推断出来。
+  
 .l-sub-section
   :marked
     We could have defined the heroes list here in this component class.
@@ -104,9 +117,12 @@ code-example(language="bash").
     我们已经把英雄列表定义在了这个组件类中。
     但显然，我们最终还是得从一个数据服务中获取这些英雄。
     正因如此，我们从一开始就要有意识的把英雄数据隔离到一个类中来实现。
+    
 :marked
   ### Displaying heroes in a template
+  
   ### 在一个模板中显示英雄
+  
   Our component has `heroes`. Let’s create an unordered list in our template to display them.
   We’ll insert the following chunk of HTML below the title and above the hero details.
   
@@ -121,6 +137,7 @@ code-example(language="bash").
   现在，我们有了一个模板。接下来，就用英雄们的数据来填充它。
 
   ### Listing heroes with ngFor
+  
   ### 通过ngFor来显示英雄列表
 
   We want to bind the array of `heroes` in our component to our template, iterate over them,
@@ -187,7 +204,9 @@ code-example(language="bash").
   当浏览器刷新时，我们就看到了英雄列表。
 
   ### Styling our heroes
+  
   ### 给我们的英雄们“美容”
+  
   Our list of heroes looks pretty bland.
   We want to make it visually obvious to a user which hero we are hovering over and which hero is selected.
 
@@ -224,7 +243,9 @@ code-example(language="bash").
 .l-main-section
   :marked
     ## Selecting a Hero
+    
     ## 选择英雄
+    
     We have a list of heroes and we have a single hero displayed in our app.
     The list and the single hero are not connected in any way.
     We want the user to select a hero from our list, and have the selected hero appear in the details view.
@@ -242,7 +263,9 @@ code-example(language="bash").
     我们通过组件中的一个`selectedHero`属性来连接主从视图。它被绑定到了click事件上。
 
     ### Click event
+    
     ### click事件
+    
     We modify the `<li>` by inserting an Angular event binding to its click event.
 
     我们往`<li>`元素上插入一句Angular事件绑定代码，绑定到它的click事件。
@@ -253,8 +276,10 @@ code-example(language="bash").
     Focus on the event binding
     
     事件绑定详解
+    
   code-example(format="." language="bash").
     (click)="onSelect(hero)"
+  
   :marked
     The parenthesis identify the `<li>` element’s  `click` event as the target.
     The expression to the right of the equal sign calls the  `AppComponent` method, `onSelect()`,
@@ -277,7 +302,9 @@ code-example(language="bash").
 
   :marked
     ### Add the click handler
+    
     ### 添加click事件处理器
+    
     Our event binding refers to an `onSelect` method that doesn’t exist yet.
     We’ll add that method to our component now.
 
@@ -293,6 +320,7 @@ code-example(language="bash").
     我们的组件还没有用来表示“当前选中的英雄”的变量，我们就从这一步儿开始。
 
     ### Expose the selected hero
+    
     ### 导出“当前选中的英雄”
 
     We no longer need the static `hero` property of the `AppComponent`.
@@ -324,8 +352,10 @@ code-example(language="bash").
     我们这就修改模板，让它绑定到新的`selectedHero`属性上去。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (template excerpt)')
+  
   :marked
     ### Hide the empty detail with ngIf
+    
     ### 利用ngIf隐藏空的详情
 
     When our app loads we see a list of heroes, but a hero is not selected.
@@ -335,6 +365,7 @@ code-example(language="bash").
     当应用刚加载时，我们会看到一个英雄列表，但还没有任何英雄被选中。
     `selectedHero`属性是`undefined`。
     因此，我们会看到浏览器控制台中出现下列错误：
+    
   code-example(language="html").
     EXCEPTION: TypeError: Cannot read property 'name' of undefined in [null]
 
@@ -402,6 +433,7 @@ code-example(language="bash").
     正如我们所预期的那样。
 
     ### Styling the selection
+    
     ### 给所选英雄添加样式
 
     We see the selected hero in the details area below but we can’t quickly locate that hero in the list above.
@@ -415,6 +447,7 @@ code-example(language="bash").
 
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-selected.png' alt="选中的英雄")
+    
   :marked
     We’ll add a property binding on `class` for the `selected` class to the template. We'll set this to an expression that compares the current `selectedHero` to the `hero`.
     
@@ -425,7 +458,9 @@ code-example(language="bash").
     
     关键是CSS类的名字：`selected`。当两位英雄一致时，它为`true`，否则为`false`。
     也就是说：“*当两位英雄匹配时，应用上`selected`类，否则不应用*”。
+    
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-1', 'app.component.ts (setting the CSS class)')(format=".")
+  
   :marked
     Notice in the template that the `class.selected` is surrounded in square brackets (`[]`).
     This is the syntax for a **property binding**, a binding in which data flows one way
@@ -450,6 +485,7 @@ code-example(language="bash").
 
     浏览器重新加载了你的应用。
     我们选中英雄Magneta，于是他通过背景色的变化被清晰的标记了出来。
+    
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-1.png' alt="英雄列表应用的输出")
 
@@ -467,16 +503,23 @@ code-example(language="bash").
 .l-main-section
 :marked
   ## The Road We’ve Travelled
+  
   ## 已走的路
+  
   Here’s what we achieved in this chapter:
   
   在本章中，我们达成了这些：
 
   * Our Tour of Heroes now displays a list of selectable heroes
+  
   * 我们的《英雄指南》现在显示一个可选英雄的列表
+  
   * We added the ability to select a hero and show the hero’s details
+  
   * 我们添加了选择英雄的能力，并且会显示这个英雄的详情
+  
   * We learned how to use the built-in directives `ngIf` and `ngFor` in a component’s template
+  
   * 我们学会了如何在组件模板中使用内建的`ngIf`和`ngFor`指令
 
 p Run the #[+liveExampleLink2('', 'toh-2')] for this part.
@@ -485,7 +528,9 @@ p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-2')]。
 
 :marked
   ### The Road Ahead
+  
   ### 前方的路
+  
   Our Tour of Heroes has grown, but it’s far from complete.
   We can't put the entire app into a single component.
   We need to break it up into sub-components and teach them to work together

@@ -32,7 +32,7 @@
   },
   "toh-pt6": {
     "title": "Http",
-    "intro": "We convert our service and components to use Http",
+    "intro": "把我们的服务和组件改用Http实现",
     "nextable": true
   }
 }

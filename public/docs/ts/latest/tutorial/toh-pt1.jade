@@ -2,6 +2,7 @@ include ../_util-fns
 
 :marked
   # Once Upon a Time
+  
   # 很久很久以前
 
   Every story starts somewhere. Our story starts where the [QuickStart](../quickstart.html) ends.
@@ -41,7 +42,9 @@ include ../_quickstart_repo
     .file typings.json
 :marked
   ## Keep the app transpiling and running
+  
   ## 保持应用不断转译和运行
+  
   We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
   
   我们要启动TypeScript编译器，它会监视文件变更，并且启动开发服务器。我们只要敲：
@@ -58,7 +61,9 @@ code-example(language="bash").
 .l-main-section
   :marked
     ## Show our Hero
+    
     ## 显示我们的英雄
+    
     We want to display Hero data in our app
     
     我们要在应用中显示英雄数据
@@ -92,8 +97,10 @@ code-example(language="bash").
     Learn more about interpolation in the [Displaying Data chapter](../guide/displaying-data.html).
     
     要了解插值表达式的更多知识，参阅[“显示数据”一章](../guide/displaying-data.html)。
+    
 :marked
   ### Hero object
+  
   ### Hero对象
 
   At the moment, our hero is just a name.  Our hero needs more properties.
@@ -132,7 +139,9 @@ code-example(language="bash").
   浏览器自动刷新，并继续显示这位英雄的名字。
 
   ### Adding more HTML
+  
   ### 添加更多的HTML
+  
   Displaying a name is good, but we want to see all of our hero’s properties.
   We’ll add a `<div>` for our hero’s `id` property and another `<div>` for our hero’s `name`.
 
@@ -146,6 +155,7 @@ code-example(language="bash").
   啊哦！我们的模板字符串已经太长了。我们最好小心点，免得在模板中出现拼写错误。
 
   ### Multi-line template strings
+  
   ### 多行模板字符串
 
   We could make a more readable template with string concatenation
@@ -166,7 +176,9 @@ code-example(language="bash").
 
   .callout.is-important
     header A back-tick is not a single quote
+    
     header 反引号不是单引号
+    
     :marked
       **Be careful!** A back-tick (`) looks a lot like a single quote (').
       It's actually a completely different character.
@@ -183,6 +195,7 @@ code-example(language="bash").
 .l-main-section
 :marked
   ## Editing Our Hero
+  
   ## 编辑我们的英雄
 
   We want to be able to edit the hero name in a textbox.
@@ -194,6 +207,7 @@ code-example(language="bash").
   把英雄的名字从单纯的`<label>`重构成`<label>`和`<input>`元素的组合，就像下面这样：
   
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'app.component.ts (input元素)')
+
 :marked
   We see in the browser that the hero’s name does appear in the `<input>` textbox.
   But something doesn’t feel right.
@@ -205,6 +219,7 @@ code-example(language="bash").
   当修改名字时，我们的改动并没有反映到`<h2>`中。使用单向数据绑定，我们没法实现所期望的这种行为。
 
   ### Two-Way Binding
+  
   ### 双向绑定
 
   We intend to display the name of the hero in the `<input>`, change it,
@@ -226,6 +241,7 @@ code-example(language="bash").
     
     要学习关于`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
     [模板语法](../guide/template-syntax.html#ngModel)两章
+    
 :marked
   Replace the `<input>` with the following HTML
 
@@ -243,20 +259,29 @@ code-example(language="html").
 .l-main-section
 :marked
   ## The Road We’ve Travelled
+  
   ## 我们已经走过的路
+  
   Let’s take stock of what we’ve built.
   
   我们来盘点一下已经构建完成的部分。
 
   * Our Tour of Heroes uses the double curly braces of interpolation (a form of one-way data binding)
   to display the application title and properties of a `Hero` object.
+  
   * 我们的《英雄指南》使用双大括号(插值表达式 —— 单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
+  
   * We wrote a multi-line template using ES2015’s template strings to make our template readable.
+  
   * 我们使用ES2105的模板字符串写了一个多行模板，来让我们的模板更有可读性。
+  
   * We can both display and change the hero’s name after adding a two-way data binding to the `<input>` element
   using the built-in `ngModel` directive.
+  
   * 为了同时显示和修改英雄的名字，我们还使用了内建的`ngModel`指令，往`<input>`元素上添加了双向数据绑定。
+  
   * The `ngModel` directive also propagates changes to every other binding of the `hero.name`.
+  
   * 通过`ngModel`指令，这些修改还影响到了每一个对`hero.name`的其它绑定。
 
 p Run the #[+liveExampleLink2('', 'toh-1')] for this part.
@@ -273,7 +298,9 @@ p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-1')]。
 .l-main-section
 :marked
   ## The Road Ahead
+  
   ## 前方的路
+  
   Our Tour of Heroes only displays one hero and we really want to display a list of heroes.
   We also want to allow the user to select a hero and display their details.
   We’ll learn more about how to retrieve lists, bind them to the
