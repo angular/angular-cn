@@ -38,5 +38,10 @@
   "ts-to-js": {
     "title": "从TypeScript到JavaScript",
     "intro": "把Angular 2的TypeScript范例转换为ES5 JavaScript"
+  },
+
+  "visual-studio-2015": {
+    "title": "Visual Studio 2015 快速开始",
+    "intro": "使用Visual Studio 2015快速开始"
   }
 }

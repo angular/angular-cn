@@ -24,18 +24,15 @@ div(layout="row" layout-xs="column" class="ng-cloak")
       {% for member in doc.statics %}{% if not member.internal %}
         pre(class="prettyprint no-bg-with-indent")
           a(class="code-anchor" href="#{$ member.name $}-anchor")
-            code(class="code-background api-doc-code").
-              {$ member.name | indent(6, false) | trim $}
-          code(class="api-doc-code").
-            {$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
+            code(class="code-background api-doc-code") {$ member.name | indent(6, false) | trim $}
+          code(class="api-doc-code") {$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
       {% endif %}{% endfor %}
     {% endif %}
     {% if doc.constructorDoc.name %}
     div(layout="column")
       pre(class="prettyprint no-bg-with-indent")
         a(class="code-anchor" href="#constructor")
-          code(class="code-background api-doc-code").
-            {$ doc.constructorDoc.name $}
+          code(class="code-background api-doc-code") {$ doc.constructorDoc.name $}
         code(class="api-doc-code").
           {$ paramList(doc.constructorDoc.parameters) | indent(8, false) | trim $}
     {% endif %}
@@ -44,10 +41,8 @@ div(layout="row" layout-xs="column" class="ng-cloak")
       {% for member in doc.members %}{% if not member.internal %}
         pre(class="prettyprint no-bg-with-indent")
           a(class="code-anchor" href="#{$ member.name $}-anchor")
-            code(class="code-background api-doc-code").
-              {$ member.name | indent(6, false) | trim $}
-          code(class="api-doc-code").
-            {$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
+            code(class="code-background api-doc-code") {$ member.name | indent(6, false) | trim $}
+          code(class="api-doc-code") {$ paramList(member.parameters) | indent(8, false) | trim $}{$ returnType(member.returnType) $}
       {% endif %}{% endfor %}
     {% endif %}
     p(class="selector endParens")
