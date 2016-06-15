@@ -87,20 +87,22 @@ code-example(language="bash").
   我们继续构建《英雄指南》，应用也会保持运行并自动更新。
 
   ## Action plan
+  
   ## 行动计划
-  Here's our plan
   
-  下面是我们的计划
+  Here's our plan:
   
-  * turn `AppComponent` into an application shell that only handles navigation,
+  下面是我们的计划：
+  
+  * Turn `AppComponent` into an application shell that only handles navigation
   * 把`AppComponent`变成应用程序的“壳”，它只处理导航，
-  * relocate the *Heroes* concerns within the current `AppComponent` to a separate `HeroesComponent`,
+  * Relocate the *Heroes* concerns within the current `AppComponent` to a separate `HeroesComponent`
   * 把现在由`AppComponent`关注的*英雄们*移到一个独立的`HeroesComponent`中，
-  * add routing,
-  * 添加路由，
-  * create a new `DashboardComponent`,
-  * 添加一个新的`DashboardComponent`组件，
-  * tie the *Dashboard* into the navigation structure.
+  * Add routing
+  * 添加路由
+  * Create a new `DashboardComponent`
+  * 添加一个新的`DashboardComponent`组件
+  * Tie the *Dashboard* into the navigation structure
   * 把*仪表盘*加入导航结构中。
 
 .l-sub-section
@@ -137,15 +139,15 @@ code-example(language="bash").
   `AppComponent`的职责已经被移交给`HeroesComponent`了。
   与其把`AppComponent`中所有的东西都搬过去，不如索性把它改名为`HeroesComponent`，然后单独创建一个新的`AppComponent`壳。
   
-  The steps are:
+  The steps are to rename:
   
-  步骤如下：
-  * rename `app.component.ts` file to `heroes.component.ts`.
-  * 把`app.component.ts`文件改名为`heroes.component.ts`。
-  * rename the `AppComponent` class to `HeroesComponent`.
-  * 把`AppComponent`类改名为`HeroesComponent`。
-  * rename the selector `my-app` to `my-heroes`.
-  * 把`my-app`选择器改名为`my-heroes`。
+  改名的步骤如下：
+  * `app.component.ts` file to `heroes.component.ts`
+  * 把`app.component.ts`文件改名为`heroes.component.ts`
+  * `AppComponent` class to `HeroesComponent`
+  * 把`AppComponent`类改名为`HeroesComponent`
+  * Selector `my-app` to `my-heroes`
+  * 把`my-app`选择器改名为`my-heroes`
 
 :marked
 +makeExample('toh-5/ts/app/heroes.component.ts', 'heroes-component-renaming', 'app/heroes.component.ts (showing renamings only)')(format=".")
@@ -934,18 +936,16 @@ figure.image-display
   1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
   1. *设置*组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
   
-  We no longer display the `HeroDetailComponent` in the `HeroesComponent` template because we're navigating to it.
-  So we can remove it from the metadata `directives` array. The `directives` array is now empty so we delete it.
-  We might as well delete the `HeroDetailComponent` import statement too.
+  Because the template for `HeroesComponent` no longer uses `HeroDetailComponent` 
+  directly &mdash; instead using the router to _navigate_ to it &mdash; we can 
+  remove `HeroDetailComponent` from the directives list. That
+  list is now empty, so we can remove the `directives` property. The revised
+  `@Component` looks like this:
   
-  在`HeroesComponent`模板中，不需要再显示`HeroDetailComponent`，因为我们要导航到它。
-  所以我们可以从元数据的`directives`数组中移除它。`directives`数组现在没东西了，因此我们也把它删掉。
-  我们也同样可以删掉`import` `HeroDetailComponent`的语句。
-  
-  The revised `@Component` looks like this:
-  
-  修改过的`@Component`是这样的：
-  
+  由于`HeroesComponent`的模板中不再直接使用`HeroDetailComponent`，而是通过路由_导航_到它，
+  于是我们就可以从`HeroDetailComponent`的指令列表中把它移除了。指令列表现在是空的，所以我们干脆把`directives`属性也移除。
+  修改过的`@Component`看起来像这样：
+
 +makeExample('toh-5/ts/app/heroes.component.ts', 'metadata', 'app/heroes.component.ts (revised metadata)')(format=".")
 :marked
   Now we can see what's going on as we update the component class along the same lines as the dashboard:
@@ -1104,9 +1104,9 @@ figure.image-display
   如果在根目录下没有一个名叫`styles.css`的文件，就添加它。
   确保它包含[这里给出的主样式](!{styles_css})。
 
-  Also ensure this stylesheet is referenced in the traditional manner within `index.html`.
+  If necessary, also edit `index.html` to refer to this stylesheet.
   
-  同时确保这个样式表在`index.html`中被使用传统方式引用了。
+  如有必要，也可以编辑`index.html`来引用这个样式表。
   
 +makeExample('toh-5/ts/index.html','css', 'index.html (link ref)')(format=".")
 :marked
@@ -1124,7 +1124,7 @@ figure.image-display
   ## 应用结构和代码
   
 p.
-  Review the sample source code in the #[+liveExampleLink2('', 'toh-5')] for this part.
+  Review the sample source code in the #[+liveExampleLink2('', 'toh-5')] for this chapter.
   Verify that we have the following structure:
 
 p.
