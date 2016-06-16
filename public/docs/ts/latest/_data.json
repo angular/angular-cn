@@ -22,13 +22,13 @@
   "tutorial": {
     "icon": "list",
     "title": "教程",
-    "banner": "Angular 2正处于Beta阶段。"
+    "banner": "Angular 2正处于候选版本阶段。"
   },
 
   "guide": {
     "icon": "list",
     "title": "开发指南",
-    "banner": "Angular 2正处于Beta阶段。"
+    "banner": "Angular 2正处于候选版本阶段。"
   },
 
   "cookbook": {
@@ -58,7 +58,7 @@
   "resources": {
     "icon": "play-circle-fill",
     "title": "Angular资源",
-    "banner": "Angular 2正处于Beta阶段",
+    "banner": "Angular 2正处于候选版本阶段",
     "resources": true
   },
 

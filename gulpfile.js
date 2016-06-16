@@ -378,7 +378,7 @@ gulp.task('help', taskListing.withFilters(function(taskName) {
 // requires admin access because it adds symlinks
 gulp.task('add-example-boilerplate', function() {
   var realPath = path.join(EXAMPLES_PATH, '/node_modules');
-  var nodeModulesPaths = getNodeModulesPaths(EXAMPLES_PATH);
+  var nodeModulesPaths = excludeDartPaths(getNodeModulesPaths(EXAMPLES_PATH));
 
   nodeModulesPaths.forEach(function(linkPath) {
     gutil.log("symlinking " + linkPath + ' -> ' + realPath)
@@ -670,7 +670,10 @@ gulp.task('lint', function() {
       '!./public/docs/_examples/**/node_modules/**/*',
       '!./public/docs/_examples/_protractor/**/*',
       '!./public/docs/_examples/**/typings/**/*',
-      '!./public/docs/_examples/**/typings-ng1/**/*'
+      '!./public/docs/_examples/**/typings-ng1/**/*',
+      // temporary until codelyzer is fixed mgechev/codelyzer#60
+      '!./public/docs/_examples/animations/ts/app/hero.service.ts'
+
     ])
     .pipe(tslint({
       rulesDirectory: ['node_modules/codelyzer'],

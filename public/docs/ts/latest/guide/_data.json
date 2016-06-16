@@ -63,6 +63,11 @@
     "basics": true
   },
 
+  "animations": {
+    "title": "Animations",
+    "intro": "A guide to Angular's animation system."
+  },
+
   "attribute-directives": {
     "title": "属性型指令",
     "intro": "属性型指令把行为添加到现有元素上。"
