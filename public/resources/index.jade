@@ -1,0 +1,14 @@
+p.text-body
+  a(href='https://docs.google.com/a/rangle.io/forms/d/1qzWaDpTgTPe4iPDRF_VCT9aHXKimUocwlFnVJUdKabY/viewform?c=0&w=1') 想被列到这里吗？请填写这个表单！
+  
+.js-resources-ctrl.resources(ng-controller='ResourcesCtrl as ctrl')
+  .section(ng-repeat='(category, categoryContent) in ctrl.fbObject')
+    div
+      h1.capitalize {{category}}
+      div(ng-repeat='section in categoryContent')
+        div(ng-repeat='(subsectionName, subsectionObj) in section')
+          div
+            h2 {{ subsectionObj.title }}
+            ul(ng-repeat='resource in subsectionObj.resources')
+              li(ng-if='resource.rev')
+                a(target='_blank', href='{{resource.url}}') {{ resource.title }}
