@@ -18,127 +18,227 @@ include ../_util-fns
 
 p Run the #[+liveExampleLink2('', 'toh-6')] for this part.
 
+p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-6')]。
+
 .l-main-section
 :marked
   ## Where We Left Off
+
+  ## 我们在哪儿
+
   In the [previous chapter](toh-pt5.html), we learned to navigate between the dashboard and the fixed heroes list, editing a selected hero along the way.
   That's our starting point for this chapter.
+  
+  在[前一章](toh-pt5.html)中，我们学会了在仪表盘和固定的英雄列表之间导航，并编辑选定的英雄。这也就是本章的起点。
 
   ### Keep the app transpiling and running
+  
+  ### 保持应用的转译与运行
+  
   Open a terminal/console window and enter the following command to
   start the TypeScript compiler, start the server, and watch for changes:
+  
+  打开terminal/console窗口，输入下列命令来启动TypeScript编译器，它会启动开发服务器，并监视文件变更：
 
 code-example(language="bash").
   npm start
 
 :marked
   The application runs and updates automatically as we continue to build the Tour of Heroes.
+  
+  当我们继续构建《英雄指南》时，应用会运行并自动更新。
 
 .l-main-section
 :marked
  ## Prepare for Http
+ 
+ ## 准备Http模块
 
   `Http` is ***not*** a core Angular module.
   It's Angular's optional approach to web access and it exists as a separate add-on module called `@angular/http`,
   shipped in a separate script file as part of the Angular npm package.
+  
+  `Http`***并不是***Angular的核心模块。
+  它是Angular用来进行Web访问的一种可选方式，并通过Angular包中一个名叫`@angular/http`的独立附属模块发布了出来。
 
   Fortunately we're ready to import from `@angular/http` because `systemjs.config` configured *SystemJS* to load that library when we need it.
+  
+  幸运的是，`systemjs.config`中已经配置好了*SystemJS*，并在必要时加载它，因此我们已经为从`@angular/http`中导入它做好了准备。
 
 :marked
   ### Register (provide) *http* services
+  
+  ### 注册(供应)*http*服务
+  
   Our app will depend upon the Angular `http` service which itself depends upon other supporting services.
   The `HTTP_PROVIDERS` array from `@angular/http` library holds providers for the complete set of http services.
+  
+  我们的应用将会依赖于Angular的`http`服务，它本身又依赖于其它支持类服务。
+  来自`@angular/http`库中的`HTTP_PROVIDERS`数组保存着这些http相关服务供应商的全集。
 
   We should be able to access these services from anywhere in the application.
   So we register them in the `bootstrap` method of `main.ts` where we
   launch the application and its root `AppComponent`.
+  
+  我们要能从本应用的任何地方访问这些服务，所以，我们就要在`main.ts`中的`bootstrap`方法中注册它们。这里同时也是我们启动应用及其根组件`AppComponent`的地方。
 
 +makeExample('toh-6/ts/app/main.ts','v1','app/main.ts (v1)')(format='.')
+
 :marked
   Notice that we supply the `HTTP_PROVIDERS` in an array as the second parameter to the `bootstrap` method.
   This has the same effect the `providers` array in `@Component` metadata.
+  
+  注意，我们把`HTTP_PROVIDERS`传入了`bootstrap`方法第二个参数的数组中。这与`@Component`元数据中的`providers`数组有同样的效果。
 
 .l-main-section
 :marked
   ## Simulating the web api
+  
+  ## 模拟web api
 
   We generally recommend registering application-wide services in the root `AppComponent` *providers*.
   Here we're registering in `main` for a special reason.
+  
+  通常，我们会建议在根组件`AppComponent`的*`providers`*中注册全应用级的服务。这里我们在`main`中进行注册是有特殊理由的。
 
   Our application is in the early stages of development and far from ready for production.
   We don't even have a web server that can handle requests for heroes.
   Until we do, *we'll have to fake it*.
+  
+  我们的应用正处于开发的早期阶段，并且离进入产品阶段还很远。
+  我们甚至都还没有一个用来处理英雄相关请求的Web服务器，在此之前，*我们将不得不伪造一个*。
 
   We're going to *trick* the http client into fetching and saving data from
   a demo/development service, the *in-memory web api*.
+  
+  我们要*耍点小花招*，让http客户端从一个Demo/开发服务（*内存(in-memory)Web API*）中获取和保存数据。
 
   The application itself doesn't need to know and shouldn't know about this.
   So we'll slip the *in-memory web api* into the configuration *above* the `AppComponent`.
+  
+  应用本身不需要也不应该知道这些细节。
+  所以，我们要把*内存Web API*引入`AppComponent`的上一级配置中。
 
   Here is a version of `main` that performs this trick
+  
+  这个版本的`main`文件就是用来耍这个小花招的：
+  
 +makeExample('toh-6/ts/app/main.ts', 'final', 'app/main.ts (final)')(format=".")
 
 :marked
   We're replacing the default `XHRBackend`, the service that talks to the remote server,
   with the *in-memory web api* service after priming it with the following `in-memory-data.service.ts` file:
+  
+  借助下面这样的`in-memory-data.service.ts`文件，我们把默认的`XHRBackend`服务（该服务负责与远端服务器对话）替换成了*内存Web API*服务：
+  
 +makeExample('toh-6/ts/app/in-memory-data.service.ts', null, 'app/in-memory-data.service.ts')(format=".")
+
 :marked
   This file replaces the `mock-heroes.ts` which is now safe to delete.
+  
+  该文件代替了`mock-heroes.ts`文件，它现在可以安全的删除了。
 
 .alert.is-helpful
   :marked
     This chapter is an introduction to the Angular http client.
     Please don't be distracted by the details of this backend substitution. Just follow along with the example.
+    
+    本章是对Angular中http客户端的介绍。不要因为这种“替换后端”的细节而分心。先不要管为什么，只管照着这个例子做就可以了。
 
     Learn more later about the *in-memory web api* in the [Http chapter](../guide/server-communication.html#!#in-mem-web-api).
     Remember, the *in-memory web api* is only useful in the early stages of development and for demonstrations such as this Tour of Heroes.
     Skip it when you have a real web api server.
 
+    要学习关于*内存Web API*的更多知识，请参阅[Http](../guide/server-communication.html#!#in-mem-web-api)一章。
+    记住，*内存Web API*只在开发的早期阶段有用，比如这个《英雄指南》。
+    如果你已经有了一个真实的Web API服务器，请尽管跳过它。
 
 .l-main-section
 :marked
   ## Heroes and Http
 
+  ## 英雄与Http
+
   Look at our current `HeroService` implementation
+
+  来看看我们目前的`HeroService`的实现
+
 +makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes', 'app/hero.service.ts (getHeroes - old)')(format=".")
+
 :marked
   We returned a promise resolved with mock heroes.
   It may have seemed like overkill at the time, but we were anticipating the
   day when we fetched heroes with an http client and we knew that would have to be an asynchronous operation.
 
+  我们返回一个promise，它用mock版的英雄列表进行解析。
+  在当时，它可能看起来做得有点过分了，不过那时候我们就预料到有这么这一天会通过一个http客户端来获取英雄数据，而且我们知道，那必然是一个异步操作。
+
   That day has arrived! Let's convert `getHeroes()` to use Angular's `Http` client:
+
+  那一天到来了！我们把`getHeroes()`换成用Angular的`Http`客户端的。
 
 +makeExample('toh-6/ts/app/hero.service.ts', 'get-heroes', 'app/hero.service.ts (getHeroes using Http)')(format=".")
 
 :marked
   ### Http Promise
 
+  ### Http承诺(Promise)
+
   We're still returning a promise but we're creating it differently.
+
+  我们仍然返回一个承诺，但这次会用不同的方式创建它。
 
   The Angular `http.get` returns an RxJS `Observable`.
   *Observables* are a powerful way to manage asynchronous data flows.
   We'll learn about `Observables` *later*.
 
+  Angular的`http.get`返回一个RxJS的`Observable`对象。
+  *Observable(可观察对象)*是一个管理异步数据流的强力方式。
+  后面我们还会进一步学习`Observable`。
+
   For *now* we get back on familiar ground by immediately converting that `Observable` to a `Promise` using the `toPromise` operator.
+
+  *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
+
 +makeExample('toh-6/ts/app/hero.service.ts', 'to-promise')(format=".")
+
 :marked
   Unfortunately, the Angular `Observable` doesn't have a `toPromise` operator ... not out of the box.
   The Angular `Observable` is a bare-bones implementation.
 
+  不幸的是，Angular的`Observable`并没有一个`toPromise`操作符... 没有打包在一起发布。
+  Angular的`Observable`只是一个骨架实现。
+
   There are scores of operators like `toPromise` that extend `Observable` with useful capabilities.
   If we want those capabilities, we have to add the operators ourselves.
   That's as easy as importing them from the RxJS library like this:
+
+  有一大票像`toPromise`这样的操作符，会扩展`Observable`，为其添加有用的能力。
+  如果我们希望得到那些能力，就得自己添加那些操作符。
+  那很容易，只要从RxJS库中导入它们就可以了，就像这样：
+
 +makeExample('toh-6/ts/app/hero.service.ts', 'rxjs')(format=".")
 
 :marked
   ### Extracting the data in the *then* callback
+
+  ### 在*then*回调中提取出数据
+
   In the *promise*'s `then` callback we call the `json` method of the http `Response` to extract the
   data within the response.
+
+  在*promise*的`then`回调中，我们调用http的`Reponse`对象的`json`方法，以提取出其中的数据。
+
 +makeExample('toh-6/ts/app/hero.service.ts', 'to-data')(format=".")
+
 :marked
   That object returned by `json` has a single `data` property.
   The `data` property holds the array of *heroes* that the caller really wants.
   So we grab that array and return it as the resolved promise value.
+
+  这个由`json`方法返回的对象只有一个`data`属性。
+  这个`data`属性保存了*英雄*数组，这个数组才是调用者真正想要的。
+  所以我们取得这个数组，并且把它作为承诺的值进行解析。
 
 .alert.is-important
   :marked
@@ -146,74 +246,136 @@ code-example(language="bash").
     This particular *in-memory web api* example happens to return an object with a `data` property.
     Your api might return something else.
 
+    仔细看看这个由服务器返回的数据的形态。
+    这个*内存Web API*的范例中所做的是返回一个带有`data`属性的对象。
+    你的API也可以返回其它东西。
+
     Adjust the code to match *your web api*.
+
+    请随意调整这些代码，以适应*你自己的Web API*。
+
 :marked
   The caller is unaware of these machinations. It receives a promise of *heroes* just as it did before.
   It has no idea that we fetched the heroes from the server.
   It knows nothing of the twists and turns required to turn the http response into heroes.
   Such is the beauty and purpose of delegating data access to a service like this `HeroService`.
+
+  调用者不关心这些实现机制，它仍然像以前那样取得一个包含*英雄数据*的承诺。
+  它不关心我们已经改成了从服务器获取英雄数据。
+  它也不了解把http回应转换成英雄数据时所作的这些复杂变换。
+
 :marked
   ### Error Handling
 
+  ### 错误处理
+
   At the end of `getHeroes` we `catch` server failures and pass them to an error handler:
+
+  在`getHeroes`的最后，我们`catch`了服务器的失败信息，并把它们传给了错误处理器：
+
 +makeExample('toh-6/ts/app/hero.service.ts', 'catch')(format=".")
+
 :marked
   This is a critical step!
   We must anticipate http failures as they happen frequently for reasons beyond our control.
 
+  这是一个关键的步骤！
+  我们必须预料到http请求会失败，因为有太多我们无法控制的原因可能导致它们频繁出现各种错误。
+
 +makeExample('toh-6/ts/app/hero.service.ts', 'error-handler', 'app/hero.service.ts (Error handler)')(format=".")
+
 :marked
   In this demo service we log the error to the console; we should do better in real life.
+
+  在这个范例服务中，我们把错误记录到控制台中；在真实世界中，我们应该做得更好。
 
   We've also decided to return a user friendly form of the error to
   the caller in a rejected promise so that the caller can display a proper error message to the user.
 
+  我们还要通过一个被拒绝(rejected)的承诺(promise)来把该错误用一个用户友好的格式返回给调用者，以便调用者能把一个合适的错误信息显示给用户。
+
   ### Promises are Promises
+
+  ### 承诺仍然是承诺
+
   Although we made significant *internal* changes to `getHeroes()`, the public signature did not change.
   We still return a promise. We won't have to update any of the components that call `getHeroes()`.
+
+  虽然我们对`getHeroes()`做了一些重要的*内部*修改，该方法公开的函数签名却没有任何变化。
+  我们返回的仍然是一个承诺，不用被迫更新任何一个调用了`getHeroes()`的组件。
 
 .l-main-section
 :marked
   ## Add, Edit, Delete
 
+  ## 添加、编辑、删除
+
   Our stakeholders are incredibly pleased with the added flexibility from the api integration, but it doesn't stop there. Next we want to add the capability to add, edit and delete heroes.
 
+  我们的客户对这种富有弹性的API集成方式感到非常高兴，但事情可不会到此为止。下一步我们还要增加对英雄的添加、编辑和删除操作。
+
   We'll complete `HeroService` by creating `post`, `put` and `delete` http calls to meet our new requirements.
+
+  我们将为`HeroService`添加`post`、`put`和`delete`的http调用来彻底满足我们的需求。
 
 :marked
   ### Post
 
+  ### Post
+
   We are using `post` to add new heroes. Post requests require a little bit more setup than Get requests, but the format is as follows:
+
+  我们使用`post`来添加新的英雄。post请求比get请求稍多一点儿设置工作，大致写法如下：
 
 +makeExample('toh-6/ts/app/hero.service.ts', 'post-hero', 'app/hero.service.ts (post hero)')(format=".")
 
 :marked
   Now we create a header and set the content type to `application/json`. We'll call `JSON.stringify` before we post to convert the hero object to a string.
 
+  现在，我们创建了一个请求头，并把内容类型(content-type)设置为`application/json`。在我们post之前，要先调用`JSON.stringify`来把这个`hero`对象转换成一个字符串。
+
+  ### Put
+
   ### Put
 
   `put` is used to edit a specific hero, but the structure is very similar to a `post` request. The only difference is that we have to change the url slightly by appending the id of the hero we want to edit.
+
+  `put`用来编辑一个指定的英雄，但是代码结构和`post`请求很类似。唯一的不同是，我们要修改url，为它附加上我们想要编辑的那位英雄的id。
 
 +makeExample('toh-6/ts/app/hero.service.ts', 'put-hero', 'app/hero.service.ts (put hero)')(format=".")
 
 :marked
   ### Delete
+
+  ### Delete
+
   `delete` is used to delete heroes and the format is identical to `put` except for the function name.
+
+  `delete`用来删除英雄，它的书写方式几乎和`put`完全相同 —— 除了函数名。
 
 +makeExample('toh-6/ts/app/hero.service.ts', 'delete-hero', 'app/hero.service.ts (delete hero)')(format=".")
 
 :marked
   We add a `catch` to handle our errors for all three cases.
 
+  我们添加了`catch`，用来处理这三种情况下的错误。
+
 :marked
   ### Save
 
+  ### Save
+
   We combine the call to the private `post` and `put` methods in a single `save` method. This simplifies the public api and makes the integration with `HeroDetailComponent` easier. `HeroService` determines which method to call based on the state of the `hero` object. If the hero already has an id we know it's an edit. Otherwise we know it's an add.
+
+  我们把对私有方法`post`和`put`的调用组合进一个单独的`save`方法。这会简化公开的API，以简化与`HeroDetailComponent`的集成。
+  `HeroService`会根据`hero`对象的状态来决定该调用哪个方法。如果这个英雄已经有了一个id，我们就知道它应该是编辑操作，否则就是添加。
 
 +makeExample('toh-6/ts/app/hero.service.ts', 'save', 'app/hero.service.ts (save hero)')(format=".")
 
 :marked
   After these additions our `HeroService` looks like this:
+
+  填加完所有这些之后，我们的`HeroService`看起来像这样：
 
 +makeExample('toh-6/ts/app/hero.service.ts', null, 'app/hero.service.ts')(format=".")
 
@@ -221,45 +383,74 @@ code-example(language="bash").
 :marked
   ## Updating Components
 
+  ## 更新组件
+
   Loading heroes using `Http` required no changes outside of `HeroService`, but we added a few new features as well.
   In the following section we will update our components to use our new methods to add, edit and delete heroes.
 
+  使用`Http`加载英雄数据并不需要在`HeroService`外部做任何修改，但我们却顺利的添加了一些新特性。
+  在后面的小节中，我们将更新我们的组件来调用这些新方法，以添加、编辑和删除英雄。
+
   Before we can add those methods, we need to initialize some variables with their respective imports.
+
+  在这么做之前，我们先得用它们各自的import语句来初始化一些变量。
 
 +makeExample('toh-6/ts/app/hero-detail.component.ts', 'variables-imports', 'app/hero-detail.component.ts')(format=".")
 
 :marked
   ### Add/Edit in the *HeroDetailComponent*
 
+  ### 在*HeroDetailComponent`中添加/编辑
+
   We already have `HeroDetailComponent` for viewing details about a specific hero. 
   Add and Edit are natural extensions of the detail view, so we are able to reuse `HeroDetailComponent` with a few tweaks. 
   The original component was created to render existing data, but to add new data we have to initialize the `hero` property to an empty `Hero` object.
+
+  我们已经有了`HeroDetailComponent`，用以查看指定英雄的详情。
+  添加和编辑功能是对详情页的自然扩展，所以我们可以复用`HeroDetailComponent`，只要做少量修改就可以了。
+  该组件原本是用来渲染现存数据的，要想添加新的数据，我们就得把`hero`属性初始化在一个空的`Hero`对象。
 
 +makeExample('toh-6/ts/app/hero-detail.component.ts', 'ngOnInit', 'app/hero-detail.component.ts (ngOnInit)')(format=".")
 
 :marked
   In order to differentiate between add and edit we are adding a check to see if an id is passed in the url. If the id is absent we bind `HeroDetailComponent` to an empty `Hero` object. In either case, any edits made through the UI will be bound back to the same `hero` property.
 
+  为了区分添加和编辑操作，我们增加了一步检查，看看url中是否传入了id。如果没有id，我们就把`HeroDetailComponent`绑定到一个空的`Hero`对象。
+  无论是哪种情况，通过UI进行的任何编辑操作都会被绑定回同一个`hero`属性。
+
   The next step is to add a save method to `HeroDetailComponent` and call the corresponding save method in `HeroesService`.
+
+  下一步是为`HeroDetailComponent`添加一个`save`方法，并且调用`HeroesService`中相应的`save`方法。
 
 +makeExample('toh-6/ts/app/hero-detail.component.ts', 'save', 'app/hero-detail.component.ts (save)')(format=".")
 
 :marked
   The same save method is used for both add and edit since `HeroService` will know when to call `post` vs `put` based on the state of the `Hero` object.
 
+  无论添加还是删除，所用的都是同一个`save`方法，这是因为`HeroService`会根据`Hero`对象的状态判断出什么时候该调用`post`什么时候该调用`put`。
+
   After we save a hero, we redirect the browser back to the previous page using the `goBack()` method.
+
+  在我们保存了英雄之后，我们使用`goBack()`方法让浏览器回到前一个页面。
 
 +makeExample('toh-6/ts/app/hero-detail.component.ts', 'goback', 'app/hero-detail.component.ts (goBack)')(format=".")
 
 :marked
   Here we call `emit` to notify that we just added or modified a hero. `HeroesComponent` is listening for this notification and will automatically refresh the list of heroes to include our recent updates.
 
+  这里我们调用了`emit`来通知别人：我们刚刚添加或修改了一个英雄。`HeroesComponent`正在监听这个通知，并自动刷新英雄列表，以体现我们最近所做的修改。
+
 .l-sub-section
   :marked
     The `emit` "handshake" between `HeroDetailComponent` and `HeroesComponent` is an example of component to component communication. This is a topic for another day, but we have detailed information in our <a href="/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent">Component Interaction Cookbook</a>
 
+    `emit`在`HeroDetailComponent`和`HeroesComponent`之间的这种握手是组件间通讯的例子之一。
+    这不是今天的话题，我们在<a href="/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent">组件间交互</a>一章中讲了一些详细信息。
+
 :marked
   Here is `HeroDetailComponent` with its new save button.
+
+  这里是`HeroDetailComponent`及其新的“保存”按钮。
 
 figure.image-display
   img(src='/resources/images/devguide/toh/hero-details-save-button.png' alt="Hero Details With Save Button")
@@ -267,43 +458,81 @@ figure.image-display
 :marked
   ### Add/Delete in the *HeroesComponent*
 
+  ### 在*HeroesComponent`中添加/删除
+
   The user can *add* a new hero by clicking a button and entering a name.
+
+  用户可以通过点击一个按钮并输入英雄的名字来*添加*一个新的英雄。
 
   When the user clicks the *Add New Hero* button, we display the `HeroDetailComponent`.
   We aren't navigating to the component so it won't receive a hero `id`;
   As we noted above, that is the component's cue to create and present an empty hero.
 
+  当用户点击*Add New Hero*按钮时，我们显示`HeroDetailComponent`。我们不会导航到那个组件，所以它也不会接收到英雄的`id`；
+  正如我们以前提过的，组件会据此创建并展示一个空白的英雄。
+
   Add the following HTML to the `heroes.component.html`, just below the hero list (the `*ngFor`).
+
+  往`heroes.component.html`中，英雄列表(`*ngFor`)的紧下方，添加下列HTML。
+
 +makeExample('toh-6/ts/app/heroes.component.html', 'add-hero', 'app/heroes.component.html (add)')(format=".")
+
 :marked
   The user can *delete* an existing hero by clicking a delete button next to the hero's name.
 
+  用户可以通过点击英雄名后面的删除按钮来*删除*一个现存的英雄。
+
   Add the following HTML to the `heroes.component.html` right after the name in the repeated `<li>` tag:
+
+  往`heroes.component.html`中往`<li>`标签中名字的紧后面添加下列HTML代码：
+
 +makeExample('toh-6/ts/app/heroes.component.html', 'delete-hero', 'app/heroes.component.html (delete)')(format=".")
 
 :marked
   Now let's fix-up the `HeroesComponent` to support the *add* and *delete* actions in the template.
   Let's start with *add*.
 
+  现在，让我们修改`HeroesComponent`的模板来支持*添加*和*删除*操作。
+  让我们从*添加*开始。
+
   We're using the `HeroDetailComponent` to capture the new hero information.
   We have to tell Angular about that by importing the `HeroDetailComponent` and referencing it in the component metadata `directives` array.
+
+  我们正在用`HeroDetailComponent`捕获新英雄的信息。
+  为了告诉Angular这一点，我们还得导入`HeroDetailComponent`并把它加入组件元数据的`directives`数组中。
+
 +makeExample('toh-6/ts/app/heroes.component.ts', 'hero-detail-component', 'app/heroes.component.ts (HeroDetailComponent)')(format=".")
+
 .l-sub-section
   :marked
     These are the same lines that we removed in the previous [Routing](toh-pt5.html) chapter.
     We didn't know at the time that we'd need the *HeroDetailComponent* again. So we tidied up.
 
+    同样的这些代码，我们曾在前面的[路由](toh-pt5.html)一章中移除过。
+    我们不知道现在会再次需要*`HeroDetailComponent`*类，所以把它们清理掉了。
+
     Now we *must* put these lines back. If we don't, Angular will ignore the `<my-hero-detail>`
     tag and pushing the *Add New Hero* button will have no visible effect.
+
+    现在，我们*必须*把这些行加回来。如果不这样，Angular将会忽略`<my-hero-detail>`标签，并且点击*Add New Hero*按钮时将不会有任何可见的效果。
+
 :marked
   Next we implement the click handler for the *Add New Hero* button.
 
+  接下来，我们实现*Add New Hero*按钮的点击事件处理器。
+
 +makeExample('toh-6/ts/app/heroes.component.ts', 'add', 'app/heroes.component.ts (add)')(format=".")
+
 :marked
   The `HeroDetailComponent` does most of the work. All we do is toggle an `*ngIf` flag that
   swaps it into the DOM when we add a hero and removes it from the DOM when the user is done.
 
+  `HeroDetailComponent`做了大部分工作。我们所要做的就是切换`*ngIf`的标志量：当用户添加英雄时，把它放进DOM中；当用户添加完毕时，把它从DOM中移除。
+
   The *delete* logic is a bit trickier.
+
+  *删除*逻辑略有点棘手。
+
 +makeExample('toh-6/ts/app/heroes.component.ts', 'delete', 'app/heroes.component.ts (delete)')(format=".")
 
 :marked
@@ -311,15 +540,28 @@ figure.image-display
   But the component is still responsible for updating the display.
   So the *delete* method removes the deleted hero from the list.
 
+  固然，我们已经把删除英雄的操作委托给了`HeroService`去执行，但是该组件仍然有责任更新显示，所以这个*`delete`*方法还从列表中移除了这个被删掉的英雄。
+
 :marked
   ### Let's see it
+
+  ### 我们来看看
+
   Here are the fruits of labor in action:
+
+  下面是这些劳动成果的操作演示：
+
 figure.image-display
   img(src='/resources/images/devguide/toh/toh-http.anim.gif' alt="Heroes List Editting w/ HTTP")
 
 :marked
   ### Review the App Structure
+  
+  ### 回顾应用结构
+  
   Let’s verify that we have the following structure after all of our good refactoring in this chapter:
+  
+  经过本章的所有重构之后，我们来验证下是否已经有了下列结构：
 
 .filetree
   .file angular2-tour-of-heroes
@@ -354,15 +596,36 @@ figure.image-display
 .l-main-section
 :marked
     ## Home Stretch
+    
+    ## 最后的坦途
 
     We are at the end of our journey for now, but we have accomplished a lot.
+
+    旅程即将结束，不过我们已经收获颇丰。
+
     - We added the necessary dependencies to use Http in our application.
+
+    - 我们添加了在应用程序中使用Http的必备依赖。
+
     - We refactored HeroService to load heroes from an api.
+
+    - 我们重构了HeroService，以通过api来加载英雄数据。
+
     - We extended HeroService to support post, put and delete calls.
+
+    - 我们扩展了HeroService来支持post、put和delete调用。
+
     - We updated our components to allow adding, editing and deleting of heroes.
+
+    - 我们更新了组件，以允许用户添加、编辑和删除英雄。
+
     - We configured an in-memory web api.
 
+    - 我们配置了一个内存Web API。
+
     Below is a summary of the files we changed.
+
+    下面是我们修改之后的文件汇总。
 
 +makeTabs(
   `toh-6/ts/app/app.component.ts,
