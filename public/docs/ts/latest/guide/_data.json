@@ -64,8 +64,8 @@
   },
 
   "animations": {
-    "title": "Animations",
-    "intro": "A guide to Angular's animation system."
+    "title": "动画",
+    "intro": "Angular动画系统指南。"
   },
 
   "attribute-directives": {
