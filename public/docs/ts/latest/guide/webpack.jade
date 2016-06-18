@@ -127,7 +127,7 @@ a(id="entries-outputs")
   This `app.js` output bundle is a single JavaScript file that contains our application source and its dependencies.
   We'll load it later with a &lt;script&gt; tag in our index.html.
 
-  这个`app.js`输出包儿是个单一的JavaScript文件，它包含我们程序的源码以及它的所有依赖。
+  这个`app.js`输出包儿是个单一的JavaScript文件，它包含程序的源码及其所有依赖。
   后面我们将在`index.html`中用`<script>`标签来加载它。
 
   #### Multiple bundles
@@ -141,7 +141,7 @@ a(id="entries-outputs")
 
   We change the configuration so that we have two entry points, `app.ts` and `vendor.ts`:
 
-  我们修改配置，获得两个入口点：`app.ts`和`vendor.ts`：
+  所以要修改配置，以获得两个入口点：`app.ts`和`vendor.ts`：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'two-entries','webpack.config.js (two entries)')(format=".")
 :marked
@@ -165,7 +165,7 @@ a(id="entries-outputs")
 :marked
   We met `app.ts` earlier. We wrote `vendor.ts` such that it imports the vendor modules we need:
 
-  我们以前见过`app.ts`，就不再赘述了。我们再写一个`vendor.ts`，让它导入我们要用的供应商模块：
+  我们以前见过`app.ts`，就不再赘述了。还要再写一个`vendor.ts`，让它导入我们要用的供应商模块：
 
 +makeExample('webpack/ts/src/vendor.ts', null,'src/vendor.ts')(format=".")
 
@@ -184,8 +184,8 @@ a(id="loaders")
 
   Webpack可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS、LESS、图片、HTML以及字体文件等等。
   Webpack本身并不知道该如何处理这些非JavaScript文件。
-  我们要通过*加载器*来教它如何把这些文件处理成JavaScript文件。
-  这里我们为TypeScript和CSS文件配置了加载器。
+  我们要通过*加载器*来告诉它如何把这些文件处理成JavaScript文件。
+  在这里，我们为TypeScript和CSS文件配置了加载器。
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'loaders', 'webpack.config.js (two entries)')(format=".")
 
@@ -306,12 +306,12 @@ a(id="common-configuration")
   We'll gather that common configuration in a separate file called `webpack.common.js`.
 
   我们可以为开发、产品和测试环境定义分别各自的配置文件。
-  但三者总有一些公共配置。
-  我们把那些公共的配置收集到一个名叫`webpack.common.js`的独立文件中。
+  但三者总会有一些公共配置。
+  于是我们把那些公共的配置收集到一个名叫`webpack.common.js`的独立文件中。
 
   Let's see the entire file and then walk through it a section at a time:
 
-  让我们看下入口文件，用一个小节的时间了解下它的内容：
+  来看下入口文件，用一个小节的时间了解下它的内容：
 
 +makeExample('webpack/ts/config/webpack.common.js', null, 'config/webpack.common.js')(format=".")
 
@@ -355,7 +355,7 @@ a(id="common-configuration")
   Our app will `import` dozens if not hundreds of JavaScript and TypeScript files.
   We _might_ write `import` statements with explicit extensions as in this example:
 
-  我们的程序将需要`import`十多个(如果不是上百个的话)JavaScript和TypeScript文件。
+  本程序将需要`import`十多个(如果不是上百个的话)JavaScript和TypeScript文件。
   我们_可以_带着明确的扩展名来写这些`import`语句，就像下面的例子中这样：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'single-import')(format=".")
@@ -379,7 +379,7 @@ a(id="common-configuration")
   :marked
     We could add  `.css` and `.html` later if we want Webpack to resolve extension-less files with _those_ extension too.
 
-    我们后面还可能添加`.css`和`.html` —— 如果我们希望Webpack也用无扩展名的方式去解析_那些_扩展名的话。
+    我们以后还可能会添加`.css`和`.html` —— 如果希望Webpack也用无扩展名的方式去解析_那些_扩展名的话。
 
 :marked
   Next we specify the loaders:
@@ -430,8 +430,8 @@ a(id="commons-chunk-plugin")
   Our application code `imports` vendor code. Webpack is not smart enough to keep the vendor code out of the `app.js` bundle.
   We rely on the `CommonsChunkPlugin` to do that job.
 
-  我们的应用代码`import`了供应商代码。Webpack还没有智能到自动把供应商代码排除在`app.js`包儿之外。
-  我们依靠`CommonsChunkPlugin`来完成此工作。
+  应用代码中`import`了供应商代码。Webpack还没有智能到自动把供应商代码排除在`app.js`包儿之外。
+  `CommonsChunkPlugin`插件能完成此工作。
 
 .l-sub-section
   :marked
@@ -496,13 +496,13 @@ a(id="development-configuration")
   So we won't find any files in the `dist` folder (at least not any generated from `this development build`).
 
   虽然我们告诉Webpack把输出包儿放到`dist`目录，但实际上开发服务器把这些包儿都放在了内存里，而不会把它们写到硬盘中。
-  所以我们在`dist`目录下将找不到任何文件(至少现在这个开发环境下构建时没有)。
+  所以在`dist`目录下是找不到任何文件的(至少现在这个开发环境下构建时没有)。
 
 
   The `HtmlWebpackPlugin` (added in `webpack.common.js`) use the *publicPath* and the *filename* settings to generate
   appropriate &lt;script&gt; and &lt;link&gt; tags into the `index.html`.
 
-  `HtmlWebpackPlugin`(在`webpack.common.js`中)插件使用*`publicPath`*和*`filename`*设置，
+  `HtmlWebpackPlugin`(由`webpack.common.js`引入)插件使用了*`publicPath`*和*`filename`*设置，
   来向`index.html`中插入适当的&lt;script&gt;和&lt;link&gt;标签。
 
   Our CSS are buried inside our Javascript bundles by default. The `ExtractTextPlugin` extracts them into
@@ -591,14 +591,14 @@ a(id="test-configuration")
   We probably don't need to load and process `css` files for unit tests and doing so would slow us down;
   we'll use the `null` loader for all CSS.
 
-  我们并不需要很多配置来运行单元测试。
-  我们不需要在开发环境和产品环境下引入的那些加载器和插件。
-  我们可能还不需要在单元测试中加载和处理`css`文件，如果那么做就会拖慢我们的速度；所以我们用一个`null`加载器来处理所有CSS。
+  我们并不需要使用很多配置项来运行单元测试。
+  也不需要在开发环境和产品环境下引入的那些加载器和插件。
+  如果有可能拖慢执行速度，甚至都不需要在单元测试中加载和处理`css`文件，所以我们用一个`null`加载器来处理所有CSS。
 
   We could merge our test configuration into the `webpack.common` configuration and override the parts we don't want or need.
   But it might be simpler to start over with a completely fresh configuration.
 
-  我们可以把测试环境的配置合并到`webpack.common`配置中去，并且改写我们不想要或不需要的部分。
+  我们可以把测试环境的配置合并到`webpack.common`配置中，并且改写不想要或不需要的部分。
   但是从一个全新的配置开始可能更简单。
 
 +makeExample('webpack/ts/config/webpack.test.js', null, 'config/webpack.test.js')(format=".")
@@ -634,8 +634,8 @@ a(id="test-configuration")
   Each spec file imports all &mdash; and only &mdash; the application source code that it tests.
   Webpack loads just _those_ specific application files and ignores the other files that we aren't testing.
 
-  注意，我们_并没有_明确加载我们的应用代码。
-  我们只告诉Webpack查找并加载我们的测试文件(文件名以`.spec.ts`结尾)。
+  注意，我们_并没有_明确加载这些应用代码。
+  只是告诉Webpack查找并加载我们的测试文件(文件名以`.spec.ts`结尾)。
   每个规约(spec)文件都导入了所有(也只有)它测试所需的应用源码。
   Webpack只加载_那些_特定的应用文件，而忽略所有其它我们不会测试到的。
 
@@ -711,12 +711,12 @@ p.
 
   * The `AppComponent` in `app.component.ts` imports the application-wide css with a simple `import` statement.
 
-  * `app.component.ts`中的`AppComponent`类使用一个简单的`import`语句导入了应用级css。
+  * `app.component.ts`中的`AppComponent`类简单的用一个`import`语句导入了应用级css。
 
   * The `AppComponent` itself has its own html template and css files which we load with the `require()` method
     supplied by Webpack. Webpack stashes those component-scoped files in the `app.js` bundle too.
 
-  * `AppComponent`组件本身有它自己的HTML模板和CSS文件，我们用Webpack提供的`require()`方法加载它们。Webpack还把那些组件内部文件打包进了`app.js`中。
+  * `AppComponent`组件本身有它自己的HTML模板和CSS文件，我们用Webpack提供的`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
 
   * The `vendor.ts` consists of vendor dependency `import` statements that drive the `vendor.js` bundle.
     The application imports these modules too; they'd be duplicated in the `app.js` bundle
@@ -737,7 +737,7 @@ p.
 
   _We could always do more_. Search the web for expert advice and expand your Webpack knowledge.
 
-  _我们还能做得更多_。搜索互联网来获得专家的建议，并扩展你对Webpack的认识。
+  _但我们还能做得更多_。搜索互联网来获得专家的建议，并扩展你对Webpack的认识。
 
   [Back to top](#top)
 
