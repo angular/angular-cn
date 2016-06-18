@@ -4,18 +4,19 @@ include ../_util-fns
 :marked
    Some developers prefer Visual Studio as their Interactive Development Environment (IDE).
 
-   一些开发者喜欢使用Visual Studio。
+   有些开发者喜欢用Visual Studio。
 
    This cookbook describes the steps required to set up and use the
    Angular 2 QuickStart files in Visual Studio 2015 within an ASP.NET 4.x project.
 
-   本烹饪书介绍了在Visual Studio 2015的一个ASP.NET 4.x项目中，使用Angular 2快速开始文件的方法和步骤。
+   本烹饪宝典介绍了在Visual Studio 2015的ASP.NET 4.x项目中，用Angular 2实现“快速起步”所需的步骤。
      
 .l-sub-section
   :marked
     There is no *live example* for this cookbook because it describes Visual Studio, not the application.
 
-    本烹饪书没有*在线例子*，因为它介绍的是Visual Studio，不是关于应用程序的。
+    本烹饪宝典中没有*在线例子*，因为它介绍的是Visual Studio，而不是应用程序。
+
 .l-main-section
 <a id="asp-net-4"></a>
 :marked
@@ -26,7 +27,7 @@ include ../_util-fns
   The steps for setting up the QuickStart files with an ASP.NET 4.x project in
   Visual Studio 2015 are as follows:
 
-  在Visual Studio里的一个ASP.NET 4.x项目中设置快速开始文件的步骤如下：
+  在Visual Studio的ASP.NET 4.x项目中实现“快速起步”的步骤如下：
   
 :marked
   - [Prerequisite](#prereq): Install Node.js
@@ -35,19 +36,19 @@ include ../_util-fns
 
   - [Step 1](#download): Download the QuickStart files
 
-  - [第一步](#download): 下载快速开始文件
+  - [第一步](#download): 下载“快速起步”的文件
 
   - [Step 2](#setup-vs): Set up Visual Studio for TypeScript
 
-  - [第二步](#setup-vs): 为TypeScript设置Visual Studio
+  - [第二步](#setup-vs): 设置Visual Studio，以支持TypeScript
 
   - [Step 3](#create-project): Create the Visual Studio ASP.NET project
 
-  - [第三步](#create-project): 新建Visual Studio ASP.NET项目
+  - [第三步](#create-project): 创建Visual Studio ASP.NET项目
 
   - [Step 4](#copy): Copy the QuickStart files into the ASP.NET project folder
 
-  - [第四步](#copy): 拷贝快速开始文件到ASP.NET项目所在的目录中
+  - [第四步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
 
   - [Step 5](#restore): Restore required packages
   
@@ -59,55 +60,60 @@ include ../_util-fns
 
   - [Step 7](#build-and-run): Build and run the app
 
-  - [第七步](#build-and-run): 编译和运行应用程序
+  - [第七步](#build-and-run): 构建和运行应用程序
   
 .l-main-section
 h2#prereq Prerequisite: Node.js
 
 h2#prereq 前提条件: Node.js
+
 :marked
   Install **[Node.js® and npm](https://nodejs.org/en/download/)**
   if they are not already on your machine.
 
-  如果你的电脑里没有Node.js®和npm，安装**[它们](https://nodejs.org/en/download/)**
+  如果你的电脑里没有Node.js®和npm，请安装**[它们](https://nodejs.org/en/download/)**。
+
 .l-sub-section
   :marked
     **Verify that you are running node version `4.4.x` - `5.x.x`, and npm `3.x.x`**
     by running `node -v` and `npm -v` in a terminal/console window.
     Older versions produce errors.
 
-    在终端或者控制台运行`node -v`和`npm -v`，**确认你的Node版本为`4.4.x` - `5.x.x`，npm的版本为`3.x.x`**。老版本会引起错误。
+    在终端或者控制台中运行`node -v`和`npm -v`，**请确认你的Node版本为`4.4.x` - `5.x.x`，npm的版本为`3.x.x`**。老版本会引起错误。
 
 .l-main-section
 h2#download Step 1: Download the QuickStart files
 
-h2#download 第一步: 现在快速开始文件
+h2#download 第一步: 现在“快速起步”文件
+
 :marked
   [Download the QuickStart source](https://github.com/angular/quickstart)
   from github. If you downloaded as a zip file, extract the files.
 
-  从github[下载快速开始源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩zip文件，解压它。
+  从github[下载“快速起步”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
 
 .l-main-section
 h2#setup-vs Step 2: Set up Visual Studio for TypeScript
 
-h2#setup-vs 第二步：为TypeScript设置Visual Studio
+h2#setup-vs 第二步：设置Visual Studio，以支持TypeScript
+
 :marked
   Ensure you have the latest version of Visual Studio 2015 installed. 
   Then open Visual Studio and install the latest set of TypeScript tools as follows:
 
-  确认你的Visual Studio 2015是最新版本。然后打开Visual Studio病安装最新的TypeScript工具：
+  确保你的Visual Studio 2015是最新版本，然后打开Visual Studio并安装最新的TypeScript工具：
 
   * Open `Tools` | `Extensions and Updates`.
 
   * 打开`Tools` | `Extensions and Updates`。
+
   * Select `Online` in the tree on the left.
 
-  * 选择在左侧目录树中选择`Online`。
+  * 在左侧目录树中选择`Online`。
 
   * Search for `TypeScript` using the search box in the upper right.
 
-  * 使用右上角的搜索框搜索`TypeScript`。
+  * 在右上角的搜索框中搜`TypeScript`。
 
   * Select the most current available TypeScript version.
 
@@ -115,28 +121,29 @@ h2#setup-vs 第二步：为TypeScript设置Visual Studio
 
   * Download and install the package.
   
-  * 下载和安装TypeScript。
+  * 下载并安装依赖包。
 
 .l-main-section
 h2#create-project Step 3: Create the Visual Studio ASP.NET project
 
-h2#create-project 第三步: 新建Visual Studio ASP.NET项目
+h2#create-project 第三步: 创建Visual Studio ASP.NET项目
 
 :marked
   Create the ASP.NET 4.x project as follows:
-  按照下面的步骤新建ASP.NET 4.x项目:
+
+  按照下面的步骤创建ASP.NET 4.x项目:
   
   * In Visual Studio, select `File` | `New` | `Project` from the menu.
   
-  * 在Visual Studio的目录中，选择`File` | `New` | `Project`。
+  * 在Visual Studio中，选择`File` | `New` | `Project`菜单。
 
   * In the template tree, select `Templates` | `Visual C#` (or `Visual Basic`) | `Web`.
 
-  * 在模板树中，选择`Templates` | `Visual C#` (or `Visual Basic`) | `Web`。
+  * 在模板树中，选择`Templates` | `Visual C#`(或`Visual Basic`) | `Web`菜单。
 
   * Select the `ASP.NET Web Application` template, give the project a name, and click OK.
 
-  * 选择`ASP.NET Web Application`模板，输入一个项目名字，点击OK。
+  * 选择`ASP.NET Web Application`模板，输入项目名，点击“OK”按钮。
 
   * Select the desired ASP.NET 4.5.2 template and click OK.
 
@@ -147,51 +154,58 @@ h2#create-project 第三步: 新建Visual Studio ASP.NET项目
     In this cookbook we'll select the `Empty` template with no added folders, 
     no authentication and no hosting. Pick the template and options appropriate for your project.
 
-    本烹饪书选择了`空白`模板，没有任何附加的目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
+    本烹饪宝典选择了`Empty`模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
     
 .l-main-section
 h2#copy Step 4: Copy the QuickStart files into the ASP.NET project folder
 
-h2#copy 第四步: 拷贝快速开始的文件到ASP.NET项目所在的目录
+h2#copy 第四步: 拷贝“快速起步”的文件到ASP.NET项目所在的目录
 
 :marked
   Copy the QuickStart files we downloaded from github into the folder containing the `.csproj` file.
   Include the files in the Visual Studio project as follows:
 
-  拷贝从github下载的快速开始文件到那个包含`.csproj`文件的目录中。按照下面的步骤在Visual Studio里添加这些文件：
+  拷贝从github下载的“快速起步”文件到包含`.csproj`文件的目录中。按照下面的步骤把它们加到Visual Studio中：
   
   * Click the `Show All Files` button in Solution Explorer to reveal all of the hidden files in the project.
 
-  * 在Solution Explorer中点击`Show All Files`按钮，显示项目目录中所有隐藏文件。
+  * 在Solution Explorer中点击`Show All Files`按钮，显示项目中所有隐藏文件。
 
   * Right-click on each folder/file to be included in the project and select `Include in Project`.
     Minimally, include the following folder/files:
 
   * 右键点击每个目录和文件，选择`Include in Project`。
-    最少添加下列文件：
+    最少要添加下列文件：
     
     * app folder (answer *No*  if asked to search for TypeScript Typings)    
-    * app目录（如果询问是否搜索TypeScript类型，回答*No*）
+
+    * app目录（如果询问是否要搜索TypeScript类型，回答*No*）
 
     * styles.css
+
     * styles.css
 
     * index.html
+
     * index.html
 
     * package.json
+
     * package.json
 
     * tsconfig.json
+
     * tsconfig.json
 
     * typings.json
+
     * typings.json
     
 .l-main-section
 h2#restore Step 5: Restore the required packages
 
 h2#restore 第五步: 恢复需要的包
+
 :marked
   Restore the packages required for an Angular application as follows:
   
@@ -200,13 +214,14 @@ h2#restore 第五步: 恢复需要的包
   * Right-click on the `package.json` file in Solution Explorer and select `Restore Packages`.
     <br>This uses `npm` to install all of the packages defined in the `package.json` file. 
     It may take some time.
-  * 在Solution Explorer里面右键点击`package.json`，选择`Restore Packages`。
-    <br>这样，Visual Studio会使用`npm`那安装所有在`package.json`文件中定义的包. 
-    可能需要等待一下。
+
+  * 在Solution Explorer中右键点击`package.json`，选择`Restore Packages`。
+    <br>这样，Visual Studio会使用`npm`来安装在`package.json`中定义的所有包. 
+    这可能需要花一点时间。
 
   * If desired, open the Output window (`View` | `Output`) to watch the npm commands execute.
 
-  * 如果愿意，打开Output window (`View` | `Output`)来查看npm命令的执行情况。
+  * 如果愿意，打开Output窗口(`View` | `Output`)来监控npm命令的执行情况。
   
   * Ignore the warnings.
 
@@ -214,7 +229,7 @@ h2#restore 第五步: 恢复需要的包
 
   * When the restore is finished, a message should say: `npm command completed with exit code 0`.
 
-  * 当恢复完成后，应该会出现一条信息：`npm command completed with exit code 0`.
+  * 当恢复完成后，将会出现一条消息：`npm command completed with exit code 0`.
 
   * Click the `Refresh` icon in Solution Explorer.
 
@@ -222,26 +237,27 @@ h2#restore 第五步: 恢复需要的包
 
   * **Do not** include the `node_modules` folder in the project. Let it be a hidden project project folder.
 
-  * **不要**将`node_modules`目录添加到项目，让它隐藏。
+  * **不要**将`node_modules`目录添加到项目中，让它隐藏。
+
 .alert.is-important
   :marked
     An error such as "*@angular/compiler is not in the npm registry*" suggests that Visual Studio 2015
     is using an older version of npm. Update to the latest installed version of npm:
 
-    "*@angular/compiler is not in the npm registry*"错误表明Visual Studio 2015使用了老版本的npm。安装下面的步骤安装最新版本的npm：
+    "*@angular/compiler is not in the npm registry*"这个错误表明Visual Studio 2015使用了老版本的npm。按照下面的步骤安装最新版本的npm：
     
     * `Tools` | `Options` to open the Options dialog.
     
-    * `Tools` | `Options`来打开选项对话框。
+    * `Tools` | `Options`来打开“选项”对话框。
     
     * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
 
-    * 在左侧的树状目录中，选择`Projects and Solutions` | `External Web Tools`.
+    * 在左侧的树状目录中，选择`Projects and Solutions` | `External Web Tools`。
     
     * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
       use the external tools (such as npm) found in your path before using its own version of the external tools.
 
-    * 在右侧，把`$(PATH)`项移动到`$(DevEnvDir`)上面，这样告诉Visual Studio优先使用在你的路径中找到的外来工具（比如npm）。
+    * 在右侧，把`$(PATH)`项移动到`$(DevEnvDir`)上面，这样就会告诉Visual Studio优先在你的路径中查找外来工具（比如npm）。
     
     * Click OK to close the dialog.
 
@@ -249,17 +265,18 @@ h2#restore 第五步: 恢复需要的包
     
     * Restart Visual Studio for this change to take effect.
 
-    * 重新启动Visual Studio来让上面的变化生效。
+    * 重新启动Visual Studio来让这些修改生效。
       
 .l-main-section
 h2#edit-config Step 6: Edit the TypeScript configuration file
 
 h2#edit-config 第六步：编辑TypeScript配置文件
+
 :marked
   For Visual Studio 2015 we must add `"compileOnSave": true` to the TypeScript configuration (`tsconfig.json`) file 
   as shown here. 
 
-  在Visual Studio 2015里，我们必须在TypeScript配置文件（`tsconfig.json`）中添加`"compileOnSave": true`： 
+  在Visual Studio 2015里，我们必须在TypeScript的配置文件(`tsconfig.json`)中添加`"compileOnSave": true`： 
   
 +makeJson('cb-visual-studio-2015/ts/tsconfig.json', null, 'tsconfig.json (scripts)')
 
@@ -276,16 +293,16 @@ h2#build-and-run 第七步：编译和运行应用程序
 :marked
   Click the Run button or press F5 to build and run the application.
   
-  点击运行按钮或者按F5键来编译和运行应用程序。
+  点击“运行”按钮或按F5键来编译和运行应用程序。
 
   This launches the default browser and runs the QuickStart sample application.
 
-  这样会启动默认浏览器并在里面运行快速开始应用程序。
+  这样会启动默认浏览器并在里面运行“快速起步”范例程序。
   
   Try editing any of the project files. *Save* and refresh the browser to
   see the changes. 
 
-  试试编辑任何项目文件。*保存*并刷新浏览器查看效果。
+  尝试编辑任何项目文件，*保存*并刷新浏览器来查看效果。
   
 .alert.is-important
   :marked
@@ -294,11 +311,12 @@ h2#build-and-run 第七步：编译和运行应用程序
     Exit Visual Studio and follow the [instructions here](https://github.com/Microsoft/TypeScript/issues/8518).
 
     像“*Property ‘map’ does not exist on type ‘Observable<Response>’*”和“*Observable cannot be found*”这样的编译错误
-    说明Visual Studio是老版本。退出Visual Studio，按照[这里的指南](https://github.com/Microsoft/TypeScript/issues/8518)升级Visual Studio。
+    说明Visual Studio的版本太老了。退出Visual Studio，按照[这里的指南](https://github.com/Microsoft/TypeScript/issues/8518)升级Visual Studio。
 
     You'll be asked to replace the file
 
-    你会被问是否覆盖文件。
+    它会问你是否要覆盖文件。
+
   code-example.
     c:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TypeScript.typescriptServices.js
 
@@ -311,12 +329,13 @@ h2#build-and-run 第七步：编译和运行应用程序
 h2#routing Note on Routing Applications
 
 h2#routing 应用程序的路由
+
 :marked
   If this application used the Angular router, a browser refresh could return a *404 - Page Not Found*.
   Look at the address bar. Does it contain a navigation url (a "deep link")? 
   We'll have to configure the server to return `index.html` for these requests.
   Until we do, remove the navigation path and refresh again.
 
-  如果这个应用程序使用Angular路由器，浏览器刷新可能会返回一个*404 - Page Not Found*。查看一下地址栏，它是否包含一个导航url（一个“深度链接”）？
-  我们必须要配置服务器，让它为这些请求返回`index.html`。在此之前，删除导航路径，再次刷新。
-    
+  如果这个应用程序使用了Angular路由器，刷新浏览器时可能会返回一个*404 - Page Not Found*。查看一下地址栏，它是否包含一个导航url（“深链接”）？
+  我们必须配置服务器，让它为这些请求直接返回`index.html`的内容。在配置完之前，请暂时删除导航路径，回到首页，再进行刷新。
+
