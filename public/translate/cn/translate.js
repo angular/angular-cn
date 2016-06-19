@@ -66,9 +66,9 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         if (!word.replace(/\s/, '')) {
           return '';
         } else if (/<[^>]*>/.test(word)) {
-          return word;
+          return ' ' + word + ' ';
         } else {
-          return '<span lang="english">' + word + '</span>';
+          return ' ' + word + ' ';
         }
       });
       node.innerHTML = text;
