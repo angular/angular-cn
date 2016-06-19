@@ -66,10 +66,10 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
 
   div(class="side-nav-secondary" ng-class="appCtrl.showDocsNav ? 'is-visible' : ''")
     .nav-blocks
-      a(class="nav-title translated-cn #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") 快速起步
+      a(class="nav-title #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") 快速起步
 
     .nav-blocks
-      a(class="nav-title translated-cn #{anyItemSelected(tutorial)}" href="#{tutorial[0].href}" title="#{tutorial[0].tooltip}") 教程
+      a(class="nav-title #{anyItemSelected(tutorial)}" href="#{tutorial[0].href}" title="#{tutorial[0].tooltip}") 教程
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       .nav-ordered-lists(class="#{isCollapsed(anyItemSelected(tutorial))}")
         ul
@@ -77,7 +77,7 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
             li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
 
     .nav-blocks
-      a(class="nav-title translated-cn #{anyItemSelected(basics)}" href="#{basics[0].href}" title="#{basics[0].tooltip}") 基础知识
+      a(class="nav-title #{anyItemSelected(basics)}" href="#{basics[0].href}" title="#{basics[0].tooltip}") 基础知识
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
       .nav-ordered-lists(class="#{isCollapsed(anyItemSelected(basics))}")
@@ -86,7 +86,7 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
             li(class="nav-list-item translated-cn #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
 
     .nav-blocks
-      a(class="nav-title translated-cn #{anyItemSelected(guide)}" href="#{guide[0].href}" title="#{guide[0].tooltip}") 开发指南
+      a(class="nav-title #{anyItemSelected(guide)}" href="#{guide[0].href}" title="#{guide[0].tooltip}") 开发指南
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
       .nav-unordered-lists(class="#{isCollapsed(anyItemSelected(guide))}")
@@ -95,7 +95,7 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
             li(class="nav-list-item translated-cn #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     .nav-blocks
-      a(class="nav-title translated-cn #{anyItemSelected(cookbook)}" href="#{cookbook[0].href}" title="#{cookbook[0].tooltip}") 烹饪宝典
+      a(class="nav-title #{anyItemSelected(cookbook)}" href="#{cookbook[0].href}" title="#{cookbook[0].tooltip}") 烹饪宝典
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
       .nav-unordered-lists(class="#{isCollapsed(anyItemSelected(cookbook))}")
