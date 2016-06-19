@@ -62,7 +62,15 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     var nodes = document.querySelectorAll('.translated-cn');
     _.each(nodes, function (node) {
       var text = node.innerHTML;
-      text = text.replace(/([\x20-\xff]+)/g, '<span lang="english">$1</span>');
+      text = text.replace(/([\x20-\xff]+)/g, function (word) {
+        if (!word.replace(/\s/, '')) {
+          return '';
+        } else if (/<[^>]*>/.test(word)) {
+          return word;
+        } else {
+          return '<span lang="english">' + word + '</span>';
+        }
+      });
       node.innerHTML = text;
     });
   }
