@@ -1,4 +1,5 @@
 /// <reference path='../_protractor/e2e.d.ts' />
+'use strict';
 describe('Component Communication Cookbook Tests', function () {
 
 

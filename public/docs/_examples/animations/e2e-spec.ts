@@ -1,4 +1,5 @@
 /// <reference path='../_protractor/e2e.d.ts' />
+'use strict';
 /**
  * The tests here basically just checking that the end styles
  * of each animation are in effect.
@@ -29,7 +30,7 @@ describe('Animation Tests', () => {
     });
 
     it('animates between active and inactive', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
 
@@ -58,7 +59,7 @@ describe('Animation Tests', () => {
     });
 
     it('are not kept after animation', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
 
@@ -79,7 +80,7 @@ describe('Animation Tests', () => {
     });
 
     it('animates between active and inactive', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
 
@@ -108,7 +109,7 @@ describe('Animation Tests', () => {
     });
 
     it('animates between active and inactive', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
 
@@ -137,7 +138,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes element', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
       expect(li.getCssValue('transform')).toMatch(NO_TRANSFORM_MATRIX_REGEX);
@@ -157,7 +158,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes and animates between active and inactive', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
 
@@ -186,7 +187,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes element', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
       expect(li.getCssValue('height')).toBe('50px');
@@ -206,7 +207,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes element', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
       expect(li.getCssValue('transform')).toMatch(NO_TRANSFORM_MATRIX_REGEX);
@@ -227,7 +228,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes element', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
       expect(li.getCssValue('transform')).toMatch(NO_TRANSFORM_MATRIX_REGEX);
@@ -248,7 +249,7 @@ describe('Animation Tests', () => {
     });
 
     it('adds and removes element', () => {
-      addHero();
+      addInactiveHero();
 
       let li = host.element(by.css('li'));
       expect(li.getCssValue('transform')).toMatch(NO_TRANSFORM_MATRIX_REGEX);
@@ -260,8 +261,41 @@ describe('Animation Tests', () => {
 
   });
 
-  function addHero() {
-    element(by.buttonText('Add hero')).click();
+  describe('adding active heroes', () => {
+
+    let host: protractor.ElementFinder;
+
+    beforeEach(() => {
+      host = element(by.css('hero-list-basic'));
+    });
+
+    it('animates between active and inactive', () => {
+      addActiveHero();
+
+      let li = host.element(by.css('li'));
+
+      expect(getScaleX(li)).toBe(1.1);
+      expect(li.getCssValue('backgroundColor')).toBe(ACTIVE_COLOR);
+
+      li.click();
+      browser.driver.sleep(300);
+      expect(getScaleX(li)).toBe(1.0);
+      expect(li.getCssValue('backgroundColor')).toBe(INACTIVE_COLOR);
+
+      li.click();
+      browser.driver.sleep(300);
+      expect(getScaleX(li)).toBe(1.1);
+      expect(li.getCssValue('backgroundColor')).toBe(ACTIVE_COLOR);
+    });
+  });
+
+  function addActiveHero() {
+    element(by.buttonText('Add active hero')).click();
+    browser.driver.sleep(500);
+  }
+
+  function addInactiveHero() {
+    element(by.buttonText('Add inactive hero')).click();
     browser.driver.sleep(500);
   }
 
@@ -274,7 +308,9 @@ describe('Animation Tests', () => {
     return protractor.promise.all([
       getBoundingClientWidth(el),
       getOffsetWidth(el)
-    ]).then(function([clientWidth, offsetWidth]) {
+    ]).then(function(promiseResolutions) {
+      let clientWidth = promiseResolutions[0];
+      let offsetWidth = promiseResolutions[1];
       return clientWidth / offsetWidth;
     });
   }

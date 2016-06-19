@@ -106,14 +106,14 @@
 
 
   "router-deprecated": {
-    "title": "路由 (Beta版，已废弃)",
-    "intro": "废弃的Beta版路由"
+    "title": "Router (Deprecated Beta)",
+    "intro": "The deprecated Beta Router.",
+    "hide": true
   },
 
   "router": {
     "title": "路由与导航",
-    "intro": "揭示如何通过Angular 2路由进行基本的屏幕导航。",
-    "hide": true
+    "intro": "揭示如何通过Angular 2路由进行基本的屏幕导航。"
   },
 
   "structural-directives": {
