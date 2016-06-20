@@ -12,7 +12,7 @@ include ../_util-fns
     For an in-depth look at each fundamental concepts in component communication, we can find detailed description and
     samples in the [Component Communication]() document.      
     
-    要深入了解组件通讯的各个基本概念，我们可以在[组件通讯Component Communication]()文档中可以找到详细的描述和例子。
+    要深入了解组件通讯的各个基本概念，在[组件通讯Component Communication]()文档中可以找到详细的描述和例子。
 
 <a id="toc"></a>
 :marked
@@ -87,7 +87,7 @@ figure.image-display
   
   E2E test that all children were instantiated and displayed as expected:
   
-  端到端测试，用于确保所有的子组件都像我们所期待的那样被初始化并显示出来。
+  端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。
   
 +makeExample('cb-component-communication/e2e-spec.ts', 'parent-to-child')
 
@@ -254,7 +254,7 @@ parent-to-child-local-var
   
   A parent component cannot use data binding to read child properties or invoke child methods. We can do both by creating a template reference variable for the child element and then reference that variable *within the parent template* as seen in the following example.
     
-  父组件不能使用数据绑定来读取子组件的属性或调用子组件的方法。但我们可以在父组件模板里，新建一个本地变量来代表子组件，然后利用这个变量来读取子组件的属性和调用子组件的方法，如下例所示。
+  父组件不能使用数据绑定来读取子组件的属性或调用子组件的方法。但可以在父组件模板里，新建一个本地变量来代表子组件，然后利用这个变量来读取子组件的属性和调用子组件的方法，如下例所示。
 
   <a id="countdown-timer-example"></a>
   
@@ -276,7 +276,7 @@ parent-to-child-local-var
   
   We can place a local variable (`#timer`) on the tag (`<countdown-timer>`) representing the child component. That gives us a reference to the child component itself and the ability to access *any of its properties or methods* from within the parent template.
     
-  我们把本地变量(`#timer`)放到(`<countdown-timer>`)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，于是可以在父组件的模板中访问子组件的所有属性和方法。
+  把本地变量(`#timer`)放到(`<countdown-timer>`)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，于是可以在父组件的模板中访问子组件的所有属性和方法。
  
   In this example, we wire parent buttons to the child's `start` and `stop` and use interpolation to display the child's `seconds` property.
   
@@ -317,11 +317,11 @@ a(id="countdown-tests")
   
   We can't use the *local variable* technique if an instance of the parent component *class* must read or write child component values or must call child component methods.
   
-  如果父组件的*类*需要读取子组件的属性值或调用子组件的方法，我们就不能使用*本地变量*方法了。
+  如果父组件的*类*需要读取子组件的属性值或调用子组件的方法，就不能使用*本地变量*方法。
   
   When the parent component *class* requires that kind of access, we ***inject*** the child component into the parent as a *ViewChild*.
   
-  当父组件*类*需要这种访问时，我们可以把子组件作为*ViewChild*，***注入***到父组件里面。
+  当父组件*类*需要这种访问时，可以把子组件作为*ViewChild*，***注入***到父组件里面。
   
   We'll illustrate this technique with the same [Countdown Timer](#countdown-timer-example) example. We won't change its appearance or behavior. The child [CountdownTimerComponent](#countdown-timer-example) is the same as well.
   
@@ -331,7 +331,7 @@ a(id="countdown-tests")
   :marked
     We are switching from the *local variable* to the *ViewChild* technique solely for the purpose of demonstration.
     
-    我们由*本地变量*切换到*ViewChild*技术的唯一目的就是做示范。
+    由*本地变量*切换到*ViewChild*技术的唯一目的就是做示范。
     
 :marked
   Here is the parent, `CountdownViewChildParentComponent`:
@@ -346,12 +346,12 @@ a(id="countdown-tests")
   
   We import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
  
-  我们需要通过`ViewChild`装饰器导入这个引用，并挂上`AfterViewInit`生命周期钩子。
+  需要通过`ViewChild`装饰器导入这个引用，并挂上`AfterViewInit`生命周期钩子。
   
   We inject the child `CountdownTimerComponent` into the private `timerComponent` property
   via the `@ViewChild` property decoration.
   
-  我们通过`@ViewChild`属性装饰器，将子组件`CountdownTimerComponent`注入到私有属性`timerComponent`里面。
+  通过`@ViewChild`属性装饰器，将子组件`CountdownTimerComponent`注入到私有属性`timerComponent`里面。
   
   The `#timer` local variable is gone from the component metadata. Instead we bind the buttons to the parent component's own `start` and `stop` methods and present the ticking seconds in an interpolation around the parent component's `seconds` method.
   
@@ -367,11 +367,11 @@ a(id="countdown-tests")
   
   Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late* to update the parent view's display of the countdown seconds. Angular's unidirectional data flow rule prevents us from updating the parent view's in the same cycle. We have to *wait one turn* before we can display the seconds.
   
-  然后Angular会调用`ngAfterViewInit`生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular的单向数据流规则会阻止我们在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮儿*。
+  然后Angular会调用`ngAfterViewInit`生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮儿*。
   
   We use `setTimeout` to wait one tick and then revise the `seconds` method so that it takes future values from the timer component.
   
-  我们使用`setTimeout`来等下一轮儿，然后改写`seconds`方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
+  使用`setTimeout`来等下一轮儿，然后改写`seconds`方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
 
   ### Test it
   ### 测试
@@ -422,11 +422,11 @@ a(id="countdown-tests")
   :marked
     Notice that we capture the `subscription` and unsubscribe when the `AstronautComponent` is destroyed. This is a memory-leak guard step. There is no actual risk in this app because the lifetime of a `AstronautComponent` is the same as the lifetime of the app itself. That *would not* always be true in a more complex application.
     
-    注意，我们通过`subscription`服务订阅任务，并在`AstronautComponent`被销毁的时候退订。这是一个用于防止内存泄漏的保护措施。实际上，在这个应用程序中并没有这个风险，因为`AstronautComponent`的生命期和应用程序的生命期一样长。但在更复杂的应用程序环境中就不一定了。
+    注意，通过`subscription`服务订阅任务，并在`AstronautComponent`被销毁的时候退订。这是一个用于防止内存泄漏的保护措施。实际上，在这个应用程序中并没有这个风险，因为`AstronautComponent`的生命期和应用程序的生命期一样长。但在更复杂的应用程序环境中就不一定了。
     
     We do not add this guard to the `MissionControlComponent` because, as the parent, it controls the lifetime of the `MissionService`.
     
-    我们不需要在`MissionControlComponent`中添加这个保护措施，因为作为父组件，它控制着`MissionService`的生命期。
+    不需要在`MissionControlComponent`中添加这个保护措施，因为作为父组件，它控制着`MissionService`的生命期。
     
 :marked
   The *History* log demonstrates that messages travel in both directions between the parent `MissionControlComponent` and the `AstronautComponent` children, facilitated by the service:

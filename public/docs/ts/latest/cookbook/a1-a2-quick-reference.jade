@@ -122,7 +122,7 @@ table(width="100%")
       :marked
         To filter output in our templates in Angular&nbsp;1, we use the pipe character (|) and one or more filters.
 
-        要在Angular 1中过滤输出，我们使用管道字符(|)以及一个或多个过滤器。
+        要在Angular 1中过滤输出，使用管道字符(|)以及一个或多个过滤器。
 
         In this example, we filter the `title` property to uppercase.
 
@@ -140,7 +140,7 @@ table(width="100%")
         Many (but not all) of the built-in filters from Angular&nbsp;1 are
         built-in pipes in Angular&nbsp;2.
 
-        在Angular 2中，我们使用相似的语法 —— 用管道字符(|)来过滤输出，但是我们现在直接把它叫做**管道**了。
+        在Angular 2中，我们使用相似的语法 —— 用管道字符(|)来过滤输出，但是现在直接把它叫做**管道**了。
         很多(但不是所有)Angular 1中的内建过滤器也成了Angular 2中的内建管道。
 
         See the heading [Filters / Pipes](#Pipes) below for more information.
@@ -218,7 +218,7 @@ table(width="100%")
         many applications bootstrap declaratively with the `ng-app` directive,
         giving it the name of the application's module (`movieHunter`).
 
-        虽然我们可以从代码中引导Angular 1应用，
+        虽然可以从代码中引导Angular 1应用，
         但很多应用都是通过`ng-app`指令进行声明式引导的，只要给它一个应用模块的名字(`movieHunter`)就可以了。
 
     td
@@ -262,7 +262,7 @@ table(width="100%")
 
         We can specify multiple classes as shown in the second example.
 
-        就像第二个例子中展示的，我们可以指定多个CSS类。
+        就像第二个例子中展示的，可以指定多个CSS类。
 
     td
       :marked
@@ -281,7 +281,7 @@ table(width="100%")
 
         We can specify multiple classes as shown in the second example.
 
-        就像第二个例子中所展示的那样，我们可以同时指定多个类。
+        就像第二个例子中所展示的那样，可以同时指定多个类。
 
         Angular&nbsp;2 also has **class binding**, which is a good way to add or remove a single class
         as shown in the third example.
@@ -302,7 +302,7 @@ table(width="100%")
       :marked
         In Angular&nbsp;1, the `ng-click` directive allows us to specify custom behavior when an element is clicked.
 
-        在Angular 1中，`ng-click`指令能让我们指定当元素被点击时的自定义行为。
+        在Angular 1中，`ng-click`指令指定当元素被点击时的自定义行为。
 
         In the first example, when the button is clicked, the `toggleImage()` method in the controller referenced by the `vm` `controller as` alias is executed.
 
@@ -325,14 +325,14 @@ table(width="100%")
         Rather, we define one-way binding from the template view to the component using **event binding**.
 
         Angular 1基于事件的指令在Angular 2中已经不存在了。
-        不过，我们可以使用**事件绑定**来定义从模板视图到组件的单向数据绑定。
+        不过，可以使用**事件绑定**来定义从模板视图到组件的单向数据绑定。
 
         For event binding, we define the name of the target event within parenthesis and
         specify a template statement in quotes to the right of the equals. Angular&nbsp;2 then
         sets up an event handler for the target event. When the event is raised, the handler
         executes the template statement.
 
-        要使用事件绑定，我们把目标事件的名字放在圆括号中，并且使用等号右侧引号中的模板语句对它赋值。
+        要使用事件绑定，把目标事件的名字放在圆括号中，并且使用等号右侧引号中的模板语句对它赋值。
         然后Angular 2为这个目标时间设置事件处理器。当事件被触发时，这个处理器就会执行模板语句。
 
         In the first example, when the button is clicked, the `toggleImage()` method in the associated component is executed.
@@ -403,7 +403,7 @@ table(width="100%")
         In Angular&nbsp;2, we use property binding; there is no built-in *hide* directive.
         See [ng-show](#ng-show) for more information.
 
-        在Angular 2中，并没有一个内建的*hide*指令，我们可以改用属性绑定。
+        在Angular 2中，并没有一个内建的*hide*指令，可以改用属性绑定。
         参见[ng-show](#ng-show)了解更多。
 
   tr(style=top)
@@ -441,7 +441,7 @@ table(width="100%")
         In Angular&nbsp;2, we use property binding; there is no built-in *href* directive.
         We place the element's `href` property in square brackets and set it to a quoted template expression.
 
-        在Angular 2中，并没有内建的*href*指令，我们改用属性绑定。
+        在Angular 2中，并没有内建的*href*指令，改用属性绑定。
         我们把元素的`href`属性放在方括号中，并把它设成一个引号中的模板表达式。
 
         For more information on property binding see [Template Syntax](../guide/template-syntax.html#property-binding).
@@ -593,8 +593,8 @@ table(width="100%")
         In Angular&nbsp;2, we use property binding; there is no built-in *show* directive.
         For hiding and showing elements, we bind to the HTML `hidden` property.
 
-        在Angular 2中，并没有内建的*show*指令，我们可以改用属性绑定。
-        要隐藏或显示一个元素，我们绑定到它的`hidden`属性就可以了。
+        在Angular 2中，并没有内建的*show*指令，可以改用属性绑定。
+        要隐藏或显示一个元素，绑定到它的`hidden`属性就可以了。
 
         To conditionally display an element, place the element's `hidden` property in square brackets and
         set it to a quoted template expression that evaluates to the *opposite* of *show*.
@@ -633,8 +633,8 @@ table(width="100%")
         In Angular&nbsp;2, we use property binding; there is no built-in *src* directive.
         We place the `src` property in square brackets and set it to a quoted template expression.
 
-        在Angular 2中，并没有一个内建的*src*指令，我们可以使用属性绑定。
-        我们把`src`属性放到方括号中，并且把它设为一个引号中的绑定表达式。
+        在Angular 2中，并没有一个内建的*src*指令，可以使用属性绑定。
+        把`src`属性放到方括号中，并且把它设为一个引号中的绑定表达式。
 
         For more information on property binding see [Template Syntax](../guide/template-syntax.html#property-binding).
 
@@ -733,9 +733,9 @@ table(width="100%")
         If that method returns `true`, we see "Excellent choice!".
         If that methods returns `false`, we see "No movie, sorry!".
 
-        在这个例子中，如果`favoriteHero`没有设置，则`ngSwitch`的值是`null`，并且我们会看到
+        在这个例子中，如果`favoriteHero`没有设置，则`ngSwitch`的值是`null`，我们会看到
         `*ngSwitchDefault`中的段落“Please enter ...”。
-        如果`favoriteHero`被设置了，它就会通过调用一个组件方法来检查他是否电影中的英雄。
+        如果`favoriteHero`被设置了，它就会通过调用一个组件方法来检查电影英雄。
         如果该方法返回`true`，我们就会看到“Excellent choice!”。
         如果该方法返回`false`，我们就会看到“No movie, sorry!”。
 
@@ -763,7 +763,7 @@ a(id="filters-pipes")
   Many of the built-in filters in Angular&nbsp;1 have corresponding pipes in Angular&nbsp;2.
   For more information on pipes see [Pipes](../guide/pipes.html).
 
-  Angular 2中的**管道**为我们的模板提供了格式化和数据转换功能，类似于Angular 1中的**过滤器**。
+  Angular 2中的**管道**为模板提供了格式化和数据转换功能，类似于Angular 1中的**过滤器**。
   Angular 1中的很多内建过滤器在Angular 2中都有对应的管道。
   要了解管道的更多信息，参见[Pipes](../guide/pipes.html)。
 
@@ -882,7 +882,7 @@ table(width="100%")
 
         `SlicePipe`做同样的事，但是*两个参数的顺序是相反的*，以便于JavaScript中的`slice`方法保持一致。
         第一个参数是起始索引号，第二个参数是限制的数量。
-        和Angular 1中一样，如果我们改用组件中的代码实现此操作，性能将会提升。
+        和Angular 1中一样，如果们改用组件中的代码实现此操作，性能将会提升。
 
   tr(style=top)
     td
@@ -1000,7 +1000,7 @@ table(width="100%")
         In Angular&nbsp;1, we often defined an immediately invoked function expression (or IIFE) around our controller code.
         This kept our controller code out of the global namespace.
 
-        在Angular 1中，我们通常会定义一个立即调用的函数表达式(IIFE)来包裹我们的控制器代码。
+        在Angular 1中，我们通常会定义一个立即调用的函数表达式(IIFE)来包裹控制器代码。
         这样让控制器代码不会污染全局命名空间。
 
     td
@@ -1010,7 +1010,7 @@ table(width="100%")
         We don't need to worry about this in Angular&nbsp;2 because we use ES 2015 modules
         and modules handle the namespacing for us.
 
-        在Angular 2中我们不用担心这个问题，因为我们使用ES 2015的模块，模块会替我们处理命名空间问题。
+        在Angular 2中我们不用担心这个问题，因为使用ES 2015的模块，模块会替我们处理命名空间问题。
 
         For more information on modules see [Architecture Overview](../guide/architecture.html#module).
 
@@ -1030,7 +1030,7 @@ table(width="100%")
         controllers, services, and other code. The second argument defines the list
         of other modules that this module depends upon.
 
-        在Angular 1中，我们定义一个Angular模块，它将对我们的控制器、服务和其他代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。
+        在Angular 1中，我们定义一个Angular模块，它将对控制器、服务和其他代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。
 
     td
       :marked
@@ -1045,7 +1045,7 @@ table(width="100%")
 
         We `import` what we need from the module files.
 
-        我们`import`任何我们想从模块文件中得到的东西。
+        我们`import`任何想从模块文件中得到的东西。
 
         For more information on modules see [Architecture Overview](../guide/architecture.html#module).
 
@@ -1068,7 +1068,7 @@ table(width="100%")
         In Angular&nbsp;1, we have code in each controller that looks up an appropriate Angular module
         and registers the controller with that module.
 
-        在Angular 1中，我们在每个控制器中都有一些代码，用于找到合适的Angular模块并把该控制器注册进去。
+        在Angular 1中，在每个控制器中都有一些代码，用于找到合适的Angular模块并把该控制器注册进去。
 
         The first argument is the controller name. The second argument defines the string names of
         all dependencies injected into this controller, and a reference to the controller function.
@@ -1092,7 +1092,7 @@ table(width="100%")
 
         This is how we associate a template with code, which is defined in the component class.
 
-        这就是我们把模板关联到代码的方式，它定义在组件类中。
+        这就是把模板关联到代码的方式，它定义在组件类中。
 
         For more information on components see [Architecture Overview](../guide/architecture.html#component).
 
@@ -1198,7 +1198,7 @@ a(id="style-sheets")
   样式表美化我们的应用程序。
   在Angular 1中，我们为整个应用程序指定样式表。
   当应用程序成长一段时间之后，应用程序中很多部分的样式会被合并，导致无法预计的后果。
-  在Angular 2中，我们仍然会为整个应用程序定义样式，不过现在我们也可以把样式表封装在特定的组件中。
+  在Angular 2中，我们仍然会为整个应用程序定义样式，不过现在也可以把样式表封装在特定的组件中。
 
 table(width="100%")
   col(width="50%")
@@ -1229,7 +1229,7 @@ table(width="100%")
         But we can now also encapsulate styles for our components.
 
         在Angular2中，我们可以继续在`index.html`中使用link标签来为应用程序定义样式。
-        但是我们也能在组件中封装样式。
+        但是也能在组件中封装样式。
 
       :marked
         ### StyleUrls

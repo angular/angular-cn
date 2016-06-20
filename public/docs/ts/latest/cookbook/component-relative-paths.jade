@@ -9,7 +9,7 @@ include ../_util-fns
   We identify those files with a URL in the `templateUrl` and `styleUrls` properties of the `@Component` metadata
   as seen here:
 
-  我们的组件通常都是引用外部的模板和样式表文件。
+  组件通常都是引用外部的模板和样式表文件。
   我们在`@Component`的元数据中通过`templateUrl`和`styleUrls`属性来标识出它们的位置：
 
 +makeExample('cb-component-relative-paths/ts/app/some.component.ts','absolute-config')(format='.')
@@ -35,7 +35,7 @@ include ../_util-fns
   It would be much easier to write and maintain our application components if we could specify template and style locations
   *relative* to their component class file.
 
-  如果我们能用*相对*于组件类文件的路径来指定模板和样式表的位置，那么编写和维护组件就会变得容易得多。
+  如果能用*相对*于组件类文件的路径来指定模板和样式表的位置，那么编写和维护组件就会变得容易得多。
 
   *We can!*
 
@@ -47,7 +47,7 @@ include ../_util-fns
     with a suitable package loader such as `systemjs` or `webpack`.
     Learn why [below](#why-default).
 
-    如果把应用构建成`commonjs`模块，并用一个合适的包加载器(比如`systemjs`或`webpack`)加载那些模块，我们就可以用相对路径。
+    如果把应用构建成`commonjs`模块，并用一个合适的包加载器(比如`systemjs`或`webpack`)加载那些模块，就可以用相对路径。
     [在下方](#why-default)可以学到原理。
 
     The Angular 2 CLI uses these technologies and defaults to the
@@ -66,7 +66,7 @@ include ../_util-fns
   Our goal is to specify template and style URLs *relative* to their component class files,
   hence the term ***component-relative path***.
 
-  我们的目标把模板和样式表的URL指定为*相对*于组件类的路径，因此得名***组件相对路径***。
+  目标是把模板和样式表的URL指定为*相对*于组件类的路径，因此得名***组件相对路径***。
 
   The key to success is following a convention that puts related component files in well-known locations.
 
@@ -76,8 +76,8 @@ include ../_util-fns
   companion component class files.
   Here we see the three files for `SomeComponent` sitting next to each other in the `app` folder.
 
-  我们建议把组件的模板和组件特有的样式表文件作为组件类文件的“兄弟”。
-  这里我们看到在`app`目录下依次有`SomeComponent`的三个文件。
+  建议把组件的模板和组件特有的样式表文件作为组件类文件的“兄弟”。
+  这里在`app`目录下依次有`SomeComponent`的三个文件。
 
 .filetree
   .file app
@@ -90,7 +90,7 @@ include ../_util-fns
   We'll have more files and folders &mdash; and greater folder depth &mdash; as our application grows.
   We'll be fine as long as the component files travel together as the inseparable siblings they are.
 
-  当应用规模增长后，我们还会有更多的文件和目录，目录深度也会增加。
+  当应用规模增长后，还会有更多的文件和目录，目录深度也会增加。
   如果组件的所有文件总是像形影不离的兄弟那样共进退，那该多好啊！
 
   ### Set the *moduleId*
@@ -99,13 +99,13 @@ include ../_util-fns
   Having adopted this file structure convention, we can specify locations of the template and style files
   relative to the component class file simply by setting the `moduleId` property of the `@Component` metadata like this
 
-  采用这种文件结构约定，我们可以为模板和样式表文件指定相对于组件类文件的位置 —— 只要简单的在`@Component`元数据中设置`moduleId`属性就可以了，就像这样：
+  采用这种文件结构约定，可以为模板和样式表文件指定相对于组件类文件的位置 —— 只要简单的在`@Component`元数据中设置`moduleId`属性就可以了，就像这样：
 
 +makeExample('cb-component-relative-paths/ts/app/some.component.ts','module-id')(format='.')
 :marked
   We strip the `app/` base path from the `templateUrl` and `styleUrls`. The result looks like this:
 
-  我们从`templateUrl`和`styleUrls`中把基准路径`app/`去掉了。结果是这样的：
+  从`templateUrl`和`styleUrls`中把基准路径`app/`去掉了。结果是这样的：
 
 +makeExample('cb-component-relative-paths/ts/app/some.component.ts','relative-config')(format='.')
 
@@ -173,8 +173,8 @@ a#why-default
 
   因为如果没有开发人员的帮助，组件的位置是检测不到的。
   Angular应用可能被用多种方式加载：SystemJS包、CommonJS包等等。
-  我们可能会用几种格式之一来生成模块。
-  我们甚至可能完全没有写成模块化代码。
+  用来生成模块的格式可以是任何格式。
+  甚至可能完全没有写成模块化代码。
 
   With this diversity of packaging and module load strategies,
   it's not possible for Angular to know with certainty where these files reside at runtime.
@@ -195,8 +195,8 @@ a#why-default
   know that the semi-global `module.id` variable is available and contains
   the absolute URL of the component class module file.
 
-  但是，*如果*我们遵循了建议的指导原则，用`commonjs`格式编写模块，并使用一个*不错的*模块加载器，
-  然后，我们就知道，有一个可用的半全局变量`module.id`，它包含组件类模块文件的绝对URL。
+  但是，*如果*遵循建议的指导原则，用`commonjs`格式编写模块，并使用一个*不错的*模块加载器，
+  我们要知道，有一个可用的半全局变量`module.id`，它包含组件类模块文件的绝对URL。
 
   That knowledge enables us to tell Angular where the *component* file is
   by setting the `moduleId`:
