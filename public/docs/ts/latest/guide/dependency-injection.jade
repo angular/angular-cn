@@ -787,7 +787,7 @@ code-example(format="nocode").
   We could give it a provider that calls a logger factory function.
   Any of these approaches might be a good choice under the right circumstances.
 
-  我们可以使用另外的各种供应商来配置这个注入器，只要它们能交付#{objectlikeCn}`Logger`就可以了。
+  我们可以使用其它备选供应商来配置这个注入器，只要它们能交付#{objectlikeCn}`Logger`就可以了。
   我们可以提供一个替身类。#{loggerlikeCn}
   我们可以给它一个供应商，让它调用一个可以创建日志服务的工厂函数。
   所有这些方法，只要用在正确的场合，都可能是一个好的选择。
@@ -839,7 +839,7 @@ block provider-ctor-args
 :marked
   ### Alternative class providers
 
-  ### 其他的“类”供应商
+  ### 备选的“类”供应商
 
   Occasionally we'll ask a different class to provide the service.
   The following code tells the injector

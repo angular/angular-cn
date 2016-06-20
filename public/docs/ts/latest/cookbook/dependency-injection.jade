@@ -66,7 +66,7 @@ include ../_util-fns
   
   [Define providers with object literals](#object-literals)
 
-  [使用对象文本定义供应商] (#object-literals)
+  [使用对象字面量定义供应商] (#object-literals)
 
   [Provider token alternatives](#tokens)
 
@@ -696,7 +696,7 @@ figure.image-display
 
   The `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why we need them.
   
-  `HeroOfTheMonthComponent`例子示范了一些备选方案，展示了为什么需要它们。
+  `HeroOfTheMonthComponent`例子示范了一些替代方案，展示了为什么需要它们。
 
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-of-month.png" alt="Hero of the month" width="300px")
@@ -789,7 +789,7 @@ a(id='useclass')
   The alternative could implement a different strategy, extend the default class,
   or fake the behavior of the real class in a test case.
   
-  使用该技术来为公共或默认类***提供候选实现***。该候选项能实现一个不同的策略，比如拓展默认类或者在测试的时候假冒真实类。
+  使用该技术来为公共或默认类***提供备选实现***。该替代品能实现一个不同的策略，比如拓展默认类或者在测试的时候假冒真实类。
 
   We see two examples in the `HeroOfTheMonthComponent`:
 
@@ -933,7 +933,7 @@ a(id="tokens")
 :marked
   ## Provider token alternatives: the *class-interface* and *OpaqueToken*
 
-  ## 可选供应商令牌：*类-接口*和*OpaqueToken*
+  ## 备选供应商令牌：*类-接口*和*OpaqueToken*
 
   Angular dependency injection is easiest when the provider *token* is a class
   that is also the type of the returned dependency object (what we usually call the *service*).

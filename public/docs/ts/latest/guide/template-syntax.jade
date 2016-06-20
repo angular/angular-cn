@@ -236,7 +236,7 @@ block template-expressions-cannot
   A [template reference variable](#ref-vars) is one such alternative context object.
 
   表达式的上下文也包括组件之外的对象。
-  [模板引用变量](#ref-vars)就是另外的上下文对象之一。
+  [模板引用变量](#ref-vars)就是备选的上下文对象之一。
 
 :marked
   <a id="no-side-effects"></a>
@@ -403,7 +403,7 @@ block statement-context
   representing the "message" or "payload" of the raised event.
 
   语句上下文可以包含组件之外的对象。
-  [模板引用对象](#ref-vars)就是这些候选上下文对象中的一个。
+  [模板引用对象](#ref-vars)就是这些备选上下文对象中的一个。
   在事件绑定语句中，我们将频繁的看到被保留的`$event`符号，它代表来自所触发事件的“消息”或“有效载荷”。
 
   ### Statement guidelines
@@ -980,7 +980,7 @@ a(id="one-time-initialization")
   In fact, Angular  translates those interpolations into the corresponding property bindings
   before rendering the view.
 
-  在多数情况下，插值表达式是一个更方便的选择。实际上，在渲染视图之前，Angular就把这些插值表达式翻译成了对应的属性绑定形式。
+  在多数情况下，插值表达式是一个更方便的备选项。实际上，在渲染视图之前，Angular就把这些插值表达式翻译成了对应的属性绑定形式。
 
   There is no technical reason to prefer one form to the other.
   We lean toward readability, which tends to favor interpolation.
@@ -1237,7 +1237,7 @@ block style-property-name-dart-diff
 :marked
   Some people prefer the `on-` prefix alternative, known as the *canonical form*:
 
-  有些人更喜欢带`on-`前缀的可选形式，称之为*规范形式*：
+  有些人更喜欢带`on-`前缀的备选形式，称之为*规范形式*：
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-2')(format=".")
 :marked
   Element events may be the more common targets, but Angular looks first to see if the name matches an event property
