@@ -14,8 +14,8 @@ include ../_util-fns
   to with pure CSS animations. But we can also have our animation logic tightly integrated
   with the rest of our application code, where they can be easily triggered and controlled.
 
-  Angular的动画系统赋予了我们制作各种动画效果的能力，以构建出与原生CSS动画性能相同的动画。
-  但我们又额外获得了让动画逻辑与其它应用代码紧紧集成在一起的能力，这让动画可以被更容易的触发与控制。
+  Angular的动画系统赋予了制作各种动画效果的能力，以构建出与原生CSS动画性能相同的动画。
+  我们也获得了额外的让动画逻辑与其它应用代码紧紧集成在一起的能力，这让动画可以被更容易的触发与控制。
 
 .alert.is-helpful
   :marked
@@ -100,7 +100,7 @@ figure
   Animations are defined inside `@Component` metadata. Before we can add some, we need
   to import a few animation-specific functions:
 
-  动画会被定义在`@Component`元数据中。在添加动画之前，我们得先引入一些与动画有关的函数：
+  动画会被定义在`@Component`元数据中。在添加动画之前，先引入一些与动画有关的函数：
 
 +makeExample('animations/ts/app/hero-list-basic.component.ts', 'imports')(format=".")
 
@@ -109,7 +109,7 @@ figure
   metadata. It has animated transitions between two states: `active` and `inactive`. When a
   hero is active, we display a the element in slightly larger size and lighter color.
 
-  通过这些，我们现在可以在组件元数据中定义一个名叫`heroState`的*动画触发器*。它在两个状态`active`和`inactive`之间进行转场。
+  通过这些，可以在组件元数据中定义一个名叫`heroState`的*动画触发器*。它在两个状态`active`和`inactive`之间进行转场。
   当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。
 
 +makeExample('animations/ts/app/hero-list-basic.component.ts', 'animationdef')(format=".")
@@ -127,7 +127,7 @@ figure
   attaching it to one or more elements in the component's template using the "`@triggerName`"
   syntax:
 
-  我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，我们可以在模板中用`@triggerName`语法来把它附加到一个或多个元素上。
+  我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`@triggerName`语法来把它附加到一个或多个元素上。
 
 +makeExample('animations/ts/app/hero-list-basic.component.ts', 'template')(format=".")
 
@@ -138,7 +138,7 @@ figure
   or `active`, since that's what we have defined animation states for.
 
   这里，我们把该动画触发器添加到了由`ngFor`重复出来的每一个元素上。每个重复出来的元素都有独立的动画效果。
-  我们把`@triggerName`属性(Attribute)的值设置成表达式`hero.state`。这个值应该或者是`inactive`或者是`active`，因为我们刚刚为它们俩定义过动画状态。
+  然后把`@triggerName`属性(Attribute)的值设置成表达式`hero.state`。这个值应该或者是`inactive`或者是`active`，因为我们刚刚为它们俩定义过动画状态。
 
   With this setup, an animated transition is shown whenever a hero object changes state!
   Here's the full component implementation:
@@ -163,7 +163,7 @@ figure
   or it can be a value computed in a method. The important thing is that we can read it into the
   component's template.
 
-  动画状态是一个由程序代码中定义的字符串值。在上面的例子中，我们基于英雄对象的逻辑状态使用了`'active'`和`'inactive'`这两种状态。
+  动画状态是一个由程序代码中定义的字符串值。在上面的例子中，基于英雄对象的逻辑状态,我们使用了`'active'`和`'inactive'`这两种状态。
   状态的来源可以是像本例中这样简单的对象属性，也可以是由方法计算出来的值。重点是，我们得能从组件模板中读取它。
 
   We can define *styles* for each animation state:
@@ -179,12 +179,12 @@ figure
   animations here. We're actually defining what styles the element has in different states.
 
   这些`state`具体定义了每个状态的*最终样式*。一旦元素转场到那个状态，该样式就会被应用到此元素上，*当它留在此状态时*，这些样式也会一直保持着。
-  从这个意义上讲，这里我们其实并不只是在定义动画，而是在定义该元素在不同状态时应该具有的样式。
+  从这个意义上讲，这里其实并不只是在定义动画，而是在定义该元素在不同状态时应该具有的样式。
 
   Once we have states, we can define *transitions* between the states. Each transition
   controls the timing of switching between one set of styles and the next:
 
-  定义完状态，我们就能定义在状态之间的各种*转场*了。每个转场都会控制一条在一组样式和下一组样式之间切换的时间线：
+  定义完状态，就能定义在状态之间的各种*转场*了。每个转场都会控制一条在一组样式和下一组样式之间切换的时间线：
 
 +makeExample('animations/ts/app/hero-list-basic.component.ts', 'transitions')(format=".")
 
@@ -195,7 +195,7 @@ figure.image-display
   If we have the same timing configuration for several transitions, we can combine
   them into the same `transition` definition:
 
-  如果多个转场都有同样的时间线配置，我们就可以把它们合并进同一个`transition`定义中：
+  如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：
 
 +makeExample('animations/ts/app/hero-list-combined-transitions.component.ts', 'transitions')(format=".")
 
@@ -203,7 +203,7 @@ figure.image-display
   When we have the same timing for both directions of a transition, as we do in the previous
   example, we can use the `<=>` shorthand syntax:
 
-  如果我们要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：
+  如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：
 
 +makeExample('animations/ts/app/hero-list-twoway.component.ts', 'transitions')(format=".")
 
@@ -214,7 +214,7 @@ figure.image-display
   When the transition finishes, none of these styles will be kept because they're not
   defined in a `state`.
 
-  有时我们会希望一些样式只在动画期间生效，但在结束后并不保留它们。这时我们可以把这些样式内联在`transition`中进行定义。
+  有时希望一些样式只在动画期间生效，但在结束后并不保留它们。这时可以把这些样式内联在`transition`中进行定义。
   在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。
 
 +makeExample('animations/ts/app/hero-list-inline-styles.component.ts', 'transitions')(format=".")
@@ -277,7 +277,7 @@ figure
   Using the `void` and `*` states we can define transitions that animate the
   entering and leaving of elements:
 
-  使用`void`和`*`状态，我们可以定义元素进场与离场时的转场动画：
+  使用`void`和`*`状态，可以定义元素进场与离场时的转场动画：
 
   * Enter: `void => *`
 
@@ -296,7 +296,7 @@ figure
   and leaves to the right.
 
   注意，在这个例子中，这些样式在转场定义中被直接应用到了`void`状态，但并没有一个单独的`state(void)`定义。
-  这么做是因为我们希望在进场与离场时使用不一样的转换效果：元素从左侧进场，从右侧离开。
+  这么做是因为希望在进场与离场时使用不一样的转换效果：元素从左侧进场，从右侧离开。
 
   ## Example: Entering and Leaving from Different States
 
@@ -311,7 +311,7 @@ figure
   different transitions for entering and leaving based on what the state of the hero
   is:
 
-  通过把英雄的状态用作动画的状态，我们还能把该动画跟以前的转场动画组合成一个复合动画。这让我们能根据该英雄的当前状态为其配置不同的进场与离场动画：
+  通过把英雄的状态用作动画的状态，还能把该动画跟以前的转场动画组合成一个复合动画。这让我们能根据该英雄的当前状态为其配置不同的进场与离场动画：
 
   * Inactive hero enter: `void => inactive`
 
@@ -331,7 +331,7 @@ figure
 
   We now have fine-grained control over each transition:
 
-  现在我们就对每一种转场都有了细粒度的控制：
+  现在就对每一种转场都有了细粒度的控制：
 
 figure.image-display
   img(src="/resources/images/devguide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400")
@@ -349,7 +349,7 @@ figure.image-display
   borders and many others. The W3C maintains
   [a list of animatable properties](https://www.w3.org/TR/css3-transitions/#animatable-properties).
 
-  由于Angular的动画支持是基于Web Animations标准的，所以我们也能支持浏览器认为可以*参与动画*的任何属性。这些属性包括位置(position)、大小(size)、变换(transform)、颜色(color)、边框(border)等很多属性。W3C维护着
+  由于Angular的动画支持是基于Web Animations标准的，所以也能支持浏览器认为可以*参与动画*的任何属性。这些属性包括位置(position)、大小(size)、变换(transform)、颜色(color)、边框(border)等很多属性。W3C维护着
   [一个“可动”属性列表](https://www.w3.org/TR/css3-transitions/#animatable-properties)。
 
   For positional properties that have a numeric value, we can define a unit by providing
@@ -364,7 +364,7 @@ figure.image-display
   For most dimensinal properties we can also just define a number which is then assumed to be
   in pixels:
 
-  对大多数尺寸类属性而言，我们还能只定义一个数字，那就表示它使用的是像素(px)数：
+  对大多数尺寸类属性而言，还能只定义一个数字，那就表示它使用的是像素(px)数：
 
   * `50` is the same as saying `'50px'`
 
@@ -389,7 +389,7 @@ figure
   is that the value of this property will be computed at runtime and then plugged into
   the animation.
 
-  如果用Angular动画，我们就可以用一个特殊的`*`属性值来处理这种情况。该属性的值将会在运行期被计算出来，然后插入到这个动画中。
+  如果用Angular动画，就可以用一个特殊的`*`属性值来处理这种情况。该属性的值将会在运行期被计算出来，然后插入到这个动画中。
 
   The "leave" animation in this example takes whatever height the element has before it
   leaves and animates from that height to zero:
@@ -407,7 +407,7 @@ figure
   The duration, the delay, and the easing function. They are all combined into
   a single transition *timing string*.
 
-  对每一个动画转场效果，我们有三种时间线属性可以调整：持续时间(duration)、延迟(delay)和缓动(easing)函数。它们被合并到了一个单独的*转场时间线字符串*。
+  对每一个动画转场效果，有三种时间线属性可以调整：持续时间(duration)、延迟(delay)和缓动(easing)函数。它们被合并到了一个单独的*转场时间线字符串*。
 
   ### Duration
 
@@ -416,7 +416,7 @@ figure
   The duration controls how long the animation takes to run from start to finish.
   We can define a duration in three ways:
 
-  持续时间控制动画从开始到结束要花多长时间。我们可以用三种方式定义持续时间：
+  持续时间控制动画从开始到结束要花多长时间。可以用三种方式定义持续时间：
 
   * As a plain number, in milliseconds: `100`
 
@@ -438,7 +438,7 @@ figure
   transition actually begins. We can define one by adding it in the same string
   following the duration. It also has the same format options as the duration:
 
-  延迟控制的是在动画已经触发但尚未真正开始转场之前要等待多久。我们可以把它添加到字符串中的持续时间后面，它的选项格式也跟持续时间是一样的：
+  延迟控制的是在动画已经触发但尚未真正开始转场之前要等待多久。可以把它添加到字符串中的持续时间后面，它的选项格式也跟持续时间是一样的：
 
   * Wait for 100ms and then run for 200ms: `'0.2s 100ms'`
 
@@ -454,7 +454,7 @@ figure
   can control the easing by adding it as a *third* value in the string after the duration
   and the delay (or as the *second* value when there is no delay):
 
-  [缓动函数](http://easings.net/)用于控制动画在运行期间如何加速和减速。比如：使用`ease-in`函数意味着动画开始时相对缓慢，然后在进行中逐步加速。我们可以通过在这个字符串中的持续时间和延迟后面添加*第三个*值来控制使用哪个缓动函数(如果没有定义延迟就作为*第二个*值)。
+  [缓动函数](http://easings.net/)用于控制动画在运行期间如何加速和减速。比如：使用`ease-in`函数意味着动画开始时相对缓慢，然后在进行中逐步加速。可以通过在这个字符串中的持续时间和延迟后面添加*第三个*值来控制使用哪个缓动函数(如果没有定义延迟就作为*第二个*值)。
 
   * Wait for 100ms and then run for 200ms, with easing: `'0.2s 100ms ease-out'`
 
@@ -493,13 +493,13 @@ figure
   sets of styles to a more intricate animation that goes through one or more
   intermediate styles in between.
 
-  通过定义动画的*关键帧*，我们可以把两组样式之间的简单转场，升级成一种更复杂的动画，它会在转场期间经历一个或多个中间样式。
+  通过定义动画的*关键帧*，可以把两组样式之间的简单转场，升级成一种更复杂的动画，它会在转场期间经历一个或多个中间样式。
 
   For each keyframe, we can specify an *offset* that defines at which point
   in the animation that keyframe applies. The offset is a number between zero,
   which marks the beginning of the animation, and one, which marks the end.
 
-  对于每个关键帧，我们都可以指定一个*偏移量*，用来定义该关键帧将被用在动画期间的哪个时间点。偏移量是一个介于0(表示动画起点)和1(表示动画终点)之间的数组。
+  每个关键帧都可以被指定一个*偏移量*，用来定义该关键帧将被用在动画期间的哪个时间点。偏移量是一个介于0(表示动画起点)和1(表示动画终点)之间的数组。
 
   In this example we add some "bounce" to our enter and leave animations with
   keyframes:
@@ -539,7 +539,7 @@ figure
   in parallel. For example, we may want to animate two CSS properties but use a
   different easing function for each one.
 
-  但我们也可能会希望为同时发生的几个动画配置不同的*时间线*。比如，我们可能希望同时对两个CSS属性做动画，但又得为它们定义不同的缓动函数。
+  但我们也可能会希望为同时发生的几个动画配置不同的*时间线*。比如，同时对两个CSS属性做动画，但又得为它们定义不同的缓动函数。
 
   For this we can use animation *groups*. In this example we use groups both on
   enter and leave so that we can use two different timing configurations. Both
