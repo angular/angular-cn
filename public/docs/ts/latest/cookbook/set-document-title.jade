@@ -39,7 +39,7 @@ code-example(format='')
   We could grab the browser `document` object and set the title manually. 
   That's dirty and undermines our chances of running the app outside of a browser someday. 
   
-  我们可以得到浏览器的`document`对象，并且手动设置标题。但是这样看起来很脏，而且我们将无法在浏览器之外运行应用程序。
+  可以从浏览器获得`document`对象，并且手动设置标题。但是这样看起来很脏，而且将无法在浏览器之外运行应用程序。
   
 .l-sub-section
   :marked
@@ -78,14 +78,14 @@ code-example(format='')
   function, we'll also have to include `Title` service explicitly as one of the bootstrap providers:
   
   虽然该类是浏览器平台包的一部分，但它*没有被*Angular加载为*浏览器平台上的默认服务供应商*。
-  这意味着，我们在使用浏览器平台的`bootstrap()`函数来引导我们的应用程序时，我们必须要明确地把`Title`服务作为引导期的供应商之一加入进来：
+  这意味着，使用浏览器平台的`bootstrap()`函数来引导应用程序时，我们必须要明确地把`Title`服务作为引导期的供应商之一加入进来：
 
 +makeExample( "cb-set-document-title/ts/app/main.ts", "bootstrap-title", "app/main.ts (provide Title service)" )(format='.')
 :marked
   Once we've explicitly provided the `Title` service we can then inject the `Title` service into any of our
   custom application components and services. 
   
-  一旦我们明确提供了`Title`服务，就能把`Title`服务注入到任何一个应用程序内组件和服务里面。
+  一旦明确提供了`Title`服务，就能把`Title`服务注入到任何一个应用程序内组件和服务里面。
   
   Let's inject the `Title` service into the root `AppComponent` and expose a bindable `setTitle` method that calls it:
   
@@ -122,7 +122,7 @@ figure.image-display
 :marked
   ## Why we provide the *Title* service in *bootstrap*
   
-  ## 为什么我们要在*bootstrap*里面提供这个*Title*服务
+  ## 为什么要在*bootstrap*里面提供这个*Title*服务
   
   We generally recommended providing application-wide services in the root application component, `AppComponent`.
   
@@ -131,7 +131,7 @@ figure.image-display
   Here we recommend registering the title service during bootstrapping, 
   a location we reserve for configuring the runtime Angular environment.
   
-  但这里，我们推荐在引导过程中注册这个Title服务，这个位置是我们为设置Angular运行环境而保留的。
+  但这里，我们推荐在引导过程中注册这个Title服务，这个位置是为设置Angular运行环境而保留的。
   
   That's exactly what we're doing.
   The `Title` service is part of the Angular *browser platform*. 
@@ -139,7 +139,7 @@ figure.image-display
   we'll have to provide a different `Title` service that understands the concept of a "document title" for that specific platform.
   Ideally the application itself neither knows nor cares about the runtime environment.
   
-  我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果我们在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。
+  我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。
 :marked
   [Back to top](#top)
   

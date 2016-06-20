@@ -15,7 +15,7 @@ include ../_util-fns
    All such greatness has humble beginnings.
    
    在此烹饪宝典中，我们会展示如何利用`ngFormModel`来动态渲染一个简单的表单，包括各种控件类型和验证规则。
-   这个起点很简陋，但我们可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。
+   这个起点很简陋，但可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。
    
    In our example we use a dynamic form to build an online application experience for heroes seeking employment.
    The agency is constantly tinkering with the application process.
@@ -89,7 +89,7 @@ include ../_util-fns
    Next we have defined `QuestionControlService`, a simple service for transforming our questions to an ngForm control group. 
    In a nutshell, the control group consumes the metadata from the question model and allows us to specify default values and validation rules.
    
-   接下来，我们定义了`QuestionControlService`，一个可以把我们的问卷问题转换为一组ngForm控件的服务。
+   接下来，我们定义了`QuestionControlService`，一个可以把问卷问题转换为一组ngForm控件的服务。
    简而言之，这组ngForm控件使用问卷模型的元数据，并允许我们设置默认值和验证规则。
    
 +makeExample('cb-dynamic-form/ts/app/question-control.service.ts',null,'app/question-control.service.ts')(format='.')
@@ -106,7 +106,7 @@ include ../_util-fns
 :marked
   `DynamicFormComponent` is the entry point and the main container for the form. 
   
-  `DynamicFormComponent`是我们表单的主要容器和入口点。 
+  `DynamicFormComponent`是表单的主要容器和入口点。 
   
 +makeTabs(
   `cb-dynamic-form/ts/app/dynamic-form.component.html,
@@ -135,7 +135,7 @@ include ../_util-fns
   We only have two types of questions at this point but we can imagine many more.
   The `ngSwitch` determines which type of question to display.
   
-  请注意，这个组件能代表模型里的任何问题类型。目前，还只有两种问题类型，但我们可以添加更多类型。可以用`ngSwitch`决定显示哪种类型的问题。
+  请注意，这个组件能代表模型里的任何问题类型。目前，还只有两种问题类型，但可以添加更多类型。可以用`ngSwitch`决定显示哪种类型的问题。
   
   In both components  we're relying on Angular's **ngFormModel** to connect the template HTML to the
   underlying control objects, populated from the question model with display and validation rules.
@@ -155,20 +155,20 @@ include ../_util-fns
    The set of questions we have defined for the job application is returned from the `QuestionService`. 
    In a real app we'd retrieve these questions from storage.
    
-   `QuestionService`会返回我们为工作申请表定义的那组问题列表。在真实的应用程序环境中，我们会从数据库里获得这些问题列表。
+   `QuestionService`会返回为工作申请表定义的那组问题列表。在真实的应用程序环境中，我们会从数据库里获得这些问题列表。
    
    The key point is that we control the hero job application questions entirely through the objects returned from `QuestionService`. 
    Questionnaire maintenance is a simple matter of adding, updating, and removing objects from the `questions` array.
    
    关键是，我们完全根据`QuestionService`返回的对象来控制英雄的工作申请表。
-   要维护这份问卷，我们只要非常简单的添加、更新和删除`questions`数组中的对象就可以了。
+   要维护这份问卷，只要非常简单的添加、更新和删除`questions`数组中的对象就可以了。
    
 +makeExample('cb-dynamic-form/ts/app/question.service.ts','','app/question.service.ts')  
 
 :marked
   Finally, we display an instance of the form in the `AppComponent` shell.
 
-  最后，我们在`AppComponent`里显示出表单。
+  最后，在`AppComponent`里显示出表单。
   
 +makeExample('cb-dynamic-form/ts/app/app.component.ts','','app.component.ts')
 
@@ -188,15 +188,15 @@ include ../_util-fns
    without making any hardcoded assumptions about specific questions. 
    In addition to control metadata, we are also adding validation dynamically.
    
-   这点非常重要，因为只要与我们的*问卷*对象模型兼容，就可以在任何类型的调查问卷中复用这些组件。
-   这里的关键是用到元数据的动态数据绑定来渲染表单，对问卷问题没有任何硬性的假设。除控件的元数据外，我们还可以动态添加验证规则。
+   这点非常重要，因为只要与*问卷*对象模型兼容，就可以在任何类型的调查问卷中复用这些组件。
+   这里的关键是用到元数据的动态数据绑定来渲染表单，对问卷问题没有任何硬性的假设。除控件的元数据外，还可以动态添加验证规则。
 
    The *Save* button is disabled until the form is in a valid state. 
    When the form is valid, we can click *Save* and the app renders the current form values as JSON. 
    This proves that any user input is bound back to the data model.
    Saving and retrieving the data is an exercise for another time.
    
-   表单验证通过之前，*保存*按钮是禁用的。验证通过后，我们就可以点击*保存*按钮，程序会把当前值渲染成JSON显示出来。
+   表单验证通过之前，*保存*按钮是禁用的。验证通过后，就可以点击*保存*按钮，程序会把当前值渲染成JSON显示出来。
    这表明任何用户输入都被传到了数据模型里。至于如何储存和提取数据则是另一话题了。
 
 :marked
