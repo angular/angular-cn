@@ -33,7 +33,7 @@ describeIf(browser.appIsTs || browser.appIsJs, 'Forms Tests', function () {
   });
 
   it('should hide form after submit', function () {
-    let alterEgoEle = element.all(by.css('input[ngcontrol=alterEgo]')).get(0);
+    let alterEgoEle = element.all(by.css('input[name=alterEgo]')).get(0);
     expect(alterEgoEle.isDisplayed()).toBe(true);
     let submitButtonEle = element.all(by.css('button[type=submit]')).get(0);
     submitButtonEle.click().then(function() {
@@ -44,7 +44,7 @@ describeIf(browser.appIsTs || browser.appIsJs, 'Forms Tests', function () {
   it('should reflect submitted data after submit', function () {
     let test = 'testing 1 2 3';
     let newValue: string;
-    let alterEgoEle = element.all(by.css('input[ngcontrol=alterEgo]')).get(0);
+    let alterEgoEle = element.all(by.css('input[name=alterEgo]')).get(0);
     alterEgoEle.getAttribute('value').then(function(value) {
       // alterEgoEle.sendKeys(test);
       sendKeys(alterEgoEle, test);

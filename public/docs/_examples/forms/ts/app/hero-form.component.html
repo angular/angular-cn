@@ -13,7 +13,7 @@
         <label for="name">Name</label>
         <input type="text" class="form-control" required
           [(ngModel)]="model.name"
-            ngControl="name"  #name="ngForm" >
+            name="name"  #name="ngModel" >
         <!-- #docregion hidden-error-msg -->
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
         <!-- #enddocregion hidden-error-msg -->
@@ -26,14 +26,14 @@
         <label for="alterEgo">Alter Ego</label>
         <input type="text" class="form-control"
           [(ngModel)]="model.alterEgo"
-            ngControl="alterEgo" >
+            name="alterEgo" >
       </div>
 
       <div class="form-group">
         <label for="power">Hero Power</label>
         <select class="form-control" required
           [(ngModel)]="model.power"
-            ngControl="power" #power="ngForm" >
+            name="power" #power="ngModel" >
           <option *ngFor="let p of powers" [value]="p">{{p}}</option>
         </select>
         <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
@@ -148,19 +148,19 @@
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" required
-            [(ngModel)]="model.name" >
+            [(ngModel)]="model.name" name="name">
         </div>
 
         <div class="form-group">
           <label for="alterEgo">Alter Ego</label>
           <input type="text"  class="form-control"
-            [(ngModel)]="model.alterEgo">
+            [(ngModel)]="model.alterEgo" name="alterEgo">
         </div>
 
         <div class="form-group">
           <label for="power">Hero Power</label>
           <select class="form-control"  required
-            [(ngModel)]="model.power" >
+            [(ngModel)]="model.power" name="power">
             <option *ngFor="let p of powers" [value]="p">{{p}}</option>
           </select>
         </div>
@@ -176,7 +176,7 @@
   <hr>
   <!-- #docregion ngModel-1-->
     <input type="text"  class="form-control" required
-      [(ngModel)]="model.name" >
+      [(ngModel)]="model.name" name="name">
       TODO: remove this: {{model.name}}
   <!-- #enddocregion ngModel-1-->
   <hr>
@@ -191,18 +191,18 @@
   <form *ngIf="active">
   <!-- #enddocregion form-active -->
 
-  <!-- #docregion ngControl-1 -->
+  <!-- #docregion ngModelName-1 -->
        <input type="text" class="form-control" required
          [(ngModel)]="model.name"
-         ngControl="name" >
-  <!-- #enddocregion ngControl-1 -->
+         name="name" >
+  <!-- #enddocregion ngModelName-1 -->
   <hr>
-  <!-- #docregion ngControl-2 -->
+  <!-- #docregion ngModelName-2 -->
        <input type="text" class="form-control" required
          [(ngModel)]="model.name"
-         ngControl="name"  #spy >
+         name="name"  #spy >
        <br>TODO: remove this: {{spy.className}}
-  <!-- #enddocregion ngControl-2 -->
+  <!-- #enddocregion ngModelName-2 -->
   </form>
 
 </div>

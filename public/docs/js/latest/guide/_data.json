@@ -29,7 +29,7 @@
     "basics": true
   },
 
-  "forms": {
+  "forms-deprecated": {
     "title": "Forms",
     "intro": "A form creates a cohesive, effective, and compelling data entry experience. An Angular form coordinates a set of data-bound user controls, tracks changes, validates input, and presents errors.",
     "nextable": true,
@@ -71,6 +71,11 @@
   "component-styles": {
     "title": "Component Styles",
     "intro": "Learn how to apply CSS styles to components."
+  },
+
+  "security": {
+    "title": "Security",
+    "intro": "Prevent security vulnerabilities"
   },
 
   "hierarchical-dependency-injection": {

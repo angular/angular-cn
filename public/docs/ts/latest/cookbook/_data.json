@@ -25,8 +25,8 @@
     "title": "依赖注入",
     "intro": "依赖注入技术"
   },
-  "dynamic-form": {
-    "title": "动态表单",
+  "dynamic-form-deprecated": {
+    "title": "动态表单(已废弃)",
     "intro": "通过NgFormModel渲染动态表单"
   },
 

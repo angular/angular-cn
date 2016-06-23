@@ -1,5 +1,11 @@
 include ../_util-fns
 
+.alert.is-important
+  :marked
+    This cookbook uses the new forms API. 
+    
+    The old forms API is deprecated, but we still maintain a separate version of the cookbook using the deprecated forms API <a href='/docs/ts/latest/cookbook/dynamic-form-deprecated.html'>here</a>.
+
 :marked
    We can't always justify the cost and time to build handcrafted forms, especially if we'll need a great number of them, they're similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
    
@@ -9,12 +15,12 @@ include ../_util-fns
    
    基于业务对象模型的元数据，动态创建表单可能会更划算。
    
-   In this cookbook we show how to use `ngFormModel` to dynamically render a simple form with different control types and validation.
+   In this cookbook we show how to use `formGroup` to dynamically render a simple form with different control types and validation.
    It's a primitive start. 
    It might evolve to support a much richer variety of questions, more graceful rendering, and superior user experience.
    All such greatness has humble beginnings.
    
-   在此烹饪宝典中，我们会展示如何利用`ngFormModel`来动态渲染一个简单的表单，包括各种控件类型和验证规则。
+   在此烹饪宝典中，我们会展示如何利用`formGroup`来动态渲染一个简单的表单，包括各种控件类型和验证规则。
    这个起点很简陋，但可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。
    
    In our example we use a dynamic form to build an online application experience for heroes seeking employment.
@@ -26,7 +32,13 @@ include ../_util-fns
 <a id="toc"></a>
 :marked
    ## Table of contents
+   
    ## 目录  
+
+      [Bootstrap](#bootstrap)
+      
+      [程序启动](#bootstrap)
+
       [Question Model](#object-model)
       
       [问卷问题模型](#object-model)
@@ -48,13 +60,35 @@ include ../_util-fns
    
    **参见[在线例子](/resources/live-examples/cb-dynamic-form/ts/plnkr.html)**.
    
+
+.l-main-section
+<a id="bootstrap"></a>
+:marked
+   ## Bootstrap
+   
+   ## 程序启动
+
+   During bootstrap we have to register the new forms module by calling `provideForms()` and pass the result to the provider array. 
+  
+   在程序启动时，我们要调用`provideForms()`，并把它的结果传给`providers`数组参数，来注册新的表单模块。
+
++makeExample('cb-dynamic-form/ts/app/main.ts','','app/main.ts')   
+
+:marked
+   The old forms API is going through a deprecation phase. During this transition Angular is supporting both form modules. 
+
+   To remind us that the old API is deprecated, Angular will print a warning message to the console. 
+   
+   Since we are converting to the new API, and no longer need the old API, we call `disableDeprecatedForms()` to disable the old form functionality and the warning message. 
+
 .l-main-section
 <a id="object-model"></a>
 :marked
    ## Question Model
+   
    ## 问卷问题模型
       
-   The first step is to define an object model that can describe all scenarios needed by the form functionality.
+   The next step is to define an object model that can describe all scenarios needed by the form functionality.
    The hero application process involves a form with a lot of questions. 
    The "question" is the most fundamental object in the model.
    
@@ -86,12 +120,13 @@ include ../_util-fns
 +makeExample('cb-dynamic-form/ts/app/question-dropdown.ts',null,'app/question-dropdown.ts')(format='.')
 
 :marked
-   Next we have defined `QuestionControlService`, a simple service for transforming our questions to an ngForm control group. 
-   In a nutshell, the control group consumes the metadata from the question model and allows us to specify default values and validation rules.
+   Next we have defined `QuestionControlService`, a simple service for transforming our questions to a `FormGroup`. 
+   In a nutshell, the form group consumes the metadata from the question model and allows us to specify default values and validation rules.
    
-   接下来，我们定义了`QuestionControlService`，一个可以把问卷问题转换为一组ngForm控件的服务。
-   简而言之，这组ngForm控件使用问卷模型的元数据，并允许我们设置默认值和验证规则。
+   接下来，我们定义了`QuestionControlService`，一个可以把问卷问题转换为`FormGroup`的服务。
+   简而言之，这个`FormGroup`使用问卷模型的元数据，并允许我们设置默认值和验证规则。
    
+
 +makeExample('cb-dynamic-form/ts/app/question-control.service.ts',null,'app/question-control.service.ts')(format='.')
 
 <a id="form-component"></a>
@@ -137,10 +172,14 @@ include ../_util-fns
   
   请注意，这个组件能代表模型里的任何问题类型。目前，还只有两种问题类型，但可以添加更多类型。可以用`ngSwitch`决定显示哪种类型的问题。
   
-  In both components  we're relying on Angular's **ngFormModel** to connect the template HTML to the
+  In both components  we're relying on Angular's **formGroup** to connect the template HTML to the
   underlying control objects, populated from the question model with display and validation rules.
   
-  在这两个组件中，我们依赖Angular的**ngFormModel**来把模板HTML和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
+  在这两个组件中，我们依赖Angular的**formGroup**来把模板HTML和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
+
+  `formControlName` and `formGroup` have to be registered as directives before we can use them in our templates.
+
+  It turns out we get access to all form directives by importing and registering `REACTIVE_FORM_DIRECTIVES`. 
 
 <a id="questionnaire-metadata"></a>
 :marked

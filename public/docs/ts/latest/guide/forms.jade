@@ -1,5 +1,15 @@
 include ../_util-fns
 
+.alert.is-important
+  :marked
+    This guide is using the new forms API. 
+    
+    这份指南使用新的表单API。
+    
+    The old forms API is deprecated, but we still maintain a separate version of the guide using the deprecated forms API <a href='/docs/ts/latest/guide/forms-deprecated.html'>here</a>.
+    
+    旧的表单API已经废弃了，但是在本指南中仍然维护着一个独立的版本，它使用已废弃的表单API，参见<a href='/docs/ts/latest/guide/forms-deprecated.html'>这里</a>。
+
 :marked
   We’ve all used a form to login, submit a help request, place an order, book a flight,
   schedule a meeting and perform countless other data entry tasks.
@@ -40,11 +50,11 @@ include ../_util-fns
 
   - using `ngControl` to track the change state and validity of form controls
   
-  - 使用`ngControl`来跟踪变更状态并对表单控件做验证
+  - 结合一个表单来使用`ngModel`，能让我们跟踪状态的变化并对表单控件做验证
 
-  - the special CSS classes that `ngControl` adds to form controls and how we can use them to provide strong visual feedback
+  - special CSS classes that follow the state of the controls and can be used to provide strong visual feedback
   
-  - `ngControl`添加到表单控件上的那些特殊的CSS类，以及我们该如何使用它们来提供强烈的视觉反馈
+  - 有一些特殊的CSS类会用来反映控件的状态，并能用来提供强烈的视觉反馈
 
   - displaying validation errors to users and enable/disable form controls
   
@@ -57,6 +67,36 @@ include ../_util-fns
   [Live Example](/resources/live-examples/forms/ts/plnkr.html)
   
   [在线例子](/resources/live-examples/forms/ts/plnkr.html)
+
+.l-main-section
+:marked
+   ## Bootstrap
+   
+   ## 程序启动
+
+   We start by showing how to bootstrap the application and add the necessary dependencies to use forms.
+   
+   我们先来看看如何启动应用并添加必要的依赖，以便使用表单。
+
+   During bootstrap we have to register the new forms module by calling `provideForms()` and pass the result to the provider array. 
+  
+   在引导期间，我们要调用`provideForms()`，并把它的结果传给`providers`数组参数，以注册这些新的表单模块。
+  
++makeExample('forms/ts/app/main.ts','','app/main.ts')   
+
+:marked
+   The old forms API is going through a deprecation phase. During this transition Angular is supporting both form modules. 
+   
+   老的表单API已经进入了废弃阶段。在这个过渡期间，Angular会同时支持两个表单模块。
+
+   To remind us that the old API is deprecated, Angular will print a warning message to the console. 
+   
+   为了提醒我们“老的API已被废弃”，Angular将会往控制台输出一些警告信息。
+   
+   Since we are converting to the new API, and no longer need the old API, we call `disableDeprecatedForms()` to disable the old form functionality and the warning message. 
+  
+   一旦我们完全转换成了新的API而不再用老的，可以调用`disableDeprecatedForms()`来彻底禁用老的表单功能，并消除警告信息。
+
 .l-main-section
 :marked
   ## Template-Driven Forms
@@ -142,9 +182,9 @@ figure.image-display
   
   1. 使用`ngModel`双向数据绑定语法把数据属性绑定到每个表单输入控件
   
-  1. Add the **ngControl** directive to each form input control
+  1. Add the **#name** attribute to each form input control
   
-  1. 往每个表单输入控件上添加**ngControl**指令
+  1. 往每个表单输入控件上添加**name**属性(Attribute)
   
   1. Add custom CSS to provide visual feedback
   
@@ -484,6 +524,7 @@ figure.image-display
     
     我们在input标签后添加一个诊断用的插值表达式，以看清正在发生什么事。
     我们给自己留下了一个备注，提醒我们完成后移除它。
+    
 
 :marked
   Focus on the binding syntax: `[(ngModel)]="..."`.
@@ -505,6 +546,8 @@ figure.image-display
   back again. **That's two-way data binding!**
   
   诊断信息是一个证据，用来表明数据从输入框流动到模型，再反向流动回来的过程。**这就是双向数据绑定！** 
+
+  Notice that we also added a `name` attribute to our `<input>` tag. This is a requirement when using `[(ngModel)]` in combination with a form, so that we can easily refer to it in the aggregate form value and validity state.
 
   Let's add similar `[(ngModel)]` bindings to *Alter Ego* and *Hero Power*.
   We'll ditch the input box binding message
@@ -622,21 +665,19 @@ figure.image-display
 
 .l-main-section
 :marked
-  ## Track change-state and validity with **ngControl**
+  ## Track change-state and validity with **ngModel**
   
-  ## 通过**ngControl**跟踪修改状态与有效性验证
+  ## 通过**ngModel**跟踪修改状态与有效性验证
 
   A form isn't just about data binding. We'd also like to know the state of the controls on our form.
   
   表单不仅是关于数据绑定的。我们还希望知道表单中各个控件的状态。
 
-  By setting `ngControl` we create a directive that can tell if the user touched the control,
-  if the value changed, or if the value became invalid.
+  Using `ngModel` in a form gives us more than just two way data binding. It also tells us if the user touched the control, if the value changed, or if the value became invalid.
   
-  通过设置`ngControl`，我们创建了一个指令，它能告诉我们用户是否接触过此控件、它的值是否变化了，或者它的值是否变得无效了。
+  在表单中使用`ngModel`能让我们比仅使用双向数据绑定获得更多的控制权。它还会告诉我们很多信息：用户碰过此控件吗？它的值变化了吗？数据变得无效了吗？
 
-  This directive doesn't just track state; it updates the control with special
-  Angular CSS classes from the set we listed above.
+  `ngModel` doesn't just track state; it updates the control with special Angular CSS classes from the set we listed above.
   We can leverage those class names to change the appearance of the
   control and make messages appear or disappear.
   
@@ -644,41 +685,22 @@ figure.image-display
   我们可以通过定制这些CSS类的样式来更改控件的外观，以及让消息被显示或隐藏。
 
   We'll explore those effects soon. Right now
-  we should **add `ngControl` to all three form controls**,
-  starting with the *Name* input box
+  let's make sure we have `ngModel` and the corresponding name attribute on all three form controls,
+  starting with the *Name* input box.
   
-  我们很快就会看到那些效果。现在，我们得先**把`ngControl`添加到所有这三个表单控件中**，就从*Name*输入框开始吧：
-+makeExample('forms/ts/app/hero-form.component.html', 'ngControl-1', 'app/hero-form.component.html (节选)')(format=".")
+  我们很快就会看到那些效果。我们首先要确保在所有这三个表单控件中都有`ngModel`以及相应的`name`属性。那就从*Name*输入框开始吧：
+  
++makeExample('forms/ts/app/hero-form.component.html', 'ngModelName-1', 'app/hero-form.component.html (excerpt)')(format=".")
+
 :marked
-  We set this particular `ngControl` to "name" which makes sense for our app. Any unique value will do.
+  We set the `name` attribute to "name" which makes sense for our app. Any unique value will do.
   
-  对本应用来说，把这个`ngControl`赋值为"name"会更容易理解。但也可以设置成任何唯一的值。
+  对本应用来说，把这个`name`属性设置为"name"会更容易理解。但也可以设置成任何唯一的值。
 
 .l-sub-section
   :marked
-    Internally Angular creates `Controls` and registers them under their `ngControl` names
-    with an `NgForm` directive that Angular attached to the `<form>` tag.
+    Internally Angular creates `FormControls` and registers them with an `NgForm` directive that Angular attached to the `<form>` tag. Each `FormControl` is registered under the name we assigned to the `name` attribute.
     We'll talk about `NgForm` [later in the chapter](#ngForm).
-    
-    Angular会在内部创建`Controls`，并以`ngControl`的值为名字注册到`NgForm`指令中，这个指令被Angular自动附加到了`<form>`标签上。
-    我们将在[稍后的章节](#ngForm)中展开讨论`NgForm`。
-    
-    The `ngControl` *attribute* in our template actually maps to the 
-    [NgControlName](../api/common/NgControlName-directive.html) directive.
-    There is also a `NgControl` *abstract* directive which is *not the same thing*.
-    We often ignore this technical distinction and refer to `NgControlName` more conveniently (albeit incorrectly) as the *NgControl* directive.
-    
-    我们模板中的这个`ngControl`*属性*实际上被映射到了 [NgControlName](../api/common/index/NgControlName-directive.html)指令。
-    虽然还有另一个叫`NgControl`的*抽象*指令，但和这个属性不是一回事。
-    我们通常会忽略这点技术上的差异。为了更方便(尽管不正确)，我们提起`NgControlName`时还是会把它叫做*NgControl*指令。
-    
-    While we're under the hood, we might as well note that the `ngModel` in the 
-    two-way binding syntax is now a property of the `NgControlName` directive. 
-    The `NgModel` directive is no longer involved. We only need one directive to manage the DOM element
-    and there is no practical difference in the way either directive handles data binding.     
-    
-    既然已经来到了技术底层，我们可能还注意到了双向绑定语法中的`ngModel`实际上是`NgControlName`指令的一个属性。
-    `NgModel`指令不再需要了。我们只需要一个指令来管理DOM元素就够了，而且这两个指令在处理数据绑定时并没有实质性的差异。
 
 .l-main-section
 :marked
@@ -686,7 +708,7 @@ figure.image-display
   
   ## 添加自定义CSS以提供视觉反馈
 
-  The *NgControl* directive doesn't just track state. 
+  The *NgModel* directive doesn't just track state. 
   It updates the control with three classes that reflect the state.
   
   *NgControl*指令不仅仅跟踪状态。它还使用三个CSS类来更新控件，以便反映当前状态。
@@ -736,7 +758,7 @@ table
   
   我们往姓名`<input>`标签上添加一个名叫**spy**的临时[模板引用变量](./template-syntax.html#local-vars)，然后用这个spy来显示它上面的所有css类。
 
-+makeExample('forms/ts/app/hero-form.component.html', 'ngControl-2','app/hero-form.component.html (节选)')(format=".")
++makeExample('forms/ts/app/hero-form.component.html', 'ngModelName-2','app/hero-form.component.html (excerpt)')(format=".")
 
 :marked
   Now run the app and focus on the *Name* input box.
@@ -849,30 +871,20 @@ figure.image-display
   'app/hero-form.component.html (节选)')(format=".")
 :marked
   We need a template reference variable to access the input box's Angular control from within the template.
-  Here we created a variable called `name` and gave it the value "ngForm".
+  Here we created a variable called `name` and gave it the value "ngModel".
   
   我们需要一个模板引用变量来访问模板中输入框的Angular控件。
-  这里，我们创建了一个名叫`name`的变量，并且把它赋值为"ngForm"。
+  这里，我们创建了一个名叫`name`的变量，并且把它赋值为"ngModel"。
 .l-sub-section
   :marked
-    Why "ngForm"? 
+    Why "ngModel"? 
     A directive's [exportAs](../api/core/DirectiveMetadata-class.html#!#exportAs) property 
     tells Angular how to link the reference variable to the directive.
-    We set `name` to `ngForm` because the `NgControlName` directive's `exportAs` property happens to be "ngForm".
+    We set `name` to `ngModel` because the `ngModel` directive's `exportAs` property happens to be "ngModel".
     
-    为什么是"ngForm"？
-    指令的[exportAs](../api/core/index/DirectiveMetadata-class.html#!#exportAs)属性告诉Angular如何把局部变量链接到指令中。
-    这里我们把`name`设置为`ngForm`就是因为`NgControlName`指令的`exportAs`属性设置为了“ngForm”。
-    
-    This seems unintuitive at first until we realize that *all* control directives in the 
-    Angular form family &mdash; including `NgForm`, `NgModel`, `NgControlName` and `NgControlGroup` &mdash; *exportAs* "ngForm"
-    and we only ever apply *one* of these directives to an element tag.
-    Consistency rules!
-    
-    起初这看起来不够直观，直到我们看到Angular表单家族下的*所有*控件指令 —— 包括`NgForm`、
-    `NgModel`、`NgControlName`和`NgControlGroup` —— 都*exportAs*了 “ngForm”就会明白，
-    原来我们刚才不过是把这些指令*中的一个*用在了一个元素标签上。
-    一致性统治一切！
+    为什么是"ngModel"？
+    指令的[exportAs](../api/core/index/DirectiveMetadata-class.html#!#exportAs)属性告诉Angular如何把模板引用变量链接到指令中。
+    这里我们把`name`设置为`ngModel`就是因为`ngModel`指令的`exportAs`属性设置成了“ngModel”。
 
     Now we can control visibility of the "name" error message by binding properties of the `name` control to the message `<div>` element's `hidden` property.
 
@@ -1045,7 +1057,7 @@ figure.image-display
     Angular替我们做了。Angular自动创建了`NgForm`指令，并且把它附加到`<form>`标签上。
 
     The `NgForm` directive  supplements the `form` element with additional features.
-    It holds the controls we created for the elements with `ngControl` attributes
+    It holds the controls we created for the elements with `ngModel` directive and `name` attribute
     and monitors their properties including their validity.
     It also has its own `valid` property which is true only *if every contained
     control* is valid.
@@ -1191,13 +1203,9 @@ figure.image-display
   
   - 模板引用变量，如`#heroForm`、`#name`、`#alter-ego`和`#power`。
   
-  - The `[(ngModel)]` syntax for two-way data binding.
+  - The `[(ngModel)]` syntax for two-way data binding, validation and change tracking. 
   
-  - 用于双向数据绑定的`[(ngModel)]`语法
-  
-  - The `ngControlName` directive for validation and form element change tracking.
-  
-  - 用于验证和表单元素变化跟踪的`ngControlName`指令
+  - 用于双向数据绑定、数据验证和变化追踪的`[(ngModel)]`语法
   
   - The reference variable’s `valid` property on input controls to check if a control is valid and show/hide error messages.
   
