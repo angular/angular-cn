@@ -392,7 +392,7 @@ figure.image-display
   <a id="hero-bios-component"></a>
   Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`. 
 
-  想象一下，一个`HeroBioComponent`组件显示三个`HeroBioComponent`的实例。
+  想象一下，一个`HeroBiosComponent`组件显示三个`HeroBioComponent`的实例。
 
 +makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','simple','ap/hero-bios.component.ts')
 :marked
@@ -420,7 +420,7 @@ figure.image-display
   The getter for the `hero` property pulls the cached hero from the service.
   And the template displays this data-bound property.
   
-  父组件`HeroBioComponent`把一个值绑定到`heroId`。`ngOnInit`把该`id`传递到服务，然后服务获取和缓存英雄。`hero`属性的getter从服务里面获取缓存的英雄，并在模板里显示它绑定到属性值。
+  父组件`HeroBiosComponent`把一个值绑定到`heroId`。`ngOnInit`把该`id`传递到服务，然后服务获取和缓存英雄。`hero`属性的getter从服务里面获取缓存的英雄，并在模板里显示它绑定到属性值。
 
   Find this example in [live code](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
   and confirm that the three `HeroBioComponent` instances have their own cached hero data. 
@@ -472,6 +472,7 @@ a(id="qualify-dependency-lookup")
   宿主组件通常是申请这个依赖的组件。但当这个组件被投影(projected)进一个*父组件*后，这个父组件就变成了宿主。我们先思考一下，更多有趣的案例还在后面。
 
   ### Demonstration
+  
   ### 示范
 
   The `HeroBiosAndContactsComponent` is a revision of the `HeroBiosComponent` that we looked at [above](#hero-bios-component).
