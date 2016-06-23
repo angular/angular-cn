@@ -440,6 +440,7 @@ ol
   
   li 打开<code>index.html</code>文件并且把下列链接添加到<code>&lt;head></code>中。
       +makeExample('forms/ts/index.html', 'bootstrap')(format=".")
+      
 :marked
 .l-main-section
 :marked
@@ -548,6 +549,8 @@ figure.image-display
   诊断信息是一个证据，用来表明数据从输入框流动到模型，再反向流动回来的过程。**这就是双向数据绑定！** 
 
   Notice that we also added a `name` attribute to our `<input>` tag. This is a requirement when using `[(ngModel)]` in combination with a form, so that we can easily refer to it in the aggregate form value and validity state.
+  
+  注意，我们还往`<input>`标签上添加了一个`name`属性(Attribute)。当在表单中使用`[(ngModel)]`时，这是必须的，这样我们才能轻松的引用它来聚合表单值以及校验状态。
 
   Let's add similar `[(ngModel)]` bindings to *Alter Ego* and *Hero Power*.
   We'll ditch the input box binding message
@@ -793,6 +796,7 @@ figure.image-display
   We should be able to see the following four sets of class names and their transitions:
   
   我们应该能看到下列四组类名以及它们的变迁：
+  
 figure.image-display
   img(src="/resources/images/devguide/forms/ng-control-class-changes.png" width="400px" alt="控件状态转换")
 
@@ -875,6 +879,7 @@ figure.image-display
   
   我们需要一个模板引用变量来访问模板中输入框的Angular控件。
   这里，我们创建了一个名叫`name`的变量，并且把它赋值为"ngModel"。
+  
 .l-sub-section
   :marked
     Why "ngModel"? 
@@ -941,6 +946,7 @@ figure.image-display
   
   我们希望在这个表单中添加一个新的英雄。
   我们在表单的底部放一个“新增英雄”按钮，并且把它的点击事件绑定到一个组件方法上。
+  
 +makeExample('forms/ts/app/hero-form.component.html', 
   'new-hero-button', 
   'app/hero-form.component.html (新增英雄按钮)')
@@ -970,6 +976,7 @@ figure.image-display
   
   使用浏览器工具审查这个元素就会发现，这个*name*输入框并不是全新的。
   更换了英雄*并不会重置控件的“全新”状态*。
+  
 .l-sub-section
   :marked
     Upon reflection, we realize that Angular cannot distinguish between
@@ -987,6 +994,7 @@ figure.image-display
   我们不得不使用一个小花招来重置表单控件。
   我们给组件添加一个`active`标记，把它初始化为`true`。当我们添加一个新的英雄时，它把`active`标记设置为`false`，
   然后通过一个快速的`setTimeout`函数迅速把它设置回`true`。
+  
 +makeExample('forms/ts/app/hero-form.component.ts', 
   'new-hero', 
   'app/hero-form.component.ts (新增英雄 - 最终版)')(format=".")
@@ -994,6 +1002,7 @@ figure.image-display
   Then we bind the form element to this `active` flag.
   
   然后，我们把form元素绑定到这个`active`标志上。
+  
 +makeExample('forms/ts/app/hero-form.component.html', 
   'form-active', 
   'app/hero-form.component.html (Form标签)')
@@ -1004,6 +1013,7 @@ figure.image-display
   
   在通过`NgIf`绑定到`active`标志之后，点击“新增英雄”将从DOM中移除这个表单，并在一眨眼的功夫重建它。
   重新创建的表单处于“全新”状态。错误信息被隐藏了。
+  
 .l-sub-section
   :marked
     This is a temporary workaround while we await a proper form reset feature.
@@ -1014,7 +1024,9 @@ figure.image-display
 .l-main-section
 :marked
   ## Submit the form with **ngSubmit**
+  
   ## 通过**ngSubmit**来提交表单
+  
   The user should be able to submit this form after filling it in.
   The Submit button at the bottom of the form
   does nothing on its own but it will
@@ -1030,6 +1042,7 @@ figure.image-display
   仅仅触发“表单提交”在目前是没用的。
   要让它有用，我们还要用另一个Angular指令更新`<form>`标签 —— `NgSubmit`，
   并且通过事件绑定机制把它绑定到`HeroFormComponent.submit()`方法上。
+  
 +makeExample('forms/ts/app/hero-form.component.html', 'ngSubmit')(format=".")
 
 :marked
@@ -1041,6 +1054,7 @@ figure.image-display
   The variable `heroForm` is now a reference to the `NgForm` directive that governs the form as a whole.
   
   这个`heroForm`变量现在引用的是`NgForm`指令，它代表的是表单的整体。
+  
 <a id="ngForm"></a>
 .l-sub-section
   :marked
@@ -1071,6 +1085,7 @@ figure.image-display
   the `heroForm` variable. Here's that bit of markup:
   
   模板中稍后的部分，通过`heroForm`变量，我们把按钮的`disabled`属性绑定到了表单的全员有效性。这里是那点儿HTML：
+  
 +makeExample('forms/ts/app/hero-form.component.html', 'submit-button')
 :marked
   Re-run the application. The form opens in a valid state and the button is enabled.
@@ -1109,6 +1124,7 @@ figure.image-display
   Submitting the form isn't terribly dramatic at the moment.
   
   现在就提交表单还不够激动人心。
+  
 .l-sub-section
   :marked
     An unsurprising observation for a demo. To be honest,
@@ -1121,6 +1137,7 @@ figure.image-display
     对演示来说，这是一个平淡的收场。老实说，即使让它更出彩，也无法教给我们任何关于表单的新知识。
     但这是一个锻炼我们新学到的绑定技能的好机会。
     如果你不感兴趣，可以跳过本章的下面这部分，而不用担心错失任何东西。
+    
 :marked
   Let's do something more strikingly visual.
   Let's hide the data entry area and display something else.
@@ -1155,6 +1172,7 @@ figure.image-display
   
   现在，当表单处于已提交状态时，我们需要显示一些别的东西。
   在我们刚刚写的`<div>`包装下方，添加下列HTML块儿：
+  
 +makeExample('forms/ts/app/hero-form.component.html', 'submitted', 'app/hero-form.component.html (节选)')
 
 :marked

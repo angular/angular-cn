@@ -4,7 +4,11 @@ include ../_util-fns
   :marked
     This cookbook uses the new forms API. 
     
+    这本烹饪宝典使用新的表单API。
+    
     The old forms API is deprecated, but we still maintain a separate version of the cookbook using the deprecated forms API <a href='/docs/ts/latest/cookbook/dynamic-form-deprecated.html'>here</a>.
+    
+    旧版表单API已经过时了，但是在本指南中仍然维护着一个独立的版本，它使用已废弃的表单API，参见<a href='/docs/ts/latest/cookbook/dynamic-form-deprecated.html'>这里</a>。
 
 :marked
    We can't always justify the cost and time to build handcrafted forms, especially if we'll need a great number of them, they're similar to each other, and they change frequently to meet rapidly changing business and regulatory requirements.
@@ -77,9 +81,15 @@ include ../_util-fns
 :marked
    The old forms API is going through a deprecation phase. During this transition Angular is supporting both form modules. 
 
+   老的表单API已经进入了废弃阶段。在这个过渡期间，Angular会同时支持两个表单模块。
+   
    To remind us that the old API is deprecated, Angular will print a warning message to the console. 
    
+   为了提醒我们“老的API已被废弃”，Angular将会往控制台输出一些警告信息。
+   
    Since we are converting to the new API, and no longer need the old API, we call `disableDeprecatedForms()` to disable the old form functionality and the warning message. 
+  
+   一旦我们完全转换成了新的API而不再用老的，可以调用`disableDeprecatedForms()`来彻底禁用老的表单功能，并消除警告信息。
 
 .l-main-section
 <a id="object-model"></a>
@@ -132,6 +142,7 @@ include ../_util-fns
 <a id="form-component"></a>
 :marked
    ## Question form components
+   
    ## 问卷表单组件
    
    Now that we have defined the complete model we are ready to create components to represent the dynamic form.
@@ -178,8 +189,12 @@ include ../_util-fns
   在这两个组件中，我们依赖Angular的**formGroup**来把模板HTML和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
 
   `formControlName` and `formGroup` have to be registered as directives before we can use them in our templates.
+  
+  要想在模板中使用它们，必须先把`formControlName`和`formGroup`注册成指令。
 
   It turns out we get access to all form directives by importing and registering `REACTIVE_FORM_DIRECTIVES`. 
+  
+  通过导入和注册`REACTIVE_FORM_DIRECTIVES`常量，我们就能访问所有这些表单类指令。
 
 <a id="questionnaire-metadata"></a>
 :marked
@@ -214,6 +229,7 @@ include ../_util-fns
 <a id="dynamic-template"></a>
 :marked
    ## Dynamic Template
+   
    ## 动态模板
    
    Although in this example we're modelling a job application for heroes, there are no references to any specific hero question 
