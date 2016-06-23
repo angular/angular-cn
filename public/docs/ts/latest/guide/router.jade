@@ -5,27 +5,43 @@ include ../_util-fns
     The Component Router is in alpha release. This is the recommended Angular 2 router and supersedes
     the earlier *deprecated beta* and *v2* routers.
 
+    组件路由器已经进入了Alpha阶段，推荐在Angular 2中使用此路由器，以取代早前*废弃的beta版*及*第二版*路由器。
+
 :marked
   The Angular ***Component Router*** enables navigation from one [view](./glossary.html#view) to the next
   as users perform application tasks.
 
+  Angular的***组件路由器***让你能从一个[视图](./glossary.html#view)导航到另一个 —— 就像用户在日常操作中用到的方式。
+
   We cover the router's primary features in this chapter, illustrating them through the evolution
   of a small application that we can [run live](/resources/live-examples/router/ts/plnkr.html).
+
+  在本章中，我们覆盖了该路由器的主要特性，我们通过一个小型应用的成长演进来讲解它。我们可以[到在线例子](/resources/live-examples/router/ts/plnkr.html)体会下。
+
 .l-sub-section
   img(src='/resources/images/devguide/plunker-separate-window-button.png' alt="pop out the window" align="right" style="margin-right:-20px")
   :marked
     To see the URL changes in the browser address bar,
     pop out the preview window by clicking the blue 'X' button in the upper right corner.
 
+    如果想看到浏览器地址栏的变化情况，请点击右上角的蓝色'X'按钮以弹出预览窗口。
+
 .l-main-section
 :marked
   ## Overview
+
+  ## 概览
 
   The browser is a familiar model of application navigation.
   We enter a URL in the address bar and the browser navigates to a corresponding page.
   We click links on the page and the browser navigates to a new page.
   We click the browser's back and forward buttons and the browser navigates
   backward and forward through the history of pages we've seen.
+
+  浏览器是在应用中进行导航的常见操作模型。
+  如果在地址栏中输入一个URL，浏览器就会导航到相应的页面。
+  如果你在页面中点击链接，浏览器就会导航到一个新的页面。
+  如果你点击浏览器上的前进和后退按钮，浏览器就会根据你看过的页面历史向前或向后进行导航。
 
   The Angular ***Component Router*** ("the router") borrows from this model.
   It can interpret a browser URL as an instruction
