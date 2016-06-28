@@ -86,11 +86,6 @@
     "intro": "学习如何给组件应用CSS样式。"
   },
 
-  "security": {
-    "title": "安全",
-    "intro": "开发“内容安全”的Angular应用。"
-  },
-
   "hierarchical-dependency-injection": {
     "title": "多级依赖注入器",
     "navTitle": "多级注入器",
@@ -129,8 +124,8 @@
   },
 
   "security": {
-    "title": "Security",
-    "intro": "Developing for content security in Angular applications"
+    "title": "安全",
+    "intro": "开发“内容安全”的Angular应用。"
   },
 
   "structural-directives": {
@@ -160,7 +155,6 @@
 
   "glossary": {
     "title": "词汇表",
-    "intro": "Angular 2重要词汇的简短定义。",
-    "hide": true
+    "intro": "Angular 2重要词汇的简短定义。"
   }
 }
