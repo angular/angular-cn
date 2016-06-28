@@ -121,6 +121,13 @@ h2#xss 防止跨站脚本(XSS)
   当值从模版通过属性(Property)、DOM元素属性（Attribte)、CSS类绑定或者插值表达式等方式被插入到COM的时候，
   Angular将对值进行无害化，去掉不可信的值。
 
+  **Angular templates are the same as executable code**: HTML, attributes, and binding expressions
+  (but not the values bound!) in templates are trusted to be safe. That means applications must
+  prevent potentially attacker controlled values from ever making it into the source code of a
+  template. Never generate template source code by concatenating user input and templates! Using
+  the [offline template compiler](#offline-template-compiler) is an effective way to prevent these
+  vulnerabilities, also known as template injection.
+
   ### Sanitization and security contexts
   ### 无害化和安全环境
 
@@ -208,15 +215,14 @@ figure.image-display
 
   ### 内容安全策略
 
-  A [Content Security Policy (CSP)](https://developer.mozilla.org/en-
-  US/docs/Web/Security/CSP/Introducing_Content_Security_Policy) is a defense-in-depth technique to
-  prevent XSS. To enable CSP, configure your web server to return an appropriate
-  `Content-Security-Policy` HTTP header. Learn more at
-  [OWASP](https://www.owasp.org/index.php/Content_Security_Policy).
+  A [Content Security Policy (CSP)]
+  (http://www.html5rocks.com/en/tutorials/security/content-security-policy/) is a defense-in-depth
+  technique to prevent XSS. To enable CSP, configure your web server to return an appropriate
+  `Content-Security-Policy` HTTP header.
 
   [内容安全策略(CSP)](https://developer.mozilla.org/en-
   US/docs/Web/Security/CSP/Introducing_Content_Security_Policy)是用来防止XSS的深度防御技术。
-  为了打开CSP，配置你的Web服务器，让它返回合适的`Content_Security_Policy` HTTP头字段。参见[OWASP](https://www.owasp.org/index.php/Content_Security_Policy)。
+  为了打开CSP，配置你的Web服务器，让它返回合适的`Content_Security_Policy` HTTP头字段。
 
   <a id="offline-template-compiler"></a>
   ### Use the Offline Template Compiler
@@ -238,11 +244,12 @@ figure.image-display
   
   ### 服务器端XSS保护
 
-  HTML constructed on the server is vulnerable to injection attacks. When generating server side
-  HTML, e.g. for the initial page load of the Angular application, make sure to use a templating
-  language that automatically escapes values to prevent XSS vulnerabilities on the server. Do not
-  generate Angular templates on the server side using a templating language, this carries a high
-  risk of introducing template injection vulnerabilities.
+  HTML constructed on the server is vulnerable to injection attacks. Injecting template code into an
+  Angular application is the same as injecting executable code (e.g. JavaScript) into the
+  application; it gives the attacker full control over the application. To prevent this, make sure
+  to use a templating language that automatically escapes values to prevent XSS vulnerabilities on
+  the server. Do not generate Angular templates on the server side using a templating language, this
+  carries a high risk of introducing template injection vulnerabilities.
 
   服务器端构造的HTML很容易被注入攻击。当在服务器端生成HTML，比如Angular应用程序的初始化页面加载时，
   确保在服务器端使用一个能够自动无害化值以防止XSS漏洞的模版语言。不要在服务器端使用一个模版语言生成Angular模版，
@@ -295,10 +302,10 @@ figure.image-display
 :marked
   If we need to convert user input into a trusted value, it can be convenient to do so in a
   controller method. The template below allows users to enter a YouTube video ID, and load the
-  corresponding video in an `<iframe>`. `<iframe src>` is a resource URL, because an untrusted
-  source can e.g. smuggle in file downloads that unsuspecting users would execute. So we call a
-  method on the controller to construct a new, trusted video URL, which is then bound to the
-  `<iframe src>`.
+  corresponding video in an `<iframe>`. The `<iframe src>` attribute is a resource URL security
+  context, because an untrusted source can e.g. smuggle in file downloads that unsuspecting users
+  would execute. So we call a method on the controller to construct a trusted video URL, which
+  Angular then allows binding into `<iframe src>`.
 
   如果需要转换用户输入到一个信任的值，我们可以很方便的在控制器方法里面处理。下面的模版允许用户输入一个YouTube视频ID，
   然后加载相应的视频到一个`<iframe>`。`<iframe src>`是一个资源URL，因为一个不可信的资源可以截换文件下载，被天真的用户执行。
@@ -363,7 +370,9 @@ h3#xsrf 跨站请求伪造(XSRF)
 
   Angular applications can customize cookie and header names by binding their own
   `CookieXSRFStrategy` value, or implement an entirely custom `XSRFStrategy` by providing a custom
-  binding for that type.
+  binding for that type, by adding
+  `provide(XSRFStrategy, {useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name')})` or
+  `provide(XSRFStrategy, {useClass: MyXSRFStrategy})` to your providers list.
 
   Angular应用程序可以自定义cookie和头字段名字，可以通过绑定它们自己的`CookieXSRFStrategy`值，
   也可以通过提供一个自定义类型绑定实现一个完全制定`XSRFStrategy`。

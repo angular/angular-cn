@@ -117,7 +117,6 @@
     "intro": "管道可以在模板中转换显示的内容。"
   },
 
-
   "router-deprecated": {
     "title": "Router (Deprecated Beta)",
     "intro": "The deprecated Beta Router.",
@@ -127,6 +126,11 @@
   "router": {
     "title": "路由与导航",
     "intro": "揭示如何通过Angular 2路由进行基本的屏幕导航。"
+  },
+
+  "security": {
+    "title": "Security",
+    "intro": "Developing for content security in Angular applications"
   },
 
   "structural-directives": {

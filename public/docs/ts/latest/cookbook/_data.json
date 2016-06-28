@@ -35,6 +35,12 @@
     "hide": true
   },
 
+  "dynamic-form": {
+    "title": "Dynamic Forms",
+    "intro": "Render dynamic forms with NgFormModel",
+    "basics": true
+  },
+
   "set-document-title": {
     "title": "设置文档标题",
     "intro": "使用Title服务来设置文档标题或窗口标题"
