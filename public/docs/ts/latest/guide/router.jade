@@ -12,12 +12,12 @@ include ../_util-fns
   The Angular ***Component Router*** enables navigation from one [view](./glossary.html#view) to the next
   as users perform application tasks.
 
-  Angular的***组件路由器***让你能从一个[视图](./glossary.html#view)导航到另一个 —— 就像用户在日常操作中用到的方式。
+  在用户使用应用程序时，Angular的***组件路由器***能让用户从一个[视图](./glossary.html#view)导航到另一个视图。
 
   We cover the router's primary features in this chapter, illustrating them through the evolution
   of a small application that we can [run live](/resources/live-examples/router/ts/plnkr.html).
 
-  在本章中，我们覆盖了该路由器的主要特性，我们通过一个小型应用的成长演进来讲解它。我们可以[到在线例子](/resources/live-examples/router/ts/plnkr.html)体会下。
+  本章覆盖了该路由器的主要特性。我们通过一个小型应用的成长演进来讲解它。参见[在线例子](/resources/live-examples/router/ts/plnkr.html)。
 
 .l-sub-section
 
@@ -27,7 +27,7 @@ include ../_util-fns
     To see the URL changes in the browser address bar,
     pop out the preview window by clicking the blue 'X' button in the upper right corner.
 
-    如果想看到浏览器地址栏的变化情况，请点击右上角的蓝色'X'按钮以弹出预览窗口。
+    请点击右上角的蓝色'X'按钮以弹出预览窗口，这样可以看到浏览器地址栏的变化情况。
 
 .l-main-section
 
@@ -42,7 +42,7 @@ include ../_util-fns
   We click the browser's back and forward buttons and the browser navigates
   backward and forward through the history of pages we've seen.
 
-  浏览器是在应用中进行导航的常见操作模型。
+  浏览器是一个熟悉的应用导航操作模型。
   如果在地址栏中输入一个URL，浏览器就会导航到相应的页面。
   如果你在页面中点击链接，浏览器就会导航到一个新的页面。
   如果你点击浏览器上的前进和后退按钮，浏览器就会根据你看过的页面历史向前或向后进行导航。
@@ -57,10 +57,11 @@ include ../_util-fns
   or in response to some other stimulus from any source. And the router logs activity
   in the browser's history journal so the back and forward buttons work as well.
 
-  Angular的***组件路由器***（以下简称路由器）借鉴了这个模型。它把浏览器中的URL看做一个操作指南，据此导航到一个由客户端生成的视图，并可以把参数传给支撑视图的相应组件，帮它决定具体该展现哪些内容。
+  Angular的***组件路由器***（以下简称路由器）借鉴了这个模型。它把浏览器中的URL看做一个操作指南，
+  据此导航到一个由客户端生成的视图，并可以把参数传给支撑视图的相应组件，帮它决定具体该展现哪些内容。
   我们可以为页面中的链接绑定一个路由，这样，当用户点击链接时，就会导航到应用中相应的视图。
   当用户点击按钮、从下拉框中选取，或响应来自任何地方的事件时，我们也可以在代码控制下进行导航。
-  路由器还能在浏览器的历史日志中记录下这些活动，所以浏览器的前进和后退按钮也能照常工作。
+  路由器还在浏览器的历史日志中记录下这些活动，这样浏览器的前进和后退按钮也能照常工作。
 
   We'll learn many router details in this chapter which covers
 
@@ -80,7 +81,7 @@ include ../_util-fns
   
   * the [link parameters array](#link-parameters-array) that propels router navigation
 
-  * [链接参数的数组](#link-parameters-array)，路由器中的路标
+  * 推动路由器导航的[链接参数数组](#link-parameters-array)，
 
   * navigating when the user clicks a data-bound [RouterLink](#router-link)
 
@@ -100,7 +101,7 @@ include ../_util-fns
   
   * [redirecting](#redirect) from one route to another
 
-  * 从一个路由[重定向](#redirect)到另一个
+  * 从一个路由[重定向](#redirect)到另一个路由
 
   * confirming or canceling navigation with [guards](#guards)
 
@@ -120,12 +121,12 @@ include ../_util-fns
   
   * choosing the "HTML5" or "hash" [URL style](#browser-url-styles)
 
-  * 选择"HTML5"或"hash"[风格的URL](#browser-url-styles)
+  * 选择"HTML5"或"hash"[URL风格](#browser-url-styles)
 
   We proceed in phases marked by milestones building from a simple two-pager with placeholder views
   up to a modular, multi-view design with child routes.
 
-  接下来，我们设定的里程碑是从一个简单的、只有占位(placeholder)视图的双页范例，升级成一个模块化的、带有子路由的多视图设计。
+  接下来，我们分为几个里程碑阶段，把一个简单的、只有占位(placeholder)视图的双页范例，升级成一个模块化的、带有子路由的多视图设计。
 
   But first, an overview of router basics.
 
@@ -170,8 +171,8 @@ include ../_util-fns
   We import what we need from it as we would from any other Angular package.
 
   Angular的组件路由器是一个可选的服务，它用来呈现指定的URL所对应的视图。
-  它并不是Angular 2核心库的一部分，而是在它自己的包儿`@angular/router`中。
-  像其它Angular包儿一样，我们也可以从它导入所需的一切。
+  它并不是Angular 2核心库的一部分，而是在它自己的`@angular/router`包中。
+  像其它Angular包一样，我们可以从它导入所需的一切。
 
 +makeExample('router/ts/app/app.component.1.ts','import-router', 'app/app.component.ts (import)')(format=".")
 
@@ -180,7 +181,7 @@ include ../_util-fns
   :marked
     We cover other options in the [details below](#browser-url-styles).
 
-    其它选项我们将会在[后面](#browser-url-styles)详细讲解。
+    我们将会在[后面](#browser-url-styles)详细讲解其它选项。
 
 :marked
   ### Configuration
@@ -195,7 +196,7 @@ include ../_util-fns
   A router has no routes until we configure it.
   The preferred way is to bootstrap our application with an array of routes using the **`provideRouter`** function.
 
-  我们首先得配置路由器，才会有路由信息。
+  需要先配置路由器，才会有路由信息。
   首选方案是用带有“路由数组”的**`provideRouter`**工厂函数（`[provideRouter(routes)]`）来启动此应用。
 
   In the following example, we configure our application with three route definitions.
@@ -216,7 +217,7 @@ include ../_util-fns
     There are no **leading slashes** in our **path**. The router parses and builds the URL for us,
     allowing us to use relative and absolute paths when navigating between application views.
 
-    在**path**中**不用斜线`/`**开头。路由器会为我们解析和生成URL，以便在多个视图间导航时，可以自由使用相对路径和绝对路径。
+    **path**中**不能用斜线`/`**开头。路由器会为我们解析和生成URL，以便在多个视图间导航时，可以自由使用相对路径和绝对路径。
 
     The `:id` in the third route is a token for a route parameter. In a URL such as `/hero/42`, "42"
     is the value of the `id` parameter. The corresponding `HeroDetailComponent`
@@ -234,7 +235,7 @@ include ../_util-fns
     so we can simplify registration of router dependencies later in `main.ts`.
     We don't have any other providers to register right now. But we will.
 
-    最后，我们通过`APP_ROUTER_PROVIDERS`数组导出这个供应商，以便我们以后将来在`main.ts`中简单的注册路由器的依赖。
+    最后，我们通过`APP_ROUTER_PROVIDERS`数组导出这个供应商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
     目前我们还没有注册任何别的供应商，但很快就会这么做了！
 
 :marked
@@ -269,7 +270,7 @@ code-example(format="", language="html").
   But most of the time we navigate as a result of some user action such as the click of
   an anchor tag.
 
-  现在，我们已经有了配置好的一些路由，还找到了渲染它们的地方，但又该如何导航到它呢？固然，我们从浏览器的地址栏直接输入URL也能做到，但是大多数情况下，导航是某些用户操作的结果，比如点击一个A标签。
+  现在，我们已经有了配置好的一些路由，还找到了渲染它们的地方，但又该如何导航到它呢？固然，从浏览器的地址栏直接输入URL也能做到，但是大多数情况下，导航是某些用户操作的结果，比如点击一个A标签。
 
   We add a **`RouterLink`** directive to the anchor tag and bind it to a template expression that
   returns an array of route link parameters (the **link parameters array**). The router ultimately resolves that array
@@ -308,7 +309,7 @@ code-example(format="", language="html").
   The component has a `RouterOutlet` where it can display views produced by the router.
   It has `RouterLink`s that users can click to navigate via the router.
 
-  该应用提供了一个配置过的路由器。
+  为应用提供了一个配置过的路由器。
   组件中有一个`RouterOutlet`，它能显示路由器所生成的视图。
   它还有一些`RouterLink`，用户可以点击它们，来通过路由器进行导航。
 
@@ -425,7 +426,7 @@ table
   as it evolves over a sequence of milestones.
   We strongly recommend taking the time to read and understand this story.
 
-  下面的详情区描述了一个带路由的范例应用，它经过一系列里程碑一步步演进。我们强烈建议你花点时间阅读并理解这个需求故事。
+  下面的详情区描述了一个带路由的范例应用，它经过一系列里程碑一步步演进。我们强烈建议你花点时间阅读并理解这个过程。
 
 .l-main-section
 
