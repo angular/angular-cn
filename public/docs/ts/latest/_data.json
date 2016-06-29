@@ -3,32 +3,32 @@
     "icon": "home",
     "title": "Angular文档",
     "menuTitle": "文档首页",
-    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>rc.3</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>，以及最新功能，修复和重大打破性变化。"
+    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>rc.3</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>、最新功能、BUG修复和重大的破坏性更改。"
   },
 
   "cli-quickstart": {
     "icon": "query-builder",
-    "title": "CLI Quickstart",
-    "description": "Use the CLI tool to build apps quickly in Angular 2",
+    "title": "CLI 快速起步",
+    "description": "使用CLI快速构建Angular 2应用",
     "hide": true
   },
 
   "quickstart": {
     "icon": "query-builder",
     "title": "五分钟“快速起步”",
-    "description": "Angular 2起跑"
+    "description": "Angular 2快速起步"
   },
 
   "tutorial": {
     "icon": "list",
     "title": "教程",
-    "banner": "Angular 2正处于候选版本阶段。"
+    "banner": "Angular 2正处于rc阶段。"
   },
 
   "guide": {
     "icon": "list",
     "title": "开发指南",
-    "banner": "Angular 2正处于候选版本阶段。"
+    "banner": "Angular 2正处于rc阶段。"
   },
 
   "cookbook": {
@@ -39,7 +39,7 @@
 
   "api/": {
     "icon": "book",
-    "title": "API预览",
+    "title": "API参考手册",
     "reference": true
   },
 
@@ -58,7 +58,7 @@
   "resources": {
     "icon": "play-circle-fill",
     "title": "Angular资源",
-    "banner": "Angular 2正处于候选版本阶段",
+    "banner": "Angular 2正处于rc阶段",
     "resources": true
   },
 
