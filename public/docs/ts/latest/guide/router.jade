@@ -918,7 +918,7 @@ h3#router-directives <i>ROUTER_DIRECTIVES</i>（路由指令集）
   Remember to add them to the `directives` array of the `@Component` metadata.
 
   `RouterLink`和`RouterOutlet`是`ROUTER_DIRECTIVES`集合中的指令。
-  要记住把它们加入`@Component`元数据的`directives`数组中。
+  记住把它们加入`@Component`元数据的`directives`数组中。
 
 +makeExample('router/ts/app/app.component.1.ts','directives')(format=".")
 
@@ -966,12 +966,12 @@ h3#router-directives <i>ROUTER_DIRECTIVES</i>（路由指令集）
   The rest of the starter app is mundane, with little interest from a router perspective.
   Here are the details for readers inclined to build the sample through to this milestone.
 
-  这个初学者应用平淡无奇，唯独路由器方面还稍微有趣点。
-  ？？？
+  这个初学者应用的其他部分有点平淡无奇，从路由器的角度来看也很平淡。
+  如果你还是倾向于在这个里程碑里构建它们，参见下面的构建详情。
 
   Our starter app's structure looks like this:
 
-  我们这个初学者应用的结构看起来是这样的：
+  这个初学者应用的结构看起来是这样的：
 
 .filetree
   .file router-sample
@@ -1020,7 +1020,7 @@ h2#heroes-feature 里程碑#2: “英雄”特性区
 :marked
   We've seen how to navigate using the `RouterLink` directive.
 
-  我们已经看到了如何用`RouterLink`指令进行导航。
+  我们刚刚学习了如何用`RouterLink`指令进行导航。
 
   Now we'll learn some new tricks such as how to
 
@@ -1032,7 +1032,7 @@ h2#heroes-feature 里程碑#2: “英雄”特性区
 
   * navigate imperatively from one component to another
 
-  * 强制从一个组件导航到另一个组件
+  * 命令式地从一个组件导航到另一个组件
 
   * pass information in route parameters
 
@@ -1055,19 +1055,19 @@ h2#heroes-feature 里程碑#2: “英雄”特性区
   That's unrealistic and ultimately not maintainable.
   We think it's better to put each feature area in its own folder.
 
-  当然，我们也可以继续把文件全添加到`app/`目录中。
+  我们可以继续把文件全添加到`app/`目录中。
   但那么做不太现实，并且最终将无法维护。
-  因此，我们认为把每个特性区都放进自己的目录中会更好一些。
+  因此，把每个特性区都放进自己的目录中会更好一些。
 
   Our first step is to **create a separate `app/heroes/` folder**
   and add *Hero Management* feature files there.
 
-  我们的第一步是**创建一个独立的`app/heroes/`文件夹**，并在其中添加属于*英雄管理*特性区的那些文件。
+  第一步是**创建一个独立的`app/heroes/`文件夹**，并在其中添加属于*英雄管理*特性区的文件。
 
   We won't be creative about it. Our example is pretty much a
   copy of the code and capabilities in the "[Tutorial: Tour of Heroes](../tutorial/index.html)".
 
-  我们不会在这里创新。这个例子从代码上和功能上来看几乎就是“[教程: 英雄指南](../tutorial/index.html)”的一份拷贝。
+  我们没有在这里引进新东西。这个例子从代码上和功能上来看，几乎就是“[教程: 英雄指南](../tutorial/index.html)”的一份拷贝。
 
   Here's how the user will experience this version of the app
 
@@ -1091,7 +1091,7 @@ figure.image-display
   We copy the `hero-detail.component.ts` and the `hero.service.ts` files
   into the `heroes/` folder.
 
-  然后在`app/heroes/`目录下创建了一个`hero-list.component.ts`文件，并从教程中把`heroes.component.ts`最终版的内容拷贝进来。
+  然后在`app/heroes/`目录下创建了一个`hero-list.component.ts`文件，并从上面的教程中把`heroes.component.ts`最终版的内容拷贝进来。
   再把`hero-detail.component.ts`和`hero.service.ts`文件拷贝到`heroes/`目录下。
 
   When we're done organizing, we have three *Hero Management* files:
@@ -1114,7 +1114,7 @@ figure.image-display
   Now it's time for some surgery to bring these files and the rest of the app
   into alignment with our application router.
 
-  现在，该通过一些“外科手术”来让这些文件和应用的其它部分向本应用的路由器看齐了。
+  现在到时间做一些“外科手术”了。我们利用应用程序的路由器，把这些文件和应用的其它部分联合起来。
 
   ### *Hero* feature routing requirements
 
@@ -1130,7 +1130,7 @@ figure.image-display
   The detail view is different. It displays a particular hero. It can't know which hero on its own.
   That information must come from outside.
 
-  详情视图就不同了。它要显示一个特定的英雄，但是它本身却没法知道显示哪一个，此信息必须来自外部。
+  详情视图就不同了。它要显示一个特定的英雄，但是它本身却无法知道显示哪一个，此信息必须来自外部。
 
   In our example, when the user selects a hero from the list, we navigate to the detail view to show that hero.
   We'll tell the detail view which hero to display by including the selected hero's id in the route URL.
@@ -1144,7 +1144,7 @@ figure.image-display
 
   We recommend giving each feature area its own route configuration file.
 
-  我们推荐的方式是为每个特性区提供它自己的路由配置文件。
+  我们推荐的方式是为每个特性区创建它自己的路由配置文件。
 
   Create a new `hero.routes.ts` in the `heroes` folder like this:
 
@@ -1160,7 +1160,7 @@ figure.image-display
   We import the two components from their new locations in the `app/heroes/` folder, define the two hero routes.
   and add them to an exported `HeroesRoutes` array.
 
-  我们从位于`app/heroes/`目录下导入这两个组件，用它们定义两个英雄路由，把它们加入到`HeroesRoutes`数组中并导出。
+  从它们所在的新`app/heroes/`目录导入列表和详情组件，定义两个英雄路由并导出到`HeroesRoutes`数组。
 
   ### Route definition with a parameter
 
@@ -1168,7 +1168,7 @@ figure.image-display
 
   The route to `HeroDetailComponent` has a twist.
 
-  到`HeroDetailComponent`的路由有点特殊。
+  `HeroDetailComponent`的路由有点特殊。
 
 +makeExample('router/ts/app/heroes/heroes.routes.ts','hero-detail-route')(format=".")
 
@@ -1181,7 +1181,7 @@ figure.image-display
   If we tell the router to navigate to the detail component and display "Magneta", we expect hero `id` (15) to appear in the
   browser URL like this:
 
-  如果要告诉路由器导航到这个详情组件，并让它显示“Magneta”，我们会期望这个英雄的`id`（15）像这样显示在浏览器的URL中：
+  如果要告诉路由器导航到详情组件，并让它显示“Magneta”，我们会期望这个英雄的`id`（15）像这样显示在浏览器的URL中：
 
 code-example(format="." language="bash").
   localhost:3000/hero/15
@@ -1190,7 +1190,7 @@ code-example(format="." language="bash").
   If a user enters that URL into the browser address bar, the router should recognize the
   pattern and go to the same "Magneta" detail view.
 
-  如果用户把此URL输入到浏览器的地址栏中，路由器就会识别出这种模式，这同样也会进入“Magneta”的详情视图。
+  如果用户把此URL输入到浏览器的地址栏中，路由器就会识别出这种模式，同样进入“Magneta”的详情视图。
 
 .l-sub-section
 
@@ -1204,11 +1204,12 @@ code-example(format="." language="bash").
     the value `15` in the path clearly distinguishes the route to "Magneta" from
     a route for some other hero.
 
-    在这个场景下，把路由参数的令牌`:id`嵌入到路由定义的`path`中是一个好主意，因为对于`HeroDetailComponent`来说`id`是*必须的*，而且路径中的值`15`已经足够把到“Magneta”的路由和到其它英雄的路由明确区分开。
+    在这个场景下，把路由参数的令牌`:id`嵌入到路由定义的`path`中是一个好主意，因为对于`HeroDetailComponent`来说`id`是*必须的*，
+    而且路径中的值`15`已经足够把到“Magneta”的路由和到其它英雄的路由明确区分开。
 
     A [query parameter](#query-parameter) might be a better choice if we were passing an *optional* value to `HeroDetailComponent`.
 
-    如果我们要往`HeroDetailComponent`中传入一个*可选*值，那么[查询参数](#query-parameter)可能会是一个更好的选择。
+    如果要往`HeroDetailComponent`中传入一个*可选*值，那么[查询参数](#query-parameter)可能会是一个更好的选择。
 
 h3#merge-hero-routes Merge hero routes into application routes
 
@@ -1240,13 +1241,13 @@ h3#merge-hero-routes 把英雄区的路由合并到应用程序的路由中
   It won't change as we evolve the hero feature with more components and different routes.
   That's a key benefit of creating a separate route configuration for each feature area.
 
-  这样做的结果是，`app.routes.ts`文件不用再了解“英雄”特性区的具体知识：组件的细节、路由的细节等等。
+  这样做的结果是，`app.routes.ts`文件不用再了解“英雄”特性区的具体知识，比如组件细节和路由细节等等。
   这样，当我们要为英雄特性区加入更多的组件和路由，对它进行演进时，该文件将不用做任何变化。
-  因此，为每个特性区单独创建路由配置是一个关键性的优点。
+  这真是为每个特性区单独创建路由配置的关键性优点。
 
 h3#navigate Navigate to hero detail imperatively
 
-h3#navigate 强制导航到英雄详情
+h3#navigate 命令式地导航到英雄详情
 
 :marked
   *We won't navigate to the detail component by clicking a link*
@@ -1257,12 +1258,12 @@ h3#navigate 强制导航到英雄详情
   Instead, when the user *clicks* a hero in the list, we'll *command* the router
   to navigate to the hero detail view for the selected hero.
 
-  要怎样呢？当用户在列表中*点击*一个英雄时，我们将*命令*路由器导航到所选英雄的详情视图。
+  取而代之，当用户在列表中*点击*一个英雄时，我们将*命令*路由器导航到所选英雄的详情视图。
 
   We'll adjust the `HeroListComponent` to implement these tasks, beginning with its constructor
   which acquires the router service and the `HeroService` by dependency injection:
 
-  我们将调整`HeroListComponent`来实现这些任务。先从构造函数开始改：它要通过依赖注入体系获得路由服务和`HeroService`服务。
+  我们将调整`HeroListComponent`来实现这些任务。先从构造函数开始改：它通过依赖注入系统获得路由服务和`HeroService`服务。
 
 +makeExample('router/ts/app/heroes/hero-list.component.1.ts','ctor', 'app/heroes/hero-list.component.ts (Constructor)')(format=".")
 
@@ -1299,7 +1300,7 @@ h3#route-parameters 在列表视图中设置路由参数
   We're navigating to the `HeroDetailComponent` where we expect to see the details of the selected hero.
   We'll need *two* pieces of information: the destination and the hero's `id`.
 
-  我们正在导航到`HeroDetailComponent`组件。在那里，我们期望看到所选英雄的详情，这需要两部分信息：导航目标和该英雄的`id`。
+  我们将导航到`HeroDetailComponent`组件。在那里，我们期望看到所选英雄的详情，这需要两部分信息：导航目标和该英雄的`id`。
 
   Accordingly, the *link parameters array* has *two* items:  the **path** of the destination route and a **route parameter** that specifies the
   `id` of the selected hero.
@@ -1311,7 +1312,7 @@ h3#route-parameters 在列表视图中设置路由参数
 :marked
   The router composes the appropriate two-part destination URL from this array:
 
-  路由器从该数组中组合出一个合适的两段儿式目标URL：
+  路由器从该数组中组合出一个合适的两段式目标URL：
 
 code-example(format="." language="bash").
   localhost:3000/hero/15
@@ -1349,7 +1350,7 @@ a#hero-detail-ctor
   tell the `HeroService` to fetch the hero with that `id`. We'll keep a reference to this `Subscription` so we can
   tidy things up later.
 
-  然后，再看看`ngOnInit`方法。
+  然后，在`ngOnInit`方法中，
   我们用`ActivatedRoute`服务来接收本路由的参数。
   由于这些参数是作为`Observable`（可观察对象）提供的，所以我们_订阅（`subscribe`）_它们，通过名字引用`id`参数，并告诉`HeroService`获取指定`id`的英雄。
   我们还要保存这个`Subscription`（订阅的返回值）的引用，供后面做清理工作。
@@ -1379,7 +1380,7 @@ a#hero-detail-ctor
 
   我们最终还是会从这里导航到外面。那时候，路由器将从DOM中移除这个组件，并销毁它。
   在此之前，我们还得自己做一些清理工作。
-  特别是，我们**必须**在Angular销毁此组件之前进行**反订阅（`unsubscribe`）**，*否则会导致内存泄露*。
+  特别是，我们**必须**在Angular销毁此组件之前进行**反订阅（`unsubscribe`）**，*否则可能会导致内存泄露*。
 
   We unsubscribe from our `Observable` in the `ngOnDestroy` method.
 
@@ -1475,7 +1476,7 @@ h4#snapshot <i>快照</i>：不需要可观察（no-observable）时的替代方
 
     **记住：**，用这种技巧，我们只得到了这些参数的_初始_值。
     如果有可能连续多次导航到此组件，那么就该用`params`可观察对象的方式。
-    我们只会在这种情况下使用`params`可观察对象策略。
+    我们在这里选择使用`params`可观察对象策略，以防万一。
 
 h3#nav-to-list Navigating back to the list component
 
@@ -1515,7 +1516,7 @@ h3#nav-to-list 导航回列表组件
 
   * navigate imperatively from one component to another
 
-  * 从一个组件强制导航到另一个
+  * 命令式的从一个组件导航到另一个
 
   * pass information along in route parameters and subscribe to them in our component
 
