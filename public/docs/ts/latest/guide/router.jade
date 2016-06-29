@@ -437,7 +437,7 @@ table
 
   We have an application in mind as we move from milestone to milestone.
 
-  当我们从一个里程碑前进到另一个里程碑时，要首先在脑海中有一个应用程序的概貌。
+  从一个里程碑前进到另一个里程碑，我们总是有一个应用程序在心中。
 
 .l-sub-section
 
@@ -447,7 +447,7 @@ table
     We gloss over everything in between.
 
     虽然我们会渐进式的前进到最终的范例应用，但本章并不是一个教程。
-    我们讨论的是与路由和应用设计有关的代码和设计决策。在这期间，我们会打磨遇到的每一样东西。
+    我们讨论路由和应用设计有关的代码和设计决策，并在这期间，处理遇到的所有问题。
 
     The full source is available in the [live example](/resources/live-examples/router/ts/plnkr.html).
 
@@ -466,11 +466,11 @@ table
 
   1. A *Crisis Center* where we maintain the list of crises for assignment to heroes.
 
-  1. 一个*危机中心*区，在那里，我们维护一个准备安排给英雄的危机列表。
+  1. 一个*危机中心*区，它维护一个危机列表，用来分派给英雄。
 
   1. A *Heroes* area where we maintain the list of heroes employed by The Agency.
 
-  1. 一个*英雄*区，在那里，我们维护那些该中心雇佣的英雄列表。
+  1. 一个*英雄*区，用来维护该中心雇佣英雄的列表。
 
   Run the [live example](/resources/live-examples/router/ts/plnkr.html).
   It opens in the *Crisis Center*.  We'll come back to that.
@@ -527,16 +527,16 @@ figure.image-display
 
    这和*英雄详情*页略有不同。*英雄详情*会立即保存我们所做的更改。
    而*危机详情*页中，我们的更改都是临时的 —— 除非按“保存”按钮保存它们，或者按“取消”按钮放弃它们。
-   这些按钮都会导航回*危机中心*，显示危机列表。
+   这两个按钮都会导航回*危机中心*，显示危机列表。
 
    Suppose we click a crisis, make a change, but ***do not click either button***.
    Maybe we click the browser back button instead. Maybe we click the "Heroes" link.
 
-   假如我们点击一个危机、做了修改，但是***没有点击任何按钮***。可能点击了浏览器的后退按钮，也可能点击了“英雄”链接。
+   假如我们点击一个危机、做了修改，但是***没有点击任何按钮***，可能点击了浏览器的后退按钮，也可能点击了“英雄”链接。
 
    Do either. Up pops a dialog box.
 
-   无论那种情况，我们都应该弹出一个对话框。
+   无论哪种情况，我们都应该弹出一个对话框。
 
 figure.image-display
   img(src='/resources/images/devguide/router/confirm-dialog.png' alt="Confirm Dialog" width="300")
@@ -544,7 +544,7 @@ figure.image-display
 :marked
   We can say "OK" and lose our changes or click "Cancel" and continue editing.
 
-  我们可以回答“确定”以放弃这些更改，或者回答“取消”以继续编辑。
+  我们可以回答“确定”以放弃这些更改，或者回答“取消”来继续编辑。
 
   The router supports a `CanDeactivate` guard that gives us a chance to clean-up
   or ask the user's permission before navigating away from the current view.
@@ -563,7 +563,7 @@ figure.image-display
 :marked
   Here's a diagram of all application routing options:
 
-  下面是该应用中所有可选路由方式的导航图：
+  下面是该应用中所有可选路由导航图：
 
 figure.image-display
   img(src='/resources/images/devguide/router/complete-nav.png' alt="Navigation diagram" )
@@ -571,7 +571,7 @@ figure.image-display
 :marked
   This app illustrates the router features we'll cover in this chapter
 
-  该应用讲解了本章中涉及到的所有路由器特性：
+  该应用展示了本章中涉及到的所有路由器特性：
 
   * navigating to a component (*Heroes* link to "Heroes List")
 
@@ -643,7 +643,7 @@ figure.image-display
   If the `app` folder is the application root, as it is for our application,
   set the `href` value in **`index.html`** *exactly* as shown here.
 
-  要在`<head>`标签中的最前面添加base元素。如果`app`文件夹是应用的根目录（就像我们这个一样），那么就像下面展示的这样在`index.html`中设置`href`的值：
+  在`<head>`标签中的最前面添加base元素。如果`app`文件夹是应用的根目录（就像我们这个一样），那么就像下面展示的这样在`index.html`中设置`href`的值：
 
 +makeExample('router/ts/index.1.html','base-href', 'index.html (base href)')(format=".")
 
@@ -668,7 +668,7 @@ figure.image-display
     the application base address dynamically. That's why we replace the `<base href...>` with a
     script that writes a `<base>` tag on the fly to match.
 
-    当我们运行在线例子时，我们不得不耍一点小花招儿，因为在线例子的宿主服务会动态设置应用的基地址。这就是为什么我们要把`<base href...>`替换成了一段脚本，用来动态写入`<base>`标签来适应这种情况。
+    当我们运行在线例子时，我们不得不耍一点小花招，因为在线例子的宿主服务会动态设置应用的基地址。这就是为什么我们要把`<base href...>`替换成了一段脚本，用来动态写入`<base>`标签来适应这种情况。
 
   code-example(format="")
     &lt;script>document.write('&lt;base href="' + document.location + '" />');&lt;/script>
@@ -676,7 +676,7 @@ figure.image-display
   :marked
     We should only need this trick for the live example, not production code.
 
-    这种小花招儿我们值应该在这个在线例子中使用，不要用到产品的正式代码中。
+    我们只应该在在线例子这种情况下使用这种小花招，不要把它用到产品的正式代码中。
 
 :marked
   ### Configure the routes for the Router
@@ -686,7 +686,7 @@ figure.image-display
   We teach our router how to navigate by configuring it with routes.
   We recommend creating a separate `app.routes.ts` file dedicated to this purpose.
 
-  通过用一些路由配置路由器，我们可以教它如何进行导航。
+  通过一些路由来配置路由器，我们可以教它如何进行导航。
   建议创建一个独立的`app.routes.ts`文件来达到此目的。
 
 .l-sub-section
@@ -717,7 +717,7 @@ h4#import 从组件路由器的库中导入
 :marked
   We begin by importing some symbols from the router library.
 
-  首先，我们得从路由器库中导入一些符号。
+  首先，我们从路由器库中导入一些符号。
 
   The Component Router is in its own `@angular/router` package.
   It's not part of the Angular 2 core.
@@ -756,12 +756,12 @@ h4#define-routes 定义一些路由
 
   In plain English, we might say of the first route:
 
-  我们来用日常方式讲下第一个路由：
+  直白的说，我们可以这样解释第一个路由：
 
   * *When the browser's location URL changes to match the path segment `/crisis-center`, create or retrieve an instance of
   the `CrisisListComponent` and display its view.*
 
-  * *当浏览器的地址栏URL变化时，如果它匹配上了路径部分`/crisis-center`*，路由器就会创建或获取一个`CrisisListComponent`的实例，并显示它的视图。
+  * *当浏览器地址栏的URL变化时，如果它匹配上了路径部分`/crisis-center`*，路由器就会创建或获取一个`CrisisListComponent`的实例，并显示它的视图。
 
   * *When the application requests navigation to the path `/crisis-center`, create or retrieve an instance of
   the `CrisisListComponent`, display its view, and update the browser's address location and history with the URL
@@ -837,7 +837,7 @@ h3#shell 壳组件<i>AppComponent</i>
   The root `AppComponent` is the application shell. It has a title at the top, a navigation bar with two links,
   and a *Router Outlet* at the bottom where the router swaps views on and off the page. Here's what we mean:
 
-  根组件`AppComponent`是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器插座*，路由器会在它所指定的位置上把视图调入或调出页面。就像下图中所标出的：
+  根组件`AppComponent`是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器插座*，路由器会在它所指定的位置上把视图切入或调出页面。就像下图中所标出的：
 
 figure.image-display
   img(src='/resources/images/devguide/router/shell-and-outlet.png' alt="Shell" width="300" )
@@ -879,7 +879,7 @@ h3#router-link <i>RouterLink</i>绑定
   Above the outlet, within the anchor tags, we see [Property Bindings](template-syntax.html#property-binding) to
   the `RouterLink` directive that look like `[routerLink]="[...]"`. We imported `RouterLink` from the router library.
 
-  在插座上方的A标签中，我们看到了一个到`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`[routerLink]="[...]"`。我们从路由库中导入了`RouterLink`。
+  在插座上方的A标签中，有一个绑定`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`[routerLink]="[...]"`。我们从路由库中导入了`RouterLink`。
 
   The template expression to the right of the equals (=) returns a *link parameters array*.
 
