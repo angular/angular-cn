@@ -74,7 +74,8 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
       .nav-ordered-lists(class="#{isCollapsed(anyItemSelected(tutorial))}")
         ul
           each item, index in tutorial
-            li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
+            li(class="nav-list-item #{item.class}")
+              a.translated-cn(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
 
     .nav-blocks
       a(class="nav-title #{anyItemSelected(basics)}" href="#{basics[0].href}" title="#{basics[0].tooltip}") 基础知识
@@ -83,7 +84,8 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
       .nav-ordered-lists(class="#{isCollapsed(anyItemSelected(basics))}")
         ul
           each item, index in basics
-            li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
+            li(class="nav-list-item #{item.class}")
+              a.translated-cn(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
 
     .nav-blocks
       a(class="nav-title #{anyItemSelected(guide)}" href="#{guide[0].href}" title="#{guide[0].tooltip}") 开发指南
@@ -92,7 +94,8 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
       .nav-unordered-lists(class="#{isCollapsed(anyItemSelected(guide))}")
         ul
           each item in guide
-            li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
+            li(class="nav-list-item #{item.class}")
+              a.translated-cn(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     .nav-blocks
       a(class="nav-title #{anyItemSelected(cookbook)}" href="#{cookbook[0].href}" title="#{cookbook[0].tooltip}") 烹饪宝典
@@ -101,10 +104,11 @@ nav.side-nav.l-pinned-left.l-layer-4.l-offset-nav
       .nav-unordered-lists(class="#{isCollapsed(anyItemSelected(cookbook))}")
         ul
           each item in cookbook
-            li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
+            li(class="nav-list-item #{item.class}")
+              a.translated-cn(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     .nav-blocks
-      a(class="nav-title #{isApiReferenceSelected()}" href="#{reference[0].href}" title="#{reference[0].tooltip}") API参考手册
+      a.translated-cn(class="nav-title #{isApiReferenceSelected()}" href="#{reference[0].href}" title="#{reference[0].tooltip}") API参考手册
 
 script.
   // Could put in appCtrl but only needed here and clear here

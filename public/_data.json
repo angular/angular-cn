@@ -15,11 +15,15 @@
     "subtitle": "帮我们构建面向未来的框架",
     "autoformat": "true"
   },
+  "resources": {
+    "title": "资源库",
+    "subtitle": "Angular 2的资源库"
+  },
   "news": {
     "title": "新闻"
   },
   "events": {
-    "title": "事件",
+    "title": "开发者会议",
     "subtitle": "我们将在哪里开会"
   },
   "support": {
@@ -27,7 +31,7 @@
     "subtitle": "从Angular社区获得支持"
   },
   "presskit": {
-    "title": "出版工具"
+    "title": "宣传资料"
   },
   "books": {
     "title": "书籍"
