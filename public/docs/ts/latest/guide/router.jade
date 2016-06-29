@@ -1587,22 +1587,22 @@ h3#nav-to-list 导航回列表组件
 
   The *Crisis Center* is a fake view at the moment. Time to make it useful.
 
-  此刻，*危机中心*还只是一个假视图，该让它有用点儿了！
+  此刻，*危机中心*还只是一个假视图，该让它有用点了！
 
   The new *Crisis Center* begins as a virtual copy of the *Heroes* feature.
   We create a new `app/crisis-center` folder, copy the Hero files,
   and change every mention of "hero" to "crisis".
 
-  新的*危机中心*从*英雄*特性区的一个虚拟？？？副本开始。我们创建新的`app/crisis-center`目录、把英雄区的文件拷贝过去，并且把对“hero”的每一次引用改成“crisis”。
+  新的*危机中心*从*英雄*特性区的一个拷贝开始。我们创建新的`app/crisis-center`目录，把英雄区的文件拷贝过去，并把所有的“hero”修改“crisis”。
 
   A `Crisis` has an `id` and `name`, just like a `Hero`
   The new `CrisisListComponent` displays lists of crises.
   When the user selects a crisis, the app navigates to the `CrisisDetailComponent`
   for display and editing of the crisis name.
 
-  `Crisis`有一个`id`和一个`name`，就像`Hero`。新的`CrisisListComponent`显示危机列表。如果用户选择了一个危机，该应用就会导航到`CrisisDetailComponent`，用于显示和编辑危机的名字。
+  `Crisis`有一个`id`和一个`name`，就像`Hero`一样。新的`CrisisListComponent`显示危机列表。如果用户选择了一个危机，该应用就会导航到`CrisisDetailComponent`，用于显示和编辑危机的名字。
 
-  Voilà, instant feature module!
+  Voila, instant feature module!
   
   真棒！我们瞬间就有了一个特性模块！
 
@@ -1610,7 +1610,7 @@ h3#nav-to-list 导航回列表组件
   We do have new ideas and techniques in mind:
 
   除非我们能学到点新东西，否则这种练习就没啥亮点。
-  不过，我们在脑海中已经有了一些新主意和新技巧：
+  不过，我们已经有了一些新主意和新技巧：
 
   * We'd like our route URLs to branch in to child route trees that reflect the component treese in our feature areas.
 
@@ -1750,7 +1750,7 @@ h3#child-routing-component 子路由组件
   which makes it visible everywhere &mdash;
   we register the `CrisisService` in the component's providers array.
 
-  在*危机中心*领域之外既不需要也没人想要`CrisisService`。
+  在*危机中心*领域之外既不需要也没人想要`CrisisService`。与其在根组件`AppComponent`的供应商中注册它导致它在应用的任何地方都可见，不如在组件供应商数组中注册`CrisisService`。
 
 +makeExample('router/ts/app/crisis-center/crisis-center.component.1.ts', 'providers')(format='.')
 
@@ -1763,7 +1763,7 @@ h3#child-routing-component 子路由组件
 
   There's a practical benefit to restricting its scope in this way.
 
-  用这种方式限制它的范围有一些确切的优点。
+  用这种方式限制它的范围有一些实践好处。
 
   First we can evolve the service independently of the rest of the application
   without fear of breaking what should be unrelated modules.
@@ -1776,9 +1776,9 @@ h3#child-routing-component 子路由组件
   We can load it optionally, asynchronously with the other *Crisis Center* components
   if and when the user begins that workflow.
 
-  第二，我们可以对此服务进行延迟加载，直到需要它的时候才加载到内存中。
-  我们可以从应用的发布包中移除它，以减小首次加载的体积并提升性能。
-  我们可以用可选的方式加载它，当用户开始此工作流时，本应用才异步加载其它的*危机中心*组件。
+  第二，可以对此服务进行延迟加载，直到需要它的时候才加载到内存中。
+  可以从应用的发布包中移除它，以减小首次加载的体积并提升性能。
+  可以用可选的方式加载它，当用户开始此工作流时，本应用才异步加载其它的*危机中心*组件。
 
 .l-sub-section
 
@@ -1894,7 +1894,7 @@ code-example(format="").
   We want the application to display the list of crises as it would if we pasted `localhost:3000/crisis-center/` into the address bar.
   This is our intended default route.
 
-  我们希望该应用显示一个危机列表，就像在地址栏输入`localhost:3000/crisis-center/`时一样。这也就是默认路由。
+  我们希望该应用显示一个危机列表，就像在地址栏输入`localhost:3000/crisis-center/`时一样。这就是默认路由。
 
   We can arrange for that behavior in several ways.
   One way is to use a `redirect` to transparently navigate from one route to another.
@@ -1913,7 +1913,7 @@ code-example(format="").
   when the router should continue matching our URL against our defined routes.
 
   由于我们希望只有在路径明确的匹配到`''`时才重定向，所以我们往路由中添加了一个额外的配置项：`terminal: true`。
-  ？？？
+  主要是为了重定向，`terminal`属性是用来控制路由器是否应该继续匹配URL和我们定义的路由。（译者注：`terminal`设置为`true`时，该路由的优先级别就低于其他路由，只有在所有其他路由都不匹配的时候才最后匹配这个路由。主要是为了标示专用于重定向的路由而设计的。）
 
 .l-sub-section
 
@@ -1984,7 +1984,7 @@ h2#guards 路由守卫
   :marked
     The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation.
 
-    守卫还可以告诉路由器导航到别处，这也同样可以取消当前的导航。
+    守卫还可以告诉路由器导航到别处，这样也取消当前的导航。
 
 :marked
   The guard *might* return its boolean answer synchronously.
@@ -2026,8 +2026,8 @@ h2#guards 路由守卫
   If _any_ guard returns false, pending guards that have not completed will be canceled,
   and the entire navigation is canceled.
 
-  在分层路由的不同级别上，我们可以设置多个守卫。
-  路由器会先按照从最深的子路由往上检查的顺序来检查`CanDeactivate`守护条件。
+  在分层路由的每个级别上，我们都可以设置多个守卫。
+  路由器会先按照从最深的子路由由下往上检查的顺序来检查`CanDeactivate`守护条件。
   然后它会按照从上到下的顺序检查`CanActivate`守卫。
   如果_任何_守卫返回`false`，其它尚未完成的守卫会被取消，这样整个导航就被取消了。
 
@@ -2044,7 +2044,7 @@ h2#guards 路由守卫
 
 h3#can-activate-guard <i>CanActivate</i>: requiring authentication
 
-h3#can-activate-guard <i>CanActivate</i>: 需要认证
+h3#can-activate-guard <i>CanActivate</i>: 要求认证
 
 :marked
   Applications often restrict access to a feature area based on who the user is.
@@ -2052,7 +2052,7 @@ h3#can-activate-guard <i>CanActivate</i>: 需要认证
   We might block or limit access until the user's account is activated.
 
   应用程序通常会根据访问者来决定是否授予某个特性区的访问权。
-  我们可以只对已认证过的用户或具有特定角色的用户授予访问权，还可以阻止未激活的用户账户或限制其访问权。
+  我们可以只对已认证过的用户或具有特定角色的用户授予访问权，还可以阻止或限制用户访问权，直到用户账户激活为止。
 
   The `CanActivate` guard is the tool to manage these navigation business rules.
 
@@ -2065,7 +2065,7 @@ h3#can-activate-guard <i>CanActivate</i>: 需要认证
   We intend to extend the Crisis Center with some new *administrative* features.
   Those features aren't defined yet. So we add the following placeholder component.
 
-  我们还要用一些新的*管理类*特性来扩展“危机中心”。
+  我们准备扩展“危机中心”，添加一些新的*管理类*特性。
   这些特性还没有定义过，所以我们先只添加一个占位组件：
 
 +makeExample('router/ts/app/crisis-center/crisis-admin.component.ts', '', 'crisis-admin.component.ts')(format=".")
@@ -2073,7 +2073,7 @@ h3#can-activate-guard <i>CanActivate</i>: 需要认证
 :marked
   Next, we add a child route to the `crisis-center.routes` with the path, `/admin`.
 
-  接下来，我们用路径`/admin`往`crisis-center.routes`中添加一个子路由。
+  接下来，我们往`crisis-center.routes`中添加一个路径为`/admin`的子路由。
 
 +makeExample('router/ts/app/crisis-center/crisis-center.routes.3.ts', 'admin-route-no-guard', 'crisis-center.routes.ts (admin route)')(format=".")
 
