@@ -334,7 +334,7 @@ block get-heroes-details
   
   We'll complete `HeroService` by creating `post`, `put` and `delete` methods to meet our new requirements.
 
-  我们将为`HeroService`添加`post`、`put`和`delete`的http调用来彻底满足我们的需求。
+  我们将为`HeroService`添加`post`、`put`和`delete`的http调用来满足我们的需求。
 
 :marked
   ### Post
@@ -420,6 +420,8 @@ block hero-detail-comp-extra-imports-and-vars
 block hero-detail-comp-updates
   :marked
     ### Add/Edit in the *HeroDetailComponent*
+    
+    ### 在*HeroDetailComponent*中添加和编辑英雄 
 
     We already have `HeroDetailComponent` for viewing details about a specific hero. 
     Add and Edit are natural extensions of the detail view, so we are able to reuse `HeroDetailComponent` with a few tweaks. 
@@ -441,6 +443,8 @@ block hero-detail-comp-updates
 
 :marked
   Add a save method to `HeroDetailComponent` and call the corresponding save method in `HeroesService`.
+
+  在`HeroDetailComponent`中添加一个`save`方法，用来从`HeroService`调用对应的`save`方法
 
 +makeExcerpt('app/hero-detail.component.ts', 'save')
 
@@ -466,7 +470,7 @@ block hero-detail-comp-save-and-goback
       The `emit` "handshake" between `HeroDetailComponent` and `HeroesComponent` is an example of component to component communication. This is a topic for another day, but we have detailed information in our <a href="/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent">Component Interaction Cookbook</a>
   
       `emit`在`HeroDetailComponent`和`HeroesComponent`之间的这种握手是组件间通讯的例子之一。
-      这不是今天的话题，我们在<a href="/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent">组件间交互</a>一章中讲了一些详细信息。
+      这不是今天的话题，在<a href="/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent">组件间交互</a>一章中有相关详细信息。
 
 :marked
   Here is `HeroDetailComponent` with its new save button and the corresponding HTML.
@@ -528,13 +532,15 @@ block add-new-hero-via-detail-comp
   Now let's fix-up the `HeroesComponent` to support the *add* and *delete* actions used in the template.
   Let's start with *add*.
 
+  现在，让我们修复`HeroesComponent`，让它支持模板中的*添加*和*删除*动作。以*添加*动作开始。
+
 block heroes-comp-directives
   :marked
     We're using the `HeroDetailComponent` to capture the new hero information.
     We have to tell Angular about that by importing the `HeroDetailComponent` and referencing it in the component metadata `directives` array.
     
-    我们正在用`HeroDetailComponent`捕获新英雄的信息。
-    为了告诉Angular这一点，我们还得导入`HeroDetailComponent`并把它加入组件元数据的`directives`数组中。
+    使用`HeroDetailComponent`来捕获新英雄的信息。
+    为了告诉Angular这一点：导入`HeroDetailComponent`并把它加入组件元数据的`directives`数组中。
     
   +makeExcerpt('app/heroes.component.ts (HeroDetailComponent)', 'hero-detail-component')
   
@@ -543,7 +549,7 @@ block heroes-comp-directives
       These are the same lines that we removed in the previous [Routing](toh-pt5.html) chapter.
       We didn't know at the time that we'd need the *HeroDetailComponent* again. So we tidied up.
       
-      同样的这些代码，我们曾在前面的[路由](toh-pt5.html)一章中移除过。
+      同样的这些代码，我们曾在前面的[路由](toh-pt5.html)一章中删除过。
       我们不知道现在会再次需要*`HeroDetailComponent`*类，所以把它们清理掉了。
 
       Now we *must* put these lines back. If we don't, Angular will ignore the `<my-hero-detail>`
@@ -576,6 +582,10 @@ block heroes-comp-add
   Of course we delegate the persistence of hero deletion to the `HeroService`.
   But the component is still responsible for updating the display.
   So the *delete* method removes the deleted hero from the list.
+
+  当然，我们把删除英雄并让其持久有效的工作交给`HeroesService`。
+  但是组件仍然需要负责更新显示。
+  所以*delete*方法从英雄列表移除被删除的英雄。
 
 block review
   :marked
