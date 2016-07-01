@@ -2092,7 +2092,7 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   Currently every route within our *Crisis Center* is open to everyone.
   The new *admin* feature should be accessible only to authenticated users.
 
-  现在“危机中心”的每个路由都是对每个人开放的。这些新的*管理特性*应该只能被已登录用户访问到。
+  现在“危机中心”的每个路由都是对所有人开放的。这些新的*管理特性*应该只能被已登录用户访问。
 
   We could hide the link until the user logs in. But that's tricky and difficult to maintain.
 
@@ -2105,7 +2105,7 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   This is a general purpose guard &mdash; we can imagine other features that require authenticated users &mdash;
   so we create an `auth.guard.ts` in the application root folder.
 
-  这是一种具有通用性的守护目标（想象下会有其它特性需要登录用户才能访问），所以我们在应用的根目录下创建一个`auth.guard.ts`文件。
+  这是一种具有通用性的守护目标（通常会有其它特性需要登录用户才能访问），所以我们在应用的根目录下创建一个`auth.guard.ts`文件。
 
   At the moment we're interested in seeing how guards work so our first version does nothing useful.
   It simply logs to console and `returns` true immediately, allowing navigation to proceed:
@@ -2118,7 +2118,7 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   Next we open `crisis-center.routes.ts `, import the `AuthGuard` class, and
   update the admin route with a `CanActivate` guard property that references it:
 
-  接下来，我们打开`crisis-center.routes.ts`，导入`AuthGuard`类，，修改管理路由并通过`canActivate`属性来引用`AuthGuard`：
+  接下来，打开`crisis-center.routes.ts`，导入`AuthGuard`类，修改管理路由并通过`CanActivate`属性来引用`AuthGuard`：
 
 +makeExample('router/ts/app/crisis-center/crisis-center.routes.ts', 'admin-route', 'crisis-center.routes.ts (guarded admin route)')(format=".")
 
@@ -2148,9 +2148,9 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   It has an `isLoggedIn` flag to tell us whether the user is authenticated.
   Its `login` method simulates an API call to an external service by returning an observable that resolves successfully after a short pause.
 
-  虽然它不会真的进行登录，但它却足够我们进行讨论了。
-  它有一个`isLoggedIn`标志，用来告诉我们是否用户已经登录过了。
-  它的`login`方法会仿真一个对外部服务的API调用，它返回一个可观察对象（observable）。在短暂的停顿之后，这个可观察对象就会解析成功。
+  虽然它不会真的进行登录，但足够让我们进行这个讨论了。
+  它有一个`isLoggedIn`标志，用来标识是否用户已经登录过了。
+  它的`login`方法会仿真一个对外部服务的API调用，返回一个可观察对象（observable）。在短暂的停顿之后，这个可观察对象就会解析成功。
 
   Let's revise our `AuthGuard` to call it.
 
@@ -2214,25 +2214,25 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
   cancels and reverts all changes.
 
   在现实世界中，我们得先把用户的改动积累起来。
-  我们可能不得不进行跨字段的校验，可能要找服务器进行校验，可能得把这些改动保存成一种待定状态，直到用户或者把这些改动*作为一个组*进行确认或撤销所有改动。
+  我们可能不得不进行跨字段的校验，可能要找服务器进行校验，可能得把这些改动保存成一种待定状态，直到用户或者把这些改动*作为一组*进行确认或撤销所有改动。
 
   What do we do about unapproved, unsaved changes when the user navigates away?
   We can't just leave and risk losing the user's changes; that would be a terrible experience.
 
-  当用户要导航到外面时，我们该怎么处理这些既没有审核通过又没有保存过的改动呢？
+  当用户要导航到外面时，该怎么处理这些既没有审核通过又没有保存过的改动呢？
   我们不能马上离开，不在乎丢失这些改动的风险，那显然是一种糟糕的用户体验。
 
   We'd like to pause and let the user decide what to do.
   If the user cancels, we'll stay put and allow more changes.
   If the user approves, the app can save.
 
-  我们应该暂停，并让用户决定该怎么做。如果用户选择了取消，我们就留下来，并做更多改动。如果用户选择了确认，那就进行保存。
+  我们应该暂停，并让用户决定该怎么做。如果用户选择了取消，我们就留下来，并允许更多改动。如果用户选择了确认，那就进行保存。
 
   We still might delay navigation until the save succeeds.
   If we let the user move to the next screen immediately and
   the save failed (perhaps the data are ruled invalid), we would have lost the context of the error.
 
-  在保存成功之前，我们还可以继续推迟导航。如果我们让用户立即移到下一个界面，而保存却失败了（可能因为数据不符合有效性规则），我们就会丢掉该错误的上下文环境。
+  在保存成功之前，我们还可以继续推迟导航。如果我们让用户立即移到下一个界面，而保存却失败了（可能因为数据不符合有效性规则），我们就会丢失该错误的上下文环境。
 
   We can't block while waiting for the server &mdash; that's not possible in a browser.
   We need to stop the navigation while we wait, asynchronously, for the server
@@ -2276,14 +2276,14 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
   Should the app save or cancel automatically?
 
   如果用户尝试不保存或撤销就导航到外面该怎么办？
-  用户可以按浏览器的后退按钮，或点击应英雄的链接。
+  用户可以按浏览器的后退按钮，或点击英雄的链接。
   这些操作都会触发导航。本应用应该自动保存或取消吗？
 
   We'll do neither. Instead we'll ask the user to make that choice explicitly
   in a confirmation dialog box that *waits asynchronously for the user's
   answer*.
 
-  都不行。我们应该弹出一个确认对话框来要求用户明确做出选择，该对话框会*用异步的方式等用户做出选择*。
+  我们两个都不采取。我们应该弹出一个确认对话框来要求用户明确做出选择，该对话框会*用异步的方式等用户做出选择*。
 
 .l-sub-section
 
@@ -2433,12 +2433,12 @@ figure.image-display
   Multiple values are common &mdash; `after='12/31/2015' & before='1/1/2017'` &mdash; in no particular order &mdash;
    `before='1/1/2017' & after='12/31/2015'` &mdash; in a variety of formats &mdash; `during='currentYear'` .
 
-  可选的信息使用其它形式表示。搜索标准通常是结构松散的，例如`name='wind*'`；多个值的情况是普遍存在的（如`after='12/31/2015' & before='1/1/2017'`）；也没有特定的顺序（如`before='1/1/2017' & after='12/31/2015'`）;有多种多样的格式（如`during='currentYear'`）。
+  可选的信息使用其它形式表示。搜索标准通常是结构松散的，例如`name='wind*'`；多个值的情况是普遍存在的（如`after='12/31/2015' & before='1/1/2017'`）；也没有特定的顺序（如`before='1/1/2017' & after='12/31/2015'`）；有多种多样的格式（如`during='currentYear'`）。
 
   These kinds of parameters don't fit easily in a URL *path*. Even if we could define a suitable URL token scheme,
   doing so greatly complicates the pattern matching required to translate an incoming URL to a named route.
 
-  这些类型的参数不适合用在URL*路径*中。即使我们能定义一个合适的URL令牌方案，它也会让从输入URL翻译成命名路由的模式匹配算法变得非常复杂。
+  这些类型的参数不适合用在URL*路径*中。即使我们能定义一个合适的URL令牌方案，它也会让从输入URL翻译成命名路由所需要的模式匹配算法变得非常复杂。
 
   The **URL query string** is the ideal vehicle for conveying arbitrarily complex information during navigation.
   The query string isn't involved in pattern matching and affords enormous flexiblity of expression.
@@ -2471,7 +2471,7 @@ figure.image-display
 
   * the value is necessary to distinguish one route path from another.
 
-  * 这个值对于把此路由的路径与另一个区分开是有必要的。
+  * 这个值对于把一个路由路径与另一个区分开是有必要的。
 
   *prefer a query parameter when*
 
@@ -2587,7 +2587,7 @@ code-example(format="." language="bash").
     row because it demonstrates the final state of the application which includes the steps we're *about* to cover.
     At the moment we're describing the state of affairs *prior* to those steps.
 
-    [在线例子](/resources/live-examples/router/ts/plnkr.html)*不会*高亮显示选中的行，因为它显示的是应用中的最终状态，它包括一些我们*即将*涉及的步骤。接下来，我们就来讲讲这些中间步骤。
+    [在线例子](/resources/live-examples/router/ts/plnkr.html)*会*高亮显示选中的行，因为它显示的是应用中的最终状态，它包括一些我们*即将*涉及的步骤。接下来，我们就来讲讲这些中间步骤。
 
 :marked
   The `HeroListComponent` isn't expecting any parameters at all and wouldn't know what to do with them.
@@ -2731,7 +2731,7 @@ code-example(format="." language="bash").
     as long as the URL can be emailed and pasted into a browser address bar
     as this one can.
 
-    对我们来说，这种语法看起来可能有点奇怪，但用户不大可能注意到或关心这一点，因为标准的URL能被邮件出去或传到浏览器地址栏，这种也可以。
+    对我们来说，这种语法看起来可能有点奇怪。但是只要这种URL能被邮件出去或传到浏览器地址栏，用户不大可能注意到或关心这一点，这种方法恰巧可以。
 
 <a id="final-app"></a>
 
@@ -2746,7 +2746,7 @@ code-example(format="." language="bash").
   Please visit the [live example](/resources/live-examples/router/ts/plnkr.html) and
   where you can download the final source code.
 
-  本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法打印在这里。请访问[在线例子](/resources/live-examples/router/ts/plnkr.html)，在那里你可以下载最终的源码。
+  本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问[在线例子](/resources/live-examples/router/ts/plnkr.html)，在那里你可以下载最终的源码。
 
 .l-main-section
 
@@ -2795,7 +2795,7 @@ code-example(format="." language="bash").
   These two examples cover our needs for an app with one level routing.
   The moment we add a child router, such as the *Crisis Center*, we create new link array possibilities.
 
-  这两个例子覆盖了我们在单级路由的应用中所需的一切。该添加一个子路由了，就像在*危机中心*中，我们创建新链接数组那样。
+  这两个例子覆盖了我们在单级路由的应用中所需的一切。在添加一个像*危机中心*一样的子路由时，我们创建新链接数组组合。
 
   Recall that we specified a default child route for *Crisis Center* so this simple `RouterLink` is fine.
 
@@ -2888,13 +2888,13 @@ code-example(format="." language="bash").
   We did so, for example, in the [HeroDetailComponent](#hero-detail-ctor).
   We might have put the `ngOnInit` logic inside the constructor instead. We didn't for a reason. The reason is *testability*.
 
-  我们在很多组件类中实现了`ngOnInit`方法。比如在[HeroDetailComponent](#hero-detail-ctor)中就这么用过。我们也可以把`ngOnInit`中的逻辑放在构造函数中，但我们为了一个理由而没那么做，这个理由就是*可测试性*。
+  我们在很多组件类中实现了`ngOnInit`方法。比如在[HeroDetailComponent](#hero-detail-ctor)中就这么用过。也可以把`ngOnInit`中的逻辑放在构造函数中，但为了一个理由而没那么做，这个理由就是*可测试性*。
 
   A constructor that has major side-effects can be difficult to test because it starts doing things as soon as
   we create a test instance. In this case, it might have made a request to a remote server, something it shouldn't
   do under test. It may even be impossible to reach the server in the test environment.
 
-  有显著副作用的构造函数很难测试，因为它在创建测试实例时就靠开始做事了。这种情况下，它可能已经向远程服务器发起了请求，但有些事情在测试时没法做。甚至在测试环境下访问服务器都是不可能的。
+  有显著副作用的构造函数很难测试，因为它在创建测试实例时就开始做事了。这种情况下，它可能已经向远程服务器发起了请求，但有些事情在测试时没法做。可能在测试环境下无法访问服务器。
 
   The better practice is to limit what the constructor can do. Mostly it should stash parameters in
   local variables and perform simple instance configuration.
@@ -3014,7 +3014,7 @@ code-example(format=".", language="bash").
   It produces URLs that are easier for users to understand.
   And it preserves the option to do **server-side rendering** later.
 
-  几乎所有的Angular 2项目都会使用默认的HTML 5风格。它生成的URL更易于被用户理解，它也为将来做**服务端渲染**预留了选项。
+  几乎所有的Angular 2项目都会使用默认的HTML 5风格。它生成的URL更易于被用户理解，它也为将来做**服务端渲染**预留了空间。
 
   Rendering critical pages on the server is a technique that can greatly improve
   perceived responsiveness when the app first loads.
@@ -3057,7 +3057,7 @@ code-example(format=".", language="bash").
   Bad things could happen when someone pastes an application link into the
   browser's address bar or clicks such a link in an email link.
 
-  如果没有此标签，当通过“深链接”进入该应用时，浏览器就不能加载资源（图片、CSS、脚本）。这种事会发生在有人把应用的链接粘贴进浏览器的地址栏或从邮件中点击应用的链接时。
+  如果没有此标签，当通过“深链接”进入该应用时，浏览器就不能加载资源（图片、CSS、脚本）。如果有人把应用的链接粘贴进浏览器的地址栏或从邮件中点击应用的链接时，这种问题就发生。
 
   Some developers may not be able to add the `<base>` element, perhaps because they don't have
   access to `<head>` or the `index.html`.
