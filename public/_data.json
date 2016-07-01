@@ -32,17 +32,5 @@
   },
   "presskit": {
     "title": "宣传资料"
-  },
-  "books": {
-    "title": "书籍"
-  },
-  "training": {
-    "title": "培训"
-  },
-  "communities": {
-    "title": "社区"
-  },
-  "tooling": {
-    "title": "工具与库"
   }
 }

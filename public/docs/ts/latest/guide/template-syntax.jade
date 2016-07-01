@@ -1886,11 +1886,11 @@ block dart-no-truthy-falsey
 +makeExample('template-syntax/ts/app/app.component.ts', 'trackByHeroes')(format=".")
 :marked
   Now set the `NgForTrackBy` directive to that *tracking* function.
-  Angular offers a variety of equivalent syntax choices including these two:
 
   现在，把`NgForTrackBy`指令设置为那个*追踪*函数。
-  Angular从语法上提供了等价的可选变体，比如这两个：
+  
 +makeExample('template-syntax/ts/app/app.component.html', 'NgForTrackBy-2')(format=".")
+
 :marked
   The *tracking* function doesn't eliminate all DOM changes.
   Angular may have to update the DOM element if the same-hero *properties* have changed.

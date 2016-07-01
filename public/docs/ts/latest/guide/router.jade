@@ -3,7 +3,7 @@ include ../_util-fns
 .alert.is-important
 
   :marked
-    The Component Router is in alpha release. This is the recommended Angular 2 router and supersedes
+    The Component Router is in beta release. This is the recommended Angular 2 router and supersedes
     the earlier *deprecated beta* and *v2* routers.
 
     组件路由器已经进入了Alpha阶段，推荐在Angular 2中使用此路由器，以取代早前*废弃的beta版*及*第二版*路由器。
@@ -1612,7 +1612,7 @@ h3#nav-to-list 导航回列表组件
   除非我们能学到点新东西，否则这种练习就没啥亮点。
   不过，我们已经有了一些新主意和新技巧：
 
-  * We'd like our route URLs to branch in to child route trees that reflect the component treese in our feature areas.
+  * We'd like our route URLs to branch in to child route trees that reflect the component trees in our feature areas.
 
   * 我们希望把这些路由地址组织成一棵子路由树，它应该能反映本特性区中组件树的结构。
 
@@ -1909,8 +1909,8 @@ code-example(format="").
 
 :marked
   Since we only want to redirect when our path specifically matches `''`, we've added an extra configuration
-  to our route using `terminal: true`. Mainly for redirects, the `terminal` property gives us more control over
-  when the router should continue matching our URL against our defined routes.
+  to our route using `terminal: true`. Mainly for redirects, the `terminal` property tells the router 
+  whether or not it should continue matching our URL against the rest of our defined routes. 
 
   由于我们希望只有在路径明确的匹配到`''`时才重定向，所以我们往路由中添加了一个额外的配置项：`terminal: true`。
   主要是为了重定向，`terminal`属性是用来控制路由器是否应该继续匹配URL和我们定义的路由。（译者注：`terminal`设置为`true`时，该路由的优先级别就低于其他路由，只有在所有其他路由都不匹配的时候才最后匹配这个路由。主要是为了标示专用于重定向的路由而设计的。）

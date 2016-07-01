@@ -1,7 +1,7 @@
 block includes
   include ../_util-fns
 :marked
-  Web application security has many aspects. This documentation describes Angular's built in
+  Web application security has many aspects. This chapter describes Angular's built in
   protections against common web application vulnerabilities and attacks, such as Cross Site
   Scripting Attacks. It does not cover application level security, such as authentication (_Who is
   this user?_) or authorization (_What can this user do?_).
@@ -97,7 +97,7 @@ h2#xss 防范跨站脚本(XSS)攻击
 
 :marked
   [Cross-Site Scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) enables attackers
-  to inject malicious code into web pages. Such code can then for example steal user's data (in
+  to inject malicious code into web pages. Such code can then, for example, steal user's data (in
   particular their login data), or perform actions impersonating the user. This is one of the most
   common attacks on the web.
 
@@ -151,7 +151,7 @@ h2#xss 防范跨站脚本(XSS)攻击
 
   Angular定义了四个安全环境：HTML，样式，URL，和资源URL。
 
-  * HTML is used when interpreting a value as HTML, e.g. when binding to `innerHtml`
+  * HTML is used when interpreting a value as HTML, e.g., when binding to `innerHtml`
 
   * HTML：值需要被解释为HTML时使用，比如当绑定到`innerHTML`时。
 
@@ -163,7 +163,7 @@ h2#xss 防范跨站脚本(XSS)攻击
 
   * URL：值需要被用作URL属性时使用，比如`<a href>`。
 
-  * Resource URLs are URLs that will be loaded and executed as code, e.g. in `<script src>`
+  * Resource URLs are URLs that will be loaded and executed as code, e.g., in `<script src>`
 
   * 资源URL：值需要被当做代码而加载并执行时使用，比如`<script src>`中的URL。
 
@@ -183,7 +183,7 @@ h2#xss 防范跨站脚本(XSS)攻击
 
   下面的例子绑定了`htmlSnippet`的值，一次把它放进插值表达式里，另一次把它绑定到元素的`innerHTML`属性上。
 
-+makeExample('security/ts/app/inner-html-binding.component.html')(format=".")
++makeExample('app/inner-html-binding.component.html')
 
 :marked
   Interpolated content is always escaped - the HTML is not interpreted, and the browser displays
@@ -198,7 +198,7 @@ h2#xss 防范跨站脚本(XSS)攻击
   如果希望这段HTML被正常解释，就必须绑定到一个HTML属性上，比如`innerHTML`。但是如果把一个可能被攻击者控制的值绑定到`innerHTML`就会导致XSS漏洞。
   比如，包含在`<script>`标签的代码就会被执行。
 
-+makeExample('security/ts/app/inner-html-binding.component.ts', 'inner-html-controller')(format=".")
++makeExcerpt('app/inner-html-binding.component.ts ()', 'inner-html-controller')
 
 :marked
   Angular recognizes the value as unsafe, and automatically sanitizes it. It removes the `<script>`
@@ -227,8 +227,7 @@ figure.image-display
 
   ### 内容安全策略
 
-  A [Content Security Policy (CSP)]
-  (http://www.html5rocks.com/en/tutorials/security/content-security-policy/) is a defense-in-depth
+  A [Content Security Policy (CSP)](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) is a defense-in-depth
   technique to prevent XSS. To enable CSP, configure your web server to return an appropriate
   `Content-Security-Policy` HTTP header.
 
@@ -257,7 +256,7 @@ figure.image-display
   ### 服务器端XSS保护
 
   HTML constructed on the server is vulnerable to injection attacks. Injecting template code into an
-  Angular application is the same as injecting executable code (e.g. JavaScript) into the
+  Angular application is the same as injecting executable code into the
   application; it gives the attacker full control over the application. To prevent this, make sure
   to use a templating language that automatically escapes values to prevent XSS vulnerabilities on
   the server. Do not generate Angular templates on the server side using a templating language, this
@@ -301,15 +300,16 @@ h2#bypass-security-apis 信任安全的值
 
   记住，一个值是否安全取决于它所在的环境，所以你要为这个值按预定的用法选择正确的环境。假设下面的模板需要把`javascript.alert(...)`方法绑定到URL。
 
-+makeExample('security/ts/app/bypass-security.component.html', 'dangerous-url')(format=".")
++makeExcerpt('app/bypass-security.component.html ()', 'dangerous-url')
 
 :marked
-  Normally, Angular would automatically sanitize the URL and disable the dangerous code. To prevent
+  Normally, Angular automatically sanitizes the URL, disables the dangerous code and,
+  in development mode, logs this action to the console. To prevent
   this, we can mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` call:
 
   通常，Angular会自动无害化这个URL并禁止危险的代码。为了防止这种行为，我们可以调用`bypassSecurityTrustUrl`把这个URL值标记为一个可信任的URL：
 
-+makeExample('security/ts/app/bypass-security.component.ts', 'trust-url')(format=".")
++makeExcerpt('app/bypass-security.component.ts ()', 'trust-url')
 
 figure.image-display
     img(src='/resources/images/devguide/security/bypass-security-component.png'
@@ -319,7 +319,7 @@ figure.image-display
   If we need to convert user input into a trusted value, it can be convenient to do so in a
   controller method. The template below allows users to enter a YouTube video ID, and load the
   corresponding video in an `<iframe>`. The `<iframe src>` attribute is a resource URL security
-  context, because an untrusted source can e.g. smuggle in file downloads that unsuspecting users
+  context, because an untrusted source can, e.g., smuggle in file downloads that unsuspecting users
   would execute. So we call a method on the controller to construct a trusted video URL, which
   Angular then allows binding into `<iframe src>`.
 
@@ -327,9 +327,9 @@ figure.image-display
   然后把相应的视频加载到`<iframe>`中。`<iframe src>`是一个“资源URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
   所以我们要调用一个控制器方法来构造一个新的、可信任的视频URL，然后把它绑定到`<iframe src>`。
 
-+makeExample('security/ts/app/bypass-security.component.html', 'iframe-videoid')(format=".")
++makeExcerpt('app/bypass-security.component.html ()', 'iframe-videoid')
 
-+makeExample('security/ts/app/bypass-security.component.ts', 'trust-video-url')(format=".")
++makeExcerpt('app/bypass-security.component.ts ()', 'trust-video-url')
 
 .l-main-section
 h2#http HTTP-level Vulnerabilities
@@ -350,16 +350,16 @@ h3#xsrf 跨站请求伪造（XSRF）
 
 :marked
   In a Cross-site Request Forgery (XSRF or CSRF), an attacker tricks the user into visiting a
-  _different_ page, and has them e.g. submit a form that sends a request to your application's
+  _different_ page, and has them, e.g., submit a form that sends a request to your application's
   web server. If the user is logged into your application, the browser will send authentication
-  cookies, and the attacker could - for example - cause a bank transfer in the user's name with
+  cookies, and the attacker could &mdash; for example &mdash; cause a bank transfer in the user's name with
   the right request.
 
   在跨站请求伪造（XSRF或CSFR）中，一个攻击者会欺骗用户，让他们访问_另一个_页面，并提交一个表单，
   向你应用程序的Web服务器发送一个请求。如果用户已经登录到你的应用程序，浏览器就会发送该用户的认证Cookie，
   这样攻击者就可以发送一个正确的请求，以该用户的名义发起一次银行转账。
 
-  To prevent this, your application must make sure that user requests originate in your own
+  To prevent this, your application must ensure that user requests originate in your own
   application, not on a different site. A common technique is that the server sends a randomly
   generated authentication token in a cookie, often with the name `XSRF-TOKEN`. Cookies can only
   be read by the website on which they are set, so only your own application can read this token. On
@@ -387,17 +387,21 @@ h3#xsrf 跨站请求伪造（XSRF）
 
   Angular applications can customize cookie and header names by binding their own
   `CookieXSRFStrategy` value, or implement an entirely custom `XSRFStrategy` by providing a custom
-  binding for that type, by adding
-  `provide(XSRFStrategy, {useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name')})` or
-  `provide(XSRFStrategy, {useClass: MyXSRFStrategy})` to your providers list.
+  binding for that type, by adding either of the following to your providers list:
 
   Angular应用程序可以通过绑定它们自己的`CookieXSRFStrategy`值来自定义cookie和HTTP头的名字，
-  也可以通过提供一个自定义类型绑定来完全制定`XSRFStrategy`，只要把`provide(XSRFStrategy, {useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name')})`或`provide(XSRFStrategy, {useClass: MyXSRFStrategy})`加到你的供应商列表里就可以了。
+  也可以通过提供一个自定义类型绑定来完全制定`XSRFStrategy`，
+  只要把下列代码之一加到你的供应商列表里就可以了：
 
+code-example(language="typescript").
+  { provide: XSRFStrategy, useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name')}
+  { provide: XSRFStrategy, useClass: MyXSRFStrategy}
+
+:marked
   Learn about Cross Site Request Forgery (XSRF) at the Open Web Application Security Project (OWASP)
   [here](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29) and
   [here](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet). This [Stanford University
-  paper](https://seclab.stanford.edu/websec/csrf/csrf.pdf) is a rich source of detail.
+  paper](https://seclab.stanford.edu/websec/csrf/csrf.pdf) is also a rich source of detail.
 
   到开放式Web应用程序安全项目(OWASP)的[这里](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
   和[这里](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet)学习更多关于跨站请求伪造（XSRF）的知识。
