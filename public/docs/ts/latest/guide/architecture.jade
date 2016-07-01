@@ -727,10 +727,10 @@ figure
 +makeExample('architecture/ts/app/logger.service.ts', 'class', 'app/logger.service.ts (只有类)')(format=".")
 :marked
   Here's a `HeroService` that fetches heroes and returns them in a resolved [promise](http://exploringjs.com/es6/ch_promises.html). 
-  The `HeroService` depends on the `LoggerService` and another `BackendService` that handles the server communication grunt work.
+  The `HeroService` depends on the `Logger` service and another `BackendService` that handles the server communication grunt work.
   
   下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
-  `HeroService`还依赖于`LoggerService`和另一个用来处理服务器通讯工作的`BackendService`。
+  `HeroService`还依赖于`Logger`服务和另一个用来处理服务器通讯工作的`BackendService`服务。
   
 +makeExample('architecture/ts/app/hero.service.ts', 'class', 'app/hero.service.ts (只有类)')(format=".")
 :marked

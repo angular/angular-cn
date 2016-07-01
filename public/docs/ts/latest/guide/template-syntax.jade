@@ -836,8 +836,8 @@ table
     If we must read a target element property or call one of its methods,
     we'll need a different technique.
     See the API reference for
-    [viewChild](../api/core/ViewChild-var.html) and
-    [contentChild](../api/core/ContentChild-var.html).
+    [viewChild](../api/core/index/ViewChild-var.html) and
+    [contentChild](../api/core/index/ContentChild-var.html).
 
     如果我们不得不读取目标元素上的属性或调用它的某个方法，我们得用另一种技术。
     参见API参考手册中的[viewChild](../api/core/index/ViewChild-var.html)和
@@ -1310,7 +1310,7 @@ block style-property-name-dart-diff
   ### Custom events with EventEmitter
   ### 使用EventEmitter实现自定义事件
 
-  Directives typically raise custom events with an Angular [EventEmitter](../api/core/EventEmitter-class.html).
+  Directives typically raise custom events with an Angular [EventEmitter](../api/core/index/EventEmitter-class.html).
   A directive creates an `EventEmitter` and exposes it as a property.
   The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload that can be anything.
   Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
@@ -1456,7 +1456,7 @@ block style-property-name-dart-diff
     The `ngModel` input property sets the element's value property and the `ngModelChange` output property
     listens for changes to the element's value.
     The details are specific to each kind of element and therefore the `NgModel` directive only works for elements,
-    such as the input text box, that are supported by a [ControlValueAccessor](../api/common/ControlValueAccessor-interface.html).
+    such as the input text box, that are supported by a [ControlValueAccessor](../api/common/index/ControlValueAccessor-interface.html).
     We can't apply `[(ngModel)]` to our custom components until we write a suitable *value accessor*,
     a technique that is beyond the scope of this chapter.
 
@@ -1738,8 +1738,8 @@ block dart-no-truthy-falsey
   这里有三个相互合作的指令：
   1. `ngSwitch`: bound to an expression that returns the switch value
   1. `ngSwitch`：绑定到一个返回开关值的表达式
-  1. `ngSwitchWhen`: bound to an expression returning a match value
-  1. `ngSwitchWhen`：绑定到一个返回匹配值的表达式
+  1. `ngSwitchCase`: bound to an expression returning a match value
+  1. `ngSwitchCase`：绑定到一个返回匹配值的表达式
   1. `ngSwitchDefault`: a marker attribute on the default element
   1. `ngSwitchDefault`：一个用于标记出默认元素的Attribute
 
@@ -1749,10 +1749,10 @@ block dart-no-truthy-falsey
 
     **不要**在`ngSwitch`的前面放星号(`*`)，而应该用属性绑定。
 
-    **Do** put the asterisk (`*`) in front of `ngSwitchWhen` and `ngSwitchDefault`.
+    **Do** put the asterisk (`*`) in front of `ngSwitchCase` and `ngSwitchDefault`.
     For more information, see [\* and &lt;template>](#star-template).
 
-    **要**把星号(`*`)放在`ngSwitchWhen`和`ngSwitchDefault`的前面。
+    **要**把星号(`*`)放在`ngSwitchCase`和`ngSwitchDefault`的前面。
     要了解更多信息，参见[\*与&lt;template>](#star-template)。
 
 <a id="ngFor"></a>
@@ -1852,7 +1852,7 @@ block dart-no-truthy-falsey
 +makeExample('template-syntax/ts/app/app.component.html', 'NgFor-3')(format=".")
 .l-sub-section
   :marked
-    Learn about other special *index-like* values such as `last`, `even`, and `odd` in the [NgFor API reference](../api/common/NgFor-directive.html).
+    Learn about other special *index-like* values such as `last`, `even`, and `odd` in the [NgFor API reference](../api/common/index/NgFor-directive.html).
 
     要学习更多的*类似index*的值，例如`last`、`even`和`odd`，请参阅[NgFor API 参考](../api/common/index/NgFor-directive.html)。
 
@@ -1983,13 +1983,13 @@ block remember-the-brackets
   ### Expanding `*ngSwitch`
   ### 展开`*ngSwitch`
   A similar transformation applies to `*ngSwitch`. We can de-sugar the syntax ourselves.
-  Here's an example, first with `*ngSwitchWhen` and `*ngSwitchDefault` and then again with `<template>` tags:
+  Here's an example, first with `*ngSwitchCase` and `*ngSwitchDefault` and then again with `<template>` tags:
 
   类似的转换也作用于`*ngSwitch`上。我们可以自己解开这个语法糖。
-  这里是一个例子，首先是`*ngSwitchWhen`和`*ngSwitchDefault`，然后再解出`<template>`标签：
+  这里是一个例子，首先是`*ngSwitchCase`和`*ngSwitchDefault`，然后再解出`<template>`标签：
 +makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch-expanded')(format=".")
 :marked
-  The `*ngSwitchWhen` and `*ngSwitchDefault` expand in exactly the same manner as `*ngIf`,
+  The `*ngSwitchCase` and `*ngSwitchDefault` expand in exactly the same manner as `*ngIf`,
   wrapping their former elements in `<template>` tags.
 
   `*ngSwitchWhen`和`*ngSwitchDefault`用和`*ngIf`完全相同的方式展开，把它们以前的元素包裹在`<template>`标签中。
@@ -2000,13 +2000,14 @@ block remember-the-brackets
   现在，我们应该明白为什么`ngSwitch`本身不能用星号(*)前缀的原因了吧？
   它没有定义内容，它的工作是控制一组模板。
 
-  In this case, it governs two sets of `NgSwitchWhen` and `NgSwitchDefault` directives.
+  In this case, it governs two sets of `NgSwitchCase` and `NgSwitchDefault` directives.
   We should expect it to display the values of the selected template twice,
   once for the (*) prefixed version and once for the expanded template version.
   That's exactly what we see in this example:
   
-  上面这种情况下，它管理两组`NgSwitchWhen`和`NgSwitchDefault`指令，一次是(*)前缀的版本，一次是展开模板后的版本。
+  上面这种情况下，它管理两组`NgSwitchCase`和`NgSwitchDefault`指令，一次是(*)前缀的版本，一次是展开模板后的版本。
   我们也期待它显示所选模板的值两次。这正是我们在这个例子中看到的：
+  
 figure.image-display
     img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
 :marked

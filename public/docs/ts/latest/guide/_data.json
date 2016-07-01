@@ -86,6 +86,12 @@
     "intro": "学习如何给组件应用CSS样式。"
   },
 
+  "glossary": {
+    "title": "Glossary",
+    "intro": "Brief definitions of the most important words in the Angular 2 vocabulary",
+    "basics": true
+  },
+
   "hierarchical-dependency-injection": {
     "title": "多级依赖注入器",
     "navTitle": "多级注入器",

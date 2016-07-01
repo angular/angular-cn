@@ -222,10 +222,11 @@ table(width="100%")
 
         Most Angular 2 classes have one or more TypeScript *decorators*
         attached to provide configuration and metadata. For example,
-        a component must have a [`@Component`](../api/core/Component-decorator.html) decorator.     
+        a component must have a [`@Component`](../api/core/index/Component-decorator.html) decorator.
         
         大部分Angular 2中的类都会附加一个或多个TypeScript*装饰器*，用来提供配置和元数据。比如组件必须要有一个[`@Component`](../api/core/index/Component-decorator.html)装饰器。
         
+
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'metadata')(format="." )
 
     td
@@ -242,7 +243,7 @@ table(width="100%")
         数组里的每一个条目都对应一个TypeScript装饰器。
 
         In the following example, we create a new instance of `Component` that corresponds
-        to the [`@Component`](../api/core/Component-decorator.html) TypeScript decorator.
+        to the [`@Component`](../api/core/index/Component-decorator.html) TypeScript decorator.
         
         在下面的例子中，我们新建了一个`Component`的新实例，与[`@Component`](../api/core/index/Component-decorator.html)TypeScript装饰器相对应。
 
@@ -356,8 +357,8 @@ table(width="100%")
         在TypeScript里，属性装饰器经常被用来为组件和指令提供额外的元数据。
 
         For [inputs and outputs](../guide/template-syntax.html#inputs-outputs), 
-        we use [`@Input`](../api/core/Input-var.html)
-        and [`@Output`](../api/core/Output-var.html) property decorators.
+        we use [`@Input`](../api/core/index/Input-var.html)
+        and [`@Output`](../api/core/index/Output-var.html) property decorators.
         They may optionally specify input and output binding names if we want them to be
         different from the class property names.
         
@@ -497,10 +498,10 @@ table(width="100%")
 
         We can attach additional decorators to constructor parameters
         to qualify the injection behavior. We can mark
-        optional dependencies with the [`@Optional`](../api/core/Optional-var.html),
-        inject host element attributes with [`@Attribute`](../api/core/Attribute-var.html),
-        inject content child queries with [`@Query`](../api/core/Query-var.html)
-        and inject view child queries with [`@ViewQuery`](../api/core/ViewQuery-var.html).
+        optional dependencies with the [`@Optional`](../api/core/index/Optional-var.html),
+        inject host element attributes with [`@Attribute`](../api/core/index/Attribute-var.html),
+        inject content child queries with [`@Query`](../api/core/index/Query-var.html)
+        and inject view child queries with [`@ViewQuery`](../api/core/index/ViewQuery-var.html).
         
         我们可以往构造函数中附加额外的装饰器来调整注入行为。比如使用[`@Optional`](../api/core/index/Optional-var.html)来标记依赖是可选的，
         用[`@Attribute`](../api/core/index/Attribute-var.html)来注入宿主元素的属性(Attribute)，
@@ -533,8 +534,8 @@ table(width="100%")
 
       :marked
         We can apply other additional parameter decorators such as
-        [`@Host`](../api/core/Host-var.html) and
-        [`@SkipSelf`](../api/core/SkipSelf-var.html) in the same way -
+        [`@Host`](../api/core/index/Host-var.html) and
+        [`@SkipSelf`](../api/core/index/SkipSelf-var.html) in the same way -
         by adding `new ng.core.Host()` or `ng.core.SkipSelf()` in the
         parameters array.
         
@@ -565,9 +566,9 @@ table(width="100%")
         ### `Host`(宿主)装饰器
 
         We can use host property decorators to bind a host element to a component or directive.
-        The [`@HostBinding`](../api/core/HostBinding-var.html) decorator
+        The [`@HostBinding`](../api/core/index/HostBinding-var.html) decorator
         binds host element properties to component data properties. 
-        The [`@HostListener`](../api/core/HostListener-var.html) decorator binds
+        The [`@HostListener`](../api/core/index/HostListener-var.html) decorator bimds
         host element events to component event handlers.
         
         我们可以使用宿主属性装饰器来把宿主元素绑定到组件或指令。
@@ -620,8 +621,8 @@ table(width="100%")
         
         有好几个属性装饰器可以用来查询组件或指令的各级子节点。
         
-        The [`@ViewChild`](../api/core/ViewChild-var.html) and 
-        [`@ViewChildren`](../api/core/ViewChildren-var.html) property decorators
+        The [`@ViewChild`](../api/core/index/ViewChild-var.html) and
+        [`@ViewChildren`](../api/core/index/ViewChildren-var.html) property decorators
         allow a component to query instances of other components that are used in
         its view.
         
@@ -633,8 +634,8 @@ table(width="100%")
       +makeExample('cb-ts-to-js/ts/app/heroes-queries.component.ts', 'view')(format="." )
 
       :marked
-        The [`@ContentChild`](../api/core/ContentChild-var.html) and
-        [`@ContentChildren`](../api/core/ContentChildren-var.html) property decorators
+        The [`@ContentChild`](../api/core/index/ContentChild-var.html) and
+        [`@ContentChildren`](../api/core/index/ContentChildren-var.html) property decorators
         allow a component to query instances of other components that have been projected
         into its view from elsewhere.
         

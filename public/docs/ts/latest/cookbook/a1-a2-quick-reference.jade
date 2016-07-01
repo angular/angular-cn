@@ -722,10 +722,10 @@ table(width="100%")
       +makeExample('cb-a1-a2-quick-reference/ts/app/movie-list.component.html', 'ngSwitch')(format="." )
       :marked
         In Angular&nbsp;2, the `ngSwitch` directive works similarly.
-        It displays an element whose `*ngSwitchWhen` matches the current `ngSwitch` expression value.
+        It displays an element whose `*ngSwitchCase` matches the current `ngSwitch` expression value.
 
         在Angular 2中，`ngSwitch`指令的工作方式与此类似。
-        它会显示那个与`ngSwitch`表达式的当前值匹配的那个`*ngSwitchWhen`所在的元素。
+        它会显示那个与`ngSwitch`表达式的当前值匹配的那个`*ngSwitchCase`所在的元素。
 
         In this example, if `favoriteHero` is not set, the `ngSwitch` value is `null`
         and we see the `*ngSwitchDefault` paragraph, "Please enter ...".
@@ -739,9 +739,9 @@ table(width="100%")
         如果该方法返回`true`，我们就会看到“Excellent choice!”。
         如果该方法返回`false`，我们就会看到“No movie, sorry!”。
 
-        The (*) before `ngSwitchWhen` and `ngSwitchDefault` is required in this example.
+        The (*) before `ngSwitchCase` and `ngSwitchDefault` is required in this example.
 
-        在这个例子中，`ngSwitchWhen`和`ngSwitchDefault`前面的星号(*)是必须的。
+        在这个例子中，`ngSwitchCase`和`ngSwitchDefault`前面的星号(*)是必须的。
 
         For more information on the ngSwitch directive see [Template Syntax](../guide/template-syntax.html#ngSwitch).
 

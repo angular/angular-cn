@@ -413,9 +413,9 @@ table
       p <code><i>路由组件</i></code>
 
     td
-      p An Angular component with a *RouterOutlet* that displays views based on router navigations.
+      p An Angular component with a <code>RouterOutlet</code> that displays views based on router navigations.
 
-      p 一个带有*RouterOutlet*的Angular组件，它根据路由器的导航来显示相应的视图。
+      p 一个带有<code>RouterOutlet</code>的Angular组件，它根据路由器的导航来显示相应的视图。
 
 :marked
   We've barely touched the surface of the router and its capabilities.
@@ -1996,7 +1996,7 @@ h2#guards 路由守卫
   守卫可能会向用户问一个问题、把更改保存到服务器，或者获取新数据，而这些都是异步操作。
 
   Accordingly, a routing guard can return an `Observable<boolean>` and the
-  router will wait for the observable to resolve to `true` or `false.
+  router will wait for the observable to resolve to `true` or `false`.
 
   因此，路由的守卫可以返回一个`Observable<boolean>`，并且路由器会等待这个可观察对象被解析为`true`或`false`。
 
@@ -2907,8 +2907,8 @@ code-example(format="." language="bash").
   然而我们还是需要该类的实例在创建完之后尽快从`HeroService`中获取英雄数据。如果不能放在构造函数中又该怎么办？
 
   Angular detects when a component has certain lifecycle methods like
-  [ngOnInit](../api/core/OnInit-interface.html) and
-  [ngOnDestroy](../api/core/OnDestroy-interface.html) and calls
+  [ngOnInit](../api/core/index/OnInit-class.html) and
+  [ngOnDestroy](../api/core/index/OnDestroy-class.html) and calls
   them
   at the appropriate moment.
 
@@ -3079,7 +3079,7 @@ code-example(format=".", language="bash").
 .l-sub-section
 
   :marked
-    Learn about the [APP_BASE_HREF](../api/router/APP_BASE_HREF-let.html)
+    Learn about the [APP_BASE_HREF](../api/common/index/APP_BASE_HREF-let.html)
     in the API Guide.
 
     你可以到API指南中学习关于[APP_BASE_HREF](../api/router/APP_BASE_HREF-let.html)的更多知识。

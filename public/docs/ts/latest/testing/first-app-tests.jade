@@ -340,7 +340,7 @@ figure.image-display
 
   ### 异步System.import
 
-  The call to `System.import` shouldn't surprise us but it's asynchronous nature might.
+  The call to `System.import` shouldn't surprise us but its asynchronous nature might.
   If we ponder this for a moment, we realize that it must be asynchronous because
   System.js may have to fetch the corresponding JavaScript file from the server.
   Accordingly, `System.import` returns a promise and we must wait for that promise to resolve.
