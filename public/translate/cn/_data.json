@@ -1,6 +1,14 @@
 {
   "about": {
-    "title": "关于中文版",
-    "subtitle": "中文版的目标，译者的话，支持我们"
+    "title": "关于我们",
+    "subtitle": "关于译者及其友军的介绍，译者的感恩"
+  },
+  "follow": {
+    "title": "关注我们",
+    "subtitle": "Angular中文社区的官方公众号及其合作伙伴"
+  },
+  "home": {
+    "title": "官方中文版简介",
+    "subtitle": "Angular官方中文版的简介、致辞等"
   }
 }

@@ -1891,26 +1891,21 @@ code-example(format="").
   它无法匹配上我们配置过的任何路由，这意味着在应用启动的时候它将不会显示任何组件。
   用户必须点击一个导航链接来触发导航并显示点什么。
 
-  We want the application to display the list of crises as it would if we pasted `localhost:3000/crisis-center/` into the address bar.
+  We prefer that the application display the list of crises as it would if the user clicked the "Crisis Center" link or pasted `localhost:3000/crisis-center/` into the address bar.
   This is our intended default route.
+  
+  当用户点击了“Crisis Center”链接或者在地址栏粘贴`localhost:3000/crisis-center/`时，我们更希望该应用能直接显示危机列表。这就是默认路由。
 
-  我们希望该应用显示一个危机列表，就像在地址栏输入`localhost:3000/crisis-center/`时一样。这就是默认路由。
-
-  We can arrange for that behavior in several ways.
-  One way is to use a `redirect` to transparently navigate from one route to another.
-
-  我们可以用多种方式实现此行为。其一是使用`redirect`来从一个路由透明的导航到另一个。
-
-  In our example, we'll add a route to match our initial URL and redirect to our `crisis-center` route:
-
-  在这个例子中，我们将添加一个路由来匹配最初的URL，并重定向到`crisis-center`路由：
-
+  The preferred solution is to add a `redirect` route that transparently translates from the initial URL (`''`) to the preferred default path (`/crisis-center`):
+  
+  首选的解决方案是添加一个`redirect`路由，它会透明的把初始URL（`''`）翻译成默认路径(`/crisis-center`)。
+  
 +makeExample('router/ts/app/crisis-center/crisis-center.routes.2.ts', 'redirect', 'app/crisis-center/crisis-center.routes.ts (redirect route)' )(format='.')
 
 :marked
-  Since we only want to redirect when our path specifically matches `''`, we've added an extra configuration
-  to our route using `terminal: true`. Mainly for redirects, the `terminal` property tells the router 
-  whether or not it should continue matching our URL against the rest of our defined routes. 
+  A redirect route requires a `pathMatch` property to tell the router how to match a URL to the path of a route.
+  In this app, the router should select the route to `CrisisCenterComponent` when the *entire URL* matches `''`,
+  so we set the `pathMatch` value to `'full'`.
 
   由于我们希望只有在路径明确的匹配到`''`时才重定向，所以我们往路由中添加了一个额外的配置项：`terminal: true`。
   主要是为了重定向，`terminal`属性是用来控制路由器是否应该继续匹配URL和我们定义的路由。（译者注：`terminal`设置为`true`时，该路由的优先级别就低于其他路由，只有在所有其他路由都不匹配的时候才最后匹配这个路由。主要是为了标示专用于重定向的路由而设计的。）
@@ -1918,7 +1913,14 @@ code-example(format="").
 .l-sub-section
 
   :marked
-    We'll discuss redirects further in a future update to this chapter.
+    The other possible `pathMatch` value is `'prefix'` which tells the router 
+    to match the redirect route to _any_ URL that _begins_ with the redirect route's _prefix_ path.
+    
+    That's not what we want in our use case. The `''` prefix path matches _every_ URL.
+    We should redirect to the `CrisisCenterComponent` _only_ when the _entire_ url is  `''` 
+    (or the equivalent `'/'`).
+
+    We'll discuss redirects in more detail in a future update to this chapter.
 
     我们将在未来的更新中深入讨论重定向问题。
 
