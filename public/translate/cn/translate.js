@@ -45,11 +45,34 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
             $prevNode.addClass('hidden');
           }
           if (!isLink(node) && !isButton(node)) {
-            $node.on('click', function () {
-              $prevNode.toggleClass('hidden');
+            var isDragging = false;
+            $node.on('mousedown', function(){
+                $(window).on('mousemove', function(){
+                    isDragging = true;
+                    $(window).unbind('mousemove');
+                });       
             });
-            $prevNode.on('click', function () {
-              $prevNode.addClass('hidden');
+            $prevNode.on('mousedown', function(){
+                $(window).on('mousemove', function(){
+                    isDragging = true;
+                    $(window).unbind('mousemove');
+                });       
+            });
+            $node.on('mouseup', function () {
+              var wasDragging = isDragging;
+              isDragging = false;
+              $(window).unbind('mousemove');
+              if(!wasDragging){
+                $prevNode.toggleClass('hidden');
+              }              
+            });
+            $prevNode.on('mouseup', function () {
+              var wasDragging = isDragging;
+              isDragging = false;
+              $(window).unbind('mousemove');
+              if(!wasDragging){
+                $prevNode.addClass('hidden');
+              }              
             });
           }
           $node.after($prevNode);
@@ -57,7 +80,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
       }
     });
   }
-
+  
   function addSpacingBetweenCnAndEn($node) {
     var nodes = document.querySelectorAll('.translated-cn');
     _.each(nodes, function (node) {
