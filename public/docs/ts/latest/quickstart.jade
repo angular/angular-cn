@@ -27,25 +27,30 @@ block includes
     虽然我们正在用#{_Lang}，但你也可以用#{_docsFor == 'ts' ? 'Dart' : 'TypeScript'}和JavaScript来写Angular 2应用。
     只要从Banner区的下拉框选择想用的那种语言就可以了。
 
-h1 Try it!
-h1 试试！
-p
-  | Try the #[+liveExampleLink2()] which loads the sample app
-  +ifDocsFor('ts')
-    | &nbsp;in #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]
-  | &nbsp;and displays the simple message:
-p
-  | 试试#[+liveExampleLink2('在线范例', 'quickstart')]，它将把此范例加载
-  +ifDocsFor('ts')
-    | &nbsp;到 #[a(href="http://plnkr.co/" title="Plunker" target="_blank") plunker]中
-  | &nbsp;并显示一条简单的消息：
+:marked
+  # Try it!
+  
+  # 试试
+
+  Try the <live-example></live-example> which loads the sample app
+  <span if-docs="ts">
+    in <a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>
+  </span>
+  and displays the simple message:
+  
+  试试这个<live-example></live-example>，它将把此范例加载到
+  <span if-docs="ts">
+    <a href="http://plnkr.co/" title="Plunker" target="_blank">plunker</a>中
+  </span>
+  ，并显示一条简单的消息：
 
 figure.image-display
   img(src='/resources/images/devguide/quickstart/my-first-app.png' alt="“快速起步”应用的输出")
 
-h1 Build this app!
-h1 构建此应用！
 :marked
+  # Build this app!
+  # 构建此应用！
+
   - [Prerequisite](#prereq): Install #{_prereq}
   - [环境准备](#prereq): 安装#{_prereq}
   - [Step 1](#create-and-configure): Create the app’s project folder and
@@ -53,8 +58,8 @@ h1 构建此应用！
   - [步骤1](#create-and-configure)：创建本应用的项目文件夹，并且定义包的依赖以及特别的项目设置。
   - [Step 2](#root-component): Create the app’s Angular root component
   - [步骤2](#root-component): 创建本应用的Angular根组件
-  - [Step 3](#main): Add `main.#{_docsFor}`, identifying the root component to Angular
-  - [步骤3](#main)：添加`main.#{_docsFor}`，用来告诉Angular哪个是根组件。
+  - [Step 3](#main): Add <span ngio-ex>main.ts</span>, identifying the root component to Angular
+  - [步骤3](#main)：添加<span ngio-ex>main.ts</span>，用来告诉Angular哪个是根组件。
   - [Step 4](#index): Add `index.html`, the web page that hosts the application
   - [步骤4](#index)：添加`index.html`，本应用的宿主页面。
   - [Step 5](#build-and-run): Build and run the app
@@ -76,7 +81,7 @@ block setup-tooling
     如果你的机器上还没有**[Node.js®和npm](https://nodejs.org/en/download/)**，请安装它们。
   .l-sub-section
     :marked
-      **Verify that you are running at least node `v5.x.x` and npm `3.x.x`**
+      **Verify that you are running at least node `v4.x.x` and npm `3.x.x`**
       by running `node -v` and `npm -v` in a terminal/console window.
       Older versions produce errors.
 
@@ -516,15 +521,15 @@ block create-main
     让[SEO](http://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)更加容易。
     要达成这些目标，我们需要从其它库中引入一个不同类型的`bootstrap`函数。
 
-    ### Why create separate *main.#{_docsFor}* and app component files?
-    ### 为什么创建一个分离的*main.#{_docsFor}*文件和应用组件文件？
+    ### Why create separate *<span ngio-ex>main.ts</span>* and app component files?
+    ### 为什么创建一个分离的*<span ngio-ex>main.ts</span>*文件和应用组件文件？
 
-    Both `main.#{_docsFor}` and the app component files are tiny.
+    Both <span ngio-ex>main.ts</span> and the app component files are tiny.
     This is just a QuickStart.
     We could have merged these two files into one
     and spared ourselves some complexity.
 
-    无论是`main.#{_docsFor}`还是组件的文件都非常小。
+    无论是<span ngio-ex>main.ts</span>还是组件的文件都非常小。
     它只是一个“快速起步”而已。
     我们本可以把这两个文件装进`app.component`文件来减少一点复杂度。
 
@@ -728,7 +733,7 @@ h2#index 步骤4：添加#[code index.html]
 
   a(id="my-app")
   :marked
-    When Angular calls the `bootstrap` function in `main.#{_docsFor}`, it reads the `AppComponent`
+    When Angular calls the `bootstrap` function in <span ngio-ex>main.ts</span>, it reads the `AppComponent`
     metadata, finds the `my-app` selector, locates an element tag named `my-app`,
     and renders our application's view between those tags.
 

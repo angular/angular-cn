@@ -29,8 +29,9 @@ block includes
   - [Summary](#summary)
   - [总结](#summary)
 
-p Run the #[+liveExampleLink2()].
-p 运行#[+liveExampleLink2('在线例子')].
+  Run the <live-example></live-example>.
+
+  运行<live-example></live-example>.
 
 .l-main-section#why-di
 :marked
@@ -658,10 +659,6 @@ block injectable-not-always-needed-in-ts
   fact `InjectableMetadata` #{_decorator}s that
   identify a class as a target for instantiation by an injector.
 
-  如果真的想要这样做，我们*可以*添加它。但是这不是必须的，因为`HerosComponent`已经被`@Component`标识，这个装饰器类(像`@Directive`和`@Pipe`一样，我们一会儿将会学到)
-  是一个<a href="#{injMetaUrl}">InjectableMetadata</a>的子类型。实际上，`InjectableMetadata`装饰器标识着一个类是注入器实例化的目标。
-
-
 block ts-any-decorator-will-do
   .l-sub-section
     :marked
@@ -798,10 +795,10 @@ code-example(format="nocode").
 
 //- Dart limitation: the provide function isn't const so it cannot be used in an annotation.
 - var __andProvideFn = _docsFor == 'dart' ? '' : 'and <i>provide</i> object literal';
-- var __andProvideFn = _docsFor == 'dart' ? '' : '和 <i>provide</i> 对象';
 #provide
 :marked
-  ### *Provider* 类!{__andProvideFn}
+  ### The *Provider* class !{__andProvideFn}
+
 :marked
   We wrote the `providers` #{_array} like this:
 
@@ -813,8 +810,6 @@ p
   | This is actually a short-hand expression for a provider registration
   block canonical-provider-expr
     | &nbsp;using a <i>provider</i> object literal with two properties:
-p
-  | 这实际上是用_provider_对象的字面量注册供应商的缩写表达式。
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-3')
 
@@ -1321,9 +1316,6 @@ block dart-map-alternative
 
     Framework developers may take this approach when they
     must acquire services generically and dynamically.
-
-    框架的开发人员可能会需要此方法 —— 当他们不得不以通用和动态的方式获取服务时。
-// #enddocregion appendix-explicit-injector-2
 
 block one-class-per-file-ts-tradeoffs
   .l-main-section#one-class-per-file

@@ -62,7 +62,7 @@ block includes
     
     * [AfterContentInit和AfterContentChecked](#aftercontent)
 
-p Try the #[+liveExampleLink2()].
+  Try the <live-example></live-example>.
 
 p 试一试#[+liveExampleLink2('在线例子')]。
 
@@ -327,18 +327,19 @@ a(id="other-lifecycles")
   
   第三方库也可能会实现它们自己的钩子，以便让我们这些开发者在使用时能做更多的控制。
 
-a#the-sample
-.l-main-section
-h2 Lifecycle exercises
-h2 生命周期练习
-p.  
-  The #[+liveExampleLink()]
+.l-main-section#the-sample
+:marked
+  ## Lifecycle exercises
+  
+  ## 生命周期练习
+
+  The <live-example></live-example>
   demonstrates the lifecycle hooks in action through a series of exercises
   presented as components under the control of the root `AppComponent`.
   
-p #[+liveExampleLink('运行在线范例')]通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。
+  <live-example></live-example>通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。
   
-:marked
+
   They follow a common pattern:  a *parent* component serves as a test rig for 
   a *child* component that illustrates one or more of the lifecycle hook methods.
   

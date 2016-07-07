@@ -23,16 +23,11 @@ block includes
   We almost think of them as styles.
   In fact, we'd like to apply them in our HTML templates as we do styles.
 
-  显然，对某些值做一点修饰会显得更友好。我们很快就会发现，相同的“数据转换”工作要重复做很多次，甚至会出现在很多应用中。
-  我们甚至可以把它看做样式。
-  事实上，我们确实更喜欢像样式那样把它们应用到HTML模板中。
-p.
   Introducing Angular pipes, a way to write display-value transformations that we can declare in our HTML!
-  Try the #[+liveExampleLink2()].
+  Try the <live-example></live-example>.
 
-p.
   欢迎来到Angular“管道(Pipe)”的世界！我们可以把这种简单的“值-显示”转换器声明在HTML中。
-  试试#[+liveExampleLink2('在线例子')].
+  试试<live-example></live-example>。
 
 .l-main-section
 :marked
@@ -258,18 +253,14 @@ figure.image-display
     Angular built-in pipes are pre-registered.
     Custom pipes must be registered manually.
 
-    如果我们忘了列出自定义管道，Angular会报告一个错误。
-    我们不用在以前的例子中列出`DatePipe`，是因为所有的Angular内建管道都被预先注册过了。
-    而自定义管道就必须被手动注册。
-
 p.
   If we try the #[+liveExampleLink()],
   we can probe its behavior by changing the value and the optional exponent in the template.
 
-p.
-  试试这个#[+liveExampleLink('在线例子')]，然后在模板中修改能量值和可选的放大指数，就能探测它行为方式。
-
 :marked
+  If we try the <live-example></live-example>,
+  we can probe its behavior by changing the value and the optional exponent in the template.
+
   ## Power Boost Calculator (extra-credit)
   ## 能力倍增计算器(加分项)
 
@@ -346,12 +337,10 @@ a#change-detection
 p.
   When we run the sample now we see odd behavior (try it in the #[+liveExampleLink()]).
   Every hero we add is a flying hero but none of them are displayed.
-
-p.
-  如果我们现在就运行这个例子，我们会看到一些古怪的行为(在#[+liveExampleLink('在线例子')]中试试)。
-  我们添加的每个英雄都会飞，但他们一个都没有显示出来。
-
 :marked
+  When we run the sample now we see odd behavior (try it in the <live-example></live-example>).
+  Every hero we add is a flying hero but none of them are displayed.
+
   Although we're not getting the behavior we want, Angular isn't broken.
   It's just using a different change detection algorithm &mdash; one that ignores changes to the list or any of its items.
 
@@ -527,11 +516,10 @@ block pure-change
   我们可以从`FlyingHeroesComponent`派生出一个`FlyingHeroesImpureComponent`。
 
 +makeExample('pipes/ts/app/flying-heroes.component.ts','impure-component','app/flying-heroes.component.ts (FlyingHeroesImpureComponent)')(format='.')
-p.
+:marked
   The only substantive change is the pipe.
-  We can confirm in the #[+liveExampleLink()] that the #[i flying heroes]
-  display updates as we enter new heroes even when we mutate the
-  #[code heroes] #{_array}.
+  We can confirm in the <live-example></live-example> that the _flying heroes_
+  display updates as we enter new heroes even when we mutate the `heroes` #{_array}.
 
 p.
   唯一的重大改动就是管道。

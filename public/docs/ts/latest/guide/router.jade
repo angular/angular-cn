@@ -1458,7 +1458,7 @@ h4#snapshot <i>快照</i>：不需要可观察（no-observable）时的替代方
   假如我们很确定`HeroDetailComponent`组件*永远、永远*不会被复用，每次导航到英雄详情时都会重新创建该组件。
 
   The router offers a *Snapshot* alternative that gives us the initial value of the route parameters.
-  We don't need to subscribe. We don't have to unsubscribe in `ngDestroy`.
+  We don't need to subscribe. We don't have to unsubscribe in `ngOnDestroy`.
   It's much simpler to write and read:
 
   路由器提供了一个备选方案：*快照（snapshot）*，它会给我们路由参数的初始值。这样我们就不用订阅，也就不用不得不在`ngDestroy`中反订阅了。
