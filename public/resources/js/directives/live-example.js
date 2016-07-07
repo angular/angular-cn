@@ -39,7 +39,7 @@ angularIO.directive('liveExample', ['$location', function ($location) {
       // The hosted example and sources are in different locations for Dart.
       // Also show link to sources for Dart, unless noSource is specified.
       if (isForDart && !attrs.hasOwnProperty('nosource')) {
-        var srcText = attrs.srcText || 'view source';
+        var srcText = attrs.srcText || '查看源码';
         var srcHref = 'http://github.com/angular-examples/' + ex;
         template = span(template + ' (' + a(srcText, { href: srcHref, target: '_blank' }) + ')');
       }
