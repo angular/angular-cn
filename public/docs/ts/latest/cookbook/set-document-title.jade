@@ -77,8 +77,8 @@ code-example(format='')
   This means as we bootstrap our application using the Browser platform `boostrap()`
   function, we'll also have to include `Title` service explicitly as one of the bootstrap providers:
   
-  虽然该类是浏览器平台包的一部分，但它*没有被*Angular加载为*浏览器平台上的默认服务供应商*。
-  这意味着，使用浏览器平台的`bootstrap()`函数来引导应用程序时，我们必须要明确地把`Title`服务作为引导期的供应商之一加入进来：
+  虽然该类是浏览器平台包的一部分，但它*没有被*Angular加载为*浏览器平台上的默认服务提供商*。
+  这意味着，使用浏览器平台的`bootstrap()`函数来引导应用程序时，我们必须要明确地把`Title`服务作为引导期的提供商之一加入进来：
 
 +makeExample( "cb-set-document-title/ts/app/main.ts", "bootstrap-title", "app/main.ts (provide Title service)" )(format='.')
 :marked

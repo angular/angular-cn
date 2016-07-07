@@ -130,7 +130,7 @@ include _util-fns
     between a "token" or "key" and a dependency [provider](#provider).
     This more rare usage should be clear in context.
 
-    有可能指的是[依赖注入(Dependency Injection)](#dependency-injection)在一个令牌(Token)或键值(Key)和一个依赖的[供应商(Provider)](#provider)之间的绑定。
+    有可能指的是[依赖注入(Dependency Injection)](#dependency-injection)在一个令牌(Token)或键值(Key)和一个依赖的[提供商(Provider)](#provider)之间的绑定。
     这种用法很少，而且一般都会在上下文中写清楚。
 
 :marked
@@ -144,7 +144,7 @@ include _util-fns
     [dependency injection system](#dependency-injection).
 
     通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，
-    并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[供应商(Provider)](#provider)。
+    并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[提供商(Provider)](#provider)。
 
     One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
 
@@ -386,26 +386,26 @@ include _util-fns
     If the `Injector` can't find a value for a given token, it creates
     a new value using a `Provider` for that token.
 
-    注入器(`Injector`)维护一个令牌与相应依赖值的对照表(map)。如果注入器不能找到一个令牌对应的依赖值，它就会使用供应商(`Provider`)来创建一个依赖值。
+    注入器(`Injector`)维护一个令牌与相应依赖值的对照表(map)。如果注入器不能找到一个令牌对应的依赖值，它就会使用提供商(`Provider`)来创建一个依赖值。
 
     A [Provider](#provider) is a recipe for
     creating new instances of a dependency value associated with a particular token.
 
-    [供应商(Provider)](#provider)是创建依赖实例的“菜谱”之一，这个实例会与一个特定的令牌关联起来。
+    [提供商(Provider)](#provider)是创建依赖实例的“菜谱”之一，这个实例会与一个特定的令牌关联起来。
 
     An injector can only create a value for a given token if it has
     a `Provider` for that token in its internal provider registry.
     Registering providers is a critical preparatory step.
 
-    只有当注入器内部的供应商注册表中存在与令牌对应的供应商时，注入器才能为这个令牌创建一个依赖值。所以注册供应商是一个非常关键的准备步骤。
+    只有当注入器内部的提供商注册表中存在与令牌对应的提供商时，注入器才能为这个令牌创建一个依赖值。所以注册提供商是一个非常关键的准备步骤。
 
     Angular registers some of its own providers with every injector.
     We can register our own providers. Quite often the best time to register a `Provider`
     is when we [bootstrap](#bootstrap) the application.
     There are other opportunities to register as well.
 
-    Angular会为每个注册器注册很多Angular内建供应商。我们也可以注册自己的供应商。通常注册供应商的最佳时间是在应用程序开始[引导(Bootstrap)](#bootstrap)的时候。
-    当然，我们也有其它很多机会注册供应商。
+    Angular会为每个注册器注册很多Angular内建提供商。我们也可以注册自己的提供商。通常注册提供商的最佳时间是在应用程序开始[引导(Bootstrap)](#bootstrap)的时候。
+    当然，我们也有其它很多机会注册提供商。
 
     Learn more in the [Dependency Injection](/docs/ts/latest/guide/dependency-injection.html) chapter.
 
@@ -539,7 +539,7 @@ include _util-fns
     that can find a named "dependency" in its cache or create such a thing
     with a registered [provider](#provider).
 
-    Angular[依赖注入系统(Dependency Injection System)](#dependency-injection)中的一个对象，它可以在自己的缓存中找到一个“有名字的依赖”或者利用一个已注册的[供应商(Provider)](#provider)来创建这样一个依赖。
+    Angular[依赖注入系统(Dependency Injection System)](#dependency-injection)中的一个对象，它可以在自己的缓存中找到一个“有名字的依赖”或者利用一个已注册的[提供商(Provider)](#provider)来创建这样一个依赖。
 :marked
   ## Input
   ## 输入属性(Input)
@@ -775,13 +775,13 @@ include _util-fns
 
 :marked
   ## Provider
-  ## 供应商(Provider)
+  ## 提供商(Provider)
 .l-sub-section
   :marked
     A Provider creates a new instance of a dependency for the Dependency Injection system.
     It relates a lookup token to code - sometimes called a "recipe" - that can create a dependency value.
 
-    依赖注入系统依靠供应商来创建依赖的实例。它把一个供查阅用的令牌和代码(有时也叫“配方”)关联到一起，以便创建依赖值。
+    依赖注入系统依靠提供商来创建依赖的实例。它把一个供查阅用的令牌和代码(有时也叫“配方”)关联到一起，以便创建依赖值。
 
     For example, `new Provider(Foo, {useClass: Foo})` creates a `Provider`
     that relates the `Foo` token to a function that creates a new instance of the `Foo` class.

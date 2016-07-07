@@ -229,19 +229,19 @@ include ../_util-fns
     We pass the configuration array to the `provideRouter()` function which returns
     (among other things) a configured *Router* [service provider](dependency-injection.html#!#injector-providers).
 
-    我们将把这份配置数组传给`provideRouter()`函数，它返回一个经过配置的*Router*[服务供应商](dependency-injection.html#!#injector-providers)（以及别的东西）。
+    我们将把这份配置数组传给`provideRouter()`函数，它返回一个经过配置的*Router*[服务提供商](dependency-injection.html#!#injector-providers)（以及别的东西）。
 
     Finally, we export this provider in the `APP_ROUTER_PROVIDERS` array
     so we can simplify registration of router dependencies later in `main.ts`.
     We don't have any other providers to register right now. But we will.
 
-    最后，我们通过`APP_ROUTER_PROVIDERS`数组导出这个供应商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
-    目前我们还没有注册任何别的供应商，但很快就会这么做了！
+    最后，我们通过`APP_ROUTER_PROVIDERS`数组导出这个提供商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
+    目前我们还没有注册任何别的提供商，但很快就会这么做了！
 
 :marked
   Next we open `main.ts` where we must register our router providers in the `bootstrap` method.
 
-  接下来，打开`main.ts`，我们必须在其中的`bootstrap`函数中注册路由器的供应商们。
+  接下来，打开`main.ts`，我们必须在其中的`bootstrap`函数中注册路由器的提供商们。
 
 +makeExample('router/ts/app/main.ts','','app/main.ts')(format='.')
 
@@ -777,7 +777,7 @@ h4#provideRouter 调用<i>provideRouter</i>
   We pass the route configuration to the `provideRouter` function which returns an array containing the configured
   `Router` service provider ... and some other, unseen providers that the routing library requires.
 
-  我们把路由配置传给`provideRouter`函数，它返回一个数组，其中包括配置好的`Router`服务供应商……和路由库所需的某些你从未见过的供应商。
+  我们把路由配置传给`provideRouter`函数，它返回一个数组，其中包括配置好的`Router`服务提供商……和路由库所需的某些你从未见过的提供商。
 
 :marked
   We add the `provideRouter` array to an `APP_ROUTER_PROVIDERS` array and export it.
@@ -788,7 +788,7 @@ h4#provideRouter 调用<i>provideRouter</i>
   providers that are specific to our routing configuration.
   We don't have any yet. We will have some later in this chapter.
 
-  我们还可以往`APP_ROUTER_PROVIDERS`中添加一些*额外的*供应商，这取决于路由的具体配置。
+  我们还可以往`APP_ROUTER_PROVIDERS`中添加一些*额外的*提供商，这取决于路由的具体配置。
   虽然目前还一个都没有呢，不过稍后就会看到了。
 
 .l-sub-section
@@ -796,7 +796,7 @@ h4#provideRouter 调用<i>provideRouter</i>
   :marked
     Learn about *providers* in the [Dependency Injection](dependency-injection.html#!#injector-providers) chapter.
 
-    在[依赖注入](dependency-injection.html#!#injector-providers)一章中，可以学到关于*供应商*的更多知识。
+    在[依赖注入](dependency-injection.html#!#injector-providers)一章中，可以学到关于*提供商*的更多知识。
 
 h4#register-providers Register routing in bootstrap
 
@@ -819,7 +819,7 @@ h4#register-providers 在启动时注册路由
 :marked
   Providing the router providers at bootstrap makes the Router available everywhere in our application.
 
-  在启动时注册此路由器的供应商会让该路由器在应用的任何地方都有效。
+  在启动时注册此路由器的提供商会让该路由器在应用的任何地方都有效。
 
 .alert.is-important
 
@@ -827,7 +827,7 @@ h4#register-providers 在启动时注册路由
     We must register router providers in `bootstrap`.
     We cannot wait to do it in `AppComponent`.
 
-    我们必须在`bootstrap`中注册路由器的供应商，而不能等到`AppComponent`中再做。
+    我们必须在`bootstrap`中注册路由器的提供商，而不能等到`AppComponent`中再做。
 
 h3#shell The <i>AppComponent</i> shell
 
@@ -1750,7 +1750,7 @@ h3#child-routing-component 子路由组件
   which makes it visible everywhere &mdash;
   we register the `CrisisService` in the component's providers array.
 
-  在*危机中心*领域之外既不需要也没人想要`CrisisService`。与其在根组件`AppComponent`的供应商中注册它导致它在应用的任何地方都可见，不如在组件供应商数组中注册`CrisisService`。
+  在*危机中心*领域之外既不需要也没人想要`CrisisService`。与其在根组件`AppComponent`的提供商中注册它导致它在应用的任何地方都可见，不如在组件提供商数组中注册`CrisisService`。
 
 +makeExample('router/ts/app/crisis-center/crisis-center.component.1.ts', 'providers')(format='.')
 
@@ -2987,7 +2987,7 @@ code-example(format=".", language="bash").
 :marked
   The Angular Component Router supports both styles with two `LocationStrategy` providers:
 
-  Angular组件路由器通过两种`LocationStrategy`供应商来支持所有这些风格：
+  Angular组件路由器通过两种`LocationStrategy`提供商来支持所有这些风格：
 
   1. `PathLocationStrategy` - the default "HTML 5 pushState" style.
 
@@ -3010,7 +3010,7 @@ code-example(format=".", language="bash").
     Learn about "providers" and the bootstrap process in the
     [Dependency Injection chapter](dependency-injection#bootstrap)
 
-    要学习关于“供应商”和启动过程的更多知识，参见[依赖注入](dependency-injection#bootstrap)一章。
+    要学习关于“提供商”和启动过程的更多知识，参见[依赖注入](dependency-injection#bootstrap)一章。
 
 :marked
   ### Which Strategy is Best?

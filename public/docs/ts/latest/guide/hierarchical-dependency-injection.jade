@@ -94,7 +94,7 @@ figure.image-display
   If we run out of ancestors, Angular throws an error.
   
   当一个底层的组件申请获得一个依赖时，Angular先尝试用该组件自己的注入器来满足它。
-  如果该组件的注入器没有找到对应的供应商，它就把这个申请转给它父组件的注入器来处理。
+  如果该组件的注入器没有找到对应的提供商，它就把这个申请转给它父组件的注入器来处理。
   如果那个注入器也无法满足这个申请，它就继续转给*它的*父组件的注入器。
   这个申请继续往上冒泡 —— 直到我们找到了一个能处理此申请的注入器或者超出了组件树中的祖先位置为止。
   如果超出了组件树中的祖先还未找到，Angular就会抛出一个错误。
@@ -106,14 +106,14 @@ figure.image-display
      We'll reserve discussion of this option for another day.
     
     其实还有第三种可能性。一个中层的组件可以声称它自己是“宿主”组件。
-    向上查找供应商的过程会截止于这个“宿主”组件。
+    向上查找提供商的过程会截止于这个“宿主”组件。
     我们先保留这个问题，等改天再讨论这个选项。
 :marked
   Such a proliferation of injectors makes little sense until we consider the possibility that injectors at different levels can be
   configured with different providers. We don't *have* to re-configure providers at every level. But we *can*.
   
-  除非注入器能在各个不同层次上使用不同的供应商进行配置，否则没必要让注入器分裂成这么多。
-  虽然我们并不是*必须*在每一层都重新配置供应商，但我们*可以*这样做。
+  除非注入器能在各个不同层次上使用不同的提供商进行配置，否则没必要让注入器分裂成这么多。
+  虽然我们并不是*必须*在每一层都重新配置提供商，但我们*可以*这样做。
 
   If we don't re-configure, the tree of injectors appears to be flat. All requests bubble up to the root injector that we
   configured with the `bootstrap` method.
@@ -122,7 +122,7 @@ figure.image-display
 
   The ability to configure one or more providers at different levels opens up interesting and useful possibilities.
   
-  在不同层次上重新配置一个或多个供应商的能力，开启了一些既有趣又有用的可能性。
+  在不同层次上重新配置一个或多个提供商的能力，开启了一些既有趣又有用的可能性。
 
   Let’s return to our Car example.
   Suppose we configured the root injector (marked as A) with providers for `Car`, `Engine` and `Tires`.
@@ -130,13 +130,13 @@ figure.image-display
   This child is the parent of another component (C) that defines its own provider for `Car`.
   
   让我们回到“汽车(Car)”类的例子。
-  假设“根注入器”(记为A)配置过`Car`、`Engine`和`Tires`的供应商。
-  然后创建了一个子组件(B)，它为`Car`和`Engine`类定义了自己的供应商。
-  这个子组件(B)又有另一个子组件(C)，(C)也为`Car`定义了自己的供应商。
+  假设“根注入器”(记为A)配置过`Car`、`Engine`和`Tires`的提供商。
+  然后创建了一个子组件(B)，它为`Car`和`Engine`类定义了自己的提供商。
+  这个子组件(B)又有另一个子组件(C)，(C)也为`Car`定义了自己的提供商。
 
   Behind the scenes each component sets up its own injector with one or more providers defined for that component itself.
   
-  幕后的情况是这样的：每个组件都设置了它自己的注入器，这些注入器都带着一个或多个为组件自身设计的供应商。
+  幕后的情况是这样的：每个组件都设置了它自己的注入器，这些注入器都带着一个或多个为组件自身设计的提供商。
 
   When we resolve an instance of `Car` at the deepest component (C),
   its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
@@ -156,7 +156,7 @@ figure.image-display
   In the previous section, we talked about injectors and how they are organized like a tree. Lookups follow the injector tree upwards until they find the requested thing to inject. But when do we actually want to provide providers on the root injector and when do we want to provide them on a child injector?
   
   在前一节中，我们讨论了注入器以及它们是如何被组织成一棵树的。Angular会沿着注入器树往上逐级查找，直到发现了那个申请者要求注入的东西。
-  但是，我们什么时候该在根注入器上提供供应商，什么时候又该在子注入器上提供它们呢？
+  但是，我们什么时候该在根注入器上提供提供商，什么时候又该在子注入器上提供它们呢？
 
   Consider you are building a component to show a list of super heroes that displays each super hero in a card with its name and superpower. There should also be an edit button that opens up an editor to change the name and superpower of our hero.
   
@@ -242,7 +242,7 @@ figure.image-display
   This adds a `RestoreService` provider to the injector of the `HeroEditComponent`.
   Couldn’t we simply alter our bootstrap call to this?
   
-  它往`HeroEditComponent`的注入器中添加了一个`RestoreService`供应商。
+  它往`HeroEditComponent`的注入器中添加了一个`RestoreService`提供商。
   不能简化点儿，直接把我们的bootstrap方法改成这样吗？
 
 +makeExample('hierarchical-dependency-injection/ts/app/main.ts', 'bad-alternative')
@@ -255,7 +255,7 @@ figure.image-display
 
   By configuring a provider for the `RestoreService` on the `HeroEditComponent`, we get exactly one new instance of the `RestoreService`per `HeroEditComponent`.
   
-  通过在`HeroEditComponent`上配置`RestoreService`的供应商，我们可以精确的实现每个`HeroEditComponent`都有一个`RestoreService`的新实例。
+  通过在`HeroEditComponent`上配置`RestoreService`的提供商，我们可以精确的实现每个`HeroEditComponent`都有一个`RestoreService`的新实例。
 
   Does that mean that services aren’t singletons anymore in Angular 2? Yes and no.
   There can be only one instance of a service type in a particular injector.
@@ -270,7 +270,7 @@ figure.image-display
   If we defined a `RestoreService` provider only on the root component,
   we would have exactly one instance of that service and it would be shared across the entire application.
   
-  如果我们只在根组件上定义了一个`RestoreService`供应商，我们就确实只有该服务的一个实例了，它会在整个应用程序中被共享。
+  如果我们只在根组件上定义了一个`RestoreService`提供商，我们就确实只有该服务的一个实例了，它会在整个应用程序中被共享。
 
   That’s clearly not what we want in this scenario. We want each component to have its own instance of the `RestoreService`.
   Defining (or re-defining) a provider at the component level creates a new instance of the service for each new instance
@@ -278,7 +278,7 @@ figure.image-display
   scoped to that component instance and its child components.
   
   但很明显，这个场景下我们不希望这样。我们希望每个组件都有它自己的`RestoreService`实例。
-  在组件级别上定义(或重定义)一个供应商，将会为该组件创建一个新的服务实例。
+  在组件级别上定义(或重定义)一个提供商，将会为该组件创建一个新的服务实例。
   我们已经为`HeroEditComponent`制造了一种“私有”`RestoreService`单例，它的作用范围被局限在了该组件的实例及其子组件中。
 
   <!--

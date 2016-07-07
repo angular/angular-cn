@@ -23,7 +23,7 @@ block includes
   - [Angular dependency injection](#angular-dependency-injection)
   - [Angular依赖注入](#angular-dependency-injection)
   - [Injector providers](#injector-providers)
-  - [注入器供应商](#injector-providers)
+  - [注入器提供商](#injector-providers)
   - [Dependency injection tokens](#dependency-injection-tokens)
   - [依赖注入令牌](#dependency-injection-tokens)
   - [Summary](#summary)
@@ -405,9 +405,9 @@ block ctor-syntax
   We'll explain what [providers](#providers) are later in this chapter.
   Before we do, let's see an example of provider registration during bootstrapping:
 
-  我们必须先注册**供应商Provider**来配置注入器，这些供应商为我们的应用程序创建所需服务。
-  我们将在本章的稍后部分解释什么是[供应商](#providers)。
-  在此之前，我们先来看一个在启动期间注册供应商的例子。
+  我们必须先注册**提供商Provider**来配置注入器，这些提供商为我们的应用程序创建所需服务。
+  我们将在本章的稍后部分解释什么是[提供商](#providers)。
+  在此之前，我们先来看一个在启动期间注册提供商的例子。
 
 +makeExample('dependency-injection/ts/app/main.1.ts', 'bootstrap-discouraged')(format='.')
 
@@ -425,18 +425,18 @@ block ctor-syntax
 
   当然，我们不禁要问，为什么注释中告诉我们不要这么做。
   它*能*工作，但不是最佳实践。
-  bootstrap函数的供应商选项是用来配置和改写Angular自身的预注册服务的，比如它的路由支持。
+  bootstrap函数的提供商选项是用来配置和改写Angular自身的预注册服务的，比如它的路由支持。
 
   The preferred approach is to register application providers in application components.
   Because the `HeroService` is used within the *Heroes* feature area &mdash;
   and nowhere else &mdash; the ideal place to register it is in the top-level `HeroesComponent`.
 
-  首选的方式是在应用的组件中注册供应商。
+  首选的方式是在应用的组件中注册提供商。
   因为`HeroService`是用于*英雄*功能区的 —— 并且没别处用它 —— 所以注册它的理想地点就是顶层的`HeroesComponent`。
 
 :marked
   ### Registering providers in a component
-  ### 在组件中注册供应商
+  ### 在组件中注册提供商
 
   Here's a revised `HeroesComponent` that registers the `HeroService`.
 
@@ -727,7 +727,7 @@ block real-logger
 
 code-example(format="nocode").
   EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)
-  (异常：Logger类没有供应商！(HeroListComponent -> HeroService -> Logger))
+  (异常：Logger类没有提供商！(HeroListComponent -> HeroService -> Logger))
 
 :marked
   That's Angular telling us that the dependency injector couldn't find the *provider* for the logger.
@@ -735,27 +735,27 @@ code-example(format="nocode").
   `HeroService`, which it needed to
   create and inject into a new `HeroListComponent`.
 
-  Angular这是在告诉我们，依赖注入器找不到日志服务的*供应商*。在创建`HeroListComponent`的新实例时需要创建和注入`HeroService`，然后`HeroService`需要创建和注入一个`Logger`实例，Angular需要这个供应商来创建一个`Logger`实例。
+  Angular这是在告诉我们，依赖注入器找不到日志服务的*提供商*。在创建`HeroListComponent`的新实例时需要创建和注入`HeroService`，然后`HeroService`需要创建和注入一个`Logger`实例，Angular需要这个提供商来创建一个`Logger`实例。
 
   The chain of creations started with the `Logger` provider. *Providers* are the subject of our next section.
 
-  这个“创建链”始于`Logger`的供应商。这个*供应商*就是我们下一节的主题。
+  这个“创建链”始于`Logger`的提供商。这个*提供商*就是我们下一节的主题。
 
 .l-main-section#providers
 :marked
   ## Injector providers
-  ## 注入器的供应商们
+  ## 注入器的提供商们
 
   A provider *provides* the concrete, runtime version of a dependency value.
   The injector relies on **providers** to create instances of the services
   that the injector injects into components and other services.
 
-  供应商*提供*所需依赖值的一个具体的运行期版本。
-  注入器依靠**供应商们**来创建服务的实例，它会被注入器注入到组件或其它服务中。
+  提供商*提供*所需依赖值的一个具体的运行期版本。
+  注入器依靠**提供商们**来创建服务的实例，它会被注入器注入到组件或其它服务中。
 
   We must register a service *provider* with the injector, or it won't know how to create the service.
 
-  我们必须为注入器注册一个服务的*供应商*，否则它就不知道该如何创建此服务。
+  我们必须为注入器注册一个服务的*提供商*，否则它就不知道该如何创建此服务。
 
   Earlier we registered the `Logger` service in the `providers` #{_array} of the metadata for the `AppComponent` like this:
 
@@ -776,7 +776,7 @@ code-example(format="nocode").
   But it's not the only way.
 
   有很多方式可以*提供*一些#{implementsCn} `Logger`类的东西。
-  `Logger`类本身是一个显而易见而且自然而然的供应商 —— 它有正确的形态，并且它设计出来就是等着被创建的。
+  `Logger`类本身是一个显而易见而且自然而然的提供商 —— 它有正确的形态，并且它设计出来就是等着被创建的。
   但它不是唯一的选项。
 
   We can configure the injector with alternative providers that can deliver #{objectlike} a `Logger`.
@@ -784,14 +784,14 @@ code-example(format="nocode").
   We could give it a provider that calls a logger factory function.
   Any of these approaches might be a good choice under the right circumstances.
 
-  我们可以使用其它备选供应商来配置这个注入器，只要它们能交付#{objectlikeCn}`Logger`就可以了。
+  我们可以使用其它备选提供商来配置这个注入器，只要它们能交付#{objectlikeCn}`Logger`就可以了。
   我们可以提供一个替身类。#{loggerlikeCn}
-  我们可以给它一个供应商，让它调用一个可以创建日志服务的工厂函数。
+  我们可以给它一个提供商，让它调用一个可以创建日志服务的工厂函数。
   所有这些方法，只要用在正确的场合，都可能是一个好的选择。
 
   What matters is that the injector has a provider to go to when it needs a `Logger`.
 
-  最重要的是：当注入器需要一个`Logger`时，它得先有一个供应商。
+  最重要的是：当注入器需要一个`Logger`时，它得先有一个提供商。
 
 //- Dart limitation: the provide function isn't const so it cannot be used in an annotation.
 - var __andProvideFn = _docsFor == 'dart' ? '' : 'and <i>provide</i> object literal';
@@ -820,7 +820,7 @@ block provider-ctor-args
   The first is the [token](#token) that serves as the key for both locating a dependency value
   and registering the provider.
 
-  第一个是[令牌token](#token)，它作为键值key使用，用于定位依赖值，以及注册这个供应商。
+  第一个是[令牌token](#token)，它作为键值key使用，用于定位依赖值，以及注册这个提供商。
 
   The second is a !{_secondParam},
   which we can think of as a *recipe* for creating the dependency value.
@@ -834,7 +834,7 @@ block provider-ctor-args
 :marked
   ### Alternative class providers
 
-  ### 备选的“类”供应商
+  ### 备选的“类”提供商
 
   Occasionally we'll ask a different class to provide the service.
   The following code tells the injector
@@ -851,7 +851,7 @@ block dart-diff-const-metadata
 :marked
   ### Class provider with dependencies
 
-  ### 带依赖的类供应商
+  ### 带依赖的类提供商
 
   Maybe an `EvenBetterLogger` could display the user name in the log message.
   This logger gets the user from the injected `UserService`,
@@ -872,7 +872,7 @@ block dart-diff-const-metadata
 :marked
   ### Aliased class providers
 
-  ### 别名类供应商
+  ### 别名类提供商
 
   Suppose an old component depends upon an `OldLogger` class.
   `OldLogger` has the same interface as the `NewLogger`, but for some reason
@@ -913,7 +913,7 @@ block dart-diff-const-metadata
 :marked
   ### Value providers
 
-  ### 值供应商
+  ### 值提供商
 
 :marked
   Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class.
@@ -929,7 +929,7 @@ block dart-diff-const-metadata-ctor
   Then we register a provider with the `useValue` option,
   which makes this object play the logger role.
 
-  于是我们可以通过`useValue`选项来注册一个供应商，它会让这个对象直接扮演logger的角色。
+  于是我们可以通过`useValue`选项来注册一个提供商，它会让这个对象直接扮演logger的角色。
 
 - var stylePattern = { otl: /(useValue: \w*)/gm };
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-7', '', stylePattern)(format=".")
@@ -945,7 +945,7 @@ block dart-diff-const-metadata-ctor
 :marked
   ### Factory providers
 
-  ### 工厂供应商
+  ### 工厂提供商
 
   Sometimes we need to create the dependent value dynamically,
   based on information we won't have until the last possible moment.
@@ -960,7 +960,7 @@ block dart-diff-const-metadata-ctor
 
   This situation calls for a **factory provider**.
 
-  这种情况下，请呼叫**工厂供应商**。
+  这种情况下，请呼叫**工厂提供商**。
 
   Let's illustrate by adding a new business requirement:
   the HeroService must hide *secret* heroes from normal users.
@@ -1004,11 +1004,11 @@ block dart-diff-const-metadata-ctor
   We'll have to take over the creation of new instances of this `HeroService` with a factory provider.
 
   我们可以注入`Logger`，但是我们不能注入逻辑型的`isAuthorized`。
-  我们不得不通过通过一个工厂供应商创建这个`HeroService`的新实例。
+  我们不得不通过通过一个工厂提供商创建这个`HeroService`的新实例。
 
   A factory provider needs a factory function:
 
-  工厂供应商需要一个工厂方法：
+  工厂提供商需要一个工厂方法：
 
 +makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','factory', 'app/heroes/hero.service.provider.ts (excerpt)')(format='.')
 
@@ -1019,7 +1019,7 @@ block dart-diff-const-metadata-ctor
 
   We inject both the `Logger` and the `UserService` into the factory provider and let the injector pass them along to the factory function:
 
-  我们同时把`Logger`和`UserService`注入到工厂供应商中，并且让注入器把它们传给工厂方法：
+  我们同时把`Logger`和`UserService`注入到工厂提供商中，并且让注入器把它们传给工厂方法：
 
 +makeExample('dependency-injection/ts/app/heroes/hero.service.provider.ts','provider', 'app/heroes/hero.service.provider.ts (excerpt)')(format='.')
 
@@ -1028,14 +1028,14 @@ block dart-diff-const-metadata-ctor
     The `useFactory` field tells Angular that the provider is a factory function
     whose implementation is the `heroServiceFactory`.
 
-    `useFactory`字段告诉Angular：这个供应商是一个工厂方法，它的实现是`heroServiceFactory`。
+    `useFactory`字段告诉Angular：这个提供商是一个工厂方法，它的实现是`heroServiceFactory`。
 
     The `deps` property is #{_an} #{_array} of [provider tokens](#token).
     The `Logger` and `UserService` classes serve as tokens for their own class providers.
     The injector resolves these tokens and injects the corresponding services into the matching factory function parameters.
 
-    `deps`属性是一个[供应商令牌](#token)数组。
-    `Logger`和`UserService`类作为它们自身供应商的令牌。
+    `deps`属性是一个[提供商令牌](#token)数组。
+    `Logger`和`UserService`类作为它们自身提供商的令牌。
     注入器解析这些令牌，并且把相应的服务注入到工厂函数中相应的参数中去。
 
 - var anexportedvar = lang == 'dart' ? 'a constant' : 'an exported variable'
@@ -1048,8 +1048,8 @@ block dart-diff-const-metadata-ctor
   This extra step makes the factory provider reusable.
   We can register our `HeroService` with this #{variable} wherever we need it.
 
-  注意，我们在#{anexportedvarCn}中捕获了这个工厂供应商：`heroServiceProvider`。
-  这个额外的步骤让工厂供应商可被复用。
+  注意，我们在#{anexportedvarCn}中捕获了这个工厂提供商：`heroServiceProvider`。
+  这个额外的步骤让工厂提供商可被复用。
   只要需要，我们就可以使用这个#{variableCn}注册`HeroService`，无论在哪儿。
 
   In our sample, we need it only in the `HeroesComponent`,
@@ -1078,8 +1078,8 @@ block dart-diff-const-metadata-ctor
   The injector maintains an internal *token-provider* map that it references when
   asked for a dependency. The token is the key to the map.
 
-  当我们为注入器注册一个供应商时，实际上是把这个供应商和一个DI令牌关联起来了。
-  注入器维护一个内部的*令牌-供应商*映射表，这个映射表会在请求一个依赖时被引用到。
+  当我们为注入器注册一个提供商时，实际上是把这个提供商和一个DI令牌关联起来了。
+  注入器维护一个内部的*令牌-提供商*映射表，这个映射表会在请求一个依赖时被引用到。
   令牌就是这个映射表中的键值key。
 
   In all previous examples, the dependency value has been a class *instance*, and
@@ -1130,7 +1130,7 @@ block dart-diff-const-metadata-ctor
   We know we can register an object with a [value provider](#value-provider).
 
   我们想让这个`config`对象在注入时可用。
-  我们已经知道可以使用一个[值供应商](#value-provider)来注册一个对象。
+  我们已经知道可以使用一个[值提供商](#value-provider)来注册一个对象。
 
 block what-should-we-use-as-token
   :marked
@@ -1182,7 +1182,7 @@ block what-should-we-use-as-token
 :marked
   We register the dependency provider using the `OpaqueToken` object:
 
-  我们使用这个`OpaqueToken`对象注册依赖的供应商：
+  我们使用这个`OpaqueToken`对象注册依赖的提供商：
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-9')(format=".")
 
@@ -1245,7 +1245,7 @@ block dart-map-alternative
   adding a parameter to a constructor.
 
   在本章中，我们学习了Angular依赖注入的基础。
-  我们可以注册很多种类的供应商，还知道了该如何通过添加构造函数的参数来请求一个被注入对象(比如服务)。
+  我们可以注册很多种类的提供商，还知道了该如何通过添加构造函数的参数来请求一个被注入对象(比如服务)。
 
   Angular dependency injection is more capable than we've described.
   We can learn more about its advanced features, beginning with its support for

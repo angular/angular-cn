@@ -79,7 +79,7 @@ block http-library
 :marked
   ### Register (provide) *HTTP* services
   
-  ### 注册(供应)*http*服务
+  ### 注册(提供)*http*服务
 
 block http-providers
   :marked
@@ -87,14 +87,14 @@ block http-providers
     The `HTTP_PROVIDERS` array from `@angular/http` library holds providers for the complete set of http services.
     
     我们的应用将会依赖于Angular的`http`服务，它本身又依赖于其它支持类服务。
-    来自`@angular/http`库中的`HTTP_PROVIDERS`数组保存着这些http相关服务供应商的全集。
+    来自`@angular/http`库中的`HTTP_PROVIDERS`数组保存着这些http相关服务提供商的全集。
 
 :marked
   We should be able to access `!{_Http}` services from anywhere in the application.
   So we register them in the `bootstrap` call of <span ngio-ex>main.ts</span> where we
   launch the application and its root `AppComponent`.
   
-  我们要能从本应用的任何地方访问这些服务，所以，就要在`main.ts`中的`bootstrap`方法中注册它们。
+  我们要能从本应用的任何地方访问这些服务，所以，就要在<span ngio-ex>main.ts</span>中的`bootstrap`方法中注册它们。
   这里同时也是我们启动应用及其根组件`AppComponent`的地方。
 
 +makeExcerpt('app/main.ts','v1')

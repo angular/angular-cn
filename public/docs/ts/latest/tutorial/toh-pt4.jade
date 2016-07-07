@@ -352,14 +352,14 @@ code-example(language="bash").
   
 code-example(format="nocode").
     EXCEPTION: No provider for HeroService! (AppComponent -> HeroService)
-    (异常：没有HeroService的供应商！(AppComponent -> HeroService))
+    (异常：没有HeroService的提供商！(AppComponent -> HeroService))
 
 :marked
   We have to teach the *injector* how to make a `HeroService` by registering a `HeroService` **provider**.
   Do that by adding the following `providers` array property to the bottom of the component metadata
   in the `@Component` call.
 
-  我们还得注册一个`HeroService`**供应商**，来告诉*注入器*如何创建`HeroService`。
+  我们还得注册一个`HeroService`**提供商**，来告诉*注入器*如何创建`HeroService`。
   要做到这一点，我们应该在`@Component`组件的元数据底部添加`providers`数组属性如下：
   
 +makeExcerpt('toh-4/ts/app/app.component.1.ts', 'providers')
@@ -642,7 +642,7 @@ a#child-component
   
   * We defined our `HeroService` as a provider for our `AppComponent`.
   
-  * 我们把`HeroService`定义为`AppComponent`的一个供应商。
+  * 我们把`HeroService`定义为`AppComponent`的一个提供商。
   
   * We created mock hero data and imported them into our service.
   

@@ -26,7 +26,7 @@
           "bold": [
             "provide"
           ],
-          "description": "<p>以MyAppComponent作为根组件引导应用，并且配置DI的各种供应商。</p>\n"
+          "description": "<p>以MyAppComponent作为根组件引导应用，并且配置DI的各种提供商。</p>\n"
         }
       ],
       "index": 0
@@ -432,7 +432,7 @@
             "provide",
             "useClass"
           ],
-          "description": "<p>把MyService类的供应商设置或改写为MyMockService。</p>\n"
+          "description": "<p>把MyService类的提供商设置或改写为MyMockService。</p>\n"
         },
         {
           "syntax": "provide(MyService, {useFactory: myFactory})",
@@ -440,7 +440,7 @@
             "provide",
             "useFactory"
           ],
-          "description": "<p>把MyService的供应商设置或改写为myFactory工厂函数。</p>\n"
+          "description": "<p>把MyService的提供商设置或改写为myFactory工厂函数。</p>\n"
         },
         {
           "syntax": "provide(MyValue, {useValue: 41})",
@@ -448,7 +448,7 @@
             "provide",
             "useValue"
           ],
-          "description": "<p>把MyValue的供应商设置或改写为值41。</p>\n"
+          "description": "<p>把MyValue的提供商设置或改写为值41。</p>\n"
         }
       ],
       "index": 9

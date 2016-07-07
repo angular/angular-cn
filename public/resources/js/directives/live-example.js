@@ -3,7 +3,7 @@
 *
 * Renders a link to a live/host example of the doc chapter
 * app this directive is contained in.
-* 
+*
 * Usage:
 *   <live-example [name="..."] [noSource] [srcText="..."]>text</live-example>
 * Example:
@@ -24,7 +24,7 @@ angularIO.directive('liveExample', ['$location', function ($location) {
     restrict: 'E',
 
     compile: function (tElement, attrs) {
-      var text = tElement.text() || 'live example';
+      var text = tElement.text() || '在线例子';
       var ex = attrs.name || NgIoUtil.getExampleName($location);
       var href, template;
 

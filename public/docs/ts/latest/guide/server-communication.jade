@@ -155,19 +155,19 @@ block demos-list
 :marked
   Before we can use the `#{_Http}` client , we'll have to register it as a service provider with the Dependency Injection system.
     
-  要想使用`#{_Http}`客户端，我们得先通过依赖注入系统把它注册成一个服务供应商。
+  要想使用`#{_Http}`客户端，我们得先通过依赖注入系统把它注册成一个服务提供商。
   
 .l-sub-section
   :marked
     Learn about providers in the [Dependency Injection](dependency-injection.html) chapter.
     
-    了解关于供应商的更多知识，参见[依赖注入](dependency-injection.html)一章。
+    了解关于提供商的更多知识，参见[依赖注入](dependency-injection.html)一章。
 
 :marked
   In this demo, we register providers in the `bootstrap()` method of 
   <span ngio-ex>app/main.ts</span>.
   
-  在这个例子中，我们在<span ngio-ex>app/main.ts</span>文件的`bootstrap()`方法中注册供应商。
+  在这个例子中，我们在<span ngio-ex>app/main.ts</span>文件的`bootstrap()`方法中注册提供商。
 
 +makeExample('server-communication/ts/app/main.ts', 'v1', 'app/main.ts (v1)')(format='.')
 
@@ -176,11 +176,11 @@ block http-providers
     We begin by importing the symbols we need, most of them familiar by now. The newcomer is `HTTP_PROVIDERS`, 
     a collection of service providers from the !{_Angular_http_library}.
     
-    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，它是来自!{_Angular_http_libraryCn}的一组服务供应商。
+    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，它是来自!{_Angular_http_libraryCn}的一组服务提供商。
  
     We register HTTP providers in the bootstrap method by passing them in an array as the second parameter after the root component.
     
-    然后我们把这些HTTP服务供应商作为第二个参数传给bootstrap方法(第一个参数用来指定根组件)，把它们注册进应用程序。
+    然后我们把这些HTTP服务提供商作为第二个参数传给bootstrap方法(第一个参数用来指定根组件)，把它们注册进应用程序。
 
     ### Why register in *bootstrap*?
     ### 为什么在*bootstrap*中注册？
@@ -188,12 +188,12 @@ block http-providers
     We prefer to register application-wide providers in the metadata `providers` array
     of the root `AppComponent` like this:
     
-    要注册应用程序级的供应商，我们的首选方式把它放在根组件`AppComponent`元数据的`providers`数组中。就像这样：
+    要注册应用程序级的提供商，我们的首选方式把它放在根组件`AppComponent`元数据的`providers`数组中。就像这样：
   +makeExample('server-communication/ts/app/app.component.ts','http-providers')(format='.')
   :marked
     Here we register the providers in the `bootstrap` method in the `main.ts` file. Why?
     
-    但这里我们却使用`main.ts`中的`bootstrap`方法注册了供应商。为什么呢？
+    但这里我们却使用`main.ts`中的`bootstrap`方法注册了提供商。为什么呢？
     
     This is a *sample application* that doesn't talk to a real server.
     We're going to reconfigure the (typically-hidden) `XhrBackend` service with a fake provider
@@ -201,7 +201,7 @@ block http-providers
     This replacement service is called the [*in-memory web api*](#in-mem-web-api).
     
     因为这是一个*范例程序*，它不会跟真实的服务器打交道。
-    我们准备用一个伪造的供应商[*内存Web API*](#in-mem-web-api)来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的供应商会从一个内存存储区中获取和保存范例数据。    
+    我们准备用一个伪造的提供商[*内存Web API*](#in-mem-web-api)来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的提供商会从一个内存存储区中获取和保存范例数据。    
     
     Such sleight-of-hand is something the root application component should *not* know about.
     For this reason, and this reason *only*, we hide it *above* the `AppComponent` in `main.ts`.
@@ -1203,7 +1203,7 @@ block redirect-to-web-api
     the in-memory web API service using standard Angular provider registration techniques. 
     We initialize the in-memory web API with *seed data* from the mock hero dataset at the same time.
     
-    要想启用我们的服务模拟器，我们通过Angular标准的“供应商注册”技术，把默认的`XHRBackend`服务替换为了这个内存Web API服务。
+    要想启用我们的服务模拟器，我们通过Angular标准的“提供商注册”技术，把默认的`XHRBackend`服务替换为了这个内存Web API服务。
     同时，我们使用来自模拟的英雄数据集的*种子数据*初始化了这个内存Web API。
     
 :marked

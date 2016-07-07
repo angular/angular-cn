@@ -137,7 +137,7 @@ a(id="entries-outputs")
   We probably do not want one giant bundle of everything.
   We'll likely prefer to separate our volatile application app code from comparatively stable vendor code modules.
 
-  我们可能不会希望把所有东西打进一个巨型包儿，而更喜欢把多变的应用代码从相对稳定的第三方供应商模块中分离出来。
+  我们可能不会希望把所有东西打进一个巨型包儿，而更喜欢把多变的应用代码从相对稳定的第三方提供商模块中分离出来。
 
   We change the configuration so that we have two entry points, `app.ts` and `vendor.ts`:
 
@@ -149,7 +149,7 @@ a(id="entries-outputs")
   and emits *two* bundle files, one called `app.js` containing only our application code and
   another called `vendor.js` with all the vendor dependencies.
 
-  Webpack会构造出两个独立的依赖图谱，并产出*两个*包儿文件：一个叫做`app.js`，它只包含我们的应用代码；另一个叫做`vendor.js`，它包含所有的供应商依赖。
+  Webpack会构造出两个独立的依赖图谱，并产出*两个*包儿文件：一个叫做`app.js`，它只包含我们的应用代码；另一个叫做`vendor.js`，它包含所有的提供商依赖。
 
 .l-sub-section
   :marked
@@ -165,7 +165,7 @@ a(id="entries-outputs")
 :marked
   We met `app.ts` earlier. We wrote `vendor.ts` such that it imports the vendor modules we need:
 
-  我们以前见过`app.ts`，就不再赘述了。还要再写一个`vendor.ts`，让它导入我们要用的供应商模块：
+  我们以前见过`app.ts`，就不再赘述了。还要再写一个`vendor.ts`，让它导入我们要用的提供商模块：
 
 +makeExample('webpack/ts/src/vendor.ts', null,'src/vendor.ts')(format=".")
 
@@ -337,7 +337,7 @@ a(id="common-configuration")
 
   * vendor - the vendor files we need: Angular 2, lodash, bootstrap.css...
 
-  * vendor - 我们需要的供应商文件：Angular 2、Lodash、bootstrap.css……
+  * vendor - 我们需要的提供商文件：Angular 2、Lodash、bootstrap.css……
 
   * app - our application code.
 
@@ -425,12 +425,12 @@ a(id="commons-chunk-plugin")
 
   We want the `app.js` bundle to contain only app code and the `vendor.js` bundle to contain only the vendor code.
 
-  我们希望`app.js`包儿中只包含应用代码，而`vendor.js`包中只包含供应商代码。
+  我们希望`app.js`包儿中只包含应用代码，而`vendor.js`包中只包含提供商代码。
 
   Our application code `imports` vendor code. Webpack is not smart enough to keep the vendor code out of the `app.js` bundle.
   We rely on the `CommonsChunkPlugin` to do that job.
 
-  应用代码中`import`了供应商代码。Webpack还没有智能到自动把供应商代码排除在`app.js`包儿之外。
+  应用代码中`import`了提供商代码。Webpack还没有智能到自动把提供商代码排除在`app.js`包儿之外。
   `CommonsChunkPlugin`插件能完成此工作。
 
 .l-sub-section
@@ -624,7 +624,7 @@ a(id="test-configuration")
   The `karma-test-shim` tells Karma what files to pre-load and
   primes the Angular test framework with test versions of the providers that every app expects to be pre-loaded.
 
-  `karma-test-shim`告诉Karma哪些文件需要预加载，首要的是：带有“测试版供应商”的Angular测试框架是每个应用都希望预加载的。
+  `karma-test-shim`告诉Karma哪些文件需要预加载，首要的是：带有“测试版提供商”的Angular测试框架是每个应用都希望预加载的。
 
 +makeExample('webpack/ts/config/karma-test-shim.js', null, 'config/karma-test-shim.js')(format=".")
 
@@ -722,7 +722,7 @@ p.
     The application imports these modules too; they'd be duplicated in the `app.js` bundle
     if the `CommonsChunkPlugin` hadn't detected the overlap and removed them from `app.js`.
 
-  * `vendor.ts`由`import`供应商依赖的语句组成，它最终决定了`vender.js`的内容。
+  * `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
     本应用也导入这些模块，如果没有`CommonsChunkPlugin`插件检测出这种重叠，并且把它们从`app.js`中移除，它们就会同时出现在`app.js`包中。
 
 <a id="conclusions"></a>

@@ -42,7 +42,7 @@ include ../_util-fns
 
   [Define dependencies with providers](#providers)
 
-  [使用供应商定义依赖](#providers)
+  [使用提供商定义依赖](#providers)
 
   * [The *provide* Object literal](#provide)
 
@@ -50,27 +50,27 @@ include ../_util-fns
 
   * [useValue - the *value provider*](#usevalue)
 
-  * [useValue - *值供应商*](#usevalue)
+  * [useValue - *值提供商*](#usevalue)
 
   * [useClass - the *class provider*](#useclass)
 
-  * [useClass - *类供应商*](#useclass)
+  * [useClass - *类提供商*](#useclass)
 
   * [useExisting - the *alias provider*](#useexisting)
 
-  * [useExisting - *别名供应商*](#useexisting)
+  * [useExisting - *别名提供商*](#useexisting)
 
   * [useFactory - the *factory provider*](#usefactory)
 
-  * [useFactory - *工厂供应商*](#usefactory)
+  * [useFactory - *工厂提供商*](#usefactory)
   
   [Define providers with object literals](#object-literals)
 
-  [使用对象字面量定义供应商] (#object-literals)
+  [使用对象字面量定义提供商] (#object-literals)
 
   [Provider token alternatives](#tokens)
 
-  [供应商可选令牌](#tokens)
+  [提供商可选令牌](#tokens)
 
   * [class-interface](#class-interface)
 
@@ -128,7 +128,7 @@ include ../_util-fns
 
   Register providers for dependencies used throughout the application in the root application component, `AppComponent`.
   
-  在应用程序根组件`AppComponent`中注册那些被应用程序全局使用的依赖供应商。
+  在应用程序根组件`AppComponent`中注册那些被应用程序全局使用的依赖提供商。
 
   In the following example, we import and register several services
   (the `LoggerService`, `UserContext`, and the `UserService`)
@@ -142,7 +142,7 @@ include ../_util-fns
   Service classes can act as their own providers which is why listing them in the `providers` array
   is all the registration we need.
 
-  所有这些服务都是用类实现的。服务类能充当自己的供应商，这就是为什么只要把它们列在`providers`数组里就算注册成功了。
+  所有这些服务都是用类实现的。服务类能充当自己的提供商，这就是为什么只要把它们列在`providers`数组里就算注册成功了。
 
 .l-sub-section
   :marked
@@ -150,7 +150,7 @@ include ../_util-fns
     Angular creates a service instance from a class provider by "new-ing" it.
     Learn more about Providers [below](#providers).
 
-    *供应商*是用来新建或者交付服务的。Angular拿到“类供应商”之后，会通过“new”操作来新建服务实例。从[下面](#providers)可以学到更多关于供应商的知识。
+    *提供商*是用来新建或者交付服务的。Angular拿到“类提供商”之后，会通过“new”操作来新建服务实例。从[下面](#providers)可以学到更多关于提供商的知识。
 
 :marked
   Now that we've registered these services,
@@ -170,7 +170,7 @@ include ../_util-fns
 
   We can register _certain_ module providers when bootstrapping rather than in the root application component.
   
-  也可以在引导过程中注册_某些_模块供应商，而非在应用程序根组件里。
+  也可以在引导过程中注册_某些_模块中的提供商，而非在应用程序根组件里。
 
   We'd do this when we expect to select or configure external modules that support our application
   but (a) aren't conceptually part of the application and (b) that we could change later without
@@ -194,7 +194,7 @@ include ../_util-fns
   See both examples in the following `main.ts`
   where we list their service providers in an array in the second parameter of the `bootstrap` method.
   
-  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个数组型参数中，列出了它们的服务供应商。
+  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个数组型参数中，列出了它们的服务提供商。
 
 +makeExample('cb-dependency-injection/ts/app/main.ts','bootstrap','app/main.ts')(format='.')
 
@@ -445,7 +445,7 @@ a(id="qualify-dependency-lookup")
   When a component requests a dependency, Angular starts with that component's injector and walks up the injector tree
   until it finds the first suitable provider.  Angular throws an error if it can't find the dependency during that walk. 
 
-  当组件申请一个依赖时，Angular从该组件本身的注入器开始，沿着依赖注入器的树往上找，直到找到第一个符合要求的供应商。如果Angular不能在这个过程中找到合适的依赖，它就会抛出一个错误。
+  当组件申请一个依赖时，Angular从该组件本身的注入器开始，沿着依赖注入器的树往上找，直到找到第一个符合要求的提供商。如果Angular不能在这个过程中找到合适的依赖，它就会抛出一个错误。
 
   We *want* this behavior most of the time. 
   But sometimes we need to limit the search and/or accommodate a missing dependency.
@@ -526,7 +526,7 @@ figure.image-display
   The host `HeroBioComponent` doesn't have its own `LoggerService` provider.
   
   另一个`@Host()`函数是属性`loggerService`的装饰器，我们知道在应用程序中，只有一个`LoggerService`实例，也就是在`AppComponent`级提供的服务。
-  该宿主`HeroBioComponent`没有自己的`LoggerService`供应商。
+  该宿主`HeroBioComponent`没有自己的`LoggerService`提供商。
 
   Angular would throw an error if we hadn't also decorated the property with the `@Optional()` function.
   Thanks to `@Optional()`, Angular sets the `loggerService` to null and the rest of the component adapts.
@@ -614,11 +614,11 @@ figure.image-display
 :marked
   ## Define dependencies with providers
   
-  ## 使用供应商来定义依赖
+  ## 使用提供商来定义依赖
 
   In this section we learn to write providers that deliver dependent services.
   
-  在这个部分，我们学习如何编写供应商来提供被依赖的服务。
+  在这个部分，我们学习如何编写提供商来提供被依赖的服务。
 
   ### Background
   ### 背景知识
@@ -649,8 +649,8 @@ figure.image-display
 
   注入器从哪儿得到的依赖？
   它可能在自己内部容器里已经有该依赖了。
-  如果它没有，也能在***供应商***的帮助下新建一个。
-  *供应商*就是一个用于交付服务的配方，它被关联到一个令牌。
+  如果它没有，也能在***提供商***的帮助下新建一个。
+  *提供商*就是一个用于交付服务的配方，它被关联到一个令牌。
 
 .l-sub-section
   :marked
@@ -658,42 +658,42 @@ figure.image-display
     to its parent injector, where the process repeats until there are no more injectors. 
     If the search is futile, the injector throws an error ... unless the request was [optional](#optional).
     
-    如果注入器无法根据令牌在自己内部找到对应的供应商，它便将请求移交给它的父级注入器，这个过程不断重复，直到没有更多注入器为止。
+    如果注入器无法根据令牌在自己内部找到对应的提供商，它便将请求移交给它的父级注入器，这个过程不断重复，直到没有更多注入器为止。
     如果没找到，注入器就抛出一个错误...除非这个请求是[可选的](#optional)。
 
     Let's return our attention to providers themselves.
 
-    让我们把注意力转回到供应商。
+    让我们把注意力转回到提供商。
 :marked
   A new injector has no providers.
 
-  新建的注入器中没有供应商。
+  新建的注入器中没有提供商。
 
   Angular initializes the injectors it creates with some providers it cares about.
   We have to register our _own_ application providers manually, 
   usually in the `providers` array of the `Component` or `Directive` metadata:
 
-  Angular会使用一些自带的供应商来初始化这些注入器。我们必须自行注册属于_自己_的供应商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。
+  Angular会使用一些自带的提供商来初始化这些注入器。我们必须自行注册属于_自己_的提供商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。
 
-+makeExample('cb-dependency-injection/ts/app/app.component.ts','providers','app/app.component.ts (供应商)')
++makeExample('cb-dependency-injection/ts/app/app.component.ts','providers','app/app.component.ts (提供商)')
 :marked
   ### Defining providers
   
-  ### 定义供应商
+  ### 定义提供商
 
   The simple class provider is the most typical by far.
   We mention the class in the `providers` array and we're done.
 
-  简单的类供应商是最典型的例子。只要在`providers`数值里面提到该类就可以了。
+  简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','class-provider','app/hero-bios.component.ts (类供应商)')(format='.')
++makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','class-provider','app/hero-bios.component.ts (类提供商)')(format='.')
 :marked
   It's that simple because the most common injected service is an instance of a class.
   But not every dependency can be satisfied by creating a new instance of a class.
   We need other ways to deliver dependency values and that means we need other ways to specify a provider.
   
-  注册类供应商之所以这么简单，是因为最常见的可注入服务就是一个类的实例。
-  但是，并不是所有的依赖都只要创建一个类的新实例就可以交付了。我们还需要其它的交付方式，这意味着我们也需要其它方式来指定供应商。
+  注册类提供商之所以这么简单，是因为最常见的可注入服务就是一个类的实例。
+  但是，并不是所有的依赖都只要创建一个类的新实例就可以交付了。我们还需要其它的交付方式，这意味着我们也需要其它方式来指定提供商。
 
   The `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why we need them.
   
@@ -723,30 +723,30 @@ a(id='provide')
   The *definition* object has one main property, (e.g. `useValue`) that indicates how the provider
   should create or return the provided value.
 
-  该*定义*对象有一个主属性(即`userValue`)，用来标识该供应商会如何新建和返回依赖。
+  该*定义*对象有一个主属性(即`userValue`)，用来标识该提供商会如何新建和返回依赖。
 
 .l-main-section
 a(id='usevalue')
 :marked
   #### useValue - the *value provider*
   
-  #### useValue - *值-供应商*
+  #### useValue - *值-提供商*
 
   Set the `useValue` property to a ***fixed value*** that the provider can return as the dependency object.
   
-  把一个***固定的值**，也就是该供应商可以将其作为依赖对象返回的值，赋给`userValue`属性。
+  把一个***固定的值**，也就是该提供商可以将其作为依赖对象返回的值，赋给`userValue`属性。
 
   Use this technique to provide *runtime configuration constants* such as web-site base addresses and feature flags.
   We often use a *value provider* in a unit test to replace a production service with a fake or mock.
   
   使用该技巧来进行*运行期常量设置*，比如网站的基础地址和功能标志等。
-  我们通常在单元测试中使用*值-供应商*，用一个假的或模仿的(服务)来取代一个生产环境的服务。
+  我们通常在单元测试中使用*值-提供商*，用一个假的或模仿的(服务)来取代一个生产环境的服务。
 
   The `HeroOfTheMonthComponent` example has two *value providers*.
   The first provides an instance of the `Hero` class; 
   the second specifies a literal string resource:
 
-  `HeroOfTheMonthComponent`例子有两个*值-供应商*。
+  `HeroOfTheMonthComponent`例子有两个*值-提供商*。
   第一个提供了一个`Hero`类的实例；第二个指定了一个字符串资源：
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-value')(format='.')
@@ -754,37 +754,37 @@ a(id='usevalue')
   The `Hero` provider token is a class which makes sense because the value is a `Hero`
   and the consumer of the injected hero would want the type information.
   
-  `Hero`供应商的令牌是一个类，这很合理，因为它提供的结果是一个`Hero`实例，并且被注入该英雄的消费者也需要知道它类型信息。
+  `Hero`提供商的令牌是一个类，这很合理，因为它提供的结果是一个`Hero`实例，并且被注入该英雄的消费者也需要知道它类型信息。
 
   The `TITLE` provider token is *not a class*.
   It's a special kind of provider lookup key called an [OpaqueToken](#opaquetoken).
   We often use an `OpaqueToken` when the dependency is a simple value like a string, a number, or a function.
   
-  `TITLE` 供应商的令牌*不是一个类*。它是一个特别类型的供应商查询键，名叫[OpaqueToken](#opaquetoken).
+  `TITLE` 提供商的令牌*不是一个类*。它是一个特别类型的提供商查询键，名叫[OpaqueToken](#opaquetoken).
 
   The value of a *value provider* must be defined *now*. We can't create the value later.
   Obviously the title string literal is immediately available. 
   The `someHero` variable in this example was set earlier in the file:
 
-  一个*值-供应商*的值必须要*立即*定义。不能事后再定义它的值。很显然，标题字符串是立刻可用的。
+  一个*值-提供商*的值必须要*立即*定义。不能事后再定义它的值。很显然，标题字符串是立刻可用的。
   该例中的`someHero`变量是以前在下面这个文件中定义的：
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','some-hero')
 :marked
   The other providers create their values *lazily* when they're needed for injection.
 
-  其它供应商只在需要注入它们的时候才创建并*延迟加载*它们的值。
+  其它提供商只在需要注入它们的时候才创建并*延迟加载*它们的值。
 
 .l-main-section
 a(id='useclass')
 :marked
   #### useClass - the *class provider*
   
-  #### useClass - *类-供应商*
+  #### useClass - *类-提供商*
 
   The `useClass` provider creates and returns new instance of the specified class.
   
-  `userClass`供应商创建并返回一个指定类的新实例。
+  `userClass`提供商创建并返回一个指定类的新实例。
 
   Use this technique to ***substitute an alternative implementation*** for a common or default class.
   The alternative could implement a different strategy, extend the default class,
@@ -802,14 +802,14 @@ a(id='useclass')
   class to be created (`HeroService`) is also the provider's injection token. 
   We wrote it in this long form to de-mystify the preferred short form.
   
-  第一个供应商是*展开了语法糖的*，是一个典型情况的展开。一般来说，被新建的类(`HeroService`)同时也是该供应商的注入令牌。
+  第一个提供商是*展开了语法糖的*，是一个典型情况的展开。一般来说，被新建的类(`HeroService`)同时也是该提供商的注入令牌。
   这里用完整形态来编写它，来反衬我们更喜欢的缩写形式。
 
   The second provider substitutes the `DateLoggerService` for the `LoggerService`.
   The `LoggerService` is already registered at the `AppComponent` level.
   When _this component_ requests the `LoggerService`, it receives the `DateLoggerService` instead.
 
-  第二个供应商使用`DateLoggerService`来满足`LoggerService`。该`LoggerService`在`AppComponent`级别已经被注册。当_这个组件_要求`LoggerService`的时候，它得到的却是`DateLoggerService`服务。
+  第二个提供商使用`DateLoggerService`来满足`LoggerService`。该`LoggerService`在`AppComponent`级别已经被注册。当_这个组件_要求`LoggerService`的时候，它得到的却是`DateLoggerService`服务。
 
 .l-sub-section
   :marked
@@ -829,13 +829,13 @@ a(id='useexisting')
 :marked
   #### useExisting - the *alias provider*
   
-  #### useExisting - *别名-供应商*
+  #### useExisting - *别名-提供商*
 
   The `useExisting` provider maps one token to another.
   In effect, the first token is an ***alias*** for the service associated with second token,
   creating ***two ways to access the same service object***.
 
-  使用`useExisting`，供应商可以把一个令牌映射到另一个令牌上。实际上，第一个令牌是第二个令牌所对应的服务的一个***别名***，创造了***访问同一个服务对象的两种方法***。
+  使用`useExisting`，提供商可以把一个令牌映射到另一个令牌上。实际上，第一个令牌是第二个令牌所对应的服务的一个***别名***，创造了***访问同一个服务对象的两种方法***。
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
 :marked
@@ -860,7 +860,7 @@ figure.image-display
   which happens to be the `DateLoggerService` thanks to the override provider registered previously via `useClass`.
   The following image, which displays the logging date, confirms the point:
 
-  实际上，Angular确实想把`logger`参数设置为注入器里`LoggerService`的完整版本。只是在之前的供应商注册里使用了`useClass`，
+  实际上，Angular确实想把`logger`参数设置为注入器里`LoggerService`的完整版本。只是在之前的提供商注册里使用了`useClass`，
   所以该完整版本被`DateLoggerService`取代了。
   在下面的图片中，显示了日志日期，可以确认这一点：
 
@@ -872,12 +872,12 @@ a(id='usefactory')
 :marked
   #### useFactory - the *factory provider*
   
-  #### useFactory - *工厂-供应商*
+  #### useFactory - *工厂-提供商*
 
   The `useFactory` provider creates a dependency object by calling a factory function
   as seen in this example.
 
-  `useFactory` 供应商通过调用工厂函数来新建一个依赖对象，如下例所示。
+  `useFactory` 提供商通过调用工厂函数来新建一个依赖对象，如下例所示。
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-factory')
 :marked
@@ -900,7 +900,7 @@ a(id='usefactory')
   The `runnersUpFactory` itself isn't the provider factory function.
   The true provider factory function is the function that `runnersUpFactory` returns.
   
-  `runnersUpFactory`自身不是供应商工厂函数。真正的供应商工厂函数是`runnersUpFactory`返回的函数。
+  `runnersUpFactory`自身不是提供商工厂函数。真正的提供商工厂函数是`runnersUpFactory`返回的函数。
 
 +makeExample('cb-dependency-injection/ts/app/runners-up.ts','factory-synopsis','runners-up.ts (excerpt)')(format='.')
 :marked
@@ -934,7 +934,7 @@ a(id="tokens")
 :marked
   ## Provider token alternatives: the *class-interface* and *OpaqueToken*
 
-  ## 备选供应商令牌：*类-接口*和*OpaqueToken*
+  ## 备选提供商令牌：*类-接口*和*OpaqueToken*
 
   Angular dependency injection is easiest when the provider *token* is a class
   that is also the type of the returned dependency object (what we usually call the *service*).
@@ -953,7 +953,7 @@ a(id="tokens")
   In the previous *Hero of the Month* example, we used the `MinimalLogger` class
   as the token for a provider of a `LoggerService`.
 
-  在前面的*每月英雄*的例子中，我们用了`MinimalLogger`类作为`LoggerService` 供应商的令牌。
+  在前面的*每月英雄*的例子中，我们用了`MinimalLogger`类作为`LoggerService` 提供商的令牌。
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
 :marked
@@ -984,7 +984,7 @@ a(id="tokens")
   The key benefit of a *class-interface* is that we can get the strong-typing of an interface
   and we can ***use it as a provider token*** in the same manner as a normal class.
   
-  我们称这种用法的类叫做*类-接口*。它关键的好处是：提供了接口的强类型，能像正常类一样***把它当做供应商令牌使用***。
+  我们称这种用法的类叫做*类-接口*。它关键的好处是：提供了接口的强类型，能像正常类一样***把它当做提供商令牌使用***。
 
   A ***class-interface*** should define *only* the members that its consumers are allowed to call.
   Such a narrowing interface helps decouple the concrete class from its consumers.
@@ -1004,13 +1004,13 @@ a(id="tokens")
     They exist only in the TypeScript design space. 
     They disappear after the code is transpiled to JavaScript.
     
-    不能把接口当做供应商的令牌，因为接口不是有效的JavaScript对象。
+    不能把接口当做提供商的令牌，因为接口不是有效的JavaScript对象。
     它们只存在在TypeScript的设计空间里。它们会在被编译为JavaScript之后消失。
 
     A provider token must be a real JavaScript object of some kind:
     a function, an object, a string ... a class.
     
-    一个供应商令牌必须是一个真实的JavaScript对象，比如：一个函数，一个对象，一个字符串 ...一个类。
+    一个提供商令牌必须是一个真实的JavaScript对象，比如：一个函数，一个对象，一个字符串 ...一个类。
 
     Using a class as an interface gives us the characteristics of an interface in a JavaScript object.
     
@@ -1049,7 +1049,7 @@ a(id='opaque-token')
   We encountered them twice in the *Hero of the Month* example, 
   in the *title* value provider and in the *runnersUp* factory provider.
 
-  `OpaqueToken`具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* 工厂供应商。
+  `OpaqueToken`具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* 工厂提供商。
 
 +makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','provide-opaque-token')(format='.')
 :marked
@@ -1282,8 +1282,8 @@ a(id='alex')
   that creates an *alternative* way to inject the same component instance
   and add that provider to the `providers` array of the `@Component` metadata for the `AlexComponent`:
 
-  我们编写一个[*别名供应商*](#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
-  它新建一个*备选的*方式来注入同一个组件实例，并把这个供应商添加到`AlexComponent`的`@Component`元数据里的`providers`数组。
+  我们编写一个[*别名提供商*](#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
+  它新建一个*备选的*方式来注入同一个组件实例，并把这个提供商添加到`AlexComponent`的`@Component`元数据里的`providers`数组。
 
 a(id="alex-providers")
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
@@ -1291,7 +1291,7 @@ a(id="alex-providers")
   [Parent](#parent-token) is the provider's *class-interface* token. 
   The [*forwardRef*](#forwardref) breaks the circular reference we just created by having the `AlexComponent` refer to itself.
 
-  [Parent](#parent-token)是该供应商的*类-接口*令牌。`AlexComponent`引用了自身，造成循环引用，使用[*forwardRef*](#forwardRef)打破了该循环。
+  [Parent](#parent-token)是该提供商的*类-接口*令牌。`AlexComponent`引用了自身，造成循环引用，使用[*forwardRef*](#forwardRef)打破了该循环。
 
   *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter, the same way we've done it before:
 
@@ -1333,7 +1333,7 @@ a(id="parent-tree")
   If we're going to keep writing [*alias providers*](#useexisting) like this we should create a [helper function](#provideparent).
   
   *Barry*的`providers`数组看起来很像[*Alex*的那个](#alex-providers).
-  如果准备一直像这样编写[*别名供应商*](#useexisting)的话，我们应该建立一个[帮助函数](#provideparent)。
+  如果准备一直像这样编写[*别名提供商*](#useexisting)的话，我们应该建立一个[帮助函数](#provideparent)。
 
   For now, focus on *Barry*'s constructor:
 
@@ -1425,7 +1425,7 @@ a(id="provideparent")
   Writing variations of the same parent *alias provider* gets old quickly,
   especially this awful mouthful with a [*forwardRef*](#forwardref):
 
-  编写父组件相同的各种*别名供应商*很快就会变得啰嗦，在用[*forwardRef](#forwardRef)的时候尤其绕口：
+  编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef](#forwardRef)的时候尤其绕口：
 
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers')(format='.')
 :marked
@@ -1437,7 +1437,7 @@ a(id="provideparent")
 :marked
   Now we can add a simpler, more meaningful parent provider to our components:
 
-  现在就可以为组件添加一个更简单、直观的父级供应商了：
+  现在就可以为组件添加一个更简单、直观的父级提供商了：
 
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alice-providers')(format='.')
 :marked

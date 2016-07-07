@@ -1055,7 +1055,7 @@ figure
   Angular 2. This makes it possible to then inject it somewhere in Angular 2
   code. For example, we might have a service called `HeroesService` in Angular 1:
 
-  在这些情况下，把一个Angular 1供应商*升级到*Angular 2也是有可能的。这就让它将来有可能被注入到Angular 2代码中的某些地方。
+  在这些情况下，把一个Angular 1提供商*升级到*Angular 2也是有可能的。这就让它将来有可能被注入到Angular 2代码中的某些地方。
   比如，我们可能在Angular 1中有一个名叫`HeroesService`的服务：
 
 +makeExample('upgrade-adapter/ts/app/1-to-2-providers/heroes.service.ts', null, 'heroes.service.ts')
@@ -1087,7 +1087,7 @@ figure
 
     在这个例子中，我们升级了服务类。当我们注入它时，我们可以使用TypeScript类型注解来获得这些额外的好处。
     它没有影响该依赖的处理过程，同时还得到了启用静态类型检查的好处。
-    任何Angular 1中的服务、工厂和供应商都能被升级 —— 尽管这不是必须的。
+    任何Angular 1中的服务、工厂和提供商都能被升级 —— 尽管这不是必须的。
 
 :marked
   ## Making Angular 2 Dependencies Injectable to Angular 1
@@ -1117,7 +1117,7 @@ figure
 
   我们又能使用`UpgradeAdapter`处理它了，但首先我们需要把`Heroes`服务注册到Angular 2自身的注入器。
   在纯Angular 2应用中，我们会在引导应用时这么做，就像[依赖注入指南](dependency-injection.html#!#providers)中描述的那样。
-  但是因为混合式应用是使用`UpgradeAdapter`引导的，所以我们还得用`UpgradeAdapter`注册Angular 2的供应商。
+  但是因为混合式应用是使用`UpgradeAdapter`引导的，所以我们还得用`UpgradeAdapter`注册Angular 2的提供商。
   它有一个`addProvider`方法就是用来做这个的。
 
   Once we've registered the Angular 2 provider, we can turn `Heroes` into an *Angular 1
@@ -1125,7 +1125,7 @@ figure
   then plug the factory into an Angular 1 module, at which point we also choose what the
   name of the dependency will be in Angular 1:
 
-  一旦我们注册了Angular 2的供应商，就能用`upgradeAdapter.downgradeNg2Provider()`把`Heroes`转变成一个*Angular 1的工厂函数*。
+  一旦我们注册了Angular 2的提供商，就能用`upgradeAdapter.downgradeNg2Provider()`把`Heroes`转变成一个*Angular 1的工厂函数*。
   然后我们就能把这个工厂插入到Angular 1模块中，那时，我们可以选择该依赖要在Angular 1中用的名字：
 
 +makeExample('upgrade-adapter/ts/app/2-to-1-providers/app.module.ts', 'register', 'app.module.ts')
@@ -1681,7 +1681,7 @@ code-example(format="").
 
   在标准的Angular 2应用中，我们可以把`HTTP_PROVIDERS`传给应用程序的`bootstrap`函数。
   但是在混合式应用中我们不能这么做 —— 比如现在这个。这是因为`UpgradeAdapter`的`bootstrap`方法
-  希望以Angular 1模块作为依赖，而不是Angular 2供应商。
+  希望以Angular 1模块作为依赖，而不是Angular 2提供商。
 
   What we must do instead is register `HTTP_PROVIDERS` into the `UpgradeAdapter`
   separately. It has a method called `addProvider` for that purpose:
@@ -1769,7 +1769,7 @@ code-example(format="").
   1. Register `Phone` as an **Angular 2 provider** with the `addProvider`
      method. That's the same method that we used earlier for `HTTP_PROVIDERS`.
 
-  1. 用`addProvider`方法注册了一个名叫`Phone`的**Angular 2供应商**。这和我们以前使用`HTTP_PROVIDERS`的方法一样。
+  1. 用`addProvider`方法注册了一个名叫`Phone`的**Angular 2提供商**。这和我们以前使用`HTTP_PROVIDERS`的方法一样。
 
   2. Register an **Angular 1 factory** called `phone`, which will be a *downgraded*
      version of the `Phone` Angular 2 service.
@@ -2120,8 +2120,8 @@ code-example(format="").
 
   我们现在就改用Angular 2中标准的`bootstrap`函数来引导本应用，而不再用`UpgradeAdapter`。
   `bootstrap`的第一个参数是应用程序的根组件`AppComponent`，第二个参数是一个由Angular 2中希望被注入的
-  供应商构成的数组。这个数组中，我们包含了至今用`upgradeAdapter.addProvider`注册过的所有东西，
-  比如各种供应商以及路由器中的指令：
+  提供商构成的数组。这个数组中，我们包含了至今用`upgradeAdapter.addProvider`注册过的所有东西，
+  比如各种提供商以及路由器中的指令：
 
 +makeExample('upgrade-phonecat-3-final/ts/app/main.ts', 'bootstrap')
 

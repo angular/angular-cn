@@ -452,7 +452,7 @@ code-example(language="html").
   This is one way to tell Angular that our component's constructor requires a `HeroService` 
   so it can get the list of heroes to display. We'll get to dependency injection in a moment.
   
-  * `providers` - 一个数组，包含组件所依赖的服务所需要的*依赖注入供应商*。 
+  * `providers` - 一个数组，包含组件所依赖的服务所需要的*依赖注入提供商*。 
   这是在告诉Angular：该组件的构造函数需要一个`HeroService`服务，这样组件就可以从服务中获得用来显示英雄列表的那些数据。
   我们一会儿就讲到了依赖注入。
   
@@ -821,14 +821,14 @@ figure
   In brief, we must have previously registered a **provider** of the `HeroService` with the `Injector`.
   A provider is something that can create or return a service, typically  the service class itself.
   
-  简单的说，必须在要求注入`HeroService`之前，注册一个`HeroService`的**供应商Provider**到注入器。
-  供应商可以创建并返回服务，通常返回的就是这个“服务类”本身。
+  简单的说，必须在要求注入`HeroService`之前，注册一个`HeroService`的**提供商Provider**到注入器。
+  提供商可以创建并返回服务，通常返回的就是这个“服务类”本身。
   
   We can register providers at any level of the application component tree.
   We often do so at the root when we bootstrap the application so that
   the same instance of a service is available everywhere.
   
-  可以在应用程序的组件树中的任何级别上注册供应商。
+  可以在应用程序的组件树中的任何级别上注册提供商。
   当需要一个服务的同一个实例在任何地方都是可用时，我们通常在应用引导程序中注册它。
   
 +makeExample('architecture/ts/app/main.ts', 'bootstrap','app/main.ts (节选)')(format=".")
@@ -868,15 +868,15 @@ figure
     
     * an injector can create a new service instance using a *provider*.
     
-    * 注入器能使用*供应商*创建一个新的服务实例。
+    * 注入器能使用*提供商*创建一个新的服务实例。
     
   * a *provider* is a recipe for creating a service.
   
-  * *供应商*是一个用于创建服务的“配方”。
+  * *提供商*是一个用于创建服务的“配方”。
  
   * we register *providers* with injectors.
   
-  * 把*供应商*注册到注入器。
+  * 把*提供商*注册到注入器。
 
 <a id="other-stuff"></a>  
 .l-main-section

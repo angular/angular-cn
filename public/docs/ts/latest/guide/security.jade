@@ -389,7 +389,7 @@ h3#xsrf 跨站请求伪造（XSRF）
 
   Angular应用程序可以通过绑定它们自己的`CookieXSRFStrategy`值来自定义cookie和HTTP头的名字，
   也可以通过提供一个自定义类型绑定来完全制定`XSRFStrategy`，
-  只要把下列代码之一加到你的供应商列表里就可以了：
+  只要把下列代码之一加到你的提供商列表里就可以了：
 
 code-example(language="typescript").
   { provide: XSRFStrategy, useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name')}
