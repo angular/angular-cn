@@ -950,26 +950,60 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use uppercase with underscores when naming constants.
+    **Do** declare variables with `const` if their values should not change during the application lifetime.
     
-    **坚持**使用全大写，用下划线隔开单词的方法来命名常量。
+    **坚持**用`const`声明变量，除非它们的值在应用的生命周期内会发生变化。
 
 .s-why
   :marked
-    **Why?** Follows conventional thinking for constants.
+    **Why?** Conveys to readers that the value is invariant.
     
-    **为何？**遵循传统的常量命名方法。
+    **为何？** 告诉读者这个值是不可变的。
 
 .s-why.s-why-last
   :marked
-    **Why?** Constants can easily be identified.
+    TypeScript helps enforce that intent by requiring immediate initialization and by
+    preventing subsequent re-assignment.
     
-    **为何？**常量更容易被识别。
+    TypeScript会要求在声明时立即初始化，并阻止对其再次赋值，以确保达成我们的意图。
+    
+.s-rule.consider
+  :marked
+    **Consider** spelling `const` variables in lower camel case.
+    
+    **考虑** 把常量名拼写为小驼峰格式。
 
-+makeExample('style-guide/ts/03-02/app/shared/data.service.avoid.ts', 'example', 'app/shared/data.service.ts')(avoid=1)
-:marked
+.s-why
+  :marked
+    **Why?** lower camel case variable names (`heroRoutes`) are easier to read and understand
+    than the traditional UPPER_SNAKE_CASE names (`HERO_ROUTES`).
+    
+    **为何？**小驼峰变量名（`heroRoutes`）比传统的“大写蛇形命名法”（`HERO_ROUTES`）更容易阅读和理解。
 
-+makeExample('style-guide/ts/03-02/app/shared/data.service.ts', 'example', 'app/shared/data.service.ts')
+.s-why.s-why-last
+  :marked
+    **Why?** The tradition of naming constants in UPPER_SNAKE_CASE reflects
+    an era before the modern IDEs that quickly reveal the `const` declaration.
+    TypeScript itself prevents accidental reassignment. 
+    
+    **为何？** 把常量命名为大写蛇形命名法的传统源于现代IDE出现之前，以便阅读时可以快速发现那些`const`定义。
+    而TypeScript本身就能够防止意外赋值。
+    
+.s-rule.do
+  :marked
+    **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
+    
+    **坚持** 容许_现存的_`const`变量沿用大写蛇形命名法。
+
+.s-why.s-why-last
+  :marked
+    **Why?** Although we recommend creating _new_ constants in lower camel case,
+    the tradition of UPPER_SNAKE_CASE remains popular and pervasive,
+    especially in third party modules.
+    
+    **为何？**虽然我们建议用小驼峰命名法创建_新的_常量，但传统的大写驼峰命名法仍然很流行、很普遍，特别是在第三方模块中。
+
++makeExample('style-guide/ts/03-02/app/shared/data.service.ts', '', 'app/shared/data.service.ts')
 :marked
 
 a(href="#toc") Back to top

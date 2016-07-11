@@ -391,11 +391,13 @@ a(id="common-configuration")
 :marked
   * ts - a loader to transpile our Typescript code to ES5, guided by the `tsconfig.json` file
   * ts - 一个用于把TypeScript代码转译成ES5的加载器，它会由`tsconfig.json`文件提供指导
+  * angular2-template-loader - loads angular components' template and styles
+  * angular2-template-loader - 用于加载Angular组件的模板和样式
   * html - for component templates
   * html - 为组件模板准备的加载器
   * images/fonts - Images and fonts are bundled as well.
   * images/fonts - 图片和字体文件也能被打包。
-  * css - The pattern matches application-wide styles; the second handles component-scoped styles (the ones specified in a component's `styleUrls` metadata property).
+  * css - The pattern matches application-wide styles; the second handles component-scoped styles (the ones specified in a component's `styleUrls` metadata property)
   * css - 第一个模式匹配应用级样式，第二个模式匹配组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
 .l-sub-section
   :marked
@@ -411,6 +413,12 @@ a(id="common-configuration")
     which is what Angular expects to do with styles specified in a `styleUrls` metadata property.
 
     第二个模式过滤器是给组件局部样式的，并通过`raw`加载器把它们加载成字符串 —— 那是Angular期望通过元数据的`styleUrls`属性来指定样式的形式。
+
+.l-sub-section
+  :marked
+    Multiple loaders can be also chained using the array notation.
+    
+    多重加载器也能使用数组形式串联起来。
 
 :marked
   Finally we add two plugins:
@@ -710,14 +718,16 @@ p.
     `HtmlWebpackPlugin`会在运行时动态插入它们。
 
   * The `AppComponent` in `app.component.ts` imports the application-wide css with a simple `import` statement.
-
+  
   * `app.component.ts`中的`AppComponent`类简单的用一个`import`语句导入了应用级css。
 
-  * The `AppComponent` itself has its own html template and css files which we load with the `require()` method
-    supplied by Webpack. Webpack stashes those component-scoped files in the `app.js` bundle too.
+  * The `AppComponent` itself has its own html template and css file. WebPack loads them with calls to `require()`. 
+  Webpack stashes those component-scoped files in the `app.js` bundle too.
+  We don't see those calls in our source code; they're added behind the scenes by the `angular2-template-loader` plug-in. 
 
-  * `AppComponent`组件本身有它自己的HTML模板和CSS文件，我们用Webpack提供的`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
-
+  * `AppComponent`组件本身有它自己的HTML模板和CSS文件。Webpack通过调用`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
+  我们在自己的源码中看不到这些调用，这些工作是由幕后的`angular2-template-loader`插件完成的。
+  
   * The `vendor.ts` consists of vendor dependency `import` statements that drive the `vendor.js` bundle.
     The application imports these modules too; they'd be duplicated in the `app.js` bundle
     if the `CommonsChunkPlugin` hadn't detected the overlap and removed them from `app.js`.
