@@ -18,6 +18,7 @@
 ## 编译与发布
 
 1. 用`git clone https://github.com/angular/angular-cn.git`把本项目取到本地。
+1. 用`git clone https://github.com/angular/angular.git`把Angular的源码取到本地。它将用来编译出API文档。
 1. 进入`angular-cn`目录
 1. 运行`npm install`安装依赖包
 1. 运行`gulp check-deploy`命令进行编译并预览（会自动打开浏览器并访问8080端口）
@@ -27,4 +28,4 @@
 
 ## 更多信息
 
-关于本中文版以及两位译者的更多信息，请参见[“关于中文版”](http://www.angular.live/translate/cn/about.html)链接。
+关于本中文版以及两位译者的更多信息，请参见[“关于中文版”](https://angular.cn/translate/cn/home.html)链接。
