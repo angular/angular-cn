@@ -452,7 +452,7 @@ block hero-detail-comp-save-and-goback
   :marked
     The same save method is used for both add and edit since `HeroService` will know when to call `post` vs `put` based on the state of the `Hero` object.
 
-    无论添加还是删除，所用的都是同一个`save`方法，这是因为`HeroService`会根据`Hero`对象的状态判断出什么时候该调用`post`什么时候该调用`put`。
+    无论添加还是编辑，所用的都是同一个`save`方法，这是因为`HeroService`会根据`Hero`对象的状态判断出什么时候该调用`post`什么时候该调用`put`。
   
     After we save a hero, we redirect the browser back to the previous page using the `goBack()` method.
     
@@ -485,7 +485,7 @@ figure.image-display
 :marked
   ### Add/Delete in the *HeroesComponent*
 
-  ### 在*HeroesComponent`中添加/删除
+  ### 在`HeroesComponent`中添加/删除
 
   We'll be reporting propagated HTTP errors, let's start by adding the following
   field to the `HeroesComponent` class:
