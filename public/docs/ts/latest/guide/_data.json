@@ -87,8 +87,8 @@
   },
 
   "glossary": {
-    "title": "Glossary",
-    "intro": "Brief definitions of the most important words in the Angular 2 vocabulary",
+    "title": "词汇表",
+    "intro": "Angular 2重要词汇的简短定义。",
     "basics": true
   },
 
@@ -157,10 +157,5 @@
   "webpack": {
     "title": "Webpack简介",
     "intro": "使用基于Webpack的工具创建Angular 2应用"
-  },
-
-  "glossary": {
-    "title": "词汇表",
-    "intro": "Angular 2重要词汇的简短定义。"
   }
 }
