@@ -44,15 +44,15 @@ figure
   
   1. [Modules](#modules) 
   
-  1. [模块(Module)](#module)
+  1. [模块(Modules)](#modules)
   
   1. [Components](#components)
   
-  1. [组件(Component)](#component)
+  1. [组件(Components)](#components)
   
   1. [Templates](#templates)
   
-  1. [模板(Template)](#template)
+  1. [模板(Templates)](#templates)
   
   1. [Metadata](#metadata)
   
@@ -62,13 +62,13 @@ figure
   
   1. [数据绑定(Data Binding)](#data-binding)
   
-  1. [Directive](#directive)
+  1. [Directives](#directives)
   
-  1. [指令(Directive)](#directive)
+  1. [指令(Directives)](#directives)
   
-  1. [Service](#service)
+  1. [Services](#services)
   
-  1. [服务(Service)](#service)
+  1. [服务(Services)](#services)
   
   1. [Dependency Injection](#dependency-injection)
   
@@ -207,7 +207,6 @@ block angular-library-modules
   `@angular/core`库是主要的Angular模块库，从这里能获得大部分需要的东西。
   
   <br clear="all">
-  
   There are other important Angular libraries too, such as `!{_at_angular}/common`, `!{_at_angular}/router`, and `!{_at_angular}/animate`.
   We import what we need from an Angular !{_library_module}.
   
@@ -916,15 +915,7 @@ figure
  
   * we register *providers* with injectors.
   
-  * 把*提供商*注册到注入器。
-
-  * The *injector* is the main mechanism.
-    * An injector maintains a *container* of service instances that it created.
-    * An injector can create a new service instance from a *provider*.
-
-  * A *provider* is a recipe for creating a service.
-
-  * We register *providers* with injectors.
+  * 把*提供商*注册到注入器。 
 
 .l-main-section
 :marked
@@ -985,32 +976,32 @@ figure
   > [**Animations**](animations.html): The animation library makes it easy for developers to animate component behavior
   without deep knowledge of animation techniques or CSS.
     
-  > [**动画Animations**](animations.html) ： 即将到来的动画库。它能让开发人员更轻易的给组件添加动画行为，而不需要对动画技术或css有深入的了解。
+  > [**动画**](animations.html)： 即将到来的动画库。它能让开发人员更轻易的给组件添加动画行为，而不需要对动画技术或css有深入的了解。
   
   > **Bootstrap**: A method to configure and launch the root application component.
   
-  > **引导Bootstrap**： 配置和引导应用的根组件的方法。
+  > **引导**： 配置和引导应用的根组件的方法。
   
   > **Change detection**: Learn how Angular decides that a component property value has changed and 
   when to update the screen. 
   Learn how it uses **zones** to intercept asynchronous activity and run its change detection strategies. 
   
-  > **变更检测Change Detection**：学会Angular是如何决定组件的属性值变化和什么时候该更新到屏幕的。 
+  > **变更检测**：学会Angular是如何决定组件的属性值变化和什么时候该更新到屏幕的。 
   学会它如何使用**zones**来拦截异步行为和它如何执行变更检测策略。
   
   > **Component router**: With the component Router service, users can navigate a multi-screen application 
   in a familiar web browsing style using URLs.
   
-  > **组件路由Component Router** - 通过组件路由服务，可以让用户使用浏览器中熟悉的URL形式，在多屏应用之间导航。
+  > **组件路由**：通过组件路由服务，可以让用户使用浏览器中熟悉的URL形式，在多屏应用之间导航。
   
   > **Events**: The DOM raises events. So can components and services. Angular offers mechanisms for
   publishing and subscribing to events including an implementation of the [RxJS Observable](https://github.com/zenparsing/es-observable) proposal.
   
-  > **事件Events** - DOM能触发事件，组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实施。
+  > **事件**：DOM能触发事件，组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实施。
   
   > [**Forms**](forms.html): Support complex data entry scenarios with HTML-based validation and dirty checking.
   
-  > [**表单Forms**](forms.html)：通过基于HTML的验证和脏检查机制支持复杂的数据输入场景。
+  > [**表单**](forms.html)：通过基于HTML的验证和脏检查机制支持复杂的数据输入场景。
   
   > [**HTTP**](server-communication.html): Communicate with a server to get data, save data, and invoke server-side actions with this Angular HTTP client.
   
@@ -1019,13 +1010,13 @@ figure
   > [**Lifecycle hooks**](lifecycle-hooks.html): We can tap into key moments in the lifetime of a component, from its creation to its destruction, 
   by implementing the lifecycle hook interfaces.
   
-  > [**生命周期钩子Lifecycle Hooks**](lifecycle-hooks.html)：通过实现生命周期钩子接口，可以切入组件生命中的几个关键点：从创建到销毁。
+  > [**生命周期钩子**](lifecycle-hooks.html)：通过实现生命周期钩子接口，可以切入组件生命中的几个关键点：从创建到销毁。
   
   > [**Pipes**](pipes.html): Services that transform values for display.
   We can put pipes in our templates to improve the user experience. Consider
   this `currency` pipe expression,
   
-  > [**管道Pipes**](pipes.html)：这种服务会转换值以供显示。可以把管道放在模板中，以增强用户体验。比如这个`currency`管道表达式，
+  > [**管道**](pipes.html)：这种服务会转换值以供显示。可以把管道放在模板中，以增强用户体验。比如这个`currency`管道表达式，
   
 <div style="margin-left:40px">
 code-example().
@@ -1045,5 +1036,5 @@ code-example().
   [testing library](https://pub.dartlang.org/packages/angular2_testing)
   to run unit tests on our application parts as they interact with the Angular framework.
   
-  > [**测试Testing**](testing.html)：Angular提供了一个测试库(https://pub.dartlang.org/packages/angular2_testing)，
+  > [**测试**](testing.html)：Angular提供了一个[测试库](https://pub.dartlang.org/packages/angular2_testing)，
   在程序各个部分与Angular框架交互同时，用来“单元测试”它们。
