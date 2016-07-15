@@ -41,6 +41,8 @@ figure.image-display
     The [Routing and Navigation](../guide/router.html) chapter covers the router in more detail
     than we will in this tutorial.
 
+    [路由和导航](../guide/router.html)章节介绍了更多关于路由的细节。
+
 :marked
   Run the <live-example></live-example> for this part.
   
@@ -635,8 +637,12 @@ code-example(language="bash").
 
   * call the service to get heroes inside the Angular `ngOnInit` lifecycle hook.
 
+  * 在Angular的`ngOnInit`生命周期钩子里面调用服务来获得英雄列表。
+
   The noteworthy differences: we cherry-pick four heroes (2nd, 3rd, 4th, and 5th) with *slice*
   and stub the `gotoDetail` method until we're ready to implement it.
+
+  值得注意的区别是：我们用*slice*随机提取了四个英雄（第2、3、4、5个），暂时隔离`gotoDetail`方法直到时机成熟。
 
   Refresh the browser and see four heroes in the new dashboard.
 
@@ -840,6 +846,8 @@ code-example(format='').
 :marked
   Notice how we extract the `id` by calling the `subscribe` method
   which will deliver our array of route parameters.
+
+  注意我们提取`id`的方法：调用`subscribe`方法，它会提供一个路由参数的数组。
 +makeExample('toh-5/ts/app/hero-detail.component.ts', 'get-id')(format=".")
 
 :marked
