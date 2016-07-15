@@ -231,11 +231,11 @@ include ../_util-fns
 
     我们将把这份配置数组传给`provideRouter()`函数，它返回一个经过配置的*Router*[服务提供商](dependency-injection.html#!#injector-providers)（以及别的东西）。
 
-    Finally, we export this provider in the `APP_ROUTER_PROVIDERS` array
+    Finally, we export this provider in the `appRouterProviders` array
     so we can simplify registration of router dependencies later in `main.ts`.
     We don't have any other providers to register right now. But we will.
 
-    最后，我们通过`APP_ROUTER_PROVIDERS`数组导出这个提供商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
+    最后，我们通过`appRouterProviders`数组导出这个提供商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
     目前我们还没有注册任何别的提供商，但很快就会这么做了！
 
 :marked
@@ -743,11 +743,11 @@ h4#define-routes 定义一些路由
 
   我们的第一个配置中定义了由两个路由构成的数组，它们分别通过路径(path)导航到了`CrisisListComponent`和`HeroListComponent`组件。
 
-  Each definition translates to a [Route](../api/router/index/Route-class.html) object which has a
+  Each definition translates to a [Route](../api/router/index/Route-interface.html) object which has a
   `path`, the URL path segment for this route, and a
   `component`, the component associated with this route.
 
-  每个定义都被翻译成了一个[Route](../api/router/index/Route-class.html)对象。该对象有一个`path`字段，表示该路由中的URL路径部分，和一个`component`字段，表示与该路由相关联的组件。
+  每个定义都被翻译成了一个[Route](../api/router/index/Route-interface.html)对象。该对象有一个`path`字段，表示该路由中的URL路径部分，和一个`component`字段，表示与该路由相关联的组件。
 
   The router draws upon its registry of such route definitions when the browser URL changes
   or when our code tells the router to navigate along a route path.
@@ -780,15 +780,15 @@ h4#provideRouter 调用<i>provideRouter</i>
   我们把路由配置传给`provideRouter`函数，它返回一个数组，其中包括配置好的`Router`服务提供商……和路由库所需的某些你从未见过的提供商。
 
 :marked
-  We add the `provideRouter` array to an `APP_ROUTER_PROVIDERS` array and export it.
+  We add the `provideRouter` array to an `appRouterProviders` array and export it.
 
   我们把`provideRouter`数组加进一个`APP_ROUTER_PROVIDERS`数组，并导出它。
 
-  We could add *additional* service providers to `APP_ROUTER_PROVIDERS` &mdash;
+  We could add *additional* service providers to `appRouterProviders` &mdash;
   providers that are specific to our routing configuration.
   We don't have any yet. We will have some later in this chapter.
 
-  我们还可以往`APP_ROUTER_PROVIDERS`中添加一些*额外的*提供商，这取决于路由的具体配置。
+  我们还可以往`appRouterProviders`中添加一些*额外的*提供商，这取决于路由的具体配置。
   虽然目前还一个都没有呢，不过稍后就会看到了。
 
 .l-sub-section
@@ -809,10 +809,10 @@ h4#register-providers 在启动时注册路由
   本应用的启动点位于`/app`目录下的`main.ts`文件中。
   这个文件很短，并且和默认的`main.ts`没有什么不同。
 
-  The important difference: we import the `APP_ROUTER_PROVIDERS` array
+  The important difference: we import the `appRouterProviders` array
   and pass it as the second parameter of the `bootstrap` function.
 
-  最重要的不同点是：这里我们导入了`APP_ROUTER_PROVIDERS`数组，并且把它作为第二个参数传给了`bootstrap`函数。
+  最重要的不同点是：这里我们导入了`appRouterProviders`数组，并且把它作为第二个参数传给了`bootstrap`函数。
 
 +makeExample('router/ts/app/main.1.ts','all', 'main.ts')(format=".")
 
@@ -1896,7 +1896,7 @@ code-example(format="").
   
   当用户点击了“Crisis Center”链接或者在地址栏粘贴`localhost:3000/crisis-center/`时，我们更希望该应用能直接显示危机列表。这就是默认路由。
 
-  The preferred solution is to add a `redirect` route that transparently translates from the initial relative URL (`''`) 
+  The preferred solution is to add a `redirect` route that transparently translates from the initial relative URL (`''`)
   to the desired default path (`/crisis-center`):
   
   首选的解决方案是添加一个`redirect`路由，它会把初始的相对URL（`''`）悄悄翻译成默认路径(`/crisis-center`)。
@@ -1914,21 +1914,21 @@ code-example(format="").
 .l-sub-section
 
   :marked
-    Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`. 
+    Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`.
     In our example, the redirect is at the top level of the route configuration tree so the *remaining* URL and the *entire* URL
     are the same thing.
 
-    The other possible `pathMatch` value is `'prefix'` which tells the router 
+    The other possible `pathMatch` value is `'prefix'` which tells the router
     to match the redirect route when the *remaining* URL ***begins*** with the redirect route's _prefix_ path.
-    
-    That's not what we want to do here. If the `pathMatch` value were `'prefix'`, 
-    _every_ URL would match `''`. 
-    We could never navigate to `/crisis-center/1` because the redirect route would match first and 
+
+    That's not what we want to do here. If the `pathMatch` value were `'prefix'`,
+    _every_ URL would match `''`.
+    We could never navigate to `/crisis-center/1` because the redirect route would match first and
     send us to the `CrisisListComponent`.
-    
+
     We should redirect to the `CrisisListComponent` _only_ when the _entire (remaining)_ url is  `''`.
 
-    Learn more in Victor Savkin's blog 
+    Learn more in Victor Savkin's blog
     [post on redirects](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
 
     We'll discuss redirects in more detail in a future update to this chapter.
@@ -2357,10 +2357,10 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
 +makeExample('router/ts/app/crisis-center/crisis-center.routes.4.ts', '', 'crisis-center.routes.ts')
 
 :marked
-  We also need to add the `Guard` to our main `APP_ROUTER_PROVIDERS` so the `Router` can inject it during the navigation process.
+  We also need to add the `Guard` to our main `appRouterProviders` so the `Router` can inject it during the navigation process.
 
-  我们还要把这个`Guard`添加到主文件的`APP_ROUTER_PROVIDERS`中去，以便`Router`可以在导航过程中注入它。
-
+  我们还要把这个`Guard`添加到主文件的`appRouterProviders`中去，以便`Router`可以在导航过程中注入它。
+  
 +makeExample('router/ts/app/app.routes.ts', '', 'app.routes.ts')
 
 :marked

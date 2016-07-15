@@ -806,10 +806,27 @@ code-example(format="nocode").
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-1')
 
-p
-  | This is actually a short-hand expression for a provider registration
-  block canonical-provider-expr
-    | &nbsp;using a <i>provider</i> object literal with two properties:
+:marked
+  This is actually a short-hand expression for a provider registration
+  
+  这实际上是注册提供商的一种简写表达式。
+  
+  <span if-docs="ts">
+    using a _provider_ object literal with two properties:    
+  </span>
+  
+  <span if-docs="ts">
+      使用一个拥有两个属性的_provider_对象：
+  </span>
+    
+  <span if-docs="dart">
+    that creates a new instance of the
+    [Provider](../api/core/index/Provider-class.html) class:
+  </span>
+  
+  <span if-docs="dart">
+      创建[Provider](../api/core/index/Provider-class.html)类的一个实例：
+    </span>
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-3')
 

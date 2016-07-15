@@ -73,7 +73,8 @@ include _util-fns
     Imagine three modules in a `heroes` folder:
 
     设想在`heroes`目录下有三个模块：
-  code-example(format='').
+
+  code-example.
     // heroes/hero.component.ts
     export class HeroComponent {}
     
@@ -86,7 +87,8 @@ include _util-fns
     Without a barrel, a consumer would need three import statements:
 
     假如没有封装桶，消费者就需要三条import语句：
-  code-example(format='').
+
+  code-example.
     import { HeroComponent } from '../heroes/hero.component.ts';
     import { Hero }          from '../heroes/hero.model.ts';
     import { HeroService }   from '../heroes/hero.service.ts';
@@ -94,7 +96,8 @@ include _util-fns
     We can add a barrel to the `heroes` folder (called `index` by convention) that exports all of these items:
 
     在`heroes`目录下添加一个封装桶(按规约叫做`index`)，它导出所有这三条：
-  code-example(format='').
+
+  code-example.
     export * from './hero.model.ts';   // re-export all of its exports
     export * from './hero.service.ts'; // re-export all of its exports
     export { HeroComponent } from './hero.component.ts'; // re-export the named thing
@@ -102,7 +105,8 @@ include _util-fns
     Now a consumer can import what it needs from the barrel.
 
     现在，消费者就就可以从这个封装桶中导入它需要的东西了。
-  code-example(format='').
+
+  code-example.
     import { Hero, HeroService } from '../heroes'; // index is implied
   :marked
     The Angular [scoped packages](#scoped-package) each have a barrel named `index`.
@@ -113,7 +117,8 @@ include _util-fns
   That's why we can write this:
 
   这就是为什么可以这样写的原因：
-+makeExample('../docs/_fragments/quickstart/ts/app/app.component.ts', 'import')(format=".")
+
++makeExcerpt('quickstart/ts/app/app.component.ts', 'import', '')
 // #docregion b-c
 
 :marked
@@ -862,8 +867,8 @@ include _util-fns
     使用和导入*普通*包相同的方式导入范围化包。
     从消费者的视角看，唯一的不同是那些包的名字是用Angular的*范围名*`@angular`开头儿的。
 
-+makeExample('../docs/_fragments/architecture/ts/app/app.component.ts', 'import')(format=".")
-// #docregion n-s
+  +makeExcerpt('architecture/ts/app/app.component.ts', 'import', '')
+// #docregion n-s-2
 
 :marked
   ## Structural Directive

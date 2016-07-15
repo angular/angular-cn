@@ -403,7 +403,9 @@ gulp.task('add-example-boilerplate', function() {
 
 // copies boilerplate files to locations
 // where an example app is found
-gulp.task('_copy-example-boilerplate', copyExampleBoilerplate);
+gulp.task('_copy-example-boilerplate', function () {
+  if (!argv.fast) copyExampleBoilerplate();
+});
 
 
 // copies boilerplate files to locations
@@ -450,6 +452,36 @@ gulp.task('remove-example-boilerplate', function() {
 
   deleteExampleBoilerPlate();
 });
+
+// Npm install Angular libraries into examples/node_modules,
+// either release or current build packages
+// Examples:
+//   gulp install-example-angular --build  // use current build packages
+//   gulp install-example-angular          // restore release packages
+gulp.task('install-example-angular', installExampleAngular);
+
+function installExampleAngular() {
+  var sources;
+  var template;
+  var libs = [
+    'core', 'common', 'compiler',
+    'platform-browser', 'platform-browser-dynamic',
+    'forms', 'http', 'router', 'upgrade'];
+
+  // Like: "angular/core-builds" or "@angular/core"
+  sources = libs.map( lib => argv.build ? `angular/${lib}-builds` : `@angular/${lib}`);
+
+  sources.push('@angular/router-deprecated');
+
+  gutil.log(`Installing Angular npm packages from ${argv.build ? 'BUILD' : 'RELEASE'}`);
+
+  var spawnInfo = spawnExt('rm', ['-rf', 'node_modules/@angular'], { cwd: EXAMPLES_PATH});
+  return spawnInfo.promise
+    .then(() =>  {
+      spawnInfo = spawnExt('npm', ['install', ...sources], {cwd: EXAMPLES_PATH});
+      return spawnInfo.promise
+    });
+}
 
 // deletes boilerplate files that were added by copyExampleBoilerplate
 // from locations where an example app is found
@@ -564,16 +596,16 @@ gulp.task('git-changed-examples', ['_shred-devguide-examples'], function(){
   });
 });
 
+gulp.task('harp-compile', ['build-docs'], function() {
+  return harpCompile();
+});
+
 gulp.task('check-deploy', ['build-docs'], function() {
   return harpCompile().then(function() {
     gutil.log('compile ok');
-    if(argv.dryRun) {
-      return false;
-    } else {
-      gutil.log('running live server ...');
-      execPromise('npm run live-server ./www');
-      return askDeploy();
-    }
+    gutil.log('running live server ...');
+    execPromise('npm run live-server ./www');
+    return askDeploy();
   }).then(function(shouldDeploy) {
     if (shouldDeploy) {
       gutil.log('deploying...');
@@ -596,7 +628,18 @@ gulp.task('test-api-builder', function (cb) {
 //   angular.io:  gulp link-checker
 //   local site:  gulp link-checker --url=http://localhost:3000
 gulp.task('link-checker', function(done) {
-  return linkChecker();
+  var method = 'get'; // the default 'head' fails for some sites
+  var exclude = [
+    // Dart API docs aren't working yet; ignore them
+    '*/dart/latest/api/*',
+    // Somehow the link checker sees ng1 {{...}} in the resource page; ignore it
+    'resources/%7B%7Bresource.url%7D%7D',
+    // API docs have links directly into GitHub repo sources; these can
+    // quickly become invalid, so ignore them for now:
+    '*/angular/tree/*'
+  ];
+  var blcOptions = { requestMethod: method, excludedKeywords: exclude};
+  return linkChecker({ blcOptions: blcOptions });
 });
 
 
@@ -727,12 +770,8 @@ function linkChecker(options) {
   var blcOptions = options.blcOptions || {};
   var customData = options.customData || {};
 
-  var excludeBad; // don't bother reporting bad links matching this RegExp
-  if (argv.excludeBad) {
-    excludeBad = new RegExp(argv.excludeBad);
-  } else {
-    excludeBad = options.excludeBad === undefined ? /docs\/dart\/latest\/api/ : '';
-  }
+  // don't bother reporting bad links matching this RegExp
+  var excludeBad = argv.excludeBad ? new RegExp(argv.excludeBad) : (options.excludeBad || '');
 
   var previousPage;
   var siteUrl = argv.url || options.url || 'https://angular.io/';
@@ -779,7 +818,8 @@ function linkChecker(options) {
   var outputFile = path.join(process.cwd(), 'link-checker-results.txt');
   var header = 'Link checker results for: ' + siteUrl +
                '\nStarted: ' + (new Date()).toLocaleString() +
-               '\nSkipping bad links matching regex: ' +excludeBad.toString() + '\n\n';
+               '\nExcluded links (blc file globs): ' + blcOptions.excludedKeywords +
+               '\nExcluded links (custom --exclude-bad regex): ' + excludeBad.toString() + '\n\n';
   gutil.log(header);
   fs.writeFileSync(outputFile, header);
 
@@ -1030,7 +1070,7 @@ function buildApiDocs(targetLanguage) {
   try {
     // Build a specialized package to generate different versions of the API docs
     var package = new Package('apiDocs', [require(path.resolve(TOOLS_PATH, 'api-builder/angular.io-package'))]);
-    package.config(function(log, targetEnvironments, writeFilesProcessor, readTypeScriptModules) {
+    package.config(function(log, targetEnvironments, writeFilesProcessor, readTypeScriptModules, linkDocsInlineTagDef) {
       log.level = _dgeniLogLevel;
       ALLOWED_LANGUAGES.forEach(function(target) { targetEnvironments.addAllowed(target); });
       if (targetLanguage) {
@@ -1040,7 +1080,9 @@ function buildApiDocs(targetLanguage) {
           // Don't read TypeScript modules if we are not generating API docs - Dart I am looking at you!
           readTypeScriptModules.$enabled = false;
         }
-        writeFilesProcessor.outputFolder  = targetLanguage + '/latest/api';
+        linkDocsInlineTagDef.lang = targetLanguage;
+        linkDocsInlineTagDef.vers = 'latest';
+        writeFilesProcessor.outputFolder  = path.join(targetLanguage, linkDocsInlineTagDef.vers, 'api');
       }
     });
 
