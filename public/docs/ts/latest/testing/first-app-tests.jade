@@ -36,7 +36,7 @@ include ../_util-fns
     such as <code>npm</code>, <code>gulp</code>, and <code>lite-server</code>.
 
     这一章单元测试是在其它章节的基础上写的。我们建议你按顺序阅读它们。同时，我们假设你已经对Angular 2的原理、[“快速起步”](../quickstart.html)和
-    [英雄指南](../tutorial)中介绍的<code>npm</code>、<code>gulp</code>和<code>live-server</code>等工具都已经有所了解。
+    [英雄指南](../tutorial)中介绍的<code>npm</code>、<code>gulp</code>和<code>lite-server</code>等工具都已经有所了解。
 
 .l-main-section
 :marked
@@ -85,7 +85,7 @@ pre.prettyprint.lang-bash
 :marked
   First create a configuration file for serving up our test harness through `lite-server`.
   
-  首先为提供测试环境的`lite-server`创建一个配置文件。
+  首先为用来提供测试环境的`lite-server`创建一个配置文件。
 
 +makeExample('testing/ts/liteserver-test-config.json', '', 'liteserver-test-config.json')
 
@@ -105,7 +105,7 @@ code-example(format="").
 :marked
   The `npm test` command will launch `lite-server` and open a browser to the `unit-tests.html` page we just wrote. It will also take care of recompiling your source code and reloading your browser after any change.
 
-  该指令将启动`live-server`，并在浏览器中打开我们刚写的`unit-tests.html`页面。
+  这条`npm test`命令将启动`lite-server`，并在浏览器中打开我们刚写的`unit-tests.html`页面。它还会在做出任何更改之后重新编译源代码，并刷新浏览器。
 
 .l-main-section
 :marked
@@ -251,7 +251,7 @@ code-example(format="").
 
   Look over at the browser (lite-server will have reloaded it).  The browser displays
 
-  看看浏览器(live-server应该已经刷新了它)。其中显示的是：
+  看看浏览器(lite-server应该已经刷新了它)。其中显示的是：
 
 figure.image-display
   img(src='/resources/images/devguide/first-app-tests/Jasmine-not-running-tests.png' style="width:400px;" alt="Jasmine not running any tests")

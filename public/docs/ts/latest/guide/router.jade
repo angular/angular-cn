@@ -231,8 +231,8 @@ include ../_util-fns
 
     我们将把这份配置数组传给`provideRouter()`函数，它返回一个经过配置的*Router*[服务提供商](dependency-injection.html#!#injector-providers)（以及别的东西）。
 
-    Finally, we export this provider in the `appRouterProviders` array
-    so we can simplify registration of router dependencies later in `main.ts`.
+    Finally, we export this provider in the `APP_ROUTER_PROVIDERS` array
+    so we can simplify registration of router APP_ROUTER_PROVIDERS later in `main.ts`.
     We don't have any other providers to register right now. But we will.
 
     最后，我们通过`appRouterProviders`数组导出这个提供商，以便我们以后将来在`main.ts`中简单的注册路由器依赖。
@@ -1908,28 +1908,41 @@ code-example(format="").
   In this app, the router should select the route to the `CrisisListComponent` when the *entire URL* matches `''`,
   so we set the `pathMatch` value to `'full'`.
 
-  由于我们希望只有在路径明确的匹配到`''`时才重定向，所以我们往路由中添加了一个额外的配置项：`terminal: true`。
-  主要是为了重定向，`terminal`属性是用来控制路由器是否应该继续匹配URL和我们定义的路由。（译者注：`terminal`设置为`true`时，该路由的优先级别就低于其他路由，只有在所有其他路由都不匹配的时候才最后匹配这个路由。主要是为了标示专用于重定向的路由而设计的。）
-
+  “重定向（redirect）路由”需要一个`pathMatch`属性来告诉路由器如何把URL和路由中的路径进行匹配。
+  本应用中，路由器应该只有在*完整的URL*匹配`''`时才选择指向`CrisisListComponent`的路由，因此，我们把`pathMatch`的值设置为`'full'`。
+  
 .l-sub-section
 
   :marked
     Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`.
     In our example, the redirect is at the top level of the route configuration tree so the *remaining* URL and the *entire* URL
     are the same thing.
-
+    
+    从技术的角度看，`pathMatch = 'full'`导致路由器尝试用URL中*剩下的*、未匹配过的片段去匹配`''`。
+    在这个例子中，重定向发生在路由配置树的顶级，所以*剩下的*URL和*完整的*URL是完全一样的。
+    
     The other possible `pathMatch` value is `'prefix'` which tells the router
     to match the redirect route when the *remaining* URL ***begins*** with the redirect route's _prefix_ path.
+    
+    `pathMatch`的另一个可能的值是`'prefix'`，这会告诉路由器去匹配*剩下的*URL是否以这个“重定向路由”的*前缀*路径***开头***。
 
     That's not what we want to do here. If the `pathMatch` value were `'prefix'`,
     _every_ URL would match `''`.
     We could never navigate to `/crisis-center/1` because the redirect route would match first and
     send us to the `CrisisListComponent`.
+    
+    显然，在这里我们并不想这样。如果`pathMatch`的值是`'prefix'`，_每个_URL都会匹配`''`。
+    因为这个“重定向路由”会首先匹配上并把我们引向`CrisisListComponent`，所以我们就永远无法导航到`/crisis-center/1`了。
 
     We should redirect to the `CrisisListComponent` _only_ when the _entire (remaining)_ url is  `''`.
+    
+    _只有_当_完整的（剩余的）_URL是`''`时，我们才应该重定向到`CrisisListComponent`。
 
     Learn more in Victor Savkin's blog
     [post on redirects](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
+    
+    要学习更多，请参见Victor Savkin的博客中
+    [关于重定向的帖子](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
 
     We'll discuss redirects in more detail in a future update to this chapter.
 

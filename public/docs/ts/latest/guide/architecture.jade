@@ -351,7 +351,7 @@ figure
   A template looks like regular HTML much of the time ... and then it gets a bit strange. Here is a
   template for our `HeroListComponent`:
   
-  多数情况下，模板看起来很像标准HTML……当然也有一小点儿奇怪的地方。下面是`HeroList`组件的一个模板。  
+  多数情况下，模板看起来很像标准HTML……当然也有一小点儿奇怪的地方。下面是`HeroListComponent`组件的一个模板。  
 
 +makeExample('app/hero-list.component.html')
 
@@ -391,8 +391,8 @@ figure
   Notice how `<hero-detail>` rests comfortably among native HTML elements.
   We can and _will_ mix our custom components with native HTML in the same layouts.
   
-  注意：`<hero-detail>`竟如此和谐的出现在那些已知的HTML元素中。
-  在同一个格局中，我们可以也将继续混用自定义组件与原生HTML。
+  注意：`<hero-detail>`竟如此和谐的出现在那些原生HTML元素中。
+  在同一个格局中，我们可以（并将继续）混用自定义组件与原生HTML。
   
   In this manner we'll compose complex component trees to build out our richly featured application.
   
@@ -430,7 +430,7 @@ figure
   In !{_Lang}, we attach metadata by using !{_a} **!{_decorator}**.
   Here's some metadata for `HeroListComponent`:
   
-  在!{_Lang}中，我们用**装饰器(!{_a} **!{_decorator}**)**来附加元数据。
+  在!{_Lang}中，我们用**装饰器(!{_decorator})**来附加元数据。
   下面就是`HeroListComponent`的一些元数据。
 
 +makeExcerpt('app/hero-list.component.ts', 'metadata')
@@ -439,7 +439,7 @@ figure
   Here we see the `@Component` !{_decorator} which (no surprise) identifies the class
   immediately below it as a component class.
   
-  这里看到`@Component`!{_decorator}(毫无悬念的)把紧随其后的类标记成了组件类。
+  这里看到`@Component`!{_decoratorCn}(毫无悬念的)把紧随其后的类标记成了组件类。
   
 block ts-decorator
   :marked
@@ -447,8 +447,8 @@ block ts-decorator
     The `@Component` decorator takes a required configuration object with the
     information Angular needs to create and present the component and its view.
     
-    装饰器就是函数，它们通常还带有配置参数。
-    `@Component`装饰器能接受一个配置对象，Angular会基于这些信息创建和展示组件及其视图。
+    !{_decoratorCn}就是函数，它们通常还带有配置参数。
+    `@Component`!{_decoratorCn}能接受一个配置对象，Angular会基于这些信息创建和展示组件及其视图。
     
     Here are a few of the possible `@Component` configuration options:
     
@@ -461,7 +461,7 @@ block ts-decorator
   Angular inserts an instance of the `HeroListComponent` view between those tags.
   
   - `selector` - 一个css选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
-  比如，如果应用的HTML包含`<hero-list></hero-list>`，Angular就会插入`HeroListComponent`的一个实例到这个标签中。
+  比如，如果应用的HTML包含`<hero-list></hero-list>`，Angular就会把`HeroListComponent`的一个实例插入到这个标签中。
   
   - `templateUrl`: address of this component's template, which we showed [above](#templates).
     
@@ -501,8 +501,8 @@ figure
   `@Injectable`, `@Input`, and `@Output` are a few of the more popular !{_decorator}s
   we'll master as our Angular knowledge grows.
   
-  我们也会沿用类似的风格，用其它元数据装饰器来指导Angular的行为。
-  比如`@Injectable`、`@Input`、`@Output`和`@RouterConfig`等是一些最常用的装饰器。
+  我们也会沿用类似的风格，用其它元数据!{_decoratorCn}来指导Angular的行为。
+  比如`@Injectable`、`@Input`和`@Output`等是一些最常用的!{_decoratorCn}。
   随着对Angular认识的逐步深化，我们也将逐步掌握它们。
   
 <br clear="all">
@@ -584,7 +584,7 @@ figure
   Angular processes *all* data bindings once per JavaScript event cycle,
   from the root of the application component tree down to the leaves.
   
-  Angular在每个JavaScript事件周期中一次性处理*所有的*数据绑定，它会从组件树的根部开始，用深度优先的方式处理。
+  Angular在每个JavaScript事件周期中一次性处理*所有的*数据绑定，它会从组件树的根部开始，自顶向下处理各个叶节点。
   
 figure
   img(src="/resources/images/devguide/architecture/component-databinding.png" alt="数据绑定" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
@@ -622,14 +622,14 @@ figure
   A directive is a class with directive metadata. In !{_Lang} we apply the `@Directive` !{_decorator}
   to attach metadata to the class.
   
-  指令是一个带有“指令元数据”的类。在!{_Lang}中，要通过`@Directive`装饰器把元数据附加到类上。
+  指令是一个带有“指令元数据”的类。在!{_Lang}中，要通过`@Directive`!{_decoratorCn}把元数据附加到类上。
   
 <br clear="all">
 :marked
   We already met one form of directive: the component. A component is a *directive-with-a-template*;
   a `@Component` !{_decorator} is actually a `@Directive` !{_decorator} extended with template-oriented features.
   
-  我们已经遇到过指令的形式之一：组件。组件是一个*带模板的指令*，而且`@Component`装饰器实际上就是一个`@Directive`装饰器，只是扩展了一些面向模板的属性。
+  我们已经遇到过指令的形式之一：组件。组件是一个*带模板的指令*，而且`@Component`!{_decoratorCn}实际上就是一个`@Directive`!{_decoratorCn}，只是扩展了一些面向模板的属性。
 
 .l-sub-section
   :marked
@@ -655,13 +655,13 @@ figure
   
   Our [example](#templates) template uses two built-in structural directives:
   
-  我们在[范例](#templates)模板中会看到两个内建的结构型指令。
+  我们在[范例](#templates)模板中用到了两个内建的结构型指令。
   
 +makeExcerpt('app/hero-list.component.1.html', 'structural')
 :marked
   * [`*ngFor`](displaying-data.html#ngFor) tells Angular to stamp out one `<li>` per hero in the `heroes` list.
    
-  * [`*ngFor`](displaying-data.html#ngFor)告诉Angular为`heroes`列表中的每个英雄生成一个`<div>`标签。
+  * [`*ngFor`](displaying-data.html#ngFor)告诉Angular为`heroes`列表中的每个英雄生成一个`<li>`标签。
    
   * [`*ngIf`](displaying-data.html#ngIf) includes the `HeroDetail` component only if a selected hero exists.
    
@@ -746,8 +746,8 @@ figure
   There is nothing specifically _Angular_ about services. Angular itself has no definition of a service.
   There is no service base class, and no place to register a service.
   
-  服务没有什么特别属于Angular的特性。Angular本身对于服务也没有什么定义。
-  它甚至都没有服务基础类，也没有地方注册一个服务。
+  服务没有什么特别属于*Angular*的特性。Angular本身对于服务也没有什么定义。
+  它甚至都没有定义服务的基类（Base Class），也没有地方注册一个服务。
   
   Yet services are fundamental to any Angular application. Our components are big consumers of services.
   
@@ -763,7 +763,7 @@ figure
   Here's a `HeroService` that fetches heroes and returns them in a resolved !{_PromiseLinked}.
   The `HeroService` depends on the `Logger` service and another `BackendService` that handles the server communication grunt work.
   
-  下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺Promise](http://exploringjs.com/es6/ch_promises.html)返回它们。
+  下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺（Promise）](http://exploringjs.com/es6/ch_promises.html)返回它们。
   `HeroService`还依赖于`Logger`服务和另一个用来处理服务器通讯工作的`BackendService`服务。
 
 +makeExcerpt('app/hero.service.ts', 'class')
@@ -777,16 +777,15 @@ figure
   they don't validate user input, and they don't log directly to the console.
   They delegate such tasks to services.
   
-  组件是服务的主要消费者。它们依赖服务来处理大多数“苦差事”。
-  它们自己不需要从服务器获得数据，不需要验证输入，不需要直接往控制台写日志。
-  它们把这些任务委托给服务。
+  我们更倾向于让组件保持精简。组件不需要从服务器获得数据、不需要验证输入，也不需要直接往控制台写日志。
+  它们把这些任务委托给了服务。
   
   A component's job is to enable the user experience and nothing more. It mediates between the view (rendered by the template)
   and the application logic (which often includes some notion of a _model_).
   A good component presents properties and methods for data binding.
   It delegates everything nontrivial to services.
   
-  组件的任务就是提供用户体验，仅此而已。它介于视图(由模板渲染)和应用逻辑(通常包括“模型model”的观念)之间。
+  组件的任务就是提供用户体验，仅此而已。它介于视图(由模板渲染)和应用逻辑(通常包括_模型（model）_的观念)之间。
   设计良好的组件为数据绑定提供属性和方法，把那些其他对它们不重要的事情都委托给服务。
 
   Angular doesn't *enforce* these principles.
@@ -822,7 +821,7 @@ figure
   For example, the constructor of our `HeroListComponent` needs a `HeroService`:
   
   Angular能通过查看构造函数的参数类型，来得知组件需要哪些服务。
-  例如，`HeroListComponent`组件的构造函数需要`HeroService`：
+  例如，`HeroListComponent`组件的构造函数需要一个`HeroService`：
   
 +makeExcerpt('app/hero-list.component.ts (constructor)', 'ctor')
 
@@ -830,7 +829,7 @@ figure
   When Angular creates a component, it first asks an **injector** for
   the services that the component requires. 
   
-  当Angular创建组件时，会首先为组件所需的服务找一个**注入器Injector**。
+  当Angular创建组件时，会首先为组件所需的服务找一个**注入器（Injector）**。
   
   An `injector` maintains a container of service instances that it has previously created.
   If a requested service instance is not in the container, the injector makes one and adds it to the container
@@ -881,7 +880,7 @@ figure
   Registering at a component level means we get a new instance of the
   service with each new instance of that component.
   
-  ... 在这种情况下，那个组件的每一个新实例都会有一个(在该组件注册的)服务的新实例。
+  把它注册在组件级表示该组件的每一个新实例都会有一个(在该组件注册的)服务的新实例。
   
   <!--We've vastly over-simplified dependency injection for this overview.
   We can learn the full story in the [Dependency Injection](dependency-injection.html) chapter.-->
@@ -899,7 +898,7 @@ figure
   
   * the `injector` is the main mechanism.
   
-  * 注入器`Injector`是本机制的核心。
+  * 注入器（`Injector`）是本机制的核心。
   
     * an injector maintains a *container* of service instances that it created.
     
@@ -976,7 +975,7 @@ figure
   > [**Animations**](animations.html): The animation library makes it easy for developers to animate component behavior
   without deep knowledge of animation techniques or CSS.
     
-  > [**动画**](animations.html)： 即将到来的动画库。它能让开发人员更轻易的给组件添加动画行为，而不需要对动画技术或css有深入的了解。
+  > [**动画**](animations.html)： 即将到来的动画库。它能让开发人员更轻易的给组件添加动画行为，而不需要对动画技术或CSS有深入的了解。
   
   > **Bootstrap**: A method to configure and launch the root application component.
   
@@ -992,12 +991,12 @@ figure
   > **Component router**: With the component Router service, users can navigate a multi-screen application 
   in a familiar web browsing style using URLs.
   
-  > **组件路由**：通过组件路由服务，可以让用户使用浏览器中熟悉的URL形式，在多屏应用之间导航。
+  > **组件路由器**：通过组件路由器服务，可以让用户使用浏览器中熟悉的URL形式，在多屏应用之间导航。
   
   > **Events**: The DOM raises events. So can components and services. Angular offers mechanisms for
   publishing and subscribing to events including an implementation of the [RxJS Observable](https://github.com/zenparsing/es-observable) proposal.
   
-  > **事件**：DOM能触发事件，组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实施。
+  > **事件**：DOM能触发事件，组件和服务也能。Angular提供的事件发布与订阅机制还包括[RxJS可观察Observable](https://github.com/zenparsing/es-observable)方案的一个实现。
   
   > [**Forms**](forms.html): Support complex data entry scenarios with HTML-based validation and dirty checking.
   
@@ -1030,11 +1029,11 @@ code-example().
   > [**Router**](router.html): Navigate from page to page within the client
     application and never leave the browser.
   
-  > [**路由**](router.html)：在应用程序客户端导航，并且不离开浏览器。
+  > [**路由器**](router.html)：在应用程序客户端导航，并且不离开浏览器。
   
   > [**Testing**](testing.html): Angular provides a
   [testing library](https://pub.dartlang.org/packages/angular2_testing)
   to run unit tests on our application parts as they interact with the Angular framework.
   
   > [**测试**](testing.html)：Angular提供了一个[测试库](https://pub.dartlang.org/packages/angular2_testing)，
-  在程序各个部分与Angular框架交互同时，用来“单元测试”它们。
+  在程序各个部分与Angular框架交互的同时，用来“单元测试”它们。
