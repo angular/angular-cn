@@ -50,13 +50,13 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
                 $(window).on('mousemove', function(){
                     isDragging = true;
                     $(window).unbind('mousemove');
-                });       
+                });
             });
             $prevNode.on('mousedown', function(){
                 $(window).on('mousemove', function(){
                     isDragging = true;
                     $(window).unbind('mousemove');
-                });       
+                });
             });
             $node.on('mouseup', function () {
               var wasDragging = isDragging;
@@ -64,7 +64,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
               $(window).unbind('mousemove');
               if(!wasDragging){
                 $prevNode.toggleClass('hidden');
-              }              
+              }
             });
             $prevNode.on('mouseup', function () {
               var wasDragging = isDragging;
@@ -72,7 +72,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
               $(window).unbind('mousemove');
               if(!wasDragging){
                 $prevNode.addClass('hidden');
-              }              
+              }
             });
           }
           $node.after($prevNode);
@@ -80,7 +80,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
       }
     });
   }
-  
+
   function addSpacingBetweenCnAndEn($node) {
     var nodes = document.querySelectorAll('.translated-cn');
     _.each(nodes, function (node) {
@@ -108,6 +108,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
   function isPureEnglish(text) {
     // accept &mdash; , quotes, ® and façade too.
+    text = text.replace('在线例子', '');
     return /^[\1-\255—’“”ç®…à]*$/.test(text);
   }
 

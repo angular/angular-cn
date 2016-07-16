@@ -22,6 +22,9 @@ block includes
   desire many of the same transformations repeatedly, both within and across many applications.
   We almost think of them as styles.
   In fact, we'd like to apply them in our HTML templates as we do styles.
+  
+  显然，有些值最好显示成用户友好的格式。我们很快就会发现，在很多不同的应用中，都在重复做出某些相同的变换。
+  我们几乎会把它们看做某种CSS样式，事实上，我们也确实更喜欢在HTML模板中应用它们 —— 就像CSS样式一样。
 
   Introducing Angular pipes, a way to write display-value transformations that we can declare in our HTML!
   Try the <live-example></live-example>.
@@ -252,14 +255,17 @@ figure.image-display
     We didn't list the `DatePipe` in our previous example because all
     Angular built-in pipes are pre-registered.
     Custom pipes must be registered manually.
+    
+    如果我们忘了列出这个自定义管道，Angular就会报告一个错误。
+    在前一个例子中我们没有把`DatePipe`列进去，这是因为Angular所有的内建管道都已经预注册过了。
+    但自定义管道必须手工注册。
 
-p.
-  If we try the #[+liveExampleLink()],
-  we can probe its behavior by changing the value and the optional exponent in the template.
 
 :marked
   If we try the <live-example></live-example>,
   we can probe its behavior by changing the value and the optional exponent in the template.
+  
+  如果我们试一下这个<live-example></live-example>，就可以通过修改值和模板中的可选部分来体会其行为。
 
   ## Power Boost Calculator (extra-credit)
   ## 能力倍增计算器(加分项)
@@ -511,6 +517,7 @@ block pure-change
 
 +makeExample('pipes/ts/app/flying-heroes.pipe.ts','filter')(format='.')
 
+:marked
   We can derive a `FlyingHeroesImpureComponent` that we derive from the `FlyingHeroesComponent`.
 
   我们可以从`FlyingHeroesComponent`派生出一个`FlyingHeroesImpureComponent`。
