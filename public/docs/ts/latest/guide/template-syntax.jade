@@ -82,11 +82,11 @@ code-example(language="html" escape="html").
 :marked
   Almost all HTML syntax is valid template syntax. The `<script>` element is a notable exception; it is forbidden, eliminating the risk of script injection attacks. (In practice, `<script>` is simply ignored.)
 
-  几乎所有的HTML语法都是有效的模板语法。但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。(实际上，`<script>`只是被忽略了。)
+  几乎所有的HTML语法都是有效的模板语法。但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。(在实践中，`<script>`只是被忽略了。)
 
   Some legal HTML doesn’t make much sense in a template. The `<html>`, `<body>`, and `<base>` elements have no useful role in our repertoire. Pretty much everything else is fair game.
 
-  在模板中，有些合法的HTML没有理由被用在一个模板中。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。基本上所有其它的元素都被一样使用。
+  有些合法的HTML被用在一个模板中是没有意义的。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。基本上所有其它的元素都被一样使用。
 
   We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. And we are about to learn how to get and set DOM values dynamically through data binding.
 
@@ -209,7 +209,7 @@ block template-expressions-cannot
     can’t call `console.log` or `Math.max`. They are restricted to referencing
     members of the expression context.
 
-    你可能会感到惊讶，模板表达式不能引用全局命名空间中的任何东西。它们不能引用<code>window</code>或<code>document</code>。
+    也许更让人吃惊的是，模板表达式不能引用全局命名空间中的任何东西。它们不能引用<code>window</code>或<code>document</code>。
     它们不能调用<code>console.log</code>或<code>Math.max</code>。它们被局限于只能访问来自表达式上下文中的成员。
 
 :marked
