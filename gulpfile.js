@@ -546,7 +546,7 @@ gulp.task('build-docs', ['build-devguide-docs', 'build-api-docs', 'build-plunker
 //gulp.task('build-docs', ['build-devguide-docs', 'build-api-docs', 'build-plunkers', '_zip-examples']);
 
 gulp.task('build-api-docs', ['build-js-api-docs', 'build-ts-api-docs', 'build-dart-cheatsheet']
-  // On TRAVIS? Skip building the Dart API docs for now. 
+  // On TRAVIS? Skip building the Dart API docs for now.
   .concat(process.env.TRAVIS ? [] : ['build-dart-api-docs']));
 
 gulp.task('build-devguide-docs', ['_shred-devguide-examples', '_shred-devguide-shared-jade'], function() {
@@ -563,7 +563,7 @@ gulp.task('build-js-api-docs', ['_shred-api-examples'], function() {
 
 gulp.task('build-dart-api-docs', ['_shred-api-examples', 'dartdoc'], function() {
   // TODO(chalin): also build build-dart-cheatsheet
-  return buildApiDocsForDart();
+  // return buildApiDocsForDart();
 });
 
 gulp.task('build-plunkers', ['_copy-example-boilerplate'], function() {
@@ -571,32 +571,32 @@ gulp.task('build-plunkers', ['_copy-example-boilerplate'], function() {
 });
 
 gulp.task('build-dart-cheatsheet', ['build-ts-api-docs'], function() {
-  gutil.log('build-dart-cheatsheet - NOT IMPLEMENTED YET - copying TS cheatsheet data');
-  const src = './public/docs/ts/latest/guide/cheatsheet.json';
-  fs.copy(src, './public/docs/dart/latest/guide/cheatsheet.json', {clobber: true},
-    (err) => { if(err) throw err });
+  // gutil.log('build-dart-cheatsheet - NOT IMPLEMENTED YET - copying TS cheatsheet data');
+  // const src = './public/docs/ts/latest/guide/cheatsheet.json';
+  // fs.copy(src, './public/docs/dart/latest/guide/cheatsheet.json', {clobber: true},
+  //   (err) => { if(err) throw err });
 });
 
 gulp.task('dartdoc', ['pub upgrade'], function() {
-  const ngRepoPath = ngPathFor('dart');
-  if (argv.fast && fs.existsSync(path.resolve(ngRepoPath, 'doc'))) {
-    gutil.log('Skipping dartdoc: --fast flag enabled and "doc" dir exists');
-    return true;
-  }
-  checkAngularProjectPath(ngRepoPath);
-  const dartdoc = spawnExt('dartdoc', ['--output', 'doc/api', '--add-crossdart'], { cwd: ngRepoPath});
-  return dartdoc.promise;
+  // const ngRepoPath = ngPathFor('dart');
+  // if (argv.fast && fs.existsSync(path.resolve(ngRepoPath, 'doc'))) {
+  //   gutil.log('Skipping dartdoc: --fast flag enabled and "doc" dir exists');
+  //   return true;
+  // }
+  // checkAngularProjectPath(ngRepoPath);
+  // const dartdoc = spawnExt('dartdoc', ['--output', 'doc/api', '--add-crossdart'], { cwd: ngRepoPath});
+  // return dartdoc.promise;
 });
 
 gulp.task('pub upgrade', [], function() {
-  const ngRepoPath = ngPathFor('dart');
-  if (argv.fast && fs.existsSync(path.resolve(ngRepoPath, 'packages'))) {
-    gutil.log('Skipping pub upgrade: --fast flag enabled and "packages" dir exists');
-    return true;
-  }
-  checkAngularProjectPath(ngRepoPath);
-  const pubUpgrade = spawnExt('pub', ['upgrade'], { cwd: ngRepoPath});
-  return pubUpgrade.promise;
+  // const ngRepoPath = ngPathFor('dart');
+  // if (argv.fast && fs.existsSync(path.resolve(ngRepoPath, 'packages'))) {
+  //   gutil.log('Skipping pub upgrade: --fast flag enabled and "packages" dir exists');
+  //   return true;
+  // }
+  // checkAngularProjectPath(ngRepoPath);
+  // const pubUpgrade = spawnExt('pub', ['upgrade'], { cwd: ngRepoPath});
+  // return pubUpgrade.promise;
 });
 
 gulp.task('git-changed-examples', ['_shred-devguide-examples'], function(){
@@ -1035,7 +1035,7 @@ function watchAndSync(options, cb) {
 
   var browserSync = require('browser-sync').create();
   browserSync.init({
-    proxy: 'localhost:9000', 
+    proxy: 'localhost:9000',
     scrollRestoreTechnique: 'cookie'});
 
   if (options.devGuide) {
@@ -1208,7 +1208,7 @@ function buildApiDocsForDart() {
       dab.createApiDataAndJadeFiles(apiEntries);
 
     }).catch((err) => {
-      console.log(err);    
+      console.log(err);
     });
 
   } catch(err) {
