@@ -50,7 +50,7 @@ include ../_util-fns
   
   - 使用`[(ngModel)]`语法实现双向数据绑定，以便于读取和写入输入控件的值
 
-  - using `ngControl` to track the change state and validity of form controls
+  - using `[(ngModel)]` to track the change state and validity of form controls
   
   - 结合一个表单来使用`ngModel`，能让我们跟踪状态的变化并对表单控件做验证
 
@@ -706,6 +706,8 @@ figure.image-display
   :marked
     Internally Angular creates `FormControls` and registers them with an `NgForm` directive that Angular attached to the `<form>` tag. Each `FormControl` is registered under the name we assigned to the `name` attribute.
     We'll talk about `NgForm` [later in the chapter](#ngForm).
+    
+    Angular会内部创建`FormControls`，并且用附加在
 
 .l-main-section
 :marked
@@ -716,7 +718,7 @@ figure.image-display
   The *NgModel* directive doesn't just track state. 
   It updates the control with three classes that reflect the state.
   
-  *NgControl*指令不仅仅跟踪状态。它还使用三个CSS类来更新控件，以便反映当前状态。
+  *NgModel*指令不仅仅跟踪状态。它还使用三个CSS类来更新控件，以便反映当前状态。
   
 table
   tr
@@ -1079,7 +1081,7 @@ figure.image-display
     control* is valid.
     
     `NgForm`指令为普通的`form`元素扩充了额外的特性。
-    它保存我们通过`ngControl` 属性为各个元素创建的控件类，并且监视它们的属性变化，包括有效性。
+    它持有我们通过`ngModel`指令和`name`属性为各个元素创建的那些控件类，并且监视它们的属性变化，包括有效性。
     它还有自己的`valid`属性，只有当*每一个被包含的控件*都有效时，它才有效。
     
 :marked
