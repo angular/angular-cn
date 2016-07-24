@@ -26,7 +26,7 @@ include ../_util-fns
 
   [Limit service scope to a component subtree](#service-scope)
 
-  [把服务作用范围限制到一个子组件树](#service-scope)
+  [把服务作用域限制到一个子组件树](#service-scope)
 
   [Multiple service instances (sandboxing)](#multiple-service-instances)
 
@@ -303,7 +303,7 @@ figure.image-display
 :marked
   ## Limit service scope to a component subtree
   
-  ## 把服务作用范围限制到一个组件支树
+  ## 把服务作用域限制到一个组件支树
 
   All injected service dependencies are singletons meaning that,
   for a given dependency injector ("injector"), there is only one instance of service. 
@@ -334,7 +334,7 @@ figure.image-display
   by providing that service *at the sub-root component for that branch*.
   Here we provide the `HeroService` to the `HeroesBaseComponent` by listing it in the `providers` array:
 
-  通过*在组件树的子级根组件*中提供服务，可以把一个被注入服务的作用范围局限在应用程序结构中的某个*分支*中。
+  通过*在组件树的子级根组件*中提供服务，可以把一个被注入服务的作用域局限在应用程序结构中的某个*分支*中。
   这里通过列入`providers`数组，在`HeroesBaseComponent`中提供了`HeroService`：
 
 +makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','injection','app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)')
