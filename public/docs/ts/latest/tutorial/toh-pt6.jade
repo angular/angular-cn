@@ -604,38 +604,70 @@ block review
 block observables-section
   :marked
     ## Observables
+    
+    ## 可观察对象（Observable）
 
     Each `Http` method  returns an `Observable` of HTTP `Response` objects.
+    
+    每个`Http`方法都返回一个Http `Response`对象的`Observable`实例。
 
     Our `HeroService` converts that `Observable` into a `Promise` and returns the promise to the caller.
     In this section we learn to return the `Observable` directly and discuss when and why that might be 
     a good thing to do.
+    
+    我们的`HeroService`中把那个`Observable`对象转换成了`Promise`（承诺），并把这个承诺返回给了调用者。
+    这一节，我们将学会直接返回`Observable`，并且讨论何时以及为何那样做会更好。
 
     ### Background
+    
+    ### 背景
+    
     An *observable* is a stream of events that we can process with array-like operators.
+    
+    一个*可观察对象*是一个事件流，我们可以用数组型操作符（函数）来处理它。
 
     Angular core has basic support for observables. We developers augment that support with
     operators and extensions from the [RxJS Observables](http://reactivex.io/rxjs/) library.
     We'll see how shortly.
+    
+    Angular内核中提供了对可观察对象的基本支持。而我们这些开发人员可以自己从[RxJS可观察对象](http://reactivex.io/rxjs/)库中引入操作符和扩展。
+    我们会简短的讲解下如何做。
 
     Recall that our `HeroService` quickly chained the `toPromise` operator to the `Observable` result of `http.get`.
     That operator converted the `Observable` into a `Promise` and we passed that promise back to the caller.
+    
+    快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
+    该操作符把`Observable`转换成了`Promise`（承诺），并且我们把那个“承诺”返回给了调用者。
 
     Converting to a promise is often a good choice. We typically ask `http` to fetch a single chunk of data. 
     When we receive the data, we're done.
     A single result in the form of a promise is easy for the calling component to consume 
     and it helps that promises are widely understood by JavaScript programmers.
+    
+    转换成承诺通常是更好地选择，我们通常要求`http`获取单块数据。只要接收到数据，就算完成。
+    使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在JavaScript程序员中被广泛接受了。
 
     But requests aren't always "one and done". We may start one request, 
     then cancel it, and make a different request ... before the server has responded to the first request.
     Such a _request-cancel-new-request_ sequence is difficult to implement with *promises*. 
     It's easy with *observables* as we'll see.
+    
+    但是请求并非总是“一次性”的。我们可以开始一个请求，并且取消它，再开始另一个不同的请求 —— 在服务器对第一个请求作出回应之前。
+    像这样一个_请求-取消-新请求_的序列用*承诺*是很难实现的，但接下来我们会看到，它对于*可观察对象*却很简单。
 
     ### Search-by-name
+    
+    ### 按名搜索
+    
     We're going to add a *hero search* feature to the Tour of Heroes.
     As the user types a name into a search box, we'll make repeated http requests for heroes filtered by that name.
+    
+    我们要为《英雄指南》添加一个*英雄搜索*特性。
+    当用户在搜索框中输入一个名字时，我们将不断发起http请求，以获得按名字过滤的英雄。
 
     We start by creating `HeroSearchService` that sends search queries to our server's web api.
+    
+    我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的Web API。
 
   +makeExample('toh-6/ts/app/hero-search.service.ts', null, 'app/hero-search.service.ts')(format=".")
 
@@ -643,52 +675,96 @@ block observables-section
     The `http.get` call in `HeroSearchService` is similar to the `http.get` call in the `HeroService`.
     The notable difference: we no longer call `toPromise`. 
     We simply return the *observable* instead.
+    
+    `HeroSearchService`中的`http.get`调用和`HeroService`中的很相似。
+    显著的不同是：我们不再调用`toPromise`，而是直接返回*可观察对象*。
 
     ### HeroSearchComponent
+    
+    ### HeroSearchComponent
+    
     Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`. 
+    
+    我们再创建一个新的`HeroSearchComponent`来调用这个新的`HeroSearchService`。
 
     The component template is simple - just a textbox and a list of matching search results.
+    
+    组件模板很简单，就是一个输入框和一个相匹配的搜索结果列表。
+    
   +makeExample('toh-6/ts/app/hero-search.component.html', null,'hero-search.component.html')
   :marked
     As the user types in the search box, a *keyup* event binding calls the component's `search` with the new search box value.
+    
+    当用户在搜索框中输入时，一个*keyup*事件绑定会调用该组件的`search`方法，并传入新的搜索框的值。
 
     The `*ngFor` repeats *hero* objects from the component's `heroes` property. No surprise there.
+    
+    `*ngFor`为该组件的`heroes`属性重复*hero*对象。这也没啥特别的。
 
     But, as we'll soon see, the `heroes` property returns an `Observable` of heroes, not an array of heroes.
     The `*ngFor` can't do anything with an observable until we flow it through the `AsyncPipe` (`heroes | async`).
     The `AsyncPipe` subscribes to the observable and produces the array of heroes to `*ngFor`.
+    
+    但是，接下来我们看到`heroes`属性返回了一个英雄们的`Observable`对象，不是英雄们的数组。
+    `*ngFor`不能利用可观察对象做任何事，除非我们在它后面跟一个`AsyncPipe`（`heroes | async`）。
+    `AsyncPipe`会订阅到这个可观察对象，并且为`*ngFor`生产一个英雄们的数组。
 
     Time to create the `HeroSearchComponent` class and metadata.
+    
+    该创建`HeroSearchComponent`类及其元数据了。
+    
   +makeExample('toh-6/ts/app/hero-search.component.ts', null,'hero-search.component.ts')
+  
   :marked
     Focus on the `searchSubject`.
+    
+    仔细看`searchSubject`。
+    
   +makeExample('toh-6/ts/app/hero-search.component.ts', 'searchSubject')(format=".")
   :marked
     A `Subject` is a producer of an _observable_ event stream. 
     This `searchSubject` produces an `Observable` of strings, the filter criteria for the name search.
+    
+    `Subject`（主体）是一个_可观察的_事件流中的生产者。
+    这里的`searchSubject`生产一些字符串的`Observable`，用于作为按名搜索时的过滤条件。
 
     Each call to `search` puts a new string into this subject's _observable_ stream by calling `next`.
+    
+    每次到`search`的调用都会调用`next`来把新的字符串放进该主体的_可观察_流中。
 
     A `Subject` is also an `Observable`. 
     We're going to access that `Observable` and turn the stream
     of strings into a stream of `Hero[]` arrays, the `heroes` property.
+    
+    `Subject`也是一个`Observable`对象。
+    我们将访问`Observable`并且把字符串数组组成的流转换成`Hero[]`数组组成的流，也就是`heroes`属性。
 
   +makeExample('toh-6/ts/app/hero-search.component.ts', 'search')(format=".")
   :marked
     If we passed every user keystroke directly to the `HeroSearchService`, we'd unleash a storm of http requests.
     Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
+    
+    如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场Http请求的风暴。
+    这可不好玩。我们不希望占用服务器资源，不想也耗尽网络带宽。
 
     Fortunately we can chain `Observable` operators to the string `Observable` that reduce the request flow.
     We'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
+    
+    幸运的是，我们可以在字符串的`Observable`后面串联一个`Observable`操作符，来归并这些请求。
+    我们将对`HeroSearchService`发起更少的调用，并且仍然获得足够及时的响应。做法如下：
 
     * The `asObservable` operator casts the `Subject` as an `Observable` of filter strings.
+    
+    * `asObservable`操作符把`Subject`转换成过滤字符串组成的`Observable`。
 
     * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds 
     before passing along the latest string. We'll never make requests more frequently than 300ms.
+    
+    * 在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了300毫秒。我们实际发起请求的间隔永远不会小于300ms。
 
     * `distinctUntilChanged` ensures that we only send a request if the filter text changed.
     There's no point in repeating a request for the same search term.
-
+    
     * `switchMap` calls our search service for each search term that makes it through the `debounce` and `distinctUntilChanged` gauntlet.
     It cancels and discards previous search observables, returning only the latest search service observable.
 

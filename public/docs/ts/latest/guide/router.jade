@@ -322,7 +322,7 @@ code-example(format="", language="html").
    We bind each `RouterLink` to a string containing the path of a route.
    '/crisis-center' and '/heroes' are the paths of the `Routes` we configured above.
 
-   我们用`RouterLink`指令添加了两个A标签。每个`RouterLink`都绑定到了一个包含路由路径的数组上。
+   我们用`RouterLink`指令添加了两个带`RouterLink`和`RouterLinkActive`指令的A标签。每个`RouterLink`都绑定到了一个包含路由路径的字符串上。
    '/crisis-center'和'/heroes'都是我们前面配置过的`Routes`中的路径。
 
    We'll learn to write link expressions &mdash; and why they are arrays &mdash;
@@ -462,7 +462,7 @@ table
         The directive for adding/removing classes from an HTML element when an associated
         routerLink contained on or inside the element becomes active/inactive.
       p.
-        TODO: 翻译完。当HTML元素的相关routerLink。
+        当HTML元素上或元素内的routerLink变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。
   tr
     td 
       p <code>RouterState</code>
@@ -963,7 +963,7 @@ h3#router-link <i>RouterLink</i>绑定
   Above the outlet, within the anchor tags, we see [Property Bindings](template-syntax.html#property-binding) to
   the `RouterLink` directive that look like `routerLink="..."`. We imported `RouterLink` from the router library.
 
-  在插座上方的A标签中，有一个绑定`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`[routerLink]="[...]"`。我们从路由库中导入了`RouterLink`。
+  在插座上方的A标签中，有一个绑定`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`routerLink="..."`。我们从路由库中导入了`RouterLink`。
 
   The links in this example each have a string path, the path of a route that
   we configured earlier. We don't have route parameters yet.
@@ -982,23 +982,36 @@ h3#router-link <i>RouterLink</i>绑定
 
   :marked
     Learn about the how we can also use the **link parameters array** in the [appendix below](#link-parameters-array).
+    
+    还可以到[后面的附录](#link-parameters-array)中学习如何使用**链接参数数组**。
 
 a#router-link-active
+
 h3#router-link <i>RouterLinkActive</i> binding
+
+h3#router-link <i>RouterLinkActive</i>绑定
+
 :marked
   On each anchor tag, we also see [Property Bindings](template-syntax.html#property-binding) to
   the `RouterLinkActive` directive that look like `routerLinkActive="..."`.
+  
+  每个A标签还有一个到`RouterLinkActive`指令的[属性绑定](template-syntax.html#property-binding)，就像`routerLinkActive="..."`。
 
   The template expression to the right of the equals (=) contains our space-delimited string of CSS classes.
   We can also bind to the `RouterLinkActive` directive using an array of classes
   such as `[routerLinkActive]="['...']"`.
+  
+  等号（=）右侧的模板表达式包含用空格分隔的一些CSS类。我们还可以把`RouterLinkActive`指令绑定到一个CSS类组成的数组，如`[routerLinkActive]="['...']"`。
 
   The `RouterLinkActive` directive toggles css classes for active `RouterLink`s based on the current `RouterState`.
   This cascades down through each level in our route tree, so parent and child router links can be active at the same time.
   To override this behavior, we can bind to the `[routerLinkActiveOptions]` input binding with the `{ exact: true }` expression.
   By using `{ exact: true }`, a given `RouterLink` will only be active if its URL is an exact match to the current URL.
-
-    要学习关于链接参数数组的更多知识，参见[下面的附录](#link-parameters-array)。
+  
+  `RouterLinkActive`指令会基于当前的`RouterState`对象来为激活的`RouterLink`切换CSS类。
+  这会一直沿着路由树往下进行级联处理，所以父路由链接和子路由链接可能会同时激活。
+  要改变这种行为，可以把`[routerLinkActiveOptions]`绑定到`{exact: true}`表达式。
+  如果使用了`{ exact: true }`，那么只有在其URL与当前URL精确匹配时才会激活指定的`RouterLink`。
 
 h3#router-directives <i>ROUTER_DIRECTIVES</i>
 
@@ -1008,7 +1021,7 @@ h3#router-directives <i>ROUTER_DIRECTIVES</i>（路由指令集）
   `RouterLink`, `RouterLinkActive` and `RouterOutlet` are directives in the `ROUTER_DIRECTIVES` collection.
   Remember to add them to the `directives` array of the `@Component` metadata.
 
-  `RouterLink`和`RouterOutlet`是`ROUTER_DIRECTIVES`集合中的指令。
+  `RouterLink`、`RouterLinkActive`和`RouterOutlet`是`ROUTER_DIRECTIVES`集合中的指令。
   记住把它们加入`@Component`元数据的`directives`数组中。
 
 +makeExample('router/ts/app/app.component.1.ts','directives')(format=".")
@@ -1380,7 +1393,7 @@ h3#navigate 命令式地导航到英雄详情
   with a `RouterLink` if we want to use it in HTML rather than code.
 
   它用一个**链接参数数组**调用路由器的**`navigate`**方法。
-  该数组与我们[以前](#shell-template)在A标签中用来绑定到`RouterLink`指令的链接参数数组很相似。只是这次它出现在代码而不是HTML中。
+  如果我们想把它用在HTML中，那么也可以把相同的语法用在`RouterLink`中。
 
 h3#route-parameters Setting the route parameters in the list view
 
@@ -1582,7 +1595,7 @@ h3#nav-to-list 导航回列表组件
   that we can bind to a `[routerLink]` directive.
   It holds the **path to the `HeroListComponent`**:
 
-  路由的`navigate`方法同样接受一个单条目的*链接参数数组*，我们曾把它绑定到应用壳中“英雄”区的`[routerLink]`指令上。
+  路由的`navigate`方法同样接受一个单条目的*链接参数数组*，我们也可以把它绑定到`[routerLink]`指令上。
   它保存着**到`HeroListComponent`组件的路径**：
 
 +makeExample('router/ts/app/heroes/hero-detail.component.1.ts','gotoHeroes')(format=".")
@@ -1902,7 +1915,7 @@ h3#child-routing-component 子路由组件
   These two routes navigate to the two *Crisis Center* child components,
   `CrisisListComponent` and `CrisisDetailComponent`.
 
-  注意，父路由`/crisis-center`有一个`children`属性，它是一个带两个路由的数组。
+  注意，父路由`crisis-center`有一个`children`属性，它是一个带两个路由的数组。
 
   There are some *important differences* in the treatment of these routes.
 
@@ -2232,7 +2245,7 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   This is a general purpose guard &mdash; we can imagine other features that require authenticated users &mdash;
   so we create an `auth-guard.service.ts` in the application root folder.
 
-  这是一种具有通用性的守护目标（通常会有其它特性需要登录用户才能访问），所以我们在应用的根目录下创建一个`auth.guard.ts`文件。
+  这是一种具有通用性的守护目标（通常会有其它特性需要登录用户才能访问），所以我们在应用的根目录下创建一个`auth-guard.ts`文件。
 
   At the moment we're interested in seeing how guards work so our first version does nothing useful.
   It simply logs to console and `returns` true immediately, allowing navigation to proceed:
@@ -2278,6 +2291,7 @@ h3#can-activate-guard <i>CanActivate</i>: 要求认证
   虽然它不会真的进行登录，但足够让我们进行这个讨论了。
   它有一个`isLoggedIn`标志，用来标识是否用户已经登录过了。
   它的`login`方法会仿真一个对外部服务的API调用，返回一个可观察对象（observable）。在短暂的停顿之后，这个可观察对象就会解析成功。
+  `redirectUrl`属性将会保存在URL中，以便认证完之后导航到它。
 
   Let's revise our `AuthGuard` to call it.
 
@@ -2584,7 +2598,8 @@ figure.image-display
   The Component Router supports navigation with query strings as well as route parameters.
   We define _optional_ query string parameters in an *object* after we define our required route parameters.
 
-  像路由参数一样，组件路由器也支持使用查询字符串进行导航。同样，我们也在*路由参数对象*中定义查询字符串参数。
+  像路由参数一样，组件路由器也支持使用查询字符串进行导航。
+  在定义了必须的路由参数之后，我们还可以在*路由参数对象*中定义_可选的_查询字符串参数。
 
   <a id="route-or-query-parameter"></a>
 
@@ -2759,7 +2774,6 @@ code-example(format="." language="bash").
   This time we'll be navigating in the opposite direction, from the `HeroDetailComponent` to the `HeroListComponent`.
 
   现在就要进行反向导航了 —— 从`HeroDetailComponent`到`HeroListComponent`。
-  这次我们把`Router`服务注入到`HeroListComponent`的构造函数中。
 
   First we extend the router import statement to include the `ActivatedRoute` service symbol;
 
@@ -2771,7 +2785,7 @@ code-example(format="." language="bash").
   Then we use the `ActivatedRoute` to access the `params` _Observable_ so we can subscribe
   and extract the `id` parameter as the `selectedId`:
 
-  然后，使用`routerState`来访问全局可用的查询参数`Observable`，以便我们能订阅，并把`id`参数提取为`selectedId`属性：
+  然后，使用`ActivatedRoute`来访问可观察对象`params`，以便我们能订阅它，并把`id`参数提取成`selectedId`属性：
 
 +makeExample('router/ts/app/heroes/hero-list.component.ts','ctor', 'hero-list.component.ts (constructor)')(format=".")
 
@@ -2824,35 +2838,58 @@ figure.image-display
   our route, but what if we wanted optional parameters available to all routes? This is where our
   query parameters come into play and serve a special purpose in our application.
   
-  TODO: 翻译
+  在这个[查询参数](#query-parameters)例子中，我们只为路由指定了参数，但是该如何定义一些所有路由中都可用的可选参数呢？
+  要达到这个目的，该“查询参数”大显身手了。
 
   Traditional query string parameters (?name=value) **persist** across route navigations. This means we can pass these query params
   around without having to specify them in each navigation method whether it be declaratively or imperatively.
+  
+  传统的查询字符串参数（?name=value）在跨路由导航时会**始终存在**。这意味着我们可以传入这些查询参数，而不用被迫在每个导航方法中都指定它们 —— 无论是声明式的（链接）还是命令式的（程序中调用）。
 
   [Fragments](https://en.wikipedia.org/wiki/Fragment_identifier) refer to certain elements on the page
   identified with an `id` attribute.
 
+  [片段](https://en.wikipedia.org/wiki/Fragment_identifier)可以引用页面中带有特定`id`属性的元素.
+
   We'll update our `AuthGuard` to provide a `session_id` query that will remain after navigating to another route.
+  
+  接下来，我们将更新`AuthGuard`来提供`session_id`查询参数，在导航到其它路由后，它还会存在。
 
   We'll also provide an arbitrary `anchor` fragment, which we would use to jump to a certain point on our page.
+  
+  我们还将随意提供一个锚点片段，它用来跳转到页面中指定的位置。
 
   We'll add the extra navigation object to our `router.navigate` method that navigates us to our `/login` route.
+  
+  我们还将为`router.nativate`方法传入一个额外的导航对象参数，用来导航到`/login`路由。
+  
 +makeExample('router/ts/app/auth-guard.service.ts','', 'auth-guard.service.ts (v.3)')
+
 :marked
   Since we'll be navigating to our *Crisis Admin* route after logging in, we'll update it to handle our global
   query parameters and fragment.
+  
+  由于要在登录后导航到*危机管理*功能区的路由，所以我们还得更新它，来处理这些全局查询参数和片段。
 
 +makeExample('router/ts/app/crisis-center/crisis-admin.component.ts','', 'crisis-admin.component.ts (v.2)')
+
 :marked
   *Query Parameters* and *Fragments* are available through the `routerState` property in our `Router` service.
   Just like our *route parameters*, global query parameters and fragments are provided as an `Observable`.
   For our updated *Crisis Admin* component we'll feed the `Observable` directly into our template using the `AsyncPipe`, which
   will handle _unsubscribing_ from the `Observable` for us when the component is destroyed.
+  
+  *查询参数*和*片段*可通过`Router`服务的`routerState`属性使用。和*路由参数*类似，全局查询参数和片段也是`Observable`对象。
+  在更新过的*英雄管理*组件中，我们将直接把`Observable`传给模板，借助`AsyncPipe`在组件被销毁时自动_取消_对`Observable`的订阅。
 
 .l-sub-section
+  
   img(src='/resources/images/devguide/plunker-separate-window-button.png' alt="pop out the window" align="right" style="margin-right:-20px")
+  
   :marked
     When running in plunker, pop out the preview window by clicking the blue 'X' button in the upper right corner.
+    
+    当在plunker中运行时，可以点击右上角的蓝色'X'按钮来弹出预览窗口。
 
 :marked
   Following the steps in this process, we can click on the *Crisis Admin* button, that takes us to the *Login*
@@ -2860,6 +2897,10 @@ figure.image-display
   we have been redirected to the `Crisis Admin` page with our `query params` and `fragment` still intact. We can use
   these persistent bits of information for things that need to be provided with every page interaction like
   authentication tokens or session ids.
+  
+  按照下列步骤试验下：点击*Crisis Admin*按钮，它会带着我们提供的“查询参数”和“片段”跳转到登录页。
+  点击登录按钮，我们就会被带到`Crisis Admin`页，仍然带着上一步提供的“查询参数”和“片段”。
+  我们可以用这些持久化信息来携带需要为每个页面都提供的信息，如认证令牌或会话的ID等。
 
 <a id="final-app"></a>
 
@@ -2903,12 +2944,25 @@ figure.image-display
   ## 附录：链接参数数组
 
   We've mentioned the *Link Parameters Array* several times. We've used it several times.
+  
+  我们已经数次提及*链接参数数组*，也用过好几次了。
 
   A link parameters array holds the ingredients for router navigation:
+  
+  链接参数数组保存路由导航时所需的成分：
+  
   * the *path* of the route to the destination component
+  
+  * 指向目标组件的那个路由的*路径（path）*
+  
   * required route parameters and optional query parameters that go into the route URL
+  
+  * 必须的路由参数和可选的查询参数，它们将进入该路由的URL
 
   We can bind the `RouterLink` directive to such an array like this:
+  
+  我们可以把`RouterLink`指令绑定到一个数组，就像这样：
+  
 +makeExample('router/ts/app/app.component.3.ts', 'h-anchor')(format=".")
 
 :marked
@@ -2920,12 +2974,15 @@ figure.image-display
 
 :marked
   We can provide optional query parameters in an object like this:
+  
+  我们可以在对象中提供可选的查询参数，就像这样：
+  
 +makeExample('router/ts/app/app.component.3.ts', 'cc-query-params')(format=".")
 :marked
   These three examples cover our needs for an app with one level routing.
   The moment we add a child router, such as the *Crisis Center*, we create new link array possibilities.
 
-  这两个例子覆盖了我们在单级路由的应用中所需的一切。在添加一个像*危机中心*一样的子路由时，我们创建新链接数组组合。
+  这三个例子覆盖了我们在单级路由的应用中所需的一切。在添加一个像*危机中心*一样的子路由时，我们创建新链接数组组合。
 
   Recall that we specified a default child route for *Crisis Center* so this simple `RouterLink` is fine.
 
@@ -2980,7 +3037,6 @@ figure.image-display
 
   * 详细的子路由需要一个`id`路由参数。
 
-  * We add `id` of the *Dragon Crisis* as the third item in the array (`1`)
   * We add `id` of the *Dragon Crisis* as the second item in the array (`1`)
 
   * 我们把*巨龙危机*的`id`添加为该数组中的第二个条目（`1`）。
