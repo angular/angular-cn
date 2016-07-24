@@ -71,8 +71,10 @@ p.
 .l-main-section
 :marked
   ## HTML
+  
   ## HTML
-  HTML is the language of the Angular template. Our [QuickStart](../quickstart.html) application had a template that was pure HTML:
+  
+  HTML is the language of the Angular template. Our [QuickStart](../quickstart.html) application has a template that is pure HTML:
 
   HTML是Angular模板的“语言”。我们的[“快速起步”](../quickstart.html)应用就有一个模板是纯HTML的：
 
@@ -88,9 +90,9 @@ code-example(language="html" escape="html").
 
   有些合法的HTML被用在一个模板中是没有意义的。`<html>`、`<body>`和`<base>`元素在我们的舞台上中并没有扮演有用的角色。基本上所有其它的元素都被一样使用。
 
-  We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. And we are about to learn how to get and set DOM values dynamically through data binding.
+  We can extend the HTML vocabulary of our templates with components and directives that appear as new elements and attributes. In the following sections we are going to learn how to get and set DOM (Document Object Model) values dynamically through data binding.
 
-  我们可以通过组件和指令来扩展模板中的HTML词汇。它们看上去就是新元素和属性。我们将学习如何通过数据绑定来动态获取/设置DOM的值。
+  我们可以通过组件和指令来扩展模板中的HTML词汇。它们看上去就是新元素和属性。接下来我们将学习如何通过数据绑定来动态获取/设置DOM（文档对象模型）的值。
 
   Let’s turn to the first form of data binding &mdash; interpolation &mdash; to see how much richer template HTML can be.
 
@@ -112,8 +114,8 @@ code-example(language="html" escape="html").
 +makeExample('template-syntax/ts/app/app.component.html', 'title+image')(format=".")
 :marked
   The material between the braces is often the name of a component property. Angular replaces that name with the
-  string value of the corresponding component property. In this example, Angular evaluates the `title` and `heroImageUrl` properties
-  and "fills in the blanks", displaying first a bold application title and then a heroic image.
+  string value of the corresponding component property. In the example above, Angular evaluates the `title` and `heroImageUrl` properties
+  and "fills in the blanks", first displaying a bold application title and then a heroic image.
 
   在括号之间的“素材”，通常是组件属性的名字。Angular会用组件中同名属性的字符串值，替换这个名字。
   在这个例子中，Angular计算`title`和`heroImageUrl`属性的值，并把它们填在空白处。首先显示一个粗体的应用标题，然后显示英雄的图片。
@@ -129,15 +131,15 @@ code-example(language="html" escape="html").
   这个表达式可以调用所属组件的方法，就像下面用的`getVal()`：
 +makeExample('template-syntax/ts/app/app.component.html', 'sum-2')(format=".")
 :marked
-  Angular evaluates all expressions in double curly braces, converts the expression results to strings, and concatenates them with neighboring literal strings. Finally,
+  Angular evaluates all expressions in double curly braces, converts the expression results to strings, and links them with neighboring literal strings. Finally,
   it assigns this composite interpolated result to an **element or directive property**.
 
   Angular对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，它把这个组合出来的插值结果赋给一个**元素或指令的属性**。
 
-  We appear to be inserting the result between element tags and assigning to attributes.
+  We appear to be inserting the result between element tags and assigning it to attributes.
   It's convenient to think so, and we rarely suffer for this mistake.
-  But it is not literally true. Interpolation is a special syntax that Angular converts into a
-  [property binding](#property-binding), as we'll explain below.
+  Though this is not exactly true. Interpolation is a special syntax that Angular converts into a
+  [property binding](#property-binding), and is explained below.
 
   表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
   这样思考起来很方便，并且这个错误很少给我们带来麻烦。
@@ -1017,17 +1019,22 @@ figure.image-display
 .l-main-section
 :marked
   <a id="other-bindings"></a>
-  ## Attribute, class, and style bindings
-  ## Attribute、class和style绑定
+  ## Attribute, Class, and Style Bindings
+  
+  ## Attribute、Class和Style绑定
+  
   The template syntax provides specialized one-way bindings for scenarios less well suited to property binding.
 
   模板语法为那些不太适合使用属性绑定的场景提供了专门的单向数据绑定形式。
 
-  ### Attribute binding
+  ### Attribute Binding
+  
   ### Attribute绑定
+  
   We can set the value of an attribute directly with an **attribute binding**.
 
   我们可以通过**Attribute绑定**来直接设置Attribute的值。
+  
 .l-sub-section
   :marked
     This is the only exception to the rule that a binding sets a target property. This is the only binding that creates and sets an attribute.
@@ -1109,7 +1116,8 @@ code-example(format="nocode").
   Attribute绑定的主要用例之一是设置ARIA Attribute(译注：ARIA指可访问性，用于给残障人士访问互联网提供便利)，就像这个例子中一样：
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
 :marked
-  ### Class binding
+  ### Class Binding
+  
   ### CSS类绑定
 
   We can add and remove CSS class names from an element’s `class` attribute with
@@ -1155,7 +1163,8 @@ block dart-class-binding-bug
     虽然这是一个切换单一类名的好办法，但我们通常更喜欢使用[NgClass指令](#ngClass)来同时管理多个类名。
 
 :marked
-  ### Style binding
+  ### Style Binding
+  
   ### 样式绑定
 
   We can set inline styles with a **style binding**.
@@ -1197,8 +1206,10 @@ block style-property-name-dart-diff
 
 .l-main-section
 :marked
-  ## Event binding
+  ## Event Binding
+  
   ## 事件绑定
+  
   The bindings we’ve met so far flow data in one direction: *from the component to an element*.
 
   我们前面遇到过的那些绑定的数据流都是单向的：*从组件到元素* 。
@@ -1224,14 +1235,19 @@ block style-property-name-dart-diff
 
   事件绑定语法由等号左侧带圆括号的**目标事件**，和右侧一个引号中的[模板语句](#template-statements)组成。
   下列事件绑定监听按钮的点击事件。无论什么时候，发生点击时，都会调用组件的`onSave()`方法。
+  
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
+
 :marked
-  ### Target event
+  ### Target Event
+  
   ### 目标事件
+  
   A **name between enclosing parentheses** &mdash; for example, `(click)` &mdash;
   identifies the target event. In the following example, the target is the button’s click event.
 
   **圆括号中的名称** —— 比如`(click)` —— 标记出了目标事件。在下面这个例子中，目标是按钮的click事件。
+  
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 :marked
   Some people prefer the `on-` prefix alternative, known as the *canonical form*:
@@ -1306,7 +1322,9 @@ block style-property-name-dart-diff
 
   <a id="eventemitter"></a>
   <a id="custom-event"></a>
-  ### Custom events with EventEmitter
+  
+  ### Custom Events with EventEmitter
+  
   ### 使用EventEmitter实现自定义事件
 
   Directives typically raise custom events with an Angular [EventEmitter](../api/core/index/EventEmitter-class.html).
