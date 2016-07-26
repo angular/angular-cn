@@ -1057,7 +1057,7 @@ block wikipedia-jsonp+
     我们来回顾一下这些改动。
 
     ### Create a stream of search terms
-    ### 创建一个有搜索关键字组成的“流(Stream)”
+    ### 创建一个由搜索关键字组成的“流(Stream)”
 
     We're binding to the search box `keyup` event and calling the component's `search` method after each keystroke.
     
@@ -1111,7 +1111,7 @@ block wikipedia-jsonp+
     re-arranges them in their original request order,
     and delivers to subscribers only the most recent search results. 
     
-    [switchMap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md)(常被称为`flatMapLatest`)
+    [switchMap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md)(以前叫`flatMapLatest`)
     返回一个新的可观察对象，它组合了所有这些“可观察的字符串数组”，重新按照它们的原始请求顺序进行排列，然后把最近的一个搜索结果交付给调用者。
 
     The displayed list of search results stays in sync with the user's sequence of search terms.
