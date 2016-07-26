@@ -931,6 +931,17 @@ table
       :marked
         `<my-component (myOutput)="action()">`
   tr
+    th 
+      p One-way binding
+      p 单向绑定
+    td
+      :marked
+        `myValue: '<myValue'`
+    td
+      :marked
+        `<my-component [myValue]="anExpression">`
+  tr
+    th Two-way binding
     th
       p Two-way binding
       p 双向绑定
@@ -939,8 +950,9 @@ table
         `myValue: '=myValue'`
     td
       :marked
-        As input: `<my-component [myValue]="anExpression">` or
-        as two-way binding: `<my-component [(myValue)]="anExpression"`
+        As a two-way binding: `<my-component [(myValue)]="anExpression">`.
+        Since most Angular 1 two-way bindings actually only need a one-way binding
+        in practice, `<my-component [myValue]="anExpression">` is often enough.
 
         用作输入：`<my-component [myValue]="anExpression">` 或
         用作双向绑定：`<my-component [(myValue)]="anExpression"`

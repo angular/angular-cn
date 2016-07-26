@@ -13,7 +13,7 @@ include ../_util-fns
     Node.js和npm是做Angular 2开发的基础。
     
     <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
-    Get it now</a> if it's not already installed on your machine
+    Get it now</a> if it's not already installed on your machine.
     
     如果你的电脑上还没有装过，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">立即获取它</a>！
  
@@ -131,13 +131,13 @@ a(id="dependencies")
   这个包还包含bootstrapStatic方法，用来引导那些在产品构建时需要离线预编译模板的应用程序。
   
   ***@angular/platform-browser-dynamic*** - Providers and a bootstrap method for applications that
-  compile templates on the client. don’t use offline compilation.
-  We use this package for boostrapping during development and for boostrapping plunker samples
+  compile templates on the client. Don’t use offline compilation.
+  We use this package for boostrapping during development and for boostrapping plunker samples.
   
   ***@angular/platform-browser-dynamic*** - 为应用程序提供一些提供商和一个bootstrap方法，以便在客户端编译模板。不要用于离线编译。
   我们使用这个包在开发期间引导应用，以及引导plunker中的范例。
   
-  ***@angular/http*** - Angular's http client
+  ***@angular/http*** - Angular's http client.
   
   ***@angular/http*** - Angular的HTTP客户端。
   
@@ -187,7 +187,7 @@ a(id="polyfills")
     
     查看下面的“[为什么用peerDependencies?](#why-peer-dependencies)”，以了解这项需求的背景。
 :marked
-  ***core-js*** - monkey patches the global context (window) with essential features of ES2015 (ES6).
+  ***core-js*** - Monkey patches the global context (window) with essential features of ES2015 (ES6).
    Developers may substitute an alternative polyfill that provides the same core APIs. 
    This dependency should go away once these APIs are implemented by all supported ever-green browsers.
    
@@ -195,14 +195,14 @@ a(id="polyfills")
   开发人员也可以把它换成提供了相同内核API的其它填充库。
   如果有一天所有“长青浏览器”都实现了这些API，这个依赖就可以去掉了。
   
-  ***reflect-metadata*** - a dependency shared between Angular and the ***TypeScript compiler***. 
+  ***reflect-metadata*** - A dependency shared between Angular and the ***TypeScript compiler***. 
   Developers should be able to update a TypeScript package without upgrading Angular, 
   which is why this is a dependency of the application and not a dependency of Angular.
   
   ***reflect-metadata*** - 一个由Angular和***TypeScript***编译器共享的依赖包。
   开发人员需要能单独更新TypeScript包，而不用升级Angular。这就是为什么把它放在本应用程序的依赖中，而不是Angular的依赖中。
   
-  ***rxjs*** - a polyfill for the [Observables specification](https://github.com/zenparsing/es-observable) currently before the 
+  ***rxjs*** - A polyfill for the [Observables specification](https://github.com/zenparsing/es-observable) currently before the 
   [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
   Developers should be able to pick a preferred version of *rxjs* (within a compatible version range) 
   without waiting for Angular updates.
@@ -211,7 +211,7 @@ a(id="polyfills")
   [TC39](http://www.ecma-international.org/memento/TC39.htm)委员会，以决定是否要在JavaScript语言中进行标准化。
   开发人员应该能在兼容的版本中选择一个喜欢的*rxjs*版本，而不用等Angular升级。
   
-  ***zone.js*** - a polyfill for the [Zone specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the 
+  ***zone.js*** - A polyfill for the [Zone specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the 
   [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
   Developers should be able to pick a preferred version of *zone.js* to use (within a compatible version range) 
   without waiting for Angular updates.
@@ -235,7 +235,7 @@ a(id="other")
   对演示、文档范例和开发的早期阶段(那时候我们可能还没有服务器呢)非常有用。
   请到[Http客户端](server-communication.html#appendix-tour-of-heroes-in-memory-server)一章中了解更多知识。
   
-  ***bootstrap*** - [bootstrap](http://getbootstrap.com/) is a popular HTML and CSS framework for designing responsive web apps.
+  ***bootstrap*** - [Bootstrap](http://getbootstrap.com/) is a popular HTML and CSS framework for designing responsive web apps.
   Some of the documentation samples improve their appearance with *bootstrap*.
   
   ***bootstrap*** - [bootstrap](http://getbootstrap.com/)是一个广受欢迎的HTML和CSS框架，可用来设计响应式网络应用。
@@ -252,23 +252,23 @@ a(id="dev-dependencies")
   它们不用部署到产品环境的应用程序中 —— 虽然这样做也没什么坏处。
 
   ***[concurrently](https://www.npmjs.com/package/concurrently)*** - 
-  a utility to run multiple *npm* commands concurrently on OS/X, Windows, and Linux operating systems.
+  A utility to run multiple *npm* commands concurrently on OS/X, Windows, and Linux operating systems.
   
   ***[concurrently](https://www.npmjs.com/package/concurrently)*** - 一个用来在OS/X、Windows和Linux操作系统上同时运行多个*npm*命令的工具
   
   ***[lite-server](https://www.npmjs.com/package/lite-server)*** - 
-  a light-weight, static file server, written and maintained by [John Papa](http://johnpapa.net/) 
+  A light-weight, static file server, written and maintained by [John Papa](http://johnpapa.net/) 
   with excellent support for Angular apps that use routing.
   
   ***[lite-server](https://www.npmjs.com/package/lite-server)*** - 一个轻量级、静态的服务器，
   由[John Papa](http://johnpapa.net/)开发和维护。对使用到路由的Angular程序提供了很好的支持。 
   
   ***[typescript](https://www.npmjs.com/package/typescript)*** - 
-  the TypeScript language server including the *tsc* TypeScript compiler.
+  The TypeScript language server including the *tsc* TypeScript compiler.
   
   ***[typescript](https://www.npmjs.com/package/typescript)*** - TypeScript语言的服务器，包含了TypeScript编译器*tsc*。
   
-  ***[typings](https://www.npmjs.com/package/typings)*** - a manager for TypeScript definition files.
+  ***[typings](https://www.npmjs.com/package/typings)*** - A manager for TypeScript definition files.
   Learn more about it in the [TypeScript Configuration](typescript-configuration.html#typings) chapter.
   
   ***[typings](https://www.npmjs.com/package/typings)*** - 一个“TypeScript定义”文件管理器。
