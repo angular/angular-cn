@@ -744,8 +744,8 @@ block observables-section
     If we passed every user keystroke directly to the `HeroSearchService`, we'd unleash a storm of http requests.
     Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
     
-    如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场Http请求的风暴。
-    这可不好玩。我们不希望占用服务器资源，不想也耗尽网络带宽。
+    如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场Http请求风暴。
+    这可不好玩。我们不希望占用服务器资源，也不想耗尽网络带宽。
 
     Fortunately we can chain `Observable` operators to the string `Observable` that reduce the request flow.
     We'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
@@ -803,7 +803,7 @@ block observables-section
       We are content for now to discard unwanted results.
       
       注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的http请求，除非有一天我们支持了这个特性，这个问题我们以后再讨论。
-      目前我们的任务只是丢弃不希望的结果。
+      目前我们的做法只是丢弃不希望的结果。
       
   :marked
     * `catch` intercepts a failed observable. 
@@ -913,7 +913,7 @@ block filetree
 :marked
   ## Home Stretch
   
-  ## 最后的坦途
+  ## 最后冲刺
 
   We are at the end of our journey for now, but we have accomplished a lot.
 
