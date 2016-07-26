@@ -1,11 +1,11 @@
 {
   "globals": {
     "title": "Angular",
-    "description": "Angular is a development platform for building mobile and desktop web applications",
-    "keywords": "Angular, AngularJS, AngularDart, Javscript, Dart, Framework, JavaScript MVC, Google",
-    "siteURL": "http://angular.io",
-    "jsLatest": "2.0.0-beta.02",
-    "dartLatest": "2.0.0-beta.02",
+    "description": "Angular是一个用于构建移动应用和桌面Web应用的开发平台",
+    "keywords": "Angular, 中文, 中文版, AngularJS, AngularDart, Javscript, Dart, Framework, JavaScript MVC, Google",
+    "siteURL": "https://angular.cn",
+    "jsLatest": "2.0.0-RC.4",
+    "dartLatest": "2.0.0-RC.4",
 
     "bios": {
       "misko": {
