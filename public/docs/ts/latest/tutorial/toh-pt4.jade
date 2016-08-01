@@ -179,7 +179,7 @@ code-example(language="bash").
   It could get the data from a web service or local storage
   or from a mock data source.
   
-  消费者并不知道本服务会如何获取数据。
+  数据使用者并不知道本服务会如何获取数据。
   我们的`HeroService`服务可以从任何地方获取英雄的数据。
   它可以从网络服务器获取，可以从浏览器的局部存储区获取，也可以是直接写在源码中的mock数据。
   
@@ -187,8 +187,8 @@ code-example(language="bash").
   We can change our minds about the implementation as often as we like,
   for whatever reason, without touching any of the components that need heroes.
   
-  我们从组件中成功移除了数据访问代码，干得漂亮。
-  这下子，我们可以随时改变数据访问的实现方式了。
+  这就是从组件中移除数据访问代码的美妙之处。
+  这样我们可以随时改变数据访问的实现方式，而无需对使用英雄的组件作任何改动。
   
   ### Mock Heroes  
   
@@ -239,7 +239,7 @@ code-example(language="bash").
   
   We're ready to use the `HeroService` in other components starting with our `AppComponent`.
 
-  我们已经在包括`AppComponent`在内的多个组件中使用了`HeroService`服务。
+  我们可以在多个组件中使用HeroService服务了，先从AppComponent开始。
   
   We begin, as usual, by importing the thing we want to use, the `HeroService`.
   
