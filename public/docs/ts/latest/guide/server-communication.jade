@@ -1027,13 +1027,13 @@ block wikipedia-jsonp+
     
     哪一个响应会先回来？我们是没法保证的。
     负载均衡器可能把这个请求分发给了响应时间不同的两台服务器。
-    来自第一个*angular*请求的结果可能晚于稍后的*http*的结果。
-    用户可能会困惑：为什么在*http*请求中显示了*angular*的结果。
+    搜*angular*的结果可能晚于稍后搜*http*的结果。
+    用户可能会困惑：为什么搜*http*时显示了关于*angular*的结果。
 
     When there are multiple requests in-flight, the app should present the responses
     in the original request order. That won't happen if *angular* results arrive last.
     
-    如果有多个请求“打架”，应用程序应该按照原始请求的顺序展示对它们的响应。即使*angular*的结果后返回，也不会发生这样的混乱。
+    即使有多个尚未返回的请求，应用程序也应该按照原始请求的顺序展示对它们的响应。如果能让*angular*的结果始终在后面返回，就不会发生这样的混乱了。
 
     <a id="more-observables"></a>
     ## More fun with Observables
