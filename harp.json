@@ -67,7 +67,7 @@
         "picture": "/resources/images/bios/thomas.jpg",
         "twitter": "ThomasBurleson",
         "website": "http://www.solutionOptimist.com",
-        "bio": "Thomas is a software architect for commercial & open-source web solutions. With over 15 years working on thin-client RUX [using Flex and Angular], Thomas is passionate about software excellence, and distributed team-development.  Thomas is the Team Lead for Google's Angular Material OSS. His mission is to work with a fantastic team and help deliver a framework of UX components for the AngularJS frameworks (v1.x and v2). He previously worked at SiriusXM as a UX and Principal Architect for their Internet Radio applications.",
+        "bio": "Angular Material 1.x Team Lead. Thomas works with the Angular core teams and helps deliver the Angular-native UX framework (v1.x and v2) based on Google's Material Design.",
         "type": "Lead"
       },
 
@@ -498,6 +498,13 @@
         "twitter": "brandontroberts",
         "website": "https://github.com/brandonroberts",
         "bio": "Brandon is a front-end developer for a game studio developing web applications for STEM-based learning games. He is also a natural born troubleshooter who helps solve Angular issues on Github and Gitter support channels, particularly dealing with routing. He is also a member of the Angular docs team.",
+        "type": "Community"
+      },
+      "crisbeto": {
+        "name": "Kristiyan Kostadinov",
+        "picture": "/resources/images/bios/crisbeto.jpg",
+        "website": "http://crisbeto.com/",
+        "bio": "Kristiyan is a front-end developer, passionate open-source contributor and a core team member on Angular Material.",
         "type": "Community"
       }
     }
