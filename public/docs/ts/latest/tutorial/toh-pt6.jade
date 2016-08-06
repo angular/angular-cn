@@ -179,7 +179,7 @@ block dont-be-distracted-by-backend-subst
 
   来看看我们目前的`HeroService`的实现
 
-+makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes', 'app/hero.service.ts (old getHeroes)')(format=".")
++makeExcerpt('toh-4/ts/app/hero.service.ts (old getHeroes)', 'get-heroes')
 
 :marked
   We returned a !{_Promise} resolved with mock heroes.
@@ -219,7 +219,7 @@ block get-heroes-details
 
     *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
     
-  +makeExample('toh-6/ts/app/hero.service.ts', 'to-promise')(format=".")
+  +makeExcerpt('app/hero.service.ts', 'to-promise', '')
   
   :marked
     Unfortunately, the Angular `Observable` doesn't have a `toPromise` operator ... not out of the box.
@@ -236,7 +236,7 @@ block get-heroes-details
     如果我们希望得到那些能力，就得自己添加那些操作符。
     那很容易，只要从RxJS库中导入它们就可以了，就像这样：
     
-  +makeExample('toh-6/ts/app/hero.service.ts', 'rxjs')(format=".")
+  +makeExcerpt('app/hero.service.ts', 'rxjs', '')
 
   :marked
     ### Extracting the data in the *then* callback
@@ -248,7 +248,7 @@ block get-heroes-details
     
     在*promise*的`then`回调中，我们调用http的`Reponse`对象的`json`方法，以提取出其中的数据。
 
-  +makeExample('toh-6/ts/app/hero.service.ts', 'to-data')(format=".")
+  +makeExcerpt('app/hero.service.ts', 'to-data', '')
 
 :marked
   That response JSON has a single `data` property.
@@ -292,7 +292,7 @@ block get-heroes-details
 
   在`getHeroes()`的最后，我们`catch`了服务器的失败信息，并把它们传给了错误处理器：
 
-+makeExcerpt('app/hero.service.ts', 'catch')
++makeExcerpt('app/hero.service.ts', 'catch', '')
 
 :marked
   This is a critical step!
@@ -301,7 +301,8 @@ block get-heroes-details
   这是一个关键的步骤！
   我们必须预料到http请求会失败，因为有太多我们无法控制的原因可能导致它们频繁出现各种错误。
 
-+makeExcerpt('app/hero.service.ts', 'handleError')
++makeExcerpt('app/hero.service.ts', 'handleError', '')
+
 - var rejected_promise = _docsFor == 'dart' ? 'propagated exception' : 'rejected promise';
 :marked
   In this demo service we log the error to the console; we should do better in real life.
@@ -357,9 +358,9 @@ block get-heroes-details
 
   ### Put
 
-  Put will be used to update an individual hero. Its structure is very similar to Post requests. The only difference is that we have to change the url slightly by appending the id of the hero we want to update.
+  Put will be used to update an individual hero. Its structure is very similar to Post requests. The only difference is that we have to change the URL slightly by appending the id of the hero we want to update.
   
-  Put用来编辑一个指定的英雄，但是代码结构和POST请求很相似。唯一的不同是，我们要修改url，为它附加上我们想要编辑的那位英雄的id。
+  Put用来编辑一个指定的英雄，但是代码结构和POST请求很相似。唯一的不同是，我们要修改URL，为它附加上我们想要编辑的那位英雄的id。
 
 +makeExcerpt('app/hero.service.ts', 'put')
 
@@ -437,7 +438,7 @@ block hero-detail-comp-updates
   +makeExcerpt('app/hero-detail.component.ts', 'ngOnInit')
 
   :marked
-    In order to differentiate between add and edit we are adding a check to see if an id is passed in the url. If the id is absent we bind `HeroDetailComponent` to an empty `Hero` object. In either case, any edits made through the UI will be bound back to the same `hero` property.
+    In order to differentiate between add and edit we are adding a check to see if an id is passed in the URL. If the id is absent we bind `HeroDetailComponent` to an empty `Hero` object. In either case, any edits made through the UI will be bound back to the same `hero` property.
     
     为了区分添加和编辑操作，我们增加了一步检查，看看url中是否传入了id。如果没有id，我们就把`HeroDetailComponent`绑定到一个空的`Hero`对象。
     无论是哪种情况，通过UI进行的任何编辑操作都会被绑定回同一个`hero`属性。
@@ -527,7 +528,13 @@ block add-new-hero-via-detail-comp
   用户可以通过点击英雄名后面的删除按钮来*删除*一个现存的英雄。
   往`heroes.component.html`中往`<li>`标签中名字的紧后面添加下列HTML代码：
   
-+makeExample('app/heroes.component.html', 'delete')
++makeExcerpt('app/heroes.component.html', 'delete')
+:marked
+  Add the following to the bottom of the `HeroesComponent` CSS file:
+  
+  把下列代码添加到`HeroesComponent`的CSS文件底部：
+  
++makeExcerpt('app/heroes.component.css', 'additions')
 
 :marked
   Now let's fix-up the `HeroesComponent` to support the *add* and *delete* actions used in the template.
@@ -599,14 +606,16 @@ block review
     下面是这些劳动成果的操作演示：
 
   figure.image-display
-    img(src='/resources/images/devguide/toh/toh-http.anim.gif' alt="Heroes List Editting w/ HTTP")
+    img(src='/resources/images/devguide/toh/toh-http.anim.gif' alt="Heroes List Editing w/ HTTP")
 
 block observables-section
   :marked
-    ## Observables
+    ## !{_Observable}s
     
     ## 可观察对象（Observable）
 
+block observables-section-intro
+  :marked
     Each `Http` method  returns an `Observable` of HTTP `Response` objects.
     
     每个`Http`方法都返回一个Http `Response`对象的`Observable`实例。
@@ -646,116 +655,136 @@ block observables-section
     
     转换成承诺通常是更好地选择，我们通常要求`http`获取单块数据。只要接收到数据，就算完成。
     使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在JavaScript程序员中被广泛接受了。
-
-    But requests aren't always "one and done". We may start one request, 
-    then cancel it, and make a different request ... before the server has responded to the first request.
-    Such a _request-cancel-new-request_ sequence is difficult to implement with *promises*. 
-    It's easy with *observables* as we'll see.
-    
-    但是请求并非总是“一次性”的。我们可以开始一个请求，并且取消它，再开始另一个不同的请求 —— 在服务器对第一个请求作出回应之前。
-    像这样一个_请求-取消-新请求_的序列用*承诺*是很难实现的，但接下来我们会看到，它对于*可观察对象*却很简单。
-
-    ### Search-by-name
-    
-    ### 按名搜索
-    
-    We're going to add a *hero search* feature to the Tour of Heroes.
-    As the user types a name into a search box, we'll make repeated http requests for heroes filtered by that name.
-    
-    我们要为《英雄指南》添加一个*英雄搜索*特性。
-    当用户在搜索框中输入一个名字时，我们将不断发起http请求，以获得按名字过滤的英雄。
-
-    We start by creating `HeroSearchService` that sends search queries to our server's web api.
-    
-    我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的Web API。
-
-  +makeExample('toh-6/ts/app/hero-search.service.ts', null, 'app/hero-search.service.ts')(format=".")
-
-  :marked
-    The `http.get` call in `HeroSearchService` is similar to the `http.get` call in the `HeroService`.
-    The notable difference: we no longer call `toPromise`. 
-    We simply return the *observable* instead.
-    
-    `HeroSearchService`中的`http.get`调用和`HeroService`中的很相似。
-    显著的不同是：我们不再调用`toPromise`，而是直接返回*可观察对象*。
-
-    ### HeroSearchComponent
-    
-    ### HeroSearchComponent
-    
-    Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`. 
-    
-    我们再创建一个新的`HeroSearchComponent`来调用这个新的`HeroSearchService`。
-
-    The component template is simple - just a textbox and a list of matching search results.
-    
-    组件模板很简单，就是一个输入框和一个相匹配的搜索结果列表。
-    
-  +makeExample('toh-6/ts/app/hero-search.component.html', null,'hero-search.component.html')
-  :marked
-    As the user types in the search box, a *keyup* event binding calls the component's `search` with the new search box value.
-    
-    当用户在搜索框中输入时，一个*keyup*事件绑定会调用该组件的`search`方法，并传入新的搜索框的值。
-
-    The `*ngFor` repeats *hero* objects from the component's `heroes` property. No surprise there.
-    
-    `*ngFor`为该组件的`heroes`属性重复*hero*对象。这也没啥特别的。
-
-    But, as we'll soon see, the `heroes` property returns an `Observable` of heroes, not an array of heroes.
-    The `*ngFor` can't do anything with an observable until we flow it through the `AsyncPipe` (`heroes | async`).
-    The `AsyncPipe` subscribes to the observable and produces the array of heroes to `*ngFor`.
-    
-    但是，接下来我们看到`heroes`属性返回了一个英雄们的`Observable`对象，不是英雄们的数组。
-    `*ngFor`不能利用可观察对象做任何事，除非我们在它后面跟一个`AsyncPipe`（`heroes | async`）。
-    `AsyncPipe`会订阅到这个可观察对象，并且为`*ngFor`生产一个英雄们的数组。
-
-    Time to create the `HeroSearchComponent` class and metadata.
-    
-    该创建`HeroSearchComponent`类及其元数据了。
-    
-  +makeExample('toh-6/ts/app/hero-search.component.ts', null,'hero-search.component.ts')
+:marked
+  But requests aren't always "one and done". We may start one request, 
+  then cancel it, and make a different request before the server has responded to the first request.
+  Such a _request-cancel-new-request_ sequence is difficult to implement with *!{_Promise}s*. 
+  It's easy with *!{_Observable}s* as we'll see.
   
+  但是请求并非总是“一次性”的。我们可以开始一个请求，并且取消它，再开始另一个不同的请求 —— 在服务器对第一个请求作出回应之前。
+  像这样一个_请求-取消-新请求_的序列用*承诺*是很难实现的，但接下来我们会看到，它对于*可观察对象*却很简单。
+
+  ### Search-by-name
+  
+  ### 按名搜索
+  
+  We're going to add a *hero search* feature to the Tour of Heroes.
+  As the user types a name into a search box, we'll make repeated HTTP requests for heroes filtered by that name.
+  
+  我们要为《英雄指南》添加一个*英雄搜索*特性。
+  当用户在搜索框中输入一个名字时，我们将不断发起http请求，以获得按名字过滤的英雄。
+
+  We start by creating `HeroSearchService` that sends search queries to our server's web api.
+  
+  我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的Web API。
+
++makeExample('app/hero-search.service.ts')
+
+:marked
+  The `!{_priv}http.get()` call in `HeroSearchService` is similar to the one
+  in the `HeroService`, although the URL now has a query string.
+  <span if-docs="ts">Another notable difference: we no longer call `toPromise`,
+  we simply return the *observable* instead.</span>
+  
+  `HeroSearchService`中的`http.get()`调用和`HeroService`中的很相似，只是这次带了查询字符串。
+  <span if-docs="ts">显著的不同是：我们不再调用`toPromise`，而是直接返回*可观察对象*。</span>
+
+  ### HeroSearchComponent
+  
+  ### HeroSearchComponent
+  
+  Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`. 
+  
+  我们再创建一个新的`HeroSearchComponent`来调用这个新的`HeroSearchService`。
+
+  The component template is simple &mdash; just a text box and a list of matching search results.
+
+  组件模板很简单，就是一个输入框和一个相匹配的搜索结果列表。
+  
++makeExample('app/hero-search.component.html')
+
+:marked
+  We'll also want to add styles for the new component.
+  
+  我们还要往这个新组件中添加样式。
+  
++makeExample('app/hero-search.component.css')
+
+:marked
+  As the user types in the search box, a *keyup* event binding calls the component's `search` method with the new search box value.
+  
+  当用户在搜索框中输入时，一个*keyup*事件绑定会调用该组件的`search`方法，并传入新的搜索框的值。
+
+  The `*ngFor` repeats *hero* objects from the component's `heroes` property. No surprise there.
+  
+  `*ngFor`为该组件的`heroes`属性重复*hero*对象。这也没啥特别的。
+
+  But, as we'll soon see, the `heroes` property is now !{_an} *!{_Observable}* of hero !{_array}s, rather than just a hero !{_array}.
+  The `*ngFor` can't do anything with !{_an} `!{_Observable}` until we flow it through the `async` pipe (`AsyncPipe`).
+  The `async` pipe subscribes to the `!{_Observable}` and produces the !{_array} of heroes to `*ngFor`.
+  
+  但是，接下来我们看到`heroes`属性现在是英雄列表的`Observable`对象，而不再只是英雄数组。
+  `*ngFor`不能利用可观察对象做任何事，除非我们在它后面跟一个`async` pipe (`AsyncPipe`)。
+  这个`async`管道会订阅到这个可观察对象，并且为`*ngFor`生成一个英雄数组。
+
+  Time to create the `HeroSearchComponent` class and metadata.
+  
+  该创建`HeroSearchComponent`类及其元数据了。
+  
++makeExample('app/hero-search.component.ts')
+
+:marked
+  #### Search terms
+  
+  #### 搜索词
+  
+  Let's focus on the `!{_priv}searchTerms`:
+  
+  仔细看下这个`searchTerms`：
+  
++makeExcerpt('app/hero-search.component.ts', 'searchTerms', '')
+
+block search-criteria-intro
   :marked
-    Focus on the `searchSubject`.
-    
-    仔细看`searchSubject`。
-    
-  +makeExample('toh-6/ts/app/hero-search.component.ts', 'searchSubject')(format=".")
-  :marked
-    A `Subject` is a producer of an _observable_ event stream. 
-    This `searchSubject` produces an `Observable` of strings, the filter criteria for the name search.
+    A `Subject` is a producer of an _observable_ event stream;
+    `searchTerms` produces an `Observable` of strings, the filter criteria for the name search.
     
     `Subject`（主体）是一个_可观察的_事件流中的生产者。
-    这里的`searchSubject`生产一些字符串的`Observable`，用于作为按名搜索时的过滤条件。
-
+    `searchTerms`生成一些字符串的`Observable`，用于作为按名搜索时的过滤条件。
+  
     Each call to `search` puts a new string into this subject's _observable_ stream by calling `next`.
     
-    每次到`search`的调用都会调用`next`来把新的字符串放进该主体的_可观察_流中。
-
-    A `Subject` is also an `Observable`. 
-    We're going to access that `Observable` and turn the stream
-    of strings into a stream of `Hero[]` arrays, the `heroes` property.
+    每当调用`search`时都会调用`next`来把新的字符串放进该主体的_可观察_流中。
     
-    `Subject`也是一个`Observable`对象。
-    我们将访问`Observable`并且把字符串数组组成的流转换成`Hero[]`数组组成的流，也就是`heroes`属性。
+:marked
+  <a id="ngoninit"></a>
+  #### Initialize the _**heroes**_ property (_**ngOnInit**_)
+  
+  #### 初始化_**heroes**_属性(_**ngOnInit**_)
+  
+  <span if-docs="ts">A `Subject` is also an `Observable`.</span>
+  We're going to turn the stream
+  of search terms into a stream of `Hero` !{_array}s and assign the result to the `heroes` property.
+  
+  <span if-docs="ts">`Subject`也是一个`Observable`对象。</span>
+  我们要把字符串数组的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。
 
-  +makeExample('toh-6/ts/app/hero-search.component.ts', 'search')(format=".")
++makeExcerpt('app/hero-search.component.ts', 'search', '')
+
+:marked
+  If we passed every user keystroke directly to the `HeroSearchService`, we'd unleash a storm of HTTP requests.
+  Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
+  
+  如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场HTTP请求风暴。
+  这可不好玩。我们不希望占用服务器资源，也不想耗尽网络带宽。
+
+block observable-transformers
   :marked
-    If we passed every user keystroke directly to the `HeroSearchService`, we'd unleash a storm of http requests.
-    Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
-    
-    如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场Http请求风暴。
-    这可不好玩。我们不希望占用服务器资源，也不想耗尽网络带宽。
-
-    Fortunately we can chain `Observable` operators to the string `Observable` that reduce the request flow.
+    Fortunately, we can chain `Observable` operators to the string `Observable` that reduce the request flow.
     We'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
     
     幸运的是，我们可以在字符串的`Observable`后面串联一个`Observable`操作符，来归并这些请求。
     我们将对`HeroSearchService`发起更少的调用，并且仍然获得足够及时的响应。做法如下：
-
-    * The `asObservable` operator casts the `Subject` as an `Observable` of filter strings.
-    
-    * `asObservable`操作符把`Subject`转换成过滤字符串组成的`Observable`。
 
     * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds 
     before passing along the latest string. We'll never make requests more frequently than 300ms.
@@ -840,42 +869,42 @@ block observables-section
     在这个例子中，我们使用一些不同的方法。
     我们把整个应用中要用的那些RxJS `Observable`扩展组合在一起，放在一个单独的RxJS导入文件中。
 
-  +makeExample('toh-6/ts/app/rxjs-extensions.ts', null, 'app/rxjs-extensions.ts')(format=".")
-  
+  +makeExample('app/rxjs-extensions.ts')
+
   :marked
     We load them all at once by importing `rxjs-extensions` in `AppComponent`.
     
     我们在`AppComponent`中导入`rxjs-extensions`就可以一次性加载它们。
 
-  +makeExample('toh-6/ts/app/app.component.ts', 'rxjs-extensions', 'app/app.component.ts')(format=".")
+  +makeExcerpt('app/app.component.ts', 'rxjs-extensions')
 
-  :marked
-    ### Adding the search component to the dashboard
-    
-    ### 为仪表盘添加搜索组件
+:marked
+  ### Add the search component to the dashboard
+  
+  ### 为仪表盘添加搜索组件
 
-    We add the `HeroSearchComponent` to the bottom of the `DashboardComponent` template.
-    
-    将`HeroSearchComponent`添加到`DashboardComponent`的模版的最后面。
+  We add the hero search HTML element to the bottom of the `DashboardComponent` template.
+  
+  将表示“英雄搜索”组件的HTML元素添加到`DashboardComponent`模版的最后面。
 
-  +makeExample('toh-6/ts/app/dashboard.component.html', null, 'dashboard.component.html')
++makeExample('app/dashboard.component.html')
 
-  :marked
-    And finally, we import the `HeroSearchComponent` and add it to the `directives` array.
-    
-    最后，导入`HeroSearchComponent`并将其添加到`directives`数组中。
+:marked
+  And finally, we import the `HeroSearchComponent` and add it to the `directives` !{_array}.
+  
+  最后，导入`HeroSearchComponent`并将其添加到`directives`数组中。
 
-  +makeExcerpt('app/dashboard.component.ts', 'hero-search-component')
++makeExcerpt('app/dashboard.component.ts', 'search')
 
-  :marked
-    Run the app again, go to the *Dashboard*, and enter some text in the search box below the hero tiles.
-    At some point it might look like this.
-    
-    再次运行该应用，跳转到*Dashboard*，并在英雄下方的搜索框里输入一些文本。
-    看起来就像这样：
+:marked
+  Run the app again, go to the *Dashboard*, and enter some text in the search box below the hero tiles.
+  At some point it might look like this.
+  
+  再次运行该应用，跳转到*Dashboard*，并在英雄下方的搜索框里输入一些文本。
+  看起来就像这样：
 
-  figure.image-display
-    img(src='/resources/images/devguide/toh/toh-hero-search.png' alt="Hero Search Component")
+figure.image-display
+  img(src='/resources/images/devguide/toh/toh-hero-search.png' alt="Hero Search Component")
 
 .l-main-section
 :marked
@@ -905,9 +934,10 @@ block filetree
         .file hero-detail.component.css
         .file hero-detail.component.html
         .file hero-detail.component.ts
-        .file hero-search.component.html
-        .file hero-search.component.ts
-        .file hero-search.service.ts
+        .file hero-search.component.html (new)
+        .file hero-search.component.css (new)
+        .file hero-search.component.ts (new)
+        .file hero-search.service.ts (new)
         .file rxjs-operators.ts
         .file hero.service.ts
         .file heroes.component.css
@@ -919,7 +949,6 @@ block filetree
       .file typings ...
       .file index.html
       .file package.json
-      .file sample.css (new)
       .file styles.css
       .file systemjs.config.json
       .file tsconfig.json
@@ -935,17 +964,17 @@ block filetree
 
   旅程即将结束，不过我们已经收获颇丰。
 
-  - We added the necessary dependencies to use Http in our application.
+  - We added the necessary dependencies to use HTTP in our application.
 
-  - 我们添加了在应用程序中使用Http的必备依赖。
+  - 我们添加了在应用程序中使用HTTP的必备依赖。
 
-  - We refactored HeroService to load heroes from an API.
+  - We refactored `HeroService` to load heroes from a web API.
 
-  - 我们重构了HeroService，以通过api来加载英雄数据。
+  - 我们重构了`HeroService`，以通过web API来加载英雄数据。
 
-  - We extended HeroService to support post, put and delete calls.
+  - We extended `HeroService` to support post, put and delete methods.
 
-  - 我们扩展了HeroService来支持post、put和delete调用。
+  - 我们扩展了`HeroService`来支持post、put和delete方法。
 
   - We updated our components to allow adding, editing and deleting of heroes.
 
@@ -955,44 +984,45 @@ block filetree
 
   - 我们配置了一个内存Web API。
   
-  <li if-docs="ts"> We learned how to use Observables.</li>
+  - We learned how to use !{_Observable}s.
   
-  <li if-docs="ts">我们学会了如何使用可观察对象。</li>
+  - 我们学会了如何使用“可观察对象”。
   
-
-  Below is a summary of the files we changed and added.
-
-  下面是我们添加之后的文件汇总。
+  Here are the files we added or changed in this chapter.
+  
+  下面是我们添加或修改之后的文件汇总。
 
 block file-summary
   +makeTabs(
     `toh-6/ts/app/app.component.ts,
      toh-6/ts/app/heroes.component.ts,
      toh-6/ts/app/heroes.component.html,
+     toh-6/ts/app/heroes.component.css,
      toh-6/ts/app/hero-detail.component.ts,
      toh-6/ts/app/hero-detail.component.html,
      toh-6/ts/app/hero.service.ts,
-     toh-6/ts/app/in-memory-data.service.ts,
-     toh-6/ts/sample.css`,
+     toh-6/ts/app/in-memory-data.service.ts`,
     null,
     `app.comp...ts,
      heroes.comp...ts,
      heroes.comp...html,
+     heroes.comp...css,
      hero-detail.comp...ts,
      hero-detail.comp...html,
      hero.service.ts,
-     in-memory-data.service.ts,
-     sample.css`
+     in-memory-data.service.ts`
   )
 
   +makeTabs(
     `toh-6/ts/app/hero-search.service.ts,
     toh-6/ts/app/hero-search.component.ts,
     toh-6/ts/app/hero-search.component.html,
+    toh-6/ts/app/hero-search.component.css,
     toh-6/ts/app/rxjs-operators.ts`,
     null,
     `hero-search.service.ts,
     hero-search.component.ts,
     hero-search.service.html,
+    hero-search.component.css,
     rxjs-operators.ts`
-) 
+  )

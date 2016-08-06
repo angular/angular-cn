@@ -26,14 +26,9 @@
     "intro": "依赖注入技术"
   },
   "dynamic-form": {
-    "title": "动态表单",
-    "intro": "通过FormGroup渲染动态表单",
-    "basics": true
-  },
-  "dynamic-form-deprecated": {
-    "title": "动态表单(已废弃)",
-    "intro": "通过NgFormModel渲染动态表单",
-    "hide": true
+    "title": "Dynamic Forms",
+    "intro": "Render dynamic forms with FormGroup",
+    "basics": true,
   },
 
   "set-document-title": {

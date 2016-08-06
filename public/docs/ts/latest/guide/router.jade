@@ -15,9 +15,9 @@ include ../_util-fns
   在用户使用应用程序时，Angular的***组件路由器***能让用户从一个[视图](./glossary.html#view)导航到另一个视图。
 
   We cover the router's primary features in this chapter, illustrating them through the evolution
-  of a small application that we can [run live](/resources/live-examples/router/ts/plnkr.html).
+  of a small application that we can <live-example>run live</live-example>.
 
-  本章覆盖了该路由器的主要特性。我们通过一个小型应用的成长演进来讲解它。参见[在线例子](/resources/live-examples/router/ts/plnkr.html)。
+  本章覆盖了该路由器的主要特性。我们通过一个小型应用的成长演进来讲解它。参见<live-example>在线例子</live-example>。
 
 .l-sub-section
 
@@ -339,9 +339,6 @@ code-example(format="", language="html").
    
 :marked
   ### Router State
-  
-  ### 路由器状态
-  
   After the end of each successful navigation lifecycle, the router builds a tree of `ActivatedRoute`s,
   which make up the current state of the router. We can access the current `RouterState` from anywhere in our
   application using the `Router` service and the `routerState` property.
@@ -530,13 +527,7 @@ table
     We discuss code and design decisions pertinent to routing and application design.
     We gloss over everything in between.
 
-    虽然我们会渐进式的前进到最终的范例应用，但本章并不是一个教程。
-    我们讨论路由和应用设计有关的代码和设计决策，并在这期间，处理遇到的所有问题。
-
     The full source is available in the [live example](/resources/live-examples/router/ts/plnkr.html).
-
-    完整代码可以在[在线例子](/resources/live-examples/router/ts/plnkr.html)中找到。
-
 :marked
   Our client is the Hero Employment Agency.
   Heroes need work and The Agency finds Crises for them to solve.
@@ -553,8 +544,6 @@ table
   1. 一个*危机中心*区，它维护一个危机列表，用来分派给英雄。
 
   1. A *Heroes* area where we maintain the list of heroes employed by The Agency.
-
-  1. 一个*英雄*区，用来维护该中心雇佣英雄的列表。
 
   Run the [live example](/resources/live-examples/router/ts/plnkr.html).
   It opens in the *Crisis Center*.  We'll come back to that.
@@ -2753,7 +2742,7 @@ code-example(format="." language="bash").
 .l-sub-section
 
   :marked
-    The [live example](/resources/live-examples/router/ts/plnkr.html) *does* highlight the selected
+    The <live-example></live-example> *does* highlight the selected
     row because it demonstrates the final state of the application which includes the steps we're *about* to cover.
     At the moment we're describing the state of affairs *prior* to those steps.
 
@@ -2912,7 +2901,7 @@ figure.image-display
   ## 总结
 
   We've covered a lot of ground in this chapter and the application is too big to reprint here.
-  Please visit the [live example](/resources/live-examples/router/ts/plnkr.html) and
+  Please visit the <live-example></live-example> and
   where you can download the final source code.
 
   本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问[在线例子](/resources/live-examples/router/ts/plnkr.html)，在那里你可以下载最终的源码。

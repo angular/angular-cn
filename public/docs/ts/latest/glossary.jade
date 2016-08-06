@@ -369,10 +369,10 @@ include _util-fns
 
     Angular提供并使用自己精心设计的[依赖注入(Dependency Injection)](dependency-injection.html)系统来组装和运行应用程序：在要用时，将一些部件“注入”到另一些部件里面。
 
-    At the core is an [`Injector`](#injector) that returns dependency values on request.
+    At the core there is an [`Injector`](#injector) that returns dependency values on request.
     The expression `injector.get(token)` returns the value associated with the given token.
 
-    依赖注入的核心是一个[注入器(Injector)](#injector)，这个注入器根据需要返回被依赖部件。`injector.get(token)`方法返回与该token(令牌)参数相关的依赖部件。
+    在Angular内核中有一个[注入器(Injector)](#injector)，这个注入器根据需要返回被依赖部件。`injector.get(token)`方法返回与该token(令牌)参数相关的依赖部件。
 
     A token is an Angular type (`OpaqueToken`). We rarely deal with tokens directly; most
     methods accept a class name (`Foo`) or a string ("foo") and Angular converts it
@@ -383,7 +383,7 @@ include _util-fns
     当调用`injector.get(Foo)`时，注入器返回用`Foo`类生成的令牌所对应的依赖值，该依赖值通常是`Foo`类的实例。
 
     Angular makes similar requests internally during many of its operations
-    as when it creates a [`Component`](#AppComponent) for display.
+    as when it creates a [`Component`](#component) for display.
 
     Angular在创建[组件(Component)](#AppComponent)以供显示的过程中，会在内部执行很多类似的依赖注入请求。
 

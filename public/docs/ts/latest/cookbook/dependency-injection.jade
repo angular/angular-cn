@@ -113,7 +113,7 @@ include ../_util-fns
   [使用类的前向引用(*forwardRef*)打破循环依赖](#forwardref)
 
 :marked
-   **See the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**
+   **See the <live-example name="cb-dependency-injection"></live-example>**
    of the code supporting this cookbook.        
    
    要获取本“烹饪宝典”的代码，**参见[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)**。
@@ -419,13 +419,13 @@ figure.image-display
   The `ngOnInit` pass that `id` to the service which fetches and caches the hero. 
   The getter for the `hero` property pulls the cached hero from the service.
   And the template displays this data-bound property.
-  
+
   父组件`HeroBiosComponent`把一个值绑定到`heroId`。`ngOnInit`把该`id`传递到服务，然后服务获取和缓存英雄。`hero`属性的getter从服务里面获取缓存的英雄，并在模板里显示它绑定到属性值。
 
-  Find this example in [live code](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
+  Find this example in <live-example name="cb-dependency-injection">live code</live-example>
   and confirm that the three `HeroBioComponent` instances have their own cached hero data. 
 
-  到[在线代码](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
+  到<live-example name="cb-dependency-injection">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
 
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/hero-bios.png" alt="Bios")    
@@ -924,7 +924,7 @@ a(id='usefactory')
   :marked
     The function retrieves candidate heroes from the `HeroService`, 
     takes `2` of them to be the runners-up, and returns their concatenated names.
-    Look at the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
+    Look at the <live-example name="cb-dependency-injection"></live-example>
     for the full source code.
 
     该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字拼接起来。请到[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)查看全部原代码。
@@ -1197,7 +1197,7 @@ a(id='alex')
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','cathy','parent-finder.component.ts (CathyComponent)')(format='.')
 :marked
   We added the [@Optional](#optional) qualifier for safety but
-  the [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
+  the <live-example name="cb-dependency-injection"></live-example>
   confirms that the `alex` parameter is set.
 
   安全起见，我们添加了[@Optional](#optional)装饰器，但是[在线例子](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)显示`alex`参数确实被设置了。
@@ -1253,7 +1253,7 @@ a(id='alex')
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','craig','parent-finder.component.ts (CraigComponent)')(format='.')
 :marked
   Unfortunately, this does not work. 
-  The [live example](/resources/live-examples/cb-dependency-injection/ts/plnkr.html)
+  The <live-example name="cb-dependency-injection"></live-example>
   confirms that the `alex` parameter is null.
   *We cannot inject a parent by its base class.*
   
