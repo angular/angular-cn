@@ -28,7 +28,7 @@
   "dynamic-form": {
     "title": "Dynamic Forms",
     "intro": "Render dynamic forms with FormGroup",
-    "basics": true,
+    "basics": true
   },
 
   "set-document-title": {
