@@ -440,7 +440,7 @@ block hero-detail-comp-updates
   :marked
     In order to differentiate between add and edit we are adding a check to see if an id is passed in the URL. If the id is absent we bind `HeroDetailComponent` to an empty `Hero` object. In either case, any edits made through the UI will be bound back to the same `hero` property.
     
-    为了区分添加和编辑操作，我们增加了一步检查，看看url中是否传入了id。如果没有id，我们就把`HeroDetailComponent`绑定到一个空的`Hero`对象。
+    为了区分添加和编辑操作，我们增加了一步检查，看看URL中是否传入了id。如果没有id，我们就把`HeroDetailComponent`绑定到一个空的`Hero`对象。
     无论是哪种情况，通过UI进行的任何编辑操作都会被绑定回同一个`hero`属性。
 
 :marked
@@ -672,7 +672,7 @@ block observables-section-intro
   As the user types a name into a search box, we'll make repeated HTTP requests for heroes filtered by that name.
   
   我们要为《英雄指南》添加一个*英雄搜索*特性。
-  当用户在搜索框中输入一个名字时，我们将不断发起http请求，以获得按名字过滤的英雄。
+  当用户在搜索框中输入一个名字时，我们将不断发起HTTP请求，以获得按名字过滤的英雄。
 
   We start by creating `HeroSearchService` that sends search queries to our server's web api.
   
@@ -724,7 +724,7 @@ block observables-section-intro
   The `async` pipe subscribes to the `!{_Observable}` and produces the !{_array} of heroes to `*ngFor`.
   
   但是，接下来我们看到`heroes`属性现在是英雄列表的`Observable`对象，而不再只是英雄数组。
-  `*ngFor`不能利用可观察对象做任何事，除非我们在它后面跟一个`async` pipe (`AsyncPipe`)。
+  `*ngFor`不能用可观察对象做任何事，除非我们在它后面跟一个`async` pipe (`AsyncPipe`)。
   这个`async`管道会订阅到这个可观察对象，并且为`*ngFor`生成一个英雄数组。
 
   Time to create the `HeroSearchComponent` class and metadata.
