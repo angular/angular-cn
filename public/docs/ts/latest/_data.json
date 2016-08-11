@@ -3,7 +3,7 @@
     "icon": "home",
     "title": "Angular中文文档",
     "menuTitle": "文档首页",
-    "banner": "欢迎来到 <b>Angular in TypeScript</b>! 当前的Angular版本是 <b>rc.4</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>、最新功能、BUG修复和重大的破坏性更改。"
+    "banner": "欢迎来到<b>Angular in TypeScript</b>! 当前的Angular 2版本是<b>rc.5</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>了解最新的增强、修复和破坏性变更。"
   },
 
   "cli-quickstart": {

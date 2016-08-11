@@ -25,10 +25,22 @@
     "title": "依赖注入",
     "intro": "依赖注入技术"
   },
-  "dynamic-form": {
+
+  "dynamic-form-deprecated": {
     "title": "Dynamic Forms",
-    "intro": "Render dynamic forms with FormGroup",
-    "basics": true
+    "intro": "Render dynamic forms with NgFormModel",
+    "basics": true,
+    "hide": true
+  },
+
+  "dynamic-form": {
+    "title": "动态表单",
+    "intro": "用FormGroup渲染动态表单"
+  },
+
+  "rc4-to-rc5": {
+    "title": "RC4 to RC5 Migration",
+    "intro": "Migrate your RC4 app to RC5 in minutes."
   },
 
   "set-document-title": {

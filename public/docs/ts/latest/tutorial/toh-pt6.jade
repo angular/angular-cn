@@ -6,6 +6,7 @@ block includes
   - var _Angular_Http = 'Angular <code>Http</code>'
   - var _Angular_http_library = 'Angular HTTP library'
   - var _HTTP_PROVIDERS = 'HTTP_PROVIDERS'
+  - var _HttpModule = 'HttpModule'
   - var _JSON_stringify = 'JSON.stringify'
 
 :marked
@@ -84,26 +85,25 @@ block http-library
 block http-providers
   :marked
     Our app will depend upon the Angular `http` service which itself depends upon other supporting services.
-    The `HTTP_PROVIDERS` array from `@angular/http` library holds providers for the complete set of http services.
+    The `HttpModule` from `@angular/http` library holds providers for the complete set of http services.
     
     我们的应用将会依赖于Angular的`http`服务，它本身又依赖于其它支持类服务。
-    来自`@angular/http`库中的`HTTP_PROVIDERS`数组保存着这些http相关服务提供商的全集。
+    来自`@angular/http`库中的`HttpModule`保存着这些http相关服务提供商的全集。
 
 :marked
   We should be able to access `!{_Http}` services from anywhere in the application.
-  So we register them in the `bootstrap` call of <span ngio-ex>main.ts</span> where we
+  So we register them in the `imports` array of <span ngio-ex>app.module.ts</span> where we
   launch the application and its root `AppComponent`.
   
-  我们要能从本应用的任何地方访问这些服务，所以，就要在<span ngio-ex>main.ts</span>中的`bootstrap`方法中注册它们。
-  这里同时也是我们启动应用及其根组件`AppComponent`的地方。
+  我们要能从本应用的任何地方访问这些服务，所以，就要在<span ngio-ex>app.module.ts</span>中的`imports`数组中注册它们。
+  这里同时也是我们引导应用及其根组件`AppComponent`的地方。
 
-+makeExcerpt('app/main.ts','v1')
++makeExample('app/app.module.2.ts','', 'app.module.ts (v.1)')
 
 :marked
-  Notice that we supply `!{_HTTP_PROVIDERS}` in !{_an} !{_array} as the second parameter to the `bootstrap` method.
-  This has the same effect as the `providers` !{_array} in `@Component` !{_decorator}.
+  Notice that we supply `!{_HttpModule}` as part of the *imports* !{_array} in root NgModule `AppModule`.
   
-  注意，我们把`HTTP_PROVIDERS`传入了`bootstrap`方法第二个参数的数组中。这与`@Component`元数据中的`providers`数组有同样的效果。
+  注意，现在`!{_HttpModule}`已经是根模块`AppModule`的`imports`数组的一部分了。
 
 .l-main-section
 :marked
@@ -111,10 +111,9 @@ block http-providers
   
   ## 模拟web API
 
-  We generally recommend registering application-wide services in the root `AppComponent` *providers*.
-  Here we're registering in `main` for a special reason.
+  We recommend registering application-wide services in the root `NgModule` *providers*.
   
-  通常，我们会建议在根组件`AppComponent`的*`providers`*中注册全应用级的服务。这里我们在`main`中进行注册是有特殊理由的。
+  我们建议在根模块（`NgModule`）的`providers`数组中注册全应用级的服务。
 
   Our application is in the early stages of development and far from ready for production.
   We don't even have a web server that can handle requests for heroes.
@@ -128,17 +127,11 @@ block http-providers
   
   我们要*耍点小花招*，让http客户端从一个Mock服务（*内存(in-memory)Web API*）中获取和保存数据。
 
-  The application itself doesn't need to know and shouldn't know about this.
-  So we'll slip the in-memory web API into the configuration *above* the `AppComponent`.
+  Here is a version of `app.module.ts` that performs this trick
   
-  应用本身不需要也不应该知道这些细节。
-  所以，我们要把内存Web API引入`AppComponent`的上一级配置中。
-
-  Here is a version of `main` that performs this trick
+  这个版本的`app.module.ts`就是用来实现这个小花招的：
   
-  这个版本的`main`文件就是用来耍这个小花招的：
-  
-+makeExcerpt('app/main.ts', 'final')
++makeExample('app/app.module.1.ts', '', 'app.module.ts (final)')
 
 block backend
   :marked
@@ -214,7 +207,7 @@ block get-heroes-details
     *Observable(可观察对象)*是一个管理异步数据流的强力方式。
     后面我们还会进一步学习[可观察对象](#observables)。
 
-    For *now* we get back on familiar ground by immediately by 
+    For *now* we get back on familiar ground by immediately by
     converting that `Observable` to a `Promise` using the `toPromise` operator.
 
     *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
@@ -541,31 +534,7 @@ block add-new-hero-via-detail-comp
   Let's start with *add*.
 
   现在，让我们修复`HeroesComponent`，让它支持模板中的*添加*和*删除*动作。以*添加*动作开始。
-
-block heroes-comp-directives
-  :marked
-    We're using the `HeroDetailComponent` to capture the new hero information.
-    We have to tell Angular about that by importing the `HeroDetailComponent` and referencing it in the component metadata `directives` array.
-    
-    使用`HeroDetailComponent`来捕获新英雄的信息。
-    为了告诉Angular这一点：导入`HeroDetailComponent`并把它加入组件元数据的`directives`数组中。
-    
-  +makeExcerpt('app/heroes.component.ts (HeroDetailComponent)', 'hero-detail-component')
   
-  .l-sub-section
-    :marked
-      These are the same lines that we removed in the previous [Routing](toh-pt5.html) chapter.
-      We didn't know at the time that we'd need the *HeroDetailComponent* again. So we tidied up.
-      
-      同样的这些代码，我们曾在前面的[路由](toh-pt5.html)一章中删除过。
-      我们不知道现在会再次需要*`HeroDetailComponent`*类，所以把它们清理掉了。
-
-      Now we *must* put these lines back. If we don't, Angular will ignore the `<my-hero-detail>`
-      tag and pushing the *Add New Hero* button will have no visible effect.
-      
-      现在，我们*必须*把这些行加回来。如果不这样，Angular将会忽略`<my-hero-detail>`标签，并且点击*Add New Hero*按钮时将不会有任何可见的效果。
-      
-:marked
   Implement the click handler for the *Add New Hero* button.
   
   然后我们实现*Add New Hero*按钮的点击事件处理器。
@@ -621,7 +590,7 @@ block observables-section-intro
     每个`Http`方法都返回一个Http `Response`对象的`Observable`实例。
 
     Our `HeroService` converts that `Observable` into a `Promise` and returns the promise to the caller.
-    In this section we learn to return the `Observable` directly and discuss when and why that might be 
+    In this section we learn to return the `Observable` directly and discuss when and why that might be
     a good thing to do.
     
     我们的`HeroService`中把那个`Observable`对象转换成了`Promise`（承诺），并把这个承诺返回给了调用者。
@@ -648,17 +617,17 @@ block observables-section-intro
     快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
     该操作符把`Observable`转换成了`Promise`（承诺），并且我们把那个“承诺”返回给了调用者。
 
-    Converting to a promise is often a good choice. We typically ask `http` to fetch a single chunk of data. 
+    Converting to a promise is often a good choice. We typically ask `http` to fetch a single chunk of data.
     When we receive the data, we're done.
-    A single result in the form of a promise is easy for the calling component to consume 
+    A single result in the form of a promise is easy for the calling component to consume
     and it helps that promises are widely understood by JavaScript programmers.
     
     转换成承诺通常是更好地选择，我们通常要求`http`获取单块数据。只要接收到数据，就算完成。
     使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在JavaScript程序员中被广泛接受了。
 :marked
-  But requests aren't always "one and done". We may start one request, 
+  But requests aren't always "one and done". We may start one request,
   then cancel it, and make a different request before the server has responded to the first request.
-  Such a _request-cancel-new-request_ sequence is difficult to implement with *!{_Promise}s*. 
+  Such a _request-cancel-new-request_ sequence is difficult to implement with *!{_Promise}s*.
   It's easy with *!{_Observable}s* as we'll see.
   
   但是请求并非总是“一次性”的。我们可以开始一个请求，并且取消它，再开始另一个不同的请求 —— 在服务器对第一个请求作出回应之前。
@@ -693,7 +662,7 @@ block observables-section-intro
   
   ### HeroSearchComponent
   
-  Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`. 
+  Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`.
   
   我们再创建一个新的`HeroSearchComponent`来调用这个新的`HeroSearchService`。
 
@@ -737,7 +706,7 @@ block observables-section-intro
   #### Search terms
   
   #### 搜索词
-  
+
   Let's focus on the `!{_priv}searchTerms`:
   
   仔细看下这个`searchTerms`：
@@ -786,7 +755,7 @@ block observable-transformers
     幸运的是，我们可以在字符串的`Observable`后面串联一个`Observable`操作符，来归并这些请求。
     我们将对`HeroSearchService`发起更少的调用，并且仍然获得足够及时的响应。做法如下：
 
-    * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds 
+    * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
     before passing along the latest string. We'll never make requests more frequently than 300ms.
     
     * 在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了300毫秒。我们实际发起请求的间隔永远不会小于300ms。
@@ -810,19 +779,19 @@ block observable-transformers
       (以前叫"flatMapLatest")是非常智能的。
 
       Every qualifying key event can trigger an http call.
-      Even with a 300ms pause between requests, we could have multiple http requests in flight 
+      Even with a 300ms pause between requests, we could have multiple http requests in flight
       and they may not return in the order sent.
       
       每次符合条件的按键事件都会触发一次http调用。即使在发送每个请求前都有300毫秒的延迟，我们仍然可能同时拥有多个在途的HTTP请求，并且它们返回的顺序未必就是发送时的顺序。
 
       `switchMap` preserves the original request order while returning
-       only the observable from the most recent http call. 
+       only the observable from the most recent http call.
       Results from prior calls are canceled and discarded.
       
       `switchMap`保留了原始的请求顺序，并且只返回最近一次http调用返回的可观察对象。
       这是因为以前的调用都被取消或丢弃了。
 
-      We also short-circuit the http call and return an observable containing an empty array 
+      We also short-circuit the http call and return an observable containing an empty array
       if the search text is empty.
       
       如果搜索框为空，我们还可以短路掉这次http调用，并且直接返回一个包含空数组的可观察对象。
@@ -835,7 +804,7 @@ block observable-transformers
       目前我们的做法只是丢弃不希望的结果。
       
   :marked
-    * `catch` intercepts a failed observable. 
+    * `catch` intercepts a failed observable.
     Our simple example prints the error to the console; a real life application should do better.
     Then we return an observable containing an empty array to clear the search result.
     
@@ -863,7 +832,7 @@ block observable-transformers
       有很多权威人士建议我们这样做。
       
   :marked
-    We take a different approach in this example. 
+    We take a different approach in this example.
     We combine all of the RxJS `Observable` extensions that _our entire app_ requires into a single RxJS imports file.
     
     在这个例子中，我们使用一些不同的方法。
@@ -890,11 +859,12 @@ block observable-transformers
 +makeExample('app/dashboard.component.html')
 
 :marked
-  And finally, we import the `HeroSearchComponent` and add it to the `directives` !{_array}.
+  And finally, we import the `HeroSearchComponent` and add it to the `declarations` !{_array} in
+  `app.module.ts`.
   
-  最后，导入`HeroSearchComponent`并将其添加到`directives`数组中。
+  最后，导入`HeroSearchComponent`并将其添加到`app.module.ts`的`declarations`数组中。
 
-+makeExcerpt('app/dashboard.component.ts', 'search')
++makeExcerpt('app/app.module.2.ts', 'hero-search-declaration')
 
 :marked
   Run the app again, go to the *Dashboard*, and enter some text in the search box below the hero tiles.
@@ -926,7 +896,8 @@ block filetree
       .children
         .file app.component.ts
         .file app.component.css
-        .file app.routes.ts
+        .file app.module.ts
+        .file app.routing.ts
         .file dashboard.component.css
         .file dashboard.component.html
         .file dashboard.component.ts
@@ -987,7 +958,7 @@ block filetree
   - We learned how to use !{_Observable}s.
   
   - 我们学会了如何使用“可观察对象”。
-  
+
   Here are the files we added or changed in this chapter.
   
   下面是我们添加或修改之后的文件汇总。
@@ -995,6 +966,7 @@ block filetree
 block file-summary
   +makeTabs(
     `toh-6/ts/app/app.component.ts,
+     toh-6/ts/app/app.module.ts,
      toh-6/ts/app/heroes.component.ts,
      toh-6/ts/app/heroes.component.html,
      toh-6/ts/app/heroes.component.css,
@@ -1002,8 +974,9 @@ block file-summary
      toh-6/ts/app/hero-detail.component.html,
      toh-6/ts/app/hero.service.ts,
      toh-6/ts/app/in-memory-data.service.ts`,
-    null,
+    ',,,,,,,,',
     `app.comp...ts,
+     app.mod...ts,
      heroes.comp...ts,
      heroes.comp...html,
      heroes.comp...css,
@@ -1023,6 +996,7 @@ block file-summary
     `hero-search.service.ts,
     hero-search.component.ts,
     hero-search.service.html,
+    hero-search.component.css,
     hero-search.component.css,
     rxjs-operators.ts`
   )

@@ -218,13 +218,16 @@ p
   同时，要修改`AppComponent`，使其引用这个模板。
 +makeExample('attribute-directives/ts/app/app.component.ts',null,'app/app.component.ts')
 :marked
-  We've added an `import` statement to fetch the 'Highlight' directive and, 
-  added that class to a `directives` component metadata so that Angular 
+  We'll add an `import` statement to fetch the 'Highlight' directive and, 
+  added that class to the `declarations` NgModule metadata so that Angular 
   will recognize our directive when it encounters `myHighlight` in the template. 
   
   我们添加了一个`import`语句来获得'Highlight'指令类，并把这个类添加到`AppComponent`组件的`directives`数组中。
   这样，当Angular在模板中遇到`myHighlight`时，就能认出这是指令了。
 
++makeExample('attribute-directives/ts/app/app.module.ts',null,'app/app.module.ts')
+
+:marked
   We run the app and see that our directive highlights the paragraph text.
   
   运行应用，就会看到我们的指令确实高亮了段落中的文本。
@@ -236,7 +239,7 @@ figure.image-display
     ### Your directive isn't working? 
     ### 你的指令没生效？
 
-    Did you remember to set the `directives` attribute of `@Component`? It is easy to forget!
+    Did you remember to add the directive to the the `declarations` attribute of `@NgModule`? It is easy to forget!
     
     你记着设置`@Component`的`directives`数组了吗？它很容易被忘掉。
     
@@ -245,13 +248,14 @@ figure.image-display
     打开浏览器调试工具的控制台，会看到像这样的错误信息：
   code-example(format="nocode").
     EXCEPTION: Template parse errors:
-      Can't bind to 'myHighlight' since it isn't a known native property
+      Can't bind to 'myHighlight' since it isn't a known property of 'p'.
   :marked
     Angular detects that we're trying to bind to *something* but it doesn't know what.
-    We have to tell it by listing `HighlightDirective` in the `directives` metadata array.
+    We have to tell it by listing `HighlightDirective` in the `declarations` metadata array.
     
     这是因为Angular检测到我们正在尝试绑定到*某些东西*，但它不认识。
-    我们必需把`HighlightDirective`列在元数据的`directives`数组中，来告诉它有这样一个指令。
+    我们必需把`HighlightDirective`列在元数据的`declarations`数组中，来告诉它有这样一个指令。
+    
 :marked
   Let's recap what happened.
   
@@ -551,6 +555,7 @@ figure.image-display
   `attribute-directives/ts/app/app.component.ts,
    attribute-directives/ts/app/app.component.html, 
    attribute-directives/ts/app/highlight.directive.ts,
+   attribute-directives/ts/app/app.module.ts,
    attribute-directives/ts/app/main.ts,
    attribute-directives/ts/index.html
   `,
@@ -558,6 +563,7 @@ figure.image-display
   `app.component.ts,
    app.component.html,
    highlight.directive.ts,
+   app.module.ts,
    main.ts,
    index.html
   `)

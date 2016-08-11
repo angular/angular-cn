@@ -33,18 +33,15 @@ a(id="top")
 
   * [过滤器/管道](#filters-pipes) - 内建*过滤器(filter)*，在Angular&nbsp;2中叫*管道(pipe)*
 
-  * [Controllers/Components](#controllers-components) - *controllers* are *components* in Angular&nbsp;2.
+  * [Modules/Controllers/Components](#controllers-components) - modules* are *modules* but different 
+    and *controllers* are *components* in Angular&nbsp;2.
   Also covers modules.
 
-  * [控制器/组件](#controllers-components) - *控制器*在Angular 2中叫组件。本节还包括模块。
+  * [模块/控制器/组件](#controllers-components) - *模块*仍然叫*模块*，但是已经不同了；而*控制器*在Angular 2中叫组件。
 
   * [Style Sheets](#style-sheets) - more options for CSS in  Angular&nbsp;2.
 
   * [样式表](#style-sheets) - 在Angular 2中关于CSS的更多选项。
-
-  * [String date pipe](#string-dates) - a tip for displaying string date values.
-
-  * [日期转字符串管道](#string-dates) - 关于日期转字符串的小提示。
 
 .l-main-section
 :marked
@@ -83,7 +80,7 @@ table(width="100%")
         它把元素的值绑定到了与模板相关控制器的属性上。
 
         When using the `controller as` syntax,
-        the binding is prefixed with the controller alias (`vm`) because we
+        the binding is prefixed with the controller alias (`vm` or `$ctrl`) because we
         have to be specific about the source of the binding.
 
         当使用`controller as`语法时，该绑定需要用控制器的别名(`vm`)为前缀，这是因为我们不得不通过它来指定绑定源。
@@ -224,17 +221,21 @@ table(width="100%")
     td
       :marked
         ### Bootstrapping
-
+        
         ### 引导
+        
+      +makeExample('cb-a1-a2-quick-reference/ts/app/main.ts','','main.ts')(format="." )
+      <br>
+      +makeExample('cb-a1-a2-quick-reference/ts/app/app.module.1.ts','','app.module.ts')(format="." )
 
-      +makeExample('cb-a1-a2-quick-reference/ts/app/main.1.ts')(format="." )
       :marked
         Angular&nbsp;2 does not have a bootstrap directive.
-        We always launch the app in code by explicitly calling a bootstrap function
-        and passing it the name of the application's module (`AppComponent`).
+        We always launch the app in code by explicitly bootstrapping the application's root module (`AppModule`)
+        in `main.ts`
+        and the application's root component (`AppComponent`) in `app.module.ts`.
 
         Angular 2没有引导指令。
-        我们总是通过显式调用一个`bootstrap`函数，并传入应用模块的名字(`AppComponent`)来启动应用的。
+        我们总是通过显式调用一个`bootstrap`函数，并传入应用模块的名字(`AppComponent`)来启动应用。
 
         For more information see [Quick Start](../quickstart.html).
 
@@ -809,7 +810,7 @@ table(width="100%")
         ### date
       +makeExample('cb-a1-a2-quick-reference/ts/app/app.component.html', 'date')(format=".")
       :marked
-        The Angular&nbsp;2 `date` pipe is similar. See [note](#string-dates) about string date values.
+        The Angular&nbsp;2 `date` pipe is similar.
 
         Angular 2的`date`管道和·中很相似。参见[备注](#string-dates)来了解字符串日期值。
 
@@ -967,10 +968,15 @@ table(width="100%")
 a(id="controllers-components")
 .l-main-section
 :marked
-  ## Controllers / Components
-
-  ## 控制器/组件
-
+  ## Modules / Controllers / Components
+  
+  ## 模块/控制器/组件
+  
+  In both Angular&nbsp;1 and Angular&nbsp;2, we use Angular modules to
+  help us organize our application into cohesive blocks of functionality.
+  
+  无论在Angular 1还是Angular 2中，我们都要借助“模块”来把应用拆分成一些内聚的功能块儿。
+  
   In Angular&nbsp;1, we write the code that provides the model and the methods for the view in a **controller**.
   In Angular&nbsp;2, we build a **component**.
 
@@ -1034,23 +1040,25 @@ table(width="100%")
 
     td
       :marked
-        ### import
-      +makeExample('cb-a1-a2-quick-reference/ts/app/movie-list.component.ts', 'import')(format=".")
+        ### Angular modules
+      +makeExample('cb-a1-a2-quick-reference/ts/app/app.module.1.ts')(format=".")
       :marked
-        Angular&nbsp;2 does not have its own module system. Instead we use ES 2015 modules.
-        ES 2015 modules are file based, so each code file is its own module.
+        Angular&nbsp;2 modules, defined with the `NgModule` decorator, serve the same purpose:
+        
+        Angular 2的模块用`NgModule`装饰器进行定义，有如下用途：
+        
+        - `imports`: specifies the list of other modules that this module depends upon
+        
+        - `imports`: 指定当前模块依赖的其它模块列表
+        
+        - `declaration`: keeps track of our components, pipes, and directives.
+        
+        - `declaration`: 用于记录组件、管道和指令。
 
-        Angular 2没有它自己的模块系统，而是使用ES 2015的模块。
-        ES 2015的模块是基于文件的，所以每个代码文件就是它自己的模块。
-
-        We `import` what we need from the module files.
-
-        我们`import`任何想从模块文件中得到的东西。
-
-        For more information on modules see [Architecture Overview](../guide/architecture.html#module).
-
-        要了解关于模块的更多信息，参见[架构概览](../guide/architecture.html#module)。
-
+        For more information on modules see [Angular Modules](../guide/ngmodule.html).
+        
+        要了解关于模块的更多知识，参见[Angular Modules](../guide/ngmodule.html)。
+        
   tr(style=top)
     td
       :marked
@@ -1249,34 +1257,4 @@ table(width="100%")
   [Back to top](#top)
 
   [回到顶部](#top)
-
-a(id="string-dates")
-.l-main-section
-:marked
-  ## Appendix: String dates
-
-  ## 附件：字符串日期
-
-  Currently the Angular&nbsp;2 `date` pipe does not process string dates such as
-  "2015-12-19T00:00:00".
-
-  目前，Angular 2的`date`管道不能处理字符串日期，比如“2015-12-19T00:00:00”。
-
-  As a work around, subclass the Angular `DatePipe` with a version that can convert strings
-  and substitute that pipe in the HTML:
-
-  为了解决这个问题，可以为Angular的`DatePipe`派生一个子类，它能够转换字符串，并在HTML中替换那个内置的管道：
-
-+makeExample('cb-a1-a2-quick-reference/ts/app/date.pipe.ts', 'date-pipe', 'date.pipe.ts')(format=".")
-:marked
-  Then import and declare that pipe in the `@Component` metadata `pipes` array:
-
-  然后在`@Component`元数据的`pipes`数组中导入并声明该管道：
-
-:marked
-+makeExample('cb-a1-a2-quick-reference/ts/app/movie-list.component.ts', 'date-pipe')(format=".")
-
-:marked
-  [Back to top](#top)
-
-  [回到顶部](#top)
+  

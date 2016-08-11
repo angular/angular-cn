@@ -164,51 +164,33 @@ block demos-list
     了解关于提供商的更多知识，参见[依赖注入](dependency-injection.html)一章。
 
 :marked
-  In this demo, we register providers in the `bootstrap()` method of 
-  <span ngio-ex>app/main.ts</span>.
+  In this demo, we register providers by importing other NgModules to our root NgModule.
   
-  在这个例子中，我们在<span ngio-ex>app/main.ts</span>文件的`bootstrap()`方法中注册提供商。
+  在这个例子中，我们通过把其它模块（NgModule）导入到我们的模块中来注册提供商。
 
-+makeExample('server-communication/ts/app/main.ts', 'v1', 'app/main.ts (v1)')(format='.')
++makeExample('server-communication/ts/app/app.module.1.ts', null, 'app/app.module.ts (v1)')(format='.')
 
 block http-providers
   :marked
-    We begin by importing the symbols we need, most of them familiar by now. The newcomer is `HTTP_PROVIDERS`, 
-    a collection of service providers from the !{_Angular_http_library}.
+    We begin by importing the symbols we need, most of them familiar by now. 
+    The newcomers are the `HttpModule` and the `JsonpModule` from the !{_Angular_http_library}.
     
-    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HTTP_PROVIDERS`是新面孔，它是来自!{_Angular_http_libraryCn}的一组服务提供商。
+    我们从导入所需的符号开始，它们中的大多数我们都熟悉了，只有`HttpModule`和`JsonpModule`是新面孔。
  
-    We register HTTP providers in the bootstrap method by passing them in an array as the second parameter after the root component.
+    We add these modules to the application by passing them to the `imports` array in our root NgModule.
     
-    然后我们把这些HTTP服务提供商作为第二个参数传给bootstrap方法(第一个参数用来指定根组件)，把它们注册进应用程序。
-
-    ### Why register in *bootstrap*?
-    ### 为什么在*bootstrap*中注册？
+    只要把它们传给我们这个根模块的`imports`数组，就可以把这些模块加入本应用。
     
-    We prefer to register application-wide providers in the metadata `providers` array
-    of the root `AppComponent` like this:
-    
-    要注册应用程序级的提供商，我们的首选方式把它放在根组件`AppComponent`元数据的`providers`数组中。就像这样：
-  +makeExample('server-communication/ts/app/app.component.ts','http-providers')(format='.')
+.l-sub-section
   :marked
-    Here we register the providers in the `bootstrap` method in the `main.ts` file. Why?
+    We need the HttpModule to make HTTP calls.
+    We don't need the JsonpModule for plain HTTP.
+    We will demonstrate JSONP support later in this chapter.
+    We're loading its module now to save time.
     
-    但这里我们却使用`main.ts`中的`bootstrap`方法注册了提供商。为什么呢？
+    我们需要HttpModule来发起HTTP调用。普通的HTTP调用并不需要用到JsonpModule，
+    不过稍后我们就会演示对JSONP的支持，所以现在就加载它，免得再回来改浪费时间。
     
-    This is a *sample application* that doesn't talk to a real server.
-    We're going to reconfigure the (typically-hidden) `XhrBackend` service with a fake provider
-    that fetches and saves sample data from an in-memory data store.
-    This replacement service is called the [*in-memory web api*](#in-mem-web-api).
-    
-    因为这是一个*范例程序*，它不会跟真实的服务器打交道。
-    我们准备用一个伪造的提供商[*内存Web API*](#in-mem-web-api)来重新配置(通常不可见的)`XhrBackend`服务。这个伪造的提供商会从一个内存存储区中获取和保存范例数据。    
-    
-    Such sleight-of-hand is something the root application component should *not* know about.
-    For this reason, and this reason *only*, we hide it *above* the `AppComponent` in `main.ts`.
-    
-    这种“偷梁换柱”的把戏是应用程序的根组件*不应该*察觉的。
-    正因为这*一个*理由，我们把它藏在`main.ts`里，在层次上高于`AppComponent`。
-
 .l-main-section#http-client
 :marked
   # The Tour of Heroes _HTTP_ Client Demo
@@ -878,11 +860,11 @@ block wikipedia-jsonp+
   +makeExample('server-communication/ts/app/wiki/wikipedia.service.ts',null,'app/wiki/wikipedia.service.ts')
   :marked
     The constructor expects Angular to inject its `jsonp` service. 
-    We register that service with `JSONP_PROVIDERS` in the  [component below](#wikicomponent) that calls our `WikipediaService`.
+    We made that service available by importing the `JsonpModule` into our root NgModule.
     
     这个构造函数期望Angular给它注入一个`jsonp`服务。
-    我们在[下面这个组件](#wikicomponent)(它会调用`WikipediaService`服务)中，用`JSONP_PROVIDERS`注册了这个服务。
-
+    前面我们已经把`JsonpModule`导入到了根模块中，所以这个服务已经可以使用了。
+  
   <a id="query-parameters"></a>
   :marked
     ### Search parameters
@@ -944,9 +926,6 @@ block wikipedia-jsonp+
   :marked
     The `providers` array in the component metadata specifies the Angular `JSONP_PROVIDERS` collection that supports the `Jsonp` service.
     We register that collection at the component level to make `Jsonp` injectable in the `WikipediaService`.
-    
-    该组件元数据中的`providers`数组指定了Angular的`JSONP_PROVIDERS`集合，以支持`Jsonp`服务。
-    我们把这个集合注册在组件级，以便`Jsonp`可以被注入进`WikipediaService`中。
 
     The component presents an `<input>` element *search box* to gather search terms from the user. 
     and calls a `search(term)` method after each `keyup` event.
@@ -1207,11 +1186,11 @@ block redirect-to-web-api
     同时，我们使用来自模拟的英雄数据集的*种子数据*初始化了这个内存Web API。
     
 :marked
-  Here is the revised (and final) version of <span ngio-ex>app/main.ts></span> demonstrating these steps.
+  Here is the revised (and final) version of <span ngio-ex>app/app.module.ts></span> demonstrating these steps.
   
-  下面是修改过的（也是最终的）<span ngio-ex>app/main.ts</span>版本，用于演示这些步骤。
+  下面是修改过的（也是最终的）<span ngio-ex>app/app.module.ts</span>版本，用于演示这些步骤。
 
-+makeExcerpt('app/main.ts', 'final')
++makeExcerpt('app/app.module.ts')
 
 :marked
   See the full source code in the <live-example></live-example>.

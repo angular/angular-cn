@@ -168,9 +168,9 @@ include ../_util-fns
   ## External module configuration
   ## 外部模块设置
 
-  We can register _certain_ module providers when bootstrapping rather than in the root application component.
+  We can register _certain_ module providers in the `NgModule` rather than in the root application component.
   
-  也可以在引导过程中注册_某些_模块中的提供商，而非在应用程序根组件里。
+  也可以在`NgModule`中注册_某些_模块中的提供商，而非在应用程序根组件里。
 
   We'd do this when we expect to select or configure external modules that support our application
   but (a) aren't conceptually part of the application and (b) that we could change later without
@@ -191,12 +191,12 @@ include ../_util-fns
   
   在开发过程中，可以偷偷把一个假的带样本数据的HTTP后端嵌入进来，以代替对一个远程服务器(可能还不存在)进行http查询。在产品发布时再切换到真正的后端。应用程序不用知道也不用管正在跟哪个后端打交道。
 
-  See both examples in the following `main.ts`
-  where we list their service providers in an array in the second parameter of the `bootstrap` method.
+  See both examples in the following `app.module.ts`
+  where we list their service providers in the `providers` array of the `NgModule` (AppModule).
   
-  在下面`main.ts`的两个例子中，在`bootstrap`方法的第二个数组型参数中，列出了它们的服务提供商。
+  在这个`app.module.ts`中，我们把它们的服务提供商列在`NgModel`（AppModule）的`providers`数组中。
 
-+makeExample('cb-dependency-injection/ts/app/main.ts','bootstrap','app/main.ts')(format='.')
++makeExample('cb-dependency-injection/ts/app/app.module.ts','bootstrap','app/app.module.ts')(format='.') 
 
 a(id="injectable")
 a(id="nested-dependencies")
@@ -1485,57 +1485,18 @@ a(id="forwardref")
 
   The *Parent Finder* sample is full of circular class references that are impossible to break.
   
-  这个*父组件查找器*例子里，到处都是无法打破的类循环引用。
-
-  In the [*Alex/Cathy* example](#known-parent) above:
-  
-  在上面的[*Alex/Cathy*例子](#known-parent)中：
-
-  * the `AlexComponent` lists the `CathyComponent` in its component metadata `directives` array
-  so it can display *Cathy* in its template.
-  
-  * `AlexComponent`在它的组件元数据`Directives`数值里面列出`CathyComponent`，这样它可以在自己的模板中显示*Cathy*。
-
-  * the `CathyComponent` constructor injects the parent `AlexComponent` which means that the `alex` parameter
-  of its constructor has the `AlexComponent` type.
-  
-  * `CathyComponent`的构造函数注入父级`AlexComponent`，这样的话，构造函数参数`alex`是`AlexComponent`类型。
-
-  *Alex* refers to *Cathy* and *Cathy* refers to *Alex*. We're stuck. We must define one of them first.
-  
-  *Alex* 引用了*Cathy*，同时，*Cathy*引用了*Alex*。我们被卡住了。必须要先定义它们中的一个。
-
-  We defined *Alex* first and built its `C_DIRECTIVES` array with a forward reference to *Cathy*:
-
-  我们先定义了*Alex*，然后使用*Cathy*的前向引用来创建`C_DIRECTIVES`数列：
-
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','C_DIRECTIVES','parent-finder.component.ts (C_DIRECTIVES)')(format='.')
 :marked
-.l-sub-section
-  :marked
-    Defining *Alex* and *Cathy* in separate files won't help. 
-    *Alex* would have to import *Cathy* and *Cathy* would have to import *Alex*.
-    
-    即使在单独的文件里面定义*Alex*和*Cathy*也没用，因为*Alex*必须导入*Cathy*，而*Cathy*又必须导入*Alex*。
-
-    We *had* to define *Alex* first because,
-    while we can add `forwardRef(CathyComponent)` to *Alex*'s `directives` array,
-    we can't write `public alex: forwardRef(AlexComponent))` in *Cathy*'s constructor. 
-
-    *只能*先定义*Alex*，因为我们可以添加`forwardRef(CathyComponent)`到*Alex*的`Directives`数组里面，但是不能在*Cathy*的构造函数里面使用`public alex: forwardRef(AlexComponent))`。
-
-:marked
-  We face a similar dilemma when a class makes *a reference to itself*
+  We face this dilemma when a class makes *a reference to itself*
   as does the `AlexComponent` in its `providers` array. 
   The `providers` array is a property of the `@Component` decorator function which must
   appear *above* the class definition.
   
-  当一个类*需要引用自身*的时候，我们面临同样的窘境，就像在`AlexComponent`的`provdiers`数组中遇到的困境一样。
+  当一个类*需要引用自身*的时候，我们面临同样的困境，就像在`AlexComponent`的`provdiers`数组中遇到的困境一样。
   该`providers`数组是一个`@Component`装饰器函数的一个属性，它必须在类定义*之前*出现。
+  
+  We break the circularity with `forwardRef`:
 
-  Again we break the circularity with `forwardRef`:
-
-  我们再次使用`forwardRef`来打破该循环：
+  我们使用`forwardRef`来打破这种循环：
 
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
 :marked

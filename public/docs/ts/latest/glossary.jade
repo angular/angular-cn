@@ -25,7 +25,31 @@ include _util-fns
 // #docregion a1
 <a id="A"></a>
 // #enddocregion a1
+a#aot
 .l-main-section
+:marked
+  ## Ahead of Time (AOT) Compilation
+.l-sub-section
+  :marked
+    Angular applications can be compiled by developers at build-time. 
+    By compiling your application using the compiler-cli, `ngc`, you can boostrap directly 
+    to a Module Factory, meaning you don't need to include the Angular compiler in your javascript bundle. 
+    Ahead of Time compiled applications also benefit from decreased load time and increased performance.
+
+.l-main-section
+<a id="angular-module"></a>
+:marked
+  ## Angular Module
+.l-sub-section
+  :marked
+    Helps us organize an application into cohesive blocks of functionality.
+    An Angular module identifies the components, directives, and pipes that are used by the application
+    along with the list of external Angular modules that the application needs, such as `FormsModule`.
+
+    Every Angular application has an application root module class. By convention the class is
+    called `AppModule` and resides in a file named `app.component.ts`.
+
+    See the [Angular Module](/docs/ts/latest/guide/ngmodule.html) chapter for details and examples.
 :marked
   ## Annotation
   ## 注解(Annotation)
@@ -64,15 +88,15 @@ include _util-fns
   ## 封装桶(Barrel)
 .l-sub-section
   :marked
-    A barrel is a way to *rollup exports* from several modules into a single convenience module.
-    The barrel itself is a module file that re-exports *selected* exports of other modules.
+    A barrel is a way to *rollup exports* from several ES2015 modules into a single convenience ES2015 module.
+    The barrel itself is an ES2015 module file that re-exports *selected* exports of other ES2015 modules.
     
     封装桶是把一系列模块中的*导出结果*归纳进一个单一的快捷模块的一种方式。
     封装桶本身是一个模块文件，它重新导出*选中的*导出，这些导入来自其它文件。
 
-    Imagine three modules in a `heroes` folder:
+    Imagine three ES2015 modules in a `heroes` folder:
 
-    设想在`heroes`目录下有三个模块：
+    设想在`heroes`目录下有三个ES2015的模块：
 
   code-example.
     // heroes/hero.component.ts
@@ -112,6 +136,7 @@ include _util-fns
     The Angular [scoped packages](#scoped-package) each have a barrel named `index`.
 
     Angular的每个[范围化包(Scoped Package)](#scoped-package)都有一个叫做`index`的封装桶。
+
 // #enddocregion b-c
 :marked
   That's why we can write this:
@@ -120,6 +145,10 @@ include _util-fns
 
 +makeExcerpt('quickstart/ts/app/app.component.ts', 'import', '')
 // #docregion b-c
+
+.alert.is-important
+  :marked
+    Note that you can often achieve this same goal using [Angular modules](#angular-module) instead.
 
 :marked
   ## Binding
@@ -143,10 +172,9 @@ include _util-fns
   ## 启动/引导(Bootstrap)
 .l-sub-section
   :marked
-    We launch an Angular application by "bootstrapping" it with the `bootstrap` method.
-    The `bootstrap` method identifies an application's top level "root" [Component](#component)
-    and optionally registers service [providers](#provider) with the
-    [dependency injection system](#dependency-injection).
+    We launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`).
+    The bootstraping identifies an application's top level "root" [Component](#component), which is the first
+    component that is loaded for the application. For more information see the [QuickStart](/docs/ts/latest/quickstart.html).
 
     通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，
     并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[提供商(Provider)](#provider)。
@@ -405,9 +433,7 @@ include _util-fns
     只有当注入器内部的提供商注册表中存在与令牌对应的提供商时，注入器才能为这个令牌创建一个依赖值。所以注册提供商是一个非常关键的准备步骤。
 
     Angular registers some of its own providers with every injector.
-    We can register our own providers. Quite often the best time to register a `Provider`
-    is when we [bootstrap](#bootstrap) the application.
-    There are other opportunities to register as well.
+    We can register our own providers.
 
     Angular会为每个注册器注册很多Angular内建提供商。我们也可以注册自己的提供商。通常注册提供商的最佳时间是在应用程序开始[引导(Bootstrap)](#bootstrap)的时候。
     当然，我们也有其它很多机会注册提供商。
@@ -585,7 +611,16 @@ include _util-fns
 
 <a id="J"></a>
 
+a#jit
 .l-main-section
+:marked
+  ## Just in Time (JIT) Compilation
+.l-sub-section
+  :marked
+    With Angular _Just in Time_  bootstrapping you compile your components and modules in the browser
+    and launch the application dynamically. This is a good choice during development.
+    Consider the [Ahead of Time](#aot) mode for production apps.
+
 <a id="K"></a>
 :marked
   ## kebab-case
@@ -661,6 +696,14 @@ include _util-fns
   ## Module
   ## 模块(Module)
 .l-sub-section
+
+  .alert.is-important
+    :marked
+     In Angular, there are two types of modules:
+     - [Angular modules](#angular-module). 
+     See the [Angular Module](/docs/ts/latest/guide/ngmodule.html) chapter for details and examples.
+     - ES2015 modules as described in this section.
+
   :marked
     Angular apps are modular.
 
@@ -719,6 +762,17 @@ include _util-fns
 <a id="O"></a>
 .l-main-section
 :marked
+  ## Observable
+.l-sub-section
+  :marked
+    We can think of an observable as an array whose items arrive asynchronously over time. 
+    Observables help us manage asynchronous data, such as data coming from a backend service.
+    Observables are used within Angular itself, including Angular's event system and its http client service.
+
+    To use observables, Angular uses a third-party library called Reactive Extensions (RxJS).
+    Observables are a proposed feature for ES 2016, the next version of JavaScript.
+
+:marked
   ## Output
   ## 输出属性(Output)
 .l-sub-section
@@ -743,7 +797,7 @@ include _util-fns
 .l-sub-section
   :marked
     The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter. 
-    Class names are typically spelled in PascalCase. Examples include: `Person` and `Customer`.
+    Class names are typically spelled in PascalCase. Examples include: `Person` and `HeroDetailComponent`.
     
     遵循“每个单词都用大写开头”的规则的书写复合词或短语的命名方法叫做Pascal命名法。类名一般都采用Pascal命名法。比如`Person`和`Customer`
 
@@ -760,7 +814,7 @@ include _util-fns
   :marked
     An Angular pipe is a function that transforms input values to output values for
     display in a [view](#view). We use the `#{atSym}Pipe` !{decorator}
-    to associate the pipe function with a name. We then can use that
+    to associate the pipe function with a name. We can then use that
     name in our HTML to declaratively transform values on screen.
 
     Angular的管道是一个函数，用于把输入值转换成输出值以供[视图(View)](#view)显示。使用`#{atSym}Pipe`!{decoratorCn}来把管道函数关联到它的名字上。
@@ -802,6 +856,23 @@ include _util-fns
 .l-main-section
 <a id="Q"></a>
 <a id="R"></a>
+<a id="reactive-forms"></a>
+:marked
+  ## Reactive Forms
+.l-sub-section
+  :marked
+    A technique for building Angular forms through code in a component.
+    The alternate technique is [Template-Driven Forms](#template-driven-forms).
+
+    When building reactive forms:
+    - The "source of truth" is the component. The validation is defined using code in the component.
+    - Each control is explicitly created in the component class with `new FormControl()` or with `FormBuilder`.
+    - The template input elements do *not* use `ngModel`.
+    - The associated Angular directives are all prefixed with `Form` such as `FormGroup`, `FormControl`, and `FormControlName`.
+
+    Reactive forms are powerful, flexible, and great for more complex data entry form scenarios, such as dynamic generation
+    of form controls.
+
 :marked
   ## Router
   ## 路由器(Router)
@@ -820,27 +891,49 @@ include _util-fns
 
     Angular的[组件路由器(Component Router)](guide/router.html)是一个特性丰富的机制，它可以配置和管理整个导航过程，包括建立和销毁视图。
 
+
+    In most cases, components becomes attached to a [router](#router) by means
+    of a `RouterConfig` that defines routes to views.
+    
+    多数情况下，组件会通过`RouterConfig`中定义的路由到视图的对照表来附加到[路由器](#router)上。
+
+    A [routing component's](#routing-component) template has a `RouterOutlet` element where it can display views produced by the router.
+    
+    [路由组件](#routing-component)的模板中带有一个`RouterOutlet`元素，它用来显示由路由器生成的视图。
+
+    Other views in the application likely have anchor tags or buttons with `RouterLink` directives that users can click to navigate.
+    
+    应用中的其它视图中某些A标签或按钮上带有`RouterLink`指令，用户可以点击它们来导航到这里。
+
+    See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+    
+    要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
+    
+:marked
+  ## RouterModule
+.l-sub-section
+  :marked
+    A separate [Angular module](#angular-module) that provides the necessary service providers and directives for navigating through application views.
+    
+    一个独立的[Angular模块](#angular-module)是用来提供导航时所需的必备服务提供商和指令的。
+
+    See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+    
+    要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
+
+<a id="routing-component"></a>
 :marked
   ## Routing Component
   ## 路由组件(Routing Component)
 .l-sub-section
   :marked
-    A [Component](#component) with an attached router.
+    An Angular [Component](#component) with a RouterOutlet that displays views based on router navigations.
+    
+    带有RouterOutlet的Angular[组件](#component)基于路由器导航来显示视图。
 
-    路由组件是一个附加了路由的[组件(Component)](#component)。
-
-    In most cases, the component became attached to a [router](#router) by means
-    of a `#{atSym}RouterConfig` #{decorator} that defined routes to views controlled by this component.
-
-    在大部分情况下，通过`#{atSym}RouterConfig`装饰器，该组件就会被附加上一个[路由器(Router)](#router)，用以定义该组件控制下的多个视图的路由。
-
-    The component's template has a `RouterOutlet` element where it can display views produced by the router.
-
-    该组件的模板有一个`路由出口(RouterOutlet)`元素，用于显示由路由器生成的视图。
-
-    It likely has anchor tags or buttons with `RouterLink` directives that users can click to navigate.
-
-    很可能还会有一些带`RouterLink`指令的a标签或按钮，让用户可以点击它们进行导航。
+    See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+    
+    要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
 
 <a id="S"></a>
 .l-main-section
@@ -871,6 +964,23 @@ include _util-fns
 // #docregion n-s-2
 
 :marked
+  ## Service
+.l-sub-section
+  :marked
+    Components are great and all … but what do we do with data or logic that are not associated 
+    with a specific view or that we want to share across components? We build services!
+
+    Applications often require services such as a hero data service or a logging service.
+    Our components depend on these services to do the heavy lifting.
+
+    A service is a class with a focused purpose.
+    We often create a service to implement features that are
+    independent from any specific view, 
+    provide share data or logic across components, or encapsulate external interactions.
+
+    See the [Services](/docs/ts/latest/tutorial/toh-pt4.html) chapter of the tutorial to learn more.
+
+:marked
   ## Structural Directive
   ## 结构型指令(Structural Directive)
 .l-sub-section
@@ -886,6 +996,8 @@ include _util-fns
 
     `ngIf`"条件化元素"指令和`ngFor`"重复器(repeater)"指令就是结构型指令的优秀代表。
 
+    要了解更多，请参见[结构型指令](/docs/ts/latest/guide/structural-directives.html)一章。
+    
 // #enddocregion n-s-2
 
 // #docregion t1
@@ -906,12 +1018,56 @@ include _util-fns
 
     使用特殊的[模板语法](/docs/ts/latest/guide/template-syntax.html)来编写模板。
 
+<a id="template-driven-forms"></a>
+:marked
+  ## Template-Driven Forms
+  
+  ## 模板驱动表单
+  
+.l-sub-section
+  :marked
+    A technique for building Angular forms using HTML forms and input elements in the view.
+    The alternate technique is [Reactive Forms](#reactive-forms).
+    
+    这是一项在视图中使用HTML表单和输入类元素构建Angular表单的技术。
+    它的替代方案是[响应式表单](#reactive-forms)。
+
+    When building template-driven forms:
+    
+    当构建模板驱动表单时：
+    
+    - The "source of truth" is the template. The validation is defined using attributes on the individual input elements.
+    
+    - “信任之源”是模板。验证规则是用属性（Attribute）的形式定义在独立输入控件上的。
+    
+    - [Two-way binding](#data-binding) with `ngModel` keeps the component model in synchronization with the user's entry into the input elements.
+    
+    - 使用`ngModel`的[双向绑定](#data-binding)负责组件模型和用户输入之间的同步。
+    
+    - Behind the scenes, Angular creates a new control for each input element that has a `name` attribute and
+    two-way binding set up.
+    
+    - 在幕后，Angular为每个带有`name`属性和双向绑定的输入元素创建了一个新的控件。
+    
+    - The associated Angular directives are all prefixed with `ng` such as `ngForm`, `ngModel`, and `ngModelGroup`.
+    
+    - 相关的Angular指令都带有`ng`前缀，比如`ngForm`、`ngModel`和`ngModelGroup`。
+
+    Template-driven forms are convenient, quick, and simple and are a good choice for many basic data entry form scenarios.
+    
+    模板驱动的表单便捷、快速、简单，是很多基础型数据输入表单的最佳选择。
+
+    Learn how to build template-driven forms
+    in the [Forms](/docs/ts/latest/guide/forms.html) chapter.
+    
+    要学习如何构建模板驱动型表单，请参见[表单](/docs/ts/latest/guide/forms.html)一章。
+
 :marked
   ## Template Expression
   ## 模板表达式(Template Expression)
 .l-sub-section
   :marked
-    An expression in a JavaScript-like syntax that Angular evaluates within
+    An expression is a JavaScript-like syntax that Angular evaluates within
     a [data binding](#data-binding).  Learn how to write template expressions
     in the [Template Syntax](/docs/ts/latest/guide/template-syntax.html#template-expressions) chapter.
 

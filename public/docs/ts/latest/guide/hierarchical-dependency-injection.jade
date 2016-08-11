@@ -115,10 +115,10 @@ figure.image-display
   除非注入器能在各个不同层次上使用不同的提供商进行配置，否则没必要让注入器分裂成这么多。
   虽然我们并不是*必须*在每一层都重新配置提供商，但我们*可以*这样做。
 
-  If we don't re-configure, the tree of injectors appears to be flat. All requests bubble up to the root injector that we
-  configured with the `bootstrap` method.
+  If we don't re-configure, the tree of injectors appears to be flat. All requests bubble up to the root NgModule injector that we
+  configured with the `bootstrapModule` method.
   
-  如果我们完全没有进行过重新配置，注入器的树看起来将是“平面”的。所有的申请都会被冒泡到“根注入器”进行处理，也就是我们在`bootstrap`方法中配置的那个。
+  如果我们完全没有进行过重新配置，注入器的树看起来将是“平面”的。所有的申请都会被冒泡到“根NgModule注入器”进行处理，也就是我们在`bootstrapModule`方法中配置的那个。
 
   The ability to configure one or more providers at different levels opens up interesting and useful possibilities.
   
@@ -240,12 +240,12 @@ figure.image-display
 +makeExample('hierarchical-dependency-injection/ts/app/hero-editor.component.ts', 'providers')
 :marked
   This adds a `RestoreService` provider to the injector of the `HeroEditComponent`.
-  Couldn’t we simply alter our bootstrap call to this?
+  Couldn’t we simply alter our root NgModule to include this provider?
   
   它往`HeroEditComponent`的注入器中添加了一个`RestoreService`提供商。
-  不能简化点儿，直接把我们的bootstrap方法改成这样吗？
+  不能简化点儿，直接在我们的根NgModule后面包含这个提供商吗？
 
-+makeExample('hierarchical-dependency-injection/ts/app/main.ts', 'bad-alternative')
++makeExample('hierarchical-dependency-injection/ts/app/app.module.ts', 'bad-alternative')
 :marked
   Technically we could, but our component wouldn’t quite behave the way it is supposed to. Remember that each injector treats the services that it provides as singletons. However, in order to be able to have multiple instances of `HeroEditComponent` edit multiple heroes at the same time we need to have multiple instances of the `RestoreService`. More specifically, each instance of `HeroEditComponent` needs to be bound to its own instance of the `RestoreService`.
   

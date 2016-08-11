@@ -253,13 +253,15 @@ figure.image-display
 
   1. 我们使用自定义管道的方式和内建管道完全相同。
 
-  1. We must include our pipe in the `pipes` #{_array} of the `@Component` #{_decorator}.
+  1. We must include our pipe in the `declarations` #{_array} of the AppModule.
 
-  1. 我们必须在`@Component`#{_decoratorCn}的`pipes`数组中包含这个管道。
+  1. 我们必须在`AppModule`的`declarations`数组中包含这个管道。
 
 .callout.is-helpful
-  header Remember the pipes #{_array}!
-  header 记住`pipes`数组
+  header Remember the declarations #{_array}!
+
+  header 别忘了declarations数组！
+  
   :marked
     Angular reports an error if we neglect to list our custom pipe.
     We didn't list the `DatePipe` in our previous example because all
@@ -532,9 +534,10 @@ block pure-change
 
   我们可以从`FlyingHeroesComponent`派生出一个`FlyingHeroesImpureComponent`。
 
-+makeExample('pipes/ts/app/flying-heroes.component.ts','impure-component','app/flying-heroes.component.ts (FlyingHeroesImpureComponent)')(format='.')
++makeExample('pipes/ts/app/flying-heroes-impure.component.html','template-flying-heroes','app/flying-heroes-impure.component.html (FlyingHeroesImpureComponent)')(format='.')
+
 :marked
-  The only substantive change is the pipe.
+  The only substantive change is the pipe in the template.
   We can confirm in the <live-example></live-example> that the _flying heroes_
   display updates as we enter new heroes even when we mutate the `heroes` #{_array}.
 

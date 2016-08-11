@@ -403,36 +403,29 @@ block ctor-syntax
   We do have to configure the injector by registering the **providers**
   that create the services our application requires.
   We'll explain what [providers](#providers) are later in this chapter.
-  Before we do, let's see an example of provider registration during bootstrapping:
 
   我们必须先注册**提供商Provider**来配置注入器，这些提供商为我们的应用程序创建所需服务。
   我们将在本章的稍后部分解释什么是[提供商](#providers)。
   在此之前，我们先来看一个在启动期间注册提供商的例子。
 
-+makeExample('dependency-injection/ts/app/main.1.ts', 'bootstrap-discouraged')(format='.')
+  We can either register a provider within an [NgModule](ngmodule.html) or in application components
+  
+  我们或者在[NgModule](ngmodule.html)中注册提供商，或者在应用组件中。
 
-:marked
-  The injector now knows about our `HeroService`.
-  An instance of our `HeroService` will be available for injection across our entire application.
+  ### Registering providers in an NgModule
+  
+  在NgModule中注册提供商。
+  
+  Here's our AppModule where we register a `Logger`, an `UserService`, and an `APP_CONFIG` provider.
+  
+  在AppModule中，我们注册了`Logger`、`UserService`和`APP_CONFIG`提供商。
 
-  注入器现在知道了我们的`HeroService`类。
-  这样，一个`HeroService`实例就可以在我们整个应用中都可用了。
-
-  Of course we can't help wondering about that comment telling us not to do it this way.
-  It *will* work. It's just not a best practice.
-  The bootstrap provider option is intended for configuring and overriding Angular's own
-  preregistered services, such as its routing support.
-
-  当然，我们不禁要问，为什么注释中告诉我们不要这么做。
-  它*能*工作，但不是最佳实践。
-  bootstrap函数的提供商选项是用来配置和改写Angular自身的预注册服务的，比如它的路由支持。
-
-  The preferred approach is to register application providers in application components.
+- var stylePattern = { otl: /(providers)/ };
+  
++makeExample('dependency-injection/ts/app/app.module.ts', 'ngmodule','app/app.module.ts', stylePattern)(format='.')
+  <!--The preferred approach is to register application providers in application components.
   Because the `HeroService` is used within the *Heroes* feature area &mdash;
-  and nowhere else &mdash; the ideal place to register it is in the top-level `HeroesComponent`.
-
-  首选的方式是在应用的组件中注册提供商。
-  因为`HeroService`是用于*英雄*功能区的 —— 并且没别处用它 —— 所以注册它的理想地点就是顶层的`HeroesComponent`。
+  and nowhere else &mdash; the ideal place to register it is in the top-level `HeroesComponent`.-->
 
 :marked
   ### Registering providers in a component
@@ -440,22 +433,32 @@ block ctor-syntax
 
   Here's a revised `HeroesComponent` that registers the `HeroService`.
 
-  这里是注册了`HeroService`的修改版`HeroesComponent`。
-
-- var stylePattern = { otl: /(providers:.*),/ };
 +makeExample('dependency-injection/ts/app/heroes/heroes.component.1.ts', 'full','app/heroes/heroes.component.ts', stylePattern)(format='.')
 
 :marked
-  Look closely at the `providers` part of the `@Component` metadata.
-  An instance of the `HeroService` is now available for injection in this `HeroesComponent`
-  and all of its child components.
+  ### When to use the NgModule and when an application component?
+  
+  ### 该用NgModule还是应用组件？
+  
+  On the one hand, a provider in an NgModule is registered in the root injector. That means that every provider
+  registered within an NgModule will be accessible in the entire application.
+  
+  一方面，NgModule中的提供商是被注册到根注入器的。这意味着任何注册到NgModule上的提供商都可以被整个应用访问到。
 
-  仔细看`@Component`元数据中的`providers`部分：现在，一个`HeroService`的实例就可以被注入到`HeroesComponent`及其全部子组件了。
+  On the other hand, a provider registered in an application component is available only on that component and all its children.
+  
+  另一方面，注册到应用组件上的只在该组件及其各级子组件中可用。
 
-  The `HeroesComponent` itself doesn't happen to need the `HeroService`.
-  But its child `HeroListComponent` does, so we head there next.
+  We want the `APP_CONFIG` service to be available all across the application, but a `HeroService` is only used within the *Heroes*
+  feature area &mdash; and nowhere else. &mdash;
+  
+  我们希望`APP_CONFIG`服务能在整个应用中可用，而`HeroService`只需在*英雄*特性区可用，而其它地方都不用。
 
-  `HeroesComponent`本身不需要`HeroService`，但它的子组件`HeroListComponent`需要，所以我们再往下看。
+.l-sub-section
+  :marked
+    Read also **Should I add providers to the root AppModule or the root AppComponent?** at the [NgModule](ngmodule.html#q-root-component-or-module) chapter.
+    
+    参见[NgModule](ngmodule.html#q-root-component-or-module)一章的**我该把提供商加到根模块还是根组件？**
 
 :marked
   ### Preparing the HeroListComponent for injection
@@ -723,9 +726,7 @@ block real-logger
 :marked
   We're likely to need the same logger service everywhere in our application,
   so we put it in the project's `#{_appDir}` folder, and
-  we register it in the `providers` #{_array} of the metadata for our application root component, `AppComponent`.
-
-  我们比较可能在整个应用程序的任何地方都需要一样的日志服务，所以我们把它放到项目的`#{_appDir}`目录，并在应用程序根组件`AppComponent`的元数据的`providers`数组里面注册它。
+  we register it in the `providers` #{_array} of the metadata for our application module, `AppModule`.
 
 +makeExcerpt('app/providers.component.ts','providers-logger','app/app.component.ts (excerpt)')
 
@@ -766,9 +767,9 @@ code-example(format="nocode").
 
   我们必须为注入器注册一个服务的*提供商*，否则它就不知道该如何创建此服务。
 
-  Earlier we registered the `Logger` service in the `providers` #{_array} of the metadata for the `AppComponent` like this:
+  Earlier we registered the `Logger` service in the `providers` #{_array} of the metadata for the `AppModule` like this:
 
-  以前，我们通过`AppComponent`元数据中的`providers`数组注册过`Logger`服务，就像这样：
+  以前，我们通过`AppModule`元数据中的`providers`数组注册过`Logger`服务，就像这样：
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-logger')
 
@@ -1230,11 +1231,11 @@ block what-should-we-use-as-token
 
 block dart-map-alternative
   :marked
-    Or we can provide and inject the configuration object in our top-level `AppComponent`.
+    Or we can provide and inject the configuration object in an ngModule like `AppModule`.
 
     或者我们在顶级组件`AppComponent`中提供并注入这个配置对象。
 
-  +makeExcerpt('app/app.component.ts','providers')
+  +makeExcerpt('app/app.module.ts','ngmodule-providers')
 
 #optional
 :marked

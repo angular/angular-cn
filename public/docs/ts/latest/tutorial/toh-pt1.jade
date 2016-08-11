@@ -13,7 +13,7 @@ include ../_util-fns
   
   运行这部分的<live-example></live-example>。
 
-  Create a folder called `angular2-tour-of-heroes` and follow the [QuickStart](../quickstart.html) steps 
+  Create a folder called `angular2-tour-of-heroes` and follow the [QuickStart](../quickstart.html) steps
   which provide the prerequisites, the folder structure, and the core files for our Tour of Heroes.
 
   创建一个名为`angular2-tour-of-heroes`的文件夹，并且遵循[“快速起步”](../quickstart.html)中的步骤初始化它 —— 
@@ -31,9 +31,10 @@ include ../_quickstart_repo
     .file app
     .children
       .file app.component.ts
+      .file app.module.ts
       .file main.ts
     .file node_modules ...
-    .file typings ...      
+    .file typings ...
     .file index.html
     .file package.json
     .file styles.css
@@ -229,20 +230,29 @@ code-example(language="bash").
   我们的期望是：在`<input>`中显示英雄的名字，修改它，并且在所有绑定到英雄名字的地方看到这些修改。
   简而言之，我们需要双向数据绑定。
 
-  Let’s update the template to use the  **`ngModel`** built-in directive for two-way binding.
+  Before we can use two-way data binding for **form inputs**, we need to import the `FormsModule`
+  package in our Angular module. We add it to the `NgModule` decorator's `imports` array. This array contains the list
+  of external modules used by our application.
+  Now we have included the forms package which includes `ngModel`.
   
-  让我们通过**`ngModel`**内建指令提供的双向数据绑定机制来更新模板。
+  在我们让**表单输入**支持双向数据绑定之前，我们得先导入`FormsModule`模块。
+  只要把它添加到`NgModule`装饰器的`imports`数组中就可以了，该数组是应用中用到的外部模块列表。
+  这样我们就引入了包括`ngModel`在内的表单依赖包儿。
+
++makeExample('toh-1/ts/app/app.module.ts', '', 'app.module.ts (FormsModule import)')
 
 .l-sub-section
   :marked
-    Learn more about `ngModel` in the 
+    Learn more about the `FormsModule` and `ngModel` in the
     [Forms](../guide/forms.html#ngModel) and
     [Template Syntax](../guide/template-syntax.html#ngModel) chapters.
-    
+
     要学习关于`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
     [模板语法](../guide/template-syntax.html#ngModel)两章
-    
+
 :marked
+  Let’s update the template to use the  **`ngModel`** built-in directive for two-way binding.
+
   Replace the `<input>` with the following HTML
 
   把`<input>`替换为下列HTML
@@ -266,7 +276,7 @@ code-example(language="html").
   
   我们来盘点一下已经构建完成的部分。
 
-  * Our Tour of Heroes uses the double curly braces of interpolation (a form of one-way data binding)
+  * Our Tour of Heroes uses the double curly braces of interpolation (a kind of one-way data binding)
   to display the application title and properties of a `Hero` object.
   
   * 我们的《英雄指南》使用双大括号(插值表达式 —— 单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
@@ -303,7 +313,7 @@ code-example(language="html").
   Our Tour of Heroes only displays one hero and we really want to display a list of heroes.
   We also want to allow the user to select a hero and display their details.
   We’ll learn more about how to retrieve lists, bind them to the
-  template, and allow a user to select it in the
+  template, and allow a user to select a hero in the
   [next tutorial chapter](./toh-pt2.html).
 
   我们的《英雄指南》只显示了一个英雄，而我们真正要显示的是一个英雄列表。
