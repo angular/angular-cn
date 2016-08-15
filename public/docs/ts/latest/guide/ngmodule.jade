@@ -7,13 +7,22 @@ block includes
 
 :marked
   **Angular Modules** help organize an application into cohesive blocks of functionality.
+  
+  **Angular模块**能帮你把应用组织成多个内聚的功能块儿。
 
   An Angular Module _class_ is adorned with the **NgModule** decorator that defines metadata about the module. 
+  
+  Angular模块类带有**NgModule**装饰器，它定义模块所需的元数据。
 
   This chapter explains how to **create** `NgModule` classes and how to load them, 
   either immediately when the application launches or later, as needed, via the Router.  
+  
+  本章将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 无论是在程序启动时立即加载，还是稍后由路由器按需加载。
 
   ## Contents
+  
+  ## 目录
+  
   * [Angular modularity](#angular-modularity "Add structure to the app with NgModule")
   * [The application root module](#root-module "The startup module that every app requires")
   * [Bootstrap](#bootstrap "Launch the app in a browser with the root module as the entry point") the root module
@@ -32,122 +41,226 @@ a#angular-modularity
 :marked
   ## Angular Modularity
   
+  ## Angular模块化
+  
   Modules are a great way to organize the application and extend it with capabilities from external libraries.
+  
+  模块是组织应用程序和使用外部程序库的最佳途径。
   
   Many Angular libraries are modules (e.g, `FormsModule`, `HttpModule`, `RouterModule`). 
   Many third party libraries are available as Angular modules (e.g., 
   <a href="https://material.angular.io/" target="_blank">Material Design</a>,
   <a href="http://ionicframework.com/" target="_blank">Ionic</a>,
   <a href="https://github.com/angular/angularfire2" target="_blank">AngularFire2</a>).
+  
+  很多Angular库都是模块，比如：`FormsModule`、`HttpModule`、`RouterModule`。
+  很多第三方库也封装成了Angular模块，比如：<a href="https://material.angular.io/" target="_blank">Material Design</a>、
+    <a href="http://ionicframework.com/" target="_blank">Ionic</a>、
+    <a href="https://github.com/angular/angularfire2" target="_blank">AngularFire2</a>。
 
   Angular modules consolidate components, directives and pipes into
   cohesive blocks of functionality, each focused on a 
   feature area, application business domain, workflow, or common collection of utilities.
   
+  Angular模块把组件、指令和管道打包成内聚的功能块儿，每一个都聚焦于一个特性分区、业务领域、工作流，或一组通用的工具。
+  
   Modules can also add services to the application.
   Such services might be internally-developed such as the application logger.
   They can come from outside sources such as the Angular router and Http client.
+  
+  模块还能用来把服务加到应用程序中。这些服务可能是内部研发的，比如应用日志服务；也可能是外部资源，比如Angular路由和Http客户端。
 
   Modules can be loaded eagerly when the application starts.
   They can also be _lazy loaded_ asynchronously by the router.
   
+  模块可能在应用启动时立即加载，也可能由路由器进行异步_延迟加载_。
+  
   An Angular module is a class decorated with `@NgModule` metadata. The metadata:
+  
+  Angular模块是一个由`@NgModule`装饰器提供元数据的类，元数据包括：
 
   * declare which components, directives and pipes  _belong together_.
+  
+  * 声明哪些组件、指令、管道属于该模块。
+  
   * make some of those classes public so that other component templates can use them.
+  
+  * 公开某些类，以便其它的组件模板可以使用它们。
+  
   * hide other classes as implementation details.
+  
+  * 隐藏那些属于实现细节的非公开类。
+  
   * import other modules with the components, directives and pipes it needs.
+  
+  * 导入其它模块，以获得所需的组件、指令和管道。
+  
   * provide services at the application level that any application component can use.
+  
+  * 在应用程序级提供服务，以便应用中的任何组件都能使用它。
 
   Every Angular app has at least one module class, the _root module_. 
   We bootstrap that module to launch the application.
+  
+  每个Angular应用至少有一个模块类 —— _根模块_，我们将通过引导根模块来启动应用。
 
   The _root module_ is all we need in a simple application with a few components.
   As the app grows, we refactor the _root module_ into **feature modules** 
   that represent collections of related functionality. 
   We then import these modules into the _root module_.
+  
+  对于组件很少的简单应用来说，只用一个_根模块_就足够了。
+  随着应用规模的增长，我们逐步把_根模块_重构成一些**特性模块**，它们用来实现一组密切相关的功能。
+  然后，我们在_根模块_中导入它们。
 
   We'll see how later in the chapter. Let's start with the _root module_.
+  
+  稍后我们就会看到怎么做。不过我们还是先从_根模块_开始吧！
 
 a#root_module 
 .l-main-section
 :marked
   ## _AppModule_ - the application root module
   
+  ## _AppModule_ - 应用的根模块
+  
   Every Angular app has a **root module** class. 
   By convention it's a class called `AppModule` in a file named `app.module.ts`.
+  
+  每个Angular应用都有一个**根模块**类。
+  按照约定，它的类名叫做`AppModule`，被放在`app.module.ts`文件中。
 
   This `AppModule` is about as minimal as it gets:
+  
+  这个最小化的`AppModule`是这样的：
+  
 +makeExample('ngmodule/ts/app/app.module.0.ts', '', 'app/app.module.ts (minimal)')(format=".")
+
 :marked
   The `@NgModel` decorator defines the metadata for the module. 
   We'll take an intuitive approach to understanding the metadata and fill in details as we go.
+  
+  `@NgModel`装饰器用来为模块定义元数据。
+  我们先凭直觉来理解一下元数据，接下来再逐步深入细节。
 
   This metadata imports a single helper module, `BrowserModule`, the module every browser app must import.
+  
+  这个元数据只导入了一个辅助模块，`BrowserModule`，每个运行在浏览器中的应用都必须导入它。
   
   `BrowserModule` registers critical application service providers.
   It also includes common directives like `NgIf` and `NgFor` which become immediately visible and usable
   in any of this modules component templates. 
   
+  `BrowserModule`注册了一些关键的应用服务提供商。
+  它还包括了一些通用的指令，比如`NgIf`和`NgFor`，所以这些指令在该模块的任何组件模板中都是可用的。
+  
   The `declarations` list identifies the application's only component, 
   the _root component_, the top of this app's rather bare component tree.
+  
+  `declarations`列出了该应用程序中唯一的组件（根组件），这是该应用的顶层组件，而不会暴露出整个组件树。
 
   The example `AppComponent` simply displays a data-bound title:
+  
+  这个范例`AppComponent`只会显示出一个被绑定的标题：
+  
 +makeExample('ngmodule/ts/app/app.component.0.ts', '', 'app/app.component.ts (minimal)')(format=".")
 :marked
   Lastly, the `@NgModule.bootstrap` property identifies this `AppComponent` as the _bootstrap component_. 
   When Angular launches the app, it places the HTML rendering of `AppComponent` in the DOM,
   inside the `<my-app>` element tags of the `index.html`
+  
+  最后，`@NgModule.bootstrap`属性把这个`AppComponent`标记为_引导（bootstrap）组件_。
+  当Angular引导应用时，它会在DOM中渲染`AppComponent`，并把结果放进`index.html`的`<my-app>`元素标记内部。
 
 a#bootstrap
 .l-main-section
 :marked
   ## Bootstrapping in _main.ts_
+  
+  ## 在_main.ts_中引导
+  
   We launch the application by bootstrapping the `AppModule` in the `main.ts` file.
+  
+  在`main.ts`文件中，我们通过引导`AppModule`来启动应用。
   
   Angular offers a variety of bootstrapping options, targeting multiple platforms. 
   In this chapter we consider two options, both targeting the browser.
+  
+  针对不同的平台，Angular提供了很多引导选项。
+  在本章中，我们只讲两个选项，都是针对浏览器平台的。
 
   ### Dynamic bootstrapping with the Just-In-Time (JIT) compiler
+  
+  ### 通过即时（JIT）编译器动态引导
+  
   In the first, _dynamic_ option, the [Angular compiler](#q-angular-compiler "About the Angular Compiler") 
   compiles the application in the browser and then launches the app.
+  
+  先看看_dynamic_选项，[Angular编译器](#q-angular-compiler "关于Angular编译器")在浏览器中编译并引导该应用。
 
 +makeExample('ngmodule/ts/app/main.ts', '', 'app/main.ts (dynamic)')(format=".")
+
 :marked
   The samples in this chapter demonstrate the dynamic bootstrapping approach. 
 
+  这里的例子演示进行动态引导的方法。
+
   <live-example plnkr="minimal.0">Try the live example.</live-example>
+  
+  <live-example plnkr="minimal.0">尝试在线例子</live-example>
   
 
   ### Static bootstrapping with the Ahead-Of-Time (AOT) compiler
+  
+  ### 使用预先编译器（AOT - Ahead-Of-Time）进行静态引导
 
   Consider the static alternative which can produce a much smaller application that
   launches faster, especially on mobile devices and high latency networks.
+  
+  静态方案可以生成更小、启动更快的应用，建议优先使用它，特别是在移动设备或高延迟网络下。
 
   In the _static_ option, the Angular compiler runs ahead of time as part of the build process,
   producing a collection of class factories in their own files. 
   Among them is the `AppModuleNgFactory`.
+  
+  使用_static_选项，Angular编译器作为构建流程的一部分提前运行，生成一组类工厂。它们的核心就是`AppModuleNgFactory`。
 
   The syntax for bootstrapping the pre-compiled `AppModuleNgFactory` is similar to 
   the dynamic version that bootstraps the `AppModule` class.
+  
+  引导预编译的`AppModuleNgFactory`的语法和动态引导`AppModule`类的方式很相似。
 
 +makeExample('ngmodule/ts/app/main-static.ts', '', 'app/main.ts (static)')(format=".")
+
 :marked
   Because the entire application was pre-compiled, 
   we don't ship the _Angular Compiler_ to the browser and we don't compile in the browser.
   
+  由于整个应用都是预编译的，所以我们不用把_Angular编译器_一起发到浏览器中，也不用在浏览器中进行编译。
+  
   The application code downloaded to the browser is much smaller than the dynamic equivalent
   and it is ready to execute immediately. The performance boost can be significant.
+  
+  下载到浏览器中的应用代码比动态版本要小得多，并且能立即执行。引导的性能能得到显著提升。
 
   Both the JIT and AOT compilers generate an `AppModuleNgFactory` class from the same `AppModule` source code.
   The JIT compiler creates that factory class on the fly, in memory, in the browser.
   The AOT compiler outputs the factory to a physical file
   that we're importing here in the static version of `main.ts`.
+  
+  无论是JIT还是AOT编译器都会从同一份`AppModule`源码中生成一个`AppModuleNgFactory`类。
+  JIT编译器动态、在内存中、在浏览器中创建这个工厂类。
+  AOT编译器把工厂输出成一个物理文件，也就是我们在静态版本`main.ts`中导入的那个。
 
   In general, the `AppModule` should neither know nor care how it is bootstrapped.
+  
+  通常，`AppModule`不必关心它将被如何引导。
 
   Although the `AppModule` evolves as the app grows, the bootstrap code in `main.ts` doesn't change.
   This is the last time we'll look at `main.ts`.
+  
+  虽然`AppModule`会随着应用而演化，但是`main.ts`中的引导代码不会变。
+  这将是我们最后一次关注`main.ts`了。
 
 .l-hr
 
@@ -155,26 +268,49 @@ a#declarations
 .l-main-section
 :marked
   ## Declare directives and components
+  
+  ## 声明指令和组件
+  
   The app evolves. 
   The first addition is a `HighlightDirective`, an [attribute directive](attribute-directives.html)
   that sets the background color of the attached element.
+  
+  应用继续演进。
+  首先加入的是`HighlightDirective`，一个[属性型指令](attribute-directives.html)，它会设置所在元素的背景色。
+  
 +makeExample('ngmodule/ts/app/highlight.directive.ts', '', 'app/highlight.directive.ts')(format=".")
+
 :marked
   We update the `AppComponent` template to attach the directive to the title:
+
+  我们更新`AppComponent`的模板，来把该指令附加到标题上：
+
 +makeExample('ngmodule/ts/app/app.component.1.ts', 'template')(format=".")
 :marked
   If we ran the app now, Angular would report an error in the console because
   it doesn't recognize the `highlight` binding. 
-  
+
+  如果我们现在就运行该应用，Angular会在控制台中报告一个错误，因为它无法识别这个`highlight`绑定。
+
   We must declare the directive in `AppModule`.
   Import the `HighlightDirective` class and add it to the module's `declarations` like this:
+  
+  我们必须在`AppModule`中声明该指令。
+  导入`HighlightDirective`类，并把它加入该模块的`declarations`数组中，就像这样：
+  
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'directive')(format=".")
 
 :marked
   ### Add a component
 
+  ### 添加组件
+
   We decide to refactor the title into its own `TitleComponent`. 
   The component's template binds to the component's `title` and `subtitle` properties like this:
+
+  我们打算把标题重构进独立的`TitleComponent`中去。
+  该组件的模板绑定到了组件的`title`和`subtitle`属性中，就像这样：
+
 +makeExample('ngmodule/ts/app/title.component.html', 'v1', 'app/title.component.html')(format=".")
 
 +makeExample('ngmodule/ts/app/title.component.ts', 'v1', 'app/title.component.ts')(format=".")
@@ -182,10 +318,17 @@ a#declarations
 :marked
   We rewrite the `AppComponent` to display the new `TitleComponent` in the `<app-title>` element,
   using an input binding to set the `subtitle`.
+
+  我们重写了`AppComponent`来把这个新的`TitleComponent`显示到`<app-title>`元素中，并使用一个输入型绑定来设置`subtitle`。
+
 +makeExample('ngmodule/ts/app/app.component.1.ts', '', 'app/app.component.ts (v1)')(format=".")
 :marked
   Angular won't recognize the `<app-title>` tag until we declare it in `AppModule`. 
   Import the `TitleComponent` class and add it to the module's `declarations`:
+
+  除非我们在`AppModule`中声明过，否则Angular无法识别`<app-title>`标签。
+  导入`TitleComponent`类，并把它加到模块的`declarations`中：
+
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'component')(format=".")
 
 a#providers
@@ -193,32 +336,54 @@ a#providers
 :marked
   ## Service Providers
 
+  ## 服务提供商
+
   Modules are a great way to provide services for all of the module's components.
+  
+  模块是为模块中的所有组件提供服务的最佳途径。
 
   The [Dependency Injection](dependency-injection.html) chapter describes
   the Angular hierarchical dependency injection system and how to configure that system
   with [providers](dependency-injection.html#providers) at different levels of the
   application's component tree.
+  
+  [依赖注入](dependency-injection.html)一章中讲过Angular的层次化依赖注入系统，
+  以及如何在组件树的不同层次上通过[提供商](dependency-injection.html#providers)配置该系统。
 
   A module can add providers to the application's root dependency injector, making those services
   available everywhere in the application.
+  
+  模块可以往应用的“根依赖注入器”中添加提供商，让那些服务在应用中到处可用。
 
   Many applications capture information about the currently logged-in user and make that information 
   accessible through a user service. 
   This sample application has a dummy implementation of such a `UserService`.
+  
+  很多应用都需要获取当前登录的用户的信息，并且通过user服务来访问它们。
+  该范例中有一个`UserService`的伪实现。
 
 +makeExample('ngmodule/ts/app/user.service.ts', '', 'app/user.service.ts')(format=".")
 :marked
   The sample application should display a welcome message to the logged in user just below the application title.
   Update the `TitleComponent` template to show the welcome message below the application title.
+
+  该范例应用会在标题下方为已登录用户显示一条欢迎信息。
+  更新`TitleComponent`的模板来显示它。
+
 +makeExample('ngmodule/ts/app/title.component.html', '', 'app/title.component.html')(format=".")
 :marked
   Update the `TitleComponent` class with a constructor that injects the `UserService`
   and sets the component's `user` property from the service.
+
+  更新`TitleComponent`，为它加入一个构造函数，注入`UserService`类，并把组件的`user`属性设置为它的实例。
+
 +makeExample('ngmodule/ts/app/title.component.ts', '', 'app/title.component.ts')(format=".")
 :marked
   We've _defined_ and _used_ the service. Now we _provide_ it for all components to use by
   adding it to a `providers` property in the `AppModule` metadata:
+
+  我们已经_定义_并_使用了_该服务。现在，我们通过把它加入`AppModule`元数据中的`providers`属性来把它_提供_给所有组件使用。
+
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'providers', 'app/app.module.ts (providers)')(format=".")
 
 a#imports
