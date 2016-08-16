@@ -831,6 +831,8 @@ figure.image-display
   which returns a module containing the configured `Router` service provider ... and some other,
   unseen providers that the routing library requires. We export this as the `routing` token.
 
+  下面是第一种配置。将路由数组传进`RouterModule.forRoot`方法，它将返回一个路由器需要的模块，该模块包含了配置好的`Router`服务提供商和一些其他不可见的提供商。我们将它导出为`routing`常量。
+
 +makeExample('router/ts/app/app.routing.2.ts','', 'app/app.routing.ts')(format=".")
 
 .l-sub-section
@@ -881,6 +883,8 @@ h4#define-routes 定义一些路由
   * *When the application requests navigation to the path `/crisis-center`, create or retrieve an instance of
   the `CrisisListComponent`, display its view, and update the browser's address location and history with the URL
   for that path.*
+
+  * **当应用程序请求导航到路径`/crisis-center`时，创建或者取回一个`CrisisListComponent`的实例，显示它的视图，并将该路径更新到浏览器地址栏和历史。**
 
 .l-sub-section
 
@@ -1671,9 +1675,12 @@ h3#merge-hero-routes 把hero模块导入根NgModule
   * 命令式的从一个组件导航到另一个
 
   * pass information along in route parameters and subscribe to them in our component
+
+  * 通过路由参数传递信息，并在组件中订阅它们。
+
   * import our feature area NgModule into our root NgModule
 
-  * 把信息传给路由参数，并在我们的组件中订阅它们
+  * 在根`NgModule`中导入特征区`NgModule`。
 
   After these changes, the folder structure looks like this:
 
@@ -2532,6 +2539,8 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
   with the current instance of our `component`, the current `ActivatedRoute` and `RouterStateSnapshot` in case we needed to access
   some external information. This would be useful if we only wanted to use this guard for this component and needed to ask the component's
   properties in or to confirm whether the router should allow navigation away from it.
+
+  另外，我们也可以为`CrisisDetailComponent`创建一个特定的`CanDeactivate`守卫。在需要访问外部信息时，`canDeactivate`方法为提供了组件、`ActivatedRoute`和`RouterStateSnapshot`的当前实例。如果只想为这个组件使用该守卫，并且需要使用该组件属性、或者需要路由器确认是否允许从该组件导航出去时，这个守卫就非常有用。
 +makeExample('router/ts/app/can-deactivate-guard.service.1.ts', '', 'can-deactivate-guard.service.ts (component-specific)')
 
 :marked
@@ -2570,8 +2579,11 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
 
 <a id="Resolve"></a>
 h3#resolve-guard <i>Resolve</i>: pre-fetching component data
+h3#resolve-guard <i>解析</i>: 提前获取组件数据
 :marked
   In our `Hero Detail` and `Crisis Detail`, we waited until the route was activated to fetch our respective hero or crisis.
+
+  
 
   This worked well for us, but we can always do better.
   If we were using a real world api, there may be some delay in when the data we want to display gets returned.
@@ -2993,7 +3005,7 @@ figure.image-display
   Since we'll be navigating to our *Crisis Admin* route after logging in, we'll update it to handle our
   query parameters and fragment.
   
-  由于要在登录后导航到*危机管理*功能区的路由，所以我们还得更新它，来处理这些全局查询参数和片段。
+  由于要在登录后导航到*危机管理*特征区的路由，所以我们还得更新它，来处理这些全局查询参数和片段。
 
 +makeExample('router/ts/app/crisis-center/crisis-admin.component.ts','', 'crisis-admin.component.ts (v.2)')
 
@@ -3030,33 +3042,58 @@ figure.image-display
 :marked
   ## Milestone #5: Asynchronous Routing
 
+  ## 里程碑5：异步路由
+
   As we have completed our milestones, our application has naturally gotten larger. As we continue to build
   out feature areas our overall application size will get larger also. At some point we'll reach a tipping
   point in where our application takes a significant enough time to load. This is not a viable long term solution.
 
+  完成上面的里程碑后，我们的应用程序很自然的长大了。在继续构建特征区的过程中，应用的尺寸将会变得更大。在某一个时间点，我们将达到一个顶点，应用
+  将会需要过多的时间来加载。长远来看，这不是一个办法。
+
   So how do we combat this problem? We introduce asynchronous routing into our application and take advantage of loading
   feature areas _lazily_. This buys us multiple things:
 
-  We can continue building out feature areas without increasing our initial bundle.
-  We can load feature areas only when requested by the user.
-  We can speed up load time for users that only visit certain areas of our application.
+  如何才能战胜这个问题呢？我们引进了异步路由到应用程序中，并获得**懒惰**加载特征区域的能力。这样给我们带来了下列好处：
+
+  * We can continue building out feature areas without increasing our initial bundle.
+
+  * 可以继续构建特征区，但不再增加初始包大小。
+
+  * We can load feature areas only when requested by the user.
+
+  * 只有在用户请求时才加载特征区。
+
+  * We can speed up load time for users that only visit certain areas of our application.
+
+  * 为那些只访问应用程序某些区域的用户加快加载速度。
 
   These are all things we want to have in our application, so let's apply this to our current setup. We've already made
   great strides by organizing our application into three modules: `AppModule`, `HeroesModule` and `CrisisCenterModule`.
   Our `CrisisCenterModule` is the most feature-rich area of our application and also the largest, so we'll take advantage
   of asynchronous routing and only load the `Crisis Center` feature area when requested.
 
+  我们接下来在当前的项目中添加这些特征。现在已经有一系列模块将应用组织为三大块：`AppModule`, `HeroesModule` 和 `CrisisCenterModule`。
+  `CrisisCenterModule`是功能最多，尺寸最大的模块，我们将使用异步路由，实现只有在被请求时才加载`Crisis Center`特征区。
+
 :marked
   ### Lazy-Loading route configuration
+
+  ### 懒惰加载路由配置
 
   We'll start by pulling our `redirect` and `crisis-center` routes out of our `CrisisCenterModule` and including them in our
   `app.routing.ts` file. We want to load our `Crisis Center` asynchronously, so we'll use the `loadChildren` property in
   our route config where previously we used the `children` property to include our child routes.
 
+  首先，把`redirect`和`crisis-center`路由从`CrisisCenterModule`中提取出来，并将他们添加到 `app.routing.ts`文件中。我们想要异步加载`Crisis Center`，
+  所以在路由配置中，将原来包含子路由的`children`属性替换为`loadChildren`属性。
+
   We'll also change our `crisis-center` **path** in our `crisis-center.routing.ts` to an empty path. The `Router` supports
   *empty path* routes, which we can use for grouping routes together without adding anything additional paths to the URL. Our
   users will still visit `/crisis-center` and our `CrisisCenterComponent` still serves as our *Routing Component* which contains
   our child routes.
+
+  接下来，在`crisis-center.routing.ts`中，把`crisis-center`的**path**更改为空路径。`路由器`支持**空路径**路由，它可以被用来在不添加额外路径到URL的情况下，将多个路由组合到一起。用户还是可以访问`/crisis-center`，`CrisisCenterComponent`组件还是包含了子级路由的**路由组件**。
 
 +makeTabs(
   `router/ts/app/app.routing.6.ts,
@@ -3069,33 +3106,44 @@ figure.image-display
 :marked
   The `loadChildren` property is used by the `Router` to map to our bundle we want to lazy-load, in this case being the `CrisisCenterModule`.
 
+  `路由器`使用`loadChildren`属性来映射我们想要懒惰加载的特征区，在这里为`CrisisCenterModule`。
+
   If we look closer at the `loadChildren` string, we can see that it maps directly to our `crisis-center.module` file where we previously built
   out our `Crisis Center` feature area. After the path to the file we use a `#` to denote where our file path ends and to tell the `Router` the name
   of our `CrisisCenter` NgModule. If we look in our `crisis-center.module` file, we can see it matches name of our exported NgModule class.
 
+  细看`loadChildren`字符串，它直接映射了之前在`Crisis Center`特征区创建的`crisis-center.module`文件。在文件路径的后面有一个`#`号，用来标识文件路径的结束和告诉路由器`CrisisCenter`NgModule的文件名。再细看 `crisis-center.module`文件，它和导出的NgModule类的名字一样。
+
 +makeExample('router/ts/app/crisis-center/crisis-center.module.ts', 'crisis-center-module-export', 'crisis-center.module.ts (export)')
 
 :marked
-  The `loadChildren` property is used by the `Router` to map to our bundle we want to lazy-load, in this case being the `CrisisCenterModule`.
   The router will take our loadChildren string and dynamically load in our `CrisisCenterModule`, add its routes to our configuration *dynamically*
   and then load the requested route. This will only happen when route is **first** requested and the module will be immediately be available
   for subsequent requests.
+
+  路由器将会利用`loadChildren`字符串来动态加载`CrisisCenterModule`，将它的路由设置**动态**添加到配置中，并加载被请求的路由。只有在**第一次**被请求的时候，这些才会发生。在后来的请求中，该模块将立刻可用。
 
 .l-sub-section
   :marked
     Angular provides a built-in module loader that supports **`SystemJS`** to load modules asynchronously. If we were
     using another bundling tool, such as **Webpack**, we would use the Webpack mechanism for asynchronously loading modules.
 
+    Angular提供一个内建模块加载器，支持**`SystemJS`**来异步加载模块。如果我们使用其他捆绑工具比如**Webpack**，则使用Webpack的机制来异步加载模块。
+
 :marked
   We've built our feature area, we've updated our route configuration to take advantage of lazy-loading, now we have to do the final step
   to break our `CrisisCenterModule` into a completely separate module. In our `app.module.ts`, we'll remove our `CrisisCenterModule` from the
   `imports` array since we'll be loading it on-demand an we'll remove the imported `CrisisCenterModule`.
+
+  我们构建了特征去，更新了路由配置来实现懒惰加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
 
 +makeExample('router/ts/app/app.module.ts', '', 'app.module.ts (final)')
 
 :marked
   If our initial redirect went to `/heroes` instead of going to `/crisis-center`, the `CrisisCenterModule` would not be loaded until the user
   visited a `Crisis Center` route. We'll update our redirect in our `app.routing.ts` to make this change.
+
+  如果初始的`redirect`是`/heroes`，而非`/crisis-center`，那么`CrisisCenterModule`就不会被加载，直到用户访问`Crisis Center`路由。到`app.routing.ts`中更新`redirect`。
 
 +makeExample('router/ts/app/app.routing.6.ts', 'heroes-redirect', 'app.routing.ts (heroes redirect)')
 
