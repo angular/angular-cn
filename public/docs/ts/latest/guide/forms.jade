@@ -54,7 +54,7 @@ include ../_util-fns
   
   - 通过模板引用变量，在控件之间共享信息
 
-  <live-example>Live Example</live-example>
+  <live-example>在线例子</live-example>
 
 .l-main-section
 :marked
@@ -254,9 +254,11 @@ code-example(format="").
 
   1. We import the `Hero` model we just created.
 
-  1. The `@Component` selector value of "hero-form" means we can drop this form in a parent template with a `<hero-form>` tag.
+  1. 导入刚刚创建的`Hero`模型
+
+  1. The `@Component` selector value of "hero-form" means we can drop this form in a parent template with a `<hero-form>` tag.  
   
-  1. `@Component`选择器"hero-form"表示我们将把此表单扔进父模板中的一个`<hero-form>`标签中。
+  1. `@Component`选择器"hero-form"表示我们可以通过一个`<hero-form>`标签，把此表单扔进父模板中。
 
   1. The `templateUrl` property points to a separate file for the template HTML called `hero-form.component.html`.
   
@@ -588,7 +590,12 @@ figure.image-display
   :marked
     - Each input element has an `id` property that is used by the `label` element's `for` attribute
     to match the label to it's input control.
+
+    - 每一个input元素都有一个`id`属性，它被`label`元素的`for`属性用来把标签匹配到对应的`input`。
+
     - Each input element has a `name` property that is required by Angular Forms to register the control with the form.
+
+    - 每一个input元素都有一个`name`属性，Angular的表格模块需要使用它为表单注册控制器。
     
 :marked
   If we ran the app right now and changed every Hero model property, the form might display like this:
