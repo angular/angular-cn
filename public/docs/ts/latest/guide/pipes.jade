@@ -351,13 +351,11 @@ a#change-detection
   下面是`FlyingHeroesPipe`的实现，它遵循了我们以前见过的那些写自定义管道的模式。
 
 +makeExample('pipes/ts/app/flying-heroes.pipe.ts', 'pure', 'app/flying-heroes.pipe.ts')(format='.')
-
-p.
-  When we run the sample now we see odd behavior (try it in the #[+liveExampleLink()]).
-  Every hero we add is a flying hero but none of them are displayed.
 :marked
   When we run the sample now we see odd behavior (try it in the <live-example></live-example>).
   Every hero we add is a flying hero but none of them are displayed.
+
+  当运行例子时，我们看到一种奇怪的行为（试试<live-example></live-example>）。添加的每个英雄都是会飞行的英雄，但是没有一个被显示出来。
 
   Although we're not getting the behavior we want, Angular isn't broken.
   It's just using a different change detection algorithm &mdash; one that ignores changes to the list or any of its items.
