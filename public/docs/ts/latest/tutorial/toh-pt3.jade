@@ -4,17 +4,19 @@ include ../_util-fns
   Our app is growing.
   Use cases are flowing in for reusing components, passing data to components, and creating more reusable assets. Let's separate the heroes list from the hero details and make the details component reusable.
 
+  我们的应用正在成长中。现在又有新的用例：重复使用组件，传递数据给组件并创建更多可复用的资源。
+  我们来把英雄详情从英雄列表中拆分出来，让这个英雄详情组件可以被复用。
+
   Run the <live-example></live-example> for this part.
   
   运行这部分的<live-example></live-example>。
 
-p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-3')]。
 
 .l-main-section
 :marked
   ## Where We Left Off
   
-  ## 我们在哪儿
+  ## 延续上一步教程
   
   Before we continue with our Tour of Heroes, let’s verify we have the following structure. If not, we’ll need to go back and follow the previous chapters.
   
@@ -273,11 +275,15 @@ code-example(format=".").
   This array contains the list of all components, pipes, and directives that we created
   and that belong in our application's module.
 
+  接下来，添加`HeroDetailComponent`到`NgModule`装饰器中的`declarations`数组。这个数组包含了所有属于本应用模块的，由我们亲自创建的组件、管道和指令。
+
 +makeExample('toh-3/ts/app/app.module.ts', 'declarations')
 
 .l-main-section
 :marked
   ## Refresh the AppComponent
+
+  ## 更新AppComponent
 :marked
   Now that the application knows about our `HeroDetailComponent`, 
   find the location in the `AppComponent` template where we removed the *Hero Detail* content
@@ -398,7 +404,7 @@ code-example(format=".").
   * We learned to declare the application directives we need in an Angular module. We
   list the directives in the `NgModule` decorator's `declarations` array.
   
-  我们学会了在Angular模块中声明该应用所需的指令 —— 只要把这些指令列在`NgModule`装饰器的`declarations`数组中就可以了。
+  * 我们学会了在Angular模块中声明该应用所需的指令 —— 只要把这些指令列在`NgModule`装饰器的`declarations`数组中就可以了。
   
   * We learned to bind a parent component to a child component.
   

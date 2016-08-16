@@ -364,9 +364,13 @@ code-example(language="bash").
   :marked
     Learn more about defining routes with Routes in the [Routing](../guide/router.html) chapter.
 
+    到[路由](../guide/router.html)章节学习更多关于使用路由库来定义路由的知识。
+
 :marked
   We'll export the `routing` constant using the **RouterModule.forRoot** method with our array of routes.
   This returns a configured router module we'll add to our root NgModule, `AppModule`.
+
+  使用**RouterModule.forRoot**方法，导出包含了路由数组的`routing`常量。它返回一个配置好的路由模块，它将被加入到根NgModule - `AppModule`中。
 
 +makeExample('toh-5/ts/app/app.routing.1.ts', 'routing-export', 'app/app.routing.ts (routing export)')(format=".")
 .l-sub-section
