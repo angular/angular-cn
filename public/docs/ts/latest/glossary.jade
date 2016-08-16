@@ -29,6 +29,8 @@ a#aot
 .l-main-section
 :marked
   ## Ahead of Time (AOT) Compilation
+
+  ## Ahead of Time (AOT) 提前编译
 .l-sub-section
   :marked
     Angular applications can be compiled by developers at build-time. 
@@ -36,20 +38,30 @@ a#aot
     to a Module Factory, meaning you don't need to include the Angular compiler in your javascript bundle. 
     Ahead of Time compiled applications also benefit from decreased load time and increased performance.
 
+    开发者可以在构造时(build-time)编译Angular应用程序。通过`Compiler-cli` - `ngc`编译应用程序，应用可以从一个模块工厂(Module Factory)直接启动，意思是不再需要把Angular编译器添加到JavaScript包中。提前编译的应用程序将加载迅速，并具有更高的性能。
+
 .l-main-section
 <a id="angular-module"></a>
 :marked
   ## Angular Module
+
+  ## Angular模块 
 .l-sub-section
   :marked
     Helps us organize an application into cohesive blocks of functionality.
     An Angular module identifies the components, directives, and pipes that are used by the application
     along with the list of external Angular modules that the application needs, such as `FormsModule`.
 
+    帮助我们将一个应用程序组织成拼合的功能模块群。一个Angular模块标识了被应用程序使用的组件、指令和管道等，它同时包含了应用程序需要的外来Angular模块的列表，比如`FormsModule`。
+
     Every Angular application has an application root module class. By convention the class is
     called `AppModule` and resides in a file named `app.component.ts`.
 
+    每个Angular应用程序都有一个应用程序根模块类。按规约这个类的名字为`AppModule`，存放在名为`app.component.ts`的文件。
+
     See the [Angular Module](/docs/ts/latest/guide/ngmodule.html) chapter for details and examples.
+
+    到[Angular模块](/docs/ts/latest/guide/ngmodule.html)章节查看详情。
 :marked
   ## Annotation
   ## 注解(Annotation)
@@ -149,6 +161,8 @@ a#aot
 .alert.is-important
   :marked
     Note that you can often achieve this same goal using [Angular modules](#angular-module) instead.
+
+    注意，你可以利用[Angular模块](#angular-module)达到同样的目的。
 
 :marked
   ## Binding
@@ -700,9 +714,17 @@ a#jit
   .alert.is-important
     :marked
      In Angular, there are two types of modules:
-     - [Angular modules](#angular-module). 
+
+     在Angular里有两种模块：
+
+     - [Angular modules](#angular-module).
      See the [Angular Module](/docs/ts/latest/guide/ngmodule.html) chapter for details and examples.
+
+     - [Angular 模块](#angular-module).到[Angular Module](/docs/ts/latest/guide/ngmodule.html)章节查看详情和例子。
+
      - ES2015 modules as described in this section.
+
+     - 本节描述的ES2015模块。
 
   :marked
     Angular apps are modular.
@@ -763,14 +785,22 @@ a#jit
 .l-main-section
 :marked
   ## Observable
+
+  ## Observable
 .l-sub-section
   :marked
     We can think of an observable as an array whose items arrive asynchronously over time. 
     Observables help us manage asynchronous data, such as data coming from a backend service.
     Observables are used within Angular itself, including Angular's event system and its http client service.
 
+    一个`Observable`是一个数组，它包含的元素在一段时间内异步到达。`Observable`帮助我们管理异步数据，比如来自后台服务的数据。
+    Angular自身使用了`Observable`，包括Angular的事件系统和它的http客户端服务。
+
     To use observables, Angular uses a third-party library called Reactive Extensions (RxJS).
     Observables are a proposed feature for ES 2016, the next version of JavaScript.
+
+    为了利用`Observable`，Angular使用了名为Reactive Extensions (RxJS)的第三方包。
+    在下个版本的JavaScript - ES 2016中，`Observable`是建议的功能之一。
 
 :marked
   ## Output
@@ -859,19 +889,38 @@ a#jit
 <a id="reactive-forms"></a>
 :marked
   ## Reactive Forms
+  ## 动态表格（Reactive Forms）
 .l-sub-section
   :marked
     A technique for building Angular forms through code in a component.
     The alternate technique is [Template-Driven Forms](#template-driven-forms).
 
+    通过组件代码来构建Angular表单的方法。
+
     When building reactive forms:
+
+    构建动态表单是：
+
     - The "source of truth" is the component. The validation is defined using code in the component.
+
+    - “真理来源”于组件。表单验证在组件代码中定义。
+
     - Each control is explicitly created in the component class with `new FormControl()` or with `FormBuilder`.
+
+    - 每个控制器都是在组件类中使用`new FormControl()`或者`FormBuilder`显性的创建的。
+
     - The template input elements do *not* use `ngModel`.
+
+    - 模板中的`input`元素**不**使用`ngModel`。
+
     - The associated Angular directives are all prefixed with `Form` such as `FormGroup`, `FormControl`, and `FormControlName`.
+
+    - 相关联的Angular指令全部以`Form`开头，比如`FormGroup`、`FormControl`和`FormControlName`。
 
     Reactive forms are powerful, flexible, and great for more complex data entry form scenarios, such as dynamic generation
     of form controls.
+
+    动态表单非常强大、灵活，它在复杂数据输入的场景下尤其好用，比如动态的生成表单控制器。
 
 :marked
   ## Router
@@ -965,20 +1014,30 @@ a#jit
 
 :marked
   ## Service
+
+  ## 服务
 .l-sub-section
   :marked
     Components are great and all … but what do we do with data or logic that are not associated 
     with a specific view or that we want to share across components? We build services!
 
+    组件很强大很好...但是，我们该如何处理那些不与任何特定视图相关的数据和逻辑？又如何在组件之间共享这些数据和逻辑？我们创建服务！    
+
     Applications often require services such as a hero data service or a logging service.
     Our components depend on these services to do the heavy lifting.
+
+    应用程序经常需要服务，比如英雄数据服务或者日志服务。组件依赖这些服务来做一些繁重的工作。
 
     A service is a class with a focused purpose.
     We often create a service to implement features that are
     independent from any specific view, 
     provide share data or logic across components, or encapsulate external interactions.
 
+    服务是一个具有特定功能的类。我们经常创建服务来实现不依赖任何特定视图的特征、在组件之间提供共享数据或逻辑，或者封装外部互动等。
+
     See the [Services](/docs/ts/latest/tutorial/toh-pt4.html) chapter of the tutorial to learn more.
+
+    到[服务](/docs/ts/latest/tutorial/toh-pt4.html)章查看更多详情。
 
 :marked
   ## Structural Directive
