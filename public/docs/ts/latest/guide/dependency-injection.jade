@@ -414,7 +414,7 @@ block ctor-syntax
 
   ### Registering providers in an NgModule
   
-  在NgModule中注册提供商。
+  ### 在NgModule中注册提供商。
   
   Here's our AppModule where we register a `Logger`, an `UserService`, and an `APP_CONFIG` provider.
   
@@ -432,6 +432,8 @@ block ctor-syntax
   ### 在组件中注册提供商
 
   Here's a revised `HeroesComponent` that registers the `HeroService`.
+
+  下面是更新的`HerosComponent`，它注册了`HeroService`。
 
 +makeExample('dependency-injection/ts/app/heroes/heroes.component.1.ts', 'full','app/heroes/heroes.component.ts', stylePattern)(format='.')
 
@@ -662,12 +664,16 @@ block injectable-not-always-needed-in-ts
   fact `InjectableMetadata` #{_decorator}s that
   identify a class as a target for instantiation by an injector.
 
+  我们**可以**添加它。但是它不是必需的，因为`HerosComponent`已经有`@Component`装饰器了，这个装饰器类（和我们随后将会学到的`@Directive`和`@Pipe`一样）是<a href="#{injMetaUrl}">InjectableMetadata</a>的子类型。实际上，这个`InjectableMetadata`装饰器是把一个类标识为注入器实例化的目标。
+
 block ts-any-decorator-will-do
   .l-sub-section
     :marked
       At runtime, injectors can read class metadata in the transpiled JavaScript code
       and use the constructor parameter type information
-      to determine what things to inject. 
+      to determine what things to inject.
+
+      在运行时，注入器可以从编译后的JavaScript代码中读取类的元数据，并使用构造函数的参数类型信息来决定注入什么。 
 
       Not every JavaScript class has metadata.
       The TypeScript compiler discards metadata by default.
@@ -675,6 +681,11 @@ block ts-any-decorator-will-do
       (as it should be in the `tsconfig.json`),
       the compiler adds the metadata to the generated JavaScript 
       for _every class with at least one decorator_.
+
+      不是每一个JavaScript类都有元数据。
+      TypeScript编译器默认忽略元数据。
+      如果`emitDecoratorMetadata`编译器选项为`true`(在`tsconfig.json`中它应该为`true`)，
+      编译器就会在生成的JavaScript中，为_每一个至少拥有一个装饰器的类添加元数据_。
 
       While any decorator will trigger this effect, mark the service class with the
       <a href="#{injMetaUrl}">InjectableMetadata</a> #{_decorator}
@@ -727,6 +738,8 @@ block real-logger
   We're likely to need the same logger service everywhere in our application,
   so we put it in the project's `#{_appDir}` folder, and
   we register it in the `providers` #{_array} of the metadata for our application module, `AppModule`.
+
+  我们很有可能在应用程序的每个角落都需要日志服务，所以把它放到项目的`#{_appDir}`目录，并在应用程序模块`AppModule`的元数据中的`providers`数组里注册它。
 
 +makeExcerpt('app/providers.component.ts','providers-logger','app/app.component.ts (excerpt)')
 
@@ -809,6 +822,7 @@ code-example(format="nocode").
 :marked
   ### The *Provider* class !{__andProvideFn}
 
+  ### *Provider*类和*provide*对象常量
 :marked
   We wrote the `providers` #{_array} like this:
 
