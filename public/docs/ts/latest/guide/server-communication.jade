@@ -927,6 +927,8 @@ block wikipedia-jsonp+
     The `providers` array in the component metadata specifies the Angular `JSONP_PROVIDERS` collection that supports the `Jsonp` service.
     We register that collection at the component level to make `Jsonp` injectable in the `WikipediaService`.
 
+    组件元数据中的`providers`数组指定了支持`Jsonp`服务的Angular `JSONP_PROVIDERS`。我们在组件级别注册这个`JSONP_PROVIDERS`，让`Jsonp`可以被注入到`WikipediaService`中。
+
     The component presents an `<input>` element *search box* to gather search terms from the user. 
     and calls a `search(term)` method after each `keyup` event.
     
