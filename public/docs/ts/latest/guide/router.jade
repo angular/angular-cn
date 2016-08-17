@@ -1574,8 +1574,8 @@ h4#snapshot <i>快照</i>：不需要可观察（no-observable）时的替代方
   We don't need to subscribe. We don't have to unsubscribe in `ngOnDestroy`.
   It's much simpler to write and read:
 
-  路由器提供了一个备选方案：*快照（snapshot）*，它会给我们路由参数的初始值。这样我们就不用订阅，也就不用不得不在`ngDestroy`中反订阅了。
-  这样就更容易书写和阅读了：
+  路由器提供了一个备选方案：*快照（snapshot）*，它会给我们路由参数的初始值。这样我们就不用订阅，也不用被迫在`ngDestroy`中反订阅了。
+  这样会更容易书写和阅读：
 
 +makeExample('router/ts/app/heroes/hero-detail.component.2.ts','snapshot')(format=".")
 
