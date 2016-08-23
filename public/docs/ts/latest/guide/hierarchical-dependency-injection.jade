@@ -10,7 +10,7 @@ block includes
   Angular has a Hierarchical Dependency Injection system.
   There is actually a tree of injectors
   that parallel an application's component tree.
-  We can re-configure the injectors at any level of that component tree with
+  We can reconfigure the injectors at any level of that component tree with
   interesting and useful results.
   
   Angular有一个多级依赖注入系统。
@@ -110,16 +110,16 @@ figure.image-display
     我们先保留这个问题，等改天再讨论这个选项。
 :marked
   Such a proliferation of injectors makes little sense until we consider the possibility that injectors at different levels can be
-  configured with different providers. We don't *have* to re-configure providers at every level. But we *can*.
+  configured with different providers. We don't *have* to reconfigure providers at every level. But we *can*.
   
   除非注入器能在各个不同层次上使用不同的提供商进行配置，否则没必要让注入器分裂成这么多。
   虽然我们并不是*必须*在每一层都重新配置提供商，但我们*可以*这样做。
 
-  If we don't re-configure, the tree of injectors appears to be flat. All requests bubble up to the root NgModule injector that we
-  configured with the `bootstrapModule` method.
+  If we don't reconfigure, the tree of injectors appears to be flat. All requests bubble up to the root 
+  <span if-docs="ts">NgModule</span> injector that we configured with the `!{_bootstrapModule}` method.
   
-  如果我们完全没有进行过重新配置，注入器的树看起来将是“平面”的。所有的申请都会被冒泡到“根NgModule注入器”进行处理，也就是我们在`bootstrapModule`方法中配置的那个。
-
+  如果我们完全没有进行过重新配置，注入器的树看起来将是“平面”的。所有的申请都会被冒泡到根<span if-docs="ts">NgModule</span>注入器进行处理，也就是我们在`!{_bootstrapModule}`方法中配置的那个。
+  
   The ability to configure one or more providers at different levels opens up interesting and useful possibilities.
   
   在不同层次上重新配置一个或多个提供商的能力，开启了一些既有趣又有用的可能性。
@@ -238,14 +238,17 @@ figure.image-display
   凑近我们的`HeroEditComponent`的元数据看看。注意看它的`providers`属性。
 
 +makeExample('hierarchical-dependency-injection/ts/app/hero-editor.component.ts', 'providers')
+
+- var _root_NgModule = _docsFor == 'dart' ? '<code>bootstrap</code> arguments' : 'root <code>NgModule</code>'
 :marked
   This adds a `RestoreService` provider to the injector of the `HeroEditComponent`.
-  Couldn’t we simply alter our root NgModule to include this provider?
+  Couldn’t we simply alter our !{_root_NgModule} to include this provider?
   
   它往`HeroEditComponent`的注入器中添加了一个`RestoreService`提供商。
-  不能简化点儿，直接在我们的根NgModule后面包含这个提供商吗？
+  不能简化点儿，直接在我们的!{_root_NgModule}后面包含这个提供商吗？
 
-+makeExample('hierarchical-dependency-injection/ts/app/app.module.ts', 'bad-alternative')
++makeExcerpt(_appModuleTsVsMainTs, 'bad-alternative')
+
 :marked
   Technically we could, but our component wouldn’t quite behave the way it is supposed to. Remember that each injector treats the services that it provides as singletons. However, in order to be able to have multiple instances of `HeroEditComponent` edit multiple heroes at the same time we need to have multiple instances of the `RestoreService`. More specifically, each instance of `HeroEditComponent` needs to be bound to its own instance of the `RestoreService`.
   
@@ -273,7 +276,7 @@ figure.image-display
   如果我们只在根组件上定义了一个`RestoreService`提供商，我们就确实只有该服务的一个实例了，它会在整个应用程序中被共享。
 
   That’s clearly not what we want in this scenario. We want each component to have its own instance of the `RestoreService`.
-  Defining (or re-defining) a provider at the component level creates a new instance of the service for each new instance
+  Defining (or redefining) a provider at the component level creates a new instance of the service for each new instance
   of that component. We've made the `RestoreService` a kind of "private" singleton for each `HeroEditComponent`,
   scoped to that component instance and its child components.
   
@@ -281,16 +284,10 @@ figure.image-display
   在组件级别上定义(或重定义)一个提供商，将会为该组件创建一个新的服务实例。
   我们已经为`HeroEditComponent`制造了一种“私有”`RestoreService`单例，它的作用域被局限在了该组件的实例及其子组件中。
 
-  <!--
-    ## Advanced Dependency Injection in Angular 2
-
-    Restrict Dependency Lookups
-    [TODO] (@Host) This has been postponed for now until we come up with a decent use case
-
-
-    .l-main-section
-    :marked
-      ## Dependency Visibility
-
-    [TODO] (providers vs viewProviders) This has been postponed for now until come up with a decent use case
-    -->
+//- ## Advanced Dependency Injection in Angular 2
+//- Restrict Dependency Lookups
+//- [TODO] (@Host) This has been postponed for now until we come up with a decent use case
+//- .l-main-section
+//-   :marked
+//-     ## Dependency Visibility
+//- [TODO] (providers vs viewProviders) This has been postponed for now until come up with a decent use case

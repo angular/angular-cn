@@ -166,37 +166,16 @@ include ../_util-fns
 .l-main-section
 :marked
   ## External module configuration
-  ## 外部模块设置
-
-  We can register _certain_ module providers in the `NgModule` rather than in the root application component.
+  We often register providers in the `NgModule` rather than in the root application component.
+    
+  We do this when (a) we expect the service to be injectable everywhere
+  or (b) we must configure another application global service _before it starts_.
   
-  也可以在`NgModule`中注册_某些_模块中的提供商，而非在应用程序根组件里。
-
-  We'd do this when we expect to select or configure external modules that support our application
-  but (a) aren't conceptually part of the application and (b) that we could change later without
-  altering the essential logic of the application.
+  We see an example of the second case here, where we configure the Component Router with a non-default
+  [location strategy](../guide/router.html#location-strategy) by listing its provider 
+  in the `providers` list of the `AppModule`.
   
-  使用外部模块时，如果满足下面两个条件，就应该在引导过程中注册：a)它在概念上不是程序的一部分，以及 b)将来可能要在不改变主要应用逻辑的情况下更换它。
-
-  For example, we might configure the Component Router with different
-  [location strategies](../guide/router.html#location-strategy)  based on environmental factors. 
-  The choice of location strategy doesn't matter to the application itself.
-  
-  比如，可能会根据不同的环境组件路由器，使用不同的[location策略](../guide/router.html#location-strategy)来配置组件路由器。而这个location策略不会直接影响到应用程序本身。
-
-  We could sneak in a fake HTTP backend with sample data during development rather than
-  allow http calls to a remote server (that might not yet exist). 
-  We'll switch to the real backend in production. 
-  The application shouldn't know or care one way or the other.
-  
-  在开发过程中，可以偷偷把一个假的带样本数据的HTTP后端嵌入进来，以代替对一个远程服务器(可能还不存在)进行http查询。在产品发布时再切换到真正的后端。应用程序不用知道也不用管正在跟哪个后端打交道。
-
-  See both examples in the following `app.module.ts`
-  where we list their service providers in the `providers` array of the `NgModule` (AppModule).
-  
-  在这个`app.module.ts`中，我们把它们的服务提供商列在`NgModel`（AppModule）的`providers`数组中。
-
-+makeExample('cb-dependency-injection/ts/app/app.module.ts','bootstrap','app/app.module.ts')(format='.') 
++makeExample('cb-dependency-injection/ts/app/app.module.ts','providers','app/app.module.ts (providers)')(format='.') 
 
 a(id="injectable")
 a(id="nested-dependencies")

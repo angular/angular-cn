@@ -1439,33 +1439,29 @@ block style-property-name-dart-diff
     要记住“方括号中的圆括号”这种语法，就把它想象成 *盒子里的香蕉* 吧，是不是很形象？
     (译注：中国读者记起来更简单，方括号又叫中括号，圆括号又叫小括号，显然应该中的在外，小的在内)
 
-.callout.is-important
-  header FormsModule is Required to use ngModel
-  :marked
-    Before we can use `ngModel` two-way data binding, we need to import the `FormsModule`
-    package in our Angular module. We add it to the `NgModule` decorator's `imports` array. This array contains the list
-    of external modules used by our application.
-    <br>Learn more about the `FormsModule` and `ngModel` in the
-    [Forms](../guide/forms.html#ngModel) chapter.
-    
-    要使用`ngModel`做双向数据绑定，得先把`FormsModule`导入我们的模块。只要把它加入`NgModule`装饰器的`imports`数组就可以了。
-    该数组是本应用中用到的外部模块列表。
-    要学习关于`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)一章。
++ifDocsFor('ts|js')
+  .callout.is-important
+    header FormsModule is Required to use ngModel
+    :marked
+      Before we can use the `ngModel` directive in a two-way data binding,
+      we must import the `FormsModule` and add it to the Angular module's `imports` list.
+      Learn more about the `FormsModule` and `ngModel` in the
+      [Forms](../guide/forms.html#ngModel) chapter.
+      
+      要使用`ngModel`做双向数据绑定，得先把`FormsModule`导入我们的模块并把它加入`NgModule`装饰器的`imports`数组。      
+      要学习关于`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)一章。
 
-+makeExample('template-syntax/ts/app/app.module.1.ts', '', 'app.module.ts (FormsModule import)')
+  +makeExample('template-syntax/ts/app/app.module.1.ts', '', 'app.module.ts (FormsModule import)')
 
-:marked
-  Alternatively to using `[(ngModel)]`, we can use the canonical prefix form:
-
-  除了用`[(ngModel)]`，我们也可以使用规范前缀形式：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgModel-2')(format=".")
 :marked
   There’s a story behind this construction, a story that builds on the property and event binding techniques we learned previously.
 
   在这个结构背后还有一个故事，一个关于如何构建我们以前学过的属性绑定和事件绑定技术的故事。
 
-  ### Inside [(ngModel)]
-  ### [(ngModel)]内幕
+  ### Inside `[(ngModel)]`
+  
+  ### `[(ngModel)]`内幕
+  
   We could have achieved the same result with separate bindings to
   the `<input>` element's  `value` property and `input` event.
 

@@ -5,7 +5,6 @@ block includes
   - var _Http = 'Http'; // Angular `Http` library name.
   - var _Angular_Http = 'Angular <code>Http</code>'
   - var _Angular_http_library = 'Angular HTTP library'
-  - var _HTTP_PROVIDERS = 'HTTP_PROVIDERS'
   - var _HttpModule = 'HttpModule'
   - var _JSON_stringify = 'JSON.stringify'
 
@@ -85,20 +84,20 @@ block http-library
 block http-providers
   :marked
     Our app will depend upon the Angular `http` service which itself depends upon other supporting services.
-    The `HttpModule` from `@angular/http` library holds providers for the complete set of http services.
+    The `HttpModule` from `@angular/http` library holds providers for the complete set of `http` services.
     
     我们的应用将会依赖于Angular的`http`服务，它本身又依赖于其它支持类服务。
-    来自`@angular/http`库中的`HttpModule`保存着这些http相关服务提供商的全集。
+    来自`@angular/http`库中的`HttpModule`保存着这些`http`相关服务提供商的全集。
 
 :marked
-  We should be able to access `!{_Http}` services from anywhere in the application.
-  So we register them in the `imports` array of <span ngio-ex>app.module.ts</span> where we
-  launch the application and its root `AppComponent`.
+  We should be able to access `http` services from anywhere in the application.
+  So we register them in the `imports` array of `app.module.ts` where we
+  bootstrap the application and its root `AppComponent`.
   
-  我们要能从本应用的任何地方访问这些服务，所以，就要在<span ngio-ex>app.module.ts</span>中的`imports`数组中注册它们。
+  我们要能从本应用的任何地方访问`http`服务，所以，就要在`app.module.ts`中的`imports`数组中注册它们。
   这里同时也是我们引导应用及其根组件`AppComponent`的地方。
 
-+makeExample('app/app.module.2.ts','', 'app.module.ts (v.1)')
+  +makeExample('app/app.module.ts', 'v1','app/app.module.ts (v1)')
 
 :marked
   Notice that we supply `!{_HttpModule}` as part of the *imports* !{_array} in root NgModule `AppModule`.
@@ -111,9 +110,12 @@ block http-providers
   
   ## 模拟web API
 
-  We recommend registering application-wide services in the root `NgModule` *providers*.
+  We recommend registering application-wide services in the root 
+  `!{_AppModuleVsAppComp}` *providers*.  <span if-docs="dart">Here we're
+  registering in `main` for a special reason.</span>
   
-  我们建议在根模块（`NgModule`）的`providers`数组中注册全应用级的服务。
+  我们建议在根模块`!{_AppModuleVsAppComp}`的`providers`数组中注册全应用级的服务。
+  <span if-docs="dart">Here we're registering in `main` for a special reason.</span>
 
   Our application is in the early stages of development and far from ready for production.
   We don't even have a web server that can handle requests for heroes.
@@ -124,23 +126,37 @@ block http-providers
 
   We're going to *trick* the HTTP client into fetching and saving data from
   a mock service, the *in-memory web API*.
+  <span if-docs="dart"> The application itself doesn't need to know and
+  shouldn't know about this.  So we'll slip the in-memory web API into the
+  configuration *above* the `AppComponent`.</span>
   
   我们要*耍点小花招*，让http客户端从一个Mock服务（*内存(in-memory)Web API*）中获取和保存数据。
+  <span if-docs="dart"> The application itself doesn't need to know and
+  shouldn't know about this.  So we'll slip the in-memory web API into the
+  configuration *above* the `AppComponent`.</span>
 
-  Here is a version of `app.module.ts` that performs this trick
+  Here is a version of <span ngio-ex>!{_appModuleTsVsMainTs}</span> that performs this trick
   
-  这个版本的`app.module.ts`就是用来实现这个小花招的：
+  这个版本的<span ngio-ex>!{_appModuleTsVsMainTs}</span>就是用来实现这个小花招的：
   
-+makeExample('app/app.module.1.ts', '', 'app.module.ts (final)')
++makeExcerpt(_appModuleTsVsMainTs, 'v2')
 
 block backend
   :marked
-    We're replacing the default `XHRBackend`, the service that talks to the remote server,
-    with the in-memory web API service after priming it as follows:
+    We're importing the  `InMemoryWebApiModule` and adding it to the module `imports`.
+    The  `InMemoryWebApiModule` replaces the default `Http` client backend &mdash;
+    the supporting service that talks to the remote server &mdash;
+    with an  _in-memory web API alternative service_.
     
-    我们把默认的`XHRBackend`服务（该服务负责与远端服务器对话）替换成了*内存Web API*服务：
+    导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
+    将`InMemoryWebApiModule`将默认的负责与远程服务器交流的辅助`Http`服务替换成了*内存Web API*服务：
+    
+  +makeExcerpt(_appModuleTsVsMainTs, 'in-mem-web-api', '')
+  :marked
+    The `forRoot` configuration method takes an `InMemoryDataService` class 
+    that will prime the in-memory database as follows:
 
-+makeExample('app/in-memory-data.service.ts', 'init')
++makeExample('app/in-memory-data.service.ts', 'init')(format='.')
 
 p This file replaces the #[code #[+adjExPath('mock-heroes.ts')]] which is now safe to delete.
 
@@ -838,14 +854,14 @@ block observable-transformers
     在这个例子中，我们使用一些不同的方法。
     我们把整个应用中要用的那些RxJS `Observable`扩展组合在一起，放在一个单独的RxJS导入文件中。
 
-  +makeExample('app/rxjs-extensions.ts')
+  +makeExample('app/rxjs-extensions.ts')(format='.')
 
   :marked
     We load them all at once by importing `rxjs-extensions` in `AppComponent`.
     
     我们在`AppComponent`中导入`rxjs-extensions`就可以一次性加载它们。
 
-  +makeExcerpt('app/app.component.ts', 'rxjs-extensions')
+  +makeExcerpt('app/app.component.ts', 'rxjs-extensions')(format='.')
 
 :marked
   ### Add the search component to the dashboard
@@ -856,15 +872,17 @@ block observable-transformers
   
   将表示“英雄搜索”组件的HTML元素添加到`DashboardComponent`模版的最后面。
 
-+makeExample('app/dashboard.component.html')
++makeExample('app/dashboard.component.html')(format='.')
 
+- var _declarations = _docsFor == 'dart' ? 'directives' : 'declarations'
+- var declFile = _docsFor == 'dart' ? 'app/dashboard.component.ts' : 'app/app.module.ts'
 :marked
-  And finally, we import the `HeroSearchComponent` and add it to the `declarations` !{_array} in
-  `app.module.ts`.
+  And finally, we import the `HeroSearchComponent` from `'./hero-search.component.ts'` 
+  and add it to the `!{_declarations}` !{_array}:
   
-  最后，导入`HeroSearchComponent`并将其添加到`app.module.ts`的`declarations`数组中。
-
-+makeExcerpt('app/app.module.2.ts', 'hero-search-declaration')
+  最后，从`'./hero-search.component.ts'` 导入`HeroSearchComponent`并将其添加到`declarations`数组中。
+  
++makeExcerpt(declFile, 'search')
 
 :marked
   Run the app again, go to the *Dashboard*, and enter some text in the search box below the hero tiles.
@@ -909,7 +927,7 @@ block filetree
         .file hero-search.component.css (new)
         .file hero-search.component.ts (new)
         .file hero-search.service.ts (new)
-        .file rxjs-operators.ts
+        .file rxjs-extensions.ts
         .file hero.service.ts
         .file heroes.component.css
         .file heroes.component.html
@@ -921,7 +939,7 @@ block filetree
       .file index.html
       .file package.json
       .file styles.css
-      .file systemjs.config.json
+      .file systemjs.config.js
       .file tsconfig.json
       .file typings.json
 
@@ -991,12 +1009,11 @@ block file-summary
     toh-6/ts/app/hero-search.component.ts,
     toh-6/ts/app/hero-search.component.html,
     toh-6/ts/app/hero-search.component.css,
-    toh-6/ts/app/rxjs-operators.ts`,
+    toh-6/ts/app/rxjs-extensions.ts`,
     null,
     `hero-search.service.ts,
     hero-search.component.ts,
-    hero-search.service.html,
+    hero-search.component.html,
     hero-search.component.css,
-    hero-search.component.css,
-    rxjs-operators.ts`
+    rxjs-extensions.ts`
   )

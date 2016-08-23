@@ -51,10 +51,12 @@ include ../_util-fns
   - 向用户显示有效性验证的错误提示，以及禁用/启用表单控件
 
   - use [template reference variables](./template-syntax.html#ref-vars) for sharing information among HTML elements
-  
-  - 通过模板引用变量，在控件之间共享信息
 
-  <live-example>在线例子</live-example>
+  - 通过模板引用变量，在控件之间共享信息
+  
+  Run the <live-example></live-example>.
+  
+  运行<live-example>在线例子</live-example>
 
 .l-main-section
 :marked
@@ -213,8 +215,8 @@ include ../_quickstart_repo
   
   我们可以像这样创建一个新英雄：
 code-example(format="").
-  let myHero =  new Hero(42, 'SkyDog', 
-                         'Fetch any object at any distance', 
+  let myHero =  new Hero(42, 'SkyDog',
+                         'Fetch any object at any distance',
                          'Leslie Rollover');
   console.log('My hero is called ' + myHero.name); // "My hero is called SkyDog"
 :marked
@@ -295,7 +297,7 @@ code-example(format="").
   而且没有几个编辑器能对混写的HTML和代码提供足够的帮助。
   我们还是喜欢写成像这个一样清晰明确的短文件。
 
-  We made a good choice to put the HTML template elsewhere. 
+  We made a good choice to put the HTML template elsewhere.
   We'll write that template in a moment. Before we do, we'll take a step back
   and revise the `app.module.ts` and `app.component.ts` to make use of our new `HeroFormComponent`.
   
@@ -347,7 +349,7 @@ code-example(format="").
 
 .alert.is-important
   :marked
-    If a component, directive, or pipe belongs to a module in the `imports` array, ​_DON'T_​ declare it in the `declarations` array. 
+    If a component, directive, or pipe belongs to a module in the `imports` array, ​_DON'T_​ declare it in the `declarations` array.
     If you wrote it and it should belong to this module, ​_DO_​ declare it in the `declarations` array.
     
     如果一个组件、指令或管道出现在模块的`imports`数组中，就说明它是外来模块，_不要_再到`declarations`数组中声明它们。
@@ -412,7 +414,7 @@ code-example(format="").
   
   **我们还没有用到Angular**。没有绑定。没有额外的指令。只做了个布局。
 
-  The `container`, `form-group`, `form-control`, and `btn` classes 
+  The `container`, `form-group`, `form-control`, and `btn` classes
   come from [Twitter Bootstrap](http://getbootstrap.com/css/). Purely cosmetic.
   We're using Bootstrap to gussy up our form.
   Hey, what's a form without a little style!
@@ -556,7 +558,7 @@ figure.image-display
   
   诊断信息是一个证据，用来表明数据从输入框流动到模型，再反向流动回来的过程。**这就是双向数据绑定！** 
 
-  Notice that we also added a `name` attribute to our `<input>` tag and set it to "name" 
+  Notice that we also added a `name` attribute to our `<input>` tag and set it to "name"
   which makes sense for the hero's name. Any unique value will do, but using a descriptive name is helpful.
   Defining a `name` attribute is a requirement when using `[(ngModel)]` in combination with a form.
   
@@ -565,7 +567,7 @@ figure.image-display
 
 .l-sub-section
   :marked
-    Internally Angular creates `FormControls` and registers them with an `NgForm` directive that Angular 
+    Internally Angular creates `FormControls` and registers them with an `NgForm` directive that Angular
     attached to the `<form>` tag. Each `FormControl` is registered under the name we assigned to the `name` attribute.
     We'll talk about `NgForm` [later in this chapter](#ngForm).
 
@@ -895,7 +897,7 @@ figure.image-display
   
 .l-sub-section
   :marked
-    Why "ngModel"? 
+    Why "ngModel"?
     A directive's [exportAs](../api/core/index/DirectiveMetadata-class.html#!#exportAs-anchor) property
     tells Angular how to link the reference variable to the directive.
     We set `name` to `ngModel` because the `ngModel` directive's `exportAs` property happens to be "ngModel".
@@ -919,7 +921,7 @@ figure.image-display
   
   This user experience is the developer's choice. Some folks want to see the message at all times.
   If we ignore the `pristine` state, we would hide the message only when the value is valid.
-  If we arrive in this component with a new (blank) hero or an invalid hero, 
+  If we arrive in this component with a new (blank) hero or an invalid hero,
   we'll see the error message immediately, before we've done anything.
   
   这种用户体验取决于开发人员的选择。有些人会希望任何时候都显示这条消息。
@@ -947,7 +949,7 @@ figure.image-display
   但是这没有那么迫切，因为这个选择框已经足够把“超能力”约束成有效值了。
   
 <a id="new-hero"></a>
-<a id="reset"></a>  
+<a id="reset"></a>
 .l-main-section
 :marked
   ## Add a hero and reset the form
@@ -970,7 +972,7 @@ figure.image-display
 :marked
   Run the application again, click the *New Hero* button, and the form clears.
   The *required* bars to the left of the input box are red, indicating invalid `name` and `power` properties.
-  That's understandable as these are required fields. 
+  That's understandable as these are required fields.
   The error messages are hidden because the form is pristine; we haven't changed anything yet.
   
   再次运行应用，点击*新增英雄*按钮，表单被清空了。
@@ -1000,7 +1002,7 @@ figure.image-display
     Angular不能作出假设，因此只好让控件保留当前状态 —— 脏状态。
     
 :marked
-  We'll have to reset the form controls manually with a small trick. 
+  We'll have to reset the form controls manually with a small trick.
   We add an `active` flag to the component, initialized to `true`. When we add a new hero,
   we toggle `active` false and then immediately back to true with a quick `setTimeout`.
   
@@ -1020,7 +1022,7 @@ figure.image-display
   'form-active', 
   'app/hero-form.component.html (Form标签)')
 :marked
-  With `NgIf` bound to the `active` flag, 
+  With `NgIf` bound to the `active` flag,
   clicking "New Hero" removes the form from the DOM and recreates it in a blink of an eye.
   The re-created form is in a pristine state. The error message is hidden.
   
@@ -1033,7 +1035,7 @@ figure.image-display
     
     这只是一个临时的变通方案，将来我们还会有一个更合适的方案来重置表单。
 :marked
-  
+
 .l-main-section
 :marked
   ## Submit the form with **ngSubmit**
@@ -1267,7 +1269,7 @@ figure.image-display
       .file hero-form.component.ts
       .file main.ts
     .file node_modules ...
-    .file typings ...      
+    .file typings ...
     .file index.html
     .file package.json
     .file tsconfig.json
@@ -1283,12 +1285,12 @@ figure.image-display
    forms/ts/app/hero.ts,
    forms/ts/app/app.module.ts,
    forms/ts/app/app.component.ts,
-   forms/ts/app/main.ts,   
+   forms/ts/app/main.ts,
    forms/ts/index.html,
    forms/ts/forms.css`,
   'final, final,,,,,',
   `hero-form.component.ts,
-   hero-form.component.html,   
+   hero-form.component.html,
    hero.ts,
    app.module.ts,
    app.component.ts,

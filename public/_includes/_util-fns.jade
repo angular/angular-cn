@@ -39,6 +39,15 @@
 //- Location of sample code
 - var _liveLink = 'live link';
 
+//- NgModule related
+- var _AppModuleVsAppComp = 'AppModule'
+- var _appModuleTsVsAppCompTs = 'app/app.module.ts'
+- var _appModuleTsVsMainTs = 'app/app.module.ts'
+- var _bootstrapModule = 'bootstrapModule'
+- var _moduleVsComp = 'module'
+- var _moduleVsRootComp = 'module'
+- var _platformBrowserDynamicVsBootStrap = 'platformBrowserDynamic'
+
 //- Other
 - var _truthy = 'truthy';
 - var _falsey = 'falsey';
@@ -90,14 +99,14 @@ mixin makeExample(_filePath, region, _title, stylePatterns)
 //- ending is given or is just (), then the title will be suffixed with
 //- either "(excerpt)", or "(#{_region})" when _region is defined.
 mixin makeExcerpt(_filePath, _region, _title, stylePatterns)
-  - var matches = _filePath.match(/(.*)\s+\(([\w ]*)\)$/);
+  - var matches = _filePath.match(/(.*)\s+\(([^\)]*)\)$/);
   - var parenText;
   - if (matches) { _filePath = matches[1]; parenText = matches[2]; }
   - var adjustments = adjustExamplePathAndTitle({filePath:_filePath, title:_title});
   - var filePath = adjustments.filePath;
   - var title = adjustments.title;
-  - var region = _region || parenText;
-  - var excerpt = !region || parenText === '' ? 'excerpt' : parenText || region;
+  - var region = _region || (_region === '' ? '' : parenText);
+  - var excerpt = parenText || region || 'excerpt';
   - if (title) title = title + ' (' + excerpt + ')';
   +makeExample(filePath, region, title, stylePatterns)(format='.')
 
@@ -214,8 +223,8 @@ script.
 -   // E.g. of a project relative path is 'app/main.ts'
 -   if (ex.title === null || ex.title === undefined) {
 -     // Title is not given so take it to be ex.filePath.
--     // Is title like styles.1.css? Then drop the '.1' qualifier:
--     var matches = ex.filePath.match(/^(.*)\.\d(\.\w+)$/);
+-     // Title like styles.1.css or foo_1.dart? Then drop the '.1' or '_1' qualifier:
+-     var matches = ex.filePath.match(/^(.*)[\._]\d(\.\w+)$/);
 -     ex.title = matches ? matches[1] + matches[2] : ex.filePath;
 -   }
 -   ex.filePath = getExampleName() + '/' + _docsFor + '/' + ex.filePath;

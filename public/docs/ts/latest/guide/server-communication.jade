@@ -1170,23 +1170,36 @@ a#in-mem-web-api
   确保`HeroService`的端点指向了这个Web API：
 +makeExample('server-communication/ts/app/toh/hero.service.ts', 'endpoint')(format=".")
 :marked
-  Finally, we need to redirect client HTTP requests to the in-memory web API.
+  Finally, redirect client HTTP requests to the in-memory web API.
   
-  最后，我们需要把来自HTTP客户端的请求重定向到这个内存Web API。
+  最后，把来自HTTP客户端的请求重定向到这个内存Web API。
 block redirect-to-web-api
   :marked
-    This redirection is easy to configure because Angular's `http` service delegates the client/server communication tasks
+    This redirection is easy to configure with the in-memory web API service module.
+    by adding the `InMemoryWebApiModule` to the `AppModule.imports` list.
+    At the same time, we calling its `forRoot` configuration method with the `HeroData` class.
+  +makeExample('server-communication/ts/app/app.module.ts', 'in-mem-web-api')(format=".")
+  :marked
+    ### How it works
+
+    Angular's `http` service delegates the client/server communication tasks
     to a helper service called the `XHRBackend`. 
     
     这次重定向非常容易配置，这是因为Angular的`http`服务把客户端/服务器通讯的工作委托给了一个叫做`XHRBackend`的辅助服务。
-
-    To enable our server simulation, we replace the default `XHRBackend` service with 
-    the in-memory web API service using standard Angular provider registration techniques. 
-    We initialize the in-memory web API with *seed data* from the mock hero dataset at the same time.
+  
+    Using standard Angular provider registration techniques, the `InMemoryWebApiModule` 
+    replaces the default `XHRBackend` service with its own in-memory alternative. 
+    The `forRoot` method initialize the in-memory web API with *seed data* from the mock hero dataset at the same time.
     
-    要想启用我们的服务模拟器，我们通过Angular标准的“提供商注册”技术，把默认的`XHRBackend`服务替换为了这个内存Web API服务。
-    同时，我们使用来自模拟的英雄数据集的*种子数据*初始化了这个内存Web API。
-    
+    使用标准Angular提供商注册方法，`InMemoryWebApiModule`替代默认的`XHRBackend`服务并使用它自己的内存存储服务。
+    `forRoot`方法来自模拟的英雄数据集的*种子数据*初始化了这个内存Web API
+  .l-sub-section
+    :marked
+      The `forRoot` method name is a strong reminder that you should only call the `InMemoryWebApiModule` _once_
+      while setting the metadata for the root `AppModule`. Don't call it again!.
+      
+      `forRoot`方法的名字告诉我们，应该只在设置根模块`AppModule`时调用`InMemoryWebApiModule`*一次*。不要再次调用它。
+      
 :marked
   Here is the revised (and final) version of <span ngio-ex>app/app.module.ts></span> demonstrating these steps.
   

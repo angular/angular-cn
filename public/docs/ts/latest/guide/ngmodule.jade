@@ -137,7 +137,7 @@ a#root_module
 +makeExample('ngmodule/ts/app/app.module.0.ts', '', 'app/app.module.ts (minimal)')(format=".")
 
 :marked
-  The `@NgModel` decorator defines the metadata for the module. 
+  The `@NgModule` decorator defines the metadata for the module. 
   We'll take an intuitive approach to understanding the metadata and fill in details as we go.
   
   `@NgModel`装饰器用来为模块定义元数据。
@@ -713,7 +713,7 @@ a#feature-modules
     The `ContactModule` must import `FormsModule` explicitly so that
     `ContactComponent` can data bind with `ngModel`.
 :marked
-  We also swapped `CommonModule` for `BrowserModule` for reasons we explain [soon](#root-vs-feature-module).
+  We also replaced `BrowserModule` by `CommonModule` for reasons we explain [soon](#root-vs-feature-module).
 
   We _declare_ the contact component, directive, and pipe in the module `declarations`.
 
@@ -927,7 +927,7 @@ a#hero-module
 +makeExample('ngmodule/ts/app/hero/hero.module.3.ts', 'class', 'app/hero/hero.module.ts (class)')(format='.')
 :marked
   It imports the `FormsModule` because the `HeroDetailComponent` template binds with `[(ngModel)]`. 
-  It imports a `routing` object from `hero.routing.ts` just as `ContractModule` and `CrisisModule` do.
+  It imports a `routing` object from `hero.routing.ts` just as `ContactModule` and `CrisisModule` do.
 
   The `CrisisModule` is much the same. There's nothing more to say that's new. 
 
@@ -950,7 +950,7 @@ a#shared-module
   * move the `UserService` and `TitleComponent` from `app/` to `app/shared`
   * delete the `HighlightDirective` classes from `app/` and `app/hero`
   * create a `SharedModule` class to own the shared material
-  * updata all other modules to  import `SharedModule`
+  * update all other modules to  import `SharedModule`
 
   Most of this is familiar blocking and tackling. 
 .l-sub-section
@@ -1557,7 +1557,7 @@ a#q-root-component-or-module
   ### Should I add providers to the root _AppModule_ or the root _AppComponent_?
 
   Most apps launch with an initial set of service providers. 
-  Should we register those providers on the root `AppModule` (`@NgModel.providers`) or
+  Should we register those providers on the root `AppModule` (`@NgModule.providers`) or
   the root `AppComponent` (`@Component.providers`)?
 
   **_List such providers in the root_ `AppModule` _unless you have a compelling reason to do otherwise_**.
@@ -1655,7 +1655,7 @@ a#q-entry-component-defined
   We must tell it about them ... by adding them to the `entryComponents` list.
   
   Angular automatically adds two kinds of components to the module's `entryComponents`:
-  1. the component in the `@NgModel.bootstrap` list
+  1. the component in the `@NgModule.bootstrap` list
   1. components referenced in router configuration
 
   We don't have to mention these components explicitly although it does not harm to do so.
@@ -1669,9 +1669,9 @@ a#q-bootstrap_vs_entry_component
 
   A bootstrapped component _is_ an [entry component](#entry-component-defined).
   It's an entry component that Angular loads into the DOM during the bootstrap (application launch) process.
-  Other entry components are loaded by dynamically by other means such as with the router.
+  Other entry components are loaded dynamically by other means such as with the router.
 
-  The `@NgModule.bootstrap` property tells the compiler _both_ that this is an entry_component _and_
+  The `@NgModule.bootstrap` property tells the compiler _both_ that this is an entry component _and_
   that it should generate code to bootstrap the application with this component.
 
   There is no need to list a component in both the `bootstrap` and `entryComponent` lists 
@@ -1684,7 +1684,7 @@ a#q-when-entry-components
 :marked
   ### When do I add components to _entryComponents_?
   
-  Most application developers won't need to add components to the `_entryComponents_`.
+  Most application developers won't need to add components to the `entryComponents`.
 
   Angular adds certain components to _entry components_ automatically.
   Components listed in `@NgModule.bootstrap` are added automatically.
