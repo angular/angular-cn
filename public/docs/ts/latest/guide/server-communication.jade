@@ -134,6 +134,8 @@ block demos-list
 :marked
   First, we have to configure our application to use server communication facilities.
 
+  首先，我们必须配置应用来使用与服务器对话的功能。
+
 .l-main-section#http-providers
 :marked
   # Providing HTTP Services
@@ -1178,9 +1180,14 @@ block redirect-to-web-api
     This redirection is easy to configure with the in-memory web API service module.
     by adding the `InMemoryWebApiModule` to the `AppModule.imports` list.
     At the same time, we calling its `forRoot` configuration method with the `HeroData` class.
+
+    使用内存Web API服务模块很容易配置重定向，将`InMemoryWebApiModule`添加到`AppModule.imports`列表中，
+    同时在`HeroData`类中调用`forRoot`配置方法。
   +makeExample('server-communication/ts/app/app.module.ts', 'in-mem-web-api')(format=".")
   :marked
     ### How it works
+
+    ### 工作原理
 
     Angular's `http` service delegates the client/server communication tasks
     to a helper service called the `XHRBackend`. 
