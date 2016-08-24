@@ -66,11 +66,11 @@ figure.image-display
   <li if-docs="ts">[Step 3](#ngmodule): Create an Angular Module</li>
   <li if-docs="ts">[步骤3](#ngmodule): 创建一个Angular模块</li>
   - [Step !{step++}](#main): Add <span ngio-ex>main.ts</span>, identifying the root component to Angular
-  - [步骤!{step++}](#main): 添加<span ngio-ex>main.ts</span>，用来告诉Angular哪个是根组件
+  - [步骤4](#main): 添加<span ngio-ex>main.ts</span>，用来告诉Angular哪个是根组件
   - [Step !{step++}](#index): Add `index.html`, the web page that hosts the application
-  - [步骤!{step++}](#index): 添加`index.html`，本应用的宿主页面
+  - [步骤5](#index): 添加`index.html`，本应用的宿主页面
   - [Step !{step++}](#build-and-run): Build and run the app
-  - [步骤!{step++}](#build-and-run): 构建并运行本应用
+  - [步骤6](#build-and-run): 构建并运行本应用
   - [Make some changes to the app](#make-some-changes)
   - [对本应用做一些修改](#make-some-changes)
   - [Wrap up](#wrap-up)
@@ -331,6 +331,8 @@ block install-packages
 :marked
   ## Step 2: Our first Angular component
 
+  ## 步骤2：第一个Angular组件
+
   Let's create a folder to hold our application and add a super-simple Angular component.
 
   创建一个文件夹，用于保存应用程序，并且添加一个超级简单的Angular组件。
@@ -482,7 +484,7 @@ p.
   .l-main-section#ngmodule
   :marked
     ## Step 3: Our own `app.module.ts`
-    ## 第三步：创建`app.module.ts`
+    ## 步骤3：创建`app.module.ts`
 
     We compose Angular apps into closely related blocks of functionality with [Angular Modules](guide/ngmodule.html).
     Every app requires at least one module, the _root module_, that we call `AppModule` by convention.
@@ -626,7 +628,7 @@ block create-main
 
 .l-main-section
 h2#index Step !{step++}: Add #[code index.html]
-h2#index 步骤!{step++}：添加#[code index.html]
+h2#index 步骤5：添加#[code index.html]
 :marked
   In the *#{_indexHtmlDir}* folder
   create an `index.html` file and paste the following lines into it:
@@ -841,7 +843,7 @@ h2#index 步骤!{step++}：添加#[code index.html]
 
 .l-main-section#build-and-run
 h2 Step !{step++}: Build and run the app!
-h2 步骤!{step++}：构建并运行本应用！
+h2 步骤6：构建并运行本应用！
 block run-app
   :marked
     Open a terminal window and enter this command:
