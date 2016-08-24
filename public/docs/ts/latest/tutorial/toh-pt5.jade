@@ -381,12 +381,8 @@ block router-config-intro
   “路由定义”包括几个部分：
   
   * **path**: the router matches this route's path to the URL in the browser address bar (`!{_routePathPrefix}/heroes`).
-  <li if-docs="dart"> **name**: the official name of the route;
-     it *must* begin with a capital letter to avoid confusion with the *path* (`Heroes`).</li>
 
   * **path**: 路由器会用它来匹配路由中指定的路径和浏览器地址栏中的当前路径，如`!{_routePathPrefix}/heroes`。
-  <li if-docs="dart"> **name**: the official name of the route;
-     it *must* begin with a capital letter to avoid confusion with the *path* (`Heroes`).</li>
 
   * **component**: the component that the router should create when navigating to this route (`HeroesComponent`).
 
@@ -591,7 +587,7 @@ block redirect-vs-use-as-default
     :marked
       Learn about the *redirects* in the [Routing](../guide/router.html#!#redirect) chapter.
 
-    要学习关于*重定向*的更多知识，参见[路由与导航](../guide/router.html#!#redirect)一章。
+      要学习关于*重定向*的更多知识，参见[路由与导航](../guide/router.html#!#redirect)一章。
 
 :marked
   #### Add navigation to the template
@@ -605,7 +601,6 @@ block redirect-vs-use-as-default
 - var _vers = _docsFor == 'dart' ? '' : '.1'
 +makeExcerpt('app/app.component' + _vers + '.ts', 'template-v3')
 
-+makeExample('toh-5/ts/app/app.component.3.ts','template', 'app/app.component.ts (template)')(format=".")
 .l-sub-section
   :marked
     We nestled the two links within `<nav>` tags.
@@ -1232,9 +1227,7 @@ block heroes-component-cleanup
 
   1. 把`router`注入到构造函数中(就像`HeroService`那样)
 
-  1. Implement the `gotoDetail` method by calling the `router.navigate` method
-
-  with a two-part hero-detail link parameters !{_array}.
+  1. Implement the `gotoDetail` method by calling the `router.navigate` method with a two-part hero-detail link parameters !{_array}.
 
   1. 实现`gotoDetail`方法：以`HeroDetail`和*链接参数数组*为参数调用`router.navigate`方法。
 
