@@ -66,7 +66,7 @@ include ../_util-fns
   
   [Define providers with object literals](#object-literals)
 
-  [使用对象字面量定义提供商] (#object-literals)
+  [使用对象字面量定义提供商](#object-literals)
 
   [Provider token alternatives](#tokens)
 
@@ -166,14 +166,23 @@ include ../_util-fns
 .l-main-section
 :marked
   ## External module configuration
+
+  ## 外部模块配置
+
   We often register providers in the `NgModule` rather than in the root application component.
+
+  经常在`NgModule`中需要注册提供商，而不是在应用程序根组件中。
     
   We do this when (a) we expect the service to be injectable everywhere
   or (b) we must configure another application global service _before it starts_.
+
+  在下列两种情况下这么注册：(1) 希望服务在整个应用的每个角落都可以被被注入，或者(2) 必须在应用**启动前**注册一个全局服务。
   
   We see an example of the second case here, where we configure the Component Router with a non-default
   [location strategy](../guide/router.html#location-strategy) by listing its provider 
   in the `providers` list of the `AppModule`.
+
+  下面的例子时第二种情况下，配置一个非默认的[location strategy](../guide/router.html#location-strategy)的组件路由器，把它加入到`AppModule`的`providers`数组中。
   
 +makeExample('cb-dependency-injection/ts/app/app.module.ts','providers','app/app.module.ts (providers)')(format='.') 
 
@@ -1341,9 +1350,9 @@ a(id="parent-tree")
   
   2. 如果没写`@SkipSelf`装饰器的话，Angular就会抛出一个循环依赖错误。
 
-    `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
+  `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
 
-    `不能创建循环依赖实例！(BethComponent -> Parent -> BethComponent)`
+  `不能创建循环依赖实例！(BethComponent -> Parent -> BethComponent)`
 
   Here's *Alice*, *Barry* and family in action:
 
