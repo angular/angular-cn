@@ -2576,11 +2576,15 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 :marked
   In our `Hero Detail` and `Crisis Detail`, we waited until the route was activated to fetch our respective hero or crisis.
 
+  在`Hero Detail`和`Crisis Detail`中，它们等待路由读取对应的英雄和危机。
   
-
   This worked well for us, but we can always do better.
   If we were using a real world api, there may be some delay in when the data we want to display gets returned.
   We don't want to display a blank component until the data loads in this situation.
+
+  这种方式没有问题，但是它们还有进步的空间。
+  如果我们在使用真实api，很有可能数据返回有延迟，导致无法即时显示。
+  在这种情况下，直到数据到达前，显示一个空的组件不是最好的用户体验。
 
   We'd like to pre-fetch data from the server so it's ready the moment our route is activated.
   We'd also like to handle the situation where our data fails to load or some other error condition occurs.
@@ -2589,23 +2593,41 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
   We want to delay rendering of our route component until all necessary data has been fetched or some action
   has occurred.
 
+  可以预先从服务器读取数据，这样在路由器被激活时，数据已经返回。同时，我们还需要处理数据返回失败和其他出错情况。这样，在`Crisis Center`中，对处理导航到一个无返回数据的`id`有帮助。
+  我们可以将用户发回只列出有效危机的`Crisis List`。
+  直到成功获取所有必须的数据或一些行为已经发生，应用需要延迟渲染路由组件。
+
   We need the `Resolve` guard.
+
+  我们需要`Resolve`守卫。
 
   ### Preload route information
 
+  ### 预先加载路由信息
+
   We'll update our `Crisis Detail` route to resolve our Crisis before loading the route, or if the user happens to
   navigate to an invalid crisis center `:id`, we'll navigate back to our list of existing crises.
+
+  我们需要更新`Crisis Detail`路由，让它先解析必要的危机，再加载路由。或者当用户导航到一个无效的危机`:id`时，将他们导航回危机列表。
 
   Like the `CanActivate` and `CanDeactivate` guards, the **`Resolve`** guard is an interface we can implement as a service
   to resolve route data synchronously or asynchronously. In our `Crisis Detail` component, we used the `ngOnInit` to retrieve the `Crisis`
   information. We also navigated the user away from the route if the `Crisis` was not found. It would be more efficient to perform this
   action before the route is ever activated.
 
+  和`CanActivate`和`CanDeactivate`守卫一样，服务可以实现**`Resolve`**守卫接口来同步或异步解析路由数据。
+  `Crisis Detail`组件使用`ngOnInit`来获取`Crisis`信息。如果`Crisis`找不到，用户会被导航出去。在路由被激活之前就处理这些情况会更加有效。
+
   We'll create a `CrisisDetailResolve` service that will handle retrieving the `Crisis` and navigating the user away if the `Crisis` does
   not exist. Then we can be assured that when we activate the `CrisisDetailComponent`, the associated Crisis will already be available
   for display.
 
+  现在创建一个`CrisisDetailResolve`服务，用它来处理`Crisis`数据读取和在`Crisis`不存在时将用户导航出去。
+  然后可以确保当激活`CrisisDetailComponent`时，关联的`Crisis`已经为显示准备妥当。
+
   Let's create our `crisis-detail-resolve.service.ts` file within our `Crisis Center` feature area.
+
+  下面在`Crisis Center`特征区新建的`crisis-detail-resolve.service.ts`文件：
 
 +makeExample('app/crisis-center/crisis-detail-resolve.service.ts', '')
 
@@ -2616,15 +2638,25 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
   `Crisis` model. We inject the `CrisisService` and `Router` and implement the `resolve` method that supports a `Promise`, `Observable` or a synchronous
   return value.
 
+  接下来，将`CrisisDetailComponent`中`ngOnInit`生命周期钩子里面相关的部分移动到`CrisisDetailResolve`守卫里面，然后导入`Crisis`模型，`CrisisService`服务和`Router`。
+  为了特殊指定什么样的数据需要解析，我们在`Resolve`接口的实现上指定了`Crisis`类型。这样告诉我们解析的结果将于`Crisis`模型对应。
+  然后注入`CrisisService`和`Router`，并实现支持`Promise`、`Observable`和异步返回值`resolve`方法。
+
   We'll use our `CrisisService.getCrisis` method that returns a promise to prevent our route from loading until the data is fetched. If we don't find a valid `Crisis`,
   we navigate the user back to the `CrisisList`, canceling the previous in-flight navigation to the crisis details.
 
+  我们使用`CrisisService.getCrisis`方法来获取一个**承诺对象**，用于防止路由在成功获取数据之前被加载。如果没有找到对应`Crisis`，便将用户导航回`CrisisList`，取消之前导航到危机详情的路由。
+
   Now that our guard is ready, we'll import it in our `crisis-center.routing.ts` and use the `resolve` object in our route configuration.
+
+  解析守卫现在准备好了，将它导入到`crisis-center.routing.ts`中，然后在路由配置中设置`resolve`对象。
 
 +makeExcerpt('app/crisis-center/crisis-center.routing.5.ts (resolve)', 'crisis-detail-resolve')
 
 :marked
   We'll add the `CrisisDetailResolve` service to our crisis center module's `providers`, so its available to the `Router` during the navigation process.
+
+  接下来，将`CrisisDetailResolve`服务添加到危机中心模块的`providers`数组中，这样`Router`在路由过程中可以使用它。
 
 +makeExcerpt('app/crisis-center/crisis-center.module.ts (crisis detail resolve provider)', 'crisis-detail-resolve')
 
@@ -2633,6 +2665,11 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
   We'll update the `CrisisDetailComponent` to use the `ActivatedRoute.data`, which is where our `crisis` property from our `Resolve` guard will be provided.
   Once activated, all we need to do is set our local `crisis` and `editName` properties from our resolved `Crisis` information. We no longer need to subscribe
   and unsubscribe to the `ActivatedRoute` params to fetch the `Crisis` because it is being provided synchronously at the time the route component is activated.
+
+  因为添加了`Resolve`守卫并用它在加载路由之前读取数据，所以在加载`CrisisDetailComponent`后，不再需要读取数据。
+  因此，可以更新`CrisisDetailComponent`组件，让它使用`Resolve`守卫通过`crisis`属性提供的`ActivatedRoute.data`。
+  一旦激活`CrisisDetailComponent`，我们可以使用解析过的`Crisis`信息赋值本地属性`crisis`和`editName`。
+  我们也不再需要通过订阅和反订阅`ActivatedRoute`的参数来获取`Crisis`，因为它已经在路由组件被激活时被同步提供。
 
 +makeExcerpt('app/crisis-center/crisis-detail.component.ts (ngOnInit v2)', 'crisis-detail-resolve')
 
@@ -2728,8 +2765,14 @@ figure.image-display
   Optional parameters are the ideal vehicle for conveying arbitrarily complex information during navigation.
   Optional parameters aren't involved in pattern matching and affords enormous flexibility of expression.
 
+  在导航时，可选参数提供复杂信息的理想工具。
+  可选参数不会接触模式匹配，它还可以是非常灵活的表达式。
+
   The Component Router supports navigation with optional parameters as well as required route parameters.
   We define _optional_ parameters in an *object* after we define our required route parameters.
+
+  组件路由器支持导航到可选参数，也支持导航到必需路由参数。
+  在**对象**中，我们先定义必需的路由参数，再定义可选参数。
 
   ### Route Parameters: Required or Optional?
 
@@ -2990,6 +3033,8 @@ a#fragment
   when navigating. In our `LoginComponent`, we'll add an *object* as the second argument in our `router.navigate` function
   and provide the `preserveQueryParams` and `preserveFragment` to pass along the current query parameters
   and fragment to the next route.
+
+  还可以再导航之间**保留**查询参数和片段，而无需再次再导航中提供。在`LoginComponent`中的`router.navigate`方法中，添加第二个参数，该**对象**提供了`preserveQueryParams`和 `preserveFragment`，用于传递到当前的查询参数中并为下一个路由提供片段。
 
 +makeExcerpt('app/login.component.ts', 'preserve')
 
