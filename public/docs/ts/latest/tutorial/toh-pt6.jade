@@ -97,7 +97,7 @@ block http-providers
   我们要能从本应用的任何地方访问`http`服务，所以，就要在`app.module.ts`中的`imports`数组中注册它们。
   这里同时也是我们引导应用及其根组件`AppComponent`的地方。
 
-  +makeExample('app/app.module.ts', 'v1','app/app.module.ts (v1)')
++makeExample('app/app.module.ts', 'v1','app/app.module.ts (v1)')
 
 :marked
   Notice that we supply `!{_HttpModule}` as part of the *imports* !{_array} in root NgModule `AppModule`.
@@ -155,6 +155,8 @@ block backend
   :marked
     The `forRoot` configuration method takes an `InMemoryDataService` class 
     that will prime the in-memory database as follows:
+
+    `forRoot`配置方法需要`InMemoryDataService`类实例，用来向内存数据库添加种子数据：
 
 +makeExample('app/in-memory-data.service.ts', 'init')(format='.')
 
