@@ -78,8 +78,8 @@ figure.image-display
 
 - var step = _stepInit // reinitialize step counter for headers to come
 .l-main-section#prereq
-h2#prereq Prerequisite: #{_prereq}
-h2#prereq 环境准备：#{_prereq}
+h2 Prerequisite: #{_prereq}
+h2 环境准备：#{_prereq}
 
 block setup-tooling
   :marked
@@ -102,10 +102,10 @@ block setup-tooling
   header 下载源码
   :marked
     Instead of following each step of these instructions, we can
-    [download the QuickStart source](https://github.com/angular/quickstart/blob/master/README.md)
-    from github and follow its brief instructions.
+    [download the QuickStart source](!{_quickstartSrcURL})
+    from GitHub and follow its brief instructions.
 
-    如果不想跟着这里的操作指南来一步步地做，可以从github[下载“快速起步”的源码](https://github.com/angular/quickstart/blob/master/README.md)，这样只要注意那些操作要点就行了。
+    如果不想跟着这里的操作指南来一步步地做，可以从GitHub[下载“快速起步”的源码](!{_quickstartSrcURL})，这样只要注意那些操作要点就行了。
 
 .l-main-section
 button(class="verbose off md-primary md-button md-ink-ripple", type="button", onclick="verbose(false)").
@@ -136,17 +136,15 @@ button(class="verbose on md-primary md-button md-ink-ripple", type="button", onc
   code-example(format="nocode").
     点击右侧的图标，来把代码片段拷贝到剪贴板 ==>
 
-.l-main-section
-h2#create-and-configure Step 1: Create and configure the project
-h2#create-and-configure 步骤1：创建并配置项目
-
 - var _package_and_config_files = _docsFor == 'dart' ? 'pubspec.yaml' : 'package definition and configuration files'
 - var _package_and_config_filesCn = _docsFor == 'dart' ? 'pubspec.yaml' : '包定义与配置文件'
 
 .l-main-section#create-and-configure
 :marked
   ## Step 1: Create and configure the project
-
+  
+  ## 步骤1：创建并配置项目
+  
   In this step we:
 
   在这一步，我们将：
@@ -330,7 +328,7 @@ block install-packages
   **全部设置完了。** 来写点代码吧。
 
 .l-main-section#root-component  
-:marked  
+:marked
   ## Step 2: Our first Angular component
 
   Let's create a folder to hold our application and add a super-simple Angular component.
@@ -452,7 +450,7 @@ p.
     >模板中只有一行HTML：“*My First Angular App*”。
 
     >A more advanced template could contain data bindings to component properties
-    and might identify other application compoents which have their own templates.
+    and might identify other application components which have their own templates.
     These templates might identify yet other components.
     In this way an Angular application becomes a tree of components.
 
@@ -842,8 +840,8 @@ h2#index 步骤!{step++}：添加#[code index.html]
     [styles.css](https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css)
 
 .l-main-section#build-and-run
-h2#build-and-run Step !{step++}: Build and run the app!
-h2#build-and-run 步骤!{step++}：构建并运行本应用！
+h2 Step !{step++}: Build and run the app!
+h2 步骤!{step++}：构建并运行本应用！
 block run-app
   :marked
     Open a terminal window and enter this command:
@@ -879,8 +877,9 @@ block build-app
   //- Nothing for ts.
 
 :marked
-  ### Make some changes
-  ### 做点改变
+  ## Make some changes
+  
+  ## 做点改变
 
   Try changing the message to "My SECOND Angular 2 app".
 
