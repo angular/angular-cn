@@ -390,62 +390,111 @@ a#imports
 .l-main-section
 :marked
   ## Import supporting modules
+  
+  ## 导入“支持模块”
 
   The app shouldn't welcome a user if there is no user.
   
+  在没有当前用户时，显然不应该显示欢迎界面。
+  
   Notice in the revised `TitleComponent` that an `*ngIf` directive guards the message.
   There is no message if there is no user.
+  
+  注意，在修改过的`TitleComponent`中，有一个`*ngIf`指令在“守卫着”该消息。如果没有当前用户，就没有任何消息。
+  
 +makeExample('ngmodule/ts/app/title.component.html', 'ngIf', 'app/title.component.html (ngIf)')(format=".")
+
 :marked
   Although `AppModule` doesn't declare `NgIf`, the application still compiles and runs.
   How can that be? The Angular compiler should either ignore or complain about unrecognized HTML.
   
+  虽然`AppModule`没有声明过`NgIf`指令，但该应用仍然能正常编译和运行。为什么这样没问题呢？Angular的编译器遇到不认识的HTML时应该不是忽略就是报错才对。
+  
   Angular _does_ recognize `NgIf` because we imported it earlier. 
   The initial version of `AppModule` imports `BrowserModule`.
+  
+  Angular能识别`NfIf`指令，是因为我们以前导入过它。最初版本的`AppModule`就导入了`BrowserModule`。
+  
 +makeExample('ngmodule/ts/app/app.module.0.ts', 'imports', 'app/app.module.ts (imports)')(format=".")
+
 :marked
   Importing `BrowserModule` made all of its public components, directives and pipes visible 
   to the component templates in `AppModule`. They are ready to use without further ado.
+  
+  导入`BrowserModule`会让该模块公开的所有组件、指令和管道在`AppModule`下的任何组件模板中直接可用，而不需要额外的繁琐步骤。
 .l-sub-section
   :marked
     More accurately, `NgIf` is declared in `CommonModule` from `@angular/common`.
+    
+    更准确的说，`NgIf`是在来自`@angular/common`的`CommonModule`中声明的。
 
     `CommonModule` contributes many of the common directives that applications need including `ngIf` and `ngFor`.
+    
+    `CommonModule`提供了很多应用程序中常用的指令，包括`NgIf`和`NgFor`等。
     
     `BrowserModule` imports `CommonModule` and _re-exports_ it.
     We'll cover re-exporting a module [later](#q-re-export) in the chapter.
     The net effect is that an importer of `BrowserModule` gets `CommonModule` directives automatically.
+    
+    `BrowserModule`导入了`CommonModule`并且_重新导出_了它。
+    本章[后面](#q-re-export)会讲到如何重新导出模块。
+    最终的效果是：只要导入`BrowserModule`就自动获得了`CommonModule`中的指令。
+    
 :marked
   Many familiar Angular directives do not belong to`CommonModule`. 
   For example,  `NgModel` and `RouterLink` belong to Angular's `FormsModule` and `RouterModule` respectively.
   We must _import_ those modules before we can use their directives.
+  
+  很多熟悉的Angular指令并不属于`CommonModule`。
+  例如，`NgModel`和`RouterLink`分别属于Angular的`FormsModule`模块和`RouterModule`模块。
+  在使用那些指令之前，我们也必须_导入_那些模块。
 
   To illustrate this point, we extend the sample app with `ContactComponent`, 
   a form component that imports form support from the Angular `FormsModule`.
+  
+  要解释这一点，我们可以再加入一个`ContactComponent`组件，它是一个表单组件，从Angular的`FormsModule`中导入了表单支持。
 
   ### Add the _ContactComponent_
+  
+  ### 添加_ContactComponent_
 
   [Angular Forms](forms.html) are a great way to manage user data entry.
+  
+  [Angular表单](forms.html)是用来管理用户数据输入的最佳方式之一。
 
   The `ContactComponent` presents a "contact editor", 
   implemented with _Angular Forms_ in the [_template-driven form_](forms.html) style.
+  
+  `ContactComponnet`组件展现一个“联系人编辑器”，它是用[_模板驱动式表单_](forms.html)实现的。
 
 .l-sub-section
   :marked
     #### Angular Form Styles
     
+    #### Angular表单的风格
+    
     We write Angular form components in either the
     [_template-driven form_](forms.html) style or 
     the [_reactive form_](../cookbook/dynamic-form.html) style.
+    
+    我们写Angular表单组件时，或者使用[_模板驱动式表单_](forms.html)，
+    或者使用[_响应式表单_](../cookbook/dynamic-form.html)。
 
     This sample is about to import the `FormsModule` from `@angular/forms` because
     the `ContactComponent` is written in the _template-driven_ style.
     Modules with components written in the _reactive_ style,
     should import the `ReactiveFormsModule` instead.
+    
+    该例子中从`@angular/forms`中导入了`FormsModule`，这是因为`ContactComponent`组件用的是_模板驱动式_的。
+    那些带有_响应式表单_组件的模块，就应该转而导入`ReactiveFormsModule`了。
 
 :marked
   The `ContactComponent` selector matches an element named `<app-contact>`. 
   Add an element with that name to the `AppComponent` template just below the `<app-title>`:
+  
+  `ContactComponent`的选择器会去匹配名叫`<app-contact>`的元素。
+  请在`AppComponent`模板中`<app-title>`的下方添加一个具有此名字的元素：
+  
 +makeExample('ngmodule/ts/app/app.component.1b.ts', 'template', 'app/app.component.ts (template)')(format=".")
 
 :marked
@@ -453,9 +502,18 @@ a#imports
   Form components are often complex anyway and this one has its own `ContactService`, 
   its own [custom pipe](#pipes.html#custom-pipes) called `Awesome`,
   and an alternative version of the `HighlightDirective`.
+  
+  `ContactComponent`还有很多事要做。
+  表单组件通常都是很复杂的，而这一个则具有自己的它自己的`ContactService`、
+  它自己的[自定义管道](#pipes.html#custom-pipes) `Awesome`，
+  以及`HighlightDirective`的另一个版本。
 
   To make it manageable, we place all contact-related material in an `app/contact` folder
   and break the component into three constituent HTML, TypeScript, and css files:
+  
+  为了方便管理，我们把所有与联系人相关的编程元素都放进`app/contact`目录，
+  并把该组件分解成三个基本成分：HTML、TypeScript和CSS文件：
+  
 +makeTabs(
   `ngmodule/ts/app/contact/contact.component.html,
   ngmodule/ts/app/contact/contact.component.ts,
@@ -476,94 +534,176 @@ a#imports
   Focus on the component template.
   Notice the two-way data binding `[(ngModel)]` in the middle of the template.
   `ngModel` is the selector for the `NgModel` directive.
+  
+  先来看组件模板。
+  注意模板中部的双向数据绑定`[(ngModel)]`。
+  `ngModel`是`NgModel`指令的选择器。
 
   Although `NgModel` is an Angular directive, the _Angular Compiler_ won't recognize it
   because (a) `AppModule` doesn't declare it and (b) it wasn't imported via `BrowserModule`.
+  
+  虽然`NgModel`是一个Angular指令，但_Angular编译器_并不会识别它，
+  这是因为：(a) `AppModule`没有声明过它，并且 (b) 它也没有通过`BrowserModule`被导入过。
 
   Less obviously, even if Angular somehow recognized `ngModel`,
   this `ContactComponent` would not behave like an Angular form because
   form features such as validation are not yet available.
+  
+  退一步说，即使Angular有办法识别`ngModel`，`ContactComponent`也不会表现的像一个Angular表单，
+  因为这里没法使用Form相关的特性，比如有效性验证。
 
   ### Import the FormsModule
+  
+  ### 导入`FormsModule`
 
   Add the `FormsModule` to the `AppModule` metadata's `imports` list.
+  
+  把`FormsModule`加到`AppModule`元数据中的`imports`列表中：
+  
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'imports')(format=".")
 :marked
   Now `[(ngModel)]` binding works and the user input is validated by Angular Forms.
+  
+  现在`[(ngModel)]`绑定可以正常工作，用户的输入也会被Angular表单验证了。
+  
 .alert.is-critical
   :marked
     **Do not** add `NgModel` &mdash; or the `FORMS_DIRECTIVES` &mdash; 
     to the `AppModule` metadata's declarations!
+    
+    **不要**把`NgModel`（或`FORMS_DIRECTIVES）加到`AppModule`元数据的`declarations`数据中！
 
     These directives belong to the `FormsModule`.
     Components, directives and pipes belong to one module &mdash; and _one module only_.
+    
+    这些指令属于`FormsModule`。
+    组件、指令和管道应该而且只能属于一个模块。
 
     **Never re-declare classes that belong to another module.**
+    
+    **永远不要再次声明属于其它模块的类。**
 
 a#declare-pipe
 :marked
   ### Declare the contact component, directive and pipe
+  
+  ### 声明联系人的组件、指令和管道
 
   The application fails to compile until we declare the contact component, directive and pipe.
   Update the `declarations` in the  `AppModule` accordingly:
+  
+  如果我们没有声明该联系人模块的组件、指令和管道，该应用就会失败。
+  更新`AppModule`中的`declarations`元数据，就像这样：
+  
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'declarations', 'app/app.module.ts (declarations)')(format=".")
 
 a#import-name-conflict
 .l-sub-section
   :marked
     There are two directives with the same name, both called `HighlightDirective`.
+    
+    如果有两个同名指令，都叫做`HighlightDirective`，该怎么办呢？
 
     We work around it by creating an alias for the second, contact version using the `as` JavaScript import keyword:
+    
+    我们只要在import时使用`as`关键字来为第二个指令创建个别名就可以了。
+    
   +makeExample('ngmodule/ts/app/app.module.1b.ts', 'import-alias')(format=".")
   :marked
     This solves the immediate problem of referencing both directive _types_ in the same file but 
     leaves another problem unresoved as we discuss [below](#resolve-conflicts).
+    
+    这解决了在文件中使用指令_类型_时的冲突问题，但是还有另一个问题问题没有解决，我们将在[后面](#resolve-conflicts)讨论它。
 
 :marked
   ### Provide the _ContactService_
+  
+  ### 提供_ContactService_
+  
   The `ContactComponent` displays contacts retrieved by the `ContactService`
   which Angular injects into its constructor. 
+  
+  `ContactComponent`显示从`ContactService`服务中获取的联系人信息，该服务是被Angular注入到组件的构造函数中的。
   
   We have to provide that service somewhere.
   The `ContactComponent` _could_ provide it. 
   But then it would be scoped to this component _only_. 
   We want to share this service with other contact-related components that we will surely add later.
+  
+  我们得在某个地方提供该服务。
+  在`ContactComponent`中_可以_提供它。
+  但是那样一来，它的作用范围就会_仅_局限于该组件及其子组件。
+  而我们希望让该服务与其它和联系人有关的组件中共享，稍后我们就会添加那些组件。
 
   In this app we chose to add `ContactService` to the `AppModule` metadata's `providers` list:
+  
+  在此应用中，我们选择把`ContactSerivce`添加到`AppModule`元数据的`providers`列表中：
+  
 +makeExample('ngmodule/ts/app/app.module.1b.ts', 'providers', 'app/app.module.ts (providers)')(format=".")
 :marked
   Now `ContactService` (like `UserService`) can be injected into any component in the application.
+  
+  现在，`ContactService`服务就能被注入进该应用中的任何组件了，就像`UserService`一样。
 
 a#application-scoped-providers
 .l-sub-section
   :marked
     #### Application-scoped Providers
-      The `ContactService` provider is _application_-scoped because Angular 
-      registers a module's `providers` with the application's **root injector**.
+    
+    #### 全应用范围的提供商
+    
+    The `ContactService` provider is _application_-scoped because Angular 
+    registers a module's `providers` with the application's **root injector**.
+    
+    `ContactService`的提供商是_全应用_范围的，这是因为Angular使用该应用的**根注入器**注册模块的`providers`。
 
-      Architecturally, the `ContactService` belongs to the Contact business domain. 
-      Classes in _other_ domains don't need the `ContactService` and shouldn't inject it.
-      
-      We might expect Angular to offer a _module_-scoping mechanism to enforce this design.
-      It doesn't. Angular module instances, unlike components, do not have their own injectors
-      so they can't have their own provider scopes.
+    Architecturally, the `ContactService` belongs to the Contact business domain. 
+    Classes in _other_ domains don't need the `ContactService` and shouldn't inject it.
+    
+    从架构上看，`ContactService`属于“联系人”这个业务领域。
+    _其它_领域中的类并不需要知道`ContactService`，也不会要求注入它。
+    
+    We might expect Angular to offer a _module_-scoping mechanism to enforce this design.
+    It doesn't. Angular module instances, unlike components, do not have their own injectors
+    so they can't have their own provider scopes.
+    
+    我们可能会期待Angular提供一种_模块_范围内的机制来保障此设计。
+    但它没有。与组件不同，Angular的模块实例并没有它们自己的注入器，所以它们也没有自己的供应商范围。
 
-      This omission is intentional. 
-      Angular modules are designed primarily to extend an application, 
-      to enrich the entire app with the module's capabilities.
-      
-      Service scoping is rarely a problem in practice.
-      Non-contact components can't inject the `ContactService` by accident.
-      To inject `ContactService`, you must first import its _type_.
-      Only Contact components should import the `ContactService` _type_.
+    This omission is intentional. 
+    Angular modules are designed primarily to extend an application, 
+    to enrich the entire app with the module's capabilities.
+    
+    Angular是故意这么设计的。
+    Angular的模块设计，主要目的是扩展应用程序，丰富其模块化能力。
+    
+    Service scoping is rarely a problem in practice.
+    Non-contact components can't inject the `ContactService` by accident.
+    To inject `ContactService`, you must first import its _type_.
+    Only Contact components should import the `ContactService` _type_.
+    
+    在实践中，服务的范围很少会成为问题。
+    联系人之外的组件不会意外注入`ContactService`服务。
+    要想注入`ContactService`，你得先导入它的_类型_。
+    而只有联系人组件才会导入`ContactService`)类型_。
 
-      [An FAQ below](#q-component-scoped-providers) pursues this issue and its mitigations in greater detail.
+    [An FAQ below](#q-component-scoped-providers) pursues this issue and its mitigations in greater detail.
+    
+    [后面的一条FAQ](#q-component-scoped-providers)会继续深入讲解此问题以及如何避免它。
 
 :marked
   ### Run the app
+  
+  ### 运行该应用
+  
   Everything is now in place to run the application with its contact editor.
+  
+  一切就绪，可以运行该应用及其联系人编辑器了。
 
   The app file structure looks like this:
+  
+  应用的文件结构是这样的：
+  
 .filetree
   .file app
   .children
@@ -583,17 +723,28 @@ a#application-scoped-providers
 :marked
   <live-example plnkr="contact.1b">Try the live example.</live-example>
   
+  <live-example plnkr="contact.1b">试试这个在线例子</live-example>
+  
 a#resolve-conflicts
 .l-main-section
 :marked
   ## Resolve directive conflicts
+  
+  ## 解决指令冲突
 
   We ran into trouble [above](#import-name-conflict) when we declared the contact's `HighlightDirective` because
   we already had a `HighlightDirective` class at the application level.
+  
+  [以前](#import-name-conflict)我们要声明联系人的`HighlightDirective`指令时遇到了问题，因为在应用程序一级已经有了一个`HighlightDirective`类。
 
   That both directives have the same name smells of trouble.
+  
+  两个指令都用同一个名字让人不爽。
 
   A look at their selectors reveals that they both highlight the attached element with a different color.
+  
+  在查找它们的选择器时，它们都试图用不同的颜色来高亮所依附的元素。
+  
 +makeTabs(
   `ngmodule/ts/app/highlight.directive.ts,
    ngmodule/ts/app/contact/highlight.directive.ts`,
@@ -605,105 +756,197 @@ a#resolve-conflicts
   Will Angular use only one of them? No. 
   Both directives are declared in this module so _both directives are active_.
   
+  Angular会只用它们中的一个吗？不会。
+  所有指令都声明在该模块中，所以_这两个指令都会被激活_。
+  
   When the two directives compete to color the same element, 
   the directive declared later wins because its DOM changes overwrite the first.
   In this case, the contact's `HighlightDirective` colors the application title text blue
   when it should stay gold.
+  
+  当两个指令在同一个元素上争相设置颜色时，后声明的那个会胜出，因为它对DOM的修改覆盖了前一个。
+  在该例子中，联系人的`HighlightDirective`把应用标题的文本染成了蓝色，而我们原本期望它保持金色。
 
 .l-sub-section
   :marked
     The real problem is that there are _two different classes_ trying to do the same thing.
+    
+    真正的问题在于，有_两个不同的类_视图做同一件事。
 
     It's OK to import the _same_ directive class multiple times. 
     Angular removes duplicate classes and only registers one of them.
+    
+    多次导入_同一个_指令是没问题的，Angular会移除重复的类，而只注册一次。
 
     But these are actually two different classes, defined in different files, that happen to have the same name.
+    
+    但是这里实际上有两个不同的类，定义在不同的文件中，只是恰好有相同的名字。
 
     They're not duplicates from Angular's perspective. Angular keeps both directives and
     they take turns modifying the same HTML element.
+    
+    从Angular的角度看，两个类并没有重复。Angular会同时保留这两个指令，并让它们依次修改同一个HTML元素。
 
 :marked
   At least the app still compiles. 
   If we define two different component classes with the same selector specifying the same element tag, 
   the compiler reports an error. It can't insert two components in the same DOM location.
 
+  至少，应用仍然编译通过了。
+  如果我们使用相同的选择器定义了两个不同的组件类，并指定了同一个元素标记，编译器就会报错说它无法在同一个DOM位置插入两个不同的组件。
+
   What a mess! 
+  
+  真乱！
   
   We can eliminate component and directive conflicts by creating feature modules
   that insulate the declarations in one module from the declarations in another.
+  
+  我们可以通过创建特性模块来消除组件与指令的冲突。
+  特性模块可以把来自一个模块中的声明和来自另一个的区隔开。
 
 a#feature-modules
 .l-main-section
 :marked
   ## Feature Modules
+  
+  ## 特性模块
 
   This application isn't big yet. But it's already suffering structural problems.
+  
+  该应用还不大，但是已经在受结构方面的问题困扰了。
 
   * The root `AppModule` grows larger with each new application class and shows no signs of stopping.
+  
+  * 随着一个个类被加入应用中，根模块`AppModule`变大了，并且看起来还会继续变大。
 
   * We have conflicting directives. 
+  
+  * 我们遇到了指令冲突。
+  
   The `HighlightDirective` in contact is re-coloring the work done by the `HighlightDirective` declared in `AppModule`.
   And it's coloring the application title text when it should only color the `ContactComponent`.
+  
+  联系人模块的`HighlightDirective`在`AppModule`中声明的`HighlightDirective`的基础上进行了二次上色。
+  并且，它染了应用标题文字的颜色，而不仅仅是`ContactComponent`中的。
 
   * A change to a contact class could break an application part in some unrelated section of the app.
   The app is brittle and hard to test.  
+  
+  * 对联系人中某个类的修改，会破坏应用中与联系人无关的部分。
+  该应用既脆弱又难以测试。
 
   * The app lacks clear boundaries between contact functionality and other application features.
   That lack of clarity makes it harder to assign development responsibilities to different teams.
+  
+  * 该应用在联系人和其它特性区之间缺乏清晰的边界。
+  这种缺失，导致难以在不同的开发组之间分配职责。
 
   We mitigate these problems with _feature modules_.
+  
+  我们用_特性模块_技术来缓解此问题。
 
   ### _Feature Module_
+  
+  ### _特性模块_
 
   A _feature module_ is a class adorned by the `@NgModule` decorator and its metadata,
   just like a root module. 
   Feature module metadata have the same properties as the metadata for a root module.
+  
+  _特性模块_是一个带有`@NgModule`装饰器及其元数据的类，就像根模块中一样。
+  特性模块的元数据和根模块的元数据携带的属性是一样的。
 
   The root module and the feature module share the same execution context.
   They share the same dependency injector which means the services in one module
   are available to all.
+  
+  根模块和特性模块还共享着相同的执行环境。
+  它们共享着同一个依赖注入器，这意味着某个模块中定义的服务在所有模块中也都能用。
 
   There are two significant technical differences:
+  
+  它们在技术上有两个显著的不同点：
 
   1. We _boot_ the root module to _launch_ the app;
   we _import_ a feature module to _extend_ the app.
+  
+  1. 我们_引导_根模块来_启动_应用，但_导入_特性模块来_扩展_应用。
 
   2. A feature module can expose or hide its implementation from other modules.
+  
+  2. 特性模块可以暴露或隐藏来自其它模块的实现。
 
   Otherwise, a feature module is distinguished primarily by its intent.
+
+  此外，特性模块主要还是从它的设计意图上来区分。
 
   A feature module delivers a cohesive set of functionality. 
   focused on an application business domain, a user workflow, a facility (forms, http, routing), 
   or a collection of related utilities.
   
+  特性模块用来提供一组紧密相关的功能。
+  聚焦于应用的某个业务领域、用户的某个工作流、某个基础设施（表单、HTTP、路由），或一组相互关联的工具。
+  
   While we can do everything within the root module,
   feature modules help us partition the app into areas of specific interest and purpose.
+  
+  虽然这些都能在根模块中做，但特性模块可以帮助我们把应用切分成具有特定关注点和目标的不同区域。
 
   A feature module collaborates with the root module and with other modules 
   through the services it provides and 
   the components, directives, and pipes that it chooses to share.
+  
+  特性模块通过自己提供的服务和它决定对外共享的那些组件、指令、管道来与根模块等其它模块协同工作。
  
   In the next section, we carve the contact functionality out of the root module
   and into a dedicated feature module.
+  
+  在下一节，我们从根模块中把与联系人有关的功能切分到一个专门的特性模块中。
 
   ### Make _Contact_ a feature module
+  
+  ### 把_联系人_做成特性模块
 
   It's easy to refactor the contact material into a contact feature module.
+  
+  把与联系人有关的这些编程元素重构到“联系人”特性模块中很简单。
 
   1. Create the `ContactModule` in the `app/contact` folder.
+  
+  1. 在`app/contact`目录下创建`ContactModule`。
+  
   1. Move the contact material from `AppModule` to `ContactModule`.
+  
+  1. 把联系人相关的编程元素从`AppModule`移到`ContactModule`中。
+  
   1. Replace the imported  `BrowserModule` with `CommonModule`.
+  
+  1. 把导入`BrowserModule`改为导入`CommonModule`。
+  
   1. Import the `ContactModule` into the `AppModule`.
+  
+  1. 在`AppModule`中导入`ContactModule`。
 
   `AppModule` is the only _existing_ class that changes. But we do add one new file.
   
+  改完之后`AppModule`只剩下了这个类本身，不过我们还会添加一个新文件。
+  
   ### Add the _ContactModule_
   
+  ### 添加_ContactModule_
+  
   Here's the new `ContactModule`
+  
+  下面是新的`ContactModule`
+  
 +makeExample('ngmodule/ts/app/contact/contact.module.2.ts', '', 'app/contact/contact.module.ts')
+
 :marked
   We copy from `AppModule` the contact-related import statements and the `@NgModule` properties
   that concern the contact and paste them in `ContactModule`.
+
+  
   
   We _import_ the `FormsModule` because the contact component needs it. 
 .alert.is-important
