@@ -938,7 +938,7 @@ block dart-diff-const-metadata
   Unfortunately, that's what we get if we try to alias `OldLogger` to `NewLogger` with `useClass`.
 
   我们当然不会希望应用中有两个`NewLogger`的不同实例。
-  不幸的是，如果我们尝试通过`useClass`来把`NewLogger`作为`OldLogger`的别名，就会导致这样的后果。
+  不幸的是，如果我们尝试通过`useClass`来把`OldLogger`作为`NewLogger`的别名，就会导致这样的后果。
 
 +makeExample('dependency-injection/ts/app/providers.component.ts','providers-6a')(format=".")
 
