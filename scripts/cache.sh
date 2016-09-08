@@ -2,6 +2,8 @@
 
 set -e -o pipefail
 
+cd `dirname $0`/..
+
 BASE="public/docs/ts"
 LATEST="$BASE/latest"
 CACHE="$BASE/_cache"
@@ -42,7 +44,7 @@ function cacheRefresh() {
         if [[ -e $srcPath ]]; then
             [[ -d "$destDir" ]] || (set -x; mkdir $destDir);
             case "$f" in
-                ($FILE_PATTERN)
+                (*$FILE_PATTERN*)
                     (set -x; cp $srcPath $destPath);;
                 (*)
                     echo "SKIPPED $f";;
@@ -56,21 +58,32 @@ function cacheRefresh() {
     [[ $allFound ]] || exit 1;
 }
 
-function cacheDiff() {
+function cacheDiffSummary() {
     diff -qr -x "_*.*" "$CACHE/" "$LATEST/" | \
         grep -v "^Only in"
 }
 
+function cacheDiff() {
+    local FILES="*$1*"
+    cd $CACHE;
+    # List files
+    find . -name "$FILES" ! -name "*~" -exec diff -q {} ../latest/{} \;
+    # Show differences
+    find . -name "$FILES" ! -name "*~" -exec diff    {} ../latest/{} \;
+}
+
 function usage() {
-    echo "Usage: cache.sh [-d | -l | -r pattern]"
-    echo "  -d      diff cache and latest subdirectories"
-    echo "  -l      list files subject to caching"
-    echo "  -r pat  refresh files in cache matching pattern"
+    echo "Usage: cache.sh [options]"
+    echo "  (-ds|--diff-summary)  list names of cache files that differ from ts/latest"
+    echo "  (-d|--diff) pat       diff cache and latest subdirectories"
+    echo "  (-l|--list)           list files subject to caching"
+    echo "  (-r|--refresh) pat    refresh files in cache matching pattern"
 }
 
 case "$1" in
-    (-r)    shift; cacheRefresh $@;;
-    (-d)    shift; cacheDiff $@;;
-    (-l)    shift; printf "$FILES\n\n";;
-    (*)     usage;
+    (-ds|--diff-summary)  shift; cacheDiffSummary $@;;
+    (-d|--diff)           shift; cacheDiff $@;;
+    (-l|--list)           shift; printf "$FILES\n\n";;
+    (-r|--refresh)        shift; cacheRefresh $@;;
+    (*)   usage;
 esac

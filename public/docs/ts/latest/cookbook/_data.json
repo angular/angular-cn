@@ -11,6 +11,11 @@
     "intro": "学习如何把Angular 1中的概念和技术对应到Angular 2中"
   },
 
+  "ngmodule-faq": {
+    "title": "Angular Module FAQs",
+    "intro": "Answers to frequently asked questions about @NgModule"
+  },
+
   "component-communication": {
     "title": "组件通讯",
     "intro": "在不同的指令和组件之间共享信息"
@@ -36,6 +41,11 @@
   "dynamic-form": {
     "title": "动态表单",
     "intro": "用FormGroup渲染动态表单"
+  },
+
+  "form-validation": {
+    "title": "Form Validation",
+    "intro": "Validate user's form entries"
   },
 
   "rc4-to-rc5": {

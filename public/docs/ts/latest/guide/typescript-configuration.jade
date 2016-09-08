@@ -1,23 +1,20 @@
 include ../_util-fns
 
 :marked
-  TypeScript is a primary language for Angular application development.
-
+  TypeScript is a primary language for Angular application development. It is a dialect of JavaScript with design-time support for type-safety and tooling.
+  
   TypeScript是Angular应用开发中使用的主语言。
+  它是JavaScript的“方言”之一，为类型安全和工具化而做了设计期支持。
 
-  TypeScript is a dialect of JavaScript with design-time support for type-safety and tooling.
+  Browsers can't execute TypeScript directly. Typescript must be "transpiled" into JavaScript using the *tsc* compiler
+  which requires some configuration.
 
-  TypeScript是JavaScript的“方言”之一，为类型安全和工具化而做了设计期支持。
+  浏览器不能直接执行TypeScript。它得先用*tsc*编译器转译(transpile)成JavaScript，而且编译器需要进行一些配置。
 
-  Browsers can't execute TypeScript directly. It has to be "transpiled" into JavaScript with the *tsc* compiler
-  and that effort requires some configuration.
+  This page covers some aspects of TypeScript configuration and the TypeScript environment
+  that are important to Angular developers, including details about the following files:
 
-  浏览器不能直接执行TypeScript。它得先用*tsc*编译器转译(transpile)成JavaScript，而且这项工作需要进行一定的配置。
-
-  This chapter covers some aspects of TypeScript configuration and the TypeScript environment
-  that are important to Angular developers.
-
-  本章会覆盖TypeScript配置与环境的某些方面，这些对Angular开发者是很重要的。
+  本页面会覆盖TypeScript配置与环境的某些方面，这些对Angular开发者是很重要的。具体来说包括下列文件：
 
   * [tsconfig.json](#tsconfig) - TypeScript compiler configuration.
 
@@ -31,26 +28,26 @@ a(id="tsconfig")
 .l-main-section
 :marked
   ## *tsconfig.json*
-  We typically add a TypeScript configuration file (`tsconfig.json`) to our project to
+  Typically, you add a TypeScript configuration file (`tsconfig.json`) to your project to
   guide the compiler as it generates JavaScript files.
 
   我们通常会往项目中加入一个TypeScript配置文件(`tsconfig.json`)，来指导编译器如何生成JavaScript文件。
 .l-sub-section
   :marked
-    Get details about `tsconfig.json` from the official
+    For details about `tsconfig.json`, see the official
     [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
     
     要了解关于`tsconfig.json`的详情，请参阅官方提供的
     [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。
 
 :marked
-  We created the following `tsconfig.json` for the [QuickStart](../quickstart.html):
+  We created the following `tsconfig.json` for [QuickStart](../quickstart.html):
 
   我们在[快速起步](../quickstart.html)中创建过如下的`tsconfig.json`：
 
 +makeJson('quickstart/ts/tsconfig.1.json', null, 'tsconfig.json')(format=".")
 :marked
-  The options and flags in this file are essential for Angular 2 applications.
+  This file contains options and flags that are essential for Angular 2 applications.
 
   该文件中的选项和标志是写Angular 2应用程序的基础。
 
@@ -59,28 +56,26 @@ a(id="tsconfig")
   ### *noImplicitAny*与*suppressImplicitAnyIndexErrors*
 
   TypeScript developers disagree about whether the `noImplicitAny` flag should be `true` or `false`.
-  There is no correct answer and we can change the flag later.
-  But our choice now can make a difference in larger projects so it merits discussion.
+  There is no correct answer and you can change the flag later.
+  But your choice now can make a difference in larger projects, so it merits discussion.
 
   TypeScript开发者们在`noImplicitAny`标志应该是`true`还是`false`上存在分歧。
   这没有标准答案，我们以后还可以修改这个标志。
   但是我们的选择会在大项目中产生显著差异，所以它值得讨论一番。
 
-  When the `noImplicitAny` flag is `false` (the default),
-  the compiler silently defaults the type of a variable to `any` if it cannot infer
-  the type based on how the variable is used. That's what we mean by *implicit `any`*.
+  When the `noImplicitAny` flag is `false` (the default), and if
+  the compiler cannot infer the variable type based on how it's used, the compiler silently defaults the type to `any`. That's what is meant by *implicit `any`*.
 
   当`noImplicitAny`标志是`false`(默认值)时，
-  如果编译器无法根据变量的用途推断出变量的类型，它就会悄悄的把变量类型默认为`any`。
-  这就是*隐式`any`*的含义。
+  如果编译器无法根据变量的用途推断出变量的类型，它就会悄悄的把变量类型默认为`any`。这就是*隐式`any`*的含义。
 
-  We initialized the `noImplicitAny` flag to `false` in the QuickStart
+  In the QuickStart exercise, the `noImplicitAny` flag is initialized to `false`
   to make learning TypeScript development easier.
 
-  我们在“快速起步”中把`noImplicitAny`标志初始化为`false`，是为了让学习TypeScript开发更简单点。
+  我们在“快速起步”中把`noImplicitAny`标志初始化为`false`，这是为了让学习TypeScript开发更简单点。
 
   When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
-  the type, it still generates the JavaScript files. But it also **reports an error**.
+  the type, it still generates the JavaScript files, but it also **reports an error**.
   Many seasoned developers prefer this stricter setting because type checking catches more
   unintentional errors at compile time.
 
@@ -88,20 +83,18 @@ a(id="tsconfig")
   但是它也会**报告一个错误**。
   很多饱经沧桑的程序员更喜欢这种严格的设置，因为类型检查能在编译期间捕获更多意外错误。
 
-  We can set a variable's type to `any` even when the `noImplicitAny` flag is `true`.
-  We do so when that seems like the best choice for the situation,
-  deliberately and explicitly, after giving the matter some thought.
+  You can set a variable's type to `any` even when the `noImplicitAny` flag is `true`.
+  
+  即使`noImplicitAny`标志被设置成了`true`，你也可以把变量的类型设置为`any`。
 
-  即使`noImplicitAny`标志设置为`true`，我们也仍然能把变量的类型指定为`any`。
-  在经过了审慎而明确的评估之后，如果某种情况下它看起来确实是最佳选择，那我们就这么做。
-
-  If we set the `noImplicitAny` flag to `true`, we may get *implicit index errors* as well.
+  If you set the `noImplicitAny` flag to `true`, you may get *implicit index errors* as well.
   Most developers feel that *this particular error* is more annoying than helpful.
-  We can suppress them with the following additional flag.
+  You can suppress them with the following additional flag:
 
   如果我们把`noImplicitAny`标志设置为了`true`，我们可能会得到*隐式索引错*。
   大多数程序员可能觉得*这种错误*是个烦恼而不是助力。
   我们可以使用下列附加标志来禁止它们。
+
 code-example(format=".").
   "suppressImplicitAnyIndexErrors":true
 
@@ -111,70 +104,69 @@ a(id="typings")
 :marked
   ## TypeScript Typings
   ## TypeScript类型定义(typings)
-  Many JavaScript libraries such as jQuery, the Jasmine testing library, and Angular itself,
+  Many JavaScript libraries, such as jQuery, the Jasmine testing library, and Angular,
   extend the JavaScript environment with features and syntax
   that the TypeScript compiler doesn't recognize natively.
-  When the compiler doesn't recognize something, it throws an error.
+  When the compiler doesn't recognize something, it throws an error. 
 
-  很多JavaScript库，比如jQuery、Jasmine测试库和Angular自己，会通过新的特性和语法来扩展JavaScript环境。
+  很多JavaScript库，比如jQuery、Jasmine测试库和Angular，会通过新的特性和语法来扩展JavaScript环境。
   而TypeScript编译器并不能原生的识别它们。
   当编译器不能识别时，它就会抛出一个错误。
 
-  We use [TypeScript type definition files](http://www.typescriptlang.org/Handbook#writing-dts-files)
-  &mdash; *d.ts files* &mdash; to tell the compiler about the libraries we load.
+  Use [TypeScript type definition files](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)&mdash;`d.ts files`&mdash;to tell the compiler about the libraries you load.
 
-  我们可以使用[TypeScript类型定义文件](http://www.typescriptlang.org/Handbook#writing-dts-files)
-  —— *.d.ts文件* ——来告诉编译器要加载的库的类型定义。
+  我们可以使用[TypeScript类型定义文件](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)
+  —— `.d.ts`文件 —— 来告诉编译器要加载的库的类型定义。
 
   TypeScript-aware editors leverage these same definition files to display type information about library features.
 
   TypeScript敏感的编辑器借助这些定义文件来显示这些库中各个特性的类型定义。
 
-  Many libraries include their definition files in their npm packages where both the TypeScript compiler and editors
-  can find them. Angular is one such library.
-  Peek into the `node_modules/@angular/core/` folder of any Angular application to see several `...d.ts` files that describe parts of Angular.
+  Many libraries include definition files in their npm packages where both the TypeScript compiler and editors
+  can find them. Angular is one such library. 
+  The `node_modules/@angular/core/` folder of any Angular application contains several `d.ts` files that describe parts of Angular.
 
   很多库在自己的npm包中都包含了它们的类型定义文件，TypeScript编译器和编辑器都能找到它们。Angular库也是这样的。
-  进到任何Angular应用程序的`node_modules/@angular/core/`目录下，就能看到几个`...d.ts`文件，它们描述了Angular的各个部分。
+  任何Angular应用程序的`node_modules/@angular/core/`目录下，都包含几个`d.ts`文件，它们描述了Angular的各个部分。
 
-  **We need do nothing to get *typings* files for library packages which include *d.ts* files &mdash; as all Angular packages do.**
+  **You need do nothing to get *typings* files for library packages that include `d.ts` files &mdash; as all Angular packages do.**
 
-  **我们不需要为那些包含了*d.ts*文件的库获取*类型定义*文件 —— Angular的所有包都是如此。**
+  **我们不需要为那些包含了`d.ts`文件的库获取*类型定义*文件 —— Angular的所有包都是如此。**
 
   ### Installable typings files
   ### 安装类型定义文件
-  Sadly, many libraries &mdash; jQuery, Jasmine, and Lodash among them &mdash; do *not* include `d.ts` files in their npm packages.
-  Fortunately, either their authors or community contributors have created separate *d.ts* files for these libraries and
+  Many libraries&mdash;jQuery, Jasmine, and Lodash among them&mdash;do *not* include `d.ts` files in their npm packages.
+  Fortunately, either their authors or community contributors have created separate `d.ts` files for these libraries and 
   published them in well-known locations.
-  The *typings* tool can find and fetch these files for us.
+  The *typings* tool can find and fetch these files for you.
 
   遗憾的是，很多库 —— jQuery、Jasmine和Lodash等库 —— 都*没有*在它们自己的npm包中包含`d.ts`文件。
-  幸运的是，它们的作者或社区中的贡献者已经为这些库创建了独立的*d.ts*文件，并且把它们发布到了一个众所周知的位置。
+  幸运的是，它们的作者或社区中的贡献者已经为这些库创建了独立的`d.ts`文件，并且把它们发布到了一个众所周知的位置。
   有一个叫*typings*的工具可以为我们找到并获取这些文件。
 
-  We installed the [typings](https://github.com/typings/typings/blob/master/README.md) tool
-  with npm (it's listed among the *devDependencies* in the `package.json`) and added an npm script
-  to run that tool automatically after *npm* installation completes.
+  After installing the [typings](https://github.com/typings/typings/blob/master/README.md) tool
+  with npm (it's listed among the *devDependencies* in the `package.json`), add an npm script (`postinstall`)
+  to run that tool automatically, after *npm* installation finishes.
 
-  我们已经用npm安装了这个[typings](https://github.com/typings/typings/blob/master/README.md)工具(它被列在了`package.json`的*devDependencies*中)
-  并添加了一个npm脚本，以便在所有*npm*包安装完之后运行那个工具。
+  用npm安装这个[typings](https://github.com/typings/typings/blob/master/README.md)工具(它被列在了`package.json`的*devDependencies*中)
+  并添加一个npm脚本(`postinstall`)，以便在所有*npm*包安装完之后运行那个工具。
 
 +makeJson('quickstart/ts/package.1.json', {paths: 'scripts.postinstall'}, 'package.json (postinstall)')(format=".")
 :marked
-  This *typings* tool command installs the *d.ts* files that we identify in a `typings.json` file into the **typings** folder.
-  We created a `typings.json` file in the [QuickStart](../quickstart.html):
+  This *typings* tool command, `typings install`, installs the `d.ts` files into the **typings** folder.
+  You created a `typings.json` file in the [QuickStart](../quickstart.html):
 
-  这个*typings*命令行工具会把我们在`typings.json`文件中指定的那些*d.ts*文件安装进**typings**目录。
+  这个*typings*命令行工具(`typings install`)会把那些`d.ts`文件安装进**typings**目录。
   我们在[“快速起步”](../quickstart.html)中创建过这样一个`typings.json`文件：
 
 +makeJson('quickstart/ts/typings.1.json', null, 'typings.json')(format=".")
 :marked
-  We identified three *typings* file in the QuickStart, the *d.ts* files for
-
-  我们在“快速起步”中指定过三个*类型定义*文件，这些*d.ts*文件是：
-
+  QuickStart identified three *typings* (`d.ts`) files:
+  
+  我们在“快速起步”中指定过三个*类型定义*文件（`d.ts`）：
+  
   * [core-js](https://github.com/zloirock/core-js/blob/master/README.md)
-  that brings ES2015/ES6 capabilities to our ES5 browsers
+  brings ES2015/ES6 capabilities to ES5 browsers
 
   * [core-js](https://github.com/zloirock/core-js/blob/master/README.md)是为ES5浏览器添加ES2015/ES6特性的类型定义
 
@@ -182,21 +174,18 @@ a(id="typings")
 
   * [jasmine](http://jasmine.github.io/)是Jasmine测试框架的类型定义
 
-  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts) for code that references objects in the nodejs environment;
-  see the [webpack](./webpack.html) chapter for an example.
+  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts) for code that references objects in the *nodejs* environment; 
+  You can view an example in the [webpack](./webpack.html) page.
 
-  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts)是为了在nodejs环境中引用对象的代码提供的类型定义。
-  在[webpack](./webpack.html)一章可以看到例子。
+  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts)是为了在*nodejs*环境中引用对象的代码提供的类型定义。
+  在[webpack](./webpack.html)页面可以看到例子。
 
-  QuickStart itself doesn't require these typings but many of the documentation samples do.
-  Most of us would be disappointed if we couldn't code against
-  typical ES2015 features or support testing right out-of-the-box.
+  QuickStart doesn't require these typings but many of the samples do.
 
   “快速起步”本身不需要这些类型定义，但是文档中的很多例子都需要。
-  如果不能直接编写典型ES2015特性的代码或者写支持外部测试的代码，大部分读者会很失望(所以快速起步中有这些类型定义)。
 
-  We can also run the *typings* tool ourselves.
-  The following command (re)installs the typings files, as is sometimes necessary when the `postInstall` hook fails to do so.
+  You can also run the *typings* tool yourself.
+  If the `postInstall` command fails to (re)install the typings files, run the following command to do so.
 
   我们也可以自己运行*typings*工具。
   如果npm的`postInstall`钩子执行失败了，也可以用下列命令来安装(或重装)这些类型定义文件。
@@ -204,28 +193,26 @@ a(id="typings")
 code-example(format="").
   npm run typings install
 :marked
-  This command lists the installed typings files:
+  Run this command to list the installed typings files:
 
-  该命令会列出已经安装的类型定义文件：
+  运行此命令来列出已经安装的类型定义文件：
 
 code-example(format="").
   npm run typings list
 :marked
-  The following command installs or updates the typings file for the Jasmine test library from the *DefinitelyTyped* repository
-  and updates the `typings.config` so we that we get it automatically the next time we install typings.
+  The following command installs or updates the typings file for the Jasmine test library from the *DefinitelyTyped* repository,
+  and updates the `typings.config` file so you receive it automatically the next time you install typings.
 
   下列命令会从*DefinitelyTyped*仓库中为Jasmine测试库安装类型定义文件，并更新`typings.config`文件，以便当我们下次安装类型定义文件时来自动获取它。
 code-example(format="").
   npm run typings -- install dt~jasmine --save --global
 .l-sub-section
   :marked
-    The [`--`option](https://docs.npmjs.com/cli/run-script) is important;
-    it tells npm to pass all arguments to the right of `--` to the *typings* command.
+    The [&ndash;&ndash; option](https://docs.npmjs.com/cli/run-script) tells npm to pass all arguments to the right of `--` to the *typings* command.
 
-    这个[`--`选项](https://docs.npmjs.com/cli/run-script)是很重要的，
-    它告诉npm要把`--`右侧的所有参数都传给*typings*命令。
+    这个[`--`选项](https://docs.npmjs.com/cli/run-script)会告诉npm要把`--`右侧的所有参数都传给*typings*命令。
 
-    Learn about the features of the *typings* tool at its [site on github](https://github.com/typings/typings/blob/master/README.md).
+    Read about the features of the *typings* tool at its [site on github](https://github.com/typings/typings/blob/master/README.md).
 
     要学习关于*typings*工具的更多特性，请到[它在github上的网站](https://github.com/typings/typings/blob/master/README.md)。
 

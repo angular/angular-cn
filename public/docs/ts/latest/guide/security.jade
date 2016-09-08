@@ -281,10 +281,10 @@ h2#bypass-security-apis 信任安全的值
   为了防止在这种情况下被自动无害化，你可以告诉Angular：我已经审查了这个值，检查了它是怎么生成的，并确信它总是安全的。
   但是**千万要小心**！如果你信任了一个可能是恶意的值，就会在应用中引入一个安全漏洞。如果你有疑问，请找一个安全专家复查下。
 
-  You can mark a value as trusted by injecting `DomSanitizationService`, and calling one of the
+  You can mark a value as trusted by injecting `DomSanitizer`, and calling one of the
   following methods.
 
-  注入`DomSanitizationService`服务，然后调用下面的方法之一，你就可以把一个值标记为可信任的。
+  注入`DomSanitizer`服务，然后调用下面的方法之一，你就可以把一个值标记为可信任的。
 
   * `bypassSecurityTrustHtml`
   * `bypassSecurityTrustScript`

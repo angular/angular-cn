@@ -31,8 +31,8 @@
     "nextable": true
   },
   "toh-pt6": {
-    "title": "Http",
-    "intro": "把我们的服务和组件改用Http实现",
+    "title": "HTTP",
+    "intro": "把我们的服务和组件改为用Angular的HTTP服务实现",
     "nextable": true
   }
 }

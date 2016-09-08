@@ -115,6 +115,7 @@ block highlight-directive-1
     We need the `Directive` symbol for the `@Directive` decorator.
     We need the `ElementRef` to [inject](dependency-injection.html) into the directive's constructor
     so we can access the DOM element.
+    We also need `Renderer` so we can change the DOM element's style.
     We don't need `Input` immediately but we will need it later in the chapter.
   
     我们先从Angular的`core`库中导入一些符号。
@@ -173,18 +174,14 @@ p
     | 我们导出`HighlightDirective`以便让它可以被其他组件访问。
 :marked
   Angular creates a new instance of the directive's controller class for
-  each matching element, injecting an Angular `ElementRef` 
+  each matching element, injecting an Angular `ElementRef` and `Renderer`
   into the constructor.
+  `ElementRef` is a service that grants us direct access to the DOM element
+  through its `nativeElement` property and with `Renderer` we can set the element style.
   
   Angular会为每个被指令匹配上的元素创建一个该指令控制器类的实例，并把Angular的`ElementRef`注入进它的构造函数。
+  `ElementRef`是一个服务，它赋予我们直接访问DOM元素的能力。通过它的`nativeElement`属性和`Renderer`服务，我们可以设置元素的样式。
   
-  `ElementRef` is a service that grants us direct access to the DOM element
-  through its `nativeElement` property.
-  That's all we need to set the element's background color using the browser DOM API.
-  
-  `ElementRef`是一个服务，通过它的`nativeElement`属性，可以直接访问到指令所在DOM元素。
-  这就是使用浏览器的DOM API来设置这个元素的背景色所需要做的全部。
-
 .l-main-section
 a#apply-directive
 :marked

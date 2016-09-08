@@ -111,9 +111,9 @@ include ../_util-fns
 
 .alert.is-helpful
   :marked
-    Webpack users may prefer [an alternative approach](#webpack) that uses `require`.
+    Webpack users may prefer [an alternative approach](#webpack).
 
-    Webpack用户可能更喜欢[一个替代方案](#webpack)：使用`require`。
+    Webpack用户可能更喜欢[一个替代方案](#webpack)。
 
 .l-main-section
 :marked
@@ -208,20 +208,26 @@ a#why-default
 a#webpack
 .l-main-section
 :marked
-  ## Webpack: load templates and styles with *require*
+  ## Webpack: load templates and styles
 
-  ## Webpack: 使用*require*加载模板和样式表
+  ## Webpack: 加载模板和样式表
 
   Webpack developers have an alternative to `moduleId`.
 
   Webpack开发者可以采用`moduleId`的另一个替代方案。
 
-  They can load templates and styles at runtime by setting the component metadata `template` and `style` properties
-  with `require` statements that reference *component-relative* URLS.
-
-  通过把组件元数据中的`template`和`style`属性设置为`require`语句，并引用一个*相对于组件的*URL，他们可以在运行期间加载模板和样式表。
+  They can load templates and styles at runtime by adding `./` at the beginning of the `template` and `styles` / `styleUrls`
+  properties that reference *component-relative URLS.
+  
+  通过让组件元数据中的`template`和`styles` / `styleUrls`属性以`./`开头，并使其指向相对于组件的URL，可以在运行期间为它们加载模板和样式表。
 
 +makeExample('webpack/ts/src/app/app.component.ts')(format='.')
+
+.l-sub-section
+  :marked
+    Webpack will do a `require` behind the scenes to load the templates and styles. Read more [here](../guide/webpack.html#highlights).
+
+
 :marked
   See the [Introduction to Webpack](../guide/webpack.html).
 

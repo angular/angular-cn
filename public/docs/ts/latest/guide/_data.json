@@ -115,7 +115,7 @@
 
   "npm-packages": {
     "title": "Npm包",
-    "intro": "推荐的npm包细节以及不同形式的包依赖"
+    "intro": "推荐的npm包以及如何指定所依赖的包"
   },
 
   "pipes": {
