@@ -968,39 +968,71 @@ a#feature-modules
   We copy from `AppModule` the contact-related import statements and the `@NgModule` properties
   that concern the contact and paste them in `ContactModule`.
 
-  
+  我们从`AppModule`中把与联系人有关的import语句和`@NgModule`中与联系人有关的内容拷贝到`ContactModule`中。
   
   We _import_ the `FormsModule` because the contact component needs it. 
+  
+  我们还_导入_了`FormsModule`，来满足“联系人”组件的需求。
+  
 .alert.is-important
   :marked
     Modules do not inherit access to the components, directives or pipes that are declared in other modules.
     What `AppModule` imports is irrelevant to `ContactModule` and vice versa.
     Before `ContactComponent` can bind with `[(ngModel)]`, its `ContactModule` must import `FormsModule`.
+    
+    当前模块不会继承其它模块中对组件、指令或管道的访问权。
+    `AppModule`中的imports与`ContatModule`的imports互不相干。
+    如果`ContactComponent`要绑定到`[(ngModel)]`，它所在的`ContactModule`也同样得导入`FormsModule`。
+    
 :marked
   We also replaced `BrowserModule` by `CommonModule` for reasons explained in
   [an FAQ](../cookbook/ngmodule-faq.html#q-browser-vs-common-module).
+  
+  我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条FAQ](../cookbook/ngmodule-faq.html#q-browser-vs-common-module)。
 
   We _declare_ the contact component, directive, and pipe in the module `declarations`.
+  
+  我们在该模块的`declarations`中*声明*了“联系人”的组件、指令和管道。
 
   We _export_ the `ContactComponent` so
   other modules that import the `ContactModule` can include it in their component templates.
+  
+  我们*导出*了`ContactComponent`，以便其它导入了`ContactModule`的模块可以在其组件模板中使用`ContactModule`组件。
 
   All other declared contact classes are private by default.
   The `AwesomePipe` and `HighlightDirective` are hidden from the rest of the application. 
   The `HighlightDirective` can no longer color the `AppComponent` title text.
+  
+  “联系人”中声明的所有其它类默认都是私有的。
+  `AwesomePipe`和`HighlightDirective`对应用的其它部分则是不可见的。
+  所以`HighlightDirective`不能把`AppComponent`的标题文字染色。
 
 :marked
- ### Refactor the _AppModule_
- Return to the `AppModule` and remove everything specific to the contact feature set.
+  ### Refactor the _AppModule_
+  ### 重构*AppModule*
+  
+  Return to the `AppModule` and remove everything specific to the contact feature set.
+  
+  返回`AppModule`，并移除所有与联系人有关的内容。
+  
+  Delete the contact import statements.
+  Delete the contact declarations and contact providers.
+  Remove the `FormsModule` from the `imports` list (`AppComponent` doesn't need it).
+  Leave only the classes required at the application root level.
+  
+  删除属于联系人的`import`语句。
+  删除联系人的`declarations`和`providers`。
+  从`imports`列表中移除`FormsModule`（`AppComponent`并不需要它）。
+  只保留本应用的根一级需要的那些类。
+  
+  Then import the `ContactModule` so the app can continue to display the exported `ContactComponent`.
+  
+  然后，导入`ContactModule`，以便应用仍然可以显示从这里导出的`ContactComponent`。
+  
+  Here's the refactored version of the `AppModule` side-by-side with the previous version.
+  
+  下面是`AppModule`重构完的版本与之前版本的一对一对比。
 
- Delete the contact import statements.
- Delete the contact declarations and contact providers.
- Remove the `FormsModule` from the `imports` list (`AppComponent` doesn't need it).
- Leave only the classes required at the application root level.
-
- Then import the `ContactModule` so the app can continue to display the exported `ContactComponent`.
-
- Here's the refactored version of the `AppModule` side-by-side with the previous version.
 +makeTabs(
   `ngmodule/ts/app/app.module.2.ts,
    ngmodule/ts/app/app.module.1b.ts`,
@@ -1008,78 +1040,172 @@ a#feature-modules
   `app/app.module.ts (v2),
    app/app.module.ts (v1)`)
 :marked
- ### Improvements
+  ### Improvements
+  ### 增强功能
+  
 :marked
   There's a lot to like in the revised `AppModule`
+  
+  修改后的`AppModule`中还有很多类似的修改
+  
   * It does not change as the _Contact_ domain grows.
+  
+  * 它不会再随着_联系人_的领域扩张而修改。
+  
   * It only changes when we add new modules.
+  
+  * 只有当添加新模块时才需要修改它。
+  
   * It's simpler:
+  
+  * 它也变得简单了：
+  
     * Fewer import statements
+    
+    * 更少的`import`语句
+    
     * No `FormsModule` import
+    
+    * 不再导入`FormsModule`
+    
     * No contact-specific declarations
+    
+    * 没有与联系人有关的声明
+    
     * No `ContactService` provider
+    
+    * 没有`ContactService`提供商
+    
     * No `HighlightDirective` conflict
+    
+    * 没有`HighlightDirective`冲突
 
   Try this `ContactModule` version of the sample.
   
+  试试范例的`ContactModule`版。
+  
   <live-example embedded plnkr="contact.2" img="devguide/ngmodule/contact-2-plunker.png">Try the live example.</live-example>
+  
+  <live-example embedded plnkr="contact.2" img="devguide/ngmodule/contact-2-plunker.png">试试在线例子</live-example>
 
 a#lazy-load
 .l-main-section
 :marked
   ## Lazy loading modules with the Router
+  
+  ## 用路由器实现延迟（Lazy）加载
 
   The Heroic Staffing Agency sample app has evolved. 
   It has two more modules, one for managing the heroes-on-staff and another for matching crises to the heroes.
   Both modules are in the early stages of development. 
   Their specifics aren't important to the story and we won't discuss every line of code.
+  
+  “职介中心”这个例子应用继续成长。
+  它又增加了两个模块，一个用来管理雇佣的英雄，另一个用来匹配英雄与危机。
+  这两个模块都还处于前期开发阶段。
+  它们对于整个故事来说无关紧要，这里我们就不逐行讨论了。
+  
 .l-sub-section
   :marked
     Examine and download the complete source for this version from the 
     <live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">live example.</live-example>
+    
+    到
+    <live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">在线例子</live-example>
+    试用并下载当前版本的完整代码。
+    
 :marked
   Some facets of the current application merit discussion.
+  
+  当前应用中还有一些方面值得深入探讨。
 
   * The app has three feature modules: Contact, Hero, and Crisis.
+  
+  * 该应用有三个特性模块：联系人（Contact）、英雄（Hero）和危机（Crisis）。
+  
   * The Angular router helps users navigate among these modules.
+  
+  * Angular路由器帮助用户在这些模块之间导航。
+  
   * The `ContactComponent` is the default destination when the app starts.
+  
+  * `ContactComponent`组件是应用启动时的默认页。
+  
   * The `ContactModule` continues to be "eagerly" loaded when the application starts.
+  
+  * `ContactModule`仍然会在应用启动时被立即加载。
+  
   * `HeroModule` and the `CrisisModule` are lazy loaded.
+  
+  * `HeroModule`和`CrisisModule`会被延迟加载。
 
   <a id="app-component-template"></a>
+  
   Let's start at the top with the new `AppComponent` template:
   a title, three links, and a `<router-outlet>`.
+  
+  我们从这个`AppComponent`新模板的顶部看起：
+  一个标题、三个链接和一个`<router-outlet>`。
+  
 +makeExample('ngmodule/ts/app/app.component.3.ts', 'template', 'app/app.component.ts (v3 - Template)')(format='.')
+
 :marked
   The `<app-contact>` element is gone; we're routing to the _Contact_ page now.
+  
+  `<app-contact>`元素不见了，改成了路由到*联系人*页。
 
   The `AppModule` has changed modestly:
+  
+  `AppModule`被改成了这样：
+  
 +makeExample('ngmodule/ts/app/app.module.3.ts', '', 'app/app.module.ts (v3)')
+
 .l-sub-section
   :marked
     Some file names bear a `.3` extension indicating
     a difference with prior or future versions.
     We'll explain differences that matter in due course.
     
+    有些文件名带有`.3`扩展名，用以和以前/以后的版本区分开。
+    我们会在适当的时机解释它们的差异。
+    
 :marked
   The module still imports `ContactModule` so that its routes and components are mounted when the app starts. 
+  
+  该模块仍然要导入`ContactModule`模块，以便在应用启动时加载它的路由和组件。
 
   The module does _not_ import `HeroModule` or `CrisisModule`. 
   They'll be fetched and mounted asynchronously when the user navigates to one of their routes.
   
+  该模块不用导入`HeroModule`或`CrisisModule`。
+  它们将在用户导航到其中的某个路由时，被异步获取并加载。
+  
   The significant change from version 2 is the addition of a ***routing*** object to the `imports`.
   The routing object, which provides a configured `Router` service, is defined in the `app.routing.ts` file.
+  
+  与第二版相比，最值得注意的修改是`imports`中那个额外的***routing***对象。
+  `routing`对象提供了一个配置好的`Router`服务，它是在`app.routing.ts`文件中定义的。
 
   ### App routing
+  
+  ### 应用路由
+  
 +makeExample('ngmodule/ts/app/app.routing.ts', '', 'app/app.routing.ts')(format='.')
+
 :marked
   The router is the subject of [its own page](router.html) so we'll skip lightly over the details and 
   concentrate on the intersection of Angular modules and routing.
+  
+  路由器有[一个专门的页面](router.html)做了深入讲解，所以这里我们跳过细节，而是专注于它和Angular模块的协作。
 
   This file defines three routes. 
   
+  该文件定义了三个路由。
+  
   The first redirects the empty URL (e.g., `http://host.com/`) 
   to another route whose path is `contact` (e.g., `http://host.com/contact`).
+  
+  第一个路由把空白URL（比如：`http://host.com/`）重定向到了另一个路径为`contact`的路由（比如：`http://host.com/contact`）。
   
   The `contact` route isn't defined here.
   It's defined in the _Contact_ feature's _own_ routing file, `contact.routing.ts`.
