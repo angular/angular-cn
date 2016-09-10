@@ -12,8 +12,8 @@
   },
 
   "ngmodule-faq": {
-    "title": "Angular Module FAQs",
-    "intro": "Answers to frequently asked questions about @NgModule"
+    "title": "Angular模块常见问题",
+    "intro": "对@NgModule常见问题的解答"
   },
 
   "component-communication": {
@@ -44,13 +44,13 @@
   },
 
   "form-validation": {
-    "title": "Form Validation",
-    "intro": "Validate user's form entries"
+    "title": "表单验证",
+    "intro": "验证用户在表单中的输入"
   },
 
   "rc4-to-rc5": {
-    "title": "RC4 to RC5 Migration",
-    "intro": "Migrate your RC4 app to RC5 in minutes."
+    "title": "如何从RC4迁移到RC5",
+    "intro": "分分钟把RC4迁移到RC5"
   },
 
   "set-document-title": {

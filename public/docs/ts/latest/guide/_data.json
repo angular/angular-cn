@@ -72,8 +72,8 @@
   },
 
   "ngmodule": {
-    "title": "Angular Modules (NgModule)",
-    "intro": "Define application modules with @NgModule"
+    "title": "Angular模块（NgModule）",
+    "intro": "用@NgModule定义应用中的模块"
   },
 
   "animations": {
