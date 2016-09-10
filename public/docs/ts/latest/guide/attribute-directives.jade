@@ -121,6 +121,7 @@ block highlight-directive-1
     我们先从Angular的`core`库中导入一些符号。
     然后需要为`@Directive`装饰器导入`Directive`。
     然后需要导入[注入](dependency-injection.html)到指令构造函数中的`ElementRef`，这样我们才能访问DOM元素。
+    还需要注入`Renderer`服务，以便更改DOM元素的样式。
     虽然眼下还不需要`Input`，但在稍后的章节中很快就会用到它。
     
     Then we define the directive metadata in a configuration object passed
@@ -179,7 +180,7 @@ p
   `ElementRef` is a service that grants us direct access to the DOM element
   through its `nativeElement` property and with `Renderer` we can set the element style.
   
-  Angular会为每个被指令匹配上的元素创建一个该指令控制器类的实例，并把Angular的`ElementRef`注入进它的构造函数。
+  Angular会为每个被指令匹配上的元素创建一个该指令控制器类的实例，并把Angular的`ElementRef`和`Renderer`注入进它的构造函数。
   `ElementRef`是一个服务，它赋予我们直接访问DOM元素的能力。通过它的`nativeElement`属性和`Renderer`服务，我们可以设置元素的样式。
   
 .l-main-section

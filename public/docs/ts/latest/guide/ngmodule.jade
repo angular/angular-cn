@@ -33,37 +33,68 @@ block includes
   ## 目录
   
   * [Angular modularity](#angular-modularity "Add structure to the app with NgModule")
+  * [Angular模块化](#angular-modularity "用NgModule把结构添加到应用中")
   * [The application root module](#root-module "The startup module that every app requires")
+  * [应用的根模块](#root-module "任何应用都需要的启动模块")
   * [Bootstrap](#bootstrap "Launch the app in a browser with the root module as the entry point") the root module
+  * [引导](#bootstrap "在浏览器中把根模块作为入口点来启动应用")根模块
   * [Declarations](#declarations "Declare the components, directives, and pipes that belong to a module")
+  * [声明](#declarations "声明从属于模块的组件、指令和管道")
   * [Providers](#providers "Extend the app with additional services")
+  * [提供商](#providers "使用额外的服务来扩展该应用")
   * [Imports](#imports "Import components, directives, and pipes for use in component templates")
+  * [导入](#imports "为组件模板导入组件、指令和管道")
   * [Resolve conflicts](#resolve-conflicts "When two directives have the same selector ...")
+  * [解决冲突](#resolve-conflicts "当两个指令具有同一个选择器时……")
   * [Feature modules](#feature-modules "Partition the app into feature modules")
+  * [特性模块](#feature-modules "把应用分割成一些特性模块")
   * [Lazy loaded modules](#lazy-load "Load modules asynchronously") with the Router
+  * 通过路由器[延迟加载模块](#lazy-load "延迟加载模块")
   * [Shared modules](#shared-module "Create modules for commonly used components, directives, and pipes") 
+  * [共享模块](#shared-module "为公用的组件、指令和管道创建模块") 
   * [The Core module](#core-module "Create a core module with app-wide singleton services and single-use components") 
+  * [核心模块](#core-module "用应用级单例服务和一次性组件创建核心模块") 
   * [Configure core services with _forRoot_](#core-for-root "Configure providers during module import")
+  * [用_forRoot_配置核心服务](#core-for-root "在导入模块时配置提供商")
   * [Prevent reimport of the _CoreModule_](#prevent-reimport "because bad things happen if a lazy loaded module imports Core")
+  * [禁止重复导入_CoreModule_](#prevent-reimport "如果延迟加载模块导入了核心模块，就会出问题")
   * [NgModule metadata properties](#ngmodule-properties "A technical summary of the @NgModule metadata properties")
+  * [NgModule元数据的属性](#ngmodule-properties "对@NgModule元数据属性的技术性总结")
 
   ### Live examples
+  ### 在线例子
+
   This page explains Angular Modules through a progression of improvements to a sample with a "Tour of Heroes" theme.
   Here's an index to live examples at key moments in the evolution of that sample:
 
+  此页面通过一个基于《英雄指南》的渐进式例子解释了Angular的模块。
+  这里是例子演化过程中一些关键节点的在线例子。
+
   * <live-example plnkr="minimal.0">A minimal NgModule app</live-example>
+  * <live-example plnkr="minimal.0">最小化的NgModule应用</live-example>
   * <live-example plnkr="contact.1b">The first contact module</live-example>
+  * <live-example plnkr="contact.1b">第一个联系人模块</live-example>
   * <live-example plnkr="contact.2">The revised contact module</live-example>
+  * <live-example plnkr="contact.2">修改过的联系人模块</live-example>
   * <live-example plnkr="pre-shared.3">Just before adding _SharedModule_</live-example> 
+  * <live-example plnkr="pre-shared.3">添加_SharedModule_之前</live-example> 
   * <live-example>The final version</live-example>
+  * <live-example>最终版</live-example>
 
   ### Frequently Asked Questions (FAQs)
 
+  ### 常见问题
+
   This page covers Angular Module concepts in a tutorial fashion.
+
+  该页面涵盖了英雄指南下的Angular模块概念。
 
   The companion [Angular Module FAQs](../cookbook/ngmodule-faq.html "Angular Module FAQs") cookbook
   offers ready answers to specific design and implementation questions.
   Read this page first before hopping over to those FAQs.
+
+  烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")为一些与设计与实现有关的问题提供了答案。
+  不过在阅读FAQ之前，要先阅读此页面。
 
 .l-hr
 
