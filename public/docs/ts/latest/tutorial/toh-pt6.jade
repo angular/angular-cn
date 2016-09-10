@@ -72,7 +72,7 @@ block http-library
     It's Angular's optional approach to web access and it exists as a separate add-on module called `@angular/http`,
     shipped in a separate script file as part of the Angular npm package.
     
-    `Http`***并不是***Angular的核心模块。
+    `HttpModule`***并不是***Angular的核心模块。
     它是Angular用来进行Web访问的一种可选方式，并通过Angular包中一个名叫`@angular/http`的独立附属模块发布了出来。    
 
     Fortunately we're ready to import from `@angular/http` because `systemjs.config` configured *SystemJS* to load that library when we need it.
@@ -291,7 +291,7 @@ block get-heroes-details
 
     仔细看看这个由服务器返回的数据的形态。
     这个*内存Web API*的范例中所做的是返回一个带有`data`属性的对象。
-    你的API也可以返回其它东西。
+    你的API也可以返回其它东西。请调整这些代码以匹配*你的Web API*。
 
 :marked
   The caller is unaware of these machinations. It receives a !{_Promise} of *heroes* just as it did before.
@@ -356,10 +356,16 @@ block get-heroes-details
 .l-main-section
 :marked
   ## Update hero details
+  
+  ## 更新英雄详情
 
   We can edit a hero's name already in the hero detail view. Go ahead and try
   it. As we type, the hero name is updated in the view heading. 
   But when we hit the `Back` button, the changes are lost!
+  
+  我们已经可以在英雄详情中编辑英雄的名字了。来试试吧。在输入的时候，页头上的英雄名字也会随之更新。
+  不过当我们点了后退按钮时，这些更新就丢失了。
+  
 .l-sub-section
   :marked
     Updates weren't lost before, what's happening?
@@ -367,28 +373,42 @@ block get-heroes-details
     hero objects in the single, app-wide shared list. Now that we are fetching data
     from a server, if we want changes to persist, we'll need to write them back to
     the server.
+    
+    以前是不会丢失更新的，现在是怎么回事？
+    当该应用使用mock出来的英雄列表时，修改的是一份全局共享的英雄列表，而现在改成了从服务器获取数据。
+    如果我们希望这些更改被持久化，我们就得把它们写回服务器。
 
 :marked
   ### Save hero details
+  
+  ### 保存英雄详情
 
   Let's ensure that edits to a hero's name aren't lost. Start by adding,
   to the end of the hero detail template, a save button with a `click` event
   binding that invokes a new component method named `save`:
+  
+  我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个“保存”按钮，它绑定了一个`click`事件，事件中调用组件中一个名叫`save`的新方法：
 
 +makeExcerpt('app/hero-detail.component.html', 'save')
 
 :marked
   The `save` method persists hero name changes using the hero service
   `update` method and then navigates back to the previous view:
+  
+  `save`方法使用hero服务的`update`方法来持久化对英雄名字的修改，然后导航回前一个页面：
 
 +makeExcerpt('app/hero-detail.component.ts', 'save')
 
 :marked
   ### Hero service `update` method
+  
+  ### hero服务的`update`方法
 
   The overall structure of the `update` method is similar to that of
   `getHeroes`, although we'll use an HTTP _put_ to persist changes
   server-side:
+  
+  `update`方法的大致结构与`getHeroes`类似，不过我们使用HTTP的*put*方法来把修改持久化到服务端：
 
 +makeExcerpt('app/hero.service.ts', 'update')
 
@@ -397,51 +417,80 @@ block get-heroes-details
   the URL. The put body is the JSON string encoding of the hero, obtained by
   calling `!{_JSON_stringify}`.  We identify the body content type
   (`application/json`) in the request header.
+  
+  我们通过一个编码在URL中的英雄id来告诉服务器应该更新哪个英雄。put的body是该英雄的JSON字符串，它是通过调用`!{_JSON_stringify}`得到的。
+  并且在请求头中标记出的body的内容类型（`application/json`）。
 
   Refresh the browser and give it a try. Changes to hero names should now persist.
+  
+  刷新浏览器试一下，对英雄名字的修改确实已经被持久化了。
 
 .l-main-section
 :marked
   ## Add a hero
+  
+  ## 添加英雄
 
   To add a new hero we need to know the hero's name. Let's use an input
   element for that, paired with an add button.
+  
+  要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个input元素和一个“add”按钮来拿到它。
 
   Insert the following into the heroes component HTML, first thing after
   the heading:
+  
+  把下列代码插入heroes组件的HTML中，放在紧挨着头部的地方：
 
 +makeExcerpt('app/heroes.component.html', 'add')
 
 :marked
   In response to a click event, we call the component's click handler and then
   clear the input field so that it will be ready to use for another name.
+  
+  在对click事件的响应中，我们要调用组建的click处理器，然后清空这个输入框，以便用来输入另一个名字。
 
 +makeExcerpt('app/heroes.component.ts', 'add')
 
 :marked
   When the given name is non-blank, the handler delegates creation of the
   named hero to the hero service, and then adds the new hero to our !{_array}.
+  
+  当指定的名字不为空的时候，click处理器就会委托hero服务来创建一个具有此名字的英雄，并把这个新的英雄添加到我们的数组中。
 
   Finally, we implement the `create` method in the `HeroService` class.
+  
+  最后，我们在`HeroService`类中实现这个`create`方法。
+  
 +makeExcerpt('app/hero.service.ts', 'create')
 
 :marked
   Refresh the browser and create some new heroes!
 
+  刷新浏览器，并创建一些新的英雄！
+  
 .l-main-section
 :marked
   ## Delete a hero
+  
+  ## 删除一个英雄
 
   Too many heroes?
   Let's add a delete button to each hero in the heroes view.
+  
+  英雄太多了？
+  我们在英雄列表视图中来为每个英雄添加一个删除按钮吧。
 
   Add this button element to the heroes component HTML, right after the hero
   name in the repeated `<li>` tag:
+  
+  把这个button元素添加到英雄列表组件的HTML中，把它放在`<li>`标签中的英雄名紧后边：
 
 +makeExcerpt('app/heroes.component.html', 'delete', '')
 
 :marked
   The `<li>` element should now look like this:
+  
+  `<li>`元素应该变成了这样：
 
 +makeExcerpt('app/heroes.component.html', 'li-element')
 
@@ -450,8 +499,12 @@ block get-heroes-details
   click handling code stops the propagation of the click event &mdash; we
   don't want the `<li>` click handler to be triggered because that would
   select the hero that we are going to delete!
+  
+  除了调用组件的`delete`方法之外，这个`delete`按钮的click处理器还应该阻止click事件向上冒泡 —— 我们并不希望触发`<li>`的事件处理器，否则它会选中我们要删除的这位英雄。
 
   The logic of the `delete` handler is a bit trickier:
+  
+  `delete`处理器的逻辑略复杂：
 
 +makeExcerpt('app/heroes.component.ts', 'delete')
 
@@ -459,22 +512,33 @@ block get-heroes-details
   Of course, we delegate hero deletion to the hero service, but the component
   is still responsible for updating the display: it removes the deleted hero
   from the !{_array} and resets the selected hero if necessary.
+  
+  当然，我们仍然把删除英雄的操作委托给了hero服务，不过该组件仍然正确的更新了显示：它从数组中移除了被删除的英雄，如果删除的是正选中的英雄，还会清空选择。
 
 :marked
   We want our delete button to be placed at the far right of the hero entry.
   This extra CSS accomplishes that:
+  
+  我们希望删除按钮被放在英雄条目的最右边。
+  于是CSS变成了这样：
 
 +makeExcerpt('app/heroes.component.css', 'additions')
 
 :marked
   ### Hero service `delete` method
+  
+  ### hero服务的`delete`方法
 
   The hero service's `delete` method uses the _delete_ HTTP method to remove the hero from the server:
+  
+  hero服务的`delete`方法使用HTTP的*delete*方法来从服务器上移除该英雄：
 
 +makeExcerpt('app/hero.service.ts', 'delete')
 
 :marked
   Refresh the browser and try the new delete functionality.
+  
+  刷新浏览器，并试一下这个新的删除功能。
 
 :marked
   ## !{_Observable}s
@@ -485,7 +549,7 @@ block observables-section-intro
   :marked
     Each `Http` service method  returns an `Observable` of HTTP `Response` objects.
     
-    `Http`服务中的每个方法都返回一个Http `Response`对象的`Observable`实例。
+    `Http`服务中的每个方法都返回一个HTTP `Response`对象的`Observable`实例。
     
     Our `HeroService` converts that `Observable` into a `Promise` and returns the promise to the caller.
     In this section we learn to return the `Observable` directly and discuss when and why that might be
@@ -520,7 +584,7 @@ block observables-section-intro
     A single result in the form of a promise is easy for the calling component to consume
     and it helps that promises are widely understood by JavaScript programmers.
     
-    转换成承诺通常是更好地选择，我们通常要求`http`获取单块数据。只要接收到数据，就算完成。
+    转换成承诺通常是更好地选择，我们通常会要求`http.get`获取单块数据。只要接收到数据，就算完成。
     使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在JavaScript程序员中被广泛接受了。
 :marked
   But requests aren't always "one and done". We may start one request,
@@ -698,7 +762,7 @@ block observable-transformers
       until the service supports that feature, a topic for another day.
       We are content for now to discard unwanted results.
       
-      注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的http请求，除非有一天我们支持了这个特性，这个问题我们以后再讨论。
+      注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的HTTP请求，除非有一天我们支持了这个特性，这个问题我们以后再讨论。
       目前我们的做法只是丢弃不希望的结果。
       
   :marked
@@ -741,7 +805,7 @@ block observable-transformers
   :marked
     We load them all at once by importing `rxjs-extensions` at the top of `AppModule`.
     
-    我们在`AppModule`中导入`rxjs-extensions`就可以一次性加载它们。
+    我们在顶级的`AppModule`中导入`rxjs-extensions`就可以一次性加载它们。
 
   +makeExcerpt('app/app.module.ts', 'rxjs-extensions')(format='.')
 
@@ -763,7 +827,7 @@ block observable-transformers
   <span ngio-ex>hero-search.component.ts</span>
   and add it to the `!{_declarations}` !{_array}:
   
-  最后，从`'./hero-search.component.ts'` 导入`HeroSearchComponent`并将其添加到`declarations`数组中。
+  最后，从<span ngio-ex>hero-search.component.ts</span>中导入`HeroSearchComponent`并将其添加到`declarations`数组中。
   
 +makeExcerpt(declFile, 'search')
 

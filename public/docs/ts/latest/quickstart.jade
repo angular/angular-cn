@@ -17,8 +17,7 @@ block includes
   guides.
 
   这份“快速起步”的目标是基于#{_Lang}构建并运行一个超级简单的Angular应用，
-  并为文档其余部分的范例代码建立开发环境。
-  同时，它还可以作为构建真实应用的基础。
+  同时，它还会建立一个用于本指南中这些范例代码的公用开发环境。
 
 .callout.is-helpful
   header Don't want #{_Lang}?
@@ -290,69 +289,105 @@ block install-packages
 
   :marked
     Create the file `app/app.module.ts` with the following content:
+    
+    使用下列内容创建`app/app.module.ts`文件：
 
   +makeExample('app/app.module.1.ts')(format='.')
 
   :marked
     This is the entry point to your application.
+    
+    这里是应用的入口点。
 
     Since the QuickStart application is a web application that runs in a browser, your root module
     needs to import the
     [`BrowserModule`](../latest/api/platform-browser/index/BrowserModule-class.html)
     from `@angular/platform-browser` to the `imports` array.
+    
+    由于QuickStart是一个运行在浏览器中的Web应用，所以根模块需要从`@angular/platform-browser`中导入[`BrowserModule`](../latest/api/platform-browser/index/BrowserModule-class.html)并添加到`imports`数组中。
 
     This is the smallest amount of Angular that is needed for a minimal application to run in the
     browser.
+    
+    这是要让一个最小的应用在浏览器中运行时，对Angular的最低需求。
 
     The QuickStart application doesn't do anything else, so you don't need any other modules. In a real
     application, you'd likely import [`FormsModule`](../latest/api/forms/index/FormsModule-class
     .html) as well as [`RouterModule`](../latest/api/router/index/RouterModule-class.html) and
     [`HttpModule`](../latest/api/http/index/HttpModule-class.html). These are introduced in the
     [Tour of Heroes Tutorial](../tutorial/).
+    
+    QuickStart应用不做别的，也就先不需要其他模块。在真实的应用中，我们可能还得导入[`FormsModule`](../latest/api/forms/index/FormsModule-class
+    .html)、[`RouterModule`](../latest/api/router/index/RouterModule-class.html)和
+    [`HttpModule`](../latest/api/http/index/HttpModule-class.html)。这些会在[英雄指南教程](../tutorial/)中引入。
 
 
 .l-main-section
 h1#root-component Step !{step++}: Create a component and add it to your application
+h1#root-component 步骤3：创建组件并添加到应用中
 :marked
   Every Angular application has at least one component: the _root component_, named `AppComponent`
   here.
+  
+  每个Angular应用都至少有一个组件：*根组件*，这里名叫`AppComponent`。
 
   Components are the basic building blocks of Angular applications. A component controls a portion
   of the screen&mdash;a *view*&mdash;through its associated template.
+  
+  组件是Angualr应用的基本构造块。每个组件都会通过与它相关的模板来控制屏幕上的一小块（视图）。
 
 a#app-component
 p.
   #[b Create the component file]
   #[code #[+adjExPath('app/app.component.ts')]] with the following content:
 
+p.
+  #[b 使用下列内容创建组件文件]
+  #[code #[+adjExPath('app/app.component.ts')]]:
+
 +makeExample('app/app.component.ts')
 
 :marked
   The QuickStart application has the same essential structure as any other Angular component:
+  
+  QuickStart应用具有和其它Angular组件相同的基本结构：
 
     * **An import statement**. Importing gives your component access to
     Angular's core [`@Component` decorator function](../latest/api/core/index/Component-decorator
     .html).
+    * **一个import语句**。它让你能访问Angular核心库中的[`@Component`装饰器函数](../latest/api/core/index/Component-decorator.html)。
     * **A @Component #{_decorator}** that associates *metadata* with the
         `AppComponent` component class:
+    * **一个@Component#{_decoratorCn}**，它会把一份*元数据*关联到`AppComponent`组件类上：
 
         - a *selector* that specifies a simple CSS selector for an HTML element that represents
           the component.
+        - *selector*为用来代表该组件的HTML元素指定一个简单的CSS选择器。
         - a *template* that tells Angular how to render the component's view.
+        - *template*用来告诉Angular如何渲染该组件的视图。
     * **A component class** that controls the appearance and behavior of a view
+    * **组件类**通过它的模板来控制视图的外观和行为
+    
     through its template. Here, you only have the root component, `AppComponent`. Since you don't
     need any application logic in the simple QuickStart example, it's empty.
+    
+    这里，你只有一个根组件`AppComponent`。由于这个简单的QuickStart范例中并不需要应用逻辑，因此它是空的。
 
   You *export* the `AppComponent` class so that you can *import* it into the application that you
    just created.
+   
+  我们还要*导出*这个`AppComponent`类，以便让刚刚创建的这个应用导入它。
 
   Edit the file `app/app.module.ts` to import your new `AppComponent` and add it in the
   declarations and bootstrap fields in the `NgModule` decorator:
+  
+  编辑`app/app.module.ts`文件，导入这个新的`AppComponent`，并把它添加到`NgModule`装饰器中的`declarations`和`bootstrap`字段：
 
 +makeExample('app/app.module.ts', null, title='app/app.module.ts')
 
 .l-main-section
 h1#main Step !{step++}: Start up your application
+h1#main 步骤4：启动应用
 
 block create-main
   :marked
@@ -372,15 +407,22 @@ block create-main
 :marked
   This code initializes the platform that your application runs in, then uses the platform to
   bootstrap your `!{_AppModuleVsAppComp}`.
+  
+  这些代码初始化了应用所在的平台，然后使用此平台引导你的`!{_AppModuleVsAppComp}`。
 
   ### Why create separate *<span ngio-ex>main.ts</span>*<span if-docs="ts">, app module</span> and app component files?
+  
+  ### 为什么要分别创建*<span ngio-ex>main.ts</span>*<span if-docs="ts">、应用模块</span>和应用组件的文件呢？
 
   App bootstrapping is a separate concern from<span if-docs="ts"> creating a module or</span>
   presenting a view. Testing the component is much easier if it doesn't also try to run the entire application.
+  
+  应用的引导过程与<span if-docs="ts">创建模块或者</span>展现视图是相互独立的关注点。如果该组件不会试图运行整个应用，那么测试它就会更容易。
 
 
 .callout.is-helpful
   header Bootstrapping is platform-specific
+  header 引导过程是与平台有关的
 
   :marked
     Because the QuickStart application runs directly in the browser, `main.ts` imports the
@@ -399,6 +441,7 @@ block create-main
 
 .l-main-section
 h1#index Step !{step++}: Define the web page that hosts the application
+h1#index 步骤5：定义该应用的宿主页面
 :marked
   In the *#{_indexHtmlDir}* folder,
   create an `index.html` file and paste the following lines into it:
@@ -411,22 +454,34 @@ h1#index Step !{step++}: Define the web page that hosts the application
 +ifDocsFor('ts')
 :marked
   The noteworthy sections here are:
+  
+  这里值得注意的地方有：
 
   * JavaScript libraries: `core-js` polyfills for older browsers, the `zone.js` and
   `reflect-metadata` libraries needed by Angular, and the `SystemJS` library for module loading.
+  * JavaScript库：`core-js`是为老式浏览器提供的填充库，`zone.js`和`reflect-metadata`库是Angular需要的，而`SystemJS`库是用来做模块加载的。
   * Configuration file for `SystemJS`, and a script
      where you import and run the `app` module which refers to the `main` file that you just
      wrote.
+  * `SystemJS`的配置文件和一段脚本，它导入并运行了我们刚刚在`main`文件中写的`app`模块。
   * The [`<my-app>`](#my-app) tag in the `<body>` which is *where your app lives!*
+  * `<body>`中的[`<my-app>`](#my-app)标签是*应用程序生活的地方！*
 
 
 :marked
   ## Add some style
+  
+  ## 添加一些样式
+  
   Styles aren't essential, but they're nice, and `index.html` assumes that you have
   a stylesheet called `styles.css`.
+  
+  样式不是必须的，但能让应用更漂亮。`index.html`中假定有一个叫做`styles.css`的样式表。
 
   Create a `styles.css` file in the *#{_indexHtmlDir}* folder, and start styling,
   perhaps with the minimal styles shown below.
+  
+  在*#{_indexHtmlDir}*目录下创建一个`style.css`文件，并且用下面列出的最小化样式作为初始样式。
 
 +makeExcerpt('styles.css (excerpt)', 'quickstart')
 
@@ -452,11 +507,18 @@ aside.is-right
     [Read more](https://github.com/angular/quickstart/blob/master/README.md#npm-scripts) about
     other useful npm scripts included in this example's `package.json`.
 
+    到[这里](https://github.com/angular/quickstart/blob/master/README.md#npm-scripts)了解更多关于`package.json`中其它脚本的知识。
+
 :marked
   That command runs the following two parallel node processes:
+  
+  该命令会同时运行两个并行的node进程：
+  
   * The TypeScript compiler in watch mode.
+  * TypeScript编译器运行在监听模式。
   * A static file server called _lite-server_ that loads `index.html` in a browser
   and refreshes the browser when application files change.
+  * 一个名叫*lite-server*的静态文件服务器，它把`index.html`加载到浏览器中，并且在该应用中的文件发生变化时刷新浏览器。
 
   In a few moments, a browser tab should open and display the following:
 
@@ -473,19 +535,27 @@ block build-app
 h1 Step !{step++}: Make some live changes
 :marked
   Try changing the message in `app/app.component.ts` to "My SECOND Angular 2 App".
+
+  尝试把`app/app.component.ts`中的消息修改成"My SECOND Angular 2 App"。
+
 block server-watching
   :marked
     The TypeScript compiler and `lite-server` will detect your change, recompile the TypeScript into JavaScript,
     refresh the browser, and display your revised message.
 
+    TypeScript编译器和`lite-server`将会检测这些修改，重新把TypeScript编译成JavaScript，刷新浏览器，并显示修改过的消息。
 
     Close the terminal window when you're done to terminate both the compiler and the server.
 
     当终止了编译器和服务器之后，可以关闭terminal窗口。
 .l-main-section
 h1#wrap-up Wrap up and next steps
+h1#wrap-up 收工，下一步
 :marked
   The final project folder structure looks like this:
+  
+  项目的最终目录结构看起来是这样的：
+
 block project-file-structure
   .filetree
     .file angular2-quickstart
@@ -506,13 +576,21 @@ block project-file-structure
 :marked
   To see the file contents, open the <live-example></live-example>.
 
+  要查看文件的内容，请打开<live-example></live-example>。
+  
 .l-main-section
 :marked
   ## What next?
+  ## 下一步干什么？
+  
   This first application doesn't do much. It's basically "Hello, World" for Angular 2.
+
+  第一个应用没做什么，它只是一个Angular 2的"Hello, World"而已。
 
   You wrote a little Angular component, created a simple `index.html`, and launched with a
   static file server.
+
+  我们写了一个很小的Angular组件，递减了一个简单的`index.html`，并且启动了一个静态文件服务器。
 
 +ifDocsFor('ts')
   :marked
@@ -520,6 +598,12 @@ block project-file-structure
     sections in this guide. From here, the changes you'll make in the
     `package.json` or `index.html` files are only minor updates to add libraries or some css
     stylesheets. You also won't need to revisit module loading again.
+    
+    我们还设置了一个基本的应用环境，你可以把它用在本指南的其它部分。以后，我们对`package.json`和`index.html`的修改将仅限于添加库或一些css样式，不用再需要修改模块加载部分。
+    
 :marked
   To take the next step and build a small application that demonstrates real features that you can
   build with Angular, carry on to the [Tour of Heroes tutorial](./tutorial)!
+
+  下一步我们会开始构建一个小型的应用，用于示范能通过Angular构建的真实特性。
+  来吧！开始[“英雄指南”教程](./tutorial)！
