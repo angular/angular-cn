@@ -86,6 +86,11 @@
     "intro": "属性型指令把行为添加到现有元素上。"
   },
 
+  "browser-support": {
+    "title": "Browser support",
+    "intro": "Browser support and polyfills guide."
+  },
+
   "component-styles": {
     "title": "组件样式",
     "intro": "学习如何给组件应用CSS样式。"
