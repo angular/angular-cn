@@ -151,7 +151,7 @@ block backend
     with an  _in-memory web API alternative service_.
     
     导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
-    将`InMemoryWebApiModule`将默认的负责与远程服务器交流的辅助`Http`服务替换成了*内存Web API*服务：
+    `InMemoryWebApiModule`将`Http`客户端默认的后端服务（这是一个辅助服务，负责与远程服务器对话）替换成了*内存Web API*服务：
     
   +makeExcerpt(_appModuleTsVsMainTs, 'in-mem-web-api', '')
 
