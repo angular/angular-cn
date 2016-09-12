@@ -90,7 +90,7 @@ code-example(language="bash").
   first and display mock heroes.
 
   `HEROES`变量是一个由`Hero`类的实例构成的数组，我们在第一部分定义过它。
-  我们当然希望从一个Web服务中获取这个英雄列表，但别急，我们得把步子迈得小一点儿 —— 先用一组Mock(模拟)出来的英雄。
+  我们当然希望从一个Web服务中获取这个英雄列表，但别急，我们得把步子迈得小一点 —— 先用一组Mock(模拟)出来的英雄。
 
   ### Exposing heroes
   
@@ -144,8 +144,8 @@ code-example(language="bash").
   and display them individually.
   We’ll need some help from Angular to do this. Let’s do this step by step.
 
-  我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个儿显示他们。
-  这下，我们就得借Angular的帮助来完成它了。我们来一步步儿实现它！
+  我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个显示他们。
+  这下，我们就得借Angular的帮助来完成它了。我们来一步步实现它！
 
   First modify the `<li>` tag by adding the built-in directive `*ngFor`.
   
@@ -175,7 +175,7 @@ code-example(language="bash").
     “*take each hero in the `heroes` array, store it in the local `hero` variable,
     and make it available to the corresponding template instance*”.
 
-    引号中赋值给`ngFor`的那段儿文本表示“*从`heroes`数组中取出每个英雄，存入一个局部的`hero`变量，并让它在相应的模板实例中可用*”。
+    引号中赋值给`ngFor`的那段文本表示“*从`heroes`数组中取出每个英雄，存入一个局部的`hero`变量，并让它在相应的模板实例中可用*”。
 
     The `let` keyword before "hero" identifies `hero` as a template input variable.
     We can reference this variable within the template to access a hero’s properties.
@@ -319,7 +319,7 @@ code-example(language="bash").
 
     Our component doesn’t have a “selected hero” yet either. We’ll start there.
     
-    我们的组件还没有用来表示“当前选中的英雄”的变量，我们就从这一步儿开始。
+    我们的组件还没有用来表示“当前选中的英雄”的变量，我们就从这一步开始。
 
     ### Expose the selected hero
     

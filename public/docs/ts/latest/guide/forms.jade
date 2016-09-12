@@ -103,7 +103,7 @@ figure.image-display
 
   Two of the three fields on this form are required. Required fields have a green bar on the left to make them easy to spot.
   
-  这个表单中的三个字段都是必填的。这些必填的字段在左侧会有一个绿色的条儿，让它们更容易看出来。
+  这个表单中的三个字段都是必填的。这些必填的字段在左侧会有一个绿色的竖条，让它们更容易看出来。
 
   If we delete the hero name, the form displays a validation error in an attention grabbing style:
   
@@ -421,7 +421,7 @@ code-example(format="").
   
   `container`、`form-group`、`form-control`和`btn`类来自[Twitter Bootstrap](http://getbootstrap.com/css/)。纯粹是装饰。
   我们使用Bootstrap来打扮我们的表单。
-  嘿，一点儿样式儿都没有的表单算个啥！
+  嘿，一点样式都没有的表单算个啥！
 
 .callout.is-important
   header Angular Forms Do Not Require A Style Library
@@ -807,7 +807,7 @@ figure.image-display
   strong visual signal when the data are invalid and we want to mark required fields.
   So we add custom CSS for visual feedback.
   
-  (`ng-valid` | `ng-invalid`)这一对儿是我们最感兴趣的。当数据变得无效时，我们希望发出一个强力的视觉信号。我们还希望标记出必填字段。
+  (`ng-valid` | `ng-invalid`)这一对是我们最感兴趣的。当数据变得无效时，我们希望发出一个强力的视觉信号。我们还希望标记出必填字段。
   于是我们加入自定义CSS来提供视觉反馈。
 
   **Delete** the `#spy` template reference variable and `TODO` as they have served their purpose.
@@ -1099,7 +1099,7 @@ figure.image-display
   Later in the template we bind the button's `disabled` property to the form's over-all validity via
   the `heroForm` variable. Here's that bit of markup:
   
-  模板中稍后的部分，通过`heroForm`变量，我们把按钮的`disabled`属性绑定到了表单的全员有效性。这里是那点儿HTML：
+  模板中稍后的部分，通过`heroForm`变量，我们把按钮的`disabled`属性绑定到了表单的全员有效性。这里是那点HTML：
   
 +makeExample('forms/ts/app/hero-form.component.html', 'submit-button')
 :marked
@@ -1186,7 +1186,7 @@ figure.image-display
   Add the following block of HTML below the `<div>` wrapper we just wrote:
   
   现在，当表单处于已提交状态时，我们需要显示一些别的东西。
-  在我们刚刚写的`<div>`包装下方，添加下列HTML块儿：
+  在我们刚刚写的`<div>`包装下方，添加下列HTML块：
   
 +makeExample('forms/ts/app/hero-form.component.html', 'submitted', 'app/hero-form.component.html (节选)')
 
@@ -1195,7 +1195,7 @@ figure.image-display
   This slug of HTML only appears while the component is in the submitted state.
   
   我们的英雄又来了，它通过插值表达式绑定显示为只读内容。
-  这一小段儿HTML只在组件处于已提交状态时才会显示。
+  这一小段HTML只在组件处于已提交状态时才会显示。
 
   We added an Edit button whose click event is bound to an expression
   that clears the `submitted` flag.
@@ -1204,11 +1204,11 @@ figure.image-display
   
   When we click it, this block disappears and the editable form reappears.
   
-  当我们点它时，这个只读块儿消失了，可编辑的表单重新出现了。
+  当我们点它时，这个只读块消失了，可编辑的表单重新出现了。
 
   That's as much drama as we can muster for now.
   
-  现在，它比我们那个刚好够用的版本好玩儿多了。
+  现在，它比我们那个刚好够用的版本好玩多了。
 
 .l-main-section
 :marked

@@ -1520,7 +1520,7 @@ code-example(format="").
 
   我们已经完成了准备工作，接下来就开始把PhoneCat升级到Angular 2。
   我们将在Angular 2[升级模块](#upgrading-with-the-upgrade-adapter)的帮助下增量式的完成此项工作。
-  等我们完成的那一刻，就能把Angular 1从项目中完全移除了，但其中的关键是在不破坏此程序的前提下一小块儿一小块儿的完成它。
+  等我们完成的那一刻，就能把Angular 1从项目中完全移除了，但其中的关键是在不破坏此程序的前提下一小块一小块的完成它。
 
 .alert.is-important 
   :marked
@@ -1611,7 +1611,7 @@ code-example(format="").
   we can start converting the individual pieces to Angular 2.
 
   接下来，我们把该应用程序引导改装为一个同时支持Angular 1和Angular 2的*混合式应用*。
-  然后，就能开始把这些不可分割的小块儿转换到Angular 2了。
+  然后，就能开始把这些不可分割的小块转换到Angular 2了。
 
   To bootstrap a hybrid application, we first need to initialize an `UpgradeAdapter`,
   which [provides the glue](#upgrading-with-the-upgrade-adapter) that joins the two
@@ -1668,7 +1668,7 @@ code-example(format="").
   to load phone information from the server. Right now it's implemented with
   ngResource and we're using it for two things:
 
-  我们要移植到Angular 2的第一块儿是`Phone`工厂(位于`app/js/core/phones.factory.ts`)，
+  我们要移植到Angular 2的第一块是`Phone`工厂(位于`app/js/core/phones.factory.ts`)，
   并且让它能帮助控制器从服务器上加载电话信息。目前，它是用`ngResource`实现的，我们用它做两件事：
 
   * For loading the list of all phones into the phone list component
@@ -1865,7 +1865,7 @@ code-example(format="").
   have these explicit selectors. This one will match elements with the name `phone-list`,
   just like the Angular 1 version did.
 
-  `selector`属性是一个CSS选择器，用来定义组件应该被放在页面的哪儿。在Angular 1，我们基于组件名字来匹配，
+  `selector`属性是一个CSS选择器，用来定义组件应该被放在页面的哪。在Angular 1，我们基于组件名字来匹配，
   但是在Angular 2中，我们要有一个专门指定的选择器。本组件将会对应元素名字`phone-list`，和Angular 1版本一样。
 
   We now also need to convert the template of this component into Angular 2 syntax.
@@ -2458,7 +2458,7 @@ code-example(format="").
   counterparts are switched. The specs for the checkmark pipe are probably the most straightforward,
   as the pipe has no dependencies:
 
-  如果产品代码被切换到了Angular 2，单元测试文件本身也需要切换过来。对勾儿(checkmark)管道的规约可能是最简单的，因为它没有任何依赖：
+  如果产品代码被切换到了Angular 2，单元测试文件本身也需要切换过来。对勾(checkmark)管道的规约可能是最简单的，因为它没有任何依赖：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/core/checkmark/checkmark.pipe.spec.ts', null, 'app/core/checkmark/checkmark.pipe.spec.ts')
 

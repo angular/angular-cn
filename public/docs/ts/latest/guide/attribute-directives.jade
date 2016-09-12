@@ -164,7 +164,7 @@ block highlight-directive-1
 
     We need a prefix of our own, preferably short, and `my` will do for now.
     
-    我们需要一个自己的前缀，最好短点儿，目前用的这个`my`前缀就不错。
+    我们需要一个自己的前缀，最好短点，目前用的这个`my`前缀就不错。
 p
   | After the #[code @Directive] metadata comes the directive's controller class, which contains the logic for the directive. 
   +ifDocsFor('ts')
@@ -193,7 +193,7 @@ a#apply-directive
   applies the directive as an attribute to a paragraph (`p`) element.
   In Angular terms, the `<p>` element will be the attribute **host**.
   
-  这个例子中，`AppComponent`是用来测试`HighlightDirective`的一个壳儿。
+  这个例子中，`AppComponent`是用来测试`HighlightDirective`的一个壳。
   我们来给它一个新的模板，把这个指令作为属性应用到一个段落(`p`)元素上。
   用Angular的话说，`<p>`元素就是这个属性型指令的**宿主**。
 p
@@ -458,7 +458,7 @@ a#input
     And yet this code works. Where is the template `color` value going?
     
     **但我们从来没有在宿主`AppComponent`上定义过color属性**！
-    不过这段代码却能正常工作。模板中的`color`值哪儿去了？
+    不过这段代码却能正常工作。模板中的`color`值哪去了？
     
     Browser debugging reveals that Angular dynamically added a `color` property 
     to the runtime instance of the `AppComponent`.

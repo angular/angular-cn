@@ -593,14 +593,14 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   不管我们怎么做，估计它都会是一个可怕的主意。
   但即便如此，为了讲解这个技术点，我们还是写一个吧。
   时刻记住，非纯管道可能每隔几微秒就会被调用一次。
-  如果我们不小心点儿，这个管道就会发起一大堆请求“攻击”服务器。
+  如果我们不小心点，这个管道就会发起一大堆请求“攻击”服务器。
 
   We are careful. Our pipe only makes a server call if the request URL has changed.
   It caches the request URL and waits for a result which it also caches when it arrives.
   The pipe returns the cached result (which is null while a request is in flight)
   after every Angular call and only contacts the server as necessary.
 
-  我们确实得小心点儿。所以这个管道只有当所请求的URL发生变化时才会向服务器发起请求。
+  我们确实得小心点。所以这个管道只有当所请求的URL发生变化时才会向服务器发起请求。
   它会缓存这个请求的URL，并等待一个结果，当结果发回来时，就缓存它。
   以后每当Angular调用此管道时，它都会返回这个缓存的结果(当请求尚未返回时，此结果是空)，只在必要时才会去联系服务器。
 

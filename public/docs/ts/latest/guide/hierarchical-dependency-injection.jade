@@ -38,7 +38,7 @@ block includes
   We oversimplified. In fact, there is no such thing as ***the*** injector!
   An application may have multiple injectors!
   
-  我们其实有点简化过度了。实际上，没有***那个(唯一的)***注入器这回事儿，因为一个应用中可能有很多注入器。
+  我们其实有点简化过度了。实际上，没有***那个(唯一的)***注入器这回事，因为一个应用中可能有很多注入器。
 
   An Angular application is a tree of components. Each component instance has its own injector!
   The tree of components parallels the tree of injectors.
@@ -211,7 +211,7 @@ figure.image-display
 :marked
   Now here it’s getting interesting. The `HeroEditorComponent`defines a template with an input to change the name of the hero and a `cancel` and a `save` button. Remember that we said we want to have the flexibility to cancel our editing and restore the old value? This means we need to maintain two copies of our `Hero` that we want to edit. Thinking ahead, this is a perfect use case to abstract it into its own generic service since we have probably more cases like this in our app.
   
-  现在，事情开始变得有趣儿了。`HeroEditorComponent`定义了一个模板，它有一个输入框来修改英雄的名字，以及一个`cancel`按钮和一个`save`按钮。
+  现在，事情开始变得有趣了。`HeroEditorComponent`定义了一个模板，它有一个输入框来修改英雄的名字，以及一个`cancel`按钮和一个`save`按钮。
   还记得吗？我们说过要能够灵活的取消编辑，并且回复原值吗？这意味着我们得维护这个待编辑`Hero`的两份实例。
   想得超前一点，这是一个把它抽象成一个通用服务的完美案例，因为将来我们的应用中可能会需要更多与此类似的操作逻辑。
 
@@ -245,7 +245,7 @@ figure.image-display
   Couldn’t we simply alter our !{_root_NgModule} to include this provider?
   
   它往`HeroEditComponent`的注入器中添加了一个`RestoreService`提供商。
-  不能简化点儿，直接在我们的!{_root_NgModule}后面包含这个提供商吗？
+  不能简化点，直接在我们的!{_root_NgModule}后面包含这个提供商吗？
 
 +makeExcerpt(_appModuleTsVsMainTs, 'bad-alternative')
 

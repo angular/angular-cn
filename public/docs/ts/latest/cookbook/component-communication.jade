@@ -364,11 +364,11 @@ a(id="countdown-tests")
   
   Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late* to update the parent view's display of the countdown seconds. Angular's unidirectional data flow rule prevents us from updating the parent view's in the same cycle. We have to *wait one turn* before we can display the seconds.
   
-  然后Angular会调用`ngAfterViewInit`生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮儿*。
+  然后Angular会调用`ngAfterViewInit`生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮*。
   
   We use `setTimeout` to wait one tick and then revise the `seconds` method so that it takes future values from the timer component.
   
-  使用`setTimeout`来等下一轮儿，然后改写`seconds`方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
+  使用`setTimeout`来等下一轮，然后改写`seconds`方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
 
   ### Test it
   ### 测试

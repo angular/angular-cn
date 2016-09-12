@@ -6,7 +6,7 @@ include ../_util-fns
   and for loading that code from a server into a browser.
 
   [**Webpack**](https://webpack.github.io/)是一个广受欢迎的模块打包器，
-  这个工具用来把程序源码打包到一些方便易用的_块儿_中，以便把这些代码从服务器加载到浏览器中。
+  这个工具用来把程序源码打包到一些方便易用的_块_中，以便把这些代码从服务器加载到浏览器中。
 
   It's an excellent alternative to the *SystemJS* approach we use throughout the documentation.
   In this guide we get a taste of Webpack and how to use it with Angular 2 applications.
@@ -74,14 +74,14 @@ include ../_util-fns
   A bundle can include JavaScript, CSS styles, HTML, and almost any other kind of file.
 
   Webpack是一个强力的模块打包器。
-  所谓_包儿(bundle)_就是一个JavaScript文件，它把一堆_资源(assets)_合并在一起，以便它们可以在同一个文件请求中发回给客户端。
-  包儿中可以包含JavaScript、CSS样式、HTML以及很多其它类型的文件。
+  所谓_包(bundle)_就是一个JavaScript文件，它把一堆_资源(assets)_合并在一起，以便它们可以在同一个文件请求中发回给客户端。
+  包中可以包含JavaScript、CSS样式、HTML以及很多其它类型的文件。
 
   Webpack roams over your application source code,
   looking for `import` statements, building a dependency graph, and emitting one (or more) _bundles_.
   With plugin "loaders" Webpack can preprocess and minify different non-JavaScript files such as TypeScript, SASS, and LESS files.
 
-  Webpack会遍历你应用中的所有源码，查找`import`语句，构建出依赖图谱，并产出一个(或多个)_包儿_。
+  Webpack会遍历你应用中的所有源码，查找`import`语句，构建出依赖图谱，并产出一个(或多个)_包_。
   通过“加载器(loaders)”插件，Webpack可以对各种非JavaScript文件进行预处理和最小化(Minify)，比如TypeScript、SASS和LESS文件等。
 
   We determine what Webpack does and how it does it with a JavaScript configuration file, `webpack.config.js`.
@@ -114,12 +114,12 @@ a(id="entries-outputs")
   Here it sees that we're importing *@angular/core* so it adds that to its dependency list for (potential) inclusion in the bundle.
   It opens *@angular/core* and follows _its_ network of `import` statements until it has build the complete dependency graph from `app.ts` down.
 
-  这里，Webpack看到我们正在导入*@angular/core*，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包儿中做准备。
+  这里，Webpack看到我们正在导入*@angular/core*，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包中做准备。
   它打开*@angular/core*并追踪由_该文件的_`import`语句构成的网络，直到构建出从`app.ts`往下的整个依赖图谱。
 
   Then it **outputs** these files to the `app.js` _bundle file_ designated in configuration:
 
-  然后它把这些文件**输出**到当前配置所指定的_包儿文件_`app.js`中：
+  然后它把这些文件**输出**到当前配置所指定的_包文件_`app.js`中：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'one-output', 'webpack.config.js (single output)')(format=".")
 
@@ -127,17 +127,17 @@ a(id="entries-outputs")
   This `app.js` output bundle is a single JavaScript file that contains our application source and its dependencies.
   We'll load it later with a &lt;script&gt; tag in our index.html.
 
-  这个`app.js`输出包儿是个单一的JavaScript文件，它包含程序的源码及其所有依赖。
+  这个`app.js`输出包是个单一的JavaScript文件，它包含程序的源码及其所有依赖。
   后面我们将在`index.html`中用`<script>`标签来加载它。
 
   #### Multiple bundles
 
-  #### 多重包儿
+  #### 多重包
 
   We probably do not want one giant bundle of everything.
   We'll likely prefer to separate our volatile application app code from comparatively stable vendor code modules.
 
-  我们可能不会希望把所有东西打进一个巨型包儿，而更喜欢把多变的应用代码从相对稳定的第三方提供商模块中分离出来。
+  我们可能不会希望把所有东西打进一个巨型包，而更喜欢把多变的应用代码从相对稳定的第三方提供商模块中分离出来。
 
   We change the configuration so that we have two entry points, `app.ts` and `vendor.ts`:
 
@@ -149,7 +149,7 @@ a(id="entries-outputs")
   and emits *two* bundle files, one called `app.js` containing only our application code and
   another called `vendor.js` with all the vendor dependencies.
 
-  Webpack会构造出两个独立的依赖图谱，并产出*两个*包儿文件：一个叫做`app.js`，它只包含我们的应用代码；另一个叫做`vendor.js`，它包含所有的提供商依赖。
+  Webpack会构造出两个独立的依赖图谱，并产出*两个*包文件：一个叫做`app.js`，它只包含我们的应用代码；另一个叫做`vendor.js`，它包含所有的提供商依赖。
 
 .l-sub-section
   :marked
@@ -329,7 +329,7 @@ a(id="common-configuration")
 :marked
   We are splitting our application into three bundles:
 
-  我们正在把应用拆成三个包儿：
+  我们正在把应用拆成三个包：
 
   * polyfills - the standard polyfills we require to run Angular 2 applications in most modern browsers.
 
@@ -433,12 +433,12 @@ a(id="commons-chunk-plugin")
 
   We want the `app.js` bundle to contain only app code and the `vendor.js` bundle to contain only the vendor code.
 
-  我们希望`app.js`包儿中只包含应用代码，而`vendor.js`包中只包含提供商代码。
+  我们希望`app.js`包中只包含应用代码，而`vendor.js`包中只包含提供商代码。
 
   Our application code `imports` vendor code. Webpack is not smart enough to keep the vendor code out of the `app.js` bundle.
   We rely on the `CommonsChunkPlugin` to do that job.
 
-  应用代码中`import`了提供商代码。Webpack还没有智能到自动把提供商代码排除在`app.js`包儿之外。
+  应用代码中`import`了提供商代码。Webpack还没有智能到自动把提供商代码排除在`app.js`包之外。
   `CommonsChunkPlugin`插件能完成此工作。
 
 .l-sub-section
@@ -447,7 +447,7 @@ a(id="commons-chunk-plugin")
     Where Webpack finds that `app` has shared dependencies with `vendor`, it removes them from `app`.
     It would do the same if `vendor` and `polyfills` had shared dependencies (which they don't).
 
-    这里标记出了三个_块儿_之间的等级体系：`app` -> `vendor` -> `polyfills`。
+    这里标记出了三个_块_之间的等级体系：`app` -> `vendor` -> `polyfills`。
     当Webpack发现`app`与`vendor`有共享依赖时，就把它们从`app`中移除。
     在`vendor`和`polyfills`之间有共享依赖时也同样如此(虽然它们没啥可共享的)。
 
@@ -503,7 +503,7 @@ a(id="development-configuration")
   the dev server keeps all bundles in memory; it doesn't write them to disk.
   So we won't find any files in the `dist` folder (at least not any generated from `this development build`).
 
-  虽然我们告诉Webpack把输出包儿放到`dist`目录，但实际上开发服务器把这些包儿都放在了内存里，而不会把它们写到硬盘中。
+  虽然我们告诉Webpack把输出包放到`dist`目录，但实际上开发服务器把这些包都放在了内存里，而不会把它们写到硬盘中。
   所以在`dist`目录下是找不到任何文件的(至少现在这个开发环境下构建时没有)。
 
 
@@ -516,7 +516,7 @@ a(id="development-configuration")
   Our CSS are buried inside our Javascript bundles by default. The `ExtractTextPlugin` extracts them into
   external `.css` files that the `HtmlWebpackPlugin` inscribes as &lt;link&gt; tags into the `index.html`.
 
-  我们这些CSS默认情况下会被埋没在JavaScript包儿中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
+  我们这些CSS默认情况下会被埋没在JavaScript包中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
   这样`HtmlWebpackPlugin`插件就会转而把一个&lt;link&gt;标签写进`index.html`了。
 
   Refer to the Webpack documentation for details on these and other configuration options in this file
@@ -550,7 +550,7 @@ a(id="production-configuration")
 
   This time the output bundle files are physically placed in the `dist` folder.
 
-  这次，输出的包儿文件就被真的放到`dist`目录下了。
+  这次，输出的包文件就被真的放到`dist`目录下了。
 
   Webpack generates file names with cache-busting hash.
   Thanks to the `HtmlWebpackPlugin` we don't have to update the `index.html` file when the hashes changes.
@@ -567,7 +567,7 @@ a(id="production-configuration")
   * **DedupePlugin** - detects identical (and nearly identical) files and removes them from the output.
   * **DedupePlugin** - 检测完全相同(以及几乎完全相同)的文件，并把它们从输出中移除。
   * **UglifyJsPlugin** - minifies the bundles.
-  * **UglifyJsPlugin** - 最小化(minify)生成的包儿。
+  * **UglifyJsPlugin** - 最小化(minify)生成的包。
   * **ExtractTextPlugin** - extracts embedded css as external files, adding cache-busting hash to the filename.
   * **ExtractTextPlugin** - 把内嵌的css抽取成外部文件，并为其文件名添加“缓存无效哈希”。
   * **DefinePlugin** - use to define environment variables that we can reference within our application.
