@@ -87,8 +87,8 @@
   },
 
   "browser-support": {
-    "title": "Browser support",
-    "intro": "Browser support and polyfills guide."
+    "title": "浏览器支持",
+    "intro": "浏览器支持与填充（Polyfill）指南"
   },
 
   "component-styles": {

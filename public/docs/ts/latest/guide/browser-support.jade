@@ -4,8 +4,11 @@ block includes
 
 :marked
   # Browser support #  
+  # 浏览器支持 #
+  
   Angular supports most recent browsers. This includes the following specific versions:
 
+  Angular支持大多数常用浏览器，包括下列版本：
 table
   tr
     th Chrome
@@ -17,8 +20,8 @@ table
     th Android
     th IE mobile
   tr
-    td latest
-    td latest
+    td 最新版
+    td 最新版
     td 14
     td 11
     td 9
@@ -59,35 +62,59 @@ table
     Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request, 
     using <a href="https://saucelabs.com/" target="_blank">SauceLabs</a> and 
     <a href="https://www.browserstack.com" target="_blank">Browserstack</a>.
+    
+    Angular在持续集成果过程中，对每一个提交都会使用<a href="https://saucelabs.com/" target="_blank">SauceLabs</a>和 
+    <a href="https://www.browserstack.com" target="_blank">Browserstack</a>来在上述所有浏览器上执行单元测试。
 
 :marked
   # Polyfills #
+  # 填充库（Polyfill） #
   Angular is built on the latest standards of the web platform.
   Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
   
+  Angular构建于Web平台的最新标准之上。
+  要支持这么多浏览器就是一个不小的挑战了，因为它们并不支持现代浏览器的所有特性。
+  
   You compensate by loading polyfill scripts ("polyfills") on the host web page (`index.html`)
   that implement missing features in JavaScript.
+  
+  你可以通过在宿主页面（`index.html`）中加载填充脚本（“polyfills”）来加以弥补，这些脚本实现了浏览器缺失的JavaScript特性。
+  
 +makeExample('quickstart/ts/index.html', 'polyfills')(format='.')
 :marked
   A particular browser may require at least one polyfill to run _any_ Angular application. 
   You may need additional polyfills for specific features.
+  
+  要运行Angular应用，某些浏览器可能需要至少一个填充库。除此之外，如果要支持某些特定的特性，你可能还需要另一些填充库。
 
   The tables below will help you determine which polyfills to load, depending on the browsers you target and the features you use.
+  
+  下表将帮你决定该加载哪些填充库，具体取决于目标浏览器和要用到的特性。
   
 .alert.is-important
   :marked
     The suggested polyfills are the ones we know will run full Angular applications.
     You may need additional polyfills to support features not covered by this list.
     Note that polyfills cannot magically transform an old, slow browser into a modern, fast one.
+    
+    这些建议的填充库假设你运行的是完全由Angular书写的应用。
+    你可能还会需要另一些的填充库来支持没有出现在此列表中的哪些特性。
+    注意，这些填充库并没有神奇的魔力，可以把老旧、慢速的浏览器变成现代、快速的浏览器，它只是填充了API。
   
 :marked
   ## Mandatory polyfills ##
+  ## 强制性填充库 ##
   These are the polyfills required to run an Angular application on each supported browser:
   
+  下表是填充库对每个支持的浏览器都是需要的：
 table
   tr(style="vertical-align: top") 
-    th Browsers (desktop & mobile)
-    th Polyfills required
+    th 
+      p Browsers (desktop & mobile)
+      p 浏览器（桌面 & 移动）
+    th 
+      p Polyfills required
+      p 需要的填充库
   tr(style="vertical-align: top") 
     td Chrome, Firefox, Edge, Safari 9+
     td None
@@ -104,26 +131,45 @@ table
 
 :marked
   ## Optional browser features to polyfill ##
+  ## 可选浏览器特性的填充库 ##
   Some features of Angular may require additional polyfills.
+  
+  有些Angular特性可能需要额外的填充库。
   
   For example, the animations library relies on the standard web animation API, which is only available in Chrome and Firefox today.
   You'll need a polyfill to use animations in other browsers.
   
+  比如，动画库依赖于标准的动画API，目前它只在Chrome和Firefox上可用。你可能需要一个填充库来在其它浏览器上使用动画功能。
+  
   Here are the features which may require additional polyfills:
 
+  下列特性可能需要额外的填充库：
+  
 table
   tr(style="vertical-align: top") 
-    th Feature
-    th Polyfill
-    th(style="width: 50%")  Browsers (desktop & mobile)
+    th 
+      p Feature
+      p 特性
+    th 
+      p Polyfill
+      p 填充库
+    th(style="width: 50%")  
+      p Browsers (desktop & mobile)
+      p 浏览器（桌面 & 移动）
 
   tr(style="vertical-align: top") 
     td
       a(href="./animations.html") Animations
+      a(href="./animations.html") 动画
     td
       :marked
         [Web Animations](#web-animations)
-    td All but Chrome and Firefox<br>Not supported in IE9
+        
+        [Web动画](#web-animations)
+        
+    td 
+      p All but Chrome and Firefox<br>Not supported in IE9
+      p 出Chrome和Firefox外的所有，但不支持IE9
   tr(style="vertical-align: top") 
     td
       a(href="../api/common/index/DatePipe-class.html" target="_blank") Date
@@ -131,25 +177,36 @@ table
       a(href="../api/common/index/CurrencyPipe-class.html" target="_blank") currency
       span , 
       a(href="../api/common/index/DecimalPipe-class.html" target="_blank") decimal
-      span  and 
+      span  和 
       a(href="../api/common/index/PercentPipe-class.html" target="_blank") percent
-      span  pipes
+      span  管道
     td
       :marked
         [Intl API](#intl)
-    td All but Chrome, Firefox, Edge and IE11
+    td 
+      p All but Chrome, Firefox, Edge and IE11
+      p 除了Chrome、Firefox、Edge和IE11外的所有
   tr(style="vertical-align: top") 
     td 
-      a(href="../api/common/index/NgClass-directive.html" target="_blank") NgClass
-      span  on SVG elements
+      p
+        a(href="../api/common/index/NgClass-directive.html" target="_blank") NgClass
+        span  on SVG elements
+      p
+        | 在SVG元素上用
+        a(href="../api/common/index/NgClass-directive.html" target="_blank") NgClass
     td 
       :marked
         [classList](#classlist)
     td IE10, IE11
   tr(style="vertical-align: top") 
     td
-      a(href="./server-communication.html") Http
-      span  when sending and receiving binary data
+      p
+        a(href="./server-communication.html") Http
+        span  when sending and receiving binary data
+      p
+        span 用 
+        a(href="./server-communication.html") Http
+        span 发送和接受二进制数据
     td 
       :marked
         [Typed&nbsp;Array](#typedarray) <br>[Blob](#blob)<br>[FormData](#formdata)
@@ -157,13 +214,22 @@ table
 
 :marked
   ## Suggested polyfills ##
+  ## 建议的填充库 ##
+  
   Below are the polyfills which are used to test the framework itself. They are a good starting point for an application. 
 
+  下表中是用来测试框架本身的填充库，它们是应用程序的优质起点。
 table
   tr
-    th Polyfill
-    th Licence
-    th Size*
+    th 
+      p Polyfill
+      p 填充库
+    th 
+      p Licence
+      p 授权方式
+    th 
+      p Size*
+      p 大小*
   tr
     td
       a#core-es6(href="https://github.com/zloirock/core-js" target="_blank") ES6
@@ -172,7 +238,9 @@ table
   tr
     td
      a#classlist(href="https://github.com/eligrey/classList.js" target="_blank") classList
-    td Public domain
+    td 
+      p Public domain
+      p 公共域
     td 1KB
   tr
     td
@@ -181,12 +249,18 @@ table
     td 13.5KB
   tr
     td 
-      a#web-animations(href="https://github.com/web-animations/web-animations-js" target="_blank") Web Animations
+      p 
+        a(href="https://github.com/web-animations/web-animations-js" target="_blank") Web Animations
+      p 
+        a#web-animations(href="https://github.com/web-animations/web-animations-js" target="_blank") Web动画
     td Apache
     td 14.8KB
   tr
     td
-      a#typedarray(href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js" target="_blank") Typed Array
+      p 
+        a(href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js" target="_blank") Typed Array
+      p 
+        a#typedarray(href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js" target="_blank") 带类型的数组
     td MIT
     td 4KB
   tr
@@ -202,3 +276,5 @@ table
 
 :marked
   * Figures are for minified and gzipped code, computed with the <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
+
+  * 这些指标测量的是最小化（minify）并且gzip过的代码，使用<a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>计算出的结果。
