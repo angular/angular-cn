@@ -3,60 +3,120 @@ block includes
 
 :marked
   # FAQs
+  
+  # 常见问题（FAQ）
 
   **Angular Modules** help organize an application into cohesive blocks of functionality.
+  
+  **Angular模块**可以帮我们把应用组织成一些紧密相关的代码块。
 
   The [Angular Modules chapter](../guide/ngmodule.html) covers the concepts and takes you step by step
   from the most elementary `@NgModule` to a multi-faceted sample with lazy loaded modules.
+  
+  [Angular模块](../guide/ngmodule.html)页面涵盖了此概念，并带你一步步的从最基本的`@NgModule`到包罗万象的延迟加载模块。
 
   _This_ chapter answers the questions many developers ask about Angular Module design and implementation.
+  
+  *这里*回答的是开发者常问起的关于Angular模块设计与实现的问题。
+  
 .alert.is-important
   :marked
     These FAQs assume that you have already read the [Angular Module](../guide/ngmodule.html) chapter.
 
+    本FAQ假设你已经读完了[Angular模块](../guide/ngmodule.html)页。
+    
 :marked
   Declarations
+  
+  声明
+  
   * [What classes should I add to _declarations_?](#q-what-to-declare)
+  * [我应该把哪些类加到_declarations_中？](#q-what-to-declare)
   * [What is a _declarable_?](#q-declarable)
+  * [什么是*可声明的*？](#q-declarable)
   * [What classes should I *not* add to _declarations_?](#q-what-not-to-declare)
+  * [我*不应该*把哪些类加到_declarations_中？](#q-what-not-to-declare)
   * [Why list the same component in multiple _NgModule_ properties?](#q-why-multiple-mentions)
+  * [为什么要把同一个组件列在*NgModule*的不同属性中？](#q-why-multiple-mentions)
   * [What does "_Can't bind to 'x' since it isn't a known property of 'y'_" mean?](#q-why-cant-bind-to)
+  * ["_Can't bind to 'x' since it isn't a known property of 'y'_"是什么意思？](#q-why-cant-bind-to)
 
   Imports
+  
+  导入
+  
   * [What should I import?](#q-what-to-import)
+  * [我应该导入什么？](#q-what-to-import)
   * [Should I import _BrowserModule_ or _CommonModule_?](#q-browser-vs-common-module)
+  * [我应该导入_BrowserModule_还是_CommonModule_？](#q-browser-vs-common-module)
   * [What if I import the same module twice?](#q-reimport)
+  * [如果我两次导入多一个模块会怎么样？](#q-reimport)
 
   Exports  
+  
+  导出
+  
   * [What should I export?](#q-what-to-export)
+  * [我应该导出什么？](#q-what-to-export)
   * [What should I *not* export?](#q-what-not-to-export)
+  * [我*不*应该导出什么？](#q-what-not-to-export)
   * [Can I re-export imported classes and modules?](#q-re-export)
+  * [我能重新导出（re-export）所导入的类和模块吗？](#q-re-export)
   * [What is the _forRoot_ method?](#q-for-root)
+  * [_forRoot_方法是什么？](#q-for-root)
 
   Service Providers
+  
+  服务提供商
+  
   * [Why is a service provided in a feature module visible everywhere?](#q-module-provider-visibility)
+  * [为什么特性模块中提供的服务是到处可见的？](#q-module-provider-visibility)
   * [Why is a service provided in a _lazy loaded_ module visible only to that module?](#q-lazy-loaded-module-provider-visibility)
+  * [为什么*延迟加载*模块中的服务提供商只对那个模块本身可见？](#q-lazy-loaded-module-provider-visibility)
   * [What if two modules provide the _same_ service?](#q-module-provider-duplicates)
+  * [如果两个模块提供了*同一个*服务会怎样？](#q-module-provider-duplicates)
   * [How do I restrict service scope to a module?](#q-component-scoped-providers)
+  * [该如何把服务的范围限制在某个模块中？](#q-component-scoped-providers)
   * [Should I add app-wide providers to the root _AppModule_ or the root _AppComponent_?](#q-root-component-or-module)
+  * [我该把全应用级的提供商添加到根模块*AppModule*还是根组件*AppComponent*？](#q-root-component-or-module)
   * [Should I add other providers to a module or a component?](#q-component-or-module)
+  * [我该把其它提供商添加到模块中还是组件中？](#q-component-or-module)
   * [Why is it bad if _SharedModule_ provides a service to a lazy loaded module?](#q-why-bad)
+  * [为什么让*SharedModule*为延迟加载模块提供服务是个馊主意？](#q-why-bad)
   * [Why does lazy loading create a child injector?](#q-why-child-injector)  
+  * [为什么延迟加载模块要创建一个子注入器？](#q-why-child-injector)  
   * [How can I tell if a module or service was previously loaded?](#q-is-it-loaded)
+  * [我要怎样才能知道一个模块或服务已经被加载过？](#q-is-it-loaded)
 
   Entry Components
+  
+  入口组件
+  
   * [What is an _entry component_?](#q-entry-component-defined)
+  * [什么是*入口组件*？](#q-entry-component-defined)
   * [What is the difference between a _bootstrap_ component and an _entry component_?](#q-bootstrap_vs_entry_component)
+  * [在*引导*组件和*入口*组件之间有什么不同？](#q-bootstrap_vs_entry_component)
   * [When do I add components to _entryComponents_?](#q-when-entry-components)
+  * [什么情况下我该把组件添加到*entryComponent*中？](#q-when-entry-components)
   * [Why does Angular need _entryComponents_?](#q-why-entry-components)
+  * [为什么Angular会需要_entryComponents_？](#q-why-entry-components)
 
   General
+  
+  一般问题
+  
   * [What kinds of modules should I have and how should I use them?](#q-module-recommendations)
+  * [我需要哪些类型的模块？我该如何使用它们？](#q-module-recommendations)
   * [What's the difference between Angular and JavaScript Modules?](#q-ng-vs-js-modules)
+  * [在Angular模块和JavaScript模块之间有什么不同？](#q-ng-vs-js-modules)
   * [What is a "template reference"?](#q-template-reference)
+  * [什么是“模板引用”？](#q-template-reference)
   * [How does Angular find components, directives, and pipes in a template?](#q-template-reference)  
+  * [Angular如何是在模板中查找组件、指令和管道的？](#q-template-reference)  
   * [What is the Angular Compiler?](#q-angular-compiler)
+  * [什么是Angular编译器（Compiler）？](#q-angular-compiler)
   * [Can you summarize the _NgModule_ API?](#q-ngmodule-api)
+  * [你能总结一下_NgModule_ API吗？](#q-ngmodule-api)
 
 .l-hr
 
@@ -64,12 +124,19 @@ a#q-what-to-declare
 .l-main-section
 :marked
   ### What classes should I add to _declarations_?
+  
+  ### 我该把哪些类加到*declarations*中？
 
   Add [declarable](#q-declarable) classes &mdash; components, directives, and pipes &mdash; to a `declarations` list.
+  
+  把[可声明](#q-declarable)的类（组件、指令和管道）添加到`declarations`列表中。
 
   These classes must be declared in _exactly one_ module of the application.
   Declare them in _this_ module if they _belong_ to this module.
 
+  这些类只能声明在应用程序的*一个*模块中。
+  只有当它们*从属于*某个个模块时，才能把它声明在*此*模块中。
+  
 .l-hr
 
 a#q-declarable
@@ -77,9 +144,13 @@ a#q-declarable
 :marked
   ### What is a _declarable_?
   
+  ### 什么是*可声明的*？
+  
   _Declarables_ are the class types &mdash; components, directives, and pipes &mdash;
   that you can add to a module's `declarations` list. 
   They're the _only_ classes that you can add to `declarations`.
+  
+  *可声明的*就是组件、指令和管道等可以被加到模块的`declarations`列表中的类。它们也是*仅有的*能被加到`declarations`中的类。
 
 .l-hr
 
@@ -87,39 +158,68 @@ a#q-what-not-to-declare
 .l-main-section
 :marked
   ### What classes should I _not_ add to _declarations_?
+  
+  ### 哪些类*不*应该加到`declarations`中？
 
   Only [declarable](#q-declarable) classes can be added to a module's `declarations` list.
+  
+  只有[可声明的](#q-declarable)类才能加到模块的`declarations`列表中。
 
   Do *not* declare 
+  
+  *不要*声明：
+  
   * a class that is already declared in another module, whether an app module, @angular module, or 3rd party module
+  
+  * 已经被其它模块声明过的类，无论是在应用模块、@angular模块还是第三方模块中。
 
   * an array of directives imported from another module. 
   For example, do not declare FORMS_DIRECTIVES from `@angular/forms`.
+  
+  * 一组从其它模块中导入的指令。
+  例如，不要声明来自`@angular/forms`的FORMS_DIRECTIVES。
 
   * module classes
   
+  * 模块类
+  
   * service classes
+  
+  * 服务类
 
   * non-Angular classes and objects such as 
   strings, numbers, functions, entity models, configurations, business logic, and helper classes.
 
+  * 非Angular的类和对象，比如：字符串、数字、函数、实体模型、配置、业务逻辑和辅助类。
+  
 .l-hr
 
 a#q-why-multiple-mentions
 .l-main-section
 :marked
   ### Why list the same component in multiple _NgModule_ properties?
+  
+  ### 为什么要把同一个组件声明在不同的*NgModule*属性中？
 
   We often see `AppComponent` listed in both `declarations` and `bootstrap`.
   We might see `HeroComponent` listed in `declarations`, `exports`, and `entryComponents`.
   
+  我们经常看到`AppComponent`被同时列在`declarations`和`bootstrap`中。
+  我们还可能看到`HeroComponent`被同时列在`declarations`、`exports`和`entryComponent`中。
+  
   That _feels_ redundant but these properties have different functions 
   and we can't infer that membership in one list implies membership in another list.
+  
+  这*看起来*是多余的，不过这些函数具有不同的功能，我们无法从它出现在一个列表中推断出它也应该在另一个列表中。
 
   * `AppComponent` could be declared in this module but not bootstrapped.
+  * `AppComponent`可能被声明在此模块中，但可能不是引导组件。
   * `AppComponent` could be bootstrapped in this module but declared in a different feature module.
+  * `AppComponent`可能在此模块中引导，但可能是由另一个特性模块声明的。
   * `HeroComponent` could be imported from another app module (so we can't declare it) and re-exported by this module.
+  * `HeroComponent`可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。
   * `HeroComponent` could be exported for inclusion in an external component's template and also dynamically loaded in a pop-up dialog.
+  * `HeroComponent`可能被导入，以便用在外部组件的模板中，但也可能同时被一个弹出式对话框加载。
 
 .l-hr
 
@@ -127,14 +227,23 @@ a#q-why-cant-bind-to
 .l-main-section
 :marked
   ### What does "_Can't bind to 'x' since it isn't a known property of 'y'_" mean?
+  
+  ### "_Can't bind to 'x' since it isn't a known property of 'y'_"是什么意思？
 
   This error usually means either that you neglected to declare the directive "x" 
   or you haven't imported the module to which "x" belongs.
+  
+  这个错误通常意味着你或者忘了声明指令“x”，或者你没有导入“x”所属的模块。
 
   For example, if "x" is `ngModel`, you probably haven't imported the `FormsModule` from `@angular/forms`.
+  
+  比如，如果这个“x”是`ngModel`，你可能忘了从`@angular/forms`中导入`FormsModule`。
 
   Perhaps you declared "x" in an application sub-module but forgot to export it? 
   The "x" class won't be visible to other modules until you add it to the `exports` list.
+  
+  也可能你在该应用的子模块中声明了“x”，但是忘了从那个模块导出它。
+  除非你把这个“x”类加入了`exports`列表中，否则它对其它模块将是不可见的。
 
 .l-hr
 
@@ -142,6 +251,8 @@ a#q-what-to-import
 .l-main-section
 :marked
   ### What should I import?
+  
+  ### 我该导入什么？
 
   Import modules whose public (exported) [declarable classes](#q-declarable) 
   you need to reference in this module's component templates.

@@ -1,35 +1,84 @@
 {
   "currentEnvironment": "TypeScript",
   "version": {
-    "raw": "2.0.0-rc.1",
+    "raw": "2.0.0-rc.5",
     "major": 2,
     "minor": 0,
     "patch": 0,
     "prerelease": [
       "local"
     ],
-    "build": "sha.89c197a",
+    "build": "sha.8c6f6c1",
     "version": "2.0.0-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.0.0-local+sha.89c197a",
+    "full": "2.0.0-local+sha.8c6f6c1",
     "branch": "master",
-    "commitSHA": "89c197a385e2ff5aeb8c190ed20db1389f477b3b"
+    "commitSHA": "8c6f6c173da20113d467e57fd4ee5ab06d0a056b"
   },
   "sections": [
     {
       "name": "引导",
-      "description": "<p><code>import {bootstrap} from &#39;angular2/platform/browser&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { platformBrowserDynamic } from &#39;@angular/platform-browser-dynamic&#39;;</code>\n\n</p>\n",
       "items": [
         {
-          "syntax": "bootstrap​(MyAppComponent, [MyService, provide(...)]);",
+          "syntax": "platformBrowserDynamic().bootstrapModule(MyAppModule);",
           "bold": [
-            "provide"
+            "platformBrowserDynamic().bootstrapModule"
           ],
-          "description": "<p>以MyAppComponent作为根组件引导应用，并且配置DI的各种提供商。</p>\n"
+          "description": "<p>使用JIT编译器引导一个AppModule模块定义的应用</p>\n"
         }
       ],
       "index": 0
+    },
+    {
+      "name": "NgModules",
+      "description": "<p><code>import { NgModule } from &#39;@angular/core&#39;;</code>\n</p>\n",
+      "items": [
+        {
+          "syntax": "@NgModule({ declarations: ..., imports: ..., exports: ..., bootstrap: ...})\nclass MyModule {}",
+          "bold": [
+            "NgModule"
+          ],
+          "description": "<p>定义一个模块，其中包括组件、指令、管道和提供商。</p>\n"
+        },
+        {
+          "syntax": "declarations: [MyRedComponent, MyBlueComponent, MyDatePipe]",
+          "bold": [
+            "declarations:"
+          ],
+          "description": "<p>一个数组，包括从属于当前模块的组件、指令和管道。</p>\n"
+        },
+        {
+          "syntax": "imports: [BrowserModule, SomeOtherModule]",
+          "bold": [
+            "imports:"
+          ],
+          "description": "<p>一个数组，包括被导入到当前模块中的所有模块。来自被导入模块的<code>declarations</code>也同样对当前模块有效。</p>\n"
+        },
+        {
+          "syntax": "exports: [MyRedComponent, MyDatePipe]",
+          "bold": [
+            "exports:"
+          ],
+          "description": "<p>一个数组，包括对导入当前模块的模块可见的组件、指令、管道。</p>\n"
+        },
+        {
+          "syntax": "providers: [MyService, { provide: ... }]",
+          "bold": [
+            "providers:"
+          ],
+          "description": "<p>一个数组，包括在对前模块及导入当前模块的模块中的内容物（组件、指令、管道、提供商等）可见的依赖注入提供商。</p>\n"
+        },
+        {
+          "syntax": "bootstrap: [MyAppComponent]",
+          "bold": [
+            "bootstrap:"
+          ],
+          "description": "<p>一个数组，包括由当前模块引导时应该引导的组件</p>\n"
+        }
+      ],
+      "index": 1
     },
     {
       "name": "模板语法",
@@ -75,7 +124,7 @@
           "bold": [
             "{{ponyName}}"
           ],
-          "description": "<p>把属性绑定到一个插值表达式字符串，比如 &quot;Hello Seabiscuit&quot;。它等价于：\n<code>&lt;div [title]=&quot;&#39;Hello&#39; + ponyName&quot;&gt;</code></p>\n"
+          "description": "<p>把属性绑定到一个插值表达式字符串，比如 &quot;Hello Seabiscuit&quot;。它等价于：\n<code>&lt;div [title]=&quot;&#39;Hello &#39; + ponyName&quot;&gt;</code></p>\n"
         },
         {
           "syntax": "<p>Hello {{ponyName}}</p>",
@@ -135,11 +184,11 @@
           "description": "<p><code>&lt;svg&gt;</code>元素在无需前缀的情况下，也能被自动检测为SVG。</p>\n"
         }
       ],
-      "index": 1
+      "index": 2
     },
     {
-      "name": "内建指令",
-      "description": "<p><code>import {NgIf, ...} from &#39;angular2/common&#39;;</code>\n\n</p>\n",
+      "name": "内置指令",
+      "description": "<p><code>import { CommonModule } from &#39;@angular/common&#39;;</code>\n\n</p>\n",
       "items": [
         {
           "syntax": "<section *ngIf=\"showSection\">",
@@ -156,11 +205,11 @@
           "description": "<p>把li元素及其内容转化成一个模板，并用它来为列表中的每个条目初始化视图。</p>\n"
         },
         {
-          "syntax": "<div [ngSwitch]=\"conditionExpression\">\n  <template [ngSwitchWhen]=\"case1Exp\">...</template>\n  <template ngSwitchWhen=\"case2LiteralString\">...</template>\n  <template ngSwitchDefault>...</template>\n</div>",
+          "syntax": "<div [ngSwitch]=\"conditionExpression\">\n  <template [ngSwitchCase]=\"case1Exp\">...</template>\n  <template ngSwitchCase=\"case2LiteralString\">...</template>\n  <template ngSwitchDefault>...</template>\n</div>",
           "bold": [
             "[ngSwitch]",
-            "[ngSwitchWhen]",
-            "ngSwitchWhen",
+            "[ngSwitchCase]",
+            "ngSwitchCase",
             "ngSwitchDefault"
           ],
           "description": "<p>基于conditionExpression的当前值，从内嵌模板中选取一个，有条件的切换div的内容。</p>\n"
@@ -173,11 +222,11 @@
           "description": "<p>把一个元素上CSS类的出现与否，绑定到一个真值映射表上。右侧的表达式应该返回类似{class-name: true/false}的映射表。</p>\n"
         }
       ],
-      "index": 2
+      "index": 3
     },
     {
       "name": "表单",
-      "description": "<p><code>import {FORM_DIRECTIVES} from &#39;angular2/common&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { FormsModule } from &#39;@angular/forms&#39;;</code>\n\n</p>\n",
       "items": [
         {
           "syntax": "<input [(ngModel)]=\"userName\">",
@@ -187,11 +236,11 @@
           "description": "<p>提供双向绑定，为表单控件提供解析和验证。</p>\n"
         }
       ],
-      "index": 3
+      "index": 4
     },
     {
       "name": "类装饰器",
-      "description": "<p><code>import {Directive, ...} from &#39;angular2/core&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Directive, ... } from &#39;@angular/core&#39;;</code>\n\n</p>\n",
       "items": [
         {
           "syntax": "@Component({...})\nclass MyComponent() {}",
@@ -222,7 +271,7 @@
           "description": "<p>声明当前类有一些依赖，当依赖注入器创建该类的实例时，这些依赖应该被注入到构造函数中。\n\n</p>\n"
         }
       ],
-      "index": 4
+      "index": 5
     },
     {
       "name": "指令配置",
@@ -236,21 +285,28 @@
           "description": "<p>指定一个CSS选择器，以便在模板中找出该指令。支持的选择器包括<code>element</code>,\n<code>[attribute]</code>, <code>.class</code>, 和 <code>:not()</code>。</p>\n<p>不支持父子关系选择器。</p>\n"
         },
         {
-          "syntax": "providers: [MyService, provide(...)]",
+          "syntax": "providers: [MyService, { provide: ... }]",
           "bold": [
             "providers:"
           ],
           "description": "<p>为当前指令及其子指令提供依赖注入的providers数组。</p>\n"
         }
       ],
-      "index": 5
+      "index": 6
     },
     {
       "name": "组件配置",
-      "description": "<p>\n<code>@Component</code> extends <code>@Directive</code>,\nso the <code>@Directive</code> configuration applies to components as well</p>\n",
+      "description": "<p>\n<code>@Component</code>扩展了<code>@Directive</code>,\n以便<code>@Directive</code>中的配置项也能用在组件上</p>\n",
       "items": [
         {
-          "syntax": "viewProviders: [MyService, provide(...)]",
+          "syntax": "moduleId: module.id",
+          "bold": [
+            "moduleId:"
+          ],
+          "description": "<p>如果设置了，<code>templateUrl</code>和<code>styleUrl</code>会被解析成相对于组件的。</p>\n"
+        },
+        {
+          "syntax": "viewProviders: [MyService, { provide: ... }]",
           "bold": [
             "viewProviders:"
           ],
@@ -271,27 +327,13 @@
             "styleUrls:"
           ],
           "description": "<p>内联CSS样式或外部样式表URL的列表，用于给组件的视图添加样式。</p>\n"
-        },
-        {
-          "syntax": "directives: [MyDirective, MyComponent]",
-          "bold": [
-            "directives:"
-          ],
-          "description": "<p>组件模板中用到的指令列表。</p>\n"
-        },
-        {
-          "syntax": "pipes: [MyPipe, OtherPipe]",
-          "bold": [
-            "pipes:"
-          ],
-          "description": "<p>组件模板中用到的管道列表。</p>\n"
         }
       ],
-      "index": 6
+      "index": 7
     },
     {
       "name": "供指令类或组件类用的字段装饰器。",
-      "description": "<p><code>import {Input, ...} from &#39;angular2/core&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Input, ... } from &#39;@angular/core&#39;;</code>\n\n</p>\n",
       "items": [
         {
           "syntax": "@Input() myProperty;",
@@ -305,7 +347,7 @@
           "bold": [
             "@Output()"
           ],
-          "description": "<p>声明一个输出属性，以便我们可以通过事件绑定进行订阅。(比如：<code>&lt;my-cmp (my-event)=&quot;doSomething()&quot;&gt;</code>)</p>\n"
+          "description": "<p>声明一个输出属性，以便我们可以通过事件绑定进行订阅。(比如：<code>&lt;my-cmp (my-event)=&quot;doSomething()&quot;&gt;</code>).</p>\n"
         },
         {
           "syntax": "@HostBinding('[class.valid]') isValid;",
@@ -350,7 +392,7 @@
           "description": "<p>把组件视图查询(myPredicate)的全部结果绑定到类的myChildComponents属性。对指令无效。</p>\n"
         }
       ],
-      "index": 7
+      "index": 8
     },
     {
       "name": "指令和组件的变更检测与生命周期钩子",
@@ -420,14 +462,14 @@
           "description": "<p>在所属实例被销毁前，只调用一次。</p>\n"
         }
       ],
-      "index": 8
+      "index": 9
     },
     {
       "name": "依赖注入配置",
-      "description": "<p><code>import {provide} from &#39;angular2/core&#39;;</code>\n\n</p>\n",
+      "description": "<p></p>\n",
       "items": [
         {
-          "syntax": "provide(MyService, {useClass: MyMockService})",
+          "syntax": "{ provide: MyService, useClass: MyMockService }",
           "bold": [
             "provide",
             "useClass"
@@ -435,7 +477,7 @@
           "description": "<p>把MyService类的提供商设置或改写为MyMockService。</p>\n"
         },
         {
-          "syntax": "provide(MyService, {useFactory: myFactory})",
+          "syntax": "{ provide: MyService, useFactory: myFactory }",
           "bold": [
             "provide",
             "useFactory"
@@ -443,7 +485,7 @@
           "description": "<p>把MyService的提供商设置或改写为myFactory工厂函数。</p>\n"
         },
         {
-          "syntax": "provide(MyValue, {useValue: 41})",
+          "syntax": "{ provide: MyValue, useValue: 41 }",
           "bold": [
             "provide",
             "useValue"
@@ -451,77 +493,100 @@
           "description": "<p>把MyValue的提供商设置或改写为值41。</p>\n"
         }
       ],
-      "index": 9
+      "index": 10
     },
     {
       "name": "路由与导航",
-      "description": "<p><code>import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, ...} from &#39;angular2/router&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Routes, RouterModule, ... } from &#39;@angular/router&#39;;</code>\n\n</p>\n",
       "items": [
         {
-          "syntax": "@RouteConfig([\n  { path: '/:myParam', component: MyComponent, name: 'MyCmp' },\n  { path: '/staticPath', component: ..., name: ...},\n  { path: '/*wildCardParam', component: ..., name: ...}\n])\nclass MyComponent() {}",
+          "syntax": "const routes: Routes = [\n  { path: '', component: HomeComponent },\n  { path: 'path/:routeParam', component: MyComponent },\n  { path: 'staticPath', component: ... },\n  { path: '**', component: ... },\n  { path: 'oldPath', redirectTo: '/staticPath' },\n  { path: ..., component: ..., data: { message: 'Custom' } }\n]);\n\nconst routing = RouterModule.forRoot(routes);",
           "bold": [
-            "@RouteConfig"
+            "Routes"
           ],
-          "description": "<p>为所装饰的组件配置路由。支持静态、参数化、带通配符的路由。</p>\n"
+          "description": "<p>为应用配置路由。支持静态、参数化、重定向和通配符路由。还支持自定义路由数据和解析。</p>\n"
         },
         {
-          "syntax": "<router-outlet></router-outlet>",
+          "syntax": "\n<router-outlet></router-outlet>\n<router-outlet name=\"aux\"></router-outlet>\n",
           "bold": [
             "router-outlet"
           ],
           "description": "<p>标记一个位置，用于加载当前激活路由的组件。</p>\n"
         },
         {
-          "syntax": "<a [routerLink]=\"[ '/MyCmp', {myParam: 'value' } ]\">",
+          "syntax": "\n<a routerLink=\"/path\">\n<a [routerLink]=\"[ '/path', routeParam ]\">\n<a [routerLink]=\"[ '/path', { matrixParam: 'value' } ]\">\n<a [routerLink]=\"[ '/path' ]\" [queryParams]=\"{ page: 1 }\">\n<a [routerLink]=\"[ '/path' ]\" fragment=\"anchor\">\n",
           "bold": [
             "[routerLink]"
           ],
-          "description": "<p>基于路由指令创建指向不同视图的链接，由路由名和可选参数组成。路由名匹配一个已配置路由的name属性。添加“/”前缀可以导航到根路由。添加“./”前缀可以导航到子路由。</p>\n"
+          "description": "<p>基于路由指令创建指向不同视图的链接，由路由路径、必选参数、可选参数、查询参数和片段（fragment）组成。添加“/”前缀可以导航到根路由。添加“./”前缀可以导航到子路由。添加“../sibling”前缀可以导航到兄弟路由或父路由。</p>\n"
         },
         {
-          "syntax": "@CanActivate(() => { ... })class MyComponent() {}",
-          "bold": [
-            "@CanActivate"
-          ],
-          "description": "<p>用函数定义的一个组件装饰器，路由器会先调用它来检测是否应该激活该组件。应该返回布尔值或承诺(Promise)。</p>\n"
+          "syntax": "<a [routerLink]=\"[ '/path' ]\" routerLinkActive=\"active\">",
+          "bold": [],
+          "description": "<p>The provided class(es) will be added to the element when the routerLink becomes the current active route.</p>\n"
         },
         {
-          "syntax": "routerOnActivate(nextInstruction, prevInstruction) { ... }",
+          "syntax": "class CanActivateGuard implements CanActivate {\n    canActivate(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canActivate: [CanActivateGuard] }",
           "bold": [
-            "routerOnActivate"
+            "CanActivate"
           ],
-          "description": "<p>导航到一个组件之后，路由器调用该组件的routerOnActivate方法(如已定义)。</p>\n"
+          "description": "<p>一个用来定义类的接口，路由器会首先调用它来决定是否应该激活该组件。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。</p>\n"
         },
         {
-          "syntax": "routerCanReuse(nextInstruction, prevInstruction) { ... }",
+          "syntax": "class CanDeactivateGuard implements CanDeactivate<T> {\n    canDeactivate(\n      component: T,\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canDeactivate: [CanDeactivateGuard] }",
           "bold": [
-            "routerCanReuse"
+            "CanDeactivate"
           ],
-          "description": "<p>路由器调用组件的routerCanReuse方法(如已定义)来检测是复用本实例还是销毁它并创建一个新的。应该返回布尔值或承诺(Promise)。</p>\n"
+          "description": "<p>一个用来定义类的接口，路由器在导航后会首先调用它来决定是否应该取消该组件的激活状态。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。</p>\n"
         },
         {
-          "syntax": "routerOnReuse(nextInstruction, prevInstruction) { ... }",
+          "syntax": "class CanActivateChildGuard implements CanActivateChild {\n    canActivateChild(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canActivateChild: [CanActivateGuard], children: ... }",
           "bold": [
-            "routerOnReuse"
+            "CanActivateChild"
           ],
-          "description": "<p>当路由器发现可以复用一个组件实例时，它调用组件的routerOnReuse方法(如已定义)。</p>\n"
+          "description": "<p>一个用来定义类的接口，路由器会首先调用它来决定是否应该激活该子路由。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。\n"
         },
         {
-          "syntax": "routerCanDeactivate(nextInstruction, prevInstruction) { ... }",
+          "syntax": "class ResolveGuard implements Resolve<T> {\n    resolve(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<any>|Promise<any>|any { ... }\n}\n\n{ path: ..., resolve: [ResolveGuard] }",
           "bold": [
-            "routerCanDeactivate"
+            "Resolve"
           ],
-          "description": "<p>路由器会调用如果要完成导航就得移除的每个组件的routerCanDeactivate方法(如已定义)。当且仅当所有的该方法都返回true或者承诺(Promise)被解决时，导航才会继续。</p>\n"
+          "description": "<p>一个用来定义类的接口，路由器会在渲染该路由之前先调用它来解析路由数据。应该返回一个值或能解析为值的可观察对象(Observable)或承诺(Promise)。</p>\n"
         },
         {
-          "syntax": "routerOnDeactivate(nextInstruction, prevInstruction) { ... }",
+          "syntax": "class CanLoadGuard implements CanLoad {\n    canLoad(\n      route: Route\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canLoad: [CanLoadGuard], loadChildren: ... }",
           "bold": [
-            "routerOnDeactivate"
+            "CanLoad"
           ],
-          "description": "<p>在每个指令因为路由变更而被移除之前调用。可以返回一个承诺，来阻止移除本指令 —— 直到承诺(Promise)被解决。</p>\n"
+          "description": "<p>一个用来定义类的接口，路由器会首先调用它来决定一个延迟加载的模块是否应该被加载。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。</p>\n"
+        },
+        {
+          "syntax": "",
+          "bold": [],
+          "description": "<p></p>\n"
+        },
+        {
+          "syntax": "",
+          "bold": [],
+          "description": "<p>.</p>\n"
+        },
+        {
+          "syntax": "",
+          "bold": [],
+          "description": "<p></p>\n"
+        },
+        {
+          "syntax": "",
+          "bold": [],
+          "description": "<p></p>\n"
+        },
+        {
+          "syntax": "",
+          "bold": [],
+          "description": "<p></p>\n"
         }
       ],
-      "index": 10
+      "index": 11
     }
   ]
 }
