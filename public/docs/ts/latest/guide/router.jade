@@ -4,7 +4,7 @@ include ../_util-fns
   The Angular ***Router*** enables navigation from one [view](./glossary.html#view) to the next
   as users perform application tasks.
 
-  在用户使用应用程序时，Angular的***组件路由器***能让用户从一个[视图](./glossary.html#view)导航到另一个视图。
+  在用户使用应用程序时，Angular的***路由器***能让用户从一个[视图](./glossary.html#view)导航到另一个视图。
 
   We cover the router's primary features in this chapter, illustrating them through the evolution
   of a small application that we can <live-example>run live</live-example>.
@@ -594,8 +594,8 @@ table
   Our client is the Hero Employment Agency.
   Heroes need work and The Agency finds Crises for them to solve.
 
-  我们的客户是“英雄职介中心”。
-  英雄们需要找工作，而“职介中心”为他们寻找待解决的危机。
+  我们的客户是“英雄管理局”。
+  英雄们需要找工作，而“英雄管理局”为他们寻找待解决的危机。
 
   The application has three main feature areas:
 
@@ -607,7 +607,7 @@ table
 
   1. A *Heroes* area where we maintain the list of heroes employed by The Agency.
   
-  1. 一个*英雄*区，它维护由职介中心雇佣的英雄列表。
+  1. 一个*英雄*区，它维护由英雄管理局雇佣的英雄列表。
   
   1. An *Admin* area where we manage the list of crises and heroes displayed.
 
@@ -781,7 +781,7 @@ a#base-href
   for navigation. Thanks to `pushState`, we can make our in-app URL paths look the way we want them to
   look, e.g. `localhost:3000/crisis-center`. Our in-app URLs can be indistinguishable from server URLs.
 
-  组件路由器使用浏览器的[history.pushState](https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries)进行导航。
+  路由器使用浏览器的[history.pushState](https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries)进行导航。
   感谢`pushState`！有了它，我们就能按所期望的样子来显示应用内部的URL路径，比如：`localhost:3000/crisis-center`。虽然我们使用的全部是客户端合成的视图，但应用内部的这些URL看起来和来自服务器的没有什么不同。
 
   Modern HTML 5 browsers were the first to support `pushState` which is why many people refer to these URLs as
@@ -812,7 +812,7 @@ a#base-href
     Learn why "HTML 5" style is preferred, how to adjust its behavior, and how to switch to the
     older hash (#) style if necessary in the [Browser URL Styles](#browser-url-styles) appendix below.
 
-    HTML 5风格的导航是组件路由器的默认值。请到下面的附录[浏览器URL风格](#browser-url-styles)中学习为什么首选“HTML 5”风格、如何调整它的行为，以及如何在必要时切换回老式的hash（#）风格。
+    HTML 5风格的导航是路由器的默认值。请到下面的附录[浏览器URL风格](#browser-url-styles)中学习为什么首选“HTML 5”风格、如何调整它的行为，以及如何在必要时切换回老式的hash（#）风格。
 
 :marked
 .l-sub-section
@@ -850,7 +850,7 @@ a#base-href
   It's not part of the Angular 2 core. The router is an optional service because not all applications
   need routing and, depending on your requirements, you may need a different routing library.
   
-  组件路由器在它自己的`@angular/router`包中。
+  路由器在它自己的`@angular/router`包中。
   它不是Angular 2内核的一部分。该路由器是可选的服务，这是因为并不是所有应用都需要路由，并且，如果需要，你还可能需要另外的路由库。
 
   We teach our router how to navigate by configuring it with routes.
@@ -1895,7 +1895,7 @@ h3#merge-hero-routes Import hero module into AppModule
   now. This is important because their can be only **one** owner for a declared component. In our case, the `Heroes` module is
   the owner of the `Heroes` components and is making them available to the `AppModule`.
   
-  我们从根NgModule的`declarations`中移除了`HeroListComponent`，因为它现在改有`HeroesModule`提供了。
+  我们从`AppModule`的`declarations`中移除了`HeroListComponent`，因为它现在改有`HeroesModule`提供了。
   这一步很重要，因为一个组件只能有**一个**所有者。现在这种情况下，`Heroes`模块应该是`Heroes`组件的所有者，并让它可用于`AppModule`中。
 
 .l-sub-section
@@ -2184,7 +2184,7 @@ a#child-routing-component
   we register the `CrisisService` in the `CrisisCenterModule` providers array.
 
   在*危机中心*领域之外既不需要也没人想要`CrisisService`。
-  与其在根NgModule的提供商中注册它导致它在应用的任何地方都可见，不如在`CrisisCenterModule`的`providers`数组中注册`CrisisService`。
+  与其在`AppModule`的提供商中注册它导致它在应用的任何地方都可见，不如在`CrisisCenterModule`的`providers`数组中注册`CrisisService`。
 
 +makeExcerpt('app/crisis-center/crisis-center.module.1.ts', 'providers', '')
 
@@ -2307,7 +2307,7 @@ h3#import-crisis-module 把危机中心模块导入`AppModule`的路由中
   are now being provided by our `HeroesModule` and our `CrisisCenter` feature modules. We'll keep our `app.routing.ts` file
   for general routes which we'll cover later in the chapter.
   
-  我们还从`app.routing.ts`中移除了危机中心的初始路由。我们的路由现在是由`HeroesModule`和`CrisisCenter`子模块提供的。
+  我们还从`app.routing.ts`中移除了危机中心的初始路由。我们的路由现在是由`HeroesModule`和`CrisisCenter`特性模块提供的。
   我们将保持`app.routing.ts`文件中只有通用路由，本章稍后会讲解它。
 
 +makeExcerpt('app/app.routing.4.ts (v3)', '')
