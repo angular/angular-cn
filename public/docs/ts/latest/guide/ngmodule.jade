@@ -16,17 +16,17 @@ block includes
   It may add service providers to the application dependency injectors. 
   And there are more options covered here. 
   
-  Angular模块就是一个带有**@NgModule**装饰器函数的_类_。
+  Angular模块是一个带有**@NgModule**装饰器函数的_类_。
   `@NgModule`接收一个元数据对象，该对象告诉Angular如何编译和运行模块代码。
   它标记出该模块_拥有_的组件、指令和管道，
-  把它们公开出去，以便外部组件使用它们。
+  并把它们的一部分公开出去，以便外部组件使用它们。
   它可以向应用的依赖注入器中添加服务提供商。
-  本页还会涉及到更多选项。
+  本章还会涉及到更多选项。
 
   This page explains how to **create** `NgModule` classes and how to load them, 
   either immediately when the application launches or later, as needed, via the [Router](router.html).  
   
-  本页面将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 无论是在程序启动时立即加载，还是稍后由[路由器](router.html)按需加载。
+  本章将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 可以在程序启动时立即加载，也可以稍后由[路由器](router.html)按需加载。
 
   ## Table of Contents
   
@@ -61,14 +61,11 @@ block includes
   * [NgModule metadata properties](#ngmodule-properties "A technical summary of the @NgModule metadata properties")
   * [NgModule元数据的属性](#ngmodule-properties "对@NgModule元数据属性的技术性总结")
 
-  ### Live examples
   ### 在线例子
 
-  This page explains Angular Modules through a progression of improvements to a sample with a "Tour of Heroes" theme.
-  Here's an index to live examples at key moments in the evolution of that sample:
+  This page explains Angular Modules through a progression of improvements to a sample with a "Tour of Heroes" theme. Here's an index to live examples at key moments in the evolution of that sample:
 
-  此页面通过一个基于《英雄指南》的渐进式例子解释了Angular的模块。
-  这里是例子演化过程中一些关键节点的在线例子。
+  此页面通过一个基于《英雄指南》的渐进式例子解释了Angular的模块。这里是例子演化过程中一些关键节点的在线例子。
 
   * <live-example plnkr="minimal.0">A minimal NgModule app</live-example>
   * <live-example plnkr="minimal.0">最小化的NgModule应用</live-example>
@@ -93,8 +90,8 @@ block includes
   offers ready answers to specific design and implementation questions.
   Read this page first before hopping over to those FAQs.
 
-  烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")为一些与设计与实现有关的问题提供了答案。
-  不过在阅读FAQ之前，要先阅读此页面。
+  烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")为一些与设计和实现有关的问题提供了答案。
+  不过在阅读常见问题之前，要先阅读此页面。
 
 .l-hr
 
@@ -124,7 +121,7 @@ a#angular-modularity
   cohesive blocks of functionality, each focused on a 
   feature area, application business domain, workflow, or common collection of utilities.
   
-  Angular模块把组件、指令和管道打包成内聚的功能块，每一个都聚焦于一个特性分区、业务领域、工作流，或一组通用的工具。
+  Angular模块把组件、指令和管道打包成内聚的功能块，每块聚焦于一个特性分区、业务领域、工作流，或一组通用的工具。
   
   Modules can also add services to the application.
   Such services might be internally-developed such as the application logger.
@@ -151,7 +148,7 @@ a#angular-modularity
   
   * import other modules with the components, directives and pipes needed by the components in _this_ module.
   
-  * 导入其它模块，以获得本模块所需的组件、指令和管道。
+  * 导入其它模块，从其他模块总获得本模块所需的组件、指令和管道。
   
   * provide services at the application level that any application component can use.
   
@@ -168,12 +165,12 @@ a#angular-modularity
   We then import these modules into the _root module_.
   
   对于组件很少的简单应用来说，只用一个_根模块_就足够了。
-  随着应用规模的增长，我们逐步把_根模块_重构成一些**特性模块**，它们用来实现一组密切相关的功能。
+  随着应用规模的增长，我们逐步从_根模块_中重构出一些**特性模块**，它们用来实现一组密切相关的功能。
   然后，我们在_根模块_中导入它们。
 
   We'll see how later in the page. Let's start with the _root module_.
   
-  稍后我们就会看到怎么做。不过我们还是先从_根模块_开始吧！
+  稍后我们就会看到怎么做。不过还是先从_根模块_开始吧！
 
 a#root_module 
 .l-main-section
@@ -190,7 +187,7 @@ a#root_module
 
   This `AppModule` is about as minimal as it gets:
   
-  这个最小化的`AppModule`是这样的：
+  最小化的`AppModule`是这样的：
   
 +makeExample('ngmodule/ts/app/app.module.0.ts', '', 'app/app.module.ts (minimal)')(format=".")
 
@@ -219,7 +216,7 @@ a#root_module
 
   The example `AppComponent` simply displays a data-bound title:
   
-  这个范例`AppComponent`只会显示出一个被绑定的标题：
+  下面范例`AppComponent`显示被绑定的标题：
   
 +makeExample('ngmodule/ts/app/app.component.0.ts', '', 'app/app.component.ts (minimal)')(format=".")
 :marked
@@ -245,7 +242,7 @@ a#bootstrap
   In this page we consider two options, both targeting the browser.
   
   针对不同的平台，Angular提供了很多引导选项。
-  本页面我们只讲两个选项，都是针对浏览器平台的。
+  本章我们只讲两个选项，都是针对浏览器平台的。
 
   ### Dynamic bootstrapping with the Just-in-time (JiT) compiler
   
@@ -263,9 +260,7 @@ a#bootstrap
 
   这里的例子演示进行动态引导的方法。
 
-  <live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">Try the live example.</live-example>
-  
-  <live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">试试在线例子。</live-example>
+  <live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">Try the live example.</live-example>  
   
   ### Static bootstrapping with the Ahead-of-time (AoT) compiler
   
@@ -298,7 +293,7 @@ a#bootstrap
   The application code downloaded to the browser is much smaller than the dynamic equivalent
   and it is ready to execute immediately. The performance boost can be significant.
   
-  下载到浏览器中的应用代码比动态版本要小得多，并且能立即执行。引导的性能能得到显著提升。
+  下载到浏览器中的应用代码比动态版本要小得多，并且能立即执行。引导的性能可以得到显著提升。
 
   Both the JiT and AoT compilers generate an `AppModuleNgFactory` class from the same `AppModule`
    source code.
@@ -312,7 +307,7 @@ a#bootstrap
 
   In general, the `AppModule` should neither know nor care how it is bootstrapped.
   
-  通常，`AppModule`不必关心它将被如何引导。
+  通常，`AppModule`不必关心它是如何被引导的。
 
   Although the `AppModule` evolves as the app grows, the bootstrap code in `main.ts` doesn't change.
   This is the last time we'll look at `main.ts`.
@@ -348,7 +343,7 @@ a#declarations
   If we ran the app now, Angular would not recognize the `highlight` attribute and would ignore it. 
   We must declare the directive in `AppModule`.
 
-  如果我们现在就运行该应用，Angular将无法识别`highlight`属性，而是会忽略它。
+  如果我们现在就运行该应用，Angular将无法识别`highlight`属性，并且忽略它。
   我们必须在`AppModule`中声明该指令。
 
   Import the `HighlightDirective` class and add it to the module's `declarations` like this:
@@ -365,7 +360,7 @@ a#declarations
   We decide to refactor the title into its own `TitleComponent`. 
   The component's template binds to the component's `title` and `subtitle` properties like this:
 
-  我们打算把标题重构进独立的`TitleComponent`中去。
+  我们决定将标题重构到独立的`TitleComponent`中。
   该组件的模板绑定到了组件的`title`和`subtitle`属性中，就像这样：
 
 +makeExample('ngmodule/ts/app/title.component.html', 'v1', 'app/title.component.html')(format=".")
@@ -439,7 +434,7 @@ a#providers
   We've _defined_ and _used_ the service. Now we _provide_ it for all components to use by
   adding it to a `providers` property in the `AppModule` metadata:
 
-  我们已经_定义_并_使用了_该服务。现在，我们通过把它加入`AppModule`元数据中的`providers`属性来把它_提供_给所有组件使用。
+  我们已经_定义_并_使用了_该服务。现在，我们通过把它加入`AppModule`元数据的`providers`属性中，来把它_提供_给所有组件使用。
 
 +makeExample('ngmodule/ts/app/app.module.1.ts', 'providers', 'app/app.module.ts (providers)')(format=".")
 
@@ -470,7 +465,7 @@ a#imports
   Angular _does_ recognize `NgIf` because we imported it earlier. 
   The initial version of `AppModule` imports `BrowserModule`.
   
-  Angular能识别`NfIf`指令，是因为我们以前导入过它。最初版本的`AppModule`就导入了`BrowserModule`。
+  Angular能识别`NgIf`指令，是因为我们以前导入过它。最初版本的`AppModule`就导入了`BrowserModule`。
   
 +makeExample('ngmodule/ts/app/app.module.0.ts', 'imports', 'app/app.module.ts (imports)')(format=".")
 
@@ -532,23 +527,23 @@ a#imports
     [_template-driven form_](forms.html) style or 
     the [_reactive form_](../cookbook/dynamic-form.html) style.
     
-    我们写Angular表单组件时，或者使用[_模板驱动式表单_](forms.html)，
-    或者使用[_响应式表单_](../cookbook/dynamic-form.html)。
+    我们写Angular表单组件时，可以使用[_模板驱动式表单_](forms.html)，
+    也可以使用[_响应式表单_](../cookbook/dynamic-form.html)。
 
     This sample is about to import the `FormsModule` from `@angular/forms` because
     the `ContactComponent` is written in the _template-driven_ style.
     Modules with components written in the _reactive_ style,
     should import the `ReactiveFormsModule` instead.
     
-    该例子中从`@angular/forms`中导入了`FormsModule`，这是因为`ContactComponent`组件用的是_模板驱动式_的。
-    那些带有_响应式表单_组件的模块，就应该转而导入`ReactiveFormsModule`了。
+    该例子中从`@angular/forms`中导入了`FormsModule`，这是因为`ContactComponent`组件用的是_模板驱动式表单_。
+    那些带有_响应式表单_组件的模块，应该转而导入`ReactiveFormsModule`。
 
 :marked
   The `ContactComponent` selector matches an element named `<app-contact>`. 
   Add an element with that name to the `AppComponent` template just below the `<app-title>`:
   
   `ContactComponent`的选择器会去匹配名叫`<app-contact>`的元素。
-  请在`AppComponent`模板中`<app-title>`的下方添加一个具有此名字的元素：
+  在`AppComponent`模板中`<app-title>`的下方添加一个具有此名字的元素：
   
 +makeExample('ngmodule/ts/app/app.component.1b.ts', 'template', 'app/app.component.ts (template)')(format=".")
 
@@ -559,8 +554,7 @@ a#imports
   and an alternative version of the `HighlightDirective`.
   
   `ContactComponent`还有很多事要做。
-  表单组件通常都是很复杂的，而这一个则具有自己的它自己的`ContactService`、
-  它自己的[自定义管道](#pipes.html#custom-pipes) `Awesome`，
+  表单组件通常都是很复杂的。本组件具有它自己的`ContactService`和[自定义管道](#pipes.html#custom-pipes) `Awesome`，
   以及`HighlightDirective`的另一个版本。
 
   To make it manageable, we place all contact-related material in an `app/contact` folder
@@ -605,7 +599,7 @@ a#imports
   form features such as validation are not yet available.
   
   退一步说，即使Angular有办法识别`ngModel`，`ContactComponent`也不会表现的像一个Angular表单，
-  因为这里没法使用Form相关的特性，比如有效性验证。
+  因为本组件表单的表单相关的特性（比如有效性验证）还不可用。
 
   ### Import the FormsModule
   
@@ -633,7 +627,7 @@ a#imports
     Components, directives and pipes belong to one module &mdash; and _one module only_.
     
     这些指令属于`FormsModule`。
-    组件、指令和管道应该而且只能属于一个模块。
+    组件、指令和管道_只能_属于一个模块。
 
     **Never re-declare classes that belong to another module.**
     
@@ -686,7 +680,7 @@ a#import-name-conflict
   But then it would be scoped to this component _only_. 
   We want to share this service with other contact-related components that we will surely add later.
   
-  我们得在某个地方提供该服务。
+  我们必须在某个地方提供该服务。
   在`ContactComponent`中_可以_提供它。
   但是那样一来，它的作用范围就会_仅_局限于该组件及其子组件。
   而我们希望让该服务与其它和联系人有关的组件中共享，稍后我们就会添加那些组件。
