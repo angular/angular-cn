@@ -2,55 +2,64 @@
   "index": {
     "icon": "home",
     "title": "Angular中文文档",
+    "subtitle": "TypeScript",
     "menuTitle": "文档首页",
-    "banner": "欢迎来到<b>Angular in TypeScript</b>! 当前的Angular 2版本是<b>rc.6</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>了解最新的增强、修复和破坏性变更。"
+    "banner": "欢迎来到<b>Angular in TypeScript</b>! 当前的Angular 2版本是<b>2.0.0</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>了解最新的增强、修复和破坏性变更。"
   },
 
   "cli-quickstart": {
     "icon": "query-builder",
     "title": "CLI 快速起步",
+    "subtitle": "TypeScript",
     "description": "使用CLI快速构建Angular 2应用",
     "hide": true
   },
 
   "quickstart": {
     "icon": "query-builder",
-    "title": "快速起步",
-    "description": "Angular 2快速起步"
+    "subtitle": "TypeScript",
+    "description": "Angular 2快速起步",
+    "banner": "本“快速起步”指南将演示如何用TypeScript构建并运行一个简单的Angular 2应用。"
   },
 
   "tutorial": {
     "icon": "list",
     "title": "教程",
-    "banner": "Angular 2正处于rc阶段。"
+    "subtitle": "TypeScript",
+    "banner": "Angular 2已经Release啦！"
   },
 
   "guide": {
     "icon": "list",
     "title": "开发指南",
-    "banner": "Angular 2正处于rc阶段。"
+    "subtitle": "TypeScript",
+    "banner": "Angular 2已经Release啦！"
   },
 
   "cookbook": {
     "icon": "list",
     "title": "Cookbook",
+    "subtitle": "TypeScript",
     "banner": "教你解决常见的“该怎么做”问题。"
   },
 
   "api/": {
     "icon": "book",
     "title": "API参考手册",
+    "subtitle": "TypeScript",
     "reference": true
   },
 
   "cheatsheet": {
     "title": "Angular小抄",
-    "intro": "关于Angular语法的快速指南",
+    "subtitle": "TypeScript",
+    "intro": "关于Angular语法的快速指南（内容可能会更改）",
     "reference": false
   },
 
   "glossary": {
     "title": "词汇表",
+    "subtitle": "TypeScript",
     "intro": "Angular 2中那些最重要的词汇的简短定义",
     "reference": false
   },
@@ -58,18 +67,21 @@
   "resources": {
     "icon": "play-circle-fill",
     "title": "Angular资源",
-    "banner": "Angular 2正处于rc阶段",
+    "subtitle": "TypeScript",
+    "banner": "Angular 2已经正式发布啦！",
     "resources": true
   },
 
   "help": {
     "icon": "chat",
     "title": "帮助与支持",
+    "subtitle": "来自我们的团队与社区",
     "resources": true
   },
 
   "styleguide": {
     "title": "文档风格指南",
+    "subtitle": "TypeScript",
     "intro": "文档的设计与布局模式"
   }
 }

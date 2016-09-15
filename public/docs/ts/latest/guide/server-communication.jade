@@ -1177,9 +1177,9 @@ a#in-mem-web-api
   最后，把来自HTTP客户端的请求重定向到这个内存Web API。
 block redirect-to-web-api
   :marked
-    This redirection is easy to configure with the in-memory web API service module.
+    This redirection is easy to configure with the in-memory web API service module
     by adding the `InMemoryWebApiModule` to the `AppModule.imports` list.
-    At the same time, we calling its `forRoot` configuration method with the `HeroData` class.
+    At the same time, we're calling its `forRoot` configuration method with the `HeroData` class.
 
     使用内存Web API服务模块很容易配置重定向，将`InMemoryWebApiModule`添加到`AppModule.imports`列表中，
     同时在`HeroData`类中调用`forRoot`配置方法。
@@ -1208,7 +1208,7 @@ block redirect-to-web-api
       `forRoot`方法的名字告诉我们，应该只在设置根模块`AppModule`时调用`InMemoryWebApiModule`*一次*。不要再次调用它。
       
 :marked
-  Here is the revised (and final) version of <span ngio-ex>app/app.module.ts></span> demonstrating these steps.
+  Here is the revised (and final) version of <span ngio-ex>app/app.module.ts</span> demonstrating these steps.
   
   下面是修改过的（也是最终的）<span ngio-ex>app/app.module.ts</span>版本，用于演示这些步骤。
 

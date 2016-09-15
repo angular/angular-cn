@@ -5,6 +5,11 @@
     "description": "一组常见Angular应用场景的“烹饪宝典”"
   },
 
+  "aot-compiler": {
+    "title": "Ahead-of-Time Compilation",
+    "intro": "Learn how to use Ahead-of-time compilation"
+  },
+
   "a1-a2-quick-reference": {
     "title": "Angular从1到2快速参考",
     "navTitle": "Angular从1到2快速参考",

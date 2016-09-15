@@ -72,6 +72,7 @@ include ../_util-fns
   * [基于关键帧(Keyframes)的多阶段动画](#multi-step-animations-with-keyframes)
 
   * [Parallel Animation Groups](#parallel-animation-groups)
+  * [Animation callbacks](#animation-callbacks)
 
   * [并行动画组(Group)](#parallel-animation-groups)
 
@@ -554,3 +555,28 @@ figure
   One group animates the element transform and width. The other animates the opacity.
 
   其中一个动画组对元素的`transform`和`width`做动画，另一个组则对`opacity`做动画。
+
+:marked
+  ## Animation callbacks
+  ## 动画回调
+
+  A callback is fired when an animation is started and also when it is done.
+  
+  当动画开始和结束时，会触发一个回调。
+
+  In the keyframes example, we have a `trigger` called `@flyInOut`. There we can hook
+  those callbacks like:
+  
+  对于例子中的这个关键帧，我们有一个叫做`@flyInOut`的`trigger`。在那里我们可以挂钩到那些回调，比如：
+
++makeExample('animations/ts/app/hero-list-multistep.component.ts', 'template')(format=".")
+
+:marked
+  The callbacks receive an `AnimationTransitionEvent` which contains useful properties such as `fromState`,
+  `toState` and `totalTime`.
+  
+  这些回调接收一个`AnimationTransitionEvent`参数，它包含一些有用的属性，例如`fromState`，`toState`和`totalTime`。
+
+  Those callbacks will fire whether or not an animation is picked up.
+  
+  无论动画是否实际执行过，那些回调都会触发。

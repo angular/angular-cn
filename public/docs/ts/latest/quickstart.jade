@@ -11,24 +11,16 @@ block includes
 //- TS/Dart shared step counter
 - var step = _stepInit
 
-:marked
-  This QuickStart guide demonstrates how to build and run a simple Angular 2 application in #{_Lang}.
-  It also establishes a common development environment used throughout the code examples in these
-  guides.
-
-  这份“快速起步”的目标是基于#{_Lang}构建并运行一个超级简单的Angular应用，
-  同时，它还会建立一个用于本指南中这些范例代码的公用开发环境。
-
 .callout.is-helpful
   header Don't want #{_Lang}?
   header 不喜欢#{_Lang}？
   p.
     Although you're getting started in #{_Lang}, you can also write Angular 2 applications
     in JavaScript and #{_docsFor == 'ts' ? 'Dart' : 'TypeScript'}. Use the language selector in the
-    banner to switch development languages for this guide.
+    left nav to switch development languages for this guide.
   p.
     虽然我们正在用#{_Lang}，但你也可以用JavaScript和#{_docsFor == 'ts' ? 'Dart' : 'TypeScript'}来写Angular 2应用。
-    只要从本指南Banner区的下拉框中选择想用哪种语言就可以了。
+    只要从本指南左侧导航区的语言选择器选择想用哪种语言就可以了。
 
 .l-main-section
 h1 Overview
@@ -102,15 +94,6 @@ block setup-tooling
     我们的例子需要node **v5.x.x**或更高版本以及npm **3.x.x**或更高版本。
     要检查你正在使用的版本，请在终端窗口中运行`node -v`和`npm -v`命令。
 
-aside.is-right
-  :marked
-    To easily copy text from a code example, click the *Copy to Clipboard* icon (<i
-    class="material-icons" style="font-size: 100%">content_copy </i>) in the upper right corner of
-    the example box.
-    
-    要想从范例代码中轻松的拷贝文本，请在范例代码框的右上角点击*拷贝到剪贴板*图标(<i
-    class="material-icons" style="font-size: 100%">content_copy </i>)。
-
 .l-main-section
 h1#create-and-configure Step 1: Create and configure the project
 h1#create-and-configure 步骤1：创建并配置本项目
@@ -138,7 +121,7 @@ h2 创建项目目录
   使用终端窗口，为项目创建目录，并进入此目录。
 
 - var _ = _docsFor == 'dart' ? '_' : '-';
-code-example(language="sh").
+code-example(language="sh" class="code-shell").
   mkdir angular2!{_}quickstart
   cd    angular2!{_}quickstart
 
@@ -226,7 +209,7 @@ block install-packages
 
     使用`npm`命令来安装`package.json`中列出的依赖包。请在终端窗口(或Windows的cmd窗口)中输入下列命令：
 
-  code-example(language="sh").
+  code-example(language="sh" class="code-shell").
     npm install
 
   :marked
@@ -255,7 +238,7 @@ block install-packages
     
     如果在运行`npm install`之后没有出现`typings`目录，你就需要通过命令手动安装它：
 
-  code-example(language="sh").
+  code-example(language="sh"  class="code-shell").
       npm run typings install
 
 :marked
@@ -284,7 +267,7 @@ block install-packages
     
     **在应用的根目录下创建一个#{_appDir}子目录：
 
-  code-example.
+  code-example.code-shell.
     mkdir #{_appDir}
 
   :marked
@@ -500,7 +483,7 @@ block run-app
     Open a terminal window and enter this command:
 
     打开终端窗口，并输入如下命令：
-  code-example.
+  code-example.code-shell.
     npm start
 aside.is-right
   :marked

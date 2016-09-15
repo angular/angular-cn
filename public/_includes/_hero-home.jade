@@ -1,14 +1,10 @@
-header(class="background-sky")
-  .hero.background-superhero-paper.is-large
-    h1.text-headline.hero-logo.translated-cn #{title}
-    p.translated-cn #{subtitle}
+header(class="background-sky l-relative")
 
-    .hero-cta
-      a(href="/docs/ts/latest/quickstart.html" class="md-raised button button-large button-plain" md-button) 开始吧！
-
-  .banner.banner-floaty
-    .banner-ng-annoucement
-      div(class="banner-text" align="center")
-        p 报名参加AngularConnect，九月，英国伦敦!
-      div(class="banner-button")
-        a(href="http://angularconnect.com/?utm_source=angular&utm_medium=banner&utm_campaign=angular-banner" target="_blank" class="button md-button") 立刻注册
+    .hero.background-superhero-paper.is-large
+        img(class="hero-logo" src='/resources/images/logos/angular2/angular.svg')
+        h1.text-headline #{title}<br>#{subtitle}
+        a(href="/docs/ts/latest/quickstart.html" class="hero-cta md-raised button button-large button-plain" md-button) 开始吧！
+    .announcement-bar.shadow-2.clearfix
+        img(src="/resources/images/logos/angular2/angular.svg")
+        p Angular 2.0最终发布啦！
+        a(href="http://angularjs.blogspot.com/2016/09/angular2-final.html" target="_blank" class="button " + "md-button") 了解更多

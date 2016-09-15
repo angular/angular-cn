@@ -612,11 +612,11 @@ block ctor-syntax
   当别人要求获得英雄数据时，我们会在`getHeroes`方法中使用这个属性。
 
 //- FIXME refer to Dart API when that page becomes available.
-- var injMetaUrl = 'https://angular.io/docs/ts/latest/api/core/index/InjectableMetadata-class.html';
+- var injUrl = 'https://angular.io/docs/ts/latest/api/core/index/Injectable-decorator.html';
 h3#injectable Why @Injectable()?
 h3#injectable 为何@Injectable()?
 :marked
-  **<a href="#{injMetaUrl}">@Injectable()</a>** marks a class as available to an
+  **<a href="#{injUrl}">@Injectable()</a>** marks a class as available to an
   injector for instantiation. Generally speaking, an injector will report an
   error when trying to instantiate a class that is not marked as
   `@Injectable()`.
@@ -660,8 +660,8 @@ block injectable-not-always-needed-in-ts
   We *can* add it if we really want to. It isn't necessary because the
   `HeroesComponent` is already marked with `@Component`, and this
   !{_decorator} class (like `@Directive` and `@Pipe`, which we'll learn about later)
-  is a subtype of <a href="#{injMetaUrl}">InjectableMetadata</a>.  It is in
-  fact `InjectableMetadata` #{_decorator}s that
+  is a subtype of <a href="#{injUrl}">Injectable</a>.  It is in
+  fact `Injectable` #{_decorator}s that
   identify a class as a target for instantiation by an injector.
 
   我们**可以**添加它。但是它不是必需的，因为`HerosComponent`已经有`@Component`装饰器了，这个装饰器类（和我们随后将会学到的`@Directive`和`@Pipe`一样）是<a href="#{injMetaUrl}">InjectableMetadata</a>的子类型。实际上，这个`InjectableMetadata`装饰器是把一个类标识为注入器实例化的目标。
@@ -688,7 +688,7 @@ block ts-any-decorator-will-do
       编译器就会在生成的JavaScript中，为_每一个至少拥有一个装饰器的类添加元数据_。
 
       While any decorator will trigger this effect, mark the service class with the
-      <a href="#{injMetaUrl}">InjectableMetadata</a> #{_decorator}
+      <a href="#{injUrl}">Injectable</a> #{_decorator}
       to make the intent clear.
 
       注入器使用一个类的构造元数据来决定依赖类型，该构造元数据就是构造函数的参数类型所标识的。

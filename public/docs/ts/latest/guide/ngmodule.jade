@@ -7,7 +7,7 @@ block includes
 :marked
   **Angular Modules** help organize an application into cohesive blocks of functionality.
   
-  **Angular模块**能帮你把应用组织成多个内聚的功能块。
+  **Angular模块**能帮你把应用组织成多个紧密相关的功能块。
 
   An Angular Module is a _class_ adorned with the **@NgModule** decorator function.
   `@NgModule` takes a metadata object that tells Angular how to compile and run module code. 
@@ -28,7 +28,7 @@ block includes
   
   本页面将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 无论是在程序启动时立即加载，还是稍后由[路由器](router.html)按需加载。
 
-  ## Contents
+  ## Table of Contents
   
   ## 目录
   
@@ -247,9 +247,9 @@ a#bootstrap
   针对不同的平台，Angular提供了很多引导选项。
   本页面我们只讲两个选项，都是针对浏览器平台的。
 
-  ### Dynamic bootstrapping with the Just-In-Time (JIT) compiler
+  ### Dynamic bootstrapping with the Just-in-time (JiT) compiler
   
-  ### 通过即时（JIT）编译器动态引导
+  ### 通过即时（JiT）编译器动态引导
   
   In the first, _dynamic_ option, the [Angular compiler](../cookbook/ngmodule-faq.html#q-angular-compiler "About the Angular Compiler") 
   compiles the application in the browser and then launches the app.
@@ -267,16 +267,16 @@ a#bootstrap
   
   <live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">试试在线例子。</live-example>
   
-  ### Static bootstrapping with the Ahead-Of-Time (AOT) compiler
+  ### Static bootstrapping with the Ahead-of-time (AoT) compiler
   
-  ### 使用预先编译器（AOT - Ahead-Of-Time）进行静态引导
+  ### 使用预先编译器（AoT - Ahead-Of-Time）进行静态引导
 
   Consider the static alternative which can produce a much smaller application that
   launches faster, especially on mobile devices and high latency networks.
   
   静态方案可以生成更小、启动更快的应用，建议优先使用它，特别是在移动设备或高延迟网络下。
 
-  In the _static_ option, the Angular compiler runs ahead of time as part of the build process,
+  In the _static_ option, the Angular compiler runs ahead-of-time as part of the build process,
   producing a collection of class factories in their own files. 
   Among them is the `AppModuleNgFactory`.
   
@@ -300,9 +300,10 @@ a#bootstrap
   
   下载到浏览器中的应用代码比动态版本要小得多，并且能立即执行。引导的性能能得到显著提升。
 
-  Both the JIT and AOT compilers generate an `AppModuleNgFactory` class from the same `AppModule` source code.
-  The JIT compiler creates that factory class on the fly, in memory, in the browser.
-  The AOT compiler outputs the factory to a physical file
+  Both the JiT and AoT compilers generate an `AppModuleNgFactory` class from the same `AppModule`
+   source code.
+  The JiT compiler creates that factory class on the fly, in memory, in the browser.
+  The AoT compiler outputs the factory to a physical file
   that we're importing here in the static version of `main.ts`.
   
   无论是JIT还是AOT编译器都会从同一份`AppModule`源码中生成一个`AppModuleNgFactory`类。

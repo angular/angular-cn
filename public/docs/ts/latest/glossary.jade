@@ -18,11 +18,11 @@ block includes
   Angular 2有自己的词汇表。
   虽然大多数的Angular 2短语都是日常用语，但是在Angular体系中，它们有特别的含义。
 
-  We have gathered here the most prominent terms
+  This glossary lists the most prominent terms
   and a few less familiar ones that have unusual or
   unexpected definitions.
 
-  我们搜集了常用词和少量具有独特或反直觉含义的罕用词。
+  该词汇表列出了常用词和少量具有独特或反直觉含义的罕用词。
 
   [A](#A) [B](#B) [C](#C) [D](#D) [E](#E) [F](#F) [G](#G) [H](#H) [I](#I)
   [J](#J) [K](#K) [L](#L) [M](#M) [N](#N) [O](#O) [P](#P) [Q](#Q) [R](#R)
@@ -33,28 +33,27 @@ block includes
 +ifDocsFor('ts')
   a#aot
   :marked
-    ## Ahead of Time (AOT) Compilation
+    ## Ahead-of-time (AoT) compilation
   
     ## Ahead of Time (AOT) 提前编译
     
   .l-sub-section
     :marked
-      Angular applications can be compiled by developers at build-time.
+      You can compile Angular applications at build-time.
       By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly
-      to a Module Factory, meaning you don't need to include the Angular compiler in your javascript bundle.
-      Ahead of Time compiled applications also benefit from decreased load time and increased performance.
+      to a module factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
+      Ahead-of-time compiled applications also benefit from decreased load time and increased performance.
   
       开发者可以在构造时(build-time)编译Angular应用程序。通过`Compiler-cli` - `ngc`编译应用程序，应用可以从一个模块工厂(Module Factory)直接启动，意思是不再需要把Angular编译器添加到JavaScript包中。提前编译的应用程序将加载迅速，并具有更高的性能。
 
   :marked
-    ## Angular Module
+    ## Angular module
   
     ## Angular模块 
   .l-sub-section
     :marked
-      Helps us organize an application into cohesive blocks of functionality.
-      An Angular module identifies the components, directives, and pipes that are used by the application
-      along with the list of external Angular modules that the application needs, such as `FormsModule`.
+      Helps you organize an application into cohesive blocks of functionality.
+      An Angular module identifies the components, directives, and pipes that the application uses along with the list of external Angular modules that the application needs, such as `FormsModule`.
   
       帮助我们将一个应用程序组织成拼合的功能模块群。一个Angular模块标识了被应用程序使用的组件、指令和管道等，它同时包含了应用程序需要的外来Angular模块的列表，比如`FormsModule`。
   
@@ -63,10 +62,10 @@ block includes
   
       每个Angular应用程序都有一个应用程序根模块类。按规约这个类的名字为`AppModule`，存放在名为`app.component.ts`的文件。
   
-      See the [Angular Module](!{docsLatest}/guide/ngmodule.html) chapter for details and examples.
+      For details and examples, see the [Angular Module](!{docsLatest}/guide/ngmodule.html) page.
   
-      到[Angular模块](!{docsLatest}/guide/ngmodule.html)章节查看详情。
-      
+      要了解详情和范例，参见[Angular模块](!{docsLatest}/guide/ngmodule.html)页。
+
 +ifDocsFor('ts|dart')
   :marked
     ## Annotation
@@ -80,18 +79,17 @@ block includes
         [装饰器(Decoration)](#decorator)在实践中的同义词。
   
 :marked
-  ## Attribute Directive
+  ## Attribute directive
   ## 属性型指令(Attribute Directive)
 .l-sub-section
   :marked
-    A category of [Directive](#directive) that can listen to and modify the behavior of
+    A category of [directive](#directive) that can listen to and modify the behavior of
     other HTML elements, attributes, properties, and components. They are usually represented
     as HTML attributes, hence the name.
 
     [指令(Directive)](#directive)分类中的一种。它允许监听或修改其它HTML元素、属性、组件的行为。它们通常用作HTML属性，就像它的名字所暗示的那样。
 
-    The `ngClass` directive for adding and removing CSS class names is a good example of
-    an Attribute Directive.
+    A good example of an attribute directive is the `ngClass` directive for adding and removing CSS class names.
 
     `ngClass`指令就是典型的属性型指令。它可以添加或移除CSS类名。
     
@@ -103,7 +101,7 @@ block includes
     ## 封装桶(Barrel)
   .l-sub-section
     :marked
-      A barrel is a way to *rollup exports* from several ES2015 modules into a single convenience ES2015 module.
+      A barrel is a way to *rollup exports* from several ES2015 modules into a single convenient ES2015 module.
       The barrel itself is an ES2015 module file that re-exports *selected* exports of other ES2015 modules.
       
       封装桶是把一系列模块中的*导出结果*归纳进一个单一的快捷模块的一种方式。
@@ -132,7 +130,7 @@ block includes
       import { Hero }          from '../heroes/hero.model.ts';
       import { HeroService }   from '../heroes/hero.service.ts';
     :marked
-      We can add a barrel to the `heroes` folder (called `index` by convention) that exports all of these items:
+      You can add a barrel to the `heroes` folder (called `index`, by convention) that exports all of these items:
   
       在`heroes`目录下添加一个封装桶(按规约叫做`index`)，它导出所有这三条：
   
@@ -160,7 +158,7 @@ block includes
 
     .alert.is-important
       :marked
-        Note that you can often achieve this same goal using [Angular modules](#angular-module) instead.
+        Note that you can often achieve this using [Angular modules](#angular-module) instead.
 
         注意，你可以利用[Angular模块](#angular-module)达到同样的目的。
 
@@ -174,11 +172,11 @@ block includes
 
     几乎都是指的[数据绑定(Data Binding)](#data-binding)和将一个HTML对象属性绑定到一个数据对象属性的行为。
 
-    May refer to a [Dependency Injection](#dependency-injection) binding
-    between a "token" or "key" and a dependency [provider](#provider).
+    May refer to a [dependency injection](#dependency-injection) binding
+    between a "token", also referred to as a "key", and a dependency [provider](#provider).
     This more rare usage should be clear in context.
 
-    有可能指的是[依赖注入(Dependency Injection)](#dependency-injection)在一个令牌(Token)或键值(Key)和一个依赖的[提供商(Provider)](#provider)之间的绑定。
+    有可能指的是[依赖注入(Dependency Injection)](#dependency-injection)在一个令牌(Token)（也叫键值Key）和一个依赖的[提供商(Provider)](#provider)之间的绑定。
     这种用法很少，而且一般都会在上下文中写清楚。
 
 :marked
@@ -187,16 +185,13 @@ block includes
 .l-sub-section
   block bootstrap-defn-top
     :marked
-      We launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`).
-      The bootstraping identifies an application's top level "root" [Component](#component), which is the first
-      component that is loaded for the application. For more information see the [QuickStart](/docs/ts/latest/quickstart.html).
+      You launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`). Bootstrapping identifies an application's top level "root" [component](#component), which is the first component that is loaded for the application. For more information, see [QuickStart](!{docsLatest}/quickstart.html).
   
-      通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，
-      并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[提供商(Provider)](#provider)。
+      通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[提供商(Provider)](#provider)。要了解详情，参见[快速起步](!{docsLatest}/quickstart.html)。
+  :marked
+    You can bootstrap multiple apps in the same `index.html`, each with its own top level root.
   
-      One can bootstrap multiple apps in the same `index.html`, each with its own top level root.
-  
-      你可以在同一个`index.html`中引导多个应用，每个应用都有它自己的顶级根组件。
+    你可以在同一个`index.html`中引导多个应用，每个应用都有它自己的顶级根组件。
 
 .l-main-section#C
 :marked
@@ -204,18 +199,18 @@ block includes
   ## 驼峰式命名法(camelCase)
 .l-sub-section
   :marked
-    The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter 
-    _except the first letter which is a lowercase letter_. 
+    The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter
+    _except the first letter, which is lowercase_.
 
     驼峰式命名法是指除了首字母要小写外，每个单词或缩写都以大写字母开头的形式来书写复合词或短语的一种实践。
 
-    Function, property, and method names are typically spelled in camelCase. Examples include: `square`, `firstName` and `getHeroes`.
+    Function, property, and method names are typically spelled in camelCase. Examples include: `square`, `firstName` and `getHeroes`. Notice that `square` is an example of how you write a single word in camelCase.
 
-    函数、属性和方法命名一般都使用驼峰式拼写法。比如`square`, `firstName` 和 `getHeroes`等。
+    函数、属性和方法命名一般都使用驼峰式拼写法。比如`square`, `firstName` 和 `getHeroes`等。注意这里的`square`只是一个例子，用来示范如何用驼峰式命名法表示单一词。
 
-    This form is also known as **lower camel case**, to distinguish it from **upper camel case** which we call [PascalCase](#pascalcase).
-    When we write "camelCase" in this documentation we always mean *lower camel case*.
-
+    This form is also known as **lower camel case**, to distinguish it from **upper camel case**, which is [PascalCase](#pascalcase).
+    When you see "camelCase" in this documentation it always means *lower camel case*.
+    
     这种形式也被叫做**小驼峰式命名法(lower camel case)**，以区分于**大驼峰式命名法**(也叫[Pascal命名法(PascalCase)](#pascalcase))。
     在文档中提到“驼峰式命名法(camelCase)”的时候，我们所指的都是小驼峰命名法。
 
@@ -224,19 +219,17 @@ block includes
   ## 组件(Component)
 .l-sub-section
   :marked
-    An Angular class responsible for exposing data
-    to a [View](#view) and handling most of the view’s display
-    and user-interaction logic.
+    An Angular class responsible for exposing data to a [view](#view) and handling most of the view’s display and user-interaction logic.
 
     组件是一种用来把数据展示到[视图(View)](#view)，并处理几乎所有的视图显示和交互逻辑的Angular类。
 
-    The Component is one of the most important building blocks in the Angular system.
-    It is, in fact, an Angular [Directive](#directive) with a companion [Template](#template).
+    The *component* is one of the most important building blocks in the Angular system.
+    It is, in fact, an Angular [directive](#directive) with a companion [template](#template).
 
     组件是Angular系统中最重要的基本构造块之一。
     它其实是一个拥有[模板(Template)](#template)的[指令(Directive)](#directive)。
 
-    The  developer applies the `#{_at}Component` !{_decoratorLink} to
+    You apply the `!{_at}Component` !{_decoratorLink} to
     the component class, thereby attaching to the class the essential component metadata
     that Angular needs to create a component instance and render it with its template
     as a view.
@@ -245,7 +238,7 @@ block includes
     Angular会利用这个元数据信息创建一个组件实例，并把组件的模板作为视图渲染出来。
 
     Those familiar with "MVC" and "MVVM" patterns will recognize
-    the Component in the role of "Controller" or "View Model".
+    the component in the role of "controller" or "view model".
 
     如果你熟悉 "MVC" 和 "MVVM" 架构模式，就会意识到“组件”充当了“控制器(Controller)”和“视图模型(View Model)”的角色。
 // #enddocregion b-c
@@ -269,7 +262,7 @@ block includes
     [指令](#directive)的选择器（例如`my-app`）<span if-docs="ts">和文件名（比如``hero-list.component.ts`）</span>通常都是通过中线命名法来命名的。
 
 :marked
-  ## Data Binding
+  ## Data binding
   ## 数据绑定(Data Binding)
 .l-sub-section
   :marked
@@ -278,56 +271,48 @@ block includes
 
     应用程序会将数据展示给用户，并对用户的操作(点击、触屏、按键)做出回应。
 
-    We could push application data values into HTML, attach
-    event listeners, pull changed values from the screen, and
-    update application data values ... all by hand.
-
-    当然也可以自己处理这些操作：将数据显示到HTML网页，添加事件监听器，从屏幕获取数据变化，然后更新数据等等……
-
-    Or we could declare the relationship between an HTML widget
-    and an application data source ... and let a data binding
+    Instead of manually pushing application data values into HTML, attaching
+    event listeners, pulling changed values from the screen, and
+    updating application data values, you can use data binding by declaring the relationship between an HTML widget and data source and let the
     framework handle the details.
-
-    或者，也可以声明HTML小部件和数据源的关系……，让一个数据绑定框架来处理所有细节。
-
-    Data Binding is that second approach. Angular has a rich
-    data binding framework with a variety of data binding
+    
+    以前的手动操作是：将数据推送到HTML页面中、添加事件监听器、从屏幕获取变化后的数据，并更新应用中的值。
+    现在，你可以声明HTML小部件和数据源之间的关系，并让框架来处理各种细节。
+    
+    Angular has a rich data binding framework with a variety of data binding
     operations and supporting declaration syntax.
 
-    这第二种方法就是数据绑定。Angular有一个非常强大的数据绑定框架，具有多种用来进行数据绑定的操作，并能支持特定的语法。
+    Angular有一个非常强大的数据绑定框架，它带有很多种数据绑定操作，并支持声明式语法。
 
-     The many forms of binding include:
-     绑定形式包括：
-     * [Interpolation](!{docsLatest}/guide/template-syntax.html#interpolation)
-     * [插值表达式(Interpolation)](!{docsLatest}/guide/template-syntax.html#interpolation)
-     * [Property Binding](!{docsLatest}/guide/template-syntax.html#property-binding)
-     * [属性绑定(Property Binding)](!{docsLatest}/guide/template-syntax.html#property-binding)
-     * [Event Binding](!{docsLatest}/guide/template-syntax.html#event-binding)
-     * [事件绑定(Event Binding)](!{docsLatest}/guide/template-syntax.html#event-binding)
-     * [Attribute Binding](!{docsLatest}/guide/template-syntax.html#attribute-binding)
-     * [Attribute绑定(Attribute Binding)](!{docsLatest}/guide/template-syntax.html#attribute-binding)
-     * [Class Binding](!{docsLatest}/guide/template-syntax.html#class-binding)
-     * [CSS类绑定(Class Binding)](!{docsLatest}/guide/template-syntax.html#class-binding)
-     * [Style Binding](!{docsLatest}/guide/template-syntax.html#style-binding)
-     * [样式绑定(Style Binding)](!{docsLatest}/guide/template-syntax.html#style-binding)
-     * [Two-way data binding with ngModel](!{docsLatest}/guide/template-syntax.html#ng-model)
-     * [基于ngModel的双向数据绑定(Two-way data binding with ngModel)](!{docsLatest}/guide/template-syntax.html#ng-model)
-
-    Learn more about data binding in the
-    [Template Syntax](!{docsLatest}/guide/template-syntax.html#data-binding) chapter.
-
-    要了解关于数据绑定的更多知识，请参见[模板语法](guide/template-syntax.html#data-binding)一章。
+    Read about the forms of binding in the [Template Syntax](!{docsLatest}/guide/template-syntax.html#data-binding) page:
+    
+    到[模板语法](!{docsLatest}/guide/template-syntax.html#data-binding)页了解更多的绑定形式：
+     
+    * [Interpolation](!{docsLatest}/guide/template-syntax.html#interpolation).
+    * [插值表达式(Interpolation)](!{docsLatest}/guide/template-syntax.html#interpolation)。
+    * [Property binding](!{docsLatest}/guide/template-syntax.html#property-binding).
+    * [属性绑定(Property Binding)](!{docsLatest}/guide/template-syntax.html#property-binding)。
+    * [Event binding](!{docsLatest}/guide/template-syntax.html#event-binding).
+    * [事件绑定(Event Binding)](!{docsLatest}/guide/template-syntax.html#event-binding)。
+    * [Attribute binding](!{docsLatest}/guide/template-syntax.html#attribute-binding).
+    * [Attribute绑定(Attribute Binding)](!{docsLatest}/guide/template-syntax.html#attribute-binding)。
+    * [Class binding](!{docsLatest}/guide/template-syntax.html#class-binding).
+    * [CSS类绑定(Class Binding)](!{docsLatest}/guide/template-syntax.html#class-binding)。
+    * [Style binding](!{docsLatest}/guide/template-syntax.html#style-binding).
+    * [样式绑定(Style Binding)](!{docsLatest}/guide/template-syntax.html#style-binding)。
+    * [Two-way data binding with ngModel](!{docsLatest}/guide/template-syntax.html#ngModel).
+    * [基于ngModel的双向数据绑定(Two-way data binding with ngModel)](!{docsLatest}/guide/template-syntax.html#ngModel)。
 
 +ifDocsFor('ts|dart')
   a#decorator
   a#decoration
   :marked
-    ## Decorator | Decoration
+    ## Decorator | decoration
     ## 装饰器(Decorator | Decoration)
   .l-sub-section
     block decorator-defn
       :marked
-        A Decorator is a **function** that adds metadata to a class, its members (properties, methods) and function arguments.
+        A decorator is a **function** that adds metadata to a class, its members (properties, methods) and function arguments.
     
         装饰器是一个**函数**，这个函数将元数据添加到类、类成员(属性、方法)和函数上。
     
@@ -335,22 +320,18 @@ block includes
     
         装饰器是一个JavaScript的语言[特性](https://github.com/wycats/javascript-decorators)，装饰器在TypeScript里面已经采纳并实现了，并被推荐到了ES2016(也就是ES7)。
     
-        We apply a decorator by positioning it
-        immediately above or to the left of the thing it decorates.
+        To apply a decorator, position it immediately above or to the left of the thing it decorates.
     
-        应用装饰器的方法是把装饰器放到被装饰对象的上面或左边。
+        要想应用装饰器，就把装饰器放到被装饰对象的上面或左边。
     
-        Angular has its own set of decorators to help it interoperate with our application parts.
+        Angular has its own set of decorators to help it interoperate with your application parts.
         Here is an example of a `@Component` decorator that identifies a
-        class as an Angular [Component](#component) and an `@Input` decorator applied to a property
-        of that component.
+        class as an Angular [component](#component) and an `@Input` decorator applied to the `name` property
+        of that component. The elided object argument to the `@Component` decorator would contain the pertinent component metadata.
     
         Angular使用自己的一套装饰器来实现应用程序各部分之间的相互操作。
-        下面的例子中使用了`@Component`装饰器来将一个类标记为一个Angular[组件(Component)](#component)，并用`@Input`装饰器来装饰该组件的一个属性。
-    
-        The elided object argument to the `@Component` decorator would contain the pertinent component metadata.
-    
-        `@Component`装饰器中被省略的参数对象还可以包含和组件有关的元数据。
+        下面的例子中使用了`@Component`装饰器来将一个类标记为一个Angular[组件(Component)](#component)，并用`@Input`装饰器来装饰该组件的`name`属性。
+        `@Component`装饰器中省略的参数对象还可以包含和组件有关的元数据。
     
         ```
         @Component({...})
@@ -368,35 +349,34 @@ block includes
     
       .alert.is-important
         :marked
-          Always include the parentheses `()` when applying a decorator.
-          A decorator is a **function** that must be called when applied.
+          Always include parentheses `()` when applying a decorator.
     
-          永远别忘了在装饰器后面加括号`()`。因为装饰器是 **函数** ，在应用它的时候一定要被调用。
+          永远别忘了在装饰器后面加括号`()`。
 
 :marked
-  ## Dependency Injection
+  ## Dependency injection
   ## 依赖注入(Dependency Injection)
 .l-sub-section
   :marked
-    Dependency Injection is both a design pattern and a mechanism
+    Dependency injection is both a design pattern and a mechanism
     for creating and delivering parts of an application to other
     parts of an application that request them.
 
     依赖注入既是设计模式，同时又是一种机制：当应用程序的一些部件需要另一些部件的时候，使用依赖注入机制来创建被请求的部件并将其注入到发出请求的部件中。
 
     Angular developers prefer to build applications by defining many simple parts
-    that each do one thing well and then wire them together at runtime.
+    that each do one thing well and then wiring them together at runtime.
 
     Angular开发者构建应用程序时的首选方法是：定义许多精简的小部件，每个小部件只做一件事并做好它，然后在运行期把这些精简小部件装配在一起组成应用程序。
 
-    These parts often rely on other parts. An Angular [Component](#component)
-    part might rely on a service part to get data or perform a calculation. When a
-    part "A" relies on another part "B", we say that "A" depends on "B" and
+    These parts often rely on other parts. An Angular [component](#component)
+    part might rely on a service part to get data or perform a calculation. When
+    part "A" relies on another part "B", you say that "A" depends on "B" and
     that "B" is a dependency of "A".
 
     这些小部件通常会依赖其它小部件。一个Angular[组件(Component)](#component)可能依赖一个“服务”部件来获取数据或处理运算。如果部件A要靠另一个部件B才能工作，那么A“依赖于”B，B是A的“依赖”。
 
-    We can ask a "Dependency Injection System" to create "A"
+    You can ask a "dependency injection system" to create "A"
     for us and handle all the dependencies.
     If "A" needs "B" and "B" needs "C", the system resolves that chain of dependencies
     and returns a fully prepared instance of "A".
@@ -404,27 +384,26 @@ block includes
     我们可以要求“依赖注入系统”为我们创建一个部件A并处理所有A的“依赖”。如果A需要B，B需要C，这个系统便解析这个依赖链，返回一个完全准备好的A实例。
 
     Angular provides and relies upon its own sophisticated
-    [Dependency Injection](dependency-injection.html) system
+    [dependency injection](dependency-injection.html) system
     to assemble and run applications by "injecting" application parts
     into other application parts where and when needed.
 
     Angular提供并使用自己精心设计的[依赖注入(Dependency Injection)](dependency-injection.html)系统来组装和运行应用程序：在要用时，将一些部件“注入”到另一些部件里面。
 
-    At the core there is an [`Injector`](#injector) that returns dependency values on request.
+    At the core there is an [`injector`](#injector) that returns dependency values on request.
     The expression `injector.get(token)` returns the value associated with the given token.
 
     在Angular内核中有一个[注入器(Injector)](#injector)，这个注入器根据需要返回被依赖部件。`injector.get(token)`方法返回与该token(令牌)参数相关的依赖部件。
 
-    A token is an Angular type (`OpaqueToken`). We rarely deal with tokens directly; most
+    A token is an Angular type (`OpaqueToken`). You rarely deal with tokens directly; most
     methods accept a class name (`Foo`) or a string ("foo") and Angular converts it
-    to a token. When we write `injector.get(Foo)`, the injector returns
+    to a token. When you write `injector.get(Foo)`, the injector returns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
 
     令牌是一个Angular中的类型(`OpaqueToken`)。我们很少需要直接接触令牌。绝大多数类方法都接受类名(`Foo`)或字符串("foo")，Angular会把这些类名称和字符串转换成令牌。
     当调用`injector.get(Foo)`时，注入器返回用`Foo`类生成的令牌所对应的依赖值，该依赖值通常是`Foo`类的实例。
 
-    Angular makes similar requests internally during many of its operations
-    as when it creates a [`Component`](#component) for display.
+    During many of its operations, Angular makes similar requests internally, such as when it creates a [`component`](#component) for display.
 
     Angular在创建[组件(Component)](#component)以供显示的过程中，会在内部执行很多类似的依赖注入请求。
 
@@ -434,13 +413,13 @@ block includes
 
     注入器(`Injector`)维护一个令牌与相应依赖值的对照表(map)。如果注入器不能找到一个令牌对应的依赖值，它就会使用提供商(`Provider`)来创建一个依赖值。
 
-    A [Provider](#provider) is a recipe for
+    A [provider](#provider) is a recipe for
     creating new instances of a dependency value associated with a particular token.
 
     [提供商(Provider)](#provider)是创建依赖实例的“菜谱”之一，这个实例会与一个特定的令牌关联起来。
 
     An injector can only create a value for a given token if it has
-    a `Provider` for that token in its internal provider registry.
+    a `provider` for that token in its internal provider registry.
     Registering providers is a critical preparatory step.
 
     只有当注入器内部的提供商注册表中存在与令牌对应的提供商时，注入器才能为这个令牌创建一个依赖值。所以注册提供商是一个非常关键的准备步骤。
@@ -451,16 +430,16 @@ block includes
     Angular会为每个注册器注册很多Angular内建提供商。我们也可以注册自己的提供商。通常注册提供商的最佳时间是在应用程序开始[引导(Bootstrap)](#bootstrap)的时候。
     当然，我们也有其它很多机会注册提供商。
 
-    Learn more in the [Dependency Injection](!{docsLatest}/guide/dependency-injection.html) chapter.
+    Read more in the [Dependency Injection](!{docsLatest}/guide/dependency-injection.html) page.
 
-    要了解关于依赖注入的更多知识，请参见[依赖注入(Dependency Injection)](!{docsLatest}/guide/dependency-injection.html)一章。
+    要了解关于依赖注入的更多知识，请参见[依赖注入(Dependency Injection)](!{docsLatest}/guide/dependency-injection.html)页。
     
 :marked
   ## Directive
   ## 指令(Directive)
 .l-sub-section
   :marked
-    An Angular class responsible for creating, re-shaping, and interacting with HTML elements
+    An Angular class responsible for creating, reshaping, and interacting with HTML elements
     in the browser DOM. Directives are Angular's most fundamental feature.
 
     指令是一个Angular类，这个类负责创建和重塑浏览器DOM中的HTML元素，同时负责与HTML元素的互动。指令是Angular中最基本的特性之一。
@@ -469,17 +448,17 @@ block includes
     We often refer to such an element or attribute as the directive itself.
     When Angular finds a directive in an HTML template,
     it creates the matching directive class instance
-    and gives that instance control over that portion of the browser DOM.
+    and gives the instance control over that portion of the browser DOM.
 
     指令几乎都是关联到HTML元素或属性(Attribute)的。我们通常把这些关联到的HTML元素或者属性(Attribute)当做指令本身。
     当Angular在HTML模板中遇到一个指令的时候，它就会找出一个与该指令相匹配的类，创建此类的实例，然后把浏览器中这部分DOM的控制权交给它。
 
-    Developers can invent custom HTML markup (e.g., `<my-directive>`) to
-    associate with their custom directives. They add this custom markup to HTML templates
-    as if they were writing native HTML. In this way, directives become extensions of
+    You can invent custom HTML markup (for example, `<my-directive>`) to
+    associate with your custom directives. You add this custom markup to HTML templates
+    as if you were writing native HTML. In this way, directives become extensions of
     HTML itself.
 
-    开发人员可以为自定义指令指定自定义的HTML标签(比如`<my-directive>`)，然后，他们就可以像写原生HTML一样把这些自定义标签放到HTML模板里了。
+    你可以为自定义指令指定自定义的HTML标签(比如`<my-directive>`)，然后，就可以像写原生HTML一样把这些自定义标签放到HTML模板里了。
     这样，指令就变成了HTML本身的拓展。
 
     Directives fall into one of three categories:
@@ -492,13 +471,13 @@ block includes
     developer can expect to write a lot of them.
     1. [组件(Component)](#component): 用来把程序逻辑和HTML模板组合起来，渲染出应用程序的视图。组件一般表示成HTML元素的形式，它们是构建Angular应用程序的基本单元。可以预见，开发人员将会写很多很多组件。
 
-    1. [Attribute Directives](#attribute-directive) that can listen to and modify the behavior of
+    1. [Attribute directives](#attribute-directive) that can listen to and modify the behavior of
     other HTML elements, attributes, properties, and components. They are usually represented
     as HTML attributes, hence the name.
     1. [属性型指令(Attribute Directive)](#attribute-directive)：可以监控和修改其它HTML元素、HTML属性(Attribute)、DOM属性(Property)、组件等行为等等。它们一般表示为HTML元素的属性(Attibute)，故名。
 
-    1. [Structural Directives](#structural-directive), a directive responsible for
-    shaping or re-shaping HTML layout, typically by adding, removing, or manipulating
+    1. [Structural directives](#structural-directive), a directive responsible for
+    shaping or reshaping HTML layout, typically by adding, removing, or manipulating
     elements and their children.
     1. [结构型指令(Structural Directive)](#structural-directive)：负责塑造或重塑HTML布局。这一般是通过添加、删除或者操作HTML元素及其子元素来实现的。
 // #enddocregion d2
@@ -515,9 +494,9 @@ block includes
 
     The latest approved version of JavaScript is
     [ECMAScript 2016](http://www.ecma-international.org/ecma-262/7.0/)
-    (AKA "ES2016" or "ES7") and many Angular 2 developers will write their applications
+    (AKA "ES2016" or "ES7") and many Angular 2 developers write their applications
     either in this version of the language or a dialect that strives to be
-    compatible with it such as [TypeScript](#typesScript).
+    compatible with it, such as [TypeScript](#typescript).
 
     最新的被认可的JavaScript版本是[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)，(也叫“ES2015”或“ES6”)。Angular 2的开发者要么使用这个版本的JavaScript，要么使用与这个版本兼容的语言，比如[TypeScript](#typesScript)。
 
@@ -577,26 +556,26 @@ a#H
 .l-sub-section
   :marked
     A directive property that can be the ***target*** of a
-    [Property Binding](!{docsLatest}/guide/template-syntax.html#property-binding).
+    [property binding](!{docsLatest}/guide/template-syntax.html#property-binding) (explained in detail in the [Template Syntax](!{docsLatest}/guide/template-syntax.html) page).
     Data values flow *into* this property from the data source identified
     in the template expression to the right of the equal sign.
 
     指令属性可以作为[属性绑定](!{docsLatest}/guide/template-syntax.html#property-binding)的目标。数据值会从模板表达式等号右侧的数据源中，流入这个属性。
 
-    See the [Template Syntax](!{docsLatest}/guide/template-syntax.html#inputs-outputs) chapter.
+    See the [Input and output properties](!{docsLatest}/guide/template-syntax.html#inputs-outputs) section of the [Template Syntax](!{docsLatest}/guide/template-syntax.html) page.
 
-    参见[模板语法](!{docsLatest}/guide/template-syntax.html#inputs-outputs)一章。
+    参见[模板语法](!{docsLatest}/guide/template-syntax.html)页的[输入与输出属性](!{docsLatest}/guide/template-syntax.html#inputs-outputs)部分。
 
 :marked
   ## Interpolation
   ## 插值表达式(Interpolation)
 .l-sub-section
   :marked
-    A form of [Property Data Binding](#data-binding) in which a
+    A form of [property data binding](#data-binding) in which a
     [template expression](#template-expression) between double-curly braces
     renders as text.  That text may be concatenated with neighboring text
     before it is assigned to an element property
-    or displayed between element tags as in this example.
+    or displayed between element tags, as in this example.
 
     [属性数据绑定(Property Data Binding)](#data-binding) 的形式之一：位于双大括号中的[模板表达式(Template Expression)](#template-expression)会被渲染成文本。在被赋值给元素属性或者显示在元素标签中之前，这些文本可能会先与周边的文本合并，参见下面的例子。
 
@@ -604,8 +583,8 @@ a#H
     <label>My current hero is {{hero.name}}</label>
 
   :marked
-    Learn more about interpolation in the
-    [Template Syntax](!{docsLatest}/guide/template-syntax.html#interpolation) chapter.
+    Read more about [interpolation](!{docsLatest}/guide/template-syntax.html#interpolation) in the
+    [Template Syntax](!{docsLatest}/guide/template-syntax.html) page.
 
     要学习关于插值表达式的更多知识，参见[模板语法](/docs/ts/latest/guide/template-syntax.html#interpolation)一章。
     
@@ -614,14 +593,14 @@ a#H
 +ifDocsFor('ts')
   a#jit
   :marked
-    ## Just in Time (JIT) Compilation
+    ## Just-in-time (JiT) compilation
 
-    ## 即时编译（Just in Time (JIT) Compilation）
+    ## 即时(Just-in-time (JiT))编译
   .l-sub-section
     :marked
-      With Angular _Just in Time_  bootstrapping you compile your components and modules in the browser
+      With Angular _just-in-time_  bootstrapping you compile your components and modules in the browser
       and launch the application dynamically. This is a good choice during development.
-      Consider the [Ahead of Time](#aot) mode for production apps.
+      Consider using the [ahead-of-time](#aot) mode for production apps.
 
       Angular的即时编译在浏览器中启动并编译所有的组件和模块，并动态运行应用程序。它很适合在开发期使用。但是在产品发布时，
       推荐采用[提前编译（Ahead of Time）](#aot)模式。
@@ -638,22 +617,22 @@ a#H
 
 .l-main-section#L
 :marked
-  ## Lifecycle Hooks
+  ## Lifecycle hooks
   ## 生命周期钩子(Lifecycle Hook)
 .l-sub-section
   :marked
-    [Directives](#directive) and [Components](#component) have a lifecycle
-    managed by Angular as it creates, updates and destroys them.
+    [Directives](#directive) and [components](#component) have a lifecycle
+    managed by Angular as it creates, updates, and destroys them.
 
     [指令(Directive)](#directive)和[组件(Component)](#component)具有生命周期，它们由Angular在创建、更新和销毁它们的过程中进行管理。
 
-    Developers can tap into key moments in that lifecycle by implementing
-    one or more of the "Lifecycle Hook" interfaces.
+    You can tap into key moments in that lifecycle by implementing
+    one or more of the lifecycle hook interfaces.
 
-    开发者可以通过实现一个或多个“生命周期钩子”接口，切入到生命周期中的关键时间点。
+    你可以通过实现一个或多个“生命周期钩子”接口，切入到生命周期中的关键时间点。
 
     Each interface has a single hook method whose name is the interface name prefixed with `ng`.
-    For example, the `OnInit` interface has a hook method names `ngOnInit`.
+    For example, the `OnInit` interface has a hook method named `ngOnInit`.
 
     每个接口只有一个钩子方法，方法名一般是接口的名字加前缀 `ng`。比如，`OnInit`接口的钩子类的方法名为 `ngOnInit`。
 
@@ -661,24 +640,24 @@ a#H
 
     Angular会按照下面的顺序调用钩子类方法：
 
-    * `ngOnChanges` - called when an [input](#input)/[output](#output) binding values change
+    * `ngOnChanges` - when an [input](#input)/[output](#output) binding value changes.
     * `ngOnChanges` - 在[输入属性(Input)](#input)/[输出属性(Output)](#output)的绑定值发生变化的时候调用。
-    * `ngOnInit` - after the first `ngOnChanges`
+    * `ngOnInit` - after the first `ngOnChanges`.
     * `ngOnInit` - 在第一轮`ngOnChanges`完成后调用。
-    * `ngDoCheck` - developer's custom change detection
+    * `ngDoCheck` - developer's custom change detection.
     * `ngDoCheck` - 开发者自定义变化监测器。
-    * `ngAfterContentInit` - after component content initialized
+    * `ngAfterContentInit` - after component content initialized.
     * `ngAfterContentInit` - 在组件初始化以后调用。
-    * `ngAfterContentChecked` - after every check of component content
+    * `ngAfterContentChecked` - after every check of component content.
     * `ngAfterContentChecked` - 在检查每个组件内容后调用。
-    * `ngAfterViewInit` - after component's view(s) are initialized
+    * `ngAfterViewInit` - after component's view(s) are initialized.
     * `ngAfterViewInit` - 在组件视图初始化后调用。
-    * `ngAfterViewChecked` - after every check of a component's view(s)
+    * `ngAfterViewChecked` - after every check of a component's view(s).
     * `ngAfterViewChecked` - 在检查每个组件视图后调用
     * `ngOnDestroy` - just before the directive is destroyed.
     * `ngOnDestroy` - 在指令销毁前调用。
 
-    Learn more in the [Lifecycle Hooks](!{docsLatest}/guide/lifecycle-hooks.html) chapter.
+    Read more in the [Lifecycle Hooks](!{docsLatest}/guide/lifecycle-hooks.html) page.
 
     要了解更多，参见[生命周期钩子(Lifecycle Hook)](!{docsLatest}/guide/lifecycle-hooks.html)一章。
 // #enddocregion f-l
@@ -697,11 +676,11 @@ a#H
        在Angular里有两种模块：
   
        - [Angular modules](#angular-module).
-       See the [Angular Module](/docs/ts/latest/guide/ngmodule.html) chapter for details and examples.
+       For details and examples, see the [Angular Modules](!{docsLatest}/guide/ngmodule.html) page.
+        
+       - [Angular 模块](#angular-module)。到[Angular Module](!{docsLatest}/guide/ngmodule.html)页查看详情和例子。
   
-       - [Angular 模块](#angular-module).到[Angular Module](/docs/ts/latest/guide/ngmodule.html)章节查看详情和例子。
-  
-       - ES2015 modules as described in this section.
+       - ES2015 modules, as described in this section.
   
        - 本节描述的ES2015模块。
   
@@ -710,8 +689,7 @@ a#H
   
       Angular应用程序是模块化的。
   
-      In general, we assemble our application from many modules, both the ones we write ourselves
-      and the ones we acquire from others.
+      In general, you assemble your application from many modules, both the ones you write and the ones you acquire from others.
   
       一般来说，我们用模块来组装应用程序，这些模块包含我们自己编写的模块和从其它地方获取的模块。
   
@@ -726,19 +704,18 @@ a#H
       模块如果需要什么东西，那就**导入(import)**它。
   
       The structure of Angular modules and the import/export syntax
-      is based on the [ES2015](#es2015) module standard
-      described [here](http://www.2ality.com/2014/09/es6-modules-final.html).
+      is based on the [ES2015 module standard](http://www.2ality.com/2014/09/es6-modules-final.html).
   
-      Angular的模块结构和输出/导入语法是基于[ES2015](#es2015)模块化标准的，参见[这里](http://www.2ality.com/2014/09/es6-modules-final.html)。
+      Angular的模块结构和输出/导入语法是基于[ES2015模块化标准](http://www.2ality.com/2014/09/es6-modules-final.html)的。
   
       An application that adheres to this standard requires a module loader to
-      load modules on request and resolve inter-module dependencies.
+      load modules on request, and resolve inter-module dependencies.
       Angular does not ship with a module loader and does not have a preference
-      for any particular 3rd party library (although most samples use SystemJS).
-      Application developers may pick any module library that conforms to the standard
+      for any particular 3rd party library (although most examples use SystemJS).
+      You may pick any module library that conforms to the standard.
   
       采用这个标准的应用程序需要一个模块加载器来按需加载模块并解析模块的依赖关系。Angular不包含任何模块加载器，也不偏爱哪一个第三方库(虽然几乎所有例子都使用SystemJS)。
-      应用程序开发者可以自行选择任何与这个标准兼容的模块化库。
+      你可以自行选择任何与这个标准兼容的模块化库。
   
       Modules are typically named after the file in which the exported thing is defined.
       The Angular [DatePipe](https://github.com/angular/angular/blob/master/modules/@angular/common/src/pipes/date_pipe.ts)
@@ -746,11 +723,10 @@ a#H
   
       模块一般与它定义导出物的文件同名。比如, Angular的[日期管道(DatePipe)](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts)类属于名叫`date_pipe`的特性模块，位于文件`date_pipe.ts`中。
   
-      Developers rarely access Angular feature modules directly.
-      We usually import them from one of the Angular [scoped packages](#scoped-package) such as `@angular/core`.
+      You rarely access Angular feature modules directly. You usually import them from one of the Angular [scoped packages](#scoped-package) such as `@angular/core`.
   
-      开发者很少需要直接访问Angular的特性模块。
-      我们通常会从一个Angular的[范围化包(Scoped Package)](#scoped-package)中导入它们，比如`@angular/core`。
+      你很少需要直接访问Angular的特性模块。
+      而通常会从一个Angular的[范围化包(Scoped Package)](#scoped-package)中导入它们，比如`@angular/core`。
       
 a#N
 .l-main-section#O
@@ -762,8 +738,8 @@ a#N
     ## Observable
   .l-sub-section
     :marked
-      We can think of an observable as an array whose items arrive asynchronously over time. 
-      Observables help us manage asynchronous data, such as data coming from a backend service.
+      You can think of an observable as an array whose items arrive asynchronously over time.
+      Observables help you manage asynchronous data, such as data coming from a backend service.
       Observables are used within Angular itself, including Angular's event system and its http client service.
   
       一个`Observable`是一个数组，它包含的元素在一段时间内异步到达。`Observable`帮助我们管理异步数据，比如来自后台服务的数据。
@@ -780,17 +756,17 @@ a#N
   ## 输出属性(Output)
 .l-sub-section
   :marked
-    A directive property that can be the ***target*** of an
-    [Event Binding](!{docsLatest}/guide/template-syntax.html#property-binding).
+    A directive property that can be the ***target*** of
+    [event binding](!{docsLatest}/guide/template-syntax.html#event-binding).
     Events stream *out* of this property to the receiver identified
     in the template expression to the right of the equal sign.
 
     输出属性是指令的一种属性，它可作为[事件绑定](/docs/ts/latest/guide/template-syntax.html#property-binding)的 **目标** 。
     事件流可以通过这个属性，流出到接收者(模板表达式等号的右边就是接收者)。
 
-    See the [Template Syntax](/docs/ts/latest/guide/template-syntax.html#inputs-outputs) chapter.
+    See the [Input and output properties](!{docsLatest}/guide/template-syntax.html#inputs-outputs) section of the [Template Syntax](!{docsLatest}/guide/template-syntax.html) page.
 
-    参见[模板语法](/docs/ts/latest/guide/template-syntax.html#inputs-outputs)一章。
+    参见[模板语法](/docs/ts/latest/guide/template-syntax.html)中的[输入与输出属性](!{docsLatest}/guide/template-syntax.html#inputs-outputs)部分。
 
 .l-main-section#P
 
@@ -799,13 +775,11 @@ a#N
   ## Pascal命名法(PascalCase)
 .l-sub-section
   :marked
-    The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter.
-    Class names are typically spelled in PascalCase. Examples include: `Person` and `HeroDetailComponent`.
+    The practice of writing individual words, compound words, or phrases such that each word or abbreviation begins with a capital letter. Class names are typically spelled in PascalCase. Examples include: `Person` and `HeroDetailComponent`.
     
-    遵循“每个单词都用大写开头”的规则的书写复合词或短语的命名方法叫做Pascal命名法。类名一般都采用Pascal命名法。比如`Person`和`Customer`
+    遵循“每个单词都用大写开头”的规则的书写单词、复合词或短语的命名方法叫做Pascal命名法。类名一般都采用Pascal命名法。比如`Person`和`Customer`
 
-    This form is also known as **upper camel case**, to distinguish it from **lower camel case** which we simply call [camelCase](#camelcase).
-    In this documentation, "PascalCase" means *upper camel case* and  "camelCase" means *lower camel case*.
+    This form is also known as **upper camel case** to distinguish it from **lower camel case**, which is simply called [camelCase](#camelcase). In this documentation, "PascalCase" means *upper camel case* and  "camelCase" means *lower camel case*.
 
     这种命名法也叫**大驼峰式命名法**，以区别于 **小驼峰式命名法”或[驼峰式命名法(camelCase)](#camelCase)** 。
     在本教程中，“Pascal命名法”都是指的*大驼峰式命名法”，“驼峰式命名法”指的都是“小驼峰式命名法”
@@ -816,9 +790,9 @@ a#N
 .l-sub-section
   :marked
     An Angular pipe is a function that transforms input values to output values for
-    display in a [view](#view). We use the `!{_at}Pipe` !{_decoratorLink}
-    to associate the pipe function with a name. We can then use that
-    name in our HTML to declaratively transform values on screen.
+    display in a [view](#view). Use the `!{_at}Pipe` !{_decoratorLink}
+    to associate the pipe function with a name. You then use that
+    name in your HTML to declaratively transform values on screen.
 
     Angular的管道是一个函数，用于把输入值转换成输出值以供[视图(View)](#view)显示。使用`#{atSym}Pipe`!{decoratorCn}来把管道函数关联到它的名字上。
     然后，就可以在HTML中用它的名字来声明该如何把输入值转换为显示值了。
@@ -831,7 +805,7 @@ a#N
   code-example(language="html" escape="html").
     <label>Price: </label>{{product.price | currency}}
   :marked
-    Learn more in the chapter on [pipes](!{docsLatest}/guide/pipes.html) .
+    Read more in the page on [pipes](!{docsLatest}/guide/pipes.html).
 
     要了解更多，参见[管道](/docs/ts/latest/guide/pipes.html)一章。
 
@@ -841,10 +815,9 @@ a#N
   ## 提供商(Provider)
 .l-sub-section
   :marked
-    A [Provider](!{_ProviderUrl}) creates a new instance of a dependency for the
-    [Dependency Injection](#dependency-injection) system.
-    It relates a lookup token to code &mdash; sometimes called a "recipe" &mdash;
-    that can create a dependency value.
+    A [provider](!{_ProviderUrl}) creates a new instance of a dependency for the
+    [dependency injection](#dependency-injection) system.
+    It relates a lookup token to code&mdash;sometimes called a "recipe"&mdash;that can create a dependency value.
 
     依赖注入系统依靠提供商来创建依赖的实例。它把一个供查阅用的令牌和代码(有时也叫“配方”)关联到一起，以便创建依赖值。
 
@@ -853,7 +826,7 @@ a#Q
 
 +ifDocsFor('ts|js')
   :marked
-    ## Reactive Forms
+    ## Reactive forms
     ## 动态表格（Reactive Forms）
   .l-sub-section
     :marked
@@ -882,8 +855,7 @@ a#Q
   
       - 相关联的Angular指令全部以`Form`开头，比如`FormGroup`、`FormControl`和`FormControlName`。
   
-      Reactive forms are powerful, flexible, and great for more complex data entry form scenarios, such as dynamic generation
-      of form controls.
+      Reactive forms are powerful, flexible, and great for more complex data entry form scenarios such as dynamic generation of form controls.
   
       动态表单非常强大、灵活，它在复杂数据输入的场景下尤其好用，比如动态的生成表单控制器。
 
@@ -893,69 +865,70 @@ a#Q
 .l-sub-section
   :marked
     Most applications consist of many screens or [views](#view).
-    The user navigates among them by clicking links and buttons
-    and taking other similar actions that cause the application to
+    The user navigates among them by clicking links and buttons,
+    and performing other similar actions that cause the application to
     replace one view with another.
 
     大部分应用程序包含多个屏或[视图(View)](#view)。用户通过点击链接、按钮和其它类似动作，在它们之间穿梭，这样应用程序就会从一个视图变换到另一个视图。
 
-    The Angular [Component Router](/docs/ts/latest/guide/router.html) is a richly featured mechanism for configuring
-    and managing the entire view navigation process including the creation and destruction
+    The Angular [component router](!{docsLatest}/guide/router.html) is a richly featured mechanism for configuring and managing the entire view navigation process including the creation and destruction
     of views.
 
-    Angular的[组件路由器(Component Router)](guide/router.html)是一个特性丰富的机制，它可以配置和管理整个导航过程，包括建立和销毁视图。
+    Angular的[组件路由器(Component Router)](!{docsLatest}/guide/router.html)是一个特性丰富的机制，它可以配置和管理整个导航过程，包括建立和销毁视图。
     
   +ifDocsFor('ts|js')
     :marked
-      In most cases, components becomes attached to a [router](#router) by means
+      In most cases, components become attached to a [router](#router) by means
       of a `RouterConfig` that defines routes to views.
       
       多数情况下，组件会通过`RouterConfig`中定义的路由到视图的对照表来附加到[路由器](#router)上。
   
-      A [routing component's](#routing-component) template has a `RouterOutlet` element where it can display views produced by the router.
+      A [routing component's](#routing-component) template has a `RouterOutlet` element
+      where it can display views produced by the router.
       
       [路由组件](#routing-component)的模板中带有一个`RouterOutlet`元素，它用来显示由路由器生成的视图。
   
-      Other views in the application likely have anchor tags or buttons with `RouterLink` directives that users can click to navigate.
+      Other views in the application likely have anchor tags or buttons with `RouterLink`
+      directives that users can click to navigate.
       
       应用中的其它视图中某些A标签或按钮上带有`RouterLink`指令，用户可以点击它们来导航到这里。
   
-      See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+      For more information, see the [Routing & Navigation](!{docsLatest}/guide/router.html) page.
       
-      要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
+      要了解更多，请参见[路由与导航](!{docsLatest}/guide/router.html)页。
       
 +ifDocsFor('ts|js')
   :marked
-    ## RouterModule
+    ## Router module
   .l-sub-section
     :marked
       A separate [Angular module](#angular-module) that provides the necessary service providers and directives for navigating through application views.
       
       一个独立的[Angular模块](#angular-module)是用来提供导航时所需的必备服务提供商和指令的。
   
-      See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+      For more information, see the [Routing & Navigation](!{docsLatest}/guide/router.html) page.
       
-      要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
+      要了解更多，请参见[路由与导航](!{docsLatest}/guide/router.html)页。
 
 :marked
-  ## Routing Component
+  ## Routing component
   ## 路由组件(Routing Component)
 .l-sub-section
   block routing-component-defn
     :marked
-      An Angular [Component](#component) with a RouterOutlet that displays views based on router navigations.
+      An Angular [component](#component) with a RouterOutlet that displays views based on router navigations.
       
       带有RouterOutlet的Angular[组件](#component)基于路由器导航来显示视图。
   
-      See the [Component Router](/docs/ts/latest/guide/router.html) chapter to learn more.
+      For more information, see the [Routing & Navigation](!{docsLatest}/guide/router.html) page.
       
-      要了解更多，请参见[组件路由器](/docs/ts/latest/guide/router.html)一章。
+      要了解更多，请参见[路由与导航](!{docsLatest}/guide/router.html)页。
 
 .l-main-section#S
 
 +ifDocsFor('ts|js')
   :marked
-    ## Scoped Package
+    ## Scoped package
     
     ## 范围化包（Scoped Package）
 
@@ -971,27 +944,27 @@ a#Q
         
         [*范围化包(Scoped Package)*](https://docs.npmjs.com/misc/scope)是对相关*npm*包进行分组的一种方式。
     
-        We import a scoped package the same way we'd import a *normal* package.
-        The only difference, from a consumer perspective, 
-        is that the package name begins with the Angular *scope name*, `@angular`.
+        You import a scoped package the same way that you'd import a *normal* package.
+        The only difference, from a consumer perspective,
+        is that the *scoped package* name begins with the Angular *scope name*, `@angular`.
     
         使用和导入*普通*包相同的方式导入范围化包。
-        从消费者的视角看，唯一的不同是那些包的名字是用Angular的*范围名*`@angular`开头的。
+        从消费者的视角看，唯一的不同是那些包的名字是用Angular的*范围化包名*`@angular`开头的。
   
       +makeExcerpt('architecture/ts/app/app.component.ts', 'import', '')
 
 a#snake-case
 :marked
   ## snake_case
-  ## 下划线命名法
+  ## 下划线命名法（蛇形命名法）
 
 .l-sub-section
   block snake-case-defn
     :marked
-      The practice of writing compound words or phrases such that each word is separated by an
-      underscore (`_`). This form is also known as **underscore case**.
+      The practice of writing compound words or phrases such that an
+      underscore (`_`) separates one word from the next. This form is also known as **underscore case**.
       
-      用下划线分割单词或词组的命名方法称为**下划线命名法**。
+      用下划线分隔复合词或词组的命名方法称为**下划线命名法**。
 
 :marked
   ## Service
@@ -999,44 +972,40 @@ a#snake-case
   ## 服务
 .l-sub-section
   :marked
-    Components are great and all, but what do we do with data or logic that are not associated
-    with a specific view or that we want to share across components? We build services!
+    For data or logic that is not associated
+    with a specific view or that you want to share across components, build services.
 
     组件很强大很好...但是，我们该如何处理那些不与任何特定视图相关的数据和逻辑？又如何在组件之间共享这些数据和逻辑？我们创建服务！    
 
     Applications often require services such as a hero data service or a logging service.
-    Our components depend on these services to do the heavy lifting.
 
     应用程序经常需要服务，比如英雄数据服务或者日志服务。组件依赖这些服务来做一些繁重的工作。
 
     A service is a class with a focused purpose.
     We often create a service to implement features that are
     independent from any specific view,
-    provide share data or logic across components, or encapsulate external interactions.
+    provide shared data or logic across components, or encapsulate external interactions.
 
     服务是一个具有特定功能的类。我们经常创建服务来实现不依赖任何特定视图的特征、在组件之间提供共享数据或逻辑，或者封装外部互动等。
 
-    See the [Services](/docs/ts/latest/tutorial/toh-pt4.html) chapter of the tutorial to learn more.
-
-    到[服务](/docs/ts/latest/tutorial/toh-pt4.html)章查看更多详情。
+    For more information, see the [Services](!{docsLatest}/tutorial/toh-pt4.html) page of the [Tour of Heroes](!{docsLatest}/tutorial/) tutorial.
+    
+    要了解更多，参见[英雄指南](!{docsLatest}/tutorial/)教程中的[服务](!{docsLatest}/tutorial/toh-pt4.html)页。
 
 :marked
-  ## Structural Directive
+  ## Structural directive
   ## 结构型指令(Structural Directive)
 .l-sub-section
   :marked
-    A category of [Directive](#directive) that can
-    shape or re-shape HTML layout, typically by adding, removing, or manipulating
-    elements and their children.
+    A category of [directive](#directive) that can
+    shape or reshape HTML layout, typically by adding, removing, or manipulating
+    elements and their children; for example, the `ngIf` "conditional element" directive and the `ngFor` "repeater" directive.
 
     结构型指令是一种可以通过添加、删除或操作元素和其各级子元素来塑造或重塑HTML布局的[指令(Directive)](#directive)，
 
-    The `ngIf` "conditional element" directive and the `ngFor` "repeater" directive are
-    good examples in this category.
-
-    `ngIf`"条件化元素"指令和`ngFor`"重复器(repeater)"指令就是结构型指令的优秀代表。
-
-    要了解更多，请参见[结构型指令](/docs/ts/latest/guide/structural-directives.html)一章。
+    Read more in the [Structural Directives](!{docsLatest}/guide/structural-directives.html) page.
+    
+    要了解更多，请参见[结构型指令](!{docsLatest}/guide/structural-directives.html)页。
     
 // #enddocregion n-s-2
 
@@ -1047,18 +1016,14 @@ a#snake-case
 .l-sub-section
   :marked
     A template is a chunk of HTML that Angular uses to render a [view](#view) with
-    the support and continuing guidance of an Angular [Directive](#directive),
-    most notably a [Component](#component).
+    the support and continuing guidance of an Angular [directive](#directive),
+    most notably a [component](#component).
 
     模板是一大块HTML。Angular会在[指令(Directive)](#directive)特别是[组件(Component)](#component)的支持和持续指导下，用它来渲染[视图(View)](#view)。
 
-    We write templates in a special [Template Syntax](/docs/ts/latest/guide/template-syntax.html).
-
-    使用特殊的[模板语法](/docs/ts/latest/guide/template-syntax.html)来编写模板。
-
 +ifDocsFor('ts|js')
   :marked
-    ## Template-Driven Forms
+    ## Template-driven forms
     
     ## 模板驱动表单
     
@@ -1082,32 +1047,33 @@ a#snake-case
       
       - 使用`ngModel`的[双向绑定](#data-binding)负责组件模型和用户输入之间的同步。
       
-      - Behind the scenes, Angular creates a new control for each input element that has a `name` attribute and
-      two-way binding set up.
+      - Behind the scenes, Angular creates a new control for each input element, provided you have set up a `name` attribute and two-way binding for each input.
       
-      - 在幕后，Angular为每个带有`name`属性和双向绑定的输入元素创建了一个新的控件。
+      - 在幕后，Angular为每个带有`name`属性和双向绑定的input元素创建了一个新的控件。
       
       - The associated Angular directives are all prefixed with `ng` such as `ngForm`, `ngModel`, and `ngModelGroup`.
       
       - 相关的Angular指令都带有`ng`前缀，比如`ngForm`、`ngModel`和`ngModelGroup`。
   
-      Template-driven forms are convenient, quick, and simple and are a good choice for many basic data entry form scenarios.
+      Template-driven forms are convenient, quick, and simple. They are a good choice for many basic data entry form scenarios.
       
       模板驱动的表单便捷、快速、简单，是很多基础型数据输入表单的最佳选择。
   
-      Learn how to build template-driven forms
-      in the [Forms](/docs/ts/latest/guide/forms.html) chapter.
+      Read about how to build template-driven forms
+      in the [Forms](!{docsLatest}/guide/forms.html) page.
       
-      要学习如何构建模板驱动型表单，请参见[表单](/docs/ts/latest/guide/forms.html)一章。
+      要学习如何构建模板驱动型表单，请参见[表单](!{docsLatest}/guide/forms.html)页。
 
 :marked
-  ## Template Expression
+  ## Template expression
   ## 模板表达式(Template Expression)
 .l-sub-section
   :marked
     An expression is a !{_Lang}-like syntax that Angular evaluates within
-    a [data binding](#data-binding).  Learn how to write template expressions
-    in the [Template Syntax](!{docsLatest}/guide/template-syntax.html#template-expressions) chapter.
+    a [data binding](#data-binding).
+
+    Read about how to write template expressions
+    in the [Template Syntax](!{docsLatest}/guide/template-syntax.html#template-expressions) page.
 
     Angular用来在[数据绑定(Data Binding)](#data-binding)内求值的、**类似**JavaScript语法的表达式。到[模板语法](guide/template-syntax.html#template-expressions)一章中了解更多模板表达式的知识。
 // #enddocregion t1
@@ -1118,36 +1084,31 @@ a#snake-case
 .l-sub-section
   :marked
     The process of transforming code written in one form of JavaScript
-    (e.g., TypeScript) into another form of JavaScript  (e.g., [ES5](#es5)).
+    (for example, TypeScript) into another form of JavaScript  (for example, [ES5](#es5)).
 
     把用JavaScript的某种形态(比如TypeScript)编写的程序转换成另一个形式的JavaScript(例如[ES5](#es5))的过程。
  :marked
   ## TypeScript
 .l-sub-section
   :marked
-    A version of JavaScript that supports most [ECMAScript](#ecmascript) 2015
-    language features and many features that may arrive in future versions
-    of JavaScript such as [Decorators](#decorator).
+    A version of JavaScript that supports most [ECMAScript 2015](#ecmascript=2015)
+    language features such as [decorators](#decorator).
 
     一种支持了几乎所有[ECMAScript 2015](#ecmascript=2015)语言特性和一些未来版本可能有的特性(比如[装饰器(Decorator)](#decorator))的JavaScript语言。
 
-    TypeScript is also noteable for its optional typing system which gives
-    us compile-time type-checking and strong tooling support (e.g. "intellisense",
+    TypeScript is also noteable for its optional typing system, which gives
+    us compile-time type checking and strong tooling support (for example, "intellisense",
     code completion, refactoring, and intelligent search). Many code editors
     and IDEs support TypeScript either natively or with plugins.
 
     TypeScript还以它的可选类型系统而著称。该类型系统提供了编译期类型检查和强大的工具支持(比如“Intellisense”， 自动代码补齐，重构和智能搜索等)。许多程序编辑器和开发环境都自带了TypeScript支持或通过插件提供支持。
 
     TypeScript is the preferred language for Angular 2 development although
-    we are welcome to write in other JavaScript dialects such as [ES5](#es5).
+    you can use other JavaScript dialects such as [ES5](#es5).
 
     TypeScript是Angular 2的首选语言，当然，我们也欢迎你使用其它JavaScript语言，比如[ES5](#es5)。
 
-    Angular 2 itself is written in TypeScript.
-
-    Angular 2本身是用TypeScript编写的。
-
-    Learn more about TypeScript on its [website](http://www.typescriptlang.org/).
+    Read more about TypeScript at [typescript.org](http://www.typescriptlang.org/).
 
     到TypeScript[官方网站](http://www.typescriptlang.org/)了解更多知识。
 
@@ -1166,10 +1127,10 @@ a#U
 
     视图是屏幕中一小块，用来显示信息并回应用户动作，比如点击、移动鼠标和按键等。
 
-    Angular renders a view under the control of one or more [Directives](#directive),
-    especially  [Component](#component) directives and their companion [Templates](#template).
-    The Component plays such a prominent role that we often
-    find it convenient to refer to a component as a view.
+    Angular renders a view under the control of one or more [directives](#directive),
+    especially  [component](#component) directives and their companion [templates](#template).
+    The component plays such a prominent role that it's often
+    convenient to refer to a component as a view.
 
     Angular在一个或多个[指令(Directive)](#directive)的控制下渲染视图，尤其是[组件(Component)](#component)型指令及其[模板(Template)](#template)。
     组件扮演着非常重要的角色，我们甚至经常会为了方便, 直接用“视图”作为组件的代名词。
@@ -1197,7 +1158,7 @@ a#Y
       区域是一种用来封装和截听JavaScript应用程序异步动作的机制。
   
       The browser DOM and JavaScript have a limited number
-      of asynchronous activities, activities such as DOM events (e.g., clicks),
+      of asynchronous activities, activities such as DOM events (for example, clicks),
       [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), and
       [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
       calls to remote servers.
@@ -1206,12 +1167,12 @@ a#Y
       Promise)、和通过[XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)查询远程服务等。
   
       Zones intercept all of these activities and give a "zone client" the opportunity
-      to take action before and after the async activity completes.
+      to take action before and after the async activity finishes.
   
       区域能截听所有这些活动，并让“区域的客户”有机会在异步活动完成之前和之后采取行动。
   
-      Angular runs our application in a zone where it can respond to
-      asynchronous events by checking for data changes and updating
+      Angular runs your application in a zone where it can respond to
+      asynchronous events by checking for data changes, and updating
       the information it displays via [data bindings](#data-binding).
   
       Angular会在一个 Zone 区域中运行应用程序，在这个区域中，它可以对异步事件做出反应，可以通过检查数据变更、利用[数据绑定(Data Bindings)](#data-binding)来更新信息显示。
