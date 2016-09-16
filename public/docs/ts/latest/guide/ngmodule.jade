@@ -774,9 +774,11 @@ a#application-scoped-providers
 
 :marked
   Try the example:
-  <live-example embedded plnkr="contact.1b" img="devguide/ngmodule/contact-1b-plunker.png"></live-example>
+
+  试试这个例子：
+
+  <live-example embedded plnkr="contact.1b" img="devguide/ngmodule/contact-1b-plunker.png"></live-example>  
   
-  <live-example plnkr="contact.1b">试试这个在线例子</live-example>
   
 a#resolve-conflicts
 .l-main-section 
@@ -788,7 +790,7 @@ a#resolve-conflicts
   We ran into trouble [above](#import-name-conflict) when we declared the contact's `HighlightDirective` because
   we already had a `HighlightDirective` class at the application level.
   
-  [以前](#import-name-conflict)我们要声明联系人的`HighlightDirective`指令时遇到了问题，因为在应用程序一级已经有了一个`HighlightDirective`类。
+  [以前](#import-name-conflict)我们在声明联系人的`HighlightDirective`指令时遇到了问题，因为在应用程序一级已经有了一个`HighlightDirective`类。
 
   That both directives have the same name smells of trouble.
   
@@ -824,7 +826,7 @@ a#resolve-conflicts
   :marked
     The real problem is that there are _two different classes_ trying to do the same thing.
     
-    真正的问题在于，有_两个不同的类_视图做同一件事。
+    真正的问题在于，有_两个不同的类_试图做同一件事。
 
     It's OK to import the _same_ directive class multiple times. 
     Angular removes duplicate classes and only registers one of them.
@@ -871,7 +873,7 @@ a#feature-modules
 
   * The root `AppModule` grows larger with each new application class and shows no signs of stopping.
   
-  * 随着一个个类被加入应用中，根模块`AppModule`变大了，并且看起来还会继续变大。
+  * 随着一个个类被加入应用中，根模块`AppModule`变大了，并且还会继续变大。
 
   * We have conflicting directives. 
   
@@ -922,7 +924,7 @@ a#feature-modules
 
   2. A feature module can expose or hide its implementation from other modules.
   
-  2. 特性模块可以暴露或隐藏来自其它模块的实现。
+  2. 特性模块可以对其他模块暴露或隐藏自己的实现。
 
   Otherwise, a feature module is distinguished primarily by its intent.
 
@@ -958,7 +960,7 @@ a#feature-modules
 
   It's easy to refactor the contact material into a contact feature module.
   
-  把与联系人有关的这些编程元素重构到“联系人”特性模块中很简单。
+  把与联系人有关的这些元素重构到“联系人”特性模块中很简单。
 
   1. Create the `ContactModule` in the `app/contact` folder.
   
@@ -966,7 +968,7 @@ a#feature-modules
   
   1. Move the contact material from `AppModule` to `ContactModule`.
   
-  1. 把联系人相关的编程元素从`AppModule`移到`ContactModule`中。
+  1. 把联系人相关的元素从`AppModule`移到`ContactModule`中。
   
   1. Replace the imported  `BrowserModule` with `CommonModule`.
   
@@ -978,7 +980,7 @@ a#feature-modules
 
   `AppModule` is the only _existing_ class that changes. But we do add one new file.
   
-  改完之后`AppModule`只剩下了这个类本身，不过我们还会添加一个新文件。
+  `AppModule`是唯一有改变的_已经存在_的类，不过我们还会添加一个新文件。
   
   ### Add the _ContactModule_
   
@@ -1008,13 +1010,13 @@ a#feature-modules
     
     当前模块不会继承其它模块中对组件、指令或管道的访问权。
     `AppModule`中的imports与`ContatModule`的imports互不相干。
-    如果`ContactComponent`要绑定到`[(ngModel)]`，它所在的`ContactModule`也同样得导入`FormsModule`。
+    如果`ContactComponent`要绑定到`[(ngModel)]`，它所在的`ContactModule`必需导入`FormsModule`。
     
 :marked
   We also replaced `BrowserModule` by `CommonModule` for reasons explained in
   [an FAQ](../cookbook/ngmodule-faq.html#q-browser-vs-common-module).
   
-  我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条FAQ](../cookbook/ngmodule-faq.html#q-browser-vs-common-module)。
+  我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条常见问题](../cookbook/ngmodule-faq.html#q-browser-vs-common-module)。
 
   We _declare_ the contact component, directive, and pipe in the module `declarations`.
   
@@ -1039,7 +1041,7 @@ a#feature-modules
   
   Return to the `AppModule` and remove everything specific to the contact feature set.
   
-  返回`AppModule`，并移除所有与联系人有关的内容。
+  返回`AppModule`，移除所有与联系人有关的内容。
   
   Delete the contact import statements.
   Delete the contact declarations and contact providers.
@@ -1072,7 +1074,7 @@ a#feature-modules
 :marked
   There's a lot to like in the revised `AppModule`
   
-  修改后的`AppModule`中还有很多类似的修改
+  修改后的`AppModule`有很令人喜欢的特征：
   
   * It does not change as the _Contact_ domain grows.
   
@@ -1133,11 +1135,9 @@ a#lazy-load
   
 .l-sub-section
   :marked
-    Examine and download the complete source for this version from the 
-    <live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">live example.</live-example>
+    Examine and download the complete source for this version from the <live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">live example.</live-example>
     
-    到
-    <live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">在线例子</live-example>
+    到<live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">在线例子</live-example>
     试用并下载当前版本的完整代码。
     
 :marked
@@ -1167,11 +1167,11 @@ a#lazy-load
 
   <a id="app-component-template"></a>
   
-  Let's start at the top with the new `AppComponent` template:
-  a title, three links, and a `<router-outlet>`.
+  <a id="app-component-template"></a>    
   
-  我们从这个`AppComponent`新模板的顶部看起：
-  一个标题、三个链接和一个`<router-outlet>`。
+  Let's start at the top with the new `AppComponent` template: a title, three links, and a `<router-outlet>`.
+  
+  我们从这个`AppComponent`新模板的顶部看起：一个标题、三个链接和一个`<router-outlet>`。
   
 +makeExample('ngmodule/ts/app/app.component.3.ts', 'template', 'app/app.component.ts (v3 - Template)')(format='.')
 
@@ -1182,7 +1182,7 @@ a#lazy-load
 
   The `AppModule` has changed modestly:
   
-  `AppModule`被改成了这样：
+  `AppModule`被的修改很大：
   
 +makeExample('ngmodule/ts/app/app.module.3.ts', '', 'app/app.module.ts (v3)')
 
@@ -1192,7 +1192,7 @@ a#lazy-load
     a difference with prior or future versions.
     We'll explain differences that matter in due course.
     
-    有些文件名带有`.3`扩展名，用以和以前/以后的版本区分开。
+    有些文件名带有`.3`扩展名，用来和以前/以后的版本区分开。
     我们会在适当的时机解释它们的差异。
     
 :marked
@@ -1262,7 +1262,7 @@ a#lazy-load
 
   The last line calls the `forRoot` static class method of the `RouterModule`, passing in the configuration.
   
-  最后一行调用了`RouterModule`类的静态方法`forRoot`，并把此配置信息传给它。
+  最后一行调用了`RouterModule`类的静态方法`forRoot`，并把路由配置信息传给它。
   
 +makeExample('ngmodule/ts/app/app.routing.ts', 'forRoot')(format='.')
 
@@ -1270,7 +1270,7 @@ a#lazy-load
   The returned `routing` object is a `ModuleWithProviders` containing both the `RouterModule` directives
   and the Dependency Injection providers that produce a configured `Router`. 
   
-  该方法返回的`routing`是一个`ModuleWithProviders`对象，它包含了一些`RouterModule`的指令和一些服务提供商，它们用于生成配置好的`Router`实例。
+  该方法返回的`routing`是一个`ModuleWithProviders`对象，它包含了一些`RouterModule`的指令和用来生成配置好的`Router`的依赖注入提供商。
 
   This `routing` object is intended for the app _root_ module _only_.
   
@@ -1389,7 +1389,7 @@ a#hero-module
   or an editor of a selected hero (`HeroDetail`).
   Both components delegate to the `HeroService` to fetch and save data.
 
-  如果你读过[路由](router.html#child-routing-component)页，那么对这个子路由的场景应该觉得很熟悉。
+  如果你读过[路由](router.html#child-routing-component)章，那么对这个子路由的场景应该觉得很熟悉。
   `HeroComponent`是本特性区的顶级组件和路由宿主。
   模板带有一个`<router-outlet>`指令，它或者显示英雄列表（`HeroList`）或者显示所选英雄的编辑器（`HeroDetail`）。
   这两个组件都把获取和保存数据的任务委托给`HeroService`执行。
@@ -1404,7 +1404,7 @@ a#hero-module
 
   The `HeroModule` is a feature module like any other.
 
-  `HeroModule`是一个和特性模块，与其它的没什么不同。
+  `HeroModule`是一个特性模块，与其它的没什么不同。
 
 +makeExample('ngmodule/ts/app/hero/hero.module.3.ts', 'class', 'app/hero/hero.module.ts (class)')(format='.')
 
@@ -1419,8 +1419,6 @@ a#hero-module
   
   `CrisisModule`和本模块非常像，我们不再赘述。
 
-  <live-example embedded plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">Try the live example.</live-example>
-  
   <live-example embedded plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">试试在线例子。</live-example>
 
 a#shared-module
@@ -1434,23 +1432,23 @@ a#shared-module
   One thing we don't like is carrying three different versions of the `HighlightDirective`.
   And there's a bunch of other stuff cluttering the app folder level that could be tucked away.
   
-  本应用继续改进。
+  本应用在继续演进中。
   让我们感到不爽的是：这里有`HighlightDirective`的三个不同版本。
   还有一大堆其它乱七八糟的东西堆在app目录这一级，我们得把它们清出去。
 
   Let's add a `SharedModule` to hold the common components, directives, and pipes 
   and share them with the modules that need them.
   
-  我们添加一个`SharedModule`来存放这些公共组件、指令和管道，并且共享给那些想用它们的模块。
+  我们添加`SharedModule`来存放这些公共组件、指令和管道，并且共享给那些想用它们的模块。
 
   * create an `app/shared` folder
-  * 创建一个`app/shared`目录
+  * 创建`app/shared`目录
   * move the `AwesomePipe` and `HighlightDirective` from `app/contact` to `app/shared`.
   * 把`AwesomePipe`和`HighlightDirective`从`app/contact`移到`app/shared`中。
   * delete the `HighlightDirective` classes from `app/` and `app/hero`
   * 从`app/`和`app/hero`目录中删除`HighlightDirective`类
   * create a `SharedModule` class to own the shared material
-  * 创建一个`SharedModule`类来管理这些共享的素材
+  * 创建`SharedModule`类来管理这些共享的素材
   * update other feature modules to import `SharedModule`
   * 更新启动特性模块，让它们导入`SharedModule`
 
@@ -1493,7 +1491,7 @@ a#shared-module
   As it happens, the components declared by `SharedModule` itself don't bind with `[(ngModel)]`. 
   Technically,  there is no need for `SharedModule` to import `FormsModule`.
   
-  如果`SharedModule`本身所声明的组件没绑定过`[(ngModel)]`，那么，从技术角度看`SharedModule`并不需要导入`FormsModule`。
+  实际上，`SharedModule`本身所声明的组件没绑定过`[(ngModel)]`，那么，从技术角度看`SharedModule`并不需要导入`FormsModule`。
   
   `SharedModule` can still export `FormsModule` without listing it among its `imports`.
   
@@ -1538,7 +1536,7 @@ a#shared-module
   
   `UserService`是一个全应用级单例。
   我们不希望每个模块都各自有它的一个实例。
-  而如果由`SharedModule`提供`UserService`，就会导致[一个真正的危险](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
+  而如果由`SharedModule`提供`UserService`，就会导致[一个铁板钉钉的危险](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
 
 .alert.is-critical
   :marked
@@ -1573,7 +1571,7 @@ a#core-module
   * create an `app/core` folder
   * 创建`app/core`文件夹
   * move the `UserService` and `TitleComponent` from `app/` to `app/core`
-  * 把`UserService`和`TitleComponent`从`app`移到`app`中
+  * 把`UserService`和`TitleComponent`从`app`移到`app/core`中
   * create a `CoreModule` class to own the core material
   * 创建一个`CoreModule`类来管理这些核心素材
   * update the `AppRoot` module to  import `CoreModule`
@@ -1581,7 +1579,7 @@ a#core-module
   
   Again, most of this is familiar blocking and tackling. The interesting part is the `CoreModule`
   
-  又只剩下一些熟悉的普通任务了，但这次是针对`CoreModule`的：
+  这些都是一些熟悉的普通任务。最有趣的是`CoreModule`：
   
 +makeExample('ngmodule/ts/app/core/core.module.ts', 'v4', 'app/app/core/core.module.ts')
 
@@ -1590,7 +1588,7 @@ a#core-module
     We're importing some extra symbols from the Angular core library that we're not using yet.
     They'll become relevant later in this page.
   
-    我们正在从Angular核心库中导入一些从未用过的符号，稍后我们会接触它们。
+    我们正在从Angular核心库中导入一些从未用到的符号，稍后我们会接触它们。
 
 :marked
   The `@NgModule` metadata should be familiar. 
@@ -1598,7 +1596,7 @@ a#core-module
   because `AppComponent` (which is in `AppModule`) displays the title in its template.
   `TitleComponent` needs the Angular `NgIf` directive that we import from `CommonModule`.
 
-  我们对`@NgModule`的元数据应该很熟悉了吧。
+  我们对`@NgModule`的元数据应该很熟悉。
   由于该模块*拥有*`TitleComponent`，所以我们声明了它。由于`AppComponent`（位于`AppModule`模块）在模板中显示了这个标题，所以我们导出了它。
   由于`TitleComponent`需要用到Angular的`NgIf`指令，所以我们导入了`CommonModule`。
 
@@ -1632,7 +1630,7 @@ a#core-module
     Yet they're too big and messy to leave loose in the root folder.
 
     但真实的应用要考虑很多。
-    它们有很多一次性的组件（比如：加载动画、消息浮层和模态对话框等），而且只用于`AppComponent`的模板中。
+    它们有只用于`AppComponent`的模板中的一些一次性的组件（比如：加载动画、消息浮层和模态对话框等）。
     我们不用在其它地方导入它们，因此没必要*共享*它们。
     然而如果把它们留在根目录，还是显得太大、太乱了。
 
@@ -1648,7 +1646,7 @@ a#core-module
     Their _providers_ are not shared.
     
     当很多组件在它们的构造函数中注入这些服务时（因此也需要用JavaScript的`import`语句来导入它们的符号），任何组件或模块自身都不应该定义或重新创建这些服务。
-    它们的*提供商*不是共享的。
+    因为它们的*提供商*不是共享的。
 
     We recommend collecting such single-use classes and hiding their gory details inside a `CoreModule`.
     A simplified root `AppModule` imports `CoreModule` in its capacity as orchestrator of the application as a whole.
