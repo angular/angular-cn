@@ -3576,12 +3576,14 @@ a#fragment
     放进我们的`appRoutes`数组中，以便给路由提供一个单一数组。
 :marked
   The `loadChildren` property is used by the `Router` to map to our bundle we want to lazy-load, in this case being the `AdminModule`.
+  
+  路由器用`loadChildren`属性来映射我们希望延迟加载的捆文件，这里是`AdminModule`。
 
   If we look closer at the `loadChildren` string, we can see that it maps directly to our `admin.module.ts` file where we previously built
   out our `Admin` feature area. After the path to the file we use a `#` to denote where our file path ends and to tell the `Router` the name
   of our `AdminModule`. If we look in our `admin.module.ts` file, we can see it matches name of our exported module class.
   
-  仔细看`loadChildren`字符串，就会发现它直接映射到了我们以前在管理特性区构建的`admin.module.ts`文件
+  仔细看`loadChildren`字符串，就会发现它直接映射到了我们以前在管理特性区构建的`admin.module.ts`文件。在文件路径后面，我们使用`#`来标记出文件路径的末尾，并告诉路由器`AdminModule`的名字。打开`admin.module.ts`文件，我们就会看到它正是我们所导出的模块类的名字。
 
 +makeExcerpt('app/admin/admin.module.ts (export)', 'admin-module-export')
 
@@ -3590,6 +3592,8 @@ a#fragment
   The router will take our loadChildren string and dynamically load in our `AdminModule`, add its routes to our configuration *dynamically*
   and then load the requested route. This will only happen when the route is **first** requested and the module will be immediately be available
   for subsequent requests.
+  
+  路由器用`loadChildren`属性来映射我们希望延迟加载的捆文件，这里是`AdminModule`。路由器将接收我们的`loadChildren`字符串，并把它动态加载进`AdminModule`，它的路由被*动态*合并到我们的配置中，然后加载所请求的路由。但只有在首次加载该路由时才会这样做，后续的请求都会立即完成。
 
 .l-sub-section
   :marked
@@ -3603,33 +3607,45 @@ a#fragment
   to break our `AdminModule` into a completely separate module. In our `app.module.ts`, we'll remove our `AdminModule` from the
   `imports` array since we'll be loading it on-demand an we'll remove the imported `AdminModule`.
 
-  我们构建了特征去，更新了路由配置来实现懒惰加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
+  我们构建了特性区，更新了路由配置来实现懒惰加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
 
 +makeExcerpt('app/app.module.ts (async admin module)', '')
 
 h3#can-load-guard <i>CanLoad Guard</i>: guarding against loading of feature modules
+h3#can-load-guard <i>CanLoad守卫</i>: 保护特性模块的加载
 :marked
   We're already protecting our `AdminModule` with a `CanActivate` guard that prevents the user from
   accessing the admin feature area unless authorized. We're currently loading the admin routing
   asynchronously when requested, checking the user access and redirecting to the login page if not
   authorized. Ideally, we only want to load the `AdminModule` if the user is logged in and prevent
   the `AdminModule` and its routing from being loaded until then.
+  
+  我们已经使用`CanAcitvate`保护`AdminModule`了，它会阻止对管理特性区的匿名访问。我们在请求时可以异步加载管理类路由，检查用户的访问权，如果用户未登录，则跳转到登陆页面。但更理想的是，我们只在用户已经登录的情况下加载`AdminModule`，并且直到加载完才放行到它的路由。
 
   The **CanLoad** guard covers this scenario.
+  
+  **CanLoad**守卫适用于这个场景。
 
   We can use the `CanLoad` guard to only load the `AdminModule` once the user is logged in **and** attempts
   to access the admin feature area. We'll update our existing `AuthGuard` to support the `CanLoad` guard. We'll import
   the `CanLoad` interface and the `Route` the guard provides when called that contains the requested path.
+  
+  我们可以用`CanLoad`守卫来保证只在用户已经登录并尝试访问管理特性区时才加载一次`AdminModule`。我们这就升级`AuthGuard`来支持`CanLoad`守卫。我们先导入`CanLoad`接口，它被调用时守卫会提供一个`Route`参数，其中包含所请求的路径。
 
   We'll add the interface to our service, and then we'll implement the interface. Since our `AuthGuard` already
   checks the user's logged in state, we can pass that access check to our `canLoad` method. The `Route` in
   the `canLoad` method provides a **path** which comes from our route configuration.
+  
+  我们还要把此接口加入到服务中，并实现它。由于我们的`AuthGuard`已经能检查用户的登录状态了，所以把`canLoad`方法的权限检查工作直接转给它。
+  `canLoad`方法中的`Route`参数提供了一个路径，它来自我们的路由配置。
 
 +makeExcerpt('app/auth-guard.service.ts (can load guard)', '')
 
 :marked
   Next, we'll import the `AuthGuard` into our `app.routing.ts` and add the `AuthGuard` to the `canLoad` array for
   our `admin` route. Now our `admin` feature area is only loaded when the proper access has been granted.
+  
+  接下来，我们就把`AuthGuard`导入到`app.routing.ts`中，并把`AuthGuard`添加到`admin`路由的`canLoad`数组中。现在`admin`特性区就只有当获得访问授权时才会被加载了。
 
 +makeExcerpt('app/app.routing.ts (can load guard)', 'can-load-guard')
 
