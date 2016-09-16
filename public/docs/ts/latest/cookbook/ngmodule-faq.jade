@@ -50,7 +50,7 @@ block includes
   * [Should I import _BrowserModule_ or _CommonModule_?](#q-browser-vs-common-module)
   * [我应该导入_BrowserModule_还是_CommonModule_？](#q-browser-vs-common-module)
   * [What if I import the same module twice?](#q-reimport)
-  * [如果我两次导入多一个模块会怎么样？](#q-reimport)
+  * [如果我两次导入了同一个模块会怎么样？](#q-reimport)
 
   Exports  
   
@@ -256,18 +256,29 @@ a#q-what-to-import
 
   Import modules whose public (exported) [declarable classes](#q-declarable) 
   you need to reference in this module's component templates.
+  
+  一句话：导入你需要在当前模块的组件模板中使用的那些公开的（被导出的）[可声明类](#q-declarable)。
 
   This invariably means importing `CommonModule` from `@angular/common` for access to
   the Angular directives such as `NgIf` and `NgFor`. 
   You can import it directly or from another module that [re-exports](#q-reexport) it.
+  
+  这意味着要从`@angular/common`中导入`CommonModule`才能访问Angular的内置指令，比如`NgIf`和`NgFor`。
+  你可以直接导入它或者从[重新导出](#q-reexport)过该模块的其它模块中导入它。
 
   Import `FormsModule` from `@angular/forms` 
   if your components have `[(ngModel)]` two-way binding expressions.
+  
+  如果你的组件有`[(ngModel)]`双向绑定表达式，就要从`@angular/forms`中导入`FormsModule`。
 
   Import _shared_ and _feature_ modules when this module's components incorporate their
   components, directives, and pipes.
+  
+  如果当前模块中的组件包含了*共享*模块和*特性*模块中的组件、指令和管道，就导入这些模块。
 
   Only [import _BrowserModule_](#q-browser-vs-common-module) in the root `AppModule`.
+  
+  只能在根模块`AppModule`中[导入_BrowserModule_](#q-browser-vs-common-module)。
 
 .l-hr
 
@@ -275,25 +286,43 @@ a#q-browser-vs-common-module
 .l-main-section
 :marked
   ### Should I import _BrowserModule_ or _CommonModule_?
+  
+  ### 我该导入*BrowserModule*还是*CommonModule*？
 
   The **root application module** (`AppModule`) of almost every browser application
   should import `BrowserModule` from `@angular/platform-browser`.
   
+  几乎每个要在浏览器中使用的应用的**根模块**（`AppModule`）都应该从`@angular/platform-browser`中导入`BrowserModule`。
+  
   `BrowserModule` provides services that are essential to launch and run a browser app.
+  
+  `BrowserModule`提供了启动和运行浏览器应用的那些基本的服务提供商。
 
   `BrowserModule` also re-exports `CommonModule` from `@angular/common`
   which means that component in the `AppModule` module also have access to
   the Angular directives every app needs such as `NgIf` and `NgFor`.
   
+  `BrowserModule`还从`@angular/common`中重新导出了`CommonModule`，这意味着`AppModule`中的组件也同样可以访问那些每个应用都需要的Angular指令，如`NgIf`和`NgFor`。
+  
   _Do not import_ `BrowserModule` in any other module.
   *Feature modules* and *lazy loaded modules* should import `CommonModule` instead.
   They need the common directives. They don't need to re-install the app-wide providers. 
+  
+  在其它任何模块中都*不要导入*`BrowserModule`。
+  *特性模块*和*延迟加载模块*应该改成导入`CommonModule`。
+  它们需要通用的指令。它们不需要重新初始化全应用级的提供商。
+  
 .l-sub-section
   :marked
     `BrowserModule` throws an error if you try to lazy load  a module that imports it.
+    
+    如果你想在延迟加载模块中导入它，`BrowserModule`就会抛出一个错误。
+    
 :marked
   Importing `CommonModule` also frees feature modules for use on _any_ target platform, not just browsers,
   a fact of some interest to authors of cross-platform libraries.
+  
+  特性模块中导入`CommonModule`可以让它能用在任何目标平台上，不仅是浏览器。那些跨平台库的作者应该喜欢这种方式的。
 
 .l-hr 
 a#q-reimport
@@ -301,32 +330,51 @@ a#q-reimport
 :marked
   ### What if I import the same module twice?
   
+  ### 如果我两次导入同一个模块会怎么样？
+  
   That's not a problem. When three modules all import Module 'A', 
   Angular evaluates Module 'A' once, the first time it encounters it, and does not do so again. 
+  
+  不会有问题。当三个模块全都导入模块'A'时，Angular只会加载一次模块'A'，也就是首次遇到时，之后就不会这么做了。
 
   That's true at whatever level `A` appears in a hierarchy of imported modules.
   When Module 'B' imports Module 'A', Module 'C' imports 'B', and Module 'D' imports `[C, B, A]`,
   then 'D' triggers the evaluation of 'C' which triggers the evaluation of 'B' which evaluates 'A'.
   When Angular gets to the 'B' and 'A' in 'D', they're already cached and ready to go.
+  
+  无论`A`出现在所导入模块的哪个层级，都会如此。
+  如果模块'B'导入模块'A'、模块'C'导入模块'B'，模块'D'导入`[C, B, A]`，那么'D'会触发模块'C'的加载，'C'会触发'B'的加载，而'B'会加载'A'。
+  当Angular在'D'中想要获取'B'和'A'时，这两个模块已经被缓存过了，可以立即使用。
 
   Angular does not like modules with circular references so don't let Module 'A' import Module 'B' which imports Module 'A'.
+  
+  Angular不允许模块之间出现循环依赖，所以不要让模块'A'导入模块'B'，而模块'B'又导入模块'A'。
 
 .l-hr 
 a#q-what-to-export
 .l-main-section
 :marked
   ### What should I export?
+  
+  ### 我应该导出什么？
 
   Export [declarable](#q-declarable) classes that components in _other_ modules
   should be able to reference in their templates. These are your _public_ classes.
   If you don't export a class, it stays _private_, visible only to other component
   declared in this module.
+  
+  导出那些*其它模块*希望在自己的模板中引用的[可声明类](#q-declarable)。这些也是你的*公开*类。
+  如果你不导出某个类，它就是*私有的*，只对当前模块中声明的其它组件可见。
 
   You _can_ export any declarable class &mdash; components, directives, and pipes &mdash; 
   whether it is declared in this module or in an imported module.
+  
+  你*可以*导出任何可声明类（组件、指令和管道），而不用管它是声明在当前模块中还是某个导入的模块中。
 
   You _can_ re-export entire imported modules which effectively re-exports all of their exported classes.
   A module can even export a module that it doesn't import. 
+  
+  你*可以*重新导出整个导入过的模块，这将导致重新导出它们导出的所有类。模块甚至还可以导出它未曾导入过的模块。
 
 .l-hr
 
@@ -334,21 +382,37 @@ a#q-what-not-to-export
 .l-main-section
 :marked
   ### What should I *not* export?
+  
+  ### 我*不应该*导出什么？
 
   Do *not* export
+  
+  *不要*导出
 
   * Private components, directives, and pipes that you need only within components declared in this module.
   If you don't want another module to see it, don't export it.
+  
+  * 那些你只想在当前模块声明的组件中使用的私有组件、指令和管道。如果你不希望任何模块看到它，就不要导出。
 
   * Non-declarable objects such as services, functions, configurations, entity models, etc.
+  
+  * 不可声明的对象，比如服务、函数、配置、实体模型等。
   
   * Components that are only loaded dynamically by the router or by bootstrapping.
   Such [entry components](#q-entry-component-defined) can never be selected in another component's template.
   There's no harm in exporting them but no benefit either. 
+  
+  * 那些只被路由器或引导函数动态加载的组件。
+  比如[入口组件](#q-entry-component-defined)可能从来不会在其它组件的模板中出现。
+  导出它们没有坏处，但也没有好处。
 
   * Pure service modules that don't have public (exported) declarations. 
   For example, there is no point in re-exporting `HttpModule` because it doesn't export anything.
   It's only purpose is to add http service providers to the application as a whole.
+  
+  * 纯服务模块没有公开（导出）的声明。
+  例如，没必要重新导出`HttpModule`，因为它不用导出任何东西。
+  它唯一的用途是作为一个整体把http的那些服务提供商添加到应用中。
 
 .l-hr
 
@@ -357,25 +421,43 @@ a#q-re-export
 .l-main-section
 :marked
   ### Can I re-export classes and modules?
+  
+  ### 我可以重新导出类和模块吗？
 
   Absolutely!
+  
+  毫无疑问！
 
   Modules are a great way to selectively aggregate classes from other modules and
   re-export them in a consolidated, convenience module.
+  
+  模块是从其它模块中选取类并把它们重新导出成统一、便利的新模块的最佳方式。
 
   A module can re-export entire modules which effectively re-exports all of their exported classes.
   Angular's own `BrowserModule` exports a couple of modules like this:
+  
+  模块可以重新整体导出其它模块，这会导致重新导出它们导出的所有类。
+  Angular自己的`BrowserModule`就重新导出了一组模块，例如：
+  
 code-example.
   exports: [CommonModule, ApplicationModule]
 
 :marked
   A module can export a combination of its own declarations, selected imported classes, and imported modules.
+  
+  模块还能导出一个组合，其中可以包含它自己的可声明类、某些导入的类以及导入的模块。
+  
 .l-sub-section
   :marked
     Don't bother re-exporting pure service modules.
     Pure service modules don't export [declarable](#q-declarable) classes that another module could use.
     For example, there is no point in re-exporting `HttpModule` because it doesn't export anything.
     It's only purpose is to add http service providers to the application as a whole.
+    
+    不要费心去导出纯服务类。
+    纯服务类的模块不会导出任何可供其它模块使用的[可声明类](#q-declarable)。
+    例如，不用重新导出`HttpModule`，因为它没有导出任何东西。
+    它唯一的用途是把那些http服务提供商作为一个整体添加到应用中。
 
 .l-hr
 
@@ -383,27 +465,47 @@ a#q-for-root
 .l-main-section
 :marked
   ### What is the _forRoot_ method?
+  
+  ### *forRoot*方法是什么？
 
   The `forRoot` static method is a convention that makes it easy for developers to configure the module's provider(s).
+  
+  静态方法`forRoot`是一个约定，它可以让开发人员更轻松的配置模块的提供商。
   
   The `RouterModule.forRoot` method is a good example. 
   Apps pass a `Routes` object to `RouterModule.forRoot` in order to configure the app-wide `Router` service with routes. 
   `RouterModule.forRoot` returns a [ModuleWithProviders](../api/core/index/ModuleWithProviders-interface.html). 
   We add that result to the `imports` list of the root `AppModule`.
+  
+  `RouterModule.forRoot`就是一个很好的例子。
+  应用把一个`Routes`对象传给`RouterModule.forRoot`，为的就是使用路由配置全应用级的`Router`服务。
+  `RouterModule.forRoot`返回一个[ModuleWithProviders](../api/core/index/ModuleWithProviders-interface.html)对象。
+  我们把这个结果添加到根模块`AppModule`的`imports`列表中。
 
 .alert.is-important
   :marked
     Only call and import a `.forRoot` result in the root application module, `AppModule`.
     Importing it in any other module, particularly in a lazy loaded module,
     is contrary to the intent and is likely to produce a runtime error.
+    
+    只能在应用的根模块`AppModule`中调用并导入`.forRoot`的结果。
+    在其它模块中导入它，特别是延迟加载模块中，是违反设计目标的并会导致一个运行时错误。
+    
 :marked
   `RouterModule` also offers a `forChild` static method for configuring the routes of lazy loaded modules.
+  
+  `RouterModule`也提供了静态方法`forChild`，用于配置延迟加载模块的路由。
 
   **_forRoot_** and **_forChild_** are conventional names for methods that
   configure services in root and feature modules respectively.
   
+  ***forRoot***和***forChild***都是方法的约定名称，它们分别用于在根模块和特性模块中配置服务。
+  
   Angular doesn't recognize these names but Angular developers do.
   Follow this convention when you write similar modules with configurable service providers.
+  
+  Angular无法识别这些名字，但是Angular的开发人员可以。
+  当你写类似的需要可配置的服务提供商时，请遵循这个约定。
 
 .l-hr
 
@@ -411,15 +513,24 @@ a#q-module-provider-visibility
 .l-main-section
 :marked
   ### Why is a service provided in a feature module visible everywhere?
+  
+  ### 为什么服务提供商在特性模块中的任何地方都是可见的？
 
   Providers listed in the `@NgModule.providers` of a bootstrapped module have **application scope**.
   Adding a service provider to `@NgModule.providers` effectively publishes the service to the entire application.
+  
+  列在引导模块的`@NgModule.providers`中的服务提供商具有**全应用级作用域**。
+  往`NgModule.providers`中添加服务提供商将导致该服务被发布到整个应用中。
 
   When we import a module,
   Angular adds the module's service providers (the contents of its `providers` list)
   to the application _root injector_.
+  
+  当我们导入一个模块时，Angular就会把该模块的服务提供商（也就是它的`providers`列表中的内容）加入该应用的*根注入器*中。
 
   This makes the provider visible to every class in the application that knows the provider's lookup token.
+  
+  这会让该提供商对应用中所有知道该提供商令牌（token）的类都可见。
 
   This is by design. 
   Extensibility through module imports is a primary goal of the Angular module system.
@@ -427,11 +538,19 @@ a#q-module-provider-visibility
   makes it easy for a module library to enrich the entire application with new services.
   By adding the `HttpModule` once, every application component can make http requests. 
   
+  设计如此！
+  通过模块导入来实现可扩展性是Angular模块系统的主要设计目标。
+  把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
+  只要添加一次`HttpModule`，那么应用中的每个组件就都可以发起Http请求了。
+  
   However, this can feel like an unwelcome surprise if you are expecting the module's services 
   to be visible only to the components declared by that feature module.
   If the `HeroModule` provides the `HeroService` and the root `AppModule` imports `HeroModule`, 
   any class that knows the `HeroService` _type_ can inject that service, 
   not just the classes declared in the `HeroModule`.
+  
+  不过，如果你期望模块的服务只对那个特性模块内部声明的组件可见，那么这可能会带来一些不受欢迎的“惊喜”。
+  如果`HeroModule`提供了一个`HeroService`，并且根模块`AppModule`导入了`HeroModule`，那么任何知道`HeroService`*类型*的类都可能注入该服务，而不仅是在`HeroModule`中声明的那些类。
 
 .l-hr
 
@@ -440,17 +559,29 @@ a#q-lazy-loaded-module-provider-visibility
 :marked
   ### Why is a service provided in a lazy loaded module visible only to that module?
   
+  ### 为什么在延迟加载模块中声明的服务提供商只对该模块自身可见？
+  
   Unlike providers of the modules loaded at launch, 
   providers of lazy loaded modules are *module-scoped*.
+  
+  和启动时就加载的模块中的提供商不同，延迟加载模块中的提供商是*局限于模块*的。
 
   When the Angular router lazy-loads a module, it creates a new execution context.
   That [context has its own injector](#q-why-child-injector "Why Angular creates a child injector") which is a direct child of the application injector.
+  
+  当Angular路由器延迟加载一个模块时，它创建了一个新的运行环境。
+  那个环境[拥有自己的注入器](#q-why-child-injector "为什么Angular会创建子注入器")，它是应用注入器的直属子级。
 
   The router adds the lazy module's providers and the providers of its imported modules to this child injector.
+  
+  路由器把该延迟加载模块的提供商和它导入的模块的提供商添加到这个子注入器中。
 
   These providers are insulated from changes to application providers with the same lookup token.
   When the router creates a component within the lazy loaded context,
   Angular prefers service instances created from these providers to the service instances of the application root injector.
+  
+  这些提供商被从使用相同令牌查阅到的应用级提供商隔离开。
+  当路由器创建延迟加载环境中的组件时，Angular引用的是服务实例。
 
 .l-hr
 a#q-module-provider-duplicates
