@@ -6,8 +6,8 @@
   },
 
   "aot-compiler": {
-    "title": "Ahead-of-Time Compilation",
-    "intro": "Learn how to use Ahead-of-time compilation"
+    "title": "预（AoT）编译器",
+    "intro": "学习如何使用预编译器"
   },
 
   "a1-a2-quick-reference": {

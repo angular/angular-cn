@@ -621,7 +621,7 @@ h3#injectable 为何@Injectable()?
   error when trying to instantiate a class that is not marked as
   `@Injectable()`.
 
-  **<a href="#{injMetaUrl}">@Injectable()</a>**标志着一个类可以被一个注入器实例化。通常来讲，在试图实例化一个没有被标识为`@Injectable()`的类时候，注入器将会报告错误。
+  **<a href="#{injUrl}">@Injectable()</a>**标志着一个类可以被一个注入器实例化。通常来讲，在试图实例化一个没有被标识为`@Injectable()`的类时候，注入器将会报告错误。
 
 block injectable-not-always-needed-in-ts
   .l-sub-section
@@ -664,7 +664,7 @@ block injectable-not-always-needed-in-ts
   fact `Injectable` #{_decorator}s that
   identify a class as a target for instantiation by an injector.
 
-  我们**可以**添加它。但是它不是必需的，因为`HerosComponent`已经有`@Component`装饰器了，这个装饰器类（和我们随后将会学到的`@Directive`和`@Pipe`一样）是<a href="#{injMetaUrl}">InjectableMetadata</a>的子类型。实际上，这个`InjectableMetadata`装饰器是把一个类标识为注入器实例化的目标。
+  我们**可以**添加它。但是它不是必需的，因为`HerosComponent`已经有`@Component`装饰器了，这个装饰器类（和我们随后将会学到的`@Directive`和`@Pipe`一样）是<a href="#{injUrl}">InjectableMetadata</a>的子类型。实际上，这个`InjectableMetadata`装饰器是把一个类标识为注入器实例化的目标。
 
 block ts-any-decorator-will-do
   .l-sub-section
@@ -693,7 +693,7 @@ block ts-any-decorator-will-do
 
       注入器使用一个类的构造元数据来决定依赖类型，该构造元数据就是构造函数的参数类型所标识的。
       TypeScript为任何带有一个装饰器的类生成这样的元数据，任何装饰器都生成。
-      当然，使用一个合适的<a href="#{injMetaUrl}">InjectableMetadata</a>装饰器来标识一个类更加有意义。
+      当然，使用一个合适的<a href="#{injUrl}">Injectable</a>装饰器来标识一个类更加有意义。
 
 .callout.is-critical
   header Always include the parentheses
