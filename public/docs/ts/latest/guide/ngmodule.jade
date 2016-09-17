@@ -16,7 +16,7 @@ block includes
   It may add service providers to the application dependency injectors. 
   And there are more options covered here. 
   
-  Angular模块是一个带有**@NgModule**装饰器函数的_类_。
+  Angular模块是带有**@NgModule**装饰器函数的_类_。
   `@NgModule`接收一个元数据对象，该对象告诉Angular如何编译和运行模块代码。
   它标记出该模块_拥有_的组件、指令和管道，
   并把它们的一部分公开出去，以便外部组件使用它们。
@@ -45,7 +45,7 @@ block includes
   * [Imports](#imports "Import components, directives, and pipes for use in component templates")
   * [导入](#imports "为组件模板导入组件、指令和管道")
   * [Resolve conflicts](#resolve-conflicts "When two directives have the same selector ...")
-  * [解决冲突](#resolve-conflicts "当两个指令具有同一个选择器时……")
+  * [解决冲突](#resolve-conflicts "当两指令具有相同的选择器时……")
   * [Feature modules](#feature-modules "Partition the app into feature modules")
   * [特性模块](#feature-modules "把应用分割成一些特性模块")
   * [Lazy loaded modules](#lazy-load "Load modules asynchronously") with the Router
@@ -65,7 +65,7 @@ block includes
 
   This page explains Angular Modules through a progression of improvements to a sample with a "Tour of Heroes" theme. Here's an index to live examples at key moments in the evolution of that sample:
 
-  此页面通过一个基于《英雄指南》的渐进式例子解释了Angular的模块。这里是例子演化过程中一些关键节点的在线例子。
+  本章通过一个基于《英雄指南》的渐进式例子解释了Angular的模块。这里是例子演化过程中一些关键节点的在线例子。
 
   * <live-example plnkr="minimal.0">A minimal NgModule app</live-example>
   * <live-example plnkr="minimal.0">最小化的NgModule应用</live-example>
@@ -84,14 +84,14 @@ block includes
 
   This page covers Angular Module concepts in a tutorial fashion.
 
-  该页面涵盖了英雄指南下的Angular模块概念。
+  本章涵盖了英雄指南下的Angular模块概念。
 
   The companion [Angular Module FAQs](../cookbook/ngmodule-faq.html "Angular Module FAQs") cookbook
   offers ready answers to specific design and implementation questions.
   Read this page first before hopping over to those FAQs.
 
   烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")为一些与设计和实现有关的问题提供了答案。
-  不过在阅读常见问题之前，要先阅读此页面。
+  不过在阅读常见问题之前，要先阅读本章。
 
 .l-hr
 
@@ -502,7 +502,7 @@ a#imports
   To illustrate this point, we extend the sample app with `ContactComponent`, 
   a form component that imports form support from the Angular `FormsModule`.
   
-  要解释这一点，我们可以再加入一个`ContactComponent`组件，它是一个表单组件，从Angular的`FormsModule`中导入了表单支持。
+  要解释这一点，我们可以再加入`ContactComponent`组件，它是一个表单组件，从Angular的`FormsModule`中导入了表单支持。
 
   ### Add the _ContactComponent_
   
@@ -515,7 +515,7 @@ a#imports
   The `ContactComponent` presents a "contact editor", 
   implemented with _Angular Forms_ in the [_template-driven form_](forms.html) style.
   
-  `ContactComponnet`组件展现一个“联系人编辑器”，它是用[_模板驱动式表单_](forms.html)实现的。
+  `ContactComponnet`组件展现“联系人编辑器”，它是用[_模板驱动式表单_](forms.html)实现的。
 
 .l-sub-section
   :marked
@@ -591,14 +591,14 @@ a#imports
   Although `NgModel` is an Angular directive, the _Angular Compiler_ won't recognize it
   because (a) `AppModule` doesn't declare it and (b) it wasn't imported via `BrowserModule`.
   
-  虽然`NgModel`是一个Angular指令，但_Angular编译器_并不会识别它，
+  虽然`NgModel`是Angular指令，但_Angular编译器_并不会识别它，
   这是因为：(a) `AppModule`没有声明过它，并且 (b) 它也没有通过`BrowserModule`被导入过。
 
   Less obviously, even if Angular somehow recognized `ngModel`,
   this `ContactComponent` would not behave like an Angular form because
   form features such as validation are not yet available.
   
-  退一步说，即使Angular有办法识别`ngModel`，`ContactComponent`也不会表现的像一个Angular表单，
+  退一步说，即使Angular有办法识别`ngModel`，`ContactComponent`也不会表现的像Angular表单，
   因为本组件表单的表单相关的特性（比如有效性验证）还不可用。
 
   ### Import the FormsModule
@@ -903,7 +903,7 @@ a#feature-modules
   just like a root module. 
   Feature module metadata have the same properties as the metadata for a root module.
   
-  _特性模块_是一个带有`@NgModule`装饰器及其元数据的类，就像根模块中一样。
+  _特性模块_是带有`@NgModule`装饰器及其元数据的类，就像根模块中一样。
   特性模块的元数据和根模块的元数据携带的属性是一样的。
 
   The root module and the feature module share the same execution context.
@@ -951,7 +951,7 @@ a#feature-modules
   In the next section, we carve the contact functionality out of the root module
   and into a dedicated feature module.
   
-  在下一节，我们从根模块中把与联系人有关的功能切分到一个专门的特性模块中。
+  在下一节，我们从根模块中把与联系人有关的功能切分到专门的特性模块中。
 
   <a id="contact-module-v1"></a>
   ### Make _Contact_ a feature module
@@ -1171,7 +1171,7 @@ a#lazy-load
   
   Let's start at the top with the new `AppComponent` template: a title, three links, and a `<router-outlet>`.
   
-  我们从这个`AppComponent`新模板的顶部看起：一个标题、三个链接和一个`<router-outlet>`。
+  我们从这个`AppComponent`新模板的顶部看起：标题、三个链接和`<router-outlet>`。
   
 +makeExample('ngmodule/ts/app/app.component.3.ts', 'template', 'app/app.component.ts (v3 - Template)')(format='.')
 
@@ -1210,7 +1210,7 @@ a#lazy-load
   The routing object, which provides a configured `Router` service, is defined in the `app.routing.ts` file.
   
   与第二版相比，最值得注意的修改是`imports`中那个额外的***routing***对象。
-  `routing`对象提供了一个配置好的`Router`服务，它是在`app.routing.ts`文件中定义的。
+  `routing`对象提供了配置好的`Router`服务，它是在`app.routing.ts`文件中定义的。
 
   ### App routing
   
@@ -1222,7 +1222,7 @@ a#lazy-load
   The router is the subject of [its own page](router.html) so we'll skip lightly over the details and 
   concentrate on the intersection of Angular modules and routing.
   
-  路由器有[一个专门的页面](router.html)做了深入讲解，所以这里我们跳过细节，而是专注于它和Angular模块的协作。
+  路由器有[专门的章节](router.html)做了深入讲解，所以这里我们跳过细节，而是专注于它和Angular模块的协作。
 
   This file defines three routes. 
   
@@ -1254,7 +1254,7 @@ a#lazy-load
     In this app, the string identifies both the module _file_ and the module _class_,
     the latter separated from the former by a `#`.
     
-    延迟加载模块的位置是一个*字符串*而不是*类型*。
+    延迟加载模块的位置是*字符串*而不是*类型*。
     在本应用中，该字符串同时标记出了模块*文件*和模块*类*，两者用`#`分隔开。
 
 :marked
@@ -1270,7 +1270,7 @@ a#lazy-load
   The returned `routing` object is a `ModuleWithProviders` containing both the `RouterModule` directives
   and the Dependency Injection providers that produce a configured `Router`. 
   
-  该方法返回的`routing`是一个`ModuleWithProviders`对象，它包含了一些`RouterModule`的指令和用来生成配置好的`Router`的依赖注入提供商。
+  该方法返回的`routing`是`ModuleWithProviders`对象，它包含了一些`RouterModule`的指令和用来生成配置好的`Router`的依赖注入提供商。
 
   This `routing` object is intended for the app _root_ module _only_.
   
@@ -1297,7 +1297,7 @@ a#lazy-load
   It defines the `contact` route we mentioned a bit earlier and also creates a `routing` object like so:
   
   `app/contact`目录中也有一个新文件`Contact.routing.ts`。
-  它定义了我们前面提到过的`contact`路由，并创建了一个`routing`对象，就像这样：
+  它定义了我们前面提到过的`contact`路由，并创建了`routing`对象，就像这样：
   
 +makeExample('ngmodule/ts/app/contact/contact.routing.ts', 'routing', 'app/contact/contact.routing.ts (routing)')(format='.')
 
@@ -1391,7 +1391,7 @@ a#hero-module
 
   如果你读过[路由](router.html#child-routing-component)章，那么对这个子路由的场景应该觉得很熟悉。
   `HeroComponent`是本特性区的顶级组件和路由宿主。
-  模板带有一个`<router-outlet>`指令，它或者显示英雄列表（`HeroList`）或者显示所选英雄的编辑器（`HeroDetail`）。
+  模板带有`<router-outlet>`指令，它或者显示英雄列表（`HeroList`）或者显示所选英雄的编辑器（`HeroDetail`）。
   这两个组件都把获取和保存数据的任务委托给`HeroService`执行。
 
   There's yet _another_ `HighlightDirective` that colors elements in yet a different shade.
@@ -1404,7 +1404,7 @@ a#hero-module
 
   The `HeroModule` is a feature module like any other.
 
-  `HeroModule`是一个特性模块，与其它的没什么不同。
+  `HeroModule`是特性模块，与其它的没什么不同。
 
 +makeExample('ngmodule/ts/app/hero/hero.module.3.ts', 'class', 'app/hero/hero.module.ts (class)')(format='.')
 
@@ -1534,9 +1534,9 @@ a#shared-module
   Yet there is [a real danger](../cookbook/ngmodule-faq.html#q-why-it-is-bad) of that happening 
   if the `SharedModule` provides the `UserService`.
   
-  `UserService`是一个全应用级单例。
-  我们不希望每个模块都各自有它的一个实例。
-  而如果由`SharedModule`提供`UserService`，就会导致[一个铁板钉钉的危险](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
+  `UserService`是全应用级单例。
+  我们不希望每个模块都各自有它的实例。
+  而如果由`SharedModule`提供`UserService`，就会导致[铁板钉钉的危险](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
 
 .alert.is-critical
   :marked
@@ -1562,7 +1562,7 @@ a#core-module
   Instead, we'll gather them in a single `CoreModule` that we **import _once_ when the app starts**
   and _never import anywhere else_.
   
-  不过，我们可以把它们收集到一个单独的`CoreModule`中，并且**只在应用启动时导入它*一次***，**而不会在其它地方导入它**。
+  不过，我们可以把它们收集到单独的`CoreModule`中，并且**只在应用启动时导入它*一次***，**而不会在其它地方导入它**。
 
   **Steps:**
   
@@ -1573,7 +1573,7 @@ a#core-module
   * move the `UserService` and `TitleComponent` from `app/` to `app/core`
   * 把`UserService`和`TitleComponent`从`app`移到`app/core`中
   * create a `CoreModule` class to own the core material
-  * 创建一个`CoreModule`类来管理这些核心素材
+  * 创建`CoreModule`类来管理这些核心素材
   * update the `AppRoot` module to  import `CoreModule`
   * 更新`AppRoot`模块，使其导入`CoreModule`模块
   
@@ -1614,7 +1614,7 @@ a#core-module
     The app is too small to worry about a single service file and a tiny, one-time component.
     
     这个场景设计的是有点生硬。
-    该应用太小了，所以其实并不需要拆分出一个单独的服务文件和一个小型的、一次性的组件。
+    该应用太小了，所以其实并不需要拆分出单独的服务文件和小型的、一次性的组件。
 
     A `TitleComponent` sitting in the root folder isn't bothering anyone.
     The root `AppModule` can register the `UserService` itself,
@@ -1638,7 +1638,7 @@ a#core-module
     Each must be registered _exactly once_, in the app root injector, when the application starts.
     
     应用通常还有很多像这里的`UserService`这样的单例服务。
-    当程序启动时，每一个服务都只能在应用的“根注入器”中*注册一次*。
+    当程序启动时，每个服务都只能在应用的“根注入器”中*注册一次*。
 
     While many Components inject such services in their constructors &mdash;
     and therefore require JavaScript `import` statements to import their symbols &mdash;
@@ -1661,7 +1661,7 @@ a#core-module
 
   Having refactored to a `CoreModule` and a `SharedModule`, it's time to cleanup the other modules. 
 
-  我们已经重构完了`CoreModule`和`SharedModule`，该开始清理其它模块了。
+  我们已经重构完`CoreModule`和`SharedModule`，现在开始清理其它模块。
 
   ### A trimmer _AppModule_
   
@@ -1669,7 +1669,7 @@ a#core-module
   
   Here is the updated `AppModule` paired with version 3 for comparison:
   
-  这里是更新后的`AppModule`与其第三个版本的对比：
+  这里是更新后的`AppModule`与其第三版本的对比：
 
 +makeTabs(
   `ngmodule/ts/app/app.module.ts,
@@ -1690,7 +1690,7 @@ a#core-module
   * delegating to imported modules rather than doing work.
   * 导入其它模块并把任务委托给它们，而不是亲力亲为。
   * focused on its main task, orchestrating the app as a whole.
-  * 聚焦于自己的主要任务，整个应用程序的总指挥。
+  * 聚焦于自己的主要任务：总指挥整个应用程序。
 
   ### A trimmer _ContactModule_
   ### 清理*ContactModule*
@@ -1714,7 +1714,7 @@ a#core-module
   * The `AwesomePipe` and `HighlightDirective` are gone.
   * `AwesomePipe`和`HighlightDirective`不见了。
   * The imports include `SharedModule` instead of `CommonModule` and `FormsModule`
-  * 导入`SharedModule`，而不再导入`CommonModule`和`FormsModule`。
+  * 导入`SharedModule`，不再导入`CommonModule`和`FormsModule`。
   * This new version is leaner and cleaner.
   * 这个新版本更加精简和干净了。
 
@@ -1736,7 +1736,7 @@ a#core-for-root
   [ModuleWithProviders](../api/core/index/ModuleWithProviders-interface.html) which is
   a simple object with two properties:
   
-  按照约定，模块的静态方法***forRoot***可以同时提供并配置这些服务。
+  按照约定，模块的静态方法***forRoot***可以同时提供并配置服务。
   它接收一个服务配置对象，并返回一个[ModuleWithProviders](../api/core/index/ModuleWithProviders-interface.html)。这个简单对象具有两个属性：
   
   * `ngModule` - the `CoreModule` class
@@ -1760,7 +1760,7 @@ a#core-for-root
 :marked
   Let's add a `CoreModule.forRoot` method that configures the core `UserService`.
 
-  我们来添加一个`CoreModule.forRoot`方法，以便配置核心中的`UserService`。
+  现在添加`CoreModule.forRoot`方法，以便配置核心中的`UserService`。
 
   We've extended the core `UserService` with an optional, injected `UserServiceConfig`.
   If a `UserServiceConfig` exists, the `UserService` sets the user name from that config.
@@ -1772,7 +1772,7 @@ a#core-for-root
 :marked
   Here's `CoreModule.forRoot` that takes a `UserServiceConfig` object:
   
-  这里的`CoreModule.forRoot`会接收一个`UserServiceConfig`对象：
+  这里的`CoreModule.forRoot`接收`UserServiceConfig`对象：
 
 +makeExample('ngmodule/ts/app/core/core.module.ts', 'for-root', 'app/core/core.module.ts (forRoot)')(format='.')
 :marked
@@ -1817,8 +1817,8 @@ a#prevent-reimport
   We could _hope_ that no developer makes that mistake. 
   Or we can guard against it and fail fast by adding the following `CoreModule` constructor.
 
-  除了*祈祷*任何开发人员都不会犯错。
-  我们最好还是对它进行一些保护，以便让它“尽快出错”。只要把下列代码添加到`CoreModule`的构造函数中就可以了。
+  我们可以*祈祷*任何开发人员都不会犯错。
+  但是最好还是对它进行一些保护，以便让它“尽快出错”。只要把下列代码添加到`CoreModule`的构造函数中就可以了。
 
 +makeExample('ngmodule/ts/app/core/core.module.ts', 'ctor')(format='.')
 
