@@ -1858,7 +1858,7 @@ a#prevent-reimport
   Of course it finds the instance imported by the root `AppModule`. 
   Now `parentModule` exists and the constructor throws the error.
 
-  Angular创建了一个延迟加载模块，它具有自己的注入器，它是根注入器的*子注入器*。
+  Angular创建一个延迟加载模块，它具有自己的注入器，它是根注入器的*子注入器*。
   `@SkipSelf`让Angular在其父注入器中查找`CoreModule`，这次，它的父注入器却是根注入器了（而上次父注入器是空）。
   当然，这次它找到了由根模块`AppModule`导入的实例。
   该构造函数检测到存在`parentModule`，于是抛出一个错误。
@@ -1869,9 +1869,11 @@ a#prevent-reimport
   ### 总结
   
   You made it! You can examine and download the complete source for this final version from the live example.
+
+  完工！你可以到下面的在线例子中试验它，并下载最终版本的全部源码。
+
   <live-example embedded  img="devguide/ngmodule/final-plunker.png"></live-example>
 
-  完工！你可以到在线例子<live-example embedded  img="devguide/ngmodule/final-plunker.png"></live-example>中试验它，并下载最终版本的全部源码。
 
   ### Frequently Asked Questions
 
@@ -1881,4 +1883,4 @@ a#prevent-reimport
   in the companion [Angular Module FAQs](../cookbook/ngmodule-faq.html "Angular Module FAQs") cookbook
   with its ready answers to specific design and implementation questions.
 
-  现在，你已经理解了Angular的模块，不过你可能还会对烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")感兴趣，它解答了很多关于设计和实现方面的问题。
+  现在，你已经理解了Angular的模块。可能你还会对烹饪宝典中的[Angular模块常见问题](../cookbook/ngmodule-faq.html "Angular模块常见问题")感兴趣，它解答了很多关于设计和实现方面的问题。
