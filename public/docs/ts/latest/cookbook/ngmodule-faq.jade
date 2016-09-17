@@ -4,7 +4,7 @@ block includes
 :marked
   # FAQs
   
-  # 常见问题（FAQ）
+  # Angular模块常见问题（FAQ）
 
   **Angular Modules** help organize an application into cohesive blocks of functionality.
   
@@ -13,22 +13,22 @@ block includes
   The [Angular Modules chapter](../guide/ngmodule.html) covers the concepts and takes you step by step
   from the most elementary `@NgModule` to a multi-faceted sample with lazy loaded modules.
   
-  [Angular模块](../guide/ngmodule.html)页面涵盖了此概念，并带你一步步的从最基本的`@NgModule`到包罗万象的延迟加载模块。
+  [Angular模块](../guide/ngmodule.html)章涵盖了此概念，并带你一步步的从最基本的`@NgModule`到包罗万象的延迟加载模块。
 
   _This_ chapter answers the questions many developers ask about Angular Module design and implementation.
   
-  *这里*回答的是开发者常问起的关于Angular模块设计与实现的问题。
+  *这里*回答的是开发者常问起的关于Angular模块的设计与实现问题。
   
 .alert.is-important
   :marked
     These FAQs assume that you have already read the [Angular Module](../guide/ngmodule.html) chapter.
 
-    本FAQ假设你已经读完了[Angular模块](../guide/ngmodule.html)页。
+    本《Angular模块常见问题》假设你已经读完了[Angular模块](../guide/ngmodule.html)章。
     
 :marked
   Declarations
   
-  声明
+  声明(declarations)
   
   * [What classes should I add to _declarations_?](#q-what-to-declare)
   * [我应该把哪些类加到_declarations_中？](#q-what-to-declare)
@@ -43,7 +43,7 @@ block includes
 
   Imports
   
-  导入
+  导入(imports)
   
   * [What should I import?](#q-what-to-import)
   * [我应该导入什么？](#q-what-to-import)
@@ -54,20 +54,20 @@ block includes
 
   Exports  
   
-  导出
+  导出(exports)
   
   * [What should I export?](#q-what-to-export)
   * [我应该导出什么？](#q-what-to-export)
   * [What should I *not* export?](#q-what-not-to-export)
   * [我*不*应该导出什么？](#q-what-not-to-export)
   * [Can I re-export imported classes and modules?](#q-re-export)
-  * [我能重新导出（re-export）所导入的类和模块吗？](#q-re-export)
+  * [我能再次导出(re-export)所导入的类和模块吗？](#q-re-export)
   * [What is the _forRoot_ method?](#q-for-root)
   * [_forRoot_方法是什么？](#q-for-root)
 
   Service Providers
   
-  服务提供商
+  服务提供商(providers)
   
   * [Why is a service provided in a feature module visible everywhere?](#q-module-provider-visibility)
   * [为什么特性模块中提供的服务是到处可见的？](#q-module-provider-visibility)
@@ -76,11 +76,11 @@ block includes
   * [What if two modules provide the _same_ service?](#q-module-provider-duplicates)
   * [如果两个模块提供了*同一个*服务会怎样？](#q-module-provider-duplicates)
   * [How do I restrict service scope to a module?](#q-component-scoped-providers)
-  * [该如何把服务的范围限制在某个模块中？](#q-component-scoped-providers)
+  * [如何把服务的范围限制在某个模块中？](#q-component-scoped-providers)
   * [Should I add app-wide providers to the root _AppModule_ or the root _AppComponent_?](#q-root-component-or-module)
-  * [我该把全应用级的提供商添加到根模块*AppModule*还是根组件*AppComponent*？](#q-root-component-or-module)
+  * [我应该把全应用级的提供商添加到根模块*AppModule*还是根组件*AppComponent*？](#q-root-component-or-module)
   * [Should I add other providers to a module or a component?](#q-component-or-module)
-  * [我该把其它提供商添加到模块中还是组件中？](#q-component-or-module)
+  * [我应该把其它提供商添加到模块中还是组件中？](#q-component-or-module)
   * [Why is it bad if _SharedModule_ provides a service to a lazy loaded module?](#q-why-bad)
   * [为什么让*SharedModule*为延迟加载模块提供服务是个馊主意？](#q-why-bad)
   * [Why does lazy loading create a child injector?](#q-why-child-injector)  
@@ -95,20 +95,20 @@ block includes
   * [What is an _entry component_?](#q-entry-component-defined)
   * [什么是*入口组件*？](#q-entry-component-defined)
   * [What is the difference between a _bootstrap_ component and an _entry component_?](#q-bootstrap_vs_entry_component)
-  * [在*引导*组件和*入口*组件之间有什么不同？](#q-bootstrap_vs_entry_component)
+  * [*引导*组件和*入口*组件有什么不同？](#q-bootstrap_vs_entry_component)
   * [When do I add components to _entryComponents_?](#q-when-entry-components)
-  * [什么情况下我该把组件添加到*entryComponent*中？](#q-when-entry-components)
+  * [什么情况下我应该把组件添加到*entryComponent*中？](#q-when-entry-components)
   * [Why does Angular need _entryComponents_?](#q-why-entry-components)
-  * [为什么Angular会需要_entryComponents_？](#q-why-entry-components)
+  * [为什么Angular需要_entryComponents_？](#q-why-entry-components)
 
   General
   
   一般问题
   
   * [What kinds of modules should I have and how should I use them?](#q-module-recommendations)
-  * [我需要哪些类型的模块？我该如何使用它们？](#q-module-recommendations)
+  * [我需要哪些类型的模块？我应该如何使用它们？](#q-module-recommendations)
   * [What's the difference between Angular and JavaScript Modules?](#q-ng-vs-js-modules)
-  * [在Angular模块和JavaScript模块之间有什么不同？](#q-ng-vs-js-modules)
+  * [Angular模块和JavaScript模块有什么不同？](#q-ng-vs-js-modules)
   * [What is a "template reference"?](#q-template-reference)
   * [什么是“模板引用”？](#q-template-reference)
   * [How does Angular find components, directives, and pipes in a template?](#q-template-reference)  
@@ -125,7 +125,7 @@ a#q-what-to-declare
 :marked
   ### What classes should I add to _declarations_?
   
-  ### 我该把哪些类加到*declarations*中？
+  ### 我应该把哪些类加到*declarations*中？
 
   Add [declarable](#q-declarable) classes &mdash; components, directives, and pipes &mdash; to a `declarations` list.
   
@@ -134,8 +134,8 @@ a#q-what-to-declare
   These classes must be declared in _exactly one_ module of the application.
   Declare them in _this_ module if they _belong_ to this module.
 
-  这些类只能声明在应用程序的*一个*模块中。
-  只有当它们*从属于*某个个模块时，才能把它声明在*此*模块中。
+  这些类只能在应用程序的*一个并且只有一个*模块中声明。
+  只有当它们*从属于*某个模块时，才能把在*此*模块中声明它们。
   
 .l-hr
 
@@ -150,7 +150,7 @@ a#q-declarable
   that you can add to a module's `declarations` list. 
   They're the _only_ classes that you can add to `declarations`.
   
-  *可声明的*就是组件、指令和管道等可以被加到模块的`declarations`列表中的类。它们也是*仅有的*能被加到`declarations`中的类。
+  *可声明的*就是组件、指令和管道等可以被加到模块的`declarations`列表中的类。它们也是*所有*能被加到`declarations`中的类。
 
 .l-hr
 
