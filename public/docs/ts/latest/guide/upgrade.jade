@@ -14,7 +14,7 @@ include ../_util-fns
   Angular 2 platform.
 
   已经有了一个Angular 1的程序并不表示我们就不能享受Angular 2提供的一切。
-  这是因为Angular 2带来了一些内建工具，来帮助我们把Angular 1的项目迁移到Angular 2平台。
+  这是因为Angular 2带来了一些内置工具，来帮助我们把Angular 1的项目迁移到Angular 2平台。
 
   Some applications will be easier to upgrade than others, and there are
   ways in which we can make it easier for ourselves. It is possible to
@@ -1068,7 +1068,7 @@ figure
   we need some of Angular 1's built-in services like `$location` or `$timeout`.
 
   当运行一个混合式应用时，我们可能会遇到这种情况：我们需要把某些Angular 1的依赖注入到Angular 2代码中。
-  这可能是因为某些业务逻辑仍然在Angular 1服务中，或者需要某些Angular 1的内建服务，比如`$location`或`$timeout`。
+  这可能是因为某些业务逻辑仍然在Angular 1服务中，或者需要某些Angular 1的内置服务，比如`$location`或`$timeout`。
 
   In these situations, it is possible to *upgrade* an Angular 1 provider to
   Angular 2. This makes it possible to then inject it somewhere in Angular 2
@@ -1899,7 +1899,7 @@ code-example(format="").
   where the current filtering and ordering has been applied.
 
   我们在这里做的另一件事就是移除了`filter`和`orderBy`过滤器的使用，并把它们换成对控制器中`getPhones()`方法的调用。
-  内建的`filter`和`orderBy`在Angular 2中已经不存在了，所以我们得自己进行过滤和排序。
+  内置的`filter`和`orderBy`在Angular 2中已经不存在了，所以我们得自己进行过滤和排序。
   我们可以为此定义自己的Angular 2管道，但是在这个案例中，在组件本身实现过滤和排序逻辑反倒更方便。
   我们希望`getPhones()`方法直接返回一个应用过当前过滤和排序规则的集合。
 

@@ -59,7 +59,7 @@ block includes
   component property that requests such a sickening result.
 
   [*属性型*指令](attribute-directives.html)会修改元素的外观或行为。
-  比如，内建指令[NgStyle](template-syntax.html#ngStyle)就能同时修改元素的好几个样式。
+  比如，内置指令[NgStyle](template-syntax.html#ngStyle)就能同时修改元素的好几个样式。
   通过绑定到组件的属性，我们可以把文本渲染成加粗、斜体、灰绿色这种肉麻的效果。
 
   A *Structural* directive changes the DOM layout by adding and removing DOM elements.
@@ -67,7 +67,7 @@ block includes
   [ngSwitch](template-syntax.html#ngSwitch) and [ngFor](template-syntax.html#ngFor).
 
   *结构型*指令通过添加和删除DOM元素来改变DOM的布局。
-  我们会在其它章节看到三个内建的结构型指令：[ngIf](template-syntax.html#ngIf)、
+  我们会在其它章节看到三个内置的结构型指令：[ngIf](template-syntax.html#ngIf)、
   [ngSwitch](template-syntax.html#ngSwitch)以及[ngFor](template-syntax.html#ngFor)。
 
 +makeExample('structural-directives/ts/app/structural-directives.component.html', 'structural-directives')(format=".")
@@ -184,7 +184,7 @@ figure.image-display
   We should ask ourselves &mdash; and the users of our directives &mdash; to think carefully
   about the consequences of adding and removing elements and of creating and destroying components.
 
-  **同样的考量也适用于每一个结构型指令，无论是内建的还是自定义的。**
+  **同样的考量也适用于每一个结构型指令，无论是内置的还是自定义的。**
   我们应该提醒自己以及我们指令的使用者，来仔细考虑添加元素、移除元素以及创建和销毁组件的后果。
 
   Let's see these dynamics at work. For fun, we'll stack the deck *against*
@@ -209,7 +209,7 @@ figure.image-display
   using the built-in `ngOnInit` and `ngOnDestroy` [lifecycle hooks](lifecycle-hooks.html).
   Here it is in action:
 
-  借助内建的`ngOnInit`和`ngOnDestroy`[生命周期钩子](lifecycle-hooks.html)，我们同时记录了组件的创建或销毁过程。
+  借助内置的`ngOnInit`和`ngOnDestroy`[生命周期钩子](lifecycle-hooks.html)，我们同时记录了组件的创建或销毁过程。
   下面是它的操作演示：
 
 figure.image-display
@@ -423,7 +423,7 @@ block unless-intro
     we don't want to confuse our directives with their directives.
 
     我们**并没有**给`unless`指令名加上**`ng`**前缀。
-    那个前缀是属于Angular的，我们肯定不会希望自己的指令和Angular内建的指令冲突。
+    那个前缀是属于Angular的，我们肯定不会希望自己的指令和Angular内置的指令冲突。
 
     Our prefix is `my`.
 

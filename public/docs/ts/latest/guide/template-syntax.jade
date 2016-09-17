@@ -39,7 +39,7 @@ block includes
   * [Two-way data binding with `NgModel`](#ngModel)
   * [使用`NgModel`进行双向数据绑定](#ngModel)
   * [Built-in directives](#directives)
-  * [内建指令](#directives)
+  * [内置指令](#directives)
     * [NgClass](#ngClass)
     * [NgClass](#ngClass)
     * [NgStyle](#ngStyle)
@@ -1541,13 +1541,13 @@ figure.image-display
 :marked
   <a id="directives"></a>
   ## Built-in directives
-  ## 内建指令
+  ## 内置指令
 
   Earlier versions of Angular included over seventy built-in directives.
   The community contributed many more, and countless private directives
   have been created for internal applications.
 
-  前一个版本的Angular中包含了超过70个内建指令。
+  前一个版本的Angular中包含了超过70个内置指令。
   社区贡献了更多，这还没算为内部应用而创建的无数私有指令。
 
   We don’t need many of those directives in Angular 2.
@@ -1564,12 +1564,12 @@ figure.image-display
   We'll write our own directives, just not as many.
 
   我们仍然可以从简化复杂任务的指令中获益。
-  Angular发布时仍然带有内建指令，只是没那么多了。
+  Angular发布时仍然带有内置指令，只是没那么多了。
   我们仍会写自己的指令，只是没那么多了。
 
   This segment reviews some of the most frequently used built-in directives.
 
-  下面这部分就检阅一下那些最常用的内建指令。
+  下面这部分就检阅一下那些最常用的内置指令。
 
 <a id="ngClass"></a>
 .l-main-section
@@ -1941,7 +1941,7 @@ figure.image-display
   ## `*`与&lt;template&gt;
   When we reviewed the `NgFor`, `NgIf`, and `NgSwitch` built-in directives, we called out an oddity of the syntax: the asterisk (`*`) that appears before the directive names.
 
-  当我们审视`NgFor`、`NgIf`和`NgSwitch`内建指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号(`*`)。
+  当我们审视`NgFor`、`NgIf`和`NgSwitch`内置指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号(`*`)。
 
   The `*` is a bit of syntactic sugar that makes it easier to read and write directives that modify HTML layout
   with the help of templates.
@@ -2144,7 +2144,7 @@ figure.image-display
   track the validity of user input.
   
   如果Angular没有接管它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
-  实际上它是个`ngForm`，一个对Angular内建指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
+  实际上它是个`ngForm`，一个对Angular内置指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
 
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.

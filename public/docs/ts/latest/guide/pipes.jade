@@ -74,7 +74,7 @@ block includes
 .l-main-section
 :marked
   ## Built-in pipes
-  ## 内建的管道
+  ## 内置的管道
   Angular comes with a stock of pipes such as
   `DatePipe`, `UpperCasePipe`, `LowerCasePipe`, `CurrencyPipe`, and `PercentPipe`.
   They are all immediately available for use in any template.
@@ -87,7 +87,7 @@ block includes
     Learn more about these and many other built-in pipes in the [API Reference](../api/#!?apiFilter=pipe);
     filter for entries that include the word "pipe".
 
-    要学习更多内建管道的知识，参见[API参考手册](../api/#!?apiFilter=pipe)，并用“pipe”为关键词对结果进行过滤。
+    要学习更多内置管道的知识，参见[API参考手册](../api/#!?apiFilter=pipe)，并用“pipe”为关键词对结果进行过滤。
 
     Angular 2 doesn't have a `FilterPipe` or an `OrderByPipe` for reasons explained in an [appendix below](#no-filter-pipe).
 
@@ -251,7 +251,7 @@ figure.image-display
   要注意的有两点：
   1. We use our custom pipe the same way we use the built-in pipes.
 
-  1. 我们使用自定义管道的方式和内建管道完全相同。
+  1. 我们使用自定义管道的方式和内置管道完全相同。
 
   1. We must include our pipe in the `declarations` #{_array} of the AppModule.
 
@@ -269,7 +269,7 @@ figure.image-display
     Custom pipes must be registered manually.
     
     如果我们忘了列出这个自定义管道，Angular就会报告一个错误。
-    在前一个例子中我们没有把`DatePipe`列进去，这是因为Angular所有的内建管道都已经预注册过了。
+    在前一个例子中我们没有把`DatePipe`列进去，这是因为Angular所有的内置管道都已经预注册过了。
     但自定义管道必须手工注册。
 
 
@@ -636,7 +636,7 @@ figure.image-display
   and display them again, this time in JSON format by chaining through to the built-in `JsonPipe`.
 
   第二个绑定除了用到`FetchPipe`之外还链接了更多管道。
-  我们把获取数据的结果同时显示在第一个绑定和第二个绑定中。第二个绑定中，我们通过链接到一个内建管道`JsonPipe`把它转成了JSON格式。
+  我们把获取数据的结果同时显示在第一个绑定和第二个绑定中。第二个绑定中，我们通过链接到一个内置管道`JsonPipe`把它转成了JSON格式。
 
 .callout.is-helpful
   header Debugging with the json pipe
@@ -675,7 +675,7 @@ a(id="pure-pipe-pure-fn")
   A few steps back we reviewed the `FlyingHeroesImpurePipe` &mdash; *an impure pipe with a pure function*.
 
   我们在本章前面见过的管道都是用纯函数实现的。
-  内建的`DatePipe`就是一个用纯函数实现的纯管道。
+  内置的`DatePipe`就是一个用纯函数实现的纯管道。
   `ExponentialStrengthPipe`是如此，
   `FlyingHeroesComponent`也是如此。
   不久前我们刚看过的`FlyingHeroesImpurePipe`，是一个*用纯函数实现的非纯管道*。
@@ -699,7 +699,7 @@ a(id="pure-pipe-pure-fn")
   Explore Angular's inventory of built-in pipes in the [API Reference](../api/#!?apiFilter=pipe).
   Try writing a custom pipe and perhaps contributing it to the community.
 
-  要浏览Angular的所有内建管道，请到[API参考手册](../api/#!?apiFilter=pipe)。
+  要浏览Angular的所有内置管道，请到[API参考手册](../api/#!?apiFilter=pipe)。
   学着写写自定义管道，并贡献给开发社区。
 
 a(id="no-filter-pipe")
