@@ -70,22 +70,17 @@ nav(class="sidenav l-pinned-left l-layer-4 l-offset-nav"  ng-class="appCtrl.show
 
   ul(class="sidenav-links")
     li.sidenav-section.no-border
-      a(class="nav-title" href="/docs/#{current.path[1]}/latest/") Docs Home
       a(class="nav-title" href="/docs/#{current.path[1]}/latest/") 文档首页
 
     // CORE DOCUMENTATION
     li.sidenav-section-divider
-      h3 Core Documentation
       h3 核心文档
 
     li.sidenav-section
-      a(class="nav-title #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") Quickstart
       a(class="nav-title #{isQuickstartSelected(cur)}" href="#{qs.href}" title="#{qs.tooltip}") 快速起步
 
 
     li.sidenav-section
-      a(class="nav-title is-parent #{anyItemSelected(basics)}" href="#{basics[0].href}" title="#{basics[0].tooltip}") Guide
-        img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       a(class="nav-title is-parent #{anyItemSelected(basics)}" href="#{basics[0].href}" title="#{basics[0].tooltip}") 开发指南
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
@@ -94,17 +89,13 @@ nav(class="sidenav l-pinned-left l-layer-4 l-offset-nav"  ng-class="appCtrl.show
           each item, index in basics
             li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
     li.sidenav-section.no-border
-      a(class="nav-title #{isApiReferenceSelected()}" href="#{reference[0].href}" title="#{reference[0].tooltip}") API Reference
       a(class="nav-title #{isApiReferenceSelected()}" href="#{reference[0].href}" title="#{reference[0].tooltip}") API参考手册
 
     // ADVANCED DOCUMENATION
     li.sidenav-section-divider
-      h3 Additional Documentation
       h3 附加文档
 
     li.sidenav-section
-      a(class="nav-title is-parent #{anyItemSelected(tutorial)}" href="#{tutorial[0].href}" title="#{tutorial[0].tooltip}") Tutorial
-        img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       a(class="nav-title is-parent #{anyItemSelected(tutorial)}" href="#{tutorial[0].href}" title="#{tutorial[0].tooltip}") 教程
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       .nav-ordered-lists(class="#{isCollapsed(anyItemSelected(tutorial))}")
@@ -113,8 +104,6 @@ nav(class="sidenav l-pinned-left l-layer-4 l-offset-nav"  ng-class="appCtrl.show
             li(class="nav-list-item #{item.class}"): a(href="#{item.href}" title="#{item.tooltip}") #{index + 1}. #{item.navTitle}
 
     li.sidenav-section
-      a(class="nav-title is-parent #{anyItemSelected(guide)}" href="#{guide[0].href}" title="#{guide[0].tooltip}") Advanced Documentation
-        img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       a(class="nav-title is-parent #{anyItemSelected(guide)}" href="#{guide[0].href}" title="#{guide[0].tooltip}") 高级文档
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
@@ -125,8 +114,6 @@ nav(class="sidenav l-pinned-left l-layer-4 l-offset-nav"  ng-class="appCtrl.show
               a.translated-cn(href="#{item.href}" title="#{item.tooltip}") #{item.navTitle}
 
     li.sidenav-section
-      a(class="nav-title is-parent #{anyItemSelected(cookbook)}" href="#{cookbook[0].href}" title="#{cookbook[0].tooltip}") Cookbook
-        img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
       a(class="nav-title is-parent #{anyItemSelected(cookbook)}" href="#{cookbook[0].href}" title="#{cookbook[0].tooltip}") 烹饪宝典
         img(class="inline-arrow-down-svg" src="/resources/images/icons/ic_keyboard_arrow_down_black_24px.svg")
 
