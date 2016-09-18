@@ -13,9 +13,9 @@ angularIO.directive('ngioCheatsheet', function() {
       };
     },
     template:
-      '<h2>Angular for {{$ctrl.currentEnvironment}} Cheat Sheet (v{{ $ctrl.version.raw }})</h2>' +
+      '<h2>Angular for {{$ctrl.currentEnvironment}} 小抄 (v{{ $ctrl.version.raw }})</h2>' +
       '<br>' +
-      '<div ng-if="!$ctrl.sections">Loading Cheatsheet...</div>\n' +
+      '<div ng-if="!$ctrl.sections">正在加载小抄...</div>\n' +
       '<table ng-repeat="section in $ctrl.sections" ng-cloak>\n' +
       '<tr>\n' +
       '  <th>{{section.name}}</th>\n' +
