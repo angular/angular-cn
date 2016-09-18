@@ -981,19 +981,17 @@ a#q-entry-component-defined
   
   ### 什么是*入口组件*？
 
-  Any component that Angular loads _imperatively_ by type is an _entry component_,
+  Any component that Angular loads _imperatively_ by type is an _entry component_, A component loaded _declaratively_ via its selector is _not_ an entry component.
   
-  Angular根据类型进行*命令式*加载的任何组件都是*入口组件*，而通过组件的选择器*声明式*加载起来的组件则*不是*入口组件。
+  Angular根据其类型*不可避免地*加载的组件是*入口组件*，而通过组件选择器*声明式*加载的组件则*不是*入口组件。
   
-  A component loaded _declaratively_ via its selector is _not_ an entry component.
-
   Most application components are loaded declaratively. 
   Angular uses the component's selector to locate the element in the template. 
   It then creates the HTML representation of the component and inserts it into the DOM at the selected element.
   These are not entry components.
   
   大多数应用组件都是声明式加载的。
-  Angular使用该组件的选择器来在模板中定位一个元素，然后创建表现该组件的HTML，并把它插入DOM中所选的元素内部。它们不是入口组件。
+  Angular使用该组件的选择器在模板中定位元素，然后创建表现该组件的HTML，并把它插入DOM中所选元素的内部。它们不是入口组件。
 
   A few components are only loaded dynamically and are _never_ referenced in a component template. 
   
@@ -1005,12 +1003,12 @@ a#q-entry-component-defined
   selector doesn't match an element in any component template.
   
   用于引导的根`AppComponent`就是一个*入口组件*。
-  虽然它的选择器匹配了`index.html`中的一个元素，但是`index.html`并不是组件模板，而且`AppComponent`选择器也并没有匹配上任何组件模板中的元素。
+  虽然它的选择器匹配了`index.html`中的一个元素，但是`index.html`并不是组件模板，而且`AppComponent`选择器也不会在任何组件模板中出现。
   
   Angular loads `AppComponent` dynamically either because we listed it _by type_ in `@NgModule.bootstrap` 
   or because we boostrapped it imperatively with the module's `ngDoBootstrap` method.
   
-  Angular总是会动态加载`AppComponent` —— 无论我们是把它的*类型*列在了`@NgModule.bootstrap`函数中，还是命令式的调用该模块的`ngDoBootstrap`方法来引导它。
+  Angular总是会动态加载`AppComponent` —— 无论把它的*类型*列在了`@NgModule.bootstrap`函数中，还是命令式的调用该模块的`ngDoBootstrap`方法来引导它。
 
   Components in route definitions are also _entry components_.
   A route definition refers to a component by its _type_. 
@@ -1019,12 +1017,12 @@ a#q-entry-component-defined
   
   在路由定义中用到的组件也同样是*入口组件*。
   路由定义根据*类型*来引用组件。
-  路由器会忽略路由组件的选择器（即使它有），并且把该组件动态加载到`RouterOutlet`中。
+  路由器会忽略路由组件的选择器（即使它有选择器），并且把该组件动态加载到`RouterOutlet`中。
 
   The compiler can't discover these _entry components_ by looking for them in other component templates. 
   We must tell it about them ... by adding them to the `entryComponents` list.
   
-  编译器没法通过在其它组件的模板中查找来发现这些*入口组件*。
+  编译器无法通过在其它组件的模板中查找来发现这些*入口组件*。
   我们必须通过把它们加入`entryComponents`列表中来让编译器知道它们的存在。
   
   Angular automatically adds two kinds of components to the module's `entryComponents`:
@@ -1054,7 +1052,7 @@ a#q-bootstrap_vs_entry_component
   Other entry components are loaded dynamically by other means such as with the router.
   
   引导组件是[入口组件](#q-entry-component-defined)的一种。
-  被Angular的引导（应用启动）过程加载到DOM中的组件就是入口组件。
+  它是被Angular的引导（应用启动）过程加载到DOM中的入口组件。
   其它入口组件则是被其它方式动态加载的，比如被路由器加载。
 
   The `@NgModule.bootstrap` property tells the compiler _both_ that this is an entry component _and_
@@ -1116,7 +1114,7 @@ a#q-why-entry-components
   Why doesn't the Angular compiler generate code for every component in `@NgModule.declarations`?
   Then we wouldn't need entry components.
   
-  *入口组件*也被声明过。
+  *入口组件*也是被声明的。
   为什么Angular编译器不为`@NgModule.declarations`中的每个组件都生成一份代码呢？那样就不需要入口组件了。
   
   The reason is _tree shaking_. For production apps we want to load the smallest, fastest code possible.
@@ -1125,7 +1123,7 @@ a#q-why-entry-components
   
   原因在于*摇树优化*。对于产品化应用，我们希望加载尽可能小而快的代码。
   代码中应该仅仅包括那些实际用到的类。
-  它应该排除那些我们从未用过的组件，而无论该组件是否被声明过。
+  它应该排除那些我们从未用过的组件，无论该组件是否被声明过。
 
   In fact, many libraries declare and export components we'll never use.
   The _tree shaker_ will drop these components from the final code package
@@ -1137,7 +1135,7 @@ a#q-why-entry-components
   If the [Angular compiler](#q-angular-compiler) generated code for every declared component, 
   it would defeat the purpose of the tree shaker.
   
-  如果[Angular编译器](#q-angular-compiler)为每个声明的组件都生成了代码，就会阻碍摇树优化器的工作。
+  如果[Angular编译器](#q-angular-compiler)为每个声明的组件都生成了代码，那么摇树优化器的作用就没有了。
   
   Instead, the compiler adopts a recursive strategy that generates code only for the components we use.
   
@@ -1155,7 +1153,7 @@ a#q-why-entry-components
   If a component isn't an _entry component_ or wasn't found in a template, 
   the compiler omits it. 
   
-  如果该组件不是*入口组件*或者没有在任何模板中发现过，编译器就会剔除它。
+  如果该组件不是*入口组件*或者没有在任何模板中发现过，编译器就会忽略它。
 
 
 .l-hr
@@ -1163,12 +1161,14 @@ a#q-why-entry-components
 a#q-module-recommendations
 .l-main-section
 :marked
-  #### What kinds of modules should I have and how should I use them?
+  ### What kinds of modules should I have and how should I use them?
   
-  #### 有哪些类型的模块？我应该如何使用它们？
+  ### 有哪些类型的模块？我应该如何使用它们？
 
   Every app is different and developers have varying levels of experience and comfort with the available choices.
   Some suggestions and guidelines appear to have wide appeal.
+
+  每个应用都不一样。根据不同程度的经验，开发者会做出不同的选择。一些建议和向导具有更加广泛的吸引力。
 
 .alert.is-important
   :marked
@@ -1176,7 +1176,7 @@ a#q-module-recommendations
     Read with appropriate caution and reflection.
     
     下面这些初步的指南仅来自在少量应用中使用Angular模块时的早期体验。
-    内容有风险，阅读需谨慎。
+    仅供参考。
 
 :marked
   #### _SharedModule_
@@ -1188,7 +1188,7 @@ a#q-module-recommendations
   most of them exported. 
   
   为那些可能会在应用中到处使用的组件、指令和管道创建`SharedModule`。
-  大多数这种模块都应该只导出`declarations`。
+  这种模块应该只包含`declarations`，并且应该导出几乎所有`declarations`里面的声明。
   
   It may re-export other [widget modules](#widget-feature-module) such as `CommonModule`,
   `FormsModule` and modules with the UI controls that you use most widely.
@@ -1319,7 +1319,7 @@ table
           For an example, see [_ContactModule_](../guide/ngmodule.html#contact-module-v1) 
           in the Angular Module chapter, before we introduced routing.
           
-          比如“Angular模块”页的[_ContactModule_](../guide/ngmodule.html#contact-module-v1)。
+          比如“Angular模块”章的[_ContactModule_](../guide/ngmodule.html#contact-module-v1)。
   tr
     td(style="vertical-align: top")
       <a id="routed-feature-module"></a>
@@ -1417,7 +1417,7 @@ table
 
         A Widget Module should consist entirely of _declarations_, most of them exported. 
         
-        部件模块应该完全是由它所导出的`declarations`构成的。
+        部件模块应该只有`declarations`，并导出里面的绝大多数声明。
 
         A Widget Module should rarely have _providers_. 
         Know what you're doing and why if you deviate from this guideline.
@@ -1427,7 +1427,7 @@ table
 
         Import Widget Modules in any module whose component templates need the widgets.
 
-        如果如何模块的组件模板中需要用到这些窗口部件，就请导入相应的窗口部件模块。
+        如果任何模块的组件模板中需要用到这些窗口部件，就请导入相应的窗口部件模块。
         
 :marked
   The following table summarizes the key characteristics of each _Feature Module_ group.
@@ -1548,13 +1548,13 @@ a#q-ng-vs-js-modules
 
   Angular and JavaScript are two different yet complementary module systems.
   
-  Angular和JavaScript有两种不同但互补的模块体系。
+  Angular和JavaScript是两种不同但互补的模块体系。
 
   In modern JavaScript, [every file is a _module_](http://exploringjs.com/es6/ch_modules.html).
   Within each file we write an `export` statement to make parts of the module public:
   
   在现代JavaScript中，[每个文件都是模块](http://exploringjs.com/es6/ch_modules.html)。
-  在每个文件中，我们写一个`export`语句就会让那一部分通过模块进行公开。
+  在每个文件中，我们写一个`export`语句将模块的一部分公开。
 
 code-example(format='.').
   export class AppComponent { ... }
@@ -1598,7 +1598,7 @@ code-example(format='.').
   1. Instead of defining all member classes in one giant file (as in a JavaScript module),
      we list the module's classes in the `@NgModule.declarations` list.
      
-  1. 与JavaScript模块把所有成员类都定义在一个巨型文件内不同，我们把Angular模块中的类都列在`@NgModule.declarations`数组中。
+  1. JavaScript模块把所有成员类都定义在一个巨型文件，Angular模块则把自己的类都列在`@NgModule.declarations`数组中。
 
   1. An Angular module can only export the [_declarable classes_](#q-declarables) 
   it owns or imports from other modules.
@@ -1650,16 +1650,16 @@ h4 Angular如何在模板中查找组件、指令和管道？<br>什么是<i><b>
   The Angular compiler finds a component or directive in a template when it can match the **selector** of that 
   component or directive to some HTML in that template. 
   
-  Angular编译器在模板的HTML中中查找能与组件或指令的**选择器（selector）**相匹配的模板或指令。
+  Angular编译器通过在一个模板的HTML中匹配组件或指令的**选择器（selector）**，来查找组件或指令。
 
   The compiler finds a pipe if the pipe's **name** appears within the pipe syntax of the template HTML.
   
-  该编译器通过分析模板HTML中的管道语法中是否出现了特定的管道名来查找对应的管道。
+  编译器通过分析模板HTML中的管道语法中是否出现了特定的管道名来查找对应的管道。
 
   Angular only matches selectors and pipe names for classes that are declared by this module
   or exported by a module that this module imports.
   
-  Angular只针对当前模块中声明或从其它模块中导入的类匹配选择器和管道名。
+  Angular只查询两种组件、指令或管道：1）那些在当前模块中声明过的，以及2）那些被当前模块导入的模块所导出的。
 
 .l-hr
 
@@ -1681,7 +1681,7 @@ a#q-angular-compiler
   Components have templates that contain custom elements, attribute directives, Angular binding declarations, 
   and some peculiar syntax that clearly isn't native HTML.
   
-  我们写的代码其实没办法直接执行。
+  我们写的代码是无法直接执行的。
   比如**组件**。
   组件有一个模板，其中包含了自定义元素、属性型指令、Angular绑定声明和一些显然不属于原生HTML的古怪语法。
   
@@ -1779,7 +1779,7 @@ table
         Angular can inject the same `HeroService` intance into any app component.
         
         Angular可以把这些提供商提供的服务注入到应用中的任何组件中。
-        如果该模块提供了`HeroService`或启动时的任何模块提供了`HeroService`，那么Angular就会把同一个`HeroService`实例注入到应用中的任何组件中。
+        如果该模块提供了`HeroService`或启动时被加载的任何模块提供了`HeroService`，那么Angular就会把同一个`HeroService`实例注入到应用中的任何组件中。
         
         A lazy loaded module has its own sub-root injector which typically 
         is a direct child of the application root injector.
@@ -1827,7 +1827,7 @@ table
         A component template can bind with `[(ngModel)]` only after importing the Angular `FormsModule`.
         
         通过`CommonModule`，我们可以导入很多标准指令。
-        但是也有一些熟悉的指令式属于其它模块的。
+        但是也有一些熟悉的指令是属于其它模块的。
         比如组件只有导入了Angular的`FormsModule`才能在组件模板中用`[(ngModel)]`进行绑定。
         
   tr
@@ -1870,7 +1870,7 @@ table
         Module 'B' components can use `ngIf` even though 'B' itself didn't import `CommonModule`.
         
         [重新导出](#q-re-export)可以让模块的传递性更加明确。
-        如果模块`A`重新导出了`CommonModule`，并且模块`B`导入了模块`A`，那么模块`B`中的组件就能使用`NgIf`了，虽然模块`B`本身并没有导入过`CommonModule`。
+        如果模块`A`重新导出了`CommonModule`，然后模块`B`导入了模块`A`，那么模块`B`中的组件就能使用`NgIf`了，虽然模块`B`本身并没有导入过`CommonModule`。
 
   tr
     td(style="vertical-align: top") <code>bootstrap</code>
@@ -1899,7 +1899,7 @@ table
       :marked
         A list of components that are _not_ [referenced](#q-template-reference) in a reachable component template.
         
-        那些*没有*在任何可抵达组件的模板中[引用过](#q-template-reference)的组件列表。
+        那些*没有*在任何可访问的组件的模板中[引用过](#q-template-reference)的组件列表。
 
         Most developers will never set this property. Here's why.
         
@@ -1923,7 +1923,7 @@ table
         The router creates them and drops them into the DOM near a `<router-outlet>`.
         
         路由组件同样是*入口组件*，因为他们也不会被从模板中引用。
-        路由器创建会它们，并把它们扔到DOM中的`<router-outlet>`附近。
+        路由器创建会它们，并把它们扔到DOM中的`<router-outlet>`。
 
         While the bootstrapped and routed components are _entry components_, 
         we usally don't have to add them to a module's `entryComponents` list.
