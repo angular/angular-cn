@@ -2,57 +2,101 @@ include ../_util-fns
 
 :marked
   # Angular Modules (NgModules) have landed in Angular RC5!
+  
+  # Angular模块（NgModule）功能在Angular RC5中发布了！
 
   _Angular Modules_, also known as _NgModules_, are the powerful new way to organize and bootstrap your Angular application. 
+  
+  *Angular模块*（也叫*NgModule*）是组织代码和引导应用的强力新途径。
+  
 .l-sub-section
   :marked
     Read more in the ["RC5 and NgModules" announcement](https://angularjs.blogspot.com).
+    
+    要了解更多，参见["RC5和NgModule"正式发布](https://angularjs.blogspot.com)。
 
     Learn the details of NgModule in the [Angular Module](../guide/ngmodule.html) chapter.
+    
+    要深入了解NgModule，参见[Angular Module](../guide/ngmodule.html)页。
+    
 :marked
   The new  `@NgModule` decorator gives you module-level components, directives, and pipes without 
   the need to specify them repeatedly in every component of your application. 
   
+  新的`@NgModule`装饰器让我们可以指定模块级的组件、指令和管道，而不需要在应用中的每个组件中都指定它们。
+  
   The `@NgModule` metadata give the Angular compiler the context needed so that you can use the same code 
   regardless of whether you are running Angular in [Ahead-of-time](../glossary.html#aot) or [Just
    in Time](../glossary.html#jit) mode.
+   
+  `@NgModule`元数据为Angular编译器提供了上下文环境，以便我们可以让同一套代码分别运行在[预编译AoT模式](../glossary.html#aot)或[即时编译JiT模式](../glossary.html#jit)。
 
   ## How do I use them?
+  
+  ## 如何使用？
 
   If you were previously writing an Angular application, your app should continue to work in RC5. 
   We’ve worked hard to ensure that applications that worked with RC4 continue to work while you migrate. 
   For this to work, we’re doing 2 things automatically for you:
+  
+  如果你曾经写过Angular应用，那么它应该仍然能在RC5中工作。
+  我们付出了很多努力来确保RC4中的应用也能正常工作在RC5中。
 
   * We create an implicit `NgModule` for you as part of the `bootstrap()` command
+  * 我们在`bootstrap()`命令中会为你创建一个隐式的`NgModule`
   * We automatically hoist your components, pipes, and directives
+  * 我们会自动升级你的组件、管道和指令
 
   While your application will continue to work today, 
   it’s important that you update your application to ensure future updates and deprecations don’t negatively affect you. 
   To make it easier, you can think of the process as having 5 steps.
+  
+  虽然应用仍然能工作，但你最好还是升级下应用，以确保未来的升级和废弃的特性不会给你带来困扰。
+  要让这项工作更容易，你可以遵循如下五个步骤：
 
   1. **Update to RC5** - Your application should continue to work without modification, but it’s important that you are running the latest version of Angular.
   
+  1. **升级到RC5** - 你的应用不用修改也仍然能正常工作，但重点是你要运行在最新版本的Angular中。
+  
   2. **Create an _NgModule_** - Create the root `NgModule` that you’ll use to bootstrap your application.
+  
+  2. **创建*NgModule*** - 创建一个根`NgModule`，你要用它来引导应用程序。
   
   3. **Update your bootstrap** - Bootstrap that module instead of your root component
   
+  3. **升级你的引导代码** - 改成引导根模块，而不再是根组件
+  
   4. **Update your 3rd party libraries** - Take advantage of the latest from Forms, Material, Http, and more
+  
+  4. **升级你的第三方库** - 获得最新版表单、Material设计、Http等模块的优点
   
   5. **Cleanup** - Clean up your code. 
   The deprecated classes, methods and properties will be removed from Angular very soon.
+  
+  5. **清理** - 清理你的代码。那些被标记为废弃的类、方法和属性将很快从Angular中移除
 
   Prefer to look at code and diffs? 
   Check out the upgrade in [one commit](https://github.com/StephenFluin/ngmodule-migration/commit/9f9c6ae099346e491fc31d77bf65ed440e1f164c).
+  
+  想看看代码级变更？
+  那就来[这个提交](https://github.com/StephenFluin/ngmodule-migration/commit/9f9c6ae099346e491fc31d77bf65ed440e1f164c)吧。
 
   ## 1. Update to RC5
+  
+  ## 1. 升级到RC5
+  
   If you use npm, you should be able to either update your `package.json` file and run `npm install`. 
   Or alternatively you can run the following command:
+  
+  如果使用npm，那么你可以手动修改`package.json`文件并运行`npm install`命令，或者直接运行下列命令：
 
 code-example(format='.' language='bash').
   npm install @angular/{core,common,compiler,platform-browser,platform-browser-dynamic} --save
 
 :marked
   Update your optional libraries
+  
+  更新你的可选库
 
 code-example(format='.' language='bash').
   npm install @angular/router
@@ -61,13 +105,20 @@ code-example(format='.' language='bash').
 
 :marked
   Update the Angular CLI if you're using that tool
+  
+  如果你在使用Angular CLI，也要更新它
 
 code-example(format='.'  language='bash').
   npm install angular-cli @angular/tsc-wrapped --save-dev
 
 :marked
   ## 2. Create an _NgModule_
+  
+  ## 2. 创建*NgModule*
+  
   Create a new file called app.module.ts. Populate it with your root component as follows:
+  
+  创建一个名叫`app.module.ts`的新文件，把以前的根组件换成这样：
 
 code-example(format='.' language='javascript').
   import { NgModule }       from '@angular/core';
@@ -83,7 +134,12 @@ code-example(format='.' language='javascript').
 
 :marked
   ## 3. Update your bootstrap
+  
+  ## 3. 升级你的引导代码
+  
   Update your `main.ts` file to bootstrap using the "Just-in-time" (JiT) compiler.
+  
+  升级`main.ts`文件，改用即时（JiT）编译器来引导。
 
 code-example(format='.' language='javascript').
   import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -93,8 +149,13 @@ code-example(format='.' language='javascript').
 
 :marked
   ## 4. Import library modules in your _NgModule_
+  
+  ## 4. 在*NgModule*中导入库模块
+  
   Remove the Angular and 3rd party library providers from your `AppComponent` providers 
   and switch to `NgModule` imports as seen in this example.
+  
+  从你的`AppComponent`的`providers`中移除Angular和第三方库中的服务提供商，改为使用`NgModule`中的`imports`，就像这样：
 
 code-example(format='.' language='javascript').
   imports: [
@@ -113,15 +174,26 @@ code-example(format='.' language='javascript').
 
 :marked
   ## 5. Cleanup
+  ## 5. 清理
+  
   For RC5, you can leave your components, directives and pipes 
   in the `directives` and `pipes` properties of your `@Component` metadata.
   In fact, we automatically hoist (add) them to the NgModule to which they belong.
+  
+  对于RC5来说，你仍然可以在`@Component`元数据的`directives`和`pipes`属性中指定组件、指令和管道。
+  实际上，我们会自动把它们加入到它们所属的NgModule中去。
 
 .alert.is-important
   :marked
     This option is temporary for backward compatibility. 
     It will be removed in the final release of Angular 2.0.
+    
+    这个选项只是为了向后兼容而临时设置的。
+    当Angular 2.0正式发布的时候，它将会被移除。
 
     Get ahead of the game and start moving your component `directives` and `pipes` 
     into module `declarations` as soon as possible.
     We intend to delete _all_ deprecated class, methods, and properties in the next RC.
+
+    你可以先继续，但要尽早把这些组件、指令和管道移到模块的`declarations`。
+    我们准备在下一个RC中删除*所有*废弃的类、方法和属性。
