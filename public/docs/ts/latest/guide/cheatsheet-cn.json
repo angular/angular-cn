@@ -1,28 +1,28 @@
 {
   "currentEnvironment": "TypeScript",
   "version": {
-    "raw": "2.0.0-rc.5",
+    "raw": "2.0.0",
     "major": 2,
     "minor": 0,
-    "patch": 0,
+    "patch": 1,
     "prerelease": [
       "local"
     ],
-    "build": "sha.8c6f6c1",
-    "version": "2.0.0-local",
+    "build": "sha.efc7326",
+    "version": "2.0.1-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.0.0-local+sha.8c6f6c1",
+    "full": "2.0.1-local+sha.efc7326",
     "branch": "master",
-    "commitSHA": "8c6f6c173da20113d467e57fd4ee5ab06d0a056b"
+    "commitSHA": "efc7326926b826dd33eeb43db391afd7c0b03ab8"
   },
   "sections": [
     {
       "name": "引导",
-      "description": "<p><code>import { platformBrowserDynamic } from &#39;@angular/platform-browser-dynamic&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { platformBrowserDynamic } from &#39;@angular/platform-browser-dynamic&#39;;</code>\n</p>\n",
       "items": [
         {
-          "syntax": "platformBrowserDynamic().bootstrapModule(MyAppModule);",
+          "syntax": "platformBrowserDynamic().bootstrapModule(AppModule);",
           "bold": [
             "platformBrowserDynamic().bootstrapModule"
           ],
@@ -36,7 +36,7 @@
       "description": "<p><code>import { NgModule } from &#39;@angular/core&#39;;</code>\n</p>\n",
       "items": [
         {
-          "syntax": "@NgModule({ declarations: ..., imports: ..., exports: ..., bootstrap: ...})\nclass MyModule {}",
+          "syntax": "@NgModule({ declarations: ..., imports: ...,\n     exports: ..., providers: ..., bootstrap: ...})\nclass MyModule {}",
           "bold": [
             "NgModule"
           ],
@@ -156,11 +156,11 @@
           "description": "<p><code>*</code>符号表示当前元素将被转变成一个内嵌模板。等价于：\n<code>&lt;template [myUnless]=&quot;myExpression&quot;&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>\n"
         },
         {
-          "syntax": "<p>Card No.: {{cardNumber | myCreditCardNumberFormatter}}</p>",
+          "syntax": "<p>Card No.: {{cardNumber | myCardNumberFormatter}}</p>",
           "bold": [
-            "{{cardNumber | myCreditCardNumberFormatter}}"
+            "{{cardNumber | myCardNumberFormatter}}"
           ],
-          "description": "<p>通过名叫<code>myCreditCardNumberFormatter</code>的管道，转换表达式的当前值<code>cardNumber</code>。</p>\n"
+          "description": "<p>通过名叫<code>myCardNumberFormatter</code>的管道，转换表达式的当前值<code>cardNumber</code>。</p>\n"
         },
         {
           "syntax": "<p>Employer: {{employer?.companyName}}</p>",
@@ -188,7 +188,7 @@
     },
     {
       "name": "内置指令",
-      "description": "<p><code>import { CommonModule } from &#39;@angular/common&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { CommonModule } from &#39;@angular/common&#39;;</code>\n</p>\n",
       "items": [
         {
           "syntax": "<section *ngIf=\"showSection\">",
@@ -226,7 +226,7 @@
     },
     {
       "name": "表单",
-      "description": "<p><code>import { FormsModule } from &#39;@angular/forms&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { FormsModule } from &#39;@angular/forms&#39;;</code>\n</p>\n",
       "items": [
         {
           "syntax": "<input [(ngModel)]=\"userName\">",
@@ -240,7 +240,7 @@
     },
     {
       "name": "类装饰器",
-      "description": "<p><code>import { Directive, ... } from &#39;@angular/core&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Directive, ... } from &#39;@angular/core&#39;;</code>\n</p>\n",
       "items": [
         {
           "syntax": "@Component({...})\nclass MyComponent() {}",
@@ -275,7 +275,7 @@
     },
     {
       "name": "指令配置",
-      "description": "<p><code>@Directive({ property1: value1, ... })</code>\n\n</p>\n",
+      "description": "<p><code>@Directive({ property1: value1, ... })</code>\n</p>\n",
       "items": [
         {
           "syntax": "selector: '.cool-button:not(a)'",
@@ -333,7 +333,7 @@
     },
     {
       "name": "供指令类或组件类用的字段装饰器。",
-      "description": "<p><code>import { Input, ... } from &#39;@angular/core&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Input, ... } from &#39;@angular/core&#39;;</code>\n</p>\n",
       "items": [
         {
           "syntax": "@Input() myProperty;",
@@ -466,7 +466,7 @@
     },
     {
       "name": "依赖注入配置",
-      "description": "<p></p>\n",
+      "description": "",
       "items": [
         {
           "syntax": "{ provide: MyService, useClass: MyMockService }",
@@ -497,7 +497,7 @@
     },
     {
       "name": "路由与导航",
-      "description": "<p><code>import { Routes, RouterModule, ... } from &#39;@angular/router&#39;;</code>\n\n</p>\n",
+      "description": "<p><code>import { Routes, RouterModule, ... } from &#39;@angular/router&#39;;</code>\n</p>\n",
       "items": [
         {
           "syntax": "const routes: Routes = [\n  { path: '', component: HomeComponent },\n  { path: 'path/:routeParam', component: MyComponent },\n  { path: 'staticPath', component: ... },\n  { path: '**', component: ... },\n  { path: 'oldPath', redirectTo: '/staticPath' },\n  { path: ..., component: ..., data: { message: 'Custom' } }\n]);\n\nconst routing = RouterModule.forRoot(routes);",
@@ -523,7 +523,7 @@
         {
           "syntax": "<a [routerLink]=\"[ '/path' ]\" routerLinkActive=\"active\">",
           "bold": [],
-          "description": "<p>The provided class(es) will be added to the element when the routerLink becomes the current active route.</p>\n"
+          "description": "<p>当<code>routerLink</code>被激活时，就把指定的CSS类添加到该元素上。</p>\n"
         },
         {
           "syntax": "class CanActivateGuard implements CanActivate {\n    canActivate(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canActivate: [CanActivateGuard] }",
@@ -540,7 +540,7 @@
           "description": "<p>一个用来定义类的接口，路由器在导航后会首先调用它来决定是否应该取消该组件的激活状态。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。</p>\n"
         },
         {
-          "syntax": "class CanActivateChildGuard implements CanActivateChild {\n    canActivateChild(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canActivateChild: [CanActivateGuard], children: ... }",
+          "syntax": "class CanActivateChildGuard implements CanActivateChild {\n    canActivateChild(\n      route: ActivatedRouteSnapshot,\n      state: RouterStateSnapshot\n    ): Observable<boolean>|Promise<boolean>|boolean { ... }\n}\n\n{ path: ..., canActivateChild: [CanActivateGuard],\n    children: ... }",
           "bold": [
             "CanActivateChild"
           ],
@@ -559,31 +559,6 @@
             "CanLoad"
           ],
           "description": "<p>一个用来定义类的接口，路由器会首先调用它来决定一个延迟加载的模块是否应该被加载。应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。</p>\n"
-        },
-        {
-          "syntax": "",
-          "bold": [],
-          "description": "<p></p>\n"
-        },
-        {
-          "syntax": "",
-          "bold": [],
-          "description": "<p>.</p>\n"
-        },
-        {
-          "syntax": "",
-          "bold": [],
-          "description": "<p></p>\n"
-        },
-        {
-          "syntax": "",
-          "bold": [],
-          "description": "<p></p>\n"
-        },
-        {
-          "syntax": "",
-          "bold": [],
-          "description": "<p></p>\n"
         }
       ],
       "index": 11
