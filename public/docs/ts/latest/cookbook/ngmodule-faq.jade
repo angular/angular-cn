@@ -252,7 +252,7 @@ a#q-what-to-import
 :marked
   ### What should I import?
   
-  ### 我该导入什么？
+  ### 我应该导入什么？
 
   Import modules whose public (exported) [declarable classes](#q-declarable) 
   you need to reference in this module's component templates.
@@ -287,12 +287,12 @@ a#q-browser-vs-common-module
 :marked
   ### Should I import _BrowserModule_ or _CommonModule_?
   
-  ### 我该导入*BrowserModule*还是*CommonModule*？
+  ### 我应该导入*BrowserModule*还是*CommonModule*？
 
   The **root application module** (`AppModule`) of almost every browser application
   should import `BrowserModule` from `@angular/platform-browser`.
   
-  几乎每个要在浏览器中使用的应用的**根模块**（`AppModule`）都应该从`@angular/platform-browser`中导入`BrowserModule`。
+  几乎所有要在浏览器中使用的应用的**根模块**（`AppModule`）都应该从`@angular/platform-browser`中导入`BrowserModule`。
   
   `BrowserModule` provides services that are essential to launch and run a browser app.
   
@@ -314,9 +314,9 @@ a#q-browser-vs-common-module
   
 .l-sub-section
   :marked
-    `BrowserModule` throws an error if you try to lazy load  a module that imports it.
+    `BrowserModule` throws an error if you try to lazy load a module that imports it.
     
-    如果你想在延迟加载模块中导入它，`BrowserModule`就会抛出一个错误。
+    如果你在延迟加载模块中导入`BrowserModule`，Angular就会抛出一个错误。
     
 :marked
   Importing `CommonModule` also frees feature modules for use on _any_ target platform, not just browsers,
@@ -335,7 +335,7 @@ a#q-reimport
   That's not a problem. When three modules all import Module 'A', 
   Angular evaluates Module 'A' once, the first time it encounters it, and does not do so again. 
   
-  不会有问题。当三个模块全都导入模块'A'时，Angular只会加载一次模块'A'，也就是首次遇到时，之后就不会这么做了。
+  不会有问题。当三个模块全都导入模块'A'时，Angular只会首次遇到时加载一次模块'A'，之后就不会这么做了。
 
   That's true at whatever level `A` appears in a hierarchy of imported modules.
   When Module 'B' imports Module 'A', Module 'C' imports 'B', and Module 'D' imports `[C, B, A]`,
@@ -392,7 +392,7 @@ a#q-what-not-to-export
   * Private components, directives, and pipes that you need only within components declared in this module.
   If you don't want another module to see it, don't export it.
   
-  * 那些你只想在当前模块声明的组件中使用的私有组件、指令和管道。如果你不希望任何模块看到它，就不要导出。
+  * 那些你只想在当前模块中声明的那些组件中使用的私有组件、指令和管道。如果你不希望任何模块看到它，就不要导出。
 
   * Non-declarable objects such as services, functions, configurations, entity models, etc.
   
@@ -411,8 +411,8 @@ a#q-what-not-to-export
   It's only purpose is to add http service providers to the application as a whole.
   
   * 纯服务模块没有公开（导出）的声明。
-  例如，没必要重新导出`HttpModule`，因为它不用导出任何东西。
-  它唯一的用途是作为一个整体把http的那些服务提供商添加到应用中。
+  例如，没必要重新导出`HttpModule`，因为它不导出任何东西。
+  它唯一的用途是一起把http的那些服务提供商添加到应用中。
 
 .l-hr
 
@@ -436,7 +436,7 @@ a#q-re-export
   A module can re-export entire modules which effectively re-exports all of their exported classes.
   Angular's own `BrowserModule` exports a couple of modules like this:
   
-  模块可以重新整体导出其它模块，这会导致重新导出它们导出的所有类。
+  模块可以重新导出其它模块，这会导致重新导出它们导出的所有类。
   Angular自己的`BrowserModule`就重新导出了一组模块，例如：
   
 code-example.
@@ -445,7 +445,7 @@ code-example.
 :marked
   A module can export a combination of its own declarations, selected imported classes, and imported modules.
   
-  模块还能导出一个组合，其中可以包含它自己的可声明类、某些导入的类以及导入的模块。
+  模块还能导出一个组合，它可以包含自己的声明、某些导入的类以及导入的模块。
   
 .l-sub-section
   :marked
@@ -457,7 +457,7 @@ code-example.
     不要费心去导出纯服务类。
     纯服务类的模块不会导出任何可供其它模块使用的[可声明类](#q-declarable)。
     例如，不用重新导出`HttpModule`，因为它没有导出任何东西。
-    它唯一的用途是把那些http服务提供商作为一个整体添加到应用中。
+    它唯一的用途是把那些http服务提供商一起添加到应用中。
 
 .l-hr
 
@@ -504,7 +504,7 @@ a#q-for-root
   Angular doesn't recognize these names but Angular developers do.
   Follow this convention when you write similar modules with configurable service providers.
   
-  Angular无法识别这些名字，但是Angular的开发人员可以。
+  Angular并不识别这些名字，但是Angular的开发人员可以。
   当你写类似的需要可配置的服务提供商时，请遵循这个约定。
 
 .l-hr
@@ -538,7 +538,7 @@ a#q-module-provider-visibility
   makes it easy for a module library to enrich the entire application with new services.
   By adding the `HttpModule` once, every application component can make http requests. 
   
-  设计如此！
+  Angular就是如此设计的。
   通过模块导入来实现可扩展性是Angular模块系统的主要设计目标。
   把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
   只要添加一次`HttpModule`，那么应用中的每个组件就都可以发起Http请求了。
@@ -549,7 +549,7 @@ a#q-module-provider-visibility
   any class that knows the `HeroService` _type_ can inject that service, 
   not just the classes declared in the `HeroModule`.
   
-  不过，如果你期望模块的服务只对那个特性模块内部声明的组件可见，那么这可能会带来一些不受欢迎的“惊喜”。
+  不过，如果你期望模块的服务只对那个特性模块内部声明的组件可见，那么这可能会带来一些不受欢迎的意外。
   如果`HeroModule`提供了一个`HeroService`，并且根模块`AppModule`导入了`HeroModule`，那么任何知道`HeroService`*类型*的类都可能注入该服务，而不仅是在`HeroModule`中声明的那些类。
 
 .l-hr
@@ -607,7 +607,7 @@ a#q-module-provider-duplicates
   
   *每个*注入了该服务的类获得的都是由第二个提供商创建的实例。
   即使是声明在第一个模块中的类，它取得的实例也是来自第二个提供商的。
-  *这是一个不受欢迎的“惊喜”*。
+  *这是一个不受欢迎的意外*。
 
   If Module A provides a service for token 'X' and imports a module B
   that also provides a service for token 'X', then Module A's service definition "wins".
@@ -626,7 +626,7 @@ a#q-component-scoped-providers
 :marked
   ### How do I restrict service scope to a module?
   
-  ### 我们该如何把服务的范围限制到模块中？
+  ### 我们应该如何把服务的范围限制到模块中？
 
   When a module is loaded at application launch,
   its `@NgModule.providers` have ***application-wide scope***.
@@ -639,7 +639,7 @@ a#q-component-scoped-providers
   Such replacement may be by design. It could be unintentional and have adverse consequences.
   
   导入的提供商很容易被由其它导入模块中的提供商替换掉。
-  这可能是故意设计的。但也可能是疏漏，并带来意料之外的后果。
+  这虽然是故意这样设计的，但是也可能引起意料之外的结果。
 
 .alert.is-important
   :marked
@@ -657,7 +657,7 @@ a#q-component-scoped-providers
   
   假设模块需要一个定制过的`HttpBackend`，它为所有的Http请求添加一个特别的请求头。
   如果应用中其它地方的另一个模块也定制了`HttpBackend`或仅仅导入了`HttpModule`，它就会改写当前模块的`HttpBackend`提供商，丢掉了这个特别的请求头。
-  而服务器就会拒绝来自该模块的请求。
+  这样服务器就会拒绝来自该模块的请求。
 
 .alert.is-important
   :marked
@@ -694,7 +694,7 @@ a#q-component-scoped-providers
   
   那就创建一个“顶级组件”来扮演该模块中所有组件的根。
   把这个自定义的`HttpBackend`提供商添加到这个顶级组件的`providers`列表中，而不是该模块的`providers`中。
-  回忆一下，Angular回味每个组件实例创建一个子注入器，并使用组件自己的`providers`来配置这个注入器。
+  回忆一下，Angular会为每个组件实例创建一个子注入器，并使用组件自己的`providers`来配置这个注入器。
   
   When a child of this component _asks_ for the `HttpBackend` service,
   Angular provides the local `HttpBackend` service, 
@@ -722,7 +722,7 @@ a#q-root-component-or-module
 :marked
   ### Should I add app-wide providers to the root _AppModule_ or the root _AppComponent_?
   
-  ### 我该把全应用级提供商添加到根模块`AppModule`中还是根组件`AppComponent`中？
+  ### 我应该把全应用级提供商添加到根模块`AppModule`中还是根组件`AppComponent`中？
 
 .alert.is-helpful
   :marked
@@ -775,7 +775,7 @@ a#q-root-component-or-module
   But "almost" isn't good enough for routed applications.
   
   `AppComponent`的注入器是根注入器的*子级*，注入器层次中的下一级。
-  这对于不用路由器的应用来说*几乎是*整个应用了。
+  这对于没有路由器的应用来说*几乎是*整个应用了。
   但这个“几乎”对于带路有的应用仍然是不够的。
 
   `AppComponent` services don't exist at the root level where routing operates. 
@@ -785,8 +785,8 @@ a#q-root-component-or-module
   The application  would fail the moment a user navigated to "Heroes".
   
   当有路由时，`AppComponent`服务并不在根部。
-  延迟加载的模块就不管它们。
-  在“Angular模块”页的范例应用中，如果我们已经在`AppComponent`中注册了`UserService`，那么`HeroComponent`就不会注入它。
+  延迟加载的模块就不能用它们。
+  在“Angular模块”章的范例应用中，如果我们在`AppComponent`中注册`UserService`，那么`HeroComponent`就不能注入它。
   一旦用户导航到“Heroes”特性区，该应用就会失败。
 
 .l-hr
@@ -815,8 +815,8 @@ a#q-component-or-module
   Then each new instance of the `HeroEditorComponent` gets its own cached service instance. 
   The changes that editor makes to heroes in its service do not touch the hero instances elsewhere in the application.
   
-  例如，英雄编辑组件甩开一个缓存的英雄服务的实例，它应该把`HeroService`注册进`HeroEditorComponent`中。
-  然后，每个新的`HeroEditorComponent`的实例都会得到一份自己的缓存过的服务实例。
+  例如，如果英雄编辑组件需要自己私有的缓存英雄服务实例，那么我们应该把`HeroService`注册进`HeroEditorComponent`中。
+  这样，每个新的`HeroEditorComponent`的实例都会得到一份自己的缓存服务实例。
   编辑器的改动只会作用于它自己的服务，而不会影响到应用中其它地方的英雄实例。
 
   [Always register _application-wide_ services with the root `AppModule`](q-root-component-or-module), 
@@ -835,13 +835,13 @@ a#q-why-bad
   This question arose in the [Angular Module](../guide/ngmodule.html#no-shared-module-providers) chapter 
   when we discussed the importance of keeping providers out of the `SharedModule`.
   
-  这个问题在[Angular模块](../guide/ngmodule.html#no-shared-module-providers)页出现过，那时我们在讨论不要把提供商放进`SharedModule`的重要性。
+  这个问题在[Angular模块](../guide/ngmodule.html#no-shared-module-providers)章出现过，那时我们在讨论不要把提供商放进`SharedModule`的重要性。
 
   Suppose we had listed the `UserService` in the module's `providers` (which we did not).
   Suppose every module imports this `SharedModule` (which they all do).
   
-  假设我们把`UserService`列在了模块的`providers`中（其实没有）。
-  假设每个模块都导入了这个`SharedModule`（其实真的做了）。
+  假设把`UserService`列在了模块的`providers`中（我们没有这么做）。
+  假设每个模块都导入了这个`SharedModule`（我们是这么做的）。
 
   When the app starts, Angular eagerly loads the `AppModule` and the `ContactModule`.
   
@@ -863,7 +863,7 @@ a#q-why-bad
   When the router lazy loads the `HeroModule`, it creates a child injector and registers the `UserService`
   provider with that child injector. The child injector is _not_ the root injector.
   
-  当路由器准备延迟加载`HeroModule`的时候，它会创建一个子注入器，并且把`UserService`的提供商注册到那个子注入器中。子注入器和根注入器*不是*同一个。
+  当路由器准备延迟加载`HeroModule`的时候，它会创建一个子注入器，并且把`UserService`的提供商注册到那个子注入器中。子注入器和根注入器是*不同*的。
   
   When Angular creates a lazy `HeroComponent`, it must inject a `UserService`.
   This time it finds a `UserService` provider in the lazy module's _child injector_
@@ -877,7 +877,7 @@ a#q-why-bad
 
   That's almost certainly a mistake.
   
-  这几乎在任何情况下都是一个错误。
+  这绝对是一个错误。
 .l-sub-section
   :marked
     Prove it for yourself.
@@ -921,9 +921,9 @@ a#q-why-child-injector
   An injector can add providers _until it is first used_. 
   Once an injector starts creating and delivering services, its provider list is frozen. No new providers allowed.
   
-  归根结底，这来自于Angular依赖注入系统的一些基本特征。
-  只有当首次使用时才能为某个注入器添加提供商。
-  一旦注入器已经创建和交付过服务，它的提供商列表就被冻结了，不允许再添加新的提供商。
+  归根结底，这来自于Angular依赖注入系统的一个基本特征：
+  在注入器还没有被第一次使用之前，可以不断为其添加提供商。
+  一旦注入器已经创建和开始交付服务，它的提供商列表就被冻结了，不再接受新的提供商。
 
   When an applications starts, Angular first configures the root injector with the providers of all eagerly loaded modules
   _before_ creating its first component and injecting any of the provided services. 
@@ -937,9 +937,9 @@ a#q-why-child-injector
   It can't added them to the app root injector because that injector is closed to new providers. 
   So Angular creates a new child injector for the lazy loaded module context.
   
-  过了一会儿，应用逻辑开始延迟加载某个模块。
+  之后，应用逻辑开始延迟加载某个模块。
   Angular必须把这个延迟加载模块中的提供商添加到*某个*注入器中。
-  但它没办法再添加到应用的根注入器中，因为它已经不再接受新的提供商了。
+  但是它无法将它们添加到应用的根注入器中，因为根注入器已经不再接受新的提供商了。
   于是，Angular在延迟加载模块的上下文中创建了一个新的子注入器。
 
 .l-hr
@@ -1074,7 +1074,7 @@ a#q-when-entry-components
 :marked
   ### When do I add components to _entryComponents_?
   
-  ### 什么时候我该把组件加到`entryComponents`中？
+  ### 什么时候我应该把组件加到`entryComponents`中？
   
   Most application developers won't need to add components to the `entryComponents`.
   
@@ -1165,7 +1165,7 @@ a#q-module-recommendations
 :marked
   #### What kinds of modules should I have and how should I use them?
   
-  #### 有哪些类型的模块？我该如何使用它们？
+  #### 有哪些类型的模块？我应该如何使用它们？
 
   Every app is different and developers have varying levels of experience and comfort with the available choices.
   Some suggestions and guidelines appear to have wide appeal.
