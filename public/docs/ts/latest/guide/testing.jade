@@ -11,55 +11,123 @@ block includes
   Along the way you will learn some general testing principles and techniques but the focus is on
   Angular testing.
 
+  本章提供了一些测试Angular应用的提示和技巧。虽然这里讲述了一些常规测试理念和技巧，但是其重点是Angular的测试。
+
 a#top
 :marked
   # Contents
 
+  # 目录
+
   * [Introduction to Angular Testing](#testing-101)
+
+  * [Angular测试入门](#testing-101)
+
   * [Setup](#setup)
+
+  * [搭建测试环境](#setup)
+
   * [The first karma test](#1st-karma-test)
+
+  * [第一个Karma测试](#1st-karma-test)
+
   * [The Angular Testing Platform (ATP) ](#atp-intro)
+
+  * [Angular测试平台（ATP）](#atp-intro)
+
   * [The sample application and its tests](#sample-app)
+
+  * [例子应用及其测试](#sample-app)
+
   * [A simple component test](#simple-component-test)
+
+  * [一个简单的组件测试](#simple-component-test)
+
   * [Test a component with a service dependency](#component-with-dependency)
+
+  * [测试拥有服务依赖的组件](#component-with-dependency)
+
   * [Test a component with an async service](#component-with-async-service)
+  
+  * [测试拥有异步服务的组件](#component-with-async-service)
+  
   * [Test a component with an external template](#component-with-external-template)
+
+  * [测试拥有外部模板的组件](#component-with-external-template)
+
   * [Test a component with inputs and outputs](#component-with-inputs-output)
+
+  * [测试拥有导入（inputs）和导出（outputs）的组件](#component-with-inputs-output)
+
   * [Test a component inside a test host component](#component-inside-test-host)
+
+  * [在宿主组件中测试组件](#component-inside-test-host)
+
   * [Test a routed component](#routed-component)  
+
+  * [测试路由组件](#routed-component)
+
   * [Isolated tests](#testing-without-atp "Testing without the Angular Testing Platform")
+
+  * [隔离测试](#testing-without-atp "Testing without the Angular Testing Platform")
+
   * [_TestBed_ API](#atp-api)
+
+  * [_TestBed_ API](#atp-api)
+  
   * [FAQ](#faq "Frequently asked questions")
+  
+  * [常见问题](#faq "Frequently asked questions")
 :marked
   It’s a big agenda. Fortunately, you can learn a little bit at a time and put each lesson to use.
 
+  以上主题繁多。幸运的是，你可以慢慢地阅读并立刻应用每一个主题。
+
   # Live examples
-  The chapter sample code is available as live examples for inspection, experiment, and download.
   
-  * <live-example>The sample application</live-example>
-  * <live-example plnkr="1st-specs">The first spec</live-example>
-  * <live-example plnkr="app-specs">The complete application specs</live-example>
-  * <live-example plnkr="bag-specs">A grab bag of demonstration specs</live-example>
+  # 在线例子
+
+  The chapter sample code is available as live examples for inspection, experiment, and download.
+
+  本章所有例子代码都在下面的在线例子中，以供参考、实验和下载。
+  
+  * <live-example>例子应用</live-example>
+  * <live-example plnkr="1st-specs">第一个测试规格</live-example>
+  * <live-example plnkr="app-specs">完整的应用测试规格</live-example>
+  * <live-example plnkr="bag-specs">示范规格的包</live-example>
 a(href="#top").to-top Back to top
 
 .l-hr
 a#testing-101
 :marked
   # Introduction to Angular Testing
+  
+  # Angular测试入门
 
   You write tests to explore and confirm the behavior of the application.
 
+  编写测试来探索和确认应用的行为。
+
   1. They **guard** against changes that break existing code (“regressions”).
 
+  1. 测试**守护**由于代码变化而打破已有代码(“回归”)的情况。
+
   1. They **clarify** what the code does both when used as intended and when faced with deviant conditions.
+
+  1. 不管代码被正确使用还是错误使用，测试起到**澄清**代码的作用。
 
   1. They **reveal** mistakes in design and implementation. 
   Tests shine a harsh light on the code from many angles. 
   When a part of the application seems hard to test, the root cause is often a design flaw, 
   something to cure now rather than later when it becomes expensive to fix.
 
+  1. 测试**暴露**设计和实现可能出现的错误。测试从很多角度为代码亮出警报灯。当应用程序很难被测试时，
+  根本原因一般都是设计缺陷，这种缺陷最好立刻将其修正，不要等到它变得很难被修复的时候才行动。
+
   This chapter assumes that you know something about testing. Don't worry if you don't. 
   There are plenty of books and online resources to get up to speed.
+
+  本章假设你熟悉测试。但是如果你不熟悉也没有关系。有很多书本和在线资源可以帮助你。
 
   <!-- TODO
   :marked
