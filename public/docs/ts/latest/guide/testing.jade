@@ -203,6 +203,8 @@ table(width="100%")
 a#setup
 :marked
   # Setup
+  
+  # 搭建测试环境
 
   Many think writing tests is fun. 
   Few enjoy setting up the test environment.
@@ -210,35 +212,54 @@ a#setup
   the deep details of setup appear later in the chapter (_forthcoming_).
   A bare minimum of discussion plus the downloadable source code must suffice for now.
 
+  很多人认为编写测试很有趣。很少有人享受搭建测试环境的过程。
+  为了尽快开始有趣的部分，我们在本章后面一点再详细讲述搭建测试环境的细节。
+  在这里，我们先进行最简单的讨论，再加上源代码供大家下载。
+
   There are two fast paths to getting started.
+
+  有两种快速方法立刻开始。
+
   1. Start a new project following the instructions in the 
   [QuickStart github repository](https://github.com/angular/quickstart/blob/master/README.md).
-
+  
+  1. 根据[快速起步的github库](https://github.com/angular/quickstart/blob/master/README.md)中的说明创建一个新的项目.
+  
   1. Start a new project with the 
   [Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md).
+
+  1. 使用[Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md)创建一个新的项目。
 
   Both approaches install **npm packages, files, and scripts** pre-configured for applications
   built in their respective modalities. 
   Their artifacts and procedures differ slightly but their essentials are the same 
   and there are no differences in the test code.
 
+  以上两种方法都安装在各自的模式下为应用预先配置的**npm包、文件和脚本**。它们的文件和规程有一点不同，但是它们的核心部分是一样的，并且在测试代码方面没有任何区别。
+
   In this chapter, the application and its tests are based on the QuickStart repo.
 
+  在本章中，应用及其测试是基于《快速起步》库的。
 .alert.is-helpful
   :marked
-    If youur application was based on the QuickStart repository,
+    If your application was based on the QuickStart repository,
     you can skip the rest of this section and get on with your first test.
     The QuickStart repo provides all necessary setup.
 
+    如果你的应用是基于《快速起步》库的，可以跳过本小节下面的内容，直接开始第一个测试。
+    《快速起步》库一同了所有必须的配置。
+
 :marked
   Here's brief description of the setup files.
+
+  下面是配置文件的简介：
  
 table(width="100%")
   col(width="20%")
   col(width="80%") 
   tr
-    th File
-    th Description
+    th 文件
+    th 描述
   tr
     td(style="vertical-align: top") <code>karma.conf.js</code>
     td
@@ -247,7 +268,12 @@ table(width="100%")
         which application and test files to load, which browser(s) to use,
         and how to report test results.
 
+        Karma配置文件。它指定使用哪些插件、加载哪个应用和测试文件、使用哪些浏览器和如何报告测试结果。
+
         It loads three other setup files:
+
+        它加载三种配置文件：
+
         * `systemjs.config.js` 
         * `systemjs.config.extras.js`
         * `karma-test-shim.js`
@@ -258,6 +284,8 @@ table(width="100%")
         This shim prepares karma specifically for the Angular test environment 
         and launches karma itself. 
         It loads the `systemjs.config.js` file as part of that process.
+
+        本垫片为Angular测试环境特别准备Karma，并运行Karma。在这个过程中，它加载`systemjs.config.js`文件。
   tr
     td(style="vertical-align: top") <code>systemjs.config.js</code>
     td
@@ -266,6 +294,10 @@ table(width="100%")
         loads the application and test modules.
         This script tells SystemJS where to find the module files and how to load them.
         It's the same version of the file used by QuickStart-based applications.
+
+        [SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md) 
+        加载应用和测试模块。本脚本告诉SystemJS去哪儿寻找模块文件，以及如何加载它们。
+        它的文件版本和基于《快速起步》的应用使用的一样。
   tr
     td(style="vertical-align: top") <code>systemjs.config.extras.js</code>
     td
