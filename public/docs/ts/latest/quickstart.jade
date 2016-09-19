@@ -339,22 +339,25 @@ p.
     Angular's core [`@Component` decorator function](../latest/api/core/index/Component-decorator
     .html).
     * **一个import语句**。它让你能访问Angular核心库中的[`@Component`装饰器函数](../latest/api/core/index/Component-decorator.html)。
+
     * **A @Component #{_decorator}** that associates *metadata* with the
         `AppComponent` component class:
+
     * **一个@Component#{_decoratorCn}**，它会把一份*元数据*关联到`AppComponent`组件类上：
 
         - a *selector* that specifies a simple CSS selector for an HTML element that represents
           the component.
+
         - *selector*为用来代表该组件的HTML元素指定一个简单的CSS选择器。
+
         - a *template* that tells Angular how to render the component's view.
+
         - *template*用来告诉Angular如何渲染该组件的视图。
-    * **A component class** that controls the appearance and behavior of a view
-    * **组件类**通过它的模板来控制视图的外观和行为
-    
-    through its template. Here, you only have the root component, `AppComponent`. Since you don't
+
+    * **A component class** that controls the appearance and behavior of a view through its template. Here, you only have the root component, `AppComponent`. Since you don't
     need any application logic in the simple QuickStart example, it's empty.
-    
-    这里，你只有一个根组件`AppComponent`。由于这个简单的QuickStart范例中并不需要应用逻辑，因此它是空的。
+
+    * **组件类**通过它的模板来控制视图的外观和行为。这里，你只有一个根组件`AppComponent`。由于这个简单的QuickStart范例中并不需要应用逻辑，因此它是空的。
 
   You *export* the `AppComponent` class so that you can *import* it into the application that you
    just created.
@@ -478,6 +481,7 @@ h1#index 步骤5：定义该应用的宿主页面
 
 .l-main-section#build-and-run
 h1 Step !{step++}: Build and run the application
+h1 步骤6： 编译并运行应用程序
 block run-app
   :marked
     Open a terminal window and enter this command:
@@ -516,6 +520,7 @@ block build-app
 
 .l-main-section#make-changes
 h1 Step !{step++}: Make some live changes
+h1 步骤7：做一些即时修改
 :marked
   Try changing the message in `app/app.component.ts` to "My SECOND Angular 2 App".
 
