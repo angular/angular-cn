@@ -321,14 +321,11 @@ figure
   我们在类中定义组件的应用逻辑(它被用来为视图提供支持)。
   组件通过一些由属性和方法组成的API与视图交互。
   
+  <a id="component-code"></a>  
+  For example, this `HeroListComponent` has a `heroes` property that returns !{_an} !{_array} of heroes that it acquires from a service. `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
+  
   <a id="component-code"></a>
-  
-  For example, this `HeroListComponent` has a `heroes` property that returns !{_an} !{_array} of heroes
-  that it acquires from a service.
-  `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
-  
-  例如，`HeroListComponent`有一个`heroes`属性，它返回一个“英雄”数组，这个数组是由一个服务提供的。
-  `HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把他/她设置到`selectedHero`属性。
+  例如，`HeroListComponent`有一个`heroes`属性，它返回一个“英雄”数组，这个数组是由一个服务提供的。`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把他/她设置到`selectedHero`属性。
 
 +makeExcerpt('app/hero-list.component.ts', 'class')
 :marked
