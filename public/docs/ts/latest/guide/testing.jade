@@ -83,8 +83,6 @@ a#top
 
   以上主题繁多。幸运的是，你可以慢慢地阅读并立刻应用每一个主题。
 
-  # Live examples
-  
   # 在线例子
 
   The chapter sample code is available as live examples for inspection, experiment, and download.
@@ -94,8 +92,9 @@ a#top
   * <live-example>例子应用</live-example>
   * <live-example plnkr="1st-specs">第一个测试规格</live-example>
   * <live-example plnkr="app-specs">完整的应用测试规格</live-example>
-  * <live-example plnkr="bag-specs">示范规格的包</live-example>
+  * <live-example plnkr="bag-specs">示范规格包</live-example>
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 a#testing-101
@@ -139,15 +138,19 @@ a#testing-101
 
   ## Tools and Technologies
 
+  ## 工具与技术
+
   You can write and run Angular tests with a variety of tools and technologies. 
   This chapter describes specific choices that are known to work well.
+
+  你可以用多种工具和技术来编写和运行Angular测试。本章介绍了一些大家已经知道能良好工作的选择。
   
 table(width="100%")
   col(width="20%")
   col(width="80%") 
   tr
-    th Technology
-    th Purpose
+    th 技术
+    th 目的
   tr(style=top)
     td(style="vertical-align: top") Jasmine
     td
@@ -155,14 +158,21 @@ table(width="100%")
         The [Jasmine test framework](http://jasmine.github.io/2.4/introduction.html).
         provides everything needed to write basic tests. 
         It ships with an HTML test runner that executes tests in the browser.
+
+        [Jasmine测试框架](http://jasmine.github.io/2.4/introduction.html)提供了所有编写基本测试的工具。
+        它自带一个HTML测试运行器，用来在浏览器中执行测试。
+        
   tr(style=top)
-    td(style="vertical-align: top") Angular Testing Platform
+    td(style="vertical-align: top") Angular测试平台
     td
       :marked
         The Angular Testing Platform creates a test environment and harness
         for the application code under test. 
         Use it to condition and control parts of the application as they 
         interact _within_ the Angular environment.
+
+        Angular测试平台创建一个测试环境，并为被测试的代码提供平台。在应用代码与Angular环境互动时，使用Angular测试平台来限制和控制应用的部分代码。
+        
   tr(style=top)
     td(style="vertical-align: top") Karma
     td
@@ -171,6 +181,11 @@ table(width="100%")
         is ideal for writing and running tests while developing the application. 
         It can be an integral part of the application build process.
         This chapter describes how to setup and run tests with karma.
+
+        [karma测试运行器](https://karma-runner.github.io/1.0/index.html)是在开发应用的过程中
+        编写和运行测试的理想工具。
+        它能成为应用编译过程中的一个不可分割的一部分。本章讲述了如何用Karma设置和运行测试。
+        
   tr(style=top)
     td(style="vertical-align: top") Protractor
     td
@@ -180,6 +195,9 @@ table(width="100%")
         In e2e testing, one process runs the real application
         and a second process runs protractor tests that simulate user behavior 
         and assert that the application responds in the browser as expected.
+
+        使用`Protractor`来编写和运行_端对端(e2e)_测试。端对端测试**像用户体验应用程序那样**探索它。
+        在端对端测试中，一个进程运行真正的应用，另一个进程运行Protractor测试，模拟用户行为，判断应用在浏览器中的反应是否正确。
 
 .l-hr
 a#setup
