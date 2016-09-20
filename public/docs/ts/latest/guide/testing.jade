@@ -305,11 +305,17 @@ table(width="100%")
         An optional file that supplements the SystemJS configuration in `systemjs.config.js` with
         configuration for the specific needs of the application itself.
 
+        一个可有可无的文件，用来配置应用自己特殊的需求，补充`systemjs.config.js`里面的SystemJS配置。
+
         A stock `systemjs.config.js` can't anticipate those needs. 
         You fill the gaps here.
 
+        原装`systemjs.config.js`无法预测这些需求。你可以在这里填补空白。
+
         The sample version for this chapter adds the **model barrel**
         to the SystemJs `packages` configuration.
+
+        本章例子添加了**模型封装桶**到SystemJS的`packages`配置。
   tr
     td(colspan="2") 
       +makeExample('testing/ts/systemjs.config.extras.js', '', 'systemjs.config.extras.js')(format='.')
@@ -317,19 +323,30 @@ table(width="100%")
 :marked
   ### npm packages
 
+  ### npm包
+
   The sample tests are written to run in Jasmine and karma.
   The two "fast path" setups added the appropriate Jasmine and karma npm packages to the 
   `devDependencies` section of the `package.json`.
   They were installed when you ran `npm install`.
+
+  例子中的测试是按照能在`Jasmine`和`Karma`中运行的规格编写的。以上两种“快速途径”配置测试环境，都在`package.json`的`devDependencies`中添加了合适的`Jasmine`和`karma`的`npm`包。
+  你运行`npm install`时就会安装它们。
 
 .l-hr
 a#1st-karma-test
 :marked
   # The first karma test
 
+  # 第一个`karma`测试
+
   Start with a simple test to make sure the setup works properly.
 
+  编写一个简单的测试，来确认以上的配置是否工作正常。
+
   Create a new file called `1st.spec.ts` in the application root folder, `app/`
+
+  在应用的根目录`app/`创建一个新文件，名叫`1st.spec.ts`。
 
 .alert.is-important
   :marked
@@ -337,45 +354,72 @@ a#1st-karma-test
     **The filename extension must be `.spec.ts`**, 
     the convention adhered to by  `karma.conf.js` and other tooling.
 
+    用Jasmine编写的测试都被叫做**specs**。**文件名后缀必须是`.spec.ts`**，这是`karma.conf.js`和其他工具所坚持和遵守的规约。
+
 :marked
   **Put spec files somewhere within the `app/` folder.**
   The `karma.conf.js` tells karma to look for spec files there,
   for reasons explained [below](#spec-file-location).
 
+  **将测试配置放到`app/`文件夹下的任何位置。**
+  `karma.conf.js`告诉`Karma`在这个文件夹中寻找测试配置文件，原因[如下](#spec-file-location)。
+
   Add the following code to `app/1st.spec.ts`.
+
+  添加下面的代码到`app/1st.spec.ts`。
 +makeExample('testing/ts/app/1st.spec.ts', '', 'app/1st.spec.ts')(format='.')
 :marked
   ## Run karma
+  ## 运行`Karma`
+  
   Compile and run it in karma from the command line.
 
+  从命令行中编译并在`Karma`中运行上面的测试配置文件。
 .l-sub-section
   :marked
     The QuickStart repo adds the following command to the `scripts` section in  `package.json`.
+
+    《快速起步》库在`package.json`中的`scripts`里面添加了下列命令：
 
   code-example(format="." language="bash").
     "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
   :marked
     Add that to your `package.json` if it's not there already.
 
+    如果你的`package.json`里面没有上面的命令，那么就将上面的命令添加进去。
+
 :marked
   Open a terminal or command window and enter
+
+  打开一个终端或者命令窗口，输入：
 code-example(format="." language="bash").
   npm test
 :marked
   The command compiles the application and test code a first time. 
   If the compile fails, the command aborts.
 
+  上面的命令首先编译应用及其测试代码一次。如果编译出错，命令就会终止。
+
   If it succeeds, the command re-compiles (this time in watch mode) in one process
   and starts karma in another.
   Both processes watch pertinent files and re-run when they detect changes.
 
+  如果编译成功，该命令则一个进程中，在监视模式下再次编译，并在另一个进程中启动`Karma`。
+  两个进程都监视相关文件，并在发现变化时自动再次运行。
+
   After a few moments, karma opens a browser ...
+
+  过一会儿，`Karma`便打开浏览器...
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-browser.png' style="width:400px;" alt="Karma browser")
 :marked
   ... and starts writing to the console.
 
+  ... 并开始在控制台输入信息。
+
   Hide (don't close!) the browser and focus on the console output which should look something like this.
+
+  隐藏（不要关闭）浏览器，查看控制台的输出，应该看起来像这样：
 
 code-example(format="." language="bash").
   > npm test
@@ -394,9 +438,15 @@ code-example(format="." language="bash").
   Both the compiler and karma continue to run. The compiler output is preceeded by `[0]`; 
   the karma output by `[1]`.
 
+  编译器和`Karma`都会持续运行。编译器的输入信息前面有`[0]`，`Karma`的输出前面有`[1]`。
+
   Change the expectation from `true` to `false`.
 
+  将期望从`true`变换为`false`。
+
   The _compiler_ watcher detects the change and recompiles.
+
+  **编译器**监视器检测到这个变化并重新编译。
 
 code-example(format="." language="bash").
   [0] 1:49:21 PM - File change detected. Starting incremental compilation...
@@ -404,6 +454,9 @@ code-example(format="." language="bash").
 
 :marked
   The _karma_ watcher detects the change to the compilation output and re-runs the test.
+
+  **`Karma`**监视器检测到编译器输出的变化，并重新运行测试。
+
 code-example(format="." language="bash").
   [1] Chrome 51.0.2704: Executed 0 of 1 SUCCESS
       Chrome 51.0.2704 1st tests true is true FAILED
@@ -413,35 +466,65 @@ code-example(format="." language="bash").
 :marked
   It failed of course.
 
+  正如所料，测试结果是**失败**。
+
   Restore the expectation from `false` back to `true`.
   Both processes detect the change, re-run, and karma reports complete success.
+
+  将期望从`false`恢复为`true`。两个进程都检测到这个变化，自动重新运行，`Karma`报告测试成功。
 
 .alert.is-helpful
   :marked
     The console log can be quite long. Keep your eye on the last line.
     It says `SUCCESS` when all is well.
+
+    控制台的日志可能会非常长。注意最后一样。当一切正常时，它会显示`SUCCESS`。
     
     If it says `FAILED`, scroll up to look for the error or, if that's too painful,
     pipe the console output to a file and inspect with your favorite editor.
+
+    如果它显示`FAILED`，往上翻查看错误。如果觉得这样太麻烦，你可以将控制台的输出内容导出到一个文件中，使用你最喜欢的编辑器查看。
   code-example(format="." language="json").
     npm test > spec-output.txt
 
 :marked
   ## Test debugging
   
+  ## 调试测试
+
   Debug specs in the browser in the same way you debug an application.
 
+  在浏览器中，像调试应用一样调试测试配置。
+
     - Reveal the karma browser window (hidden earlier).
+
+    - 显示`Karma`的浏览器窗口（之前被隐藏了）。
+
     - Open the browser's “Developer Tools” (F12 or Ctrl-Shift-I).
+
+    - 打开浏览器的“Developer Tools”(F12或者Ctrl-Shift-I)。
+
     - Pick the “sources” section
+
+    - 选择“sources”页
+
     - Open the `1st.spec.ts` test file (Ctrl-P, then start typing the name of the file).
+
+    - 打开`1st.spec.ts`测试文件（Ctrl-P, 然后输入文件名字）。
+
     - Set a breakpoint in the test
+
+    - 在测试中设置一个断点。
+
     - Refresh the browser … and it stops at the breakpoint.
+
+    - 刷新浏览器...然后它就会停在断点上。
  
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-1st-spec-debug.png' style="width:700px;" alt="Karma debugging")
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 a#atp-intro
