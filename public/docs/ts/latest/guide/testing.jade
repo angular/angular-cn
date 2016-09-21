@@ -531,15 +531,25 @@ a#atp-intro
 :marked
   # The Angular Testing Platform (ATP)
 
+  # Angular测试平台（ATP）
+
   Many tests explore how applications classes interact with Angular and the DOM while under Angular's control.
+
+  许多测试探索应用的类在被`Angular`控制时，是如何与`Angular`和`DOM`互动的。
 
   Such tests are easy to write with the help of the _Angular Testing Platform_ (ATP)
   which consists of the `TestBed` class and some helper functions.
 
+  **Angular测试平台**（ATP）有`TestBed`类和一些助手函数方法，在它们的帮助下，很容易编写上面那样的测试。
+
   Tests written with the _Angular Testing Platform_ are the main focus of this chapter. 
   But they are not the only tests you should write.  
 
+  利用**Angular测试平台**编写的测试是本章的主要焦点。但是它们不是你能写的唯一测试类型。
+
   ### Isolated unit tests
+
+  ### 孤立的单元测试
 
   You can and should write [isolated unit tests](#testing-without-atp "Testing without the Angular Testing Platform") 
   for components, directives, pipes, and services.
@@ -548,35 +558,61 @@ a#atp-intro
   The tester creates a test instance of the class with new, supplying fake constructor parameters as needed, and
   then probes the test instance API surface.
 
+  你能，也应该为组件、指令、管道和服务等编写[孤立的单元测试](#testing-without-atp "Testing without the Angular Testing Platform")。
+  孤立的单元测试独立自己检测类的实例，不依靠Angular或者任何其他注入值。
+  测试器使用`new`创建一个类的测试实例，在需要时提供虚拟的构造函数参数，并测试被测试实例的API。
+
   Isolated tests don't reveal how the class interacts with Angular. 
   In particular, they can't reveal how a component class interacts with its own template or with other components.
 
+  孤立的测试不会展示类是如何与Angular互动的。也就是说，它们不会展示组件的类是如何与自己的模板或者其他组件互动的。
+
   Those tests require the Angular Testing Platform.
+
+  那些互动的测试需要Angular测试平台。
 
   ### Testing with the _ Angular Testing Platform_
 
+  ### 利用**Angular测试平台**测试
+
   The  _Angular Testing Platform_ consists of the `TestBed` class and some helper functions from `@angular/core/testing`.
+
+  **Angular测试平台**包含了`TestBed`类和在`@angular/core/testing`中一些助手函数方法。
+
 .alert.is-important
   :marked
     The _TestBed_ is officially _experimental_ and thus subject to change.
     Consult the [API reference](../api/core/testing/index/TestBed-class.html) for the latest status.
+
+    **TestBed**目前还处于**实验阶段**，所以有可能变化。
+    到[API参考](../api/core/testing/index/TestBed-class.html)查看最新动态。
 :marked
   The `TestBed` creates an Angular test module &mdash; an `@NgModule` class &mdash;
   that you configure to produce the module environment for the class you want to test. 
   You tell the `TestBed` to create an instance of the test component and probe that instance with tests.
 
+  `TestBed`创建一个Angular测试模块 - 一个`@NgModule`类 - 通过配置它，你为想要测试的类创造模块环境。
+  通过`TestBed`创建一个被测试的组件的实例，并使用测试来测探这个实例。
+
   That's the `TestBed` in a nutshell.
+
+  大概的说，这就是`TestBed`的。
 
   In practice, you work with the static methods of the `TestBed` class. 
   These static methods create and update a fresh hidden `TestBed` instance before each Jasmine `it`.
+
+  实际应用中，你调用`TestBed`类的静态方法。在每个Jasmine的`it`之前，这些静态方法创建和更新一个全新隐式`TestBed`实例。
 .l-sub-section
   :marked
     You can access that hidden instance anytime by calling `getTestBed()`;
+
+    你可以随时访问这个隐式实例，调用`getTestBed()`即可。
+
 :marked
   This `TestBed` instance comes pre-configured with a baseline of default providers and declarables (components, directives, and pipes)
   that almost everyone needs. 
   This chapter tests a browser application so the default includes the `CommonModule` declarables from `@angular/common`
-  and the `BrowserModule` providers (some of them mocked) from `@angular/platform-browser`.
+  and the `BrowserModule` providers (some of them mocked) from `@angular/platform-browser`.   
 
   You refine the default test module configuration with application and test specifics 
   so that it can produce an instance of the test component in the Angular environment suitable for your tests.
