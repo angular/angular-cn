@@ -975,25 +975,36 @@ a#injected-service-reference
   :marked
     The [inject](#inject) function is another way to inject one or more services into a test.
 
-    
+    [inject](#inject)函数方法是另外一种注入一个或多个服务到测试的方法。
 
 :marked
   That happens to work for testing the `WelcomeComponent` because the `UserService` instance from the `TestBed`
   is the same as the `UserService` instance injected into the component.
 
+  这样来测试`WelcomeComponent`正好行得通，因为从`TestBed`来的`UserService`正好和注入到组件中的`UserService`实例是同一个。
+
   That won't always be the case.
   Be absolutely sure to reference the service instance that the component is _actually receiving_,
   Call `get` on the component's injector which is `fixture.debugElement.injector`:
+
+  但是，并不总是会这样。
+  确认总是引用组件**实际收到**的服务实例，调用组件的注入器（也就是`fixture.debugElement.injector`）的`get`方法：
+
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'Component\'s injector')(format='.')
 .alert.is-important
   :marked
     Use the component's own injector to get the component's injected service.
+
+    使用组件自己的注入器来获取注入进来的服务。
+
 a#welcome-spec-setup
 :marked
   Here's the complete, preferred `beforeEach`:
+
+  这里是完整的，首选的`beforeEach`：
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'setup', 'app/welcome.component.spec.ts')(format='.')
 :marked
-  And here are some tests:
+  下面是一些测试:
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'tests', 'app/welcome.component.spec.ts')(format='.')
 :marked
   The first is a sanity test; it confirms that the fake `UserService` is working.
@@ -1001,7 +1012,13 @@ a#welcome-spec-setup
   The second test validates the effect of changing the user name.
   The third test checks that the component displays the proper message when there is no logged-in user.
 
+  第一个测试是合法测试，它确认`UserService`是否处于工作状态。
+  接下来的测试确认当服务返回不同的值时组件的逻辑是否工作正常。
+  第二个测试验证变换用户名字的效果。
+  第三个测试检查如果用户没有登录，组件是否显示正确消息。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
