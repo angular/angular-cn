@@ -560,7 +560,7 @@ a#atp-intro
 
   你能，也应该为组件、指令、管道和服务等编写[孤立的单元测试](#testing-without-atp "Testing without the Angular Testing Platform")。
   孤立的单元测试独立自己检测类的实例，不依靠Angular或者任何其他注入值。
-  测试器使用`new`创建一个类的测试实例，在需要时提供虚拟的构造函数参数，并测试被测试实例的API。
+  测试器使用`new`创建一个类的测试实例，在需要时提供伪造的构造函数参数，并测试被测试实例的API。
 
   Isolated tests don't reveal how the class interacts with Angular. 
   In particular, they can't reveal how a component class interacts with its own template or with other components.
@@ -881,26 +881,38 @@ a#component-with-dependency
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
 
-  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的一个属性知道用户是谁：
+  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的一个属性知道用户的身份：
   
 +makeExample('testing/ts/app/welcome.component.ts', '', 'app/welcome.component.ts')(format='.')
 :marked
   The `WelcomeComponent` has decision logic that interacts with the service;
   such logic makes this component worth testing.
   Here's the test module configuration for the spec file, `app/welcome.component.spec.ts`:
+
+  `WelcomeComponent`的决策逻辑与服务进行交互。这样的逻辑让这个组件值得测试。下面是测试配置文件的测试模块配置，`app/welcome.component.spec.ts`：
+
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'config-test-module', 'app/welcome.component.spec.ts')(format='.')
 :marked
   This time, in addition to declaring the component under test,
   the configurations sets the `providers` list with the dependent `UserService`.
 
+  这次，在测试里不但声明了组件，而且在`providers`数组中添加了`UserService`依赖。
+
   This example configures the test module with a _fake_ `UserService`.
+
+  本例子用**伪造**的`UserService`来配置测试模块。
   
   ## Provide service fakes
+
+  ## 提供伪造的服务
 
   A component under test doesn't have to be injected with real services. 
   In fact, it is usually better if they are fakes.
   The purpose of the spec is to test the component, not the service,
   and real services can be trouble.
+
+  被测试的组件不一定要注入真正的服务。实际上，伪造的服务通常会更加合适。
+  测试配置的主要目的是测试组件，而不是服务。真实的服务可能会有问题。
 
   Injecting the real `UserService` could be a nightmare. 
   The real service might try to ask the user for login credentials and 
@@ -908,24 +920,39 @@ a#component-with-dependency
   These behaviors could be hard to intercept. 
   It is far easier to create and register a fake `UserService`.
 
+  注入真实的`UserService`有可能很麻烦。真实的服务可能询问用户登录凭据，也可能试图连接一个认证服务器。
+  可能很难拦截这些行为。所以创建和注册一个伪造的`UserService`更加容易。
+
   There are many ways to fake a service. 
   This test suit supplies a minimal `UserService` that satisfies the needs of the `WelcomeComponent`
   and its tests:
+
+  有很多方法创建一个伪造服务。本测试套件提供了一个最小化的`UserService`，满足`WelcomeComponent`和它的测试的需求：
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'fake-userservice')(format='.')
 
 a#injected-service-reference
 :marked
   ## Referencing injected services
+  ## 应用注入的服务
+
   The tests need access to the injected (fake) `UserService`.
+
+  测试需要访问被注入（伪造）的`UserService`。
 
   You cannot reference the `fakeUserService` object provided to the test module. 
   **It does not work!** 
   Surprisingly, the instance actually injected into the component is _not the same_ 
   as the provided `fakeUserService` object.
 
+  你不能引用测试模块提供的`fakeUserService`对象。**这样是行不通的！**。
+  奇怪的是，实际被注入到组件的的实例和提供的`fakeUserService`对象是**不是一样的**。
+
 .alert.is-important
   :marked
     Always use an injector to get a reference to an injected service.
+
+    总是使用一个注入器来获取一个被注入服务的引用。
+
 :marked
   Where do you get the injector? 
   Angular has an hierarchical injection system.
@@ -933,11 +960,23 @@ a#injected-service-reference
   The current `TestBed` injector creates a top-level injector.
   The `WelcomeComponent` injector is a child of that injector created specifically for the component.
 
+  到哪儿获取注入器呢？
+  Angular有一个层次化的注入系统。
+  在一个测试中，可以有很多层注入器。
+  当前的`TestBed`注入器创建一个顶层注入器。
+  `WelcomeComponent`注入器是在专门为这个组件创建的注入器的子级。
+
   You can get a `UserService` from the current `TestBed` injector by calling `TestBed.get`.
+
+  你可以从当前的`TestBed`注入器中，通过调用`TestBed.get`来获取一个`UserService`。
+
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'inject-from-testbed', 'TestBed injector')(format='.')
 .l-sub-section
   :marked
     The [inject](#inject) function is another way to inject one or more services into a test.
+
+    
+
 :marked
   That happens to work for testing the `WelcomeComponent` because the `UserService` instance from the `TestBed`
   is the same as the `UserService` instance injected into the component.
