@@ -746,8 +746,8 @@ a#simple-component-test
   The fixture provides access to the component instance itself and 
   to the `DebugElement` which is a handle on the component's DOM element.
 
-  `TestBed.createComponent`创建一个`BannerComponent`的实例用于测试。该方法返回一个`ComponentFixture`对象，用来控制和访问已创建的组件所在的测试环境。
-  这个对象提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的`DebugElement`对象。
+  `TestBed.createComponent`创建一个`BannerComponent`的实例用于测试。该方法返回一个`ComponentFixture`，用来控制和访问已创建的组件所在的测试环境。
+  这个工具提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的`DebugElement`对象。
 
   Query the `DebugElement` by CSS selector for the `<h1>` sub-element that holds the actual title.
 
@@ -812,7 +812,7 @@ a#fixture-detect-changes
   The fixture does not automatically push the component's `title` property value into the data bound element,
   a fact demonstrated in the following test:
 
-  `TestBed.createComponent`**不会**触发变化检测。该对象不会自动将组件的`title`属性值推送到数据绑定的元素，下面的测试展示了这个事实：
+  `TestBed.createComponent`**不会**触发变化检测。该工具不会自动将组件的`title`属性值推送到数据绑定的元素，下面的测试展示了这个事实：
 
 +makeExample('testing/ts/app/banner.component.spec.ts', 'test-w-o-detect-changes', 'app/banner.component.spec.ts (no detectChanges)')(format='.')
 :marked
@@ -864,7 +864,7 @@ a#automatic-change-detection
     Rather than wonder when the test fixture will or won't perform change detection,
     the samples in this chapter _always call_ `detectChanges()` _explicitly_.
 
-    与其猜测测试对象会不会执行变化检测，本章中的例子**总是显式**调用`detectChanges()`。
+    与其怀疑测试工具会不会执行变化检测，本章中的例子**总是显式**调用`detectChanges()`。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -874,9 +874,15 @@ a(href="#top").to-top 回到顶部
 a#component-with-dependency
 :marked
   # Test a component with a dependency
+
+  # 测试有一个依赖的组件
+
   Components often have service dependencies.
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
+
+  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的一个属性知道用户是谁：
+  
 +makeExample('testing/ts/app/welcome.component.ts', '', 'app/welcome.component.ts')(format='.')
 :marked
   The `WelcomeComponent` has decision logic that interacts with the service;
