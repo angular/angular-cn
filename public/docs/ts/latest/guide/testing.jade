@@ -614,26 +614,42 @@ a#atp-intro
   This chapter tests a browser application so the default includes the `CommonModule` declarables from `@angular/common`
   and the `BrowserModule` providers (some of them mocked) from `@angular/platform-browser`.   
 
+  这个`TestBed`实例自带预先配置好的、几乎所有人都需要的默认提供商、可声明类（组件、指令和管道）。
+  本章测试一个浏览器应用程序，所以默认包含`@angular/common`中的`CommonModule`可声明类，以及`@angular/platform-browser`中的`BrowserModule`服务提供商（其中一些是Mocked）。
+
   You refine the default test module configuration with application and test specifics 
   so that it can produce an instance of the test component in the Angular environment suitable for your tests.
+
+  通过定义默认的测试模块配置为应用和测试特有特性，你可以为你的测试在Angular环境中生成一个测试组件的实例。
 
   Start by calling `TestBed.configureTestingModule` with an object that looks like `@NgModule` metadata.
   This object defines additional imports, declarations, providers and schemas.
 
+  首先，用一个类似与`@NgModule`元数据的对象来调用`TestBed.configureTestingModule`。这个对象定义了额外的imports、declarations、providers和schemas。
+
   After configuring the `TestBed`, tell it to create an instance of the test component and the test fixture
   you'll need to inspect and control the component's immediate environment.
+
+  然后配置`TestBed`，告诉它创建一个测试组件的实例和测试工具，利用它们，你可以检测和控制组件的周围环境。
   
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-before-each', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
   Angular tests can interact with the HTML in the test DOM, 
   simulate user activity, tell Angular to perform specific task (such as change detection), 
   and see the effects of these actions both in the test component and in the test DOM.
+
+  Angular测试可以在测试DOM中与HTML互动，模拟用户行为，告诉Angular执行特定任务（比如变换检测），并在测试组件和测试DOM中查看这些行为的效果。
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-it', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
   A comprehensive review of the _TestBed_ API appears [later in the chapter](#atp-api).
-  Let's dive right into Angular testing, starting with with the components of a sample application.
+  Let's dive right into Angular testing, starting with the components of a sample application.
+
+  完整的关于**TestBed**的回顾将会在[本章后面](#atp-api)出现。
+  让我们深入到Angular测试，以一个例子应用的组件开始。
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
@@ -641,128 +657,217 @@ a#sample-app
 :marked
   # The sample application and its tests
 
+  # 例子应用和它的测试 
+
   This chapter tests a cut-down version of the _Tour of Heroes_ [tutorial app](../tutorial).
+
+  本章测试一个**简化**版本的**英雄指南**[教程应用程序](../tutorial)。
   
   The following live example shows how it works and provides the complete source code.
+
+  下面的在线例子展示了它如何工作，并提供了完整的源代码。
+
 <live-example embedded img="devguide/testing/app-plunker.png"></live-example>
 <br><br>
 :marked
   The following live example runs all the tests of this application
   inside the browser, using the Jasmine Test Runner instead of karma.
 
+  下面的在线例子在浏览器中运行该应用的所有测试，使用的是`Jasmine`测试运行器，而非`Karma`。
+
   It includes the tests discussed in this chapter and additional tests for you to explore.
   This live example contains both application and test code. 
   It is large and can take several minutes to start. Please be patient.
+
+  它包含了本章讨论的测试和其他测试。本在线例子包含了整个应用和测试代码。它比较大，可能需要好几分钟才能启动，请耐心等待。
+
 <live-example plnkr="app-specs" embedded img="devguide/testing/app-specs-plunker.png"></live-example>
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 .l-hr
 
 a#simple-component-test
 :marked
   # Test a component
 
+  # 测试一个组件
+
 :marked
   The top of the screen displays application title, presented by the `BannerComponent` in `app/banner.component.ts`.
+
+  `app/banner.component.ts`中的`BannerComponent`在屏幕顶部显示应用的标题。
+
 +makeExample('testing/ts/app/banner.component.ts', '', 'app/banner.component.ts')(format='.')
 :marked
   `BannerComponent` has an inline template and an interpolation binding, about as simple as it gets.
   Probably too simple to be worth testing in real life but perfect for a first encounter with the `TestBed`.
 
+  `BannerComponent`有内联模板和插值表达式绑定，简单到不能再简单了。
+  在真实应用场景中，它可能过于简单，不值得测试。但是对于第一次接触`TestBed`，它非常合适。
+
   The corresponding `app/banner-component.spec.ts` sits in the same folder as the component,
   for reasons explained [here](#q-spec-file-location);
 
+  对应的`app/banner-component.spec.ts`处于与组件相同的目录，原因在[这里](#q-spec-file-location)有所解释。
+
   Start with ES6 import statements to get access to symbols referenced in the spec.
+
+  首先，使用ES6导入声明获取在测试配置中引用的符号。
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'imports', 'app/banner.component.spec.ts (imports)')(format='.')
 :marked
   Here's the setup for the tests followed by observations about the `beforeEach`:
+
+  下面是测试的配置和`beforeEach`的细节：
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'setup', 'app/banner.component.spec.ts (imports)')(format='.')
 :marked
   `TestBed.configureTestingModule` takes an `@NgModule`-like metadata object.
   This one simply declares the component to test, `BannerComponent`.
+
+  `TestBed.configureTestingModule`接受一个像`@NgModule`元素据的对象。
+  这里的对象仅仅声明了要测试的组件`BannerComponent`。
   
   It lacks `imports` because (a) it extends the default test module configuration which 
   already has what `BannerComponent` needs
   and (b) `BannerComponent` doesn't interact with any other components.
 
+  它没有`imports`，因为(a)它拓展默认测试模块配置，已经有了所有`BannerComponent`需要的，(b)`BannerComponent`不和其他任何组件互动。
+
   The configuration could have imported `AppModule` (which declares `BannerComponent`).
   But that would lead to tons more configuration in order to support the other components within `AppModule` 
   that have nothing to do with `BannerComponent`.
+
+  它的配置可以导入`AppModule`（在`BannerComponent`中声明了）。但是这样就导致需要更多配置才能支持其他`AppModule`里的其他与`BannerComponent`并没有关系的组件，
 
   `TestBed.createComponent` creates an instance of `BannerComponent` to test.
   The method returns a `ComponentFixture`, a handle on the test environment surrounding the created component.
   The fixture provides access to the component instance itself and 
   to the `DebugElement` which is a handle on the component's DOM element.
 
+  `TestBed.createComponent`创建一个`BannerComponent`的实例用于测试。该方法返回一个`ComponentFixture`对象，用来控制和访问已创建的组件所在的测试环境。
+  这个对象提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的`DebugElement`对象。
+
   Query the `DebugElement` by CSS selector for the `<h1>` sub-element that holds the actual title.
 
+  用CSS选择器在`DebugElement`中查询拥有实际标题的`<h1>`子元素。
 
   ### _createComponent_ closes configuration
+
+  ### **createComponent**关闭配置
+
   `TestBed.createComponent` closes the current `TestBed` instance to further configuration.
     You cannot call any more `TestBed` configuration methods, not `configureTestModule` 
     nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
+  `TestBed.createComponent`关闭当前`TestBed`实例，使其不可再配置。你不能再调用`TestBed`的配置方法，
+  也不能调用`configureTestModule`或者任何`override...`方法，否则`TestBed`将抛出一个错误。
+
 .alert.is-important
   :marked
-    Do not configure the `TestBed` after calling `createComponent`. 
+    Do not configure the `TestBed` after calling `createComponent`.
+
+    不要在调用`createComponent`之后再试图配置`TestBed`。
+
 :marked
   ### The tests
+
+  ### 测试
+
   Jasmine runs this `beforeEach` before each test of which there are two
+
+  Jasmine在运行这两个测试的每一个之前，都先调用`beforeEach`。
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'tests', 'app/banner.component.spec.ts (tests)')(format='.')
 :markdown
   These tests ask the `DebugElement` for the native HTML element to satisfy their expectations.
+
+  这些测试向`DebugElement`获取原生HTML元素，来满足自己的期望。
 
 a#fixture-detect-changes
 :marked
   ### _detectChanges_: Angular change detection under test
 
+  ### **detectChanges**：在测试中的Angular变化检测
+
   Each test tells Angular when to perform change detection by calling `fixture.detectChanges()`.
   The first test does so immediately, triggering data binding and propagation of the `title` property
   to the DOM element.
 
+  每个测试都通过调用`fixture.detectChanges()`来通知Angular执行变化检测。第一个测试立刻这么做，触发数据绑定和并将`title`属性发送到DOM元素中。
+
   The second test changes the component's `title` property _and only then_ calls `fixture.detectChanges()`;
   the new value appears in the DOM element.
+
+  第二个测试在更改组件的`title`属性**之后**才调用`fixture.detectChanges()`。新值出现在DOM元素中。
 
   In production, change detection kicks in automatically
   when Angular creates a component or the user enters a keystroke or
   an asynchronous activity (e.g., AJAX) completes.
 
+  在产品阶段，当Angular创建一个组件、用户输入或者异步动作（比如AJAX）完成时，自动触发变化检测。
+
   The `TestBed.createComponent` does _not_ trigger change detection.
   The fixture does not automatically push the component's `title` property value into the data bound element,
   a fact demonstrated in the following test:
+
+  `TestBed.createComponent`**不会**触发变化检测。该对象不会自动将组件的`title`属性值推送到数据绑定的元素，下面的测试展示了这个事实：
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'test-w-o-detect-changes', 'app/banner.component.spec.ts (no detectChanges)')(format='.')
 :marked
   This behavior (or lack of it) is intentional.
   It gives the tester an opportunity to investigate the state of
   the component _before Angular initiates data binding or calls lifecycle hooks_.
 
+  此行为（或者缺乏的行为）是有意的。**在Angular初始化数据绑定或者调用生命周期钩子**之前，它给测试者一个机会调查组件的状态。
+
 a#automatic-change-detection
 :marked
   ### Automatic change detection
+
+  ### 自动变化检测
+
   Some testers prefer that the Angular test environment run change detection automatically.
   That's possible by configuring the `TestBed` with the _AutoDetect_ provider:
+
+  一些测试者偏向让Angular测试环境自动运行变化检测。这是可能的，只要配置`TestBed`的**AutoDetect**提供商即可:
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'auto-detect', 'app/banner.component.spec.ts (AutoDetect)')(format='.')
 :marked
   Here are three tests that illustrate how _auto-detect_ works.
+
+  下面是展示**自动检测**如何工作的三个测试：
 +makeExample('testing/ts/app/banner.component.spec.ts', 'auto-detect-tests', 'app/banner.component.spec.ts (AutoDetect Tests)')(format='.')
 :marked
   The first test shows the benefit of automatic change detection.
 
+  第一个测试展示了自动检测的好处。
+
   The second and third test remind us that Angular does _not_ know about changes to component property
   values unless Angular itself (or some asynchronous process) makes the change.
   This is as true in production as it is in test. 
+
+  第二和第三个测试提醒我们，Angular**不会**知道组件属性值的变化，除非是Angular自己（或者一些异步任务）所做的变化。
+  无论是在产品期还是在测试，这都是事实。
   
   In production, external forces rarely change component properties like this,
   whereas these kinds of probing changes are typical in unit tests.
   The tester will have to call `fixture.detectChanges()` quite often 
   despite having opted into auto detect.
 
+  在产品期，外部力量很少像这样变化组件属性，而这种类型的变化探测在单元测试中是非常典型的。
+  就算打开了自动检测，测试者也必须经常调用`fixture.detechChanges()`。
+
 .alert.is-helpful
   :marked
     Rather than wonder when the test fixture will or won't perform change detection,
     the samples in this chapter _always call_ `detectChanges()` _explicitly_.
 
+    与其猜测测试对象会不会执行变化检测，本章中的例子**总是显式**调用`detectChanges()`。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
