@@ -91,7 +91,7 @@ block includes
 
     - [_TestBed.get_](#testbed-get)
 
-  1. [Test a component with an async service](#component-with-async-service)  
+  1. [Test a component with an async service](#component-with-async-service)
 
   1. [测试拥有异步服务的组件](#component-with-async-service)  
 
@@ -204,10 +204,16 @@ block includes
   1. [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
 
   1. [隔离的单元测试](#isolated-unit-tests "Unit testing without the Angular testing utilities")
-
+    
+    - [Services](#isolated-service-tests)
+    
     - [服务](#isolated-service-tests)
-
+    
+    - [Pipes](#isolated-pipe-tests)
+    
     - [管道](#isolated-pipe-tests)
+    
+    - [Components](#isolated-component-tests)
 
     - [组件](#isolated-component-tests)
 
@@ -231,7 +237,7 @@ block includes
 
     - [_DebugElement_](#debug-element-details)  
 
-  1. [FAQ](#faq "Frequently asked questions")  
+  1. [FAQ](#faq "Frequently asked questions")
 
   1. [常见问题](#faq "Frequently asked questions")
 :marked
@@ -702,6 +708,8 @@ a(href="#top").to-top 回到顶部
   You can and should write isolated unit tests for pipes and services. 
 
   你可以，也应该为服务和管道编写孤立的单元测试。
+  
++makeExample('testing/ts/app/shared/title-case.pipe.spec.ts', 'mini-excerpt', 'app/shared/title-case.pipe.spec.ts (excerpt)')
 
 :marked
   Components can be tested in isolation as well.
@@ -1158,7 +1166,7 @@ a(href="#top").to-top 回到顶部
   出人意料的是，你不敢引用测试代码里提供给测试模块`userServiceStub`对象。**它是行不通的！**。
   被注入组件的`userService`实例是一个彻底**不一样**的对象，是提供的`userServiceStub`的克隆。
 
-+makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'Component\'s injector')(format='.')
++makeExample('testing/ts/app/welcome.component.spec.ts', 'stub-not-injected')(format='.')
 
 #welcome-spec-setup
 :marked
