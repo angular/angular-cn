@@ -10,7 +10,7 @@
   "architecture": {
     "title": "架构概览",
     "navTitle": "架构",
-    "intro": "Angular 2应用的基本构造块",
+    "intro": "Angular应用的基本构造块",
     "nextable": true,
     "basics": true
   },
@@ -59,7 +59,7 @@
 
   "style-guide": {
     "title": "风格指南",
-    "intro": "如何写Angular2风格的程序",
+    "intro": "如何写Angular风格的程序",
     "basics": true
   },
 
@@ -90,7 +90,7 @@
 
   "glossary": {
     "title": "词汇表",
-    "intro": "Angular 2重要词汇的简短定义。",
+    "intro": "Angular重要词汇的简短定义。",
     "basics": true
   },
 
@@ -122,7 +122,7 @@
 
   "router": {
     "title": "路由与导航",
-    "intro": "揭示如何通过Angular 2路由进行基本的屏幕导航。"
+    "intro": "揭示如何通过Angular路由进行基本的屏幕导航。"
   },
 
   "security": {
@@ -137,12 +137,12 @@
 
   "testing": {
     "title": "测试",
-    "intro": "Angular 2应用的测试技术与实践。"
+    "intro": "Angular应用的测试技术与实践。"
   },
 
   "typescript-configuration": {
     "title": "TypeScript配置",
-    "intro": "Angular 2开发者的TypeScript配置"
+    "intro": "Angular开发者的TypeScript配置"
   },
 
   "upgrade": {
@@ -152,6 +152,6 @@
 
   "webpack": {
     "title": "Webpack简介",
-    "intro": "使用基于Webpack的工具创建Angular 2应用"
+    "intro": "使用基于Webpack的工具创建Angular应用"
   }
 }

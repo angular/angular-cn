@@ -536,7 +536,8 @@ table(width="100%")
 +makeExample('testing/ts/app/1st.spec.ts', '', 'app/1st.spec.ts')(format='.')
 :marked
   ## Run karma
-  ## 运行`Karma`
+  
+  ## 运行Karma
   
   Compile and run it in karma from the command line with this command:
   
@@ -621,14 +622,7 @@ code-example(format="." language="bash").
     The console log can be quite long. Keep your eye on the last line.
     It says `SUCCESS` when all is well.
 
-    控制台的日志可能会非常长。注意最后一样。当一切正常时，它会显示`SUCCESS`。
-    
-    If it says `FAILED`, scroll up to look for the error or, if that's too painful,
-    pipe the console output to a file and inspect with your favorite editor.
-
-    如果它显示`FAILED`，往上翻查看错误。如果觉得这样太麻烦，你可以将控制台的输出内容导出到一个文件中，使用你最喜欢的编辑器查看。
-  code-example(format="." language="json").
-    npm test > spec-output.txt
+    控制台的日志可能会非常长。注意最后一样。当一切正常时，它会显示`SUCCESS`。   
 
 :marked
   ## Test debugging
@@ -640,6 +634,7 @@ code-example(format="." language="bash").
   在浏览器中，像调试应用一样调试测试配置。
 
     - Reveal the karma browser window (hidden earlier).
+    
     - 显示`Karma`的浏览器窗口（之前被隐藏了）。
     
     - Click the "DEBUG" button; it opens a new browser tab and re-runs the tests
