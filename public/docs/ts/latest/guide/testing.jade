@@ -1126,67 +1126,102 @@ a#async-fn-in-it
   Notice the `async` in the third test.
 
   注意第三个测试的`async`方法。
-  
+
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'async-test', 'app/shared/twain.component.spec.ts (async test)')(format='.')
 :marked
   The `async` function is part of the _Angular TestBed_ feature set.
   It _takes_ a parameterless function and _returns_ a parameterless function
   which becomes the argument to the  Jasmine `it` call. 
 
+  `async`函数是**Angular TestBed**的一部分。它**接受**一个无参数的函数方法，**返回**一个无参数的函数方法，变成Jasmine的`it`函数的参数。
+
   The body of the `async` argument looks much like the body of a normal `it` argument.
   There is nothing obviously asynchronous about it. For example, it doesn't return a promise.
+
+  `async`函数的参数看起来和一个普通的`it`参数主体一样。没有任何地方显示异步特征。比如，它不返回承诺。
 
   The `async` function arranges for the tester's code to run in a special _async test zone_
   that almost hides the mechanics of asynchronous execution.
 
+  `async`函数将测试代码放到一个特殊的**异步测试区域**来运行，隐藏了几乎所有的异步执行的细节。
+
   Almost but not completely.
+
+  隐藏几乎所有的，并不彻底。
 
 a#when-stable
 :marked
   ## _whenStable_
-  The test must wait for the `getQuote` promise to resolve. 
+
+  ## **whenStable**
+
+  The test must wait for the `getQuote` promise to resolve.
+
+  测试必须等待`getQuote`承诺的解析。
  
   The `getQuote` promise promise resolves in the next turn of the JavaScript engine, thanks to the spy.
   But a different test implementation of  `getQuote` could take longer.
   An integration test might call the _real_ `getQuote`, resulting in an XHR request
   that took many seconds to respond.
 
+  在spy的帮助下，`getQuote`承诺在JavaScript引擎的下一个回合中被解析。但是不同的`getQuote`测试的实施可能需要更长时间。
+  集成的测试有可能调用**真实**的`getQuote`，导致一个XHR请求，需要好几秒来响应。
+
   This test has no direct access to the promise returned by the call to `testService.getQuote` 
   which is private and inaccessible inside `TwainComponent`.
 
+  调用`testService.getQuote`返回的承诺是是私有的，不能被`TwainComponent`访问，这个测试也对其无访问权。
+
   Fortunately, the `getQuote` promise is accessible to the _async test zone_ 
   which intercepts all promises issued within the _async_ method call.
+
+  幸运的是，**异步测试区域**可以访问`getQuote`承诺，因为它拦截所有调用**异步**方法所发出的承诺。
   
   The `ComponentFixture.whenStable` method returns its own promise which resolves when the `getQuote` promise completes.
   In fact, the _whenStable_ promise resolves when _all pending asynchronous activities_ complete ... the definition of "stable".
 
+  `ComponentFixture.whenStable`方法返回它自己的承诺，它在`getQuote`承诺完成时被解析。实际上，当**所有待处理异步行为**完成时即为“stable”，在“stable”后**whenStable**承诺被解析。
+
   Then the testing continues. 
-  The test kicks off another round of change detection (`fixture.detechChanges`) which tells Angular to update the DOM with the quote.
+  The test kicks off another round of change detection (`fixture.detectChanges`) which tells Angular to update the DOM with the quote.
   The `getQuote` helper method extracts the display element text and the expectation confirms that the text matches the test quote.
+
+  然后测试继续运行。
+  测试开始另一轮的变化检测（`fixture.detectChanges`）,通知Angular使用名言来更新DOM。
+  `getQuote`助手方法提取出显示元素文本，然后expect语句确认这个文本与预备的名言相符。
 
 a#fakeAsync
 a#fake-async
 :marked
   ## The _fakeAsync_ function
 
+  ## **fakeAsync**函数方法
+
   The fourth test verifies the same component behavior in a different way.
+
+  第四个测试用不同的方法验证同样的组件行为。
+
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'fake-async-test', 'app/shared/twain.component.spec.ts (fakeAsync test)')(format='.')
 :marked
   Notice that `fakeAsync` replaces `async` as the `it` argument.
-  The `fakeAsync` function is also part of the _Angular TestBed_ feature set.
-  Like `async`, it too _takes_ a parameterless function and _returns_ a parameterless function
-  which becomes the argument to the  Jasmine `it` call. 
+  The `fakeAsync` function is another of the Angular testing utilities. 
 
-  The `async` function arranges for the tester's code to run in a special _fakeAsync test zone_.
+  注意，在`it`的参数中，`async`被`faceAsync`替换。
+  `fakeAsync`是另一个Angular测试工具。
+  
 
-  The key advantage of `fakeAsync` is that the test body looks entirely synchronous.
+  Like [async](#async-fn-in-it), it _takes_ a parameterless function and _returns_ a parameterless function
+  which becomes the argument to the  Jasmine `it` call.
+
+  和[async](#async-fn-in-it)一样，它也**接受**一个无参数函数并**返回**一个无参数函数，变成Jasmine的`it`函数的参数。 
+
+  The `fakeAsync` function enables a linear coding style by running the test body in a special _fakeAsync test zone_.
+
+  The principle advantage of `fakeAsync` over `async` is that the test appears to be synchronous.
   There are no promises at all. 
   No `then(...)` chains to disrupt the visible flow of control.
 
-.l-sub-section
-  :marked
-    There are limitations. For example, you cannot make an XHR call from within a `fakeAsync`.
-:marked
+  There are limitations. For example, you cannot make an XHR call from within a `fakeAsync`.
 
 a#tick
 a#tick-first-look
