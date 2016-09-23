@@ -22,108 +22,217 @@ block includes
   1. [Introduction to Angular Testing](#testing-intro)
 
   1. [Angular测试入门](#testing-intro)
-  <br><br>
+  <br>
 
   1. [Setup](#setup)
 
   1. [搭建测试环境](#setup)
-    - [setup files](#setup-files): `karma.conf`, `karma-test-shim`, `systemjs.config`
+
+    - [setup files](#setup-files): `karma.conf`, `karma-test-shim`, `systemjs.config`    
+
+    - [文件配置](#setup-files): `karma.conf`, `karma-test-shim`, `systemjs.config`  
+
     - [npm packages](#npm-packages)
 
+    - [npm 包](#npm-packages)
+    
   1. [The first karma test](#1st-karma-test)
 
-  1. [第一个Karma测试](#1st-karma-test)
+  1. [第一个Karma测试](#1st-karma-test)  
+  <br>
   
-  <br><br>
-
   1. [Introduction to the Angular testing utilities](#atu-intro)
 
-  1. [Angular测试工具](#atu-intro)
-  
-  <br><br>
-  
+  1. [Angular测试工具](#atu-intro)  
+  <br>  
+
   1. [The sample application and its tests](#sample-app)
 
-  1. [例子应用及其测试](#sample-app)
-  
-  <br><br>
-  
+  1. [例子应用及其测试](#sample-app)  
+  <br>
+
   1. [A simple component test](#simple-component-test)
 
-  1. [一个简单的组件测试](#simple-component-test)
-  
+  1. [一个简单的组件测试](#simple-component-test) 
+
     - [_configureTestingModule_](#configure-testing-module)
+
+    - [_configureTestingModule_](#configure-testing-module)
+
     - [_createComponent_](#create-component)
+
+    - [_createComponent_](#create-component)
+
     - [_ComponentFixture_, _DebugElement_, _query(By.css)_](#component-fixture)
+
+    - [_ComponentFixture_, _DebugElement_, _query(By.css)_](#component-fixture)
+
     - [_detectChanges_](#detect-changes)
+
+    - [_detectChanges_](#detect-changes)
+
+    - [_autoDetectChanges_](#auto-detect-changes)
+
     - [_autoDetectChanges_](#auto-detect-changes)
 
   1. [Test a component with a service dependency](#component-with-dependency)
 
   1. [测试拥有服务依赖的组件](#component-with-dependency)
+
     - [test doubles](#service-test-doubles)
+
+    - [测试复制品](#service-test-doubles)
+
     - [get the injected service](#get-injected-service)
+
+    - [获取注入的服务](#get-injected-service)
+
     - [_TestBed.get_](#testbed-get)
 
-  1. [Test a component with an async service](#component-with-async-service)
-  
-  1. [测试拥有异步服务的组件](#component-with-async-service)
-  
+    - [_TestBed.get_](#testbed-get)
+
+  1. [Test a component with an async service](#component-with-async-service)  
+
+  1. [测试拥有异步服务的组件](#component-with-async-service)  
+
     - [spies](#service-spy)
+
+    - [spies](#service-spy)
+
     - [_async_](#async)
+
+    - [_async_](#async)
+
     - [_whenStable_](#when-stable)
+
+    - [_whenStable_](#when-stable)
+
     - [_fakeAsync_](#async)
+
+    - [_fakeAsync_](#async)
+
     - [_tick_](#tick)
+
+    - [_tick_](#tick)
+
     - [_jasmine.done_](#jasmine-done)
+
+    - [_jasmine.done_](#jasmine-done)
+
   1. [Test a component with an external template](#component-with-external-template)
 
-  1. [测试拥有外部模板的组件](#component-with-external-template)
-    
+  1. [测试拥有外部模板的组件](#component-with-external-template)   
+
     - [_async_](#async-in-before-each) in `beforeEach`
+
+    - [_async_](#async-in-before-each) in `beforeEach`
+
     - [_compileComponents_](#compile-components)
+
+    - [_compileComponents_](#compile-components)
+
   1. [Test a component with inputs and outputs](#component-with-inputs-output)
 
-  1. [测试拥有导入（inputs）和导出（outputs）的组件](#component-with-inputs-output)
-    
+  1. [测试拥有导入（inputs）和导出（outputs）的组件](#component-with-inputs-output)  
+
     - [_triggerEventHandler_](#trigger-event-handler)
+
+    - [_triggerEventHandler_](#trigger-event-handler)
+
   1. [Test a component inside a test host component](#component-inside-test-host)
 
   1. [在宿主组件中测试组件](#component-inside-test-host)
-  <br><br>
-  
+  <br>
+
   1. [Test a routed component](#routed-component)
 
-  1. [测试路由组件](#routed-component)
+  1. [测试路由组件](#routed-component)  
   
     - [_inject_](#inject)
+
+    - [_inject_](#inject)
+
   1. [Test a routed component with parameters](#routed-component-w-param)
+
+  1. [测试一个带有参数的被路由的组件](#routed-component-w-param)  
+
     - [_Observable_ test double](#stub-observable)
+
+    - [**可观察**测试复制品](#stub-observable)
+
   1. [Use a _page_ object to simplify setup](#page-object)
-  <br><br>
+
+  1. [使用**page**对象来简化配置](#page-object)
+  <br>
+
   1. [Setup with module imports](#import-module)
-  <br><br>
+
+  1. [用模块的导入进行配置](#import-module)
+  <br>
+
   1. [Override component providers](#component-override)
-  <br><br>
+
+  1. [替换组件提供商](#component-override)
+  <br>
+
   1. [Test a _RouterOutlet_ component](#router-outlet-component)
+
+  1. [测试一个**RouterOutlet**组件](#router-outlet-component)
+
     - [stubbing unneeded components](#stub-component)
+
+    - [伪造不需要的组件](#stub-component)
+
     - [Stubbing the _RouterLink_](#router-link-stub)
+
+    - [伪造_RouterLink_](#router-link-stub)
+
     - [_By.directive_ and injected directives](#by-directive)
+
+    - [_By.directive_和注入的指令](#by-directive)
+
   1. ["Shallow" component tests with  *NO\_ERRORS\_SCHEMA*](#shallow-component-test)
-  <br><br>
+
+  1. [使用*NO\_ERRORS\_SCHEMA*来“浅化”组件测试](#shallow-component-test)
+  <br>
+
   1. [Test an attribute directive](#attribute-directive)
-  <br><br>  
+
+  1. [测试属性指令](#attribute-directive)
+  <br>
+
   1. [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
-    - [Services](#isolated-service-tests)
-    - [Pipes](#isolated-pipe-tests)
-    - [Components](#isolated-component-tests)
+
+  1. [隔离的单元测试](#isolated-unit-tests "Unit testing without the Angular testing utilities")
+
+    - [服务](#isolated-service-tests)
+
+    - [管道](#isolated-pipe-tests)
+
+    - [组件](#isolated-component-tests)
+
   1. [Angular testing utility APIs](#atu-apis)
+
+  1. [Angular测试工具APIs](#atu-apis)
+
     - [Stand-alone functions](#atu-apis): `async`, `fakeAsync`, etc.
+
+    - [独立函数](#atu-apis): `async`, `fakeAsync`, etc.
+
     - [_TestBed_](#testbed-class-summary)
+
+    - [_TestBed_](#testbed-class-summary)
+
     - [_ComponentFixture_](#component-fixture-class-summary)
+
+    - [_ComponentFixture_](#component-fixture-class-summary)
+
     - [_DebugElement_](#debug-element-details)
-  
-  1. [FAQ](#faq "Frequently asked questions")
-  
+
+    - [_DebugElement_](#debug-element-details)  
+
+  1. [FAQ](#faq "Frequently asked questions")  
+
   1. [常见问题](#faq "Frequently asked questions")
 :marked
   It’s a big agenda. Fortunately, you can learn a little bit at a time and put each lesson to use.
@@ -432,12 +541,21 @@ code-example(format="." language="bash").
 :marked
   The command compiles the application and test code and starts karma.
   Both processes watch pertinent files, write messages to the console, and re-run when they detect changes.
+
+  该命令编译应用及其测试代码，并启动Karma。
+  两个进程都监视相关文件，往控制台输入信息和检测到变化时自动重新运行。
+
 .l-sub-section
   :marked
     The QuickStart development path defined the `test` command in the `scripts` section of npm's `package.json`.
     The Angular CLI has different commands to do the same thing. Adjust accordingly.
+
+    《快速开始》在npm的`package.json`中的`scripts`里定义了`test`命令。
+    Angular CLI使用不同的命令来做同样的事情。对不同的环境采取不同的方案。
 :marked
   After a few moments, karma opens a browser and starts writing to the console.
+
+  等一小段时间后，Karma便打开浏览器并开始向控制台输出。
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-browser.png' style="width:400px;" alt="Karma browser")
 :marked
@@ -519,6 +637,8 @@ code-example(format="." language="bash").
     - 显示`Karma`的浏览器窗口（之前被隐藏了）。
     
     - Click the "DEBUG" button; it opens a new browser tab and re-runs the tests
+
+    - 点击“DEBUG”按钮；它打开一个新的浏览器标签页并重新开始运行测试
     
     - Open the browser's “Developer Tools” (F12 or Ctrl-Shift-I).
 
@@ -551,6 +671,8 @@ a(href="#top").to-top 回到顶部
 :marked
   # Introduction to the Angular Testing Utilities
 
+  # Angular测试工具入门
+
   Many tests explore how applications classes interact with Angular and the DOM while under Angular's control.
 
   许多测试探索应用的类在被`Angular`控制时，是如何与`Angular`和`DOM`互动的。
@@ -578,6 +700,9 @@ a(href="#top").to-top 回到顶部
   测试器使用`new`创建一个类的测试实例，在需要时提供用于测试的构造函数参数复制品，并测试被测试实例的API。
   
   You can and should write isolated unit tests for pipes and services. 
+
+  你可以，也应该为服务和管道编写孤立的单元测试。
+
 +makeExample('testing/ts/app/shared/title-case.pipe.spec.ts', 'mini-excerpt', 'app/shared/title-case.pipe.spec.ts (excerpt)')
 :marked
   Components can be tested in isolation as well.
@@ -607,18 +732,30 @@ a(href="#top").to-top 回到顶部
   The base state includes a default testing module configuration consisting of the
   declarables (components, directives, and pipes) and providers (some of them mocked)
   that almost everyone needs.
+
+  在每个测试之前，`TestBed`将自己重设为初始状态。
+  这个初始状态包含了一个默认的、几乎所有情况都需要的测试模块配置，包括可声明类（组件、指令和管道）和提供商（其中一些是伪造的）。
+
 .l-sub-section
   :marked
     The testing shims mentioned [earlier](#setup) initialize the testing module configuration
     to something like the `BrowserModule` from `@angular/platform-browser`.
+
+    [之前](#setup)提到的测试垫片初始化测试模块配置到一个模块，这个模块和`@angular/platform-browser`中的`BrowserModule`类似。
 :marked
   This default configuration is merely a _foundation_ for testing an app.
   You call `TestBed.configureTestingModule` with an object that defines additional imports, declarations, providers and schemas
   to fit your application tests.
   Optional `override...` methods can fine-tune aspects of the configuration.
 
+  默认配置只是测试一个应用的**基础**。
+  使用一个定义额外inports、declarations、providers和schemas的对象来调用`TestBed.configureTestingModule`，以适合你的应用程序的测试。
+  可选的`override...`方法可以微调配置的各个方面。
+
   After configuring the `TestBed`, tell it to create an instance of the _component-under-test_ and the test fixture
   that you'll need to inspect and control the component's immediate environment.
+
+  `TestBed`配置完成以后，用它创建一个**被测试的组件**的实例和测试fixture，用来检查和控制组件周围的环境。
   
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-before-each', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
@@ -729,15 +866,25 @@ a(href="#top").to-top 回到顶部
 #create-component
 :marked
   ### _createComponent_
+
+  ### _createComponent_
+  
   `TestBed.createComponent` creates an instance of `BannerComponent` to test and returns a [fixture](#component-fixture).
+
+  `TestBed.createComponent`创建一个`BannerComponent`组件的实例用来测试和返回一个[fixture](#component-fixture)。
 
   `TestBed.createComponent` closes the current `TestBed` instance to further configuration.
   You cannot call any more `TestBed` configuration methods, not `configureTestModule` 
   nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
+  `TestBed.createComponent`关闭当前`TestBed`实例，让它不能再被配置。
+  你不能再调用`TestBed`的配置方法，也不能调用`configureTestingModule`或者任何`override...`方法，否则`TestBed`会抛出一个错误。
+
 .alert.is-important
   :marked
     Do not configure the `TestBed` after calling `createComponent`. 
+
+    不要再调用`createComponent`之后试图配置`TestBed`。
 #component-fixture
 :marked
   ### _ComponentFixture_, _DebugElement_, and _query(By.css)_
@@ -747,20 +894,30 @@ a(href="#top").to-top 回到顶部
   to the **`DebugElement`** which is a handle on the component's DOM element.
   
   `createComponent`方法返回一个**`ComponentFixture`**，用来控制和访问已创建的组件所在的测试环境。
-   这个工具提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的**`DebugElement`**对象。
+   这个fixture提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的**`DebugElement`**对象。
 
   The `title` property value was interpolated into the DOM within `<h1>` tags.
   Use the fixture's `DebugElement` to `query` for the `<h1>` element by CSS selector.
+
+  `title`属性被插值到DOM的`<h1>`标签中。
+  用CSS选择器从fixture的`DebugElement`中`query``<h1>`元素。
   
   The **`query`** method takes a predicate function and searches the fixture's entire DOM tree for the 
   _first_ element that satisfies the predicate. 
   The result is a _different_ `DebugElement`, one associated with the matching DOM element.
+
+  **`query`**方法接受一个predicate函数，并搜索fixture的整个DOM树，试图寻找**第一个**满足predicate函数的元素。
 .l-sub-section
   :marked
     The `queryAll` method returns an array of _all_ `DebugElements` that satisfy the predicate.
+
+    `queryAll`方法返回一个数组，包含所有`DebugElement`中满足predicate的元素。
     
     A _predicate_ is a function that returns a boolean. 
     A query predicate receives a `DebugElement` and returns `true` if the element meets the selection criteria.
+
+    一个**predicate**是一个返回布尔值的函数。
+    一个查询predicate接受一个`DebugElement`，如果元素符合选择条件便返回`true`。
     
 :marked
   The **`By`** class is an Angular testing utility that produces useful predicates. 
@@ -768,12 +925,23 @@ a(href="#top").to-top 回到顶部
   <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">standard CSS selector</a>
   predicate that filters the same way as a jQuery selector.
 
+  **`By`**类是一个Angular测试工具，它生成有用的predicate。
+  它的`By.css`静态方法产生一个<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">标准CSS选择器</a>
+  predicate，与JQuery选择器相同的方式过滤。
+
   Finally, the setup assigns the DOM element from the `DebugElement` **`nativeElement`** property to `el`.
   The tests will assert that `el` contains the expected title text.
 
+  最后，这个配置指定`DebugElement`中的**`nativeElement`DOM元素到属性`el`。
+  测试将判断`el`是否包含期待的标题文本。
 
   ### The tests
+  ### 测试
+
   Jasmine runs the `beforeEach` function before each of these tests
+
+  再每个测试之前，Jasmin都一次运行`beforeEach`函数：
+
 +makeExample('testing/ts/app/banner.component.spec.ts', 'tests', 'app/banner.component.spec.ts (tests)')(format='.')
 :marked
   These tests ask the `DebugElement` for the native HTML element to satisfy their expectations.
@@ -942,10 +1110,16 @@ a(href="#top").to-top 回到顶部
   The safest way to get the injected service, the way that **_always works_**, 
   is to **get it from the injector of the _component-under-test_**.
   The component injector is a property of the fixture's `DebugElement`.
+
+  最安全的获取注入的服务和**总是有效**的方法，是**从被测试的组件的注入器获取**。
+  组件注入器是fixture的`DebugElement`的一个属性。
+
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'WelcomeComponent\'s injector')(format='.')
 
 #testbed-get
 :marked
+  ### _TestBed.get_
+
   ### _TestBed.get_
 
   You _may_ also be able to get the service from the root injector via `TestBed.get`.
@@ -953,6 +1127,13 @@ a(href="#top").to-top 回到顶部
   But it only works when Angular injects the component with the service instance in the test's root injector.
   Fortunately, in this test suite, the _only_ provider of `UserService` is the root testing module, 
   so it is safe to call `TestBed.get` as follows:
+
+  你**可以**通过`TestBed.get`方法来从根注入器中获取服务。
+  它更容易被记住，也更加简介。
+  But it only works when Angular injects the component with the service instance in the test's root injector.
+  Fortunately, in this test suite, the _only_ provider of `UserService` is the root testing module, 
+  so it is safe to call `TestBed.get` as follows:
+  
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'inject-from-testbed', 'TestBed injector')(format='.')
 .l-sub-section
   :marked
