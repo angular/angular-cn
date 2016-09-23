@@ -1130,9 +1130,8 @@ a(href="#top").to-top 回到顶部
 
   你**可以**通过`TestBed.get`方法来从根注入器中获取服务。
   它更容易被记住，也更加简介。
-  But it only works when Angular injects the component with the service instance in the test's root injector.
-  Fortunately, in this test suite, the _only_ provider of `UserService` is the root testing module, 
-  so it is safe to call `TestBed.get` as follows:
+  但是它只有在Angular使用测试的根注入器的那个服务实例来注入到组件才有效。
+  幸运的是，在这个测试套件中，**唯一**的`UserService`提供商就是根测试模块，所以像下面这样调用`TestBed.get`很安全：
   
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'inject-from-testbed', 'TestBed injector')(format='.')
 .l-sub-section
@@ -1143,13 +1142,23 @@ a(href="#top").to-top 回到顶部
     
     See the section "[_Override Component Providers_](#component-override)" for a use case
     in which `inject` and `TestBed.get` do not work and you must get the service from the component's injector.
+
+    到“[**替换组件提供商**](#component-override)”查看`inject`和`TestBed.get`无效、必须从组件的注入器获取服务的用例。
+
 :marked
   ### Always get the service from an injector
+
+  ### 总是从一个注入器获取服务
+
   Surprisingly, you dare not reference the `userServiceStub` object 
   that was provided to the testing module in the body of your test. 
   **It does not work!** 
   The `userService` instance injected into the component is a completely _different_ object, 
   a clone of the provided `userServiceStub`.
+
+  出人意料的是，你不敢引用测试代码里提供给测试模块`userServiceStub`对象。**它是行不通的！**。
+  被注入组件的`userService`实例是一个彻底**不一样**的对象，是提供的`userServiceStub`的克隆。
+
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'stub-not-injected')(format='.')
 
 #welcome-spec-setup
