@@ -260,7 +260,7 @@ figure.image-display
   
   通过在`HeroEditComponent`上配置`RestoreService`的提供商，我们可以精确的实现每个`HeroEditComponent`都有一个`RestoreService`的新实例。
 
-  Does that mean that services aren’t singletons anymore in Angular 2? Yes and no.
+  Does that mean that services aren’t singletons anymore in Angular? Yes and no.
   There can be only one instance of a service type in a particular injector.
   But we've learned that we can have multiple injectors operating at different levels of the application's component tree.
   Any of those injectors could have its own instance of the service.
@@ -284,7 +284,7 @@ figure.image-display
   在组件级别上定义(或重定义)一个提供商，将会为该组件创建一个新的服务实例。
   我们已经为`HeroEditComponent`制造了一种“私有”`RestoreService`单例，它的作用域被局限在了该组件的实例及其子组件中。
 
-//- ## Advanced Dependency Injection in Angular 2
+//- ## Advanced Dependency Injection in Angular
 //- Restrict Dependency Lookups
 //- [TODO] (@Host) This has been postponed for now until we come up with a decent use case
 //- .l-main-section

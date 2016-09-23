@@ -203,7 +203,7 @@ include ../_util-fns
   ### 从路由库中导入
 
   The Angular Router is an optional service that presents a particular component view for a given URL.
-  It is not part of the Angular 2 core. It is in its own library package, `@angular/router`.
+  It is not part of the Angular core. It is in its own library package, `@angular/router`.
   We import what we need from it as we would from any other Angular package.
 
   Angular的路由器是一个可选的服务，它用来呈现指定的URL所对应的视图。
@@ -849,7 +849,7 @@ a#base-href
   我们先从路由库中导入一些符号。
 
   The Router is in its own `@angular/router` package.
-  It's not part of the Angular 2 core. The router is an optional service because not all applications
+  It's not part of the Angular core. The router is an optional service because not all applications
   need routing and, depending on your requirements, you may need a different routing library.
   
   路由器在它自己的`@angular/router`包中。
@@ -2457,14 +2457,14 @@ a#child-routing-component
   例如，`CrisisCenterComponent`的路径是`/crisis-center`。
   路由器就会把这些子路由的路径中添加上到父路由`CrisisCenterComponent`的路径（`/crisis-center`）。
   
-  * to navigate to the `CrisisCenterHomeComponent, the full URL is `/crisis-center` (/crisis-center` + `''` + `''`).
+  * to navigate to the `CrisisCenterHomeComponent`, the full URL is `/crisis-center` (`/crisis-center` + `''` + `''`).
   
-  * 要导航到`CrisisCenterHomeComponent`，完整的URL是`/crisis-center` (/crisis-center` + `''` + `''`)。
+  * 要导航到`CrisisCenterHomeComponent`，完整的URL是`/crisis-center` (`/crisis-center` + `''` + `''`)。
   
   * to navigate to the `CrisisDetailComponent` for a crisis with `id=2`, the full URL is
-  `/crisis-center/2` (/crisis-center` + `''` + `'/2'`).
+  `/crisis-center/2` (`/crisis-center` + `''` + `'/2'`).
   
-  * 要导航到`CrisisDetailComponent`以展示`id=2`的危机，完整的URL是`/crisis-center/2` (/crisis-center` + `''` + `'/2'`)。
+  * 要导航到`CrisisDetailComponent`以展示`id=2`的危机，完整的URL是`/crisis-center/2` (`/crisis-center` + `''` + `'/2'`)。
   
   The absolute URL for the latter example, including the origin, is
   
@@ -3936,11 +3936,11 @@ code-example(format=".", language="bash").
 
   我们必须选择一种策略，并且在项目的早期就这么干。一旦该应用进入了生产阶段，要改起来可就不容易了，因为外面已经有了大量对应用URL的引用。
 
-  Almost all Angular 2 projects should use the default HTML 5 style.
+  Almost all Angular projects should use the default HTML 5 style.
   It produces URLs that are easier for users to understand.
   And it preserves the option to do **server-side rendering** later.
 
-  几乎所有的Angular 2项目都会使用默认的HTML 5风格。它生成的URL更易于被用户理解，它也为将来做**服务端渲染**预留了空间。
+  几乎所有的Angular项目都会使用默认的HTML 5风格。它生成的URL更易于被用户理解，它也为将来做**服务端渲染**预留了空间。
 
   Rendering critical pages on the server is a technique that can greatly improve
   perceived responsiveness when the app first loads.

@@ -15,7 +15,7 @@ block includes
   header Don't want #{_Lang}?
   header 不喜欢#{_Lang}？
   p.
-    Although you're getting started in #{_Lang}, you can also write Angular 2 applications
+    Although you're getting started in #{_Lang}, you can also write Angular applications
     in JavaScript and #{_docsFor == 'ts' ? 'Dart' : 'TypeScript'}. Use the language selector in the
     left nav to switch development languages for this guide.
   p.
@@ -122,8 +122,8 @@ h2 创建项目目录
 
 - var _ = _docsFor == 'dart' ? '_' : '-';
 code-example(language="sh" class="code-shell").
-  mkdir angular2!{_}quickstart
-  cd    angular2!{_}quickstart
+  mkdir angular!{_}quickstart
+  cd    angular!{_}quickstart
 
 h2#add-config-files Create #{_package_and_config_files}
 h2#add-config-files 创建#{_package_and_config_files_cn}
@@ -223,7 +223,7 @@ block install-packages
     你现在应该得到了如下结构：
 
   .filetree
-    .file angular2-quickstart
+    .file angular-quickstart
     .children
       .file node_modules ...
       .file typings ...
@@ -522,9 +522,9 @@ block build-app
 h1 Step !{step++}: Make some live changes
 h1 步骤7：做一些即时修改
 :marked
-  Try changing the message in `app/app.component.ts` to "My SECOND Angular 2 App".
+  Try changing the message in `app/app.component.ts` to "My SECOND Angular App".
 
-  尝试把`app/app.component.ts`中的消息修改成"My SECOND Angular 2 App"。
+  尝试把`app/app.component.ts`中的消息修改成"My SECOND Angular App"。
 
 block server-watching
   :marked
@@ -546,7 +546,7 @@ h1#wrap-up 收工，下一步
 
 block project-file-structure
   .filetree
-    .file angular2-quickstart
+    .file angular-quickstart
     .children
       .file app
       .children
@@ -569,11 +569,12 @@ block project-file-structure
 .l-main-section
 :marked
   ## What next?
+  
   ## 下一步干什么？
   
-  This first application doesn't do much. It's basically "Hello, World" for Angular 2.
+  This first application doesn't do much. It's basically "Hello, World" for Angular.
 
-  第一个应用没做什么，它只是一个Angular 2的"Hello, World"而已。
+  第一个应用没做什么，它只是一个Angular的"Hello, World"而已。
 
   You wrote a little Angular component, created a simple `index.html`, and launched with a
   static file server.

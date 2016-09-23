@@ -9,9 +9,9 @@ include ../_util-fns
   这个工具用来把程序源码打包到一些方便易用的_块_中，以便把这些代码从服务器加载到浏览器中。
 
   It's an excellent alternative to the *SystemJS* approach we use throughout the documentation.
-  In this guide we get a taste of Webpack and how to use it with Angular 2 applications.
+  In this guide we get a taste of Webpack and how to use it with Angular applications.
 
-  它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并学习如何在Angular 2程序中使用它。
+  它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并学习如何在Angular程序中使用它。
 
   <a id="top"></a>
   ## Table of contents
@@ -237,9 +237,9 @@ a(id="configure-webpack")
   ## Configure Webpack
   ## 配置Webpack
 
-  After that brief orientation, we are ready to build our own Webpack configuration for Angular 2 apps.
+  After that brief orientation, we are ready to build our own Webpack configuration for Angular apps.
 
-  经过简短的培训之后，我们准备为Angular 2应用构建一份自己的Webpack配置了。
+  经过简短的培训之后，我们准备为Angular应用构建一份自己的Webpack配置了。
 
   Begin by setting up the development environment.
 
@@ -250,8 +250,8 @@ a(id="configure-webpack")
   创建一个**新的项目文件夹**
 
 code-example(format="").
-  mkdir angular2-webpack
-  cd    angular2-webpack
+  mkdir angular-webpack
+  cd    angular-webpack
 
 :marked
   Add these files to the root directory:
@@ -275,9 +275,9 @@ code-example(format="").
 )
 .l-sub-section
   :marked
-    Many of these files and much of their content should be familiar from other Angular 2 documentation chapters.
+    Many of these files and much of their content should be familiar from other Angular documentation chapters.
 
-    这些文件及其内容多数都在其它Angular 2文档中见过了，应该比较熟悉。
+    这些文件及其内容多数都在其它Angular文档中见过了，应该比较熟悉。
 
     Learn about the `package.json` in the [npm packages](../guide/npm-packages.html) chapter.
     We require packages for Webpack use in addition to the ones listed in that chapter.
@@ -331,13 +331,13 @@ a(id="common-configuration")
 
   我们正在把应用拆成三个包：
 
-  * polyfills - the standard polyfills we require to run Angular 2 applications in most modern browsers.
+  * polyfills - the standard polyfills we require to run Angular applications in most modern browsers.
 
-  * polyfills - 我们在大多数现代浏览器中运行Angular 2程序时需要的标准填充物。
+  * polyfills - 我们在大多数现代浏览器中运行Angular程序时需要的标准填充物。
 
-  * vendor - the vendor files we need: Angular 2, lodash, bootstrap.css...
+  * vendor - the vendor files we need: Angular, lodash, bootstrap.css...
 
-  * vendor - 我们需要的提供商文件：Angular 2、Lodash、bootstrap.css……
+  * vendor - 我们需要的提供商文件：Angular、Lodash、bootstrap.css……
 
   * app - our application code.
 
@@ -573,9 +573,9 @@ a(id="production-configuration")
   * **DefinePlugin** - use to define environment variables that we can reference within our application.
   * **DefinePlugin** - 用来定义环境变量，以便我们在自己的程序中引用它。
 
-  Thanks to the *DefinePlugin* and the `ENV` variable defined at top, we can enable Angular 2 production mode like this:
+  Thanks to the *DefinePlugin* and the `ENV` variable defined at top, we can enable Angular production mode like this:
 
-  感谢*DefinePlugin*和顶部定义的`ENV`变量，我们就可以像这样启用Angular 2的产品模式了：
+  感谢*DefinePlugin*和顶部定义的`ENV`变量，我们就可以像这样启用Angular的产品模式了：
 
 +makeExample('webpack/ts/src/main.ts', 'enable-prod')(format=".")
 

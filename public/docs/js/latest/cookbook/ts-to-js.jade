@@ -1,18 +1,18 @@
 include ../../../../_includes/_util-fns
 
 :marked
-  Everything that we can do in Angular 2 in TypeScript, we can also do
+  Everything that we can do in Angular in TypeScript, we can also do
   in JavaScript. Translating from one language to the other is mostly a
   matter of changing the way we organize our code and the way we access
-  Angular 2 APIs.
+  Angular APIs.
   
-  在Angular 2中，所有能用TypeScript完成的事，也都能用JavaScript完成。
-  从一个语言换成另一个语言，最多只会影响源代码的组织方式和访问Angular 2 API的方法。
+  在Angular中，所有能用TypeScript完成的事，也都能用JavaScript完成。
+  从一个语言换成另一个语言，最多只会影响源代码的组织方式和访问Angular API的方法。
 
-  Since TypeScript is a popular language option in Angular 2, many of the
+  Since TypeScript is a popular language option in Angular, many of the
   code examples you see on the Internet as well as on this site are written
   in TypeScript. This cookbook contains recipes for translating these kinds of
-  code examples to ES5, so that they can be applied to Angular 2 JavaScript
+  code examples to ES5, so that they can be applied to Angular JavaScript
   applications.
   
   TypeScript是个广受欢迎的Angular 2语言选项，你在网络上和本站上看到的很多范例代码都是用TypeScript写的。
@@ -67,30 +67,30 @@ table(width="100%")
   tr(style=top)
     td
       :marked
-        ### Importing Angular 2 Code
+        ### Importing Angular Code
 
-        ### 导入Angular 2代码
+        ### 导入Angular代码
 
-        In TypeScript code, Angular 2 classes, functions, and other members
+        In TypeScript code, Angular classes, functions, and other members
         are imported with TypeScript `import` statements:
         
-        在TypeScript代码中，Angular 2是利用TypeScript的`import`语句来导入类、函数和其他成员的。
+        在TypeScript代码中，Angular是利用TypeScript的`import`语句来导入类、函数和其他成员的。
 
       +makeExample('cb-ts-to-js/ts/app/main.ts', 'ng2import')(format="." )
 
     td
       :marked
-        ### Accessing Angular 2 Code through the ng global
+        ### Accessing Angular Code through the ng global
         
-        ### 通过全局变量`ng`来访问Angular 2代码
+        ### 通过全局变量`ng`来访问Angular代码
 
         In JavaScript code, when using
-        [the Angular 2 packages](../glossary.html#!#scoped-package),
+        [the Angular packages](../glossary.html#!#scoped-package),
         we can access Angular code through the global `ng` object. In the
         nested members of this object we'll find everything we would import
-        from `angular2` in TypeScript:
+        from `angular` in TypeScript:
         
-        在JavaScript中，当使用[Angular 2库](../glossary.html#!#scoped-package)时，
+        在JavaScript中，当使用[Angular库](../glossary.html#!#scoped-package)时，
         我们可以通过全局的`ng`对象来访问Angular代码。在本对象内嵌的很多成员中，我们会发现TypeScript能从`@angular`库导入的所有对应物。
 
       +makeExample('cb-ts-to-js/js/app/main.js', 'ng2import')(format="." )
@@ -102,11 +102,11 @@ table(width="100%")
 
         ### 导入与导出应用程序代码
 
-        Each file in an Angular 2 TypeScript application constitutes a
+        Each file in an Angular TypeScript application constitutes a
         TypeScript module. When we want to make something from a module available
         to other modules, we `export` it.
         
-        在TypeScript版的Angular 2程序里，每个文件都是一个TypeScript模块。当需要让一个模块在其它模块中可见时，我们要`export`它。
+        在TypeScript版的Angular 程序里，每个文件都是一个TypeScript模块。当需要让一个模块在其它模块中可见时，我们要`export`它。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'appexport')(format="." )
 
@@ -124,11 +124,11 @@ table(width="100%")
 
         ### 共享应用程序代码
 
-        In an Angular 2 JavaScript application, we load each file to the page
+        In an Angular JavaScript application, we load each file to the page
         using a `<script>` tag. Each file can make things available to other
         files via the shared global `window` scope.
         
-        在JavaScript版的Angular 2程序里，我们在页面中通过`<script>`标签来加载每个文件。
+        在JavaScript版的Angular 程序里，我们在页面中通过`<script>`标签来加载每个文件。
         每个文件都要通过全局作用域`window`来互相共享自己的那些东西。
 
         We often introduce an application namespace
@@ -164,8 +164,8 @@ table(width="100%")
 .alert.is-helpful
   :marked
     Alternatively, we can use a module loader such as Webpack or
-    Browserify in an Angular 2 JavaScript project. In such a project, we would
-    use CommonJS modules and the `require` function to load Angular 2 framework code.
+    Browserify in an Angular JavaScript project. In such a project, we would
+    use CommonJS modules and the `require` function to load Angular framework code.
     We would then use `module.exports` and `require` to export and import application
     code.
     
@@ -195,9 +195,9 @@ table(width="100%")
         
         ### 类
 
-        We put most of our Angular 2 TypeScript code into TypeScript classes.
+        We put most of our Angular TypeScript code into TypeScript classes.
         
-        在Angular 2中，我们把绝大多数TypeScript代码都放到TypeScript类中。
+        在Angular中，我们把绝大多数TypeScript代码都放到TypeScript类中。
 
       +makeExample('cb-ts-to-js/ts/app/hero.component.ts', 'class')(format="." )
 
@@ -208,9 +208,9 @@ table(width="100%")
         ### 构造函数和原型
 
         ES5 JavaScript has no classes. We use the constructor
-        pattern instead which works with Angular 2 as well as classes do.
+        pattern instead which works with Angular as well as classes do.
         
-        ES5 JavaScript不支持类，我们使用构造器模式(constructor pattern)来代替它，它可以和类一样与Angular 2协同工作。
+        ES5 JavaScript不支持类，我们使用构造器模式(constructor pattern)来代替它，它可以和类一样与Angular协同工作。
 
       +makeExample('cb-ts-to-js/js/app/hero.component.js', 'constructorproto')(format="." )
 
@@ -220,7 +220,7 @@ table(width="100%")
         ### Metadata with Decorators
         ### 使用装饰器提供元数据
 
-        Most Angular 2 classes have one or more TypeScript *decorators*
+        Most Angular classes have one or more TypeScript *decorators*
         attached to provide configuration and metadata. For example,
         a component must have a [`@Component`](../api/core/index/Component-decorator.html) decorator.
         
@@ -321,7 +321,7 @@ table(width="100%")
         ### 实现方法，但不用管接口
 
         TypeScript interfaces are purely for developer convenience
-        and are not used by Angular 2 at runtime. This means that in JavaScript
+        and are not used by Angular at runtime. This means that in JavaScript
         code we don't need to substitute anything for interfaces. We can just
         implement the methods.
         
@@ -416,7 +416,7 @@ table(width="100%")
         
         ### 按类型注入 
 
-        Angular 2 can often use TypeScript type information to
+        Angular can often use TypeScript type information to
         determine what needs to be injected.
         
         Angular 2通常使用TypeScript的类型信息来确定需要注入什么。
@@ -596,10 +596,10 @@ table(width="100%")
         
         `host`的值是一个对象，它的属性中包含了宿主属性和事件监听器的绑定。
         
-        * Each key follows regular Angular 2 binding syntax: `[property]` for host bindings
+        * Each key follows regular Angular binding syntax: `[property]` for host bindings
           or `(event)` for host listeners.
           
-        * 每个键值(key)都遵循常规的Angular 2绑定语法：用`[property]`代表宿主属性绑定，用`(event)`代表数组事件绑定。
+        * 每个键值(key)都遵循常规的Angular绑定语法：用`[property]`代表宿主属性绑定，用`(event)`代表数组事件绑定。
         
         * Each value identifies the corresponding component property or method.
         

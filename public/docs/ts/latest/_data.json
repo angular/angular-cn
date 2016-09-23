@@ -4,36 +4,35 @@
     "title": "Angular中文文档",
     "subtitle": "TypeScript",
     "menuTitle": "文档首页",
-    "banner": "欢迎来到<b>Angular in TypeScript</b>! 当前的Angular 2版本是<b>2.0.0</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>了解最新的增强、修复和破坏性变更。"
+    "banner": "欢迎来到<b>Angular in TypeScript</b>! 当前的Angular版本是<b>2.0.0</b>。请参考<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank'>变更记录</a>了解最新的增强、修复和破坏性变更。"
   },
 
   "cli-quickstart": {
     "icon": "query-builder",
     "title": "CLI 快速起步",
     "subtitle": "TypeScript",
-    "description": "使用CLI快速构建Angular 2应用",
+    "description": "使用CLI快速构建Angular应用",
     "hide": true
   },
 
   "quickstart": {
     "icon": "query-builder",
+    "title": "快速起步",
     "subtitle": "TypeScript",
-    "description": "Angular 2快速起步",
-    "banner": "本“快速起步”指南将演示如何用TypeScript构建并运行一个简单的Angular 2应用。"
+    "description": "Angular快速起步",
+    "banner": "本“快速起步”指南将演示如何用TypeScript构建并运行一个简单的Angular应用。"
   },
 
   "tutorial": {
     "icon": "list",
     "title": "教程",
-    "subtitle": "TypeScript",
-    "banner": "Angular 2已经Release啦！"
+    "subtitle": "TypeScript"
   },
 
   "guide": {
     "icon": "list",
     "title": "开发指南",
-    "subtitle": "TypeScript",
-    "banner": "Angular 2已经Release啦！"
+    "subtitle": "TypeScript"
   },
 
   "cookbook": {
@@ -68,7 +67,6 @@
     "icon": "play-circle-fill",
     "title": "Angular资源",
     "subtitle": "TypeScript",
-    "banner": "Angular 2已经正式发布啦！",
     "resources": true
   },
 
