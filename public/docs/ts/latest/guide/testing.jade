@@ -1001,7 +1001,7 @@ a#welcome-spec-setup
 :marked
   Here's the complete, preferred `beforeEach`:
 
-  这里是完整的，首选的`beforeEach`：
+  这里是完整的，推荐的`beforeEach`：
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'setup', 'app/welcome.component.spec.ts')(format='.')
 :marked
   下面是一些测试:
@@ -1025,59 +1025,108 @@ a(href="#top").to-top 回到顶部
 a#component-with-async-service
 :marked
   # Test a component with an async service
+
+  # 测试一个有异步服务的组件
+  
   Many services return values asynchronously. 
   Most data services make an HTTP request to a remote server and the response is necessarily asynchronous.
+
+  许多服务异步返回值。大部分数据服务向远程服务器发起HTTP请求，响应必然是异步的。
 
   The "About" view in this sample displays Mark Twain quotes.
   The `TwainComponent` handles the display, delegating the server request to the `TwainService`.
   Both are in the `app/shared` folder because the author intends to display Twain quotes on other pages someday.
   Here is the `TwainComponent`.
+
+  本例的`About`视图显示马克吐温的名言。
+  `TwainComponent`组件处理显示、委派`TwainService`向服务器发起请求。
+  两者都在`app/shared`目录里，因为作者计划将来在其他页面也显示马克吐温的名言。
+  下面是`TwainComponent`：
+
 +makeExample('testing/ts/app/shared/twain.component.ts', 'component', 'app/shared/twain.component.ts')(format='.')
 :marked
   The `TwainService` implementation is irrelevant at this point.
   It is sufficient to see within `ngOnInit` that `twainService.getQuote` returns a promise which means it is asynchronous.
 
+  `TwainService`的实现细节现在并不重要。
+  `ngOnInit`的`twainService.getQuote`返回一个承诺，所以显然它是异步的。
+
   In general, tests should not make calls to remote servers. 
   They should fake such calls. The setup in this `app/shared/twain.component.spec.ts` shows one way to do that: 
+
+  一般来讲，测试不应该向远程服务器发请求。
+  它们应该伪造这样的请求。`app/shared/twain.component.spec.ts`里的配置是其中一种伪造方法：
+
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'setup', 'app/shared/twain.component.spec.ts (setup)')(format='.')
 
 a#service-spy
 :marked
   ### Spying on the real service
 
+  ### 刺探(Spy)真实服务
+
   This setup is similar to the [`welcome.component.spec` setup](#welcome-spec-setup).
   But instead of creating a fake service object, it injects the _real_ service (see the test module `providers`) and 
   replaces the critical `getQuote` method with a Jasmine spy.
+
+  本配置与[`welcome.component.spec` setup](#welcome-spec-setup)类似。
+  但是与其伪造一个服务对象，它注入了真实的服务（参见测试模块的`providers`），并用一个Jasmine的`spy`替换关键的`getQuote`方法。
+
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'spy')(format='.')
 :marked
   The spy is designed such that any call to `getQuote` receives an immediately resolved promise with a test quote.
   The spy bypasses the actual `getQuote` method and therefore will not contact the server.
 
+  这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一个预设的名言。Spy拦截了实际`getQuote`方法，所有它不会联系服务。
+
 .l-sub-section
   :marked
     Faking a service instance and spying on the real service are _both_ great options. 
     Pick the one that seems easiest for the current test suite. Don't be afraid to change your mind.
+
+    伪造一个服务实例和刺探真实服务都是好方法。挑选一个对当前测试套件最简单的方法。你可以随时改变主意。
+
 :marked
   Here are the tests with commentary to follow:
+
+  下面是接下来带有注解的测试：
+
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'tests', 'app/shared/twain.component.spec.ts (tests)')
 :marked
   ### Synchronous tests
+
+  ### 同步测试
+
   The first two tests are synchronous. 
   Neither test can prove that a value from the service will be displayed.
+
+  前两个测试是同步的。它们都不能证明服务返回的值将会被显示。
   
   Thanks to the spy, the second test verifies that `getQuote` is called. 
   But the quote itself has not arrived, despite the fact that the spy returns a resolved promise.
+
+  在Spy的帮助下，第二个测试验证了`getQuote`被调用了。
+  虽然Spy返回了一个解析了的承诺，但是确没有收到名言。
   
   This test must wait at least one full turn of the JavaScript engine, a least one "tick", before the
   value becomes available. By that time, the test runner has moved on to the next test in the suite.
 
+  这个测试必须等待JavaScript引擎一整个回合，至少一个"tick"后，返回值才会有效。这个时候，测试运行器已经移到了测试套件下一个测试。
+
   The test must become an "async test" ... like the third test
+
+  测试必须变成一个“异步测试”...就像第三个测试那样。
 
 a#async-fn-in-it
 :marked
   ## The _async_ function in _it_
 
+  ## **it**里的**async**函数方法
+
   Notice the `async` in the third test.
+
+  注意第三个测试的`async`方法。
+  
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'async-test', 'app/shared/twain.component.spec.ts (async test)')(format='.')
 :marked
   The `async` function is part of the _Angular TestBed_ feature set.
