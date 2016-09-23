@@ -703,7 +703,6 @@ a(href="#top").to-top 回到顶部
 
   你可以，也应该为服务和管道编写孤立的单元测试。
 
-+makeExample('testing/ts/app/shared/title-case.pipe.spec.ts', 'mini-excerpt', 'app/shared/title-case.pipe.spec.ts (excerpt)')
 :marked
   Components can be tested in isolation as well.
   However, isolated unit tests don't reveal how these classes interact with Angular. 
@@ -1159,7 +1158,7 @@ a(href="#top").to-top 回到顶部
   出人意料的是，你不敢引用测试代码里提供给测试模块`userServiceStub`对象。**它是行不通的！**。
   被注入组件的`userService`实例是一个彻底**不一样**的对象，是提供的`userServiceStub`的克隆。
 
-+makeExample('testing/ts/app/welcome.component.spec.ts', 'stub-not-injected')(format='.')
++makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'Component\'s injector')(format='.')
 
 #welcome-spec-setup
 :marked
