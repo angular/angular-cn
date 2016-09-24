@@ -252,9 +252,9 @@ block includes
   本章所有例子代码都在下面的在线例子中，以供参考、实验和下载。
   
   * <live-example>例子应用</live-example>
-  * <live-example plnkr="1st-specs">第一个测试规格</live-example>
-  * <live-example plnkr="app-specs">完整的应用测试规格</live-example>
-  * <live-example plnkr="bag-specs">示范规格包</live-example>
+  * <live-example plnkr="1st-specs">第一个测试spec</live-example>
+  * <live-example plnkr="app-specs">完整的应用测试spec</live-example>
+  * <live-example plnkr="bag-specs">示范spec包</live-example>
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
 
@@ -527,8 +527,8 @@ table(width="100%")
   The `karma.conf.js` tells karma to look for spec files there,
   for reasons explained [below](#spec-file-location).
 
-  **将测试配置放到`app/`文件夹下的任何位置。**
-  `karma.conf.js`告诉`Karma`在这个文件夹中寻找测试配置文件，原因[如下](#spec-file-location)。
+  **将测试spec放到`app/`文件夹下的任何位置。**
+  `karma.conf.js`告诉`Karma`在这个文件夹中寻找测试spec文件，原因[如下](#spec-file-location)。
 
   Add the following code to `app/1st.spec.ts`.
 
@@ -631,7 +631,7 @@ code-example(format="." language="bash").
 
   Debug specs in the browser in the same way you debug an application.
 
-  在浏览器中，像调试应用一样调试测试配置。
+  在浏览器中，像调试应用一样调试测试spec。
 
     - Reveal the karma browser window (hidden earlier).
     
@@ -735,7 +735,7 @@ a(href="#top").to-top 回到顶部
   declarables (components, directives, and pipes) and providers (some of them mocked)
   that almost everyone needs.
 
-  在每个测试之前，`TestBed`将自己重设为初始状态。
+  在每个spec之前，`TestBed`将自己重设为初始状态。
   这个初始状态包含了一个默认的、几乎所有情况都需要的测试模块配置，包括可声明类（组件、指令和管道）和提供商（其中一些是伪造的）。
 
 .l-sub-section
@@ -841,7 +841,7 @@ a(href="#top").to-top 回到顶部
 
   Start with ES6 import statements to get access to symbols referenced in the spec.
 
-  首先，使用ES6导入声明获取在测试配置中引用的符号。
+  首先，使用ES6导入声明获取在spec中引用的符号。
 
 +makeExample('testing/ts/app/banner.component.spec.ts', 'imports', 'app/banner.component.spec.ts (imports)')(format='.')
 
@@ -1052,7 +1052,7 @@ a(href="#top").to-top 回到顶部
   The `WelcomeComponent` has decision logic that interacts with the service, logic that makes this component worth testing.
   Here's the testing module configuration for the spec file, `app/welcome.component.spec.ts`:
 
-  `WelcomeComponent`有与服务进行交互的决策逻辑，这样的逻辑让这个组件值得测试。下面是测试配置文件的测试模块配置，`app/welcome.component.spec.ts`：
+  `WelcomeComponent`有与服务进行交互的决策逻辑，这样的逻辑让这个组件值得测试。下面是spec文件的测试模块配置，`app/welcome.component.spec.ts`：
 
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'config-test-module', 'app/welcome.component.spec.ts')(format='.')
 :marked
@@ -1074,7 +1074,7 @@ a(href="#top").to-top 回到顶部
   and real services can be trouble.
 
   被测试的组件不一定要注入真正的服务。实际上，服务的复制品（stubs, fakes, spies或者mocks）通常会更加合适。
-  测试配置的主要目的是测试组件，而不是服务。真实的服务可能会有问题。
+  spec的主要目的是测试组件，而不是服务。真实的服务可能会有问题。
 
   Injecting the real `UserService` could be a nightmare. 
   The real service might try to ask the user for login credentials and 
@@ -1193,7 +1193,7 @@ a(href="#top").to-top 回到顶部
      
     Jasmine的`it`方法的第二个参数（比如`'expected name'`）是一个可选附加参数。
     如果这个期待失败了，Jasmine在期待失败信息后面显示这个附加参数。
-    在一个拥有多个期待的测试配置中，它可以帮助澄清发生了什么错误，哪个期待失败了。
+    在一个拥有多个期待的spec中，它可以帮助澄清发生了什么错误，哪个期待失败了。
     
 :marked
   The remaining tests confirm the logic of the component when the service returns different values.
@@ -1490,7 +1490,7 @@ a(href="#top").to-top 回到顶部
   The `jasmine.done` technique, while discouraged, may become necessary when neither `async` nor `fakeAsync`
   can tolerate a particular asynchronous activity. That's rare but it happens.
 
-  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一个特定的异步行为时，变得很有必要。很少见，但是有可能发生。
+  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一个特定的异步行为时，变得很有必要。这很少见，但是有可能发生。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 返回顶部
@@ -1500,65 +1500,115 @@ a(href="#top").to-top 返回顶部
 #component-with-external-template
 :marked
   # Test a component with an external template
+
+  # 测试有外部模板的组件
+
   The `TestBed.createComponent` is a synchronous method. 
   It assumes that everything it could need is already in memory.
+
+  `TestBed.createComponent`时一个同步的方法。它假设所有它需要的资源已经全部在内存。
 
   That has been true so far. 
   Each tested component's `@Component` metadata has a `template` property specifying an _inline templates_.
   Neither component had a `styleUrls` property.
   Everything necessary to compile them was in memory at test runtime.
 
+  到目前为止还是这样的。
+  每个被测试的组件的`@Component`元数据都有一个`template`属性，制定一个**内联模板**。
+  没有组件有`styleUrls`属性。所有编译它们所需要的资源，在测试时都已经在内存里。
+
   The `DashboardHeroComponent` is different. 
   It has an external template and external css file, specified in `templateUrl` and `styleUrls` properties.
+
+  `DashbaordComponent`不一样。
+  它有一个外部的模板和外部CSS文件，是在`templateUrl`和`styleUrls`属性分别配置的。
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.ts', 'component', 'app/dashboard/dashboard-hero.component.ts (component)')(format='.')
 :marked
   The compiler must read these files from a file system before it can create a component instance.
 
+  编译器必须预先从一个文件系统读取这些文件，它才能创建一个组件实例。
+
   The `TestBed.compileComponents` method asynchronously compiles all the components configured in its
   current testing module. After it completes, external templates and css files, have been "inlined"
   and `TestBed.createComponent` can do its job synchronously.
+
+  `TestBed.compileComponents`方法异步编译所有当前测试模块配置的组件。完成编译后，外部模板和CSS文件就已经被**内联**进来，
+  然后`TestBed.createComponent`就可以异步的完成它的任务了。
 .l-sub-section
   :marked
     WebPack developers need not call `compileComponents` because it inlines templates and css
     as part of the automated build process that precedes running the test.
+
+    WebPack开发者不需要调用`compileComponents`，因为在运行测试时，内联模板和CSS文件是自动编译流程的一部分。
 :marked
   The `app/dashboard/dashboard-hero.component.spec.ts` demonstrates the pre-compilation process:
+
+  `app/dashboard/dashboard-hero.component.spec.ts`展示了预编译的过程：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'compile-components', 'app/dashboard/dashboard-hero.component.spec.ts (compileComponents)')(format='.')
 
 #async-in-before-each
 :marked
   ## The _async_ function in _beforeEach_
 
+  ## **beforeEach**里的**async**函数
+
   Notice the `async` call in the `beforeEach`. 
   The `async` function arranges for the tester's code to run in a special _async test zone_
   that hides the mechanics of asynchronous execution, just as it does when passed to an [_it_ test)(#async).
 
+  注意`beforeEach`里面对`async`的调用。
+  `async`函数将测试代码安排到一个特殊的**异步测试区域**来运行，该区域隐藏了异步执行的细节，就像它被传递给一个[_it_ 测试)(#async)一样。
+
 #compile-components
 :marked
   ## _compileComponents_ 
-  In this example, `Testbed.compileComponents` compiles one component, the `DashboardComponent`. 
+
+  ## _compileComponents_ 
+ 
+  In this example, `TestBed.compileComponents` compiles one component, the `DashboardComponent`. 
   It's the only declared component in this testing module.
+
+  在本例中，`TestBed.compileComponents`编译了一个组件，那就是`DashbaordComponent`。
+  它是这个测试模块唯一的声明组件。
 
   Tests later in this chapter have more declared components and some of them import application
   modules that declare yet more components.
   Some or all of these components could have external templates and css files.
   `TestBed.compileComponents` compiles them all asynchonously at one time.
+
+  本章后面的测试有更多声明组件，它们中间的一些导入应用模块，这些模块有更多的声明组件。
+  一部分或者全部组件可能有外部模板和CSS文件。
+  `TestBed.compileComponents`一次性异步编译所有组件。
   
   The `compileComponents` method returns a promise so you can perform additional tasks _after_ it finishes.
 
+  `compileComponents`方法返回一个承诺，可以用来在它完成时候，执行更多额外任务。
+
   ### _compileComponents_ closes configuration
+
+  ### _compileComponents_ 关闭配置
+
   After `compileComponents` runs, the current `TestBed` instance is closed to further configuration.
   You cannot call any more `TestBed` configuration methods, not `configureTestModule` 
   nor any of the `override...` methods. The `TestBed` throws an error if you try.
+
+  `compileComponents`运行之后，当前的`TestBed`实例就不能再次被配置了。
+  你不能再调用任何`TestBed`配置方法、`configureTestModule`或者任何`override...`方法，否则`TestBed`将会抛出一个错误。
 
 .alert.is-important
   :marked
     Do not configure the `TestBed` after calling `compileComponents`. 
     Make `compileComponents` the last step 
     before calling `TestBed.createInstance` to instantiate the _component-under-test_.
+
+    不要再调用`compileComponents`之后再配置`TestBed`。
+    在调用`TestBed.createInstance`来初始化被测试的组件之前，把`compileComponents`的调用放到最后一步。
 :marked
   The `DashboardHeroComponent` spec follows the asynchonous `beforeEach` with a
   _synchronous_ `beforeEach` that completes the setup steps and runs tests ... as described in the next section.
+
+  `DashboardHeroComponent`spec中，异步的`beforeEach`下面紧接着**同步**的`beforeEach`，
+  用来完成设置步骤和运行测试...下面小节做了详细的解释。                                                                                                                                         
 
 .l-hr
 
