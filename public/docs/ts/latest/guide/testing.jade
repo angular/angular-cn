@@ -1720,7 +1720,7 @@ a(href="#top").to-top 返回顶部
   Note how the setup code assigns a test hero (`expectedHero`) to the component's `hero` property, emulating
   the way the `DashboardComponent` would set it via the property binding in its repeater.
 
-  注意代码是如何将一个测试英雄（`expectedHero`）赋值给组件的`hero`属性的，模拟了`DashbaordComponent`在它的迭代器中通过属性绑定的赋值方式。
+  注意代码是如何将一个模拟英雄（`expectedHero`）赋值给组件的`hero`属性的，模拟了`DashbaordComponent`在它的迭代器中通过属性绑定的赋值方式。
 
   The first test follows:
 
@@ -1732,7 +1732,7 @@ a(href="#top").to-top 返回顶部
   There's a twist. The template passes the hero name through the Angular `UpperCasePipe` so the
   test must match the element value with the uppercased name:
 
-  它验证了英雄名字通过绑定被传递到模板了。这里有个意外曲折。模板将英雄名字传给Angular的`UpperCasePipe`，
+  它验证了英雄名字通过绑定被传递到模板了。这里有个额外步骤。模板将英雄名字传给Angular的`UpperCasePipe`，
   所以测试必须使用大写名字来匹配元素的值：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.html')(format='.')
 :marked
@@ -1841,43 +1841,77 @@ a(href="#top").to-top 返回顶部
 :marked
   # Test a component inside a test host component
 
+  # 在测试宿主组件中测试一个组件
+
   In the previous approach the tests themselves played the role of the host `DashboardComponent`.
   A nagging suspicion remains. 
-  Will the `DashboardHeroComponent` work properly when properly data-bound to a host component? 
+  Will the `DashboardHeroComponent` work properly when properly data-bound to a host component?
+
+  在前面的方法中，测试本身扮演了宿主组件`DashbaordComponent`的角色。
+  一个挥之不去的疑虑仍然存在：当正常数据绑定到宿主组件时，`DashboardHeroComponent`还会正常工作吗？
 
   Testing with the actual `DashboardComponent` host is doable but seems more trouble than its worth.
   It's easier to emulate the `DashboardComponent` host with a _test host_ like this one:
+
+  使用实际的`DashbaordComponent`宿主来测试是可行的，但是这么做似乎不合算。
+  像下面这样使用一个**测试宿主组件**来模拟`DashbaordComponent`显得更加容易：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'test-host', 'app/dashboard/dashboard-hero.component.spec.ts (test host)')(format='.')
 :marked
   The test host binds to `DashboardHeroComponent` as the `DashboardComponent` would but without
   the distraction of the `Router`, the `HeroService` or even the `*ngFor` repeater.
+
+  测试宿主组件和`DashboardComponent`一样绑定`DashboardHeroComponent`，但是不用理会`Router`、`HeroService`服务，甚至`*ngFor`循环。
 
   The test host sets the component's `hero` input property with its test hero.
   It binds the component's `selected` event with its `onSelected` handler that records the emitted hero
   in its `selectedHero` property. Later the tests check that property to verify that the
   `DashboardHeroComponent.selected` event really did emit the right hero.
 
+  测试宿主将组件的`hero`导入属性设置为它的模拟英雄。
+  它将组件的`selected`事件绑定到它的`onSelected`处理器，使用`selectedHero`属性来记录发送来的英雄。
+  然后测试检查这个属性来验证`DashboardHeroComponent.selected`事件确实发送了正确的英雄。
+
   The setup for the test-host tests is similar to the setup for the stand-alone tests:
+
+  配置使用测试宿主的测试与配置孤立测试相似：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'test-host-setup', 'app/dashboard/dashboard-hero.component.spec.ts (test host setup)')(format='.')
 :marked
   This testing module configuration shows two important differences:
+
+  这个测试模块配置展示了两个非常重要的区别：
+
   1. It _declares_ both the `DashboardHeroComponent` and the `TestHostComponent`.
+
+  1. 它同时**声明**了`DashbaordComponent`和`TestHostComponent`。
+
   1. It _creates_ the `TestHostComponent` instead of the `DashboardHeroComponent`.
 
+  1. 它**创建**了`TestHostComponent`，而非`DashboardHeroComponent`。  
+
   The `fixture` returned by `createComponent` holds an instance of `TestHostComponent` instead of an instance of `DashboardHeroComponent`.
+
+  `createComponent`返回的`fixture`里有一个`TestHostComponent`实例，而非`DashboardHeroComponent`组件实例。
   
   Of course creating the `TestHostComponent` has the side-effect of creating a `DashboardHeroComponent`
   because the latter appears within the template of the former. 
   The query for the hero element (`heroEl`) still finds it in the test DOM 
   albeit at greater depth in the element tree than before.
+
+  当然，创建`TestHostComponent`有创建一个`DashboardHeroComponent`的副作用，因为后者出现在前者的模板中。
+  英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素数比以前更深。
   
   The tests themselves are almost identical to the stand-alone version
+
+  测试它们自己和它们的孤立版本几乎相同。
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'test-host-tests', 'app/dashboard/dashboard-hero.component.spec.ts (test-host)')(format='.')
 :marked
   Only the selected event test differs. It confirms that the selected `DashboardHeroComponent` hero
   really does find its way up through the event binding to the host component.
 
+  只有selected事件的测试不一样。它确保被选择的`DashboardHeroComponent`英雄确实通过事件绑定被传递到宿主组件。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 返回顶部
 
 .l-hr
 
