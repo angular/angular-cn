@@ -133,7 +133,7 @@ block includes
 
   1. [Test a component with inputs and outputs](#component-with-inputs-output)
 
-  1. [测试拥有导入（inputs）和导出（outputs）的组件](#component-with-inputs-output)  
+  1. [测试拥有导入inputs和导出outputs的组件](#component-with-inputs-output)  
 
     - [_triggerEventHandler_](#trigger-event-handler)
 
@@ -681,7 +681,7 @@ a(href="#top").to-top 回到顶部
   Such tests are easy to write with the help of the Angular testing utilities
   which include the `TestBed` class and some helper functions.
 
-  Angular测试工具包含了`TestBed`类和一些助手函数方法，在它们的帮助下，很容易编写上面那样的测试。
+  Angular测试工具包含了`TestBed`类和一些辅助函数方法，在它们的帮助下，很容易编写上面那样的测试。
 
   Tests written with these utilities are the main focus of this chapter. 
   But they are not the only tests you should write.  
@@ -721,7 +721,7 @@ a(href="#top").to-top 回到顶部
 
   The  Angular testing utilities include the `TestBed` class and several helper functions from `@angular/core/testing`.
 
-  **Angular测试工具**包含了`TestBed`类和在`@angular/core/testing`中一些助手函数方法。
+  **Angular测试工具**包含了`TestBed`类和在`@angular/core/testing`中一些辅助函数方法。
 
   The `TestBed` creates an Angular testing module &mdash; an `@NgModule` class &mdash;
   that you configure to produce the module environment for the class you want to test. 
@@ -1017,7 +1017,7 @@ a(href="#top").to-top 回到顶部
 
   第二和第三个测试显示了一个重要的局限性。
   Angular测试环境**不会**知道测试改变了组件的`title`属性。
-  **自动检测**只对**异步行为**比如承诺的解析，计时器和DOM时间做出反应。
+  **自动检测**只对**异步行为**比如承诺的解析，计时器和DOM时间作出反应。
   但是一个直接的，同步的组件属性值的变化时不会触发**自动检测**的。
   测试必须手动调用`fixture.detectChange()`，来触发新一轮的变化检测周期。  
 
@@ -1383,7 +1383,7 @@ a(href="#top").to-top 回到顶部
 
   然后测试继续运行。
   测试开始另一轮的变化检测（`fixture.detectChanges`）,通知Angular使用名言来更新DOM。
-  `getQuote`助手方法提取出显示元素文本，然后expect语句确认这个文本与预备的名言相符。
+  `getQuote`辅助方法提取出显示元素文本，然后expect语句确认这个文本与预备的名言相符。
 
 #fakeAsync
 #fake-async
@@ -1615,48 +1615,98 @@ a(href="#top").to-top 返回顶部
 #component-with-inputs-outputs
 :marked
   # Test a component with inputs and outputs
+
+  # 测试带有导入inputs和导出outputs的组件
+
   A component with inputs and outputs typically appears inside the view template of a host component.
   The host uses a property binding to set the input property and uses an event binding to
   listen to events raised by the output property.
 
+  带有导入和导出的组件通常出现在一个宿主组件的视图模板中。
+  宿主使用一个属性绑定来设置输入属性，使用事件绑定来监听输出属性触发的事件。
+
   The testing goal is to verify that such bindings work as expected. 
   The tests should set input values and listen for output events.
+
+  测试的目的是验证这样的绑定和期待的那样正常工作。
+  测试应该设置导入值并监听导出事件。
 
   The `DashboardHeroComponent` is tiny example of a component in this role.
   It displays an individual heroe provided by the `DashboardComponent`. 
   Clicking that hero tells the the `DashboardComponent` that the user has selected the hero.
 
+  `DashbaordComponent`是一个非常小的这种类型的例子组件。
+  它显示一个由`DashboardCompoent`提供的英雄个体。
+  点击英雄告诉`DashbaordComponent`用户已经选择了这个英雄。
+
   The `DashboardHeroComponent` is embedded in the `DashboardComponent` template like this:
+
+  `DashboardHeroComponent`是这样内嵌在`DashboardCompoent`的模板中的：
+
 +makeExample('testing/ts/app/dashboard/dashboard.component.html', 'dashboard-hero', 'app/dashboard/dashboard.component.html (excerpt)')(format='.')
 :marked
   The `DashboardHeroComponent` appears in an `*ngFor` repeater which sets each component's `hero` input property
   to the iteration value and listens for the components `selected` event.
+
+  `DashboardHeroComponent`在`*ngFor`循环中出现，设置每个组件的`hero`input属性到迭代的值，并监听组件的`selected`事件。
   
   Here's the component's definition again:
+
+  下面是组件的定义：
+
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.ts', 'component', 'app/dashboard/dashboard-hero.component.ts (component)')(format='.')
 :marked
   While testing a component this simple has little intrinsic value, it's worth knowing how.
   Three approaches come to mind:
+
+  虽然测试这么简单的组件没有什么内在价值，但是它的测试是值得学习的。
+  有三种候选测试方案：
+
   1. Test it as used by `DashboardComponent`
+
+  1. 把它当作被`DashbaordComponent`使用的组件来测试
+
   1. Test it as a stand-alone component
+
+  1. 把它当作独立的组件来测试
+
   1. Test it as used by a substitute for `DashboardComponent`
 
+  1. 把它当作被`DashbaordComponent`的替代组件使用的组件来测试
+
   A quick look at the `DashboardComponent` constructor discourages the first approach:
+
+  简单看看`DashbaordComponent`的构造函数就否决了第一个方案：
+
 +makeExample('testing/ts/app/dashboard/dashboard.component.ts', 'ctor', 'app/dashboard/dashboard.component.ts (constructor)')(format='.')
 :marked
   The `DashboardComponent` depends upon the Angular router and the `HeroService`.
   You'd probably have to replace them both with test doubles and that looks like a lot of work. 
   The router seems particularly challenging.
+
+  `DashbaordComponent`依赖Angular路由器和`HeroService`服务。
+  你必须使用测试复制品替换它们两个，似乎过于复杂了。
+  路由器尤其具有挑战性。
+
 .l-sub-section
   :marked
-    The [discussion below](#routed-component) covers testing components that requre the router.
+    The [discussion below](#routed-component) covers testing components that require the router.
+
+    [下面](#routed-component) 覆盖了如何测试带有路由器的组件。
 :marked
   The immediate goal is to test the `DashboardHeroComponent`, not the `DashboardComponent`, and there's no need
   to work hard unnecessarily. Let's try the second and third options.
 
+  当前的任务是测试`DashboardHeroComponent`组件，而非`DashbaordComponent`，所以无需做不必要的努力。
+  让我们尝试第二和第三种方案。
+
   ## Test _DashboardHeroComponent_ stand-alone
+  
+  ## 独立测试_DashboardHeroComponent_
 
   Here's the spec file setup.
+
+  下面是spec文件的设置。
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'setup', 'app/dashboard/dashboard-hero.component.spec.ts (setup)')(format='.')
 
 :marked
@@ -1664,15 +1714,26 @@ a(href="#top").to-top 返回顶部
   Having compiled the components asynchronously with `compileComponents`, the rest of the setup
   proceeds _synchronously_ in a _second_ `beforeEach`, using the basic techniques described [earlier](#simple-component-test).
 
+  异步`beforeEach`已经在[上面](#component-with-external-template)讨论过。
+  在使用`compileComponents`异步编译完组件后，接下来的设置执行另一个**同步**的`beforeEach`，使用[之前](#simple-component-test)解释过的基本知识。
+
   Note how the setup code assigns a test hero (`expectedHero`) to the component's `hero` property, emulating
   the way the `DashboardComponent` would set it via the property binding in its repeater.
 
+  注意代码是如何将一个测试英雄（`expectedHero`）赋值给组件的`hero`属性的，模拟了`DashbaordComponent`在它的迭代器中通过属性绑定的赋值方式。
+
   The first test follows:
+
+  紧接着第一个测试：
+
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'name-test', 'app/dashboard/dashboard-hero.component.spec.ts (name test)')(format='.')
 :marked
   It verifies that the hero name is propagated through to template with a binding.
   There's a twist. The template passes the hero name through the Angular `UpperCasePipe` so the
   test must match the element value with the uppercased name:
+
+  它验证了英雄名字通过绑定被传递到模板了。这里有个意外曲折。模板将英雄名字传给Angular的`UpperCasePipe`，
+  所以测试必须使用大写名字来匹配元素的值：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.html')(format='.')
 :marked
 .alert.is-helpful
@@ -1681,56 +1742,96 @@ a(href="#top").to-top 返回顶部
     &mdash; something not possible with [isolated unit tests](#isolated-component-tests) &mdash;
     at low cost and without resorting to much slower and more complicated end-to-end tests.
 
+    这个小测试演示了Angular测试是如何验证组件的视图表现的 —— 这是[孤立的单元测试](#isolated-component-tests)无法实现的
+    —— 它成本低，而且无需依靠更慢、更复杂的端对端测试。
+
 :marked
   The second test verifies click behavior. Clicking the hero should raise a `selected` event that the
   host component (`DashboardComponent` presumably) can hear:
+
+  第二个测试验证点击行为。点击英雄应该出发一个`selected`事件，可供宿主组件(`DashbaordComponent`)监听：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'click-test', 'app/dashboard/dashboard-hero.component.spec.ts (click test)')(format='.')
 :marked
   The component exposes an `EventEmitter` property. The test subscribes to it just as the host component would do.
 
+  这个组件公开一个`EventEmitter`属性。测试像宿主组件那样来描述它。
+
   The `heroEl` is a `DebugElement` that represents the hero `<div>`. 
   The test calls `triggerEventHandler` with the "click" event name.
-  The "click" event binding responds by calling `DashboardHeroComponent.click()`. 
+  The "click" event binding responds by calling `DashboardHeroComponent.click()`.
+
+  `heroEl`是一个`DebugElement`，它代表了英雄所在的`<div>`。
+  测试用"click"事件名字来调用`triggerEventHandler`。
+  调用`DashboardHeroComponent.click()`时，"click"事件绑定作出响应。 
   
   If the component behaves as expected, `click()` tells the component's `selected` property to emit the `hero` object,
   the test detects that value through its subscription to `selected`, and the test should pass.
+
+  如果组件想期待的那样工作，`click()`通知组件的`selected`属性发出`hero`对象，测试通过订阅`selected`事件而检测到这个值，所以测试应该成功。
   
 #trigger-event-handler
 :marked
   ### _triggerEventHandler_
 
+  ### _triggerEventHandler_
+
   The Angular `DebugElement.triggerEventHandler` can raise _any data-bound event_ by its _event name_.
   The second parameter is the event object passed to the handler.
 
+  Angular的`DebugElement.triggerEventHandler`可以用**事件的名字**触发**任何数据绑定事件**。
+  第二个参数是传递给事件处理器的事件对象。
+
   In this example, the test triggers a "click" event with a null event object.
+
+  本例中，测试用一个null事件对象触发一个"click"事件。
 
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'trigger-event-handler')(format='.')
 :marked
   The test assumes (correctly in this case) that the runtime event handler &mdash; the component's `click()` method &mdash;
   doesn't care about the event object.
+
+  测试假设（在这里应该这样)运行时间的事件处理器——组件的`click()`方法——不关心事件对象。
   
   Other handlers will be less forgiving. 
   For example, the `RouterLink` directive expects an object with a `button` property indicating the mouse button that was pressed. 
   The directive throws an error if the event object doesn't do this correctly.
 
+  其它处理器将会更加严格。
+  比如，`RouterLink`指令期待一个事件对象，并且该对象具有一个`button`属性，代表了已被按下的鼠标按钮。
+  如果该事件对象不具备上面的条件，指令便会抛出一个错误。
+
 #click-helper
 :marked
   Clicking a button, an anchor, or an arbitrary HTML element is a common test task.
   Make that easy by encapsulating the _click-triggering_ process in a helper such as the `click` function below:
+
+  点击一个按钮、一个链接或者任意一个HTML元素是很常见的测试任务。
+  把**click触发**过程封装到一个辅助方法中可以简化这个任务，比如下面的`click`辅助方法：
 +makeExample('testing/ts/testing/index.ts', 'click-event', 'testing/index.ts (click helper)')(format='.')
 :marked
   The first parameter is the _element-to-click_. You can pass a custom event object as the second parameter if you wish. The default is a (partial) 
   <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">left-button mouse event object</a> 
   accepted by many handlers including the `RouterLink` directive.
 
+  第一个参数是**用来点击的元素**。如果你愿意，可以将一个自定义的事件对象传递给第二个参数。
+  默认的是一个（局部的）<a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">鼠标左键事件对象</a>，
+  它被许多事件处理器接受，包括`RouterLink`指令。
+
 .callout.is-critical
   header click() is not an Angular testing utility
+  header click()不是一个Angular测试工具
   :marked
     The `click()` helper function is **not** one of the Angular testing utilities. 
     It's a function defined in _this chapter's sample code_ and used by all of the sample tests. 
     If you like it, add it to your own collection of helpers.
+
+    `click()`辅助函数**不是**Angular测试工具之一。
+    它是一个在**本章的例子代码**中定义的函数方法，被所有测试例子所用。
+    如果你喜欢它，将它添加到你自己的辅助函数集。
 :marked
   Here's the previous test, rewritten using this click helper.
+
+  下面是使用了click辅助函数重新编写的上一个测试：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'click-test-2', 'app/dashboard/dashboard-hero.component.spec.ts (click test revised)')(format='.')
 
 
