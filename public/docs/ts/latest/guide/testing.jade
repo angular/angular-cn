@@ -146,7 +146,7 @@ block includes
 
   1. [Test a routed component](#routed-component)
 
-  1. [测试路由组件](#routed-component)  
+  1. [测试带路由器的组件](#routed-component)  
   
     - [_inject_](#inject)
 
@@ -154,7 +154,7 @@ block includes
 
   1. [Test a routed component with parameters](#routed-component-w-param)
 
-  1. [测试一个带有参数的被路由的组件](#routed-component-w-param)  
+  1. [测试一个带有路由和路由参数的组件](#routed-component-w-param)  
 
     - [_Observable_ test double](#stub-observable)
 
@@ -346,7 +346,7 @@ table(width="100%")
 
         [karma测试运行器](https://karma-runner.github.io/1.0/index.html)是在开发应用的过程中
         编写和运行单元测试的理想工具。
-        它能成为项目开发和连续一体化进程的一个不可分割的一部分。本章讲述了如何用Karma设置和运行测试。
+        它能成为项目开发和连续一体化进程的不可分割的一部分。本章讲述了如何用Karma设置和运行测试。
         
   tr(style=top)
     td(style="vertical-align: top") Protractor
@@ -359,7 +359,7 @@ table(width="100%")
         and assert that the application responds in the browser as expected.
 
         使用`Protractor`来编写和运行_端对端(e2e)_测试。端对端测试**像用户体验应用程序那样**探索它。
-        在端对端测试中，一个进程运行真正的应用，另一个进程运行Protractor测试，模拟用户行为，判断应用在浏览器中的反应是否正确。
+        在端对端测试中，一条进程运行真正的应用，另一条进程运行Protractor测试，模拟用户行为，判断应用在浏览器中的反应是否正确。
 
 .l-hr
 #setup
@@ -639,7 +639,7 @@ code-example(format="." language="bash").
     
     - Click the "DEBUG" button; it opens a new browser tab and re-runs the tests
 
-    - 点击“DEBUG”按钮；它打开一个新的浏览器标签页并重新开始运行测试
+    - 点击“DEBUG”按钮；它打开一页新浏览器标签并重新开始运行测试
     
     - Open the browser's “Developer Tools” (F12 or Ctrl-Shift-I).
 
@@ -736,7 +736,7 @@ a(href="#top").to-top 回到顶部
   that almost everyone needs.
 
   在每个spec之前，`TestBed`将自己重设为初始状态。
-  这个初始状态包含了一个默认的、几乎所有情况都需要的测试模块配置，包括可声明类（组件、指令和管道）和提供商（其中一些是伪造的）。
+  这个初始状态包含了一套默认的、几乎所有情况都需要的测试模块配置，包括可声明类（组件、指令和管道）和提供商（其中一些是伪造的）。
 
 .l-sub-section
   :marked
@@ -913,13 +913,13 @@ a(href="#top").to-top 回到顶部
   :marked
     The `queryAll` method returns an array of _all_ `DebugElements` that satisfy the predicate.
 
-    `queryAll`方法返回一个数组，包含所有`DebugElement`中满足predicate的元素。
+    `queryAll`方法返回一列数组，包含所有`DebugElement`中满足predicate的元素。
     
     A _predicate_ is a function that returns a boolean. 
     A query predicate receives a `DebugElement` and returns `true` if the element meets the selection criteria.
 
-    一个**predicate**是一个返回布尔值的函数。
-    一个查询predicate接受一个`DebugElement`，如果元素符合选择条件便返回`true`。
+    **predicate**是一个返回布尔值的函数。
+    predicate查询接受`DebugElement`，如果元素符合选择条件便返回`true`。
     
 :marked
   The **`By`** class is an Angular testing utility that produces useful predicates. 
@@ -927,7 +927,7 @@ a(href="#top").to-top 回到顶部
   <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">standard CSS selector</a>
   predicate that filters the same way as a jQuery selector.
 
-  **`By`**类是一个Angular测试工具，它生成有用的predicate。
+  **`By`**类是Angular测试工具之一，它生成有用的predicate。
   它的`By.css`静态方法产生一个<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">标准CSS选择器</a>
   predicate，与JQuery选择器相同的方式过滤。
 
@@ -985,7 +985,7 @@ a(href="#top").to-top 回到顶部
   It gives the tester an opportunity to inspect or change the state of
   the component _before Angular initiates data binding or calls lifecycle hooks_.
 
-  此行为（或者缺乏的行为）是有意的。**在Angular初始化数据绑定或者调用生命周期钩子**之前，它给测试者一个机会查看或者改变组件的状态。
+  此行为（或者缺乏的行为）是有意的。**在Angular初始化数据绑定或者调用生命周期钩子**之前，它给测试者一个机会来查看或者改变组件的状态。
 
 #auto-detect-changes
 :marked
@@ -1018,7 +1018,7 @@ a(href="#top").to-top 回到顶部
   第二和第三个测试显示了一个重要的局限性。
   Angular测试环境**不会**知道测试改变了组件的`title`属性。
   **自动检测**只对**异步行为**比如承诺的解析，计时器和DOM时间作出反应。
-  但是一个直接的，同步的组件属性值的变化时不会触发**自动检测**的。
+  但是直接的组件属性值的同步更新是不会触发**自动检测**的。
   测试必须手动调用`fixture.detectChange()`，来触发新一轮的变化检测周期。  
 
 .alert.is-helpful
@@ -1088,7 +1088,7 @@ a(href="#top").to-top 回到顶部
   This particular test suite supplies a minimal `UserService` stub that satisfies the needs of the `WelcomeComponent`
   and its tests:
 
-  这个测试套件提供了一个最小化的`UserService` stub，用来满足`WelcomeComponent`和它的测试的需求：
+  这个测试套件提供了一个最小化的`UserService`类，用来满足`WelcomeComponent`和它的测试的需求：
   
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'user-service-stub')(format='.')
 
@@ -1106,7 +1106,7 @@ a(href="#top").to-top 回到顶部
   There can be injectors at multiple levels, from the root injector created by the `TestBed`
   down through the component tree.
 
-  Angular有一个层次化的注入系统。
+  Angular具有一个层次化的注入系统。
   可以有很多层注入器，从根`TestBed`创建的注入器下来贯穿整个组件数。  
 
   The safest way to get the injected service, the way that **_always works_**, 
@@ -1264,14 +1264,14 @@ a(href="#top").to-top 回到顶部
   The spy is designed such that any call to `getQuote` receives an immediately resolved promise with a test quote.
   The spy bypasses the actual `getQuote` method and therefore will not contact the server.
 
-  这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一个预设的名言。Spy拦截了实际`getQuote`方法，所有它不会联系服务。
+  这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一条预设的名言。Spy拦截了实际`getQuote`方法，所有它不会联系服务。
 
 .l-sub-section
   :marked
     Faking a service instance and spying on the real service are _both_ great options. 
     Pick the one that seems easiest for the current test suite. Don't be afraid to change your mind.
 
-    伪造一个服务实例和刺探真实服务都是好方法。挑选一个对当前测试套件最简单的方法。你可以随时改变主意。
+    伪造一个服务实例和刺探真实服务都是好方法。挑选一种对当前测试套件最简单的方法。你可以随时改变主意。
 
 :marked
   Here are the tests with commentary to follow:
@@ -1342,7 +1342,7 @@ a(href="#top").to-top 回到顶部
   Consider also the [_fakeAsync_](#fake-async) alternative which affords a more linear coding experience.
   
   在一个测试（比如`fixture.whenStable`）里面调用函数时，会继续体现它们的异步行为。
-  考虑使用[_fakeAsync_](#fake-async)，以获得一个更加直观的代码经验。
+  考虑使用[_fakeAsync_](#fake-async)，以获得更加直观的代码经验。
 
 #when-stable
 :marked
@@ -1402,7 +1402,7 @@ a(href="#top").to-top 回到顶部
   The `fakeAsync` function is another of the Angular testing utilities.
 
   注意，在`it`的参数中，`async`被`faceAsync`替换。
-  `fakeAsync`是另一个Angular测试工具。 
+  `fakeAsync`是另一种Angular测试工具。 
 
   Like [async](#async-fn-in-it), it _takes_ a parameterless function and _returns_ a parameterless function
   which becomes the argument to the  Jasmine `it` call. 
@@ -1490,7 +1490,7 @@ a(href="#top").to-top 回到顶部
   The `jasmine.done` technique, while discouraged, may become necessary when neither `async` nor `fakeAsync`
   can tolerate a particular asynchronous activity. That's rare but it happens.
 
-  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一个特定的异步行为时，变得很有必要。这很少见，但是有可能发生。
+  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一种特定的异步行为时，变得很有必要。这很少见，但是有可能发生。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 返回顶部
@@ -1506,7 +1506,7 @@ a(href="#top").to-top 返回顶部
   The `TestBed.createComponent` is a synchronous method. 
   It assumes that everything it could need is already in memory.
 
-  `TestBed.createComponent`时一个同步的方法。它假设所有它需要的资源已经全部在内存。
+  `TestBed.createComponent`时一种同步的方法。它假设所有它需要的资源已经全部在内存。
 
   That has been true so far. 
   Each tested component's `@Component` metadata has a `template` property specifying an _inline templates_.
@@ -1557,7 +1557,7 @@ a(href="#top").to-top 返回顶部
   that hides the mechanics of asynchronous execution, just as it does when passed to an [_it_ test)(#async).
 
   注意`beforeEach`里面对`async`的调用。
-  `async`函数将测试代码安排到一个特殊的**异步测试区域**来运行，该区域隐藏了异步执行的细节，就像它被传递给一个[_it_ 测试)(#async)一样。
+  `async`函数将测试代码安排到一个特殊的**异步测试区域**来运行，该区域隐藏了异步执行的细节，就像它被传递给[_it_ 测试)(#async)一样。
 
 #compile-components
 :marked
@@ -1676,7 +1676,7 @@ a(href="#top").to-top 返回顶部
 
   A quick look at the `DashboardComponent` constructor discourages the first approach:
 
-  简单看看`DashbaordComponent`的构造函数就否决了第一个方案：
+  简单看看`DashbaordComponent`的构造函数就否决了第一种方案：
 
 +makeExample('testing/ts/app/dashboard/dashboard.component.ts', 'ctor', 'app/dashboard/dashboard.component.ts (constructor)')(format='.')
 :marked
@@ -1848,7 +1848,7 @@ a(href="#top").to-top 返回顶部
   Will the `DashboardHeroComponent` work properly when properly data-bound to a host component?
 
   在前面的方法中，测试本身扮演了宿主组件`DashbaordComponent`的角色。
-  一个挥之不去的疑虑仍然存在：当正常数据绑定到宿主组件时，`DashboardHeroComponent`还会正常工作吗？
+  一种挥之不去的疑虑仍然存在：当正常数据绑定到宿主组件时，`DashboardHeroComponent`还会正常工作吗？
 
   Testing with the actual `DashboardComponent` host is doable but seems more trouble than its worth.
   It's easier to emulate the `DashboardComponent` host with a _test host_ like this one:
@@ -1919,134 +1919,232 @@ a(href="#top").to-top 返回顶部
 :marked
   # Test a routed component
 
+  # 测试带路由器的组件
+
   Testing the actual `DashboardComponent` seemed daunting because it injects the `Router`.
+
+  测试实际的`DashbaordComponent`似乎令人生畏，因为它注入了`Router`。
 +makeExample('testing/ts/app/dashboard/dashboard.component.ts', 'ctor', 'app/dashboard/dashboard.component.ts (constructor)')(format='.')
 :marked
   It also injects the `HeroService` but faking that is a [familiar story](#component-with-async-servic).
   The `Router` has a complicated API and is entwined with other services and application pre-conditions.
 
+  它同时还注入了`HeroService`，但是我们已经直到如何[伪造](#component-with-async-servic)它。
+  `Router`的API非常复杂，并且它缠绕了其他服务和许多应用的先觉条件。
+
   Fortunately, the `DashboardComponent` isn't doing much with the `Router`
+
+  幸运的是，`DashbaordComponent`没有使用`Router`做很多事情。
 +makeExample('testing/ts/app/dashboard/dashboard.component.ts', 'goto-detail', 'app/dashboard/dashboard.component.ts (goToDetail)')(format='.')
 :marked
   This is often the case.
   As a rule you test the component, not the router,
   and care only if the component navigates with the right address under the given conditions.
   Stubbing the router with a test implementation is an easy option. This should do the trick:
+
+  通常都是这样的。原则上，你测试的是组件，不是路由器，应该只关心在指定的条件下，组件是否导航到正确的地址。
+  用一个模拟类来替换路由器是一种简单的方案。下面的代码应该可以：  
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'router-stub', 'app/dashboard/dashboard.component.spec.ts (Router Stub)')(format='.')
 :marked
   Now we setup the testing module with the test stubs for the `Router` and `HeroService` and 
   create a test instance of the `DashbaordComponent` for subsequent testing.
+
+  现在我们来利用`Router`和`HeroService`的模拟类来配置测试模块，并为接下来的测试创建一个`DashbaordComponent`的测试实例。
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'compile-and-create-body', 'app/dashboard/dashboard.component.spec.ts (compile and create)')(format='.')
 :marked
   The following test clicks the displayed hero and confirms (with the help of a spy) that `Router.navigateByUrl` is called with the expected url.
+
+  下面的测试点击显示的英雄，并利用spy来确认`Router.navigateByUrl`被调用了，而且传进的url是所期待的值。
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'navigate-test', 'app/dashboard/dashboard.component.spec.ts (navigate test)')(format='.')
 
 #inject
 :marked
   ## The _inject_ function
 
+  ## _inject_函数
+
   Notice the `inject` function in the second `it` argument.
+
+  注意第二个`it`参数里面的`inject`函数。
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'inject')(format='.')
 :marked
   The `inject` function is one of the Angular testing utilities.
   It injects services into the test function where you can alter, spy on, and manipulate them.
 
+  `inject`函数是Angular测试工具之一。
+  它注入服务到测试函数，以供修改、监视和操纵。
+
   The `inject` function has two parameters
+  `inject`函数有两个参数：
+
   1. an array of Angular dependency injection tokens
+
+  1. 一列数组，包含了Angular依赖注入令牌
+
   1. a test function whose parameters correspond exactly to each item in the injection token array
+
+  1. 一个测试函数，它的参数与注入令牌数组里的每个项目严格的一一对应。
 
 .callout.is-important
   header inject uses the TestBed Injector
+  header 使用TestBed注入器来注入
   :marked
     The `inject` function uses the current `TestBed` injector and can only return services provided at that level.
     It does not return services from component providers.
+
+    `inject`函数使用当前`TestBed`注入器，并且值返回这个级别提供的服务。
+    它不会返回组件提供商提供的服务。
 
 :marked
   This example injects the `Router` from the current `TestBed` injector.
   That's fine for this test because the `Router` is (and must be) provided by the application root injector.
 
+  这个例子通过当前的`TestBed`注入器来注入`Router`。
+  对这个测试来说，这是没问题的，因为`Router`是（也必须是）由应用的根注入器来提供。
+
   If you need a service provided by the component's _own_ injector,  call `fixture.debugElement.injector.get` instead:
+
+  如果你需要组件自己的注入器提供的服务，调用`fixture.debugElement.injector.get`：
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'Component\'s injector')(format='.')
 .alert.is-important
   :marked
     Use the component's own injector to get the service actually injected into the component.
+
+    使用组件自己的注入器来获取实际注入到组件的服务。
 
 :marked
   The `inject` function closes the current `TestBed` instance to further configuration.
   You cannot call any more `TestBed` configuration methods, not `configureTestModule`
   nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
+  `inject`函数关闭当前`TestBed`实例，使它无法再被配置。
+  你不能再调用任何`TestBed`配置方法、`configureTestModule`或者任何`override...`方法，否则`TestBed`将抛出一个错误。
+
 .alert.is-important
   :marked
     Do not configure the `TestBed` after calling `inject`.
+
+    不要再调用`inject`以后再试图配置`TestBed`。
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
 #routed-component-w-param
 :marked
   # Test a routed component with parameters
+
+  # 测试一个带有路由和路由参数的组件
   
   Clicking a _Dashboard_ hero triggers navigation to `heroes/:id` where `:id`
   is a route parameter whose value is the `id` of the hero to edit. 
   That URL matches a route to the `HeroDetailComponent`.
 
+  点击一个**Dashboard**英雄触发导航到`heros/:id`，其中`:id`是一个路由参数，它的值是进行编辑的英雄的`id`。
+  这个URL匹配到`HeroDetailComponent`的路由。
+
   The router pushes the `:id` token value into the `ActivatedRoute.params` _Observable_ property,
   Angular injects the `ActivatedRoute` into the `HeroDetailComponent`, 
   and the component extracts the `id` so it can fetch the corresponding hero via the `HeroDetailService`.
   Here's the `HeroDetailComponent` constructor:
+
+  路由器将`:id`令牌的值推送到`ActivatedRoute.params`**可观察**属性里，
+  Angular注入`ActivatedRoute`到`HeroDetailComponent`中，
+  然后组件提取`id`，这样它就可以通过`HeroDetailServide`获取相应的英雄。
+  下面是`HeroDetailComponent`的构造函数：
 +makeExample('testing/ts/app/hero/hero-detail.component.ts', 'ctor', 'app/hero/hero-detail.component.ts (constructor)')(format='.')
 :marked
   `HeroDetailComponent`  listens for changes to the `ActivatedRoute.params` in its `ngOnInit` method.
+
+  `HeroDetailComponent`在它的`ngOnInit`方法中监听`ActivatedRoute.params`的变化。
 +makeExample('testing/ts/app/hero/hero-detail.component.ts', 'ng-on-init', 'app/hero/hero-detail.component.ts (ngOnInit)')(format='.')
 .l-sub-section
   :marked
     The expression after `route.params` chains an _Observable_ operator that _plucks_ the `id` from the `params` 
     and then chains a `forEach` operator to subscribes to `id`-changing events. 
     The `id` changes every time the user navigates to a different hero.
+
+    `route.params`之后的表达式链接了一个**可观察**操作符，它从`params`中提取`id`，然后链接一个`forEach`操作符来订阅`id`变化事件。
+    每次`id`变化时，用户被导航到不同的英雄。
     
     The `forEach` passes the new `id` value to the component's `getHero` method (not shown)
     which fetches a hero and sets the component's `hero` property. 
     If the`id` parameter is missing, the `pluck` operator fails and the `catch` treats failure as a request to edit a new hero.
+
+    `forEach`将新的`id`值传递到组件的`getHero`方法（这里没有列出来），它获取一个英雄并将它赋值到组件的`hero`属性。
+    如果`id`参数无效，`pluck`操作符就会失败，`catch`将失败当作创建一个新英雄来处理。
     
     The [Router](router.html#route-parameters) chapter covers `ActivatedRoute.params` in more detail.
+
+    [路由器](router.html#route-parameters)章更详尽的讲述了`ActivatedRoute.params`。 
 :marked
   A test can explore how the `HeroDetailComponent` responds to different `id` parameter values
   by manipulating the `ActivatedRoute` injected into the component's constructor.
 
+  通过操纵被注入到组件构造函数的`ActivatedRoute`服务，测试可以探索`HeroDetailComponent`是如何对不同的`id`参数值作出响应的。
+
   By now you know how to stub the `Router` and a data service.
   Stubbing the `ActivatedRoute` would follow the same pattern except for a complication:
   the `ActivatedRoute.params` is an _Observable_.
+
+  现在，你已经直到如何伪造`Router`和一个数据服务。
+  伪造`ActivatedRoute`遵循类似的模式，但是有一个额外枝节：`ActivatedRoute.params`是一个**可观察对象**。
+
 #stub-observable
 :marked
   ### _Observable_ test double
+
+  ### **可观察对象**的测试复制品
 
   The `hero-detail.component.spec.ts` relies on an `ActivatedRouteStub` to set `ActivatedRoute.params` values for each test.
   This is a cross-application, re-usable _test helper class_. 
   We recommend locating such helpers in a `testing` folder sibling to the `app` folder.
   This sample keeps `ActivatedRouteStub` in `testing/router-stubs.ts`:
+
+  `hero-detail.component.spec.ts`依赖一个`ActivatedRouteStub`来为每个测试设置`ActivatedRoute.params`值。
+  它是一个跨应用、可复用的**测试辅助类**。
+  我们建议将这样的辅助类放到`app`目录下的一个名为`testing`的目录。
+  本例把`ActivatedRouteStub`放到`testing/router-stubs.ts`：
   
 +makeExample('testing/ts/testing/router-stubs.ts', 'activated-route-stub', 'testing/router-stubs.ts (ActivatedRouteStub)')(format='.')
 :marked
   Notable features of this stub:
 
+  这个类有下列值得注意的特征：
+
   * The stub implements only two of the `ActivatedRoute` capabilities: `params` and `snapshot.params`.
+
+  * 它只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
 
   * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a> 
   drives the stub's `params` _Observable_ and returns the same value to every `params` subscriber until it's given a new value.
 
+  * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>
+  驱使它的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。  
+
   * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
+
+  * `HeroDetailComponent`链接它的表达式到它的`params`可观察对象，该对象现在被测试者所控制。
 
   * Setting the `testParams` property causes the `subject` to push the assigned value into `params`.
    That triggers the `HeroDetailComponent` _params_ subscription, described above, in the same way that navigation does.
 
+  * 设置`testParams`属性导致`subject`将指定的值推送进`params`。
+    它触发上面描述过的`HeroDetailComponent`的`params`订阅，和导航的方式一样。
+
   * Setting the `testParams` property also updates the stub's internal value for the `snapshot` property to return.
+
+  * 设置`testParams`属性同时更新它内部值，用于`snapshot`属性的返回。
 .l-sub-section(style="margin-left:30px")
   :marked
     The [_snapshot_](router.html#snapshot "Router Chapter: snapshot") is another popular way for components to consume route parameters.
+
+    [_snapshot_](router.html#snapshot "Router Chapter: snapshot")是组件使用路由参数的另一种流行的方法。
 .callout.is-helpful
   :marked
     The router stubs in this chapter are meant to inspire you. Create your own stubs to fit your testing needs.
+
+    本章的路由器模拟类是为了给你灵感。创建你自己的模拟类，以适合你的测试需求。
 
 #observable-tests
 :marked
