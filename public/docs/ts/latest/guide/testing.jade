@@ -181,11 +181,11 @@ block includes
 
     - [stubbing unneeded components](#stub-component)
 
-    - [伪造不需要的组件](#stub-component)
+    - [模拟不需要的组件](#stub-component)
 
     - [Stubbing the _RouterLink_](#router-link-stub)
 
-    - [伪造_RouterLink_](#router-link-stub)
+    - [模拟_RouterLink_](#router-link-stub)
 
     - [_By.directive_ and injected directives](#by-directive)
 
@@ -1088,7 +1088,7 @@ a(href="#top").to-top 回到顶部
   This particular test suite supplies a minimal `UserService` stub that satisfies the needs of the `WelcomeComponent`
   and its tests:
 
-  这个测试套件提供了一个最小化的`UserService`类，用来满足`WelcomeComponent`和它的测试的需求：
+  这个测试套件提供了一个最小化的`UserService`stub类，用来满足`WelcomeComponent`和它的测试的需求：
   
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'user-service-stub')(format='.')
 
@@ -1100,7 +1100,7 @@ a(href="#top").to-top 回到顶部
 
   The tests need access to the (stub) `UserService` injected into the `WelcomeComponent`.
 
-  测试需要访问被注入到`WelcomeComponent`中的的`UserService`（stub）。
+  测试需要访问被注入到`WelcomeComponent`中的的`UserService`（stub类）。
 
   Angular has a hierarchical injection system.
   There can be injectors at multiple levels, from the root injector created by the `TestBed`
@@ -1183,7 +1183,7 @@ a(href="#top").to-top 回到顶部
 :marked
   The first is a sanity test; it confirms that the stubbed `UserService` is called and working.
 
-  第一个测试是合法测试，它确认这个伪造的`UserService`是否被调用和工作正常。
+  第一个测试是合法测试，它确认这个被模拟的`UserService`是否被调用和工作正常。
   
 .l-sub-section
   :marked
@@ -1949,7 +1949,7 @@ a(href="#top").to-top 返回顶部
   Now we setup the testing module with the test stubs for the `Router` and `HeroService` and 
   create a test instance of the `DashbaordComponent` for subsequent testing.
 
-  现在我们来利用`Router`和`HeroService`的模拟类来配置测试模块，并为接下来的测试创建一个`DashbaordComponent`的测试实例。
+  现在我们来利用`Router`和`HeroService`的测试stub类来配置测试模块，并为接下来的测试创建一个`DashbaordComponent`的测试实例。
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'compile-and-create-body', 'app/dashboard/dashboard.component.spec.ts (compile and create)')(format='.')
 :marked
   The following test clicks the displayed hero and confirms (with the help of a spy) that `Router.navigateByUrl` is called with the expected url.
@@ -2087,8 +2087,8 @@ a(href="#top").to-top 回到顶部
   Stubbing the `ActivatedRoute` would follow the same pattern except for a complication:
   the `ActivatedRoute.params` is an _Observable_.
 
-  现在，你已经直到如何伪造`Router`和一个数据服务。
-  伪造`ActivatedRoute`遵循类似的模式，但是有一个额外枝节：`ActivatedRoute.params`是一个**可观察对象**。
+  现在，你已经直到如何模拟`Router`和一个数据服务。
+  模拟`ActivatedRoute`遵循类似的模式，但是有一个额外枝节：`ActivatedRoute.params`是一个**可观察对象**。
 
 #stub-observable
 :marked
@@ -2110,21 +2110,21 @@ a(href="#top").to-top 回到顶部
 :marked
   Notable features of this stub:
 
-  这个类有下列值得注意的特征：
+  这个stub类有下列值得注意的特征：
 
   * The stub implements only two of the `ActivatedRoute` capabilities: `params` and `snapshot.params`.
 
-  * 它只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
+  * 这个stub类只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
 
   * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a> 
   drives the stub's `params` _Observable_ and returns the same value to every `params` subscriber until it's given a new value.
 
   * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>
-  驱使它的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。  
+  驱使这个stub类的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。  
 
   * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
 
-  * `HeroDetailComponent`链接它的表达式到它的`params`可观察对象，该对象现在被测试者所控制。
+  * `HeroDetailComponent`链接这个stub类的表达式到它的`params`可观察对象，该对象现在被测试者所控制。
 
   * Setting the `testParams` property causes the `subject` to push the assigned value into `params`.
    That triggers the `HeroDetailComponent` _params_ subscription, described above, in the same way that navigation does.
@@ -2134,7 +2134,7 @@ a(href="#top").to-top 回到顶部
 
   * Setting the `testParams` property also updates the stub's internal value for the `snapshot` property to return.
 
-  * 设置`testParams`属性同时更新它内部值，用于`snapshot`属性的返回。
+  * 设置`testParams`属性同时更新这个stub类内部值，用于`snapshot`属性的返回。
 .l-sub-section(style="margin-left:30px")
   :marked
     The [_snapshot_](router.html#snapshot "Router Chapter: snapshot") is another popular way for components to consume route parameters.
@@ -2144,7 +2144,7 @@ a(href="#top").to-top 回到顶部
   :marked
     The router stubs in this chapter are meant to inspire you. Create your own stubs to fit your testing needs.
 
-    本章的路由器模拟类是为了给你灵感。创建你自己的模拟类，以适合你的测试需求。
+    本章的路由器stub类是为了给你灵感。创建你自己的stub类，以适合你的测试需求。
 
 #observable-tests
 :marked
