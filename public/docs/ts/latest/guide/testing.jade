@@ -1411,52 +1411,89 @@ a(href="#top").to-top 回到顶部
 
   The `fakeAsync` function enables a linear coding style by running the test body in a special _fakeAsync test zone_.
 
+  `fakeAsync`函数通过在一个特殊的**fakeAsync测试区域**运行测试，让测试代码更加简单直观。
+
   The principle advantage of `fakeAsync` over `async` is that the test appears to be synchronous.
   There are no promises at all. 
   No `then(...)` chains to disrupt the visible flow of control.
 
+  对于`async`来说，`fakeAsync`最重要的好处时测试看起来像同步的。里面没有任何承诺。
+  没有`then(...)`链来打断控制流。
+
   There are limitations. For example, you cannot make an XHR call from within a `fakeAsync`.
+
+  但是`fakeAsync`有局限性。比如，你不能从`fakeAsync`发起一个XHR请求。
 
 #tick
 #tick-first-look
 :marked
   ## The _tick_ function
+
+  ## **tick**函数
+
   Compare the third and fourth tests. Notice that `fixture.whenStable` is gone, replaced by `tick()`.
+
+  比较一下第三和第四个测试。注意`fixture.whenStable`没有了，被`tick()`替换。
 
   The `tick` function is one of the Angular testing utilities and a companion to `fakeAsync`.
   It can only be called within a `fakeAsync` body.
 
+  `tick`函数是Angular测试工具之一，是`fakeAsync`的同伴。
+  它只能在`fakeAsync`的主体中被调用。
+
   Calling `tick()` simulates the passage of time until all pending asynchronous activities complete,
   including the resolution of the `getQuote` promise in this test case.
 
+  调用`tick()`模拟时间的推移，直到全部待处理的异步任务都已完成，在这个测试案例中，包含`getQuote`承诺的解析。
+
   It returns nothing. There is no promise to wait for. 
   Proceed with the same test code as formerly appeared within the `whenStable.then()` callback.
+
+  它不返回任何结果。没有任何承诺需要等待。
+  直接执行与之前在`whenStable.then()`的回调函数里相同的代码。
 
   Even this simple example is easier to read than the third test. 
   To more fully appreciate the improvement, imagine a succession of asynchronous operations, 
   chained in a long sequence of promise callbacks.
 
+  虽然这个例子非常简单，但是它已经比第三个测试更易阅读。
+  为了更充分的体会`fakeAsync`的好处，试想一下一连串的异步操作，被一长串的承诺回调链在一起。
+
 #jasmine-done
 :marked
   ## _jasmine.done_
 
+  ## _jasmine.done_  
+
   While `fakeAsync` and even `async` function greatly simplify Angular asynchronous testing,
   you can still fallback to the traditional Jasmine asynchronous testing technique.
+
+  虽然`fakeAsync`，甚至`async`函数大大的简化了异步测试，你仍然可以回退到传统的Jasmine异步测试技术上。
 
   You can still pass `it` a function that takes a 
   [`done` callback](http://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support).
   Now you are responsible for chaining promises, handling errors, and calling `done` at the appropriate moment.
 
+  你仍然可以将一个接受 [`done`回调](http://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support)的函数传给`it`。
+  但是，你必须链接承诺、处理错误，并在适当的时候调用`done`。
+
   Here is a `done` version of the previous two tests:
+
+  下面是上面两个测试的`done`版本：
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'done-test', 'app/shared/twain.component.spec.ts (done test)')(format='.')
 :marked
   Although we have no direct access to the `getQuote` promise inside `TwainComponent`,
   the spy does and that makes it possible to wait for `getQuote` to finish.
+
+  虽然我们对`TwainComponent`里的`getQuote`承诺没有直接访问，但是Spy有，所以才可能等待`getQuote`完成。
   
   The `jasmine.done` technique, while discouraged, may become necessary when neither `async` nor `fakeAsync`
   can tolerate a particular asynchronous activity. That's rare but it happens.
 
+  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一个特定的异步行为时，变得很有必要。很少见，但是有可能发生。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 返回顶部
 
 .l-hr
 
