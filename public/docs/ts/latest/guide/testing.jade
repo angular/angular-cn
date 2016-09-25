@@ -2431,17 +2431,24 @@ a(href="#top").to-top 回到顶部
 :marked
   Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#stub-hero-detail-service).
 
-  注意，`TestBed.configureTestingModule`不再提供一个（伪造）`HeroService`，因为它是[没必要的](#stub-hero-detail-service)
+  注意，`TestBed.configureTestingModule`不再提供一个（伪造）`HeroService`，因为它是[没必要的](#stub-hero-detail-service)。
 
 #override-component-method
 :marked
   ### The _overrideComponent_ method
 
+  ### **overrideComponent**方法
+
   Focus on the `overrideComponent` method.
+
+  注意这个`overrideComponent`方法。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'override-component-method', 'app/hero/hero-detail.component.spec.ts (overrideComponent)')(format='.')
 :marked
   It takes two arguments: the component type to override (`HeroDetailComponent`) and an override metadata object.
   The [overide metadata object](#metadata-override-object) is a generic defined as follows:
+
+  它接受两个参数：要替换的组件类型(`HeroDetailComponent`)和一个用于替换的元数据对象。
+  [替换元数据对象](#metadata-override-object)是一个泛型类，就像这样：
 
 code-example(format="." language="javascript").
   type MetadataOverride<T> = {
@@ -2453,7 +2460,12 @@ code-example(format="." language="javascript").
   A metadata override object can either add-and-remove elements in metadata properties or completely reset those properties.
   This example resets the component's `providers` metadata.
 
+  元数据替换对象可以添加和删除元数据属性的项目，也可以彻底重设这些属性。
+  这个例子重新设置了组件的`providers`元数据。
+
   The type parameter, `T`,  is the kind of metadata you'd pass to the `@Component` decorator:
+
+  这个类型参数，`T`，是一个你会传递给`@Component`装饰器的元数据的类型。
 code-example(format="." language="javascript").
     selector?: string;
     template?: string;
@@ -2465,16 +2477,29 @@ code-example(format="." language="javascript").
 :marked
   ### _StubHeroDetailService_
 
+  ### _StubHeroDetailService_
+
   This example completely replaces the component's `providers` with an array containing the `StubHeroDetailService`.
   The `StubHeroDetailService` is dead simple. It doesn't need a `HeroService` (fake or otherwise).
+
+  本例彻底替换组件的`providers`为包含`StubHeroDetailService`的数组。
+  `StubHeroDetailService`非常简单。它不需要`HeroService`(假不假不重要)
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'stub-hds', 'app/hero/hero-detail.component.spec.ts (StubHeroDetailService)')(format='.')
 :marked
   ### The override tests
 
+  ### 替换的测试
+
   Now the tests can control the component's hero directly by manipulating the stub's `testHero`.
+
+  现在，测试可以通过操控stub的`testHero`，直接控制组件的英雄。
+
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'override-tests', 'app/hero/hero-detail.component.spec.ts (override tests)')(format='.')
 :marked
   ### More overrides
+
+  ### 更多替换
+  
   The `TestBed.overrideComponent` method can be called multiple times for the same or different components.
   The `TestBed` offers similar `overrideDirective`, `overrideModule`, and `overridePipe` methods
   for digging into and replacing parts of these other classes.
