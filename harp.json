@@ -1,7 +1,7 @@
 {
   "globals": {
     "title": "Angular",
-    "description": "Angular是一个用于构建移动应用和桌面Web应用的开发平台",
+    "description": "Angular是用于构建移动应用和桌面Web应用的开发平台",
     "keywords": "Angular, 中文, 中文版, AngularJS, AngularDart, Javscript, Dart, Framework, JavaScript MVC, Google",
     "siteURL": "https://angular.cn",
     "jsLatest": "2.0.0-RC.4",
