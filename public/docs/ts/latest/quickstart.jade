@@ -65,11 +65,11 @@ h2 构建此应用！
   <li if-docs="ts">[Step 2](#ngmodule): Create your application.</li>
   <li if-docs="ts">[步骤2](#ngmodule)：创建应用</li>
   - [Step !{step++}](#root-component): Create a component and add it to your application.
-  - [步骤3](#root-component)：创建一个组件并添加到应用程序中。
+  - [步骤3](#root-component)：创建组件并添加到应用程序中。
   - [Step !{step++}](#main): Start up your application.
   - [步骤4](#main)：启动应用程序。
   - [Step !{step++}](#index): Define the web page that hosts the application.
-  - [步骤5](#index)：定义一个页面作为该应用的宿主。
+  - [步骤5](#index)：定义作为该应用的宿主的页面。
   - [Step !{step++}](#build-and-run): Build and run the application.
   - [步骤6](#build-and-run)：构建并运行此应用。
   - [Step !{step++}](#make-changes): Make some live changes.
@@ -265,7 +265,7 @@ block install-packages
 
     **Create #{_an} #{_appDir} subfolder** off the project root directory:
     
-    **在应用的根目录下创建一个#{_appDir}子目录：
+    **在应用的根目录下创建#{_appDir}子目录：
 
   code-example.code-shell.
     mkdir #{_appDir}
@@ -287,12 +287,12 @@ block install-packages
     [`BrowserModule`](../latest/api/platform-browser/index/BrowserModule-class.html)
     from `@angular/platform-browser` to the `imports` array.
     
-    由于QuickStart是一个运行在浏览器中的Web应用，所以根模块需要从`@angular/platform-browser`中导入[`BrowserModule`](../latest/api/platform-browser/index/BrowserModule-class.html)并添加到`imports`数组中。
+    由于QuickStart是运行在浏览器中的Web应用，所以根模块需要从`@angular/platform-browser`中导入[`BrowserModule`](../latest/api/platform-browser/index/BrowserModule-class.html)并添加到`imports`数组中。
 
     This is the smallest amount of Angular that is needed for a minimal application to run in the
     browser.
     
-    这是要让一个最小的应用在浏览器中运行时，对Angular的最低需求。
+    这是要让最小的应用在浏览器中运行时，对Angular的最低需求。
 
     The QuickStart application doesn't do anything else, so you don't need any other modules. In a real
     application, you'd likely import [`FormsModule`](../latest/api/forms/index/FormsModule-class
@@ -338,17 +338,17 @@ p.
     * **An import statement**. Importing gives your component access to
     Angular's core [`@Component` decorator function](../latest/api/core/index/Component-decorator
     .html).
-    * **一个import语句**。它让你能访问Angular核心库中的[`@Component`装饰器函数](../latest/api/core/index/Component-decorator.html)。
+    * **import语句**。它让你能访问Angular核心库中的[`@Component`装饰器函数](../latest/api/core/index/Component-decorator.html)。
 
     * **A @Component #{_decorator}** that associates *metadata* with the
         `AppComponent` component class:
 
-    * **一个@Component#{_decoratorCn}**，它会把一份*元数据*关联到`AppComponent`组件类上：
+    * **@Component#{_decoratorCn}**，它会把一份*元数据*关联到`AppComponent`组件类上：
 
         - a *selector* that specifies a simple CSS selector for an HTML element that represents
           the component.
 
-        - *selector*为用来代表该组件的HTML元素指定一个简单的CSS选择器。
+        - *selector*为用来代表该组件的HTML元素指定简单的CSS选择器。
 
         - a *template* that tells Angular how to render the component's view.
 
@@ -383,7 +383,7 @@ block create-main
 
     Create the file `app/main.ts` with the following content:
   
-    添加一个新文件#[code #[+adjExPath('app/main.ts')]]，内容如下：
+    添加新文件#[code #[+adjExPath('app/main.ts')]]，内容如下：
 
 +makeExample('app/main.ts')
 
@@ -432,7 +432,7 @@ h1#index 步骤5：定义该应用的宿主页面
   In the *#{_indexHtmlDir}* folder,
   create an `index.html` file and paste the following lines into it:
 
-  在*#{_indexHtmlDirCn}*目录下创建一个`index.html`文件，并粘贴下列内容：
+  在*#{_indexHtmlDirCn}*目录下创建`index.html`文件，并粘贴下列内容：
 
 +makeExample('index.html')
 
@@ -467,7 +467,7 @@ h1#index 步骤5：定义该应用的宿主页面
   Create a `styles.css` file in the *#{_indexHtmlDir}* folder, and start styling,
   perhaps with the minimal styles shown below.
   
-  在*#{_indexHtmlDir}*目录下创建一个`styles.css`文件，并且用下面列出的最小化样式作为初始样式。
+  在*#{_indexHtmlDir}*目录下创建`styles.css`文件，并且用下面列出的最小化样式作为初始样式。
 
 +makeExcerpt('styles.css (excerpt)', 'quickstart')
 
@@ -574,12 +574,12 @@ block project-file-structure
   
   This first application doesn't do much. It's basically "Hello, World" for Angular.
 
-  第一个应用没做什么，它只是一个Angular的"Hello, World"而已。
+  第一个应用没做什么，它只是Angular的"Hello, World"而已。
 
   You wrote a little Angular component, created a simple `index.html`, and launched with a
   static file server.
 
-  我们写了一个很小的Angular组件，创建了一个简单的`index.html`，并且启动了一个静态文件服务器。
+  我们写了很小的Angular组件，创建了简单的`index.html`，并且启动了静态文件服务器。
 
 +ifDocsFor('ts')
   :marked
@@ -588,11 +588,11 @@ block project-file-structure
     `package.json` or `index.html` files are only minor updates to add libraries or some css
     stylesheets. You also won't need to revisit module loading again.
     
-    我们还设置了一个基本的应用环境，你可以把它用在本指南的其它部分。以后，我们对`package.json`和`index.html`的修改将仅限于添加库或一些css样式，不用再需要修改模块加载部分。
+    我们还设置了基本的应用环境，你可以把它用在本指南的其它部分。以后，我们对`package.json`和`index.html`的修改将仅限于添加库或一些css样式，不用再需要修改模块加载部分。
     
 :marked
   To take the next step and build a small application that demonstrates real features that you can
   build with Angular, carry on to the [Tour of Heroes tutorial](./tutorial)!
 
-  下一步我们会开始构建一个小型的应用，用于示范能通过Angular构建的真实特性。
+  下一步我们会开始构建小型的应用，用于示范能通过Angular构建的真实特性。
   来吧！开始[“英雄指南”教程](./tutorial)！
