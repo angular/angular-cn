@@ -1493,7 +1493,7 @@ a(href="#top").to-top 回到顶部
   虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一种特定的异步行为时，变得很有必要。这很少见，但是有可能发生。
 
 a(href="#top").to-top Back to top
-a(href="#top").to-top 返回顶部
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
@@ -1911,7 +1911,7 @@ a(href="#top").to-top 返回顶部
   只有selected事件的测试不一样。它确保被选择的`DashboardHeroComponent`英雄确实通过事件绑定被传递到宿主组件。
 
 a(href="#top").to-top Back to top
-a(href="#top").to-top 返回顶部
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
@@ -2512,7 +2512,7 @@ code-example(format="." language="javascript").
   自己探索这些选项和组合。
 
 a(href="#top").to-top Back to top
-a(href="#top").to-top 返回顶部
+a(href="#top").to-top 回到顶部
 .l-hr
 
 #router-outlet-component
@@ -2523,41 +2523,70 @@ a(href="#top").to-top 返回顶部
 
   The `AppComponent` displays routed components in a `<router-outlet>`.
   It also displays a navigation bar with anchors and their `RouterLink` directives.
+
+  `AppComponent`在`<router-outlet>`中显示导航组件。
+  它还显示了导航条，包含了链接和它们的`RouterLink`指令。
 #app-component-html
 +makeExample('testing/ts/app/app.component.html', '', 'app/app.component.html')(format='.')
 :marked
   The component class does nothing.
+
+  组件的类没有做任何事。
 +makeExample('testing/ts/app/app.component.ts', '', 'app/app.component.ts')(format='.')
 
 :marked
   Unit tests can confirm that the anchors are wired properly without engaging the router.
   See why this is worth doing [below](#why-stubbed-routerlink-tests).
 
+  在不涉及路由的情况下，单元测试可以确认链接的设置是否正确。
+  在[下方](#why-stubbed-routerlink-tests)了解为什么值得这么做。
+
 #stub-component
 :marked
   ### Stubbing unneeded components
 
+  ### stub伪造不需要的组件
+
   The test setup should look familiar
+
+  该测试配置应该看起来很眼熟：
 +makeExample('testing/ts/app/app.component.spec.ts', 'setup-stubs', 'app/app.component.spec.ts (Stub Setup)')(format='.')
 :marked
   The `AppComponent` is the declared test subject 
   The setup extends the default testing module with one real component (`BannerComponent`) and several stubs.
 
+  `AppComponent`是被声明的测试对象。
+  使用一个真实的组件（`BannerComponent`）和几个stub，该配置扩展了默认测试模块。
+
   * `BannerComponent` is simple and harmless to use as is.
+
+  * 原样使用`BannerComponent`非常简单而且无害。
 
   * The real `WelcomeComponent` has an injected service. `WelcomeStubComponent` is a placeholder with no service to worry about.
 
+  * 真实的`WelcomeComponent`有被注入的服务。`WelcomeStubComponent`是无服务的替代品。
+
   * The real `RouterOutlet` is complex and errors easily. 
   The `RouterOutletStubComponent` (in `testing/router-stubs.ts`) is safely inert.
+
+  * 真实的`RouterOutlet`很复杂而且容易出错。
+  `testing/router-stubs.ts`里的`RouterOutletStubComponent`是安全的替代。
   
   The component stubs are essential. 
   Without them, the Angular compiler doesn't recognize the `<app-welcome>` and `<router-outlet>` tags 
   and throws an error. 
+
+  组件stub替代品很关键。
+  没有它们，Angular编译器无法识别`<app-welcome`和`<router-outlet>`标签，抛出错误。
 #router-link-stub
 :marked
   ### Stubbing the _RouterLink_
 
+  ### Stub伪造_RouterLink_
+
   The `RouterLinkStubDirective` contributes substantively to the test
+
+  `RouterLinkStubDirective`为测试作出了重要的贡献：
 +makeExample('testing/ts/testing/router-stubs.ts', 'router-link', 'testing/router-stubs.ts (RouterLinkStubDirective)')(format='.')
 :marked
   The `host` metadata property wires the click event of the host element (the `<a>`) to the directive's `onClick` method.
@@ -2565,24 +2594,42 @@ a(href="#top").to-top 返回顶部
   Clicking the anchor should trigger the `onClick` method which sets the telltale `navigatedTo` property.
   Tests can inspect that property to confirm the expected _click-to-navigation_ behavior.
 
+  `host`元数据属性将宿主元素(`<a>`)click事件与指令的`onClick`方法关联起来。
+  绑定到`[routerLink]`的URL属性被传递到指令的`linkParams`属性。
+  点击这个链接应该能触发`onClick`方法，设置了`navigatedTo`属性。
+  测试可以查看这个属性，来确认期望的**点击导航**行为。
+
 #by-directive
 #inject-directive
 :marked
   ### _By.directive_ and injected directives
 
+  ### _By.directive_和注入的指令
+
   A little more setup triggers the initial data binding and gets references to the navigation links:
+
+  再一步配置触发了数据绑定的初始化，获取导航链接的引用：
 +makeExample('testing/ts/app/app.component.spec.ts', 'test-setup', 'app/app.component.spec.ts (test setup)')(format='.')
 :marked
   Two points of special interest:
 
+  特别感兴趣的两点：
+
   1. You can locate elements _by directive_, using `By.directive`, not just by css selectors.
+
+  1. 你还可以按指令定位元素，使用`By.directive`，而不仅仅是通过CSS选择器。
 
   1. You can use the component's dependency injector to get an attached directive because 
   Angular always adds attached directives to the component's injector.
 
+  1. 你可以使用组件的依赖注入器来获取附加的指令，因为Angular总是将附加组件添加到组件的注入器中。
+
 #app-component-tests
 :marked
   Here are some tests that leverage this setup:
+
+  下面是一些使用这个配置的测试：
+
 +makeExample('testing/ts/app/app.component.spec.ts', 'tests', 'app/app.component.spec.ts (selected tests)')(format='.')
 .l-sub-section
   :marked
@@ -2590,6 +2637,10 @@ a(href="#top").to-top 返回顶部
     It works hard to appear useful when in fact it 
     tests the `RouterLinkStubDirective` rather than the _component_.
     This is a common failing of directive stubs.
+
+    本例中的“click”测试其实毫无价值。
+    它显得很有用，但是事实上，它测试的是`RouterLinkStubDirective`，而非测试组件。
+    这是指令stub的通病。
     
     It has a legitimate purpose in this chapter. 
     It demonstrates how to find a `RouterLink` element, click it, and inspect a result,
@@ -2597,13 +2648,22 @@ a(href="#top").to-top 返回顶部
     This is a skill you may need to test a more sophisticated component, one that changes the display,
     re-calculates parameters, or re-arranges navigation options when the user clicks the link.
 
+    在本章中，它后存在的必要。
+    它演示了如何在不涉及完整路由器机制的情况下，如何找到`RouterLink`元素、点击它并检查结果。
+    要测试更复杂的组件，你可能需要具备这样的能力，能改变试图和重新计算参数，或者当用户点击链接时，有能力重新安排导航选项。
+
 #why-stubbed-routerlink-tests
 :marked
   ### What good are these tests?
 
+  ### 这些测试有什么好处？
+
   Stubbed `RouterLink` tests can confirm that a component with links and an outlet is setup properly,
   that the component has the links it should have, and that they are all pointing in the expected direction.
   These tests do not concern whether the app will succeed in navigating to the target component when the user clicks a link.
+
+  stub伪造的`RouterLink`测试可以确认带有链接和outlet的组件的设置的正确性，确认组件有应该有的链接，确认它们都指向了正确的方向。
+  这些测试不关心用户点击链接时，应用是否会成功的导航到目标组件。
 
   Stubbing the RouterLink and RouterOutlet is the best option for such limited testing goals.
   Relying on the real router would make them brittle.
@@ -2611,28 +2671,49 @@ a(href="#top").to-top 返回顶部
   For example, a navigation guard could prevent an unauthorized user from visiting the `HeroListComponent`.
   That's not the fault of the `AppComponent` and no change to that component could cure the failed test.
 
+  对于这样局限的测试目标，stub伪造RouterLink和RouterOutlet是最佳选择。
+  依靠真正的路由器会让它们很脆弱。
+  它们可能因为与组件无关的原因而失败。
+  例如，一个导航守卫可能防止没有授权的用户访问`HeroListComponent`。
+  这并不是`AppComponent`的过错，并且无论该组件怎么改变都无法修复这个失败的测试。
+
   A _different_ battery of tests can explore whether the application navigates as expected
   in the presence of conditions that influence guards such as whether the user is authenticated and authorized.
   A future chapter update will explain how to write such tests with the `RouterTestingModule`.
+
+  不同的测试可以探索在不同条件下，比如像检查用户是否认证这样的守卫下，该应用是否和期望的那样导航。
+  未来本章的更新将介绍如何使用`RouterTestingModule`来编写这样的测试。
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 .l-hr
 
 #shallow-component-test
 :marked
   # "Shallow component tests" with *NO\_ERRORS\_SCHEMA*
+  # 使用*NO\_ERRORS\_SCHEMA*来“浅化”组件测试
 
   The [previous setup](#stub-component) declared the `BannerComponent` and stubbed two other components 
   for _no reason other than to avoid a compiler error_.
+
+  [以前的配置](#stub-component)声明了`BannerComponent`，并stub伪造了两个其它组件，**仅仅是为了避免编译错误，不是为别的原因**。
   
   Without them, the Angular compiler doesn't recognize the `<app-banner>`, `<app-welcome>` and `<router-outlet>` tags 
   in the [_app.component.html_](#app-component-html) template and throws an error. 
 
+  没有它们，Angular编译器无法识别[_app.component.html_](#app-component-html)模板里的`<app-banner>`、`<app-welcome>`和`<router-outlet>`标签，并抛出错误。
+
   Add `NO_ERRORS_SCHEMA` to the testing module's `schemas` metadata
   to tell the compiler to ignore unrecognized elements and attributes.
   You no longer have to declare irrelevant components and directives.
+
+  添加`NO_ERRORS_SCHEMA`到测试模块的`schemas`元数据中，告诉编译器忽略不认识的元素和属性。
+  这样你不再需要声明无关组件和指令。
   
   These tests are ***shallow*** because they only "go deep" into the components you want to test.
   Here is a setup (with `import` statements) that demonstrates the improved simplicity of _shallow_ tests, relative to the stubbing setup.
+
+  这些测试比较**浅**，因为它们只“深入”到你要测试的组件。
+  这里是一套配置（拥有`import`语句），演示了相比使用stub伪造的配置来说，**浅**测试的简单性。
 +makeTabs('testing/ts/app/app.component.spec.ts, testing/ts/app/app.component.spec.ts', 
   'setup-schemas, setup-stubs-w-imports', 
   'app/app.component.spec.ts (NO_ERRORS_SCHEMA), app/app.component.spec.ts (Stubs)')(format='.')
@@ -2641,13 +2722,20 @@ a(href="#top").to-top Back to top
   that contributes actively to the tests.
   The [tests in this example](#app-component-tests) are unchanged.
 
+  这里**唯一**声明的是**被测试的组件**(`AppComponent`)和测试需要的`RouterLinkStubDirective`。
+  没有改变任何[原测试](#app-component-tests)。
+
 .alert.is-important
   :marked
     _Shallow component tests_ with `NO_ERRORS_SCHEMA` greatly simplify unit testing of complex templates.
     However, the compiler no longer alerts you to mistakes 
     such as misspelled or misused components and directives.
 
+    使用`NO_ERRORS_SCHEMA`的**浅组件测试**很大程度上简化了拥有复杂模板组件的单元测试。
+    但是，编译器将不再提醒你一些错误，比如模板中拼写错误或者误用的组件和指令。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
@@ -2655,30 +2743,49 @@ a(href="#top").to-top Back to top
 :marked
   # Test an attribute directive
 
+  # 测试属性指令
+
   An _attribute directive_ modifies the behavior of an element, component or another directive.
   Its name reflects the way the directive is applied: as an attribute on a host element.
+
+  **属性指令**修改元素、组件和其它指令的行为。它的名字反映了指令是如何被使用的：作为宿主元素的属性。
 
   The sample application's `HighlightDirective` sets the background color of an element
   based on either a data bound color or a default color (lightgray).
   It also sets a custom property of the element (`customProperty`) to `true` 
   for no reason other than to show that it can.
+
+  本例子应用的`HighlightDirective`使用数据绑定的颜色或者默认颜色来设置元素的背景色。
+  它同时设置元素的自定义属性(`customProperty`)为`true`，仅仅是显示它可以这么做，并无其它原因。
 +makeExample('testing/ts/app/shared/highlight.directive.ts', '', 'app/shared/highlight.directive.ts')(format='.')
 :marked
   It's used throughout the application, perhaps most simply in the `AboutComponent`:
+  它的使用贯穿整个应用，也许最简单的使用在`AboutComponent`里：
 +makeExample('testing/ts/app/about.component.ts', '', 'app/about.component.ts')(format='.')
 :marked
   Testing the specific use of the `HighlightDirective` within the `AboutComponent` requires only the
   techniques explored above (in particular the ["Shallow test"](#shallow-component-test) approach).
+
+  使用`AboutComponent`来测试这个`HightlightDirective`的使用，只需要上面解释过的知识就够了，（尤其是["浅测试"](#shallow-component-test)方法)。
 +makeExample('testing/ts/app/about.component.spec.ts', 'tests', 'app/about.component.spec.ts')(format='.')
 :marked
   However, testing a single use case is unlikely to explore the full range of a directive's capabilities.
   Finding and testing all components that use the directive is tedious, brittle, and almost as unlikely to afford full coverage.
 
+  但是，测试单一的用例一般无法探索该指令的全部能力。
+  查找和测试所有使用该指令的组件非常繁琐和脆弱，并且通常无法覆盖所有组件。
+
   [Isolated unit tests](#isolated-unit-tests) might be helpful. 
   But attribute directives like this one tend to manipulate the DOM. 
   Isolated unit tests don't and therefore don't inspire confidence in the directive's efficacy.
 
+  [孤立单元测试](#isolated-unit-tests)可能有用。
+  但是像这样的属性指令一般都操纵DOM。孤立单元测试不能，所以不推荐用它测试指令的功能。
+
   A better solution is to create an artificial test component that demonstrates all ways to apply the directive.
+
+  更好的方法是创建一个展示所有使用该组件的方法的人工测试组件。
+
 +makeExample('testing/ts/app/shared/highlight.directive.spec.ts', 'test-component', 'app/shared/highlight.directive.spec.ts (TestComponent)')(format='.')
 figure.image-display
   img(src='/resources/images/devguide/testing/highlight-directive-spec.png' width="200px" alt="HighlightDirective spec in action")
@@ -2686,28 +2793,49 @@ figure.image-display
   :marked
     The `<input>` case binds the `HighlightDirective` to the name of a color value in the input box.
     The initial value is the word "cyan" which should be the background color of the input box.
+
+    `<input>`用例将`HighlightDirective`绑定到输入框里输入的颜色名字。
+    初始只是单词“cyan”，所以输入框的背景色应该是cyan。
 :marked
   Here are some tests of this component:
+
+  下面是一些该组件的测试：
 +makeExample('testing/ts/app/shared/highlight.directive.spec.ts', 'selected-tests', 'app/shared/highlight.directive.spec.ts (selected tests)')
 :marked
   A few techniques are noteworthy:
 
+  一些技巧值得注意：
+
   * The `By.directive` predicate is a great way to get the elements that have this directive _when their element types are unknown_.
+
+  * 当**已知元素类型**时，`By.directive`是一种获取拥有这个指令的元素的好方法。
 
   * The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a> 
   in `By.css('h2:not([highlight])')` helps find `<h2>` elements that _do not_ have the directive.
   `By.css('*:not([highlight])')` finds _any_ element that does not have the directive.
 
+  * `By.css('h2:not([highlight])')`里的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>帮助查找**不带**该指令的`<h2>`元素。
+  `By.css('*:not([highlight])')`查找**所有**不带该指令的元素。
+
   * `DebugElement.styles` affords access to element styles even in the absence of a real browser, thanks to the `DebugElement` abstraction.
   But feel free to exploit the `nativeElement` when that seems easier or more clear than the abstraction.
+
+  * 在缺乏浏览器时，`DebugElement.styles`提供对元素样式的访问，这要归功于`DebugElement`抽象。
+  但是，请随意使用`nativeElement`，它可能比该抽像更加容易使用、更加清晰。
 
   * Angular adds a directive to the injector of the element to which it is applied. 
   The test for the default color uses the injector of the 2nd `<h2>` to get its `HighlightDirective` instance
   and its `defaultColor`.
+
+  * Angular将指令到使用它的元素的注入器中。
+  默认颜色的测试使用第二个`<h2>`的注入器来获取它的`HighlightDirective`实例以及它的`defaultColor`。
   
   * `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
 
+  * `DebugElement.properties`提供了对指令设置的人工自定义属性的访问。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
