@@ -2050,7 +2050,7 @@ a(href="#top").to-top 回到顶部
 
   路由器将`:id`令牌的值推送到`ActivatedRoute.params`**可观察**属性里，
   Angular注入`ActivatedRoute`到`HeroDetailComponent`中，
-  然后组件提取`id`，这样它就可以通过`HeroDetailServide`获取相应的英雄。
+  然后组件提取`id`，这样它就可以通过`HeroDetailService`获取相应的英雄。
   下面是`HeroDetailComponent`的构造函数：
 +makeExample('testing/ts/app/hero/hero-detail.component.ts', 'ctor', 'app/hero/hero-detail.component.ts (constructor)')(format='.')
 :marked
@@ -2149,29 +2149,48 @@ a(href="#top").to-top 回到顶部
 #observable-tests
 :marked
   ### _Observable_ tests
+
+  ### **可观察对象**测试
+
   Here's a test demonstrating the component's behavior when the observed `id` refers to an existing hero:
+
+  下面的测试是演示组件在被观察的`id`指向现有英雄时的行为：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-good-id', 'app/hero/hero-detail.component.spec.ts (existing id)')(format='.')
 .l-sub-section
   :marked
     The `createComponent` method and `page` object are discussed [in the next section](#page-object).
     Rely on your intuition for now.
+
+    将在[下一节](#page-object)解释`createComponent`方法和`page`对象，现在暂时跟随自己的直觉。
 :marked
   When the `id` cannot be found, the component should re-route to the `HeroListComponent`.
   The test suite setup provided the same `RouterStub` [described above](#routed-component) which spies on the router without actually navigating.
   This test supplies a "bad" id and expects the component to try to navigate.
+
+  当无法找到`id`时，组件应该重新导航到`HeroListComponent`。
+  该测试套件配置提供了与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
+  该测试提供了一个“坏”的id，期望组件尝试导航。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-bad-id', 'app/hero/hero-detail.component.spec.ts (bad id)')(format='.')
 :marked
 :marked
   While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday. 
   The component should do something reasonable when there is no `id`.
 
+  虽然本应用没有导航到`HeroDetailComponent`的缺少`id`参数的路由，将来它可能会添加这样一个路由。
+  当没有`id`时，该组件应该作出什么合理的反应。
+
   In this implementation, the component should create and display a new hero.
   New heroes have `id=0` and a blank `name`. This test confirms that the component behaves as expected:
+
+  在本例中，组件应该创建和显示一个新英雄。
+  新英雄的id为零，`name`为空。本测试确认组件是按照预期的这样做的：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-no-id', 'app/hero/hero-detail.component.spec.ts (no id)')(format='.')
 :marked
 .callout.is-helpful
   :marked
     Inspect and download _all_ of the chapter's application test code with this <live-example plnkr="app-specs">live example</live-example>.
+    
+    到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用测试代码。
 
 .l-hr
 
@@ -2179,131 +2198,240 @@ a(href="#top").to-top 回到顶部
 :marked
   # Use a _page_ object to simplify setup
 
+  # 使用一个**page**对象来简化配置
+
   The `HeroDetailComponent` is a simple view with a title, two hero fields, and two buttons.
+
+  `HeroDetailComponent`是一个带有标题、两个英雄字段和两个按钮的简单视图。
 figure.image-display
   img(src='/resources/images/devguide/testing/hero-detail.component.png' alt="HeroDetailComponent in action")
 :marked
   But there's already plenty of template complexity.
+
+  但是它已经有很多模板的复杂性。
 +makeExample('testing/ts/app/hero/hero-detail.component.html', '', 'app/hero/hero-detail.component.html')(format='.')
 :marked
   To fully exercise the component, the test needs ...
+
+  要彻底测试该组件，测试需要：
+
   * to wait until a `hero` arrives before `*ngIf` allows any element in DOM
+
+  * 在`*ngIf`允许元素进入DOM之前，等待`hero`的到来
+
   * element references for the title name span and name input-box to inspect their values
+
+  * 标题名字span和名字输入框元素的引用，用来检查它们的值
+
   * two button references to click
+
+  * 两个按钮的引用，用来点击
+
   * spies on services and component methods
 
+  * spy服务和组件的方法
+  
   Even a small form such as this one can produce a mess of tortured conditional setup and CSS element selection.
+
+  即使是像这样一个很小的表单，也能产生令人疯狂的错综复杂的条件设置和CSS元素选择。
 
   Tame the madness with a `Page` class that simplifies access to component properties and encapsulates the logic that sets them.
   Here's the `Page` class for the `hero-detail.component.spec.ts`
+
+  通过简化组件属性的访问和封装设置属性的逻辑，`Page`类可以轻松解决这个令人疯狂的难题。
+  下面是为`hero-detail.component.spec.ts`准备的`page`类：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'page', 'app/hero/hero-detail.component.spec.ts (Page)')(format='.')
 :marked
   Now the important hooks for component manipulation and inspection are neatly organized and accessible from an instance of `Page`.
 
+  现在，用来操作和检查组件的重要钩子都被井然有序的组织起来了，可以通过`page`实例来使用它们。
+
   A `createComponent` method creates a `page` and fills in the blanks once the `hero` arrives.
+
+  `createComponent`方法创建一个`page`，在`hero`到来时，自动填补空白。
+
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'create-component', 'app/hero/hero-detail.component.spec.ts (createComponent)')(format='.')
 :marked
   The [observable tests](#observable-tests) in the previous section demonstrate how `createComponent` and `page` 
   keep the tests short and _on message_. 
   There are no distractions: no waiting for promises to resolve and no searching the DOM for element values to compare.
   Here are a few more `HeroDetailComponent` tests to drive the point home.
+
+  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试简短和即时的。
+  没有任何干扰：无需等待承诺的解析，也没有搜索DOM元素值进行比较。
+  这里是一些更多的`HeroDetailComponent`测试来进一步展示这一点。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'selected-tests', 'app/hero/hero-detail.component.spec.ts (selected tests)')(format='.')
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 .l-hr
 
 #import-module
 :marked
   # Setup with module imports
+
+  # 模块导入imports的配置
+
   Earlier component tests configured the testing module with a few `declarations` like this:
+
+  此前的组件测试使用了一些`declarations`来配置模块，就像这样：
 +makeExample('testing/ts/app/dashboard/dashboard-hero.component.spec.ts', 'compile-components', 'app/dashboard/dashboard-hero.component.spec.ts (config)')(format='.')
 :marked
   The `DashboardComponent` is simple. It needs no help.
   But more complex components often depend on other components, directives, pipes, and providers
   and these must be added to the testing module too.
 
+  `DashbaordComponent`非常简单。它不需要帮助。
+  但是更加复杂的组件通常依赖其它组件、指令、管道和提供商，
+  所以这些必须也被添加到测试模块中。
+
   Fortunately, the `TestBed.configureTestingModule` parameter parallels
   the metadata passed to the `@NgModule` decorator 
-  which means you can also specify `providers` and `imports.
+  which means you can also specify `providers` and `imports`.
+
+  幸运的是，`TestBed.configureTestingModule`参数与传入`@NgModule`装饰器的元数据一样，也就是所你也可以指定`providers`和`imports`.
 
   The `HeroDetailComponent` requires a lot of help despite its small size and simple construction. 
   In addition to the support it receives from the default testing module `CommonModule`, it needs:
+
+  虽然`HeroDetailComponent`很小，结构也很简单，但是它需要很多帮助。
+  除了从默认测试模块`CommonModule`中获得的支持，它还需要：
+
   * `NgModel` and friends in the `FormsModule` enable two-way data binding
+
+  * `FormsModule`里的`NgModel`和其它，来进行双向数据绑定
+
   * The `TitleCasePipe` from the `shared` folder
+
+  * `shared`目录里的`TitleCasePipe`
+
   * Router services (which these tests are stubbing)
+
+  * 一些路由器服务（测试将stub伪造它们）
+
   * Hero data access services (also stubbed)
 
+  * 英雄数据访问服务（同样被stub伪造了） 
+
   One approach is to configure the testing module from the individual pieces as in this example:
+
+  一种方法是在测试模块中一一配置，就像这样：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'setup-forms-module', 'app/hero/hero-detail.component.spec.ts (FormsModule setup)')(format='.')
 :marked
   Because many app components need the `FormsModule` and the `TitleCasePipe`, the developer created 
   a `SharedModule` to combine these and other frequently requested parts.
   The test configuration can use the `SharedModule` too as seen in this alternative setup:
+
+  因为许多应用组件需要`FormsModule`和`TitleCasePipe`，所以开发者创建了一个`SharedModule`来合并它们和一些频繁需要的部件。
+  测试配置也可以使用`SharedModule`，请看下面另一种配置：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'setup-shared-module', 'app/hero/hero-detail.component.spec.ts (SharedModule setup)')(format='.')
 :marked
   It's a bit tighter and smaller, with fewer import statements (not shown).
 
+  它的导入声明少一些（未显示），稍微干净一些，小一些。
+
 #feature-module-import
 :marked
   ### Import the feature module
+
+  ### 导入特征模块
+
   The `HeroDetailComponent` is part of the `HeroModule` [Feature Module](ngmodule.html#feature-modules) that aggregates more of the interdependent pieces
   including the `SharedModule`.
   Try a test configuration that imports the `HeroModule` like this one:
+
+  `HeroDetailComponent`是`HeroModule`[特征模块](ngmodule.html#feature-modules)的一部分，它组合了更多互相依赖的部件，包括`SharedModule`。
+  试试下面这个导入`HeroModule`的测试配置：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'setup-hero-module', 'app/hero/hero-detail.component.spec.ts (HeroModule setup)')(format='.')
 :marked
   That's _really_ crisp. Only the _test doubles_ in the `providers` remain. Even the `HeroDetailComponent` declaration is gone.
+
+  这样特别清爽。只有`providers`里面的测试复制品被保留。连`HeroDetailComponent`声明都消失了。
 .l-sub-section
   :marked
     In fact, if you try to declare it, Angular throws an error because
     `HeroDetailComponent` is declared in both the `HeroModule` and the `DynamicTestModule` (the testing module).
 
+    事实上，如果里试图声明它，Angular会抛出一个错误，因为`HeroDetailComponent`已经在`HeroModule`和测试模块的`DynamicTestModule`中声明。
+
 .alert.is-helpful
   :marked
     Importing the component's feature module is often the easiest way to configure the tests,
     especially when the feature module is small and mostly self-contained ... as feature modules should be.
+
+    导入组件的特征模块通常是最简单的配置测试的方法，
+    尤其是当特征模块很小而且几乎只包含时...特征模块应该如此。
 :marked
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 .l-hr
 
 #component-override
 :marked
   # Override component providers
 
+  # 替换组件提供商
+
   The `HeroDetailComponent` provides its own `HeroDetailService`.
+
+  `HeroDetailComponent`提供自己的`HeroDetailService`服务。
 +makeExample('testing/ts/app/hero/hero-detail.component.ts', 'prototype', 'app/hero/hero-detail.component.ts (prototype)')(format='.')
 :marked
   It's not possible to stub the component's `HeroDetailService` in the `providers` of the `TestBed.configureTestingModule`. 
   Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
+
+  在`TestBed.configureTestingModule`的`providers`中stub伪造组件的`HeroDetailService`是不可行的。
+  这些是**测试模块**的提供商，而非组件的。它们在**fixture级别**准备依赖注入器。
 
   Angular creates the component with its _own_ injector which is a _child_ of the fixture injector.
   It registers the component's providers (the `HeroDetailService` in this case) with the child injector. 
   A test cannot get to child injector services from the fixture injector.
   And `TestBed.configureTestingModule` can't configure them either.
 
+  Angular创建一个组件时，该组件有自己的注入器，它是fixture注入器的子级。
+  Angular使用这个子级注入器来注册组件的提供商（也就是`HeroDetailService`）。
+  测试无法从fixture的注入器获取这个子级注入器。
+  而且`TestBed.configureTestingModule`也无法配置它们。
+
   Angular has been creating new instances of the real `HeroDetailService` all along!
+
+  Angular始终都在创建真实`HeroDetailService`的实例。
 
 .l-sub-section
   :marked
     These tests could fail or timeout if the `HeroDetailService` made its own XHR calls to a remote server.
     There might not be a remote server to call.
 
+    如果`HeroDetailService`向一个远程服务器发出自己的XHR请求，这些测试可能会失败或者超时。
+    这个远程服务器可能根本不存在。
+
     Fortunately, the `HeroDetailService` delegates responsibility for remote data access to an injected `HeroService`.
+
+    幸运的是，`HeroDetailServ`将远程数据访问的责任交给了注入进来的`HeroService`。
 
   +makeExample('testing/ts/app/hero/hero-detail.service.ts', 'prototype', 'app/hero/hero-detail.service.ts (prototype)')(format='.')
   :marked
     The [previous test configuration](#feature-module-import) replaces the real `HeroService` with a `FakeHeroService` 
     that intercepts server requests and fakes their responses.
 
+    [之前的测试配置](#feature-module-import)将真实的`HeroService`替换为`FakeHeroService`，拦截了服务起请求，伪造了它们的响应。
+
 :marked
   What if you aren't so lucky. What if faking the `HeroService` is hard? 
   What if `HeroDetailService` makes its own server requests? 
+
+  如果我们没有这么幸运怎么办？如果伪造`HeroService`很难怎么办？如果`HeroDetailService`自己发出服务器请求怎么办？
   
   The `TestBed.overrideComponent` method can replace the component's `providers` with easy-to-manage _test doubles_
   as seen in the following setup variation:
+
+  `TestBed.overrideComponent`方法可以将组件的`providers`替换为容易管理的**测试复制品**，参见下面的设置变化：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'setup-override', 'app/hero/hero-detail.component.spec.ts (Override setup)')(format='.')
 :marked
   Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#stub-hero-detail-service).
+
+  注意，`TestBed.configureTestingModule`不再提供一个（伪造）`HeroService`，因为它是[没必要的](#stub-hero-detail-service)
 
 #override-component-method
 :marked
