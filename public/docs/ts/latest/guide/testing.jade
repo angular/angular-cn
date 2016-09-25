@@ -203,7 +203,7 @@ block includes
 
   1. [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
 
-  1. [隔离的单元测试](#isolated-unit-tests "Unit testing without the Angular testing utilities")
+  1. [孤立的单元测试](#isolated-unit-tests "Unit testing without the Angular testing utilities")
     
     - [Services](#isolated-service-tests)
     
@@ -2843,37 +2843,80 @@ a(href="#top").to-top 回到顶部
 :marked
   # Isolated Unit Tests
 
+  # 孤立的单元测试
+
   Testing applications with the help of the Angular testing utilities is the main focus of this chapter.
+
+  使用Angular测试工具测试应用程序时本章的重点。
 
   However, it's often more productive to explore the inner logic of application classes
   with _isolated_  unit tests that don't depend upon Angular.
   Such tests are often smaller and  easier to read, write and maintain.
 
+  但是，使用**孤立**单元测试来探索应用类的内在逻辑往往更加有效率，它不依赖Angular。
+  这种测试通常比较小、更易阅读、编写和维护。
+
   They don't
+  它们不会：
+
   * import from the Angular test libraries
+
+  * 从Angular测试库导入
+
   * configure a module
+
+  * 配置模块
+
   * prepare dependency injection `providers`
+
+  * 准备依赖注入`providers`
+
   * call `inject` or `async` or `fakeAsync`
 
+  * 调用`inject`，或者`async`，或者`fakeAsync`
+
   They do
+
+  它们会：
+
   * exhibit standard, Angular-agnostic testing techniques
+
+  * 使用标准的、与Angular无关的测试技巧
+
   * create instances directly with `new`
+
+  * 直接使用`new`创建实例
+
   * substitute test doubles (stubs, spys, and mocks) for the real dependencies.
+
+  * 用测试复制品（stub，spy和mock）替代真正的依赖
 
 .callout.is-important
   header Write both kinds of tests
+
+  header 同时采用这两种测试
   :marked
     Good developers write both kinds of tests for the same application part, often in the same spec file.
     Write simple _isolated_ unit tests to validate the part in isolation.
     Write _Angular_ tests to validate the part as it interacts with Angular,
     updates the DOM, and collaborates with the rest of the application.
 
+    优秀的开发者同时编写这两种测试来测试相同的应用部件，往往在同一个spec文件。
+    编写简单的**孤立**单元测试来验证孤立的部分。
+    编写**Angular**测试来验证与Angular互动、更新DOM、以及与应用其它部分互动的部分。
+
 #isolated-service-tests
 :marked
   ## Services
+
+  ## 服务
+
   Services are good candidates for isolated unit testing. 
   Here are some synchronous and asynchronous unit tests of the `FancyService` 
   written without assistance from Angular testing utilities.
+
+  服务是应用孤立测试的好例子。
+  下面是未使用Angular测试工具的一些`FancyService`的同步和异步单元测试：
 
 +makeExample('testing/ts/app/bag/bag.no-testbed.spec.ts', 'FancyService', 'app/bag/bag.no-testbed.spec.ts')
 :marked
@@ -2881,7 +2924,13 @@ a(href="#top").to-top 回到顶部
   That's telling but not decisive. 
   The benefit comes from reduced setup and code complexity.
 
+  粗略行数表明，这些孤立单元测试比同等的Angular测试小25%。
+  这表明了它的好处，但是不是最关键的。
+  主要的好处来自于缩减的配置和代码的复杂性。
+
   Compare these equivalent tests of `FancyService.getTimeoutValue`.
+
+  比较下面两个同等的`FancyService.getTimeoutValue`测试：
 +makeTabs(
   `testing/ts/app/bag/bag.no-testbed.spec.ts, testing/ts/app/bag/bag.spec.ts`, 
   'getTimeoutValue, getTimeoutValue', 
@@ -2892,92 +2941,166 @@ a(href="#top").to-top 回到顶部
   Both approaches work and it's not much of an issue if you're using the Angular testing utilities nearby for other reasons. 
   On the other hand, why burden simple service tests with added complexity?
 
+  它们有类似的行数。
+  但是，依赖Angular的版本有用更多移动部分，包括一些工具函数（`async`和`inject`).
+  两种方法都可行，而且如果你为了某些原因使用Angular测试工具，也并没有什么问题。
+  反过来，为什么要为简单的服务测试添加复杂度呢？
+
   Pick the approach that suits you.
 
+  选择你喜欢的方法。
+
   ### Services with dependencies
+
+  ### 带依赖的服务
 
   Services often depend on other services that Angular injects into the constructor.
   You can test these services _without_ the testbed.
   In many cases, it's easier to create and _inject_ dependencies by hand.
 
+  服务通常依赖其它服务，Angular通过构造函数注入它们。
+  你可以**不使用**TestBed测试这些服务。
+  在许多情况下，创建和手动**注入**依赖来的更加容易。
+
   The `DependentService` is a simple example
+
+  `DependentService`是一个简单的例子：
+
 +makeExample('testing/ts/app/bag/bag.ts', 'DependentService', 'app/bag/bag.ts')(format='.')
 :marked
   It delegates it's only method, `getValue`, to the injected `FancyService`.
 
+  它将唯一的方法，`getValue`，委托给了注入的`FancyService`。
+
   Here are several ways to test it.
+
+  这里是几种测试它的方法。
 +makeExample('testing/ts/app/bag/bag.no-testbed.spec.ts', 'DependentService', 'app/bag/bag.no-testbed.spec.ts')
 :marked
   The first test creates a `FancyService` with `new` and passes it to the `DependentService` constructor.
+
+  第一个测试使用`new`创建`FancyService`实例，并将它传递给`DependentService`构造函数。
   
   It's rarely that simple. The injected service can be difficult to create or control.
   You can mock the dependency, or use a dummy value, or stub the pertinent service method
   with a substitute method that is easy to control.
+
+  很少有这么简单的，注入的服务有可能很难创建和控制。
+  你可以mock依赖，或者使用假值，或者用易于控制的替代品stub伪造相关服务。
 
   These _isolated_ unit testing techniques are great for exploring the inner logic of a service or its
   simple integration with a component class.
   Use the Angular testing utilities when writing tests that validate how a service interacts with components
   _within the Angular runtime environment_.
 
+  这些**孤立**单元测试技巧是一个很好的方法，用来探索服务内在逻辑、以及它与组件类简单的集成。
+  当验证一个服务在**运行时间环境下**，是如何与组件互动的测试时，使用Angular测试工具。
+
 #isolated-pipe-tests
 :marked
   ## Pipes
+
+  ## 管道
+
   Pipes are easy to test without the Angular testing utilities.
+
+  管道很容易测试，无需Angular测试工具。
 
   A pipe class has one method, `transform`, that turns an input to an output. 
   The `transform` implementation rarely interacts with the DOM.
   Most pipes have no dependence on Angular other than the `@Pipe`
   metadata and an interface.
+
+  管道类有一个方法，`transform`，用来转换输入值到输出值。
+  `transform`的实现很少与DOM交互。
+  除了`@Pipe`元数据和一个接口外，大部分管道不依赖Angular。
   
   Consider a `TitleCasePipe` that capitalizes the first letter of each word.
   Here's a naive implementation implemented with a regular expression.
+
+  假设`TitleCasePipe`将每个单词的第一个字母变成大写。
+  下面是使用正则表达式实现的简单代码：
 +makeExample('testing/ts/app/shared/title-case.pipe.ts', '', 'app/shared/title-case.pipe.ts')(format='.')
 :marked
   Anything that uses a regular expression is worth testing thoroughly.
   Use simple Jasmine to explore the expected cases and the edge cases.
+
+  任何使用正则表达式的类都值得彻底的进行测试。
+  使用Jasmine来探索预期的用例和极端的用例。
 +makeExample('testing/ts/app/shared/title-case.pipe.spec.ts', 'excerpt', 'app/shared/title-case.pipe.spec.ts')
 :marked
   ### Write Angular tests too
+  
+  ### 也编写Angular测试
+
   These are tests of the pipe _in isolation_.
   They can't tell if the `TitleCasePipe` is working properly as applied in the application components.
 
+  有些管道的测试是**孤立的**。
+  它们不能验证`TitleCasePipe`是否在应用到组件上时是否工作正常。
+
   Consider adding component tests such as this one:
+
+  考虑像这样添加组件测试：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'title-case-pipe', 'app/hero/hero-detail.component.spec.ts (pipe test)')
 
 #isolated-component-tests
 :marked
   ## Components
 
+  ## 组件
+
   Component tests typically examine how a component class interacts with its own template or with collaborating components.
   The Angular testing utilities are specifically designed to facilitate such tests.
 
+  组件测试通常检查该组件类是如何与自己的模板或者其它合作组件交互的。
+  Angular测试工具是专门为这种测试设计的。
+
   Consider this `ButtonComp` component.
+
+  考虑这个`ButtonComp`组件。
 +makeExample('testing/ts/app/bag/bag.ts', 'ButtonComp', 'app/bag/bag.ts (ButtonComp)')(format='.')
 :marked
   The following Angular test demonstrates that clicking a button in the template leads
   to an update of the on-screen message.
+
+  下面的Angular测试演示点击模板里的按钮后，引起了屏幕上的消息的更新。
 +makeExample('testing/ts/app/bag/bag.spec.ts', 'ButtonComp', 'app/bag/bag.spec.ts (ButtonComp)')(format='.')
 :marked
   The assertions verify the data binding flow from one HTML control (the `<button>`) to the component and 
   from the component back to a _different_ HTML control (the `<span>`). 
   A passing test means the component and its template are wired up correctly.
 
+  该判断验证了数据绑定从一个HTML控件(`<button>`)流动到组件，以及从组件回到**不同**的HTML控件(`<span>`)。
+  通过的测试说明组件和它的模块是否设置正确。
+
   Isolated unit tests can more rapidly probe a component at its API boundary,
   exploring many more conditions with less effort.
 
+  孤立单元测试可以更快的在API边界探测组件，更轻松的探索更多条件。
+
   Here are a set of unit tests that verify the component's outputs in the face of a variety of
   component inputs.
+
+  下面时一套单元测试，用来验证面对多种输入时组件的输出。
 +makeExample('testing/ts/app/bag/bag.no-testbed.spec.ts', 'ButtonComp', 'app/bag/bag.no-testbed.spec.ts (ButtonComp)')(format='.')
 :marked
   Isolated component tests offer a lot of test coverage with less code and almost no setup.
   This advantage is even more pronounced with complex components that 
   may require meticulous preparation with the Angular testing utilities.
 
+  孤立组件单元测试用更少的代码以及几乎不存在的配置，提供了很多测试覆盖率。
+  在测试复杂的组件时，这个优势显得更加明显，因为可能需要使用Angular测试工具进行精心准备。
+
   On the other hand, isolated unit tests can't confirm that the `ButtonComp` is 
   properly bound to its template or even data bound at all. 
   Use Angular tests for that.
 
+  但是，孤立测试无法确认`ButtonComp`是否与其模板正确的绑定，或者是否有数据绑定。
+  使用Angular测试来应对它们。
+
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
