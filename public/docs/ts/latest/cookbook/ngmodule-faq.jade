@@ -1262,7 +1262,7 @@ a#q-module-recommendations
     
     真实世界中的模块通常会偏离这些指导原则，而混杂多种不同的类型。
     这些只是指导原则，不是硬性要求。
-    但除非你有充分的理由不这么做，最好还是遵循他们。
+    但除非你有充分的理由不这么做，最好还是遵循它们。
 
 table
   tr
@@ -1386,7 +1386,7 @@ table
         Ideally they consist entirely of _providers_ and have no _declarations_.
         The `CoreModule` and Angular's `HttpModule` are good examples.
         
-        理想情况下，他们应该完全由`providers`组成，不应该包括`declarations`。
+        理想情况下，它们应该完全由`providers`组成，不应该包括`declarations`。
         `CoreModule`和Angular的`HttpModule`就是很好的例子。
 
         Service Modules should _only_ be imported by the root `AppModule`.
@@ -1618,7 +1618,7 @@ code-example(format='.').
     The provided services do not belong to the module nor are they scoped to the declared classes.
     They are available _everywhere_.
     
-    这些提供的服务不仅仅从属于当前模块，其作用范围也不局限于模块中声明的类。他们*在哪里*都能用。
+    这些提供的服务不仅仅从属于当前模块，其作用范围也不局限于模块中声明的类。它们*在哪里*都能用。
 
 :marked
   Here's an _Angular Module_ class with imports, exports, and declarations.
@@ -1922,7 +1922,7 @@ table
         Routed components are also _entry components_ because they aren't referenced in a template either.
         The router creates them and drops them into the DOM near a `<router-outlet>`.
         
-        路由组件同样是*入口组件*，因为他们也不会被从模板中引用。
+        路由组件同样是*入口组件*，因为它们也不会被从模板中引用。
         路由器创建会它们，并把它们扔到DOM中的`<router-outlet>`。
 
         While the bootstrapped and routed components are _entry components_, 

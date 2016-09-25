@@ -150,7 +150,7 @@ a(id="dependencies")
   
   ***[system.js](https://github.com/systemjs/systemjs)*** -  是一个动态的模块加载器，
   与[ES2015模块](http://www.2ality.com/2014/09/es6-modules-final.html)规范兼容。
-  还有很多其他选择，比如广受欢迎的[webpack](https://webpack.github.io/)。
+  还有很多其它选择，比如广受欢迎的[webpack](https://webpack.github.io/)。
   SystemJS被用在了我们的文档范例中。因为它能工作。
   
   Your future applications are likely to require additional packages that provide
@@ -363,7 +363,7 @@ a(id="why-peer-dependencies")
   When the application or any of its other dependencies
   installs a different version of a *peer dependency*. 
   
-  幸运的是，*npm*会在下列情况下给我们警告：(a) 当任何*平级依赖*缺失时 或(b) 当应用程序或它的任何其他依赖安装了与*平级依赖*不同版本的包时。
+  幸运的是，*npm*会在下列情况下给我们警告：(a) 当任何*平级依赖*缺失时 或(b) 当应用程序或它的任何其它依赖安装了与*平级依赖*不同版本的包时。
   
   These warnings guard against accidental failures due to version mismatches.
   They leave you in control of package and version resolution.
@@ -382,7 +382,7 @@ a(id="why-peer-dependencies")
     
     The Angular polyfill dependencies are hard requirements. Currently, there is no way to make them optional.
     
-    Angular的填充库依赖只是一个给开发人员的建议或提示，以便他们知道Angular期望用什么。
+    Angular的填充库依赖只是一个给开发人员的建议或提示，以便它们知道Angular期望用什么。
     它们不应该像现在一样是硬需求，但目前我们也不知道该如何把它们设置为可选的。
     
     However, there is an npm feature request for "optional peerDependencies," which would allow you to model this relationship better. 

@@ -597,7 +597,7 @@ table
   Heroes need work and The Agency finds Crises for them to solve.
 
   我们的客户是“英雄管理局”。
-  英雄们需要找工作，而“英雄管理局”为他们寻找待解决的危机。
+  英雄们需要找工作，而“英雄管理局”为它们寻找待解决的危机。
 
   The application has three main feature areas:
 
@@ -866,7 +866,7 @@ a#base-href
   which returns a module containing the configured `Router` service provider ... and some other,
   unseen providers that the routing library requires. We export this as the `routing` token.
 
-  下面是第一种配置。将路由数组传进`RouterModule.forRoot`方法，它将返回一个路由器需要的模块，该模块包含了配置好的`Router`服务提供商和一些其他不可见的提供商。我们将它导出为`routing`常量。
+  下面是第一种配置。将路由数组传进`RouterModule.forRoot`方法，它将返回一个路由器需要的模块，该模块包含了配置好的`Router`服务提供商和一些其它不可见的提供商。我们将它导出为`routing`常量。
 
 +makeExcerpt('app/app.routing.2.ts')
 
@@ -1109,7 +1109,7 @@ h3#router-directives <i>路由器指令集</i>
   The rest of the starter app is mundane, with little interest from a router perspective.
   Here are the details for readers inclined to build the sample through to this milestone.
 
-  这个初学者应用的其他部分有点平淡无奇，从路由器的角度来看也很平淡。
+  这个初学者应用的其它部分有点平淡无奇，从路由器的角度来看也很平淡。
   如果你还是倾向于在这个里程碑里构建它们，参见下面的构建详情。
 
   Our starter app's structure looks like this:
@@ -1284,7 +1284,7 @@ figure.image-display
   It doesn't need any outside information.
 
   新的“英雄”特性有两个相互协作的组件，列表和详情。
-  列表视图是自给自足的，我们导航到它，它会自行获取英雄列表并显示他们，该组件不需要任何外部信息。
+  列表视图是自给自足的，我们导航到它，它会自行获取英雄列表并显示它们，该组件不需要任何外部信息。
 
   The detail view is different. It displays a particular hero. It can't know which hero on its own.
   That information must come from outside.
@@ -2228,7 +2228,7 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
 
   * The router should block access to certain features until the user logs-in.
 
-  * 如果用户尚未登录，路由器就应该阻止他访问某些特性。
+  * 如果用户尚未登录，路由器就应该阻止它访问某些特性。
 
   * Our `CrisisService` is only needed within the *Crisis Center* module.
   We should limit access to it to that module.
@@ -2943,7 +2943,7 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
 
   Instead we'll write a `CanActivate` guard to redirect anonymous users to the login page when they try to reach the admin component.
 
-  我们换种方式：写一个`CanActivate`守卫，当匿名用户尝试访问管理组件时，把他/她重定向到登录页。
+  我们换种方式：写一个`CanActivate`守卫，当匿名用户尝试访问管理组件时，把它/她重定向到登录页。
 
   This is a general purpose guard &mdash; we can imagine other features that require authenticated users &mdash;
   so we create an `auth-guard.service.ts` in the application root folder.
@@ -3241,7 +3241,7 @@ a#CanDeactivate
   But it can also return a `Promise` or an `Observable` and the router will wait for that
   to resolve to truthy (navigate) or falsey (stay put).
 
-  注意，`canDeactivate`方法*可以*同步返回，如果没有危机，或者没有未定的修改，它就立即返回`true`。但是他也可以返回一个承诺（`Promise`）或可观察对象（`Observable`），路由器将等待它们被解析为真值（继续导航）或假值（留下）。
+  注意，`canDeactivate`方法*可以*同步返回，如果没有危机，或者没有未定的修改，它就立即返回`true`。但是它也可以返回一个承诺（`Promise`）或可观察对象（`Observable`），路由器将等待它们被解析为真值（继续导航）或假值（留下）。
 
 :marked
   We add the `Guard` to our crisis detail route in `crisis-center.routing.ts` using the `canDeactivate` array.
@@ -3285,7 +3285,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
   We want to delay rendering of our route component until all necessary data has been fetched or some action
   has occurred.
 
-  可以预先从服务器读取数据，这样在路由器被激活时，数据已经返回。同时，我们还需要处理数据返回失败和其他出错情况。这样，在`Crisis Center`中，对处理导航到一个无返回数据的`id`有帮助。
+  可以预先从服务器读取数据，这样在路由器被激活时，数据已经返回。同时，我们还需要处理数据返回失败和其它出错情况。这样，在`Crisis Center`中，对处理导航到一个无返回数据的`id`有帮助。
   我们可以将用户发回只列出有效危机的`Crisis List`。
   直到成功获取所有必须的数据或一些行为已经发生，应用需要延迟渲染路由组件。
 
@@ -3300,7 +3300,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
   We'll update our `Crisis Detail` route to resolve our Crisis before loading the route, or if the user happens to
   navigate to an invalid crisis center `:id`, we'll navigate back to our list of existing crises.
 
-  我们需要更新`Crisis Detail`路由，让它先解析必要的危机，再加载路由。或者当用户导航到一个无效的危机`:id`时，将他们导航回危机列表。
+  我们需要更新`Crisis Detail`路由，让它先解析必要的危机，再加载路由。或者当用户导航到一个无效的危机`:id`时，将它们导航回危机列表。
 
   Like the `CanActivate` and `CanDeactivate` guards, the **`Resolve`** guard is an interface we can implement as a service
   to resolve route data synchronously or asynchronously. In `CrisisDetailComponent`, we used the `ngOnInit` to retrieve the `Crisis`
@@ -3600,7 +3600,7 @@ a#fragment
     Angular provides a built-in module loader that supports **`SystemJS`** to load modules asynchronously. If we were
     using another bundling tool, such as **Webpack**, we would use the Webpack mechanism for asynchronously loading modules.
 
-    Angular提供一个内置模块加载器，支持**`SystemJS`**来异步加载模块。如果我们使用其他捆绑工具比如**Webpack**，则使用Webpack的机制来异步加载模块。
+    Angular提供一个内置模块加载器，支持**`SystemJS`**来异步加载模块。如果我们使用其它捆绑工具比如**Webpack**，则使用Webpack的机制来异步加载模块。
 
 :marked
   We've built our feature area, we've updated our route configuration to take advantage of lazy-loading, now we have to do the final step
@@ -3988,11 +3988,11 @@ code-example(format=".", language="bash").
   Some developers may not be able to add the `<base>` element, perhaps because they don't have
   access to `<head>` or the `index.html`.
 
-  有些开发人员可能无法添加`<base>`元素，这可能是因为他们没有访问`<head>`或`index.html`的权限。
+  有些开发人员可能无法添加`<base>`元素，这可能是因为它们没有访问`<head>`或`index.html`的权限。
 
   Those developers may still use HTML 5 URLs by taking two remedial steps:
 
-  他们仍然可以使用HTML 5格式的URL，但要采取两个步骤进行补救：
+  它们仍然可以使用HTML 5格式的URL，但要采取两个步骤进行补救：
 
   1. Provide the router with an appropriate `APP_BASE_HREF` value.
 

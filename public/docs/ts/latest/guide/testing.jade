@@ -520,7 +520,7 @@ table(width="100%")
     **The filename extension must be `.spec.ts`**, 
     the convention adhered to by  `karma.conf.js` and other tooling.
 
-    用Jasmine编写的测试都被叫做**specs**。**文件名后缀必须是`.spec.ts`**，这是`karma.conf.js`和其他工具所坚持和遵守的规约。
+    用Jasmine编写的测试都被叫做**specs**。**文件名后缀必须是`.spec.ts`**，这是`karma.conf.js`和其它工具所坚持和遵守的规约。
 
 :marked
   **Put spec files somewhere within the `app/` folder.**
@@ -697,7 +697,7 @@ a(href="#top").to-top 回到顶部
   The tester creates a test instance of the class with new, supplying test doubles for the constructor parameters as needed, and
   then probes the test instance API surface.
   
-  [孤立的单元测试](#isolated-unit-tests "不使用Angular测试工具进行单元测试")独立自己检测类的实例，不依靠Angular或者任何其他注入值。
+  [孤立的单元测试](#isolated-unit-tests "不使用Angular测试工具进行单元测试")独立自己检测类的实例，不依靠Angular或者任何其它注入值。
   测试器使用`new`创建类的测试实例，在需要时提供用于测试的构造函数参数复制品，并测试被测试实例的API。
   
   You can and should write isolated unit tests for pipes and services. 
@@ -712,7 +712,7 @@ a(href="#top").to-top 回到顶部
   In particular, they can't reveal how a component class interacts with its own template or with other components.
   Such tests require the Angular testing utilities.
 
-  孤立的测试不会展示类是如何与Angular互动的。也就是说，它们不会展示组件的类是如何与自己的模板或者其他组件互动的。
+  孤立的测试不会展示类是如何与Angular互动的。也就是说，它们不会展示组件的类是如何与自己的模板或者其它组件互动的。
   这样的测试需要Angular测试工具。   
 
   ### Testing with the Angular Testing Utilities
@@ -806,7 +806,7 @@ a(href="#top").to-top 回到顶部
   This live example contains both application and test code. 
   Give it some time to load and warm up.
 
-  它包含了本章讨论的测试和其他测试。本在线例子包含了整个应用和测试代码。给它一些时间来加载。
+  它包含了本章讨论的测试和其它测试。本在线例子包含了整个应用和测试代码。给它一些时间来加载。
 
 <live-example plnkr="app-specs" embedded img="devguide/testing/app-specs-plunker.png"></live-example>
 
@@ -863,7 +863,7 @@ a(href="#top").to-top 回到顶部
   already has what `BannerComponent` needs
   and (b) `BannerComponent` doesn't interact with any other components.
 
-  它没有`imports`，因为(a)它拓展默认测试模块配置，已经有了所有`BannerComponent`需要的，(b)`BannerComponent`不和其他任何组件互动。
+  它没有`imports`，因为(a)它拓展默认测试模块配置，已经有了所有`BannerComponent`需要的，(b)`BannerComponent`不和其它任何组件互动。
   
 #create-component
 :marked
@@ -1227,7 +1227,7 @@ a(href="#top").to-top 回到顶部
 
   本例的`About`视图显示马克吐温的名言。
   `TwainComponent`组件处理显示、委派`TwainService`向服务器发起请求。
-  两者都在`app/shared`目录里，因为作者计划将来在其他页面也显示马克吐温的名言。
+  两者都在`app/shared`目录里，因为作者计划将来在其它页面也显示马克吐温的名言。
   下面是`TwainComponent`：
 
 +makeExample('testing/ts/app/shared/twain.component.ts', 'component', 'app/shared/twain.component.ts')(format='.')
@@ -1930,7 +1930,7 @@ a(href="#top").to-top 返回顶部
   The `Router` has a complicated API and is entwined with other services and application pre-conditions.
 
   它同时还注入了`HeroService`，但是我们已经直到如何[伪造](#component-with-async-servic)它。
-  `Router`的API非常复杂，并且它缠绕了其他服务和许多应用的先觉条件。
+  `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先觉条件。
 
   Fortunately, the `DashboardComponent` isn't doing much with the `Router`
 

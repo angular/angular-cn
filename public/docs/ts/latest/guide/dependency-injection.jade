@@ -91,7 +91,7 @@ block includes
 
   现在，每辆车都有它自己的引擎。它不能和其它车辆共享引擎。
   虽然这对于汽车来说还算可以理解，但是我们设想一下那些应该被共享的依赖，比如用来联系厂家服务中心的车载无线。
-  我们的车缺乏必要的弹性，无法共享当初给其他消费者创建的车载无线。
+  我们的车缺乏必要的弹性，无法共享当初给其它消费者创建的车载无线。
 
   When we write tests for our `Car` we're at the mercy of its hidden dependencies.
   Is it even possible to create a new `Engine` in a test environment?
@@ -1148,7 +1148,7 @@ block dart-diff-const-metadata-ctor
   They can be object literals &nbsp;such as this one:
 
   应用程序经常为很多很小的因素(比如应用程序的标题，或者一个网络API终点的地址)定义配置对象，但是这些配置对象不总是类的实例。
-  他们可能是对象，比如下面这个：
+  它们可能是对象，比如下面这个：
 
 +makeExample('dependency-injection/ts/app/app.config.ts','config','app/app-config.ts (excerpt)')(format='.')
 
@@ -1354,7 +1354,7 @@ block one-class-per-file-ts-tradeoffs
     Developers expect one class per file. Keep them happy.
 
     在同一个文件中有多个类容易造成混淆，最好避免。
-    开发人员期望每个文件只放一个类。这会让他们开心点。
+    开发人员期望每个文件只放一个类。这会让它们开心点。
 
 
     If we scorn this advice and, say,

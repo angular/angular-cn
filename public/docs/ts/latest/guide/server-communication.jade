@@ -227,7 +227,7 @@ figure.image-display
   clear it to make it ready for a new hero name.
   
   它使用`ngFor`来展现这个英雄列表。
-  列表的下方是一个输入框和一个*Add Hero*按钮，在那里，我们可以输入新英雄的名字，并把他们加到数据库中。
+  列表的下方是一个输入框和一个*Add Hero*按钮，在那里，我们可以输入新英雄的名字，并把它们加到数据库中。
   在`(click)`事件绑定中，我们使用[模板引用变量](template-syntax.html#ref-vars)`newHeroName`来访问这个输入框的值。
   当用户点击此按钮时，我们把这个值传给组件的`addHero`方法，然后清除它，以备输入新英雄的名字。
   
@@ -614,7 +614,7 @@ block hlc-error-handling
   Let's add the ability to create new heroes and save them in the backend.
   
   前面我们已经看到如何用一个HTTP服务从远端获取数据了。
-  但我们还能再给力一点，让它可以创建新的英雄，并把他们保存到后端。
+  但我们还能再给力一点，让它可以创建新的英雄，并把它们保存到后端。
 
   We'll create an easy method for the `HeroListComponent` to call, an `addHero()` method that takes
   just the name of a new hero:

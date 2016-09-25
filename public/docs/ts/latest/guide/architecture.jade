@@ -325,7 +325,7 @@ figure
   For example, this `HeroListComponent` has a `heroes` property that returns !{_an} !{_array} of heroes that it acquires from a service. `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
   
   <a id="component-code"></a>
-  例如，`HeroListComponent`有一个`heroes`属性，它返回一个“英雄”数组，这个数组是由一个服务提供的。`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把他/她设置到`selectedHero`属性。
+  例如，`HeroListComponent`有一个`heroes`属性，它返回一个“英雄”数组，这个数组是由一个服务提供的。`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把它/她设置到`selectedHero`属性。
 
 +makeExcerpt('app/hero-list.component.ts', 'class')
 :marked
@@ -771,7 +771,7 @@ figure
   It delegates everything nontrivial to services.
   
   组件的任务就是提供用户体验，仅此而已。它介于视图(由模板渲染)和应用逻辑(通常包括_模型（model）_的观念)之间。
-  设计良好的组件为数据绑定提供属性和方法，把那些其他对它们不重要的事情都委托给服务。
+  设计良好的组件为数据绑定提供属性和方法，把那些其它对它们不重要的事情都委托给服务。
 
   Angular doesn't *enforce* these principles.
   It won't complain if you write a "kitchen sink" component with 3000 lines.

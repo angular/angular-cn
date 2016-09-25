@@ -650,7 +650,7 @@ block redirect-vs-use-as-default
   We use `*ngFor` once again to iterate over a list of heroes and display their names.
   We added extra `<div>` elements to help with styling later in this chapter.
 
-  我们又一次使用`*ngFor`来在英雄列表上迭代，并显示他们的名字。
+  我们又一次使用`*ngFor`来在英雄列表上迭代，并显示它们的名字。
   还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。
 
   There's a `(click)` binding to a `gotoDetail` method we haven't written yet and
@@ -838,7 +838,7 @@ code-example(format='').
   They click a *hero* whether that hero is displayed on the dashboard or in the heroes list.
 
   我们没有往模板中添加一个`'英雄详情'`，这是因为用户不会直接点击导航栏中的链接去查看一个特定的英雄。
-  他们只会通过在英雄列表或者仪表盘中点击来显示一个英雄。
+  它们只会通过在英雄列表或者仪表盘中点击来显示一个英雄。
 
   We'll get to those *hero* clicks later in the chapter.
   There's no point in working on them until the `HeroDetailComponent`
@@ -891,7 +891,7 @@ block route-params
   Let's have the `!{_ActivatedRoute}` service and the `HeroService` injected
   into the constructor, saving their values in private fields:
   
-  然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将他们的值保存到私有变量中：
+  然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
 +makeExcerpt('app/hero-detail.component.ts (constructor)', 'ctor')
 
@@ -1178,7 +1178,7 @@ figure.image-display
   We are not done. We still have to update the component class to support navigation to the
   `HeroDetailComponent` when the user clicks the *View Details* button.
 
-  这还没完。当用户点击*查看详情*按钮时，要让他能导航到`HeroDetailComponent`，我们仍然不得不修改组件类。
+  这还没完。当用户点击*查看详情*按钮时，要让它能导航到`HeroDetailComponent`，我们仍然不得不修改组件类。
 
   This component file is really big. Most of it is either template or CSS styles.
   It's difficult to find the component logic amidst the noise of HTML and CSS.
@@ -1275,7 +1275,7 @@ block heroes-component-cleanup
   They've given us ~60 lines of CSS for this purpose including some simple media queries for responsive design.
 
   设计师认为我们应该把仪表盘的英雄们显示在一排方块中。
-  他们给了我们大约60行CSS来实现它，包括一些简单的媒体查询语句来实现响应式设计。
+  它们给了我们大约60行CSS来实现它，包括一些简单的媒体查询语句来实现响应式设计。
 
   If we paste these ~60 lines into the component `styles` metadata,
   they'll completely obscure the component logic.

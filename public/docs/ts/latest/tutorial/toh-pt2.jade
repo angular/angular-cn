@@ -126,7 +126,7 @@ code-example(language="bash").
   Our component has `heroes`. Let’s create an unordered list in our template to display them.
   We’ll insert the following chunk of HTML below the title and above the hero details.
   
-  我们的组件有了`heroes`属性，我们再到模板中创建一个无序列表来显示他们。
+  我们的组件有了`heroes`属性，我们再到模板中创建一个无序列表来显示它们。
   我们将在标题和英雄详情之间，插入下面这段HTML代码。
 
 +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-template-1', 'app.component.ts (heroes template)')
@@ -144,7 +144,7 @@ code-example(language="bash").
   and display them individually.
   We’ll need some help from Angular to do this. Let’s do this step by step.
 
-  我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个显示他们。
+  我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个显示它们。
   这下，我们就得借Angular的帮助来完成它了。我们来一步步实现它！
 
   First modify the `<li>` tag by adding the built-in directive `*ngFor`.
@@ -211,7 +211,7 @@ code-example(language="bash").
   We want to make it visually obvious to a user which hero we are hovering over and which hero is selected.
 
   我们的英雄列表看起来实在是稀松平常。
-  但当用户的鼠标划过英雄或选中了一个英雄时，我们得让他/她看起来醒目一点。
+  但当用户的鼠标划过英雄或选中了一个英雄时，我们得让它/她看起来醒目一点。
 
   Let’s add some styles to our component by setting the `styles` property on the `@Component` decorator
   to the following CSS classes:
@@ -445,7 +445,7 @@ code-example(language="bash").
     
     我们在下面的详情区看到了选中的英雄，但是我们还是没法在上面的列表区快速的找到这位英雄。
     通过把CSS类`selected`添加到主列表的`<li>`元素上，我们可以解决这个问题。
-    比如，当我们在列表区选中了Magneta时，我们可以通过设置一个轻微的背景色来让他略显突出。
+    比如，当我们在列表区选中了Magneta时，我们可以通过设置一个轻微的背景色来让它略显突出。
 
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-selected.png' alt="选中的英雄")
@@ -486,7 +486,7 @@ code-example(language="bash").
     We select the hero Magneta and the selection is clearly identified by the background color.
 
     浏览器重新加载了你的应用。
-    我们选中英雄Magneta，于是他通过背景色的变化被清晰的标记了出来。
+    我们选中英雄Magneta，于是它通过背景色的变化被清晰的标记了出来。
     
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-1.png' alt="英雄列表应用的输出")

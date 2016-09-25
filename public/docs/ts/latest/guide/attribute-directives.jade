@@ -172,7 +172,7 @@ p
 p
   | `@Directive`元数据的后面就是指令的控制器类，它包括了指令的工作逻辑。
   +ifDocsFor('ts')
-    | 我们导出`HighlightDirective`以便让它可以被其他组件访问。
+    | 我们导出`HighlightDirective`以便让它可以被其它组件访问。
 :marked
   Angular creates a new instance of the directive's controller class for
   each matching element, injecting an Angular `ElementRef` and `Renderer`
@@ -631,7 +631,7 @@ a#why-input
   
   出乎意料的是，有些人(可能因为太天真)开始绑定到这个指令中的*每一个*属性。
   不仅仅只是我们预期为绑定目标的那一两个属性，而是*每一个*。
-  这可能会扰乱指令的工作方式 —— 我们既不想这样做也不想支持他们这样做。
+  这可能会扰乱指令的工作方式 —— 我们既不想这样做也不想支持它们这样做。
   
   The *input* declaration ensures that consumers of our directive can only bind to
   the properties of our public API ... nothing else.

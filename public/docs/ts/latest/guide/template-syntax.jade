@@ -897,7 +897,7 @@ table
 
   表达式中可以调用像`getFoo()`这样的方法。只有我们才知道`getFoo()`干了什么。
   如果`getFoo()`改变了什么，而我们把它绑定在什么地方，我们就可能把自己坑了。Angular可能显示也可能不显示变化后的值。Angular还可能检测到变化，并抛出一个警告型错误。
-  更具普遍性的建议是：只使用数据属性和那些只返回值而不做其他事情的方法。
+  更具普遍性的建议是：只使用数据属性和那些只返回值而不做其它事情的方法。
 
   ### Return the proper type
   ### 返回恰当的类型
@@ -1216,8 +1216,8 @@ block style-property-name-dart-diff
   They click buttons. Such user actions may result in a flow of data in the opposite direction:
   **from an element to a component**.
 
-  用户不会只盯着屏幕看。他们会在输入框中输入文本。他们会从列表中选取条目。
-  他们会点击按钮。这类用户动作可能导致反向的数据流：*从元素到组件*。
+  用户不会只盯着屏幕看。它们会在输入框中输入文本。它们会从列表中选取条目。
+  它们会点击按钮。这类用户动作可能导致反向的数据流：*从元素到组件*。
 
   The only way to know about a user action is to listen for certain events such as
   keystrokes, mouse movements, clicks, and touches.
