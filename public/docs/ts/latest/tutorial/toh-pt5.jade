@@ -40,7 +40,7 @@ block includes
 figure.image-display
   img(src='/resources/images/devguide/toh/nav-diagram.png' alt="查看导航")
 :marked
-  We'll add Angular’s *Component Router* to our app to satisfy these requirements.
+  We'll add Angular’s *Router* to our app to satisfy these requirements.
 
   我们将把Angular*路由器*加入应用中，以满足这些需求。(译注：硬件领域中的路由器是用来帮你找到另一台网络设备的，而这里的路由器用于帮你找到一个组件)
 
@@ -309,7 +309,7 @@ block app-comp-v1
   与其自动显示英雄列表，我们更希望在用户点击按钮之后才显示它。
   换句话说，我们希望“导航”到英雄列表。
 
-  We'll need the Angular *Component Router*.
+  We'll need the Angular *Router*.
 
   我们需要Angular的*路由器*。
   
@@ -625,19 +625,11 @@ block redirect-vs-use-as-default
 
   把元数据中的`template`属性替换为`templateUrl`属性，它将指向一个新的模板文件。
 
+  Set the `moduleId` property to `module.id` for module-relative loading of the `templateUrl`.
+  
+  设置`moduleId`属性到`module.id`，相对模块加载`templateUrl`。
+
 +makeExcerpt('app/dashboard.component.ts', 'templateUrl')
-
-.l-sub-section
-  block templateUrl-path-resolution
-    :marked
-      We specify the path _all the way back to the application root_ &mdash;
-      <span if-docs="ts">`app/` in this case &mdash;</span>
-      because Angular doesn't support relative paths _by default_.
-      We _can_ switch to [component-relative paths](../cookbook/component-relative-paths.html) if we prefer.
-
-      我们指定的所有路径_都是相对于该应用的根目录 - <span if-docs="ts">这里是`app/`</span>。
-      因为Angular_默认_不支持使用相对于当前模块的路径。
-      只要喜欢，我们也_可以_切换成[相对于组件的路径](../cookbook/component-relative-paths.html)模式。
 
 :marked
   Create that file with this content:
@@ -888,7 +880,7 @@ block route-params
 
 - var _ActivatedRoute = _docsFor == 'dart' ? 'RouteParams' : 'ActivatedRoute'
 :marked
-  Let's have the `!{_ActivatedRoute}` service and the `HeroService` injected
+  Let's have the `!{_ActivatedRoute}` service, the `HeroService` and the `Location` service injected
   into the constructor, saving their values in private fields:
   
   然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
@@ -958,7 +950,8 @@ block extract-id
   但当我们完工时，我们该导航到那里呢？
 
   The user could click one of the two links in the `AppComponent`. Or click the browser's back button.
-  We'll add a third option, a `goBack` method that navigates backward one step in the browser's history stack.
+  We'll add a third option, a `goBack` method that navigates backward one step in the browser's history stack
+  using the `Location` service we injected previously.
 
   现在用户可以点击`AppComponent`中的两个链接，或点击浏览器的“后退”按钮。
   我们来添加第三个选项：一个`goBack`方法，来根据浏览器的历史堆栈，后退一步。
@@ -1199,19 +1192,17 @@ figure.image-display
   1. 把样式内容*剪切并粘贴*到新的<span ngio-ex>heroes.component.css</span>文件。
 
   1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
+  1. *Set* the `moduleId` property to `module.id` so that 'templateUrl` and `styleUrls` are relative to the component.
 
   1. *设置*组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
 
 .l-sub-section
   :marked
     The `styleUrls` property is !{_an} !{_array} of style file names (with paths).
-    We could list multiple style files from different locations if we needed them.
-    <span if-docs="ts">As with `templateUrl`, we must specify the path _all the way
-    back to the application root_.</span>
+    We could list multiple style files from different locations if we needed them.    
     
     `styleUrls`属性是一个由样式文件的文件名(包括路径)组成的数组。
-    我们还可以列出来自多个不同位置的样式文件。
-    和`templateUrl`一样，必须指定_相对于此应用根目录_的路径。   
+    我们还可以列出来自多个不同位置的样式文件。    
 
 block heroes-component-cleanup
   //- Only relevant for Dart.
@@ -1473,7 +1464,7 @@ block file-tree-end
 
   在本章中，我们往前走了很远：
 
-  - We added the Angular *Component Router* to navigate among different components.
+  - We added the Angular *Router* to navigate among different components.
 
   - 我们添加了Angular*路由器*在各个不同组件之间导航。
 

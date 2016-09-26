@@ -1,7 +1,6 @@
 block includes
   include ../_util-fns
 
-// #docregion intro
 - var langName = current.path[1] == 'ts' ? 'TypeScript' : 'JavaScript'
 figure
   img(src="/resources/images/devguide/intro/people.png" alt="Us" align="left" style="width:200px; margin-left:-40px;margin-right:10px" )
@@ -13,9 +12,7 @@ figure
   这是一份Angular实战指南。面向的是正在用HTML和#{langName}构建客户端应用的、有经验的程序员。
 
   <br clear="all">
-// #enddocregion intro
 
-// #docregion how-to-read-1
 <a id="learning-path"></a>
 :marked
   # Organization
@@ -27,8 +24,8 @@ figure
   
   本文档分成几大主题区，每个区包含一组围绕自己主题的页面。
   
-// #enddocregion how-to-read-1
-// #docregion how-to-read-2
+block js-alert
+
 - var top="vertical-align:top"
 table.vertical-table(width="100%")
   col(width="15%")
@@ -161,8 +158,6 @@ table.vertical-table(width="100%")
   
   读完这些，你就可以跳到本网站的任意页面去阅读了。
 
-// #enddocregion how-to-read-2
-// #docregion the-rest
 :marked
   # Code samples
   
@@ -225,5 +220,4 @@ block example-links
   Use the [Angular Github repo](https://github.com/angular/angular) to report issues with **Angular** itself.
   
   到[Angular Github库](https://github.com/angular/angular)报告与**Angular本身**有关的issues。
-  
-// #enddocregion the-rest
+

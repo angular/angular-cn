@@ -36,13 +36,6 @@
     "intro": "依赖注入技术"
   },
 
-  "dynamic-form-deprecated": {
-    "title": "Dynamic Forms",
-    "intro": "Render dynamic forms with NgFormModel",
-    "basics": true,
-    "hide": true
-  },
-
   "dynamic-form": {
     "title": "动态表单",
     "intro": "用FormGroup渲染动态表单"

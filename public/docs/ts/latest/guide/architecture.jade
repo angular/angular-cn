@@ -442,18 +442,22 @@ block ts-decorator
     来看下`@Component`中的一些配置项：
     
 :marked
-  - `selector` - a css selector that tells Angular to create and insert an instance of this component 
-  where it finds a `<hero-list>` tag in *parent* HTML. 
+  - `moduleId: module.id`: sets the base for module-relative loading of the `templateUrl`.
+  
+  - `moduleId: module.id`: 为`templateUrl`的模块相对加载提供基础。
+
+  - `selector`: CSS selector that tells Angular to create and insert an instance of this component
+  where it finds a `<hero-list>` tag in *parent* HTML.
   For example, if an app's  HTML contains `<hero-list></hero-list>`, then
   Angular inserts an instance of the `HeroListComponent` view between those tags.
   
-  - `selector` - 一个css选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
+  - `selector`： 一个CSS选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
   比如，如果应用的HTML包含`<hero-list></hero-list>`，Angular就会把`HeroListComponent`的一个实例插入到这个标签中。
   
-  - `templateUrl`: address of this component's HTML template, shown [above](#templates).
+  - `templateUrl`: module-relative address of this component's HTML template, shown [above](#templates).
     
-  - `templateUrl` - 组件HTML模板的地址，我们在[前面](#templates)展示过它。
-    
+  - `templateUrl`：组件HTML模板的模块相对地址，我们在[前面](#templates)展示过它。  
+
   - `directives`: !{_array} of the components or directives that *this* template requires.
   In the last line of `hero-list.component.html`, Angular inserts a `HeroDetailComponent`
   in the space indicated by `<hero-detail>` tags.
