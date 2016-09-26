@@ -21,9 +21,9 @@ figure
   Angular创建它，渲染它，创建并渲染它的子组件，在它被绑定的属性发生变化时检查它，并在它从DOM中被移除前销毁它。
 
   Angular offers **lifecycle hooks**
-  that provide visibility into these key moments and the ability to act when they occur.
+  that provide visibility into these key life moments and the ability to act when they occur.
   
-  Angular提供了**生命周期钩子**，把这些关键时刻暴露出来，赋予我们在它们发生时采取行动的能力。
+  Angular提供了**生命周期钩子**，把这些关键生命时刻暴露出来，赋予我们在它们发生时采取行动的能力。
 
   A directive has the same set of lifecycle hooks, minus the hooks that are specific to component content and views.
   
@@ -33,25 +33,52 @@ figure
   
   ## 目录
     * [Overview](#hooks-overview)
+
+    * [概述](#hooks-overview) 
     <br><br>
     * [Each hook's purpose and timing](#hooks-purpose-timing)
+
+    * [每个钩子的目的和时机](#hooks-purpose-timing)
 +ifDocsFor('ts|js')
   :marked
     * [Interfaces are optional (technically)](#interface-optional)
+    * [接口是可选的（理论上）](#interface-optional)
   :marked
     * [Other Angular lifecycle hooks](#other-lifecycle-hooks)
+
+    * [其他Angular生命周期钩子](#other-lifecycle-hooks)
     <br><br>
     * [The lifecycle sample](#the-sample)
+
+    * [生命周期例子](#the-sample)
+
       * [All](#peek-a-boo)
+
+      * [全部钩子](#peek-a-boo)
+
       * [Spying OnInit and OnDestroy](#spy)
+
+      * [Spy刺探OnInit和OnDestroy](#spy)
+
       * [OnChanges](#onchanges)
+
+      * [OnChanges](#onchanges)
+
       * [DoCheck](#docheck)
+
+      * [DoCheck](#docheck)
+
       * [AfterViewInit and AfterViewChecked](#afterview)
+
+      * [AfterViewInit和AfterViewChecked](#afterview)
+
       * [AfterContentInit and AfterContentChecked](#aftercontent)
+
+      * [AfterContentInit和AfterContentChecked](#aftercontent)
 :marked
   Try the <live-example></live-example>.
 
-p 试一试#[+liveExampleLink2('在线例子')]。
+  试一试<live-example>在线例子</live-example>。
 
 a#hooks-overview
 .l-main-section
@@ -62,12 +89,10 @@ a#hooks-overview
   
   Directive and component instances have a lifecycle
   as Angular creates, updates, and destroys them.
-  
-  指令和组件的实例有一个生命周期：新建、更新和销毁。
-
   Developers can tap into key moments in that lifecycle by implementing
   one or more of the *Lifecycle Hook* interfaces in the Angular `core` library.
   
+  指令和组件的实例有一个生命周期：新建、更新和销毁。
   通过实现一个或多个Angular `core`库里定义的*生命周期钩子*接口，开发者可以介入该生命周期中的这些关键时刻。
   
   Each interface has a single hook method whose name is the interface name prefixed with `ng`.
@@ -95,6 +120,7 @@ a#hooks-purpose-timing
   it calls the lifecycle hook methods in the following sequence at specific moments:
   
   当Angular使用构造函数新建一个组件或指令后，就会按下面的顺序在特定时刻调用这些生命周期钩子方法：  
+  
 table(width="100%")
   col(width="20%")
   col(width="80%")
@@ -108,7 +134,7 @@ table(width="100%")
   tr(style=top)
     td ngOnChanges
     td
-      :marked      
+      :marked
         Respond when Angular (re)sets data-bound input properties.
         The method receives a `SimpleChanges` object of current and previous property values.
         
@@ -122,7 +148,7 @@ table(width="100%")
   tr(style=top)
     td ngOnInit
     td
-      :marked        
+      :marked
         Initialize the directive/component after Angular first displays the data-bound properties
         and sets the directive/component's input properties.
         
@@ -135,7 +161,7 @@ table(width="100%")
   tr(style=top)
     td ngDoCheck
     td
-      :marked        
+      :marked
         Detect and act upon changes that Angular can't or won't detect on its own.
          
         检测，并在发生Angular无法或不愿意自己检测的变化时作出反应。
@@ -147,7 +173,7 @@ table(width="100%")
   tr(style=top)
     td ngAfterContentInit
     td
-      :marked        
+      :marked
         Respond after Angular projects external content into the component's view.
         
         当把内容投影进组件之后调用。
@@ -179,7 +205,7 @@ table(width="100%")
   tr(style=top)
     td ngAfterViewInit
     td
-      :marked              
+      :marked
         Respond after Angular initializes the component's views and child views.
         
         初始化完组件视图及其子视图之后调用。
@@ -195,7 +221,7 @@ table(width="100%")
   tr(style=top)
     td ngAfterViewChecked
     td
-      :marked        
+      :marked
         Respond after Angular checks the component's views and child views.
         
         每次做完组件视图和子视图的变更检测之后调用。
@@ -211,7 +237,7 @@ table(width="100%")
   tr(style=top)
     td ngOnDestroy
     td
-      :marked        
+      :marked
         Cleanup just before Angular destroys the directive/component.
         Unsubscribe observables and detach event handlers to avoid memory leaks.
               
@@ -225,22 +251,34 @@ table(width="100%")
 +ifDocsFor('ts|js')
   a#interface-optional
   .l-main-section  
-  :marked
-    ## Interface are optional (technically)
+    :marked
+      ## Interface are optional (technically)
+      
+      ## 接口是可选的(理论上)？
+      
+      The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
+      The JavaScript language doesn't have interfaces.
+      Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
+      
+      从纯技术的角度讲，接口对JavaScript和TypeScript的开发者都是可选的。JavaScript语言本身没有接口。
+      Angular在运行时看不到TypeScript接口，因为它们在编译为JavaScript的时候已经消失了。
 
-    The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
-    The JavaScript language doesn't have interfaces.
-    Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
+      Fortunately, they aren't necessary.
+      You don't have to add the lifecycle hook interfaces to our directives and components to benefit from the hooks themselves.
+      
+      幸运的是，它们也不是必须的。我们不需要在指令和组件上添加生命周期钩子接口就能获得钩子带来的好处。
 
-    Fortunately, they aren't necessary.
-    You don't have to add the lifecycle hook interfaces to directives and components to benefit from the hooks themselves.
+      Angular instead inspects our directive and component classes and calls the hook methods *if they are defined*.
+      Angular finds and calls methods like `ngOnInit()`, with or without the interfaces.
+      
+      Angular会去检测我们的指令和组件的类，一旦发现钩子方法被定义了，就调用它们。
+      Agnular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。      
 
-    Angular instead inspects directive and component classes and calls the hook methods *if they are defined*.
-    Angular finds and calls methods like `ngOnInit()`, with or without the interfaces.
-
-    Nonetheless, it's good practice to add interfaces to TypeScript directive classes
-    in order to benefit from strong typing and editor tooling.
-  
+      Nonetheless, it's good practice to add interfaces to TypeScript directive classes
+      in order to benefit from strong typing and editor tooling.
+      
+      虽然如此，我们还是强烈建议你在TypeScript指令类中添加接口，以获得强类型和IDE等编辑器带来的好处。  
+      
 a#other-lifecycle-hooks
 .l-main-section
 :marked
@@ -393,14 +431,11 @@ a#peek-a-boo
   The peek-a-boo exists to show how Angular calls the hooks in the expected order.
   
   你可能很少、或者永远不会像这里一样实现所有这些接口。
-  我们之所以在peek-a-boo中这么做，只是为了观看Angular是如何按照期望的顺序调用这些钩子的。
-  
-  In this snapshot, we clicked the *Create...* button and then the *Destroy...* button.
-  
-  在下面这个快照中，我们先点击了*Create...*按钮，然后点击了*Destroy...*按钮。
-  
+  我们之所以在peek-a-boo中这么做，只是为了观看Angular是如何按照期望的顺序调用这些钩子的。   
 
   This snapshot reflects the state of the log after the user clicked the *Create...* button and then the *Destroy...* button.
+
+  用户点击**Create...**按钮，然后点击**Destroy...**按钮后，日志的状态如下图所示：
 figure.image-display
   img(src="/resources/images/devguide/lifecycle-hooks/peek-a-boo.png" alt="Peek-a-boo")
 :marked
@@ -537,7 +572,6 @@ figure.image-display
     Misko Hevery，Angular项目的头，在[这里解释](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)了你为什么应该避免复杂的构造函数逻辑。
   
 :marked
-  
   Don't fetch data in a component constructor.
   You shouldn't worry that a new component will try to contact a remote server when
   created under test or before you decide to display it.
@@ -571,6 +605,9 @@ figure.image-display
 :marked
   You can count on Angular to call the `ngOnInit` method _soon_ after creating the component.
   That's where the heavy initialization logic belongs.
+
+  你可以信任Angular会在创建组件后立刻调用`ngOnInit`方法。
+  这里是放置复杂初始化逻辑的好地方。
 
   ### OnDestroy
 
@@ -870,7 +907,7 @@ figure.image-display
   There's no [need to wait](#wait-a-tick). 
   
   该组件的`doSomething`方法立即更新了组件被绑定的`comment`属性。
-  它[不用等](#wait-a-tick)下一拍。
+  它[不用等](#wait-a-tick)下一回合。
   
   Recall that Angular calls both *AfterContent* hooks before calling either of the *AfterView* hooks.
   Angular completes composition of the projected content *before* finishing the composition of this component's view.
