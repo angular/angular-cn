@@ -935,11 +935,11 @@ h4#register-providers 在`AppModule`中注册路由
 :marked
   Our app launches from the `app.module.ts` file in the `/app` folder.
 
-  本应用的启动点位于`/app`目录下的`main.ts`文件中。
+  本应用的启动点位于`/app`目录下的`app.module.ts`文件中。
 
   We import the `routing` token we exported from the `app.routing.ts` file and add it to the `imports` array.
   
-  我们从`app.routing.ts`文件中导入了`routing`令牌，并把它添加到了`imports`数组中。
+  我们导入了从`app.routing.ts`文件中导出的`routing`令牌，并把它添加到了`imports`数组中。
 
   We import our `CrisisListComponent` and `HeroListComponent` components and add them to our *declarations*
   so they will be registered within our `AppModule`.
