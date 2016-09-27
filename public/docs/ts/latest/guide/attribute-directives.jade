@@ -219,7 +219,7 @@ p
   added that class to the `declarations` NgModule metadata so that Angular 
   will recognize our directive when it encounters `myHighlight` in the template. 
   
-  我们添加了一个`import`语句来获得'Highlight'指令类，并把这个类添加到`AppComponent`组件的`directives`数组中。
+  我们添加了一个`import`语句来获得'Highlight'指令类，并把这个类添加到`AppComponent`组件的`declarations`数组中。
   这样，当Angular在模板中遇到`myHighlight`时，就能认出这是指令了。
 
 +makeExample('attribute-directives/ts/app/app.module.ts',null,'app/app.module.ts')
