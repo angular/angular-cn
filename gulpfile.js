@@ -295,14 +295,16 @@ function runE2eTsTests(appDir, outputFile) {
   try {
     var exampleConfig = fs.readJsonSync(`${appDir}/${_exampleConfigFilename}`);
   } catch (e) {
-    exampleConfig = {
-      build: 'tsc',
-      run: 'http-server:e2e'
-    };
+    exampleConfig = {};
   }
 
-  var appBuildSpawnInfo = spawnExt('npm', ['run', exampleConfig.build], { cwd: appDir });
-  var appRunSpawnInfo = spawnExt('npm', ['run', exampleConfig.run, '--', '-s'], { cwd: appDir });
+  var config = {
+    build: exampleConfig.build || 'tsc',
+    run: exampleConfig.run || 'http-server:e2e'
+  };
+
+  var appBuildSpawnInfo = spawnExt('npm', ['run', config.build], { cwd: appDir });
+  var appRunSpawnInfo = spawnExt('npm', ['run', config.run, '--', '-s'], { cwd: appDir });
 
   return runProtractor(appBuildSpawnInfo.promise, appDir, appRunSpawnInfo, outputFile);
 }
@@ -1265,7 +1267,7 @@ function apiExamplesWatch(postShredAction) {
 }
 
 function devGuideExamplesWatch(shredOptions, postShredAction, focus) {
-  var watchPattern = focus ? '**/' + focus + '/**/*.*' : '**/*.*';
+  var watchPattern = focus ? '**/{' + focus + ',cb-' + focus+ '}/**/*.*' : '**/*.*';
   var includePattern = path.join(shredOptions.examplesDir, watchPattern);
   // removed this version because gulp.watch has the same glob issue that dgeni has.
   // var excludePattern = '!' + path.join(shredOptions.examplesDir, '**/node_modules/**/*.*');

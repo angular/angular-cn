@@ -1,12 +1,5 @@
 include ../_util-fns
 
-.alert.is-important
-  :marked
-    This guide is still in the process of being updated to RC5 and it's samples
-    may not work correctly.
-
-    我们正在为RC5更新本指南，目前本指南中的例子暂时不会正常运行。
-
 :marked
   Having an existing Angular 1 application doesn't mean that we can't
   begin enjoying everything Angular 2 has to offer. That's because Angular 2
@@ -43,8 +36,8 @@ include ../_util-fns
 
   1. [Preparation](#preparation)
   1. [准备工作](#preparation)
-      1. [Following The Angular Style Guide](#following-the-angular-style-guide)
-      1. [遵循Angular风格指南](#following-the-angular-style-guide)
+      1. [Follow the Angular Style Guide](#follow-the-angular-style-guide)
+      1. [遵循Angular风格指南](#follow-the-angular-style-guide)
       2. [Using a Module Loader](#using-a-module-loader)
       2. [使用模块加载器](#using-a-module-loader)
       3. [Migrating to TypeScript](#migrating-to-typescript)
@@ -55,7 +48,7 @@ include ../_util-fns
   2. [通过升级适配器进行升级](#upgrading-with-the-upgrade-adapter)
       1. [How The Upgrade Adapter Works](#how-the-upgrade-adapter-works)
       1. [如何升级适配器](#how-the-upgrade-adapter-works)
-      2. [Bootstrapping Hybrid Angular 1+2 Applications](#bootstrapping-hybrid-angular-1-2-applications)
+      2. [Bootstrapping hybrid Angular 1+2 Applications](#bootstrapping-hybrid-angular-1-2-applications)
       2. [引导Angular 1和2的混合(hybrid)应用](#bootstrapping-hybrid-angular-1-2-applications)
       3. [Using Angular 2 Components from Angular 1 Code](#using-angular-2-components-from-angular-1-code)
       3. [从Angular 1的代码中使用Angular 2的组件](#using-angular-2-components-from-angular-1-code)
@@ -75,7 +68,7 @@ include ../_util-fns
       1. [切换到TypeScript](#switching-to-typescript)
       2. [Installing Angular 2](#installing-angular-2)
       2. [安装Angular 2](#installing-angular-2)
-      3. [Bootstrapping A Hybrid 1+2 PhoneCat](#bootstrapping-a-hybrid-1-2-phonecat)
+      3. [Bootstrapping a hybrid 1+2 PhoneCat](#bootstrapping-a-hybrid-1-2-phonecat)
       3. [引导Angular 1+2的混合版PhoneCat](#bootstrapping-a-hybrid-1-2-phonecat)
       4. [Upgrading the Phone service](#upgrading-the-phone-service)
       4. [升级Phone服务](#upgrading-the-phone-service)
@@ -100,7 +93,7 @@ include ../_util-fns
   Angular 1应用程序的组织方式有很多种。当我们想把它们升级到Angular 2的时候，
   有些做起来会比其它的更容易些。即使在我们开始升级之前，也有一些关键的技术和模式可以让我们将来升级时更轻松。
 
-  ## Following The Angular Style Guide
+  ## Follow the Angular Style Guide
   ## 遵循Angular风格指南
 
   The [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
@@ -640,6 +633,40 @@ figure.image-display
   相应的，当我们把Angular 1的组件升级给Angular 2使用时，在这个组件型指令的`scope`(或`bindToController`)中定义的所有绑定，
   都将被挂钩到Angular 2的变更检测体系中。它们将和标准的Angular 2输入属性被同等对待，并当它们发生变化时设置回scope(或控制器)上。
 
+  ## Using the Upgrade Adapter with Angular 2 _NgModules_
+  
+  ## 通过Angular 2的*NgModule*来使用升级适配器
+
+  Both Angular 1 and Angular 2 have their own concept of modules
+  to help organize an application into cohesive blocks of funcionality.
+  
+  Angular 1还是Angular 2都有自己的模块概念，来帮你我们把应用组织成一些紧密相关的功能块。
+  
+  Their details are quite different in architecture and implementation.
+  In Angular 1, you add Angular assets to the `angular.module` property.
+  In Angular 2, you create one or more classes adorned with an `NgModule` decorator
+  that describes Angular assets in metadata. The differences blossom from there.
+  
+  它们在架构和实现的细节上有着显著的不同。
+  在Angular 1中，我们会把Angular 1的资源添加到`angular.module`属性上。
+  在Angular 2中，我们会创建一个或多个带有`NgModule`装饰器的类，这些装饰器用来在元数据中描述Angular资源。差异主要来自这里。
+
+  In a hybrid application we run both versions of Angular at the same time.
+  That means that we need at least one module each from both Angular 1 and Angular 2.
+  We will give the Angular 2 module to the `UpgradeAdapter` while we use the
+  Angular 1 module for bootstrapping. Let's see how.
+  
+  在混合式应用中，我们同时运行了两个版本的Angular。
+  这意味着我们至少需要Angular 1和Angular 2各提供一个模块。
+  当我们使用Angular 1的模块进行引导时，就得把Anuglar 2的模块传给`UpgradeAdapter`。我们来看看怎么做。
+
+.l-sub-section
+  :marked
+    Learn more about Angular 2 modules at the [NgModule guide](ngmodule.html).
+    
+    要了解Angular 2模块的更多信息，请参阅[Angular模块](ngmodule.html)页。
+  
+:marked
   ## Bootstrapping Hybrid Angular 1+2 Applications
   ## 引导Angular 1+2的混合式应用程序
 
@@ -678,38 +705,44 @@ figure.image-display
 +makeExample('upgrade-adapter/ts/app/1-bootstrap/app.module.ts', 'bootstrap')
 
 :marked
-  To then switch the application into hybrid mode, we must first
-  install Angular 2 to the project. Follow the instructions in
-  [the QuickStart](../quickstart.html) for some pointers on this.
-  When we have Angular 2 installed, we can import and instantiate
-  the `UpgradeAdapter`, and then call its `bootstrap` method. It
-  is designed to take the exact same arguments as
-  [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap)
-  so that it is easy to make the switch:
+  Now introduce Angular 2 to the project. Inspired by instructions in
+  [the QuickStart](../quickstart.html), you can selectively copy in material from the
+  <a href="https://github.com/angular/quickstart" target="_blank">QuickStart github repository</a>.
+  
+  现在，把Angular 2引入项目中。根据[“快速起步”](../quickstart.html)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
 
-  要把这个应用切换到混合模式，我们得先把Angular 2安装到项目中。遵循[“快速起步”](../quickstart.html)中给出的步骤完成它。
-  安装完Angular 2之后，我们可以导入和实例化`UpgradeAdapter`类，然后调用它的`bootstrap`方法。
-  它被设计成接受与[angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap)完全相同的参数。
-  所以，做这种切换很简单：
+  Next, create an `app.module.ts` file and add the following `NgModule` class:
+  
+  接下来，创建一个`app.module.ts`文件，并添加下列`NgModule`类：
+
++makeExample('upgrade-adapter/ts/app/1-2-hybrid-bootstrap/app.module.ts', 'ngmodule')
+  
+:marked
+  This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app must have.
+  
+  这个最小化的`NgModule`导入了`BrowserModule`，该模块是每个基于浏览器的Angular应用都必须具备的。
+
+  Import and instantiate the `UpgradeAdapter` with the new `AppModule` and call its `bootstrap` method. 
+  That method takes the exact same arguments as [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap):
+  
+  用新的`AppModule`来导入和实例化`UpgradeAdapter`类，并调用它的`bootstrap`方法。
+  该方法被设计成接受与[angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap)完全相同的参数：
 
 +makeExample('upgrade-adapter/ts/app/1-2-hybrid-bootstrap/app.module.ts', 'bootstrap')
 
 :marked
-  At this point we'll be running a hybrid Angular 1+2 application! All the
-  existing Angular 1 code will work as it always did, but we are now ready
-  to run Angular 2 code as well.
+  Congratulations! You're running a hybrid Angular 1+2 application! The
+  existing Angular 1 code works as before _and_ you're ready to run Angular 2 code.
 
-  这时，我们就要开始运行Angular 1+2的混合式应用程序了！所有现存的Angular 1代码会像以前一样正常工作，但是我们现在也同样可以运行Angular 2代码了。
+  恭喜！我们就要开始运行Angular 1+2的混合式应用程序了！所有现存的Angular 1代码会像以前一样正常工作，但是我们现在也同样可以运行Angular 2代码了。
 
 .alert.is-helpful
   :marked
-    One notable difference between `angular.bootstrap` and
-    `upgradeAdapter.bootstrap` is that the latter works *asynchronously*.
-    This means that we cannot assume that the application has been instantiated
-    immediately after the bootstrap call returns.
+    Note that, unlike `angular.bootstrap`, the `upgradeAdapter.bootstrap` runs *asynchronously*.
+    The application is not launched immediately. Some time must pass after the bootstrap call returns.
 
-    在`angular.bootstrap`和`upgradeAdapter.bootstrap`之间一个显著的不同点是：后者是*异步*工作的。
-    这意味着当这次`bootstrap`调用刚刚返回时，我们不能假设应用程序已经被初始化过了。
+    注意，在`angular.bootstrap`和`upgradeAdapter.bootstrap`之间有一个显著的不同点：后者是*异步*工作的。
+    该应用不是立即启动的。有时必须在这次bootstrap调用返回后才能传入。
 
 :marked
   As we begin to migrate components to Angular 2, we'll be using the
@@ -762,7 +795,19 @@ figure
 +makeExample('upgrade-adapter/ts/app/downgrade-static/app.module.ts', 'downgradecomponent')
 
 :marked
-  What we have here is an Angular 1 directive called `heroDetail`, which we can
+  Because `HeroDetailComponent` is an Angular 2 component, we must also add it to the `declarations` in the `AppModule`.
+  
+  由于`HeroDetailComponent`是一个Angular 2组件，所以我们必须同时把它加入`AppModule`的`declarations`字段中。
+
++makeExample('upgrade-adapter/ts/app/downgrade-static/app.module.ts', 'ngmodule')
+.l-sub-section
+  :marked
+    All Angular 2 components, directives and pipes must be declared in an NgModule.
+    
+    所有Angular 2组件、指令和管道都必须声明在NgModule中。
+
+:marked
+  The net resulit is an Angular 1 directive called `heroDetail`, that we can
   use like any other directive in our Angular 1 templates.
 
   这里我们得到的是一个叫做`heroDetail`的Angular 1指令，我们可以像用其它指令一样把它用在Angular 1模板中。
@@ -772,12 +817,13 @@ figure
 
 .alert.is-helpful
   :marked
-    Note that since Angular 1 directives are matched based on their name,
-    *the selector metadata of the Angular 2 component is not used in Angular 1*.
-    It is matched as an element directive (`restrict: 'E'`) called `heroDetail`.
-
-    注意，由于Angular 1的指令是基于它们的名字进行匹配的，*Angular 2组件元数据中的`selector`不会被用在Angular 1中*。
-    它会像一个名叫`heroDetail`的元素型指令(`restrict: 'E'`)一样被匹配。
+    Note that this Angular 1 is an element directive (`restrict: 'E'`) called `heroDetail`.
+    An Angular 1 element directive is matched based on its _name_.
+    *The `selector` metadata of the downgraded Angular 2 component is ignored.*
+    
+    注意，它在Angular 1中是一个名叫`heroDetail`的元素型指令（`restrict: 'E'`）。
+    Angular 1的元素型指令是基于它的*名字*匹配的。
+    *Angular 2组件中的`selector`元数据，在降级后的版本中会被忽略。*
 
 :marked
   Most components are not quite this simple, of course. Many of them
@@ -881,15 +927,14 @@ figure
 :marked
   We can *upgrade* this component to Angular 2 using the `UpgradeAdapter`'s
   `upgradeNg1Component` method. It takes the name of an Angular 1 component
-  directive and returns an Angular 2 **component class**. When we then
-  want to use it from an Angular 2 component, we list it the in the `directives`
-  metadata of the component and then just use it in the Angular 2 template:
+  directive and returns an Angular 2 **component class**. 
+  Declare it in an `NgModule` as with other  Angular 2 components:
 
   我们可以使用`UpgradeAdapter`的`upgradeNg1Component`方法来把这个组件*升级*到Angular 2。
   它接受Angular 1组件型指令的名字，并返回一个Angular 2**组件类**。
-  当我们以后想从Angular 2组件中用它时，只要把它列在组件的`directives`元数据中，然后直接在Angular 2模板中用它就可以了：
+  像其它Angular 2组件一样，请把它声明在`NgModule`中：
 
-+makeExample('upgrade-adapter/ts/app/upgrade-static/container.component.ts', null, 'container.component.ts')
++makeExample('upgrade-adapter/ts/app/upgrade-static/upgrade_adapter.ts', 'heroupgrade', 'app.module.ts')
 
 .alert.is-helpful
   :marked
@@ -1126,25 +1171,19 @@ figure
 +makeExample('upgrade-adapter/ts/app/2-to-1-providers/heroes.ts', null, 'heroes.ts')
 
 :marked
-  We can again use the `UpgradeAdapter` for this, but first we need to register `Heroes`
-  to the Angular 2 injector itself. In a pure Angular 2 application we would do this
-  when we bootstrap the app, as described in the [dependency injection guide](dependency-injection.html#!#providers).
-  But since hybrid applications are bootstrapped using the `UpgradeAdapter`, we also
-  need to register our Angular 2 providers using `UpgradeAdapter`. It has a method
-  called `addProvider` for this purpose.
+  Again, as with Angular 2 components, register the provider with the `NgModule` by adding it to the module's `providers` list.
+  
+  仿照Angular 2组件，我们通过把该提供商加入`NgModule`的`providers`列表中来注册它。
 
-  我们又能使用`UpgradeAdapter`处理它了，但首先我们需要把`Heroes`服务注册到Angular 2自身的注入器。
-  在纯Angular 2应用中，我们会在引导应用时这么做，就像[依赖注入指南](dependency-injection.html#!#providers)中描述的那样。
-  但是因为混合式应用是使用`UpgradeAdapter`引导的，所以我们还得用`UpgradeAdapter`注册Angular 2的提供商。
-  它有一个`addProvider`方法就是用来做这个的。
++makeExample('upgrade-adapter/ts/app/2-to-1-providers/upgrade_adapter.ts', 'ngmodule', 'app.module.ts')
 
-  Once we've registered the Angular 2 provider, we can turn `Heroes` into an *Angular 1
-  factory function* using `upgradeAdapter.downgradeNg2Provider()`. We can
-  then plug the factory into an Angular 1 module, at which point we also choose what the
-  name of the dependency will be in Angular 1:
+:marked
+  Now wrap the Angular 2 `Heroes` in an *Angular 1 factory function* using `upgradeAdapter.downgradeNg2Provider()`. 
+  and plug the factory into an Angular 1 module. 
+  The name of the Angular 1 dependency is up to you:
 
-  一旦我们注册了Angular 2的提供商，就能用`upgradeAdapter.downgradeNg2Provider()`把`Heroes`转变成一个*Angular 1的工厂函数*。
-  然后我们就能把这个工厂插入到Angular 1模块中，那时，我们可以选择该依赖要在Angular 1中用的名字：
+  现在，我们使用`upgradeAdapter.downgradeNg2Provider()`来把Angular 2的`Heroes`包装成*Angular 1的工厂函数*，并把这个工厂注册进Angular 1的模块中。
+  依赖在Angular 1中的名字你可以自己定：
 
 +makeExample('upgrade-adapter/ts/app/2-to-1-providers/app.module.ts', 'register', 'app.module.ts')
 
@@ -1569,7 +1608,7 @@ code-example(format="").
 
   把`app/index.html`移入项目的根目录，然后把`package.json`中的开发服务器根目录也指向项目的根目录，而不再是`app`目录：
 
-+makeJson('upgrade-phonecat-2-hybrid/ts/package.ng1.json', {paths: 'scripts.start'}, 'package.json')
++makeJson('upgrade-phonecat-2-hybrid/ts/package.ng1.json', {paths: 'scripts.start'}, 'package.json (start script)')
 
 :marked
   Now we're able to serve everything from the project root to the web browser. But we do *not*
@@ -1602,7 +1641,31 @@ code-example(format="").
 +makeExample('upgrade-phonecat-2-hybrid/ts/systemjs.config.1.js', 'paths', 'systemjs.config.js')
 
 :marked
-  ## Bootstrapping A Hybrid 1+2 PhoneCat
+  ## Creating the _AppModule_
+  
+  ## 创建*AppModule*
+
+  Now create the root `NgModule` class called `AppModule`.
+  There is already a file named `app.module.ts` that holds the Angular 1 module. 
+  Rename it to `app.module.ng1.ts` and update the corresponding script name in the `index.html` as well.
+  The file contents remain:
+  
+  现在，创建一个名叫`AppModule`的根`NgModule`类。
+  我们已经有了一个名叫`app.module.ts`的文件，其中存放着Angular 1的模块。
+  把它改名为`app.module.ng1.ts`，同时也要在`index.html`中更新对应的脚本名。
+  文件的内容保留：
+
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ng1.ts', null, 'app.module.ng1.ts')
+
+:marked
+  Now create a new `app.module.ts` with the minimum `NgModule` class:
+  
+  然后创建一个新的`app.module.ts`文件，其中是一个最小化的`NgModule`类：
+
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'bare', 'app.module.ts')
+
+:marked
+  ## Bootstrapping a hybrid 1+2 PhoneCat
   ## 引导PhoneCat的1+2混合式应用
 
   What we'll do next is bootstrap the application as a *hybrid application*
@@ -1676,37 +1739,19 @@ code-example(format="").
   * 把一台电话的详情加载到电话详情组件中。
 
   We can replace this implementation with an Angular 2 service class, while
-  keeping our controllers in Angular 1 land. In the new version we'll just use
-  the `Http` service from Angular 2 instead of ngResource.
-
+  keeping our controllers in Angular 1 land.
+ 
   我们可以用Angular 2的服务类来替换这个实现，而把控制器继续留在Angular 1的地盘上。
-  在新版本中，我们将用来自Angular 2的`Http`服务代替`ngResource`。
+  
+  In the new version, we import the Angular 2 HTTP module and call its `Http` service instead of `ngResource`.
 
-  Before the `Http` service is available for injection, we need to register
-  it into our application's dependency injector. We should import the `HTTP_PROVIDERS`
-  constant in `main.ts`:
+  在这个新版本中，我们导入了Angular 2的HTTP模块，并且用它的`Http`服务替换掉`NgResource`。
 
-  要让`Http`服务在注入时可用，我们得先把它注册进我们应用程序的依赖注入器中。我们要把`HTTP_PROVIDERS`常量导入到`app.module.ts`中：
+  Re-open the `app.module.ts` file, import and add `HttpModule` to the `imports` array of the `AppModule`:
+  
+  再次打开`app.module.ts`文件，导入并把`HttpModule`添加到`AppModule`的`imports`数组中：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'import-http')
-
-:marked
-  In a regular Angular 2 application we would now pass `HTTP_PROVIDERS` into
-  the application bootstrap function. But we can't do that in a hybrid
-  application such as the one we're working on. That's because the `bootstrap`
-  method of  `UpgradeAdapter` expects Angular 1 modules as dependencies,
-  not Angular 2 providers.
-
-  在标准的Angular 2应用中，我们可以把`HTTP_PROVIDERS`传给应用程序的`bootstrap`函数。
-  但是在混合式应用中我们不能这么做 —— 比如现在这个。这是因为`UpgradeAdapter`的`bootstrap`方法
-  希望以Angular 1模块作为依赖，而不是Angular 2提供商。
-
-  What we must do instead is register `HTTP_PROVIDERS` into the `UpgradeAdapter`
-  separately. It has a method called `addProvider` for that purpose:
-
-  这就是为什么我们必须单独把`HTTP_PROVIDERS`注册进`UpgradeAdapter`。为此，它提供了一个叫做`addProvider`的方法：
-
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'add-http')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'httpmodule', 'app.module.ts')
 
 :marked
   Now we're ready to upgrade the Phone service itself. We replace the ngResource-based
@@ -1714,7 +1759,7 @@ code-example(format="").
 
   现在，我们已经准备好了升级`Phones`服务本身。我们将为`phone.service.ts`文件中基于ngResource的服务加上`@Injectable`装饰器：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/core/phone/phone.service.ts', 'classdef', 'app/core/phone/phone.service.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/core/phone/phone.service.ts', 'classdef', 'app/core/phone/phone.service.ts (skeleton)')(format='.')
 
 :marked
   The `@Injectable` decorator will attach some dependency injection metadata
@@ -1745,7 +1790,7 @@ code-example(format="").
   该方法现在返回一个`Phone`类型或`Phone[]`类型的可观察对象(Observable)。
   这是一个我们从未用过的类型，因此我们得为它新增一个简单的接口：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/core/phone/phone.service.ts', 'phonedata-interface', 'app/core/phone/phone.service.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/core/phone/phone.service.ts', 'phonedata-interface', 'app/core/phone/phone.service.ts (interface)')(format='.')
 
 :marked
   Here's the full, final code for the service:
@@ -1758,42 +1803,26 @@ code-example(format="").
   Notice that we're importing the `map` operator of the RxJS `Observable` separately.
   We need to do this for all RxJS operators that we want to use, since Angular 2
   does not load all of them by default.
-
+  
   注意，我们单独导入了RxJS `Observable`中的`map`操作符。
   我们需要对想用的所有RxJS操作符这么做，因为Angular 2默认不会加载所有RxJS操作符。
 
-  The new `Phone` service now has the same features that the original, ngResource based
-  service did. Now we just need to register the new service into the application, so that
-  our Angular 1 components will be able to use it.
+  The new `Phone` service has the same features as the original, `ngResource`-based service. 
+  Because it's an Angular 2 service, we register it with the `NgModule` providers:
+  
+  这个新的`Phone`服务具有和老的基于`ngResource`的服务相同的特性。
+  因为它是Angular 2服务，我们通过`NgModule`的`providers`数组来注册它：
 
-  这个新的`Phones`服务现在有了和原来基于`ngResource`的服务相同的特性。
-  现在只要把这个新服务注册进应用程序，我们的Angular 1控制器就能使用它了。
-
-
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'phone', 'app.module.ts')
+:marked
   `UpgradeAdapter` has a `downgradeNg2Provider` method for the purpose of making
-  Angular 2 services available to Angular 1 code. We can use it to plug in our
-  `Phone` service:
+  Angular 2 services available to Angular 1 code. Use it to plug in the `Phone` service:
+  
+  `UpgradeAdapter`有一个`downgradeNg2Provider`方法，用于让Angular 2的服务对Angular 1的代码可用。用它来插入`Phone`服务：
 
-  `UpgradeAdapter`有个`downgradeNg2Provider`方法就是用来让Angular 2的服务在Angular 1的代码中可用的。
-  我们可以使用它来插入我们的`Phone`服务：
-
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-service', 'app/main.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-service', 'app/main.ts (excerpt)')(format='.')
 
 :marked
-  Note that we actually needed to do two registrations here:
-
-  注意，我们实际上做了两次注册：
-
-  1. Register `Phone` as an **Angular 2 provider** with the `addProvider`
-     method. That's the same method that we used earlier for `HTTP_PROVIDERS`.
-
-  1. 用`addProvider`方法注册了一个名叫`Phone`的**Angular 2提供商**。这和我们以前使用`HTTP_PROVIDERS`的方法一样。
-
-  2. Register an **Angular 1 factory** called `phone`, which will be a *downgraded*
-     version of the `Phone` Angular 2 service.
-
-  2. 注册了一个名叫`phone`的**Angular 1工厂**，它是一个`Phones`服务的*降级*版。
-
   Now that we are loading `phone.service.ts` through an import that is resolved
   by SystemJS, we should **remove the &lt;script&gt; tag** for the service from `index.html`.
   This is something we'll do to all our components as we upgrade them. Simultaneously
@@ -1868,100 +1897,111 @@ code-example(format="").
   但是在Angular 2中，我们要有一个专门指定的选择器。本组件将会对应元素名字`phone-list`，和Angular 1版本一样。
 
   We now also need to convert the template of this component into Angular 2 syntax.
-  In the search controls we need to use Angular 2 syntax for the two `ngModel`s.
-  We should also no longer use the `$ctrl` prefix in expressions:
+  The search controls replace the Angular 1 `$ctrl` expressions
+  with Angular 2's two-way `[(ngModel)]` binding syntax:
 
-  现在，我们同时需要将组件的模版也转换为Angular 2语法。在搜索控制中，我们需要为两个`ngModel`使用Angular 2语法。
-  我们应该不需要再在表达式中使用`$ctrl`前缀：
+  现在，我们还需要将组件的模版也转换为Angular 2语法。在搜索控件中，我们要为把Angular 1的`$ctrl`表达式替换成Angular 2的双向绑定语法`[(ngModel)]`：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.template.html', 'controls', 'app/phone-list/phone-list.template.html')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.template.html', 'controls', 'app/phone-list/phone-list.template.html (search controls)')(format='.')
 
 :marked
-  In the list we need to replace the `ng-repeat` with an `*ngFor` and the
-  `let var of iterable` syntax, which is [described in our
-  Template Syntax guide](../guide/template-syntax.html#directives).
-  For the images, we can replace `ng-src` with a binding to the standard `src` property.
+  Replace the list's `ng-repeat` with an `*ngFor` as 
+  [described in the Template Syntax page](../guide/template-syntax.html#directives).
+  Replace the image tag's `ng-src` with a binding to the native `src` property.
 
-  在列表中，我们需要把`ng-repeat`替换为`*ngFor`以及它的`let var of iterable`语法，
+  我们需要把列表中的`ng-repeat`替换为`*ngFor`以及它的`let var of iterable`语法，
   该语法在[模板语法指南中讲过](../guide/template-syntax.html#directives)。
-  对于图片，我们可以把`ng-src`替换为一个标准的`src`属性(property)绑定。
+  对于图片，我们可以把`img`标签的`ng-src`替换为一个标准的`src`属性(property)绑定。
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.template.html', 'list', 'app/phone-list/phone-list.template.html')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.template.html', 'list', 'app/phone-list/phone-list.template.html (phones)')(format='.')
 
 :marked
-  Another thing that we've done here is that we've removed the use of `filter` and `orderBy` filters,
-  and replaced them with a call to the `getPhones()` controller method.
-  The built-in Angular filters `filter` and `orderBy` do not exist in Angular 2,
-  so we need to do the filtering and sorting ourselves. We could define our own Angular 2
-  pipes for this purpose, but in this case it is more convenient to just implement the filtering
-  and ordering logic in the component itself. We expect the `getPhones()` method to return a collection
-  where the current filtering and ordering has been applied.
+  ### No Angular 2 _filter_ or _orderBy_ filters
+  ### Angular 2中没有`filter`或`orderBy`过滤器
+  
+  The built-in Angular 1 `filter` and `orderBy` filters do not exist in Angular 2,
+  so we need to do the filtering and sorting ourselves. 
+  
+  Angular 2中并不存在Angular 1中内置的`filter`和`orderBy`过滤器。
+  所以我们得自己实现进行过滤和排序。
+  
+  We replaced the `filter` and `orderBy` filters with bindings to the `getPhones()` controller method,
+  which implements the filtering and ordering logic inside the component itself. 
 
-  我们在这里做的另一件事就是移除了`filter`和`orderBy`过滤器的使用，并把它们换成对控制器中`getPhones()`方法的调用。
-  内置的`filter`和`orderBy`在Angular 2中已经不存在了，所以我们得自己进行过滤和排序。
-  我们可以为此定义自己的Angular 2管道，但是在这个案例中，在组件本身实现过滤和排序逻辑反倒更方便。
-  我们希望`getPhones()`方法直接返回一个应用过当前过滤和排序规则的集合。
+  我们把`filter`和`orderBy`过滤器改成绑定到控制器中的`getPhones()`方法，通过该方法，组件本身实现了过滤和排序逻辑。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-list/phone-list.component.ts', 'getphones', 'app/phone-list/phone-list.component.ts')
 
 :marked
-  In the entrypoint file `main.ts` we're going to plug this component into our application. Instead
-  of registering a component, we register a `phoneList` *directive*.
-  The directive is a downgraded version of our Angular 2 component, and the `UpgradeAdapter`
-  handles the bridging between the two:
+  The new `PhoneListComponent` uses the Angular 2 `ngModel` directive, located in the `FormsModule`. 
+  Add the `FormsModule` to `NgModule` imports and declare the new `PhoneListComponent` :
 
-  在模块文件中，我们将把这个组件插入到程序中。我们不再注册控制器，而是注册一个`pcPhoneList`指令。
-  该指令是我们那个组件的降级版本，`UpgradeAdapter`负责桥接它们：
+  新的`PhoneListComponent`使用Angular 2的`ngModel`指令，它位于`FormsModule`中。
+  把`FormsModule`添加到`NgModule`的`imports`中，并声明新的`PhoneListComponent`组件：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-list', 'app/main.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'phonelist', 'app.module.ts')
 
 :marked
-  The `<angular.IDirectiveFactory>` type annotation here is to let the TypeScript compiler
-  know that the return value of the downgrade method call will be something that can be
-  used as a directive factory.
+  In the entrypoint file `main.ts` we'll plug this component into the Angular 1 module. 
+  
+  在入口点文件`main.ts`中，我们把该组件插入到Angular 1的模块中。
+  
+  Instead of registering a component, we register a `phoneList` *directive*, a downgraded version of the Angular 2 component.
+  The `UpgradeAdapter` creates the bridge between the two:
 
-  这里的`<angular.IDirectiveFactory>`类型注解是为了让TypeScript编译器知道这个
-  降级方法(`downgradeNg2Component`)的返回值能作为指令工厂使用。
+  我们注册了一个`phoneList`*指令*而不是组件，指令是Angular 2组件的降级版。`UpgradeAdapter`在两者之间架起了桥梁：
 
-  At this point, also remove the &lt;script&gt; tag for the phone list component from `index.html`.
++makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-list', 'app/main.ts (excerpt)')(format='.')
 
-  这时，也从`index.html`中移除电话列表组件的`<script>`标签。
+:marked
+  The `as angular.IDirectiveFactory` cast tells the TypeScript compiler
+  that the return value of the downgrade method is a directive factory.
+  
+  `as angular.IDirectiveFactory`这个强制类型转换告诉TypeScript编译器该降级方法的返回值是一个指令工厂。
 
-  Now we can start looking at our other component, which is the one for
-  the phone details. Set the contents of `phone-detail.component.ts` as follows:
+  Remove the &lt;script&gt; tag for the phone list component from `index.html`.
+  
+  从`index.html`中移除电话列表组件的&lt;script&gt;标签。
 
-  现在我们可以开始看看另一个组件，那就是电话详情。把`phone-detail.component.ts`的内容设置为这样：
+  Now set the remaining `phone-detail.component.ts` as follows:
+  
+  现在，剩下的`phone-detail.component.ts`文件变成了这样：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-detail/phone-detail.component.ts', 'initialclass', 'app/phone-detail/phone-detail.component.ts')
 
 :marked
-  This is pretty similar to what we did with the phone list. The one new change
-  here is the use of `@Inject` for the `$routeParams` dependency. It tells the
-  Angular 2 injector what this dependency should map to. We have a dependency called
-  `$routeParams` in the Angular 1 injector, where it is provided by the Angular 1 router.
-  That is what we were already using when `PhoneDetails` was still an Angular 1 controller.
+  This is similar to the phone list component. 
+  The new wrinkle is the `@Inject` decorator that identifies the `$routeParams` dependency. 
+  
+  这和电话列表组件很相似。
+  这里的窍门在于`@Inject`装饰器，它标记出了`$routeParams`依赖。
 
-  这和我们对电话列表所做的很相似。这里的一个新的更改是使用`@Inject`来获取`$routeParams`依赖。
-  它告诉Angular 2的注入器这个依赖该被映射成什么。我们在Angular 1的注入器中有一个名叫`$routeParams`的依赖，
-  它是由Angular 1路由器提供的。
-  它也是当`PhoneDetails`还是Angular 1控制器的时候我们用过的那个。
+  The Angular 1 injector has an Angular 1 router dependency called `$routeParams`.
+  which was injected into `PhoneDetails` when it was still an Angular 1 controller.
+  We intend to inject it into the new `PhoneDetailsComponent`.
+  
+  Angular 1注入器具有Angular 1路由器的依赖，叫做`$routeParams`。
+  它被注入到了`PhoneDetails`中，但`PhoneDetails`现在还是一个Angular 1控制器。
+  我们应该把它注入到新的`PhoneDetailsComponent`中。
+  
+  Unfortunately, Angular 1 dependencies are not automatically available to Angular 2 components.
+  We must use the `UpgradeAdapter` to make the `$routeParams` an Angular 2 provider.
+  Do that in `main.ts`:
+  
+  不幸的是，Angular 1的依赖不会自动在Angular 2的组件中可用。
+  我们必须使用`UpgradeAdapter`来把`$routeParams`包装成Angular 2的服务提供商。
+  在`main.ts`中这样写：
 
-  The things is though, Angular 1 dependencies are not made automatically available to
-  Angular 2 components, so if we were to run this now, it would not work. We need to explicitly
-  tell the `UpgradeAdapter` to upgrade `$routeParams` so that it is available for injection in
-  Angular 2. We can do it in `main.ts`:
++makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'routeparams', 'app/main.ts ($routeParms)')(format='.')
 
-  问题是，Angular 1的依赖不会自动对Angular 2的组件可用，所以如果我们现在运行它，它将无法工作。
-  我们得显式的告诉`UpgradeAdapter`去升级`$routeParams`，以便它能被注入到Angular 2中。
-  我们可以在`main.ts`中这么做：
-
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'routeparams', 'app/main.ts')
-
-
+.l-sub-section
+  :marked
+    Do not register an upgraded Angular 1 provider in the `NgModule`.
+    
+    不要把升级得来的Angular 1服务提供商注册到`NgModule`中。
 
 :marked
-  We now also need to convert the template of this component into Angular 2 syntax.
-  Here is the new template in its entirety:
+  Convert the phone detail component template into Angular 2 syntax as follows:
 
   我们现在也要把该组件的模板转变成Angular 2的语法。
   这里是它完整的新模板：
@@ -2013,6 +2053,12 @@ code-example(format="").
     和Angular 1不同，当我们尝试引用未定义对象上的属性时，Angular 2中的表达式不会默默失败。
     我们必须明确指出这种情况是我们所期望的。
 
+  Add this component to the `NgModule` _declarations_:
+  
+  把该组件添加到`NgModule`的`declarations`中：
+
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'phonedetail', 'app.module.ts')
+
 :marked
   In `main.ts` we'll now register a `phoneDetail` directive instead of a
   component. The directive is a downgraded version of the `PhoneDetail` Angular 2
@@ -2020,163 +2066,213 @@ code-example(format="").
 
   在`main.ts`中，我们现在会注册一个`pcPhoneDetail`指令，而不再是组件。该指令是`PhoneDetail`组件的一个降级版。
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-detail', 'app/main.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'phone-detail', 'app/main.ts (excerpt)')(format='.')
 
 :marked
   We should now also remove the phone detail component &lt;script&gt; tag from `index.html`.
 
   我们现在应该从`index.html`中移除电话详情组件的&lt;script>。
 
-  There's one additional step we need to take, which is to upgrade the
-  `checkmark` filter that the template is using. We need an Angular 2
-  pipe instead of an Angular 1 filter.
+  ### Add the _CheckmarkPipe_
+  
+  ### 添加`CheckmarkPipe`
 
-  我们还有一个额外的步骤要做，那就是升级模板中用到的那个`checkmark`过滤器。我们需要用一个Angular 2管道替换Angular 1过滤器。
+  The Angular 1 directive had a `checkmark` _filter_.
+  Turn that into an Angular 2 **pipe**.
+  
+  Angular 1指令中有一个`checkmark`*过滤器*，我们把它转换成Angular 2的**管道**。
 
-  While there is no upgrade method in the upgrade adapter for filters, we
-  can just turn the filter function into a class that fulfills
-  the contract for Angular 2 Pipes. The implementation is the same as before.
-  It just comes in a different kind of packaging. While changing it, also
-  rename the file to `checkmark.pipe.ts`:
+  There is no upgrade adapter method to convert filters into pipes.
+  You won't miss it.
+  It's easy to turn the filter function into an equivalent Pipe class. 
+  The implementation is the same as before, repackaged in the `transform` method.
+  Rename the file to `checkmark.pipe.ts` to conform with Angular 2 conventions:
 
-  在升级适配器中并没有哪个方法可用于升级过滤器，但我们只要把过滤器函数转变成一个能满足Angular 2管道契约的类就可以了。
-  它的实现方式和前面一样。它从一个不同类型的包而来。修改它的同时，也把它的文件名改为`checkmark.pipe.ts`：
+  升级适配器并没有什么方法能把过滤器转换成管道。
+  但我们也并不需要它。
+  把过滤器函数转换成等价的Pipe类非常简单。
+  实现方式和以前一样，但把它们包装进`transform`方法中就可以了。
+  把该文件改名成`checkmark.pipe.ts`，以符合Angular 2中的命名约定：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/core/checkmark/checkmark.pipe.ts', null, 'app/core/checkmark/checkmark.pipe.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/core/checkmark/checkmark.pipe.ts', null, 'app/core/checkmark/checkmark.pipe.ts')(format='.')
 
 :marked
-  In the component we should now import and declare our newly created pipe (as well as
-  remove the filter &lt;script&gt; tag from `index.html`):
+  Now import and declare the newly created pipe and
+  remove the filter &lt;script&gt; tag from `index.html`:
 
   当我们做这个修改时，也要同时从`core`模块文件中移除对该过滤器的注册。该模块的内容变成了：
 
-+makeExample('upgrade-phonecat-2-hybrid/ts/app/phone-detail/phone-detail.component.ts', 'checkmark-pipe', 'app/phone-detail/phone-detail.component.ts')
++makeExample('upgrade-phonecat-2-hybrid/ts/app/app.module.ts', 'checkmarkpipe', 'app.module.ts')
 
 :marked
   ## Switching To The Angular 2 Router And Bootstrap
   ## 切换到Angular 2路由器和引导程序
 
-  At this point we've replaced all our Angular 1 application components with
-  their Angular 2 counterparts. The application is still bootstrapped as a hybrid,
-  but there isn't really any need for that anymore, and we can begin to
-  pull out the last remnants of Angular 1.
+  At this point we've replaced all Angular 1 application components with
+  their Angular 2 counterparts. 
+  
+  此刻，我们已经把所有Angular 1程序中的部件替换成了Angular 2中的等价物。
+  
+  The application is still bootstrapped as a hybrid app.
+  There's no need for that anymore.
+  
+  该应用仍然使用混合式应用的方式进行引导，但其实已经不需要了。
+  
+  It's time to remove the last remnants of Angular 1 in two final steps:
+  
+  在最后两步中，我们彻底移除Angular 1的残余势力：
+  
+  1. Switch to the Angular 2 router.
+  
+  1. 切换到Angular 2路由器。
+  
+  1. Bootstrap as a pure Angular 2 app.
+  
+  1. 作为纯Angular 2应用进行引导。
 
-  此时，我们已经把所有的Angular 1程序的各部件替换成了它们在Angular 2中的对应物。该应用仍然是作为混合应用进行引导的，
-  但实际上我们已经不需要它了，我们这就彻底移除Angular 1的残余势力。
+  ### Switch to the Angular 2 router
+  
+  ### 切换到Angular 2路由器
+  
+  Angular 2 has an [all-new router](router.html).
+  
+  Angular 2有一个[全新的路由器](router.html)。
 
-  There are just two more things to do: We need to switch the router to
-  the Angular 2 one, and then bootstrap the app as a pure Angular 2 app.
+  Like all routers, it needs a place in the UI to display routed views.
+  The Angular 2 that's the `<router-outlet>` and it belongs in a *root component*
+  at the top of the applications component tree. 
+  
+  像所有的路由器一样，它需要在UI中指定一个位置来显示路由的视图。
+  在Angular 2中，它是`<router-outlet>`，并位于应用组件树顶部的*根组件*中。
+  
+  We don't yet have such a root component, because the app is still managed as an Angular 1 app.
+  Create a new `app.component.ts` file with the following `AppComponent` class:
+  
+  我们还没有这样一个根组件，因为该应用仍然是像一个Angular 1应用那样被管理的。
+  创建新的`app.component.ts`文件，放入像这样的`AppComponent`类：
 
-  接下来只有两件事要做：我们要把路由器切换成Angular 2的，然后把该程序作为纯粹的Angular 2应用进行引导。
-
-  Let's do the routing part first. Angular 2 comes with an [all-new router](router.html)
-  that we can use for this.
-
-  我们先来处理路由部分。Angular 2自带了一个[全新的路由](router.html)可以用来做这件事。
-
-  Angular 2 applications all have a *root component*, which, among other
-  things, is where we should plug in the router. We don't yet have such a root
-  component, because our app is still managed as an Angular 1 app.
-  Let's change this now and add an `AppComponent` class into a new file
-  `app.component.ts`:
-
-  Angular 2应用全都有一个*根组件*，除具有其它功能外，它还是我们插入路由器的地方。
-  我们现在还不需要根组件，因为我们的程序还是被当做Angular 1的应用进行管理的。
-  我们这就改变这一点，并且把`AppComponent`类填加到一个叫`app.component.ts`的新文件中：
-
-+makeExample('upgrade-phonecat-3-final/ts/app/app.component.ts', null, 'app/app.component.ts')
-
-:marked
-  This is a component that plugs in to an `<phonecat-app>` element on the page,
-  and has a simple template that only includes the router outlet component
-  of the Angular router. This means that the component just renders the contents
-  of the current route and nothing else. The `@RouteConfig` decorator defines
-  the Angular 2 counterparts of our two routes. They refer directly to the
-  two components.
-
-  这个组件将被插入到页面中一个`<phonecat-app>`元素中，并且其模板是只包含一个“路由器出口(router outlet)”组件。
-  这意味着该组件将只会渲染当前路由的内容，没别的。`@RouteConfig`装饰器定义了两个原有路由在Angular 2中的对应物。
-  它们直接引用了这两个组件。
-
-  We should put this `<phonecat-app>` element in the HTML so that the root component
-  has something to attach to. It replaces the old Angular 1 `ng-view` directive:
-
-  我们还要把这个`<phonecat-app>`元素放进HTML中，以便这个根组件可以附加上去。它代替了Angular 1中原来的`ng-view`指令：
-
-+makeExample('upgrade-phonecat-3-final/ts/index.html', 'appcomponent', 'index.html')
++makeExample('upgrade-phonecat-3-final/ts/app/app.component.ts', null, 'app/app.component.ts')(format='.')
 
 :marked
-  In the `PhoneDetail` component we now need to change how the phone id parameter
-  is received. There will be no more `$routeParams` injection available, because
-  that comes from the Angular 1 router. Instead, what we have is a `RouteParams`
-  object provided by the Angular 2 router. We use it to obtain the `phoneId` from
-  the params:
+  It has a simple template that only includes the `<router-outlet>`.
+  This component just renders the contents of the active route and nothing else.
+  
+  它有一个很简单的模板，只包含`<router-outlet>`。
+  该组件只负责渲染活动路由的内容，此外啥也不干。
+  
+  The selector tells Angular 2 to plug this root component into the `<phonecat-app>` 
+  element on the host web page when the application launches.
+  
+  该选择器告诉Angular 2：当应用启动时就把这个根组件插入到宿主页面的`<phonecat-app>`元素中。
 
-  在`PhoneDetail`组件中，我们现在需要修改电话id参数的接收方式。再也没有`$routeParams`可被注入了，
-  因为它来自Angular 1路由器。Angular 2路由器提供了一个`RouteParams`对象。我们使用它来从参数中获得`phoneId`。
+  Add this `<phonecat-app>` element to the `index.html`.
+  It replaces the old Angular 1 `ng-view` directive:
+  
+  把这个`<phonecat-app>`元素插入到`index.html`中。
+  用它来代替Angular 1中的`ng-view`指令：
+
++makeExample('upgrade-phonecat-3-final/ts/index.html', 'appcomponent', 'index.html (body)')(format='.')
+
+:marked
+  ### Create the _Routing Module_
+  
+  ### 创建*路由模块*
+  
+  A router needs configuration whether it's the Angular 1 or Angular 2 or any other router.
+  
+  无论在Angular 1还是Angular 2或其它框架中，路由器都需要进行配置。
+  
+  The details of Angular 2 router configuration are best left to the [Routing](../router.html) documentation
+  which recommends that you create a `NgModule` dedicated to router configuration
+  (called a _Routing Module_):
+  
+  Angular 2路由器配置的详情最好去查阅下[路由与导航](../router.html)文档。
+  它建议你创建一个专们用于路由器配置的`NgModule`（名叫*路由模块*）。
+
++makeExample('upgrade-phonecat-3-final/ts/app/app-routing.module.ts', null, 'app/app-routing.module.ts')
+
+:marked
+  This module defines a `routes` object with two routes to the two phone components
+  and a default route for the empty path. 
+  It passes the `routes` to the `RouterModule.forRoot` method which does the rest.
+  
+  该模块定义了一个`routes`对象，它带有两个路由，分别指向两个电话组件，以及为空路径指定的默认路由。
+  它把`routes`传给`RouterModule.forRoot`方法，该方法会完成剩下的事。
+
+  A couple of extra providers enable routing with "hash" URLs such as `#!/phones` instead of the default  "push state" strategy.
+  
+  一些额外的提供商让路由器使用“hash”策略解析URL，比如`#!/phones`，而不是默认的“Push State”策略。
+
+  Now update the `AppModule` to import this `AppRoutingModule` and also the
+  declare the root `AppComponent`:
+  
+  现在，修改`AppModule`，让它导入这个`AppRoutingModule`，并同时声明根组件`AppComponent`：
+
++makeExample('upgrade-phonecat-3-final/ts/app/app.module.ts', null, 'app/app.module.ts')
+
+:marked
+  The Angular 2 router passes route parameters differently.
+  Correct the `PhoneDetail` component constructor to expect an injected `ActivatedRoute` object.
+  Extract the `phoneId` from the `ActivatedRoute.snapshot.params` and fetch the phone data as before:
+
+  Angular 2路由器传递路由参数的方式不同。
+  修改`PhoneDetail`组件的构造函数，来取得一个注入的`ActivatedRoute`对象。
+  从`ActivatedRoute.snapshot.params`中提取`phoneId`，并像以前那样获取电话数据：
 
 +makeExample('upgrade-phonecat-3-final/ts/app/phone-detail/phone-detail.component.ts', null, 'app/phone-detail/phone-detail.component.ts')
+:marked
+  ### Generate links for each phone
+  
+  ### 为每个电话生成链接
+
+  We no longer have to hardcode the links to phone details in the phone list. 
+  We can generate them data binding each phone's `id` to the `routerLink` directive
+  and let that directive construct the appropriate URL to the `PhoneDetailComponent`:
+  
+  在电话列表中，我们不用再被迫硬编码电话详情的链接了。
+  我们可以通过把每个电话的`id`绑定到`routerLink`指令来生成它们了，该指令的构造函数会为`PhoneDetailComponent`生成正确的URL：
+
++makeExample('upgrade-phonecat-3-final/ts/app/phone-list/phone-list.template.html', 'list', 'app/phone-list/phone-list.template.html (list with links)')(format='.')
+.l-sub-section
+  :marked
+    See the [Routing](../router.html) page for details.
+    
+    要了解详情，请查看[路由与导航](../router.html)页。
 
 :marked
-  With that, we're ready to switch the bootstrap method of the application from that
-  of the `UpgradeAdapter` to the main Angular 2 `bootstrap`. Let's import it together
-  with the router, the new app component, and everything else in `main.ts`
+  ### Bootstrap as an Angular 2 app
+  
+  ### 作为Angular 2应用进行引导
 
-  使用它，我们就可以把来自`UpgradeAdapter`中的`bootstrap`方法切换到Angular 2自己的`bootstrap`了。
-  通过路由器和`main.ts`中新的应用组件，我们把它们导入到一起：
+  You may have noticed one extra `bootstrap` metadata property added to the `AppModule`
+  
+  你可能注意到了，有一个额外的元数据属性`bootstrap`添加进了`AppModule`中。
+  
++makeExample('upgrade-phonecat-3-final/ts/app/app.module.ts', 'bootstrap', 'app/app.module.ts (bootstrap)')(format='.')
+:marked
+  That tells Angular 2 that it should bootstrap the app with the _root_ `AppComponent` and 
+  insert it's view into the host web page.
+  
+  这是在告诉Angular 2，它应该使用根组件`AppComponent`来引导该应用并且把它的视图插入宿主页面中。
 
-+makeExample('upgrade-phonecat-3-final/ts/app/main.ts', 'imports')
+  Now switch the bootstrap method of the application from the `UpgradeAdapter` 
+  to the Angular 2 way. 
+  Because this is a browser application, compiled with the Just-in-Time (JiT) compiler,
+  use the `platformBrowserDynamic` function to bootstrap the `AppModule`:
+  
+  现在，把该应用的引导方法从`UpgradeAdapter`的切换到Angular 2的方式。
+  因为这是一个浏览器应用，并且使用即时编译（JiT）进行编译的，因此要用`platformBrowserDynamic`函数来引导`AppModule`：
+
++makeExample('upgrade-phonecat-3-final/ts/app/main.ts', null, 'main.ts')
 
 :marked
-  We'll now use the regular Angular 2 `bootstrap` function to bootstrap the app
-  instead of using `UpgradeAdapter`. The first argument to `bootstrap` is the
-  application's root component `AppComponent`, and the second
-  is an array of the Angular 2 providers that we want to make available for
-  injection. In that array we include all the things we have been registering
-  with  `upgradeAdapter.addProvider` until now, as well as the providers and
-  directives of the router:
+  You are now running a pure Angular 2 application!
+  
+  我们现在运行的就是纯正的Angular 2应用了！
 
-  我们现在就改用Angular 2中标准的`bootstrap`函数来引导本应用，而不再用`UpgradeAdapter`。
-  `bootstrap`的第一个参数是应用程序的根组件`AppComponent`，第二个参数是一个由Angular 2中希望被注入的
-  提供商构成的数组。这个数组中，我们包含了至今用`upgradeAdapter.addProvider`注册过的所有东西，
-  比如各种提供商以及路由器中的指令：
-
-+makeExample('upgrade-phonecat-3-final/ts/app/main.ts', 'bootstrap')
-
-:marked
-  We also configure a couple of things for the router here so that the application
-  URL paths match exactly those we had in the Angular 1 app: We want the
-  hash location strategy with the `!` prefix: `#!/phones`.
-
-  这里我们还为路由器配置了一组东西，以便应用的URL路径和我们在Angular 1应用中用过的完全匹配：
-  我们希望hash地址策略使用`!`前缀：`#!/phones`。
-
-  At this point we are running a pure Angular 2 application!
-
-  此时，我们就在运行一个纯Angular 2应用了。
-
-  But there's actually one more cool thing we can do with the new router.
-  We no longer have to hardcode the links to phone details from the phone
-  list, because the Angular 2 router is able to generate them for us with
-  its `routerLink` directive. We just need to refer to the route names we
-  used in the `@RouteConfig`:
-
-  但是，基于新的路由，我们还能做一些更酷的事情。
-  在电话列表页中，我们不需要再把到电话详情页的链接硬编码进去，因为Angular 2可以通过`routerLink`指令帮我们生成它。
-  我们只需要引用`@RouteConfig`中用过的路由名称：
-
-+makeExample('upgrade-phonecat-3-final/ts/app/phone-list/phone-list.template.html', 'list', 'app/phone-list/phone-list.template.html')
-
-:marked
-  For this to work the directive just needs to be declared in the component:
-
-  要让该指令能够工作，我们只需要把它在组件中声明一下：
-
-+makeExample('upgrade-phonecat-3-final/ts/app/phone-list/phone-list.component.ts', 'top')
-
-:marked
-  ## Saying Goodbye to Angular 1
-  ## 再见，Angular 1
+  ## Say Goodbye to Angular 1
+  
+  ## 再见，Angular 1！
 
   It is time to take off the training wheels and let our application begin
   its new life as a pure, shiny Angular 2 app. The remaining tasks all have to
@@ -2374,28 +2470,15 @@ code-example(format="").
   同样，我们的测试代码中有两个Protractor API调用内部使用了`$location`。该服务没有了，
   我们就得把这些调用用一个WebDriver的通用URL API代替。第一个API是“重定向(redirect)”规约：
 
-.alert.is-important
-  :marked
-    This guide is still in the process of being updated to RC5 and it's samples
-    may not work correctly.
-    
-    本指南还在更新中，例子暂时不工作。
-
-//- +makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'redirect', 'e2e-tests/scenarios.ts')
++makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'redirect', 'e2e-tests/scenarios.ts')
 
 :marked
   And the second is the phone links spec:
   
-.alert.is-important
-  :marked
-    This guide is still in the process of being updated to RC5 and it's samples
-    may not work correctly.
-
-    第二个是“电话链接(phone links)”规约：
-
-//- +makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'links', 'e2e-tests/scenarios.ts')
+  然后是“电话链接(phone links)”规约：
 
 
++makeExample('upgrade-phonecat-3-final/e2e-spec.ts', 'links', 'e2e-tests/scenarios.ts')
 
 :marked
   ## Unit Tests
@@ -2494,11 +2577,11 @@ code-example(format="").
 
 :marked
   Finally, we need to revisit both of the component tests when we switch to the Angular 2
-  router. For the details component we need to provide an Angular 2 `RouteParams` object
+  router. For the details component we need to provide a mock of Angular 2 `ActivatedRoute` object
   instead of using the Angular 1 `$routeParams`.
 
-  最后，当我们切换到Angular 2路由时，我们需要重新过一遍这些组件测试。对详情组件来说，我们需要提供一个Angular 2的
-  `RouteParams`对象，而不再用Angular 1的`$routeParams`。
+  最后，当我们切换到Angular 2路由时，我们需要重新过一遍这些组件测试。对详情组件来说，我们需要提供一个Angular 2
+  `RouteParams`的mock对象，而不再用Angular 1中的`$routeParams`。
 
 +makeExample('upgrade-phonecat-3-final/ts/app/phone-detail/phone-detail.component.spec.ts', 'routeparams', 'app/phone-detail/phone-detail.component.spec.ts')
 
