@@ -3106,24 +3106,43 @@ a(href="#top").to-top 回到顶部
   The Angular testing utilities include the `TestBed`, the `ComponentFixture`, and a handful of functions that control the test environment.
   The [_TestBed_](#testbed-api-summary) and [_ComponentFixture_](#component-fixture-api-summary) classes are covered separately.
 
+  Angular测试工具包括`TestBed`、`ComponentFixture`和一些其他函数，用来控制测试环境。
+  [_TestBed_](#testbed-api-summary)和[_ComponentFixture_](#component-fixture-api-summary)在这里分别解释了。
+
   Here's a summary of the stand-alone functions, in order of likely utility:
+
+  下面是一些独立函数的总结，以使用频率排序：
 
 table
   tr
-    th Function
-    th Description
+    th 
+      :marked
+        Function
+
+        函数
+    th 
+      :marked
+        Description
+
+        描述
   tr
     td(style="vertical-align: top") <code>async</code>
     td
       :marked
         Runs the body of a test (`it`) or setup (`beforeEach`) function within a special _async test zone_.
         See [discussion above](#async).
+
+        在特殊的**async测试区域**运行测试（`it`)或者设置（`beforeEach`）的主体。
+        参见[上面的讨论](#async).
   tr
     td(style="vertical-align: top") <code>fakeAsync</code>
     td
       :marked
         Runs the body of a test (`it`) within a special _fakeAsync test zone_, enabling
         a linear control flow coding style. See [discussion above](#fake-async).
+
+        在特殊的**fakeAsync测试区域**运行测试（`it`）的主体，造就控制流更加线性的代码风格。
+        参见[上面的讨论](#fake-async).
   tr
     td(style="vertical-align: top") <code>tick</code>
     td
@@ -3131,9 +3150,15 @@ table
         Simulates the passage of time and the completion of pending asynchronous activities
         by flushing both _timer_ and _micro-task_ queues within the _fakeAsync test zone_.
 
+        在**fakeAsync测试区域**内触发**计时器**和**微任务**队列，以模拟时间的推移和未完成异步任务的完成。
+
       .l-sub-section
         :marked
           The curious, dedicated reader might enjoy this lengthy blog post, 
+          "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" 
+          target="_blank">_Tasks, microtasks, queues and schedules_</a>".
+
+          好奇和执着的读者可能会喜欢这篇长博客：
           "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" 
           target="_blank">_Tasks, microtasks, queues and schedules_</a>".
       :marked
@@ -3142,6 +3167,9 @@ table
         clearing asynchronous activities scheduled within that timeframe.
         See [discussion bove](#tick).
 
+        接受一个可选参数，往前推移虚拟时间提供数字的毫秒数，清除在这段时间内的异步行为。
+        参见[上面的讨论](#tick)
+
   tr
     td(style="vertical-align: top")  <code>inject</code>
     td
@@ -3149,16 +3177,24 @@ table
         Injects one or more services from the current `TestBed` injector into a test function.
         See [above](#inject).
 
+        从当前`TestBed`注入器注入一个或多个服务到测试函数。参见[上面](#inject)。
+
   tr
     td(style="vertical-align: top") <code>discardPeriodicTasks</code>
     td
       :marked
         When a `fakeAsync` test ends with pending timer event _tasks_ (queued `setTimeOut` and `setInterval` callbacks),
         the test fails with a clear error message.
+
+        当`fakeAsync`测试以正在运行的计时器事件**任务**（排队中的`setTimeOut`和`setInterval`的回调）结束时，
+        测试会失败，并显示一条明确的错误信息。
         
         In general, a test should end with no queued tasks. 
         When pending timer tasks are expected, call `discardPeriodicTasks` to flush the _task_ queue
         and avoid the error.
+
+        一般来讲，测试应该以无排队任务任务结束。
+        当待执行计时器任务存在时，调用`discardPeriodicTasks`来触发**任务**队列，防止该错误发生。
 
   tr
     td(style="vertical-align: top") <code>flushMicrotasks</code>
@@ -3166,10 +3202,15 @@ table
       :marked
         When a `fakeAsync` test ends with pending _micro-tasks_ such as unresolved promises,
         the test fails with a clear error message.
+
+        当`fakeAsync`测试以待执行**微任务**比如未解析的承诺结束时，测试会失败并显示明确的错误信息。
         
         In general, a test should wait for micro-tasks to finish.
         When pending microtasks are expected, call `flushMicrotasks` to flush the  _micro-task_ queue
         and avoid the error.
+
+        一般来说，测试应该等待微任务结束。
+        当待执行微任务存在时，调用`flushMicrotasks`来触发**微任务**队列，防止该错误发生。
 
   tr
     td(style="vertical-align: top") <code>ComponentFixtureAutoDetect</code>
@@ -3177,6 +3218,9 @@ table
       :marked
         A provider token for setting the default _auto-changeDetect_ from its default of `false`.
         See [automatic change detection](#automatic-change-detection)
+
+        一个提供商令牌，用来设置**auto-changeDetect**的值，它默认值为`false`。
+        参见[自动变化检测](#automatic-change-detection)
 
   tr
     td(style="vertical-align: top") <code>getTestBed</code>
@@ -3187,18 +3231,31 @@ table
         The `TestBed` instance exposes a few rarely used members that are not available as
         static methods.
 
+        获取当前`TestBed`实例。
+        通常用不上，因为`TestBed`的静态类方法已经够用。
+        `TestBed`实例有一些很少需要用到的方法，它们不是静态方法。
+
 .l-hr
 
 #testbed-class-summary
 :marked
   # _TestBed_ Class Summary
+
+  # _TestBed_ 类总结
+
   The `TestBed` class is one of the principal Angular testing utilities. 
   Its API is quite large and can be overwhelming until you've explored it first
   a little at a time. Read the early part of this chapter first
   to get the basics before trying to absorb the full API.
 
+  `TestBed`类是Angular测试工具的主要类之一。它的API很庞大，可能有点过于复杂，直到你一点一点的探索它们。
+  阅读本章前面的部分，了解了基本的知识以后，再试着了解完整API。
+
   The module definition passed to `configureTestingModule`, 
   is a subset of the `@NgModule` metadata properties.
+
+  传递给`configureTestingModule`的模块定义是`@NgModule`元数据属性的子集。
+
 code-example(format="." language="javascript").
   type TestModuleMetadata = {
     providers?: any[];
