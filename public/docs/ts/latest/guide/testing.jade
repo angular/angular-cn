@@ -172,7 +172,7 @@ block includes
 
   1. [Override component providers](#component-override)
 
-  1. [替换组件提供商](#component-override)
+  1. [重载组件提供商](#component-override)
   <br>
 
   1. [Test a _RouterOutlet_ component](#router-outlet-component)
@@ -1145,7 +1145,7 @@ a(href="#top").to-top 回到顶部
     See the section "[_Override Component Providers_](#component-override)" for a use case
     in which `inject` and `TestBed.get` do not work and you must get the service from the component's injector.
 
-    到“[**替换组件提供商**](#component-override)”查看`inject`和`TestBed.get`无效、必须从组件的注入器获取服务的用例。
+    到“[**重载组件提供商**](#component-override)”查看`inject`和`TestBed.get`无效、必须从组件的注入器获取服务的用例。
 
 :marked
   ### Always get the service from an injector
@@ -2361,7 +2361,7 @@ a(href="#top").to-top 回到顶部
 :marked
   # Override component providers
 
-  # 替换组件提供商
+  # 重载组件提供商
 
   The `HeroDetailComponent` provides its own `HeroDetailService`.
 
@@ -2437,8 +2437,8 @@ a(href="#top").to-top 回到顶部
   It takes two arguments: the component type to override (`HeroDetailComponent`) and an override metadata object.
   The [overide metadata object](#metadata-override-object) is a generic defined as follows:
 
-  它接受两个参数：要替换的组件类型(`HeroDetailComponent`)和用于替换的元数据对象。
-  [替换元数据对象](#metadata-override-object)是泛型类，就像这样：
+  它接受两个参数：要重载的组件类型(`HeroDetailComponent`)和用于重载的元数据对象。
+  [重载元数据对象](#metadata-override-object)是泛型类，就像这样：
 
 code-example(format="." language="javascript").
   type MetadataOverride<T> = {
@@ -2450,7 +2450,7 @@ code-example(format="." language="javascript").
   A metadata override object can either add-and-remove elements in metadata properties or completely reset those properties.
   This example resets the component's `providers` metadata.
 
-  元数据替换对象可以添加和删除元数据属性的项目，也可以彻底重设这些属性。
+  元数据重载对象可以添加和删除元数据属性的项目，也可以彻底重设这些属性。
   这个例子重新设置了组件的`providers`元数据。
 
   The type parameter, `T`,  is the kind of metadata you'd pass to the `@Component` decorator:
@@ -2478,7 +2478,7 @@ code-example(format="." language="javascript").
 :marked
   ### The override tests
 
-  ### 替换的测试
+  ### 重载的测试
 
   Now the tests can control the component's hero directly by manipulating the stub's `testHero`.
 
@@ -2488,14 +2488,14 @@ code-example(format="." language="javascript").
 :marked
   ### More overrides
 
-  ### 更多替换
+  ### 更多重载
 
   The `TestBed.overrideComponent` method can be called multiple times for the same or different components.
   The `TestBed` offers similar `overrideDirective`, `overrideModule`, and `overridePipe` methods
   for digging into and replacing parts of these other classes.
   
   `TestBed.overrideComponent`方法可以在相同或不同的组件中被反复调用。
-  `TestBed`还提供了类似的`overrideDirective`、`overrideModule`和`overridePipe`方法，用来深入并替换这些其它类的部件。
+  `TestBed`还提供了类似的`overrideDirective`、`overrideModule`和`overridePipe`方法，用来深入并重载这些其它类的部件。
 
   Explore the options and combinations on your own.
 
@@ -3268,6 +3268,8 @@ code-example(format="." language="javascript").
 :marked
   Each overide method takes a `MetadataOverride<T>` where `T` is the kind of metadata
   appropriate to the method, the parameter of an `@NgModule`, `@Component`, `@Directive`, or `@Pipe`.
+
+
 
 code-example(format="." language="javascript").
   type MetadataOverride<T> = {
