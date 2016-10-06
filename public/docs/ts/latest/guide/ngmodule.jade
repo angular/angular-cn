@@ -1489,7 +1489,7 @@ a#shared-module
   As it happens, the components declared by `SharedModule` itself don't bind with `[(ngModel)]`. 
   Technically,  there is no need for `SharedModule` to import `FormsModule`.
   
-  实际上，`SharedModule`本身所声明的组件没绑定过`[(ngModel)]`，那么，从技术角度看`SharedModule`并不需要导入`FormsModule`。
+  实际上，`SharedModule`本身所声明的组件没绑定过`[(ngModel)]`，那么，严格来说`SharedModule`并不需要导入`FormsModule`。
   
   `SharedModule` can still export `FormsModule` without listing it among its `imports`.
   

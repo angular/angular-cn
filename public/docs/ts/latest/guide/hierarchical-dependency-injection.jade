@@ -252,7 +252,7 @@ figure.image-display
 :marked
   Technically we could, but our component wouldn’t quite behave the way it is supposed to. Remember that each injector treats the services that it provides as singletons. However, in order to be able to have multiple instances of `HeroEditComponent` edit multiple heroes at the same time we need to have multiple instances of the `RestoreService`. More specifically, each instance of `HeroEditComponent` needs to be bound to its own instance of the `RestoreService`.
   
-  从技术上讲，可以。但我们的组件将不会像预期的那样工作。记住，每个注入器都会把它提供的服务处理成单例。
+  虽然理论上可以，但我们的组件却无法像预期的那样工作。记住，每个注入器都会把它提供的服务处理成单例。
   可是，我们需要同时用多个`HeroEditComponent`实例来编辑多个英雄，这就意味着我们需要`RestoreService`的多个实例。
   更明确的说，每个`HeroEditComponent`的实例都得绑定到它自己的`RestoreService`实例。
 

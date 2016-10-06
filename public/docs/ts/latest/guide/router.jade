@@ -2551,7 +2551,7 @@ code-example.
     In our example, the redirect is at the top level of the route configuration tree so the *remaining* URL and the *entire* URL
     are the same thing.
     
-    从技术的角度看，`pathMatch = 'full'`导致路由器尝试用URL中*剩下的*、未匹配过的片段去匹配`''`。
+    从原理上说，`pathMatch = 'full'`导致路由器尝试用URL中*剩下的*、未匹配过的片段去匹配`''`。
     在这个例子中，重定向发生在路由配置树的顶级，所以*剩下的*URL和*完整的*URL是完全一样的。
     
     The other possible `pathMatch` value is `'prefix'` which tells the router

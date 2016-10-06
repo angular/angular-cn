@@ -260,7 +260,7 @@ figure.image-display
   The `LoggerService` doesn't depend on anything. The logger would work if we omitted `@Injectable()`
   and the generated code would be slightly smaller. 
   
-  从技术上讲，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
+  严格来说，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
   `LoggerService`不依赖任何东西，所以该日志服务在没有`@Injectable()`的时候应该也能工作，生成的代码也更少一些。
 
   But the service would break the moment we gave it a dependency and we'd have to go back and
@@ -1394,7 +1394,7 @@ a(id="parent-token")
   Although the `AlexComponent` has a `name` property (as required by its `Base` class) 
   its class signature doesn't mention `Parent`:
 
-  这样做可以提升代码的清晰度。但在技术上，这并不是必须的。虽然`AlexComponent`有一个`name`属性(来自`Base`类的要求)，但它的类签名并不需要提及`Parent`。
+  这样做可以提升代码的清晰度，但严格来说并不是必须的。虽然`AlexComponent`有一个`name`属性(来自`Base`类的要求)，但它的类签名并不需要提及`Parent`。
 
 +makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (AlexComponent class signature)')(format='.')
 .l-sub-section
