@@ -355,7 +355,7 @@ figure.image-display
   the `hero` template input variable (the current item in each iteration).
 
   Angular的[ngFor微语法](template-syntax.html#ngForMicrosyntax)里面有一些细微差别，
-  它被展开成了额外的`ngForOf`属性绑定(可迭代者)和一个模板输入变量`hero`(每次迭代中的当前条目)。
+  它被展开成了另一个`ngForOf`属性绑定(可迭代者)和另一个模板输入变量`hero`(每次迭代中的当前条目)。
 
 <a id="unless"></a>
 .l-main-section
@@ -504,7 +504,7 @@ figure.image-display
   additional checks to improve performance (don't clear or recreate the
   view unless necessary) but otherwise it's much the same.
 
-  `ngIf`也没多大不同嘛！它做了一些额外的检查来提升性能(除非必要，否则它不会清除或重新创建视图)，但其它的部分都跟我们写的一样。
+  `ngIf`也没多大不同嘛！它做了更多的检查来提升性能(除非必要，否则它不会清除或重新创建视图)，但其它的部分都跟我们写的一样。
 
 .l-main-section
 :marked

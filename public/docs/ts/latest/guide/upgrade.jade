@@ -434,7 +434,7 @@ table
         There is a [tree hierarchy of injectors](../guide/hierarchical-dependency-injection.html),
         with a root injector and an additional injector for each component.
 
-        有一组[树状多层注入器](../guide/hierarchical-dependency-injection.html)，有一个根注入器，每个组件也有一个额外的注入器。
+        有一组[树状多层注入器](../guide/hierarchical-dependency-injection.html)，有一个根注入器，每个组件也另外有一个注入器。
 
 :marked
   Even accounting for these differences we can still have dependency injection
@@ -552,7 +552,7 @@ figure.image-display
   use Angular 1 component directives from Angular 2.
 
   此时，`<ng2-component>`这个DOM元素仍然由Angular 1管理，因为它是在Angular 1的模板中定义的。
-  这也意味着你可以往它上面添加额外的Angular 1指令，却*不能*添加Angular 2的指令。
+  这也意味着你可以往它上面添加别的Angular 1指令，却*不能*添加Angular 2的指令。
   只有在`Ng2Component`组件的模板中才是Angular 2的天下。同样的规则也适用于在Angular 2中使用Angular 1组件型指令的情况。
 
 :marked
@@ -1519,7 +1519,7 @@ code-example(format="").
   referred to in the template, but for the sake of clarity we want to define all the
   members our controller will have.
 
-  该类额外声明了三个成员：电话列表、当前排序键的名字和搜索条件。
+  该类还声明了另外三个成员：电话列表、当前排序键的名字和搜索条件。
   这些东西我们以前就加到了控制器上，只是从来没有在任何地方显式定义过它们。最后一个成员从未真正在TypeScript代码中用过，
   因为它只是在模板中被引用过。但为了清晰起见，我们还是应该定义出此控制器应有的所有成员。
 

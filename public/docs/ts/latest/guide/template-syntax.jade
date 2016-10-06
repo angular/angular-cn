@@ -2144,7 +2144,7 @@ figure.image-display
   track the validity of user input.
   
   如果Angular没有接管它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
-  实际上它是个`ngForm`，一个对Angular内置指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它额外的“超能力”，比如跟踪用户输入的有效性。
+  实际上它是个`ngForm`，一个对Angular内置指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它更多“超能力”，比如跟踪用户输入的有效性。
 
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.

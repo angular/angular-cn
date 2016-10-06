@@ -270,7 +270,7 @@ include ../_util-fns
     to retrieve additional data later in the chapter.
     
     第三个路由中的`data`属性用来存放于每个具体路由有关的任意信息。该数据可以被任何一个激活路由访问，并能用来保存诸如
-    页标题、面包屑以及其它只读数据。本章稍后的部分，我们将使用[resolve守卫](#resolve-guard)来获取这些附加数据。
+    页标题、面包屑以及其它只读数据。本章稍后的部分，我们将使用[resolve守卫](#resolve-guard)来获取更多数据。
 
     The `empty path` in the fourth route matches as the default path for each level of routing. It
     also allows for adding routes without extending the URL path.
@@ -1337,7 +1337,7 @@ figure.image-display
     The **RouterModule.forRoot** should only be provided for the `AppModule`. Since we are in a feature
     module, we'll use **RouterModule.forChild** method to only register additional routes.
     
-    **RouterModule.forRoot**只能由`AppModule`提供。但我们位于特性模块中，所以使用**RouterModule.forChild**来单独注册附加路由。
+    **RouterModule.forRoot**只能由`AppModule`提供。但我们位于特性模块中，所以使用**RouterModule.forChild**来单独注册更多路由。
 
 :marked
   We import our `heroesRouting` token from `heroes.routing.ts` into our `Heroes` module and register the routing.
@@ -2888,7 +2888,7 @@ a#can-activate-guard
     `[routerLinkActiveOptions]="{ exact: true }"` which will only mark the `./` link as active when
     we navigate the to `/admin` URL and not when we navigate to one the other child routes.
     
-    由于`AdminModule`中管理仪表盘的`RouterLink`是一个空路径的路由，所以它会匹配到管理特性区的任何路由。但我们只有在访问`Dashboard`路由时才希望该链接被激活。所以我们往`Dashboard`这个routerLink上添加了一个额外的绑定`[routerLinkActiveOptions]="{ exact: true }"`，这样就只有当我们导航到`/admin`这个URL时才会激活它，而不会在导航到它的某个子路由时。
+    由于`AdminModule`中管理仪表盘的`RouterLink`是一个空路径的路由，所以它会匹配到管理特性区的任何路由。但我们只有在访问`Dashboard`路由时才希望该链接被激活。所以我们往`Dashboard`这个routerLink上添加了另一个绑定`[routerLinkActiveOptions]="{ exact: true }"`，这样就只有当我们导航到`/admin`这个URL时才会激活它，而不会在导航到它的某个子路由时。
 
 :marked
   Our initial admin routing configuration:
@@ -2909,7 +2909,7 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
   We want to group our `Crisis Center` management routes under the `admin` path, but we don't need a component
   just to group those routes under an additional `RouterOutlet`. This also allows us to [guard child routes](#can-activate-child-guard).
 
-  虽然我们希望对`admin`路径下的`危机中心`管理类路由进行分组，但并不需要一个仅用来通过额外的`RouterOutlet`分组路由的组件。
+  虽然我们希望对`admin`路径下的`危机中心`管理类路由进行分组，但并不需要另一个仅用来分组路由的组件。
   这同时也允许我们[守卫子路由](#can-activate-child-guard)。
   
 :marked
@@ -3557,7 +3557,7 @@ a#fragment
   users will still visit `/admin` and our `AdminComponent` still serves as our *Routing Component* which contains
   our child routes.
 
-  接下来，在`admin.routing.ts`中，把`admin`的**path**更改为空路径。路由器支持**空路径**路由，它可以被用来在不添加额外路径到URL的情况下，将多个路由组合到一起。用户还是可以访问`/crisis-center`，`CrisisCenterComponent`组件还是包含了子级路由的**路由组件**。
+  接下来，在`admin.routing.ts`中，把`admin`的**path**更改为空路径。路由器支持**空路径**路由，它可以在不必把别的路径添加到URL中的情况下，将多个路由组合到一起。用户还是可以访问`/crisis-center`，`CrisisCenterComponent`组件还是包含了子级路由的**路由组件**。
 
 +makeTabs(
   `router/ts/app/app.routing.ts,

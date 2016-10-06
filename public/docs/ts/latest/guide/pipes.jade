@@ -210,7 +210,7 @@ figure.image-display
   * There will be one additional argument to the `transform` method for each parameter passed to the pipe.
   Our pipe has one such parameter: the `exponent`.
 
-  * 当每个输入值被传给`transform`方法时，还会带有一个额外的参数，比如我们这个管道中的`exponent`(放大指数)。
+  * 当每个输入值被传给`transform`方法时，还会带上另一个参数，比如我们这个管道中的`exponent`(放大指数)。
 
   * We tell Angular that this is a pipe by applying the
   `@Pipe` #{_decorator} which we import from the core Angular library.
@@ -389,7 +389,7 @@ a#change-detection
 
   如果我们**修改了**这个数组，没有管道被执行，也没有显示被更新。
   如果我们**替换了**这个数组，管道就会被执行，显示也更新了。
-  这个*飞行英雄*的例子用检查框和额外的显示内容扩展了原有代码，来帮我们体验这些效果。
+  这个*飞行英雄*的例子用检查框和其它显示内容扩展了原有代码，来帮我们体验这些效果。
 
 figure.image-display
     img(src='/resources/images/devguide/pipes/flying-heroes-anim.gif' alt="Flying Heroes")
