@@ -719,7 +719,7 @@ block observable-transformers
     Fortunately, we can chain `Observable` operators to the string `Observable` that reduce the request flow.
     We'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
     
-    幸运的是，我们可以在字符串的`Observable`后面串联一个`Observable`操作符，来归并这些请求。
+    幸运的是，我们可以在字符串的`Observable`后面串联一些`Observable`操作符，来归并这些请求。
     我们将对`HeroSearchService`发起更少的调用，并且仍然获得足够及时的响应。做法如下：
 
     * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
