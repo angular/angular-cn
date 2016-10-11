@@ -13,7 +13,7 @@ block includes
   The [Angular Modules chapter](../guide/ngmodule.html) covers the concepts and takes you step by step
   from the most elementary `@NgModule` to a multi-faceted sample with lazy loaded modules.
   
-  [Angular模块](../guide/ngmodule.html)章涵盖了此概念，并带你一步步的从最基本的`@NgModule`到包罗万象的延迟加载模块。
+  [Angular模块](../guide/ngmodule.html)章涵盖了此概念，并带你一步步的从最基本的`@NgModule`到包罗万象的惰性加载模块。
 
   _This_ chapter answers the questions many developers ask about Angular Module design and implementation.
   
@@ -72,7 +72,7 @@ block includes
   * [Why is a service provided in a feature module visible everywhere?](#q-module-provider-visibility)
   * [为什么特性模块中提供的服务是到处可见的？](#q-module-provider-visibility)
   * [Why is a service provided in a _lazy loaded_ module visible only to that module?](#q-lazy-loaded-module-provider-visibility)
-  * [为什么*延迟加载*模块中的服务提供商只对那个模块本身可见？](#q-lazy-loaded-module-provider-visibility)
+  * [为什么*惰性加载*模块中的服务提供商只对那个模块本身可见？](#q-lazy-loaded-module-provider-visibility)
   * [What if two modules provide the _same_ service?](#q-module-provider-duplicates)
   * [如果两个模块提供了*同一个*服务会怎样？](#q-module-provider-duplicates)
   * [How do I restrict service scope to a module?](#q-component-scoped-providers)
@@ -82,9 +82,9 @@ block includes
   * [Should I add other providers to a module or a component?](#q-component-or-module)
   * [我应该把其它提供商添加到模块中还是组件中？](#q-component-or-module)
   * [Why is it bad if _SharedModule_ provides a service to a lazy loaded module?](#q-why-bad)
-  * [为什么让*SharedModule*为延迟加载模块提供服务是个馊主意？](#q-why-bad)
+  * [为什么让*SharedModule*为惰性加载模块提供服务是个馊主意？](#q-why-bad)
   * [Why does lazy loading create a child injector?](#q-why-child-injector)  
-  * [为什么延迟加载模块要创建一个子注入器？](#q-why-child-injector)  
+  * [为什么惰性加载模块要创建一个子注入器？](#q-why-child-injector)  
   * [How can I tell if a module or service was previously loaded?](#q-is-it-loaded)
   * [我要怎样才能知道一个模块或服务已经被加载过？](#q-is-it-loaded)
 
@@ -309,14 +309,14 @@ a#q-browser-vs-common-module
   They need the common directives. They don't need to re-install the app-wide providers. 
   
   在其它任何模块中都*不要导入*`BrowserModule`。
-  *特性模块*和*延迟加载模块*应该改成导入`CommonModule`。
+  *特性模块*和*惰性加载模块*应该改成导入`CommonModule`。
   它们需要通用的指令。它们不需要重新初始化全应用级的提供商。
   
 .l-sub-section
   :marked
     `BrowserModule` throws an error if you try to lazy load a module that imports it.
     
-    如果你在延迟加载模块中导入`BrowserModule`，Angular就会抛出一个错误。
+    如果你在惰性加载模块中导入`BrowserModule`，Angular就会抛出一个错误。
     
 :marked
   Importing `CommonModule` also frees feature modules for use on _any_ target platform, not just browsers,
@@ -489,12 +489,12 @@ a#q-for-root
     is contrary to the intent and is likely to produce a runtime error.
     
     只能在应用的根模块`AppModule`中调用并导入`.forRoot`的结果。
-    在其它模块中导入它，特别是延迟加载模块中，是违反设计目标的并会导致一个运行时错误。
+    在其它模块中导入它，特别是惰性加载模块中，是违反设计目标的并会导致一个运行时错误。
     
 :marked
   `RouterModule` also offers a `forChild` static method for configuring the routes of lazy loaded modules.
   
-  `RouterModule`也提供了静态方法`forChild`，用于配置延迟加载模块的路由。
+  `RouterModule`也提供了静态方法`forChild`，用于配置惰性加载模块的路由。
 
   **_forRoot_** and **_forChild_** are conventional names for methods that
   configure services in root and feature modules respectively.
@@ -559,29 +559,29 @@ a#q-lazy-loaded-module-provider-visibility
 :marked
   ### Why is a service provided in a lazy loaded module visible only to that module?
   
-  ### 为什么在延迟加载模块中声明的服务提供商只对该模块自身可见？
+  ### 为什么在惰性加载模块中声明的服务提供商只对该模块自身可见？
   
   Unlike providers of the modules loaded at launch, 
   providers of lazy loaded modules are *module-scoped*.
   
-  和启动时就加载的模块中的提供商不同，延迟加载模块中的提供商是*局限于模块*的。
+  和启动时就加载的模块中的提供商不同，惰性加载模块中的提供商是*局限于模块*的。
 
   When the Angular router lazy-loads a module, it creates a new execution context.
   That [context has its own injector](#q-why-child-injector "Why Angular creates a child injector") which is a direct child of the application injector.
   
-  当Angular路由器延迟加载一个模块时，它创建了一个新的运行环境。
+  当Angular路由器惰性加载一个模块时，它创建了一个新的运行环境。
   那个环境[拥有自己的注入器](#q-why-child-injector "为什么Angular会创建子注入器")，它是应用注入器的直属子级。
 
   The router adds the lazy module's providers and the providers of its imported modules to this child injector.
   
-  路由器把该延迟加载模块的提供商和它导入的模块的提供商添加到这个子注入器中。
+  路由器把该惰性加载模块的提供商和它导入的模块的提供商添加到这个子注入器中。
 
   These providers are insulated from changes to application providers with the same lookup token.
   When the router creates a component within the lazy loaded context,
   Angular prefers service instances created from these providers to the service instances of the application root injector.
   
   这些提供商不会被拥有相同令牌的应用级别提供商的变化所影响。
-  当路由器在延迟加载环境中创建组件时，Angular优先使用延迟加载模块中的服务实例，而不是来自应用的根注入器的。
+  当路由器在惰性加载环境中创建组件时，Angular优先使用惰性加载模块中的服务实例，而不是来自应用的根注入器的。
 
 .l-hr
 a#q-module-provider-duplicates
@@ -674,8 +674,8 @@ a#q-component-scoped-providers
   Angular gives a [lazy-loaded module](#q-lazy-loaded-module-provider-visibility) its own child injector.
   The module's providers are visible only within the component tree created with this injector.
   
-  只要可能，就让模块延迟加载。
-  Angular给了[延迟加载模块](#q-lazy-loaded-module-provider-visibility)自己的子注入器。
+  只要可能，就让模块惰性加载。
+  Angular给了[惰性加载模块](#q-lazy-loaded-module-provider-visibility)自己的子注入器。
   该模块中的提供商只对由该注入器创建的组件树可见。
 
   If you must load the module eagerly, when the application starts,
@@ -734,7 +734,7 @@ a#q-root-component-or-module
   Lazy-loaded modules and their components can inject `AppModule` services;
   they cannot inject `AppComponent` services.
   
-  延迟加载模块及其组件可以注入`AppModule`中的服务，却不能注入`AppComponent`中的。
+  惰性加载模块及其组件可以注入`AppModule`中的服务，却不能注入`AppComponent`中的。
 
   Register a service in `AppComponent` providers _only_ if the service must be hidden
   from components outside the `AppComponent` tree. This is a rare exceptional use case.
@@ -785,7 +785,7 @@ a#q-root-component-or-module
   The application  would fail the moment a user navigated to "Heroes".
   
   当有路由时，`AppComponent`服务并不在根部。
-  延迟加载的模块就不能用它们。
+  惰性加载的模块就不能用它们。
   在“Angular模块”章的范例应用中，如果我们在`AppComponent`中注册`UserService`，那么`HeroComponent`就不能注入它。
   一旦用户导航到“Heroes”特性区，该应用就会失败。
 
@@ -830,7 +830,7 @@ a#q-why-bad
 :marked
   ### Why is it bad if _SharedModule_ provides a service to a lazy loaded module?
   
-  ### 为什么*SharedModule*为延迟加载模块提供服务是个馊主意？
+  ### 为什么*SharedModule*为惰性加载模块提供服务是个馊主意？
 
   This question arose in the [Angular Module](../guide/ngmodule.html#no-shared-module-providers) chapter 
   when we discussed the importance of keeping providers out of the `SharedModule`.
@@ -858,12 +858,12 @@ a#q-why-bad
 
   Now consider the `HeroModule` _which is lazy loaded!_
   
-  现在，该考虑`HeroModule`了，*它是延迟加载的！*。
+  现在，该考虑`HeroModule`了，*它是惰性加载的！*。
 
   When the router lazy loads the `HeroModule`, it creates a child injector and registers the `UserService`
   provider with that child injector. The child injector is _not_ the root injector.
   
-  当路由器准备延迟加载`HeroModule`的时候，它会创建一个子注入器，并且把`UserService`的提供商注册到那个子注入器中。子注入器和根注入器是*不同*的。
+  当路由器准备惰性加载`HeroModule`的时候，它会创建一个子注入器，并且把`UserService`的提供商注册到那个子注入器中。子注入器和根注入器是*不同*的。
   
   When Angular creates a lazy `HeroComponent`, it must inject a `UserService`.
   This time it finds a `UserService` provider in the lazy module's _child injector_
@@ -871,8 +871,8 @@ a#q-why-bad
   This is an entirely different `UserService` instance
   than the app-wide singleton version that Angular injected in one of the eagerly loaded components.
   
-  当Angular创建一个延迟加载的`HeroComponent`时，它必须注入一个`UserService`。
-  这次，它会从延迟加载模块的*子注入器*中查找`UserService`的提供商，并用它创建一个`UserService`的新实例。
+  当Angular创建一个惰性加载的`HeroComponent`时，它必须注入一个`UserService`。
+  这次，它会从惰性加载模块的*子注入器*中查找`UserService`的提供商，并用它创建一个`UserService`的新实例。
   这个`UserService`实例与Angular在立即加载的组件中注入的那个全应用级单例对象截然不同。
 
   That's almost certainly a mistake.
@@ -899,23 +899,23 @@ a#q-why-child-injector
 :marked
   ### Why does lazy loading create a child injector?
   
-  ### 为什么延迟加载模块会创建一个子注入器？
+  ### 为什么惰性加载模块会创建一个子注入器？
   
   Angular adds `@NgModule.providers` to the application root injector ... unless the module is lazy loaded.
   Then it creates a _child injector_ and adds the module's providers to the child injector.
   
   Angular会把`@NgModule.providers`中的提供商添加到应用的根注入器中……
-  除非该模块是延迟加载的，这种情况下，它会创建一*子注入器*，并且把该模块的提供商添加到这个子注入器中。
+  除非该模块是惰性加载的，这种情况下，它会创建一*子注入器*，并且把该模块的提供商添加到这个子注入器中。
 
   This means that a module behaves differently depending on whether it is loaded during application start
   or lazy loaded later. Neglecting that difference can lead to [adverse consequences](#q-why-bad).
   
-  这意味着模块的行为将取决于它是在应用启动期间加载的还是后来延迟加载的。如果疏忽了这一点，可能导致[严重后果](#q-why-bad)。
+  这意味着模块的行为将取决于它是在应用启动期间加载的还是后来惰性加载的。如果疏忽了这一点，可能导致[严重后果](#q-why-bad)。
 
   Why doesn't Angular add lazy loaded providers to the app root injector as it does for eagerly loaded modules? 
   Why the inconsistency?
   
-  为什么Angular不能像立即加载模块那样把延迟加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
+  为什么Angular不能像立即加载模块那样把惰性加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
   
   The answer is grounded in a fundamental characteristic of the Angular dependency injection system.
   An injector can add providers _until it is first used_. 
@@ -937,10 +937,10 @@ a#q-why-child-injector
   It can't added them to the app root injector because that injector is closed to new providers. 
   So Angular creates a new child injector for the lazy loaded module context.
   
-  之后，应用逻辑开始延迟加载某个模块。
-  Angular必须把这个延迟加载模块中的提供商添加到*某个*注入器中。
+  之后，应用逻辑开始惰性加载某个模块。
+  Angular必须把这个惰性加载模块中的提供商添加到*某个*注入器中。
   但是它无法将它们添加到应用的根注入器中，因为根注入器已经不再接受新的提供商了。
-  于是，Angular在延迟加载模块的上下文中创建了一个新的子注入器。
+  于是，Angular在惰性加载模块的上下文中创建了一个新的子注入器。
 
 .l-hr
 
@@ -956,7 +956,7 @@ a#q-is-it-loaded
   that may be difficult to detect and diagnose.
   
   某些模块及其服务只能被根模块`AppModule`加载一次。
-  在延迟加载模块中再次导入这个模块会[导致错误的行为](#q-why-bad)，这个错误可能非常难于检测和诊断。
+  在惰性加载模块中再次导入这个模块会[导致错误的行为](#q-why-bad)，这个错误可能非常难于检测和诊断。
 
   We can guard against that danger by writing a constructor that attempts to inject the module or service
   from the root app injector. If the injection succeeds, the class has been loaded a second time.
@@ -1206,7 +1206,7 @@ a#q-module-recommendations
   Import the `SharedModule` in your _feature_ modules, 
   both those loaded when the app starts and those you lazy load later.
   
-  在任何特性模块中（无论是你在应用启动时立即加载的模块还是之后延迟加载的模块），你都可以随意导入这个`SharedModule`。
+  在任何特性模块中（无论是你在应用启动时立即加载的模块还是之后惰性加载的模块），你都可以随意导入这个`SharedModule`。
 
   #### _CoreModule_
   Create a `CoreModule` with `providers` for the singleton services you load when the application starts.
@@ -1334,7 +1334,7 @@ table
 
         All lazy loaded modules are routed feature modules by definition.
         
-        根据这个定义，所有延迟加载的模块都是路由特性模块。
+        根据这个定义，所有惰性加载的模块都是路由特性模块。
 
         This chapter's `ContactModule`, `HeroModule` and `CrisisModule` are routed feature modules.
         
@@ -1349,9 +1349,9 @@ table
         Doing so would trigger an eager load, defeating the purpose of lazy loading.
         `HeroModule` and `CrisisModule` are lazy loaded. They aren't mentioned among the `AppModule` imports.
         
-        延迟加载的路由特性模块也不应该被任何模块*导出*。
-        那么做会触发一次立即加载，破坏了我们延迟加载的目的。
-        `HeroModule`和`CrisisModule`是延迟加载的。它们没有出现在`AppModule`的`imports`中。
+        惰性加载的路由特性模块也不应该被任何模块*导出*。
+        那么做会触发一次立即加载，破坏了我们惰性加载的目的。
+        `HeroModule`和`CrisisModule`是惰性加载的。它们没有出现在`AppModule`的`imports`中。
 
         But an eager loaded Routed Feature Module must be imported by another module
         so that the compiler learns about its components. 
@@ -1784,15 +1784,15 @@ table
         A lazy loaded module has its own sub-root injector which typically 
         is a direct child of the application root injector.
         
-        延迟加载模块有自己的子注入器，通常它是应用的根注入器的直接子级。
+        惰性加载模块有自己的子注入器，通常它是应用的根注入器的直接子级。
 
         Lazy loaded services are scoped to the lazy module's injector.
         If a lazy loaded module also provides the `HeroService`, 
         any component created within that module's context (e.g., by router navigation)
         gets the local instance of the service, not the instance in the root application injector.
         
-        延迟加载的服务，其作用范围仅限于延迟加载模块的注入器中。
-        如果延迟加载的模块也提供了`HeroService`，那么在该模块的环境中创建的任何组件（比如通过路由器导航），都会得到该服务的一个局部实例，而不是来自应用程序根注入器的那个全局实例。
+        惰性加载的服务，其作用范围仅限于惰性加载模块的注入器中。
+        如果惰性加载的模块也提供了`HeroService`，那么在该模块的环境中创建的任何组件（比如通过路由器导航），都会得到该服务的一个局部实例，而不是来自应用程序根注入器的那个全局实例。
 
         Components in external modules continue to receive the instance created for the application root. 
         

@@ -49,7 +49,7 @@ block includes
   * [Feature modules](#feature-modules "Partition the app into feature modules")
   * [特性模块](#feature-modules "把应用分割成一些特性模块")
   * [Lazy loaded modules](#lazy-load "Load modules asynchronously") with the Router
-  * 通过路由器[延迟加载模块](#lazy-load "延迟加载模块")
+  * 通过路由器[惰性加载模块](#lazy-load "惰性加载模块")
   * [Shared modules](#shared-module "Create modules for commonly used components, directives, and pipes") 
   * [共享模块](#shared-module "为公用的组件、指令和管道创建模块") 
   * [The Core module](#core-module "Create a core module with app-wide singleton services and single-use components") 
@@ -57,7 +57,7 @@ block includes
   * [Configure core services with _forRoot_](#core-for-root "Configure providers during module import")
   * [用_forRoot_配置核心服务](#core-for-root "在导入模块时配置提供商")
   * [Prevent reimport of the _CoreModule_](#prevent-reimport "because bad things happen if a lazy loaded module imports Core")
-  * [禁止重复导入_CoreModule_](#prevent-reimport "如果延迟加载模块导入了核心模块，就会出问题")
+  * [禁止重复导入_CoreModule_](#prevent-reimport "如果惰性加载模块导入了核心模块，就会出问题")
   * [NgModule metadata properties](#ngmodule-properties "A technical summary of the @NgModule metadata properties")
   * [NgModule元数据的属性](#ngmodule-properties "对@NgModule元数据属性的技术性总结")
 
@@ -132,7 +132,7 @@ a#angular-modularity
   Modules can be loaded eagerly when the application starts.
   They can also be _lazy loaded_ asynchronously by the router.
   
-  模块可能在应用启动时立即加载，也可能由路由器进行异步_延迟加载_。
+  模块可能在应用启动时立即加载，也可能由路由器进行异步_惰性加载_。
   
   An Angular module is a class decorated with `@NgModule` metadata. The metadata:
   
@@ -1161,7 +1161,7 @@ a#lazy-load
   
   * `HeroModule` and the `CrisisModule` are lazy loaded.
   
-  * `HeroModule`和`CrisisModule`会被延迟加载。
+  * `HeroModule`和`CrisisModule`会被惰性加载。
 
   <a id="app-component-template"></a>
   
@@ -1242,7 +1242,7 @@ a#lazy-load
 
   The remaining two routes use lazy loading syntax to tell the router where to find the modules:
   
-  另外两个路由使用延迟加载语法来告诉路由器要到哪里去找这些模块。
+  另外两个路由使用惰性加载语法来告诉路由器要到哪里去找这些模块。
   
 +makeExample('ngmodule/ts/app/app.routing.ts', 'lazy-routes')(format='.')
 
@@ -1252,7 +1252,7 @@ a#lazy-load
     In this app, the string identifies both the module _file_ and the module _class_,
     the latter separated from the former by a `#`.
     
-    延迟加载模块的位置是*字符串*而不是*类型*。
+    惰性加载模块的位置是*字符串*而不是*类型*。
     在本应用中，该字符串同时标记出了模块*文件*和模块*类*，两者用`#`分隔开。
 
 :marked
@@ -1358,12 +1358,12 @@ a#hero-module
 :marked
   ### Lazy loaded routing to a module
   
-  ### 路由到延迟加载的模块
+  ### 路由到惰性加载的模块
 
   The lazy loaded `HeroModule` and `CrisisModule` follow the same principles as any feature module.
   They don't look different from the eagerly loaded `ContactModule`.
   
-  延迟加载的`HeroModule`和`CrisisModule`与其它特性模块遵循同样的规则。它们和“立即加载”的`ContactModule`看上去没有任何区别。
+  惰性加载的`HeroModule`和`CrisisModule`与其它特性模块遵循同样的规则。它们和“立即加载”的`ContactModule`看上去没有任何区别。
 
   The `HeroModule` is a bit more complex than the `CrisisModule` which makes it 
   a more interesting and useful example. Here's its file structure:
@@ -1542,7 +1542,7 @@ a#shared-module
     A lazy loaded module that imports that shared module will make its own copy of the service.
     
     **不要**在共享模块中把应用级单例添加到`providers`中。
-    否则如果一个延迟加载模块导入了此共享模块，就会导致它自己也生成一份此服务的实例。
+    否则如果一个惰性加载模块导入了此共享模块，就会导致它自己也生成一份此服务的实例。
 
 a#core-module
 .l-main-section
@@ -1602,7 +1602,7 @@ a#core-module
   making a singleton instance of the `UserService` available to any component that needs it, 
   whether that component is eagerly or lazily loaded.
   
-  `CoreModule`*提供*了`UserService`。Angular在该应用的“根注入器”中注册了它的提供商，导致这份`UserService`的实例在每个需要它的组件中都是可用的，无论那个组件时立即加载的还是延迟加载的。
+  `CoreModule`*提供*了`UserService`。Angular在该应用的“根注入器”中注册了它的提供商，导致这份`UserService`的实例在每个需要它的组件中都是可用的，无论那个组件时立即加载的还是惰性加载的。
 
 .l-sub-section
   :marked
@@ -1791,7 +1791,7 @@ a#core-for-root
     is contrary to the intent and is likely to produce a runtime error.
 
     只在应用的根模块`AppModule`中调用`forRoot`。
-    如果在其它模块（特别是延迟加载模块）中调用它则违反了设计意图，并会导致运行时错误。
+    如果在其它模块（特别是惰性加载模块）中调用它则违反了设计意图，并会导致运行时错误。
 
     Remember to _import_ the result; don't add it to any other `@NgModule` list.
 
@@ -1810,7 +1810,7 @@ a#prevent-reimport
   [Bad things happen](../cookbook/ngmodule-faq.html#q-why-it-is-bad) if a lazy loaded module imports it.
 
   只有根模块`AppModule`才能导入`CoreModule`。
-  如果延迟加载模块导入了它，就会[出问题](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
+  如果惰性加载模块导入了它，就会[出问题](../cookbook/ngmodule-faq.html#q-why-it-is-bad)。
 
   We could _hope_ that no developer makes that mistake. 
   Or we can guard against it and fail fast by adding the following `CoreModule` constructor.
@@ -1849,14 +1849,14 @@ a#prevent-reimport
 
   It's a different story if we improperly import `CoreModule` into a lazy loaded module such as `HeroModule` (try it).
 
-  如果我们错误的把`CoreModule`导入了一个延迟加载模块（比如`HeroModule`）中，那就不一样了。
+  如果我们错误的把`CoreModule`导入了一个惰性加载模块（比如`HeroModule`）中，那就不一样了。
   
   Angular creates a lazy loaded module with its own injector, a _child_ of the root injector.
   `@SkipSelf` causes Angular to look for a `CoreModule` in the parent injector which this time is the root injector.
   Of course it finds the instance imported by the root `AppModule`. 
   Now `parentModule` exists and the constructor throws the error.
 
-  Angular创建一个延迟加载模块，它具有自己的注入器，它是根注入器的*子注入器*。
+  Angular创建一个惰性加载模块，它具有自己的注入器，它是根注入器的*子注入器*。
   `@SkipSelf`让Angular在其父注入器中查找`CoreModule`，这次，它的父注入器却是根注入器了（而上次父注入器是空）。
   当然，这次它找到了由根模块`AppModule`导入的实例。
   该构造函数检测到存在`parentModule`，于是抛出一个错误。

@@ -750,7 +750,7 @@ figure.image-display
   
   * lazy loading feature modules
   
-  * 延迟加载特性路由
+  * 惰性加载特性路由
   
   * the `CanLoad` guard (check before loading feature module assets)
   
@@ -2376,7 +2376,7 @@ a#child-routing-component
   We can load it optionally, [asynchronously](#asynchronous-routing) with the other *Crisis Center* components
   if and when the user begins that workflow.
 
-  第二，可以对此服务进行延迟加载，直到需要它的时候才加载到内存中。
+  第二，可以对此服务进行惰性加载，直到需要它的时候才加载到内存中。
   可以从应用的发布包中移除它，以减小首次加载的体积并提升性能。
   可以用可选的方式加载它，当用户开始此工作流时，本应用才异步加载其它的*危机中心*组件。
 :marked
@@ -3544,7 +3544,7 @@ a#fragment
 :marked
   ### Lazy-Loading route configuration
 
-  ### 懒惰加载路由配置
+  ### 惰性加载路由配置
 
   We'll start by adding an `admin` route to our `app.routing.ts` file. We want to load our `Admin` module asynchronously,
   so we'll use the `loadChildren` property in our route config where previously we used the `children` property to include our child routes.
@@ -3577,7 +3577,7 @@ a#fragment
 :marked
   The `loadChildren` property is used by the `Router` to map to our bundle we want to lazy-load, in this case being the `AdminModule`.
   
-  路由器用`loadChildren`属性来映射我们希望延迟加载的捆文件，这里是`AdminModule`。
+  路由器用`loadChildren`属性来映射我们希望惰性加载的捆文件，这里是`AdminModule`。
 
   If we look closer at the `loadChildren` string, we can see that it maps directly to our `admin.module.ts` file where we previously built
   out our `Admin` feature area. After the path to the file we use a `#` to denote where our file path ends and to tell the `Router` the name
@@ -3593,7 +3593,7 @@ a#fragment
   and then load the requested route. This will only happen when the route is **first** requested and the module will be immediately be available
   for subsequent requests.
   
-  路由器用`loadChildren`属性来映射我们希望延迟加载的捆文件，这里是`AdminModule`。路由器将接收我们的`loadChildren`字符串，并把它动态加载进`AdminModule`，它的路由被*动态*合并到我们的配置中，然后加载所请求的路由。但只有在首次加载该路由时才会这样做，后续的请求都会立即完成。
+  路由器用`loadChildren`属性来映射我们希望惰性加载的捆文件，这里是`AdminModule`。路由器将接收我们的`loadChildren`字符串，并把它动态加载进`AdminModule`，它的路由被*动态*合并到我们的配置中，然后加载所请求的路由。但只有在首次加载该路由时才会这样做，后续的请求都会立即完成。
 
 .l-sub-section
   :marked
@@ -3607,7 +3607,7 @@ a#fragment
   to break our `AdminModule` into a completely separate module. In our `app.module.ts`, we'll remove our `AdminModule` from the
   `imports` array since we'll be loading it on-demand an we'll remove the imported `AdminModule`.
 
-  我们构建了特性区，更新了路由配置来实现懒惰加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
+  我们构建了特性区，更新了路由配置来实现惰性加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
 
 +makeExcerpt('app/app.module.ts (async admin module)', '')
 

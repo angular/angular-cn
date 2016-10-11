@@ -1749,7 +1749,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Angular modules make it easy to lazy load routable features.
     
-    **为何？**Angular模块能让对可路由的特性进行延迟加载变得更容易。
+    **为何？**Angular模块能让对可路由的特性进行惰性加载变得更容易。
 
 .s-why.s-why-last
   :marked
@@ -1850,7 +1850,7 @@ a(href="#toc") Back to top
   :marked
     **Why?** A feature module can easily be routed to both eagerly and lazily. 
     
-    **为何？**特性模块能很容易的被路由器加载 —— 无论使用提前加载还是延迟加载的方式。
+    **为何？**特性模块能很容易的被路由器加载 —— 无论使用提前加载还是惰性加载的方式。
 
 .s-why
   :marked
@@ -1933,7 +1933,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** A lazy loaded feature module that imports that shared module will make its own copy of the service and likely have undesireable results.
     
-    **为何？**延迟加载的特性模块如果导入了这个共享模块，就会创建一份自己的服务副本，这可能会导致意料之外的后果。
+    **为何？**惰性加载的特性模块如果导入了这个共享模块，就会创建一份自己的服务副本，这可能会导致意料之外的后果。
 
 .s-why.s-why-last
   :marked
@@ -2020,13 +2020,13 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** `CoreModule` provides one or more singleton services. Angular registers the providers with the app root injector, making a singleton instance of each service available to any component that needs them, whether that component is eagerly or lazily loaded.
     
-    **为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过立即加载还是延迟加载的方式加载的。
+    **为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过立即加载还是惰性加载的方式加载的。
 
 .s-why
   :marked
     **Why?** `CoreModule` will contain singleton services. When a lazy loaded module imports these, it will get a new instance and not the intended app-wide singleton.
     
-    **为何？**`CoreModule`将包含一些单例服务。而如果延迟加载模块导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
+    **为何？**`CoreModule`将包含一些单例服务。而如果惰性加载模块导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
 
 .s-rule.do
   :marked
@@ -2055,7 +2055,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** A lazily loaded feature module that directly imports the `CoreModule` will make its own copy of services and likely have undesireable results.
     
-    **为何？**如果延迟加载的特性模块直接导入`CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
+    **为何？**如果惰性加载的特性模块直接导入`CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
 
 .s-why
   :marked
@@ -2247,20 +2247,20 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ### <a id="04-13"></a>Lazy Loaded Folders
-  ### <a id="04-13"></a>延迟加载的目录
+  ### <a id="04-13"></a>惰性加载的目录
   #### <a href="#04-13">Style 04-13</a>
   #### <a href="#04-13">样式04-13</a>
   A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
   
-  某些边界清晰的应用特性或工作流可以做成*延迟加载*或*按需加载*的，而不用总是随着应用启动。
+  某些边界清晰的应用特性或工作流可以做成*惰性加载*或*按需加载*的，而不用总是随着应用启动。
 
 .s-rule.do
   :marked
     **Do** put the contents of lazy loaded features in a *lazy loaded folder*.
     A typical *lazy loaded folder* contains a *routing component*, its child components, and their related assets and modules.
     
-    **坚持**把延迟加载特性下的内容放进*延迟加载目录*中。
-    典型的*延迟加载目录*包含*路由组件*及其子组件以及与它们有关的那些资产和模块。
+    **坚持**把惰性加载特性下的内容放进*惰性加载目录*中。
+    典型的*惰性加载目录*包含*路由组件*及其子组件以及与它们有关的那些资产和模块。
 
 .s-why.s-why-last
   :marked
@@ -2275,7 +2275,7 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ### <a id="04-14"></a>Never Directly Import Lazy Loaded Folders
-  ### <a id="04-14"></a>永远不要直接导入延迟加载的目录
+  ### <a id="04-14"></a>永远不要直接导入惰性加载的目录
   #### <a href="#04-14">Style 04-14</a>
   #### <a href="#04-14">样式04-14</a>
 
@@ -2283,7 +2283,7 @@ a(href="#toc") 回到顶部
   :marked
     **Avoid** allowing modules in sibling and parent folders to directly import a module in a *lazy loaded feature*.
     
-    **避免**让兄弟模块和父模块直接导入*延迟加载特性*中的模块。
+    **避免**让兄弟模块和父模块直接导入*惰性加载特性*中的模块。
 
 .s-why.s-why-last
   :marked
