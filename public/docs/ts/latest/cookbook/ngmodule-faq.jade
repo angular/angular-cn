@@ -681,7 +681,7 @@ a#q-component-scoped-providers
   If you must load the module eagerly, when the application starts,
   ***provide the service in a component instead.***
   
-  如果你必须在应用程序启动时立即加载该模块，***就改成在组件中提供该服务***。
+  如果你必须在应用程序启动时主动加载该模块，***就改成在组件中提供该服务***。
   
   Continuing with the same example, suppose the components of a module truly require a private, custom `HttpBackend`.
   
@@ -845,7 +845,7 @@ a#q-why-bad
 
   When the app starts, Angular eagerly loads the `AppModule` and the `ContactModule`.
   
-  当应用启动时，Angular立即加载了`AppModule`和`ContactModule`。
+  当应用启动时，Angular主动加载了`AppModule`和`ContactModule`。
 
   Both instances of the imported `SharedModule` would provide the `UserService`. 
   Angular registers one of them in the root app injector (see [above](#q-reimport)).
@@ -873,7 +873,7 @@ a#q-why-bad
   
   当Angular创建一个惰性加载的`HeroComponent`时，它必须注入一个`UserService`。
   这次，它会从惰性加载模块的*子注入器*中查找`UserService`的提供商，并用它创建一个`UserService`的新实例。
-  这个`UserService`实例与Angular在立即加载的组件中注入的那个全应用级单例对象截然不同。
+  这个`UserService`实例与Angular在主动加载的组件中注入的那个全应用级单例对象截然不同。
 
   That's almost certainly a mistake.
   
@@ -915,7 +915,7 @@ a#q-why-child-injector
   Why doesn't Angular add lazy loaded providers to the app root injector as it does for eagerly loaded modules? 
   Why the inconsistency?
   
-  为什么Angular不能像立即加载模块那样把惰性加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
+  为什么Angular不能像主动加载模块那样把惰性加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
   
   The answer is grounded in a fundamental characteristic of the Angular dependency injection system.
   An injector can add providers _until it is first used_. 
@@ -929,7 +929,7 @@ a#q-why-child-injector
   _before_ creating its first component and injecting any of the provided services. 
   Once the application begins, the app root injector is closed to new providers.
   
-  当应用启动时，Angular会首先使用所有立即加载模块中的提供商来配置根注入器，这发生在它创建第一个组件以及注入任何服务之前。
+  当应用启动时，Angular会首先使用所有主动加载模块中的提供商来配置根注入器，这发生在它创建第一个组件以及注入任何服务之前。
   一旦应用开始工作，应用的根注入器就不再接受新的提供商了。
 
   Time passes. Application logic triggers lazy loading of a module.
@@ -1206,7 +1206,7 @@ a#q-module-recommendations
   Import the `SharedModule` in your _feature_ modules, 
   both those loaded when the app starts and those you lazy load later.
   
-  在任何特性模块中（无论是你在应用启动时立即加载的模块还是之后惰性加载的模块），你都可以随意导入这个`SharedModule`。
+  在任何特性模块中（无论是你在应用启动时主动加载的模块还是之后惰性加载的模块），你都可以随意导入这个`SharedModule`。
 
   #### _CoreModule_
   Create a `CoreModule` with `providers` for the singleton services you load when the application starts.
@@ -1350,15 +1350,15 @@ table
         `HeroModule` and `CrisisModule` are lazy loaded. They aren't mentioned among the `AppModule` imports.
         
         惰性加载的路由特性模块也不应该被任何模块*导出*。
-        那么做会触发一次立即加载，破坏了我们惰性加载的目的。
+        那么做会触发一次主动加载，破坏了我们惰性加载的目的。
         `HeroModule`和`CrisisModule`是惰性加载的。它们没有出现在`AppModule`的`imports`中。
 
         But an eager loaded Routed Feature Module must be imported by another module
         so that the compiler learns about its components. 
         `ContactModule` is eager loaded and, therefore, is listed among the `AppModule` imports.
         
-        而立即加载的路由特性模块必须被其它模块导入，以便编译器了解它有哪些组件。
-        `ContactModule`就是立即加载的，因此它也被列在了`AppModule`的`imports`中。
+        而主动加载的路由特性模块必须被其它模块导入，以便编译器了解它有哪些组件。
+        `ContactModule`就是主动加载的，因此它也被列在了`AppModule`的`imports`中。
 
         Routed Feature Modules rarely have _providers_ for reasons [explained earlier](#q-why-bad).
         When they do, the lifetime of the provided services

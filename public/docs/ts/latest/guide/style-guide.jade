@@ -2020,7 +2020,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** `CoreModule` provides one or more singleton services. Angular registers the providers with the app root injector, making a singleton instance of each service available to any component that needs them, whether that component is eagerly or lazily loaded.
     
-    **为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过立即加载还是惰性加载的方式加载的。
+    **为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过主动加载还是惰性加载的方式加载的。
 
 .s-why
   :marked
@@ -2061,7 +2061,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** An eagerly loaded feature module already has access to the `AppModule`'s injector, and thus the `CoreModule`'s services. 
     
-    **为何？**立即加载的特性模块已经准备好了访问`AppModule`的注入器，因此也能取得`CoreModule`中的服务。
+    **为何？**主动加载的特性模块已经准备好了访问`AppModule`的注入器，因此也能取得`CoreModule`中的服务。
 
 .s-rule.do
   :marked
@@ -2289,7 +2289,7 @@ a(href="#toc") 回到顶部
   :marked
     **Why?** Directly importing and using a module will load it immediately when the intention is to load it on demand.
     
-    **为何？**直接导入并使用此模块会立即加载它，而我们原本的设计意图是按需加载它。
+    **为何？**直接导入并使用此模块会主动加载它，而我们原本的设计意图是按需加载它。
 
 a(href="#toc") Back to top
 

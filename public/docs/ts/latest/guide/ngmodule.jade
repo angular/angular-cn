@@ -26,7 +26,7 @@ block includes
   This page explains how to **create** `NgModule` classes and how to load them, 
   either immediately when the application launches or later, as needed, via the [Router](router.html).  
   
-  本章将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 可以在程序启动时立即加载，也可以稍后由[路由器](router.html)按需加载。
+  本章将会讲解如何**创建**`NgModule`类，以及如何加载它们 —— 可以在程序启动时主动加载，也可以稍后由[路由器](router.html)按需加载。
 
   ## Table of Contents
   
@@ -132,7 +132,7 @@ a#angular-modularity
   Modules can be loaded eagerly when the application starts.
   They can also be _lazy loaded_ asynchronously by the router.
   
-  模块可能在应用启动时立即加载，也可能由路由器进行异步_惰性加载_。
+  模块可能在应用启动时主动加载，也可能由路由器进行异步_惰性加载_。
   
   An Angular module is a class decorated with `@NgModule` metadata. The metadata:
   
@@ -1157,7 +1157,7 @@ a#lazy-load
   
   * The `ContactModule` continues to be "eagerly" loaded when the application starts.
   
-  * `ContactModule`仍然会在应用启动时被立即加载。
+  * `ContactModule`仍然会在应用启动时被主动加载。
   
   * `HeroModule` and the `CrisisModule` are lazy loaded.
   
@@ -1363,7 +1363,7 @@ a#hero-module
   The lazy loaded `HeroModule` and `CrisisModule` follow the same principles as any feature module.
   They don't look different from the eagerly loaded `ContactModule`.
   
-  惰性加载的`HeroModule`和`CrisisModule`与其它特性模块遵循同样的规则。它们和“立即加载”的`ContactModule`看上去没有任何区别。
+  惰性加载的`HeroModule`和`CrisisModule`与其它特性模块遵循同样的规则。它们和“主动加载”的`ContactModule`看上去没有任何区别。
 
   The `HeroModule` is a bit more complex than the `CrisisModule` which makes it 
   a more interesting and useful example. Here's its file structure:
@@ -1602,7 +1602,7 @@ a#core-module
   making a singleton instance of the `UserService` available to any component that needs it, 
   whether that component is eagerly or lazily loaded.
   
-  `CoreModule`*提供*了`UserService`。Angular在该应用的“根注入器”中注册了它的提供商，导致这份`UserService`的实例在每个需要它的组件中都是可用的，无论那个组件时立即加载的还是惰性加载的。
+  `CoreModule`*提供*了`UserService`。Angular在该应用的“根注入器”中注册了它的提供商，导致这份`UserService`的实例在每个需要它的组件中都是可用的，无论那个组件时主动加载的还是惰性加载的。
 
 .l-sub-section
   :marked
