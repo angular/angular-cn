@@ -107,6 +107,10 @@ include ../_util-fns
   
   * 在[可选路由参数](#optional-route-parameters)中提供非关键信息
   
+  * refactoring routing into a [routing module](#routing-module)
+  
+  * 重构路由到[路由模块](#routing-module)
+  
   * add [child routes](#child-routing-component) under a feature section
 
   * 在“特性分区”下添加[子路由](#child-routing-component)
@@ -210,7 +214,7 @@ include ../_util-fns
   它并不是Angular 2核心库的一部分，而是在它自己的`@angular/router`包中。
   像其它Angular包一样，我们可以从它导入所需的一切。
 
-+makeExcerpt('app/app.routing.ts (import)', 'import-router')
++makeExcerpt('app/app.module.1.ts (import)', 'import-router')
 
 .l-sub-section
 
@@ -235,16 +239,17 @@ include ../_util-fns
   需要先配置路由器，才会有路由信息。
   首选方案是用带有“路由数组”的**`provideRouter`**工厂函数（`[provideRouter(routes)]`）来启动此应用。
 
-  In the following example, we configure our application with four route definitions.
+  In the following example, we configure our application with four route definitions. The configured `RouterModule` is
+  add to the `AppModule`'s `imports` array.
 
-  在下面的例子中，我们用四个路由定义配置了本应用的路由器。
+  在下面的例子中，我们用四个路由定义配置了本应用的路由器。这个配置的`RouterModule`被添加到`AppModule`的`imports`数组中。
 
-+makeExcerpt('app/app.routing.1.ts (excerpt)', 'route-config')
++makeExcerpt('app/app.module.0.ts (excerpt)', 'route-config')
 
 .l-sub-section
 
   :marked
-    The `Routes` is an array of *routes* that describe how to navigate.
+    The `RouterModule` is provided an array of *routes* that describe how to navigate.
     Each *Route* maps a URL `path` to a component.
 
     `RouterConfig`是一个*路由*数组，它会决定如何导航。
@@ -292,19 +297,6 @@ include ../_util-fns
 
     **这些路由的定义顺序**是故意如此设计的。路由器使用**先匹配者优先**的策略来匹配路由，所以，具体路由应该放在通用路由的前面。在上面的配置中，带静态路径的路由被放在了前面，后面是空路径路由，因此它会作为默认路由。而通配符路由被放在最后面，这是因为它是最通用的路由，应该**只在**前面找不到其它能匹配的路由时才匹配它。
     
-:marked
-    We export the `routing` constant so we can import it into our `app.module.ts` file where we'll add
-    a configured *Router* module to our `AppModule` imports.
-  
-    我们导出了`routing`常量，以便把它导入到`app.module.ts`文件中。
-    在那里，我们将在`AppModule`的imports中配置*Router*模块。
-    
-:marked
-  Next we open `app.module.ts` where we must register our routing, routing providers, and declare our two route components.
-  
-  接下来，打开`app.module.ts`，在那里我们要注册路由、路由提供商，并声明我们的两个路由组件。
-+makeExcerpt('app/app.module.1.ts (basic setup)', 'router-basics')
-
 :marked
   ### Router Outlet
 
@@ -391,7 +383,7 @@ code-example(language="html").
   在导航时的每个生命周期成功完成时，路由器会构建出一个`ActivatedRoute`组成的树，它表示路由器的当前状态。
   我们可以在应用中的任何地方用`Router`服务及其`routerState`属性来访问当前的`RouterState`值。
 
-  The router state provides us with methods to traverse up and down the route tree from any activated route
+  Each `ActivatedRoute` in the `RouterState` provides methods to traverse up and down the route tree
   to get information we may need from parent, child and sibling routes.
   
   路由器状态为我们提供了从任意激活路由开始向上或向下遍历路由树的一种方式，以获得关于父、子、兄弟路由的信息。
@@ -855,30 +847,10 @@ a#base-href
   路由器在它自己的`@angular/router`包中。
   它不是Angular 2内核的一部分。该路由器是可选的服务，这是因为并不是所有应用都需要路由，并且，如果需要，你还可能需要另外的路由库。
 
-  We teach our router how to navigate by configuring it with routes.
-  We recommend creating a separate `app.routing.ts` file dedicated to this purpose.
+  We teach our router how to navigate by configuring it with routes.  
   
-  通过一些路由来配置路由器，我们可以教它如何进行导航。
-  建议创建一个独立的`app.routing.ts`文件来达到此目的。
+  通过一些路由来配置路由器，我们可以教它如何进行导航。  
 
-:marked
-  Here is our first configuration. We pass the array of routes to the `RouterModule.forRoot` method
-  which returns a module containing the configured `Router` service provider ... and some other,
-  unseen providers that the routing library requires. We export this as the `routing` token.
-
-  下面是第一种配置。将路由数组传进`RouterModule.forRoot`方法，它将返回一个路由器需要的模块，该模块包含了配置好的`Router`服务提供商和一些其它不可见的提供商。我们将它导出为`routing`常量。
-
-+makeExcerpt('app/app.routing.2.ts')
-
-.l-sub-section
-  :marked
-    We also export an empty `appRoutingProviders` array
-    so we can simplify registration of router dependencies later in `app.module.ts`.
-    We don't have any providers to register right now. But we will.
-
-    我们还导出了一个空的`appRoutingProviders`数组，以便将来可以在`app.module.ts`中注册路由器的依赖。
-    现在我们还不用注册任何提供商，不过很快就需要了。
-    
 a#route-config
 
 h4#define-routes Define routes
@@ -920,42 +892,27 @@ h4#define-routes 定义一些路由
   for that path.*
 
   * **当应用程序请求导航到路径`/crisis-center`时，创建或者取回一个`CrisisListComponent`的实例，显示它的视图，并将该路径更新到浏览器地址栏和历史。**
-
-.l-sub-section
-
-  :marked
-    Learn about *providers* in the [Dependency Injection](dependency-injection.html#!#injector-providers) chapter.
-
-    在[依赖注入](dependency-injection.html#!#injector-providers)一章中，可以学到关于*提供商*的更多知识。
-
-h4#register-providers Register routing in the AppModule
-
-h4#register-providers 在`AppModule`中注册路由
-
+  
 :marked
-  Our app launches from the `app.module.ts` file in the `/app` folder.
+  Here is our first configuration. We pass the array of routes to the `RouterModule.forRoot` method
+  which returns a module containing the configured `Router` service provider ... and some other,
+  unseen providers that the routing library requires. Once our application is bootstrapped, the `Router`
+  will perform the initial navigation based on the current browser URL.
 
-  本应用的启动点位于`/app`目录下的`app.module.ts`文件中。
-
-  We import the `routing` token we exported from the `app.routing.ts` file and add it to the `imports` array.
-  
-  我们导入了从`app.routing.ts`文件中导出的`routing`令牌，并把它添加到了`imports`数组中。
-
-  We import our `CrisisListComponent` and `HeroListComponent` components and add them to our *declarations*
-  so they will be registered within our `AppModule`.
-  
-  我们导入了`CrisisListComponent`和`HeroListComponent`组件，并把它们加入了*declarations*数组中，它们将被注册到`AppModule`中。
-
-  We also import the `appRoutingProviders` array and add it to the `providers` array.
-  
-  我们还导入了`appRoutingProviders`数组，并把它加入了`providers`数组中。
-  
 +makeExcerpt('app/app.module.1.ts')
 
+.l-sub-section
+  :marked
+    Adding the configured `RouterModule` to the `AppModule` is sufficient for simple route configurations.
+    As our application grows, we'll want to refactor our routing configuration into a separate file
+    and create a **[Routing Module](#routing-module)**, a special type of `Service Module` dedicating for the purpose
+    of routing in feature modules.
+
 :marked
-  Providing the router module in our `AppModule` makes the Router available everywhere in our application.
+  Providing the `RouterModule` in our `AppModule` makes the Router available everywhere in our application.
   
-  在`AppModule`中注册路由器模块会让该路由器在应用的任何地方都能被使用。
+  在`AppModule`中提供`RouterModule`，让该路由器在应用的任何地方都能被使用。
+  
 
 h3#shell The <i>AppComponent</i> shell
 
@@ -1123,7 +1080,6 @@ h3#router-directives <i>路由器指令集</i>
       .children
         .file app.component.ts
         .file app.module.ts
-        .file app.routing.ts
         .file crisis-list.component.ts
         .file hero-list.component.ts
         .file main.ts
@@ -1143,7 +1099,6 @@ h3#router-directives <i>路由器指令集</i>
 +makeTabs(
   `router/ts/app/app.component.1.ts,
   router/ts/app/app.module.1.ts,
-  router/ts/app/app.routing.2.ts,
   router/ts/app/main.ts,
   router/ts/app/hero-list.component.ts,
   router/ts/app/crisis-list.component.ts,
@@ -1151,17 +1106,87 @@ h3#router-directives <i>路由器指令集</i>
   ',,,,',
   `app.component.ts,
   app.module.ts,
-  app.routing.ts,
   main.ts,
   hero-list.component.ts,
   crisis-list.component.ts,
   index.html`)
 
+.l-main-section#routing-module
+:marked
+  ## Milestone #2: The *Routing Module*
+
+  In our initial route configuration, we provided a simple setup with two routes used
+  to configure our application for routing. This is perfectly fine for simple routing.
+  As our application grows and we make use of more *Router* features, such as guards,
+  resolvers, and child routing, we'll naturally want to refactor our routing. We
+  recommend moving the routing into a separate file using a special-purpose
+  service called a *Routing Module*.
+
+  The **Routing Module**
+  * separates our routing concerns from our feature module
+  * provides a module to replace or remove when testing our feature module
+  * provides a common place for require routing service providers including guards and resolvers
+  * is **not** concerned with feature [module declarations](../cookbook/ngmodule-faq.html#!#routing-module)
+
+:marked
+  ### Refactor routing into a module
+
+  We'll create a file named `app-routing.module.ts` in our `/app` folder to
+  contain our `Routing Module`. The routing module will import our `RouterModule` tokens
+  and configure our routes. We'll follow the convention of our filename and name
+  the Angular module `AppRoutingModule`.
+
+  We import the `CrisisListComponent` and the `HeroListComponent` components
+  just like we did in the `app.module.ts`. Then we'll move the `Router` imports
+  and routing configuration including `RouterModule.forRoot` into our routing module.
+
+  We'll also export the `AppRoutingModule` so we can add it to our `AppModule` imports.
+
+  Our last step is to re-export the `RouterModule`. By re-exporting the `RouterModule`,
+  our feature module will be provided with the `Router Directives` when using our `Routing Module`.
+
+  Here is our first `Routing Module`:
+
++makeExcerpt('app/app-routing.module.1.ts')
+
+:marked
+   Next, we'll update our `app.module.ts` file by importing our `AppRoutingModule` token
+   from the `app-routing.module.ts` and replace our `RouterModule.forRoot` with our newly
+   created `AppRoutingModule`.
+
++makeExcerpt('app/app.module.2.ts')
+
+:marked
+  Our application continues to work just the same, and we can use our routing module as
+  the central place to maintain our routing configuration for each feature module.
+
+a#why-routing-module
+:marked
+  ### Do you need a _Routing Module_?
+  
+  The _Routing Module_ *replaces* the routing configuration in the root or feature module. 
+  _Either_ configure routes in the Routing Module _or_ within the module itself but not in both.
+
+  The Routing Module is a design choice whose value is most obvious when the configuration is complex
+  and includes specialized guard and resolver services.
+  It can seem like overkill when the actual configuration is dead simple.
+
+  Some developers skip the Routing Module (e.g., `AppRoutingModule`) when the configuration is simple and 
+  merge the routing configuration directly into the companion module (e.g., `AppModule`).
+  
+  We recommend that you choose one pattern or the other and follow that pattern consistently.
+
+  Most developers should always implement a Routing Module for the sake of consistency.
+  It keeps the code clean when configuration becomes complex.
+  It makes testing the feature module easier.
+  Its existence calls attention to the fact that a module is routed.
+  It is where developers expect to find and expand routing configuration.
+
 .l-main-section#heroes-feature
 :marked
-  ## Milestone #2: The Heroes Feature
+  ## Milestone #3: The Heroes Feature
   
-  ## 里程碑 #2 英雄特征区
+  ## 里程碑 #2 英雄特征区  
 
   We've seen how to navigate using the `RouterLink` directive.
 
@@ -1305,26 +1330,31 @@ figure.image-display
 
   我们推荐的方式是为每个特性区创建它自己的路由配置文件。
 
-  Create a new `heroes.routing.ts` in the `heroes` folder like this:
+  Create a new `heroes-routing.module.ts` in the `heroes` folder like this:
 
-  在`heroes`目录下创建一个新的`heroes.routing.ts`文件，就像这样：
+  在`heroes`目录下创建一个新的`heroes-routing.module.ts`文件，就像这样：
 
-+makeExcerpt('app/heroes/heroes.routing.ts')
++makeExcerpt('app/heroes/heroes-routing.module.ts')
+
+.l-sub-section
+  :marked
+    Keep the Routing Module file in the same folder as its companion module file.
+    Here both `heroes-routing.module.ts` and `heroes.module.ts` are in the same `app/heroes` folder.
 
 :marked
-  We use the same techniques we learned for `app.routing.ts`.
+  We use the same techniques we learned in creating the `app-routing.module.ts`.
 
   我们使用与`app.routes.ts`中一样的技巧。
 
   We import the two components from their new locations in the `app/heroes/` folder, define the two hero routes.
-  and add export our `heroesRouting` that returns configured `RouterModule` for our feature module.
+  and add export our `HeroRoutingModule` that returns our `RoutingModule` for the hero feature module.
 
   从它们所在的新`app/heroes/`目录导入列表和详情组件，定义两个英雄路由并导出到`HeroesRoutes`数组。
 
 :marked
   Now that we have routes for our `Heroes` module, we'll need to register them with the *Router*.
-  We'll import the *RouterModule* like we did in the `app.routing.ts`, but there is a slight difference here.
-  In our `app.routing.ts`, we used the static **forRoot** method to register our routes and application level
+  We'll import the *RouterModule* like we did in the `app-routing.module.ts`, but there is a slight difference here.
+  In our `app-routing.module.ts`, we used the static **forRoot** method to register our routes and application level
   service providers. In a feature module we use static **forChild** method.
   
   现在，我们的`Heroes`模块有路由了，我们得用*路由器*注册它们。
@@ -1340,10 +1370,10 @@ figure.image-display
     **RouterModule.forRoot**只能由`AppModule`提供。但我们位于特性模块中，所以使用**RouterModule.forChild**来单独注册更多路由。
 
 :marked
-  We import our `heroesRouting` token from `heroes.routing.ts` into our `Heroes` module and register the routing.
+  We import our `HeroRoutingModule` token from `heroes-routing.module.ts` into our `Heroes` module and register the routing.
   
-  我们从`Heroes`模块的`heroes.routing.ts`中导入`heroesRouting`令牌，并注册其路由。
-  
+  我们在`Heroes`模块中从`heroes-routing.module.ts`中导入`HeroRoutingModule`，并注册其路由。  
+
 +makeExcerpt('app/heroes/heroes.module.ts (heroes routing)', 'heroes-routes')
 
 :marked
@@ -1355,7 +1385,7 @@ figure.image-display
 
   `HeroDetailComponent`的路由有点特殊。
 
-+makeExcerpt('app/heroes/heroes.routing.ts (excerpt)', 'hero-detail-route')
++makeExcerpt('app/heroes/heroes-routing.module.ts (excerpt)', 'hero-detail-route')
 
 :marked
   Notice the `:id` token in the path. That creates a slot in the path for a **Route Parameter**.
@@ -1392,9 +1422,9 @@ code-example(format="." language="bash").
     在这个场景下，把路由参数的令牌`:id`嵌入到路由定义的`path`中是一个好主意，因为对于`HeroDetailComponent`来说`id`是*必须的*，
     而且路径中的值`15`已经足够把到“Magneta”的路由和到其它英雄的路由明确区分开。
 
-    An [optional-route-parameter](#optional-route-parameter) might be a better choice if we were passing an *optional* value to `HeroDetailComponent`.
+    An [optional-route-parameter](#optional-route-parameters) might be a better choice if we were passing an *optional* value to `HeroDetailComponent`.
     
-    当我们把一个*可选*值传给`HeroDetailComponent`时，[可选路由参数](#optional-route-parameter)可能是一个更好的选择。
+    当我们把一个*可选*值传给`HeroDetailComponent`时，[可选路由参数](#optional-route-parameters)可能是一个更好的选择。
     
 a#navigate
 :marked
@@ -1736,7 +1766,7 @@ figure.image-display
   这么多种参数要放在URL的*路径*中可不容易。即使我们能制定出一个合适的URL方案，实现起来也太复杂了，得通过模式匹配才能把URL翻译成命名路由。
 
   Optional parameters are the ideal vehicle for conveying arbitrarily complex information during navigation.
-  Optional parameters aren't involved in pattern matching and affords enormous flexibility of expression.
+  Optional parameters aren't involved in pattern matching and afford enormous flexibility of expression.
   
   可选参数是在导航期间传送任意复杂信息的理想载体。
   可选参数不涉及到模式匹配并在表达上提供了巨大的灵活性。
@@ -1788,7 +1818,7 @@ figure.image-display
   
   路由器在导航URL中内嵌了`id`的值，这是因为我们把它用一个`:id`占位符当做路由参数定义在了路由的`path`中：
 
-+makeExcerpt('app/heroes/heroes.routing.ts', 'hero-detail-route')
++makeExcerpt('app/heroes/heroes-routing.module.ts', 'hero-detail-route')
 
 :marked
   When the user clicks the back button, the `HeroDetailComponent` constructs another *link parameters array*
@@ -1804,7 +1834,7 @@ figure.image-display
   该数组缺少一个路由参数，这是因为我们那时没有理由往`HeroListComponent`发送信息。
 
   Now we have a reason. We'd like to send the id of the current hero with the navigation request so that the
-  `HeroListComponent` can highlight that hero in its list. 
+  `HeroListComponent` can highlight that hero in its list.
   This is a _nice-to-have_ feature; the list will display perfectly well without it.
   
   但现在有了。我们要在导航请求中同时发送当前英雄的id，以便`HeroListComponent`可以在列表中高亮这个英雄。
@@ -2048,7 +2078,7 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
   
   像这样修改`app.module.ts`：
 
-+makeExcerpt('app/app.module.2.ts (heroes module import)', 'hero-import')
++makeExcerpt('app/app.module.3.ts (heroes module import)', 'hero-import')
 
 :marked
   We imported the `HeroesModule` and added it to our `AppModule`'s `imports`.
@@ -2079,11 +2109,12 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
   这个“英雄特性区”可以演化出更多的组件和不同的路由。
   这是为每个特性区创建一个独立模块带来的核心优势。
 
-  Since our `Heroes` routes are defined within our feature module, we can also remove our initial `heroes` route from the `app.routing.ts`.
+  Since our `Heroes` routes are defined within our feature module, we can also remove our initial `heroes` route from the `app-routing.module.ts`.
   
-  由于`Heroes`路由被定义在了我们的特性模块中，我们也可以从`app.routing.ts`中移除当初的`heroes`路由了。
+  由于`Heroes`路由被定义在了我们的特性模块中，我们也可以从`app-routing.module.ts`中移除当初的`heroes`路由了。
+  
 
-+makeExcerpt('app/app.routing.3.ts (v2)', '')
++makeExcerpt('app/app-routing.module.2.ts (v2)', '')
 
 :marked
   ### Heroes App Wrap-up
@@ -2133,10 +2164,10 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
         .file hero-list.component.ts
         .file hero.service.ts
         .file heroes.module.ts
-        .file heroes.routing.ts
+        .file heroes-routing.module.ts
       .file app.component.ts
       .file app.module.ts
-      .file app.routing.ts
+      .file app-routing.module.ts
       .file crisis-list.component.ts
       .file main.ts
     .file node_modules ...
@@ -2160,28 +2191,28 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
 
 +makeTabs(
   `router/ts/app/app.component.1.ts,
-   router/ts/app/app.module.2.ts,
-   router/ts/app/app.routing.3.ts,
+   router/ts/app/app.module.3.ts,
+   router/ts/app/app-routing.module.3.ts,
    router/ts/app/heroes/hero-list.component.ts,
    router/ts/app/heroes/hero-detail.component.ts,
    router/ts/app/heroes/hero.service.ts,
    router/ts/app/heroes/heroes.module.ts,
-   router/ts/app/heroes/heroes.routing.ts`,
+   router/ts/app/heroes/heroes-routing.module.ts`,
    null,
   `app.component.ts,
   app.module.ts,
-  app.routing.ts,
+  app-routing.module.ts,
   hero-list.component.ts,
   hero-detail.component.ts,
   hero.service.ts,
   heroes.module.ts,
-  heroes.routing.ts`)
+  heroes-routing.module.ts`)
 
 .l-main-section#crisis-center-feature
 :marked
-  ## Milestone #3: The Crisis Center
+  ## Milestone #4: The Crisis Center
 
-  ## 里程碑#3：危机中心
+  ## 里程碑#4：危机中心
 
   The *Crisis Center* is a fake view at the moment. Time to make it useful.
 
@@ -2229,20 +2260,6 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
   * The router should block access to certain features until the user logs-in.
 
   * 如果用户尚未登录，路由器就应该阻止它访问某些特性。
-
-  * Our `CrisisService` is only needed within the *Crisis Center* module.
-  We should limit access to it to that module.
-
-  * `CrisisService`只在*危机中心*模块中才需要，因此我们应该把它局限在此模块中使用。
-
-  * Changes to a feature module such as *Crisis Center* shouldn't provoke changes to the `AppModule` or
-  any other feature's component.
-
-  * 对特性模块（如*危机中心*）的修改，不应该导致对`AppModule`或其它特性组件的修改。
-
-  We need to [*separate our concerns*](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html).
-
-  我们需要[*分离这些关注点*](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)。
 
   We'll address all of these issues in the *Crisis Center*
   starting with the introduction of **child routes**
@@ -2336,49 +2353,6 @@ a#child-routing-component
     We *can* give it a selector. There's no harm in it.
     Our point is that we don't *need* one because we only *navigate* to it.
 
-    当然，我们也*可以*给它一个选择器，这没什么坏处。
-    重点在于：它并不是*必须的*，因为我们只会*导航*到它。
-
-:marked
-  ### Service isolation
-
-  ### 服务隔离
-
-  The `CrisisService` is neither needed nor wanted outside the *Crisis Center* domain.
-  Instead of registering it with the `AppModule`'s providers &mdash;
-  which makes it visible everywhere &mdash;
-  we register the `CrisisService` in the `CrisisCenterModule` providers array.
-
-  在*危机中心*领域之外既不需要也没人想要`CrisisService`。
-  与其在`AppModule`的提供商中注册它导致它在应用的任何地方都可见，不如在`CrisisCenterModule`的`providers`数组中注册`CrisisService`。
-
-+makeExcerpt('app/crisis-center/crisis-center.module.1.ts', 'providers', '')
-
-:marked
-  This limits the scope of the `CrisisService` to the *Crisis Center* routes.
-  No module outside of the *Crisis Center* can access it.
-
-  这会把`CrisisService`的范围局限在*危机中心*及其子组件树上。
-  在*危机中心*之外，没有任何组件能访问它。
-
-  There's a practical benefit to restricting its scope in this way.
-
-  用这种方式限制它的范围有一些实践好处。
-
-  First we can evolve the service independently of the rest of the application
-  without fear of breaking what should be unrelated modules.
-
-  第一，我们可以独立于应用程序的其它部分演进此服务，而不用担心破坏了与此无关的模块。
-
-  Second, we can delay loading this service into memory until we need it.
-  We can remove it from the application launch bundle,
-  reducing the size of the initial payload and improving performance.
-  We can load it optionally, [asynchronously](#asynchronous-routing) with the other *Crisis Center* components
-  if and when the user begins that workflow.
-
-  第二，可以对此服务进行惰性加载，直到需要它的时候才加载到内存中。
-  可以从应用的发布包中移除它，以减小首次加载的体积并提升性能。
-  可以用可选的方式加载它，当用户开始此工作流时，本应用才异步加载其它的*危机中心*组件。
 :marked
   ### Child Route Configuration
 
@@ -2397,13 +2371,13 @@ a#child-routing-component
 +makeExcerpt('app/crisis-center/crisis-center-home.component.ts (minus imports)', 'minus-imports')
 
 :marked
-  We create a `crisis-center.routing.ts` file as we did the `heroes.routing.ts` file.
+  We create a `crisis-center-routing.module.ts` file as we did the `heroes-routing.module.ts` file.
   But this time we define **child routes** *within* the parent `crisis-center` route.
 
   像`heroes.routing.ts`文件一样，我们也创建一个`crisis-center.routing.ts`。
   但这次，我们要把**子路由**定义在父路由`crisis-center`中。
 
-+makeExcerpt('app/crisis-center/crisis-center.routing.1.ts (Routes)', 'routes')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.1.ts (Routes)', 'routes')
 
 :marked
   Notice that the parent `crisis-center` route has a `children` property
@@ -2474,11 +2448,11 @@ code-example.
   localhost:3000/crisis-center/2
 
 :marked
-  Here's the complete `crisis-center.routing.ts` file with its imports.
+  Here's the complete `crisis-center-routing.module.ts` file with its imports.
 
   这里是完整的`crisis-center.routing.ts`及其导入语句。
 
-+makeExcerpt('app/crisis-center/crisis-center.routing.1.ts', '')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.1.ts', '')
 
 h3#import-crisis-module Import crisis center module into the AppModule routes
 
@@ -2489,17 +2463,17 @@ h3#import-crisis-module 把危机中心模块导入`AppModule`的路由中
   
   像`Heroes`模块中一样，我们必须把`危机中心`模块导入`AppModule`中：
  
-+makeExcerpt('app/app.module.3.ts (Crisis Center Module)', 'crisis-center-module')
++makeExcerpt('app/app.module.4.ts (import CrisisCenterModule)', 'crisis-center-module')
 
 :marked
-  We also remove the initial crisis center route from our `app.routing.ts`. Our routes
-  are now being provided by our `HeroesModule` and our `CrisisCenter` feature modules. We'll keep our `app.routing.ts` file
+  We also remove the initial crisis center route from our `app-routing.module.ts`. Our routes
+  are now being provided by our `HeroesModule` and our `CrisisCenter` feature modules. We'll keep our `app-routing.module.ts` file
   for general routes which we'll cover later in the chapter.
   
   我们还从`app.routing.ts`中移除了危机中心的初始路由。我们的路由现在是由`HeroesModule`和`CrisisCenter`特性模块提供的。
   我们将保持`app.routing.ts`文件中只有通用路由，本章稍后会讲解它。
 
-+makeExcerpt('app/app.routing.4.ts (v3)', '')
++makeExcerpt('app/app-routing.module.3.ts (v3)', '')
 
 a#redirect
 
@@ -2534,7 +2508,7 @@ code-example.
   
   首选的解决方案是添加一个`redirect`路由，它会把初始的相对URL（`''`）悄悄翻译成默认路径(`/crisis-center`)。
   
-+makeExcerpt('app/crisis-center/crisis-center.routing.2.ts' , 'redirect', '')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.2.ts' , 'redirect', '')
 
 :marked
   A redirect route requires a `pathMatch` property to tell the router how to match a URL to the path of a route.
@@ -2586,7 +2560,7 @@ code-example.
 
   修改过的路由定义看起来是这样的：
 
-+makeExcerpt('app/crisis-center/crisis-center.routing.2.ts (routes v2)' , 'routes')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.2.ts (routes v2)' , 'routes')
 
 .l-main-section
 h2#relative-navigation Relative Navigation
@@ -2706,8 +2680,8 @@ h2#guards Route Guards
 h2#guards 路由守卫
 
 :marked
-  ## Milestone #4: Route Guards
-  ## 里程碑#4：路由守卫
+  ## Milestone #5: Route Guards
+  ## 里程碑#5：路由守卫
 
   At the moment, *any* user can navigate *anywhere* in the application *anytime*.
 
@@ -2855,7 +2829,7 @@ a#can-activate-guard
     .file admin-dashboard.component.ts
     .file admin.component.ts
     .file admin.module.ts
-    .file admin.routing.ts
+    .file admin-routing.module.ts
     .file manage-crises.component.ts
     .file manage-heroes.component.ts
 
@@ -2895,7 +2869,7 @@ a#can-activate-guard
   
   我们的初始管理路由配置如下：
 
-+makeExcerpt('app/admin/admin.routing.1.ts (admin routing)', 'admin-routes')
++makeExcerpt('app/admin/admin-routing.module.1.ts (admin routing)', 'admin-routes')
 
 h3#component-less-route <i>Component-Less Route</i>: grouping routes without a component
 h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行分组
@@ -2918,7 +2892,7 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
   
   接下来，我们把`AdminModule`导入到`app.module.ts`中，并把它加入`imports`数组中来注册这些管理类路由。
 
-+makeExcerpt('app/app.module.3.ts (admin module)', 'admin-module')
++makeExcerpt('app/app.module.4.ts (admin module)', 'admin-module')
 
 :marked
   And we add a link to the `AppComponent` shell that users can click to get to this feature.
@@ -2958,12 +2932,12 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
 +makeExcerpt('app/auth-guard.service.1.ts')
 
 :marked
-  Next we open `admin.routing.ts `, import the `AuthGuard` class, and
+  Next we open `admin-routing.module.ts `, import the `AuthGuard` class, and
   update the admin route with a `CanActivate` guard property that references it:
 
   接下来，打开`crisis-center.routes.ts`，导入`AuthGuard`类，修改管理路由并通过`CanActivate`属性来引用`AuthGuard`：
 
-+makeExcerpt('app/admin/admin.routing.2.ts (guarded admin route)', 'admin-route')
++makeExcerpt('app/admin/admin-routing.module.2.ts (guarded admin route)', 'admin-route')
 
 :marked
   Our admin feature is now protected by the guard, albeit protected poorly.
@@ -3039,23 +3013,23 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
   该组件没有什么新内容，我们把它放进路由配置的方式也没什么新意。
 
 
-  We'll register a `/login` route in our `app.routing.ts` and add the necessary providers to the `appRoutingProviders`
-  array we created earlier. In our `app.module.ts`, we'll import the `LoginComponent` and add it to our `AppModule` `declarations`.
+  We'll register a `/login` route in our `login-routing.module.ts` and add the necessary providers to the `providers`
+  array. In our `app.module.ts`, we'll import the `LoginComponent` and add it to our `AppModule` `declarations`.
+  We'll also import and add the `LoginRoutingModule` to our `AppModule` imports.
 
-  我们将在`app.routing.ts`中注册一个`/login`路由，并把必要的提供商添加到以前创建的`appRoutingProviders`数组中。
+  我们将在`login-routing.module.ts`中注册一个`/login`路由，并把必要的提供商添加`providers`数组中。
   在`app.module.ts`中，我们导入`LoginComponent`并把它加入根模块的`declarations`中。
+  同时在`AppModule`中导入并添加`LoginRoutingModule`。
   
 +makeTabs(
    `router/ts/app/app.module.ts,
-   router/ts/app/app.routing.6.ts,
    router/ts/app/login.component.1.ts,
-   router/ts/app/login.routing.ts
+   router/ts/app/login-routing.module.ts
   `,
   null,
    `app/app.module.ts,
-   app/app.routing.ts,
    app/login.component.ts,
-   app/login.routing.ts
+   app/login-routing.module.ts
   `)
 
 .l-sub-section
@@ -3099,7 +3073,7 @@ h3#can-activate-child-guard <i>CanActivateChild</i>: 守卫子路由
   
   我们往“无组件”的管理路由中添加同一个`AuthGuard`以同时保护所有子路由，而不是挨个添加它们。
 
-+makeExcerpt('app/admin/admin.routing.3.ts (excerpt)', 'can-activate-child')
++makeExcerpt('app/admin/admin-routing.module.3.ts (excerpt)', 'can-activate-child')
 
 h3#can-deactivate-guard <i>CanDeactivate</i>: handling unsaved changes
 
@@ -3160,7 +3134,7 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
   Users update crisis information in the `CrisisDetailComponent`.
   Unlike the `HeroDetailComponent`, the user changes do not update the
   crisis entity immediately. We update the entity when the user presses the *Save* button.
-  We discard the changes if the user presses he *Cancel* button.
+  We discard the changes if the user presses the *Cancel* button.
 
   用户在`CrisisDetailComponent`中更新危机信息。
   与`HeroDetailComponent`不同，用户的改动不会立即更新危机的实体对象。当用户按下了*Save*按钮时，我们就更新这个实体对象；如果按了*Cancel*按钮，那就放弃这些更改。
@@ -3244,18 +3218,18 @@ a#CanDeactivate
   注意，`canDeactivate`方法*可以*同步返回，如果没有危机，或者没有未定的修改，它就立即返回`true`。但是它也可以返回一个承诺（`Promise`）或可观察对象（`Observable`），路由器将等待它们被解析为真值（继续导航）或假值（留下）。
 
 :marked
-  We add the `Guard` to our crisis detail route in `crisis-center.routing.ts` using the `canDeactivate` array.
+  We add the `Guard` to our crisis detail route in `crisis-center-routing.module.ts` using the `canDeactivate` array.
 
   我们往`crisis-center.routing.ts`的危机详情路由中用`canDeactivate`数组添加一个`Guard`（守卫）。
 
-+makeExcerpt('app/crisis-center/crisis-center.routing.3.ts (can deactivate guard)', '')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.3.ts (can deactivate guard)', '')
 
 :marked
-  We also need to add the `Guard` to our main `appRoutingProviders` so the `Router` can inject it during the navigation process.
+  We also need to add the `Guard` to our main `AppRoutingModule` `providers` so the `Router` can inject it during the navigation process.
 
   我们还要把这个`Guard`添加到主文件的`appRouterProviders`中去，以便`Router`可以在导航过程中注入它。
   
-+makeExample('app/app.routing.6.ts', '', '')
++makeExample('app/app-routing.module.4.ts', '', '')
 
 :marked
   Now we have given our user a safeguard against unsaved changes.
@@ -3324,7 +3298,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 +makeExample('app/crisis-center/crisis-detail-resolve.service.ts', '')
 
 :marked
-  We'll take the relevant parts of the `ngOnInit` lifecycle hook in our `CrisisDetailComponent` and moved them into our `CrisisDetailResolve` guard.
+  We'll take the relevant parts of the `ngOnInit` lifecycle hook in our `CrisisDetailComponent` and move them into our `CrisisDetailResolve` guard.
   We import the `Crisis` model and `CrisisService` and also the `Router` for navigation from our resolve implementation. We want to be explicit about
   the data we are resolving, so we implement the `Resolve` interface with a type of `Crisis`. This lets us know that what we will resolve will match our
   `Crisis` model. We inject the `CrisisService` and `Router` and implement the `resolve` method that supports a `Promise`, `Observable` or a synchronous
@@ -3339,18 +3313,15 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 
   我们使用`CrisisService.getCrisis`方法来获取一个**承诺对象**，用于防止路由在成功获取数据之前被加载。如果没有找到对应`Crisis`，便将用户导航回`CrisisList`，取消之前导航到危机详情的路由。
 
-  Now that our guard is ready, we'll import it in our `crisis-center.routing.ts` and use the `resolve` object in our route configuration.
+  Now that our guard is ready, we'll import it in our `crisis-center-routing.module.ts` and use the `resolve` object in our route configuration.
 
-  解析守卫现在准备好了，将它导入到`crisis-center.routing.ts`中，然后在路由配置中设置`resolve`对象。
+  解析守卫现在准备好了，将它导入到`crisis-center-routing.module.ts`中，然后在路由配置中设置`resolve`对象。
 
-+makeExcerpt('app/crisis-center/crisis-center.routing.ts (resolve)', 'crisis-detail-resolve')
+  We'll add the `CrisisDetailResolve` service to our `CrisisCenterRoutingModule`'s `providers`, so its available to the `Router` during the navigation process.
 
-:marked
-  We'll add the `CrisisDetailResolve` service to our crisis center module's `providers`, so its available to the `Router` during the navigation process.
+  接下来，将`CrisisDetailResolve`服务添加到危机中心路由模块的`providers`数组中，这样`Router`在路由过程中可以使用它。
 
-  接下来，将`CrisisDetailResolve`服务添加到危机中心模块的`providers`数组中，这样`Router`在路由过程中可以使用它。
-
-+makeExcerpt('app/crisis-center/crisis-center.module.ts (crisis detail resolve provider)', 'crisis-detail-resolve')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.ts (resolve)', 'crisis-detail-resolve')
 
 :marked
   Now that we've added our `Resolve` guard to fetch data before the route loads, we no longer need to do this once we get into our `CrisisDetailComponent`.
@@ -3388,7 +3359,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
    `router/ts/app/app.component.ts,
    router/ts/app/crisis-center/crisis-center-home.component.ts,
    router/ts/app/crisis-center/crisis-center.component.ts,
-   router/ts/app/crisis-center/crisis-center.routing.ts,
+   router/ts/app/crisis-center/crisis-center-routing.module.ts,
    router/ts/app/crisis-center/crisis-list.component.ts,
    router/ts/app/crisis-center/crisis-detail.component.ts,
    router/ts/app/crisis-center/crisis-detail-resolve.service.ts,
@@ -3398,7 +3369,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
    `app.component.ts,
    crisis-center-home.component.ts,
    crisis-center.component.ts,
-   crisis-center.routing.ts,
+   crisis-center-routing.module.ts,
    crisis-list.component.ts,
    crisis-detail.component.ts,
    crisis-detail-resolve.service.ts,
@@ -3505,7 +3476,7 @@ a#fragment
 <a id="asynchronous-routing"></a>
 .l-main-section
 :marked
-  ## Milestone #5: Asynchronous Routing
+  ## Milestone #6: Asynchronous Routing
 
   ## 里程碑5：异步路由
 
@@ -3546,13 +3517,13 @@ a#fragment
 
   ### 惰性加载路由配置
 
-  We'll start by adding an `admin` route to our `app.routing.ts` file. We want to load our `Admin` module asynchronously,
+  We'll start by adding an `admin` route to our `app-routing.module.ts` file. We want to load our `Admin` module asynchronously,
   so we'll use the `loadChildren` property in our route config where previously we used the `children` property to include our child routes.
   
-  首先，把`admin`路由添加到 `app.routing.ts`文件中。我们想要异步加载`Admin`模块，
+  首先，把`admin`路由添加到 `app-routing.module.ts`文件中。我们想要异步加载`Admin`模块，
   就得在路由配置中使用`loadChildren`属性，而以前我们已经用`children`属性包含进了这些子路由。
 
-  We'll also change our `admin` **path** in our `admin.routing.ts` to an empty path. The `Router` supports
+  We'll also change our `admin` **path** in our `admin-routing.module.ts` to an empty path. The `Router` supports
   *empty path* routes, which we can use for grouping routes together without adding anything additional paths to the URL. Our
   users will still visit `/admin` and our `AdminComponent` still serves as our *Routing Component* which contains
   our child routes.
@@ -3560,20 +3531,13 @@ a#fragment
   接下来，在`admin.routing.ts`中，把`admin`的**path**更改为空路径。路由器支持**空路径**路由，它可以在不必把别的路径添加到URL中的情况下，将多个路由组合到一起。用户还是可以访问`/crisis-center`，`CrisisCenterComponent`组件还是包含了子级路由的**路由组件**。
 
 +makeTabs(
-  `router/ts/app/app.routing.ts,
-  router/ts/app/admin/admin.routing.ts`,
+  `router/ts/app/app-routing.module.ts,
+  router/ts/app/admin/admin-routing.module.ts`,
   'lazy-load-admin,',
-  `app.routing.ts (load children),
-  app/admin/admin.routing.ts (empty path admin)
+  `app-routing.module.ts (load children),
+  app/admin/admin-routing.module.ts (empty path admin)
   `)
 
-.l-sub-section
-  :marked
-    We use the ES2015 `spread` feature to flatten the route arrays of our `adminRoutes` and `loginRoutes`
-    into our `appRoutes` array to provide a simple array of routes.
-
-    我们使用了ES2015的`spread`特性来将`adminRoutes`和`loginRoutes`这两个路由数组扁平化，
-    放进我们的`appRoutes`数组中，以便给路由提供一个单一数组。
 :marked
   The `loadChildren` property is used by the `Router` to map to our bundle we want to lazy-load, in this case being the `AdminModule`.
   
@@ -3642,12 +3606,12 @@ h3#can-load-guard <i>CanLoad守卫</i>: 保护特性模块的加载
 +makeExcerpt('app/auth-guard.service.ts (can load guard)', '')
 
 :marked
-  Next, we'll import the `AuthGuard` into our `app.routing.ts` and add the `AuthGuard` to the `canLoad` array for
+  Next, we'll import the `AuthGuard` into our `app-routing.module.ts` and add the `AuthGuard` to the `canLoad` array for
   our `admin` route. Now our `admin` feature area is only loaded when the proper access has been granted.
   
   接下来，我们就把`AuthGuard`导入到`app.routing.ts`中，并把`AuthGuard`添加到`admin`路由的`canLoad`数组中。现在`admin`特性区就只有当获得访问授权时才会被加载了。
 
-+makeExcerpt('app/app.routing.ts (can load guard)', 'can-load-guard')
++makeExcerpt('app/app-routing.module.ts (can load guard)', 'can-load-guard')
 
 <a id="final-app"></a>
 
@@ -4021,4 +3985,4 @@ code-example(format=".", language="bash").
 
   我们可以在根模块的`RouterModule.forRoot`的第二个参数中传入一个带有`useHash: true`的对象，以回到基于`HashLocationStrategy`的传统方式。
 
-+makeExcerpt('app/app.module.5.ts (hash URL strategy)', '')
++makeExcerpt('app/app.module.6.ts (hash URL strategy)', '')

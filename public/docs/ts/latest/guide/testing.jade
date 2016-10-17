@@ -770,7 +770,7 @@ a(href="#top").to-top 回到顶部
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-it', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
   A comprehensive review of the Angular testing utilities appears [later in the chapter](#atu-apis).
-  Let's dive right into Angular testing, starting with with the components of a sample application.
+  Let's dive right into Angular testing, starting with the components of a sample application.
 
   完整的关于Angular测试工具的回顾将会在[本章后面](#atu-apis)出现。
   让我们深入到Angular测试，以例子应用的组件开始。
@@ -1543,7 +1543,7 @@ a(href="#top").to-top 回到顶部
 
   Notice the `async` call in the `beforeEach`, made necessary by the asynchronous `TestBed.compileComponents` method.
   The `async` function arranges for the tester's code to run in a special _async test zone_
-  that hides the mechanics of asynchronous execution, just as it does when passed to an [_it_ test)(#async).
+  that hides the mechanics of asynchronous execution, just as it does when passed to an [_it_ test](#async).
 
   注意`beforeEach`里面对`async`的调用，因为异步方法`TestBed.compileComponents`而变得必要。
   `async`函数将测试代码安排到特殊的**异步测试区域**来运行，该区域隐藏了异步执行的细节，就像它被传递给[_it_ 测试)(#async)一样。
@@ -1621,9 +1621,9 @@ a(href="#top").to-top 回到顶部
   测试的目的是验证这样的绑定和期待的那样正常工作。
   测试应该设置导入值并监听导出事件。
 
-  The `DashboardHeroComponent` is tiny example of a component in this role.
-  It displays an individual heroe provided by the `DashboardComponent`. 
-  Clicking that hero tells the the `DashboardComponent` that the user has selected the hero.
+  The `DashboardHeroComponent` is  tiny example of a component in this role.
+  It displays an individual hero provided by the `DashboardComponent`. 
+  Clicking that hero tells the `DashboardComponent` that the user has selected the hero.
 
   `DashbaordComponent`是非常小的这种类型的例子组件。
   它显示由`DashboardCompoent`提供的英雄个体。
@@ -1937,9 +1937,9 @@ a(href="#top").to-top 回到顶部
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'router-stub', 'app/dashboard/dashboard.component.spec.ts (Router Stub)')(format='.')
 :marked
   Now we setup the testing module with the test stubs for the `Router` and `HeroService` and 
-  create a test instance of the `DashbaordComponent` for subsequent testing.
+  create a test instance of the `DashboardComponent` for subsequent testing.
 
-  现在我们来利用`Router`和`HeroService`的测试stub类来配置测试模块，并为接下来的测试创建`DashbaordComponent`的测试实例。
+  现在我们来利用`Router`和`HeroService`的测试stub类来配置测试模块，并为接下来的测试创建`DashboardComponent`的测试实例。
 +makeExample('testing/ts/app/dashboard/dashboard.component.spec.ts', 'compile-and-create-body', 'app/dashboard/dashboard.component.spec.ts (compile and create)')(format='.')
 :marked
   The following test clicks the displayed hero and confirms (with the help of a spy) that `Router.navigateByUrl` is called with the expected url.

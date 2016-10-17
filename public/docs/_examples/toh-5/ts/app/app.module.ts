@@ -1,4 +1,3 @@
-// #docplaster
 // #docregion
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
@@ -9,30 +8,28 @@ import { DashboardComponent }   from './dashboard.component';
 import { HeroDetailComponent }  from './hero-detail.component';
 import { HeroesComponent }      from './heroes.component';
 import { HeroService }          from './hero.service';
-// #docregion routing
-import { routing } from './app.routing';
-// #docregion routing
+
+// #docregion routing-module
+import { AppRoutingModule }     from './app-routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    routing
+    AppRoutingModule
   ],
-  // #enddocregion routing
-  // #docregion dashboard, hero-detail
+// #enddocregion routing-module
+  // #docregion dashboard
   declarations: [
     AppComponent,
     DashboardComponent,
     HeroDetailComponent,
     HeroesComponent
   ],
-  // #enddocregion dashboard, hero-detail
-  providers: [
-    HeroService
-  ],
+  // #enddocregion dashboard
+  providers: [ HeroService ],
   bootstrap: [ AppComponent ]
-  // #docregion routing
+// #docregion routing-module
 })
-export class AppModule {
-}
+export class AppModule { }
+// #enddocregion routing-module

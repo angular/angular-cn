@@ -10,9 +10,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
+import { AppRoutingModule } from './app-routing.module';
+
 // #enddocregion v1
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api/in-memory-web-api.module';
 import { InMemoryDataService }  from './in-memory-data.service';
 
 // #docregion v1
@@ -24,7 +26,6 @@ import { HeroService }          from './hero.service';
 // #enddocregion v1, v2
 import { HeroSearchComponent }  from './hero-search.component';
 // #docregion v1, v2
-import { routing }              from './app.routing';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { routing }              from './app.routing';
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     // #enddocregion in-mem-web-api
     // #docregion v1
-    routing
+    AppRoutingModule
   ],
   // #docregion search
   declarations: [
@@ -49,10 +50,7 @@ import { routing }              from './app.routing';
   // #docregion v1, v2
   ],
   // #enddocregion search
-  providers: [
-    HeroService,
-  ],
+  providers: [ HeroService ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {
-}
+export class AppModule { }

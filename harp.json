@@ -4,8 +4,9 @@
     "description": "Angular是用于构建移动应用和桌面Web应用的开发平台",
     "keywords": "Angular, 中文, 中文版, AngularJS, AngularDart, Javscript, Dart, Framework, JavaScript MVC, Google",
     "siteURL": "https://angular.cn",
-    "jsLatest": "2.0.0-RC.4",
-    "dartLatest": "2.0.0-RC.4",
+    "jsLatest": "2.0.0-beta.02",
+    "dartLatest": "2.0.0-beta.02",
+    "jade2ng": false,
 
     "bios": {
       "misko": {

@@ -2,7 +2,7 @@
 
 block includes
   include ../_util-fns
-  - var _appRoutingTsVsAppComp = 'app.routing.ts'
+  - var _appRoutingTsVsAppComp = 'app.module.ts'
   - var _declsVsDirectives = 'declarations'
   - var _RoutesVsAtRouteConfig = 'Routes'
   - var _RouterModuleVsRouterDirectives = 'RouterModule'
@@ -350,9 +350,9 @@ block router-config-intro
     ### 配置路由  
   
     Our application doesn't have any routes yet.
-    We'll start by creating a configuration file for the application routes.
+    We'll start by creating a configuration for the application routes.
     
-    本应用还没有路由。我们来为应用的路由新建一个配置文件。
+    本应用还没有路由。我们来为应用的路由新建一个配置。
 
 :marked
   *Routes* tell the router which views to display when a user clicks a link or
@@ -364,11 +364,12 @@ block router-config-intro
   
   我们的第一个路由是指向`HeroesComponent`的。
   
-- var _file = _docsFor == 'dart' ? 'app.component.ts' : 'app.routing.ts'
+- var _file = _docsFor == 'dart' ? 'app.component.ts' : 'app.module.2.ts'
 +makeExcerpt('app/' + _file + ' (heroes route)', 'heroes')
 
 - var _are = _docsFor == 'dart' ? 'takes' : 'are'
 - var _routePathPrefix = _docsFor == 'dart' ? '/' : ''
+
 :marked
   The `!{_RoutesVsAtRouteConfig}` !{_are} !{_an} !{_array} of *route definitions*.
   We have only one route definition at the moment but rest assured, we'll add more.
@@ -396,35 +397,20 @@ block router-config-intro
     
 +ifDocsFor('ts|js')
   :marked
-    We'll export a `routing` constant initialized using the `RouterModule.forRoot` method applied to our !{_array} of routes.
-    This method returns a **configured router module** that we'll add to our root NgModule, `AppModule`.
-  
-    使用`RouterModule.forRoot`方法，导出包含了路由数组的`routing`常量。它返回一个**配置好的路由模块**，它将被加入到根NgModule - `AppModule`中。
+    ### Make the router available
+    
+    ### 让路由器可用
 
-  +makeExcerpt('app/app.routing.1.ts (excerpt)', 'routing-export')
+    We've setup the initial route configuration. Now we'll add it to our `AppModule`.
+    We'll add our configured `RouterModule` to the `AppModule` imports !{_array}.
+
+  +makeExcerpt('app/app.module.2.ts (app routing)', '')
 
   .l-sub-section
     :marked
-      We call the `forRoot` method because we're providing a configured router at the _root_ of the application.
-      The `forRoot` method gives us the Router service providers and directives needed for routing.
-    
-      调用`forRoot`方法是因为要在应用程序根部提供配置好的路由。
-      `forRoot`方法为我们提供了路由需要的服务提供商和指令。 
-    
-  :marked
-    ### Make the router available.
-    
-    ### 让路由器生效
-    
-    We've setup initial routes in the `app.routing.ts` file. Now we'll add it to our root NgModule.
-    
-    我们已经在`app.routing.ts`文件中设置好了初始路由，接着把它加到根模块（NgModule）中。
-  
-    Import the `routing` constant from `app.routing.ts` and add it the `imports` !{_array} of `AppModule`.
-    
-    我们要从`app.routing.ts`中导入`routing`常量，并把它加入根模块的`imports`数组中。
-  
-  +makeExcerpt('app/app.module.ts', 'routing')
+      We use the `forRoot` method because we're providing a configured router at the _root_ of the application.
+      The `forRoot` method gives us the Router service providers and directives needed for routing, and
+      performs the initial navigation based on the current browser URL.
 
 - var _heroesRoute = _docsFor == 'dart' ? "'Heroes'" : 'heroes'
 :marked
@@ -550,14 +536,15 @@ block routerLink
 
   先导入`DashboardComponent`类，然后把下列路由的定义添加到`!{_RoutesVsAtRouteConfig}`数组中。
 
-- var _file = _docsFor == 'dart' ? 'lib/app_component.dart' : 'app/app.routing.ts'
+- var _file = _docsFor == 'dart' ? 'lib/app_component.dart' : 'app/app.module.3.ts'
 +makeExcerpt(_file + ' (Dashboard route)', 'dashboard')
 
 +ifDocsFor('ts|js')
   :marked
-    Also import and add `DashboardComponent` to our root NgModule's `declarations`.
+    Also import and add `DashboardComponent` to our `AppModule`'s `declarations`.
     
     还得把`DashboardComponent`添加到根模块的`declarations`数组中。
+    
 
   +makeExcerpt('app/app.module.ts', 'dashboard')
 
@@ -581,7 +568,7 @@ block redirect-vs-use-as-default
     
     可以使用重定向路由来实现它。添加下面的内容到路由定义的数组中：
     
-  +makeExcerpt('app/app.routing.ts','redirect')
+  +makeExcerpt('app/app.module.3.ts','redirect')
 
   .l-sub-section
     :marked
@@ -629,7 +616,7 @@ block redirect-vs-use-as-default
   
   设置`moduleId`属性到`module.id`，相对模块加载`templateUrl`。
 
-+makeExcerpt('app/dashboard.component.ts', 'templateUrl')
++makeExcerpt('app/dashboard.component.ts', 'metadata')
 
 :marked
   Create that file with this content:
@@ -803,7 +790,7 @@ code-example(format='').
 
   下面是我们将使用的*路由定义*。
 
-- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.routing.ts'
+- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.module.3.ts'
 +makeExcerpt(_file + ' (hero detail)','hero-detail')
 
 :marked
@@ -986,11 +973,11 @@ block extract-id
 +makeExample('app/hero-detail.component.html')
 
 :marked
-  We update the component metadata with a `templateUrl` pointing to the template file that we just created.
+  We update the component metadata with a `moduleId` and a `templateUrl` pointing to the template file that we just created.
 
   然后更新组件的元数据，用一个`templateUrl`属性指向我们刚刚创建的模板文件。
 
-+makeExcerpt('app/hero-detail.component.ts', 'templateUrl')
++makeExcerpt('app/hero-detail.component.ts', 'metadata')
 
 :marked
   Here's the (nearly) finished `HeroDetailComponent`:
@@ -1062,7 +1049,7 @@ block extract-id
 
   这两个数组项目与我们之前在`!{_appRoutingTsVsAppComp}`中添加的***path***和***:id***为代号被参数化的英雄详情路由的配置对象对应。
 
-- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.routing.ts'
+- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.module.3.ts'
 +makeExcerpt(_file + ' (hero detail)', 'hero-detail')
 
 :marked
@@ -1078,8 +1065,56 @@ block extract-id
 
 :marked
   Refresh the browser and select a hero from the dashboard; the app should navigate directly to that hero’s details.
-
+  
   刷新浏览器，并从仪表盘中选择一位英雄，应用就会直接导航到英雄的详情。
+  
+.l-main-section
+:marked
+  ## Refactor routes to a _Routing Module_
+
+  Almost 20 lines of `AppModule` are devoted to configuring four routes. 
+  Most application have many more routes and they [add guard services](../guide/router.html#guards) 
+  to protect against unwanted or unauthorized navigations. 
+  Routing considerations could quickly dominate this module and obscure its primary purpose which is to 
+  establish key facts about the entire app for the Angular compiler.
+
+  We should refactor the routing configuration into its own class.
+  What kind of class? 
+  The current `RouterModule.forRoot()` produces an Angular `ModuleWithProviders` which suggests that a
+  class dedicated to routing should be some kind of module.
+  It should be a [_Routing Module_](../guide/router.htm#routing-module).
+
+  By convention the name of a _Routing Module_ contains the word "Routing" and 
+  aligns with the name of the module that declares the components navigated to".
+  
+  Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it the following contents extracted from the `AppModule` class:
+
++makeExample('app/app-routing.module.ts')
+:marked
+  Noteworthy points, typical of _Routing Modules_:
+  * Pull the routes into a variable. You might export it in future and it clarifies the _Routing Module_ pattern.
+
+  * Add `RouterModule.forRoot(routes)` to `imports`.
+    
+  * Add `RouterModule` to `exports` so that the components in the companion module have access to Router declarables 
+  such as `RouterLink` and `RouterOutlet`.
+  
+  * No `declarations`!  Declarations are the responsibility of the companion module.
+
+  * Add module `providers` for guard services if you have them; there are none in this example.
+
+  ### Update _AppModule_
+
+  Now delete the routing configuration from `AppModule` and import the `AppRoutingModule` 
+  (_both_ with an ES `import` statement _and_ by adding it to the `NgModule.imports` list).
+
+  Here is the revised `AppModule`, compared to its pre-refactor state:
++makeTabs(
+  `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
+   null,
+  `app/app.module.ts (after), app/app.module.ts (before)`)
+:marked
+  It's simpler and focused on indentifying the key pieces of the application.  
 
 .l-main-section
 :marked
@@ -1087,11 +1122,13 @@ block extract-id
 
   ## 在*HeroesComponent*中选择一位英雄
 
+  Earlier we added the ability to select a hero from the dashboard.
   We'll do something similar in the `HeroesComponent`.
-
+  
+  之前我们添加了从控制台选择一个英雄的功能。
   我们现在要做的事和`HeroesComponent`中很像。
 
-  That component's current template exhibits a "master/detail" style with the list of heroes
+  The `HeroesComponent` template exhibits a "master/detail" style with the list of heroes
   at the top and details of the selected hero below.
 
   那个组件的当前模板展示了一个主从风格的界面：上方是英雄列表，底下是所选英雄的详情。
@@ -1099,6 +1136,8 @@ block extract-id
 +makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (当前的模板)')(format=".")
 
 :marked
+  Our goal is to move the detail to its own view and navigate to it when the user decides to edit a selected hero.
+
   Delete the `<h1>` at the top (forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
   
   删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`期间可以先忘掉它）。
@@ -1114,8 +1153,9 @@ block extract-id
   我们要在它自己的页面中显示英雄详情，并像我们在仪表盘中所做的那样路由到它。
 
   But we'll throw in a small twist for variety.
-  When the user selects a hero from the list, we *won't* go to the detail page.
-  We'll show a *mini-detail* on *this* page instead and make the user click a button to navigate to the *full detail *page.
+  We are keeping the "master/detail" style but shrinking the detail to a "mini", read-only version.
+  When the user selects a hero from the list, we *don't* go to the detail page.
+  We show a *mini-detail* on *this* page instead and make the user click a button to navigate to the *full detail *page.
 
   但是，我们要做一点小小的改动。
   当用户从这个列表中选择一个英雄时，我们*不会*再跳转到详情页。
@@ -1195,7 +1235,7 @@ figure.image-display
 
   1. *设置*组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
 
-  1. *Set* the `moduleId` property to `module.id` so that 'templateUrl` and `styleUrls` are relative to the component.
+  1. *Set* the `moduleId` property to `module.id` so that `templateUrl` and `styleUrls` are relative to the component.
 
   1. *设置*`moduleId`属性为`module.id`，将`templateUrl`和`styleUrls`路径设置为相对组件的路径。
 
@@ -1386,7 +1426,7 @@ block css-files
 
 +makeExcerpt('styles.css (excerpt)', 'toh')
 
-- var styles_css = 'https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/styles.css'
+- var styles_css = 'https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/_boilerplate/styles.css'
 
 :marked
   Create the file <span ngio-ex>styles.css</span>, if it doesn't exist already.
@@ -1430,7 +1470,7 @@ block file-tree-end
         .file app.component.css
         .file app.component.ts
         .file app.module.ts
-        .file app.routing.ts
+        .file app-routing.module.ts
         .file dashboard.component.css
         .file dashboard.component.html
         .file dashboard.component.ts
@@ -1488,6 +1528,7 @@ block file-tree-end
   - 我们把HTML和CSS从组件中移出来，放到了它们自己的文件中。
 
   - We added the `uppercase` pipe to format data.
+  - We refactored routes into a `Routing Module` that we import.
 
   - 我们添加了一个`uppercase`管道，来格式化数据。
 

@@ -52,7 +52,7 @@ block includes
   * [What if I import the same module twice?](#q-reimport)
   * [如果我两次导入了同一个模块会怎么样？](#q-reimport)
 
-  Exports  
+  Exports
   
   导出(exports)
   
@@ -147,7 +147,7 @@ a#q-declarable
   ### 什么是*可声明的*？
   
   _Declarables_ are the class types &mdash; components, directives, and pipes &mdash;
-  that you can add to a module's `declarations` list. 
+  that you can add to a module's `declarations` list.
   They're the _only_ classes that you can add to `declarations`.
   
   *可声明的*就是组件、指令和管道等可以被加到模块的`declarations`列表中的类。它们也是*所有*能被加到`declarations`中的类。
@@ -173,7 +173,7 @@ a#q-what-not-to-declare
   
   * 已经被其它模块声明过的类，无论是在应用模块、@angular模块还是第三方模块中。
 
-  * an array of directives imported from another module. 
+  * an array of directives imported from another module.
   For example, do not declare FORMS_DIRECTIVES from `@angular/forms`.
   
   * 一组从其它模块中导入的指令。
@@ -187,7 +187,7 @@ a#q-what-not-to-declare
   
   * 服务类
 
-  * non-Angular classes and objects such as 
+  * non-Angular classes and objects such as
   strings, numbers, functions, entity models, configurations, business logic, and helper classes.
 
   * 非Angular的类和对象，比如：字符串、数字、函数、实体模型、配置、业务逻辑和辅助类。
@@ -230,7 +230,7 @@ a#q-why-cant-bind-to
   
   ### "_Can't bind to 'x' since it isn't a known property of 'y'_"是什么意思？
 
-  This error usually means either that you neglected to declare the directive "x" 
+  This error usually means either that you neglected to declare the directive "x"
   or you haven't imported the module to which "x" belongs.
   
   这个错误通常意味着你或者忘了声明指令“x”，或者你没有导入“x”所属的模块。
@@ -239,7 +239,7 @@ a#q-why-cant-bind-to
   
   比如，如果这个“x”是`ngModel`，你可能忘了从`@angular/forms`中导入`FormsModule`。
 
-  Perhaps you declared "x" in an application sub-module but forgot to export it? 
+  Perhaps you declared "x" in an application sub-module but forgot to export it?
   The "x" class won't be visible to other modules until you add it to the `exports` list.
   
   也可能你在该应用的特性模块中声明了“x”，但是忘了从那个模块导出它。
@@ -254,19 +254,19 @@ a#q-what-to-import
   
   ### 我应该导入什么？
 
-  Import modules whose public (exported) [declarable classes](#q-declarable) 
+  Import modules whose public (exported) [declarable classes](#q-declarable)
   you need to reference in this module's component templates.
   
   一句话：导入你需要在当前模块的组件模板中使用的那些公开的（被导出的）[可声明类](#q-declarable)。
 
   This invariably means importing `CommonModule` from `@angular/common` for access to
-  the Angular directives such as `NgIf` and `NgFor`. 
+  the Angular directives such as `NgIf` and `NgFor`.
   You can import it directly or from another module that [re-exports](#q-reexport) it.
   
   这意味着要从`@angular/common`中导入`CommonModule`才能访问Angular的内置指令，比如`NgIf`和`NgFor`。
   你可以直接导入它或者从[重新导出](#q-reexport)过该模块的其它模块中导入它。
 
-  Import `FormsModule` from `@angular/forms` 
+  Import `FormsModule` from `@angular/forms`
   if your components have `[(ngModel)]` two-way binding expressions.
   
   如果你的组件有`[(ngModel)]`双向绑定表达式，就要从`@angular/forms`中导入`FormsModule`。
@@ -324,7 +324,7 @@ a#q-browser-vs-common-module
   
   特性模块中导入`CommonModule`可以让它能用在任何目标平台上，不仅是浏览器。那些跨平台库的作者应该喜欢这种方式的。
 
-.l-hr 
+.l-hr
 a#q-reimport
 .l-main-section
 :marked
@@ -350,7 +350,7 @@ a#q-reimport
   
   Angular不允许模块之间出现循环依赖，所以不要让模块'A'导入模块'B'，而模块'B'又导入模块'A'。
 
-.l-hr 
+.l-hr
 a#q-what-to-export
 .l-main-section
 :marked
@@ -366,7 +366,7 @@ a#q-what-to-export
   导出那些*其它模块*希望在自己的模板中引用的[可声明类](#q-declarable)。这些也是你的*公开*类。
   如果你不导出某个类，它就是*私有的*，只对当前模块中声明的其它组件可见。
 
-  You _can_ export any declarable class &mdash; components, directives, and pipes &mdash; 
+  You _can_ export any declarable class &mdash; components, directives, and pipes &mdash;
   whether it is declared in this module or in an imported module.
   
   你*可以*导出任何可声明类（组件、指令和管道），而不用管它是声明在当前模块中还是某个导入的模块中。
@@ -406,7 +406,7 @@ a#q-what-not-to-export
   比如[入口组件](#q-entry-component-defined)可能从来不会在其它组件的模板中出现。
   导出它们没有坏处，但也没有好处。
 
-  * Pure service modules that don't have public (exported) declarations. 
+  * Pure service modules that don't have public (exported) declarations.
   For example, there is no point in re-exporting `HttpModule` because it doesn't export anything.
   It's only purpose is to add http service providers to the application as a whole.
   
@@ -532,7 +532,7 @@ a#q-module-provider-visibility
   
   这会让该提供商对应用中所有知道该提供商令牌（token）的类都可见。
 
-  This is by design. 
+  This is by design.
   Extensibility through module imports is a primary goal of the Angular module system.
   Merging module providers into the application injector
   makes it easy for a module library to enrich the entire application with new services.
@@ -545,8 +545,8 @@ a#q-module-provider-visibility
   
   However, this can feel like an unwelcome surprise if you are expecting the module's services 
   to be visible only to the components declared by that feature module.
-  If the `HeroModule` provides the `HeroService` and the root `AppModule` imports `HeroModule`, 
-  any class that knows the `HeroService` _type_ can inject that service, 
+  If the `HeroModule` provides the `HeroService` and the root `AppModule` imports `HeroModule`,
+  any class that knows the `HeroService` _type_ can inject that service,
   not just the classes declared in the `HeroModule`.
   
   不过，如果你期望模块的服务只对那个特性模块内部声明的组件可见，那么这可能会带来一些不受欢迎的意外。
@@ -596,7 +596,7 @@ a#q-module-provider-duplicates
   
   当同时加载了两个导入的模块，它们都列出了使用同一个令牌的提供商时，后导入的模块会“获胜”，这是因为这两个提供商都被添加到了同一个注入器中。
 
-  When Angular looks to inject a service for that token, 
+  When Angular looks to inject a service for that token,
   it creates and delivers the instance created by the second provider.
   
   当Angular尝试根据令牌注入服务时，它使用第二个提供商来创建并交付服务实例。
@@ -652,7 +652,7 @@ a#q-component-scoped-providers
 :marked
   Suppose a module requires a customized `HttpBackend` that adds a special header for all Http requests.
   If another module elsewhere in the application also customizes `HttpBackend`
-  or merely imports the `HttpModule`, it could override this module's `HttpBackend` provider, 
+  or merely imports the `HttpModule`, it could override this module's `HttpBackend` provider,
   losing the special header. The server will reject http requests from this module.
   
   假设模块需要一个定制过的`HttpBackend`，它为所有的Http请求添加一个特别的请求头。
@@ -670,7 +670,7 @@ a#q-component-scoped-providers
   
   如果你必须防范这种“提供商腐化”现象，那就*不要依赖于“启动时加载”模块的`providers`*。
 
-  Load the module lazily if you can. 
+  Load the module lazily if you can.
   Angular gives a [lazy-loaded module](#q-lazy-loaded-module-provider-visibility) its own child injector.
   The module's providers are visible only within the component tree created with this injector.
   
@@ -687,7 +687,7 @@ a#q-component-scoped-providers
   
   继续看这个例子，假设某个模块的组件真的需要一个私有的、自定义的`HttpBackend`。
 
-  Create a "top component" that acts as the root for all of the module's components. 
+  Create a "top component" that acts as the root for all of the module's components.
   Add the custom `HttpBackend` provider to the top component's `providers` list rather than the module's `providers`.
   Recall that Angular creates a child injector for each component instance and populates the injector
   with the component's own providers.
@@ -697,7 +697,7 @@ a#q-component-scoped-providers
   回忆一下，Angular会为每个组件实例创建一个子注入器，并使用组件自己的`providers`来配置这个注入器。
   
   When a child of this component _asks_ for the `HttpBackend` service,
-  Angular provides the local `HttpBackend` service, 
+  Angular provides the local `HttpBackend` service,
   not the version provided in the application root injector.
   Child components will make proper http requests no matter what other modules do to `HttpBackend`.
   
@@ -751,7 +751,7 @@ a#q-root-component-or-module
   #### ***讨论***
   
   Angular registers all startup module providers with the application root injector.
-  The services created from root injector providers are available to the entire application. 
+  The services created from root injector providers are available to the entire application.
   They are _application-scoped_.
   
   Angular把所有启动期模块的提供商都注册进了应用的根注入器中。
@@ -763,7 +763,7 @@ a#q-root-component-or-module
   某些服务（比如`Router`）只有当注册进应用的根注入器时才能正常工作。
 
   By contrast, Angular registers `AppComponent` providers with the `AppComponent`'s own injector.
-  `AppComponent`services are available only to that component and its component tree. 
+  `AppComponent`services are available only to that component and its component tree.
   They are _component-scoped_.
   
   相反，Angular使用`AppComponent`自己的注入器注册了`AppComponent`的提供商。
@@ -778,9 +778,9 @@ a#q-root-component-or-module
   这对于没有路由器的应用来说*几乎是*整个应用了。
   但这个“几乎”对于带路有的应用仍然是不够的。
 
-  `AppComponent` services don't exist at the root level where routing operates. 
+  `AppComponent` services don't exist at the root level where routing operates.
   Lazy loaded modules can't reach them.
-  In the Angular Module Chapter sample applications, if we had registered `UserService` in the `AppComponent`, 
+  In the Angular Module Chapter sample applications, if we had registered `UserService` in the `AppComponent`,
   the `HeroComponent` couldn't inject it.
   The application  would fail the moment a user navigated to "Heroes".
   
@@ -804,22 +804,22 @@ a#q-component-or-module
   通常，优先把模块中具体特性的提供商注册到模块中（`@NgModule.providers`），而不是组件中（`@Component.providers`）。
   
   Register a provider with a component when you _must_ limit the scope of a service instance
-  to that component and its component tree. 
+  to that component and its component tree.
   Apply the same reasoning to registering a provider with a directive.
   
   当你*必须*把服务实例的范围限制到某个组件及其子组件树时，就把提供商注册到该组件中。
   指令的提供商也同样照此处理。
 
   For example, a hero editing component that needs a private copy of a caching hero service should register
-  the `HeroService` with the `HeroEditorComponent`. 
-  Then each new instance of the `HeroEditorComponent` gets its own cached service instance. 
+  the `HeroService` with the `HeroEditorComponent`.
+  Then each new instance of the `HeroEditorComponent` gets its own cached service instance.
   The changes that editor makes to heroes in its service do not touch the hero instances elsewhere in the application.
   
   例如，如果英雄编辑组件需要自己私有的缓存英雄服务实例，那么我们应该把`HeroService`注册进`HeroEditorComponent`中。
   这样，每个新的`HeroEditorComponent`的实例都会得到一份自己的缓存服务实例。
   编辑器的改动只会作用于它自己的服务，而不会影响到应用中其它地方的英雄实例。
 
-  [Always register _application-wide_ services with the root `AppModule`](q-root-component-or-module), 
+  [Always register _application-wide_ services with the root `AppModule`](q-root-component-or-module),
   not the root `AppComponent`.
   
   [总是在根模块`AppModule`中注册*全应用级*服务](q-root-component-or-module)，而不要在根组件`AppComponent`中。 
@@ -832,7 +832,7 @@ a#q-why-bad
   
   ### 为什么*SharedModule*为惰性加载模块提供服务是个馊主意？
 
-  This question arose in the [Angular Module](../guide/ngmodule.html#no-shared-module-providers) chapter 
+  This question arose in the [Angular Module](../guide/ngmodule.html#no-shared-module-providers) chapter
   when we discussed the importance of keeping providers out of the `SharedModule`.
   
   这个问题在[Angular模块](../guide/ngmodule.html#no-shared-module-providers)章出现过，那时我们在讨论不要把提供商放进`SharedModule`的重要性。
@@ -847,7 +847,7 @@ a#q-why-bad
   
   当应用启动时，Angular主动加载了`AppModule`和`ContactModule`。
 
-  Both instances of the imported `SharedModule` would provide the `UserService`. 
+  Both instances of the imported `SharedModule` would provide the `UserService`.
   Angular registers one of them in the root app injector (see [above](#q-reimport)).
   Then some component injects `UserService`, Angular finds it in the app root injector,
   and delivers the app-wide singleton `UserService`. No problem. 
@@ -912,13 +912,13 @@ a#q-why-child-injector
   
   这意味着模块的行为将取决于它是在应用启动期间加载的还是后来惰性加载的。如果疏忽了这一点，可能导致[严重后果](#q-why-bad)。
 
-  Why doesn't Angular add lazy loaded providers to the app root injector as it does for eagerly loaded modules? 
+  Why doesn't Angular add lazy loaded providers to the app root injector as it does for eagerly loaded modules?
   Why the inconsistency?
   
   为什么Angular不能像主动加载模块那样把惰性加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
   
   The answer is grounded in a fundamental characteristic of the Angular dependency injection system.
-  An injector can add providers _until it is first used_. 
+  An injector can add providers _until it is first used_.
   Once an injector starts creating and delivering services, its provider list is frozen. No new providers allowed.
   
   归根结底，这来自于Angular依赖注入系统的一个基本特征：
@@ -926,15 +926,15 @@ a#q-why-child-injector
   一旦注入器已经创建和开始交付服务，它的提供商列表就被冻结了，不再接受新的提供商。
 
   When an applications starts, Angular first configures the root injector with the providers of all eagerly loaded modules
-  _before_ creating its first component and injecting any of the provided services. 
+  _before_ creating its first component and injecting any of the provided services.
   Once the application begins, the app root injector is closed to new providers.
   
   当应用启动时，Angular会首先使用所有主动加载模块中的提供商来配置根注入器，这发生在它创建第一个组件以及注入任何服务之前。
   一旦应用开始工作，应用的根注入器就不再接受新的提供商了。
 
   Time passes. Application logic triggers lazy loading of a module.
-  Angular must add the lazy loaded module's providers to an injector _somewhere_. 
-  It can't added them to the app root injector because that injector is closed to new providers. 
+  Angular must add the lazy loaded module's providers to an injector _somewhere_.
+  It can't added them to the app root injector because that injector is closed to new providers.
   So Angular creates a new child injector for the lazy loaded module context.
   
   之后，应用逻辑开始惰性加载某个模块。
@@ -952,7 +952,7 @@ a#q-is-it-loaded
   ### 我要如何知道一个模块或服务是否已经加载过了？
 
   Some modules and its services should only be loaded once by the root `AppModule`.
-  Importing the module a second time by lazy loading a module could [produce errant behavior](#q-why-bad) 
+  Importing the module a second time by lazy loading a module could [produce errant behavior](#q-why-bad)
   that may be difficult to detect and diagnose.
   
   某些模块及其服务只能被根模块`AppModule`加载一次。
@@ -964,7 +964,7 @@ a#q-is-it-loaded
   
   为了防范这种风险，我们可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，我们就可以抛出一个错误，或者采取其它挽救措施。
 
-  Certain Angular modules (such as `BrowserModule`) implements such a guard 
+  Certain Angular modules (such as `BrowserModule`) implements such a guard
   as does this Angular Module chapter sample's `CoreModule` constructor.
   
   某些Angular模块（例如`BrowserModule`）就实现了一个像本页范例中的`CoreModule`构造函数那样的守卫。
@@ -981,9 +981,13 @@ a#q-entry-component-defined
   
   ### 什么是*入口组件*？
 
-  Any component that Angular loads _imperatively_ by type is an _entry component_, A component loaded _declaratively_ via its selector is _not_ an entry component.
+  Any component that Angular loads _imperatively_ by type is an _entry component_,
   
-  Angular根据其类型*不可避免地*加载的组件是*入口组件*，而通过组件选择器*声明式*加载的组件则*不是*入口组件。
+  Angular根据其类型*不可避免地*加载的组件是*入口组件*，
+   
+  A component loaded _declaratively_ via its selector is _not_ an entry component.
+  
+  而通过组件选择器*声明式*加载的组件则*不是*入口组件。
   
   Most application components are loaded declaratively. 
   Angular uses the component's selector to locate the element in the template. 
@@ -999,7 +1003,7 @@ a#q-entry-component-defined
 
   The bootstrapped root `AppComponent` is an _entry component_.
   True, its selector matches an element tag in `index.html`.
-  But `index.html` is not a component template and the `AppComponent` 
+  But `index.html` is not a component template and the `AppComponent`
   selector doesn't match an element in any component template.
   
   用于引导的根`AppComponent`就是一个*入口组件*。
@@ -1019,7 +1023,7 @@ a#q-entry-component-defined
   路由定义根据*类型*来引用组件。
   路由器会忽略路由组件的选择器（即使它有选择器），并且把该组件动态加载到`RouterOutlet`中。
 
-  The compiler can't discover these _entry components_ by looking for them in other component templates. 
+  The compiler can't discover these _entry components_ by looking for them in other component templates.
   We must tell it about them ... by adding them to the `entryComponents` list.
   
   编译器无法通过在其它组件的模板中查找来发现这些*入口组件*。
@@ -1060,7 +1064,7 @@ a#q-bootstrap_vs_entry_component
   
   `@NgModule.bootstrap`属性告诉编译器这是一个入口组件，同时它应该生成一些代码来用该组件引导此应用。
 
-  There is no need to list a component in both the `bootstrap` and `entryComponent` lists 
+  There is no need to list a component in both the `bootstrap` and `entryComponent` lists
   although it is harmless to do so.
   
   不需要把组件同时列在`bootstrap`和`entryComponent`列表中 —— 虽然这样做也没坏处。
@@ -1095,7 +1099,7 @@ a#q-when-entry-components
 
   Although it's harmless to add components to this list,
   it's best to add only the components that are truly _entry components_.
-  Don't include components that [are referenced](#q-template-reference) 
+  Don't include components that [are referenced](#q-template-reference)
   in the templates of other components.
   
   虽然把组件加到这个列表中也没什么坏处，不过最好还是只添加真正的*入口组件*。
@@ -1132,7 +1136,7 @@ a#q-why-entry-components
   事实上，大多数库中声明和导出的组件我们都用不到。
   如果我们从未引用它们，那么*摇树优化器*就会从最终的代码包中把这些组件砍掉。
 
-  If the [Angular compiler](#q-angular-compiler) generated code for every declared component, 
+  If the [Angular compiler](#q-angular-compiler) generated code for every declared component,
   it would defeat the purpose of the tree shaker.
   
   如果[Angular编译器](#q-angular-compiler)为每个声明的组件都生成了代码，那么摇树优化器的作用就没有了。
@@ -1203,7 +1207,7 @@ a#q-module-recommendations
   它的导入或重新导出的模块中也不应该有`providers`。
   如果你要违背这条指导原则，请务必想清楚你在做什么，并要有充分的理由。
 
-  Import the `SharedModule` in your _feature_ modules, 
+  Import the `SharedModule` in your _feature_ modules,
   both those loaded when the app starts and those you lazy load later.
   
   在任何特性模块中（无论是你在应用启动时主动加载的模块还是之后惰性加载的模块），你都可以随意导入这个`SharedModule`。
@@ -1226,7 +1230,7 @@ a#q-module-recommendations
 .l-sub-section
   :marked
     This chapter sample departs from that advice by declaring and exporting two components that are
-    only used within the root `AppComponent` declared by `AppModule`. 
+    only used within the root `AppComponent` declared by `AppModule`.
     Someone following this guideline strictly would have declared these components in the `AppModule` instead.
     
     这里的范例违背了此建议，它声明和导出了两个只用在`AppModule`模块的`AppComponent`组件中的组件。
@@ -1316,7 +1320,7 @@ table
 
       .l-sub-section
         :marked
-          For an example, see [_ContactModule_](../guide/ngmodule.html#contact-module-v1) 
+          For an example, see [_ContactModule_](../guide/ngmodule.html#contact-module-v1)
           in the Angular Module chapter, before we introduced routing.
           
           比如“Angular模块”章的[_ContactModule_](../guide/ngmodule.html#contact-module-v1)。
@@ -1327,7 +1331,7 @@ table
       p 路由
     td
       :marked
-        _Routed Feature Modules_ are _Domain Feature modules_ 
+        _Routed Feature Modules_ are _Domain Feature modules_
         whose top components are the **targets of router navigation routes**.
         
         *路由特性模块*属于*领域特性模块*的一种，它的顶层组件是**路由器导航时的路由目标**。
@@ -1340,12 +1344,12 @@ table
         
         这里的`ContactModule`、`HeroModule`和`CrisisModule`都是路由特性模块。
 
-        Routed Feature Modules _should not export anything_. 
+        Routed Feature Modules _should not export anything_.
         They don't have to because none of their components ever appear in the template of an external component.
         
         路由特性模块*不应该导出任何东西*，这是因为它们中的任何组件都不可能出现在外部组件的模板中。
 
-        A lazy loaded Routed Feature Module should _not be imported_ by any module. 
+        A lazy loaded Routed Feature Module should _not be imported_ by any module.
         Doing so would trigger an eager load, defeating the purpose of lazy loading.
         `HeroModule` and `CrisisModule` are lazy loaded. They aren't mentioned among the `AppModule` imports.
         
@@ -1354,7 +1358,7 @@ table
         `HeroModule`和`CrisisModule`是惰性加载的。它们没有出现在`AppModule`的`imports`中。
 
         But an eager loaded Routed Feature Module must be imported by another module
-        so that the compiler learns about its components. 
+        so that the compiler learns about its components.
         `ContactModule` is eager loaded and, therefore, is listed among the `AppModule` imports.
         
         而主动加载的路由特性模块必须被其它模块导入，以便编译器了解它有哪些组件。
@@ -1371,6 +1375,42 @@ table
         or in a module that the routed module imports.
         
         不要在路由特性模块及其导入的模块中提供*全应用级*的单例服务。
+  tr
+    td(style="vertical-align: top")<a id="routing-module"></a>Routing
+    td
+      :marked
+        A [_Routing Module_](../guide/router.html#routing-module) **provides routing configuration** for another module.
+
+        A Routing Module separates routing concerns from its companion module.
+        
+        It typically:
+        * defines routes
+        * adds router configuration to the module's `imports`
+        * re-exports `RouterModule`
+        * adds guard and resolver service providers to the module's `providers`.
+        
+        The name of the Routing Module should parallel the name of its companion module, using the suffix "Routing".
+        For example, `FooModule` in `foo.module.ts` has a routing module named `FooRoutingModule`
+        in `foo-routing.module.ts`
+        
+        If the companion module is the _root_ `AppModule`, 
+        the `AppRoutingModule` adds router configuration to its `imports` with `RouterModule.forRoot(routes)`. 
+        All other Routing Modules are children that import `RouterModule.forChild(routes)`.
+
+        A Routing Module re-exports the `RouterModule` as a convenience 
+        so that components of the companion module have access to 
+        router directives such as `RouterLink` and `RouterOutlet`.
+
+        A Routing Module **should not have its own `declarations`!** 
+        &nbsp; Components, directives, and pipes are the **responsibility of the feature module**
+        not the _routing_ module.
+
+        A Routing Module should _only_ be imported by its companion module.
+
+        The `AppRoutingModule`, `ContactRoutingModule` and `HeroRoutingModule` are good examples.
+      .l-sub-section
+        :marked
+          See also "[Do you need a _Routing Module_?](../guide/router.html#why-routing-module)".
 
   tr
     td(style="vertical-align: top")
@@ -1419,7 +1459,7 @@ table
         
         部件模块应该只有`declarations`，并导出里面的绝大多数声明。
 
-        A Widget Module should rarely have _providers_. 
+        A Widget Module should rarely have _providers_.
         Know what you're doing and why if you deviate from this guideline.
         
         窗口部件模块很少会有`providers`。
@@ -1500,6 +1540,25 @@ table
       p <code>ContactModule</code>、<code>HeroModule</code>、<code>CrisisModule</code>
   tr
     td
+      p Routing
+      p 路由
+    td
+      p No
+      p 无
+    td
+      p Yes
+      p 有
+    td
+      p No
+      p 无
+    td
+      p <code>AppModule</code>
+      p <code>AppModule</code>
+    td
+      p <code>HttpModule</code>, <code>CoreModule</code>
+      p <code>HttpModule</code>、<code>CoreModule</code>   
+  tr
+    td 
       p Service
       p 服务
     td
@@ -1516,7 +1575,7 @@ table
       p <code>AppModule</code>
     td
       p <code>HttpModule</code>, <code>CoreModule</code>
-      p <code>HttpModule</code>、<code>CoreModule</code>
+      p <code>HttpModule</code>、<code>CoreModule</code>   
   tr
     td
       p Widget
@@ -1590,7 +1649,7 @@ code-example(format='.').
   
   Angular的模块类与JavaScript的模块类有三个主要的不同点：
 
-  1. An Angular module bounds [_declarable classes_](#q-declarables) only. 
+  1. An Angular module bounds [_declarable classes_](#q-declarables) only.
   Declarables are the only classes that matter to the [Angular compiler](#q-angular-compiler).
   
   1. Angular模块只绑定了[_可声明的类_](#q-declarables)，这些可声明的类只是供[Angular编译器](#q-angular-compiler)用的。
@@ -1600,7 +1659,7 @@ code-example(format='.').
      
   1. JavaScript模块把所有成员类都定义在一个巨型文件，Angular模块则把自己的类都列在`@NgModule.declarations`数组中。
 
-  1. An Angular module can only export the [_declarable classes_](#q-declarables) 
+  1. An Angular module can only export the [_declarable classes_](#q-declarables)
   it owns or imports from other modules.
   It doesn't declare or export any other kind of class.
   
@@ -1642,7 +1701,7 @@ h4.
 h4 Angular如何在模板中查找组件、指令和管道？<br>什么是<i><b>模板引用</b></i>？
 
 :marked
-  The [Angular compiler](#q-angular-compiler) looks inside component templates 
+  The [Angular compiler](#q-angular-compiler) looks inside component templates
   for other components, directives, and pipes. When it finds one, that's a "template reference".
   
   [Angular编译器](#q-angular-compiler)在组件模板内查找其它组件、指令和管道。一旦找到了，那就是一个“模板引用”。
@@ -1663,7 +1722,7 @@ h4 Angular如何在模板中查找组件、指令和管道？<br>什么是<i><b>
 
 .l-hr
 
-a#q-angular-compiler  
+a#q-angular-compiler
 .l-main-section
 :marked
   ### What is the Angular Compiler?
@@ -1678,7 +1737,7 @@ a#q-angular-compiler
 
   The code we write is not immediately executable.
   Consider **components**.
-  Components have templates that contain custom elements, attribute directives, Angular binding declarations, 
+  Components have templates that contain custom elements, attribute directives, Angular binding declarations,
   and some peculiar syntax that clearly isn't native HTML.
   
   我们写的代码是无法直接执行的。
@@ -1691,24 +1750,24 @@ a#q-angular-compiler
   *Angular编译器*读取模板的HTML，把它和相应的组件类代码组合在一起，并产出*组件工厂*。
   
   A component factory creates a pure, 100% JavaScript representation
-  of the component that incorporates everything described in its `@Component` metadata: 
+  of the component that incorporates everything described in its `@Component` metadata:
   the HTML, the binding instructions, the attached styles ... everything.
   
   组件工厂为组件创建纯粹的、100% JavaScript的表示形式，它包含了`@Component`元数据中描述的一切：HTML、绑定指令、附属的样式等……
 
-  Because **directives** and **pipes** appear in component templates, 
+  Because **directives** and **pipes** appear in component templates,
   the _Angular Compiler_ incorporates them into compiled component code too.
   
   由于**指令**和**管道**都出现在组件模板中，*Angular编译器**也同样会把它们组合到编译成的组件代码中。
 
-  `@NgModule` metadata tells the _Angular Compiler_ what components to compile for this module and 
+  `@NgModule` metadata tells the _Angular Compiler_ what components to compile for this module and
   how to link this module with other modules.
   
   `@NgModule`元数据告诉*Angular编译器*要为当前模块编译哪些组件，以及如何把当前模块和其它模块链接起来。
 
 .l-hr
 
-a#q-ngmodule-api  
+a#q-ngmodule-api
 .l-main-section
 :marked
   ## *NgModule* API
@@ -1739,13 +1798,13 @@ table
     td(style="vertical-align: top") <code>declarations</code>
     td
       :marked
-        A list of [declarable](#q-declarables) classes, 
+        A list of [declarable](#q-declarables) classes,
         the **component**, **directive** and **pipe** classes that _belong to this module_.
         
         [可声明类](#q-declarables)的列表，也就是属于当前模块的**组件**、**指令**和**管道**类。
 
         These declared classes are visible within the module but invisible to
-        components in a different module unless (a) they are _exported_ from this module and 
+        components in a different module unless (a) they are _exported_ from this module and
         (b) that other module _imports_ this one.
         
         这些声明的类对组件内部可见，但是对其它模块不可见，除非 (a) 这些类从当前模块中*导出过*，并且 (b) 其它模块导入了当前模块。
@@ -1787,7 +1846,7 @@ table
         惰性加载模块有自己的子注入器，通常它是应用的根注入器的直接子级。
 
         Lazy loaded services are scoped to the lazy module's injector.
-        If a lazy loaded module also provides the `HeroService`, 
+        If a lazy loaded module also provides the `HeroService`,
         any component created within that module's context (e.g., by router navigation)
         gets the local instance of the service, not the instance in the root application injector.
         
@@ -1817,7 +1876,7 @@ table
         
         在两种情况下组件模板可以[引用](#q-template-reference)其它组件、指令或管道：或者所引用的类是声明在当前模块中的，或者那个类已经从其它模块中导入进来了。
 
-        A component can use the `NgIf` and `NgFor` directives only because its parent module 
+        A component can use the `NgIf` and `NgFor` directives only because its parent module
         imported the Angular `CommonModule` (perhaps indirectly by importing `BrowserModule`).
         
         组件可以使用`NgIf`和`NgFor`指令，只是因为它所在的模块导入了Angular的`CommonModule`（也可能是通过导入`BrowserModule`而间接导入的）。
@@ -1834,13 +1893,13 @@ table
     td(style="vertical-align: top") <code>exports</code>
     td
       :marked
-        A list of declarations &mdash; **component**, **directive**, and **pipe** classes &mdash; that 
+        A list of declarations &mdash; **component**, **directive**, and **pipe** classes &mdash; that
         an importing module can use.
         
         可供导入了自己的模块使用的可声明对象（**组件**、**指令**、**管道类**）的列表。
 
-        Exported declarations are the module's _public API_. 
-        A component in another module can [reference](#q-template-reference) _this_ module's `HeroComponent` 
+        Exported declarations are the module's _public API_.
+        A component in another module can [reference](#q-template-reference) _this_ module's `HeroComponent`
         if (a) it imports this module and (b) this module exports `HeroComponent`.
         
         这些导出的可声明对象就是模块的*公开API*。
@@ -1906,7 +1965,7 @@ table
         大多数开发人员从来不会设置该属性，为什么呢？
 
         The [_Angular Compiler_](#q-angular-compiler) must know about every component actually used in the application.
-        The compiler can discover most components by walking the tree of references 
+        The compiler can discover most components by walking the tree of references
         from one component template to another.
         
         [_Angular编译器_](#q-angular-compiler)必须知道在应用中实际用过的每一个组件。
@@ -1925,7 +1984,7 @@ table
         路由组件同样是*入口组件*，因为它们也不会被从模板中引用。
         路由器创建会它们，并把它们扔到DOM中的`<router-outlet>`。
 
-        While the bootstrapped and routed components are _entry components_, 
+        While the bootstrapped and routed components are _entry components_,
         we usally don't have to add them to a module's `entryComponents` list.
         
         *引导组件*和*路由组件*都是*入口组件*，我们一般不用再把它们添加到模块的`entryComponents`列表中。

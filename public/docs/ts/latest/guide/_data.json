@@ -63,6 +63,18 @@
     "basics": true
   },
 
+  "glossary": {
+    "title": "Glossary",
+    "intro": "Brief definitions of the most important words in the Angular vocabulary",
+    "basics": true
+  },
+
+  "change-log": {
+    "title": "Change Log",
+    "intro": "An annotated history of recent documentation improvements.",
+    "basics": true
+  },
+
   "ngmodule": {
     "title": "Angular模块（NgModule）",
     "intro": "用@NgModule定义应用中的模块"
@@ -86,12 +98,6 @@
   "component-styles": {
     "title": "组件样式",
     "intro": "学习如何给组件应用CSS样式。"
-  },
-
-  "glossary": {
-    "title": "词汇表",
-    "intro": "Angular重要词汇的简短定义。",
-    "basics": true
   },
 
   "hierarchical-dependency-injection": {

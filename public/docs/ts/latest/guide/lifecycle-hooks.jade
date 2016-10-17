@@ -767,9 +767,9 @@ figure.image-display
 :marked
   The following hooks take action based on changing values *within the child view*
   which can only be reached by querying for the child view via the property decorated with
-  [@ViewChild](../api/core/index/ViewChild-var.html).
+  [@ViewChild](../api/core/index/ViewChild-decorator.html).
   
-  下列钩子基于*子视图中*的每一次数据变更采取行动，我们只能通过带[@ViewChild](../api/core/index/ViewChild-var.html)装饰器的属性来访问子视图。
+  下列钩子基于*子视图中*的每一次数据变更采取行动，我们只能通过带[@ViewChild](../api/core/index/ViewChild-decorator.html)装饰器的属性来访问子视图。
 
 +makeExample('lifecycle-hooks/ts/app/after-view.component.ts', 'hooks', 'AfterViewComponent (class excerpts)')(format=".")
 #wait-a-tick
@@ -893,9 +893,9 @@ figure.image-display
   
   The following *AfterContent* hooks take action based on changing values in a  *content child*
   which can only be reached by querying for it via the property decorated with
-  [@ContentChild](../api/core/index/ContentChild-var.html).
+  [@ContentChild](../api/core/index/ContentChild-decorator.html).
   
-  下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](../api/core/index/ContentChild-var.html)装饰器的属性来查询到“子级内容”。
+  下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](../api/core/index/ContentChild-decorator.html)装饰器的属性来查询到“子级内容”。
 
 +makeExample('lifecycle-hooks/ts/app/after-content.component.ts', 'hooks', 'AfterContentComponent (class excerpts)')(format=".")
 

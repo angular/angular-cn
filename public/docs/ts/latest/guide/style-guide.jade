@@ -594,9 +594,9 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** include error handling the bootstrapping logic.
+    **Do** include error handling in the bootstrapping logic.
     
-    **坚持**在“引导”逻辑中包含错误处理代码。
+    **坚持**在“引导”逻辑中包含错误处理代码。    
 
 .s-rule.avoid
   :marked
@@ -1629,12 +1629,12 @@ a(href="#toc") 回到顶部
 
 a(id='file-tree')
 :marked
-  Folder and File Structure
+  Here is a compliant folder and file structure
   
-  目录和文件结构
+  目录和文件结构  
 
 .filetree
-  .file src
+  .file &lt;project root&gt;
   .children
     .file app
     .children
@@ -1680,8 +1680,8 @@ a(id='file-tree')
         .file villains.module.ts
         .file villains-routing.module.ts
       .file app.component.ts|html|css|spec.ts
-    .file app.module.ts
-    .file app-routing.module.ts
+      .file app.module.ts
+      .file app-routing.module.ts
     .file main.ts
     .file index.html
     .file ...
@@ -1776,15 +1776,17 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** create an Angular module at the root of the application.
+    **Do** create an Angular module in the app's root folder (e.g., in `/app`).
     
-    **坚持**在应用的根部创建一个Angular模块。
+    **坚持**在应用的根部创建一个Angular模块（不如`/app`）。
+    
 
 .s-why
   :marked
-    **Why?** Every app requires at least one Angular module.
+    **Why?** Every app requires at least one root Angular module.
     
-    **为何？**每个应用都至少需要一个Angular模块。
+    **为何？**每个应用都至少需要一个根Angular模块。
+    
 
 .s-rule.consider
   :marked
@@ -2471,9 +2473,10 @@ a(href="#toc") 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use [`@Input`](https://angular.io/docs/ts/latest/api/core/index/Input-var.html) and [`@Output`](https://angular.io/docs/ts/latest/api/core/index/Output-var.html) instead of the `inputs` and `outputs` properties of the [`@Directive`](https://angular.io/docs/ts/latest/api/core/index/Directive-decorator.html) and [`@Component`](https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html) decorators:
+    **Do** use `@Input` and `@Output` instead of the `inputs` and `outputs` properties of the 
+    `@Directive and `@Component` decorators:
     
-    **坚持**使用[`@Input`](https://angular.io/docs/ts/latest/api/core/Input-var.html)和[`@Output`](https://angular.io/docs/ts/latest/api/core/Output-var.html), 而非[`@Directive`](https://angular.io/docs/ts/latest/api/core/Directive-decorator.html) 和 [`@Component`](https://angular.io/docs/ts/latest/api/core/Component-decorator.html) 装饰器里面的`inputs`和`outputs`属性。
+    **坚持** 使用`@Directive`和`@Component`装饰器的`@Input`和`@Output`，而非`inputs`和`outputs`属性:
 
 .s-rule.do
   :marked
@@ -2489,15 +2492,10 @@ a(href="#toc") 回到顶部
 
 .s-why
   :marked
-    **Why?** If you ever need to rename the property or event name associated to 
-    [`@Input`](https://angular.io/docs/ts/latest/api/core/index/Input-var.html) or 
-    [`@Output`](https://angular.io/docs/ts/latest/api/core/index/Output-var.html) 
-    you can modify it on a single place.
+    **Why?** If you ever need to rename the property or event name associated with 
+    `@Input` or `@Output`, you can modify it a single place.
     
-    **为何？**如果你永远都不用对关联到 
-    [`@Input`](https://angular.io/docs/ts/latest/api/core/index/Input-var.html)或 
-    [`@Output`](https://angular.io/docs/ts/latest/api/core/index/Output-var.html)的属性或事件进行改名，
-    那么你可以只在一处地方修改它。
+    **为何？** 如果你需要重命名属性或者`@Input`或者关联的事件名字
 
 .s-why
   :marked

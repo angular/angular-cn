@@ -51,11 +51,6 @@
     "intro": "把应用的模板文本翻译成多种语言"
   },
 
-  "rc4-to-rc5": {
-    "title": "如何从RC4迁移到RC5",
-    "intro": "分分钟把RC4迁移到RC5"
-  },
-
   "set-document-title": {
     "title": "设置文档标题",
     "intro": "使用Title服务来设置文档标题或窗口标题"

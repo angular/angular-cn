@@ -27,7 +27,7 @@
   },
   "toh-pt5": {
     "title": "路由",
-    "intro": "我们添加一个Angular组件路由，并且学习在视图之间导航",
+    "intro": "我们添加Angular路由，并且学习在视图之间导航",
     "nextable": true
   },
   "toh-pt6": {

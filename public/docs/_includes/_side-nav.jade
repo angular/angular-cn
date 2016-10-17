@@ -63,10 +63,10 @@
 nav(class="sidenav l-pinned-left l-layer-4 l-offset-nav"  ng-class="appCtrl.showDocsNav ? 'is-visible' : ''")
   // SEARCH BAR
   header.sidenav-search.st-input-wrapper
-    form.st-input-inner
+    .st-input-inner
       label(for="search-io" class="is-hidden") 搜索文档
-      input(type="search" id="search-io" placeholder="搜索文档...")
-    button(class="mobile-trigger button" aria-label="查看文档菜单" ng-click="appCtrl.toggleDocsMenu($event)" md-button) 文档 <span class="icon icon-arrow-drop-down"></span>
+      input(type="text" class="st-default-search-input" placeholder="搜索文档...")
+    button(class="mobile-trigger button" aria-label="View Docs Menu" ng-click="appCtrl.toggleDocsMenu($event)" md-button) 文档 <span class="icon icon-arrow-drop-down"></span>
 
   ul(class="sidenav-links")
     li.sidenav-section.no-border

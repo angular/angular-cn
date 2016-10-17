@@ -837,8 +837,8 @@ table
     If we must read a target element property or call one of its methods,
     we'll need a different technique.
     See the API reference for
-    [viewChild](../api/core/index/ViewChild-var.html) and
-    [contentChild](../api/core/index/ContentChild-var.html).
+    [viewChild](../api/core/index/ViewChild-decorator.html) and
+    [contentChild](../api/core/index/ContentChild-decorator.html).
 
     如果我们不得不读取目标元素上的属性或调用它的某个方法，我们得用另一种技术。
     参见API参考手册中的[viewChild](../api/core/index/ViewChild-var.html)和
@@ -1481,7 +1481,7 @@ block style-property-name-dart-diff
     The `ngModel` input property sets the element's value property and the `ngModelChange` output property
     listens for changes to the element's value.
     The details are specific to each kind of element and therefore the `NgModel` directive only works for elements,
-    such as the input text box, that are supported by a [ControlValueAccessor](../api/common/index/ControlValueAccessor-interface.html).
+    such as the input text box, that are supported by a [ControlValueAccessor](../api/forms/index/ControlValueAccessor-interface.html).
     We can't apply `[(ngModel)]` to our custom components until we write a suitable *value accessor*,
     a technique that is beyond the scope of this chapter.
 
@@ -2079,11 +2079,15 @@ figure.image-display
   ### Referencing a template reference variable
   ### 引用一个模板引用变量
 
-  We can reference a template reference variable on the same element, on a sibling element, or on
-  any child elements.
+  We can refer to a template reference variable _anywhere_ in the current template.
+.l-sub-section
+  :marked
+    Do not define the same variable name more than once in the same template.
+    The runtime value will be unpredictable.
 
-  我们可以在同一元素、兄弟元素或任何子元素中引用模板引用变量。
+    我们可以在同一元素、兄弟元素或任何子元素中引用模板引用变量。
 
+:marked
   Here are two other examples of creating and consuming a Template reference variable:
 
   这里是关于创建和消费模板引用变量的另外两个例子：
