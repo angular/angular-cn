@@ -34,12 +34,19 @@ a#overview
 :marked
   ## Overview
 
+  ## 概览
+
   An Angular application consist largely of components and their HTML templates.
   Before the browser can render the application, 
   the components and templates must be converted to executable JavaScript by the _Angular compiler_.
+
+  Angular应用主要包含组件和它们的HTML模板。
+  在浏览器可以渲染应用之前，组件和模板必须要被**Angular编译器**转换为可以执行的JavaScript。
 .l-sub-section
   :marked
     <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo" target="_blank">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
+
+    观看编译器作者Tobias Bosch在AngularConnect 2016大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular编译器</a>的演讲。
 :marked
   You can compile the app in the browser, at runtime, as the application loads, using the **_Just-in-Time_ (JiT) compiler**. 
   This is the standard development approach shown throughout the documentation.
@@ -63,10 +70,13 @@ a#overview
   
   Compilation can uncover many component-template binding errors.
   JiT compilation discovers them at runtime which is later than we'd like.
+
+  编译可以揭露一些组件模板绑定错误。JiT变异在运行时才揭露它们，有点太晚了。
   
   The **_Ahead-of-Time_ (AoT) compiler** can catch template errors early and improve performance 
   by compiling at build time as you'll learn in this chapter.
 
+  **预编译**（AoT）通过在构建时编译，在早期截获模板错误，提高应用性能。
 
 a#aot-jit
 .l-main-section
@@ -87,7 +97,7 @@ a#aot-jit
 
   *Faster rendering*
   
-  *渲染得更快*
+  **渲染得更快**
 
   With AoT, the browser downloads a pre-compiled version of the application. 
   The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
@@ -97,7 +107,7 @@ a#aot-jit
 
   *Fewer asynchronous requests*
   
-  *需要的异步请求更少*
+  **需要的异步请求更少**
 
   The compiler _inlines_ external html templates and css style sheets within the application JavaScript,
   eliminating separate ajax requests for those source files.
@@ -107,7 +117,7 @@ a#aot-jit
 
   *Smaller Angular framework download size*
   
-  *需要下载的Angular框架体积更小*
+  **需要下载的Angular框架体积更小**
 
   There's no need to download the Angular compiler if the app is already compiled. 
   The compiler is roughly half of Angular itself, so omitting it dramatically reduces the application payload.
@@ -118,15 +128,23 @@ a#aot-jit
 
   *Detect template errors earlier*
 
+  **提早检测模板错误**
+
   The AoT compiler detects and reports template binding errors during the build step
   before users can see them.
 
+  AoT编译器在构建过程中检测和报告模板绑定错误，避免用户遇到这些错误。
 
   *Better security*
+
+  **更安全**
 
   AoT compiles HTML templates and components into JavaScript files long before they are served to the client.
   With no templates to read and no risky client-side HTML or JavaScript evaluation,
   there are fewer opportunities for injection attacks.
+
+  AoT编译远在HTML模版和组件被服务到客户端之前，将它们编译到JavaScript文件。
+  没有模版可以阅读，没有高风险客户端HTML或JavaScript可利用，所以注入攻击的机会较少。
 
 a#compile
 .l-main-section
@@ -212,6 +230,8 @@ code-example(format='.').
 .l-sub-section
   :marked
     Windows users should surround the `ngc` command in double quotes:
+
+    Windows用户应该双引号`ngc`命令：
   code-example(format='.').
     "node_modules/.bin/ngc" -p tsconfig-aot.json
 :marked
@@ -358,6 +378,9 @@ code-example(format='.').
   in the project root directory to tell Rollup how to process the application. 
   The cookbook configuration file looks like this.
 
+  接下来，在项目根目录新建一个配置文件（`rollup-config.js`），来告诉Rollup如何处理应用。
+  本烹饪书配置文件是这样的：
+
 +makeExample('cb-aot-compiler/ts/rollup-config.js', null, 'rollup-config.js')(format='.')
 :marked
   It tells Rollup that the app entry point is `app/main.js` .
@@ -424,6 +447,7 @@ code-example(format='.').
 
 :marked
   ### Run Rollup
+
   ### 运行Rollup
   
   Execute the Rollup process with this command:
@@ -488,7 +512,11 @@ a#source-code
 :marked
   ## AoT QuickStart Source Code
 
+  ## AoT快速开始源代码
+
   Here's the pertinent source code:
+
+  下面是相关源代码：
 +makeTabs(
   `cb-aot-compiler/ts/app/app.component.html,
    cb-aot-compiler/ts/app/app.component.ts,
@@ -509,22 +537,39 @@ a#toh
 .l-main-section
 :marked
   ## Tour of Heroes
+  
+  ## 英雄指南
 
   The sample above is a trivial variation of the QuickStart app. 
   In this section you apply what you've learned about AoT compilation and Tree Shaking 
   to an app with more substance, the tutorial [_Tour of Heroes_](../tutorial/toh-pt6.html).
 
+  上面的例子是快速开始应用的一个简单的变体。
+  在本节中，你将在一个更多内容的应用 - [英雄指南](../tutorial/toh-pt6.html)上使用从AoT编译和摇树优化学到的知识。
+
   ### JiT in development, AoT in production
+
+  ### 开发器使用JiT, 产品期使用AoT
 
   Today AoT compilation and Tree Shaking take more time than is practical for development. That will change soon.
   For now, it's best to JiT compile in development and switch to AoT compilation before deploying to production.
 
+  目前，AoT编译和摇树优化对开发来说，占用的时间太多了。这将在未来得到改变。
+  当前的最佳实践是在开发器使用JiT编译，然后在发布产品前切换到AoT编译。
+
   Fortunately, the source code can be compiled either way without change _if_ you account for a few key differences.
+
+  幸运的是，**如果**你处理了几个关键不同点，源代码可以在没有任何变化时，采取两种方式的任何一种都能编译。
+
+  ***Index.html***
 
   ***Index.html***
 
   The JiT and AoT apps are setup and launched so differently that they require their own `index.html` files. 
   Here they are for comparison:
+
+  JiT和AoT应用的设置和加载非常不一样，以至于它们需要自己单独的`index.html`文件。
+  下面是它们的比较：
 
 +makeTabs(
   `toh-6/ts/aot/index.html,
@@ -538,35 +583,64 @@ a#toh
   They can't be in the same folder. 
   ***Put the AoT version in the `/aot` folder***.
 
+  它们不能在同一个目录。
+  ***将AoT版本放置到`/aot`目录***。
+
   The JiT version relies on `SystemJS` to load individual modules and requires the `reflect-metadata` shim. 
   Both scripts appear in its `index.html`.
+
+  JiT版本依靠`SystemJS`来加载单个模块，并需要`reflect-metadata`垫片。
+  所以它们出现在它的`index.html`中。
 
   The AoT version loads the entire application in a single script, `aot/dist/build.js`.
   It does not need `SystemJS` or the `reflect-metadata` shim; those scripts are absent from its `index.html`
 
+  AoT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
+
   *Component-relative Template URLS*
+
+  *相对组件的模板路径*
 
   The AoT compiler requires that `@Component` URLS for external templates and css files be _component-relative_.
   That means that the value of `@Component.templateUrl` is a URL value relative to the component class file:
   `foo.component.html` no matter where `foo.component.ts` sits in the project folder structure.
 
+  AoT编译器要求`@Component`外部模板和CSS文件的路径是相对组件的。
+  意思是，`@Component.templateUrl`的值是一个相对组件类文件`foo.component.html`的路径，不管`foo.component.ts`在项目的哪个目录。
+
   While JiT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AoT compilation.
+
+  JiT应用的URLs更加灵活，但是为了与AoT编译兼容，坚持使用**相对组件**路径。
   
   JiT-compiled apps, using the SystemJS loader and _component-relative_ URLs *must set the* `@Component.moduleId` *property to* `module.id`.
   The `module` object is undefined when an AoT-compiled app runs. 
   The app fails unless you assign a global `module` value in the `index.html` like this:
+
+  JiT编译的应用，使用SystemJS加载器，**相对组件路径**必须要设置`@Component.moduleId`*属性*为`module.id`。
+  `module`对象在AoT编译的应用运行时的值为`undefined`。
+  应用将会失败，除非你像这样，在`index.html`中指定一个全局`module`值：
 +makeExample('toh-6/ts/aot/index.html','moduleId')(format='.')  
 .l-sub-section
   :marked
     Setting a global `module` is a temporary expedient. 
+
+    设置一个全局`module`是暂时的权宜之计。
 :marked
   *TypeScript configuration*
+
+  *TypeScript配置*
 
   JiT-compiled apps transpile to `commonjs` modules.
   AoT-compiled apps transpile to _ES2015_/_ES6_ modules to facilitate Tree Shaking. 
   AoT requires its own TypeScript configuration settings as well.
 
+  JiT编译的应用编译为`commonjs`模块。
+  AoT编译的应用编译为**ES2015/ES6**模块，用来支持摇树优化。
+  而且AoT需要它自己的TypeScript配置设置。
+
   You'll need separate TypeScript configuration files such as these:
+
+  你将需要单独的TypeScript配置文件，像这些：
 
 +makeTabs(
   `toh-6/ts/tsconfig-aot.json,
@@ -579,33 +653,55 @@ a#toh
 :marked
   ### Tree Shaking
 
+  ### 摇树优化
+
   Rollup does the Tree Shaking as before.
+
+  Rollup和以前一样，仍然进行摇树优化。
   
   The Rollup configuration changes slightly to accommodate the `angular-in-memory-web-api` module
   that the _Tour of Heroes_ app requires for data server simulation.
+
+  Rollup配置有很小的变化，以适应**英雄指南**应用需要的数据服务模拟 - `angular-in-memory-web-api`模块。
   
   The `angular-in-memory-web-api` is a `commonjs` module like the RxJS library.
   Add `angular-in-memory-web-api` to the _commonjs plugin_ `include` array,
   next to the `rxjs` file specification.
+
+  `angular-in-memory-web-api`是一个`commonjs`模块，和RxJS库一样。
+  添加`angular-in-memory-web-api`到**commonjs插件**`include`数组，紧挨着`RxJS`文件配置。
 
 +makeExample('toh-6/ts/rollup-config.js',null,'rollup-config.js')(format='.')  
 
 :marked
   ### Running the application
 
+  ### 运行应用
+
 .alert.is-important
   :marked
     The general audience instructions for running the AoT build of the Tour of Heroes app are not ready.
+
+    面向大众的运行AoT构建的英雄指南应用的说明还没有准备好。
 
     The following instructions presuppose that you have cloned the 
     <a href="https://github.com/angular/angular.io" target="_blank">angular.io</a> 
     github repository and prepared it for development as explained in the repo's README.md.
 
+    下面的说明假设你克隆了<a href="https://github.com/angular/angular.io" target="_blank">angular.io</a> Github库，并按照该库的README.md准备了开发环境。
+
     The _Tour of Heroes_ source code is in the `public/docs/_examples/toh-6/ts` folder.
+
+    **英雄指南**源代码在`public/docs/_examples/toh-6/ts`目录。
+
 :marked
   Run the JiT-compiled app with `npm start` as for all other JiT examples.
 
+  和其他JiT例子一样，使用`npm start`命令，运行JiT编译的应用：
+
   Compiling with AoT presupposes certain supporting files, most of them discussed above.
+
+  AoT编译假设上面介绍的一些支持文件都以准备好。
 +makeTabs(
   `toh-6/ts/aot/index.html,
    toh-6/ts/aot/bs-config.json,
@@ -620,34 +716,51 @@ a#toh
    tsconfig-aot.json`)
 :marked
   Extend the `scripts` section of the `package.json` with these npm scripts:
+
+  使用下面的npm脚本，扩展`package.json`文件的`scripts`部分：
+
 code-example(format='.').
   "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
   "lite:aot": "lite-server -c aot/bs-config.json",
 :marked
   Copy the AoT distribution files into the `/aot` folder with the node script:
+
+  使用下面的node脚本，拷贝AoT发布文件到`/aot/`目录：
 code-example(format='.').
   node copy-dist-files
 .l-sub-section
   :marked
     You won't do that again until there are updates to `zone.js` or the `core-js` shim for old browsers.
+
+    直到`zone.js`或者支持老版本浏览器的`core-js`垫片有更新，你不需要再这样做。
 :marked
   Now AoT-compile the app and launch it with the `lite` server:
+
+  现在AoT编译应用，并使用`lite`服务器启动它：
 code-example(format='.').
   npm run build:aot && npm run lite:aot
 
 :marked
   ### Inspect the Bundle
+  
+  ### 检查包裹
 
   It's fascinating to see what the generated JavaScript bundle looks like after Rollup. 
   The code is minified, so you won't learn much from inspecting the bundle directly.
   But the <a href="https://github.com/danvk/source-map-explorer/blob/master/README.md" target="_blank">source-map-explorer</a> 
   tool can be quite revealing. 
 
+  看看Rollup之后生成的JavaScript包，非常神奇。
+  代码已经被最小化，所以你不会从中直接学到任何知识。
+  但是<a href="https://github.com/danvk/source-map-explorer/blob/master/README.md" target="_blank">source-map-explorer</a> 工具非常有用。
+
   Install it:
 code-example(format='.').  
   npm install source-map-explorer --save-dev
 :marked
   Run the following command to generate the map.
+
+  运行下面的命令来生成源映射。
 
 code-example(format='.').
   node_modules/.bin/source-map-explorer aot/dist/build.js
@@ -656,7 +769,11 @@ code-example(format='.').
   The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
   showing exactly which application and Angular modules and classes are included in the bundle.
 
+  `source-map-explorer`分析从包生成的源映射，并画出一个依赖地图，显示包中包含哪些应用程序和Angular模块和类。
+
   Here's the map for _Tour of Heroes_. 
+
+  下面是英雄指南的地图：
 
 a(href="/resources/images/cookbooks/aot-compiler/toh6-bundle.png", target="_blank", title="View larger image")
   figure.image-display
