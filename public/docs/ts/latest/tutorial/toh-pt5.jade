@@ -404,6 +404,8 @@ block router-config-intro
     We've setup the initial route configuration. Now we'll add it to our `AppModule`.
     We'll add our configured `RouterModule` to the `AppModule` imports !{_array}.
 
+    我们设置了初始路由配置。现在把它添加到`AppModule`里。添加配置好的`RouterModule`到`AppModule`的`imports`数组中。
+
   +makeExcerpt('app/app.module.2.ts (app routing)', '')
 
   .l-sub-section
@@ -411,6 +413,8 @@ block router-config-intro
       We use the `forRoot` method because we're providing a configured router at the _root_ of the application.
       The `forRoot` method gives us the Router service providers and directives needed for routing, and
       performs the initial navigation based on the current browser URL.
+
+      这里使用了`forRoot`方法，因为我们在应用根部提供配置的路由器。`forRoot`方法提供了路由需要的路由服务提供商和指令，并基于当前浏览器URL初始化导航。
 
 - var _heroesRoute = _docsFor == 'dart' ? "'Heroes'" : 'heroes'
 :marked
@@ -1072,11 +1076,17 @@ block extract-id
 :marked
   ## Refactor routes to a _Routing Module_
 
+  ## 重构路由为一个**路由模块**
+
   Almost 20 lines of `AppModule` are devoted to configuring four routes. 
   Most application have many more routes and they [add guard services](../guide/router.html#guards) 
   to protect against unwanted or unauthorized navigations. 
   Routing considerations could quickly dominate this module and obscure its primary purpose which is to 
   establish key facts about the entire app for the Angular compiler.
+
+  `AppModule`中有将近20行代码是用来配置四个路由的。
+  绝大多数应用有更多路由，并且它们还有[守卫服务](../guide/router.html#guards)来保护不希望或未授权的导航。
+  路由的配置可能迅速占领这个模块，并掩盖其主要目的，即为Angular编译器设置整个应用的关键配置。
 
   We should refactor the routing configuration into its own class.
   What kind of class? 
@@ -1084,37 +1094,67 @@ block extract-id
   class dedicated to routing should be some kind of module.
   It should be a [_Routing Module_](../guide/router.htm#routing-module).
 
+  我们应该重构路由配置到它自己的类。
+  什么样的类呢？
+  当前的`RouterModule.forRoot()`产生一个Angular `ModuleWithProviders`，所以这个路由类应该是一种模块类。
+  它应该是一个[**路由模块**](../guide/router.htm#routing-module)。
+
   By convention the name of a _Routing Module_ contains the word "Routing" and 
   aligns with the name of the module that declares the components navigated to".
+
+  按约定，**路由模块**的名字应该包含“Routing”，并与导航到的组件所在的模块的名称看齐。
   
   Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it the following contents extracted from the `AppModule` class:
+
+  在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
 
 +makeExample('app/app-routing.module.ts')
 :marked
   Noteworthy points, typical of _Routing Modules_:
+  
+  典型**路由模块**值得注意的有：
+  
   * Pull the routes into a variable. You might export it in future and it clarifies the _Routing Module_ pattern.
 
+  * 将路由抽出到一个变量中。你可能将来会导出它。而且它让**路由模块**模式更加明确。
+
   * Add `RouterModule.forRoot(routes)` to `imports`.
+
+  * 添加`RouterModule.forRoot(routes)`到`imports`.
     
   * Add `RouterModule` to `exports` so that the components in the companion module have access to Router declarables 
   such as `RouterLink` and `RouterOutlet`.
+
+  * 添加`RouterModule`到`exports`，这样关联模块的组件可以访问路由的声明，比如`RouterLink`和`RouterOutlet`。
   
   * No `declarations`!  Declarations are the responsibility of the companion module.
 
+  * 无`Declarations`！声明是关联模块的任务。
+
   * Add module `providers` for guard services if you have them; there are none in this example.
 
+  * 如果你有守卫服务，添加模块`providers`；本例子无守卫服务。
+
   ### Update _AppModule_
+
+  ### 更新_AppModule_
 
   Now delete the routing configuration from `AppModule` and import the `AppRoutingModule` 
   (_both_ with an ES `import` statement _and_ by adding it to the `NgModule.imports` list).
 
+  现在，删除`AppModule`中的路由配置，并导入`AppRoutingModule`（**同时**用ES导入语句和将它添加到`NgModule.imports`数组）。
+
   Here is the revised `AppModule`, compared to its pre-refactor state:
+
+  下面是修改后的`AppModule`，与重构前的对比：
 +makeTabs(
   `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
    null,
   `app/app.module.ts (after), app/app.module.ts (before)`)
 :marked
   It's simpler and focused on indentifying the key pieces of the application.  
+
+  它更简单，专注于确定应用的关键部分。
 
 .l-main-section
 :marked
@@ -1137,6 +1177,8 @@ block extract-id
 
 :marked
   Our goal is to move the detail to its own view and navigate to it when the user decides to edit a selected hero.
+
+  我们要做的是将详情组建移动到它自己的视图，并在用户决定编辑一个英雄时导航到它。
 
   Delete the `<h1>` at the top (forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
   
@@ -1509,28 +1551,31 @@ block file-tree-end
 
   - We added the Angular *Router* to navigate among different components.
 
-  - 我们添加了Angular*路由器*在各个不同组件之间导航。
+  - 添加了Angular*路由器*在各个不同组件之间导航。
 
   - We learned how to create router links to represent navigation menu items.
 
-  - 我们学会了如何创建路由链接来表示导航栏的菜单项。
+  - 学会了如何创建路由链接来表示导航栏的菜单项。
 
   - We used router link parameters to navigate to the details of user selected hero.
 
-  - 我们使用路由链接参数来导航到用户所选的英雄详情。
+  - 使用路由链接参数来导航到用户所选的英雄详情。
 
   - We shared the `HeroService` among multiple components.
 
-  - 我们在多个组件之间共享了`HeroService`服务。
+  - 在多个组件之间共享了`HeroService`服务。
 
   - We moved HTML and CSS out of the component file and into their own files.
 
-  - 我们把HTML和CSS从组件中移出来，放到了它们自己的文件中。
+  - 把HTML和CSS从组件中移出来，放到了它们自己的文件中。
 
   - We added the `uppercase` pipe to format data.
+
+  - 添加了`uppercase`管道，来格式化日期
+
   - We refactored routes into a `Routing Module` that we import.
 
-  - 我们添加了一个`uppercase`管道，来格式化数据。
+  - 将路由重构为路由模块，并导入它。
 
   ### The Road Ahead
 
