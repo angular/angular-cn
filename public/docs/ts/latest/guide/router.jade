@@ -899,6 +899,8 @@ h4#define-routes 定义一些路由
   unseen providers that the routing library requires. Once our application is bootstrapped, the `Router`
   will perform the initial navigation based on the current browser URL.
 
+  下面是第一个配置。我们将路由数组传递到`RouterModule.forRoot`方法，该方法返回一个包含已配置的`Router`服务提供商模块和一些其它路由包需要的服务提供商。应用启动时，`Router`将在当前浏览器URL的基础上进行初始导航。
+
 +makeExcerpt('app/app.module.1.ts')
 
 .l-sub-section
@@ -907,6 +909,9 @@ h4#define-routes 定义一些路由
     As our application grows, we'll want to refactor our routing configuration into a separate file
     and create a **[Routing Module](#routing-module)**, a special type of `Service Module` dedicating for the purpose
     of routing in feature modules.
+
+    作为简单的路由配置，将添加配置好的`RouterModule`到`AppModule`中就足够了。
+    随着应用的成长，我们将需要将路由配置重构到单独的文件，并创建**[路由模块](#routing-module)** - 一种特别的、专门为特征模块的路由器服务的**服务模块**。
 
 :marked
   Providing the `RouterModule` in our `AppModule` makes the Router available everywhere in our application.
@@ -1115,6 +1120,8 @@ h3#router-directives <i>路由器指令集</i>
 :marked
   ## Milestone #2: The *Routing Module*
 
+  ## 里程碑 #2：**路由模块**
+
   In our initial route configuration, we provided a simple setup with two routes used
   to configure our application for routing. This is perfectly fine for simple routing.
   As our application grows and we make use of more *Router* features, such as guards,
@@ -1122,30 +1129,62 @@ h3#router-directives <i>路由器指令集</i>
   recommend moving the routing into a separate file using a special-purpose
   service called a *Routing Module*.
 
+  在原始的路由配置中，我们提供了仅有两个路由的简单配置来设置应用的路由。对于简单的路由，这没有问题。
+  随着应用的成长，我们使用更多**路由器**特征，比如守卫、解析器和子路由等，我们很自然想要重构路由。
+  建议将路由移到单独的文件，使用专门目的的服务，叫做**路由模块**。
+
   The **Routing Module**
+
+  **路由模块**
+
   * separates our routing concerns from our feature module
+
+  * 分离路由与特征模块
+
   * provides a module to replace or remove when testing our feature module
+
+  * 测试特征模块时，可以替换或移除路由模块
+
   * provides a common place for require routing service providers including guards and resolvers
+
+  * 为路由服务提供商（包括守卫和解析器等）提供一个共同的地方
+
   * is **not** concerned with feature [module declarations](../cookbook/ngmodule-faq.html#!#routing-module)
+
+  * 与特征的[声明](../cookbook/ngmodule-faq.html#!#routing-module)**无关**
 
 :marked
   ### Refactor routing into a module
+
+  ### 将路由重构为模块
 
   We'll create a file named `app-routing.module.ts` in our `/app` folder to
   contain our `Routing Module`. The routing module will import our `RouterModule` tokens
   and configure our routes. We'll follow the convention of our filename and name
   the Angular module `AppRoutingModule`.
 
+  在`/app`目录新建一个文件，名叫`app-routing.module.ts`。路由模块将导入`RouterModule`令牌，并配置路由。
+  我们遵循文件名约定，并命名Angular模块为`AppRoutingModule`。
+
   We import the `CrisisListComponent` and the `HeroListComponent` components
   just like we did in the `app.module.ts`. Then we'll move the `Router` imports
   and routing configuration including `RouterModule.forRoot` into our routing module.
 
+  和`app.module.ts`中一样，导入`CrisisListComponent`和`HeroListComponent`组件。
+  然后在路由模块中导入`Router`和路由配置（`RouterModule.forRoot`）。
+
   We'll also export the `AppRoutingModule` so we can add it to our `AppModule` imports.
+
+  同时导出`AppRoutingModule`，这样我们可以将它添加到`AppModule`的`imports`中。
 
   Our last step is to re-export the `RouterModule`. By re-exporting the `RouterModule`,
   our feature module will be provided with the `Router Directives` when using our `Routing Module`.
 
+  最后，重新导出`RouterModule`，这样，特征模块在使用**路由模块**时，将获得**路由指令**。
+
   Here is our first `Routing Module`:
+
+  下面是首个**路由模块**：
 
 +makeExcerpt('app/app-routing.module.1.ts')
 
@@ -1154,33 +1193,57 @@ h3#router-directives <i>路由器指令集</i>
    from the `app-routing.module.ts` and replace our `RouterModule.forRoot` with our newly
    created `AppRoutingModule`.
 
+   接下来，我们将更新`app.module.ts`文件，从`app-routing.module.ts`中导入`AppRoutingModule`令牌，
+   并用它替换`RouterModule.forRoot`。
+
 +makeExcerpt('app/app.module.2.ts')
 
 :marked
   Our application continues to work just the same, and we can use our routing module as
   the central place to maintain our routing configuration for each feature module.
 
+  应用继续正常运行，我们可以把路由模块作为为每个特征模块维护路由配置的中心地方。
+
 a#why-routing-module
 :marked
   ### Do you need a _Routing Module_?
+
+  ### 你需要**路由模块**吗？
   
   The _Routing Module_ *replaces* the routing configuration in the root or feature module. 
   _Either_ configure routes in the Routing Module _or_ within the module itself but not in both.
+
+  **路由模块**在根模块或者特征模块替换了路由配置。在路由模块或者在模块内部配置路由，但不要同时在两处都配置。
 
   The Routing Module is a design choice whose value is most obvious when the configuration is complex
   and includes specialized guard and resolver services.
   It can seem like overkill when the actual configuration is dead simple.
 
+  路由模块是设计选择，它的价值在配置很复杂，并包含专门守卫和解析器服务时尤其明显。
+  在配置很简单时，它可能看起来很多余。
+
   Some developers skip the Routing Module (e.g., `AppRoutingModule`) when the configuration is simple and 
   merge the routing configuration directly into the companion module (e.g., `AppModule`).
+
+  在配置很简单时，一些开发者跳过路由模块（例如`AppRoutingModule`），并将路由配置直接混合在关联模块中（比如`AppModule` ）。
   
   We recommend that you choose one pattern or the other and follow that pattern consistently.
 
+  我们建议你选择其中一种模式，并坚持模式的一致性。
+
   Most developers should always implement a Routing Module for the sake of consistency.
+
+  大多数开发者应该采用路由模块，以保持一致性。
+
   It keeps the code clean when configuration becomes complex.
   It makes testing the feature module easier.
   Its existence calls attention to the fact that a module is routed.
   It is where developers expect to find and expand routing configuration.
+
+  它在配置复杂时，能确保代码干净。
+  它让测试特征模块更加容易。
+  它的存在突出了模块时被路由的事实。
+  开发者可以很自然的从路由模块中查找和扩展路由配置。
 
 .l-main-section#heroes-feature
 :marked
@@ -2352,6 +2415,9 @@ a#child-routing-component
   :marked
     We *can* give it a selector. There's no harm in it.
     Our point is that we don't *need* one because we only *navigate* to it.
+
+    我们**可以**为它指定一个选择器。这么做没有什么坏处。
+    这里的观点是，我们**不需要**选择器，因为我们只能**导航*到它。
 
 :marked
   ### Child Route Configuration
