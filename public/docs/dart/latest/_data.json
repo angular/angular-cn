@@ -51,7 +51,7 @@
   "glossary": {
     "title": "Glossary",
     "subtitle": "Dart",
-    "intro": "Brief definitions of the most important words in the Angular vocabulary",
+    "intro": "Angular中最重要的词汇的简要定义",
     "reference": false
   },
 

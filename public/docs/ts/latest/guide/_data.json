@@ -64,14 +64,14 @@
   },
 
   "glossary": {
-    "title": "Glossary",
-    "intro": "Brief definitions of the most important words in the Angular vocabulary",
+    "title": "词汇表",
+    "intro": "Angular中最重要的词汇的简要定义",
     "basics": true
   },
 
   "change-log": {
-    "title": "Change Log",
-    "intro": "An annotated history of recent documentation improvements.",
+    "title": "更新记录",
+    "intro": "最新文档更新历史记录。",
     "basics": true
   },
 
