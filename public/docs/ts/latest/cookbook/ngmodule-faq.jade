@@ -1328,7 +1328,7 @@ table
     td(style="vertical-align: top")
       <a id="routed-feature-module"></a>
       p Routed
-      p 路由
+      p 路由特性模块
     td
       :marked
         _Routed Feature Modules_ are _Domain Feature modules_
@@ -1376,41 +1376,79 @@ table
         
         不要在路由特性模块及其导入的模块中提供*全应用级*的单例服务。
   tr
-    td(style="vertical-align: top")<a id="routing-module"></a>Routing
+    td(style="vertical-align: top")<a id="routing-module"></a>
+      :marked
+        Routing
+
+        路由模块
     td
       :marked
         A [_Routing Module_](../guide/router.html#routing-module) **provides routing configuration** for another module.
 
+        [路由模块](../guide/router.html#routing-module)为其它模块**提供路由配置**。
+
         A Routing Module separates routing concerns from its companion module.
+
+        路由模块将路由配置从它的关联模块分离开来。
         
         It typically:
+        它一般：
+
         * defines routes
+
+        * 定义路由
+
         * adds router configuration to the module's `imports`
+
+        * 添加路由配置到模块的`imports`中
+
         * re-exports `RouterModule`
+
+        * 重新导出`RouterModule`
+
         * adds guard and resolver service providers to the module's `providers`.
+
+        * 添加守卫和解析器服务提供商到模块的`providers`。
         
         The name of the Routing Module should parallel the name of its companion module, using the suffix "Routing".
         For example, `FooModule` in `foo.module.ts` has a routing module named `FooRoutingModule`
         in `foo-routing.module.ts`
+
+        路由模块的名字应该和它的关联模块平行，比如使用“Routing”前缀，
+        `foo.module.ts`中的`FooModule`有名为`FooRoutingModule`的路由模块，所属文件名为`foo-routing.module.ts`。
         
         If the companion module is the _root_ `AppModule`, 
         the `AppRoutingModule` adds router configuration to its `imports` with `RouterModule.forRoot(routes)`. 
         All other Routing Modules are children that import `RouterModule.forChild(routes)`.
 
+        如果关联模块是**根**`AppModule`，那么在`AppRoutingModule`的`imports`中，添加`RouterModule.forRoot(routes)`来配置路由。
+        所有其它路由模块都是子级，导入`RouterModule.forChild(routes)`。
+
         A Routing Module re-exports the `RouterModule` as a convenience 
         so that components of the companion module have access to 
         router directives such as `RouterLink` and `RouterOutlet`.
+
+        路由模块顺便重新导出`RouterModule`，这样关联模块的组件可以访问路由指令，比如`RouterLink`和`RouterOutlet`。
 
         A Routing Module **should not have its own `declarations`!** 
         &nbsp; Components, directives, and pipes are the **responsibility of the feature module**
         not the _routing_ module.
 
+        路由模块**不应该有自己的`declarations`！**。组件、指令和管道是**特性模块的责任**，不属于路由模块。
+
         A Routing Module should _only_ be imported by its companion module.
 
+        路由模块应该**只**被它的关联模块导入。
+
         The `AppRoutingModule`, `ContactRoutingModule` and `HeroRoutingModule` are good examples.
+        
+        `AppRoutingModule`、`ContactRoutingModule`和`HeroRoutingModule是很好的例子。
+
       .l-sub-section
         :marked
           See also "[Do you need a _Routing Module_?](../guide/router.html#why-routing-module)".
+
+          参见"[你需要**路由模块**吗?](../guide/router.html#why-routing-module)"
 
   tr
     td(style="vertical-align: top")
