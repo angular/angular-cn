@@ -3452,165 +3452,270 @@ table
   A few of the `TestBed` instance methods are not covered by static `TestBed` _class_ methods.
   These are rarely needed.
 
+  少数`TestBed`实例方法没有对应的静态方法。它们很少被使用。
+
 #component-fixture-api-summary
 :marked
   ## The _ComponentFixture_
+
+  ## _ComponentFixture_
 
   The `TestBed.createComponent<T>`
   creates an instance of the component `T` 
   and returns a strongly typed `ComponentFixture` for that component.
 
+  `TestBed.createComponent<T>`创建一个组件`T`的实例，并为该组件返回一个强类型的`ComponentFixture`。
+
   The `ComponentFixture` properties and methods provide access to the component, 
   its DOM representation, and aspects of its Angular environment. 
+
+  `ComponentFixture`的属性和方法提供了对组件、它的DOM和它的Angular环境方面的访问。
 
 #component-fixture-properties
 :marked
   ### _ComponentFixture_ properties
 
+  ### _ComponentFixture_ 属性
+
   Here are the most important properties for testers, in order of likely utility.
+
+  下面是对测试最重要的属性，以使用频率排序：
   
 table
   tr
-    th Properties
-    th Description
+    th 
+      :marked
+        Properties
+
+        属性
+    th 
+      :marked
+        Description
+
+        描述
   tr
     td(style="vertical-align: top") <code>componentInstance</code>
     td
       :marked
         The instance of the component class created by `TestBed.createComponent`.
+
+        被`TestBed.createComponent`创建的组件类实例。
   tr
     td(style="vertical-align: top") <code>debugElement</code>
     td
       :marked
         The `DebugElement` associated with the root element of the component.
 
+        与组件根元素关联的`DebugElement`。
+
         The `debugElement` provides insight into the component and its DOM element during test and debugging.
         It's a critical property for testers. The most interesting members are covered [below](#debug-element-details).
+
+        `debugElement`在测试和调试期间，提供对组件及其DOM元素的访问。
+        它是测试者至关重要的属性。它最有用的成员在[下面](#debug-element-details)有所介绍。
   tr
     td(style="vertical-align: top") <code>nativeElement</code>
     td
       :marked
         The native DOM element at the root of the component.
+
+        组件的原生根DOM元素。
   tr
     td(style="vertical-align: top") <code>changeDetectorRef</code>
     td
       :marked
         The `ChangeDetectorRef` for the component.
 
+        组件的`ChangeDetectorRef`。
+
         The `ChangeDetectorRef` is most valuable when testing a
         component that has the `ChangeDetectionStrategy.OnPush`
         or the component's change detection is under your programmatic control.
+
+        在测试一个拥有`ChangeDetectionStrategy.OnPush`的组件，或者在组件的变化测试在你的程序控制下时，`ChangeDetectorRef`是最重要的。
 
 #component-fixture-methods
 :marked
   ### _ComponentFixture_ methods
 
+  ### _ComponentFixture_方法
+
   The _fixture_ methods cause Angular to perform certain tasks to the component tree.
   Call these method to trigger Angular behavior in response to simulated user action.
 
+  **fixture**方法使组件对组件树执行某些任务。
+  调用此方法来触发针对模拟的用户行为作出的Angular行为。
+
   Here are the most useful methods for testers.
+
+  下面使对测试最有用的方法。
 table
   tr
-    th Methods
-    th Description
+    th 
+      :marked
+        Methods
+
+        方法
+    th 
+      :marked
+        Description
+
+        描述
   tr
     td(style="vertical-align: top") <code>detectChanges</code>
     td
       :marked
         Trigger a change detection cycle for the component.
 
+        为组件触发一轮变化检查。
+
         Call it to initialize the component (it calls `ngOnInit`) and after your 
         test code change the component's data bound property values.
         Angular can't see that you've changed `personComponent.name` and won't update the `name`
         binding until you call `detectChanges`.
 
+        调用它来初始化组件（它调用`ngOnInit`）。或者在你的测试代码改变了组件的数据绑定属性值后调用它。
+        Angular不能检测到你已经改变了`personComponent.name`属性，也不会更新`name`的绑定，直到你调用了`detectChanges`。
+
         Runs `checkNoChanges`afterwards to confirm there are no circular updates unless
         called as `detectChanges(false)`;
+
+        之后，运行`checkNoChanges`，来确认没有循环更新，除非它被这样调用：`detectChanges(false)`。
   tr
     td(style="vertical-align: top") <code>autoDetectChanges</code>
     td
       :marked
         Set whether the fixture should try to detect changes automatically.
 
+        设置fixture是否应该自动试图检测变化。
+
         When autodetect is true, the test fixture listens for _zone_ events and calls `detectChanges`. 
         You probably still have to call `fixture.detectChanges` to trigger data binding updates 
         when your test code modifies component property values directly.
 
+        当自动检测打开时，测试fixture监听**zone**事件，并调用`detectChanges`。
+        当你的测试代码直接修改了组件属性值时，你还是要调用`fixture.detectChanges`来触发数据绑定更新。
+
         The default is `false` and testers who prefer fine control over test behavior
         tend to keep it `false`. 
 
+        默认值是`false`，喜欢对测试行为进行精细控制的测试者一般保持它为`false`。
+
         Calls `detectChanges` immediately which detects existing changes
         and will trigger `ngOnInit` if the component has not yet been initialized.
+
+        如果组件还没有被初始化，立刻调用`detectChanges`将检测已有变化并触发`ngOnInit`。
   tr
     td(style="vertical-align: top") <code>checkNoChanges</code>
     td
       :marked
         Do a change detection run to make sure there are no pending changes.
         Throws an exceptions if there are.
+
+        运行一次变化检测来确认没有待处理的变化。如果有未处理的变化，它将抛出一个错误。
   tr
     td(style="vertical-align: top") <code>isStable</code>
     td
       :marked
         Return `true` if the fixture is currently _stable_.
         Returns `false` if there are async tasks that have not completed.
+
+        如果fixture当前是**稳定的**，则返回`true`。
+        如果有异步任务没有完成，则返回`false`。
   tr
     td(style="vertical-align: top") <code>whenStable</code>
     td
       :marked
         Returns a promise that resolves when the fixture is stable.
+
+        返回一个承诺，在fixture稳定时解析。
         
         Hook that promise to resume testing after completion of asynchronous activity or 
         asynchronous change detection.
         See [above](#when-stable)
+
+        勾住这个承诺，以在异步行为或者异步变化检测之后继续测试。
+        参见[上面](#when-stable)
   tr
     td(style="vertical-align: top") <code>destroy</code>
     td
       :marked
         Trigger component destruction.
 
+        触发组件的销毁。
+
 #debug-element-details
 :marked
   ### _DebugElement_
 
+  ### _DebugElement_
+
   The `DebugElement` provides crucial insights into the component's DOM representation.
+
+  `DebugElement`提供了对组件的DOM提供了访问渠道。
 
   From the test root component's `DebugElement`, returned by `fixture.debugElement`, 
   you can walk (and query) the fixture's entire element and component sub-trees.
 
+  `fixture.debugElement`返回测试根组件的`DebugElement`，通过它你可以访问（查询）fixture的整个元素和组件子树。
+
   Here are the most useful `DebugElement` members for testers in approximate order of utility.
+
+  下面是`DebugElement`最有用的成员，以使用频率排序。
 
 table
   tr
-    th Member
-    th Description
+     th 
+      :marked
+        Members
+
+        成员
+    th 
+      :marked
+        Description
+
+        描述
   tr
     td(style="vertical-align: top") <code>nativeElement</code>
     td
       :marked
         The corresponding DOM element in the browser (null for WebWorkers).
+
+        与浏览器中DOM元素对应（WebWorkers时，值为null）。
   tr
     td(style="vertical-align: top") <code>query</code>
     td
       :marked
         Calling `query(predicate: Predicate<DebugElement>)` returns the first `DebugElement`
         that matches the [predicate](#query-predicate) at any depth in the subtree.
+
+        调用`query(predicate: Predicate<DebugElement>)`返回第一个`DebugElement`，
+        它在子树所有层中匹配[predicate](#query-predicate)。
   tr
     td(style="vertical-align: top") <code>queryAll</code>
     td
       :marked
         Calling `queryAll(predicate: Predicate<DebugElement>)` returns all `DebugElements`
         that matches the [predicate](#query-predicate) at any depth in subtree.
+
+        调用`query(predicate: Predicate<DebugElement>)`返回所有`DebugElement`，
+        它在子树所有层中匹配[predicate](#query-predicate)。
   tr
     td(style="vertical-align: top") <code>injector</code>
     td
       :marked
         The host dependency injector. 
         For example, the root element's component instance injector.
+
+        宿主依赖注入器。
+        比如，根元素的组件实例注入器。
   tr
     td(style="vertical-align: top") <code>componentInstance</code>
     td
       :marked
         The element's own component instance, if it has one.
+
+        元素自己的组件实例（如果有）。
    tr
     td(style="vertical-align: top") <code>context</code>
     td
@@ -3618,31 +3723,46 @@ table
         An object that provides parent context for this element.
         Often an ancestor component instance that governs this element.
 
+        为元素提供父级上下文的对象。
+        通常是控制该元素的祖级组件实例。
+
         When an element is repeated with in `*ngFor`, the context is an `NgForRow` whose `$implicit`
         property is the value of the row instance value. 
         For example, the `hero` in `*ngFor="let hero of heroes"`.
+
+        当一个元素被`*ngFor`重复，它的上下文为`NgForRow`，它的`$implicit`属性值是该行的实例值。
+        比如，`*ngFor="let hero of heroes"`里的`hero`。
   tr
     td(style="vertical-align: top") <code>children</code>
     td
       :marked
         The immediate `DebugElement` children. Walk the tree by descending through `children`.
 
+        `DebugElement`的直接子级。通过`children`来降序探索元素树。
+
       .l-sub-section
         :marked
           `DebugElement` also has `childNodes`, a list of `DebugNode` objects. 
           `DebugElement` derives from `DebugNode` objects and there are often 
           more nodes than elements. Testers can usually ignore plain nodes.
+
+          `DebugElement`还有`childNodes`，即`DebugNode`对象列表。
+          `DebugElement`从`DebugNode`对象衍生，而且通常节点（node）比元素多。测试者通常忽略赤裸节点。
   tr
     td(style="vertical-align: top") <code>parent</code>
     td
       :marked
         The `DebugElement` parent. Null if this is the root element.
 
+        `DebugElement`的父级。如果它是根元素，则为null。
+
   tr
     td(style="vertical-align: top") <code>name</code>
     td
       :marked
         The element tag name, if it is an element.
+
+        元素的标签名字，如果它是一个元素的话。
 
   tr
     td(style="vertical-align: top") <code>triggerEventHandler</code>
@@ -3653,8 +3773,14 @@ table
         The second parameter is the _event object_ expected by the handler.
         See [above](#trigger-event-handler).
 
+        如果在元素的`listeners`列表中有一个对应的`listener`，则以事件名字触发。
+        第二个参数是**事件对象**，一般为事件处理器。
+        参见[上面](#trigger-event-handler)。
+
         If the event lacks a listener or there's some other problem, 
         consider calling `nativeElement.dispatchEvent(eventObject)`
+
+        如果事件缺乏监听器，或者有其它问题，考虑调用`nativeElement.dispatchEvent(eventObject)`。
 
   tr
     td(style="vertical-align: top") <code>listeners</code>
@@ -3662,17 +3788,24 @@ table
       :marked
         The callbacks attached to the component's `@Output` properties and/or the element's event properties.
 
+        元素的`@Output`属性以及/或者元素的事件属性所附带的回调函数。
+
   tr
     td(style="vertical-align: top") <code>providerTokens</code>
     td
       :marked
         This component's injector lookup tokens.
         Includes the component itself plus the tokens that the component lists in its `providers` metadata.
+
+        组件注入器的查询令牌。
+        包括组件自己的令牌和组件的`providers`元数据中列出来的令牌。
   tr
     td(style="vertical-align: top") <code>source</code>
     td
       :marked
         Where to find this element in the source component template.
+
+        source是在源组件模板中查询这个元素的处所。
 
   tr
     td(style="vertical-align: top") <code>references</code>
@@ -3681,20 +3814,39 @@ table
         Dictionary of objects associated with template local variables (e.g. `#foo`),
         keyed by the local variable name.
 
+        与模板本地变量（比如`#foo`）关联的词典对象，关键字与本地变量名字配对。
+
 #query-predicate
 :marked
   The `DebugElement.query(predicate)` and `DebugElement.queryAll(predicate)` methods take a
   predicate that filters the source element's subtree for matching `DebugElement`.
 
+  `DebugElement.query(predicate)`和`DebugElement.queryAll(predicate)`方法接受一个条件方法，
+  它过滤源元素的子树，返回匹配的`DebugElement`。
+
   The predicate is any method that takes a `DebugElement` and returns a _truthy_ value.
   The following example finds all `DebugElements` with a reference to a template local variable named "content":
+
+  这个条件方法是任何接受一个`DebugElement`并返回真值的方法。
+  下面的例子查询所有拥有名为`content`的模块本地变量的所有`DebugElement`：
 +makeExample('testing/ts/app/bag/bag.spec.ts', 'custom-predicate')(format=".")
 
 :marked
   The Angular `By` class has three static methods for common predicates:
+
+  Angular的`By`类为常用条件方法提供了三个静态方法：
+
   * `By.all` - return all elements
+  
+  * `By.all` - 返回所有元素
+  
   * `By.css(selector)` - return elements with matching CSS selectors.
-  * `By.directive(directive)` - return elements that Angular matched to an instance of the directive class. 
+
+  * `By.css(selector)` - 返回符合CSS选择器的元素。
+
+  * `By.directive(directive)` - return elements that Angular matched to an instance of the directive class.
+
+  * `By.directive(directive)` - 返回Angular能匹配一个指令类实例的所有元素。
 
 +makeExample('testing/ts/app/hero/hero-list.component.spec.ts', 'by', 'app/hero/hero-list.component.spec.ts')(format=".")
 
@@ -3702,47 +3854,78 @@ table
 :marked
   Many custom application directives inject the `Renderer` and call one of its `set...` methods.
 
+  很多制定应用程序指令注入`Renderer`并调用它其中一个方法`set...`。
+
   The test environment substitutes the `DebugDomRender` for the runtime `Renderer`.
   The `DebugDomRender` updates additional dictionary properties of the `DebugElement`
   when something calls a `set...` method.
+
+  运行时的`Renderer`在测试环境中的替代品为`DebugDomRender`。
+  在调用`set...`方法时，`DebugDomRender`更新`DebugElement`额外词典属性。
  
   These dictionary properties are primarily of interest to authors of Angular DOM inspection tools
   but they may provide useful insights to testers as well.
 
+  这些词典属性主要是为Angular DOM检测工具准备的，但是它们可能对测试者提供有用的信息。
+
 table
   tr
-    th Dictionary
-    th Description
+    th 
+      :marked
+        Dictionary
+
+        词典
+    th 
+      :marked
+        Description
+
+        描述
   tr
     td(style="vertical-align: top") <code>properties</code>
     td
       :marked
         Updated by `Renderer.setElementProperty`.
         Many Angular directives call it, including `NgModel`.
+
+        被`Renderer.setElementProperty`更新。
+        很多Angular指令调用它，包括`NgModel`。
   tr
     td(style="vertical-align: top") <code>attributes</code>
     td
       :marked
         Updated by `Renderer.setElementAttribute`.
         Angular `[attribute]` bindings call it.
+
+        被`Renderer.setElementAttribute`更新。
+        Angular的`[attribute]`绑定调用它。
   tr
     td(style="vertical-align: top") <code>classes</code>
     td
       :marked
         Updated by `Renderer.setElementClass`.
         Angular `[class]` bindings call it.
+
+        被`Renderer.setElementClass`更新。
+        Angular的`[class]`绑定调用它。
   tr
     td(style="vertical-align: top") <code>styles</code>
     td
       :marked
         Updated by `Renderer.setElementStyle`.
         Angular `[style]` bindings call it.
+
+        被`Renderer.setElementStyle`更新。
+        Angular的 `[style]`绑定调用它。
 :marked
   Here's an example of `Renderer` tests from the <live-example plnkr="bag-specs">live "Specs Bag" sample</live-example>.
+
+  下面是<live-example plnkr="bag-specs">在线"Specs Bag"例子</live-example>中`Renderer`测试的例子
 
 +makeExample('testing/ts/app/bag/bag.spec.ts', 'debug-dom-renderer')(format=".")
 
 a(href="#top").to-top Back to top
+
+a(href="#top").to-top 返回顶部
 
 .l.hr
 
@@ -3750,6 +3933,8 @@ a(href="#top").to-top Back to top
   .l-main-section
   :marked
     ## FAQ: Frequently Asked Questions
+
+    ## 常见问题
 //
   :marked
     General
@@ -3788,13 +3973,34 @@ a(href="#top").to-top Back to top
 :marked
   ### Why put specs next to the things they test?
 
+  ### 为何将测试的spec配置文件放置到被测试文件的傍边？
+
   We recommend putting unit test spec files in the same folder 
   as the application source code files that they test because
+  
+  我们推荐将单元测试的spec配置文件放到与应用程序源代码文件所在的同一个文件夹中，因为：
+
   - Such tests are easy to find
+
+  - 这样的测试很容易被找到 
+
   - You see at a glance if a part of our application lacks tests.
-  - Nearby tests can reveal how a part works in context. 
+
+  - 你可以一眼看出应用程序的那些部分缺乏测试。
+
+  - Nearby tests can reveal how a part works in context.
+
+  - 临近的测试可以展示代码是如何在上下文中工作的
+
   - When you move the source (inevitable), you remember to move the test.
+
+  - 当你移动代码（无可避免）时，你记得一起移动测试
+
   - When you rename the source file (inevitable), you remember to rename the test file.
+
+  - 当你重命名源代码文件（无可避免），你记得重命名测试文件。
+
+  
 
 .l-hr
 
@@ -3802,12 +4008,23 @@ a(href="#top").to-top Back to top
 :marked
   ### When would I put specs in a test folder?
 
+  ### 什么时候我应该把测试spec文件放到测试目录中？
+
   Application integration specs can test the interactions of multiple parts
   spread across folders and modules.
   They don't really belong to part in particular so they don't have a
   natural home next to any one file.
 
+  应用程序的整合测试spec文件可以测试横跨多个目录和模块的多个部分之间的互动。
+  它们不属于任何部分，很自然，没有特别的地方存放它们。
+
   It's often better to create an appropriate folder for them in the `tests` directory.
+
+  通常，在`test`目录中为它们创建一个合适的目录比较好。
 
   Of course specs that test the test helpers belong in the `test` folder,
   next to their corresponding helper files.
+
+  当然，用来测试**测试助手对象**的测试spec文件也属于`test`目录，与它们对应的助手文件相邻。
+
+
