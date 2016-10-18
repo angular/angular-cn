@@ -575,6 +575,8 @@ figure.image-display
     attached to the `<form>` tag. Each `FormControl` is registered under the name we assigned to the `name` attribute.
     We'll talk about `NgForm` [later in this chapter](#ngForm).
 
+    在内部，Angular创建`FormControls`并将它们注册到一个`NgForm`指令，Angular将该指令附加到`<form>`标签。每个`FormControl`被注册为我们指定的`name`属性名字。[本章后面](#ngForm)讲述了`NgForm`。
+
 :marked
   Let's add similar `[(ngModel)]` bindings and `name` attributes to *Alter Ego* and *Hero Power*.
   We'll ditch the input box binding message

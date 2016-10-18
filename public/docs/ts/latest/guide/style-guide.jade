@@ -1278,37 +1278,6 @@ a(href="#toc") 回到顶部
 :marked
 
 a(href="#toc") Back to top
-
-a(href="#toc") 回到顶部
-
-
-.l-main-section
-:marked
-  ### <a id="03-05"></a>Import Destructuring Spacing
-  ### <a id="03-05"></a>导入语句解构表达式中的空格
-  #### <a href="#03-05">Style 03-05</a>
-  #### <a href="#03-05">风格03-05</a>
-
-.s-rule.do
-  :marked
-    **Do** leave one whitespace character inside of the `import` statements' curly braces when destructuring.
-
-    **坚持**解构时，在`import`声明的大括号里留一个空格字符。
-
-.s-why.s-why-last
-  :marked
-    **Why?** Whitespace makes it easier to read the imports.
-
-    **为何？**空格让import声明更易于阅读。
-
-+makeExample('style-guide/ts/03-05/app/+heroes/shared/hero.service.avoid.ts', 'example', 'app/+heroes/shared/hero.service.ts')(avoid=1)
-:marked
-
-+makeExample('style-guide/ts/03-05/app/+heroes/shared/hero.service.ts', 'example', 'app/+heroes/shared/hero.service.ts')
-:marked
-
-a(href="#toc") Back to top
-
 a(href="#toc") 回到顶部
 
 .l-main-section
@@ -1763,7 +1732,6 @@ a(href="#toc") 回到顶部
   a(href="#file-tree") 点这里查看目录和文件结构的范例
 
 a(href="#toc") Back to top
-  :marked
 
 a(href="#toc") 回到顶部
 
@@ -1804,6 +1772,8 @@ a(href="#toc") 回到顶部
 :marked
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
@@ -2198,54 +2168,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
-.l-main-section
-:marked
-  ### <a id="04-12"></a>Prefix Lazy Loaded Folders with +
-  ### <a id="04-12"></a>为惰性加载目录名字加前缀+
-  #### <a href="#04-12">Style 04-12</a>
-  #### <a href="#04-12">样式04-12</a>
-
-.s-rule.do
-  :marked
-    **Do** prefix the name of a *lazy loaded folder* with a (+) e.g., `+dashboard/`.
-
-    **坚持**使用一个(+)前缀来标记*惰性加载目录*名字，比如`+dashboard/`。
-
-.s-why
-  :marked
-    **Why?** Lazy loaded code paths are easily identifiable by their `+` prefix.
-
-    **为何？**通过`+`前缀，惰性加载的源代码可以很容易被识别。
-
-.s-why
-  :marked
-    **Why?** Lazy loaded code paths are easily distinguishable from non lazy loaded paths.
-
-    **为何？**惰性加载路径和非惰性加载的路径很容易被区分开来。
-
-.s-why.s-why-last
-  :marked
-    **Why?** If we see an `import` path that contains a `+`, we can quickly refactor to use lazy loading.
-
-    **为何？**如果看到包含`+`的`import`路径，我们能快速使用惰性加载进行重构。
-
-.example-title Lazy Loaded Folders 惰性加载目录
-.filetree
-  .file src
-  .children
-    .file app
-    .children
-      .file +dashboard
-      .children
-        .file dashboard.component.ts|html|css|spec.ts
-        .file index.ts
-:marked
-
-a(href="#toc") Back to top
-
-a(href="#toc") 回到顶部
-
 .l-main-section
 :marked
   ### <a id="04-13"></a>Lazy Loaded Folders
@@ -2296,31 +2218,6 @@ a(href="#toc") 回到顶部
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
-
-.l-main-section
-:marked
-  ### <a id="04-15"></a>Use Component Router to Lazy Load
-  ### <a id="04-15"></a>使用组件路由器来惰性加载
-  #### <a href="#04-15">Style 04-15</a>
-  #### <a href="#04-15">风格04-15</a>
-
-.s-rule.do
-  :marked
-    **Do** use the Component Router to lazy load routable features.
-
-    **坚持**使用组件路由器来惰性加载可以路由的特性。
-
-.s-why.s-why-last
-  :marked
-    **Why?** That's the easiest way to load a module on demand.
-
-    **为何？**这是最简单的按需加载模块的方法。
-
-a(href="#toc") Back to top
-
-a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -3032,6 +2929,8 @@ a(href="#toc") 回到顶部
   使用生命周期钩子来介入到Angular暴露的重要事件里。
 
 a(href="#toc") Back to top
+
+a(href="#toc") 回到顶部
 
 .l-main-section
 :marked

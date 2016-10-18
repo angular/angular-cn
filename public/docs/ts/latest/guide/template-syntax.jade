@@ -2080,12 +2080,15 @@ figure.image-display
   ### 引用一个模板引用变量
 
   We can refer to a template reference variable _anywhere_ in the current template.
+
+  我们可以在同一元素、兄弟元素或任何子元素中引用模板引用变量。
+
 .l-sub-section
   :marked
     Do not define the same variable name more than once in the same template.
     The runtime value will be unpredictable.
 
-    我们可以在同一元素、兄弟元素或任何子元素中引用模板引用变量。
+    不要在同一个模版中多次定义同一个变量名，否则运行时的值将会不可预测。 
 
 :marked
   Here are two other examples of creating and consuming a Template reference variable:
