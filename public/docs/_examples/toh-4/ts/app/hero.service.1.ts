@@ -17,7 +17,7 @@ export class HeroService {
   // #enddocregion getHeroes-stub
   */
   // #docregion full
-  getHeroes(): Hero[] {
+  getHeros(): Hero[] {
     return HEROES;
   }
   // #docregion empty-class, getHeroes-stub
