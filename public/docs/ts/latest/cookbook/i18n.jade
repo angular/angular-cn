@@ -2,63 +2,115 @@ include ../_util-fns
 
 :marked
   Angular's _internationalization_ ("_i18n_") tools help make your app available in multiple languages.
+
+  Angular的**国际化**（"_i18n_"）工具可以帮助我们使用多个语言发布应用。
   
   <a id="top"></a>
   ## Table of contents
+
+  ## 目录
     
     * [Angular and i18n template translation](#angular-i18n)
+
+    * [Angular和i18n模板翻译](#angular-i18n)
+
     * [Mark text with the _i18n_ attribute](#i18n-attribute)
+
+    * [使用_i18n_属性标记文本](#i18n-attribute)
+
     * [Create a translation source file with the _ng-xi18n_ tool](#ng-xi18n)
+
+    * [使用_ng-xi18n_工具创建翻译源文件](#ng-xi18n)
+
     * [Translate](#translate)
+
+    * [翻译](#translate)
+
     * [Merge the completed translation file into the app](#merge)
+
+    * [合并翻译完成的文件到应用中](#merge)
+
       * [JiT configuration](#jit)
+
+      * [JiT配置](#jit)
+
       * [AoT configuration](#aot)
+
+      * [AoT配置](#aot)
 
 :marked
   **Try this** <live-example name="cb-i18n">live example</live-example> of a JiT-compiled app, translated into French.
 
+  **试试** 这个翻译为法语版JiT编译应用的<live-example name="cb-i18n">在线例子</live-example>。
   
 a#angular-i18n
 .l-main-section
 :marked
   ## Angular and _i18n_ template translation
+  
+  ## Angular和_i18n_模板翻译
 
   Application internationalization is a challenging, many-faceted effort that 
   takes dedication and enduring commitment.
   Angular's _i18n_ internationalization facilities can help.
 
+  应用程序国际化很具有挑战性，多方面的努力，需要持久的奉献和决心。
+  Angular的_i18n_国际化工具可以帮助你。
+
   This page describes the _i18n_ tools to assist translation of component template text
   into multiple languages.
+
+  本章描述了_i18n_是如何协助翻译组件模板文本到多种语言的。
 
 
 .l-sub-section
   :marked
     Practitioners of _internationalization_ refer to a translatable text as a "_message_".
     This page uses the words "_text_" and "_message_" interchangably and in the combination, "_text message_".
+
+    **国际化**工作者通常将一个可翻译的文本叫作“信息”。
+    本章使用了“文本”和“信息”，它们可以互换，也可以组合“文本信息”。
   
 :marked
   The _i18n_ template translation process has four phases:
 
+  _i18n_模板翻译流程有四个阶段：  
+
   1. Mark static text messages in your component templates for translation.
+
+  1. 在组件模板中标记需要翻译的静态文本信息。
   
   1. An angular _i18n_ tool extracts the marked messages into an industry standard translation source file.
 
+  1. Angular的_i18n_工具将标记的信息提取到一个行业标准的翻译源文件。
+
   1. A translator edits that file, translating the extracted text messages into the target language, 
   and returns the file to you.
+
+  1. 翻译人员编辑该文件，翻译提取出来的文本信息到目标语言，并将该文件还给你。
 
   1. The Angular compiler imports the completed translation files, 
   replaces the original messages with translated text, and generates a new version of the application
   in the target language.
 
+  1. Angular编译器导入完成翻译的文件，使用翻译的文本替换原始信息，并生成新的目标语言版本的应用程序。
+
   You build and deploy a separate version of the application for each supported language.
+
+  你可以为每种支持的语言构建和部署单独的应用程序版本。
 
 a#i18n-attribute
 .l-main-section
 :marked
   ## Mark text with the _i18n_ attribute
   
+  ## 使用_i18n_属性标记文本
+
   The Angular `i18n` attribute is a marker for translatable content.
   Place it on every element tag whose fixed text should be translated.
+
+  Angular的`i18n`属性是可翻译内容的标记。
+  将它放到每个固定文本需要翻译的元素标签中。
 
 .alert.is-helpful
   :marked
@@ -66,23 +118,38 @@ a#i18n-attribute
     It's a custom _attribute_, recognized by Angular tools and compilers.
     It will be removed by the compiler _after_ translation.
 
+    `i18n`不是Angular指令。
+    它是一个自定义**属性**，Angular工具和编译器认识它。
+    它将在完成翻译**之后**，被编译器移除。
+
 :marked
   In the accompanying sample, an `<h1>` tag displays a simple English language greeting which you will translate to French:
+
+  在例子中，`<h1>`标签显示了一句简单的英文问候语，它将被翻译为法语：
+
 +makeExample('cb-i18n/ts/app/app.component.1.html', 'greeting', 'app/app.component.html')(format=".")
 :marked
   Add the `i18n` attribute to the tag to mark it for translation.
+
+  添加`i18n`属性到该标签上，把它标记为需要翻译的文本。
 
 +makeExample('cb-i18n/ts/app/app.component.1.html', 'i18n-attribute', 'app/app.component.html')(format=".")
 
 :marked
   The translator may need a description of the message to translate it accurately.
   Assign a description to the i18n attribute:
+
+  翻译人员可能需要待翻译文本的描述才能翻译准确。
+  为i18n属性添加描述：
   
 +makeExample('cb-i18n/ts/app/app.component.1.html', 'i18n-attribute-desc', 'app/app.component.html')(format=".")
 
 :marked
   The true _meaning_ of the text may require some application context.
   Add a contextual meaning to the assigned string, separating it from the description with the `|` character:
+
+  文本的准确**意思**可能需要一些应用上下文。
+  在制定的字符串中添加上下文含义，用`|`将其与描述文字隔开。
   
 +makeExample('cb-i18n/ts/app/app.component.html', 'i18n-attribute-meaning', 'app/app.component.html')(format=".")
 
@@ -92,22 +159,35 @@ a#i18n-attribute
   The Angular extraction tool preserves both the _meaning_ and the _description_ in the translation source file
   to facilitiate contextually-specific translations.
 
+  如果所有地方出现的文本具有**相同**含义时，它们应该有**相同**的翻译，
+  但是如果在某些地方它具有**不同含义**，那么它应该有不同的翻译。
+  Angular的提取工具在翻译源文件中保留**含义**和**描述**，以支持符合特定上下文的翻译。
+
 a#ng-xi18n
 .l-main-section
 :marked
   ## Create a translation source file with the _ng-xi18n_ tool
+
+  ## 使用_ng-xi18n_工具创建翻译源文件
   
   Use the `ng-xi18n` extraction tool to extract the `i18n`-marked texts 
   into a translation source file in an industry standard format.
+
+  使用`ng-xi18n`提取工具来将`i18n`标记的文本提取到一个符合行业标准格式的翻译源文件。
   
   This is an Angular CLI tool in the `@angular/compiler-cli` npm package.
   If you haven't already installed the CLI and its `platform-server` peer dependency, do so now:
+
+  它是在`@angular/compiler-cli` npm包中的一个Angular CLI工具。
+  如果你还没有安装这个CLI和它的 `platform-server`，安装它们：
   
 code-example(language="sh" class="code-shell").
   npm install @angular/compiler-cli @angular/platform-server --save
 
 :marked
   Open a terminal window at the root of the application project and enter the `ng-xi18n` command:
+
+  在应用的项目根目录打开一个终端窗口，并输入`ng-xi18n`命令：
  
 code-example(language="sh" class="code-shell").
   ./node_modules/.bin/ng-xi18n
@@ -116,17 +196,24 @@ code-example(language="sh" class="code-shell").
   By default the tool generates a translation file named **`messages.xlf`** in the
   <a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">XML Localisation Interchange File Format (XLIFF, version 1.2)</a>.
 
+  工具默认生成一个名为**`messages.xlf`**的翻译文件，格式为<a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">XML本地化互换文件格式(XLIFF, version 1.2)</a>。
+
 code-example(language="sh" class="code-shell").
   ./node_modules/.bin/ng-xi18n  --i18nFormat=xmb
 
 .l-sub-section
   :marked
     Windows users may have to quote the command:
+
+    Windows用户可能需要双引号这个命令：
+
   code-example(language="sh").
     "./node_modules/.bin/ng-xi18n"
   :marked
     Consider adding a convenience shortcut to the `scripts` section of the `package.json`
     to make the command easier to remember and run:
+
+    建议在`package.json`文件的`scripts`部分添加一个便利的快捷方式，让这个命令更容易被记住和运行：
   code-example(format='.').
     "scripts": {
       "i18n": "ng-xi18n", 
@@ -134,17 +221,25 @@ code-example(language="sh" class="code-shell").
     }
   :marked
     Now you can enter:
+
+    现在你只需要输入：
   code-example(language="sh" class="code-shell").
     npm run i18n
 
 :marked
   ### Other translation formats
 
+  ### 其他翻译格式
+
   You can generate a file named **`messages.xmb`** in the 
   <a href="http://cldr.unicode.org/development/development-process/design-proposals/xmb"  target="_blank">XML Message Bundle (XMB)</a> format
   by adding the `--i18nFormat=xmb` switch.
 
+  你可以通过添加`--i18nFormat=xmb`开关，来生成名为**`messages.xmb`**的翻译文件，它的格式为<a href="http://cldr.unicode.org/development/development-process/design-proposals/xmb"  target="_blank">XML信息捆绑包(XMB)</a>。
+
   This sample sticks with the _XLIFF_ format.
+
+  本例采用_XLIFF_格式。
 
 a#translate
 .l-main-section
