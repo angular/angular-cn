@@ -458,7 +458,7 @@ block routerLink
     We bind the `RouterLink` directive (another of the `RouterModule` directives) to a string
     that tells the router where to navigate when the user clicks the link.
   
-    注意，a标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个数组。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
+    注意，a标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个字符串。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
   
     Since our link is not dynamic, we define a *routing instruction* with a **one-time binding** to our route **path**.
     Looking back at the route configuration, we confirm that `'/heroes'` is the path of the route to the `HeroesComponent`.
