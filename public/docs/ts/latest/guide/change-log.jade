@@ -4,61 +4,125 @@ block includes
 :marked
   # Documentation Change Log
 
+  # 文档变更日志
+
   The Angular documentation is a living document with continuous improvements.
   This log calls attention to recent significant changes.
 
+  我们将持续不断的更新和改进Angular文档。本日志记录了近期最重要的变更。
+
   ## Sync with Angular v.2.1.0 (2016-10-12)
-  Docs and code samples updated and tested with Angular v.2.1.0 
+
+  ## 与Angular v.2.1.0同步(2016-10-12)
+  Docs and code samples updated and tested with Angular v.2.1.0
+
+  使用Angular v.2.1.0更新和测试所有文档和代码例子。 
 
   ## NEW "Ahead of Time (AoT) Compilation" cookbook (2016-10-11)
+
+  ## 添加了新的“预编译(AoT)"烹饪书(2016-10-11)
+
   The NEW [Ahead of Time (AoT) Compilation](../cookbook/aot-compiler.html) cookbook
   explains what AoT compilation is and why you'd want it.
   It demonstrates the basics with a QuickStart app
   followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
+  全新[预编译(AoT)](../cookbook/aot-compiler.html)烹饪书介绍了什么是AoT编译和为何你需要它。
+  它以**快速开始**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
+
   ## Sync with Angular v.2.0.2 (2016-10-6)
+  
+  ## 与Angular v.2.0.2同步 (2016-10-6)
+  
   Docs and code samples updated and tested with Angular v.2.0.2 
 
+  使用Angular v.2.0.2更新和测试所有文档和代码例子。 
+
   ## "Routing and Navigation" guide with the _Router Module_ (2016-10-5)
+
+  ## 在“路由和导航”向导中添加**路由模块** (2016-10-5)
+
   The [Routing and Navigation](router.html) guide now locates route configuration
   in a _Routing Module_. 
   The _Routing Module_ replaces the previous _routing object_ involving the `ModuleWithProviders`.
+
+  [Routing and Navigation](router.html)现在在**路由模块**中设置路由配置。
+  **路由模块**替换之前的**路由对象**，使用了`ModuleWithProviders`。
+
+  [Routing and Navigation](router.html)
+
+  [路由与导航](router.html)
 
   All guided samples with routing use the _Routing Module_ and prose content has been updated,
   most conspicuously in the 
   [NgModule](ngmodule.html) guide and [NgModule FAQ](../cookbook/ngmodule-faq.html) cookbook.
 
+  所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](ngmodule.html)章和[Angular模块常见问题](../cookbook/ngmodule-faq.html)烹饪书。
+
   ## New "Internationalization" Cookbook (2016-09-30)
+
+  ## 全新“国际化”烹饪书(2016-09-30)
 
   Added a new [Internationalization (i18n)](../cookbook/i18n.html) cookbook that shows how
   to use Angular "i18n" facilities to translate template text into multiple languages.
 
+  添加了新的[国际化(i18n)](../cookbook/i18n.html)烹饪书，展示了如何使用Angular的“i18n”工具来讲模板文本翻译到多种语言。
+
   ## "angular-in-memory-web-api" package rename (2016-09-27)
+
+  ## 重命名“angular-in-memory-web-api”包(2016-09-27)
 
   Many samples use the `angular-in-memory-web-api` to simulate a remote server.
   This library is also useful to you during early development before you have a server to talk to.
+
+  许多例子使用了`angular-in-memory-web-api`来模拟远程服务器。
+  这个库在你拥有服务器之前的早期开发阶段也很有用。
 
   The package name was changed from "angular2-in-memory-web-api" which is still frozen-in-time on npm.
   The new "angular-in-memory-web-api" has new features. 
   <a href="https://github.com/angular/in-memory-web-api/blob/master/README.md" target="_blank">Read about them on github</a>.
 
+  这个包的名字从“angular2-in-memory-web-api”（仍然有效，但不再更新了）重新命名了。
+  新的“angular-in-memory-web-api”有新的功能。
+  <a href="https://github.com/angular/in-memory-web-api/blob/master/README.md" target="_blank">到github获得更多详情</a>.
+
   ## "Style Guide" with _NgModules_ (2016-09-27)
 
+  ## “风格指南”中添加了_NgModules_(2016-09-27)
+
   [StyleGuide](style-guide.html) explains our recommended conventions for Angular modules (NgModule).
+
+  [StyleGuide](style-guide.html)解释了我们为Angular模块（NgModule）而推荐的约定。
+
   Barrels now are far less useful and have been removed from the style guide;
   they remain valuable but are not a matter of Angular style.
   We also relaxed the rule that discouraged use of the `@Component.host` property.
 
+  现在，封装桶不再那么重要，风格指南已经移除了它们。
+  它们仍然很有价值，但是它们与Angular风格无关。
+  我们同时对**不推荐使用`@Component.host`属性**的规则有所放宽。
+
   ## _moduleId: module.id_ everywhere (2016-09-25)
+
+  ## moduleId：到处添加module.id(2016-09-25)
 
   Sample components that get their templates or styles with `templateUrl` or `styleUrls`
   have been converted to _module-relative_ URLs.
   We added the `moduleId: module.id` property-and-value to their `@Component` metadata.
+
+  在所有使用`templateUrl`或者`styleUrls`来获取模板或样式的例子组件都被转换为**相对模块**的URL。
+  我们添加了`moduleId: module.id`到它们的`@Component`元数据。
   
   This change is a requirement for compilation with AoT compiler when the app loads
   modules with SystemJS as the samples currently do.
 
+  当应用像例子当前使用的方法一样 - 使用SystemJS加载模块时，本更新是AoT编译器的前提条件。
+
   ## "Lifecycle Hooks" guide simplified (2016-09-24)
+
+  ## 简化了“生命周期钩子”章(2016-09-24)
 
   The [Lifecycle Hooks](lifecycle-hooks.html) guide is shorter, simpler, and 
   draws more attention to the order in which Angular calls the hooks.
+
+  [生命周期钩子](lifecycle-hooks.html)章现在更加简短，并且对强调了Angular是以什么顺序来调用钩子方法的。
