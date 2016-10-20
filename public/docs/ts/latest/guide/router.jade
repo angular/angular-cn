@@ -3240,7 +3240,7 @@ h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
 :marked
   The `DialogService` (provided in the `AppModule` for app-wide use) does the asking.
 
-  `DialogService`（为了在应用级使用，已经注入到了`AppComponent`）就可以做到这些。
+  `DialogService`（为了在应用级使用，已经注入到了`AppModule`）就可以做到这些。
 
   It returns a [promise](http://exploringjs.com/es6/ch_promises.html) that
   *resolves* when the user eventually decides what to do: either
@@ -3293,7 +3293,7 @@ a#CanDeactivate
 :marked
   We also need to add the `Guard` to our main `AppRoutingModule` `providers` so the `Router` can inject it during the navigation process.
 
-  我们还要把这个`Guard`添加到主文件的`appRouterProviders`中去，以便`Router`可以在导航过程中注入它。
+  我们还要把这个`Guard`添加到`appRoutingModule`的`providers`中去，以便`Router`可以在导航过程中注入它。
   
 +makeExample('app/app-routing.module.4.ts', '', '')
 
@@ -3327,7 +3327,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 
   可以预先从服务器读取数据，这样在路由器被激活时，数据已经返回。同时，我们还需要处理数据返回失败和其它出错情况。这样，在`Crisis Center`中，对处理导航到一个无返回数据的`id`有帮助。
   我们可以将用户发回只列出有效危机的`Crisis List`。
-  直到成功获取所有必须的数据或一些行为已经发生，应用需要延迟渲染路由组件。
+  我们需要延迟渲染路由组件，来等待所有必要的数据都成功获取或做一些其他操作。
 
   We need the `Resolve` guard.
 
@@ -3575,9 +3575,8 @@ a#fragment
   Our `AdminModule` is the area of our application that would be scoped to a small set of users, so we'll take advantage
   of asynchronous routing and only load the `Admin` feature area when requested.
 
-  我们接下来在当前的项目中添加这些特征。现在已经有一系列模块将应用组织为三大块：`AppModule`, `HeroesModule` 和 `CrisisCenterModule`。
-  `CrisisCenterModule`是功能最多，尺寸最大的模块，我们将使用异步路由，实现只有在被请求时才加载`Crisis Center`特征区。
-
+  我们接下来在当前的项目中添加这些特征。现在已经有一系列模块将应用组织为四大块：`AppModule`, `HeroesModule`, `AdminModule` 和 `CrisisCenterModule`。
+  `AdminModule`在我们的应用中只被小部分用户访问, 所以我们利用异步路由来实现只有在请求时才加载`Admin`特性区域。
 :marked
   ### Lazy-Loading route configuration
 
@@ -3637,7 +3636,7 @@ a#fragment
   to break our `AdminModule` into a completely separate module. In our `app.module.ts`, we'll remove our `AdminModule` from the
   `imports` array since we'll be loading it on-demand an we'll remove the imported `AdminModule`.
 
-  我们构建了特性区，更新了路由配置来实现惰性加载，现在该做最后一步：将`CrisisCenterModule`分离到一个彻底独立的模块。因为现在按需加载`CrisisCenterModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
+  我们构建了特性区，更新了路由配置来实现惰性加载，现在该做最后一步：将`AdminModule`分离到一个彻底独立的模块。因为现在按需加载`AdminModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
 
 +makeExcerpt('app/app.module.ts (async admin module)', '')
 
