@@ -1888,7 +1888,7 @@ a(href="#top").to-top 回到顶部
   albeit at greater depth in the element tree than before.
 
   当然，创建`TestHostComponent`有创建`DashboardHeroComponent`的副作用，因为后者出现在前者的模板中。
-  英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素数比以前更深。
+  英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素树比以前更深。
   
   The tests themselves are almost identical to the stand-alone version
 
@@ -1919,8 +1919,8 @@ a(href="#top").to-top 回到顶部
   It also injects the `HeroService` but faking that is a [familiar story](#component-with-async-servic).
   The `Router` has a complicated API and is entwined with other services and application pre-conditions.
 
-  它同时还注入了`HeroService`，但是我们已经直到如何[伪造](#component-with-async-servic)它。
-  `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先觉条件。
+  它同时还注入了`HeroService`，但是我们已经知道如何[伪造](#component-with-async-servic)它。
+  `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先决条件。
 
   Fortunately, the `DashboardComponent` isn't doing much with the `Router`
 
@@ -1965,6 +1965,7 @@ a(href="#top").to-top 回到顶部
   它注入服务到测试函数，以供修改、监视和操纵。
 
   The `inject` function has two parameters
+
   `inject`函数有两个参数：
 
   1. an array of Angular dependency injection tokens
@@ -1982,7 +1983,7 @@ a(href="#top").to-top 回到顶部
     The `inject` function uses the current `TestBed` injector and can only return services provided at that level.
     It does not return services from component providers.
 
-    `inject`函数使用当前`TestBed`注入器，并且值返回这个级别提供的服务。
+    `inject`函数使用当前`TestBed`注入器，并且只返回这个级别提供的服务。
     它不会返回组件提供商提供的服务。
 
 :marked
