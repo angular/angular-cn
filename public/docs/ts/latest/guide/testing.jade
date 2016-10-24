@@ -2351,7 +2351,7 @@ a(href="#top").to-top 回到顶部
     especially when the feature module is small and mostly self-contained ... as feature modules should be.
 
     导入组件的特征模块通常是最简单的配置测试的方法，
-    尤其是当特征模块很小而且几乎只包含时...特征模块应该如此。
+    尤其是当特征模块很小而且几乎自包含时...特征模块应该是自包含的。
 :marked
 
 a(href="#top").to-top Back to top
@@ -2373,7 +2373,7 @@ a(href="#top").to-top 回到顶部
   Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
 
   在`TestBed.configureTestingModule`的`providers`中stub伪造组件的`HeroDetailService`是不可行的。
-  这些是**测试模块**的提供商，而非组件的。它们在**fixture级别**准备依赖注入器。
+  这些是**测试模块**的提供商，而非组件的。组件级别的供应商应该在**fixture级别**准备的依赖注入器。
 
   Angular creates the component with its _own_ injector which is a _child_ of the fixture injector.
   It registers the component's providers (the `HeroDetailService` in this case) with the child injector. 
@@ -2399,7 +2399,7 @@ a(href="#top").to-top 回到顶部
 
     Fortunately, the `HeroDetailService` delegates responsibility for remote data access to an injected `HeroService`.
 
-    幸运的是，`HeroDetailServ`将远程数据访问的责任交给了注入进来的`HeroService`。
+    幸运的是，`HeroDetailService`将远程数据访问的责任交给了注入进来的`HeroService`。
 
   +makeExample('testing/ts/app/hero/hero-detail.service.ts', 'prototype', 'app/hero/hero-detail.service.ts (prototype)')(format='.')
   :marked
@@ -2422,7 +2422,7 @@ a(href="#top").to-top 回到顶部
 :marked
   Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#stub-hero-detail-service).
 
-  注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为它是[没必要的](#stub-hero-detail-service)。
+  注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为已经[没有必要了](#stub-hero-detail-service)。
 
 #override-component-method
 :marked
@@ -2473,7 +2473,7 @@ code-example(format="." language="javascript").
   This example completely replaces the component's `providers` with an array containing the `StubHeroDetailService`.
   The `StubHeroDetailService` is dead simple. It doesn't need a `HeroService` (fake or otherwise).
 
-  本例彻底替换组件的`providers`为包含`StubHeroDetailService`的数组。
+  本例将组件的`providers`彻底替换为包含`StubHeroDetailService`的数组。
   `StubHeroDetailService`非常简单。它不需要`HeroService`(假不假不重要)
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'stub-hds', 'app/hero/hero-detail.component.spec.ts (StubHeroDetailService)')(format='.')
 :marked
