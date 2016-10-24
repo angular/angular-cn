@@ -1107,13 +1107,13 @@ a(href="#top").to-top 回到顶部
   down through the component tree.
 
   Angular的注入系统是层次化的。
-  可以有很多层注入器，从根`TestBed`创建的注入器下来贯穿整个组件数。  
+  可以有很多层注入器，从根`TestBed`创建的注入器下来贯穿整个组件树。  
 
   The safest way to get the injected service, the way that **_always works_**, 
   is to **get it from the injector of the _component-under-test_**.
   The component injector is a property of the fixture's `DebugElement`.
 
-  最安全的获取注入的服务和**总是有效**的方法，是**从被测试的组件的注入器获取**。
+  最安全并总是有效的获取注入服务的方法，是从被测试的组件的注入器获取。
   组件注入器是fixture的`DebugElement`的属性。
 
 +makeExample('testing/ts/app/welcome.component.spec.ts', 'injected-service', 'WelcomeComponent\'s injector')(format='.')
