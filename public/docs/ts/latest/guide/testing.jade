@@ -283,7 +283,7 @@ a(href="#top").to-top 回到顶部
   something to cure now rather than later when it becomes expensive to fix.
 
   1. 测试**暴露**设计和实现可能出现的错误。测试从很多角度为代码亮出警报灯。当应用程序很难被测试时，
-  根本原因一般都是设计缺陷，这种缺陷最好立刻将其修正，不要等到它变得很难被修复的时候才行动。
+  其根本原因一般都是设计缺陷，这种缺陷最好立刻被修正，不要等到它变得很难被修复的时候才行动。
 
   This chapter assumes that you know something about testing. Don't worry if you don't. 
   There are plenty of books and online resources to get up to speed.
@@ -751,13 +751,13 @@ a(href="#top").to-top 回到顶部
   Optional `override...` methods can fine-tune aspects of the configuration.
 
   默认配置只是测试应用的**基础**。
-  使用定义额外imports、declarations、providers和schemas的对象来调用`TestBed.configureTestingModule`，以适合你的应用程序的测试。
+  在`TestBed.configureTestingModule`中定义额外imports、declarations、providers和schemas的对象，构建适合你的应用程序的测试环境。
   可选的`override...`方法可以微调配置的各个方面。
 
   After configuring the `TestBed`, tell it to create an instance of the _component-under-test_ and the test fixture
   that you'll need to inspect and control the component's immediate environment.
 
-  `TestBed`配置完成以后，用它创建**被测试的组件**的实例和测试fixture，用来检查和控制组件周围的环境。
+  `TestBed`配置完成以后，用它创建**被测试的组件**的实例和测试fixture，我们可以用它们检查和控制组件周围的环境。
   
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-before-each', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
@@ -765,15 +765,15 @@ a(href="#top").to-top 回到顶部
   simulate user activity, tell Angular to perform specific task (such as change detection), 
   and see the effects of these actions both in the _component-under-test_ and in the test DOM.
 
-  Angular测试可以在测试DOM中与HTML互动，模拟用户行为，告诉Angular执行特定任务（比如变换检测），并在被测试的组件和测试DOM中查看这些行为的效果。
+  Angular测试可以在测试DOM中与HTML互动，模拟用户行为，让Angular执行特定任务（比如变换检测），并在被测试的组件和测试DOM中查看这些行为的效果。
 
 +makeExample('testing/ts/app/banner.component.spec.ts', 'simple-example-it', 'app/banner.component.spec.ts (simplified)')(format='.')
 :marked
   A comprehensive review of the Angular testing utilities appears [later in the chapter](#atu-apis).
   Let's dive right into Angular testing, starting with the components of a sample application.
 
-  完整的关于Angular测试工具的回顾将会在[本章后面](#atu-apis)出现。
-  让我们深入到Angular测试，以例子应用的组件开始。
+  关于Angular测试工具的完整回顾将会在[本章后面](#atu-apis)出现。
+  现在开始深入到Angular测试，让我们以例子应用的组件开始。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -788,11 +788,11 @@ a(href="#top").to-top 回到顶部
 
   This chapter tests a cut-down version of the _Tour of Heroes_ [tutorial app](../tutorial).
 
-  本章测试**简化**版本的**英雄指南**[教程应用程序](../tutorial)。
+  本章测试了**简化版本的英雄指南**[教程应用程序](../tutorial)。
   
   The following live example shows how it works and provides the complete source code.
 
-  下面的在线例子展示了它如何工作，并提供了完整的源代码。
+  下面的在线例子展示了它是如何工作的，并提供了完整的源代码。
 
 <live-example embedded img="devguide/testing/app-plunker.png"></live-example>
 <br><br>
@@ -832,12 +832,12 @@ a(href="#top").to-top 回到顶部
   it's perfect for a first encounter with the `TestBed`.
 
   `BannerComponent`有内联模板和插值表达式绑定。
-  在真实应用场景中，这个组件可能过于简单，不值得测试。但是对于第一次接触`TestBed`，它非常合适。
+  在真实应用场景中，这个组件可能过于简单，不值得测试。但是我们是第一次接触`TestBed`，所以用它非常合适。
 
   The corresponding `app/banner-component.spec.ts` sits in the same folder as the component,
   for reasons explained [here](#q-spec-file-location);
 
-  对应的`app/banner-component.spec.ts`处于与组件相同的目录，原因在[这里](#q-spec-file-location)有所解释。
+  对应的`app/banner-component.spec.ts`在与组件相同的目录，参见[这里](#q-spec-file-location)的解释。
 
   Start with ES6 import statements to get access to symbols referenced in the spec.
 
@@ -856,7 +856,7 @@ a(href="#top").to-top 回到顶部
   `TestBed.configureTestingModule` takes an `@NgModule`-like metadata object.
   This one simply declares the component to test, `BannerComponent`.
 
-  `TestBed.configureTestingModule`接受像`@NgModule`元素据的对象。
+  `TestBed.configureTestingModule`接受像`@NgModule`元数据的对象。
   这里的对象仅仅声明了要测试的组件`BannerComponent`。
   
   It lacks `imports` because (a) it extends the default testing module configuration which 
@@ -873,7 +873,7 @@ a(href="#top").to-top 回到顶部
   
   `TestBed.createComponent` creates an instance of `BannerComponent` to test and returns a [fixture](#component-fixture).
 
-  `TestBed.createComponent`创建`BannerComponent`组件的实例用来测试和返回[fixture](#component-fixture)。
+  `TestBed.createComponent`创建`BannerComponent`组件的实例，可以用来测试和返回[fixture](#component-fixture)。
 
   `TestBed.createComponent` closes the current `TestBed` instance to further configuration.
   You cannot call any more `TestBed` configuration methods, not `configureTestModule` 
@@ -919,7 +919,7 @@ a(href="#top").to-top 回到顶部
     A query predicate receives a `DebugElement` and returns `true` if the element meets the selection criteria.
 
     **predicate**是返回布尔值的函数。
-    predicate查询接受`DebugElement`，如果元素符合选择条件便返回`true`。
+    predicate查询接受`DebugElement`参数，如果元素符合选择条件便返回`true`。
     
 :marked
   The **`By`** class is an Angular testing utility that produces useful predicates. 
@@ -934,7 +934,7 @@ a(href="#top").to-top 回到顶部
   Finally, the setup assigns the DOM element from the `DebugElement` **`nativeElement`** property to `el`.
   The tests will assert that `el` contains the expected title text.
 
-  最后，这个配置指定`DebugElement`中的**`nativeElement`DOM元素到属性`el`。
+  最后，这个配置指定`DebugElement`中的**`nativeElement`**DOM元素到属性`el`。
   测试将判断`el`是否包含期待的标题文本。
 
   ### The tests
@@ -1017,8 +1017,8 @@ a(href="#top").to-top 回到顶部
 
   第二和第三个测试显示了一个重要的局限性。
   Angular测试环境**不会**知道测试改变了组件的`title`属性。
-  **自动检测**只对**异步行为**比如承诺的解析，计时器和DOM时间作出反应。
-  但是直接的组件属性值的同步更新是不会触发**自动检测**的。
+  自动检测只对异步行为比如承诺的解析、计时器和DOM时间作出反应。
+  但是直接修改组件属性值的这种同步更新是不会触发**自动检测**的。
   测试必须手动调用`fixture.detectChange()`，来触发新一轮的变化检测周期。  
 
 .alert.is-helpful
@@ -1028,7 +1028,7 @@ a(href="#top").to-top 回到顶部
     There is no harm in calling `detectChanges()` more often than is strictly necessary.
 
     与其怀疑测试工具会不会执行变化检测，本章中的例子**总是显式**调用`detectChanges()`。
-    频繁调用`detectChanges()`不理会是否真的需要是没有什么坏处的。
+    即使是在不需要的时候，频繁调用`detectChanges()`没有任何什么坏处。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -1045,7 +1045,7 @@ a(href="#top").to-top 回到顶部
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
 
-  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性知道用户的身份：
+  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性得知用户的身份：
   
 +makeExample('testing/ts/app/welcome.component.ts', '', 'app/welcome.component.ts')(format='.')
 :marked
