@@ -2078,7 +2078,7 @@ a(href="#top").to-top 回到顶部
   Stubbing the `ActivatedRoute` would follow the same pattern except for a complication:
   the `ActivatedRoute.params` is an _Observable_.
 
-  现在，你已经直到如何模拟`Router`和数据服务。
+  现在，你已经知道如何模拟`Router`和数据服务。
   模拟`ActivatedRoute`遵循类似的模式，但是有个额外枝节：`ActivatedRoute.params`是**可观察对象**。
 
 #stub-observable
@@ -2115,7 +2115,7 @@ a(href="#top").to-top 回到顶部
 
   * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
 
-  * `HeroDetailComponent`链接这个stub类的表达式到它的`params`可观察对象，该对象现在被测试者所控制。
+  * `HeroDetailComponent`链接它的表达式到这个stub类的`params`可观察对象，该对象现在被测试者的控制之下。
 
   * Setting the `testParams` property causes the `subject` to push the assigned value into `params`.
    That triggers the `HeroDetailComponent` _params_ subscription, described above, in the same way that navigation does.
@@ -2152,14 +2152,14 @@ a(href="#top").to-top 回到顶部
     The `createComponent` method and `page` object are discussed [in the next section](#page-object).
     Rely on your intuition for now.
 
-    将在[下一节](#page-object)解释`createComponent`方法和`page`对象，现在暂时跟随自己的直觉。
+    [下一节](#page-object)将解释`createComponent`方法和`page`对象，现在暂时跟着自己的直觉走。
 :marked
   When the `id` cannot be found, the component should re-route to the `HeroListComponent`.
   The test suite setup provided the same `RouterStub` [described above](#routed-component) which spies on the router without actually navigating.
   This test supplies a "bad" id and expects the component to try to navigate.
 
   当无法找到`id`时，组件应该重新导航到`HeroListComponent`。
-  该测试套件配置提供了与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
+  该测试套件配置与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
   该测试程序提供了“坏”的id，期望组件尝试导航。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-bad-id', 'app/hero/hero-detail.component.spec.ts (bad id)')(format='.')
 :marked
@@ -2167,21 +2167,21 @@ a(href="#top").to-top 回到顶部
   While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday. 
   The component should do something reasonable when there is no `id`.
 
-  虽然本应用没有导航到`HeroDetailComponent`的缺少`id`参数的路由，将来它可能会添加这样的路由。
-  当没有`id`时，该组件应该作出什么合理的反应。
+  虽然本应用没有在缺少`id`参数的时候，继续导航到`HeroDetailComponent`的路由，但是，将来它可能会添加这样的路由。
+  当没有`id`时，该组件应该作出合理的反应。
 
   In this implementation, the component should create and display a new hero.
   New heroes have `id=0` and a blank `name`. This test confirms that the component behaves as expected:
 
   在本例中，组件应该创建和显示新英雄。
-  新英雄的id为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
+  新英雄的`id`为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-no-id', 'app/hero/hero-detail.component.spec.ts (no id)')(format='.')
 :marked
 .callout.is-helpful
   :marked
     Inspect and download _all_ of the chapter's application test code with this <live-example plnkr="app-specs">live example</live-example>.
     
-    到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用测试代码。
+    到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用程序测试代码。
 
 .l-hr
 
@@ -2199,7 +2199,7 @@ figure.image-display
 :marked
   But there's already plenty of template complexity.
 
-  但是它已经有很多模板的复杂性。
+  但是它已经有很多模板复杂性。
 +makeExample('testing/ts/app/hero/hero-detail.component.html', '', 'app/hero/hero-detail.component.html')(format='.')
 :marked
   To fully exercise the component, the test needs ...
@@ -2220,11 +2220,11 @@ figure.image-display
 
   * spies on services and component methods
 
-  * spy服务和组件的方法
+  * 刺探（spy）服务和组件的方法
   
   Even a small form such as this one can produce a mess of tortured conditional setup and CSS element selection.
 
-  即使是像这样很小的表单，也能产生令人疯狂的错综复杂的条件设置和CSS元素选择。
+  即使是像这样一个很小的表单，也能产生令人疯狂的错综复杂的条件设置和CSS元素选择。
 
   Tame the madness with a `Page` class that simplifies access to component properties and encapsulates the logic that sets them.
   Here's the `Page` class for the `hero-detail.component.spec.ts`
@@ -2248,9 +2248,9 @@ figure.image-display
   There are no distractions: no waiting for promises to resolve and no searching the DOM for element values to compare.
   Here are a few more `HeroDetailComponent` tests to drive the point home.
 
-  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试程序简短和即时的。
+  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试程序简短和即时。
   没有任何干扰：无需等待承诺的解析，也没有搜索DOM元素值进行比较。
-  这里是一些更多的`HeroDetailComponent`测试程序来进一步展示这一点。
+  这里是一些更多的`HeroDetailComponent`测试程序，进一步的展示了这一点。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'selected-tests', 'app/hero/hero-detail.component.spec.ts (selected tests)')(format='.')
 
 a(href="#top").to-top Back to top
