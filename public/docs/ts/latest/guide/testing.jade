@@ -2812,19 +2812,19 @@ figure.image-display
   * `DebugElement.styles` affords access to element styles even in the absence of a real browser, thanks to the `DebugElement` abstraction.
   But feel free to exploit the `nativeElement` when that seems easier or more clear than the abstraction.
 
-  * 在缺乏浏览器时，`DebugElement.styles`提供对元素样式的访问，这要归功于`DebugElement`抽象。
-  但是，请随意使用`nativeElement`，它可能比该抽像更加容易使用、更加清晰。
+  * 在缺乏浏览器时，`DebugElement.styles`提供对元素样式的访问。
+  但是，请随便使用`nativeElement`，它可能更加容易、更加清晰。
 
   * Angular adds a directive to the injector of the element to which it is applied. 
   The test for the default color uses the injector of the 2nd `<h2>` to get its `HighlightDirective` instance
   and its `defaultColor`.
 
-  * Angular将指令到使用它的元素的注入器中。
+  * Angular将指令添加到它的元素的注入器中。
   默认颜色的测试程序使用第二个`<h2>`的注入器来获取它的`HighlightDirective`实例以及它的`defaultColor`。
   
   * `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
 
-  * `DebugElement.properties`提供了对指令设置的人工自定义属性的访问。
+  * `DebugElement.properties`提供了对指令的自定义属性的访问。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
