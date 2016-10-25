@@ -2772,7 +2772,7 @@ a(href="#top").to-top 回到顶部
   Isolated unit tests don't and therefore don't inspire confidence in the directive's efficacy.
 
   [孤立单元测试](#isolated-unit-tests)可能有用。
-  但是像这样的属性指令一般都操纵DOM。孤立单元测试不能，所以不推荐用它测试指令的功能。
+  但是像这样的属性指令一般都操纵DOM。孤立单元测试不能控制DOM，所以不推荐用它测试指令的功能。
 
   A better solution is to create an artificial test component that demonstrates all ways to apply the directive.
 
