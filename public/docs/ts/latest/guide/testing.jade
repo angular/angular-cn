@@ -2813,7 +2813,7 @@ figure.image-display
   But feel free to exploit the `nativeElement` when that seems easier or more clear than the abstraction.
 
   * 在缺乏浏览器时，`DebugElement.styles`提供对元素样式的访问。
-  但是，请随便使用`nativeElement`，它可能更加容易、更加清晰。
+  但是，请随意使用`nativeElement`，它可能更加容易、更加清晰。
 
   * Angular adds a directive to the injector of the element to which it is applied. 
   The test for the default color uses the injector of the 2nd `<h2>` to get its `HighlightDirective` instance
@@ -2839,7 +2839,7 @@ a(href="#top").to-top 回到顶部
 
   Testing applications with the help of the Angular testing utilities is the main focus of this chapter.
 
-  使用Angular测试工具测试应用程序时本章的重点。
+  使用Angular测试工具测试应用程序是本章的重点。
 
   However, it's often more productive to explore the inner logic of application classes
   with _isolated_  unit tests that don't depend upon Angular.
@@ -2849,7 +2849,7 @@ a(href="#top").to-top 回到顶部
   这种测试程序通常比较小、更易阅读、编写和维护。
 
   They don't
-  
+
   它们不会：
 
   * import from the Angular test libraries
@@ -2935,7 +2935,7 @@ a(href="#top").to-top 回到顶部
   On the other hand, why burden simple service tests with added complexity?
 
   它们有类似的行数。
-  但是，依赖Angular的版本有用更多移动部分，包括一些工具函数（`async`和`inject`).
+  但是，依赖Angular的版本有更多活动的部分，包括一些工具函数（`async`和`inject`).
   两种方法都可行，而且如果你为了某些原因使用Angular测试工具，也并没有什么问题。
   反过来，为什么要为简单的服务测试程序添加复杂度呢？
 
