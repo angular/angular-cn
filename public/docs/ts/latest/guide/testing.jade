@@ -2672,7 +2672,7 @@ a(href="#top").to-top 回到顶部
   in the presence of conditions that influence guards such as whether the user is authenticated and authorized.
   A future chapter update will explain how to write such tests with the `RouterTestingModule`.
 
-  不同的测试程序可以探索在不同条件下，比如像检查用户是否认证这样的守卫下，该应用是否和期望的那样导航。
+  不同的测试程序可以探索在不同条件下（比如像检查用户是否认证），该应用是否和期望的那样导航。
   未来本章的更新将介绍如何使用`RouterTestingModule`来编写这样的测试程序。
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -2704,7 +2704,7 @@ a(href="#top").to-top 回到顶部
   Here is a setup (with `import` statements) that demonstrates the improved simplicity of _shallow_ tests, relative to the stubbing setup.
 
   这些测试程序比较**浅**，因为它们只“深入”到你要测试的组件。
-  这里是一套配置（拥有`import`语句），演示了相比使用stub伪造的配置来说，**浅**测试程序的简单性。
+  这里是一套配置（拥有`import`语句），体现了相比使用stub伪造的配置来说，**浅**测试程序的简单性。
 +makeTabs('testing/ts/app/app.component.spec.ts, testing/ts/app/app.component.spec.ts', 
   'setup-schemas, setup-stubs-w-imports', 
   'app/app.component.spec.ts (NO_ERRORS_SCHEMA), app/app.component.spec.ts (Stubs)')(format='.')
@@ -2739,7 +2739,7 @@ a(href="#top").to-top 回到顶部
   An _attribute directive_ modifies the behavior of an element, component or another directive.
   Its name reflects the way the directive is applied: as an attribute on a host element.
 
-  **属性指令**修改元素、组件和其它指令的行为。它的名字反映了指令是如何被使用的：作为宿主元素的属性。
+  **属性指令**修改元素、组件和其它指令的行为。正如它们的名字所示，它们是作为宿主元素的属性来被使用的。
 
   The sample application's `HighlightDirective` sets the background color of an element
   based on either a data bound color or a default color (lightgray).
@@ -2747,7 +2747,7 @@ a(href="#top").to-top 回到顶部
   for no reason other than to show that it can.
 
   本例子应用的`HighlightDirective`使用数据绑定的颜色或者默认颜色来设置元素的背景色。
-  它同时设置元素的自定义属性(`customProperty`)为`true`，仅仅是显示它可以这么做，并无其它原因。
+  它同时设置元素的`customProperty`属性为`true`，这里仅仅是为了显示它能这么做而已，并无其它原因。
 +makeExample('testing/ts/app/shared/highlight.directive.ts', '', 'app/shared/highlight.directive.ts')(format='.')
 :marked
   It's used throughout the application, perhaps most simply in the `AboutComponent`:
