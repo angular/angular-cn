@@ -2530,7 +2530,7 @@ a(href="#top").to-top 回到顶部
   See why this is worth doing [below](#why-stubbed-routerlink-tests).
 
   在不涉及路由的情况下，单元测试可以确认链接的设置是否正确。
-  在[下方](#why-stubbed-routerlink-tests)了解为什么值得这么做。
+  参见[下面的内容](#why-stubbed-routerlink-tests)，了解为什么值得这么做。
 
 #stub-component
 :marked
@@ -2561,7 +2561,7 @@ a(href="#top").to-top 回到顶部
   The `RouterOutletStubComponent` (in `testing/router-stubs.ts`) is safely inert.
 
   * 真实的`RouterOutlet`很复杂而且容易出错。
-  `testing/router-stubs.ts`里的`RouterOutletStubComponent`是安全的替代。
+  `testing/router-stubs.ts`里的`RouterOutletStubComponent`是安全的替代品。
   
   The component stubs are essential. 
   Without them, the Angular compiler doesn't recognize the `<app-welcome>` and `<router-outlet>` tags 
@@ -2585,9 +2585,9 @@ a(href="#top").to-top 回到顶部
   Clicking the anchor should trigger the `onClick` method which sets the telltale `navigatedTo` property.
   Tests can inspect that property to confirm the expected _click-to-navigation_ behavior.
 
-  `host`元数据属性将宿主元素(`<a>`)click事件与指令的`onClick`方法关联起来。
+  `host`元数据属性将宿主元素(`<a>`)的click事件与指令的`onClick`方法关联起来。
   绑定到`[routerLink]`的URL属性被传递到指令的`linkParams`属性。
-  点击这个链接应该能触发`onClick`方法，设置了`navigatedTo`属性。
+  点击这个链接应该能触发`onClick`方法，从而设置`navigatedTo`属性。
   测试程序可以查看这个属性，来确认期望的**点击导航**行为。
 
 #by-directive
@@ -2604,7 +2604,7 @@ a(href="#top").to-top 回到顶部
 :marked
   Two points of special interest:
 
-  特别感兴趣的两点：
+  特别值得注意的两点：
 
   1. You can locate elements _by directive_, using `By.directive`, not just by css selectors.
 
@@ -2639,9 +2639,9 @@ a(href="#top").to-top 回到顶部
     This is a skill you may need to test a more sophisticated component, one that changes the display,
     re-calculates parameters, or re-arranges navigation options when the user clicks the link.
 
-    在本章中，它后存在的必要。
+    在本章中，它有存在的必要。
     它演示了如何在不涉及完整路由器机制的情况下，如何找到`RouterLink`元素、点击它并检查结果。
-    要测试更复杂的组件，你可能需要具备这样的能力，能改变试图和重新计算参数，或者当用户点击链接时，有能力重新安排导航选项。
+    要测试更复杂的组件，你可能需要具备这样的能力，能改变视图和重新计算参数，或者当用户点击链接时，有能力重新安排导航选项。
 
 #why-stubbed-routerlink-tests
 :marked
