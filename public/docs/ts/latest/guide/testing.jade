@@ -1888,7 +1888,7 @@ a(href="#top").to-top 回到顶部
   albeit at greater depth in the element tree than before.
 
   当然，创建`TestHostComponent`有创建`DashboardHeroComponent`的副作用，因为后者出现在前者的模板中。
-  英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素数比以前更深。
+  英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素树比以前更深。
   
   The tests themselves are almost identical to the stand-alone version
 
@@ -1919,8 +1919,8 @@ a(href="#top").to-top 回到顶部
   It also injects the `HeroService` but faking that is a [familiar story](#component-with-async-servic).
   The `Router` has a complicated API and is entwined with other services and application pre-conditions.
 
-  它同时还注入了`HeroService`，但是我们已经直到如何[伪造](#component-with-async-servic)它。
-  `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先觉条件。
+  它同时还注入了`HeroService`，但是我们已经知道如何[伪造](#component-with-async-servic)它。
+  `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先决条件。
 
   Fortunately, the `DashboardComponent` isn't doing much with the `Router`
 
@@ -1965,6 +1965,7 @@ a(href="#top").to-top 回到顶部
   它注入服务到测试函数，以供修改、监视和操纵。
 
   The `inject` function has two parameters
+
   `inject`函数有两个参数：
 
   1. an array of Angular dependency injection tokens
@@ -1982,7 +1983,7 @@ a(href="#top").to-top 回到顶部
     The `inject` function uses the current `TestBed` injector and can only return services provided at that level.
     It does not return services from component providers.
 
-    `inject`函数使用当前`TestBed`注入器，并且值返回这个级别提供的服务。
+    `inject`函数使用当前`TestBed`注入器，并且只返回这个级别提供的服务。
     它不会返回组件提供商提供的服务。
 
 :marked
@@ -2077,7 +2078,7 @@ a(href="#top").to-top 回到顶部
   Stubbing the `ActivatedRoute` would follow the same pattern except for a complication:
   the `ActivatedRoute.params` is an _Observable_.
 
-  现在，你已经直到如何模拟`Router`和数据服务。
+  现在，你已经知道如何模拟`Router`和数据服务。
   模拟`ActivatedRoute`遵循类似的模式，但是有个额外枝节：`ActivatedRoute.params`是**可观察对象**。
 
 #stub-observable
@@ -2114,7 +2115,7 @@ a(href="#top").to-top 回到顶部
 
   * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
 
-  * `HeroDetailComponent`链接这个stub类的表达式到它的`params`可观察对象，该对象现在被测试者所控制。
+  * `HeroDetailComponent`链接它的表达式到这个stub类的`params`可观察对象，该对象现在被测试者的控制之下。
 
   * Setting the `testParams` property causes the `subject` to push the assigned value into `params`.
    That triggers the `HeroDetailComponent` _params_ subscription, described above, in the same way that navigation does.
@@ -2151,14 +2152,14 @@ a(href="#top").to-top 回到顶部
     The `createComponent` method and `page` object are discussed [in the next section](#page-object).
     Rely on your intuition for now.
 
-    将在[下一节](#page-object)解释`createComponent`方法和`page`对象，现在暂时跟随自己的直觉。
+    [下一节](#page-object)将解释`createComponent`方法和`page`对象，现在暂时跟着自己的直觉走。
 :marked
   When the `id` cannot be found, the component should re-route to the `HeroListComponent`.
   The test suite setup provided the same `RouterStub` [described above](#routed-component) which spies on the router without actually navigating.
   This test supplies a "bad" id and expects the component to try to navigate.
 
   当无法找到`id`时，组件应该重新导航到`HeroListComponent`。
-  该测试套件配置提供了与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
+  该测试套件配置与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
   该测试程序提供了“坏”的id，期望组件尝试导航。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-bad-id', 'app/hero/hero-detail.component.spec.ts (bad id)')(format='.')
 :marked
@@ -2166,21 +2167,21 @@ a(href="#top").to-top 回到顶部
   While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday. 
   The component should do something reasonable when there is no `id`.
 
-  虽然本应用没有导航到`HeroDetailComponent`的缺少`id`参数的路由，将来它可能会添加这样的路由。
-  当没有`id`时，该组件应该作出什么合理的反应。
+  虽然本应用没有在缺少`id`参数的时候，继续导航到`HeroDetailComponent`的路由，但是，将来它可能会添加这样的路由。
+  当没有`id`时，该组件应该作出合理的反应。
 
   In this implementation, the component should create and display a new hero.
   New heroes have `id=0` and a blank `name`. This test confirms that the component behaves as expected:
 
   在本例中，组件应该创建和显示新英雄。
-  新英雄的id为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
+  新英雄的`id`为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'route-no-id', 'app/hero/hero-detail.component.spec.ts (no id)')(format='.')
 :marked
 .callout.is-helpful
   :marked
     Inspect and download _all_ of the chapter's application test code with this <live-example plnkr="app-specs">live example</live-example>.
     
-    到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用测试代码。
+    到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用程序测试代码。
 
 .l-hr
 
@@ -2198,7 +2199,7 @@ figure.image-display
 :marked
   But there's already plenty of template complexity.
 
-  但是它已经有很多模板的复杂性。
+  但是它已经有很多模板复杂性。
 +makeExample('testing/ts/app/hero/hero-detail.component.html', '', 'app/hero/hero-detail.component.html')(format='.')
 :marked
   To fully exercise the component, the test needs ...
@@ -2219,11 +2220,11 @@ figure.image-display
 
   * spies on services and component methods
 
-  * spy服务和组件的方法
+  * 刺探（spy）服务和组件的方法
   
   Even a small form such as this one can produce a mess of tortured conditional setup and CSS element selection.
 
-  即使是像这样很小的表单，也能产生令人疯狂的错综复杂的条件设置和CSS元素选择。
+  即使是像这样一个很小的表单，也能产生令人疯狂的错综复杂的条件设置和CSS元素选择。
 
   Tame the madness with a `Page` class that simplifies access to component properties and encapsulates the logic that sets them.
   Here's the `Page` class for the `hero-detail.component.spec.ts`
@@ -2247,9 +2248,9 @@ figure.image-display
   There are no distractions: no waiting for promises to resolve and no searching the DOM for element values to compare.
   Here are a few more `HeroDetailComponent` tests to drive the point home.
 
-  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试程序简短和即时的。
+  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试程序简短和即时。
   没有任何干扰：无需等待承诺的解析，也没有搜索DOM元素值进行比较。
-  这里是一些更多的`HeroDetailComponent`测试程序来进一步展示这一点。
+  这里是一些更多的`HeroDetailComponent`测试程序，进一步的展示了这一点。
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'selected-tests', 'app/hero/hero-detail.component.spec.ts (selected tests)')(format='.')
 
 a(href="#top").to-top Back to top
@@ -2350,7 +2351,7 @@ a(href="#top").to-top 回到顶部
     especially when the feature module is small and mostly self-contained ... as feature modules should be.
 
     导入组件的特征模块通常是最简单的配置测试的方法，
-    尤其是当特征模块很小而且几乎只包含时...特征模块应该如此。
+    尤其是当特征模块很小而且几乎自包含时...特征模块应该是自包含的。
 :marked
 
 a(href="#top").to-top Back to top
@@ -2372,7 +2373,7 @@ a(href="#top").to-top 回到顶部
   Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
 
   在`TestBed.configureTestingModule`的`providers`中stub伪造组件的`HeroDetailService`是不可行的。
-  这些是**测试模块**的提供商，而非组件的。它们在**fixture级别**准备依赖注入器。
+  这些是**测试模块**的提供商，而非组件的。组件级别的供应商应该在**fixture级别**准备的依赖注入器。
 
   Angular creates the component with its _own_ injector which is a _child_ of the fixture injector.
   It registers the component's providers (the `HeroDetailService` in this case) with the child injector. 
@@ -2398,7 +2399,7 @@ a(href="#top").to-top 回到顶部
 
     Fortunately, the `HeroDetailService` delegates responsibility for remote data access to an injected `HeroService`.
 
-    幸运的是，`HeroDetailServ`将远程数据访问的责任交给了注入进来的`HeroService`。
+    幸运的是，`HeroDetailService`将远程数据访问的责任交给了注入进来的`HeroService`。
 
   +makeExample('testing/ts/app/hero/hero-detail.service.ts', 'prototype', 'app/hero/hero-detail.service.ts (prototype)')(format='.')
   :marked
@@ -2421,7 +2422,7 @@ a(href="#top").to-top 回到顶部
 :marked
   Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#stub-hero-detail-service).
 
-  注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为它是[没必要的](#stub-hero-detail-service)。
+  注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为已经[没有必要了](#stub-hero-detail-service)。
 
 #override-component-method
 :marked
@@ -2472,7 +2473,7 @@ code-example(format="." language="javascript").
   This example completely replaces the component's `providers` with an array containing the `StubHeroDetailService`.
   The `StubHeroDetailService` is dead simple. It doesn't need a `HeroService` (fake or otherwise).
 
-  本例彻底替换组件的`providers`为包含`StubHeroDetailService`的数组。
+  本例将组件的`providers`彻底替换为包含`StubHeroDetailService`的数组。
   `StubHeroDetailService`非常简单。它不需要`HeroService`(假不假不重要)
 +makeExample('testing/ts/app/hero/hero-detail.component.spec.ts', 'stub-hds', 'app/hero/hero-detail.component.spec.ts (StubHeroDetailService)')(format='.')
 :marked
@@ -3665,16 +3666,16 @@ table
 
 table
   tr
-     th 
-      :marked
-        Members
+    th 
+     :marked
+       Members
 
-        成员
+       成员
     th 
       :marked
-        Description
+       Description
 
-        描述
+       描述
   tr
     td(style="vertical-align: top") <code>nativeElement</code>
     td
