@@ -2986,8 +2986,8 @@ a(href="#top").to-top 回到顶部
   Use the Angular testing utilities when writing tests that validate how a service interacts with components
   _within the Angular runtime environment_.
 
-  这些**孤立**单元测试技巧是一个很好的方法，用来探索服务内在逻辑、以及它与组件类简单的集成。
-  当验证一个服务在**运行时间环境下**，是如何与组件互动的测试时，使用Angular测试工具。
+  这些**孤立**单元测试技巧是一个很好的方法，用来探索服务的内在逻辑，以及它与组件类简单的集成。
+  当在**运行时间环境下**，使用Angular测试工具来验证一个服务是如何与组件互动的。
 
 #isolated-pipe-tests
 :marked
@@ -3024,7 +3024,7 @@ a(href="#top").to-top 回到顶部
 :marked
   ### Write Angular tests too
   
-  ### 也编写Angular测试
+  ### 同时也编写Angular测试
 
   These are tests of the pipe _in isolation_.
   They can't tell if the `TitleCasePipe` is working properly as applied in the application components.
@@ -3082,7 +3082,7 @@ a(href="#top").to-top 回到顶部
   This advantage is even more pronounced with complex components that 
   may require meticulous preparation with the Angular testing utilities.
 
-  孤立组件单元测试用更少的代码以及几乎不存在的配置，提供了很多测试覆盖率。
+  孤立组件单元测试使用更少的代码以及几乎不存在的配置，提供了很多测试覆盖率。
   在测试复杂的组件时，这个优势显得更加明显，因为可能需要使用Angular测试工具进行精心准备。
 
   On the other hand, isolated unit tests can't confirm that the `ButtonComp` is 
@@ -3196,7 +3196,7 @@ table
         When pending timer tasks are expected, call `discardPeriodicTasks` to flush the _task_ queue
         and avoid the error.
 
-        一般来讲，测试程序应该以无排队任务任务结束。
+        一般来讲，测试程序应该以无排队任务结束。
         当待执行计时器任务存在时，调用`discardPeriodicTasks`来触发**任务**队列，防止该错误发生。
 
   tr
@@ -3206,7 +3206,7 @@ table
         When a `fakeAsync` test ends with pending _micro-tasks_ such as unresolved promises,
         the test fails with a clear error message.
 
-        当`fakeAsync`测试程序以待执行**微任务**比如未解析的承诺结束时，测试会失败并显示明确的错误信息。
+        当`fakeAsync`测试程序以待执行**微任务**（比如未解析的承诺）结束时，测试会失败并显示明确的错误信息。
         
         In general, a test should wait for micro-tasks to finish.
         When pending microtasks are expected, call `flushMicrotasks` to flush the  _micro-task_ queue
@@ -3236,7 +3236,7 @@ table
 
         获取当前`TestBed`实例。
         通常用不上，因为`TestBed`的静态类方法已经够用。
-        `TestBed`实例有一些很少需要用到的方法，它们不是静态方法。
+        `TestBed`实例有一些很少需要用到的方法，它们没有对应的静态方法。
 
 .l-hr
 
