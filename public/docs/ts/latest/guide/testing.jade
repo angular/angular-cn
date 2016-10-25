@@ -1045,7 +1045,7 @@ a(href="#top").to-top 回到顶部
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
 
-  组件经常有服务依赖。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性得知用户的身份：
+  组件经常依赖其他服务。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性得知用户的身份：
   
 +makeExample('testing/ts/app/welcome.component.ts', '', 'app/welcome.component.ts')(format='.')
 :marked
@@ -2935,7 +2935,7 @@ a(href="#top").to-top 回到顶部
   On the other hand, why burden simple service tests with added complexity?
 
   它们有类似的行数。
-  但是，依赖Angular的版本有更多活动的部分，包括一些工具函数（`async`和`inject`).
+  但是，依赖Angular的版本有更多活动的部分，包括一些工具函数（`async`和`inject`)。
   两种方法都可行，而且如果你为了某些原因使用Angular测试工具，也并没有什么问题。
   反过来，为什么要为简单的服务测试程序添加复杂度呢？
 
