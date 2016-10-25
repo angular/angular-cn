@@ -1226,7 +1226,7 @@ a(href="#top").to-top 回到顶部
   Here is the `TwainComponent`.
 
   本例的`About`视图显示马克吐温的名言。
-  `TwainComponent`组件处理显示、委派`TwainService`向服务器发起请求。
+  `TwainComponent`组件处理视图，并委派`TwainService`向服务器发起请求。
   两者都在`app/shared`目录里，因为作者计划将来在其它页面也显示马克吐温的名言。
   下面是`TwainComponent`：
 
@@ -1256,7 +1256,7 @@ a(href="#top").to-top 回到顶部
   But instead of creating a stubbed service object, it injects the _real_ service (see the testing module `providers`) and 
   replaces the critical `getQuote` method with a Jasmine spy.
 
-  本配置与[`welcome.component.spec` setup](#welcome-spec-setup)类似。
+  本配置与[`welcome.component.spec`配置](#welcome-spec-setup)类似。
   但是与其伪造服务对象，它注入了真实的服务（参见测试模块的`providers`），并用Jasmine的`spy`替换关键的`getQuote`方法。
 
 +makeExample('testing/ts/app/shared/twain.component.spec.ts', 'spy')(format='.')
@@ -1294,7 +1294,7 @@ a(href="#top").to-top 回到顶部
   Neither test can prove that a value from the service is be displayed.
   The quote itself has not arrived, despite the fact that the spy returns a resolved promise.
   
-  两者都不能证明被显示的值是从服务的。
+  两者都不能证明被显示的值是服务提供的。
   虽然spy返回了解析的承诺，名言本身还没有到来。
   
   This test must wait at least one full turn of the JavaScript engine before the
@@ -1336,13 +1336,13 @@ a(href="#top").to-top 回到顶部
   
   Some functions called within a test (such as `fixture.whenStable`) continue to reveal their asynchronous behavior.  
   
-  在测试程序（比如`fixture.whenStable`）里面调用函数时，会继续体现它们的异步行为。
+  在测试程序（比如`fixture.whenStable`）里面调用函数时，还是体现它们的异步行为。
   
 .l-sub-section
   :marked
     The `fakeAsync` alternative, [covered below](#fake-async), removes this artifact and affords a more linear coding experience.
     
-    `fakeAsync`可选方法，[正如下面解释的](#fake-async)，移除了这个需要，提供了更加直观的代码经验。
+    `fakeAsync`可选方法，[正如下面解释的](#fake-async)，进一步移除了异步行为，提供了更加直观的代码经验。
 
 #when-stable
 :marked
@@ -1357,7 +1357,7 @@ a(href="#top").to-top 回到顶部
   This test has no direct access to the promise returned by the call to `testService.getQuote` 
   which is private and inaccessible inside `TwainComponent`.
 
-  调用`testService.getQuote`返回的承诺是是私有的，不能被`TwainComponent`访问，这个测试程序也对其无访问权。
+  调用`testService.getQuote`返回的承诺是私有的，不能在`TwainComponent`内访问，这个测试程序也对其无访问权。
 
   Fortunately, the `getQuote` promise is accessible to the _async test zone_ 
   which intercepts all promises issued within the _async_ method call.
@@ -1367,7 +1367,7 @@ a(href="#top").to-top 回到顶部
   The `ComponentFixture.whenStable` method returns its own promise which resolves when the `getQuote` promise completes.
   In fact, the _whenStable_ promise resolves when _all pending asynchronous activities within this test_ complete ... the definition of "stable".
 
-  `ComponentFixture.whenStable`方法返回它自己的承诺，它在`getQuote`承诺完成时被解析。实际上，当**所有待处理异步行为**完成时即为“stable”，在“stable”后**whenStable**承诺被解析。
+  `ComponentFixture.whenStable`方法返回它自己的承诺，它在`getQuote`承诺完成时被解析。实际上，“stable”的意思是当**所有待处理异步行为**完成时的状态，在“stable”后**whenStable**承诺被解析。
 
   Then the test resumes and kicks off another round of change detection (`fixture.detectChanges`)
   which tells Angular to update the DOM with the quote.
