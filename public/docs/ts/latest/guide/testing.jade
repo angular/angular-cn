@@ -3654,7 +3654,7 @@ table
 
   The `DebugElement` provides crucial insights into the component's DOM representation.
 
-  `DebugElement`提供了对组件的DOM提供了访问渠道。
+  `DebugElement`提供了对组件的DOM的访问。
 
   From the test root component's `DebugElement`, returned by `fixture.debugElement`, 
   you can walk (and query) the fixture's entire element and component sub-trees.
@@ -3691,8 +3691,7 @@ table
         Calling `query(predicate: Predicate<DebugElement>)` returns the first `DebugElement`
         that matches the [predicate](#query-predicate) at any depth in the subtree.
 
-        调用`query(predicate: Predicate<DebugElement>)`返回第一个`DebugElement`，
-        它在子树所有层中匹配[predicate](#query-predicate)。
+        调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中第一个匹配[predicate](#query-predicate)的`DebugElement`。
   tr
     td(style="vertical-align: top") <code>queryAll</code>
     td
@@ -3700,8 +3699,7 @@ table
         Calling `queryAll(predicate: Predicate<DebugElement>)` returns all `DebugElements`
         that matches the [predicate](#query-predicate) at any depth in subtree.
 
-        调用`query(predicate: Predicate<DebugElement>)`返回所有`DebugElement`，
-        它在子树所有层中匹配[predicate](#query-predicate)。
+        调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中所有匹配[predicate](#query-predicate)`DebugElement`。
   tr
     td(style="vertical-align: top") <code>injector</code>
     td
@@ -3756,7 +3754,7 @@ table
       :marked
         The `DebugElement` parent. Null if this is the root element.
 
-        `DebugElement`的父级。如果它是根元素，则为null。
+        `DebugElement`的父级。如果`DebugElement`是根元素，`parent`为null。
 
   tr
     td(style="vertical-align: top") <code>name</code>
@@ -4027,6 +4025,6 @@ a(href="#top").to-top 返回顶部
   Of course specs that test the test helpers belong in the `test` folder,
   next to their corresponding helper files.
 
-  当然，用来测试**测试助手对象**的测试spec文件也属于`test`目录，与它们对应的助手文件相邻。
+  当然，**测试助手对象**的测试spec文件也属于`test`目录，与它们对应的助手文件相邻。
 
 
