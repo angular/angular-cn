@@ -3687,24 +3687,43 @@ h3#can-load-guard <i>CanLoad守卫</i>: 保护特性模块的加载
 +makeExcerpt('app/app-routing.module.5.ts (can load guard)', 'can-load-guard')
 
 h3#preloading <i>Pre-Loading</i>: background loading of feature areas
+
+h3#preloading <i>预加载</i>: 在后台加载特征区域
+
 :marked
   We've learned how to load modules on-demand, but we can also take advantage of loading feature areas modules in *advance*. The *Router*
   supports **pre-loading** of asynchronous feature areas prior to navigation to their respective URL. Pre-loading allows us to to load our initial route
   quickly, while other feature modules are loaded in the background. Once we navigate to those areas, they will have already been loaded
   as if they were included in our initial bundle.
 
+  我们已经学会了如何按需加载模块，我们还可以*预先*加载特征区域。*路由器*支持在导航到特征区域URL之前，异步*预加载*它们。
+  预加载允许我们在快速加载初始路由的同时，在后台加载其他特征模块。当导航到这些区域时，它们已经被加载了，就像它们被包含在初始包中一样。
+
   Each time a **successful** navigation happens, the *Router* will look through our configuration for lazy loaded feature areas
   and react based on the provided strategy.
 
+  每次导航**成功**发生时，*路由器*将查看惰性加载的特征区域的配置，并根据提供的策略作出反应。
+
   The *Router* supports two pre-loading strategies by default:
 
+  *路由器*默认支持两种预加载策略：
+
   * No pre-loading at all which is the default. Lazy loaded feature areas are still loaded on demand.
+
+  * 完全不预加载，这是默认值。惰性加载特征区域仍然按需加载。
+
   * Pre-loading of all lazy loaded feature areas.
+
+  * 预加载所有惰性加载的特征区域。
 
   The *Router* also supports [custom preloading strategies](#custom-preloading) for fine control over which modules to pre-load.
 
+  *路由器*还支持[自定义预加载策略](#custom-preloading)，用来精细控制预加载。
+
   We'll update our *CrisisCenterModule* to be loaded lazily by default and use the `PreloadAllModules` strategy 
   to load _all_ lazy loaded modules as soon as possible.
+
+  我们将更新*CrisisCenterModule*，让它默认惰性加载并使用`PreloadAllModules`策略来尽快加载_所有_惰性加载模块。
 
 <a id="preload-canload"></a>
 .l-sub-section
@@ -3713,16 +3732,29 @@ h3#preloading <i>Pre-Loading</i>: background loading of feature areas
     The *CanLoad* guard blocks loading of feature module assets until authorized to do so. If you want to both preload a module and guard
     against unauthorized access, use the [CanActivate](#can-activate-guard) guard instead.
 
+    **PreloadAllModules**策略不会加载被[CanLoad](#can-load-guard)守卫保护的特征区域，这是因为Angular是这样设计的。
+    *CanLoad*守卫阻挡加载特征模块资源，直到授权为止。如果你希望预加载一个模块并保护未授权访问，使用[CanActivate](#can-activate-guard)守卫。
+
 :marked
   We'll update our route configuration to lazy load the *CrisisCenterModule*. We follow the same process as we did when we loaded the *AdminModule* asynchronously.
   In the *crisis-center-routing.module.ts*, we'll change the *crisis-center* path to an *empty path* route.
 
+  使用与加载异步*AdminModule*一样流程，我们将更新路由配置，来惰性加载*CrisisCenterModule*。
+  在*crisis-center-routing.module.ts*中，将*crisis-center*的路径修改为*空路径*。
+
   We'll move our redirect and *crisis-center* route to our `AppRoutingModule` routes and use the `loadChildren` string to load the *CrisisCenterModule*.
   The redirect is also changed to load the `/heroes` route on initial load.
 
+  接下来，将*redirect*和*crisis-center*路由移动到`AppRoutingModule`路由，并使用`loadChildren`字符串来加载*CrisisCenterModule*。
+  *redirect*也被修改为初始加载`/heroes`路由。
+
   Once we're finished, we'll remove the `CrisisCenterModule` from our `AppModule`'s imports.
 
+  然后将`CrisisCenterModule`移到`AppModule`的`imports`中。
+
   Here are the updated modules _before enabling preload_:
+
+  下面是打开预加载之前的模块修改版：
 
 +makeTabs(
    `router/ts/app/app.module.ts,
@@ -3741,28 +3773,46 @@ h3#preloading <i>Pre-Loading</i>: background loading of feature areas
   with this `PreloadAllModules` token. 
   This tells the built-in *Router* pre-loader to immediately load **all** [unguarded](#preload-canload) feature areas that use `loadChildren`.
 
+  `RouterModule.forRoot`方法的第二个参数接受一个附加配置选项对象。
+  我们从路由器包导入`PreloadAllModules`令牌，并将这个配置选项的`preloadingStrategy`属性设置为`PreloadAllModules`令牌。
+  这样，内置的*路由器*立刻预加载**所有**使用`loadChildren`的[未受保护](#preload-canload)的特征区域。 
+
 +makeExcerpt('app/app-routing.module.6.ts (preload all)', '')
 
 :marked
   Now when we visit `http://localhost:3000`, the `/heroes` route will load in the foreground, while the *CrisisCenterModule* and any other asynchronous feature
   modules are _eagerly_ loaded in the background, waiting for us to navigate to them.
 
+  现在，访问 `http://localhost:3000` 时，`/heroes`路由将在前台加载，同时，*CrisisCenterModule*和其他异步特征模块将在后台被_主动_加载，等待我们导航到它们。
+
 <a id="custom-preloading"></a>
 :marked
   ### Custom Pre-Loading Strategy
+
+  ### 自定义预加载策略
 
   Pre-loading all modules works well in some situations, but in some cases we need more control over what gets loaded eagerly. This becomes more clear
   as we load our application on a mobile device, or a low bandwidth connection. We may only want to preload certain feature modules based on user metrics
   or other data points we gather over time. The *Router* lets us have more control with a **custom** preloading strategy.
 
+  在一些情况下，预加载所有模块很合适。但是在另外一些用例中，我们需要选择主动加载哪些模块。在移动设备上或者网速很低的情况下加载应用显得尤其明显。
+  根据用户指标或者逐步收集的数据，我们可能只想预加载某些特征模块。*路由器*通过*自定义*预加载策略为我们提供了更多控制。
+
   We can define our own strategy the same way the **PreloadAllModules** modules strategy was provided to our *RouterModule.forRoot* configuration object.
+
+  使用将**PreloadAllModules**模块策略提供给*RouterModule.forRoot*配置对象一样方式，我们可以定义自己的策略。
 
   Since we want to take advantage of this, we'll add a custom strategy that _only_ preloads the modules we select. We'll enable the preloading by using the *Route Data*,
   which, as we learned, is an object to store arbitrary route data and and [resolve data](#resolve-guard).
 
+  因为想利用这点，我们将添加自定义策略，_只_预加载我们选择的模块。为了启用预加载，我们使用*Route Data*，正如我们学过的，它是储存的路由数据和[解析数据](#resolve-guard)对象。
+
   We'll add a custom `preload` boolean to our `crisis-center` route data that we'll use with our custom strategy. To see it in action, we'll add 
   the `route.path` to the `preloadedModules` array in our custom strategy service. We'll also log a message
   to the console for the preloaded module.
+
+  我们将自定义`preload`布尔值添加到`crisis-center`路由数据，自定义策略将使用它。然后在自定义策略服务中将`route.path`添加到`preloadedModules`数组。
+  我们还将在控制台中为预加载模块输出一条消息。
 
 +makeExcerpt('app/app-routing.module.ts (route data preload)', 'preload-v2')
 
@@ -3771,8 +3821,14 @@ h3#preloading <i>Pre-Loading</i>: background loading of feature areas
   that loads its feature module asynchronously and determines whether to preload it. The `preload` method takes two arguments, the first being the `Route` that provides
   the route configuration and a function that preloads the feature module.
 
+  为了创建自定义策略，我们将需要实现抽象类`PreloadingStrategy`和`preload`方法。在异步加载特征模块和决定是否预加载它们时，路由器调用`preload`方法。
+  `preload`方法有两个参数，第一个参数`Route`提供路由配置，第二个参数是预加载特征模块的函数。
+
   We'll name our strategy **PreloadSelectedModules** since we _only_ want to preload based on certain criteria. Our custom strategy looks for the **`preload`** boolean
   value in our `Route Data` and if its true, it calls the `load` function provided by the built-in `Router` pre-loader that eagerly loads feature modules.
+
+  我们将命名自己的策略为**PreloadSelectedModules**，因为我们**只**想加载符合特定条件的模块。
+  自定义策略在`Route Data`中查询**`preload`**布尔值，如果它为`true`，就调用内置`Router`提供的`load`函数预主动加载这些特征模块。
 
 +makeExcerpt('app/selective-preload-strategy.ts (preload selected modules)', '')
 
@@ -3780,9 +3836,15 @@ h3#preloading <i>Pre-Loading</i>: background loading of feature areas
   In order to use our custom preloading strategy, we import it into our `app-routing.module.ts` and replace the `PreloadAllModules` strategy. We also add
   the `PreloadSelectedModules` strategy to the `AppRoutingModule` providers array. This allows the *Router* pre-loader to inject our custom strategy.
 
+  要使用我们的自定义预加载策略，将它导入到`app-routing.module.ts`并替换`PreloadAllModules`策略。
+  我们还将`PreloadSelectedModules`策略添加到`AppRoutingModule`的`providers`数组中。这样，*路由器*的预加载器可以注入我们的自定义策略。
+
   To confirm our *CrisisCenterModule* is being pre-loaded, we'll display our `preloadedModules` in the `Admin` dashboard. We already know how to use
   an *ngFor* loop, so we'll skip over the details here. Since the `PreloadSelectedModules` is just a service, we can inject it into the `AdminDashboardComponent`
   and wire it up to our list.
+  
+  要确认*CrisisCenterModule*是否被预加载，我们将在`Admin`管理控制台显示`preloadedModules`。
+  我们已经知道如何使用*ngFor*循环，所以在这里跳过了一些细节。因为`PreloadSelectedModules`只是一个服务，我们可以将其注入到`AdminDashboardComponent`并连接到列表中：
 
 +makeExcerpt('app/admin/admin-dashboard.component.ts (preloaded modules)', '')
 
@@ -3790,6 +3852,8 @@ h3#preloading <i>Pre-Loading</i>: background loading of feature areas
   Once our application is loaded to our initial route, the *CrisisCenterModule* is loaded eagerly. We can verify this by logging in to the `Admin` feature area and
   noting that the `crisis-center` is listed in the `Preloaded Modules` and logged to the console. We can continue to add feature modules to be selectively loaded eagerly.
 
+  一旦应用加载到初始路由，*CrisisCenterModule*被主动加载了。要验证它，登录到`Admin`特征区域，注意`crisis-center`被列到`Preloaded Modules`并输出到控制台。
+  我们可以继续添加特征区域，以便有选择的加载它们。
 
 <a id="final-app"></a>
 
