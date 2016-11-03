@@ -68,7 +68,7 @@ block includes
   The <live-example></live-example>
   demonstrates all of the syntax and code snippets described in this chapter.
 p.
-  这个#[+liveExampleLink2('在线例子')]演示了本章中描述的所有语法和代码片段。
+  这个<live-example>在线例子</live-example>演示了本章中描述的所有语法和代码片段。
 
 .l-main-section
 :marked
@@ -1034,7 +1034,7 @@ figure.image-display
   We can set the value of an attribute directly with an **attribute binding**.
 
   我们可以通过**Attribute绑定**来直接设置Attribute的值。
-  
+
 .l-sub-section
   :marked
     This is the only exception to the rule that a binding sets a target property. This is the only binding that creates and sets an attribute.
@@ -1235,7 +1235,7 @@ block style-property-name-dart-diff
 
   事件绑定语法由等号左侧带圆括号的**目标事件**，和右侧一个引号中的[模板语句](#template-statements)组成。
   下列事件绑定监听按钮的点击事件。无论什么时候，发生点击时，都会调用组件的`onSave()`方法。
-  
+
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 
 :marked
@@ -1247,7 +1247,7 @@ block style-property-name-dart-diff
   identifies the target event. In the following example, the target is the button’s click event.
 
   **圆括号中的名称** —— 比如`(click)` —— 标记出了目标事件。在下面这个例子中，目标是按钮的click事件。
-  
+
 +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
 :marked
   Some people prefer the `on-` prefix alternative, known as the **canonical form**:
@@ -1389,29 +1389,29 @@ block style-property-name-dart-diff
   这都是好事。
 
 //
-  :marked
-    ### Event bubbling and propagation [TODO: reinstate this section when it becomes true]
-    Angular invokes the event-handling statement if the event is raised by the current element or one of its child elements.
-  +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-bubbling')(format=".")
-  :marked
-    Many DOM events, both [native](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Overview_of_Events_and_Handlers ) and [custom](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events ), bubble up their ancestor tree of DOM elements until an event handler along the way prevents further propagation.
+:marked
+### Event bubbling and propagation [TODO: reinstate this section when it becomes true]
+Angular invokes the event-handling statement if the event is raised by the current element or one of its child elements.
++makeExample('template-syntax/ts/app/app.component.html', 'event-binding-bubbling')(format=".")
+:marked
+Many DOM events, both [native](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Overview_of_Events_and_Handlers ) and [custom](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events ), bubble up their ancestor tree of DOM elements until an event handler along the way prevents further propagation.
 
   .l-sub-section
-    :marked
-      `EventEmitter` events don’t bubble.
+:marked
+  `EventEmitter` events don’t bubble.
 
   :marked
-    The result of an event binding statement determines whether
-    [event propagation](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Examples#Example_5:_Event_Propagation)
-    continues or stops with the current element.
+  The result of an event binding statement determines whether
+  [event propagation](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Examples#Example_5:_Event_Propagation)
+  continues or stops with the current element.
 
-    Event propagation stops if the binding statement returns a falsey value (as does a method with no return value).
-    Clicking the button in the next example triggers a save;
-    the click doesn't make it to the outer `<div>` so the div's save handler is not called.
+  Event propagation stops if the binding statement returns a falsey value (as does a method with no return value).
+  Clicking the button in the next example triggers a save;
+  the click doesn't make it to the outer `<div>` so the div's save handler is not called.
   +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-no-propagation')(format=".")
   :marked
-    Propagation continues if the statement returns a truthy value. In the next example, the click is heard by both the button
-    and the outer `<div>`, causing a double save.
+  Propagation continues if the statement returns a truthy value. In the next example, the click is heard by both the button
+  and the outer `<div>`, causing a double save.
   +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-propagation')(format=".")
 
 #two-way
@@ -1557,7 +1557,7 @@ a#ngModel
 
   下面是实际操作中的所有变体形式，包括这个大写版本：
 figure.image-display
-    img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
+  img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
 
 .l-main-section
 :marked
@@ -1871,9 +1871,9 @@ block dart-no-truthy-falsey
 
 .alert.is-critical
   :marked
-     A template input variable is **not** the same as a [template reference variable](#ref-vars)!
+    A template input variable is **not** the same as a [template reference variable](#ref-vars)!
 
-     模板输入变量和[模板引用变量](#ref-vars)**不是**一回事！
+    模板输入变量和[模板引用变量](#ref-vars)**不是**一回事！
 
 :marked
   We use this variable within the template to access a hero’s properties,
@@ -1935,7 +1935,7 @@ block dart-no-truthy-falsey
   Now set the `NgForTrackBy` directive to that *tracking* function.
 
   现在，把`NgForTrackBy`指令设置为那个*追踪*函数。
-  
+
 +makeExample('template-syntax/ts/app/app.component.html', 'NgForTrackBy-2')(format=".")
 
 :marked
@@ -2055,9 +2055,9 @@ block remember-the-brackets
   
   上面这种情况下，它管理两组`NgSwitchCase`和`NgSwitchDefault`指令，一次是(*)前缀的版本，一次是展开模板后的版本。
   我们也期待它显示所选模板的值两次。这正是我们在这个例子中看到的：
-  
+
 figure.image-display
-    img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
+  img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
 :marked
   ### Expanding `*ngFor`
   ### 展开`*ngFor`
@@ -2297,7 +2297,7 @@ figure.image-display
 
   _输入_和_输出_这两个词是从目标指令的视角来说的。
 figure.image-display
-    img(src='/resources/images/devguide/template-syntax/input-output.png' alt="输入和输出")
+  img(src='/resources/images/devguide/template-syntax/input-output.png' alt="输入和输出")
 :marked
   `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`
   because data flows *into* that property from a template binding expression.

@@ -29,7 +29,7 @@ block includes
 
   Run the <live-example></live-example> for this part.
 
-p 运行这部分的#[+liveExampleLink2('在线例子', 'toh-6')]。
+p 运行这部分的<live-example>在线例子</live-example>。
 
 .l-main-section
 :marked
@@ -140,7 +140,7 @@ block http-providers
   Here is a version of <span ngio-ex>!{_appModuleTsVsMainTs}</span> that performs this trick
   
   这个版本的<span ngio-ex>!{_appModuleTsVsMainTs}</span>就是用来实现这个小花招的：
-  
+
 +makeExcerpt(_appModuleTsVsMainTs, 'v2')
 
 block backend
@@ -152,7 +152,7 @@ block backend
     
     导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
     `InMemoryWebApiModule`将`Http`客户端默认的后端服务（这是一个辅助服务，负责与远程服务器对话）替换成了*内存Web API*服务：
-    
+
   +makeExcerpt(_appModuleTsVsMainTs, 'in-mem-web-api', '')
 
   :marked
@@ -245,9 +245,9 @@ block get-heroes-details
     converting that `Observable` to a `Promise` using the `toPromise` operator.
 
     *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
-    
+
   +makeExcerpt('app/hero.service.ts', 'to-promise', '')
-  
+
   :marked
     Unfortunately, the Angular `Observable` doesn't have a `toPromise` operator ...
     not out of the box.
@@ -263,7 +263,7 @@ block get-heroes-details
     有一大票像`toPromise`这样的操作符，会扩展`Observable`，为其添加有用的能力。
     如果我们希望得到那些能力，就得自己添加那些操作符。
     那很容易，只要从RxJS库中导入它们就可以了，就像这样：
-    
+
   +makeExcerpt('app/hero.service.ts', 'rxjs', '')
 
   :marked
@@ -369,7 +369,7 @@ block get-heroes-details
   
   我们已经可以在英雄详情中编辑英雄的名字了。来试试吧。在输入的时候，页头上的英雄名字也会随之更新。
   不过当我们点了后退按钮时，这些更新就丢失了。
-  
+
 .l-sub-section
   :marked
     Updates weren't lost before, what's happening?
@@ -464,14 +464,14 @@ block get-heroes-details
   Finally, we implement the `create` method in the `HeroService` class.
   
   最后，我们在`HeroService`类中实现这个`create`方法。
-  
+
 +makeExcerpt('app/hero.service.ts', 'create')
 
 :marked
   Refresh the browser and create some new heroes!
 
   刷新浏览器，并创建一些新的英雄！
-  
+
 .l-main-section
 :marked
   ## Delete a hero
@@ -636,14 +636,14 @@ block observables-section-intro
   The component template is simple &mdash; just a text box and a list of matching search results.
 
   组件模板很简单，就是一个输入框和一个相匹配的搜索结果列表。
-  
+
 +makeExample('app/hero-search.component.html')
 
 :marked
   We'll also want to add styles for the new component.
   
   我们还要往这个新组件中添加样式。
-  
+
 +makeExample('app/hero-search.component.css')
 
 :marked
@@ -666,7 +666,7 @@ block observables-section-intro
   Time to create the `HeroSearchComponent` class and metadata.
   
   该创建`HeroSearchComponent`类及其元数据了。
-  
+
 +makeExample('app/hero-search.component.ts')
 
 :marked
@@ -677,7 +677,7 @@ block observables-section-intro
   Let's focus on the `!{_priv}searchTerms`:
   
   仔细看下这个`searchTerms`：
-  
+
 +makeExcerpt('app/hero-search.component.ts', 'searchTerms', '')
 
 block search-criteria-intro
@@ -691,7 +691,7 @@ block search-criteria-intro
     Each call to `search` puts a new string into this subject's _observable_ stream by calling `next`.
     
     每当调用`search`时都会调用`next`来把新的字符串放进该主体的_可观察_流中。
-    
+
 :marked
   <a id="ngoninit"></a>
   #### Initialize the _**heroes**_ property (_**ngOnInit**_)
@@ -769,7 +769,7 @@ block observable-transformers
       
       注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的HTTP请求，除非有一天我们支持了这个特性，这个问题我们以后再讨论。
       目前我们的做法只是丢弃不希望的结果。
-      
+
   :marked
     * `catch` intercepts a failed observable.
     Our simple example prints the error to the console; a real life application should do better.
@@ -797,7 +797,7 @@ block observable-transformers
       Many authorities say we should do just that.
       
       有很多权威人士建议我们这样做。
-      
+
   :marked
     We take a different approach in this example.
     We combine all of the RxJS `Observable` extensions that _our entire app_ requires into a single RxJS imports file.
@@ -833,7 +833,7 @@ block observable-transformers
   and add it to the `!{_declarations}` !{_array}:
   
   最后，从<span ngio-ex>hero-search.component.ts</span>中导入`HeroSearchComponent`并将其添加到`declarations`数组中。
-  
+
 +makeExcerpt(declFile, 'search')
 
 :marked
@@ -933,37 +933,37 @@ block filetree
 
 block file-summary
   +makeTabs(
-    `toh-6/ts/app/app.component.ts,
-     toh-6/ts/app/app.module.ts,
-     toh-6/ts/app/heroes.component.ts,
-     toh-6/ts/app/heroes.component.html,
-     toh-6/ts/app/heroes.component.css,
-     toh-6/ts/app/hero-detail.component.ts,
-     toh-6/ts/app/hero-detail.component.html,
-     toh-6/ts/app/hero.service.ts,
-     toh-6/ts/app/in-memory-data.service.ts`,
-    ',,,,,,,,',
-    `app.comp...ts,
-     app.mod...ts,
-     heroes.comp...ts,
-     heroes.comp...html,
-     heroes.comp...css,
-     hero-detail.comp...ts,
-     hero-detail.comp...html,
-     hero.service.ts,
-     in-memory-data.service.ts`
+  `toh-6/ts/app/app.component.ts,
+  toh - 6 / ts / app / app.module.ts,
+  toh - 6 / ts / app / heroes.component.ts,
+  toh - 6 / ts / app / heroes.component.html,
+  toh - 6 / ts / app / heroes.component.css,
+  toh - 6 / ts / app / hero - detail.component.ts,
+  toh - 6 / ts / app / hero - detail.component.html,
+  toh - 6 / ts / app / hero.service.ts,
+  toh - 6 / ts / app / in -memory - data.service.ts`,
+  ',,,,,,,,',
+  `app.comp...ts,
+  app.mod...ts,
+  heroes.comp...ts,
+  heroes.comp...html,
+  heroes.comp...css,
+  hero - detail.comp...ts,
+  hero - detail.comp...html,
+  hero.service.ts,
+  in-memory-data.service.ts`
   )
 
   +makeTabs(
-    `toh-6/ts/app/hero-search.service.ts,
-    toh-6/ts/app/hero-search.component.ts,
-    toh-6/ts/app/hero-search.component.html,
-    toh-6/ts/app/hero-search.component.css,
-    toh-6/ts/app/rxjs-extensions.ts`,
-    null,
-    `hero-search.service.ts,
-    hero-search.component.ts,
-    hero-search.component.html,
-    hero-search.component.css,
-    rxjs-extensions.ts`
+  `toh-6/ts/app/hero-search.service.ts,
+  toh - 6 / ts / app / hero - search.component.ts,
+  toh - 6 / ts / app / hero - search.component.html,
+  toh - 6 / ts / app / hero - search.component.css,
+  toh - 6 / ts / app / rxjs - extensions.ts`,
+  null,
+  `hero-search.service.ts,
+  hero - search.component.ts,
+  hero - search.component.html,
+  hero - search.component.css,
+  rxjs - extensions.ts`
   )

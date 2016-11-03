@@ -148,7 +148,7 @@ block includes
   当我们点击按钮的时候，显示的日志会在"**<samp>04/15/1988</samp>**"和"**<samp>Friday, April 15, 1988</samp>**"之间切换。
 
 figure.image-display
-    img(src='/resources/images/devguide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle")
+  img(src='/resources/images/devguide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle")
 :marked
 
 .l-sub-section
@@ -243,7 +243,7 @@ figure.image-display
   现在，我们需要一个组件来演示这个管道。
 +makeExample('pipes/ts/app/power-booster.component.ts',null,'app/power-booster.component.ts')(format='.')
 figure.image-display
-    img(src='/resources/images/devguide/pipes/power-booster.png' alt="Power Booster")
+  img(src='/resources/images/devguide/pipes/power-booster.png' alt="Power Booster")
 
 :marked
   Two things to note:
@@ -261,7 +261,7 @@ figure.image-display
   header Remember the declarations #{_array}!
 
   header 别忘了declarations数组！
-  
+
   :marked
     Angular reports an error if we neglect to list our custom pipe.
     We didn't list the `DatePipe` in our previous example because all
@@ -292,7 +292,7 @@ figure.image-display
 +makeExample('pipes/ts/app/power-boost-calculator.component.ts', null, '/app/power-boost-calculator.component.ts')(format='.')
 
 figure.image-display
-    img(src='/resources/images/devguide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator")
+  img(src='/resources/images/devguide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator")
 
 .l-main-section
 a#change-detection
@@ -392,7 +392,7 @@ a#change-detection
   这个*飞行英雄*的例子用检查框和其它显示内容扩展了原有代码，来帮我们体验这些效果。
 
 figure.image-display
-    img(src='/resources/images/devguide/pipes/flying-heroes-anim.gif' alt="Flying Heroes")
+  img(src='/resources/images/devguide/pipes/flying-heroes-anim.gif' alt="Flying Heroes")
 
 :marked
   Replacing the #{_array} is an efficient way to signal to Angular that it should update the display.
@@ -510,9 +510,9 @@ block pure-change
   我们把`FlyingHeroesPipe`换成了`FlyingHeroesImpurePipe`。
   下面是完整的实现：
 +makeTabs(
-  'pipes/ts/app/flying-heroes.pipe.ts, pipes/ts/app/flying-heroes.pipe.ts',
-  'impure, pure',
-  'FlyingHeroesImpurePipe, FlyingHeroesPipe')(format='.')
+'pipes/ts/app/flying-heroes.pipe.ts, pipes/ts/app/flying-heroes.pipe.ts',
+'impure, pure',
+'FlyingHeroesImpurePipe, FlyingHeroesPipe')(format='.')
 
 :marked
   We inherit from `FlyingHeroesPipe` to prove the point that nothing changed internally.
@@ -541,7 +541,7 @@ block pure-change
 
 p.
   唯一的重大改动就是管道。
-  我们可以在#[+liveExampleLink('在线例子')]中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
+  我们可以在<live-example>在线例子</live-example>中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
 
 - var _dollar = _docsFor === 'ts' ? '$' : '';
 h3#async-pipe The impure #[i AsyncPipe]
@@ -626,7 +626,7 @@ h3#async-pipe 非纯管道#[i AsyncPipe]
   组件渲染起来是这样的：
 
 figure.image-display
-    img(src='/resources/images/devguide/pipes/hero-list.png' alt="Hero List")
+  img(src='/resources/images/devguide/pipes/hero-list.png' alt="Hero List")
 
 :marked
   ### *JsonPipe*
@@ -741,8 +741,8 @@ a(id="no-filter-pipe")
 
   虽然不是很明显，但代码最小化方面也存在风险。想象一个用于英雄列表的排序管道。我们可能根据英雄原始属性中的`name`和`planet`进行排序，就像这样：
 code-example(language="html")
-  &lt;!-- NOT REAL CODE! -->
-  &lt;div *ngFor="let hero of heroes | orderBy:'name,planet'">&lt;/div>
+&lt;!-- NOT REAL CODE! -->
+&lt;div *ngFor="let hero of heroes | orderBy:'name,planet'">&lt;/div>
 :marked
   We identify the sort fields by text strings, expecting the pipe to reference a property value by indexing
   (e.g., `hero['name']`).
