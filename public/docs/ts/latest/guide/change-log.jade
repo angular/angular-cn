@@ -12,36 +12,70 @@ block includes
   我们将持续不断的更新和改进Angular文档。本日志记录了近期最重要的变更。
 
   ## Sync with Angular v.2.1.1 (2016-10-21)
+
+  ## 与Angular v.2.1.1 同步(2016-10-21)
+  
   Docs and code samples updated and tested with Angular v.2.1.0 
+  
+  使用Angular v.2.1.1更新和测试所有文档和代码例子。 
 
   ## npm _@types_ packages replace _typings_ (2016-10-20)
+
+  ## 使用npm的_@types_包替换_typings_ (2016-10-20)
+
   Documentation samples now get TypeScript type information for 3rd party libraries
   from npm `@types` packages rather than with the _typings_ tooling.
   The `typings.json` file is gone.
+  
+  文档例子现在从npm的`@types`第三方库获取TypeScript类型信息，不再使用_typings_。
+  删除`typings.json`文件。
 
   The "[Angular 1 Upgrade](upgrade.html)" guide reflects this change.
   The `package.json` installs `@types/angular` and several `@types/angular-...`
   packages in support of upgrade; these are not needed for pure Angular 2 development.
+  
+  "[从1.x升级](upgrade.html)"指南反映了这个变化。
+  `package.json`安装`@types/angular`和一些`@types/angular-...`包来支持升级。它们在纯Angular 2开发中是不需要的。
 
   ## "Template Syntax" explains two-way data binding syntax (2016-10-20)
+
+  ## "模板语法"添加了双向数据绑定语法的解释(2016-10-20)
+  
   Demonstrates how to two-way data bind to a custom Angular component and
   re-explains `[(ngModel)]` in terms of the basic `[()]` syntax.
+  
+  展示了如何在自定义Angular组件中双向数据绑定，用基础`[()]`重新解释`[(ngModel)]`。
 
   ## BREAKING CHANGE: `in-memory-web-api` (v.0.1.11) delivered as esm umd (2016-10-19)
+  
+  ## 破坏性变化：`in-memory-web-api` (v.0.1.11) 以esm umd的形式发布 (2016-10-19)
+  
   This change supports ES6 developers and aligns better with typical Angular libraries.
   It does not affect the module's API but it does affect how you load and import it.
   See the <a href="https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20" target="_blank">change note</a>
   in the `in-memory-web-api` repo.
+  
+  这个变化支持ES6开发者，并与典型的Angular库看齐。
+  它不会影响模块的API，但是它改变了加载和导入它的方式。
+  参见`in-memory-web-api`库的<a href="https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20" target="_blank">变更记录</a>。
 
   ## "Router" _preload_ syntax and _:enter_/_:leave_ animations (2016-10-19)
+  
+  ## "路由器"_预加载_语法和_:enter_/_:leave_动画(2016-10-19)
+  
   The router can lazily _preload_ modules _after_ the app starts and
   _before_ the user navigates to them for improved perceived performance.
   
+  路由器可以在应用启动_之后_和用户导航到惰性加载模块_之前_，预先加载惰性模块，以增强性能。
+  
   New `:enter` and `:leave` aliases make animation more natural. 
+  
+  新`:enter`和`:leave`语法，让动画更加自然。
 
   ## Sync with Angular v.2.1.0 (2016-10-12)
 
   ## 与Angular v.2.1.0同步(2016-10-12)
+  
   Docs and code samples updated and tested with Angular v.2.1.0
 
   使用Angular v.2.1.0更新和测试所有文档和代码例子。 
