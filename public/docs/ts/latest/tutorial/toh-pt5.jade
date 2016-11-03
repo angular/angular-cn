@@ -90,13 +90,11 @@ block intro-file-tree
         .file main.ts
         .file mock-heroes.ts
       .file node_modules ...
-      .file typings ...
       .file index.html
       .file package.json
       .file styles.css
       .file systemjs.config.js
       .file tsconfig.json
-      .file typings.json
 
 block keep-app-running
   :marked
@@ -594,7 +592,7 @@ block redirect-vs-use-as-default
 
 .l-sub-section
   :marked
-    We nestled the two links within `<nav>` tags.
+    We nested the two links within `<nav>` tags.
     They don't do anything yet but they'll be convenient when we style the links a little later in the chapter.
 
     我们在`<nav>`标签中放了两个链接。
@@ -969,10 +967,13 @@ block extract-id
 +makeExcerpt('app/hero-detail.component.html', 'back-button', '')
 
 :marked
-  Modifing the template to add this button spurs us to take one more incremental improvement and migrate the template to its own file
-  called <span ngio-ex>hero-detail.component.html</span>
+  Modifying the template to add this button spurs us to take one more
+  incremental improvement and migrate the template to its own file,
+  called <span ngio-ex>hero-detail.component.html</span>:
 
-  修改模板，添加这个按钮以提醒我们还要做更多的改进，并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
+  修改模板，添加这个按钮以提醒我们还要做更多的改进，
+  并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
+  
 
 +makeExample('app/hero-detail.component.html')
 
@@ -1092,7 +1093,7 @@ block extract-id
   What kind of class? 
   The current `RouterModule.forRoot()` produces an Angular `ModuleWithProviders` which suggests that a
   class dedicated to routing should be some kind of module.
-  It should be a [_Routing Module_](../guide/router.htm#routing-module).
+  It should be a [_Routing Module_](../guide/router.html#routing-module).
 
   我们应该重构路由配置到它自己的类。
   什么样的类呢？
@@ -1527,13 +1528,11 @@ block file-tree-end
         .file main.ts
         .file mock-heroes.ts
       .file node_modules ...
-      .file typings ...
       .file index.html
       .file package.json
       .file styles.css
       .file systemjs.config.js
       .file tsconfig.json
-      .file typings.json
 
 .l-main-section
 :marked

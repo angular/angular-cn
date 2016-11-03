@@ -50,7 +50,7 @@ var _rxData = [
   {
     pattern: 'script',
     from: 'node_modules/reflect-metadata/Reflect.js',
-    to:   'https://unpkg.com/reflect-metadata@0.1.3'
+    to:   'https://unpkg.com/reflect-metadata@0.1.8'
   },
   {
     pattern: 'script',
@@ -60,7 +60,7 @@ var _rxData = [
   {
     pattern: 'script',
     from: 'node_modules/systemjs/dist/system.src.js',
-    to:   'https://unpkg.com/systemjs@0.19.27/dist/system.src.js'
+    to:   'https://unpkg.com/systemjs@0.19.39/dist/system.src.js'
   },
   {
     pattern: 'script',
@@ -71,6 +71,8 @@ var _rxData = [
   // Test libraries
 
   // Plunker recommends getting jasmine from cloudfare
+  // Don't upgrade to 2.5.x until following issue resolved
+  // https://github.com/jasmine/jasmine/issues/1231
   {
     pattern: 'script',
     from: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.js',
@@ -90,14 +92,6 @@ var _rxData = [
     pattern: 'link',
     from: 'node_modules/jasmine-core/lib/jasmine-core/jasmine.css',
     to:   'https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.css'
-  },
-
-
-  {
-    pattern: 'link',
-    from: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
-    // Official source per http://getbootstrap.com/getting-started/
-    to:   'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
   },
   {
     pattern: 'angular_pkg',

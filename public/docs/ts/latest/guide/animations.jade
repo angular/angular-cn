@@ -293,6 +293,16 @@ figure
   注意，在这个例子中，这些样式在转场定义中被直接应用到了`void`状态，但并没有一个单独的`state(void)`定义。
   这么做是因为希望在进场与离场时使用不一样的转换效果：元素从左侧进场，从右侧离开。
 
+.l-sub-section
+  :marked
+    These two common animations have their own aliases:
+    
+    这两个常见的动画有自己的别名：
+  code-example(language="typescript").
+    transition(':enter', [ ... ]); // void => *
+    transition(':leave', [ ... ]); // * => void
+
+:marked
   ## Example: Entering and leaving from different states
 
   ## 范例：从不同的状态下进场和离场

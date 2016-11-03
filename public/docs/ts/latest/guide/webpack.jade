@@ -197,14 +197,14 @@ a(id="loaders")
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'imports')(format=".")
 
 :marked
-  ... it applies the `test` RegEx patterns. When a pattern matches the filename, Webpack processes the file with the associated loader.
+  ... it applies the `test` RegEx patterns. When a pattern matches the filename, Webpack processes the file with the associated loader. 
 
   ……它会使用`test`后面的正则表达式进行模式匹配。如果一个模式匹配上文件名，Webpack就用它所关联的加载器处理这个文件。
 
-  The first `import` file matches the `.ts` pattern so Webpack processes it with the `ts` (TypeScript) loader.
-  The imported file doesn't match the second pattern so its loader is ignored.
-
-  第一个`import`文件匹配上了`.ts`模式，于是Webpack就用`ts`(TypeScript)加载器处理它。
+  The first `import` file matches the `.ts` pattern so Webpack processes it with the `awesome-typescript-loader`.
+  The imported file doesn't match the second pattern so its loader is ignored. 
+  
+  第一个`import`文件匹配上了`.ts`模式，于是Webpack就用`awesome-typescript-loader`加载器处理它。
   导入的文件没有匹配上第二个模式，于是它的加载器就被忽略了。
 
   The second `import` matches the second `.css` pattern for which we have *two* loaders chained by the (!) character.
@@ -260,14 +260,12 @@ code-example(format="").
 
 +makeTabs(
   `webpack/ts/package.webpack.json,
-  webpack/ts/typings.1.json,
   webpack/ts/tsconfig.1.json,
   webpack/ts/webpack.config.js,
   webpack/ts/karma.webpack.conf.js,
   webpack/ts/config/helpers.js`,
   null,
   `package.json,
-  typings.json,
   tsconfig.json,
   webpack.config.js,
   karma.conf.js,
@@ -285,10 +283,11 @@ code-example(format="").
     要了解`package.json`，请到[npm包](../guide/npm-packages.html)一章。
     除了那一章列出的包之外，我们还需要用到Webpack的包。
 
-    Learn about `tsconfig.json` and `typings.json` in the [Typescript configuration](../guide/typescript-configuration.html) chapter.
+    Learn about `tsconfig.json` in the [Typescript configuration](../guide/typescript-configuration.html) chapter.
 
-    要了解`tsconfig.json`和`typings.json`，请到[Typescript配置](../guide/typescript-configuration.html)一章。
-
+    要了解`tsconfig.json`，参见[Typescript配置](../guide/typescript-configuration.html)一章。
+    
+    
 :marked
   Open a terminal/console window and install the *npm* packages with `npm install`.
 
@@ -389,8 +388,9 @@ a(id="common-configuration")
 +makeExample('webpack/ts/config/webpack.common.js', 'loaders', 'config/webpack.common.js')(format=".")
 
 :marked
-  * ts - a loader to transpile our Typescript code to ES5, guided by the `tsconfig.json` file
-  * ts - 一个用于把TypeScript代码转译成ES5的加载器，它会由`tsconfig.json`文件提供指导
+  * awesome-typescript-loader - a loader to transpile our Typescript code to ES5, guided by the `tsconfig.json` file
+  * awesome-typescript-loader - 一个用于把TypeScript代码转译成ES5的加载器，它会由`tsconfig.json`文件提供指导
+  
   * angular2-template-loader - loads angular components' template and styles
   * angular2-template-loader - 用于加载Angular组件的模板和样式
   * html - for component templates

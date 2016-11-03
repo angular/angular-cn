@@ -159,6 +159,14 @@ include ../_util-fns
   
   * [异步](#asynchronous-routing)加载特性分区
   
+  * pre-loading feature areas [during navigation](#preloading)
+  
+  * [在导航时](#preloading)预加载特性分区
+  
+  * using a [custom strategy](#custom-preloading) to only pre-load certain features
+  
+  * 使用[自定义策略](#custom-preloading)来只预加载指定分区
+  
   * choosing the "HTML5" or "hash" [URL style](#browser-url-styles)
 
   * 选择"HTML5"或"hash"[URL风格](#browser-url-styles)
@@ -1089,13 +1097,10 @@ h3#router-directives <i>路由器指令集</i>
         .file hero-list.component.ts
         .file main.ts
     .file node_modules ...
-    .file typings ...
     .file index.html
     .file package.json
     .file styles.css
     .file tsconfig.json
-    .file typings.json
-
 :marked
   Here are the files discussed in this milestone
 
@@ -1210,7 +1215,7 @@ a#why-routing-module
 
   ### 你需要**路由模块**吗？
   
-  The _Routing Module_ *replaces* the routing configuration in the root or feature module. 
+  The _Routing Module_ *replaces* the routing configuration in the root or feature module.
   _Either_ configure routes in the Routing Module _or_ within the module itself but not in both.
 
   **路由模块**在根模块或者特征模块替换了路由配置。在路由模块或者在模块内部配置路由，但不要同时在两处都配置。
@@ -2082,11 +2087,12 @@ h3#route-animation 为路由组件添加动画
 :marked
   Next, we'll use a **host binding** for route animations named *@routeAnimation*. There is nothing special
   about the choice of the binding name, but since we are controlling route animation, we'll go with `routeAnimation`.
-  The binding value is set to `true` because we only care about the `*` and `void` states which are
-  [entering and leaving](../guide/animations.html#example-entering-and-leaving) animation states.
+  The binding value is set to `true` because we only care about the `:enter` and `:leave` states which are
+  [entering and leaving](../api/core/index/transition-function.html#transition-aliases-enter-and-leave-) transition aliases.
   
   接下来，我们将对名叫`@routeAnimation`的路由动画使用**宿主绑定（HostBinding）**。选择绑定名时没什么特别的要求，但是由于我们是在控制路由的动画，所以把它叫做`routeAnimation`。
-  该绑定值被设置为`true`，因为我们只关心`*`和`void`状态，这些动画状态代表[进场和离开](../guide/animations.html#example-entering-and-leaving)。
+  该绑定值被设置为`true`，因为我们只关心`:enter`和`:leave`状态，这些动画状态代表[进场和离开](../api/core/index/transition-function.html#transition-aliases-enter-and-leave-)。
+  
 
   We'll also add some display and positioning bindings for styling.
   
@@ -2097,10 +2103,14 @@ h3#route-animation 为路由组件添加动画
 :marked
   Now we can build our animation trigger, which we'll call *routeAnimation* to match the binding we previously
   setup. We'll use the **wildcard state** that matches any animation state our route component is in, along with
-  two *transitions*. One transition animates the component as it enters the application view (`void => *`), while the other
-  animates the component as it leaves the application view (`* => void`).
+  two *transitions*. One transition animates the component as it enters the application view (`:enter`), while the other
+  animates the component as it leaves the application view (`:leave`).
   
-  现在，我们可以构建动画触发器了，我们称之为*routeAnimation*来匹配我们以前定义的绑定。我们的使用**通配符状态**，它们匹配我们这个路由组件的任意动画状态，后面是两个*转场动画*。一个转场动画（`void => *`）在组件进入应用视图时触发，另一个（`* => void`）在离开时触发。
+  现在，我们可以构建动画触发器了，我们称之为*routeAnimation*来匹配我们以前定义的绑定。
+  我们的使用**通配符状态**，它们匹配我们这个路由组件的任意动画状态，
+  后面是两个*转场动画*。一个转场动画（`:enter`）在组件进入应用视图时触发，
+  另一个（`:leave`）在离开时触发。
+  
 
   We could add different transitions to different route components depending on our needs. We'll just animate our `HeroDetailComponent` for this milestone.
   
@@ -2149,7 +2159,7 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
   我们导入了`HeroesModule`，并把它加入了`AppModule`的`imports`中。
 
   We removed the `HeroListComponent` from the `AppModule`'s `declarations` because its being provided by the `HeroesModule`
-  now. This is important because their can be only **one** owner for a declared component. In our case, the `Heroes` module is
+  now. This is important because there can be only **one** owner for a declared component. In our case, the `Heroes` module is
   the owner of the `Heroes` components and is making them available to the `AppModule`.
   
   我们从`AppModule`的`declarations`中移除了`HeroListComponent`，因为它现在改有`HeroesModule`提供了。
@@ -2234,13 +2244,10 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
       .file crisis-list.component.ts
       .file main.ts
     .file node_modules ...
-    .file typings ...
     .file index.html
     .file package.json
     .file styles.css
     .file tsconfig.json
-    .file typings.json
-
 :marked
   <a id="heroes-app-code"></a>
 
@@ -3333,9 +3340,9 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 
   我们需要`Resolve`守卫。
 
-  ### Preload route information
+  ### Fetch data before navigating
 
-  ### 预先加载路由信息
+  ### 导航前预先加载路由信息
 
   We'll update our `Crisis Detail` route to resolve our Crisis before loading the route, or if the user happens to
   navigate to an invalid crisis center `:id`, we'll navigate back to our list of existing crises.
@@ -3387,7 +3394,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
 
   接下来，将`CrisisDetailResolve`服务添加到危机中心路由模块的`providers`数组中，这样`Router`在路由过程中可以使用它。
 
-+makeExcerpt('app/crisis-center/crisis-center-routing.module.ts (resolve)', 'crisis-detail-resolve')
++makeExcerpt('app/crisis-center/crisis-center-routing.module.4.ts (resolve)', 'crisis-detail-resolve')
 
 :marked
   Now that we've added our `Resolve` guard to fetch data before the route loads, we no longer need to do this once we get into our `CrisisDetailComponent`.
@@ -3425,7 +3432,7 @@ h3#resolve-guard <i>解析</i>: 提前获取组件数据
    `router/ts/app/app.component.ts,
    router/ts/app/crisis-center/crisis-center-home.component.ts,
    router/ts/app/crisis-center/crisis-center.component.ts,
-   router/ts/app/crisis-center/crisis-center-routing.module.ts,
+   router/ts/app/crisis-center/crisis-center-routing.module.4.ts,
    router/ts/app/crisis-center/crisis-list.component.ts,
    router/ts/app/crisis-center/crisis-detail.component.ts,
    router/ts/app/crisis-center/crisis-detail-resolve.service.ts,
@@ -3501,7 +3508,7 @@ a#fragment
   
   由于要在登录后导航到*危机管理*特征区的路由，所以我们还得更新它，来处理这些全局查询参数和片段。
 
-+makeExcerpt('app/admin/admin-dashboard.component.ts (v2)', '')
++makeExcerpt('app/admin/admin-dashboard.component.2.ts (v2)', '')
 
 :marked
   *Query Parameters* and *Fragments* are also available through the `ActivatedRoute` service available to route components.
@@ -3596,7 +3603,7 @@ a#fragment
   接下来，在`admin.routing.ts`中，把`admin`的**path**更改为空路径。路由器支持**空路径**路由，它可以在不必把别的路径添加到URL中的情况下，将多个路由组合到一起。用户还是可以访问`/crisis-center`，`CrisisCenterComponent`组件还是包含了子级路由的**路由组件**。
 
 +makeTabs(
-  `router/ts/app/app-routing.module.ts,
+  `router/ts/app/app-routing.module.5.ts,
   router/ts/app/admin/admin-routing.module.ts`,
   'lazy-load-admin,',
   `app-routing.module.ts (load children),
@@ -3637,8 +3644,8 @@ a#fragment
   `imports` array since we'll be loading it on-demand an we'll remove the imported `AdminModule`.
 
   我们构建了特性区，更新了路由配置来实现惰性加载，现在该做最后一步：将`AdminModule`分离到一个彻底独立的模块。因为现在按需加载`AdminModule`，所以在`app.module.ts`中，从`imports`数组中删除它。
-
-+makeExcerpt('app/app.module.ts (async admin module)', '')
+  
++makeExcerpt('app/app.module.7.ts (async admin module)', '')
 
 h3#can-load-guard <i>CanLoad Guard</i>: guarding against loading of feature modules
 h3#can-load-guard <i>CanLoad守卫</i>: 保护特性模块的加载
@@ -3676,7 +3683,112 @@ h3#can-load-guard <i>CanLoad守卫</i>: 保护特性模块的加载
   
   接下来，我们就把`AuthGuard`导入到`app.routing.ts`中，并把`AuthGuard`添加到`admin`路由的`canLoad`数组中。现在`admin`特性区就只有当获得访问授权时才会被加载了。
 
-+makeExcerpt('app/app-routing.module.ts (can load guard)', 'can-load-guard')
++makeExcerpt('app/app-routing.module.5.ts (can load guard)', 'can-load-guard')
+
+h3#preloading <i>Pre-Loading</i>: background loading of feature areas
+:marked
+  We've learned how to load modules on-demand, but we can also take advantage of loading feature areas modules in *advance*. The *Router*
+  supports **pre-loading** of asynchronous feature areas prior to navigation to their respective URL. Pre-loading allows us to to load our initial route
+  quickly, while other feature modules are loaded in the background. Once we navigate to those areas, they will have already been loaded
+  as if they were included in our initial bundle.
+
+  Each time a **successful** navigation happens, the *Router* will look through our configuration for lazy loaded feature areas
+  and react based on the provided strategy.
+
+  The *Router* supports two pre-loading strategies by default:
+
+  * No pre-loading at all which is the default. Lazy loaded feature areas are still loaded on demand.
+  * Pre-loading of all lazy loaded feature areas.
+
+  The *Router* also supports [custom preloading strategies](#custom-preloading) for fine control over which modules to pre-load.
+
+  We'll update our *CrisisCenterModule* to be loaded lazily by default and use the `PreloadAllModules` strategy 
+  to load _all_ lazy loaded modules as soon as possible.
+
+<a id="preload-canload"></a>
+.l-sub-section
+  :marked
+    The **PreloadAllModules** strategy does not load feature areas protected by a [CanLoad](#can-load-guard) guard and this is by design.
+    The *CanLoad* guard blocks loading of feature module assets until authorized to do so. If you want to both preload a module and guard
+    against unauthorized access, use the [CanActivate](#can-activate-guard) guard instead.
+
+:marked
+  We'll update our route configuration to lazy load the *CrisisCenterModule*. We follow the same process as we did when we loaded the *AdminModule* asynchronously.
+  In the *crisis-center-routing.module.ts*, we'll change the *crisis-center* path to an *empty path* route.
+
+  We'll move our redirect and *crisis-center* route to our `AppRoutingModule` routes and use the `loadChildren` string to load the *CrisisCenterModule*.
+  The redirect is also changed to load the `/heroes` route on initial load.
+
+  Once we're finished, we'll remove the `CrisisCenterModule` from our `AppModule`'s imports.
+
+  Here are the updated modules _before enabling preload_:
+
++makeTabs(
+   `router/ts/app/app.module.ts,
+    router/ts/app/app-routing.module.6.ts,
+    router/ts/app/crisis-center/crisis-center-routing.module.ts
+  `,
+  ',preload-v1,',
+   `app.module.ts,
+    app-routing.module.ts,
+    crisis-center-routing.module.ts
+  `)
+
+:marked
+  The second argument in the `RouterModule.forRoot` method takes an object for additional configuration options. 
+  We import the `PreloadAllModules` token from the router package and set the configuration option's `preloadingStrategy` property
+  with this `PreloadAllModules` token. 
+  This tells the built-in *Router* pre-loader to immediately load **all** [unguarded](#preload-canload) feature areas that use `loadChildren`.
+
++makeExcerpt('app/app-routing.module.6.ts (preload all)', '')
+
+:marked
+  Now when we visit `http://localhost:3000`, the `/heroes` route will load in the foreground, while the *CrisisCenterModule* and any other asynchronous feature
+  modules are _eagerly_ loaded in the background, waiting for us to navigate to them.
+
+<a id="custom-preloading"></a>
+:marked
+  ### Custom Pre-Loading Strategy
+
+  Pre-loading all modules works well in some situations, but in some cases we need more control over what gets loaded eagerly. This becomes more clear
+  as we load our application on a mobile device, or a low bandwidth connection. We may only want to preload certain feature modules based on user metrics
+  or other data points we gather over time. The *Router* lets us have more control with a **custom** preloading strategy.
+
+  We can define our own strategy the same way the **PreloadAllModules** modules strategy was provided to our *RouterModule.forRoot* configuration object.
+
+  Since we want to take advantage of this, we'll add a custom strategy that _only_ preloads the modules we select. We'll enable the preloading by using the *Route Data*,
+  which, as we learned, is an object to store arbitrary route data and and [resolve data](#resolve-guard).
+
+  We'll add a custom `preload` boolean to our `crisis-center` route data that we'll use with our custom strategy. To see it in action, we'll add 
+  the `route.path` to the `preloadedModules` array in our custom strategy service. We'll also log a message
+  to the console for the preloaded module.
+
++makeExcerpt('app/app-routing.module.ts (route data preload)', 'preload-v2')
+
+:marked
+  To create our custom strategy we'll need to implement the abstract `PreloadingStrategy` class and the `preload` method. The `preload` method is called for each route
+  that loads its feature module asynchronously and determines whether to preload it. The `preload` method takes two arguments, the first being the `Route` that provides
+  the route configuration and a function that preloads the feature module.
+
+  We'll name our strategy **PreloadSelectedModules** since we _only_ want to preload based on certain criteria. Our custom strategy looks for the **`preload`** boolean
+  value in our `Route Data` and if its true, it calls the `load` function provided by the built-in `Router` pre-loader that eagerly loads feature modules.
+
++makeExcerpt('app/selective-preload-strategy.ts (preload selected modules)', '')
+
+:marked
+  In order to use our custom preloading strategy, we import it into our `app-routing.module.ts` and replace the `PreloadAllModules` strategy. We also add
+  the `PreloadSelectedModules` strategy to the `AppRoutingModule` providers array. This allows the *Router* pre-loader to inject our custom strategy.
+
+  To confirm our *CrisisCenterModule* is being pre-loaded, we'll display our `preloadedModules` in the `Admin` dashboard. We already know how to use
+  an *ngFor* loop, so we'll skip over the details here. Since the `PreloadSelectedModules` is just a service, we can inject it into the `AdminDashboardComponent`
+  and wire it up to our list.
+
++makeExcerpt('app/admin/admin-dashboard.component.ts (preloaded modules)', '')
+
+:marked
+  Once our application is loaded to our initial route, the *CrisisCenterModule* is loaded eagerly. We can verify this by logging in to the `Admin` feature area and
+  noting that the `crisis-center` is listed in the `Preloaded Modules` and logged to the console. We can continue to add feature modules to be selectively loaded eagerly.
+
 
 <a id="final-app"></a>
 
@@ -3950,10 +4062,11 @@ code-example(format=".", language="bash").
 
   :marked
     Learn about "providers" and the bootstrap process in the
-    [Dependency Injection chapter](dependency-injection#bootstrap)
+    [Dependency Injection chapter](dependency-injection.html#bootstrap)
 
-    要学习关于“提供商”和启动过程的更多知识，参见[依赖注入](dependency-injection#bootstrap)一章。
+    要学习关于“提供商”和启动过程的更多知识，参见[依赖注入](dependency-injection.html#bootstrap)一章。
 
+    
 :marked
   ### Which Strategy is Best?
 

@@ -9,8 +9,11 @@
     "removeComments": false,
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
-    "types": []
+    "typeRoots": [
+      "../../node_modules/@types/"
+    ]
   },
+  "compileOnSave": true,
   "exclude": [
     "node_modules/*",
     "**/*-aot.ts"

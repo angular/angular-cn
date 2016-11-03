@@ -646,8 +646,8 @@ a#toh
   `toh-6/ts/tsconfig-aot.json,
    toh-6/ts/tsconfig.json`,
   null,
-  `tsconfig.json (AoT),
-   tsconfig-aot.json (JiT)`
+  `tsconfig-aot.json (AoT),
+   tsconfig.json (JiT)`
 )
 
 :marked
@@ -659,18 +659,6 @@ a#toh
 
   Rollup和以前一样，仍然进行摇树优化。
   
-  The Rollup configuration changes slightly to accommodate the `angular-in-memory-web-api` module
-  that the _Tour of Heroes_ app requires for data server simulation.
-
-  Rollup配置有很小的变化，以适应**英雄指南**应用需要的数据服务模拟 - `angular-in-memory-web-api`模块。
-  
-  The `angular-in-memory-web-api` is a `commonjs` module like the RxJS library.
-  Add `angular-in-memory-web-api` to the _commonjs plugin_ `include` array,
-  next to the `rxjs` file specification.
-
-  `angular-in-memory-web-api`是一个`commonjs`模块，和RxJS库一样。
-  添加`angular-in-memory-web-api`到**commonjs插件**`include`数组，紧挨着`RxJS`文件配置。
-
 +makeExample('toh-6/ts/rollup-config.js',null,'rollup-config.js')(format='.')  
 
 :marked

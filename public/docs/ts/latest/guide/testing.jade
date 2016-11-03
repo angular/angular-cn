@@ -131,9 +131,9 @@ block includes
 
     - [_compileComponents_](#compile-components)
 
-  1. [Test a component with inputs and outputs](#component-with-inputs-output)
+  1. [Test a component with inputs and outputs](#component-with-input-output)
 
-  1. [测试拥有导入inputs和导出outputs的组件](#component-with-inputs-output)  
+  1. [测试拥有导入inputs和导出outputs的组件](#component-with-input-output)  
 
     - [_triggerEventHandler_](#trigger-event-handler)
 
@@ -229,9 +229,9 @@ block includes
 
     - [_TestBed_](#testbed-class-summary)
 
-    - [_ComponentFixture_](#component-fixture-class-summary)
+    - [_ComponentFixture_](#component-fixture-api-summary)
 
-    - [_ComponentFixture_](#component-fixture-class-summary)
+    - [_ComponentFixture_](#component-fixture-api-summary)
 
     - [_DebugElement_](#debug-element-details)
 
@@ -525,7 +525,7 @@ table(width="100%")
 :marked
   **Put spec files somewhere within the `app/` folder.**
   The `karma.conf.js` tells karma to look for spec files there,
-  for reasons explained [below](#spec-file-location).
+  for reasons explained [below](#q-spec-file-location).
 
   **将测试程序spec放到`app/`文件夹下的任何位置。**
   `karma.conf.js`告诉`Karma`在这个文件夹中寻找测试程序spec文件，原因在 [这里](#spec-file-location) 有所解释。
@@ -1062,7 +1062,7 @@ a(href="#top").to-top 回到顶部
 
   这次，在测试配置里不但声明了被测试的组件，而且在`providers`数组中添加了`UserService`依赖。但不是真实的`UserService`。
   
-#get-injected-service 
+#service-test-doubles 
 :marked
   ## Provide service test doubles
 
@@ -1354,15 +1354,17 @@ a(href="#top").to-top 回到顶部
 
   测试程序必须等待`getQuote`在JavaScript引擎的下一回合中被解析。  
 
-  This test has no direct access to the promise returned by the call to `testService.getQuote` 
-  which is private and inaccessible inside `TwainComponent`.
+  This test has no direct access to the promise returned by the call to `twainService.getQuote` 
+  because it is buried inside `TwainComponent.ngOnInit` and therefore inaccessible to a test that
+  probes only the component API surface.
 
-  调用`testService.getQuote`返回的承诺是私有的，不能在`TwainComponent`内访问，这个测试程序也对其无访问权。
+  本测试对`twainService.getQuote`返回的承诺没有直接的访问，因为它被埋没在`TwainComponent.ngOnInit`里，
+  所以对于只测试组件API表面的测试来说，它是无法被访问的。
 
   Fortunately, the `getQuote` promise is accessible to the _async test zone_ 
-  which intercepts all promises issued within the _async_ method call.
+  which intercepts all promises issued within the _async_ method call _no matter where they occur_.
 
-  幸运的是，**异步测试区域**可以访问`getQuote`承诺，因为它拦截所有调用**异步**方法所发出的承诺。
+  幸运的是，**异步测试区域**可以访问`getQuote`承诺，因为它拦截所有调用**异步**方法所发出的承诺，不管它们在哪儿。  
   
   The `ComponentFixture.whenStable` method returns its own promise which resolves when the `getQuote` promise completes.
   In fact, the _whenStable_ promise resolves when _all pending asynchronous activities within this test_ complete ... the definition of "stable".
@@ -1602,7 +1604,7 @@ a(href="#top").to-top 回到顶部
 
 .l-hr
 
-#component-with-inputs-outputs
+#component-with-input-output
 :marked
   # Test a component with inputs and outputs
 

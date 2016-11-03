@@ -138,28 +138,15 @@ a(id="typings")
   Many libraries&mdash;jQuery, Jasmine, and Lodash among them&mdash;do *not* include `d.ts` files in their npm packages.
   Fortunately, either their authors or community contributors have created separate `d.ts` files for these libraries and 
   published them in well-known locations.
-  The *typings* tool can find and fetch these files for you.
 
   遗憾的是，很多库 —— jQuery、Jasmine和Lodash等库 —— 都*没有*在它们自己的npm包中包含`d.ts`文件。
   幸运的是，它们的作者或社区中的贡献者已经为这些库创建了独立的`d.ts`文件，并且把它们发布到了一个众所周知的位置。
-  有一个叫*typings*的工具可以为我们找到并获取这些文件。
 
-  After installing the [typings](https://github.com/typings/typings/blob/master/README.md) tool
-  with npm (it's listed among the *devDependencies* in the `package.json`), add an npm script (`postinstall`)
-  to run that tool automatically, after *npm* installation finishes.
-
-  用npm安装这个[typings](https://github.com/typings/typings/blob/master/README.md)工具(它被列在了`package.json`的*devDependencies*中)
-  并添加一个npm脚本(`postinstall`)，以便在所有*npm*包安装完之后运行那个工具。
-
-+makeJson('quickstart/ts/package.1.json', {paths: 'scripts.postinstall'}, 'package.json (postinstall)')(format=".")
-:marked
-  This *typings* tool command, `typings install`, installs the `d.ts` files into the **typings** folder.
-  You created a `typings.json` file in the [QuickStart](../quickstart.html):
-
-  这个*typings*命令行工具(`typings install`)会把那些`d.ts`文件安装进**typings**目录。
-  我们在[“快速起步”](../quickstart.html)中创建过这样一个`typings.json`文件：
-
-+makeJson('quickstart/ts/typings.1.json', null, 'typings.json')(format=".")
+  We can install these typings via `npm` using the 
+  [`@types/*` scoped package](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) 
+  and Typescript (starting at 2.0) will automatically recognize them.
+  
+  For instance, to install typings for `jasmine` we could do `npm install @types/jasmine --save-dev`.
 :marked
   QuickStart identified three *typings* (`d.ts`) files:
   
@@ -174,45 +161,13 @@ a(id="typings")
 
   * [jasmine](http://jasmine.github.io/)是Jasmine测试框架的类型定义
 
-  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts) for code that references objects in the *nodejs* environment; 
+  * [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *nodejs* environment; 
   You can view an example in the [webpack](./webpack.html) page.
 
-  * [node](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts)是为了在*nodejs*环境中引用对象的代码提供的类型定义。
+  * [node](https://www.npmjs.com/package/@types/node)是为了在*nodejs*环境中引用对象的代码提供的类型定义。
   在[webpack](./webpack.html)页面可以看到例子。
 
   QuickStart doesn't require these typings but many of the samples do.
 
   “快速起步”本身不需要这些类型定义，但是文档中的很多例子都需要。
-
-  You can also run the *typings* tool yourself.
-  If the `postInstall` command fails to (re)install the typings files, run the following command to do so.
-
-  我们也可以自己运行*typings*工具。
-  如果npm的`postInstall`钩子执行失败了，也可以用下列命令来安装(或重装)这些类型定义文件。
-
-code-example(format="").
-  npm run typings install
-:marked
-  Run this command to list the installed typings files:
-
-  运行此命令来列出已经安装的类型定义文件：
-
-code-example(format="").
-  npm run typings list
-:marked
-  The following command installs or updates the typings file for the Jasmine test library from the *DefinitelyTyped* repository,
-  and updates the `typings.json` file so you receive it automatically the next time you install typings.
-
-  下列命令会从*DefinitelyTyped*仓库中为Jasmine测试库安装类型定义文件，并更新`typings.json`文件，以便当我们下次安装类型定义文件时来自动获取它。
-code-example(format="").
-  npm run typings -- install dt~jasmine --save --global
-.l-sub-section
-  :marked
-    The [&ndash;&ndash; option](https://docs.npmjs.com/cli/run-script) tells npm to pass all arguments to the right of `--` to the *typings* command.
-
-    这个[`--`选项](https://docs.npmjs.com/cli/run-script)会告诉npm要把`--`右侧的所有参数都传给*typings*命令。
-
-    Read about the features of the *typings* tool at its [site on github](https://github.com/typings/typings/blob/master/README.md).
-
-    要学习关于*typings*工具的更多特性，请到[它在github上的网站](https://github.com/typings/typings/blob/master/README.md)。
-
+  
