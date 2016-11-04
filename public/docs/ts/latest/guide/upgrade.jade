@@ -1675,13 +1675,21 @@ code-example(format="").
   :marked
     ### Why declare _angular_ as _any_?
     
+    ### 为何将*Angular*声明为*any*？
+
     A strongly typed `angular` reference to Angular 1 would be great.
     But we can't import its <a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions" target="_blank">UMD typings</a>
     library, `@types/angular`, without also importing Angular 1 itself via `import * as angular from 'angular'`.
+
+    如果能在Angular 1中使用强类型的`angular`引用就太好了！
+    但是在不同时通过`import * as angular from 'angular'`导入Angular 1本身时，我们不能导入Angular 2的 <a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions" target="_blank">UMD类型</a>库`@types/angular`。
     
     Angular 1 is currently loaded by a script tag in `index.html` and 
     switching to an ES6 import at this time is not worth the considerable effort.
     Instead we declare `angular` as an untyped `any` to avoid typing errors.
+
+    Angular 1目前是被`index.html`里的脚本标签加载的，目前不值得将其切换到ES6导入。
+    我们声明`angular`为无类型的`any`来防止类型错误。
 
 :marked
   We can then make an adapter by instantiating the class:
