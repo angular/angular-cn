@@ -7,9 +7,9 @@ include ../_util-fns
    有些开发者喜欢用Visual Studio。
 
    This cookbook describes the steps required to set up and use the
-   Angular QuickStart files in Visual Studio 2015 within an ASP.NET 4.x project.
+   Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**.
 
-   本烹饪宝典介绍了在Visual Studio 2015的ASP.NET 4.x项目中，用Angular实现“快速起步”所需的步骤。
+   本烹饪宝典介绍了在**Visual Studio 2015的ASP.NET 4.x项目中**，用Angular实现“快速起步”所需的步骤。
      
 .l-sub-section
   :marked
@@ -24,48 +24,66 @@ include ../_util-fns
 
   ## ASP.NET 4.x 项目
   
-  The steps for setting up the QuickStart files with an ASP.NET 4.x project in
-  Visual Studio 2015 are as follows:
-
-  在Visual Studio的ASP.NET 4.x项目中实现“快速起步”的步骤如下：
+  This cookbook explains how to set up the QuickStart files with an **ASP.NET 4.x project** in
+  Visual Studio 2015.
+  
+  本烹饪书解释了如何使用Visual Studio 2015在**ASP.NET 4.x项目**中设置**快速开始**文件。
+.l-sub-section
+  :marked
+    If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
+    then consider the _experimental_
+    <a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 2 template for Visual Studio 2015</a>. 
+    Note that the resulting code does not map to the docs. Adjust accordingly.   
+    
+    如果你希望使用**ASP.NET Core**和全新项目经验，
+    参见_试验中_的<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 2 template for Visual Studio 2015</a>。 
+    注意，最终代码并不与本文相符，请适当调节。
   
 :marked
-  - [Prerequisite](#prereq): Install Node.js
+  The steps are as follows:
+  
+  步骤如下:
+  
+  - [Prerequisite](#prereq1): Install Node.js
 
-  - [前提条件](#prereq): 安装Node.js
+  - [前提条件](#prereq1): 安装Node.js
+  
+  - [Prerequisite](#prereq2): Install Visual Studio 2015 Update 3
+  
+  - [前提条件](#prereq2): 安装Visual Studio 2015 Update 3
+  
+  - [Prerequisite](#prereq3): Configure External Web tools
+  
+  - [前提条件](#prereq3): 配置External Web tools
+  
+  - [Prerequisite](#prereq4): Install TypeScript 2 for Visual Studio 2015
+  
+  - [前提条件](#prereq4): 安装TypeScript 2 for Visual Studio 2015
 
   - [Step 1](#download): Download the QuickStart files
 
   - [第一步](#download): 下载“快速起步”的文件
 
-  - [Step 2](#setup-vs): Set up Visual Studio for TypeScript
+  - [Step 2](#create-project): Create the Visual Studio ASP.NET project
 
-  - [第二步](#setup-vs): 设置Visual Studio，以支持TypeScript
+  - [第二步](#create-project): 创建Visual Studio ASP.NET项目
 
-  - [Step 3](#create-project): Create the Visual Studio ASP.NET project
+  - [Step 3](#copy): Copy the QuickStart files into the ASP.NET project folder
 
-  - [第三步](#create-project): 创建Visual Studio ASP.NET项目
+  - [第三步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
 
-  - [Step 4](#copy): Copy the QuickStart files into the ASP.NET project folder
-
-  - [第四步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
-
-  - [Step 5](#restore): Restore required packages
+  - [Step 4](#restore): Restore required packages
   
-  - [第五步](#restore): 恢复需要的包
+  - [第四步](#restore): 恢复需要的包
 
-  - [Step 6](#edit-config): Edit the TypeScript configuration file
+  - [Step 5](#build-and-run): Build and run the app
 
-  - [第六步](#edit-config): 编辑TypeScript配置文件
-
-  - [Step 7](#build-and-run): Build and run the app
-
-  - [第七步](#build-and-run): 构建和运行应用程序
+  - [第五步](#build-and-run): 构建和运行应用程序
   
 .l-main-section
-h2#prereq Prerequisite: Node.js
+h2#prereq1 Prerequisite: Node.js
 
-h2#prereq 前提条件: Node.js
+h2#prereq1 前提条件: Node.js
 
 :marked
   Install **[Node.js® and npm](https://nodejs.org/en/download/)**
@@ -75,11 +93,95 @@ h2#prereq 前提条件: Node.js
 
 .l-sub-section
   :marked
-    **Verify that you are running node version `4.4.x` - `5.x.x`, and npm `3.x.x`**
+    **Verify that you are running node version `4.6.x` or greater, and npm `3.x.x` or greater**
     by running `node -v` and `npm -v` in a terminal/console window.
     Older versions produce errors.
+    
+    在终端或者控制台中运行`node -v`和`npm -v`，**请确认你的Node版本为`4.6.x`或更高，npm的版本为`3.x.x`或更高**。老版本会引起错误。
+.l-main-section
+h2#prereq2 Prerequisite: Visual Studio 2015 Update 3
 
-    在终端或者控制台中运行`node -v`和`npm -v`，**请确认你的Node版本为`4.4.x` - `5.x.x`，npm的版本为`3.x.x`**。老版本会引起错误。
+h2#prereq2 前提条件: Visual Studio 2015 Update 3
+:marked
+  The minimum requirement for developing Angular 2 applications with Visual Studio is Update 3.
+  Earlier versions do not follow the best practices for developing applications with TypeScript.
+  To view your version of Visual Studio 2015, go to `Help | About Visual Studio`.
+
+  使用Visual Studio开发Angular 2应用程序的最低要求是Update 3。
+  早期版本没有遵循使用TypeScript开发应用程序的最佳实践。
+  要查看你的Visual Studio 2015版本号，到`Help | About Visual Studio`。
+  
+  If you don't have it, install **[Visual Studio 2015 Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs)**.
+  Or use `Tools | Extensions and Updates` to update to Update 3 directly from Visual Studio 2015.
+
+  如果还没有，安装**[Visual Studio 2015 Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs)**。或者使用`Tools | Extensions and Updates`来直接在Visual Studio 2015中更新到Update 3。
+
+.l-main-section
+h2#prereq3 Prerequisite: Configure External Web tools
+
+h2#prereq3 前提条件: 配置External Web tools
+:marked
+  Configure Visual Studio to use the global external web tools instead of the tools that ship with Visual Studio:
+
+  配置Visual Studio来使用全局External Web Tools，而非Visual Studio默认的工具：
+
+    * Open the **Options** dialog with `Tools` | `Options`
+
+    * 到`Tools` | `Options`打开**Options**对话框
+
+    * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
+
+    * 在左边树型项目中，选择`Projects and Solutions` | `External Web Tools`。
+
+    * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
+      use the external tools (such as npm) found in the global path before using its own version of the external tools.
+
+    * 在右侧，将`$(PATH)`移动到 `$(DevEnvDir`)上面。这样，Visual Stuio就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如npm）。
+
+    * Click OK to close the dialog.
+
+    * 点击OK关闭对话框。
+
+    * Restart Visual Studio for this change to take effect.
+
+    * 重启Visual Studio，以让设置变化生效。
+
+  Visual Studio will now look first for external tools in the current workspace and 
+  if not found then look in the global path and if it is not found there, Visual Studio
+  will use its own versions of the tools.
+
+  Visual Studio将优先在当前的工作区查找外部工具，如果没有找到，便查找全局路径，如果还没有找到，Visual Studio就使用自带的工具版本。
+
+.l-main-section
+h2#prereq4 Prerequisite: Install TypeScript 2 for Visual Studio 2015
+
+h2#prereq4 前提条件: 安装TypeScript 2 for Visual Studio 2015
+:marked
+  While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2, 
+  which you need to develop Angular 2 applications.
+
+  Visual Studio Update 3自带TypeScript支持，但是它的TypeScript版本开发Angular 2应用需要的不是2。
+
+  To install TypeScript 2:
+
+  要安装TypeScript 2：
+
+   * Download and install **[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
+
+   * 下载并安装**[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
+
+   * OR install it with npm: `npm install -g typescript@2.0`.
+
+   * 或者，通过NPM来安装：`npm install -g typescript@2.0`。
+
+  You can find out more about TypeScript 2 support in Visual studio **[here](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/)**
+
+  你可以在**[这儿](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/)**查看更多Visual Studio中TypeScript 2的支持。
+
+  At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
+  restart it to make sure everything is clean.
+
+  至此，Visual Studio准备好了。重新启动Visual Stuido，这样我们可以有一个崭新的开始。
 
 .l-main-section
 h2#download Step 1: Download the QuickStart files
@@ -93,45 +195,14 @@ h2#download 第一步: 现在“快速起步”文件
   从github[下载“快速起步”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
 
 .l-main-section
-h2#setup-vs Step 2: Set up Visual Studio for TypeScript
+h2#create-project Step 2: Create the Visual Studio ASP.NET project
 
-h2#setup-vs 第二步：设置Visual Studio，以支持TypeScript
+h2#create-project 第二步：创建Visual Studio ASP.net项目
 
 :marked
-  Ensure you have the latest version of Visual Studio 2015 installed. 
-  Then open Visual Studio and install the latest set of TypeScript tools as follows:
-
-  确保你的Visual Studio 2015是最新版本，然后打开Visual Studio并安装最新的TypeScript工具：
-
-  * Open `Tools` | `Extensions and Updates`.
-
-  * 打开`Tools` | `Extensions and Updates`。
-
-  * Select `Online` in the tree on the left.
-
-  * 在左侧目录树中选择`Online`。
-
-  * Search for `TypeScript` using the search box in the upper right.
-
-  * 在右上角的搜索框中搜`TypeScript`。
-
-  * Select the most current available TypeScript version.
-
-  * 选择最新版本的TypeScript。
-
-  * Download and install the package.
+  Create the ASP.NET 4.x project in the usual way as follows:
   
-  * 下载并安装依赖包。
-
-.l-main-section
-h2#create-project Step 3: Create the Visual Studio ASP.NET project
-
-h2#create-project 第三步: 创建Visual Studio ASP.NET项目
-
-:marked
-  Create the ASP.NET 4.x project as follows:
-
-  按照下面的步骤创建ASP.NET 4.x项目:
+  按照下列步骤创建ASP.NET 4.x项目：
   
   * In Visual Studio, select `File` | `New` | `Project` from the menu.
   
@@ -157,9 +228,9 @@ h2#create-project 第三步: 创建Visual Studio ASP.NET项目
     本烹饪宝典选择了`Empty`模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
     
 .l-main-section
-h2#copy Step 4: Copy the QuickStart files into the ASP.NET project folder
+h2#copy Step 3: Copy the QuickStart files into the ASP.NET project folder
 
-h2#copy 第四步: 拷贝“快速起步”的文件到ASP.NET项目所在的目录
+h2#copy 第三步: 拷贝“快速起步”的文件到ASP.NET项目所在的目录
 
 :marked
   Copy the QuickStart files we downloaded from github into the folder containing the `.csproj` file.
@@ -177,7 +248,7 @@ h2#copy 第四步: 拷贝“快速起步”的文件到ASP.NET项目所在的目
   * 右键点击每个目录和文件，选择`Include in Project`。
     最少要添加下列文件：
     
-    * app folder (answer *No*  if asked to search for TypeScript Typings)    
+    * app folder (answer *No*  if asked to search for TypeScript Typings)
 
     * app目录（如果询问是否要搜索TypeScript类型，回答*No*）
 
@@ -202,9 +273,9 @@ h2#copy 第四步: 拷贝“快速起步”的文件到ASP.NET项目所在的目
     * typings.json
     
 .l-main-section
-h2#restore Step 5: Restore the required packages
+h2#restore Step 4: Restore the required packages
 
-h2#restore 第五步: 恢复需要的包
+h2#restore 第四步: 恢复需要的包
 
 :marked
   Restore the packages required for an Angular application as follows:
@@ -238,96 +309,27 @@ h2#restore 第五步: 恢复需要的包
   * **Do not** include the `node_modules` folder in the project. Let it be a hidden project folder.
 
   * **不要**将`node_modules`目录添加到项目中，让它隐藏。
-
-.alert.is-important
-  :marked
-    An error such as "*@angular/compiler is not in the npm registry*" suggests that Visual Studio 2015
-    is using an older version of npm. Update to the latest installed version of npm:
-
-    "*@angular/compiler is not in the npm registry*"这个错误表明Visual Studio 2015使用了老版本的npm。按照下面的步骤安装最新版本的npm：
-    
-    * `Tools` | `Options` to open the Options dialog.
-    
-    * `Tools` | `Options`来打开“选项”对话框。
-    
-    * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
-
-    * 在左侧的树状目录中，选择`Projects and Solutions` | `External Web Tools`。
-    
-    * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
-      use the external tools (such as npm) found in your path before using its own version of the external tools.
-
-    * 在右侧，把`$(PATH)`项移动到`$(DevEnvDir`)上面，这样就会告诉Visual Studio优先在你的路径中查找外来工具（比如npm）。
-    
-    * Click OK to close the dialog.
-
-    * 点击OK，关闭对话框。
-    
-    * Restart Visual Studio for this change to take effect.
-
-    * 重新启动Visual Studio来让这些修改生效。
       
 .l-main-section
-h2#edit-config Step 6: Edit the TypeScript configuration file
+h2#build-and-run Step 5: Build and run the app
 
-h2#edit-config 第六步：编辑TypeScript配置文件
-
-:marked
-  For Visual Studio 2015 we must add `"compileOnSave": true` to the TypeScript configuration (`tsconfig.json`) file 
-  as shown here. 
-
-  在Visual Studio 2015里，必须在TypeScript的配置文件(`tsconfig.json`)中添加`"compileOnSave": true`： 
-  
-+makeJson('cb-visual-studio-2015/ts/tsconfig.json', null, 'tsconfig.json (scripts)')
+h2#build-and-run 第五步：构建和运行应用
 
 :marked
-  After making this change, **exit** Visual Studio and reopen it to reload the project.  
-
-  修改上面的设置后，**退出**Visual Studio，再打开它并加载项目。  
-
-.l-main-section
-h2#build-and-run Step 7: Build and run the app
-
-h2#build-and-run 第七步：编译和运行应用程序
-
+  First, ensure that `index.html` is set as the start page.
+  Right-click `index.html` in Solution Explorer and select option `Set As Start Page`.
+  
+  Build and launch the app with debugger by clicking the **Run** button or press `F5`.
+.l-sub-section
+  :marked
+    It's faster to run without the debugger by pressing `Ctrl-F5`.
 :marked
-  To set index.html as start page, right-click `index.html` in Solution Explorer and select option `Set As Start Page`.
-
-  将index.html设置为启动页面：在Solution Explorer中，右键点击`index.html`，选择选项`Set As Start Page`。
-  
-  Click the Run button or press F5 to build and run the application.
-  
-  点击“运行”按钮或按F5键来编译和运行应用程序。
-
-  This launches the default browser and runs the QuickStart sample application.
-
-  这样会启动默认浏览器并在里面运行“快速起步”范例程序。
+  The default browser opens and displays the QuickStart sample application.
   
   Try editing any of the project files. *Save* and refresh the browser to
   see the changes. 
 
   尝试编辑任何项目文件，*保存*并刷新浏览器来查看效果。
-  
-.alert.is-important
-  :marked
-    Compiler errors such as "*Property `map` does not exist on type `Observable<Response>`*" and
-    "*Observable cannot be found*" indicate an old release of Visual Studio.
-    Exit Visual Studio and follow the [instructions here](https://github.com/Microsoft/TypeScript/issues/8518).
-
-    像“*Property `map` does not exist on type `Observable<Response>`*”和“*Observable cannot be found*”这样的编译错误
-    说明Visual Studio的版本太老了。退出Visual Studio，按照[这里的指南](https://github.com/Microsoft/TypeScript/issues/8518)升级Visual Studio。
-
-    You'll be asked to replace the file
-
-    它会问你是否要覆盖文件。
-
-  code-example.
-    c:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TypeScript.typescriptServices.js
-
-  :marked
-    This operation requires admin privileges.
-
-    这个操作需要管理员权限。
 
 .l-main-section
 h2#routing Note on Routing Applications
@@ -336,10 +338,13 @@ h2#routing 应用程序的路由
 
 :marked
   If this application used the Angular router, a browser refresh could return a *404 - Page Not Found*.
-  Look at the address bar. Does it contain a navigation url (a "deep link")? 
-  We'll have to configure the server to return `index.html` for these requests.
-  Until we do, remove the navigation path and refresh again.
-
-  如果这个应用程序使用了Angular路由器，刷新浏览器时可能会返回一个*404 - Page Not Found*。查看一下地址栏，它是否包含一个导航url（“深链接”）？
+  Look at the address bar. Does it contain a navigation url (a "deep link") ... any path other than `/` or `/index.html`?
+   
+  如果这个应用程序使用了Angular路由器，刷新浏览器时可能会返回一个*404 - Page Not Found*。
+  查看一下地址栏，它是否包含一个导航url（“深链接”）...以及任何除了`/`或`/index.html`以外的路径？
+  
+  You'll have to configure the server to return `index.html` for these requests.
+  Until you do, remove the navigation path and refresh again. 
+  
   我们必须配置服务器，让它为这些请求直接返回`index.html`的内容。在配置完之前，请暂时删除导航路径，回到首页，再进行刷新。
 
