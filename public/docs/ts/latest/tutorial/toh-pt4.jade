@@ -26,7 +26,7 @@ include ../_util-fns
   Because data services are invariably asynchronous, 
   we'll finish the chapter with a **!{_Promise}**-based version of the data service.
 
-  因为数据服务通常都是异步的，我们将在本章创建一个基于**承诺**的数据服务版本。
+  因为数据服务通常都是异步的，我们将在本章创建一个基于**Promise**的数据服务。
 
   Run the <live-example></live-example> for this part.
 
@@ -91,7 +91,7 @@ code-example(language="bash").
   客户向我们描绘了本应用更大的目标。
   它们说，想要在不同的页面中用多种方式显示英雄。
   现在我们已经能从列表中选择一个英雄了，但这还不够。
-  很快，我们将添加一个仪表盘来表彰绩效最好的英雄，并且创建一个独立视图来编辑英雄的详情。
+  很快，我们将添加一个控制台来显示表现最好的英雄，并且创建一个独立视图来编辑英雄的详情。
   所有这些视图都需要英雄的数据。
   
   At the moment the `AppComponent` defines mock heroes for display.
@@ -99,13 +99,13 @@ code-example(language="bash").
   First, defining heroes is not the component's job. 
   Second, we can't easily share that list of heroes with other components and views. 
 
-  目前，`AppComponent`显示的是我们自定义的一个mock英雄数据。
-  我们可改进的地方至少有两个：首先，定义英雄的数据不该是该组件的任务。其次，想把这份英雄列表的数据共享给其它组件和视图可不那么容易。
+  目前，`AppComponent`显示的是mock英雄数据。
+  我们可改进的地方至少有两个：首先，定义英雄的数据不该是组件的任务。其次，想把这份英雄列表的数据共享给其它组件和视图可不那么容易。
 
   We can refactor this hero data acquisition business to a single service that provides heroes, and 
   share that service with all components that need heroes.
   
-  我们可以把提供英雄数据的任务重构为一个单独的服务，它将提供英雄数据，并且把这个服务在所有需要英雄数据的组件之间共享。
+  我们可以把获取英雄数据的任务重构为一个单独的服务，它将提供英雄数据，并且把这个服务在所有需要英雄数据的组件之间共享。
 
   ### Create the HeroService
   
@@ -182,7 +182,7 @@ code-example(language="bash").
   
   数据使用者并不知道本服务会如何获取数据。
   我们的`HeroService`服务可以从任何地方获取英雄的数据。
-  它可以从网络服务器获取，可以从浏览器的局部存储区获取，也可以是直接写在源码中的mock数据。
+  它可以从网络服务器获取，可以从浏览器的局部存储区获取，也可以是mock的数据源。
   
   That's the beauty of removing data access from the component.
   We can change our minds about the implementation as often as we like,
@@ -426,7 +426,7 @@ a#child-component
   Angular offers a number of interfaces for tapping into critical moments in the component lifecycle:
   at creation, after each change, and at its eventual destruction.
   
-  这也不难。只要我们实现了Angular的 **ngOnInit** *生命周期钩子* ，Angular就会主动调用这个钩子。
+  这也不难。只要我们实现了Angular的 **ngOnInit** *生命周期钩子*，Angular就会主动调用这个钩子。
   Angular提供了一些接口，用来介入组件生命周期的几个关键时间点：刚创建时、每次变化时，以及最终被销毁时。
   
   Each interface has a single method. When the component implements that method, Angular calls it at the appropriate time.
@@ -468,7 +468,7 @@ a#child-component
   
   ## Async Services and !{_Promise}s
   
-  ## 异步服务与承诺(Promise)
+  ## 异步服务与Promise
   
   Our `HeroService` returns a list of mock heroes immediately. 
   Its `getHeroes` signature is synchronous
@@ -489,7 +489,7 @@ a#child-component
   When we do, we'll have to wait for the server to respond and we won't be able to block the UI while we wait, 
   even if we want to (which we shouldn't) because the browser won't block.
   
-  那时候，我们不得不等待服务器返回，并且在等待时，我们没法停止UI响应，即使我们想这么做，也做不到，因为浏览器不会停止。
+  那时候，我们不得不等待服务器返回，并且在等待时，我们没法阻塞UI响应，即使我们想这么做（也不应这么做）也做不到，因为浏览器不会阻塞。
   
   We'll have to use some kind of asynchronous technique and that will change the signature of our `getHeroes` method.
   
@@ -497,30 +497,30 @@ a#child-component
   
   We'll use *!{_Promise}s*.
   
-  我们将使用 *承诺(Promise)* 。
+  我们将使用 *Promise* 。
   
   ### The Hero Service makes a !{_Promise}  
   
-  ### `HeroService`会生成一个承诺
+  ### `HeroService`会生成一个Promise
 
   A **!{_Promise}** is ... well it's a promise to call us back later when the results are ready. 
   We ask an asynchronous service to do some work and give it a callback function. 
   It does that work (somewhere) and eventually it calls our function with the results of the work or an error.
   
-  **承诺** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
-  我们请求一个异步服务去做点什么，然后给它一个回调函数。
-  它会去做(无论用哪种方式)，一旦完成，它就会调用我们的回调函数，并通过参数把工作成果或者错误信息传给我们。
+  **Promise** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
+  我们请求一个异步服务去做点什么，并且给它一个回调函数。
+  它会去做(在某个地方)，一旦完成，它就会调用我们的回调函数，并通过参数把工作结果或者错误信息传给我们。
   
 .l-sub-section
   :marked
     We are simplifying. Learn about ES2015 Promises [here](http://exploringjs.com/es6/ch_promises.html) and elsewhere on the web.
     
-    这里只是粗浅的说说，要了解更多，请参见[这里](http://exploringjs.com/es6/ch_promises.html)或在Web上搜索其它学习资源。
+    这里只是粗浅的说说，要了解更多ES2015 Promise的信息，请参见[这里](http://exploringjs.com/es6/ch_promises.html)或在Web上搜索其它学习资源。
     
 :marked
   Update the `HeroService` with this !{_Promise}-returning `getHeroes` method:
   
-  把`HeroService`的`getHeroes`方法改写为返回承诺的形式：
+  把`HeroService`的`getHeroes`方法改写为返回Promise的形式：
   
 +makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes', 'app/hero.service.ts (excerpt)')(format=".")
 
@@ -528,11 +528,11 @@ a#child-component
   We're still mocking the data. We're simulating the behavior of an ultra-fast, zero-latency server,
   by returning an **immediately resolved !{_Promise}** with our mock heroes as the result.
   
-  我们继续使用模拟数据。我们通过返回一个 *立即解决的承诺* 的方式，模拟了一个超快、零延迟的超级服务器。
+  我们继续使用模拟数据。我们通过返回一个 *立即解决的Promise* 的方式，模拟了一个超快、零延迟的超级服务器。
   
   ### Act on the !{_Promise}
   
-  ### 基于承诺的行动
+  ### 基于Promise的行动
   
   Returning to the `AppComponent` and its `getHeroes` method, we see that it still looks like this:
   
@@ -543,17 +543,17 @@ a#child-component
 :marked
   As a result of our change to `HeroService`, we're now setting `this.heroes` to a !{_Promise} rather than an array of heroes. 
   
-  在修改了`HeroService`之后，我们还要把`this.heroes`替换为一个承诺，而不再是一个英雄数组。
+  在修改了`HeroService`之后，我们还要把`this.heroes`替换为一个Promise，而不再是一个英雄数组。
   
   We have to change our implementation to *act on the !{_Promise} when it resolves*.
   When the !{_Promise} resolves successfully, *then* we will have heroes to display.
   
-  我们得修改这个实现，把它变成*基于承诺*的，并在承诺的事情被解决时再行动。
-  一旦承诺的事情被成功解决，我们就会显示英雄数据。
+  我们得修改这个实现，把它变成*基于Promise*的，并在承诺的事情被解决时再行动。
+  一旦Promise被成功解决，我们就会显示英雄数据。
   
   We pass our callback function as an argument to the !{_Promise}'s **then** method:
   
-  我们把回调函数作为参数传给承诺对象的**then**函数：
+  我们把回调函数作为参数传给Promise对象的**then**函数：
   
 +makeExample('toh-4/ts/app/app.component.ts', 'get-heroes', 'app/app.component.ts (getHeroes - revised)')(format=".")
 
@@ -563,12 +563,12 @@ a#child-component
     in the callback is more succinct than the equivalent function expression and gracefully handles *this*.
     
     回调中所用的[ES2015箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-    能比等价的函数表达式更加快速、优雅的处理*this*指针。
+    比等价的函数表达式更加简洁，能优雅的处理*this*指针。
     
 :marked
   Our callback sets the component's `heroes` property to the array of heroes returned by the service. That's all there is to it!
   
-  在回调中，我们把由服务返回的英雄数组赋值给组件的`heroes`属性。是的，这就搞定了。
+  在回调函数中，我们把由服务返回的英雄数组赋值给组件的`heroes`属性。是的，这就搞定了。
   
   Our app should still be running, still showing a list of heroes, and still
   responding to a name selection with a detail view.
@@ -649,7 +649,7 @@ a#child-component
   
   * We designed our service to return a !{_Promise} and our component to get our data from the !{_Promise}.
   
-  * 我们把服务改造为返回承诺的，并让组件从承诺获取数据。
+  * 我们把服务设计为返回Promise，组件从Promise中获取数据。
 
   Run the <live-example></live-example> for this part.
   
@@ -664,7 +664,7 @@ a#child-component
   As our app evolves, we’ll learn how to design it to make it easier to grow and maintain.
   
   通过使用共享组件和服务，我们的《英雄指南》更有复用性了。
-  我们还要创建一个仪表盘，要添加菜单链接，要路由到各个视图，还要在模板中格式化数据。
+  我们还要创建一个控制台，要添加在视图间路由的菜单链接，还要在模板中格式化数据。
   随着我们应用的进化，我们还会学到如何进行设计，让它更易于扩展和维护。
   
   We learn about Angular Component Router and navigation among the views in the [next tutorial](toh-pt5.html) chapter.
@@ -692,11 +692,10 @@ a#child-component
   Like `getHeroes`, it also returns a !{_Promise}. 
   But this !{_Promise} waits 2 seconds before resolving the !{_Promise} with mock heroes.
   
-  像`getHeroes`一样，它也返回一个承诺。
-  但是，这个承诺会在使用模拟数据完成任务之前等待两秒钟。
+  像`getHeroes`一样，它也返回一个Promise。
+  但是，这个Promise会在提供模拟数据之前等待两秒钟。
   
   Back in the `AppComponent`, replace `heroService.getHeroes` with `heroService.getHeroesSlowly`
   and see how the app behaves.
 
   回到`AppComponent`，用`heroService.getHeroesSlowly`替换掉`heroService.getHeroes`，并观察本应用的行为。
-  
