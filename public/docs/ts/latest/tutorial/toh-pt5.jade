@@ -625,21 +625,14 @@ block redirect-vs-use-as-default
 
   使用下列内容创建文件：
 
-+makeExcerpt('app/dashboard.component.html')
++makeExample('app/dashboard.component.1.html', '', 'app/dashboard.component.html')
 
 :marked
   We use `*ngFor` once again to iterate over a list of heroes and display their names.
   We added extra `<div>` elements to help with styling later in this chapter.
 
   我们又一次使用`*ngFor`来在英雄列表上迭代，并显示它们的名字。
-  还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。
-
-  There's a `(click)` binding to a `gotoDetail` method we haven't written yet and
-  we're displaying a list of heroes that we don't have.
-  We have work to do, starting with those heroes.
-
-  这里的`(click)`绑定到了`gotoDetail`方法，但我们还没实现它。而且我们也还没有要显示的英雄列表数据。
-  我们有活儿干了，就从这些英雄列表开始吧。
+  还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。  
 
   ### Share the *HeroService*
 
@@ -668,7 +661,7 @@ block redirect-vs-use-as-default
 
   打开<span ngio-ex>dashboard.component.ts</span>文件，并把必备的`import`语句加进去。
 
-+makeExcerpt('app/dashboard.component.2.ts','imports')
++makeExcerpt('app/dashboard.component.ts','imports')
 
 :marked
   We need `OnInit` interface because we'll initialize the heroes in the `ngOnInit` method as we've done before.
@@ -681,7 +674,7 @@ block redirect-vs-use-as-default
 
   我们现在就实现`DashboardComponent`类，像这样：
 
-+makeExcerpt('app/dashboard.component.2.ts (class)', 'component')
++makeExcerpt('app/dashboard.component.ts (class)', 'class')
 
 :marked
   We've seen this kind of logic before in the `HeroesComponent`:
@@ -700,10 +693,9 @@ block redirect-vs-use-as-default
 
   * 在Angular的`ngOnInit`生命周期钩子里面调用服务来获得英雄列表。
 
-  The noteworthy differences: we cherry-pick four heroes (2nd, 3rd, 4th, and 5th)
-  and stub the `gotoDetail` method until we're ready to implement it.
+  In this dashboard we cherry-pick four heroes (2nd, 3rd, 4th, and 5th) with the `Array.slice` method.
 
-  值得注意的区别是：我们提取了四个英雄（第2、3、4、5个），暂时隔离`gotoDetail`方法直到时机成熟。
+  值得注意的区别是：我们用`Array.slice`方法提取了四个英雄（第2、3、4、5个）。
 
   Refresh the browser and see four heroes in the new dashboard.
 
@@ -974,8 +966,7 @@ block extract-id
   修改模板，添加这个按钮以提醒我们还要做更多的改进，
   并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
   
-
-+makeExample('app/hero-detail.component.html')
++makeExample('app/hero-detail.component.html')(format='.')
 
 :marked
   We update the component metadata with a `moduleId` and a `templateUrl` pointing to the template file that we just created.
@@ -1003,51 +994,27 @@ block extract-id
   When a user selects a hero in the dashboard, the app should navigate to the `HeroDetailComponent` to view and edit the selected hero.
 
   当用户从仪表盘中选择了一位英雄时，本应用要导航到`HeroDetailComponent`以查看和编辑所选的英雄。
+  
+  Although the dashboard heroes are presented as button-like blocks, they should behave like anchor tags.
+  When hovering over a hero block, the target URL should display in the browser status bar 
+  and the user should be able to copy the link or open the hero detail view in a new tab.  
 
-  In the dashboard template we bound each hero's click event to the `gotoDetail` method, passing along the selected `hero` entity.
+  To achieve this effect, reopen the `dashboard.component.html` and replace the repeated `<div *ngFor...>` tags
+  with `<a>` tags. The opening `<a>` tag looks like this:
 
-  在仪表盘模板中，我们把每个英雄的click事件都绑定成`gotoDetail`方法，并且传入选中的这个`hero`实体对象。
-
-+makeExample('toh-5/ts/app/dashboard.component.html','click', 'app/dashboard.component.html (click绑定)')(format=".")
++makeExample('app/dashboard.component.html', 'click', 'app/dashboard.component.html (repeated <a> tag)')
 
 :marked
-  We stubbed the `gotoDetail` method when we rewrote the `DashboardComponent`.
-  Now we give it a real implementation.
+  Notice the `[routerLink]` binding.
 
-  当初我们重写`DashboardComponent`的时候，`gotoDetail`还是一个“桩方法”。
-  现在，我们给它一个真正的实现。
-
-+makeExcerpt('app/dashboard.component.ts','gotoDetail')
-
-:marked
-  The `gotoDetail` method navigates in two steps:
-
-  `gotoDetail`方法分两步完成导航：
-
-  1. Set a route *link parameters !{_array}*
-
-  1. 生成路由的 *链接参数数组*
-
-  1. Pass the !{_array} to the router's navigate method
-
-  1. 把这个数组传给路由器的navigate方法。
-
-  For navigation, we wrote router links <span if-docs="dart">as *link
-  parameters !{_array}s*</span> in the [`AppComponent`
-  template](#router-links).  Those link<span if-docs="dart"> parameters
-  !{_array}</span>s had only one element, the !{_pathVsName} of the
-  destination route.
-
-  我们为导航在[`AppComponent`的模板](#router-links)中生成导航链接<span if-docs="dart">as *link
-  parameters !{_array}s*</span>。这些链接<span if-docs="dart"> parameters
-    !{_array}</span>只有一个元素：目标路由的路径。
+  In the top level navigation in the [`AppComponent`
+  template](#router-links) has router links set to fixed !{_pathVsName}s of the
+  destination routes, "/dashboard" and "/heroes".
   
-  This link parameters !{_array} has two elements, the ***!{_pathVsName}*** of
-  the destination route and a ***route parameter*** <span if-docs="dart">with
-  an `id` field</span> set to the value of the selected hero's `id`.
-  
-  这个链接参数数组有两个元素：目标路由的***路径(path)***和一个***路由参数对象***，其中包括一个`id`字段，它的取值是所选英雄的`id`。
-  
+  This time, we're binding to an expression containing a **link parameters !{_array}**.
+  The !{_array} has two elements, the ***!{_pathVsName}*** of
+  the destination route and a ***route parameter*** set to the value of the current hero's `id`.
+
   The two !{_array} items align with the ***!{_pathVsName}*** and ***:id***
   token in the parameterized hero detail route definition we added to
   `!{_appRoutingTsVsAppComp}` earlier in the chapter:
@@ -1056,17 +1023,6 @@ block extract-id
 
 - var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.module.3.ts'
 +makeExcerpt(_file + ' (hero detail)', 'hero-detail')
-
-:marked
-  The `DashboardComponent` doesn't have the router yet. We obtain it in the usual way:
-  import the `router` reference and inject it in the constructor (along with the `HeroService`):
-
-  `DashboardComponent`还没有路由器。我们使用常规的方式为它加上路由：
-  `import` `router`对象的引用，并且把它注入到构造函数中(就像`HeroService`那样)：
-
-+makeExcerpt('app/dashboard.component.ts ()','import-router', '')
-
-+makeExcerpt('app/dashboard.component.ts', 'ctor', '')
 
 :marked
   Refresh the browser and select a hero from the dashboard; the app should navigate directly to that hero’s details.
@@ -1181,7 +1137,7 @@ block extract-id
 
   我们要做的是将详情组建移动到它自己的视图，并在用户决定编辑一个英雄时导航到它。
 
-  Delete the `<h1>` at the top (forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
+  Delete the `<h1>` at the top (we forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
   
   删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`期间可以先忘掉它）。
   
@@ -1195,7 +1151,7 @@ block extract-id
   这里我们不再展示完整的`HeroDetailComponent`了。
   我们要在它自己的页面中显示英雄详情，并像我们在仪表盘中所做的那样路由到它。
 
-  But we'll throw in a small twist for variety.
+  We'll throw in a small twist for variety.
   We are keeping the "master/detail" style but shrinking the detail to a "mini", read-only version.
   When the user selects a hero from the list, we *don't* go to the detail page.
   We show a *mini-detail* on *this* page instead and make the user click a button to navigate to the *full detail *page.
@@ -1296,25 +1252,25 @@ block heroes-component-cleanup
 +makeExcerpt('app/heroes.component.ts (revised metadata)', 'metadata')
 
 :marked
-  Now we can see what's going on as we update the component class along the same lines as the dashboard:
+  ### Update the _HeroesComponent_ class.
 
-  现在，我们一下就明白该怎么像仪表盘中那样更新组件类了：
+  The `HeroesComponent` navigates to the `HeroesDetailComponent` in response to a button click. 
+  The button's _click_ event is bound to a `gotoDetail` method that navigates _imperatively_
+  by telling the router where to go.
 
-  1. Import the `router`
+  This approach requires some changes to the component class:
 
-  1. 导入`router`
-
+  1. Import the `router` from the Angular router library
   1. Inject the `router` in the constructor (along with the `HeroService`)
-
-  1. 把`router`注入到构造函数中(就像`HeroService`那样)
-
-  1. Implement the `gotoDetail` method by calling the `router.navigate` method with a two-part hero-detail link parameters !{_array}.
-
-  1. 实现`gotoDetail`方法：以`HeroDetail`和*链接参数数组*为参数调用`router.navigate`方法。
-
-  Here's the revised component class:
-
-  下面是修改过的组件类：
+  1. Implement `gotoDetail` by calling the `router.navigate` method
+  
++makeExcerpt('app/heroes.component.ts', 'gotoDetail')
+:marked
+  Note that we're passing a two-element **link parameters !{_array}**
+  &mdash; a path and the route parameter &mdash; to
+  the `router.navigate` method just as we did in the `[routerLink]` binding
+  back in the `DashboardComponent`
+  Here's the fully revised `HeroesComponent` class:
 
 +makeExcerpt('app/heroes.component.ts', 'class')
 
