@@ -235,7 +235,7 @@ code-example(language="bash").
   
   在我们让**表单输入**支持双向数据绑定之前，我们得先导入`FormsModule`模块。
   只要把它添加到`NgModule`装饰器的`imports`数组中就可以了，该数组是应用中用到的外部模块列表。
-  这样我们就引入了包括`ngModel`在内的表单依赖捆。
+  这样我们就引入了表单包，其中包含了`ngModel`。
 
 +makeExample('toh-1/ts/app/app.module.ts', '', 'app.module.ts (FormsModule import)')
 
@@ -245,7 +245,7 @@ code-example(language="bash").
     [Forms](../guide/forms.html#ngModel) and
     [Template Syntax](../guide/template-syntax.html#ngModel) chapters.
 
-    要学习关于`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
+    要学习关于`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
     [模板语法](../guide/template-syntax.html#ngModel)两章
 
 :marked
@@ -279,11 +279,11 @@ code-example(language="html").
   * Our Tour of Heroes uses the double curly braces of interpolation (a kind of one-way data binding)
   to display the application title and properties of a `Hero` object.
   
-  * 我们的《英雄指南》使用双大括号(插值表达式 —— 单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
+  * 我们的《英雄指南》使用双大括号插值表达式(单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
   
   * We wrote a multi-line template using ES2015’s template strings to make our template readable.
   
-  * 我们使用ES2015的模板字符串写了一个多行模板，来让我们的模板更有可读性。
+  * 我们使用ES2015的模板字符串写了一个多行模板，使我们的模板更具可读性。
   
   * We can both display and change the hero’s name after adding a two-way data binding to the `<input>` element
   using the built-in `ngModel` directive.
@@ -292,7 +292,7 @@ code-example(language="html").
   
   * The `ngModel` directive also propagates changes to every other binding of the `hero.name`.
   
-  * 通过`ngModel`指令，这些修改还影响到了每一个对`hero.name`的其它绑定。
+  * `ngModel`指令将这些修改传播到每一个对`hero.name`的其它绑定。
 
   Run the <live-example></live-example> for this part.
   
@@ -318,5 +318,4 @@ code-example(language="html").
 
   我们的《英雄指南》只显示了一个英雄，而我们真正要显示的是一个英雄列表。
   我们还希望允许用户选择一个英雄，并且显示它/她的详情。
-  我们还将学习更多：接收一个列表、把它们绑定到模板，以及让用户选择它。
-  这些都在[教程的下一章](./toh-pt2.html)。
+  我们将[教程的下一章](./toh-pt2.html)中学习如何获取列表数据，并将把它们绑定到模板，以及允许用户选择其中一个英雄。
