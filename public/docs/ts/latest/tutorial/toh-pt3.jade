@@ -68,14 +68,14 @@ code-example(language="bash").
   现在它们还很小，但很快它们都会长大。
   我们将来肯定会收到新需求：针对这一个，却不能影响另一个。
   然而，每一个更改都会给这两个组件带来风险，并且带来双倍的测试负担，却没有任何好处。
-  如果我们不得不在本应用之外复用英雄详情组件，那么英雄列表组件也会跟着混进去。
+  如果我们需要在应用的其它地方复用英雄详情组件，英雄列表组件也会跟着混进去。
   
   Our current component violates the 
   [Single Responsibility Principle](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html).
   It's only a tutorial but we can still do things right &mdash; 
   especially if doing them right is easy and we learn how to build Angular apps in the process.
   
-  我们这个组件违反了[单一职责原则](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)。
+  我们当前的组件违反了[单一职责原则](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)。
   虽然这只是一个教程，但我们还是得坚持做正确的事 —— 况且，做正确的事这么容易，我们何乐而不为呢？别忘了，我们正在学习的就是如何构建真正的Angular应用。
   
   Let’s break the hero details out into its own component.
@@ -100,7 +100,7 @@ code-example(language="bash").
     
     We like to identify at a glance which classes are components and which files contain components. 
     
-    我们希望一眼就能看出哪个类是组件，以及哪个文件包含组件。
+    我们希望一眼就能看出哪些类是组件，以及哪些文件包含组件。
     
     Notice that  we have an `AppComponent` in a file named `app.component.ts` and our new
     `HeroDetailComponent` is in a file named `hero-detail.component.ts`. 
@@ -233,7 +233,7 @@ code-example(format=".").
     where we also explain why *target* properties require this special treatment and 
     *source* properties do not.
     
-    我们在[这里](../guide/attribute-directives.html#why-input)详细解释了输入属性，以及为什么*目标属性*需要“显式定义”这样的特殊待遇，而*来源属性*却不需要。
+    我们在[这里](../guide/attribute-directives.html#why-input)详细解释了输入属性，以及为什么*目标属性*需要“显式定义”这样的特殊待遇，而*源属性*却不需要。
     
 :marked
   There are a couple of ways we can declare that `hero` is an *input*. 
@@ -255,7 +255,7 @@ code-example(format=".").
 :marked
   ## Refresh the AppModule
   
-  ## 刷新AppModule
+  ## 更新AppModule
   
   We return to the `AppModule`, the application's root module, and teach it to use the `HeroDetailComponent`.
 
