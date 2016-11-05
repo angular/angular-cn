@@ -19,11 +19,11 @@ block includes
 
   * Add a *Dashboard* view.
 
-  * 添加一个*仪表盘*视图。
+  * 添加一个*控制台*视图。
 
   * Navigate between the *Heroes* and *Dashboard* views.
 
-  * 在*英雄列表*和*仪表盘*视图之间导航。
+  * 在*英雄列表*和*控制台*视图之间导航。
 
   * Clicking on a hero in either view navigates to a detail view of the selected hero.
 
@@ -141,7 +141,7 @@ code-example(language="bash").
 
   * Tie the *Dashboard* into the navigation structure
 
-  * 把*仪表盘*加入导航结构中。
+  * 把*控制台*加入导航结构中。
 
 .l-sub-section
   :marked
@@ -161,7 +161,7 @@ code-example(language="bash").
 
   Our revised app should present a shell with a choice of views (*Dashboard* and *Heroes*) and then default to one of them.
 
-  我们修改后的应用将提供一个壳，它会选择*仪表盘*和*英雄列表*视图之一，然后默认显示它。
+  我们修改后的应用将提供一个壳，它会选择*控制台*和*英雄列表*视图之一，然后默认显示它。
 
   The `AppComponent` should only handle navigation.
   Let's move the display of *Heroes* out of `AppComponent` and into its own `HeroesComponent`.
@@ -509,7 +509,7 @@ block routerLink
 :marked
   ## Add a *Dashboard*
 
-  ## 添加一个*仪表盘*
+  ## 添加一个*控制台*
 
   Routing only makes sense when we have multiple views. We need another view.
 
@@ -527,11 +527,11 @@ block routerLink
 
   ### Configure the dashboard route
 
-  ### 配置仪表盘路由
+  ### 配置控制台路由
 
   Go back to `!{_appRoutingTsVsAppComp}` and teach it to navigate to the dashboard.
 
-  回到`!{_appRoutingTsVsAppComp}`，我们得教它如何导航到这个仪表盘。
+  回到`!{_appRoutingTsVsAppComp}`，我们得教它如何导航到这个控制台。
 
   Import the dashboard component and
   add the following route definition to the `!{_RoutesVsAtRouteConfig}` !{_array} of definitions.
@@ -559,7 +559,7 @@ block routerLink
   we want to see a nice URL in the browser address bar that says `/dashboard`.
   Remember that the browser launches with `/` in the address bar.
 
-  我们希望在应用启动的时候就显示仪表盘，而且我们希望在浏览器的地址栏看到一个好看的URL，比如`/dashboard`。
+  我们希望在应用启动的时候就显示控制台，而且我们希望在浏览器的地址栏看到一个好看的URL，比如`/dashboard`。
   记住，浏览器启动时，在地址栏中使用的路径是`/`。
   我们可以使用一个重定向路由来达到目的。
   
@@ -585,7 +585,7 @@ block redirect-vs-use-as-default
 
   Finally, add a dashboard navigation link to the template, just above the *Heroes* link.
 
-  最后，在模板上添加一个到仪表盘的导航链接，就放在*英雄(Heroes)*链接的上方。
+  最后，在模板上添加一个到控制台的导航链接，就放在*英雄(Heroes)*链接的上方。
   
 - var _vers = _docsFor == 'dart' ? '' : '.1'
 +makeExcerpt('app/app.component' + _vers + '.ts', 'template-v3')
@@ -602,12 +602,12 @@ block redirect-vs-use-as-default
   To see these changes in your browser, go to the application root (`/`) and reload.
   The app displays the dashboard and we can navigate between the dashboard and the heroes.
 
-  刷新浏览器。应用显示出了仪表盘，并可以在仪表盘和英雄列表之间导航了。
+  刷新浏览器。应用显示出了控制台，并可以在控制台和英雄列表之间导航了。
   ## Dashboard Top Heroes
-  ## 仪表盘上的顶级英雄
+  ## 控制台上的顶级英雄
   Let’s spice up the dashboard by displaying the top four heroes at a glance.
 
-  我们想让仪表盘更有趣，比如：一眼就能看到四个顶级英雄。
+  我们想让控制台更有趣，比如：一眼就能看到四个顶级英雄。
 
   Replace the `template` metadata with a `templateUrl` property that points to a new
   template file.
@@ -699,7 +699,7 @@ block redirect-vs-use-as-default
 
   Refresh the browser and see four heroes in the new dashboard.
 
-  刷新浏览器，在这个新的仪表盘中就看到了四个英雄。
+  刷新浏览器，在这个新的控制台中就看到了四个英雄。
 
 .l-main-section
 :marked
@@ -714,7 +714,7 @@ block redirect-vs-use-as-default
 
   1. from the *Dashboard* to a selected hero.
 
-  1. 从*仪表盘(Dashboard)*导航到一个选定的英雄。
+  1. 从*控制台(Dashboard)*导航到一个选定的英雄。
 
   1. from the *Heroes* list to a selected hero.
 
@@ -811,7 +811,7 @@ code-example(format='').
   They click a *hero* whether that hero is displayed on the dashboard or in the heroes list.
 
   我们没有往模板中添加一个`'英雄详情'`，这是因为用户不会直接点击导航栏中的链接去查看一个特定的英雄。
-  它们只会通过在英雄列表或者仪表盘中点击来显示一个英雄。
+  它们只会通过在英雄列表或者控制台中点击来显示一个英雄。
 
   We'll get to those *hero* clicks later in the chapter.
   There's no point in working on them until the `HeroDetailComponent`
@@ -989,31 +989,43 @@ block extract-id
 :marked
   ## Select a *Dashboard* Hero
 
-  ## 选择一个*仪表盘*中的英雄
+  ## 选择一个*控制台*中的英雄
 
   When a user selects a hero in the dashboard, the app should navigate to the `HeroDetailComponent` to view and edit the selected hero.
 
-  当用户从仪表盘中选择了一位英雄时，本应用要导航到`HeroDetailComponent`以查看和编辑所选的英雄。
+  当用户从控制台中选择了一位英雄时，本应用要导航到`HeroDetailComponent`以查看和编辑所选的英雄。
   
   Although the dashboard heroes are presented as button-like blocks, they should behave like anchor tags.
   When hovering over a hero block, the target URL should display in the browser status bar 
-  and the user should be able to copy the link or open the hero detail view in a new tab.  
+  and the user should be able to copy the link or open the hero detail view in a new tab.
+
+  虽然控制台英雄被显示为像按钮一样的方块，但是它们的行为应该像锚标签一样。
+  当鼠标移动到一个英雄方块上时，目标URL应该显示在浏览器的状态条上，用户应该能拷贝链接或者在新的浏览器标签中打开英雄详情视图。
 
   To achieve this effect, reopen the `dashboard.component.html` and replace the repeated `<div *ngFor...>` tags
   with `<a>` tags. The opening `<a>` tag looks like this:
+
+  要达到这个效果，再次打开`dashboard.component.html`，将用来迭代的`<div *ngFor...>`替换为`<a>`，就像这样：
 
 +makeExample('app/dashboard.component.html', 'click', 'app/dashboard.component.html (repeated <a> tag)')
 
 :marked
   Notice the `[routerLink]` binding.
 
+  注意`[routerLink]`绑定。
+
   In the top level navigation in the [`AppComponent`
   template](#router-links) has router links set to fixed !{_pathVsName}s of the
   destination routes, "/dashboard" and "/heroes".
+
+  [`AppComponent`模板](#router-links)中的顶级导航有一些路由器链接被设置固定的路径，例如"/dashboard" and "/heroes"。
   
   This time, we're binding to an expression containing a **link parameters !{_array}**.
   The !{_array} has two elements, the ***!{_pathVsName}*** of
   the destination route and a ***route parameter*** set to the value of the current hero's `id`.
+
+  这次，我们绑定了一个包含**链接参数数组**的表达式。
+  该数组有两个元素，目的路由的路径和一个用来设置当前英雄的id值的**路由参数**。
 
   The two !{_array} items align with the ***!{_pathVsName}*** and ***:id***
   token in the parameterized hero detail route definition we added to
@@ -1027,7 +1039,7 @@ block extract-id
 :marked
   Refresh the browser and select a hero from the dashboard; the app should navigate directly to that hero’s details.
   
-  刷新浏览器，并从仪表盘中选择一位英雄，应用就会直接导航到英雄的详情。
+  刷新浏览器，并从控制台中选择一位英雄，应用就会直接导航到英雄的详情。
   
 .l-main-section
 :marked
@@ -1149,7 +1161,7 @@ block extract-id
   We're going to display the hero detail on its own page and route to it as we did in the dashboard.
 
   这里我们不再展示完整的`HeroDetailComponent`了。
-  我们要在它自己的页面中显示英雄详情，并像我们在仪表盘中所做的那样路由到它。
+  我们要在它自己的页面中显示英雄详情，并像我们在控制台中所做的那样路由到它。
 
   We'll throw in a small twist for variety.
   We are keeping the "master/detail" style but shrinking the detail to a "mini", read-only version.
@@ -1254,15 +1266,30 @@ block heroes-component-cleanup
 :marked
   ### Update the _HeroesComponent_ class.
 
+  ### 更新_HeroesComponent_类
+
   The `HeroesComponent` navigates to the `HeroesDetailComponent` in response to a button click. 
   The button's _click_ event is bound to a `gotoDetail` method that navigates _imperatively_
   by telling the router where to go.
 
+  点击按钮时，`HeroesComponent`导航到`HeroesDetailComponent`。
+  该按钮的_点击_事件被绑定到`gotoDetail`方法，它使用命令式的导航，告诉路由器去哪儿。
+
   This approach requires some changes to the component class:
 
+  该方法需要组件类做一些变化：
+
   1. Import the `router` from the Angular router library
+
+  1. 从Angular路由器库导入`router`
+
   1. Inject the `router` in the constructor (along with the `HeroService`)
+
+  1. 在构造函数中注入`router`（与`HeroService`一起）
+
   1. Implement `gotoDetail` by calling the `router.navigate` method
+
+  1. 实现`gotoDetail`，调用`router.navigate`方法
   
 +makeExcerpt('app/heroes.component.ts', 'gotoDetail')
 :marked
@@ -1271,6 +1298,8 @@ block heroes-component-cleanup
   the `router.navigate` method just as we did in the `[routerLink]` binding
   back in the `DashboardComponent`
   Here's the fully revised `HeroesComponent` class:
+
+  注意，我们将一个双元素的**链接参数数组**——路径和路由参数——传递到`router.navigate`，与之前在`DashboardComponent`中使用`[routerLink]`绑定一样。
 
 +makeExcerpt('app/heroes.component.ts', 'class')
 
@@ -1281,8 +1310,8 @@ block heroes-component-cleanup
   We can jump back and forth between the dashboard and the heroes.
 
   刷新浏览器，并开始点击。
-  我们能在应用中导航：从仪表盘到英雄详情再回来，从英雄列表到Mini版英雄详情到英雄详情，再回到英雄列表。
-  我们可以在仪表盘和英雄列表之间跳来跳去。
+  我们能在应用中导航：从控制台到英雄详情再回来，从英雄列表到Mini版英雄详情到英雄详情，再回到英雄列表。
+  我们可以在控制台和英雄列表之间跳来跳去。
 
   We've met all of the navigational requirements that propelled this chapter.
 
@@ -1302,12 +1331,12 @@ block heroes-component-cleanup
 
   ### A Dashboard with Style
 
-  ### 具有样式的仪表盘
+  ### 具有样式的控制台
 
   The designers think we should display the dashboard heroes in a row of rectangles.
   They've given us ~60 lines of CSS for this purpose including some simple media queries for responsive design.
 
-  设计师认为我们应该把仪表盘的英雄们显示在一排方块中。
+  设计师认为我们应该把控制台的英雄们显示在一排方块中。
   它们给了我们大约60行CSS来实现它，包括一些简单的媒体查询语句来实现响应式设计。
 
   If we paste these ~60 lines into the component `styles` metadata,
@@ -1443,7 +1472,7 @@ block css-files
 :marked
   Look at the app now. Our dashboard, heroes, and navigation links are styling!
 
-  看看现在的应用！我们的仪表盘、英雄列表和导航链接都漂亮多了！
+  看看现在的应用！我们的控制台、英雄列表和导航链接都漂亮多了！
 
 figure.image-display
   img(src='/resources/images/devguide/toh/dashboard-top-heroes.png' alt="查看导航栏")
