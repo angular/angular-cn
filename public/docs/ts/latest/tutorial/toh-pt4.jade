@@ -26,7 +26,7 @@ include ../_util-fns
   Because data services are invariably asynchronous, 
   we'll finish the chapter with a **!{_Promise}**-based version of the data service.
 
-  因为数据服务通常都是异步的，我们将在本章创建一个基于**Promise**的数据服务。
+  因为数据服务通常都是异步的，我们将在本章创建一个基于**承诺（Promise）**的数据服务。
 
   Run the <live-example></live-example> for this part.
 
@@ -468,7 +468,7 @@ a#child-component
   
   ## Async Services and !{_Promise}s
   
-  ## 异步服务与Promise
+  ## 异步服务与承诺
   
   Our `HeroService` returns a list of mock heroes immediately. 
   Its `getHeroes` signature is synchronous
@@ -497,17 +497,17 @@ a#child-component
   
   We'll use *!{_Promise}s*.
   
-  我们将使用 *Promise* 。
+  我们将使用 *承诺* 。
   
   ### The Hero Service makes a !{_Promise}  
   
-  ### `HeroService`会生成一个Promise
+  ### `HeroService`会生成一个承诺
 
   A **!{_Promise}** is ... well it's a promise to call us back later when the results are ready. 
   We ask an asynchronous service to do some work and give it a callback function. 
   It does that work (somewhere) and eventually it calls our function with the results of the work or an error.
   
-  **Promise** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
+  **承诺** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
   我们请求一个异步服务去做点什么，并且给它一个回调函数。
   它会去做(在某个地方)，一旦完成，它就会调用我们的回调函数，并通过参数把工作结果或者错误信息传给我们。
   
@@ -520,7 +520,7 @@ a#child-component
 :marked
   Update the `HeroService` with this !{_Promise}-returning `getHeroes` method:
   
-  把`HeroService`的`getHeroes`方法改写为返回Promise的形式：
+  把`HeroService`的`getHeroes`方法改写为返回承诺的形式：
   
 +makeExample('toh-4/ts/app/hero.service.ts', 'get-heroes', 'app/hero.service.ts (excerpt)')(format=".")
 
@@ -528,11 +528,11 @@ a#child-component
   We're still mocking the data. We're simulating the behavior of an ultra-fast, zero-latency server,
   by returning an **immediately resolved !{_Promise}** with our mock heroes as the result.
   
-  我们继续使用模拟数据。我们通过返回一个 *立即解决的Promise* 的方式，模拟了一个超快、零延迟的超级服务器。
+  我们继续使用模拟数据。我们通过返回一个 *立即解决的承诺* 的方式，模拟了一个超快、零延迟的超级服务器。
   
   ### Act on the !{_Promise}
   
-  ### 基于Promise的行动
+  ### 基于承诺的行动
   
   Returning to the `AppComponent` and its `getHeroes` method, we see that it still looks like this:
   
@@ -543,17 +543,17 @@ a#child-component
 :marked
   As a result of our change to `HeroService`, we're now setting `this.heroes` to a !{_Promise} rather than an array of heroes. 
   
-  在修改了`HeroService`之后，我们还要把`this.heroes`替换为一个Promise，而不再是一个英雄数组。
+  在修改了`HeroService`之后，我们还要把`this.heroes`替换为一个承诺，而不再是一个英雄数组。
   
   We have to change our implementation to *act on the !{_Promise} when it resolves*.
   When the !{_Promise} resolves successfully, *then* we will have heroes to display.
   
-  我们得修改这个实现，把它变成*基于Promise*的，并在承诺的事情被解决时再行动。
-  一旦Promise被成功解决，我们就会显示英雄数据。
+  我们得修改这个实现，把它变成*基于承诺*的，并在承诺的事情被解决时再行动。
+  一旦承诺的事情被成功解决，我们就会显示英雄数据。
   
   We pass our callback function as an argument to the !{_Promise}'s **then** method:
   
-  我们把回调函数作为参数传给Promise对象的**then**函数：
+  我们把回调函数作为参数传给承诺对象的**then**函数：
   
 +makeExample('toh-4/ts/app/app.component.ts', 'get-heroes', 'app/app.component.ts (getHeroes - revised)')(format=".")
 
@@ -649,7 +649,7 @@ a#child-component
   
   * We designed our service to return a !{_Promise} and our component to get our data from the !{_Promise}.
   
-  * 我们把服务设计为返回Promise，组件从Promise中获取数据。
+  * 我们把服务设计为返回承诺，组件从承诺中获取数据。
 
   Run the <live-example></live-example> for this part.
   
@@ -692,8 +692,8 @@ a#child-component
   Like `getHeroes`, it also returns a !{_Promise}. 
   But this !{_Promise} waits 2 seconds before resolving the !{_Promise} with mock heroes.
   
-  像`getHeroes`一样，它也返回一个Promise。
-  但是，这个Promise会在提供模拟数据之前等待两秒钟。
+  像`getHeroes`一样，它也返回一个承诺。
+  但是，这个承诺会在提供模拟数据之前等待两秒钟。
   
   Back in the `AppComponent`, replace `heroService.getHeroes` with `heroService.getHeroesSlowly`
   and see how the app behaves.
