@@ -35,7 +35,7 @@ p 运行这部分的<live-example>在线例子</live-example>。
 :marked
   ## Where We Left Off
 
-  ## 我们在哪
+  ## 延续上一步教程
 
   In the [previous chapter](toh-pt5.html), we learned to navigate between the dashboard and the fixed heroes list, editing a selected hero along the way.
   That's our starting point for this chapter.
@@ -159,7 +159,7 @@ block backend
     The `forRoot` configuration method takes an `InMemoryDataService` class
     that primes the in-memory database as follows:
 
-    `forRoot`配置方法需要`InMemoryDataService`类实例，用来向内存数据库添加种子数据：
+    `forRoot`配置方法需要`InMemoryDataService`类实例，用来向内存数据库填充数据：
 
 +makeExample('app/in-memory-data.service.ts', 'init')(format='.')
 
@@ -173,21 +173,21 @@ block dont-be-distracted-by-backend-subst
       This chapter is an introduction to the !{_Angular_http_library}.
       Please don't be distracted by the details of this backend substitution. Just follow along with the example.
       
-      本章是对Angular中http客户端的介绍。不要因为这种“替换后端”的细节而分心。先不要管为什么，只管照着这个例子做就可以了。
+      本章主要是介绍Angular的HTTP库，不要因为这种“替换后端”的细节而分心。先不要管为什么，只管照着这个例子做就可以了。
 
       Learn more later about the in-memory web API in the [HTTP client chapter](../guide/server-communication.html#!#in-mem-web-api).
       Remember, the in-memory web API is only useful in the early stages of development and for demonstrations such as this Tour of Heroes.
       Skip it when you have a real web API server.
       
       要学习关于*内存Web API*的更多知识，请参阅[HTTP客户端](../guide/server-communication.html#!#in-mem-web-api)一章。
-      记住，*内存Web API*只在开发的早期阶段有用，比如这个《英雄指南》。
+      记住，*内存Web API*主要用于开发的早期阶段或《英雄指南》这样的演示程序。
       如果你已经有了一个真实的Web API服务器，请尽管跳过它。
 
 .l-main-section
 :marked
   ## Heroes and HTTP
 
-  ## 英雄与Http
+  ## 英雄与HTTP
 
   Look at our current `HeroService` implementation
 
@@ -200,8 +200,8 @@ block dont-be-distracted-by-backend-subst
   It may have seemed like overkill at the time, but we were anticipating the
   day when we fetched heroes with an HTTP client and we knew that would have to be an asynchronous operation.
 
-  我们返回一个promise，它用mock版的英雄列表进行解析。
-  在当时，它可能看起来做得有点过分了，不过那时候我们就预料到有这么这一天会通过一个http客户端来获取英雄数据，而且我们知道，那必然是一个异步操作。
+  我们返回一个承诺（Promise)，它用mock版的英雄列表进行解析。
+  它当时可能看起来显得有点过于复杂，不过我们早就预料到总有这么一天会通过一个HTTP客户端来获取英雄数据，而且我们知道，那一定是一个异步操作。
 
   That day has arrived! Let's convert `getHeroes()` to use HTTP.
 
@@ -260,7 +260,7 @@ block get-heroes-details
     If we want those capabilities, we have to add the operators ourselves.
     That's as easy as importing them from the RxJS library like this:
     
-    有一大票像`toPromise`这样的操作符，会扩展`Observable`，为其添加有用的能力。
+    有很多像`toPromise`这样的操作符，用于扩展`Observable`，为其添加有用的能力。
     如果我们希望得到那些能力，就得自己添加那些操作符。
     那很容易，只要从RxJS库中导入它们就可以了，就像这样：
 
@@ -303,9 +303,10 @@ block get-heroes-details
   It knows nothing of the twists and turns required to convert the HTTP response into heroes.
   Such is the beauty and purpose of delegating data access to a service like this `HeroService`.
 
-  调用者不关心这些实现机制，它仍然像以前那样取得一个包含*英雄数据*的承诺。
-  它不关心我们已经改成了从服务器获取英雄数据。
-  它也不了解把http回应转换成英雄数据时所作的这些复杂变换。
+  调用者并不知道这些实现机制，它仍然像以前那样接收一个包含*英雄数据*的承诺。
+  它也不知道我们已经改成了从服务器获取英雄数据。
+  它也不必了解把HTTP响应转换成英雄数据时所作的这些复杂变换。
+  看到美妙之处了吧，这正是将数据访问委托组一个服务的目的。
 
   ### Error Handling
 
@@ -368,7 +369,7 @@ block get-heroes-details
   But when we hit the `Back` button, the changes are lost!
   
   我们已经可以在英雄详情中编辑英雄的名字了。来试试吧。在输入的时候，页头上的英雄名字也会随之更新。
-  不过当我们点了后退按钮时，这些更新就丢失了。
+  不过当我们点了`Back（后退）`按钮时，这些修改就丢失了。
 
 .l-sub-section
   :marked
@@ -391,7 +392,7 @@ block get-heroes-details
   to the end of the hero detail template, a save button with a `click` event
   binding that invokes a new component method named `save`:
   
-  我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个“保存”按钮，它绑定了一个`click`事件，事件中调用组件中一个名叫`save`的新方法：
+  我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save`的新方法：
 
 +makeExcerpt('app/hero-detail.component.html', 'save')
 
@@ -399,7 +400,7 @@ block get-heroes-details
   The `save` method persists hero name changes using the hero service
   `update` method and then navigates back to the previous view:
   
-  `save`方法使用hero服务的`update`方法来持久化对英雄名字的修改，然后导航回前一个页面：
+  `save`方法使用hero服务的`update`方法来持久化对英雄名字的修改，然后导航回前一个视图：
 
 +makeExcerpt('app/hero-detail.component.ts', 'save')
 
@@ -438,12 +439,12 @@ block get-heroes-details
   To add a new hero we need to know the hero's name. Let's use an input
   element for that, paired with an add button.
   
-  要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个input元素和一个“add”按钮来拿到它。
+  要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个input元素和一个添加按钮来实现。
 
   Insert the following into the heroes component HTML, first thing after
   the heading:
   
-  把下列代码插入heroes组件的HTML中，放在紧挨着头部的地方：
+  把下列代码插入heroes组件的HTML中，放在标题的下面：
 
 +makeExcerpt('app/heroes.component.html', 'add')
 
@@ -451,7 +452,7 @@ block get-heroes-details
   In response to a click event, we call the component's click handler and then
   clear the input field so that it will be ready to use for another name.
   
-  在对click事件的响应中，我们要调用组建的click处理器，然后清空这个输入框，以便用来输入另一个名字。
+  当click事件触发时，我们调用组件的click处理器，然后清空这个输入框，以便用来输入另一个名字。
 
 +makeExcerpt('app/heroes.component.ts', 'add')
 
@@ -487,7 +488,7 @@ block get-heroes-details
   Add this button element to the heroes component HTML, right after the hero
   name in the repeated `<li>` tag:
   
-  把这个button元素添加到英雄列表组件的HTML中，把它放在`<li>`标签中的英雄名紧后边：
+  把这个button元素添加到英雄列表组件的HTML中，把它放在`<li>`标签中的英雄名的后面：
 
 +makeExcerpt('app/heroes.component.html', 'delete', '')
 
@@ -517,7 +518,7 @@ block get-heroes-details
   is still responsible for updating the display: it removes the deleted hero
   from the !{_array} and resets the selected hero if necessary.
   
-  当然，我们仍然把删除英雄的操作委托给了hero服务，不过该组件仍然正确的更新了显示：它从数组中移除了被删除的英雄，如果删除的是正选中的英雄，还会清空选择。
+  当然，我们仍然把删除英雄的操作委托给了hero服务，不过该组件仍然负责更新显示：它从数组中移除了被删除的英雄，如果删除的是正选中的英雄，还会清空选择。
 
 :marked
   We want our delete button to be placed at the far right of the hero entry.
@@ -582,7 +583,7 @@ block observables-section-intro
     That operator converted the `Observable` into a `Promise` and we passed that promise back to the caller.
     
     快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
-    该操作符把`Observable`转换成了`Promise`（承诺），并且我们把那个“承诺”返回给了调用者。
+    该操作符把`Observable`转换成了`Promise`，并且我们把那个承诺返回给了调用者。
 
     Converting to a promise is often a good choice. We typically ask `http.get` to fetch a single chunk of data.
     When we receive the data, we're done.
@@ -635,7 +636,7 @@ block observables-section-intro
 
   The component template is simple &mdash; just a text box and a list of matching search results.
 
-  组件模板很简单，就是一个输入框和一个相匹配的搜索结果列表。
+  组件模板很简单，就是一个输入框和一个显示匹配的搜索结果的列表。
 
 +makeExample('app/hero-search.component.html')
 
@@ -653,7 +654,7 @@ block observables-section-intro
 
   The `*ngFor` repeats *hero* objects from the component's `heroes` property. No surprise there.
   
-  `*ngFor`为该组件的`heroes`属性重复*hero*对象。这也没啥特别的。
+  `*ngFor`从该组件的`heroes`属性重复获取*hero*对象。这也没啥特别的。
 
   But, as we'll soon see, the `heroes` property is now !{_an} *!{_Observable}* of hero !{_array}s, rather than just a hero !{_array}.
   The `*ngFor` can't do anything with !{_an} `!{_Observable}` until we flow it through the `async` pipe (`AsyncPipe`).
@@ -685,12 +686,12 @@ block search-criteria-intro
     A `Subject` is a producer of an _observable_ event stream;
     `searchTerms` produces an `Observable` of strings, the filter criteria for the name search.
     
-    `Subject`（主体）是一个_可观察的_事件流中的生产者。
-    `searchTerms`生成一些字符串的`Observable`，用于作为按名搜索时的过滤条件。
+    `Subject`（主题）是一个_可观察的_事件流中的生产者。
+    `searchTerms`生成一个产生字符串的`Observable`，用作按名称搜索时的过滤条件。
   
     Each call to `search` puts a new string into this subject's _observable_ stream by calling `next`.
     
-    每当调用`search`时都会调用`next`来把新的字符串放进该主体的_可观察_流中。
+    每当调用`search`时都会调用`next`来把新的字符串放进该主题的_可观察_流中。
 
 :marked
   <a id="ngoninit"></a>
@@ -703,7 +704,7 @@ block search-criteria-intro
   of search terms into a stream of `Hero` !{_array}s and assign the result to the `heroes` property.
   
   <span if-docs="ts">`Subject`也是一个`Observable`对象。</span>
-  我们要把字符串数组的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。
+  我们要把搜索词的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。
 
 +makeExcerpt('app/hero-search.component.ts', 'search', '')
 
@@ -712,7 +713,7 @@ block search-criteria-intro
   Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
   
   如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场HTTP请求风暴。
-  这可不好玩。我们不希望占用服务器资源，也不想耗尽网络带宽。
+  这可不好玩。我们不希望占用服务器资源，也不想耗光蜂窝移动网络的流量。
 
 block observable-transformers
   :marked
@@ -735,7 +736,7 @@ block observable-transformers
     * `switchMap` calls our search service for each search term that makes it through the `debounce` and `distinctUntilChanged` gauntlet.
     It cancels and discards previous search observables, returning only the latest search service observable.
     
-    * `switchMap`会为每个从`debounce`和`distinctUntilChanged`中通关的搜索词调用搜索服务。它会丢弃以前的搜索Observable，只保留最近的。
+    * `switchMap`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
   .l-sub-section
     :marked
@@ -761,13 +762,13 @@ block observable-transformers
       We also short-circuit the `http` method call and return an observable containing an empty array
       if the search text is empty.
       
-      如果搜索框为空，我们还可以短路掉这次http调用，并且直接返回一个包含空数组的可观察对象。
+      如果搜索框为空，我们还可以短路掉这次`http`方法调用，并且直接返回一个包含空数组的可观察对象。
 
       Note that _canceling_ the `HeroSearchService` observable won't actually abort a pending HTTP request
       until the service supports that feature, a topic for another day.
       We are content for now to discard unwanted results.
       
-      注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的HTTP请求，除非有一天我们支持了这个特性，这个问题我们以后再讨论。
+      注意，_取消_`HeroSearchService`的可观察对象并不会实际中止（abort）一个未完成的HTTP请求，除非服务支持这个特性，这个问题我们以后再讨论。
       目前我们的做法只是丢弃不希望的结果。
 
   :marked
@@ -775,7 +776,7 @@ block observable-transformers
     Our simple example prints the error to the console; a real life application should do better.
     Then we return an observable containing an empty array to clear the search result.
     
-    * `catch`拦截失败的Observable。这个简单的例子中只是把错误信息打印到控制台（但实际的应用需要做更多事），然后返回一个包含空数组的可观察对象，以清空搜索结果。
+    * `catch`拦截失败的可观察对象。这个简单的例子中只是把错误信息打印到控制台（但实际的应用需要做更多事），然后返回一个包含空数组的可观察对象，以清空搜索结果。
 
     ### Import RxJS operators
     
@@ -855,7 +856,7 @@ figure.image-display
   Review the sample source code in the <live-example></live-example> for this chapter.
   Verify that we have the following structure:
   
-  在<live-example>在线例子</live-example>中回顾本章的范例代码。
+  回顾一下本章<live-example>在线例子</live-example>中的范例代码。
   验证我们是否得到了如下结构：
 
 block filetree
