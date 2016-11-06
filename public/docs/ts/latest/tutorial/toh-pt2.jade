@@ -231,7 +231,7 @@ code-example(language="bash").
   When we assign styles to a component they are scoped to that specific component.
   Our styles will only apply to our `AppComponent` and won't "leak" to the outer HTML.
 
-  当我们向一个组件指定样式时，它们的作用域将仅限于该组件。
+  当我们为一个组件指定样式时，它们的作用域将仅限于该组件。
   上面的例子中，这些样式只会作用于`AppComponent`组件，而不会“泄露”到外部HTML中。
 
   Our template for displaying the heroes should now look like this:
@@ -468,7 +468,7 @@ code-example(language="bash").
     from the data source (the expression `hero === selectedHero`) to a property of `class`.
     
     注意，模板中的`class.selected`是括在一对方括号中的。
-    这就是“属性绑定”的语法，一种从数据源(即`hero === selectedHero`表达式)到`class`属性的单向数据流动的绑定。
+    这就是“属性绑定”的语法，实现从数据源(`hero === selectedHero`表达式)到`class`属性的单向数据流动。
     
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-2', 'app.component.ts (styling each hero)')(format=".")
 
