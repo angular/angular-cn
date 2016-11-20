@@ -442,7 +442,7 @@ block router-config-intro
   We don't really expect users to paste a route URL into the address bar.
   We add an anchor tag to the template which, when clicked, triggers navigation to the `HeroesComponent`.
 
-  我们当然不会真让用户往地址栏中粘贴路由的URL，而应该在模板中的什么地方添加一个链接标签。点击时，就会导航到`HeroesComponent`组件。
+  我们当然不会真让用户往地址栏中粘贴路由的URL，而应该在模板中的什么地方添加一个锚标签。点击时，就会导航到`HeroesComponent`组件。
 
   The revised template looks like this:
 
@@ -456,7 +456,7 @@ block routerLink
     We bind the `RouterLink` directive (another of the `RouterModule` directives) to a string
     that tells the router where to navigate when the user clicks the link.
   
-    注意，链接标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个字符串。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
+    注意，锚标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个字符串。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
   
     Since our link is not dynamic, we define a *routing instruction* with a **one-time binding** to our route **path**.
     Looking back at the route configuration, we confirm that `'/heroes'` is the path of the route to the `HeroesComponent`.
@@ -754,7 +754,7 @@ code-example(language="html").
   Certainly not the last one; we can't embed an entire hero object in the URL! Nor would we want to.
 
   显然，在我们的任何一个路由场景中它都无法工作。
-  特别是最后一个需求，我们无法将一个完整的hero对象嵌入到URL中！不过我们本来也不想这样。
+  最后一种场景肯定不行，我们无法将一个完整的hero对象嵌入到URL中！不过我们本来也不想这样。
 
   ### Parameterized route
 
@@ -773,7 +773,7 @@ code-example(format='').
   We need to represent that variable part of the route with a *parameter* (or *token*) that stands for the hero's `id`.
 
   URL中的`/detail/`部分是固定不变的，但结尾的数字`id`部分会随着英雄的不同而变化。
-  我们要把路由中可变的那部分表示成一个*参数（parameter）*或*符号（token）*，代表英雄的`id`。
+  我们要把路由中可变的那部分表示成一个*参数（parameter）*或*令牌（token）*，代表英雄的`id`。
 
   ### Configure a Route with a Parameter
 
@@ -802,7 +802,7 @@ code-example(format='').
 :marked
   We're finished with the application routes.
 
-  我们已经完成了本应用的路由。
+  我们已经完成了本应用的路由的配置。
 
 
   We won't add a `'Hero Detail'` link to the template because users
@@ -880,7 +880,7 @@ block ngOnInit
     extract the `id` parameter value from the `ActivatedRoute` service
     and use the `HeroService` to fetch the hero with that `id`.
 
-    在`ngOnInit`生命周期钩子中，使用可观察对象`params`从`ActivatedRoute`服务中提取`id`参数，并且使用`HeroService`来获取具有这个`id`的英雄数据。
+    在`ngOnInit`生命周期钩子中，我们从`ActivatedRoute`服务的可观察对象`params`中提取`id`参数，并且使用`HeroService`来获取具有这个`id`的英雄数据。。
 
 +makeExcerpt('app/hero-detail.component.ts', 'ngOnInit')
 
@@ -934,7 +934,7 @@ block extract-id
   using the `Location` service we injected previously.
 
   现在用户可以点击`AppComponent`中的两个链接，或点击浏览器的“后退”按钮。
-  我们来添加第三个选项：一个`goBack`方法，使用之前注入的`Location`服务实现浏览器的历史堆栈的后退。
+  我们来添加第三个选项：一个`goBack`方法，它使用之前注入的`Location`服务，利用浏览器的历史堆栈，导航到上一步。
 
 +makeExcerpt('app/hero-detail.component.ts', 'goBack')
 
@@ -998,7 +998,7 @@ block extract-id
   When hovering over a hero block, the target URL should display in the browser status bar 
   and the user should be able to copy the link or open the hero detail view in a new tab.
 
-  虽然仪表盘英雄被显示为像按钮一样的方块，但是它们的行为应该像链接标签一样。
+  虽然仪表盘英雄被显示为像按钮一样的方块，但是它们的行为应该像锚标签一样。
   当鼠标移动到一个英雄方块上时，目标URL应该显示在浏览器的状态条上，用户应该能拷贝链接或者在新的浏览器标签页中打开英雄详情视图。
 
   To achieve this effect, reopen the `dashboard.component.html` and replace the repeated `<div *ngFor...>` tags
@@ -1146,11 +1146,11 @@ block extract-id
 :marked
   Our goal is to move the detail to its own view and navigate to it when the user decides to edit a selected hero.
 
-  我们要做的是将详情建移动到它自己的视图，并在用户决定编辑一个英雄时导航到它。
+  我们要做的是将英雄详情移动到它自己的视图，并在用户决定编辑一个英雄时导航到它。
 
   Delete the `<h1>` at the top (we forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
   
-  删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`时忘记改它了）。
+  删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`时忘记修改它了）。
   
   Delete the last line of the template with the `<my-hero-detail>` tags.
 
@@ -1197,7 +1197,7 @@ figure.image-display
   Notice that the hero's name is displayed in CAPITAL LETTERS. That's the effect of the `uppercase` pipe
   that we slipped into the interpolation binding. Look for it right after the pipe operator ( | ).
 
-  注意，英雄的名字全被显示成大写字母。那是 `uppercase`管道的效果，借助它，我们能干预插值表达式绑定过程。可以管道操作符 ( | ) 后面看到它。
+  注意，英雄的名字全被显示成大写字母。那是`uppercase`管道的效果，借助它，我们能干预插值表达式绑定的过程。可以管道操作符 ( | ) 后面看到它。
 
 +makeExcerpt('app/heroes.component.html', 'pipe', '')
 
