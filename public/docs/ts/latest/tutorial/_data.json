@@ -32,6 +32,7 @@
   },
   "toh-pt6": {
     "title": "HTTP",
+    "subtitle": "获取和保存数据",
     "intro": "把我们的服务和组件改为用Angular的HTTP服务实现",
     "nextable": true
   }

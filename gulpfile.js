@@ -247,15 +247,16 @@ function findAndRunE2eTests(filter, outputFile) {
    e2eSpecPaths.forEach(function(specPath) {
     // get all of the examples under each dir where a pcFilename is found
     localExamplePaths = getExamplePaths(specPath, true);
-    // Filter by language
-    localExamplePaths = localExamplePaths.filter(function (fn) {
-      return fn.match('/'+lang+'$') != null;
-    });
+    // Filter by example name
     if (filter) {
       localExamplePaths = localExamplePaths.filter(function (fn) {
         return fn.match(filter) != null;
       })
     }
+    // Filter by language, also supports variations like js-es6
+    localExamplePaths = localExamplePaths.filter(function (fn) {
+      return fn.match('/'+lang+'(?:-[^/]*)?$') != null;
+    });
     localExamplePaths.forEach(function(examplePath) {
       examplePaths.push(examplePath);
     })
@@ -754,7 +755,7 @@ gulp.task('check-deploy', ['firebase-use-proj-check', 'build-docs'], () => {
   }).then(function(shouldDeploy) {
     if (shouldDeploy) {
       gutil.log('deploying...');
-      return execPromise(`firebase deploy -p ${WWW}`);
+      return execPromise('firebase deploy');
     } else {
       return ['Not deploying'];
     }
@@ -792,7 +793,9 @@ gulp.task('link-checker', function(done) {
     'resources/%7B%7Bresource.url%7D%7D',
     // API docs have links directly into GitHub repo sources; these can
     // quickly become invalid, so ignore them for now:
-    '*/angular/tree/*'
+    '*/angular/tree/*',
+    // harp.json "bios" for "Ryan Schmukler", URL isn't valid:
+    'http://slingingcode.com'
   ];
   var blcOptions = { requestMethod: method, excludedKeywords: exclude};
   return linkChecker({ blcOptions: blcOptions });
@@ -1274,7 +1277,7 @@ function apiExamplesWatch(postShredAction) {
 }
 
 function devGuideExamplesWatch(shredOptions, postShredAction, focus) {
-  var watchPattern = focus ? '**/{' + focus + ',cb-' + focus+ '}/**/*.*' : '**/*.*';
+  var watchPattern = focus ? '{' + focus + ',cb-' + focus+ '}/**/*.*' : '**/*.*';
   var includePattern = path.join(shredOptions.examplesDir, watchPattern);
   // removed this version because gulp.watch has the same glob issue that dgeni has.
   // var excludePattern = '!' + path.join(shredOptions.examplesDir, '**/node_modules/**/*.*');
