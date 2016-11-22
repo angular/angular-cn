@@ -5,7 +5,7 @@ a(id="top")
   This page provides a quick guide to some common Angular&nbsp;1
   syntax and its equivalent in Angular&nbsp;2.
 
-  在Angular 1和Anuglar 2之间，有很多不同的概念和语法。
+  在Angular 1和Angular 2之间，有很多不同的概念和语法。
   本章提供了一个快速的参考指南，指出一些常用的Angular 1语法及其在Angular 2中的等价物。
 
 :marked
@@ -137,10 +137,9 @@ table(width="100%")
         在Angular 2中，我们使用相似的语法 —— 用管道字符(|)来过滤输出，但是现在直接把它叫做**管道**了。
         很多(但不是所有)Angular 1中的内置过滤器也成了Angular 2中的内置管道。
 
-        For more information, see the heading [Filters/pipes](#Pipes) below.
+        For more information, see the heading [Filters/pipes](#filters-pipes) below.
 
-        请参见下面[过滤器/管道](#Pipes)了解更多信息。
-
+        请参见下面[过滤器/管道](#filters-pipes)了解更多信息。
   tr(style=top)
     td
       :marked
@@ -183,7 +182,7 @@ table(width="100%")
 
   ## 模板指令
 
-  Angular&nbsp;1 provides more than seventy built-in directives for use in our templates.
+  Angular&nbsp;1 provides more than seventy built-in directives for templates.
   Many of them aren't needed in Angular&nbsp;2 because of its more capable and expressive binding system.
   The following are some of the key Angular&nbsp;1 built-in directives and their equivalents in Angular&nbsp;2.
 
@@ -218,9 +217,9 @@ table(width="100%")
     td
       :marked
         ### Bootstrapping
-        
+
         ### 引导
-        
+
       +makeExample('cb-a1-a2-quick-reference/ts/app/main.ts','','main.ts')(format="." )
       <br>
       +makeExample('cb-a1-a2-quick-reference/ts/app/app.module.1.ts','','app.module.ts')(format="." )
@@ -302,7 +301,7 @@ table(width="100%")
 
         在Angular 1中，`ng-click`指令指定当元素被点击时的自定义行为。
 
-        In the first example, when the user clicks the, the `toggleImage()` method in the controller referenced by the `vm` `controller as` alias is executed.
+        In the first example, when the user clicks the button, the `toggleImage()` method in the controller referenced by the `vm` `controller as` alias is executed.
 
         在第一个例子中，如果用户点击了这个按钮，那么控制器的`toggleImage()`方法就会被执行，这个控制器是被`controller as`中指定的`vm`别名所引用的。
 
@@ -347,7 +346,7 @@ table(width="100%")
         要查看DOM事件的列表，请参见[网络事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 
         For more information, see the [Event Binding](../guide/template-syntax.html#event-binding) section of the Template Syntax page.
-        
+
         要了解更多，请参见模板语法中的[事件绑定](../guide/template-syntax.html#event-binding)部分。
 
   tr(style=top)
@@ -378,9 +377,9 @@ table(width="100%")
         在Angular 2中，模板不用再指定它相关的控制器。
         反过来，组件会在组件类的装饰器中指定与它相关的模板。
 
-        For more information, see [Architecture Overview](../guide/architecture.html#components).
+        For more information, see [Architecture Overview](../guide/architecture.html#component).
 
-        要了解更多，请参见[架构概览](../guide/architecture.html#components)。
+        要了解更多，请参见[架构概览](../guide/architecture.html#component)。
 
   tr(style=top)
     td
@@ -388,7 +387,7 @@ table(width="100%")
         ### ng-hide
         In Angular&nbsp;1, the `ng-hide` directive shows or hides the associated HTML element based on
         an expression. For more information, see [ng-show](#ng-show).
-        
+
         在Angular 1中，`ng-hide`指令会基于一个表达式显示或隐藏相关的HTML元素。
         参见[ng-show](#ng-show)了解更多。
 
@@ -400,7 +399,7 @@ table(width="100%")
 
         In Angular&nbsp;2, you use property binding; there is no built-in *hide* directive.
         For more information, see [ng-show](#ng-show).
-        
+
         在Angular 2中，并没有一个内置的*hide*指令，可以改用属性绑定。
         参见[ng-show](#ng-show)了解更多。
 
@@ -500,7 +499,7 @@ table(width="100%")
       :marked
         In Angular&nbsp;1, the `ng-model` directive binds a form control to a property in the controller associated with the template.
         This provides **two-way binding**, whereby any change made to the value in the view is synchronized with the model, and any change to the model is synchronized with the value in the view.
-        
+
         在Angular1中，`ng-model`指令把一个表单控件绑定到了模板相关控制器的一个属性上。
         这提供了**双向绑定**功能，因此，任何对视图中值的改动，都会同步到模型中，对模型的改动，也会同步到视图中。
 
@@ -868,7 +867,7 @@ table(width="100%")
         with the JavaScript `Slice` method.
         The first parameter is the starting index; the second is the limit.
         As in Angular 1, coding this operation within the component instead could improve performance.
-        
+
         `SlicePipe`做同样的事，但是*两个参数的顺序是相反的*，以便于JavaScript中的`slice`方法保持一致。
         第一个参数是起始索引号，第二个参数是限制的数量。
         和Angular 1中一样，如果们改用组件中的代码实现此操作，性能将会提升。
@@ -939,7 +938,7 @@ table(width="100%")
         ### 没了
         For performance reasons, no comparable pipe exists in Angular&nbsp;2.
         Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.
-        
+
         在Angular 2中，出于性能的考虑，并没有一个类似的管道。
         排序逻辑应该在组件中用代码实现。
         如果它将被复用在几个模板中，可以考虑构建一个自定义管道。
@@ -953,13 +952,13 @@ a(id="controllers-components")
 .l-main-section
 :marked
   ## Modules/controllers/components
-  
+
   ## 模块/控制器/组件
-  
+
   In both Angular&nbsp;1 and Angular&nbsp;2, Angular modules help you organize your application into cohesive blocks of functionality.
-  
+
   无论在Angular 1还是Angular 2中，我们都要借助“模块”来把应用拆分成一些紧密相关的功能块。
-  
+
   In Angular&nbsp;1, you write the code that provides the model and the methods for the view in a **controller**.
   In Angular&nbsp;2, you build a **component**.
 
@@ -1025,21 +1024,21 @@ table(width="100%")
       +makeExample('cb-a1-a2-quick-reference/ts/app/app.module.1.ts')(format=".")
       :marked
         Angular&nbsp;2 modules, defined with the `NgModule` decorator, serve the same purpose:
-        
+
         Angular 2的模块用`NgModule`装饰器进行定义，有如下用途：
-        
+
         - `imports`: specifies the list of other modules that this module depends upon
-        
+
         - `imports`: 指定当前模块依赖的其它模块列表
-        
+
         - `declaration`: keeps track of your components, pipes, and directives.
-        
+
         - `declaration`: 用于记录组件、管道和指令。
 
         For more information on modules, see [Angular Modules](../guide/ngmodule.html).
-        
+
         要了解关于模块的更多知识，参见[Angular Modules](../guide/ngmodule.html)。
-        
+
   tr(style=top)
     td
       :marked
@@ -1237,4 +1236,3 @@ table(width="100%")
   [Back to top](#top)
 
   [回到顶部](#top)
-  

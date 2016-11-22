@@ -73,9 +73,9 @@ p.
 .l-main-section
 :marked
   ## HTML
-  
+
   ## HTML
-  
+
   HTML is the language of the Angular template. Our [QuickStart](../quickstart.html) application has a template that is pure HTML:
 
   HTML是Angular模板的“语言”。我们的[“快速起步”](../quickstart.html)应用就有一个模板是纯HTML的：
@@ -358,7 +358,7 @@ block template-expressions-cannot
 :marked
   Like template expressions, template *statements* use a language that looks like #{_JavaScript}.
   The template statement parser is different than the template expression parser and
-  specifically supports both basic assignment (`=`) and chaining expressions
+  specifically supports both basic assignment (`=`) and chaining expressions 
   (with !{__chaining_op}).
 
   和模板表达式一样，模板*语句*也是一个一个看起来很像JavaScript的语言。
@@ -702,7 +702,7 @@ table
   这个目标可能是(元素|组件|指令)的Property、(元素|组件|指令)的事件，或(极少数情况下)一个Attribute名。
   下面是的汇总表：
 
-// If you update this table, UPDATE it in Dart & JS, too.
+//- If you update this table, UPDATE it in Dart & JS, too.
 <div width="90%">
 table
   tr
@@ -839,8 +839,8 @@ table
     If we must read a target element property or call one of its methods,
     we'll need a different technique.
     See the API reference for
-    [viewChild](../api/core/index/ViewChild-decorator.html) and
-    [contentChild](../api/core/index/ContentChild-decorator.html).
+    [ViewChild](../api/core/index/ViewChild-decorator.html) and
+    [ContentChild](../api/core/index/ContentChild-decorator.html).
 
     如果我们不得不读取目标元素上的属性或调用它的某个方法，我们得用另一种技术。
     参见API参考手册中的[viewChild](../api/core/index/ViewChild-var.html)和
@@ -993,7 +993,7 @@ a(id="one-time-initialization")
   我们建议建立组织级的代码风格规定，然后选择一种形式，既能遵循规则，又能让手头的任务做起来更自然。
 
 :marked
-  #### Content Security
+  #### Content security
   #### 内容安全
   Imagine the following *malicious content*.
 
@@ -1006,8 +1006,7 @@ a(id="one-time-initialization")
   nor property binding.
 
   幸运的是，Angular数据绑定对危险HTML有防备。在显示它们之前，它对内容先进行*消毒*。不管是插值表达式还是属性绑定，都**不会**允许带有script标签的HTML泄漏到浏览器中。
-
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")
++makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")    
 :marked
   Interpolation handles the script tags differently than property binding but both approaches render the
   content harmlessly.
@@ -1019,22 +1018,17 @@ figure.image-display
 .l-main-section
 :marked
   <a id="other-bindings"></a>
-  ## Attribute, Class, and Style Bindings
-  
-  ## Attribute、Class和Style绑定
-  
+  ## Attribute, class, and style bindings
+  ## attribute、class和style绑定
   The template syntax provides specialized one-way bindings for scenarios less well suited to property binding.
 
   模板语法为那些不太适合使用属性绑定的场景提供了专门的单向数据绑定形式。
 
-  ### Attribute Binding
-  
+  ### Attribute binding
   ### Attribute绑定
-  
   We can set the value of an attribute directly with an **attribute binding**.
 
   我们可以通过**Attribute绑定**来直接设置Attribute的值。
-
 .l-sub-section
   :marked
     This is the only exception to the rule that a binding sets a target property. This is the only binding that creates and sets an attribute.
@@ -1116,8 +1110,8 @@ code-example(format="nocode").
   Attribute绑定的主要用例之一是设置ARIA Attribute(译注：ARIA指可访问性，用于给残障人士访问互联网提供便利)，就像这个例子中一样：
 +makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
 :marked
-  ### Class Binding
-  
+  ### Class binding
+
   ### CSS类绑定
 
   We can add and remove CSS class names from an element’s `class` attribute with
@@ -1143,9 +1137,6 @@ code-example(format="nocode").
   我们可以把它改写为一个绑定到所需CSS类名的绑定；这是一个或者全有或者全无的替换型绑定(译注：即当badCurly有值时class这个Attribute设置的内容会被完全覆盖)。
 +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-2')(format=".")
 
-block dart-class-binding-bug
-  //- N/A
-
 :marked
   Finally, we can bind to a specific class name.
   Angular adds the class when the template expression evaluates to #{_truthy}.
@@ -1163,8 +1154,8 @@ block dart-class-binding-bug
     虽然这是一个切换单一类名的好办法，但我们通常更喜欢使用[NgClass指令](#ngClass)来同时管理多个类名。
 
 :marked
-  ### Style Binding
-  
+  ### Style binding
+
   ### 样式绑定
 
   We can set inline styles with a **style binding**.
@@ -1207,9 +1198,9 @@ block style-property-name-dart-diff
 .l-main-section
 :marked
   ## Event binding
-  
+
   ## 事件绑定
-  
+
   The bindings we’ve met so far flow data in one direction: **from a component to an element**.
 
   我们前面遇到过的那些绑定的数据流都是单向的：**从组件到元素**。
@@ -1240,9 +1231,9 @@ block style-property-name-dart-diff
 
 :marked
   ### Target event
-  
+
   ### 目标事件
-  
+
   A **name between parentheses** &mdash; for example, `(click)` &mdash;
   identifies the target event. In the following example, the target is the button’s click event.
 
@@ -1268,7 +1259,7 @@ block style-property-name-dart-diff
 
     [别名input/output属性](#aliasing-io)章节有更多关于该`myClick`指令的解释。
 :marked
-  If the name fails to match element event or output property of a known directive,
+  If the name fails to match an element event or an output property of a known directive,
   Angular reports an “unknown directive” error.
 
   如果这个名字没能匹配到元素事件或已知指令的输出型属性，Angular就会报“未知指令”错误。
@@ -1321,10 +1312,9 @@ block style-property-name-dart-diff
 
   <a id="eventemitter"></a>
   <a id="custom-event"></a>
-  
-  ### Custom Events with EventEmitter
-  
-  ### 使用EventEmitter实现自定义事件
+  ### Custom events with *EventEmitter*
+
+  ### 使用*EventEmitter*实现自定义事件
 
   Directives typically raise custom events with an Angular [EventEmitter](../api/core/index/EventEmitter-class.html).
   The directive creates an `EventEmitter` and exposes it as a property.
@@ -1354,9 +1344,9 @@ block style-property-name-dart-diff
 
 :marked
   The component defines a `deleteRequest` property that returns an `EventEmitter`.
-  When the user clicks *delete*, the component invokes the `delete()` method,
+  When the user clicks *delete*, the component invokes the `delete()` method, 
   telling the `EventEmitter` to emit a `Hero` object.
-  
+
   组件定义了一个`deleteRequest`属性，它是一个`EventEmitter`实例。(译注：`deleteRequest`属性是导出Output属性，是组件与父级组件交互的主要方式之一。参见[输入和输出属性](#input-and-output-properties)和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。我们需要用`@Output()`来装饰它，或者把它添加到组件元数据的`outputs`数组中，它才能在父级组件可见。)
   当用户点击*删除*时，组件会调用`delete()`方法，这个方法告诉`EventEmitter`，发出一个`Hero`对象。
 
@@ -1388,7 +1378,7 @@ block style-property-name-dart-diff
   这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
   这都是好事。
 
-//
+//-
   :marked
     ### Event bubbling and propagation [TODO: reinstate this section when it becomes true]
     Angular invokes the event-handling statement if the event is raised by the current element or one of its child elements.
@@ -1418,32 +1408,33 @@ block style-property-name-dart-diff
 .l-main-section
 :marked
   ## Two-way binding
-  
+
   ## 双向数据绑定
-  
+
   We often want to both display a data property and update that property when the user makes changes.
-  
+
   我们经常需要显示数据属性，并在用户作出更改时，更新数据属性及其显示。
 
   On the element side that takes a combination of setting a specific element property
   and listening for an element change event.
-  
+
   在元素层面上，既要设置元素属性，又要监听元素事件变化。
 
   Angular offers a special _two-way data binding_ syntax for this purpose, **`[(x)]`**.
   The `[(x)]` syntax combines the brackets 
-  of _Property Binding_, `[x]`, with the parentheses of _Event Binding_, `(x)`.
-  
+  of _property binding_, `[x]`, with the parentheses of _event binding_, `(x)`.
+
   Angular为此提供一种特殊的_双向数据绑定_语法:**`[(x)]`**。
   `[(x)]`语法结合了_属性绑定_的方括号`[x]`和_事件绑定_的圆括号`(x)`。
-  
+
 .callout.is-important
   header [( )] = banana in a box
-  header [( )] = 盒子里的香蕉  
+  header [( )] = 盒子里的香蕉
   :marked
     Visualize a *banana in a box* to remember that the parentheses go _inside_ the brackets.
 
     想象*盒子里的香蕉*来记住方括号套圆括号。
+
 :marked
   The `[(x)]` syntax is easy to demonstrate when the element has a settable property called `x`
   and a corresponding event named `xChange`. 
@@ -1453,7 +1444,8 @@ block style-property-name-dart-diff
   当一个元素拥有可以设置的属性`x`和对应的事件`xChange`时，`[(x)]`语法是最容易被解释的。
   下面的`SizerComponent`符合这个模式。它有`size`属性和伴随的`sizeChange`事件：
 
-+makeExample('template-syntax/ts/app/sizer.component.ts', null, 'app/sizer.component.ts')
++makeExample('app/sizer.component.ts')
+
 :marked
   The initial `size` is an input value from a property binding.
   Clicking the buttons increases or decreases the `size`, within min/max values constraints,
@@ -1463,15 +1455,17 @@ block style-property-name-dart-diff
   点击按钮，在最大/最小值范围限制内增加或者减少`size`。
   然后用调整后的`size`触发`sizeChange`事件。
 
-  Here's an example in which the `AppComponent.fontSize` is two-way bound to the `SizerComponent`:
+  Here's an example in which the `AppComponent.fontSizePx` is two-way bound to the `SizerComponent`:
 
   下面的例子中，`AppComponent.fontSize`被双向绑定到`SizerComponent`：
-+makeExample('template-syntax/ts/app/app.component.html', 'two-way-1')(format=".")
+
++makeExcerpt('app/app.component.html', 'two-way-1', '')
+
 :marked
-  The `AppComponent.fontSize` establishes the initial `SizerComponent.size` value.
-  Clicking the buttons updates the `AppComponent.fontSize` via the two-way binding.
-  The revised `AppComponent.fontSize` value flows through to the _style_ binding, making the displayed text bigger or smaller.
-  Try it in the <live-example>live example</live-example>.
+  The `AppComponent.fontSizePx` establishes the initial `SizerComponent.size` value.
+  Clicking the buttons updates the `AppComponent.fontSizePx` via the two-way binding.
+  The revised `AppComponent.fontSizePx` value flows through to the _style_ binding, making the displayed text bigger or smaller.
+  Try it in the <live-example></live-example>.
 
   `AppComponent.fontSize`赋予`SizerComponent.size`初始值。点击按钮通过双向绑定更新`AppComponent.fontSize`。
   被修改的`AppComponent.fontSize`通过_样式_绑定，改变文本的显示大小。
@@ -1482,10 +1476,12 @@ block style-property-name-dart-diff
 
   双向绑定语法实际上是_属性_绑定和_事件绑定_的语法糖。
   Angular将`SizerComponent`的绑定分解成这样：
-+makeExample('template-syntax/ts/app/app.component.html', 'two-way-2')(format=".")
+
++makeExcerpt('app/app.component.html', 'two-way-2', '')
+
 :marked
   The `$event` variable contains the payload of the `SizerComponent.sizeChange` event.
-  Angular assigns the `$event` value to the `AppComponent.fontSize` when the user clicks the buttons.
+  Angular assigns the `$event` value to the `AppComponent.fontSizePx` when the user clicks the buttons.
 
   `$event`变量包含了`SizerComponent.sizeChange`事件的有效荷载。
   当用户点击按钮时，Angular将`$event`赋值给`AppComponent.fontSize`。
@@ -1521,18 +1517,15 @@ a#ngModel
 
 +ifDocsFor('ts|js')
   .callout.is-important
-    header 
-      :marked
-        FormsModule is Required to use ngModel
-
-        要使用ngModel，必须导入FormsModule。
+    header FormsModule is Required to use ngModel
+    header 要使用ngModel，必须导入FormsModule
     :marked
       Before we can use the `ngModel` directive in a two-way data binding,
       we must import the `FormsModule` and add it to the Angular module's `imports` list.
       Learn more about the `FormsModule` and `ngModel` in the
       [Forms](../guide/forms.html#ngModel) chapter.
-      
-      要使用`ngModel`做双向数据绑定，得先把`FormsModule`导入我们的模块并把它加入`NgModule`装饰器的`imports`数组。      
+
+      要使用`ngModel`做双向数据绑定，得先把`FormsModule`导入我们的模块并把它加入`NgModule`装饰器的`imports`数组。
       要学习关于`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)一章。
 
   :marked
@@ -1543,9 +1536,9 @@ a#ngModel
 
 :marked
   ### Inside `[(ngModel)]`
-  
+
   ### `[(ngModel)]`内幕
-  
+
   Looking back at the `firstName` binding, it's important to note that
   we could have achieved the same result with separate bindings to
   the `<input>` element's  `value` property and `input` event.
@@ -1571,7 +1564,7 @@ a#ngModel
     listens for changes to the element's value.
 
     `ngModel`数据属性设置元素的`value`属性，并为元素`value`的变化而监听`ngModelChange`事件属性。
-    
+
     The details are specific to each kind of element and therefore the `NgModel` directive only works for specific form elements,
     such as the input text box, that are supported by a [ControlValueAccessor](../api/forms/index/ControlValueAccessor-interface.html).
 
@@ -1583,12 +1576,12 @@ a#ngModel
 
     除非写一个合适的*值访问器*，否则我们不能把`[(ngModel)]`用在我们自己的自定义组件上。但*值访问器*技术超出了本章的范围。
     对于不能控制其API的Angular组件或者Web组件，我们可能需要为其添加合适的*value accessor*。
-    
+
     It's completely unnecessary for an Angular component that we _do_ control ... because we can name the value and event properties
     to suit Angular's basic [two-way binding syntax](#two-way) and skip `NgModel` altogether.
 
     但是对于我们能控制的Angular组件来说，这么做就完全没有必要了。因为我们可以指定值和事件属性名字来进行基本的Angular[双向绑定语法](#two-way)，完全不用`NgModel`。
-    
+
 :marked
   Separate `ngModel` bindings is an improvement over binding to the element's native properties. We can do better.
 
@@ -1619,7 +1612,7 @@ a#ngModel
 
   下面是实际操作中的所有变体形式，包括这个大写版本：
 figure.image-display
-  img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
+    img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
 
 .l-main-section
 :marked
@@ -1927,10 +1920,9 @@ block dart-no-truthy-falsey
   赋值给`*ngFor`的字符串并不是一个[模板表达式](#template-expressions)。
   它是一个*微语法* —— 由Angular自己解释的小型语言。在这个例子中，字符串`"let hero of heroes"`的含义是：
 
-  >*Take each hero in the `heroes` array, store it in the local `hero` variable, and make it available to the templated HTML
-  for each iteration.*
+  > *Take each hero in the `heroes` #{_array}, store it in the local `hero` variable, and make it available to the templated HTML for each iteration.*
 
-  >*取出`heroes`数组中的每个英雄，把它存在一个局部变量`hero`中，并且在每个迭代中让它对模板HTML可用*
+  > *取出`heroes`数组中的每个英雄，把它存在一个局部变量`hero`中，并且在每个迭代中让它对模板HTML可用*
 
   Angular translates this instruction into a new set of elements and bindings.
 
@@ -1949,7 +1941,7 @@ block dart-no-truthy-falsey
 
 .alert.is-critical
   :marked
-    A template input variable is **not** the same as a [template reference variable](#ref-vars)!
+     A template input variable is **not** the same as a [template reference variable](#ref-vars)!
 
     模板输入变量和[模板引用变量](#ref-vars)**不是**一回事！
 
@@ -2042,10 +2034,8 @@ figure.image-display
 <a id="structural-directive"></a>
 .l-main-section
 :marked
-  ## `*` and &lt;template&gt;
-
-  ## `*`与&lt;template&gt;
-
+  ## * and &lt;template&gt;
+  ## *与&lt;template&gt;
   When we reviewed the `NgFor`, `NgIf`, and `NgSwitch` built-in directives, we called out an oddity of the syntax: the asterisk (`*`) that appears before the directive names.
 
   当我们审视`NgFor`、`NgIf`和`NgSwitch`内置指令时，我们使用了一种古怪的语法：出现在指令名称前面的星号(`*`)。
@@ -2079,7 +2069,7 @@ figure.image-display
 :marked
   The `currentHero` is referenced twice, first as the true/false condition for `NgIf` and
   again as the actual hero passed into the `HeroDetailComponent`.
-  
+
   `currentHero`被引用了两次，第一次是作为`NgIf`的真/假条件，第二次把实际的hero值传给了`HeroDetailComponent`。
 
   The first expansion step transports the `ngIf` (without the `*` prefix) and its contents
@@ -2100,14 +2090,14 @@ figure.image-display
 
 block remember-the-brackets
   .callout.is-critical
-    header Remember the brackets!    
-    header 别忘了括号！    
+    header Remember the brackets!
+    header 别忘了括号！
     :marked
       Don’t make the mistake of writing `ngIf="currentHero"`!
-      That syntax assigns the *string* value "currentHero" to `ngIf`.
-      In JavaScript a non-empty string is a truthy value, so `ngIf` would always be 
+      That syntax assigns the *string* value `"currentHero"` to `ngIf`.
+      In JavaScript a non-empty string is a truthy value, so `ngIf` would always be
       `true` and Angular would always display the `hero-detail`
-      ... even when there is no `currentHero`!
+      … even when there is no `currentHero`!
 
       不要误写为`ngIf="currentHero"`！
       这种语法会把一个字符串"currentHero"赋值给`ngIf`。
@@ -2117,7 +2107,7 @@ block remember-the-brackets
   ### Expanding `*ngSwitch`
 
   ### 展开`*ngSwitch`
-  
+
   A similar transformation applies to `*ngSwitch`. We can unfold the syntax ourselves.
   Here's an example, first with `*ngSwitchCase` and `*ngSwitchDefault` and then again with `<template>` tags:
 
@@ -2136,16 +2126,15 @@ block remember-the-brackets
   现在，我们应该明白为什么`ngSwitch`本身不能用星号(*)前缀的原因了吧？
   它没有定义内容，它的工作是控制一组模板。
 
-  In this case, it governs two sets of `NgSwitchCase` and `NgSwitchDefault` directives.
+  In this case, it governs two sets of `ngSwitchCase` and `NgSwitchDefault` directives.
   We should expect it to display the values of the selected template twice,
   once for the (*) prefixed version and once for the expanded template version.
   That's exactly what we see in this example:
-  
+
   上面这种情况下，它管理两组`NgSwitchCase`和`NgSwitchDefault`指令，一次是(*)前缀的版本，一次是展开模板后的版本。
   我们也期待它显示所选模板的值两次。这正是我们在这个例子中看到的：
-
 figure.image-display
-  img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
+    img(src='/resources/images/devguide/template-syntax/ng-switch-anim.gif' alt="NgSwitch")
 :marked
   ### Expanding `*ngFor`
 
@@ -2169,7 +2158,7 @@ figure.image-display
   The `NgFor` code is a bit more complex than `NgIf` because a repeater has more moving parts to configure.
   In this case, we have to remember to create and assign the `NgForOf` directive that identifies the list and the `NgForTrackBy` directive.
   Using the `*ngFor` syntax is much easier than writing out this expanded HTML ourselves.
-  
+
   `NgFor`的代码相对`NgIf`更复杂一点，因为一个重复器有更多活动部分需要配置。
   这种情况下，我们不得不记着为用于标记列表的`NgForOf`指令和`NgForTrackBy`指令的进行新建和赋值操作。
   使用`*ngFor`语法比直接写这些展开后的HTML本身要简单多了。
@@ -2186,7 +2175,7 @@ figure.image-display
   **模板引用变量**是模板中对DOM元素或指令的引用。
 
   It can be used with native DOM elements but also with Angular components &mdash; in fact, it will work with any custom web component.
-  
+
   它能在原生DOM元素中使用，也能用于Angular组件 —— 实际上，它可以和任何自定义Web组件协同工作。
 
 :marked
@@ -2203,7 +2192,7 @@ figure.image-display
     Do not define the same variable name more than once in the same template.
     The runtime value will be unpredictable.
 
-    不要在同一个模版中多次定义同一个变量名，否则运行时的值将会不可预测。 
+    不要在同一个模版中多次定义同一个变量名，否则运行时的值将会不可预测。
 
 :marked
   Here are two other examples of creating and consuming a Template reference variable:
@@ -2267,13 +2256,13 @@ figure.image-display
   It's actually `ngForm`, a reference to the Angular built-in `NgForm` directive that wraps the native `HTMLFormElement`
   and endows it with additional superpowers such as the ability to
   track the validity of user input.
-  
+
   如果Angular没有接管它，那它可能是个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)。
   实际上它是个`ngForm`，一个对Angular内置指令`NgForm`的引用。它包装了原生的`HTMLFormElement`并赋予它更多“超能力”，比如跟踪用户输入的有效性。
 
   This explains how we can disable the submit button by checking `theForm.form.valid`
   and pass an object with rich information to the parent component's `onSubmit` method.
-  
+
   这解释了我们该如何通过检查`theForm.form.valid`来禁用提交按钮，以及如何把一个信息量略大的对象传给父组件的`onSubmit`方法(译注：`onSubmit`方法可能会出发一个事件，被父组件监听，参见下面的`输入和输出属性`和[父组件监听子组件的事件](docs/ts/latest/cookbook/component-communication.html#!#child-to-parent)。)
 
 <a id="inputs-outputs"></a>
@@ -2397,7 +2386,7 @@ figure.image-display
 
   _输入_和_输出_这两个词是从目标指令的视角来说的。
 figure.image-display
-  img(src='/resources/images/devguide/template-syntax/input-output.png' alt="输入和输出")
+    img(src='/resources/images/devguide/template-syntax/input-output.png' alt="Inputs and outputs")
 :marked
   `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`
   because data flows *into* that property from a template binding expression.
@@ -2422,12 +2411,12 @@ h3#aliasing-io 输入/输出属性别名
   we expect to bind to an event property that is also called `myClick`.
 
   这是使用[属性(Attribute)型指令](attribute-directives.html)时的常见情况。
-+makeExample('template-syntax/ts/app/app.component.html', 'my-click')(format=".")
++makeExample('template-syntax/ts/app/app.component.html', 'myClick')(format=".")
 :marked
   However, the directive name is often a poor choice for the name of a property within the directive class.
   The directive name rarely describes what the property does.
   The `myClick` directive name is not a good name for a property that emits click messages.
-  
+
   无论如何，在指令类中，直接用指令名作为自己的属性名通常都不是好的选择。
   指令名很少能描述这个属性是干嘛的。
   `myClick`这个指令名对于用来发出click消息的属性就算不上一个好名字。
@@ -2436,7 +2425,7 @@ h3#aliasing-io 输入/输出属性别名
   while using a different name internally.
   In the example immediately above, we are actually binding *through the* `myClick` *alias* to
   the directive's own `clicks` property.
-  
+
   幸运的是，我们可以使用一个约定俗成的公开名字，同时在内部使用一个不同的名字。
   在紧上面这个例子中，我们实际上是把`myClick`这个别名指向了指令自己的`clicks`属性。
 
@@ -2444,7 +2433,7 @@ h3#aliasing-io 输入/输出属性别名
 
   通过把别名传进@Input/@Output装饰器，我们可以为属性指定别名，就像这样：
 
-+makeExample('template-syntax/ts/app/my-click.directive.ts', 'my-click-output-1')(format=".")
++makeExample('template-syntax/ts/app/click.directive.ts', 'output-myClick')(format=".")
 
 .l-sub-section
   :marked
@@ -2454,7 +2443,7 @@ h3#aliasing-io 输入/输出属性别名
 
     我们也能在`inputs`和`outputs`数组中为属性指定别名。
     我们可以写一个冒号(`:`)分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公开的别名。
-  +makeExample('template-syntax/ts/app/my-click.directive.ts', 'my-click-output-2')(format=".")
+  +makeExample('template-syntax/ts/app/click.directive.ts', 'output-myClick2')(format=".")
 
 <a id="expression-operators"></a>
 .l-main-section
@@ -2582,12 +2571,12 @@ block null-deref-example
 
   On the other hand, null values in the property path may be OK from time to time,
   especially when we know the data will arrive eventually.
-  
+
   另一方面，属性路径中的空值可能会时常发生，特别是当我们知道这些数据最终总会到来的时候。
 
   While we wait for data, the view should render without complaint, and
   the null property path should display as blank just as the `title` property does.
-  
+
   当我们等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像上面`title`属性所做的那样。
 
   Unfortunately, our app crashes when the `currentHero` is null.
@@ -2633,7 +2622,7 @@ block safe-op-alt
   ## Summary
 
   ## 小结
-  
+
   We’ve completed our survey of template syntax. Now it's time to put that knowledge to work as we write our own components and directives.
 
   我们完成了模板语法的概述。现在，我们该把如何写组件和指令的知识投入到实际工作当中了。

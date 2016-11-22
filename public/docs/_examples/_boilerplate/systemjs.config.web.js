@@ -9,19 +9,15 @@
     // DEMO ONLY! REAL CODE SHOULD NOT TRANSPILE IN THE BROWSER
     transpiler: 'ts',
     typescriptOptions: {
-      // Complete copy of compiler options in standard tsconfig.json
+      // Copy of compiler options in standard tsconfig.json
       "target": "es5",
       "module": "commonjs",
       "moduleResolution": "node",
       "sourceMap": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "removeComments": false,
       "noImplicitAny": true,
-      "suppressImplicitAnyIndexErrors": true,
-      "typeRoots": [
-        "../../node_modules/@types/"
-      ]
+      "suppressImplicitAnyIndexErrors": true
     },
     meta: {
       'typescript': {
@@ -45,8 +41,10 @@
       '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
+      '@angular/router/upgrade': 'npm:@angular/router/bundles/router-upgrade.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
+      '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',
@@ -67,10 +65,13 @@
     }
   });
 
-  if (!global.noBootstrap) { bootstrap(); }
+  if (global.autoBootstrap) { bootstrap(); }
 
-  // Bootstrap the `AppModule`(skip the `app/main.ts` that normally does this)
+  // Bootstrap with a default `AppModule`
+  // ignore an `app/app.module.ts` and `app/main.ts`, even if present
+  // This function exists primarily (exclusively?) for the QuickStart
   function bootstrap() {
+    console.log('Auto-bootstrapping');
 
     // Stub out `app/main.ts` so System.import('app') doesn't fail if called in the index.html
     System.set(System.normalizeSync('app/main.ts'), System.newModule({ }));
@@ -78,7 +79,7 @@
     // bootstrap and launch the app (equivalent to standard main.ts)
     Promise.all([
       System.import('@angular/platform-browser-dynamic'),
-      System.import('app/app.module')
+      getAppModule()
     ])
     .then(function (imports) {
       var platform = imports[0];
@@ -88,4 +89,38 @@
     .catch(function(err){ console.error(err); });
   }
 
+  // Make the default AppModule
+  // returns a promise for the AppModule
+  function getAppModule() {
+    console.log('Making a bare-bones, default AppModule');
+
+    return Promise.all([
+      System.import('@angular/core'),
+      System.import('@angular/platform-browser'),
+      System.import('app/app.component')
+    ])
+    .then(function (imports) {
+
+      var core    = imports[0];
+      var browser = imports[1];
+      var appComp = imports[2].AppComponent;
+
+      var AppModule = function() {}
+
+      AppModule.annotations = [
+        new core.NgModule({
+          imports:      [ browser.BrowserModule ],
+          declarations: [ appComp ],
+          bootstrap:    [ appComp ]
+        })
+      ]
+      return {AppModule: AppModule};
+    })
+  }
 })(this);
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

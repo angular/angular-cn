@@ -3,34 +3,22 @@
 block includes
   include ../_util-fns
   - var _appRoutingTsVsAppComp = 'app.module.ts'
-  - var _declsVsDirectives = 'declarations'
   - var _RoutesVsAtRouteConfig = 'Routes'
   - var _RouterModuleVsRouterDirectives = 'RouterModule'
   - var _redirectTo = 'redirectTo'
 
 :marked
-  # Routing Around the App
-
-  # 应用中的路由
-
   We received new requirements for our Tour of Heroes application:
 
   我们收到了一份《英雄指南》的新需求：
 
   * Add a *Dashboard* view.
-
   * 添加一个*控制台*视图。
-
   * Navigate between the *Heroes* and *Dashboard* views.
-
   * 在*英雄列表*和*控制台*视图之间导航。
-
   * Clicking on a hero in either view navigates to a detail view of the selected hero.
-
   * 无论在哪个视图中点击一个英雄，都会导航到该英雄的详情页。
-
-  * Clicking a *deep link* in an email opens the detail view for a particular hero;
-
+  * Clicking a *deep link* in an email opens the detail view for a particular hero.
   * 在邮件中点击一个*深链接*，会直接打开一个特定英雄的详情视图。
 
   When we’re done, users will be able to navigate the app like this:
@@ -39,6 +27,7 @@ block includes
 
 figure.image-display
   img(src='/resources/images/devguide/toh/nav-diagram.png' alt="查看导航")
+
 :marked
   We'll add Angular’s *Router* to our app to satisfy these requirements.
 
@@ -53,16 +42,17 @@ figure.image-display
 
 :marked
   Run the <live-example></live-example> for this part.
-  
+
   运行这部分的<live-example>在线例子</live-example>。
 
 +ifDocsFor('ts|js')
   .l-sub-section
     img(src='/resources/images/devguide/plunker-separate-window-button.png' alt="弹出窗口" align="right" style="margin-right:-20px")
+
     :marked
       To see the URL changes in the browser address bar,
       pop out the preview window by clicking the blue 'X' button in the upper right corner:
-  
+
       注意看浏览器地址栏中的URL变化，点击右上角的蓝色'X'按钮，弹出预览窗口。
 
 .l-main-section
@@ -71,7 +61,8 @@ figure.image-display
 
   ## 我们在哪
 
-  Before we continue with our Tour of Heroes, let’s verify that we have the following structure after adding our hero service
+  Before we continue with our Tour of Heroes, let’s verify that
+  we have the following structure after adding our hero service
   and hero detail component. If not, we’ll need to go back and follow the previous chapters.
 
   在继续《英雄指南》之前，先来检查一下，在添加了英雄服务和英雄详情组件之后，你是否已经有了如下目录结构。如果没有，你得先回上一章，再照做一遍。
@@ -101,14 +92,14 @@ block keep-app-running
     ### Keep the app transpiling and running
 
     ### 让应用代码保持转译和运行
-  
+
     Open a terminal/console window and enter the following command to
     start the TypeScript compiler, start the server, and watch for changes:
-     
+
     打开terminal/console窗口，运行下列命令启动TypeScript编译器，它会监视文件变更，并启动开发服务器：
 
-code-example(language="bash").
-  npm start
+  code-example(language="bash").
+    npm start
 
 :marked
   The application runs and updates automatically as we continue to build the Tour of Heroes.
@@ -159,7 +150,8 @@ code-example(language="bash").
 
   现在的应用会加载`AppComponent`组件，并且立刻显示出英雄列表。
 
-  Our revised app should present a shell with a choice of views (*Dashboard* and *Heroes*) and then default to one of them.
+  Our revised app should present a shell with a choice of views (*Dashboard* and *Heroes*)
+  and then default to one of them.
 
   我们修改后的应用将提供一个壳，它会选择*控制台*和*英雄列表*视图之一，然后默认显示它。
 
@@ -211,57 +203,55 @@ code-example(language="bash").
 
   这些起始步骤是：
 
-
   * add the supporting `import` statements.
-  
+
   * 添加支持性的`import`语句。
-  
+
   * Create the file <span ngio-ex>app/app.component.ts</span>.
-  
+
   * 创建一个名叫<span ngio-ex>app.component.ts</span>的新文件。
-  
+
   * Define an <span if-docs="ts">exported</span> `AppComponent` class.
-  
-  * 定义一个<span if-docs="ts">导出的</span> ``AppComponent`类。     
-     
+
+  * 定义一个<span if-docs="ts">导出的</span> ``AppComponent`类。
+
   * Add an `@Component` !{_decorator} above the class with a `my-app` selector.
-  
-  * 在类的上方添加`@Component`元数据装饰器，装饰器中带有`my-app`选择器。         
-       
+
+  * 在类的上方添加`@Component`元数据装饰器，装饰器中带有`my-app`选择器。
+
   * Move the following from `HeroesComponent` to `AppComponent`:
-  
+
   * 将下面的项目从`HeroesComponent`移到`AppComponent`：
     * `title` class property
-    
+
     * `title`类属性
-    
+
     * `@Component` template `<h1>` element, which contains a binding to  `title`
-    
+
     * 在模板中添加一个`<h1>`标签，包裹着到`title`属性的绑定。
-    
+
   * Add a `<my-heroes>` element to the app template just below the heading so we still see the heroes.
-  * 
-  在模板中添加`<my-heroes>`标签，以便我们仍能看到英雄列表。  
-  
+  *
+  在模板中添加`<my-heroes>`标签，以便我们仍能看到英雄列表。
+
   * Add `HeroesComponent` to the `!{_declsVsDirectives}` !{_array} of `!{_AppModuleVsAppComp}` so Angular recognizes the `<my-heroes>` tags.
-  
+
   * 添加`HeroesComponent`组件到根模块的`declarations`数组中，以便Angular能认识`<my-heroes>`标签。
-  
+
   * Add `HeroService` to the  `providers` !{_array} of `!{_AppModuleVsAppComp}` because we'll need it in every other view.
-  
+
   * 添加`HeroService`到根模块的`providers`数组中，因为我们的每一个视图都需要它。
-  
+
   * Remove `HeroService` from the `HeroesComponent` `providers` !{_array} since it has been promoted.
-  
+
   * 从`HerosComponent`的`providers`数组中移除HeroService`，因为它被提到模块了。
-  
+
   * Add the supporting `import` statements for `AppComponent`.
-  
-  * 导入`AppComponent`。 
-   
+
+  * 导入`AppComponent`。
 
   Our first draft looks like this:
-  
+
   我们的第一个草稿版就像这样：
 
 block app-comp-v1
@@ -310,25 +300,25 @@ block app-comp-v1
   We'll need the Angular *Router*.
 
   我们需要Angular的*路由器*。
-  
+
 block angular-router
   :marked
     The Angular router is an external, optional Angular NgModule called `RouterModule`.
     The router is a combination of multiple provided services (`RouterModule`),
     multiple directives (`RouterOutlet, RouterLink, RouterLinkActive`),
     and a configuration (`Routes`). We'll configure our routes first.
-    
+
     Angular路由器是一个可选的外部Angular NgModule，名叫`RouterModule`。
     路由器包含了多种服务(`RouterModule`)、多种指令(`RouterOutlet, RouterLink, RouterLinkActive`)、
     和一套配置(`Routes`)。我们将先配置路由。
-    
+
 :marked
   ### Add the base tag
-  
+
   ### 设置base标签
-  
-  Open the `index.html` and add `<base href="/">` at the top of the `<head>` section.
-  
+
+  Open `index.html` and add `<base href="/">` at the top of the `<head>` section.
+
   打开`index.html`并且在`<head>`区的顶部添加`<base href="/">`语句。
 
 +makeExcerpt('index.html', 'base-href')
@@ -337,37 +327,37 @@ block angular-router
   header base href is essential
   header base href是不可或缺的
   :marked
-    See the *base href* section of the [Router](../guide/router.html#!#base-href) chapter to learn why this matters.
+    See the *base href* section of the [Router](../guide/router.html#base-href)
+    chapter to learn why this matters.
 
     查看[路由器](../guide/router-deprecated.html#!#base-href)一章的*base href*部分，了解为何如此。
 a#configure-routes
 block router-config-intro
   :marked
     ### Configure routes
-  
-    ### 配置路由  
-  
+
+    ### 配置路由
+
     Our application doesn't have any routes yet.
     We'll start by creating a configuration for the application routes.
-    
+
     本应用还没有路由。我们来为应用的路由新建一个配置。
 
 :marked
   *Routes* tell the router which views to display when a user clicks a link or
-  pastes a URL into the browser address bar.  
-  
+  pastes a URL into the browser address bar.
+
   *路由*告诉路由器，当用户点击链接或者把URL粘贴到浏览器地址栏时，应该显示哪个视图。
 
   Let's define our first route as a route to the heroes component:
-  
+
   我们的第一个路由是指向`HeroesComponent`的。
-  
+
 - var _file = _docsFor == 'dart' ? 'app.component.ts' : 'app.module.2.ts'
 +makeExcerpt('app/' + _file + ' (heroes route)', 'heroes')
 
 - var _are = _docsFor == 'dart' ? 'takes' : 'are'
 - var _routePathPrefix = _docsFor == 'dart' ? '/' : ''
-
 :marked
   The `!{_RoutesVsAtRouteConfig}` !{_are} !{_an} !{_array} of *route definitions*.
   We have only one route definition at the moment but rest assured, we'll add more.
@@ -376,12 +366,17 @@ block router-config-intro
   此刻我们只有一个路由定义，但别急，后面还会添加更多。
 
   This *route definition* has the following parts:
-  
-  “路由定义”包括几个部分：
-  
-  * **path**: the router matches this route's path to the URL in the browser address bar (`!{_routePathPrefix}/heroes`).
 
-  * **path**: 路由器会用它来匹配路由中指定的路径和浏览器地址栏中的当前路径，如`!{_routePathPrefix}/heroes`。
+  “路由定义”包括几个部分：
+
+  - **path**: the router matches this route's path to the URL in the browser address bar (`!{_routePathPrefix}heroes`).
+
+  - **path**: 路由器会用它来匹配路由中指定的路径和浏览器地址栏中的当前路径，如`!{_routePathPrefix}heroes`。
+
+  <li if-docs="dart"> **name**: the official name of the route;
+   it *must* begin with a capital letter to avoid confusion with the *path* (`Heroes`).</li>
+
+  <li if-docs="dart"> **name**: 路由的官方名称；它*必须*以大写字母形状，避免与*path* (`Heroes`)混淆。</li>
 
   * **component**: the component that the router should create when navigating to this route (`HeroesComponent`).
 
@@ -392,11 +387,11 @@ block router-config-intro
     Learn more about defining routes with `!{_RoutesVsAtRouteConfig}` in the [Routing](../guide/router.html) chapter.
 
     到[路由](../guide/router.html)章节学习更多关于使用路由库来定义路由的知识。
-    
+
 +ifDocsFor('ts|js')
   :marked
     ### Make the router available
-    
+
     ### 让路由器可用
 
     We've setup the initial route configuration. Now we'll add it to our `AppModule`.
@@ -455,12 +450,14 @@ block routerLink
     Notice the `routerLink` binding in the anchor tag.
     We bind the `RouterLink` directive (another of the `RouterModule` directives) to a string
     that tells the router where to navigate when the user clicks the link.
-  
-    注意，a标签中的`[routerLink]`绑定。我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个字符串。它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
-  
+
+    注意，锚标签中的`[routerLink]`绑定。
+    我们把`RouterLink`指令(`ROUTER_DIRECTIVES`中的另一个指令)绑定到一个字符串。
+    它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
+
     Since our link is not dynamic, we define a *routing instruction* with a **one-time binding** to our route **path**.
     Looking back at the route configuration, we confirm that `'/heroes'` is the path of the route to the `HeroesComponent`.
-  
+
     由于这个链接不是动态的，我们只要用**一次性绑定**的方式绑定到路由的路径（path）就行了。
     回来看路由配置表，我们清楚的看到，这个路径 —— `'/heroes'`就是指向`HeroesComponent`的那个路由的路径。
 
@@ -468,7 +465,7 @@ block routerLink
     :marked
       Learn more about dynamic router links and the *link parameters array*
       in the [Routing](../guide/router.html#link-parameters-array) chapter.
-  
+
       参阅[路由](../guide/router.html#link-parameters-array)章学习更多动态路由器链接和*链接参数数组*的知识。
 
 :marked
@@ -498,6 +495,7 @@ block routerLink
   在这个阶段，`AppComponent`看起来是这样的：
 
 +makeExample('app/app.component.1.ts', 'v2', 'app/app.component.ts (v2)')
+
 :marked
   The  *AppComponent* is now attached to a router and displaying routed views.
   For this reason and to distinguish it from other kinds of components,
@@ -520,6 +518,7 @@ block routerLink
   先创建一个`DashboardComponent`的占位符，让我们可以导航到它或从它导航出来。
 
 +makeExcerpt('app/dashboard.component.1.ts (v1)', '')
+
 :marked
   We’ll come back and make it more useful later.
 
@@ -544,15 +543,14 @@ block routerLink
 +ifDocsFor('ts|js')
   :marked
     Also import and add `DashboardComponent` to our `AppModule`'s `declarations`.
-    
+
     还得把`DashboardComponent`添加到根模块的`declarations`数组中。
-    
 
   +makeExcerpt('app/app.module.ts', 'dashboard')
 
 :marked
   #### !{_redirectTo}
-  
+
   #### !{_redirectTo}
 
   We want the app to show the dashboard when it starts and
@@ -562,31 +560,31 @@ block routerLink
   我们希望在应用启动的时候就显示控制台，而且我们希望在浏览器的地址栏看到一个好看的URL，比如`/dashboard`。
   记住，浏览器启动时，在地址栏中使用的路径是`/`。
   我们可以使用一个重定向路由来达到目的。
-  
+
 block redirect-vs-use-as-default
   :marked
     We can use a redirect route to make this happen. Add the following
     to our array of route definitions:
-    
+
     可以使用重定向路由来实现它。添加下面的内容到路由定义的数组中：
-    
+
   +makeExcerpt('app/app.module.3.ts','redirect')
 
   .l-sub-section
     :marked
-      Learn about the *redirects* in the [Routing](../guide/router.html#!#redirect) chapter.
+      Learn about the *redirects* in the [Routing](../guide/router.html#redirect) chapter.
 
-      要学习关于*重定向*的更多知识，参见[路由与导航](../guide/router.html#!#redirect)一章。
+      要学习关于*重定向*的更多知识，参见[路由与导航](../guide/router.html#redirect)一章。
 
 :marked
   #### Add navigation to the template
-  
+
   #### 添加导航到模版中
 
   Finally, add a dashboard navigation link to the template, just above the *Heroes* link.
 
   最后，在模板上添加一个到控制台的导航链接，就放在*英雄(Heroes)*链接的上方。
-  
+
 - var _vers = _docsFor == 'dart' ? '' : '.1'
 +makeExcerpt('app/app.component' + _vers + '.ts', 'template-v3')
 
@@ -603,8 +601,11 @@ block redirect-vs-use-as-default
   The app displays the dashboard and we can navigate between the dashboard and the heroes.
 
   刷新浏览器。应用显示出了控制台，并可以在控制台和英雄列表之间导航了。
+
   ## Dashboard Top Heroes
+
   ## 控制台上的顶级英雄
+
   Let’s spice up the dashboard by displaying the top four heroes at a glance.
 
   我们想让控制台更有趣，比如：一眼就能看到四个顶级英雄。
@@ -613,12 +614,16 @@ block redirect-vs-use-as-default
   template file.
 
   把元数据中的`template`属性替换为`templateUrl`属性，它将指向一个新的模板文件。
++ifDocsFor('ts|js')
+  :marked
+    Set the `moduleId` property to `module.id` for module-relative loading of the `templateUrl`.
 
-  Set the `moduleId` property to `module.id` for module-relative loading of the `templateUrl`.
-  
-  设置`moduleId`属性到`module.id`，相对模块加载`templateUrl`。
+    设置`moduleId`属性到`module.id`，相对模块加载`templateUrl`。
 
 +makeExcerpt('app/dashboard.component.ts', 'metadata')
+
+block templateUrl-path-resolution
+  //- N/A for TS
 
 :marked
   Create that file with this content:
@@ -632,7 +637,7 @@ block redirect-vs-use-as-default
   We added extra `<div>` elements to help with styling later in this chapter.
 
   我们又一次使用`*ngFor`来在英雄列表上迭代，并显示它们的名字。
-  还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。  
+  还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。
 
   ### Share the *HeroService*
 
@@ -693,9 +698,9 @@ block redirect-vs-use-as-default
 
   * 在Angular的`ngOnInit`生命周期钩子里面调用服务来获得英雄列表。
 
-  In this dashboard we cherry-pick four heroes (2nd, 3rd, 4th, and 5th) with the `Array.slice` method.
+  In this dashboard we cherry-pick four heroes (2nd, 3rd, 4th, and 5th)<span if-docs="ts"> with the `Array.slice` method</span>.
 
-  值得注意的区别是：我们用`Array.slice`方法提取了四个英雄（第2、3、4、5个）。
+  值得注意的区别是：我们<span if-docs="ts">用`Array.slice`方法</span>提取了四个英雄（第2、3、4、5个）。
 
   Refresh the browser and see four heroes in the new dashboard.
 
@@ -797,14 +802,13 @@ code-example(format='').
   .l-sub-section
     :marked
       Remember to import the hero detail component before creating this route.
-      
+
       记得在创建这个路由前导入英雄详情组件。
-    
+
 :marked
   We're finished with the application routes.
 
   我们已经做好了该应用的路由。
-
 
   We won't add a `'Hero Detail'` link to the template because users
   don't click a navigation *link* to view a particular hero.
@@ -847,15 +851,16 @@ block route-params
     We will no longer receive the hero in a parent component property binding.
     The new `HeroDetailComponent` should take the `id` parameter from the `params` observable
     in the `ActivatedRoute` service and use the `HeroService` to fetch the hero with that `id`.
-  
+
     我们不会再从父组件的属性绑定中取得英雄数据。
-    新的`HeroDetailComponent`应该从`ActivatedRoute`服务的可观察对象`params`中取得`id`参数，并通过`HeroService`服务获取具有这个指定`id`的英雄数据。
-    
+    新的`HeroDetailComponent`应该从`ActivatedRoute`服务的可观察对象`params`中取得`id`参数，
+    并通过`HeroService`服务获取具有这个指定`id`的英雄数据。
+
 :marked
   First, add the requisite imports:
-  
+
   首先，添加需要的导入项目：
-  
+
 - var _vers = _docsFor == 'dart' ? '' : '.1'
 +makeExcerpt('app/hero-detail.component' + _vers + '.ts', 'added-imports', '')
 
@@ -863,10 +868,17 @@ block route-params
 :marked
   Let's have the `!{_ActivatedRoute}` service, the `HeroService` and the `Location` service injected
   into the constructor, saving their values in private fields:
-  
+
   然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
 +makeExcerpt('app/hero-detail.component.ts (constructor)', 'ctor')
+
+:marked
+  We'll also import the `switchMap` operator to use later with the route parameters `Observable`.
+
+  我们还将导入`switchMap`运算符，之后会与路由参数`Observable`一起使用。
+
++makeExcerpt('app/hero-detail.component.ts (switchMap import)', 'rxjs-import')
 
 :marked
   We tell the class that we want to implement the `OnInit` interface.
@@ -887,12 +899,19 @@ block ngOnInit
 
 block extract-id
   :marked
-    Notice how we extract the `id` by calling the `forEach` method
-    which will deliver our !{_array} of route parameters.
-  
-    注意我们提取`id`的方法：调用`forEach`方法，它会提供一个路由参数的数组。
+    Note how the `switchMap` operator maps the id in the observable route parameters
+    to a new `Observable`, the result of the `HeroService.getHero` method.
+
+    注意`switchMap`运算符如何将可观察的路由参数中的id映射到一个新的`Observable`，
+    即`HeroService.getHero`方法的结果。
+
+    If the user re-navigates to this component while a getHero request is still inflight,
+    switchMap cancels that old request before calling `HeroService.getHero` again.
+
+    如果用户在getHero请求执行的过程中再次导航这个组件，switchMap再次调用`HeroService.getHero`之前，
+    会取消之前的请求。
+
 - var _str2int = _docsFor == 'dart' ? '<code>int.parse</code> static method' : 'JavaScript (+) operator'
-  
 :marked
   The hero `id` is a number. Route parameters are *always strings*.
   So we convert the route parameter value to a number with the !{_str2int}.
@@ -900,6 +919,20 @@ block extract-id
   英雄的`id`是数字，而路由参数的值*总是字符串*。
   所以我们需要通过JavaScript的(+)操作符把路由参数的值转成数字。
 
+.l-sub-section
+  :marked
+    ### Do I need to unsubscribe?
+
+    ### 我需要取消订阅吗？
+
+    The `Router` manages the [observables](../guide/router.html#activated-route) it provides and localizes
+    the subscriptions. The subscriptions are cleaned up when the component is destroyed, protecting against
+    memory leaks, so we don't need to _unsubscribe_ from the route params `Observable`.
+
+    `Router`管理它提供的[可观察对象](../guide/router.html#activated-route)，并使订阅局部化。当组件被销毁时，会清除
+    订阅，防止内存泄漏，所以我们不需要从路由参数`Observable`_取消订阅_。
+
+:marked
   ### Add *HeroService.getHero*
 
   ### 添加*HeroService.getHero*
@@ -946,13 +979,14 @@ block extract-id
     Going back too far could take us out of the application.
     That's acceptable in a demo. We'd guard against it in a real application,
     perhaps with the [!{_CanDeactivateGuard}](../api/!{_CanDeactivateGuardUri}.html).
- 
+
     回退太多步会跑出我们的应用。
     在Demo中，这算不上问题。但在真实的应用中，我们需要对此进行防范。
     也许你该用[!{_CanDeactivateGuard}](../api/!{_CanDeactivateGuardUri}.html).。
 
 :marked
-  Then we wire this method with an event binding to a *Back* button that we add to the bottom of the component template.
+  Then we wire this method with an event binding to a *Back* button that we
+  add to the bottom of the component template.
 
   然后，我们通过一个事件绑定把此方法绑定到模板底部的*后退(Back)*按钮上。
 
@@ -965,25 +999,20 @@ block extract-id
 
   修改模板，添加这个按钮以提醒我们还要做更多的改进，
   并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
-  
-+makeExample('app/hero-detail.component.html')(format='.')
+
++makeExample('app/hero-detail.component.html')
 
 :marked
-  We update the component metadata with a `moduleId` and a `templateUrl` pointing to the template file that we just created.
+  We update the component metadata with a <span if-docs="ts">`moduleId` and a </span>`templateUrl` pointing to the template file that we just created.
 
-  然后更新组件的元数据，用一个`templateUrl`属性指向我们刚刚创建的模板文件。
+  然后更新组件的元数据，用<span if-docs="ts">`moduleId`和</span>一个`templateUrl`属性指向我们刚刚创建的模板文件。
 
 +makeExcerpt('app/hero-detail.component.ts', 'metadata')
 
 :marked
-  Here's the (nearly) finished `HeroDetailComponent`:
+  Refresh the browser and see the results.
 
-  下面是(几乎)完成的`HeroDetailComponent`：
-
-+makeExample('toh-5/ts/app/hero-detail.component.ts', 'v2', 'app/hero-detail.component.ts (latest)')(format=".")
-
-:marked
-
+  刷新浏览器，查看结果。
 
 .l-main-section
 :marked
@@ -994,7 +1023,7 @@ block extract-id
   When a user selects a hero in the dashboard, the app should navigate to the `HeroDetailComponent` to view and edit the selected hero.
 
   当用户从控制台中选择了一位英雄时，本应用要导航到`HeroDetailComponent`以查看和编辑所选的英雄。
-  
+
   Although the dashboard heroes are presented as button-like blocks, they should behave like anchor tags.
   When hovering over a hero block, the target URL should display in the browser status bar 
   and the user should be able to copy the link or open the hero detail view in a new tab.
@@ -1009,17 +1038,26 @@ block extract-id
 
 +makeExample('app/dashboard.component.html', 'click', 'app/dashboard.component.html (repeated <a> tag)')
 
++ifDocsFor('dart')
+  .alert.is-important
+    :marked
+      Router links in the dashboard are currently not operational, as reported in issue
+      [dart-lang/angular2/issues/186](https://github.com/dart-lang/angular2/issues/186).
+
+      仪表盘中的路由链接当前还不可用，见问题[dart-lang/angular2/issues/186](https://github.com/dart-lang/angular2/issues/186)。
+
+- var _pathVsName = _docsFor == 'dart' ? 'name' : 'path'
 :marked
   Notice the `[routerLink]` binding.
 
   注意`[routerLink]`绑定。
 
-  In the top level navigation in the [`AppComponent`
+  Top level navigation in the [`AppComponent`
   template](#router-links) has router links set to fixed !{_pathVsName}s of the
   destination routes, "/dashboard" and "/heroes".
 
   [`AppComponent`模板](#router-links)中的顶级导航有一些路由器链接被设置固定的路径，例如"/dashboard" and "/heroes"。
-  
+
   This time, we're binding to an expression containing a **link parameters !{_array}**.
   The !{_array} has two elements, the ***!{_pathVsName}*** of
   the destination route and a ***route parameter*** set to the value of the current hero's `id`.
@@ -1038,92 +1076,93 @@ block extract-id
 
 :marked
   Refresh the browser and select a hero from the dashboard; the app should navigate directly to that hero’s details.
-  
+
   刷新浏览器，并从控制台中选择一位英雄，应用就会直接导航到英雄的详情。
-  
-.l-main-section
-:marked
-  ## Refactor routes to a _Routing Module_
 
-  ## 重构路由为一个**路由模块**
++ifDocsFor('ts')
+  .l-main-section
+  :marked
+    ## Refactor routes to a _Routing Module_
 
-  Almost 20 lines of `AppModule` are devoted to configuring four routes. 
-  Most application have many more routes and they [add guard services](../guide/router.html#guards) 
-  to protect against unwanted or unauthorized navigations. 
-  Routing considerations could quickly dominate this module and obscure its primary purpose which is to 
-  establish key facts about the entire app for the Angular compiler.
+    ## 重构路由为一个**路由模块**
 
-  `AppModule`中有将近20行代码是用来配置四个路由的。
-  绝大多数应用有更多路由，并且它们还有[守卫服务](../guide/router.html#guards)来保护不希望或未授权的导航。
-  路由的配置可能迅速占领这个模块，并掩盖其主要目的，即为Angular编译器设置整个应用的关键配置。
+    Almost 20 lines of `AppModule` are devoted to configuring four routes.
+    Most applications have many more routes and they [add guard services](../guide/router.html#guards)
+    to protect against unwanted or unauthorized navigations.
+    Routing considerations could quickly dominate this module and obscure its primary purpose which is to
+    establish key facts about the entire app for the Angular compiler.
 
-  We should refactor the routing configuration into its own class.
-  What kind of class? 
-  The current `RouterModule.forRoot()` produces an Angular `ModuleWithProviders` which suggests that a
-  class dedicated to routing should be some kind of module.
-  It should be a [_Routing Module_](../guide/router.html#routing-module).
+    `AppModule`中有将近20行代码是用来配置四个路由的。
+    绝大多数应用有更多路由，并且它们还有[守卫服务](../guide/router.html#guards)来保护不希望或未授权的导航。
+    路由的配置可能迅速占领这个模块，并掩盖其主要目的，即为Angular编译器设置整个应用的关键配置。
 
-  我们应该重构路由配置到它自己的类。
-  什么样的类呢？
-  当前的`RouterModule.forRoot()`产生一个Angular `ModuleWithProviders`，所以这个路由类应该是一种模块类。
-  它应该是一个[**路由模块**](../guide/router.htm#routing-module)。
+    We should refactor the routing configuration into its own class.
+    What kind of class?
+    The current `RouterModule.forRoot()` produces an Angular `ModuleWithProviders` which suggests that a
+    class dedicated to routing should be some kind of module.
+    It should be a [_Routing Module_](../guide/router.html#routing-module).
 
-  By convention the name of a _Routing Module_ contains the word "Routing" and 
-  aligns with the name of the module that declares the components navigated to".
+    我们应该重构路由配置到它自己的类。
+    什么样的类呢？
+    当前的`RouterModule.forRoot()`产生一个Angular `ModuleWithProviders`，所以这个路由类应该是一种模块类。
+    它应该是一个[**路由模块**](../guide/router.htm#routing-module)。
 
-  按约定，**路由模块**的名字应该包含“Routing”，并与导航到的组件所在的模块的名称看齐。
-  
-  Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it the following contents extracted from the `AppModule` class:
+    By convention the name of a _Routing Module_ contains the word "Routing" and
+    aligns with the name of the module that declares the components navigated to.
 
-  在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
+    按约定，**路由模块**的名字应该包含“Routing”，并与导航到的组件所在的模块的名称看齐。
 
-+makeExample('app/app-routing.module.ts')
-:marked
-  Noteworthy points, typical of _Routing Modules_:
-  
-  典型**路由模块**值得注意的有：
-  
-  * Pull the routes into a variable. You might export it in future and it clarifies the _Routing Module_ pattern.
+    Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it the following contents extracted from the `AppModule` class:
 
-  * 将路由抽出到一个变量中。你可能将来会导出它。而且它让**路由模块**模式更加明确。
+    在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
 
-  * Add `RouterModule.forRoot(routes)` to `imports`.
+  +makeExample('app/app-routing.module.ts')
+  :marked
+    Noteworthy points, typical of _Routing Modules_:
 
-  * 添加`RouterModule.forRoot(routes)`到`imports`.
-    
-  * Add `RouterModule` to `exports` so that the components in the companion module have access to Router declarables 
-  such as `RouterLink` and `RouterOutlet`.
+    典型**路由模块**值得注意的有：
 
-  * 添加`RouterModule`到`exports`，这样关联模块的组件可以访问路由的声明，比如`RouterLink`和`RouterOutlet`。
-  
-  * No `declarations`!  Declarations are the responsibility of the companion module.
+    * Pulls the routes into a variable. You might export it in future and it clarifies the _Routing Module_ pattern.
 
-  * 无`Declarations`！声明是关联模块的任务。
+    * 将路由抽出到一个变量中。你可能将来会导出它。而且它让**路由模块**模式更加明确。
 
-  * Add module `providers` for guard services if you have them; there are none in this example.
+    * Adds `RouterModule.forRoot(routes)` to `imports`.
 
-  * 如果你有守卫服务，添加模块`providers`；本例子无守卫服务。
+    * 添加`RouterModule.forRoot(routes)`到`imports`。
 
-  ### Update _AppModule_
+    * Adds `RouterModule` to `exports` so that the components in the companion module have access to Router declarables
+    such as `RouterLink` and `RouterOutlet`.
 
-  ### 更新_AppModule_
+    * 添加`RouterModule`到`exports`，这样关联模块的组件可以访问路由的声明，比如`RouterLink`和`RouterOutlet`。
 
-  Now delete the routing configuration from `AppModule` and import the `AppRoutingModule` 
-  (_both_ with an ES `import` statement _and_ by adding it to the `NgModule.imports` list).
+    * No `declarations`!  Declarations are the responsibility of the companion module.
 
-  现在，删除`AppModule`中的路由配置，并导入`AppRoutingModule`（**同时**用ES导入语句和将它添加到`NgModule.imports`数组）。
+    * 无`Declarations`！声明是关联模块的任务。
 
-  Here is the revised `AppModule`, compared to its pre-refactor state:
+    * Adds module `providers` for guard services if you have them; there are none in this example.
 
-  下面是修改后的`AppModule`，与重构前的对比：
-+makeTabs(
-  `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
-   null,
-  `app/app.module.ts (after), app/app.module.ts (before)`)
-:marked
-  It's simpler and focused on indentifying the key pieces of the application.  
+    * 如果你有守卫服务，添加模块`providers`；本例子无守卫服务。
 
-  它更简单，专注于确定应用的关键部分。
+    ### Update _AppModule_
+
+    ### 更新_AppModule_
+
+    Now delete the routing configuration from `AppModule` and import the `AppRoutingModule`
+    (_both_ with an ES `import` statement _and_ by adding it to the `NgModule.imports` list).
+
+    现在，删除`AppModule`中的路由配置，并导入`AppRoutingModule`（**同时**用ES导入语句和将它添加到`NgModule.imports`数组）。
+
+    Here is the revised `AppModule`, compared to its pre-refactor state:
+
+    下面是修改后的`AppModule`，与重构前的对比：
+  +makeTabs(
+    `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
+     null,
+    `app/app.module.ts (after), app/app.module.ts (before)`)
+  :marked
+    It's simpler and focused on indentifying the key pieces of the application.
+
+    它更简单，专注于确定应用的关键部分。
 
 .l-main-section
 :marked
@@ -1133,7 +1172,7 @@ block extract-id
 
   Earlier we added the ability to select a hero from the dashboard.
   We'll do something similar in the `HeroesComponent`.
-  
+
   之前我们添加了从控制台选择一个英雄的功能。
   我们现在要做的事和`HeroesComponent`中很像。
 
@@ -1142,7 +1181,7 @@ block extract-id
 
   那个组件的当前模板展示了一个主从风格的界面：上方是英雄列表，底下是所选英雄的详情。
 
-+makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (当前的模板)')(format=".")
++makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (current template)')(format=".")
 
 :marked
   Our goal is to move the detail to its own view and navigate to it when the user decides to edit a selected hero.
@@ -1150,9 +1189,9 @@ block extract-id
   我们要做的是将详情组建移动到它自己的视图，并在用户决定编辑一个英雄时导航到它。
 
   Delete the `<h1>` at the top (we forgot about it during the `AppComponent`-to-`HeroesComponent` conversion).
-  
-  删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`期间可以先忘掉它）。
-  
+
+  删除顶部的`<h1>`（在从`AppComponent`转到`HeroesComponent`期间可以先忘掉它）
+
   Delete the last line of the template with the `<my-hero-detail>` tags.
 
   删除模板最后带有`<my-hero-detail>`标签的那一行。
@@ -1188,7 +1227,8 @@ block extract-id
   点击一个英雄，用户将会在英雄列表的下方看到这些：
 
 figure.image-display
-  img(src='/resources/images/devguide/toh/mini-hero-detail.png' alt="Mini版英雄详情" height="70")
+  img(src='/resources/images/devguide/toh/mini-hero-detail.png' alt="Mini版英雄" height="70")
+
 :marked
   ### Format with the *uppercase* pipe
 
@@ -1242,21 +1282,21 @@ figure.image-display
 
   1. 把样式内容*剪切并粘贴*到新的<span ngio-ex>heroes.component.css</span>文件。
 
-  1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.  
+  1. *Set* the component metadata's `templateUrl` and `styleUrls` properties to refer to both files.
 
   1. *设置*组件元数据的`templateUrl`和`styleUrls`属性，来分别引用这两个文件。
 
-  1. *Set* the `moduleId` property to `module.id` so that `templateUrl` and `styleUrls` are relative to the component.
+  <li if-docs="ts">. *Set* the `moduleId` property to `module.id` so that `templateUrl` and `styleUrls` are relative to the component.</li>
 
-  1. *设置*`moduleId`属性为`module.id`，将`templateUrl`和`styleUrls`路径设置为相对组件的路径。
+  <li if-docs="ts">. *设置*`moduleId`属性为`module.id`，将`templateUrl`和`styleUrls`路径设置为相对组件的路径。</li>
 
 .l-sub-section
   :marked
     The `styleUrls` property is !{_an} !{_array} of style file names (with paths).
-    We could list multiple style files from different locations if we needed them.    
-    
+    We could list multiple style files from different locations if we needed them.
+
     `styleUrls`属性是一个由样式文件的文件名(包括路径)组成的数组。
-    我们还可以列出来自多个不同位置的样式文件。    
+    我们还可以列出来自多个不同位置的样式文件。
 
 block heroes-component-cleanup
   //- Only relevant for Dart.
@@ -1268,7 +1308,7 @@ block heroes-component-cleanup
 
   ### 更新_HeroesComponent_类
 
-  The `HeroesComponent` navigates to the `HeroesDetailComponent` in response to a button click. 
+  The `HeroesComponent` navigates to the `HeroesDetailComponent` in response to a button click.
   The button's _click_ event is bound to a `gotoDetail` method that navigates _imperatively_
   by telling the router where to go.
 
@@ -1290,16 +1330,18 @@ block heroes-component-cleanup
   1. Implement `gotoDetail` by calling the `router.navigate` method
 
   1. 实现`gotoDetail`，调用`router.navigate`方法
-  
+
 +makeExcerpt('app/heroes.component.ts', 'gotoDetail')
+
 :marked
   Note that we're passing a two-element **link parameters !{_array}**
   &mdash; a path and the route parameter &mdash; to
   the `router.navigate` method just as we did in the `[routerLink]` binding
-  back in the `DashboardComponent`
+  back in the `DashboardComponent`.
   Here's the fully revised `HeroesComponent` class:
 
-  注意，我们将一个双元素的**链接参数数组**——路径和路由参数——传递到`router.navigate`，与之前在`DashboardComponent`中使用`[routerLink]`绑定一样。
+  注意，我们将一个双元素的**链接参数数组**——路径和路由参数——传递到`router.navigate`，
+  与之前在`DashboardComponent`中使用`[routerLink]`绑定一样。
 
 +makeExcerpt('app/heroes.component.ts', 'class')
 
@@ -1371,7 +1413,7 @@ block heroes-component-cleanup
 
   在`!{_appDir}`目录下添加<span ngio-ex>hero-detail.component.css</span>文件，
   并且在`styleUrls`数组中引用它 —— 就像当初在`DashboardComponent`中做过的那样。
-  同时删除`hero``@Input`装饰器属性<span if-docs="ts">和它的导入语句</span>。   
+  同时删除`hero``@Input`装饰器属性<span if-docs="ts">和它的导入语句</span>。
 
   Here's the content for the aforementioned component CSS files.
 
@@ -1408,11 +1450,11 @@ block css-files
       **The *routerLinkActive* directive**
 
       ***routerLinkActive*指令**
-  
+
       The Angular Router provides a `routerLinkActive` directive we can use to
       add a class to the HTML navigation element whose route matches the active route.
       All we have to do is define the style for it. Sweet!
-  
+
       Angular路由器提供了`routerLinkActive`指令，我们可以用它来为匹配了活动路由的HTML导航元素自动添加一个CSS类。
       我们唯一要做的就是为它定义样式。真好！
 
@@ -1444,7 +1486,7 @@ block css-files
   Our designers provided some basic styles to apply to elements across the entire app.
   These correspond to the full set of master styles that we
   introduced earlier (see
-  [QuickStart, "Add some style"](../quickstart.html#!#add-some-style)).
+  [QuickStart, "Add some style"](../quickstart.html#add-some-style)).
   Here is an excerpt:
 
   我们的设计师提供了一组基础样式，这些样式应用到的元素横跨整个应用。
@@ -1480,12 +1522,12 @@ figure.image-display
 .l-main-section
 :marked
   ## Application structure and code
-  
+
   ## 应用结构和代码
 
   Review the sample source code in the <live-example></live-example> for this chapter.
   Verify that we have the following structure:
-  
+
   在<live-example>在线例子</live-example>中回顾本章的范例代码。
   验证我们是否已经得到了如下结构：
 
@@ -1555,9 +1597,11 @@ block file-tree-end
 
   - We added the `uppercase` pipe to format data.
 
-  - 添加了`uppercase`管道，来格式化数据
+  - 添加了`uppercase`管道，来格式化数据。
 
-  - We refactored routes into a `Routing Module` that we import.
+  <li if-docs="ts"> We refactored routes into a `Routing Module` that we import.</li>
+
+  <li if-docs="ts"> 将路由重构为路由模块，并导入它。</li>
 
   - 将路由重构为路由模块，并导入它。
 
@@ -1575,4 +1619,3 @@ block file-tree-end
   we’ll replace our mock data with data retrieved from a server using http.
 
   在下一章，我们将从硬编码模拟数据改为使用http服务从服务器获取数据。
-

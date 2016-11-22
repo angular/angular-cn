@@ -2,16 +2,16 @@ include ../_util-fns
 
 :marked
   Welcome to the Angular Style Guide
-  
+
   欢迎光临Angular风格指南
-  
+
   ## Purpose
   ## 目的
 
   Looking for an opinionated guide to Angular syntax, conventions, and application structure?
   Step right in!
   This style guide presents our preferred conventions and, as importantly, explains why.
-  
+
   如果你在寻找一份关于语法、约定和Angular应用程序的组织结构的风格指南，那你就来对了。
   本风格指南提供了我们所提倡的约定，但最重要的是，解释了为什么。
 
@@ -22,11 +22,11 @@ include ../_util-fns
   ## 风格词汇
 
   Each guideline describes either a good or bad practice, and all have a consistent presentation.
-  
+
   每个指导原则都会描述好的或者坏的做法，所有指导原则都相互呼应，保持一致。
 
   The wording of each guideline indicates how strong the recommendation is.
-  
+
   指导原则中使用的词汇表明我们推荐的强度。
 
 .s-rule.do
@@ -35,23 +35,23 @@ include ../_util-fns
     _Always_ might be a bit too strong of a word.
     Guidelines that literally should always be followed are extremely rare.
     On the other hand, you need a really unusual case for breaking a *Do* guideline.
-    
+
     **坚持**意味着总是应该遵循的约定。_总是_可能有点太强。应该_总是_遵循的指导原则非常少见。但是，只有遇到非常不寻常的情况才能打破*坚持*的原则。
 
 .s-rule.consider
   :marked
     **Consider** guidelines should generally be followed.
-    
-    **考虑**标志着通常应该遵循的指导原则。    
-    
+
+    **考虑**标志着通常应该遵循的指导原则。
+
     If you fully understand the meaning behind the guideline and have a good reason to deviate, then do so. Please strive to be consistent.
-    
+
     如果你能完全理解指导原则背后的含义，并且很好的理由打破它，那就可以打破该指导原则。但是请保持一致。
 
 .s-rule.avoid
   :marked
     **Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakeable red header.
-    
+
     **避免**标志着我们决不应该做的事。需要*避免*的代码范例会有不会被忽视的红色标题。
 .l-main-section
 
@@ -60,11 +60,11 @@ include ../_util-fns
   ## 文件结构约定
 
   Some code examples display a file that has one or more similarly named companion files. (e.g. hero.component.ts and hero.component.html).
-  
+
   在一些代码例子中，有的文件拥有一个或多个相似名字的伴随文件。(比如，hero.component.ts和hero.component.html)。
 
   The guideline will use the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
-  
+
   本指南将会使用像`hero.component.ts|html|css|spec`的简写来表示上面描述的多个文件，目的是保持本指南的简洁性，增加文件结构描述时的可读性。
 
 .l-main-section
@@ -74,45 +74,45 @@ a(id='toc')
   ## Table of Contents
   ## 目录
 
-    1. [Single Responsibility](#single-responsibility)    
-    
-    1. [单一职责](#single-responsibility)    
-    
+    1. [Single Responsibility](#single-responsibility)
+
+    1. [单一职责](#single-responsibility)
+
     1. [Naming](#naming)
-    
-    1. [命名约定](#naming)    
-    
+
+    1. [命名约定](#naming)
+
     1. [Coding Conventions](#coding-conventions)
-    
-    1. [代码约定](#coding-conventions)    
-    
+
+    1. [代码约定](#coding-conventions)
+
     1. [App Structure and Angular Modules](#app-structure-and-angular-modules)
-    
-    1. [应用程序结构与模块划分](#app-structure-and-angular-modules)    
-    
+
+    1. [应用程序结构与模块划分](#app-structure-and-angular-modules)
+
     1. [Components](#components)
-    
-    1. [组件](#components)    
-    
+
+    1. [组件](#components)
+
     1. [Directives](#directives)
-    
-    1. [指令](#directives)    
-    
+
+    1. [指令](#directives)
+
     1. [Services](#services)
-    
-    1. [服务](#services)    
-    
+
+    1. [服务](#services)
+
     1. [Data Services](#data-services)
-    
-    1. [数据服务](#data-services)    
-    
+
+    1. [数据服务](#data-services)
+
     1. [Lifecycle Hooks](#lifecycle-hooks)
-    
-    1. [生命周期钩子](#lifecycle-hooks)    
-    
+
+    1. [生命周期钩子](#lifecycle-hooks)
+
     1. [Appendix](#appendix)
-    
-    1. [附录](#appendix)    
+
+    1. [附录](#appendix)
 
 .l-main-section
 :marked
@@ -121,7 +121,7 @@ a(id='toc')
 
   Apply the [Single Responsibility Principle](https://wikipedia.org/wiki/Single_responsibility_principle) to all components, services, and other symbols. 
   This helps make the app cleaner, easier to read and maintain, and more testable.
-  
+
   我们遵循[单一职责原则](https://en.wikipedia.org/wiki/Single_responsibility_principle)来创建的所有组件、服务和其它标志等。这样能帮助我们把应用程序弄的干净整洁，易于阅读、维护和测试。
 
   ### <a id="01-01"></a>Rule of One
@@ -131,46 +131,46 @@ a(id='toc')
 .s-rule.do
   :marked
     **Do** define one thing (e.g. service or component) per file.
-    
+
     **坚持**每个文件只定义一样东西(比如服务或者组件)。
 
 .s-rule.consider
   :marked
     **Consider** limiting files to 400 lines of code.
-    
+
     **考虑**把文件大小限制在400行代码以内。
 
 .s-why
   :marked
     **Why?** One component per file makes it far easier to read, maintain, and avoid collisions with teams in source control.
-    
+
     **为何？**单组件文件非常容易阅读、维护，并能防止在版本控制系统里与团队冲突。
 
 .s-why
   :marked
     **Why?** One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, or unwanted coupling with dependencies.
-    
+
     **为何？**单组件文件可以防止一些隐蔽的程序缺陷，当把多个组件合写在同一个文件中时，可能造成共享变量、创建意外的闭包，或者与依赖之间产生意外耦合等情况。
 
 .s-why.s-why-last
   :marked
     **Why?** A single component can be the default export for its file which facilitates lazy loading with the Router.
-    
+
     **为何？**单独的组件通常是该文件默认的输出，这样就可以利用路由器实现按需加载。
-    
+
 :marked
   The key is to make the code more reusable, easier to read, and less mistake prone.
-  
+
   最关键的是，可以增强代码可重用性和阅读性，减少出错的可能性。
 
   The following *negative* example defines the `AppComponent`, bootstraps the app, defines the `Hero` model object, and loads heroes from the server ... all in the same file. *Don't do this*.
-  
+
   下面的*负面*例子定义了`AppComponent`，该文件引导了应用程序，定义了`Hero`模型对象，并且从服务器加载了英雄 ... 所有都在发生在同一个文件。 *不要这么做*。
 
 +makeExample('style-guide/ts/01-01/app/heroes/hero.component.avoid.ts', '', 'app/heroes/hero.component.ts')(avoid=1)
 :marked
   Better to redistribute the component and supporting activities into their own dedicated files.
-  
+
   将组件及其支撑部件重新分配到独立的文件中会更好。
 
 +makeTabs(
@@ -192,7 +192,7 @@ a(id='toc')
 
 :marked
   As the app grows, this rule becomes even more important.
-  
+
   随着应用程序的成长，本法则会变得越来越重要。
 
 a(href="#toc") Back to top
@@ -208,42 +208,42 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** define small functions
-    
+
     **坚持**定义小函数
 
 .s-rule.consider
   :marked
     **Consider** limiting to no more than 75 lines.
-    
+
     **考虑**限制在75行之内
 .s-why
   :marked
     **Why?** Small functions are easier to test, especially when they do one thing and serve one purpose.
-    
+
     **为何？**小函数更易于测试，特别是当它们只做一件事，只为一个目的服务的时候。
 
 .s-why
   :marked
     **Why?** Small functions promote reuse.
-    
+
     **为何？**小函数促进了代码的重用。
 
 .s-why
   :marked
     **Why?** Small functions are easier to read.
-    
+
     **为何？**小函数更加易于阅读。
 
 .s-why
   :marked
     **Why?** Small functions are easier to maintain.
-    
+
     **为何？**小函数更加易于维护。
 
 .s-why.s-why-last
   :marked
     **Why?** Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
-    
+
     **为何？**小函数帮助避免一些大函数容易产生的那些与外界共享变量、创建意外的闭包或与依赖之间产生意外耦合等隐蔽的错误。
 
 a(href="#toc") Back to top
@@ -256,7 +256,7 @@ a(href="#toc") 回到顶部
   ## 命名约定
 
   Naming conventions are hugely important to maintainability and readability. This guide recommends naming conventions for the file name and the symbol name.
-  
+
   命名约定对维护性和可读性非常重要。本指南为文件和标志命名推荐了一套命名约定。
 
 .l-main-section
@@ -269,38 +269,36 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use consistent names for all symbols.
-    
+
     **坚持**为所有符号使用一致的命名规则。
-    
+
 .s-rule.do
   :marked
     **Do** follow a pattern that describes the symbol's feature then its type. The recommended pattern is `feature.type.ts`.
-    
+
     **坚持**遵循同一个模式来描述符号的特性和类型。推荐的模式为`feature.type.ts`。
 
 .s-why
   :marked
-    **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. 
-    Consistency across a company provides tremendous efficiency.
-    
-    **为何？**命名约定提供了一致的方法来帮助我们一眼锁定内容。在整个项目内保持一致性是至关重要的。在团队内保持一致性也很重要。在公司内部保持一致性可以大幅提高效率。
+    **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. Consistency across a company provides tremendous efficiency.
+
+    **为何？**命名约定提供了一致的方法来帮助我们一眼锁定内容。
 
 .s-why
   :marked
     **Why?** The naming conventions should simply help find desited code faster and make it easier to understand.
-    
+
     **为何？**命名约定最直接的目的是：帮我们快速找到代码并让它们更容易理解。
 
 .s-why.s-why-last
   :marked
     **Why?** Names of folders and files should clearly convey their intent. For example, `app/heroes/hero-list.component.ts` may contain a component that manages a list of heroes.
-    
+
     **为何？**目录和文件的名字应该清楚的说明它们的用途。比如`app/heroes/hero-list.component.ts`包含了一个用来维护英雄列表的组件。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -312,63 +310,58 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use dashes to separate words in the descriptive name.
-    
+
     **坚持** 在描述性名字里面，使用横杠来分隔单词。
-    
 
 .s-rule.do
   :marked
     **Do** use dots to separate the descriptive name from the type.
-    
+
     **坚持**使用点来分隔描述性名字和类型名。
 
 .s-rule.do
   :marked
     **Do** use consistent type names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
-    
+
     **坚持**对所有组件使用一致的类型命名规则，遵循这个模式：先描述组件的特性，再描述它的类型。推荐的模式为`feature.type.ts`。
-    
 
 .s-rule.do
   :marked
     **Do** use conventional type names including `.service`, `.component`, `.pipe`, `.module`, `.directive`. 
     Invent additional type names if you must but take care not to create too many.
-        
+
     **坚持**使用惯用的后缀来描述类型，比如`*.service`、`*.component`、`*.pipe`、`.module`、`.directive`。
     创建更多类型名，但你必须注意不要创建太多。
-    
 
 .s-why
   :marked
     **Why?** Type names provide a consistent way to quickly identify what is in the file.
-    
+
     **为何？**类型名字提供一致的方法来快速的识别文件是什么。
-    
 
 .s-why
   :marked
     **Why?** Make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
-    
-    **为何？** 可以让我们利用编辑器或者IDE的模糊搜索功能，很容易的找到特定文件。   
+
+    **为何？** 可以让我们利用编辑器或者IDE的模糊搜索功能，很容易的找到特定文件。
 
 .s-why
   :marked
     **Why?** Unabbreviated type names such as `.service` are descriptive and unambiguous.
     Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
-    
+
     **为何？** 没有被简写的类型名字比如`.service`很有描述性，不含糊。
     简写可能造成混淆，比如`.srv`, `.svc`, 和 `.serv`。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides pattern matching for any automated tasks.
-    
+
     **为何？**与自动化任务的模式匹配。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -380,38 +373,38 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use consistent names for all assets named after what they represent.
-    
+
     **坚持**为所有东西使用一致的命名约定：以它们所代表的东西命名。
 
 .s-rule.do
   :marked
     **Do** use upper camel case for class names. Match the name of the symbol to the name of the file.
-    
+
     **坚持**使用大写驼峰命名法来命名所有类名。保持符号的名字与它所在的文件名字相同。
 
 .s-rule.do
   :marked
     **Do** append the symbol name with the conventional suffix for a thing of that type 
     (e.g., `Component`, `Directive`, `Module`, `Pipe`, `Service`).
-    
+
     **坚持**在符号名后面追加约定的类型后缀（比如：`Component`、`Directive`、`Module`、`Pipe`、`Service`）。
 
 .s-rule.do
   :marked
     **Do** give the filename the conventional suffix for a file of that type 
     (e.g., `.component.ts`, `.directive.ts`, `.module.ts`, `.pipe.ts`, `.service.ts`).
-    
+
     **坚持**在文件名后面追加约定的类型后缀（比如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference assets.
-    
+
     **为何？**提供一种一致的方式，以快速标识和引用资产。
 
 .s-why.s-why-last
   :marked
     **Why?** Upper camel case is conventional for identifying objects that can be instantiated using a constructor.
-    
+
     **为何？**大驼峰命名法是用来识别那些能通过构造函数进行实例化的对象的命名约定。
 
 - var top="vertical-align:top"
@@ -419,10 +412,10 @@ table(width="100%")
   col(width="50%")
   col(width="50%")
   tr
-    th 
+    th
       p Symbol Name
       p 符号名
-    th 
+    th
       p File Name
       p 文件名
   tr(style=top)
@@ -505,37 +498,37 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use consistent names for all services named after their feature.
-    
+
     **坚持**使用前后一致的命名规则来命名服务，以它们的特性来命名。
 
 .s-rule.do
   :marked
     **Do** use upper camel case for services.
-    
+
     **坚持**使用大写驼峰命名法来命名服务。
 
 .s-rule.do
   :marked
     **Do** suffix services with `Service` when it is not clear what they are (e.g. when they are nouns).
-    
+
     **坚持**当不能从它们的名字里清楚的看出它们是什么的时候(比如它们的名字是名词时)，添加`Service`后缀。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference services.
-    
+
     **为何？**提供前后一致的方法来快速识别和引用服务。
 
 .s-why
   :marked
     **Why?** Clear service names such as `Logger` do not require a suffix.
-    
+
     **为何？**清楚的服务名，比如`Logger`不需要后缀。
 
 .s-why.s-why-last
   :marked
     **Why?** Service names such as `Credit` are nouns and require a suffix and should be named with a suffix when it is not obvious if it is a service or something else.
-    
+
     **为何？**如果服务名字是名词时，比如`Credit`，需要一个后缀。当名字不能很明显的标示出它是服务还是其它东西的时候，应该添加后缀。
 
 - var top="vertical-align:top"
@@ -543,10 +536,10 @@ table(width="100%")
   col(width="50%")
   col(width="50%")
   tr
-    th 
+    th
       p Symbol Name
       p 符号名
-    th 
+    th
       p File Name
       p 文件名
   tr(style=top)
@@ -589,31 +582,31 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** put bootstrapping and platform logic for the app in a file named `main.ts`.
-    
+
     **坚持**把应用的引导程序和平台相关的逻辑放到名为`main.ts`的文件里。
 
 .s-rule.do
   :marked
     **Do** include error handling in the bootstrapping logic.
-    
-    **坚持**在“引导”逻辑中包含错误处理代码。    
+
+    **坚持**在“引导”逻辑中包含错误处理代码。
 
 .s-rule.avoid
   :marked
     **Avoid** putting app logic in the `main.ts`. Instead consider placing it in a component or service.
-    
+
     **避免**把应用逻辑放在`main.ts`中，而应该考虑把它们放进组件或服务里。
 
 .s-why
   :marked
     **Why?** Follows a consistent convention for the startup logic of an app.
-    
+
     **为何？**遵循前后一致的约定来处理应用的启动逻辑。
 
 .s-why.s-why-last
   :marked
     **Why?** Follows a familiar convention from other technology platforms.
-    
+
     **为何？**这是从其它技术平台借鉴的一个常用约定。
 
 +makeExample('style-guide/ts/02-05/main.ts', '', 'main.ts')
@@ -622,7 +615,6 @@ a(href="#toc") 回到顶部
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -634,25 +626,24 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** Use lower camel case for naming the selectors of directives.
-    
+
     **坚持**使用小驼峰命名法来命名指令的选择器。
 
 .s-why
   :marked
     **Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
-    
+
     **为何？**保持指令里定义的属性名字与它们绑定的视图HTML属性名字一致。
 
 .s-why.s-why-last
   :marked
     **Why?** The Angular HTML parser is case sensitive and will recognize lower camel case.
-    
+
     **为何？**Angular HTML解析器是大小写敏感的，它识别小写驼峰写法。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -664,39 +655,39 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use a hyphenated, lowercase element selector value (e.g. `admin-users`). 
-    
+
     **坚持**使用带连字符的小写元素选择器的值（比如`admin-users`）。
 
 .s-rule.do
   :marked
     **Do** use a custom prefix for a component selector. 
     For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
-    
+
     **坚持**为组件选择器使用自定义前缀。
     比如`toh`前缀表示**T**our **o**f **H**eroes（英雄指南），而前缀`admin表示管理特性区。
 
 .s-rule.do
   :marked
     **Do** use a prefix that identifies the feature area or the app itself.
-    
+
     **坚持**使用前缀来识别特性区域或者应用程序本身。
 
 .s-why
   :marked
     **Why?** Prevents element name collisions with components in other apps and with native HTML elements.
-    
+
     **为何？**防止与来自其它应用中的组件和原生HTML元素发生命名冲突。
 
 .s-why
   :marked
     **Why?** Makes it easier to promote and share the component in other apps.
-    
+
     **为何？**把我们的组件推广和共享到其它应用中会更容易。
 
 .s-why.s-why-last
   :marked
     **Why?** Components are easy to identify in the DOM.
-    
+
     **为何？**组件在DOM中更容易被区分出来。
 
 +makeExample('style-guide/ts/02-07/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
@@ -720,25 +711,25 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use a custom prefix for the selector of directives (e.g, the prefix `toh` from **T**our **o**f **H**eroes).
-    
+
     **坚持**为指令的选择器使用自定义前缀（比如前缀`toh`来自**T**our **o**f **H**eroes）。
 
 .s-rule.do
   :marked
     **Do** spell non-element selectors in lower camel case unless the selector is meant to match a native HTML attribute.
-    
+
     **坚持**用小驼峰形式拼写非元素选择器，除非该选择器就是要用来匹配某个原生HTML属性的。
 
 .s-why
   :marked
     **Why?** Prevents name collisions.
-    
+
     **为何？**防止名字冲突。
 
 .s-why.s-why-last
   :marked
     **Why?** Directives are easily identified.
-    
+
     **为何？**指令更加容易被识别。
 
 +makeExample('style-guide/ts/02-08/app/shared/validate.directive.avoid.ts', 'example', 'app/shared/validate.directive.ts')(avoid=1)
@@ -761,13 +752,13 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use consistent names for all pipes, named after their feature.
-    
+
     **坚持**为所有管道使用前后一致的命名约定，用它们的特性来命名。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides a consistent way to quickly identify and reference pipes.
-    
+
     **为何？**提供一致的方法快速识别和引用管道。
 
 - var top="vertical-align:top"
@@ -775,10 +766,10 @@ table(width="100%")
   col(width="50%")
   col(width="50%")
   tr
-    th 
+    th
       p Symbol Name
       p 符号名
-    th 
+    th
       p File Name
       p 文件名
   tr(style=top)
@@ -807,30 +798,31 @@ a(href="#toc") 回到顶部
 :marked
   ### <a id="02-10"></a>Unit Test File Names
   ### <a id="02-10"></a>单元测试文件名
+  #### <a href="#02-10">Style 02-10</a>
   #### <a href="#02-10">风格02-10</a>
 
 .s-rule.do
   :marked
     **Do** name test specification files the same as the component they test.
-    
+
     **坚持**测试规范文件的名字应该和被测试的组件名字一样。
 
 .s-rule.do
   :marked
     **Do** name test specification files with a suffix of `.spec`.
-    
+
     **坚持**测试配置文件命名应该跟随后缀`.spec`。
 
 .s-why
   :marked
       **Why?** Provides a consistent way to quickly identify tests.
-      
+
       **为何？**提供一致的方法来快速识别测试。
 
 .s-why.s-why-last
   :marked
       **Why?** Provides pattern matching for [karma](http://karma-runner.github.io/) or other test runners.
-      
+
       **为何？**提供一个与[karma](http://karma-runner.github.io/)或者其它测试运行器相配的命名模式。
 
 :marked
@@ -849,7 +841,7 @@ table(width="100%")
     td
       :marked
         Components
-        
+
         组件
     td
       :marked
@@ -862,7 +854,7 @@ table(width="100%")
     td
       :marked
         Services
-        
+
         服务
     td
       :marked
@@ -875,7 +867,7 @@ table(width="100%")
     td
       :marked
         Pipes
-        
+
         管道
     td
       :marked
@@ -898,19 +890,19 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** name end-to-end test specification files after the feature they test with a suffix of `.e2e-spec`.
-    
+
     **坚持**端到端测试配置文件应该和它们所测试的特性同名，并加上后缀`.e2e-spec`。
 
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify end-to-end tests.
-    
+
     **为何？**提供一致的方法快速识别端到端测试文件。
 
 .s-why.s-why-last
   :marked
     **Why?** Provides pattern matching for test runners and build automation.
-    
+
     **为何？**提供一个与测试运行器和构建自动化相配的模式。
 
 :marked
@@ -930,7 +922,7 @@ table(width="100%")
     td
       :marked
         End to End Tests
-        
+
         端到端测试
     td
       :marked
@@ -952,59 +944,59 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** append the symbol name with the suffix `Module`.
-    
+
     **坚持**为符号名追加`Module`后缀
 
 .s-rule.do
   :marked
     **Do** give the file name the `.module.ts` extension.
-    
+
     **坚持**为文件名添加`.module.ts`扩展名。
 
 .s-rule.do
   :marked
     **Do** name the module after the feature and folder it resides in.
-    
+
     **坚持**用特性名和所在目录命名模块。
-    
+
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference modules.
-    
+
     **为何？**提供一个一致的方式来快速的标出和引用模块。
 
 .s-why
   :marked
     **Why?** Upper camel case is conventional for identifying objects that can be instantiated using a constructor.
-    
+
     **为何？**大驼峰命名法是一种命名约定，用来标出可用构造函数实例化的对象。
 
 .s-why.s-why-last
   :marked
     **Why?** Easily identifies the module as the root of the same named feature.
-    
+
     **为何？**很容易就能看出这个模块是同名特性的跟模块。
 
 .s-rule.do
   :marked
     **Do** suffix a _RoutingModule_ class name with `RoutingModule`.
-    
+
     **坚持**为*RoutingModule*类名添加`RoutingModule`后缀。
 
 .s-rule.do
   :marked
     **Do** end the filename of a _RoutingModule_ with `-routing.module.ts`.
-    
+
     **坚持** *RoutingModule*的文件名用`-routing.module.ts`结尾。
 
 .s-why.s-why-last
   :marked
     **Why?** A `RoutingModule` is a module dedicated exclusively to configuring the Angular router.
     A consistent class and file name convention make these modules easy to spot and verify.
-    
+
     **为何？**`RoutingModule`是一种专门用来配置Angular路由器的模块。
     “让类名和文件名保持一致”这项约定可以让这些模块易于跟踪和验证。
-    
+
 - var top="vertical-align:top"
 table(width="100%")
   col(width="50%")
@@ -1064,7 +1056,7 @@ a(href="#toc") 回到顶部
   ## 编程约定
 
   Have consistent set of coding, naming, and whitespace conventions.
-  
+
   坚持一套前后一致的编程、命名和空格的约定。
 
 .l-main-section
@@ -1075,20 +1067,20 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use upper camel case when naming classes.
-    
+
     **坚持**使用大写驼峰命名法来命名类。
 
 .s-why
   :marked
     **Why?** Follows conventional thinking for class names.
-    
+
     **为何？**遵循类命名传统约定。
 
 .s-why.s-why-last
   :marked
     **Why?** Classes can be instantiated and construct an instance. 
     By convention, upper camel case indicates a constructable asset.
-    
+
     **为何？**类可以被实例化和构造出实例。根据约定，用大写驼峰命名法来标示可被构造出来的东西。
 
 +makeExample('style-guide/ts/03-01/app/core/exception.service.avoid.ts', 'example', 'app/shared/exception.service.ts')(avoid=1)
@@ -1101,7 +1093,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="03-02"></a>Constants
@@ -1112,33 +1103,33 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** declare variables with `const` if their values should not change during the application lifetime.
-    
+
     **坚持**用`const`声明变量，除非它们的值在应用的生命周期内会发生变化。
 
 .s-why
   :marked
     **Why?** Conveys to readers that the value is invariant.
-    
+
     **为何？** 告诉读者这个值是不可变的。
 
 .s-why.s-why-last
   :marked
     **Why?** TypeScript helps enforce that intent by requiring immediate initialization and by
     preventing subsequent re-assignment.
-    
+
     **为何？**TypeScript会要求在声明时立即初始化，并阻止对其再次赋值，以确保达成我们的意图。
-    
+
 .s-rule.consider
   :marked
     **Consider** spelling `const` variables in lower camel case.
-    
+
     **考虑** 把常量名拼写为小驼峰格式。
 
 .s-why
   :marked
     **Why?** lower camel case variable names (`heroRoutes`) are easier to read and understand
     than the traditional UPPER_SNAKE_CASE names (`HERO_ROUTES`).
-    
+
     **为何？**小驼峰变量名（`heroRoutes`）比传统的“大写蛇形命名法”（`HERO_ROUTES`）更容易阅读和理解。
 
 .s-why.s-why-last
@@ -1146,14 +1137,14 @@ a(href="#toc") 回到顶部
     **Why?** The tradition of naming constants in UPPER_SNAKE_CASE reflects
     an era before the modern IDEs that quickly reveal the `const` declaration.
     TypeScript itself prevents accidental reassignment. 
-    
+
     **为何？** 把常量命名为大写蛇形命名法的传统源于现代IDE出现之前，以便阅读时可以快速发现那些`const`定义。
     而TypeScript本身就能够防止意外赋值。
-    
+
 .s-rule.do
   :marked
     **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
-    
+
     **坚持** 容许_现存的_`const`变量沿用大写蛇形命名法。
 
 .s-why.s-why-last
@@ -1161,7 +1152,7 @@ a(href="#toc") 回到顶部
     **Why?** The tradition of UPPER_SNAKE_CASE remains popular and pervasive,
     especially in third party modules.
     It is rarely worth the effort to change them or the risk of breaking existing code and documentation.
-    
+
     **为何？**传统的大写蛇形命名法（UPPER_SNAKE_CASE）仍然很流行、很普遍，特别是在第三方模块中。
     修改它们带不来多大价值，同时还会有破坏现有代码和文档的风险。
 
@@ -1171,7 +1162,6 @@ a(href="#toc") 回到顶部
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -1183,44 +1173,44 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** name an interface using upper camel case.
-    
+
     **坚持**使用大写驼峰命名法来命名接口。
 
 .s-rule.consider
   :marked
     **Consider** naming an interface without an `I` prefix.
-    
+
     **考虑**不要在接口名字前面加`I`前缀。
 
 .s-rule.consider
   :marked
     **Consider** using a class instead of an interface. 
-    
+
     **考虑**用类代替接口。
 
 .s-why
   :marked
     **Why?** <a href="https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines" target="_blank">TypeScript guidelines</a> 
     discourage the "I" prefix.
-    
+
     **为何？**<a href="https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines" target="_blank">TypeScript指导原则</a>不建议使用“I”前缀。
 
 .s-why
   :marked
     **Why?** A class alone is less code than a _class-plus-interface_.
-    
+
     **为何？**单独一个类的代码量小于*类+接口*。
 
 .s-why
   :marked
     **Why?** A class can act as an interface (use `implements` instead of `extends`).
-    
+
     **为何？**类实际上就是接口（只是要用`implements`代替`extends`而已）。
 
 .s-why.s-why-last
   :marked
     **Why?** An interface-class can be a provider lookup token in Angular dependency injection.
-    
+
     **为何？**在Angular依赖注入系统中，接口类可以作为服务提供商的查阅令牌。
 
 +makeExample('style-guide/ts/03-03/app/core/hero-collector.service.avoid.ts', 'example', 'app/shared/hero-collector.service.ts')(avoid=1)
@@ -1233,7 +1223,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="03-04"></a>Properties and Methods
@@ -1244,31 +1233,31 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use lower camel case to name properties and methods.
-    
+
     **坚持**使用小写驼峰命名法来命名属性和方法。
 
 .s-rule.avoid
   :marked
     **Avoid** prefixing private properties and methods with an underscore.
-    
+
     **避免**使用下划线为前缀来命名私有属性和方法。
 
 .s-why
   :marked
     **Why?** Follows conventional thinking for properties and methods.
-    
+
     **为何？**遵循传统属性和方法的命名约定。
 
 .s-why
   :marked
     **Why?** JavaScript lacks a true private property or method.
-    
+
     **为何？**JavaScript不支持真正的私有属性和方法。
 
 .s-why.s-why-last
   :marked
     **Why?** TypeScript tooling makes it easy to identify private vs public properties and methods.
-    
+
     **为何？**TypeScript工具让识别私有或公有属性和方法变得很简单。
 
 +makeExample('style-guide/ts/03-04/app/core/toast.service.avoid.ts', 'example', 'app/shared/toast.service.ts')(avoid=1)
@@ -1290,31 +1279,31 @@ a(href="#toc") 回到顶部
 .s-rule.consider
   :marked
     **Consider** leaving one empty line between third party imports and application imports.
-    
+
     **坚持**在第三方导入和自己代码的导入之间留一个空行。
 
 .s-rule.consider
   :marked
     **Consider** listing import lines alphabetized by the module.
-    
+
     **考虑**按模块名字的字母顺排列导入行。
 
 .s-rule.consider
   :marked
     **Consider** listing destructured imported assets alphabetically.
-    
+
     **考虑**在解构表达式中按字母顺序排列导入的东西。
 
 .s-why
   :marked
     **Why?** The empty line makes it easy to read and locate imports.
-    
+
     **为何？**空行可以让阅读和定位本地导入变得更加容易。
 
 .s-why.s-why-last
   :marked
     **Why?** Alphabetizing makes it easier to read and locate imports.
-    
+
     **为何？**按字母顺序排列可以让阅读和定位本地导入更加容易。
 
 +makeExample('style-guide/ts/03-06/app/heroes/shared/hero.service.avoid.ts', 'example', 'app/heroes/shared/hero.service.ts')(avoid=1)
@@ -1327,35 +1316,32 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ## App Structure and Angular Modules
   ## 应用程序的结构与Angular模块划分
 
   Have a near-term view of implementation and a long-term vision. Start small but keep in mind where the app is heading down the road.
-  
+
   准备一个短期和一个长期的实施方案。从零开始，但要时刻考虑应用程序接下来要走的路。
-  
 
   All of the app's code goes in a folder named `app`. 
   All feature areas are in their own folder, with their own Angular module. 
-  
+
   把所有应用程序的源代码都放到名叫`app`的目录里。
   所有特性区都在自己的文件夹中，带有他们自己的Angular模块。
-  
-  All content is 1 asset per file. Each component, service, and pipe is in its own file. 
+
+  All content is 1 asset per file. Each component, service, and pipe is in its own file.
   All 3rd party vendor scripts are stored in another folder and not in the `app` folder. 
   You didn't write them and you don't want them cluttering app. 
   Use the naming conventions for files in this guide.
-  
+
   所有内容都遵循每个文件单个特性的原则。每个组件、服务和管道都在自己的文件里。
-  所有第三方程序包都被保存到其它目录里而不在`app`目录里，我们不会修改它们，所以不希望它们弄乱我们的应用程序。使用本指南介绍的文件命名约定。  
+  所有第三方程序包都被保存到其它目录里而不在`app`目录里，我们不会修改它们，所以不希望它们弄乱我们的应用程序。使用本指南介绍的文件命名约定。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -1369,14 +1355,13 @@ a(href="#toc") 回到顶部
     `I`dentify the code at a glance, 
     keep the `F`lattest structure you can, and 
     `T`ry to be DRY.
-    
-    **坚持**组织应用的结构，达到这些目的：快速定位(`L`ocate)代码、一眼识别(`I`dentify)代码、尽量保持扁平结构(`F`lattest)和尝试`T`ry遵循不重复自己DRY - Do Not Repeat Yourself原则。
 
+    **坚持**组织应用的结构，达到这些目的：快速定位(`L`ocate)代码、一眼识别(`I`dentify)代码、尽量保持扁平结构(`F`lattest)和尝试`T`ry遵循不重复自己DRY - Do Not Repeat Yourself原则。
 
 .s-rule.do
   :marked
     **Do** define the structure to follow these four basic guidelines, listed in order of importance.
-    
+
     **坚持**遵循四个基本指导原则来定义文件结构，上面四个基本原则是按重要顺序排列的。
 
 .s-why.s-why-last
@@ -1384,7 +1369,7 @@ a(href="#toc") 回到顶部
     **Why?** LIFT Provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly. 
     To confirm your intuition about a particular structure, ask: 
     _can I quickly open and start work in all of the related files for this feature_?
-    
+
     **为何？**LIFT提供了前后一致的结构，它具有扩展性强、模块化的特性。因为容易快速锁定代码，所以提高了开发者的效率。另外，检查应用结构是否合理的方法是问问自己：我们能快速打开与此特性有关的文件并开始工作吗？
 
 a(href="#toc") Back to top
@@ -1394,14 +1379,14 @@ a(href="#toc") 回到顶部
 :marked
   ### <a id="04-02"></a>Locate
   ### <a id="04-02"></a>定位
-  
+
   #### <a href="#04-02">Style 04-02</a>
   #### <a href="#04-02">风格04-02</a>
 
 .s-rule.do
   :marked
     **Do** make locating code intuitive, simple and fast.
-    
+
     **坚持**直观、简单和快速的定位我们的代码。
 
 .s-why.s-why-last
@@ -1411,7 +1396,7 @@ a(href="#toc") 回到顶部
     especially when you do not know (or do not remember) the file _names_. 
     Keeping related files near each other in an intuitive location saves time. 
     A descriptive folder structure makes a world of difference to you and the people who come after you.
-    
+
     **为何？**
     要想高效的工作，就必须能迅速找到文件，特别是当不知道（或不记得）文件*名*时。
     把相关的文件一起放在一个直观的位置可以节省时间。
@@ -1431,26 +1416,26 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** name the file such that you instantly know what it contains and represents.
-    
+
     **坚持**命名文件到这个程度：可以从名字立刻知道它包含了什么，代表了什么。
 
 .s-rule.do
   :marked
     **Do** be descriptive with file names and keep the contents of the file to exactly one component.
-    
+
     **坚持**文件名要具有说明性，并保证文件中只包含一个组件。
 
 .s-rule.avoid
   :marked
     **Avoid** files with multiple components, multiple services, or a mixture.
-    
+
     **避免**创建包含很多组件、服务或者混合体的文件。
 
 .s-why.s-why-last
   :marked
     **Why?** Spend less time hunting and pecking for code, and become more efficient. 
     Longer file names are far better than _short-but-obscure_ abbreviated names.
-    
+
     **为何？**花费更少的时间来查找和琢磨代码，就会变得更有效率。
     较长的文件名远胜于*较短却容易混淆的*缩写名。
 
@@ -1459,13 +1444,12 @@ a(href="#toc") 回到顶部
     It may be advantageous to deviate from the _one-thing-per-file_ rule when 
     you have a set of small, closely-related features that are better discovered and understood
     in a single file than as multiple files. Be wary of this loophole.
-    
+
     当你有一组小型、紧密相关的特性时，违反*一物一文件*的规则可能会更好，这种情况下单一文件可能会比多个文件更容易发现和理解。注意这个例外。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -1477,40 +1461,40 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** keep a flat folder structure as long as possible.
-    
+
     **坚持**尽可能保持扁平的目录结构。
 
 .s-rule.consider
   :marked
     **Consider** creating sub-folders when a folder reaches seven or more files.
-    
+
     **考虑**当同一目录下达到7个或更多个文件时创建子目录。
 
 .s-rule.consider
   :marked
     **Consider** configuring the IDE to hide distracting, irrelevant files such as generated `.js` and `.js.map` files.
-    
+
     **考虑**配置IDE，以隐藏无关的文件，比如生成出来的`.js`文件和`.js.map`文件等。
 
 s-why.s-why-last
   :marked
     **Why?** No one wants to search for a file through seven levels of folders. 
     A flat structure is easy to scan.
-    
+
     **为何？**没人想要在超过七层的目录中查找文件。扁平的结构有利于搜索。
-    
+
     On the other hand,
     <a href="https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two" target="_blank">psychologists believe</a>
     that humans start to struggle when the number of adjacent interesting things exceeds nine.
     So when a folder has ten or more files, it may be time to create subfolders. 
-    
+
     另一方面，<a href="https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two" target="_blank">心理学家们相信</a>，
     当关注的事物超过9个时，人类就会开始感到吃力。
     所以，当一个文件夹中有10个或更多个文件时，可能就是创建子目录的时候了。
-    
-    Base your decision on your comfort level. 
+
+    Base your decision on your comfort level.
     Use a flatter structure until there is an obvious value to creating a new folder.
-    
+
     还是根据你自己的舒适度而定吧。
     除非创建新文件夹能有显著的价值，否则尽量使用扁平结构。
 
@@ -1528,13 +1512,13 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** be DRY (Don't Repeat Yourself)
-    
+
     **坚持**不要重复自己(DRY)
 
 .s-rule.avoid
   :marked
     **Avoid** being so DRY that you sacrifice readability.
-    
+
     **避免**过度DRY，以致牺牲了阅读性。
 
 .s-why.s-why-last
@@ -1543,7 +1527,7 @@ a(href="#toc") 回到顶部
     That's why its calle _T-DRY_. 
     For example, it's redundant to name a component, `hero-view.component.html` because a component is obviously a view. 
     But if something is not obvious or departs from a convention, then spell it out.
-    
+
     **为何？**虽然DRY（不要重复你自己）很重要，但如果要以牺牲LIFT的其它原则为代价，那就不值得了。
     这也就是为什么它被称为*T-DRY*。
     比如，把组件命名为`hero-view.component.html`是多余的，因为组件显然就是一个视图（view）。
@@ -1563,44 +1547,44 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** start small but keep in mind where the app is heading down the road.
-    
+
     **坚持**从零开始，但要时刻考虑应用程序接下来要走的路。
 
 .s-rule.do
   :marked
     **Do** have a near term view of implementation and a long term vision.
-    
+
     **坚持**有一个短期和一个长期的实施方案。
 
 .s-rule.do
   :marked
     **Do** put all of the app's code in a folder named `app`.
-    
+
     **坚持**把所有源代码都放到名为`app`的目录里。
 
 .s-rule.consider
   :marked
     **Consider** creating a folder for a component when is has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
-    
+
     **坚持**如果组件具有多个相互合作的文件（`.ts`、`.html`、`.css`和`.spec`），那就为它创建一个文件夹。
 
 .s-why
   :marked
     **Why?** Helps keep the app structure small and easy to maintain in the early stages, while being easy to evolve as the app grows.
-    
+
     **为何？**在早期阶段能够帮助保持应用的结构小巧而且易于维护，这样当应用增长时就会更容易进化了。
 
 .s-why.s-why-last
   :marked
     **Why?** Components often have four files (e.g. `*.html`, `*.css`, `*.ts`, and `*.spec.ts`) and can clutter a folder quickly.
-    
+
     **为何?**组件通常有四个文件(例如`*.html`、 `*.css`、 `*.ts` 和 `*.spec.ts`)，它们很容易把一个目录弄乱。
 
 a(id='file-tree')
 :marked
   Here is a compliant folder and file structure
-  
-  目录和文件结构  
+
+  目录和文件结构
 
 .filetree
   .file &lt;project root&gt;
@@ -1662,14 +1646,13 @@ a(id='file-tree')
     another option for small apps is to keep components flat (not in a dedicated folder). 
     This adds up to four files to the existing folder, but also reduces the folder nesting. 
     Whatever you choose, be consistent.
-    
+
     把组件放在专用目录中的方式广受欢迎，对于小型应用，还可以保持组件扁平化（而不是放在专用目录中）。
     这样会把四个文件放在现有目录中，但是也会减少目录的嵌套。无论你如何选择，请保持一致。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -1681,59 +1664,60 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** create folders named for the feature area they represent.
-    
+
     **坚持**根据特性区的名字创建目录。
 
 .s-why
   :marked
     **Why?** A developer can locate the code, identify what each file represents at a glance, the structure is as flat as it can be, and there is no repetitive nor redundant names.
-    
+
     **为何？**开发人员可以定位代码，扫一眼就能知道每个文件代表什么，目录尽可能保持扁平，既没有重复也没有多余的名字。
 
 .s-why
   :marked
     **Why?** The LIFT guidelines are all covered.
-    
+
     **为何？**LIFT原则中包含了所有这些。
 
 .s-why
   :marked
     **Why?** Helps reduce the app from becoming cluttered through organizing the content and keeping them aligned with the LIFT guidelines.
-    
+
     **为何？**通过精心组织内容并让它们遵循LIFT原则，可以避免应用变得杂乱无章。
 
 .s-why
   :marked
     **Why?** When there are a lot of files (e.g. 10+), locating them is easier with a consistent folder structure and more difficult in a flat structure.
-    
+
     **为何？**当有很多文件时（比如10个以上），在“专用目录”型结构中定位它们会比在扁平结构中更容易。
 
 .s-rule.do
   :marked
     **Do** create an Angular module for each feature area.
-    
+
     **坚持**为每个特性区创建一个Angular模块。
 
 .s-why
   :marked
     **Why?** Angular modules make it easy to lazy load routable features.
-    
+
     **为何？**Angular模块能让对可路由的特性进行惰性加载变得更容易。
 
 .s-why.s-why-last
   :marked
     **Why?** Angular modules make it easier to isolate, test, and re-use features.
-    
+
     **为何？**Angular模块能让我们更容易隔离、测试盒复用特性。
 
 .file-tree-reference
   a(href="#file-tree") Refer here to this Folder and File Structure example
-  
+
   a(href="#file-tree") 点这里查看目录和文件结构的范例
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
+  :marked
 
 .l-main-section
 :marked
@@ -1745,27 +1729,25 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** create an Angular module in the app's root folder (e.g., in `/app`).
-    
+
     **坚持**在应用的根部创建一个Angular模块（比如`/app`）。
-    
 
 .s-why
   :marked
     **Why?** Every app requires at least one root Angular module.
-    
+
     **为何？**每个应用都至少需要一个根Angular模块。
-    
 
 .s-rule.consider
   :marked
     **Consider** naming the root module `app.module.ts`.
-    
+
     **考虑**把根模块命名为`app.module.ts`。
 
 .s-why.s-why-last
   :marked
     **Why?** Makes it easier to locate and identify the root module.
-    
+
     **为何？**能让定位和识别根模块变得更容易。
 
 +makeExample('style-guide/ts/04-08/app/app.module.ts', 'example', 'app/app.module.ts')
@@ -1785,61 +1767,61 @@ a(href="#toc") 回到顶部
 
   :marked
     **Do** create an Angular module for all distinct features in an application (e.g. `Heroes` feature).
-    
+
     **坚持**为应用中的每个明显的特性创建一个Angular模块。
 
 .s-rule.do
   :marked
     **Do** place the feature module in the same named folder as the feature area (.e.g `app/heroes`).
-    
+
     **坚持**把特性模块放在与特性区同名的目录中（如`app/heroes`）。
 
 .s-rule.do
   :marked
     **Do** name the feature module file reflecting the name of the feature area and folder (e.g. `app/heroes/heroes.module.ts`)
-    
+
     **坚持**特性模块的名字应该能反映出特性区的名字和目录（如`app/heroes/heroes.module.ts`）。
 
 .s-rule.do
   :marked
     **Do** name the feature module symbol reflecting the name of the feature area, folder, and file (e.g. `app/heroes/heroes.module.ts` defines `HeroesModule`)
-    
+
     **坚持**特性模块的符号名应该能反映出特性区、目录和文件的名字（如在`app/heroes/heroes.module.ts`中定义`HeroesModule`）。
 
 .s-why
   :marked
     **Why?** A feature module can expose or hide its implementation from other modules.
-    
+
     **为何？** 特性模块可以对其它模块暴露或隐藏自己的实现。
 
 .s-why
   :marked
     **Why?** A feature module identifies distinct sets of related components that comprise the feature area. 
-    
+
     **为何？**特性模块标记出组成该特性分区的相关组件集合。
 
 .s-why
   :marked
     **Why?** A feature module can easily be routed to both eagerly and lazily. 
-    
+
     **为何？**特性模块能很容易的被路由器加载 —— 无论使用主动加载还是惰性加载的方式。
 
 .s-why
   :marked
     **Why?** A feature module defines clear boundaries between specific functionality and other application features. 
-    
+
     **为何？**特性模块在特定的功能和其它应用特性之间定义了清晰的边界。
 
 .s-why
   :marked
     **Why?** A feature module helps clarify and make it easier to assign development responsibilities to different teams.
-    
+
     **为何？**特性模块帮助澄清开发职责，以便于把这些职责指派给不同的开发组。
 
 .s-why.s-why-last
   :marked
     **Why?** A feature module can easily be isolated for testing.
-    
+
     **为何？**特性模块易于隔离，以便测试。
 
 a(href="#toc") Back to top
@@ -1856,19 +1838,19 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** create a feature module named `SharedModule` in a `shared` folder (e.g. `app/shared/shared.module.ts` defines `SharedModule`).
-    
+
     **坚持**在`shared`目录中创建名叫`SharedModule`的特性模块（比如在`app/shared/shared.module.ts`中定义`SharedModule`）。
 
 .s-rule.do
   :marked
     **Do** put common components, directives and pipes that will be used throughout the application by other feature modules in the `SharedModule`, where those assets are expected to share a new instance of themselves (not singletons).
-    
+
     **坚持**把可能被应用的其它特性模块使用的公共资产（如组件、指令和管道）放在`SharedModule`中，这些资产倾向于共享自己的新实例（而不是单例）。
 
 .s-rule.do
   :marked
     **Do** import all modules required by the assets in the `SharedModule` (e.g. `CommonModule` and `FormsModule`).
-    
+
     **坚持**在`SharedModule`中导入所有模块都需要的资产（比如：`CommonModule`和`FormsModule`）。
 
 .s-why
@@ -1876,17 +1858,17 @@ a(href="#toc") 回到顶部
     **Why?** `SharedModule` will contain components, directives and pipes that may need features from another common module (e.g. `ngFor` in `CommonModule`).
 
     **为何？** `SharedModule`中包含的组件、指令和管道可能需要来自其它公共模块的特性（比如来自`CommonModule`中的`ngFor`指令）。
-    
+
 .s-rule.do
   :marked
     **Do** declare all components, directives, and pipes in the `SharedModule`.
-    
+
     **坚持**在`SharedModule`中声明所有组件、指令和管道。
 
 .s-rule.do
   :marked
     **Do** export all symbols from the `SharedModule` that other feature modules need to use.  
-    
+
     **坚持**从`SharedModule`中导出其它特性模块所需的全部符号。
 
 .s-why
@@ -1894,24 +1876,24 @@ a(href="#toc") 回到顶部
     **Why?** `SharedModule` exists to make commonly used components, directives and pipes available for use in the templates of components in many other modules.
 
     **为何？** `SharedModule`的存在，能让常用的组件、指令和管道在很多其它模块的组件模板中都自动可用。
-    
+
 .s-rule.avoid
   :marked
     **Avoid** specifying app-wide singleton providers in a `SharedModule`. Intentional singletons are OK. Take care.
-    
+
     **避免**在`SharedModule`中指定应用级的单例服务提供商。但如果是故意设计的单例也可以，不过还是要小心。
 
 .s-why
   :marked
     **Why?** A lazy loaded feature module that imports that shared module will make its own copy of the service and likely have undesireable results.
-    
+
     **为何？**惰性加载的特性模块如果导入了这个共享模块，就会创建一份自己的服务副本，这可能会导致意料之外的后果。
 
 .s-why.s-why-last
   :marked
     **Why?** You don't want each module to have its own separate instance of singleton services. 
     Yet there is a real danger of that happening if the `SharedModule` provides a service.
-    
+
     **为何？**对于单例服务，你是不会希望每个模块都有自己的一份单独实例的。
     而如果`SharedModule`提供了一个服务，那就会发生这种情况。
 
@@ -1956,7 +1938,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="04-11"></a>Core Feature Module
@@ -1967,44 +1948,44 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** collect single-use classes and hiding their gory details inside `CoreModule`. A simplified root `AppModule` imports `CoreModule` in its capacity as orchestrator of the application as a whole.
-    
+
     **坚持**把那些“只用一次”的类收集到`CoreModule`中，并且对外隐藏它们的实现细节。简化的`AppModule`会导入`CoreModule`，并且把它作为整个应用的总指挥。
 
 .s-rule.do
   :marked
     **Do** create a feature module named `CoreModule` in a `core` folder (e.g. `app/core/core.module.ts` defines `CoreModule`).
-    
+
     **坚持**在`core`目录下创建一个名叫`CoreModule`的特性模块（比如在`app/core/core.module.ts`中定义`CoreModule`）。
 
 .s-rule.do
   :marked
     **Do** put a singleton service whose instance wil be shared throughout the application in the `CoreModule` (e.g. `ExceptionService` and `LoggerService`).
-    
+
     **坚持**把一个要共享给整个应用的单例服务放进`CoreModule`中（比如`ExceptionService`和`LoggerService`）。
 
 .s-rule.do
   :marked
     **Do** import all modules required by the assets in the `CoreModule` (e.g. `CommonModule` and `FormsModule`).
-    
+
     **坚持**导入`CoreModule`中的资产所需要的全部模块（比如`CommonModule`和`FormsModule`）。
 
 .s-why
   :marked
     **Why?** `CoreModule` provides one or more singleton services. Angular registers the providers with the app root injector, making a singleton instance of each service available to any component that needs them, whether that component is eagerly or lazily loaded.
-    
+
     **为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过主动加载还是惰性加载的方式加载的。
 
 .s-why
   :marked
     **Why?** `CoreModule` will contain singleton services. When a lazy loaded module imports these, it will get a new instance and not the intended app-wide singleton.
-    
+
     **为何？**`CoreModule`将包含一些单例服务。而如果惰性加载模块导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
 
 .s-rule.do
   :marked
     **Do** gather application-wide, single use components in the `CoreModule`.
     Import it once (in the `AppModule`) when the app starts and never import it anywhere else. (e.g. `NavComponent` and `SpinnerComponent`).
-    
+
     **坚持**把应用级、只用一次的组件收集到`CoreModule`中。
     只在应用启动时从`AppModule`中导入它一次，以后再也不要导入它（比如`NavComponent`和`SpinnerComponent`）。
 
@@ -2013,50 +1994,49 @@ a(href="#toc") 回到顶部
     **Why?** Real world apps can have several single-use components (e.g., spinners, message toasts, and modal dialogs) that appear only in the `AppComponent` template. 
     They are not imported elsewhere so they're not shared in that sense. 
     Yet they're too big and messy to leave loose in the root folder.
-    
+
     **为何？**真实世界中的应用会有很多只用一次的组件（比如：加载动画、消息浮层、模态框等），它们只会在`AppComponent`的模板中出现，而不会出现在其它地方，所以它们没有被共享的价值。
     然而它们又太大了，放在根目录中就会显得乱七八糟的。
 
 .s-rule.avoid
   :marked
     **Avoid** importing the `CoreModule` anywhere except in the `AppModule`.
-    
+
     **避免**在`AppModule`之外的任何地方导入`CoreModule`。
 
 .s-why
   :marked
     **Why?** A lazily loaded feature module that directly imports the `CoreModule` will make its own copy of services and likely have undesireable results.
-    
+
     **为何？**如果惰性加载的特性模块直接导入`CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
 
 .s-why
   :marked
     **Why?** An eagerly loaded feature module already has access to the `AppModule`'s injector, and thus the `CoreModule`'s services. 
-    
+
     **为何？**主动加载的特性模块已经准备好了访问`AppModule`的注入器，因此也能取得`CoreModule`中的服务。
 
 .s-rule.do
   :marked
     **Do** export all symbols that from the `CoreModule` that the `AppModule` will import and make available for other feature modules to use.  
-    
+
     **坚持**从`CoreModule`中导出所有符号，`AppModule`会导入它们，并让它们能在所有特性模块中可用。
 
 .s-why
   :marked
     **Why?** `CoreModule` exists to make commonly used singleton services available for use in the many other modules.
-    
+
     **为何？**`CoreModule`的存在就能让常用的单例服务在所有其它模块中可用。
 
 .s-why.s-why-last
   :marked
-    **Why?** You wnat the entire app to use the one, singleton instance.
+    **Why?** You want the entire app to use the one, singleton instance.
     You don't want each module to have its own separate instance of singleton services. 
     Yet there is a real danger of that happening accidentally if the `CoreModule` provides a service.
-    
+
     **为何？**你会希望整个应用都使用这个单例服务。
     你不会希望每个模块都有这个单例服务的单独的实例。
     然而如果`CoreModule`中提供了一个服务，就可能偶尔导致这种后果。
-
 
 .filetree
   .file src
@@ -2122,36 +2102,35 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="04-12"></a>Prevent Reimport of Core Module
   ### <a id="04-12"></a>防止多次导入`CoreModule`
   #### <a href="#04-12">Style 04-12</a>
   #### <a href="#04-12">风格04-12</a>
-  
-  Only the root `AppModule` should import the `CoreModule`. 
-  
+
+  Only the root `AppModule` should import the `CoreModule`.
+
   应该只有`AppModule`才能导入`CoreModule`。
 
 .s-rule.do
   :marked
     **Do** guard against reimporting of `CoreModule` and fail fast by adding guard logic.
-    
+
     **坚持**防范多次导入`CoreModule`，并通过添加守卫逻辑来尽快失败。
 
 .s-why.s-why
   :marked
     **Why?** Guards against reimporting of the `CoreModule`.
-    
+
     **为何？**守卫可以阻止对`CoreModule`的多次导入。
 
 .s-why.s-why-last
   :marked
     **Why?** Guards against creating multiple instances of assets intended to be singletons.
-    
+
     **为何？**守卫会禁止创建单例服务的多个实例。
-    
+
 +makeTabs(
   `
   style-guide/ts/04-12/app/core/module-import-guard.ts,
@@ -2159,7 +2138,7 @@ a(href="#toc") 回到顶部
   `,
   `,`,
   `
-  app/core/module-import-guard,
+  app/core/module-import-guard.ts,
   app/core/core.module.ts
   `)
 :marked
@@ -2175,21 +2154,21 @@ a(href="#toc") 回到顶部
   #### <a href="#04-13">Style 04-13</a>
   #### <a href="#04-13">样式04-13</a>
   A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
-  
+
   某些边界清晰的应用特性或工作流可以做成*惰性加载*或*按需加载*的，而不用总是随着应用启动。
 
 .s-rule.do
   :marked
     **Do** put the contents of lazy loaded features in a *lazy loaded folder*.
     A typical *lazy loaded folder* contains a *routing component*, its child components, and their related assets and modules.
-    
+
     **坚持**把惰性加载特性下的内容放进*惰性加载目录*中。
     典型的*惰性加载目录*包含*路由组件*及其子组件以及与它们有关的那些资产和模块。
 
 .s-why.s-why-last
   :marked
     **Why?** The folder makes it easy to identify and isolate the feature content.
-    
+
     **为何？**这种目录让标识和隔离这些特性内容变得更轻松。
 
 a(href="#toc") Back to top
@@ -2206,13 +2185,13 @@ a(href="#toc") 回到顶部
 .s-rule.avoid
   :marked
     **Avoid** allowing modules in sibling and parent folders to directly import a module in a *lazy loaded feature*.
-    
+
     **避免**让兄弟模块和父模块直接导入*惰性加载特性*中的模块。
 
 .s-why.s-why-last
   :marked
     **Why?** Directly importing and using a module will load it immediately when the intention is to load it on demand.
-    
+
     **为何？**直接导入并使用此模块会主动加载它，而我们原本的设计意图是按需加载它。
 
 a(href="#toc") Back to top
@@ -2222,7 +2201,7 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ## Components
-  
+
   ## 组件
 
   ### <a id="05-02"></a>Component Selector Naming
@@ -2233,13 +2212,13 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use _dashed-case_ or _kebab-case_ for naming the element selectors of components.
-    
+
     **坚持**使用*中线（dashed）命名法*或*烤串（kebab）命名法*来命名组件中的元素选择器。
 
 .s-why.s-why-last
   :marked
     **Why?** Keeps the element names consistent with the specification for [Custom Elements](https://www.w3.org/TR/custom-elements/).
-    
+
     **为何？**保持元素命名与[自定义元素](https://www.w3.org/TR/custom-elements/)命名规范一致。
 
 +makeExample('style-guide/ts/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
@@ -2267,27 +2246,27 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** define components as elements via the selector.
-    
+
     **坚持**通过选择器把组件定义为元素。
 
 .s-why
   :marked
     **Why?** components have templates containing HTML and optional Angular template syntax. They are most associated with putting content on a page, and thus are more closely aligned with elements.
-    
+
     **为何？**组件有很多包含HTML以及可选Angular模板语法的模板。它们的功能多数都与把内容放进页面有关，而这和HTML元素的设计意图很相似。
 
 .s-why
   :marked
     **Why?** A component represents a visual element on the page.
     Defining the selector as an HTML element tag is consistent with native HTML elements and WebComponents.
-    
+
     **为何？**组件表示页面上的可视元素。
     把该选择器定义成HTML元素标签可以与原生HTML和WebComponent保持一致。
 
 .s-why.s-why-last
   :marked
     **Why?** It is easier to recognize that a symbol is a component vs a directive by looking at the template's html.
-    
+
     **为何？**查看组件是否有模板HTML文件，是最简单的识别一个符号是组件还是指令的方法。
 
 +makeExample('style-guide/ts/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/hero-button/hero-button.component.ts')(avoid=1)
@@ -2318,31 +2297,31 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** extract templates and styles into a separate file, when more than 3 lines.
-    
+
     **坚持**当超过三行的时候，把模板和样式提取到一个单独的文件。
 
 .s-rule.do
   :marked
     **Do** name the template file `[component-name].component.html`, where [component-name] is the component name.
-    
+
     **坚持**把模板文件命名为`[component-name].component.html`，这里的[component-name]就是组件名。
 
 .s-rule.do
   :marked
     **Do** name the style file `[component-name].component.css`, where [component-name] is the component name.
-    
+
     **坚持**把样式文件命名为`[component-name].component.css`，这里的[component-name]就是组件名。
-    
+
 .s-why
   :marked
     **Why?** Syntax hints for inline templates in (*.js and *.ts) code files are not supported by some editors.
-    
+
     **为何？**在(*.js和*.ts)代码里面内联模板时，一些编辑器不支持语法提示。
 
 .s-why.s-why-last
   :marked
     **Why?** A component file's logic is easier to read when not mixed with inline template and styles.
-    
+
     **为何？**当没有与内联模板和样式混合的时候，组件文件里的逻辑更加易于阅读。
 
 +makeExample('style-guide/ts/05-04/app/heroes/heroes.component.avoid.ts', 'example', 'app/heroes/heroes.component.ts')(avoid=1)
@@ -2362,7 +2341,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="05-12"></a>Decorate Input and Output Properties Inline
@@ -2374,38 +2352,38 @@ a(href="#toc") 回到顶部
   :marked
     **Do** use `@Input` and `@Output` instead of the `inputs` and `outputs` properties of the 
     `@Directive and `@Component` decorators:
-    
+
     **坚持** 使用`@Directive`和`@Component`装饰器的`@Input`和`@Output`，而非`inputs`和`outputs`属性:
 
 .s-rule.do
   :marked
     **Do** place the `@Input()` or `@Output()` on the same line as the property they decorate.
-    
+
     **坚持**把`@Input()`或者`@Output()`放到它们装饰的属性的同一行。
 
 .s-why
   :marked
     **Why?** It is easier and more readable to identify which properties in a class are inputs or outputs.
-    
+
     **为何？**这样易于在类里面识别哪个属性是inputs或outputs。
 
 .s-why
   :marked
     **Why?** If you ever need to rename the property or event name associated with 
     `@Input` or `@Output`, you can modify it a single place.
-    
+
     **为何？** 如果你需要重命名属性或者`@Input`或者`@Output`关联的事件名字，你可以在一个位置修改。
 
 .s-why
   :marked
     **Why?** The metadata declaration attached to the directive is shorter and thus more readable.
-    
+
     **为何？**依附到指令的元数据声明会比较简短，更易于阅读。
 
 .s-why.s-why-last
   :marked
     **Why?** Placing the decorator on the same line makes for shorter code and still easily identifies the property as an input or output.
-    
+
     **为何？**把装饰器放到同一行可以精简代码，同时更易于识别输入或输出属性。
 
 +makeExample('style-guide/ts/05-12/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
@@ -2428,13 +2406,13 @@ a(href="#toc") 回到顶部
 .s-rule.avoid
   :marked
     **Avoid** renaming inputs and outputs, when possible.
-    
+
     **避免**重命名输入和输出。
 
 .s-why.s-why-last
   :marked
     **Why?** May lead to confusion when the output or the input properties of a given directive are named a given way but exported differently as a public API.
-    
+
     **为何？**可能导致混乱，造成指令的输入或输出属性的名字与导出的公共API名字不一样。
 
 +makeExample('style-guide/ts/05-13/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
@@ -2455,7 +2433,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="05-14"></a>Member Sequence
@@ -2466,20 +2443,20 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** place properties up top followed by methods.
-    
+
     **坚持**把属性成员放到顶部，方法成员紧随其后。
 
 .s-rule.do
   :marked
     **Do** place private members after public members, alphabetized.
-    
+
     **坚持**先放公共成员，再放私有成员，并按照字母顺序排列。
 
 .s-why.s-why-last
   :marked
     **Why?** Placing members in a consistent sequence makes it easy to read and 
     helps instantly identify which members of the component serve which purpose.
-    
+
     **为何？**把类的成员按照统一的顺序排列，可以让它们更易于阅读，这能帮我们立即识别出组件的哪个成员服务于何种目的（比如是实现还是接口）。
 
 +makeExample('style-guide/ts/05-14/app/shared/toast/toast.component.avoid.ts', 'example', 'app/shared/toast/toast.component.ts')(avoid=1)
@@ -2502,37 +2479,37 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** limit logic in a component to only that required for the view. All other logic should be delegated to services.
-    
+
     **坚持**把组件类中的逻辑限制到只有视图需要的逻辑。所有其它逻辑都应该被放到服务。
 
 .s-rule.do
   :marked
     **Do** move reusable logic to services and keep components simple and focused on their intended purpose.
-    
+
     **坚持**把可以重复使用的逻辑放到服务里，保持组件简单并聚焦于它们预期目的。
 
 .s-why
   :marked
     **Why?** Logic may be reused by multiple components when placed within a service and exposed via a function.
-    
+
     **为何？**当逻辑被放置到服务里并以函数的形式暴露时，它可以被多个组件重复使用。
 
 .s-why
   :marked
     **Why?** Logic in a service can more easily be isolated in a unit test, while the calling logic in the component can be easily mocked.
-    
+
     **为何？**在单元测试时，服务里的逻辑更加容易被隔离。在组件里调用它的逻辑也很容易被模仿Mock。
 
 .s-why
   :marked
     **Why?** Removes dependencies and hides implementation details from the component.
-    
+
     **为何？**从组件移除依赖并隐藏实施细节。
 
 .s-why.s-why-last
   :marked
     **Why?** Keeps the component slim, trim, and focused.
-    
+
     **为何？**保持组件苗条、精简和聚焦
 
 +makeExample('style-guide/ts/05-15/app/heroes/hero-list/hero-list.component.avoid.ts', '', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
@@ -2545,7 +2522,6 @@ a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
 
-
 .l-main-section
 :marked
   ### <a id="05-16"></a>Don't Prefix Output Properties
@@ -2556,26 +2532,26 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** name events without the prefix `on`.
-    
+
     **坚持**命名事件时，不要带前缀`on`。
 
 .s-rule.do
   :marked
     **Do** name event handler methods with the prefix `on` followed by the event name.
-    
+
     **坚持**把事件处理器方法命名为`on`前缀之后紧跟着事件名。
 
 .s-why
   :marked
     **Why?** This is consistent with built-in events such as button clicks.
-    
+
     **为何？**与内置事件命名一致，比如按钮点击。
 
 .s-why.s-why-last
   :marked
-    **Why?** Angular allows for an [alternative syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
-    
-    **为何？**Angular允许[另一种备选语法](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) `on-*`。如果事件的名字本身带有前缀`on`，那么绑定的表达式可能是`on-onEvent`。
+    **Why?** Angular allows for an [alternative syntax](template-syntax.html#binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
+
+    **为何？**Angular允许[另一种备选语法](template-syntax.html#binding-syntax) `on-*`。如果事件的名字本身带有前缀`on`，那么绑定的表达式可能是`on-onEvent`。
 
 +makeExample('style-guide/ts/05-16/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
 :marked
@@ -2597,6 +2573,7 @@ a(href="#toc") 回到顶部
 
 .l-main-section
 :marked
+  ### <a id="05-17"></a>Put Presentation Logic in the Component Class
   ### <a id="05-17"></a>把展示逻辑放到组件类里
   #### <a href="#05-17">Style 05-17</a>
   #### <a href="#05-17">风格05-17</a>
@@ -2604,19 +2581,19 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** put presentation logic in the component class, and not in the template.
-    
+
     **坚持**把表现层逻辑放进组件类中，而不要放在模板里。
 
 .s-why
   :marked
     **Why?** Logic will be contained in one place (the component class) instead of being spread in two places.
-    
+
     **为何？**逻辑应该只出现在一个地方（组件类里）而不应分散在两个地方。
 
 .s-why.s-why-last
   :marked
     **Why?** Keeping the component's presentation logic in the class instead of the template improves testability, maintainability, and reusability.
-    
+
     **为何？**将组件的展示逻辑放到组件类而非模板里，可以增强测试性、维护性和重复使用性。
 
 +makeExample('style-guide/ts/05-17/app/heroes/hero-list/hero-list.component.avoid.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
@@ -2634,6 +2611,8 @@ a(href="#toc") 回到顶部
   ## Directives
   ## 指令
 
+a(href="#toc") Back to top
+
 .l-main-section
 :marked
   ### <a id="06-01"></a>Use Directives to Enhance an Existing Element
@@ -2646,17 +2625,17 @@ a(href="#toc") 回到顶部
     **Do** use attribute directives when you have presentation logic without a template.
 
     **坚持**当你需要有无模板的展示逻辑时，使用属性型指令。
-    
+
 .s-why
   :marked
     **Why?** Attributes directives don't have an associated template.
-    
+
     **为何？**属性型指令没有配套的模板。
 
 .s-why.s-why-last
   :marked
     **Why?** An element may have more than one attribute directive applied.
-    
+
     **为何？**一个元素可能使用多个属性型指令。
 
 +makeExample('style-guide/ts/06-01/app/shared/highlight.directive.ts', 'example', 'app/shared/highlight.directive.ts')
@@ -2680,13 +2659,13 @@ a(href="#toc") 回到顶部
   :marked
     **Consider** preferring the `@HostListener` and `@HostBinding` to the 
     `host` property of the `@Directive` and `@Component` decorators.
-    
+
     **考虑**优先使用`@HostListener`和`@HostBinding`，而不是`@Directive`和`@Component`装饰器的`host`属性。
 
 .s-rule.do
   :marked
     **Do** be consistent in your choice.
-    
+
     **坚持**让你的选择保持一致。
 
 .s-why.s-why-last
@@ -2695,20 +2674,20 @@ a(href="#toc") 回到顶部
     can be modified only in a single place - in the directive's class. 
     If you use the `host` metadata property, you must modify both the property declaration inside the controller, 
     and the metadata associated with the directive.
-    
+
     **为何？**对于关联到`@HostBinding`的属性或关联到`@HostListener`的方法，要改名时只要在指令类中修改一次就行了。
     如果使用元数据属性`host`，你就得在组件类中修改属性声明的同时修改相关的元数据。
 
 +makeExample('style-guide/ts/06-03/app/shared/validator.directive.ts', '', 'app/shared/validator.directive.ts')
 :marked
   Compare with the less preferred `host` metadata alternative.
-  
+
   与不推荐的方式（`host`元数据）比较一下。
 
 .s-why.s-why-last
   :marked
     **Why?** The `host` metadata is only one term to remember and doesn't require extra ES imports.
-    
+
     **为何？**`host`元数据只是一个便于记忆的名字而已，并不需要额外的ES导入。
 
 +makeExample('style-guide/ts/06-03/app/shared/validator2.directive.ts', '', 'app/shared/validator2.directive.ts')
@@ -2731,19 +2710,19 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use services as singletons within the same injector. Use them for sharing data and functionality.
-    
+
     **坚持**在同一个注入器内，把服务当做单例使用。使用它们来共享数据和功能。
-    
+
 .s-why
   :marked
     **Why?** Services are ideal for sharing methods across a feature area or an app.
-    
+
     **为何？**服务是在一个特性范围或一个应用内理想的共享方法的理想载体。
 
 .s-why.s-why-last
   :marked
     **Why?** Services are ideal for sharing stateful in-memory data.
-    
+
     **为何？**服务是共享状态性内存数据的理想方法。
 
 +makeExample('style-guide/ts/07-01/app/heroes/shared/hero.service.ts', 'example', 'app/heroes/shared/hero.service.ts')
@@ -2763,25 +2742,25 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** create services with a single responsibility that is encapsulated by its context.
-    
+
     **坚持**新建单一职责的服务，把它封装在自己的环境内。
 
 .s-rule.do
   :marked
     **Do** create a new service once the service begins to exceed that singular purpose.
-    
+
     **坚持**当服务成长到超出单一用途时，新建一个服务。
 
 .s-why
   :marked
     **Why?** When a service has multiple responsibilities, it becomes difficult to test.
-    
+
     **为何？**当服务有多个职责时，它很难被测试。
 
 .s-why.s-why-last
   :marked
     **Why?** When a service has multiple responsibilities, every component or service that injects it now carries the weight of them all.
-    
+
     **为何？**当某个服务有多个职责时，每个注入它的组件或服务都会承担这些职责的全部开销。
 
 a(href="#toc") Back to top
@@ -2803,25 +2782,25 @@ a(href="#toc") 回到顶部
 .s-why
   :marked
     **Why?** The Angular injector is hierarchical.
-    
+
     **为何？**Angular注入器是层次性的。
 
 .s-why
   :marked
     **Why?** When providing the service to a top level component, that instance is shared and available to all child components of that top level component.
-    
+
     **为何？**在顶层组件提供服务时，该服务实例在所有该顶级组件的子级组件中可见并共享。
 
 .s-why
   :marked
     **Why?** This is ideal when a service is sharing methods or state.
-    
+
     **为何？**服务是共享方法或状态的理想方法。
 
 .s-why.s-why-last
   :marked
     **Why?** This is not ideal when two different components need different instances of a service. In this scenario it would be better to provide the service at the component level that needs the new and separate instance.
-    
+
     **为何？**当不同的两个组件需要一个服务的不同的实例时，上面的方法这就不理想了。在这种情况下，我们最好在需要崭新和单独服务实例的组件里提供服务。
 
 +makeTabs(
@@ -2846,19 +2825,19 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use the `@Injectable` class decorator instead of the `@Inject` parameter decorator when using types as tokens for the dependencies of a service.
-    
+
     **坚持**当使用类型作为令牌来注入服务的依赖时，使用`@Injectable`类装饰器，而非`@Inject`参数装饰器。
 
 .s-why
   :marked
     **Why?** The Angular DI mechanism resolves all dependencies of services based on their types declared with the services' constructors.
-    
+
     **为何？**Angular的DI机制会基于在服务的构造函数中所声明的类型来解析这些服务的依赖。
 
 .s-why.s-why-last
   :marked
     **Why?** When a service accepts only dependencies associated with type tokens, the `@Injectable()` syntax is much less verbose compared to using `@Inject()` on each individual constructor parameter.
-    
+
     **为何？**当服务只接受类型令牌相关的依赖时，比起在每个构造函数参数上使用`@Inject()`，`@Injectable()`的语法简洁多了。
 
 +makeExample('style-guide/ts/07-04/app/heroes/shared/hero-arena.service.avoid.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')(avoid=1)
@@ -2874,7 +2853,7 @@ a(href="#toc") 回到顶部
 .l-main-section
 :marked
   ## Data Services
-  ## 数据服务  
+  ## 数据服务
 
   ### <a id="08-01"></a>Separate Data Calls
   ### <a id="08-01"></a>分离数据调用
@@ -2884,37 +2863,36 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** refactor logic for making data operations and interacting with data to a service.
-    
+
     **坚持**把数据操作和数据互动重构到服务里。
 
 .s-rule.do
   :marked
     **Do** make data services responsible for XHR calls, local storage, stashing in memory, or any other data operations.
-    
+
     **坚持**让数据服务来负责XHR调用、本地储存、内存储存或者其它数据操作。
 
 .s-why
   :marked
-    **Why?** The component's responsibility is for the presentation and gathering of information for the view.  It should not care how it gets the data, just that it knows who to ask for it. Separating the data services moves the logic on how to get it to the data service, and lets the component be simpler and more focused on the view.
-    
+    **Why?** The component's responsibility is for the presentation and gathering of information for the view. It should not care how it gets the data, just that it knows who to ask for it. Separating the data services moves the logic on how to get it to the data service, and lets the component be simpler and more focused on the view.
+
     **为何？**组件的职责是为视图展示或收集信息。它不应该理会如何得到数据，它只需要知道向谁要数据。把如何取得数据的逻辑移动到数据服务里，简化了组件，让其聚焦于视图。
 
 .s-why
   :marked
     **Why?** This makes it easier to test (mock or real) the data calls when testing a component that uses a data service.
-    
+
     **为何？**在测试使用数据服务的组件时，可以让数据调用更容易被测试(模仿或者真实)。
 
 .s-why.s-why-last
   :marked
     **Why?** Data service implementation may have very specific code to handle the data repository. This may include headers, how to talk to the data, or other services such as `Http`. Separating the logic into a data service encapsulates this logic in a single place hiding the implementation from the outside consumers (perhaps a component), also making it easier to change the implementation.
-    
+
     **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头(headers)、如何与数据交谈或者其它服务(比如`Http`)。把逻辑分离到数据服务可以把该逻辑封装到一个地方，对外部使用者(比如组件)隐藏具体的实施细节。
 
 a(href="#toc") Back to top
 
 a(href="#toc") 回到顶部
-
 
 .l-main-section
 :marked
@@ -2922,7 +2900,7 @@ a(href="#toc") 回到顶部
   ## 生命周期钩子
 
   Use Lifecycle Hooks to tap into important events exposed by Angular.
-  
+
   使用生命周期钩子来介入到Angular暴露的重要事件里。
 
 a(href="#toc") Back to top
@@ -2939,14 +2917,14 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** implement the lifecycle hook interfaces.
-    
+
     **坚持**实现生命周期钩子接口。
 
 .s-why.s-why-last
   :marked
     **Why?** Strongly-typed method signatures.
     The compiler and editor can call out misspellings.
-    
+
     **为何？**如果使用强类型的方法签名，那么编译器和编辑器可以帮你揪出拼写错误。
 
 +makeExample('style-guide/ts/09-01/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
@@ -2965,7 +2943,7 @@ a(href="#toc") 回到顶部
   ## 附录
 
   Useful tools and tips for Angular.
-  
+
   有用的Angular工具和小提示
 
 a(href="#toc") Back to top
@@ -2982,13 +2960,13 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use [codelyzer](https://www.npmjs.com/package/codelyzer) to follow this guide.
-    
+
     **坚持**使用[codelyzer](https://www.npmjs.com/package/codelyzer)来实施本指南。
 
 .s-rule.consider
   :marked
     **Consider** adjusting the rules in codelyzer to suit your needs.
-    
+
     **考虑**调整codelyzer的规则来满足你的需求。
 
 a(href="#toc") Back to top
@@ -3005,7 +2983,7 @@ a(href="#toc") 回到顶部
 .s-rule.do
   :marked
     **Do** use file templates or snippets to help follow consistent styles and patterns. Here are templates and/or snippets for some of the web development editors and IDEs.
-    
+
     **坚持**使用文件模板或代码片段来帮助实现一致的风格和模式。下面是为一些网络开发编辑器和IDE准备的模板和/或代码片段：
 
 .s-rule.consider
@@ -3015,20 +2993,32 @@ a(href="#toc") 回到顶部
     **考虑** 使用[Atom](https://atom.io/)的[代码片段](https://atom.io/packages/angular-2-typescript-snippets)来实施本风格指南。
 
     **Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](http://www.sublimetext.com/) that follow these styles and guidelines.
-    
+
     **考虑** 使用[Sublime Text](http://www.sublimetext.com/)的[代码片段](https://github.com/orizens/sublime-angular2-snippets)来实施本风格指南。
 
     **Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](http://www.vim.org/) that follow these styles and guidelines.
-    
+
     **考虑** 使用[Vim](http://www.vim.org/)的[代码片段](https://github.com/mhartington/vim-angular2-snippets)来实施本风格指南。
-    
+
     **Consider** using [snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2) for [Visual Studio Code](https://code.visualstudio.com/) that follow these styles and guidelines.
-    
+
     **考虑**使用[Visual Studio Code](https://code.visualstudio.com/)的[代码片段](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2)来实施本风格指南。
-    
+
     <a href="https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2">
       <img src="https://github.com/johnpapa/vscode-angular2-snippets/raw/master/images/use-extension.gif" width="80%" alt="Use Extension">
     </a>  
+
+    **Consider** using [snippets](https://atom.io/packages/angular-2-typescript-snippets) for [Atom](https://atom.io/) that follow these styles and guidelines.
+
+    **考虑**使用[Atom](https://atom.io/)的[代码片断](https://atom.io/packages/angular-2-typescript-snippets)来实施本风格指南。
+
+    **Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](http://www.sublimetext.com/) that follow these styles and guidelines.
+
+    **考虑**使用[Sublime Text](http://www.sublimetext.com/)的[代码片断](https://github.com/orizens/sublime-angular2-snippets)来实施本风格指南。
+
+    **Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](http://www.vim.org/) that follow these styles and guidelines.
+
+    **考虑**使用[Vim](http://www.vim.org/)的[代码片断](https://github.com/mhartington/vim-angular2-snippets)来实施本风格指南。
 
 a(href="#toc") Back to top
 
