@@ -109,7 +109,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
   function isPureEnglish(text) {
     // accept &mdash; , quotes, ® and façade too.
     text = text.replace('在线例子', '');
-    return /^[\1-\255—’“”ç®…à]*$/.test(text);
+    return /^[\1-\255—’“”ç®…à\u200B]*$/.test(text);
   }
 
   function attributesToString(node) {
