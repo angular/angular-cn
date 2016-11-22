@@ -7,13 +7,13 @@ block includes
   Angular is a framework for building client applications in HTML and
   either JavaScript or a language (like Dart or TypeScript) that compiles to JavaScript.
 
-  Angular 2是一个用HTML和JavaScript或者一个可以编译成JavaScript的语言（比如Dart或者TypeScript），来构建客户端应用的框架。
+  Angular是一个用HTML和JavaScript或者一个可以编译成JavaScript的语言（例如Dart或者TypeScript），来构建客户端应用的框架。
 
 block angular-parts
   :marked
     The framework consists of several libraries, some of them core and some optional.
 
-    该框架包括一系列库文件，有些是核心库，有些是可选库。
+    该框架包括一系列库，有些是核心库，有些是可选库。
 
 :marked
   You write Angular applications by composing HTML *templates* with Angularized markup,
@@ -22,7 +22,7 @@ block angular-parts
 
   我们是这样写Angular应用的：用带Angular扩展语法的HTML写*模板*，
   用*组件*类管理这些模板，用*服务*添加应用逻辑，
-  并在*模块*中打包发布组件与服务。
+  用*模块*打包发布组件与服务。
 
   Then you launch the app by *bootstrapping* the _root module_.
   Angular takes over, presenting your application content in a browser and
@@ -114,11 +114,11 @@ figure
   _feature modules_, each a cohesive block of code dedicated to an application domain,
   a workflow, or a closely related set of capabilities. 
 
-  _根模块_在一些小型应用中可能是唯一的模块，不过大多数应用可能会有很多_特性模块_，它们由一组领域类、工作流、或紧密相关的功能聚合而成。
+  _根模块_在一些小型应用中可能是唯一的模块，不过大多数应用会有很多_特性模块_，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。
 
   An Angular module, whether a _root_ or _feature_, is a class with an `@NgModule` decorator.
 
-  Angular模块（无论是_根_模块还是_特性模块_）都是一个带有`@NgModule`装饰器的类。
+  Angular模块（无论是_根模块_还是_特性模块_）都是一个带有`@NgModule`装饰器的类。
 
 .l-sub-section
   :marked
@@ -129,7 +129,7 @@ figure
     Learn more</a> about decorators on the web.
 
     装饰器是用来修饰JavaScript类的函数。
-    Angular有很多装饰器，它们负责把元数据附加到类上，以了解那些类的设计意图以及如何使用它们。
+    Angular有很多装饰器，它们负责把元数据附加到类上，以了解那些类的设计意图以及它们应如何工作。
     点此<a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0" target="_blank">学习更多知识</a>。
 
 :marked
@@ -146,21 +146,21 @@ figure
 
   * `exports` - the subset of declarations that should be visible and usable in the component [templates](#templates) of other modules.
 
-  * `exports` - 声明（declaration）的子集，它可用于其它模块中的组件[模板](#templates)。
+  * `exports` - 声明（declarations）的子集，可用于其它模块的组件[模板](#templates)。
 
   * `imports` - other modules whose exported classes are needed by component templates declared in _this_ module.
 
-  * `imports` - _本_模块组件模板中需要由其它模块导出的类。
+  * `imports` - _本_模块声明的组件模板需的类所在的其它模块。
 
   * `providers` - creators of [services](#services) that this module contributes to
   the global collection of services; they become accessible in all parts of the app.
 
-  * `providers` - [服务](#services)的创建者。本模块把它们加入全局的服务表中，让它们在应用中的任何部分都可被访问到。
+  * `providers` - [服务](#services)的创建者，并加入到全局服务表中，可用于应用任何部分。
 
   * `bootstrap` - the main application view, called the _root component_, 
   that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
 
-  * `bootstrap` - 标识出应用的主视图（被称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置`bootstrap`属性。
+  * `bootstrap` - 指定应用的主视图（称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置`bootstrap`属性。
 
   Here's a simple root module:
 
@@ -172,7 +172,7 @@ figure
   :marked
     The `export` of `AppComponent` is just to show how to export; it isn't actually necessary in this example. A root module has no reason to _export_ anything because other components don't need to _import_ the root module. 
 
-    `AppComponent`的`export`语句只是用于演示“如何导出”的，它在这个例子中并无必要。
+    `AppComponent`的`export`语句只是用于演示如何导出的，它在这个例子中并不是必须的。
     根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
 
 :marked
@@ -180,7 +180,7 @@ figure
   During development you're likely to bootstrap the `AppModule` in a `main.ts` file like this one.
 
   我们通过_引导_根模块来启动应用。
-  在开发期间，我们通常在一个`main.ts`文件中来引导`AppModule`，就像这样：
+  在开发期间，你通常在一个`main.ts`文件中来引导`AppModule`，就像这样：
 
 +makeExample('app/main.ts', '', 'app/main.ts')(format='.')
 
@@ -196,16 +196,16 @@ figure
   JavaScript also has its own module system for managing collections of JavaScript objects.
   It's completely different and unrelated to the Angular module system.
 
-  JavaScript还有自己的模块系统，它用来管理一组JavaScript对象。
-  它和Angular的模块体系是完全不同而且完全无关的。
+  JavaScript有自己的模块系统，用来管理一组JavaScript对象。
+  它与Angular的模块体系完全不同且完全无关。
 
   In JavaScript each _file_ is a module and all objects defined in the file belong to that module.
   The module declares some objects to be public by marking them with the `export` key word. 
   Other JavaScript modules use *import statements* to access public objects from other modules.
 
-  在JavaScript中，每个_文件_就是一个模块，并且该文件中定义的所有对象都从属于那个模块。
-  通过`export`关键字，模块可以把它的某些对象声明为公开的。
-  别的JavaScript模块中可以使用*import语句*来访问这些公开对象。
+  JavaScript中，每个_文件_是一个模块，文件中定义的所有对象都从属于那个模块。
+  通过`export`关键字，模块可以把它的某些对象声明为公共的。
+  其它JavaScript模块可以使用*import语句*来访问这些公共对象。
 
 +makeExample('app/app.module.ts', 'imports', '')(format='.')
 +makeExample('app/app.module.ts', 'export', '')(format='.')
@@ -223,7 +223,7 @@ figure
 
   ### Angular libraries
 
-  ### 模块库
+  ### Angular模块库
 figure
   img(src="/resources/images/devguide/architecture/library-module.png" alt="Component" align="left" style="width:240px; margin-left:-40px;margin-right:10px" )
 
@@ -238,37 +238,37 @@ figure
 
   You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.
 
-  我们可以用**npm**包管理工具安装它们，并且用JavaScript的`import`语句导入它们的某些部件。
+  我们可以用**npm**包管理工具安装它们，用JavaScript的`import`语句导入其中某些部件。
 <br class="l-clear-both"><br>
 :marked
   For example, import Angular's `Component` decorator from the `@angular/core` library like this:
 
-  比如，我们从`@angular/core`库中导入`Component`装饰器，就像这样：
+  例如，我们从`@angular/core`库中导入`Component`装饰器，就像这样：
 +makeExample('app/app.component.ts', 'import', '')(format='.')
 
 :marked
   You also import Angular _modules_ from Angular _libraries_ using JavaScript import statements:
 
-  我们还使用JavaScript的导入语句从Angular_库_中导入Angular的_某些模块_。
+  我们还可以使用JavaScript的导入语句从Angular_库_中导入Angular的_某些模块_。
 
 +makeExample('app/mini-app.ts', 'import-browser-module', '')(format='.')
 
 :marked
   In the example of the simple root module above, the application module needs material from within that `BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
 
-  在上面这个关于根模块的小例子中，应用模块需要来自`BrowserModule`的某些素材。要访问这些素材，我们就得把它加入`@NgModule`元数据的`imports`中去，就像这样：
+  在上面这个根模块的例子中，应用模块需要`BrowserModule`的某些素材。要访问这些素材，我们就得把它加入`@NgModule`元数据的`imports`中去，就像这样：
 
 +makeExample('app/mini-app.ts', 'ngmodule-imports', '')(format='.')
 
 :marked
   In this way you're using both the Angular and JavaScript module systems _together_.
 
-  这种情况下，我们正在同时使用Angular和JavaScript的模块化系统。
+  种情况下，你同时使用了Angular和JavaScript的模块化系统。
 
   It's easy to confuse the two systems because they share the common vocabulary of "imports" and "exports".
   Hang in there. The confusion yields to clarity with time and experience.
 
-  这两个系统比较容易混淆，因为它们共享相同的词汇（“imports”和“exports”）。
+  这两个系统比较容易混淆，因为它们共享相同的词汇“imports”和“exports”。
   先放一放，随着时间和经验的增长，自然就会澄清了。
 
 .l-sub-section
@@ -292,7 +292,7 @@ figure
 :marked
   A _component_ controls a patch of screen called a *view*.
 
-  _组件_负责控制屏幕上的一小块地方，我们称之为*视图*。
+  _组件_负责控制屏幕上的一小块区域，我们称之为*视图*。
 
   For example, the following views are controlled by components:
 
@@ -313,7 +313,7 @@ figure
   You define a component's application logic&mdash;what it does to support the view&mdash;inside a class.
   The class interacts with the view through an API of properties and methods.
 
-  我们在类中定义组件的应用逻辑(它被用来为视图提供支持)。
+  我们在类中定义组件的应用逻辑(用来为视图提供支持)。
   组件通过一些由属性和方法组成的API与视图交互。
 
   <a id="component-code"></a>
@@ -322,7 +322,7 @@ figure
   `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
 
   <a id="component-code"></a>
-  例如，`HeroListComponent`有一个`heroes`属性，它返回一个“英雄”数组，这个数组是由一个服务提供的。
+  例如，`HeroListComponent`有一个`heroes`属性，它返回一个英雄数组，这个数组从一个服务获得。
   `HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把它/她设置到`selectedHero`属性。
 
 +makeExcerpt('app/hero-list.component.ts', 'class')
@@ -330,8 +330,8 @@ figure
   Angular creates, updates, and destroys components as the user moves through the application.
   Your app can take action at each moment in this lifecycle through optional [lifecycle hooks](lifecycle-hooks.html), like `ngOnInit()` declared above.
 
-  当用户在这个应用中“移动”时，Angular会创建、更新和销毁组件。
-  本应用可以通过[生命周期钩子](lifecycle-hooks.html)在组件生命周期的各个时间点上插入自己的操作，比如上面声明的`ngOnInit()`。
+  当用户在这个应用中漫游时，Angular会创建、更新和销毁组件。
+  应用可以通过[生命周期钩子](lifecycle-hooks.html)在组件生命周期的各个时间点上插入自己的操作，例如上面声明的`ngOnInit()`。
 
 .l-hr 
 
@@ -347,19 +347,19 @@ figure
   You define a component's view with its companion **template**. A template is a form of HTML
   that tells Angular how to render the component.
 
-  我们通过组件的自带的**模板**来定义视图。模板以HTML形式存在，用来告诉Angular如何渲染组件(视图)。
+  我们通过组件的自带的**模板**来定义组件视图。模板以HTML形式存在，告诉Angular如何渲染组件(视图)。
 
   A template looks like regular HTML, except for a few differences. Here is a
   template for our `HeroListComponent`:
 
-  多数情况下，模板看起来很像标准HTML……当然也有一点奇怪的地方。下面是`HeroListComponent`组件的一个模板。
+  多数情况下，模板看起来很像标准HTML……当然也有一点不同的地方。下面是`HeroListComponent`组件的一个模板。
 
 +makeExample('app/hero-list.component.html')
 
 :marked
   Although this template uses typical HTML elements like `<h2>` and  `<p>`, it also has some differences. Code like `*ngFor`, `{{hero.name}}`, `(click)`, `[hero]`, and `<hero-detail>` uses Angular's [template syntax](template-syntax.html).
 
-  虽然这个模板使用的是典型的HTML元素，比如`<h2>`和`<p>`，但它也能使用别的。比如`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<hero-detail>`使用的就是Angular的[模板语法](template-syntax.html)。
+  模板除了可以使用典型的HTML元素（`<h2>`和`<p>`），它还能使用其它元素。例如(template-syntax.html)中使用了Angular的[模板语法]`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<hero-detail>`。
 
   In the last line of the template, the `<hero-detail>` tag is a custom element that represents a new component, `HeroDetailComponent`.
 
@@ -380,7 +380,7 @@ figure
   Notice how `<hero-detail>` rests comfortably among native HTML elements. Custom components mix seamlessly with native HTML in the same layouts.
 
   注意：`<hero-detail>`竟如此和谐的出现在那些原生HTML元素中。
-  在同一个格局中，自定义组件和原生HTML融合得天衣无缝。
+  自定义组件和原生HTML在同一布局中融合得天衣无缝。
 
 <br class="l-clear-both">
 
@@ -408,7 +408,7 @@ figure
 
   In fact, `HeroListComponent` really is *just a class*. It's not a component until you *tell Angular about it*.
 
-  实际上，`HeroListComponent`真的*只是一个类*。直到我们*告诉Angular*这是一个组件为止。
+  实际上，`HeroListComponent`真的*只是一个类*。直到我们*告诉Angular*它是一个组件。
 
   To tell Angular that `HeroListComponent` is a component, attach **metadata** to the class.
 
@@ -426,7 +426,7 @@ figure
   Here is the `@Component` !{_decorator}, which identifies the class
   immediately below it as a component class.
 
-  这里看到`@Component`!{_decoratorCn}(毫无悬念的)把紧随其后的类标记成了组件类。
+  这里看到`@Component`!{_decoratorCn}，它把紧随其后的类标记成了组件类。
 
 block ts-decorator
   :marked
@@ -437,31 +437,31 @@ block ts-decorator
 
     Here are a few of the possible `@Component` configuration options:
 
-    来看下`@Component`中的一些配置项：
+    `@Component`的配置项包括：
 
 :marked
   - `moduleId`: sets the source of the base address (`module.id`) for module-relative URLs such as the `templateUrl`.
 
-  - `moduleId`: 为与模块相关的URL（如`templateUrl`）提供基地址。
+  - `moduleId`: 为与模块相关的URL（如`templateUrl`）提供基地址
 
   - `selector`: CSS selector that tells Angular to create and insert an instance of this component
   where it finds a `<hero-list>` tag in *parent* HTML.
   For example, if an app's  HTML contains `<hero-list></hero-list>`, then
   Angular inserts an instance of the `HeroListComponent` view between those tags.
 
-  - `selector`： 一个CSS选择器，它告诉Angular在*父级*HTML中寻找一个`<hero-list>`标签，然后创建该组件，并插入此标签中。
-  比如，如果应用的HTML包含`<hero-list></hero-list>`，Angular就会把`HeroListComponent`的一个实例插入到这个标签中。
+  - `selector`： CSS选择器，它告诉Angular在*父级*HTML中查找`<hero-list>`标签，创建并插入该组件。
+  例如，如果应用的HTML包含`<hero-list></hero-list>`，Angular就会把`HeroListComponent`的一个实例插入到这个标签中。
 
   - `templateUrl`: module-relative address of this component's HTML template, shown [above](#templates).
 
-  - `templateUrl`：组件HTML模板的模块相对地址，我们在[前面](#templates)展示过它。
+  - `templateUrl`：组件HTML模板的模块相对地址，[如前所示](#templates)。
 
   - `providers`: !{_array} of **dependency injection providers** for services that the component requires.
   This is one way to tell Angular that the component's constructor requires a `HeroService`
   so it can get the list of heroes to display. 
 
-  - `providers` - 一个数组，包含组件所依赖的服务所需要的*依赖注入提供商*。
-  这是在告诉Angular：该组件的构造函数需要一个`HeroService`服务，这样组件就可以从服务中获得用来显示英雄列表的那些数据。
+  - `providers` - 组件所需服务的*依赖注入提供商*数组。
+  这是在告诉Angular：该组件的构造函数需要一个`HeroService`服务，这样组件就可以从服务中获得英雄数据。
 
 figure
   img(src="/resources/images/devguide/architecture/template-metadata-component.png" alt="元数据" align="left" style="height:200px; margin-left:-40px;margin-right:10px" )
@@ -479,14 +479,14 @@ figure
   `@Injectable`, `@Input`, and `@Output` are a few of the more popular !{_decorator}s.
 
   我们也会沿用类似的风格，用其它元数据!{_decoratorCn}来指导Angular的行为。
-  比如`@Injectable`、`@Input`和`@Output`等是一些最常用的!{_decoratorCn}。
+  例如`@Injectable`、`@Input`和`@Output`等是一些最常用的!{_decoratorCn}。
 
 <br class="l-clear-both">
 :marked
   The architectural takeaway is that you must add metadata to your code
   so that Angular knows what to do.
 
-  这种架构所决定的是：必须往代码中添加元数据，以便Angular知道该做什么。
+  这种架构处理方式是：你向代码中添加元数据，以便Angular知道该怎么做。
 
 .l-hr 
 
@@ -515,7 +515,7 @@ figure
 
   As the diagram shows, there are four forms of data binding syntax. Each form has a direction &mdash; to the DOM, from the DOM, or in both directions.
 
-  如图所示，数据绑定的语法有四种形式。每种形式都有一个方向 —— 从DOM来、到DOM去、双向，就像图中的箭头所示意的。
+  如图所示，数据绑定的语法有四种形式。每种形式都有一个方向 —— 绑定到DOM、绑定自DOM以及双向绑定。
 
 <br class="l-clear-both">
 :marked
@@ -540,8 +540,8 @@ figure
   that combines property and event binding in a single notation, using the `ngModel` directive.
   Here's an example from the `HeroDetailComponent` template:
 
-  **双向数据绑定**：这是很重要的第四种绑定形式，它在`ngModel`指令这个单一标记中同时实现了属性绑定和事件绑定的功能。
-  下面是一个来自`HeroDetailComponent`模板的范例：
+  **双向数据绑定**：这是很重要的第四种绑定形式，它使用`ngModel`指令组合了属性绑定和事件绑定的功能。
+  下面是`HeroDetailComponent`模板的范例：
 
 +makeExcerpt('app/hero-detail.component.html', 'ngModel')
 
@@ -550,7 +550,7 @@ figure
   The user's changes also flow back to the component, resetting the property to the latest value,
   as with event binding.
 
-  在双向绑定中，数据属性的值会从具有属性绑定的组件传到输入框。通过事件绑定，用户的修改被传回到组件，把属性值设置为最新的值。
+  在双向绑定中，数据属性值通过属性绑定从组件传到输入框。用户的修改通过事件绑传回到组件，把属性值设置为最新的值。
 
   Angular processes *all* data bindings once per JavaScript event cycle,
   from the root of the application component tree through all child components.
@@ -570,7 +570,7 @@ figure
 :marked
   Data binding is also important for communication between parent and child components.
 
-  数据绑定在父组件与子组件的通讯中***也同样重要***。
+  数据绑定在父组件与子组件的通讯中也同样重要。
 <br class="l-clear-both">
 
 .l-hr 
@@ -579,7 +579,7 @@ figure
 :marked
   ## Directives
 
-  ## 指令
+  ## 指令（directive)
 
 figure
   img(src="/resources/images/devguide/architecture/directive.png" alt="父与子" style="float:left; width:150px; margin-left:-40px;margin-right:10px" )
@@ -587,7 +587,7 @@ figure
   Angular templates are *dynamic*. When Angular renders them, it transforms the DOM
   according to the instructions given by **directives**.
 
-  Angular模板是*动态的*。当Angular渲染它们时，它会根据**指令**提供的操作指南对DOM进行修改。
+  Angular模板是*动态的*。当Angular渲染它们时，它会根据**指令**提供的操作对DOM进行转换。
 
   A directive is a class with directive metadata. In !{_Lang}, apply the `@Directive` !{_decorator}
   to attach metadata to the class.
@@ -598,7 +598,7 @@ figure
   A component is a *directive-with-a-template*;
   a `@Component` !{_decorator} is actually a `@Directive` !{_decorator} extended with template-oriented features.
 
-  我们已经遇到过指令的形式之一：组件。组件是一个*带模板的指令*，而且`@Component`!{_decoratorCn}实际上就是一个`@Directive`!{_decoratorCn}，只是扩展了一些面向模板的属性。
+  组件是一个*带模板的指令*；`@Component`!{_decoratorCn}实际上就是一个`@Directive`!{_decoratorCn}，只是扩展了一些面向模板的特性。
 
 .l-sub-section
   :marked
@@ -610,7 +610,7 @@ figure
 :marked
   Two *other* kinds of directives exist: _structural_ and _attribute_ directives.
 
-  有两种*其它*类型的指令，我们称之为“结构型”指令和“属性(attribute)型”指令。
+  有两种*其它*类型的指令，我们称之为_结构型_指令和_属性(attribute)型_指令。
 
   They tend to appear within an element tag as attributes do,
   sometimes by name but more often as the target of an assignment or a binding.
@@ -650,7 +650,7 @@ block dart-bool
   an existing element (typically an `<input>`)
   by setting its display value property and responding to change events.
 
-  `ngModel`指令就是属性型指令的一个例子，它实现了双向数据绑定。它修改了现有元素(一般是`<input>`)的行为：它设置了显示属性值，并对change事件做出相应回应。
+  `ngModel`指令就是属性型指令的一个例子，它实现了双向数据绑定。它修改了现有元素(一般是`<input>`)的行为：设置其显示属性值，并响应change事件。
 
 +makeExcerpt('app/hero-detail.component.html', 'ngModel')
 :marked
@@ -686,7 +686,7 @@ figure
   A service is typically a class with a narrow, well-defined purpose. It should do something specific and do it well.
 
   几乎任何东西都可以是一个服务。
-  典型的服务是一个类，具有专注的、良好定义的用途。它应该做一件具体的事情，把它做好。
+  典型的服务是一个类，具有专注的、明确的用途。它应该做一件特定的事情，并把它做好。
 <br class="l-clear-both">
 :marked
   Examples include:
@@ -725,7 +725,7 @@ figure
 
   Here's an example of a service class that logs to the browser console:
 
-  这里是一个“服务”类的范例，用于把日志记录到浏览器的控制台：
+  这里是一个服务类的范例，用于把日志记录到浏览器的控制台：
 
 +makeExcerpt('app/logger.service.ts', 'class')
 
@@ -747,8 +747,8 @@ figure
   validate user input, or log directly to the console.
   They delegate such tasks to services.
 
-  我们更倾向于让组件保持精简。组件不需要从服务器获得数据、不需要验证输入，也不需要直接往控制台写日志。
-  它们把这些任务委托给了服务。
+  我们倾向于让组件保持精简。组件本身不从服务器获得数据、不进行验证输入，也不直接往控制台写日志。
+  它们把这些任务委托给服务。
 
   A component's job is to enable the user experience and nothing more. It mediates between the view (rendered by the template)
   and the application logic (which often includes some notion of a _model_).
@@ -767,7 +767,7 @@ figure
   Angular does help you *follow* these principles by making it easy to factor your
   application logic into services and make those services available to components through *dependency injection*.
 
-  Angular帮助我们*追随*这些原则 —— 它让我们能更轻易的把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
+  Angular帮助我们*追随*这些原则 —— 它让我们能轻易地把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
 
 .l-hr 
 
@@ -791,7 +791,7 @@ figure
   Angular can tell which services a component needs by looking at the types of its constructor parameters.
   For example, the constructor of your `HeroListComponent` needs a `HeroService`:
 
-  Angular能通过查看构造函数的参数类型，来得知组件需要哪些服务。
+  Angular通过查看构造函数的参数类型得知组件需要哪些服务。
   例如，`HeroListComponent`组件的构造函数需要一个`HeroService`：
 
 +makeExcerpt('app/hero-list.component.ts (constructor)', 'ctor')
@@ -809,9 +809,9 @@ figure
   Angular can call the component's constructor with those services as arguments.
   This is *dependency injection*.
 
-  注入器是一个维护服务实例的容器，存放着以前创建的实例。
-  如果容器中还没有所请求的服务实例，注入器就会创建一个服务实例，并且添加到容器中，然后把这个服务返回给Angular。
-  当所有的服务都被解析完并返回时，Angular会以这些服务为参数去调用组件的构造函数。
+  注入器维护了一个服务实例的容器，存放着以前创建的实例。
+  如果所请求的服务实例不在容器中，注入器就会创建一个服务实例，并且添加到容器中，然后把这个服务返回给Angular。
+  当所有请求的服务都被解析完并返回时，Angular会以这些服务为参数去调用组件的构造函数。
   这就是*依赖注入* 。
 
   The process of `HeroService` injection looks a bit like this:
@@ -828,8 +828,8 @@ figure
   In brief, you must have previously registered a **provider** of the `HeroService` with the injector.
   A provider is something that can create or return a service, typically the service class itself.
 
-  简单的说，必须在要求注入`HeroService`之前，把一个叫`HeroService`的**提供商Provider**到注入器。
-  提供商可以创建并返回服务，通常返回的就是这个“服务类”本身。
+  简单的说，必须在要求注入`HeroService`之前，在注入器中注册`HeroService`的**提供商Provider**。
+  提供商用于创建并返回一个服务，通常是这个“服务类”本身。
 
   You can register providers in modules or in components.
 
@@ -838,7 +838,7 @@ figure
   In general, add providers to the [root module](#module) so that
   the same instance of a service is available everywhere.
 
-  我们通常会把提供商添加到[根模块](#module)上，以便任何地方使用的都是服务的同一个实例。
+  我们通常会把提供商添加到[根模块](#module)上，以便在任何地方使用服务的同一个实例。
 
 +makeExample('app/app.module.ts', 'providers', 'app/app.module.ts (module providers)')(format='.')
 
@@ -859,7 +859,7 @@ figure
   The full story is in the [dependency injection](dependency-injection.html) page. -->
 
   <!--在这个概览中，我们过度简化了依赖注入机制。
-  完整的故事出现在[依赖注入](dependency-injection.html)页 -->
+  详见[依赖注入](dependency-injection.html)页 -->
 
   Points to remember about dependency injection:
 
@@ -954,13 +954,13 @@ figure
   > **Change detection**: The change detection documentation will cover how Angular decides that a component property value has changed,
   when to update the screen, and how it uses **zones** to intercept asynchronous activity and run its change detection strategies.
 
-  > **变更检测**：“变更检测”文档会告诉你Angular是如何决定组件的属性值变化和什么时候该更新到屏幕的。
-  以及它是如何用**zones**来拦截异步行为并执行变更检测策略。
+  > **变更检测**：变更检测文档会告诉你Angular是如何决定组件的属性值变化，什么时候该更新到屏幕，
+  以及它是如何利用**zones**来拦截异步活动并执行变更检测策略。
 
   > **Events**: The events documentation will cover how to use components and services to raise events with mechanisms for
   publishing and subscribing to events.
 
-  > **事件**：“事件”文档会告诉你如何使用组件和服务触发支持发布和订阅的事件。
+  > **事件**：事件文档会告诉你如何使用组件和服务触发支持发布和订阅的事件。
 
   > [**Forms**](forms.html): Support complex data entry scenarios with HTML-based validation and dirty checking.
 
@@ -977,7 +977,7 @@ figure
 
   > [**Pipes**](pipes.html): Use pipes in your templates to improve the user experience by transforming values for display. Consider this `currency` pipe expression:
 
-  > [**管道**](pipes.html)：在模板中使用管道转换成可显示的值，以增强用户体验。比如这个`currency`管道表达式：
+  > [**管道**](pipes.html)：在模板中使用管道转换成用于显示的值，以增强用户体验。例如，`currency`管道表达式：
 
 <div style="margin-left:40px">
 code-example().
@@ -986,12 +986,12 @@ code-example().
 :marked
   > It displays a price of "42.33" as `$42.33`.
 
-  > 它把"42.33"显示为`$42.33`。
+  > 它把价格"42.33"显示为`$42.33`。
 
   > [**Router**](router.html): Navigate from page to page within the client
     application and never leave the browser.
 
-  > [**路由器**](router.html)：在应用程序客户端导航，并且不离开浏览器。
+  > [**路由器**](router.html)：在应用程序客户端的页面间导航，并且不离开浏览器。
 
   > [**Testing**](testing.html): Run unit tests on your application parts as they interact with the Angular framework
   using the _Angular Testing Platform_.
