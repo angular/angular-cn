@@ -3,14 +3,13 @@ extends ../../../ts/_cache/tutorial/toh-pt5
 block includes
   include ../_util-fns
   - var _appRoutingTsVsAppComp = 'AppComponent'
-  - var _declsVsDirectives = 'directives'
   - var _RoutesVsAtRouteConfig = '@RouteConfig'
   - var _RouterModuleVsRouterDirectives = 'ROUTER_DIRECTIVES'
   - var _redirectTo = 'useAsDefault'
 
 block intro-file-tree
   .filetree
-    .file angular2_tour_of_heroes
+    .file angular_tour_of_heroes
     .children
       .file lib
       .children
@@ -96,12 +95,13 @@ block redirect-vs-use-as-default
     router will display the dashboard when the browser URL doesn't match an existing route.
 
 block templateUrl-path-resolution
-  :marked
-    The value of `templateUrl` can be an [asset][] in this package or another
-    package. To use an asset in another package, use a full package reference,
-    such as `'package:some_other_package/dashboard_component.html'`.
+  .l-sub-section
+    :marked
+      The value of `templateUrl` can be an [asset][] in this package or another
+      package. To use an asset in another package, use a full package reference,
+      such as `'package:some_other_package/dashboard_component.html'`.
 
-    [asset]: https://www.dartlang.org/tools/pub/glossary#asset
+      [asset]: https://www.dartlang.org/tools/pub/glossary#asset
 
 block route-params
   :marked
@@ -142,7 +142,7 @@ block router-link-active
 
 block file-tree-end
   .filetree
-    .file angular2_tour_of_heroes
+    .file angular_tour_of_heroes
     .children
       .file lib
       .children

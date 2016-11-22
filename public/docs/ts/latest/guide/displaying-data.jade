@@ -11,11 +11,11 @@ block includes
   In this page, you'll create a component with a list of heroes.
   You'll display the list of hero names and
   conditionally show a message below the list.
-  
+
   本章中，我们将创建一个英雄列表组件。我们将显示英雄名字的列表，当选中一位英雄时，就在列表下方显示一条消息。
 
   The final UI looks like this:
-  
+
   最终的UI是这样的：
 
 figure.image-display
@@ -24,14 +24,14 @@ figure.image-display
 :marked
   # Contents
   # 目录
-  
+
   * [Showing component properties with interpolation](#interpolation)
   * [通过插值表达式显示组件的属性](#interpolation)
   * [Showing !{_an} !{_array} property with NgFor](#ngFor)
   * [通过NgFor显示数组型属性](#ngFor)
   * [Conditional display with NgIf](#ngIf)
   * [通过NgIf实现按条件显示](#ngIf)
-  
+
 .l-sub-section
   :marked
     The <live-example></live-example> demonstrates all of the syntax and code
@@ -43,45 +43,39 @@ figure.image-display
 :marked
   ## Showing component properties with interpolation
   ## 使用插值表达式显示组件属性
-  
+
   The easiest way to display a component property
   is to bind the property name through interpolation.
   With interpolation, you put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
-  
+
   要显示组件的属性，最简单的方式就是通过插值表达式(Interpolation)来绑定属性名。
   要使用插值表达式，就把属性名包裹在双重花括号里放进视图模板，如`{{myHero}}`。  
 
   To build an illustrative example, start by creating a new project folder called <ngio-ex path="displaying-data"></ngio-ex>
   and following the steps in [QuickStart](../quickstart.html).
-    
-  我们来一起做个简明的小例子。创建一个新的项目文件夹(<ngio-ex path="displaying-data"></ngio-ex>)，并且完成[“快速起步”](../quickstart.html)中的步骤。
-  
 
-block quickstart-repo
-  include ../_quickstart_repo
+  我们来一起做个简明的小例子。创建一个新的项目文件夹(<ngio-ex path="displaying-data"></ngio-ex>)，并且完成[“快速起步”](../quickstart.html)中的步骤。
 
 :marked
   Then modify the <ngio-ex path="app.component.ts"></ngio-ex> file by
   changing the template and the body of the component.  
-  
-  然后，到`app.component.ts`文件中修改组件的模板和代码。
-  
-  When you're done, it should look like this:
-  
-  修改完之后，它看起来应该是这样的：
 
-  
+  然后，到`app.component.ts`文件中修改组件的模板和代码。
+
+  When you're done, it should look like this:
+
+  修改完之后，它看起来应该是这样的：
 
 +makeExample('app/app.component.1.ts')
 
 :marked
   You added two properties to the formerly empty component: `title` and `myHero`.
-  
+
   再把两个属性`title`和`myHero`添加到之前空白的组件中。  
 
   The revised template displays the two component properties using double curly brace
   interpolation:
-  
+
   修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
 
 +makeExcerpt('app/app.component.1.ts', 'template', '')
@@ -93,39 +87,36 @@ block quickstart-repo
       The backtick (<code>\`</code>)&mdash;which is *not* the same character as a single
       quote (`'`)&mdash;allows you to compose a string over several lines, which makes the
       HTML more readable.
-      
+
       模板是包在反引号(<code>\`</code>)中的一个多行字符串。
       反引号(<code>\`</code>) —— 注意，不是单引号(') —— 有很多好用的特性。
       我们在这里用到的是它把一个字符串写在多行上的能力，这样我们的HTML模板就会更容易阅读。
-    
 
 :marked
   Angular automatically pulls the value of the `title` and `myHero` properties from the component and
   inserts those values into the browser. Angular updates the display
   when these properties change.
-  
+
   Angular会自动从组件中提取`title`和`myHero`属性的值，并且把这些值插入浏览器中。一旦这些属性发生变化，Angular就会自动刷新显示。
 .l-sub-section
   :marked
     More precisely, the redisplay occurs after some kind of asynchronous event related to
     the view, such as a keystroke, a timer completion, or a response to an HTTP request.    
-    
+
     严格来说，“重新显示”是在某些与视图有关的异步事件之后发生的，比如：按键、定时器或收到异步`XHR`响应。    
 
 :marked
   Notice that you don't call **new** to create an instance of the `AppComponent` class.
   Angular is creating an instance for you. How?
-  
+
   注意，我们从没调用过**new**来创建`AppComponent`类的实例，是Angular替我们创建了它。那么它是如何创建的呢？
-  
 
   The CSS `selector` in the `@Component` !{_decorator} specifies an element named `my-app`.
   Remember back in [QuickStart](../quickstart.html) that you added the `<my-app>`
   element to the body of your `index.html` file:
-  
+
   注意`@Component`装饰器中指定的CSS选择器`selector`，它指定了一个叫`my-app`的元素。
   回忆下，在[“快速起步”](../quickstart.html)一章中，我们曾把一个`<my-app>`元素添加到`index.html`的`body`里。
-  
 
 +makeExcerpt('index.html', 'body')
 
@@ -133,33 +124,33 @@ block quickstart-repo
   When you bootstrap with the `AppComponent` class (in <ngio-ex path="main.ts"></ngio-ex>), Angular looks for a `<my-app>`
   in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
   inside the `<my-app>` tag.
-  
+
   当我们通过`main.ts`中的`AppComponent`类启动时，Angular在`index.html`中查找一个`<my-app>`元素，
   然后实例化一个`AppComponent`，并将其渲染到`<my-app>`标签中。
 
   Now run the app. It should display the title and hero name:
-  
+
   试一下本应用。它应该显示出标题和英雄名。  
-  
+
 figure.image-display
   img(src="/resources/images/devguide/displaying-data/title-and-hero.png" alt="Title and Hero")
 
 +ifDocsFor('ts')
   :marked
     The next few sections review some of the coding choices in the app.
-    
+
     我们来回顾一下以前所做的决定，看看还有哪些其它选择。    
 
 :marked
   ## Template inline or template file?
-  
+
   ## 内联(inline)模板还是模板文件？
 
   You can store your component's template in one of two places.
   You can define it *inline* using the `template` property, or you can define
   the template in a separate HTML file and link to it in
   the component metadata using the `@Component` !{_decorator}'s `templateUrl` property.
-  
+
   我们有两种地方可以用来存放组件模板。
   我们可以使用`template`属性把它定义为 *内联* 的，就像这里所做的一样。
   或者，可以把模板定义在一个独立的HTML文件中，并且通过在`@Component`装饰器中的`templateUrl`属性把它链接到组件。
@@ -168,41 +159,39 @@ figure.image-display
   circumstances, and organization policy.
   Here the app uses inline HTML because the template is small and the demo
   is simpler without the additional HTML file.
-  
+
   到底选择内联HTML还是独立HTML取决于：个人喜好、具体状况和组织级策略。
   这里我们选择内联HTML，是因为模板很小，而且这个演示很简单，没有别的HTML文件。
 
   In either style, the template data bindings have the same access to the component's properties.
-  
+
   无论用哪种风格，模板中的数据绑定在访问组件属性方面都是完全一样的。
 
 +ifDocsFor('ts')
   :marked
     ## Constructor or variable initialization?
-    
+
     ## 初始化：使用构造函数还是变量？
 
     Although this example uses variable assignment to initialize the components, you can instead declare and initialize the properties using a constructor:
-    
+
     虽然这个例子使用了变量赋值的方式初始化组件的属性。你可以使用构造函数来声明和初始化属性。    
 
-    
   +makeExcerpt('app/app-ctor.component.ts', 'class')
 
   :marked
     This app uses more terse "variable assignment" style simply for brevity.
-    
+
     为了让本应用更加简短，它采用了更简单的“变量赋值”风格。
-    
 
 .l-main-section#ngFor
 :marked
   ## Showing !{_an} !{_array} property with ***ngFor**
-  
+
   ## 使用***ngFor***显示数组属性
 
   To display a list of heroes, begin by adding !{_an} !{_array} of hero names to the component and redefine `myHero` to be the first name in the !{_array}.
-  
+
   我们准备显示一个英雄列表。先往组件中添加一个英雄名字数组，然后把`myHero`重定义为数组中的第一个名字。  
 
 +makeExcerpt('app/app.component.2.ts', 'class')
@@ -210,7 +199,7 @@ figure.image-display
 :marked
   Now use the Angular `ngFor` directive in the template to display
   each item in the `heroes` list.
-  
+
   现在，我们在模板中使用Angular的`ngFor`“重复器”指令来显示`heroes`列表中的每一个条目。
 
 +makeExcerpt('app/app.component.2.ts', 'template')
@@ -219,7 +208,7 @@ figure.image-display
   This UI uses the HTML unordered list with `<ul>` and `<li>` tags. The `*ngFor`
   in the `<li>` element is the Angular "repeater" directive.
   It marks that `<li>` element (and its children) as the "repeater template":
-  
+
   这个界面使用了由`<ul>`和`<li>`标签组成的无序列表。`<li>`元素里的`*ngFor`是Angular的“迭代”指令。
   它将`<li>`元素和它的子级标记为“迭代模板”：  
 
@@ -229,7 +218,7 @@ figure.image-display
   :marked
     Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
     For more information, see the [Template Syntax](./template-syntax.html#ngFor) page.    
-    
+
     不要忘记`*ngFor`中的前导星号(\*)。它是语法中不可或缺的一部分。
     要了解关于此语法和`ngFor`的更多知识，请参见[模板语法](./template-syntax.html#ngFor)一章。
 :marked
@@ -244,20 +233,20 @@ figure.image-display
   Angular duplicates the `<li>` for each item in the list, setting the `hero` variable
   to the item (the hero) in the current iteration. Angular uses that variable as the
   context for the interpolation in the double curly braces.
-  
+
   Angular为列表中的每一个条目复制一个`<li>`元素。在每个迭代中，都会把`hero`变量设置为当前条目(此英雄)。
   Angular把`hero`变量作为双花括号插值表达式的上下文。
 .l-sub-section
   :marked
     In this case, `ngFor` is displaying !{_an} !{_array}, but `ngFor` can
     repeat items for any [iterable](!{_iterableUrl}) object.
-    
+
     本例中，`ngFor`显示“数组”，
     但`ngFor`可以为任何[可迭代Iterable](!{_iterableUrl})对象重复渲染条目。
-    
+
 :marked
   Now the heroes appear in an unordered list.
-  
+
   现在，英雄们出现在了一个无序列表中。
 
 figure.image-display
@@ -266,75 +255,74 @@ figure.image-display
 .l-main-section
 :marked
   ## Creating a class for the data
-  
+
   ## 为数据创建一个类
 
   The app's code defines the data directly inside the component, which isn't best practice.
   In a simple demo, however, it's fine.
-  
+
   应用代码直接在组件内部直接定义了数据。
   作为演示还可以，但它显然不是最佳实践。  
 
   At the moment, the binding is to !{_an} !{_array} of strings.
   In real applications, most bindings are to more specialized objects.
-  
+
   现在，我们绑定到了一个字符串数组。在真实的应用中偶尔这么做。但绝大多数时候，我们会绑定一些对象数组上。  
 
   To convert this binding to use specialized objects, turn the !{_array}
   of hero names into !{_an} !{_array} of `Hero` objects. For that you'll need a `Hero` class.
-  
+
   要将此绑定转换成使用特殊对象，把英雄名字放到`Hero`对象的数组。但首先得有一个`Hero`类。  
 
   Create a new file in the `!{_appDir}` folder called  <ngio-ex path="hero.ts"></ngio-ex> with the following code:
-  
+
   在`!{_appDir}`目录下创建一个名叫<ngio-ex path="hero.ts"></ngio-ex>的新文件，内容如下：
-  
+
 +makeExcerpt('app/hero.ts')
 
 block hero-class
   :marked
     You've defined a class with a constructor and two properties: `id` and `name`.
-    
+
     我们这样就定义了一个带有构造函数和两个属性：`id`和`name`的类。    
 
     It might not look like the class has properties, but it does.
     The declaration of the constructor parameters takes advantage of a TypeScript shortcut.
-    
+
     它可能看上去不像是有属性的类，但我们确实有。我们利用的是TypeScript提供的简写形式 —— 用构造函数的参数直接定义属性。    
 
     Consider the first parameter:
-    
+
     来看第一个参数：
 
   +makeExcerpt('app/hero.ts ()', 'id')
 
   :marked
     That brief syntax does a lot:
-    
-    这个简写语法做了很多：
-    
-    * Declares a constructor parameter and its type
-    
-    * 定义了一个构造函数参数及其类型
-    
-    * Declares a public property of the same name
-    
-    * 定义了一个同名的公开属性
-    
-    * Initializes that property with the corresponding argument when we "new" an instance of the class
-    
-    * 当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值
 
+    这个简写语法做了很多：
+
+    * Declares a constructor parameter and its type
+
+    * 定义了一个构造函数参数及其类型
+
+    * Declares a public property of the same name
+
+    * 定义了一个同名的公开属性
+
+    * Initializes that property with the corresponding argument when we "new" an instance of the class
+
+    * 当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值
 
 .l-main-section
 :marked
   ## Using the Hero class
-  
+
   ## 使用Hero类
-  
+
   The `heroes` property in the component can now use the `Hero` class to return !{_an} !{_array}
   of `Hero` objects:
-  
+
   我们让组件中的`heroes`属性返回这些`Hero`对象的数组。  
 
 +makeExcerpt('app/app.component.3.ts', 'heroes')
@@ -343,38 +331,35 @@ block hero-class
   Next, update the template.
   At the moment it displays the hero's `id` and `name`.
   Fix that to display only the hero's `name` property.
-  
+
   我们还得更新一下模板。
   现在它显示的是英雄的`id`和`name`。
   要修复它，只显示英雄的`name`属性就行了。
-  
 
 +makeExcerpt('app/app.component.3.ts', 'template')
 
 :marked
   Our display looks the same, but now we know much better what a hero really is.
-  
+
   从显示上看还是一样，但现在除了名字之外，我们可以有更多英雄信息。
-  
 
 .l-main-section#ngIf
 :marked
   ## Conditional display with NgIf
-  
+
   ## 通过NgIf进行条件显示
 
   Sometimes an app needs to display a view or a portion of a view only under specific circumstances.
-  
+
   有时候，应用只需要在特定情况下显示视图或视图的一部分。
 
   Let's change the example to display a message if there are more than three heroes.
-  
+
   让我们来修改这个例子，让它显示在多于3位英雄的情况下，显示一条消息。
-  
 
   The Angular `ngIf` directive inserts or removes an element based on a !{_boolean} condition.
   To see it in action, add the following paragraph at the bottom of the template:
-  
+
   Angular的`NgIf`指令会基于条件的真假来显示或移除一个元素。
   我们来亲自动手试一下，把下列语句加到模板的底部：  
 
@@ -387,7 +372,7 @@ block hero-class
 
     不要忘了`*ngIf`中的前导星号(\*)。它是本语法中不可或缺的一部分。
     要学习关于此语法和`NgIf`的更多知识，请参见[模板语法](./template-syntax.html#ngIf)一章。
-    
+
 :marked
   The template expression inside the double quotes,
   `*ngIf="heros.length > 3"`, looks and behaves much like !{_Lang}.
@@ -404,10 +389,9 @@ block hero-class
   :marked
     Angular isn't showing and hiding the message. It is adding and removing the paragraph element from the DOM. That improves performance, especially in larger projects when conditionally including or excluding
     big chunks of HTML with many data bindings.
-    
+
     Angular并不是在显示和隐藏这条消息，它是在从DOM中添加和移除这些元素。
     在这个范例中，它们(在性能上)几乎等价。但是如果我们想要有条件的包含或排除“一大堆”带着很多数据绑定的HTML，性能上的区别就会更加显著。    
-    
 
 :marked
   Try it out. Because the !{_array} has four items, the message should appear.
@@ -420,33 +404,32 @@ block hero-class
 .l-main-section
 :marked
   ## Summary
-  
+
   ## 小结
-  
+
   Now you know how to use:
-  
+
   现在我们知道了如何：
-  
+
   - **Interpolation** with double curly braces to display a component property
-  
+
   - 用带有双花括号的**插值表达式Interpolation**来显示组件的一个属性
-  
+
   - **ngFor** to display !{_an} !{_array} of items
-  
+
   - 用**ngFor**来显示条目列表
-  
+
   - A !{_Lang} class to shape the **model data** for our component and display properties of that model
-  
+
   - 用一个!{_Lang}类来为我们的组件描述**数据模型**并显示模型的各个属性。
-  
+
   - **ngIf** to conditionally display a chunk of HTML based on a boolean expression
-  
+
   - **ngIf**用来根据一个布尔表达式有条件的显示一段HTML
 
   Here's the final code:
-  
+
   下面是我们的最终代码：
-  
 
 block final-code
   +makeTabs(`displaying-data/ts/app/app.component.ts,

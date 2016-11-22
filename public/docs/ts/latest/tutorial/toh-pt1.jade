@@ -1,28 +1,24 @@
 include ../_util-fns
 
 :marked
-  # Once Upon a Time
-  
-  # 很久很久以前
-
   Every story starts somewhere. Our story starts where the [QuickStart](../quickstart.html) ends.
-  
+
   每一个故事，都有一个起点。而我们的故事则开始于[“快速起步”](../quickstart.html)的结尾处。
 
   Run the <live-example></live-example> for this part.
-  
+
   运行这部分的<live-example>在线例子</live-example>。
 
   Create a folder called `angular-tour-of-heroes` and follow the [QuickStart](../quickstart.html) steps
   which provide the prerequisites, the folder structure, and the core files for our Tour of Heroes.
 
-  创建一个名为`angular2-tour-of-heroes`的文件夹，并且遵循[“快速起步”](../quickstart.html)中的步骤初始化它 —— 
+  创建一个名为`angular2-tour-of-heroes`的文件夹，并且遵循[“快速起步”](../quickstart.html)中的步骤初始化它 ——
   环境准备、目录结构，并放进我们《英雄指南》的核心文件。
-  
+
 include ../_quickstart_repo
 :marked
   We should have the following structure:
-  
+
   我们应该有如下目录结构：
 
 .filetree
@@ -41,11 +37,11 @@ include ../_quickstart_repo
     .file tsconfig.json
 :marked
   ## Keep the app transpiling and running
-  
+
   ## 保持应用不断转译和运行
-  
+
   We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
-  
+
   我们要启动TypeScript编译器，它会监视文件变更，并且启动开发服务器。我们只要敲：
 
 code-example(language="bash").
@@ -56,50 +52,50 @@ code-example(language="bash").
   and keeps the app running while we continue to build the Tour of Heroes.
 
   这个命令会在监视模式下运行编译器，启动开发服务器，在浏览器中启动我们的应用，并在我们构建《英雄指南》的时候让应用得以持续运行。
-  
+
 .l-main-section
   :marked
     ## Show our Hero
-    
+
     ## 显示我们的英雄
-    
+
     We want to display Hero data in our app
-    
+
     我们要在应用中显示英雄数据
 
     Let's add two properties to our `AppComponent`, a `title` property for the application name and a `hero` property
     for a hero named "Windstorm".
-    
+
     我们来为`AppComponent`添加两个属性：`title`属性表示应用的名字，而`hero`属性表示一个名叫“Windstorm”的英雄。
 
-  +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'app.component.ts (AppComponent类)')(format=".")
+  +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'app.component.ts (AppComponent class)')(format=".")
 
   :marked
     Now we update the template in the `@Component` decoration with data bindings to these new properties.
-    
+
     现在，我们为这些新属性建立数据绑定，以更新`@Component`装饰器中指定的模板
 
   +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero')
 
   :marked
     The browser should refresh and display our title and hero.
-    
+
     保存后，浏览器应该会自动刷新，并显示我们的标题和英雄。
 
     The double curly braces tell our app to read the `title` and `hero` properties from the component and render them.
     This is the "interpolation" form of one-way data binding.
-    
+
     这里的“双大括号”会告诉应用：从组件中读取`title`和`hero`属性，并且渲染它们。这就是单向数据绑定的“插值表达式”形式。
-    
+
 .l-sub-section
   :marked
     Learn more about interpolation in the [Displaying Data chapter](../guide/displaying-data.html).
-    
+
     要了解插值表达式的更多知识，参阅[“显示数据”一章](../guide/displaying-data.html)。
-    
+
 :marked
   ### Hero object
-  
+
   ### Hero对象
 
   At the moment, our hero is just a name.  Our hero needs more properties.
@@ -107,19 +103,19 @@ code-example(language="bash").
 
   此时此刻，我们的英雄还只有一个名字。显然，它/她应该有更多属性。
   让我们把`hero`从一个字符串字面量换成一个类。
-  
+
   Create a `Hero` class with `id` and `name` properties.
   For now put this near the top of the `app.component.ts` file, just below the import statement.
 
   创建一个`Hero`类，它具有`id`和`name`属性。
   现在，把下列代码放在`app.component.ts`的顶部，仅次于import语句。
-  
-+makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero类)')(format=".")
+
++makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero class)')(format=".")
 
 :marked
   Now that we have a `Hero` class, let’s refactor our component’s `hero` property to be of type `Hero`.
   Then initialize it with an id of `1` and the name, "Windstorm".
-  
+
   现在，有了一个`Hero`类，我们就要把组件`hero`属性的类型换成`Hero`了。
   然后以`1`为id、以“Windstorm”为名字，初始化它。
 
@@ -130,31 +126,31 @@ code-example(language="bash").
   we update the binding in the template to refer to the hero’s `name` property.
 
   我们把`hero`从一个字符串换成了对象，所以也得更新模板中的绑定表达式，来引用`hero`的`name`属性。
-  
+
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero-2')
 :marked
   The browser refreshes and continues to display our hero’s name.
-  
+
   浏览器自动刷新，并继续显示这位英雄的名字。
 
   ### Adding more HTML
-  
+
   ### 添加更多的HTML
-  
+
   Displaying a name is good, but we want to see all of our hero’s properties.
   We’ll add a `<div>` for our hero’s `id` property and another `<div>` for our hero’s `name`.
 
   能显示名字虽然不错，但我们还想看到这位英雄的所有属性。
   我们将添加一个`<div>`来显示英雄的`id`属性，用另一个`<div>`来显示英雄的`name`属性。
-  
+
 +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero-properties')
 :marked
   Uh oh, our template string is getting long. We better take care of that to avoid the risk of making a typo in the template.
-  
+
   啊哦！我们的模板字符串已经太长了。我们最好小心点，免得在模板中出现拼写错误。
 
   ### Multi-line template strings
-  
+
   ### 多行模板字符串
 
   We could make a more readable template with string concatenation
@@ -170,14 +166,14 @@ code-example(language="bash").
   put the `<h1>`, `<h2>` and `<div>` elements on their own lines.
 
   把模板的双引号改成反引号，并且让`<h1>`，`<h2>`和`<div>`标签各占一行。
-  
-+makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'multi-line-strings', 'app.component.ts (AppComponent的 模板)')
+
++makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'multi-line-strings', 'app.component.ts (AppComponent\'s template)')
 
   .callout.is-important
     header A back-tick is not a single quote
-    
+
     header 反引号不是单引号
-    
+
     :marked
       **Be careful!** A back-tick (`) looks a lot like a single quote (').
       It's actually a completely different character.
@@ -185,7 +181,7 @@ code-example(language="bash").
       Here we use them in a limited way to spread the template over multiple lines.
       Everything between the back-ticks at the beginning and end of the template
       is part of a single template string.
-      
+
       **小心！**反引号(`)虽然看起来很像单引号(')，但它们是截然不同的字符。
       反引号能做的可不仅仅是标记字符串的边界。
       在这里，我们只用它来把我们的模板变成多行的，而没有涉及更多用途。
@@ -194,19 +190,18 @@ code-example(language="bash").
 .l-main-section
 :marked
   ## Editing Our Hero
-  
+
   ## 编辑我们的英雄
 
   We want to be able to edit the hero name in a textbox.
-  
+
   我们想在一个文本框中编辑英雄的名字。
 
   Refactor the hero name `<label>` with `<label>` and `<input>` elements as shown below:
 
   把英雄的名字从单纯的`<label>`重构成`<label>`和`<input>`元素的组合，就像下面这样：
-  
-+makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'app.component.ts (input元素)')
 
++makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'app.component.ts (input element)')
 :marked
   We see in the browser that the hero’s name does appear in the `<input>` textbox.
   But something doesn’t feel right.
@@ -218,7 +213,7 @@ code-example(language="bash").
   当修改名字时，我们的改动并没有反映到`<h2>`中。使用单向数据绑定，我们没法实现所期望的这种行为。
 
   ### Two-Way Binding
-  
+
   ### 双向绑定
 
   We intend to display the name of the hero in the `<input>`, change it,
@@ -232,7 +227,7 @@ code-example(language="bash").
   package in our Angular module. We add it to the `NgModule` decorator's `imports` array. This array contains the list
   of external modules used by our application.
   Now we have included the forms package which includes `ngModel`.
-  
+
   在我们让**表单输入**支持双向数据绑定之前，我们得先导入`FormsModule`模块。
   只要把它添加到`NgModule`装饰器的`imports`数组中就可以了，该数组是应用中用到的外部模块列表。
   这样我们就引入了表单包，其中包含了`ngModel`。
@@ -249,14 +244,14 @@ code-example(language="bash").
     [模板语法](../guide/template-syntax.html#ngModel)两章
 
 :marked
-  Let's update the template to use the  **`ngModel`** built-in directive for two-way binding.
+  Let’s update the template to use the  **`ngModel`** built-in directive for two-way binding.
 
   接下来更新模板，加入用于双向绑定的内置指令**`ngModel`**。
 
   Replace the `<input>` with the following HTML
 
   把`<input>`替换为下列HTML
-  
+
 code-example(language="html").
   &lt;input [(ngModel)]="hero.name" placeholder="name">
 
@@ -265,41 +260,41 @@ code-example(language="html").
   see the changes reflected immediately in the `<h2>`.
 
   浏览器刷新。又见到我们的英雄了。我们可以编辑英雄的名字，也能看到这个改动立刻体现在`<h2>`中。
-  
+
 .l-main-section
 :marked
   ## The Road We’ve Travelled
-  
+
   ## 我们已经走过的路
-  
+
   Let’s take stock of what we’ve built.
-  
+
   我们来盘点一下已经构建完成的部分。
 
   * Our Tour of Heroes uses the double curly braces of interpolation (a kind of one-way data binding)
   to display the application title and properties of a `Hero` object.
-  
+
   * 我们的《英雄指南》使用双大括号插值表达式(单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
-  
+
   * We wrote a multi-line template using ES2015’s template strings to make our template readable.
-  
+
   * 我们使用ES2015的模板字符串写了一个多行模板，使我们的模板更具可读性。
-  
+
   * We can both display and change the hero’s name after adding a two-way data binding to the `<input>` element
   using the built-in `ngModel` directive.
-  
+
   * 为了同时显示和修改英雄的名字，我们还使用了内置的`ngModel`指令，往`<input>`元素上添加了双向数据绑定。
-  
+
   * The `ngModel` directive also propagates changes to every other binding of the `hero.name`.
-  
+
   * `ngModel`指令将这些修改传播到每一个对`hero.name`的其它绑定。
 
   Run the <live-example></live-example> for this part.
-  
+
   运行这部分的<live-example>在线例子</live-example>。
 
   Here's the complete `app.component.ts` as it stands now:
-  
+
   完整的`app.component.ts`是这样的：
 
 +makeExample('toh-1/ts/app/app.component.ts', 'pt1', 'app.component.ts')
@@ -307,9 +302,9 @@ code-example(language="html").
 .l-main-section
 :marked
   ## The Road Ahead
-  
+
   ## 前方的路
-  
+
   Our Tour of Heroes only displays one hero and we really want to display a list of heroes.
   We also want to allow the user to select a hero and display their details.
   We’ll learn more about how to retrieve lists, bind them to the

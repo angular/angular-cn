@@ -11,10 +11,12 @@ wallaby.js
 
 _test-output
 **/ts/**/*.js
+**/js-es6*/**/*.js
 **/ts-snippets/**/*.js
 *.d.ts
 
 !**/*e2e-spec.js
 !systemjs.config.1.js
+!**/systemjs.config.extras.js
 !_boilerplate/*
 _boilerplate/a2docs.css

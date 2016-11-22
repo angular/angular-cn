@@ -58,7 +58,7 @@
 
   "ts-to-js": {
     "title": "从TypeScript到JavaScript",
-    "intro": "把Angular的TypeScript范例转换为ES5 JavaScript"
+    "intro": "把Angular的TypeScript范例转换为ES6和ES5 JavaScript"
   },
 
   "visual-studio-2015": {
