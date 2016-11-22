@@ -1310,7 +1310,7 @@ figure
 :marked
   ### Switching to TypeScript
 
-  ## 切换到TypeScript
+  ### 切换到TypeScript
 
   Since we're going to be writing our Angular 2 code in TypeScript, it makes sense to
   bring in the TypeScript compiler even before we begin upgrading.
@@ -1665,13 +1665,15 @@ code-example(format="").
   attached to the `<html>` element of the host page. This will no longer work with
   Angular 2. We should switch to a JavaScript-driven bootstrap instead.
 
+  我们的应用现在是使用宿主页面中附加到`<html>`元素上的`ng-app`指令引导的。
+  但在Angular 2中，它不再工作了。我们得切换成JavaScript驱动的引导方式。
+
   So, remove the `ng-app` attribute from `index.html`, and instead boostrap via `app/main.ts`.
   This file has been configured as the application entrypoint in `systemjs.config.js`,
   so it is already being loaded by the browser.
 
-  我们的应用现在是使用宿主页面中附加到`<html>`元素上的`ng-app`指令引导的。
-  但在Angular 2中，它不再工作了。我们得切换成JavaScript驱动的引导方式。
-  所以，从`index.html`中移除`ng-app`属性，并把这些加载`main.ts`中：
+  所以，从`index.html`中移除`ng-app`属性，并把这些加载`main.ts`中。
+  在`systemjs.config.js`中已经将此文件配置为应用的入口，所以它已被浏览器所加载。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main.ts', 'bootstrap')
 

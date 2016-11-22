@@ -1,6 +1,6 @@
 block includes
   include _util-fns
-  - var _Install = '安装'
+  - var _Install = 'Install'
   - var _Install_cn = '安装'
   - var _prereq = 'Node.js and npm'
   - var _prereq_cn = 'Node.js和npm'
@@ -43,26 +43,44 @@ figure.image-display
     你还可以<a href="!{_quickstartSrcURL}" target="_blank">克隆整个“快速起步”应用</a>。
 
 h1 Build this application!
+
 h1 构建此应用！
 
 :marked
   - [Prerequisite](#prereq): Install #{_prereq}.
+
   - [环境准备](#prereq): 安装#{_prereq_cn}。
+
   - [Step 1](#create-and-configure): Create and configure the project.
+
   - [步骤1](#create-and-configure)：创建并配置此项目。
+
   - [Step 2](#ngmodule): Create your application.
+
   - [步骤2](#ngmodule)：创建应用。
-  <li if-docs="ts">[Step 3](#root-component): Create a component and add it to your application.</li>
-  <li if-docs="ts">[步骤3](#root-component)：创建组件并添加到应用程序中。</li>
+
+  - [Step 3](#root-component): Create a component and add it to your application.
+
+  - [步骤3](#root-component)：创建组件并添加到应用程序中。
+
   - [Step !{step++}](#main): Start up your application.
-  - [步骤!{step++](#main)：启动应用程序。
+
+  - [步骤4](#main)：启动应用
+
   - [Step !{step++}](#index): Define the web page that hosts the application.
-  - [步骤!{step++](#index)：定义作为该应用的宿主的页面。
+
+  - [步骤5](#index)：定义作为该应用的宿主的页面。
+
   - [Step !{step++}](#build-and-run): Build and run the application.
-  - [步骤!{step++](#build-and-run)：构建并运行此应用。
+
+  - [步骤6](#build-and-run)：构建并运行此应用。
+
   - [Step !{step++}](#make-changes): Make some live changes.
-  - [步骤!{step++](#make-changes)：做一些修改，并立即查看效果。
-  - [Wrap up and Next Steps](#wrap-up)
+
+  - [步骤7](#make-changes)：做一些修改，并立即查看效果。
+
+  - [Wrap up and next steps](#wrap-up)
+
   - [收工，下一步](#wrap-up)
 
 - var step = _stepInit // reinitialize step counter for headers to come
@@ -345,7 +363,7 @@ code-example.code-shell.
 
 .l-main-section
 h2#main Step !{step++}: Start up your application
-h2#main 步骤!{step++}：启动应用
+h2#main 步骤4：启动应用
 
 block create-main
   :marked
@@ -397,7 +415,7 @@ block create-main
 
 .l-main-section
 h2#index Step !{step++}: Define the web page that hosts the application
-h2#index 步骤!{step++}：定义该应用的宿主页面
+h2#index 步骤5：定义该应用的宿主页面
 :marked
   In the *#{_indexHtmlDir}* folder,
   create an `index.html` file and paste the following lines into it:
@@ -449,7 +467,7 @@ block commentary-on-index-html
 
 .l-main-section#build-and-run
 h2 Step !{step++}: Build and run the application
-h2 步骤!{step++}： 编译并运行应用程序
+h2 步骤6： 编译并运行应用程序
 block run-app
   :marked
     Open a terminal window and enter this command:
@@ -487,7 +505,7 @@ block build-app
 
 .l-main-section#make-changes
 h2 Step !{step++}: Make some live changes
-h2 步骤!{step++}：做一些即时修改
+h2 步骤7：做一些即时修改
 :marked
   Try changing the message in <span ngio-ex>app/app.component.ts</span> to "Hello Again Angular!".
 
@@ -526,10 +544,12 @@ block project-file-structure
       .file styles.css
       .file systemjs.config.js
       .file tsconfig.json
-:marked
-  To see the file contents, open the <live-example></live-example>.
 
-  要查看文件的内容，请打开<live-example>在线例子</live-example>。
+block project-files
+  :marked
+    To see the file contents, open the <live-example></live-example>.
+
+    要查看文件的内容，请打开<live-example>在线例子</live-example>。
 
 .l-main-section
 :marked
