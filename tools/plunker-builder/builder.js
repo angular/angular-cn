@@ -37,21 +37,11 @@ class PlunkerBuilder {
   }
 
   _addPlunkerFiles(config, postData) {
-    this._addReadme(config, postData);
     if (config.basePath.indexOf('/ts') > -1) {
-      // uses systemjs.config.js so add plunker version
-      this.options.addField(postData, 'systemjs.config.js', this.systemjsConfig);
-    }
-  }
-
-  _addReadme(config, postData) {
-    var existingFiles = config.fileNames.map(function(file) {
-      return file.substr(file.lastIndexOf('/') + 1);
-    });
-
-    if (existingFiles.indexOf('README.md') === -1) {
-      var plunkerReadme = this.readme + config.description;
-      this.options.addField(postData, 'README.md', plunkerReadme);
+      if (config.includeSystemConfig) {
+        // uses systemjs.config.js so add plunker version
+        this.options.addField(postData, 'systemjs.config.js', this.systemjsConfig);
+      }
     }
   }
 
@@ -82,7 +72,7 @@ class PlunkerBuilder {
       var config = this._initConfigAndCollectFileNames(configFileName);
       var postData = this._createPostData(config);
       this._addPlunkerFiles(config, postData);
-      var html = this._createPlunkerHtml(postData);
+      var html = this._createPlunkerHtml(config, postData);
       if (this.options.writeNoLink) {
         fs.writeFileSync(outputFileName, html, 'utf-8');
       }
@@ -105,13 +95,19 @@ class PlunkerBuilder {
     }
   }
 
-  _createBasePlunkerHtml(embedded) {
-    var html = '<!DOCTYPE html><html lang="en"><body>'
-    html += `<form id="mainForm" method="post" action="${this.options.url}" target="_self">`
+  _createBasePlunkerHtml(config, embedded) {
+    var open = '';
+
+    if (config.open) {
+      open = embedded ? `&show=${config.open}` : `&open=${config.open}`;
+    }
+    var action = `${this.options.url}${open}`;
+    var html = '<!DOCTYPE html><html lang="en"><body>';
+    html += `<form id="mainForm" method="post" action="${action}" target="_self">`;
 
     // html += '<div class="button"><button id="formButton" type="submit">Create Plunker</button></div>'
     // html += '</form><script>document.getElementById("formButton").click();</script>'
-    html +=  '</form><script>document.getElementById("mainForm").submit();</script>'
+    html +=  '</form><script>document.getElementById("mainForm").submit();</script>';
     html += '</body></html>';
     return html;
   }
@@ -156,7 +152,7 @@ class PlunkerBuilder {
       this.options.addField(postData, relativeFileName, content);
     });
 
-    var tags = ['angular2', 'example'].concat(config.tags || []);
+    var tags = ['angular', 'example'].concat(config.tags || []);
     tags.forEach(function(tag,ix) {
       postData['tags[' + ix + ']'] = tag;
     });
@@ -176,8 +172,8 @@ class PlunkerBuilder {
     return postData;
   }
 
-  _createPlunkerHtml(postData) {
-    var baseHtml = this._createBasePlunkerHtml(this.options.embedded);
+  _createPlunkerHtml(config, postData) {
+    var baseHtml = this._createBasePlunkerHtml(config, this.options.embedded);
     var doc = jsdom.jsdom(baseHtml);
     var form = doc.querySelector('form');
     _.forEach(postData, (value, key) => {
@@ -207,8 +203,6 @@ class PlunkerBuilder {
   }
 
   _getPlunkerFiles() {
-    // Assume plunker version is sibling of node_modules version
-    this.readme = fs.readFileSync(this.basePath +  '/_boilerplate/plunker.README.md', 'utf-8');
     var systemJsConfigPath = '/_boilerplate/systemjs.config.web.js';
     if (this.options.build) {
       systemJsConfigPath = '/_boilerplate/systemjs.config.web.build.js';
@@ -254,7 +248,7 @@ class PlunkerBuilder {
     });
 
     var defaultExcludes = [
-      '!**/app/main.ts',
+      '!**/a2docs.css',
       '!**/tsconfig.json',
       '!**/*plnkr.*',
       '!**/package.json',
