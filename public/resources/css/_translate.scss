@@ -1,8 +1,42 @@
-.original-english {
-  border-top: 1px dashed $regal;
-  &.hidden {
-    display: none !important;
+.docs-content {
+  display: none;
+  .original-english {
+    border-top: 1px dashed $regal;
+
+    &.hidden {
+      display: none !important;
+    }
   }
+
+  h1.original-english {
+    margin-top: -($unit * 2);
+  }
+
+  h2.original-english {
+    margin-top: -($unit * 1);
+  }
+
+  h3.original-english {
+    margin-top: -($unit * 0);
+  }
+
+  h3.original-english {
+    margin-top: -($unit * 0);
+  }
+
+  p.original-english {
+    margin-top: -($unit * 3);
+  }
+
+  li {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.main-footer {
+  display: none;
 }
 
 td, th {
