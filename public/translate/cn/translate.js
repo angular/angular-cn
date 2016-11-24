@@ -29,7 +29,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
       // ignore example code.
       if (node.classList.contains('code-example') ||
         node.tagName === 'CODE-EXAMPLE' ||
-        node.tagName === 'SCRIPT') {
+        node.tagName === 'SCRIPT' || node.tagName === 'CODE') {
         continue;
       }
 
@@ -107,7 +107,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
   function isPureEnglish(text) {
     if(text){
-      return !/\p{Han}/.test(text);
+        text = text.replace('在线例子', '');
+        return /^[\1-\255—’“”ç®…à\u200B]*$/.test(text);
     }
     return false;
 
