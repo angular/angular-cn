@@ -101,7 +101,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
                         event.stopPropagation();
                         $current.toggleClass('hidden');
                     });
-                    addSpacingBetweenCnAndEn(sibling);
+                    // addSpacingBetweenCnAndEn(sibling);
                     return true;
                 }
             }
@@ -138,17 +138,17 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
             attributesToString(node1) === attributesToString(node2);
     }
 
-    function addSpacingBetweenCnAndEn(nodeCn) {
-        var text = nodeCn.innerHTML;
-        text = text.replace(/([\x20-\xff]+)/g, function (word) {
-            if (!word.replace(/\s/, '')) {
-                return '';
-            } else if (/<[^>]*>/.test(word)) {
-                return ' ' + word + ' ';
-            } else {
-                return ' ' + word + ' ';
-            }
-        });
-        nodeCn.innerHTML = text;
-    }
+    // function addSpacingBetweenCnAndEn(nodeCn) {
+    //     var text = nodeCn.innerHTML;
+    //     text = text.replace(/([\x20-\xff]+)/g, function (word) {
+    //         if (!word.replace(/\s/, '')) {
+    //             return '';
+    //         } else if (/<[^>]*>/.test(word)) {
+    //             return ' ' + word + ' ';
+    //         } else {
+    //             return ' ' + word + ' ';
+    //         }
+    //     });
+    //     nodeCn.innerHTML = text;
+    // }
 })(angular.element);
