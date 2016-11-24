@@ -54,16 +54,11 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           processContainer(node);
           break;
         default:
-          if (node.innerText === 'Back to top') {
-            var x = 0;
-          }
-
           if (processContainer(node) <= 1) {
             if (processBlock(node)) {
               i++;
+              count++;
             }
-          } else {
-            count++;
           }
           break;
       }
