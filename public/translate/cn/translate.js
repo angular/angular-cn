@@ -40,9 +40,15 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         case 'H5':
         case 'H6':
         case 'HEADER':
-        case 'LI':
           if (processBlock(node)) {
             i++;
+          }
+          break;
+        case 'LI':
+          if($(node).find('p').length <= 1){
+            if (processBlock(node)) {
+              i++;
+            }
           }
           break;
         case 'TD':
@@ -54,11 +60,11 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           if (node.children.length > 0) {
             processContainer(node);
             // For <li><p>...</p></li>, processes it as block.
-            if (node.children.length === 1) {
-              if (processBlock(node)) {
-                i++;
-              }
-            }
+            // if (node.children.length === 1) {
+            //   if (processBlock(node)) {
+            //     i++;
+            //   }
+            // }
           }
           break;
       }
@@ -107,7 +113,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
   function attributesToString(node) {
     return _.chain(node.attributes)
       .map(function (value) {
-        if (value.name === 'id' || value.name === 'class') {
+        if (value.name === 'id') {
           return '';
         } else {
           return value.name + '=' + value.value;
