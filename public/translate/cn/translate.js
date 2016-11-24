@@ -3,6 +3,9 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 (function ($) {
     var content = document.querySelector('article');
     var footer = document.querySelector('.main-footer');
+    if(!content || !footer){
+        return;
+    }
     processContainer(content);
     processContainer(footer);
 
@@ -22,6 +25,9 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
      * @param container
      */
     function processContainer(container) {
+        if (!container) {
+            return;
+        }
         var count = 0;
         for (var i = 0; i < container.children.length; i++) {
             var node = container.children[i];
@@ -98,8 +104,6 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
                     addSpacingBetweenCnAndEn(sibling);
                     return true;
                 }
-
-                console.error('Error: ' + current.innerText);
             }
         }
 
@@ -130,7 +134,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     }
 
     function isClonedNode(node1, node2) {
-        return node1.tagName === node2.tagName &&
+        return node1.tagName === node2.tagName && node1.tagName !== 'TR' &&
             attributesToString(node1) === attributesToString(node2);
     }
 
