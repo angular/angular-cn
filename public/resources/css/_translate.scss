@@ -28,8 +28,24 @@
     margin-top: -($unit * 3);
   }
 
+  .card {
+    height: auto;
+    min-height: 194px;
+    h2.original-english {
+      margin-top: $unit;
+      padding-top: $unit;
+    }
+    p.original-english {
+      margin-top: 0;
+    }
+  }
+
   li {
     p {
+      margin: 0;
+    }
+
+    ul {
       margin: 0;
     }
   }
