@@ -79,12 +79,9 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     var $sibling = $(sibling);
 
     if (sibling) {
-      if (sibling.tagName === 'LI') {
-        processContainer(sibling);
-      }
-
       if (isClonedNode(current, sibling)) {
         if (isPureEnglish(current.textContent)) {
+          processContainer(sibling);
           $current.addClass('original-english');
           $sibling.addClass('translated');
           $sibling.addClass('translated-cn');
