@@ -80,6 +80,10 @@ td, th {
   h2 {
     border-bottom: 1px solid $silver;
   }
+  p {
+    margin: 0 0 24px 0;
+    line-height: 28px;
+  }
 }
 
 body, .main-nav .main-nav-button,.translated-cn code {

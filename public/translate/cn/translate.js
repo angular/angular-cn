@@ -28,7 +28,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
       // ignore example code.
       if (node.classList.contains('code-example') ||
-        node.tagName === 'CODE-EXAMPLE') {
+        node.tagName === 'CODE-EXAMPLE' ||
+        node.tagName === 'SCRIPT') {
         continue;
       }
 
@@ -51,6 +52,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         case 'TH':
         case 'UL':
         case 'OL':
+        case 'DIV':
           processContainer(node);
           break;
         default:
