@@ -76,6 +76,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
      */
     function processBlock(current) {
         var sibling = current.nextElementSibling;
+
         var $current = $(current);
         var $sibling = $(sibling);
 
@@ -88,13 +89,13 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
                     $current.addClass('original-english');
                     $sibling.addClass('translated');
                     $sibling.addClass('translated-cn');
-                    addSpacingBetweenCnAndEn(sibling);
                     $sibling.after($current);
                     $sibling.on('click', function (event) {
                         // for nested structure.
                         event.stopPropagation();
                         $current.toggleClass('hidden');
                     });
+                    addSpacingBetweenCnAndEn(sibling);
                     return true;
                 }
 
@@ -134,11 +135,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     }
 
     function addSpacingBetweenCnAndEn(nodeCn) {
-        if (nodeCn.children) {
-            return;
-        }
-        var text = nodeCn.textContent;
-        console.log(text);
+        var text = nodeCn.innerHTML;
         text = text.replace(/([\x20-\xff]+)/g, function (word) {
             if (!word.replace(/\s/, '')) {
                 return '';
@@ -148,6 +145,6 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
                 return ' ' + word + ' ';
             }
         });
-        nodeCn.textContent = text;
+        nodeCn.innerHTML = text;
     }
 })(angular.element);
