@@ -57,21 +57,13 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           if (node.innerText === 'Back to top') {
             var x = 0;
           }
-          if (node.children.length > 0) {
-            // For <li><p>...</p></li>, processes it as block.
-            if (processContainer(node) <= 1) {
-              if (processBlock(node)) {
-                i++;
-              }
-            } else {
-              count++;
+
+          if (processContainer(node) <= 1) {
+            if (processBlock(node)) {
+              i++;
             }
           } else {
-            if (node.tagName === 'A' && node.classList.contains('to-top')) {
-              if (processBlock(node)) {
-                i++;
-              }
-            }
+            count++;
           }
           break;
       }
@@ -93,7 +85,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
 
     if (sibling) {
       if (sibling.tagName === 'LI') {
-        processBlock(sibling);
+        processContainer(sibling);
       }
 
       if (isClonedNode(current, sibling)) {
