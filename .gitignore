@@ -28,7 +28,7 @@ plnkr.html
 *.eplnkr.html
 eplnkr.html
 *plnkr.no-link.html
-public/docs/*/latest/guide/cheatsheet.json
+#public/docs/*/latest/guide/cheatsheet.json
 protractor-results.txt
 link-checker-results.txt
 *a2docs.css
