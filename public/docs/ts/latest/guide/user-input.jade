@@ -27,7 +27,7 @@ include ../_util-fns
   As an example, here's an event binding that implements a click handler:
   
   语法非常简单。我们只要把DOM事件的名字包裹在圆括号中，然后用一个放在引号中的“模板语句”对它赋值就可以了。
-  下面的例子中，用事件绑定实现一个点击事件处理器：
+  下面的例子中，用事件绑定实现点击事件处理器：
 +makeExample('user-input/ts/app/click-me.component.ts', 'click-me-button')(format=".", language="html")
 
 <a id="click"></a>
@@ -38,7 +38,7 @@ include ../_util-fns
   of JavaScript with restrictions and a few added tricks.
   
   等号左边的`(click)`表示把该按钮的点击事件作为**绑定目标**。
-  等号右边引号中的文本是一个**模板语句**，在这里我们通过调用组件的`onClickMe`方法来响应这个点击事件。
+  等号右边引号中的文本是**模板语句**，在这里我们通过调用组件的`onClickMe`方法来响应这个点击事件。
   [模板语句](./template-syntax.html#template-statements)是JavaScript的一个受限子集，但它也添加了少量“小花招”。
 
   When writing a binding we must be aware of a template statement's **execution context**.
@@ -47,7 +47,7 @@ include ../_util-fns
   in this case because that snippet of HTML belongs to the following component:
   
   写绑定时，我们必须知道模板语句的**执行上下文**。
-  出现在模板语句中的每个标识符都属于一个特定的上下文对象。
+  出现在模板语句中的每个标识符都属于特定的上下文对象。
   这个对象通常都是控制此模板的Angular组件，在本例中它很明确，因为这段HTML片段属于下面这个组件：
 
 +makeExample('user-input/ts/app/click-me.component.ts', 'click-me-component', 'app/click-me.component.ts')(format=".")
