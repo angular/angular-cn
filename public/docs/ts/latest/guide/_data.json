@@ -42,6 +42,15 @@
     "basics": true
   },
 
+
+  "appmodule": {
+    "title": "AppModule: the root module",
+    "navTitle": "The Root Module",
+    "intro": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\".",
+    "nextable": true,
+    "basics": true
+  },
+
   "displaying-data": {
     "title": "显示数据",
     "intro": "属性绑定机制把数据显示到UI上。",
@@ -161,6 +170,11 @@
   "security": {
     "title": "安全",
     "intro": "开发“内容安全”的Angular应用。"
+  },
+
+  "setup-systemjs-anatomy": {
+    "title": "Setup Anatomy",
+    "intro": "Inside the local development environment for SystemJS"
   },
 
   "setup-systemjs-anatomy": {
