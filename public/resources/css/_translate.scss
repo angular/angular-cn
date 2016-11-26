@@ -11,14 +11,6 @@
     }
   }
 
-  api-list .docs-content{
-    display: block;
-  }
-
-  api-list + .main-footer{
-    display: block;
-  }
-
   h1.original-english {
     margin-top: -($unit * 2);
   }
@@ -69,6 +61,14 @@
   display: none;
 }
 
+api-list .docs-content{
+  display: block;
+}
+
+api-list + .main-footer{
+  display:block;
+}
+
 td, th {
   > p:last-child {
     margin-bottom: 0;
@@ -100,7 +100,7 @@ td, th {
   }
 }
 
-body, .main-nav .main-nav-button,.translated-cn code {
+body, .main-nav .main-nav-button, .translated-cn code {
   font-family: "Helvetica Neue", Arial, STHeiti, "Microsoft YaHei", sans-serif, Helvetica, "DroidSansFallback", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3" !important;
 }
 
