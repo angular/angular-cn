@@ -243,7 +243,6 @@ a#HeroListComponent
   ### The *HeroListComponent* class
 
   ### *HeroListComponent*类
-
   Here's the component class:
 
   下面是这个组件类：
@@ -371,7 +370,6 @@ a#HeroService
     ## RxJS library
 
     ## RxJS库
-
     [RxJS](https://github.com/ReactiveX/RxJS) ("Reactive Extensions") is a 3rd party library, endorsed by Angular,
     that implements the [*asynchronous observable*](https://www.youtube.com/watch?v=UHI0AzD_WfY "Rob Wormald on observables") pattern.
 
@@ -1144,7 +1142,8 @@ a#in-mem-web-api
 
   如果我们只关心获取到的数据，我们可以告诉Angular从一个`heroes.json`文件中获取英雄列表，就像这样：
 
-+makeJson('server-communication/ts/app/heroes.json', null, 'app/heroes.json')(format=".")
+- var _heroesJsonPath = (_docsFor == 'dart' ? 'web' : 'app') + '/heroes.json';
++makeJson('server-communication/' + _docsFor + '/' + _heroesJsonPath, null, _heroesJsonPath)(format=".")
 .l-sub-section
   :marked
     You wrap the heroes array in an object with a `data` property for the same reason that a data server does:

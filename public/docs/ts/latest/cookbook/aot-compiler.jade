@@ -56,7 +56,7 @@ a#overview
   这是本文档中展示过的标准开发方式。
   它很不错，但是有自己的缺点。
 
-  JiT compilation incurs a runtime performance penalty. 
+  JiT compilation incurs a runtime performance penalty.
   Views take longer to render because of the in-browser compilation step. 
   The application is bigger because it includes the Angular compiler 
   and a lot of library code that the application won't actually need.
@@ -98,7 +98,7 @@ a#aot-jit
 
   **渲染得更快**
 
-  With AoT, the browser downloads a pre-compiled version of the application. 
+  With AoT, the browser downloads a pre-compiled version of the application.
   The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
 
   使用AoT，浏览器下载预编译版本的应用程序。
@@ -118,7 +118,7 @@ a#aot-jit
 
   **需要下载的Angular框架体积更小**
 
-  There's no need to download the Angular compiler if the app is already compiled. 
+  There's no need to download the Angular compiler if the app is already compiled.
   The compiler is roughly half of Angular itself, so omitting it dramatically reduces the application payload.
 
   如果应用已经编译过了，自然不需要再下载Angular编译器了。
@@ -155,10 +155,10 @@ a#compile
 
   ### 为离线编译做准备
 
-  Take the <a href='/docs/ts/latest/quickstart.html'>QuickStart</a> as a starting point.
+  Take the <a href='../guide/setup.html'>Setup</a> as a starting point.
   A few minor changes to the lone `app.component` lead to these two class and html files:
 
-  本烹饪书以<a href='/docs/ts/latest/quickstart.html'>“快速起步”</a>作为起始点。
+  本烹饪书以<a href='../guide/setup.html'>搭建</a>作为起始点。
   只要单独对`app.component`文件的类文件和html文件做少量修改就可以了。
 
 +makeTabs(
@@ -182,7 +182,7 @@ code-example(format='.').
 
   你要用`@angular/compiler-cli`包中提供的`ngc`编译器来代替TypeScript编译器（`tsc`）。
 
-  `ngc` is a drop-in replacement for `tsc` and is configured much the same way.  
+  `ngc` is a drop-in replacement for `tsc` and is configured much the same way.
 
   `ngc`是一个`tsc`的高仿替代品，它们的配置方式几乎完全一样。
 
@@ -202,14 +202,14 @@ code-example(format='.').
   `compilerOptions`部分只修改了一个属性：**把`module`设置为`es2015`。
   这一点非常重要，我们会在后面的[摇树优化](#tree-shaking)部分解释为什么。
 
-  What's really new is the `ngc` section at the bottom called `angularCompilerOptions`. 
+  What's really new is the `ngc` section at the bottom called `angularCompilerOptions`.
   Its `"genDir"` property tells the compiler 
   to store the compiled output files in a new `aot` folder.
 
   `ngc`区真正新增的内容是底部的`angularCompilerOptions`。
   它的`"genDir"`属性告诉编译器把编译结果保存在新的`aot`目录下。
 
-  The `"skipMetadataEmit" : true` property prevents the compiler from generating metadata files with the compiled application. 
+  The `"skipMetadataEmit" : true` property prevents the compiler from generating metadata files with the compiled application.
   Metadata files are not necessary when targeting TypeScript files, so there is no reason to include them.
 
   `"skipMetadataEmit" : true`属性阻止编译器为编译后的应用生成元数据文件。
@@ -237,11 +237,11 @@ code-example(format='.').
 
   `ngc`希望`-p`选项指向一个`tsconfig.json`文件，或者一个包含`tsconfig.json`文件的目录。
 
-  After `ngc` completes, look for a collection of _NgFactory_ files in the `aot` folder (the folder specified as `genDir` in `tsconfig-aot.json`). 
+  After `ngc` completes, look for a collection of _NgFactory_ files in the `aot` folder (the folder specified as `genDir` in `tsconfig-aot.json`).
 
   在`ngc`完成时，会在`aot`目录下看到一组*NgFactory*文件（该目录是在`tsconfig-aot.json`的`genDir`属性中指定的）。
 
-  These factory files are essential to the compiled application. 
+  These factory files are essential to the compiled application.
   Each component factory creates an instance of the component at runtime by combining the original class file
   and a JavaScript representation of the component's template.
   Note that the original component class is still referenced internally by the generated factory.
@@ -284,7 +284,7 @@ a#bootstrap
 
   引导的方式从引导`AppModule`改成了引导生成的模块工厂：`AppModuleNgFactory`。
 
-  Switch from the `platformBrowserDynamic.bootstrap` used in JiT compilation to  
+  Switch from the `platformBrowserDynamic.bootstrap` used in JiT compilation to
   `platformBrowser().bootstrapModuleFactory` and pass in the `AppModuleNgFactory`.    
 
   从使用JiT编译时的`platformBrowserDynamic.bootstrap`换成了`platformBrowser().bootstrapModuleFactory`，并把`AppModuleNgFactory`传进去。
@@ -318,7 +318,7 @@ a#tree-shaking
   AoT编译为接下来通过一个叫做*摇树优化*的过程做好了准备。
   摇树优化器从上到下遍历依赖图谱，并且*摇掉*用不到的代码，这些代码就像是圣诞树中那些死掉的松针一样。
 
-  Tree Shaking can greatly reduce the downloaded size of the application 
+  Tree Shaking can greatly reduce the downloaded size of the application
   by removing unused portions of both source and library code. 
   In fact, most of the reduction in small apps comes from removing unreferenced Angular features. 
 
@@ -330,7 +330,7 @@ a#tree-shaking
 
   例如，这个演示程序中没有用到`@angular/forms`库中的任何东西，那么也就没有理由去下载这些与表单有关的Angular代码了。摇树优化可以帮你确保这一点。
 
-  Tree Shaking and AoT compilation are separate steps. 
+  Tree Shaking and AoT compilation are separate steps.
   Tree Shaking can only target JavaScript code. 
   AoT compilation converts more of the application to JavaScript, 
   which in turn makes more of the application "Tree Shakable".
@@ -414,14 +414,14 @@ code-example(format='.').
 
   可观察对象库*RxJS*是Angular所依赖的基础之一，它就是发布成了ES5 JavaScript的*CommonJS*模块。
 
-  Luckily there is a Rollup plugin that modifies _RxJs_ 
+  Luckily there is a Rollup plugin that modifies _RxJs_
   to use the ES `import` and `export` statements that Rollup requires.
   Rollup then preserves in the final bundle the parts of `RxJS` referenced by the application.
 
   幸运的是，有一个Rollup插件，它会修改*RxJS*，以使用Rollup所需的ES`import`和`export`语句。
   然后Rollup就可以把该应用中用到的那部分`RxJS`代码留在“捆”文件中了。
 
-+makeExample('cb-aot-compiler/ts/rollup-config.js','commonjs','rollup-config.js (CommonJs to ES2015 Plugin)')(format='.')     
++makeExample('cb-aot-compiler/ts/rollup-config.js','commonjs','rollup-config.js (CommonJs to ES2015 Plugin)')(format='.')
 
 :marked
   *Minification* 
@@ -475,7 +475,7 @@ a#load
 
   ## 加载捆文件
 
-  Loading the generated application bundle does not require a module loader like SystemJS. 
+  Loading the generated application bundle does not require a module loader like SystemJS.
   Remove the scripts that concern SystemJS.
   Instead, load the bundle file using a single `script` tag:
 
@@ -483,7 +483,7 @@ a#load
   移除与SystemJS有关的那些脚本吧。
   改用`script`标签来加载这些捆文件：
 
-+makeExample('cb-aot-compiler/ts/index.html','bundle','index.html (load bundle)')(format='.') 
++makeExample('cb-aot-compiler/ts/index.html','bundle','index.html (load bundle)')(format='.')
 
 a#serve
 .l-main-section
@@ -538,7 +538,7 @@ a#toh
 
   ## 英雄指南
 
-  The sample above is a trivial variation of the QuickStart app. 
+  The sample above is a trivial variation of the QuickStart app.
   In this section you apply what you've learned about AoT compilation and Tree Shaking 
   to an app with more substance, the tutorial [_Tour of Heroes_](../tutorial/toh-pt6.html).
 
@@ -591,19 +591,13 @@ a#toh
   The AoT version loads the entire application in a single script, `aot/dist/build.js`.
   It does not need `SystemJS` or the `reflect-metadata` shim; those scripts are absent from its `index.html`
 
-  AoT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
-
-  ***main.ts***
-
   ***main.ts***
 
   JiT and AoT applications boot in much the same way but require different Angular libraries to do so.
   The key differences, covered in the [Bootstrap](#bootstrap) section above,
   are evident in these `main` files which can and should reside in the same folder:
 
-  JiT和AoT应用启动非常相似，但需要加载不同的Angular库来实现。
-  主要的差异，见上面的[启动](#bootstrap)一节，
-  可以在那些`main`文件中明显看出区别，它们可以也应该位于同一目录。
+  AoT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
 
 +makeTabs(
   `toh-6/ts/app/main-aot.ts,
@@ -616,14 +610,12 @@ a#toh
 :marked
   ***Component-relative Template URLS***
 
-  ***相对组件的模板路径***
-
   The AoT compiler requires that `@Component` URLS for external templates and css files be _component-relative_.
   That means that the value of `@Component.templateUrl` is a URL value _relative_ to the component class file.
   For example, a `'hero.component.html'` URL means that the template file is a sibling of its companion `hero.component.ts` file.
 
   AoT编译器要求`@Component`外部模板和CSS文件的路径是相对组件的。
-  意思是，`@Component.templateUrl`的值是一个相对组件类文件`foo.component.html`的路径，不管`foo.component.ts`在项目的哪个目录。
+  意思是，`@Component.templateUrl`的值是*相对*组件类文件的路径，比如`'hero.component.html'`路径的意思是模板文件在`hero.component.ts`文件的隔壁。
 
   While JiT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AoT compilation.
 
@@ -769,7 +761,7 @@ code-example(format='.').
 
   ### 检查包裹
 
-  It's fascinating to see what the generated JavaScript bundle looks like after Rollup. 
+  It's fascinating to see what the generated JavaScript bundle looks like after Rollup.
   The code is minified, so you won't learn much from inspecting the bundle directly.
   But the <a href="https://github.com/danvk/source-map-explorer/blob/master/README.md" target="_blank">source-map-explorer</a> 
   tool can be quite revealing. 

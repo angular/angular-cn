@@ -382,15 +382,14 @@ table(width="100%")
 
   有两种快速方法立刻开始。
 
-  1. Start a new project following the instructions in the
-  [QuickStart github repository](https://github.com/angular/quickstart/blob/master/README.md).
+  1. Start a new project following the instructions in [Setup](setup.html).
 
-  1. 根据[快速起步的github库](https://github.com/angular/quickstart/blob/master/README.md)中的说明创建新的项目.
+     根据[搭建](setup.html)中的说明创建新的项目。
 
   1. Start a new project with the
   [Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md).
 
-  1. 使用[Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md)创建新的项目。
+     使用[Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md)创建新的项目。
 
   Both approaches install **npm packages, files, and scripts** pre-configured for applications
   built in their respective modalities. 
@@ -399,16 +398,16 @@ table(width="100%")
 
   以上两种方法都安装在各自的模式下为应用预先配置的**npm包、文件和脚本**。它们的文件和规程有一点不同，但是它们的核心部分是一样的，并且在测试代码方面没有任何区别。
 
-  In this chapter, the application and its tests are based on the QuickStart repo.
+  In this chapter, the application and its tests are based on the documentation setup.
 
-  在本章中，应用及其测试程序是基于《快速起步》库的。
+  在本章中，应用及其测试程序是基于[搭建](setup.html)的。
+
 .alert.is-helpful
   :marked
-    If your application was based on the QuickStart repository,
+    If your application was based on the [Setup](setup.html) instructions,
     you can skip the rest of this section and get on with your first test.
-    The QuickStart repo provides all necessary setup.
 
-    如果你的应用是基于《快速起步》库的，可以跳过本小节下面的内容，直接开始第一个测试。
+    如果你的应用是基于[搭建](setup.html)章所述的，可以跳过本小节下面的内容，直接开始第一个测试。
     《快速起步》库一同了所有必须的配置。
 
 #setup-files
@@ -463,11 +462,11 @@ table(width="100%")
         [SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md) 
         loads the application and test files.
         This script tells SystemJS where to find those files and how to load them.
-        It's the same version of `systemjs.config.js` used by QuickStart-based applications.
+        It's the same version of `systemjs.config.js` used by Setup-based applications.
 
         [SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md)
         加载应用和测试文件。本脚本告诉SystemJS去哪儿寻找这些文件，以及如何加载它们。
-        `systemjs.config.js`的版本和基于《快速起步》的应用使用的一样。
+        `systemjs.config.js`的版本和基于[搭建](setup.html)的应用使用的一样。
   tr
     td(style="vertical-align: top") <code>systemjs.config.extras.js</code>
     td
@@ -542,7 +541,6 @@ table(width="100%")
   ### Run karma
 
   ### 运行Karma
-
   Compile and run it in karma from the command line with this command:
 
   使用下面的命令从命令行中编译并在`Karma`中运行上面的测试程序。
@@ -558,7 +556,7 @@ code-example(format="." language="bash").
 
 .l-sub-section
   :marked
-    The QuickStart development path defined the `test` command in the `scripts` section of npm's `package.json`.
+    The documentation setup defines the `test` command in the `scripts` section of npm's `package.json`.
     The Angular CLI has different commands to do the same thing. Adjust accordingly.
 
     《快速开始》在npm的`package.json`中的`scripts`里定义了`test`命令。
@@ -632,7 +630,6 @@ code-example(format="." language="bash").
   ### Test debugging
 
   ### 调试测试程序
-
   Debug specs in the browser in the same way you debug an application.
 
   在浏览器中，像调试应用一样调试测试程序spec。
@@ -1044,7 +1041,6 @@ a(href="#top").to-top 回到顶部
   ## Test a component with a dependency
 
   ## 测试有依赖的组件
-
   Components often have service dependencies.
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
@@ -1101,7 +1097,6 @@ a(href="#top").to-top 回到顶部
   ### Get injected services
 
   ### 获取注入的服务
-
   The tests need access to the (stub) `UserService` injected into the `WelcomeComponent`.
 
   测试程序需要访问被注入到`WelcomeComponent`中的`UserService`（stub类）。
@@ -1218,7 +1213,6 @@ a(href="#top").to-top 回到顶部
   ## Test a component with an async service
 
   ## 测试有异步服务的组件
-
   Many services return values asynchronously. 
   Most data services make an HTTP request to a remote server and the response is necessarily asynchronous.
 
@@ -1495,7 +1489,6 @@ a(href="#top").to-top 回到顶部
   ## Test a component with an external template
 
   ## 测试有外部模板的组件
-
   The `TestBed.createComponent` is a synchronous method. 
   It assumes that everything it could need is already in memory.
 
@@ -1587,7 +1580,7 @@ a(href="#top").to-top 回到顶部
   nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
   调用`compileComponents`关闭当前的`TestBed`实例，使它不能再被配置。
-  你不能再调用任何`TestBed`配置方法、`configureTestModule`或者任何`override...`方法，否则`TestBed`将会抛出错误。
+  你不能再调用任何`TestBed`配置方法、`configureTestingModule`或者任何`override...`方法，否则`TestBed`将会抛出错误。
 
 .alert.is-important
   :marked
@@ -1611,7 +1604,6 @@ a(href="#top").to-top 回到顶部
   ## Test a component with inputs and outputs
 
   ## 测试带有导入inputs和导出outputs的组件
-
   A component with inputs and outputs typically appears inside the view template of a host component.
   The host uses a property binding to set the input property and uses an event binding to
   listen to events raised by the output property.
@@ -2031,7 +2023,6 @@ a(href="#top").to-top 回到顶部
   ## Test a routed component with parameters
 
   ## 测试带有路由和路由参数的组件
-
   Clicking a _Dashboard_ hero triggers navigation to `heroes/:id` where `:id`
   is a route parameter whose value is the `id` of the hero to edit. 
   That URL matches a route to the `HeroDetailComponent`.
@@ -2267,7 +2258,6 @@ a(href="#top").to-top 回到顶部
   ## Setup with module imports
 
   ## 模块导入imports的配置
-
   Earlier component tests configured the testing module with a few `declarations` like this:
 
   此前的组件测试程序使用了一些`declarations`来配置模块，就像这样：
@@ -2909,7 +2899,6 @@ a(href="#top").to-top 回到顶部
   ### Services
 
   ### 服务
-
   Services are good candidates for isolated unit testing. 
   Here are some synchronous and asynchronous unit tests of the `FancyService` 
   written without assistance from Angular testing utilities.
@@ -3000,7 +2989,6 @@ a(href="#top").to-top 回到顶部
   ### Pipes
 
   ### 管道
-
   Pipes are easy to test without the Angular testing utilities.
 
   管道很容易测试，无需Angular测试工具。
@@ -3031,7 +3019,6 @@ a(href="#top").to-top 回到顶部
   #### Write Angular tests too
 
   #### 同时也编写Angular测试
-
   These are tests of the pipe _in isolation_.
   They can't tell if the `TitleCasePipe` is working properly as applied in the application components.
 
@@ -3248,7 +3235,6 @@ table
   ## _TestBed_ Class Summary
 
   ## _TestBed_ 类总结
-
   The `TestBed` class is one of the principal Angular testing utilities. 
   Its API is quite large and can be overwhelming until you've explored it first
   a little at a time. Read the early part of this chapter first
@@ -3831,7 +3817,7 @@ table
 
   * `By.css(selector)` - 返回符合CSS选择器的元素。
 
-  * `By.directive(directive)` - return elements that Angular matched to an instance of the directive class. 
+  * `By.directive(directive)` - return elements that Angular matched to an instance of the directive class.
 
   * `By.directive(directive)` - 返回Angular能匹配一个指令类实例的所有元素。
 

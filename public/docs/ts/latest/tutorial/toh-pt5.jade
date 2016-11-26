@@ -878,9 +878,9 @@ block route-params
 +makeExcerpt('app/hero-detail.component.ts (constructor)', 'ctor')
 
 :marked
-  We'll also import the `switchMap` operator to use later with the route parameters `Observable`.
+  Also import the `switchMap` operator to use later with the route parameters `Observable`.
 
-  我们还将导入`switchMap`运算符，之后会与路由参数`Observable`一起使用。
+  然后导入`switchMap`运算符，之后会与路由参数`Observable`一起使用。
 
 +makeExcerpt('app/hero-detail.component.ts (switchMap import)', 'rxjs-import')
 
@@ -889,7 +889,7 @@ block route-params
 
   我们告诉这个类，我们要实现`OnInit`接口。
 
-+makeExcerpt('app/hero-detail.component.ts', 'implement', '')(format=".")
++makeExcerpt('app/hero-detail.component.ts', 'implement', '')
 
 block ngOnInit
   :marked
@@ -924,6 +924,7 @@ block extract-id
   英雄的`id`是数字，而路由参数的值*总是字符串*。
   所以我们需要通过JavaScript的(+)操作符把路由参数的值转成数字。
 
++ifDocsFor('ts')
 .l-sub-section
   :marked
     ### Do I need to unsubscribe?
@@ -1117,7 +1118,7 @@ block extract-id
     aligns with the name of the module that declares the components navigated to.
 
     按约定，**路由模块**的名字应该包含“Routing”，并与导航到的组件所在的模块的名称看齐。
-
+  
     Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it the following contents extracted from the `AppModule` class:
 
     在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
@@ -1151,9 +1152,9 @@ block extract-id
 
     ### Update _AppModule_
 
-    ### 更新_AppModule_
+    ### 更新
 
-    Now delete the routing configuration from `AppModule` and import the `AppRoutingModule`
+    _AppModule_Now delete the routing configuration from `AppModule` and import the `AppRoutingModule`
     (_both_ with an ES `import` statement _and_ by adding it to the `NgModule.imports` list).
 
     现在，删除`AppModule`中的路由配置，并导入`AppRoutingModule`（使用ES`import`语句导入**并**将它添加到`NgModule.imports`列表）。
@@ -1161,15 +1162,13 @@ block extract-id
     Here is the revised `AppModule`, compared to its pre-refactor state:
 
     下面是修改后的`AppModule`，与重构前的对比：
-  +makeTabs(
-    `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
-     null,
-    `app/app.module.ts (after), app/app.module.ts (before)`)
-  :marked
-    It's simpler and focused on indentifying the key pieces of the application.
 
-    它更简单，专注于确定应用的关键部分。
-
++makeTabs(
+  `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
+   null,
+  `app/app.module.ts (after), app/app.module.ts (before)`)
+:marked
+  It's simpler and focused on identifying the key pieces of the application.它更简单，专注于确定应用的关键部分。
 .l-main-section
 :marked
   ## Select a Hero in the *HeroesComponent*
@@ -1492,14 +1491,11 @@ block css-files
   我们也可以在所有组件之外创建*应用级*样式。
 
   Our designers provided some basic styles to apply to elements across the entire app.
-  These correspond to the full set of master styles that we
-  introduced earlier (see
-  [QuickStart, "Add some style"](../quickstart.html#add-some-style)).
+  These correspond to the full set of master styles that we installed earlier during [setup](../guide/setup.html).
   Here is an excerpt:
 
   我们的设计师提供了一组基础样式，这些样式应用到的元素横跨整个应用。
-  这些和我们前面引入的主样式全集是一样的(参见
-  [快速起步, "添加一些样式"](../quickstart.html#!#add-some-style))。
+  它们与我们之前在[搭建](../guide/setup.html)时安装的整套样式对应。
   下面是摘录：
 
 +makeExcerpt('styles.css (excerpt)', 'toh')

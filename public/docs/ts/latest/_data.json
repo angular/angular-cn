@@ -19,8 +19,7 @@
     "icon": "query-builder",
     "title": "快速起步",
     "subtitle": "TypeScript",
-    "description": "Angular快速起步",
-    "banner": "本“快速起步”指南将演示如何用TypeScript构建并运行简单的Angular应用。"
+    "banner": "快速体验 Angular"
   },
 
   "tutorial": {

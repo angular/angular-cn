@@ -2,7 +2,7 @@
   "index": {
     "title": "烹饪宝典",
     "navTitle": "概览",
-    "description": "一组常见Angular应用场景的“烹饪宝典”"
+    "intro": "一组常见Angular应用场景的“烹饪宝典”"
   },
 
   "aot-compiler": {
@@ -57,8 +57,8 @@
   },
 
   "ts-to-js": {
-    "title": "从TypeScript到JavaScript",
-    "intro": "把Angular的TypeScript范例转换为ES6和ES5 JavaScript"
+    "title": "从 TypeScript 到 JavaScript",
+    "intro": "把 Angular 的 TypeScript 范例转换为 ES6 和 ES5 JavaScript"
   },
 
   "visual-studio-2015": {

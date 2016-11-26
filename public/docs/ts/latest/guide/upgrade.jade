@@ -233,7 +233,7 @@ include ../_util-fns
 
   * 服务和控制器可以转成*类*。这样我们就能一步步接近Angular 2的服务和组件类了，这样等到我们开始升级时，也会更简单。
 
-  ### Using Component Directives
+  #### Using Component Directives
   ### 使用组件型指令
 
   In Angular 2, components are the main primitive from which user interfaces
@@ -654,8 +654,8 @@ figure.image-display
 
   In a hybrid application we run both versions of Angular at the same time.
   That means that we need at least one module each from both Angular 1 and Angular 2.
-  We will import `UpgradeModule` inside our Angular 2 module, and then use it for
-  bootstrapping our Angular 1 module. Let's see how.
+  We will import `UpgradeModule` inside our Angular 2 module , and then use it for
+  bootstrapping ourAngular 1 module . Let's see how.
 
   在混合式应用中，我们同时运行了两个版本的Angular。
   这意味着我们至少需要Angular 1和Angular 2各提供一个模块。
@@ -708,17 +708,16 @@ figure.image-display
 
 :marked
   Now introduce Angular 2 to the project. Inspired by instructions in
-  [the QuickStart](../quickstart.html), you can selectively copy in material from the
+  [the Setup](setup.html), you can selectively copy in material from the
   <a href="https://github.com/angular/quickstart" target="_blank">QuickStart github repository</a>.
 
-  现在，把Angular 2引入项目中。根据[“快速起步”](../quickstart.html)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
+  现在，把Angular 2引入项目中。根据[搭建](setup.html)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
 
   Next, create an `app.module.ts` file and add the following `NgModule` class:
 
   接下来，创建一个`app.module.ts`文件，并添加下列`NgModule`类：
 
 +makeExample('upgrade-module/ts/app/1-2-hybrid-bootstrap/app.module.ts', 'ngmodule')
-
 :marked
   This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app must have.
 
@@ -779,8 +778,7 @@ figure
 +makeExample('upgrade-module/ts/app/downgrade-static/app.module.ts', 'downgradecomponent')
 
 :marked
-  Because `HeroDetailComponent` is an Angular 2 component, we must also add it to the
-  `declarations` in the `AppModule`.
+  Because `HeroDetailComponent` is an Angular 2 component, we must also add it to the `declarations` in the `AppModule`.
 
   由于`HeroDetailComponent`是一个Angular 2组件，所以我们必须同时把它加入`AppModule`的`declarations`字段中。
 
@@ -829,7 +827,7 @@ figure
 
 :marked
   These inputs and outputs can be supplied from the Angular 1 template, and the
-  `downgradeComponent()` method takes care of bridging them over via the `inputs`
+  `downgradeComponent()` method takes care of bridging them overvia the `inputs`
   and `outputs` arrays:
 
   这些输入属性和输出属性的值来自于Angular 1的模板，而`downgradeComponent()`方法负责桥接它们：
@@ -919,8 +917,9 @@ figure
 
 :marked
   We can *upgrade* this component to Angular 2 using the `UpgradeComponent` class.
-  By creating a new Angular 2 **directive** that extends `UpgradeComponent` and doing a `super` call
-  inside it's constructor, we have a fully upgrade Angular 1 component to be used inside Angular 2.
+  By creating a new Angular 2 **
+  directive** that extends `UpgradeComponent` and doing a `super` call
+  inside it 's constructor, we have a fully upgrade Angular 1 component to be used inside  Angular 2 .
   All that is left is to add it to `AppModule`'s `declarations` array.
 
   我们可以使用`UpgradeComponent`方法来把这个组件*升级*到Angular 2。
@@ -1015,8 +1014,8 @@ table
 +makeExample('upgrade-module/ts/app/upgrade-io/hero-detail.component.ts', 'hero-detail-io', 'hero-detail.component.ts')
 
 :marked
-  We can upgrade this component to Angular 2, annotate inputs and outputs in the upgrade directive,
-  and then provide the input and output using Angular 2 template syntax:
+  We can upgrade this component to Angular 2, annotate inputs and outputs in the upgrade directive,and then provide the input
+  and output using Angular 2 template syntax:
 
   我们可以把这个组件升级到Angular 2，然后使用Angular 2的模板语法提供这个输入属性和输出属性：
 
@@ -1350,11 +1349,11 @@ code-example(format="").
 :marked
   We should also configure the TypeScript compiler so that it can understand our
   project. We'll add a `tsconfig.json` file to the project directory, just like we do
-  in the [Quickstart](../quickstart.html). It instructs the TypeScript compiler how
+  in the documentation [setup](setup.html). It instructs the TypeScript compiler how
   to interpret our source files.
 
   我们还应该配置TypeScript编译器，以便它能理解我们的项目结构。我们要往项目目录下添加一个`tsconfig.json`文件，
-  就像在[“快速起步”](../quickstart.html)中做过的那样。它将告诉TypeScript编译器，该如何编译我们的源文件。
+  就像在[搭建](setup.html)中做过的那样。它将告诉TypeScript编译器，该如何编译我们的源文件。
 
 +makeJson('upgrade-phonecat-1-typescript/ts/tsconfig.ng1.json', null, 'tsconfig.json')
 
@@ -1548,11 +1547,12 @@ code-example(format="").
     该项目还包含一些动画，在此指南的当前版本我们先不升级它，等到后面的发行版再改。
 
 :marked
-  Let's install Angular 2 into the project, along with the SystemJS module loader. Take a look into the
-  [Quickstart](../quickstart.html) guide and get the following configurations from there:
+  Let's install Angular 2 into the project, along with the SystemJS module loader.
+  Take a look at the results of the [Setup](setup.html) instructions
+  and get the following configurations from there:
 
   我们来使用SystemJS模块加载器把Angular 2安装到项目中。
-  看看[“快速起步”](../quickstart.html)中的指南，并从那里获得如下配置：
+  看看[搭建](setup.html)中的指南，并从那里获得如下配置：
 
   * Add Angular 2 and the other new dependencies to `package.json`
 
@@ -1607,11 +1607,12 @@ code-example(format="").
 +makeExample('upgrade-phonecat-2-hybrid/ts/index.html', 'ng2', 'index.html')
 
 :marked
-  In the `systemjs.config.js` file we got from the Quickstart we also need to make a couple
-  of adjustments because of our project structure. We want to point the browser to the project
+  We also need to make a couple of adjustments
+  to the `systemjs.config.js` file installed during [setup](setup.html).
+  We want to point the browser to the project
   root when loading things through SystemJS, instead of using the  `<base>` URL:
 
-  在我们从“快速起步”中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
+  在我们从[搭建](setup.html)中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
   在使用SystemJS而不是`<base>` URL加载时，我们需要把浏览器指向项目的根目录。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/systemjs.config.1.js', 'paths', 'systemjs.config.js')
@@ -1822,7 +1823,7 @@ code-example(format="").
   注意，我们单独导入了RxJS `Observable`中的`map`操作符。
   我们需要对想用的所有RxJS操作符这么做，因为Angular 2默认不会加载所有RxJS操作符。
 
-  The new `Phone` service has the same features as the original, `ngResource`-based service. 
+  The new `Phone` service has the same features as the original, `ngResource`-based service.
   Because it's an Angular 2 service, we register it with the `NgModule` providers:
 
   这个新的`Phone`服务具有和老的基于`ngResource`的服务相同的特性。
@@ -2243,7 +2244,7 @@ code-example(format="").
 
   这是在告诉Angular 2，它应该使用根组件`AppComponent`来引导该应用并且把它的视图插入宿主页面中。
 
-  Now switch the bootstrap method of the application from the `UpgradeAdapter` 
+  Now switch the bootstrap method of the application from the `UpgradeAdapter`
   to the Angular 2 way. 
 
   现在，把该应用的引导方法从`UpgradeAdapter`的切换到Angular 2的方式。
