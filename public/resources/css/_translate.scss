@@ -43,9 +43,12 @@
     }
   }
 
-  li {
+  th, td, li {
     p {
       margin: 0;
+      &.original-english {
+        margin: 0;
+      }
     }
 
     ul {
