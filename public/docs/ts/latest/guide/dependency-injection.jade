@@ -159,7 +159,7 @@ block ctor-syntax
       We also leveraged TypeScript's constructor syntax for declaring
       parameters and properties simultaneously.
 
-      再次借助TypeScript的构造器语法来同时定义参数和属性。
+      再次借助 TypeScript 的构造器语法来同时定义参数和属性。
 
 :marked
   Now we create a car by passing the engine and tires to the constructor.
@@ -205,7 +205,7 @@ block ctor-syntax
   during each test:
 
   `Car`类非常容易测试，因为现在我们对它的依赖有了完全的控制权。
-  在每个测试期间，我们可以往构造函数中传入mock对象，做想让它们做的事：
+  在每个测试期间，我们可以往构造函数中传入 mock 对象，做想让它们做的事：
 
 - var stylePattern = { otl: /(new Car.*$)/gm };
 +makeExample('dependency-injection/ts/app/car/car-creations.ts', 'car-ctor-instantiation-with-mocks', '', stylePattern)(format=".")
@@ -415,7 +415,7 @@ block ctor-syntax
   that create the services our application requires.
   We'll explain what [providers](#providers) are later in this chapter.
 
-  我们必须通过注册**提供商 (provider)**来配置注入器，这些提供商为应用创建所需服务。
+  我们必须通过注册**提供商 (provider)** 来配置注入器，这些提供商为应用创建所需服务。
   在本章的稍后部分会解释什么是[提供商](#providers)。
 
   We can either register a provider within an [NgModule](ngmodule.html) or in application components
@@ -519,7 +519,7 @@ block ctor-syntax
     Angular injector to inject an instance of
     `HeroService` whenever it creates a new `HeroListComponent`.
 
-    构造函数参数类型、`@Component`装饰器和父级的`providers`信息合起来告诉Angular的注入器，
+    构造函数参数类型、`@Component`装饰器和父级的`providers`信息合起来告诉 Angular 的注入器，
     任何新建`HeroListComponent`的时候，注入一个`HeroService`的实例。
 
 #di-metadata
@@ -626,7 +626,7 @@ block ctor-syntax
 //- FIXME refer to Dart API when that page becomes available.
 - var injUrl = '../api/core/index/Injectable-decorator.html';
 h3#injectable Why @Injectable()?
-h3#injectable 为什么要用@Injectable()?
+h3#injectable 为什么要用 @Injectable()?
 :marked
   **<a href="#{injUrl}">@Injectable()</a>** marks a class as available to an
   injector for instantiation. Generally speaking, an injector will report an
@@ -661,7 +661,7 @@ block injectable-not-always-needed-in-ts
     ul(style="font-size:inherit")
       li
         p <b>Future proofing:</b> No need to remember <code>@Injectable()</code> when we add a dependency later.
-        p <b>面向未来:</b> 没有必要记得在后来添加依赖的时候添加<code>@Injectable()</code>。
+        p <b>面向未来:</b> 没有必要记得在后来添加依赖的时候添加 <code>@Injectable()</code>。
       li 
         p <b>Consistency:</b> All services follow the same rules, and we don't have to wonder why #{_a} #{_decorator} is missing.
         p <b>一致性:</b>所有的服务都遵循同样的规则，不需要考虑为什么某个地方少了一个。
@@ -681,7 +681,8 @@ block injectable-not-always-needed-in-ts
   identify a class as a target for instantiation by an injector.
 
   我们**可以**添加它。但是没有必要，因为`HerosComponent`已经有`@Component`装饰器了，
-  `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="#{injUrl}">Injectable</a> 的子类型。实际上，正是这些`Injectable`装饰器是把一个类标识为注入器实例化的目标。
+  `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="#{injUrl}">Injectable</a> 的子类型。
+  实际上，正是这些`Injectable`装饰器是把一个类标识为注入器实例化的目标。
 
 +ifDocsFor('ts')
   .l-sub-section
