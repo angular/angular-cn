@@ -9,8 +9,8 @@ block includes
   It's used so widely that almost everyone just calls it _DI_.
 
   **依赖注入**是重要的程序设计模式。
-  Angular 有自己的依赖注入框架，离开了它，几乎没法构建Angular应用。
-  它使用得非常广泛，以至于几乎每个人都会把它简称为_DI_。
+  Angular 有自己的依赖注入框架，离开了它，几乎没法构建 Angular 应用。
+  它使用得非常广泛，以至于几乎每个人都会把它简称为 _DI_。
 
   In this chapter we'll learn what DI is and why we want it.
   Then we'll learn [how to use it](#angular-di) in an Angular app.
@@ -135,14 +135,14 @@ block includes
   That's super easy. We change our `Car` constructor to a version with DI:
 
   <a id="ctor-injection"></a>
-  答案超级简单。把`Car`的构造函数改造成使用DI的版本：
+  答案超级简单。把`Car`的构造函数改造成使用 DI 的版本：
 
 +makeTabs(
   'dependency-injection/ts/app/car/car.ts, dependency-injection/ts/app/car/car-no-di.ts',
   'car-ctor, car-ctor',
   'app/car/car.ts (excerpt with DI), app/car/car.ts (excerpt without DI)')(format=".")
 
-  'app/car/car.ts (使用DI的代码节选), app/car/car.ts (不用DI的代码节选)')(format=".")
+  'app/car/car.ts (使用DI的代码节选), app/car/car.ts (不用 DI 的代码节选)')(format=".")
 
 :marked
   See what happened? We moved the definition of the dependencies to the constructor.
@@ -257,7 +257,7 @@ block ctor-syntax
   We register some classes with this injector, and it figures out how to create them.
 
   到了依赖注入框架一展身手的时候了！
-  想象框架中有一个叫做_注入器 (injector)_的东西。
+  想象框架中有一个叫做_注入器 (injector)_ 的东西。
   用这个注入器注册一些类，它会弄明白如何创建它们。
 
   When we need a `Car`, we simply ask the injector to get it for us and we're good to go.
@@ -386,7 +386,7 @@ block ctor-syntax
     This is important in general, but not to our current story.
 
     我们甚至没有假装这是一个真实的服务。
-    如果真的从远端服务器获取数据，这个API必须是异步的，可能得返回
+    如果真的从远端服务器获取数据，这个 API 必须是异步的，可能得返回
     [ES2015 承诺 (promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
     需要重新处理组件消费该服务的方式。通常这个很重要，但是目前的故事不需要。
 
@@ -420,7 +420,7 @@ block ctor-syntax
 
   We can either register a provider within an [NgModule](ngmodule.html) or in application components
 
-  或者在[NgModule](ngmodule.html)中注册提供商，或者在应用组件中。
+  或者在 [NgModule](ngmodule.html) 中注册提供商，或者在应用组件中。
 
   ### Registering providers in an NgModule
 
@@ -470,7 +470,8 @@ block ctor-syntax
   :marked
     Read also **Should I add app-wide providers to the root `AppModule` or the root `AppComponent`?** in the [NgModule FAQ](../cookbook/ngmodule-faq.html#root-component-or-module) chapter.
 
-    参见[NgModule FAQ](../cookbook/ngmodule-faq.html#root-component-or-module)一章的**我该把“全应用级”提供商加到根模块`AppModule`还是根组件`AppComponent`？**
+    参见 [NgModule FAQ](../cookbook/ngmodule-faq.html#root-component-or-module) 一章的
+    **我该把“全应用级”提供商加到根模块`AppModule`还是根组件`AppComponent`？**
 
 :marked
   ### Preparing the HeroListComponent for injection
@@ -990,7 +991,7 @@ block dart-diff-const-metadata-ctor
   [Non-class dependencies](#non-class-dependencies) and
   [OpaqueToken](#opaquetoken) sections.
 
-  查看更多`useValue`的例子，见[非类依赖](#non-class-dependencies)和[OpaqueToken](#opaquetoken)。
+  查看更多`useValue`的例子，见[非类依赖](#non-class-dependencies)和 [OpaqueToken](#opaquetoken)。
 
 #factory-provider
 :marked
@@ -1280,7 +1281,7 @@ block dart-map-alternative
   We can tell Angular that the dependency is optional by annotating the 
   constructor argument with `@Optional()`:
 
-  `HeroService`*需要*一个`Logger`，但是如果想不提供Logger也能得到它，该怎么办呢？
+  `HeroService`*需要*一个`Logger`，但是如果想不提供 Logger 也能得到它，该怎么办呢？
   可以把构造函数的参数标记为`@Optional()`，告诉 Angular 该依赖是可选的：
 
 +ifDocsFor('ts')
