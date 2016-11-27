@@ -4,7 +4,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
   var content = document.querySelector('article');
   var footer = document.querySelector('.main-footer');
 
-  processContainer(content);
+  processContainer(content, true);
   processContainer(footer);
 
   if (!sourceVisible) {
@@ -24,8 +24,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
    * Process container recursively.
    * @param container
    */
-  function processContainer(container) {
-    if (!container) {
+  function processContainer(container, isContent) {
+    if (!container || (isContent && isPureEnglish(container.textContent))) {
       return;
     }
     var count = 0;
@@ -58,7 +58,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         case 'UL':
         case 'OL':
         case 'DIV':
-          processContainer(node);
+          processContainer(node, ['TD','TH'].indexOf(node.tagName)!== -1);
           break;
         default:
           if (processContainer(node) <= 1) {
@@ -91,8 +91,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         if (isPureEnglish(current.textContent)) {
           if (sibling.children) {
             processContainer(sibling);
-          }
-          if(!isPureEnglish(sibling.textContent)){
+          }          
             $current.addClass('original-english');
             $sibling.addClass('translated');
             $sibling.addClass('translated-cn');
@@ -104,7 +103,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
             });
             // addSpacingBetweenCnAndEn(sibling);
             return true;
-          }
+          
           
         }
       }
