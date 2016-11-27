@@ -8,18 +8,18 @@
   },
 
   "setup": {
-    "title": "Setup for local development",
-    "navTitle": "Setup",
-    "intro": "Install the Angular QuickStart seed for faster, more efficient development on your machine",
+    "title": "构建本地开发环境",
+    "navTitle": "构建",
+    "intro": "安装 Angular 《快速开始》种子，更快更有效地在本地开发应用",
     "nextable": true,
     "hideNextPage": true,
     "basics": true
   },
 
   "learning-angular": {
-    "title": "Learning Angular",
-    "navTitle": "Learning Angular",
-    "intro": "A suggested path through the documentation for Angular newcomers",
+    "title": "学习 Angular",
+    "navTitle": "学习 Angular",
+    "intro": "Angular 初学者的推荐学习路径",
     "nextable": true,
     "hideNextPage": true,
     "basics": true
@@ -35,18 +35,9 @@
 
 
   "appmodule": {
-    "title": "AppModule: the root module",
-    "navTitle": "The Root Module",
-    "intro": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\".",
-    "nextable": true,
-    "basics": true
-  },
-
-
-  "appmodule": {
-    "title": "AppModule: the root module",
-    "navTitle": "The Root Module",
-    "intro": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\".",
+    "title": "AppModule: 根模块",
+    "navTitle": "根模块",
+    "intro": "如何在根\"AppModule\"中构建和启动应用。",
     "nextable": true,
     "basics": true
   },
@@ -173,13 +164,8 @@
   },
 
   "setup-systemjs-anatomy": {
-    "title": "Setup Anatomy",
-    "intro": "Inside the local development environment for SystemJS"
-  },
-
-  "setup-systemjs-anatomy": {
-    "title": "Setup Anatomy",
-    "intro": "Inside the local development environment for SystemJS"
+    "title": "构建剖析",
+    "intro": "解析 SystemJS 本地开发环境"
   },
 
   "structural-directives": {
