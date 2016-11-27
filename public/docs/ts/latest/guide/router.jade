@@ -823,8 +823,6 @@ a#import
 
   通过一些路由来配置路由器，我们可以教它如何进行导航。
 
-  通过一些路由来配置路由器，我们可以教它如何进行导航。
-
 a#route-config
 
 h4#define-routes Define routes
@@ -2159,7 +2157,7 @@ h3#merge-hero-routes 把hero模块导入到AppModule中
   now. This is important because there can be only **one** owner for a declared component. In our case, the `Heroes` module is
   the owner of the `Heroes` components and is making them available to the `AppModule`.
 
-  我们从`AppModule`的`declarations`中移除了`HeroListComponent`，因为它现在改有`HeroesModule`提供了。
+  我们从`AppModule`的`declarations`中移除了`HeroListComponent`，因为它现在改由`HeroesModule`提供了。
   这一步很重要，因为一个组件只能有**一个**所有者。现在这种情况下，`Heroes`模块应该是`Heroes`组件的所有者，并让它可用于`AppModule`中。
 
 .l-sub-section
