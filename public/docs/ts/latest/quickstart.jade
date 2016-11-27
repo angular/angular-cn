@@ -4,19 +4,31 @@ block includes
 
 :marked
   Angular applications are made of _components_.
+  
+  Angular应用是由*组件*组成的。
+  
     A _component_ is the combination of an HTML template and a component class that controls a portion of the screen. Here is an example of a component that displays a simple string:
+    
+    *组件*由HTML模板和组件类组成，组件类控制视图。下面是一个显示简单字符串的组件:
 
 +makeExample('app/app.component.ts')(format='.')
 
 :marked
   You can try this out without installing anything. Open the <live-example>QuickStart example !{_on_Plunkr}</live-example> in another tab
   and follow along.
+  
+  无需安装任何东西，你就可以试试它。在另一个浏览器标签页打开并跟随<live-example>Plunkr上的《快速开始》例子</live-example>。
 
   Every component begins with an `@Component` [!{_decorator}](glossary.html#!{_decorator} '"!{_decorator}" explained')
   <span if-docs="ts">function</span> that
   <span if-docs="ts">takes a _metadata_ object. The metadata object</span> describes how the HTML template and component class work together.
   
+  每个组件都以`@Component`[装饰器](glossary.html#!{_decorator} '"!{_decorator}" explained')<span if-docs="ts">函数</span>开始，它<span if-docs="ts">接受一个_元数据_对象参数。该元素对象</span>描述了HTML模板和组件类是如何一起工作的。
+  
   The `selector` property tells Angular to display the component inside a custom `<my-app>` tag in the `index.html`.
+  
+  `selector`属性告诉 Angular 在`index.html`中的自定义`<my-app>`标签里显示该组件。
+  
 +makeExample('index.html','my-app','index.html (inside <body>)')(format='.')
 :marked
   The `template` property defines a message inside an `<h1>` header.
@@ -24,22 +36,39 @@ block includes
   which is an Angular [interpolation binding](guide/displaying-data.html) expression.
   At runtime, Angular replaces `{{name}}` with the value of the component's `name` property. 
   
+  `template`属性定义了`<h1>`标题的一条消息。
+  该消息以“Hello”开始，以 Angular [插值绑定](guide/displaying-data.html)表达式`{{name}}`结束。
+  在运行时，Angular 用组件的`name`属性值替换`{{name}}`。
+  
   In the example, change the component class's `name` property from `'Angular'` to `'World'` and see what happens.
   
+  在本例中，将组件类的`name`属性从`'Angular'`改为`'World'`，看看会发生什么。
+  
   Interpolation binding is one of many Angular features you'll discover in this documentation.
+  
+  插值绑定是 Angular 的特征之一。你将在本文档中探索更多 Angular 的特征。
 
 +ifDocsFor('ts')
   .callout.is-helpful
     header A word about TypeScript
+    
+    header 关于 TypeScript
     p.
       This example is written in <a href="http://www.typescriptlang.org/" target="_blank" title="TypeScript">TypeScript</a>, a superset of JavaScript. Angular
       uses TypeScript because its types make it easy to support developer productivity with tooling. You can also write Angular code in JavaScript; <a href="cookbook/ts-to-js.html">this guide</a> explains how.
+      
+    p.
+      本例是用 JavaScript 的一个超集 <a href="http://www.typescriptlang.org/" target="_blank" title="TypeScript">TypeScript</a> 编写的。
+      Angular 使用 TypeScript 是因为它的类型可以帮助工具提高开发者效率。你也可以用 JavaScript 编写 Angular 代码，参见<a href="cookbook/ts-to-js.html">本指南</a>。
 
 .l-sub-section
     :marked
         ### Next step
+        
+        ### 下一步
 
         To learn how to write a real application, your next step is to set up a local development
         environment and begin exploring with code. The [**Developer Guide**](guide/index.html)
         shows you how.
-
+        
+        要学习如何编写应用，你的下一步是构建本地开发环境，并开始一边编程一边探索，参见[**开发者指南**](guide/index.html)。
