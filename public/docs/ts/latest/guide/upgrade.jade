@@ -711,7 +711,7 @@ figure.image-display
   [the Setup](setup.html), you can selectively copy in material from the
   <a href="https://github.com/angular/quickstart" target="_blank">QuickStart github repository</a>.
 
-  现在，把Angular 2引入项目中。根据[搭建](setup.html)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
+  现在，把Angular 2引入项目中。根据[搭建本地开发环境](setup.html)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
 
   Next, create an `app.module.ts` file and add the following `NgModule` class:
 
@@ -1353,7 +1353,7 @@ code-example(format="").
   to interpret our source files.
 
   我们还应该配置TypeScript编译器，以便它能理解我们的项目结构。我们要往项目目录下添加一个`tsconfig.json`文件，
-  就像在[搭建](setup.html)中做过的那样。它将告诉TypeScript编译器，该如何编译我们的源文件。
+  就像在[搭建本地开发环境](setup.html)中做过的那样。它将告诉TypeScript编译器，该如何编译我们的源文件。
 
 +makeJson('upgrade-phonecat-1-typescript/ts/tsconfig.ng1.json', null, 'tsconfig.json')
 
@@ -1552,7 +1552,7 @@ code-example(format="").
   and get the following configurations from there:
 
   我们来使用SystemJS模块加载器把Angular 2安装到项目中。
-  看看[搭建](setup.html)中的指南，并从那里获得如下配置：
+  看看[搭建本地开发环境](setup.html)中的指南，并从那里获得如下配置：
 
   * Add Angular 2 and the other new dependencies to `package.json`
 
@@ -1612,7 +1612,7 @@ code-example(format="").
   We want to point the browser to the project
   root when loading things through SystemJS, instead of using the  `<base>` URL:
 
-  在我们从[搭建](setup.html)中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
+  在我们从[搭建本地开发环境](setup.html)中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
   在使用SystemJS而不是`<base>` URL加载时，我们需要把浏览器指向项目的根目录。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/systemjs.config.1.js', 'paths', 'systemjs.config.js')

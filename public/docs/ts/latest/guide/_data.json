@@ -8,8 +8,8 @@
   },
 
   "setup": {
-    "title": "构建本地开发环境",
-    "navTitle": "构建",
+    "title": "搭建本地开发环境",
+    "navTitle": "开发环境",
     "intro": "安装 Angular 《快速开始》种子，更快更有效地在本地开发应用",
     "nextable": true,
     "hideNextPage": true,
