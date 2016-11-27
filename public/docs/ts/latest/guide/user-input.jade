@@ -123,6 +123,8 @@ figure.image-display
   :marked
     Alternatively, you could accumulate the individual keys themselves by substituting `event.key`
     for `event.target.value` in which case the same user input would produce:
+
+    另外，你可以通过用`event.key`来为`event.target.value`积累各个按键本身，这样同样的用户输入可以产生：
   code-example().
     a | b | c | backspace | backspace | backspace |
 
@@ -130,12 +132,20 @@ a#keyup1
 :marked
   ### Type the _$event_
 
+  ### *$event*的类型
+
   The example above casts the `$event` as an `any` type.
   That simplifies the code at a cost.
   There is no type information
   that could reveal properties of the event object and prevent silly mistakes.
 
+  上例将`$event`转换为`any`类型。
+  这样简化了代码，但是有成本。
+  没有任何类型信息来显示事件对象的属性并防止简单的错误。
+
   The following example rewrites the method with types:
+
+  下面的例子用`type`重写了该方法：
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class', 'app/keyup.components.ts (class v.1 - typed )')(format=".")
 
 :marked
@@ -143,14 +153,27 @@ a#keyup1
   Not all elements have a `value` property so it casts `target` to an input element.
   The `OnKey` method more clearly expresses what it expects from the template and how it interprets the event.
 
+  `$event`的类型现在是`KeyboardEvent`。
+  不是所有的元素都有`value`属性，所以它将`target`转换为输入元素。
+  `OnKey`方法更加清晰的显示了它从模板中期待什么，以及它是如何解析事件的。
+
   ### Passing _$event_ is a dubious practice
+
+  ### 传入*$event*是可疑的做法
+
   Typing the event object reveals a significant objection to passing the entire DOM event into the method:
   the component has too much awareness of the template details.
   It can't extract information without knowing more than it should about the HTML implementation.
   That breaks the separation of concerns between the template (_what the user sees_)
   and the component (_how the application processes user data_).
 
+  类型化事件对象揭露了重要的一点，即反对把整个DOM事件传到方法中。因为这样组件会知道太多模板的信息。
+  只有当它了解一些它本不需要了解的 HTML 实现细节时，它才能提取信息。
+  这就违反了模板（*用户看到的*）和组件（*应用如何处理用户数据*）之间的分离关注原则。
+
   The next section shows how to use template reference variables to address this problem.
+
+  下面将介绍如何用模板引用变量来处理这个问题。
 
 .l-main-section
 :marked
@@ -235,8 +258,15 @@ figure.image-display
   Sometimes only the _Enter_ key matters, because it signals that the user has finished typing.
   One way to reduce the noise would be to examine every `$event.keyCode` and take action only when the key is _Enter_.
 
+  `(keyup)`事件处理器监听*每一次按键*。
+  有时我们只在意*回车*键是否被敲过，因为这标志着用户结束了输入。
+  解决这个问题的一种方法是检查每个`$event.keyCode`，只有当*回车*键被敲入时才采取行动。
+
   There's an easier way: bind to Angular's `keyup.enter` pseudo-event.
   Then Angular calls the event handler only when the user presses _Enter_.
+
+  更简单的方法是：绑定到 Angular 的`keyup.enter` 模拟事件。
+  然后，只有当用户敲*回车*键时，Angular才会调用事件处理器。
 +makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-3' ,'app/keyup.components.ts (v3)')(format=".")
 
 :marked
@@ -301,14 +331,21 @@ figure.image-display
     The `newHero` template variable refers to the `<input>` element.
     You can reference `newHero` from any sibling or child of the `<input>` element.
 
+    * **使用模板变量来引用元素** —`newHero`模板变量引用了`<input>`元素。
+    你可以在`<input>`的任何兄弟或子级元素中使用`newHero`。
+
     * **Pass values, not elements** &mdash;
     Instead of passing the `newHero` into the component's `addHero` method,
     get the input box value and pass *that* to `addHero`.
+
+    * **传递数值，而非元素** — 获取输入框的值并将*它*传递给组件的`addHero`，而不要传递`newHero`。
 
     * **Keep template statements simple** &mdash;
     The `(blur)` event is bound to two JavaScript statements.
     The first statement calls `addHero`.  The second statement, `newHero.value=''`,
     clears the input box after a new hero is added to the list.
+
+    * **保持模板语句简单** — `(blur)`事件被绑定到两个 JavaScript 语句。第一句调用`addHero`。第二句`newHero.value=''`在添加新英雄到列表中后清除输入框。
 
 .l-main-section
 :marked
@@ -344,5 +381,9 @@ figure.image-display
   values between data entry fields and model properties.
   The next page, `Forms`, explains how to write
   two-way bindings with `NgModel`.
+
+  这些技术对小规模演示很实用，但是在处理大量用户输入时很容易变得累赘和笨拙。
+  双向数据绑定是更加优雅和简洁的在数据输入区域和模型属性之间传递数据的方式。
+  下一页`表单`解释了如何用`NgModel`来进行双向绑定。
 
 
