@@ -164,7 +164,7 @@
   },
 
   "setup-systemjs-anatomy": {
-    "title": "构建剖析",
+    "title": "搭建剖析",
     "intro": "解析 SystemJS 本地开发环境"
   },
 
