@@ -1,25 +1,19 @@
 include ../_util-fns
 
 :marked
-  Every story starts somewhere. Our story starts where the [QuickStart](../quickstart.html) ends.
+  ## Setup to develop locally
+  ## 为本地开发搭建环境
 
-  每一个故事，都有一个起点。而我们的故事则开始于[“快速起步”](../quickstart.html)的结尾处。
+  Real application development takes place in a local development environment like your machine.
 
-  Run the <live-example></live-example> for this part.
+  真实应用开发在你的机器一样的本地开发环境中进行。
 
-  运行这部分的<live-example>在线例子</live-example>。
+  Follow the [setup](../guide/setup.html) instructions for creating a new project
+  named <ngio-ex path="angular-tour-of-heroes"></ngio-ex>
+  after which the file structure should look like this:
 
-  Create a folder called `angular-tour-of-heroes` and follow the [QuickStart](../quickstart.html) steps
-  which provide the prerequisites, the folder structure, and the core files for our Tour of Heroes.
-
-  创建一个名为`angular2-tour-of-heroes`的文件夹，并且遵循[“快速起步”](../quickstart.html)中的步骤初始化它 ——
-  环境准备、目录结构，并放进我们《英雄指南》的核心文件。
-
-include ../_quickstart_repo
-:marked
-  We should have the following structure:
-
-  我们应该有如下目录结构：
+  根据[搭建本地开发环境](../guide/setup.html)中的说明创建一个名为<ngio-ex path="angular-tour-of-heroes"></ngio-ex>的新项目，
+  该项目的文件结构应该是这样的：
 
 .filetree
   .file angular-tour-of-heroes
@@ -36,15 +30,21 @@ include ../_quickstart_repo
     .file systemjs.config.js
     .file tsconfig.json
 :marked
+  When we're done with this first episode, the app runs like this <live-example></live-example>.
+
+  在我们完成本章时，得到的应用和这个<live-example>在线例子</live-example>一样。
+
   ## Keep the app transpiling and running
 
   ## 保持应用不断转译和运行
 
-  We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
+  We want to start the TypeScript compiler, have it watch for changes, and start our server.
+  Do this by entering the following command in the terminal window.
 
-  我们要启动TypeScript编译器，它会监视文件变更，并且启动开发服务器。我们只要敲：
+  我们要启动 TypeScript 编译器，它会监视文件变更，并且启动开发服务器。
+  我们只要敲：
 
-code-example(language="bash").
+code-example(language="sh" class="code-shell").
   npm start
 
 :marked
@@ -63,15 +63,15 @@ code-example(language="bash").
 
     我们要在应用中显示英雄数据
 
-    Let's add two properties to our `AppComponent`, a `title` property for the application name and a `hero` property
+    Update the `AppComponent` so it has two properties: &nbsp; a `title` property for the application name and a `hero` property
     for a hero named "Windstorm".
 
-    我们来为`AppComponent`添加两个属性：`title`属性表示应用的名字，而`hero`属性表示一个名叫“Windstorm”的英雄。
+    更新`AppComponent`并添加两个属性：`title`属性表示应用的名字，而`hero`属性表示一个名叫“Windstorm”的英雄。
 
   +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'app.component.ts (AppComponent class)')(format=".")
 
   :marked
-    Now we update the template in the `@Component` decoration with data bindings to these new properties.
+    Now update the template in the `@Component` decoration with data bindings to these new properties.
 
     现在，我们为这些新属性建立数据绑定，以更新`@Component`装饰器中指定的模板
 

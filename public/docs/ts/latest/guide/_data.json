@@ -2,8 +2,26 @@
   "index": {
     "title": "文档概览",
     "navTitle": "概览",
-    "description": "如何阅读本文档",
+    "intro": "如何阅读本文档",
     "nextable": true,
+    "basics": true
+  },
+
+  "setup": {
+    "title": "搭建本地开发环境",
+    "navTitle": "开发环境",
+    "intro": "安装 Angular 《快速起步》种子，更快更有效地在本地开发应用",
+    "nextable": true,
+    "hideNextPage": true,
+    "basics": true
+  },
+
+  "learning-angular": {
+    "title": "学习 Angular",
+    "navTitle": "学习 Angular",
+    "intro": "Angular 初学者的推荐学习路径",
+    "nextable": true,
+    "hideNextPage": true,
     "basics": true
   },
 
@@ -11,6 +29,15 @@
     "title": "架构概览",
     "navTitle": "架构",
     "intro": "Angular应用的基本构造块",
+    "nextable": true,
+    "basics": true
+  },
+
+
+  "appmodule": {
+    "title": "AppModule: 根模块",
+    "navTitle": "根模块",
+    "intro": "如何在根\"AppModule\"中构建和启动应用。",
     "nextable": true,
     "basics": true
   },
@@ -134,6 +161,11 @@
   "security": {
     "title": "安全",
     "intro": "开发“内容安全”的Angular应用。"
+  },
+
+  "setup-systemjs-anatomy": {
+    "title": "搭建剖析",
+    "intro": "解析 SystemJS 本地开发环境"
   },
 
   "structural-directives": {

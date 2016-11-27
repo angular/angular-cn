@@ -51,14 +51,13 @@ figure.image-display
   要显示组件的属性，最简单的方式就是通过插值表达式（interpolation）来绑定属性名。
   要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如`{{myHero}}`。
 
-  To build an illustrative example, start by creating a new project folder called <ngio-ex path="displaying-data"></ngio-ex>
-  and following the steps in [QuickStart](../quickstart.html).
+  Follow the [setup](setup.html) instructions for creating a new project
+  named <ngio-ex path="displaying-data"></ngio-ex>.
 
-  我们来一起做个简明的小例子。创建一个新的项目文件夹(<ngio-ex path="displaying-data"></ngio-ex>)，并且完成[“快速起步”](../quickstart.html)中的步骤。
+  按照[搭建本地开发环境](setup.html)的说明，创建一个新项目，名为<ngio-ex path="displaying-data"></ngio-ex>。
 
-:marked
   Then modify the <ngio-ex path="app.component.ts"></ngio-ex> file by
-  changing the template and the body of the component.  
+  changing the template and the body of the component.
 
   然后，到`app.component.ts`文件中修改组件的模板和代码。
 
@@ -101,7 +100,7 @@ figure.image-display
 .l-sub-section
   :marked
     More precisely, the redisplay occurs after some kind of asynchronous event related to
-    the view, such as a keystroke, a timer completion, or a response to an HTTP request.    
+    the view, such as a keystroke, a timer completion, or a response to an HTTP request.
 
     严格来说，“重新显示”是在某些与视图有关的异步事件之后发生的，比如：按键、定时器完成或对HTTP请求的响应。
 
@@ -111,12 +110,11 @@ figure.image-display
 
   注意，我们从没调用过**new**来创建`AppComponent`类的实例，是Angular替我们创建了它。那么它是如何创建的呢？
 
-  The CSS `selector` in the `@Component` !{_decorator} specifies an element named `my-app`.
-  Remember back in [QuickStart](../quickstart.html) that you added the `<my-app>`
-  element to the body of your `index.html` file:
+  The CSS `selector` in the `@Component` !{_decorator} specifies an element named `<my-app>`.
+  That element is a placeholder in the body of your `index.html` file:
 
   注意`@Component`装饰器中指定的CSS选择器`selector`，它指定了一个叫`my-app`的元素。
-  回忆下，在[“快速起步”](../quickstart.html)一章中，我们曾把一个`<my-app>`元素添加到`index.html`的`body`里。
+  该元素是`index.html`的`body`里的占位符。
 
 +makeExcerpt('index.html', 'body')
 
@@ -217,7 +215,7 @@ figure.image-display
 .alert.is-important
   :marked
     Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
-    For more information, see the [Template Syntax](./template-syntax.html#ngFor) page.    
+    For more information, see the [Template Syntax](./template-syntax.html#ngFor) page.
 
     不要忘记`*ngFor`中的前导星号（\*）。它是语法中不可或缺的一部分。
     要了解关于此语法和`ngFor`的更多知识，请参见[模板语法](./template-syntax.html#ngFor)一章。

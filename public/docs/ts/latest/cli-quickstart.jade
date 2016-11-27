@@ -1,33 +1,34 @@
 include _util-fns
-
+  
 :marked
   Good tools make application development quicker and easier to maintain than
   if we did everything by hand.
-
+  
   The [**Angular-CLI**](https://cli.angular.io/) is a **_command line interface_** tool
   that can create a project, add files, and perform a variety of on-going development tasks such 
   as testing, bundling, and deployment.
-
+  
   Our goal in this CLI QuickStart chapter is to build and run a super-simple Angular 
   application in TypeScript, using Angular-CLI 
   while adhering to the [Style Guide](./guide/style-guide.html) recommendations that
   benefit _every_ Angular project.
-
+  
   By the end of the chapter, we'll have a basic understanding of development with the CLI
   and a foundation for both these documentation samples and our real world applications.
 
   We'll pursue these ends in the following high-level steps:
-
+  
   1. [Set up](#devenv) the development environment
   2. [Create](#create-proj) a new project and skeleton application
   3. [Serve](#serve) the application
   4. [Edit](#first-component) the application
 
+
 .l-main-section
 h2#devenv Step 1. Set up the Development Environment
 :marked
   We need to set up our development environment before we can do anything.
-
+   
   Install **[Node.js® and npm](https://nodejs.org/en/download/)**
   if they are not already on your machine.
 .l-sub-section
@@ -37,15 +38,15 @@ h2#devenv Step 1. Set up the Development Environment
     Older versions produce errors.
 :marked
   Then **install the [Angular-CLI](https://github.com/angular/angular-cli)** globally.
-
+  
 code-example(format="").
   npm install -g angular-cli
-
+  
 .l-main-section
 h2#create-project Step 2. Create a new project
 :marked
   Open a terminal window.
-
+  
 .alert.is-important
   :marked
     _Windows Developers_: open a console window _as an **administrator**_.
@@ -75,9 +76,9 @@ code-example(format="").
 :marked
   The `ng serve` command launches the server, watches our files, 
   and rebuilds the app as we make changes to the files.
-
+  
   Open a browser on `http://localhost:4200/`; the app greets us with a message:
-
+  
 figure.image-display
   img(src='/resources/images/devguide/cli-quickstart/app-works.png' alt="Our app works!")
 
@@ -96,19 +97,19 @@ h2#first-component Step 4: Edit our first Angular component
 
 :marked
   Open the component file and change the `title` property from _cli-quickstart works!_ to _My First Angular App_:
-
+  
 +makeExample('cli-quickstart/ts/src/app/cli-quickstart.component.ts', 'title', 'src/app/cli-quickstart.component.ts')(format=".")
 
 :marked
   The browser reloads automatically and we see the revised title. That's nice, but we can make it look better.
-
+  
   Open `src/app/cli-quickstart.component.css` and give our component some style 
 
 +makeExample('cli-quickstart/ts/src/app/cli-quickstart.component.css', null, 'src/app/cli-quickstart.component.css')(format=".")
 
 figure.image-display
   img(src='/resources/images/devguide/cli-quickstart/hello-angular.png' alt="Output of QuickStart app")  
-
+  
 :marked
   Looking good!
 
@@ -177,7 +178,7 @@ h3#component-decorator @Component decorator
 
 :marked
   This particular metadata object has four fields, a `moduleId`, a `selector` a `templateUrl` and an array of `styleUrls`.
-
+  
   The **moduleId** specifies the location of _this_ component definition file
   so that Angular can find the corresponding _template_ and _style_ files with URLs that
   are relative to this component file. 
@@ -193,14 +194,14 @@ h3#component-decorator @Component decorator
 
   The **templateUrl** locates the component's companion template HTML file.
   The template tells Angular how to render this component's view.
-
+  
   Our template is a single `<h1>` element surrounding some peculiar Angular data binding syntax.
 +makeExample('src/app/cli-quickstart.component.html', null, 'src/app/cli-quickstart.component.html')(format='.')
 :marked
   The `{{title}}` is an _interpolation_ binding that causes Angular to display the component's
-  `title` property. After out edit, Angular displays "Hello Angular!".
+  `title` property. After out edit, Angular displays "Hello Angular".
   We'll learn more about data binding as we read through the documentation.
-
+  
   The **styleUrls** array specifies the location(s) of the component's private CSS style file(s).
   The CLI generated an empty file for us and we added styles to it.
 
@@ -216,10 +217,10 @@ h3#component-decorator @Component decorator
 
 :marked
   ### The *main.ts* file
-
+  
   How does Angular know what to do with our component?  We have to tell it. 
   We _bootstrap_ our application in the file `main.ts`.
-
+  
 +makeExcerpt('src/main.ts', 'important')
 
 :marked
@@ -257,17 +258,17 @@ h3#component-decorator @Component decorator
   We might launch the `CliQuickstartAppComponent` in multiple environments with different bootstrappers.
   Testing the component is much easier if it doesn't also try to run the entire application.
   Let's make the small extra effort to do it *the right way*.
-
+  
   ### Loading the application with SystemJS
-
+  
   The CLI uses `System.js` to load the application. We just need to call `System.import` and pass it our `main.ts`
   file to boot our application.
-
+  
 +makeExcerpt('src/index.html', 'import')
 
 :marked
   ### Displaying the root component 
-
+  
   When Angular calls the `bootstrap` function in `main.ts`, it reads the `CliQuickstartAppComponent`
   metadata, finds the `cli-quickstart-app` selector, locates an element tag named `cli-quickstart-app`
   in the `<body>` tag of the `index.html`, and renders our application's view between those tags.

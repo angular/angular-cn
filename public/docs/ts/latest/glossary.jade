@@ -28,20 +28,22 @@ block includes
 
 .l-main-section#A
 
-+ifDocsFor('ts')
-  a#aot
+a#aot
+:marked
+  ## Ahead-of-Time (AoT) compilation
+
+  ## 预（ahead-of-time, AoT）编译
+
+.l-sub-section
   :marked
-    ## Ahead-of-time (AoT) compilation
-    ## 预（ahead-of-time, AoT）编译
-  .l-sub-section
-    :marked
-      You can compile Angular applications at build-time.
-      By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly
-      to a module factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
-      Ahead-of-time compiled applications also benefit from decreased load time and increased performance.
+   You can compile Angular applications at build-time.
+   By compiling your application<span if-docs="ts"> using the compiler-cli, `ngc`</span>, you can bootstrap directly
+   to a<span if-docs="ts"> module</span> factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
+   Ahead-of-time compiled applications also benefit from decreased load time and increased performance.
 
-      开发者可以在构造时(build-time)编译Angular应用程序。通过`Compiler-cli` - `ngc`编译应用程序，应用可以从一个模块工厂(Module Factory)直接启动，意思是不再需要把Angular编译器添加到JavaScript包中。预编译的应用程序将加载迅速，并具有更高的性能。
+   开发者可以在构造时(build-time)编译Angular应用程序。通过`Compiler-cli` - `ngc`编译应用程序，应用可以从一个模块工厂(Module Factory)直接启动，意思是不再需要把Angular编译器添加到JavaScript包中。预编译的应用程序将加载迅速，并具有更高的性能。
 
++ifDocsFor('ts')
   :marked
     ## Angular module
 
@@ -145,12 +147,6 @@ block includes
 
       Angular的每个[范围化包(Scoped Package)](#scoped-package)都有一个叫做`index`的封装桶。
 
-      That's why we can write this:
-
-      这就是为什么可以这样写：
-
-    +makeExcerpt('quickstart/ts/app/app.component.ts', 'import', '')
-
     .alert.is-important
       :marked
         Note that you can often achieve this using [Angular modules](#angular-module) instead.
@@ -180,9 +176,11 @@ block includes
 .l-sub-section
   block bootstrap-defn-top
     :marked
-      You launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`). Bootstrapping identifies an application's top level "root" [component](#component), which is the first component that is loaded for the application. For more information, see [QuickStart](!{docsLatest}/quickstart.html).
+      You launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`). Bootstrapping identifies an application's top level "root" [component](#component), which is the first component that is loaded for the application.
+      For more information, see the [Setup](!{docsLatest}/guide/setup.html) page.
 
-      通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，并可能通过[依赖注入体系(Dependency Injection System)](#dependency-injection)注册服务的[提供商(Provider)](#provider)。要了解详情，参见[快速起步](!{docsLatest}/quickstart.html)。
+      通过一个名叫`bootstrap`的方法来引导Angular应用程序。这个`bootstrap`方法会识别应用程序的顶级“根”[组件(Component)](#component)，也就是应用加载的第一个组件。
+      要了解详情，参见[搭建本地开发环境](!{docsLatest}/setup.html)页。
   :marked
     You can bootstrap multiple apps in the same `index.html`, each with its own top level root.
 
@@ -588,14 +586,15 @@ a#H
 
 .l-main-section#J
 
-+ifDocsFor('ts')
-  a#jit
-  :marked
-    ## Just-in-time (JiT) compilation
-    ## 即时（just-in-time, JiT）编译
-  .l-sub-section
+a#jit
+:marked
+  ## Just-in-Time (JiT) compilation
+
+  ## 即时（just-in-time, JiT）编译
+
+.l-sub-section
     :marked
-      With Angular _just-in-time_  bootstrapping you compile your components and modules in the browser
+      With Angular _just-in-time_  bootstrapping you compile your components<span if-docs="ts"> and modules</span> in the browser
       and launch the application dynamically. This is a good choice during development.
       Consider using the [ahead-of-time](#aot) mode for production apps.
 
@@ -908,15 +907,12 @@ a#Q
   ## Routing component
   ## 路由组件（Routing Component）
 .l-sub-section
-  block routing-component-defn
-    :marked
-      An Angular [component](#component) with a RouterOutlet that displays views based on router navigations.
+  :marked
+    An Angular [component](#component) with a `RouterOutlet` that displays views based on router navigations.
 
-      带有RouterOutlet的Angular[组件](#component)基于路由器导航来显示视图。
+    带有RouterOutlet的Angular[组件](#component)基于路由器导航来显示视图。For more information, see the [Routing & Navigation](!{docsLatest}/guide/router.html) page.
 
-      For more information, see the [Routing & Navigation](!{docsLatest}/guide/router.html) page.
-
-      要了解更多，请参见[路由与导航](!{docsLatest}/guide/router.html)页。
+    要了解更多，请参见[路由与导航](!{docsLatest}/guide/router.html)页。
 
 .l-main-section#S
 
@@ -1082,7 +1078,7 @@ a#snake-case
   ## TypeScript
 .l-sub-section
   :marked
-    A version of JavaScript that supports most [ECMAScript 2015](#ecmascript=2015)
+    A version of JavaScript that supports most [ECMAScript 2015](#es2015)
     language features such as [decorators](#decorator).
 
     一种支持了几乎所有[ECMAScript 2015](#ecmascript=2015)语言特性和一些未来版本可能有的特性(比如[装饰器(Decorator)](#decorator))的JavaScript语言。

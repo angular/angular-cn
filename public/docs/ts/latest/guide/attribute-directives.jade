@@ -3,19 +3,19 @@ block includes
 
 :marked
   An **Attribute** directive changes the appearance or behavior of a DOM element.
-  
+
   **属性**型指令用于改变一个DOM元素的外观或行为。
 
 
 :marked
   # Contents
-  
+
   # 目录
 
   * [Directives overview](#directive-overview)
   * [指令概览](#directive-overview)
   * [Build a simple attribute directive](#write-directive)
-  * [创建简单的属性型指令](#write-directive)  
+  * [创建简单的属性型指令](#write-directive)
   * [Apply the attribute directive to an element in a template](#apply-directive)
   * [把这个属性型指令应用到模板中的元素](#apply-directive)
   * [Respond to user-initiated events](#respond-to-user)
@@ -24,7 +24,7 @@ block includes
   * [使用数据绑定把值传到指令中](#bindings)
   * [Bind to a second property](#second-property)
   * [绑定第二个属性](#second-property)
-    
+
 
   试试<live-example>在线例子</live-example>。
 
@@ -34,26 +34,27 @@ a#directive-overview
   ## Directives overview
 
   ## 指令概览
-  
+
   There are three kinds of directives in Angular:
 
   在Angular中有三种类型的指令：
-  
+
   1. Components&mdash;directives with a template.
   1. 组件 - 拥有模板的指令
   1. Structural directives&mdash;change the DOM layout by adding and removing DOM elements.
   1. 结构型指令 - 通过添加和移除DOM元素改变DOM格局的指令
   1. Attribute directives&mdash;change the appearance or behavior of an element.
-  1. 属性型指令 - 改变元素显示和行为的指令。  
+  1. 属性型指令 - 改变元素显示和行为的指令。
 
-  *Components* are the most common of the three directives. Read more about creating them
-  in step three of [QuickStart](../quickstart.html#root-component).
-  
-  *组件*是这三种指令中最常用的，我们在构建应用程序时会写大量组件。参见[快速开始](../quickstart.html#root-component)第三步，了解更多创建组件的信息。
+  *Components* are the most common of the three directives.
+  You saw a component for the first time in the [QuickStart](../quickstart.html) example.
+
+  *组件*是这三种指令中最常用的。
+  你在[快速起步](../quickstart.html#root-component)例子中第一次见到组件。
 
   *Structural Directives* change the structure of the view. Two examples are [NgFor](template-syntax.html#ngFor) and [NgIf](template-syntax.html#ngIf)
   in the [Template Syntax](template-syntax.html) page.
-  
+
   *结构型*指令会通过添加/删除DOM元素来更改DOM树布局。[NgFor](template-syntax.html#ngFor)和[NgIf](template-syntax.html#ngIf)就是两个最熟悉的例子。
 
   *Attribute directives* are used as attributes of elements. The built-in [NgStyle](template-syntax.html#ngStyle) directive in the [Template Syntax](template-syntax.html) page, for example,
@@ -65,33 +66,33 @@ a#directive-overview
 a#write-directive
 :marked
   ## Build a simple attribute directive
-  
+
   ## 创建一个简单的属性型指令
-    
+
   An attribute directive minimally requires building a controller class annotated with
   `@Directive`, which specifies the selector that identifies
   the attribute.
   The controller class implements the desired directive behavior.
-  
+
   属性型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个选择器，用于指出与此指令相关联的属性名字。
   控制器类实现了指令需要具备的行为。
 
   This page demonstrates building a simple attribute
   directive to set an element's background color
   when the user hovers over that element.
-  
+
   本章展示了如何创建简单的属性型指令，在用户鼠标悬浮在一个元素上时，改变它的背景色
 .l-sub-section
   :marked
     Technically, a directive isn't necessary to simply set the background color. Style binding can set styles as follows:
-    
+
     实际上，指令并不一定只是简单的设置背景颜色。样式绑定可以像下面这样设置样式：
 
   +makeExample('attribute-directives/ts/app/app.component.1.html','p-style-background')
 
   :marked
     Read more about [style binding](template-syntax.html#style-binding) on the [Template Syntax](template-syntax.html) page.
-    
+
     参见[模板语法](template-syntax.html)章的[样式绑定](template-syntax.html#style-binding)。
 
     For a simple example, though, this will demonstrate how attribute directives work.
@@ -100,44 +101,45 @@ a#write-directive
 
 :marked
   ### Write the directive code
-  
-  ### 编写指令代码
-  Create a new project folder (`attribute-directives`) and follow the steps in [QuickStart](../quickstart.html).
-    
-  创建一个项目文件夹(`attribute-directives`)并按照[快速起步](../quickstart.html)中的步骤进行初始化。
 
-include ../_quickstart_repo
+  ### 编写指令代码
+
+  Follow the [setup](setup.html) instructions for creating a new project
+  named <span ngio-ex>attribute-directives</span>.
+
+  按照[搭建本地开发环境](setup.html)的说明，创建一个项目文件夹<span ngio-ex>attribute-directives</span>。
+
 :marked
   Create the following source file in the indicated folder with the following code:
-    
+
   在指定的文件夹下创建下列源码文件：
-  
+
 +makeExample('app/highlight.directive.1.ts')
 
 block highlight-directive-1
   :marked
     The `import` statement specifies symbols from the Angular `core`:
-    
+
     `import`语句指定了从Angular的`core`库导入的一些符号。
-    
+
     1. `Directive` provides the functionality of the `@Directive` decorator.
-    
+
     1. `Directive`提供`@Directive`装饰器功能。
-    
+
     1. `ElementRef` [injects](dependency-injection.html) into the directive's constructor
-    
+
     1. `ElementRef` [注入](dependency-injection.html)到指令构造函数中。
-    
+
     so the code can access the DOM element.
-    
+
     这样代码可以访问DOM元素。
-    
+
     1. `Input` allows data to flow from the binding expression into the directive.
-    
+
     1. `Input`将数据从绑定表达式传达到指令中。
-    
+
     1. `Renderer` allows the code to change the DOM element's style.
-    
+
     1. `Renderer` 让代码可以改变DOM元素的样式。
 
     Next, the `@Directive` decorator function contains the directive metadata in a configuration object
@@ -147,38 +149,38 @@ block highlight-directive-1
 :marked
   `@Directive` requires a CSS selector to identify
   the HTML in the template that is associated with the directive.
-  
+
   属性型指令的`@Directive`装饰器需要一个css选择器，以便从模板中识别出关联到这个指令的HTML。
-  
-    
+
+
   The [CSS selector for an attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
   is the attribute name in square brackets.
   Here, the directive's selector is `[myHighlight]`.
   Angular will locate all elements in the template that have an attribute named `myHighlight`.
- 
-  [css中的attribute选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。  
+
+  [css中的attribute选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。
   这里，指令的选择器是`[myHighlight]`，Angular将会在模板中找到带有`myHighlight`这个属性的元素。
-  
+
 .l-sub-section
   :marked
     ### Why not call it "highlight"?
-    
+
     ### 为什么不直接叫做"highlight"？
-    
+
     Though *highlight* is a more concise name than *myHighlight* and would work,
     a best practice is to prefix selector names to ensure
     they don't conflict with  standard HTML attributes.
     This also reduces the risk colliding with third-party directive names.
-    
+
     理论上，*highlight*是一个比*myHighlight*更好的名字，而且在这里它确实能工作。
     但是最佳实践是在选择器名字前面添加前缀，以确保它们不会与标准HTML属性冲突。
     它同时减少了与第三方指令名字发生冲突的危险。
 
     Make sure you do **not** prefix the `highlight` directive name with **`ng`** because
     that prefix is reserved for Angular and using it could cause bugs that are difficult to diagnose. For a simple demo, the short prefix, `my`, helps distinguish your custom directive.
-        
+
     确认你**不会**给自己的`highlight`指令添加**`ng`**前缀。
-    那个前缀属于Angular，使用它可能导致无法检测的问题。比如，这个简短的前缀`my`可以帮助你区分自定义指令。    
+    那个前缀属于Angular，使用它可能导致无法检测的问题。比如，这个简短的前缀`my`可以帮助你区分自定义指令。
 p
   | After the #[code @Directive] metadata comes the directive's controller class, called #[code HighlightDirective], which contains the logic for the directive.
 p
@@ -186,7 +188,7 @@ p
 
   +ifDocsFor('ts')
     |  Exporting #[code HighlightDirective] makes it accessible to other components.
-  
+
   +ifDocsFor('ts')
     | 导出#[code HighlightDirective]以便让它可以被其它组件访问。
 :marked
@@ -198,18 +200,18 @@ p
 
   Angular会为每个被指令匹配上的元素创建一个该指令控制器类的实例，并把Angular的`ElementRef`和`Renderer`注入进它的构造函数。
   `ElementRef`是一个服务，它赋予我们直接访问DOM元素的能力。通过它的`nativeElement`属性和`Renderer`服务，我们可以设置元素的样式。
-  
+
 .l-main-section
 a#apply-directive
 :marked
   ## Apply the attribute directive
-  
+
   ## 使用属性型指令
-  
+
   To use the new `HighlightDirective`, create a template that
   applies the directive as an attribute to a paragraph (`p`) element.
   In Angular terms, the `<p>` element will be the attribute **host**.
-  
+
   要使用这个新的`HighlightDirective`，创建一个模板，把这个指令作为属性应用到一个段落(`p`)元素上。
   用Angular的话说，`<p>`元素就是这个属性型指令的**宿主**。
 p
@@ -230,7 +232,7 @@ p
   Next, add an `import` statement to fetch the `Highlight` directive and
   add that class to the `declarations` NgModule metadata. This way Angular
   recognizes the directive when it encounters `myHighlight` in the template.
-  
+
   接下来，添加了一个`import`语句来获得'Highlight'指令类，并把这个类添加到`AppComponent`组件的`declarations`数组中。
   这样，当Angular在模板中遇到`myHighlight`时，就能认出这是指令了。
 
@@ -240,22 +242,22 @@ p
   Now when the app runs, the `myHighlight` directive highlights the paragraph text.
 
   运行应用，就会看到我们的指令确实高亮了段落中的文本。
-  
+
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/first-highlight.png" alt="First Highlight")
 .l-sub-section
   :marked
     ### Your directive isn't working?
-    
+
     ### 你的指令没生效？
 
     Did you remember to add the directive to the the `declarations` attribute of `@NgModule`? It is easy to forget!
 
-    
+
     你记着设置`@NgModule`的`declarations`数组了吗？它很容易被忘掉。
-    
+
     Open the console in the browser tools and look for an error like this:
-    
+
     打开浏览器调试工具的控制台，会看到像这样的错误信息：
   code-example(format="nocode").
     EXCEPTION: Template parse errors:
@@ -269,13 +271,13 @@ figure.image-display
 
     Angular检测到你正在尝试绑定到*某些东西*，但它不认识。所以它在`declarations`元数据数组中查找。
     把`HighlightDirective`列在元数据的这个数组中，Angular就会检查对应的导入语句，从而找到`highlight.directive.ts`，并了解`myHightlight`的功能。
-    
+
 :marked
   To summarize, Angular found the `myHighlight` attribute on the `<p>` element. It created
   an instance of the `HighlightDirective` class,
   injecting a reference to the element into the constructor
   where the `<p>` element's background style is set to yellow.
-  
+
   总结：Angular在`<p>`元素上发现了一个`myHighlight`属性。
   然后它创建了一个`HighlightDirective`类的实例，并把所在元素的引用注入到了指令的构造函数中。
   在构造函数中，我们把`<p>`元素的背景设置为了黄色。
@@ -284,22 +286,22 @@ figure.image-display
 a#respond-to-user
 :marked
   ## Respond to user-initiated events
-  
+
   ## 响应用户引发的事件
 
   Currently, `myHighlight` simply sets an element color.
   The directive should set the color when the user hovers over an element.
-  
+
   当前，`myHighlight`只是简单的设置元素的颜色。
-  这个指令应该在用户鼠标悬浮一个元素时，设置它的颜色。 
+  这个指令应该在用户鼠标悬浮一个元素时，设置它的颜色。
 
   This requires two things:
-  
+
   我们需要：
   1. detecting when the user hovers into and out of the element.
-  
+
   1. 检测用户的鼠标啥时候进入和离开这个元素。
-  
+
   2. responding to those actions by setting and clearing the highlight color.
 
   2. 通过设置和清除高亮色来响应这些操作。
@@ -307,7 +309,7 @@ a#respond-to-user
   To do this, you can apply the `@HostListener` !{_decorator} to methods which are called when an event is raised.
 
   把`host`属性加入指令的元数据中，并给它一个配置对象，用来指定两个鼠标事件，并在它们被触发时，调用指令中的方法：
-  
+
 +makeExample('attribute-directives/ts/app/highlight.directive.2.ts','host')(format=".")
 
 .l-sub-section
@@ -315,32 +317,32 @@ a#respond-to-user
     The `@HostListener` !{_decorator} refers to the DOM element that hosts an attribute directive, the `<p>` in this case.
 
     `@HostListener`装饰器引用的是我们这个属性型指令的宿主元素，在这个例子中就是`<p>`。
-    
+
     It is possible to attach event listeners by manipulating the host DOM element directly, but
-    
-    可以通过直接操纵DOM元素的方式给宿主DOM元素挂上一个事件监听器，但是     
-    
+
+    可以通过直接操纵DOM元素的方式给宿主DOM元素挂上一个事件监听器，但是
+
     there are at least three problems with such an approach:
-    
+
     但这种方法至少有三个问题：
 
     1. You have to write the listeners correctly.
-    
+
     1. 必须正确的书写事件监听器。
-    
+
     1. The code must *detach* the listener when the directive is destroyed to avoid memory leaks.
-    
+
     1. 当指令被销毁的时候，必须*摘掉*事件监听器，否则就会导致内存泄露。
-    
+
     1. Talking to DOM API directly isn't a best practice.
 
-    1. 必须直接和DOM API打交道，但正如我们学过的那样，应该避免这样做。    
-    
+    1. 必须直接和DOM API打交道，但正如我们学过的那样，应该避免这样做。
+
 :marked
   Now implement the two mouse event handlers:
-  
+
   现在，我们实现那两个鼠标事件处理器：
-  
+
 +makeExample('attribute-directives/ts/app/highlight.directive.2.ts','mouse-methods')(format=".")
 
 :marked
@@ -353,9 +355,9 @@ a#respond-to-user
 +makeExample('attribute-directives/ts/app/highlight.directive.2.ts','ctor')(format=".")
 :marked
   Here's the updated directive:
-  
+
   这里是更新过的指令：
-  
+
 +makeExample('app/highlight.directive.2.ts')
 
 :marked
@@ -363,7 +365,7 @@ a#respond-to-user
   disappears as it moves out.
   We run the app and confirm that the background color appears as we move the mouse over the `p` and
   disappears as we move out.
-  
+
   运行本应用，就可以确认：当把鼠标移到`p`上的时候，背景色就出现了，而移开的时候，它消失了。
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight")
@@ -371,7 +373,7 @@ figure.image-display
 a#bindings
 :marked
   ## Pass values into the directive using data binding
-  
+
   ## 通过绑定来传递值到指令中
 
   Currently the highlight color is hard-coded within the directive. That's inflexible.
@@ -382,13 +384,13 @@ a#bindings
 +makeExample('attribute-directives/ts/app/app.component.html','pHost')
 :marked
   You can extend the directive class with a bindable **input** `highlightColor` property and use it to highlight text.
-  
+
   我们将给指令类增加一个可绑定**输入**属性`highlightColor`，当需要高亮文本的时候，就用它。
 
   Here is the final version of the class:
-  
+
   这里是该类的最终版：
-  
+
 +makeExcerpt('app/highlight.directive.ts', 'class')
 
 a#input
@@ -398,7 +400,7 @@ a#input
 
   新的`highlightColor`属性被称为“输入”属性，这是因为数据流是从绑定表达式到这个指令的。
   注意，在定义这个属性的时候，我们调用了`@Input()`#{_decoratorCn}。
-  
+
 +makeExcerpt('app/highlight.directive.ts', 'color')
 
 :marked
@@ -406,30 +408,30 @@ a#input
   property binding under the `myHighlight` alias.
   Without this input metadata Angular rejects the binding.
   See the [appendix](#why-input) below for more information.
-  
+
   `@Input`把元数据添加到了类上，这让`highlightColor`能被以`myHighlight`为别名进行绑定。
   必须添加这个input元数据，否则Angular会拒绝绑定。
   参见下面的[附录](#why-input)来了解为何如此。
 .l-sub-section
   :marked
     ### @Input(_alias_)
-    
+
     ### @Input(_别名_)
-    
+
     Currently, the code **aliases** the `highlightColor` property with the attribute name by
     passing `myHighlight` into the `@Input` #{_decorator}:
-    
-    当前，代码通过将`myHighlight`传递到`@Input`装饰器，把`myHighlight`属性**别名**到属性名字上。    
-    
+
+    当前，代码通过将`myHighlight`传递到`@Input`装饰器，把`myHighlight`属性**别名**到属性名字上。
+
   +makeExcerpt('app/highlight.directive.ts', 'color', '')
   :marked
     The code binds to the attribute name, `myHighlight`, but the
     the directive property name is `highlightColor`. That's a disconnect.
-    
+
     代码绑定到`myHighlight`属性名，但是指令属性名为`highlightColor`。这是一个断点。
 
     You can resolve the discrepancy by renaming the property to `myHighlight` and define it as follows:
-    
+
     你可以通过重命名属性名到`myHighlight`来移除这个区别，像这样：
 
   +makeExcerpt('app/highlight.directive.ts', 'highlight', '')
@@ -440,7 +442,7 @@ a#input
 
   现在，通过输入型属性得到了高亮的颜色，然后修改`onMouseEnter()`来使用它代替硬编码的那个颜色名。
   我们还把红色定义为默认颜色，以便在用户忘了绑定颜色时作为备用。
-  
+
 +makeExcerpt('attribute-directives/ts/app/highlight.directive.ts', 'mouse-enter', '')
 :marked
   To let users pick the highlight color and bind their choice to the directive,
@@ -453,21 +455,21 @@ a#input
 .l-sub-section
   :marked
     ### Where is the templated *color* property?
-    
+
     ### 模板的*color*属性在哪里？
 
     You may notice that the radio button click handlers in the template set a `color` property
     and the code is binding that `color` to the directive.
     However, you never defined a color property for the host `AppComponent`.
     Yet this code works. Where is the template `color` value going?
-    
+
     你可能注意到，模板中的单选按钮的点击事件处理器设置了一个`color`属性，而且把`color`绑定到指令上。
     但是，你从未在这个宿主`AppComponent`中定义`color`属性，代码仍然工作正常。模板的`color`值去哪儿了？
-    
+
 
     Browser debugging reveals that Angular dynamically added a `color` property
     to the runtime instance of the `AppComponent`.
-    
+
     在浏览器中调试就会发现，Angular在`AppComponent`的运行期实例上添加了一个`color`属性。
 
     This is *convenient* behavior but it is also *implicit* behavior that could be confusing.
@@ -478,7 +480,7 @@ a#input
 
 :marked
   Here is the second version of the directive in action.
-   
+
   下面是指令操作演示的第二版。
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-v2-anim.gif" alt="Highlight v.2")
@@ -487,10 +489,10 @@ figure.image-display
 a#second-property
 :marked
   ## Bind to a second property
-  
+
   ## 绑定到第二个属性
   This example directive only has a single customizable property. A real app often needs more.
-  
+
   本例的指令只有一个可定制属性，真实的引用通常需要更多。
 
   Let's allow the template developer to set the default color&mdash;the color that prevails until the user picks a highlight color.
@@ -502,17 +504,17 @@ a#second-property
 :marked
   The `defaultColor` property has a setter that overrides the hard-coded default color, "red".
   You don't need a getter.
-  
+
   `defaultColor`属性是一个setter函数，它代替了硬编码的默认颜色“red”。不需要getter函数。
 
   How do you bind to it? The app is already using `myHighlight` attribute name as a binding target.
-  
+
   该如何绑定到它？别忘了已经把`myHighlight`属性名用作绑定目标了。
 
   Remember that a *component is a directive, too*.
   You can add as many component property bindings as you need by stringing them along in the template
   as in this example that sets the `a`, `b`, `c` properties to the string literals 'a', 'b', and 'c'.
-  
+
   记住，*组件也是指令*。
   只要需要，就可以通过把它们依次串在模板中来为组件添加多个属性绑定。
   下面这个例子中就把`a`、`b`、`c`属性设置为了字符串字面量'a', 'b', 'c'。
@@ -520,7 +522,7 @@ code-example(format="." ).
   &lt;my-component [a]="'a'" [b]="'b'" [c]="'c'">&lt;my-component>
 :marked
   The same holds true for an attribute directive.
-  
+
   在属性型指令中也可以这样做。
 +makeExample('attribute-directives/ts/app/app.component.html', 'defaultColor')(format=".")
 :marked
@@ -531,7 +533,7 @@ code-example(format="." ).
   我们*还*把字符串字面量'violet'绑定到了`defaultColor`上。
 
   Here is the final version of the directive in action.
-  
+
   下面就是该指令最终版的操作演示。
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-final-anim.gif" alt="Final Highlight")
@@ -539,9 +541,9 @@ figure.image-display
 .l-main-section
 :marked
   ## Summary
-  
+
   ## 总结
-  
+
   This page covered how to:
 
   本章介绍了如何：
@@ -552,7 +554,7 @@ figure.image-display
   - [Respond to **events** to change behavior based on an event](#respond-to-user).
   - [响应**事件**，以便基于事件改变行为](#respond-to-user)，
   - [Use **binding** to pass values to the attribute directive](#bindings).
-  - 以及[使用**绑定**来把值传给属性型指令](#bindings)。  
+  - 以及[使用**绑定**来把值传给属性型指令](#bindings)。
 
   The final source:
 
@@ -579,32 +581,32 @@ a#why-input
 .l-main-section
 :marked
   ### Appendix: Input properties
-  
+
   ### 附录：Input属性
 
   In this demo, the `highlightColor` property is an ***input*** property of
   `HighlightDirective`.
-  
+
   本例中, `highlightColor`属性是`HighlightDirective`指令的一个***input***属性。
 
   You've seen properties in bindings before but never had to declare them as anything. Why now?
 
   以前也见过属性绑定，但我们从没有定义过它们。为什么现在就不行了？
-  
+
   Angular makes a subtle but important distinction between binding **sources** and **targets**.
 
-  
+
   Angular在绑定的**源**和**目标**之间有一个巧妙但重要的区别。
-  
+
   In all previous bindings, the directive or component property was a binding ***source***.
   A property is a *source* if it appears in the template expression to the ***right*** of the equals (=).
-  
+
   在以前的所有绑定中，指令或组件的属性都是绑定***源***。
   如果属性出现在了模板表达式等号(=)的***右侧***，它就是一个*源*。
 
   A property is a *target* when it appears in **square brackets** ([ ]) to the **left** of the equals (=)
   as it is does when binding to the `myHighlight` property of the `HighlightDirective`.
-    
+
   如果它出现在了**方括号**([ ])中，并且出现在等号(=)的**左侧**，它就是一个*目标*……
   就像在绑定到`HighlightDirective`的`myHighlight`属性时所做的那样。
 +makeExample('attribute-directives/ts/app/app.component.html','pHost')(format=".")
@@ -612,26 +614,26 @@ a#why-input
   The 'color' in `[myHighlight]="color"` is a binding ***source***.
   A source property doesn't require a declaration.
 
-  
+
   `[myHighlight]="color"`中的'color'就是绑定***源***。
   源属性不需要特别声明。
-  
+
   The 'myHighlight' in `[myHighlight]="color"` *is* a binding ***target***.
   You must declare it as an *input* property or
   Angular rejects the binding with a clear error.
 
   `[myHighlight]="color"`中的'myHighlight'就是绑定***目标***。
   必须把它定义为一个*Input*属性，否则，Angular就会拒绝这次绑定，并给出一个明确的错误。
-  
+
   Angular treats a *target* property differently for a good reason.
   A component or directive in target position needs protection.
-  
+
   Angular这样区别对待*目标*属性有充分的理由。
   作为目标的组件或指令需要保护。
 
   Imagine that `HighlightDirective` did truly wonderous things in a
   popular open source project.
-  
+
   假想一下，`HighlightDirective`真是一个好东西。
   我们优雅的把它当作礼物送给全世界。
 
@@ -646,5 +648,5 @@ a#why-input
 
   The ***input*** declaration ensures that consumers of your directive can only bind to
   the properties of the public API but nothing else.
-   
+
   于是，这种*输入*声明可以确保指令的消费者只能绑定到公开API中的属性，其它的都不行。

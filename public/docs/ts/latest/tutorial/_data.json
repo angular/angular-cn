@@ -2,7 +2,7 @@
   "index": {
     "title": "教程: 英雄指南",
     "navTitle": "简介",
-    "intro": "英雄指南教程带我们一步步使用TypeScript创建Angular应用。",
+    "intro": "英雄指南教程带我们一步步使用 TypeScript 创建 Angular 应用。",
     "nextable": true
   },
   "toh-pt1": {
@@ -33,7 +33,7 @@
   "toh-pt6": {
     "title": "HTTP",
     "subtitle": "获取和保存数据",
-    "intro": "把我们的服务和组件改为用Angular的HTTP服务实现",
+    "intro": "把服务和组件改为用Angular的HTTP服务实现",
     "nextable": true
   }
 }

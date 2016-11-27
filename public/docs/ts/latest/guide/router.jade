@@ -1634,8 +1634,7 @@ a#hero-detail-ctor
   provide them for the `id` parameter by name and tell the `HeroService` to fetch the hero with that `id`.
 
   然后，在`ngOnInit`方法中，我们用`ActivatedRoute`服务来接收本路由的参数。
-  由于这些参数是作为`Observable`（可观察对象）提供的，所以我们_订阅（`subscribe`）_它们，通过名字引用`id`参数，并告诉`HeroService`获取指定`id`的英雄。
-  我们还要保存这个`Subscription`（订阅的返回值）的引用，供后面做清理工作。
+  由于这些参数是作为`Observable`（可观察对象）提供的，所以我们用_`switchMap`来通过名字引用`id`参数，并告诉`HeroService`获取指定`id`的英雄。
 
 +makeExcerpt('app/heroes/hero-detail.component.ts (ngOnInit)', 'ngOnInit')
 
