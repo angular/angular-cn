@@ -92,17 +92,20 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           if (sibling.children) {
             processContainer(sibling);
           }
-          $current.addClass('original-english');
-          $sibling.addClass('translated');
-          $sibling.addClass('translated-cn');
-          $sibling.after($current);
-          $sibling.on('click', function (event) {
-            // for nested structure.
-            event.stopPropagation();
-            $current.toggleClass('hidden');
-          });
-          // addSpacingBetweenCnAndEn(sibling);
-          return true;
+          if(!isPureEnglish(sibling.textContent)){
+            $current.addClass('original-english');
+            $sibling.addClass('translated');
+            $sibling.addClass('translated-cn');
+            $sibling.after($current);
+            $sibling.on('click', function (event) {
+              // for nested structure.
+              event.stopPropagation();
+              $current.toggleClass('hidden');
+            });
+            // addSpacingBetweenCnAndEn(sibling);
+            return true;
+          }
+          
         }
       }
     }
