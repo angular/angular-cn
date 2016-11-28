@@ -2741,7 +2741,7 @@ block null-deref-example
 
   如果确信`hero`属性永远不可能为空，可以声称这是合理的行为。
   如果它必须不能为空，但它仍然是空值，实际上是制造了一个编程错误，它应该被捕获和修复。
-  这种情况下，抛出异常是对的。
+  这种情况应该抛出异常。
 
   On the other hand, null values in the property path may be OK from time to time,
   especially when we know the data will arrive eventually.
