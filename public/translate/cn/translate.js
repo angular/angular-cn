@@ -31,7 +31,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     var count = 0;
     for (var i = 0; i < container.children.length; i++) {
       var node = container.children[i];
-      var ignoredTagNames = ['CODE-EXAMPLE', 'SCRIPT', 'CODE', 'EM'];
+      var ignoredTagNames = ['CODE-EXAMPLE', 'SCRIPT', 'CODE', 'EM', 'STRONG'];
       // ignore example code.
       if (node.classList.contains('code-example') ||
         ignoredTagNames.indexOf(node.tagName) >= 0) {

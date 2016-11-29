@@ -28,44 +28,43 @@
   "architecture": {
     "title": "架构概览",
     "navTitle": "架构",
-    "intro": "Angular应用的基本构造块",
+    "intro": "Angular 应用的基本构造块",
     "nextable": true,
     "basics": true
   },
 
-
   "appmodule": {
     "title": "AppModule: 根模块",
     "navTitle": "根模块",
-    "intro": "如何在根\"AppModule\"中构建和启动应用。",
+    "intro": "如何在根 \"AppModule\" 中构建和启动应用。",
     "nextable": true,
     "basics": true
   },
 
   "displaying-data": {
     "title": "显示数据",
-    "intro": "属性绑定机制把数据显示到UI上。",
+    "intro": "属性绑定机制把数据显示到用户界面上。",
     "nextable": true,
     "basics": true
   },
 
   "user-input": {
     "title": "用户输入",
-    "intro": "用户输入触发DOM事件。我们通过事件绑定来监听它们，把更新过的数据导入回我们的组件和model。",
+    "intro": "用户输入触发 DOM 事件。我们通过事件绑定来监听它们，把更新过的数据导入回我们的组件和 model。",
     "nextable": true,
     "basics": true
   },
 
   "forms": {
     "title": "表单",
-    "intro": "表单创建一个有机、有效、引人注目的数据输入体验。Angular表单协调一组数据绑定控件，跟踪变更，验证输入的有效性，并且显示错误信息。",
+    "intro": "表单创建一个有机、有效、引人注目的数据输入体验。Angular 表单协调一组数据绑定控件，跟踪变更，验证输入的有效性，并且显示错误信息。",
     "nextable": true,
     "basics": true
   },
 
   "dependency-injection": {
     "title": "依赖注入",
-    "intro": "Angular的依赖注入系统能够JIT(刚好及时)的创建和交付所依赖的服务。",
+    "intro": "Angular 的依赖注入系统能够即时地创建和交付所依赖的服务。",
     "nextable": true,
     "basics": true
   },
@@ -78,21 +77,21 @@
   },
 
   "cheatsheet": {
-    "title": "Angular小抄",
-    "intro": "一份Angular语法的快速指南",
+    "title": "Angular 速查表",
+    "intro": "一份 Angular 语法的快速指南",
     "nextable": true,
     "basics": true
   },
 
   "style-guide": {
     "title": "风格指南",
-    "intro": "如何写Angular风格的程序",
+    "intro": "如何写 Angular 风格的程序",
     "basics": true
   },
 
   "glossary": {
     "title": "词汇表",
-    "intro": "Angular中最重要的词汇的简要定义",
+    "intro": "Angular 中最重要的词汇的简要定义",
     "basics": true
   },
 
@@ -103,13 +102,13 @@
   },
 
   "ngmodule": {
-    "title": "Angular模块（NgModule）",
+    "title": "Angular模块 (NgModule)",
     "intro": "用@NgModule定义应用中的模块"
   },
 
   "animations": {
     "title": "动画",
-    "intro": "Angular动画系统指南。"
+    "intro": "Angular 动画系统指南。"
   },
 
   "attribute-directives": {
@@ -119,12 +118,12 @@
 
   "browser-support": {
     "title": "浏览器支持",
-    "intro": "浏览器支持与填充（Polyfill）指南"
+    "intro": "浏览器支持与填充 (Polyfill) 指南"
   },
 
   "component-styles": {
     "title": "组件样式",
-    "intro": "学习如何给组件应用CSS样式。"
+    "intro": "学习如何给组件应用 CSS 样式。"
   },
 
   "hierarchical-dependency-injection": {
@@ -134,18 +133,18 @@
   },
 
   "server-communication": {
-    "title": "HTTP客户端",
-    "intro": "通过HTTP客户端与远程服务器对话。"
+    "title": "HTTP 客户端",
+    "intro": "通过 HTTP 客户端与远程服务器对话。"
   },
 
   "lifecycle-hooks": {
     "title": "生命周期钩子",
-    "intro": "Angular调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
+    "intro": "Angular 调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
   },
 
   "npm-packages": {
-    "title": "Npm包",
-    "intro": "推荐的npm包以及如何指定所依赖的包"
+    "title": "npm 包",
+    "intro": "推荐的 npm 包以及如何指定所依赖的包"
   },
 
   "pipes": {
@@ -155,12 +154,12 @@
 
   "router": {
     "title": "路由与导航",
-    "intro": "揭示如何通过Angular路由进行基本的屏幕导航。"
+    "intro": "揭示如何通过 Angular 路由进行基本的屏幕导航。"
   },
 
   "security": {
     "title": "安全",
-    "intro": "开发“内容安全”的Angular应用。"
+    "intro": "开发内容安全的 Angular 应用。"
   },
 
   "setup-systemjs-anatomy": {
@@ -170,26 +169,26 @@
 
   "structural-directives": {
     "title": "结构型指令",
-    "intro": "Angular有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
+    "intro": "Angular 有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。"
   },
 
   "testing": {
     "title": "测试",
-    "intro": "Angular应用的测试技术与实践。"
+    "intro": "Angular 应用的测试技术与实践。"
   },
 
   "typescript-configuration": {
-    "title": "TypeScript配置",
-    "intro": "Angular开发者的TypeScript配置"
+    "title": "TypeScript 配置",
+    "intro": "Angular 开发者的 TypeScript 配置"
   },
 
   "upgrade": {
-    "title": "从1.x升级",
-    "intro": "Angular 1应用可以逐步升级到Angular 2。"
+    "title": "从 1.x 升级",
+    "intro": "Angular 1 应用可以逐步升级到 Angular 2。"
   },
 
   "webpack": {
-    "title": "Webpack简介",
-    "intro": "使用基于Webpack的工具创建Angular应用"
+    "title": "Webpack 简介",
+    "intro": "使用基于 Webpack 的工具创建 Angular 应用"
   }
 }
