@@ -260,7 +260,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
 
-    **为何？**简单函数可避免易在大函数中产生的隐蔽性错误，如与外界共享变量、创建意外的闭包或与依赖之间产生意外耦合等。
+    **为何？**简单函数可避免易在大函数中产生的隐蔽性错误，例如与外界共享变量、创建意外的闭包或与依赖之间产生意外耦合等。
 
 a(href="#toc").to-top Back to top
 
@@ -415,14 +415,14 @@ a(href="#toc").to-top 回到顶部
     **Do** append the symbol name with the conventional suffix for a thing of that type 
     (e.g., `Component`, `Directive`, `Module`, `Pipe`, `Service`).
 
-    **坚持**在符号名后面追加约定的类型后缀（如`Component`、`Directive`、`Module`、`Pipe`、`Service`）。
+    **坚持**在符号名后面追加约定的类型后缀（例如`Component`、`Directive`、`Module`、`Pipe`、`Service`）。
 
 .s-rule.do
   :marked
     **Do** give the filename the conventional suffix for a file of that type 
     (e.g., `.component.ts`, `.directive.ts`, `.module.ts`, `.pipe.ts`, `.service.ts`).
 
-    **坚持**在文件名后面追加约定的类型后缀（如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
+    **坚持**在文件名后面追加约定的类型后缀（例如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
 .s-why
   :marked
     **Why?** Provides a consistent way to quickly identify and reference assets.
@@ -542,7 +542,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** suffix services with `Service` when it is not clear what they are (e.g. when they are nouns).
 
-    **坚持**添加`Service`后缀，当不清楚它们是什么时（例如，当它们是名词时）。
+    **坚持**添加`Service`后缀，当不清楚它们是什么时（例如当它们是名词时）。
 
 .s-why
   :marked
@@ -696,7 +696,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** use a hyphenated, lowercase element selector value (e.g. `admin-users`). 
 
-    **坚持**使用带连字符的小写元素选择器值（比如`admin-users`）。
+    **坚持**使用带连字符的小写元素选择器值（例如`admin-users`）。
 
 .s-rule.do
   :marked
@@ -755,7 +755,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** use a custom prefix for the selector of directives (e.g, the prefix `toh` from **T**our **o**f **H**eroes).
 
-    **坚持**为指令的选择器添加自定义前缀（比如前缀`toh`来自**T**our **o**f **H**eroes）。
+    **坚持**为指令的选择器添加自定义前缀（例如前缀`toh`来自**T**our **o**f **H**eroes）。
 
 .s-rule.do
   :marked
@@ -1566,7 +1566,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Consider** configuring the IDE to hide distracting, irrelevant files such as generated `.js` and `.js.map` files.
 
-    **考虑**配置 IDE，以隐藏无关的文件，比如生成出来的`.js`文件和`.js.map`文件等。
+    **考虑**配置 IDE，以隐藏无关的文件，例如生成出来的`.js`文件和`.js.map`文件等。
 
 s-why.s-why-last
   :marked
@@ -1625,7 +1625,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**虽然 DRY 很重要，但如果要以牺牲 LIFT 的其它原则为代价，那就不值得了。
     这也就是为什么它被称为 *T-DRY*。
-    比如，把组件命名为`hero-view.component.html`是多余的，因为组件显然就是一个视图 (view)。
+    例如，把组件命名为`hero-view.component.html`是多余的，因为组件显然就是一个视图 (view)。
     但如果它不那么显著，或不符合常规，就把它写出来。
 
 a(href="#toc").to-top Back to top
@@ -1834,7 +1834,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** create an Angular module in the app's root folder (e.g., in `/app`).
 
-    **坚持**在应用的根目录创建一个 Angular 模块（比如`/app`）。
+    **坚持**在应用的根目录创建一个 Angular 模块（例如`/app`）。
 
 .s-why
   :marked
@@ -1881,19 +1881,19 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** place the feature module in the same named folder as the feature area (.e.g `app/heroes`).
 
-    **坚持**把特性模块放在与特性区同名的目录中（如`app/heroes`）。
+    **坚持**把特性模块放在与特性区同名的目录中（例如`app/heroes`）。
 
 .s-rule.do
   :marked
     **Do** name the feature module file reflecting the name of the feature area and folder (e.g. `app/heroes/heroes.module.ts`)
 
-    **坚持**特性模块的文件名应该能反映出特性区的名字和目录（如`app/heroes/heroes.module.ts`）。
+    **坚持**特性模块的文件名应该能反映出特性区的名字和目录（例如`app/heroes/heroes.module.ts`）。
 
 .s-rule.do
   :marked
     **Do** name the feature module symbol reflecting the name of the feature area, folder, and file (e.g. `app/heroes/heroes.module.ts` defines `HeroesModule`)
 
-    **坚持**特性模块的符号名应该能反映出特性区、目录和文件名（如在`app/heroes/heroes.module.ts`中定义`HeroesModule`）。
+    **坚持**特性模块的符号名应该能反映出特性区、目录和文件名（例如在`app/heroes/heroes.module.ts`中定义`HeroesModule`）。
 
 .s-why
   :marked
@@ -1949,25 +1949,25 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** create a feature module named `SharedModule` in a `shared` folder (e.g. `app/shared/shared.module.ts` defines `SharedModule`).
 
-    **坚持**在`shared`目录中创建名叫`SharedModule`的特性模块（比如在`app/shared/shared.module.ts`中定义`SharedModule`）。
+    **坚持**在`shared`目录中创建名叫`SharedModule`的特性模块（例如在`app/shared/shared.module.ts`中定义`SharedModule`）。
 
 .s-rule.do
   :marked
     **Do** put common components, directives and pipes that will be used throughout the application by other feature modules in the `SharedModule`, where those assets are expected to share a new instance of themselves (not singletons).
 
-    **坚持**把可能被应用其它特性模块使用的公共如组件、指令和管道放在`SharedModule`中，这些资产倾向于共享自己的新实例（而不是单例）。
+    **坚持**把可能被应用其它特性模块使用的公共组件、指令和管道放在`SharedModule`中，这些资产倾向于共享自己的新实例（而不是单例）。
 
 .s-rule.do
   :marked
     **Do** import all modules required by the assets in the `SharedModule` (e.g. `CommonModule` and `FormsModule`).
 
-    **坚持**在`SharedModule`中导入所有模块都需要的资产（比如：`CommonModule`和`FormsModule`）。
+    **坚持**在`SharedModule`中导入所有模块都需要的资产（例如`CommonModule`和`FormsModule`）。
 
 .s-why
   :marked
     **Why?** `SharedModule` will contain components, directives and pipes that may need features from another common module (e.g. `ngFor` in `CommonModule`).
 
-    **为何？** `SharedModule`中包含的组件、指令和管道可能需要来自其它公共模块的特性（比如来自`CommonModule`中的`ngFor`指令）。
+    **为何？** `SharedModule`中包含的组件、指令和管道可能需要来自其它公共模块的特性（例如来自`CommonModule`中的`ngFor`指令）。
 
 .s-rule.do
   :marked
@@ -2068,19 +2068,19 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** create a feature module named `CoreModule` in a `core` folder (e.g. `app/core/core.module.ts` defines `CoreModule`).
 
-    **坚持**在`core`目录下创建一个名叫`CoreModule`的特性模块（比如在`app/core/core.module.ts`中定义`CoreModule`）。
+    **坚持**在`core`目录下创建一个名叫`CoreModule`的特性模块（例如在`app/core/core.module.ts`中定义`CoreModule`）。
 
 .s-rule.do
   :marked
     **Do** put a singleton service whose instance wil be shared throughout the application in the `CoreModule` (e.g. `ExceptionService` and `LoggerService`).
 
-    **坚持**把一个要共享给整个应用的单例服务放进`CoreModule`中（比如`ExceptionService`和`LoggerService`）。
+    **坚持**把一个要共享给整个应用的单例服务放进`CoreModule`中（例如`ExceptionService`和`LoggerService`）。
 
 .s-rule.do
   :marked
     **Do** import all modules required by the assets in the `CoreModule` (e.g. `CommonModule` and `FormsModule`).
 
-    **坚持**导入`CoreModule`中的资产所需要的全部模块（比如`CommonModule`和`FormsModule`）。
+    **坚持**导入`CoreModule`中的资产所需要的全部模块（例如`CommonModule`和`FormsModule`）。
 
 .s-why
   :marked
@@ -2100,7 +2100,7 @@ a(href="#toc").to-top 回到顶部
     Import it once (in the `AppModule`) when the app starts and never import it anywhere else. (e.g. `NavComponent` and `SpinnerComponent`).
 
     **坚持**把应用级、只用一次的组件收集到`CoreModule`中。
-    只在应用启动时从`AppModule`中导入它一次，以后再也不要导入它（比如`NavComponent`和`SpinnerComponent`）。
+    只在应用启动时从`AppModule`中导入它一次，以后再也不要导入它（例如`NavComponent`和`SpinnerComponent`）。
 
 .s-why
   :marked
@@ -2108,7 +2108,7 @@ a(href="#toc").to-top 回到顶部
     They are not imported elsewhere so they're not shared in that sense. 
     Yet they're too big and messy to leave loose in the root folder.
 
-    **为何？**真实世界中的应用会有很多只用一次的组件（比如：加载动画、消息浮层、模态框等），它们只会在`AppComponent`的模板中出现。
+    **为何？**真实世界中的应用会有很多只用一次的组件（例如加载动画、消息浮层、模态框等），它们只会在`AppComponent`的模板中出现。
     不会在其它地方导入它们，所以没有共享的价值。
     然而它们又太大了，放在根目录中就会显得乱七八糟的。
 
@@ -2693,7 +2693,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** This is consistent with built-in events such as button clicks.
 
-    **为何？**与内置事件命名一致，比如按钮点击。
+    **为何？**与内置事件命名一致，例如按钮点击。
 
 .s-why.s-why-last
   :marked
@@ -3062,7 +3062,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** Data service implementation may have very specific code to handle the data repository. This may include headers, how to talk to the data, or other services such as `Http`. Separating the logic into a data service encapsulates this logic in a single place hiding the implementation from the outside consumers (perhaps a component), also making it easier to change the implementation.
 
-    **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头 (headers)、如何与数据交谈或者其它服务 (比如`Http`)。把逻辑分离到数据服务可以将该逻辑封装在一个地方，对外部使用者（如组件）隐藏具体的实施细节。
+    **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头 (headers)、如何与数据交谈或者其它服务 (例如`Http`)。把逻辑分离到数据服务可以将该逻辑封装在一个地方，对外部使用者（例如组件）隐藏具体的实施细节。
 
 a(href="#toc").to-top Back to top
 
