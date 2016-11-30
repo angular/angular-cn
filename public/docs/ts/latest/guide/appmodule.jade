@@ -13,7 +13,7 @@ include ../_util-fns
   The [setup](setup.html) instructions produce a new project with the following minimal `AppModule`.
   You'll evolve this module as your application grows.
 
-  [搭建本地开发环境](setup.html)讲解了如何使用下面这个最小的`AppModule`来创建一个新项目。
+  [开发环境](setup.html)讲解了如何使用下面这个最小的`AppModule`来创建一个新项目。
   这个模块随着应用的成长而演变。
 
 +makeExample('setup/ts/app/app.module.ts','', 'app/app.module.ts')(format='.')
@@ -22,47 +22,47 @@ include ../_util-fns
   After the `import` statements, you come to a class adorned with the
   **`@NgModule`** [_decorator_](glossary.html#decorator '"Decorator" explained').
 
-  `import`声明之后，有个类被 **`@NgModule`**[装饰器](glossary.html#decorator '"Decorator" explained')所装饰。
+  `import`语句之后，可以看到一个**`@NgModule`**[装饰器](glossary.html#decorator '"Decorator" explained')修饰的类。
 
   The `@NgModule` decorator identifies `AppModule` as an Angular module class (also called an `NgModule` class).
   `@NgModule` takes a _metadata_ object that tells Angular how to compile and launch the application.
 
-  该`@NgModule`装饰器将`AppModule`标记为 Angular 模块类（也叫`NgModule`类）。
-  `@NgModule`接受一个*元数据*对象，为 Angular 描述如何编译和启动应用。
+  `@NgModule`装饰器将`AppModule`标记为 Angular 模块类（也叫`NgModule`类）。
+  `@NgModule`接受一个_元数据_对象，告诉 Angular 如何编译和启动应用。
 
   * **_imports_** &mdash; the `BrowserModule` that this and every application needs to run in a browser.
 
-  * ***imports*** —— `BrowserModule`，这个和每个在浏览器中运行应用都需要它。
+    **_imports_** &mdash; `BrowserModule`，这个和每个在浏览器中运行应用都需要它。
 
   * **_declarations_** &mdash; the application's lone component, which is also ...
 
-  * ***declarations*** —— 应用的唯一组件，它同时也是...
+    **_declarations_** &mdash; 应用的唯一组件，它同时也是...
 
   * **_bootstrap_** &mdash; the _root_ component that Angular creates and inserts into the `index.html` host web page.
 
-  * ***bootstrap*** —— *根*组件，Angular 创建它并将其插入到`index.html`宿主页面。
+    **_bootstrap_** &mdash; _根_组件，Angular 创建它并插入`index.html`宿主页面。
  
   The [Angular Modules (NgModules)](ngmodule.html) guide dives deeply into the details of Angular modules.
   All you need to know at the moment is a few basics about these three properties.
 
-  [Angular 模块 (NgModules)](ngmodule.html)指南深入讲解了 Angular 模块。
+  [Angular 模块 (NgModules)](ngmodule.html) 指南深入讲解了 Angular 模块。
   现在先初步了解这三个属性。
 
 a#imports
 :marked
   ### The _imports_ array
 
-  ### *imports* 数组
+  ### _imports_ 数组
 
   Angular modules are a way to consolidate features that belong together into discrete units.
   Many features of Angular itself are organized as Angular modules. 
   HTTP services are in the `HttpModule`. The router is in the `RouterModule`.
   Eventually you may create a feature module.
 
-  Angular 模块是用来合并那些属于离散单元的特性的。
+  Angular 模块把特性合并成离散单元的一种方式。
   Angular 自身的许多特性也是通过 Angular 模块组织的。
   HTTP 服务在`HttpModule`里。路由器在`RouterModule`中。
-  最后，你可能也会创建特性模块。
+  最终，你可能也会创建特性模块。
 
   Add a module to the `imports` array when the application requires its features.
 
@@ -73,35 +73,35 @@ a#imports
   So every such application includes the `BrowserModule` in its _root_ `AppModule`'s `imports` array.
   Other guide and cookbook pages will tell you when you need to add additional modules to this array.
 
-  *本*应用和大多数其他应用一样，在浏览器中运行。
+  _这个_应用和大多数其他应用一样，在浏览器中运行。
   每个浏览器中运行的应用都需要`@angular/platform-browser`里的`BrowserModule`。
-  所以每个这样的应用都在其*根*`AppModule`的`imports`数组中包含了`BrowserModule`。
-  在需要添加额外模块到此数组时，其他指南和烹饪书页面会告诉你。
+  所以每个这样的应用都在其_根_`AppModule`的`imports`数组中包含`BrowserModule`。
+  在需要添加额外模块到此数组时，其他指南和烹饪宝典页面会告诉你。
 
 .alert.is-important
    :marked
      **Only `NgModule` classes** go in the `imports` array. Don't put any other kind of class in `imports`.
 
-     `imports`数组中应该**只有`NgModule`类**。不要放置其他类型的类。
+     `imports`数组中应该**只有`NgModule`类**。不要放置其它类型的类。
 
 .l-sub-section
   :marked
     Don't confuse the `import` statements at the top of the file with the Angular module's `imports` array.
     They have different jobs.
 
-    不要将 Angular 模块的`imports`数组与文件顶部的`import`声明弄混淆了。它们的功能不同。
+    不要将 Angular 模块的`imports`数组与文件顶部的`import`语句弄混淆了。它们的功能不同。
 
     The _JavaScript_ `import` statements give you access to symbols _exported_ by other files
     so you can reference them within _this_ file. 
     They have nothing to do with Angular and Angular knows nothing about them.
 
-    *JavaScript* 的`import`声明允许你访问在其他文件中*导出*的符号，这样你可以在*当前*文件引用它们。
-    它们与 Angular 毫无关系，而且 Angular 对它们一无所知。
+    _JavaScript_ 的`import`声明允许你访问在其他文件中_导出_的符号，这样你可以在_当前_文件引用它们。
+    它们与 Angular 毫无关系，Angular 对它们也一无所知。
 
     The _module's_ `imports` array tells Angular about specific Angular modules &mdash; classes decorated with `@NgModule` &mdash;
     that the application needs to function properly.
 
-    *模块*的`imports`数组为 Angular 提供特定 Angular 模块——被`@NgModule`装饰的类——应用需要它们来正常工作。
+    _模块_的`imports`数组告诉 Angular 特定 Angular 模块的信息 &mdash; 用`@NgModule`装饰的类 &mdash; 应用需要它们来正常工作。
 a#declarations
 :marked
   ### The _declarations_ array
@@ -112,50 +112,54 @@ a#declarations
   You tell Angular which components belong to the `AppModule` by listing it in the module's `declarations` array.
   As you create more components, you'll add them to `declarations`.
 
-  *每个*组件必须在一个，而且仅仅一个`NgModule`类中声明。
-  通过将其列到`AppModule`模块的`declarations`数组中，你告诉 Angular 哪个组件属于`AppModule`。
+  *每个*组件必须在且仅在一个`NgModule`类中声明。
+  通过将其列到`AppModule`模块的`declarations`数组中，告诉 Angular 哪个组件属于`AppModule`。
   在创建更多组件的过程中，逐步将它们添加到`declarations`中。
 
   You'll learn to create two other kinds of classes &mdash; 
   [directives](attribute-directives.html) and [pipes](pipes.html) &mdash;
   that you must also add to the `declarations` array.
 
-  你会学到怎样创建其他两种类——[指令](attribute-directives.html)和[管道](pipes.html)——它们也必须被添加到`declarations`数组。
+  你将会学习如何创建其他两种类 &mdash; [指令](attribute-directives.html)和[管道](pipes.html) &mdash;
+  它们也必须被添加到`declarations`数组。
 
 .alert.is-important
    :marked
       **Only _declarables_** &mdash; _components_, _directives_ and _pipes_ &mdash; belong in the `declarations` array. &nbsp;
       Don't put any other kind of class in `declarations`; _not_ `NgModule` classes, _not_ service classes, _not_ model classes.
 
-      **只有*可以声明的***——*组件*、*指令*和*管道*——属于`declarations`数组。不要将其他类型的类添加到`declarations`中，非`NgModule`类, 非服务类，亦非模型类。
+      **只有*可以声明的** &mdash; _组件_、_指令_和_管道_ &mdash; 属于`declarations`数组。
+      不要将其他类型的类添加到`declarations`中，例如`NgModule`类, 服务类，模型类。
 
 a#bootstrap-array
 :marked
   ### The _bootstrap_ array
 
-  ### *bootstrap* 数组
+  ### _bootstrap_ 数组
 
   You launch the application by [_bootstrapping_](#main) the root `AppModule`. 
   Among other things, the _bootstrapping_ process creates the component(s) listed in the `bootstrap` array
   and inserts each one into the browser DOM.
 
-  通过[_引导_](#main)根`AppModule`来启动应用。在启动过程中，其中一步是创建列在`bootstrap`数组的组件，并将它们每一个都插入到浏览器的DOM中。
+  通过[_引导_](#main)根`AppModule`来启动应用。
+  在启动过程中，其中一步是创建列在`bootstrap`数组的组件，
+  并将它们每一个都插入到浏览器的DOM中。
 
   Each bootstrapped component is the base of its own tree of components.
   Inserting a bootstrapped component usually triggers a cascade of component creations that fill out that tree.
 
-  每个引导的组件都是它自己的组件树的根。
+  每个被引导的组件都是它自己的组件树的根。
   插入一个被引导的组件通常触发一系列组件的创建并形成组件树。
 
   While you can put more than one component tree on a host web page, that's not typical. 
   Most applications have only one component tree and they bootstrap a single _root_ component.
 
-  虽然你可以将多个组件树插入到宿主页面，但是这并不典型。
-  大多数应用只有一个组件树，它们引导单一*根*组件。
+  虽然你可以将多个组件树插入到宿主页面，但并不普遍。
+  大多数应用只有一个组件树，它们引导单一_根_组件。
 
   You can call the one _root_ component anything you want but most developers call it `AppComponent`.
 
-  你可以为这个*根*组件取任何名字，但是大多数程序员将其取名为`AppComponent`。
+  你可以为这个_根_组件取任何名字，但是大多数程序员将其取名为`AppComponent`。
 
   Which brings us to the _bootstrapping_ process itself.
 
@@ -177,7 +181,7 @@ l-main-section
   In the beginning, you will compile the application dynamically with the _Just-in-Time (JiT)_ compiler
   and you'll run it in a browser. You can learn about other options later.
 
-  在开始时，你将使用_即时 (JiT) _编译器动态编译应用。然后在浏览器中运行它。
+  开始时，你将使用_即时 (JiT) _编译器动态编译应用。然后在浏览器中运行它。
   稍后，你可以了解其他选项。
 
   The recommended place to bootstrap a JiT-compiled browser application is in a separate file 
@@ -190,18 +194,19 @@ l-main-section
   This code creates a browser platform for dynamic (JiT) compilation and
   bootstrap's the `AppModule` described above.
 
-  该代码为动态 (JiT) 编译创建浏览器平台，并引导上面提到的`AppModule`。
+  上面的代码为动态 (JiT) 编译创建浏览器平台，并引导上面提到的`AppModule`。
 
   The _bootstrapping_ process sets up the execution environment,
   digs the _root_ `AppComponent` out of the module's `bootstrap` array, &nbsp;
   creates an instance of the component and inserts it within the element tag identified by the component's `selector`.
 
-  引导过程搭建运行环境，从模块的`bootstrap`数组中提出*根*`AppComponent` —— 创建该组件的实例并将其插入到组件`selector`标识的元素标签中。
+  引导过程搭建运行环境，从模块的`bootstrap`数组中提出_根_`AppComponent`， 创建该组件的实例，并将其插入到组件`selector`标识的元素标签中。
 
   The `AppComponent` selector &mdash; here and in most documentation samples &mdash; is `my-app` 
   so Angular looks for a `<my-app>` tag in the `index.html` like this one ...
 
-  `AppComponent`选择器——在这里以及文档大部分例子中——都是`my-app`，所以 Angular 在`index.html`中查找像这样的`<my-app>`标签...
+  `AppComponent`选择器 &mdash; 在这里以及文档大部分例子中 &mdash; 是`my-app`，
+  所以 Angular 在`index.html`中查找像这样的`<my-app>`标签...
 +makeExample('setup/ts/index.html','my-app')(format='.')
 :marked
   ... and displays the `AppComponent` there.
@@ -210,32 +215,32 @@ l-main-section
 
   This file is very stable. Once you've set it up, you may never change it again.
 
-  该文件非常稳定。一旦被配置，它可能永远不会再被修改。
+  该文件非常稳定。一旦配置好，你可能永远不会再修改它。
 
 a#quickstart-appmodule
 l-main-section
 :marked
   ## QuickStart's _AppModule_
 
-  ## 《快速起步》的`AppModule`
+  ## 《快速起步》的_AppModule_
 
   Every Angular application must have a root `NgModule`, even the [QuickStart](../quickstart.html).
   You didn't see it but it was there.
 
-  每个 Angular 应用必须有一个跟`NgModule`，包括[快速起步](../quickstart.html)在内。
-  虽然你看不到它，但是它在那儿。
+  每个 Angular 应用必须有一个根`NgModule`，包括[《快速起步》](../quickstart.html)在内。
+  你之前没有看到它，但它确定有。
 
   A script in the `index.html` generated a hidden `AppModule` and bootstrapped it for you
   so you could focus on the `AppComponent` and discover the _essential Angular_ more quickly.
 
-  `index.html`中的一个脚本生成了隐藏的`AppModule`并为你引导它。这样你可以专注于`AppComponent`，以更快的了解* Angular 的基础*。
+  `index.html`中的一个脚本生成了隐藏的`AppModule`并引导它。这样你可以专注于`AppComponent`，以更快的了解_ Angular 的基础_。
 
   If you're feeling adventurous, add your own `AppModule` and `main.ts` to the
   live code in the _QuickStart_ plunker.
 
-  你可以添加自己的`AppModule`和`main.ts`到plunker上*快速起步*的在线代码中。
+  如果你爱冒险，可以在《快速起步》plunker 的在线代码中添加自己的`AppModule`和`main.ts`。
 
   Remove the following `<script>` tag from the `index.html` and see _your_ work in action.
 
-  从`index.html`中删除下面的`<script>`标签，看看*你*的劳动成果。
+  从`index.html`中删除下面的`<script>`标签，看看_你_的劳动成果。
 +makeExample('quickstart/ts/index.html','autobootstrap','Remove this script tag from "index.html"')(format='.')
