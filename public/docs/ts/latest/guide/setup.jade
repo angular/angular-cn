@@ -1,6 +1,7 @@
 block includes
   include ../_util-fns
   - var _prereq = 'node and npm';
+  - var _prereq_cn = 'node 和 npm';
   - var _playground = 'playground';
   - var _Install = 'Install';
   //- npm commands
@@ -23,7 +24,6 @@ a#develop-locally
   你应该在自己的电脑上[本地开发](#why-locally "为什么在本地开发？")... 你也应该在本地环境学习 Angular。
   </span>
   
-  
   Setting up a new project on your machine is quick and easy with the **QuickStart seed**,
   maintained [on github](!{_qsRepo} "Install the github QuickStart repo"). 
 
@@ -32,7 +32,7 @@ a#develop-locally
   Make sure you have [!{_prereq} installed](#install-prerequisites "What if you don't have !{_prereq}?").
   Then ...
 
-  确定你已经安装了[!{_prereq}](#install-prerequisites "如果你没有 !{_prereq} ？")，然后：
+  确定你已经安装了 [!{_prereq_cn}](#install-prerequisites "如果你没有 !{_prereq_cn}？")，然后：
   
   1. Create a project folder (you can call it `quickstart` and rename it later).
 
@@ -40,15 +40,15 @@ a#develop-locally
 
   1. [Clone](#clone "Clone it from github") or [download](#download "download it from github") the **QuickStart seed** into your project folder.
 
-    [克隆](#clone "从 github 克隆")或者[下载](#download "从 github 下载")**《快速起步》种子**到你的项目目录。
+     [克隆](#clone "从 github 克隆")或者[下载](#download "从 github 下载")**《快速起步》种子**到你的项目目录。
 
   1. !{_Install} [!{_npm}](#install-prerequisites "What if you don't have !{_prereq}?") packages.
     
-    安装 [!{_npm}](#install-prerequisites "如果你没有 !{_prereq} ？") 包。
+     安装 [!{_npm}](#install-prerequisites "如果你没有 !{_prereq} ？") 包。
 
   1. Run `!{_npm} !{_start}` to launch the sample application.
 
-    运行`!{_npm} !{_start}`来启动例子应用。
+     运行`!{_npm} !{_start}`来启动例子应用。
 
 a#clone
 :marked
@@ -109,7 +109,7 @@ block core-files
   :marked
     Focus on the following three TypeScript (`.ts`) files in the **`/app`** folder.
 
-    注意**`/app`**目录里的下列三个 TypeScript (`.ts`) 文件：
+    注意**`/app`**目录中以下三个 TypeScript (`.ts`) 文件：
   .filetree
     .file app
     .children
@@ -130,7 +130,7 @@ block core-files
 :marked
   All guides and cookbooks have _at least these core files_. Each file has a distinct purpose and evolves independently as the application grows.
 
-  所有指南和烹饪书都至少 有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
+  所有指南和烹饪书都至少有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
 
 style td, th {vertical-align: top}
 table(width="100%")
@@ -138,15 +138,11 @@ table(width="100%")
   col(width="80%")
   tr
     th 
-     :marked
-      File
-
-      文件
+      p File
+      p 文件
     th 
-     :marked
-      Purpose
-
-      用途
+      p Purpose
+      p 用途
   tr
     td <ngio-ex>app.component.ts</ngio-ex>
     td
@@ -265,19 +261,19 @@ block install-tooling
 
     * you can't ship your app in plunker
 
-    * 你不能在 plunker 里面发布你的应用
+      你不能在 plunker 里面发布你的应用
 
     * you aren't always online when writing code
 
-    * 编程时你不可能总是在线
+      编程时你不可能总是在线
 
     * transpiling TypeScript in the browser is slow
 
-    * 在浏览器中编译 TypeScript 很慢
+      在浏览器中编译 TypeScript 很慢
 
     * the type support, refactoring, and code completion only work in your local IDE
 
-    * 只有本地IDE有类型支持、代码重构和代码自动完成
+      只有本地 IDE 有类型支持、代码重构和代码自动完成
 
     Use the <live-example><i>live coding</i></live-example> environment as a _playground_, 
     a place to try the documentation samples and experiment on your own.
