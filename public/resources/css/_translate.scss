@@ -88,7 +88,7 @@ td, th {
     font-style: normal;
     font-weight: bold;
   }
-  code, [lang=english] {
+  [lang=english] {
     margin-left: 0.2em;
     margin-right: 0.2em;
   }
@@ -108,7 +108,7 @@ td, th {
   }
 }
 
-body, .main-nav .main-nav-button, .translated-cn code {
+body, .main-nav .main-nav-button, .translated-cn {
   font-family: "Helvetica Neue", Arial, STHeiti, "Microsoft YaHei", sans-serif, Helvetica, "DroidSansFallback", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3" !important;
 }
 
