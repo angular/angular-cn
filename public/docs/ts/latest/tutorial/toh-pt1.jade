@@ -2,17 +2,18 @@ include ../_util-fns
 
 :marked
   ## Setup to develop locally
+
   ## 为本地开发搭建环境
 
   Real application development takes place in a local development environment like your machine.
 
-  真实应用开发在你的机器一样的本地开发环境中进行。
+  我们通常在本地开发环境中（例如你的机器）进行真实的应用程序开发。
 
   Follow the [setup](../guide/setup.html) instructions for creating a new project
   named <ngio-ex path="angular-tour-of-heroes"></ngio-ex>
   after which the file structure should look like this:
 
-  根据[搭建本地开发环境](../guide/setup.html)中的说明创建一个名为<ngio-ex path="angular-tour-of-heroes"></ngio-ex>的新项目，
+  根据[开发环境](../guide/setup.html)中的说明创建一个名为<ngio-ex path="angular-tour-of-heroes"></ngio-ex>的新项目，
   该项目的文件结构应该是这样的：
 
 .filetree
@@ -41,8 +42,8 @@ include ../_util-fns
   We want to start the TypeScript compiler, have it watch for changes, and start our server.
   Do this by entering the following command in the terminal window.
 
-  我们要启动 TypeScript 编译器，它会监视文件变更，并且启动开发服务器。
-  我们只要敲：
+  开发过程中需要启动 TypeScript 编译器，让它监视文件变更，并且启动开发服务器。
+  在命令行窗口中输入以下命令：
 
 code-example(language="sh" class="code-shell").
   npm start
@@ -51,7 +52,8 @@ code-example(language="sh" class="code-shell").
   This command runs the compiler in watch mode, starts the server, launches the app in a browser,
   and keeps the app running while we continue to build the Tour of Heroes.
 
-  这个命令会在监视模式下运行编译器，启动开发服务器，在浏览器中启动我们的应用，并在我们构建《英雄指南》的时候让应用得以持续运行。
+  这个命令会在监视模式下运行编译器，启动开发服务器，在浏览器中启动我们的应用，
+  并在后续构建《英雄指南》过程中，应用能持续运行。
 
 .l-main-section
   :marked
@@ -61,54 +63,55 @@ code-example(language="sh" class="code-shell").
 
     We want to display Hero data in our app
 
-    我们要在应用中显示英雄数据
+    我们要在应用中显示英雄数据。
 
     Update the `AppComponent` so it has two properties: &nbsp; a `title` property for the application name and a `hero` property
     for a hero named "Windstorm".
 
-    更新`AppComponent`并添加两个属性：`title`属性表示应用的名字，而`hero`属性表示一个名叫“Windstorm”的英雄。
+    更新`AppComponent`并添加两个属性：`title`属性表示应用的名字，`hero`属性表示一个名叫 “Windstorm” 的英雄。
 
   +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'app.component.ts (AppComponent class)')(format=".")
 
   :marked
     Now update the template in the `@Component` decoration with data bindings to these new properties.
 
-    现在，我们为这些新属性建立数据绑定，以更新`@Component`装饰器中指定的模板
+    下面，更新`@Component`装饰器中指定的模板，为这些新属性建立数据绑定。
 
   +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'show-hero')
 
   :marked
     The browser should refresh and display our title and hero.
 
-    保存后，浏览器应该会自动刷新，并显示我们的标题和英雄。
+    保存后，浏览器应自动刷新，显示标题和英雄。
 
     The double curly braces tell our app to read the `title` and `hero` properties from the component and render them.
     This is the "interpolation" form of one-way data binding.
 
-    这里的“双大括号”会告诉应用：从组件中读取`title`和`hero`属性，并且渲染它们。这就是单向数据绑定的“插值表达式”形式。
+    这里的双大括号会告诉应用：从组件中读取`title`和`hero`属性，并且渲染它们。
+    这就是单向数据绑定的“插值表达式”形式。
 
 .l-sub-section
   :marked
     Learn more about interpolation in the [Displaying Data chapter](../guide/displaying-data.html).
 
-    要了解插值表达式的更多知识，参阅[“显示数据”一章](../guide/displaying-data.html)。
+    要了解插值表达式的更多知识，见[显示数据](../guide/displaying-data.html)。
 
 :marked
   ### Hero object
 
-  ### Hero对象
+  ### Hero 对象
 
   At the moment, our hero is just a name.  Our hero needs more properties.
   Let's convert the `hero` from a literal string to a class.
 
-  此时此刻，我们的英雄还只有一个名字。显然，它/她应该有更多属性。
+  此时此刻，我们的英雄只是一个名字。显然，它/她应该有更多属性。
   让我们把`hero`从一个字符串字面量换成一个类。
 
   Create a `Hero` class with `id` and `name` properties.
   For now put this near the top of the `app.component.ts` file, just below the import statement.
 
   创建一个`Hero`类，它具有`id`和`name`属性。
-  现在，把下列代码放在`app.component.ts`的顶部，仅次于import语句。
+  现在，把下列代码放在`app.component.ts`的顶部，仅次于 import 语句。
 
 +makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero class)')(format=".")
 
@@ -116,8 +119,8 @@ code-example(language="sh" class="code-shell").
   Now that we have a `Hero` class, let’s refactor our component’s `hero` property to be of type `Hero`.
   Then initialize it with an id of `1` and the name, "Windstorm".
 
-  现在，有了一个`Hero`类，我们就要把组件`hero`属性的类型换成`Hero`了。
-  然后以`1`为id、以“Windstorm”为名字，初始化它。
+  现在，有了一个`Hero`类，我们把组件`hero`属性的类型换成`Hero`。
+  然后以`1`为 id、以 “Windstorm” 为名字，初始化它。
 
 +makeExample('toh-1/ts/app/app.component.ts', 'hero-property-1', 'app.component.ts (hero property)')(format=".")
 
@@ -135,7 +138,7 @@ code-example(language="sh" class="code-shell").
 
   ### Adding more HTML
 
-  ### 添加更多的HTML
+  ### 添加更多的 HTML
 
   Displaying a name is good, but we want to see all of our hero’s properties.
   We’ll add a `<div>` for our hero’s `id` property and another `<div>` for our hero’s `name`.
@@ -159,8 +162,8 @@ code-example(language="sh" class="code-shell").
   let’s take advantage of the template strings feature
   in ES2015 and TypeScript to maintain our sanity.
 
-  我们可以通过字符串加法来制作更可读的模板，但这样仍然太难看了 —— 难于阅读，容易拼错。
-  这样不行！我们要借助ES2015和TypeScript提供的模板字符串来保持清爽。
+  我们可以通过字符串加法来制作更可读的模板，但这样仍然太难看了，难于阅读，容易拼错。
+  这样不行！我们要借助 ES2015 和 TypeScript 提供的模板字符串来保持清爽。
 
   Change the quotes around the template to back-ticks and
   put the `<h1>`, `<h2>` and `<div>` elements on their own lines.
@@ -182,7 +185,7 @@ code-example(language="sh" class="code-shell").
       Everything between the back-ticks at the beginning and end of the template
       is part of a single template string.
 
-      **小心！**反引号(`)虽然看起来很像单引号(')，但它们是截然不同的字符。
+      **小心！**反引号 (`) 虽然看起来很像单引号 (')，但它们是截然不同的字符。
       反引号能做的可不仅仅是标记字符串的边界。
       在这里，我们只用它来把我们的模板变成多行的，而没有涉及更多用途。
       所有被反引号引起来的部分，都是一个单一模板字符串的一部分。
@@ -241,7 +244,7 @@ code-example(language="sh" class="code-shell").
     [Template Syntax](../guide/template-syntax.html#ngModel) chapters.
 
     要学习关于`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)和
-    [模板语法](../guide/template-syntax.html#ngModel)两章
+    [模板语法](../guide/template-syntax.html#ngModel)。
 
 :marked
   Let’s update the template to use the  **`ngModel`** built-in directive for two-way binding.
@@ -250,7 +253,7 @@ code-example(language="sh" class="code-shell").
 
   Replace the `<input>` with the following HTML
 
-  把`<input>`替换为下列HTML
+  把`<input>`替换为下列 HTML
 
 code-example(language="html").
   &lt;input [(ngModel)]="hero.name" placeholder="name">
@@ -274,20 +277,20 @@ code-example(language="html").
   * Our Tour of Heroes uses the double curly braces of interpolation (a kind of one-way data binding)
   to display the application title and properties of a `Hero` object.
 
-  * 我们的《英雄指南》使用双大括号插值表达式(单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
+    我们的《英雄指南》使用双大括号插值表达式(单向数据绑定的一种形式)来显示应用的标题和`Hero`对象的属性。
 
   * We wrote a multi-line template using ES2015’s template strings to make our template readable.
 
-  * 我们使用ES2015的模板字符串写了一个多行模板，使我们的模板更具可读性。
+    我们使用 ES2015 的模板字符串写了一个多行模板，使我们的模板更具可读性。
 
   * We can both display and change the hero’s name after adding a two-way data binding to the `<input>` element
   using the built-in `ngModel` directive.
 
-  * 为了同时显示和修改英雄的名字，我们还使用了内置的`ngModel`指令，往`<input>`元素上添加了双向数据绑定。
+    为了同时显示和修改英雄的名字，我们还使用了内置的`ngModel`指令，往`<input>`元素上添加了双向数据绑定。
 
   * The `ngModel` directive also propagates changes to every other binding of the `hero.name`.
 
-  * `ngModel`指令将这些修改传播到每一个对`hero.name`的其它绑定。
+    `ngModel`指令将这些修改传播到每一个对`hero.name`的其它绑定。
 
   Run the <live-example></live-example> for this part.
 
