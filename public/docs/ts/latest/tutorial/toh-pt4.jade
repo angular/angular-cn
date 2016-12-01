@@ -10,19 +10,19 @@ include ../_util-fns
   Instead, we'll create a single reusable data service and learn to
   inject it in the components that need it.
 
-  将来会有更多的组件访问英雄数据，但我们不想一遍又一遍的复制粘贴同样的代码。
-  我们的替代方案是，创建一个单一的、可复用的数据服务，然后学着把它注入到那些想用它的组件中去。
+  将来会有更多的组件访问英雄数据，我们不想一遍一遍地复制粘贴同样的代码。
+  解决方案是，创建一个单一的、可复用的数据服务，然后学着把它注入到那些需要它的组件中去。
 
   Refactoring data access to a separate service keeps the component lean and focused on supporting the view.
   It also makes it easier to unit test the component with a mock service.
 
   我们将重构数据访问代码，把它隔离到一个独立的服务中去，让组件尽可能保持精简，专注于为视图提供支持。
-  在这种方式下，借助mock服务来对组件进行单元测试也会更容易。
+  在这种方式下，借助模拟服务来对组件进行单元测试也会更容易。
 
   Because data services are invariably asynchronous,
   we'll finish the chapter with a **!{_Promise}**-based version of the data service.
 
-  因为数据服务通常都是异步的，我们将在本章创建一个基于**承诺（Promise）**的数据服务。
+  因为数据服务通常都是异步的，我们将在本章创建一个基于**承诺 (Promise)**的数据服务。
 
   Run the <live-example></live-example> for this part.
 
@@ -37,7 +37,7 @@ include ../_util-fns
   Before we continue with our Tour of Heroes, let’s verify we have the following structure.
   If not, we’ll need to go back and follow the previous chapters.
 
-  在继续《英雄指南》之前，先来检查一下，你是否已经有了如下目录结构。如果没有，你得先回上一章，看看错过了哪里。
+  在继续《英雄指南》之前，先检查一下，是否已经有如下目录结构。如果没有，回上一章，看看错过了哪里。
 
 .filetree
   .file angular-tour-of-heroes
@@ -64,7 +64,7 @@ include ../_util-fns
   Open a terminal/console window.
   Start the TypeScript compiler, watch for changes, and start our server by entering the command:
 
-  打开terminal/console窗口，启动TypeScript编译器，它会监视文件变更，并启动开发服务器。只要敲：
+  打开终端/控制台窗口，启动 TypeScript 编译器，它会监视文件变更，并启动开发服务器。只要敲：
 
 code-example(language="bash").
   npm start
@@ -84,28 +84,29 @@ code-example(language="bash").
   Soon we'll add a dashboard with the top performing heroes and create a separate view for editing hero details.
   All three views need hero data. 
 
-  客户向我们描绘了本应用更大的目标。
-  它们说，想要在不同的页面中用多种方式显示英雄。
+  客户向我们描绘了本应用更大的目标：想要在不同的页面中用多种方式显示英雄。
   现在我们已经能从列表中选择一个英雄了，但这还不够。
-  很快，我们将添加一个仪表盘来显示表现最好的英雄，并且创建一个独立视图来编辑英雄的详情。
-  所有这些视图都需要英雄的数据。
+  很快，我们将添加一个仪表盘来显示表现最好的英雄，并创建一个独立视图来编辑英雄的详情。
+  所有这些视图都需要英雄数据。
 
   At the moment the `AppComponent` defines mock heroes for display.
   We have at least two objections.
   First, defining heroes is not the component's job. 
   Second, we can't easily share that list of heroes with other components and views. 
 
-  目前，`AppComponent`显示的是mock英雄数据。
-  我们可改进的地方至少有两个：首先，定义英雄的数据不该是组件的任务。其次，想把这份英雄列表的数据共享给其它组件和视图可不那么容易。
+  目前，`AppComponent`显示的是模拟数据。
+  至少有两个地方可以改进：
+  首先，定义英雄的数据不该是组件的任务；
+  其次，想把这份英雄列表的数据共享给其它组件和视图可不那么容易。
 
   We can refactor this hero data acquisition business to a single service that provides heroes, and
   share that service with all components that need heroes.
 
-  我们可以把获取英雄数据的任务重构为一个单独的服务，它将提供英雄数据，并且把这个服务在所有需要英雄数据的组件之间共享。
+  我们可以把获取英雄数据的任务重构为一个单独的服务，它将提供英雄数据，并把服务在所有需要英雄数据的组件间共享。
 
   ### Create the HeroService
 
-  ### 创建HeroService
+  ### 创建 HeroService
 
   Create a file in the `app` folder called `hero.service.ts`.
 
@@ -117,14 +118,14 @@ code-example(language="bash").
     If the service name were multi-word, we'd spell the base filename in lower [dash-case](../guide/glossary.html#dash-case).
     The `SpecialSuperHeroService` would be defined in the `special-super-hero.service.ts` file.
 
-    我们遵循的文件命名约定是：服务名称的小写形式(基本名)，加上`.service`后缀。
-    如果服务名称包含多个单词，我们就把基本名部分写成中线形式（[dash-case](../guide/glossary.html#dash-case)）。
-    比如，`SpecialSuperHeroService`服务应该被定义在`special-super-hero.service.ts`文件中。
+    我们遵循的文件命名约定是：服务名称的小写形式（基本名），加上`.service`后缀。
+    如果服务名称包含多个单词，我们就把基本名部分写成中线形式 ([dash-case](../guide/glossary.html#dash-case))。
+    例如，`SpecialSuperHeroService`服务应该被定义在`special-super-hero.service.ts`文件中。
 
 :marked
   We name the class `HeroService` and export it for others to import.
 
-  我们把这个类命名为`HeroService`，并且导出它，以供别人使用。
+  我们把这个类命名为`HeroService`，并导出它，以供别人使用。
 
 +makeExample('toh-4/ts/app/hero.service.1.ts', 'empty-class', 'app/hero.service.ts (starting point)')(format=".")
 
@@ -135,7 +136,7 @@ code-example(language="bash").
 
   Notice that we imported the Angular `Injectable` function and applied that function as an `@Injectable()` decorator.
 
-  注意，我们引入了Angular的`Injectable`函数，并通过`@Injectable()`装饰器使用这个函数。
+  注意，我们导入了 Angular 的`Injectable`函数，并作为`@Injectable()`装饰器使用这个函数。
 
 .callout.is-helpful
   :marked
@@ -147,18 +148,21 @@ code-example(language="bash").
   TypeScript sees the `@Injectable()` decorator and emits metadata about our service, 
   metadata that Angular may need to inject other dependencies into this service.
 
-  当TypeScript看到`@Injectable()`装饰器时，就会记下本服务的元数据。如果Angular需要往这个服务中注入其它依赖，就会使用这些元数据。
+  当 TypeScript 看到`@Injectable()`装饰器时，就会记下本服务的元数据。
+  如果 Angular 需要往这个服务中注入其它依赖，就会使用这些元数据。
 
   The `HeroService` doesn't have any dependencies *at the moment*. Add the decorator anyway.
   It is a "best practice" to apply the `@Injectable()` decorator ​*from the start*​ 
   both for consistency and for future-proofing.
 
-  此刻，`HeroService`还没有任何依赖，但我们还是得加上这个装饰器。作为一项最佳实践，无论是出于提高统一性还是减少变更的目的，都应该从一开始就加上`@Injectable()`装饰器。
+  *此时*，`HeroService`还没有任何依赖，但我们还是得加上这个装饰器。
+  作为一项最佳实践，无论是出于提高统一性还是减少变更的目的，
+  都应该从一开始就加上`@Injectable()`装饰器。
 
 :marked
   ### Getting Heroes
 
-  ### 获取英雄
+  ### 获取英雄数据
 
   Add a `getHeroes` method stub.
 
@@ -178,7 +182,7 @@ code-example(language="bash").
 
   数据使用者并不知道本服务会如何获取数据。
   我们的`HeroService`服务可以从任何地方获取英雄的数据。
-  它可以从网络服务器获取，可以从浏览器的局部存储区获取，也可以是mock的数据源。
+  它可以从网络服务器获取，可以从浏览器的局部存储区获取，也可以从模拟的数据源。
 
   That's the beauty of removing data access from the component.
   We can change our minds about the implementation as often as we like,
@@ -189,25 +193,26 @@ code-example(language="bash").
 
   ### Mock Heroes  
 
-  ### Mock英雄数据
+  ### 模拟英雄数据
 
   We already have mock `Hero` data sitting in the `AppComponent`.  It doesn't belong there. It doesn't belong *here* either.
   We'll move the mock data to its own file.
 
-  我们曾在`AppComponent`组件中写过mock版的英雄数据。它不该在那里，但也不该在*这里*！我们得把mock数据移到它自己的文件中去。
+  我们曾在`AppComponent`组件中写过模拟数据。它不该在那里，但也不该在*这里*！
+  我们应把模拟数据移到它自己的文件中去。
 
   Cut the `HEROES` array from `app.component.ts` and paste it to a new file in the `app` folder named `mock-heroes.ts`.
   We copy the `import {Hero} ...` statement as well because the heroes array uses the `Hero` class.
 
-  从`app.component.ts`文件中剪切`HEROS`数组，并把它粘贴到`app`目录下一个名叫`mock-heroes.ts`的文件中。
-  我们还要把`import {Hero}...`语句拷贝过来，因为我们的英雄数组用到了`Hero`类。
+  从`app.component.ts`文件中剪切`HEROS`数组，把它粘贴到`app`目录下一个名叫`mock-heroes.ts`的文件中。
+  还要复制`import {Hero}...`语句，因为我们的英雄数组用到了`Hero`类。
 
 +makeExample('toh-4/ts/app/mock-heroes.ts', null, 'app/mock-heroes.ts')
 
 :marked
   We export the `HEROES` constant so we can import it elsewhere &mdash; such as our `HeroService`.
 
-  我们导出了`HEROES`常量，以便在其它地方导入它 —— 比如`HeroService`服务。
+  我们导出了`HEROES`常量，以便可以在其它地方导入它 &mdash; 例如`HeroService`服务。
 
   Meanwhile, back in `app.component.ts` where we cut away the `HEROES` array, 
   we leave behind an uninitialized `heroes` property:
@@ -231,15 +236,15 @@ code-example(language="bash").
 :marked
   ### Use the Hero Service
 
-  ### 使用HeroService服务
+  ### 使用 HeroService 服务
 
   We're ready to use the `HeroService` in other components starting with our `AppComponent`.
 
-  我们可以在多个组件中使用HeroService服务了，先从AppComponent开始。
+  我们可以在多个组件中使用 HeroService 服务了，先从 AppComponent 开始。
 
   We begin, as usual, by importing the thing we want to use, the `HeroService`.
 
-  通常，我们会从导入要用的东西开始，比如`HeroService`。
+  通常，我们先导入要用的东西，例如`HeroService`。
 
 +makeExcerpt('toh-4/ts/app/app.component.ts', 'hero-service-import')
 
@@ -247,7 +252,7 @@ code-example(language="bash").
   Importing the service allows us to *reference* it in our code. 
   How should the `AppComponent` acquire a runtime concrete `HeroService` instance?
 
-  导入这个服务让我们可以在代码中引用它。
+  导入这个服务让我们可以在代码中*引用*它。
   `AppComponent`该如何在运行中获得一个具体的`HeroService`实例呢？
 
   ### Do we *new* the *HeroService*? No way!
@@ -256,29 +261,29 @@ code-example(language="bash").
 
   We could create a new instance  of the `HeroService` with `new` like this:
 
-  固然，我们可以使用`new`关键字来创建`HeroService`的实例，就像这样：
+  尽管我们可以使用`new`来创建`HeroService`的实例，就像这样：
 
 +makeExample('toh-4/ts/app/app.component.1.ts', 'new-service')(format=".")
 
 :marked
   That's a bad idea for several reasons including
 
-  但这不是个好主意，有很多理由，比如：
+  但这不是个好主意，有很多理由，例如：
 
   * Our component has to know how to create a `HeroService`.
   If we ever change the `HeroService` constructor, 
   we'll have to find every place we create the service and fix it.
   Running around patching code is error prone and adds to the test burden.
 
-  * 我们的组件将不得不弄清楚该如何创建`HeroService`。
+    我们的组件得弄清楚该如何创建`HeroService`。
   如果有一天我们修改了`HeroService`的构造函数，我们不得不找出创建过此服务的每一处代码，并修改它。
-  而给代码打补丁的行为容易导致错误，并增加了测试的负担。
+  围着补丁代码转圈很容易导致错误，还会增加测试负担。
 
   * We create a new service each time we use `new`. 
   What if the service should cache heroes and share that cache with others?
   We couldn't do that.
 
-  * 我们每次使用`new`都会创建一个新的服务实例。
+    我们每次使用`new`都会创建一个新的服务实例。
   如果这个服务需要缓存英雄列表，并把这个缓存共享给别人呢？怎么办？
   没办法，做不到。
 
@@ -288,13 +293,13 @@ code-example(language="bash").
   Will we need different mocked versions under test?
   Not easy.
 
-  * 我们把`AppComponent`锁死在`HeroService`的一个特定实现中。
-  我们很难在别的场景中把它换成别的实现。
-  比如，能离线操作吗？能在测试时使用不同的模拟版本吗？这可不容易。
+    我们把`AppComponent`锁定到`HeroService`的一个特定实现。
+  我们很难在不同的场景中切换实现。
+  例如，能离线操作吗？能在测试时使用不同的模拟版本吗？这可不容易。
 
   * What if ... what if ... Hey, we've got work to do!*
 
-  * 如果……如果……嘿！这下我们可有得忙了！
+    如果……如果……嘿！这下我们可有得忙了！
 
   We get it. Really we do.
   But it is so ridiculously easy to avoid these problems that there is no excuse for doing it wrong.
@@ -311,11 +316,11 @@ code-example(language="bash").
 
   1. We add a constructor that also defines a private property.
 
-  1. 我们添加了一个构造函数，同时还定义了一个私有属性。
+     添加一个构造函数，并定义一个私有属性。
 
   1. We add to the component's `providers` metadata.
 
-  1. 我们添加了组件的`providers`元数据
+     添加组件的`providers`元数据。
 
   Here's the constructor:
 
@@ -331,24 +336,24 @@ code-example(language="bash").
 :marked
   Now Angular will know to supply an instance of the `HeroService` when it creates a new `AppComponent`. 
 
-  现在，Angular将会知道，当它创建`AppComponent`实例时，需要先提供一个`HeroService`的实例。
+  现在，当创建`AppComponent`实例时，Angular 知道需要先提供一个`HeroService`的实例。
 
 .l-sub-section
   :marked
     Learn more about Dependency Injection in the [Dependency Injection](../guide/dependency-injection.html) chapter.
 
-    要了解关于依赖注入的更多知识，请参见[依赖注入](../guide/dependency-injection.html)一章。
+    更多依赖注入的信息，见[依赖注入](../guide/dependency-injection.html)。
 
 :marked
   The *injector* does not know yet how to create a `HeroService`. 
   If we ran our code now, Angular would fail with an error:
 
   *注入器*还不知道该如何创建`HeroService`。
-  如果现在运行我们的代码，Angular就会失败，并报错：
+  如果现在运行我们的代码，Angular 就会失败，并报错：
 
 code-example(format="nocode").
     EXCEPTION: No provider for HeroService! (AppComponent -> HeroService)
-    (异常：没有HeroService的提供商！(AppComponent -> HeroService))
+    (异常：没有 HeroService 的提供商！(AppComponent -> HeroService))
 
 :marked
   We have to teach the *injector* how to make a `HeroService` by registering a `HeroService` **provider**.
@@ -356,7 +361,7 @@ code-example(format="nocode").
   in the `@Component` call.
 
   我们还得注册一个`HeroService`**提供商**，来告诉*注入器*如何创建`HeroService`。
-  要做到这一点，我们应该在`@Component`组件的元数据底部添加`providers`数组属性如下：
+  要做到这一点，我们在`@Component`组件的元数据底部添加`providers`数组属性如下：
 
 +makeExcerpt('toh-4/ts/app/app.component.1.ts', 'providers')
 
@@ -364,7 +369,7 @@ code-example(format="nocode").
   The `providers` array  tells Angular to create a fresh instance of the `HeroService` when it creates a new `AppComponent`.
   The `AppComponent` can use that service to get heroes and so can every child component of its component tree.
 
-  `providers`数组告诉Angular，当它创建新的`AppComponent`组件时，也要创建一个`HeroService`的新实例。
+  `providers`数组告诉 Angular，当它创建新的`AppComponent`组件时，也要创建一个`HeroService`的新实例。
   `AppComponent`会使用那个服务来获取英雄列表，在它组件树中的每一个子组件也同样如此。
 
 a#child-component
@@ -375,7 +380,7 @@ a#child-component
 
   We've got the service in a `heroService` private variable. Let's use it.
 
-  我们已经获得了此服务，并把它存入了私有变量`heroService`中。我们这就开始使用它。
+  我们已经有了服务，并把它存入了私有变量`heroService`中。我们这就开始使用它。
 
   We pause to think. We can call the service and get the data in one line.
 
@@ -405,14 +410,15 @@ a#child-component
   Years of experience and bitter tears have taught us to keep complex logic out of the constructor,
   especially anything that might call a server as a data access method is sure to do.
 
-  多年的经验和惨痛的教训教育我们，应该把复杂的逻辑扔到构造函数外面去，特别是那些需要从服务器获取数据的逻辑更是如此。
+  多年的经验和惨痛的教训教育我们，应该把复杂的逻辑扔到构造函数外面去，
+  特别是那些需要从服务器获取数据的逻辑更是如此。
 
   The constructor is for simple initializations like wiring constructor parameters to properties.
   It's not for heavy lifting. We should be able to create a component in a test and not worry that it 
   might do real work &mdash; like calling a server!  &mdash; before we tell it to do so.
 
-  构造函数是为了简单的初始化工作而设计的，比如把构造函数的参数赋值给属性。
-  它的负担不应该过于沉重。我们应该能在测试中创建一个组件，而不用担心它会做实际的工作 —— 比如和服务器通讯，直到我们主动要求它做这些。
+  构造函数是为了简单的初始化工作而设计的，例如把构造函数的参数赋值给属性。
+  它的负担不应该过于沉重。我们应该能在测试中创建一个组件，而不用担心它会做实际的工作 &mdash; 例如和服务器通讯，直到我们主动要求它做这些。
 
   If not the constructor, something has to call `getHeroes`.
 
@@ -422,18 +428,18 @@ a#child-component
   Angular offers a number of interfaces for tapping into critical moments in the component lifecycle:
   at creation, after each change, and at its eventual destruction.
 
-  这也不难。只要我们实现了Angular的 **ngOnInit** *生命周期钩子*，Angular就会主动调用这个钩子。
+  这也不难。只要我们实现了 Angular 的 **ngOnInit** *生命周期钩子*，Angular 就会主动调用这个钩子。
   Angular提供了一些接口，用来介入组件生命周期的几个关键时间点：刚创建时、每次变化时，以及最终被销毁时。
 
   Each interface has a single method. When the component implements that method, Angular calls it at the appropriate time.
 
-  每个接口都有唯一的一个方法。只要组件实现了这个方法，Angular就会在合适的时机调用它。
+  每个接口都有唯一的一个方法。只要组件实现了这个方法，Angular 就会在合适的时机调用它。
 
 .l-sub-section
   :marked
     Learn more about lifecycle hooks in the [Lifecycle Hooks](../guide/lifecycle-hooks.html) chapter.
 
-    要了解关于生命周期钩子的更多知识，请参见 [生命周期钩子](../guide/lifecycle-hooks.html) 一章。
+    更多生命周期钩子信息，见[生命周期钩子](../guide/lifecycle-hooks.html)。
 
 :marked
   Here's the essential outline for the `OnInit` interface:
@@ -446,7 +452,8 @@ a#child-component
   We write an `ngOnInit` method with our initialization logic inside and leave it to Angular to call it
   at the right time. In our case, we initialize by calling `getHeroes`.
 
-  我们写下带有初始化逻辑的`ngOnInit`方法，然后留给Angular，供其在正确的时机调用。在这个例子中，我们通过调用`getHeroes`来完成初始化。
+  我们写了一个带有初始化逻辑的`ngOnInit`方法，Angular会在适当的时候调用它。
+  在这个例子中，我们通过调用`getHeroes`来完成初始化。
 
 +makeExcerpt('toh-4/ts/app/app.component.1.ts', 'ng-on-init')
 
@@ -476,16 +483,17 @@ a#child-component
 :marked
   Ask for heroes and they are there in the returned result.
 
-  请求英雄数据，并直接在结果中返回它。
+  请求英雄数据，返回结果中就有它们了。
 
   Someday we're going to get heroes from a remote server. We don’t call http yet, but we aspire to in later chapters.
 
-  将来，我们会从远端服务器上获取英雄数据。我们还没调用http，但在未来的章节中我们会希望这么做。
+  将来，我们打算从远端服务器上获取英雄数据。我们还没调用 http，但在后面的章节中我们会希望这么做。
 
   When we do, we'll have to wait for the server to respond and we won't be able to block the UI while we wait,
   even if we want to (which we shouldn't) because the browser won't block.
 
-  那时候，我们不得不等待服务器返回，并且在等待时，我们没法阻塞UI响应，即使我们想这么做（也不应这么做）也做不到，因为浏览器不会阻塞。
+  那时候，我们不得不等待服务器响应，并且在等待过程中我们无法阻塞用户界面响应，
+  即使我们想这么做（也不应这么做）也做不到，因为浏览器不会阻塞。
 
   We'll have to use some kind of asynchronous technique and that will change the signature of our `getHeroes` method.
 
@@ -503,15 +511,15 @@ a#child-component
   We ask an asynchronous service to do some work and give it a callback function. 
   It does that work (somewhere) and eventually it calls our function with the results of the work or an error.
 
-  **承诺** 就是 …… 好吧，它就是一个承诺 —— 在有了结果时，它承诺会回调我们。
+  **承诺** 就是 …… 好吧，它就是一个承诺，在有了结果时，它承诺会回调我们。
   我们请求一个异步服务去做点什么，并且给它一个回调函数。
-  它会去做(在某个地方)，一旦完成，它就会调用我们的回调函数，并通过参数把工作结果或者错误信息传给我们。
+  它会去做（在某个地方），一旦完成，它就会调用我们的回调函数，并通过参数把工作结果或者错误信息传给我们。
 
 .l-sub-section
   :marked
     We are simplifying. Learn about ES2015 Promises [here](http://exploringjs.com/es6/ch_promises.html) and elsewhere on the web.
 
-    这里只是粗浅的说说，要了解更多ES2015 Promise的信息，请参见[这里](http://exploringjs.com/es6/ch_promises.html)或在Web上搜索其它学习资源。
+    这里只是粗浅的说说，要了解更多 ES2015 Promise 的信息，见[这里](http://exploringjs.com/es6/ch_promises.html)或在 Web 上搜索其它学习资源。
 
 :marked
   Update the `HeroService` with this !{_Promise}-returning `getHeroes` method:
@@ -549,7 +557,7 @@ a#child-component
 
   We pass our callback function as an argument to the !{_Promise}'s **then** method:
 
-  我们把回调函数作为参数传给承诺对象的**then**函数：
+  我们把回调函数作为参数传给承诺对象的**then**方法：
 
 +makeExample('toh-4/ts/app/app.component.ts', 'get-heroes', 'app/app.component.ts (getHeroes - revised)')(format=".")
 
@@ -558,13 +566,13 @@ a#child-component
     The [ES2015 arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
     in the callback is more succinct than the equivalent function expression and gracefully handles *this*.
 
-    回调中所用的[ES2015箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-    比等价的函数表达式更加简洁，能优雅的处理*this*指针。
+    回调中所用的 [ES2015 箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+    比等价的函数表达式更加简洁，能优雅的处理 *this* 指针。
 
 :marked
   Our callback sets the component's `heroes` property to the array of heroes returned by the service. That's all there is to it!
 
-  在回调函数中，我们把由服务返回的英雄数组赋值给组件的`heroes`属性。是的，这就搞定了。
+  在回调函数中，我们把服务返回的英雄数组赋值给组件的`heroes`属性。是的，这就搞定了。
 
   Our app should still be running, still showing a list of heroes, and still
   responding to a name selection with a detail view.
@@ -575,7 +583,7 @@ a#child-component
   :marked
     Checkout the "[Take it slow](#slow)" appendix to see what the app might be like with a poor connection.
 
-    查看附件中的“[慢一点](#slow)”一节，来了解在较差的网络连接中这个应用会是什么样的。
+    查看附录中的“[慢一点](#slow)”，来了解在较差的网络连接中这个应用会是什么样的。
 
 :marked
   ### Review the App Structure
@@ -584,7 +592,7 @@ a#child-component
 
   Let’s verify that we have the following structure after all of our good refactoring in this chapter:
 
-  再检查下，经历了本章的所有重构之后，我们应该有了下列文件结构：
+  再检查下，经历了本章的所有重构之后，应该有了下列文件结构：
 
 .filetree
   .file angular-tour-of-heroes
@@ -607,7 +615,7 @@ a#child-component
 :marked
   Here are the code files we discussed in this chapter.
 
-  这就是我们在本章讨论过的这些源码文件：
+  下面是本章讨论过的代码文件：
 
 +makeTabs(`
   toh-4/ts/app/hero.service.ts,
@@ -625,27 +633,27 @@ a#child-component
 
   Let’s take stock of what we’ve built.
 
-  来盘点一下我们已经构建完的部分。
+  来盘点一下我们完成了什么。
 
   * We created a service class that can be shared by many components.
 
-  * 我们创建了一个能被多个组件共享的服务类。
+    我们创建了一个能被多个组件共享的服务类。
 
   * We used the `ngOnInit` Lifecycle Hook to get our heroes when our `AppComponent` activates.
 
-  * 我们使用`ngOnInit`生命周期钩子，以便在`AppComponent`激活时获取英雄数据。
+    我们使用了`ngOnInit`生命周期钩子，以便在`AppComponent`激活时获取英雄数据。
 
   * We defined our `HeroService` as a provider for our `AppComponent`.
 
-  * 我们把`HeroService`定义为`AppComponent`的一个提供商。
+    我们把`HeroService`定义为`AppComponent`的一个提供商。
 
   * We created mock hero data and imported them into our service.
 
-  * 我们创建了一个模拟的英雄数据，并把它导入我们的服务中。
+    我们创建了模拟的英雄数据，并把它导入我们的服务中。
 
   * We designed our service to return a !{_Promise} and our component to get our data from the !{_Promise}.
 
-  * 我们把服务设计为返回承诺，组件从承诺中获取数据。
+    我们把服务设计为返回承诺，组件从承诺中获取数据。
 
   Run the <live-example></live-example> for this part.
 
@@ -665,7 +673,7 @@ a#child-component
 
   We learn about Angular Component Router and navigation among the views in the [next tutorial](toh-pt5.html) chapter.
 
-  我们将在[下一章](toh-pt5.html)学习Angular组件路由，以及在视图间导航的知识。
+  我们将在[下一章](toh-pt5.html)学习 Angular 组件路由，以及在视图间导航的知识。
 
 .l-main-section
 <a id="slow"></a>
@@ -694,4 +702,4 @@ a#child-component
   Back in the `AppComponent`, replace `heroService.getHeroes` with `heroService.getHeroesSlowly`
   and see how the app behaves.
 
-  回到`AppComponent`，用`heroService.getHeroesSlowly`替换掉`heroService.getHeroes`，并观察本应用的行为。
+  回到`AppComponent`，用`heroService.getHeroesSlowly`替换`heroService.getHeroes`，并观察应用的行为。
