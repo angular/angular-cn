@@ -5,7 +5,8 @@ include ../_util-fns
   We’ll expand our Tour of Heroes app to display a list of heroes,
   allow the user to select a hero, and display the hero’s details.
 
-  我们需要管理多个英雄。让我们来扩展《英雄指南》应用，让它显示一个英雄列表，并允许用户选择一个英雄，查看该英雄的详细信息。
+  我们需要管理多个英雄。我们将扩展《英雄指南》应用，让它显示一个英雄列表，
+  允许用户选择一个英雄，查看该英雄的详细信息。
 
   Run the <live-example></live-example> for this part.
 
@@ -16,7 +17,8 @@ include ../_util-fns
   so we’ll need a way to do that.
 
   我们来盘点一下显示英雄列表都需要些什么。
-  首先，需要一份英雄列表数据。还要把这些英雄显示到一个视图的模板中，所以，我们需要用某种途径来做到这一点。
+  首先，需要一份英雄列表数据。还要把这些英雄显示到一个视图的模板中，所以，
+  我们需要用某种途径来做到这一点。
 
 .l-main-section
 :marked
@@ -51,7 +53,7 @@ include ../_util-fns
 
   We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
 
-  我们要启动TypeScript编译器，它会监视文件变更，并启动开发服务器。我们只要敲：
+  我们要启动 TypeScript 编译器，它会监视文件变更，并启动开发服务器。我们只要敲：
 
 code-example(language="bash").
   npm start
@@ -83,12 +85,12 @@ code-example(language="bash").
   We aspire to fetch this list of heroes from a web service, but let’s take small steps
   first and display mock heroes.
 
-  `HEROES`变量是一个由`Hero`类的实例构成的数组，我们在第一部分定义过它。
-  我们当然希望从一个Web服务中获取这个英雄列表，但别急，我们得把步子迈得小一点 —— 先用一组Mock(模拟)出来的英雄。
+  `HEROES`是一个由`Hero`类的实例构成的数组，我们在第一部分定义过它。
+  我们当然希望从一个 Web 服务中获取这个英雄列表，但别急，我们得把步子迈得小一点，先用一组模拟出来的英雄。
 
   ### Exposing heroes
 
-  ### 导出英雄们
+  ### 暴露英雄
 
   Let’s create a public property in `AppComponent` that exposes the heroes for binding.
 
@@ -99,7 +101,7 @@ code-example(language="bash").
 :marked
   We did not have to define the `heroes` type.  TypeScript can infer it from the `HEROES` array.
 
-  我们并不需要明确定义`heroes`属性的数据类型，TypeScript能从`HEROES`数组中推断出来。
+  我们并不需要明确定义`heroes`属性的数据类型，TypeScript 能从`HEROES`数组中推断出来。
 
 .l-sub-section
   :marked
@@ -115,13 +117,13 @@ code-example(language="bash").
 :marked
   ### Displaying heroes in a template
 
-  ### 在一个模板中显示英雄
+  ### 在模板中显示英雄
 
   Our component has `heroes`. Let’s create an unordered list in our template to display them.
   We’ll insert the following chunk of HTML below the title and above the hero details.
 
   我们的组件有了`heroes`属性，我们再到模板中创建一个无序列表来显示它们。
-  我们将在标题和英雄详情之间，插入下面这段HTML代码。
+  我们将在标题和英雄详情之间，插入下面这段 HTML 代码。
 
 +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-template-1', 'app.component.ts (heroes template)')
 
@@ -132,18 +134,18 @@ code-example(language="bash").
 
   ### Listing heroes with ngFor
 
-  ### 通过ngFor来显示英雄列表
+  ### 通过 ngFor 来显示英雄列表
 
   We want to bind the array of `heroes` in our component to our template, iterate over them,
   and display them individually.
   We’ll need some help from Angular to do this. Let’s do this step by step.
 
   我们想要把组件中的`heroes`数组绑定到模板中，迭代并逐个显示它们。
-  这下，我们就得借Angular的帮助来完成它了。我们来一步步实现它！
+  这下，我们就得借助 Angular 了。我们来一步步实现它！
 
   First modify the `<li>` tag by adding the built-in directive `*ngFor`.
 
-  首先，修改`<li>`标签，往上添加内置指令：`*ngFor`。
+  首先，修改`<li>`标签，往上添加内置指令`*ngFor`。
 
 +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-ngfor-1', 'app.component.ts (ngFor)')
 
@@ -181,8 +183,8 @@ code-example(language="bash").
     [Displaying Data](../guide/displaying-data.html#ngFor) and
     [Template Syntax](../guide/template-syntax.html#ngFor) chapters.
 
-    要学习更多关于`ngFor`和模板输入变量的知识，参见[显示数据](../guide/displaying-data.html#ngFor)和
-    [模板语法](../guide/template-syntax.html#ngFor)两章。
+    要学习更多关于`ngFor`和模板输入变量的知识，见[显示数据](../guide/displaying-data.html#ngFor)和
+    [模板语法](../guide/template-syntax.html#ngFor)。
 
 :marked
   Now we insert some content between the `<li>` tags
@@ -210,7 +212,7 @@ code-example(language="bash").
   Let’s add some styles to our component by setting the `styles` property on the `@Component` decorator
   to the following CSS classes:
 
-  要想给我们的组件添加一些样式，请把`@Component`装饰器的`styles`属性设置为下列CSS类：
+  要想给我们的组件添加一些样式，请把`@Component`装饰器的`styles`属性设置为下列 CSS 类：
 
 +makeExample('toh-2/ts/app/app.component.ts', 'styles', 'app.component.ts (styles)')(format=".")
 
@@ -222,17 +224,17 @@ code-example(language="bash").
   That's a lot of styles! We can put them inline as shown here, or we can move them out to their own file which will make it easier to code our component. 
   We'll do this in a later chapter. For now let's keep rolling.
 
-  这里有很多种样式！我们可以像上面那样把它们内联在组件中，或者把样式移到单独的文件中 —— 这样能让编写组件变得更容易。我们会后面的章节中使用独立样式文件，现在我们先不管它。
+  这里有很多种样式！我们可以像上面那样把它们内联在组件中，或者把样式移到单独的文件中， 这样能让编写组件变得更容易。我们会后面的章节中使用独立样式文件，现在我们先不管它。
 
   When we assign styles to a component they are scoped to that specific component.
   Our styles will only apply to our `AppComponent` and won't "leak" to the outer HTML.
 
   当我们为一个组件指定样式时，它们的作用域将仅限于该组件。
-  上面的例子中，这些样式只会作用于`AppComponent`组件，而不会“泄露”到外部HTML中。
+  上面的例子中，这些样式只会作用于`AppComponent`组件，而不会“泄露”到外部 HTML 中。
 
   Our template for displaying the heroes should now look like this:
 
-  用于显示英雄们的这个模板看起来像这样：
+  用于显示英雄们的模板看起来像这样：
 
 +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'heroes-styled', 'app.component.ts (styled heroes)')
 
@@ -251,20 +253,20 @@ code-example(language="bash").
     在我们的应用中，已经有了英雄列表以及一个单独的英雄。
     但列表和单独的英雄之间还没有任何关联。
     我们希望用户在列表中选中一个英雄，然后让这个被选中的英雄出现在详情视图中。
-    这种UI布局模式，通常被称为“主从结构”。
+    这种 UI 布局模式，通常被称为“主从结构”。
     在这个例子中，主视图是英雄列表，从视图则是被选中的英雄。
 
     Let’s connect the master to the detail through a `selectedHero` component property bound to a click event.
 
-    我们通过组件中的一个`selectedHero`属性来连接主从视图，它被绑定到了click事件上。
+    我们通过组件中的一个`selectedHero`属性来连接主从视图，它被绑定到了点击事件上。
 
     ### Click event
 
-    ### click事件
+    ### 点击事件
 
     We modify the `<li>` by inserting an Angular event binding to its click event.
 
-    我们往`<li>`元素上插入一句Angular事件绑定代码，绑定到它的click事件。
+    我们往`<li>`元素上插入一句 Angular 事件绑定代码，绑定到它的点击事件。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-click', 'app.component.ts (template excerpt)')
 
@@ -282,9 +284,9 @@ code-example(language="bash").
     passing the template input variable `hero` as an argument.
     That’s the same `hero` variable we defined previously in the `ngFor`.
 
-    圆括号表示`<li>`元素上的`click`事件就是我们要绑定的目标。
+    圆括号标识`<li>`元素上的`click`事件是绑定的目标。
     等号右边的表达式调用`AppComponent`的`onSelect()`方法，并把模板输入变量`hero`作为参数传进去。
-    它和我们前面在`ngFor`中定义的`hero`变量是同一个。
+    它是我们前面在`ngFor`中定义的那个`hero`变量。
 
   .l-sub-section
     :marked
@@ -292,14 +294,14 @@ code-example(language="bash").
       [User Input](../guide/user-input.html) and
       [Templating Syntax](../guide/template-syntax.html#event-binding) chapters.
 
-      要学习关于事件绑定的更多知识，参见：
+      关于事件绑定的更多内容，见：
       [用户输入](../guide/user-input.html) 和
-      [模板语法](../guide/template-syntax.html#event-binding)两章。
+      [模板语法](../guide/template-syntax.html#event-binding)。
 
   :marked
     ### Add the click handler
 
-    ### 添加click事件处理器
+    ### 添加点击处理器
 
     Our event binding refers to an `onSelect` method that doesn’t exist yet.
     We’ll add that method to our component now.
@@ -317,13 +319,13 @@ code-example(language="bash").
 
     ### Expose the selected hero
 
-    ### 导出“当前选中的英雄”
+    ### 暴露选中的英雄
 
     We no longer need the static `hero` property of the `AppComponent`.
     **Replace** it with this simple `selectedHero` property:
 
-    在`AppComponent`中，我们不再需要一个固定的`hero`属性。
-    那就直接把它改为`selectedHero`属性。
+    我们不再需要`AppComponent`的`hero`属性。
+    把它**替换**成`selectedHero`属性。
 
   +makeExample('toh-2/ts/app/app.component.ts', 'selected-hero', 'app.component.ts (selectedHero)')
 
@@ -331,7 +333,7 @@ code-example(language="bash").
     We’ve decided that none of the heroes should be selected before the user picks a hero so
     we won’t initialize the `selectedHero` as we were doing with `hero`.
 
-    我们已决定：在用户选取之前，不会默认选择任何英雄，所以，我们不用像`hero`一样去初始化`selectedHero`变量。
+    我们决定在用户选取之前，不会默认选择任何英雄，所以，不用像`hero`一样初始化`selectedHero`变量。
 
     Now **add an `onSelect` method** that sets the `selectedHero` property to the `hero` the user clicked.
 
@@ -344,7 +346,7 @@ code-example(language="bash").
     At the moment, it is still referring to the old `hero` property.
     Let’s fix the template to bind to the new `selectedHero` property.
 
-    我们将把所选英雄的详细信息显示在模板中。目前，它仍然引用的是以前的`hero`属性。
+    我们将把所选英雄的详细信息显示在模板中。目前，它仍然引用之前的`hero`属性。
     我们这就修改模板，让它绑定到新的`selectedHero`属性。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'selectedHero-details', 'app.component.ts (template excerpt)')
@@ -352,13 +354,13 @@ code-example(language="bash").
   :marked
     ### Hide the empty detail with ngIf
 
-    ### 使用ngIf隐藏空的详情
+    ### 使用 ngIf 隐藏空的详情
 
     When our app loads we see a list of heroes, but a hero is not selected.
     The `selectedHero` is `undefined`.
     That’s why we'll see the following error in the browser’s console:
 
-    当应用刚加载时，我们会看到一个英雄列表，但还没有任何英雄被选中。
+    当应用加载时，我们会看到一个英雄列表，但还没有任何英雄被选中。
     `selectedHero`属性是`undefined`。
     因此，我们会看到浏览器控制台中出现下列错误：
 
@@ -370,17 +372,17 @@ code-example(language="bash").
     This name property does not exist because `selectedHero` itself is undefined.
 
     别忘了我们要在模板中显示的是`selectedHero.name`。
-    显然，这个name属性是不存在的，因为`selectedHero`本身还是`undefined`呢。
+    显然，这个 name 属性是不存在的，因为`selectedHero`本身还是`undefined`呢。
 
     We'll address this problem by keeping the hero detail out of the DOM until there is a selected hero.
 
-    要处理这个问题，我们可以先让英雄详情不要出现在DOM中，直到有英雄被选中。
+    要处理这个问题，我们可以先让英雄详情不要出现在 DOM 中，直到有英雄被选中。
 
     We wrap the HTML hero detail content of our template with a `<div>`.
     Then we add the `ngIf` built-in directive and set it to the `selectedHero` property of our component.
 
-    我们把模板中的“英雄详情”内容区用放在一个`<div>`中。
-    然后往上添加一个`ngIf`内置指令，然后把`ngIf`的值设置为组件的`selectedHero`属性。
+    我们把模板中的英雄详情内容区用放在一个`<div>`中。
+    然后，添加一个`ngIf`内置指令，把`ngIf`的值设置为组件的`selectedHero`属性。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'ng-if', 'app.component.ts (ngIf)')
 
@@ -389,34 +391,34 @@ code-example(language="bash").
       Remember that the leading asterisk (`*`) in front of `ngIf` is
       a critical part of this syntax.
 
-      记住，`ngIf`前面的星号(`*`)是语法中的重要组成部分。
+      记住，`ngIf`前导星号 (`*`) 是语法中的重要组成部分。
   :marked
     When there is no `selectedHero`, the `ngIf` directive removes the hero detail HTML from the DOM.
     There will be no hero detail elements and no bindings to worry about.
 
-    当没有`selectedHero`时，`ngIf`指令会从DOM中移除表示英雄详情的这段HTML。
+    当没有`selectedHero`时，`ngIf`指令从 DOM 中移除表示英雄详情的这段 HTML 。
     没有了表示英雄详情的元素，也就不用担心绑定问题。
 
     When the user picks a hero, `selectedHero` becomes "truthy" and
     `ngIf` puts the hero detail content into the DOM and evaluates the nested bindings.
 
-    当用户选取了一个英雄，`selectedHero`变成了“真”值，于是`ngIf`把“英雄详情”加回DOM中，并且计算它所嵌套的各种绑定。
+    当用户选取了一个英雄，`selectedHero`变成了“真”值，于是`ngIf`把英雄详情加回 DOM 中，并计算它所嵌套的各种绑定。
   .l-sub-section
     :marked
       `ngIf` and `ngFor` are called “structural directives” because they can change the
       structure of portions of the DOM.
       In other words, they give structure to the way Angular displays content in the DOM.
 
-      `ngIf`和`ngFor`被称为“结构型指令”，因为它们可以修改DOM的部分结构。
-      换句话说，它们让Angular在DOM中显示内容的方式结构化了。
+      `ngIf`和`ngFor`被称为“结构型指令”，因为它们可以修改部分 DOM 的结构。
+      换句话说，它们让 Angular 在 DOM 中显示内容的方式结构化了。
 
       Learn more about `ngIf`, `ngFor` and other structural directives in the
       [Structural Directives](../guide/structural-directives.html) and
       [Template Syntax](../guide/template-syntax.html#directives) chapters.
 
-      要了解更多`ngIf`，`ngFor`和其它结构型指令，请参阅：
+      更多`ngIf`，`ngFor`和其它结构型指令的信息，见
       [结构型指令](../guide/structural-directives.html)和
-      [模板语法](../guide/template-syntax.html#directives)章节。
+      [模板语法](../guide/template-syntax.html#directives)。
 
   :marked
     The browser refreshes and we see the list of heroes but not the selected hero detail.
@@ -424,8 +426,8 @@ code-example(language="bash").
     When we click on a hero in the list, the selected hero displays in the hero details.
     Everything is working as we expect.
 
-    浏览器刷新了，我们看到了一个英雄列表，但是还没有选中的英雄详情。
-    当`selectedHero`是`undefined`时，`ngIf`会保证英雄详情不出现在DOM中。
+    浏览器刷新了，我们看到了一个英雄列表，但没有显示选中的英雄详情。
+    当`selectedHero`是`undefined`时，`ngIf`会保证英雄详情不出现在 DOM 中。
     当我们从列表中点击一个英雄时，选中的英雄被显示在英雄详情里。
     正如我们所预期的那样。
 
@@ -438,21 +440,21 @@ code-example(language="bash").
     For example, when we select Magneta from the heroes list,
     we can make it pop out visually by giving it a subtle background color as shown here.
 
-    我们在下面的详情区看到了选中的英雄，但是我们还是没法在上面的列表区快速的找到这位英雄。
-    通过把CSS类`selected`添加到主列表的`<li>`元素上，我们可以解决这个问题。
-    比如，当我们在列表区选中了Magneta时，我们可以通过设置一个轻微的背景色来让它略显突出。
+    我们在下面的详情区看到了选中的英雄，但是我们还是没法在上面的列表区快速地定位这位英雄。
+    可以通过在主列表的相应`<li>`元素上添加 CSS 类`selected`来解决这个问题。
+    例如，当我们在列表区选中了 Magneta 时，我们可以通过设置一个轻微的背景色来让它略显突出。
 
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-selected.png' alt="选中的英雄")
   :marked
     We’ll add a property binding on `class` for the `selected` class to the template. We'll set this to an expression that compares the current `selectedHero` to the `hero`.
 
-    我们将通过一个在`class`属性上的绑定，来把`selected`类添加到模板上。我们把这个绑定表达式设置为`selectedHero`和`hero`的比较结果，
+    在模块中，我们在`class`上为`selected`类添加一个属性绑定。我们把绑定表达式设置为`selectedHero`和`hero`的比较结果。
 
     The key is the name of the CSS class (`selected`). The value is `true` if the two heroes match and `false` otherwise.
     We’re saying “*apply the `selected` class if the heroes match, remove it if they don’t*”.
 
-    关键是CSS类的名字：`selected`。当两位英雄一致时，它为`true`，否则为`false`。
+    键是 CSS 类的名字 (`selected`)。当两位英雄一致时，值为`true`，否则为`false`。
     也就是说：“*当两位英雄匹配时，应用上`selected`类，否则不应用*”。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-1', 'app.component.ts (setting the CSS class)')(format=".")
@@ -462,8 +464,8 @@ code-example(language="bash").
     This is the syntax for a **property binding**, a binding in which data flows one way
     from the data source (the expression `hero === selectedHero`) to a property of `class`.
 
-    注意，模板中的`class.selected`是括在一对方括号中的。
-    这就是“属性绑定”的语法，实现从数据源(`hero === selectedHero`表达式)到`class`属性的单向数据流动。
+    注意，模板中的`class.selected`包裹在方括号中。
+    这就是**属性绑定**的语法，实现从数据源(`hero === selectedHero`表达式)到`class`属性的单向数据流动。
 
   +makeExample('toh-2/ts-snippets/app.component.snippets.pt2.ts', 'class-selected-2', 'app.component.ts (styling each hero)')(format=".")
 
@@ -472,15 +474,14 @@ code-example(language="bash").
       Learn more about [property bindings](../guide/template-syntax.html#property-binding)
       in the Template Syntax chapter.
 
-      学习关于[属性绑定](../guide/template-syntax.html#property-binding)
-      的更多知识，参见“模板语法”一章。
+      关于属性绑定的更多信息，见[模板语法](../guide/template-syntax.html#property-binding)。
 
   :marked
     The browser reloads our app.
     We select the hero Magneta and the selection is clearly identified by the background color.
 
     浏览器重新加载了我们的应用。
-    我们选中英雄Magneta，于是它通过背景色的变化被清晰的标记了出来。
+    我们选中英雄 Magneta，通过背景色的变化，它被清晰的标记出来。
 
   figure.image-display
     img(src='/resources/images/devguide/toh/heroes-list-1.png' alt="英雄列表应用的输出")
@@ -488,7 +489,7 @@ code-example(language="bash").
   :marked
     We select a different hero and the tell-tale color switches to that hero.
 
-    我们选择了另一个英雄，于是色标也跟着移到了这位英雄上。
+    我们选择另一个英雄，色标也随着切换。
 
     Here's the complete `app.component.ts` as it stands now:
 
@@ -504,19 +505,19 @@ code-example(language="bash").
 
   Here’s what we achieved in this chapter:
 
-  在本章中，我们达成了这些：
+  在本章中，我们完成了以下内容：
 
   * Our Tour of Heroes now displays a list of selectable heroes
 
-  * 我们的《英雄指南》现在显示一个可选英雄的列表
+    我们的《英雄指南》现在显示一个可选英雄的列表
 
   * We added the ability to select a hero and show the hero’s details
 
-  * 我们添加了选择英雄的能力，并且会显示这个英雄的详情
+    我们可以选择英雄，并显示这个英雄的详情
 
   * We learned how to use the built-in directives `ngIf` and `ngFor` in a component’s template
 
-  * 我们学会了如何在组件模板中使用内置的`ngIf`和`ngFor`指令
+    我们学会了如何在组件模板中使用内置的`ngIf`和`ngFor`指令
 
   Run the <live-example></live-example> for this part.
 
@@ -533,5 +534,5 @@ code-example(language="bash").
 
   我们的《英雄指南》长大了，但还远远不够完善。
   我们显然不能把整个应用都放进一个组件中。
-  我们需要把它拆分成一系列子组件，然后教它们协同工作 ——
+  我们需要把它拆分成一系列子组件，然后教它们协同工作，
   就像我们将在[下一章](toh-pt3.html)学到的那样。
