@@ -2,23 +2,23 @@
   "index": {
     "title": "烹饪宝典",
     "navTitle": "概览",
-    "intro": "一组常见Angular应用场景的“烹饪宝典”"
+    "intro": "一组常见 Angular 应用场景的“烹饪宝典”"
   },
 
   "aot-compiler": {
-    "title": "预（AoT）编译器",
+    "title": "预 (AoT) 编译器",
     "intro": "学习如何使用预编译器"
   },
 
   "a1-a2-quick-reference": {
-    "title": "Angular从1到2快速参考",
-    "navTitle": "Angular从1到2快速参考",
-    "intro": "学习如何把Angular 1中的概念和技术对应到Angular 2中"
+    "title": "Angular 从 1 到 2 快速参考",
+    "navTitle": "Angular 从 1 到 2 快速参考",
+    "intro": "学习如何把 Angular 1 中的概念和技术对应到 Angular 2 中"
   },
 
   "ngmodule-faq": {
-    "title": "Angular模块常见问题",
-    "intro": "对@NgModule常见问题的解答"
+    "title": "Angular 模块常见问题",
+    "intro": "对 @NgModule 常见问题的解答"
   },
 
   "component-communication": {
@@ -38,7 +38,7 @@
 
   "dynamic-form": {
     "title": "动态表单",
-    "intro": "用FormGroup渲染动态表单"
+    "intro": "用 FormGroup 渲染动态表单"
   },
 
   "form-validation": {
@@ -47,13 +47,13 @@
   },
 
   "i18n": {
-    "title": "国际化(i18n)",
+    "title": "国际化 (i18n)",
     "intro": "把应用的模板文本翻译成多种语言"
   },
 
   "set-document-title": {
     "title": "设置文档标题",
-    "intro": "使用Title服务来设置文档标题或窗口标题"
+    "intro": "使用 Title 服务来设置文档标题或窗口标题"
   },
 
   "ts-to-js": {
@@ -62,7 +62,7 @@
   },
 
   "visual-studio-2015": {
-    "title": "Visual Studio 2015快速起步",
-    "intro": "使用Visual Studio 2015快速起步"
+    "title": "Visual Studio 2015 快速起步",
+    "intro": "使用 Visual Studio 2015 快速起步"
   }
 }
