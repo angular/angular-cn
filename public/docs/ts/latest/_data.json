@@ -1,17 +1,17 @@
 {
   "index": {
     "icon": "home",
-    "title": "Angular中文文档",
+    "title": "Angular 中文文档",
     "subtitle": "TypeScript",
     "menuTitle": "文档首页",
-    "banner": "当前的Angular版本是<b>2.2</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular产品更新'>Angular更新记录</a> 了解Angular产品的最新的增强、修复和破环性变更。"
+    "banner": "当前的 Angular 版本是 <b>2.2</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular 产品更新'> Angular 更新记录</a> 了解 Angular 产品的最新的增强、修复和破环性变更。"
   },
 
   "cli-quickstart": {
     "icon": "query-builder",
     "title": "CLI 快速起步",
     "subtitle": "TypeScript",
-    "description": "使用CLI快速构建Angular应用",
+    "description": "使用 CLI 快速构建 Angular 应用",
     "hide": true
   },
 
@@ -43,28 +43,28 @@
 
   "api/": {
     "icon": "book",
-    "title": "API参考手册",
+    "title": "API 参考手册",
     "subtitle": "TypeScript",
     "reference": true
   },
 
   "cheatsheet": {
-    "title": "Angular小抄",
+    "title": "Angular 速查表",
     "subtitle": "TypeScript",
-    "intro": "关于Angular语法的快速指南（内容可能会更改）",
+    "intro": "关于 Angular 语法的快速指南（内容可能会更改）",
     "reference": false
   },
 
   "glossary": {
     "title": "词汇表",
     "subtitle": "TypeScript",
-    "intro": "Angular 2中那些最重要的词汇的简短定义",
+    "intro": "Angular 中那些最重要的词汇的简短定义",
     "reference": false
   },
 
   "resources": {
     "icon": "play-circle-fill",
-    "title": "Angular资源",
+    "title": "Angular 资源",
     "subtitle": "TypeScript",
     "resources": true
   },

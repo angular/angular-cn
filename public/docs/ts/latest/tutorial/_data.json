@@ -27,13 +27,13 @@
   },
   "toh-pt5": {
     "title": "路由",
-    "intro": "我们添加Angular路由，并且学习在视图之间导航",
+    "intro": "我们添加 Angular 路由，并且学习在视图之间导航",
     "nextable": true
   },
   "toh-pt6": {
     "title": "HTTP",
     "subtitle": "获取和保存数据",
-    "intro": "把服务和组件改为用Angular的HTTP服务实现",
+    "intro": "把服务和组件改为用 Angular 的 HTTP 服务实现",
     "nextable": true
   }
 }
