@@ -63,19 +63,19 @@ a#overview
   Bigger apps take longer to transmit and are slower to load.
 
   JiT编译导致运行期间的性能损耗。
-  由于需要在浏览器中的这个编译过程，视图需要花更长时间才能渲染出来。
+  由于需要在浏览器中执行这个编译过程，视图需要花更长时间才能渲染出来。
   由于应用包含了Angular编译器以及大量实际上并不需要的库代码，所以文件体积也会更大。
   更大的应用需要更长的时间进行传输，加载也更慢。
 
   Compilation can uncover many component-template binding errors.
   JiT compilation discovers them at runtime which is later than we'd like.
 
-  编译可以揭露一些组件模板绑定错误。JiT变异在运行时才揭露它们，有点太晚了。
+  编译可以发现一些组件模板绑定错误。JiT编译在运行时才揭露它们，那样有点太晚了。
 
   The **_Ahead-of-Time_ (AoT) compiler** can catch template errors early and improve performance 
   by compiling at build time as you'll learn in this chapter.
 
-  **预编译**（AoT）通过在构建时编译，在早期截获模板错误，提高应用性能。
+  而**预编译**（AoT）会在构建时编译，这样可以在早期截获模板错误，提高应用性能。
 
 a#aot-jit
 .l-main-section
