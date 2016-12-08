@@ -31,10 +31,12 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     var count = 0;
     for (var i = 0; i < container.children.length; i++) {
       var node = container.children[i];
-      var ignoredTagNames = ['CODE-EXAMPLE', 'SCRIPT', 'CODE', 'EM', 'STRONG'];
+      console.log(node);
+      var ignoredTagNames = ['CODE-EXAMPLE', 'SCRIPT', 'CODE', 'EM', 'STRONG', 'CODE-TABS'];
       // ignore example code.
       if (node.classList.contains('code-example') ||
         ignoredTagNames.indexOf(node.tagName) >= 0) {
+
         continue;
       }
 
@@ -91,7 +93,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
         if (isPureEnglish(current.textContent)) {
           if (sibling.children) {
             processContainer(sibling);
-          }          
+          }
             $current.addClass('original-english');
             $sibling.addClass('translated');
             $sibling.addClass('translated-cn');
@@ -103,8 +105,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
             });
             // addSpacingBetweenCnAndEn(sibling);
             return true;
-          
-          
+
+
         }
       }
     }
