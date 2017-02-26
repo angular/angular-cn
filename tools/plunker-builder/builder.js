@@ -26,7 +26,8 @@ class PlunkerBuilder {
     this._getPlunkerFiles();
     var errFn = this.options.errFn || function(e) { console.log(e); };
     var plunkerPaths = path.join(this.basePath, '**/*plnkr.json');
-    var fileNames = globby.sync(plunkerPaths, { ignore: "**/node_modules/**"});
+    var fileNames = globby.sync(plunkerPaths,
+      { ignore: ['**/node_modules/**', '**/_boilerplate/**'] });
     fileNames.forEach((configFileName) => {
       try {
         this._buildPlunkerFrom(configFileName);
@@ -122,6 +123,8 @@ class PlunkerBuilder {
       if (extn == '.png') {
         content = this._encodeBase64(fileName);
         fileName = fileName.substr(0, fileName.length - 4) + '.base64.png'
+      } else if (-1 < fileName.indexOf('systemjs.config.extras')) {
+        content = this._getSystemjsConfigExtras(config);
       } else {
         content = fs.readFileSync(fileName, 'utf-8');
       }
@@ -205,12 +208,34 @@ class PlunkerBuilder {
   }
 
   _getPlunkerFiles() {
-    var systemJsConfigPath = '/_boilerplate/systemjs.config.web.js';
+    var systemJsConfigPath = '/_boilerplate/src/systemjs.config.web.js';
     if (this.options.build) {
-      systemJsConfigPath = '/_boilerplate/systemjs.config.web.build.js';
+      systemJsConfigPath = '/_boilerplate/src/systemjs.config.web.build.js';
     }
     this.systemjsConfig = fs.readFileSync(this.basePath + systemJsConfigPath, 'utf-8');
-    this.systemjsConfig +=  this.copyrights.jsCss;
+
+    // Copyright already added to web versions of systemjs.config
+    // this.systemjsConfig +=  this.copyrights.jsCss;
+  }
+
+  // Try to replace `systemjs.config.extras.js` with the
+  // `systemjs.config.extras.web.js` web version that
+  // should default SystemJS barrels to `.ts` files rather than `.js` files
+  // Example: see docs `testing`.
+  // HACK-O-MATIC!
+  _getSystemjsConfigExtras(config) {
+    var extras =    config.basePath + '/systemjs.config.extras.js';
+    var webExtras = config.basePath + '/systemjs.config.extras.web.js';
+    if (fs.existsSync(webExtras)) {
+      // console.log('** Substituted "' + webExtras + '"  for "' + extras + '".');
+      return fs.readFileSync(webExtras, 'utf-8');
+    } else if (fs.existsSync(extras)){
+      console.log('** WARNING: no "' + webExtras + '" replacement for "' + extras + '".');
+      return fs.readFileSync(extras, 'utf-8');
+    } else {
+      console.log('** WARNING: no "' + extras + '" file; returning empty content.');
+      return '';
+    }
   }
 
   _htmlToElement(document, html) {
@@ -220,10 +245,11 @@ class PlunkerBuilder {
   }
 
   _initConfigAndCollectFileNames(configFileName) {
-    var basePath = path.dirname(configFileName);
+    var configDir = path.dirname(configFileName);
     var configSrc = fs.readFileSync(configFileName, 'utf-8');
     try {
       var config = (configSrc && configSrc.trim().length) ? JSON.parse(configSrc) : {};
+      config.basePath = config.basePath ? path.resolve(configDir, config.basePath) : configDir;
     } catch (e) {
       throw new Error(`Plunker config - unable to parse json file: ${configFileName}\n${e}`);
     }
@@ -242,15 +268,14 @@ class PlunkerBuilder {
     var gpaths = config.files.map(function(fileName) {
       fileName = fileName.trim();
       if (fileName.substr(0,1) == '!') {
-        return "!" + path.join(basePath, fileName.substr(1));
+        return "!" + path.join(config.basePath, fileName.substr(1));
       } else {
         includeSpec = includeSpec || /.*\.spec.(ts|js)$/.test(fileName);
-        return path.join(basePath, fileName);
+        return path.join(config.basePath, fileName);
       }
     });
 
     var defaultExcludes = [
-      '!**/a2docs.css',
       '!**/tsconfig.json',
       '!**/*plnkr.*',
       '!**/package.json',
@@ -260,7 +285,10 @@ class PlunkerBuilder {
       '!**/systemjs.config.js',
       '!**/wallaby.js',
       '!**/karma-test-shim.js',
-      '!**/karma.conf.js'
+      '!**/karma.conf.js',
+      // AoT related files
+      '!**/aot/**/*.*',
+      '!**/*-aot.*'
     ];
 
     // exclude all specs if no spec is mentioned in `files[]`
@@ -271,7 +299,6 @@ class PlunkerBuilder {
     Array.prototype.push.apply(gpaths, defaultExcludes);
 
     config.fileNames = globby.sync(gpaths, { ignore: ["**/node_modules/**"] });
-    config.basePath = basePath;
 
     return config;
   }

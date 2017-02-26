@@ -295,7 +295,7 @@ a#q-browser-vs-common-module
   `BrowserModule`提供了启动和运行浏览器应用的那些基本的服务提供商。
 
   `BrowserModule` also re-exports `CommonModule` from `@angular/common`
-  which means that component in the `AppModule` module also have access to
+  which means that components in the `AppModule` module also have access to
   the Angular directives every app needs such as `NgIf` and `NgFor`.
 
   `BrowserModule`还从`@angular/common`中重新导出了`CommonModule`，这意味着`AppModule`中的组件也同样可以访问那些每个应用都需要的Angular指令，如`NgIf`和`NgFor`。
@@ -965,8 +965,7 @@ a#q-is-it-loaded
 
   某些Angular模块（例如`BrowserModule`）就实现了一个像本页范例中的`CoreModule`构造函数那样的守卫。
 
-+makeExample('ngmodule/ts/app/core/core.module.ts', 'ctor', 'app/core/core.module.ts (Constructor)')(format='.')
-:marked
++makeExample('ngmodule/ts/src/app/core/core.module.ts', 'ctor', 'src/app/core/core.module.ts (Constructor)')(format='.')
 
 .l-hr
 
@@ -1711,13 +1710,13 @@ code-example(format='.').
 
   这里是一个带有`imports`、`exports`和`declarations`的*Angular模块*类。
 
-+makeExample('ngmodule/ts/app/contact/contact.module.2.ts', 'class')(format=".")
++makeExample('ngmodule/ts/src/app/contact/contact.module.2.ts', 'class')(format=".")
 :marked
   Of course we use _JavaScript_ modules to write _Angular_ modules as seen in the complete `contact.module.ts` file:
 
   当然，我们同样得用*JavaScript*模块来写*Angular模块*，就像在最终版`contact.module.ts`文件中所见到的：
 
-+makeExample('ngmodule/ts/app/contact/contact.module.2.ts', '', 'app/contact/contact.module.ts')(format=".")
++makeExample('ngmodule/ts/src/app/contact/contact.module.2.ts', '', 'src/app/contact/contact.module.ts')(format=".")
 
 .l-hr
 
@@ -2012,7 +2011,7 @@ table
         路由器创建会它们，并把它们扔到DOM中的`<router-outlet>`。
 
         While the bootstrapped and routed components are _entry components_,
-        we usally don't have to add them to a module's `entryComponents` list.
+        we usually don't have to add them to a module's `entryComponents` list.
 
         *引导组件*和*路由组件*都是*入口组件*，我们一般不用再把它们添加到模块的`entryComponents`列表中。
 

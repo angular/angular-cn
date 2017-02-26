@@ -79,8 +79,8 @@ include ../_util-fns
    我们在main.ts中启动`AppModule`。
 
 +makeTabs(
-  `cb-dynamic-form/ts/app/app.module.ts,
-   cb-dynamic-form/ts/app/main.ts`,
+  `cb-dynamic-form/ts/src/app/app.module.ts,
+   cb-dynamic-form/ts/src/main.ts`,
   null,
   `app.module.ts,
    main.ts`
@@ -103,7 +103,7 @@ include ../_util-fns
 
    下面是我们建立的最基础的问卷问题基类，名叫`QuestionBase`。
 
-+makeExample('cb-dynamic-form/ts/app/question-base.ts','','app/question-base.ts')
++makeExample('cb-dynamic-form/ts/src/app/question-base.ts','','src/app/question-base.ts')
 
 :marked
    From this base we derived two new classes in `TextboxQuestion` and `DropdownQuestion` that represent Textbox and Dropdown questions. 
@@ -115,14 +115,14 @@ include ../_util-fns
 
    `TextboxQuestion`可以通过`type`属性来支持多种HTML5元素类型，比如文本、邮件、网址等。
 
-+makeExample('cb-dynamic-form/ts/app/question-textbox.ts',null,'app/question-textbox.ts')(format='.')
++makeExample('cb-dynamic-form/ts/src/app/question-textbox.ts',null,'src/app/question-textbox.ts')(format='.')
 
 :marked
    `DropdownQuestion` presents a list of choices in a select box.
    
    `DropdownQuestion`表示一个带可选项列表的选择框。
 
-+makeExample('cb-dynamic-form/ts/app/question-dropdown.ts',null,'app/question-dropdown.ts')(format='.')
++makeExample('cb-dynamic-form/ts/src/app/question-dropdown.ts',null,'src/app/question-dropdown.ts')(format='.')
 
 :marked
    Next we have defined `QuestionControlService`, a simple service for transforming our questions to a `FormGroup`. 
@@ -132,7 +132,7 @@ include ../_util-fns
    简而言之，这个`FormGroup`使用问卷模型的元数据，并允许我们设置默认值和验证规则。
 
 
-+makeExample('cb-dynamic-form/ts/app/question-control.service.ts',null,'app/question-control.service.ts')(format='.')
++makeExample('cb-dynamic-form/ts/src/app/question-control.service.ts',null,'src/app/question-control.service.ts')(format='.')
 
 <a id="form-component"></a>
 :marked
@@ -150,8 +150,8 @@ include ../_util-fns
   `DynamicFormComponent`是表单的主要容器和入口点。
 
 +makeTabs(
-  `cb-dynamic-form/ts/app/dynamic-form.component.html,
-   cb-dynamic-form/ts/app/dynamic-form.component.ts`,
+  `cb-dynamic-form/ts/src/app/dynamic-form.component.html,
+   cb-dynamic-form/ts/src/app/dynamic-form.component.ts`,
   null,
   `dynamic-form.component.html,
    dynamic-form.component.ts`
@@ -165,8 +165,8 @@ include ../_util-fns
   `<df-question>`标签匹配到的是组件`DynamicFormQuestionComponent`，该组件的职责是根据各个问卷问题对象的值来动态渲染表单控件。
 
 +makeTabs(
-  `cb-dynamic-form/ts/app/dynamic-form-question.component.html,
-   cb-dynamic-form/ts/app/dynamic-form-question.component.ts`,
+  `cb-dynamic-form/ts/src/app/dynamic-form-question.component.html,
+   cb-dynamic-form/ts/src/app/dynamic-form-question.component.ts`,
   null,
   `dynamic-form-question.component.html,
    dynamic-form-question.component.ts`
@@ -208,14 +208,14 @@ include ../_util-fns
    关键是，我们完全根据`QuestionService`返回的对象来控制英雄的工作申请表。
    要维护这份问卷，只要非常简单的添加、更新和删除`questions`数组中的对象就可以了。
 
-+makeExample('cb-dynamic-form/ts/app/question.service.ts','','app/question.service.ts')
++makeExample('cb-dynamic-form/ts/src/app/question.service.ts','','src/app/question.service.ts')
 
 :marked
   Finally, we display an instance of the form in the `AppComponent` shell.
 
   最后，在`AppComponent`里显示出表单。
 
-+makeExample('cb-dynamic-form/ts/app/app.component.ts','','app.component.ts')
++makeExample('cb-dynamic-form/ts/src/app/app.component.ts','','app.component.ts')
 
 <a id="dynamic-template"></a>
 :marked

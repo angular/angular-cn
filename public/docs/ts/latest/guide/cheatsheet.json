@@ -1,20 +1,20 @@
 {
   "currentEnvironment": "TypeScript",
   "version": {
-    "raw": "2.3.0-beta.0",
+    "raw": "2.4.5",
     "major": 2,
-    "minor": 3,
-    "patch": 0,
+    "minor": 4,
+    "patch": 6,
     "prerelease": [
       "local"
     ],
-    "build": "sha.dfe65b3",
-    "version": "2.3.0-local",
+    "build": "sha.a3e98d5",
+    "version": "2.4.6-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.3.0-local+sha.dfe65b3",
+    "full": "2.4.6-local+sha.a3e98d5",
     "branch": "master",
-    "commitSHA": "dfe65b3ddbf365abd5b2e0a0b1f5972e38b8bc1c"
+    "commitSHA": "a3e98d5df3376b04c8c8b57b8aec05409d196074"
   },
   "sections": [
     {
@@ -350,9 +350,9 @@
           "description": "<p>Declares an output property that fires events that you can subscribe to with an event binding (example: <code>&lt;my-cmp (myEvent)=&quot;doSomething()&quot;&gt;</code>).</p>\n"
         },
         {
-          "syntax": "@HostBinding('[class.valid]') isValid;",
+          "syntax": "@HostBinding('class.valid') isValid;",
           "bold": [
-            "@HostBinding('[class.valid]')"
+            "@HostBinding('class.valid')"
           ],
           "description": "<p>Binds a host element property (here, the CSS class <code>valid</code>) to a directive/component property (<code>isValid</code>).</p>\n"
         },

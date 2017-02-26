@@ -1,5 +1,10 @@
 include ../_util-fns
 
+// The docs standard h4 style uppercases, making code terms unreadable. Override it.
+style.
+  h4 {font-size: 17px !important; text-transform: none !important;}
+  .syntax { font-family: Consolas, 'Lucida Sans', Courier, sans-serif; color: black; font-size: 85%; }
+
 :marked
   [**Webpack**](https://webpack.github.io/) is a popular module bundler,
   a tool for bundling application source code in convenient _chunks_
@@ -8,11 +13,11 @@ include ../_util-fns
   [**Webpack**](https://webpack.github.io/)是一个广受欢迎的模块打包器，
   这个工具用来把程序源码打包到一些方便易用的_块_中，以便把这些代码从服务器加载到浏览器中。
 
-  It's an excellent alternative to the *SystemJS* approach we use throughout the documentation.
-  In this guide we get a taste of Webpack and how to use it with Angular applications.
+  It's an excellent alternative to the *SystemJS* approach used elsewhere in the documentation.
+  This guide offers a taste of Webpack and explains how to use it with Angular applications.
 
-  它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并学习如何在Angular程序中使用它。
-
+  它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝Webpack的滋味，并解释如何在Angular程序中使用它。
+  
   <a id="top"></a>
   ## Table of contents
   ## 目录
@@ -79,12 +84,12 @@ include ../_util-fns
 
   Webpack roams over your application source code,
   looking for `import` statements, building a dependency graph, and emitting one (or more) _bundles_.
-  With plugin "loaders" Webpack can preprocess and minify different non-JavaScript files such as TypeScript, SASS, and LESS files.
+  With plugins and rules, Webpack can preprocess and minify different non-JavaScript files such as TypeScript, SASS, and LESS files.
 
   Webpack会遍历你应用中的所有源码，查找`import`语句，构建出依赖图谱，并产出一个(或多个)_包_。
-  通过“加载器(loaders)”插件，Webpack可以对各种非JavaScript文件进行预处理和最小化(Minify)，比如TypeScript、SASS和LESS文件等。
+  通过插件和规则，Webpack可以对各种非JavaScript文件进行预处理和最小化(Minify)，比如TypeScript、SASS和LESS文件等。
 
-  We determine what Webpack does and how it does it with a JavaScript configuration file, `webpack.config.js`.
+  You determine what Webpack does and how it does it with a JavaScript configuration file, `webpack.config.js`.
 
   我们通过一个JavaScript配置文件`webpack.config.js`来决定Webpack做什么以及如何做。
 
@@ -95,12 +100,12 @@ a(id="entries-outputs")
 
   ### 入口与输出
 
-  We feed Webpack with one or more *entry* files and let it find and incorporate the dependencies that radiate from those entries.
-  In this example, we start from the application's root file, `src/app.ts`:
+  You supply Webpack with one or more *entry* files and let it find and incorporate the dependencies that radiate from those entries.
+  The one entry point file in this example is the application's root file, `src/app.ts`:
 
   我们给Webpack提供一个或多个*入口*文件，来让它查找与合并那些从这些入口点发散出去的依赖。
   在下面这个例子中，我们的入口点是该应用的根文件`src/app.ts`：
-
+  
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'one-entry', 'webpack.config.js (single entry)')(format=".")
 
 :marked
@@ -111,12 +116,11 @@ a(id="entries-outputs")
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'app-example', 'src/app.ts')(format=".")
 
 :marked
-  Here it sees that we're importing *@angular/core* so it adds that to its dependency list for (potential) inclusion in the bundle.
-  It opens *@angular/core* and follows _its_ network of `import` statements until it has build the complete dependency graph from `app.ts` down.
+  It sees that you're importing *@angular/core* so it adds that to its dependency list for (potential) inclusion in the bundle.
+  It opens the *@angular/core* file and follows _its_ network of `import` statements until it has built the complete dependency graph from `app.ts` down.
 
   这里，Webpack看到我们正在导入*@angular/core*，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包中做准备。
   它打开*@angular/core*并追踪由_该文件的_`import`语句构成的网络，直到构建出从`app.ts`往下的整个依赖图谱。
-
   Then it **outputs** these files to the `app.js` _bundle file_ designated in configuration:
 
   然后它把这些文件**输出**到当前配置所指定的_包文件_`app.js`中：
@@ -124,49 +128,46 @@ a(id="entries-outputs")
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'one-output', 'webpack.config.js (single output)')(format=".")
 
 :marked
-  This `app.js` output bundle is a single JavaScript file that contains our application source and its dependencies.
-  We'll load it later with a &lt;script&gt; tag in our index.html.
+  This `app.js` output bundle is a single JavaScript file that contains the application source and its dependencies.
+  You'll load it later with a `<script>` tag in the `index.html`.
 
   这个`app.js`输出包是个单一的JavaScript文件，它包含程序的源码及其所有依赖。
   后面我们将在`index.html`中用`<script>`标签来加载它。
-
+  
   #### Multiple bundles
 
   #### 多重包
 
-  We probably do not want one giant bundle of everything.
-  We'll likely prefer to separate our volatile application app code from comparatively stable vendor code modules.
+  You probably don't want one giant bundle of everything.
+  It's preferable to separate the volatile application app code from comparatively stable vendor code modules.
 
   我们可能不会希望把所有东西打进一个巨型包，而更喜欢把多变的应用代码从相对稳定的第三方提供商模块中分离出来。
 
-  We change the configuration so that we have two entry points, `app.ts` and `vendor.ts`:
+  Change the configuration so that it has two entry points, `app.ts` and `vendor.ts`:
 
   所以要修改配置，以获得两个入口点：`app.ts`和`vendor.ts`：
 
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'two-entries','webpack.config.js (two entries)')(format=".")
 :marked
   Webpack constructs two separate dependency graphs
-  and emits *two* bundle files, one called `app.js` containing only our application code and
+  and emits *two* bundle files, one called `app.js` containing only the application code and
   another called `vendor.js` with all the vendor dependencies.
 
   Webpack会构造出两个独立的依赖图谱，并产出*两个*包文件：一个叫做`app.js`，它只包含我们的应用代码；另一个叫做`vendor.js`，它包含所有的提供商依赖。
 
 .l-sub-section
   :marked
-    The `[name]` in the output name is a Webpack *placeholder* that is replaced with the entry names.
-    `app` and `vendor` respectively.
+    The `[name]` in the output name is a *placeholder* that a Webpack plugin replaces with the entry names,
+    `app` and `vendor`. Plugins are [covered later](#commons-chunk-plugin) in the guide.
 
-    在输出文件名中出现的`[name]`是一个Webpack的*占位符*，它将被替换为入口点的名字，分别是`app`和`vendor`。
-
-    We need a plugin to make this work; we'll [cover that later](#commons-chunk-plugin) in the chapter.
-
-    我们需要一个插件来完成此项工作，本章[后面](#commons-chunk-plugin)的部分会覆盖它。
+    在输出文件名中出现的`[name]`是一个Webpack的*占位符*，它将被一个Webpack插件替换为入口点的名字，分别是`app`和`vendor`。插件在本章的[稍后部分](#commons-chunk-plugin)讲解。
 
 :marked
-  We met `app.ts` earlier. We wrote `vendor.ts` such that it imports the vendor modules we need:
-
-  我们以前见过`app.ts`，就不再赘述了。还要再写一个`vendor.ts`，让它导入我们要用的提供商模块：
-
+  To tell Webpack what belongs in the vendor bundle, 
+  add a `vendor.ts` file that only imports the application's third-party modules:
+  
+  要想告诉Webpack哪些文件属于vendor包，可以添加一个`vendor.ts`文件，它只导入该应用的第三方模块：
+  
 +makeExample('webpack/ts/src/vendor.ts', null,'src/vendor.ts')(format=".")
 
 
@@ -178,15 +179,15 @@ a(id="loaders")
   ### 加载器(Loader)
 
   Webpack can bundle any kind of file: JavaScript, TypeScript, CSS, SASS, LESS, images, html, fonts, whatever.
-  Webpack itself doesn't know what to do with a non-JavaScript file.
-  We teach it to process such files into JavaScript with *loaders*.
-  Here we configure loaders for TypeScript and CSS:
+  Webpack _itself_ only understands JavaScript files.
+  Teach it to transform non-JavaScript file into their JavaScript equivalents with *loaders*.
+  Configure loaders for TypeScript and CSS as follows.
 
   Webpack可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS、LESS、图片、HTML以及字体文件等等。
-  Webpack本身并不知道该如何处理这些非JavaScript文件。
+  但Webpack*本身*只认识JavaScript文件。
   我们要通过*加载器*来告诉它如何把这些文件处理成JavaScript文件。
   在这里，我们为TypeScript和CSS文件配置了加载器。
-
+  
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'loaders', 'webpack.config.js (two entries)')(format=".")
 
 :marked
@@ -207,7 +208,7 @@ a(id="loaders")
   第一个`import`文件匹配上了`.ts`模式，于是Webpack就用`awesome-typescript-loader`加载器处理它。
   导入的文件没有匹配上第二个模式，于是它的加载器就被忽略了。
 
-  The second `import` matches the second `.css` pattern for which we have *two* loaders chained by the (!) character.
+  The second `import` matches the second `.css` pattern for which you have *two* loaders chained by the (!) character.
   Webpack applies chained loaders *right to left* so it applies
   the `css` loader first (to flatten CSS `@import` and `url(...)` statements) and
    then the `style` loader (to append the css inside *&lt;style&gt;* elements on the page).
@@ -224,11 +225,10 @@ a(id="plugins")
   ### 插件
 
   Webpack has a build pipeline with well-defined phases.
-  We tap into that pipeline with plugins such as the `uglify` minification plugin:
+  Tap into that pipeline with plugins such as the `uglify` minification plugin:
 
   Webpack有一条构建流水线，它被划分成多个经过精心定义的阶段(phase)。
   我们可以把插件(比如`uglify`代码最小化插件)挂到流水线上：
-
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'plugins')(format=".")
 
 a(id="configure-webpack")
@@ -237,10 +237,9 @@ a(id="configure-webpack")
   ## Configure Webpack
   ## 配置Webpack
 
-  After that brief orientation, we are ready to build our own Webpack configuration for Angular apps.
+  After that brief orientation, you are ready to build your own Webpack configuration for Angular apps.
 
   经过简短的培训之后，我们准备为Angular应用构建一份自己的Webpack配置了。
-
   Begin by setting up the development environment.
 
   从设置开发环境开始。
@@ -249,7 +248,7 @@ a(id="configure-webpack")
 
   创建一个**新的项目文件夹**
 
-code-example(format="").
+code-example(language="sh" class="code-shell").
   mkdir angular-webpack
   cd    angular-webpack
 
@@ -273,135 +272,129 @@ code-example(format="").
 )
 .l-sub-section
   :marked
-    Many of these files and much of their content should be familiar from other Angular documentation chapters.
+    Many of these files should be familiar from other Angular documentation guides,
+    especially the [_Typescript configuration_](../guide/typescript-configuration.html) and
+    [_npm packages_](../guide/npm-packages.html) guides.
 
-    这些文件及其内容多数都在其它Angular文档中见过了，应该比较熟悉。
+    Webpack, the plugins, and the loaders are also installed as packages. 
+    They are listed in the updated `packages.json`.
 
-    Learn about the `package.json` in the [npm packages](../guide/npm-packages.html) chapter.
-    We require packages for Webpack use in addition to the ones listed in that chapter.
-
-    要了解`package.json`，请到[npm包](../guide/npm-packages.html)一章。
-    除了那一章列出的包之外，我们还需要用到Webpack的包。
-
-    Learn about `tsconfig.json` in the [Typescript configuration](../guide/typescript-configuration.html) chapter.
-
-    要了解`tsconfig.json`，参见[Typescript配置](../guide/typescript-configuration.html)一章。
-    
-    
 :marked
-  Open a terminal/console window and install the *npm* packages with `npm install`.
+  Open a terminal window and (re)install the *npm* packages
+code-example(language="sh" class="code-shell").
+  npm install
 
-  打开终端/控制台窗口，并通过`npm install`命令安装这些*npm*包。
+a#polyfills
+.l-main-section
+:marked
+  ### Polyfills
 
+  You'll need polyfills to run an Angular application in most browsers as explained
+  in the [_Browser Support_](browser-support.html) guide.
+
+  Polyfills should be bundled separately from the application and vendor bundles.
+  Add a `polyfills.ts` like this one to the `src/` folder.
+
++makeExample('webpack/ts/src/polyfills.ts', '', 'src/polyfills.ts')(format=".")
+
+.callout.is-critical
+  header Loading polyfills
+  :marked
+    Load `zone.js` early within `polyfills.ts`, immediately after the other ES6 and metadata shims.
+
+:marked
+  Because this bundle file will load first, `polyfills.ts` is also a good place to configure the browser environment 
+  for production or development.
 
 a(id="common-configuration")
 .l-main-section
 :marked
   ### Common Configuration
-  ### 公共配置
+  
+  Developers typically have separate configurations for development, production, and test environments.
+  All three have a lot of configuration in common.
 
-  We will define separate configurations for development, production, and test environments.
-  All three have some configuration in common.
-  We'll gather that common configuration in a separate file called `webpack.common.js`.
-
-  我们可以为开发、产品和测试环境定义分别各自的配置文件。
-  但三者总会有一些公共配置。
-  于是我们把那些公共的配置收集到一个名叫`webpack.common.js`的独立文件中。
-
-  Let's see the entire file and then walk through it a section at a time:
-
-  来看下入口文件，用一个小节的时间了解下它的内容：
-
+  Gather the common configuration in a file called `webpack.common.js`.
+  
 +makeExample('webpack/ts/config/webpack.common.js', null, 'config/webpack.common.js')(format=".")
 
 :marked
-  Webpack is a NodeJS-based tool so its configuration is a JavaScript _commonjs_ module file
-  that begins with `require` statements as such files do.
+  ### Inside _webpack.common.js_
+  Webpack is a NodeJS-based tool that reads configuration from a JavaScript _commonjs_ module file.
 
-  Webpack是一个基于NodeJS的工具，所以它的配置文件就是一个JavaScript的_CommonJS_模块文件，它像常规写法一样以`require`语句开始。
+  The configuration imports dependencies with `require` statements
+  and exports several objects as properties of a `module.exports` object.
 
-  The configuration exports several objects, beginning with the *entries* described earlier:
+  * [`entries`](#common-entries) - the entry-point files that define the bundles.
+  * [`resolve`](#common-resolve) - how to resolve file names when they lack extensions.
+  * [`module.rules`](#common-rules) - `module` is an object with `rules` for deciding how files are loaded.
+  * [`plugins`](#common-plugins) - creates instances of the plugins.
 
-  这个配置项导出了几个对象，从前面说过的*入口点(entry)*开始：
+a#common-entries
+:marked
+  #### _entries_
 
+  The first export is the *entries* object, described above:
+  
 +makeExample('webpack/ts/config/webpack.common.js', 'entries', 'config/webpack.common.js')(format=".")
 :marked
-  We are splitting our application into three bundles:
+  This *entries* object defines the three bundles:
+  
+  * polyfills - the polyfills needed to run Angular applications in most modern browsers.
+  * vendor - the third-party dependencies such as Angular, lodash, and bootstrap.css.
+  * app - the application code.
 
-  我们正在把应用拆成三个包：
-
-  * polyfills - the standard polyfills we require to run Angular applications in most modern browsers.
-
-  * polyfills - 我们在大多数现代浏览器中运行Angular程序时需要的标准填充物。
-
-  * vendor - the vendor files we need: Angular, lodash, bootstrap.css...
-
-  * vendor - 我们需要的提供商文件：Angular、Lodash、bootstrap.css……
-
-  * app - our application code.
-
-  * app - 我们的应用代码。
-
-.callout.is-critical
-  header Loading polyfills
-  header 加载填充物(polyfills)
-  :marked
-    Load Zone.js early, immediately after the other ES6 and metadata shims.
-
-    早点加载Zone.js，紧跟在其它ES6和metadata垫片(shim)之后。
-
+a#common-resolve
 :marked
-  Our app will `import` dozens if not hundreds of JavaScript and TypeScript files.
-  We _might_ write `import` statements with explicit extensions as in this example:
+  #### _resolve_ extension-less imports
 
-  本程序将需要`import`十多个(如果不是上百个的话)JavaScript和TypeScript文件。
-  我们_可以_带着明确的扩展名来写这些`import`语句，就像下面的例子中这样：
-
+  The app will `import` dozens if not hundreds of JavaScript and TypeScript files. 
+  You could write `import` statements with explicit extensions like this example:
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'single-import')(format=".")
 
 :marked
-  But most of our `import` statements won't mention the extension at all.
-  So we  tell Webpack to _resolve_ module file requests by looking for matching files with
-
-  但是大多数`import`语句完全不会去引用扩展名。
-  所以我们要告诉Webpack如何通过查找匹配的文件来_解析_模块文件的加载请求：
-
-  * an explicit extension (signified by the empty extension string, `''`) or
-  * 一个明确的扩展名(通过一个空白的扩展名字符串`''`标记出来)，或者
-  * `.js` extension (for regular JavaScript files and pre-compiled TypeScript files) or
-  * `.js`扩展名(为了查找标准的JavaScript文件和预编译过的TypeScript文件)，或者
-  * `.ts` extension.
-  * `.ts`扩展名。
-
+  But most `import` statements don't mention the extension at all.
+  Tell Webpack to resolve extension-less file requests by looking for matching files with
+  `.ts` extension or `.js` extension (for regular JavaScript files and pre-compiled TypeScript files).
+  
 +makeExample('webpack/ts/config/webpack.common.js', 'resolve', 'config/webpack.common.js')(format=".")
 .l-sub-section
   :marked
-    We could add  `.css` and `.html` later if we want Webpack to resolve extension-less files with _those_ extension too.
+    If Webpack should resolve extension-less files for styles and HTML,
+    add `.css` and `.html` to the list.
 
-    我们以后还可能会添加`.css`和`.html` —— 如果希望Webpack也用无扩展名的方式去解析_那些_扩展名的话。
-
+a#common-rules
 :marked
-  Next we specify the loaders:
-
-  接下来我们开始指定加载器：
-
+:marked
+  #### _module.rules_
+  Rules tell Webpack which loaders to use for each file (AKA _module_):
+  
 +makeExample('webpack/ts/config/webpack.common.js', 'loaders', 'config/webpack.common.js')(format=".")
 
 :marked
-  * awesome-typescript-loader - a loader to transpile our Typescript code to ES5, guided by the `tsconfig.json` file
-  * awesome-typescript-loader - 一个用于把TypeScript代码转译成ES5的加载器，它会由`tsconfig.json`文件提供指导
+  * awesome-typescript-loader - a loader to transpile the Typescript code to ES5, guided by the `tsconfig.json` file
   
+      awesome-typescript-loader - 一个用于把TypeScript代码转译成ES5的加载器，它会由`tsconfig.json`文件提供指导
+      
   * angular2-template-loader - loads angular components' template and styles
-  * angular2-template-loader - 用于加载Angular组件的模板和样式
+  
+      angular2-template-loader - 用于加载Angular组件的模板和样式
+      
   * html - for component templates
-  * html - 为组件模板准备的加载器
+  
+      html - 为组件模板准备的加载器
+      
   * images/fonts - Images and fonts are bundled as well.
-  * images/fonts - 图片和字体文件也能被打包。
+  
+      images/fonts - 图片和字体文件也能被打包。
+      
   * css - The pattern matches application-wide styles; the second handles component-scoped styles (the ones specified in a component's `styleUrls` metadata property)
-  * css - 第一个模式匹配应用级样式，第二个模式匹配组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
+  
+      css - 第一个模式匹配应用级样式，第二个模式匹配组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
+  
 .l-sub-section
   :marked
-    The first pattern excludes `.css` files within the `/src/app` directories where our component-scoped styles sit.
+    The first pattern excludes `.css` files within the `/src/app` directories where the component-scoped styles sit.
     It includes only `.css` files located at or above `/src`; these are the application-wide styles.
     The `ExtractTextPlugin` (described below) applies the `style` and `css` loaders to these files.
 
@@ -416,38 +409,44 @@ a(id="common-configuration")
 
 .l-sub-section
   :marked
-    Multiple loaders can be also chained using the array notation.
+    Multiple loaders can be chained using the array notation.
     
     多重加载器也能使用数组形式串联起来。
 
+a#common-plugins
 :marked
-  Finally we add two plugins:
-
-  最后我们来添加两个插件：
-
+:marked
+  #### _plugins_
+  
+  Finally, create instances of three plugins:
+  
+  最后，创建三个插件实例：
+  
 +makeExample('webpack/ts/config/webpack.common.js', 'plugins', 'config/webpack.common.js')(format=".")
 
 a(id="commons-chunk-plugin")
 :marked
   #### *CommonsChunkPlugin*
-
-  We want the `app.js` bundle to contain only app code and the `vendor.js` bundle to contain only the vendor code.
-
-  我们希望`app.js`包中只包含应用代码，而`vendor.js`包中只包含提供商代码。
-
-  Our application code `imports` vendor code. Webpack is not smart enough to keep the vendor code out of the `app.js` bundle.
-  We rely on the `CommonsChunkPlugin` to do that job.
-
-  应用代码中`import`了提供商代码。Webpack还没有智能到自动把提供商代码排除在`app.js`包之外。
+  
+  The `app.js` bundle should contain only application code. All vendor code belongs in the `vendor.js` bundle. 
+  
+  `app.js`包应该只包含应用代码。所有第三方代码都应该放进`vendor.js`包中。
+  
+  Of course the application code `imports` vendor code. 
+  Webpack itself is not smart enough to keep the vendor code out of the `app.js` bundle.
+  The `CommonsChunkPlugin` does that job. 
+  
+  当然，应用代码中还是要`imports`第三方代码。
+  Webpack还没有智能到自动把提供商代码排除在`app.js`包之外的程度。
   `CommonsChunkPlugin`插件能完成此工作。
-
+  
 .l-sub-section
   :marked
-    It identifies the hierarchy among three _chunks_: `app` -> `vendor` -> `polyfills`.
+    The `CommonsChunkPlugin` identifies the hierarchy among three _chunks_: `app` -> `vendor` -> `polyfills`.
     Where Webpack finds that `app` has shared dependencies with `vendor`, it removes them from `app`.
-    It would do the same if `vendor` and `polyfills` had shared dependencies (which they don't).
+    It would remove `polyfills` from `vendor` if they shared dependencies (which they don't).
 
-    这里标记出了三个_块_之间的等级体系：`app` -> `vendor` -> `polyfills`。
+    `CommonsChunkPlugin`标记出了三个_块_之间的等级体系：`app` -> `vendor` -> `polyfills`。
     当Webpack发现`app`与`vendor`有共享依赖时，就把它们从`app`中移除。
     在`vendor`和`polyfills`之间有共享依赖时也同样如此(虽然它们没啥可共享的)。
 
@@ -456,13 +455,12 @@ a(id="html-webpack-plugin")
   #### *HtmlWebpackPlugin*
 
   Webpack generates a number of js and css files.
-  We _could_ insert them into our `index.html` _manually_. That would be tedious and error-prone.
-  Webpack can inject those scripts and links for us with the `HtmlWebpackPlugin`.
+  You _could_ insert them into the `index.html` _manually_. That would be tedious and error-prone.
+  Webpack can inject those scripts and links for you with the `HtmlWebpackPlugin`.
 
   Webpack生成了一些js和css文件。
   虽然我们_可以手动_把它们插入到`index.html`中，但那样既枯燥又容易出错。
   Webpack可以通过`HtmlWebpackPlugin`自动为我们注入那些`script`和`link`标签。
-
 a(id="environment-configuration")
 .l-main-section
 :marked
@@ -471,12 +469,11 @@ a(id="environment-configuration")
   ### 环境相关的配置
 
   The `webpack.common.js` configuration file does most of the heavy lifting.
-  We create separate, environment-specific configuration files that build on `webpack.common`
-  by merging into it the peculiarities particular to their target environments.
+  Create separate, environment-specific configuration files that build on `webpack.common`
+  by merging into it the peculiarities particular to the target environments.
 
   `webpack.common.js`配置做了大部分繁重的工作。
   通过合并它们特有的配置，我们可以基于`webpack.common`为目标环境创建独立的、环境相关的配置文件。
-
   These files tend to be short and simple.
 
   这些文件越小越简单越好。
@@ -488,20 +485,19 @@ a(id="development-configuration")
 
   ### 开发环境配置
 
-  Here is the development configuration file, `webpack.dev.js`
+  Here is the `webpack.dev.js` development configuration file. 
 
   下面是开发环境的而配置文件`webpack.dev.js`：
-
 +makeExample('webpack/ts/config/webpack.dev.js', null, 'config/webpack.dev.js')(format=".")
 
 :marked
-  The development build relies on the Webpack development server which we configure near the bottom of the file.
+  The development build relies on the Webpack development server, configured near the bottom of the file.
 
   开发环境下的构建依赖于Webpack的开发服务器，我们在靠近文件底部的地方配置了它。
 
-  Although we tell Webpack to put output bundles in the `dist` folder,
+  Although you tell Webpack to put output bundles in the `dist` folder,
   the dev server keeps all bundles in memory; it doesn't write them to disk.
-  So we won't find any files in the `dist` folder (at least not any generated from `this development build`).
+  You won't find any files in the `dist` folder (at least not any generated from `this development build`).
 
   虽然我们告诉Webpack把输出包放到`dist`目录，但实际上开发服务器把这些包都放在了内存里，而不会把它们写到硬盘中。
   所以在`dist`目录下是找不到任何文件的(至少现在这个开发环境下构建时没有)。
@@ -513,10 +509,10 @@ a(id="development-configuration")
   `HtmlWebpackPlugin`(由`webpack.common.js`引入)插件使用了*`publicPath`*和*`filename`*设置，
   来向`index.html`中插入适当的&lt;script&gt;和&lt;link&gt;标签。
 
-  Our CSS are buried inside our Javascript bundles by default. The `ExtractTextPlugin` extracts them into
+  The CSS styles are buried inside the Javascript bundles by default. The `ExtractTextPlugin` extracts them into
   external `.css` files that the `HtmlWebpackPlugin` inscribes as &lt;link&gt; tags into the `index.html`.
 
-  我们这些CSS默认情况下会被埋没在JavaScript包中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
+  默认情况下，我们这些CSS样式会被埋没在JavaScript包中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
   这样`HtmlWebpackPlugin`插件就会转而把一个&lt;link&gt;标签写进`index.html`了。
 
   Refer to the Webpack documentation for details on these and other configuration options in this file
@@ -527,7 +523,7 @@ a(id="development-configuration")
 
   抓取本指南底部的应用代码，并试一试：
 
-code-example(format="").
+code-example(language="sh" class="code-shell").
   npm start
 
 a(id="production-configuration")
@@ -544,39 +540,50 @@ a(id="production-configuration")
 +makeExample('webpack/ts/config/webpack.prod.js', null, 'config/webpack.prod.js')(format=".")
 
 :marked
-  We don't use a development server. We're expected to deploy the application and its dependencies to a real production server.
-
-  我们不会在产品环境下使用开发服务器，而是希望把应用程序及其依赖都部署到一个真实的产品服务器中。
-
-  This time the output bundle files are physically placed in the `dist` folder.
-
-  这次，输出的包文件就被真的放到`dist`目录下了。
-
+  You'll deploy the application and its dependencies to a real production server.
+  You won't deploy the artifacts needed only in development.
+  
+  我们希望把应用程序及其依赖都部署到一个真实的产品服务器中。
+  而不希望部署那些只在开发环境下才用得到的依赖。
+  
+  Put the production output bundle files in the `dist` folder.
+  
+  把产品环境的输出包放在`dist`目录下。
+  
   Webpack generates file names with cache-busting hash.
-  Thanks to the `HtmlWebpackPlugin` we don't have to update the `index.html` file when the hashes changes.
+  Thanks to the `HtmlWebpackPlugin`, you don't have to update the `index.html` file when the hashes changes.
 
   Webpack生成的文件名中带有“缓存无效哈希(cache-busting hash)”。
   感谢`HtmlWebpackPlugin`插件，当这些哈希值变化时，我们不用去更新`index.html`了。
-
+  
   There are additional plugins:
-
+  
   还有一些别的插件：
-
-  * **NoErrorsPlugin** - stops the build if there is any error.
-  * **NoErrorsPlugin** - 如果出现任何错误，就终止构建。
-  * **DedupePlugin** - detects identical (and nearly identical) files and removes them from the output.
-  * **DedupePlugin** - 检测完全相同(以及几乎完全相同)的文件，并把它们从输出中移除。
+  
+  * **NoEmitOnErrorsPlugin** - stops the build if there is an error.
+  
+      **NoEmitOnErrorsPlugin** - 如果出错就停止构建。
+  
   * **UglifyJsPlugin** - minifies the bundles.
-  * **UglifyJsPlugin** - 最小化(minify)生成的包。
+  
+      **UglifyJsPlugin** - 最小化(minify)生成的包。
+      
   * **ExtractTextPlugin** - extracts embedded css as external files, adding cache-busting hash to the filename.
-  * **ExtractTextPlugin** - 把内嵌的css抽取成外部文件，并为其文件名添加“缓存无效哈希”。
-  * **DefinePlugin** - use to define environment variables that we can reference within our application.
-  * **DefinePlugin** - 用来定义环境变量，以便我们在自己的程序中引用它。
-
-  Thanks to the *DefinePlugin* and the `ENV` variable defined at top, we can enable Angular production mode like this:
-
+  
+      **ExtractTextPlugin** - 把内嵌的css抽取成外部文件，并为其文件名添加“缓存无效哈希”。
+  
+  * **DefinePlugin** - use to define environment variables that you can reference within the application.
+  
+      **DefinePlugin** - 用来定义环境变量，以便我们在自己的程序中引用它。
+  
+  * **LoaderOptionsPlugins** - to override options of certain loaders.
+  
+      **LoaderOptionsPlugins** - 为特定的加载器提供选项。
+  
+  Thanks to the *DefinePlugin* and the `ENV` variable defined at top, you can enable Angular production mode like this:
+  
   感谢*DefinePlugin*和顶部定义的`ENV`变量，我们就可以像这样启用Angular的产品模式了：
-
+  
 +makeExample('webpack/ts/src/main.ts', 'enable-prod')(format=".")
 
 :marked
@@ -584,7 +591,7 @@ a(id="production-configuration")
 
   抓取本指南底部的应用代码，并试一试：
 
-code-example(format="").
+code-example(language="sh" class="code-shell").
   npm run build
 
 a(id="test-configuration")
@@ -594,16 +601,16 @@ a(id="test-configuration")
 
   ### 测试环境配置
 
-  We don't need much configuration to run unit tests.
-  We don't need the loaders and plugins that we declared for our development and production builds.
-  We probably don't need to load and process the application-wide styles files for unit tests and doing so would slow us down;
-  we'll use the `null` loader for those CSS.
+  You don't need much configuration to run unit tests.
+  You don't need the loaders and plugins that you declared for your development and production builds.
+  You probably don't need to load and process the application-wide styles files for unit tests and doing so would slow you down;
+  you'll use the `null` loader for those CSS files.
 
   我们并不需要使用很多配置项来运行单元测试。
   也不需要在开发环境和产品环境下引入的那些加载器和插件。
   如果有可能拖慢执行速度，甚至都不需要在单元测试中加载和处理应用全局样式文件，所以我们用一个`null`加载器来处理所有CSS。
 
-  We could merge our test configuration into the `webpack.common` configuration and override the parts we don't want or need.
+  You could merge the test configuration into the `webpack.common` configuration and override the parts you don't want or need.
   But it might be simpler to start over with a completely fresh configuration.
 
   我们可以把测试环境的配置合并到`webpack.common`配置中，并且改写不想要或不需要的部分。
@@ -612,18 +619,14 @@ a(id="test-configuration")
 +makeExample('webpack/ts/config/webpack.test.js', null, 'config/webpack.test.js')(format=".")
 
 :marked
-  Here's our karma configuration:
+  Reconfigure karma to use webpack to run the tests:
 
-  这里是我们的Karma配置：
-
+  重新配置Karma，让它使用webpack来运行这些测试：
+  
 +makeExample('webpack/ts/config/karma.conf.js', null, 'config/karma.conf.js')(format=".")
 
 :marked
-  We're telling Karma to use webpack to run the tests.
-
-  我们告诉Karma使用Webpack来运行测试。
-
-  We don't precompile our TypeScript; Webpack transpiles our Typescript files on the fly, in memory, and feeds the emitted JS directly to Karma.
+  You don't precompile the TypeScript; Webpack transpiles the Typescript files on the fly, in memory, and feeds the emitted JS directly to Karma.
   There are no temporary files on disk.
 
   我们不用预编译TypeScript，Webpack随时在内存中转译我们的TypeScript文件，并且把产出的JS直接反馈给Karma。
@@ -637,22 +640,21 @@ a(id="test-configuration")
 +makeExample('webpack/ts/config/karma-test-shim.js', null, 'config/karma-test-shim.js')(format=".")
 
 :marked
-  Notice that we do _not_ load our application code explicitly.
-  We tell Webpack to find and load our test files (the files ending in `.spec.ts`).
+  Notice that you do _not_ load the application code explicitly.
+  You tell Webpack to find and load the test files (the files ending in `.spec.ts`).
   Each spec file imports all &mdash; and only &mdash; the application source code that it tests.
-  Webpack loads just _those_ specific application files and ignores the other files that we aren't testing.
+  Webpack loads just _those_ specific application files and ignores the other files that you aren't testing.
 
   注意，我们_并没有_明确加载这些应用代码。
   只是告诉Webpack查找并加载我们的测试文件(文件名以`.spec.ts`结尾)。
   每个规约(spec)文件都导入了所有(也只有)它测试所需的应用源码。
   Webpack只加载_那些_特定的应用文件，而忽略所有其它我们不会测试到的。
-
 :marked
   Grab the app code at the end of this guide and try:
 
   抓取本指南底部的应用代码，并试一试：
 
-code-example(format="").
+code-example(language="sh" class="code-shell").
   npm test
 
 <a id="try"></a>
@@ -661,11 +663,10 @@ code-example(format="").
 
   ## 试一试
 
-  Here is the source code for a small application that we can bundle with the
-  Webpack techniques we learned in this chapter.
+  Here is the source code for a small application that bundles with the
+  Webpack techniques covered in this guide.
 
   这里是一个小型应用的全部源码，我们可以用本章中学到的Webpack技术打包它们。
-
 +makeTabs(
   `webpack/ts/src/index.html,
   webpack/ts/src/main.ts,
@@ -701,12 +702,18 @@ p.
   <a href="/resources/images/logos/angular2/angular.png" target="_blank">
   <img src="/resources/images/logos/angular2/angular.png" height="40px" title="download Angular logo"></a>。
 
+a#bundle-ts
+:marked
+  Here again are the TypeScript entry-point files that define the `polyfills` and `vendor` bundles.
+  
+  这里又是TypeScript的入口点文件，它定义了`polyfills`和`vendor`这两个包。
+  
 +makeTabs(
-  `webpack/ts/src/vendor.ts,
-  webpack/ts/src/polyfills.ts`,
+  `webpack/ts/src/polyfills.ts,
+   webpack/ts/src/vendor.ts`,
   null,
-  `src/vendor.ts,
-  src/polyfills.ts`
+  `src/polyfills.ts,
+   src/vendor.ts`
 )
 <a id="highlights"></a>
 :marked
@@ -726,7 +733,8 @@ p.
 
   * The `AppComponent` itself has its own html template and css file. WebPack loads them with calls to `require()`. 
   Webpack stashes those component-scoped files in the `app.js` bundle too.
-  We don't see those calls in our source code; they're added behind the scenes by the `angular2-template-loader` plug-in. 
+  You don't see those calls in the source code; 
+  they're added behind the scenes by the `angular2-template-loader` plug-in. 
 
   * `AppComponent`组件本身有它自己的HTML模板和CSS文件。Webpack通过调用`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
   我们在自己的源码中看不到这些调用，这些工作是由幕后的`angular2-template-loader`插件完成的。
@@ -743,15 +751,14 @@ p.
   ## Conclusions
   ## 总结
 
-  We've learned just enough Webpack to configurate development, test and production builds
+  You've learned just enough Webpack to configurate development, test and production builds
   for a small Angular application.
 
   我们学到了刚好够用来在开发、测试、产品环境下构建一个小型Angular应用的Webpack配置知识。
 
-  _We could always do more_. Search the web for expert advice and expand your Webpack knowledge.
+  _You could always do more_. Search the web for expert advice and expand your Webpack knowledge.
 
   _但我们还能做得更多_。搜索互联网来获得专家的建议，并扩展你对Webpack的认识。
-
   [Back to top](#top)
 
   [回到顶部](#top)

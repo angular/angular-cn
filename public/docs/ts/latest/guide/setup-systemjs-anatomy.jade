@@ -7,9 +7,9 @@ block includes
 
   在[搭建](setup.html)本地开发环境的过程中会安装*很多*文件。它们大部分都可以被忽略掉。
 
-  Application files _inside the_ **`app/`** and **`e2e/`** folders matter most to developers.
+  Application files _inside the_ **`src/`** and **`e2e/`** folders matter most to developers.
 
-  对程序员来讲最重要的是在 *`app/`* 和 *`e2e/`* 文件夹*之内*的应用文件。
+  对程序员来讲最重要的是在 *`src/`* 和 *`e2e/`* 文件夹*之内*的应用文件。
   
   Files _outside_ those folders condition the development environment.
   They rarely change and you may never view or modify them.
@@ -34,10 +34,10 @@ table(width="100%")
 
       用途
   tr
-    td <code>app/...</code>
+    td <code>src/app/...</code>
     td
       :marked
-        Your Angular application files. 
+        Your Angular application files go here. 
 
         你的 Angular 应用文件。
         
@@ -47,6 +47,12 @@ table(width="100%")
 
         "Hello Angular" 这个例子中有 `AppComponent`、`AppModule`、 一个组件单元测试 (`app.component.spec.ts`) 以及引导文件 `main.ts`。
 
+            
+        Try the <live-example name="setup">sample application</live-example> 
+        and the <live-example name="setup" plnkr="quickstart-specs">unit test</live-example>
+        as _live examples_.
+        
+        在live example中试试<live-example name="setup">范例程序</live-example>和<live-example name="setup" plnkr="quickstart-specs">单元测试</live-example>
   tr
     td <code>e2e/...</code>
     td
@@ -142,6 +148,15 @@ table(width="100%")
 
         在[测试](testing.html)指南中提到的 <a href="https://karma-runner.github.io/1.0/index.html" target="_blank" title="Karma测试运行器">karma</a> 测试运行器的脚本。
 
+  tr
+    td <code>non-essential-files.txt</code>
+    td
+      :marked
+        A list of files that you can delete if you want to purge your setup of the
+        original QuickStart Seed testing and git maintainence artifacts.
+        See instructions in the optional 
+        [_Deleting non-essential files_](setup.html#non-essential "Setup: Deleting non-essential files") section.
+        *Do this only in the beginning to avoid accidentally deleting your own tests and git setup!*
   tr
     td <code>LICENSE</code>
     td

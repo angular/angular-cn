@@ -54,14 +54,7 @@ figure.image-display
   运行这部分的<live-example>在线例子</live-example>。
 
 +ifDocsFor('ts|js')
-  .l-sub-section
-    img(src='/resources/images/devguide/plunker-separate-window-button.png' alt="弹出窗口" align="right" style="margin-right:-20px")
-
-    :marked
-      To see the URL changes in the browser address bar,
-      pop out the preview window by clicking the blue 'X' button in the upper right corner:
-
-      注意看浏览器地址栏中的 URL 变化，点击右上角的蓝色'X'按钮，弹出预览窗口。
+  include ../../../_includes/_see-addr-bar
 
 .l-main-section
 :marked
@@ -79,21 +72,23 @@ block intro-file-tree
   .filetree
     .file angular-tour-of-heroes
     .children
-      .file app
+      .file src
       .children
-        .file app.component.ts
-        .file app.module.ts
-        .file hero.service.ts
-        .file hero.ts
-        .file hero-detail.component.ts
+        .file app
+        .children
+          .file app.component.ts
+          .file app.module.ts
+          .file hero.service.ts
+          .file hero.ts
+          .file hero-detail.component.ts
+          .file mock-heroes.ts
         .file main.ts
-        .file mock-heroes.ts
+        .file index.html
+        .file styles.css
+        .file systemjs.config.js
+        .file tsconfig.json
       .file node_modules ...
-      .file index.html
       .file package.json
-      .file styles.css
-      .file systemjs.config.js
-      .file tsconfig.json
 
 block keep-app-running
   :marked
@@ -106,7 +101,7 @@ block keep-app-running
 
     打开终端/控制台窗口，运行下列命令启动 TypeScript 编译器，它会监视文件变更，并启动开发服务器：
 
-  code-example(language="bash").
+  code-example(language="sh" class="code-shell").
     npm start
 
 :marked
@@ -186,15 +181,15 @@ block keep-app-running
 
     把<span ngio-ex>app.component.ts</span>文件重命名为<span ngio-ex>heroes.component.ts</span>
 
-  * `AppComponent` class to `HeroesComponent`
+  * `AppComponent` class to `HeroesComponent` (rename locally, _only_ in this file)
 
-    把`AppComponent`类重命名为`HeroesComponent`
+    把`AppComponent`类重命名为`HeroesComponent`（只在这个文件中局部改名）
 
   * Selector `my-app` to `my-heroes`
 
     把`my-app`选择器重命名为`my-heroes`
 
-+makeExcerpt('app/heroes.component.ts (showing renamings only)', 'renaming')
++makeExcerpt('src/app/heroes.component.ts (showing renamings only)', 'renaming')
 
 :marked
   ## Create *AppComponent*
@@ -215,10 +210,9 @@ block keep-app-running
 
     添加支持性的`import`语句。
 
-  * Create the file <span ngio-ex>app/app.component.ts</span>.
+  * Create the file <span ngio-ex>src/app/app.component.ts</span>.
 
-    创建一个名叫<span ngio-ex>app.component.ts</span>的新文件。
-
+    创建一个名叫<span ngio-ex>src/app/app.component.ts</span>的新文件。
   * Define an <span if-docs="ts">exported</span> `AppComponent` class.
 
     定义一个<span if-docs="ts">导出的</span> `AppComponent`类。
@@ -265,11 +259,11 @@ block keep-app-running
 
 block app-comp-v1
   +makeTabs(
-    `toh-5/ts/app/app.component.1.ts,
-    toh-5/ts/app/app.module.1.ts`,
+    `toh-5/ts/src/app/app.component.1.ts,
+    toh-5/ts/src/app/app.module.1.ts`,
     ',',
-    `app/app.component.ts (v1),
-    app/app.module.ts (v1)`)
+    `src/app/app.component.ts (v1),
+    src/app/app.module.ts (v1)`)
 
 :marked
 .callout.is-critical
@@ -322,24 +316,6 @@ block angular-router
     和一套配置(`Routes`)。我们将先配置路由。
 
 :marked
-  ### Add the base tag
-
-  ### 设置 base 标签
-
-  Open `index.html` and add `<base href="/">` at the top of the `<head>` section.
-
-  打开`index.html`并且在`<head>`区的顶部添加`<base href="/">`语句。
-
-+makeExcerpt('index.html', 'base-href')
-
-.callout.is-important
-  header base href is essential
-  header base href是不可或缺的
-  :marked
-    See the *base href* section of the [Router](../guide/router.html#base-href)
-    chapter to learn why this matters.
-
-    查看[路由器](../guide/router-deprecated.html#!#base-href)一章的 *base href* 部分，了解为何如此。
 a#configure-routes
 block router-config-intro
   :marked
@@ -363,7 +339,7 @@ block router-config-intro
   我们的第一个路由是指向`HeroesComponent`的。
 
 - var _file = _docsFor == 'dart' ? 'app.component.ts' : 'app.module.2.ts'
-+makeExcerpt('app/' + _file + ' (heroes route)', 'heroes')
++makeExcerpt('src/app/' + _file + ' (heroes route)', 'heroes')
 
 - var _are = _docsFor == 'dart' ? 'takes' : 'are'
 - var _routePathPrefix = _docsFor == 'dart' ? '/' : ''
@@ -403,7 +379,7 @@ block router-config-intro
 
     我们设置了初始路由配置。现在把它添加到`AppModule`里。把配置好的`RouterModule`添加到`AppModule`的`imports`数组中。
 
-  +makeExcerpt('app/app.module.2.ts (app routing)', '')
+  +makeExcerpt('src/app/app.module.2.ts (app routing)', '')
 
   .l-sub-section
     :marked
@@ -449,7 +425,7 @@ block router-config-intro
 
   修改过的模板是这样的：
 
-+makeExcerpt('app/app.component.1.ts', 'template-v2')
++makeExcerpt('src/app/app.component.1.ts', 'template-v2')
 
 block routerLink
   :marked
@@ -500,7 +476,7 @@ block routerLink
 
   在这个阶段，`AppComponent`看起来是这样的：
 
-+makeExample('app/app.component.1.ts', 'v2', 'app/app.component.ts (v2)')
++makeExample('src/app/app.component.1.ts', 'v2', 'src/app/app.component.ts (v2)')
 
 :marked
   The  *AppComponent* is now attached to a router and displaying routed views.
@@ -523,7 +499,7 @@ block routerLink
 
   先创建一个`DashboardComponent`的占位符，让我们可以导航到它或从它导航出来。
 
-+makeExcerpt('app/dashboard.component.1.ts (v1)', '')
++makeExcerpt('src/app/dashboard.component.1.ts (v1)', '')
 
 :marked
   We’ll come back and make it more useful later.
@@ -543,7 +519,7 @@ block routerLink
 
   先导入`DashboardComponent`类，然后把下列路由的定义添加到`!{_RoutesVsAtRouteConfig}`数组中。
 
-- var _file = _docsFor == 'dart' ? 'lib/app_component.dart' : 'app/app.module.3.ts'
+- var _file = _docsFor == 'dart' ? 'lib/app_component.dart' : 'src/app/app.module.3.ts'
 +makeExcerpt(_file + ' (Dashboard route)', 'dashboard')
 
 +ifDocsFor('ts|js')
@@ -552,7 +528,7 @@ block routerLink
 
     还得把`DashboardComponent`添加到`AppModule`的`declarations`数组中。
 
-  +makeExcerpt('app/app.module.ts', 'dashboard')
+  +makeExcerpt('src/app/app.module.ts', 'dashboard')
 
 :marked
   #### !{_redirectTo}
@@ -573,7 +549,7 @@ block redirect-vs-use-as-default
 
     可以使用重定向路由来实现它。添加下面的内容到路由定义的数组中：
 
-  +makeExcerpt('app/app.module.3.ts','redirect')
+  +makeExcerpt('src/app/app.module.3.ts','redirect')
 
   .l-sub-section
     :marked
@@ -591,7 +567,7 @@ block redirect-vs-use-as-default
   最后，在模板上添加一个到仪表盘的导航链接，就放在*Heroes（英雄列表）*链接的上方。
 
 - var _vers = _docsFor == 'dart' ? '' : '.1'
-+makeExcerpt('app/app.component' + _vers + '.ts', 'template-v3')
++makeExcerpt('src/app/app.component' + _vers + '.ts', 'template-v3')
 
 .l-sub-section
   :marked
@@ -625,7 +601,7 @@ block redirect-vs-use-as-default
 
     设置`moduleId`属性到`module.id`，相对模块加载`templateUrl`。
 
-+makeExcerpt('app/dashboard.component.ts', 'metadata')
++makeExcerpt('src/app/dashboard.component.ts', 'metadata')
 
 block templateUrl-path-resolution
   //- N/A for TS
@@ -635,7 +611,7 @@ block templateUrl-path-resolution
 
   使用下列内容创建文件：
 
-+makeExample('app/dashboard.component.1.html', '', 'app/dashboard.component.html')
++makeExample('src/app/dashboard.component.1.html', '', 'src/app/dashboard.component.html')
 
 :marked
   We use `*ngFor` once again to iterate over a list of heroes and display their names.
@@ -672,7 +648,7 @@ block templateUrl-path-resolution
 
   打开<span ngio-ex>dashboard.component.ts</span>文件，并把必备的`import`语句加进去。
 
-+makeExcerpt('app/dashboard.component.ts','imports')
++makeExcerpt('src/app/dashboard.component.ts','imports')
 
 :marked
   We need `OnInit` interface because we'll initialize the heroes in the `ngOnInit` method as we've done before.
@@ -685,7 +661,7 @@ block templateUrl-path-resolution
 
   我们现在就实现`DashboardComponent`类，像这样：
 
-+makeExcerpt('app/dashboard.component.ts (class)', 'class')
++makeExcerpt('src/app/dashboard.component.ts (class)', 'class')
 
 :marked
   We've seen this kind of logic before in the `HeroesComponent`:
@@ -774,11 +750,11 @@ code-example(language="html").
   ### 参数化路由
 
   We *can* add the hero's `id` to the URL. When routing to the hero whose `id` is 11,
-  we could expect to see an URL such as this:
+  we could expect to see a URL such as this:
 
   我们*可以*把英雄的`id`添加到 URL 中。当导航到一个`id`为 11 的英雄时，我们期望的 URL 是这样的：
 
-code-example(format='').
+code-example(format="nocode").
   /detail/11
 
 :marked
@@ -796,7 +772,7 @@ code-example(format='').
 
   下面是我们将使用的*路由定义*。
 
-- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.module.3.ts'
+- var _file = _docsFor == 'dart' ? 'src/app/app.component.ts' : 'src/app/app.module.3.ts'
 +makeExcerpt(_file + ' (hero detail)','hero-detail')
 
 :marked
@@ -845,7 +821,7 @@ code-example(format='').
 
   在重写`HeroDetailComponent`之前，我们先看看它现在的样子：
 
-+makeExample('toh-4/ts/app/hero-detail.component.ts', null, 'app/hero-detail.component.ts (current)')
++makeExample('toh-4/ts/src/app/hero-detail.component.ts', null, 'src/app/hero-detail.component.ts (current)')
 
 :marked
   The template won't change. We'll display a hero the same way.
@@ -869,7 +845,7 @@ block route-params
   首先，添加需要的导入项目：
 
 - var _vers = _docsFor == 'dart' ? '' : '.1'
-+makeExcerpt('app/hero-detail.component' + _vers + '.ts', 'added-imports', '')
++makeExcerpt('src/app/hero-detail.component' + _vers + '.ts', 'added-imports', '')
 
 - var _ActivatedRoute = _docsFor == 'dart' ? 'RouteParams' : 'ActivatedRoute'
 :marked
@@ -878,21 +854,21 @@ block route-params
 
   然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
-+makeExcerpt('app/hero-detail.component.ts (constructor)', 'ctor')
++makeExcerpt('src/app/hero-detail.component.ts (constructor)', 'ctor')
 
 :marked
   Also import the `switchMap` operator to use later with the route parameters `Observable`.
 
   然后导入`switchMap`运算符，之后会与路由参数`Observable`一起使用。
 
-+makeExcerpt('app/hero-detail.component.ts (switchMap import)', 'rxjs-import')
++makeExcerpt('src/app/hero-detail.component.ts (switchMap import)', 'rxjs-import')
 
 :marked
   We tell the class that we want to implement the `OnInit` interface.
 
   我们告诉这个类，我们要实现`OnInit`接口。
 
-+makeExcerpt('app/hero-detail.component.ts', 'implement', '')
++makeExcerpt('src/app/hero-detail.component.ts', 'implement', '')
 
 block ngOnInit
   :marked
@@ -903,7 +879,7 @@ block ngOnInit
     在`ngOnInit`生命周期钩子中，我们从`ActivatedRoute`服务的可观察对象`params`中提取`id`参数，
     并且使用`HeroService`来获取具有这个`id`的英雄数据。。
 
-+makeExcerpt('app/hero-detail.component.ts', 'ngOnInit')
++makeExcerpt('src/app/hero-detail.component.ts', 'ngOnInit')
 
 block extract-id
   :marked
@@ -955,7 +931,7 @@ block extract-id
 
   打开`HeroService`，并添加一个`getHero`方法，用来通过`id`从`getHeros`过滤英雄列表：
 
-+makeExcerpt('app/hero.service.ts', 'getHero')
++makeExcerpt('src/app/hero.service.ts', 'getHero')
 
 :marked
   Let's return to the `HeroDetailComponent` to clean up loose ends.
@@ -980,7 +956,7 @@ block extract-id
   我们来添加第三个选项：一个`goBack`方法，它使用之前注入的`Location`服务，
   利用浏览器的历史堆栈，导航到上一步。
 
-+makeExcerpt('app/hero-detail.component.ts', 'goBack')
++makeExcerpt('src/app/hero-detail.component.ts', 'goBack')
 
 - var _CanDeactivateGuard = _docsFor == 'dart' ? '<em>routerCanDeactivate</em> hook' : '<em>CanDeactivate</em> guard'
 - var _CanDeactivateGuardUri = _docsFor == 'dart' ? 'angular2.router/CanDeactivate-class' : 'router/index/CanDeactivate-interface'
@@ -1000,7 +976,7 @@ block extract-id
 
   然后，我们通过一个事件绑定把此方法绑定到模板底部的 *Back（后退）*按钮上。
 
-+makeExcerpt('app/hero-detail.component.html', 'back-button', '')
++makeExcerpt('src/app/hero-detail.component.html', 'back-button', '')
 
 :marked
   Modifying the template to add this button spurs us to take one more
@@ -1010,14 +986,14 @@ block extract-id
   修改模板，添加这个按钮以提醒我们还要做更多的改进，
   并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
 
-+makeExample('app/hero-detail.component.html')
++makeExample('src/app/hero-detail.component.html')
 
 :marked
   We update the component metadata with a <span if-docs="ts">`moduleId` and a </span>`templateUrl` pointing to the template file that we just created.
 
   然后更新组件的元数据<span if-docs="ts">`moduleId`和</span>`templateUrl`，`templateUrl`指向我们刚刚创建的模板文件。
 
-+makeExcerpt('app/hero-detail.component.ts', 'metadata')
++makeExcerpt('src/app/hero-detail.component.ts', 'metadata')
 
 :marked
   Refresh the browser and see the results.
@@ -1046,7 +1022,7 @@ block extract-id
 
   要达到这个效果，再次打开`dashboard.component.html`，将用来迭代的`<div *ngFor...>`替换为`<a>`，就像这样：
 
-+makeExample('app/dashboard.component.html', 'click', 'app/dashboard.component.html (repeated <a> tag)')
++makeExample('src/app/dashboard.component.html', 'click', 'src/app/dashboard.component.html (repeated <a> tag)')
 
 +ifDocsFor('dart')
   .alert.is-important
@@ -1081,7 +1057,7 @@ block extract-id
 
   这两个数组项与之前在`!{_appRoutingTsVsAppComp}`添加的参数化的英雄详情路由定义中的 ***path*** 和 ***:id*** 对应。
 
-- var _file = _docsFor == 'dart' ? 'app/app.component.ts' : 'app/app.module.3.ts'
+- var _file = _docsFor == 'dart' ? 'src/app/app.component.ts' : 'src/app/app.module.3.ts'
 +makeExcerpt(_file + ' (hero detail)', 'hero-detail')
 
 :marked
@@ -1126,7 +1102,7 @@ block extract-id
 
     在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
 
-  +makeExample('app/app-routing.module.ts')
+  +makeExample('src/app/app-routing.module.ts')
   :marked
     Noteworthy points, typical of _Routing Modules_:
 
@@ -1168,9 +1144,9 @@ block extract-id
     下面是修改后的`AppModule`，与重构前的对比：
 
 +makeTabs(
-  `toh-5/ts/app/app.module.ts, toh-5/ts/app/app.module.3.ts`,
+  `toh-5/ts/src/app/app.module.ts, toh-5/ts/src/app/app.module.3.ts`,
    null,
-  `app/app.module.ts (after), app/app.module.ts (before)`)
+  `src/app/app.module.ts (after), src/app/app.module.ts (before)`)
 :marked
   It's simpler and focused on identifying the key pieces of the application.它更简单，专注于确定应用的关键部分。
 .l-main-section
@@ -1190,7 +1166,7 @@ block extract-id
 
   那个组件的当前模板展示了一个主从风格的界面：上方是英雄列表，底下是所选英雄的详情。
 
-+makeExample('toh-4/ts/app/app.component.ts','template', 'app/heroes.component.ts (current template)')(format=".")
++makeExample('toh-4/ts/src/app/app.component.ts','template', 'src/app/heroes.component.ts (current template)')(format=".")
 
 :marked
   Our goal is to move the detail to its own view and navigate to it when the user decides to edit a selected hero.
@@ -1229,7 +1205,7 @@ block extract-id
 
   在模板底部原来放`<my-hero-detail>`的地方添加下列 HTML 片段：
 
-+makeExcerpt('app/heroes.component.html', 'mini-detail', '')
++makeExcerpt('src/app/heroes.component.html', 'mini-detail', '')
 
 :marked
   After clicking a hero, the user should see something like this below the hero list:
@@ -1249,7 +1225,7 @@ figure.image-display
 
   注意，英雄的名字全被显示成大写字母。那是`uppercase`管道的效果，借助它，我们能干预插值表达式绑定的过程。可以管道操作符 ( | ) 后面看到它。
 
-+makeExcerpt('app/heroes.component.html', 'pipe', '')
++makeExcerpt('src/app/heroes.component.html', 'pipe', '')
 
 :marked
   Pipes are a good way to format strings, currency amounts, dates and other display data.
@@ -1311,18 +1287,18 @@ figure.image-display
 block heroes-component-cleanup
   //- Only relevant for Dart.
 
-+makeExcerpt('app/heroes.component.ts (revised metadata)', 'metadata')
++makeExcerpt('src/app/heroes.component.ts (revised metadata)', 'metadata')
 
 :marked
   ### Update the _HeroesComponent_ class.
 
   ### 更新 _HeroesComponent_ 类
 
-  The `HeroesComponent` navigates to the `HeroesDetailComponent` in response to a button click.
+  The `HeroesComponent` navigates to the `HeroDetailComponent` in response to a button click.
   The button's _click_ event is bound to a `gotoDetail` method that navigates _imperatively_
   by telling the router where to go.
 
-  点击按钮时，`HeroesComponent`导航到`HeroesDetailComponent`。
+  点击按钮时，`HeroesComponent`导航到`HeroDetailComponent`。
   该按钮的_点击_事件被绑定到`gotoDetail`方法，它使用命令式的导航，告诉路由器去哪儿。
 
   This approach requires some changes to the component class:
@@ -1341,7 +1317,7 @@ block heroes-component-cleanup
 
      实现`gotoDetail`，调用`router.navigate`方法
 
-+makeExcerpt('app/heroes.component.ts', 'gotoDetail')
++makeExcerpt('src/app/heroes.component.ts', 'gotoDetail')
 
 :marked
   Note that we're passing a two-element **link parameters !{_array}**
@@ -1355,7 +1331,7 @@ block heroes-component-cleanup
   与之前在`DashboardComponent`中使用`[routerLink]`绑定一样。
   修改完成的`HeroesComponent`类如下所示：
 
-+makeExcerpt('app/heroes.component.ts', 'class')
++makeExcerpt('src/app/heroes.component.ts', 'class')
 
 :marked
   Refresh the browser and start clicking.
@@ -1405,7 +1381,7 @@ block heroes-component-cleanup
 
   把<span ngio-ex>dashboard.component.css</span>文件添加到`!{_appDir}`目录下，并在组件元数据的`styleUrls`数组属性中引用它。就像这样：
 
-+makeExcerpt('app/dashboard.component.ts (styleUrls)', 'css')
++makeExcerpt('src/app/dashboard.component.ts (styleUrls)', 'css')
 
 :marked
   ### Stylish Hero Details
@@ -1433,11 +1409,11 @@ block heroes-component-cleanup
 
 block css-files
   +makeTabs(
-    `toh-5/ts/app/hero-detail.component.css,
-    toh-5/ts/app/dashboard.component.css`,
+    `toh-5/ts/src/app/hero-detail.component.css,
+    toh-5/ts/src/app/dashboard.component.css`,
     null,
-    `app/hero-detail.component.css,
-    app/dashboard.component.css`)
+    `src/app/hero-detail.component.css,
+    src/app/dashboard.component.css`)
 
 :marked
   ### Style the Navigation Links
@@ -1454,7 +1430,7 @@ block css-files
 
   在`!{_appDir}`目录下添加一个<span ngio-ex>app.component.css</span>文件，内容如下：
 
-+makeExcerpt('app/app.component.css (navigation styles)', '')
++makeExcerpt('src/app/app.component.css (navigation styles)', '')
 
 .l-sub-section
   block router-link-active
@@ -1470,14 +1446,18 @@ block css-files
       Angular路由器提供了`routerLinkActive`指令，我们可以用它来为匹配了活动路由的 HTML 导航元素自动添加一个 CSS 类。
       我们唯一要做的就是为它定义样式。真好！
 
-    +makeExcerpt('app/app.component.ts (active router links)', 'template')
+    +makeExcerpt('src/app/app.component.ts (active router links)', 'template')
 
-:marked
-  Set the `AppComponent`’s `styleUrls` property to this CSS file.
+block style-urls
+  :marked
+    First add `moduleId: module.id` to the `@Component` metadata of the `AppComponent`
+    to enable _module-relative_ file URLs.
+    Then add a `styleUrls` property that points to this CSS file as follows.
 
-  设置`AppComponent`的`styleUrls`属性，指向这个 CSS 文件。
+    首先把`moduleId: module.id`添加到`AppComponent`组件的`@Component`元数据中以启用*相对于模块的*文件URL。
+    然后添加`styleUrls`属性，使其指向这个CSS文件，代码如下：
 
-+makeExcerpt('app/app.component.ts','styleUrls')
++makeExcerpt('src/app/app.component.ts','styleUrls')
 
 :marked
   ### Global application styles
@@ -1503,7 +1483,7 @@ block css-files
   它们与我们之前在[开发环境](../guide/setup.html)时安装的整套样式对应。
   下面是摘录：
 
-+makeExcerpt('styles.css (excerpt)', 'toh')
++makeExcerpt('src/styles.css (excerpt)', 'toh')
 
 - var styles_css = 'https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/_boilerplate/styles.css'
 
@@ -1518,7 +1498,7 @@ block css-files
 
   如有必要，也可以编辑<span ngio-ex>index.html</span>来引用这个样式表。
 
-+makeExcerpt('index.html (link ref)', 'css')
++makeExcerpt('src/index.html (link ref)', 'css')
 
 :marked
   Look at the app now. Our dashboard, heroes, and navigation links are styling!
@@ -1544,31 +1524,33 @@ block file-tree-end
   .filetree
     .file angular-tour-of-heroes
     .children
-      .file app
+      .file src
       .children
-        .file app.component.css
-        .file app.component.ts
-        .file app.module.ts
-        .file app-routing.module.ts
-        .file dashboard.component.css
-        .file dashboard.component.html
-        .file dashboard.component.ts
-        .file hero.service.ts
-        .file hero.ts
-        .file hero-detail.component.css
-        .file hero-detail.component.html
-        .file hero-detail.component.ts
-        .file heroes.component.css
-        .file heroes.component.html
-        .file heroes.component.ts
+        .file app
+        .children
+          .file app.component.css
+          .file app.component.ts
+          .file app.module.ts
+          .file app-routing.module.ts
+          .file dashboard.component.css
+          .file dashboard.component.html
+          .file dashboard.component.ts
+          .file hero.service.ts
+          .file hero.ts
+          .file hero-detail.component.css
+          .file hero-detail.component.html
+          .file hero-detail.component.ts
+          .file heroes.component.css
+          .file heroes.component.html
+          .file heroes.component.ts
+          .file mock-heroes.ts
         .file main.ts
-        .file mock-heroes.ts
+        .file index.html
+        .file styles.css
+        .file systemjs.config.js
+        .file tsconfig.json          
       .file node_modules ...
-      .file index.html
       .file package.json
-      .file styles.css
-      .file systemjs.config.js
-      .file tsconfig.json
 
 .l-main-section
 :marked

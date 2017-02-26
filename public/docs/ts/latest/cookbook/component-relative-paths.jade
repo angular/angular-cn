@@ -12,7 +12,7 @@ include ../_util-fns
   组件通常都是引用外部的模板和样式表文件。
   我们在`@Component`的元数据中通过`templateUrl`和`styleUrls`属性来标识出它们的位置：
 
-+makeExample('cb-component-relative-paths/ts/app/some.component.ts','absolute-config')(format='.')
++makeExample('cb-component-relative-paths/ts/src/app/some.component.ts','absolute-config')(format='.')
 :marked
   By default, we *must* specify the full path back to the application root.
   We call this an ***absolute path*** because it is *absolute* with respect to the application root.
@@ -101,13 +101,14 @@ include ../_util-fns
 
   采用这种文件结构约定，可以为模板和样式表文件指定相对于组件类文件的位置 —— 只要简单的在`@Component`元数据中设置`moduleId`属性就可以了，就像这样：
 
-+makeExample('cb-component-relative-paths/ts/app/some.component.ts','module-id')(format='.')
++makeExample('cb-component-relative-paths/ts/src/app/some.component.ts','module-id')(format='.')
 :marked
-  We strip the `app/` base path from the `templateUrl` and `styleUrls`. The result looks like this:
+  We strip the `src/app/` base path from the `templateUrl` and `styleUrls` and replace it with `./`. 
+  The result looks like this:
 
   从`templateUrl`和`styleUrls`中把基准路径`app/`去掉了。结果是这样的：
 
-+makeExample('cb-component-relative-paths/ts/app/some.component.ts','relative-config')(format='.')
++makeExample('cb-component-relative-paths/ts/src/app/some.component.ts','relative-config')(format='.')
 
 .alert.is-helpful
   :marked
@@ -128,12 +129,12 @@ include ../_util-fns
   **参见<live-example name="cb-component-relative-paths"></live-example>**，并从中下载源码或只在这里阅读相关源码。
 
 +makeTabs(
-  `cb-component-relative-paths/ts/app/some.component.ts,
-  cb-component-relative-paths/ts/app/some.component.html,
-  cb-component-relative-paths/ts/app/some.component.css,
-  cb-component-relative-paths/ts/app/app.component.ts`,
+  `cb-component-relative-paths/ts/src/app/some.component.ts,
+  cb-component-relative-paths/ts/src/app/some.component.html,
+  cb-component-relative-paths/ts/src/app/some.component.css,
+  cb-component-relative-paths/ts/src/app/app.component.ts`,
   null,
-  `app/some.component.ts, app/some.component.html, app/some.component.css, app/app.component.ts`)
+  `src/app/some.component.ts, src/app/some.component.html, src/app/some.component.css, src/app/app.component.ts`)
 
 a#why-default
 .l-main-section
@@ -203,7 +204,7 @@ a#why-default
 
   这种认知让我们得以通过设置`moduleId`来告诉Angular*组件类*文件在哪里：
 
-+makeExample('cb-component-relative-paths/ts/app/some.component.ts','module-id')(format='.')
++makeExample('cb-component-relative-paths/ts/src/app/some.component.ts','module-id')(format='.')
 
 a#webpack
 .l-main-section

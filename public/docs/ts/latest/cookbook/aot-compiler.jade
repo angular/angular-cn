@@ -1,10 +1,10 @@
 include ../_util-fns
 
 :marked
-  This cookbook describes how to radically improve performance by compiling _Ahead of Time_ (AoT) 
+  This cookbook describes how to radically improve performance by compiling _Ahead of Time_ (AOT) 
   during a build process.
 
-  这个烹饪指南描述如何通过在构建过程中进行预编译（Ahead of Time - AoT）来从根本上提升性能。
+  这个烹饪指南描述如何通过在构建过程中进行预编译（Ahead of Time - AOT）来从根本上提升性能。
 
 a#toc
 :marked
@@ -14,8 +14,8 @@ a#toc
   * [概览](#overview)
   * [_Ahead-of-Time_ vs _Just-in-Time_](#aot-jit)
   * [_预编译_ vs _即时编译_](#aot-jit)
-  * [Compile with AoT](#compile)
-  * [用AoT进行编译](#compile)
+  * [Compile with AOT](#compile)
+  * [用AOT进行编译](#compile)
   * [Bootstrap](#bootstrap)
   * [引导](#bootstrap)
   * [Tree Shaking](#tree-shaking)
@@ -24,6 +24,8 @@ a#toc
   * [加载捆文件](#load)
   * [Serve the app](#serve)
   * [启动应用服务器](#serve)
+  * [Workflow and convenience script](#workflow)
+  * [工作流与辅助脚本](#workflow)
   * [Source Code](#source-code)
   * [源码](#source-code)
   * [Tour of Heroes](#toh)
@@ -48,60 +50,60 @@ a#overview
 
     观看编译器作者Tobias Bosch在AngularConnect 2016大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular编译器</a>的演讲。
 :marked
-  You can compile the app in the browser, at runtime, as the application loads, using the **_Just-in-Time_ (JiT) compiler**. 
+  You can compile the app in the browser, at runtime, as the application loads, using the **_Just-in-Time_ (JIT) compiler**. 
   This is the standard development approach shown throughout the documentation.
   It's great .. but it has shortcomings.
 
-  你可以在浏览器中使用*即时编译器*（Just-in-Time - JiT）在运行期间编译该应用，也就是在应用加载时。
+  你可以在浏览器中使用*即时编译器*（Just-in-Time - JIT）在运行期间编译该应用，也就是在应用加载时。
   这是本文档中展示过的标准开发方式。
   它很不错，但是有自己的缺点。
 
-  JiT compilation incurs a runtime performance penalty.
+  JIT compilation incurs a runtime performance penalty.
   Views take longer to render because of the in-browser compilation step. 
   The application is bigger because it includes the Angular compiler 
   and a lot of library code that the application won't actually need.
   Bigger apps take longer to transmit and are slower to load.
 
-  JiT编译导致运行期间的性能损耗。
+  JIT编译导致运行期间的性能损耗。
   由于需要在浏览器中执行这个编译过程，视图需要花更长时间才能渲染出来。
   由于应用包含了Angular编译器以及大量实际上并不需要的库代码，所以文件体积也会更大。
   更大的应用需要更长的时间进行传输，加载也更慢。
 
   Compilation can uncover many component-template binding errors.
-  JiT compilation discovers them at runtime which is later than we'd like.
+  JIT compilation discovers them at runtime which is later than we'd like.
 
-  编译可以发现一些组件模板绑定错误。JiT编译在运行时才揭露它们，那样有点太晚了。
+  编译可以发现一些组件模板绑定错误。JIT编译在运行时才揭露它们，那样有点太晚了。
 
-  The **_Ahead-of-Time_ (AoT) compiler** can catch template errors early and improve performance 
+  The **_Ahead-of-Time_ (AOT) compiler** can catch template errors early and improve performance 
   by compiling at build time as you'll learn in this chapter.
 
-  而**预编译**（AoT）会在构建时编译，这样可以在早期截获模板错误，提高应用性能。
+  而**预编译**（AOT）会在构建时编译，这样可以在早期截获模板错误，提高应用性能。
 
 a#aot-jit
 .l-main-section
 :marked
-  ## _Ahead-of-time_ (AoT) vs _Just-in-time_ (JiT)
-  ## 预编译（AoT） vs 即时编译（JiT）
+  ## _Ahead-of-time_ (AOT) vs _Just-in-time_ (JIT)
+  ## 预编译（AOT） vs 即时编译（JIT）
 
-  There is actually only one Angular compiler. The difference between AoT and JiT is a matter of timing and tooling. 
-  With AoT, the compiler runs once at build time using one set of libraries; 
-  With JiT it runs every time for every user at runtime using a different set of libraries.  
+  There is actually only one Angular compiler. The difference between AOT and JIT is a matter of timing and tooling. 
+  With AOT, the compiler runs once at build time using one set of libraries; 
+  With JIT it runs every time for every user at runtime using a different set of libraries.  
 
-  事实上只有一个Angular编译器，AoT和JiT之间的差别仅仅在于编译的时机和所用的工具。
-  使用AoT，编译器仅仅使用一组库在构建期间运行一次；使用JiT，编译器在每个用户的每次运行期间都要用不同的库运行一次。
+  事实上只有一个Angular编译器，AOT和JIT之间的差别仅仅在于编译的时机和所用的工具。
+  使用AOT，编译器仅仅使用一组库在构建期间运行一次；使用JIT，编译器在每个用户的每次运行期间都要用不同的库运行一次。
 
-  ### Why do AoT compilation?
+  ### Why do AOT compilation?
 
-  ### 为什么需要AoT编译？
+  ### 为什么需要AOT编译？
 
   *Faster rendering*
 
   **渲染得更快**
 
-  With AoT, the browser downloads a pre-compiled version of the application.
+  With AOT, the browser downloads a pre-compiled version of the application.
   The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
 
-  使用AoT，浏览器下载预编译版本的应用程序。
+  使用AOT，浏览器下载预编译版本的应用程序。
   浏览器直接加载运行代码，所以它可以立即渲染该应用，而不用等应用完成首次编译。
 
   *Fewer asynchronous requests*
@@ -128,28 +130,28 @@ a#aot-jit
 
   **提早检测模板错误**
 
-  The AoT compiler detects and reports template binding errors during the build step
+  The AOT compiler detects and reports template binding errors during the build step
   before users can see them.
 
-  AoT编译器在构建过程中检测和报告模板绑定错误，避免用户遇到这些错误。
+  AOT编译器在构建过程中检测和报告模板绑定错误，避免用户遇到这些错误。
 
   *Better security*
 
   **更安全**
 
-  AoT compiles HTML templates and components into JavaScript files long before they are served to the client.
+  AOT compiles HTML templates and components into JavaScript files long before they are served to the client.
   With no templates to read and no risky client-side HTML or JavaScript evaluation,
   there are fewer opportunities for injection attacks.
 
-  AoT编译远在HTML模版和组件被服务到客户端之前，将它们编译到JavaScript文件。
+  AOT编译远在HTML模版和组件被服务到客户端之前，将它们编译到JavaScript文件。
   没有模版可以阅读，没有高风险客户端HTML或JavaScript可利用，所以注入攻击的机会较少。
 
 a#compile
 .l-main-section
 :marked
-  ## Compile with AoT
+  ## Compile with AOT
 
-  ## 用AoT进行编译
+  ## 用AOT进行编译
 
   ### Prepare for offline compilation
 
@@ -162,11 +164,11 @@ a#compile
   只要单独对`app.component`文件的类文件和html文件做少量修改就可以了。
 
 +makeTabs(
-  `cb-aot-compiler/ts/app/app.component.html,
-   cb-aot-compiler/ts/app/app.component.ts`,
+  `cb-aot-compiler/ts/src/app/app.component.html,
+   cb-aot-compiler/ts/src/app/app.component.ts`,
   null,
-  `app/app.component.html,
-   app/app.component.ts`
+  `src/app/app.component.html,
+   src/app/app.component.ts`
 )(format='.')
 
 :marked
@@ -174,7 +176,7 @@ a#compile
 
   用下列命令安装少量新的npm依赖：
 
-code-example(format='.').
+code-example(language="none" class="code-shell").
   npm install @angular/compiler-cli @angular/platform-server --save
 :marked
   You will run the `ngc` compiler provided in the `@angular/compiler-cli` npm package
@@ -186,10 +188,11 @@ code-example(format='.').
 
   `ngc`是一个`tsc`的高仿替代品，它们的配置方式几乎完全一样。
 
-  `ngc` requires its own `tsconfig.json` with AoT-oriented settings.
-  Copy the original `tsconfig.json` to a file called `tsconfig-aot.json`, then modify it to look as follows.
+  `ngc` requires its own `tsconfig.json` with AOT-oriented settings.
+  Copy the original `src/tsconfig.json` to a file called `tsconfig-aot.json` (on the project root), 
+  then modify it to look as follows.
 
-  `ngc`需要自己的带有AoT专用设置的`tsconfig.json`。
+  `ngc`需要自己的带有AOT专用设置的`tsconfig.json`。
   把原始的`tsconfig.json`拷贝到一个名叫`tsconfig-aot.json`的文件中，然后像这样修改它：
 
 +makeExample('cb-aot-compiler/ts/tsconfig-aot.json', null, 'tsconfig-aot.json')(format='.')
@@ -215,15 +218,33 @@ code-example(format='.').
   `"skipMetadataEmit" : true`属性阻止编译器为编译后的应用生成元数据文件。
   当输出成TypeScript文件时，元数据并不是必须的，因此不需要包含它们。
 
+:marked
+  ***Component-relative Template URLS***
+
+  The AOT compiler requires that `@Component` URLS for external templates and css files be _component-relative_.
+  That means that the value of `@Component.templateUrl` is a URL value _relative_ to the component class file.
+  For example, an `'app.component.html'` URL means that the template file is a sibling of its companion `app.component.ts` file.
+
+  While JIT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AOT compilation.
+  
+  JIT-compiled applications that use the SystemJS loader and _component-relative_ URLs *must set the* `@Component.moduleId` *property to* `module.id`.
+  The `module` object is undefined when an AOT-compiled app runs. 
+  The app fails with a null reference error unless you assign a global `module` value in the `index.html` like this:
++makeExample('cb-aot-compiler/ts/src/index.html','moduleId')(format='.')  
+.l-sub-section
+  :marked
+    Setting a global `module` is a temporary expedient. 
+
+:marked
   ### Compiling the application
 
   ### 编译该应用
 
-  Initiate AoT compilation from the command line using the previously installed `ngc` compiler by executing:
+  Initiate AOT compilation from the command line using the previously installed `ngc` compiler by executing:
 
-  在命令行中执行下列命令，借助刚安装好的`ngc`编译器来启动AoT编译：
+  在命令行中执行下列命令，借助刚安装好的`ngc`编译器来启动AOT编译：
 
-code-example(format='.').
+code-example(language="none" class="code-shell").
   node_modules/.bin/ngc -p tsconfig-aot.json
 .l-sub-section
   :marked
@@ -257,11 +278,11 @@ code-example(format='.').
 
     如果你好奇，可以打开`aot/app.component.ngfactory.ts`来看看原始Angular模板语法被编译成TypeScript时的中间结果。
 
-    JiT compilation generates these same _NgFactories_ in memory where they are largely invisible.
-    AoT compilation reveals them as separate, physical files.
+    JIT compilation generates these same _NgFactories_ in memory where they are largely invisible.
+    AOT compilation reveals them as separate, physical files.
 
-    JiT编译器在内存中同样会生成这一堆*NgFactory*，但它们大部分是不可见的。
-    AoT编译器则会生成在单独的物理文件中。
+    JIT编译器在内存中同样会生成这一堆*NgFactory*，但它们大部分是不可见的。
+    AOT编译器则会生成在单独的物理文件中。
 
 :marked
 .alert.is-important
@@ -276,29 +297,31 @@ a#bootstrap
   ## Bootstrap
   ## 引导
 
-  The AoT path changes application bootstrapping.
+  The AOT path changes application bootstrapping.
 
-  AoT也改变了应用的引导方式。
+  AOT也改变了应用的引导方式。
 
   Instead of bootstrapping `AppModule`, you bootstrap the application with the generated module factory, `AppModuleNgFactory`.
 
   引导的方式从引导`AppModule`改成了引导生成的模块工厂：`AppModuleNgFactory`。
 
-  Switch from the `platformBrowserDynamic.bootstrap` used in JiT compilation to
-  `platformBrowser().bootstrapModuleFactory` and pass in the `AppModuleNgFactory`.    
+  Make a copy of `main.ts` and name it `main-jit.ts`. 
+  This is the JIT version; set it aside as you may need it [later](#run-jit "Running with JIT").
 
-  从使用JiT编译时的`platformBrowserDynamic.bootstrap`换成了`platformBrowser().bootstrapModuleFactory`，并把`AppModuleNgFactory`传进去。
+  Open `main.ts` and convert it to AOT compilation.
+  Switch from the `platformBrowserDynamic.bootstrap` used in JIT compilation to
+  `platformBrowser().bootstrapModuleFactory` and pass in the AOT-generated `AppModuleNgFactory`.
 
-  Here is AoT bootstrap in `main.ts` next to the familiar JiT version:
+  Here is AOT bootstrap in `main.ts` next to the original JIT version:
 
-  这里是AoT版本`main.ts`中的引导过程，下一个是你所熟悉的JiT版本。
+  这里是AOT版本`main.ts`中的引导过程，下一个是你所熟悉的JIT版本。
 
 +makeTabs(
-  `cb-aot-compiler/ts/app/main.ts,
-   cb-aot-compiler/ts/app/main-jit.ts`,
+  `cb-aot-compiler/ts/src/main.ts,
+   cb-aot-compiler/ts/src/main-jit.ts`,
   null,
-  `app/main.ts (AoT),
-   app/main.ts (JiT)`
+  `src/main.ts,
+   src/main-jit.ts`
 )
 
 :marked
@@ -311,11 +334,11 @@ a#tree-shaking
   ## Tree Shaking
   ## 摇树优化（Tree Shaking）
 
-  AoT compilation sets the stage for further optimization through a process called _Tree Shaking_.
+  AOT compilation sets the stage for further optimization through a process called _Tree Shaking_.
   A Tree Shaker walks the dependency graph, top to bottom, and _shakes out_ unused code like
   dead needles in a Christmas tree.
 
-  AoT编译为接下来通过一个叫做*摇树优化*的过程做好了准备。
+  AOT编译为接下来通过一个叫做*摇树优化*的过程做好了准备。
   摇树优化器从上到下遍历依赖图谱，并且*摇掉*用不到的代码，这些代码就像是圣诞树中那些死掉的松针一样。
 
   Tree Shaking can greatly reduce the downloaded size of the application
@@ -330,14 +353,14 @@ a#tree-shaking
 
   例如，这个演示程序中没有用到`@angular/forms`库中的任何东西，那么也就没有理由去下载这些与表单有关的Angular代码了。摇树优化可以帮你确保这一点。
 
-  Tree Shaking and AoT compilation are separate steps.
+  Tree Shaking and AOT compilation are separate steps.
   Tree Shaking can only target JavaScript code. 
-  AoT compilation converts more of the application to JavaScript, 
+  AOT compilation converts more of the application to JavaScript, 
   which in turn makes more of the application "Tree Shakable".
 
-  摇树优化和AoT编译是单独的步骤。
+  摇树优化和AOT编译是单独的步骤。
   摇树优化不仅针对JavaScript代码。
-  AoT编译会把应用中的大部分都转换成JavaScript，这种转换会让应用更容易被“摇树优化”。
+  AOT编译会把应用中的大部分都转换成JavaScript，这种转换会让应用更容易被“摇树优化”。
 
   ### Rollup
 
@@ -381,8 +404,10 @@ code-example(format='.').
 
 +makeExample('cb-aot-compiler/ts/rollup-config.js', null, 'rollup-config.js')(format='.')
 :marked
-  It tells Rollup that the app entry point is `app/main.js` .
+  It tells Rollup that the app entry point is `src/app/main.js` .
   The `dest` attribute tells Rollup to create a bundle called `build.js` in the `dist` folder.
+  It overrides the default `onwarn` method in order to skip annoying messages about the AOT compiler's use of the `this` keyword.
+
   Then there are plugins.
 
   它会告诉Rollup，该应用的入口点是`app/main.js`。
@@ -454,20 +479,15 @@ code-example(format='.').
 
 code-example(format='.').
   node_modules/.bin/rollup -c rollup-config.js
-
 .l-sub-section
   :marked
-    Rollup may log many lines with the following warning message:
-
-    Rollup可能会记录很多行下面这样的警告信息：
-
-  code-example(format='.', language='bash').
-    The `this` keyword is equivalent to `undefined` at the top level of an ES module, and has been rewritten
-  :marked
-    You can safely ignore these warnings.
-
-    你可以放心的忽略这些警告。
-
+    Windows users should surround the `rollup` command in double quotes:
+    
+    Windows用户要把`rollup`命令放进双引号中：
+    
+  code-example(format='.').
+    "node_modules/.bin/rollup"  -c rollup-config.js
+:marked
 a#load
 .l-main-section
 :marked
@@ -477,13 +497,13 @@ a#load
 
   Loading the generated application bundle does not require a module loader like SystemJS.
   Remove the scripts that concern SystemJS.
-  Instead, load the bundle file using a single `script` tag:
+  Instead, load the bundle file using a single `script` tag **_after_** the `</body>` tag:
 
   加载所生成的应用捆文件，并不需要使用像SystemJS这样的模块加载器。
   移除与SystemJS有关的那些脚本吧。
   改用`script`标签来加载这些捆文件：
 
-+makeExample('cb-aot-compiler/ts/index.html','bundle','index.html (load bundle)')(format='.')
++makeExample('cb-aot-compiler/ts/src/index.html','bundle','index.html (load bundle)')(format='.')
 
 a#serve
 .l-main-section
@@ -498,38 +518,87 @@ a#serve
   你需要一个Web服务器来作为应用的宿主。
   像与文档中其它部分一样，用*Lite Server*吧：
 
-code-example(format='.').
+code-example(language="none" class="code-shell").
   npm run lite
 :marked
   The server starts, launches a browser, and the app should appear.
-
+  
   启动了服务器、打开浏览器，应用就出现了。
-
 a#source-code
 .l-main-section
 :marked
-  ## AoT QuickStart Source Code
+  ## AOT QuickStart Source Code
 
-  ## AoT快速起步源代码
+  ## AOT快速起步源代码
 
   Here's the pertinent source code:
 
   下面是相关源代码：
 +makeTabs(
-  `cb-aot-compiler/ts/app/app.component.html,
-   cb-aot-compiler/ts/app/app.component.ts,
-   cb-aot-compiler/ts/app/main.ts,
-   cb-aot-compiler/ts/index.html,
+  `cb-aot-compiler/ts/src/app/app.component.html,
+   cb-aot-compiler/ts/src/app/app.component.ts,
+   cb-aot-compiler/ts/src/main.ts,
+   cb-aot-compiler/ts/src/index.html,
    cb-aot-compiler/ts/tsconfig-aot.json,
    cb-aot-compiler/ts/rollup-config.js`,
   null,
-  `app/app.component.html,
-   app/app.component.ts,
-   app/main.ts,
-   index.html,
+  `src/app/app.component.html,
+   src/app/app.component.ts,
+   src/main.ts,
+   src/index.html,
    tsconfig-aot.json,
    rollup-config.js`
 )
+
+a#workflow
+.l-main-section
+:marked
+  ## Workflow and convenience script
+
+  You'll rebuild the AOT version of the application every time you make a change. 
+  Those _npm_ commands are long and difficult to remember.
+
+  Add the following _npm_ convenience script to the `package.json` so you can compile and rollup in one command.
++makeJson('cb-aot-compiler/ts/package.json', { paths: 'scripts.build:aot'}, "package.json (build:aot convenience script)")
+:marked
+  Open a terminal window and try it.
+code-example(language="none" class="code-shell").
+  npm run build:aot  
+
+a#run-jit
+:marked
+  ### And JIT too!
+
+  AOT compilation and rollup together take several seconds. 
+  You may be able to develop iteratively a little faster with SystemJS and JIT.
+  The same source code can be built both ways. Here's one way to do that.
+
+  * Make a copy of `index.html` and call it `index-jit.html`.
+  * Delete the script at the bottom of `index-jit.html` that loads `bundle.js`
+  * Restore the SystemJS scripts like this:
++makeExample('cb-aot-compiler/ts/src/index-jit.html','jit','src/index-jit.html (SystemJS scripts)')(format='.') 
+
+:marked
+  Notice the slight change to the `system.import` which now specifies `src/app/main-jit`.
+  That's the JIT version of the bootstrap file that we preserved [above](#bootstrap)
+
+:marked
+  Open a _different_ terminal window and enter.
+code-example(language="none" class="code-shell").
+  npm start
+:marked
+  That compiles the app with JIT and launches the server.
+  The server loads `index.html` which is still the AOT version (confirm in the browser console).
+  Change the address bar to `index-jit.html` and it loads the JIT version (confirm in the browser console).
+
+  Develop as usual.
+  The server and TypeScript compiler are in "watch mode" so your changes are reflected immediately in the browser.
+
+  To see those changes in AOT, switch to the original terminal and re-run `npm run build:aot`. 
+  When it finishes, go back to the browser and back-button to the AOT version in the (default) `index.html`.
+
+  Now you can develop JIT and AOT, side-by-side.
+
 
 a#toh
 .l-main-section
@@ -539,21 +608,21 @@ a#toh
   ## 英雄指南
 
   The sample above is a trivial variation of the QuickStart app.
-  In this section you apply what you've learned about AoT compilation and Tree Shaking 
+  In this section you apply what you've learned about AOT compilation and Tree Shaking 
   to an app with more substance, the tutorial [_Tour of Heroes_](../tutorial/toh-pt6.html).
 
   上面的例子是《快速起步》应用的一个简单的变体。
-  在本节中，你将在一个更多内容的应用 - [英雄指南](../tutorial/toh-pt6.html)上使用从AoT编译和摇树优化学到的知识。
+  在本节中，你将在一个更多内容的应用 - [英雄指南](../tutorial/toh-pt6.html)上使用从AOT编译和摇树优化学到的知识。
 
-  ### JiT in development, AoT in production
+  ### JIT in development, AOT in production
 
-  ### 开发器使用JiT, 产品期使用AoT
+  ### 开发器使用JIT, 产品期使用AOT
 
-  Today AoT compilation and Tree Shaking take more time than is practical for development. That will change soon.
-  For now, it's best to JiT compile in development and switch to AoT compilation before deploying to production.
+  Today AOT compilation and Tree Shaking take more time than is practical for development. That will change soon.
+  For now, it's best to JIT compile in development and switch to AOT compilation before deploying to production.
 
-  目前，AoT编译和摇树优化对开发来说，占用的时间太多了。这将在未来得到改变。
-  当前的最佳实践是在开发器使用JiT编译，然后在发布产品前切换到AoT编译。
+  目前，AOT编译和摇树优化对开发来说，占用的时间太多了。这将在未来得到改变。
+  当前的最佳实践是在开发器使用JIT编译，然后在发布产品前切换到AOT编译。
 
   Fortunately, the source code can be compiled either way without change _if_ you account for a few key differences.
 
@@ -563,91 +632,59 @@ a#toh
 
   ***index.html***
 
-  The JiT and AoT apps require their own `index.html` files because they setup and launch so differently.
-  **Put the AoT version in the `/aot` folder** because two `index.html` files can't be in the same folder.
-
-  JiT和AoT应用的设置和加载非常不一样，以至于它们需要自己单独的`index.html`文件。
-  **将AoT版本放在`/aot`目录**，因为两个`index.html`文件不能位于同一个目录。
-
+  The JIT and AOT apps require their own `index.html` files because they setup and launch so differently. 
+  
+  JIT和AOT应用的设置和加载非常不一样，因此它们需要各自的`index.html`文件。
+  
   Here they are for comparison:
 
   下面是它们的比较：
 
 +makeTabs(
   `toh-6/ts/aot/index.html,
-   toh-6/ts/index.html`,
+   toh-6/ts/src/index.html`,
   null,
-  `aot/index.html (AoT),
-   index.html (JiT)`
+  `aot/index.html (AOT),
+   src/index.html (JIT)`
 )
 
 :marked
-  The JiT version relies on `SystemJS` to load individual modules and requires the `reflect-metadata` shim. 
-  Both scripts appear in its `index.html`.
+  The JIT version relies on `SystemJS` to load individual modules. 
+  Its scripts appear in its `index.html`.
 
-  JiT版本依靠`SystemJS`来加载单个模块，并需要`reflect-metadata`垫片。
+  JIT版本依靠`SystemJS`来加载单个模块，并需要`reflect-metadata`垫片。
   所以它们出现在它的`index.html`中。
 
-  The AoT version loads the entire application in a single script, `aot/dist/build.js`.
-  It does not need `SystemJS` or the `reflect-metadata` shim; those scripts are absent from its `index.html`
-
+  The AOT version loads the entire application in a single script, `aot/dist/build.js`.
+  It does not need `SystemJS`, so that script is absent from its `index.html`
   ***main.ts***
 
-  JiT and AoT applications boot in much the same way but require different Angular libraries to do so.
+  JIT and AOT applications boot in much the same way but require different Angular libraries to do so.
   The key differences, covered in the [Bootstrap](#bootstrap) section above,
   are evident in these `main` files which can and should reside in the same folder:
 
-  AoT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
+  AOT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
 
 +makeTabs(
-  `toh-6/ts/app/main-aot.ts,
-   toh-6/ts/app/main.ts`,
+  `toh-6/ts/src/main-aot.ts,
+   toh-6/ts/src/main.ts`,
   null,
-  `app/main-aot.ts (AoT),
-   app/main.ts (JiT)`
+  `main-aot.ts (AOT),
+   main.ts (JIT)`
 )
 
-:marked
-  ***Component-relative Template URLS***
-
-  ***相对组件的模板路径***
-
-  The AoT compiler requires that `@Component` URLS for external templates and css files be _component-relative_.
-  That means that the value of `@Component.templateUrl` is a URL value _relative_ to the component class file.
-  For example, a `'hero.component.html'` URL means that the template file is a sibling of its companion `hero.component.ts` file.
-
-  AoT编译器要求`@Component`外部模板和CSS文件的路径是相对组件的。
-  意思是，`@Component.templateUrl`的值是*相对*组件类文件的路径，比如`'hero.component.html'`路径的意思是模板文件在`hero.component.ts`文件的隔壁。
-
-  While JiT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AoT compilation.
-
-  JiT应用的URLs更加灵活，但是为了与AoT编译兼容，坚持使用**相对组件**路径。
-
-  JiT-compiled applications that use the SystemJS loader and _component-relative_ URLs *must set the* `@Component.moduleId` *property to* `module.id`.
-  The `module` object is undefined when an AoT-compiled app runs. 
-  The app fails with a null reference error unless you assign a global `module` value in the `index.html` like this:
-
-  JiT编译的应用，使用SystemJS加载器，**相对组件路径**必须要设置`@Component.moduleId`*属性*为`module.id`。
-  `module`对象在AoT编译的应用运行时的值为`undefined`。
-  除非你在`index.html`中指定一个全局`module`值，否则应用因为空引用错误而失败：
-+makeExample('toh-6/ts/aot/index.html','moduleId')(format='.')  
-.l-sub-section
-  :marked
-    Setting a global `module` is a temporary expedient. 
-
-    设置一个全局`module`是暂时的权宜之计。
 :marked
   ***TypeScript configuration***
 
   ***TypeScript配置***
 
-  JiT-compiled applications transpile to `commonjs` modules.
-  AoT-compiled applications transpile to _ES2015_/_ES6_ modules to facilitate Tree Shaking.
-  AoT requires its own TypeScript configuration settings as well.
+  JIT-compiled applications transpile to `commonjs` modules.
+  AOT-compiled applications transpile to _ES2015_/_ES6_ modules to facilitate Tree Shaking.
+  AOT requires its own TypeScript configuration settings as well.
 
-  JiT编译的应用编译为`commonjs`模块。
-  AoT编译的应用编译为**ES2015/ES6**模块，用来支持摇树优化。
-  而且AoT需要它自己的TypeScript配置设置。
+  JIT编译的应用编译为`commonjs`模块。
+  AOT编译的应用编译为**ES2015/ES6**模块，用来支持摇树优化。
+  而且AOT需要它自己的TypeScript配置设置。
 
   You'll need separate TypeScript configuration files such as these:
 
@@ -655,10 +692,10 @@ a#toh
 
 +makeTabs(
   `toh-6/ts/tsconfig-aot.json,
-   toh-6/ts/tsconfig.json`,
+   toh-6/ts/src/tsconfig.json`,
   null,
-  `tsconfig-aot.json (AoT),
-   tsconfig.json (JiT)`
+  `tsconfig-aot.json (AOT),
+   src/tsconfig.json (JIT)`
 )
 
 .callout.is-helpful
@@ -698,9 +735,9 @@ a#toh
 
 .alert.is-important
   :marked
-    The general audience instructions for running the AoT build of the Tour of Heroes app are not ready.
+    The general audience instructions for running the AOT build of the Tour of Heroes app are not ready.
 
-    面向大众的运行AoT构建的英雄指南应用的说明还没有准备好。
+    面向大众的运行AOT构建的英雄指南应用的说明还没有准备好。
 
     The following instructions presuppose that you have cloned the
     <a href="https://github.com/angular/angular.io" target="_blank">angular.io</a> 
@@ -713,38 +750,35 @@ a#toh
     **英雄指南**源代码在`public/docs/_examples/toh-6/ts`目录。
 
 :marked
-  Run the JiT-compiled app with `npm start` as for all other JiT examples.
+  Run the JIT-compiled app with `npm start` as for all other JIT examples.
 
-  和其他JiT例子一样，使用`npm start`命令，运行JiT编译的应用：
+  和其他JIT例子一样，使用`npm start`命令，运行JIT编译的应用：
 
-  Compiling with AoT presupposes certain supporting files, most of them discussed above.
+  Compiling with AOT presupposes certain supporting files, most of them discussed above.
 
-  AoT编译假设上面介绍的一些支持文件都以准备好。
+  AOT编译假设上面介绍的一些支持文件都以准备好。
 +makeTabs(
-  `toh-6/ts/aot/index.html,
-   toh-6/ts/aot/bs-config.json,
+  `toh-6/ts/src/index.html,
    toh-6/ts/copy-dist-files.js,
    toh-6/ts/rollup-config.js,
    toh-6/ts/tsconfig-aot.json`,
   null,
-  `aot/index.html,
-   aot/bs-config.json,
+  `src/index.html,
    copy-dist-files.js,
    rollup-config.js,
    tsconfig-aot.json`)
 :marked
   Extend the `scripts` section of the `package.json` with these npm scripts:
-
+  
   使用下面的npm脚本，扩展`package.json`文件的`scripts`部分：
 
-code-example(format='.').
-  "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
-  "lite:aot": "lite-server -c aot/bs-config.json",
++makeJson('cb-aot-compiler/ts/package.json', { paths: 'scripts.build:aot, scripts.serve:aot'}, "package.json (convenience scripts)")
+  
 :marked
-  Copy the AoT distribution files into the `/aot` folder with the node script:
+  Copy the AOT distribution files into the `/aot` folder with the node script:
 
-  使用下面的node脚本，拷贝AoT发布文件到`/aot/`目录：
-code-example(format='.').
+  使用下面的node脚本，拷贝AOT发布文件到`/aot/`目录：
+code-example(language="none" class="code-shell").
   node copy-dist-files
 .l-sub-section
   :marked
@@ -752,11 +786,11 @@ code-example(format='.').
 
     直到`zone.js`或者支持老版本浏览器的`core-js`垫片有更新，你不需要再这样做。
 :marked
-  Now AoT-compile the app and launch it with the `lite` server:
+  Now AOT-compile the app and launch it with the `lite` server:
 
-  现在AoT编译应用，并使用`lite`服务器启动它：
-code-example(format='.').
-  npm run build:aot && npm run lite:aot
+  现在AOT编译应用，并使用`lite`服务器启动它：
+code-example(language="none" class="code-shell").
+  npm run build:aot && npm run serve:aot
 
 :marked
   ### Inspect the Bundle
@@ -775,14 +809,14 @@ code-example(format='.').
   Install it:
 
   安装：
-code-example(format='.').
+code-example(language="none" class="code-shell").
   npm install source-map-explorer --save-dev
 :marked
   Run the following command to generate the map.
 
   运行下面的命令来生成源映射。
 
-code-example(format='.').
+code-example(language="none" class="code-shell").
   node_modules/.bin/source-map-explorer aot/dist/build.js
 
 :marked

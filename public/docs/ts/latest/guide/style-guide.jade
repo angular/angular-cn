@@ -19,7 +19,7 @@ include ../_util-fns
 .l-main-section
 
 :marked
-  ## Style Vocabulary
+  ## Style vocabulary
 
   ## 风格词汇
 
@@ -60,11 +60,12 @@ include ../_util-fns
 .l-main-section
 
 :marked
-  ## File Structure Conventions
+  ## File structure conventions
 
   ## 文件结构约定
 
-  Some code examples display a file that has one or more similarly named companion files. (e.g. hero.component.ts and hero.component.html).
+  Some code examples display a file that has one or more similarly named companion files. 
+  For example, `hero.component.ts` and `hero.component.html`.
 
   在一些代码例子中，有的文件有一个或多个相似名字的伴随文件。（例如 hero.component.ts 和 hero.component.html）。
 
@@ -76,26 +77,24 @@ include ../_util-fns
 a(id='toc')
 
 :marked
-  ## Table of Contents
+  ## Table of contents
 
   ## 目录
 
-    1. [Single Responsibility](#single-responsibility)
+    1. [Single responsibility](#single-responsibility)
 
        [单一职责](#single-responsibility)
-
     1. [Naming](#naming)
 
        [命名](#naming)
 
-    1. [Coding Conventions](#coding-conventions)
+    1. [Coding conventions](#coding-conventions)
 
        [代码约定](#coding-conventions)
 
-    1. [App Structure and Angular Modules](#app-structure-and-angular-modules)
+    1. [App structure and Angular modules](#application-structure-and-angular-modules)
 
        [应用结构与 Angular 模块](#app-structure-and-angular-modules)
-
     1. [Components](#components)
 
        [组件](#components)
@@ -108,41 +107,42 @@ a(id='toc')
 
        [服务](#services)
 
-    1. [Data Services](#data-services)
+    1. [Data services](#data-services)
 
        [数据服务](#data-services)
 
-    1. [Lifecycle Hooks](#lifecycle-hooks)
+    1. [Lifecycle hooks](#lifecycle-hooks)
 
        [生命周期钩子](#lifecycle-hooks)
-
     1. [Appendix](#appendix)
 
        [附录](#appendix)
 
 .l-main-section
 :marked
-  ## Single Responsibility
+  ## Single responsibility
 
   ## 单一职责
 
-  Apply the [Single Responsibility Principle](https://wikipedia.org/wiki/Single_responsibility_principle) to all components, services, and other symbols. 
+  Apply the 
+  <a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>Single Responsibility Principle</i> (SPR)</a>
+  to all components, services, and other symbols. 
   This helps make the app cleaner, easier to read and maintain, and more testable.
 
-  所有组件、服务和其它符号都要遵循[单一职责原则](https://en.wikipedia.org/wiki/Single_responsibility_principle)。
+  所有组件、服务和其它符号都要遵循<a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>单一职责原则</i></a>。
   这会使应用程序更干净，易于阅读和维护，提高可测试性。
 
-  ### <a id="01-01"></a>Rule of One
-
+  ### <a id="01-01"></a>_Rule of One_
+  
   ### <a id="01-01"></a>单一法则
-
+  
   #### <a href="#01-01">Style 01-01</a>
 
   #### <a href="#01-01">风格 01-01</a>
 
 .s-rule.do
   :marked
-    **Do** define one thing (e.g. service or component) per file.
+    **Do** define one thing, such as a service or component, per file.
 
     **坚持**每个文件只定义一样东西（例如服务或组件）。
 
@@ -154,7 +154,8 @@ a(id='toc')
 
 .s-why
   :marked
-    **Why?** One component per file makes it far easier to read, maintain, and avoid collisions with teams in source control.
+    **Why?** One component per file makes it far easier to read, maintain, and avoid 
+    collisions with teams in source control.
 
     **为何？**单组件文件非常容易阅读、维护，并能防止在版本控制系统里与团队冲突。
 
@@ -166,10 +167,9 @@ a(id='toc')
 
 .s-why.s-why-last
   :marked
-    **Why?** A single component can be the default export for its file which facilitates lazy loading with the Router.
+    **Why?** A single component can be the default export for its file which facilitates lazy loading with the router.
 
     **为何？**单独的组件通常是该文件默认的导出，可以用路由器实现按需加载。
-
 :marked
   The key is to make the code more reusable, easier to read, and less mistake prone.
 
@@ -179,20 +179,21 @@ a(id='toc')
 
   下面的*负面*例子定义了`AppComponent`，它来引导应用程序，定义了`Hero`模型对象，并从服务器加载了英雄 ... 所有都在同一个文件。 *不要这么做*。
 
-+makeExample('style-guide/ts/01-01/app/heroes/hero.component.avoid.ts', '', 'app/heroes/hero.component.ts')(avoid=1)
++makeExample('style-guide/ts/src/01-01/app/heroes/hero.component.avoid.ts', '', 'app/heroes/hero.component.ts')(avoid=1)
 :marked
-  Better to redistribute the component and supporting activities into their own dedicated files.
+  It is a better practice to redistribute the component and its 
+  supporting classes into their own, dedicated files.
 
   最好将组件及其支撑部件重新分配到独立的文件。
 
 +makeTabs(
-  `style-guide/ts/01-01/main.ts,
-  style-guide/ts/01-01/app/app.module.ts,
-  style-guide/ts/01-01/app/app.component.ts,
-  style-guide/ts/01-01/app/heroes/heroes.component.ts,
-  style-guide/ts/01-01/app/heroes/shared/hero.service.ts,
-  style-guide/ts/01-01/app/heroes/shared/hero.model.ts,
-  style-guide/ts/01-01/app/heroes/shared/mock-heroes.ts`,
+  `style-guide/ts/src/01-01/main.ts,
+  style-guide/ts/src/01-01/app/app.module.ts,
+  style-guide/ts/src/01-01/app/app.component.ts,
+  style-guide/ts/src/01-01/app/heroes/heroes.component.ts,
+  style-guide/ts/src/01-01/app/heroes/shared/hero.service.ts,
+  style-guide/ts/src/01-01/app/heroes/shared/hero.model.ts,
+  style-guide/ts/src/01-01/app/heroes/shared/mock-heroes.ts`,
   '',
   `main.ts,
   app/app.module.ts,
@@ -213,10 +214,10 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="01-02"></a>Small Functions
-
+  ### <a id="01-02"></a>Small functions
+  
   ### <a id="01-02"></a>简单函数
-
+  
   #### <a href="#01-02">Style 01-02</a>
 
   #### <a href="#01-02">风格 01-02</a>
@@ -324,10 +325,10 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-02"></a>Separate File Names with Dots and Dashes
-
+  ### <a id="02-02"></a>Separate File names with dots and dashes
+  
   ### <a id="02-02"></a>使用点和横杠来分隔文件名
-
+  
   #### <a href="#02-02">Style 02-02</a>
 
   #### <a href="#02-02">风格 02-02</a>
@@ -352,7 +353,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use conventional type names including `.service`, `.component`, `.pipe`, `.module`, `.directive`. 
+    **Do** use conventional type names including `.service`, `.component`, `.pipe`, `.module`, and `.directive`. 
     Invent additional type names if you must but take care not to create too many.
 
     **坚持**使用惯用的后缀来描述类型，包括`*.service`、`*.component`、`*.pipe`、`.module`、`.directive`。
@@ -366,7 +367,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-why
   :marked
-    **Why?** Make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
+    **Why?** Type names make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
 
     **为何？** 利用编辑器或者 IDE 的模糊搜索功能，可以很容易地找到特定文件。
 
@@ -380,7 +381,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-why.s-why-last
   :marked
-    **Why?** Provides pattern matching for any automated tasks.
+    **Why?** Type names provide pattern matching for any automated tasks.
 
     **为何？**为自动化任务提供模式匹配。
 
@@ -390,7 +391,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-03"></a>Symbols and File Names
+  ### <a id="02-03"></a>Symbols and file names
 
   ### <a id="02-03"></a>符号名与文件名
 
@@ -406,34 +407,35 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use upper camel case for class names. Match the name of the symbol to the name of the file.
+    **Do** use upper camel case for class names.
 
     **坚持**使用大写驼峰命名法来命名类。符号名匹配它所在的文件名。
 
 .s-rule.do
   :marked
-    **Do** append the symbol name with the conventional suffix for a thing of that type 
-    (e.g., `Component`, `Directive`, `Module`, `Pipe`, `Service`).
+    **Do** match the name of the symbol to the name of the file.
 
     **坚持**在符号名后面追加约定的类型后缀（例如`Component`、`Directive`、`Module`、`Pipe`、`Service`）。
 
 .s-rule.do
   :marked
-    **Do** give the filename the conventional suffix for a file of that type 
-    (e.g., `.component.ts`, `.directive.ts`, `.module.ts`, `.pipe.ts`, `.service.ts`).
+    **Do** append the symbol name with the conventional suffix (such as `Component`, 
+    `Directive`, `Module`, `Pipe`, or `Service`) for a thing of that type.
+
+    **坚持**在符号名后面追加约定的类型后缀（例如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
+
+.s-rule.do
+  :marked
+    **Do** give the filename the conventional suffix (such as `.component.ts`, `.directive.ts`, 
+    `.module.ts`, `.pipe.ts`, or `.service.ts`) for a file of that type.
 
     **坚持**在文件名后面追加约定的类型后缀（例如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
 .s-why
   :marked
-    **Why?** Provides a consistent way to quickly identify and reference assets.
+    **Why?** Consistent conventions make it easy to quickly identify 
+    and reference assets of different types.
 
-    **为何？**提供一致的方式来快速标识和引用资产。
-
-.s-why.s-why-last
-  :marked
-    **Why?** Upper camel case is conventional for identifying objects that can be instantiated using a constructor.
-
-    **为何？**大驼峰命名法用于标识可以通过构造函数实例化的对象。
+    **为何？**遵循一致的约定可以快速识别和引用不同类型的资产。
 
 - var top="vertical-align:top"
 table(width="100%")
@@ -510,7 +512,6 @@ table(width="100%")
     td
       :marked
         user-profile.service.ts
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -518,7 +519,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-04"></a>Service Names
+  ### <a id="02-04"></a>Service names
 
   ### <a id="02-04"></a>服务名
 
@@ -534,15 +535,21 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use upper camel case for services.
-
+    **Do** suffix a service class name with Service. 
+    For example, something that gets data or heroes 
+    should be called a `DataService` or a `HeroService`.
+    
     **坚持**使用大写驼峰命名法命名服务。
+    例如，获取数据或英雄列表的服务应该命名为`DataService`或`HeroService`。
 
-.s-rule.do
-  :marked
-    **Do** suffix services with `Service` when it is not clear what they are (e.g. when they are nouns).
+    A few terms are unambiguously services. They typically 
+    indicate agency by ending in "er". You may prefer to name 
+    a service that logs messages `Logger` rather than `LoggerService`. 
+    Decide if this exception is agreeable in your project. 
+    As always, strive for consistency.
 
-    **坚持**添加`Service`后缀，当不清楚它们是什么时（例如当它们是名词时）。
+    有些词汇显然就是服务，比如那些以“er”后缀结尾的。比如把记日志的服务命名为`Logger`就比`LoggerService`更好些。需要在你的项目中决定这种特例是否可以接受。
+    但无论如何，都要尽量保持一致。
 
 .s-why
   :marked
@@ -597,7 +604,6 @@ table(width="100%")
     td
       :marked
         logger.service.ts
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -627,7 +633,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.avoid
   :marked
-    **Avoid** putting app logic in the `main.ts`. Instead consider placing it in a component or service.
+    **Avoid** putting app logic in the `main.ts`. Instead, consider placing it in a component or service.
 
     **避免**把应用逻辑放在`main.ts`中，而应放在组件或服务里。
 
@@ -643,8 +649,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**这是从其它技术平台借鉴的常用约定。
 
-+makeExample('style-guide/ts/02-05/main.ts', '', 'main.ts')
-:marked
++makeExample('style-guide/ts/src/02-05/main.ts', '', 'main.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -652,7 +657,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-06"></a>Directive Selectors
+  ### <a id="02-06"></a>Directive selectors
 
   ### <a id="02-06"></a>指令选择器
 
@@ -684,7 +689,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-07"></a>Custom Prefix for Components
+  ### <a id="02-07"></a>Custom prefix for components
 
   ### <a id="02-07"></a>为组件添加自定义前缀
 
@@ -730,20 +735,16 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**组件在 DOM 中更容易被区分出来。
 
-+makeExample('style-guide/ts/02-07/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/02-07/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/02-07/app/users/users.component.avoid.ts', 'example', 'app/users/users.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/02-07/app/users/users.component.avoid.ts', 'example', 'app/users/users.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/02-07/app/heroes/hero.component.ts', 'example', 'app/heroes/hero.component.ts')
-:marked
++makeExample('style-guide/ts/src/02-07/app/heroes/hero.component.ts', 'example', 'app/heroes/hero.component.ts')
 
-+makeExample('style-guide/ts/02-07/app/users/users.component.ts', 'example', 'app/users/users.component.ts')
-:marked
++makeExample('style-guide/ts/src/02-07/app/users/users.component.ts', 'example', 'app/users/users.component.ts')
 
 :marked
-  ### <a id="02-08"></a>Custom Prefix for Directives
+  ### <a id="02-08"></a>Custom prefix for directives
 
   ### <a id="02-08"></a>为指令添加自定义前缀
 
@@ -775,11 +776,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**指令更加容易被识别。
 
-+makeExample('style-guide/ts/02-08/app/shared/validate.directive.avoid.ts', 'example', 'app/shared/validate.directive.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/02-08/app/shared/validate.directive.avoid.ts', 'example', 'app/shared/validate.directive.ts')(avoid=1)
 
-+makeExample('style-guide/ts/02-08/app/shared/validate.directive.ts', 'example', 'app/shared/validate.directive.ts')
-:marked
++makeExample('style-guide/ts/src/02-08/app/shared/validate.directive.ts', 'example', 'app/shared/validate.directive.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -787,7 +786,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-09"></a>Pipe Names
+  ### <a id="02-09"></a>Pipe names
 
   ### <a id="02-09"></a>管道名
 
@@ -834,7 +833,6 @@ table(width="100%")
     td
       :marked
         init-caps.pipe.ts
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -842,7 +840,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-10"></a>Unit Test File Names
+  ### <a id="02-10"></a>Unit test file names
 
   ### <a id="02-10"></a>单元测试文件名
 
@@ -923,7 +921,6 @@ table(width="100%")
         ellipsis.pipe.spec.ts
       :marked
         init-caps.pipe.spec.ts
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -931,7 +928,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-11"></a>End to End Test File Names
+  ### <a id="02-11"></a>_End-to-End_ (E2E) test file names
 
   ### <a id="02-11"></a>端到端测试文件名
 
@@ -981,7 +978,6 @@ table(width="100%")
         app.e2e-spec.ts
       :marked
         heroes.e2e-spec.ts
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -989,9 +985,9 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-12"></a>Angular NgModule Names
+  ### <a id="02-12"></a>Angular _NgModule_ names
 
-  ### <a id="02-12"></a>Angular NgModule 命名
+  ### <a id="02-12"></a>Angular *NgModule* 命名
 
   #### <a href="#02-12">Style 02-12</a>
 
@@ -1100,7 +1096,6 @@ table(width="100%")
     td
       :marked
         heroes-routing.module.ts        
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -1108,7 +1103,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ## Coding Conventions
+  ## Coding conventions
 
   ## 编程约定
 
@@ -1145,11 +1140,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**类可以被实例化和构造实例。根据约定，用大写驼峰命名法来标识可构造的东西。
 
-+makeExample('style-guide/ts/03-01/app/core/exception.service.avoid.ts', 'example', 'app/shared/exception.service.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/03-01/app/core/exception.service.avoid.ts', 'example', 'app/shared/exception.service.ts')(avoid=1)
 
-+makeExample('style-guide/ts/03-01/app/core/exception.service.ts', 'example', 'app/shared/exception.service.ts')
-:marked
++makeExample('style-guide/ts/src/03-01/app/core/exception.service.ts', 'example', 'app/shared/exception.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -1192,7 +1185,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-why
   :marked
-    **Why?** lower camel case variable names (`heroRoutes`) are easier to read and understand
+    **Why?** Lower camel case variable names (`heroRoutes`) are easier to read and understand
     than the traditional UPPER_SNAKE_CASE names (`HERO_ROUTES`).
 
     **为何？**小驼峰变量名 (`heroRoutes`) 比传统的大写蛇形命名法 (`HERO_ROUTES`) 更容易阅读和理解。
@@ -1217,13 +1210,12 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** The tradition of UPPER_SNAKE_CASE remains popular and pervasive,
     especially in third party modules.
-    It is rarely worth the effort to change them or the risk of breaking existing code and documentation.
+    It is rarely worth the effort to change them at the risk of breaking existing code and documentation.
 
     **为何？**传统的大写蛇形命名法仍然很流行、很普遍，特别是在第三方模块中。
     修改它们没多大价值，还会有破坏现有代码和文档的风险。
 
-+makeExample('style-guide/ts/03-02/app/core/data.service.ts', '', 'app/shared/data.service.ts')
-:marked
++makeExample('style-guide/ts/src/03-02/app/core/data.service.ts', '', 'app/shared/data.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -1260,7 +1252,7 @@ a(href="#toc").to-top 回到顶部
 .s-why
   :marked
     **Why?** <a href="https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines" target="_blank">TypeScript guidelines</a> 
-    discourage the "I" prefix.
+    discourage the `I` prefix.
 
     **为何？**<a href="https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines" target="_blank">TypeScript 指导原则</a>不建议使用 “I” 前缀。
 
@@ -1282,11 +1274,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**在 Angular 依赖注入系统中，接口类可以作为服务提供商的查找令牌。
 
-+makeExample('style-guide/ts/03-03/app/core/hero-collector.service.avoid.ts', 'example', 'app/shared/hero-collector.service.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/03-03/app/core/hero-collector.service.avoid.ts', 'example', 'app/shared/hero-collector.service.ts')(avoid=1)
 
-+makeExample('style-guide/ts/03-03/app/core/hero-collector.service.ts', 'example', 'app/shared/hero-collector.service.ts')
-:marked
++makeExample('style-guide/ts/src/03-03/app/core/hero-collector.service.ts', 'example', 'app/shared/hero-collector.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -1294,7 +1284,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="03-04"></a>Properties and Methods
+  ### <a id="03-04"></a>Properties and methods
 
   ### <a id="03-04"></a>属性和方法
 
@@ -1332,18 +1322,16 @@ a(href="#toc").to-top 回到顶部
 
     **为何？** TypeScript 工具让识别私有或公有属性和方法变得很简单。
 
-+makeExample('style-guide/ts/03-04/app/core/toast.service.avoid.ts', 'example', 'app/shared/toast.service.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/03-04/app/core/toast.service.avoid.ts', 'example', 'app/shared/toast.service.ts')(avoid=1)
 
-+makeExample('style-guide/ts/03-04/app/core/toast.service.ts', 'example', 'app/shared/toast.service.ts')
-:marked
++makeExample('style-guide/ts/src/03-04/app/core/toast.service.ts', 'example', 'app/shared/toast.service.ts')
 
 a(href="#toc").to-top Back to top
 a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="03-06"></a>Import Line Spacing
+  ### <a id="03-06"></a>Import line spacing
 
   ### <a id="03-06"></a>导入语句中的空行
 
@@ -1365,27 +1353,25 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.consider
   :marked
-    **Consider** listing destructured imported assets alphabetically.
+    **Consider** listing destructured imported symbols alphabetically.
 
     **考虑**在解构表达式中按字母顺序排列导入的东西。
 
 .s-why
   :marked
-    **Why?** The empty line makes it easy to read and locate imports.
+    **Why?** The empty line separates _your_ stuff from _their_ stuff.
 
     **为何？**空行可以让阅读和定位本地导入更加容易。
 
 .s-why.s-why-last
   :marked
-    **Why?** Alphabetizing makes it easier to read and locate imports.
+    **Why?** Alphabetizing makes it easier to read and locate symbols.
 
     **为何？**按字母顺序排列可以让阅读和定位本地导入更加容易。
 
-+makeExample('style-guide/ts/03-06/app/heroes/shared/hero.service.avoid.ts', 'example', 'app/heroes/shared/hero.service.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/03-06/app/heroes/shared/hero.service.avoid.ts', 'example', 'app/heroes/shared/hero.service.ts')(avoid=1)
 
-+makeExample('style-guide/ts/03-06/app/heroes/shared/hero.service.ts', 'example', 'app/heroes/shared/hero.service.ts')
-:marked
++makeExample('style-guide/ts/src/03-06/app/heroes/shared/hero.service.ts', 'example', 'app/heroes/shared/hero.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -1393,7 +1379,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ## App Structure and Angular Modules
+  ## Application structure and Angular modules
 
   ## 应用程序结构与 Angular 模块
 
@@ -1401,19 +1387,19 @@ a(href="#toc").to-top 回到顶部
 
   准备一个近期实施方案和一个长期的愿景。从零开始，但要考虑应用程序接下来的路往哪儿走。
 
-  All of the app's code goes in a folder named `app`.
+  All of the app's code goes in a folder named `src`.
   All feature areas are in their own folder, with their own Angular module. 
 
-  所有应用程序的源代码都放到名叫`app`的目录里。
+  所有应用程序的源代码都放到名叫`src`的目录里。
   所有特性区都在自己的文件夹中，带有它们自己的 Angular 模块。
 
-  All content is 1 asset per file. Each component, service, and pipe is in its own file.
-  All 3rd party vendor scripts are stored in another folder and not in the `app` folder. 
-  You didn't write them and you don't want them cluttering app. 
+  All content is one asset per file. Each component, service, and pipe is in its own file.
+  All third party vendor scripts are stored in another folder and not in the `src` folder. 
+  You didn't write them and you don't want them cluttering `src`. 
   Use the naming conventions for files in this guide.
 
   所有内容都遵循每个文件一个特性的原则。每个组件、服务和管道都在自己的文件里。
-  所有第三方程序包保存到其它目录里，不是`app`目录。
+  所有第三方程序包保存到其它目录里，不是`src`目录。
   你不会修改它们，所以不希望它们弄乱我们的应用程序。
   使用本指南介绍的文件命名约定。
 
@@ -1423,9 +1409,9 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-01"></a>LIFT
+  ### <a id="04-01"></a>_LIFT_
 
-  ### <a id="04-01"></a>LIFT
+  ### <a id="04-01"></a>_LIFT_
 
   #### <a href="#04-01">Style 04-01</a>
 
@@ -1568,7 +1554,7 @@ a(href="#toc").to-top 回到顶部
 
     **考虑**配置 IDE，以隐藏无关的文件，例如生成出来的`.js`文件和`.js.map`文件等。
 
-s-why.s-why-last
+.s-why.s-why-last
   :marked
     **Why?** No one wants to search for a file through seven levels of folders. 
     A flat structure is easy to scan.
@@ -1596,10 +1582,9 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-05"></a>T-DRY (Try to be DRY)
+  ### <a id="04-05"></a>_T-DRY_ (Try to be _DRY_)
 
   ### <a id="04-05"></a>T-DRY （尝试不重复自己）
-
   #### <a href="#04-05">Style 04-05</a>
 
   #### <a href="#04-05">风格 04-05</a>
@@ -1619,7 +1604,7 @@ a(href="#toc").to-top 回到顶部
 .s-why.s-why-last
   :marked
     **Why?** Being DRY is important, but not crucial if it sacrifices the other elements of LIFT.
-    That's why its calle _T-DRY_. 
+    That's why it's called _T-DRY_. 
     For example, it's redundant to name a component, `hero-view.component.html` because a component is obviously a view. 
     But if something is not obvious or departs from a convention, then spell it out.
 
@@ -1634,7 +1619,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-06"></a>Overall Structural Guidelines
+  ### <a id="04-06"></a>Overall structural guidelines
 
   ### <a id="04-06"></a>总体结构指导原则
 
@@ -1656,13 +1641,13 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** put all of the app's code in a folder named `app`.
+    **Do** put all of the app's code in a folder named `src`.
 
     **坚持**把所有源代码都放到名为`app`的目录里。
 
 .s-rule.consider
   :marked
-    **Consider** creating a folder for a component when is has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
+    **Consider** creating a folder for a component when it has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
 
     **坚持**如果组件具有多个伴隨文件 (`.ts`、`.html`、`.css`和`.spec`)，就为它创建一个文件夹。
 
@@ -1680,67 +1665,70 @@ a(href="#toc").to-top 回到顶部
 
 a(id='file-tree')
 :marked
-  Here is a compliant folder and file structure
+  Here is a compliant folder and file structure:
 
   下面是符合规范的目录和文件结构
 
 .filetree
   .file &lt;project root&gt;
   .children
-    .file app
+    .file src
     .children
-      .file core
+      .file app
       .children
-        .file core.module.ts
-        .file exception.service.ts|spec.ts
-        .file user-profile.service.ts|spec.ts
-      .file heroes
-      .children
-        .file hero
+        .file core
         .children
-          .file hero.component.ts|html|css|spec.ts
-        .file hero-list
+          .file core.module.ts
+          .file exception.service.ts|spec.ts
+          .file user-profile.service.ts|spec.ts
+        .file heroes
         .children
-          .file hero-list.component.ts|html|css|spec.ts
+          .file hero
+          .children
+            .file hero.component.ts|html|css|spec.ts
+          .file hero-list
+          .children
+            .file hero-list.component.ts|html|css|spec.ts
+          .file shared
+          .children
+            .file hero-button.component.ts|html|css|spec.ts
+            .file hero.model.ts
+            .file hero.service.ts|spec.ts
+          .file heroes.component.ts|html|css|spec.ts
+          .file heroes.module.ts
+          .file heroes-routing.module.ts
         .file shared
         .children
-          .file hero-button.component.ts|html|css|spec.ts
-          .file hero.model.ts
-          .file hero.service.ts|spec.ts
-        .file heroes.component.ts|html|css|spec.ts
-        .file heroes.module.ts
-        .file heroes-routing.module.ts
-      .file shared
-      .children
-        .file shared.module.ts
-        .file init-caps.pipe.ts|spec.ts
-        .file text-filter.component.ts|spec.ts
-        .file text-filter.service.ts|spec.ts
-      .file villains
-      .children
-        .file villain
+          .file shared.module.ts
+          .file init-caps.pipe.ts|spec.ts
+          .file text-filter.component.ts|spec.ts
+          .file text-filter.service.ts|spec.ts
+        .file villains
         .children
-          .file ...
-        .file villain-list
-        .children
-          .file ...
-        .file shared
-        .children
-          .file ...
-        .file villains.component.ts|html|css|spec.ts
-        .file villains.module.ts
-        .file villains-routing.module.ts
-      .file app.component.ts|html|css|spec.ts
-      .file app.module.ts
-      .file app-routing.module.ts
-    .file main.ts
-    .file index.html
+          .file villain
+          .children
+            .file ...
+          .file villain-list
+          .children
+            .file ...
+          .file shared
+          .children
+            .file ...
+          .file villains.component.ts|html|css|spec.ts
+          .file villains.module.ts
+          .file villains-routing.module.ts
+        .file app.component.ts|html|css|spec.ts
+        .file app.module.ts
+        .file app-routing.module.ts
+      .file main.ts
+      .file index.html
+      .file ...
+    .file node_modules/...
     .file ...
-:marked
 
 .l-sub-section
   :marked
-    While components in dedicated folder are widely preferred, 
+    While components in dedicated folders are widely preferred, 
     another option for small apps is to keep components flat (not in a dedicated folder). 
     This adds up to four files to the existing folder, but also reduces the folder nesting. 
     Whatever you choose, be consistent.
@@ -1754,7 +1742,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-07"></a>Folders-by-Feature Structure
+  ### <a id="04-07"></a>_Folders-by-feature_ structure
 
   ### <a id="04-07"></a>按特性组织的目录结构
 
@@ -1770,7 +1758,8 @@ a(href="#toc").to-top 回到顶部
 
 .s-why
   :marked
-    **Why?** A developer can locate the code, identify what each file represents at a glance, the structure is as flat as it can be, and there is no repetitive nor redundant names.
+    **Why?** A developer can locate the code, identify what each file represents 
+    at a glance, the structure is as flat as it can be, and there are no repetitive or redundant names.
 
     **为何？**开发人员可以快速定位代码，扫一眼就能知道每个文件代表什么，目录尽可能保持扁平，既没有重复也没有多余的名字。
 
@@ -1811,18 +1800,17 @@ a(href="#toc").to-top 回到顶部
     **为何？**Angular 模块隔离、测试和复用特性更容易。
 
 .file-tree-reference
-  a(href="#file-tree") Refer here to this Folder and File Structure example
+  a(href="#file-tree") Refer to this _folder and file structure_ example.
 
   a(href="#file-tree") 点这里查看目录和文件结构的范例
 
 a(href="#toc").to-top Back to top
 
 a(href="#toc").to-top 回到顶部
-  :marked
 
 .l-main-section
 :marked
-  ### <a id="04-08"></a>App Root Module
+  ### <a id="04-08"></a>App _root module_
 
   ### <a id="04-08"></a>应用的根模块
 
@@ -1832,7 +1820,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** create an Angular module in the app's root folder (e.g., in `/app`).
+    **Do** create an Angular module in the app's root folder (e.g., in `/src/app`).
 
     **坚持**在应用的根目录创建一个 Angular 模块（例如`/app`）。
 
@@ -1854,8 +1842,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**能让定位和识别根模块变得更容易。
 
-+makeExample('style-guide/ts/04-08/app/app.module.ts', 'example', 'app/app.module.ts')
-:marked
++makeExample('style-guide/ts/src/04-08/app/app.module.ts', 'example', 'app/app.module.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -1863,7 +1850,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-09"></a>Feature Modules
+  ### <a id="04-09"></a>Feature modules
 
   ### <a id="04-09"></a>特性模块
 
@@ -1937,7 +1924,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-10"></a>Shared Feature Module
+  ### <a id="04-10"></a>Shared feature module
 
   ### <a id="04-10"></a>共享特性模块
 
@@ -1953,7 +1940,19 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** put common components, directives and pipes that will be used throughout the application by other feature modules in the `SharedModule`, where those assets are expected to share a new instance of themselves (not singletons).
+    **Do** declare components, directives, and pipes in a shared module when those 
+    items will be re-used and referenced by the components declared in other feature modules.
+
+.s-rule.consider
+  :marked
+    **Consider** using the name SharedModule, when the contents of a shared 
+    module are referenced across the entire application.
+
+.s-rule.do
+  :marked
+    **Do** not provide services in shared modules. Services are usually 
+    singletons that are provided once for the entire application or 
+    in a particular feature module.
 
     **坚持**把可能被应用其它特性模块使用的公共组件、指令和管道放在`SharedModule`中，这些资产倾向于共享自己的新实例（而不是单例）。
 
@@ -2023,16 +2022,15 @@ a(href="#toc").to-top 回到顶部
       .file app-routing.module.ts
     .file main.ts
     .file index.html
-    .file ...
-:marked
+  .file ...
 
 +makeTabs(
-  `style-guide/ts/04-10/app/shared/shared.module.ts,
-  style-guide/ts/04-10/app/shared/init-caps.pipe.ts,
-  style-guide/ts/04-10/app/shared/filter-text/filter-text.component.ts,
-  style-guide/ts/04-10/app/shared/filter-text/filter-text.service.ts,
-  style-guide/ts/04-10/app/heroes/heroes.component.ts,
-  style-guide/ts/04-10/app/heroes/heroes.component.html
+  `style-guide/ts/src/04-10/app/shared/shared.module.ts,
+  style-guide/ts/src/04-10/app/shared/init-caps.pipe.ts,
+  style-guide/ts/src/04-10/app/shared/filter-text/filter-text.component.ts,
+  style-guide/ts/src/04-10/app/shared/filter-text/filter-text.service.ts,
+  style-guide/ts/src/04-10/app/heroes/heroes.component.ts,
+  style-guide/ts/src/04-10/app/heroes/heroes.component.html
   `,
   `,,,`,
   `app/shared/shared.module.ts,
@@ -2042,7 +2040,6 @@ a(href="#toc").to-top 回到顶部
   app/heroes/heroes.component.ts,
   app/heroes/heroes.component.html
   `)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2050,7 +2047,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-11"></a>Core Feature Module
+  ### <a id="04-11"></a>Core feature module
 
   ### <a id="04-11"></a>核心特性模块
 
@@ -2058,9 +2055,16 @@ a(href="#toc").to-top 回到顶部
 
   #### <a href="#04-11">风格04-11</a>
 
-.s-rule.do
+.s-rule.consider
   :marked
-    **Do** collect single-use classes and hiding their gory details inside `CoreModule`. A simplified root `AppModule` imports `CoreModule` in its capacity as orchestrator of the application as a whole.
+    **Consider** collecting numerous, auxiliary, single-use classes inside a core module
+    to simplify the apparent structure of a feature module.
+
+.s-rule.consider
+  :marked
+    **Consider** calling the application-wide core module, `CoreModule`.
+    Importing `CoreModule` into the root `AppModule` reduces its complexity 
+    and emphasizes its role as orchestrator of the application as a whole.
 
     **坚持**把那些“只用一次”的类收集到`CoreModule`中，并对外隐藏它们的实现细节。简化的`AppModule`会导入`CoreModule`，并且把它作为整个应用的总指挥。
 
@@ -2132,7 +2136,7 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** export all symbols that from the `CoreModule` that the `AppModule` will import and make available for other feature modules to use.  
+    **Do** export all symbols from the `CoreModule` that the `AppModule` will import and make available for other feature modules to use.  
 
     **坚持**从`CoreModule`中导出`AppModule`需导入的所有符号，使它们在所有特性模块中可用。
 
@@ -2173,19 +2177,18 @@ a(href="#toc").to-top 回到顶部
       .file app-routing.module.ts
     .file main.ts
     .file index.html
-    .file ...
-:marked
+  .file ...
 
 +makeTabs(
   `
-  style-guide/ts/04-11/app/app.module.ts,
-  style-guide/ts/04-11/app/core/core.module.ts,
-  style-guide/ts/04-11/app/core/logger.service.ts,
-  style-guide/ts/04-11/app/core/nav/nav.component.ts,
-  style-guide/ts/04-11/app/core/nav/nav.component.html,
-  style-guide/ts/04-11/app/core/spinner/spinner.component.ts,
-  style-guide/ts/04-11/app/core/spinner/spinner.component.html,
-  style-guide/ts/04-11/app/core/spinner/spinner.service.ts
+  style-guide/ts/src/04-11/app/app.module.ts,
+  style-guide/ts/src/04-11/app/core/core.module.ts,
+  style-guide/ts/src/04-11/app/core/logger.service.ts,
+  style-guide/ts/src/04-11/app/core/nav/nav.component.ts,
+  style-guide/ts/src/04-11/app/core/nav/nav.component.html,
+  style-guide/ts/src/04-11/app/core/spinner/spinner.component.ts,
+  style-guide/ts/src/04-11/app/core/spinner/spinner.component.html,
+  style-guide/ts/src/04-11/app/core/spinner/spinner.service.ts
   `,
   `example,,,,,,,`,
   `
@@ -2198,7 +2201,6 @@ a(href="#toc").to-top 回到顶部
   app/core/spinner/spinner.component.html,
   app/core/spinner/spinner.service.ts
   `)
-:marked
 
 .l-sub-section
   :marked
@@ -2218,7 +2220,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-12"></a>Prevent Reimport of Core Module
+  ### <a id="04-12"></a>Prevent re-import of the core module
 
   ### <a id="04-12"></a>防止多次导入`CoreModule`
 
@@ -2250,15 +2252,14 @@ a(href="#toc").to-top 回到顶部
 
 +makeTabs(
   `
-  style-guide/ts/04-12/app/core/module-import-guard.ts,
-  style-guide/ts/04-12/app/core/core.module.ts
+  style-guide/ts/src/04-12/app/core/module-import-guard.ts,
+  style-guide/ts/src/04-12/app/core/core.module.ts
   `,
   `,`,
   `
   app/core/module-import-guard.ts,
   app/core/core.module.ts
   `)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2266,7 +2267,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-13"></a>Lazy Loaded Folders
+  ### <a id="04-13"></a>Lazy Loaded folders
 
   ### <a id="04-13"></a>惰性加载的目录
 
@@ -2298,7 +2299,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-14"></a>Never Directly Import Lazy Loaded Folders
+  ### <a id="04-14"></a>Never directly import lazy loaded folders
 
   ### <a id="04-14"></a>永远不要直接导入惰性加载的目录
 
@@ -2328,7 +2329,7 @@ a(href="#toc").to-top 回到顶部
 
   ## 组件
 
-  ### <a id="05-02"></a>Component Selector Naming
+  ### <a id="05-02"></a>Component selector nams
 
   ### <a id="05-02"></a>组件选择器命名
 
@@ -2348,16 +2349,14 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**保持元素命名与[自定义元素](https://www.w3.org/TR/custom-elements/)命名规范一致。
 
-+makeExample('style-guide/ts/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 
 +makeTabs(
-  `style-guide/ts/05-02/app/heroes/shared/hero-button/hero-button.component.ts,
-  style-guide/ts/05-02/app/app.component.html`,
+  `style-guide/ts/src/05-02/app/heroes/shared/hero-button/hero-button.component.ts,
+  style-guide/ts/src/05-02/app/app.component.html`,
   'example,',
   `app/heroes/shared/hero-button/hero-button.component.ts,
   app/app.component.html`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2365,7 +2364,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-03"></a>Components as Elements
+  ### <a id="05-03"></a>Components as elements
 
   ### <a id="05-03"></a>把组件当做元素
 
@@ -2375,43 +2374,35 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** define components as elements via the selector.
+    **Do** give components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
 
     **坚持**通过选择器把组件定义为元素。
 
 .s-why
   :marked
-    **Why?** components have templates containing HTML and optional Angular template syntax. They are most associated with putting content on a page, and thus are more closely aligned with elements.
+    **Why?** components have templates containing HTML and optional Angular template syntax.
+    They display content. 
+    Developers place components on the page as they would native HTML elements and WebComponents.
 
-    **为何？**组件有很多包含 HTML 以及可选 Angular 模板语法的模板。它们多数都与把内容放进页面有关，因而组件更接近于元素。
-
-.s-why
-  :marked
-    **Why?** A component represents a visual element on the page.
-    Defining the selector as an HTML element tag is consistent with native HTML elements and WebComponents.
-
-    **为何？**组件代表页面上的一个可视元素。
-    把选择器定义成 HTML 元素标签可以与原生 HTML 元素和 WebComponent 保持一致。
+    **为何？**组件有很多包含 HTML 以及可选 Angular 模板语法的模板。
+    它们显示内容。开发人员会把组件像原生HTML元素和WebComponents一样放进页面中。
 
 .s-why.s-why-last
   :marked
-    **Why?** It is easier to recognize that a symbol is a component vs a directive by looking at the template's html.
+    **Why?** It is easier to recognize that a symbol is a component by looking at the template's html.
 
     **为何？**查看组件模板的 HTML 时，更容易识别一个符号是组件还是指令。
 
-+makeExample('style-guide/ts/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/hero-button/hero-button.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/hero-button/hero-button.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-03/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-03/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
 
 +makeTabs(
-  `style-guide/ts/05-03/app/heroes/shared/hero-button/hero-button.component.ts,
-  style-guide/ts/05-03/app/app.component.html`,
+  `style-guide/ts/src/05-03/app/heroes/shared/hero-button/hero-button.component.ts,
+  style-guide/ts/src/05-03/app/app.component.html`,
   'example,',
   `app/heroes/shared/hero-button/hero-button.component.ts,
   app/app.component.html`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2419,7 +2410,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-04"></a>Extract Template and Styles to Their Own Files
+  ### <a id="05-04"></a>Extract templates and styles to their own files
 
   ### <a id="05-04"></a>把模板和样式提取到它们自己的文件
 
@@ -2445,30 +2436,47 @@ a(href="#toc").to-top 回到顶部
 
     **坚持**把样式文件命名为`[component-name].component.css`，其中，[component-name] 是组件名。
 
+.s-rule.do
+  :marked
+    **Do** specify _component-relative_ URLs, prefixed with `./`, and add `moduleId: module.id` to the component metadata.
+
 .s-why
   :marked
-    **Why?** Syntax hints for inline templates in (*.js and *.ts) code files are not supported by some editors.
+    **Why?** Large, inline templates and styles obscure the component's purpose and implementation, reducing readability and maintainability.
+
+.s-why
+  :marked
+    **Why?** In most editors, syntax hints and code snippets aren't available when developing inline templates and styles.
+    The Angular TypeScript Language Service (forthcoming) promises to overcome this deficiency for HTML templates
+    in those editors that support it; it won't help with CSS styles.
+
+.s-why
+  :marked
+    **Why?** A _component relative_ URL requires no change when you move the component files, as long as the files stay together.
+
+.s-why
+  :marked
+    **Why?** The JIT compiler requires the `moduleId` for relative URLs; the AOT compiler, 
+    which doesn't need it, safely ignores this property.
 
     **为何？**在 (*.js 和 *.ts) 代码里面内联模板时，某些编辑器不支持语法提示。
 
 .s-why.s-why-last
   :marked
-    **Why?** A component file's logic is easier to read when not mixed with inline template and styles.
+    **Why?** The `./` prefix is standard syntax for relative URLs; don't depend on Angular's current ability to do without that prefix.
 
     **为何？**当没有与内联模板和样式混合时，组件文件中的逻辑更易于阅读。
-
-+makeExample('style-guide/ts/05-04/app/heroes/heroes.component.avoid.ts', 'example', 'app/heroes/heroes.component.ts')(avoid=1)
-:marked
+    
+  +makeExample('style-guide/ts/src/05-04/app/heroes/heroes.component.avoid.ts', 'example', 'app/heroes/heroes.component.ts')(avoid=1)
 
 +makeTabs(
-  `style-guide/ts/05-04/app/heroes/heroes.component.ts,
-  style-guide/ts/05-04/app/heroes/heroes.component.html,
-  style-guide/ts/05-04/app/heroes/heroes.component.css`,
+  `style-guide/ts/src/05-04/app/heroes/heroes.component.ts,
+  style-guide/ts/src/05-04/app/heroes/heroes.component.html,
+  style-guide/ts/src/05-04/app/heroes/heroes.component.css`,
   'example,,',
   `app/heroes/heroes.component.ts,
   app/heroes/heroes.component.html,
   app/heroes/heroes.component.css`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2476,7 +2484,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-12"></a>Decorate Input and Output Properties Inline
+  ### <a id="05-12"></a>Decorate _input_ and _output_ properties
 
   ### <a id="05-12"></a>内联输入和输出属性装饰器
 
@@ -2486,14 +2494,14 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.do
   :marked
-    **Do** use `@Input` and `@Output` instead of the `inputs` and `outputs` properties of the 
-    `@Directive and `@Component` decorators:
+    **Do** use the `@Input` and `@Output` class decorators instead of the `inputs` and `outputs` properties of the 
+    `@Directive` and `@Component` metadata:
 
     **坚持** 使用`@Input`和`@Output`，而非`@Directive`和`@Component`装饰器的`inputs`和`outputs`属性:
 
 .s-rule.do
   :marked
-    **Do** place the `@Input()` or `@Output()` on the same line as the property they decorate.
+    **Consider** placing `@Input()` or `@Output()` on the same line as the property it decorates.
 
     **坚持**把`@Input()`或者`@Output()`放到所装饰的属性的同一行。
 
@@ -2506,7 +2514,7 @@ a(href="#toc").to-top 回到顶部
 .s-why
   :marked
     **Why?** If you ever need to rename the property or event name associated with 
-    `@Input` or `@Output`, you can modify it a single place.
+    `@Input` or `@Output`, you can modify it in a single place.
 
     **为何？** 如果需要重命名与`@Input`或者`@Output`关联的属性或事件名，你可以在一个位置修改。
 
@@ -2518,15 +2526,14 @@ a(href="#toc").to-top 回到顶部
 
 .s-why.s-why-last
   :marked
-    **Why?** Placing the decorator on the same line makes for shorter code and still easily identifies the property as an input or output.
+    **Why?** Placing the decorator on the same line _usually_ makes for shorter code and still easily identifies the property as an input or output.
+    Put it on the line above when doing so is clearly more readable.
 
     **为何？**把装饰器放到同一行可以精简代码，同时更易于识别输入或输出属性。
 
-+makeExample('style-guide/ts/05-12/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-12/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-12/app/heroes/shared/hero-button/hero-button.component.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')
-:marked
++makeExample('style-guide/ts/src/05-12/app/heroes/shared/hero-button/hero-button.component.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2534,9 +2541,9 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-13"></a>Avoid Renaming Inputs and Outputs
+  ### <a id="05-13"></a>Avoid aliasing _inputs_ and _outputs_
 
-  ### <a id="05-13"></a>避免重命名输入和输出
+  ### <a id="05-13"></a>避免为输入和输出属性指定别名
 
   #### <a href="#05-13">Style 05-13</a>
 
@@ -2544,29 +2551,33 @@ a(href="#toc").to-top 回到顶部
 
 .s-rule.avoid
   :marked
-    **Avoid** renaming inputs and outputs, when possible.
+    **Avoid** _input_ and _output_ aliases except when it serves an important purpose.
+
+.s-why
+  :marked
+    **Why?** Two names for the same property (one private, one public) is inherently confusing.
 
     **避免**重命名输入和输出。
 
 .s-why.s-why-last
   :marked
-    **Why?** May lead to confusion when the output or the input properties of a given directive are named a given way but exported differently as a public API.
+     **Why?** You should use an alias when the directive name is also an _input_ property, 
+     and the directive name doesn't describe the property.
 
-    **为何？**当指令的输入或输出属性的名字与导出的公共 API 名字不一样时，可能导致混乱。
+     **为何？**当指令的输入或输出属性的名字与导出的公共 API 名字不一样时，可能导致混乱。
 
-+makeExample('style-guide/ts/05-13/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-13/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-13/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-13/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
 
 +makeTabs(
-  `style-guide/ts/05-13/app/heroes/shared/hero-button/hero-button.component.ts,
-  style-guide/ts/05-13/app/app.component.html`,
+  `style-guide/ts/src/05-13/app/heroes/shared/hero-button/hero-button.component.ts,
+  style-guide/ts/src/05-13/app/heroes/shared/hero-highlight.directive.ts,
+  style-guide/ts/src/05-13/app/app.component.html`,
   'example,',
   `app/heroes/shared/hero-button/hero-button.component.ts,
+  app/heroes/shared/hero-button/hero-highlight.directive.ts,
   app/app.component.html`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2574,7 +2585,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-14"></a>Member Sequence
+  ### <a id="05-14"></a>Member sequence
 
   ### <a id="05-14"></a>成员顺序
 
@@ -2601,11 +2612,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**把类的成员按照统一的顺序排列，易于阅读，能立即识别出组件的哪个成员服务于何种目的。
 
-+makeExample('style-guide/ts/05-14/app/shared/toast/toast.component.avoid.ts', 'example', 'app/shared/toast/toast.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-14/app/shared/toast/toast.component.avoid.ts', 'example', 'app/shared/toast/toast.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-14/app/shared/toast/toast.component.ts', 'example', 'app/shared/toast/toast.component.ts')
-:marked
++makeExample('style-guide/ts/src/05-14/app/shared/toast/toast.component.ts', 'example', 'app/shared/toast/toast.component.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2613,11 +2622,11 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-15"></a>Put Logic in Services
+  ### <a id="05-15"></a>Delegate complex component logic to services
 
   ### <a id="05-15"></a>把逻辑放到服务里
 
-  #### <a href="#05-14">Style 05-15</a>
+  #### <a href="#05-15">Style 05-15</a>
 
   #### <a href="#05-14">风格 05-15</a>
 
@@ -2657,11 +2666,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**保持组件苗条、精简和聚焦。
 
-+makeExample('style-guide/ts/05-15/app/heroes/hero-list/hero-list.component.avoid.ts', '', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-15/app/heroes/hero-list/hero-list.component.avoid.ts', '', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-15/app/heroes/hero-list/hero-list.component.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')
-:marked
++makeExample('style-guide/ts/src/05-15/app/heroes/hero-list/hero-list.component.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2669,7 +2676,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-16"></a>Don't Prefix Output Properties
+  ### <a id="05-16"></a>Don't prefix _output_ properties
 
   ### <a id="05-16"></a>不要给输出属性加前缀
 
@@ -2701,19 +2708,16 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**Angular 允许[另一种备选语法](template-syntax.html#binding-syntax) `on-*`。如果事件的名字本身带有前缀`on`，那么绑定的表达式可能是`on-onEvent`。
 
-+makeExample('style-guide/ts/05-16/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-16/app/heroes/hero.component.avoid.ts', 'example', 'app/heroes/hero.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-16/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-16/app/app.component.avoid.html', '', 'app/app.component.html')(avoid=1)
 
 +makeTabs(
-  `style-guide/ts/05-16/app/heroes/hero.component.ts,
-  style-guide/ts/05-16/app/app.component.html`,
+  `style-guide/ts/src/05-16/app/heroes/hero.component.ts,
+  style-guide/ts/src/05-16/app/app.component.html`,
   'example,',
   `app/heroes/hero.component.ts,
   app/app.component.html`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2721,7 +2725,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="05-17"></a>Put Presentation Logic in the Component Class
+  ### <a id="05-17"></a>Put presentation logic in the component class
 
   ### <a id="05-17"></a>把表现层逻辑放到组件类里
 
@@ -2747,11 +2751,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**将组件的表现层逻辑放到组件类而非模板里，可以增强测试性、维护性和重复使用性。
 
-+makeExample('style-guide/ts/05-17/app/heroes/hero-list/hero-list.component.avoid.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/05-17/app/heroes/hero-list/hero-list.component.avoid.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/05-17/app/heroes/hero-list/hero-list.component.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')
-:marked
++makeExample('style-guide/ts/src/05-17/app/heroes/hero-list/hero-list.component.ts', 'example', 'app/heroes/hero-list/hero-list.component.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2766,7 +2768,7 @@ a(href="#toc").to-top Back to top
 
 .l-main-section
 :marked
-  ### <a id="06-01"></a>Use Directives to Enhance an Existing Element
+  ### <a id="06-01"></a>Use directives to enhance an element
 
   ### <a id="06-01"></a>使用指令来加强已有元素
 
@@ -2792,11 +2794,9 @@ a(href="#toc").to-top Back to top
 
     **为何？**一个元素可以使用多个属性型指令。
 
-+makeExample('style-guide/ts/06-01/app/shared/highlight.directive.ts', 'example', 'app/shared/highlight.directive.ts')
-:marked
++makeExample('style-guide/ts/src/06-01/app/shared/highlight.directive.ts', 'example', 'app/shared/highlight.directive.ts')
 
-+makeExample('style-guide/ts/06-01/app/app.component.html', null, 'app/app.component.html')
-:marked
++makeExample('style-guide/ts/src/06-01/app/app.component.html', null, 'app/app.component.html')
 
 a(href="#toc").to-top Back to top
 
@@ -2804,9 +2804,9 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="06-03"></a>Use HostListener and HostBinding Class Decorators
+  ### <a id="06-03"></a>_HostListener_/_HostBinding_ decorators versus _host_ metadata
 
-  ### <a id="06-03"></a>使用 HostListener 和 HostBinding 类装饰器
+  ### <a id="06-03"></a>*HostListener* 和 *HostBinding* 装饰器 vs. 组件元数据 *host*
 
   #### <a href="#06-03">Style 06-03</a>
 
@@ -2835,7 +2835,7 @@ a(href="#toc").to-top 回到顶部
     **为何？**对于关联到`@HostBinding`的属性或关联到`@HostListener`的方法，要修改时，只需在指令类中的一个地方修改。
     如果使用元数据属性`host`，你就得在组件类中修改属性声明的同时修改相关的元数据。
 
-+makeExample('style-guide/ts/06-03/app/shared/validator.directive.ts', '', 'app/shared/validator.directive.ts')
++makeExample('style-guide/ts/src/06-03/app/shared/validator.directive.ts', '', 'app/shared/validator.directive.ts')
 :marked
   Compare with the less preferred `host` metadata alternative.
 
@@ -2847,8 +2847,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**`host`元数据只是一个便于记忆的名字而已，并不需要额外的 ES 导入。
 
-+makeExample('style-guide/ts/06-03/app/shared/validator2.directive.ts', '', 'app/shared/validator2.directive.ts')
-:marked
++makeExample('style-guide/ts/src/06-03/app/shared/validator2.directive.ts', '', 'app/shared/validator2.directive.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2860,9 +2859,9 @@ a(href="#toc").to-top 回到顶部
 
   ## 服务
 
-  ### <a id="07-01"></a>Services are Singletons within an Injector
+  ### <a id="07-01"></a>Services are singletons
 
-  ### <a id="07-01"></a>注入器中，服务总是单例的
+  ### <a id="07-01"></a>服务总是单例的
 
   #### <a href="#07-01">Style 07-01</a>
 
@@ -2886,8 +2885,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**服务是共享状态性内存数据的理想载体。
 
-+makeExample('style-guide/ts/07-01/app/heroes/shared/hero.service.ts', 'example', 'app/heroes/shared/hero.service.ts')
-:marked
++makeExample('style-guide/ts/src/07-01/app/heroes/shared/hero.service.ts', 'example', 'app/heroes/shared/hero.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -2895,7 +2893,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="07-02"></a>Single Responsibility
+  ### <a id="07-02"></a>Single responsibility
 
   ### <a id="07-02"></a>单一职责
 
@@ -2933,7 +2931,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="07-03"></a>Providing a Service
+  ### <a id="07-03"></a>Providing a service
 
   ### <a id="07-03"></a>提供一个服务
 
@@ -2957,7 +2955,7 @@ a(href="#toc").to-top 回到顶部
     **Why?** When providing the service to a top level component, that instance is shared and available to all child components of that top level component.
 
     **为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。
-
+    
 .s-why
   :marked
     **Why?** This is ideal when a service is sharing methods or state.
@@ -2971,12 +2969,11 @@ a(href="#toc").to-top 回到顶部
     **为何？**当不同的两个组件需要一个服务的不同的实例时，上面的方法这就不理想了。在这种情况下，对于需要崭新和单独服务实例的组件，最好在组件级提供服务。
 
 +makeTabs(
-  `style-guide/ts/07-03/app/app.component.ts,
-  style-guide/ts/07-03/app/heroes/hero-list/hero-list.component.ts`,
+  `style-guide/ts/src/07-03/app/app.component.ts,
+  style-guide/ts/src/07-03/app/heroes/hero-list/hero-list.component.ts`,
   '',
   `app/app.component.ts,
   app/heroes/hero-list/hero-list.component.ts`)
-:marked
 
 a(href="#toc").to-top Back to top
 
@@ -2984,7 +2981,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="07-04"></a>Use the @Injectable() Class Decorator
+  ### <a id="07-04"></a>Use the @Injectable() class decorator
 
   ### <a id="07-04"></a>使用 @Injectable() 类装饰器
 
@@ -3000,7 +2997,8 @@ a(href="#toc").to-top 回到顶部
 
 .s-why
   :marked
-    **Why?** The Angular DI mechanism resolves all dependencies of services based on their types declared with the services' constructors.
+    **Why?** The Angular Dependency Injection (DI) mechanism resolves a service's own 
+    dependencies based on the declared types of that service's constructor parameters.
 
     **为何？** Angular 的 DI 机制会根据服务的构造函数参数的声明类型来解析服务的所有依赖。
 
@@ -3010,11 +3008,9 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**当服务只接受类型令牌相关的依赖时，比起在每个构造函数参数上使用`@Inject()`，`@Injectable()`的语法简洁多了。
 
-+makeExample('style-guide/ts/07-04/app/heroes/shared/hero-arena.service.avoid.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/07-04/app/heroes/shared/hero-arena.service.avoid.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')(avoid=1)
 
-+makeExample('style-guide/ts/07-04/app/heroes/shared/hero-arena.service.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')
-:marked
++makeExample('style-guide/ts/src/07-04/app/heroes/shared/hero-arena.service.ts', 'example', 'app/heroes/shared/hero-arena.service.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -3026,9 +3022,9 @@ a(href="#toc").to-top 回到顶部
 
   ## 数据服务
 
-  ### <a id="08-01"></a>Separate Data Calls
+  ### <a id="08-01"></a>Talk to the server through a service
 
-  ### <a id="08-01"></a>分离数据调用
+  ### <a id="08-01"></a>通过服务与Web服务器交互
 
   #### <a href="#08-01">Style 08-01</a>
 
@@ -3060,7 +3056,13 @@ a(href="#toc").to-top 回到顶部
 
 .s-why.s-why-last
   :marked
-    **Why?** Data service implementation may have very specific code to handle the data repository. This may include headers, how to talk to the data, or other services such as `Http`. Separating the logic into a data service encapsulates this logic in a single place hiding the implementation from the outside consumers (perhaps a component), also making it easier to change the implementation.
+    **Why?** The details of data management, such as headers, HTTP methods, 
+    caching, error handling, and retry logic, are irrelevant to components 
+    and other data consumers.
+
+    A data service encapsulates these details. It's easier to evolve these 
+    details inside the service without affecting its consumers. And it's 
+    easier to test the consumers with mock service implementations.
 
     **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头 (headers)、如何与数据交谈或者其它服务 (例如`Http`)。把逻辑分离到数据服务可以将该逻辑封装在一个地方，对外部使用者（例如组件）隐藏具体的实施细节。
 
@@ -3070,11 +3072,11 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ## Lifecycle Hooks
+  ## Lifecycle hooks
 
   ## 生命周期钩子
 
-  Use Lifecycle Hooks to tap into important events exposed by Angular.
+  Use Lifecycle hooks to tap into important events exposed by Angular.
 
   使用生命周期钩子来介入到 Angular 暴露的重要事件里。
 
@@ -3084,7 +3086,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="09-01"></a>Implement Lifecycle Hooks Interfaces
+  ### <a id="09-01"></a>Implement lifecycle hook interfaces
 
   ### <a id="09-01"></a>实现生命周期钩子接口
 
@@ -3100,16 +3102,14 @@ a(href="#toc").to-top 回到顶部
 
 .s-why.s-why-last
   :marked
-    **Why?** Strongly-typed method signatures.
-    The compiler and editor can call out misspellings.
+    **Why?** Lifecycle interfaces prescribe typed method 
+    signatures. use those signatures to flag spelling and syntax mistakes.
 
     **为何？**如果使用强类型的方法签名，编译器和编辑器可以帮你揪出拼写错误。
 
-+makeExample('style-guide/ts/09-01/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
-:marked
++makeExample('style-guide/ts/src/09-01/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 
-+makeExample('style-guide/ts/09-01/app/heroes/shared/hero-button/hero-button.component.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')
-:marked
++makeExample('style-guide/ts/src/09-01/app/heroes/shared/hero-button/hero-button.component.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')
 
 a(href="#toc").to-top Back to top
 
@@ -3157,7 +3157,7 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="A-02"></a>File Templates and Snippets
+  ### <a id="A-02"></a>File templates and snippets
 
   ### <a id="A-02"></a>文档模板和代码片段
 

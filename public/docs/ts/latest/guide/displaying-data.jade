@@ -1,7 +1,7 @@
 block includes
   include ../_util-fns
   - var _iterableUrl = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols';
-  - var _boolean = 'truthy/falsey';
+  - var _boolean = 'truthy/falsy';
 
 :marked
   You can display data by binding controls in an HTML template to properties of an Angular component.
@@ -73,7 +73,7 @@ figure.image-display
 
   修改完之后，它看起来应该是这样的：
 
-+makeExample('app/app.component.1.ts')
++makeExample('src/app/app.component.1.ts')
 
 :marked
   You added two properties to the formerly empty component: `title` and `myHero`.
@@ -85,7 +85,7 @@ figure.image-display
 
   修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
 
-+makeExcerpt('app/app.component.1.ts', 'template', '')
++makeExcerpt('src/app/app.component.1.ts', 'template', '')
 
 +ifDocsFor('ts')
   .l-sub-section
@@ -124,7 +124,7 @@ figure.image-display
   注意`@Component`装饰器中指定的 CSS 选择器`selector`，它指定了一个叫`my-app`的元素。
   该元素是`index.html`的`body`里的占位符。
 
-+makeExcerpt('index.html', 'body')
++makeExcerpt('src/index.html', 'body')
 
 :marked
   When you bootstrap with the `AppComponent` class (in <ngio-ex path="main.ts"></ngio-ex>), Angular looks for a `<my-app>`
@@ -184,7 +184,7 @@ figure.image-display
 
     虽然这个例子使用了变量赋值的方式初始化组件，你还可以使用构造函数来声明和初始化属性。
 
-  +makeExcerpt('app/app-ctor.component.ts', 'class')
+  +makeExcerpt('src/app/app-ctor.component.ts', 'class')
 
   :marked
     This app uses more terse "variable assignment" style simply for brevity.
@@ -201,7 +201,7 @@ figure.image-display
 
   要显示一个英雄列表，先向组件中添加一个英雄名字数组，然后把`myHero`重定义为数组中的第一个名字。
 
-+makeExcerpt('app/app.component.2.ts', 'class')
++makeExcerpt('src/app/app.component.2.ts', 'class')
 
 :marked
   Now use the Angular `ngFor` directive in the template to display
@@ -209,7 +209,7 @@ figure.image-display
 
   接着，在模板中使用 Angular 的`ngFor`指令来显示`heroes`列表中的每一项。
 
-+makeExcerpt('app/app.component.2.ts', 'template')
++makeExcerpt('src/app/app.component.2.ts', 'template')
 
 :marked
   This UI uses the HTML unordered list with `<ul>` and `<li>` tags. The `*ngFor`
@@ -219,7 +219,7 @@ figure.image-display
   这个界面使用了由`<ul>`和`<li>`标签组成的无序列表。`<li>`元素里的`*ngFor`是 Angular 的“迭代”指令。
   它将`<li>`元素及其子级标记为“迭代模板”：
 
-+makeExcerpt('app/app.component.2.ts ()', 'li', '')
++makeExcerpt('src/app/app.component.2.ts ()', 'li', '')
 
 .alert.is-important
   :marked
@@ -286,7 +286,7 @@ figure.image-display
 
   在`!{_appDir}`目录下创建一个名叫<ngio-ex path="hero.ts"></ngio-ex>的新文件，内容如下：
 
-+makeExcerpt('app/hero.ts')
++makeExcerpt('src/app/hero.ts')
 
 block hero-class
   :marked
@@ -303,7 +303,7 @@ block hero-class
 
     来看第一个参数：
 
-  +makeExcerpt('app/hero.ts ()', 'id')
+  +makeExcerpt('src/app/hero.ts ()', 'id')
 
   :marked
     That brief syntax does a lot:
@@ -325,15 +325,15 @@ block hero-class
 .l-main-section
 :marked
   ## Using the Hero class
-
+  
   ## 使用 Hero 类
 
-  The `heroes` property in the component can now use the `Hero` class to return !{_an} !{_array}
+  After importing the `Hero` class, the `AppComponent.heroes` property can return a _typed_ !{_array}
   of `Hero` objects:
 
-  现在使用`Hero`类，让组件中的`heroes`属性返回一个`Hero`对象的数组。
+  导入了`Hero`类之后，组件的`heroes`属性就可以返回一个*类型化的*`Hero`对象数组了。
 
-+makeExcerpt('app/app.component.3.ts', 'heroes')
++makeExcerpt('src/app/app.component.3.ts', 'heroes')
 
 :marked
   Next, update the template.
@@ -344,7 +344,7 @@ block hero-class
   现在它显示的是英雄的`id`和`name`。
   要修复它，只显示英雄的`name`属性就行了。
 
-+makeExcerpt('app/app.component.3.ts', 'template')
++makeExcerpt('src/app/app.component.3.ts', 'template')
 
 :marked
   Our display looks the same, but now we know much better what a hero really is.
@@ -371,7 +371,7 @@ block hero-class
   Angular 的`ngIf`指令会根据一个布尔条件来显示或移除一个元素。
   来看看实际效果，把下列语句加到模板的底部：
 
-+makeExcerpt('app/app.component.ts', 'message')
++makeExcerpt('src/app/app.component.ts', 'message')
 
 .alert.is-important
   :marked
@@ -440,9 +440,9 @@ block hero-class
   下面是最终的代码：
 
 block final-code
-  +makeTabs(`displaying-data/ts/app/app.component.ts,
-             displaying-data/ts/app/hero.ts,
-             displaying-data/ts/app/app.module.ts,
-             displaying-data/ts/app/main.ts`,
+  +makeTabs(`displaying-data/ts/src/app/app.component.ts,
+             displaying-data/ts/src/app/hero.ts,
+             displaying-data/ts/src/app/app.module.ts,
+             displaying-data/ts/src/main.ts`,
              'final,,,',
-             'app/app.component.ts, app/hero.ts, app.module.ts, main.ts')
+             'src/app/app.component.ts, src/app/hero.ts, src/app/app.module.ts, main.ts')

@@ -35,7 +35,7 @@ include ../_util-fns
 
   下例展示了一个事件绑定，它实现了一个点击事件处理器：
 
-+makeExample('user-input/ts/app/click-me.component.ts', 'click-me-button')(format=".", language="html")
++makeExample('user-input/ts/src/app/click-me.component.ts', 'click-me-button')(format=".", language="html")
 
 <a id="click"></a>
 :marked
@@ -57,7 +57,7 @@ include ../_util-fns
   这个对象通常都是控制此模板的 Angular 组件。
   上例中只显示了一行 HTML，那段 HTML 片段属于下面这个组件：
 
-+makeExample('user-input/ts/app/click-me.component.ts', 'click-me-component', 'app/click-me.component.ts')(format=".")
++makeExample('user-input/ts/src/app/click-me.component.ts', 'click-me-component', 'src/app/click-me.component.ts')(format=".")
 :marked
   When the user clicks the button, Angular calls the `onClickMe` method from `ClickMeComponent`.
 
@@ -77,7 +77,7 @@ include ../_util-fns
 
   下面的代码监听`keyup`事件，并将整个事件载荷 (`$event`) 传递给组件的事件处理器。
 
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-template', 'app/keyup.components.ts (template v.1)')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-1-template', 'src/app/keyup.components.ts (template v.1)')(format=".")
 :marked
   When a user presses and releases a key, the `keyup` event occurs, and Angular provides a corresponding
   DOM event object in the `$event` variable which this code passes as a parameter to the component's `onKey()` method.
@@ -85,7 +85,7 @@ include ../_util-fns
   当用户按下并释放一个按键时，触发`keyup`事件，Angular 在`$event`变量提供一个相应的 DOM
   事件对象，上面的代码将它作为参数传递给`onKey()`方法。
 
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class-no-type', 'app/keyup.components.ts (类 v.1)')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-1-class-no-type', 'src/app/keyup.components.ts (类 v.1)')(format=".")
 :marked
   The properties of an `$event` object vary depending on the type of DOM event. For example,
   a mouse event includes different information than a input box editing event.
@@ -147,7 +147,7 @@ a#keyup1
   The following example rewrites the method with types:
 
   下面的例子，使用了带类型方法：
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-1-class', 'app/keyup.components.ts (class v.1 - typed )')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-1-class', 'src/app/keyup.components.ts (class v.1 - typed )')(format=".")
 
 :marked
   The `$event` is now a specific `KeyboardEvent`.
@@ -195,7 +195,7 @@ a#keyup1
   to implement a keystroke loopback in a simple template.
 
   下面的例子使用了局部模板变量，在一个超简单的模板中实现按键反馈功能。
-+makeExample('user-input/ts/app/loop-back.component.ts', 'loop-back-component', 'app/loop-back.component.ts')(format=".")
++makeExample('user-input/ts/src/app/loop-back.component.ts', 'loop-back-component', 'src/app/loop-back.component.ts')(format=".")
 :marked
   The template reference variable named `box`, declared on the `<input>` element,
   refers to the `<input>` element itself.
@@ -241,7 +241,7 @@ figure.image-display
 
    从模板变量获得输入框比通过`$event`对象更加简单。
    下面的代码重写了之前`keyup`示例，它使用变量来获得用户输入。
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-2' ,'app/keyup.components.ts (v2)')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-2' ,'src/app/keyup.components.ts (v2)')(format=".")
 :marked
   A nice aspect of this approach is that the component gets clean data values from the view.
   It no longer requires knowledge of the `$event` and its structure.
@@ -268,7 +268,7 @@ figure.image-display
 
   更简单的方法是：绑定到 Angular 的`keyup.enter` 模拟事件。
   然后，只有当用户敲*回车*键时，Angular 才会调用事件处理器。
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-3' ,'app/keyup.components.ts (v3)')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-3' ,'src/app/keyup.components.ts (v3)')(format=".")
 
 :marked
   Here's how it works.
@@ -295,7 +295,7 @@ figure.image-display
 
   下面通过同时监听输入框的回车键和失去焦点事件来修正这个问题。
 
-+makeExample('user-input/ts/app/keyup.components.ts', 'key-up-component-4' ,'app/keyup.components.ts (v4)')(format=".")
++makeExample('user-input/ts/src/app/keyup.components.ts', 'key-up-component-4' ,'src/app/keyup.components.ts (v4)')(format=".")
 
 .l-main-section
 :marked
@@ -323,7 +323,7 @@ figure.image-display
 
   下面就是“简版英雄指南”组件。
 
-+makeExample('user-input/ts/app/little-tour.component.ts', 'little-tour', 'app/little-tour.component.ts')(format=".")
++makeExample('user-input/ts/src/app/little-tour.component.ts', 'little-tour', 'src/app/little-tour.component.ts')(format=".")
 :marked
     ### Observations
     ### 小结
@@ -361,10 +361,10 @@ figure.image-display
 
   下面是本章讨论过的所有源码。
 +makeTabs(`
-  user-input/ts/app/click-me.component.ts,
-  user-input/ts/app/keyup.components.ts,
-  user-input/ts/app/loop-back.component.ts,
-  user-input/ts/app/little-tour.component.ts
+  user-input/ts/src/app/click-me.component.ts,
+  user-input/ts/src/app/keyup.components.ts,
+  user-input/ts/src/app/loop-back.component.ts,
+  user-input/ts/src/app/little-tour.component.ts
   `,'',
   `click-me.component.ts,
   keyup.components.ts,

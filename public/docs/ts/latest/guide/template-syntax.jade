@@ -153,13 +153,13 @@ code-example(language="html" escape="html").
   We met the double-curly braces of interpolation, `{{` and `}}`, early in our Angular education.
 
   在以前的 Angular 教程中，我们遇到过由双花括号括起来的插值表达式，`{{`和`}}`。
-+makeExample('template-syntax/ts/app/app.component.html', 'first-interpolation')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'first-interpolation')(format=".")
 :marked
   We use interpolation to weave calculated strings into the text between HTML element tags and within attribute assignments.
 
   插值表达式可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'title+image')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'title+image')(format=".")
 :marked
   The material between the braces is often the name of a component property. Angular replaces that name with the
   string value of the corresponding component property. In the example above, Angular evaluates the `title` and `heroImageUrl` properties
@@ -174,12 +174,12 @@ code-example(language="html" escape="html").
 
   一般来说，括号间的素材是一个**模板表达式**，Angular 先**对它求值**，再把它**转换成字符串**。
   下列插值表达式通过把括号中的两个数字相加说明了这一点：
-+makeExample('template-syntax/ts/app/app.component.html', 'sum-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'sum-1')(format=".")
 :marked
   The expression can invoke methods of the host component, as we do here with `getVal()`:
 
   这个表达式可以调用宿主组件的方法，就像下面用的`getVal()`：
-+makeExample('template-syntax/ts/app/app.component.html', 'sum-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'sum-2')(format=".")
 :marked
   Angular evaluates all expressions in double curly braces, converts the expression results to strings, and links them with neighboring literal strings. Finally,
   it assigns this composite interpolated result to an **element or directive property**.
@@ -653,7 +653,7 @@ table
   在正常的 HTML 开发过程中，我们使用 HTML 元素创建视觉结构，
   通过把字符串常量设置到元素的 attribute 来修改那些元素。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'img+button')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'img+button')(format=".")
 :marked
   We still create a structure and initialize attribute values this way in Angular templates.
 
@@ -663,7 +663,7 @@ table
   and drop them into our templates as if they were native HTML elements.
 
   然后，用封装了 HTML 的组件创建新元素，并把它们当作原生 HTML 元素在模板中使用。
-+makeExample('template-syntax/ts/app/app.component.html', 'hero-detail-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'hero-detail-1')(format=".")
 :marked
   That’s HTML Plus.
 
@@ -673,7 +673,7 @@ table
 
   现在开始学习数据绑定。我们碰到的第一种数据绑定看起来是这样的：
 
-+makeExample('template-syntax/ts/app/app.component.html', 'disabled-button-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'disabled-button-1')(format=".")
 :marked
   We’ll get to that peculiar bracket notation in a moment. Looking beyond it,
   our intuition tells us that we’re binding to the button's `disabled` attribute and setting
@@ -834,7 +834,7 @@ table
       p Directive&nbsp;property
       p 指令的 property
     td
-      +makeExample('template-syntax/ts/app/app.component.html', 'property-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-syntax-1')(format=".")
   tr
     td
       p Event
@@ -847,7 +847,7 @@ table
       p Directive&nbsp;event
       p 指令的事件
     td
-      +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-syntax-1')(format=".")
   tr
     td
       p Two-way
@@ -856,14 +856,14 @@ table
       p Event and property
       p 事件与 property
     td
-      +makeExample('template-syntax/ts/app/app.component.html', '2-way-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', '2-way-binding-syntax-1')(format=".")
   tr
     td Attribute
     td
       p Attribute (the&nbsp;exception)
       p attribute（例外情况）
     td
-      +makeExample('template-syntax/ts/app/app.component.html', 'attribute-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', 'attribute-binding-syntax-1')(format=".")
   tr
     td
       p Class
@@ -871,7 +871,7 @@ table
     td
       p <code>class</code> property
     td
-      +makeExample('template-syntax/ts/app/app.component.html', 'class-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-syntax-1')(format=".")
   tr
     td
       p Style
@@ -879,7 +879,7 @@ table
     td
       p <code>style</code> property
     td
-      +makeExample('template-syntax/ts/app/app.component.html', 'style-binding-syntax-1')(format=".")
+      +makeExample('template-syntax/ts/src/app/app.component.html', 'style-binding-syntax-1')(format=".")
 </div>
 
 :marked
@@ -903,23 +903,23 @@ table
 
   最常用的属性绑定是把元素属性设置为组件属性的值。
   下面这个例子中，image 元素的`src`属性会被绑定到组件的`heroImageUrl`属性上：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-1')(format=".")
 :marked
   Another example is disabling a button when the component says that it `isUnchanged`:
 
   另一个例子是当组件说它`isUnchanged`（未改变）时禁用按钮：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-2')(format=".")
 :marked
   Another is setting a property of a directive:
 
   另一个例子是设置指令的属性：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-3')(format=".")
 :marked
   Yet another is setting the model property of a custom component (a great way
   for parent and child components to communicate):
 
   还有另一个例子是设置自定义组件的模型属性（这是父子组件之间通讯的重要途径）：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-4')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-4')(format=".")
 :marked
   ### One-way *in*
 
@@ -965,12 +965,12 @@ table
 
   包裹在方括号中的元素属性名标记着目标属性。下列代码中的目标属性是 image 元素的`src`属性。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-1')(format=".")
 :marked
   Some people prefer the `bind-` prefix alternative, known as the *canonical form*:
 
   有些人喜欢用`bind-`前缀的可选形式，并称之为*规范形式*：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-5')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-5')(format=".")
 :marked
   The target name is always the name of a property, even when it appears to be the name of something else. We see `src` and may think it’s the name of an attribute. No. It’s the name of an image element property.
 
@@ -982,7 +982,7 @@ table
   as it is in the following example:
 
   元素属性可能是最常见的绑定目标，但 Angular 会先去看这个名字是否是某个已知指令的属性名，就像下面的例子中一样：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-3')(format=".")
 
 .l-sub-section
   :marked
@@ -1036,7 +1036,7 @@ table
   The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what we’re sending in the property binding:
 
   `HeroDetail`组件的`hero`属性想要一个`Hero`对象，那就在属性绑定中精确地给它一个`Hero`对象：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-4')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-4')(format=".")
 
 block dart-type-exceptions
   //- N/A
@@ -1057,7 +1057,7 @@ block dart-type-exceptions
   Don't make the following mistake:
 
   不要出现这样的失误：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-6')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-6')(format=".")
 
 block dart-type-exception-example
   //- N/A
@@ -1091,7 +1091,7 @@ a(id="one-time-initialization")
   我们经常这样在标准 HTML 中用这种方式初始化 attribute，这种方式也可以用在初始化指令和组件的属性。
   下面这个例子把`HeroDetailComponent`的`prefix`属性初始化为固定的字符串，而不是模板表达式。Angular 设置它，然后忘记它。
 // #enddocregion property-binding-12
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-7')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-7')(format=".")
 :marked
   The `[hero]` binding, on the other hand, remains a live binding to the component's `currentHero` property.
 
@@ -1106,24 +1106,26 @@ a(id="one-time-initialization")
 
   我们通常得在插值表达式和属性绑定之间做出选择。
   下列这几对绑定做的事情完全相同：
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-vs-interpolation')(format=".")
 :marked
-  Interpolation is a convenient alternative for property binding in many cases.
-  In fact, Angular  translates those interpolations into the corresponding property bindings
-  before rendering the view.
+  _Interpolation_ is a convenient alternative to _property binding_ in many cases.
 
   在多数情况下，插值表达式是更方便的备选项。
   实际上，在渲染视图之前，Angular 把这些插值表达式翻译成相应的属性绑定。
 
-  There is no technical reason to prefer one form to the other.
+  When rendering data values as strings, there  is no technical reason to prefer one form to the other.
   We lean toward readability, which tends to favor interpolation.
   We suggest establishing coding style rules and choosing the form that
   both conforms to the rules and feels most natural for the task at hand.
 
-  没有技术上的理由能决定哪种形式更好。
+  当要渲染的数据类型是字符串时，没有技术上的理由证明哪种形式更好。
   我们倾向于可读性，所以倾向于插值表达式。
   建议建立代码风格规则，选择一种形式，
   这样，既遵循了规则，又能让手头的任务做起来更自然。
+  
+  When setting an element property to a non-string data value, you must use _property binding_.
+  
+  但数据类型不是字符串时，就必须使用*属性绑定*了。
 
 :marked
   #### Content security
@@ -1133,7 +1135,7 @@ a(id="one-time-initialization")
   Imagine the following *malicious content*.
 
   假设下面的*恶毒内容*
-+makeExample('template-syntax/ts/app/app.component.ts', 'evil-title')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.ts', 'evil-title')(format=".")
 :marked
   Fortunately, Angular data binding is on alert for dangerous HTML.
   It *sanitizes* the values before displaying them.
@@ -1143,7 +1145,7 @@ a(id="one-time-initialization")
   幸运的是，Angular 数据绑定对危险 HTML 有防备。
   在显示它们之前，它对内容先进行*消毒*。
   不管是插值表达式还是属性绑定，都**不会**允许带有 script 标签的 HTML 泄漏到浏览器中。
-+makeExample('template-syntax/ts/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-vs-interpolation-sanitization')(format=".")
 :marked
   Interpolation handles the script tags differently than property binding but both approaches render the
   content harmlessly.
@@ -1233,7 +1235,7 @@ code-example(format="nocode").
   Here we bind `[attr.colspan]` to a calculated value:
 
   这里把`[attr.colspan]`绑定到一个计算值：
-+makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-colspan')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'attrib-binding-colspan')(format=".")
 :marked
   Here's how the table renders:
 
@@ -1249,7 +1251,7 @@ code-example(format="nocode").
 
   attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指可访问性，用于给残障人士访问互联网提供便利），
   就像这个例子中一样：
-+makeExample('template-syntax/ts/app/app.component.html', 'attrib-binding-aria')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'attrib-binding-aria')(format=".")
 :marked
   ### Class binding
 
@@ -1272,22 +1274,22 @@ code-example(format="nocode").
   with class bindings.  Here's how we set the attribute without binding:
 
   下列例子示范了如何通过 CSS 类绑定来添加和移除应用的 "special" 类。不用绑定直接设置 attribute 时是这样的：
-+makeExample('template-syntax/ts/app/app.component.html', 'class-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-1')(format=".")
 :marked
   We can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
 
   可以把它改写为绑定到所需 CSS 类名的绑定；这是一个或者全有或者全无的替换型绑定。
   （译注：即当 badCurly 有值时 class 这个 attribute 设置的内容会被完全覆盖）
-+makeExample('template-syntax/ts/app/app.component.html', 'class-binding-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-2')(format=".")
 
 :marked
   Finally, we can bind to a specific class name.
   Angular adds the class when the template expression evaluates to #{_truthy}.
-  It removes the class when the expression is #{_falsey}.
+  It removes the class when the expression is #{_falsy}.
 
   最后，可以绑定到特定的类名。
   当模板表达式的求值结果是真值时，Angular 会添加这个类，反之则移除它。
-+makeExample('template-syntax/ts/app/app.component.html', 'class-binding-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-3')(format=".")
 
 .l-sub-section
   :marked
@@ -1313,12 +1315,12 @@ code-example(format="nocode").
   但方括号中的部分不是元素的属性名，而由**`style`**前缀，一个点 (`.`)和 CSS 样式的属性名组成。
   形如：`[style.style-property]`。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'style-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'style-binding-1')(format=".")
 :marked
   Some style binding styles have unit extension. Here we conditionally set the font size in  “em” and “%” units .
 
   有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
-+makeExample('template-syntax/ts/app/app.component.html', 'style-binding-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'style-binding-2')(format=".")
 
 .l-sub-section
   :marked
@@ -1371,8 +1373,7 @@ block style-property-name-dart-diff
   事件绑定语法由等号左侧带圆括号的**目标事件**和右侧引号中的[模板语句](#template-statements)组成。
   下面事件绑定监听按钮的点击事件。每当点击发生时，都会调用组件的`onSave()`方法。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
-
++makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-1')(format=".")
 :marked
   ### Target event
 
@@ -1383,18 +1384,18 @@ block style-property-name-dart-diff
 
   **圆括号中的名称** —— 比如`(click)` —— 标记出目标事件。在下面例子中，目标是按钮的 click 事件。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-1')(format=".")
 :marked
   Some people prefer the `on-` prefix alternative, known as the **canonical form**:
 
   有些人更喜欢带`on-`前缀的备选形式，称之为**规范形式**：
-+makeExample('template-syntax/ts/app/app.component.html', 'event-binding-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-2')(format=".")
 :marked
   Element events may be the more common targets, but Angular looks first to see if the name matches an event property
   of a known directive, as it does in the following example:
 
   元素事件可能是更常见的目标，但 Angular 会先看这个名字是否能匹配上已知指令的事件属性，就像下面这个例子：
-+makeExample('template-syntax/ts/app/app.component.html', 'event-binding-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-3')(format=".")
 
 .l-sub-section
   :marked
@@ -1440,7 +1441,7 @@ block style-property-name-dart-diff
   Consider this example:
 
   考虑这个范例：
-+makeExample('template-syntax/ts/app/app.component.html', 'without-NgModel')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'without-NgModel')(format=".")
 :marked
   This code sets the input box `value` property by binding to the `firstName` property. To listen for changes to the value, the code binds to the input box's `input` event.
   When the user makes changes, the `input` event is raised, and the binding executes the statement within a context that includes the DOM event object, `$event`.
@@ -1482,12 +1483,11 @@ block style-property-name-dart-diff
   最好的做法是触发事件来报告“删除用户”的请求。
 
   Here are the pertinent excerpts from that `HeroDetailComponent`:
-
+  
   下面的代码节选自`HeroDetailComponent`：
-+makeExample('template-syntax/ts/app/hero-detail.component.ts',
-'template-1', 'HeroDetailComponent.ts (模板)')(format=".")
-+makeExample('template-syntax/ts/app/hero-detail.component.ts',
-'deleteRequest', 'HeroDetailComponent.ts (删除逻辑)')(format=".")
+  
++makeExcerpt('src/app/hero-detail.component.ts (template)', 'template-1')
++makeExcerpt('src/app/hero-detail.component.ts', 'deleteRequest')
 
 :marked
   The component defines a `deleteRequest` property that returns an `EventEmitter`.
@@ -1501,8 +1501,7 @@ block style-property-name-dart-diff
 
   现在，假设有个宿主的父组件，它绑定了`HeroDetailComponent`的`deleteRequest`事件。
 
-+makeExample('template-syntax/ts/app/app.component.html',
-'event-binding-to-component')(format=".")
++makeExcerpt('src/app/app.component.html', 'event-binding-to-component', '')
 :marked
   When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
   passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
@@ -1531,7 +1530,7 @@ block style-property-name-dart-diff
   :marked
     ### Event bubbling and propagation [TODO: reinstate this section when it becomes true]
     Angular invokes the event-handling statement if the event is raised by the current element or one of its child elements.
-  +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-bubbling')(format=".")
+  +makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-bubbling')(format=".")
   :marked
     Many DOM events, both [native](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Overview_of_Events_and_Handlers ) and [custom](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events ), bubble up their ancestor tree of DOM elements until an event handler along the way prevents further propagation.
 
@@ -1544,14 +1543,14 @@ block style-property-name-dart-diff
     [event propagation](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Examples#Example_5:_Event_Propagation)
     continues or stops with the current element.
 
-    Event propagation stops if the binding statement returns a falsey value (as does a method with no return value).
+    Event propagation stops if the binding statement returns a falsy value (as does a method with no return value).
     Clicking the button in the next example triggers a save;
     the click doesn't make it to the outer `<div>` so the div's save handler is not called.
-  +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-no-propagation')(format=".")
+  +makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-no-propagation')(format=".")
   :marked
     Propagation continues if the statement returns a truthy value. In the next example, the click is heard by both the button
     and the outer `<div>`, causing a double save.
-  +makeExample('template-syntax/ts/app/app.component.html', 'event-binding-propagation')(format=".")
+  +makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-propagation')(format=".")
 
 #two-way
 .l-main-section
@@ -1571,7 +1570,7 @@ block style-property-name-dart-diff
 
   Angular offers a special _two-way data binding_ syntax for this purpose, **`[(x)]`**.
   The `[(x)]` syntax combines the brackets 
-  of _property binding_, `[x]`, with the parentheses of _event binding_, `(x)`.
+  of _property binding_, `[x]`, with the parentheses of _event binding_, `(xChange)`.
 
   Angular 为此提供一种特殊的_双向数据绑定_语法：**`[(x)]`**。
   `[(x)]`语法结合了_属性绑定_的方括号`[x]`和_事件绑定_的圆括号`(x)`。
@@ -1592,7 +1591,7 @@ block style-property-name-dart-diff
   当一个元素拥有可以设置的属性`x`和对应的事件`xChange`时，解释`[(x)]`语法就容易多了。
   下面的`SizerComponent`符合这个模式。它有`size`属性和伴随的`sizeChange`事件：
 
-+makeExample('app/sizer.component.ts')
++makeExample('src/app/sizer.component.ts')
 
 :marked
   The initial `size` is an input value from a property binding.
@@ -1607,7 +1606,7 @@ block style-property-name-dart-diff
 
   下面的例子中，`AppComponent.fontSize`被双向绑定到`SizerComponent`：
 
-+makeExcerpt('app/app.component.html', 'two-way-1', '')
++makeExcerpt('src/app/app.component.html', 'two-way-1', '')
 
 :marked
   The `AppComponent.fontSizePx` establishes the initial `SizerComponent.size` value.
@@ -1626,7 +1625,7 @@ block style-property-name-dart-diff
   双向绑定语法实际上是_属性_绑定和_事件绑定_的语法糖。
   Angular将`SizerComponent`的绑定分解成这样：
 
-+makeExcerpt('app/app.component.html', 'two-way-2', '')
++makeExcerpt('src/app/app.component.html', 'two-way-2', '')
 
 :marked
   The `$event` variable contains the payload of the `SizerComponent.sizeChange` event.
@@ -1661,9 +1660,10 @@ a#ngModel
   当开发数据输入表单时，我们经常希望能显示数据属性，并在用户做出变更时更新该属性。
 
   Two-way data binding with the `NgModel` directive makes that easy. Here's an example:
-
+  
   使用`NgModel`指令进行双向数据绑定让它变得更加容易。请看下例：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgModel-1')(format=".")
+  
++makeExcerpt('src/app/app.component.html', 'NgModel-1', '')
 
 +ifDocsFor('ts|js')
   .callout.is-important
@@ -1685,7 +1685,7 @@ a#ngModel
     Here's how to import the `FormsModule` to make `[(ngModel)]` available.
 
     下面展示了如何导入`FormsModule`，让`[(ngModel)]`变得可用：
-  +makeExample('template-syntax/ts/app/app.module.1.ts', '', 'app.module.ts (FormsModule import)')
+  +makeExcerpt('src/app/app.module.1.ts (FormsModule import)', '')
 
 :marked
   ### Inside `[(ngModel)]`
@@ -1697,7 +1697,7 @@ a#ngModel
   the `<input>` element's  `value` property and `input` event.
 
   回顾一下`firstName`的绑定，值得注意的是，可以通过分别绑定`<input>`元素的`value`属性和`input事件来实现同样的效果。
-+makeExample('template-syntax/ts/app/app.component.html', 'without-NgModel')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'without-NgModel')(format=".")
 :marked
   That’s cumbersome. Who can remember which element property to set and which element event emits user changes?
   How do we extract the currently displayed text from the input box so we can update the data property?
@@ -1710,7 +1710,7 @@ a#ngModel
   That `ngModel` directive hides these onerous details behind its own  `ngModel` input and `ngModelChange` output properties.
 
   `ngModel`指令通过它自己的`ngModel`输入属性和`ngModelChange`输出属性隐藏了这些繁琐的细节。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgModel-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-3')(format=".")
 .l-sub-section
   :marked
     The `ngModel` data property sets the element's value property and the `ngModelChange` event property
@@ -1746,7 +1746,7 @@ a#ngModel
   with a single declaration &mdash; which it can with the `[(ngModel)]` syntax:
 
   我们不应该提及数据属性两次。Angular 应该能捕捉组件的数据属性，并用一条声明来设置它——依靠`[(ngModel)]`，可以这么做：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgModel-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-1')(format=".")
 :marked
   Is `[(ngModel)]` all we need? Is there ever a reason to fall back to its expanded form?
 
@@ -1761,7 +1761,7 @@ a#ngModel
   Let's try something silly like forcing the input value to uppercase:
 
   来做点淘气的事吧，比如强制让输入值变成大写形式：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgModel-4')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-4')(format=".")
 :marked
   Here are all variations in action, including the uppercase version:
 
@@ -1790,7 +1790,7 @@ figure.image-display
   在新版的 Angular 中不需要那么多指令。
   使用更强大、更富有表现力的 Angular 绑定系统，其实可以达到同样的效果。
   如果能用简单的绑定达到目的，为什么还要创建指令来处理点击事件呢？
-+makeExample('template-syntax/ts/app/app.component.html', 'event-binding-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'event-binding-1')(format=".")
 :marked
   We still benefit from directives that simplify complex tasks.
   Angular still ships with built-in directives; just not as many.
@@ -1821,28 +1821,39 @@ figure.image-display
   A [class binding](#class-binding) is a good way to add or remove a *single* class.
 
   [CSS 类绑定](#class-binding) 是添加或删除*单个*类的最佳途径。
-+makeExample('template-syntax/ts/app/app.component.html', 'class-binding-3a')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-3a')(format=".")
 :marked
   The `NgClass` directive may be the better choice
   when we want to add or remove *many* CSS classes at the same time.
 
   当想要同时添加或移除*多个* CSS 类时，`NgClass`指令可能是更好的选择。
 
-  A good way to apply `NgClass` is by binding it to a key:value control !{__objectAsMap}. Each key of the object is a CSS class name; its value is `true` if the class should be added, `false` if it should be removed.
+  A good way to apply `NgClass` is by binding it to a key:value control !{__objectAsMap}. 
+  Each key of the object is a CSS class name; its value is `true` if the class should be added, 
+  `false` if it should be removed.
 
   绑定到一个 key:value 形式的控制对象，是应用`NgClass`的好方式。这个对象中的每个 key 都是一个 CSS 类名，如果它的 value 是`true`，这个类就会被加上，否则就会被移除。
 
 :marked
-  Consider a component method such as `setClasses` that manages the state of three CSS classes:
+  Consider a 
+  `setCurrentClasses` component method that sets a component property, `currentClasses`
+  with an object that adds or removes three classes based on the 
+  `true`/`false` state of three other component propertes:
 
   下面的组件方法`setClasses`管理了三个 CSS 类的状态：
-+makeExample('template-syntax/ts/app/app.component.ts', 'setClasses')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.ts', 'setClasses')(format=".")
 :marked
-  Now we can add an `NgClass` property binding that calls `setClasses`
-  and sets the element's classes accordingly:
+  Adding an `NgClass` property binding to `currentClasses` sets the element's classes accordingly:  
+  
+  把`NgClass`属性绑定到`currentClasses`，根据它来设置此元素的CSS类：
+  
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgClass-1')(format=".")
 
-  现在，可以添加`NgClass`属性绑定，它会调用`setClasses`，并相应地设置元素的类：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgClass-1')(format=".")
+.l-sub-section
+  :marked
+    It's up to you to call `setCurrentClassess()`, both initially and when the dependent properties change.
+    
+    你既可以在初始化时调用`setCurrentClassess()`，也可以在所依赖的属性变化时调用。
 
 <a id="ngStyle"></a>
 .l-main-section
@@ -1860,7 +1871,7 @@ figure.image-display
   A [style binding](#style-binding) is an easy way to set a *single* style value.
 
   [样式绑定](#style-binding)是设置*单一*样式值的简单方式。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgStyle-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgStyle-1')(format=".")
 :marked
   The `NgStyle` directive may be the better choice
   when we want to set *many* inline styles at the same time.
@@ -1869,20 +1880,28 @@ figure.image-display
 
   We apply `NgStyle` by binding it to a key:value control !{__objectAsMap}.
   Each key of the object is a style name; its value is whatever is appropriate for that style.
-
+  
   `NgStyle`需要绑定到一个 key:value 控制对象。
-  对象的每个 key 是样式名，它的 value 是能用于这个样式的任何值。
+    对象的每个 key 是样式名，它的 value 是能用于这个样式的任何值。
 
-  Consider a component method such as `setStyles` that returns an object defining three styles:
+  Consider a `setCurrentStyles` component method that sets a component property, `currentStyles`
+  with an object that defines three styles, based on the state of three other component propertes:
+  
+  来看看组件的`setCurrentStyles`方法，它会根据另外三个属性的状态把组件的`currentStyles`属性设置为一个定义了三个样式的对象：
+  
++makeExample('template-syntax/ts/src/app/app.component.ts', 'setStyles')(format=".")
 
-  下面的组件方法`setStyles`，返回一个定义了三种样式的对象：
-+makeExample('template-syntax/ts/app/app.component.ts', 'setStyles')(format=".")
 :marked
-  Now we just add an `NgStyle` property binding that calls `setStyles`
-  and sets the element's styles accordingly:
-
-  现在添加`NgStyle`属性绑定，让它调用`setStyles`，并相应地设置元素的样式：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgStyle-2')(format=".")
+  Adding an `NgStyle` property binding to `currentStyles` sets the element's styles accordingly:
+  
+  把`NgStyle`属性绑定到`currentStyles`，以据此设置此元素的样式：
+  
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgStyle-2')(format=".")
+.l-sub-section
+  :marked
+    It's up to you to call `setCurrentStyles()`, both initially and when the dependent properties change.
+    
+    你既可以在初始化时调用`setCurrentStyles()`，也可以在所依赖的属性变化时调用。
 
 <a id="ngIf"></a>
 .l-main-section
@@ -1894,7 +1913,7 @@ figure.image-display
   We can add an element subtree (an element and its children) to the DOM  by binding an `NgIf` directive to a #{_truthy} expression.
 
   通过绑定`NgIf`指令到真值表达式，可以把元素子树（元素及其子元素）添加到 DOM 上。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgIf-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgIf-1')(format=".")
 
 .alert.is-critical
   :marked
@@ -1904,12 +1923,12 @@ figure.image-display
     别忘了`ngIf`前面的星号(`*`)。
     更多信息，见 [\* 与 &lt;template>](#star-template)。
 :marked
-  Binding to a #{_falsey} expression removes the element subtree from the DOM.
+  Binding to a #{_falsy} expression removes the element subtree from the DOM.
 
   绑定到假值表达式将从 DOM 中移除元素子树。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgIf-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgIf-2')(format=".")
 
-block dart-no-truthy-falsey
+block dart-no-truthy-falsy
   //- N/A
 
 :marked
@@ -1921,7 +1940,7 @@ block dart-no-truthy-falsey
   [class](#class-binding) or [style](#style-binding) binding:
 
   我们可以通过[类绑定](#class-binding)或[样式绑定](#style-binding)来显示和隐藏元素子树（元素及其子元素）。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgIf-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgIf-3')(format=".")
 :marked
   Hiding a subtree is quite different from excluding a subtree with `NgIf`.
 
@@ -1967,7 +1986,7 @@ block dart-no-truthy-falsey
   Here’s an example:
 
   下面是例子：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgSwitch')(format=".")
 :marked
   We bind the parent `NgSwitch` directive to an expression returning a *switch value*.
   The value is a string in this example, but it can be a value of any type.
@@ -2050,12 +2069,12 @@ block dart-no-truthy-falsey
   Here is an example of `NgFor` applied to a simple `<div>`:
 
   下例中，`NgFor`应用在一个简单的`<div>`上：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgFor-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgFor-1')(format=".")
 :marked
   We can also apply an `NgFor` to a component element, as in this example:
 
   也可以把`NgFor`应用在一个组件元素上，就下例这样：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgFor-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgFor-2')(format=".")
 
 .alert.is-critical
   :marked
@@ -2130,7 +2149,7 @@ block dart-no-truthy-falsey
   The next example captures the index in a variable named `i`, using it to stamp out rows like "1 - Hercules Son of Zeus".
 
   下例把 index 捕获到名叫`i`的变量中，使用它“冲压出”像 "1 - Hercules Son of Zeus" 这样的条目。
-+makeExample('template-syntax/ts/app/app.component.html', 'NgFor-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgFor-3')(format=".")
 .l-sub-section
   :marked
     Learn about other special *index-like* values such as `last`, `even`, and `odd` in the [NgFor API reference](../api/common/index/NgFor-directive.html).
@@ -2168,14 +2187,13 @@ block dart-no-truthy-falsey
   如果给它一个*追踪*函数，Angular 就可以避免这种折腾。
   追踪函数告诉 Angular：我们知道两个具有相同`hero.id`的对象其实是同一个英雄。
   下面就是这样一个函数：
-+makeExample('template-syntax/ts/app/app.component.ts', 'trackByHeroes')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.ts', 'trackByHeroes')(format=".")
 :marked
   Now set the `NgForTrackBy` directive to that *tracking* function.
 
   现在，把`NgForTrackBy`指令设置为那个*追踪*函数。
 
-+makeExample('template-syntax/ts/app/app.component.html', 'NgForTrackBy-2')(format=".")
-
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgForTrackBy-2')(format=".")
 :marked
   The *tracking* function doesn't eliminate all DOM changes.
   Angular may have to update the DOM element if the same-hero *properties* have changed.
@@ -2231,7 +2249,7 @@ figure.image-display
   We can do what Angular does ourselves and expand the `*` prefix syntax to template syntax. Here's some code with `*ngIf`:
 
   我们可以像 Angular 一样，自己把`*`前缀语法展开成 template 语法，这里是`*ngIf`的一些代码：
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-1')(format=".")
 :marked
   The `currentHero` is referenced twice, first as the true/false condition for `NgIf` and
   again as the actual hero passed into the `HeroDetailComponent`.
@@ -2242,12 +2260,12 @@ figure.image-display
   into an expression assigned to a `template` directive.
 
   展开的第一步是把`ngIf`（没有`*`前缀）和它的内容传给表达式，再赋值给`template`指令。
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-2a')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-2a')(format=".")
 :marked
   The next (and final) step unfolds the HTML into a `<template>` tag and `[ngIf]` [property binding](#property-binding):
 
   下一步，也是最后一步，是把 HTML 包裹进`<template>`标签和`[ngIf]`[属性绑定](#property-binding)中：
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-2')(format=".")
 :marked
   Notice that the `[hero]="currentHero"` binding remains on the child `<hero-detail>`
   element inside the template.
@@ -2279,7 +2297,7 @@ block remember-the-brackets
 
   类似的转换也适用于`*ngSwitch`。我们可以自己解开这个语法糖。
   下例中，首先是`*ngSwitchCase`和`*ngSwitchDefault`，然后再解出`<template>`标签：
-+makeExample('template-syntax/ts/app/app.component.html', 'NgSwitch-expanded')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'NgSwitch-expanded')(format=".")
 :marked
   The `*ngSwitchCase` and `*ngSwitchDefault` expand in exactly the same manner as `*ngIf`,
   wrapping their former elements in `<template>` tags.
@@ -2309,17 +2327,17 @@ figure.image-display
   The `*ngFor` undergoes a similar transformation. We begin with an `*ngFor` example:
 
   `*ngFor`也经历类似的转换。从一个`*ngFor`的例子开始：
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-3a')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-3a')(format=".")
 :marked
   Here's the same example after transporting the `ngFor` to the `template` directive:
 
   这里是在把`ngFor`传进`template`指令后的同一个例子：
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-3')(format=".")
 :marked
   And here it is expanded further into a `<template>` tag wrapping the original `<hero-detail>` element:
 
   下面，它被进一步扩展成了包裹着原始`<hero-detail>`元素的`<template>`标签：
-+makeExample('template-syntax/ts/app/app.component.html', 'Template-4')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'Template-4')(format=".")
 :marked
   The `NgFor` code is a bit more complex than `NgIf` because a repeater has more moving parts to configure.
   In this case, we have to remember to create and assign the `NgForOf` directive that identifies the list and the `NgForTrackBy` directive.
@@ -2364,7 +2382,7 @@ figure.image-display
   Here are two other examples of creating and consuming a Template reference variable:
 
   这里是关于创建和使用模板引用变量的另外两个例子：
-+makeExample('template-syntax/ts/app/app.component.html', 'ref-phone')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'ref-phone')(format=".")
 :marked
   The hash (`#`) prefix to "phone" means that we're defining a `phone` variable.
 
@@ -2406,13 +2424,13 @@ figure.image-display
 
   正如在[表单](forms.html)一章中所见过的，表单的 HTML 可以做得相当复杂。
   下面是*简化过的*范例 —— 虽然仍算不上多简单。
-+makeExample('template-syntax/ts/app/app.component.html', 'ref-form')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'ref-form')(format=".")
 :marked
   A template reference variable, `theForm`, appears three times in this example, separated
   by a large amount of HTML.
 
   模板引用变量`theForm`在这个例子中出现了三次，中间隔着一大段 HTML。
-+makeExample('template-syntax/ts/app/app.component.html', 'ref-form-a')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'ref-form-a')(format=".")
 :marked
   What is the value of `theForm`?
 
@@ -2494,7 +2512,7 @@ figure.image-display
   that are referenced within quoted syntax to the right of the `=`.
 
   在下面的例子中，`iconUrl`和`onSave`是组件的成员，它们在`=`右侧引号语法中被引用了。
-+makeExample('template-syntax/ts/app/app.component.html', 'io-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'io-1')(format=".")
 :marked
   They are *neither inputs nor outputs* of the component. They are data sources for their bindings.
 
@@ -2503,7 +2521,7 @@ figure.image-display
   Now look at `HeroDetailComponent` when it is the **target of a binding**.
 
   现在，看看`HeroDetailComponent`，它是**绑定的目标**。
-+makeExample('template-syntax/ts/app/app.component.html', 'io-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'io-2')(format=".")
 :marked
   Both `HeroDetailComponent.hero` and `HeroDetailComponent.deleteRequest` are on the **left side** of binding declarations.
   `HeroDetailComponent.hero` is inside brackets; it is the target of a property binding.
@@ -2525,7 +2543,7 @@ figure.image-display
   with decorators as input and output properties.
 
   当我们深入`HeroDetailComponent`内部时，就会看到这些属性被装饰器标记成了输入和输出属性。
-+makeExample('template-syntax/ts/app/hero-detail.component.ts', 'input-output-1')(format=".")
++makeExample('template-syntax/ts/src/app/hero-detail.component.ts', 'input-output-1')(format=".")
 
 :marked
 .l-sub-section
@@ -2534,7 +2552,7 @@ figure.image-display
     of the directive metadata, as in this example:
 
     另外，还可以在指令元数据的`inputs`或`outputs`数组中标记出这些成员。比如这个例子：
-  +makeExample('template-syntax/ts/app/hero-detail.component.ts', 'input-output-2')(format=".")
+  +makeExample('template-syntax/ts/src/app/hero-detail.component.ts', 'input-output-2')(format=".")
   <br>
   :marked
     We can specify an input/output property either with a decorator or in a metadata #{_array}.
@@ -2587,7 +2605,7 @@ h3#aliasing-io 给输入/输出属性起别名
   这是使用 [attribute 指令](attribute-directives.html)时的常见情况。
   指令的使用者期望绑定到指令名。例如，在`<div>`上用`myClick`选择器应用指令时，
   希望绑定的事件属性也叫`myClick`。
-+makeExample('template-syntax/ts/app/app.component.html', 'myClick')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'myClick')(format=".")
 :marked
   However, the directive name is often a poor choice for the name of a property within the directive class.
   The directive name rarely describes what the property does.
@@ -2609,7 +2627,7 @@ h3#aliasing-io 给输入/输出属性起别名
 
   把别名传进@Input/@Output装饰器，就可以为属性指定别名，就像这样：
 
-+makeExample('template-syntax/ts/app/click.directive.ts', 'output-myClick')(format=".")
++makeExample('template-syntax/ts/src/app/click.directive.ts', 'output-myClick')(format=".")
 
 .l-sub-section
   :marked
@@ -2619,7 +2637,7 @@ h3#aliasing-io 给输入/输出属性起别名
 
     也可在`inputs`和`outputs`数组中为属性指定别名。
     可以写一个冒号 (`:`) 分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公开的别名。
-  +makeExample('template-syntax/ts/app/click.directive.ts', 'output-myClick2')(format=".")
+  +makeExample('template-syntax/ts/src/app/click.directive.ts', 'output-myClick2')(format=".")
 
 <a id="expression-operators"></a>
 .l-main-section
@@ -2651,7 +2669,7 @@ h3#aliasing-io 给输入/输出属性起别名
   Angular [管道](./pipes.html)对像这样的小型转换来说是个明智的选择。
   管道是一个简单的函数，它接受一个输入值，并返回转换结果。
   它们很容易用于模板表达式中，只要使用**管道操作符 (`|`) **就行了。
-+makeExample('template-syntax/ts/app/app.component.html', 'pipes-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-1')(format=".")
 :marked
   The pipe operator passes the result of an expression on the left to a pipe function on the right.
 
@@ -2660,19 +2678,19 @@ h3#aliasing-io 给输入/输出属性起别名
   We can chain expressions through multiple pipes:
 
   还可以通过多个管道串联表达式：
-+makeExample('template-syntax/ts/app/app.component.html', 'pipes-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-2')(format=".")
 :marked
   And we can also [apply parameters](./pipes.html#parameterizing-a-pipe) to a pipe:
 
   还能对它们使用参数：
-+makeExample('template-syntax/ts/app/app.component.html', 'pipes-3')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-3')(format=".")
 
 block json-pipe
   :marked
     The `json` pipe is particularly helpful for debugging our bindings:
 
     `json`管道对调试绑定特别有用：
-  +makeExample('template-syntax/ts/app/app.component.html', 'pipes-json')(format=".")
+  +makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-json')(format=".")
   :marked
     The generated output would look something like this
 
@@ -2694,7 +2712,7 @@ block json-pipe
 
   Angular 的**安全导航操作符 (`?.`) **是一种流畅而便利的方式，用来保护出现在属性路径中 null 和 undefined 值。
   下例中，当`currentHero`为空时，保护视图渲染器，让它免于失败。
-+makeExample('template-syntax/ts/app/app.component.html', 'safe-2')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'safe-2')(format=".")
 
 block dart-safe-nav-op
   //- N/A
@@ -2707,7 +2725,7 @@ block dart-safe-nav-op
   What happens when the following data bound `title` property is null?
 
   如果下列数据绑定中`title`属性为空，会发生什么？
-+makeExample('template-syntax/ts/app/app.component.html', 'safe-1')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'safe-1')(format=".")
 :marked
   The view still renders but the displayed value is blank; we see only "The title is" with nothing after it.
   That is reasonable behavior. At least the app doesn't crash.
@@ -2762,7 +2780,7 @@ block null-deref-example
   We could code around that problem with [NgIf](#ngIf).
 
   可以通过写[NgIf](#ngIf)代码来解决这个问题。
-+makeExample('template-syntax/ts/app/app.component.html', 'safe-4')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'safe-4')(format=".")
 
 block safe-op-alt
   :marked
@@ -2770,7 +2788,7 @@ block safe-op-alt
     when it encounters the first null.
 
     或者可以尝试通过`&&`来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
-  +makeExample('template-syntax/ts/app/app.component.html', 'safe-5')(format=".")
+  +makeExample('template-syntax/ts/src/app/app.component.html', 'safe-5')(format=".")
 
 :marked
   These approaches have merit but can be cumbersome, especially if the property path is long.
@@ -2787,7 +2805,7 @@ block safe-op-alt
   Angular 安全导航操作符 (`?.`) 是在属性路径中保护空值的更加流畅、便利的方式。
   表达式会在它遇到第一个空值的时候跳出。
   显示是空的，但应用正常工作，而没有发生错误。
-+makeExample('template-syntax/ts/app/app.component.html', 'safe-6')(format=".")
++makeExample('template-syntax/ts/src/app/app.component.html', 'safe-6')(format=".")
 :marked
   It works perfectly with long property paths such as `a?.b?.c?.d`.
 

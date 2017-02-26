@@ -101,7 +101,7 @@ figure
 
   动画会被定义在`@Component`元数据中。在添加动画之前，先引入一些与动画有关的函数：
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts', 'imports')(format=".")
++makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'imports')(format=".")
 
 :marked
   With these, you can define an *animation trigger* called `heroState` in the component
@@ -111,7 +111,7 @@ figure
   通过这些，可以在组件元数据中定义一个名叫`heroState`的*动画触发器*。它在两个状态`active`和`inactive`之间进行转场。
   当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'animationdef')(format=".")
 
 .alert.is-helpful
   :marked
@@ -126,7 +126,7 @@ figure
 
   我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`[@triggerName]`语法来把它附加到一个或多个元素上。
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts', 'template')(format=".")
++makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'template')(format=".")
 
 :marked
   Here, the animation trigger applies to every element repeated by an `ngFor`. Each of
@@ -141,7 +141,7 @@ figure
 
   通过这些设置，一旦英雄对象的状态发生了变化，就会触发一个转场动画。下面是完整的组件实现：
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts')
++makeExample('animations/ts/src/app/hero-list-basic.component.ts')
 
 :marked
   ## States and transitions
@@ -166,7 +166,7 @@ figure
 
   我们可以为每个动画状态定义了*一组样式*：
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts', 'states')(format=".")
++makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'states')(format=".")
 
 :marked
   These `state` definitions specify the *end styles* of each state.
@@ -181,7 +181,7 @@ figure
 
   定义完状态，就能定义在状态之间的各种*转场*了。每个转场都会控制一条在一组样式和下一组样式之间切换的时间线：
 
-+makeExample('animations/ts/app/hero-list-basic.component.ts', 'transitions')(format=".")
++makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'transitions')(format=".")
 
 figure.image-display
   img(src="/resources/images/devguide/animations/ng_animate_transitions_inactive_active.png" alt="In Angular animations you define states and transitions between states" width="400")
@@ -192,7 +192,7 @@ figure.image-display
 
   如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：
 
-+makeExample('animations/ts/app/hero-list-combined-transitions.component.ts', 'transitions')(format=".")
++makeExample('animations/ts/src/app/hero-list-combined-transitions.component.ts', 'transitions')(format=".")
 
 :marked
   When both directions of a transition have the same timing, as in the previous
@@ -200,7 +200,7 @@ figure.image-display
 
   如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：
 
-+makeExample('animations/ts/app/hero-list-twoway.component.ts', 'transitions')(format=".")
++makeExample('animations/ts/src/app/hero-list-twoway.component.ts', 'transitions')(format=".")
 
 :marked
   You can also apply a style during an animation but not keep it around
@@ -212,7 +212,7 @@ figure.image-display
   有时希望一些样式只在动画期间生效，但在结束后并不保留它们。这时可以把这些样式内联在`transition`中进行定义。
   在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。
 
-+makeExample('animations/ts/app/hero-list-inline-styles.component.ts', 'transitions')(format=".")
++makeExample('animations/ts/src/app/hero-list-inline-styles.component.ts', 'transitions')(format=".")
 
 :marked
   ### The wildcard state `*`
@@ -282,7 +282,7 @@ figure
 
   * 离场：`* => void`
 
-+makeExample('animations/ts/app/hero-list-enter-leave.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-enter-leave.component.ts', 'animationdef')(format=".")
 
 :marked
   Note that in this case the styles are applied to the void state directly in the
@@ -342,7 +342,7 @@ figure.image-display
   img(src="/resources/images/devguide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400")
 
 
-+makeExample('animations/ts/app/hero-list-enter-leave-states.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-enter-leave-states.component.ts', 'animationdef')(format=".")
 
 :marked
   ## Animatable properties and units
@@ -399,7 +399,7 @@ figure
 
   这个例子中的“离场”动画会取得该元素在离场前的高度，并且把它从这个高度用动画转场到0高度：
 
-+makeExample('animations/ts/app/hero-list-auto.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-auto.component.ts', 'animationdef')(format=".")
 
 :marked
   ## Animation timing
@@ -481,7 +481,7 @@ figure
 
   这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，但它们有不同的缓动函数。“离场”动画会在轻微的延迟之后开始：
 
-+makeExample('animations/ts/app/hero-list-timings.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-timings.component.ts', 'animationdef')(format=".")
 
 :marked
   ## Multi-step animations with keyframes
@@ -508,7 +508,7 @@ figure
 
   在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：
 
-+makeExample('animations/ts/app/hero-list-multistep.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-multistep.component.ts', 'animationdef')(format=".")
 
 :marked
   Note that the offsets are *not* defined in terms of absolute time. They are relative
@@ -549,7 +549,7 @@ figure
   这种情况下就可以用动画*组*来解决了。在这个例子中，我们同时在进场和离场时使用了组，以便能让它们使用两种不同的时间线配置。
   它们被同时应用到同一个元素上，但又彼此独立运行：
 
-+makeExample('animations/ts/app/hero-list-groups.component.ts', 'animationdef')(format=".")
++makeExample('animations/ts/src/app/hero-list-groups.component.ts', 'animationdef')(format=".")
 
 :marked
   One group animates the element transform and width; the other group animates the opacity.
@@ -569,7 +569,7 @@ figure
   
   对于例子中的这个关键帧，我们有一个叫做`@flyInOut`的`trigger`。在那里我们可以挂钩到那些回调，比如：  
 
-+makeExample('animations/ts/app/hero-list-multistep.component.ts', 'template')(format=".")
++makeExample('animations/ts/src/app/hero-list-multistep.component.ts', 'template')(format=".")
 
 :marked
   The callbacks receive an `AnimationTransitionEvent` which contains useful properties such as `fromState`,

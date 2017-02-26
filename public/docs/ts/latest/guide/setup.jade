@@ -29,6 +29,14 @@ a#develop-locally
 
   利用 [github 上](!{_qsRepo} "安装 github 《快速起步》库")的**《快速起步》种子**在你的电脑上搭建一个新项目是很快很容易的。
 
+.l-sub-section
+  :marked
+    The <live-example title="QuickStart Seed in Plunker">QuickStart seed live-example</live-example> is QuickStart
+    _plus_ the `app.module.ts` and `main.ts` application files ([described below](#app-files "QuickStart application files")) that facilitate richer application examples.
+    
+    这个<live-example title="QuickStart Seed in Plunker">QuickStart种子的live example</live-example>就是QuickStart加上`app.module.ts`和`main.ts`文件 ([稍后会讲到](#app-files "QuickStart应用文件"))，它能让制作更复杂的应用例子更简便。
+
+:marked
   Make sure you have [!{_prereq} installed](#install-prerequisites "What if you don't have !{_prereq}?").
   Then ...
 
@@ -66,6 +74,10 @@ code-example(language="sh" class="code-shell").
   !{_npm} !{_install}
   !{_npm} !{_start}
 
+.alert.is-important
+  :marked
+    `npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+
 a#download
 :marked
   ### Download
@@ -83,7 +95,40 @@ code-example(language="sh" class="code-shell").
   !{_npm} !{_install}
   !{_npm} !{_start}
 
-.l-main-section#seed
+.alert.is-important
+  :marked
+    `npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+
+a#non-essential
+.l-main-section
+:marked
+  ## Delete _non-essential_ files (optional)
+
+  You can quickly delete the _non-essential_ files that concern testing and QuickStart repository maintenance
+  (***including all git-related artifacts*** such as the `.git` folder and `.gitignore`!).
+  
+.alert.is-important
+  :marked
+     Do this only in the beginning to avoid accidentally deleting your own tests and git setup!
+
+:marked
+  Open a terminal window in the project folder and enter the following commands for your environment:
+
+  ### OS/X (bash)
+code-example(language="sh" class="code-shell").
+  xargs -a non-essential-files.txt rm -rf
+  rm src/app/*.spec*.ts
+  rm non-essential-files.txt
+
+:marked
+  ### Windows
+code-example(language="sh" class="code-shell").
+    for /f %i in (non-essential-files.txt) do del %i /F /S /Q
+    rd .git /s /q
+    rd e2e /s /q
+
+a#seed
+.l-main-section
 :marked
   ## What's in the QuickStart seed?
 
@@ -91,44 +136,52 @@ code-example(language="sh" class="code-shell").
 
 block qs-seed
   :marked
-    The **QuickStart seed** contains the same application as the QuickStart playground
-    and even has <live-example>its own _playground_</live-example> 
-    that accomodates development of richer examples in a live coding environment.
-
-    **《快速起步》种子** 包含了与《快速起步》游乐场一样的应用。该应用有<live-example>自己的*游乐场*</live-example>，
-    用来在在线编程的环境里开发更丰富例子。
-    
-    But it's true purpose is to provide a solid foundation for _local_ development.
+    The **QuickStart seed** contains the same application as the QuickStart playground.
+    But its true purpose is to provide a solid foundation for _local_ development.
     Consequently, there are _many more files_ in the project folder on your machine, 
     most of which you can [learn about later](setup-systemjs-anatomy.html "Setup Anatomy").
 
-    但是，它真实的目的是提供坚实的*本地*开发基础。
+    **《快速起步》种子** 包含了与《快速起步》游乐场一样的应用。该应用有<live-example>自己的*游乐场*</live-example>，
+    但是，它真正的目的是提供坚实的*本地*开发基础。
     所以你的电脑里的项目目录里面有*更多文件*，参见[搭建剖析](setup-systemjs-anatomy.html "Setup Anatomy")。
 
 block core-files
+  a#app-files
   :marked
-    Focus on the following three TypeScript (`.ts`) files in the **`/app`** folder.
+    Focus on the following three TypeScript (`.ts`) files in the **`/src`** folder.
 
     注意**`/app`**目录中以下三个 TypeScript (`.ts`) 文件：
   .filetree
-    .file app
+    .file src
     .children
-      .file app.component.ts
-      .file app.module.ts
+      .file app
+      .children
+        .file app.component.ts
+        .file app.module.ts
       .file main.ts
 
   +makeTabs(`
-      setup/ts/app/app.component.ts,
-      setup/ts/app/app.module.ts,
-      setup/ts/app/main.ts
+      setup/ts/src/app/app.component.ts,
+      setup/ts/src/app/app.module.ts,
+      setup/ts/src/main.ts
     `, '', `
-      app/app.component.ts,
-      app/app.module.ts,
-      app/main.ts
+      src/app/app.component.ts,
+      src/app/app.module.ts,
+      src/main.ts
     `)(format='.')
 
 :marked
-  All guides and cookbooks have _at least these core files_. Each file has a distinct purpose and evolves independently as the application grows.
+  All guides and cookbooks have _at least these core files_. 
+  Each file has a distinct purpose and evolves independently as the application grows.
+
+  Files outside `src/` concern building, deploying, and testing your app.
+  They include configuration files and external dependencies.
+
+  Files inside `src/` "belong" to your app.
+  Add new Typescript, HTML and CSS files inside the `src/` directory, most of them inside `src/app`,
+  unless told to do otherwise.
+
+  The following are all in `src/`
 
   所有指南和烹饪书都至少有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
 
@@ -144,7 +197,7 @@ table(width="100%")
       p Purpose
       p 用途
   tr
-    td <ngio-ex>app.component.ts</ngio-ex>
+    td <ngio-ex>app/app.component.ts</ngio-ex>
     td
       :marked
         Defines the same `AppComponent` as the one in the QuickStart !{_playground}.
@@ -154,7 +207,7 @@ table(width="100%")
         定义与《快速起步》游乐场同样的`AppComponent`。
         它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。
   tr
-    td <code>app.module.ts</code>
+    td <code>app/app.module.ts</code>
     td
       :marked
         Defines `AppModule`, the [root module](appmodule.html "AppModule: the root module") that tells Angular how to assemble the application.
@@ -168,7 +221,7 @@ table(width="100%")
     td <ngio-ex>main.ts</ngio-ex>
     td
       :marked
-        Compiles the application with the [JiT compiler](../glossary.html#jit)
+        Compiles the application with the [JIT compiler](../glossary.html#jit)
         and [bootstraps](appmodule.html#main "bootstrap the application") the application to run in the browser.
         That's a reasonable choice for the development of most projects and
         it's the only viable choice for a sample running in a _live-coding_ environment like Plunker.
@@ -184,9 +237,9 @@ table(width="100%")
 
     ### 下一步
 
-    If you're new to Angular, we recommend staying on the [learning path](learning-angular.html).
+    If you're new to Angular, we recommend staying on the [learning path](learning-angular.html "Angular learning path").
 
-    如果你是 Angular 初学者，建议根据[学习路径](learning-angular.html)学习。
+    如果你是 Angular 初学者，建议根据[学习路径](learning-angular.html "Angular学习路径")学习。
 
 br
 br
@@ -235,9 +288,9 @@ block install-tooling
 
     ## 附录：为何在本地开发
 
-    <live-example>Live coding</live-example> in the browser is a great way to explore Angular.
+    <live-example title="QuickStart Seed in Plunker">Live coding</live-example> in the browser is a great way to explore Angular.
 
-    在浏览器中<live-example>在线编程</live-example>是很好的探索 Angular 的方法。
+    在浏览器中<live-example title="QuickStart Seed in Plunker">在线编程</live-example>是很好的探索 Angular 的方法。
 
     Links on almost every documentation page open completed samples in the browser.
     You can play with the sample code, share your changes with friends, and download and run the code on your own machine.
@@ -275,13 +328,13 @@ block install-tooling
 
       只有本地 IDE 有类型支持、代码重构和代码自动完成
 
-    Use the <live-example><i>live coding</i></live-example> environment as a _playground_, 
+    Use the <live-example title="QuickStart Seed in Plunker"><i>live coding</i></live-example> environment as a _playground_, 
     a place to try the documentation samples and experiment on your own.
     It's the perfect place to reproduce a bug when you want to
     <a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="File a documentation issue">file a documentation issue</a> or
     <a href="https://github.com/angular/angular/issues/new" target="_blank" title="File an Angular issue">file an issue with Angular itself</a>.
 
-    把<live-example><i>在线编程</i></live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
+    把<live-example title="QuickStart Seed in Plunker"><i>在线编程</i></live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
     当你想要<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="提交关于文档的问题">提交关于文档的问题</a>或者
     <a href="https://github.com/angular/angular/issues/new" target="_blank" title="提交关于 Angular 的问题">提交关于 Angular 自身的问题</a>时，
     它是重现错误的完美地方。

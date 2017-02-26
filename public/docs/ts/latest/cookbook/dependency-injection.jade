@@ -136,7 +136,7 @@ include ../_util-fns
 
   在下面的例子中，通过`@Component`元数据的`providers`数组导入和注册了几个服务(`LoggerService`, `UserContext`和`UserService`)。
 
-+makeExample('cb-dependency-injection/ts/app/app.component.ts','import-services','app/app.component.ts (excerpt)')(format='.') 
++makeExample('cb-dependency-injection/ts/src/app/app.component.ts','import-services','src/app/app.component.ts (excerpt)')(format='.') 
 :marked
   All of these services are implemented as classes. 
   Service classes can act as their own providers which is why listing them in the `providers` array
@@ -158,9 +158,9 @@ include ../_util-fns
 
   现在我们已经注册了这些服务，这样Angular就能在应用程序的*任何地方*，把它们注入到*任何*组件和服务的构造函数里。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (component constructor injection)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','ctor','src/app/hero-bios.component.ts (component constructor injection)')(format='.')
 
-+makeExample('cb-dependency-injection/ts/app/user-context.service.ts','ctor','app/user-context.service.ts (service constructor injection)')(format='.')    
++makeExample('cb-dependency-injection/ts/src/app/user-context.service.ts','ctor','src/app/user-context.service.ts (service constructor injection)')(format='.')    
     
 <a id="external-module-configuration"></a>
 .l-main-section
@@ -184,7 +184,7 @@ include ../_util-fns
 
   下面的例子时第二种情况下，配置一个非默认的[location strategy](../guide/router.html#location-strategy)的路由器，把它加入到`AppModule`的`providers`数组中。
   
-+makeExample('cb-dependency-injection/ts/app/app.module.ts','providers','app/app.module.ts (providers)')(format='.') 
++makeExample('cb-dependency-injection/ts/src/app/app.module.ts','providers','src/app/app.module.ts (providers)')(format='.') 
 
 a(id="injectable")
 a(id="nested-dependencies")
@@ -211,7 +211,7 @@ a(id="nested-dependencies")
 
   比如，我们在`AppComponent`里注入的`LoggerService`和`UserContext`。
 
-+makeExample('cb-dependency-injection/ts/app/app.component.ts','ctor','app/app.component.ts')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/app.component.ts','ctor','src/app/app.component.ts')(format='.')
 
 :marked
   The `UserContext` in turn has dependencies on both the `LoggerService` (again) and 
@@ -219,7 +219,7 @@ a(id="nested-dependencies")
   
   `UserContext`有两个依赖`LoggerService`(再一次)和负责获取特定用户信息的`UserService`。
 
-+makeExample('cb-dependency-injection/ts/app/user-context.service.ts','injectables','user-context.service.ts (injection)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/user-context.service.ts','injectables','user-context.service.ts (injection)')(format='.')
 
 :marked
  When Angular creates an`AppComponent`, the dependency injection framework creates an instance of the `LoggerService` and 
@@ -250,7 +250,7 @@ figure.image-display
 
   注意在`UserContextService`类里面的`@Injectable()`装饰器。
 
-+makeExample('cb-dependency-injection/ts/app/user-context.service.ts','injectable','user-context.service.ts (@Injectable)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/user-context.service.ts','injectable','user-context.service.ts (@Injectable)')(format='.')
 :marked
   That decorator makes it possible for Angular to identify the types of its two dependencies, `LoggerService` and `UserService`.
   
@@ -325,7 +325,7 @@ figure.image-display
   通过*在组件树的子级根组件*中提供服务，可以把一个被注入服务的作用域局限在应用程序结构中的某个*分支*中。
   这里通过列入`providers`数组，在`HeroesBaseComponent`中提供了`HeroService`：
 
-+makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','injection','app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)')
++makeExample('cb-dependency-injection/ts/src/app/sorted-heroes.component.ts','injection','src/app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)')
 :marked
   When Angular creates the `HeroesBaseComponent`, it also creates a new instance of `HeroService` 
   that is visible only to the component and its children (if any).
@@ -382,14 +382,14 @@ figure.image-display
 
   想象一下，一个`HeroBiosComponent`组件显示三个`HeroBioComponent`的实例。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','simple','ap/hero-bios.component.ts')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','simple','ap/hero-bios.component.ts')
 :marked
   Each `HeroBioComponent` can edit a single hero's biography. 
   A `HeroBioComponent` relies on a `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
 
   每个`HeroBioComponent`都能编辑一个英雄的生平。`HeroBioComponent`依赖`HeroCacheService`服务来对该英雄进行读取、缓存和执行其它持久化操作。
 
-+makeExample('cb-dependency-injection/ts/app/hero-cache.service.ts','service','app/hero-cache.service.ts')
++makeExample('cb-dependency-injection/ts/src/app/hero-cache.service.ts','service','src/app/hero-cache.service.ts')
 :marked
   Clearly the three instances of the `HeroBioComponent` can't share the same `HeroCacheService`. 
   They'd be competing with each other to determine which hero to cache.
@@ -401,7 +401,7 @@ figure.image-display
 
   通过在自己的元数据(metadata)`providers`数组里面列出`HeroCacheService`, 每个`HeroBioComponent`就能*拥有*自己独立的`HeroCacheService`实例。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bio.component.ts','component','app/hero-bio.component.ts')
++makeExample('cb-dependency-injection/ts/src/app/hero-bio.component.ts','component','src/app/hero-bio.component.ts')
 :marked
   The parent `HeroBiosComponent` binds a value to the `heroId`.
   The `ngOnInit` pass that `id` to the service which fetches and caches the hero. 
@@ -467,13 +467,13 @@ a(id="qualify-dependency-lookup")
 
   `HeroBiosAndContactsComponent`是[前面](#hero-bios-component)见过的`HeroBiosComponent`的修改版。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','hero-bios-and-contacts','app/hero-bios.component.ts (HeroBiosAndContactsComponent)')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','hero-bios-and-contacts','src/app/hero-bios.component.ts (HeroBiosAndContactsComponent)')
 :marked
   Focus on the template:
 
   注意看模板：
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','template')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','template')(format='.')
 :marked
   We've inserted a `<hero-contact>` element between the `<hero-bio>` tags.
   Angular *projects* (*transcludes*) the corresponding `HeroContactComponent` into the `HeroBioComponent` view, 
@@ -482,7 +482,7 @@ a(id="qualify-dependency-lookup")
   我们在`<hero-bio>`标签中插入了`<hero-contact>`元素。Angular就会把相应的`HeroContactComponent`*投影*(*transclude*)进`HeroBioComponent`的视图里，
   将它放在`HeroBioComponent`模板的`<ng-content>`标签槽里。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bio.component.ts','template','app/hero-bio.component.ts (template)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-bio.component.ts','template','src/app/hero-bio.component.ts (template)')(format='.')
 :marked
   It looks like this, with the hero's telephone number from `HeroContactComponent` projected above the hero description:
 
@@ -495,13 +495,13 @@ figure.image-display
 
   下面的`HeroContactComponent`，示范了在本节一直在讨论的限定型装饰器(@Optional和@Host)：
 
-+makeExample('cb-dependency-injection/ts/app/hero-contact.component.ts','component','app/hero-contact.component.ts')
++makeExample('cb-dependency-injection/ts/src/app/hero-contact.component.ts','component','src/app/hero-contact.component.ts')
 :marked
   Focus on the constructor parameters
 
   注意看构造函数的参数
 
-+makeExample('cb-dependency-injection/ts/app/hero-contact.component.ts','ctor-params','app/hero-contact.component.ts')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-contact.component.ts','ctor-params','src/app/hero-contact.component.ts')(format='.')
 :marked
   The `@Host()` function decorating the  `heroCache` property ensures that 
   we get a reference to the cache service from the parent `HeroBioComponent`.
@@ -569,7 +569,7 @@ figure.image-display
 
   为了说明这一点，我们在[属性型指令](../guide/attribute-directives.html)`HighlightDirective`的基础上，编写了一个简化版本。
 
-+makeExample('cb-dependency-injection/ts/app/highlight.directive.ts','','app/highlight.directive.ts')
++makeExample('cb-dependency-injection/ts/src/app/highlight.directive.ts','','src/app/highlight.directive.ts')
 :marked
   The directive sets the background to a highlight color when the user mouses over the
   DOM element to which it is applied.
@@ -587,7 +587,7 @@ figure.image-display
 
   下面的代码把指令的`myHighlight`属性(Attribute)填加到两个`<div>`标签里，一个没有赋值，一个赋值了颜色。
 
-+makeExample('cb-dependency-injection/ts/app/app.component.html','highlight','app/app.component.html (highlight)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/app.component.html','highlight','src/app/app.component.html (highlight)')(format='.')
 :marked
   The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
 
@@ -595,7 +595,6 @@ figure.image-display
 
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/highlight.png" alt="Highlighted bios")
-:marked
 
 <a id="providers"></a>
 .l-main-section
@@ -623,7 +622,7 @@ figure.image-display
   我们通常在构造函数里面，为参数指定类型，让Angular来处理依赖注入。该参数类型就是依赖注入器所需的*令牌*。
   Angular把该令牌传给注入器，然后把得到的结果赋给参数。下面是一个典型的例子：
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','ctor','app/hero-bios.component.ts (组件构造器注入)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','ctor','src/app/hero-bios.component.ts (组件构造器注入)')(format='.')
 :marked
   Angular asks the injector for the service associated with the `LoggerService` and
   and assigns the returned value to the `logger` parameter.
@@ -663,7 +662,7 @@ figure.image-display
 
   Angular会使用一些自带的提供商来初始化这些注入器。我们必须自行注册属于_自己_的提供商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。
 
-+makeExample('cb-dependency-injection/ts/app/app.component.ts','providers','app/app.component.ts (提供商)')
++makeExample('cb-dependency-injection/ts/src/app/app.component.ts','providers','src/app/app.component.ts (提供商)')
 :marked
   ### Defining providers
   
@@ -674,7 +673,7 @@ figure.image-display
 
   简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。
 
-+makeExample('cb-dependency-injection/ts/app/hero-bios.component.ts','class-provider','app/hero-bios.component.ts (类提供商)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-bios.component.ts','class-provider','src/app/hero-bios.component.ts (类提供商)')(format='.')
 :marked
   It's that simple because the most common injected service is an instance of a class.
   But not every dependency can be satisfied by creating a new instance of a class.
@@ -694,7 +693,7 @@ figure.image-display
 
   它看起来很简单：一些属性和一个日志输出。但代码的背后有很多可讨论的地方。
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','hero-of-the-month','hero-of-the-month.component.ts')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','hero-of-the-month','hero-of-the-month.component.ts')
 
 .l-main-section
 a(id='provide')
@@ -737,7 +736,7 @@ a(id='usevalue')
   `HeroOfTheMonthComponent`例子有两个*值-提供商*。
   第一个提供了一个`Hero`类的实例；第二个指定了一个字符串资源：
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-value')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-value')(format='.')
 :marked
   The `Hero` provider token is a class which makes sense because the value is a `Hero`
   and the consumer of the injected hero would want the type information.
@@ -757,7 +756,7 @@ a(id='usevalue')
   一个*值-提供商*的值必须要*立即*定义。不能事后再定义它的值。很显然，标题字符串是立刻可用的。
   该例中的`someHero`变量是以前在下面这个文件中定义的：
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','some-hero')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','some-hero')
 :marked
   The other providers create their values *lazily* when they're needed for injection.
 
@@ -784,7 +783,7 @@ a(id='useclass')
 
   请看下面`HeroOfTheMonthComponent`里的两个例子：
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-class')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-class')(format='.')
 :marked
   The first provider is the *de-sugared*, expanded form of the most typical case in which the
   class to be created (`HeroService`) is also the provider's injection token. 
@@ -810,7 +809,7 @@ a(id='useclass')
 
   `DateLoggerService`从`LoggerService`继承；它把当前的日期/时间附加到每条信息上。
 
-+makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','date-logger-service','app/date-logger.service.ts')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/date-logger.service.ts','date-logger-service','src/app/date-logger.service.ts')(format='.')
 
 .l-main-section
 a(id='useexisting')
@@ -825,7 +824,7 @@ a(id='useexisting')
 
   使用`useExisting`，提供商可以把一个令牌映射到另一个令牌上。实际上，第一个令牌是第二个令牌所对应的服务的一个***别名***，创造了***访问同一个服务对象的两种方法***。
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-existing')
 :marked
   Narrowing an API through an aliasing interface is _one_ important use case for this technique.
   We're aliasing for that very purpose here.
@@ -835,7 +834,7 @@ a(id='useexisting')
   通过使用别名接口来把一个API变窄，是_一个_很重要的该技巧的使用例子。我们在这里就是为了这个目的使用的别名。
   想象一下如果`LoggerService`有个很大的API接口(虽然它其实只有三个方法，一个属性)，通过使用`MinimalLogger`[*类-接口*](#class-interface)别名，就能成功的把这个API接口缩小到只暴露两个成员：
 
-+makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger','app/date-logger.service.ts (MinimalLogger)')(format='.')   
++makeExample('cb-dependency-injection/ts/src/app/date-logger.service.ts','minimal-logger','src/app/date-logger.service.ts (MinimalLogger)')(format='.')   
 :marked
   The constructor's `logger` parameter is typed as `MinimalLogger` so only its two members are visible in TypeScript:
 
@@ -867,7 +866,7 @@ a(id='usefactory')
 
   `useFactory` 提供商通过调用工厂函数来新建一个依赖对象，如下例所示。
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-factory')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-factory')
 :marked
   Use this technique to ***create a dependency object*** 
   with a factory function whose inputs are some ***combination of injected services and local state***.
@@ -890,7 +889,7 @@ a(id='usefactory')
   
   `runnersUpFactory`自身不是提供商工厂函数。真正的提供商工厂函数是`runnersUpFactory`返回的函数。
 
-+makeExample('cb-dependency-injection/ts/app/runners-up.ts','factory-synopsis','runners-up.ts (excerpt)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/runners-up.ts','factory-synopsis','runners-up.ts (excerpt)')(format='.')
 :marked
   That returned function takes a winning `Hero` and a `HeroService` as arguments.
   
@@ -943,13 +942,13 @@ a(id="tokens")
 
   在前面的*每月英雄*的例子中，我们用了`MinimalLogger`类作为`LoggerService` 提供商的令牌。
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','use-existing')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-existing')
 :marked
   The `MinimalLogger` is an abstract class. 
 
   该`MinimalLogger`是一个抽象类。
 
-+makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/date-logger.service.ts','minimal-logger')(format='.')
 :marked
   We usually inherit from an abstract class.
   But `LoggerService` doesn't inherit from `MinimalLogger`. *No class* inherits from it.
@@ -961,7 +960,7 @@ a(id="tokens")
 
   请再看下`DateLoggerService`的声明
 
-+makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','date-logger-service-signature')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/date-logger.service.ts','date-logger-service-signature')(format='.')
 :marked
   `DateLoggerService` inherits (extends) from `LoggerService`, not `MinimalLogger`.
   The `DateLoggerService` *implements* `MinimalLogger` as if `MinimalLogger` were an *interface*.
@@ -1009,7 +1008,7 @@ a(id="tokens")
 
     为了节省内存占用，该类应该***没有具体的实现***。`MinimalLogger`会被转译成下面这段没有优化过的，尚未最小化的JavaScript：
 
-  +makeExample('cb-dependency-injection/ts/app/date-logger.service.ts','minimal-logger-transpiled')(format='.')
+  +makeExample('cb-dependency-injection/ts/src/app/date-logger.service.ts','minimal-logger-transpiled')(format='.')
   :marked
      It never grows larger no matter how many members we add *as long as they are typed but not implemented*.
 
@@ -1039,13 +1038,13 @@ a(id='opaque-token')
 
   `OpaqueToken`具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* 工厂提供商。
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','provide-opaque-token')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','provide-opaque-token')(format='.')
 :marked
   We created the `TITLE` token like this:
 
   这样创建`TITLE`令牌：
 
-+makeExample('cb-dependency-injection/ts/app/hero-of-the-month.component.ts','opaque-token')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','opaque-token')(format='.')
 
   
 a(id="di-inheritance")
@@ -1076,7 +1075,7 @@ figure.image-display
   
   `HeroesBaseComponent`能自己独立运行。它在自己的实例里要求`HeroService`，用来得到英雄，并将它们按照数据库返回的顺序显示出来。
 
-+makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','heroes-base','app/sorted-heroes.component.ts (HeroesBaseComponent)')
++makeExample('cb-dependency-injection/ts/src/app/sorted-heroes.component.ts','heroes-base','src/app/sorted-heroes.component.ts (HeroesBaseComponent)')
 .l-sub-section
   :marked
     We strongly prefer simple constructors. They should do little more than initialize variables.
@@ -1106,7 +1105,7 @@ figure.image-display
 
   可惜，Angular不能直接在基类里直接注入`HeroService`。必须在*这个*组件里再次提供`HeroService`，然后通过构造函数传给基类。
 
-+makeExample('cb-dependency-injection/ts/app/sorted-heroes.component.ts','sorted-heroes','app/sorted-heroes.component.ts (SortedHeroesComponent)') 
++makeExample('cb-dependency-injection/ts/src/app/sorted-heroes.component.ts','sorted-heroes','src/app/sorted-heroes.component.ts (SortedHeroesComponent)') 
 :marked
   Now take note of the `afterGetHeroes` method. 
   Our first instinct was to create an `ngOnInit` method in `SortedHeroesComponent` and do the sorting there.
@@ -1175,14 +1174,14 @@ a(id="find-parent")
   在下面的例子中，父组件`AlexComponent`有几个子组件，包括`CathyComponent`:
 
 a(id='alex')
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-1','parent-finder.component.ts (AlexComponent v.1)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-1','parent-finder.component.ts (AlexComponent v.1)')(format='.')
 :marked
   *Cathy* reports whether or not she has access to *Alex*
   after injecting an `AlexComponent` into her constructor:
 
   在注入*AlexComponent`进来后，*Cathy*报告它是否对*Alex*有访问权：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','cathy','parent-finder.component.ts (CathyComponent)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','cathy','parent-finder.component.ts (CathyComponent)')(format='.')
 :marked
   We added the [@Optional](#optional) qualifier for safety but
   the <live-example name="cb-dependency-injection"></live-example>
@@ -1232,13 +1231,13 @@ a(id='alex')
 
   `CraigComponent`例子探究了这个问题。[往回看Alex]{#alex}，我们看到`Alex`组件*扩展*(*派生*)自一个叫`Base`的类。
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (Alex class signature)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (Alex class signature)')(format='.')
 :marked
   The `CraigComponent` tries to inject `Base` into its `alex` constructor parameter and reports if it succeeded.
 
   `CraigComponent`试图把`Base`注入到到它的`alex`构造函数参数，来报告是否成功。
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','craig','parent-finder.component.ts (CraigComponent)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','craig','parent-finder.component.ts (CraigComponent)')(format='.')
 :marked
   Unfortunately, this does not work. 
   The <live-example name="cb-dependency-injection"></live-example>
@@ -1274,7 +1273,7 @@ a(id='alex')
   它新建一个*备选的*方式来注入同一个组件实例，并把这个提供商添加到`AlexComponent`的`@Component`元数据里的`providers`数组。
 
 a(id="alex-providers")
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
 :marked
   [Parent](#parent-token) is the provider's *class-interface* token. 
   The [*forwardRef*](#forwardref) breaks the circular reference we just created by having the `AlexComponent` refer to itself.
@@ -1285,7 +1284,7 @@ a(id="alex-providers")
 
   *Carol*，*Alex*的第三个子组件，把父级注入到了自己的`parent`参数，和之前做的一样：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','carol-class','parent-finder.component.ts (CarolComponent class)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','carol-class','parent-finder.component.ts (CarolComponent class)')(format='.')
 :marked
   Here's *Alex* and family in action:
 
@@ -1315,7 +1314,7 @@ a(id="parent-tree")
 
   下面是*Barry*的代码：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','barry','parent-finder.component.ts (BarryComponent)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','barry','parent-finder.component.ts (BarryComponent)')(format='.')
 :marked
   *Barry*'s `providers` array looks just like [*Alex*'s](#alex-providers).
   If we're going to keep writing [*alias providers*](#useexisting) like this we should create a [helper function](#provideparent).
@@ -1328,7 +1327,7 @@ a(id="parent-tree")
   眼下，请注意*Barry*的构造函数：
 
 +makeTabs(
-  'cb-dependency-injection/ts/app/parent-finder.component.ts, cb-dependency-injection/ts/app/parent-finder.component.ts',
+  'cb-dependency-injection/ts/src/app/parent-finder.component.ts, cb-dependency-injection/ts/src/app/parent-finder.component.ts',
   'barry-ctor, carol-ctor',
   'Barry\'s constructor, Carol\'s constructor')(format='.')
 :marked
@@ -1375,7 +1374,7 @@ a(id="parent-token")
 
   我们的例子定义了一个`Parent`*类-接口*。
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','parent','parent-finder.component.ts (Parent class-interface)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','parent','parent-finder.component.ts (Parent class-interface)')(format='.')
 :marked
   The `Parent` *class-interface* defines a `name` property with a type declaration but *no implementation*., 
   The `name` property is the only member of a parent component that a child component can call.
@@ -1388,7 +1387,7 @@ a(id="parent-token")
 
   一个能用做父级的组件*应该*实现*类-接口*，和下面的`AliceComponent`的做法一样：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alice-class-signature','parent-finder.component.ts (AliceComponent class signature)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alice-class-signature','parent-finder.component.ts (AliceComponent class signature)')(format='.')
 :marked
   Doing so adds clarity to the code.  But it's not technically necessary. 
   Although the `AlexComponent` has a `name` property (as required by its `Base` class) 
@@ -1396,7 +1395,7 @@ a(id="parent-token")
 
   这样做可以提升代码的清晰度，但严格来说并不是必须的。虽然`AlexComponent`有一个`name`属性(来自`Base`类的要求)，但它的类签名并不需要提及`Parent`。
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (AlexComponent class signature)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-class-signature','parent-finder.component.ts (AlexComponent class signature)')(format='.')
 .l-sub-section
   :marked
     The `AlexComponent` *should* implement `Parent` as a matter of proper style. 
@@ -1415,19 +1414,19 @@ a(id="provideparent")
 
   编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef](#forwardRef)的时候尤其绕口：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-providers')(format='.')
 :marked
   We can extract that logic into a helper function like this:
 
   可以像这样把该逻辑抽取到一个助手函数里：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','provide-the-parent')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','provide-the-parent')(format='.')
 :marked
   Now we can add a simpler, more meaningful parent provider to our components:
 
   现在就可以为组件添加一个更简单、直观的父级提供商了：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alice-providers')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alice-providers')(format='.')
 :marked
   We can do better. The current version of the helper function can only alias the `Parent` *class-interface*.
   Our application might have a variety of parent types, each with its own *class-interface* token.
@@ -1438,14 +1437,13 @@ a(id="provideparent")
 
   下面是一个修改版本，默认接受一个`Parent`，但同时接受一个可选的第二参数，可以用来指定一个不同的父级*类-接口*。
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','provide-parent')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','provide-parent')(format='.')
 :marked
   And here's how we could use it with a different parent type:
 
   下面的代码演示了如何使它添加一个不同类型的父级：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','beth-providers')(format='.')
-:marked
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','beth-providers')(format='.')
 
 a(id="forwardref")
 .l-main-section
@@ -1488,5 +1486,5 @@ a(id="forwardref")
 
   我们使用`forwardRef`来打破这种循环：
 
-+makeExample('cb-dependency-injection/ts/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
++makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-providers','parent-finder.component.ts (AlexComponent providers)')(format='.')
 :marked

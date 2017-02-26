@@ -30,10 +30,9 @@ block includes
 
 a#aot
 :marked
-  ## Ahead-of-Time (AoT) compilation
+  ## Ahead-of-time (AOT) compilation
 
   ## 预 (ahead-of-time, AoT) 编译
-
 .l-sub-section
   :marked
    You can compile Angular applications at build-time.
@@ -302,10 +301,9 @@ a#aot
 
     Angular 有一个非常强大的数据绑定框架，具有各种数据绑定操作，并支持声明式语法。
 
-     Read about the forms of binding in the [Template Syntax](!{docsLatest}/guide/template-syntax.html#data-binding) page:
+     Read about the forms of binding in the [Template Syntax](!{docsLatest}/guide/template-syntax.html) page:
 
      更多的绑定形式，见[模板语法](!{docsLatest}/guide/template-syntax.html#data-binding)：
-
      * [Interpolation](!{docsLatest}/guide/template-syntax.html#interpolation).
 
        [插值表达式 (interpolation)](!{docsLatest}/guide/template-syntax.html#interpolation)。
@@ -425,7 +423,7 @@ a#aot
     系统将解析这个依赖链，返回一个完全准备好的 “A” 实例。
 
     Angular provides and relies upon its own sophisticated
-    [dependency injection](dependency-injection.html) system
+    [dependency injection](!{docsLatest}/guide/dependency-injection.html) system
     to assemble and run applications by "injecting" application parts
     into other application parts where and when needed.
 
@@ -670,10 +668,9 @@ a#H
 
 a#jit
 :marked
-  ## Just-in-Time (JiT) compilation
+  ## Just-in-time (JIT) compilation
 
   ## 即时 (just-in-time, JiT) 编译
-
 .l-sub-section
     :marked
       With Angular _just-in-time_  bootstrapping you compile your components<span if-docs="ts"> and modules</span> in the browser
@@ -1073,7 +1070,7 @@ a#Q
       导入范围化包与导入*普通*包方式相同。
       从消费者的视角看，唯一的不同是那些包的名字是用 Angular 的*范围化包名*`@angular`开头的。
 
-    +makeExcerpt('architecture/ts/app/app.component.ts', 'import', '')
+    +makeExcerpt('architecture/ts/src/app/app.component.ts', 'import', '')
 
 a#snake-case
 :marked

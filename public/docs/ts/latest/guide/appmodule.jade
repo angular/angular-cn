@@ -16,7 +16,7 @@ include ../_util-fns
   [开发环境](setup.html)讲解了如何使用下面这个最小的`AppModule`来创建一个新项目。
   这个模块随着应用的成长而演变。
 
-+makeExample('setup/ts/app/app.module.ts','', 'app/app.module.ts')(format='.')
++makeExample('setup/ts/src/app/app.module.ts','', 'src/app/app.module.ts')(format='.')
 
 :marked
   After the `import` statements, you come to a class adorned with the
@@ -125,7 +125,7 @@ a#declarations
 
 .alert.is-important
    :marked
-      **Only _declarables_** &mdash; _components_, _directives_ and _pipes_ &mdash; belong in the `declarations` array. &nbsp;
+      **Only _declarables_** &mdash; _components_, _directives_ and _pipes_ &mdash; belong in the `declarations` array. 
       Don't put any other kind of class in `declarations`; _not_ `NgModule` classes, _not_ service classes, _not_ model classes.
 
       **只有*可以声明的** &mdash; _组件_、_指令_和_管道_ &mdash; 属于`declarations`数组。
@@ -178,26 +178,26 @@ l-main-section
   引导应用的方法很多。
   它们取决于你想如何编译应用以及应用将在哪儿运行。
   
-  In the beginning, you will compile the application dynamically with the _Just-in-Time (JiT)_ compiler
+  In the beginning, you will compile the application dynamically with the _Just-in-Time (JIT)_ compiler
   and you'll run it in a browser. You can learn about other options later.
 
   开始时，你将使用_即时 (JiT) _编译器动态编译应用。然后在浏览器中运行它。
   稍后，你可以了解其他选项。
 
-  The recommended place to bootstrap a JiT-compiled browser application is in a separate file 
-  in the `app` folder named `app/main.ts`
+  The recommended place to bootstrap a JIT-compiled browser application is in a separate file 
+  in the `src` folder named `src/main.ts`
 
   引导即时编译的浏览器应用的推荐地点是在`app`目录中一个名为`app/main.ts`的单独文件中。
 
-+makeExample('setup/ts/app/main.ts','','app/main.ts')(format='.')
++makeExample('setup/ts/src/main.ts','','src/main.ts')(format='.')
 :marked
-  This code creates a browser platform for dynamic (JiT) compilation and
-  bootstrap's the `AppModule` described above.
+  This code creates a browser platform for dynamic (JIT) compilation and
+  bootstraps the `AppModule` described above.
 
   上面的代码为动态 (JiT) 编译创建浏览器平台，并引导上面提到的`AppModule`。
 
   The _bootstrapping_ process sets up the execution environment,
-  digs the _root_ `AppComponent` out of the module's `bootstrap` array, &nbsp;
+  digs the _root_ `AppComponent` out of the module's `bootstrap` array, 
   creates an instance of the component and inserts it within the element tag identified by the component's `selector`.
 
   引导过程搭建运行环境，从模块的`bootstrap`数组中提出_根_`AppComponent`， 创建该组件的实例，并将其插入到组件`selector`标识的元素标签中。
@@ -207,7 +207,7 @@ l-main-section
 
   `AppComponent`选择器 &mdash; 在这里以及文档大部分例子中 &mdash; 是`my-app`，
   所以 Angular 在`index.html`中查找像这样的`<my-app>`标签...
-+makeExample('setup/ts/index.html','my-app')(format='.')
++makeExample('setup/ts/src/index.html','my-app')(format='.')
 :marked
   ... and displays the `AppComponent` there.
 
@@ -243,4 +243,4 @@ l-main-section
   Remove the following `<script>` tag from the `index.html` and see _your_ work in action.
 
   从`index.html`中删除下面的`<script>`标签，看看_你_的劳动成果。
-+makeExample('quickstart/ts/index.html','autobootstrap','Remove this script tag from "index.html"')(format='.')
++makeExample('quickstart/ts/src/index.html','autobootstrap','Remove this script tag from "index.html"')(format='.')

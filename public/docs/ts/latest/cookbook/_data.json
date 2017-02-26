@@ -10,10 +10,10 @@
     "intro": "学习如何使用预编译器"
   },
 
-  "a1-a2-quick-reference": {
-    "title": "Angular 从 1 到 2 快速参考",
-    "navTitle": "Angular 从 1 到 2 快速参考",
-    "intro": "学习如何把 Angular 1 中的概念和技术对应到 Angular 2 中"
+  "ajs-quick-reference": {
+    "title": "从 AngularJS 到 Angular 快速参考",
+    "navTitle": "从 AngularJS 到 Angular",
+    "intro": "学习如何把 AngularJS 中的概念和技术对应到 Angular 中"
   },
 
   "ngmodule-faq": {
@@ -36,6 +36,11 @@
     "intro": "依赖注入技术"
   },
 
+  "dynamic-component-loader": {
+    "title": "Dynamic Component Loader",
+    "intro": "Load components dynamically"
+  },
+
   "dynamic-form": {
     "title": "动态表单",
     "intro": "用 FormGroup 渲染动态表单"
@@ -48,7 +53,7 @@
 
   "i18n": {
     "title": "国际化 (i18n)",
-    "intro": "把应用的模板文本翻译成多种语言"
+    "intro": "把应用的模板文本翻译成多种语言。"
   },
 
   "set-document-title": {

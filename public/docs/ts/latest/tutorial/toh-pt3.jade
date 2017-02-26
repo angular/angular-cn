@@ -24,17 +24,19 @@ include ../_util-fns
 .filetree
   .file angular-tour-of-heroes
   .children
-    .file app
+    .file src
     .children
-      .file app.component.ts
-      .file app.module.ts
+      .file app
+      .children
+        .file app.component.ts
+        .file app.module.ts
       .file main.ts
+      .file index.html
+      .file styles.css
+      .file systemjs.config.js
+      .file tsconfig.json
     .file node_modules ...   
-    .file index.html
     .file package.json
-    .file styles.css
-    .file systemjs.config.js
-    .file tsconfig.json
 :marked
   ### Keep the app transpiling and running
 
@@ -44,7 +46,7 @@ include ../_util-fns
 
   我们要启动 TypeScript 编译器，它会监视文件变更，并启动开发服务器。只要敲：
 
-code-example(language="bash").
+code-example(language="sh" class="code-shell").
   npm start
 
 :marked
@@ -90,8 +92,7 @@ code-example(language="bash").
 
   在`app`目录下添加一个名叫`hero-detail.component.ts`的文件，并且创建`HeroDetailComponent`。代码如下：
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'v1', 'app/hero-detail.component.ts (initial version)')(format=".")
-
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'v1', 'src/app/hero-detail.component.ts (initial version)')(format=".")
 .l-sub-section
   :marked
     ### Naming conventions
@@ -162,7 +163,7 @@ code-example(language="bash").
   所以，我们要把模板中的所有`selectedHero`替换为`hero`。只改这些就够了。
   最终结果如下所示：
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'template', 'app/hero-detail.component.ts (template)')(format=".")
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'template', 'src/app/hero-detail.component.ts (template)')(format=".")
 
 :marked
   Now our hero detail layout exists only in the `HeroDetailComponent`.
@@ -177,8 +178,7 @@ code-example(language="bash").
 
   把刚刚所说的`hero`属性添加到组件类。
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero')
-
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero')
 :marked
   Uh oh. We declared the `hero` property as type `Hero` but our `Hero` class is over in the `app.component.ts` file. 
   We have two components, each in their own file, that need to reference the `Hero` class. 
@@ -190,7 +190,7 @@ code-example(language="bash").
 
   要解决这个问题，我们从`app.component.ts`文件中把`Hero`类移到属于它自己的`hero.ts`文件中。
 
-+makeExample('toh-3/ts/app/hero.ts', '', 'app/hero.ts')(format=".")
++makeExample('toh-3/ts/src/app/hero.ts', '', 'src/app/hero.ts')(format=".")
 
 :marked
   We export the `Hero` class from `hero.ts` because we'll need to reference it in both component files. 
@@ -199,7 +199,7 @@ code-example(language="bash").
   我们从`hero.ts`中导出`Hero`类，因为我们要从两个组件文件中引用它。
   在**`app.component.ts`和`hero-detail.component.ts`**的顶部添加下列 import 语句：
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero-import')
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero-import')
 
 :marked
   #### The *hero* property is an ***input***
@@ -222,7 +222,7 @@ code-example(language="bash").
   我们马上升级`AppComponent`的模板，把该组件的`selectedHero`属性绑定到`HeroDetailComponent`组件的`hero`属性上。
   绑定看起来*可能*是这样的：
 
-code-example(format=".").
+code-example(language="html").
   &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
 
 :marked
@@ -250,8 +250,7 @@ code-example(format=".").
   我们有几种方式把`hero`声明成*输入属性*。
   这里我们采用*首选*的方式：使用我们前面导入的`@Input`装饰器向`hero`属性添加注解。
 
-+makeExample('toh-3/ts/app/hero-detail.component.ts', 'hero-input')(format='.')
-
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero-input')(format='.')
 .l-sub-section
   :marked
     Learn more about the `@Input()` decorator in the 
@@ -273,7 +272,7 @@ code-example(format=".").
 
   我们先导入`HeroDetailComponent`组件，后面好引用它。
 
-+makeExample('toh-3/ts/app/app.module.ts', 'hero-detail-import')
++makeExample('toh-3/ts/src/app/app.module.ts', 'hero-detail-import')
 
 :marked
   Then we add `HeroDetailComponent` to the `NgModule` decorator's `declarations` array.
@@ -283,7 +282,7 @@ code-example(format=".").
   接下来，添加`HeroDetailComponent`到`NgModule`装饰器中的`declarations`数组。
   这个数组包含了所有由我们创建的并属于应用模块的组件、管道和指令。
 
-+makeExample('toh-3/ts/app/app.module.ts', 'declarations')
++makeExample('toh-3/ts/src/app/app.module.ts', 'declarations')
 
 .l-main-section
 :marked
@@ -299,7 +298,7 @@ code-example(format=".").
   找到我们刚刚从模板中移除*英雄详情*的地方，
   放上用来表示`HeroDetailComponent`组件的元素标签。
 
-code-example(format=".").
+code-example(language="html").
   &lt;my-hero-detail>&lt;/my-hero-detail>
 
 .l-sub-section
@@ -314,14 +313,14 @@ code-example(format=".").
 
  这两个组件目前还不能协同工作，直到我们把`AppComponent`组件的`selectedHero`
  属性和`HeroDetailComponent`组件的`hero`属性绑定在一起，就像这样：
-code-example(format=".")
+code-example(language="html").
   &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
 :marked
   The `AppComponent`’s template should now look like this
 
   `AppComponent`的模板是这样的：
 
-+makeExample('toh-3/ts/app/app.component.ts', 'hero-detail-template', 'app.component.ts (template)')(format='.')
++makeExample('toh-3/ts/src/app/app.component.ts', 'hero-detail-template', 'app.component.ts (template)')(format='.')
 :marked
   Thanks to the binding, the `HeroDetailComponent` should receive the hero from the `AppComponent` and display that hero's detail beneath the list.
   The detail should update every time the user picks a new hero.
@@ -360,32 +359,36 @@ code-example(format=".")
 .filetree
   .file angular-tour-of-heroes
   .children
-    .file app
+    .file src
     .children
-      .file app.component.ts
-      .file app.module.ts
-      .file hero.ts
-      .file hero-detail.component.ts
+      .file app
+      .children
+        .file app.component.ts
+        .file app.module.ts
+        .file hero.ts
+        .file hero-detail.component.ts
       .file main.ts
+      .file index.html
+      .file styles.css
+      .file systemjs.config.js
+      .file tsconfig.json
     .file node_modules ...
-    .file index.html
     .file package.json
-    .file tsconfig.json
 :marked
   Here are the code files we discussed in this chapter.
 
   下面是我们在本章讨论的代码文件：
 
 +makeTabs(`
-  toh-3/ts/app/hero-detail.component.ts,
-  toh-3/ts/app/app.component.ts,
-  toh-3/ts/app/hero.ts,
-  toh-3/ts/app/app.module.ts
+  toh-3/ts/src/app/hero-detail.component.ts,
+  toh-3/ts/src/app/app.component.ts,
+  toh-3/ts/src/app/hero.ts,
+  toh-3/ts/src/app/app.module.ts
   `,'',`
-  app/hero-detail.component.ts,
-  app/app.component.ts,
-  app/hero.ts,
-  app/app.module.ts
+  src/app/hero-detail.component.ts,
+  src/app/app.component.ts,
+  src/app/hero.ts,
+  src/app/app.module.ts
  `)
 
 .l-main-section

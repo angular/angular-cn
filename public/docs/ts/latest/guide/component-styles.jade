@@ -18,7 +18,7 @@ block includes
   
   在本章中，我们将学到如何加载和使用这些*组件样式*。
 
-  # Table Of Contents
+  ## Table Of Contents
   # 目录
 
   * [Using Component Styles](#using-component-styles)
@@ -70,7 +70,7 @@ block includes
   `styles`属性可以接受一个包含 CSS 代码的字符串数组。
   通常我们只给它一个字符串就行了，如同下例：
 
-+makeExample('component-styles/ts/app/hero-app.component.ts')(format='.')
++makeExample('component-styles/ts/src/app/hero-app.component.ts')(format='.')
 
 :marked
   Component styles differ from traditional, global styles in a couple of ways.
@@ -133,7 +133,7 @@ a(id="special-selectors")
   
   使用`:host`伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
-+makeExample('component-styles/ts/app/hero-details.component.css', 'host')(format='.')
++makeExample('component-styles/ts/src/app/hero-details.component.css', 'host')(format='.')
 
 :marked
   This is the *only* way we can target the host element. We cannot reach
@@ -152,7 +152,7 @@ a(id="special-selectors")
   
   在下一个例子中，我们又一次把宿主元素作为目标，但是只有当它同时带有`active` CSS 类的时候才会生效。
 
-+makeExample('component-styles/ts/app/hero-details.component.css', 'hostfunction')(format=".")
++makeExample('component-styles/ts/src/app/hero-details.component.css', 'hostfunction')(format=".")
   
 :marked
   ### :host-context
@@ -178,7 +178,7 @@ a(id="special-selectors")
   
   在下面的例子中，只有当某个祖先元素有 CSS 类`theme-light`时，我们才会把`background-color`样式应用到组件*内部*的所有`<h2>`元素中。
 
-+makeExample('component-styles/ts/app/hero-details.component.css', 'hostcontext')(format='.')
++makeExample('component-styles/ts/src/app/hero-details.component.css', 'hostcontext')(format='.')
   
 :marked
   ### /deep/
@@ -199,7 +199,7 @@ a(id="special-selectors")
   through this component to all of its child elements in the DOM: 
 
   在这个例子中，我们以所有的`<h3>`元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
-+makeExample('component-styles/ts/app/hero-details.component.css', 'deep')(format=".")
++makeExample('component-styles/ts/src/app/hero-details.component.css', 'deep')(format=".")
 
 :marked
   The `/deep/` selector also has the alias `>>>`. We can use either of the two interchangeably.
@@ -254,7 +254,7 @@ a(id='loading-styles')
   我们可以给`@Component`#{_decoratorCn}添加一个`styles`数组型属性。
   这个数组中的每一个字符串（通常也只有一个）定义一份 CSS。
 
-+makeExample('component-styles/ts/app/hero-app.component.ts')
++makeExample('component-styles/ts/src/app/hero-app.component.ts')
   
 :marked
   ### Template Inline Styles
@@ -266,7 +266,7 @@ a(id='loading-styles')
   
   我们也可以把它们放到`<style>`标签中来直接在 HTML 模板中嵌入样式。
 
-+makeExample('component-styles/ts/app/hero-controls.component.ts', 'inlinestyles')
++makeExample('component-styles/ts/src/app/hero-controls.component.ts', 'inlinestyles')
 
 :marked
   ### Style URLs in Metadata
@@ -278,7 +278,7 @@ a(id='loading-styles')
 
   我们还可以通过给组件的`@Component`#{_decoratorCn}中添加一个`styleUrls`属性来从外部 CSS 文件中加载样式：
 
-+makeExample('component-styles/ts/app/hero-details.component.ts', 'styleurls')
++makeExample('component-styles/ts/src/app/hero-details.component.ts', 'styleurls')
 
 block style-url
   .alert.is-important
@@ -286,7 +286,7 @@ block style-url
       The URL is ***relative to the application root*** which is usually the
       location of the `index.html` web page that hosts the application. 
       The style file URL is *not* relative to the component file.
-      That's why the example URL begins `app/`.
+      That's why the example URL begins `src/app/`.
       See [Appendix 2](#relative-urls) to specify a URL relative to the 
       component file.
 
@@ -333,7 +333,7 @@ block module-bundlers
   
   像`styleUrls`标签一样，这个 link 标签的`href`指向的 URL 也是相对于应用的根目录的，而不是组件文件。
 
-+makeExample('component-styles/ts/app/hero-team.component.ts', 'stylelink')
++makeExample('component-styles/ts/src/app/hero-team.component.ts', 'stylelink')
   
 :marked
   ### CSS @imports
@@ -352,7 +352,7 @@ block css-import-url
 
     在*这种*情况下，URL 是相对于我们执行导入操作的 CSS 文件的。
 
-+makeExample('component-styles/ts/app/hero-details.component.css', 'import', 'app/hero-details.component.css (excerpt)')
++makeExample('component-styles/ts/src/app/hero-details.component.css', 'import', 'src/app/hero-details.component.css (excerpt)')
 
 a#view-encapsulation
 .l-main-section
@@ -400,7 +400,7 @@ a#view-encapsulation
   
   通过组件元数据中的`encapsulation`属性来设置组件封装模式：
 
-+makeExample('component-styles/ts/app/quest-summary.component.ts', 'encapsulation.native')(format='.')
++makeExample('component-styles/ts/src/app/quest-summary.component.ts', 'encapsulation.native')(format='.')
 
 :marked
   `Native` view encapsulation only works on [browsers that have native support
@@ -491,7 +491,7 @@ a#relative-urls
   
   把组件的代码 (ts/js)、HTML 和 CSS 分别放到同一个目录下的三个不同文件，是一个常用的实践：
 
-code-example(format='').
+code-example(format="nocode").
   quest-summary.component.ts
   quest-summary.component.html
   quest-summary.component.css
@@ -510,7 +510,7 @@ block module-id
 
     通过把组件元数据的`moduleId`属性设置为`module.id`，我们可以更改 Angular 计算完整 URL 的方式
 
-  +makeExample('component-styles/ts/app/quest-summary.component.ts','', 'app/quest-summary.component.ts')
+  +makeExample('src/app/quest-summary.component.ts')
   :marked
     Learn more about `moduleId` in the [Component-Relative Paths](../cookbook/component-relative-paths.html) chapter.
 

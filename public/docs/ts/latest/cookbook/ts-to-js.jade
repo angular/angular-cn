@@ -59,7 +59,7 @@ a#toc
 
     [视图和子组件装饰器](#view-child-decorators)
 
-  * [AoT compilation in _TypeScript_ Only](#aot)<br>
+  * [AOT compilation in _TypeScript_ Only](#aot)<br>
 
     [只用于 _TypeScript_ 的预编译](#aot)
 
@@ -156,10 +156,10 @@ a#modularity
   凡是可以从`@angular`导入的，都是该`ng`对象的嵌套成员。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/app.module.ts,
-    cb-ts-to-js/js-es6-decorators/app/app.module.es6,
-    cb-ts-to-js/js-es6/app/app.module.es6,
-    cb-ts-to-js/js/app/app.module.js
+    cb-ts-to-js/ts/src/app/app.module.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/app.module.es6,
+    cb-ts-to-js/js-es6/src/app/app.module.es6,
+    cb-ts-to-js/js/src/app/app.module.js
   `,
  'ng2import,ng2import,ng2import,ng2import',
   ` TypeScript,
@@ -213,10 +213,10 @@ a#modularity
 
   下面是`HeroComponent`定义和“导出”的四种不同语言变种。
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero.component.es6,
-    cb-ts-to-js/js-es6/app/hero.component.es6,
-    cb-ts-to-js/js/app/hero.component.js
+    cb-ts-to-js/ts/src/app/hero.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero.component.es6,
+    cb-ts-to-js/js/src/app/hero.component.js
   `,
   'appexport,appexport,appexport,appexport',
   ` TypeScript,
@@ -239,10 +239,10 @@ a#modularity
   在 _ES5_ 中，使用共享的命名空间对象访问其它文件“导出”的实体。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/app.module.ts,
-    cb-ts-to-js/js-es6-decorators/app/app.module.es6,
-    cb-ts-to-js/js-es6/app/app.module.es6,
-    cb-ts-to-js/js/app/app.module.js
+    cb-ts-to-js/ts/src/app/app.module.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/app.module.es6,
+    cb-ts-to-js/js-es6/src/app/app.module.es6,
+    cb-ts-to-js/js/src/app/app.module.js
   `,
   'appimport,appimport,appimport,appimport',
   ` TypeScript,
@@ -310,10 +310,10 @@ a#class-metadata
   使用构造函数模式，把方法添加到 prototype 中。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero.component.es6,
-    cb-ts-to-js/js-es6/app/hero.component.es6,
-    cb-ts-to-js/js/app/hero.component.js
+    cb-ts-to-js/ts/src/app/hero.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero.component.es6,
+    cb-ts-to-js/js/src/app/hero.component.js
   `,
   'class,class,class,constructorproto',
   ` TypeScript,
@@ -349,10 +349,10 @@ a#class-metadata
 
   看一下这些变种：
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero.component.es6,
-    cb-ts-to-js/js-es6/app/hero.component.es6,
-    cb-ts-to-js/js/app/hero.component.js
+    cb-ts-to-js/ts/src/app/hero.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero.component.es6,
+    cb-ts-to-js/js/src/app/hero.component.js
   `,
   'metadata,metadata,metadata,metadata',
   ` TypeScript,
@@ -369,16 +369,16 @@ a#class-metadata
   A large component template is often kept in a separate template file.
 
   大的组件模板通常是放在独立的文件中。
-+makeExample('cb-ts-to-js/ts/app/hero-title.component.html', '', 'app/hero-title.component.html')(format='.')
++makeExample('cb-ts-to-js/ts/src/app/hero-title.component.html', '', 'src/app/hero-title.component.html')(format='.')
 :marked
   The component (`HeroTitleComponent` in this case) then references the template file in its metadata `templateUrl` property:
 
   接着，组件（这里是`HeroTitleComponent`）在它的元数据`templateUrl`属性中引用该模板文件：
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-title.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-title.component.es6,
-    cb-ts-to-js/js-es6/app/hero-title.component.es6,
-    cb-ts-to-js/js/app/hero-title.component.js`,
+    cb-ts-to-js/ts/src/app/hero-title.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-title.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-title.component.es6,
+    cb-ts-to-js/js/src/app/hero-title.component.js`,
   'templateUrl, templateUrl, templateUrl, templateUrl',
   `TypeScript,
     ES6 JavaScript with decorators,
@@ -387,7 +387,7 @@ a#class-metadata
   `)(format='.')
 
 :marked
-  Note that the _TypeScript_ and both _ES6_ `templateUrl` properties identify the location of the template file _relative to the component module_.
+  Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the location of the template file _relative to the component module_.
   All three metadata configurations specify the `moduleId` property 
   so that Angular can calculate the proper module address.
 
@@ -438,8 +438,8 @@ a#dsl
 
   下例中的`HeroComponent`，用 DSL 进行了重写，跟原来的 _ES5_ 版本进行对比一下：
 +makeTabs(`
-    cb-ts-to-js/js/app/hero.component.js,
-    cb-ts-to-js/js/app/hero.component.js
+    cb-ts-to-js/js/src/app/hero.component.js,
+    cb-ts-to-js/js/src/app/hero.component.js
   `,
   'dsl,',
   `
@@ -472,7 +472,7 @@ a#dsl
   _TypeScript_ 和 _ES6_ 支持 getter 和 setter。
   下面是 _TypeScript_ 只读属性的例子，它有一个 getter，为下一次点击状态准备切换按钮的标签：
 
-+makeExample('cb-ts-to-js/ts/app/hero-queries.component.ts', 'defined-property', 'ts/app/hero-queries.component.ts')(format='.')
++makeExample('cb-ts-to-js/ts/src/app/hero-queries.component.ts', 'defined-property', 'ts/src/app/hero-queries.component.ts')(format='.')
 
 :marked
   This _TypeScript_ "getter" property is transpiled to an _ES5_
@@ -485,7 +485,7 @@ a#dsl
   这个 _TypeScript_ "getter" 属性会翻译成 _ES5_ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
      target="_blank" title="Defined Properties">已定义属性</a>。
   _ES5 DSL_ 不直接支持_已定义属性_，你仍可提取"类"原型，象下面这样添加_已定义属性_：
-+makeExample('cb-ts-to-js/js/app/hero-queries.component.js', 'defined-property','js/app/hero-queries.component.ts')(format='.')
++makeExample('cb-ts-to-js/js/src/app/hero-queries.component.js', 'defined-property','js/src/app/hero-queries.component.ts')(format='.')
 
 :marked
   ### DSL for other classes
@@ -538,11 +538,11 @@ a#interfaces
   当从 _TypeScript_ 翻译成 JavaScript 时，只保留了实现方法，而忽略接口。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-lifecycle.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-lifecycle.component.es6,
-    cb-ts-to-js/js-es6/app/hero-lifecycle.component.es6,
-    cb-ts-to-js/js/app/hero-lifecycle.component.js,
-    cb-ts-to-js/js/app/hero-lifecycle.component.js
+    cb-ts-to-js/ts/src/app/hero-lifecycle.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-lifecycle.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-lifecycle.component.es6,
+    cb-ts-to-js/js/src/app/hero-lifecycle.component.js,
+    cb-ts-to-js/js/src/app/hero-lifecycle.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -589,11 +589,11 @@ a#io-decorators
   但要注意的是，用于每个类属性的那些_分离_的`@Input`和`@Output`属性装饰器，都合并到了`inputs`和`outputs`_数组_中。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/confirm.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/confirm.component.es6,
-    cb-ts-to-js/js-es6/app/confirm.component.es6,
-    cb-ts-to-js/js/app/confirm.component.js,
-    cb-ts-to-js/js/app/confirm.component.js
+    cb-ts-to-js/ts/src/app/confirm.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/confirm.component.es6,
+    cb-ts-to-js/js-es6/src/app/confirm.component.es6,
+    cb-ts-to-js/js/src/app/confirm.component.js,
+    cb-ts-to-js/js/src/app/confirm.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -678,18 +678,18 @@ a#io-decorators
   When writing with _ES5 DSL_, set the `Class.constructor` property to
   an array whose first parameters are the injectable constructor functions and whose
   last parameter is the class constructor itself. 
-  This format should be familiar to Angular 1 developers.
+  This format should be familiar to AngularJS developers.
 
   当用 _ES5 DSL_ 时，把`Class.constructor`属性设置为一个数组，它的前面的参数是
   注入的服务，最后一个参数是类构造函数本身。
   Angular 1 的开发人员对这种形式应该很熟悉。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-di.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-di.component.es6,
-    cb-ts-to-js/js-es6/app/hero-di.component.es6,
-    cb-ts-to-js/js/app/hero-di.component.js,
-    cb-ts-to-js/js/app/hero-di.component.js
+    cb-ts-to-js/ts/src/app/hero-di.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-di.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-di.component.es6,
+    cb-ts-to-js/js/src/app/hero-di.component.js,
+    cb-ts-to-js/js/src/app/hero-di.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -713,13 +713,13 @@ a#io-decorators
   In the following example, the token is the string `'heroName'`.
 
   在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以在类的构造函数参数前调用`@Inject()`装饰器来指定注入令牌。
+  在这个例子中，这个令牌是字符串`'heroName'`
 
-  The other JavaScript dialogs add a `parameters` array to the class contructor function.
-  Each item constains a new instance of `Inject('heroName')`:
+  The other JavaScript dialects add a `parameters` array to the class contructor function.
+  Each item constains a new instance of `Inject`:
 
   其它 JavaScript 方言是通过向类的构造函数添加`parameters`数组。
   其中的每一项是`Inject`的实例。
-
   * _plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
 
     _普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
@@ -729,17 +729,17 @@ a#io-decorators
     _ES5_ &mdash; 简单列出字符串令牌。
 
   When writing with _ES5 DSL_, set the `Class.constructor` property to a function definition
-  array as before. Create a `new ng.core.Inject(token)` for each parameter. 
+  array as before. Create a new instance of `ng.core.Inject(token)` for each parameter. 
 
   当用 _ES5 DSL_ 时，象前面那样把`Class.constructor`属性设置为函数定义数组。
   为每个参数创建一个`ng.core.Inject(token)`。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-di-inject.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-di-inject.component.es6,
-    cb-ts-to-js/js-es6/app/hero-di-inject.component.es6,
-    cb-ts-to-js/js/app/hero-di-inject.component.js,
-    cb-ts-to-js/js/app/hero-di-inject.component.js
+    cb-ts-to-js/ts/src/app/hero-di-inject.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-di-inject.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-di-inject.component.es6,
+    cb-ts-to-js/js/src/app/hero-di-inject.component.js,
+    cb-ts-to-js/js/src/app/hero-di-inject.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -799,11 +799,11 @@ a#io-decorators
   用嵌套数组来定义参数完整的注入规格说明。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-title.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-title.component.es6,
-    cb-ts-to-js/js-es6/app/hero-title.component.es6,
-    cb-ts-to-js/js/app/hero-title.component.js,
-    cb-ts-to-js/js/app/hero-title.component.js
+    cb-ts-to-js/ts/src/app/hero-title.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-title.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-title.component.es6,
+    cb-ts-to-js/js/src/app/hero-title.component.js,
+    cb-ts-to-js/js/src/app/hero-title.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -871,11 +871,11 @@ a#host-binding
     每个值标识相应的组件属性或方法。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-host.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-host.component.es6,
-    cb-ts-to-js/js-es6/app/hero-host.component.es6,
-    cb-ts-to-js/js/app/hero-host.component.js,
-    cb-ts-to-js/js/app/hero-host.component.js
+    cb-ts-to-js/ts/src/app/hero-host.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-host.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-host.component.es6,
+    cb-ts-to-js/js/src/app/hero-host.component.js,
+    cb-ts-to-js/js/src/app/hero-host.component.js
   `,
   ',,,,dsl',
   ` TypeScript,
@@ -905,8 +905,8 @@ a#host-binding
   _任何属性元数据装饰器_都可以表示为组件或指令元数据。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-host-meta.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-host-meta.component.es6
+    cb-ts-to-js/ts/src/app/hero-host-meta.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-host-meta.component.es6
   `,
   '',
   ` TypeScript,
@@ -961,10 +961,10 @@ a#view-child-decorators
     每个_值_是`ViewChild`或`ViewChildren`的实例。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-queries.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-queries.component.es6,
-    cb-ts-to-js/js-es6/app/hero-queries.component.es6,
-    cb-ts-to-js/js/app/hero-queries.component.js
+    cb-ts-to-js/ts/src/app/hero-queries.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-queries.component.es6,
+    cb-ts-to-js/js/src/app/hero-queries.component.js
   `,
   'view, view, view, view',
   ` TypeScript,
@@ -990,10 +990,10 @@ a#view-child-decorators
   [`@ViewChildren`](../api/core/index/ViewChildren-decorator.html) 相同。
 
 +makeTabs(`
-    cb-ts-to-js/ts/app/hero-queries.component.ts,
-    cb-ts-to-js/js-es6-decorators/app/hero-queries.component.es6,
-    cb-ts-to-js/js-es6/app/hero-queries.component.es6,
-    cb-ts-to-js/js/app/hero-queries.component.js
+    cb-ts-to-js/ts/src/app/hero-queries.component.ts,
+    cb-ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6,
+    cb-ts-to-js/js-es6/src/app/hero-queries.component.es6,
+    cb-ts-to-js/js/src/app/hero-queries.component.js
   `,
   'content, content, content, content',
   ` TypeScript,
@@ -1013,15 +1013,15 @@ a#view-child-decorators
 a#aot
 .l-main-section
 :marked
-  ## AoT Compilation in _TypeScript_ only
+  ## AOT Compilation in _TypeScript_ only
 
   ## 只用于 _TypeScript_ 的预编译
 
-  Angular offers two modes of template compilation, JiT (_Just-in-Time_) and 
-  [AoT (_Ahead-of-Time_)](aot-compiler.html).
-  Currently the AoT compiler only works with _TypeScript_ applications because, in part, it generates
+  Angular offers two modes of template compilation, JIT (_Just-in-Time_) and 
+  [AOT (_Ahead-of-Time_)](aot-compiler.html).
+  Currently the AOT compiler only works with _TypeScript_ applications because, in part, it generates
   _TypeScript_ files as an intermediate result.
-  **AoT is not an option for pure JavaScript applications** at this time.
+  **AOT is not an option for pure JavaScript applications** at this time.
 
   Angular 模板编译有两种方式：JiT (_Just-in-Time，即时编译_) 和
   [AoT (_Ahead-of-Time，预编译_)](aot-compiler.html)。

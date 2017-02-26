@@ -57,17 +57,12 @@ var _rxData = [
   {
     pattern: 'script',
     from: 'node_modules/zone.js/dist/zone.js',
-    to:   'https://unpkg.com/zone.js@0.6.25?main=browser'
-  },
-  {
-    pattern: 'script',
-    from: 'node_modules/reflect-metadata/Reflect.js',
-    to:   'https://unpkg.com/reflect-metadata@0.1.8'
+    to:   'https://unpkg.com/zone.js@0.7.4?main=browser'
   },
   {
     pattern: 'script',
     from: 'node_modules/rxjs/bundles/Rx.js',
-    to:   'https://unpkg.com/rxjs@5.0.0-beta.12/bundles/Rx.js'
+    to:   'https://unpkg.com/rxjs@5.0.1/bundles/Rx.js'
   },
   {
     pattern: 'script',

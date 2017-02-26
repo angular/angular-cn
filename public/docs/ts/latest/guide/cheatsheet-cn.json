@@ -1,20 +1,20 @@
 {
   "currentEnvironment": "TypeScript",
   "version": {
-    "raw": "2.2.0-beta.0",
+    "raw": "2.4.5",
     "major": 2,
-    "minor": 2,
-    "patch": 0,
+    "minor": 4,
+    "patch": 6,
     "prerelease": [
       "local"
     ],
-    "build": "sha.f6eeb79",
-    "version": "2.2.0-local",
+    "build": "sha.a3e98d5",
+    "version": "2.4.6-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.2.0-local+sha.f6eeb79",
+    "full": "2.4.6-local+sha.a3e98d5",
     "branch": "master",
-    "commitSHA": "f6eeb79d28bab55ae6d025f37368c4107bbcb408"
+    "commitSHA": "a3e98d5df3376b04c8c8b57b8aec05409d196074"
   },
   "sections": [
     {
@@ -350,9 +350,9 @@
           "description": "<p>声明一个输出属性，以便我们可以通过事件绑定进行订阅。(比如：<code>&lt;my-cmp (my-event)=&quot;doSomething()&quot;&gt;</code>).</p>\n"
         },
         {
-          "syntax": "@HostBinding('[class.valid]') isValid;",
+          "syntax": "@HostBinding('class.valid') isValid;",
           "bold": [
-            "@HostBinding('[class.valid]')"
+            "@HostBinding('class.valid')"
           ],
           "description": "<p>把宿主元素的属性(比如CSS类：<code>valid</code>)绑定到指令/组件的属性(比如：<code>isValid</code>)。</p>\n"
         },

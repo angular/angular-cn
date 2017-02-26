@@ -19,17 +19,19 @@ include ../_util-fns
 .filetree
   .file angular-tour-of-heroes
   .children
-    .file app
+    .file src
     .children
-      .file app.component.ts
-      .file app.module.ts
+      .file app
+      .children
+        .file app.component.ts
+        .file app.module.ts
       .file main.ts
+      .file index.html
+      .file styles.css
+      .file systemjs.config.js
+      .file tsconfig.json
     .file node_modules ... 
-    .file index.html
     .file package.json
-    .file styles.css
-    .file systemjs.config.js
-    .file tsconfig.json
 :marked
   When we're done with this first episode, the app runs like this <live-example></live-example>.
 
@@ -70,7 +72,7 @@ code-example(language="sh" class="code-shell").
 
     更新`AppComponent`并添加两个属性：`title`属性表示应用的名字，`hero`属性表示一个名叫 “Windstorm” 的英雄。
 
-  +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'app.component.ts (AppComponent class)')(format=".")
+  +makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'app-component-1', 'src/app/app.component.ts (AppComponent class)')(format=".")
 
   :marked
     Now update the template in the `@Component` decoration with data bindings to these new properties.
@@ -113,7 +115,7 @@ code-example(language="sh" class="code-shell").
   创建一个`Hero`类，它具有`id`和`name`属性。
   现在，把下列代码放在`app.component.ts`的顶部，仅次于 import 语句。
 
-+makeExample('toh-1/ts/app/app.component.ts', 'hero-class-1', 'app.component.ts (Hero class)')(format=".")
++makeExample('toh-1/ts/src/app/app.component.ts', 'hero-class-1', 'src/app/app.component.ts (Hero class)')(format=".")
 
 :marked
   Now that we have a `Hero` class, let’s refactor our component’s `hero` property to be of type `Hero`.
@@ -122,7 +124,7 @@ code-example(language="sh" class="code-shell").
   现在，有了一个`Hero`类，我们把组件`hero`属性的类型换成`Hero`。
   然后以`1`为 id、以 “Windstorm” 为名字，初始化它。
 
-+makeExample('toh-1/ts/app/app.component.ts', 'hero-property-1', 'app.component.ts (hero property)')(format=".")
++makeExample('toh-1/ts/src/app/app.component.ts', 'hero-property-1', 'src/app/app.component.ts (hero property)')(format=".")
 
 :marked
   Because we changed the hero from a string to an object,
@@ -170,7 +172,7 @@ code-example(language="sh" class="code-shell").
 
   把模板的双引号改成反引号，并且让`<h1>`，`<h2>`和`<div>`标签各占一行。
 
-+makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'multi-line-strings', 'app.component.ts (AppComponent\'s template)')
++makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'multi-line-strings', 'src/app/app.component.ts (AppComponent\'s template)')
 
   .callout.is-important
     header A back-tick is not a single quote
@@ -204,7 +206,7 @@ code-example(language="sh" class="code-shell").
 
   把英雄的名字从单纯的`<label>`重构成`<label>`和`<input>`元素的组合，就像下面这样：
 
-+makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'app.component.ts (input element)')
++makeExample('toh-1/ts-snippets/app.component.snippets.pt1.ts', 'editing-Hero', 'src/appapp.component.ts (input element)')
 :marked
   We see in the browser that the hero’s name does appear in the `<input>` textbox.
   But something doesn’t feel right.
@@ -235,7 +237,7 @@ code-example(language="sh" class="code-shell").
   只要把它添加到`NgModule`装饰器的`imports`数组中就可以了，该数组是应用中用到的外部模块列表。
   这样我们就引入了表单包，其中包含了`ngModel`。
 
-+makeExample('toh-1/ts/app/app.module.ts', '', 'app.module.ts (FormsModule import)')
++makeExample('toh-1/ts/src/app/app.module.ts', '', 'src/app/app.module.ts (FormsModule import)')
 
 .l-sub-section
   :marked
@@ -300,7 +302,7 @@ code-example(language="html").
 
   完整的`app.component.ts`是这样的：
 
-+makeExample('toh-1/ts/app/app.component.ts', 'pt1', 'app.component.ts')
++makeExample('toh-1/ts/src/app/app.component.ts', 'pt1', 'src/app/app.component.ts')
 
 .l-main-section
 :marked

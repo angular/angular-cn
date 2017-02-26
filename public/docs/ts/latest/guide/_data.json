@@ -77,8 +77,8 @@
   },
 
   "cheatsheet": {
-    "title": "Angular 速查表",
-    "intro": "一份 Angular 语法的快速指南",
+    "title": "速查表",
+    "subtitle": "TypeScript",
     "nextable": true,
     "basics": true
   },
@@ -126,10 +126,20 @@
     "intro": "学习如何给组件应用 CSS 样式。"
   },
 
+  "deployment": {
+    "title": "Deployment",
+    "intro": "Learn how to deploy your Angular app."
+  },
+
   "hierarchical-dependency-injection": {
     "title": "多级依赖注入器",
     "navTitle": "多级注入器",
     "intro": "Angular 的多级依赖注入系统支持与组件树并行的嵌套式注入器。"
+  },
+
+  "reactive-forms": {
+    "title": "Reactive Forms",
+    "intro": "Create a reactive form using FormBuilder, groups, and arrays."
   },
 
   "server-communication": {
@@ -183,8 +193,8 @@
   },
 
   "upgrade": {
-    "title": "从 1.x 升级",
-    "intro": "Angular 1 应用可以逐步升级到 Angular 2。"
+    "title": "从 AngularJS 升级",
+    "intro": "AngularJS 应用可以逐步升级到 Angular。"
   },
 
   "webpack": {

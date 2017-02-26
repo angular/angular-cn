@@ -8,16 +8,24 @@ a(id='top')
   应用程序应该能让浏览器标题栏显示我们想让它显示的内容。本*烹饪宝典*解释怎么做。
 :marked
   **See the <live-example name="cb-set-document-title"></live-example>**.
-  
+
   **参见<live-example name="cb-set-document-title">在线例子</live-example>**。
-  
-.l-sub-section
-  img(src='/resources/images/devguide/plunker-separate-window-button.png' alt="pop out the window" align="right" style="margin-right:-20px")
-  :marked
-    To see the browser Title bar changes,
-    pop out the preview window by clicking the blue 'X' button in the upper right corner.
-    
-    要看到浏览器标题的变化，点击预览窗口右上角的'X'按钮，弹出窗口。
+
+table
+  tr
+    td
+      :marked
+        To see the browser title bar change in the live example,
+        open it again in the Plunker editor by clicking the icon in the upper right,
+        then pop out the preview window by clicking the blue 'X' button in the upper right corner.
+        
+        要在在线例子中看到浏览器标题的变化，请点击右上角的图标在Plunker编辑器中打开它，然后点击预览窗口右上角的蓝色'X'按钮，弹出窗口。
+    td
+      img(src='/resources/images/devguide/plunker-switch-to-editor-button.png' width="200px" height="70px" alt="pop out the window" align="right" )
+      br
+      img(src='/resources/images/devguide/plunker-separate-window-button.png' width="200px" height="47px" alt="pop out the window" align="right" )
+
+
 :marked
   ## The problem with *&lt;title&gt;*
   
@@ -76,7 +84,7 @@ code-example(format='')
   
   我们来把`Title`服务注入到根组件`AppComponent`，并暴露出可供绑定的`setTitle`方法让别人来调用该服务：
 
-+makeExample( "cb-set-document-title/ts/app/app.component.ts", "class", "app/app.component.ts (class)" )(format='.')
++makeExample( "cb-set-document-title/ts/src/app/app.component.ts", "class", "src/app/app.component.ts (class)" )(format='.')
 :marked
   We bind that method to three anchor tags and, voila!
   
@@ -91,11 +99,11 @@ figure.image-display
   这里是完整的方案(代码)。
 
 +makeTabs(
-  `cb-set-document-title/ts/app/main.ts,
-   cb-set-document-title/ts/app/app.module.ts,
-   cb-set-document-title/ts/app/app.component.ts`, 
+  `cb-set-document-title/ts/src/main.ts,
+   cb-set-document-title/ts/src/app/app.module.ts,
+   cb-set-document-title/ts/src/app/app.component.ts`, 
   '', 
-  'app/main.ts, app/app.module.ts, app/app.component.ts' )
+  'src/main.ts, src/app/app.module.ts, src/app/app.component.ts' )
 
 //
   Todo: tie this back to the router so we can see how to use this Title service to (re)set the title

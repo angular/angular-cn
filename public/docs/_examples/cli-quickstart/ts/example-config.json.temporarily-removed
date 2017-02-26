@@ -1,4 +1,0 @@
-{
-  "build": "build:cli",
-  "run": "http-server:cli"
-}

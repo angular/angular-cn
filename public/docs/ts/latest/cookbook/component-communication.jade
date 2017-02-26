@@ -62,7 +62,7 @@ include ../_util-fns
   
   `HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input装饰器](../guide/template-syntax.html#inputs-outputs)。
   
-+makeExample('cb-component-communication/ts/app/hero-child.component.ts')
++makeExample('cb-component-communication/ts/src/app/hero-child.component.ts')
 :marked
   The second `@Input` aliases the child component property name `masterName` as `'master'`.
   
@@ -72,7 +72,7 @@ include ../_util-fns
    
   父组件`HeroParentComponent`把子组件的`HeroChildComponent`放到`*ngFor`循环器中，把自己的`master`字符串属性绑定到子组件的`master`别名上，并把每个循环的`hero`实例绑定到子组件的`hero`属性。
 
-+makeExample('cb-component-communication/ts/app/hero-parent.component.ts')
++makeExample('cb-component-communication/ts/src/app/hero-parent.component.ts')
 :marked
   The running application displays three heroes:
   
@@ -111,14 +111,14 @@ figure.image-display
   
   子组件`NameChildComponent`的输入属性`name`上的这个setter，会trim掉名字里的空格，并把空值替换成默认字符串。
   
-+makeExample('cb-component-communication/ts/app/name-child.component.ts')
++makeExample('cb-component-communication/ts/src/app/name-child.component.ts')
 
 :marked
   Here's the `NameParentComponent` demonstrating name variations including a name with all spaces:
   
   下面的`NameParentComponent`展示了各种名字的处理方式，包括一个全是空格的名字。
 
-+makeExample('cb-component-communication/ts/app/name-parent.component.ts')
++makeExample('cb-component-communication/ts/src/app/name-parent.component.ts')
 
 figure.image-display
   img(src="/resources/images/cookbooks/component-communication/setter.png" alt="Parent-to-child-setter")
@@ -163,14 +163,14 @@ figure.image-display
   
   这个`VersionChildComponent`会监测输入属性`major`和`minor`的变化，并把这些变化编写成日志以报告这些变化。
   
-+makeExample('cb-component-communication/ts/app/version-child.component.ts')
++makeExample('cb-component-communication/ts/src/app/version-child.component.ts')
 
 :marked
   The `VersionParentComponent` supplies the `minor` and `major` values and binds buttons to methods that change them.
   
   `VersionParentComponent`提供`minor`和`major`值，把修改它们值的方法绑定到按钮上。
   
-+makeExample('cb-component-communication/ts/app/version-parent.component.ts')
++makeExample('cb-component-communication/ts/src/app/version-parent.component.ts')
 
 :marked
   Here's the output of a button-pushing sequence:
@@ -209,7 +209,7 @@ figure.image-display
     
   子组件的`EventEmitter`属性是一个**输出属性**，通常带有[@Output装饰器](../guide/template-syntax.html#inputs-outputs)，就像在`VoterComponent`中看到的。
   
-+makeExample('cb-component-communication/ts/app/voter.component.ts')
++makeExample('cb-component-communication/ts/src/app/voter.component.ts')
 
 :marked
   Clicking a button triggers emission of a `true` or `false` (the boolean *payload*).
@@ -220,7 +220,7 @@ figure.image-display
   
   父组件`VoteTakerComponent`绑定了一个事件处理器(`onVoted`)，用来响应子组件的事件(`$event`)并更新一个计数器。
   
-+makeExample('cb-component-communication/ts/app/votetaker.component.ts')
++makeExample('cb-component-communication/ts/src/app/votetaker.component.ts')
 
 :marked
   The framework passes the event argument &mdash; represented by `$event` &mdash; to the handler method, and the method processes it:
@@ -259,13 +259,13 @@ figure.image-display
   
   子组件`CountdownTimerComponent`进行倒计时，归零时发射一个导弹。`start`和`stop`方法负责控制时钟并在模板里显示倒计时的状态信息。  
   
-+makeExample('cb-component-communication/ts/app/countdown-timer.component.ts')
++makeExample('cb-component-communication/ts/src/app/countdown-timer.component.ts')
 :marked
   Let's see the `CountdownLocalVarParentComponent` that hosts the timer component.
   
   让我们来看看计时器组件的宿主组件`CountdownLocalVarParentComponent`。
   
-+makeExample('cb-component-communication/ts/app/countdown-parent.component.ts', 'lv')
++makeExample('cb-component-communication/ts/src/app/countdown-parent.component.ts', 'lv')
 :marked
   The parent component cannot data bind to the child's `start` and `stop` methods nor to its `seconds` property.
   
@@ -335,7 +335,7 @@ a(id="countdown-tests")
   
   下面是父组件`CountdownViewChildParentComponent`:
   
-+makeExample('cb-component-communication/ts/app/countdown-parent.component.ts', 'vc')
++makeExample('cb-component-communication/ts/src/app/countdown-parent.component.ts', 'vc')
 :marked
   It takes a bit more work to get the child view into the parent component *class*.
   
@@ -400,20 +400,20 @@ a(id="countdown-tests")
   
   这个`MissionService`把`MissionControlComponent`和多个`AstronautComponent`子组件连接起来。
 
-+makeExample('cb-component-communication/ts/app/mission.service.ts')
++makeExample('cb-component-communication/ts/src/app/mission.service.ts')
 :marked
   The `MissionControlComponent` both provides the instance of the service that it shares with its children (through the `providers` metadata array) and injects that instance into itself through its constructor:
   
   `MissionControlComponent`提供服务的实例，并将其共享给它的子组件(通过`providers`元数据数组)，子组件可以通过构造函数将该实例注入到自身。
   
-+makeExample('cb-component-communication/ts/app/missioncontrol.component.ts')
++makeExample('cb-component-communication/ts/src/app/missioncontrol.component.ts')
 
 :marked
   The `AstronautComponent` also injects the service in its constructor. Each `AstronautComponent` is a child of the `MissionControlComponent` and therefore receives its parent's service instance:
   
   `AstronautComponent`也通过自己的构造函数注入该服务。由于每个`AstronautComponent`都是`MissionControlComponent`的子组件，所以它们获取到的也是父组件的这个服务实例。
   
-+makeExample('cb-component-communication/ts/app/astronaut.component.ts')
++makeExample('cb-component-communication/ts/src/app/astronaut.component.ts')
 
 .l-sub-section
   :marked

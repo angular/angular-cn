@@ -4,15 +4,7 @@
     "title": "Angular 中文文档",
     "subtitle": "TypeScript",
     "menuTitle": "文档首页",
-    "banner": "当前的 Angular 版本是 <b>2.2</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular 产品更新'> Angular 更新记录</a> 了解 Angular 产品的最新的增强、修复和破环性变更。"
-  },
-
-  "cli-quickstart": {
-    "icon": "query-builder",
-    "title": "CLI 快速起步",
-    "subtitle": "TypeScript",
-    "description": "使用 CLI 快速构建 Angular 应用",
-    "hide": true
+    "banner": "当前的 Angular 版本是 <b>2.4</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular 产品更新'> Angular 更新记录</a> 了解 Angular 产品的最新的增强、修复和破环性变更。"
   },
 
   "quickstart": {
@@ -20,6 +12,13 @@
     "title": "快速起步",
     "subtitle": "TypeScript",
     "banner": "快速体验 Angular"
+  },
+
+  "cli-quickstart": {
+    "icon": "query-builder",
+    "title": "CLI 快速起步",
+    "subtitle": "TypeScript",
+    "description": "使用 CLI 快速构建 Angular 应用"
   },
 
   "tutorial": {
@@ -49,7 +48,7 @@
   },
 
   "cheatsheet": {
-    "title": "Angular 速查表",
+    "title": "速查表",
     "subtitle": "TypeScript",
     "intro": "关于 Angular 语法的快速指南（内容可能会更改）",
     "reference": false
