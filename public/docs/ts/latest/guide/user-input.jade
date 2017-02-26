@@ -100,7 +100,7 @@ include ../_util-fns
   所有[标准 DOM 事件对象](https://developer.mozilla.org/en-US/docs/Web/API/Event)都有一个`target`属性，
   引用触发该事件的元素。
   在本例中，`target`是[`<input>`元素](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)，
-  `value.target.value`返回该元素的当前内容。
+  `event.target.value`返回该元素的当前内容。
 
   After each call, the `onKey()` method appends the contents of the input box value to the list
   in the component's `values` property, followed by a  separator character (|).

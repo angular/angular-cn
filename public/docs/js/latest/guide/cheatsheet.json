@@ -8,13 +8,13 @@
     "prerelease": [
       "local"
     ],
-    "build": "sha.a3e98d5",
+    "build": "sha.6af595d",
     "version": "2.4.6-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "2.4.6-local+sha.a3e98d5",
+    "full": "2.4.6-local+sha.6af595d",
     "branch": "master",
-    "commitSHA": "a3e98d5df3376b04c8c8b57b8aec05409d196074"
+    "commitSHA": "6af595d7bd46d8fd0e44d6fd1c9719dff58464ff"
   },
   "sections": [
     {
