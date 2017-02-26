@@ -95,14 +95,6 @@
         "bio": "Rob is a Developer Advocate on the Angular team at Google. He's the Angular team's resident reactive programming geek and founded the Reactive Extensions for Angular project, ngrx.",
         "type": "Google"
       },
-      "aaronzhang": {
-        "name": "Aaron Zhang (章小飞)",
-        "picture": "/resources/images/bios/xiaofei.jpg",
-        "twitter": "",
-        "website": "http://github.com/damoqiongqiu",
-        "bio": "Aaron is Angular's developer PM in China. He is the lead for angular.cn and social channels in China, and helps developers in China's enterprise and open source communities to be successful with Angular. One of the earliest Angular developers in China since Angular 2012, he translated the first books on Angular into Chinese. Aaron joined the Google team in 2016.",
-        "type": "Google"
-      },
       "tobias": {
         "name": "Tobias Bosch",
         "picture": "/resources/images/bios/tobias.jpg",
@@ -506,7 +498,7 @@
         "bio": "George is a Software Engineer with a passion for chess, robotics and automating stuff. He has a strong need to know how things work (so if you already know, he'd love to have a talk with you). He has been a member of the AngularJS team since 2014. When not doing geeky stuff, he is probably trying to convince his wife and kids to apply programming principles in real life. (Or is it the other way around?)",
         "type": "Community"
       },
-      
+
       "kapunahelewong": {
         "name": "Kapunahele Wong",
         "picture": "/resources/images/bios/kapunahelewong.jpg",

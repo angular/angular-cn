@@ -154,7 +154,7 @@ include ../_util-fns
   of information about how to write and organize Angular code - and equally
   importantly - how **not** to write and organize Angular code.
 
-  [Angular风格指南](https://github.com/johnpapa/angular-styleguide)收集了一些已证明能写出干净且可维护的AngularJS程序的模式与实践。
+  [Angular风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)收集了一些已证明能写出干净且可维护的AngularJS程序的模式与实践。
   它包含了很多关于如何书写和组织Angular代码的有价值信息，同样重要的是，**不应该**采用的书写和组织Angular代码的方式。
 
   Angular is a reimagined version of the best parts of AngularJS. In that
@@ -1326,13 +1326,13 @@ figure
   which is an important [preparation step](#following-the-angular-style-guide) before
   a successful upgrade.
 
-  这确实是一个很好地起点。特别是，该结构遵循了[AngularJS 风格指南](https://github.com/johnpapa/angular-styleguide)，
+  这确实是一个很好地起点。特别是，该结构遵循了[AngularJS 风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)，
   要想成功升级，这是一个很重要的[准备步骤](#following-the-angular-style-guide)。
 
   * Each component, service, and filter is in its own source file, as per the
     [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
 
-    每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide#single-responsibility)所要求的。
+    每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)所要求的。
 
   * The `core`, `phone-detail`, and `phone-list` modules are each in their
     own subdirectory. Those subdirectories contain the JavaScript code as well as
@@ -1342,8 +1342,8 @@ figure
     rules.
 
     `core`、`phone-detail`和`phone-list`模块都在它们自己的子目录中。那些子目录除了包含HTML模板之外，还包含JavaScript代码，它们共同完成一个特性。
-    这是[按特性分目录的结构](https://github.com/johnpapa/angular-styleguide#style-y152)
-    和[模块化](https://github.com/johnpapa/angular-styleguide#modularity)规则所要求的。
+    这是[按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y152)
+    和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则所要求的。
 
   * Unit tests are located side-by-side with application code where they are easily
     found, as described in the rules for
