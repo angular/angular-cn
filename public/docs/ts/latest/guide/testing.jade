@@ -47,11 +47,11 @@ a#top
   * [Test a component with a service dependency](#component-with-dependency)
     - [test doubles](#service-test-doubles)
 
-    - [测试复制品](#service-test-doubles)
+      [测试复制品](#service-test-doubles)
 
     - [get the injected service](#get-injected-service)
 
-    - [获取注入的服务](#get-injected-service)
+      [获取注入的服务](#get-injected-service)
 
     - [_TestBed.get_](#testbed-get)
   * [Test a component with an async service](#component-with-async-service)
@@ -82,11 +82,11 @@ a#top
   * [Test a _RouterOutlet_ component](#router-outlet-component)
     - [stubbing unneeded components](#stub-component)
 
-    - [模拟不需要的组件](#stub-component)
+      [模拟不需要的组件](#stub-component)
 
     - [Stubbing the _RouterLink_](#router-link-stub)
 
-    - [模拟_RouterLink_](#router-link-stub)
+      [模拟_RouterLink_](#router-link-stub)
 
     - [_By.directive_ and injected directives](#by-directive)
   * ["Shallow" component tests with  *NO\_ERRORS\_SCHEMA*](#shallow-component-test)
@@ -96,17 +96,17 @@ a#top
   * [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
     - [Services](#isolated-service-tests)
 
-    - [服务](#isolated-service-tests)
+      [服务](#isolated-service-tests)
 
     - [Pipes](#isolated-pipe-tests)
 
-    - [管道](#isolated-pipe-tests)
+      [管道](#isolated-pipe-tests)
 
     - [Components](#isolated-component-tests)
   * [Angular testing utility APIs](#atu-apis)
     - [Stand-alone functions](#atu-apis): `async`, `fakeAsync`, etc.
 
-    - [独立函数](#atu-apis): `async`, `fakeAsync`, etc.
+      [独立函数](#atu-apis): `async`, `fakeAsync`, etc.
 
     - [_TestBed_](#testbed-class-summary)
 
@@ -154,18 +154,18 @@ a#testing-intro
 
   1. They **guard** against changes that break existing code (“regressions”).
 
-  1. 测试**守护**由于代码变化而打破已有代码(“回归”)的情况。
+     测试**守护**由于代码变化而打破已有代码(“回归”)的情况。
 
   1. They **clarify** what the code does both when used as intended and when faced with deviant conditions.
 
-  1. 不管代码被正确使用还是错误使用，测试程序起到**澄清**代码的作用。
+     不管代码被正确使用还是错误使用，测试程序起到**澄清**代码的作用。
 
   1. They **reveal** mistakes in design and implementation.
   Tests shine a harsh light on the code from many angles. 
   When a part of the application seems hard to test, the root cause is often a design flaw, 
   something to cure now rather than later when it becomes expensive to fix.
 
-  1. 测试程序**暴露**设计和实现可能出现的错误。测试程序从很多角度为代码亮出警报灯。当应用程序很难被测试时，
+     测试程序**暴露**设计和实现可能出现的错误。测试程序从很多角度为代码亮出警报灯。当应用程序很难被测试时，
   其根本原因一般都是设计缺陷，这种缺陷最好立刻被修正，不要等到它变得很难被修复的时候才行动。
 
   This chapter assumes that you know something about testing. Don't worry if you don't.
@@ -438,31 +438,31 @@ a#test-debugging
 
     - Reveal the karma browser window (hidden earlier).
 
-    - 显示`Karma`的浏览器窗口（之前被隐藏了）。
+      显示`Karma`的浏览器窗口（之前被隐藏了）。
 
     - Click the "DEBUG" button; it opens a new browser tab and re-runs the tests
 
-    - 点击“DEBUG”按钮；它打开一页新浏览器标签并重新开始运行测试程序
+      点击“DEBUG”按钮；它打开一页新浏览器标签并重新开始运行测试程序
 
     - Open the browser's “Developer Tools” (F12 or Ctrl-Shift-I).
 
-    - 打开浏览器的“Developer Tools”(F12或者Ctrl-Shift-I)。
+      打开浏览器的“Developer Tools”(F12或者Ctrl-Shift-I)。
 
     - Pick the "sources" section
 
-    - 选择“sources”页
+      选择“sources”页
 
     - Open the `1st.spec.ts` test file (Ctrl-P, then start typing the name of the file).
 
-    - 打开`1st.spec.ts`测试文件（Ctrl-P, 然后输入文件名字）。
+      打开`1st.spec.ts`测试文件（Ctrl-P, 然后输入文件名字）。
 
     - Set a breakpoint in the test
 
-    - 在测试程序中设置断点。
+      在测试程序中设置断点。
 
     - Refresh the browser … and it stops at the breakpoint.
 
-    - 刷新浏览器...然后它就会停在断点上。
+      刷新浏览器...然后它就会停在断点上。
 
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-1st-spec-debug.png' style="width:700px;" alt="Karma debugging")
@@ -1310,15 +1310,15 @@ a#component-with-input-output
 
   1. Test it as used by `DashboardComponent`
 
-  1. 把它当作被`DashbaordComponent`使用的组件来测试
+     把它当作被`DashbaordComponent`使用的组件来测试
 
   1. Test it as a stand-alone component
 
-  1. 把它当作独立的组件来测试
+     把它当作独立的组件来测试
 
   1. Test it as used by a substitute for `DashboardComponent`
 
-  1. 把它当作被`DashbaordComponent`的替代组件使用的组件来测试
+     把它当作被`DashbaordComponent`的替代组件使用的组件来测试
 
   A quick look at the `DashboardComponent` constructor discourages the first approach:
 
@@ -1529,11 +1529,11 @@ a#component-inside-test-host
 
   1. It _declares_ both the `DashboardHeroComponent` and the `TestHostComponent`.
 
-  1. 它同时**声明**了`DashbaordComponent`和`TestHostComponent`。
+     它同时**声明**了`DashbaordComponent`和`TestHostComponent`。
 
   1. It _creates_ the `TestHostComponent` instead of the `DashboardHeroComponent`.
 
-  1. 它**创建**了`TestHostComponent`，而非`DashboardHeroComponent`。
+     它**创建**了`TestHostComponent`，而非`DashboardHeroComponent`。
 
   The `fixture` returned by `createComponent` holds an instance of `TestHostComponent` instead of an instance of `DashboardHeroComponent`.
 
@@ -1627,11 +1627,11 @@ a#inject
 
   1. an array of Angular dependency injection tokens
 
-  1. 一列数组，包含了Angular依赖注入令牌
+     一列数组，包含了Angular依赖注入令牌
 
   1. a test function whose parameters correspond exactly to each item in the injection token array
 
-  1. 一个测试函数，它的参数与注入令牌数组里的每个项目严格的一一对应。
+     一个测试函数，它的参数与注入令牌数组里的每个项目严格的一一对应。
 
 .callout.is-important
   header inject uses the TestBed Injector
@@ -1760,27 +1760,26 @@ a#stub-observable
 
   * The stub implements only two of the `ActivatedRoute` capabilities: `params` and `snapshot.params`.
 
-  * 这个stub类只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
+    这个stub类只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
 
   * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>
   drives the stub's `params` _Observable_ and returns the same value to every `params` subscriber until it's given a new value.
 
-  * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>
-  驱使这个stub类的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。
+    <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>驱使这个stub类的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。
 
   * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
 
-  * `HeroDetailComponent`链接它的表达式到这个stub类的`params`可观察对象，该对象现在被测试者的控制之下。
+    `HeroDetailComponent`链接它的表达式到这个stub类的`params`可观察对象，该对象现在被测试者的控制之下。
 
   * Setting the `testParams` property causes the `subject` to push the assigned value into `params`.
    That triggers the `HeroDetailComponent` _params_ subscription, described above, in the same way that navigation does.
 
-  * 设置`testParams`属性导致`subject`将指定的值推送进`params`。
-    它触发上面描述过的`HeroDetailComponent`的`params`订阅，和导航的方式一样。
+    设置`testParams`属性导致`subject`将指定的值推送进`params`。它触发上面描述过的`HeroDetailComponent`的`params`订阅，和导航的方式一样。
 
   * Setting the `testParams` property also updates the stub's internal value for the `snapshot` property to return.
 
-  * 设置`testParams`属性同时更新这个stub类内部值，用于`snapshot`属性的返回。
+    设置`testParams`属性同时更新这个stub类内部值，用于`snapshot`属性的返回。
+  
 .l-sub-section(style="margin-left:30px")
   :marked
     The [_snapshot_](router.html#snapshot "Router guide: snapshot") is another popular way for components to consume route parameters.
@@ -1865,19 +1864,19 @@ figure.image-display
 
   * to wait until a `hero` arrives before `*ngIf` allows any element in DOM
 
-  * 在`*ngIf`允许元素进入DOM之前，等待`hero`的到来
+    在`*ngIf`允许元素进入DOM之前，等待`hero`的到来
 
   * element references for the title name span and name input-box to inspect their values
 
-  * 标题名字span和名字输入框元素的引用，用来检查它们的值
+    标题名字span和名字输入框元素的引用，用来检查它们的值
 
   * two button references to click
 
-  * 两个按钮的引用，用来点击
+    两个按钮的引用，用来点击
 
   * spies on component and router methods
 
-  * 刺探（spy）组件和路由器的方法
+    刺探（spy）组件和路由器的方法
 
   Even a small form such as this one can produce a mess of tortured conditional setup and CSS element selection.
 
@@ -1946,19 +1945,19 @@ a#import-module
 
   * `NgModel` and friends in the `FormsModule` enable two-way data binding
 
-  * `FormsModule`里的`NgModel`和其它，来进行双向数据绑定
+    `FormsModule`里的`NgModel`和其它，来进行双向数据绑定
 
   * The `TitleCasePipe` from the `shared` folder
 
-  * `shared`目录里的`TitleCasePipe`
+    `shared`目录里的`TitleCasePipe`
 
   * Router services (which these tests are stubbing)
 
-  * 一些路由器服务（测试程序将stub伪造它们）
+    一些路由器服务（测试程序将stub伪造它们）
 
   * Hero data access services (also stubbed)
 
-  * 英雄数据访问服务（同样被stub伪造了）
+    英雄数据访问服务（同样被stub伪造了）
 
   One approach is to configure the testing module from the individual pieces as in this example:
 
@@ -2212,16 +2211,16 @@ a#stub-component
 
   * `BannerComponent` is simple and harmless to use as is.
 
-  * 原样使用`BannerComponent`非常简单而且无害。
+    原样使用`BannerComponent`非常简单而且无害。
 
   * The real `WelcomeComponent` has an injected service. `WelcomeStubComponent` is a placeholder with no service to worry about.
 
-  * 真实的`WelcomeComponent`有被注入的服务。`WelcomeStubComponent`是无服务的替代品。
+    真实的`WelcomeComponent`有被注入的服务。`WelcomeStubComponent`是无服务的替代品。
 
   * The real `RouterOutlet` is complex and errors easily.
   The `RouterOutletStubComponent` (in `testing/router-stubs.ts`) is safely inert.
 
-  * 真实的`RouterOutlet`很复杂而且容易出错。
+    真实的`RouterOutlet`很复杂而且容易出错。
   `testing/router-stubs.ts`里的`RouterOutletStubComponent`是安全的替代品。
 
   The component stubs are essential. 
@@ -2269,12 +2268,12 @@ a#inject-directive
 
   1. You can locate elements _by directive_, using `By.directive`, not just by css selectors.
 
-  1. 你还可以按指令定位元素，使用`By.directive`，而不仅仅是通过CSS选择器。
+     你还可以按指令定位元素，使用`By.directive`，而不仅仅是通过CSS选择器。
 
   1. You can use the component's dependency injector to get an attached directive because
   Angular always adds attached directives to the component's injector.
 
-  1. 你可以使用组件的依赖注入器来获取附加的指令，因为Angular总是将附加组件添加到组件的注入器中。
+     你可以使用组件的依赖注入器来获取附加的指令，因为Angular总是将附加组件添加到组件的注入器中。
 
 a#app-component-tests
 :marked
@@ -2462,14 +2461,13 @@ figure.image-display
 
   * The `By.directive` predicate is a great way to get the elements that have this directive _when their element types are unknown_.
 
-  * 当**已知元素类型**时，`By.directive`是一种获取拥有这个指令的元素的好方法。
+    当**已知元素类型**时，`By.directive`是一种获取拥有这个指令的元素的好方法。
 
   * The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>
   in `By.css('h2:not([highlight])')` helps find `<h2>` elements that _do not_ have the directive.
   `By.css('*:not([highlight])')` finds _any_ element that does not have the directive.
 
-  * `By.css('h2:not([highlight])')`里的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>帮助查找**不带**该指令的`<h2>`元素。
-  `By.css('*:not([highlight])')`查找**所有**不带该指令的元素。
+    `By.css('h2:not([highlight])')`里的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>帮助查找**不带**该指令的`<h2>`元素。`By.css('*:not([highlight])')`查找**所有**不带该指令的元素。
 
 // Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
   * `DebugElement.styles` affords access to element styles even in the absence of a real browser, thanks to the `DebugElement` abstraction.
@@ -2480,8 +2478,7 @@ figure.image-display
   The test for the default color uses the injector of the 2nd `<h2>` to get its `HighlightDirective` instance
   and its `defaultColor`.
 
-  * Angular将指令添加到它的元素的注入器中。
-  默认颜色的测试程序使用第二个`<h2>`的注入器来获取它的`HighlightDirective`实例以及它的`defaultColor`。
+    Angular将指令添加到它的元素的注入器中。默认颜色的测试程序使用第二个`<h2>`的注入器来获取它的`HighlightDirective`实例以及它的`defaultColor`。
 
 
 // Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future? 
@@ -2515,19 +2512,19 @@ a#isolated-unit-tests
 
   * import from the Angular test libraries
 
-  * 从Angular测试库导入
+    从Angular测试库导入
 
   * configure a module
 
-  * 配置模块
+    配置模块
 
   * prepare dependency injection `providers`
 
-  * 准备依赖注入`providers`
+    准备依赖注入`providers`
 
   * call `inject` or `async` or `fakeAsync`
 
-  * 调用`inject`，或者`async`，或者`fakeAsync`
+    调用`inject`，或者`async`，或者`fakeAsync`
 
   They do
 
@@ -2535,15 +2532,15 @@ a#isolated-unit-tests
 
   * exhibit standard, Angular-agnostic testing techniques
 
-  * 使用标准的、与Angular无关的测试技巧
+    使用标准的、与Angular无关的测试技巧
 
   * create instances directly with `new`
 
-  * 直接使用`new`创建实例
+    直接使用`new`创建实例
 
   * substitute test doubles (stubs, spys, and mocks) for the real dependencies.
 
-  * 用测试复制品（stub，spy和mock）替代真正的依赖
+    用测试复制品（stub，spy和mock）替代真正的依赖
 
 .callout.is-important
   header Write both kinds of tests
@@ -3474,15 +3471,15 @@ a#query-predicate
 
   * `By.all` - return all elements
 
-  * `By.all` - 返回所有元素
+    `By.all` - 返回所有元素
 
   * `By.css(selector)` - return elements with matching CSS selectors.
 
-  * `By.css(selector)` - 返回符合CSS选择器的元素。
+    `By.css(selector)` - 返回符合CSS选择器的元素。
 
   * `By.directive(directive)` - return elements that Angular matched to an instance of the directive class.
 
-  * `By.directive(directive)` - 返回Angular能匹配一个指令类实例的所有元素。
+    `By.directive(directive)` - 返回Angular能匹配一个指令类实例的所有元素。
 
 +makeExample('testing/ts/src/app/hero/hero-list.component.spec.ts', 'by', 'src/app/hero/hero-list.component.spec.ts')(format=".")
 
@@ -3682,23 +3679,23 @@ a(href="#top").to-top 返回顶部
 
   - Such tests are easy to find
 
-  - 这样的测试程序很容易被找到
+    这样的测试程序很容易被找到
 
   - You see at a glance if a part of our application lacks tests.
 
-  - 你可以一眼看出应用程序的那些部分缺乏测试程序。
+    你可以一眼看出应用程序的那些部分缺乏测试程序。
 
   - Nearby tests can reveal how a part works in context.
 
-  - 临近的测试程序可以展示代码是如何在上下文中工作的
+    临近的测试程序可以展示代码是如何在上下文中工作的
 
   - When you move the source (inevitable), you remember to move the test.
 
-  - 当你移动代码（无可避免）时，你记得一起移动测试程序
+    当你移动代码（无可避免）时，你记得一起移动测试程序
 
   - When you rename the source file (inevitable), you remember to rename the test file.
 
-  - 当你重命名源代码文件（无可避免），你记得重命名测试程序文件。
+    当你重命名源代码文件（无可避免），你记得重命名测试程序文件。
 
 .l-hr
 

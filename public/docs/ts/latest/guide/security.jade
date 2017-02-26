@@ -75,7 +75,7 @@ h2#best-practices 最佳实践
   previous versions. Check the Angular [change
   log](https://github.com/angular/angular/blob/master/CHANGELOG.md) for security-related updates.
 
-  * **及时把Angular包更新到最新版本。**
+    **及时把Angular包更新到最新版本。**
   我们会频繁的更新Angular库，这些更新可能会修复之前版本中发现的安全漏洞。查看Angular的[更新记录](https://github.com/angular/angular/blob/master/CHANGELOG.md)，了解与安全有关的更新。
 
   * **Don't modify your copy of Angular.**
@@ -83,12 +83,12 @@ h2#best-practices 最佳实践
   important security fixes and enhancements. Instead, share your Angular improvements with the
   community and make a pull request.
 
-  * **不要修改你的Angular副本。**
+    **不要修改你的Angular副本。**
   私有的、定制版的Angular往往跟不上最新版本，这可能导致你忽略重要的安全修复与增强。反之，应该在社区共享你对Angular所做的改进并创建Pull Request。
 
   * **Avoid Angular APIs marked in the documentation as “[_Security Risk_](#bypass-security-apis).”**
 
-  * **避免使用本文档中带“[_安全风险_](#bypass-security-apis)”标记的Angular API。**
+    **避免使用本文档中带“[_安全风险_](#bypass-security-apis)”标记的Angular API。**
 
 .l-main-section
 h2#xss Preventing cross-site scripting (XSS)
@@ -152,19 +152,19 @@ h2#xss 防范跨站脚本(XSS)攻击
 
   * **HTML** is used when interpreting a value as HTML, for example, when binding to `innerHtml`
 
-  * **HTML**：值需要被解释为HTML时使用，比如当绑定到`innerHTML`时。
+    **HTML**：值需要被解释为HTML时使用，比如当绑定到`innerHTML`时。
 
   * **Style** is used when binding CSS into the `style` property
 
-  * **样式**：值需要作为CSS绑定到`style`属性时使用。
+    **样式**：值需要作为CSS绑定到`style`属性时使用。
 
   * **URL** is used for URL properties such as `<a href>`
 
-  * **URL**：值需要被用作URL属性时使用，比如`<a href>`。
+    **URL**：值需要被用作URL属性时使用，比如`<a href>`。
 
   * **Resource URL** is a URL that will be loaded and executed as code, for example, in `<script src>`
 
-  * **资源URL**：值需要被当做代码而加载并执行时使用，比如`<script src>`中的URL。
+    **资源URL**：值需要被当做代码而加载并执行时使用，比如`<script src>`中的URL。
 
   Angular sanitizes untrusted values for the first three items; sanitizing resource URLs is not
   possible because they contain arbitrary code. In development mode, Angular prints a console warning

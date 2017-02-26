@@ -16,15 +16,25 @@ block includes
 
   在本章中，我们将：
   - [learn what structural directives are](#definition)
-  - [学习什么是结构型(structural)指令](#definition)
+
+    [学习什么是结构型(structural)指令](#definition)
+
   - [study *ngIf*](#ngIf)
-  - [研究*ngIf*](#ngIf)
+
+    [研究*ngIf*](#ngIf)
+
   - [discover the `<template>` element](#template)
-  - [`<template>`元素揭秘](#template)
+
+    [`<template>`元素揭秘](#template)
+
   - [understand the asterisk (\*) in **ngFor*](#asterisk)
-  - [理解**ngFor*中的星号(\*)](#asterisk)
+
+    [理解**ngFor*中的星号(\*)](#asterisk)
+
   - [write our own structural directive](#unless)
-  - [写我们自己的结构型指令](#unless)
+
+    [写我们自己的结构型指令](#unless)
+
 
   Try the <live-example></live-example>.
 
@@ -40,11 +50,16 @@ block includes
 
   Angular指令可分为三种：
   1. Components
-  1. 组件
+  
+     组件
+     
   1. Attribute directives
-  1. 属性型指令
+  
+     属性型指令
+     
   1. Structural directives
-  1. 结构型指令
+  
+     结构型指令
 
   The *Component* is really a directive with a template.
   It's the most common of the three directives and we write lots of them as we build our application.
@@ -378,20 +393,20 @@ block unless-intro
 
     * import the `Directive` decorator.
 
-    * 导入`Directive`装饰器。
+      导入`Directive`装饰器。
 
     * add a CSS **attribute selector** (in brackets) that identifies our directive.
 
-    * 添加一个CSS**属性选择器**(括号中)，来标记出我们的指令。
+      添加一个CSS**属性选择器**(括号中)，来标记出我们的指令。
 
     * specify the name of the public `input` property for binding
     (typically the name of the directive itself).
 
-    * 指定`input`属性用于绑定的公开名称(通常就是指令自己的名字)。
+      指定`input`属性用于绑定的公开名称(通常就是指令自己的名字)。
 
     * apply the decorator to our implementation class.
 
-    * 把这个装饰器应用到我们的实现类上。
+      把这个装饰器应用到我们的实现类上。
 
     Here is how we begin:
 

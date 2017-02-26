@@ -199,28 +199,28 @@ figure.image-display
 
   * A pipe is a class decorated with pipe metadata.
 
-  * 管道是一个带有“管道元数据(pipe metadata)”装饰器的类。
+    管道是一个带有“管道元数据(pipe metadata)”装饰器的类。
 
   * The pipe class implements the `PipeTransform` interface's `transform` method that
   accepts an input value followed by optional parameters and returns the transformed value.
 
-  * 这个管道类实现了`PipeTransform`接口的`transform`方法，该方法接受一个输入值和一些可选参数，并返回转换后的值。
+    这个管道类实现了`PipeTransform`接口的`transform`方法，该方法接受一个输入值和一些可选参数，并返回转换后的值。
 
   * There will be one additional argument to the `transform` method for each parameter passed to the pipe.
   Our pipe has one such parameter: the `exponent`.
 
-  * 当每个输入值被传给`transform`方法时，还会带上另一个参数，比如我们这个管道中的`exponent`(放大指数)。
+    当每个输入值被传给`transform`方法时，还会带上另一个参数，比如我们这个管道中的`exponent`(放大指数)。
 
   * We tell Angular that this is a pipe by applying the
   `@Pipe` #{_decorator} which we import from the core Angular library.
 
-  * 我们通过`@Pipe`#{_decoratorCn}告诉Angular：这是一个管道。该#{_decoratorCn}是从Angular的`core`库中引入的。
+    我们通过`@Pipe`#{_decoratorCn}告诉Angular：这是一个管道。该#{_decoratorCn}是从Angular的`core`库中引入的。
 
   * The `@Pipe` #{_decorator} allows us to define the
      pipe name that we'll use within template expressions. It must be a valid JavaScript identifier.
      Our pipe's name is `exponentialStrength`.
 
-  * 这个`@Pipe`#{_decoratorCn}允许我们定义管道的名字，这个名字会被用在模板表达式中。它必须是一个有效的JavaScript标识符。
+    这个`@Pipe`#{_decoratorCn}允许我们定义管道的名字，这个名字会被用在模板表达式中。它必须是一个有效的JavaScript标识符。
       比如，我们这个管道的名字是`exponentialStrength`。
 
 .l-sub-section

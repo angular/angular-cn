@@ -58,125 +58,129 @@ include ../../../_includes/_see-addr-bar
 
   * Setting the [base href](#base-href)
 
-  * 设置[页面的基地址（base href）](#base-href)
+    设置[页面的基地址（base href）](#base-href)
 
   * Importing from the [router library](#import)
 
-  * 从[路由库](#import)中导入
+    从[路由库](#import)中导入
 
   * [Configuring the router](#route-config)
 
-  * [配置路由器](#route-config)
+    [配置路由器](#route-config)
 
   * Handling unmatched URLs with a [wildcard route](#wildcard-route)
-  
-  * 使用[通配符路由](#wildcard-route)处理那些没有匹配上的URL
+
+    使用[通配符路由](#wildcard-route)处理那些没有匹配上的URL
   
   * The [link parameters array](#link-parameters-array) that propels router navigation
 
-  * 推动路由器导航的[链接参数数组](#link-parameters-array)，
+    推动路由器导航的[链接参数数组](#link-parameters-array)，
 
   * Setting the [default route](#default-route) where the application navigates at launch
+  
   * [Redirecting](#redirect) from one route to another
+  
   * Navigating when the user clicks a data-bound [RouterLink](#router-link)
 
-  * 在用户点击绑定到数据的[RouterLink](#router-link)时进行导航
+    在用户点击绑定到数据的[RouterLink](#router-link)时进行导航
 
   * Navigating under [program control](#navigate)
 
-  * 在[程序的控制下](#navigate)进行导航
+    在[程序的控制下](#navigate)进行导航
 
   * Retrieving information from the [route](#activated-route)
 
-  * 从[当前路由获取信息](#activated-route)
+    从[当前路由获取信息](#activated-route)
 
   * [Animating](#route-animation) transitions for route components
 
-  * 为路由组件添加转场[动画](#route-animation)
+    为路由组件添加转场[动画](#route-animation)
 
   * Navigating [relative](#relative-navigation) to the current URL
 
-  * [相对当前URL进行导航](#relative-navigation)
+    [相对当前URL进行导航](#relative-navigation)
 
   * Toggling css classes for the [active router link](#router-link-active)
 
-  * 利用[`router-link-active`指令]切换CSS类(#router-link-active)
+    利用[`router-link-active`指令]切换CSS类(#router-link-active)
 
   * Embedding critical information in the URL with [route parameters](#route-parameters)
 
-  * 用[路由参数](#route-parameters)把重要信息嵌入URL
+    用[路由参数](#route-parameters)把重要信息嵌入URL
 
   * Providing non-critical information in [optional route parameters](#optional-route-parameters)
 
-  * 在[可选路由参数](#optional-route-parameters)中提供非关键信息
+    在[可选路由参数](#optional-route-parameters)中提供非关键信息
 
   * Refactoring routing into a [routing module](#routing-module)
 
-  * 重构路由到[路由模块](#routing-module)
+    重构路由到[路由模块](#routing-module)
 
   * [Importing routing modules in the proper order](#routing-module-order)
+  
   * Add [child routes](#child-routing-component) under a feature section
 
-  * 在“特性分区”下添加[子路由](#child-routing-component)
+    在“特性分区”下添加[子路由](#child-routing-component)
 
   * [Grouping child routes](#component-less-route) without a component
 
-  * 不借助组件[对子路由进行分组](#component-less-route)
+    不借助组件[对子路由进行分组](#component-less-route)
 
   * Displaying [multiple routes](#named-outlets) in separate outlets
 
-  * 从一个路由[重定向](#redirect)到另一个路由
+    从一个路由[重定向](#redirect)到另一个路由
 
   * Confirming or canceling navigation with [guards](#guards)
 
-  * 借助[守卫函数](#guards)确认或取消导航
+    借助[守卫函数](#guards)确认或取消导航
+    
     * [CanActivate](#can-activate-guard) to prevent navigation to a route
 
-    * 用[CanActivate](#can-activate-guard)阻止导航进某路由
+      用[CanActivate](#can-activate-guard)阻止导航进某路由
 
     * [CanActivateChild](#can-activate-child-guard) to prevent navigation to a child route
 
-    * 用[CanActivateChild](#can-activate-child-guard)阻止导航进某子路由
+      用[CanActivateChild](#can-activate-child-guard)阻止导航进某子路由
 
     * [CanDeactivate](#can-deactivate-guard) to prevent navigation away from the current route
 
-    * 用[CanDeactivate](#can-deactivate-guard)阻止离开当前路由的导航
+      用[CanDeactivate](#can-deactivate-guard)阻止离开当前路由的导航
 
     * [Resolve](#resolve-guard) to pre-fetch data before activating a route
 
-    * 用[Resolve](#resolve-guard)在路由激活之前预先获取数据
+      用[Resolve](#resolve-guard)在路由激活之前预先获取数据
 
     * [CanLoad](#can-load-guard) to prevent asynchronous routing
 
-    * 用[CanLoad](#can-load-guard)阻止异步路由
+      用[CanLoad](#can-load-guard)阻止异步路由
 
   * Providing optional information across routes with [query parameters](#query-parameters)
 
-  * 用[查询参数](#query-parameters)提供跨路由的可选信息
+    用[查询参数](#query-parameters)提供跨路由的可选信息
 
   * Jumping to anchor elements using a [fragment](#fragment)
 
-  * 使用[fragment](#fragment)跳转到其它元素
+    使用[fragment](#fragment)跳转到其它元素
 
   * Loading feature areas [asynchronously](#asynchronous-routing)
 
-  * [异步](#asynchronous-routing)加载特性分区
+    [异步](#asynchronous-routing)加载特性分区
 
   * Preloading feature areas [during navigation](#preloading)
 
-  * [在导航时](#preloading)预加载特性分区
+    [在导航时](#preloading)预加载特性分区
 
   * Using a [custom strategy](#custom-preloading) to only preload certain features
 
-  * 使用[自定义策略](#custom-preloading)来只预加载指定分区
+    使用[自定义策略](#custom-preloading)来只预加载指定分区
 
   * [Inspect the router's configuration](#inspect-config).
-  
-  * [审查路由器的配置](#inspect-config)。
+
+    [审查路由器的配置](#inspect-config)。
     
   * Choosing the "HTML5" or "hash" [URL style](#browser-url-styles)
 
-  * 选择"HTML5"或"hash"[URL风格](#browser-url-styles)
+    选择"HTML5"或"hash"[URL风格](#browser-url-styles)
 
 .l-main-section
 
@@ -973,31 +977,31 @@ a#redirect
 
   * load the router library
 
-  * 加载路由库
+    加载路由库
 
   * add a nav bar to the shell template with anchor tags, `routerLink`  and `routerLinkActive` directives
 
-  * 往壳组件的模板中添加一个导航条，导航条中有一些A标签、`routerLink`指令和`routerLinkActive`指令
+    往壳组件的模板中添加一个导航条，导航条中有一些A标签、`routerLink`指令和`routerLinkActive`指令
 
   * add a `router-outlet` to the shell template where views will be displayed
 
-  * 往壳组件的模板中添加一个`router-outlet`指令，视图将会被显示在那里
+    往壳组件的模板中添加一个`router-outlet`指令，视图将会被显示在那里
 
   * configure the router module with `RouterModule.forRoot`
 
-  * 用`RouterModule.forRoot`配置路由器模块
+    用`RouterModule.forRoot`配置路由器模块
 
   * set the router to compose "HTML 5" browser URLs
-  
-  * 设置路由器，使其合成“HTML 5”模式的浏览器URL。
+
+    设置路由器，使其合成“HTML 5”模式的浏览器URL。
   
   * handle invalid routes with a `wildcard` route
-  
-  * 使用通配符路由来处理无效路由
+
+    使用通配符路由来处理无效路由
   
   * navigate to the default route when the app launches with an empty path
-  
-  * 当应用在空路径下启动时，导航到默认路由
+
+    当应用在空路径下启动时，导航到默认路由
 
 
   The rest of the starter app is mundane, with little interest from a router perspective.
@@ -1072,19 +1076,19 @@ a#redirect
 
   * separates routing concerns from other application concerns
 
-  * 把路由这个关注点从其它应用类关注点中分离出去
+    把路由这个关注点从其它应用类关注点中分离出去
 
   * provides a module to replace or remove when testing the application
 
-  * 测试特征模块时，可以替换或移除路由模块
+    测试特征模块时，可以替换或移除路由模块
 
   * provides a well-known location for routing service providers including guards and resolvers
 
-  * 为路由服务提供商（包括守卫和解析器等）提供一个共同的地方
+    为路由服务提供商（包括守卫和解析器等）提供一个共同的地方
 
   * does **not** [declare components](../cookbook/ngmodule-faq.html#routing-module)
 
-  * **不要**[声明组件](../cookbook/ngmodule-faq.html#routing-module)
+    **不要**[声明组件](../cookbook/ngmodule-faq.html#routing-module)
 
 :marked
   ### Refactor routing configuration into a _routing module_
@@ -2316,8 +2320,6 @@ figure.image-display
   
       要导航到`CrisisDetailComponent`以展示`id=2`的危机，完整的URL是`/crisis-center/2` (`/crisis-center` + `''` + `'/2'`)。
 
-  * 要导航到`CrisisDetailComponent`以展示`id=2`的危机，完整的URL是`/crisis-center/2` (`/crisis-center` + `''` + `'/2'`)。
-
   The absolute URL for the latter example, including the `localhost` origin, is
 
   本例子中包含站点部分的绝对URL，就是：
@@ -2613,23 +2615,23 @@ a#clear-secondary-routes
 
   * Perhaps the user is not authorized to navigate to the target component.
 
-  * 该用户可能无权导航到目标组件。
+    该用户可能无权导航到目标组件。
 
   * Maybe the user must login (*authenticate*) first.
 
-  * 可能用户得先登录（认证）。
+    可能用户得先登录（认证）。
 
   * Maybe you should fetch some data before you display the target component.
 
-  * 在显示目标组件前，我们可能得先获取某些数据。
+    在显示目标组件前，我们可能得先获取某些数据。
 
   * You might want to save pending changes before leaving a component.
 
-  * 在离开组件前，我们可能要先保存修改。
+    在离开组件前，我们可能要先保存修改。
 
   * You might ask the user if it's OK to discard pending changes rather than save them.
 
-  * 我们可能要询问用户：你是否要放弃本次更改，而不用保存它们？
+    我们可能要询问用户：你是否要放弃本次更改，而不用保存它们？
 
   You can add _guards_ to the route configuration to handle these scenarios.
 
@@ -2641,11 +2643,11 @@ a#clear-secondary-routes
 
   * if it returns `true`, the navigation process continues
 
-  * 如果它返回`true`，导航过程会继续
+    如果它返回`true`，导航过程会继续
 
   * if it returns `false`, the navigation process stops and the user stays put
 
-  * 如果它返回`false`，导航过程会终止，且用户会留在原地。
+    如果它返回`false`，导航过程会终止，且用户会留在原地。
 
 .l-sub-section
 
@@ -2674,23 +2676,23 @@ a#clear-secondary-routes
 
   1. [CanActivate](../api/router/index/CanActivate-interface.html) to mediate navigation *to* a route.
 
-  1. 用[CanActivate](../api/router/index/CanActivate-interface.html)来处理导航*到*某路由的情况。
+     用[CanActivate](../api/router/index/CanActivate-interface.html)来处理导航*到*某路由的情况。
 
   2. [CanActivateChild](../api/router/index/CanActivateChild-interface.html) to mediate navigation *to* a child route.
 
-  2. 用[CanActivateChild](../api/router/index/CanActivateChild-interface.html)处理导航*到*子路由的情况。
+     用[CanActivateChild](../api/router/index/CanActivateChild-interface.html)处理导航*到*子路由的情况。
 
   3. [CanDeactivate](../api/router/index/CanDeactivate-interface.html) to mediate navigation *away* from the current route.
 
-  3. 用[CanDeactivate](../api/router/index/CanDeactivate-interface.html)来处理从当前路由*离开*的情况。
+     用[CanDeactivate](../api/router/index/CanDeactivate-interface.html)来处理从当前路由*离开*的情况。
 
   4. [Resolve](../api/router/index/Resolve-interface.html) to perform route data retrieval *before* route activation.
 
-  4. 用[Resolve](../api/router/index/Resolve-interface.html)在路由激活*之前*获取路由数据。
+     用[Resolve](../api/router/index/Resolve-interface.html)在路由激活*之前*获取路由数据。
 
   5. [CanLoad](../api/router/index/CanLoad-interface.html) to mediate navigation *to* a feature module loaded _asynchronously_.
 
-  5. 用[CanLoad](../api/router/index/CanLoad-interface.html)来处理*异步*导航到某特性模块的情况。
+     用[CanLoad](../api/router/index/CanLoad-interface.html)来处理*异步*导航到某特性模块的情况。
 
 :marked
   You can have multiple guards at every level of a routing hierarchy.
@@ -3687,11 +3689,11 @@ a#final-app
 
   * the *path* of the route to the destination component
 
-  * 指向目标组件的那个路由的*路径（path）*
+    指向目标组件的那个路由的*路径（path）*
 
   * required and optional route parameters that go into the route URL
 
-  * 必备路由参数和可选路由参数，它们将进入该路由的URL
+    必备路由参数和可选路由参数，它们将进入该路由的URL
 
   You can bind the `RouterLink` directive to such an array like this:
 

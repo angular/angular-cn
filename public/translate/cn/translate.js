@@ -18,7 +18,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
    * @param container
    */
   function processContainer(container) {
-    var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,li,a');
+    var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,a');
     nodes.forEach((node)=> {
       if (isTranslation(node.textContent)) {
         var $translated = $(node);

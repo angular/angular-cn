@@ -46,23 +46,23 @@ include ../_util-fns
 
   * [The *provide* Object literal](#provide)
 
-  * [*provide*对象](#provide)
+    [*provide*对象](#provide)
 
   * [useValue - the *value provider*](#usevalue)
 
-  * [useValue - *值提供商*](#usevalue)
+    [useValue - *值提供商*](#usevalue)
 
   * [useClass - the *class provider*](#useclass)
 
-  * [useClass - *类提供商*](#useclass)
+    [useClass - *类提供商*](#useclass)
 
   * [useExisting - the *alias provider*](#useexisting)
 
-  * [useExisting - *别名提供商*](#useexisting)
+    [useExisting - *别名提供商*](#useexisting)
 
   * [useFactory - the *factory provider*](#usefactory)
 
-  * [useFactory - *工厂提供商*](#usefactory)
+    [useFactory - *工厂提供商*](#usefactory)
   
   [Define providers with object literals](#object-literals)
 
@@ -74,11 +74,11 @@ include ../_util-fns
 
   * [class-interface](#class-interface)
 
-  * [类-接口](#class-interface)
+    [类-接口](#class-interface)
 
   * [OpaqueToken](#opaque-token)
   
-  * [Opaque令牌](#opaque-token)
+    [Opaque令牌](#opaque-token)
 
   [Inject into a derived class](#di-inheritance)
   
@@ -90,23 +90,23 @@ include ../_util-fns
 
     * [Find parent with a known component type](#known-parent)
 
-    * [通过已知组件类型查找父组件](#known-parent)
+      [通过已知组件类型查找父组件](#known-parent)
 
     * [Cannot find a parent by its base class](#base-parent)
 
-    * [无法通过自己的基类查找父组件](#base-parent)
+      [无法通过自己的基类查找父组件](#base-parent)
 
     * [Find a parent by its class-interface](#class-interface-parent)
 
-    * [通过类-接口查找父组件](#class-interface-parent)
+      [通过类-接口查找父组件](#class-interface-parent)
 
     * [Find a parent in a tree of parents (*@SkipSelf*)](#parent-tree)
 
-    * [在父组件树里查找一个父组件(*@SkipSelf*)](#parent-tree)
+      [在父组件树里查找一个父组件(*@SkipSelf*)](#parent-tree)
 
     * [A *provideParent* helper function](#provideparent)
 
-    * [*provideParent*助手函数](#provideparent)
+      [*provideParent*助手函数](#provideparent)
 
   [Break circularities with a forward class reference (*forwardRef*)](#forwardref)
   
@@ -1343,11 +1343,11 @@ a(id="parent-tree")
   1. It tell the injector to start its search for a `Parent` dependency in a component *above* itself,
   which *is* what parent means.
   
-  1. 它告诉注入器从一个在自己*上一级*的组件开始搜索一个`Parent`依赖。
+     它告诉注入器从一个在自己*上一级*的组件开始搜索一个`Parent`依赖。
 
   2. Angular throws a cyclic dependency error if we omit the `@SkipSelf` decorator.
   
-  2. 如果没写`@SkipSelf`装饰器的话，Angular就会抛出一个循环依赖错误。
+     如果没写`@SkipSelf`装饰器的话，Angular就会抛出一个循环依赖错误。
 
   `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
 

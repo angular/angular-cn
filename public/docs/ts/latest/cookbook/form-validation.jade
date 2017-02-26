@@ -96,34 +96,34 @@ a#template1
 
   - The `<input>` element carries the HTML validation attributes: `required`, `minlength`, and `maxlength`.
 
-  - `<input>`元素具有HTML验证属性：`required`、`minlength`、和 `maxlength`。
+    `<input>`元素具有HTML验证属性：`required`、`minlength`、和 `maxlength`。
 
   - We set the `name` attribute of the input box to `"name"` so Angular can track this input element and associate it
   with an Angular form control called `name` in its internal control model.
 
-  - 我们设置输入框的`name`属性为`"name"`，这样Angular可以跟踪这个输入元素，并将其内部控制器模型的一个名为`name`的Angular表单控制关联起来。
+    我们设置输入框的`name`属性为`"name"`，这样Angular可以跟踪这个输入元素，并将其内部控制器模型的一个名为`name`的Angular表单控制关联起来。
 
   - We use the `[(ngModel)]` directive to two-way data bind the input box to the `hero.name` property.
 
-  - 我们使用`[(ngModel)]`指令，将输入框双向数据绑定到`hero.name`属性。
+    我们使用`[(ngModel)]`指令，将输入框双向数据绑定到`hero.name`属性。
   
   - We set a template variable (`#name`) to the value `"ngModel"` (always `ngModel`).
   This gives us a reference to the Angular `NgModel` directive 
   associated with this control that we can use _in the template_
   to check for control states such as `valid` and `dirty`.
 
-  - 我们将模板变量(`#name`)赋值为`"ngModel"` (总是 `ngModel`)。
+    我们将模板变量(`#name`)赋值为`"ngModel"` (总是 `ngModel`)。
   它为我们提供了与这个控制器关联的Angular `NgModel`指令的引用，我们在模板中使用它，以检查控制器状态，比如`valid`和`dirty`。
 
   - The `*ngIf` on `<div>` element reveals a set of nested message `divs` but only if there are "name" errors and
   the control is either `dirty` or `touched`.
 
-  - `<div>`元素的`*ngIf`揭露了一套嵌套消息`divs`，但是只在有“name”错误和控制器为`dirty`或者`touched`。
+    `<div>`元素的`*ngIf`揭露了一套嵌套消息`divs`，但是只在有“name”错误和控制器为`dirty`或者`touched`。
 
   - Each nested `<div>` can present a custom message for one of the possible validation errors.
   We've prepared messages for `required`, `minlength`, and `maxlength`.
 
-  - 每个嵌套的`<div>`为其中一个可能出现的验证错误显示一条自定义消息。我们已经为`required`、`minlength`、和 `maxlength`准备了消息。
+    每个嵌套的`<div>`为其中一个可能出现的验证错误显示一条自定义消息。我们已经为`required`、`minlength`、和 `maxlength`准备了消息。
 
   The full template repeats this kind of layout for each data entry control on the form.
 
@@ -183,17 +183,17 @@ a#template2
   * It takes a lot of HTML to represent all possible error conditions. 
   This gets out of hand when there are many controls and many validation rules.
 
-  * 它使用了很多HTML来表现所有可能出现的错误情况。
+    它使用了很多HTML来表现所有可能出现的错误情况。
   如果有太多控制器和太多验证规则，我们就失去了控制。
   
   * We're not fond of so much JavaScript logic in HTML.
 
-  * 我们不喜欢在HTML里面插入这么多JavaScript。
+    我们不喜欢在HTML里面插入这么多JavaScript。
 
   * The messages are static strings, hard-coded into the template. 
   We often require dynamic messages that we should shape in code.
 
-  * 这些消息是静态的字符串，被硬编码到模板中。我们通常要求在代码中可以塑造的动态消息。
+    这些消息是静态的字符串，被硬编码到模板中。我们通常要求在代码中可以塑造的动态消息。
 
   We can move the logic and the messages into the component with a few changes to 
   the template and component.
@@ -217,23 +217,23 @@ a#template2
   
   - The hard-code error message `<div>` are gone.
 
-  - 硬编码的错误消息`<div>`消失了。
+    硬编码的错误消息`<div>`消失了。
 
   - There's a new attribute, `forbiddenName`, that is actually a custom validation directive.
   It invalidates the control if the user enters "bob" anywhere in the name ([try it](#live-example)).
   We discuss [custom validation directives](#custom-validation) later in this cookbook.
 
-  - 添加了一个新属性`forbiddenName`，它实际上是一个自定义验证指令。
+    添加了一个新属性`forbiddenName`，它实际上是一个自定义验证指令。
   如果用户名字中的任何地方输入“bob”，该指令变将控制器标记为无效（[试试](#live-example)）。
   我们在本烹饪书后面介绍了[自定义验证指令](#custom-validation)。
 
   - The `#name` template variable is gone because we no longer refer to the Angular control for this element.
 
-  - 模板变量`#name`消失了，因为我们不再需要为这个元素引用Angular控制器。
+    模板变量`#name`消失了，因为我们不再需要为这个元素引用Angular控制器。
 
-  -  Binding to the new `formErrors.name` property is sufficent to display all name validation error messages.
+  - Binding to the new `formErrors.name` property is sufficent to display all name validation error messages.
 
-  - 绑定到新的`formErrors.name`属性，就可以处理所有名字验证错误信息了。
+    绑定到新的`formErrors.name`属性，就可以处理所有名字验证错误信息了。
 
   #### Component class
 
@@ -272,22 +272,22 @@ a#template2
   - Angular `@ViewChild` queries for a template variable when you pass it 
   the name of that variable as a string (`'heroForm'` in this case).
 
-  - Angular的`@ViewChild`使用传入的模板变量的字符串名字（这里是`'heroForm'`），来查询对应的模板变量。
+    Angular的`@ViewChild`使用传入的模板变量的字符串名字（这里是`'heroForm'`），来查询对应的模板变量。
 
   - The `heroForm` object changes several times during the life of the component, most notably when we add a new hero.
   We'll have to re-inspect it periodically.
 
-  - `heroForm`对象在组件的生命周期内变化了好几次，最值得注意的是当我们添加一个新英雄时的变化。我们必须定期重新检测它。
+    `heroForm`对象在组件的生命周期内变化了好几次，最值得注意的是当我们添加一个新英雄时的变化。我们必须定期重新检测它。
 
   - Angular calls the `ngAfterViewChecked` [lifecycle hook method](../guide/lifecycle-hooks.html#afterview) 
   when anything changes in the view.
   That's the right time to see if there's a new `heroForm` object.
 
-  - 当视图有任何变化时，Angular调用`ngAfterViewChecked`[生命周期钩子方法](../guide/lifecycle-hooks.html#afterview)。这是查看是否有新`heroForm`对象的最佳时机。 
+    当视图有任何变化时，Angular调用`ngAfterViewChecked`[生命周期钩子方法](../guide/lifecycle-hooks.html#afterview)。这是查看是否有新`heroForm`对象的最佳时机。 
   
   - When there _is_ a new `heroForm` model, we subscribe to its `valueChanged` _Observable_ property.
 
-  - 当出现新`heroForm`模型时，我们订阅它的`valueChanged`**可观察**属性。
+    当出现新`heroForm`模型时，我们订阅它的`valueChanged`**可观察**属性。
 
   The `onValueChanged` handler looks for validation errors after every user keystroke.  
 
@@ -318,19 +318,19 @@ a#template2
 
     - clears the prior error message if any
     
-    - 如果有之前的错误信息，清楚它们
+      如果有之前的错误信息，清楚它们
 
     - acquires the field's corresponding Angular form control
 
-    - 获取控件对应的Angular表单控制器
+      获取控件对应的Angular表单控制器
 
     - if such a control exists _and_ its been changed ("dirty") _and_ its invalid ...
 
-    - 如果这样的控制器存在，并且它被更新（“dirty”）**以及**它无效...
+      如果这样的控制器存在，并且它被更新（“dirty”）**以及**它无效...
 
     - the handler composes a consolidated error message for all of the control's errors.
 
-    - 处理器便为所有控制器的错误合成一条错误消息。
+      处理器便为所有控制器的错误合成一条错误消息。
 
   We'll need some error messages of course, a set for each validated property, one message per validation rule:
 
@@ -442,15 +442,15 @@ a#reactive
 
   * add, change, and remove validation functions on the fly
 
-  * 随时添加、修改和删除验证函数
+    随时添加、修改和删除验证函数
 
   * manipulate the control model dynamically from within the component
 
-  * 在组件内动态操纵控制器模型
+    在组件内动态操纵控制器模型
 
   * [test](#testing) validation and control logic with isolated unit tests.
 
-  * 使用孤立单元测试来[测试](#testing)验证和控制器逻辑
+    使用孤立单元测试来[测试](#testing)验证和控制器逻辑
 
   The third cookbook sample re-writes the hero form in _reactive forms_ style.
 
@@ -507,12 +507,12 @@ a#reactive
 
   - the validation attributes are gone (except `required`) because we'll be validating in code.
 
-  - 验证属性没有了（除了`required`），因为我们将在代码中验证。
+    验证属性没有了（除了`required`），因为我们将在代码中验证。
 
   - `required` remains, not for validation purposes (we'll cover that in the code), 
   but rather for css styling and accessibility.
 
-  - 保留了`required`，不是为了验证目的（我们将在代码中再行解释），而是为了CSS样式和可访问性。
+    保留了`required`，不是为了验证目的（我们将在代码中再行解释），而是为了CSS样式和可访问性。
 
 .l-sub-section
   :marked
@@ -530,13 +530,13 @@ a#reactive
   - the `formControlName` replaces the `name` attribute; it serves the same
   purpose of correlating the input box with the Angular form control.
 
-  - `formControlName`替换了`name`属性；它起到了关联输入框和Angular表单控制器的同样作用。
+    `formControlName`替换了`name`属性；它起到了关联输入框和Angular表单控制器的同样作用。
 
   - the two-way `[(ngModel)]` binding is gone. 
   The reactive approach does not use data binding to move data into and out of the form controls.
   We do that in code.
 
-  - 双向`[(ngModel)]`绑定消失了。
+    双向`[(ngModel)]`绑定消失了。
   响应式表单方法不使用数据绑定从表单控制器移入和移出数据。我们在代码中做这些。
 
 .l-sub-section
@@ -571,12 +571,12 @@ a#reactive
 :marked
   - we inject the `FormBuilder` in a constructor.
 
-  - 我们注入`FormBuilder`到构造函数中。
+    我们注入`FormBuilder`到构造函数中。
 
   - we call a `buildForm` method in the `ngOnInit` [lifecycle hook method](../guide/lifecycle-hooks.html#hooks-overview)
   because that's when we'll have the hero data. We'll call it again in the `addHero` method.
 
-  - 我们在`ngOnInit`[生命周期钩子方法](../guide/lifecycle-hooks.html#hooks-overview)中调用`buildForm`方法，
+    我们在`ngOnInit`[生命周期钩子方法](../guide/lifecycle-hooks.html#hooks-overview)中调用`buildForm`方法，
   因为这正是我们拥有英雄数据的时刻。我们将在`addHero`方法中再次调用它。
 
 .l-sub-section
@@ -590,7 +590,7 @@ a#reactive
   to the form's `valueChanged` event and calls it immediately 
   to set error messages for the new control model.
 
-  - `buildForm`方法使用`FormBuilder`（`fb`）来声明表单控制器模型。
+    `buildForm`方法使用`FormBuilder`（`fb`）来声明表单控制器模型。
   然后它将相同的`onValueChanged`（有一行代码不一样）处理器附加到表单的`valueChanged`事件，
   并立刻为新的控制器模型设置错误消息。
 
@@ -646,11 +646,11 @@ a#reactive
 
   1. when the user submits the form
 
-  1. 当用户提交标单时
+     当用户提交标单时
 
   1. when the user chooses to add a new hero
 
-  1. 当用户选择添加新英雄
+     当用户选择添加新英雄
 
   The `onSubmit` method simply replaces the `hero` object with the combined values of the form:
 

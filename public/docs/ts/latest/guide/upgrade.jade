@@ -39,51 +39,97 @@ include ../_util-fns
   Angular `upgrade`模块的设计目标就是让你渐进、无缝的完成升级。
 
   1. [Preparation](#preparation)
-  1. [准备工作](#preparation)
+
+     [准备工作](#preparation)
+
       1. [Follow the Angular Style Guide](#follow-the-angular-style-guide)
-      1. [遵循Angular风格指南](#follow-the-angular-style-guide)
+
+         [遵循Angular风格指南](#follow-the-angular-style-guide)
+
       2. [Using a Module Loader](#using-a-module-loader)
-      2. [使用模块加载器](#using-a-module-loader)
+
+         [使用模块加载器](#using-a-module-loader)
+
       3. [Migrating to TypeScript](#migrating-to-typescript)
-      3. [迁移到TypeScript](#migrating-to-typescript)
+
+         [迁移到TypeScript](#migrating-to-typescript)
+
       4. [Using Component Directives](#using-component-directives)
-      4. [使用组件型指令](#using-component-directives)
+
+         [使用组件型指令](#using-component-directives)
+
   2. [Upgrading with The Upgrade Module](#upgrading-with-the-upgrade-module)
-  2. [通过升级模块进行升级](#upgrading-with-the-upgrade-module)
+
+     [通过升级模块进行升级](#upgrading-with-the-upgrade-module)
+
       1. [How The Upgrade Module Works](#how-the-upgrade-module-works)
-      1. [升级模块是如何工作的](#how-the-upgrade-module-works)
+
+         [升级模块是如何工作的](#how-the-upgrade-module-works)
+
       2. [Bootstrapping hybrid applications](#bootstrapping-hybrid-applications)
-      2. [引导混合(hybrid)应用](#bootstrapping-hybrid-applications)
+
+         [引导混合(hybrid)应用](#bootstrapping-hybrid-applications)
+
       3. [Using Angular Components from AngularJS Code](#using-angular-components-from-angularjs-code)
-      3. [从AngularJS的代码中使用Angular的组件](#using-angular-components-from-angularjs-code)
+
+         [从AngularJS的代码中使用Angular的组件](#using-angular-components-from-angularjs-code)
+
       4. [Using AngularJS Component Directives from Angular Code](#using-angularjs-component-directives-from-angular-components-from-angularjs-code)
-      4. [从Angular的代码中使用AngularJS的组件](#using-angularjs-component-directives-from-angular-components-from-angularjs-code)
+
+         [从Angular的代码中使用AngularJS的组件](#using-angularjs-component-directives-from-angular-components-from-angularjs-code)
+
       5. [Projecting AngularJS Content into Angular Components](#projecting-angularjs-content-into-angular-components)
-      5. [把AngularJS的内容投影(project)进Angular组件中](#projecting-angularjs-content-into-angular-components)
+
+         [把AngularJS的内容投影(project)进Angular组件中](#projecting-angularjs-content-into-angular-components)
+
       6. [Transcluding Angular Content into AngularJS Component Directives](#transcluding-angular-content-into-angularjs-component-directives)
-      6. [把Angular的内容透传(transclude)到AngularJS的组件型指令中](#transcluding-angular-content-into-angularjs-component-directives)
+
+         [把Angular的内容透传(transclude)到AngularJS的组件型指令中](#transcluding-angular-content-into-angularjs-component-directives)
+
       7. [Making AngularJS Dependencies Injectable to Angular](#making-angularjs-dependencies-injectable-to-angular)
-      7. [让AngularJS提供的依赖可以被注入到Angular](#making-angularjs-dependencies-injectable-to-angular)
+
+         [让AngularJS提供的依赖可以被注入到Angular](#making-angularjs-dependencies-injectable-to-angular)
+
       8. [Making Angular Dependencies Injectable to AngularJS](#making-angular-dependencies-injectable-to-angularjs)
-      8. [让Angular提供的依赖可以被注入到AngularJS](#making-angular-dependencies-injectable-to-angularjs)
+
+         [让Angular提供的依赖可以被注入到AngularJS](#making-angular-dependencies-injectable-to-angularjs)
+
   3. [PhoneCat Upgrade Tutorial](#phonecat-upgrade-tutorial)
-  3. [PhoneCat准备工作教程](#phonecat-preparation-tutorial)
+
+     [PhoneCat准备工作教程](#phonecat-preparation-tutorial)
+
       1. [Switching to TypeScript](#switching-to-typescript)
-      1. [切换到TypeScript](#switching-to-typescript)
+
+         [切换到TypeScript](#switching-to-typescript)
+
       2. [Installing Angular](#installing-angular)
-      2. [安装Angular](#installing-angular)
+
+         [安装Angular](#installing-angular)
+
       3. [Bootstrapping a hybrid PhoneCat](#bootstrapping-a-hybrid-phonecat)
-      3. [引导AngularJS+2的混合版PhoneCat](#bootstrapping-a-hybrid-phonecat)
+
+         [引导AngularJS+2的混合版PhoneCat](#bootstrapping-a-hybrid-phonecat)
+
       4. [Upgrading the Phone service](#upgrading-the-phone-service)
-      4. [升级Phone服务](#upgrading-the-phone-service)
+
+         [升级Phone服务](#upgrading-the-phone-service)
+
       5. [Upgrading Components](#upgrading-components)
-      5. [升级组件](#upgrading-components)
+
+         [升级组件](#upgrading-components)
+
       6. [Switching To The Angular Router And Bootstrap](#switching-to-the-angular-router-and-bootstrap)
-      6. [切换到Angular的路由器并引导](#switching-to-the-angular-router-and-bootstrap)
+
+         [切换到Angular的路由器并引导](#switching-to-the-angular-router-and-bootstrap)
+
       7. [Saying Goodbye to AngularJS](#saying-goodbye-to-angularjs)
-      7. [和AngularJS说再见](#saying-goodbye-to-angularjs)
+
+         [和AngularJS说再见](#saying-goodbye-to-angularjs)
+
   3. [Appendix: Upgrading PhoneCat Tests](#appendix-upgrading-phonecat-tests)
-  3. [附录：升级PhoneCat测试](#appendix-upgrading-phonecat-tests)
+
+     [附录：升级PhoneCat测试](#appendix-upgrading-phonecat-tests)
+
 
 .l-main-section
 :marked
@@ -133,7 +179,7 @@ include ../_util-fns
     them between languages and frameworks one at a time. In this example application,
     each controller, component, service, and filter is in its own source file.
 
-  * [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
+    [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
     规定每个文件应该只放一个组件。这不仅让组件更容易浏览和查找，而且还将允许我们逐个迁移它们的语言和框架。
     在这个范例程序中，每个控制器、工厂和过滤器都在它自己的源文件中。
 
@@ -142,7 +188,7 @@ include ../_util-fns
     rules define similar principles on a higher level of abstraction: Different parts of the
     application should reside in different directories and Angular modules.
 
-  * [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
+    [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
 
   When an application is laid out feature per feature in this way, it can also be
   migrated one feature at a time. For applications that don't already look like
@@ -218,25 +264,25 @@ include ../_util-fns
     (which are really ECMAScript 2015 imports and exports) can be used to organize
     code into modules.
 
-  * 对那些使用了模块加载器的程序，TypeScript的导入和导出(这实际上是ECMAScript 2015导入和导出)可以把代码组织到模块中。
+    对那些使用了模块加载器的程序，TypeScript的导入和导出(这实际上是ECMAScript 2015导入和导出)可以把代码组织到模块中。
 
   * Type annotations can be gradually added to existing functions and variables
     to pin down their types and get benefits like build-time error checking,
     great autocompletion support and inline documentation.
 
-  * 类型注解可以逐步添加到已存在的函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
+    类型注解可以逐步添加到已存在的函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
 
   * JavaScript features new to ES2015, like arrow functions, `let`s and `const`s,
     default function parameters, and destructuring assignments can also be gradually
     added to make the code more expressive.
 
-  * 那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也能逐渐添加进来，让代码更有表现力。
+    那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也能逐渐添加进来，让代码更有表现力。
 
   * Services and controllers can be turned into *classes*. That way they'll be a step
     closer to becoming Angular service and component classes, which will make our
     life easier once we do the upgrade.
 
-  * 服务和控制器可以转成*类*。这样我们就能一步步接近Angular的服务和组件类了，这样等到我们开始升级时，也会更简单。
+    服务和控制器可以转成*类*。这样我们就能一步步接近Angular的服务和组件类了，这样等到我们开始升级时，也会更简单。
 
   #### Using Component Directives
   ### 使用组件型指令
@@ -264,24 +310,25 @@ include ../_util-fns
 
   * `restrict: 'E'`. Components are usually used as elements.
 
-  * `restrict: 'E'`。组件通常会以元素的方式使用。
+    `restrict: 'E'`。组件通常会以元素的方式使用。
 
   * `scope: {}` - an isolate scope. In Angular, components are always isolated
     from their surroundings, and we should do this in AngularJS too.
 
-  * `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中，我们也应该这么做。
+    `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中，我们也应该这么做。
+    
   * `bindToController: {}`. Component inputs and outputs should be bound
     to the controller instead of using the `$scope`.
 
-  * `bindToController: {}`。组件的输入和输出应该绑定到控制器，而不是`$scope`。
+    `bindToController: {}`。组件的输入和输出应该绑定到控制器，而不是`$scope`。
 
   * `controller` and `controllerAs`. Components have their own controllers.
 
-  * `controller`和`controllerAs`。组件有它们自己的控制器。
+    `controller`和`controllerAs`。组件有它们自己的控制器。
 
   * `template` or `templateUrl`. Components have their own templates.
 
-  * `template`或`templateUrl`。组件有它们自己的模板。
+    `template`或`templateUrl`。组件有它们自己的模板。
 
   Component directives may also use the following attributes:
 
@@ -289,12 +336,12 @@ include ../_util-fns
 
   * `transclude: true`, if the component needs to transclude content from elsewhere.
 
-  * `transclude: true`：如果组件需要从其它地方透传内容，就设置它。
+    `transclude: true`：如果组件需要从其它地方透传内容，就设置它。
 
   * `require`, if the component needs to communicate with some parent component's
     controller.
 
-  * `require`：如果组件需要和父组件的控制器通讯，就设置它。
+    `require`：如果组件需要和父组件的控制器通讯，就设置它。
 
   Component directives **may not** use the following attributes:
 
@@ -302,18 +349,18 @@ include ../_util-fns
 
   * `compile`. This will not be supported in Angular.
 
-  * `compile`。它在Angular中将不再被支持。
+    `compile`。它在Angular中将不再被支持。
 
   * `replace: true`. Angular never replaces a component element with the
     component template. This attribute is also deprecated in AngularJS.
 
-  * `replace: true`。Angular永远不会用组件模板替换一个组件元素。这个特性在AngularJS中也同样不建议使用了。
+    `replace: true`。Angular永远不会用组件模板替换一个组件元素。这个特性在AngularJS中也同样不建议使用了。
 
   * `priority` and `terminal`. While AngularJS components may use these,
     they are not used in Angular and it is better not to write code
     that relies on them.
 
-  * `priority`和`terminal`。虽然AngularJS的组件可能使用这些，但它们在Angular中已经没用了，并且最好不要再写依赖它们的代码。
+    `priority`和`terminal`。虽然AngularJS的组件可能使用这些，但它们在Angular中已经没用了，并且最好不要再写依赖它们的代码。
 
   An AngularJS component directive that is fully aligned with the Angular
   architecture may look something like this:
@@ -332,15 +379,15 @@ include ../_util-fns
 
   * It requires less boilerplate code.
 
-  * 它需要更少的样板代码。
+    它需要更少的样板代码。
 
   * It enforces the use of component best practices like `controllerAs`.
 
-  * 它强制使用组件的最佳实践，比如`controllerAs`。
+    它强制使用组件的最佳实践，比如`controllerAs`。
 
   * It has good default values for directive attributes like `scope` and `restrict`.
 
-  * 对于指令中像`scope`和`restrict`这样的属性，它有良好的默认值。
+    对于指令中像`scope`和`restrict`这样的属性，它有良好的默认值。
 
   The component directive example from above looks like this when expressed
   using the component API:
@@ -454,7 +501,7 @@ table
     *root injector* and available to all components. They will always have
     *string tokens* - the same tokens that they have in AngularJS.
 
-  * 通过升级它们，我们就能让那些在AngularJS中能被注入的服务在Angular的代码中可用。
+    通过升级它们，我们就能让那些在AngularJS中能被注入的服务在Angular的代码中可用。
     在框架之间共享的是服务的同一个单例对象。在Angular中，这些外来服务总是被放在*根注入器*中，并可用于所有组件。
     它们总是具有*字符串令牌* —— 跟它们在AngularJS中的令牌相同。
 
@@ -464,7 +511,7 @@ table
     When we register a downgrade, we explicitly specify a *string token* that we want to
     use in AngularJS.
 
-  * 通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
+    通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
     只有那些来自Angular根注入器的服务才能被降级。同样的，在框架之间共享的是同一个单例对象。
     当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。
 
@@ -496,12 +543,12 @@ figure.image-display
      owned by AngularJS, Angular treats it as if it didn't exist,
      and vice versa.
 
-  1. DOM中的每个元素都只能被两个框架之一拥有。另一个框架会忽略它。
+     DOM中的每个元素都只能被两个框架之一拥有。另一个框架会忽略它。
      如果一个元素被AngularJS拥有，Angular就会当它不存在。反之亦然。
 
   2. The root of the application *is always an AngularJS template*.
 
-  2. 应用的根节点*总是来自AngularJS中的模板*。
+     应用的根节点*总是来自AngularJS中的模板*。
 
   So a hybrid application begins life as an AngularJS application,
   and it is AngularJS that processes its root template. Angular then steps
@@ -525,12 +572,13 @@ figure.image-display
      using an Angular component, or an Angular template using an
      AngularJS component.
 
-  1. 通过使用来自另一个框架的组件：AngularJS的模板中用到了Angular的组件，或者Angular的模板中使用了AngularJS的组件。
+     通过使用来自另一个框架的组件：AngularJS的模板中用到了Angular的组件，或者Angular的模板中使用了AngularJS的组件。
+     
   2. By transcluding or projecting content from the other framework. The
     `UpgradeModule` bridges the related concepts of  AngularJS transclusion
      and Angular content projection together.
 
-  2. 通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
+     通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
 
 figure.image-display
  img(src="/resources/images/devguide/upgrade/dom.png" alt="DOM element ownership in a hybrid application" width="500")
@@ -590,14 +638,14 @@ code-example(language="html" escape="html").
     This is true whether the event originated in AngularJS or Angular code.
     The zone triggers Angular change detection after every event.
 
-  * 应用中发生的每件事都运行在Angular的zone里。
+    应用中发生的每件事都运行在Angular的zone里。
     无论事件发生在AngularJS还是Angular的代码中，都是如此。
 
   * The `UpgradeModule` will invoke the AngularJS `$rootScope.$apply()` after
     every turn of the Angular zone. This also triggers AngularJS change
     detection after every event.
 
-  * `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
+    `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
 
 figure.image-display
   img(src="/resources/images/devguide/upgrade/change_detection.png" alt="Change detection in a hybrid application" width="600")
@@ -1284,7 +1332,7 @@ figure
   * Each component, service, and filter is in its own source file, as per the
     [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
 
-  * 每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide#single-responsibility)所要求的。
+    每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide#single-responsibility)所要求的。
 
   * The `core`, `phone-detail`, and `phone-list` modules are each in their
     own subdirectory. Those subdirectories contain the JavaScript code as well as
@@ -1293,7 +1341,7 @@ figure
     and [Modularity](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
     rules.
 
-  * `core`、`phone-detail`和`phone-list`模块都在它们自己的子目录中。那些子目录除了包含HTML模板之外，还包含JavaScript代码，它们共同完成一个特性。
+    `core`、`phone-detail`和`phone-list`模块都在它们自己的子目录中。那些子目录除了包含HTML模板之外，还包含JavaScript代码，它们共同完成一个特性。
     这是[按特性分目录的结构](https://github.com/johnpapa/angular-styleguide#style-y152)
     和[模块化](https://github.com/johnpapa/angular-styleguide#modularity)规则所要求的。
 
@@ -1301,7 +1349,7 @@ figure
     found, as described in the rules for
     [Organizing Tests](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y197).
 
-  * 单元测试都和应用代码在一起，它们很容易找到。就像规则
+    单元测试都和应用代码在一起，它们很容易找到。就像规则
     [组织测试文件](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y197)中要求的那样。
 
 :marked
@@ -1554,10 +1602,11 @@ code-example(format="").
 
   * Add Angular and the other new dependencies to `package.json`
 
-  * 把Angular和其它新依赖添加到`package.json`中
+    把Angular和其它新依赖添加到`package.json`中
+    
   * The SystemJS configuration file `systemjs.config.js` to the project root directory.
 
-  * 把SystemJS的配置文件`systemjs.config.js`添加到项目的根目录。
+    把SystemJS的配置文件`systemjs.config.js`添加到项目的根目录。
 
   Once these are done, run:
 
@@ -1738,9 +1787,12 @@ code-example(format="").
   并且让它能帮助控制器从服务器上加载电话信息。目前，它是用`ngResource`实现的，我们用它做两件事：
 
   * For loading the list of all phones into the phone list component
-  * 把所有电话的列表加载到电话列表组件中。
+  
+    把所有电话的列表加载到电话列表组件中。
+    
   * For loading the details of a single phone into the phone detail component.
-  * 把一台电话的详情加载到电话详情组件中。
+  
+    把一台电话的详情加载到电话详情组件中。
 
   We can replace this implementation with an Angular service class, while
   keeping our controllers in AngularJS land.
@@ -2014,12 +2066,12 @@ code-example(format="").
 
   * We've removed the `$ctrl.` prefix from all expressions.
 
-  * 我们从所有表达式中移除了`$ctrl.`前缀。
+    我们从所有表达式中移除了`$ctrl.`前缀。
 
   * Just like we did in the phone list, we've replaced `ng-src` with property
     bindings for the standard `src` property.
 
-  * 正如我们在电话列表中做过的那样，我们把`ng-src`替换成了标准的`src`属性绑定。
+    正如我们在电话列表中做过的那样，我们把`ng-src`替换成了标准的`src`属性绑定。
 
   * We're using the property binding syntax around `ng-class`. Though Angular
     does have [a very similar `ngClass`](../guide/template-syntax.html#directives)
@@ -2027,18 +2079,18 @@ code-example(format="").
     In Angular we always specify  in the template when an attribute's value is
     a property expression, as opposed to a literal string.
 
-  * 我们在`ng-class`周围使用了属性绑定语法。虽然Angular中有一个
+    我们在`ng-class`周围使用了属性绑定语法。虽然Angular中有一个
     和AngularJS中[非常相似的`ngClass`](../guide/template-syntax.html#directives)指令，
     但是它的值不会神奇的作为表达式进行计算。在Angular中，模板中的属性(Attribute)值总是被作为
     属性(Property)表达式计算，而不是作为字符串字面量。
 
   * We've replaced `ng-repeat`s with `*ngFor`s.
 
-  * 我们把`ng-repeat`替换成了`*ngFor`。
+    我们把`ng-repeat`替换成了`*ngFor`。
 
   * We've replaced `ng-click` with an event binding for the standard `click`.
 
-  * 我们把`ng-click`替换成了一个到标准`click`事件的绑定。
+    我们把`ng-click`替换成了一个到标准`click`事件的绑定。
 
   * We've wrapped the whole template in an `ngIf` that causes it only to be
     rendered when there is a phone present. We need this because when the component
@@ -2047,7 +2099,7 @@ code-example(format="").
     when we try to refer to properties on undefined objects. We need to be explicit
     about cases where this is expected.
 
-  * 我们把整个模板都包裹进了一个`ngIf`中，这导致只有当存在一个电话时它才会渲染。我们必须这么做，
+    我们把整个模板都包裹进了一个`ngIf`中，这导致只有当存在一个电话时它才会渲染。我们必须这么做，
     是因为组件首次加载时我们还没有`phone`变量，这些表达式就会引用到一个不存在的值。
     和AngularJS不同，当我们尝试引用未定义对象上的属性时，Angular中的表达式不会默默失败。
     我们必须明确指出这种情况是我们所期望的。
@@ -2113,11 +2165,11 @@ code-example(format="").
 
   1. Switch to the Angular router.
 
-  1. 切换到Angular路由器。
+     切换到Angular路由器。
 
   1. Bootstrap as a pure Angular app.
 
-  1. 作为纯Angular应用进行引导。
+     作为纯Angular应用进行引导。
 
   #### Switch to the Angular router
   #### 切换到Angular路由器

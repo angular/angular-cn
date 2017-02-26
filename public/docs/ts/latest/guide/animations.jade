@@ -36,43 +36,43 @@ include ../_util-fns
 
   * [Example: Transitioning between two states](#example-transitioning-between-states)
 
-  * [范例：在两个状态之间进行转场(Transition)](#example-transitioning-between-states)
+    [范例：在两个状态之间进行转场(Transition)](#example-transitioning-between-states)
   
   * [States and transitions](#states-and-transitions)
 
-  * [状态与转场](#states-and-transitions)
+    [状态与转场](#states-and-transitions)
   
   * [Example: Entering and leaving](#example-entering-and-leaving).
-  
-  * [范例：进场与离场](#example-entering-and-leaving)
+
+    [范例：进场与离场](#example-entering-and-leaving)
 
   * [Example: Entering and leaving from different states](#example-entering-and-leaving-from-different-states).
-  
-  * [范例：从其它状态进场与离场](#example-entering-and-leaving-from-different-states)
+
+    [范例：从其它状态进场与离场](#example-entering-and-leaving-from-different-states)
 
   * [Animatable properties and units](#animatable-properties-and-units).  
 
-  * [可动的(Animatable)属性与单位](#animatable-properties-and-units)
+    [可动的(Animatable)属性与单位](#animatable-properties-and-units)
 
   * [Automatic property calculation](#automatic-property-calculation).  
 
-  * [自动属性值计算](#automatic-property-calculation)
+    [自动属性值计算](#automatic-property-calculation)
 
   * [Animation timing](#animation-timing).  
 
-  * [动画时间线(Timing)](#animation-timing)
+    [动画时间线(Timing)](#animation-timing)
 
   * [Multi-step animations with keyframes](#multi-step-animations-with-keyframes).  
 
-  * [基于关键帧(Keyframes)的多阶段动画](#multi-step-animations-with-keyframes)
+    [基于关键帧(Keyframes)的多阶段动画](#multi-step-animations-with-keyframes)
 
   * [Parallel animation groups](#parallel-animation-groups).  
 
-  * [并行动画组(Group)](#parallel-animation-groups)
+    [并行动画组(Group)](#parallel-animation-groups)
   
   * [Animation callbacks](#animation-callbacks).  
-  
-  * [动画回调](#animation-callbacks)
+
+    [动画回调](#animation-callbacks)
 
 .l-sub-section
   :marked
@@ -226,11 +226,11 @@ figure.image-display
 
   * The `active => *` transition applies when the element's state changes from `active` to anything else.
 
-  * 当该元素的状态从`active`变成任何其它状态时，`active => *`转场都会生效。
+    当该元素的状态从`active`变成任何其它状态时，`active => *`转场都会生效。
 
   * The `* => *` transition applies when *any* change between two states takes place.
 
-  * 当在*任意*两个状态之间切换时，`* => *`转场都会生效。
+    当在*任意*两个状态之间切换时，`* => *`转场都会生效。
 
 figure.image-display
   img(src="/resources/images/devguide/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="The wildcard state can be used to match many different transitions at once" width="400")
@@ -276,11 +276,11 @@ figure
 
   * Enter: `void => *`
 
-  * 进场：`void => *`
+    进场：`void => *`
 
   * Leave: `* => void`
 
-  * 离场：`* => void`
+    离场：`* => void`
 
 +makeExample('animations/ts/src/app/hero-list-enter-leave.component.ts', 'animationdef')(format=".")
 
@@ -320,19 +320,19 @@ figure
 
   * Inactive hero enter: `void => inactive`
 
-  * 非激活英雄进场：`void => inactive`
+    非激活英雄进场：`void => inactive`
 
   * Active hero enter: `void => active`
 
-  * 激活英雄进场：`void => active`
+    激活英雄进场：`void => active`
 
   * Inactive hero leave: `inactive => void`
 
-  * 非激活英雄离场：`inactive => void`
+    非激活英雄离场：`inactive => void`
 
   * Active hero leave: `active => void`
 
-  * 激活英雄离场：`active => void`
+    激活英雄离场：`active => void`
 
   This gives you fine-grained control over each transition:
 
@@ -373,7 +373,7 @@ figure.image-display
 
   * `50` is the same as saying `'50px'`
 
-  * `50`相当于`'50px'`
+    `50`相当于`'50px'`
 
   ## Automatic property calculation
 
@@ -423,15 +423,15 @@ figure
 
   * As a plain number, in milliseconds: `100`
 
-  * 作为一个普通数字，以毫秒为单位，如：`100`
+    作为一个普通数字，以毫秒为单位，如：`100`
 
   * In a string, as milliseconds: `'100ms'`
 
-  * 作为一个字符串，以毫秒为单位，如：`'100ms'`
+    作为一个字符串，以毫秒为单位，如：`'100ms'`
 
   * In a string, as seconds: `'0.1s'`
 
-  * 作为一个字符串，以秒为单位，如：`'0.1s'`
+    作为一个字符串，以秒为单位，如：`'0.1s'`
 
   ### Delay
 
@@ -445,7 +445,7 @@ figure
 
   * Wait for 100ms and then run for 200ms: `'0.2s 100ms'`
 
-  * 等待100毫秒，然后运行200毫秒：`'0.2s 100ms'`。
+    等待100毫秒，然后运行200毫秒：`'0.2s 100ms'`。
 
   ### Easing
 
@@ -461,11 +461,11 @@ figure
 
   * Wait for 100ms and then run for 200ms, with easing: `'0.2s 100ms ease-out'`
 
-  * 等待100毫秒，然后运行200毫秒，并且带缓动：`'0.2s 100ms ease-out'`
+    等待100毫秒，然后运行200毫秒，并且带缓动：`'0.2s 100ms ease-out'`
 
   * Run for 200ms, with easing: `'0.2s ease-in-out'`
 
-  * 运行200毫秒，并且带缓动：`'0.2s ease-in-out'`
+    运行200毫秒，并且带缓动：`'0.2s ease-in-out'`
 
 figure
   img(src="/resources/images/devguide/animations/animation_timings.gif" alt="Animations with specific timings" align="right" style="width:220px;margin-left:20px" )

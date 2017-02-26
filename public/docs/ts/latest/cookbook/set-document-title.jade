@@ -73,12 +73,14 @@ code-example(format='')
   [Title](../api/platform/browser/Title-class.html)服务是一个简单的类，提供了一个API，用来获取和设置当前HTML文档的标题。
 
   * `getTitle() : string` &mdash; Gets the title of the current HTML document.
-  
-  * `getTitle(): string` —— 获取当前HTML文档的标题。
+
+    `getTitle(): string` —— 获取当前HTML文档的标题。
+
   
   * `setTitle( newTitle : string )` &mdash; Sets the title of the current HTML document. 
-  
-  * `setTitle( newTitle: string)` —— 设置当前HTML文档的标题。
+
+    `setTitle( newTitle: string)` —— 设置当前HTML文档的标题。
+
 
   Let's inject the `Title` service into the root `AppComponent` and expose a bindable `setTitle` method that calls it:
   

@@ -92,22 +92,22 @@ a#angular-i18n
 
   1. Mark static text messages in your component templates for translation.
 
-  1. 在组件模板中标记需要翻译的静态文本信息。
+     在组件模板中标记需要翻译的静态文本信息。
   
   1. An angular _i18n_ tool extracts the marked messages into an industry standard translation source file.
 
-  1. Angular的_i18n_工具将标记的信息提取到一个行业标准的翻译源文件。
+     Angular的_i18n_工具将标记的信息提取到一个行业标准的翻译源文件。
 
   1. A translator edits that file, translating the extracted text messages into the target language, 
   and returns the file to you.
 
-  1. 翻译人员编辑该文件，翻译提取出来的文本信息到目标语言，并将该文件还给你。
+     翻译人员编辑该文件，翻译提取出来的文本信息到目标语言，并将该文件还给你。
 
   1. The Angular compiler imports the completed translation files, 
   replaces the original messages with translated text, and generates a new version of the application
   in the target language.
 
-  1. Angular编译器导入完成翻译的文件，使用翻译的文本替换原始信息，并生成新的目标语言版本的应用程序。
+     Angular编译器导入完成翻译的文件，使用翻译的文本替换原始信息，并生成新的目标语言版本的应用程序。
 
   You need to build and deploy a separate version of the application for each supported language.
 
@@ -556,16 +556,16 @@ a#merge
 
     * the translation file
 
-    * 翻译文件
+      翻译文件
 
     * the translation file format
 
-    * 翻译文件的格式
+      翻译文件的格式
 
     * the   <a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_Locale ID_</a>
     (`es` or `en-US` for instance)
 
-    * 目标<a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_语言环境ID_</a>
+      目标<a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_语言环境ID_</a>
     (例如`es`或`en-US`)
   
   _How_ you provide this information depends upon whether you compile with
@@ -575,11 +575,11 @@ a#merge
   
     * With [JIT](#jit), you provide the information at bootstrap time.
 
-    * 使用[JiT](#jit)时，在引导时提供
+      使用[JiT](#jit)时，在引导时提供
 
     * With [AOT](#aot), you pass the information as `ngc` options.
 
-    * 使用[AoT](#aot)时，在`ngc`命令的选项里提供
+      使用[AoT](#aot)时，在`ngc`命令的选项里提供
 
 a#jit
 .l-main-section
@@ -663,7 +663,7 @@ a#text-plugin
 
   * `LOCALE_ID` is the locale of the target language.
 
-  * `LOCALE_ID`是目标语言的语言环境。
+    `LOCALE_ID`是目标语言的语言环境。
 
   The `getTranslationProviders` function in the following `src/app/i18n-providers.ts` 
   creates those providers based on the user's _locale_

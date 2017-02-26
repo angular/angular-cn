@@ -46,39 +46,40 @@ include ../_util-fns
   
   - [Prerequisite](#prereq1): Install Node.js
 
-  - [前提条件](#prereq1): 安装Node.js
+    [前提条件](#prereq1): 安装Node.js
   
   - [Prerequisite](#prereq2): Install Visual Studio 2015 Update 3
-  
-  - [前提条件](#prereq2): 安装Visual Studio 2015 Update 3
+
+    [前提条件](#prereq2): 安装Visual Studio 2015 Update 3
   
   - [Prerequisite](#prereq3): Configure External Web tools
-  
-  - [前提条件](#prereq3): 配置External Web tools
+
+    [前提条件](#prereq3): 配置External Web tools
   
   - [Prerequisite](#prereq4): Install TypeScript 2 for Visual Studio 2015
-  
-  - [前提条件](#prereq4): 安装TypeScript 2 for Visual Studio 2015
+
+    [前提条件](#prereq4): 安装TypeScript 2 for Visual Studio 2015
 
   - [Step 1](#download): Download the QuickStart files
 
-  - [第一步](#download): 下载“快速起步”的文件
+    [第一步](#download): 下载“快速起步”的文件
 
   - [Step 2](#create-project): Create the Visual Studio ASP.NET project
 
-  - [第二步](#create-project): 创建Visual Studio ASP.NET项目
+    [第二步](#create-project): 创建Visual Studio ASP.NET项目
 
   - [Step 3](#copy): Copy the QuickStart files into the ASP.NET project folder
 
-  - [第三步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
+    [第三步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
 
   - [Step 4](#restore): Restore required packages
-  
-  - [第四步](#restore): 恢复需要的包
+
+    [第四步](#restore): 恢复需要的包
 
   - [Step 5](#build-and-run): Build and run the app
 
-  - [第五步](#build-and-run): 构建和运行应用程序
+    [第五步](#build-and-run): 构建和运行应用程序
+
   
 .l-main-section
 h2#prereq1 Prerequisite: Node.js
@@ -127,22 +128,26 @@ h2#prereq3 前提条件: 配置External Web tools
 
     * Open the **Options** dialog with `Tools` | `Options`
 
-    * 到`Tools` | `Options`打开**Options**对话框
+      到`Tools` | `Options`打开**Options**对话框
+
 
     * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
 
-    * 在左边树型项目中，选择`Projects and Solutions` | `External Web Tools`。
+      在左边树型项目中，选择`Projects and Solutions` | `External Web Tools`。
+
 
     * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
       use the external tools (such as npm) found in the global path before using its own version of the external tools.
 
     * 在右侧，将`$(PATH)`移动到 `$(DevEnvDir`)上面。这样，Visual Stuio就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如npm）。
 
-    * Click OK to close the dialog.
+      Click OK to close the dialog.
+
 
     * 点击OK关闭对话框。
 
-    * Restart Visual Studio for this change to take effect.
+      Restart Visual Studio for this change to take effect.
+
 
     * 重启Visual Studio，以让设置变化生效。
 
@@ -168,11 +173,11 @@ h2#prereq4 前提条件: 安装TypeScript 2 for Visual Studio 2015
 
    * Download and install **[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
 
-   * 下载并安装**[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
+     下载并安装**[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
 
    * OR install it with npm: `npm install -g typescript@2.0`.
 
-   * 或者，通过NPM来安装：`npm install -g typescript@2.0`。
+     或者，通过NPM来安装：`npm install -g typescript@2.0`。
 
   You can find out more about TypeScript 2 support in Visual studio **[here](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/)**
 
@@ -205,20 +210,24 @@ h2#create-project 第二步：创建Visual Studio ASP.net项目
   按照下列步骤创建ASP.NET 4.x项目：
   
   * In Visual Studio, select `File` | `New` | `Project` from the menu.
-  
-  * 在Visual Studio中，选择`File` | `New` | `Project`菜单。
+
+    在Visual Studio中，选择`File` | `New` | `Project`菜单。
+
 
   * In the template tree, select `Templates` | `Visual C#` (or `Visual Basic`) | `Web`.
 
-  * 在模板树中，选择`Templates` | `Visual C#`(或`Visual Basic`) | `Web`菜单。
+    在模板树中，选择`Templates` | `Visual C#`(或`Visual Basic`) | `Web`菜单。
+
 
   * Select the `ASP.NET Web Application` template, give the project a name, and click OK.
 
-  * 选择`ASP.NET Web Application`模板，输入项目名，点击“OK”按钮。
+    选择`ASP.NET Web Application`模板，输入项目名，点击“OK”按钮。
+
 
   * Select the desired ASP.NET 4.5.2 template and click OK.
 
-  * 选择自己喜欢的ASP.NET 4.5.2模板，点击OK。
+    选择自己喜欢的ASP.NET 4.5.2模板，点击OK。
+
 
 .l-sub-section
   :marked
@@ -240,37 +249,33 @@ h2#copy 第三步: 拷贝“快速起步”的文件到ASP.NET项目所在的目
   
   * Click the `Show All Files` button in Solution Explorer to reveal all of the hidden files in the project.
 
-  * 在Solution Explorer中点击`Show All Files`按钮，显示项目中所有隐藏文件。
+    在Solution Explorer中点击`Show All Files`按钮，显示项目中所有隐藏文件。
+
 
   * Right-click on each folder/file to be included in the project and select `Include in Project`.
     Minimally, include the following folder/files:
 
-  * 右键点击每个目录和文件，选择`Include in Project`。
+    右键点击每个目录和文件，选择`Include in Project`。
     最少要添加下列文件：
     
     * app folder (answer *No*  if asked to search for TypeScript Typings)
 
-    * app目录（如果询问是否要搜索TypeScript类型，回答*No*）
+      app目录（如果询问是否要搜索TypeScript类型，回答*No*）
+
 
     * styles.css
 
-    * styles.css
 
     * index.html
 
-    * index.html
 
     * package.json
 
-    * package.json
-
-    * tsconfig.json
 
     * tsconfig.json
 
     * typings.json
 
-    * typings.json
     
 .l-main-section
 h2#restore Step 4: Restore the required packages
@@ -286,29 +291,30 @@ h2#restore 第四步: 恢复需要的包
     <br>This uses `npm` to install all of the packages defined in the `package.json` file. 
     It may take some time.
 
-  * 在Solution Explorer中右键点击`package.json`，选择`Restore Packages`。
+    在Solution Explorer中右键点击`package.json`，选择`Restore Packages`。
     <br>这样，Visual Studio会使用`npm`来安装在`package.json`中定义的所有包. 
     这可能需要花一点时间。
 
   * If desired, open the Output window (`View` | `Output`) to watch the npm commands execute.
 
-  * 如果愿意，打开Output窗口(`View` | `Output`)来监控npm命令的执行情况。
+    如果愿意，打开Output窗口(`View` | `Output`)来监控npm命令的执行情况。
   
   * Ignore the warnings.
 
-  * 忽略所有警告。
+    忽略所有警告。
 
   * When the restore is finished, a message should say: `npm command completed with exit code 0`.
 
-  * 当恢复完成后，将会出现一条消息：`npm command completed with exit code 0`.
+    当恢复完成后，将会出现一条消息：`npm command completed with exit code 0`.
 
   * Click the `Refresh` icon in Solution Explorer.
 
-  * 在Solution Explorer里，点击`Refresh`图标。
+    在Solution Explorer里，点击`Refresh`图标。
 
   * **Do not** include the `node_modules` folder in the project. Let it be a hidden project folder.
 
-  * **不要**将`node_modules`目录添加到项目中，让它隐藏。
+    **不要**将`node_modules`目录添加到项目中，让它隐藏。
+
       
 .l-main-section
 h2#build-and-run Step 5: Build and run the app

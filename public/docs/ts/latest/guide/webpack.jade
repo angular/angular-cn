@@ -28,15 +28,15 @@ style.
 
     * [Entries and outputs](#entries-outputs)
 
-    * [入口与输出](#entries-outputs)
+      [入口与输出](#entries-outputs)
 
     * [Loaders](#loaders)
 
-    * [加载器](#loaders)
+      [加载器](#loaders)
 
     * [Plugins](#plugins)
 
-    * [插件](#plugins)
+      [插件](#plugins)
 
   [Configuring Webpack](#configure-webpack)
 
@@ -44,19 +44,19 @@ style.
 
     * [Common configuration](#common-configuration)
 
-    * [公共配置](#common-configuration)
+      [公共配置](#common-configuration)
 
     * [Development configuration](#development-configuration)
 
-    * [开发环境配置](#development-configuration)
+      [开发环境配置](#development-configuration)
 
     * [Production configuration](#production-configuration)
 
-    * [生产环境配置](#production-configuration)
+      [生产环境配置](#production-configuration)
 
     * [Test configuration](#test-configuration)
 
-    * [测试环境配置](#test-configuration)
+      [测试环境配置](#test-configuration)
 
   [Trying it out](#try)
 
@@ -724,26 +724,26 @@ a#bundle-ts
   * There are no &lt;script&gt; or &lt;link&gt; tags in the `index.html`.
     The `HtmlWebpackPlugin` inserts them dynamically at runtime.
 
-  * 在`index.html`中没有&lt;script&gt;或&lt;link&gt;标签。
+    在`index.html`中没有&lt;script&gt;或&lt;link&gt;标签。
     `HtmlWebpackPlugin`会在运行时动态插入它们。
 
   * The `AppComponent` in `app.component.ts` imports the application-wide css with a simple `import` statement.
   
-  * `app.component.ts`中的`AppComponent`类简单的用一个`import`语句导入了应用级css。
+    `app.component.ts`中的`AppComponent`类简单的用一个`import`语句导入了应用级css。
 
   * The `AppComponent` itself has its own html template and css file. WebPack loads them with calls to `require()`. 
   Webpack stashes those component-scoped files in the `app.js` bundle too.
   You don't see those calls in the source code; 
   they're added behind the scenes by the `angular2-template-loader` plug-in. 
 
-  * `AppComponent`组件本身有它自己的HTML模板和CSS文件。Webpack通过调用`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
+    `AppComponent`组件本身有它自己的HTML模板和CSS文件。Webpack通过调用`require()`方法加载它们。Webpack还把那些组件内部的文件打包进了`app.js`中。
   我们在自己的源码中看不到这些调用，这些工作是由幕后的`angular2-template-loader`插件完成的。
   
   * The `vendor.ts` consists of vendor dependency `import` statements that drive the `vendor.js` bundle.
     The application imports these modules too; they'd be duplicated in the `app.js` bundle
     if the `CommonsChunkPlugin` hadn't detected the overlap and removed them from `app.js`.
 
-  * `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
+    `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
     本应用也导入这些模块，如果没有`CommonsChunkPlugin`插件检测出这种重叠，并且把它们从`app.js`中移除，它们就会同时出现在`app.js`包中。
 
 <a id="conclusions"></a>
