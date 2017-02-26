@@ -50,14 +50,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
       "tooling": {
         "icon": "",
         "resources": [{
-          "desc": "A Google Chrome Dev Tools extension for debugging Angular 2 applications.",
+          "desc": "A Google Chrome Dev Tools extension for debugging Angular applications.",
           "id": 0,
           "logo": "https://augury.angular.io/images/augury-logo.svg",
           "rev": true,
           "title": "Augury",
           "url": "http://augury.angular.io/"
         }, {
-          "desc": "Server-side Rendering for Angular 2 apps.",
+          "desc": "Server-side Rendering for Angular apps.",
           "id": 1,
           "logo": "https://cloud.githubusercontent.com/assets/1016365/10639063/138338bc-7806-11e5-8057-d34c75f3cafc.png",
           "rev": true,
@@ -71,14 +71,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
           "title": "Lite-server",
           "url": "https://github.com/johnpapa/lite-server"
         }, {
-          "desc": "A set of tslint rules for static code analysis of Angular 2 TypeScript projects.",
+          "desc": "A set of tslint rules for static code analysis of Angular TypeScript projects.",
           "id": 3,
           "logo": "",
           "rev": true,
           "title": "Codelyzer",
           "url": "https://github.com/mgechev/codelyzer"
         }, {
-          "desc": "This package provides facilities for developers building Angular 2 applications on ASP.NET.",
+          "desc": "This package provides facilities for developers building Angular applications on ASP.NET.",
           "id": 4,
           "logo": "",
           "rev": true,
@@ -118,14 +118,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
       "data": {
         "icon": "",
         "resources": [{
-          "desc": "The official library for Firebase and Angular 2",
+          "desc": "The official library for Firebase and Angular",
           "id": 0,
           "logo": "",
           "rev": true,
           "title": "Angular Fire",
           "url": "https://github.com/angular/angularfire2"
         }, {
-          "desc": "Use Angular 2 and Meteor to build full-stack JavaScript apps  for Mobile and Desktop.",
+          "desc": "Use Angular and Meteor to build full-stack JavaScript apps  for Mobile and Desktop.",
           "id": 1,
           "logo": "http://www.angular-meteor.com/images/logo.png",
           "rev": true,
@@ -145,14 +145,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
       "ui": {
         "icon": "",
         "resources": [{
-          "desc": "Material Design components for Angular 2",
+          "desc": "Material Design components for Angular",
           "id": 0,
           "logo": "",
           "rev": true,
           "title": "Angular Material 2",
           "url": "https://github.com/angular/material2"
         }, {
-          "desc": "PrimeNG is a collection of rich UI components for Angular 2",
+          "desc": "PrimeNG is a collection of rich UI components for Angular",
           "id": 1,
           "logo": "http://www.primefaces.org/primeng/showcase/resources/images/primeng.svg",
           "rev": true,
@@ -166,7 +166,7 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
           "title": "Kendo UI",
           "url": "http://www.telerik.com/blogs/what-to-expect-in-2016-for-kendo-ui-with-angular-2-and-more"
         }, {
-          "desc": "Native Angular 2 components & directives for Lightning Design System",
+          "desc": "Native Angular components & directives for Lightning Design System",
           "id": 3,
           "logo": "http://ng-lightning.github.io/ng-lightning/img/shield.svg",
           "rev": true,
@@ -200,14 +200,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
       "platform": {
         "icon": "",
         "resources": [{
-          "desc": "Integrating NativeScript with Angular 2.",
+          "desc": "Integrating NativeScript with Angular.",
           "id": 0,
           "logo": "",
           "rev": true,
           "title": "NativeScript",
           "url": "https://github.com/NativeScript/nativescript-angular"
         }, {
-          "desc": "Angular 2 and React Native to build applications for Android and iOS",
+          "desc": "Angular and React Native to build applications for Android and iOS",
           "id": 1,
           "logo": "",
           "rev": true,
@@ -221,14 +221,14 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
           "title": "Ionic",
           "url": "http://ionicframework.com/docs/v2/"
         }, {
-          "desc": "Electron Platform for Angular 2.",
+          "desc": "Electron Platform for Angular.",
           "id": 3,
           "logo": "",
           "rev": true,
           "title": "Electron",
           "url": "http://github.com/angular/angular-electron"
         }, {
-          "desc": "An Universal Windows App (uwp) powered by Angular 2",
+          "desc": "An Universal Windows App (uwp) powered by Angular",
           "id": 4,
           "logo": "",
           "rev": true,
@@ -356,21 +356,21 @@ angularIO.controller('ResourcesCtrl', ['$firebaseArray', '$firebaseObject', func
           "id": 5,
           "logo": "",
           "rev": true,
-          "title": "Angular 2丛书",
+          "title": "Angular丛书",
           "url": "https://leanpub.com/angular2-book"
         }, {
           "desc": "",
           "id": 6,
           "logo": "",
           "rev": true,
-          "title": "Angular 2忍者训练",
+          "title": "Angular忍者训练",
           "url": "https://books.ninja-squad.com/angular2"
         }, {
           "desc": "",
           "id": 7,
           "logo": "",
           "rev": true,
-          "title": "Angular 2实战",
+          "title": "Angular实战",
           "url": "https://leanpub.com/practical-angular-2"
         }],
         "title": "书籍"

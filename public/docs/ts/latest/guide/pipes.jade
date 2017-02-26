@@ -700,7 +700,7 @@ a(id="no-filter-pipe")
   There are no equivalents in Angular.
 
   Angular没有随身发布过滤或列表排序的管道。
-  熟悉Angular 1的开发人员应该知道`filter`和`orderBy`过滤器，但在Angular 2中它们没有等价物。
+  熟悉AngularJS的开发人员应该知道`filter`和`orderBy`过滤器，但在Angular中它们没有等价物。
 
   This is not an oversight. Angular is unlikely to offer such pipes because
   (a) they perform poorly and (b) they prevent aggressive minification.
@@ -708,7 +708,7 @@ a(id="no-filter-pipe")
   We learned earlier that such pipes must be  [*impure*](#pure-and-impure-pipes) and that
   Angular calls impure pipes in almost every change detection cycle.
 
-  这并不是疏忽。Angular 2不想提供这些管道，因为 (a) 它们性能堪忧，以及 (b) 它们会阻止比较激进的代码最小化(minification)。
+  这并不是疏忽。Angular不想提供这些管道，因为 (a) 它们性能堪忧，以及 (b) 它们会阻止比较激进的代码最小化(minification)。
   无论是`filter`还是`orderBy`都需要它的参数引用对象型属性。
   我们前面学过，这样的管道必然是[*非纯管道*](#pure-and-impure-pipes)，并且Angular会在几乎每一次变更检测周期中调用非纯管道。
 
@@ -720,8 +720,8 @@ a(id="no-filter-pipe")
 
   过滤、 特别是排序是昂贵的操作。
   当Angular每秒调用很多次这类管道函数时，即使是中等规模的列表都可能严重降低用户体验。
-  在Angular 1程序中，`filter`和`orderBy`经常被误用，结果连累到Angular自身，人们抱怨说它太慢。
-  从某种意义上，这也不冤：谁叫Angular 1把`filter`和`orderBy`作为首发队员呢？是它自己准备了这个性能陷阱。
+  在AngularJS程序中，`filter`和`orderBy`经常被误用，结果连累到Angular自身，人们抱怨说它太慢。
+  从某种意义上，这也不冤：谁叫AngularJS把`filter`和`orderBy`作为首发队员呢？是它自己准备了这个性能陷阱。
 
   The minification hazard is also compelling if less obvious. Imagine a sorting pipe applied to a list of heroes.
   We might sort the list by hero `name` and `planet` of origin properties something like this:
