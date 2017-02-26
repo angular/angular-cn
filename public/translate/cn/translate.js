@@ -1,21 +1,14 @@
-// TODO: refactor me!
 var sourceVisible = localStorage.getItem('source-visible') === 'true';
 (function ($) {
   var content = document.querySelector('article');
   var footer = document.querySelector('.main-footer');
 
-  processContainer(content, true);
+  processContainer(content);
   processContainer(footer);
-
-  if (!sourceVisible) {
-    var nodes = document.querySelectorAll('.original-english');
-    _.each(nodes, function (node) {
-      $(node).addClass('hidden');
-    });
-  }
 
   // restore
   if (content) {
+    // default hidden by css
     content.style.display = 'block';
   }
   footer.style.display = 'block';
@@ -24,100 +17,36 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
    * Process container recursively.
    * @param container
    */
-  function processContainer(container, isContent) {
-    if (!container || (isContent && isPureEnglish(container.textContent))) {
-      return;
-    }
-    var count = 0;
-    for (var i = 0; i < container.children.length; i++) {
-      var node = container.children[i];
-      console.log(node);
-      var ignoredTagNames = ['CODE-EXAMPLE', 'SCRIPT', 'CODE', 'EM', 'STRONG', 'CODE-TABS'];
-      // ignore example code.
-      if (node.classList.contains('code-example') ||
-        ignoredTagNames.indexOf(node.tagName) >= 0) {
-
-        continue;
-      }
-
-      switch (node.tagName) {
-        case 'P':
-        case 'H1':
-        case 'H2':
-        case 'H3':
-        case 'H4':
-        case 'H5':
-        case 'H6':
-        case 'HEADER':
-          count++;
-          if (processBlock(node)) {
-            i++;
-            count++;
+  function processContainer(container) {
+    var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,li,a');
+    nodes.forEach((node)=> {
+      if (isTranslation(node.textContent)) {
+        var $translated = $(node);
+        var prevNode = node.previousElementSibling;
+        var $english = $(prevNode);
+        if (isCorrespondingNode(node, prevNode) && !isTranslation(prevNode.textContent)) {
+          $translated.after($english);
+          $translated.addClass('translated');
+          $translated.addClass('translated-cn');
+          $english.addClass('original-english');
+          if (!sourceVisible) {
+            $english.addClass('hidden');
           }
-          break;
-        case 'TD':
-        case 'TH':
-        case 'UL':
-        case 'OL':
-        case 'DIV':
-          processContainer(node, ['TD','TH'].indexOf(node.tagName)!== -1);
-          break;
-        default:
-          if (processContainer(node) <= 1) {
-            if (processBlock(node)) {
-              i++;
-              count++;
-            }
-          }
-          break;
-      }
-    }
 
-    return count;
-  }
-
-  /**
-   * Process block elements. The first element is original english, the
-   * second element is translated one.
-   * @param current the first element.
-   * @returns {boolean} Is success?
-   */
-  function processBlock(current) {
-    var sibling = current.nextElementSibling;
-
-    var $current = $(current);
-    var $sibling = $(sibling);
-
-    if (sibling) {
-      if (isClonedNode(current, sibling)) {
-        if (isPureEnglish(current.textContent)) {
-          if (sibling.children) {
-            processContainer(sibling);
-          }
-            $current.addClass('original-english');
-            $sibling.addClass('translated');
-            $sibling.addClass('translated-cn');
-            $sibling.after($current);
-            $sibling.on('click', function (event) {
-              // for nested structure.
-              event.stopPropagation();
-              $current.toggleClass('hidden');
-            });
-            // addSpacingBetweenCnAndEn(sibling);
-            return true;
-
-
+          $translated.on('click', function (event) {
+            // for nested structure.
+            event.stopPropagation();
+            $english.toggleClass('hidden');
+          });
         }
       }
-    }
-
-    return false;
+    });
   }
 
-  function isPureEnglish(text) {
+  function isTranslation(text) {
     if (text) {
       text = text.replace('在线例子', '');
-      return /^[\1-\255—’“”ç®…à\u200B]*$/.test(text);
+      return /[\u2E80-\u2EFF\u2F00-\u2FDF\u3000-\u303F\u31C0-\u31EF\u3200-\u32FF\u3300-\u33FF\u3400-\u4DBF\u4DC0-\u4DFF\u4E00-\u9FBF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]/.test(text);
     }
     return false;
 
@@ -137,22 +66,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
       .join(';');
   }
 
-  function isClonedNode(node1, node2) {
-    return node1.tagName === node2.tagName && node1.tagName !== 'TR' &&
+  function isCorrespondingNode(node1, node2) {
+    return node1 && node2 && node1.tagName === node2.tagName &&
       attributesToString(node1) === attributesToString(node2);
   }
-
-  // function addSpacingBetweenCnAndEn(nodeCn) {
-  //     var text = nodeCn.innerHTML;
-  //     text = text.replace(/([\x20-\xff]+)/g, function (word) {
-  //         if (!word.replace(/\s/, '')) {
-  //             return '';
-  //         } else if (/<[^>]*>/.test(word)) {
-  //             return ' ' + word + ' ';
-  //         } else {
-  //             return ' ' + word + ' ';
-  //         }
-  //     });
-  //     nodeCn.innerHTML = text;
-  // }
 })(angular.element);
