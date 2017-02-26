@@ -8,69 +8,161 @@ block includes
   我们将持续不断的更新和改进Angular文档。本日志记录了近期最重要的变更。
 
   ## NEW: Samples re-structured with `src/` folder (2017-02-02)
+  
+  ## 新增：调整了范例程序的结构，移到了`src/`文件夹 (2017-02-02)
+  
   All documentation samples have been realigned with the default folder structure of the angular-cli.
   That's a step along the road to basing our sample in the angular-cli.
   But it's also good in its own right. 
   It helps clearly separate app code from setup and configuration files.
+  
+  所有的文档范例都已经向angular-cli的默认文件夹结构看齐了。
+  这是把范例迁移到angular-cli过程中的一步。
+  不过也不仅是为了迁移，它确实能帮我们把应用代码从环境代码和配置代码中分离出来。
 
   We've updated all samples with an `src/` folder at the project root.
   The former `app/` folder moves under `src/`. 
   Read about moving your existing project to this structure in 
   <a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="Migrating samples/quickstart app to the src folder">
   the QuickStart repo update instructions</a>.
+  
+  我们已经把所有范例改成了使用项目根目录下的`src/`文件夹。
+  也就是把以前的`app/`文件夹移到了`src/`文件夹下面。
+  要了解如何对你的现有工程进行这种迁移，请参阅<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="把范例中的应用迁移到src文件夹">QuickStart中的迁移指南</a>。
 
   Notably:
+  
+  要点：
+  
   * `app/main.ts` moved to `src/main.ts`.
+  
+      把`app/main.ts`移到`src/main.ts`。
+  
   * `app/` moved to `src/app/`.
+      
+      把`app/`移到`src/app/`。
+      
   * `index.html`, `styles.css` and `tsconfig.json` moved inside `src/`.
+  
+      把`index.html`、`styles.css`和`tsconfig.json`移到`src/`中。
+  
   * `systemjs.config.js` now imports `main.js` instead of `app`.
+  
+      `systemjs.config.js`现在要导入`main.js`而不是`app`。
+  
   * Added `lite-server` configuration (`bs-config.json`) to serve `src/`.
+  
+      新增了一个`lite-server`配置(`bs-config.json`)以便在`src/`下启动开发服务器。
 
   ## NEW: Reactive Forms guide (2017-01-31)
+  
+  ## 新增：响应式（Reactive）表单指南 (2017-01-31)
+  
   The new [**Reactive Forms**](reactive-forms.html) guide explains how and why to build a "reactive form".
   "Reactive Forms" are the code-based counterpart to the declarative "Template Driven" forms approach
   introduced in the [Forms](forms.html) guide.
   Check it out before you decide how to add forms to your app. 
   Remember also that you can use both techniques in the same app, 
   choosing the approach that best fits each scenario.
+  
+  新的[**响应式表单**](reactive-forms.html)指南解释了如何以及何时构建“响应式表单”。
+  “响应式表单”是基于代码的表单构建方式，与[表单](forms.html)中介绍的声明“模板驱动”表单的方法相对。
+  在你决定如何往应用中添加表单之前，建议先读读那一章。
+  同时，别忘了你可以在同一个应用中同时使用这两种技术，根据场景来选择最合适的方法。
 
   ## NEW: Deployment guide (2017-01-30)
+  
+  ## 新增：部署指南 (2017-01-30)
+  
   The new [Deployment](deployment.html) guide describes techniques for putting your application on a server.
   It includes important advice on optimizing for production.
+  
+  新的[部署指南](deployment.html)讲的是如何把应用放到服务器上。
+  其中包括了为生产环境进行优化的重要建议。
 
   ## Hierarchical Dependency Injection: refreshed (2017-01-13)
+  
+  ## 多级依赖注入：更新完毕 (2017-01-13)
+  
   [Hierarchical Dependency Injection](hierarchical-dependency-injection.html) guide significantly revised.
   Closes issue #3086
   Revised samples are more clear and cover all topics discussed
+  
+  [多级依赖注入](hierarchical-dependency-injection.html)做了显著修改。关闭了issue #3086。修改过的范例更加清晰，而且覆盖了讨论到的全部主题。
 
   ## Miscellaneous (2017-01-05)
+  
+  ## 杂项 (2017-01-05)
+  
   * [Setup](setup.html) guide: 
-  added (optional) instructions on how to remove _non-essential_ files. 
+      added (optional) instructions on how to remove _non-essential_ files. 
+      
+      [环境搭建](setup.html)指南:
+      添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
+  
   * No longer consolidate RxJS operator imports in `rxjs-extensions` file; each file should import what it needs.
+      
+      不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
+  
   * All samples prepend template/style URLS URLs w/ `./` ... and so should you.
+  
+      所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
+  
   * [Style Guide](style-guide.html): copy edits and revised rules.
+  
+      [风格指南](style-guide.html)：复制了编辑过的和修改过的规则。
 
   ## Router: more detail (2016-12-21)
+  
+  ## 路由：更详细 (2016-12-21)
+  
   Added more information to the [Router](router.html) guide 
   including sections named outlets, wildcard routes, and preload strategies.
+  
+  往[路由指南](router.html)中添加了更多信息，包括“命名插座（Outlet）”、通配符路由和预加载策略。
 
   ## Http: how to set default request headers (and other request options) (2016-12-14)
+  
+  ## Http：如何设置默认的请求头（以及其它配置项） (2016-12-14)
+  
   Added section on how to set default request headers (and other request options) to 
   [Http](server-communication.html#override-default-request-options) guide.
+  
+  往[Http指南](server-communication.html#override-default-request-options)中添加了一节“如何设置默认的请求头（以及其它配置项）”
 
   ## Testing: added component test plunkers (2016-12-02)
+  
+  ## 测试：添加了组件测试的plunker范例 (2016-12-02)
+  
   Added two plunkers that each test _one simple component_ so you can write a component test plunker of your own: <live-example name="setup" plnkr="quickstart-specs">one</live-example> for the QuickStart seed's `AppComponent` and <live-example name="testing" plnkr="banner-specs">another</live-example> for the Testing guide's `BannerComponent`. 
   Linked to these plunkers in [Testing](testing.html#live-examples) and [Setup anatomy](setup-systemjs-anatomy) guides.
+  
+  添加了两个plunker例子，每个都测试一个简单的组件，以便你可以自己在plunker中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的`AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的`BannerComponent`。
+  并在[测试](testing.html#live-examples)和[环境设置剖析](setup-systemjs-anatomy)中链接到它们。
 
   ## Internationalization: pluralization and _select_ (2016-11-30)
+  
+  ## 国际化：单复数和`select` (2016-11-30)
+  
   The [Internationalization (i18n)](i18n.html) guide explains how to handle pluralization and
   translation of alternative texts with `select`.
   The sample demonstrates these features too.
+  
+  [国际化 (i18n)](i18n.html)解释了如何处理单复数问题，和如何使用`select`来翻译候选内容。
+  例子中也演示了这些特性。
 
   ## Testing: karma file updates (2016-11-30)
+  
+  ## 测试：更新了karma文件 (2016-11-30)
+  
   * karma.config + karma-test-shim can handle multiple spec source paths;
   see quickstart issue: [angular/quickstart#294](https://github.com/angular/quickstart/issues/294)
+    
+      karma.config + karma-test-shim可以处理多个测试源文件路径了，参见[angular/quickstart#294](https://github.com/angular/quickstart/issues/294)。
+  
   * Displays Jasmine Runner output in the karma-launched browser
+  
+      在启动了karma的浏览器中显示Jasmine的输出。
 
   ## QuickStart Rewrite (2016-11-18)
 
@@ -82,7 +174,7 @@ block includes
   by downloading (or cloning) the QuickStart github repository.
   You are no longer asked to copy-and-paste code into setup files that were not explained anyway.
 
-  《快速起步》被重新编写，变得更加快速。
+  完全重写了《快速起步》，变得更加快速。
   它使用了在 Plunker 中运行的最小化的 “Hello Angular” 应用。
   新添加的[搭建本地开发环境](setup.html)页面解释了如何通过下载或者克隆 QuickStart github 库来安装本地开发环境。
   你将不再需要拷贝粘贴代码到一些并没有对其解释的配置文件中。
