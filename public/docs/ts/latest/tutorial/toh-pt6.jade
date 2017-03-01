@@ -339,22 +339,39 @@ block get-heroes-details
   以便调用者能把一个合适的错误信息显示给用户。
 
   ### Get hero by id
+
+  ### 通过id获取英雄
+
   The `HeroDetailComponent` asks the `HeroService` to fetch a single hero to edit.
+
+  `HeroDetailComponent`通过`HeroService`来获取一个英雄进行编辑。
   
   The `HeroService` currently fetches all heroes and then finds the desired hero 
   by filtering for the one with the matching `id`.
   That's fine in a simulation. It's wasteful to ask a real server for _all_ heroes when we only want one.
   Most web APIs support a _get-by-id_ request in the form `api/hero/:id` (e.g., `api/hero/11`).
 
+  现有`HeroService`可以通过获取所有英雄，然后根据`id`来过滤出想要的英雄，对于例子来说这无可厚非，
+  但是若到真实服务的时候，这种为了获取一个英雄而请求全部英雄的做法就有点浪费了，
+  许多Web API支持_get-by-id_请求，形如：`api/hero/:id`（如：`api/hero/11`）。
+
   Update the `HeroService.getHero` method to make a _get-by-id_ request,
   applying what we just learned to write `getHeroes`:
+
+  使用我们刚刚编写`getHeroes`所学的方法，更新`HeroService.getHero`方法制作一个_get-by-id_请求：
+
 +makeExcerpt('src/app/hero.service.ts', 'getHero', '')
 :marked
   It's almost the same as `getHeroes`. 
   The URL identifies _which_ hero the server should update by encoding the hero id into the URL
   to match the `api/hero/:id` pattern.
 
+  此方法基本上与`getHeroes`方法一致，通过在URL中添加英雄的id来告诉服务器应该获取_那个_英雄，
+  匹配`api/hero/:id`模式。
+
   We also adjust to the fact that the `data` in the response is a single hero object rather than !{_an} !{_array}.
+
+  我们还要调整响应返回的`data`为一个英雄对象，而不是一个对象数组。
 
   ### Unchanged _getHeroes_ API
   
@@ -364,6 +381,10 @@ block get-heroes-details
   the public signatures did not change.
   We still return a !{_Promise} from both methods. 
   We won't have to update any of the components that call them.
+
+  尽管我们在`getHeroes()`和`getHero()`方法的*内部*做了重大改变，
+  但是他们的公共签名却没有变。这两个方法仍然返回的是一个!{Promise}对象，
+  所以并不需要更新任何调用他们的组件。
 
   Our stakeholders are thrilled with the web API integration so far.
   Now they want the ability to create and delete heroes.
@@ -652,8 +673,14 @@ block observables-section-intro
     after chaining it to another RxJS operator, <code>map</code>, 
     to extract heroes from the response data.
 
+    更重要的不同：我们不再调用`toPromise`方法，而是从`http.get`
+    方法中返回一个*Observable*对象，之后链式调用RxJS操作<code>map</code>
+    来从返回数据中提取英雄。
+
     RxJS operator chaining makes response processing easy and readable.
     See the [discuss below about operators](#rxjs-imports).
+
+    链式RxJS操作可以让我们简单、易读的处理响应数据。详见[下面关于操作符的讨论](#rxjs-imports)
 
 :marked
   ### HeroSearchComponent
@@ -820,18 +847,28 @@ block observable-transformers
     Most RxJS operators are not included in Angular's base `Observable` implementation.
     The base implementation includes only what Angular itself requires.
 
+    大部分RxJS操作符不包括在Angular的`Observable`基本实现中，基本实现中只包括了Angular本身所需的功能。
+
     If we want more RxJS features, we have to extend  `Observable` by *importing* the libraries in which they are defined.
     Here are all the RxJS imports _this_ component needs:
+
+    如果想要更多的RxJS功能，我们必须通过*导入*其所定义的库来扩展`Observable`对象，
+    以下是_这个_模块所需导入的所有RxJS操作：
 
   +makeExample('src/app/hero-search.component.ts','rxjs-imports','src/app/hero-search.component.ts (rxjs imports)')(format='.')
 
   :marked
     The `import 'rxjs/add/...'` syntax may be unfamiliar.
     It's missing the usual list of symbols between the braces: `{...}`.
+
+    你可能并不熟悉`import 'rxjs/add/...'`语法，缺少了括号之间的导入列表：`{...}`。
     
     We don't need the operator symbols themselves. 
     In each case, the mere act of importing the library
     loads and executes the library's script file which, in turn, adds the operator to the `Observable` class.
+
+    其实我们并不需要操作符本身，正常情况下，导入库不过是加载和执行库所对应的脚本文件，
+    然后依次将操作符作为方法添加到`Observable`类中。
 
 :marked
   ### Add the search component to the dashboard
