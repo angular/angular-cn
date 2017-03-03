@@ -830,15 +830,20 @@ figure
 
   In brief, you must have previously registered a **provider** of the `HeroService` with the injector.
   A provider is something that can create or return a service, typically the service class itself.
+  
+  简单点说，我们必须先用注入器（injector）为`HeroService`注册一个**提供商（provider）**。
+  提供商用来创建或返回服务，通常就是这个服务类本身（相当于`new HeroService()`）。
 
 block registering-providers
   :marked
     You can register providers in modules or in components.
     
+    我们可以在模块中或组件中注册提供商。
+    
     In general, add providers to the [root module](#module) so that
     the same instance of a service is available everywhere.
   
-    通常会把提供商添加到[根模块](#module)上，以便在任何地方使用服务的同一个实例。
+    但通常会把提供商添加到[根模块](#module)上，以便在任何地方都使用服务的同一个实例。
   
   +makeExcerpt('src/app/app.module.ts (module providers)', 'providers')
 
@@ -979,9 +984,7 @@ block registering-providers
   
   > [**管道**](pipes.html)：在模板中使用管道转换成用于显示的值，以增强用户体验。例如，`currency`管道表达式：
   
-  >
-  > > `price | currency:'USD':true`
-  >
+  >> `price | currency:'USD':true`
   
   > It displays a price of 42.33 as `$42.33`.
 
@@ -989,6 +992,7 @@ block registering-providers
 
   > [**Router**](router.html): Navigate from page to page within the client
     application and never leave the browser.
+    
   > [**路由器**](router.html)：在应用程序客户端的页面间导航，并且不离开浏览器。
 
 block angular-feature-testing
