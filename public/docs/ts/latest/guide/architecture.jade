@@ -97,21 +97,29 @@ block angular-modules
   :marked
     Angular apps are modular and Angular has its own modularity system called _Angular modules_ or _NgModules_.
 
-  Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。_Angular modules_ are a big deal. 
-  This page introduces modules; the [Angular modules](ngmodule.html) page covers them in depth.
+    Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。
+    
+    _Angular modules_ are a big deal.This page introduces modules; the [Angular modules](ngmodule.html) page covers them in depth.
 
-_Angular 模块_很重要。
-  这里只是简单介绍，在 [Angular 模块](ngmodule.html)中会做深入讲解。<br class="l-clear-both"><br>
+    _Angular 模块_很重要。这里只是简单介绍，在 [Angular 模块](ngmodule.html)中会做深入讲解。
+    
+<br class="l-clear-both"><br>
 :marked
   Every Angular app has at least one Angular module class, [the _root module_](appmodule.html "AppModule: the root module"), 
   conventionally named `AppModule`.
 
-  每个 Angular 应用至少有一个模块（[_根模块_](appmodule.html "AppModule: 根模块")），习惯上命名为`AppModule`。While the _root module_ may be the only module in a small application, most apps have many more 
+  每个 Angular 应用至少有一个模块（[_根模块_](appmodule.html "AppModule: 根模块")），习惯上命名为`AppModule`。
+  
+  While the _root module_ may be the only module in a small application, most apps have many more 
   _feature modules_, each a cohesive block of code dedicated to an application domain,
   a workflow, or a closely related set of capabilities. 
 
-  _根模块_在一些小型应用中可能是唯一的模块，大多数应用会有很多_特性模块_，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。An Angular module, whether a _root_ or _feature_, is a class with an `@NgModule` decorator.
-Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@NgModule`装饰器的类。.l-sub-section
+  _根模块_在一些小型应用中可能是唯一的模块，大多数应用会有很多_特性模块_，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。
+  
+  An Angular module, whether a _root_ or _feature_, is a class with an `@NgModule` decorator.
+  
+  Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@NgModule`装饰器的类。.l-sub-section
+  
   :marked
     Decorators are functions that modify JavaScript classes.
     Angular has many decorators that attach metadata to classes so that it knows
@@ -125,22 +133,37 @@ Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@
     
 :marked
   `NgModule` is a decorator function that takes a single metadata object whose properties describe the module. 
-  The most important properties are:`NgModule`是一个装饰器函数，它接收一个用来描述模块属性的元数据对象。其中最重要的属性是：
+  The most important properties are:
+  
+  `NgModule`是一个装饰器函数，它接收一个用来描述模块属性的元数据对象。其中最重要的属性是：
+  
   * `declarations` - the _view classes_ that belong to this module.
   Angular has three kinds of view classes: [components](#components), [directives](#directives), and [pipes](pipes.html).
 
-  `declarations` - 声明本模块中拥有的_视图类_。
-  Angular 有三种视图类：[组件](#components)、[指令](#directives)和[管道](pipes.html)。* `exports` - the subset of declarations that should be visible and usable in the component [templates](#templates) of other modules.
+    `declarations` - 声明本模块中拥有的_视图类_。
+  Angular 有三种视图类：[组件](#components)、[指令](#directives)和[管道](pipes.html)。
+  
+  * `exports` - the subset of declarations that should be visible and usable in the component [templates](#templates) of other modules.
 
-  `exports` - declarations 的子集，可用于其它模块的组件[模板](#templates)。* `imports` - other modules whose exported classes are needed by component templates declared in _this_ module.
+    `exports` - declarations 的子集，可用于其它模块的组件[模板](#templates)。
+    
+  * `imports` - other modules whose exported classes are needed by component templates declared in _this_ module.
 
-  `imports` - _本_模块声明的组件模板需要的类所在的其它模块。* `providers` - creators of [services](#services) that this module contributes to
+    `imports` - _本_模块声明的组件模板需要的类所在的其它模块。
+    
+  * `providers` - creators of [services](#services) that this module contributes to
   the global collection of services; they become accessible in all parts of the app.
 
-  `providers` - [服务](#services)的创建者，并加入到全局服务列表中，可用于应用任何部分。* `bootstrap` - the main application view, called the _root component_, 
-  that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
+    `providers` - [服务](#services)的创建者，并加入到全局服务列表中，可用于应用任何部分。
+    
+  * `bootstrap` - the main application view, called the _root component_, that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
 
-  `bootstrap` - 指定应用的主视图（称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置`bootstrap`属性。Here's a simple root module:下面是一个简单的根模块：
+    `bootstrap` - 指定应用的主视图（称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置`bootstrap`属性。
+    
+  Here's a simple root module:
+  
+  下面是一个简单的根模块：
+  
 +makeExample('src/app/mini-app.ts', 'module', 'src/app/app.module.ts')(format='.')
 
 .l-sub-section
@@ -151,7 +174,9 @@ Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@
     根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
 :marked
   Launch an application by _bootstrapping_ its root module. 
-  During development you're likely to bootstrap the `AppModule` in a `main.ts` file like this one.我们通过_引导_根模块来启动应用。
+  During development you're likely to bootstrap the `AppModule` in a `main.ts` file like this one.
+  
+  我们通过_引导_根模块来启动应用。
   在开发期间，你通常在一个`main.ts`文件中引导`AppModule`，就像这样：
     
 +makeExample('src/main.ts', '', 'src/main.ts')(format='.')
@@ -159,10 +184,16 @@ Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@
   :marked
     ### Angular modules vs. JavaScript modules
 
-    ### Angular 模块 vs. JavaScript 模块The Angular module &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
+    ### Angular 模块 vs. JavaScript 模块
+    
+    The Angular module &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
   
-    Angular 模块（一个用`@NgModule`装饰的类）是 Angular 的基础特性。JavaScript also has its own module system for managing collections of JavaScript objects.
-    It's completely different and unrelated to the Angular module system.JavaScript 也有自己的模块系统，用来管理一组 JavaScript 对象。
+    Angular 模块（一个用`@NgModule`装饰的类）是 Angular 的基础特性。
+    
+    JavaScript also has its own module system for managing collections of JavaScript objects.
+    It's completely different and unrelated to the Angular module system.
+    
+    JavaScript 也有自己的模块系统，用来管理一组 JavaScript 对象。
     它与 Angular 的模块系统完全不同且完全无关。
     
     In JavaScript each _file_ is a module and all objects defined in the file belong to that module.
@@ -178,7 +209,10 @@ Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@
   
   .l-sub-section
     :marked
-      <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">Learn more about the JavaScript module system on the web.</a><a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">学习更多关于 JavaScript 模块的知识。</a>
+      <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">Learn more about the JavaScript module system on the web.</a>
+      
+      <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">学习更多关于 JavaScript 模块的知识。</a>
+      
   :marked
     These are two different and _complementary_ module systems. Use them both to write your apps.
   
