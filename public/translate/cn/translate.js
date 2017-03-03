@@ -34,8 +34,6 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           }
 
           $translated.on('click', function (event) {
-            // for nested structure.
-            event.stopPropagation();
             $english.toggleClass('hidden');
           });
         }
