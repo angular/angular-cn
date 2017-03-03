@@ -30,6 +30,11 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
           var prevNode = node.previousElementSibling;
           var $english = $(prevNode);
           if (isCorrespondingNode(node, prevNode) && !isTranslation(prevNode.textContent)) {
+            var id = $english.attr('id');
+            if (id) {
+              $translated.attr('id', id);
+              $english.removeAttr('id');
+            }
             $translated.after($english);
             $translated.addClass('translated');
             $translated.addClass('translated-cn');
