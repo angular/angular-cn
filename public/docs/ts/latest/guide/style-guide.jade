@@ -1945,11 +1945,15 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** declare components, directives, and pipes in a shared module when those 
     items will be re-used and referenced by the components declared in other feature modules.
+    
+    **坚持**在共享模块中声明那些可能被那些特性模块引用的可复用组件、指令和管道。
 
 .s-rule.consider
   :marked
     **Consider** using the name SharedModule, when the contents of a shared 
     module are referenced across the entire application.
+    
+    **考虑**把可能在整个应用中到处引用的模块命名为SharedModule
 
 .s-rule.do
   :marked
@@ -2062,6 +2066,8 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Consider** collecting numerous, auxiliary, single-use classes inside a core module
     to simplify the apparent structure of a feature module.
+    
+    **考虑**把那些数量庞大、辅助性的、只用一次的类收集到核心模块中，让特性模块的结构更清晰简明。
 
 .s-rule.consider
   :marked
@@ -2442,33 +2448,42 @@ a(href="#toc").to-top 回到顶部
 .s-rule.do
   :marked
     **Do** specify _component-relative_ URLs, prefixed with `./`, and add `moduleId: module.id` to the component metadata.
+    
+    **坚持**指定*相对于模块的* URL ，给它加上`./`前缀，并且往组件元数据中添加 `moduleId: module.id`。
 
 .s-why
   :marked
     **Why?** Large, inline templates and styles obscure the component's purpose and implementation, reducing readability and maintainability.
+    
+    **为何？**巨大的、内联的模板和样式表会遮盖组件的意图和实现方式，削弱可读性和可维护性。
 
 .s-why
   :marked
     **Why?** In most editors, syntax hints and code snippets aren't available when developing inline templates and styles.
     The Angular TypeScript Language Service (forthcoming) promises to overcome this deficiency for HTML templates
     in those editors that support it; it won't help with CSS styles.
+    
+    **为何？**在多数编辑器中，编写内联的模板和样式表时都无法使用语法提示和代码片段功能。
+    Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在编写HTML模板时克服这一缺陷，但对CSS样式没有帮助。
 
 .s-why
   :marked
     **Why?** A _component relative_ URL requires no change when you move the component files, as long as the files stay together.
+    
+    **为何？**当你移动组件文件时，相对于组件的URL不需要修改，因为这些文件始终会在一起。
 
 .s-why
   :marked
     **Why?** The JIT compiler requires the `moduleId` for relative URLs; the AOT compiler, 
     which doesn't need it, safely ignores this property.
 
-    **为何？**在 (*.js 和 *.ts) 代码里面内联模板时，某些编辑器不支持语法提示。
+    **为何？**JIT编译器需要`moduleId`来确定这些相对URL，AOT编译器不需要它，而是会忽略此属性。
 
 .s-why.s-why-last
   :marked
     **Why?** The `./` prefix is standard syntax for relative URLs; don't depend on Angular's current ability to do without that prefix.
 
-    **为何？**当没有与内联模板和样式混合时，组件文件中的逻辑更易于阅读。
+    **为何？**`./`前缀是相对URL的标准语法，不必依赖Angular的特殊处理，如果没有前缀则不行。
     
   +makeExample('style-guide/ts/src/05-04/app/heroes/heroes.component.avoid.ts', 'example', 'app/heroes/heroes.component.ts')(avoid=1)
 
@@ -2556,18 +2571,20 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Avoid** _input_ and _output_ aliases except when it serves an important purpose.
 
+    **避免**除非有重要目的，否则不要为输入和输出指定别名。
+    
 .s-why
   :marked
     **Why?** Two names for the same property (one private, one public) is inherently confusing.
 
-    **避免**重命名输入和输出。
+    **为何？**同一个属性有两个名字（一个对内一个对外）很容易导致混淆。
 
 .s-why.s-why-last
   :marked
      **Why?** You should use an alias when the directive name is also an _input_ property, 
      and the directive name doesn't describe the property.
 
-     **为何？**当指令的输入或输出属性的名字与导出的公共 API 名字不一样时，可能导致混乱。
+     **为何？**如果指令名也同时用作*输入*属性，而且指令名无法准确描述这个属性的用途时，应该使用别名。
 
 +makeExample('style-guide/ts/src/05-13/app/heroes/shared/hero-button/hero-button.component.avoid.ts', 'example', 'app/heroes/shared/hero-button/hero-button.component.ts')(avoid=1)
 
@@ -3062,12 +3079,14 @@ a(href="#toc").to-top 回到顶部
     **Why?** The details of data management, such as headers, HTTP methods, 
     caching, error handling, and retry logic, are irrelevant to components 
     and other data consumers.
+    
+    **为何？**数据管理的详情，比如头信息、方法、缓存、错误处理和重试逻辑，不是组件和其它的数据消费者应该关心的事情。
 
     A data service encapsulates these details. It's easier to evolve these 
     details inside the service without affecting its consumers. And it's 
     easier to test the consumers with mock service implementations.
 
-    **为何？**数据服务的实现可能有非常具体的代码来处理数据仓库，包括数据头 (headers)、如何与数据交谈或者其它服务 (例如`Http`)。把逻辑分离到数据服务可以将该逻辑封装在一个地方，对外部使用者（例如组件）隐藏具体的实施细节。
+    数据服务应该封装这些细节。这样，在服务内部修改细节，就不会影响到它的消费者。并且更容易通过实现一个模拟服务来对消费者进行测试。
 
 a(href="#toc").to-top Back to top
 
@@ -3134,8 +3153,6 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="A-01"></a>Codelyzer
-
   ### <a id="A-01"></a>Codelyzer
 
   #### <a href="#A-01">Style A-01</a>
