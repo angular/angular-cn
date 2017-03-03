@@ -18,6 +18,10 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
    * @param container
    */
   function processContainer(container) {
+    if (!container) {
+      return;
+    }
+
     var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,a');
     for(var i in nodes) {
       (function(node) {
