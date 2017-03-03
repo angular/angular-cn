@@ -126,8 +126,6 @@ a(id="special-selectors")
 
   ### :host
 
-  ### :host
-
   Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
   targeting elements *inside* the component's template):
   
@@ -157,8 +155,6 @@ a(id="special-selectors")
 :marked
   ### :host-context
 
-  ### :host-context
-
   Sometimes it is useful to apply styles based on some condition *outside* a component's view.
   For example, there may be a CSS theme class applied to the document `<body>` element, and
   we want to change how our component looks based on that.
@@ -181,8 +177,6 @@ a(id="special-selectors")
 +makeExample('component-styles/ts/src/app/hero-details.component.css', 'hostcontext')(format='.')
   
 :marked
-  ### /deep/
-
   ### /deep/
 
   Component styles normally apply only to the HTML in the component's own template. 
@@ -304,8 +298,6 @@ block module-bundlers
 
       `styles: [require('my.component.css')]`
 
-      `styles: [require('my.component.css')]`
-
       We set the `styles` property, **not** `styleUrls` property! The module 
       bundler is loading the CSS strings, not Angular. 
       Angular only sees the CSS strings *after* the bundler loads them. 
@@ -336,8 +328,6 @@ block module-bundlers
 +makeExample('component-styles/ts/src/app/hero-team.component.ts', 'stylelink')
   
 :marked
-  ### CSS @imports
-
   ### CSS @imports
 
   We can also import CSS files into our CSS files by using the standard CSS
