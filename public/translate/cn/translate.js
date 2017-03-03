@@ -19,26 +19,28 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
    */
   function processContainer(container) {
     var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,a');
-    nodes.forEach((node)=> {
-      if (isTranslation(node.textContent)) {
-        var $translated = $(node);
-        var prevNode = node.previousElementSibling;
-        var $english = $(prevNode);
-        if (isCorrespondingNode(node, prevNode) && !isTranslation(prevNode.textContent)) {
-          $translated.after($english);
-          $translated.addClass('translated');
-          $translated.addClass('translated-cn');
-          $english.addClass('original-english');
-          if (!sourceVisible) {
-            $english.addClass('hidden');
-          }
+    for(var i in nodes) {
+      (function(node) {
+        if (isTranslation(node.textContent)) {
+          var $translated = $(node);
+          var prevNode = node.previousElementSibling;
+          var $english = $(prevNode);
+          if (isCorrespondingNode(node, prevNode) && !isTranslation(prevNode.textContent)) {
+            $translated.after($english);
+            $translated.addClass('translated');
+            $translated.addClass('translated-cn');
+            $english.addClass('original-english');
+            if (!sourceVisible) {
+              $english.addClass('hidden');
+            }
 
-          $translated.on('click', function (event) {
-            $english.toggleClass('hidden');
-          });
+            $translated.on('click', function (event) {
+              $english.toggleClass('hidden');
+            });
+          }
         }
-      }
-    });
+      })(nodes[i]);
+    }
   }
 
   function isTranslation(text) {
