@@ -675,9 +675,9 @@ block hero-list-comp-add-hero
 +makeExample('server-communication/ts/src/app/toh/hero-list.component.ts', 'addHero', 'src/app/toh/hero-list.component.ts (addHero)')(format=".")
 
 +ifDocsFor('ts')
-  h2#promises Fall back to promises
-
-  h2#promises 倒退为承诺 (Promise)
+  h2#promises 
+    p Fall back to promises
+    p 倒退为承诺 (Promise)
   :marked
     Although the Angular `http` client API returns an `Observable<Response>` you can turn it into a
     [`Promise<Response>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
@@ -757,8 +757,9 @@ block hero-list-comp-add-hero
       要理解订阅的实现和效果，请看 [Ben Lesh 关于可观察对象的演讲](https://www.youtube.com/watch?v=3LKMwkuK0ZE)
       或者他在 [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises) 的课程。
 
-h2#cors Cross-Origin Requests: Wikipedia example
-h2#cors 跨域请求：Wikipedia 范例
+h2#cors
+  p  Cross-Origin Requests: Wikipedia example
+  p  跨域请求：Wikipedia 范例
 :marked
   You just learned how to make `XMLHttpRequests` using the !{_Angular_Http} service.
   This is the most common approach for server communication, but it doesn't work in all scenarios.

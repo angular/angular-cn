@@ -1652,9 +1652,9 @@ a#hero-detail-ctor
   
   使用`subscribe`方法来检测`id`的变化，并据此重新获取英雄。
 
-h4#reuse Observable <i>params</i> and component re-use
-
-h4#reuse Observable<i>参数</i>与组件复用
+h4#reuse
+  p  Observable <i>params</i> and component re-use
+  p  Observable<i>参数</i>与组件复用
 
 :marked
   In this example, you retrieve the route params from an `Observable`.
@@ -2027,8 +2027,9 @@ figure.image-display
 
   这儿可选的`foo`路由参数人畜无害，并继续被忽略。
 
-h3#route-animation Adding animations to the routed component
-h3#route-animation 为路由组件添加动画
+h3#route-animation
+  p  Adding animations to the routed component
+  p  为路由组件添加动画
 :marked
   The heroes feature module is almost complete, but what is a feature without some smooth transitions?
   
@@ -2792,8 +2793,9 @@ a#can-activate-guard
 
 +makeExcerpt('src/app/admin/admin-routing.module.1.ts (admin routing)', 'admin-routes')
 
-h3#component-less-route <i>Component-Less Route</i>: grouping routes without a component
-h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行分组
+h3#component-less-route
+  p  <i>Component-Less Route</i>: grouping routes without a component
+  p  <i>无组件路由</i>: 不借助组件对路由进行分组
 :marked
   Looking at the child route under the `AdminComponent`,there is a `path` and a `children`
   property but it's not using a `component`. 
@@ -2962,8 +2964,9 @@ h3#component-less-route <i>无组件路由</i>: 不借助组件对路由进行�
     它们所需的守卫和服务提供商**必须**在模块一级提供。这让路由器在导航过程中可以通过`Injector`来取得这些服务。
     同样的规则也适用于[异步加载](#asynchronous-routing)的特性模块。
 
-h3#can-activate-child-guard <i>CanActivateChild</i>: guarding child routes
-h3#can-activate-child-guard <i>CanActivateChild</i>: 守卫子路由
+h3#can-activate-child-guard
+  p  <i>CanActivateChild</i>: guarding child routes
+  p  <i>CanActivateChild</i>: 守卫子路由
 :marked
   You can also protect child routes with the `CanActivateChild` guard. 
   The `CanActivateChild` guard is similar to the `CanActivate` guard.
@@ -2988,9 +2991,9 @@ h3#can-activate-child-guard <i>CanActivateChild</i>: 守卫子路由
 
 +makeExcerpt('src/app/admin/admin-routing.module.3.ts (excerpt)', 'can-activate-child')
 
-h3#can-deactivate-guard <i>CanDeactivate</i>: handling unsaved changes
-
-h3#can-deactivate-guard <i>CanDeactivate</i>：处理未保存的更改
+h3#can-deactivate-guard
+  p  <i>CanDeactivate</i>: handling unsaved changes
+  p  <i>CanDeactivate</i>：处理未保存的更改
 
 :marked
   Back in the "Heroes" workflow, the app accepts every change to a hero immediately without hesitation or validation.
@@ -3152,8 +3155,9 @@ a#CanDeactivate
   现在，我们已经给了用户一个能保护未保存更改的安全守卫。
 
 <a id="Resolve"></a>
-h3#resolve-guard <i>Resolve</i>: pre-fetching component data
-h3#resolve-guard <i>解析</i>: 提前获取组件数据
+h3#resolve-guard
+  p  <i>Resolve</i>: pre-fetching component data
+  p  <i>解析</i>: 提前获取组件数据
 :marked
   In the `Hero Detail` and `Crisis Detail`, you waited until the route was activated to fetch the respective hero or crisis.
 
