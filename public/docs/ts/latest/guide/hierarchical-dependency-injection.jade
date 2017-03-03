@@ -63,14 +63,19 @@ figure.image-display
   Every component doesn't need its own injector and it would be horribly inefficient to create
   masses of injectors for no good purpose.
   
-  但Angular实际上并没有为每个组件*创建*一个独立的注入器。
+  Angular实际上并没有为每个组件*创建*一个独立的注入器。
   每个组件并不需要自己的注入器，那样做会非常低效，而且没有好处。
 
   But every component _has an injector_, even if it shares that injector with another component or with the injector of the root `AppModule`.
   And there _may_ be multiple injector instances operating at different levels of the component tree 
   depending upon how the developer registers providers, which is the subject of this guide.
+  
+  但是每个组件都*有*一个注入器，它可能共享其它组件的注入器或使用根模块`AppModule`的注入器。
+  而且在组件树的不同层次上还*可能有*多个注入器实例，这取决于开发人员如何注册这些提供商。这正是本章的主题。
 
   ### Injector bubbling  
+  
+  ### 注入器"冒泡"
 
   When a component requests a dependency, Angular tries to satisfy that dependency with a provider registered in that component's own injector.
   If the component's injector lacks the provider, it passes the request up to its parent component's injector.
