@@ -240,6 +240,7 @@ a(id="configure-webpack")
   After that brief orientation, you are ready to build your own Webpack configuration for Angular apps.
 
   经过简短的培训之后，我们准备为Angular应用构建一份自己的Webpack配置了。
+
   Begin by setting up the development environment.
 
   从设置开发环境开始。
@@ -276,11 +277,18 @@ code-example(language="sh" class="code-shell").
     especially the [_Typescript configuration_](../guide/typescript-configuration.html) and
     [_npm packages_](../guide/npm-packages.html) guides.
 
+    这些文件很多都很眼熟，他们在其他文档里已经出现过，特别是[_TypeScript配置_](../guide/typescript-configuration.html)和[_npm包_](../guide/npm-packages.html)这两个章节里。
+
     Webpack, the plugins, and the loaders are also installed as packages. 
     They are listed in the updated `packages.json`.
 
+    Webpack，包括它的插件以及加载器，也是以npm包的形式安装，`package.json`文件已经更新，这些npm包在这个文件里都有列出。
+
 :marked
   Open a terminal window and (re)install the *npm* packages
+
+  打开命令行窗口来（重新）安装这些*npm*包
+
 code-example(language="sh" class="code-shell").
   npm install
 
@@ -292,8 +300,12 @@ a#polyfills
   You'll need polyfills to run an Angular application in most browsers as explained
   in the [_Browser Support_](browser-support.html) guide.
 
+  我们在[_浏览器支持_](browser-support.html)章节里解释过，Angular应用要能在大多数的浏览器里运行，它还需要一些polyfills。
+
   Polyfills should be bundled separately from the application and vendor bundles.
   Add a `polyfills.ts` like this one to the `src/` folder.
+
+  Polyfills最好跟应用代码和vendor代码区分开来单独打包，所以我们需要在`src/`文件夹里添加一个`polyfills.ts`文件，代码如下：
 
 +makeExample('webpack/ts/src/polyfills.ts', '', 'src/polyfills.ts')(format=".")
 
@@ -302,60 +314,106 @@ a#polyfills
   :marked
     Load `zone.js` early within `polyfills.ts`, immediately after the other ES6 and metadata shims.
 
+    `polyfills.ts`文件里，`zone.js`库须尽早引入，紧跟在ES6 shims和metadata shims之后。
+
 :marked
   Because this bundle file will load first, `polyfills.ts` is also a good place to configure the browser environment 
   for production or development.
+
+  由于这个包最先被加载，所以`polyfills.ts`非常适合用来配置浏览器环境，如生产环境配置或是开发环境。
 
 a(id="common-configuration")
 .l-main-section
 :marked
   ### Common Configuration
+
+  ### 通用配置
   
   Developers typically have separate configurations for development, production, and test environments.
   All three have a lot of configuration in common.
 
+  开发、生产、测试不同的环境通常会分开配置，但实际上这些配置也有很多地方是通用的。
+
   Gather the common configuration in a file called `webpack.common.js`.
+
+  我们可以把这些通用的配置收归到一个文件，命名为`webpack.common.js`。
   
 +makeExample('webpack/ts/config/webpack.common.js', null, 'config/webpack.common.js')(format=".")
 
 :marked
   ### Inside _webpack.common.js_
+
+  ### webpack.common.js解读
+
   Webpack is a NodeJS-based tool that reads configuration from a JavaScript _commonjs_ module file.
+
+  Webpack是基于NodeJS的一个工具，他能够从一个_commonjs_规范的JavaScript模块文件里读取配置。
 
   The configuration imports dependencies with `require` statements
   and exports several objects as properties of a `module.exports` object.
 
+  这个配置文件是通过`require`语句导入依赖，然后可将多个对象作为“module.exports”对象的属性导出。
+
   * [`entries`](#common-entries) - the entry-point files that define the bundles.
+
+    [`entries`](#common-entries) - 包体的入口文件；
+
   * [`resolve`](#common-resolve) - how to resolve file names when they lack extensions.
+
+    [`resolve`](#common-resolve) - 缺失扩展名时如何解释文件名；
+
   * [`module.rules`](#common-rules) - `module` is an object with `rules` for deciding how files are loaded.
+
+    [`module.rules`](#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载；
+
   * [`plugins`](#common-plugins) - creates instances of the plugins.
+
+    [`plugins`](#common-plugins) - 创建扩展的实例。
 
 a#common-entries
 :marked
   #### _entries_
 
   The first export is the *entries* object, described above:
+
+  如上所述，第一个导出的对象是*entries*：
   
 +makeExample('webpack/ts/config/webpack.common.js', 'entries', 'config/webpack.common.js')(format=".")
 :marked
   This *entries* object defines the three bundles:
+
+  *entries*对象定义了三个包：
   
   * polyfills - the polyfills needed to run Angular applications in most modern browsers.
+
+    polyfills - 使得Angular应用能够运行在大多数的现代浏览器；
+
   * vendor - the third-party dependencies such as Angular, lodash, and bootstrap.css.
+
+    vendor - 第三方依赖，如Angular、lodash和bootstrap.css；
+
   * app - the application code.
+
+    app - 应用代码。
 
 a#common-resolve
 :marked
   #### _resolve_ extension-less imports
+  #### _resolve_ 无扩展名的文件导入
 
   The app will `import` dozens if not hundreds of JavaScript and TypeScript files. 
   You could write `import` statements with explicit extensions like this example:
+
+  如果你的应用程序只须`import`几十个JavaScript或TypeScript文件，而不是几百个这么多，你可以在`import`语句里完整写上扩展名，如：
+
 +makeExample('webpack/ts-snippets/webpack.config.snippets.ts', 'single-import')(format=".")
 
 :marked
   But most `import` statements don't mention the extension at all.
   Tell Webpack to resolve extension-less file requests by looking for matching files with
   `.ts` extension or `.js` extension (for regular JavaScript files and pre-compiled TypeScript files).
+
+  实际上大部分`import`语句都不带扩展名，我们可以告诉Webpack，在查找这些没有扩展名的文件时，自动加上`.ts`或者`.js`扩展名来匹配。
   
 +makeExample('webpack/ts/config/webpack.common.js', 'resolve', 'config/webpack.common.js')(format=".")
 .l-sub-section
@@ -363,11 +421,15 @@ a#common-resolve
     If Webpack should resolve extension-less files for styles and HTML,
     add `.css` and `.html` to the list.
 
+    如果我们希望Webapck也能解释不带扩展名的样式和HTML文件，在列表里追加`.css`和`.html`即可。
+
 a#common-rules
 :marked
 :marked
   #### _module.rules_
   Rules tell Webpack which loaders to use for each file (AKA _module_):
+
+  Rules用来告诉Webpack加载不同文件时该用哪个加载器。
   
 +makeExample('webpack/ts/config/webpack.common.js', 'loaders', 'config/webpack.common.js')(format=".")
 
