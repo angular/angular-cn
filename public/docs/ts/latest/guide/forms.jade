@@ -365,20 +365,21 @@ figure.image-display
 
   Replace the contents of the "QuickStart" version with the following:
   
-  把"快速起步"的版本内容替换成下列代码：+makeExample('src/app/app.component.ts')
+  把"快速起步"的版本内容替换成下列代码：
+  
++makeExample('src/app/app.component.ts')
 
 :marked
 .l-sub-section
   :marked
     There are only two changes.
-
-    仅有的两处修改。
-
-    1. The `template` is simply the new element tag identified by the component's `selector` property.
+    The `template` is simply the new element tag identified by the component's `selector` property.
     This will display the hero form when the application component is loaded.
     We've also dropped the `name` field from the class body.
-
-       `template`中只有新元素标签，即组件的`selector`属性。当应用组件被加载时，将显示这个英雄表单。
+    
+    这里只做了两处修改。
+    `template`中只剩下这个新的元素标签，即组件的`selector`属性。这样当应用组件被加载时，就会显示这个英雄表单。
+    另外，我们还从类中移除了`name`字段。
 
 .l-main-section
 :marked
