@@ -104,15 +104,24 @@ a#non-essential
 :marked
   ## Delete _non-essential_ files (optional)
 
+  ## 删除*非必需*文件（可选）
+
   You can quickly delete the _non-essential_ files that concern testing and QuickStart repository maintenance
   (***including all git-related artifacts*** such as the `.git` folder and `.gitignore`!).
+
+  你可以快速删除一些涉及到测试和维护快速开始版本库的 *非必需* 文件
+  （***包括所有git相关的文件***如 `.git` 文件夹和 `.gitignore`！）。
   
 .alert.is-important
   :marked
      Do this only in the beginning to avoid accidentally deleting your own tests and git setup!
 
+     请只在开始时执行此删除操作，以防你自己的测试和git文件被意外删除！
+
 :marked
   Open a terminal window in the project folder and enter the following commands for your environment:
+
+  在项目目录下打开一个终端窗口，并根据你的操作系统执行以下命令：
 
   ### OS/X (bash)
 code-example(language="sh" class="code-shell").
@@ -174,16 +183,24 @@ block core-files
   All guides and cookbooks have _at least these core files_. 
   Each file has a distinct purpose and evolves independently as the application grows.
 
+  所有指南和烹饪书都至少有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
+
   Files outside `src/` concern building, deploying, and testing your app.
   They include configuration files and external dependencies.
+
+  `src/` 目录之外的文件为构建、部署和测试app相关的文件，他们只包括配置文件和外部依赖。
 
   Files inside `src/` "belong" to your app.
   Add new Typescript, HTML and CSS files inside the `src/` directory, most of them inside `src/app`,
   unless told to do otherwise.
 
+  `src/` 目录下的文件才“属于”你的app。
+  除非明确指出，否则教程中添加的 TypeScript，HTML和CSS文件都在`src/`目录下，
+  大多数在`src/app`目录中。
+
   The following are all in `src/`
 
-  所有指南和烹饪书都至少有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
+  `src/`目录文件详情如下：
 
 style td, th {vertical-align: top}
 table(width="100%")
