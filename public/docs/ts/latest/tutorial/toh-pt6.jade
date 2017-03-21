@@ -822,9 +822,14 @@ block observable-transformers
     Most RxJS operators are not included in Angular's base `Observable` implementation.
     The base implementation includes only what Angular itself requires.
 
+    许多RxJS的操作符都不在Anuglar的基础库中。
+    Anuglar的基础库只包含了一些它自身运行需要的操作符。
+    
     If we want more RxJS features, we have to extend  `Observable` by *importing* the libraries in which they are defined.
     Here are all the RxJS imports _this_ component needs:
-
+    如果我们想使用更多的RxJS特能，我们需要通过关键字*importing*来导入更多的RxJS 操作符定义。
+    下面的代码引入了英雄搜索组件（hero-search.component）需要的所有RxJS操作符：
+    
   +makeExample('src/app/hero-search.component.ts','rxjs-imports','src/app/hero-search.component.ts (rxjs imports)')(format='.')
 
   :marked
