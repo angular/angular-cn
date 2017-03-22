@@ -440,7 +440,7 @@ block ts-decorator
 :marked
   <ul if-docs="ts"><li>`moduleId`: sets the source of the base address (`module.id`) for module-relative URLs such as the `templateUrl`.</ul>
 
-    `moduleId`: 为与模块相关的 URL（例如`templateUrl`）提供基地址。
+    `moduleId`: 把moduleId设定为起点地址(module.id)是为了说明启用了模块之间的相对地址，例如，当moduleId为“module.id”时，说明当前‘templaterUrl’的值采用了相对URL地址。
 
   - `selector`: CSS selector that tells Angular to create and insert an instance of this component
   where it finds a `<hero-list>` tag in *parent* HTML.
