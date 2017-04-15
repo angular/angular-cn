@@ -141,7 +141,7 @@ block includes
   To understand why dependency injection is so important, consider an example without it.
   Imagine writing the following code:
 
-  我们从下列代码开始：
+  要想理解为什么依赖注入这么重要，就先来考虑不使用它的一个例子。想象下列代码：
 
 +makeExample('dependency-injection/ts/src/app/car/car-no-di.ts', 'car', 'src/app/car/car.ts (without DI)')
 
@@ -244,7 +244,7 @@ block includes
   It just consumes them.
   
   发生了什么？我们把依赖的定义移到了构造函数中。
-    `Car`类不再创建引擎或者轮胎。
+    `Car`类不再创建引擎`engine`或者轮胎`tires`。
     它仅仅“消费”它们。
 
 .l-sub-section
@@ -529,11 +529,12 @@ a#register-providers-ngmodule
 a#register-providers-component
 :marked
   ### Registering providers in a component
+  
   ### 在组件中注册提供商
 
   Here's a revised `HeroesComponent` that registers the `HeroService` in its `providers` array.
   
-  下面是更新的`HerosComponent`，它注册了`HeroService`。
+  下面是更新的`HerosComponent`，把`HeroService`注册到了它的`providers`数组中。
 
 +makeExample('src/app/heroes/heroes.component.1.ts', 'full', 'src/app/heroes/heroes.component.ts', stylePattern)(format='.')
 
@@ -566,7 +567,7 @@ a#ngmodule-vs-comp
     :marked
      Also see *"Should I add app-wide providers to the root `AppModule` or the root `AppComponent`?"* in the [NgModule FAQ](../cookbook/ngmodule-faq.html#q-root-component-or-module).
       
-     参见 [NgModule FAQ](../cookbook/ngmodule-faq.html#root-component-or-module) 一章的
+     参见 [NgModule FAQ](../cookbook/ngmodule-faq.html#q-root-component-or-module) 一章的
        **我该把“全应用级”提供商加到根模块`AppModule`还是根组件`AppComponent`？**
 
 
@@ -731,6 +732,8 @@ a#service-needs-service
 a#injectable
 :marked
   ### Why _@Injectable()_?
+  
+  ### 为什么要用 _@Injectable()_?
 
   **<a href="../api/core/index/Injectable-decorator.html">@Injectable()</a>** marks a class as available to an
   injector for instantiation. Generally speaking, an injector reports an
@@ -753,7 +756,10 @@ a#injectable
       我们需要它，因为 Angular 需要构造函数参数的元数据来注入一个`Logger`。
   
 .callout.is-helpful
-  header Suggestion: add @Injectable() to every service classheader 建议：为每个服务类都添加 @Injectable()
+  header Suggestion: add @Injectable() to every service class
+  
+  header 建议：为每个服务类都添加 @Injectable()
+  
   :marked
     Consider adding `@Injectable()` to every service class, even those that don't have dependencies
     and, therefore, do not technically require it. Here's why:
@@ -788,7 +794,7 @@ a#injectable
   
   我们**可以**添加它。但是没有必要，因为`HerosComponent`已经有`@Component`装饰器了，
     `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="../api/core/index/Injectable-decorator.html">Injectable</a> 的子类型。
-    实际上，正是这些`Injectable`装饰器是把一个类标识为注入器实例化的目标。
+    实际上，正是这些`@Injectable()`装饰器是把一个类标识为注入器实例化的目标。
 
 .l-sub-section
   :marked
@@ -815,8 +821,8 @@ a#injectable
     <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> decorator
     to make the intent clear.
 
-    当然，任何装饰器都会触发这个效果，用 <a href="../api/core/index/Injectable-decorator.html">Injectable</a> 来标识服务
-    只是让这一意图更明显。
+    当然，任何装饰器都会触发这个效果，用 <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> 来标识服务
+    只是为了让这一意图更明显。
 
 .callout.is-critical
   header Always include the parentheses
@@ -833,9 +839,13 @@ a#injectable
 .l-main-section#logger-service
 :marked
   ## Creating and registering a logger service
+  
   ## 创建和注册日志服务
 
-  Inject a logger into  `HeroService` in two steps:要把日志服务注入到`HeroService`中需要两步：
+  Inject a logger into  `HeroService` in two steps:
+  
+  要把日志服务注入到`HeroService`中需要两步：
+  
   1. Create the logger service.
 
      创建日志服务。
@@ -864,6 +874,7 @@ a#injectable
   If you forget to register the logger, Angular throws an exception when it first looks for the logger:
 
   如果忘了注册这个日志服务，Angular 会在首次查找这个日志服务时，抛出一个异常。
+  
 code-example(format="nocode").
   EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)
   (异常：Logger类没有提供商！(HeroListComponent -> HeroService -> Logger))
@@ -1071,7 +1082,7 @@ a#value-provider
   [Non-class dependencies](#non-class-dependencies) and
   [InjectionToken](#injection-token) sections.
 
-  查看更多`useValue`的例子，见[非类依赖](#non-class-dependencies)和 [OpaqueToken](#opaquetoken)。
+  查看更多`useValue`的例子，见[非类依赖](#non-class-dependencies)和 [InjectionToken](#injection-token)部分。
 
 #factory-provider
 :marked
@@ -1099,7 +1110,7 @@ a#value-provider
   Only authorized users should see secret heroes.
 
   下面通过添加新的业务需求来说明这一点：
-  HeroService 必须对普通用户隐藏掉*秘密*英雄。
+  `HeroService` 必须对普通用户隐藏掉*秘密*英雄。
   只有授权用户才能看到秘密英雄。
 
   Like the `EvenBetterLogger`, the `HeroService` needs a fact about the user.
@@ -1241,15 +1252,16 @@ p
   | string, function, or object.
 
 p 如果依赖值不是一个类呢？有时候想要注入的东西是一个字符串，函数或者对象。
+
 p
   | Applications often define configuration objects with lots of small facts
   | (like the title of the application or the address of a web API endpoint)
   | but these configuration objects aren't always instances of a class.
   | They can be object literals such as this one:
 
-p 应用程序经常为很多很小的因素定义配置对象（例如应用程序的标题或网络API终点的地址）。
-  block config-obj-maps
-    | 但是这些配置对象不总是类的实例，它们可能是对象，如下面这个：
+p 
+  | 应用程序经常为很多很小的因素定义配置对象（例如应用程序的标题或网络API终点的地址）。
+  | 但是这些配置对象不总是类的实例，它们可能是对象，如下面这个：
 
 +makeExample('dependency-injection/ts/src/app/app.config.ts','config','src/app/app-config.ts (excerpt)')(format='.')
 
@@ -1277,8 +1289,11 @@ p 应用程序经常为很多很小的因素定义配置对象（例如应用程
     cannot use a TypeScript interface as a token:
     
     `CONFIG`常量有一个接口：`AppConfig`。不幸的是，不能把 TypeScript 接口用作令牌：  
+    
   +makeExample('dependency-injection/ts/src/app/providers.component.ts','providers-9-interface')(format=".")
+  
   +makeExample('dependency-injection/ts/src/app/providers.component.ts','provider-9-ctor-interface')(format=".")
+  
   :marked
     That seems strange if you're used to dependency injection in strongly typed languages, where
     an interface is the preferred dependency lookup key.
@@ -1306,13 +1321,17 @@ a#injection-token
   定义方式是这样的：
 
 +makeExample('dependency-injection/ts/src/app/app.config.ts','token')(format='.')
+
 :marked
   The type parameter, while optional, conveys the dependency's type to developers and tooling.
   The token description is another developer aid.
+  
+  类型参数，虽然是可选的，但可以向开发者和开发工具传达类型信息。
+  而且这个令牌的描述信息也可以为开发者提供帮助。
 
   Register the dependency provider using the `InjectionToken` object:
 
-  使用这个`OpaqueToken`对象注册依赖的提供商：
+  使用这个`InjectionToken`对象注册依赖的提供商：
 
 +makeExample('dependency-injection/ts/src/app/providers.component.ts','providers-9')(format=".")
 
@@ -1360,7 +1379,7 @@ a#injection-token
   value of `logger` to null.
 
   当使用`@Optional()`时，代码必须准备好如何处理空值。
-  如果其它的代码没有注册一个 logger，注入器会设置该`logger`的值为空 null。
+  如果其它的代码没有注册一个 `logger`，注入器会设置该`logger`的值为空 null。
 
 .l-main-section
 :marked
@@ -1405,20 +1424,21 @@ a#injection-token
   The component then asks the injected injector for the services it wants in `ngOnInit()`.
 
   在这个例子中，Angular 把组件自身的`Injector`注入到了组件的构造函数中。
-  然后，组件向注入的注入器请求它所需的服务。
+  然后，组件在`ngOnInit()`中向注入的注入器请求它所需的服务。
 
   Note that the services themselves are not injected into the component.
   They are retrieved by calling `injector.get()`.
 
-  注意，这些服务本身没有注入到组件，它们是通过调用`injector.get`获得的。
+  注意，这些服务本身没有注入到组件，它们是通过调用`injector.get()`获得的。
 
   The `get()` method throws an error if it can't resolve the requested service.
   You can call `get()` with a second parameter, which is the value to return if the service
   is not found. Angular can't find the service if it's not registered with this or any ancestor injector.
 
   `get()`方法如果不能解析所请求的服务，会抛出异常。
-  调用`get`时，还可以使用第二个参数，一旦获取的服务 (`ROUS`) 没有在当前或任何祖先注入器中注册过，
+  调用`get()`时，还可以使用第二个参数，一旦获取的服务没有在当前或任何祖先注入器中注册过，
   就把它作为返回值。
+  
 .l-sub-section
   :marked
     The technique is an example of the

@@ -438,7 +438,7 @@ a#decoration
     to a token. When you write `injector.get(Foo)`, the injector returns
     the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
 
-    令牌是一个 Angular 中的类型 (`OpaqueToken`)。我们很少直接处理令牌。
+    令牌是一个 Angular 中的类型 (`InjectionToken`)。我们很少直接处理令牌。
     绝大多数方法都接受类名 (`Foo`) 或字符串 ("foo")， Angular 会把这些类名称和字符串转换成令牌。
     当调用`injector.get(Foo)`时，注入器返回用`Foo`类生成的令牌所对应的依赖值，该依赖值通常是`Foo`类的实例。
 
