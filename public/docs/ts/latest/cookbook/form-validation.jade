@@ -16,11 +16,12 @@ a#top
     Read more about these choices in the [Forms](../guide/forms.html)
     and the [Reactive Forms](../guide/reactive-forms.html) guides.
 
-    参见[表单章节](../guide/forms.html)了解关于这些选择的更多知识。
+    参见[表单](../guide/forms.html)和[响应式表单](../guide/reactive-forms.html)了解关于这些选择的更多知识。
 
 a#toc
 :marked
   ## Contents
+  
   ## 目录
 
     * [Simple template-driven forms](#template1)
@@ -30,7 +31,6 @@ a#toc
     * [Template-driven forms with validation messages in code](#template2)
 
       [代码中带验证信息的模板驱动表单](#template2)
-
 
       * [Component Class](#component-class)
 
@@ -44,11 +44,9 @@ a#toc
 
         [`FormModule`和模板驱动表单](#formmodule)
 
-
     * [Reactive forms with validation in code](#reactive)
 
       [代码中带验证消息的响应式表单](#reactive)
-
 
       * [Switch to the `ReactiveFormsModule`](#reactive-forms-module)
 
@@ -62,7 +60,6 @@ a#toc
 
         [组件类](#reactive-component-class)
 
-
         * [`FormBuilder` declaration](#formbuilder)
 
           [`FormBuilder`声明](#formbuilder)
@@ -71,21 +68,17 @@ a#toc
 
           [提交对英雄值的更改](#committing-changes)
 
-
     * [Custom validation](#custom-validation)
 
       [自定义验证器](#custom-validation)
-
 
       * [Custom validation directive](#custom-validation-directive)
 
         [自定义验证指令](#custom-validation-directive)
 
-
     * [Testing considerations](#testing)
 
       [测试方面的考虑](#testing)
-
 
 a#live-example
 :marked
@@ -239,7 +232,7 @@ a#template2
   * The messages are static strings, hard-coded into the template.
   It's easier to maintain _dynamic_ messages in the component class.
   
-    这些消息是静态的字符串，被硬编码到模板中。我们通常要求在代码中可以塑造的动态消息。
+    这些消息是静态的字符串，被硬编码到模板中。把这些动态消息放在代码中会更易于维护。
 
   In this example, you can move the logic and the messages into the component with a few changes to
   the template and component.
@@ -416,9 +409,11 @@ a#improvement
   Each field has approximately the same number of lines no matter its number of validation rules.
   The component also grows proportionally, at the rate of one line per validated field
   and one line per validation message.
+  
   将验证消息移到组件后，模板的增长变得更加缓慢，幅度也小一些。
   不管有多少个验证规则，每个控件的行数是差不多的。
   组件也按比例增长，每增加一个控件增加一行，每个验证消息一行。
+  
   Both trends are manageable.
 
   两条线容易维护。
@@ -455,7 +450,9 @@ a#formmodule
   :marked
     This guide hasn't talked about the `SharedModule` or its `SubmittedComponent` which appears at the bottom of every
     form template in this cookbook.  
+    
     我们还没有讲`SharedModule`或者它的`SubmittedComponent`，它们出现在本烹饪书的每一个表单模板中。
+    
     They're not germane to the validation story. Look at the [live example](#live-example) if you're interested.
 
     它们与表单验证没有紧密的关系。如果你感兴趣，参见[在线例子](#live-example)。
@@ -465,13 +462,15 @@ a#reactive
 :marked
   ## Reactive forms with validation in code
 
-  ## 响应式表单
+  ## 在代码中验证响应式表单
 
   In the template-driven approach, you markup the template with form elements, validation attributes,
   and `ng...` directives from the Angular `FormsModule`.
   At runtime, Angular interprets the template and derives its _form control model_.
+  
   在模板驱动方法中，你在模板中标出表单元素、验证属性和Angular`FormsModule`中的`ng...`指令。
   在运行时间，Angular解释模板并从**表单控制器模型**衍生它。
+  
   **Reactive Forms** takes a different approach. 
   You create the form control model in code. You write the template with form elements
   and `form...` directives from the Angular `ReactiveFormsModule`.
@@ -516,7 +515,9 @@ a#reactive-forms-module
 
   响应式表单类和指令来自于Angular的`ReactiveFormsModule`，不是`FormsModule`。
   本例中，应用模块的“响应式表单”特性是这样的：
+  
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.module.ts','','src/app/reactive/hero-form-reactive.module.ts')(format='.')
+
 :marked
   The reactive forms feature module and component are in the `src/app/reactive` folder.
   Focus on the `HeroFormReactiveComponent` there, starting with its template.
@@ -602,7 +603,11 @@ a#reactive-component-class
 :marked
   ### Component class
 
-  ### 组件类The component class is now responsible for defining and managing the form control model. 组件类现在负责定义和管理表单控制器模型。
+  ### 组件类
+  
+  The component class is now responsible for defining and managing the form control model. 
+  
+  组件类现在负责定义和管理表单控制器模型。
   
   Angular no longer derives the control model from the template so you can no longer query for it.
   You can create the Angular form control model explicitly with the help of the `FormBuilder`class.
@@ -658,9 +663,11 @@ a#formbuilder
   Each control spec is a control name with an array value.
   The first array element is the current value of the corresponding hero field.
   The optional second value is a validator function or an array of validator functions.
+  
   每个控制器的设置都是控制器名字和数组值。
   第一个数组元素是英雄控件对应的当前值。
   第二个值（可选）是验证器函数或者验证器函数数组。
+  
   Most of the validator functions are stock validators provided by Angular as static methods of the `Validators` class.
   Angular has stock validators that correspond to the standard HTML validation attributes.
 
@@ -676,7 +683,7 @@ a#formbuilder
   :marked
     Learn more about `FormBuilder` in the [Introduction to FormBuilder](../guide/reactive-forms.html#formbuilder) section of Reactive Forms guide.
 
-    到**即将到来**的响应式表单章，学习更多关于`FormBuilder`的知识。
+    到[响应式表单]的[FormBuilder介绍](../guide/reactive-forms.html#formbuilder)部分，学习更多关于`FormBuilder`的知识。
     
 a#committing-changes
 :marked
@@ -714,11 +721,14 @@ a#committing-changes
     correspond _exactly_ to the hero data object properties.
 
     本例非常“幸运”，因为`heroForm.value`属性**正好**与英雄数据对象属性对应。
+    
 :marked
   The `addHero()` method discards pending changes and creates a brand new `hero` model object.
 
   `addHero()`方法放弃未处理的变化，并创建一个崭新的`hero`模型对象。
+  
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','add-hero')(format='.')
+
 :marked
   Then it calls `buildForm()` again which replaces the previous `heroForm` control model with a new one.
   The `<form>` tag's `[formGroup]` binding refreshes the page with the new control model.
@@ -762,7 +772,9 @@ a#custom-validation
   Here's the `forbiddenNamevalidator()` function:
 
   下面是`forbiddenNameValidator`函数：
+  
 +makeExample('cb-form-validation/ts/src/app/shared/forbidden-name.directive.ts','custom-validator', 'shared/forbidden-name.directive.ts (forbiddenNameValidator)')(format='.')
+
 :marked
   The function is actually a factory that takes a regular expression to detect a _specific_ forbidden name
   and returns a validator function.
@@ -797,7 +809,9 @@ a#custom-validation-directive
   has a `forbiddenNameValidator` at the bottom.
 
   在响应式表单组件中，我们在`'name'`控制器的验证函数列表的底部添加了一个配置了的`forbiddenNameValidator`。
+  
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','name-validators', 'reactive/hero-form-reactive.component.ts (name validators)')(format='.')
+
 :marked
   In the _template-driven_ example, the `<input>` has the selector (`forbiddenName`)
   of a custom _attribute directive_, which rejects "bob".
@@ -805,6 +819,7 @@ a#custom-validation-directive
   在模板驱动组件的模板中，我们在name的输入框元素中添加了自定义**属性指令**的选择器（`forbiddenName`），并配置它来拒绝“bob”。
   
 +makeExample('cb-form-validation/ts/src/app/template/hero-form-template2.component.html','name-input', 'template/hero-form-template2.component.html (name input)')(format='.')
+
 :marked
   The corresponding `ForbiddenValidatorDirective` is a wrapper around the `forbiddenNameValidator`.
 
@@ -816,6 +831,7 @@ a#custom-validation-directive
   Angular表单接受指令在验证流程中的作用，因为指令注册自己到`NG_VALIDATORS`提供商中，该提供商拥有可扩展的验证指令集。
 
 +makeExample('cb-form-validation/ts/src/app/shared/forbidden-name.directive.ts','directive-providers', 'shared/forbidden-name.directive.ts (providers)')(format='.')
+
 :marked
   Here is the rest of the directive to help you get an idea of how it all comes together:
   
