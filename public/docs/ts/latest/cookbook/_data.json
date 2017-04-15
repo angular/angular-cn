@@ -32,8 +32,8 @@
   },
 
   "dynamic-component-loader": {
-    "title": "Dynamic Component Loader",
-    "intro": "Load components dynamically."
+    "title": "动态组件加载器",
+    "intro": "如何动态加载组件"
   },
 
   "dynamic-form": {
@@ -52,8 +52,8 @@
   },
 
   "ngmodule-faq": {
-    "title": "NgModule FAQs",
-    "intro": "Answers to frequently asked questions about @NgModule."
+    "title": "Angular 模块常见问题",
+    "intro": "对 @NgModule 常见问题的解答"
   },
 
   "set-document-title": {
