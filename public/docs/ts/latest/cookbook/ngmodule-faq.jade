@@ -8,6 +8,8 @@ block includes
 
   The [NgModules](../guide/ngmodule.html) page guides you
   from the most elementary `@NgModule` to a multi-faceted sample with lazy-loaded modules.
+  
+  [Angular模块](../guide/ngmodule.html)章涵盖了此概念，并带你从最基本的`@NgModule`学到惰性加载模块。
 
   This page answers the questions many developers ask about NgModule design and implementation.
   
@@ -95,6 +97,7 @@ block includes
   * [What if two modules provide the same service?](#q-module-provider-duplicates)
 
     [如果两个模块提供了*同一个*服务会怎样？](#q-module-provider-duplicates)
+    
   * [How do I restrict service scope to a module?](#q-component-scoped-providers)
 
     [如何把服务的范围限制在某个模块中？](#q-component-scoped-providers)
@@ -110,6 +113,7 @@ block includes
   * [Why is it bad if _SharedModule_ provides a service to a lazy-loaded module?](#q-why-bad)
 
     [为什么让*SharedModule*为惰性加载模块提供服务是个馊主意？](#q-why-bad)
+    
   * [Why does lazy loading create a child injector?](#q-why-child-injector)
 
     [为什么惰性加载模块要创建一个子注入器？](#q-why-child-injector)
@@ -548,6 +552,7 @@ a#q-for-root
 
     只能在应用的根模块`AppModule`中调用并导入`.forRoot`的结果。
     在其它模块中导入它，特别是惰性加载模块中，是违反设计目标的并会导致一个运行时错误。
+    
 :marked
   `RouterModule` also offers a `forChild` static method for configuring the routes of lazy-loaded modules.
   
@@ -664,7 +669,6 @@ a#q-module-provider-duplicates
 
   *每个*注入了该服务的类获得的都是由第二个提供商创建的实例。
   即使是声明在第一个模块中的类，它取得的实例也是来自第二个提供商的。
-  *这是一个不受欢迎的意外*。
 
   If Module A provides a service for token 'X' and imports a module B
   that also provides a service for token 'X', then Module A's service definition "wins".
@@ -873,7 +877,7 @@ a#q-component-or-module
   [Always register _application-wide_ services with the root `AppModule`](#q-root-component-or-module),
   not the root `AppComponent`.
 
-  [总是在根模块`AppModule`中注册*全应用级*服务](q-root-component-or-module)，而不要在根组件`AppComponent`中。
+  [总是在根模块`AppModule`中注册*全应用级*服务](#q-root-component-or-module)，而不要在根组件`AppComponent`中。
 
 .l-hr
 a#q-why-bad
@@ -887,7 +891,8 @@ a#q-why-bad
   section of the [NgModules](../guide/ngmodule.html) page,
   which discusses the importance of keeping providers out of the `SharedModule`.
 
-  这个问题在[Angular模块](../guide/ngmodule.html#no-shared-module-providers)章出现过，那时我们在讨论不要把提供商放进`SharedModule`的重要性。
+  这个问题在[Angular模块](../guide/ngmodule.html)一章的[为何UserService不是共享的](../guide/ngmodule.html#no-shared-module-providers)部分出现过，
+  那时我们在讨论不要把提供商放进`SharedModule`的重要性。
 
   Suppose the `UserService` was listed in the module's `providers` (which it isn't).
   Suppose every module imports this `SharedModule` (which they all do).
@@ -905,7 +910,7 @@ a#q-why-bad
   and delivers the app-wide singleton `UserService`. No problem.
 
   导入的`SharedModule`的每个实例都会提供`UserService`。
-  Angular把它们中的一个注册进了应用的根注入器中（参见[前面](#q-reimport)）。
+  Angular把它们中的一个注册进了应用的根注入器中（参见[如果同一个模块被导入两次会怎么样？](#q-reimport)）。
   然后，某些组件要求注入`UserService`，Angular就会在应用的根注入器中查找它，并交付一个全应用级的单例对象`UserService`。这没问题。
 
   Now consider the `HeroModule` _which is lazy loaded_.
@@ -1019,7 +1024,8 @@ a#q-is-it-loaded
   Certain NgModules (such as `BrowserModule`) implement such a guard,
   such as this `CoreModule` constructor from the NgModules page.
 
-  某些Angular模块（例如`BrowserModule`）就实现了一个像本页范例中的`CoreModule`构造函数那样的守卫。
+  某些Angular模块（例如`BrowserModule`）就实现了一个像 Angular 模块那一章的`CoreModule`构造函数那样的守卫。
+  
 +makeExample('ngmodule/ts/src/app/core/core.module.ts', 'ctor', 'src/app/core/core.module.ts (Constructor)')(format='.')
 
 .l-hr
@@ -1236,7 +1242,6 @@ a#q-module-recommendations
 :marked
   ### _SharedModule_
 
-  #### _SharedModule_
   Create a `SharedModule` with the components, directives, and pipes that you use
   everywhere in your app. This module should consist entirely of `declarations`,
   most of them exported.
@@ -1290,7 +1295,7 @@ a#q-module-recommendations
 :marked
   ### Feature Modules
 
-  #### 特性模块
+  ### 特性模块
 
   Create feature modules around specific application business domains, user workflows, and utility collections.
   
@@ -1298,7 +1303,7 @@ a#q-module-recommendations
 
   Feature modules tend to fall into one of the following groups:
   
-  特性模块一般可分成下面这四种：
+  特性模块一般可分成下面这几种：
 
     * [Domain feature modules](#domain-feature-module).
     
@@ -1306,7 +1311,7 @@ a#q-module-recommendations
       
     * [Routed feature modules](#routed-feature-module)
 
-      [路由到特性模块](#routed-feature-module)
+      [带路由的特性模块](#routed-feature-module)
 
     * [Routing modules](#routing-module)
 
@@ -1385,7 +1390,7 @@ table
           For an example, see the [Make _Contact_ a feature module](../guide/ngmodule.html#contact-module-v1)
           section of the [NgModules](../guide/ngmodule.html) page, before routing is introduced.
 
-          比如“Angular模块”章的[_ContactModule_](../guide/ngmodule.html#contact-module-v1)。
+          比如[Angular模块](../guide/ngmodule.html)章的[_ContactModule_](../guide/ngmodule.html#contact-module-v1)。
           
   tr
     td(style="vertical-align: top") <a id="routed-feature-module"></a>
@@ -1450,9 +1455,11 @@ table
 
         A routing module separates routing concerns from its companion module.
 
+        路由模块将路由配置从它的关联模块分离开来。
+        
         A routing module typically does the following:
         
-        路由模块将路由配置从它的关联模块分离开来。
+        路由模块通常会做这些：
 
         * Defines routes.
         
@@ -1509,7 +1516,7 @@ table
           See also [Do you need a _Routing Module_?](../guide/router.html#why-routing-module) on the
           [Routing & Navigation](../guide/router.html) page.
 
-          参见"[你需要**路由模块**吗?](../guide/router.html#why-routing-module)"
+          参见[路由与导航](../guide/router.html)一章的"[你需要**路由模块**吗?](../guide/router.html#why-routing-module)"部分。
 
   tr
     td(style="vertical-align: top") <a id="service-feature-module"></a>
@@ -1570,11 +1577,13 @@ table
   The following table summarizes the key characteristics of each _feature module_ group.
 
   下表是对各种*特性模块*的关键特征汇总。
+  
 .l-sub-section
   :marked
     Real-world modules are often hybrids that knowingly deviate from these guidelines.
 
     真实世界中的模块可能会违背这些分类法，混杂使用它们。
+    
 table
   tr
     th
@@ -1708,7 +1717,7 @@ a#q-ng-vs-js-modules
   (see the [Modules](http://exploringjs.com/es6/ch_modules.html) page of the Exploring ES6 website).
   Within each file you write an `export` statement to make parts of the module public:
 
-  在现代JavaScript中，[每个文件都是模块](http://exploringjs.com/es6/ch_modules.html)。
+  在现代JavaScript中，每个文件都是模块（参见[模块](http://exploringjs.com/es6/ch_modules.html)）。
   在每个文件中，我们写一个`export`语句将模块的一部分公开。
 
 code-example(format='.').
@@ -1795,6 +1804,8 @@ a#q-template-reference
 .l-main-section
 :marked
   ## How does Angular find components, directives, and pipes in a template?<br>What is a <i><b>template reference</b></i>?
+  
+  ## Angular 如何查找模板中的组件、指令和管道？什么是 ***模板引用*** ？
 
   The [Angular compiler](#q-angular-compiler) looks inside component templates
   for other components, directives, and pipes. When it finds one, that's a "template reference".
@@ -1896,7 +1907,7 @@ table
         A list of [declarable](#q-declarable) classes,
         the *component*, *directive*, and *pipe* classes that _belong to this module_.
 
-        [可声明类](#q-declarables)的列表，也就是属于当前模块的**组件**、**指令**和**管道**类。
+        [可声明类](#q-declarable)的列表，也就是属于当前模块的**组件**、**指令**和**管道**类。
 
         These declared classes are visible within the module but invisible to
         components in a different module unless they are _exported_ from this module and
@@ -2060,7 +2071,7 @@ table
         The compiler can discover most components by walking the tree of references
         from one component template to another.
 
-        [_Angular编译器_](#q-angular-compiler)必须知道在应用中实际用过的每一个组件。
+        大多数开发人员从来没有设置过该属性。[_Angular编译器_](#q-angular-compiler)必须知道在应用中实际用过的每一个组件。
         通过遍历组件模板中的引用树，编译器可以自动找出大多数的组件。
 
         But there's always at least one component that's not referenced in any template:
