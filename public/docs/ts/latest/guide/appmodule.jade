@@ -97,13 +97,14 @@ a#imports
     They have nothing to do with Angular and Angular knows nothing about them.
 
     _JavaScript_ 的`import`声明允许你访问在其他文件中_导出_的符号，这样你可以在_当前_文件引用它们。
+    我们会往几乎所有类型的应用中加入`import`语句。
     它们与 Angular 毫无关系，Angular 对它们也一无所知。
 
     The _module's_ `imports` array appears _exclusively_ in the `@NgModule` metadata object.
     It tells Angular about specific _other_ Angular modules &mdash; all of them classes decorated with `@NgModule` &mdash;
     that the application needs to function properly.
 
-    _模块_的`imports`数组告诉 Angular 特定 Angular 模块的信息 &mdash; 用`@NgModule`装饰的类 &mdash; 应用需要它们来正常工作。
+    _模块_的`imports`数组是`@NgModule`元数据中*独有的*。它告诉 Angular 特定 Angular 模块的信息 &mdash; 用`@NgModule`装饰的类 &mdash; 应用需要它们来正常工作。
 a#declarations
 :marked
   ### The _declarations_ array
@@ -113,8 +114,7 @@ a#declarations
   You tell Angular which components belong to the `AppModule` by listing it in the module's `declarations` array.
   As you create more components, you'll add them to `declarations`.
 
-  *每个*组件必须在且仅在一个`NgModule`类中声明。
-  通过将其列到`AppModule`模块的`declarations`数组中，告诉 Angular 哪个组件属于`AppModule`。
+  通过将其列到`AppModule`模块的`declarations`数组中，可以告诉 Angular 哪个组件属于`AppModule`。
   在创建更多组件的过程中，逐步将它们添加到`declarations`中。
 
   You must declare _every_ component in an `NgModule` class. 
