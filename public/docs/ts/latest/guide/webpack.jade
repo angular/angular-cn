@@ -406,20 +406,27 @@ a(id="common-configuration")
 .l-main-section
 :marked
   ### Common configuration
+  
   ### 通用配置
+  
   Developers typically have separate configurations for development, production, and test environments.
   All three have a lot of configuration in common.
 
   开发、生产、测试等不同的环境通常会分开配置，但实际上这些配置也有很多地方是通用的。
 
   Gather the common configuration in a file called `webpack.common.js`.
+  
   我们可以把这些通用的配置收归到一个文件，命名为`webpack.common.js`。
+  
 +makeExample('webpack/ts/config/webpack.common.js', null, 'config/webpack.common.js')(format=".")
 
 a#inside-webpack-commonjs
 :marked
   ### Inside _webpack.common.js_
-### webpack.common.js解读  Webpack is a NodeJS-based tool that reads configuration from a JavaScript commonjs module file.
+  
+  ### webpack.common.js解读  
+  
+  Webpack is a NodeJS-based tool that reads configuration from a JavaScript commonjs module file.
 
   Webpack是基于NodeJS的一个工具，它能够从一个*commonjs*规范的JavaScript模块文件里读取配置。
 
@@ -449,7 +456,9 @@ a#common-entries
   #### _entry_
 
   The first export is the `entry` object:
+  
   如上所述，第一个导出的对象是*entries*：
+  
 +makeExample('webpack/ts/config/webpack.common.js', 'entries', 'config/webpack.common.js')(format=".")
 
 :marked

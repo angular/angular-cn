@@ -81,7 +81,9 @@ a#toc
     [内置结构型指令](#structural-directives)
 
     * [NgIf](#ngIf)
+    
     * [NgFor](#ngFor)
+    
       * [Template input variables](#template-input-variables)
       
         [模板输入变量](#template-input-variables)
@@ -124,8 +126,7 @@ a#html
 :marked
   ## HTML in templates
 
-
-  ## HTML
+  ## 模板中的HTML
 
   HTML is the language of the Angular template.
   Almost all HTML syntax is valid template syntax. 
@@ -214,7 +215,7 @@ a#interpolation
 
   表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
   这样思考起来很方便，并且这个误解很少给我们带来麻烦。
-  但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](#property-binding)，后面将会解释这一点。
+  但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](#property-binding)，[后面](#property-binding-or-interpolation-)将会解释这一点。
 
   But first, let's take a closer look at template expressions and statements.
   
@@ -329,7 +330,9 @@ a#expression-context
 a(href="#toc") back to top
 a(href="#toc") 回到顶部
 
-a#no-side-effectsa#expression-guidelines
+a#no-side-effects
+a#expression-guidelines
+
 :marked
   ### Expression guidelines
 
@@ -700,8 +703,13 @@ table
 :marked
   You still create a structure and initialize attribute values this way in Angular templates.
 
-  在 Angular 模板中，我们仍使用同样的方式来创建结构和初始化 attribute 值。Then you learn to create new elements with components that encapsulate HTML
-  and drop them into  templates as if they were native HTML elements.然后，用封装了 HTML 的组件创建新元素，并把它们当作原生 HTML 元素在模板中使用。
+  在 Angular 模板中，我们仍使用同样的方式来创建结构和初始化 attribute 值。
+  
+  Then you learn to create new elements with components that encapsulate HTML
+  and drop them into  templates as if they were native HTML elements.
+  
+  然后，用封装了 HTML 的组件创建新元素，并把它们当作原生 HTML 元素在模板中使用。
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'hero-detail-1')(format=".")
 
 :marked
@@ -823,12 +831,17 @@ table
 
 .callout.is-helpful
   header A world without attributes
+  
   header 没有 attribute 的世界
+  
   :marked
     In the world of Angular, the only role of attributes is to initialize element and directive state.
     When you write a data binding, you're dealing exclusively with  properties and eventsof the target object.
-    HTML attributes effectively disappear.在 Angular 的世界中，attribute 唯一的作用是用来初始化元素和指令的状态。
+    HTML attributes effectively disappear.
+    
+    在 Angular 的世界中，attribute 唯一的作用是用来初始化元素和指令的状态。
     当进行数据绑定时，只是在与元素和指令的 property 和事件打交道，而 attribute 就完全靠边站了。
+    
 :marked
   With this model firmly in mind, read on to learn about binding targets.
 
@@ -943,8 +956,11 @@ a#property-binding
   当要把视图元素的属性 (property) 设置为[模板表达式](#template-expressions)时，就要写模板的**属性 (property) 绑定**。
 
   The most common property binding sets an element property to a component property value. An example is
-  binding the `src` property of an image element to a component's `heroImageUrl` property:最常用的属性绑定是把元素属性设置为组件属性的值。
+  binding the `src` property of an image element to a component's `heroImageUrl` property:
+  
+  最常用的属性绑定是把元素属性设置为组件属性的值。
   下面这个例子中，image 元素的`src`属性会被绑定到组件的`heroImageUrl`属性上：
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-1')(format=".")
 
 :marked
@@ -1043,9 +1059,12 @@ a#property-binding
   :marked
     Technically, Angular is matching the name to a directive [input](#inputs-outputs),
     one of the property names listed in the directive's `inputs` array or a property decorated with `@Input()`.
-    Such inputs map to the directive's own properties.严格来说，Angular 正在匹配指令的[输入属性](#inputs-outputs)的名字。
+    Such inputs map to the directive's own properties.
+    
+    严格来说，Angular 正在匹配指令的[输入属性](#inputs-outputs)的名字。
     这个名字是指令的`inputs`数组中所列的名字，或者是带有`@Input()`装饰器的属性。
     这些输入属性被映射为指令自己的属性。
+    
 :marked
   If the name fails to match a property of a known directive or element, Angular reports an “unknown directive” error.
 
@@ -1089,7 +1108,12 @@ a#property-binding
   模板表达式应该返回目标属性所需类型的值。
   如果目标属性想要个字符串，就返回字符串。
   如果目标属性想要个数字，就返回数字。
-  如果目标属性想要个对象，就返回对象。The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what you're sending in the property binding:`HeroDetail`组件的`hero`属性想要一个`Hero`对象，那就在属性绑定中精确地给它一个`Hero`对象：
+  如果目标属性想要个对象，就返回对象。
+  
+  The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what you're sending in the property binding:
+  
+  `HeroDetail`组件的`hero`属性想要一个`Hero`对象，那就在属性绑定中精确地给它一个`Hero`对象：
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'property-binding-4')(format=".")
 
 :marked
@@ -1271,7 +1295,10 @@ code-example(language="html").
   &lt;tr&gt;&lt;td colspan="{{1 + 1}}"&gt;Three-Four&lt;/td&gt;&lt;/tr&gt;
 
 :marked
-  And you get this error:会得到这个错误：
+  And you get this error:
+  
+  会得到这个错误：
+  
 code-example(format="nocode").
   Template parse errors:
   Can't bind to 'colspan' since it isn't a known native property

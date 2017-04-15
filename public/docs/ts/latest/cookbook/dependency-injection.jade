@@ -1200,7 +1200,6 @@ a(id="find-parent")
   
 a #known-parent
 :marked
-
   ### Find a parent component of known type
 
   ### 找到已知类型的父组件
@@ -1214,7 +1213,9 @@ a #known-parent
   在下面的例子中，父组件`AlexComponent`有几个子组件，包括`CathyComponent`:
 
 a(id='alex')
+
 +makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','alex-1','parent-finder.component.ts (AlexComponent v.1)')(format='.')
+
 :marked
   *Cathy* reports whether or not she has access to *Alex*
   after injecting an `AlexComponent` into her constructor:

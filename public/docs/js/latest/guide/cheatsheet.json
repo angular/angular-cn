@@ -8,13 +8,13 @@
     "prerelease": [
       "local"
     ],
-    "build": "sha.3271832",
+    "build": "sha.4b7daad",
     "version": "4.0.0-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "4.0.0-local+sha.3271832",
+    "full": "4.0.0-local+sha.4b7daad",
     "branch": "master",
-    "commitSHA": "32718328dc513900bdec26f78bf7b7547d1703d8"
+    "commitSHA": "4b7daad85b1fd6c97002652c840b560291bfce2b"
   },
   "sections": []
 }
