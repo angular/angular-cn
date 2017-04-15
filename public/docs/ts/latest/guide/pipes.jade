@@ -126,7 +126,7 @@ block includes
   such as a string literal or a component property.
   In other words, you can control the format through a binding the same way you control the birthday value through a binding.
 
-  参数值可以是任何有效的[模板表达式](./template-syntax.html#template-expressions)，比如字符串字面量或组件的属性。
+  参数值可以是任何有效的模板表达式（参见[模板语法](./template-syntax.html)中的[模板表达式](./template-syntax.html#template-expressions)部分），比如字符串字面量或组件的属性。
   换句话说，借助属性绑定，我们也可以像用绑定来控制生日的值一样，控制生日的显示格式。
 
   Write a second component that *binds* the pipe's format parameter
@@ -243,13 +243,15 @@ figure.image-display
 
     `transform`方法是管道的基本要素。
     `PipeTransform`*接口*中定义了它，并用它指导各种工具和编译器。
-    严格来说，它是可选的。Angular不会管它，而是直接查找并执行`transform`方法。
+    理论上说，它是可选的。Angular不会管它，而是直接查找并执行`transform`方法。
 
 :marked
   Now you need a component to demonstrate the pipe.
 
   现在，我们需要一个组件来演示这个管道。
+  
 +makeExample('pipes/ts/src/app/power-booster.component.ts',null,'src/app/power-booster.component.ts')(format='.')
+
 figure.image-display
   img(src='/resources/images/devguide/pipes/power-booster.png' alt="Power Booster")
 
@@ -277,7 +279,7 @@ figure.image-display
     In the previous example, you didn't list the `DatePipe` because all
     Angular built-in pipes are pre-registered.
 
-    如果我们忘了列出这个自定义管道，Angular就会报告一个错误。
+    我们必须手动注册自定义管道。如果忘了，Angular就会报告一个错误。
     在前一个例子中我们没有把`DatePipe`列进去，这是因为Angular所有的内置管道都已经预注册过了。
 
 :marked
@@ -321,6 +323,7 @@ a#change-detection
   当我们使用管道时，Angular选用了一种简单、快速的变更检测算法。
 
   ### No pipe
+  
   ### 无管道
 
   In the next example, the component uses the default, aggressive change detection strategy to monitor and update
@@ -334,6 +337,7 @@ a#change-detection
   The companion component class provides heroes, adds heroes into the array, and can reset the array.
 
   和模板相伴的组件类可以提供英雄数组，能把新的英雄添加到数组中，还能重置英雄数组。
+  
 +makeExample('pipes/ts/src/app/flying-heroes.component.ts', 'v1', 'src/app/flying-heroes.component.ts (v1)')(format='.')
 
 :marked
@@ -346,17 +350,22 @@ a#change-detection
   如果我们提供了删除或修改英雄的能力，Angular也会检测到那些更改，并更新显示。
 
   ### Flying-heroes pipe
+  
   ### “会飞的英雄”管道
 
   Add a `FlyingHeroesPipe` to the `*ngFor` repeater that filters the list of heroes to just those heroes who can fly.
 
   我们来往`*ngFor`重复器中添加一个`FlyingHeroesPipe`管道，这个管道能过滤出所有会飞的英雄。
+  
 +makeExample('pipes/ts/src/app/flying-heroes.component.html', 'template-flying-heroes', 'src/app/flying-heroes.component.html (flyers)')(format='.')
+
 :marked
   Here's the `FlyingHeroesPipe` implementation, which follows the pattern for custom pipes described earlier.
 
   下面是`FlyingHeroesPipe`的实现，它遵循了我们以前见过的那些写自定义管道的模式。
+  
 +makeExample('pipes/ts/src/app/flying-heroes.pipe.ts', 'pure', 'src/app/flying-heroes.pipe.ts')(format='.')
+
 :marked
   Notice the odd behavior in the <live-example></live-example>:
   when you add flying heroes, none of them are displayed under "Heroes who fly."
@@ -374,6 +383,7 @@ a#change-detection
   来看看我们是如何添加新英雄的：
 
 +makeExample('pipes/ts/src/app/flying-heroes.component.ts', 'push')(format='.')
+
 :marked
   You add the hero into the `heroes` array.  The reference to the array hasn't changed.
   It's the same array. That's all Angular cares about. From its perspective, *same array, no change, no display update*.
@@ -449,6 +459,7 @@ figure.image-display
   在继续往下走之前，我们先理解一下*纯*和*非纯*之间的区别，从*纯*管道开始。
 
   ### Pure pipes
+  
   ### 纯管道
 
   Angular executes a *pure pipe* only when it detects a *pure change* to the input value.
@@ -484,10 +495,13 @@ figure.image-display
     Or you might not use a pipe at all.
     It may be better to pursue the pipe's purpose with a property of the component,
     a point that's discussed laterin this page.
+    
     或者我们也可以完全不用管道。
     有时候，使用组件的属性能比用管道更好的达到目的，这一点我们等后面会再提起。
+    
 :marked
   ### Impure pipes
+  
   ### 非纯管道
 
   Angular executes an *impure pipe*  during every component change detection cycle.
@@ -513,6 +527,7 @@ a#impure-flying-heroes
 
   我们把`FlyingHeroesPipe`换成了`FlyingHeroesImpurePipe`。
   下面是完整的实现：
+  
 +makeTabs(
 'pipes/ts/src/app/flying-heroes.pipe.ts, pipes/ts/src/app/flying-heroes.pipe.ts',
 'impure, pure',
@@ -602,6 +617,7 @@ h3#async-pipe The impure #[i AsyncPipe]
   代码如下，它使用[Angular http](server-communication.html)客户端来接收数据
 
 +makeExample('src/app/fetch-json.pipe.ts')
+
 :marked
   Now demonstrate it in a harness component whose template defines two bindings to this pipe,
   both requesting the heroes from the `heroes.json` file.
@@ -609,6 +625,7 @@ h3#async-pipe The impure #[i AsyncPipe]
   接下来我们用一个测试台组件演示一下它，该组件的模板中定义了两个使用到此管道的绑定，他们都从`heroes.json`文件中取得英雄数据。
 
 +makeExample('src/app/hero-list.component.ts')
+
 :marked
   The component renders as the following:
 
@@ -620,9 +637,19 @@ figure.image-display
 :marked
   A breakpoint on the pipe's request for data shows the following:
   
+  这个管道上的断点请求数据的过程显示：
+  
   * Each binding gets its own pipe instance.
+  
+    每个绑定都有它自己的管道实例。
+    
   * Each pipe instance caches its own URL and data.
+  
+    每个管道实例都缓存了它自己的URL和数据。
+    
   * Each pipe instance only calls the server once.
+  
+    每个管道实例都只调用一次服务器。
 
   ### *JsonPipe*
 
@@ -696,7 +723,7 @@ a(id="no-filter-pipe")
 :marked
   ## Appendix: No *FilterPipe* or *OrderByPipe*
   
-  ## 没有*FilterPipe*或者*OrderByPipe*
+  ## 附录：没有*FilterPipe*或者*OrderByPipe*
 
   Angular doesn't provide pipes for filtering or sorting lists.
   Developers familiar with AngularJS know these as `filter` and `orderBy`.
