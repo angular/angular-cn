@@ -57,7 +57,7 @@ block includes
      
   1. Attribute directives&mdash;change the appearance or behavior of an element, component, or another directive.
   
-     属性型指令 &mdash; 改变元素显示和行为的指令。
+     属性型指令 &mdash; 改变元素、组件或其它指令的外观和行为的指令。
 
   *Components* are the most common of the three directives.
   You saw a component for the first time in the [QuickStart](../quickstart.html) guide.
@@ -70,6 +70,7 @@ block includes
   Learn about them in the [Structural Directives](structural-directives.html) guide.
 
   *结构型*指令修改视图的结构。例如，[NgFor](template-syntax.html#ngFor) 和 [NgIf](template-syntax.html#ngIf)。
+  要了解更多，参见[结构型指令](structural-directives.html) guide。
 
   *Attribute directives* are used as attributes of elements.
   The built-in [NgStyle](template-syntax.html#ngStyle) directive in the 
@@ -96,7 +97,7 @@ block includes
   directive to set an element's background color
   when the user hovers over that element. You can apply it like this:
   
-  本章展示了如何创建简单的属性型指令，在用户鼠标悬浮在一个元素上时，改变它的背景色。你可以这样用它：
+  本章展示了如何创建一个简单的属性型指令 _myHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
 
 +makeExcerpt('src/app/app.component.1.html', 'applied', '')
 
@@ -111,45 +112,49 @@ block includes
   按照[开发环境](setup.html)的说明，创建一个名叫<code>attribute-directives</code>的项目文件夹。
 
   Create the following source file in the indicated folder:
+  
+  在指定的文件夹下创建下列源码文件：
 
 +makeExample('src/app/highlight.directive.1.ts')
 
 
-  :marked
-    The `import` statement specifies symbols from the Angular `core`:
-    
-    `import`语句指定了从 Angular 的`core`库导入的一些符号。  
-    
-    1. `Directive` provides the functionality of the `@Directive` decorator.
-    
-       `Directive`提供`@Directive`装饰器功能。  
-       
-    1. `ElementRef` [injects](dependency-injection.html) into the directive's constructor
-    so the code can access the DOM element.
-    
-       `ElementRef`[注入](dependency-injection.html)到指令构造函数中。这样代码就可以访问 DOM 元素了。  
-       
-     1. `Input` allows data to flow from the binding expression into the directive.
+:marked
+  The `import` statement specifies symbols from the Angular `core`:
+  
+  `import`语句指定了从 Angular 的`core`库导入的一些符号。  
+  
+  1. `Directive` provides the functionality of the `@Directive` decorator.
+  
+     `Directive`提供`@Directive`装饰器功能。  
      
-        `Input`将数据从绑定表达式传达到指令中。
+  1. `ElementRef` [injects](dependency-injection.html) into the directive's constructor
+  so the code can access the DOM element.
+  
+     `ElementRef`[注入](dependency-injection.html)到指令构造函数中。这样代码就可以访问 DOM 元素了。  
+     
+   1. `Input` allows data to flow from the binding expression into the directive.
+   
+      `Input`将数据从绑定表达式传达到指令中。
 
-    Next, the `@Directive` decorator function contains the directive metadata in a configuration object
-    as an argument.
+  Next, the `@Directive` decorator function contains the directive metadata in a configuration object
+  as an argument.
 
-    然后，`@Directive`装饰器函数以配置对象参数的形式，包含了指令的元数据。
-    
+  然后，`@Directive`装饰器函数以配置对象参数的形式，包含了指令的元数据。
+  
 :marked
   `@Directive` requires a CSS selector to identify
   the HTML in the template that is associated with the directive.
 
   `@Directive`装饰器需要一个 CSS 选择器，以便从模板中识别出关联到这个指令的 HTML。
 
-
   The [CSS selector for an attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
   is the attribute name in square brackets.
   Here, the directive's selector is `[myHighlight]`.
-  Angular locates all elements in the template that have an attribute named `myHighlight`.[用于 attribute 的 CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。
+  Angular locates all elements in the template that have an attribute named `myHighlight`.
+  
+  [用于 attribute 的 CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。
   这里，指令的选择器是`[myHighlight]`，Angular 将会在模板中找到所有带`myHighlight`属性的元素。
+  
 .l-sub-section
   :marked
     ### Why not call it "highlight"?
@@ -226,6 +231,7 @@ block includes
   这样，当 Angular 在模板中遇到`myHighlight`时，就能认出这是指令了。
   
 +makeExample('src/app/app.module.ts')
+
 :marked
   Now when the app runs, the `myHighlight` directive highlights the paragraph text.
 
@@ -335,6 +341,7 @@ figure.image-display
   这些处理器委托给了一个辅助方法，它用于为DOM元素设置颜色，`el`就是你在构造器中声明和初始化过的。
 
 +makeExcerpt('src/app/highlight.directive.2.ts (constructor)', 'ctor')
+
 :marked
   Here's the updated directive in full:
   
@@ -348,6 +355,7 @@ figure.image-display
   disappears as we move out.
 
   运行本应用并确认：当把鼠标移到`p`上的时候，背景色就出现了，而移开的时候，它消失了。
+  
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight")
 
@@ -440,8 +448,12 @@ a#input-alias
   ### 绑定到_@Input_别名
 
   Fortunately you can name the directive property whatever you want _and_ **_alias it_** for binding purposes.
+  
   幸运的是，我们可以随意命名该指令的属性，并且**给它指定一个用于绑定的别名**。
-  Restore the original property name and specify the selector as the alias in the argument to `@Input`. 恢复原始属性名，并在`@Input`的参数中把选择器`myHighlight`指定为别名。
+  
+  Restore the original property name and specify the selector as the alias in the argument to `@Input`. 
+  
+  恢复原始属性名，并在`@Input`的参数中把选择器`myHighlight`指定为别名。
 
 +makeExcerpt('src/app/highlight.directive.ts (color property with alias)', 'color')
 
@@ -486,9 +498,9 @@ a#input-alias
   凭空想象该指令如何工作可不容易。
   在本节，我们将把`AppComponent`改成一个测试程序，它让你可以通过单选按钮来选取高亮颜色，并且把你选取的颜色绑定到指令中。
   
-  Update <code>app.component.html</code> as follows
+  Update <code>app.component.html</code> as follows:
   
-  :把`app.component.html`修改成这样：
+  把`app.component.html`修改成这样：
 
 +makeExcerpt('src/app/app.component.html', 'v2', '')
 
@@ -500,7 +512,10 @@ a#input-alias
 +makeExcerpt('src/app/app.component.ts', 'class', '')
 
 :marked
-  Here are the harness and directive in action.下面是测试程序和指令的动图。
+  Here are the harness and directive in action.
+  
+  下面是测试程序和指令的动图。
+  
 figure.image-display
   img(src="/resources/images/devguide/attribute-directives/highlight-directive-v2-anim.gif" alt="Highlight v.2")
 
@@ -663,10 +678,12 @@ figure.image-display
   They are _private_ from an Angular binding perspective.
   When adorned with the `@Input` decorator, the property becomes _public_ from an Angular binding perspective.
   Only then can it be bound by some other component or directive.
+  
   但组件或指令不应该盲目的信任其它组件或指令。
   因此组件或指令的属性默认是不能被绑定的。
   从Angular绑定机制的角度来看，它们是*私有*的，而当添加了`@Input`时，它们变成了*公共*的
   只有这样，它们才能被其它组件或属性绑定。
+  
   You can tell if `@Input` is needed by the position of the property name in a binding.
   
   你可以根据属性名在绑定中出现的位置来判定是否要加`@Input`。
@@ -674,13 +691,13 @@ figure.image-display
   * When it appears in the template expression to the ***right*** of the equals (=),
     it belongs to the template's component and does not require the `@Input` decorator.
   
-      当它出现在等号***右侧***的模板表达式中时，它属于模板所在的组件，不需要`@Input`装饰器。
+    当它出现在等号***右侧***的模板表达式中时，它属于模板所在的组件，不需要`@Input`装饰器。
 
   * When it appears in **square brackets** ([ ]) to the **left** of the equals (=),
     the property belongs to some _other_ component or directive;
     that property must be adorned with the `@Input` decorator.
   
-      当它出现在等号**左边**的**方括号（[ ]）**中时，该属性属于*其它*组件或指令，它必须带有`@Input` 装饰器。
+    当它出现在等号**左边**的**方括号（[ ]）**中时，该属性属于*其它*组件或指令，它必须带有`@Input` 装饰器。
 
   Now apply that reasoning to the following example:
   
@@ -693,12 +710,12 @@ figure.image-display
     The template and its component trust each other.
     The `color` property doesn't require the `@Input` decorator.
   
-      `color`属性位于右侧的绑定表达式中，它属于模板所在的组件。
+    `color`属性位于右侧的绑定表达式中，它属于模板所在的组件。
       该模板和组件相互信任。因此`color`不需要`@Input`装饰器。
 
   * The `myHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
     not a property of the template's component. There are trust issues.
     Therefore, the directive property must carry the `@Input` decorator.
   
-      `myHighlight`属性位于左侧，它引用了`MyHighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
+    `myHighlight`属性位于左侧，它引用了`MyHighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
   所以，该属性必须带`@Input`装饰器。
