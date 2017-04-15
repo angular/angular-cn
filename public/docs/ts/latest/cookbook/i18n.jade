@@ -6,9 +6,10 @@ a#top
   
   Angular的*国际化*（*i18n*）工具可以帮助我们使用多个语言发布应用。
   
-  #Contents
+  # Contents
   
   # 目录
+  
     * [Angular and i18n template translation](#angular-i18n)
 
       [Angular和i18n模板翻译](#angular-i18n)
@@ -142,6 +143,7 @@ a#angular-i18n
     
     **国际化**工作者通常将一个可翻译的文本叫作“信息”。
     本章使用了“文本”和“信息”，它们可以互换，也可以组合“文本信息”。
+    
 :marked
   The _i18n_ template translation process has four phases:
 
@@ -728,6 +730,7 @@ a#create-translation-providers
   * `TRANSLATIONS_FORMAT` is the format of the file: `xlf`, `xlif`, or `xtb`.
 
       `TRANSLATIONS_FORMAT`是文件的格式: `xlf`、`xlif`或`xtb`。
+      
   * `LOCALE_ID` is the locale of the target language.
 
     `LOCALE_ID`是目标语言的语言环境。
@@ -736,7 +739,7 @@ a#create-translation-providers
   creates those providers based on the user's _locale_
   and the corresponding translation file:
 
-  在下面的`src/app/i18n-providers.ts`文件的getTranslationProviders`函数中，根据用户的**语言环境**和对应的翻译文件构建这些提供商：
+  在下面的`src/app/i18n-providers.ts`文件的`getTranslationProviders()`函数中，根据用户的**语言环境**和对应的翻译文件构建这些提供商：
   
 +makeExample('cb-i18n/ts/src/app/i18n-providers.ts', null, 'src/app/i18n-providers.ts')
 
@@ -785,7 +788,7 @@ a#bootstrap-the-app
   and pass it to `bootstrapModule`.
   Open the `src/main.ts` and modify the bootstrap code as follows:
 
-  从`getTranslationProviders`返回的翻译提供商创建_options_对象，并将其传给`bootstrapModule`。
+  从`getTranslationProviders()`返回的翻译提供商创建_options_对象，并将其传给`bootstrapModule`。
   打开`src/main.ts`并这样修改引导代码：
 
 +makeExample('cb-i18n/ts/src/main.ts', null, 'src/main.ts')(format=".")
@@ -793,7 +796,7 @@ a#bootstrap-the-app
   Notice that it waits for the `getTranslationProviders()` promise to resolve before
   bootstrapping the app.
 
-  注意，它等待`getTranslationProviders`承诺的解析完成后，才引导应用。
+  注意，它等待`getTranslationProviders()`承诺的解析完成后，才引导应用。
 
   The app is now _internationalized_ for English and Spanish and there is a clear path for adding
   more languages.
@@ -841,7 +844,7 @@ a#aot
   使用AoT编译器时的国际化，需要一些针对AoT的设置。
   以[合并翻译文件之前](#app-pre-translation)的应用项目开始，并参见[AoT烹饪书](aot-compiler.html)，把它变成与AoT兼容的项目。
   
-  Next, issue an `ngc` compile command for each supported language ,including English.
+  Next, issue an `ngc` compile command for each supported language, including English.
   The result is a separate version of the application for each language.
   
   接下来，为每种支持的语言（包括英语）运行一次`ngc`编译命令。
