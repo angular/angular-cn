@@ -76,7 +76,7 @@ include ../_util-fns
 
   * [Provider token alternatives: the class-interface and `InjectionToken`](#tokens)
   
-    [提供商可选令牌](#tokens)  
+    [提供商可选令牌：类接口与`InjectionToken`](#tokens)  
     
     * [class-interface](#class-interface)
   
@@ -94,7 +94,7 @@ include ../_util-fns
     
     * [Find parent with a known component type](#known-parent)
 
-      [通过已知组件类型查找父件](#known-parent)
+      [通过已知组件类型查找父组件](#known-parent)
 
     * [Cannot find a parent by its base class](#base-parent)
 
@@ -114,7 +114,7 @@ include ../_util-fns
       
     * [A `provideParent()` helper function](#provideparent)
   
-      [*provideParent*助手函数](#provideparent)
+      [`provideParent()`助手函数](#provideparent)
 
   * [Break circularities with a forward class reference (*forwardRef*)](#forwardref)
   
@@ -125,6 +125,7 @@ include ../_util-fns
    of the code in this cookbook.        
    
    要获取本“烹饪宝典”的代码，**参见<live-example name="cb-dependency-injection"></live-example>**。
+  
 .l-main-section
 
 <a id="app-wide-dependencies"></a>
@@ -137,7 +138,7 @@ include ../_util-fns
   
   在应用程序根组件`AppComponent`中注册那些被应用程序全局使用的依赖提供商。
   
-  The following exampleshows importing and registering 
+  The following example shows importing and registering 
   the `LoggerService`, `UserContext`, and the `UserService`
   in the `@Component` metadata `providers` array.
 
@@ -159,7 +160,7 @@ include ../_util-fns
     guide.
     
     *提供商*是用来新建或者交付服务的。
-    Angular拿到“类提供商”之后，会通过“new”操作来新建服务实例。
+    Angular拿到“类提供商”之后，会通过`new`操作来新建服务实例。
     从[依赖注入](../guide/dependency-injection.html#!#injector-providers)一章可以学到关于提供商的更多知识。
 
 :marked
@@ -340,9 +341,11 @@ a#injectable-1
   Here, the `HeroService` is availble to the `HeroesBaseComponent` because it is in the `providers` array:
 
   通过*在组件树的子级根组件*中提供服务，可以把一个被注入服务的作用域局限在应用程序结构中的某个*分支*中。
+  这个例子中展示了为子组件和根组件`AppComponent`提供服务的相似之处，它们的语法是相同的。
   这里通过列入`providers`数组，在`HeroesBaseComponent`中提供了`HeroService`：
   
 +makeExample('cb-dependency-injection/ts/src/app/sorted-heroes.component.ts','injection','src/app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)')
+
 :marked
   When Angular creates the `HeroesBaseComponent`, it also creates a new instance of `HeroService`
   that is visible only to the component and its children, if any.
@@ -374,6 +377,7 @@ a#injectable-1
     ever need to build their applications. It doesn't always have to be more complicated.
     
     对一些Angular开发者来说，这么多依赖注入知识可能已经是它们需要知道的全部了。不是每个人都需要更复杂的用法。
+    
 <a id="multiple-service-instances"></a>
 .l-main-section
 :marked
@@ -500,7 +504,7 @@ a#demonstration
   Angular *projects*, or *transcludes*, the corresponding `HeroContactComponent` into the `HeroBioComponent` view,
   placing it in the `<ng-content>` slot of the `HeroBioComponent` template:
 
-  我们在`<hero-bio>`标签中插入了`<hero-contact>`元素。Angular就会把相应的`HeroContactComponent`*投影*(*transclude*)进`HeroBioComponent`的视图里，
+  我们在`<hero-bio>`标签中插入了一个新的`<hero-contact>`元素。Angular就会把相应的`HeroContactComponent`*投影*(*transclude*)进`HeroBioComponent`的视图里，
   将它放在`HeroBioComponent`模板的`<ng-content>`标签槽里。
 
 +makeExample('cb-dependency-injection/ts/src/app/hero-bio.component.ts','template','src/app/hero-bio.component.ts (template)')(format='.')
@@ -514,7 +518,7 @@ figure.image-display
 :marked
   Here's the `HeroContactComponent` which demonstrates the qualifying decorators:
 
-  下面的`HeroContactComponent`，示范了在本节一直在讨论的限定型装饰器(@Optional和@Host)：
+  下面的`HeroContactComponent`，示范了限定型装饰器(@Optional和@Host)：
   
 +makeExample('cb-dependency-injection/ts/src/app/hero-contact.component.ts','component','src/app/hero-contact.component.ts')
 :marked
@@ -526,7 +530,7 @@ figure.image-display
 :marked
   The `@Host()` function decorating the  `heroCache` property ensures that 
   you get a reference to the cache service from the parent `HeroBioComponent`.
-  Angular throws an errorif the parent lacks that service, even if a component higher in the component tree happens to have it.
+  Angular throws an error if the parent lacks that service, even if a component higher in the component tree happens to have it.
   
   `@Host()`函数是`heroCache`属性的装饰器，确保从其父组件`HeroBioComponent`得到一个缓存服务。如果该父组件不存在这个服务，Angular就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，Angular也会抛出错误。
   
@@ -571,7 +575,7 @@ figure.image-display
 :marked
   ## Inject the component's DOM element
 
-  ## 注入组件的元素
+  ## 注入组件的DOM元素
 
   On occasion you might need to access a component's corresponding DOM element.
   Although developers strive to avoid it, many visual effects and 3rd party tools, such as jQuery,
@@ -638,7 +642,9 @@ figure.image-display
 :marked
   Angular asks the injector for the service associated with the `LoggerService`
   and assigns the returned value to the `logger` parameter.
+  
   Angular向注入器请求与`LoggerService`对应的服务，并将返回值赋给`logger`参数。
+  
   Where did the injector get that value?
   It may already have that value in its internal container.
   If it doesn't, it may be able to make one with the help of a ***provider***.
@@ -757,7 +763,8 @@ a(id='usevalue')
   You can use an `InjectionToken` for any kind of provider but it's particular
   helpful when the dependency is a simple value like a string, a number, or a function.
 
-  `TITLE` 提供商的令牌*不是一个类*。它是一个特别类型的提供商查询键，名叫[OpaqueToken](#opaquetoken).
+  `TITLE` 提供商的令牌*不是一个类*。它是一个特别类型的提供商查询键，名叫[InjectionToken](#injection-token).
+  你可以把`InjectionToken`用作任何类型的提供商的令牌，但是它在依赖是简单类型（比如字符串、数字、函数）时会特别有帮助。
 
   The value of a *value provider* must be defined *now*. You can't create the value later.
   Obviously the title string literal is immediately available.
@@ -796,7 +803,7 @@ a(id='useclass')
 +makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-class')(format='.')   
 :marked
   The first provider is the *de-sugared*, expanded form of the most typical case in which the
-  class to be created (`HeroService`) is also the provider's dependencyinjection token. 
+  class to be created (`HeroService`) is also the provider's dependency injection token. 
   It's in this long form to de-mystify the preferred short form.
   
   第一个提供商是*展开了语法糖的*，是一个典型情况的展开。一般来说，被新建的类(`HeroService`)同时也是该提供商的注入令牌。
@@ -849,6 +856,7 @@ a(id='useexisting')
   想象一下如果`LoggerService`有个很大的API接口(虽然它其实只有三个方法，一个属性)，通过使用`MinimalLogger`[*类-接口*](#class-interface)别名，就能成功的把这个API接口缩小到只暴露两个成员：
 
 +makeExample('cb-dependency-injection/ts/src/app/minimal-logger.service.ts', null,'src/app/minimal-logger.service.ts')(format='.')
+
 :marked
   
   Now put it to use in a simplified version of the `HeroOfTheMonthComponent`.
@@ -856,10 +864,11 @@ a(id='useexisting')
   现在，在一个简化版的`HeroOfTheMonthComponent`中使用它。
   
 +makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.1.ts', null,'src/app/hero-of-the-month.component.ts (minimal version)')(format='.')
+
 :marked
   The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `MinimalLogger` so only the `logs` and `logInfo` members are visible in a TypeScript-aware editor:
 
-  构造函数的`logger`参数是一个`MinimalLogger`类型，所有在TypeScript里面，它只有两个成员可见：
+  `HeroOfTheMonthComponent`构造函数的`logger`参数是一个`MinimalLogger`类型，支持TypeScript的编辑器里，只能看到它的两个成员`logs`和`logInfo`：
   
 figure.image-display
   img(src="/resources/images/cookbooks/dependency-injection/minimal-logger-intellisense.png" alt="MinimalLogger受限API")
@@ -958,7 +967,10 @@ a(id="tokens")
   it doesn't have to be the same type as the returned object.
   That's the subject of the next section. 
   
-  但令牌不一定都是类，就算它是一个类，它也不一定都返回类型相同的对象。这是下一节的主题。<a id="class-interface"></a>:marked
+  但令牌不一定都是类，就算它是一个类，它也不一定都返回类型相同的对象。这是下一节的主题。
+  
+<a id="class-interface"></a>
+:marked
   
   ### class-interface
   
@@ -968,6 +980,7 @@ a(id="tokens")
   在前面的*每月英雄*的例子中，我们用了`MinimalLogger`类作为`LoggerService` 提供商的令牌。
 
 +makeExample('cb-dependency-injection/ts/src/app/hero-of-the-month.component.ts','use-existing')
+
 :marked
   The `MinimalLogger` is an abstract class.
 
@@ -1000,7 +1013,6 @@ a(id="tokens")
   Such a narrowing interface helps decouple the concrete class from its consumers.
 
   ***类-接口***应该*只*定义允许它的消费者调用的成员。窄的接口有助于解耦该类的具体实现和它的消费者。
-  这个`MinimalLogger`只定义了两个`LoggerClass`的成员。
 
 .l-sub-section
   :marked
@@ -1031,10 +1043,11 @@ a(id="tokens")
     当然，一个真实的类会占用内存。为了节省内存占用，该类应该***没有具体的实现***。`MinimalLogger`会被转译成下面这段没有优化过的，尚未最小化的JavaScript：
 
   +makeExample('cb-dependency-injection/ts/src/app/minimal-logger.service.ts','minimal-logger-transpiled')(format='.')
+  
   :marked
     Notice that it doesn't have a single member. It never grows no matter how many members you add to the class *as long as those members are typed but not implemented*. Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
 
-     ***只要不实现它***，不管添加多少成员，它永远不会增长大小。
+    注意，***只要不实现它***，不管添加多少成员，它永远不会增长大小。
 
 a(id='injection-token')
 :marked
@@ -1111,7 +1124,7 @@ figure.image-display
     This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
     That's why you call the `HeroService` from within the `ngOnInit` rather than the constructor.
     
-    强烈推荐简单的构造函数。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作(比如连接服务)。
+    让构造函数保持简单。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作(比如连接服务)。
     这就是为什么我们要在`ngOnInit`里面调用`HeroService`，而不是在构造函数中。
 
 :marked
@@ -1253,7 +1266,7 @@ a#base-parent
     
 :marked
   This isn't necessarily good design. 
-  This example is examining *whether a component caninject its parent via the parent's base class*.
+  This example is examining *whether a component can inject its parent via the parent's base class*.
   
   这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
   
@@ -1281,7 +1294,9 @@ a#base-parent
 a#class-interface-parent
 :marked
   ### Find a parent by its class-interface
+  
   ### 通过类-接口找到父组件
+  
   You can find a parent component with a [class-interface](#class-interface).
 
   可以通过[类-接口](#class-interface)找到一个父组件。
@@ -1314,7 +1329,9 @@ a(id="alex-providers")
   the same way you've done it before:
 
   *Carol*，*Alex*的第三个子组件，把父级注入到了自己的`parent`参数，和之前做的一样：
+  
 +makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','carol-class','parent-finder.component.ts (CarolComponent class)')(format='.')
+
 :marked
   Here's *Alex* and family in action:
 
@@ -1407,6 +1424,7 @@ a(id="parent-token")
   我们的例子定义了一个`Parent`*类-接口*。
 
 +makeExample('cb-dependency-injection/ts/src/app/parent-finder.component.ts','parent','parent-finder.component.ts (Parent class-interface)')(format='.')
+
 :marked
   The `Parent` *class-interface* defines a `name` property with a type declaration but *no implementation*.
   The `name` property is the only member of a parent component that a child component can call.
@@ -1468,6 +1486,7 @@ a(id="provideparent")
   The application might have a variety of parent types, each with its own *class-interface* token.
   
   我们可以做得更好。当前版本的助手函数只能为`Parent`*类-接口*提供别名。应用程序可能有很多类型的父组件，每个父组件有自己的*类-接口*令牌。
+  
   Here's a revised version that defaults to `parent` but also accepts an optional second parameter for a different parent *class-interface*.
 
   下面是一个修改版本，默认接受一个`Parent`，但同时接受一个可选的第二参数，可以用来指定一个不同的父级*类-接口*。
@@ -1502,11 +1521,12 @@ a(id="forwardref")
   
   The Angular `forwardRef()` function creates an *indirect* reference that Angular can resolve later.
   
-  Angular的`forwardRef`函数建立一个*间接地*引用，Angular可以随后解析。
+  Angular的`forwardRef()`函数建立一个*间接地*引用，Angular可以随后解析。
   
   The *Parent Finder* sample is full of circular class references that are impossible to break.
   
   *Parent Finder*是一个充满了无法解决的循环引用的例子
+  
 :marked
   You face this dilemma when a class makes *a reference to itself*
   as does the `AlexComponent` in its `providers` array.
