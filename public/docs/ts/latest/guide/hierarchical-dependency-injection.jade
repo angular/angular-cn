@@ -49,6 +49,9 @@ block includes
    That's an implementation detail that improves efficiency.
    You won't notice the difference and
    your mental model should be that every component has its own injector.
+   
+   组件的注入器可能是一个组件树中更高级的祖先注入器的*代理*。
+   但这只是提升效率的实现细节，我们不用在乎这点差异，在你的脑海里只要想象成每个组件都有自己的注入器就可以了。
 
 :marked
   Consider this guide's variation on the Tour of Heroes application .
@@ -88,7 +91,7 @@ figure.image-display
     The hunt for providers will climb no higher than the injector for that host component.
      This is a topic for another day.
      
-     我们还可以“盖住”这次冒泡。一个中层的组件可以声称自己是“宿主”组件。
+    我们还可以“盖住”这次冒泡。一个中层的组件可以声称自己是“宿主”组件。
     向上查找提供商的过程会截止于这个“宿主”组件。
     我们先保留这个问题，等改天再讨论这个选项。
     
