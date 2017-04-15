@@ -60,7 +60,7 @@ figure.image-display
   Follow the [setup](setup.html) instructions for creating a new project
   named <code>displaying-data</code>.
 
-  按照[开发环境](setup.html)的说明，创建一个新项目，名为<ngio-ex path="displaying-data"></ngio-ex>。
+  按照[开发环境](setup.html)的说明，创建一个新项目，名为<code>displaying-data</code>。
 
   Then modify the <code>app.component.ts</code> file by
   changing the template and the body of the component.
@@ -233,7 +233,7 @@ figure.image-display
 
   注意看`ngFor`双引号表达式中的`hero`，它是一个模板输入变量。
   更多模板输入变量的信息，见[模板语法](./template-syntax.html)中的
-  [微语法 (microsyntax)](./template-syntax.html#ngForMicrosyntax)。
+  [微语法 (microsyntax)](./template-syntax.html#microsyntax)。
 
   Angular duplicates the `<li>` for each item in the list, setting the `hero` variable
   to the item (the hero) in the current iteration. Angular uses that variable as the
@@ -282,7 +282,7 @@ figure.image-display
 
   Create a new file in the `app` folder called  `hero.ts` with the following code:
 
-  在`app`目录下创建一个名叫<ngio-ex path="hero.ts"></ngio-ex>的新文件，内容如下：
+  在`app`目录下创建一个名叫`hero.ts`的新文件，内容如下：
 
 +makeExcerpt('src/app/hero.ts')
 
@@ -387,7 +387,7 @@ figure.image-display
   see the [template expressions](./template-syntax.html#template-expressions) section of the
   [Template Syntax](./template-syntax.html) page.
 
-  双引号中的模板表达式`*ngIf="heros.length > 3"`，外观和行为很象 !{_Lang}。
+  双引号中的模板表达式`*ngIf="heros.length > 3"`，外观和行为很象 TypeScript 。
   当组件中的英雄列表有三个以上的条目时，Angular 把这个段落添加到 DOM 中，于是消息显示了出来。
   更多信息，见[模板语法](./template-syntax.html)中的[模板表达式](./template-syntax.html#template-expressions)。
   
