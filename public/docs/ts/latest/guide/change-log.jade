@@ -35,8 +35,8 @@ block includes
   But it's also good in its own right. 
   It helps clearly separate app code from setup and configuration files.
   
-  所有的文档范例都已经向angular-cli的默认文件夹结构看齐了。
-  这是把范例迁移到angular-cli过程中的一步。
+  所有的文档范例都已经向Angular CLI的默认文件夹结构看齐了。
+  这是把范例迁移到Angular CLI过程中的一步。
   不过也不仅是为了迁移，它确实能帮我们把应用代码从环境代码和配置代码中分离出来。
 
   All samples now have a `src/` folder at the project root.
@@ -140,7 +140,10 @@ block includes
   
   往[路由指南](router.html)中添加了更多信息，包括“命名插座（Outlet）”、通配符路由和预加载策略。
 
-  ## HTTP: how to set default request headers (and other request options) (2016-12-14)## Http：如何设置默认的请求头（以及其它配置项） (2016-12-14)
+  ## HTTP: how to set default request headers (and other request options) (2016-12-14)
+  
+  ## Http：如何设置默认的请求头（以及其它配置项） (2016-12-14)
+  
   Added section on how to set default request headers (and other request options) to 
   [HTTP](server-communication.html#override-default-request-options) guide.
   
@@ -158,8 +161,9 @@ block includes
 
   ## Internationalization: pluralization and _select_ (2016-11-30)
   
-  ## 国际化：单复数和`select` (2016-11-30)  The [Internationalization (i18n)](../cookbook/i18n.html) guide explains how to handle pluralization and
+  ## 国际化：单复数和`select` (2016-11-30)  
   
+  The [Internationalization (i18n)](../cookbook/i18n.html) guide explains how to handle pluralization and 
   translation of alternative texts with `select`.
   The sample demonstrates these features too.
   
@@ -204,8 +208,9 @@ block includes
 
   ## UPDATE: NgUpgrade Guide for the AOT friendly _upgrade/static_ module (2016-11-14)
   
-  ## 更新：用于AoT的_upgrade/static_模块NgUpgrade指南 (2016-11-14)  The updated [NgUpgrade Guide](upgrade.html) guide covers the 
+  ## 更新：用于AoT的_upgrade/static_模块NgUpgrade指南 (2016-11-14)  
   
+  The updated [NgUpgrade Guide](upgrade.html) guide covers the 
   new AOT friendly `upgrade/static` module 
   released in v.2.2.0, which is the recommended
   facility for migrating from AngularJS to Angular.
@@ -252,7 +257,7 @@ block includes
   The `package.json` installs `@types/angular` and several `@types/angular-...`
   packages in support of upgrade; these are not needed for pure Angular development.
 
-  "[从1.x升级](upgrade.html)"指南反映了这个变化。
+  "[从AngularJS升级](upgrade.html)"指南反映了这个变化。
   `package.json`安装`@types/angular`和一些`@types/angular-...`包来支持升级。它们在纯Angular开发中是不需要的。
 
   ## "Template Syntax" explains two-way data binding syntax (2016-10-20)
@@ -373,6 +378,7 @@ block includes
   [StyleGuide](style-guide.html) explains recommended conventions for Angular modules (NgModule).
 
   [StyleGuide](style-guide.html)解释了我们为Angular模块（NgModule）而推荐的约定。
+  
   Barrels now are far less useful and have been removed from the style guide;
   they remain valuable but are not a matter of Angular style.
   Also relaxed the rule that discouraged use of the `@Component.host` property.
@@ -391,6 +397,7 @@ block includes
 
   在所有使用`templateUrl`或者`styleUrls`来获取模板或样式的例子组件都被转换为**相对模块**的URL。
   我们添加了`moduleId: module.id`到它们的`@Component`元数据。
+  
   This change is a requirement for compilation with AOT compiler when the app loads
   modules with SystemJS as the samples currently do.
 
