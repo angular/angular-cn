@@ -211,7 +211,7 @@ block demos-list
 :marked
   Before you can use the `Http` client, you need to register it as a service provider with the dependency injection system.
 
-  要想使用`#{_Http}`客户端，你需要先通过依赖注入系统把它注册成一个服务提供商。
+  要想使用`Http`客户端，你需要先通过依赖注入系统把它注册成一个服务提供商。
 
 .l-sub-section
   :marked
@@ -573,7 +573,7 @@ a#no-return-response-object
     which means that the request won't go out until something *subscribes* to the Observable.
     That *something* is the [HeroListComponent](#subscribe).
 
-    `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
+    `http.get`**仍然没有发送请求！**这是因为可观察对象是
     [*冷的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
     也就是说，只有当某人*订阅*了这个可观察对象时，这个请求才会被发出。
     这个场景中的*某人*就是[HeroListComponent](#subscribe)。
@@ -622,7 +622,7 @@ block hlc-error-handling
     the `subscribe` function has a second function parameter to handle the error message.
     It sets an `errorMessage` variable that's bound conditionally in the `HeroListComponent` template.
 
-    回到`HeroListComponent`，这里我们调用了`#{_priv}heroService.getHeroes()`。我们提供了`subscribe`函数的第二个参数来处理错误信息。
+    回到`HeroListComponent`，这里我们调用了`heroService.getHeroes()`。我们提供了`subscribe`函数的第二个参数来处理错误信息。
     它设置了一个`errorMessage`变量，被有条件的绑定到了`HeroListComponent`模板中。
 
 +makeExample('server-communication/ts/src/app/toh/hero-list.component.ts', 'getHeroes', 'src/app/toh/hero-list.component.ts (getHeroes)')(format=".")
@@ -886,7 +886,7 @@ block wikipedia-jsonp+
     All other HTTP methods throw an error because `JSONP` is a read-only facility.
 
     Wikipedia 提供了一个现代的`CORS` API和一个传统的`JSONP`搜索 API。在这个例子中，我们使用后者。
-    Angular 的`Jsonp`服务不但通过 JSONP 扩展了`#{_Http}`服务，而且限制我们只能用`GET`请求。
+    Angular 的`Jsonp`服务不但通过 JSONP 扩展了`Http`服务，而且限制我们只能用`GET`请求。
     尝试调用所有其它 HTTP 方法都将抛出一个错误，因为 JSONP 是只读的。
 
     As always, wrap the interaction with an Angular data access client service inside a dedicated service, here called `WikipediaService`.

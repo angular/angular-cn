@@ -173,7 +173,7 @@ block includes
   That makes `Car` brittle.
 
   如果`Engine`类升级了，它的构造函数要求传入一个参数，这该怎么办？
-  这个`Car`类就被破坏了，在把创建引擎的代码重写为`#{prefix}engine = new Engine(theNewParameter)`之前，它都是坏的。
+  这个`Car`类就被破坏了，在把创建引擎的代码重写为`this.engine = new Engine(theNewParameter)`之前，它都是坏的。
   当第一次写`Car`类时，我们不关心`Engine`构造函数的参数，现在也不想关心。
   但是，当`Engine`类的定义发生变化时，就不得不在乎了，`Car`类也不得不跟着改变。
   这就会让`Car`类过于脆弱。
@@ -737,7 +737,7 @@ a#injectable
   error when trying to instantiate a class that is not marked as
   `@Injectable()`.
   
-  **<a href="#{injUrl}">@Injectable()</a>** 标识一个类可以被注入器实例化。
+  **<a href="../api/core/index/Injectable-decorator.html">@Injectable()</a>** 标识一个类可以被注入器实例化。
     通常，在试图实例化没有被标识为`@Injectable()`的类时，注入器会报错。
 
 .l-sub-section
@@ -787,7 +787,7 @@ a#injectable
   identify a class as a target for instantiation by an injector.
   
   我们**可以**添加它。但是没有必要，因为`HerosComponent`已经有`@Component`装饰器了，
-    `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="#{injUrl}">Injectable</a> 的子类型。
+    `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="../api/core/index/Injectable-decorator.html">Injectable</a> 的子类型。
     实际上，正是这些`Injectable`装饰器是把一个类标识为注入器实例化的目标。
 
 .l-sub-section
@@ -815,7 +815,7 @@ a#injectable
     <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> decorator
     to make the intent clear.
 
-    当然，任何装饰器都会触发这个效果，用 <a href="#{injUrl}">Injectable</a> 来标识服务
+    当然，任何装饰器都会触发这个效果，用 <a href="../api/core/index/Injectable-decorator.html">Injectable</a> 来标识服务
     只是让这一意图更明显。
 
 .callout.is-critical
@@ -855,7 +855,7 @@ a#injectable
   so put it in the project's `app` folder and
   register it in the `providers` array of the application module, `AppModule`.
 
-  应用的每个角落都可能需要日志服务，所以把它放到项目的`#{_appDir}`目录，
+  应用的每个角落都可能需要日志服务，所以把它放到项目的`app`目录，
   并在应用模块`AppModule`的元数据`providers`数组里注册它。
 
 +makeExcerpt('src/app/providers.component.ts (excerpt)', 'providers-logger','src/app/app.module.ts')
@@ -910,7 +910,7 @@ code-example(format="nocode").
   The `Logger` class itself is an obvious and natural provider.
   But it's not the only way.
   
-  有很多方式可以*提供*一些#{implementsCn} `Logger`类的东西。
+  有很多方式可以*提供*一些实现 `Logger`类的东西。
     `Logger`类本身是一个显而易见而且自然而然的提供商。
     但它不是唯一的选项。
 
@@ -1170,9 +1170,9 @@ a#value-provider
   This extra step makes the factory provider reusable.
   You can register the `HeroService` with this variable wherever you need it.
 
-  注意，我们在#{anexportedvarCn}中捕获了这个工厂提供商：`heroServiceProvider`。
+  注意，我们在一个导出的变量中捕获了这个工厂提供商：`heroServiceProvider`。
   这个额外的步骤让工厂提供商可被复用。
-  无论哪里需要，都可以使用这个#{variableCn}注册`HeroService`。
+  无论哪里需要，都可以使用这个变量注册`HeroService`。
 
   In this sample, you need it only in the `HeroesComponent`,
   where it replaces the previous `HeroService` registration in the metadata `providers` array.
