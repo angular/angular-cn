@@ -10,7 +10,7 @@ style.
   This guide looks at how Angular manipulates the DOM with **structural directives** and 
   how you can write your own structural directives to do the same thing.
   
-  在本章中，我们将看看Angular如何操纵DOM树，以及我们该如何在自己的指令中这么做。
+  在本章中，我们将看看Angular如何用*结构型指令*操纵DOM树，以及我们该如何写自己的结构型指令来完成同样的任务。
 
   ### Table of contents
   
@@ -178,9 +178,8 @@ a#ngIf
   The `ngIf` directive doesn't hide elements with CSS. It adds and removes them physically from the DOM.
   Confirm that fact using browser developer tools to inspect the DOM.
 
-  `ngIf`指令并不会隐藏元素。
-  使用浏览器的开发者工具就会看到：当`condition`为真的时候，只剩下了DOM顶部的段落，而底部无用的段落完全从DOM中消失了！
-  在它的位置上是空白的`<script>`标签
+  `ngIf`指令并不是使用CSS来隐藏元素的。它会把这些元素从DOM中物理删除。
+  使用浏览器的开发者工具就可以确认这一点。
 
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/element-not-in-dom.png' alt="ngIf=false element not in DOM")
@@ -228,7 +227,7 @@ figure.image-display
   The performance and memory burden can be substantial, responsiveness can degrade, and the user sees nothing.
 
   虽然不可见，组件及其各级子组件仍然占用着资源，而这些资源如果分配给别人可能会更有用。
-  在性能和内存方面的负担相当可观，而用户却可能无法从中受益。
+  在性能和内存方面的负担相当可观，响应度会降低，而用户却可能无法从中受益。
 
   On the positive side, showing the element again is quick.
   The component's previous state is preserved and ready to display.
@@ -238,6 +237,7 @@ figure.image-display
   当然，从积极的一面看，重新显示这个元素会非常快。
     组件以前的状态被保留着，并随时可以显示。
     组件不用重新初始化 —— 该操作可能会比较昂贵。
+    这时候隐藏和显示就成了正确的选择。
 
   But in the absence of a compelling reason to keep them around, 
   your preference should be to remove DOM elements that the user can't see
@@ -615,7 +615,7 @@ a#unless
 :marked
   Creating a directive is similar to creating a component.
 
-    创建指令很像创建组件。
+  创建指令很像创建组件。
     
   * Import the `Directive` decorator (instead of the `Component` decorator).
 
