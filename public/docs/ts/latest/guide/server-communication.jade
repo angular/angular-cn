@@ -369,7 +369,7 @@ a#HeroService
 :marked
   ## Fetch data with _http.get()_
 
-  ## 通过 http.get 获取数据
+  ## 通过 `http.get()` 获取数据
 
   In many of the previous samples the app faked the interaction with the server by
   returning mock heroes in a service like this one:
@@ -397,6 +397,7 @@ a#HeroService
   Look closely at how to call `http.get`:
 
   仔细看看我们是如何调用`http.get`的
+  
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'http-get', 'src/app/toh/hero.service.ts (getHeroes)')(format=".")
 
 :marked
@@ -487,7 +488,7 @@ a#extract-data
 
   Remember that the `getHeroes()` method used an `extractData()` helper method to map the `http.get` response object to heroes:
 
-  记住，`getHeroes()`借助一个`extractData`辅助方法来把`http.get`的响应对象映射成了英雄列表：
+  记住，`getHeroes()`借助一个`extractData()`辅助方法来把`http.get`的响应对象映射成了英雄列表：
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'extract-data', 'src/app/toh/hero.service.ts (excerpt)')(format=".")
 
@@ -616,6 +617,7 @@ a#hero-list-component
 h3 #[b HeroListComponent] error handling
 
 h3 #[b HeroListComponent] 错误处理
+
 block hlc-error-handling
   :marked
     Back in the `HeroListComponent`, in `heroService.getHeroes()`,
@@ -651,7 +653,7 @@ block hlc-error-handling
   You'll write a method for the `HeroListComponent` to call, a `create()` method, that takes
   just the name of a new hero and returns an `Observable` of `Hero`. It begins like this:
 
-  我们将为`HeroListComponent`创建一个简单的`addHero()`方法，它将接受新英雄的名字：
+  我们将为`HeroListComponent`创建一个简单的`create()`方法，它将接受新英雄的名字，并且返回一个`Hero`型的`Observable`，代码如下：
 
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'create-sig')(format=".")
 
@@ -667,7 +669,7 @@ block hlc-error-handling
   structured like a `Hero` entity but without the `id` property.
   The body of the request should look like this:
 
-  我们的[数据服务器](#server)遵循典型的 REST 指导原则。
+  我们的[数据服务器](#in-mem-web-api)遵循典型的 REST 指导原则。
   它期待在和`GET`英雄列表的同一个端点上存在一个[`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5)请求。
   它期待从请求体 (body) 中获得新英雄的数据，数据的结构和`Hero`对象相同，但是不带`id`属性。
   请求体应该看起来像这样：
@@ -684,9 +686,10 @@ code-example(format="." language="javascript").
 
   Now that you know how the API works, implement `create()` as follows:
 
-  现在，知道了这个 API 如何工作，我们就可以像这样实现`addHero()`了：
+  现在，知道了这个 API 如何工作，我们就可以像这样实现`create()`了：
 
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'import-request-options', 'src/app/toh/hero.service.ts (additional imports)')(format=".")
+
 +makeExcerpt('src/app/toh/hero.service.ts', 'create')
 
 a#headers
@@ -728,7 +731,7 @@ block hero-list-comp-add-hero
     Back in the `HeroListComponent`, its `addHero()` method subscribes to the Observable returned by the service's `create()` method.
     When the data arrive it pushes the new hero object into its `heroes` array for presentation to the user.
 
-    回到`HeroListComponent`，我们看到*该组件的*`addHero()`方法中订阅了这个由*服务中*的`addHero()`方法返回的可观察对象。
+    回到`HeroListComponent`，我们看到*该组件的*`addHero()`方法中订阅了这个由*服务中*的`create()`方法返回的可观察对象。
     当有数据到来时，它就会把这个新的英雄对象追加 (push) 到`heroes`数组中，以展现给用户。
     
 +makeExample('server-communication/ts/src/app/toh/hero-list.component.ts', 'addHero', 'src/app/toh/hero-list.component.ts (addHero)')(format=".")
@@ -784,7 +787,7 @@ h2#promises 倒退为承诺 (Promise)
   
   The diagnostic *log to console* is just one more `then()` in the Promise chain.
 
-  把诊断信息*记录到控制台*也只是在承诺的处理链中多了一个`then`而已。
+  把诊断信息*记录到控制台*也只是在承诺的处理链中多了一个`then()`而已。
   
   You have to adjust the calling component to expect a `Promise` instead of an `Observable`:
 
@@ -1290,7 +1293,7 @@ block redirect-to-web-api
     At the same time, call its `forRoot()` configuration method with the `HeroData` class.
 
     使用内存 Web API 服务模块很容易配置重定向，将`InMemoryWebApiModule`添加到`AppModule.imports`列表中，
-    同时在`HeroData`类中调用`forRoot`配置方法。
+    同时在`HeroData`类中调用`forRoot()`配置方法。
     
   +makeExample('server-communication/ts/src/app/app.module.ts', 'in-mem-web-api', 'src/app/app.module.ts')(format=".")
   
@@ -1321,15 +1324,17 @@ block redirect-to-web-api
 :marked
   Here is the final, revised version of <code>src/app/app.module.ts</code>, demonstrating these steps.
 
-  下面是修改过的（也是最终的）<span ngio-ex>app/app.module.ts</span>版本，用于演示这些步骤。
+  下面是修改过的（也是最终的）`app/app.module.ts`版本，用于演示这些步骤。
 
 +makeExcerpt('src/app/app.module.ts')
+
 .alert.is-important
   :marked
     Import the `InMemoryWebApiModule` _after_ the `HttpModule` to ensure that
     the `XHRBackend` provider of the `InMemoryWebApiModule` supersedes all others.
 
     在`HttpModule`之后导入`InMemoryWebApiModule`，确保`XHRBackend`的供应商`InMemoryWebApiModule`取代所有其它的供应商。
+    
 :marked
   See the full source code in the <live-example></live-example>.
 
