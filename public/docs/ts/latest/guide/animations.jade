@@ -102,6 +102,7 @@ figure
   动画会被定义在`@Component`元数据中。在添加动画之前，先引入一些与动画有关的函数：
 
 +makeExample('animations/ts/src/app/app.module.ts', 'animations-module', 'app.module.ts (@NgModule imports excerpt)')(format=".")
+
 +makeExample('animations/ts/src/app/hero-list-basic.component.ts', 'imports', 'hero-list-basic.component.ts')(format=".")
 
 :marked
@@ -266,8 +267,10 @@ figure.image-display
   ## Example: Entering and leaving
 
   ## 例子：进场与离场  
+  
 figure
   img(src="/resources/images/devguide/animations/animation_enter_leave.gif" alt="Enter and leave animations" align="right" style="width:250px;")
+  
 :marked
   Using the `void` and `*` states you can define transitions that animate the
   entering and leaving of elements:
@@ -485,7 +488,7 @@ figure
   slight delay of 10 milliseconds as specified in `'0.2s 10 ease-out'`:
   
 
-  这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，但它们有不同的缓动函数。“离场”动画会在轻微的延迟之后开始：
+  这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，也就是`0.2s`，但它们有不同的缓动函数。“离场”动画会在100毫秒的延迟之后开始，也就是`'0.2s 10 ease-out'`：
 
 +makeExample('animations/ts/src/app/hero-list-timings.component.ts', 'animationdef', 'hero-list-timings.component.ts (excerpt)')(format=".")
 
