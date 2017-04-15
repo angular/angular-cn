@@ -229,7 +229,10 @@ a#compile
 )(format='.')
 
 :marked
-  Install a few new npm dependencies with the following command: 用下列命令安装少量新的npm依赖：
+  Install a few new npm dependencies with the following command: 
+  
+  用下列命令安装少量新的npm依赖：
+  
 code-example(language="none" class="code-shell").
   npm install @angular/compiler-cli @angular/platform-server --save
 :marked
@@ -342,6 +345,7 @@ a#bootstrap
 .l-main-section
 :marked
   ## Bootstrap
+  
   ## 引导
 
   The AOT approach changes application bootstrapping.
@@ -427,6 +431,7 @@ a#rollup
   Rollup can only tree shake `ES2015` modules which have `import` and `export` statements.
 
   Rollup只能对`ES2015`模块摇树，因为那里有`import`和`export`语句。
+  
 .l-sub-section
   :marked
     Recall that `tsconfig-aot.json` is configured to produce `ES2015` modules.
@@ -514,6 +519,7 @@ a#rollup-plugins
 
   Rollup做摇树优化时会大幅减小代码体积。最小化过程则会让它更小。
   本烹饪宝典依赖于Rollup插件*uglify*来最小化并混淆代码。
+  把下列代码添加到`plugins`数组中：
 
 +makeExample('cb-aot-compiler/ts/rollup-config.js','uglify','rollup-config.js (CommonJs to ES2015 Plugin)')(format='.')
 
@@ -855,6 +861,7 @@ code-example(language="none" class="code-shell").
   Now AOT-compile the app and launch it with the `lite-server`:
 
   现在AOT编译应用，并使用`lite`服务器启动它：
+  
 code-example(language="none" class="code-shell").
   npm run build:aot && npm run serve:aot
 
