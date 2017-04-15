@@ -934,7 +934,7 @@ code-example(format="nocode").
 :marked
   ### The *Provider* class and _provide_ object literal
 
-  ### *Provider*类!{_andProvideFnCn}
+  ### *Provider*类和一个提供商的字面量
 
 :marked
   You wrote the `providers` array like this:
@@ -962,7 +962,7 @@ code-example(format="nocode").
   which you can think of as a *recipe* for creating the dependency value.
   There are many ways to create dependency values just as there are many ways to write a recipe.
 
-  第二个是!{_secondParamCn}。
+  第二个是一个提供商定义对象。
   可以把它看做是指导如何创建依赖值的*配方*。
   有很多方式创建依赖值…… 也有很多方式可以写配方。
 
@@ -1302,7 +1302,8 @@ a#injection-token
   to define and use an <a href="../api/core/index/InjectionToken-class.html"><b>InjectionToken</b></a>.
   The definition of such a token looks like this:
 
-  解决方案是定义和使用 !{opaquetoken}（不透明的令牌）。定义方式类似于这样：
+  解决方案是为非类依赖定义和使用<a href="../api/core/index/InjectionToken-class.html"><b>InjectionToken</b></a>作为提供商令牌。
+  定义方式是这样的：
 
 +makeExample('dependency-injection/ts/src/app/app.config.ts','token')(format='.')
 :marked
@@ -1328,7 +1329,7 @@ a#injection-token
     Although the `AppConfig` interface plays no role in dependency injection,
     it supports typing of the configuration object within the class.
     
-    虽然`Config`!{configType}接口在依赖注入过程中没有任何作用，但它为该类中的配置对象提供了强类型信息。
+    虽然`AppConfig`接口在依赖注入过程中没有任何作用，但它为该类中的配置对象提供了强类型信息。
 
 :marked
   Aternatively, you can provide and inject the configuration object in an ngModule like `AppModule`.

@@ -635,7 +635,7 @@ a#configure-routes
 
   * Inject the `HeroService` in the constructor and hold it in a private `heroService` field.
 
-    在构造函数中注入`HeroService`，并且把它保存在一个私有的`!{_priv}heroService`字段中。
+    在构造函数中注入`HeroService`，并且把它保存在一个私有的`heroService`字段中。
 
   * Call the service to get heroes inside the Angular `ngOnInit()` lifecycle hook.
 
@@ -797,7 +797,7 @@ code-example(format="nocode").
   Inject the `ActivatedRoute`, `HeroService`, and `Location` services
   into the constructor, saving their values in private fields:
 
-  然后注入`!{_ActivatedRoute}`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
+  然后注入`ActivatedRoute`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
 +makeExample('toh-5/ts/src/app/hero-detail.component.ts', 'ctor', 'src/app/hero-detail.component.ts (constructor)')
 
@@ -899,8 +899,8 @@ code-example(format="nocode").
     Read more on the [CanDeactivate](../api/router/index/CanDeactivate-interface.html) page.
 
     回退太多步会跑出我们的应用。
-    在演示程序中，这算不上问题。但在真实的应用中，我们需要对此进行防范。
-    也许你该用[!{_CanDeactivateGuard}](../api/!{_CanDeactivateGuardUri}.html).。
+    在真实的应用中，我们需要使用<em>CanDeactivate</em>守卫对此进行防范。
+    要了解更多，参见[CanDeactivate](../api/router/index/CanDeactivate-interface.html)。
 
 :marked
   You'll wire this method with an event binding to a *Back* button that you'll add to the component template.
@@ -1304,7 +1304,7 @@ figure.image-display
   Also, in `hero-detail.component.ts`, remove the `hero` property `@Input` decorator
   and its import.
 
-  在`!{_appDir}`目录下添加<span ngio-ex>hero-detail.component.css</span>文件，
+  在`app`目录下添加<span ngio-ex>hero-detail.component.css</span>文件，
   并且在`styleUrls`数组中引用它 —— 就像之前在`DashboardComponent`中做过的那样。
   同时删除`hero``@Input`装饰器属性和它的导入语句。
 
@@ -1332,7 +1332,7 @@ figure.image-display
 
   Add an <code>app.component.css</code> file to the `app` folder with the following content.
 
-  在`!{_appDir}`目录下添加一个<span ngio-ex>app.component.css</span>文件，内容如下：
+  在`app`目录下添加一个<span ngio-ex>app.component.css</span>文件，内容如下：
 
 +makeExample('toh-5/ts/src/app/app.component.css', '', 'src/app/app.component.css (navigation styles)')
 
@@ -1389,7 +1389,7 @@ figure.image-display
   Also edit <code>index.html</code> to refer to this stylesheet.
   
   如果在根目录下没有一个名叫`styles.css`的文件，就添加它。
-  确保它包含[这里给出的主样式](!{styles_css})。
+  确保它包含[这里给出的主样式](https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/_boilerplate/src/styles.css)。
   并编辑`index.html`来引用这个样式表。
 
 +makeExample('toh-5/ts/src/index.html', 'css', 'src/index.html (link ref)')

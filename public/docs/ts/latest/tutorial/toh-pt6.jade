@@ -97,7 +97,7 @@ h1 提供 HTTP 服务
 :marked
   Notice that you also supply `HttpModule` as part of the *imports* array in root NgModule `AppModule`.
 
-    注意，现在`!{_HttpModule}`已经是根模块`AppModule`的`imports`数组的一部分了。
+    注意，现在`HttpModule`已经是根模块`AppModule`的`imports`数组的一部分了。
 
 .l-main-section
 :marked
@@ -397,7 +397,7 @@ h1 提供 HTTP 服务
   calling `JSON.stringify`. The body content type
   (`application/json`) is identified in the request header.
 
-  我们通过一个编码在 URL 中的英雄 id 来告诉服务器应该更新哪个英雄。put 的 body 是该英雄的 JSON 字符串，它是通过调用`!{_JSON_stringify}`得到的。
+  我们通过一个编码在 URL 中的英雄 id 来告诉服务器应该更新哪个英雄。put 的 body 是该英雄的 JSON 字符串，它是通过调用`JSON.stringify`得到的。
   并且在请求头中标记出的 body 的内容类型（`application/json`）。
 
   Refresh the browser, change a hero name, save your change,

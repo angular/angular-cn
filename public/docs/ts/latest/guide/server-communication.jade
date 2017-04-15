@@ -196,8 +196,8 @@ block demos-list
   The Angular <code>Http</code> client communicates with the server using a familiar HTTP request/response protocol.
   The `Http` client is one of a family of services in the Angular HTTP library.
   
-  我们通过 !{_Angular_Http}客户端，使用熟悉的 HTTP 请求/回应协议与服务器通讯。
-    `!{_Http}`客户端是!{_Angular_http_libraryCn}所提供的一系列服务之一。
+  我们通过 <code>Http</code> 客户端，使用熟悉的 HTTP 请求/回应协议与服务器通讯。
+    `Http`客户端是Angular的HTTP库所提供的一系列服务之一。
 
 .l-sub-section
   :marked
@@ -205,7 +205,7 @@ block demos-list
     the Angular HTTP library
     because the `systemjs.config.js` file maps to that module name.
 
-    当我们从`@angular/http`模块中导入服务时，SystemJS 知道该如何从 !{_Angular_http_libraryCn}中加载它们，
+    当我们从`@angular/http`模块中导入服务时，SystemJS 知道该如何从Angular的HTTP库中加载它们，
     这是因为`systemjs.config.js`文件已经注册过这个模块名。
 
 :marked
@@ -261,7 +261,7 @@ block http-providers
 
   我们的第一个演示是《英雄指南(TOH)》[教程](../tutorial)的一个迷你版。
   这个版本从服务器获取一些英雄，把它们显示在列表中，还允许我们添加新的英雄并将其保存到服务器。
-  借助 !{_Angular_Http}客户端，我们通过`XMLHttpRequest (XHR)`与服务器通讯。
+  借助 Angular 的 `Http` 客户端，我们通过`XMLHttpRequest (XHR)`与服务器通讯。
 
   It works like this:
 
@@ -317,7 +317,7 @@ a#HeroListComponent
   The component doesn't know or care how it gets the data.
   It delegates to the `HeroService`.
 
-  这个组件**不会直接和 !{_Angular_Http}客户端打交道**！
+  这个组件**不会直接和 Angular 的 `Http` 客户端打交道**！
   它既不知道也不关心我们如何获取数据，这些都被委托给了`HeroService`去做。
 
   This is a golden rule: **always delegate data access to a supporting service class**.
@@ -347,7 +347,7 @@ block getheroes-and-create
     The service's `getHeroes()` and `create()` methods return an `Observable` of hero data that the Angular <code>Http</code> client fetched from the server.
 
     服务的`getHeroes()`和`addHero()`方法返回一个英雄数据的可观察对象 (`Observable`)，
-    这些数据是由 !{_Angular_Http}从服务器上获取的。
+    这些数据是由 Angular 的 `Http` 客户端从服务器上获取的。
 
     Think of an `Observable` as a stream of events published by some source.
     To listen for events in this stream, ***subscribe*** to the `Observable`.
@@ -381,7 +381,7 @@ a#HeroService
 :marked
   You can revise that `HeroService` to get the heroes from the server using the Angular <code>Http</code> client service:
 
-  在本章中，我们会修改`HeroService`，改用 !{_Angular_Http}客户端服务来从服务器上获取英雄列表：
+  在本章中，我们会修改`HeroService`，改用 Angular 的 `Http` 客户端来从服务器上获取英雄列表：
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'v1', 'src/app/toh/hero.service.ts (revised)')
 
@@ -389,14 +389,14 @@ a#HeroService
   Notice that the Angular <code>Http</code> client service is
   [injected](dependency-injection.html) into the `HeroService` constructor.
 
-  注意，这个 !{_Angular_Http}客户端服务[被注入](dependency-injection.html)到了`HeroService`的构造函数中。
+  注意，这个 Angular `Http` 客户端服务[被注入](dependency-injection.html)到了`HeroService`的构造函数中。
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'ctor')
 
 :marked
   Look closely at how to call `http.get`:
 
-  仔细看看我们是如何调用`!{_priv}http.get`的
+  仔细看看我们是如何调用`http.get`的
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'http-get', 'src/app/toh/hero.service.ts (getHeroes)')(format=".")
 
 :marked
@@ -487,7 +487,7 @@ a#extract-data
 
   Remember that the `getHeroes()` method used an `extractData()` helper method to map the `http.get` response object to heroes:
 
-  记住，`getHeroes()`借助一个`!{_priv}extractData`辅助方法来把`!{_priv}http.get`的响应对象映射成了英雄列表：
+  记住，`getHeroes()`借助一个`extractData`辅助方法来把`http.get`的响应对象映射成了英雄列表：
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'extract-data', 'src/app/toh/hero.service.ts (excerpt)')(format=".")
 
@@ -721,7 +721,7 @@ a#json-results
   As with `getHeroes()`, use the `extractData()` helper to [extract the data](#extract-data)
   from the response.
 
-  像`getHeroes()`中一样，我们可以使用`!{_priv}extractData()`辅助函数从响应中[提取出数据](#extract-data)。
+  像`getHeroes()`中一样，我们可以使用`extractData()`辅助函数从响应中[提取出数据](#extract-data)。
 
 block hero-list-comp-add-hero
   :marked
@@ -832,7 +832,7 @@ h2#cors 跨域请求：Wikipedia 范例
   You just learned how to make `XMLHttpRequests` using the Angular <code>Http</code> service.
   This is the most common approach to server communication, but it doesn't work in all scenarios.
 
-  我们刚刚学习了用 !{_Angular_Http}服务发起`XMLHttpRequests`。
+  我们刚刚学习了用 Angular `Http` 服务发起`XMLHttpRequests`。
   这是与服务器通讯时最常用的方法。
   但它不适合所有场景。
 
