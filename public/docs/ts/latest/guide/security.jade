@@ -296,14 +296,18 @@ h2#bypass-security-apis 信任安全值
   your intended use of the value. Imagine that the following template needs to bind a URL to a
   `javascript:alert(...)` call:
 
-  记住，一个值是否安全取决于它所在的环境，所以你要为这个值按预定的用法选择正确的环境。假设下面的模板需要把`javascript.alert(...)`方法绑定到URL。+makeExcerpt('src/app/bypass-security.component.html', 'URL')
+  记住，一个值是否安全取决于它所在的环境，所以你要为这个值按预定的用法选择正确的环境。假设下面的模板需要把`javascript.alert(...)`方法绑定到URL。
+  
++makeExcerpt('src/app/bypass-security.component.html', 'URL')
 
 :marked
   Normally, Angular automatically sanitizes the URL, disables the dangerous code, and
   in development mode, logs this action to the console. To prevent
   this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` call:
 
-  通常，Angular会自动无害化这个URL并禁止危险的代码。为了防止这种行为，我们可以调用`bypassSecurityTrustUrl`把这个URL值标记为一个可信任的URL：+makeExcerpt('src/app/bypass-security.component.ts ()', 'trust-url')
+  通常，Angular会自动无害化这个URL并禁止危险的代码。为了防止这种行为，我们可以调用`bypassSecurityTrustUrl`把这个URL值标记为一个可信任的URL：
+  
++makeExcerpt('src/app/bypass-security.component.ts ()', 'trust-url')
 
 figure.image-display
     img(src='/resources/images/devguide/security/bypass-security-component.png'

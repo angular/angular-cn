@@ -482,15 +482,22 @@ a#input-alias
   It may be difficult to imagine how this directive actually works.
   In this section, you'll turn `AppComponent` into a harness that
   lets you pick the highlight color with a radio button and bind your color choice to the directive.
+  
   凭空想象该指令如何工作可不容易。
   在本节，我们将把`AppComponent`改成一个测试程序，它让你可以通过单选按钮来选取高亮颜色，并且把你选取的颜色绑定到指令中。
-  Update <code>app.component.html</code> as follows:把`app.component.html`修改成这样：
+  
+  Update <code>app.component.html</code> as follows
+  
+  :把`app.component.html`修改成这样：
 
 +makeExcerpt('src/app/app.component.html', 'v2', '')
 
 :marked
   Revise the `AppComponent.color` so that it has no initial value.
-修改`AppComponent.color`，让它不再有初始值。+makeExcerpt('src/app/app.component.ts', 'class', '')
+  
+  修改`AppComponent.color`，让它不再有初始值。
+
++makeExcerpt('src/app/app.component.ts', 'class', '')
 
 :marked
   Here are the harness and directive in action.下面是测试程序和指令的动图。
@@ -515,7 +522,9 @@ figure.image-display
 
   Add a second **input** property to `HighlightDirective` called `defaultColor`:
   
-  把第二个名叫`defaultColor`的**输入**属性添加到`HighlightDirective`中：+makeExcerpt('src/app/highlight.directive.ts(defaultColor)')
+  把第二个名叫`defaultColor`的**输入**属性添加到`HighlightDirective`中：
+  
++makeExcerpt('src/app/highlight.directive.ts(defaultColor)')
   
 :marked
   Revise the directive's `onMouseEnter` so that it first tries to highlight with the `highlightColor`,

@@ -114,7 +114,7 @@ include ../_util-fns
 
       3. [Bootstrapping a hybrid PhoneCat](#bootstrapping-a-hybrid-phonecat)
 
-         [引导AngularJS+2的混合版PhoneCat](#bootstrapping-a-hybrid-phonecat)
+         [引导混合版PhoneCat](#bootstrapping-a-hybrid-phonecat)
 
       4. [Upgrading the Phone service](#upgrading-the-phone-service)
 
@@ -1849,7 +1849,7 @@ code-example(format="").
   an `UpgradeModule`, we're actually now running the app as a **hybrid app**.
 
   这里使用的参数是应用的根元素(也就是以前我们放`ng-app`的元素)，和我们准备加载的AngularJS.x模块。
-  由于我们是通过`UpgradeAdapter`引导应用的，所以实际在运行的应用实际上是一个AngularJS+2的混合体。
+  由于我们是通过`UpgradeAdapter`引导应用的，所以实际在运行的应用实际上是一个混合体。
 
   This means we are now running both AngularJS and Angular at the same time. That's pretty
   exciting! We're not running any actual Angular components yet though,
