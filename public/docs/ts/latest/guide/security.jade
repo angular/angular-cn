@@ -88,7 +88,8 @@ h2#best-practices
   * **Avoid Angular APIs marked in the documentation as “_Security Risk_.”**
   For more information, see the [Trusting safe values](#bypass-security-apis) section of this page.
 
-    **避免使用本文档中带“[_安全风险_](#bypass-security-apis)”标记的Angular API。**
+    **避免使用本文档中带“[_安全风险_](#bypass-security-apis)”标记的Angular API。** 
+    要了解更多信息，请参阅本章的[信任那些安全的值](#bypass-security-apis)部分。
 
 .l-main-section
 h2#xss
@@ -204,9 +205,12 @@ h2#xss
   Angular recognizes the value as unsafe and automatically sanitizes it, which removes the `<script>`
   tag but keeps safe content such as the text content of the `<script>` tag and the `<b>` element.
 
-  Angular认为这些值是不安全的，并自动进行无害化处理。它会移除`<script>`标签，但保留安全的内容，比如该片段中的文本内容或`<b>`元素。figure.image-display
-      img(src='/resources/images/devguide/security/binding-inner-html.png'
-          alt='A screenshot showing interpolated and bound HTML values')
+  Angular认为这些值是不安全的，并自动进行无害化处理。它会移除`<script>`标签，但保留安全的内容，比如该片段中的文本内容或`<b>`元素。
+  
+figure.image-display
+  img(src='/resources/images/devguide/security/binding-inner-html.png'
+      alt='A screenshot showing interpolated and bound HTML values')
+  
 :marked
   ### Avoid direct use of the DOM APIs
 
@@ -233,6 +237,7 @@ h2#xss
   [内容安全策略(CSP)](https://developer.mozilla.org/en-
   US/docs/Web/Security/CSP/Introducing_Content_Security_Policy)是用来防范XSS的纵深防御技术。
   要打开CSP，请配置你的Web服务器，让它返回合适的HTTP头`Content_Security_Policy`。
+  要了解关于内容安全策略的更多信息，请参阅HTML5Rocks上的[内容安全策略简介](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
 
 a#offline-template-compiler
 :marked
