@@ -69,6 +69,7 @@ include ../_util-fns
       2. [Bootstrapping hybrid](#bootstrapping-hybrid-applications)
 
          [引导混合(hybrid)应用](#bootstrapping-hybrid-applications)
+         
       3. [Using Angular Components from AngularJS Code](#using-angular-components-from-angularjs-code)
 
          [从AngularJS的代码中使用Angular的组件](#using-angular-components-from-angularjs-code)
@@ -76,6 +77,7 @@ include ../_util-fns
       4. [Using AngularJS Component Directives from Angular Code](#using-angularjs-component-directives-from-angular-code)
 
          [从Angular的代码中使用AngularJS的组件](#using-angularjs-component-directives-from-angular-components-from-angularjs-code)
+         
       5. [Projecting AngularJS Content into Angular Components](#projecting-angularjs-content-into-angular-components)
 
          [把AngularJS的内容投影(project)进Angular组件中](#projecting-angularjs-content-into-angular-components)
@@ -2168,7 +2170,7 @@ code-example(format="").
   不幸的是，AngularJS的依赖不会自动在Angular的组件中可用。
   我们必须使用[工厂提供商（factory provider）](#making-angularjs-dependencies-injectable-to-angular)
   来把`$routeParams`包装成Angular的服务提供商。
-  在`app.module.ts`中这样写：
+  新建一个名叫`ajs-upgraded-providers.ts`的文件，并且在`app.module.ts`中导入它：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/ajs-upgraded-providers.ts', null, 'app/ajs-upgraded-providers.ts')
 
@@ -2338,7 +2340,7 @@ code-example(format="").
   and `ng-view` for AngularJS routes.
   This component just renders the contents of the active route and nothing else.
 
-  它有一个很简单的模板，只包含`<router-outlet>`。
+  它有一个很简单的模板，只包含Angular路由的`<router-outlet>`和AngularJS路由的`ng-view`指令。
   该组件只负责渲染活动路由的内容，此外啥也不干。
 
   The selector tells Angular to plug this root component into the `<phonecat-app>`
@@ -2380,11 +2382,11 @@ code-example(format="").
 
   A couple of extra providers enable routing with "hash" URLs such as `#!/phones` 
   instead of the default  "push state" strategy.
+  
+  一些额外的提供商让路由器使用“hash”策略解析URL，比如`#!/phones`，而不是默认的“Push State”策略。
 
   There's a twist to our Routing Module though: we're also adding a custom `UrlHandlingStrategy`
   that tells the Angular router to only process the `/` and `/phones` routes.
-
-  一些额外的提供商让路由器使用“hash”策略解析URL，比如`#!/phones`，而不是默认的“Push State”策略。
 
   Now update the `AppModule` to import this `AppRoutingModule` and also the
   declare the root `AppComponent` as the bootstrap component.
@@ -2404,10 +2406,6 @@ code-example(format="").
 
 :marked
   Now we need to tell the AngularJS router to only process the `/phones/:phoneId` route:
-
-  Angular路由器传递路由参数的方式不同。
-  修改`PhoneDetail`组件的构造函数，来取得一个注入的`ActivatedRoute`对象。
-  从`ActivatedRoute.snapshot.params`中提取`phoneId`，并像以前那样获取电话数据：
 
 +makeExample('upgrade-phonecat-3-router/ts/app/app.config.ts', 'ajs-routes', 'app/app.config.ts (route config)')
 
@@ -2516,6 +2514,7 @@ code-example(format="").
   The `@angular/upgrade` package and it's mapping in `systemjs.config.js` can also go.
 
   AngularJS的外部类型定义文件还需要被反安装。我们现在只需要Jasmine的那些。
+  `systemjs.config.js`中的`@angular/upgrade`包及其映射也可以移除了。
 
 code-example(format="").
   npm uninstall @angular/upgrade --save
