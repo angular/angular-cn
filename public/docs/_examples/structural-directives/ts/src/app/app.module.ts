@@ -1,18 +1,19 @@
 // #docregion
-import { NgModule } from '@angular/core';
+import { NgModule }      from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { StructuralDirectivesComponent } from './structural-directives.component';
-import { UnlessDirective } from './unless.directive';
-import { HeavyLoaderComponent } from './heavy-loader.component';
+import { AppComponent }         from './app.component';
+import { heroSwitchComponents } from './hero-switch.components';
+import { UnlessDirective }    from './unless.directive';
 
 @NgModule({
-  imports: [ BrowserModule ],
+  imports: [ BrowserModule, FormsModule ],
   declarations: [
-    StructuralDirectivesComponent,
-    UnlessDirective,
-    HeavyLoaderComponent
+    AppComponent,
+    heroSwitchComponents,
+    UnlessDirective
   ],
-  bootstrap: [ StructuralDirectivesComponent ]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

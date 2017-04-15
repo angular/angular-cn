@@ -152,6 +152,11 @@
     "intro": "Angular 调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
   },
 
+  "ngmodule": {
+    "title": "Ng模块",
+    "intro": "用@NgModule定义应用模块。"
+  },
+
   "npm-packages": {
     "title": "npm 包",
     "intro": "推荐的 npm 包以及如何指定所依赖的包"
@@ -200,5 +205,10 @@
   "webpack": {
     "title": "Webpack 简介",
     "intro": "使用基于 Webpack 的工具创建 Angular 应用"
+  },
+
+  "universal": {
+    "title": "Angular统一平台（Universal）",
+    "intro": "如何使用Angular统一平台"
   }
 }

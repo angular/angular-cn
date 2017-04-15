@@ -1,9 +1,5 @@
 block includes
   include ../_util-fns
-  - var _Http = 'Http'; // Angular `Http` library name.
-  - var _Angular_Http = 'Angular <code>Http</code>'
-  - var _Angular_http_library = 'Angular HTTP library'
-  - var _Angular_http_libraryCn = 'Angular HTTP 库'
 
 :marked
   [HTTP](https://tools.ietf.org/html/rfc2616) is the primary protocol for browser/server communication.
@@ -27,64 +23,123 @@ block includes
   [JSONP](https://en.wikipedia.org/wiki/JSONP)。少数浏览器还支持
   [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)。
 
-  The !{_Angular_http_library} simplifies application programming with the **XHR** and **JSONP** APIs.
-  This page covers:
-
-  !{_Angular_http_libraryCn}简化了 **XHR** 和 **JSONP** API 的编程，这就是本章所要讲的。
-
-  - [The Tour of Heroes *HTTP* client demo](#http-client).
-
-    [英雄指南的 *HTTP* 客户端示例](#http-client)。
-
-  - [Fetch data with http.get](#fetch-data).
-
-    [用 http.get 获取数据](#fetch-data)。
-
-  - [RxJS library](#rxjs).
-
-    [RxJS 库](#rxjs)。
-
-  - [Enable RxJS operators](#enable-rxjs-operators).
-
-    [启用 RxJS 操作符](#enable-rxjs-operators)。
-
-  - [Process the response object](#extract-data).
-
-    [处理响应对象](#extract-data)。
-
-  - [Always handle errors](#error-handling).
-
-    [总是处理错误](#error-handling)。
-
-  - [Send data to the server](#update).
-
-    [把数据发送到服务器](#update)。
-
-  - [Fall back to promises](#promises).
-
-    [使用承诺 (Promise) 来取代可观察对象 (Observable)](#promises)。
-
-  - [Cross-Origin Requests: Wikipedia example](#cors).
-
-    [跨域请求：Wikipedia 示例](#cors)。
-
-    - [Search parameters](#search-parameters).
-
-      [设置查询参数](#search-parameters)。
-
-    - [More fun with observables](#more-observables).
-
-      [限制搜索词输入频率](#more-observables)。
-
-  - [Guarding against Cross-Site Request Forgery](#xsrf).
-
-    [防止跨站请求伪造](#xsrf)。
-
-  - [Override default request headers (and other request options)](#override-default-request-options).
+  The Angular HTTP library simplifies application programming with the **XHR** and **JSONP** APIs.
   
-    [覆盖默认的请求头（及其它请求选项）](#override-default-request-options)。
+  # Contents
   
-  - [Appendix: Tour of Heroes _in-memory web api_](#in-mem-web-api).
+  # 目录
+
+  * [Demos](#demos)
+
+    [演示](#demos)
+
+  * [Providing HTTP Services](#http-providers)
+
+    [提供HTTP服务](#http-providers)
+
+  * [The Tour of Heroes *HTTP* client demo](#http-client)
+
+    [《英雄指南》的*HTTP*客户端演示程序](#http-client)
+
+
+    * [The `HeroListComponent` class](#HeroListComponent)
+
+      [`HeroListComponent`类](#HeroListComponent)
+
+
+  * [Fetch data with `http.get()`](#fetch-data)
+
+    [使用`http.get()`获取数据](#fetch-data)
+
+  * [RxJS library](#rxjs-library)
+  
+    [RxJS库](#rxjs-library)
+    
+    * [Enable RxJS operators](#enable-rxjs-operators)
+    
+      [启用RxJS操作符](#enable-rxjs-operators)
+
+  * [Process the response object](#extract-data)
+
+    [处理响应对象](#extract-data)
+
+    * [Parse to `JSON`](#parse-to-json)
+
+      [解析为`JSON`](#parse-to-json)
+
+    * [Do not return the response object](#no-return-response-object)
+
+      [不要返回响应对象](#no-return-response-object)
+
+    * [Always handle errors](#error-handling)
+
+      [别忘了处理错误](#error-handling)
+
+    * [`HeroListComponent` error handling](#hero-list-component)
+
+      [`HeroListComponent`错误处理](#hero-list-component)
+
+
+  * [Send data to the server](#update)
+
+    [把数据发到服务器](#update)
+
+    * [Headers](#headers)
+
+      [HTTP头](#headers)
+
+    * [JSON results](#json-results)
+
+      [JSON结果](#json-results)
+
+
+    * [Fall back to promises](#promises)
+    
+      [退化为承诺（Promise）](#promises)
+
+  * [Cross-Origin Requests: Wikipedia example](#cors)
+
+    [跨域请求：Wikipedia范例](#cors)
+
+
+    * [Search Wikipedia](#search-wikipedia)
+
+      [搜索 Wikipedia](#search-wikipedia)
+
+    * [Search parameters](#search-parameters)
+
+      [搜索参数](#search-parameters)
+
+    * [The WikiComponent](#wikicomponent)
+
+      [WikiComponent组件](#wikicomponent)
+
+  * [A wasteful app](#wasteful-app)
+
+    [奢侈的应用](#wasteful-app)
+
+  * [More fun with Observables](#more-observables)
+
+    [更多可观察对象的探索](#more-observables)
+
+    * [Create a stream of search terms](#create-stream)
+
+      [创建一个搜索词汇的流](#create-stream)
+
+    * [Listen for search terms](#listen-for-search-terms)
+
+      [监听搜索词汇](#listen-for-search-terms)
+
+
+  * [Guarding against Cross-Site Request Forgery](#xsrf)
+
+    [防范跨站请求（CSRF）攻击](#xsrf)
+
+  * [Override default request headers (and other request options)](#override-default-request-options)
+
+    [改写默认的请求头（以及其它请求选项）](#override-default-request-options)
+
+  * [Appendix: Tour of Heroes _in-memory web api_](#in-mem-web-api)
 
     [附录：英雄指南的内存 Web API 服务](#in-mem-web-api)
 
@@ -92,6 +147,7 @@ block includes
 
   我们在<live-example>在线例子</live-example>中展示了这些主题。
 
+a#demos
 .l-main-section
 :marked
   # Demos
@@ -104,19 +160,19 @@ block includes
 
 block demos-list
   :marked
-    - [The Tour of Heroes *HTTP* client demo](#http-client).
-
+    * [The Tour of Heroes *HTTP* client demo](#http-client).
+    
       [英雄指南 *HTTP* 客户端](#http-client)
-
-    - [Fall back to !{_Promise}s](#promises).
-
-      [回到使用承诺](#promises)
-
-    - [Cross-Origin Requests: Wikipedia example](#cors).
-
+      
+    * [Fall back to Promises](#promises).
+    
+      [退化为使用承诺（Promise）](#promises)
+      
+    * [Cross-Origin Requests: Wikipedia example](#cors).
+    
       [跨站请求：Wikipedia 示例](#cors)
-
-    - [More fun with observables](#more-observables).
+      
+    * [More fun with Observables](#more-observables).
 
       [更多可观察对象的探索](#more-observables)
 
@@ -137,24 +193,23 @@ block demos-list
 
   首先，配置应用来使用服务器通讯设施。
 
-  The !{_Angular_Http} client communicates with the server using a familiar HTTP request/response protocol.
-  The `!{_Http}` client is one of a family of services in the !{_Angular_http_library}.
-
+  The Angular <code>Http</code> client communicates with the server using a familiar HTTP request/response protocol.
+  The `Http` client is one of a family of services in the Angular HTTP library.
+  
   我们通过 !{_Angular_Http}客户端，使用熟悉的 HTTP 请求/回应协议与服务器通讯。
-  `!{_Http}`客户端是!{_Angular_http_libraryCn}所提供的一系列服务之一。
+    `!{_Http}`客户端是!{_Angular_http_libraryCn}所提供的一系列服务之一。
 
-+ifDocsFor('ts')
-  .l-sub-section
-    :marked
-      When importing from the `@angular/http` module, SystemJS knows how to load services from
-      the !{_Angular_http_library}
-      because the `systemjs.config.js` file maps to that module name.
+.l-sub-section
+  :marked
+    When importing from the `@angular/http` module, SystemJS knows how to load services from
+    the Angular HTTP library
+    because the `systemjs.config.js` file maps to that module name.
 
-      当我们从`@angular/http`模块中导入服务时，SystemJS 知道该如何从 !{_Angular_http_libraryCn}中加载它们，
-      这是因为`systemjs.config.js`文件已经注册过这个模块名。
+    当我们从`@angular/http`模块中导入服务时，SystemJS 知道该如何从 !{_Angular_http_libraryCn}中加载它们，
+    这是因为`systemjs.config.js`文件已经注册过这个模块名。
 
 :marked
-  Before you can use the `!{_Http}` client, you need to register it as a service provider with the dependency injection system.
+  Before you can use the `Http` client, you need to register it as a service provider with the dependency injection system.
 
   要想使用`#{_Http}`客户端，你需要先通过依赖注入系统把它注册成一个服务提供商。
 
@@ -174,27 +229,26 @@ block demos-list
 block http-providers
   :marked
     Begin by importing the necessary members.
-    The newcomers are the `HttpModule` and the `JsonpModule` from the !{_Angular_http_library}. For more information about imports and related terminology, see the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) on the `import` statement.
+    The newcomers are the `HttpModule` and the `JsonpModule` from the Angular HTTP library. For more information about imports and related terminology, see the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) on the `import` statement.
 
     我们从导入所需的成员开始，它们中的大多数我们都熟悉了，只有`HttpModule`和`JsonpModule`是新面孔。
     关于导入和相关术语的更多信息，见 [MDN reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 中的`import`语句。
 
     To add these modules to the application, pass them to the `imports` array in the root `@NgModule`.
-
+    
     只要把它们传给根模块的`imports`数组，就可以把这些模块加入应用。
-
-.l-sub-section
-  :marked
-    The `HttpModule` is necessary for making HTTP calls.
-    Though the JsonpModule isn't necessary for plain HTTP,
-    there is a JSONP demo later in this page.
-    Loading its module now saves time.
-
-    我们需要 HttpModule 来发起 HTTP 调用。
-    普通的 HTTP 调用并不需要用到 JsonpModule，
-    不过稍后我们就会演示对 JSONP 的支持，
-    所以现在就加载它，免得再回来改浪费时间。
-
+    
+  .l-sub-section
+    :marked
+      The `HttpModule` is necessary for making HTTP calls.
+      Though the `JsonpModule` isn't necessary for plain HTTP,
+      there is a JSONP demo later in this page.
+      Loading its module now saves time.
+      
+      我们需要 HttpModule 来发起 HTTP 调用。
+      普通的 HTTP 调用并不需要用到 JsonpModule，
+      不过稍后我们就会演示对 JSONP 的支持，
+      所以现在就加载它，免得再回来改浪费时间。
 .l-main-section#http-client
 :marked
   ## The Tour of Heroes HTTP client demo
@@ -203,7 +257,7 @@ block http-providers
 
   The first demo is a mini-version of the [tutorial](../tutorial)'s "Tour of Heroes" (ToH) application.
   This version gets some heroes from the server, displays them in a list, lets the user add new heroes, and saves them to the server.
-  The app uses the !{_Angular_Http} client to communicate via `XMLHttpRequest (XHR)`.
+  The app uses the Angular <code>Http</code> client to communicate via **XMLHttpRequest (XHR)**.
 
   我们的第一个演示是《英雄指南(TOH)》[教程](../tutorial)的一个迷你版。
   这个版本从服务器获取一些英雄，把它们显示在列表中，还允许我们添加新的英雄并将其保存到服务器。
@@ -212,6 +266,7 @@ block http-providers
   It works like this:
 
   它跑起来是这样的：
+  
 figure.image-display
   img(src='/resources/images/devguide/server-communication/http-toh.gif' alt="ToH mini app" width="250")
 :marked
@@ -219,14 +274,14 @@ figure.image-display
 
   这个演示是一个单一组件`HeroListComponent`，其模板如下：
   
-+makeExample('server-communication/ts/src/app/toh/hero-list.component.html', null, 'src/app/toh/hero-list.component.html (template)')
++makeExample('server-communication/ts/src/app/toh/hero-list.component.html', null, 'src/app/toh/hero-list.component.html')
 :marked
   It presents the list of heroes with an `ngFor`.
   Below the list is an input box and an *Add Hero* button where you can enter the names of new heroes
   and add them to the database.
   A [template reference variable](template-syntax.html#ref-vars), `newHeroName`, accesses the
   value of the input box in the `(click)` event binding.
-  When the user clicks the button, that value passes to the component's `addHero` method and then
+  When the user clicks the button, that value is passed to the component's `addHero` method and then
   the event binding clears it to make it ready for a new hero name.
 
   它使用`ngFor`来展现这个英雄列表。
@@ -258,7 +313,7 @@ a#HeroListComponent
 
   Angular会把一个`HeroService`[注入](dependency-injection.html)到组件的构造函数中，该组件将调用此服务来获取和保存数据。
 
-  The component **does not talk directly to the !{_Angular_Http} client**.
+  The component **does not talk directly to the Angular <code>Http</code> client**.
   The component doesn't know or care how it gets the data.
   It delegates to the `HeroService`.
 
@@ -287,9 +342,9 @@ a#HeroListComponent
     这是*最佳实践*。
     当组件的构造函数足够简单，并且所有真实的工作（尤其是调用远端服务器）
     都在一个独立的方法中处理时，组件会更加容易测试和调试。
-block getheroes-and-addhero
+block getheroes-and-create
   :marked
-    The service's `getHeroes()` and `addHero()` methods return an `Observable` of hero data that the !{_Angular_Http} client fetched from the server.
+    The service's `getHeroes()` and `create()` methods return an `Observable` of hero data that the Angular <code>Http</code> client fetched from the server.
 
     服务的`getHeroes()`和`addHero()`方法返回一个英雄数据的可观察对象 (`Observable`)，
     这些数据是由 !{_Angular_Http}从服务器上获取的。
@@ -312,7 +367,7 @@ block getheroes-and-addhero
 a#HeroService
 .l-main-section#fetch-data
 :marked
-  ## Fetch data with http.get
+  ## Fetch data with _http.get()_
 
   ## 通过 http.get 获取数据
 
@@ -324,14 +379,14 @@ a#HeroService
 +makeExample('toh-4/ts/src/app/hero.service.ts', 'just-get-heroes')(format=".")
 
 :marked
-  You can revise that `HeroService` to get the heroes from the server using the !{_Angular_Http} client service:
+  You can revise that `HeroService` to get the heroes from the server using the Angular <code>Http</code> client service:
 
   在本章中，我们会修改`HeroService`，改用 !{_Angular_Http}客户端服务来从服务器上获取英雄列表：
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'v1', 'src/app/toh/hero.service.ts (revised)')
 
 :marked
-  Notice that the !{_Angular_Http} client service is
+  Notice that the Angular <code>Http</code> client service is
   [injected](dependency-injection.html) into the `HeroService` constructor.
 
   注意，这个 !{_Angular_Http}客户端服务[被注入](dependency-injection.html)到了`HeroService`的构造函数中。
@@ -339,10 +394,9 @@ a#HeroService
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'ctor')
 
 :marked
-  Look closely at how to call `!{_priv}http.get`:
+  Look closely at how to call `http.get`:
 
   仔细看看我们是如何调用`!{_priv}http.get`的
-
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'http-get', 'src/app/toh/hero.service.ts (getHeroes)')(format=".")
 
 :marked
@@ -361,68 +415,68 @@ a#HeroService
     
   +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'endpoint-json')(format=".")
 
-+ifDocsFor('ts')
-  :marked
-    <a id="rxjs"></a>
-    If you are familiar with asynchronous methods in modern JavaScript, you might expect the `get` method to return a
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" title="Promise">promise</a>.
-    You'd expect to chain a call to `then()` and extract the heroes.
-    Instead you're calling a `map()` method.
-    Clearly this is not a promise.
+:marked
+  <a id="rxjs"></a>
+  If you are familiar with asynchronous methods in modern JavaScript, you might expect the `get` method to return a
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" title="Promise">promise</a>.
+  You'd expect to chain a call to `then()` and extract the heroes.
+  Instead you're calling a `map()` method.
+  Clearly this is not a promise.
 
-    <a id="rxjs"></a>
-    返回值可能会让我们感到意外。
-    对熟悉现代 JavaScript 中的异步调用方法的人来说，我们期待`get`方法返回一个[承诺 (promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
-    我们期待链接调用`then()`方法，并从中取得英雄列表。
-    而这里调用了一个`map()`方法，显然，它不是承诺 (Promise)。
+  <a id="rxjs"></a>
+  返回值可能会让我们感到意外。
+  对熟悉现代 JavaScript 中的异步调用方法的人来说，我们期待`get`方法返回一个[承诺 (promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
+  我们期待链接调用`then()`方法，并从中取得英雄列表。
+  而这里调用了一个`map()`方法，显然，它不是承诺 (Promise)。
+  
+  In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
+  and `map()` is one of the RxJS *operators*.
+  
+  事实上，`http.get`方法返回了一个 HTTP Response 类型的**可观察对象** (`Observable<Response>`)，这个对象来自 RxJS 库，而`map`是 RxJS 的*操作符*之一。
 
-    In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
-    and `map` is one of the RxJS *operators*.
+a#rxjs-library
+.l-main-section
+:marked
+  ## RxJS library
+  
+  ## RxJS库
+  
+  <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS Reactive Extensions">RxJS</a>
+  is a third party library, endorsed by Angular, that implements the 
+  <a href="https://www.youtube.com/watch?v=VLGCCpOWFFw" target="_blank" title="Video: Rob Wormald on Observables"><b>asynchronous Observable</b></a> pattern.
+  
+  <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS响应式编程扩展库">RxJS</a>是一个被Angular认可的第三方库，它是<a href="https://www.youtube.com/watch?v=VLGCCpOWFFw" target="_blank" title="Video: Rob Wormald on observables"><b>异步可观察对象</b></a>模式的一种实现。
 
-    事实上，`http.get`方法返回了一个 HTTP Response 类型的**可观察对象** (`Observable<Response>`)，这个对象来自 RxJS 库，而`map`是 RxJS 的*操作符*之一。
+  All of the Developer Guide samples have installed the RxJS npm package
+  because Observables are used widely in Angular applications.
+  _This_ app needs it when working with the HTTP client.
+  But you must take a critical extra step to make RxJS Observables usable: 
+  _you must import the RxJS operators individually_.
 
-  .l-main-section
-  :marked
-    ## RxJS library
+  开发指南中的所有例子都安装了 RxJS 的 npm 包，
+  这是因为可观察对象在 Angular 应用中使用非常广泛。
+  HTTP 客户端更需要它。但还要经过一个关键步骤，我们才能用 RxJS 可观察对象：
+  我们必须单独导入一些RxJS的操作符。
+  
+  ### Enable RxJS operators
+  
+  ### 启用 RxJS 操作符  
+  
+  The RxJS library is large.
+  Size matters when building a production application and deploying it to mobile devices.
+  You should include only necessary features.
     
-    ## RxJS库
-    
-    <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS Reactive Extensions">RxJS</a>
-    is a third party library, endorsed by Angular, that implements the 
-    <a href="" target="_blank" title="Video: Rob Wormald on observables"><b>asynchronous observable</b></a> pattern.
-    
-    <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS响应式编程扩展库">RxJS</a>是一个被Angular认可的第三方库，它是<a href="" target="_blank" title="Video: Rob Wormald on observables"><b>异步可观察对象</b></a>模式的一种实现。
+  RxJS 库实在是太大了。
+  当构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。
+  我们应该只包含那些我们确实需要的特性。
 
-    All of the Developer Guide samples have installed the RxJS npm package
-    because observables are used widely in Angular applications.
-    _This_ app needs it when working with the HTTP client.
-    But you must take a critical extra step to make RxJS observables usable: 
-    you must import the RxJS operators individually.
-
-    开发指南中的所有例子都安装了 RxJS 的 npm 包，
-    这是因为可观察对象在 Angular 应用中使用非常广泛。
-    HTTP 客户端更需要它。但还要经过一个关键步骤，我们才能用 RxJS 可观察对象：
-    我们必须单独导入一些RxJS的操作符。
-
-    ### Enable RxJS operators
-
-    ### 启用 RxJS 操作符
-
-    The RxJS library is large.
-    Size matters when building a production application and deploying it to mobile devices.
-    You should include only necessary features.
-    
-    RxJS 库实在是太大了。
-    当构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。
-    我们应该只包含那些我们确实需要的特性。
-
-    Each code file should add the operators it needs by importing from an RxJS library.
-    The `getHeroes` method needs the `map` and `catch` operators so it imports them like this.
-    
-    每个代码文件都需要把它需要的操作符从RxJS库中导入，并添加进来。
-    `getHeroes`方法需要一个`map`和一个`catch`操作符，那就像这样导入它：
-    
-  +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'rxjs-imports', 'src/app/app.component.ts (import rxjs)')(format=".")
+  Each code file should add the operators it needs by importing from an RxJS library.
+  The `getHeroes()` method needs the `map()` and `catch()` operators so it imports them like this.
+  
+  每个代码文件都需要把它需要的操作符从RxJS库中导入，并添加进来。
+  `getHeroes`方法需要一个`map`和一个`catch`操作符，那就像这样导入它：
+  
++makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'rxjs-imports', 'src/app/app.component.ts (import rxjs)')(format=".")
 
 .l-main-section
 a#extract-data
@@ -431,7 +485,7 @@ a#extract-data
 
   ## 处理响应对象
 
-  Remember that the `getHeroes()` method used an `!{_priv}extractData` helper method to map the `!{_priv}http.get` response object to heroes:
+  Remember that the `getHeroes()` method used an `extractData()` helper method to map the `http.get` response object to heroes:
 
   记住，`getHeroes()`借助一个`!{_priv}extractData`辅助方法来把`!{_priv}http.get`的响应对象映射成了英雄列表：
   
@@ -444,6 +498,8 @@ a#extract-data
   这个`response`对象并没有以一种我们能直接使用的格式来保存数据。
   要让它在应用程序中可用，我们就必须把这个响应数据解析成一个 JSON 对象。
 
+a#parse-to-json
+:marked
   ### Parse to JSON
 
   ### 解析成 JSON
@@ -468,7 +524,7 @@ block parse-json
 
 .l-sub-section
   :marked
-    Don't expect the decoded JSON to be the heroes !{_array} directly.
+    Don't expect the decoded JSON to be the heroes array directly.
     This server always wraps JSON results in an object with a `data`
     property. You have to unwrap it to get the heroes.
     This is conventional web API behavior, driven by
@@ -486,39 +542,41 @@ block parse-json
 
      不要对服务端 API 做任何假设。
      并非所有服务器都会返回一个带`data`属性的对象。
+
+a#no-return-response-object
 :marked
   ### Do not return the response object
 
   ### 不要返回响应对象
 
   The `getHeroes()` method _could_ have returned the HTTP response but this wouldn't
-  be a best practice.
+  follow best practices.
   The point of a data service is to hide the server interaction details from consumers.
   The component that calls the `HeroService` only wants heroes and is kept separate
   from getting them, the code dealing with where they come from, and the response object.
-
+  
   `getHeroes()`确实可以返回 HTTP 响应对象，但这不是最佳实践。
-  数据服务的重点在于，对消费者隐藏与服务器交互的细节。
-  调用`HeroService`的组件希望得到英雄数组。
-  它并不关心我们如何得到它们。
-  它也不在乎这些数据从哪里来。
-  毫无疑问，它也不希望直接和一个响应对象打交道。
+    数据服务的重点在于，对消费者隐藏与服务器交互的细节。
+    调用`HeroService`的组件希望得到英雄数组。
+    它并不关心我们如何得到它们。
+    它也不在乎这些数据从哪里来。
+    毫无疑问，它也不希望直接和一个响应对象打交道。
 
-+ifDocsFor('ts')
-  .callout.is-important
-    header HTTP GET is delayed
+.callout.is-important
+  header HTTP GET is delayed
+  
+  header HTTP 的 GET 方法被推迟执行了
+  
+  :marked
+    The `http.get` does **not send the request just yet.** This Observable is
+    [*cold*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables),
+    which means that the request won't go out until something *subscribes* to the Observable.
+    That *something* is the [HeroListComponent](#subscribe).
 
-    header HTTP 的 GET 方法被推迟执行了
-    :marked
-      The `!{_priv}http.get` does **not send the request just yet.** This observable is
-      [*cold*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables),
-      which means that the request won't go out until something *subscribes* to the observable.
-      That *something* is the [HeroListComponent](#subscribe).
-
-      `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
-      [*冷的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
-      也就是说，只有当某人*订阅*了这个可观察对象时，这个请求才会被发出。
-      这个场景中的*某人*就是[HeroListComponent](#subscribe)。
+    `#{_priv}http.get`**仍然没有发送请求！**这是因为可观察对象是
+    [*冷的*](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)，
+    也就是说，只有当某人*订阅*了这个可观察对象时，这个请求才会被发出。
+    这个场景中的*某人*就是[HeroListComponent](#subscribe)。
 
 a#error-handling
 :marked
@@ -530,11 +588,11 @@ a#error-handling
   and do something with them. One way to handle errors is to pass an error message
   back to the component for presentation to the user,
   but only if it says something that the user can understand and act upon.
-
+  
   一旦开始与 I/O 打交道，我们就必须准备好接受墨菲定律：如果一件倒霉事*可能*发生，它就*迟早会*发生。
   我们可以在`HeroService`中捕获错误，并对它们做些处理。
   只有在用户可以理解并采取相应行动的时候，我们才把错误信息传回到组件，让组件展示给最终用户。
-
+  
   This simple app conveys that idea, albeit imperfectly, in the way it handles a `getHeroes` error.
 
   在这个简单的应用中，我们在服务和组件中都只提供了最原始的错误处理方式。
@@ -543,9 +601,9 @@ a#error-handling
 
 block error-handling
   :marked
-    The `catch` operator passes the error object from `http` to the `handleError` method.
-    The `handleError` method transforms the error into a developer-friendly message, 
-    logs it to the console, and returns the message in a new, failed observable via `Observable.throw`.
+    The `catch()` operator passes the error object from `http` to the `handleError()` method.
+    The `handleError` method transforms the error into a developer-friendly message,
+    logs it to the console, and returns the message in a new, failed Observable via `Observable.throw`.
 
     `catch`操作符将错误对象传递给`http`的`handleError`方法。
     服务处理器 (`handleError`) 把响应对象记录到控制台中，
@@ -560,7 +618,7 @@ h3 #[b HeroListComponent] error handling
 h3 #[b HeroListComponent] 错误处理
 block hlc-error-handling
   :marked
-    Back in the `HeroListComponent`, in `!{_priv}heroService.getHeroes()`,
+    Back in the `HeroListComponent`, in `heroService.getHeroes()`,
     the `subscribe` function has a second function parameter to handle the error message.
     It sets an `errorMessage` variable that's bound conditionally in the `HeroListComponent` template.
 
@@ -575,6 +633,7 @@ block hlc-error-handling
 
     想看到它失败时的情况吗？在`HeroService`中把 API 的端点设置为一个无效值就行了。但别忘了恢复它。
 
+<a id="create"></a>
 <a id="update"></a>
 <a id="post"></a>
 .l-main-section
@@ -589,19 +648,19 @@ block hlc-error-handling
   前面我们已经看到如何用一个 HTTP 服务从远端获取数据了。
   但我们还能再给力一点，让它可以创建新的英雄，并把它们保存到后端。
 
-  You'll write a method for the `HeroListComponent` to call, an `addHero()` method, that takes
+  You'll write a method for the `HeroListComponent` to call, a `create()` method, that takes
   just the name of a new hero and returns an `Observable` of `Hero`. It begins like this:
 
   我们将为`HeroListComponent`创建一个简单的`addHero()`方法，它将接受新英雄的名字：
 
-+makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'addhero-sig')(format=".")
++makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'create-sig')(format=".")
 
 :marked
   To implement it, you must know the server's API for creating heroes.
 
   要实现它，我们得知道关于服务端 API 如何创建英雄的一些细节。
 
-  [This sample's data server](#server) follows typical REST guidelines.
+  [This sample's data server](#in-mem-web-api) follows typical REST guidelines.
   It expects a [`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5) request
   at the same endpoint as `GET` heroes.
   It expects the new hero data to arrive in the body of the request,
@@ -623,50 +682,50 @@ code-example(format="." language="javascript").
   服务器将生成`id`，并且返回新英雄的完整`JSON`形式，包括这个生成的 id。
   该英雄的数据被塞进一个响应对象的`data`属性中。
 
-  Now that you know how the API works, implement `addHero()`as follows:
+  Now that you know how the API works, implement `create()` as follows:
 
   现在，知道了这个 API 如何工作，我们就可以像这样实现`addHero()`了：
 
-+ifDocsFor('ts')
-  +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'import-request-options', 'src/app/toh/hero.service.ts (additional imports)')(format=".")
-+makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'addhero', 'src/app/toh/hero.service.ts (addHero)')(format=".")
++makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'import-request-options', 'src/app/toh/hero.service.ts (additional imports)')(format=".")
++makeExcerpt('src/app/toh/hero.service.ts', 'create')
 
+a#headers
 :marked
   ### Headers
 
   ### 请求头 (headers)
 
   In the `headers` object, the `Content-Type` specifies that the body represents JSON.
-
+  
   我们通过`Content-Type`头告诉服务器，body 是 JSON 格式的。
 
-+ifDocsFor('ts')
-  :marked
-    Next, the `headers` object is used to configure the `options` object. The `options`
-    object is a new instance of `RequestOptions`, a class that allows you to specify
-    certain settings when instantiating a request. In this way, [headers](../api/http/index/Headers-class.html) is one of the [RequestOptions](../api/http/index/RequestOptions-class.html).
+:marked
+  Next, the `headers` object is used to configure the `options` object. The `options`
+  object is a new instance of `RequestOptions`, a class that allows you to specify
+  certain settings when instantiating a request. In this way, [headers](../api/http/index/Headers-class.html) is one of the [RequestOptions](../api/http/index/RequestOptions-class.html).
 
-    接下来，使用`headers`对象来配置`options`对象。
-    `options`对象是`RequestOptions`的新实例，该类允许你在实例化请求时指定某些设置。这样，
-    [Headers](../api/http/index/Headers-class.html) 是 [RequestOptions](../api/http/index/RequestOptions-class.html) 中的一员。
+  接下来，使用`headers`对象来配置`options`对象。
+  `options`对象是`RequestOptions`的新实例，该类允许你在实例化请求时指定某些设置。这样，
+  [Headers](../api/http/index/Headers-class.html) 是 [RequestOptions](../api/http/index/RequestOptions-class.html) 中的一员。
+  
+  In the `return` statement, `options` is the *third* argument of the `post()` method, as shown above.
 
-    In the `return` statement, `options` is the *third* argument of the `post` method, as shown above.
+  在`return`声明中，`options`是传给`post`方法的*第三个*参数，就像前面见过的那样。
 
-    在`return`声明中，`options`是传给`post`方法的*第三个*参数，就像前面见过的那样。
-
+a#json-results
 :marked
   ### JSON results
 
   ### JSON 结果
 
-  As with `getHeroes()`, use the `!{_priv}extractData()` helper to [extract the data](#extract-data)
+  As with `getHeroes()`, use the `extractData()` helper to [extract the data](#extract-data)
   from the response.
 
   像`getHeroes()`中一样，我们可以使用`!{_priv}extractData()`辅助函数从响应中[提取出数据](#extract-data)。
 
 block hero-list-comp-add-hero
   :marked
-    Back in the `HeroListComponent`, *its* `addHero()` method subscribes to the observable returned by the *service's* `addHero()` method.
+    Back in the `HeroListComponent`, its `addHero()` method subscribes to the Observable returned by the service's `create()` method.
     When the data arrive it pushes the new hero object into its `heroes` array for presentation to the user.
 
     回到`HeroListComponent`，我们看到*该组件的*`addHero()`方法中订阅了这个由*服务中*的`addHero()`方法返回的可观察对象。
@@ -674,95 +733,104 @@ block hero-list-comp-add-hero
     
 +makeExample('server-communication/ts/src/app/toh/hero-list.component.ts', 'addHero', 'src/app/toh/hero-list.component.ts (addHero)')(format=".")
 
-+ifDocsFor('ts')
-  h2#promises 
-    p Fall back to promises
-    p 倒退为承诺 (Promise)
-  :marked
+
+h2#promises Fall back to promises
+
+h2#promises 倒退为承诺 (Promise)
+
+:marked
     Although the Angular `http` client API returns an `Observable<Response>` you can turn it into a
     [`Promise<Response>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-    It's easy to do, and in simple cases, a promise-based version looks much
-    like the observable-based version.
-
+    It's easy to do, and in simple cases, a Promise-based version looks much
+    like the Observable-based version.
+    
     虽然 Angular 的`http`客户端 API 返回的是`Observable<Response>`类型的对象，但我们也可以把它转成
     [`Promise<Response>`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。
     这很容易，并且在简单的场景中，一个基于承诺 (Promise) 的版本看起来很像基于可观察对象 (Observable) 的版本。
-  .l-sub-section
-    :marked
-      While promises may be more familiar, observables have many advantages.
-
-      可能“承诺”看起来更熟悉一些，但“可观察对象”有很多优越之处。
+    
+.l-sub-section
   :marked
-    Here is a comparison of the `HeroService` using promises versus observables,
-    highlighting just the parts that are different.
+    While Promises may be more familiar, Observables have many advantages.
 
-    下面是使用承诺重写`HeroService`，要特别注意那些不同的部分。
-  +makeTabs(
-    'server-communication/ts/src/app/toh/hero.service.promise.ts,server-communication/ts/src/app/toh/hero.service.ts',
-    'methods, methods',
-    'src/app/toh/hero.service.promise.ts (promise-based), src/app/toh/hero.service.ts (observable-based)')
-  :marked
-    You can follow the promise `then(this.extractData).catch(this.handleError)` pattern as in
-    this example.
-
-    在本例中，你可以遵循承诺的`then(this.extractData).catch(this.handleError)`模式。
-
-    Alternatively, you can call `toPromise(success, fail)`. The observable's `map` callback moves to the first *success* parameter and its `catch` callback to the second *fail* parameter in this pattern: `.toPromise(this.extractData, this.handleError)`.
-
-    另外，你也可以调用`toPromise(success, fail)`。可观察对象的`map`第一个参数为*成功*时的回调函数，
-    它的第二个参数用`.toPromise(this.extractData, this.handleError)`来拦截失败。
-
-    The `errorHandler` forwards an error message as a failed promise instead of a failed `observable`.
-
-    我们的`errorHandler`也改用了一个失败的承诺，而不再是失败的可观察对象。
-
-    The diagnostic *log to console* is just one more `then` in the promise chain.
-
-    把诊断信息*记录到控制台*也只是在承诺的处理链中多了一个`then`而已。
-
-    You have to adjust the calling component to expect a `Promise` instead of an `observable`:
-
-    我们还得对调用方组件进行调整，让它期待一个`Promise`而非`Observable`：
-
-  +makeTabs(
-    'server-communication/ts/src/app/toh/hero-list.component.promise.ts, server-communication/ts/src/app/toh/hero-list.component.ts',
-    'methods, methods',
-    'src/app/toh/hero-list.component.promise.ts (promise-based), src/app/toh/hero-list.component.ts (observable-based)')
-  :marked
-    The only obvious difference is that you call `then` on the returned promise instead of `subscribe`.
-    Both methods take the same functional arguments.
-
-    唯一一个比较明显的不同点是我们调用这个返回的承诺的`then`方法，而不再是`subscribe`。
-    我们给了这两个方法完全相同的调用参数。
-  .l-sub-section
-    :marked
-      The less obvious but critical difference is that these two methods return very different results.
-
-      细微却又关键的不同点是，这两个方法返回了非常不同的结果！
-
-      The promise-based `then` returns another promise. You can keep chaining more `then` and `catch` calls, getting a new promise each time.
-
-      基于承诺的`then`返回了另一个承诺。我们可以链式调用多个`then`和`catch`方法，每次都返回一个新的承诺。
-
-      The `subscribe` method returns a `Subscription`. A `Subscription` is not another `Observable`.
-      It's the end of the line for observables. You can't call `map` on it or call `subscribe` again.
-      The `Subscription` object has a different purpose, signified by its primary method, `unsubscribe`.
-
-      但`subscribe`方法返回一个`Subscription`对象。但`Subscription`不是另一个`Observable`。
-      它是可观察对象的末端。我们不能在它上面调用`map`函数或再次调用`subscribe`函数。
-      `Subscription`对象的设计目的是不同的，这从它的主方法`unsubscribe`就能看出来。
-
-      To understand the implications and consequences of subscriptions, watch [Ben Lesh's talk on observables](https://www.youtube.com/watch?v=3LKMwkuK0ZE) or his video course on [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises).
-
-      要理解订阅的实现和效果，请看 [Ben Lesh 关于可观察对象的演讲](https://www.youtube.com/watch?v=3LKMwkuK0ZE)
-      或者他在 [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises) 的课程。
-
-h2#cors
-  p  Cross-Origin Requests: Wikipedia example
-  p  跨域请求：Wikipedia 范例
+    可能“承诺”看起来更熟悉一些，但“可观察对象”有很多优越之处。
+    
 :marked
-  You just learned how to make `XMLHttpRequests` using the !{_Angular_Http} service.
-  This is the most common approach for server communication, but it doesn't work in all scenarios.
+  Here is a comparison of the `HeroService` using Promises versus Observables,
+  highlighting just the parts that are different.
+  
+  下面是使用承诺重写`HeroService`，要特别注意那些不同的部分。
+  
++makeTabs(
+  'server-communication/ts/src/app/toh/hero.service.promise.ts,server-communication/ts/src/app/toh/hero.service.ts',
+  'methods, methods',
+  'src/app/toh/hero.service.promise.ts (promise-based), src/app/toh/hero.service.ts (observable-based)')
+
+:marked
+  You can follow the Promise `then(this.extractData).catch(this.handleError)` pattern as in
+  this example.
+
+  在本例中，你可以遵循承诺的`then(this.extractData).catch(this.handleError)`模式。
+  
+  Alternatively, you can call `toPromise(success, fail)`. The Observable's `map` callback moves to the 
+  first *success* parameter and its `catch` callback to the second *fail* parameter 
+  in this pattern: `.toPromise(this.extractData, this.handleError)`.
+
+  另外，你也可以调用`toPromise(success, fail)`。可观察对象的`map`第一个参数为*成功*时的回调函数，
+  它的第二个参数用`.toPromise(this.extractData, this.handleError)`来拦截失败。
+  
+  The `errorHandler` forwards an error message as a failed `Promise` instead of a failed `Observable`.
+
+  我们的`errorHandler`也改用了一个失败的承诺，而不再是失败的可观察对象。
+  
+  The diagnostic *log to console* is just one more `then()` in the Promise chain.
+
+  把诊断信息*记录到控制台*也只是在承诺的处理链中多了一个`then`而已。
+  
+  You have to adjust the calling component to expect a `Promise` instead of an `Observable`:
+
+  我们还得对调用方组件进行调整，让它期待一个`Promise`而非`Observable`：
+    
++makeTabs(
+  'server-communication/ts/src/app/toh/hero-list.component.promise.ts, server-communication/ts/src/app/toh/hero-list.component.ts',
+  'methods, methods',
+  'src/app/toh/hero-list.component.promise.ts (promise-based), src/app/toh/hero-list.component.ts (observable-based)')
+
+:marked
+  The only obvious difference is that you call `then()` on the returned Promise instead of `subscribe`.
+  Both methods take the same functional arguments.
+  
+  唯一一个比较明显的不同点是我们调用这个返回的承诺的`then`方法，而不再是`subscribe`。
+  我们给了这两个方法完全相同的调用参数。
+.l-sub-section
+  :marked
+    The less obvious but critical difference is that these two methods return very different results.
+
+    细微却又关键的不同点是，这两个方法返回了非常不同的结果！
+    
+    The Promise-based `then()` returns another Promise. You can keep chaining more `then()` and `catch()` calls, getting a new promise each time.
+
+    基于承诺的`then`返回了另一个承诺。我们可以链式调用多个`then`和`catch`方法，每次都返回一个新的承诺。
+    
+    The `subscribe()` method returns a `Subscription`. A `Subscription` is not another `Observable`.
+    It's the end of the line for Observables. You can't call `map()` on it or call `subscribe()` again.
+    The `Subscription` object has a different purpose, signified by its primary method, `unsubscribe`.
+
+    但`subscribe`方法返回一个`Subscription`对象。但`Subscription`不是另一个`Observable`。
+    它是可观察对象的末端。我们不能在它上面调用`map`函数或再次调用`subscribe`函数。
+    `Subscription`对象的设计目的是不同的，这从它的主方法`unsubscribe`就能看出来。
+    
+    To understand the implications and consequences of subscriptions, watch [Ben Lesh's talk on Observables](https://www.youtube.com/watch?v=3LKMwkuK0ZE) or his video course on [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises).
+
+    要理解订阅的实现和效果，请看 [Ben Lesh 关于可观察对象的演讲](https://www.youtube.com/watch?v=3LKMwkuK0ZE)
+    或者他在 [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises) 的课程。
+
+h2#cors Cross-Origin Requests: Wikipedia example
+
+h2#cors 跨域请求：Wikipedia 范例
+
+:marked
+  You just learned how to make `XMLHttpRequests` using the Angular <code>Http</code> service.
+  This is the most common approach to server communication, but it doesn't work in all scenarios.
 
   我们刚刚学习了用 !{_Angular_Http}服务发起`XMLHttpRequests`。
   这是与服务器通讯时最常用的方法。
@@ -780,7 +848,7 @@ h2#cors
   :marked
     Modern browsers do allow `XHR` requests to servers from a different origin if the server supports the
     [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) protocol.
-    If the server requires user credentials, you'll enable them in the [request headers](#headers).
+    If the server requires user credentials, enable them in the [request headers](#headers).
 
     在现代浏览器中，如果服务器支持 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) 协议，那么也可以向不同源的服务器发起`XHR`请求。
     如果服务器要请求用户凭证，我们就在[请求头](#headers)中启用它们。
@@ -796,8 +864,10 @@ h2#cors
     This [Stack Overflow answer](http://stackoverflow.com/questions/2067472/what-is-jsonp-all-about/2067584#2067584) covers many details of JSONP.
 
     这个 [StackOverflow 上的答案](http://stackoverflow.com/questions/2067472/what-is-jsonp-all-about/2067584#2067584)覆盖了关于 JSONP 的很多细节。
+    
+a#search-wikipedia
 :marked
-  ### Search wikipedia
+  ### Search Wikipedia
 
   ### 搜索 Wikipedia
 
@@ -812,8 +882,8 @@ figure.image-display
 block wikipedia-jsonp+
   :marked
     Wikipedia offers a modern `CORS` API and a legacy `JSONP` search API. This example uses the latter.
-    The Angular `Jsonp` service both extends the `!{_Http}` service for JSONP and restricts you to `GET` requests.
-    All other HTTP methods throw an error because JSONP is a read-only facility.
+    The Angular `Jsonp` service both extends the `Http` service for JSONP and restricts you to `GET` requests.
+    All other HTTP methods throw an error because `JSONP` is a read-only facility.
 
     Wikipedia 提供了一个现代的`CORS` API和一个传统的`JSONP`搜索 API。在这个例子中，我们使用后者。
     Angular 的`Jsonp`服务不但通过 JSONP 扩展了`#{_Http}`服务，而且限制我们只能用`GET`请求。
@@ -826,7 +896,7 @@ block wikipedia-jsonp+
   +makeExample('server-communication/ts/src/app/wiki/wikipedia.service.ts',null,'src/app/wiki/wikipedia.service.ts')
   
   :marked
-    The constructor expects Angular to inject its `jsonp` service, which 
+    The constructor expects Angular to inject its `Jsonp` service, which
     is available because `JsonpModule` is in the root `@NgModule` `imports` array
     in `app.module.ts`.
 
@@ -880,7 +950,8 @@ block wikipedia-jsonp+
   +makeExample('server-communication/ts/src/app/wiki/wikipedia.service.ts','call-jsonp','src/app/wiki/wikipedia.service.ts (call jsonp)')(format=".")
   
   :marked
-    `Jsonp` flattens the `params` object into the same query string you saw earlier, putting the request on the wire.
+    `Jsonp` flattens the `params` object into the same query string you saw earlier, sending the request
+    to the server.
 
     `Jsonp`把`params`对象平面化为一个查询字符串，而这个查询字符串和以前我们直接放在请求中的那个是一样的。
 
@@ -906,9 +977,9 @@ block wikipedia-jsonp+
     在每次`keyup`事件被触发时，它调用`search(term)`方法。
 
     The component's `search(term)` method delegates to the `WikipediaService`, which returns an 
-    observable array of string results (`Observable<string[]>`).
-    Instead of subscribing to the observable inside the component, as in the `HeroListComponent`,
-    the app forwards the observable result to the template (via `items`) where the `async` pipe 
+    Observable array of string results (`Observable<string[]>`).
+    Instead of subscribing to the Observable inside the component, as in the `HeroListComponent`,
+    the app forwards the Observable result to the template (via `items`) where the `async` pipe
     in the `ngFor` handles the subscription. Read more about [async pipes](pipes.html#async-pipe)
     in the [Pipes](pipes.html) page.
 
@@ -920,7 +991,8 @@ block wikipedia-jsonp+
     关于[异步管理](pipes.html#async-pipe)的更多信息，见 [Pipes](pipes.html)。
   .l-sub-section
     :marked
-      The [async pipe](pipes.html#async-pipe) is a good choice in read-only components where the component has no need to interact with the data.
+      The [async pipe](pipes.html#async-pipe) is a good choice in read-only components
+      where the component has no need to interact with the data.
 
       我们通常在只读组件中使用[异步管道](pipes.html#async-pipe)，这种组件不需要与数据进行互动。
 
@@ -928,13 +1000,14 @@ block wikipedia-jsonp+
 
       但我们不能在`HeroListComponent`中使用这个管道，这是因为`addHero()`会把一个新创建的英雄追加到英雄列表中。
 
+  a#wasteful-app
   :marked
     ## A wasteful app
 
     ## 奢侈的应用程序
 
-    The wikipedia search makes too many calls to the server.
-    It is inefficient, and potentially expensive on mobile devices with limited data plans.
+    The Wikipedia search makes too many calls to the server.
+    It is inefficient and potentially expensive on mobile devices with limited data plans.
 
     这个 Wikipedia 搜索程序触发了过多的服务器调用。
     这样效率很低，而且在流量受限的移动设备上会显得过于昂贵。
@@ -944,7 +1017,7 @@ block wikipedia-jsonp+
     ### 1. 等用户停止输入
 
     Presently, the code calls the server after every keystroke.
-    It should only make requests when the user *stops typing* .
+    It should only make requests when the user *stops typing*.
     Here's how it will work after refactoring:
 
     我们目前会在每次按键之后调用服务器。
@@ -982,7 +1055,7 @@ block wikipedia-jsonp+
 
     Which response arrives first? It's unpredictable.
     When there are multiple requests in-flight, the app should present the responses
-    in the original request order. 
+    in the original request order.
     In this example, the app must always display the results for the *http* search
     no matter which response arrives first.
 
@@ -990,8 +1063,9 @@ block wikipedia-jsonp+
     即使有多个尚未返回的请求，应用程序也应该按照原始请求的顺序展示对它们的响应。
     如果能让 *angular* 的结果始终在后面返回，就不会发生这样的混乱了。
 
-    <a id="more-observables"></a>
-    ## More fun with observables
+  a#more-observables
+  :marked
+    ## More fun with Observables
 
     ## Observable 的更多乐趣
 
@@ -1001,49 +1075,52 @@ block wikipedia-jsonp+
 
     You could make changes to the `WikipediaService`, but for a better
     user experience, create a copy of the `WikiComponent` instead and make it smarter,
-    with the help of some nifty observable operators.
+    with the help of some nifty Observable operators.
     
     我们本可以把这些改动合并进`WikipediaService`中，但是为了更好用户体验，
     我们创建一个`WikiComponent`的复本，让它变得更智能。
     下面是`WikiSmartComponent`，它使用同样的模板：
 
-    Here's the `WikiSmartComponent`, shown next to the original `WikiComponent`
+    Here's the `WikiSmartComponent`, shown next to the original `WikiComponent`:
     
-    这里是`WikiSmartComponent`组件，就显示在原`WikiComponent`的紧后面。
+    这里是`WikiSmartComponent`组件，就显示在原`WikiComponent`的紧后面：
 
   +makeTabs(
     `server-communication/ts/src/app/wiki/wiki-smart.component.ts,
-    server-communication/ts/src/app/wiki/wiki.component.ts`, 
-    null, 
+    server-communication/ts/src/app/wiki/wiki.component.ts`,
+    null,
     `src/app/wiki/wiki-smart.component.ts,
     src/app/wiki/wiki.component.ts`
   )
   :marked
     While the templates are virtually identical,
-    there's a lot more RxJS in the "smart" version, 
+    there's a lot more RxJS in the "smart" version,
     starting with `debounceTime`, `distinctUntilChanged`, and `switchMap` operators,
-    imported as [described above](#rxjs).
+    imported as [described above](#rxjs-library).
 
+  a#create-stream
+  :marked
     ### Create a stream of search terms
 
     The `WikiComponent` passes a new search term directly to the `WikipediaService` after every keystroke.
 
-    The `WikiSmartComponent` class turns the user's keystrokes into an observable _stream of search terms_
+    The `WikiSmartComponent` class turns the user's keystrokes into an Observable _stream of search terms_
     with the help of a `Subject`, which you import from RxJS:
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'import-subject')(format='.')
   :marked
     The component creates a `searchTermStream` as a `Subject` of type `string`.
-    The `search` method adds each new search box value to that stream via the subject's `next` method.
+    The `search()` method adds each new search box value to that stream via the subject's `next()` method.
 
     组件创建`searchTermStream`为`string`类型的`Subject`。
     `search`方法通过`subject`的`next`方法，将每个新搜索框的值添加到数据流中。
 
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'subject')(format='.')
 
+  a#listen-for-search-terms
   :marked
     ### Listen for search terms
-   
-    The `WikiSmartComponent` listens to the *stream of search terms* and 
+
+    The `WikiSmartComponent` listens to the *stream of search terms* and
     processes that stream _before_ calling the service.
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'observable-operators')(format='.')
   :marked
@@ -1057,11 +1134,11 @@ block wikipedia-jsonp+
     calls the `WikipediaService` with a fresh, debounced search term and coordinates the stream(s) of service response.
 
     The role of `switchMap` is particularly important.
-    The `WikipediaService` returns a separate observable of string arrays (`Observable<string[]>`) for each search request.
+    The `WikipediaService` returns a separate Observable of string arrays (`Observable<string[]>`) for each search request.
     The user could issue multiple requests before a slow server has had time to reply,
-    which means a backlog of response observables could arrive at the client, at any moment, in any order.
+    which means a backlog of response Observables could arrive at the client, at any moment, in any order.
 
-    The `switchMap` returns its own observable that _combines_ all `WikipediaService` response observables,
+    The `switchMap` returns its own Observable that _combines_ all `WikipediaService` response Observables,
     re-arranges them in their original request order,
     and delivers to subscribers only the most recent search results.
 
@@ -1073,10 +1150,10 @@ a#xsrf
   ## 预防跨站请求伪造攻击
 
   In a cross-site request forgery (CSRF or XSRF), an attacker tricks the user into visiting
-  a different web page with malignant code that secretly sends a malicious request to your application's web server,
-
+  a different web page with malignant code that secretly sends a malicious request to your application's web server.
+  
   在一个跨站请求伪造攻击（CSRF 或 XSRF）中，攻击者欺骗用户访问一个不同的网页，它带有恶意代码，秘密向你的应用程序服务器发送恶意请求。
-
+  
   The server and client application must work together to thwart this attack.
   Angular's `Http` client does its part by applying a default `CookieXSRFStrategy` automatically to all requests.
 
@@ -1084,14 +1161,14 @@ a#xsrf
   Angular 的`http`客户端自动使用它默认的`CookieXSRFStrategy`来完成客户端的任务。
 
   The `CookieXSRFStrategy` supports a common anti-XSRF technique in which the server sends a randomly
-  generated authentication token in a cookie named `XSRF-TOKEN`. 
-  The HTTP client adds an `X-XSRF-TOKEN` header with that token value to subsequent requests. 
+  generated authentication token in a cookie named `XSRF-TOKEN`.
+  The HTTP client adds an `X-XSRF-TOKEN` header with that token value to subsequent requests.
   The server receives both the cookie and the header, compares them, and processes the request only if the cookie and header match.
-
+  
   `CookieXSRFStrategy`支持常见的反 XSRF 技术，服务端发送一个随机生成的认证令牌到名为`XSRF-TOKEN`的 cookie 中。
   HTTP 客户端使用该令牌的值为所有后续请求添加一个`X-XSRF-TOKEN`页头。
   服务器接受这个 cookie 和页头，比较它们，只有在它们匹配的时候才处理请求。
-
+  
   See the [XSRF topic on the Security page](security.html#xsrf) for more information about XSRF and Angular's `XSRFStrategy` counter measures.
 
 a#override-default-request-options
@@ -1100,11 +1177,11 @@ a#override-default-request-options
   ## Override default request headers (and other request options)
 
   Request options (such as headers) are merged into the
-  [default _RequestOptions_](https://angular.io/docs/ts/latest/api/http/index/BaseRequestOptions-class.html "API: BaseRequestOptions") 
+  [default _RequestOptions_](https://angular.io/docs/ts/latest/api/http/index/BaseRequestOptions-class.html "API: BaseRequestOptions")
   before the request is processed.
   The `HttpModule` provides these default options via the `RequestOptions` token.
 
-  You can override these defaults to suit your application needs.
+  You can override these defaults to suit your application needs
   by creating a custom sub-class of `RequestOptions`
   that sets the default options for the application.
 
@@ -1119,18 +1196,18 @@ a#override-default-request-options
  :marked
    Remember to include this provider during setup when unit testing the app's HTTP services.
 :marked
-  After this change, the `header` option setting in `HeroService.addHero` is no longer necessary,
+  After this change, the `header` option setting in `HeroService.create()` is no longer necessary,
 
-+makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'addhero', 'src/app/toh/hero.service.ts (addHero)')(format=".")
++makeExcerpt('src/app/toh/hero.service.ts', 'create')
 :marked
   You can confirm that `DefaultRequestOptions` is working by examing HTTP requests in the browser developer tools' network tab.
   If you're short-circuiting the server call with something like the [_in-memory web api_](#in-mem-web-api),
-  try commenting-out the `addHero` header option, 
+  try commenting-out the `create` header option,
   set a breakpoint on the POST call, and step through the request processing
   to verify the header is there.
-  
+
   Individual requests options, like this one, take precedence over the default `RequestOptions`.
-  It might be wise to keep the `addHero` request header setting for extra safety.
+  It might be wise to keep the `create` request header setting for extra safety.
 
 a#in-mem-web-api
 .l-main-section
@@ -1140,12 +1217,10 @@ a#in-mem-web-api
   ## 附录：《英雄指南》的内存 (in-memory) 服务器
 
   If the app only needed to retrieve data, you could get the heroes from a `heroes.json` file:
-
+  
   如果我们只关心获取到的数据，我们可以告诉 Angular 从一个`heroes.json`文件中获取英雄列表，就像这样：
 
-- var _heroesJsonPath = (_docsFor == 'dart' ? 'web' : 'src/app') + '/heroes.json';
-
-+makeJson('server-communication/' + _docsFor + '/' + _heroesJsonPath, null, _heroesJsonPath)(format=".")
++makeJson('server-communication/ts/src/app/heroes.json', null, 'src/app/heroes.json')(format=".")
 
 .l-sub-section
   :marked
@@ -1163,11 +1238,10 @@ a#in-mem-web-api
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'endpoint-json', 'src/app/toh/hero.service.ts')(format=".")
 
-- var _a_ca_class_with = _docsFor === 'ts' ? 'a custom application class with' : ''
 :marked
   The *get heroes* scenario would work,
   but since the app can't save changes to a JSON file, it needs a web API server.
-  Because there isn't a real server for this demo, 
+  Because there isn't a real server for this demo,
   it substitutes the Angular _in-memory web api_ simulator for the actual XHR backend service.
 
   这在*获取英雄数据*的场景下确实能工作，
@@ -1177,8 +1251,8 @@ a#in-mem-web-api
 
 .l-sub-section
   :marked
-    The in-memory web api is not part of Angular _proper_. 
-    It's an optional service in its own 
+    The in-memory web api is not part of Angular _proper_.
+    It's an optional service in its own
     <a href="https://github.com/angular/in-memory-web-api" target="_blank" title="In-memory Web API"><i>angular-in-memory-web-api</i></a>
     library installed with npm (see `package.json`).
 
@@ -1191,9 +1265,9 @@ a#in-mem-web-api
     并且通过 SystemJS (参见`systemjs.config.js`) 把它注册进模块加载器。
 
 :marked
-  The in-memory web API gets its data from !{_a_ca_class_with} a `createDb()`
+  The in-memory web API gets its data from a custom application class with a `createDb()`
   method that returns a map whose keys are collection names and whose values
-  are !{_array}s of objects in those collections.
+  are arrays of objects in those collections.
 
   内存 Web API 从一个带有`createDb()`方法的自定义类中获取数据，并且返回一个 map，它的主键 (key) 是一组名字，而值 (value) 是一组与之对应的对象数组。
 
@@ -1213,7 +1287,7 @@ block redirect-to-web-api
   :marked
     Finally, redirect client HTTP requests to the in-memory web API by
     adding the `InMemoryWebApiModule` to the `AppModule.imports` list.
-    At the same time, call its `forRoot` configuration method with the `HeroData` class.
+    At the same time, call its `forRoot()` configuration method with the `HeroData` class.
 
     使用内存 Web API 服务模块很容易配置重定向，将`InMemoryWebApiModule`添加到`AppModule.imports`列表中，
     同时在`HeroData`类中调用`forRoot`配置方法。
@@ -1236,22 +1310,23 @@ block redirect-to-web-api
 
     使用标准 Angular 提供商注册方法，`InMemoryWebApiModule`替代默认的`XHRBackend`服务并使用它自己的内存存储服务。
     `forRoot`方法来自模拟的英雄数据集的*种子数据*初始化了这个内存 Web API。
+    
   .l-sub-section
     :marked
-      The `forRoot` method name is a strong reminder that you should only call the `InMemoryWebApiModule` _once_,
+      The `forRoot()` method name is a strong reminder that you should only call the `InMemoryWebApiModule` _once_,
       while setting the metadata for the root `AppModule`. Don't call it again.
 
       `forRoot`方法的名字告诉我们，应该只在设置根模块`AppModule`时调用`InMemoryWebApiModule`*一次*。不要再次调用它。
 
 :marked
-  Here is the final, revised version of <span ngio-ex>src/app/app.module.ts</span>, demonstrating these steps.
+  Here is the final, revised version of <code>src/app/app.module.ts</code>, demonstrating these steps.
 
   下面是修改过的（也是最终的）<span ngio-ex>app/app.module.ts</span>版本，用于演示这些步骤。
 
 +makeExcerpt('src/app/app.module.ts')
 .alert.is-important
   :marked
-    Import the `InMemoryWebApiModule` _after_ the `HttpModule` to ensure that 
+    Import the `InMemoryWebApiModule` _after_ the `HttpModule` to ensure that
     the `XHRBackend` provider of the `InMemoryWebApiModule` supersedes all others.
 
     在`HttpModule`之后导入`InMemoryWebApiModule`，确保`XHRBackend`的供应商`InMemoryWebApiModule`取代所有其它的供应商。

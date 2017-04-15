@@ -1,3 +1,4 @@
+// #docplaster
 // #docregion
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -5,13 +6,16 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 
 module.exports = {
-  // #docregion entries
+  // #docregion entries, one-entry, two-entries
   entry: {
+    // #enddocregion one-entry, two-entries
     'polyfills': './src/polyfills.ts',
+    // #docregion two-entries
     'vendor': './src/vendor.ts',
+    // #docregion one-entry
     'app': './src/main.ts'
   },
-  // #enddocregion
+  // #enddocregion entries, one-entry, two-entries
 
   // #docregion resolve
   resolve: {
@@ -24,10 +28,12 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loaders: [{
-          loader: 'awesome-typescript-loader',
-          options: { configFileName: helpers.root('src', 'tsconfig.json') }
-        } , 'angular2-template-loader']
+        loaders: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: { configFileName: helpers.root('src', 'tsconfig.json') }
+          } , 'angular2-template-loader'
+        ]
       },
       {
         test: /\.html$/,
@@ -56,7 +62,7 @@ module.exports = {
     // Workaround for angular/angular#11580
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      /angular(\\|\/)core(\\|\/)@angular/,
       helpers.root('./src'), // location of your src
       {} // a map of your routes
     ),

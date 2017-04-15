@@ -13,7 +13,8 @@ include ../_util-fns
      
 .l-sub-section
   :marked
-    There is no *live example* for this cookbook because it describes Visual Studio, not the application.
+    There is no *live example* for this cookbook because it describes Visual Studio, not 
+    the QuickStart application itself.
 
     本烹饪宝典中没有*在线例子*，因为它介绍的是Visual Studio，而不是应用程序。
 
@@ -21,13 +22,51 @@ include ../_util-fns
 <a id="asp-net-4"></a>
 :marked
   ## ASP.NET 4.x Project
-
+  
   ## ASP.NET 4.x 项目
+
+  To set up the QuickStart files with an **ASP.NET 4.x project** in
+  Visual Studio 2015, follow these steps:
   
-  This cookbook explains how to set up the QuickStart files with an **ASP.NET 4.x project** in
-  Visual Studio 2015.
+  要用Visual Studio 2015在**ASP.NET 4.x项目**中设置**《快速起步》**文件，请遵循如下步骤：
+
+:marked
+  *  [Prerequisite](#prereq1): Install Node.js.
   
-  本烹饪书解释了如何使用Visual Studio 2015在**ASP.NET 4.x项目**中设置**《快速起步》**文件。
+     [前提条件](#prereq1): 安装Node.js
+    
+  *  [Prerequisite](#prereq2): Install Visual Studio 2015 Update 3.
+  
+     [前提条件](#prereq2): 安装Visual Studio 2015 Update 3
+      
+  *  [Prerequisite](#prereq3): Configure external web tools.
+  
+     [前提条件](#prereq3): 配置External Web tools
+     
+  *  [Prerequisite](#prereq4): Install TypeScript 2.2 for Visual Studio 2015.
+  
+     [前提条件](#prereq4): 安装TypeScript 2 for Visual Studio 2015
+     
+  *  [Step 1](#download): Download the QuickStart files.
+  
+     [第一步](#download): 下载“快速起步”的文件
+     
+  *  [Step 2](#create-project): Create the Visual Studio ASP.NET project.
+  
+     [第二步](#create-project): 创建Visual Studio ASP.NET项目
+     
+  *  [Step 3](#copy): Copy the QuickStart files into the ASP.NET project folder.
+  
+     [第三步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
+     
+  *  [Step 4](#restore): Restore required packages.
+  
+     [第四步](#restore): 恢复需要的包
+     
+  *  [Step 5](#build-and-run): Build and run the app.
+  
+     [第五步](#build-and-run): 构建和运行应用程序
+  
 .l-sub-section
   :marked
     If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
@@ -36,51 +75,9 @@ include ../_util-fns
     Note that the resulting code does not map to the docs. Adjust accordingly.   
     
     如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见_预览版_<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
-    注意，最终代码与本文不对应，请适当调节。
-  
-:marked
-  The steps are as follows:
-  
-  步骤如下:
-  
-  - [Prerequisite](#prereq1): Install Node.js
+        参见_预览版_<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
+        注意，最终代码与本文不对应，请适当调节。
 
-    [前提条件](#prereq1): 安装Node.js
-  
-  - [Prerequisite](#prereq2): Install Visual Studio 2015 Update 3
-
-    [前提条件](#prereq2): 安装Visual Studio 2015 Update 3
-  
-  - [Prerequisite](#prereq3): Configure External Web tools
-
-    [前提条件](#prereq3): 配置External Web tools
-  
-  - [Prerequisite](#prereq4): Install TypeScript 2 for Visual Studio 2015
-
-    [前提条件](#prereq4): 安装TypeScript 2 for Visual Studio 2015
-
-  - [Step 1](#download): Download the QuickStart files
-
-    [第一步](#download): 下载“快速起步”的文件
-
-  - [Step 2](#create-project): Create the Visual Studio ASP.NET project
-
-    [第二步](#create-project): 创建Visual Studio ASP.NET项目
-
-  - [Step 3](#copy): Copy the QuickStart files into the ASP.NET project folder
-
-    [第三步](#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
-
-  - [Step 4](#restore): Restore required packages
-
-    [第四步](#restore): 恢复需要的包
-
-  - [Step 5](#build-and-run): Build and run the app
-
-    [第五步](#build-and-run): 构建和运行应用程序
-
-  
 .l-main-section
 h2#prereq1 
   p Prerequisite: Node.js
@@ -95,7 +92,7 @@ h2#prereq1
 .l-sub-section
   :marked
     **Verify that you are running node version `4.6.x` or greater, and npm `3.x.x` or greater**
-    by running `node -v` and `npm -v` in a terminal/console window.
+    by running `node -v` and `npm -v` in a terminal window.
     Older versions produce errors.
     
     在终端或者控制台中运行`node -v`和`npm -v`，**请确认你的Node版本为`4.6.x`或更高，npm的版本为`3.x.x`或更高**。老版本会引起错误。
@@ -126,7 +123,7 @@ h2#prereq3
 
   配置Visual Studio来使用全局External Web Tools，而非Visual Studio默认的工具：
 
-    * Open the **Options** dialog with `Tools` | `Options`
+    * Open the **Options** dialog with `Tools` | `Options`.
 
       到`Tools` | `Options`打开**Options**对话框
 
@@ -151,37 +148,37 @@ h2#prereq3
 
     * 重启Visual Studio，以让设置变化生效。
 
-  Visual Studio will now look first for external tools in the current workspace and 
-  if not found then look in the global path and if it is not found there, Visual Studio
-  will use its own versions of the tools.
+  Visual Studio now looks first for external tools in the current workspace and 
+  if it doesn't find them, it looks in the global path. If Visual Studio doesn't 
+  find them in either location, it will use its own versions of the tools.
 
   Visual Studio将优先在当前的工作区查找外部工具，如果没有找到，便查找全局路径，如果还没有找到，Visual Studio就使用自带的工具版本。
 
 .l-main-section
 h2#prereq4
-  p  Prerequisite: Install TypeScript 2 for Visual Studio 2015
+  p  Prerequisite: Install TypeScript 2.2 for Visual Studio 2015
   p  前提条件: 安装TypeScript 2 for Visual Studio 2015
 :marked
-  While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2, 
+  While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2.2, 
   which you need to develop Angular applications.
-
+  
   Visual Studio Update 3自带TypeScript支持，但是它的TypeScript版本开发Angular应用需要的不是2。
 
-  To install TypeScript 2:
+  To install TypeScript 2.2:
+  
+  要安装TypeScript 2.2：
 
-  要安装TypeScript 2：
+   * Download and install **[TypeScript 2.2 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
+   
+     下载并安装 **[TypeScript 2.2 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
 
-   * Download and install **[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
+   * OR install it with npm: `npm install -g typescript@2.2`.
+   
+     或通过npm安装：`npm install -g typescript@2.2`。
 
-     下载并安装**[TypeScript 2.0 for Visual Studio 2015](http://download.microsoft.com/download/6/D/8/6D8381B0-03C1-4BD2-AE65-30FF0A4C62DA/TS2.0.3-TS-release20-nightly-20160921.1/TypeScript_Dev14Full.exe)**
+  You can find out more about TypeScript 2.2 support in Visual studio **[here](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**.
 
-   * OR install it with npm: `npm install -g typescript@2.0`.
-
-     或者，通过NPM来安装：`npm install -g typescript@2.0`。
-
-  You can find out more about TypeScript 2 support in Visual studio **[here](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/)**
-
-  你可以在**[这儿](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/)**查看更多Visual Studio中TypeScript 2的支持。
+  你可以在**[这儿](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多Visual Studio中TypeScript 2.2的支持。
 
   At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
   restart it to make sure everything is clean.
@@ -195,7 +192,7 @@ h2#download
 
 :marked
   [Download the QuickStart source](https://github.com/angular/quickstart)
-  from github. If you downloaded as a zip file, extract the files.
+  from GitHub. If you downloaded as a zip file, extract the files.
 
   从github[下载“快速起步”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
 
@@ -231,18 +228,18 @@ h2#create-project
 
 .l-sub-section
   :marked
-    In this cookbook we'll select the `Empty` template with no added folders, 
-    no authentication and no hosting. Pick the template and options appropriate for your project.
+    This cookbook uses the `Empty` template with no added folders, 
+    no authentication, and no hosting. Pick the template and options appropriate for your project.
 
     本烹饪宝典选择了`Empty`模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
     
 .l-main-section
-h2#copy
-  p  Step 3: Copy the QuickStart files into the ASP.NET project folder
-  p  第三步: 拷贝“快速起步”的文件到ASP.NET项目所在的目录
+h2#copy Step 3: Copy the QuickStart files into the ASP.NET project folder
+  
+h2#copy 第三步: 拷贝“快速起步”的文件到ASP.NET项目所在的目录
 
 :marked
-  Copy the QuickStart files we downloaded from github into the folder containing the `.csproj` file.
+  Copy the QuickStart files you downloaded from GitHub into the folder containing the `.csproj` file.
   Include the files in the Visual Studio project as follows:
 
   拷贝从github下载的“快速起步”文件到包含`.csproj`文件的目录中。按照下面的步骤把它们加到Visual Studio中：
@@ -258,24 +255,23 @@ h2#copy
     右键点击每个目录和文件，选择`Include in Project`。
     最少要添加下列文件：
     
-    * app folder (answer *No*  if asked to search for TypeScript Typings)
+    * src/app folder (answer *No*  if asked to search for TypeScript Typings)
 
-      app目录（如果询问是否要搜索TypeScript类型，回答*No*）
-
-
-    * styles.css
+      src/app目录（如果询问是否要搜索TypeScript类型，回答*No*）
 
 
-    * index.html
+    * src/styles.css
+
+
+    * src/index.html
 
 
     * package.json
 
 
-    * tsconfig.json
+    * src/tsconfig.json
 
     * typings.json
-
     
 .l-main-section
 h2#restore
@@ -303,10 +299,10 @@ h2#restore
 
     忽略所有警告。
 
-  * When the restore is finished, a message should say: `npm command completed with exit code 0`.
+  * When the restore is finished, a message in the bottom message bar of Visual Studio 
+    should say: `Installing packages complete`. Be patient. This could take a while.
 
     当恢复完成后，将会出现一条消息：`npm command completed with exit code 0`.
-
   * Click the `Refresh` icon in Solution Explorer.
 
     在Solution Explorer里，点击`Refresh`图标。
@@ -317,49 +313,101 @@ h2#restore
 
       
 .l-main-section
-h2#build-and-run
-  p  Step 5: Build and run the app
-  p  第五步：构建和运行应用
+h2#build-and-run Step 5: Build and run the app
+h2#build-and-run 第五步：构建和运行应用
 
 :marked
-  First, ensure that `index.html` is set as the start page.
+  First, ensure that `src/index.html` is set as the start page.
   Right-click `index.html` in Solution Explorer and select option `Set As Start Page`.
-
-  首先，确认`index.html`已被设置为开始页面。
-  在Solution Explorer中，右键点击`index.html`，选择选项`Set As Start Page`。
   
-  Build and launch the app with debugger by clicking the **Run** button or press `F5`.
+  首先，确认`index.html`已被设置为开始页面。
+    在Solution Explorer中，右键点击`index.html`，选择选项`Set As Start Page`。
 
+  ### To run in VS with F5
+
+  Most Visual Studio developers like to press the F5 key and see the IIS server come up. 
+  To use the IIS server with the QuickStart app, you must make the following three changes. 
+
+  1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
+  2. Also in `index.html`, change  the scripts to use `/node_modules` with a slash 
+  instead of `node_modules` without the slash. 
+  3. In `src/systemjs.config.js`, near the top of the file, 
+  change the npm `path` to `/node_modules/` with a slash.
+  
+.alert.is-important
+  :marked
+    After these changes, `npm start` no longer works.
+    You must choose to configure _either_ for F5 with IIS _or_ for  `npm start` with the lite-server.
+
+:marked
+  ### For apps that use routing
+
+  If your app uses routing, you need to teach the server to always return 
+  `index.html` when the user asks for an HTML page
+  for reasons explained in the [Deployment](deployment.html#fallback) guide.
+
+  Everything seems fine while you move about _within_ the app. 
+  But you'll see the problem right away if you refresh the browser
+  or paste a link to an app page (called a "deep link") into the browser address bar.
+
+  You'll most likely get a *404 - Page Not Found* response from the serer
+  for any address other than `/` or `/index.html`.
+  
+  You have to configure the server to return `index.html` for requests to these "unknown" pages.
+  The `lite-server` development server does out-of-the-box.
+  If you've switched over to F5 and IIS, you have to configure IIS to do it.
+  This section walks through the steps to adapt the QuickStart application.
+
+  #### Configure IIS rewrite rules
+
+  Visual Studio ships with IIS Express, which has the rewrite module baked in. 
+  However, if you're using regular IIS you'll have to install the rewrite 
+  module.  
+
+  Tell Visual Studio how to handle requests for route app pages by adding these 
+  rewrite rules near the bottom of the `web.config`:
+
+code-example(format='.').
+  &lt;system.webServer&gt;
+    &lt;rewrite&gt;
+      &lt;rules&gt;
+        &lt;rule name="Angular Routes" stopProcessing="true"&gt;
+          &lt;match url=".*" /&gt;
+          &lt;conditions logicalGrouping="MatchAll"&gt;
+            &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" /&gt;
+            &lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" /&gt;
+          &lt;/conditions&gt;
+          &lt;action type="Rewrite" url="/src/" /&gt;
+        &lt;/rule&gt;
+      &lt;/rules&gt;
+    &lt;/rewrite&gt;
+  &lt;/system.webServer&gt;
+
+.l-sub-section
+  :marked
+    The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
+    you want some requests to get through, such as web API requests. 
+    
+    The URL in `<action type="Rewrite" url="/src/"/>` should 
+    match the base href in `index.html`.
+
+:marked
+  Build and launch the app with debugger by clicking the **Run** button or by pressing `F5`.
+  
   点击**Run**按钮或者按`F5`键，用调试器构建和启动应用。
+
 .l-sub-section
   :marked
     It's faster to run without the debugger by pressing `Ctrl-F5`.
 
     按`Ctrl-F5`不带调试器的运行应用，速度会更快。
+    
 :marked
   The default browser opens and displays the QuickStart sample application.
 
   默认浏览器打开并显示《快速起步》例子应用。
   
-  Try editing any of the project files. *Save* and refresh the browser to
+  Try editing any of the project files. Save and refresh the browser to
   see the changes. 
-
+  
   尝试编辑任何项目文件，*保存*并刷新浏览器来查看效果。
-
-.l-main-section
-h2#routing
-  p  Note on Routing Applications
-  p  应用程序的路由
-
-:marked
-  If this application used the Angular router, a browser refresh could return a *404 - Page Not Found*.
-  Look at the address bar. Does it contain a navigation url (a "deep link") ... any path other than `/` or `/index.html`?
-   
-  如果这个应用程序使用了Angular路由器，刷新浏览器时可能会返回一个*404 - Page Not Found*。
-  查看一下地址栏，它是否包含一个导航url（“深链接”）...以及任何除了`/`或`/index.html`以外的路径？
-  
-  You'll have to configure the server to return `index.html` for these requests.
-  Until you do, remove the navigation path and refresh again. 
-  
-  我们必须配置服务器，让它为这些请求直接返回`index.html`的内容。在配置完之前，请暂时删除导航路径，回到首页，再进行刷新。
-

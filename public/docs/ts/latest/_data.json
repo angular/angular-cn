@@ -4,7 +4,7 @@
     "title": "Angular 中文文档",
     "subtitle": "TypeScript",
     "menuTitle": "文档首页",
-    "banner": "当前的 Angular 版本是 <b>2.4</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular 产品更新'> Angular 更新记录</a> 了解 Angular 产品的最新的增强、修复和破环性变更。"
+    "banner": "当前的 Angular 版本是 <b>4.0</b>。请查看<a href='guide/change-log.html' title='文档更新记录'>文档更新记录</a>. 参见<a href='https://github.com/angular/angular/blob/master/CHANGELOG.md' target='_blank' title='Angular 产品更新'> Angular 更新记录</a> 了解 Angular 产品的最新的增强、修复和破环性变更。"
   },
 
   "quickstart": {

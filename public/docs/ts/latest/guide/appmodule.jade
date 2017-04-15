@@ -42,7 +42,7 @@ include ../_util-fns
 
     **_bootstrap_** &mdash; _根_组件，Angular 创建它并插入`index.html`宿主页面。
  
-  The [Angular Modules (NgModules)](ngmodule.html) guide dives deeply into the details of Angular modules.
+  The [Angular Modules (NgModule)](ngmodule.html) guide dives deeply into the details of Angular modules.
   All you need to know at the moment is a few basics about these three properties.
 
   [Angular 模块 (NgModules)](ngmodule.html) 指南深入讲解了 Angular 模块。
@@ -80,25 +80,27 @@ a#imports
 
 .alert.is-important
    :marked
-     **Only `NgModule` classes** go in the `imports` array. Don't put any other kind of class in `imports`.
+     **Only `NgModule` classes** go in the `imports` array. Do not put any other kind of class in `imports`.
 
      `imports`数组中应该**只有`NgModule`类**。不要放置其它类型的类。
 
 .l-sub-section
   :marked
-    Don't confuse the `import` statements at the top of the file with the Angular module's `imports` array.
-    They have different jobs.
+    The `import` statements at the top of the file and the Angular module's `imports` array
+    are unrelated and have completely different jobs.
 
     不要将 Angular 模块的`imports`数组与文件顶部的`import`语句弄混淆了。它们的功能不同。
 
     The _JavaScript_ `import` statements give you access to symbols _exported_ by other files
-    so you can reference them within _this_ file. 
+    so you can reference them within _this_ file.
+    You add `import` statements to almost every application file. 
     They have nothing to do with Angular and Angular knows nothing about them.
 
     _JavaScript_ 的`import`声明允许你访问在其他文件中_导出_的符号，这样你可以在_当前_文件引用它们。
     它们与 Angular 毫无关系，Angular 对它们也一无所知。
 
-    The _module's_ `imports` array tells Angular about specific Angular modules &mdash; classes decorated with `@NgModule` &mdash;
+    The _module's_ `imports` array appears _exclusively_ in the `@NgModule` metadata object.
+    It tells Angular about specific _other_ Angular modules &mdash; all of them classes decorated with `@NgModule` &mdash;
     that the application needs to function properly.
 
     _模块_的`imports`数组告诉 Angular 特定 Angular 模块的信息 &mdash; 用`@NgModule`装饰的类 &mdash; 应用需要它们来正常工作。
@@ -108,13 +110,18 @@ a#declarations
 
   ### *declarations* 数组
   
-  You must declare _every_ component in one (and _only one_) `NgModule` class.
   You tell Angular which components belong to the `AppModule` by listing it in the module's `declarations` array.
   As you create more components, you'll add them to `declarations`.
 
   *每个*组件必须在且仅在一个`NgModule`类中声明。
   通过将其列到`AppModule`模块的`declarations`数组中，告诉 Angular 哪个组件属于`AppModule`。
   在创建更多组件的过程中，逐步将它们添加到`declarations`中。
+
+  You must declare _every_ component in an `NgModule` class. 
+  If you use a component without declaring it, you'll see a clear error message in the browser console.
+  
+  你必须在一个`NgModule`类声明*每一个*组件。
+  否则当你使用这些组件时就会在浏览器的控制台中看到一个明显的错误信息。
 
   You'll learn to create two other kinds of classes &mdash; 
   [directives](attribute-directives.html) and [pipes](pipes.html) &mdash;
@@ -126,7 +133,7 @@ a#declarations
 .alert.is-important
    :marked
       **Only _declarables_** &mdash; _components_, _directives_ and _pipes_ &mdash; belong in the `declarations` array. 
-      Don't put any other kind of class in `declarations`; _not_ `NgModule` classes, _not_ service classes, _not_ model classes.
+      Do not put any other kind of class in `declarations`; _not_ `NgModule` classes, _not_ service classes, _not_ model classes.
 
       **只有*可以声明的** &mdash; _组件_、_指令_和_管道_ &mdash; 属于`declarations`数组。
       不要将其他类型的类添加到`declarations`中，例如`NgModule`类, 服务类，模型类。
@@ -217,30 +224,21 @@ l-main-section
 
   该文件非常稳定。一旦配置好，你可能永远不会再修改它。
 
-a#quickstart-appmodule
 l-main-section
 :marked
-  ## QuickStart's _AppModule_
+  ## More about Angular Modules
+  
+  ## 关于Angular模块的更多知识
 
-  ## 《快速起步》的_AppModule_
+  Your initial app has only a single module, the _root_ module.
+  As your app grows, you'll consider subdividing it into multiple "feature" modules,
+  some of which can be loaded later ("lazy loaded") if and when the user chooses
+  to visit those features.
+  
+  你最初的应用只有一个单一的模块 —— *根*模块。
+  当这个应用不断成长时，你就要考虑把它们拆分到多个 "特性" 模块中了。
+  这些特性模块中的一部分可以进行延迟加载（即惰性加载），它们只会在用户访问到这些特性时才会加载。
 
-  Every Angular application must have a root `NgModule`, even the [QuickStart](../quickstart.html).
-  You didn't see it but it was there.
+  When you're ready to explore these possibilities, visit the [Angular Modules (NgModule)](ngmodule.html) guide.
 
-  每个 Angular 应用必须有一个根`NgModule`，包括[《快速起步》](../quickstart.html)在内。
-  你之前没有看到它，但它确定有。
-
-  A script in the `index.html` generated a hidden `AppModule` and bootstrapped it for you
-  so you could focus on the `AppComponent` and discover the _essential Angular_ more quickly.
-
-  `index.html`中的一个脚本生成了隐藏的`AppModule`并引导它。这样你可以专注于`AppComponent`，以更快的了解_ Angular 的基础_。
-
-  If you're feeling adventurous, add your own `AppModule` and `main.ts` to the
-  live code in the _QuickStart_ plunker.
-
-  如果你爱冒险，可以在《快速起步》plunker 的在线代码中添加自己的`AppModule`和`main.ts`。
-
-  Remove the following `<script>` tag from the `index.html` and see _your_ work in action.
-
-  从`index.html`中删除下面的`<script>`标签，看看_你_的劳动成果。
-+makeExample('quickstart/ts/src/index.html','autobootstrap','Remove this script tag from "index.html"')(format='.')
+  如果你要了解这些知识，请访问[Angular 模块 (NgModule)](ngmodule.html)页

@@ -5,7 +5,6 @@ import { Hero }              from './hero';
 import { HeroService }       from './hero.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'hero-list',
   templateUrl: './hero-list.component.html',
   providers: [ HeroService ],
@@ -32,9 +31,9 @@ export class HeroListComponent implements OnInit {
   // #enddocregion getHeroes
 
   // #docregion addHero
-  addHero (name: string) {
+  addHero(name: string) {
     if (!name) { return; }
-    this.heroService.addHero(name)
+    this.heroService.create(name)
                      .subscribe(
                        hero  => this.heroes.push(hero),
                        error =>  this.errorMessage = <any>error);

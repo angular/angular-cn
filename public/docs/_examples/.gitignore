@@ -1,6 +1,7 @@
 # _boilerplate files
 !_boilerplate/*
 */*/src/styles.css
+*/*/src/systemjs-angular-loader.js
 */*/src/systemjs.config.js
 */*/src/tsconfig.json
 */*/bs-config.e2e.json
@@ -15,4 +16,3 @@ protractor-helpers.js
 **/ts/**/*.js
 **/js-es6*/**/*.js
 **/ts-snippets/**/*.js
-!**/systemjs.config.extras.js

@@ -15,13 +15,7 @@
     "subtitle": "帮我们构建面向未来的框架",
     "autoformat": "true"
   },
-  "resources": {
-    "title": "资源库",
-    "subtitle": "Angular的资源库"
-  },
-  "news": {
-    "title": "新闻"
-  },
+
   "events": {
     "title": "开发者会议",
     "subtitle": "我们将在哪里开会"

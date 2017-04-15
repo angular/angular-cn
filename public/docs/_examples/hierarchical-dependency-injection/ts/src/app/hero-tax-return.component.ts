@@ -4,7 +4,6 @@ import { HeroTaxReturn }        from './hero';
 import { HeroTaxReturnService } from './hero-tax-return.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'hero-tax-return',
   templateUrl: './hero-tax-return.component.html',
   styleUrls: [ './hero-tax-return.component.css' ],
@@ -15,10 +14,11 @@ import { HeroTaxReturnService } from './hero-tax-return.service';
 export class HeroTaxReturnComponent {
   message = '';
   @Output() close = new EventEmitter<void>();
-  @Input()
+
   get taxReturn(): HeroTaxReturn {
     return this.heroTaxReturnService.taxReturn;
   }
+  @Input()
   set taxReturn (htr: HeroTaxReturn) {
     this.heroTaxReturnService.taxReturn = htr;
   }

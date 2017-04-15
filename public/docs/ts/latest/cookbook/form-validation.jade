@@ -2,50 +2,94 @@ include ../_util-fns
 
 a#top
 :marked
-  We can improve overall data quality by validating user input for accuracy and completeness.
-
+  Improve overall data quality by validating user input for accuracy and completeness.
+  
   我们可以通过验证用户输入的准确性和完整性，来增强整体数据质量。
 
-  In this cookbook we show how to validate user input in the UI and display useful validation messages 
+  This cookbook shows how to validate user input in the UI and display useful validation messages
   using first the template-driven forms and then the reactive forms approach.
 
   在本烹饪书中，我们展示在界面中如何验证用户输入，并显示有用的验证信息，先使用模板驱动表单方式，再使用响应式表单方式。
 
 .l-sub-section
   :marked
-    Learn more about these choices in the [Forms chapter.](../guide/forms.html)
+    Read more about these choices in the [Forms](../guide/forms.html)
+    and the [Reactive Forms](../guide/reactive-forms.html) guides.
 
     参见[表单章节](../guide/forms.html)了解关于这些选择的更多知识。
 
 a#toc
 :marked
-  ## Table of Contents
-
+  ## Contents
   ## 目录
 
-    [Simple Template-Driven Forms](#template1)
+    * [Simple template-driven forms](#template1)
 
-    [简单的模板驱动表单](#template1)
+      [简单的模板驱动表单](#template1)
 
-    [Template-Driven Forms with validation messages in code](#template2)
+    * [Template-driven forms with validation messages in code](#template2)
 
-    [代码中拥有验证信息的模板驱动表单](#template2)
+      [代码中带验证信息的模板驱动表单](#template2)
 
-    [Reactive Forms with validation in code](#reactive)
 
-    [代码中拥有验证的响应式表单](#reactive)
+      * [Component Class](#component-class)
 
-    [Custom validation](#custom-validation)
+        [组件类](#component-class)
 
-    [自定义验证](#custom-validation)
+      * [The benefits of messages in code](#improvement)
 
-    [Testing](#testing)
+        [在代码中写消息的优点](#improvement)
 
-    [测试](#testing)
+      * [`FormModule` and template-driven forms](#formmodule)
+
+        [`FormModule`和模板驱动表单](#formmodule)
+
+
+    * [Reactive forms with validation in code](#reactive)
+
+      [代码中带验证消息的响应式表单](#reactive)
+
+
+      * [Switch to the `ReactiveFormsModule`](#reactive-forms-module)
+
+        [切换成`ReactiveFormsModule`](#reactive-forms-module)
+
+      * [Component template](#reactive-component-template)
+
+        [组件模板](#reactive-component-template)
+
+      * [Component class](#reactive-component-class)
+
+        [组件类](#reactive-component-class)
+
+
+        * [`FormBuilder` declaration](#formbuilder)
+
+          [`FormBuilder`声明](#formbuilder)
+
+        * [Committing hero value changes](#committing-changes)
+
+          [提交对英雄值的更改](#committing-changes)
+
+
+    * [Custom validation](#custom-validation)
+
+      [自定义验证器](#custom-validation)
+
+
+      * [Custom validation directive](#custom-validation-directive)
+
+        [自定义验证指令](#custom-validation-directive)
+
+
+    * [Testing considerations](#testing)
+
+      [测试方面的考虑](#testing)
+
 
 a#live-example
 :marked
-  **Try the live example to see and download the full cookbook source code**
+  **Try the live example to see and download the full cookbook source code.**
 
   **查看在线例子，并下载整个烹饪书的源代码**
 
@@ -54,36 +98,36 @@ live-example(name="cb-form-validation" embedded img="cookbooks/form-validation/p
 .l-main-section
 a#template1
 :marked
-   ## Simple Template-Driven Forms
+   ## Simple template-driven forms
 
    ## 简单的模板驱动表单
 
-   In the template-driven approach, you arrange 
+   In the template-driven approach, you arrange
    [form elements](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms_in_HTML) in the component's template.
 
    在模板驱动表单方法中，你在组件的模板中组织[表单元素](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms_in_HTML)。
 
    You add Angular form directives (mostly directives beginning `ng...`) to help
    Angular construct a corresponding internal control model that implements form functionality.
-   We say that the control model is _implicit_ in the template.
+   In template-drive forms, the control model is _implicit_ in the template.
 
    你可以添加Angular表单指令（通常为以`ng`开头的指令）来帮助Angular构建对应的内部控制模型，以实现表单功能。
    控制模型在模板中是**隐式**的。
 
-   To validate user input, you add [HTML validation attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) 
+   To validate user input, you add [HTML validation attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
    to the elements. Angular interprets those as well, adding validator functions to the control model.
 
    要验证用户输入，你添加[HTML验证属性](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)到元素中。
    Angular拦截这些元素，添加验证器函数到控制模型中。
 
-   Angular exposes information about the state of the controls including 
+   Angular exposes information about the state of the controls including
    whether the user has "touched" the control or made changes and if the control values are valid.
 
    Angular暴露关于控制状态的信息，包括用户是否已经“触摸“了控制器，或者用户已经作了更新和控制器的值是否还有效。
 
-   In the first template validation example, 
-   we add more HTML to read that control state and update the display appropriately.
-   Here's an excerpt from the template html for a single input box control bound to the hero name:
+   In this first template validation example,
+   notice the HTML that reads the control state and updates the display appropriately.
+   Here's an excerpt from the template HTML for a single input control bound to the hero name:
 
    在第一个模板验证例子中，我们添加了更多HTML，来读取控制器状态并适当更新显示。
    下面是模板HTML中提取的，一个绑定到英雄名字的输入框控制器：
@@ -91,57 +135,59 @@ a#template1
 
 :marked
   Note the following:
-
-  请注意一下几点：
-
-  - The `<input>` element carries the HTML validation attributes: `required`, `minlength`, and `maxlength`.
-
-    `<input>`元素具有HTML验证属性：`required`、`minlength`、和 `maxlength`。
-
-  - We set the `name` attribute of the input box to `"name"` so Angular can track this input element and associate it
-  with an Angular form control called `name` in its internal control model.
-
-    我们设置输入框的`name`属性为`"name"`，这样Angular可以跟踪这个输入元素，并将其内部控制器模型的一个名为`name`的Angular表单控制关联起来。
-
-  - We use the `[(ngModel)]` directive to two-way data bind the input box to the `hero.name` property.
-
-    我们使用`[(ngModel)]`指令，将输入框双向数据绑定到`hero.name`属性。
   
-  - We set a template variable (`#name`) to the value `"ngModel"` (always `ngModel`).
-  This gives us a reference to the Angular `NgModel` directive 
-  associated with this control that we can use _in the template_
+  请注意以下几点：
+
+  * The `<input>` element carries the HTML validation attributes: `required`, `minlength`, and `maxlength`.
+  
+    `<input>`元素带有一些HTML验证属性：`required`、`minlength` 和 `maxlength`。
+
+  * The `name` attribute of the input is set to `"name"` so Angular can track this input element and associate it
+  with an Angular form control called `name` in its internal control model.
+  
+    我们把输入框的`name`属性设置为`"name"`，这样Angular可以跟踪这个输入元素，并将其内部控制器模型的一个名为`name`的Angular表单控制关联起来。
+     
+
+  * The `[(ngModel)]` directive allows two-way data binding between the input box to the `hero.name` property.
+  
+    我们使用`[(ngModel)]`指令，将输入框双向数据绑定到`hero.name`属性。
+
+  * The template variable (`#name`) has the value `"ngModel"` (always `ngModel`).
+  This gives you a reference to the Angular `NgModel` directive
+  associated with this control that you can use _in the template_
   to check for control states such as `valid` and `dirty`.
-
+  
     我们将模板变量(`#name`)赋值为`"ngModel"` (总是 `ngModel`)。
-  它为我们提供了与这个控制器关联的Angular `NgModel`指令的引用，我们在模板中使用它，以检查控制器状态，比如`valid`和`dirty`。
+      它为我们提供了与这个控制器关联的Angular `NgModel`指令的引用，我们在模板中使用它，以检查控制器状态，比如`valid`和`dirty`。
 
-  - The `*ngIf` on `<div>` element reveals a set of nested message `divs` but only if there are "name" errors and
+  * The `*ngIf` on the `<div>` element reveals a set of nested message `divs` but only if there are "name" errors and
   the control is either `dirty` or `touched`.
-
+  
     `<div>`元素的`*ngIf`揭露了一套嵌套消息`divs`，但是只在有“name”错误和控制器为`dirty`或者`touched`。
 
-  - Each nested `<div>` can present a custom message for one of the possible validation errors.
-  We've prepared messages for `required`, `minlength`, and `maxlength`.
+  * Each nested `<div>` can present a custom message for one of the possible validation errors.
+  There are messages for `required`, `minlength`, and `maxlength`.
 
     每个嵌套的`<div>`为其中一个可能出现的验证错误显示一条自定义消息。我们已经为`required`、`minlength`、和 `maxlength`准备了消息。
 
   The full template repeats this kind of layout for each data entry control on the form.
-
+  
   整个模板为表单上的每种数据输入控制器重复这种布局。
-
+  
+a#why-check
 .l-sub-section
   :marked
     #### Why check _dirty_ and _touched_?
-
+    
     #### 为何检查**dirty**和**touched**？
 
-    We shouldn't show errors for a new hero before the user has had a chance to edit the value.
+    The app shouldn't show errors for a new hero before the user has had a chance to edit the value.
     The checks for `dirty` and `touched` prevent premature display of errors.
 
     当用户创建一个新英雄时，在还没有机会输入之前，我们不应该显示任何错误。
     检查`dirty`和`touched`防止了这种过早的错误显示。
 
-    Learn about `dirty` and `touched` in the [Forms](../guide/forms.html) chapter.
+    Learn about `dirty` and `touched` in the [Forms](../guide/forms.html) guide.
 
     参见[表单](../guide/forms.html)章，学习关于`dirty`和`touched`的知识。
 :marked
@@ -164,47 +210,48 @@ a#template1
 +makeTabs(
   `cb-form-validation/ts/src/app/template/hero-form-template1.component.html,
    cb-form-validation/ts/src/app/template/hero-form-template1.component.ts`,
-  '', 
+  '',
   `template/hero-form-template1.component.html,
    template/hero-form-template1.component.ts`)
 
 .l-main-section
 a#template2
 :marked
-  ## Template-Driven Forms with validation messages in code
+  ## Template-driven forms with validation messages in code
 
   ## 验证消息在代码中的模板驱动表单
 
-  While the layout is straightforward, 
-  there are obvious shortcomings with the way we handle validation messages:
+  While the layout is straightforward,
+  there are obvious shortcomings with the way it's handling validation messages:
 
   虽然布局很直观，但是我们处理验证消息的方法有明显的缺陷：
 
-  * It takes a lot of HTML to represent all possible error conditions. 
+  * It takes a lot of HTML to represent all possible error conditions.
   This gets out of hand when there are many controls and many validation rules.
-
-    它使用了很多HTML来表现所有可能出现的错误情况。
-  如果有太多控制器和太多验证规则，我们就失去了控制。
   
-  * We're not fond of so much JavaScript logic in HTML.
+    它使用了很多HTML来表现所有可能出现的错误情况。
+    如果有太多控制器和太多验证规则，我们就失去了控制。
+    
+  * There's a lot of  JavaScript logic in theHTML.
 
     我们不喜欢在HTML里面插入这么多JavaScript。
 
-  * The messages are static strings, hard-coded into the template. 
-  We often require dynamic messages that we should shape in code.
-
+  * The messages are static strings, hard-coded into the template.
+  It's easier to maintain _dynamic_ messages in the component class.
+  
     这些消息是静态的字符串，被硬编码到模板中。我们通常要求在代码中可以塑造的动态消息。
 
-  We can move the logic and the messages into the component with a few changes to 
+  In this example, you can move the logic and the messages into the component with a few changes to
   the template and component.
-
+  
   只需要对模板和组件做出一些修改，我们可以将逻辑和消息移到组件中。
   
-  Here's the hero name again, excerpted from the revised template ("Template 2"), next to the original version:
-
+  Here's the hero name again, excerpted from the revised template (Template 2), next to the original version:
+  
   下面也是关于英雄名字的控制器，从修改后的模板（"Template 2"）中抽取出来，与原来的版本相比：
+  
 +makeTabs(
-  `cb-form-validation/ts/src/app/template/hero-form-template2.component.html, 
+  `cb-form-validation/ts/src/app/template/hero-form-template2.component.html,
    cb-form-validation/ts/src/app/template/hero-form-template1.component.html`,
   'name-with-error-msg, name-with-error-msg',
   `hero-form-template2.component.html (name #2),
@@ -212,43 +259,48 @@ a#template2
 
 :marked
   The `<input>` element HTML is almost the same. There are noteworthy differences:
-
-  `<input>`元素的HTML几乎一样。但是下列有值得注意的区别：
   
-  - The hard-code error message `<div>` are gone.
+  `<input>`元素的HTML几乎一样。但是下列有值得注意的区别：
 
+  * The hard-code error message `<divs>` are gone.
+  
     硬编码的错误消息`<div>`消失了。
 
-  - There's a new attribute, `forbiddenName`, that is actually a custom validation directive.
-  It invalidates the control if the user enters "bob" anywhere in the name ([try it](#live-example)).
-  We discuss [custom validation directives](#custom-validation) later in this cookbook.
-
+  * There's a new attribute, `forbiddenName`, that is actually a custom validation directive.
+  It invalidates the control if the user enters "bob" in the name `<input>`([try it](#live-example)).
+  See the [custom validation](#custom-validation) section later in this cookbook for more information
+  on custom validation directives.
+  
     添加了一个新属性`forbiddenName`，它实际上是一个自定义验证指令。
-  如果用户名字中的任何地方输入“bob”，该指令变将控制器标记为无效（[试试](#live-example)）。
-  我们在本烹饪书后面介绍了[自定义验证指令](#custom-validation)。
+      如果用户名`<input>`中的任何地方输入“bob”，该指令变将控制器标记为无效（[试试](#live-example)）。
+      我们将在本烹饪书稍后的地方介绍[自定义验证指令](#custom-validation)。
 
-  - The `#name` template variable is gone because we no longer refer to the Angular control for this element.
-
+  * The `#name` template variable is gone because the app no longer refers to the Angular control for this element.
+  
     模板变量`#name`消失了，因为我们不再需要为这个元素引用Angular控制器。
 
-  - Binding to the new `formErrors.name` property is sufficent to display all name validation error messages.
-
+  * Binding to the new `formErrors.name` property is sufficent to display all name validation error messages.
+  
     绑定到新的`formErrors.name`属性，就可以处理所有名字验证错误信息了。
 
-  #### Component class
+a#component-class
+:marked
+  ### Component class
+  
+  ### 组件类
+  
+  The original component code for Template 1 stayed the same; however,
+  Template 2 requires some changes in the component. This section covers the code
+  necessary in Template 2's component class to acquire the Angular
+  form control and compose error messages.
 
-  #### 组件类
-
-  The original component code stays the same.
-  We _added_ new code to acquire the Angular form control and compose error messages.
-
-  原来的组件代码还是一样。我们**添加**了新的代码，来获取Angular表单控制器和撰写错误信息。
+  原组件代码的模板一没变化，只是模板二发生了变化。本节包括模板二的组件类，以获取Angular表单控制器和撰写错误信息。
 
   The first step is to acquire the form control that Angular created from the template by querying for it.
 
   第一步是获取Angular通过查询模板而生成的表单控制器。
 
-  Look back at the top of the component template where we set the 
+  Look back at the top of the component template at the
   `#heroForm` template variable in the `<form>` element:
 
   回头看组件模板顶部，我们在`<form>`元素中设置`#heroForm`模板变量：
@@ -257,7 +309,7 @@ a#template2
 
 :marked
   The `heroForm` variable is a reference to the control model that Angular derived from the template.
-  We tell Angular to inject that model into the component class's `currentForm` property using a `@ViewChild` query:
+  Tell Angular to inject that model into the component class's `currentForm` property using a `@ViewChild` query:
 
   `heroFrom`变量是Angular从模板衍生出来的控制模型的引用。
   我们利用`@ViewChild`来告诉Angular注入这个模型到组件类的`currentForm`属性：
@@ -266,37 +318,35 @@ a#template2
 
 :marked
   Some observations:
-
+  
   一些细节：
 
-  - Angular `@ViewChild` queries for a template variable when you pass it 
+  * Angular `@ViewChild` queries for a template variable when you pass it
   the name of that variable as a string (`'heroForm'` in this case).
-
+  
     Angular的`@ViewChild`使用传入的模板变量的字符串名字（这里是`'heroForm'`），来查询对应的模板变量。
 
-  - The `heroForm` object changes several times during the life of the component, most notably when we add a new hero.
-  We'll have to re-inspect it periodically.
-
+  * The `heroForm` object changes several times during the life of the component, most notably when you add a new hero.
+  Periodically inspecting it reveals these changes.
+  
     `heroForm`对象在组件的生命周期内变化了好几次，最值得注意的是当我们添加一个新英雄时的变化。我们必须定期重新检测它。
 
-  - Angular calls the `ngAfterViewChecked` [lifecycle hook method](../guide/lifecycle-hooks.html#afterview) 
+  * Angular calls the `ngAfterViewChecked` [lifecycle hook method](../guide/lifecycle-hooks.html#afterview)
   when anything changes in the view.
   That's the right time to see if there's a new `heroForm` object.
-
-    当视图有任何变化时，Angular调用`ngAfterViewChecked`[生命周期钩子方法](../guide/lifecycle-hooks.html#afterview)。这是查看是否有新`heroForm`对象的最佳时机。 
   
-  - When there _is_ a new `heroForm` model, we subscribe to its `valueChanged` _Observable_ property.
+    当视图有任何变化时，Angular调用`ngAfterViewChecked`[生命周期钩子方法](../guide/lifecycle-hooks.html#afterview)。这是查看是否有新`heroForm`对象的最佳时机。
+    
+  * When there _is_ a new `heroForm` model, `formChanged()` subscribes to its `valueChanges` _Observable_ property.
+  The `onValueChanged` handler looks for validation errors after every  keystroke.  
 
-    当出现新`heroForm`模型时，我们订阅它的`valueChanged`**可观察**属性。
-
-  The `onValueChanged` handler looks for validation errors after every user keystroke.  
-
-  `onValueChanged`处理器在每次用户键入后查找验证错误。
-
+    当出现新`heroForm`模型时，我们订阅它的`valueChanged`**可观察**属性。  
+    `onValueChanged`处理器在每次用户键入后查找验证错误。
+  
 +makeExample('cb-form-validation/ts/src/app/template/hero-form-template2.component.ts','handler','template/hero-form-template2.component.ts (handler)')(format='.')
 
 :marked
-  The `onValueChanged` handler interprets user data entry. 
+  The `onValueChanged` handler interprets user data entry.
   The `data` object passed into the handler contains the current element values.
   The handler ignores them. Instead, it iterates over the fields of the component's `formErrors` object.
 
@@ -307,104 +357,105 @@ a#template2
   The `formErrors` is a dictionary of the hero fields that have validation rules and their current error messages.
   Only two hero properties have validation rules, `name` and `power`.
   The messages are empty strings when the hero data are valid.
-
+  
   `formErrors`是一个词典，包含了拥有验证规则和当前错误消息的英雄控件。
-  只有两个英雄属性有验证规则，`name`和`power`。
-  当英雄数据有效时，这些消息的值为空字符串。
+    只有两个英雄属性有验证规则，`name`和`power`。
+    当英雄数据有效时，这些消息的值为空字符串。
 
-  For each field, the handler
-
-  对于每个控件，这个处理器：
-
-    - clears the prior error message if any
+  For each field, the `onValueChanged` handler does the following:
+  
+  对于每个字段，这个`onValueChanged`处理器会做这些：
+  
+    * Clears the prior error message, if any.
     
-      如果有之前的错误信息，清楚它们
-
-    - acquires the field's corresponding Angular form control
-
+      清除以前的错误信息（如果有的话）
+      
+    * Acquires the field's corresponding Angular form control.
+    
       获取控件对应的Angular表单控制器
+      
+    * If such a control exists _and_ it's been changed ("dirty")
+    _and_ it's invalid, the handler composes a consolidated error message for all of the control's errors.
+    
+      如果这样的控制器存在，并且它被更新过（“dirty”），**并且**它无效，处理器就会为所有控制器的错误合成一条错误消息。
 
-    - if such a control exists _and_ its been changed ("dirty") _and_ its invalid ...
-
-      如果这样的控制器存在，并且它被更新（“dirty”）**以及**它无效...
-
-    - the handler composes a consolidated error message for all of the control's errors.
-
-      处理器便为所有控制器的错误合成一条错误消息。
-
-  We'll need some error messages of course, a set for each validated property, one message per validation rule:
-
+  Next, the component needs some error messages of course&mdash;a set for each validated property with
+  one message per validation rule:
+  
   很显然，我们需要一些错误消息，每个验证的属性都需要一套，每个验证规则需要一条消息：
-
+  
 +makeExample('cb-form-validation/ts/src/app/template/hero-form-template2.component.ts','messages','template/hero-form-template2.component.ts (messages)')(format='.')
 :marked
   Now every time the user makes a change, the `onValueChanged` handler checks for validation errors and produces messages accordingly.
 
   现在，每次用户作出变化时，`onValueChanged`处理器检查验证错误并按情况发出错误消息。
-  
-  ### Is this an improvement?
 
-  ### 这是增强吗？
+a#improvement
+:marked
+  ### The benefits of messages in code
   
-  Clearly the template got substantially smaller while the component code got substantially larger. 
+  ### 在代码中写消息的优点
+
+  Clearly the template got substantially smaller while the component code got substantially larger.
   It's not easy to see the benefit when there are just three fields and only two of them have validation rules.
 
   很显然，模板变得小多了，组件代码变得大多了。当只有三个控件并且其中只有两个有验证规则时，我们很难看出好处。
 
-  Consider what happens as we increase the number of validated fields and rules.
-  In general, HTML is harder to read and maintain than code. 
-  The initial template was already large and threatening to get rapidly worse as we add more validation message `<divs>`.
+  Consider what happens as the number of validated
+  fields and rules increases.
+  In general, HTML is harder to read and maintain than code.
+  The initial template was already large and threatening to get rapidly worse
+  with the addition of more validation message `<div>` elements.
 
   假设增加需要验证的控件和规则后会怎么样。
   通常，HTML比代码更难阅读和维护。
   初始的模板已经很大了，如果我们添加更多验证消息`<div>`，它会迅速变得更大。
-  
-  After moving the validation messaging to the component, 
+
+  After moving the validation messaging to the component,
   the template grows more slowly and proportionally.
   Each field has approximately the same number of lines no matter its number of validation rules.
   The component also grows proportionally, at the rate of one line per validated field
   and one line per validation message.
-
   将验证消息移到组件后，模板的增长变得更加缓慢，幅度也小一些。
   不管有多少个验证规则，每个控件的行数是差不多的。
   组件也按比例增长，每增加一个控件增加一行，每个验证消息一行。
-  
   Both trends are manageable.
 
   两条线容易维护。
 
-  Now that the messages are in code, we have more flexibility. We can compose messages more intelligently. 
-  We can refactor the messages out of the component, perhaps to a service class that retrieves them from the server.
+  Now that the messages are in code, you have more flexibility and can compose messages more efficiently.
+  You can refactor the messages out of the component, perhaps to a service class that retrieves them from the server.
   In short, there are more opportunities to improve message handling now that text and logic have moved from template to code.
 
   现在消息在代码中，我们有更多的灵活度。我们更加智能的撰写消息。
   我们可以将消息重构出组件，比如到一个服务类，从服务端获取消息。
   简而言之，有很多机会增强消息处理，因为文本和逻辑都已经从模板移到代码中。
 
+a#formmodule
+:marked
   ### _FormModule_ and template-driven forms
 
   ### _FormModule_ 和模板驱动表单
 
-  Angular has two different forms modules &mdash; `FormsModule` and `ReactiveFormsModule` &mdash; 
-  that correspond with the two approaches to form development.
-  Both modules come from the same `@angular/forms` library package.
-
+  Angular has two different forms modules&mdash;`FormsModule` and
+  `ReactiveFormsModule`&mdash;that correspond with the
+  two approaches to form development. Both modules come
+  from the same `@angular/forms` library package.
+  
   Angular有两种不同的表单模块 - `FormsModule`和`ReactiveFormsModule` - 它们与表单开发的两种方法对应。
-  两种模块都从同一个`@angular/forms`库。
+    两种模块都从同一个`@angular/forms`库。
 
-  We've been reviewing the "Template-driven" approach which requires the `FormsModule`
-  Here's how we imported it in the `HeroFormTemplateModule`.
+  You've been reviewing the "Template-driven" approach which requires the `FormsModule`.
+  Here's how you imported it in the `HeroFormTemplateModule`.
 
   我们一直在探讨**模板驱动**方法，它需要`FormsModule`。下面是如何在`HeroFormTemplateModule`中导入它：
 
 +makeExample('cb-form-validation/ts/src/app/template/hero-form-template.module.ts','','template/hero-form-template.module.ts')(format='.')
 .l-sub-section
   :marked
-    We haven't talked about the `SharedModule` or its `SubmittedComponent` which appears at the bottom of every
+    This guide hasn't talked about the `SharedModule` or its `SubmittedComponent` which appears at the bottom of every
     form template in this cookbook.  
-
     我们还没有讲`SharedModule`或者它的`SubmittedComponent`，它们出现在本烹饪书的每一个表单模板中。
-    
     They're not germane to the validation story. Look at the [live example](#live-example) if you're interested.
 
     它们与表单验证没有紧密的关系。如果你感兴趣，参见[在线例子](#live-example)。
@@ -412,20 +463,18 @@ a#template2
 .l-main-section
 a#reactive
 :marked
-  ## Reactive Forms
+  ## Reactive forms with validation in code
 
   ## 响应式表单
 
-  In the template-driven approach, you markup the template with form elements, validation attributes, 
+  In the template-driven approach, you markup the template with form elements, validation attributes,
   and `ng...` directives from the Angular `FormsModule`.
   At runtime, Angular interprets the template and derives its _form control model_.
-
   在模板驱动方法中，你在模板中标出表单元素、验证属性和Angular`FormsModule`中的`ng...`指令。
   在运行时间，Angular解释模板并从**表单控制器模型**衍生它。
-  
   **Reactive Forms** takes a different approach. 
   You create the form control model in code. You write the template with form elements
-  and`form...` directives from the Angular `ReactiveFormsModule`.
+  and `form...` directives from the Angular `ReactiveFormsModule`.
   At runtime, Angular binds the template elements to your control model based on your instructions.
 
   **响应式表单**采用不同的方法。
@@ -433,53 +482,56 @@ a#reactive
   在运行时间，Angular根据你的指示绑定模板元素到你的控制器模型。
 
   This approach requires a bit more effort. *You have to write the control model and manage it*.
+  
+  这个方法需要做一些额外的工作。*你必须编写并管理控制器模型**。
 
-  这个方法需要做一些额外的工作。*你必须编写并管理控制器模型**
-
-  In return, you can
-
-  作为回报，你可以：
-
-  * add, change, and remove validation functions on the fly
-
+  This allows you to do the following:
+  
+  这可以让你：
+  
+  * Add, change, and remove validation functions on the fly.
+  
     随时添加、修改和删除验证函数
-
-  * manipulate the control model dynamically from within the component
-
+    
+  * Manipulate the control model dynamically from within the component.
+  
     在组件内动态操纵控制器模型
-
-  * [test](#testing) validation and control logic with isolated unit tests.
+    
+  * [Test](#testing) validation and control logic with isolated unit tests.
 
     使用孤立单元测试来[测试](#testing)验证和控制器逻辑
 
-  The third cookbook sample re-writes the hero form in _reactive forms_ style.
+  The following cookbook sample re-writes the hero form in _reactive forms_ style.
 
   第三个烹饪书例子用**响应式表单**风格重新编写英雄表格。
 
+a#reactive-forms-module
+:marked
   ### Switch to the _ReactiveFormsModule_
 
   ### 切换到_ReactiveFormsModule_
 
   The reactive forms classes and directives come from the Angular `ReactiveFormsModule`, not the `FormsModule`.
-  The application module for the "Reactive Forms" feature in this sample looks like this:
+  The application module for the reactive forms feature in this sample looks like this:
 
   响应式表单类和指令来自于Angular的`ReactiveFormsModule`，不是`FormsModule`。
   本例中，应用模块的“响应式表单”特性是这样的：
-
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.module.ts','','src/app/reactive/hero-form-reactive.module.ts')(format='.')
 :marked
-  The "Reactive Forms" feature module and component are in the `src/app/reactive` folder. 
-  Let's focus on the `HeroFormReactiveComponent` there, starting with its template.
+  The reactive forms feature module and component are in the `src/app/reactive` folder.
+  Focus on the `HeroFormReactiveComponent` there, starting with its template.
 
   “响应式表单”特性模块和组件在`app/reactive`目录。
   让我们关注那里的`HeroFormReactiveComponent`，先看它的模板。
 
+a#reactive-component-template
+:marked
   ### Component template
 
   ### 组件模板
 
-  We begin by changing the `<form>` tag so that it binds the Angular `formGroup` directive in the template
-  to the `heroForm` property in the component class. 
+  Begin by changing the `<form>` tag so that it binds the Angular `formGroup` directive in the template
+  to the `heroForm` property in the component class.
   The `heroForm` is the control model that the component class builds and maintains.
 
   我们先修改`<form>`标签，让Angular的`formGroup`指令绑定到组件类的`heroForm`属性。
@@ -487,32 +539,33 @@ a#reactive
 
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.html','form-tag')(format='.')
 :marked
-  Then we modify the template HTML elements to match the _reactive forms_ style.
+  Next, modify the template HTML elements to match the _reactive forms_ style.
   Here is the "name" portion of the template again, revised for reactive forms and compared with the template-driven version:
 
   接下来，我们修改模板HTML元素，来匹配**响应式表单**样式。
   下面又是“name”部分的模板，响应式表单修改版本和模板驱动版本的比较：
 
 +makeTabs(
-  `cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.html, 
+  `cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.html,
    cb-form-validation/ts/src/app/template/hero-form-template2.component.html`,
   'name-with-error-msg, name-with-error-msg',
   `hero-form-reactive.component.html (name #3),
    hero-form-template1.component.html (name #2)`)
 
 :marked
-  Key changes:
-
+  Key changes are:
+  
   关键变化：
-
-  - the validation attributes are gone (except `required`) because we'll be validating in code.
-
+  
+  * The validation attributes are gone (except `required`) because
+  validating happens in code.
+  
     验证属性没有了（除了`required`），因为我们将在代码中验证。
 
-  - `required` remains, not for validation purposes (we'll cover that in the code), 
+  * `required` remains, not for validation purposes (that's in the code),
   but rather for css styling and accessibility.
 
-    保留了`required`，不是为了验证目的（我们将在代码中再行解释），而是为了CSS样式和可访问性。
+    保留`required`，不是为了验证的目的（验证在代码中），而是为了CSS样式和可访问性。
 
 .l-sub-section
   :marked
@@ -522,19 +575,19 @@ a#reactive
     未来版本的响应式表单将会在控制器有`required`验证器函数时，添加`required` HTML验证属性到DOM元素（也可能添加`aria-required`属性）。 
 
     Until then, apply the `required` attribute _and_ add the `Validator.required` function
-    to the control model, as we'll do below.
+    to the control model, as you'll see below.
 
     在此之前，添加`required`属性**以及**添加`Validator.required`函数到控制器模型，像我们下面这样做：
 
 :marked
-  - the `formControlName` replaces the `name` attribute; it serves the same
-  purpose of correlating the input box with the Angular form control.
+  * The `formControlName` replaces the `name` attribute; it serves the same
+  purpose of correlating the input with the Angular form control.
 
     `formControlName`替换了`name`属性；它起到了关联输入框和Angular表单控制器的同样作用。
 
-  - the two-way `[(ngModel)]` binding is gone. 
+  * The two-way `[(ngModel)]` binding is gone. 
   The reactive approach does not use data binding to move data into and out of the form controls.
-  We do that in code.
+  That's all in code.
 
     双向`[(ngModel)]`绑定消失了。
   响应式表单方法不使用数据绑定从表单控制器移入和移出数据。我们在代码中做这些。
@@ -543,18 +596,16 @@ a#reactive
   :marked
     The retreat from data binding is a principle of the reactive paradigm rather than a technical limitation.
 
-    不适用表单数据绑定是响应式模式的原则，而非技术局限。
+    不适用表单数据绑定是响应式模式的原则，而非技术限制。
+    
+a#reactive-component-class
 :marked
   ### Component class
 
-  ### 组件类
-
-  The component class is now responsible for defining and managing the form control model.
-
-  组件类现在负责定义和管理表单控制器模型。 
+  ### 组件类The component class is now responsible for defining and managing the form control model. 组件类现在负责定义和管理表单控制器模型。
   
-  Angular no longer derives the control model from the template so we can no longer query for it.
-  We create the Angular form control model explicitly with the help of the `FormBuilder`.
+  Angular no longer derives the control model from the template so you can no longer query for it.
+  You can create the Angular form control model explicitly with the help of the `FormBuilder`class.
 
   Angular不再从模板衍生控制器模型，所以我们不能再查询它。
   我们利用`FormBuilder`来显式创建Angular表单控制器模型。
@@ -569,15 +620,15 @@ a#reactive
   `reactive/hero-form-reactive.component.ts (FormBuilder),
    template/hero-form-template2.component.ts (ViewChild)`)
 :marked
-  - we inject the `FormBuilder` in a constructor.
-
+  * Inject `FormBuilder` in a constructor.
+  
     我们注入`FormBuilder`到构造函数中。
 
-  - we call a `buildForm` method in the `ngOnInit` [lifecycle hook method](../guide/lifecycle-hooks.html#hooks-overview)
-  because that's when we'll have the hero data. We'll call it again in the `addHero` method.
+  * Call a `buildForm` method in the `ngOnInit` [lifecycle hook method](../guide/lifecycle-hooks.html#hooks-overview)
+  because that's when you'll have the hero data. Call it again in the `addHero` method.
 
     我们在`ngOnInit`[生命周期钩子方法](../guide/lifecycle-hooks.html#hooks-overview)中调用`buildForm`方法，
-  因为这正是我们拥有英雄数据的时刻。我们将在`addHero`方法中再次调用它。
+      因为这正是我们拥有英雄数据的时刻。我们将在`addHero`方法中再次调用它。
 
 .l-sub-section
   :marked
@@ -585,15 +636,16 @@ a#reactive
 
     真实的应用很可能从数据服务异步获取英雄，这个任务最好在`ngOnInit`生命周期钩子中进行。
 :marked
-  - the `buildForm` method uses the `FormBuilder` (`fb`) to declare the form control model.
-  Then it attaches the same `onValueChanged` handler (there's a one line difference) 
-  to the form's `valueChanged` event and calls it immediately 
+  * The `buildForm` method uses the `FormBuilder`, `fb`, to declare the form control model.
+  Then it attaches the same `onValueChanged` handler (there's a one line difference)
+  to the form's `valueChanges` event and calls it immediately
   to set error messages for the new control model.
 
     `buildForm`方法使用`FormBuilder`（`fb`）来声明表单控制器模型。
   然后它将相同的`onValueChanged`（有一行代码不一样）处理器附加到表单的`valueChanged`事件，
   并立刻为新的控制器模型设置错误消息。
 
+a#formbuilder
 :marked
   #### _FormBuilder_ declaration
 
@@ -603,37 +655,37 @@ a#reactive
 
   `FormBuilder`声明对象指定了本例英雄表单的三个控制器。 
 
-  Each control spec is a control name with an array value. 
+  Each control spec is a control name with an array value.
   The first array element is the current value of the corresponding hero field.
-  The (optional) second value is a validator function or an array of validator functions.
-
+  The optional second value is a validator function or an array of validator functions.
   每个控制器的设置都是控制器名字和数组值。
   第一个数组元素是英雄控件对应的当前值。
   第二个值（可选）是验证器函数或者验证器函数数组。
-  
   Most of the validator functions are stock validators provided by Angular as static methods of the `Validators` class.
   Angular has stock validators that correspond to the standard HTML validation attributes.
 
   大多数验证器函数是Angular以`Validators`类的静态方法的形式提供的原装验证器。
   Angular有一些原装验证器，与标准HTML验证属性一一对应。
 
-  The `forbiddenNames` validator on the `"name"` control is a custom validator, 
+  The `forbiddenNames` validator on the `"name"` control is a custom validator,
   discussed in a separate [section below](#custom-validation).
 
   `"name"`控制器上的`forbiddenNames`验证器是自定义验证器，在下面单独的[小结](#custom-validation)有所讨论。
 
-.l-sub-section  
+.l-sub-section
   :marked
-    Learn more about `FormBuilder` in a _forthcoming_ chapter on reactive forms. 
+    Learn more about `FormBuilder` in the [Introduction to FormBuilder](../guide/reactive-forms.html#formbuilder) section of Reactive Forms guide.
 
     到**即将到来**的响应式表单章，学习更多关于`FormBuilder`的知识。
+    
+a#committing-changes
 :marked
   #### Committing hero value changes
-
+  
   #### 提交英雄值的更新
   
   In two-way data binding, the user's changes flow automatically from the controls back to the data model properties.
-  Reactive forms do not use data binding to update data model properties. 
+  Reactive forms do not use data binding to update data model properties.
   The developer decides _when and how_ to update the data model from control values.
 
   在双向数据绑定时，用户的修改自动从控制器流向数据模型属性。
@@ -644,33 +696,31 @@ a#reactive
 
   本例更新模型两次：
 
-  1. when the user submits the form
+  1. When the user submits the form.
 
      当用户提交标单时
 
-  1. when the user chooses to add a new hero
+  1. When the user adds a new hero.
 
-     当用户选择添加新英雄
+     当用户添加新英雄时
 
-  The `onSubmit` method simply replaces the `hero` object with the combined values of the form:
+  The `onSubmit()` method simply replaces the `hero` object with the combined values of the form:
 
   `onSubmit`方法直接使用表单的值得合集来替换`hero`对象：
-
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','on-submit')(format='.')
 .l-sub-section
   :marked
-    This example is "lucky" in that the `heroForm.value` properties _just happen_ to
+    This example is lucky in that the `heroForm.value` properties _just happen_ to
     correspond _exactly_ to the hero data object properties.
 
     本例非常“幸运”，因为`heroForm.value`属性**正好**与英雄数据对象属性对应。
 :marked
-  The `addHero` method discards pending changes and creates a brand new `hero` model object.
+  The `addHero()` method discards pending changes and creates a brand new `hero` model object.
 
   `addHero`方法放弃未处理的变化，并创建一个崭新的`hero`模型对象。
-
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','add-hero')(format='.')
 :marked
-  Then it calls `buildForm` again which replaces the previous `heroForm` control model with a new one.
+  Then it calls `buildForm()` again which replaces the previous `heroForm` control model with a new one.
   The `<form>` tag's `[formGroup]` binding refreshes the page with the new control model.
 
   然后它再次调用`buildForm`，用一个新对象替换了之前的`heroForm`控制器模型。
@@ -681,7 +731,7 @@ a#reactive
   下面是完整的响应式表单的组件文件，与两个模板驱动组件文件对比：
 +makeTabs(
   `cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts,
-   cb-form-validation/ts/src/app/template/hero-form-template2.component.ts, 
+   cb-form-validation/ts/src/app/template/hero-form-template2.component.ts,
    cb-form-validation/ts/src/app/template/hero-form-template1.component.ts`,
   '',
   `reactive/hero-form-reactive.component.ts (#3),
@@ -690,7 +740,7 @@ a#reactive
 
 .l-sub-section
   :marked
-    Run the [live example](#live-example) to see how the reactive form behaves
+    Run the [live example](#live-example) to see how the reactive form behaves,
     and to compare all of the files in this cookbook sample.
 
     运行[在线例子](#live-example)，查看响应式表单是的行为，并与本章中的例子文件作比较。
@@ -702,17 +752,16 @@ a#custom-validation
 
   ## 自定义验证
 
-  This cookbook sample has a custom `forbiddenNamevalidator` function that's applied to both the 
+  This cookbook sample has a custom `forbiddenNamevalidator()` function that's applied to both the
   template-driven and the reactive form controls. It's in the `src/app/shared` folder
   and declared in the `SharedModule`.
 
   本烹饪书例子有一个自定义`forbiddenNameValidator`函数，在模板驱动和响应式表单中都有使用。
   它在`app/shared`目录，在`SharedModule`中被声明。
 
-  Here's the `forbiddenNamevalidator` function itself:
+  Here's the `forbiddenNamevalidator()` function:
 
   下面是`forbiddenNameValidator`函数：
-
 +makeExample('cb-form-validation/ts/src/app/shared/forbidden-name.directive.ts','custom-validator', 'shared/forbidden-name.directive.ts (forbiddenNameValidator)')(format='.')
 :marked
   The function is actually a factory that takes a regular expression to detect a _specific_ forbidden name
@@ -720,68 +769,80 @@ a#custom-validation
 
   该函数其实是一个工厂函数，接受一个正则表达式，用来检测**指定**的禁止的名字，并返回验证器函数。
 
-  In this sample, the forbidden name is "bob"; 
+  In this sample, the forbidden name is "bob";
   the validator rejects any hero name containing "bob".
   Elsewhere it could reject "alice" or any name that the configuring regular expression matches.
-
+  
   在本例中，禁止的名字是"bob"；
   验证器拒绝任何带有"bob"的英雄名字。
   在其他地方，只要配置的正则表达式可以匹配上，它可能拒绝"alice"或者任何其他名字。
   
-  The `forbiddenNamevalidator` factory returns the configured validator function.
+  The `forbiddenNameValidator` factory returns the configured validator function.
   That function takes an Angular control object and returns _either_
   null if the control value is valid _or_ a validation error object.
-  The validation error object typically has a property whose name is the validation key ('forbiddenName')
-  and whose value is an arbitrary dictionary of values that we could insert into an error message (`{name}`).
+  The validation error object typically has a property whose name is the validation key, `'forbiddenName'`,
+  and whose value is an arbitrary dictionary of values that you could insert into an error message (`{name}`).
 
   `forbiddenNameValidator`工厂函数返回配置好的验证器函数。
   该函数接受一个Angular控制器对象，并在控制器值有效时返回null，或无效时返回验证错误对象。
   验证错误对象通常有一个名为验证秘钥（`forbiddenName`）的属性。其值为一个任意词典，我们可以用来插入错误信息（`{name}`）。
 
-.l-sub-section
-  :marked
-    Learn more about validator functions in a _forthcoming_ chapter on custom form validation.
-
-    在**即将到来**的自定义表单验证章节，学习更多关于验证器函数的知识。
+a#custom-validation-directive
 :marked
-  #### Custom validation directive
+  ### Custom validation directive
 
   #### 自定义验证指令
 
-  In the reactive forms component we added a configured `forbiddenNamevalidator`
-  to the bottom of the `'name'` control's validator function list.
+  In the reactive forms component, the `'name'` control's validator function list
+  has a `forbiddenNameValidator` at the bottom.
 
   在响应式表单组件中，我们在`'name'`控制器的验证函数列表的底部添加了一个配置了的`forbiddenNameValidator`。
-
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','name-validators', 'reactive/hero-form-reactive.component.ts (name validators)')(format='.')
 :marked
-  In the template-driven component template, we add the selector (`forbiddenName`) of a custom _attribute directive_ to the name's input box
-  and configured it to reject "bob".
+  In the _template-driven_ example, the `<input>` has the selector (`forbiddenName`)
+  of a custom _attribute directive_, which rejects "bob".
 
   在模板驱动组件的模板中，我们在name的输入框元素中添加了自定义**属性指令**的选择器（`forbiddenName`），并配置它来拒绝“bob”。
-
+  
 +makeExample('cb-form-validation/ts/src/app/template/hero-form-template2.component.html','name-input', 'template/hero-form-template2.component.html (name input)')(format='.')
 :marked
-  The corresponding `ForbiddenValidatorDirective` is a wrapper around the `forbiddenNamevalidator`.
+  The corresponding `ForbiddenValidatorDirective` is a wrapper around the `forbiddenNameValidator`.
 
   对应的`ForbiddenValidatorDirective`包装了`forbiddenNamevalidator`。
   
-  Angular forms recognizes the directive's role in the validation process because the directive registers itself
+  Angular `forms` recognizes the directive's role in the validation process because the directive registers itself
   with the `NG_VALIDATORS` provider, a provider with an extensible collection of validation directives.
 
   Angular表单接受指令在验证流程中的作用，因为指令注册自己到`NG_VALIDATORS`提供商中，该提供商拥有可扩展的验证指令集。
 
 +makeExample('cb-form-validation/ts/src/app/shared/forbidden-name.directive.ts','directive-providers', 'shared/forbidden-name.directive.ts (providers)')(format='.')
 :marked
-  The rest of the directive is unremarkable and we present it here without further comment.
-
-  指令的剩余部分没有什么特殊的，所以我们将它展示在下面，不作任何注解。
-
+  Here is the rest of the directive to help you get an idea of how it all comes together:
+  
+  指令的其它部分是为了帮你理解它们是如何合作的：
+  
 +makeExample('cb-form-validation/ts/src/app/shared/forbidden-name.directive.ts','directive', 'shared/forbidden-name.directive.ts (directive)')
+
 :marked
 .l-sub-section
   :marked
-    See the [Attribute Directives](../guide/attribute-directives.html) chapter.
+    If you are familiar with Angular validations, you may have noticed
+    that the custom validation directive is instantiated with `useExisting`
+    rather than `useClass`. The registered validator must be _this instance_ of
+    the `ForbiddenValidatorDirective`&mdash;the instance in the form with
+    its `forbiddenName` property bound to “bob". If you were to replace
+    `useExisting` with `useClass`, then you’d be registering a new class instance, one that
+    doesn’t have a `forbiddenName`.
+
+    To see this in action, run the example and then type “bob” in the name of Hero Form 2.
+    Notice that you get a validation error. Now change from `useExisting` to `useClass` and try again.
+    This time, when you type “bob”, there's no "bob" error message.
+
+:marked
+.l-sub-section
+  :marked
+    For more information on attaching behavior to elements,
+    see [Attribute Directives](../guide/attribute-directives.html).
 
     参见[属性型指令](../guide/attribute-directives.html)章节。
 
@@ -789,10 +850,10 @@ a#custom-validation
 a#testing
 :marked
   ## Testing Considerations
+  
+  ## 测试时的注意事项
 
-  ## 测试注意事项
-
-  We can write _isolated unit tests_ of validation and control logic in _Reactive Forms_.
+  You can write _isolated unit tests_ of validation and control logic in _Reactive Forms_.
 
   我们可以为**响应式表单**的验证器和控制器逻辑编写**孤立单元测试**。
 
@@ -806,8 +867,8 @@ a#testing
 
   这样的测试具有简单设置#，快速编写和容易维护的特征。它们不需要`Angular TestBed`或异步测试工序。
 
-  That's not possible with _Template-driven_ forms.
-  The template-driven approach relies on Angular to produce the control model and 
+  That's not possible with _template-driven_ forms.
+  The template-driven approach relies on Angular to produce the control model and
   to derive validation rules from the HTML validation attributes.
   You must use the `Angular TestBed` to create component test instances,
   write asynchronous tests, and interact with the DOM.
@@ -816,7 +877,8 @@ a#testing
   模板驱动方法依靠Angular来生成控制器模型并从HTML验证属性中衍生验证规则。
   你必须使用`Angular TestBed`来创建组件测试实例，编写异步测试并与DOM交互。
 
-  While not difficult, this takes more time, work and skill &mdash; 
-  factors that tend to diminish test code coverage and quality.
+  While not difficult, this takes more time, work and
+  skill&mdash;factors that tend to diminish test code
+  coverage and quality.
 
   虽然这种测试并不困难，但是它需要更多时间、工作和能力 - 这些因素往往会降低测试代码覆盖率和测试质量。

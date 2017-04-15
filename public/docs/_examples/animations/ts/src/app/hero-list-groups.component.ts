@@ -1,18 +1,19 @@
 import {
   Component,
-  Input,
+  Input
+} from '@angular/core';
+import {
   trigger,
   state,
   style,
   animate,
   transition,
   group
-} from '@angular/core';
+} from '@angular/animations';
 
 import { Heroes } from './hero.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'hero-list-groups',
   template: `
     <ul>

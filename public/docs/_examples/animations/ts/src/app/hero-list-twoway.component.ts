@@ -2,19 +2,20 @@
 // #docregion imports
 import {
   Component,
-  Input,
+  Input
+} from '@angular/core';
+import {
   trigger,
   state,
   style,
-  transition,
-  animate
-} from '@angular/core';
+  animate,
+  transition
+} from '@angular/animations';
 // #enddocregion imports
 
 import { Heroes } from './hero.service';
 
 @Component({
- moduleId: module.id,
  selector: 'hero-list-twoway',
  // #docregion template
  template: `

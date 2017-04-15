@@ -1,23 +1,37 @@
 include ../_util-fns
 
 :marked
-  Our app is growing.
-  Use cases are flowing in for reusing components, passing data to components, and creating more reusable assets. Let's separate the heroes list from the hero details and make the details component reusable.
+  The `AppComponent` is doing _everything_ at the moment.
+  In the beginning, it showed details of a single hero.
+  Then it became a master/detail form with both a list of heroes and the hero detail.
+  Soon there will be new requirements and capabilities.
+  You can't keep piling features on top of features in one component; that's not maintainable.
+  
+  此刻，`AppComponent`负责*所有事*。
+  起初，它只显示单个英雄的详情。然后，它变成了主从结构，同时显示英雄列表和一个英雄详情。
+  现在，我们很快又会有新需求了。
+  我们不能把这些需求全都放在一个组件中，否则将不可维护。
 
-  我们的应用正在成长中。现在又有新的用例：重复使用组件，传递数据给组件并创建更多可复用的资产。
-  我们来把英雄详情从英雄列表中分离出来，让这个英雄详情组件可以被复用。
+  You'll need to break it up into sub-components, each focused on a specific task or workflow.
+  Eventually, the `AppComponent` could become a simple shell that hosts those sub-components.
+  
+  我们要把它拆分成一些子组件，每个子组件只聚焦在一个特定的任务或工作流上。
+  最后，`AppComponent`将会变成一个简单的壳，用来作为那些子组件的宿主。
 
-  Run the <live-example></live-example> for this part.
+  In this page, you'll take the first step in that direction by carving out the hero details into a separate, reusable component.
+  When you're done, the app should look like this <live-example></live-example>.
 
-  运行这部分的<live-example>在线例子</live-example>。
+  本章中，我们要做的第一步就是把英雄详情拆分到一个独立的、可复用的组件中。
+  做完这些，应用看起来是这样的：<live-example>在线例子</live-example>。
 
 .l-main-section
 :marked
-  ## Where We Left Off
+  ## Where you left off
 
   ## 延续上一步教程
 
-  Before we continue with our Tour of Heroes, let’s verify we have the following structure. If not, we’ll need to go back and follow the previous chapters.
+  Before getting started on this page, verify that you have the following structure from earlier in the Tour of Heroes.
+  If not, go back to the previous pages.
 
   在继续《英雄指南》之前，先检查一下，是否已经有了如下目录结构。如果没有，回上一章，看看错过了哪里。
 
@@ -35,326 +49,192 @@ include ../_util-fns
       .file styles.css
       .file systemjs.config.js
       .file tsconfig.json
-    .file node_modules ...   
+    .file node_modules ...
     .file package.json
 :marked
-  ### Keep the app transpiling and running
+  Keep the app transpiling and running while you build the Tour of Heroes
+  by entering the `npm start` command in a terminal window
+  [as you did before](toh-pt1.html#keep-transpiling "Keep the app running").
+  
+  [像以前一样](toh-pt1.html#keep-transpiling "Keep the app running")，在终端窗口中输入`npm start`命令，以持续转译和运行。
 
-  ### 让应用代码保持转译和运行
-
-  We want to start the TypeScript compiler, have it watch for changes, and start our server. We'll do this by typing
-
-  我们要启动 TypeScript 编译器，它会监视文件变更，并启动开发服务器。只要敲：
-
-code-example(language="sh" class="code-shell").
-  npm start
-
-:marked
-  This will keep the application running while we continue to build the Tour of Heroes.
-
-  这个命令会在我们构建《英雄指南》的时候让应用得以持续运行。
-
-  ## Making a Hero Detail Component
-
+  ## Make a hero detail component
+  
   ## 制作英雄详情组件
+  
+  Add a file named `hero-detail.component.ts` to the `app/` folder.
+  This file will hold the new `HeroDetailComponent`.
+  
+  The file and component names follow the standard described in the Angular
+  [style guide](../guide/style-guide.html#naming).
 
-  Our heroes list and our hero details are in the same component in the same file.
-  They're small now but each could grow. 
-  We are sure to receive new requirements for one and not the other.
-  Yet every change puts both components at risk and doubles the testing burden without benefit.
-  If we had to reuse the hero details elsewhere in our app,
-  the heroes list would tag along for the ride. 
+  * The component _class_ name should be written in _upper camel case_ and end in the word "Component".
+  The hero detail component class is `HeroDetailComponent`.
 
-  目前，英雄列表和英雄详情位于同一个文件的同一个组件中。
-  它们现在还很小，但很快它们都会长大。
-  我们将来肯定会收到新需求：针对这一个，却不能影响另一个。
-  然而，每一次更改都会给这两个组件带来风险和双倍的测试负担，却没有任何好处。
-  如果我们需要在应用的其它地方复用英雄详情组件，英雄列表组件也会跟着混进去。
+  * The component _file_ name should be spelled in [_lower dash case_](../guide/glossary.html#dash-case),
+  each word separated by dashes, and end in `.component.ts`.
+  The `HeroDetailComponent` class goes in the `hero-detail.component.ts` file.
 
-  Our current component violates the
-  [Single Responsibility Principle](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html).
-  It's only a tutorial but we can still do things right &mdash; 
-  especially if doing them right is easy and we learn how to build Angular apps in the process.
+  Start writing the `HeroDetailComponent` as follows:
 
-  我们当前的组件违反了[单一职责原则](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)。
-  虽然这只是一个教程，但我们还是得坚持做正确的事 &mdash;
-  况且，做正确的事这么容易，在此过程中，我们又能学习如何构建 Angular 应用。
-
-  Let’s break the hero details out into its own component.
-
-  我们来把英雄详情拆分成一个独立的组件。
-
-  ### Separating the Hero Detail Component
-
-  ### 拆分英雄详情组件
-
-  Add a new file named `hero-detail.component.ts` to the `app` folder and create `HeroDetailComponent` as follows.
-
-  在`app`目录下添加一个名叫`hero-detail.component.ts`的文件，并且创建`HeroDetailComponent`。代码如下：
-
-+makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'v1', 'src/app/hero-detail.component.ts (initial version)')(format=".")
-.l-sub-section
-  :marked
-    ### Naming conventions
-
-    ### 命名约定
-
-    We like to identify at a glance which classes are components and which files contain components.
-
-    我们希望一眼就能看出哪些类是组件，哪些文件包含组件。
-
-    Notice that  we have an `AppComponent` in a file named `app.component.ts` and our new
-    `HeroDetailComponent` is in a file named `hero-detail.component.ts`. 
-
-    你会注意到，在名叫`app.component.ts`的文件中有一个`AppComponent`组件，在名叫`hero-detail.component.ts`的文件中有一个`HeroDetailComponent`组件。
-
-    All of our component names end in "Component".  All of our component file names end in ".component".
-
-    我们的所有组件名都以`Component`结尾。所有组件的文件名都以`.component`结尾。
-
-    We spell our file names in lower **[dash case](../guide/glossary.html#dash-case)**
-    (AKA **[kebab-case](../guide/glossary.html#kebab-case)**) so we don't worry about
-    case sensitivity on the server or in source control.
-
-    这里我们使用小写**[中线命名法](../guide/glossary.html#dash-case)**
-    （也叫**[烤串命名法](../guide/glossary.html#kebab-case)**）拼写文件名，
-    所以不用担心它在服务器或者版本控制系统中出现大小写问题。
-
-    <!-- TODO
-    .l-sub-section
-      :marked
-        Learn more about naming conventions in the chapter [Naming Conventions]
-    :marked
-    -->
++makeExample('toh-3/ts/app/hero-detail.component.1.ts', 'v1', 'app/hero-detail.component.ts (initial version)')(format=".")
+a#selector
 :marked
-  We begin by importing the `Component` and `Input` decorators from Angular because we're going to need them soon.
+  To define a component, you always import the `Component` symbol.
 
-  我们先从 Angular 中导入`Component`和`Input`装饰器，因为马上就会用到它们。
+  The `@Component` decorator provides the Angular metadata for the component.
+  The CSS selector name, `hero-detail`, will match the element tag
+  that identifies this component within a parent component's template.
+  [Near the end of this tutorial page](#add-hero-detail "Add the HeroDetailComponent to the AppComponent"),
+  you'll add a `<hero-detail>` element to the `AppComponent` template.
 
-  We create metadata with the `@Component` decorator where we 
-  specify the selector name that identifies this component's element.
-  Then we export the class to make it available to other components.
-
-  我们使用`@Component`装饰器创建元数据。在元数据中，我们指定选择器的名字，用以标识此组件的元素。
-  然后，我们导出这个类，以便其它组件可以使用它。
-
-  When we finish here, we'll import it into `AppComponent` and create a corresponding `<my-hero-detail>`  element.
-
-  做完这些，我们把它导入`AppComponent`组件，并创建相应的`<my-hero-detail>`元素。
-
+  Always `export` the component class because you'll always `import` it elsewhere.
 :marked
-  #### Hero Detail Template
+  ### Hero detail template
+  To move the hero detail view to the `HeroDetailComponent`,
+  cut the hero detail _content_ from the bottom of the `AppComponent` template
+  and paste it into a new `template` property in the `@Component` metadata.
 
-  #### 英雄详情模板
-
-  At the moment, the *Heroes* and *Hero Detail* views are combined in one template in `AppComponent`.
-  Let’s **cut** the *Hero Detail* content from `AppComponent` and **paste** it into the new template property of  `HeroDetailComponent`.
-
-  此时，`AppComponent`的*英雄列表*和*英雄详情*视图被组合进同一个模板中。
-  让我们从`AppComponent`中**剪切**出*英雄详情*的内容，并且**粘贴**到`HeroDetailComponent`组件的`template`属性中。
-
-  We previously bound to the `selectedHero.name` property of the `AppComponent`.
-  Our `HeroDetailComponent` will have a `hero` property, not a `selectedHero` property.
-  So we replace `selectedHero` with `hero` everywhere in our new template. That's our only change.
-  The result looks like this:
-
-  之前我们绑定了`AppComponent`的`selectedHero.name`属性。
-  `HeroDetailComponent`组件将会有一个`hero`属性，而不是`selectedHero`属性。
-  所以，我们要把模板中的所有`selectedHero`替换为`hero`。只改这些就够了。
-  最终结果如下所示：
+  The `HeroDetailComponent` has a _hero_, not a _selected hero_.
+  Replace the word, "selectedHero", with the word, "hero", everywhere in the template.
+  When you're done, the new template should look like this:
 
 +makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'template', 'src/app/hero-detail.component.ts (template)')(format=".")
 
+
 :marked
-  Now our hero detail layout exists only in the `HeroDetailComponent`.
+  ### Add the *hero* property
 
-  现在，我们的英雄详情布局只存在于`HeroDetailComponent`组件中。
-
-  #### Add the *hero* property
-
-  #### 添加 *hero* 属性
-
-  Let’s add that `hero` property we were talking about to the component class.
-
-  把刚刚所说的`hero`属性添加到组件类。
-
-+makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero')
+  The `HeroDetailComponent` template binds to the component's `hero` property.
+  Add that property to the `HeroDetailComponent` class like this:
++makeExample('toh-3/ts/app/hero-detail.component.1.ts', 'hero', 'src/app/hero-detail.component.ts (hero property)')
 :marked
-  Uh oh. We declared the `hero` property as type `Hero` but our `Hero` class is over in the `app.component.ts` file. 
-  We have two components, each in their own file, that need to reference the `Hero` class. 
+  The `hero` property is typed as an instance of `Hero`.
+  The `Hero` class is still in the `app.component.ts` file.
+  Now there are two components that need to reference the `Hero` class.
+  The Angular [style guide](../guide/style-guide.html#rule-of-one "Style guide: rule of one") recommends one class per file anyway.
 
-  啊哦！我们声明`hero`属性是`Hero`类型，但是我们的`Hero`类还在`app.component.ts`文件中。
-  我们有了两个组件，它们位于各自的文件，并且都需要引用`Hero`类。
-
-  We solve the problem by relocating the `Hero` class from `app.component.ts` to its own `hero.ts` file.
-
-  要解决这个问题，我们从`app.component.ts`文件中把`Hero`类移到属于它自己的`hero.ts`文件中。
+  Move the `Hero` class from `app.component.ts` to its own `hero.ts` file.
 
 +makeExample('toh-3/ts/src/app/hero.ts', '', 'src/app/hero.ts')(format=".")
 
 :marked
-  We export the `Hero` class from `hero.ts` because we'll need to reference it in both component files. 
-  Add the following import statement near the top of **both `app.component.ts` and `hero-detail.component.ts`**.
-
-  我们从`hero.ts`中导出`Hero`类，因为我们要从两个组件文件中引用它。
-  在**`app.component.ts`和`hero-detail.component.ts`**的顶部添加下列 import 语句：
-
-+makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero-import')
+  Now that the `Hero` class is in its own file, the `AppComponent` and the `HeroDetailComponent` have to import it.
+  Add the following `import` statement near the top of _both_ the `app.component.ts` and the `hero-detail.component.ts` files.
+  
++makeExample('toh-3/ts/app/hero-detail.component.1.ts', 'hero-import')
 
 :marked
-  #### The *hero* property is an ***input***
+  ### The *hero* property is an *input* property
+  
+  ### *hero*属性是一个***输入***属性
 
-  #### *hero*属性是一个***输入***属性
+  [Later in this page](#add-hero-detail "Add the HeroDetailComponent to the AppComponent"),
+  the parent `AppComponent` will tell the child `HeroDetailComponent` which hero to display
+  by binding its `selectedHero` to the `hero` property of the `HeroDetailComponent`.
+  The binding will look like this:
+  
++makeExample('toh-3/ts/app/app.component.1.html', 'hero-detail-binding')(format='.')
+:marked
+  Putting square brackets around the `hero` property, to the left of the equal sign (=),
+  makes it the *target* of a property binding expression.
+  You must declare a *target* binding property to be an *input* property.
+  Otherwise, Angular rejects the binding and throws an error.
 
-  The `HeroDetailComponent` must be told what hero to display. Who will tell it? The parent `AppComponent`!
-
-  还得告诉`HeroDetailComponent`显示哪个英雄。谁告诉它呢？自然是父组件`AppComponent`了！
-
-  The `AppComponent` knows which hero to show: the hero that the user selected from the list.
-  The user's selection is in its `selectedHero` property.
-
-  `AppComponent`确实知道该显示哪个英雄：用户从列表中选中的那个。
-  用户选择的英雄在它的`selectedHero`属性中。
-
-  We will soon update the `AppComponent` template so that it binds its `selectedHero` property
-  to the `hero` property of our `HeroDetailComponent`. The binding *might* look like this:
-
-  我们马上升级`AppComponent`的模板，把该组件的`selectedHero`属性绑定到`HeroDetailComponent`组件的`hero`属性上。
-  绑定看起来*可能*是这样的：
-
-code-example(language="html").
-  &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
+  First, amend the `@angular/core` import statement to include the `Input` symbol.
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'import-input', 'src/app/hero-detail.component.ts (excerpt)')(format='.')
 
 :marked
-  Notice that the `hero` property is the ***target*** of a property binding &mdash; it's in square brackets to the left of the (=).
+  Then declare that `hero` is an *input* property by
+  preceding it with the `@Input` decorator that you imported earlier.
 
-  注意，`hero`是属性绑定的***目标*** &mdash; 它位于等号 (=) 左边方括号中。
-
-  Angular insists that we declare a ***target*** property to be an ***input*** property.
-  If we don't, Angular rejects the binding and throws an error.
-
-  Angular 希望我们把***目标属性***声明为组件的***输入属性***，否则，Angular 会拒绝绑定，并抛出错误。
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero', 'src/app/hero-detail.component.ts (excerpt)')(format='.')
 
 .l-sub-section
   :marked
-    We explain input properties in more detail [here](../guide/attribute-directives.html#why-input) 
-    where we also explain why *target* properties require this special treatment and 
-    *source* properties do not.
-
-    我们在[这里](../guide/attribute-directives.html#why-input)详细解释了输入属性，以及为什么*目标属性*需要这样的特殊待遇，而*源属性*却不需要。
+    Read more about _input_ properties in the
+    [Attribute Directives](../guide/attribute-directives.html#why-input) page.
 
 :marked
-  There are a couple of ways we can declare that `hero` is an *input*. 
-  We'll do it the way we *prefer*, by annotating the `hero` property with the `@Input` decorator that we imported earlier.
+  That's it. The `hero` property is the only thing in the `HeroDetailComponent` class.
+  
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'class')(format='.')
 
-  我们有几种方式把`hero`声明成*输入属性*。
-  这里我们采用*首选*的方式：使用我们前面导入的`@Input`装饰器向`hero`属性添加注解。
+:marked
+  All it does is receive a hero object through its `hero` input property and then bind to that property with its template.
 
-+makeExample('toh-3/ts/src/app/hero-detail.component.ts', 'hero-input')(format='.')
-.l-sub-section
-  :marked
-    Learn more about the `@Input()` decorator in the 
-    [Attribute Directives](../guide/attribute-directives.html#input) chapter.
-
-    更多`@Input()`装饰器的信息，见[属性型指令](../guide/attribute-directives.html#input)。
+  Here's the complete `HeroDetailComponent`.
++makeExample('toh-3/ts/src/app/hero-detail.component.ts', '', 'src/app/hero-detail.component.ts')
 
 .l-main-section
 :marked
-  ## Refresh the AppModule
+  ## Declare _HeroDetailComponent_ in the _AppModule_
+  Every component must be declared in one&mdash;and only one&mdash;Angular module.
 
-  ## 更新 AppModule
-
-  We return to the `AppModule`, the application's root module, and teach it to use the `HeroDetailComponent`.
-
-  回到应用的根模块`AppModule`，让它使用`HeroDetailComponent`组件。
-
-  We begin by importing the `HeroDetailComponent` so we can refer to it.
-
-  我们先导入`HeroDetailComponent`组件，后面好引用它。
-
-+makeExample('toh-3/ts/src/app/app.module.ts', 'hero-detail-import')
+  Open `app.module.ts` in your editor and import the `HeroDetailComponent` so you can refer to it.
++makeExample('toh-3/ts/src/app/app.module.ts', 'hero-detail-import', 'src/app/app.module.ts')
 
 :marked
-  Then we add `HeroDetailComponent` to the `NgModule` decorator's `declarations` array.
-  This array contains the list of all components, pipes, and directives that we created
-  and that belong in our application's module.
+  Add `HeroDetailComponent` to the module's `declarations` array.
 
-  接下来，添加`HeroDetailComponent`到`NgModule`装饰器中的`declarations`数组。
-  这个数组包含了所有由我们创建的并属于应用模块的组件、管道和指令。
++makeExample('toh-3/ts/src/app/app.module.ts', 'declarations', 'src/app/app.module.ts')(format='.')
+:marked
+  In general, the `declarations` array contains a list of application components, pipes, and directives that belong to the module.
+  A component must be declared in a module before other components can reference it.
+  This module declares only the two application components, `AppComponent` and `HeroDetailComponent`.
+.l-sub-section
+  :marked
+    Read more about Angular modules in the [NgModules](../guide/ngmodule.html "Angular Modules (NgModule)") guide.
 
-+makeExample('toh-3/ts/src/app/app.module.ts', 'declarations')
+a#add-hero-detail
+.l-main-section
+:marked
+  ## Add the _HeroDetailComponent_ to the _AppComponent_
+  
+:marked
+  The `AppComponent` is still a master/detail view.
+  It used to display the hero details on its own, before you cut out that portion of the template.
+  Now it will delegate to the `HeroDetailComponent`.
+
+
+  Recall that `hero-detail` is the CSS [`selector`](#selector "HeroDetailComponent selector")
+  in the `HeroDetailComponent` metadata.
+  That's the tag name of the element that represents the `HeroDetailComponent`.
+
+  Add a `<hero-detail>` element near the bottom of the `AppComponent` template,
+  where the hero detail view used to be.
+
+  Coordinate the master `AppComponent` with the `HeroDetailComponent`
+  by binding the `selectedHero` property of the `AppComponent`
+  to the `hero` property of the `HeroDetailComponent`.
++makeExample('toh-3/ts/app/app.component.1.html', 'hero-detail-binding', 'app.component.ts (excerpt)')(format='.')
+:marked
+ Now every time the `selectedHero` changes, the `HeroDetailComponent` gets a new hero to display.
+
+ The revised `AppComponent` template should look like this:
+
++makeExample('toh-3/ts/src/app/app.component.ts', 'hero-detail-template', 'app.component.ts (excerpt)')(format='.')
 
 .l-main-section
 :marked
-  ## Refresh the AppComponent
+  ## What changed?
+  As [before](./toh-pt2.html), whenever a user clicks on a hero name,
+  the hero detail appears below the hero list.
+  But now the `HeroDetailView` is presenting those details.
 
-  ## 更新 AppComponent
-:marked
-  Now that the application knows about our `HeroDetailComponent`, 
-  find the location in the `AppComponent` template where we removed the *Hero Detail* content
-  and add an element tag that represents the `HeroDetailComponent`.
+  Refactoring the original `AppComponent` into two components yields benefits, both now and in the future:
 
-  现在，应用知道了我们的`HeroDetailComponent`，
-  找到我们刚刚从模板中移除*英雄详情*的地方，
-  放上用来表示`HeroDetailComponent`组件的元素标签。
+  1. You simplified the `AppComponent` by reducing its responsibilities.
 
-code-example(language="html").
-  &lt;my-hero-detail>&lt;/my-hero-detail>
+  1. You can evolve the `HeroDetailComponent` into a rich hero editor
+  without touching the parent `AppComponent`.
 
-.l-sub-section
-  :marked
-    *my-hero-detail* is the name we set as the  `selector` in the `HeroDetailComponent` metadata.
+  1. You can evolve the `AppComponent` without touching the hero detail view.
 
-    *my-hero-detail* 是我们在`HeroDetailComponent`元数据中的`selector`属性所指定的名字。
+  1. You can re-use the `HeroDetailComponent` in the template of some future parent component.
 
-:marked
- The two components won't coordinate until we bind the `selectedHero` property of the `AppComponent` 
- to the `HeroDetailComponent` element's `hero` property  like this:
-
- 这两个组件目前还不能协同工作，直到我们把`AppComponent`组件的`selectedHero`
- 属性和`HeroDetailComponent`组件的`hero`属性绑定在一起，就像这样：
-code-example(language="html").
-  &lt;my-hero-detail [hero]="selectedHero">&lt;/my-hero-detail>
-:marked
-  The `AppComponent`’s template should now look like this
-
-  `AppComponent`的模板是这样的：
-
-+makeExample('toh-3/ts/src/app/app.component.ts', 'hero-detail-template', 'app.component.ts (template)')(format='.')
-:marked
-  Thanks to the binding, the `HeroDetailComponent` should receive the hero from the `AppComponent` and display that hero's detail beneath the list.
-  The detail should update every time the user picks a new hero.
-
-  感谢数据绑定机制，`HeroDetailComponent`应该能接收来自`AppComponent`的英雄数据，并在列表下方显示英雄的详情。
-  每当用户选中一个新的英雄时，详情信息应该随之更新。
-
-:marked
-  ### It works!
-
-  ### 搞定！
-
-  When we view our app in the browser we see the list of heroes.
-  When we select a hero we can see the selected hero’s details. 
-
-  当在浏览器中查看应用时，可以看到英雄列表。
-  当选中一个英雄时，可以看到所选英雄的详情。
-
-  What's fundamentally new is that we can use this `HeroDetailComponent`
-  to show hero details anywhere in the app.
-
-  值得关注的进步是：我们可以在应用中的任何地方使用这个`HeroDetailComponent`组件来显示英雄详情。
-
-  We’ve created our first reusable component!
-
-  我们创建了第一个可复用组件！
-
-  ### Reviewing the App Structure
-
-  ### 回顾应用结构
-
-  Let’s verify that we have the following structure after all of our good refactoring in this chapter:
-
-  来验证下吧，在本章中，经过这些漂亮的重构，我们应该得到下列结构：
+  ### Review the app structure
+  Verify that you have the following structure:
 
 .filetree
   .file angular-tour-of-heroes
@@ -374,8 +254,9 @@ code-example(language="html").
       .file tsconfig.json
     .file node_modules ...
     .file package.json
+
 :marked
-  Here are the code files we discussed in this chapter.
+  Here are the code files discussed in this page.
 
   下面是我们在本章讨论的代码文件：
 
@@ -393,55 +274,51 @@ code-example(language="html").
 
 .l-main-section
 :marked
-  ## The Road We’ve Travelled
-
+  ## The road you’ve travelled
+  
   ## 走过的路
-
-  Let’s take stock of what we’ve built.
+  
+  Here's what you achieved in this page:
 
   来盘点一下我们已经构建了什么。
 
-  * We created a reusable component
+  * You created a reusable component.
 
     我们创建了一个可复用组件
 
-  * We learned how to make a component accept input
+  * You learned how to make a component accept input.
 
     我们学会了如何让一个组件接收输入
 
-  * We learned to declare the application directives we need in an Angular module. We
-  list the directives in the `NgModule` decorator's `declarations` array.
+  * You learned to declare the required application directives in an Angular module. You
+  listed the directives in the `NgModule` decorator's `declarations` array.
 
     我们学会了在 Angular 模块中声明该应用所需的指令。
   只要把这些指令列在`NgModule`装饰器的`declarations`数组中就可以了。
 
-  * We learned to bind a parent component to a child component.
+  * You learned to bind a parent component to a child component.
+  
+  我们学会了把父组件绑定到子组件。
 
-    我们学会了把父组件绑定到子组件。
+  Your app should look like this <live-example></live-example>.
 
-  Run the <live-example></live-example> for this part.
-
-  运行这部分的<live-example>在线例子</live-example>。
+  现在，应用应该变成了这样：<live-example>在线例子</live-example>。
 
 .l-main-section
 :marked
-  ## The Road Ahead
-
+  ## The road ahead
+  
   ## 前方的路
+  
+  The Tour of Heroes app is more reusable with shared components,
+  but its (mock) data is still hard coded within the `AppComponent`.
+  That's not sustainable.
+  Data access should be refactored to a separate service
+  and shared among the components that need data.
+  
+  通过抽取共享组件，我们的《英雄指南》变得更有复用性了，但在`AppComponent`中，我们仍然使用着硬编码的模拟数据。显然，这种方式不能“可持续发展”。
+    我们要把数据访问逻辑重构到一个独立的服务中，并在需要数据的组件之间共享。
 
-  Our Tour of Heroes has become more reusable with shared components.
-
-  通过抽取共享组件，我们的《英雄指南》变得更有复用性了。
-
-  We're still getting our (mock) data within the `AppComponent`.
-  That's not sustainable. 
-  We should refactor data access to a separate service
-  and share it among the components that need data. 
-
-  在`AppComponent`中，我们仍然使用着模拟数据。
-  显然，这种方式不能“可持续发展”。
-  我们要把数据访问逻辑抽取到一个独立的服务中，并在需要数据的组件之间共享。
-
-  We’ll learn to create services in the [next tutorial](toh-pt4.html) chapter.
+  You’ll learn to create services in the [next tutorial](toh-pt4.html) page.
 
   在[下一步](toh-pt4.html)，我们将学习如何创建服务。

@@ -8,7 +8,6 @@ import { Hero }                   from '../shared/hero';
 import { forbiddenNameValidator } from '../shared/forbidden-name.directive';
 
 @Component({
-  moduleId:  module.id,
   selector: 'hero-form-reactive3',
   templateUrl: './hero-form-reactive.component.html'
 })
@@ -33,7 +32,7 @@ export class HeroFormReactiveComponent implements OnInit {
   // to be removed/re-added in a tick via NgIf
   // TODO: Workaround until NgForm has a reset method (#6822)
   active = true;
-// #docregion
+// #docregion class
   // #docregion add-hero
   addHero() {
     this.hero = new Hero(42, '', '');

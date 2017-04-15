@@ -2,7 +2,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'my-app',
   templateUrl: './app.component.html'
 })
@@ -10,5 +9,3 @@ import { Component } from '@angular/core';
 export class AppComponent {
   color: string;
 }
-// #enddocregion class
-// #enddocregion

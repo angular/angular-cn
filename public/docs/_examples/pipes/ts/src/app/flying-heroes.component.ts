@@ -5,7 +5,6 @@ import { Component }              from '@angular/core';
 import { HEROES }                 from './heroes';
 
 @Component({
-  moduleId: module.id,
   selector: 'flying-heroes',
   templateUrl: './flying-heroes.component.html',
   styles: ['#flyers, #all {font-style: italic}']
@@ -50,7 +49,6 @@ export class FlyingHeroesComponent {
 ////// Identical except for impure pipe //////
 // #docregion impure-component
 @Component({
-  moduleId: module.id,
   selector: 'flying-heroes-impure',
   templateUrl: './flying-heroes-impure.component.html',
 // #enddocregion impure-component
@@ -60,4 +58,4 @@ export class FlyingHeroesComponent {
 export class FlyingHeroesImpureComponent extends FlyingHeroesComponent {
   title = 'Flying Heroes (impure pipe)';
 }
-// #docregion impure-component
+// #enddocregion impure-component

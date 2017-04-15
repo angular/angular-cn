@@ -7,27 +7,27 @@
   },
   "toh-pt1": {
     "title": "英雄编辑器",
-    "intro": "我们构建一个简单的英雄编辑器",
+    "intro": "构建一个简单的英雄编辑器",
     "nextable": true
   },
   "toh-pt2": {
     "title": "主从结构",
-    "intro": "我们构建一个主从结构的页面，用于展现英雄列表",
+    "intro": "构建一个主从结构的页面，用于展现英雄列表",
     "nextable": true
   },
   "toh-pt3": {
     "title": "多个组件",
-    "intro": "我们把主从结构的页面重构成多个组件",
+    "intro": "把主从结构的页面重构成多个组件",
     "nextable": true
   },
   "toh-pt4": {
     "title": "服务",
-    "intro": "我们创建一个可复用的服务来调用英雄的数据",
+    "intro": "创建一个可复用的服务来调用英雄的数据",
     "nextable": true
   },
   "toh-pt5": {
     "title": "路由",
-    "intro": "我们添加 Angular 路由，并且学习在视图之间导航",
+    "intro": "添加 Angular 组件路由，并且学习在视图之间导航",
     "nextable": true
   },
   "toh-pt6": {

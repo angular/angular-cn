@@ -1,26 +1,26 @@
 include _util-fns
-  
+
 :marked
   Good tools make application development quicker and easier to maintain than
   if you did everything by hand.
   
   好的工具能让开发更加简单快捷。
   
-  The [**Angular-CLI**](https://cli.angular.io/) is a **_command line interface_** tool
-  that can create a project, add files, and perform a variety of on-going development tasks such 
+  The [**AngularCLI**](https://cli.angular.io/) is a **_command line interface_** tool
+  that can create a project, add files, and perform a variety of ongoing development tasks such 
   as testing, bundling, and deployment.
   
   [**Angular-CLI**](https://cli.angular.io/)是一个**命令行界面**工具，它可以创建项目、添加文件以及执行一大堆开发任务，比如测试、打包和发布。
   
-  Our goal in this CLI QuickStart chapter is to build and run a super-simple Angular 
-  application in TypeScript, using Angular-CLI 
+  The goal in this guide is to build and run a simple Angular 
+  application in TypeScript, using theAngularCLI 
   while adhering to the [Style Guide](./guide/style-guide.html) recommendations that
   benefit _every_ Angular project.
   
   在这一章CLI快速起步中，我们的目标是构建并运行一个超级简单的Angular应用。我们会使用Angular-CLI来让每个Angular应用从[风格指南](./guide/style-guide.html)中获益。
   
   By the end of the chapter, you'll have a basic understanding of development with the CLI
-  and a foundation for both these documentation samples and our real world applications.
+  and a foundation for both these documentation samples and for real world applications.
   
   在本章的末尾，我们会通过CLI对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
@@ -28,22 +28,23 @@ include _util-fns
   
   我们通过下列三大步来达到目的：
   
-  1. [Set up](#devenv) the development environment
+  1. [Set up](#devenv) the development environment.
   
-      [设置](#devenv)开发环境
+      [设置](#devenv)开发环境。
   
-  2. [Create](#create-proj) a new project and skeleton application
+  2. [Create](#create-proj) a new project and skeleton application.
   
-      [创建](#create-proj)新项目以及应用的骨架
+      [创建](#create-proj)新项目以及应用的骨架。
   
-  3. [Serve](#serve) the application
+  3. [Serve](#serve) the application.
   
-      启动[开发服务器](#serve)
+      启动[开发服务器](#serve)。
   
-  4. [Edit](#first-component) the application
+  4. [Edit](#first-component) the application.
   
-      [编辑](#first-component)该应用
+      [编辑](#first-component)该应用。
 
+  And you can also <a href="/resources/zips/cli-quickstart/cli-quickstart.zip">download the example.</a>
 
 .l-main-section
 h2#devenv 
@@ -51,10 +52,8 @@ h2#devenv
     p 步骤1. 设置开发环境
 
 :marked
-  You need to set up our development environment before you can do anything.
-  
-  在开始工作之前，我们必须设置好开发环境。
-   
+  You need to set up your development environment before you can do anything.
+   在开始工作之前，我们必须设置好开发环境。
   Install **[Node.js® and npm](https://nodejs.org/en/download/)**
   if they are not already on your machine.
   
@@ -62,7 +61,7 @@ h2#devenv
   
 .l-sub-section
   :marked
-    **Verify that you are running at least node `4.x.x` and npm `3.x.x`**
+    **Verify that you are running at least node `6.9.x` and npm `3.x.x`**
     by running `node -v` and `npm -v` in a terminal/console window.
     Older versions produce errors, but newer versions are fine.
     
@@ -71,13 +70,10 @@ h2#devenv
     更老的版本可能会出现错误，更新的版本则没问题。
     
 :marked
-  Then **install the [Angular-CLI](https://github.com/angular/angular-cli)** globally.
-  
+  Then **install the [AngularCLI](https://github.com/angular/angular-cli)** globally.
   然后全局安装 **[Angular-CLI](https://github.com/angular/angular-cli)** 。
-  
 code-example(language="sh" class="code-shell").
   npm install -g @angular/cli
-  
 .l-main-section
 h2#create-proj 
   p Step 2. Create a new project
@@ -98,7 +94,7 @@ code-example(language="sh" class="code-shell").
 
 .l-sub-section
   :marked
-    Patience please. 
+    Patience please.
     It takes time to set up a new project, most of it spent installing npm packages.
     
     请耐心等待。
@@ -116,28 +112,32 @@ h2#serve
 
 code-example(language="sh" class="code-shell").
   cd my-app
-  ng serve
-  
+  ng serve --open
+
 :marked
-  The `ng serve` command launches the server, watches our files, 
-  and rebuilds the app as you make changes to the files.
+  The `ng serve` command launches the server, watches your files,
+  and rebuilds the app as you make changes to those files.
   
   `ng serve`命令会启动开发服务器，监听文件变化，并在修改这些文件时重新构建此应用。
+
+  Using the `--open` (or just `-o`) option will automatically open your browser
+  on `http://localhost:4200/`.
   
-  Open a browser on `http://localhost:4200/`; the app greets us with a message:
+  使用`--open`（或`-o`）参数可以自动打开浏览器并访问`http://localhost:4200/`。
+
+  Your app greets you with a message:
   
-  在浏览器中打开`http://localhost:4200/`，该应用会给我们显示一条信息：
-  
+  本应用会用一条消息来跟你打招呼：
+
 figure.image-display
-  img(src='/resources/images/devguide/cli-quickstart/app-works.png' alt="Our app works!")
+  img(src='/resources/images/devguide/cli-quickstart/app-works.png' alt="The app works!")
 
 .l-main-section
 h2#first-component 
-  p Step 4: Edit our first Angular component
+  p Step 4: Edit your first Angular component
   p 步骤4. 编辑我们的第一个Angular组件
-
 :marked
-  The CLI created our first Angular component for us. 
+  The CLI created the first Angular component for you.
   This is the _root component_ and it is named `app-root`.
   You can find it in `./src/app/app.component.ts`.
   
@@ -147,25 +147,23 @@ h2#first-component
 
 :marked
   Open the component file and change the `title` property from _app works!_ to _My First Angular App_:
-  
   打开这个组件文件，并且把`title`属性从 _app works!_ 改为 _My First Angular App_ ：
-  
 +makeExample('cli-quickstart/ts/src/app/app.component.ts', 'title', 'src/app/app.component.ts')(format=".")
 
 :marked
-  The browser reloads automatically and we see the revised title. That's nice, but we can make it look better.
+  The browser reloads automatically with the revised title. That's nice, but it could look better.
   
-  浏览器会自动刷新，而我们会看到修改之后的标题。不错，不过我们还要把它再打扮得好看点。
+  浏览器会自动刷新，而我们会看到修改之后的标题。不错，不过它还可以更好看一点。
   
-  Open `src/app/cli-quickstart.component.css` and give our component some style 
-  
-  打开 `src/app/cli-quickstart.component.css` 并给这个组件设置一些样式
+  Open `src/app/app.component.css` and give the component some style.
+
+  打开 `src/app/app.component.css` 并给这个组件设置一些样式
 
 +makeExample('cli-quickstart/ts/src/app/app.component.css', null, 'src/app/app.component.css')(format=".")
 
 figure.image-display
-  img(src='/resources/images/devguide/cli-quickstart/my-first-app.png' alt="Output of QuickStart app")  
-  
+  img(src='/resources/images/devguide/cli-quickstart/my-first-app.png' alt="Output of QuickStart app")
+
 :marked
   Looking good!
   
@@ -196,14 +194,14 @@ figure.image-display
   
   ## 项目文件概览
 
-  An Angular-CLI project is the foundation for both quick experiments and enterprise solutions.
+  An Angular CLI project is the foundation for both quick experiments and enterprise solutions.
   
   Angular-CLI项目是做快速试验和开发企业解决方案的基础。
 
   The first file you should check out is `README.md`.
   It has some basic information on how to use CLI commands.
-  Whenever you want to know more about how Angular-CLI works make sure to visit 
-  [the Angular-CLI repository](https://github.com/angular/angular-cli) and 
+  Whenever you want to know more about how Angular CLI works make sure to visit
+  [the Angular CLI repository](https://github.com/angular/angular-cli) and
   [Wiki](https://github.com/angular/angular-cli/wiki).
   
   你首先要看的文件是`README.md`。
@@ -211,9 +209,7 @@ figure.image-display
   如果你想了解 Angular-CLI 的工作原理，请访问 [Angular-CLI 的仓库](https://github.com/angular/angular-cli)及其 
     [Wiki](https://github.com/angular/angular-cli/wiki)。
 
-  Some of the generated files might be unfamiliar to you. 
-  
-  有些生成的文件你可能觉得陌生。接下来我们就讲讲它们。
+  Some of the generated files might be unfamiliar to you. 有些生成的文件你可能觉得陌生。接下来我们就讲讲它们。
 
 block src-files
   :marked
@@ -222,7 +218,7 @@ block src-files
     ### `src`文件夹
     
     Your app lives in the `src` folder.
-    All Angular components, templates, styles, images and anything else your app needs go here.
+    All Angular components, templates, styles, images, and anything else your app needs go here.
     Any files outside of this folder are meant to support building your app.
     
     你的应用代码位于`src`文件夹中。
@@ -252,7 +248,8 @@ block src-files
     .file polyfills.ts
     .file styles.css
     .file test.ts
-    .file tsconfig.json
+    .file tsconfig.app.json
+    .file tsconfig.spec.json
 
 style td, th {vertical-align: top}
 table(width="100%")
@@ -269,13 +266,10 @@ table(width="100%")
     td <code>app/app.component.{ts,html,css,spec.ts}</code>
     td
       :marked
-        Defines the `AppComponent` along with an HTML template, CSS stylesheet and a unit test.
+        Defines the `AppComponent` along with an HTML template, CSS stylesheet, and a unit test.
         It is the **root** component of what will become a tree of nested components
-        as the application evolves. 
-        
-        使用HTML模板、CSS样式和单元测试定义`AppComponent`组件。
+        as the application evolves. 使用HTML模板、CSS样式和单元测试定义`AppComponent`组件。
         它是**根**组件，随着应用的成长它会成为一棵组件树的根节点。
-        
   tr
     td <code>app/app.module.ts</code>
     td
@@ -283,17 +277,14 @@ table(width="100%")
         Defines `AppModule`, the [root module](guide/appmodule.html "AppModule: the root module") 
         that tells Angular how to assemble the application.
         Right now it declares only the `AppComponent`. 
-        Soon there will be more components to declare. 
-        
-        定义`AppModule`，这个[根模块](guide/appmodule.html "AppModule: 根模块")会告诉Angular如何组装该应用。
+        Soon there will be more components to declare. 定义`AppModule`，这个[根模块](guide/appmodule.html "AppModule: 根模块")会告诉Angular如何组装该应用。
         目前，它只声明了`AppComponent`。
         稍后它还会声明更多组件。
-        
   tr
     td <code>assets/*</code>
     td
       :marked
-        A folder where you can put images and anything else you need to be copied wholesale 
+        A folder where you can put images and anything else to be copied wholesale
         when you build your application.
         
         这个文件夹下你可以放图片等任何东西，在构建应用时，它们全都会拷贝到发布包中。
@@ -302,11 +293,11 @@ table(width="100%")
     td
       :marked
         This folder contains one file for each of your destination environments,
-        each exporting simple configuration variables to use on your application.
-        The files will be replaced on-the-fly when you build your app.
-        You might use a different API endpoint for development than you do for production.
-        Or maybe different analytics tokens.
-        Maybe even some mock services.
+        each exporting simple configuration variables to use in your application.
+        The files are replaced on-the-fly when you build your app.
+        You might use a different API endpoint for development than you do for production
+        or maybe different analytics tokens.
+        You might even use some mock services.
         Either way, the CLI has you covered.
         
         这个文件夹中包括为各个目标环境准备的文件，它们导出了一些应用中要用到的配置变量。
@@ -328,10 +319,10 @@ table(width="100%")
     td <code>index.html</code>
     td
       :marked
-        The main html page that is served when someone visits your site.
+        The main HTML page that is served when someone visits your site.
         Most of the time you'll never need to edit it.
-        The CLI will automatically add all `js` and `css` files when building your app so you 
-        never need to add any `<script>` or `<link>` tags here manually.
+        The CLI automatically adds all `js` and `css` files when building your app so you
+        never need to add any `&lt;script&gt;` or `&lt;link&gt;` tags here manually.
         
         这是别人访问你的网站是看到的主页面的HTML文件。
         大多数情况下你都不用编辑它。
@@ -342,10 +333,9 @@ table(width="100%")
       :marked
         The main entry point for your app.
         Compiles the application with the [JIT compiler](glossary.html#jit)
-        and [bootstraps](guide/appmodule.html#main "bootstrap the application") 
-        the application to run in the browser.
+        and bootstraps the application's root module (`AppModule`) to run in the browser.
         You can also use the [AOT compiler](glossary.html#ahead-of-time-aot-compilation)
-        without changing any code by passing on `--aot` to `ng build` or `ng serve`.
+        without changing any code by passing in `--aot` to `ng build` or `ng serve`.
         
         这是应用的主要入口点。
         使用[JIT compiler](glossary.html#jit)编译器编译本应用，并[启动](guide/appmodule.html#main "启动应用")，使其运行在浏览器中。
@@ -368,7 +358,7 @@ table(width="100%")
     td <code>styles.css</code>
     td
       :marked
-        Your global styles go here. 
+        Your global styles go here.
         Most of the time you'll want to have local styles in your components for easier maintenance,
         but styles that affect all of your app need to be in a central place.
         
@@ -387,10 +377,11 @@ table(width="100%")
         它有一些你不熟悉的自定义配置，不过你并不需要编辑这里的任何东西。
         
   tr
-    td <code>tsconfig.json</code>
+    td <code>tsconfig.{app|spec}.json</code>
     td
       :marked
-        Configuration for the TypeScript compiler.
+        TypeScript compiler configuration for the Angular app (`tsconfig.app.json`)
+        and for the unit tests (`tsconfig.spec.json`).
         
         TypeScript编译器的配置文件。
 
@@ -401,8 +392,8 @@ block root-files
     
     ### 根目录
     
-    The `src/` folder is just one of the items inside the project's root folder. 
-    Other files help you build, test, maintain, document, and deploy the app. 
+    The `src/` folder is just one of the items inside the project's root folder.
+    Other files help you build, test, maintain, document, and deploy the app.
     These files go in the root folder next to `src/`.
     
     `src/`文件夹是项目的根文件夹之一。
@@ -416,17 +407,18 @@ block root-files
     .children
       .file app.e2e-spec.ts
       .file app.po.ts
-      .file tsconfig.json
+      .file tsconfig.e2e.json
     .file node_modules/...
     .file src/...
+    .file .angular-cli.json
     .file .editorconfig
     .file .gitignore
-    .file angular-cli.json
     .file karma.conf.js
     .file package.json
     .file protractor.conf.js
     .file README.md
-    .file tslint.json        
+    .file tsconfig.json
+    .file tslint.json
 
 style td, th {vertical-align: top}
 table(width="100%")
@@ -440,26 +432,34 @@ table(width="100%")
       p Purpose
       p 用途
   tr
-    td <code>e2e/*</code>
+    td <code>e2e/</code>
     td
       :marked
-        Inside `e2e/` live the End-to-End tests. 
+        Inside `e2e/` live the End-to-End tests.
         They shouldn't be inside `src/` because e2e tests are really a separate app that
-        just so happens to test your main app. 
-        That's why it they even have their own `tsconfig.json`.
+        just so happens to test your main app.
+        That's also why they have their own `tsconfig.e2e.json`.
         
         在`e2e/`下是端到端（End-to-End）测试。
         它们不在`src/`下，是因为端到端测试实际上和应用是相互独立的，它只适用于测试你的应用而已。
         这也就是为什么它会拥有自己的`tsconfig.json`。
         
   tr
-    td <code>node_modules/...</code>
+    td <code>node_modules/</code>
     td
       :marked
-        `Node.js` creates this folder and puts all third party modules listed in 
+        `Node.js` creates this folder and puts all third party modules listed in
         `package.json` inside of it.
         
         `Node.js`创建了这个文件夹，并且把`package.json`中列举的所有第三方模块都放在其中。
+  tr
+    td <code>.angular-cli.json</code>
+    td
+      :marked
+        Configuration for Angular CLI.
+        In this file you can set several defaults and also configure what files are included
+        when your project is build.
+        Check out the official documentation if you want to know more.
   tr
     td <code>.editorconfig</code>
     td
@@ -479,19 +479,6 @@ table(width="100%")
         Git configuration to make sure autogenerated files are not commited to source control.
         
         一个Git的配置文件，用来确保某些自动生成的文件不会被提交到源码控制系统中。
-  tr
-    td <code>angular-cli.json</code>
-    td
-      :marked
-        Configuration for Angular-CLI.
-        In this file you can set several defaults and also configure what files are included
-        when your project is build.
-        Check out the official documentation if you want to know more.
-        
-        Angular-CLI的配置。
-        在这个文件中，你可以设置一系列默认值，还能配置当构件项目时应该排除哪些文件。
-        要了解更多，请参阅Angular-CLI的官方文档。
-        
   tr
     td <code>karma.conf.js</code>
     td
@@ -531,25 +518,28 @@ table(width="100%")
         别忘了用项目文档改进它，以便每个查看此仓库的人都能据此构建出你的应用。
         
   tr
+    td <code>tsconfig.json</code>
+    td
+      :marked
+        TypeScript compiler configuration for your IDE to pick up and give you helpful tooling.
+  tr
     td <code>tslint.json</code>
     td
       :marked
         Linting configuration for [TSLint](https://palantir.github.io/tslint/) together with
         [Codelyzer](http://codelyzer.com/), used when running `ng lint`.
         Linting helps keep your code style consistent.
-        
         给[TSLint](https://palantir.github.io/tslint/)和[Codelyzer](http://codelyzer.com/)用的配置信息，当运行`ng lint`时会用到。
         Lint功能可以帮你保持代码风格的统一。
-        
 .l-sub-section
   :marked
     ### Next Step
     
     ### 下一步
 
-    If you're new to Angular, we recommend staying on the 
-    [learning path](guide/learning-angular.html "Angular learning path").        
-    You can skip the "Setup" chapter since you're already using the Angular-CLI setup.
+    If you're new to Angular, continue on the
+    [learning path](guide/learning-angular.html "Angular learning path").
+    You can skip the "Setup" step since you're already using the Angular CLI setup.
 
     如果你刚刚开始使用Angular，我们建议你遵循这个[学习路径](guide/learning-angular.html "Angular 学习路径")。
     你可以跳过“环境设置”一章，因为你已经在使用 Angular-CLI 设置好环境了。

@@ -6,16 +6,15 @@ import { Villain, VillainsService } from './villains.service';
 
 // #docregion metadata
 @Component({
-  moduleId: module.id,
   selector: 'villains-list',
   templateUrl: './villains-list.component.html',
   providers: [ VillainsService ]
 })
 // #enddocregion metadata
 export class VillainsListComponent {
-  villaines: Observable<Villain[]>;
+  villains: Observable<Villain[]>;
 
-  constructor(private villainesService: VillainsService) {
-    this.villaines = villainesService.getVillains();
+  constructor(private villainsService: VillainsService) {
+    this.villains = villainsService.getVillains();
   }
 }

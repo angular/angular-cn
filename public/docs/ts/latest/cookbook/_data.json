@@ -16,11 +16,6 @@
     "intro": "学习如何把 AngularJS 中的概念和技术对应到 Angular 中"
   },
 
-  "ngmodule-faq": {
-    "title": "Angular 模块常见问题",
-    "intro": "对 @NgModule 常见问题的解答"
-  },
-
   "component-communication": {
     "title": "组件通讯",
     "intro": "在不同的指令和组件之间共享信息"
@@ -38,7 +33,7 @@
 
   "dynamic-component-loader": {
     "title": "Dynamic Component Loader",
-    "intro": "Load components dynamically"
+    "intro": "Load components dynamically."
   },
 
   "dynamic-form": {
@@ -56,6 +51,11 @@
     "intro": "把应用的模板文本翻译成多种语言。"
   },
 
+  "ngmodule-faq": {
+    "title": "NgModule FAQs",
+    "intro": "Answers to frequently asked questions about @NgModule."
+  },
+
   "set-document-title": {
     "title": "设置文档标题",
     "intro": "使用 Title 服务来设置文档标题或窗口标题"
@@ -63,7 +63,7 @@
 
   "ts-to-js": {
     "title": "从 TypeScript 到 JavaScript",
-    "intro": "把 Angular 的 TypeScript 范例转换为 ES6 和 ES5 JavaScript"
+    "intro": "把 Angular 的 TypeScript 范例转换为 ES6 和 ES5 JavaScript."
   },
 
   "visual-studio-2015": {

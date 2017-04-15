@@ -16,30 +16,28 @@ a(id="top")
   **可到<live-example name="cb-ajs-quick-reference">在线例子</live-example>中查看Angular语法**。
 
   ## Contents
-
-  ## 内容
-
-  This page covers:
-
-  本页内容覆盖了：
-
+  
+     内容
+  
   * [Template basics](#template-basics) - binding and local variables.
 
     [模板基础](#template-basics) - 绑定变量与局部变量。
 
-  * [Template directives](#template-directives) - built-in directives `ngIf` and `ngClass`.
+  * [Template basics](#template-basics)&mdash;binding and local variables.
 
     [模板指令](#template-directives) - 内置指令`ngIf`和`ngClass`。
 
-  * [Filters/pipes](#filters-pipes) - built-in *filters*, known as *pipes* in Angular.
+  * [Template directives](#template-directives)&mdash;built-in directives `ngIf` and `ngClass`.
 
     [过滤器/管道](#filters-pipes) - 内置*过滤器(filter)*，在Angular中叫*管道(pipe)*。
 
-  * [Modules/controllers/components](#controllers-components) - *modules* in Angular are slightly different from *modules* in AngularJS, and *controllers* are *components* in Angular.
+  * [Filters/pipes](#filters-pipes)&mdash;built-in *filters*, known as *pipes* in Angular.
 
     [模块/控制器/组件](#controllers-components) - Angular 中的*模块*和AngularJS 中的略有不同；而*控制器*在Angular 中叫组件。
 
-  * [Style sheets](#style-sheets) - more options for CSS than in AngularJS.
+  * [Modules/controllers/components](#controllers-components)&mdash;*modules* in Angular are slightly different from *modules* in AngularJS, and *controllers* are *components* in Angular.
+
+  * [Style sheets](#style-sheets)&mdash;more options for CSS than in AngularJS.
 
     [样式表](#style-sheets) - Angular 相对AngularJS 在 CSS 方面有了更多选项。
 
@@ -102,10 +100,10 @@ table(width="100%")
         它绑定的上下文变量是隐式的，并且总是关联到组件。
         所以，它不需要一个引用变量。
 
-        For more information, see the [Interpolation](../guide/template-syntax.html#interpolation) section of the Template Syntax page.
+        For more information, see the [Interpolation](../guide/template-syntax.html#interpolation)
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解更多，请参见模板语法中的[插值表达式](../guide/template-syntax.html#interpolation)部分。
-
   tr(style=top)
     td
       :marked
@@ -139,7 +137,7 @@ table(width="100%")
         在Angular中，我们使用相似的语法 —— 用管道字符(|)来过滤输出，但是现在直接把它叫做**管道**了。
         很多(但不是所有)AngularJS中的内置过滤器也成了Angular中的内置管道。
 
-        For more information, see the heading [Filters/pipes](#filters-pipes) below.
+        For more information, see [Filters/pipes](#filters-pipes) below.
 
         请参见下面[过滤器/管道](#filters-pipes)了解更多信息。
   tr(style=top)
@@ -170,7 +168,8 @@ table(width="100%")
 
         在Angular中，我们有了真正的模板输入变量，它需要使用`let`关键字进行明确定义。
 
-        For more information, see the [ngFor micro-syntax](../guide/template-syntax.html#ngForMicrosyntax) section of the Template Syntax page.
+        For more information, see the [ngFor micro-syntax](../guide/template-syntax.html#microsyntax)
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解更多信息，请参见模板语法中的[ngFor微语法](../guide/template-syntax.html#ngForMicrosyntax)部分。
 :marked
@@ -287,7 +286,8 @@ table(width="100%")
 
         Angular还有**类绑定**，它是单独添加或移除一个类的好办法 —— 就像第三个例子中展示的。
 
-        For more information see the [Attribute, Class, and Style Bindings](../guide/template-syntax.html#other-bindings) section of the Template Syntax page.
+        For more information see the [Attribute, class, and style bindings](../guide/template-syntax.html#other-bindings) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解更多信息，参见模板语法中的[属性、CSS类和样式绑定](../guide/template-syntax.html#other-bindings)部分。
 
@@ -314,10 +314,9 @@ table(width="100%")
 
     td
       :marked
-        ### bind to the `click` event
+        ### Bind to the `click` event
 
         ### 绑定到`click`事件
-
       +makeExample('cb-ajs-quick-reference/ts/src/app/app.component.html', 'event-binding')(format="." )
       :marked
         AngularJS event-based directives do not exist in Angular.
@@ -347,7 +346,8 @@ table(width="100%")
 
         要查看DOM事件的列表，请参见[网络事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 
-        For more information, see the [Event Binding](../guide/template-syntax.html#event-binding) section of the Template Syntax page.
+        For more information, see the [Event binding](../guide/template-syntax.html#event-binding) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解更多，请参见模板语法中的[事件绑定](../guide/template-syntax.html#event-binding)部分。
 
@@ -395,10 +395,9 @@ table(width="100%")
 
     td
       :marked
-        ### bind to the `hidden` property
+        ### Bind to the `hidden` property
 
         ### 绑定`hidden`属性
-
         In Angular, you use property binding; there is no built-in *hide* directive.
         For more information, see [ng-show](#ng-show).
 
@@ -429,29 +428,29 @@ table(width="100%")
         路由在Angular中的处理方式不同。
     td
       :marked
-        ### bind to the `href` property
+        ### Bind to the `href` property
 
         ### 绑定到`href`属性
-
       +makeExample('cb-ajs-quick-reference/ts/src/app/app.component.html', 'href')(format="." )
       :marked
-        Angular, uses property binding; there is no built-in *href* directive.
+        Angular uses property binding; there is no built-in *href* directive.
         Place the element's `href` property in square brackets and set it to a quoted template expression.
 
         在Angular中，并没有内置的*href*指令，改用属性绑定。
         我们把元素的`href`属性放在方括号中，并把它设成一个引号中的模板表达式。
 
-        For more information on property binding, see [Template Syntax](../guide/template-syntax.html#property-binding).
+        For more information see the [Property binding](../guide/template-syntax.html#property-binding) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解属性绑定的更多知识，参见[模板语法](../guide/template-syntax.html#property-binding)。
 
-        In Angular, `href` is no longer used for routing. Routing uses `routerLink`, as shown in the third example.
+        In Angular, `href` is no longer used for routing. Routing uses `routerLink`, as shown in the following example.
 
         在Angular中，`href`不再用作路由，而是改用第三个例子中所展示的`routerLink`指令。
-
       +makeExample('cb-ajs-quick-reference/ts/src/app/app.component.html', 'router-link')(format="." )
       :marked
-        For more information on routing, see [Routing & Navigation](../guide/router.html#router-link).
+        For more information on routing, see the [RouterLink binding](../guide/router.html#router-link) 
+        section of the [Routing & Navigation](../guide/router.html) page.
 
         要了解关于路由的更多信息，请参见[路由与导航](../guide/router.html#router-link)。
 
@@ -467,7 +466,7 @@ table(width="100%")
 
         在AngularJS中，`ng-if`指令会根据一个表达式来移除或重建DOM中的一部分。如果表达式为假，元素就会被从DOM中移除。
 
-        In this example, the `table` element is removed from the DOM unless the `movies` array has a length greater than zero.
+        In this example, the `<table>` element is removed from the DOM unless the `movies` array has a length greater than zero.
 
         在这个例子中，除非`movies`数组的长度大于0，否则`table`元素就会被从DOM中移除。
     td
@@ -475,12 +474,13 @@ table(width="100%")
         ### *ngIf
       +makeExample('cb-ajs-quick-reference/ts/src/app/movie-list.component.html', 'ngIf')(format="." )
       :marked
-        The `*ngIf` directive in Angular works the same as the `ng-if` directive in AngularJS. It removes or recreates a portion of the DOM based on an expression.
+        The `*ngIf` directive in Angular works the same as the `ng-if` directive in AngularJS. It removes 
+        or recreates a portion of the DOM based on an expression.
 
         Angular中的`*ngIf`指令与AngularJS中的`ng-if`指令一样，
         它根据表达式的值移除或重建DOM中的一部分。
 
-        In this example, the `table` element is removed from the DOM unless the `movies` array has a length.
+        In this example, the `<table>` element is removed from the DOM unless the `movies` array has a length.
 
         在这个例子中，除非`movies`数组的长度大于0，否则`table`元素就会被从DOM中移除。
 
@@ -514,10 +514,11 @@ table(width="100%")
         在Angular中，**双向绑定**使用[()]标记出来，它被形象的比作“盒子中的香蕉”。
         这种语法是一个简写形式，用来同时定义一个属性绑定(从组件到视图)和一个事件绑定(从视图到组件)，因此，我们得到了双向绑定。
 
-        For more information on two-way binding with ngModel, see [Template Syntax](../guide/template-syntax.html#ngModel).
+        For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to 
+        form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解使用ngModel进行双向绑定的更多知识，参见[模板语法](../guide/template-syntax.html#ngModel)。
-
   tr(style=top)
     td
       :marked
@@ -530,7 +531,7 @@ table(width="100%")
 
         在Angular1中，`ng-repeat`指令会为指定集合中的每一个条目重复渲染相关的DOM元素。
 
-        In this example, the table row (`tr`) element repeats for each movie object in the collection of movies.
+        In this example, the table row (`<tr>`) element repeats for each movie object in the collection of movies.
 
         在这个例子中，对`movies`集合中的每一个`movie`对象重复渲染了这个表格行元素(`tr`)。
     td
@@ -538,8 +539,9 @@ table(width="100%")
         ### *ngFor
       +makeExample('cb-ajs-quick-reference/ts/src/app/movie-list.component.html', 'ngFor')(format="." )
       :marked
-        The `*ngFor` directive in Angular is similar to the `ng-repeat` directive in AngularJS. It repeats the associated DOM element for each item in the specified collection.
-        More accurately, it turns the defined element (`tr` in this example) and its contents into a template and
+        The `*ngFor` directive in Angular is similar to the `ng-repeat` directive in AngularJS. It repeats 
+        the associated DOM element for each item in the specified collection.
+        More accurately, it turns the defined element (`<tr>` in this example) and its contents into a template and
         uses that template to instantiate a view for each item in the list.
 
         Angular中的`*ngFor`指令类似于AngularJS中的`ng-repeat`指令。
@@ -571,19 +573,17 @@ table(width="100%")
 
         在AngularJS中，`ng-show`指令根据一个表达式来显示或隐藏相关的DOM元素。
 
-        In this example, the `div` element is shown if the `favoriteHero` variable is truthy.
+        In this example, the `<div>` element is shown if the `favoriteHero` variable is truthy.
 
         在这个例子中，如果`favoriteHero`变量为真，`div`元素就会显示出来。
-
     td
       :marked
-        ### bind to the `hidden` property
+        ### Bind to the `hidden` property
 
         ### 绑定到`hidden`属性
-
       +makeExample('cb-ajs-quick-reference/ts/src/app/movie-list.component.html', 'hidden')(format="." )
       :marked
-        Angular, uses property binding; there is no built-in *show* directive.
+        Angular uses property binding; there is no built-in *show* directive.
         For hiding and showing elements, bind to the HTML `hidden` property.
 
         在Angular中，并没有内置的*show*指令，可以改用属性绑定。
@@ -594,14 +594,14 @@ table(width="100%")
 
         要想有条件的显示一个元素，就把该元素的`hidden`属性放到一个方括号里，并且把它设置为引号中的模板表达式，它的结果应该是与*显示*时*相反*的值。
 
-        In this example, the `div` element is hidden if the `favoriteHero` variable is not truthy.
+        In this example, the `<div>` element is hidden if the `favoriteHero` variable is not truthy.
 
         在这个例子中，如果`favoriteHero`变量不是真值，`div`元素就会被隐藏。
 
-        For more information on property binding, see [Template Syntax](../guide/template-syntax.html#property-binding).
+        For more information on property binding, see the [Property binding](../guide/template-syntax.html#property-binding)  
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解关于属性绑定的更多信息，参见[模板表达式](../guide/template-syntax.html#property-binding)。
-
   tr(style=top)
     td
       :marked
@@ -617,22 +617,21 @@ table(width="100%")
 
     td
       :marked
-        ### bind to the `src` property
+        ### Bind to the `src` property
 
         ### 绑定到`src`属性
-
       +makeExample('cb-ajs-quick-reference/ts/src/app/app.component.html', 'src')(format="." )
       :marked
-        Angular, uses property binding; there is no built-in *src* directive.
+        Angular uses property binding; there is no built-in *src* directive.
         Place the `src` property in square brackets and set it to a quoted template expression.
 
         在Angular中，并没有一个内置的*src*指令，可以使用属性绑定。
         把`src`属性放到方括号中，并且把它设为一个引号中的绑定表达式。
 
-        For more information on property binding, see [Template Syntax](../guide/template-syntax.html#property-binding).
+        For more information on property binding, see the [Property binding](../guide/template-syntax.html#property-binding)  
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解属性绑定的更多知识，参见[模板语法](../guide/template-syntax.html#property-binding)。
-
   tr(style=top)
     td
       :marked
@@ -642,7 +641,7 @@ table(width="100%")
       :marked
         In AngularJS, the `ng-style` directive sets a CSS style on an HTML element
         based on an expression. That expression is often a key-value control object with each
-        key of the object defined as a CSS style name, and each value defined as an expression
+        key of the object defined as a CSS property, and each value defined as an expression
         that evaluates to a value appropriate for the style.
 
         在AngularJS中，`ng-style`指令根据一个绑定表达式设置一个HTML元素的CSS样式。
@@ -669,11 +668,13 @@ table(width="100%")
 
         Angular还有**样式绑定**语法，它是单独设置一个样式的好方法。它展示在第二个例子中。
 
-        For more information on style binding, see [Template Syntax](../guide/template-syntax.html#style-binding).
+        For more information on style binding, see the [Style binding](../guide/template-syntax.html#style-binding) section of the 
+        [Template Syntax](../guide/template-syntax.html) page.
 
         要了解样式绑定的更多知识，参见[模板语法](../guide/template-syntax.html#style-binding)。
 
-        For more information on the ngStyle directive, see [Template Syntax](../guide/template-syntax.html#ngStyle).
+        For more information on the `ngStyle` directive, see [NgStyle](../guide/template-syntax.html#ngStyle) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解关于ngStyle指令的更多知识，参见[模板语法](../guide/template-syntax.html#ngStyle)。
   tr(style=top)
@@ -736,10 +737,10 @@ table(width="100%")
 
         在这个例子中，`ngSwitchCase`和`ngSwitchDefault`前面的星号(*)是必须的。
 
-        For more information on the ngSwitch directive, see [Template Syntax](../guide/template-syntax.html#ngSwitch).
+        For more information, see [The NgSwitch directives](../guide/template-syntax.html#ngSwitch) 
+        section of the [Template Syntax](../guide/template-syntax.html) page.
 
         要了解关于ngswitch指令的更多信息，参见[模板语法](../guide/template-syntax.html#ngSwitch)。
-
 :marked
   [Back to top](#top)
 
@@ -752,7 +753,7 @@ a(id="filters-pipes")
 
   ## 过滤器/管道
 
-  Angular **pipes** provide formatting and transformation for data in our template, similar to AngularJS **filters**.
+  Angular **pipes** provide formatting and transformation for data in the template, similar to AngularJS **filters**.
   Many of the built-in filters in AngularJS have corresponding pipes in Angular.
   For more information on pipes, see [Pipes](../guide/pipes.html).
 
@@ -773,10 +774,9 @@ table(width="100%")
       code-example.
         &lt;td>{{movie.price | currency}}&lt;/td>
       :marked
-        Formats a number as a currency.
+        Formats a number as currency.
 
         把一个数字格式化成货币。
-
     td
       :marked
         ### currency
@@ -790,7 +790,7 @@ table(width="100%")
       :marked
         ### date
       code-example.
-        &lt;td>{{movie.releaseDate  | date}}&lt;/td>
+        &lt;td>{{movie.releaseDate | date}}&lt;/td>
       :marked
         Formats a date to a string based on the requested format.
 
@@ -893,7 +893,7 @@ table(width="100%")
       :marked
         ### number
       code-example.
-        &lt;td>{{movie.starRating  | number}}&lt;/td>
+        &lt;td>{{movie.starRating | number}}&lt;/td>
       :marked
         Formats a number as text.
 
@@ -923,11 +923,10 @@ table(width="100%")
         &lt;tr ng-repeat="movie in movieList | orderBy : 'title'">
       :marked
         Displays the collection in the order specified by the expression.
-        In this example, the movie title orders the movieList.
+        In this example, the movie title orders the `movieList`.
 
         使用表达式中所指定的方式对集合进行排序。
         在这个例子中，movieList被根据movie的title排序了。
-
     td
       :marked
         ### none
@@ -981,25 +980,23 @@ table(width="100%")
           ...
         }());
       :marked
-        In AngularJS, you often defined an immediately invoked function expression (or IIFE) around your controller code.
-        This kept your controller code out of the global namespace.
-
-        在AngularJS中，我们通常会定义一个立即调用的函数表达式(IIFE)来包裹控制器代码。
+        In AngularJS,  an immediately invoked function expression (or IIFE) around  controller code
+        keeps it out of the global namespace.在AngularJS中，我们通常会定义一个立即调用的函数表达式(IIFE)来包裹控制器代码。
         这样让控制器代码不会污染全局命名空间。
-
     td
       :marked
         ### none
         ### 没了
-        You don't need to worry about this in Angular because you use ES 2015 modules
-        and modules handle the namespacing for you.
+        
+        This is a nonissue in Angular because ES 2015 modules 
+        handle the namespacing for you.
 
         在Angular中我们不用担心这个问题，因为使用ES 2015的模块，模块会替我们处理命名空间问题。
 
-        For more information on modules, see [Architecture Overview](../guide/architecture.html#module).
+        For more information on modules, see the [Modules](../guide/architecture.html#modules) section of the 
+        [Architecture Overview](../guide/architecture.html).
 
         要了解关于模块的更多信息，参见[架构概览](../guide/architecture.html#module)。
-
   tr(style=top)
     td
       :marked
@@ -1010,7 +1007,8 @@ table(width="100%")
       code-example.
         angular.module("movieHunter", ["ngRoute"]);
       :marked
-        In AngularJS, an Angular module keeps track of controllers, services, and other code. The second argument defines the list of other modules that this module depends upon.
+        In AngularJS, an Angular module keeps track of controllers, services, and other code. 
+        The second argument defines the list of other modules that this module depends upon.
 
         在AngularJS中，Angular模块用来对控制器、服务和其它代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。
     td
@@ -1019,13 +1017,14 @@ table(width="100%")
       +makeExample('cb-ajs-quick-reference/ts/src/app/app.module.1.ts')(format=".")
       :marked
         Angular modules, defined with the `NgModule` decorator, serve the same purpose:
-
+        
         Angular的模块用`NgModule`装饰器进行定义，有如下用途：
-        - `imports`: specifies the list of other modules that this module depends upon
+
+        * `imports`: specifies the list of other modules that this module depends upon
 
           `imports`: 指定当前模块依赖的其它模块列表
 
-        - `declaration`: keeps track of your components, pipes, and directives.
+        * `declaration`: keeps track of your components, pipes, and directives.
 
           `declaration`: 用于记录组件、管道和指令。
 
@@ -1047,7 +1046,7 @@ table(width="100%")
                       ["movieService",
                        MovieListCtrl]);
       :marked
-        AngularJS, has code in each controller that looks up an appropriate Angular module
+        AngularJS has code in each controller that looks up an appropriate Angular module
         and registers the controller with that module.
 
         在AngularJS中，在每个控制器中都有一些代码，用于找到合适的Angular模块并把该控制器注册进去。
@@ -1059,27 +1058,27 @@ table(width="100%")
 
     td
       :marked
-        ### Component Decorator
-
+        ### Component decorator
+        
         ### 组件装饰器
-
+        
       +makeExample('cb-ajs-quick-reference/ts/src/app/movie-list.component.ts', 'component')(format=".")
       :marked
-        Angular, adds a decorator to the component class to provide any required metadata.
-        The Component decorator declares that the class is a component and provides metadata about
+        Angular adds a decorator to the component class to provide any required metadata.
+        The `@Component` decorator declares that the class is a component and provides metadata about
         that component such as its selector (or tag) and its template.
 
         在Angular中，我们往组件类上添加了一个装饰器，以提供任何需要的元数据。
         组件装饰器把该类声明为组件，并提供了关于该组件的元数据，比如它的选择器(或标签)和模板。
 
-        This is how you associate a template with code, which is defined in the component class.
+        This is how you associate a template with logic, which is defined in the component class.
 
         这就是把模板关联到代码的方式，它定义在组件类中。
 
-        For more information, see the [Components](../guide/architecture.html#components) section of the Architecture Overview page.
+        For more information, see the [Components](../guide/architecture.html#components) 
+        section of the [Architecture Overview](../guide/architecture.html) page.
 
         要了解关于模板的更多信息，参见架构概览中的[组件](../guide/architecture.html#components)部分。
-
   tr(style=top)
     td
       :marked
@@ -1109,10 +1108,10 @@ table(width="100%")
 
         注意：如果你正在用TypeScript写AngularJS，那么必须用`export`关键字来导出组件类。
 
-        For more information, see the [Components](../guide/architecture.html#components) section of the Architecture Overview page.
+        For more information, see the [Components](../guide/architecture.html#components) 
+        section of the [Architecture Overview](../guide/architecture.html) page.
 
         要了解关于组件的更多信息，参见架构概览中的[组件](../guide/architecture.html#components)部分。
-
   tr(style=top)
     td
       :marked
@@ -1152,10 +1151,10 @@ table(width="100%")
         在这个例子中，我们注入了一个`MovieService`。
         即使在最小化之后，第一个参数的TypeScript类型也会告诉Angular它该注入什么。
 
-        For more information, see the [Dependency Injection](../guide/architecture.html#dependency-injection) section of the Architecture Overview.
+        For more information, see the [Dependency injection](../guide/architecture.html#dependency-injection) 
+        section of the [Architecture Overview](../guide/architecture.html).
 
         要了解关于依赖注入的更多信息，参见架构概览中的[依赖注入](../guide/architecture.html#dependency-injection)部分。
-
 :marked
   [Back to top](#top)
 

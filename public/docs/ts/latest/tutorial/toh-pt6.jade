@@ -1,288 +1,254 @@
-- var _example = 'toh-6';
-
 block includes
   include ../_util-fns
-  - var _Http = 'Http'; // Angular `Http` library name.
-  - var _Angular_Http = 'Angular <code>Http</code>'
-  - var _Angular_http_library = 'Angular HTTP library'
-  - var _HttpModule = 'HttpModule'
-  - var _JSON_stringify = 'JSON.stringify'
-
-//- Shared var definitions
-- var _promise = _Promise.toLowerCase()
 
 :marked
-  Our stakeholders appreciate our progress.
-  Now they want to get the hero data from a server, let users add, edit, and delete heroes,
-  and save these changes back to the server.
+  In this page, you'll make the following improvements.
+  
+  在这一章中，我们将进行如下增强：
 
-  客户对我们的进展很满意！
-  现在，它们想要从服务器获取英雄数据，然后让用户添加、编辑和删除英雄，并且把这些修改结果保存回服务器。
+  * Get the hero data from a server.
+  
+    从服务器获取英雄数据。
+    
+  * Let users add, edit, and delete hero names.
+  
+    让用户添加、编辑和删除英雄名。
+    
+  * Save the changes to the server.
+  
+    把这些更改保存到服务器。
 
-  In this chapter we teach our application to make the corresponding HTTP calls to a remote server's web API.
+  You'll teach the app to make corresponding HTTP calls to a remote server's web API.
+  
+  我们要让应用能够对远端服务器提供的Web API发起相应的HTTP调用。
 
-  在这一章中，我们要让应用程序通过 HTTP 调用来访问远程服务器上相应的 Web API。
+  When you're done with this page, the app should look like this <live-example></live-example>.
 
-  Run the <live-example></live-example> for this part.
-
-  运行这部分的<live-example>在线例子</live-example>。
+  当我们完成这一章时，应用会变成这样：<live-example>在线例子</live-example>。
 
 .l-main-section
 :marked
-  ## Where We Left Off
+  ## Where you left off
 
   ## 延续上一步教程
 
-  In the [previous chapter](toh-pt5.html), we learned to navigate between the dashboard and the fixed heroes list, editing a selected hero along the way.
-  That's our starting point for this chapter.
-
+  In the [previous page](toh-pt5.html), you learned to navigate between the dashboard and the fixed heroes list,
+  editing a selected hero along the way.
+  That's the starting point for this page.
+  
   在[前一章](toh-pt5.html)中，我们学会了在仪表盘和固定的英雄列表之间导航，并编辑选定的英雄。这也就是本章的起点。
 
-block start-server-and-watch
-  :marked
-    ### Keep the app transpiling and running
+:marked
+  ## Keep the app transpiling and running
+  
+  ## 保持应用的转译与运行
+  
+  Enter the following command in the terminal window:
 
-    ### 保持应用的转译与运行
-
-    Open a terminal/console window and enter the following command to
-    start the TypeScript compiler, start the server, and watch for changes:
-
-    打开终端/控制台窗口，输入下列命令来启动 TypeScript 编译器，它会启动开发服务器，并监视文件变更：
-
-  code-example(language="sh" class="code-shell").
+  在终端窗口输入如下命令：
+  
+code-example(language="sh" class="code-shell").
     npm start
 
 :marked
-  The application runs and updates automatically as we continue to build the Tour of Heroes.
+  This command runs the TypeScript compiler in "watch mode", recompiling automatically when the code changes.
+  The command simultaneously launches the app in a browser and refreshes the browser when the code changes.
 
-  当我们继续构建《英雄指南》时，应用会运行并自动更新。
+:marked
+  You can keep building the Tour of Heroes without pausing to recompile or refresh the browser.
 
 .l-main-section#http-providers
 h1 Providing HTTP Services
 
-h1 准备 HTTP 服务
-
-block http-library
-  :marked
-    The `HttpModule` is ***not*** a core Angular module.
-    It's Angular's optional approach to web access and it exists as a separate add-on module called `@angular/http`,
-    shipped in a separate script file as part of the Angular npm package.
-
-    `HttpModule`***并不是*** Angular 的核心模块。
-    它是 Angular 用来进行 Web 访问的一种可选方式，并通过 Angular 包中一个名叫`@angular/http`的独立附属模块发布了出来。
-
-    Fortunately we're ready to import from `@angular/http` because `systemjs.config` configured *SystemJS* to load that library when we need it.
-
-    幸运的是，`systemjs.config`中已经配置好了 *SystemJS*，并在必要时加载它，因此我们已经为从`@angular/http`中导入它做好了准备。
+h1 提供 HTTP 服务
 
 :marked
-  ### Register for HTTP services
+  The `HttpModule` is not a core Angular module.
+  `HttpModule` is Angular's optional approach to web access. It exists as a separate add-on module called `@angular/http`
+  and is shipped in a separate script file as part of the Angular npm package.
+  
+  `HttpModule`***并不是*** Angular 的核心模块。
+    它是 Angular 用来进行 Web 访问的一种可选方式，并位于一个名叫 `@angular/http` 的独立附属模块中，并作为 Angular 的 npm 包之一而发布出来。
 
-  ### 注册 *HTTP* 服务
+  You're ready to import from `@angular/http` because `systemjs.config` configured *SystemJS* to load that library when you need it.
 
-block http-providers
-  :marked
-    Our app will depend upon the Angular `http` service which itself depends upon other supporting services.
-    The `HttpModule` from `@angular/http` library holds providers for a complete set of HTTP services.
+  `systemjs.config`中已经配置好了 *SystemJS*，并在必要时加载它，因此我们已经准备好从`@angular/http`中导入它了。
 
-    我们的应用将会依赖于 Angular 的`http`服务，它本身又依赖于其它支持类服务。
-    来自`@angular/http`库中的`HttpModule`保存着这些 HTTP 相关服务提供商的全集。
+:marked
+  ## Register for HTTP services
+  
+  ## 注册 *HTTP* 服务
 
-    We should be able to access these services from anywhere in the application.
-    So we register them all by adding `HttpModule` to the `imports` list of the `AppModule` where we
-    bootstrap the application and its root `AppComponent`.
+:marked
+  The app will depend on the Angular `http` service, which itself depends on other supporting services.
+  The `HttpModule` from the `@angular/http` library holds providers for a complete set of HTTP services.
+  
+  我们的应用将会依赖于 Angular 的`http`服务，它本身又依赖于其它支持类服务。
+      来自`@angular/http`库中的`HttpModule`保存着这些 HTTP 相关服务提供商的全集。
 
-    我们要能从本应用的任何地方访问这些服务，就要把`HttpModule`添加到`AppModule`的`imports`列表中。
-    这里同时也是我们引导应用及其根组件`AppComponent`的地方。
+  To allow access to these services from anywhere in the app,
+  add `HttpModule` to the `imports` list of the `AppModule`.
 
-  +makeExample('src/app/app.module.ts', 'v1','src/app/app.module.ts (v1)')
+  我们要能从本应用的任何地方访问这些服务，就要把`HttpModule`添加到`AppModule`的`imports`列表中。
+  这里同时也是我们引导应用及其根组件`AppComponent`的地方。
 
-  :marked
-    Notice that we supply `!{_HttpModule}` as part of the *imports* !{_array} in root NgModule `AppModule`.
++makeExample('toh-6/ts/src/app/app.module.ts', 'v1','src/app/app.module.ts (v1)')
+
+:marked
+  Notice that you also supply `HttpModule` as part of the *imports* array in root NgModule `AppModule`.
 
     注意，现在`!{_HttpModule}`已经是根模块`AppModule`的`imports`数组的一部分了。
 
 .l-main-section
 :marked
-  ## Simulating the web API
-
+  ## Simulate the web API
+  
   ## 模拟web API
+  
+  We recommend registering app-wide services in the root
+  `AppModule` *providers*.
+  
+  我们建议在根模块`AppModule`的`providers`数组中注册全应用级的服务。
 
-  We recommend registering application-wide services in the root
-  `!{_AppModuleVsAppComp}` *providers*.  <span if-docs="dart">Here we're
-  registering in `main` for a special reason.</span>
-
-  我们建议在根模块`!{_AppModuleVsAppComp}`的`providers`数组中注册全应用级的服务。
-
-  Our application is in the early stages of development and far from ready for production.
-  We don't even have a web server that can handle requests for heroes.
-  Until we do, *we'll have to fake it*.
-
-  我们的应用正处于开发的早期阶段，并且离进入产品阶段还很远。
-  我们甚至都还没有一个用来处理英雄相关请求的 Web 服务器，在此之前，*我们将不得不伪造一个*。
-
-  We're going to *trick* the HTTP client into fetching and saving data from
+  Until you have a web server that can handle requests for hero data,
+  the HTTP client will fetch and save data from
   a mock service, the *in-memory web API*.
-  <span if-docs="dart"> The application itself doesn't need to know and
-  shouldn't know about this.  So we'll slip the in-memory web API into the
-  configuration *above* the `AppComponent`.</span>
+  
+  在拥有一个能处理Web请求的服务器之前，我们可以先用HTTP客户端通过一个模拟（Mock）服务（内存Web API）来获取和保存数据。
 
-  我们要*耍点小花招*，让 HTTP 客户端从一个模拟服务（*内存 Web API*）中获取和保存数据。
+  Update <code>src/app/app.module.ts</code> with this version, which uses the mock service:
 
-  Here is a version of <span ngio-ex>!{_appModuleTsVsMainTs}</span> that performs this trick:
+  修改<code>src/app/app.module.ts</code>，让它使用这个模拟服务：
 
-  这个版本的<span ngio-ex>!{_appModuleTsVsMainTs}</span>就是用来实现这个小花招的：
++makeExample('toh-6/ts/src/app/app.module.ts', 'v2', 'src/app/app.module.ts (v2)')
 
-+makeExcerpt(_appModuleTsVsMainTs, 'v2')
+:marked
+  Rather than require a real API server, this example simulates communication with the remote server by adding the
+  <a href="https://github.com/angular/in-memory-web-api" target="_blank" title="In-memory Web API">InMemoryWebApiModule</a>
+  to the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.
 
-block backend
-  :marked
-    Rather than require a real API server, this example simulates communication with the remote server by adding the
-    <a href="https://github.com/angular/in-memory-web-api" target="_blank" title="In-memory Web API"><i>InMemoryWebApiModule</i></a>
-    to the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.
-
-    导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
+  导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
     `InMemoryWebApiModule`将`Http`客户端默认的后端服务 &mdash;
     这是一个辅助服务，负责与远程服务器对话 &mdash;
-    替换成了*内存 Web API*服务：
+    替换成了*内存 Web API*服务：+makeExample('toh-6/ts/src/app/app.module.ts', 'in-mem-web-api', '')
 
-  +makeExcerpt(_appModuleTsVsMainTs, 'in-mem-web-api', '')
-
-  :marked
-    The `forRoot` configuration method takes an `InMemoryDataService` class
-    that primes the in-memory database as follows:
+:marked
+  The `forRoot()` configuration method takes an `InMemoryDataService` class
+  that primes the in-memory database.
+  Add the file `in-memory-data.service.ts` in `app` with the following content:
 
     `forRoot`配置方法需要`InMemoryDataService`类实例，用来向内存数据库填充数据：
 
-+makeExample('src/app/in-memory-data.service.ts', 'init')(format='.')
++makeExample('toh-6/ts/src/app/in-memory-data.service.ts', 'init', 'src/app/in-memory-data.service.ts')(format='.')
+:marked
+  This file replaces `mock-heroes.ts`, which is now safe to delete.
+  
+  这个文件已经替换了`mock-heroes.ts`，可以删除`mock-heroes.ts`了。
 
-p This file replaces the #[code #[+adjExPath('mock-heroes.ts')]] which is now safe to delete.
+.alert.is-helpful
+  :marked
+    The in-memory web API is only useful in the early stages of development and for demonstrations such as this Tour of Heroes.
+    Don't worry about the details of this backend substitution; you can
+    skip it when you have a real web API server.
+    
+    内存Web API只在开发的早期阶段或写《英雄指南》这样的演示程序时才有用。有了它，你将来替换后端实现时就不用关心这些细节问题了。如果你已经有了一个真实的Web API服务器，尽管跳过它吧。
 
-p 该文件代替了#[code #[+adjExPath('mock-heroes.ts')]]文件，它现在可以安全的删除了。
-
-block dont-be-distracted-by-backend-subst
-  .alert.is-helpful
-    :marked
-      This chapter is an introduction to the !{_Angular_http_library}.
-      Please don't be distracted by the details of this backend substitution. Just follow along with the example.
-
-      本章主要是介绍 Angular 的 HTTP 库，不要因为这种“替换后端”的细节而分心。
-      先不要管为什么，只管照着这个例子做就可以了。
-
-      Learn more later about the in-memory web API in the [HTTP client chapter](../guide/server-communication.html#in-mem-web-api).
-      Remember, the in-memory web API is only useful in the early stages of development and for demonstrations such as this Tour of Heroes.
-      Skip it when you have a real web API server.
-
-      关于*内存 Web API* 的更多信息，见 [HTTP 客户端](../guide/server-communication.html#in-mem-web-api)。
-      记住，*内存 Web API* 主要用于开发的早期阶段或《英雄指南》这样的演示程序。
-      如果你已经有了一个真实的 Web API 服务器，尽管跳过它。
+    Read more about the in-memory web API in the
+    [Appendix: Tour of Heroes in-memory web api](../guide/server-communication.html#in-mem-web-api)
+    section of the [HTTP Client](../guide/server-communication.html#in-mem-web-api) page.
+    
+    关于*内存 Web API* 的更多信息，见 [附录：英雄指南Web API](../guide/server-communication.html#in-mem-web-api)中的[HTTP 客户端](../guide/server-communication.html#in-mem-web-api)部分。
 
 .l-main-section
 :marked
   ## Heroes and HTTP
-
+  
   ## 英雄与 HTTP
 
-  Look at our current `HeroService` implementation
+  In the current `HeroService` implementation, a Promise resolved with mock heroes is returned.
 
-  来看看我们目前的`HeroService`的实现
+  在目前的`HeroService`的实现中，返回的是一个能解析（resolve）成模拟英雄列表的承诺（Promise）。
 
-+makeExcerpt('toh-4/ts/src/app/hero.service.ts (old getHeroes)', 'get-heroes')
++makeExample('toh-4/ts/src/app/hero.service.ts', 'get-heroes', 'src/app/hero.service.ts (old getHeroes)')
 
 :marked
-  We returned a !{_Promise} resolved with mock heroes.
-  It may have seemed like overkill at the time, but we were anticipating the
-  day when we fetched heroes with an HTTP client and we knew that would have to be an asynchronous operation.
-
+  This was implemented in anticipation of ultimately
+  fetching heroes with an HTTP client, which must be an asynchronous operation.
+  
   我们返回一个承诺 (Promise)，它用模拟版的英雄列表进行解析。
-  它当时可能看起来显得有点过于复杂，不过我们预料到总有这么一天会通过 HTTP 客户端来获取英雄数据，
-  而且我们知道，那一定是一个异步操作。
+    它当时可能看起来显得有点过于复杂，不过我们预料到总有这么一天会通过 HTTP 客户端来获取英雄数据，
+    而且我们知道，那一定是一个异步操作。
 
-  That day has arrived! Let's convert `getHeroes()` to use HTTP.
+  Now convert `getHeroes()` to use HTTP.
 
-  这一天到来了！我们把`getHeroes()`换成用 HTTP。
+  现在，我们把`getHeroes()`换成使用 HTTP。
 
-+makeExcerpt('src/app/hero.service.ts (updated getHeroes and new class members)', 'getHeroes')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'getHeroes', 'src/app/hero.service.ts (updated getHeroes and new class members)')
 
 :marked
-  Our updated import statements are now:
+  Update the import statements as follows:
 
   更新后的导入声明如下：
 
-+makeExcerpt('src/app/hero.service.ts (updated imports)', 'imports')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'imports', 'src/app/hero.service.ts (updated imports)')
 
-- var _h3id = `http-${_promise}`
 :marked
-  Refresh the browser, and the hero data should be successfully loaded from the
+  Refresh the browser. The hero data should successfully load from the
   mock server.
 
   刷新浏览器后，英雄数据就会从模拟服务器被成功读取。
 
-  <h3 id="!{_h3id}">HTTP !{_Promise}</h3>
-
-  ### Http承诺(Promise)
-
-  We're still returning a !{_Promise} but we're creating it differently.
-
-  我们仍然返回一个承诺，但是用不同的方法来创建它。
-
-block get-heroes-details
-  :marked
-    The Angular `http.get` returns an RxJS `Observable`.
-    *Observables* are a powerful way to manage asynchronous data flows.
-    We'll learn about [Observables](#observables) later in this chapter.
-
-    Angular 的`http.get`返回一个 RxJS 的`Observable`对象。
-    *Observable（可观察对象）*是一个管理异步数据流的强力方式。
-    后面我们还会进一步学习[可观察对象](#observables)。
-
-    For *now* we get back on familiar ground by immediately
-    converting that `Observable` to a `Promise` using the `toPromise` operator.
-
-    *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
-
-  +makeExcerpt('src/app/hero.service.ts', 'to-promise', '')
-
-  :marked
-    Unfortunately, the Angular `Observable` doesn't have a `toPromise` operator ...
-    not out of the box.
-    The Angular `Observable` is a bare-bones implementation.
-
-    不幸的是，Angular 的`Observable`并没有一个`toPromise`操作符... 没有打包在一起发布。
-    Angular的`Observable`只是一个骨架实现。
-
-    There are scores of operators like `toPromise` that extend `Observable` with useful capabilities.
-    If we want those capabilities, we have to add the operators ourselves.
-    That's as easy as importing them from the RxJS library like this:
-
-    有很多像`toPromise`这样的操作符，用于扩展`Observable`，为其添加有用的能力。
-    如果我们希望得到那些能力，就得自己添加那些操作符。
-    那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：
-
-  +makeExcerpt('src/app/hero.service.ts', 'rxjs', '')
-
-  .l-sub-section
-    :marked
-      You'll add more operators, and learn why you must do so, [later in this tutorial](#rxjs-imports).
-      
-      我们还要添加更多的操作符，并且必须这么做，要了解其中的原因，参见[本章稍后的部分](#rxjs-imports)。
-
-  :marked
-    ### Extracting the data in the *then* callback
-
-    ### 在 *then* 回调中提取出数据
-
-    In the *promise*'s `then` callback we call the `json` method of the HTTP `Response` to extract the
-    data within the response.
-
-    在 *promise* 的`then`回调中，我们调用 HTTP 的`Reponse`对象的`json`方法，以提取出其中的数据。
-
-  +makeExcerpt('src/app/hero.service.ts', 'to-data', '')
+  <h3 id="http-promise">HTTP Promise</h3>
 
 :marked
-  That response JSON has a single `data` property.
-  The `data` property holds the !{_array} of *heroes* that the caller really wants.
-  So we grab that !{_array} and return it as the resolved !{_Promise} value.
+  The Angular `http.get` returns an RxJS `Observable`.
+  *Observables* are a powerful way to manage asynchronous data flows.
+  You'll read about [Observables](#observables) later in this page.
+
+  Angular 的`http.get`返回一个 RxJS 的`Observable`对象。
+  *Observable（可观察对象）*是一个管理异步数据流的强力方式。
+  后面我们还会进一步学习[可观察对象](#observables)。
+  
+  For now, you've converted the `Observable` to a `Promise` using the `toPromise` operator.
+
+  *现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
+  
++makeExample('toh-6/ts/src/app/hero.service.ts', 'to-promise', '')
+
+:marked
+  The Angular `Observable` doesn't have a `toPromise` operator out of the box.
+
+    不幸的是，Angular 的`Observable`并没有一个`toPromise`操作符... 没有打包在一起发布。
+    Angular的`Observable`只是一个骨架实现。There are many operators like `toPromise` that extend `Observable` with useful capabilities.
+    To use those capabilities, you have to add the operators themselves.
+    That's as easy as importing them from the RxJS library like this:
+
+  有很多像`toPromise`这样的操作符，用于扩展`Observable`，为其添加有用的能力。
+    如果我们希望得到那些能力，就得自己添加那些操作符。
+    那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：+makeExample('toh-6/ts/src/app/hero.service.ts', 'rxjs', '')
+
+.l-sub-section
+  :marked
+    You'll add more operators, and learn why you must do so, [later in this tutorial](#rxjs-imports).
+      
+    我们还要添加更多的操作符，并且必须这么做，要了解其中的原因，参见[本章稍后的部分](#rxjs-imports)。
+
+:marked
+  ### Extracting the data in the *then* callback
+
+  ### 在 *then* 回调中提取出数据
+  
+  In the *Promise*'s `then()` callback , you call the `json` method of the HTTP `Response` to extract the
+  data within the response.
+    
+  在 *promise* 的`then`回调中，我们调用 HTTP 的`Reponse`对象的`json`方法，以提取出其中的数据。
+  
++makeExample('toh-6/ts/src/app/hero.service.ts', 'to-data', '')
+
+:marked
+  The response JSON has a single `data` property, which
+  holds the array of heroes that the caller wants.
+  So you grab that array and return it as the resolved Promise value.
 
   这个由`json`方法返回的对象只有一个`data`属性。
   这个`data`属性保存了*英雄*数组，这个数组才是调用者真正想要的。
@@ -290,19 +256,17 @@ block get-heroes-details
 
 .alert.is-important
   :marked
-    Pay close attention to the shape of the data returned by the server.
-    This particular *in-memory web API* example happens to return an object with a `data` property.
-    Your API might return something else. Adjust the code to match *your web API*.
+    Note the shape of the data that the server returns.
+    This particular in-memory web API example returns an object with a `data` property.
+    Your API might return something else. Adjust the code to match your web API.
 
     仔细看看这个由服务器返回的数据的形态。
     这个*内存 Web API* 的范例中所做的是返回一个带有`data`属性的对象。
     你的 API 也可以返回其它东西。请调整这些代码以匹配*你的 Web API*。
 
 :marked
-  The caller is unaware of these machinations. It receives a !{_Promise} of *heroes* just as it did before.
-  It has no idea that we fetched the heroes from the (mock) server.
-  It knows nothing of the twists and turns required to convert the HTTP response into heroes.
-  Such is the beauty and purpose of delegating data access to a service like this `HeroService`.
+  The caller is unaware that you fetched the heroes from the (mock) server.
+  It receives a Promise of *heroes* just as it did before.
 
   调用者并不知道这些实现机制，它仍然像以前那样接收一个包含*英雄数据*的承诺。
   它也不知道我们已经改成了从服务器获取英雄数据。
@@ -313,79 +277,74 @@ block get-heroes-details
 
   ### 错误处理
 
-  At the end of `getHeroes()` we `catch` server failures and pass them to an error handler:
+  At the end of `getHeroes()`, you `catch` server failures and pass them to an error handler.
 
   在`getHeroes()`的最后，我们`catch`了服务器的失败信息，并把它们传给了错误处理器：
 
-+makeExcerpt('src/app/hero.service.ts', 'catch', '')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'catch', '')
 
 :marked
-  This is a critical step!
-  We must anticipate HTTP failures as they happen frequently for reasons beyond our control.
+  This is a critical step.
+  You must anticipate HTTP failures, as they happen frequently for reasons beyond your control.
 
   这是一个关键的步骤！
   我们必须预料到 HTTP 请求会失败，因为有太多我们无法控制的原因可能导致它们频繁出现各种错误。
 
-+makeExcerpt('src/app/hero.service.ts', 'handleError', '')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'handleError', '')
 
-- var rejected_promise = _docsFor == 'dart' ? 'propagated exception' : 'rejected promise';
 :marked
-  In this demo service we log the error to the console; we would do better in real life.
-
+  This demo service logs the error to the console; in real life,
+  you would handle the error in code. For a demo, this works.
+  
   在这个范例服务中，我们把错误记录到控制台中；在真实世界中，我们应该做得更好。
 
-  We've also decided to return a user friendly form of the error to
-  the caller in a !{rejected_promise} so that the caller can display a proper error message to the user.
+  The code also includes an error to
+  the caller in a rejected promise, so that the caller can display a proper error message to the user.
 
   我们还要通过一个被拒绝 (rejected) 的承诺来把该错误用一个用户友好的格式返回给调用者，
   以便调用者能把一个合适的错误信息显示给用户。
 
   ### Get hero by id
-  The `HeroDetailComponent` asks the `HeroService` to fetch a single hero to edit.
-  
-  The `HeroService` currently fetches all heroes and then finds the desired hero 
-  by filtering for the one with the matching `id`.
-  That's fine in a simulation. It's wasteful to ask a real server for _all_ heroes when we only want one.
-  Most web APIs support a _get-by-id_ request in the form `api/hero/:id` (e.g., `api/hero/11`).
 
-  Update the `HeroService.getHero` method to make a _get-by-id_ request,
-  applying what we just learned to write `getHeroes`:
-+makeExcerpt('src/app/hero.service.ts', 'getHero', '')
+  When the `HeroDetailComponent` asks the `HeroService` to fetch a hero,
+  the `HeroService` currently fetches all heroes and
+  filters for the one with the matching `id`.
+  That's fine for a simulation, but it's wasteful to ask a real server for all heroes when you only want one.
+  Most web APIs support a _get-by-id_ request in the form `api/hero/:id` (such as `api/hero/11`).
+
+  Update the `HeroService.getHero()` method to make a _get-by-id_ request:
++makeExample('toh-6/ts/src/app/hero.service.ts', 'getHero', 'src/app/hero.service.ts')
+
 :marked
-  It's almost the same as `getHeroes`. 
-  The URL identifies _which_ hero the server should update by encoding the hero id into the URL
-  to match the `api/hero/:id` pattern.
+  This request is almost the same as `getHeroes()`.
+  The hero id in the URL identifies which hero the server should update.
 
-  We also adjust to the fact that the `data` in the response is a single hero object rather than !{_an} !{_array}.
+  Also, the `data` in the response is a single hero object rather than an array.
 
   ### Unchanged _getHeroes_ API
   
   ### `getHeroes` API 没变
 
-  Although we made significant *internal* changes to `getHeroes()` and `getHero()`, 
-  the public signatures did not change.
-  We still return a !{_Promise} from both methods. 
-  We won't have to update any of the components that call them.
+  Although you made significant internal changes to `getHeroes()` and `getHero()`,
+  the public signatures didn't change.
+  You still return a Promise from both methods.
+  You won't have to update any of the components that call them.
+  
+  虽然我们修改了 `getHeroes()` 和 `getHero()` 的内部实现，但它们的公共签名并没有变。它们仍然返回承诺（Promise）。我们不必修改任何调用它们的组件。
 
-  Our stakeholders are thrilled with the web API integration so far.
-  Now they want the ability to create and delete heroes.
+  Now it's time to add the ability to create and delete heroes.
 
-  我们的客户很欣赏这种富有弹性的 API 集成方式。
-  现在它们想增加创建和删除英雄的功能。
-
-  Let's see first what happens when we try to update a hero's details.
-
-  我们来看看在更新英雄的详情时会发生什么。
+  现在，我们该支持创建和删除英雄了。
 
 .l-main-section
 :marked
-  ## Update hero details
-
+  ## Updating hero details
+  
   ## 更新英雄详情
 
-  We can edit a hero's name already in the hero detail view. Go ahead and try
-  it. As we type, the hero name is updated in the view heading.
-  But when we hit the `Back` button, the changes are lost!
+  Try editing a hero's name in the hero detail view.
+  As you type, the hero name is updated in the view heading.
+  But if you click the Back button, the changes are lost.
   
   我们已经可以在英雄详情中编辑英雄的名字了。来试试吧。在输入的时候，页头上的英雄名字也会随之更新。
   不过当我们点了`Back（后退）`按钮时，这些修改就丢失了。
@@ -393,172 +352,169 @@ block get-heroes-details
 
   Updates weren't lost before. What changed?
   When the app used a list of mock heroes, updates were applied directly to the
-  hero objects within the single, app-wide, shared list. Now that we are fetching data
-  from a server, if we want changes to persist, we'll need to write them back to
+  hero objects within the single, app-wide, shared list. Now that you're fetching data
+  from a server, if you want changes to persist, you must write them back to
   the server.
   
   以前是不会丢失更新的，怎么回事？
   当该应用使用模拟出来的英雄列表时，修改的是一份全局共享的英雄列表，而现在改成了从服务器获取数据。
   如果我们希望这些更改被持久化，我们就得把它们写回服务器。
 
-  ### Save hero details
-
+  ### Add the ability to save hero details
+  
   ### 保存英雄详情
 
-  Let's ensure that edits to a hero's name aren't lost. Start by adding,
-  to the end of the hero detail template, a save button with a `click` event
-  binding that invokes a new component method named `save`:
+  At the end of the hero detail template, add a save button with a `click` event
+  binding that invokes a new component method named `save()`.
 
-  我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save`的新方法：
+  我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save()`的新方法：
 
-+makeExcerpt('src/app/hero-detail.component.html', 'save')
++makeExample('toh-6/ts/src/app/hero-detail.component.html', 'save', 'src/app/hero-detail.component.html (save)')
 
 :marked
-  The `save` method persists hero name changes using the hero service
-  `update` method and then navigates back to the previous view:
+  Add the following `save()` method, which persists hero name changes using the hero service
+  `update()` method and then navigates back to the previous view.
 
   `save`方法使用 hero 服务的`update`方法来持久化对英雄名字的修改，然后导航回前一个视图：
 
-+makeExcerpt('src/app/hero-detail.component.ts', 'save')
++makeExample('toh-6/ts/src/app/hero-detail.component.ts', 'save', 'src/app/hero-detail.component.ts (save)')
 
 :marked
-  ### Hero service `update` method
+  ### Add a hero service _update()_ method
 
   ### hero 服务的`update`方法
 
-  The overall structure of the `update` method is similar to that of
-  `getHeroes`, although we'll use an HTTP _put_ to persist changes
-  server-side:
-
+  The overall structure of the `update()` method is similar to that of
+  `getHeroes()`, but it uses an HTTP `put()` to persist server-side changes.
+  
   `update`方法的大致结构与`getHeroes`类似，不过我们使用 HTTP 的 *put* 方法来把修改持久化到服务端：
 
-+makeExcerpt('src/app/hero.service.ts', 'update')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'update', 'src/app/hero.service.ts (update)')
 
 :marked
-  We identify _which_ hero the server should update by encoding the hero id in
-  the URL. The put body is the JSON string encoding of the hero, obtained by
-  calling `!{_JSON_stringify}`.  We identify the body content type
-  (`application/json`) in the request header.
+  To identify which hero the server should update, the hero `id` is encoded in
+  the URL. The `put()` body is the JSON string encoding of the hero, obtained by
+  calling `JSON.stringify`. The body content type
+  (`application/json`) is identified in the request header.
 
   我们通过一个编码在 URL 中的英雄 id 来告诉服务器应该更新哪个英雄。put 的 body 是该英雄的 JSON 字符串，它是通过调用`!{_JSON_stringify}`得到的。
   并且在请求头中标记出的 body 的内容类型（`application/json`）。
 
-  Refresh the browser and give it a try. Changes to hero names should now persist.
+  Refresh the browser, change a hero name, save your change,
+  and click the browser Back button. Changes should now persist.
 
   刷新浏览器试一下，对英雄名字的修改确实已经被持久化了。
 
 .l-main-section
 :marked
-  ## Add a hero
+  ## Add the ability to add heroes
 
   ## 添加英雄
 
-  To add a new hero we need to know the hero's name. Let's use an input
-  element for that, paired with an add button.
+  To add a hero, the app needs the hero's name. You can use an `input`
+  element paired with an add button.
 
   要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个 input 元素和一个添加按钮来实现。
 
-  Insert the following into the heroes component HTML, first thing after
+  Insert the following into the heroes component HTML, just after
   the heading:
 
   把下列代码插入 heroes 组件的 HTML 中，放在标题的下面：
 
-+makeExcerpt('src/app/heroes.component.html', 'add')
++makeExample('toh-6/ts/src/app/heroes.component.html', 'add', 'src/app/heroes.component.html (add)')
 
 :marked
-  In response to a click event, we call the component's click handler and then
-  clear the input field so that it will be ready to use for another name.
+  In response to a click event, call the component's click handler and then
+  clear the input field so that it's ready for another name.
 
   当点击事件触发时，我们调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。
 
-+makeExcerpt('src/app/heroes.component.ts', 'add')
++makeExample('toh-6/ts/src/app/heroes.component.ts', 'add', 'src/app/heroes.component.ts (add)')
 
 :marked
   When the given name is non-blank, the handler delegates creation of the
-  named hero to the hero service, and then adds the new hero to our !{_array}.
-
+  named hero to the hero service, and then adds the new hero to the array.
+  
   当指定的名字不为空的时候，点击处理器就会委托 hero 服务来创建一个具有此名字的英雄，
-  并把这个新的英雄添加到我们的数组中。
+    并把这个新的英雄添加到我们的数组中。
 
-  Finally, we implement the `create` method in the `HeroService` class.
-
-  最后，我们在`HeroService`类中实现这个`create`方法。
-
-+makeExcerpt('src/app/hero.service.ts', 'create')
+  Implement the `create()` method in the `HeroService` class.
+  
+  然后，我们在`HeroService`类中实现这个`create()`方法。
+  
++makeExample('toh-6/ts/src/app/hero.service.ts', 'create', 'src/app/hero.service.ts (create)')
 
 :marked
-  Refresh the browser and create some new heroes!
+  Refresh the browser and create some heroes.
 
   刷新浏览器，并创建一些新的英雄！
 
 .l-main-section
 :marked
-  ## Delete a hero
+  ## Add the ability to delete a hero
+  
+  ## 支持添加英雄
 
-  ## 删除一个英雄
+  Each hero in the heroes view should have a delete button.
 
-  Too many heroes?
-  Let's add a delete button to each hero in the heroes view.
+  在英雄列表视图中的每个英雄都应该有一个删除按钮。
 
-  英雄太多了？
-  我们在英雄列表视图中来为每个英雄添加一个删除按钮吧。
-
-  Add this button element to the heroes component HTML, right after the hero
-  name in the repeated `<li>` tag:
+  Add the following button element to the heroes component HTML, after the hero
+  name in the repeated `<li>` element.
 
   把这个按钮元素添加到英雄列表组件的 HTML 中，把它放在`<li>`标签中的英雄名的后面：
 
-+makeExcerpt('src/app/heroes.component.html', 'delete', '')
++makeExample('toh-6/ts/src/app/heroes.component.html', 'delete', '')
 
 :marked
   The `<li>` element should now look like this:
 
   `<li>`元素应该变成了这样：
 
-+makeExcerpt('src/app/heroes.component.html', 'li-element')
++makeExample('toh-6/ts/src/app/heroes.component.html', 'li-element', 'src/app/heroes.component.html (li-element)')
 
 :marked
-  In addition to calling the component's `delete` method, the delete button
-  click handling code stops the propagation of the click event &mdash; we
-  don't want the `<li>` click handler to be triggered because that would
-  select the hero that we are going to delete!
+  In addition to calling the component's `delete()` method, the delete button's
+  click handler code stops the propagation of the click event&mdash;you
+  don't want the `<li>` click handler to be triggered because doing so would
+  select the hero that the user will delete.
 
   除了调用组件的`delete`方法之外，这个`delete`按钮的点击处理器还应该阻止点击事件向上冒泡 &mdash;
   我们并不希望触发`<li>`的事件处理器，否则它会选中我们要删除的这位英雄。
 
-  The logic of the `delete` handler is a bit trickier:
+  The logic of the `delete()` handler is a bit trickier:
 
   `delete`处理器的逻辑略复杂：
 
-+makeExcerpt('src/app/heroes.component.ts', 'delete')
++makeExample('toh-6/ts/src/app/heroes.component.ts', 'delete', 'src/app/heroes.component.ts (delete)')
 
 :marked
-  Of course, we delegate hero deletion to the hero service, but the component
+  Of course you delegate hero deletion to the hero service, but the component
   is still responsible for updating the display: it removes the deleted hero
-  from the !{_array} and resets the selected hero if necessary.
+  from the array and resets the selected hero, if necessary.
 
   当然，我们仍然把删除英雄的操作委托给了 hero 服务，
   不过该组件仍然负责更新显示：它从数组中移除了被删除的英雄，如果删除的是正选中的英雄，还会清空选择。
 
 :marked
-  We want our delete button to be placed at the far right of the hero entry.
-  This extra CSS accomplishes that:
+  To place the delete button at the far right of the hero entry,
+  add this CSS:
 
   我们希望删除按钮被放在英雄条目的最右边。
   于是 CSS 变成了这样：
 
-+makeExcerpt('src/app/heroes.component.css', 'additions')
++makeExample('toh-6/ts/src/app/heroes.component.css', 'additions', 'src/app/heroes.component.css (additions)')
 
 :marked
-  ### Hero service `delete` method
-
+  ### Hero service _delete()_ method
+  
   ### hero 服务的`delete`方法
 
-  The hero service's `delete` method uses the _delete_ HTTP method to remove the hero from the server:
+  Add the hero service's `delete()` method, which uses the `delete()` HTTP method to remove the hero from the server:
 
-  hero 服务的`delete`方法使用 HTTP 的 *delete* 方法来从服务器上移除该英雄：
+  hero 服务的`delete()`方法使用 HTTP 的 `delete()` 方法来从服务器上移除该英雄：
 
-+makeExcerpt('src/app/hero.service.ts', 'delete')
++makeExample('toh-6/ts/src/app/hero.service.ts', 'delete', 'src/app/hero.service.ts (delete)')
 
 :marked
   Refresh the browser and try the new delete functionality.
@@ -567,299 +523,287 @@ block get-heroes-details
 
 #observables
 :marked
-  ## !{_Observable}s
-
+  ## Observables
+  
   ## 可观察对象 (Observable)
 
-block observables-section-intro
-  :marked
-    Each `Http` service method  returns an `Observable` of HTTP `Response` objects.
+:marked
+  Each `Http` service method  returns an `Observable` of HTTP `Response` objects.
+  
+  `Http`服务中的每个方法都返回一个 HTTP `Response`对象的`Observable`实例。
 
-    `Http`服务中的每个方法都返回一个 HTTP `Response`对象的`Observable`实例。
+  The `HeroService` converts that `Observable` into a `Promise` and returns the promise to the caller.
+  This section shows you how, when, and why to return the `Observable` directly.
 
-    Our `HeroService` converts that `Observable` into a `Promise` and returns the promise to the caller.
-    In this section we learn to return the `Observable` directly and discuss when and why that might be
-    a good thing to do.
-
-    我们的`HeroService`中把那个`Observable`对象转换成了`Promise`（承诺），并把这个承诺返回给了调用者。
+  我们的`HeroService`中把那个`Observable`对象转换成了`Promise`（承诺），并把这个承诺返回给了调用者。
     这一节，我们将学会直接返回`Observable`，并且讨论何时以及为何那样做会更好。
+    
+  ### Background
+  
+  ### 背景
+  
+  An *Observable* is a stream of events that you can process with array-like operators.
 
-    ### Background
+  一个*可观察对象*是一个事件流，我们可以用数组型操作符来处理它。
+  
+  Angular core has basic support for observables. 
+  Developers augment that support with operators and extensions from the
+  <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS">RxJS library</a>.
+  You'll see how shortly.
 
-    ### 背景
-
-    An *observable* is a stream of events that we can process with array-like operators.
-
-    一个*可观察对象*是一个事件流，我们可以用数组型操作符来处理它。
-
-    Angular core has basic support for observables. 
-    We developers augment that support with operators and extensions from the
-    <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS">RxJS library</a>.
-    We'll see how shortly.
-
-    Angular 内核中提供了对可观察对象的基本支持。而我们这些开发人员可以自己从 <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS">RxJS</a> 库中引入操作符和扩展。
+  Angular 内核中提供了对可观察对象的基本支持。而我们这些开发人员可以自己从 <a href="http://reactivex.io/rxjs" target="_blank" title="RxJS">RxJS</a> 库中引入操作符和扩展。
     我们会简短的讲解下如何做。
+    
+  Recall that the `HeroService`  chained the `toPromise` operator to the `Observable` result of `http.get()`.
+  That operator converted the `Observable` into a `Promise` and you passed that promise back to the caller.
 
-    Recall that our `HeroService` quickly chained the `toPromise` operator to the `Observable` result of `http.get`.
-    That operator converted the `Observable` into a `Promise` and we passed that promise back to the caller.
+  快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
+  该操作符把`Observable`转换成了`Promise`，并且我们把那个承诺返回给了调用者。
+    
+  Converting to a Promise is often a good choice. You typically ask `http.get()` to fetch a single chunk of data.
+  When you receive the data, you're done.
+  The calling component can easily consume a single result in the form of a Promise.
 
-    快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
-    该操作符把`Observable`转换成了`Promise`，并且我们把那个承诺返回给了调用者。
-
-    Converting to a promise is often a good choice. We typically ask `http.get` to fetch a single chunk of data.
-    When we receive the data, we're done.
-    A single result in the form of a promise is easy for the calling component to consume
-    and it helps that promises are widely understood by JavaScript programmers.
-
-    转换成承诺通常是更好地选择，我们通常会要求`http.get`获取单块数据。只要接收到数据，就算完成。
-    使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在 JavaScript 程序员中被广泛接受了。
+  转换成承诺通常是更好地选择，我们通常会要求`http.get`获取单块数据。只要接收到数据，就算完成。
+  使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在 JavaScript 程序员中被广泛接受了。
 
 :marked
-  But requests aren't always "one and done". We may start one request,
-  then cancel it, and make a different request before the server has responded to the first request.
-  Such a _request-cancel-new-request_ sequence is difficult to implement with *!{_Promise}s*.
-  It's easy with *!{_Observable}s* as we'll see.
-
+  But requests aren't always done only once.
+  You may start one request,
+  cancel it, and make a different request before the server has responded to the first request.
+  
   但是请求并非总是“一次性”的。我们可以开始一个请求，
-  并且取消它，在服务器对第一个请求作出回应之前，再开始另一个不同的请求 。
-  像这样一个_请求-取消-新请求_的序列用*承诺*是很难实现的，但接下来我们会看到，它对于*可观察对象*却很简单。
+    并且取消它，在服务器对第一个请求作出回应之前，再开始另一个不同的请求 。
+    像这样一个_请求-取消-新请求_的序列用*承诺*是很难实现的，但接下来我们会看到，它对于*可观察对象*却很简单。
 
-  ### Search-by-name
+  A *request-cancel-new-request* sequence is difficult to implement with `Promise`s, but
+  easy with `Observable`s.
+  
+  *请求-取消-新请求*的序列对于`Promise`来说是很难实现的，但是对`Observable`来说则很容易。
 
-  ### 按名搜索
-
-  We're going to add a *hero search* feature to the Tour of Heroes.
-  As the user types a name into a search box, we'll make repeated HTTP requests for heroes filtered by that name.
-
+  ### Add the ability to search by name
+  
+  ### 支持按名搜索
+  
+  You're going to add a *hero search* feature to the Tour of Heroes.
+  As the user types a name into a search box, you'll make repeated HTTP requests for heroes filtered by that name.
+  
   我们要为《英雄指南》添加一个*英雄搜索*特性。
-  当用户在搜索框中输入一个名字时，我们将不断发起 HTTP 请求，以获得按名字过滤的英雄。
+    当用户在搜索框中输入一个名字时，我们将不断发起 HTTP 请求，以获得按名字过滤的英雄。
 
-  We start by creating `HeroSearchService` that sends search queries to our server's web api.
+  Start by creating `HeroSearchService` that sends search queries to the server's web API.
 
   我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的 Web API。
 
-+makeExample('src/app/hero-search.service.ts')
++makeExample('toh-6/ts/src/app/hero-search.service.ts', null, 'src/app/hero-search.service.ts')
 
 :marked
-  The `!{_priv}http.get()` call in `HeroSearchService` is similar to the one
+  The `http.get()` call in `HeroSearchService` is similar to the one
   in the `HeroService`, although the URL now has a query string.
-
+  
   `HeroSearchService`中的`http.get()`调用和`HeroService`中的很相似，只是这次带了查询字符串。
-  <span if-docs="ts">显著的不同是：我们不再调用`toPromise`，而是直接返回*可观察对象*。</span>
 
-+ifDocsFor('ts')
-  :marked
-    A more important difference: we no longer call `toPromise`.
-    Instead we return the *observable* from the the `htttp.get`, 
-    after chaining it to another RxJS operator, <code>map</code>, 
-    to extract heroes from the response data.
-
-    RxJS operator chaining makes response processing easy and readable.
-    See the [discuss below about operators](#rxjs-imports).
+  More importantly, you no longer call `toPromise()`.
+  Instead you return the *Observable* from the the `http.get()`,
+  after chaining it to another RxJS operator, <code>map()</code>,
+  to extract heroes from the response data.
+  RxJS operator chaining makes response processing easy and readable.
+  See the [discussion below about operators](#rxjs-imports).</span>
+  
+  更重要的是，你不在需要调用`toPromise()`了，而是直接从`http.get()`返回一个`Observable`，然后再给它串上其它的RxJS操作符，如`map()`，以从响应数据中提取出英雄列表。
+  串联RxJS操作符可以让响应过程更加容易，可读性也更好。
+  参见[稍后对操作符的讨论](#rxjs-imports)。
 
 :marked
   ### HeroSearchComponent
 
-  ### HeroSearchComponent
-
-  Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`.
+  Create a `HeroSearchComponent` that calls the new `HeroSearchService`.
 
   我们再创建一个新的`HeroSearchComponent`来调用这个新的`HeroSearchService`。
 
-  The component template is simple &mdash; just a text box and a list of matching search results.
+  The component template is simple&mdash;just a text box and a list of matching search results.
 
   组件模板很简单，就是一个输入框和一个显示匹配的搜索结果的列表。
 
-+makeExample('src/app/hero-search.component.html')
++makeExample('toh-6/ts/src/app/hero-search.component.html', null, 'src/app/hero-search.component.html')
 :marked
-  We'll also want to add styles for the new component.
+  Also, add styles for the new component.
 
   我们还要往这个新组件中添加样式。
 
-+makeExample('src/app/hero-search.component.css')
++makeExample('toh-6/ts/src/app/hero-search.component.css', null, 'src/app/hero-search.component.css')
 :marked
-  As the user types in the search box, a *keyup* event binding calls the component's `search` method with the new search box value.
-
+  As the user types in the search box, a *keyup* event binding calls the component's `search()`
+  method with the new search box value.
+  
   当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的`search`方法，并传入新的搜索框的值。
 
-  The `*ngFor` repeats *hero* objects from the component's `heroes` property. No surprise there.
+  As expected, the `*ngFor` repeats hero objects from the component's `heroes` property.
 
-  `*ngFor`从该组件的`heroes`属性重复获取 *hero* 对象。这也没啥特别的。
+  不出所料，`*ngFor`从该组件的`heroes`属性重复获取 *hero* 对象。这也没啥特别的。
 
-  But, as we'll soon see, the `heroes` property is now !{_an} *!{_Observable}* of hero !{_array}s, rather than just a hero !{_array}.
-  The `*ngFor` can't do anything with !{_an} `!{_Observable}` until we flow it through the `async` pipe (`AsyncPipe`).
-  The `async` pipe subscribes to the `!{_Observable}` and produces the !{_array} of heroes to `*ngFor`.
-
+  But as you'll soon see, the `heroes` property is now an *Observable* of hero arrays, rather than just a hero array.
+  The `*ngFor` can't do anything with an `Observable` until you route it through the `async` pipe (`AsyncPipe`).
+  The `async` pipe subscribes to the `Observable` and produces the array of heroes to `*ngFor`.
+  
   但是，接下来我们看到`heroes`属性现在是英雄列表的`Observable`对象，而不再只是英雄数组。
-  `*ngFor`不能用可观察对象做任何事，除非我们在它后面跟一个`async` pipe (`AsyncPipe`)。
-  这个`async`管道会订阅到这个可观察对象，并且为`*ngFor`生成一个英雄数组。
+    `*ngFor`不能用可观察对象做任何事，除非我们在它后面跟一个`async` pipe (`AsyncPipe`)。
+    这个`async`管道会订阅到这个可观察对象，并且为`*ngFor`生成一个英雄数组。
 
-  Time to create the `HeroSearchComponent` class and metadata.
+  Create the `HeroSearchComponent` class and metadata.
 
   该创建`HeroSearchComponent`类及其元数据了。
 
-+makeExample('src/app/hero-search.component.ts')
++makeExample('toh-6/ts/src/app/hero-search.component.ts', null, 'src/app/hero-search.component.ts')
 
 :marked
   #### Search terms
-
+  
   #### 搜索词
 
-  Let's focus on the `!{_priv}searchTerms`:
+  Focus on the `searchTerms`:
 
   仔细看下这个`searchTerms`：
 
-+makeExcerpt('src/app/hero-search.component.ts', 'searchTerms', '')
++makeExample('toh-6/ts/src/app/hero-search.component.ts', 'searchTerms', '')
 
-block search-criteria-intro
-  :marked
-    A `Subject` is a producer of an _observable_ event stream;
-    `searchTerms` produces an `Observable` of strings, the filter criteria for the name search.
+:marked
+  A `Subject` is a producer of an _observable_ event stream;
+  `searchTerms` produces an `Observable` of strings, the filter criteria for the name search.
 
     `Subject`（主题）是一个_可观察的_事件流中的生产者。
-    `searchTerms`生成一个产生字符串的`Observable`，用作按名称搜索时的过滤条件。
-
-    Each call to `search` puts a new string into this subject's _observable_ stream by calling `next`.
+    `searchTerms`生成一个产生字符串的`Observable`，用作按名称搜索时的过滤条件。Each call to `search()` puts a new string into this subject's _observable_ stream by calling `next()`.
 
     每当调用`search`时都会调用`next`来把新的字符串放进该主题的_可观察_流中。
 
+a#ngoninit
 :marked
-  <a id="ngoninit"></a>
-  #### Initialize the _**heroes**_ property (_**ngOnInit**_)
+  #### Initialize the *heroes* property (*ngOnInit*)
+  
+  #### 初始化 *heroes* 属性(*ngOnInit*)
 
-  #### 初始化 _**heroes**_ 属性(_**ngOnInit**_)
+  A `Subject` is also an `Observable`.
+  You can turn the stream
+  of search terms into a stream of `Hero` arrays and assign the result to the `heroes` property.
 
-  <span if-docs="ts">A `Subject` is also an `Observable`.</span>
-  We're going to turn the stream
-  of search terms into a stream of `Hero` !{_array}s and assign the result to the `heroes` property.
-
-  <span if-docs="ts">`Subject`也是一个`Observable`对象。</span>
+  `Subject`也是一个`Observable`对象。
   我们要把搜索词的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。
 
-+makeExcerpt('src/app/hero-search.component.ts', 'search', '')
++makeExample('toh-6/ts/src/app/hero-search.component.ts', 'search', '')
 
 :marked
-  If we passed every user keystroke directly to the `HeroSearchService`, we'd unleash a storm of HTTP requests.
-  Bad idea. We don't want to tax our server resources and burn through our cellular network data plan.
-
+  Passing every user keystroke directly to the `HeroSearchService` would create an excessive amount of HTTP requests,
+  taxing server resources and burning through the cellular network data plan.
+  
   如果我们直接把每一次用户按键都直接传给`HeroSearchService`，就会发起一场 HTTP 请求风暴。
-  这可不好玩。我们不希望占用服务器资源，也不想耗光蜂窝移动网络的流量。
+    这可不好玩。我们不希望占用服务器资源，也不想耗光蜂窝移动网络的流量。
 
-block observable-transformers
-  :marked
-    Fortunately, we can chain `Observable` operators to the string `Observable` that reduce the request flow.
-    We'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
-
-    幸运的是，我们可以在字符串的`Observable`后面串联一些`Observable`操作符，来归并这些请求。
+:marked
+  Instead, you can chain `Observable` operators that reduce the request flow to the string `Observable`.
+  You'll make fewer calls to the `HeroSearchService` and still get timely results. Here's how:
+  
+  不过，我们可以在字符串的`Observable`后面串联一些`Observable`操作符，来归并这些请求。
     我们将对`HeroSearchService`发起更少的调用，并且仍然获得足够及时的响应。做法如下：
 
-    * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
-    before passing along the latest string. We'll never make requests more frequently than 300ms.
+  * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
+  before passing along the latest string. You'll never make requests more frequently than 300ms.
+  
+    在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了 300 毫秒。
+        我们实际发起请求的间隔永远不会小于 300ms。
+        
+  * `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
+  
+    `distinctUntilChanged`确保只在过滤条件变化时才发送请求，
+        这样就不会重复请求同一个搜索词了。
+        
+  * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
+  It cancels and discards previous search observables, returning only the latest search service observable.
+  
+    `switchMap`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
+        它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
-      在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了 300 毫秒。
-    我们实际发起请求的间隔永远不会小于 300ms。
-
-    * `distinctUntilChanged` ensures that we only send a request if the filter text changed.
-    There's no point in repeating a request for the same search term.
-
-      `distinctUntilChanged`确保只在过滤条件变化时才发送请求，
-    这样就不会重复请求同一个搜索词了。
-
-    * `switchMap` calls our search service for each search term that makes it through the `debounce` and `distinctUntilChanged` gauntlet.
-    It cancels and discards previous search observables, returning only the latest search service observable.
-
-      `switchMap`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
-    它会取消并丢弃以前的搜索可观察对象，只保留最近的。
-
-  .l-sub-section
-    :marked
-      The [switchMap operator](http://www.learnrxjs.io/operators/transformation/switchmap.html)
-      (formerly known as "flatMapLatest") is very clever.
-
-      [switchMap操作符](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md)
-      (以前叫"flatMapLatest")是非常智能的。
-
-      Every qualifying key event can trigger an `http` method call.
-      Even with a 300ms pause between requests, we could have multiple HTTP requests in flight
-      and they may not return in the order sent.
-
-      每次符合条件的按键事件都会触发一次对`http`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
-      我们仍然可能同时拥有多个在途的 HTTP 请求，并且它们返回的顺序未必就是发送时的顺序。
-
-      `switchMap` preserves the original request order while returning
-       only the observable from the most recent `http` method call.
-      Results from prior calls are canceled and discarded.
-
-      `switchMap`保留了原始的请求顺序，并且只返回最近一次 `http` 调用返回的可观察对象。
-      这是因为以前的调用都被取消或丢弃了。
-
-      We also short-circuit the `http` method call and return an observable containing an empty array
-      if the search text is empty.
-
-      如果搜索框为空，我们还可以短路掉这次`http`方法调用，并且直接返回一个包含空数组的可观察对象。
-
-      Note that _canceling_ the `HeroSearchService` observable won't actually abort a pending HTTP request
-      until the service supports that feature, a topic for another day.
-      We are content for now to discard unwanted results.
-
-      注意，_取消_`HeroSearchService`的可观察对象并不会实际中止 (abort) 一个未完成的 HTTP 请求，
-      除非服务支持这个特性，这个问题我们以后再讨论。
-      目前我们的做法只是丢弃不希望的结果。
-
+.l-sub-section
   :marked
-    * `catch` intercepts a failed observable.
-    Our simple example prints the error to the console; a real life application should do better.
-    Then we return an observable containing an empty array to clear the search result.
+    With the [switchMap operator](http://www.learnrxjs.io/operators/transformation/switchmap.html)
+    (formerly known as `flatMapLatest`),
+    every qualifying key event can trigger an `http()` method call.
+    Even with a 300ms pause between requests, you could have multiple HTTP requests in flight
+    and they may not return in the order sent.
 
-      `catch`拦截失败的可观察对象。这个简单的例子中只是把错误信息打印到控制台（但实际的应用需要做更多事），然后返回一个包含空数组的可观察对象，以清空搜索结果。
-
-  a#rxjs-imports
-  :marked
-    ### Import RxJS operators
+    每次符合条件的按键事件都会触发一次对`http`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
+    我们仍然可能同时拥有多个在途的 HTTP 请求，并且它们返回的顺序未必就是发送时的顺序。
     
-    ### 导入 RxJS 操作符
-
-    Most RxJS operators are not included in Angular's base `Observable` implementation.
-    The base implementation includes only what Angular itself requires.
-
-    If we want more RxJS features, we have to extend  `Observable` by *importing* the libraries in which they are defined.
-    Here are all the RxJS imports _this_ component needs:
-
-  +makeExample('src/app/hero-search.component.ts','rxjs-imports','src/app/hero-search.component.ts (rxjs imports)')(format='.')
-
-  :marked
-    The `import 'rxjs/add/...'` syntax may be unfamiliar.
-    It's missing the usual list of symbols between the braces: `{...}`.
+    `switchMap()` preserves the original request order while returning
+     only the observable from the most recent `http` method call.
+    Results from prior calls are canceled and discarded.
     
-    We don't need the operator symbols themselves. 
-    In each case, the mere act of importing the library
-    loads and executes the library's script file which, in turn, adds the operator to the `Observable` class.
+    `switchMap`保留了原始的请求顺序，并且只返回最近一次 `http` 调用返回的可观察对象。
+          这是因为以前的调用都被取消或丢弃了。
+
+    If the search text is empty, the `http()` method call is also short circuited
+    and an observable containing an empty array is returned.
+
+    如果搜索框为空，我们还可以短路掉这次`http()`方法调用，并且直接返回一个包含空数组的可观察对象。
+    
+    Note that until the service supports that feature,_canceling_ the `HeroSearchService` Observable
+    doesn't actually abort a pending HTTP request.
+    For now , unwanted resultsare discarded.
+    
+    注意，_取消_`HeroSearchService`的可观察对象并不会实际中止 (abort) 一个未完成的 HTTP 请求，
+    除非服务支持这个特性，这个问题我们以后再讨论。
+    目前我们的做法只是丢弃不希望的结果。
+:marked
+  * `catch` intercepts a failed observable.
+  The simple example prints the error to the console; a real life app would do better.
+  Then to clear the search result, you return an observable containing an empty array .
+
+    `catch`拦截失败的可观察对象。这个简单的例子中只是把错误信息打印到控制台（但实际的应用需要做更多事），然后返回一个包含空数组的可观察对象，以清空搜索结果。
+  
+a#rxjs-imports
+:marked
+  ### Import RxJS operators
+  
+  ### 导入 RxJS 操作符
+
+  Most RxJS operators are not included in Angular's base `Observable` implementation.
+  The base implementation includes only what Angular itself requires.
+
+  When you need more RxJS features, extend  `Observable` by *importing* the libraries in which they are defined.
+  Here are all the RxJS imports that _this_ component needs:
+
++makeExample('toh-6/ts/src/app/hero-search.component.ts','rxjs-imports','src/app/hero-search.component.ts (rxjs imports)')(format='.')
+
+:marked
+  The `import 'rxjs/add/...'` syntax may be unfamiliar.
+  It's missing the usual list of symbols between the braces: `{...}`.
+
+  You don't need the operator symbols themselves.
+  In each case, the mere act of importing the library
+  loads and executes the library's script file which, in turn, adds the operator to the `Observable` class.
 
 :marked
   ### Add the search component to the dashboard
-
+  
   ### 为仪表盘添加搜索组件
 
-  We add the hero search HTML element to the bottom of the `DashboardComponent` template.
+  Add the hero search HTML element to the bottom of the `DashboardComponent` template.
 
   将表示“英雄搜索”组件的 HTML 元素添加到`DashboardComponent`模版的最后面。
 
-+makeExample('src/app/dashboard.component.html')(format='.')
++makeExample('toh-6/ts/src/app/dashboard.component.html', null, 'src/app/dashboard.component.html')(format='.')
 
-- var _declarations = _docsFor == 'dart' ? 'directives' : 'declarations'
-- var declFile = _docsFor == 'dart' ? 'src/app/dashboard.component.ts' : 'src/app/app.module.ts'
 :marked
-  Finally, we import `HeroSearchComponent` from
-  <span ngio-ex>hero-search.component.ts</span>
-  and add it to the `!{_declarations}` !{_array}:
+  Finally, import `HeroSearchComponent` from
+  <code>hero-search.component.ts</code>
+  and add it to the `declarations` array.
 
   最后，从<span ngio-ex>hero-search.component.ts</span>中导入`HeroSearchComponent`并将其添加到`declarations`数组中。
 
-+makeExcerpt(declFile, 'search')
++makeExample('toh-6/ts/src/app/app.module.ts', 'search', 'src/app/app.module.ts (search)')
 
 :marked
-  Run the app again, go to the *Dashboard*, and enter some text in the search box.
-  At some point it might look like this.
+  Run the app again. In the Dashboard, enter some text in the search box.
+  If you enter characters that match any existing hero names, you'll see something like this.
 
   再次运行该应用，跳转到*仪表盘*，并在英雄下方的搜索框里输入一些文本。
   看起来就像这样：
@@ -869,132 +813,130 @@ figure.image-display
 
 .l-main-section
 :marked
-  ## Application structure and code
+  ## App structure and code
 
   ## 应用的结构与代码
 
-  Review the sample source code in the <live-example></live-example> for this chapter.
-  Verify that we have the following structure:
-
+  Review the sample source code in the <live-example></live-example> for this page.
+  Verify that you have the following structure:
+  
   回顾一下本章<live-example>在线例子</live-example>中的范例代码。
-  验证我们是否得到了如下结构：
+    验证我们是否得到了如下结构：
 
-block filetree
-  .filetree
-    .file angular-tour-of-heroes
+.filetree
+  .file angular-tour-of-heroes
+  .children
+    .file src
     .children
-      .file src
+      .file app
       .children
-        .file app
-        .children
-          .file app.component.ts
-          .file app.component.css
-          .file app.module.ts
-          .file app-routing.module.ts
-          .file dashboard.component.css
-          .file dashboard.component.html
-          .file dashboard.component.ts
-          .file hero.ts
-          .file hero-detail.component.css
-          .file hero-detail.component.html
-          .file hero-detail.component.ts
-          .file hero-search.component.html (new)
-          .file hero-search.component.css (new)
-          .file hero-search.component.ts (new)
-          .file hero-search.service.ts (new)
-          .file hero.service.ts
-          .file heroes.component.css
-          .file heroes.component.html
-          .file heroes.component.ts
-          .file in-memory-data.service.ts (new)
-        .file main.ts
-        .file index.html
-        .file styles.css
-        .file systemjs.config.js
-        .file tsconfig.json
-      .file node_modules ...
-      .file package.json
+        .file app.component.ts
+        .file app.component.css
+        .file app.module.ts
+        .file app-routing.module.ts
+        .file dashboard.component.css
+        .file dashboard.component.html
+        .file dashboard.component.ts
+        .file hero.ts
+        .file hero-detail.component.css
+        .file hero-detail.component.html
+        .file hero-detail.component.ts
+        .file hero-search.component.html (new)
+        .file hero-search.component.css (new)
+        .file hero-search.component.ts (new)
+        .file hero-search.service.ts (new)
+        .file hero.service.ts
+        .file heroes.component.css
+        .file heroes.component.html
+        .file heroes.component.ts
+        .file in-memory-data.service.ts (new)
+      .file main.ts
+      .file index.html
+      .file styles.css
+      .file systemjs.config.js
+      .file tsconfig.json
+    .file node_modules ...
+    .file package.json
 
 .l-main-section
 :marked
   ## Home Stretch
-
+  
   ## 最后冲刺
 
-  We are at the end of our journey for now, but we have accomplished a lot.
-
+  You're at the end of your journey, and you've accomplished a lot.
+  
   旅程即将结束，不过我们已经收获颇丰。
-
-  - We added the necessary dependencies to use HTTP in our application.
-
+  
+  * You added the necessary dependencies to use HTTP in the app.
+  
     我们添加了在应用程序中使用 HTTP 的必备依赖。
-
-  - We refactored `HeroService` to load heroes from a web API.
-
+    
+  * You refactored `HeroService` to load heroes from a web API.
+  
     我们重构了`HeroService`，以通过 web API 来加载英雄数据。
-
-  - We extended `HeroService` to support post, put and delete methods.
-
+    
+  * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
+  
     我们扩展了`HeroService`来支持 post、put 和 delete 方法。
-
-  - We updated our components to allow adding, editing and deleting of heroes.
-
+    
+  * You updated the components to allow adding, editing, and deleting of heroes.
+  
     我们更新了组件，以允许用户添加、编辑和删除英雄。
-
-  - We configured an in-memory web API.
-
+    
+  * You configured an in-memory web API.
+  
     我们配置了一个内存 Web API。
-
-  - We learned how to use !{_Observable}s.
-
+    
+  * You learned how to use Observables.
+  
     我们学会了如何使用“可观察对象”。
 
-  Here are the files we _added or changed_ in this chapter.
-
+  Here are the files you added or changed in this page.
+  
   下面是我们**添加或修改**之后的文件汇总。
 
-block file-summary
-  +makeTabs(
-    `toh-6/ts/src/app/app.component.ts,
-     toh-6/ts/src/app/app.module.ts,
-     toh-6/ts/src/app/heroes.component.ts,
-     toh-6/ts/src/app/heroes.component.html,
-     toh-6/ts/src/app/heroes.component.css,
-     toh-6/ts/src/app/hero-detail.component.ts,
-     toh-6/ts/src/app/hero-detail.component.html,
-     toh-6/ts/src/app/hero.service.ts,
-     toh-6/ts/src/app/in-memory-data.service.ts`,
-    ',,,,,,,,',
-    `app.comp...ts,
-     app.mod...ts,
-     heroes.comp...ts,
-     heroes.comp...html,
-     heroes.comp...css,
-     hero-detail.comp...ts,
-     hero-detail.comp...html,
-     hero.service.ts,
-     in-memory-data.service.ts`
-  )
++makeTabs(
+  `toh-6/ts/src/app/app.component.ts,
+    toh-6/ts/src/app/app.module.ts,
+    toh-6/ts/src/app/heroes.component.ts,
+    toh-6/ts/src/app/heroes.component.html,
+    toh-6/ts/src/app/heroes.component.css,
+    toh-6/ts/src/app/hero-detail.component.ts,
+    toh-6/ts/src/app/hero-detail.component.html,
+    toh-6/ts/src/app/hero.service.ts,
+    toh-6/ts/src/app/in-memory-data.service.ts`,
+  ',,,,,,,,',
+  `app.comp...ts,
+    app.mod...ts,
+    heroes.comp...ts,
+    heroes.comp...html,
+    heroes.comp...css,
+    hero-detail.comp...ts,
+    hero-detail.comp...html,
+    hero.service.ts,
+    in-memory-data.service.ts`
+)
 
-  +makeTabs(
-    `toh-6/ts/src/app/hero-search.service.ts,
-    toh-6/ts/src/app/hero-search.component.ts,
-    toh-6/ts/src/app/hero-search.component.html,
-    toh-6/ts/src/app/hero-search.component.css`,
-    null,
-    `hero-search.service.ts,
-    hero-search.component.ts,
-    hero-search.component.html,
-    hero-search.component.css`
-  )
++makeTabs(
+  `toh-6/ts/src/app/hero-search.service.ts,
+  toh-6/ts/src/app/hero-search.component.ts,
+  toh-6/ts/src/app/hero-search.component.html,
+  toh-6/ts/src/app/hero-search.component.css`,
+  null,
+  `hero-search.service.ts,
+  hero-search.component.ts,
+  hero-search.component.html,
+  hero-search.component.css`
+)
 
 .l-sub-section
   :marked
-    ### Next Step
+    ## Next step
 
     ### 下一步
 
-    Return to the [learning path](../guide/learning-angular.html#architecture) where
-    you can read about the concepts and practices you discovered in this tutorial.
+    Return to the [learning path](../guide/learning-angular.html#architecture), where
+    you can read more about the concepts and practices found in this tutorial.
 
     返回[学习路径](../guide/learning-angular.html#architecture)，你可以阅读在本教程中探索到的概念和实践。

@@ -1,15 +1,14 @@
 block includes
   include ../_util-fns
 
-- var top="vertical-align:top"
-
 figure
   img(src="/resources/images/devguide/lifecycle-hooks/hooks-in-sequence.png" alt="Us" align="left" style="width:200px; margin-left:-40px;margin-right:30px")
 
 :marked
-  A component has a lifecycle managed by Angular itself.
-
+  A component has a lifecycle managed by Angular .
+  
   每个组件都有一个被Angular管理的生命周期。
+  
   Angular creates it, renders it, creates and renders its children,
   checks it when its data-bound properties change, and destroys it before removing it from the DOM.
 
@@ -25,55 +24,72 @@ figure
   除了那些组件内容和视图相关的钩子外,指令有相同生命周期钩子。
 
   <br class="l-clear-both">
-+ifDocsFor('ts|js')
-  :marked
-    ## Table of Contents
 
-    ## 目录
-    
-    * [Overview](#hooks-overview)
-    
-        [概述](#hooks-overview)
+:marked
+  ## Contents
+  
+  ## 目录
 
-    * [Each hook's purpose and timing](#hooks-purpose-timing)
-    
-        [每个钩子的目的和时机](#hooks-purpose-timing)
-        
-    * [Interfaces are optional (technically)](#interface-optional)
-    
-        [接口是可选的（从技术上说）](#interface-optional)
-        
-    * [Other Angular lifecycle hooks](#other-lifecycle-hooks)
-    
-        [其他Angular生命周期钩子](#other-lifecycle-hooks)
-        
-    * [The lifecycle sample](#the-sample)
-    
-        [生命周期例子](#the-sample)
-        
-      * [All](#peek-a-boo)
-      
-          [全部钩子](#peek-a-boo)
+  * [Component lifecycle hooks overview](#hooks-overview)
 
-      * [Spying OnInit and OnDestroy](#spy)
-      
-          [Spy刺探OnInit和OnDestroy](#spy)
+    [组件生命周期概览](#hooks-overview)
 
-      * [OnChanges](#onchanges)
-      
-          [OnChanges](#onchanges)
+  * [Lifecycle sequence](#hooks-purpose-timing)
 
-      * [DoCheck](#docheck)
-      
-          [DoCheck](#docheck)
+    [生命周期的顺序](#hooks-purpose-timing)
 
-      * [AfterViewInit and AfterViewChecked](#afterview)
+  * [Interfaces are optional (technically)](#interface-optional)
 
-          [AfterViewInit和AfterViewChecked](#afterview)
+    [接口是可选的（理论上）](#interface-optional)
 
-      * [AfterContentInit and AfterContentChecked](#aftercontent)
+  * [Other Angular lifecycle hooks](#other-lifecycle-hooks)
 
-          [AfterContentInit和AfterContentChecked](#aftercontent)
+    [其它Angular生命周期钩子](#other-lifecycle-hooks)
+
+  * [Lifecycle examples](#the-sample)
+
+    [生命周期范例](#the-sample)
+
+  * [Peek-a-boo: all hooks](#peek-a-boo)
+
+    [Peek-a-boo：所有钩子](#peek-a-boo)
+
+  * [Spying OnInit and OnDestroy](#spy)
+
+    [监听OnInit和OnDestroy](#spy)
+
+
+    * [OnInit](#oninit)
+
+    * [OnDestroy](#ondestroy)
+
+  * [OnChanges](#onchanges)
+
+  * [DoCheck](#docheck)
+
+  * [AfterView](#afterview)
+
+
+    * [Abide by the unidirectional data flow rule](#wait-a-tick)
+
+      [遵循单向数据流规则](#wait-a-tick)
+
+
+  * [AfterContent](#aftercontent)
+
+    * [Content projection](#content-projection)
+
+      [内容投影](#content-projection)
+
+    * [AfterContent hooks](#aftercontent-hooks)
+
+      [AfterContent钩子](#aftercontent-hooks)
+
+    * [No unidirectional flow worries with _AfterContent_](#no-unidirectional-flow-worries)
+
+      [非单向数据流下_AfterContent_的注意事项](#no-unidirectional-flow-worries)
+
+
 :marked
   Try the <live-example></live-example>.
 
@@ -82,20 +98,20 @@ figure
 a#hooks-overview
 .l-main-section
 :marked
-  ## Component lifecycle hooks
-
-  ## 组件生命周期钩子
-
+  ## Component lifecycle hooks overview
+  
+  ## 组件生命周期钩子概览
+  
   Directive and component instances have a lifecycle
   as Angular creates, updates, and destroys them.
   Developers can tap into key moments in that lifecycle by implementing
-  one or more of the *Lifecycle Hook* interfaces in the Angular `core` library.
+  one or more of the *lifecycle hook* interfaces in the Angular `core` library.
 
   指令和组件的实例有一个生命周期：新建、更新和销毁。
   通过实现一个或多个Angular `core`库里定义的*生命周期钩子*接口，开发者可以介入该生命周期中的这些关键时刻。
 
   Each interface has a single hook method whose name is the interface name prefixed with `ng`.
-  For example, the `OnInit` interface has a hook method named `ngOnInit` 
+  For example, the `OnInit` interface has a hook method named `ngOnInit()`
   that Angular calls shortly after creating the component:
 
   每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上`ng`前缀构成的。比如，`OnInit`接口的钩子方法叫做`ngOnInit`，
@@ -119,6 +135,7 @@ a#hooks-purpose-timing
   calls the lifecycle hook methods in the following sequence at specific moments:
 
   当Angular使用构造函数新建一个组件或指令后，就会按下面的顺序在特定时刻调用这些生命周期钩子方法：
+  
 table(width="100%")
   col(width="20%")
   col(width="80%")
@@ -129,54 +146,54 @@ table(width="100%")
     th
       p Purpose and Timing
       p 目的和时机
-  tr(style=top)
-    td ngOnChanges
+  tr(style='vertical-align:top')
+    td <code>ngOnChanges()</code>
     td
       :marked
         Respond when Angular (re)sets data-bound input properties.
         The method receives a `SimpleChanges` object of current and previous property values.
-
+        
         当Angular（重新）设置数据绑定输入属性时响应。
         该方法接受当前和上一属性值的`SimpleChanges`对象
-
-        Called before `ngOnInit` and whenever one or more data-bound input properties change.
+        
+        Called before `ngOnInit()` and whenever one or more data-bound input properties change.
 
         当被绑定的输入属性的值发生变化时调用，首次调用一定会发生在`ngOnInit`之前。
 
-  tr(style=top)
-    td ngOnInit
+  tr(style='vertical-align:top')
+    td <code>ngOnInit()</code>
     td
       :marked
         Initialize the directive/component after Angular first displays the data-bound properties
         and sets the directive/component's input properties.
-
+        
         在Angular第一次显示数据绑定和设置指令/组件的输入属性之后，初始化指令/组件。
-
-        Called _once_, after the _first_ `ngOnChanges`. 
+        
+        Called _once_, after the _first_ `ngOnChanges()`. 
 
         在第一轮`ngOnChanges`完成之后调用，只调用**一次**。
 
-  tr(style=top)
-    td ngDoCheck
+  tr(style='vertical-align:top')
+    td <code>ngDoCheck()</code>
     td
       :marked
-        Detect and act upon changes that Angular can't or won't detect on its own. 
+        Detect and act upon changes that Angular can't or won't detect on its own.
 
         检测，并在发生Angular无法或不愿意自己检测的变化时作出反应。
 
-        Called during every change detection run, immediately after `ngOnChanges` and `ngOnInit`.
+        Called during every change detection run, immediately after `ngOnChanges()` and `ngOnInit()`.
 
         在每个Angular变更检测周期中调用，`ngOnChanges`和`ngOnInit`之后。
 
-  tr(style=top)
-    td ngAfterContentInit
+  tr(style='vertical-align:top')
+    td <code>ngAfterContentInit()</code>
     td
       :marked
         Respond after Angular projects external content into the component's view.
 
         当把内容投影进组件之后调用。
 
-        Called _once_ after the first `NgDoCheck`.
+        Called _once_ after the first `ngDoCheck()`.
 
         第一次`NgDoCheck`之后调用，只调用一次。
 
@@ -184,15 +201,15 @@ table(width="100%")
 
         **只适用于组件**。
 
-  tr(style=top)
-    td ngAfterContentChecked
+  tr(style='vertical-align:top')
+    td <code>ngAfterContentChecked()</code>
     td
       :marked
         Respond after Angular checks the content projected into the component.
 
         每次完成被投影组件内容的变更检测之后调用。
 
-        Called after the `ngAfterContentInit` and every subsequent `NgDoCheck`.
+        Called after the `ngAfterContentInit()` and every subsequent `ngDoCheck()`.
 
         `ngAfterContentInit`和每次`NgDoCheck`之后调用
 
@@ -200,15 +217,15 @@ table(width="100%")
 
         **只适合组件**。
 
-  tr(style=top)
-    td ngAfterViewInit
+  tr(style='vertical-align:top')
+    td <code>ngAfterViewInit()</code>
     td
       :marked
         Respond after Angular initializes the component's views and child views.
 
         初始化完组件视图及其子视图之后调用。
 
-        Called _once_ after the first `ngAfterContentChecked`.
+        Called _once_ after the first `ngAfterContentChecked()`.
 
         第一次`ngAfterContentChecked`之后调用，只调用一次。
 
@@ -216,15 +233,15 @@ table(width="100%")
 
         **只适合组件**。
 
-  tr(style=top)
-    td ngAfterViewChecked
+  tr(style='vertical-align:top')
+    td <code>ngAfterViewChecked()</code>
     td
       :marked
         Respond after Angular checks the component's views and child views.
 
         每次做完组件视图和子视图的变更检测之后调用。
 
-        Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked`.
+        Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked()`.
 
         `ngAfterViewInit`和每次`ngAfterContentChecked`之后调用。
 
@@ -232,64 +249,56 @@ table(width="100%")
 
         **只适合组件**。
 
-  tr(style=top)
-    td ngOnDestroy
+  tr(style='vertical-align:top')
+    td <code>ngOnDestroy</code>
     td
       :marked
         Cleanup just before Angular destroys the directive/component.
-        Unsubscribe observables and detach event handlers to avoid memory leaks.      
+        Unsubscribe Observables and detach event handlers to avoid memory leaks.
 
         当Angular每次销毁指令/组件之前调用并清扫。
         在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。
 
         Called _just before_ Angular destroys the directive/component.
 
-        在Angular销毁指令/组件之前调用。
+a#interface-optional
+.l-main-section  
+:marked
+  ## Interfaces are optional (technically)
 
-+ifDocsFor('ts|js')
-  a#interface-optional
-  .l-main-section  
-  :marked
-    ## Interface are optional (technically)
+  ## 接口是可选的(理论上)？
+  
+  The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
+  The JavaScript language doesn't have interfaces.
+  Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
 
-    ## 接口是可选的(理论上)？
+  从纯技术的角度讲，接口对JavaScript和TypeScript的开发者都是可选的。JavaScript语言本身没有接口。
+  Angular在运行时看不到TypeScript接口，因为它们在编译为JavaScript的时候已经消失了。Fortunately, they aren't necessary.
+  
+  You don't have to add the lifecycle hook interfaces to directives and components to benefit from the hooks themselves.
 
-    The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
-    The JavaScript language doesn't have interfaces.
-    Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
+  幸运的是，它们也不是必须的。我们不需要在指令和组件上添加生命周期钩子接口就能获得钩子带来的好处。
+  
+  Angular instead inspects directive and component classes and calls the hook methods *if they are defined*.
+  Angular finds and calls methods like `ngOnInit()`, with or without the interfaces.
 
-    从纯技术的角度讲，接口对JavaScript和TypeScript的开发者都是可选的。JavaScript语言本身没有接口。
-    Angular在运行时看不到TypeScript接口，因为它们在编译为JavaScript的时候已经消失了。
-
-    Fortunately, they aren't necessary.
-    You don't have to add the lifecycle hook interfaces to directives and components to benefit from the hooks themselves.
-
-    幸运的是，它们也不是必须的。我们不需要在指令和组件上添加生命周期钩子接口就能获得钩子带来的好处。
-
-    Angular instead inspects directive and component classes and calls the hook methods *if they are defined*.
-    Angular finds and calls methods like `ngOnInit()`, with or without the interfaces.
-
-    Angular会去检测我们的指令和组件的类，一旦发现钩子方法被定义了，就调用它们。
-    Agnular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。
-
-    Nonetheless, it's good practice to add interfaces to TypeScript directive classes
-    in order to benefit from strong typing and editor tooling.
-
-    虽然如此，我们还是强烈建议你在TypeScript指令类中添加接口，以获得强类型和IDE等编辑器带来的好处。
-
+  Angular会去检测我们的指令和组件的类，一旦发现钩子方法被定义了，就调用它们。
+  Agnular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。
+  
+  Nonetheless, it's good practice to add interfaces to TypeScript directive classes
+  in order to benefit from strong typing and editor tooling.
+  
+  虽然如此，我们还是强烈建议你在TypeScript指令类中添加接口，以获得强类型和IDE等编辑器带来的好处。
 a#other-lifecycle-hooks
 .l-main-section
 :marked
-  ## Other lifecycle hooks
+  ## Other Angular lifecycle hooks
 
   ## 其它生命周期钩子
 
   Other Angular sub-systems may have their own lifecycle hooks apart from these component hooks.
-
+  
   Angular的其它子系统除了有这些组件钩子外，还可能有它们自己的生命周期钩子。
-
-block other-angular-subsystems
-  //- N/A for TS.
 
 :marked
   3rd party libraries might implement their hooks as well in order to give developers more
@@ -299,7 +308,7 @@ block other-angular-subsystems
 
 .l-main-section#the-sample
 :marked
-  ## Lifecycle exercises
+  ## Lifecycle examples
 
   ## 生命周期练习
 
@@ -309,7 +318,7 @@ block other-angular-subsystems
 
   <live-example>在线例子</live-example>通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。
 
-  They follow a common pattern:  a *parent* component serves as a test rig for
+  They follow a common pattern: a *parent* component serves as a test rig for
   a *child* component that illustrates one or more of the lifecycle hook methods.
 
   它们遵循了一个常用的模式：用*子组件*演示一个或多个生命周期钩子方法，而*父组件*被当作该*子组件*的测试台。
@@ -328,7 +337,7 @@ table(width="100%")
     th
       p Description
       p 描述
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#peek-a-boo">Peek-a-boo</a>
     td
       :marked
@@ -336,7 +345,7 @@ table(width="100%")
         Each hook method writes to the on-screen log.
 
         展示每个生命周期钩子，每个钩子方法都会在屏幕上显示一条日志。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#spy">Spy</a>
     td
       :marked
@@ -350,26 +359,26 @@ table(width="100%")
         managed by the parent `SpyComponent`.
 
         本例把`SpyDirective`应用到父组件里的`ngFor`*英雄*重复器(repeater)的`<div>`里面。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#onchanges">OnChanges</a>
     td
       :marked
-        See how Angular calls the `ngOnChanges` hook with a `changes` object
+        See how Angular calls the `ngOnChanges()` hook with a `changes` object
         every time one of the component input properties changes.
         Shows how to interpret the `changes` object.
 
         这里将会看到：每当组件的输入属性发生变化时，Angular会如何以`changes`对象作为参数去调用`ngOnChanges`钩子。
         展示了该如何理解和使用`changes`对象。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#docheck">DoCheck</a>
     td
       :marked
-        Implements an `ngDoCheck` method with custom change detection.
+        Implements an `ngDoCheck()` method with custom change detection.
         See how often Angular calls this hook and watch it post changes to a log.
 
         实现了一个`ngDoCheck`方法，通过它可以自定义变更检测逻辑。
         这里将会看到：Angular会用什么频度调用这个钩子，监视它的变化，并把这些变化输出成一条日志。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#afterview">AfterView</a>
     td
       :marked
@@ -378,7 +387,7 @@ table(width="100%")
 
         显示Angular中的*视图*所指的是什么。
         演示了`ngAfterViewInit`和`ngAfterViewChecked`钩子。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td <a href="#aftercontent">AfterContent</a>
     td
       :marked
@@ -388,7 +397,7 @@ table(width="100%")
 
         展示如何把外部内容投影进组件中，以及如何区分“投影进来的内容”和“组件的子视图”。
         演示了`ngAfterContentInit`和`ngAfterContentChecked`钩子。
-  tr(style=top)
+  tr(style='vertical-align:top')
     td
       p Counter
       p 计数器
@@ -408,7 +417,7 @@ table(width="100%")
         同时，我们还把前一个例子中的`SpyDirective`用在`CounterComponent`上，来提供日志，可以同时观察到日志的创建和销毁过程。
 
 :marked
-  The remainder of this chapter discusses selected exercises in further detail.
+  The remainder of this page discusses selected exercises in further detail.
 
   接下来，我们将详细讨论这些练习。
 
@@ -416,7 +425,9 @@ a#peek-a-boo
 .l-main-section
 :marked
   ## Peek-a-boo: all hooks
+  
   ## Peek-a-boo：全部钩子
+  
   The `PeekABooComponent` demonstrates all of the hooks in one component.
 
   `PeekABooComponent`组件演示了组件中所有可能存在的钩子。
@@ -430,8 +441,10 @@ a#peek-a-boo
   This snapshot reflects the state of the log after the user clicked the *Create...* button and then the *Destroy...* button.
 
   用户点击**Create...**按钮，然后点击**Destroy...**按钮后，日志的状态如下图所示：
+  
 figure.image-display
   img(src="/resources/images/devguide/lifecycle-hooks/peek-a-boo.png" alt="Peek-a-boo")
+  
 :marked
   The sequence of log messages follows the prescribed hook calling order:
   `OnChanges`, `OnInit`, `DoCheck`&nbsp;(3x), `AfterContentInit`, `AfterContentChecked`&nbsp;(3x),
@@ -452,7 +465,7 @@ figure.image-display
 :marked
   Had the user clicked the *Update Hero* button, the log would show another `OnChanges` and two more triplets of
   `DoCheck`, `AfterContentChecked` and `AfterViewChecked`.
-  Clearly these three hooks fire a *often*. Keep the logic in these hooks as lean as possible!
+  Clearly these three hooks fire *often*. Keep the logic in these hooks as lean as possible!
 
   如果我们点击*Update Hero*按钮，就会看到另一个`OnChanges`和至少两组`DoCheck`、`AfterContentChecked`和`AfterViewChecked`钩子。
   显然，这三种钩子被触发了*很多次*，所以我们必须让这三种钩子里的逻辑尽可能的精简！
@@ -488,7 +501,7 @@ a#spy
        就像对组件一样，Angular也会对*指令*调用这些钩子方法。
 
     2. A spy directive can provide insight into a DOM object that you cannot change directly.
-    Obviously you can't touch the implementation of a native `div`.
+    Obviously you can't touch the implementation of a native `<div>`.
     You can't modify a third party component either.
     But you can watch both with a directive.
 
@@ -498,7 +511,7 @@ a#spy
     但我们用一个指令就能监视它们了。
 
 :marked
-  The sneaky spy directive is simple,  consisting almost entirely of `ngOnInit` and `ngOnDestroy` hooks
+  The sneaky spy directive is simple, consisting almost entirely of `ngOnInit()` and `ngOnDestroy()` hooks
   that log messages to the parent via an injected `LoggerService`.
 
   我们这个鬼鬼祟祟的侦探指令很简单，几乎完全由`ngOnInit`和`ngOnDestroy`钩子组成，它通过一个注入进来的`LoggerService`来把消息记录到父组件中去。
@@ -508,7 +521,7 @@ a#spy
 :marked
   You can apply the spy to any native or component element and it'll be initialized and destroyed
   at the same time as that element.
-  Here it is attached to the repeated hero `<div>`
+  Here it is attached to the repeated hero `<div>`:
 
   我们可以把这个侦探指令写到任何原生元素或组件元素上，它将与所在的组件同时初始化和销毁。
   下面是把它附加到用来重复显示英雄数据的这个`<div>`上。
@@ -525,33 +538,35 @@ figure.image-display
   img(src='/resources/images/devguide/lifecycle-hooks/spy-directive.gif' alt="Spy Directive")
 
 :marked
-  Adding a hero results in a new hero `<div>`. The spy's `ngOnInit` logs that event.
+  Adding a hero results in a new hero `<div>`. The spy's `ngOnInit()` logs that event.
 
   添加一个英雄就会产生一个新的英雄`<div>`。侦探的`ngOnInit`记录下了这个事件。
 
   The *Reset* button clears the `heroes` list.
   Angular removes all hero `<div>` elements from the DOM and destroys their spy directives at the same time.
-  The spy's `ngOnDestroy` method reports its last moments.
+  The spy's `ngOnDestroy()` method reports its last moments.
 
   *Reset*按钮清除了这个`heroes`列表。
   Angular从DOM中移除了所有英雄的div，并且同时销毁了附加在这些div上的侦探指令。
   侦探的`ngOnDestroy`方法汇报了它自己的临终时刻。
 
-  The `ngOnInit` and `ngOnDestroy` methods have more vital roles to play in real applications.
-
+  The `ngOnInit()` and `ngOnDestroy()` methods have more vital roles to play in real applications.
+  
   在真实的应用程序中，`ngOnInit`和`ngOnDestroy`方法扮演着更重要的角色。
+  
+a#oninit
+:marked
+  ### _OnInit()_
 
-  ### OnInit
-
-  Use `ngOnInit` for two main reasons:
-
+  Use `ngOnInit()` for two main reasons:
+  
   使用`ngOnInit`有两个原因：
 
-  1. to perform complex initializations shortly after construction
+  1. To perform complex initializations shortly after construction.
   
      在构造函数之后马上执行复杂的初始化逻辑
      
-  1. to set up the component after Angular sets the input properties
+  1. To set up the component after Angular sets the input properties.
   
      在Angular设置完输入属性之后，对该组件进行准备。
 
@@ -562,7 +577,7 @@ figure.image-display
 .l-sub-section
   :marked
     Misko Hevery, Angular team lead,
-    [explains why](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/) 
+    [explains why](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)
     you should avoid complex constructor logic.
 
     Misko Hevery，Angular项目的头，在[这里解释](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)了你为什么应该避免复杂的构造函数逻辑。
@@ -572,42 +587,46 @@ figure.image-display
   You shouldn't worry that a new component will try to contact a remote server when
   created under test or before you decide to display it.
   Constructors should do no more than set the initial local variables to simple values.
-
+  
   不要在组件的构造函数中获取数据？
   在测试环境下新建组件时或在我们决定显示它之前，我们不应该担心它会尝试联系远程服务器。
   构造函数中除了使用简单的值对局部变量进行初始化之外，什么都不应该做。
-
-  An `ngOnInit` is a good place for a component to fetch its initial data. The
-  [Tutorial](../tutorial/toh-pt4.html#oninit) and [HTTP](server-communication.html#oninit) chapter
-  show how.
+  
+  An `ngOnInit()` is a good place for a component to fetch its initial data. The
+  [Tour of HeroesTutorial](../tutorial/toh-pt4.html#oninit) and [HTTPClient](server-communication.html#oninit) 
+  guidesshow how.
 
   `ngOnInit`是组件获取初始数据的好地方。[指南](../tutorial/toh-pt4.html#oninit)和[HTTP](server-communication.html#oninit)章讲解了如何这样做。
 
   Remember also that a directive's data-bound input properties are not set until _after construction_.
   That's a problem if you need to initialize the directive based on those properties.
-  They'll have been set when `ngOninit` runs.
+  They'll have been set when `ngOnInit()` runs.
 
   另外还要记住，在指令的_构造函数完成之前_，那些被绑定的输入属性还都没有值。
   如果我们需要基于这些属性的值来初始化这个指令，这种情况就会出问题。
   而当`ngOnInit`执行的时候，这些属性都已经被正确的赋值过了。
+  
 .l-sub-section
   :marked
-    The `ngOnChanges` method is your first opportunity to access those properties.
-    Angular calls `ngOnChanges` before `ngOnInit` ... and many times after that.
-    It only calls `ngOnInit` once.
+    The `ngOnChanges()` method is your first opportunity to access those properties.
+    Angular calls `ngOnChanges()` before `ngOnInit()` and many times after that.
+    It only calls `ngOnInit()` once.
 
     我们访问这些属性的第一次机会，实际上是`ngOnChanges`方法，Angular会在`ngOnInit`之前调用它。
     但是在那之后，Angular还会调用`ngOnChanges`很多次。而`ngOnInit`只会被调用一次。
+    
 :marked
-  You can count on Angular to call the `ngOnInit` method _soon_ after creating the component.
+  You can count on Angular to call the `ngOnInit()` method _soon_ after creating the component.
   That's where the heavy initialization logic belongs.
-
+  
   你可以信任Angular会在创建组件后立刻调用`ngOnInit`方法。
-  这里是放置复杂初始化逻辑的好地方。
+    这里是放置复杂初始化逻辑的好地方。
 
-  ### OnDestroy
+a#ondestroy
+:marked
+  ### _OnDestroy()_
 
-  Put cleanup logic in `ngOnDestroy`, the logic that *must* run before Angular destroys the directive.
+  Put cleanup logic in `ngOnDestroy()`, the logic that *must* run before Angular destroys the directive.
 
   一些清理逻辑*必须*在Angular销毁指令之前运行，把它们放在`ngOnDestroy`中。
 
@@ -616,7 +635,7 @@ figure.image-display
   这是在该组件消失之前，可用来通知应用程序中其它部分的最后一个时间点。
 
   This is the place to free resources that won't be garbage collected automatically.
-  Unsubscribe from observables and DOM events. Stop interval timers.
+  Unsubscribe from Observables and DOM events. Stop interval timers.
   Unregister all callbacks that this directive registered with global or application services.
   You risk memory leaks if you neglect to do so.
 
@@ -625,21 +644,22 @@ figure.image-display
   如果不这么做，就会有导致内存泄露的风险。
 
 .l-main-section
+a#onchanges
 :marked
-  ## OnChanges
+  ## _OnChanges()_
 
-  Angular calls its `ngOnChanges` method whenever it detects changes to ***input properties*** of the component (or directive).
+  Angular calls its `ngOnChanges()` method whenever it detects changes to ***input properties*** of the component (or directive).
 
   在这个例子中，我们监听了`OnChanges`钩子。
   一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular就会调用它的`ngOnChanges`方法。
-
+  
   This example monitors the `OnChanges` hook.
 
   本例监控`OnChanges`钩子。
 
-+makeExample('lifecycle-hooks/ts/src/app/on-changes.component.ts', 'ng-on-changes', 'OnChangesComponent (ngOnChanges)')(format=".")
++makeExample('lifecycle-hooks/ts/src/app/on-changes.component.ts', 'ng-on-changes', 'on-changes.component.ts (excerpt)')(format=".")
 :marked
-  The `ngOnChanges` method takes an object that maps each changed property name to a
+  The `ngOnChanges()` method takes an object that maps each changed property name to a
   [SimpleChange](../api/core/index/SimpleChange-class.html) object holding the current and previous property values.
   This hook iterates over the changed properties and logs them.
 
@@ -666,7 +686,7 @@ figure.image-display
   img(src='/resources/images/devguide/lifecycle-hooks/on-changes-anim.gif' alt="OnChanges")
 
 :marked
-  The log entries appear as the string value of the *power* property changes. 
+  The log entries appear as the string value of the *power* property changes.
   But the `ngOnChanges` does not catch changes to `hero.name`
   That's surprising at first.
 
@@ -685,8 +705,10 @@ figure.image-display
   这个英雄对象的*引用*没有发生变化，于是从Angular的视角看来，也就没有什么需要报告的变化了。
 
 .l-main-section
+a#docheck
 :marked
-  ## DoCheck
+  ## _DoCheck()_
+  
   Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch on its own.
 
   使用`DoCheck`钩子来检测那些Angular自身无法捕获的变更并采取行动。
@@ -698,13 +720,13 @@ figure.image-display
     用这个方法来检测那些被Angular忽略的更改。
 
 :marked
-  The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoCheck` hook:
+  The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoCheck()` hook:
 
   *DoCheck*范例通过下面的`DoCheck`实现扩展了*OnChanges*范例：
-
+  
 +makeExample('lifecycle-hooks/ts/src/app/do-check.component.ts', 'ng-do-check', 'DoCheckComponent (ngDoCheck)')(format=".")
 :marked
-  This code inspects certain _values-of-interest_, capturing and comparing their current state against previous values.
+  This code inspects certain _values of interest_, capturing and comparing their current state against previous values.
   It writes a special message to the log when there are no substantive changes to the `hero` or the `power`
   so you can see how often `DoCheck` is called. The results are illuminating:
 
@@ -715,9 +737,9 @@ figure.image-display
 figure.image-display
   img(src='/resources/images/devguide/lifecycle-hooks/do-check-anim.gif' alt="DoCheck")
 :marked
-  While the `ngDoCheck` hook can detect when the hero's `name` has changed, it has a frightful cost.
-  This hook is called with enormous frequency &mdash;
-  after _every_ change detection cycle no matter where the change occurred.
+  While the `ngDoCheck()` hook can detect when the hero's `name` has changed, it has a frightful cost.
+  This hook is called with enormous frequency&mdash;after _every_
+  change detection cycle no matter where the change occurred.
   It's called over twenty times in this example before the user can do anything.
 
   虽然`ngDoCheck`钩子可以可以监测到英雄的`name`什么时候发生了变化。但我们必须小心。
@@ -725,9 +747,9 @@ figure.image-display
   在这个例子中，用户还没有做任何操作之前，它就被调用了超过二十次。
 
   Most of these initial checks are triggered by Angular's first rendering of *unrelated data elsewhere on the page*.
-  Mere mousing into another input box triggers a call.
+  Mere mousing into another `<input>` triggers a call.
   Relatively few calls reveal actual changes to pertinent data.
-  Clearly our implementation must be very lightweight or the user experience will suffer.
+  Clearly our implementation must be very lightweight or the user experience suffers.
 
   大部分检查的第一次调用都是在Angular首次渲染该页面中*其它不相关数据*时触发的。
   仅仅把鼠标移到其它输入框中就会触发一次调用。
@@ -741,42 +763,50 @@ figure.image-display
 
     我们还看到，`ngOnChanges`方法的调用方式与[API文档](../api/core/index/DoCheck-interface.html)中是不一样的，这是因为API文档过时了。
     (译注：这是经过与官方开发组沟通得到的消息，由于代码快速迭代，因此API文档现在的更新不够及时，将来会进行一次系统的梳理和更正)
+    
 .l-main-section
+a#afterview
 :marked
   ## AfterView
-  The *AfterView* sample explores the `AfterViewInit` and `AfterViewChecked` hooks that Angular calls
+  
+  The *AfterView* sample explores the `AfterViewInit()` and `AfterViewChecked()` hooks that Angular calls
   *after* it creates a component's child views.
 
   *AfterView*例子展示了`AfterViewInit`和`AfterViewChecked`钩子，Angular会在每次创建了组件的子视图后调用它们。
 
-  Here's a child view that displays a hero's name in an input box:
+  Here's a child view that displays a hero's name in an `<input>`:
 
   下面是一个子视图，它用来把英雄的名字显示在一个输入框中：
+  
 +makeExample('lifecycle-hooks/ts/src/app/after-view.component.ts', 'child-view', 'ChildComponent')(format=".")
 :marked
   The `AfterViewComponent` displays this child view *within its template*:
 
   `AfterViewComponent`把这个子视图显示*在它的模板中*：
+  
 +makeExample('lifecycle-hooks/ts/src/app/after-view.component.ts', 'template', 'AfterViewComponent (template)')(format=".")
 :marked
-  The following hooks take action based on changing values *within the child view*
+  The following hooks take action based on changing values *within the child view*,
   which can only be reached by querying for the child view via the property decorated with
   [@ViewChild](../api/core/index/ViewChild-decorator.html).
 
   下列钩子基于*子视图中*的每一次数据变更采取行动，我们只能通过带[@ViewChild](../api/core/index/ViewChild-decorator.html)装饰器的属性来访问子视图。
 
 +makeExample('lifecycle-hooks/ts/src/app/after-view.component.ts', 'hooks', 'AfterViewComponent (class excerpts)')(format=".")
-#wait-a-tick
+a#wait-a-tick
 :marked
   ### Abide by the unidirectional data flow rule
+  
   ### 遵循单向数据流规则
-  The `doSomething` method updates the screen when the hero name exceeds 10 characters.
+  
+  The `doSomething()` method updates the screen when the hero name exceeds 10 characters.
 
   当英雄的名字超过10个字符时，`doSomething`方法就会更新屏幕。
 
 +makeExample('lifecycle-hooks/ts/src/app/after-view.component.ts', 'do-something', 'AfterViewComponent (doSomething)')(format=".")
+
 :marked
-  Why does the `doSomething` method wait a tick before updating `comment`?
+  Why does the `doSomething()` method wait a tick before updating `comment`?
 
   为什么在更新`comment`属性之前，`doSomething`方法要等上一拍(tick)？
 
@@ -787,38 +817,41 @@ figure.image-display
   而这两个钩子都是在组件的视图已经被组合好之后触发的。
 
   Angular throws an error if the hook updates the component's data-bound `comment` property immediately (try it!).
+  The `LoggerService.tick_then()` postpones the log update 
+  for one turn of the browser's JavaScript cycle and that's just long enough.
 
   如果我们立即更新组件中被绑定的`comment`属性，Angular就会抛出一个错误(试试!)。
-block tick-methods
-  :marked
-    The `LoggerService.tick_then()` postpones the log update 
-    for one turn of the browser's JavaScript cycle ... and that's just long enough.
-
-    `LoggerService.tick_then()`方法延迟更新日志一个回合（浏览器JavaScript周期回合），这样就够了。
+  `LoggerService.tick_then()`方法延迟更新日志一个回合（浏览器JavaScript周期回合），这样就够了。
 
 :marked
-  Here's *AfterView* in action
+  Here's *AfterView* in action:
 
   这里是*AfterView*的操作演示：
+
 figure.image-display
   img(src='/resources/images/devguide/lifecycle-hooks/after-view-anim.gif' alt="AfterView")
 :marked
-  Notice that Angular frequently calls `AfterViewChecked`, often when there are no changes of interest.
+  Notice that Angular frequently calls `AfterViewChecked()`, often when there are no changes of interest.
   Write lean hook methods to avoid performance problems.
 
   注意，Angular会频繁的调用`AfterViewChecked`，甚至在并没有需要关注的更改时也会触发。
   所以务必把这个钩子方法写得尽可能精简，以免出现性能问题。
 
 .l-main-section
+a#aftercontent
 :marked
   ## AfterContent
-  The *AfterContent* sample explores the `AfterContentInit` and `AfterContentChecked` hooks that Angular calls
+  The *AfterContent* sample explores the `AfterContentInit()` and `AfterContentChecked()` hooks that Angular calls
   *after* Angular projects external content into the component.
 
   *AfterContent*例子展示了`AfterContentInit`和`AfterContentChecked`钩子，Angular会在外来内容被投影到组件中*之后*调用它们。
 
+a#content-projection
+:marked
   ### Content projection
+  
   ### 内容投影
+  
   *Content projection* is a way to import HTML content from outside the component and insert that content
   into the component's template in a designated spot.
 
@@ -833,10 +866,11 @@ figure.image-display
 :marked
   Consider this variation on the [previous _AfterView_](#afterview) example.
   This time, instead of including the child view within the template, it imports the content from
-  the `AfterContentComponent`'s parent. Here's the parent's template.
+  the `AfterContentComponent`'s parent. Here's the parent's template:
 
   对比[前一个](#afterview)例子考虑这个变化。
-  这次，我们不再通过模板来把子视图包含进来，而是改从`AfterContentComponent`的父组件中导入它。下面是父组件的模板。
+    这次，我们不再通过模板来把子视图包含进来，而是改从`AfterContentComponent`的父组件中导入它。下面是父组件的模板：
+
 +makeExample('lifecycle-hooks/ts/src/app/after-content.component.ts', 'parent-template', 'AfterContentParentComponent (template excerpt)')(format=".")
 :marked
   Notice that the `<my-child>` tag is tucked between the `<after-content>` tags.
@@ -849,6 +883,7 @@ figure.image-display
   Now look at the component's template:
 
   现在来看下`<after-content>`组件的模板：
+  
 +makeExample('lifecycle-hooks/ts/src/app/after-content.component.ts', 'template', 'AfterContentComponent (template)')(format=".")
 :marked
   The `<ng-content>` tag is a *placeholder* for the external content.
@@ -858,35 +893,47 @@ figure.image-display
   `<ng-content>`标签是外来内容的*占位符*。
   它告诉Angular在哪里插入这些外来内容。
   在这里，被投影进去的内容就是来自父组件的`<my-child>`标签。
+  
 figure.image-display
   img(src='/resources/images/devguide/lifecycle-hooks/projected-child-view.png' width="230" alt="Projected Content")
 :marked
 .l-sub-section
   :marked
-    The tell-tale signs of *content projection* are (a) HTML between component element tags
-    and (b) the presence of `<ng-content>` tags in the component's template.
+    The telltale signs of *content projection* are twofold:
+    
+    下列迹象表明存在着*内容投影*：
 
-    下列迹象表明存在着*内容投影*：(a) 在组件的元素标签中有HTML；(b) 组件的模板中出现了`<ng-content>`标签。
+      * HTML between component element tags.
+      
+        在组件的元素标签中有HTML
+        
+      * The presence of `<ng-content>` tags in the component's template.
+    
+        组件的模板中出现了`<ng-content>`标签
+
+a#aftercontent-hooks
 :marked
   ### AfterContent hooks
-  ### AfterContent钩子
-  *AfterContent* hooks are similar to the *AfterView* hooks.
-  The key difference is in the child component
+  
+  ### AfterContent钩子  
+  
+  *AfterContent* hooks are similar to the *AfterView* hooks. 
+  The key difference is in the child component.
 
   *AfterContent*钩子和*AfterView*相似。关键的不同点是子组件的类型不同。
 
   * The *AfterView* hooks concern `ViewChildren`, the child components whose element tags
   appear *within* the component's template.
 
-    *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
+  *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
 
   * The *AfterContent* hooks concern `ContentChildren`, the child components that Angular
   projected into the component.
 
-    *AfterContent*钩子所关心的是`ContentChildren`，这些子组件被Angular投影进该组件中。
+  *AfterContent*钩子所关心的是`ContentChildren`，这些子组件被Angular投影进该组件中。
 
-  The following *AfterContent* hooks take action based on changing values in a  *content child*
-  which can only be reached by querying for it via the property decorated with
+  The following *AfterContent* hooks take action based on changing values in a *content child*,
+  which can only be reached by querying for them via the property decorated with
   [@ContentChild](../api/core/index/ContentChild-decorator.html).
 
   下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](../api/core/index/ContentChild-decorator.html)装饰器的属性来查询到“子级内容”。
@@ -895,19 +942,20 @@ figure.image-display
 
 a#no-unidirectional-flow-worries
 :marked
-  ### No unidirectional flow worries with _AfterContent..._
-  ### 使用**AfterContent**时，无需担心单向数据流规则
+   ### No unidirectional flow worries with _AfterContent_
 
-  This component's `doSomething` method update's the component's data-bound `comment` property immediately.
-  There's no [need to wait](#wait-a-tick).
+   ### 使用**AfterContent**时，无需担心单向数据流规则
 
-  该组件的`doSomething`方法立即更新了组件被绑定的`comment`属性。
-  它[不用等](#wait-a-tick)下一回合。
+   This component's `doSomething()` method update's the component's data-bound `comment` property immediately.
+   There's no [need to wait](#wait-a-tick).
 
-  Recall that Angular calls both *AfterContent* hooks before calling either of the *AfterView* hooks.
-  Angular completes composition of the projected content *before* finishing the composition of this component's view.
-  There is a small window between the `AfterContent...` and `AfterView...` hooks to modify the host view.
+   该组件的`doSomething`方法立即更新了组件被绑定的`comment`属性。
+   它[不用等](#wait-a-tick)下一回合。
 
-  回忆一下，Angular在每次调用*AfterView*钩子之前也会同时调用*AfterContent*。
-  Angular在完成当前组件的视图合成之前，就已经完成了被投影内容的合成。
-  所以我们仍然有机会去修改那个视图。
+   Recall that Angular calls both *AfterContent* hooks before calling either of the *AfterView* hooks.
+   Angular completes composition of the projected content *before* finishing the composition of this component's view.
+   There is a small window between the `AfterContent...` and `AfterView...` hooks to modify the host view.
+
+   回忆一下，Angular在每次调用*AfterView*钩子之前也会同时调用*AfterContent*。
+   Angular在完成当前组件的视图合成之前，就已经完成了被投影内容的合成。
+   所以我们仍然有机会去修改那个视图。

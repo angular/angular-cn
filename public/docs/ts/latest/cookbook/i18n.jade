@@ -3,18 +3,27 @@ include ../_util-fns
 a#top
 :marked
   Angular's _internationalization_ (_i18n_) tools help make your app available in multiple languages.
-
+  
   Angular的*国际化*（*i18n*）工具可以帮助我们使用多个语言发布应用。
   
-  ## Table of contents
-    ## 目录
+  #Contents
+  
+  # 目录
     * [Angular and i18n template translation](#angular-i18n)
 
-        [Angular和i18n模板翻译](#angular-i18n)
+      [Angular和i18n模板翻译](#angular-i18n)
 
     * [Mark text with the _i18n_ attribute](#i18n-attribute)
+    
+      [把文本用_i18n_属性标记出来](#i18n-attribute)
+      
+      * [Help the translator with a description and intent](#help-translator)
 
-        [使用_i18n_属性标记文本](#i18n-attribute)
+        [通过添加描述和意图来帮助翻译者](#help-translator)
+
+      * [Translate text without creating an element](#no-element)
+
+        [在不创建元素的情况下翻译文本](#no-element)
 
     * [Add _i18n-..._ translation attributes](#translate-attributes)
     
@@ -30,21 +39,70 @@ a#top
         
     * [Create a translation source file with the **_ng-xi18n_ extraction tool**](#ng-xi18n)
 
-        [使用_ng-xi18n_工具创建翻译源文件](#ng-xi18n)
+      [使用_ng-xi18n_工具创建翻译源文件](#ng-xi18n)
+
+      * [Other translation formats](#other-formats)
+
+        [其它翻译格式](#other-formats)
+
+      * [Other options](#ng-xi18n-options)
+
+        [其它选项](#ng-xi18n-options)
+
+      * [Add an `npm` script for convenience](#npm-i18n-script)
+
+        [添加`npm`脚本来便捷使用](#npm-i18n-script)
 
     * [Translate text messages](#translate)
 
-        [翻译](#translate)
-        
+      [翻译文本信息](#translate)
+
+      * [Create a localization folder](#localization-folder)
+
+        [创建本地化文件夹](#localization-folder)
+
+      * [Translate text nodes](#translate-text-nodes)
+
+        [翻译文本节点](#translate-text-nodes)
+
+    * [Translate `plural` and `select`](#translate-plural-select)
+
+      [翻译复数形式`plural`及选择项`select`](#translate-plural-select)
+
+      * [Translate `plural`](#translate-plural)
+
+        [翻译复数形式`plural`](#translate-plural)
+
+      * [Translate `select`](#translate-select)
+
+        [翻译`select`](#translate-select)
+
+      * [The app before translation](#app-pre-translation)
+
+        [翻译之前的应用](#app-pre-translation)
+
     * [Merge the completed translation file into the app](#merge)
 
-        [合并翻译完成的文件到应用中](#merge)
+        [把翻译完成的文件合并到应用中](#merge)
 
       * [Merge with the JIT compiler](#jit)
 
-          [合并JiT配置](#jit)
+        [合并到JIT编译器中](#jit)
+
+      * [SystemJS text plugin](#text-plugin)
+
+        [SystemJS的文本插件](#text-plugin)
+
+      * [Create translation providers](#create-translation-providers)
+
+        [创建翻译提供商](#create-translation-providers)
+
+      * [Bootstrap the app with translation providers](#bootstrap-the-app)
+
+        [通过翻译提供商引导应用](#bootstrap-the-app)
 
       * [Internationalization with the AOT compiler](#aot)
+      
           [AOT编译器的国际化](#aot)
           
     * [Translation file maintenance and _id_ changes](#maintenance)
@@ -52,7 +110,7 @@ a#top
         [翻译文件的维护和 *id* 变更](#maintenance)
   
 :marked
-  **Try this** <live-example name="cb-i18n" title="i18n Example in Spanish">live example</live-example> 
+  Try this <live-example name="cb-i18n" title="i18n Example in Spanish">live example</live-example>
   of a JIT-compiled app, translated into Spanish.
 
   **试试** 这个翻译为西班牙语版JiT编译应用的<live-example name="cb-i18n">在线例子</live-example>。
@@ -64,7 +122,7 @@ a#angular-i18n
   
   ## Angular和_i18n_模板翻译
 
-  Application internationalization is a challenging, many-faceted effort that 
+  Application internationalization is a challenging, many-faceted effort that
   takes dedication and enduring commitment.
   Angular's _i18n_ internationalization facilities can help.
 
@@ -81,29 +139,28 @@ a#angular-i18n
   :marked
     Practitioners of _internationalization_ refer to a translatable text as a "_message_".
     This page uses the words "_text_" and "_message_" interchangably and in the combination, "_text message_".
-
+    
     **国际化**工作者通常将一个可翻译的文本叫作“信息”。
     本章使用了“文本”和“信息”，它们可以互换，也可以组合“文本信息”。
-  
 :marked
   The _i18n_ template translation process has four phases:
 
   _i18n_模板翻译流程有四个阶段：  
 
   1. Mark static text messages in your component templates for translation.
-
+  
      在组件模板中标记需要翻译的静态文本信息。
   
   1. An angular _i18n_ tool extracts the marked messages into an industry standard translation source file.
 
      Angular的_i18n_工具将标记的信息提取到一个行业标准的翻译源文件。
 
-  1. A translator edits that file, translating the extracted text messages into the target language, 
+  1. A translator edits that file, translating the extracted text messages into the target language,
   and returns the file to you.
 
      翻译人员编辑该文件，翻译提取出来的文本信息到目标语言，并将该文件还给你。
 
-  1. The Angular compiler imports the completed translation files, 
+  1. The Angular compiler imports the completed translation files,
   replaces the original messages with translated text, and generates a new version of the application
   in the target language.
 
@@ -119,7 +176,7 @@ a#i18n-attribute
   ## Mark text with the _i18n_ attribute
   
   ## 使用_i18n_属性标记文本
-
+  
   The Angular `i18n` attribute is a marker for translatable content.
   Place it on every element tag whose fixed text should be translated.
 
@@ -128,7 +185,7 @@ a#i18n-attribute
 
 .alert.is-helpful
   :marked
-    `i18n` is not an Angular _directive_. 
+    `i18n` is not an Angular _directive_.
     It's a custom _attribute_, recognized by Angular tools and compilers.
     After translation, the compiler removes it.
 
@@ -137,7 +194,7 @@ a#i18n-attribute
     它将在完成翻译**之后**，被编译器移除。
 
 :marked
-  In the accompanying sample, an `<h1>` tag displays a simple English language greeting 
+  In the accompanying sample, an `<h1>` tag displays a simple English language greeting
   that you translate into Spanish:
 
   在例子中，`<h1>`标签显示了一句简单的英文问候语，它将被翻译为西班牙语：
@@ -150,32 +207,35 @@ a#i18n-attribute
 
 +makeExample('cb-i18n/ts/src/app/app.component.1.html', 'i18n-attribute', 'src/app/app.component.html')(format=".")
 
+a#help-translator
 :marked
   ### Help the translator with a _description_ and _intent_
+  
+  ### 用描述和意图来帮助翻译人员
 
-  In order to translate it accurately, the translator may 
+  In order to translate it accurately, the translator may
   need a description of the message.
   Assign a description to the i18n attribute:
-
+  
   翻译人员可能需要待翻译文本的描述才能翻译准确。
   为i18n属性添加描述：
   
 +makeExample('cb-i18n/ts/src/app/app.component.1.html', 'i18n-attribute-desc', 'src/app/app.component.html')(format=".")
 
 :marked
-  In order to deliver a correct translation, the translator may need to 
-  know your _intent_&mdash;the true _meaning_ of the text 
+  In order to deliver a correct translation, the translator may need to
+  know your _intent_&mdash;the true _meaning_ of the text
   within _this particular_ application context.
   In front of the description, add some contextual meaning to the assigned string,
   separating it from the description with the `|` character (`<meaning>|<description>`):
-
+  
   为了给出正确的翻译，翻译者需要知道你这段文本在特定情境下的 *真实意图*。
   在描述的前面，为指定的字符串添加一些上下文含义，用`|`将其与描述文字隔开(`<意图>|<描述>`)。
   
 +makeExample('cb-i18n/ts/src/app/app.component.html', 'i18n-attribute-meaning', 'src/app/app.component.html')(format=".")
 
 :marked
-  While all appearances of a message with the _same_ meaning have the _same_ translation, 
+  While all appearances of a message with the _same_ meaning have the _same_ translation,
   a message with *a variety of possible meanings* could have different translations.
   The Angular extraction tool preserves both the _meaning_ and the _description_ in the translation source file
   to facilitiate contextually-specific translations.
@@ -184,12 +244,14 @@ a#i18n-attribute
   但是如果在某些地方它具有**不同含义**，那么它应该有不同的翻译。
   Angular的提取工具在翻译源文件中保留**含义**和**描述**，以支持符合特定上下文的翻译。
 
+a#no-element
+:marked
   ### Translate text without creating an element
 
   Suppose there is a stretch of text that you'd like to translate.
   You could wrap it in a `<span>` tag but for some reason (CSS comes to mind)
   you don't want to create a new DOM element merely to facilitate translation.
-  
+
   Here are two techniques to try.
 
   (1) Wrap the text in an `<ng-container>` element. The `<ng-container>` is never renderered:
@@ -210,10 +272,10 @@ a#translate-attributes
 +makeExample('cb-i18n/ts/src/app/app.component.1.html', 'i18n-title', 'src/app/app.component.html')(format=".")
 
 :marked
-  The `title` attribute needs to be translated. 
+  The `title` attribute needs to be translated.
   Angular i18n support has more translation attributes in the form,`i18n-x`, where `x` is the
-  name of the attribute to translate. 
-  
+  name of the attribute to translate.
+
   To translate the `title` on the `img` tag from the previous example, write:
 
 +makeExample('cb-i18n/ts/src/app/app.component.html', 'i18n-title-translate', 'src/app/app.component.html')(format=".")
@@ -225,25 +287,26 @@ a#translate-attributes
 a#cardinality
 :marked
   ## Handle singular and plural
-  
+
   Different languages have different pluralization rules.
-  
-  Suppose your application says something about a collection of wolves. 
+
+  Suppose your application says something about a collection of wolves.
   In English, depending upon the number of wolves, you could display "no wolves", "one wolf", "two wolves", or "a wolf pack".
-  Other languages might express the _cardinality_ differently. 
-  
+  Other languages might express the _cardinality_ differently.
+
   Here's how you could mark up the component template to display the phrase appropriate to the number of wolves:
 
 +makeExample('cb-i18n/ts/src/app/app.component.html', 'i18n-plural', 'src/app/app.component.html')(format=".")
 
 :marked
-  * The first parameter is the key. It is bound to the component property (`wolves`) 
+  * The first parameter is the key. It is bound to the component property (`wolves`)
   that determines the number of wolves.
   * The second parameter identifies this as a `plural` translation type.
-  * The third parameter defines a pluralization pattern consisting of pluralization 
+  * The third parameter defines a pluralization pattern consisting of pluralization
   categories and their matching values.
 
   Pluralization categories include:
+
   * =0
   * =1
   * =5
@@ -252,8 +315,9 @@ a#cardinality
 
   Put the default _English_ translation in braces (`{}`) next to the pluralization category.
   * When you're talking about one wolf, you could write `=1 {one wolf}`.
+
   * For zero wolves, you could write `=0 {no wolves}`.
-  * For two wolves, you could write `=2 {two wolves}`. 
+  * For two wolves, you could write `=2 {two wolves}`.
 
   You could keep this up for three, four, and every other number of wolves.
   Or you could specify the **`other`** category as a catch-all for any unmatched cardinality
@@ -263,8 +327,8 @@ a#cardinality
   :marked
     This syntax conforms to the
     <a href="http://userguide.icu-project.org/formatparse/messages" target="_blank" title="ICU Message Format">ICU Message Format</a>
-    that derives from the 
-    <a href="http://cldr.unicode.org/" target="_blank" title="CLDR">Common Locale Data Repository (CLDR),</a>
+    that derives from the
+    <a href="http://cldr.unicode.org/" target="_blank" title="CLDR">Common Locale Data Repository (CLDR)</a>,
     which specifies the
     <a href="http://unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules" target="_blank" title="Pluralization Rules">pluralization rules</a>.
 
@@ -274,12 +338,12 @@ a#select
   The application displays different text depending upon whether the hero is male or female.
   These text alternatives require translation too.
 
-  You can handle this with a `select` translation. 
+  You can handle this with a `select` translation.
   A `select` also follows the
-  <a href="http://userguide.icu-project.org/formatparse/messages" target="_blank" title="ICU Message Format">ICU message syntax</a>. 
+  <a href="http://userguide.icu-project.org/formatparse/messages" target="_blank" title="ICU Message Format">ICU message syntax</a>.
   You choose among alternative translation based on a string value instead of a number.
 
-  The following format message in the component template binds to the component's `gender` 
+  The following format message in the component template binds to the component's `gender`
   property, which outputs either an "m" or an "f".
   The message maps those values to the appropriate translation:
 
@@ -289,17 +353,17 @@ a#ng-xi18n
 .l-main-section
 :marked
   ## Create a translation source file with the _ng-xi18n_ tool
-
+  
   ## 使用_ng-xi18n_工具创建翻译源文件
   
   Use the **_ng-xi18n_ extraction tool** to extract the `i18n`-marked texts 
   into a translation source file in an industry standard format.
-
+  
   使用`ng-xi18n`提取工具来将`i18n`标记的文本提取到一个符合行业标准格式的翻译源文件。
   
   This is an Angular CLI tool in the `@angular/compiler-cli` npm package.
   If you haven't already installed the CLI and its `platform-server` peer dependency, do so now:
-
+  
   它是在`@angular/compiler-cli` npm包中的一个Angular CLI工具。
   如果你还没有安装这个CLI和它的 `platform-server`，安装它们：
   
@@ -308,9 +372,9 @@ code-example(language="sh" class="code-shell").
 
 :marked
   Open a terminal window at the root of the application project and enter the `ng-xi18n` command:
-
+  
   在应用的项目根目录打开一个终端窗口，并输入`ng-xi18n`命令：
- 
+  
 code-example(language="sh" class="code-shell").
   ./node_modules/.bin/ng-xi18n
 
@@ -328,7 +392,7 @@ a#other-formats
 :marked
   ### Other translation formats
 
-  You can generate a file named **`messages.xmb`** in the 
+  You can generate a file named **`messages.xmb`** in the
   <a href="http://cldr.unicode.org/development/development-process/design-proposals/xmb"  target="_blank">XML Message Bundle (XMB)</a> format
   by adding the `--i18nFormat=xmb` flag.
 
@@ -341,8 +405,8 @@ code-example(language="sh" class="code-shell").
 a#ng-xi18n-options
 :marked
   ### Other options
-  You may have to specify additional options. 
-  For example, if the `tsconfig.json` TypeScript configuration 
+  You may have to specify additional options.
+  For example, if the `tsconfig.json` TypeScript configuration
   file is located somewhere other than in the root folder,
   you must identify the path to it with the `-p` option:
 code-example(language="sh" class="code-shell").
@@ -353,12 +417,12 @@ code-example(language="sh" class="code-shell").
 a#npm-i18n-script
 :marked
   ### Add an _npm_ script for convenience
-  
+
   Consider adding a convenience shortcut to the `scripts` section of the `package.json`
   to make the command easier to remember and run:
 code-example(format='.' language='sh' ).
   "scripts": {
-    "i18n": "ng-xi18n", 
+    "i18n": "ng-xi18n",
     ...
   }
 :marked
@@ -368,7 +432,7 @@ code-example(language="sh" class="code-shell").
   npm run i18n -- -p path/to/tsconfig.json
   npm run i18n -- --i18nFormat=xmb -p path/to/tsconfig.json
 :marked
-  Note the `--` flag before the options. 
+  Note the `--` flag before the options.
   It tells _npm_ to pass every flag thereafter to `ng-xi18n`.
 
 a#translate
@@ -376,11 +440,11 @@ a#translate
 :marked
   ## Translate text messages
   
-  ## 翻译
+  ## 翻译文本信息
   
   The `ng-xi18n` command generates a translation source file 
   in the project root folder named `messages.xlf`.
-  The next step is to translate the English language template 
+  The next step is to translate the English language template
   text into the specific language translation
   files. The cookbook sample creates a Spanish translation file.
 
@@ -396,17 +460,17 @@ a#localization-folder
 
   You will probably translate into more than one other language so it's a good idea
   for the project structure to reflect your entire internationalization effort.
-
+  
   你很有可能翻译到更多其他语言，所以为全部国际化工作做适当的调整项目目录结构是理所当然的。
   
-  One approach is to dedicate a folder to localization and store related assets 
-  (for example, internationalization files) there.
-
+  One approach is to dedicate a folder to localization and store related assets ,
+  such as internationalization files, there.
+  
   其中一种方法是为本土化和相关资源（比如国际化文件）创建一个专门的目录。
   
 .l-sub-section
   :marked
-    Localization and internationalization are 
+    Localization and internationalization are
     <a href="https://en.wikipedia.org/wiki/Internationalization_and_localization" target="_blank">different but closely related terms</a>.
 
     本土化和国际化是<a href="https://en.wikipedia.org/wiki/Internationalization_and_localization" target="_blank">不同但是很相近的概念</a>。
@@ -415,10 +479,11 @@ a#localization-folder
   Assets within the folder carry a filename extension that matches a language-culture code from a
   <a href="https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx" target="_blank">well-known codeset</a>.
 
-  Make a copy of the `messages.xlf` file, put it in the `locale` folder and 
+  Make a copy of the `messages.xlf` file, put it in the `locale` folder and
   rename it `messages.es.xlf`for the Spanish language translation.
   Do the same for each target language.
-
+a#translate-text-nodes
+:marked
   ### Translate text nodes
   In the real world, you send the `messages.es.xlf` file to a Spanish translator who fills in the translations
   using one of the
@@ -435,7 +500,7 @@ a#localization-folder
 +makeExample('cb-i18n/ts/src/locale/messages.es.xlf.html', 'translated-hello', 'src/locale/messages.es.xlf (<trans-unit>)')(format=".")
 :marked
   This XML element represents the translation of the `<h1>` greeting tag you marked with the `i18n` attribute. 
-
+  
   这个XML元素代表了你使用`i18n`属性标记的`<h1>`问候语标签的翻译。
   
   Using the _source_, _description_, and _meaning_ elements to guide your translation,
@@ -467,31 +532,33 @@ a#translate-plural-select
   ## Translate _plural_ and _select_
   Translating _plural_ and _select_ messages is a little tricky.
 
-  The `<source>` tag is empty for `plural` and `select` translation 
+  The `<source>` tag is empty for `plural` and `select` translation
   units, which makes them hard to correlate with the original template.
-  The `XLIFF` format doesn't yet support the ICU rules; it soon will.
+  The `XLIFF` format doesn't yet support the ICU rules.
   However, the `XMB` format does support the ICU rules.
 
   You'll just have to look for them in relation to other translation units that you recognize from elsewhere in the source template.
   In this example, you know the translation unit for the `select` must be just below the translation unit for the logo.
 
+a#translate-plural
 :marked
-  ### Translate _plural_ 
+  ### Translate _plural_
   To translate a `plural`, translate its ICU format match values:
 
 +makeExample('cb-i18n/ts/src/locale/messages.es.xlf.html', 'translated-plural', 'src/locale/messages.es.xlf (<trans-unit>)')(format=".")
 
+a#translate-select
 :marked
-  ### Translate _select_ 
+  ### Translate _select_
   The `select` behaves a little differently. Here again is the ICU format message in the component template:
 
 +makeExample('cb-i18n/ts/src/app/app.component.html', 'i18n-select', 'src/app/app.component.html')(format=".")
 
 :marked
   The extraction tool broke that into _two_ translation units.
-  
+
   The first unit contains the text that was _outside_ the `select`.
-  In place of the `select` is a placeholder, `<x id="ICU">`, that represents the `select` message. 
+  In place of the `select` is a placeholder, `<x id="ICU">`, that represents the `select` message.
   Translate the text and leave the placeholder where it is.
 
 +makeExample('cb-i18n/ts/src/locale/messages.es.xlf.html', 'translate-select-1', 'src/locale/messages.es.xlf (<trans-unit>)')(format=".")
@@ -508,7 +575,7 @@ a#translate-plural-select
 
 .l-main-content
 :marked
-  The entire template translation is complete. It's 
+  The entire template translation is complete. It's
   time to incorporate that translation into the application.
 
 #app-pre-translation
@@ -545,32 +612,32 @@ a#merge
   To merge the translated text into component templates,
   compile the application with the completed translation file.
   The process is the same whether the file is in `.xlf` format or 
-  in another format (`.xlif` and `.xtb`) that Angular understands.
-
+  in another format  that Angular understands, such as `.xlif` or `.xtb`.
+  
   要合并已经翻译的文件到组件模板，使用翻译过的文件编译应用。
   不管文件是`.xlf`格式还是其他Angular接受的格式（`.xlif`和`.xtb`），流程是一样的。
   
   You provide the Angular compiler with three new pieces of information:
-
-  你为Angular编译器提供下列三种新信息：
-
-    * the translation file
-
-      翻译文件
-
-    * the translation file format
-
-      翻译文件的格式
-
-    * the   <a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_Locale ID_</a>
-    (`es` or `en-US` for instance)
-
-      目标<a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_语言环境ID_</a>
-    (例如`es`或`en-US`)
   
+  你要为Angular编译器提供下列三种新信息：
+
+    * The translation file.
+    
+      翻译文件
+      
+    * The translation file format.
+    
+      翻译文件的格式
+      
+    * The   <a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_Locale ID_</a>
+    (`es` or `en-US` for instance).
+    
+      目标<a href="https://en.wikipedia.org/wiki/XLIFF" target="_blank">_语言环境ID_</a>
+          (例如`es`或`en-US`)
+
   _How_ you provide this information depends upon whether you compile with
   the JIT (_Just-in-Time_) compiler or the AOT (_Ahead-of-Time_) compiler. 
-
+  
   你如何提供这些信息取决于你使用的是JiT（即时）编译器还是AoT（预先）编译器。
   
     * With [JIT](#jit), you provide the information at bootstrap time.
@@ -585,7 +652,7 @@ a#jit
 .l-main-section
 :marked
   ### Merge with the JIT compiler
-
+  
   ### 用JiT编译器合并
   
   The JIT compiler compiles the application in the browser as the application loads.
@@ -623,7 +690,7 @@ a#jit
 
 a#text-plugin
 :marked
-  ### SystemJS Text plugin
+  ### SystemJS text plugin
 
   ### SystemJS文本插件
 
@@ -643,6 +710,7 @@ a#text-plugin
   在`src/`目录新建下面的`systemjs-text-plugin.js`文件：
 
 +makeExample('cb-i18n/ts/src/systemjs-text-plugin.js', null, 'src/systemjs-text-plugin.js')(format='.')
+a#create-translation-providers
 :marked
   ### Create translation providers
 
@@ -657,15 +725,14 @@ a#text-plugin
 
       `TRANSLATIONS`是含有翻译文件内容的字符串。
 
-  * `TRANSLATIONS_FORMAT` is the format of the file: `xlf`, `xlif` or `xtb`.
+  * `TRANSLATIONS_FORMAT` is the format of the file: `xlf`, `xlif`, or `xtb`.
 
       `TRANSLATIONS_FORMAT`是文件的格式: `xlf`、`xlif`或`xtb`。
-
   * `LOCALE_ID` is the locale of the target language.
 
     `LOCALE_ID`是目标语言的语言环境。
 
-  The `getTranslationProviders` function in the following `src/app/i18n-providers.ts` 
+  The `getTranslationProviders()` function in the following `src/app/i18n-providers.ts`
   creates those providers based on the user's _locale_
   and the corresponding translation file:
 
@@ -684,35 +751,37 @@ a#text-plugin
 
       如果没有语言环境或者语言是美国英语（`en-US`），则就无需翻译。该函数以`Promise`的形式返回一个空的`noProviders`数组。它必须要返回`Promise`，因为这个函数可能异步从服务器读取翻译文件。
 
-  1. It creates a transaction filename from the locale according to the name and location convention 
+  1. It creates a transaction filename from the locale according to the name and location convention
   [described earlier](#localization-folder).
 
       根据[上面描述](#localization-folder)的名字和本土化的约定，它根据语言环境创建一个合约文件名。
 
-  1. The `getTranslationsWithSystemJs` method reads the translation and returns the contents as a string.
-  Notice that it appends `!text` to the filename, telling SystemJS to use the [text plugin](#text-plugin). 
+  1. The `getTranslationsWithSystemJs()` method reads the translation and returns the contents as a string.
+  Notice that it appends `!text` to the filename, telling SystemJS to use the [text plugin](#text-plugin).
 
       `getTranslationsWithSystemJs`方法读取翻译并以字符串的形式返回其内容。
   注意它在文件名上附加`!text`，告诉SystemJS使用[文本插件](#text-plugin)。
 
   1. The callback composes a providers array with the three translation providers.
+  
+    回调函数使用这三种翻译提供商创建一个提供商数组。
 
-      回调函数使用这三种翻译提供商创建一个提供商数组。
-
-  1. Finally, `getTranslationProviders` returns the entire effort as a promise.
-
-      最后，`getTranslationProviders`返回以承诺的形式返回全部流程的结果。
-
+  1. Finally, `getTranslationProviders()` returns the entire effort as a promise.
+  
+    最后，`getTranslationProviders()`返回以承诺的形式返回全部流程的结果。
+  
+a#bootstrap-the-app
+:marked
   ### Bootstrap the app with translation providers
 
   ### 使用翻译提供商引导应用
 
-  The Angular `bootstrapModule` method has a second, _options_ parameter
+  The Angular `bootstrapModule()` method has a second _options_ parameter
   that can influence the behavior of the compiler.
 
   Angular的`bootstrapModule`方法接受**可选的**第二参数，它可以影响编译器的行为。
 
-  You'll create an _options_ object with the translation providers from `getTranslationProviders`
+  You'll create an _options_ object with the translation providers from `getTranslationProviders()`
   and pass it to `bootstrapModule`.
   Open the `src/main.ts` and modify the bootstrap code as follows:
 
@@ -721,7 +790,7 @@ a#text-plugin
 
 +makeExample('cb-i18n/ts/src/main.ts', null, 'src/main.ts')(format=".")
 :marked
-  Notice that it waits for the `getTranslationProviders` promise to resolve before
+  Notice that it waits for the `getTranslationProviders()` promise to resolve before
   bootstrapping the app.
 
   注意，它等待`getTranslationProviders`承诺的解析完成后，才引导应用。
@@ -734,68 +803,70 @@ a#text-plugin
 a#aot
 .l-main-section
 :marked
-  ### _Internationalize_ with the AOT compiler
+  ### _Internationalization_ with the AOT compiler
 
   ### 使用AoT编译器时的国际化
   
-  The JIT compiler translates the application into the target language 
+  The JIT compiler translates the application into the target language
   while compiling dynamically in the browser.
   That's flexible but may not be fast enough for your users.
 
   JiT编译器在浏览器中动态编译应用时，将其翻译到目标语言。
   这样很灵活，但是对用户来讲，可能速度太慢。 
   
-  The AOT (_Ahead-of-Time_) compiler is part of a build process that 
+  The AOT (_Ahead-of-Time_) compiler is part of a build process that
   produces a small, fast, ready-to-run application package.
-  When you internationalize with the AOT compiler, you pre-build 
+  When you internationalize with the AOT compiler, you pre-build
   a separate application package for each
-  language. Then in the host web page (`index.html`), 
+  language. Then in the host web page, in this case `index.html`,
   you determine which language the user needs
   and serve the appropriate application package.
 
   AoT（预先）编译器是一种构建流程，出产尺寸小、速度快和可执行的应用程序包。
   在使用Aot编译器的环境中国际化，你为每种语言预先构建一个单独的应用程序包。然后，在宿主网络页面（`index.html`）中，你再决定用户需要哪种语言，并选择合适的应用程序包。
 
-  This cookbook doesn't cover how to build multiple application packages and 
+  This cookbook doesn't cover how to build multiple application packages and
   serve them according to the user's language preference.
   It does explain the few steps necessary to tell the AOT compiler to apply a translations file.
 
   本烹饪书不介绍如何构建多种应用程序包和如何根据用户的语言设置推送它们。
   它介绍了一些必要的步骤，来告诉AoT采用翻译文件。
 
-  Internationalization with the AOT compiler requires 
-  some setup specifically for AOT compilation. 
-  Start with the application project as shown 
+  Internationalization with the AOT compiler requires
+  some setup specifically for AOT compilation.
+  Start with the application project as shown
   [just before merging the translation file](#app-pre-translation)
   and refer to the [AOT cookbook](aot-compiler.html) to make it _AOT-ready_.
-
+  
   使用AoT编译器时的国际化，需要一些针对AoT的设置。
   以[合并翻译文件之前](#app-pre-translation)的应用项目开始，并参见[AoT烹饪书](aot-compiler.html)，把它变成与AoT兼容的项目。
   
-  Next, issue an `ngc` compile command for each supported language (including English).
+  Next, issue an `ngc` compile command for each supported language ,including English.
   The result is a separate version of the application for each language.
-
+  
   接下来，为每种支持的语言（包括英语）运行一次`ngc`编译命令。
   结果是每种语言都有自己单独的应用版本。
   
   Tell AOT how to translate by adding three options to the `ngc` command:
-
-  通过添加下面三种选项到`ngc`命令来告诉AoT编译器如何翻译：
-    * `--i18nFile`: the path to the translation file
-
-        `--i18nFile`: 翻译文件的路径
-
-    * `--locale`: the name of the locale
-
-        `--locale`: 语言环境的名字
-
-    * `--i18nFormat`: the format of the localization file
-
-        `--i18nFormat`: 翻译文件的格式
   
-  For this sample, the Spanish language command would be
+  通过添加下面三种选项到`ngc`命令来告诉AoT编译器如何翻译：
+
+    * `--i18nFile`: the path to the translation file.
+
+      `--i18nFile`: 翻译文件的路径
+
+    * `--locale`: the name of the locale.
+
+      `--locale`: 语言环境的名字
+
+    * `--i18nFormat`: the format of the localization file.
+
+      `--i18nFormat`: 翻译文件的格式
+
+  For this sample, the Spanish language command would be:
 
   本西班牙语例子的命令为：
+
 code-example(language="sh" class="code-shell").
   ./node_modules/.bin/ngc --i18nFile=./locale/messages.es.xlf --locale=es --i18nFormat=xlf
 
@@ -810,19 +881,19 @@ code-example(language="sh" class="code-shell").
 a#maintenance
 :marked
   ## Translation file maintenance and _id_ changes
-    
-  As the application evolves, you will change the _i18n_ markup 
+
+  As the application evolves, you will change the _i18n_ markup
   and re-run the `ng-xi18n` extraction tool many times.
   The _new_ markup that you add is not a problem;
-  but _most_ changes to _existing_ markup trigger 
-  generation of _new_ `id`s for the affected translation units.
-  
-  After an `id` changes, the translation files are no longer in-sync.
-  **All translated versions of the application will fail** during re-compilation. 
-  The error messages identify the old `id`s that are no longer valid but 
+  but _most_ changes to existing markup trigger
+  generation of new `id`s for the affected translation units.
+
+  After an `id` changes, the translation files are no longer in sync.
+  **All translated versions of the application will fail** during re-compilation.
+  The error messages identify the old `id`s that are no longer valid but
   they don't tell you what the new `id`s should be.
-  
-  **Commit all translation message files to source control**, 
+
+  **Commit all translation message files to source control**,
   especially the English source `messages.xlf`.
   The difference between the old and the new `messages.xlf` file
    help you find and update `id` changes across your translation files.

@@ -141,7 +141,7 @@ function createComponent() {
   comp = fixture.componentInstance;
 
   const injector = fixture.debugElement.injector;
-  location = injector.get(Location);
+  location = injector.get(Location) as SpyLocation;
   router = injector.get(Router);
   router.initialNavigation();
   spyOn(injector.get(TwainService), 'getQuote')
@@ -174,7 +174,7 @@ class Page {
   }
 
   constructor() {
-    router.events.forEach(e => this.recordedEvents.push(e));
+    router.events.subscribe(e => this.recordedEvents.push(e));
     const links = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
     this.aboutLinkDe     = links[2];
     this.dashboardLinkDe = links[0];

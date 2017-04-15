@@ -46,7 +46,7 @@ var LIVE_EXAMPLES_PATH = path.join(RESOURCES_PATH, 'live-examples');
 var STYLES_SOURCE_PATH = path.join(TOOLS_PATH, 'styles-builder/less');
 
 var docShredder = require(path.resolve(TOOLS_PATH, 'doc-shredder/doc-shredder'));
-var exampleZipper = require(path.resolve(TOOLS_PATH, '_example-zipper/exampleZipper'));
+var ExampleZipper = require(path.resolve(TOOLS_PATH, 'example-zipper/exampleZipper'));
 var regularPlunker = require(path.resolve(TOOLS_PATH, 'plunker-builder/regularPlunker'));
 var embeddedPlunker = require(path.resolve(TOOLS_PATH, 'plunker-builder/embeddedPlunker'));
 var fsUtils = require(path.resolve(TOOLS_PATH, 'fs-utils/fsUtils'));
@@ -71,13 +71,13 @@ var _devguideShredJadeOptions =  {
 
 var _apiShredOptions =  {
   lang: 'ts',
-  examplesDir: path.join(ANGULAR_PROJECT_PATH, 'modules/@angular/examples'),
+  examplesDir: path.join(ANGULAR_PROJECT_PATH, 'packages/examples'),
   fragmentsDir: path.join(DOCS_PATH, '_fragments/_api'),
   zipDir: path.join(RESOURCES_PATH, 'zips/api'),
   logLevel: _dgeniLogLevel
 };
 
-var _excludePatterns = ['**/node_modules/**', '**/packages/**'];
+var _excludePatterns = ['**/node_modules/**'];
 
 var _excludeMatchers = _excludePatterns.map(function(excludePattern){
   return new Minimatch(excludePattern)
@@ -86,6 +86,7 @@ var _excludeMatchers = _excludePatterns.map(function(excludePattern){
 var _exampleBoilerplateFiles = [
   'src/styles.css',
   'src/systemjs.config.js',
+  'src/systemjs-angular-loader.js',
   'src/tsconfig.json',
   'bs-config.json',
   'bs-config.e2e.json',
@@ -501,7 +502,7 @@ function installExampleAngular() {
   var template;
   var libs = [
     'core', 'common', 'compiler', 'compiler-cli',
-    'platform-browser', 'platform-browser-dynamic',
+    'platform-browser', 'platform-browser-dynamic', 'platform-server',
     'forms', 'http', 'router', 'upgrade'];
 
   var build = argv.build;
@@ -521,13 +522,16 @@ function installExampleAngular() {
       : `git+https://github.com/angular/${lib}-builds${build}`;
   });
 
-  if (argv.build) { sources.push('@angular/tsc-wrapped');} // tsc-wrapped needed for builds
+  if (argv.build) { 
+    sources.push('@angular/tsc-wrapped'); // tsc-wrapped needed for builds
+    sources.push('typescript@2.2.1');     // recent builds need recent TypeScript
+  } 
 
   sources.push('@angular/router-deprecated');
 
   gutil.log(`Installing Angular packages from ${build === 'npm' ? 'NPM' : 'BUILD ' + build}`);
 
-  var spawnInfo = spawnExt('rm', ['-rf', 'node_modules/@angular'], { cwd: EXAMPLES_PATH});
+  var spawnInfo = spawnExt('node', ['node_modules/rimraf/bin.js', 'node_modules/@angular'], { cwd: EXAMPLES_PATH});
   return spawnInfo.promise
     .then(() =>  {
       spawnInfo = spawnExt('npm', ['install', ...sources], {cwd: EXAMPLES_PATH});
@@ -572,9 +576,7 @@ gulp.task('build-and-serve', ['build-docs'], function (cb) {
   watchAndSync({localFiles: true}, cb);
 });
 
-gulp.task('build-docs', ['build-devguide-docs', 'build-api-docs', 'build-plunkers']);
-// Stop zipping examples Feb 28, 2016
-//gulp.task('build-docs', ['build-devguide-docs', 'build-api-docs', 'build-plunkers', '_zip-examples']);
+gulp.task('build-docs', ['build-devguide-docs', 'build-api-docs', 'build-plunkers', '_zip-examples']);
 
 gulp.task('build-api-docs', ['build-js-api-docs', 'build-ts-api-docs']);
 
@@ -787,8 +789,8 @@ gulp.task('_shred-clean-api', function(cb) {
 });
 
 gulp.task('_zip-examples', function() {
-  exampleZipper.zipExamples(_devguideShredOptions.examplesDir, _devguideShredOptions.zipDir);
-  exampleZipper.zipExamples(_apiShredOptions.examplesDir, _apiShredOptions.zipDir);
+  new ExampleZipper(_devguideShredOptions.examplesDir, _devguideShredOptions.zipDir);
+  // exampleZipper.zipExamples(_apiShredOptions.examplesDir, _apiShredOptions.zipDir);
 });
 
 
@@ -1202,7 +1204,7 @@ function devGuideExamplesWatch(shredOptions, postShredAction, focus) {
   // var excludePattern = '!' + path.join(shredOptions.examplesDir, '**/node_modules/**/*.*');
   // gulp.watch([includePattern, excludePattern], {readDelay: 500}, function (event, done) {
   var ignoreThese = [ '**/node_modules/**', '**/_fragments/**', '**/dist/**',
-                      '**/dart/.pub/**', '**/dart/build/**', '**/dart/packages/**'];
+                      '**/dart/.pub/**', '**/dart/build/**'];
   ignoreThese = ignoreThese.concat(_exampleBoilerplateFiles.map((file) => `public/docs/_examples/*/*/${file}`));
   var files = globby.sync( [includePattern], { ignore: ignoreThese });
   gulp.watch([files], {readDelay: 500}, function (event, done) {

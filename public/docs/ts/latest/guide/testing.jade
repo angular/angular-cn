@@ -1,110 +1,142 @@
 block includes
   include ../_util-fns
-  - var _JavaScript = 'JavaScript';
-  //- Double underscore means don't escape var, use !{__var}.
-  - var __chaining_op = '<code>;</code> or <code>,</code>';
-  - var __new_op = '<code>new</code>';
-  - var __objectAsMap = 'object';
 
 :marked
-  This guide offers tips and techniques for testing Angular applications. 
-  Along the way you will learn some general testing principles and techniques but the focus is on
-  testing applications written with Angular
+  This guide offers tips and techniques for testing Angular applications.
+  Though this page includes some general testing principles and techniques,
+  the focus is on testing applications written with Angular.
 
   本章提供了一些测试Angular应用的提示和技巧。虽然这里讲述了一些常规测试理念和技巧，但是其重点是测试用Angular编写的应用。
 
 a#top
 :marked
-  # Table of Contents
-  * [Live Examples](#live-examples "Live examples of the tests in this guide")
+  # Contents
+
+  * [Live examples](#live-examples "Live examples of the tests in this guide")
   <br><br>
-  * [Introduction to Angular Testing](#testing-intro)
-    - [Tools and technologies](#tools-and-tech)
-    - [Setup](#setup)
-    - [Isolated tests vs. Angular testing utilities](#isolated-v-testing-utilities)
-  * [The first test](#1st-karma-test)
-   - [run with karma](#run-karma)
-   - [debugging karma tests](#test-debugging)
-  * [A simple component test](#simple-component-test)
-    - [_TestBed_](#testbed)
-    - [_configureTestingModule_](#configure-testing-module)
-    - [_createComponent_](#create-component)
-    - [_ComponentFixture_, _DebugElement_, _query(By.css)_](#component-fixture)
-    - [_detectChanges_](#detect-changes)
-    - [_ComponentFixtureAutoDetect _](#auto-detect-changes)
+  * [Introduction to Angular testing](#testing-intro)
+ 
+    * [Tools and technologies](#tools-and-tech)
+    * [Setup](#setup)
+    * [Isolated unit tests vs. the Angular testing utilities](#isolated-v-testing-utilities)
+
+  * [The first karma test](#1st-karma-test)
+
+   * [Run with karma](#run-karma)
+   * [Test debugging](#test-debugging)
+   * [Try the live example](#live-karma-example)
+
+  * [Test a component](#simple-component-test)
+
+    * [_TestBed_](#testbed)
+    * [_createComponent_](#create-component)
+    * [_ComponentFixture_, _DebugElement_, and _query(By.css)_](#component-fixture)
+    * [The tests](#the-tests)
+    * [_detectChanges_: Angular change detection within a test](#detect-changes)
+    * [Try the live example](#try-example)
+    * [Automatic change detection](#auto-detect-changes)
+
   * [Test a component with an external template](#component-with-external-template)
-    - [_async_ setup in _beforeEach_](#async-in-before-each)
-    - [_compileComponents_](#compile-components)    
+
+    * [The first asynchronous _beforeEach_](#async-in-before-each)
+    * [_compileComponents_](#compile-components)
+    * [The second synchronous _beforeEach_](#second-before-each)
+    * [Waiting for _compileComponents_](#waiting-compile-components)
+    * [Try the live example](#live-external-template-example)
+
   * [Test a component with a service dependency](#component-with-dependency)
-    - [test doubles](#service-test-doubles)
+
+    * [Provide service test doubles](#service-test-doubles)
 
       [测试复制品](#service-test-doubles)
 
-    - [get the injected service](#get-injected-service)
-
+    * [Get injected services](#get-injected-service)
+    
       [获取注入的服务](#get-injected-service)
+      
+    * [_TestBed.get_](#testbed-get)
+    * [Always get the service from an injector](#service-from-injector)
+    * [Final setup and tests](#welcome-spec-setup)
 
-    - [_TestBed.get_](#testbed-get)
   * [Test a component with an async service](#component-with-async-service)
-    - [spies](#service-spy)
-    - [_async_ test](#async)
-    - [_whenStable_](#when-stable)
-    - [_fakeAsync_](#fake-async)
-    - [_tick_](#tick)
-    - [_jasmine.done_](#jasmine-done)
+
+    * [Spying on the real service](#service-spy)
+    * [Synchronous tests](#sync-tests)
+    * [The _async_ funciton in it](#async)
+    * [_whenStable_](#when-stable)
+    * [The _fakeAsync_ function](#fake-async)
+    * [The _tick_ function](#tick)
+    * [_jasmine.done_](#jasmine-done)
+
   * [Test a component with inputs and outputs](#component-with-input-output)
-    - [_triggerEventHandler_](#trigger-event-handler)
+
+    * [Test _DashboardHeroComponent_ stand-alone](#dashboard-standalone)
+    * [_triggerEventHandler_](#trigger-event-handler)
+
   * [Test a component inside a test host component](#component-inside-test-host)
-  <br><br>  
+
   * [Test a routed component](#routed-component)
-    - [The _inject_ helper](#inject)
-    - [Test a routed component with parameters](#routed-component-w-param)
-    - [Create an _Observable_ test double](#stub-observable)
-    - [Testing with the _Observable_ test double](#tests-w-observable-double)
+
+    * [The _inject_ helper function](#inject)
+    * [Test a routed component with parameters](#routed-component-w-param)
+    * [Create an _Observable_ test double](#stub-observable)
+    * [Testing with the _Observable_ test double](#tests-w-observable-double)
+
   * [Use a _page_ object to simplify setup](#page-object)
-  * [Setup with module imports](#import-module)
+  * [Set up with module imports](#import-module)
+  * [Import the feature module](#feature-module-import)
   <br><br>
   * [Override a component's providers](#component-override)
-    - [_overrideComponent_](#override-component-method)
-    - [Provide a _spy-stub_](#spy-stub)
+
+    * [The _overrideComponent_ method](#override-component-method)
+    * [Provide a _spy-stub (HeroDetailServiceSpy)_](#spy-stub)
+    * [The override tests](#override-tests)
+    * [More overrides](#more-overrides)
+
   * [Test a _RouterOutlet_ component](#router-outlet-component)
-    - [stubbing unneeded components](#stub-component)
 
+    * [Stubbing unneeded components](#stub-component)
+    
       [模拟不需要的组件](#stub-component)
-
-    - [Stubbing the _RouterLink_](#router-link-stub)
-
+      
+    * [Stubbing the _RouterLink_](#router-link-stub)
+    
       [模拟_RouterLink_](#router-link-stub)
+      
+    * [_By.directive_ and injected directives](#by-directive)
+    * [What good are these tests?](#why-stubbed-routerlink-tests)
 
-    - [_By.directive_ and injected directives](#by-directive)
-  * ["Shallow" component tests with  *NO\_ERRORS\_SCHEMA*](#shallow-component-test)
-  <br><br>  
+  * ["Shallow component tests" with  *NO\_ERRORS\_SCHEMA*](#shallow-component-test)
+  <br><br>
   * [Test an attribute directive](#attribute-directive)
   <br><br>
   * [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
-    - [Services](#isolated-service-tests)
 
+    * [Services](#isolated-service-tests)
+    
       [服务](#isolated-service-tests)
-
-    - [Pipes](#isolated-pipe-tests)
-
+      
+    * [Services with dependencies](#services-with-dependencies)
+    * [Pipes](#isolated-pipe-tests)
+    
       [管道](#isolated-pipe-tests)
+      
+    * [Write Angular tests too](#write-tests)
+    * [Components](#isolated-component-tests)
 
-    - [Components](#isolated-component-tests)
   * [Angular testing utility APIs](#atu-apis)
-    - [Stand-alone functions](#atu-apis): `async`, `fakeAsync`, etc.
 
-      [独立函数](#atu-apis): `async`, `fakeAsync`, etc.
+    * [_TestBed_ class summary](#testbed-class-summary)
+    * [The _ComponentFixture_](#component-fixture-api-summary)
+    * [_ComponentFixture_ properties](#component-fixture-properties)
+    * [The _ComponentFixture_ methods](#component-fixture-methods)
+    * [_DebugElement_](#debug-element-details)
 
-    - [_TestBed_](#testbed-class-summary)
+  * [Test environment setup files](#setup-files)
 
-    - [_ComponentFixture_](#component-fixture-api-summary)
+    * [npm packages](#npm-packages)
 
-    - [_DebugElement_](#debug-element-details)
-  * [Test environment setup](#setup)
-    - [setup files](#setup-files): `karma.conf`, `karma-test-shim`, `systemjs.config`
-    - [npm packages](#npm-packages)    
-  * [FAQ](#faq "Frequently asked questions")
+  * [FAQ: Frequently asked questions](#faq "Frequently asked questions")
 :marked
   It’s a big agenda. Fortunately, you can learn a little bit at a time and put each lesson to use.
 
@@ -115,13 +147,13 @@ a#top
   This guide presents tests of a sample application that is much like the [_Tour of Heroes_ tutorial](../tutorial).
   The sample application and all tests in this guide are available as live examples for inspection, experiment, and download:
 
-  * <live-example plnkr="1st-specs" embedded-style>A spec to verify the test environment</live-example>
-  * <live-example plnkr="banner-inline-specs" embedded-style>The first component spec with inline template</live-example>
-  * <live-example plnkr="banner-specs" embedded-style>A component spec with external template</live-example>  
-  * <live-example name="setup" plnkr="quickstart-specs" embedded-style>The QuickStart seed's AppComponent spec</live-example>  
-  * <live-example embedded-style>The sample application to be tested</live-example>
-  * <live-example plnkr="app-specs" embedded-style>All specs that test the sample application</live-example>
-  * <live-example plnkr="bag-specs" embedded-style>A grab bag of additional specs</live-example>
+  * <live-example plnkr="1st-specs" embedded-style>A spec to verify the test environment</live-example>.
+  * <live-example plnkr="banner-inline-specs" embedded-style>The first component spec with inline template</live-example>.
+  * <live-example plnkr="banner-specs" embedded-style>A component spec with external template</live-example>.
+  * <live-example name="setup" plnkr="quickstart-specs" embedded-style>The QuickStart seed's AppComponent spec</live-example>.
+  * <live-example embedded-style>The sample application to be tested</live-example>.
+  * <live-example plnkr="app-specs" embedded-style>All specs that test the sample application</live-example>.
+  * <live-example plnkr="bag-specs" embedded-style>A grab bag of additional specs</live-example>.
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
 
@@ -129,24 +161,26 @@ a(href="#top").to-top 回到顶部
 a#testing-intro
 :marked
   ## Introduction to Angular Testing
-
+  
   ## Angular测试入门
 
-  You write tests to explore and confirm the behavior of the application.
+  This page guides you through writing tests to explore
+  and confirm the behavior of the application. Testing
+  does the following:
 
-  编写测试程序来探索和确认应用的行为。
+  本章教你如何编写测试程序来探索和确认应用的行为。测试的作用有：
 
-  1. They **guard** against changes that break existing code (“regressions”).
+  1. Guards against changes that break existing code (“regressions”).
 
      测试**守护**由于代码变化而打破已有代码(“回归”)的情况。
 
-  1. They **clarify** what the code does both when used as intended and when faced with deviant conditions.
+  1. Clarifies what the code does both when used as intended and when faced with deviant conditions.
 
      不管代码被正确使用还是错误使用，测试程序起到**澄清**代码的作用。
 
-  1. They **reveal** mistakes in design and implementation.
-  Tests shine a harsh light on the code from many angles. 
-  When a part of the application seems hard to test, the root cause is often a design flaw, 
+  1. Reveals mistakes in design and implementation.
+  Tests shine a harsh light on the code from many angles.
+  When a part of the application seems hard to test, the root cause is often a design flaw,
   something to cure now rather than later when it becomes expensive to fix.
 
      测试程序**暴露**设计和实现可能出现的错误。测试程序从很多角度为代码亮出警报灯。当应用程序很难被测试时，
@@ -164,19 +198,18 @@ a#testing-intro
   [Resources TBD](./#)
   -->
 
-a#tools-and-tech 
+a#tools-and-tech
 :marked
-  ### Tools and Technologies
+  ### Tools and technologies
 
   ### 工具与技术
 
   You can write and run Angular tests with a variety of tools and technologies.
   This guide describes specific choices that are known to work well.
-
   你可以用多种工具和技术来编写和运行Angular测试程序。本章介绍了一些大家已经知道能良好工作的选择。
 table(width="100%")
   col(width="20%")
-  col(width="80%") 
+  col(width="80%")
   tr
     th
       p Technology
@@ -188,8 +221,8 @@ table(width="100%")
     td(style="vertical-align: top") Jasmine
     td
       :marked
-        The [Jasmine test framework](http://jasmine.github.io/2.4/introduction.html).
-        provides everything needed to write basic tests. 
+        The [Jasmine test framework](http://jasmine.github.io/2.4/introduction.html)
+        provides everything needed to write basic tests.
         It ships with an HTML test runner that executes tests in the browser.
 
         [Jasmine测试框架](http://jasmine.github.io/2.4/introduction.html)提供了所有编写基本测试的工具。
@@ -197,13 +230,13 @@ table(width="100%")
 
   tr(style=top)
     td(style="vertical-align: top")
-      p Angular Testing Utilities
+      p Angular testing utilities
       p Angular测试工具
     td
       :marked
-        The Angular testing utilities create a test environment
-        for the Angular application code under test. 
-        Use them to condition and control parts of the application as they 
+        Angular testing utilities create a test environment
+        for the Angular application code under test.
+        Use them to condition and control parts of the application as they
         interact _within_ the Angular environment.
 
         Angular测试工具为被测试的Angular应用代码创建测试环境。在应用代码与Angular环境互动时，使用Angular测试工具来限制和控制应用的部分代码。
@@ -213,9 +246,9 @@ table(width="100%")
     td
       :marked
         The [karma test runner](https://karma-runner.github.io/1.0/index.html)
-        is ideal for writing and running unit tests while developing the application. 
+        is ideal for writing and running unit tests while developing the application.
         It can be an integral part of the project's development and continuous integration processes.
-        This guide describes how to setup and run tests with karma.
+        This guide describes how to set up and run tests with karma.
 
         [karma测试运行器](https://karma-runner.github.io/1.0/index.html)是在开发应用的过程中
         编写和运行单元测试的理想工具。
@@ -227,8 +260,8 @@ table(width="100%")
         Use protractor to write and run _end-to-end_ (e2e) tests.
         End-to-end tests explore the application _as users experience it_.
         In e2e testing, one process runs the real application
-        and a second process runs protractor tests that simulate user behavior 
-        and assert that the application responds in the browser as expected.
+        and a second process runs protractor tests that simulate user behavior
+        and assert that the application respond in the browser as expected.
 
         使用`Protractor`来编写和运行_端对端(e2e)_测试程序。端对端测试程序**像用户体验应用程序那样**探索它。
         在端对端测试中，一条进程运行真正的应用，另一条进程运行Protractor测试程序，模拟用户行为，判断应用在浏览器中的反应是否正确。
@@ -243,43 +276,43 @@ a#setup
 
       遵循[环境设置](setup.html "环境设置")中给出的步骤开始一个新项目。
 
-  1. Start a new project with the 
+  1. Start a new project with the
   <a href="https://github.com/angular/angular-cli/blob/master/README.md" target="_blank" title="Angular CLI">Angular CLI</a>.
 
       使用[Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md)创建新的项目。
 
-  Both approaches install **npm packages, files, and scripts** pre-configured for applications
-  built in their respective modalities. 
-  Their artifacts and procedures differ slightly but their essentials are the same 
+  Both approaches install npm packages, files, and scripts pre-configured for applications
+  built in their respective modalities.
+  Their artifacts and procedures differ slightly but their essentials are the same
   and there are no differences in the test code.
 
   以上两种方法都安装在各自的模式下为应用预先配置的**npm包、文件和脚本**。它们的文件和规程有一点不同，但是它们的核心部分是一样的，并且在测试代码方面没有任何区别。
 
-  In this guide, the application and its tests are based on the [setup instructions](setup.html "Setup"). 
+  In this guide, the application and its tests are based on the [setup instructions](setup.html "Setup").
   For a discussion of the unit testing setup files, [see below](#setup-files).
 
 a#isolated-v-testing-utilities
 :marked
-  ### Isolated unit tests vs Angular testing utilites
+  ### Isolated unit tests vs. the Angular testing utilites
 
-  [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities") 
-  examine an instance of a class all by itself without any dependence on Angular or any injected values. 
-  The tester creates a test instance of the class with new, supplying test doubles for the constructor parameters as needed, and
+  [Isolated unit tests](#isolated-unit-tests "Unit testing without the Angular testing utilities")
+  examine an instance of a class all by itself without any dependence on Angular or any injected values.
+  The tester creates a test instance of the class with `new`, supplying test doubles for the constructor parameters as needed, and
   then probes the test instance API surface.
-  
-  *You can and should write isolated unit tests for pipes and services.* 
-  
-  Components can be tested in isolation as well.
-  However, isolated unit tests don't reveal how components interact with Angular. 
+
+  *You should write isolated unit tests for pipes and services.*
+
+  You can test components in isolation as well.
+  However, isolated unit tests don't reveal how components interact with Angular.
   In particular, they can't reveal how a component class interacts with its own template or with other components.
-  
+
   Such tests require the **Angular testing utilities**.
   The  Angular testing utilities include the `TestBed` class and several helper functions from `@angular/core/testing`.
-  They are the main focus of this guide and you'll start learning about them
+  They are the main focus of this guide and you'll learn about them
   when you write your [first component test](#simple-component-test).
-  A comprehensive review of the Angular testing utilities appears [later in the guide](#atu-apis).
+  A comprehensive review of the Angular testing utilities appears [later in this guide](#atu-apis).
 
-  But first you should write a dummy test to verify that your test environment is setup properly
+  But first you should write a dummy test to verify that your test environment is set up properly
   and to lock in a few basic testing skills.
 
 a(href="#top").to-top Back to top
@@ -292,7 +325,7 @@ a#1st-karma-test
 
   ## 第一个`karma`测试
 
-  Start with a simple test to make sure the setup works properly.
+  Start with a simple test to make sure that the setup works properly.
 
   编写简单的测试程序，来确认以上的配置是否工作正常。
 
@@ -302,8 +335,8 @@ a#1st-karma-test
 
 .alert.is-important
   :marked
-    Tests written in Jasmine are called _specs_ . 
-    **The filename extension must be `.spec.ts`**, 
+    Tests written in Jasmine are called _specs_ .
+    **The filename extension must be `.spec.ts`**,
     the convention adhered to by  `karma.conf.js` and other tooling.
 
     用Jasmine编写的测试程序都被叫做**specs**。**文件名后缀必须是`.spec.ts`**，这是`karma.conf.js`和其它工具所坚持和遵守的规约。
@@ -323,13 +356,12 @@ a#1st-karma-test
 
 a#run-karma
 :marked
-  ### Run karma
+  ### Run with karma
 
   ### 运行Karma
-  Compile and run it in karma from the command line with this command:
+  Compile and run it in karma from the command line using the following command:
 
   使用下面的命令从命令行中编译并在`Karma`中运行上面的测试程序。
-
 code-example(format="." language="bash").
   npm test
 :marked
@@ -353,7 +385,8 @@ code-example(format="." language="bash").
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-browser.png' style="width:400px;" alt="Karma browser")
 :marked
-  Hide (don't close!) the browser and focus on the console output which should look something like this.
+  Hide (don't close!) the browser and focus on the console output, which
+  should look something like this:
 
   隐藏（不要关闭）浏览器，查看控制台的输出，应该看起来像这样：
 
@@ -362,12 +395,12 @@ code-example(format="." language="bash").
   ...
   [0] 1:37:03 PM - Compilation complete. Watching for file changes.
   ...
-  [1] Chrome 51.0.2704: Executed 0 of 0 SUCCESS  
+  [1] Chrome 51.0.2704: Executed 0 of 0 SUCCESS
       Chrome 51.0.2704: Executed 1 of 1 SUCCESS
   SUCCESS (0.005 secs / 0.005 secs)
 
 :marked
-  Both the compiler and karma continue to run. The compiler output is preceeded by `[0]`; 
+  Both the compiler and karma continue to run. The compiler output is preceded by `[0]`;
   the karma output by `[1]`.
 
   编译器和`Karma`都会持续运行。编译器的输入信息前面有`[0]`，`Karma`的输出前面有`[1]`。
@@ -395,7 +428,7 @@ code-example(format="." language="bash").
   [1] Chrome 51.0.2704: Executed 1 of 1 (1 FAILED) (0.005 secs / 0.005 secs)
 
 :marked
-  It failed of course.
+  It fails of course.
 
   正如所料，测试结果是**失败**。
 
@@ -407,50 +440,52 @@ code-example(format="." language="bash").
 .alert.is-helpful
   :marked
     The console log can be quite long. Keep your eye on the last line.
-    It says `SUCCESS` when all is well.
+    When all is well, it reads `SUCCESS`.
 
     控制台的日志可能会非常长。注意最后一样。当一切正常时，它会显示`SUCCESS`。
 
-a#test-debugging 
+a#test-debugging
 :marked
   ### Test debugging
-
+  
   ### 调试测试程序
-  Debug specs in the browser in the same way you debug an application.
-
+  
+  Debug specs in the browser in the same way thatyou debug an application.
+  
   在浏览器中，像调试应用一样调试测试程序spec。
 
-    - Reveal the karma browser window (hidden earlier).
-
+    1. Reveal the karma browser window (hidden earlier).
+    
       显示`Karma`的浏览器窗口（之前被隐藏了）。
-
-    - Click the "DEBUG" button; it opens a new browser tab and re-runs the tests
-
+      
+    1. Click the **DEBUG** button; it opens a new browser tab and re-runs the tests.
+    
       点击“DEBUG”按钮；它打开一页新浏览器标签并重新开始运行测试程序
-
-    - Open the browser's “Developer Tools” (F12 or Ctrl-Shift-I).
-
-      打开浏览器的“Developer Tools”(F12或者Ctrl-Shift-I)。
-
-    - Pick the "sources" section
-
+      
+    1. Open the browser's “Developer Tools” (`Ctrl-Shift-I` on windows; `Command-Option-I` in OSX).
+    
+      打开浏览器的“Developer Tools”(Windows上的Ctrl-Shift-I或者OSX上的`Command-Option-I)。
+      
+    1. Pick the "sources" section.
+    
       选择“sources”页
-
-    - Open the `1st.spec.ts` test file (Ctrl-P, then start typing the name of the file).
-
-      打开`1st.spec.ts`测试文件（Ctrl-P, 然后输入文件名字）。
-
-    - Set a breakpoint in the test
-
+      
+    1. Open the `1st.spec.ts` test file (Control/Command-P, then start typing the name of the file).
+    
+      打开`1st.spec.ts`测试文件（Control/Command-P, 然后输入文件名字）。
+      
+    1. Set a breakpoint in the test.
+    
       在测试程序中设置断点。
-
-    - Refresh the browser … and it stops at the breakpoint.
-
+      
+    1. Refresh the browser, and it stops at the breakpoint.
+  
       刷新浏览器...然后它就会停在断点上。
 
 figure.image-display
   img(src='/resources/images/devguide/testing/karma-1st-spec-debug.png' style="width:700px;" alt="Karma debugging")
 
+a#live-karma-example
 :marked
   ### Try the live example
 
@@ -467,7 +502,7 @@ a#simple-component-test
   ## Test a component
 
   An Angular component is the first thing most developers want to test.
-  The `BannerComponent` in `src/app/banner-inline.component.ts` is the simplest component in this application and 
+  The `BannerComponent` in `src/app/banner-inline.component.ts` is the simplest component in this application and
   a good place to start.
   It presents the application title at the top of the screen within an `<h1>` tag.
 +makeExample('testing/ts/src/app/banner-inline.component.ts', '', 'src/app/banner-inline.component.ts')(format='.')
@@ -477,7 +512,8 @@ a#simple-component-test
   it's perfect for a first encounter with the Angular testing utilities.
 
   The corresponding `src/app/banner-inline.component.spec.ts` sits in the same folder as the component,
-  for reasons explained [here](#q-spec-file-location);
+  for reasons explained in the [FAQ](#faq) answer to
+  ["Why put specs next to the things they test?"](#q-spec-file-location).
 
   Start with ES6 import statements to get access to symbols referenced in the spec.
 +makeExample('testing/ts/src/app/banner-inline.component.spec.ts', 'imports', 'src/app/banner-inline.component.spec.ts (imports)')(format='.')
@@ -489,24 +525,26 @@ a#configure-testing-module
 
 a#testbed
 :marked
-  ### The _TestBed_
+  ### _TestBed_
 
-  The `TestBed` is the first and most important of the  Angular testing utilities.
-  It creates an Angular testing module &mdash; an `@NgModule` class &mdash;
-  that you configure with the `configureTestingModule` method to produce the module environment for the class you want to test.
+  `TestBed` is the first and most important of the  Angular testing utilities.
+  It creates an Angular testing module&mdash;an `@NgModule` class&mdash;that
+  you configure with the `configureTestingModule` method to produce the module environment for the class you want to test.
   In effect, you detach the tested component from its own application module
-  and re-attach it to a dynamically-constructed, Angular test module 
+  and re-attach it to a dynamically-constructed Angular test module
   tailored specifically for this battery of tests.
 
-  The `configureTestingModule` method takes an `@NgModule`-like metadata object. 
+  The `configureTestingModule` method takes an `@NgModule`-like metadata object.
   The metadata object can have most of the properties of a normal [Angular module](ngmodule.html).
-  
+
   _This metadata object_ simply declares the component to test, `BannerComponent`.
   The metadata lack `imports` because (a) the default testing module configuration already has what `BannerComponent` needs
   and (b) `BannerComponent` doesn't interact with any other components.
 
-  Call `configureTestingModule` within a `BeforeEach` so that,
-  before each spec runs, the `TestBed` can reset itself to a base state.
+
+  Call `configureTestingModule` within a `beforeEach` so that
+  `TestBed` can reset itself to a base state before each test runs.
+
   The base state includes a default testing module configuration consisting of the
   declarables (components, directives, and pipes) and providers (some of them mocked)
   that almost everyone needs.
@@ -519,44 +557,42 @@ a#testbed
     [之前](#setup)提到的测试垫片初始化测试模块配置到一个模块，这个模块和`@angular/platform-browser`中的`BrowserModule`类似。
 :marked
   This default configuration is merely a _foundation_ for testing an app.
-  Later you'll call `TestBed.configureTestingModule` with more metadata that defines additional 
-  imports, declarations, providers and schemas to fit your application tests.
-  Optional `override...` methods can fine-tune aspects of the configuration.
+  Later you'll call `TestBed.configureTestingModule` with more metadata that define additional
+  imports, declarations, providers, and schemas to fit your application tests.
+  Optional `override` methods can fine-tune aspects of the configuration.
 
 a#create-component
 :marked
   ### _createComponent_
 
-  After configuring the `TestBed`, you tell it to create an instance of the _component-under-test_.
-  In this example, `TestBed.createComponent` creates an instance of `BannerComponent` and 
+  After configuring `TestBed`, you tell it to create an instance of the _component-under-test_.
+  In this example, `TestBed.createComponent` creates an instance of `BannerComponent` and
   returns a [_component test fixture_](#component-fixture).
 
 .alert.is-important
   :marked
-    Do not re-configure the `TestBed` after calling `createComponent`. 
+    Do not re-configure `TestBed` after calling `createComponent`.
 
 :marked
   The `createComponent` method closes the current `TestBed` instance to further configuration.
-  You cannot call any more `TestBed` configuration methods, not `configureTestingModule` 
-  nor any of the `override...` methods. The `TestBed` throws an error if you try.
+  You cannot call any more `TestBed` configuration methods, not `configureTestingModule`
+  nor any of the `override...` methods. If you try, `TestBed` throws an error.
 
 a#component-fixture
 :marked
   ### _ComponentFixture_, _DebugElement_, and _query(By.css)_
 
   The `createComponent` method returns a **`ComponentFixture`**, a handle on the test environment surrounding the created component.
-  The fixture provides access to the component instance itself and 
-  to the **`DebugElement`** which is a handle on the component's DOM element.
+  The fixture provides access to the component instance itself and
+  to the **`DebugElement`**, which is a handle on the component's DOM element.
 
   `createComponent`方法返回**`ComponentFixture`**，用来控制和访问已创建的组件所在的测试环境。
    这个fixture提供了对组件实例自身的访问，同时还提供了用来访问组件的DOM元素的**`DebugElement`**对象。
 
-  The `title` property value was interpolated into the DOM within `<h1>` tags.
+  The `title` property value is interpolated into the DOM within `<h1>` tags.
   Use the fixture's `DebugElement` to `query` for the `<h1>` element by CSS selector.
-
   `title`属性被插值到DOM的`<h1>`标签中。
   用CSS选择器从fixture的`DebugElement`中`query``<h1>`元素。
-
   The **`query`** method takes a predicate function and searches the fixture's entire DOM tree for the 
   _first_ element that satisfies the predicate. 
   The result is a _different_ `DebugElement`, one associated with the matching DOM element.
@@ -565,18 +601,14 @@ a#component-fixture
 .l-sub-section
   :marked
     The `queryAll` method returns an array of _all_ `DebugElements` that satisfy the predicate.
-
     `queryAll`方法返回一列数组，包含所有`DebugElement`中满足predicate的元素。
-
     A _predicate_ is a function that returns a boolean. 
     A query predicate receives a `DebugElement` and returns `true` if the element meets the selection criteria.
-
     **predicate**是返回布尔值的函数。
     predicate查询接受`DebugElement`参数，如果元素符合选择条件便返回`true`。
-
 :marked
-  The **`By`** class is an Angular testing utility that produces useful predicates. 
-  Its `By.css` static method produces a 
+  The **`By`** class is an Angular testing utility that produces useful predicates.
+  Its `By.css` static method produces a
   <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">standard CSS selector</a>
   predicate that filters the same way as a jQuery selector.
 
@@ -585,12 +617,15 @@ a#component-fixture
   predicate，与JQuery选择器相同的方式过滤。
 
   Finally, the setup assigns the DOM element from the `DebugElement` **`nativeElement`** property to `el`.
-  The tests will assert that `el` contains the expected title text.
+  The tests assert that `el` contains the expected title text.
 
   最后，这个配置指定`DebugElement`中的**`nativeElement`**DOM元素到属性`el`。
   测试程序将判断`el`是否包含期待的标题文本。
 
+a#the-tests
+:marked
   ### The tests
+  
   ### 测试程序
 
   Jasmine runs the `beforeEach` function before each of these tests
@@ -598,6 +633,7 @@ a#component-fixture
   再每个测试程序之前，Jasmin都一次运行`beforeEach`函数：
 
 +makeExample('testing/ts/src/app/banner-inline.component.spec.ts', 'tests', 'src/app/banner-inline.component.spec.ts (tests)')(format='.')
+
 :marked
   These tests ask the `DebugElement` for the native HTML element to satisfy their expectations.
 
@@ -640,6 +676,8 @@ a#detect-changes
 
   此行为（或者缺乏的行为）是有意的。**在Angular初始化数据绑定或者调用生命周期钩子**之前，它给测试者机会来查看或者改变组件的状态。
 
+a#try-example
+:marked
   ### Try the live example
   Take a moment to explore this component spec as a <live-example plnkr="banner-inline-specs" title="Spec for component with inline template" embedded-style></live-example> and
   lock in these fundamentals of component unit testing.
@@ -652,13 +690,13 @@ a#auto-detect-changes
 
   The `BannerComponent` tests frequently call `detectChanges`.
   Some testers prefer that the Angular test environment run change detection automatically.
-  That's possible by configuring the `TestBed` with the `ComponentFixtureAutoDetect` provider which
-  you first import from the testing utility library ...
-  
+  That's possible by configuring the `TestBed` with the `ComponentFixtureAutoDetect` provider .
+  First import itfrom the testing utility library :
 +makeExample('testing/ts/src/app/banner.component.detect-changes.spec.ts', 'import-ComponentFixtureAutoDetect', 'src/app/banner.component.detect-changes.spec.ts (import)')(format='.')
 :marked
-  ... and then add to the `providers` array of the testing module configuration:
+  Then add it to the `providers` array of the testing module configuration:
 +makeExample('testing/ts/src/app/banner.component.detect-changes.spec.ts', 'auto-detect', 'src/app/banner.component.detect-changes.spec.ts (AutoDetect)')(format='.')
+
 :marked
   Here are three tests that illustrate how automatic change detection works.
 +makeExample('testing/ts/src/app/banner.component.detect-changes.spec.ts', 'auto-detect-tests', 'src/app/banner.component.detect-changes.spec.ts (AutoDetect Tests)')(format='.')
@@ -696,7 +734,7 @@ a(href="#top").to-top 回到顶部
 a#component-with-external-template
 :marked
   ## Test a component with an external template
-  The application's actual `BannerComponent` behaves the same as the version above but is implemented differently. 
+  The application's actual `BannerComponent` behaves the same as the version above but is implemented differently.
   It has _external_ template and css files, specified in `templateUrl` and `styleUrls` properties.
 +makeExample('testing/ts/src/app/banner.component.ts', '', 'src/app/banner.component.ts')(format='.')
 :marked
@@ -713,21 +751,22 @@ a#component-with-external-template
 
   The test setup for `BannerComponent` must give the Angular template compiler time to read the files.
   The logic in the `beforeEach` of the previous spec is split into two `beforeEach` calls.
-  The first `beforeEach` handles asynchronous compilation. 
+  The first `beforeEach` handles asynchronous compilation.
 
 +makeExample('testing/ts/src/app/banner.component.spec.ts', 'async-before-each', 'src/app/banner.component.spec.ts (first beforeEach)')(format='.')
 
 :marked
   Notice the `async` function called as the argument to `beforeEach`.
-  The `async` function is one of the Angular testing utilities. 
+  The `async` function is one of the Angular testing utilities and
+  has to be imported.
 +makeExample('testing/ts/src/app/banner.component.detect-changes.spec.ts', 'import-async')(format='.')
 :marked
   It takes a parameterless function and _returns a function_
   which becomes the true argument to the  `beforeEach`.
 
   The body of the `async` argument looks much like the body of a synchronous `beforeEach`.
-  There is nothing obviously asynchronous about it. 
-  For example, it doesn't return a promise and 
+  There is nothing obviously asynchronous about it.
+  For example, it doesn't return a promise and
   there is no `done` function to call as there would be in standard Jasmine asynchronous tests.
   Internally, `async` arranges for the body of the `beforeEach` to run in a special _async test zone_
   that hides the mechanics of asynchronous execution.
@@ -741,7 +780,7 @@ a#compile-components
   calls to other `TestBed` static methods such as `compileComponents`.
 
   The `TestBed.compileComponents` method asynchronously compiles all the components configured in the testing module.
-  In this example, the `BannerComponent` is the only component to compile. 
+  In this example, the `BannerComponent` is the only component to compile.
   When `compileComponents` completes, the external templates and css files have been "inlined"
   and `TestBed.createComponent` can create new instances of `BannerComponent` synchronously.
 .l-sub-section
@@ -749,22 +788,24 @@ a#compile-components
     WebPack developers need not call `compileComponents` because it inlines templates and css
     as part of the automated build process that precedes running the test.
 :marked
-  In this example, `TestBed.compileComponents` only compiles the `BannerComponent`. 
-  Tests later in the guide declare multiple components and 
+  In this example, `TestBed.compileComponents` only compiles the `BannerComponent`.
+  Tests later in the guide declare multiple components and
   a few specs import entire application modules that hold yet more components.
   Any of these components might have external templates and css files.
   `TestBed.compileComponents` compiles all of the declared components asynchronously at one time.
 
 .alert.is-important
   :marked
-    Do not configure the `TestBed` after calling `compileComponents`. 
-    Make `compileComponents` the last step 
+    Do not configure the `TestBed` after calling `compileComponents`.
+    Make `compileComponents` the last step
     before calling `TestBed.createComponent` to instantiate the _component-under-test_.
 :marked
   Calling `compileComponents` closes the current `TestBed` instance is further configuration.
-  You cannot call any more `TestBed` configuration methods, not `configureTestingModule` 
+  You cannot call any more `TestBed` configuration methods, not `configureTestingModule`
   nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
+a#second-before-each
+:marked
   ### The second synchronous _beforeEach_
   A _synchronous_ `beforeEach` containing the remaining setup steps follows the asynchronous `beforeEach`.
 
@@ -773,19 +814,21 @@ a#compile-components
   These are the same steps as in the original `beforeEach`.
   They include creating an instance of the `BannerComponent` and querying for the elements to inspect.
 
-  You can count on the testrunner to wait for the first asynchronous `beforeEach` to finish before calling the second.
+  You can count on the test runner to wait for the first asynchronous `beforeEach` to finish before calling the second.
 
+a#waiting-compile-components
+:marked
   ### Waiting for _compileComponents_
 
   The `compileComponents` method returns a promise so you can perform additional tasks _immediately after_ it finishes.
-  For example, you could move the synchronous code in the second `beforeEach` 
+  For example, you could move the synchronous code in the second `beforeEach`
   into a `compileComponents().then(...)` callback and write only one `beforeEach`.
 
   Most developers find that hard to read.
   The two `beforeEach` calls are widely preferred.
 
   ### Try the live example
-  
+
   Take a moment to explore this component spec as a <live-example plnkr="banner-specs" title="Spec for component with external template" embedded-style></live-example>.
 
 .l-sub-section
@@ -793,7 +836,7 @@ a#compile-components
     The [Quickstart seed](setup.html) provides a similar test of its `AppComponent`
     as you can see in _this_ <live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>.
     It too calls `compileComponents` although it doesn't have to because the `AppComponent`'s template is inline.
-    
+
     There's no harm in it and you might call `compileComponents` anyway
     in case you decide later to re-factor the template into a separate file.
     The tests in this guide only call `compileComponents` when necessary.
@@ -808,12 +851,14 @@ a#component-with-dependency
 
   ## 测试有依赖的组件
   Components often have service dependencies.
+
   The `WelcomeComponent` displays a welcome message to the logged in user.
   It knows who the user is based on a property of the injected `UserService`:
 
   组件经常依赖其他服务。`WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性得知用户的身份：
 
 +makeExample('testing/ts/src/app/welcome.component.ts', '', 'src/app/welcome.component.ts')(format='.')
+
 :marked
   The `WelcomeComponent` has decision logic that interacts with the service, logic that makes this component worth testing.
   Here's the testing module configuration for the spec file, `src/app/welcome.component.spec.ts`:
@@ -825,9 +870,7 @@ a#component-with-dependency
   This time, in addition to declaring the _component-under-test_,
   the configuration adds a `UserService` provider to the `providers` list.
   But not the real `UserService`.
-
   这次，在测试配置里不但声明了被测试的组件，而且在`providers`数组中添加了`UserService`依赖。但不是真实的`UserService`。
-
 a#service-test-doubles 
 :marked
   ### Provide service test doubles
@@ -843,9 +886,9 @@ a#service-test-doubles
   spec的主要目的是测试组件，而不是服务。真实的服务可能自身有问题。
 
   Injecting the real `UserService` could be a nightmare.
-  The real service might try to ask the user for login credentials and 
-  try to reach an authentication server.
-  These behaviors could be hard to intercept. 
+  The real service might ask the user for login credentials and
+  attempt to reach an authentication server.
+  These behaviors can be hard to intercept.
   It is far easier and safer to create and register a test double in place of the real `UserService`.
 
   注入真实的`UserService`有可能很麻烦。真实的服务可能询问用户登录凭据，也可能试图连接认证服务器。
@@ -890,9 +933,9 @@ a#testbed-get
   ### _TestBed.get_
 
   You _may_ also be able to get the service from the root injector via `TestBed.get`.
-  This is easier to remember and less verbose. 
+  This is easier to remember and less verbose.
   But it only works when Angular injects the component with the service instance in the test's root injector.
-  Fortunately, in this test suite, the _only_ provider of `UserService` is the root testing module, 
+  Fortunately, in this test suite, the _only_ provider of `UserService` is the root testing module,
   so it is safe to call `TestBed.get` as follows:
 
   你**可以**通过`TestBed.get`方法来从根注入器中获取服务。
@@ -904,26 +947,28 @@ a#testbed-get
 .l-sub-section
   :marked
     The [`inject`](#inject)  utility function is another way to get one or more services from the test root injector.
-
+    
     [`inject`](#inject)辅助函数方法是另外一种从测试的根注入器注入一个或多个服务到测试的方法。
 
-    See the section "[_Override a component's providers_](#component-override)" for a use case
-    in which `inject` and `TestBed.get` do not work and you must get the service from the component's injector.
+    For a use case in which `inject` and `TestBed.get` do not work,
+    see the section [_Override a component's providers_](#component-override), which
+    explains why you must get the service from the component's injector instead.
+    
+    如果遇到了`inject`和`TestBed.get`无效，的情况，请到“[**重载组件提供商**](#component-override)”一节。那里会解释为什么要改用组件的注入器来获取服务。
 
-    到“[**重载组件提供商**](#component-override)”查看`inject`和`TestBed.get`无效，并且必须从组件的注入器获取服务的用例。
-
+a#service-from-injector
 :marked
   ### Always get the service from an injector
-
+  
   ### 总是从注入器获取服务
-
-  Surprisingly, you dare not reference the `userServiceStub` object
-  that was provided to the testing module in the body of your test. 
-  **It does not work!** 
-  The `userService` instance injected into the component is a completely _different_ object, 
+  
+  Do _not_ reference the `userServiceStub` object
+  that's provided to the testing module in the body of your test.
+  **It does not work!**
+  The `userService` instance injected into the component is a completely _different_ object,
   a clone of the provided `userServiceStub`.
 
-  出人意料的是，请不要引用测试代码里提供给测试模块的`userServiceStub`对象。**它是行不通的！**
+  请不要引用测试代码里提供给测试模块的`userServiceStub`对象。**这样不行！**
   被注入组件的`userService`实例是彻底**不一样**的对象，是提供的`userServiceStub`的克隆。
 
 +makeExample('testing/ts/src/app/welcome.component.spec.ts', 'stub-not-injected')(format='.')
@@ -952,14 +997,12 @@ a#welcome-spec-setup
 
 .l-sub-section
   :marked
-    The second parameter to the Jasmine `it` (e.g., `'expected name'`) is an optional addendum. 
+    The second parameter to the Jasmine `it` (e.g., `'expected name'`) is an optional addendum.
     If the expectation fails, Jasmine displays this addendum after the expectation failure message.
-    It can help clarify what went wrong and which expectation failed in a spec with multiple expectations. 
-
-    Jasmine的`it`方法的第二个参数（比如`'expected name'`）是可选附加参数。
+    In a spec with multiple expectations, it can help clarify what went wrong and which expectation failed . 
+     Jasmine的`it`方法的第二个参数（比如`'expected name'`）是可选附加参数。
     如果这个期待失败了，Jasmine在期待失败信息后面显示这个附加参数。
     在拥有多个期待的spec中，它可以帮助澄清发生了什么错误，哪个期待失败了。
-
 :marked
   The remaining tests confirm the logic of the component when the service returns different values.
   The second test validates the effect of changing the user name.
@@ -979,13 +1022,14 @@ a#component-with-async-service
   ## Test a component with an async service
 
   ## 测试有异步服务的组件
-  Many services return values asynchronously. 
+  Many services return values asynchronously.
   Most data services make an HTTP request to a remote server and the response is necessarily asynchronous.
 
   许多服务异步返回值。大部分数据服务向远程服务器发起HTTP请求，响应必然是异步的。
 
   The "About" view in this sample displays Mark Twain quotes.
   The `TwainComponent` handles the display, delegating the server request to the `TwainService`.
+
   Both are in the `src/app/shared` folder because the author intends to display Twain quotes on other pages someday.
   Here is the `TwainComponent`.
 
@@ -995,19 +1039,15 @@ a#component-with-async-service
   下面是`TwainComponent`：
 
 +makeExample('testing/ts/src/app/shared/twain.component.ts', 'component', 'src/app/shared/twain.component.ts')(format='.')
+
 :marked
-  The `TwainService` implementation is irrelevant at this point.
-  It is sufficient to see within `ngOnInit` that `twainService.getQuote` returns a promise which means it is asynchronous.
+  The `TwainService` implementation is irrelevant for this particular test.
+  It is sufficient to see within `ngOnInit` that `twainService.getQuote` returns a promise, which means it is asynchronous.
 
   `TwainService`的实现细节现在并不重要。
-  `ngOnInit`的`twainService.getQuote`返回承诺，所以显然它是异步的。
-
-  In general, tests should not make calls to remote servers.
-  They should emulate such calls. The setup in this `src/app/shared/twain.component.spec.ts` shows one way to do that: 
-
-  一般来讲，测试程序不应该向远程服务器发请求。
+  `ngOnInit`的`twainService.getQuote`返回承诺，所以显然它是异步的。In general, tests should not make calls to remote servers. 
+  They should emulate such calls. The setup in this `src/app/shared/twain.component.spec.ts` shows one way to do that: 一般来讲，测试程序不应该向远程服务器发请求。
   它们应该仿真这样的请求。`src/app/shared/twain.component.spec.ts`里的配置是其中一种伪造方法：
-
 +makeExample('testing/ts/src/app/shared/twain.component.spec.ts', 'setup', 'src/app/shared/twain.component.spec.ts (setup)')(format='.')
 
 a#service-spy
@@ -1017,7 +1057,7 @@ a#service-spy
   ### 刺探(Spy)真实服务
 
   This setup is similar to the [`welcome.component.spec` setup](#welcome-spec-setup).
-  But instead of creating a stubbed service object, it injects the _real_ service (see the testing module `providers`) and 
+  But instead of creating a stubbed service object, it injects the _real_ service (see the testing module `providers`) and
   replaces the critical `getQuote` method with a Jasmine spy.
 
   本配置与[`welcome.component.spec`配置](#welcome-spec-setup)类似。
@@ -1026,14 +1066,14 @@ a#service-spy
 +makeExample('testing/ts/src/app/shared/twain.component.spec.ts', 'spy')(format='.')
 :marked
   The spy is designed such that any call to `getQuote` receives an immediately resolved promise with a test quote.
-  The spy bypasses the actual `getQuote` method and therefore will not contact the server.
+  The spy bypasses the actual `getQuote` method and therefore does not contact the server.
 
   这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一条预设的名言。Spy拦截了实际`getQuote`方法，所有它不会联系服务。
 
 .l-sub-section
   :marked
-    Faking a service instance and spying on the real service are _both_ great options. 
-    Pick the one that seems easiest for the current test suite. 
+    Faking a service instance and spying on the real service are _both_ great options.
+    Pick the one that seems easiest for the current test suite.
     Don't be afraid to change your mind.
     
     伪造服务实例和刺探真实服务都是好方法。挑选一种对当前测试套件最简单的方法。你可以随时改变主意。
@@ -1047,6 +1087,8 @@ a#service-spy
   下面是接下来带有注解的测试程序：
 
 +makeExample('testing/ts/src/app/shared/twain.component.spec.ts', 'tests', 'src/app/shared/twain.component.spec.ts (tests)')
+
+a#sync-tests
 :marked
   ### Synchronous tests
 
@@ -1054,17 +1096,15 @@ a#service-spy
 
   The first two tests are synchronous.
   Thanks to the spy, they verify that `getQuote` is called _after_
-  the first change detection cycle during which Angular calls `ngOnInit`. 
+  the first change detection cycle during which Angular calls `ngOnInit`.
 
   前两个测试程序是同步的。
   在Spy的帮助下，它们验证了在Angular调用`ngOnInit`期间发生的第一次变化检测后，`getQuote`被调用了。
 
-  Neither test can prove that a value from the service is be displayed.
+  Neither test can prove that a value from the service is displayed.
   The quote itself has not arrived, despite the fact that the spy returns a resolved promise.
-
   两者都不能证明被显示的值是服务提供的。
   虽然spy返回了解析的承诺，名言本身还没有到来。
-
   This test must wait at least one full turn of the JavaScript engine before the
   value becomes available. The test must become _asynchronous_.
 
@@ -1072,7 +1112,7 @@ a#service-spy
 
 a#async
 :marked
-  ## The _async_ function in _it_
+  ### The _async_ function in _it_
 
   ## **it**里的**async**函数方法
 
@@ -1082,7 +1122,7 @@ a#async
 
 +makeExample('testing/ts/src/app/shared/twain.component.spec.ts', 'async-test', 'src/app/shared/twain.component.spec.ts (async test)')(format='.')
 :marked
-  The `async` function is one of the Angular testing utilities. 
+  The `async` function is one of the Angular testing utilities.
   It simplifies coding of asynchronous tests by arranging for the tester's code to run in a special _async test zone_
   as [discussed earlier](#async-in-before-each) when it was called in a `beforeEach`.
   
@@ -1101,10 +1141,9 @@ a#async
 
 a#when-stable
 :marked
-  ## _whenStable_
+  ### _whenStable_
 
   ## **whenStable**
-
   The test must wait for the `getQuote` promise to resolve in the next turn of the JavaScript engine.
 
   测试程序必须等待`getQuote`在JavaScript引擎的下一回合中被解析。
@@ -1114,19 +1153,15 @@ a#when-stable
   probes only the component API surface.
 
   本测试对`twainService.getQuote`返回的承诺没有直接的访问，因为它被埋没在`TwainComponent.ngOnInit`里，
-  所以对于只测试组件API表面的测试来说，它是无法被访问的。
-
-  Fortunately, the `getQuote` promise is accessible to the _async test zone_
+  所以对于只测试组件API表面的测试来说，它是无法被访问的。Fortunately, the `getQuote` promise is accessible to the _async test zone_ ,
   which intercepts all promises issued within the _async_ method call _no matter where they occur_.
-
   幸运的是，**异步测试区域**可以访问`getQuote`承诺，因为它拦截所有调用**异步**方法所发出的承诺，不管它们在哪儿。
-
-  The `ComponentFixture.whenStable` method returns its own promise which resolves when the `getQuote` promise completes.
-  In fact, the _whenStable_ promise resolves when _all pending asynchronous activities within this test_ complete ... the definition of "stable".
+  The `ComponentFixture.whenStable` method returns its own promise, which resolves when the `getQuote` promise finishes.
+  In fact, the _whenStable_ promise resolves when _all pending asynchronous activities within this test_ complete &mdash; the definition of "stable."
 
   `ComponentFixture.whenStable`方法返回它自己的承诺，它在`getQuote`承诺完成时被解析。实际上，“stable”的意思是当**所有待处理异步行为**完成时的状态，在“stable”后**whenStable**承诺被解析。
 
-  Then the test resumes and kicks off another round of change detection (`fixture.detectChanges`)
+  Then the test resumes and kicks off another round of change detection (`fixture.detectChanges`),
   which tells Angular to update the DOM with the quote.
   The `getQuote` helper method extracts the display element text and the expectation confirms that the text matches the test quote.
 
@@ -1136,7 +1171,7 @@ a#when-stable
 a#fakeAsync
 a#fake-async
 :marked
-  ## The _fakeAsync_ function
+  ### The _fakeAsync_ function
 
   ## **fakeAsync**函数方法
 
@@ -1153,7 +1188,7 @@ a#fake-async
   `fakeAsync`是另一种Angular测试工具。
 
   Like [async](#async), it _takes_ a parameterless function and _returns_ a function
-  that becomes the argument to the  Jasmine `it` call. 
+  that becomes the argument to the  Jasmine `it` call.
 
   和[async](#async)一样，它也**接受**无参数函数并**返回**一个函数，变成Jasmine的`it`函数的参数。
 
@@ -1175,31 +1210,29 @@ a#fake-async
     但是`fakeAsync`有局限性。比如，你不能从`fakeAsync`发起XHR请求。
 
 a#tick
-a#tick-first-look
 :marked
-  ## The _tick_ function
+  ### The _tick_ function
 
   ## **tick**函数
-
   The `tick` function is one of the Angular testing utilities and a companion to `fakeAsync`.
-  It can only be called within a `fakeAsync` body.
+  You can only call it within a `fakeAsync` body.
 
   `tick`函数是Angular测试工具之一，是`fakeAsync`的同伴。
   它只能在`fakeAsync`的主体中被调用。
 
-  Calling `tick()` simulates the passage of time until all pending asynchronous activities complete,
+  Calling `tick()` simulates the passage of time until all pending asynchronous activities finish,
   including the resolution of the `getQuote` promise in this test case.
 
   调用`tick()`模拟时间的推移，直到全部待处理的异步任务都已完成，在这个测试案例中，包含`getQuote`承诺的解析。
 
   It returns nothing. There is no promise to wait for.
-  Proceed with the same test code as formerly appeared within the `whenStable.then()` callback.
+  Proceed with the same test code that appeared in the `whenStable.then()` callback.
 
   它不返回任何结果。没有任何承诺需要等待。
   直接执行与之前在`whenStable.then()`的回调函数里相同的代码。
 
   Even this simple example is easier to read than the third test.
-  To more fully appreciate the improvement, imagine a succession of asynchronous operations, 
+  To more fully appreciate the improvement, imagine a succession of asynchronous operations,
   chained in a long sequence of promise callbacks.
 
   虽然这个例子非常简单，但是它已经比第三个测试程序更易阅读。
@@ -1207,14 +1240,12 @@ a#tick-first-look
 
 a#jasmine-done
 :marked
-  ## _jasmine.done_
+  ### _jasmine.done_
+  While the `async` and `fakeAsync` functions greatly
+  simplify Angular asynchronous testing,
+  you can still fall back to the traditional Jasmine asynchronous testing technique.
 
-  ## _jasmine.done_
-
-  While `fakeAsync` and even `async` function greatly simplify Angular asynchronous testing,
-  you can still fallback to the traditional Jasmine asynchronous testing technique.
-
-  虽然`fakeAsync`，甚至`async`函数大大的简化了异步测试，你仍然可以回退到传统的Jasmine异步测试技术上。
+  虽然`async`和`fakeAsync`函数大大的简化了异步测试，你仍然可以回退到传统的Jasmine异步测试技术上。
 
   You can still pass `it` a function that takes a
   [`done` callback](http://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support).
@@ -1228,15 +1259,18 @@ a#jasmine-done
   下面是上面两个测试程序的`done`版本：
 +makeExample('testing/ts/src/app/shared/twain.component.spec.ts', 'done-test', 'src/app/shared/twain.component.spec.ts (done test)')(format='.')
 :marked
-  Although we have no direct access to the `getQuote` promise inside `TwainComponent`,
-  the spy does and that makes it possible to wait for `getQuote` to finish.
-
+  Although there is no direct access to the `getQuote` promise inside `TwainComponent`,
+  the spy has direct access, which makes it possible to wait for `getQuote` to finish.
+  
   虽然我们对`TwainComponent`里的`getQuote`承诺没有直接访问，但是Spy有，所以才可能等待`getQuote`完成。
 
-  The `jasmine.done` technique, while discouraged, may become necessary when neither `async` nor `fakeAsync`
-  can tolerate a particular asynchronous activity. That's rare but it happens.
+  Writing test functions with `done`, while more cumbersome than `async`
+  and `fakeAsync`, is a viable and occasionally necessary technique.
+  For example, you can't call `async` or `fakeAsync` when testing
+  code that involves the `intervalTimer`, as is common when
+  testing async `Observable` methods.
 
-  虽然不推荐使用`jasmine.done`技术，但是它可能在`async`和`fakeAsync`都无法容纳一种特定的异步行为时，变得很有必要。这很少见，但是有可能发生。
+  写带有`done`回调的测试函数，虽然比`async`和`fakeAsync`函数笨拙，但是在少数偶然情况下却是很有必要的技巧。比如，当测试涉及`intervalTimer`的代码时，你就没法调用`async`和`fakeAsync`函数，在测试异步`Observable`函数时也一样。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -1249,7 +1283,7 @@ a#component-with-input-output
 
   ## 测试带有导入inputs和导出outputs的组件
   A component with inputs and outputs typically appears inside the view template of a host component.
-  The host uses a property binding to set the input property and uses an event binding to
+  The host uses a property binding to set the input property and an event binding to
   listen to events raised by the output property.
 
   带有导入和导出的组件通常出现在宿主组件的视图模板中。
@@ -1262,7 +1296,7 @@ a#component-with-input-output
   测试程序应该设置导入值并监听导出事件。
 
   The `DashboardHeroComponent` is a tiny example of a component in this role.
-  It displays an individual hero provided by the `DashboardComponent`. 
+  It displays an individual hero provided by the `DashboardComponent`.
   Clicking that hero tells the `DashboardComponent` that the user has selected the hero.
 
   `DashbaordComponent`是非常小的这种类型的例子组件。
@@ -1275,11 +1309,9 @@ a#component-with-input-output
 
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.html', 'dashboard-hero', 'src/app/dashboard/dashboard.component.html (excerpt)')(format='.')
 :marked
-  The `DashboardHeroComponent` appears in an `*ngFor` repeater which sets each component's `hero` input property
-  to the iteration value and listens for the components `selected` event.
-
+  The `DashboardHeroComponent` appears in an `*ngFor` repeater, which sets each component's `hero` input property
+  to the looping value and listens for the component's `selected` event.
   `DashboardHeroComponent`在`*ngFor`循环中出现，设置每个组件的`hero`input属性到迭代的值，并监听组件的`selected`事件。
-
   Here's the component's definition:
 
   下面是组件的定义：
@@ -1287,22 +1319,22 @@ a#component-with-input-output
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.ts', 'component', 'src/app/dashboard/dashboard-hero.component.ts (component)')(format='.')
 :marked
   While testing a component this simple has little intrinsic value, it's worth knowing how.
-  Three approaches come to mind:
-
+  You can use one of these approaches:
+  
   虽然测试这么简单的组件没有什么内在价值，但是它的测试程序是值得学习的。
-  有三种候选测试方案：
+    有下列候选测试方案：
 
-  1. Test it as used by `DashboardComponent`
+  * Test it as used by `DashboardComponent`.
+  
+    把它当作被`DashbaordComponent`使用的组件来测试
+    
+  * Test it as a stand-alone component.
+  
+    把它当作独立的组件来测试
+    
+  * Test it as used by a substitute for `DashboardComponent`.
 
-     把它当作被`DashbaordComponent`使用的组件来测试
-
-  1. Test it as a stand-alone component
-
-     把它当作独立的组件来测试
-
-  1. Test it as used by a substitute for `DashboardComponent`
-
-     把它当作被`DashbaordComponent`的替代组件使用的组件来测试
+    把它当作被`DashbaordComponent`的替代组件使用的组件来测试
 
   A quick look at the `DashboardComponent` constructor discourages the first approach:
 
@@ -1310,8 +1342,8 @@ a#component-with-input-output
 
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.ts', 'ctor', 'src/app/dashboard/dashboard.component.ts (constructor)')(format='.')
 :marked
-  The `DashboardComponent` depends upon the Angular router and the `HeroService`.
-  You'd probably have to replace them both with test doubles and that looks like a lot of work. 
+  The `DashboardComponent` depends on the Angular router and the `HeroService`.
+  You'd probably have to replace them both with test doubles, which is a lot of work.
   The router seems particularly challenging.
 
   `DashbaordComponent`依赖Angular路由器和`HeroService`服务。
@@ -1324,12 +1356,14 @@ a#component-with-input-output
 
     [下面](#routed-component) 覆盖了如何测试带有路由器的组件。
 :marked
-  The immediate goal is to test the `DashboardHeroComponent`, not the `DashboardComponent`, and there's no need
-  to work hard unnecessarily. Let's try the second and third options.
+  The immediate goal is to test the `DashboardHeroComponent`, not the `DashboardComponent`,
+  so, try the second and third options.
 
   当前的任务是测试`DashboardHeroComponent`组件，而非`DashbaordComponent`，所以无需做不必要的努力。
   让我们尝试第二和第三种方案。
 
+a#dashboard-standalone
+:marked
   ### Test _DashboardHeroComponent_ stand-alone
 
   ### 独立测试_DashboardHeroComponent_
@@ -1338,6 +1372,7 @@ a#component-with-input-output
 
   下面是spec文件的设置。
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'setup', 'src/app/dashboard/dashboard-hero.component.spec.ts (setup)')(format='.')
+
 
 :marked
   The async `beforeEach` was discussed [above](#component-with-external-template).
@@ -1357,10 +1392,11 @@ a#component-with-input-output
   紧接着第一个测试程序：
 
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'name-test', 'src/app/dashboard/dashboard-hero.component.spec.ts (name test)')(format='.')
+
 :marked
-  It verifies that the hero name is propagated through to template with a binding.
-  There's a twist. The template passes the hero name through the Angular `UpperCasePipe` so the
-  test must match the element value with the uppercased name:
+  It verifies that the hero name is propagated to template with a binding.
+  Because the template passes the hero name through the Angular `UpperCasePipe`,
+  the test must match the element value with the uppercased name:
 
   它验证了英雄名字通过绑定被传递到模板了。这里有个额外步骤。模板将英雄名字传给Angular的`UpperCasePipe`，
   所以测试程序必须使用大写名字来匹配元素的值：
@@ -1368,9 +1404,10 @@ a#component-with-input-output
 :marked
 .alert.is-helpful
   :marked
-    This small test demonstrates how Angular tests can verify a component's visual representation
-    &mdash; something not possible with [isolated unit tests](#isolated-component-tests) &mdash;
-    at low cost and without resorting to much slower and more complicated end-to-end tests.
+    This small test demonstrates how Angular tests can verify a component's visual
+    representation&mdash;something not possible with
+    [isolated unit tests](#isolated-component-tests)&mdash;at
+    low cost and without resorting to much slower and more complicated end-to-end tests.
 
     这个小测试演示了Angular测试是如何验证组件的视图表现的 —— 这是[孤立的单元测试](#isolated-component-tests)无法实现的
     —— 它成本低，而且无需依靠更慢、更复杂的端对端测试。
@@ -1389,16 +1426,12 @@ a#component-with-input-output
   The `heroEl` is a `DebugElement` that represents the hero `<div>`.
   The test calls `triggerEventHandler` with the "click" event name.
   The "click" event binding responds by calling `DashboardHeroComponent.click()`. 
-
   `heroEl`是个`DebugElement`，它代表了英雄所在的`<div>`。
   测试程序用"click"事件名字来调用`triggerEventHandler`。
   调用`DashboardHeroComponent.click()`时，"click"事件绑定作出响应。
-
   If the component behaves as expected, `click()` tells the component's `selected` property to emit the `hero` object,
   the test detects that value through its subscription to `selected`, and the test should pass.
-
   如果组件想期待的那样工作，`click()`通知组件的`selected`属性发出`hero`对象，测试程序通过订阅`selected`事件而检测到这个值，所以测试应该成功。
-
 a#trigger-event-handler
 :marked
   ### _triggerEventHandler_
@@ -1417,14 +1450,16 @@ a#trigger-event-handler
 
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'trigger-event-handler')(format='.')
 :marked
-  The test assumes (correctly in this case) that the runtime event handler &mdash; the component's `click()` method &mdash;
-  doesn't care about the event object.
+  The test assumes (correctly in this case) that the runtime
+  event handler&mdash;the component's `click()` method&mdash;doesn't
+  care about the event object.
 
   测试程序假设（在这里应该这样)运行时间的事件处理器——组件的`click()`方法——不关心事件对象。
 
-  Other handlers will be less forgiving. 
-  For example, the `RouterLink` directive expects an object with a `button` property indicating the mouse button that was pressed. 
-  The directive throws an error if the event object doesn't do this correctly.
+  Other handlers are less forgiving. For example, the `RouterLink`
+  directive expects an object with a `button` property
+  that identifies which mouse button was pressed.
+  This directive throws an error if the event object doesn't do this correctly.
 
   其它处理器将会更加严格。
   比如，`RouterLink`指令期待事件对象，并且该对象具有`button`属性，代表了已被按下的鼠标按钮。
@@ -1433,14 +1468,17 @@ a#trigger-event-handler
 a#click-helper
 :marked
   Clicking a button, an anchor, or an arbitrary HTML element is a common test task.
+
   Make that easy by encapsulating the _click-triggering_ process in a helper such as the `click` function below:
 
   点击按钮、链接或者任意HTML元素是很常见的测试任务。
   把**click触发**过程封装到辅助方法中可以简化这个任务，比如下面的`click`辅助方法：
 +makeExample('testing/ts/src/testing/index.ts', 'click-event', 'testing/index.ts (click helper)')(format='.')
+
 :marked
-  The first parameter is the _element-to-click_. You can pass a custom event object as the second parameter if you wish. The default is a (partial) 
-  <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">left-button mouse event object</a> 
+  The first parameter is the _element-to-click_. If you wish, you can pass a
+  custom event object as the second parameter. The default is a (partial)
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">left-button mouse event object</a>
   accepted by many handlers including the `RouterLink` directive.
 
   第一个参数是**用来点击的元素**。如果你愿意，可以将自定义的事件对象传递给第二个参数。
@@ -1451,8 +1489,9 @@ a#click-helper
   header click() is not an Angular testing utility
   header click()不是Angular测试工具
   :marked
-    The `click()` helper function is **not** one of the Angular testing utilities. 
-    It's a function defined in _this guide's sample code_ and used by all of the sample tests. 
+    The `click()` helper function is **not** one of the Angular testing utilities.
+    It's a function defined in _this guide's sample code_.
+    All of the sample tests use it.
     If you like it, add it to your own collection of helpers.
 
     `click()`辅助函数**不是**Angular测试工具之一。
@@ -1474,9 +1513,8 @@ a#component-inside-test-host
 
   # 在测试宿主组件中测试组件
 
-  In the previous approach the tests themselves played the role of the host `DashboardComponent`.
-  A nagging suspicion remains. 
-  Will the `DashboardHeroComponent` work properly when properly data-bound to a host component? 
+  In the previous approach, the tests themselves played the role of the host `DashboardComponent`.
+  But does the `DashboardHeroComponent` work correctly when properly data-bound to a host component?
 
   在前面的方法中，测试本身扮演了宿主组件`DashbaordComponent`的角色。
   一种挥之不去的疑虑仍然存在：当正常数据绑定到宿主组件时，`DashboardHeroComponent`还会正常工作吗？
@@ -1489,14 +1527,15 @@ a#component-inside-test-host
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'test-host', 'src/app/dashboard/dashboard-hero.component.spec.ts (test host)')(format='.')
 :marked
   The test host binds to `DashboardHeroComponent` as the `DashboardComponent` would but without
-  the distraction of the `Router`, the `HeroService` or even the `*ngFor` repeater.
+  the distraction of the `Router`, the `HeroService`, or even the `*ngFor` repeater.
 
   测试宿主组件和`DashboardComponent`一样绑定`DashboardHeroComponent`，但是不用理会`Router`、`HeroService`服务，甚至`*ngFor`循环。
 
   The test host sets the component's `hero` input property with its test hero.
-  It binds the component's `selected` event with its `onSelected` handler that records the emitted hero
-  in its `selectedHero` property. Later the tests check that property to verify that the
-  `DashboardHeroComponent.selected` event really did emit the right hero.
+  It binds the component's `selected` event with its `onSelected` handler,
+  which records the emitted hero
+  in its `selectedHero` property. Later, the tests check that property to verify that the
+  `DashboardHeroComponent.selected` event emitted the right hero.
 
   测试宿主将组件的`hero`导入属性设置为它的模拟英雄。
   它将组件的`selected`事件绑定到它的`onSelected`处理器，使用`selectedHero`属性来记录发送来的英雄。
@@ -1519,22 +1558,24 @@ a#component-inside-test-host
 
      它**创建**了`TestHostComponent`，而非`DashboardHeroComponent`。
 
-  The `fixture` returned by `createComponent` holds an instance of `TestHostComponent` instead of an instance of `DashboardHeroComponent`.
+  The `createComponent` returns a `fixture` that holds an instance of `TestHostComponent` instead of an instance of `DashboardHeroComponent`.
 
   `createComponent`返回的`fixture`里有`TestHostComponent`实例，而非`DashboardHeroComponent`组件实例。
 
-  Of course creating the `TestHostComponent` has the side-effect of creating a `DashboardHeroComponent`
-  because the latter appears within the template of the former. 
-  The query for the hero element (`heroEl`) still finds it in the test DOM 
+  Creating the `TestHostComponent` has the side-effect of creating a `DashboardHeroComponent`
+  because the latter appears within the template of the former.
+  The query for the hero element (`heroEl`) still finds it in the test DOM,
   albeit at greater depth in the element tree than before.
 
   当然，创建`TestHostComponent`有创建`DashboardHeroComponent`的副作用，因为后者出现在前者的模板中。
   英雄元素（`heroEl`)的查询语句仍然可以在测试DOM中找到它，尽管元素树比以前更深。
 
-  The tests themselves are almost identical to the stand-alone version
+  The tests themselves are almost identical to the stand-alone version:
 
-  测试它们自己和它们的孤立版本几乎相同。
+  这些测试本身和它们的孤立版本几乎相同：
+  
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'test-host-tests', 'src/app/dashboard/dashboard-hero.component.spec.ts (test-host)')(format='.')
+
 :marked
   Only the selected event test differs. It confirms that the selected `DashboardHeroComponent` hero
   really does find its way up through the event binding to the host component.
@@ -1557,8 +1598,8 @@ a#routed-component
   测试实际的`DashbaordComponent`似乎令人生畏，因为它注入了`Router`。
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.ts', 'ctor', 'src/app/dashboard/dashboard.component.ts (constructor)')(format='.')
 :marked
-  It also injects the `HeroService` but faking that is a [familiar story](#component-with-async-service).
-  The `Router` has a complicated API and is entwined with other services and application pre-conditions.
+  It also injects the `HeroService`, but faking that is a [familiar story](#component-with-async-service).
+  The `Router` has a complicated API and is entwined with other services and application preconditions.
 
   它同时还注入了`HeroService`，但是我们已经知道如何[伪造](#component-with-async-servic)它。
   `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先决条件。
@@ -1567,6 +1608,7 @@ a#routed-component
 
   幸运的是，`DashbaordComponent`没有使用`Router`做很多事情。
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.ts', 'goto-detail', 'src/app/dashboard/dashboard.component.ts (goToDetail)')(format='.')
+
 :marked
   This is often the case.
   As a rule you test the component, not the router,
@@ -1577,7 +1619,7 @@ a#routed-component
   用模拟类来替换路由器是一种简单的方案。下面的代码应该可以：
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.spec.ts', 'router-stub', 'src/app/dashboard/dashboard.component.spec.ts (Router Stub)')(format='.')
 :marked
-  Now we setup the testing module with the test stubs for the `Router` and `HeroService` and 
+  Now set up the testing module with the test stubs for the `Router` and `HeroService`, and
   create a test instance of the `DashboardComponent` for subsequent testing.
 
   现在我们来利用`Router`和`HeroService`的测试stub类来配置测试模块，并为接下来的测试创建`DashboardComponent`的测试实例。
@@ -1587,6 +1629,7 @@ a#routed-component
 
   下面的测试程序点击显示的英雄，并利用spy来确认`Router.navigateByUrl`被调用了，而且传进的url是所期待的值。
 +makeExample('testing/ts/src/app/dashboard/dashboard.component.spec.ts', 'navigate-test', 'src/app/dashboard/dashboard.component.spec.ts (navigate test)')(format='.')
+
 
 a#inject
 :marked
@@ -1605,15 +1648,15 @@ a#inject
   `inject`函数是Angular测试工具之一。
   它注入服务到测试函数，以供修改、监视和操纵。
 
-  The `inject` function has two parameters
+  The `inject` function has two parameters:
 
   `inject`函数有两个参数：
 
-  1. an array of Angular dependency injection tokens
+  1. An array of Angular dependency injection tokens.
 
      一列数组，包含了Angular依赖注入令牌
 
-  1. a test function whose parameters correspond exactly to each item in the injection token array
+  1. A test function whose parameters correspond exactly to each item in the injection token array.
 
      一个测试函数，它的参数与注入令牌数组里的每个项目严格的一一对应。
 
@@ -1629,7 +1672,7 @@ a#inject
 
 :marked
   This example injects the `Router` from the current `TestBed` injector.
-  That's fine for this test because the `Router` is (and must be) provided by the application root injector.
+  That's fine for this test because the `Router` is, and must be, provided by the application root injector.
 
   这个例子通过当前的`TestBed`注入器来注入`Router`。
   对这个测试程序来说，这是没问题的，因为`Router`是（也必须是）由应用的根注入器来提供。
@@ -1663,10 +1706,8 @@ a(href="#top").to-top 回到顶部
 a#routed-component-w-param
 :marked
   ### Test a routed component with parameters
-
   ### 测试带有路由和路由参数的组件
-  
-  Clicking a _Dashboard_ hero triggers navigation to `heroes/:id` where `:id`
+  Clicking a _Dashboard_ hero triggers navigation to `heroes/:id`, where `:id`
   is a route parameter whose value is the `id` of the hero to edit. 
   That URL matches a route to the `HeroDetailComponent`.
 
@@ -1674,7 +1715,7 @@ a#routed-component-w-param
   这个URL匹配到`HeroDetailComponent`的路由。
 
   The router pushes the `:id` token value into the `ActivatedRoute.params` _Observable_ property,
-  Angular injects the `ActivatedRoute` into the `HeroDetailComponent`, 
+  Angular injects the `ActivatedRoute` into the `HeroDetailComponent`,
   and the component extracts the `id` so it can fetch the corresponding hero via the `HeroDetailService`.
   Here's the `HeroDetailComponent` constructor:
 
@@ -1684,26 +1725,22 @@ a#routed-component-w-param
   下面是`HeroDetailComponent`的构造函数：
 +makeExample('testing/ts/src/app/hero/hero-detail.component.ts', 'ctor', 'src/app/hero/hero-detail.component.ts (constructor)')(format='.')
 :marked
-  `HeroDetailComponent`  listens for changes to the `ActivatedRoute.params` in its `ngOnInit` method.
+  `HeroDetailComponent`  subscribes to `ActivatedRoute.params` changes in its `ngOnInit` method.
 
   `HeroDetailComponent`在它的`ngOnInit`方法中监听`ActivatedRoute.params`的变化。
 +makeExample('testing/ts/src/app/hero/hero-detail.component.ts', 'ng-on-init', 'src/app/hero/hero-detail.component.ts (ngOnInit)')(format='.')
 .l-sub-section
   :marked
-    The expression after `route.params` chains an _Observable_ operator that _plucks_ the `id` from the `params` 
-    and then chains a `forEach` operator to subscribes to `id`-changing events. 
+    The expression after `route.params` chains an _Observable_ operator that _plucks_ the `id` from the `params`
+    and then chains a `forEach` operator to subscribe to `id`-changing events.
     The `id` changes every time the user navigates to a different hero.
-
     `route.params`之后的表达式链接了**可观察**操作符，它从`params`中提取`id`，然后链接`forEach`操作符来订阅`id`变化事件。
     每次`id`变化时，用户被导航到不同的英雄。
-
     The `forEach` passes the new `id` value to the component's `getHero` method (not shown)
-    which fetches a hero and sets the component's `hero` property. 
+    which fetches a hero and sets the component's `hero` property.
     If the`id` parameter is missing, the `pluck` operator fails and the `catch` treats failure as a request to edit a new hero.
-
     `forEach`将新的`id`值传递到组件的`getHero`方法（这里没有列出来），它获取英雄并将它赋值到组件的`hero`属性。
     如果`id`参数无效，`pluck`操作符就会失败，`catch`将失败当作创建新英雄来处理。
-
     The [Router](router.html#route-parameters) guide covers `ActivatedRoute.params` in more detail.
 
     [路由器](router.html#route-parameters)章更详尽的讲述了`ActivatedRoute.params`。
@@ -1714,7 +1751,7 @@ a#routed-component-w-param
   通过操纵被注入到组件构造函数的`ActivatedRoute`服务，测试程序可以探索`HeroDetailComponent`是如何对不同的`id`参数值作出响应的。
 
   By now you know how to stub the `Router` and a data service.
-  Stubbing the `ActivatedRoute` would follow the same pattern except for a complication:
+  Stubbing the `ActivatedRoute` follows the same pattern except for a complication:
   the `ActivatedRoute.params` is an _Observable_.
 
   现在，你已经知道如何模拟`Router`和数据服务。
@@ -1722,23 +1759,21 @@ a#routed-component-w-param
 
 a#stub-observable
 :marked
-  ### _Observable_ test double
+  ### Create an _Observable_ test double
 
-  ### **可观察对象**的测试复制品
+  ### **可观察对象**的测试替身
 
   The `hero-detail.component.spec.ts` relies on an `ActivatedRouteStub` to set `ActivatedRoute.params` values for each test.
-  This is a cross-application, re-usable _test helper class_. 
-  We recommend locating such helpers in a `testing` folder sibling to the `app` folder.
+  This is a cross-application, re-usable _test helper class_.
+  Consider placing such helpers in a `testing` folder sibling to the `app` folder.
   This sample keeps `ActivatedRouteStub` in `testing/router-stubs.ts`:
-
   `hero-detail.component.spec.ts`依赖`ActivatedRouteStub`来为每个测试程序设置`ActivatedRoute.params`值。
   它是跨应用、可复用的**测试辅助类**。
   我们建议将这样的辅助类放到`app`目录下的名为`testing`的目录。
   本例把`ActivatedRouteStub`放到`testing/router-stubs.ts`：
-
 +makeExample('testing/ts/src/testing/router-stubs.ts', 'activated-route-stub', 'testing/router-stubs.ts (ActivatedRouteStub)')(format='.')
 :marked
-  Notable features of this stub:
+  Notable features of this stub are:
 
   这个stub类有下列值得注意的特征：
 
@@ -1751,7 +1786,7 @@ a#stub-observable
 
     <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>驱使这个stub类的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。
 
-  * The `HeroDetailComponent` chain its expressions to this stub `params` _Observable_ which is now under the tester's control.
+  * The `HeroDetailComponent` chains its expressions to this stub `params` _Observable_ which is now under the tester's control.
 
     `HeroDetailComponent`链接它的表达式到这个stub类的`params`可观察对象，该对象现在被测试者的控制之下。
 
@@ -1777,13 +1812,14 @@ a#stub-observable
 
 a#tests-w-observable-double
 :marked
-  ### _Observable_ tests
-
-  ### **可观察对象**测试
+  ### Testing with the _Observable_ test double
+    
+  ### 测试**可观察对象**的替身
 
   Here's a test demonstrating the component's behavior when the observed `id` refers to an existing hero:
 
   下面的测试程序是演示组件在被观察的`id`指向现有英雄时的行为：
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'route-good-id', 'src/app/hero/hero-detail.component.spec.ts (existing id)')(format='.')
 .l-sub-section
   :marked
@@ -1791,6 +1827,7 @@ a#tests-w-observable-double
     Rely on your intuition for now.
 
     [下一节](#page-object)将解释`createComponent`方法和`page`对象，现在暂时跟着自己的直觉走。
+    
 :marked
   When the `id` cannot be found, the component should re-route to the `HeroListComponent`.
   The test suite setup provided the same `RouterStub` [described above](#routed-component) which spies on the router without actually navigating.
@@ -1799,10 +1836,11 @@ a#tests-w-observable-double
   当无法找到`id`时，组件应该重新导航到`HeroListComponent`。
   该测试套件配置与[上面描述](#routed-component)的`RouterStub`一样，它在不实际导航的情况下刺探路由器。
   该测试程序提供了“坏”的id，期望组件尝试导航。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'route-bad-id', 'src/app/hero/hero-detail.component.spec.ts (bad id)')(format='.')
 :marked
 :marked
-  While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday. 
+  While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday.
   The component should do something reasonable when there is no `id`.
 
   虽然本应用没有在缺少`id`参数的时候，继续导航到`HeroDetailComponent`的路由，但是，将来它可能会添加这样的路由。
@@ -1813,6 +1851,7 @@ a#tests-w-observable-double
 
   在本例中，组件应该创建和显示新英雄。
   新英雄的`id`为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'route-no-id', 'src/app/hero/hero-detail.component.spec.ts (no id)')(format='.')
 :marked
 .callout.is-helpful
@@ -1834,31 +1873,33 @@ a#page-object
   The `HeroDetailComponent` is a simple view with a title, two hero fields, and two buttons.
 
   `HeroDetailComponent`是带有标题、两个英雄字段和两个按钮的简单视图。
+  
 figure.image-display
   img(src='/resources/images/devguide/testing/hero-detail.component.png' alt="HeroDetailComponent in action")
 :marked
   But there's already plenty of template complexity.
 
   但是它已经有很多模板复杂性。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.html', '', 'src/app/hero/hero-detail.component.html')(format='.')
 :marked
-  To fully exercise the component, the test needs ...
+  To fully exercise the component, the test needs a lot of setup:
+  
+  要彻底测试该组件，测试程序需要一系列设置：
 
-  要彻底测试该组件，测试程序需要：
-
-  * to wait until a `hero` arrives before `*ngIf` allows any element in DOM
-
-    在`*ngIf`允许元素进入DOM之前，等待`hero`的到来
-
-  * element references for the title name span and name input-box to inspect their values
-
-    标题名字span和名字输入框元素的引用，用来检查它们的值
-
-  * two button references to click
-
-    两个按钮的引用，用来点击
-
-  * spies on component and router methods
+  * It must wait until a hero arrives before `*ngIf` allows any element in DOM.
+  
+    它必须在`*ngIf`允许元素进入DOM之前，等待`hero`的到来
+    
+  * It needs references to the title `<span>` and the name `<input>` so it can inspect their values.
+      
+    它需要标题名字span和名字输入框元素的引用，用来检查它们的值
+    
+  * It needs references to the two buttons so it can click them.
+  
+    它需要两个按钮的引用，以便点击它们
+    
+  * It needs spies for some of the component and router methods.
 
     刺探（spy）组件和路由器的方法
 
@@ -1869,29 +1910,34 @@ figure.image-display
   Tame the madness with a `Page` class that simplifies access to component properties and encapsulates the logic that sets them.
   Here's the `Page` class for the `hero-detail.component.spec.ts`
 
-  通过简化组件属性的访问和封装设置属性的逻辑，`Page`类可以轻松解决这个令人疯狂的难题。
+  通过简化组件属性的访问和封装设置属性的逻辑，`Page`类可以轻松解决这个令人抓狂的难题。
   下面是为`hero-detail.component.spec.ts`准备的`page`类：
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'page', 'src/app/hero/hero-detail.component.spec.ts (Page)')(format='.')
 :marked
   Now the important hooks for component manipulation and inspection are neatly organized and accessible from an instance of `Page`.
 
-  现在，用来操作和检查组件的重要钩子都被井然有序的组织起来了，可以通过`page`实例来使用它们。
-
-  A `createComponent` method creates a `page` and fills in the blanks once the `hero` arrives.
-
+  现在，用来操作和检查组件的重要钩子都被井然有序的组织起来了，可以通过`page`实例来使用它们。  
+  
+  A `createComponent` method creates a `page` objectand fills in the blanks once the `hero` arrives.
+  
   `createComponent`方法创建`page`，在`hero`到来时，自动填补空白。
-
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'create-component', 'src/app/hero/hero-detail.component.spec.ts (createComponent)')(format='.')
+
 :marked
-  The [observable tests](#tests-w-observable-double) in the previous section demonstrate how `createComponent` and `page` 
-  keep the tests short and _on message_. 
+  The [observable tests](#tests-w-observable-double) in the previous section demonstrate how `createComponent` and `page`
+  keep the tests short and _on message_.
   There are no distractions: no waiting for promises to resolve and no searching the DOM for element values to compare.
+
+  上一节的[可观察对象测试](#tests-w-observable-double)展示了`createComponent`和`page`如何让测试程序简短和即时。
+  没有任何干扰：无需等待承诺的解析，也没有搜索DOM元素值进行比较。
+
   Here are a few more `HeroDetailComponent` tests to drive the point home.
 
-  上一节的[可观察对象测试](#observable-tests)展示了`createComponent`和`page`如何让测试程序简短和即时。
-  没有任何干扰：无需等待承诺的解析，也没有搜索DOM元素值进行比较。
   这里是一些更多的`HeroDetailComponent`测试程序，进一步的展示了这一点。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'selected-tests', 'src/app/hero/hero-detail.component.spec.ts (selected tests)')(format='.')
+
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -1902,9 +1948,11 @@ a#import-module
   ## Setup with module imports
 
   ## 模块导入imports的配置
+  
   Earlier component tests configured the testing module with a few `declarations` like this:
 
   此前的组件测试程序使用了一些`declarations`来配置模块，就像这样：
+  
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'compile-components', 'src/app/dashboard/dashboard-hero.component.spec.ts (config)')(format='.')
 :marked
   The `DashboardComponent` is simple. It needs no help.
@@ -1916,45 +1964,48 @@ a#import-module
   所以这些必须也被添加到测试模块中。
 
   Fortunately, the `TestBed.configureTestingModule` parameter parallels
-  the metadata passed to the `@NgModule` decorator 
+  the metadata passed to the `@NgModule` decorator
   which means you can also specify `providers` and `imports`.
 
   幸运的是，`TestBed.configureTestingModule`参数与传入`@NgModule`装饰器的元数据一样，也就是所你也可以指定`providers`和`imports`.
 
   The `HeroDetailComponent` requires a lot of help despite its small size and simple construction.
   In addition to the support it receives from the default testing module `CommonModule`, it needs:
-
+  
   虽然`HeroDetailComponent`很小，结构也很简单，但是它需要很多帮助。
-  除了从默认测试模块`CommonModule`中获得的支持，它还需要：
+    除了从默认测试模块`CommonModule`中获得的支持，它还需要：
 
-  * `NgModel` and friends in the `FormsModule` enable two-way data binding
-
+  * `NgModel` and friends in the `FormsModule` to enable two-way data binding.
+  
     `FormsModule`里的`NgModel`和其它，来进行双向数据绑定
-
-  * The `TitleCasePipe` from the `shared` folder
-
+    
+  * The `TitleCasePipe` from the `shared` folder.
+  
     `shared`目录里的`TitleCasePipe`
-
-  * Router services (which these tests are stubbing)
-
+    
+  * Router services (which these tests are stubbing).
+  
     一些路由器服务（测试程序将stub伪造它们）
-
-  * Hero data access services (also stubbed)
-
+    
+  * Hero data access services (also stubbed).
+  
     英雄数据访问服务（同样被stub伪造了）
 
   One approach is to configure the testing module from the individual pieces as in this example:
 
   一种方法是在测试模块中一一配置，就像这样：
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'setup-forms-module', 'src/app/hero/hero-detail.component.spec.ts (FormsModule setup)')(format='.')
+
 :marked
-  Because many app components need the `FormsModule` and the `TitleCasePipe`, the developer created 
+  Because many app components need the `FormsModule` and the `TitleCasePipe`, the developer created
   a `SharedModule` to combine these and other frequently requested parts.
   The test configuration can use the `SharedModule` too as seen in this alternative setup:
 
   因为许多应用组件需要`FormsModule`和`TitleCasePipe`，所以开发者创建了`SharedModule`来合并它们和一些频繁需要的部件。
   测试配置也可以使用`SharedModule`，请看下面另一种配置：
+
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'setup-shared-module', 'src/app/hero/hero-detail.component.spec.ts (SharedModule setup)')(format='.')
+
 :marked
   It's a bit tighter and smaller, with fewer import statements (not shown).
 
@@ -1973,6 +2024,7 @@ a#feature-module-import
   `HeroDetailComponent`是`HeroModule`[特征模块](ngmodule.html#feature-modules)的一部分，它组合了更多互相依赖的部件，包括`SharedModule`。
   试试下面这个导入`HeroModule`的测试配置：
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'setup-hero-module', 'src/app/hero/hero-detail.component.spec.ts (HeroModule setup)')(format='.')
+
 :marked
   That's _really_ crisp. Only the _test doubles_ in the `providers` remain. Even the `HeroDetailComponent` declaration is gone.
 
@@ -1987,7 +2039,7 @@ a#feature-module-import
 .alert.is-helpful
   :marked
     Importing the component's feature module is often the easiest way to configure the tests,
-    especially when the feature module is small and mostly self-contained ... as feature modules should be.
+    especially when the feature module is small and mostly self-contained, as feature modules should be.
 
     导入组件的特征模块通常是最简单的配置测试的方法，
     尤其是当特征模块很小而且几乎自包含时...特征模块应该是自包含的。
@@ -1998,7 +2050,7 @@ a(href="#top").to-top 回到顶部
 
 a#component-override
 :marked
-  ## Override component providers
+  ## Override a component's providers
 
   ## 重载组件提供商
 
@@ -2006,15 +2058,16 @@ a#component-override
 
   `HeroDetailComponent`提供自己的`HeroDetailService`服务。
 +makeExample('testing/ts/src/app/hero/hero-detail.component.ts', 'prototype', 'src/app/hero/hero-detail.component.ts (prototype)')(format='.')
+
 :marked
-  It's not possible to stub the component's `HeroDetailService` in the `providers` of the `TestBed.configureTestingModule`. 
+  It's not possible to stub the component's `HeroDetailService` in the `providers` of the `TestBed.configureTestingModule`.
   Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
 
   在`TestBed.configureTestingModule`的`providers`中stub伪造组件的`HeroDetailService`是不可行的。
   这些是**测试模块**的提供商，而非组件的。组件级别的供应商应该在**fixture级别**准备的依赖注入器。
 
-  Angular creates the component with its _own_ injector which is a _child_ of the fixture injector.
-  It registers the component's providers (the `HeroDetailService` in this case) with the child injector. 
+  Angular creates the component with its _own_ injector, which is a _child_ of the fixture injector.
+  It registers the component's providers (the `HeroDetailService` in this case) with the child injector.
   A test cannot get to child injector services from the fixture injector.
   And `TestBed.configureTestingModule` can't configure them either.
 
@@ -2041,7 +2094,7 @@ a#component-override
 
   +makeExample('testing/ts/src/app/hero/hero-detail.service.ts', 'prototype', 'src/app/hero/hero-detail.service.ts (prototype)')(format='.')
   :marked
-    The [previous test configuration](#feature-module-import) replaces the real `HeroService` with a `FakeHeroService` 
+    The [previous test configuration](#feature-module-import) replaces the real `HeroService` with a `FakeHeroService`
     that intercepts server requests and fakes their responses.
 
     [之前的测试配置](#feature-module-import)将真实的`HeroService`替换为`FakeHeroService`，拦截了服务起请求，伪造了它们的响应。
@@ -2049,14 +2102,16 @@ a#component-override
 :marked
   What if you aren't so lucky. What if faking the `HeroService` is hard? 
   What if `HeroDetailService` makes its own server requests? 
-
+  
   如果我们没有这么幸运怎么办？如果伪造`HeroService`很难怎么办？如果`HeroDetailService`自己发出服务器请求怎么办？
-
+  
   The `TestBed.overrideComponent` method can replace the component's `providers` with easy-to-manage _test doubles_
   as seen in the following setup variation:
 
   `TestBed.overrideComponent`方法可以将组件的`providers`替换为容易管理的**测试复制品**，参见下面的设置变化：
+
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'setup-override', 'src/app/hero/hero-detail.component.spec.ts (Override setup)')(format='.')
+
 :marked
   Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#spy-stub).
 
@@ -2107,16 +2162,19 @@ a#spy-stub
   ### Provide a _spy stub_ (_HeroDetailServiceSpy_)
 
   This example completely replaces the component's `providers` array with a new array containing a `HeroDetailServiceSpy`.
-  
-  The `HeroDetailServiceSpy` is a stubbed version of the real `HeroDetailService` 
-  that fakes all necessary features of that service. 
-  It neither injects nor delegates to the lower level `HeroService` 
+
+  The `HeroDetailServiceSpy` is a stubbed version of the real `HeroDetailService`
+  that fakes all necessary features of that service.
+  It neither injects nor delegates to the lower level `HeroService`
   so there's no need to provide a test double for that.
 
-  The related `HeroDetailComponent` tests will assert that methods of the `HeroDetailService` 
+  The related `HeroDetailComponent` tests will assert that methods of the `HeroDetailService`
   were called by spying on the service methods.
   Accordingly, the stub implements its methods as spies:
+
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'hds-spy', 'src/app/hero/hero-detail.component.spec.ts (HeroDetailServiceSpy)')(format='.')
+
+a#override-tests
 :marked
   ### The override tests
 
@@ -2129,6 +2187,8 @@ a#spy-stub
 
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'override-tests', 'src/app/hero/hero-detail.component.spec.ts (override tests)')(format='.')
 
+a#more-overrides
+
 :marked
   ### More overrides
 
@@ -2137,10 +2197,8 @@ a#spy-stub
   The `TestBed.overrideComponent` method can be called multiple times for the same or different components.
   The `TestBed` offers similar `overrideDirective`, `overrideModule`, and `overridePipe` methods
   for digging into and replacing parts of these other classes.
-
   `TestBed.overrideComponent`方法可以在相同或不同的组件中被反复调用。
   `TestBed`还提供了类似的`overrideDirective`、`overrideModule`和`overridePipe`方法，用来深入并重载这些其它类的部件。
-
   Explore the options and combinations on your own.
 
   自己探索这些选项和组合。
@@ -2182,12 +2240,15 @@ a#stub-component
 
   ### stub伪造不需要的组件
 
-  The test setup should look familiar
+  The test setup should look familiar.
 
   该测试配置应该看起来很眼熟：
+  
 +makeExample('testing/ts/src/app/app.component.spec.ts', 'setup-stubs', 'src/app/app.component.spec.ts (Stub Setup)')(format='.')
+
 :marked
-  The `AppComponent` is the declared test subject 
+  The `AppComponent` is the declared test subject.
+
   The setup extends the default testing module with one real component (`BannerComponent`) and several stubs.
 
   `AppComponent`是被声明的测试对象。
@@ -2203,15 +2264,11 @@ a#stub-component
 
   * The real `RouterOutlet` is complex and errors easily.
   The `RouterOutletStubComponent` (in `testing/router-stubs.ts`) is safely inert.
-
-    真实的`RouterOutlet`很复杂而且容易出错。
+  真实的`RouterOutlet`很复杂而且容易出错。
   `testing/router-stubs.ts`里的`RouterOutletStubComponent`是安全的替代品。
-
   The component stubs are essential. 
   Without them, the Angular compiler doesn't recognize the `<app-welcome>` and `<router-outlet>` tags 
-  and throws an error. 
-
-  组件stub替代品很关键。
+  and throws an error. 组件stub替代品很关键。
   没有它们，Angular编译器无法识别`<app-welcome`和`<router-outlet>`标签，抛出错误。
 a#router-link-stub
 :marked
@@ -2219,13 +2276,14 @@ a#router-link-stub
 
   ### Stub伪造_RouterLink_
 
-  The `RouterLinkStubDirective` contributes substantively to the test
+  The `RouterLinkStubDirective` contributes substantively to the test:
 
   `RouterLinkStubDirective`为测试作出了重要的贡献：
+  
 +makeExample('testing/ts/src/testing/router-stubs.ts', 'router-link', 'testing/router-stubs.ts (RouterLinkStubDirective)')(format='.')
 :marked
   The `host` metadata property wires the click event of the host element (the `<a>`) to the directive's `onClick` method.
-  The URL bound to the `[routerLink]` attribute flows to the directive's `linkParams` property. 
+  The URL bound to the `[routerLink]` attribute flows to the directive's `linkParams` property.
   Clicking the anchor should trigger the `onClick` method which sets the telltale `navigatedTo` property.
   Tests can inspect that property to confirm the expected _click-to-navigation_ behavior.
 
@@ -2269,14 +2327,12 @@ a#app-component-tests
 .l-sub-section
   :marked
     The "click" test _in this example_ is worthless.
-    It works hard to appear useful when in fact it 
+    It works hard to appear useful when in fact it
     tests the `RouterLinkStubDirective` rather than the _component_.
     This is a common failing of directive stubs.
-
     本例中的“click”测试程序其实毫无价值。
     它显得很有用，但是事实上，它测试的是`RouterLinkStubDirective`，而非测试组件。
     这是指令stub的通病。
-
     It has a legitimate purpose in this guide. 
     It demonstrates how to find a `RouterLink` element, click it, and inspect a result,
     without engaging the full router machinery.
@@ -2302,7 +2358,7 @@ a#why-stubbed-routerlink-tests
 
   Stubbing the RouterLink and RouterOutlet is the best option for such limited testing goals.
   Relying on the real router would make them brittle.
-  They could fail for reasons unrelated to the component. 
+  They could fail for reasons unrelated to the component.
   For example, a navigation guard could prevent an unauthorized user from visiting the `HeroListComponent`.
   That's not the fault of the `AppComponent` and no change to that component could cure the failed test.
 
@@ -2314,9 +2370,8 @@ a#why-stubbed-routerlink-tests
 
   A _different_ battery of tests can explore whether the application navigates as expected
   in the presence of conditions that influence guards such as whether the user is authenticated and authorized.
-  A future guide update will explain how to write such tests with the `RouterTestingModule`.
-
-  不同的测试程序可以探索在不同条件下（比如像检查用户是否认证），该应用是否和期望的那样导航。
+.alert.is-helpful
+  :marked  A future guide update will explain how to write such tests with the `RouterTestingModule`.不同的测试程序可以探索在不同条件下（比如像检查用户是否认证），该应用是否和期望的那样导航。
   未来本章的更新将介绍如何使用`RouterTestingModule`来编写这样的测试程序。
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -2328,11 +2383,9 @@ a#shallow-component-test
 
   ## 使用*NO\_ERRORS\_SCHEMA*来“浅化”组件测试程序
 
-  The [previous setup](#stub-component) declared the `BannerComponent` and stubbed two other components 
+  The [previous setup](#stub-component) declared the `BannerComponent` and stubbed two other components
   for _no reason other than to avoid a compiler error_.
-
   [以前的配置](#stub-component)声明了`BannerComponent`，并stub伪造了两个其它组件，**仅仅是为了避免编译错误，不是为别的原因**。
-
   Without them, the Angular compiler doesn't recognize the `<app-banner>`, `<app-welcome>` and `<router-outlet>` tags 
   in the [_app.component.html_](#app-component-html) template and throws an error. 
 
@@ -2341,20 +2394,19 @@ a#shallow-component-test
   Add `NO_ERRORS_SCHEMA` to the testing module's `schemas` metadata
   to tell the compiler to ignore unrecognized elements and attributes.
   You no longer have to declare irrelevant components and directives.
-
   添加`NO_ERRORS_SCHEMA`到测试模块的`schemas`元数据中，告诉编译器忽略不认识的元素和属性。
   这样你不再需要声明无关组件和指令。
-
   These tests are ***shallow*** because they only "go deep" into the components you want to test.
-  Here is a setup (with `import` statements) that demonstrates the improved simplicity of _shallow_ tests, relative to the stubbing setup.
+
+  Here is a setup, with `import` statements, that demonstrates the improved simplicity of _shallow_ tests, relative to the stubbing setup.
 
   这些测试程序比较**浅**，因为它们只“深入”到你要测试的组件。
   这里是一套配置（拥有`import`语句），体现了相比使用stub伪造的配置来说，**浅**测试程序的简单性。
 +makeTabs('testing/ts/src/app/app.component.spec.ts, testing/ts/src/app/app.component.spec.ts',
-  'setup-schemas, setup-stubs-w-imports', 
+  'setup-schemas, setup-stubs-w-imports',
   'src/app/app.component.spec.ts (NO_ERRORS_SCHEMA), src/app/app.component.spec.ts (Stubs)')(format='.')
 :marked
-  The _only_ declarations are the _component-under-test_ (`AppComponent`) and the `RouterLinkStubDirective` 
+  The _only_ declarations are the _component-under-test_ (`AppComponent`) and the `RouterLinkStubDirective`
   that contributes actively to the tests.
   The [tests in this example](#app-component-tests) are unchanged.
 
@@ -2364,7 +2416,7 @@ a#shallow-component-test
 .alert.is-important
   :marked
     _Shallow component tests_ with `NO_ERRORS_SCHEMA` greatly simplify unit testing of complex templates.
-    However, the compiler no longer alerts you to mistakes 
+    However, the compiler no longer alerts you to mistakes
     such as misspelled or misused components and directives.
 
     使用`NO_ERRORS_SCHEMA`的**浅组件测试程序**很大程度上简化了拥有复杂模板组件的单元测试。
@@ -2388,7 +2440,7 @@ a#attribute-directive
 
   The sample application's `HighlightDirective` sets the background color of an element
   based on either a data bound color or a default color (lightgray).
-  It also sets a custom property of the element (`customProperty`) to `true` 
+  It also sets a custom property of the element (`customProperty`) to `true`
   for no reason other than to show that it can.
 
   本例子应用的`HighlightDirective`使用数据绑定的颜色或者默认颜色来设置元素的背景色。
@@ -2410,11 +2462,10 @@ a#attribute-directive
   Finding and testing all components that use the directive is tedious, brittle, and almost as unlikely to afford full coverage.
 
   但是，测试单一的用例一般无法探索该指令的全部能力。
-  查找和测试所有使用该指令的组件非常繁琐和脆弱，并且通常无法覆盖所有组件。
-
-  [Isolated unit tests](#isolated-unit-tests) might be helpful.
-  But attribute directives like this one tend to manipulate the DOM. 
-  Isolated unit tests don't and therefore don't inspire confidence in the directive's efficacy.
+  查找和测试所有使用该指令的组件非常繁琐和脆弱，并且通常无法覆盖所有组件。[Isolated unit tests](#isolated-unit-tests) might be helpful, 
+  but attribute directives like this one tend to manipulate the DOM. 
+  Isolated unit tests don't touch the DOMand, therefore ,
+  do not inspire confidence in the directive's efficacy.
 
   [孤立单元测试](#isolated-unit-tests)可能有用。
   但是像这样的属性指令一般都操纵DOM。孤立单元测试不能控制DOM，所以不推荐用它测试指令的功能。
@@ -2424,6 +2475,7 @@ a#attribute-directive
   更好的方法是创建一个展示所有使用该组件的方法的人工测试组件。
 
 +makeExample('testing/ts/src/app/shared/highlight.directive.spec.ts', 'test-component', 'src/app/shared/highlight.directive.spec.ts (TestComponent)')(format='.')
+
 figure.image-display
   img(src='/resources/images/devguide/testing/highlight-directive-spec.png' width="200px" alt="HighlightDirective spec in action")
 .l-sub-section
@@ -2450,24 +2502,21 @@ figure.image-display
   * The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>
   in `By.css('h2:not([highlight])')` helps find `<h2>` elements that _do not_ have the directive.
   `By.css('*:not([highlight])')` finds _any_ element that does not have the directive.
+  
+  `By.css('h2:not([highlight])')`里的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>帮助查找**不带**该指令的`<h2>`元素。`By.css('*:not([highlight])')`查找**所有**不带该指令的元素。
 
-    `By.css('h2:not([highlight])')`里的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>帮助查找**不带**该指令的`<h2>`元素。`By.css('*:not([highlight])')`查找**所有**不带该指令的元素。
-
-// Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
   * `DebugElement.styles` affords access to element styles even in the absence of a real browser, thanks to the `DebugElement` abstraction.
   But feel free to exploit the `nativeElement` when that seems easier or more clear than the abstraction.
 
-:marked
   * Angular adds a directive to the injector of the element to which it is applied.
-  The test for the default color uses the injector of the 2nd `<h2>` to get its `HighlightDirective` instance
+  The test for the default color uses the injector of the second `<h2>` to get its `HighlightDirective` instance
   and its `defaultColor`.
 
     Angular将指令添加到它的元素的注入器中。默认颜色的测试程序使用第二个`<h2>`的注入器来获取它的`HighlightDirective`实例以及它的`defaultColor`。
 
 
-// Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future? 
   * `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
-
+  
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
 
@@ -2485,44 +2534,44 @@ a#isolated-unit-tests
 
   However, it's often more productive to explore the inner logic of application classes
   with _isolated_  unit tests that don't depend upon Angular.
-  Such tests are often smaller and  easier to read, write and maintain.
-
+  Such tests are often smaller and  easier to read, write, and maintain.
+  
   但是，使用**孤立**单元测试来探索应用类的内在逻辑往往更加有效率，它不依赖Angular。
-  这种测试程序通常比较小、更易阅读、编写和维护。
+    这种测试程序通常比较小、更易阅读、编写和维护。
 
-  They don't
+  They don't carry extra baggage:
+  
+  它们不用背负额外的包袱：
 
-  它们不会：
-
-  * import from the Angular test libraries
-
+  * Import from the Angular test libraries.
+  
     从Angular测试库导入
-
-  * configure a module
-
+    
+  * Configure a module.
+  
     配置模块
-
-  * prepare dependency injection `providers`
-
+    
+  * Prepare dependency injection `providers`.
+  
     准备依赖注入`providers`
-
-  * call `inject` or `async` or `fakeAsync`
-
+    
+  * Call `inject` or `async` or `fakeAsync`.
+  
     调用`inject`，或者`async`，或者`fakeAsync`
 
-  They do
+  They follow patterns familiar to test developers everywhere:
+  
+  它们会遵循测试时众所周知的模式：
 
-  它们会：
-
-  * exhibit standard, Angular-agnostic testing techniques
-
+  * Exhibit standard, Angular-agnostic testing techniques.
+  
     使用标准的、与Angular无关的测试技巧
-
-  * create instances directly with `new`
-
+    
+  * Create instances directly with `new`.
+  
     直接使用`new`创建实例
-
-  * substitute test doubles (stubs, spys, and mocks) for the real dependencies.
+    
+  * Substitute test doubles (stubs, spys, and mocks) for the real dependencies.
 
     用测试复制品（stub，spy和mock）替代真正的依赖
 
@@ -2545,8 +2594,9 @@ a#isolated-service-tests
   ### Services
 
   ### 服务
-  Services are good candidates for isolated unit testing. 
-  Here are some synchronous and asynchronous unit tests of the `FancyService` 
+  
+  Services are good candidates for isolated unit testing.
+  Here are some synchronous and asynchronous unit tests of the `FancyService`
   written without assistance from Angular testing utilities.
 
   服务是应用孤立测试的好例子。
@@ -2554,8 +2604,8 @@ a#isolated-service-tests
 
 +makeExample('testing/ts/src/app/bag/bag.no-testbed.spec.ts', 'FancyService', 'src/app/bag/bag.no-testbed.spec.ts')
 :marked
-  A rough line count suggests that these isolated unit tests are about 25% smaller than equivalent Angular tests. 
-  That's telling but not decisive. 
+  A rough line count suggests that these isolated unit tests are about 25% smaller than equivalent Angular tests.
+  That's telling but not decisive.
   The benefit comes from reduced setup and code complexity.
 
   粗略行数表明，这些孤立单元测试比同等的Angular测试小25%。
@@ -2565,14 +2615,16 @@ a#isolated-service-tests
   Compare these equivalent tests of `FancyService.getTimeoutValue`.
 
   比较下面两个同等的`FancyService.getTimeoutValue`测试程序：
+  
 +makeTabs(
-  `testing/ts/src/app/bag/bag.no-testbed.spec.ts, testing/ts/src/app/bag/bag.spec.ts`, 
-  'getTimeoutValue, getTimeoutValue', 
+  `testing/ts/src/app/bag/bag.no-testbed.spec.ts, testing/ts/src/app/bag/bag.spec.ts`,
+  'getTimeoutValue, getTimeoutValue',
   `src/app/bag/bag.no-testbed.spec.ts (Isolated), src/app/bag/bag.spec.ts (with Angular testing utilities)`)
 :marked
-  They have about the same line-count. 
-  But the Angular-dependent version has more moving parts, including a couple of utility functions (`async` and `inject`).
-  Both approaches work and it's not much of an issue if you're using the Angular testing utilities nearby for other reasons. 
+  They have about the same line-count, but the Angular-dependent version
+  has more moving parts including a couple of utility functions (`async` and `inject`).
+  Both approaches work and it's not much of an issue if you're using the
+  Angular testing utilities nearby for other reasons.
   On the other hand, why burden simple service tests with added complexity?
 
   它们有类似的行数。
@@ -2584,25 +2636,28 @@ a#isolated-service-tests
 
   选择你喜欢的方法。
 
-  #### Services with dependencies
+a#services-with-dependencies
+:marked
+  ### Services with dependencies
 
   #### 带依赖的服务
 
   Services often depend on other services that Angular injects into the constructor.
-  You can test these services _without_ the testbed.
+  You can test these services _without_ the `TestBed`.
   In many cases, it's easier to create and _inject_ dependencies by hand.
 
   服务通常依赖其它服务，Angular通过构造函数注入它们。
   你可以**不使用**TestBed测试这些服务。
   在许多情况下，创建和手动**注入**依赖来的更加容易。
 
-  The `DependentService` is a simple example
+  The `DependentService` is a simple example:
 
   `DependentService`是一个简单的例子：
 
 +makeExample('testing/ts/src/app/bag/bag.ts', 'DependentService', 'src/app/bag/bag.ts')(format='.')
+
 :marked
-  It delegates it's only method, `getValue`, to the injected `FancyService`.
+  It delegates its only method, `getValue`, to the injected `FancyService`.
 
   它将唯一的方法，`getValue`，委托给了注入的`FancyService`。
 
@@ -2612,12 +2667,10 @@ a#isolated-service-tests
 +makeExample('testing/ts/src/app/bag/bag.no-testbed.spec.ts', 'DependentService', 'src/app/bag/bag.no-testbed.spec.ts')
 :marked
   The first test creates a `FancyService` with `new` and passes it to the `DependentService` constructor.
-
   第一个测试程序使用`new`创建`FancyService`实例，并将它传递给`DependentService`构造函数。
-
-  It's rarely that simple. The injected service can be difficult to create or control.
-  You can mock the dependency, or use a dummy value, or stub the pertinent service method
-  with a substitute method that is easy to control.
+  However, it's rarely that simple. The injected service can be difficult to create or control.
+  You can mock the dependency,  use a dummy value, or stub the pertinent service method
+  with a substitute method that 's easy to control.
 
   很少有这么简单的，注入的服务有可能很难创建和控制。
   你可以mock依赖，或者使用假值，或者用易于控制的替代品stub伪造相关服务。
@@ -2639,17 +2692,16 @@ a#isolated-pipe-tests
 
   管道很容易测试，无需Angular测试工具。
 
-  A pipe class has one method, `transform`, that turns an input to an output.
+  A pipe class has one method, `transform`, that manipulates the input
+  value into a transformed output value.
   The `transform` implementation rarely interacts with the DOM.
   Most pipes have no dependence on Angular other than the `@Pipe`
   metadata and an interface.
-
   管道类有一个方法，`transform`，用来转换输入值到输出值。
   `transform`的实现很少与DOM交互。
   除了`@Pipe`元数据和一个接口外，大部分管道不依赖Angular。
-
   Consider a `TitleCasePipe` that capitalizes the first letter of each word.
-  Here's a naive implementation implemented with a regular expression.
+  Here's a naive implementation with a regular expression.
 
   假设`TitleCasePipe`将每个单词的第一个字母变成大写。
   下面是使用正则表达式实现的简单代码：
@@ -2660,9 +2712,12 @@ a#isolated-pipe-tests
 
   任何使用正则表达式的类都值得彻底的进行测试。
   使用Jasmine来探索预期的用例和极端的用例。
+  
 +makeExample('testing/ts/src/app/shared/title-case.pipe.spec.ts', 'excerpt', 'src/app/shared/title-case.pipe.spec.ts')
+
+a#write-tests
 :marked
-  #### Write Angular tests too
+  ### Write Angular tests too
 
   #### 同时也编写Angular测试
   These are tests of the pipe _in isolation_.
@@ -2698,10 +2753,11 @@ a#isolated-component-tests
 
   下面的Angular测试演示点击模板里的按钮后，引起了屏幕上的消息的更新。
 +makeExample('testing/ts/src/app/bag/bag.spec.ts', 'ButtonComp', 'src/app/bag/bag.spec.ts (ButtonComp)')(format='.')
+
 :marked
-  The assertions verify the data binding flow from one HTML control (the `<button>`) to the component and 
-  from the component back to a _different_ HTML control (the `<span>`). 
-  A passing test means the component and its template are wired up correctly.
+  The assertions verify that the data values flow from one HTML control (the `<button>`) to the component and
+  from the component back to a _different_ HTML control (the `<span>`).
+  A passing test means the component and its template are wired correctly.
 
   该判断验证了数据绑定从一个HTML控件(`<button>`)流动到组件，以及从组件回到**不同**的HTML控件(`<span>`)。
   通过的测试程序说明组件和它的模块是否设置正确。
@@ -2718,14 +2774,14 @@ a#isolated-component-tests
 +makeExample('testing/ts/src/app/bag/bag.no-testbed.spec.ts', 'ButtonComp', 'src/app/bag/bag.no-testbed.spec.ts (ButtonComp)')(format='.')
 :marked
   Isolated component tests offer a lot of test coverage with less code and almost no setup.
-  This advantage is even more pronounced with complex components that 
+  This is even more of an advantage with complex components, which
   may require meticulous preparation with the Angular testing utilities.
 
   孤立组件单元测试使用更少的代码以及几乎不存在的配置，提供了很多测试覆盖率。
   在测试复杂的组件时，这个优势显得更加明显，因为可能需要使用Angular测试工具进行精心准备。
 
   On the other hand, isolated unit tests can't confirm that the `ButtonComp` is
-  properly bound to its template or even data bound at all. 
+  properly bound to its template or even data bound at all.
   Use Angular tests for that.
 
   但是，孤立测试无法确认`ButtonComp`是否与其模板正确的绑定，或者是否有数据绑定。
@@ -2738,7 +2794,7 @@ a(href="#top").to-top 回到顶部
 
 a#atu-apis
 :marked
-  ## Angular Testing Utility APIs
+  ## Angular testing utility APIs
 
   ## Angular测试工具API
 
@@ -2793,8 +2849,8 @@ table
 
       .l-sub-section
         :marked
-          The curious, dedicated reader might enjoy this lengthy blog post, 
-          "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" 
+          The curious, dedicated reader might enjoy this lengthy blog post,
+          "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/"
           target="_blank">_Tasks, microtasks, queues and schedules_</a>".
 
           好奇和执着的读者可能会喜欢这篇长博客：
@@ -2802,9 +2858,9 @@ table
           target="_blank">_Tasks, microtasks, queues and schedules_</a>".
       :marked
         Accepts an optional argument that moves the virtual clock forward
-        the specified number of milliseconds, 
+        by the specified number of milliseconds,
         clearing asynchronous activities scheduled within that timeframe.
-        See [discussion bove](#tick).
+        See [discussion above](#tick).
 
         接受一个可选参数，往前推移虚拟时间提供数字的毫秒数，清除在这段时间内的异步行为。
         参见[上面的讨论](#tick)
@@ -2824,10 +2880,8 @@ table
       :marked
         When a `fakeAsync` test ends with pending timer event _tasks_ (queued `setTimeOut` and `setInterval` callbacks),
         the test fails with a clear error message.
-
         当`fakeAsync`测试程序以正在运行的计时器事件**任务**（排队中的`setTimeOut`和`setInterval`的回调）结束时，
         测试会失败，并显示一条明确的错误信息。
-
         In general, a test should end with no queued tasks. 
         When pending timer tasks are expected, call `discardPeriodicTasks` to flush the _task_ queue
         and avoid the error.
@@ -2841,9 +2895,7 @@ table
       :marked
         When a `fakeAsync` test ends with pending _micro-tasks_ such as unresolved promises,
         the test fails with a clear error message.
-
         当`fakeAsync`测试程序以待执行**微任务**（比如未解析的承诺）结束时，测试会失败并显示明确的错误信息。
-
         In general, a test should wait for micro-tasks to finish.
         When pending microtasks are expected, call `flushMicrotasks` to flush the  _micro-task_ queue
         and avoid the error.
@@ -2864,7 +2916,7 @@ table
     td(style="vertical-align: top") <code>getTestBed</code>
     td
       :marked
-        Gets the current instance of the `TestBed`. 
+        Gets the current instance of the `TestBed`.
         Usually unnecessary because the static class methods of the `TestBed` class are typically sufficient.
         The `TestBed` instance exposes a few rarely used members that are not available as
         static methods.
@@ -2877,18 +2929,16 @@ table
 
 a#testbed-class-summary
 :marked
-  ## _TestBed_ Class Summary
+  ### _TestBed_ class summary
 
   ## _TestBed_ 类总结
-  The `TestBed` class is one of the principal Angular testing utilities. 
-  Its API is quite large and can be overwhelming until you've explored it first
+  The `TestBed` class is one of the principal Angular testing utilities.
+  Its API is quite large and can be overwhelming until you've explored it,
   a little at a time. Read the early part of this guide first
   to get the basics before trying to absorb the full API.
 
   `TestBed`类是Angular测试工具的主要类之一。它的API很庞大，可能有点过于复杂，直到你一点一点的探索它们。
-  阅读本章前面的部分，了解了基本的知识以后，再试着了解完整API。
-
-  The module definition passed to `configureTestingModule`,
+  阅读本章前面的部分，了解了基本的知识以后，再试着了解完整API。The module definition passed to `configureTestingModule` 
   is a subset of the `@NgModule` metadata properties.
 
   传递给`configureTestingModule`的模块定义是`@NgModule`元数据属性的子集。
@@ -2903,8 +2953,9 @@ code-example(format="." language="javascript").
 
 a#metadata-override-object
 :marked
-  Each overide method takes a `MetadataOverride<T>` where `T` is the kind of metadata
-  appropriate to the method, the parameter of an `@NgModule`, `@Component`, `@Directive`, or `@Pipe`.
+  Each override method takes a `MetadataOverride<T>` where `T` is the kind of metadata
+  appropriate to the method, that is, the parameter of an `@NgModule`,
+  `@Component`, `@Directive`, or `@Pipe`.
 
   每一个重载方法接受一个`MetadataOverride<T>`，这里`T`是适合这个方法的元数据类型，也就是`@NgModule`、`@Component`、`@Directive`或者`@Pipe`的参数。
 
@@ -2919,14 +2970,13 @@ code-example(format="." language="javascript").
 a#testbed-methods
 :marked
   The `TestBed` API consists of static class methods that either update or reference a _global_ instance of the`TestBed`.
-
   `TestBed`的API包含了一系列静态类方法，它们更新或者引用**全局**的`TestBed`实例。
-
-  Internally, all static methods cover methods of the current runtime `TestBed` instance that is also returned by the `getTestBed()` function.
+  Internally, all static methods cover methods of the current runtime `TestBed` instance ,
+  which is also returned by the `getTestBed()` function.
 
   在内部，所有静态方法在`getTestBed()`函数返回的当前运行时间的`TestBed`实例上都有对应的方法。
 
-  Call `TestBed` methods _within_ a `BeforeEach()` to ensure a fresh start before each individual test.
+  Call `TestBed` methods _within_ a `beforeEach()` to ensure a fresh start before each individual test.
 
   在`BeforeEach()`内调用`TestBed`方法，这样确保在运行每个单独测试时，都有崭新的开始。
 
@@ -2945,13 +2995,11 @@ table
     td(style="vertical-align: top") <code>configureTestingModule</code>
     td
       :marked
-        The testing shims (`karma-test-shim`, `browser-test-shim`) 
+        The testing shims (`karma-test-shim`, `browser-test-shim`)
         establish the [initial test environment](##testbed-initTestEnvironment) and a default testing module.
         The default testing module is configured with basic declaratives and some Angular service substitutes that every tester needs.
-
         测试垫片（`karma-test-shim`, `browser-test-shim`）创建了[初始测试环境](##testbed-initTestEnvironment)和默认测试模块。
         默认测试模块是使用基本声明和一些Angular服务替代品，它们是所有测试程序都需要的。
-        
         Call `configureTestingModule` to refine the testing module configuration for a particular set of tests
         by adding and removing imports, declarations (of components, directives, and pipes), and providers.
 
@@ -2969,16 +3017,16 @@ table
         如果**任何**测试组件有`templateUrl`或`styleUrls`，那么你**必须**调用这个方法。因为获取组件模块和样式文件必须是异步的。
         参见[上面的描述](#compile-components)。
 
-        Once called, the `TestBed` configuration is frozen for the duration of the current spec.
+        After calling `compileComponents`, the `TestBed` configuration is frozen for the duration of the current spec.
 
-        一旦调用，`TestBed`的配置就会在当前测试期间被冻结。
+        调用完`compileComponents`之后，`TestBed`的配置就会在当前测试期间被冻结。
 
   tr
     td(style="vertical-align: top") <code>createComponent<T></code>
     td
       :marked
         Create an instance of a component of type `T` based on the current `TestBed` configuration.
-        Once called, the `TestBed` configuration is frozen for the duration of the current spec.
+        After calling `compileComponent`, the `TestBed` configuration is frozen for the duration of the current spec.
 
         基于当前`TestBed`的配置创建一个类型为T的组件实例。
         一旦调用，`TestBed`的配置就会在当前测试期间被冻结。
@@ -2996,7 +3044,7 @@ table
     td(style="vertical-align: top") <code>overrideComponent</code>
     td
       :marked
-        Replace metadata for the given component class which could be nested deeply 
+        Replace metadata for the given component class, which could be nested deeply
         within an inner module.
 
         替换指定组件类的元数据，该组件类可能嵌套在一个很深的内部模块中。
@@ -3004,7 +3052,7 @@ table
     td(style="vertical-align: top") <code>overrideDirective</code>
     td
       :marked
-        Replace metadata for the given directive class which could be nested deeply 
+        Replace metadata for the given directive class, which could be nested deeply
         within an inner module.
 
         替换指定指令类的元数据，该指令可能嵌套在一个很深的内部模块中。
@@ -3012,7 +3060,7 @@ table
     td(style="vertical-align: top") <code>overridePipe</code>
     td
       :marked
-        Replace metadata for the given pipe class which could be nested deeply 
+        Replace metadata for the given pipe class, which could be nested deeply
         within an inner module.
 
         替换指定管道类的元数据，该管道可能嵌套在一个很深的内部模块中。
@@ -3027,7 +3075,7 @@ table
         从当前`TestBed`注入器获取一个服务。
 
         The `inject` function is often adequate for this purpose.
-        But `inject` throws an error if it can't provide the service. 
+        But `inject` throws an error if it can't provide the service.
         What if the service is optional?
 
         `inject`函数通常很适合这个任务。
@@ -3041,7 +3089,7 @@ table
         `TestBed.get`方法接受一个可选的第二参数，它是在Angular找不到所需提供商时返回的对象。（在本例中为`null`）：
       +makeExample('testing/ts/src/app/bag/bag.spec.ts', 'testbed-get')(format=".")
       :marked
-        Once called, the `TestBed` configuration is frozen for the duration of the current spec.
+        After calling `get`, the `TestBed` configuration is frozen for the duration of the current spec.
 
         一旦调用，`TestBed`的配置就会在当前测试期间被冻结。
 
@@ -3057,11 +3105,11 @@ table
 
         The testing shims (`karma-test-shim`, `browser-test-shim`) call it for you
         so there is rarely a reason for you to call it yourself.
-
+        
         测试垫片(`karma-test-shim`, `browser-test-shim`)会为你调用它，所以你很少需要自己调用它。
 
-        This method may be called _exactly once_. Call `resetTestEnvironment` first
-        if you absolutely need to change this default in the middle of your test run.
+        You may call this method _exactly once_. If you must change
+        this default in the middle of your test run, call `resetTestEnvironment` first.
 
         这个方法只能被调用**一次**。如果确实需要在测试程序运行期间变换这个默认设置，那么先调用`resetTestEnvironment`。
 
@@ -3075,7 +3123,7 @@ table
     td(style="vertical-align: top") <code>resetTestEnvironment</code>
     td
       :marked
-        Reset the initial test environment including the default testing module.
+        Reset the initial test environment, including the default testing module.
 
         重设初始测试环境，包括默认测试模块在内。
 
@@ -3092,26 +3140,24 @@ a#component-fixture-api-summary
   ### _ComponentFixture_对象
 
   The `TestBed.createComponent<T>`
-  creates an instance of the component `T` 
+  creates an instance of the component `T`
   and returns a strongly typed `ComponentFixture` for that component.
 
   `TestBed.createComponent<T>`创建一个组件`T`的实例，并为该组件返回一个强类型的`ComponentFixture`。
 
   The `ComponentFixture` properties and methods provide access to the component,
-  its DOM representation, and aspects of its Angular environment. 
+  its DOM representation, and aspects of its Angular environment.
 
   `ComponentFixture`的属性和方法提供了对组件、它的DOM和它的Angular环境方面的访问。
 
 a#component-fixture-properties
 :marked
-  #### _ComponentFixture_ properties
+  ### _ComponentFixture_ properties
 
   #### _ComponentFixture_的属性
 
   Here are the most important properties for testers, in order of likely utility.
-
   下面是对测试最重要的属性，以使用频率排序：
-
 table
   tr
     th
@@ -3156,18 +3202,18 @@ table
         组件的`ChangeDetectorRef`。
 
         The `ChangeDetectorRef` is most valuable when testing a
-        component that has the `ChangeDetectionStrategy.OnPush`
+        component that has the `ChangeDetectionStrategy.OnPush` method
         or the component's change detection is under your programmatic control.
 
         在测试一个拥有`ChangeDetectionStrategy.OnPush`的组件，或者在组件的变化测试在你的程序控制下时，`ChangeDetectorRef`是最重要的。
 
 a#component-fixture-methods
 :marked
-  #### _ComponentFixture_ methods
+  ### _ComponentFixture_ methods
 
   #### _ComponentFixture_的方法
 
-  The _fixture_ methods cause Angular to perform certain tasks to the component tree.
+  The _fixture_ methods cause Angular to perform certain tasks on the component tree.
   Call these method to trigger Angular behavior in response to simulated user action.
 
   **fixture**方法使Angular对组件树执行某些任务。
@@ -3193,14 +3239,14 @@ table
         为组件触发一轮变化检查。
 
         Call it to initialize the component (it calls `ngOnInit`) and after your
-        test code change the component's data bound property values.
+        test code, change the component's data bound property values.
         Angular can't see that you've changed `personComponent.name` and won't update the `name`
         binding until you call `detectChanges`.
 
         调用它来初始化组件（它调用`ngOnInit`）。或者在你的测试代码改变了组件的数据绑定属性值后调用它。
         Angular不能检测到你已经改变了`personComponent.name`属性，也不会更新`name`的绑定，直到你调用了`detectChanges`。
 
-        Runs `checkNoChanges`afterwards to confirm there are no circular updates unless
+        Runs `checkNoChanges`afterwards to confirm that there are no circular updates unless
         called as `detectChanges(false)`;
 
         之后，运行`checkNoChanges`，来确认没有循环更新，除非它被这样调用：`detectChanges(false)`。
@@ -3208,26 +3254,24 @@ table
     td(style="vertical-align: top") <code>autoDetectChanges</code>
     td
       :marked
-        Set whether the fixture should try to detect changes automatically.
+        Set this to `true` when you want the fixture to detect changes automatically.
 
         设置fixture是否应该自动试图检测变化。
 
-        When autodetect is true, the test fixture listens for _zone_ events and calls `detectChanges`.
-        You probably still have to call `fixture.detectChanges` to trigger data binding updates 
-        when your test code modifies component property values directly.
+        When autodetect is `true`, the test fixture calls `detectChanges` immediately
+        after creating the component. Then it listens for pertinent zone events
+        and calls `detectChanges` accordingly.
+        When your test code modifies component property values directly,
+        you probably still have to call `fixture.detectChanges` to trigger data binding updates.
 
         当自动检测打开时，测试fixture监听**zone**事件，并调用`detectChanges`。
         当你的测试代码直接修改了组件属性值时，你还是要调用`fixture.detectChanges`来触发数据绑定更新。
 
-        The default is `false` and testers who prefer fine control over test behavior
-        tend to keep it `false`. 
-
+        The default is `false`. Testers who prefer fine control over test behavior
+        tend to keep it `false`.
+        
         默认值是`false`，喜欢对测试行为进行精细控制的测试者一般保持它为`false`。
 
-        Calls `detectChanges` immediately which detects existing changes
-        and will trigger `ngOnInit` if the component has not yet been initialized.
-
-        如果组件还没有被初始化，立刻调用`detectChanges`将检测已有变化并触发`ngOnInit`。
   tr
     td(style="vertical-align: top") <code>checkNoChanges</code>
     td
@@ -3240,8 +3284,8 @@ table
     td(style="vertical-align: top") <code>isStable</code>
     td
       :marked
-        Return `true` if the fixture is currently _stable_.
-        Returns `false` if there are async tasks that have not completed.
+        If the fixture is currently _stable_, returns `true`.
+        If there are async tasks that have not completed, returns `false`.
 
         如果fixture当前是**稳定的**，则返回`true`。
         如果有异步任务没有完成，则返回`false`。
@@ -3250,15 +3294,14 @@ table
     td
       :marked
         Returns a promise that resolves when the fixture is stable.
-
+        
         返回一个承诺，在fixture稳定时解析。
 
-        Hook that promise to resume testing after completion of asynchronous activity or 
-        asynchronous change detection.
-        See [above](#when-stable)
-
-        勾住这个承诺，以在异步行为或者异步变化检测之后继续测试。
-        参见[上面](#when-stable)
+        To resume testing after completion of asynchronous activity or
+        asynchronous change detection, hook that promise.
+        See [above](#when-stable).
+        
+        钩住这个承诺，以在异步行为或者异步变化检测之后继续测试。参见[上面](#when-stable)。
   tr
     td(style="vertical-align: top") <code>destroy</code>
     td
@@ -3269,7 +3312,7 @@ table
 
 a#debug-element-details
 :marked
-  #### _DebugElement_
+  ### _DebugElement_
 
   #### _DebugElement_
 
@@ -3277,12 +3320,12 @@ a#debug-element-details
 
   `DebugElement`提供了对组件的DOM的访问。
 
-  From the test root component's `DebugElement`, returned by `fixture.debugElement`,
-  you can walk (and query) the fixture's entire element and component sub-trees.
+  From the test root component's `DebugElement` returned by `fixture.debugElement`,
+  you can walk (and query) the fixture's entire element and component subtrees.
 
   `fixture.debugElement`返回测试根组件的`DebugElement`，通过它你可以访问（查询）fixture的整个元素和组件子树。
 
-  Here are the most useful `DebugElement` members for testers in approximate order of utility.
+  Here are the most useful `DebugElement` members for testers, in approximate order of utility:
 
   下面是`DebugElement`最有用的成员，以使用频率排序。
 
@@ -3321,7 +3364,7 @@ table
     td(style="vertical-align: top") <code>injector</code>
     td
       :marked
-        The host dependency injector. 
+        The host dependency injector.
         For example, the root element's component instance injector.
 
         宿主依赖注入器。
@@ -3331,9 +3374,7 @@ table
     td
       :marked
         The element's own component instance, if it has one.
-
-        元素自己的组件实例（如果有）。
-   tr
+ 元素自己的组件实例（如果有）。  tr
     td(style="vertical-align: top") <code>context</code>
     td
       :marked
@@ -3343,8 +3384,8 @@ table
         为元素提供父级上下文的对象。
         通常是控制该元素的祖级组件实例。
 
-        When an element is repeated with in `*ngFor`, the context is an `NgForRow` whose `$implicit`
-        property is the value of the row instance value. 
+        When an element is repeated within `*ngFor`, the context is an `NgForRow` whose `$implicit`
+        property is the value of the row instance value.
         For example, the `hero` in `*ngFor="let hero of heroes"`.
 
         当一个元素被`*ngFor`重复，它的上下文为`NgForRow`，它的`$implicit`属性值是该行的实例值。
@@ -3359,8 +3400,8 @@ table
 
       .l-sub-section
         :marked
-          `DebugElement` also has `childNodes`, a list of `DebugNode` objects. 
-          `DebugElement` derives from `DebugNode` objects and there are often 
+          `DebugElement` also has `childNodes`, a list of `DebugNode` objects.
+          `DebugElement` derives from `DebugNode` objects and there are often
           more nodes than elements. Testers can usually ignore plain nodes.
 
           `DebugElement`还有`childNodes`，即`DebugNode`对象列表。
@@ -3385,7 +3426,7 @@ table
     td(style="vertical-align: top") <code>triggerEventHandler</code>
     td
       :marked
-        Triggers the event by its name if there is a corresponding listener 
+        Triggers the event by its name if there is a corresponding listener
         in the element's `listeners` collection.
         The second parameter is the _event object_ expected by the handler.
         See [above](#trigger-event-handler).
@@ -3395,7 +3436,7 @@ table
         参见[上面](#trigger-event-handler)。
 
         If the event lacks a listener or there's some other problem,
-        consider calling `nativeElement.dispatchEvent(eventObject)`
+        consider calling `nativeElement.dispatchEvent(eventObject)`.
 
         如果事件缺乏监听器，或者有其它问题，考虑调用`nativeElement.dispatchEvent(eventObject)`。
 
@@ -3453,7 +3494,7 @@ a#query-predicate
 
   Angular的`By`类为常用条件方法提供了三个静态方法：
 
-  * `By.all` - return all elements
+  * `By.all` - return all elements.
 
     `By.all` - 返回所有元素
 
@@ -3476,7 +3517,7 @@ a#query-predicate
     The `DebugDomRender` updates additional dictionary properties of the `DebugElement`
     when something calls a `set...` method.运行时的`Renderer`在测试环境中的替代品为`DebugDomRender`。
     在调用`set...`方法时，`DebugDomRender`更新`DebugElement`额外词典属性。
-   
+  
     These dictionary properties are primarily of interest to authors of Angular DOM inspection tools
     but they may provide useful insights to testers as well.
 
@@ -3531,25 +3572,21 @@ a#query-predicate
 
 a#setup-files
 :marked
-  ## Setup files
-  Many think writing tests is fun. 
-  Few enjoy setting up the test environment.
-  To get to the fun as quickly as possible, 
-  the deep details of setup appear later in the guide (_forthcoming_).
-  A bare minimum of discussion plus the downloadable source code must suffice for now.
+  ## Test environment setup files
+
   Unit testing requires some configuration and bootstrapping that is captured in _setup files_.
-  The setup files for this guild are provided for you when you follow the [Setup](setup.html) instructions.
+  The setup files for this guide are provided for you when you follow the [Setup](setup.html) instructions.
   The CLI delivers similar files with the same purpose.
 
-  Here's a brief description of this guide's setup files.
+  Here's a brief description of this guide's setup files:
 .l-sub-section
   :marked
-    The deep details of these files and how to re-configure them for your needs
-    is a topic beyond the scope of this guide and something we intend to cover in the near future. 
- 
+    The deep details of these files and how to reconfigure them for your needs
+    is a topic beyond the scope of this guide .
+
 table(width="100%")
   col(width="20%")
-  col(width="80%") 
+  col(width="80%")
   tr
     th File
     th Description
@@ -3557,29 +3594,29 @@ table(width="100%")
     td(style="vertical-align: top") <code>karma.conf.js</code>
     td
       :marked
-        The karma configuration file that specifies which plug-ins to use, 
+        The karma configuration file that specifies which plug-ins to use,
         which application and test files to load, which browser(s) to use,
         and how to report test results.
 
         It loads three other setup files:
-        * `systemjs.config.js` 
+        * `systemjs.config.js`
         * `systemjs.config.extras.js`
         * `karma-test-shim.js`
   tr
     td(style="vertical-align: top") <code>karma-test-shim.js</code>
     td
       :marked
-        This shim prepares karma specifically for the Angular test environment 
-        and launches karma itself. 
+        This shim prepares karma specifically for the Angular test environment
+        and launches karma itself.
         It loads the `systemjs.config.js` file as part of that process.
   tr
     td(style="vertical-align: top") <code>systemjs.config.js</code>
     td
       :marked
-        [SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md) 
+        [SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md)
         loads the application and test files.
         This script tells SystemJS where to find those files and how to load them.
-        It's the same version of `systemjs.config.js` used by Setup-based applications.
+        It's the same version of `systemjs.config.js` you installed during [setup](#setup).
   tr
     td(style="vertical-align: top") <code>systemjs.config.extras.js</code>
     td
@@ -3587,22 +3624,22 @@ table(width="100%")
         An optional file that supplements the SystemJS configuration in `systemjs.config.js` with
         configuration for the specific needs of the application itself.
 
-        A stock `systemjs.config.js` can't anticipate those needs. 
+        A stock `systemjs.config.js` can't anticipate those needs.
         You fill the gaps here.
 
         The sample version for this guide adds the **model barrel**
         to the SystemJs `packages` configuration.
   tr
-    td(colspan="2") 
+    td(colspan="2")
       +makeExample('testing/ts/src/systemjs.config.extras.js', '', 'systemjs.config.extras.js')(format='.')
- 
+
 :marked
   ### npm packages
 
   The sample tests are written to run in Jasmine and karma.
-  The two "fast path" setups added the appropriate Jasmine and karma npm packages to the 
+  The two "fast path" setups added the appropriate Jasmine and karma npm packages to the
   `devDependencies` section of the `package.json`.
-  They were installed when you ran `npm install`.
+  They're installed when you run `npm install`.
 
 a(href="#top").to-top Back to top
 
@@ -3610,7 +3647,7 @@ a(href="#top").to-top 返回顶部
 
 .l.hr
 
-  #faq 
+  #faq
   .l-main-section
   :marked
     ## FAQ: Frequently Asked Questions
@@ -3619,16 +3656,17 @@ a(href="#top").to-top 返回顶部
 //
   :marked
     General
+
     * [When are end-to-end (e2e) tests a good choice?](#q-when-e2e)
     * [When to use the _TestBed_?](#q-why-testbed)
     * [When to write isolated unit tests without the _TestBed_?](#q-when-no-testbed)
     * [When can I skip _TestBed.compileComponents_?](#q-when-no-compile-components)
     * [Why must _TestBed.compileComponents_ be called last?](#q-why-compile-components-is-last)
-    * [Why must _inject_ be called last?](#q-why-last-last)  
+    * [Why must _inject_ be called last?](#q-why-last-last)
     * [What's the difference between _async_ and _fakeAsync_?](#q-async-vs-fake-async)
     * [What's the difference between _whenStable_ and _tick_?](#q-when-stable-vs-tick)
     * [How do I get something from the component's injector?](#q-component-injector)
-    * [Why do feature modules make testing easier?](#q-why-feature-modules)  
+    * [Why do feature modules make testing easier?](#q-why-feature-modules)
     * [When should I prefer the _DynamicTestModule_?](#q-dynamic-test-module)
     * [How do I know if an injected service method was called?](#q-spy-on-service)
     * [When must I call _detectChanges_ and why?](#q-detect-changes)
@@ -3641,7 +3679,8 @@ a(href="#top").to-top 返回顶部
     * [How do I use the Jasmine HTML TestRunner in the browser?](#q-jasmine-browser-test-runner)
 
     Resources
-    * [Where can I learn more about unit testing in JavaScript?](#q-js-unit-testing-resources)  
+
+    * [Where can I learn more about unit testing in JavaScript?](#q-js-unit-testing-resources)
     * [Where can I learn more about testing with Jasmine?](#q-jasmine-resources)
     * [Where can I learn more about testing with karma?](#q-karma-resources)
     * [Where can I learn more about e2e testing with protractor?](#q-protractor-resources)
@@ -3653,31 +3692,31 @@ a(href="#top").to-top 返回顶部
 #q-spec-file-location
 :marked
   ### Why put specs next to the things they test?
-
+  
   ### 为何将测试的spec配置文件放置到被测试文件的傍边？
 
-  We recommend putting unit test spec files in the same folder
-  as the application source code files that they test because
-
+  It's a good idea to put unit test spec files in the same folder
+  as the application source code files that they test:
+  
   我们推荐将单元测试的spec配置文件放到与应用程序源代码文件所在的同一个文件夹中，因为：
-
-  - Such tests are easy to find
-
+  
+  * Such tests are easy to find.
+  
     这样的测试程序很容易被找到
-
-  - You see at a glance if a part of our application lacks tests.
-
+    
+  * You see at a glance if a part of your application lacks tests.
+  
     你可以一眼看出应用程序的那些部分缺乏测试程序。
-
-  - Nearby tests can reveal how a part works in context.
-
+    
+  * Nearby tests can reveal how a part works in context.
+  
     临近的测试程序可以展示代码是如何在上下文中工作的
-
-  - When you move the source (inevitable), you remember to move the test.
-
+    
+  * When you move the source (inevitable), you remember to move the test.
+  
     当你移动代码（无可避免）时，你记得一起移动测试程序
-
-  - When you rename the source file (inevitable), you remember to rename the test file.
+    
+  * When you rename the source file (inevitable), you remember to rename the test file.
 
     当你重命名源代码文件（无可避免），你记得重命名测试程序文件。
 
@@ -3691,7 +3730,7 @@ a(href="#top").to-top 返回顶部
 
   Application integration specs can test the interactions of multiple parts
   spread across folders and modules.
-  They don't really belong to part in particular so they don't have a
+  They don't really belong to any part in particular, so they don't have a
   natural home next to any one file.
 
   应用程序的整合测试spec文件可以测试横跨多个目录和模块的多个部分之间的互动。

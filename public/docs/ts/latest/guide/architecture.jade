@@ -1,18 +1,15 @@
 block includes
   include ../_util-fns
-  - var _library_module = 'library module'
-  - var _at_angular = '@angular'
 
-block angular-intro
-  :marked
-    Angular is a framework for building client applications in HTML and
-    either JavaScript or a language like TypeScript that compiles to JavaScript.
+:marked
+  Angular is a framework for building client applications in HTML and
+  either JavaScript or a language like TypeScript that compiles to JavaScript.
 
-    Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。
-  
-    The framework consists of several libraries, some of them core and some optional.
+  Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。The framework consists of several libraries, some of them core and some optional.
 
-    该框架包括一系列库，有些是核心库，有些是可选库。
+  The framework consists of several libraries, some of them core and some optional.
+
+  该框架包括一系列库，有些是核心库，有些是可选库。
 
 :marked
   You write Angular applications by composing HTML *templates* with Angularized markup,
@@ -93,16 +90,16 @@ figure
 figure
   img(src="/resources/images/devguide/architecture/module.png" alt="模块" align="left" style="width:240px; margin-left:-40px;margin-right:10px" )
 
-block angular-modules
-  :marked
-    Angular apps are modular and Angular has its own modularity system called _Angular modules_ or _NgModules_.
+:marked
+  Angular apps are modular and Angular has its own modularity system called _Angular modules_ or _NgModules_.
 
-    Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。
-    
-    _Angular modules_ are a big deal.This page introduces modules; the [Angular modules](ngmodule.html) page covers them in depth.
+  Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。
+  
+  _Angular modules_ are a big deal. 
+  This page introduces modules; the [Angular modules](ngmodule.html) page covers them in depth.
 
-    _Angular 模块_很重要。这里只是简单介绍，在 [Angular 模块](ngmodule.html)中会做深入讲解。
-    
+  _Angular 模块_很重要。这里只是简单介绍，在 [Angular 模块](ngmodule.html)中会做深入讲解。
+  
 <br class="l-clear-both"><br>
 :marked
   Every Angular app has at least one Angular module class, [the _root module_](appmodule.html "AppModule: the root module"), 
@@ -118,19 +115,19 @@ block angular-modules
   
   An Angular module, whether a _root_ or _feature_, is a class with an `@NgModule` decorator.
   
-  Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@NgModule`装饰器的类。.l-sub-section
-  
+  Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有`@NgModule`装饰器的类。
+
+.l-sub-section
   :marked
     Decorators are functions that modify JavaScript classes.
     Angular has many decorators that attach metadata to classes so that it knows
     what those classes mean and how they should work.
     <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0" target="_blank">
     Learn more</a> about decorators on the web.
-    
+
     装饰器是用来修饰 JavaScript 类的函数。
     Angular 有很多装饰器，它们负责把元数据附加到类上，以了解那些类的设计意图以及它们应如何工作。
     关于装饰器的<a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0" target="_blank">更多信息</a>。
-    
 :marked
   `NgModule` is a decorator function that takes a single metadata object whose properties describe the module. 
   The most important properties are:
@@ -140,8 +137,7 @@ block angular-modules
   * `declarations` - the _view classes_ that belong to this module.
   Angular has three kinds of view classes: [components](#components), [directives](#directives), and [pipes](pipes.html).
 
-    `declarations` - 声明本模块中拥有的_视图类_。
-  Angular 有三种视图类：[组件](#components)、[指令](#directives)和[管道](pipes.html)。
+    `declarations` - 声明本模块中拥有的_视图类_。Angular 有三种视图类：[组件](#components)、[指令](#directives)和[管道](pipes.html)。
   
   * `exports` - the subset of declarations that should be visible and usable in the component [templates](#templates) of other modules.
 
@@ -152,128 +148,128 @@ block angular-modules
     `imports` - _本_模块声明的组件模板需要的类所在的其它模块。
     
   * `providers` - creators of [services](#services) that this module contributes to
-  the global collection of services; they become accessible in all parts of the app.
+    the global collection of services; they become accessible in all parts of the app.
 
     `providers` - [服务](#services)的创建者，并加入到全局服务列表中，可用于应用任何部分。
     
-  * `bootstrap` - the main application view, called the _root component_, that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
+  * `bootstrap` - the main application view, called the _root component_, 
+    that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
 
     `bootstrap` - 指定应用的主视图（称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置`bootstrap`属性。
     
   Here's a simple root module:
   
   下面是一个简单的根模块：
-  
+    
 +makeExample('src/app/mini-app.ts', 'module', 'src/app/app.module.ts')(format='.')
 
 .l-sub-section
   :marked
     The `export` of `AppComponent` is just to show how to export; it isn't actually necessary in this example. A root module has no reason to _export_ anything because other components don't need to _import_ the root module. 
-
-    `AppComponent`的`export`语句只是用于演示如何导出的，它在这个例子中并不是必须的。
-    根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
+    
+    `AppComponent`的`export`语句只是用于演示如何导出的，它在这个例子中并不是必须的。根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
+    
 :marked
   Launch an application by _bootstrapping_ its root module. 
   During development you're likely to bootstrap the `AppModule` in a `main.ts` file like this one.
   
   我们通过_引导_根模块来启动应用。
   在开发期间，你通常在一个`main.ts`文件中引导`AppModule`，就像这样：
-    
+  
 +makeExample('src/main.ts', '', 'src/main.ts')(format='.')
 
-  :marked
-    ### Angular modules vs. JavaScript modules
+:marked
+  ### Angular modules vs. JavaScript modules
 
-    ### Angular 模块 vs. JavaScript 模块
+  ### Angular 模块 vs. JavaScript 模块
     
-    The Angular module &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
-  
-    Angular 模块（一个用`@NgModule`装饰的类）是 Angular 的基础特性。
-    
-    JavaScript also has its own module system for managing collections of JavaScript objects.
-    It's completely different and unrelated to the Angular module system.
-    
-    JavaScript 也有自己的模块系统，用来管理一组 JavaScript 对象。
-    它与 Angular 的模块系统完全不同且完全无关。
-    
-    In JavaScript each _file_ is a module and all objects defined in the file belong to that module.
-    The module declares some objects to be public by marking them with the `export` key word. 
-    Other JavaScript modules use *import statements* to access public objects from other modules.
+  The Angular module &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
 
-    JavaScript 中，每个_文件_是一个模块，文件中定义的所有对象都从属于那个模块。
-    通过`export`关键字，模块可以把它的某些对象声明为公共的。
-    其它 JavaScript 模块可以使用*import 语句*来访问这些公共对象。
-      
-  +makeExample('src/app/app.module.ts', 'imports', '')(format='.')
-  +makeExample('src/app/app.module.ts', 'export', '')(format='.')
+  Angular 模块（一个用`@NgModule`装饰的类）是 Angular 的基础特性。
   
-  .l-sub-section
-    :marked
-      <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">Learn more about the JavaScript module system on the web.</a>
-      
-      <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">学习更多关于 JavaScript 模块的知识。</a>
-      
+  JavaScript also has its own module system for managing collections of JavaScript objects.
+  It's completely different and unrelated to the Angular module system.
+  
+  JavaScript 也有自己的模块系统，用来管理一组 JavaScript 对象。
+  它与 Angular 的模块系统完全不同且完全无关。
+    
+  In JavaScript each _file_ is a module and all objects defined in the file belong to that module.
+  The module declares some objects to be public by marking them with the `export` key word. 
+  Other JavaScript modules use *import statements* to access public objects from other modules.
+
+  JavaScript 中，每个_文件_是一个模块，文件中定义的所有对象都从属于那个模块。
+  通过`export`关键字，模块可以把它的某些对象声明为公共的。
+  其它 JavaScript 模块可以使用*import 语句*来访问这些公共对象。
+  
++makeExample('src/app/app.module.ts', 'imports', '')(format='.')
++makeExample('src/app/app.module.ts', 'export', '')(format='.')
+    
+.l-sub-section
   :marked
-    These are two different and _complementary_ module systems. Use them both to write your apps.
+    <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">Learn more about the JavaScript module system on the web.</a>
+    
+    <a href="http://exploringjs.com/es6/ch_modules.html" target="_blank">学习更多关于 JavaScript 模块的知识。</a>
+    
+:marked
+  These are two different and _complementary_ module systems. Use them both to write your apps.
   
-    这两个模块化系统是互补的，我们在写程序时都会用到。
+  这两个模块化系统是互补的，我们在写程序时都会用到。
 
 :marked
   ### Angular libraries
 
   ### Angular 模块库
+  
 figure
   img(src="/resources/images/devguide/architecture/library-module.png" alt="Component" align="left" style="width:240px; margin-left:-40px;margin-right:10px" )
 
-block angular-libraries
-  :marked
-    Angular ships as a collection of JavaScript modules. You can think of them as library modules. 
+:marked
+  Angular ships as a collection of JavaScript modules. You can think of them as library modules. 
 
-    Angular 提供了一组 JavaScript 模块。可以把它们看做库模块。
-    
-    Each Angular library name begins with the `!{_at_angular}` prefix.
-    
-    每个 Angular 库的名字都带有`!{_at_angular}`前缀。
-    
-    You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.
-    
-    用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。
-    
-    <br class="l-clear-both"><br>
+  Angular 提供了一组 JavaScript 模块。可以把它们看做库模块。
   
-    For example, import Angular's `Component` decorator from the `@angular/core` library like this:
+  Each Angular library name begins with the `@angular` prefix.
     
-    例如，象下面这样，从`@angular/core`库中导入`Component`装饰器：
+  每个 Angular 库的名字都带有`@angular`前缀。
+  
+  You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.
+  
+  用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。
+  <br class="l-clear-both"><br>
 
-  +makeExample('src/app/app.component.ts', 'import', '')(format='.')
-
-  :marked
-    You also import Angular _modules_ from Angular _libraries_ using JavaScript import statements:
+  For example, import Angular's `Component` decorator from the `@angular/core` library like this:
+  
+  例如，象下面这样，从`@angular/core`库中导入`Component`装饰器：
+  
++makeExample('src/app/app.component.ts', 'import', '')(format='.')
+:marked
+  You also import Angular _modules_ from Angular _libraries_ using JavaScript import statements:
+  
+  还可以使用 JavaScript 的导入语句从 Angular _库_中导入 Angular _模块_。
+  
++makeExample('src/app/mini-app.ts', 'import-browser-module', '')(format='.')
+:marked
+  In the example of the simple root module above, the application module needs material from within that `BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
+  
+  在上面那个简单的根模块的例子中，应用模块需要`BrowserModule`的某些素材。要访问这些素材，就得把它加入`@NgModule`元数据的`imports`中，就像这样：
     
-    还可以使用 JavaScript 的导入语句从 Angular _库_中导入 Angular _模块_。
-  +makeExample('src/app/mini-app.ts', 'import-browser-module', '')(format='.')
-  :marked
-    In the example of the simple root module above, the application module needs material from within that `BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
-  
-    在上面那个简单的根模块的例子中，应用模块需要`BrowserModule`的某些素材。
-    要访问这些素材，就得把它加入`@NgModule`元数据的`imports`中，就像这样：
-  
-  +makeExample('src/app/mini-app.ts', 'ngmodule-imports', '')(format='.')
-  :marked
-    In this way you're using both the Angular and JavaScript module systems _together_.
-  
-    这种情况下，你同时使用了 Angular 和 JavaScript 的模块化系统。
-    
-    It's easy to confuse the two systems because they share the common vocabulary of "imports" and "exports".
-    Hang in there. The confusion yields to clarity with time and experience.
-  
-    这两个系统比较容易混淆，因为它们共享相同的词汇 “imports” 和 “exports”。
-      先放一放，随着时间和经验的增长，自然就会澄清了。
-  .l-sub-section
-    :marked
-      Learn more from the [Angular modules](ngmodule.html) page.
++makeExample('src/app/mini-app.ts', 'ngmodule-imports', '')(format='.')
 
-      更多信息，见 [Angular 模块](ngmodule.html)。
+:marked
+  In this way you're using both the Angular and JavaScript module systems _together_.
+
+  这种情况下，你同时使用了 Angular 和 JavaScript 的模块化系统。
+  
+  It's easy to confuse the two systems because they share the common vocabulary of "imports" and "exports".
+  Hang in there. The confusion yields to clarity with time and experience.
+  
+  这两个系统比较容易混淆，因为它们共享相同的词汇 “imports” 和 “exports”。先放一放，随着时间和经验的增长，自然就会清楚了。
+  
+.l-sub-section
+  :marked
+    Learn more from the [Angular modules](ngmodule.html) page.
+
+    更多信息，见 [Angular 模块](ngmodule.html)。
 
 .l-hr
 
@@ -314,7 +310,7 @@ figure
   组件通过一些由属性和方法组成的 API 与视图交互。
 
   <a id="component-code"></a>
-  For example, this `HeroListComponent` has a `heroes` property that returns !{_an} !{_array} of heroes
+  For example, this `HeroListComponent` has a `heroes` property that returns an array of heroes
   that it acquires from a service.
   `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
 
@@ -412,7 +408,7 @@ figure
 
   要告诉 Angular `HeroListComponent`是个组件，只要把**元数据**附加到这个类。
 
-  In !{_Lang}, you attach metadata by using !{_a} **!{_decorator}**.
+  In TypeScript, you attach metadata by using a **decorator**.
   Here's some metadata for `HeroListComponent`:
 
   在!{_Lang} 中，我们用**装饰器 (!{_decorator}) **来附加元数据。
@@ -421,43 +417,36 @@ figure
 +makeExcerpt('src/app/hero-list.component.ts', 'metadata')
 
 :marked
-  Here is the `@Component` !{_decorator}, which identifies the class
+  Here is the `@Component` decorator, which identifies the class
   immediately below it as a component class.
-
+  
   这里看到`@Component`!{_decoratorCn}，它把紧随其后的类标记成了组件类。
 
-block ts-decorator
-  :marked
-    The `@Component` decorator takes a required configuration object with the
-    information Angular needs to create and present the component and its view.
+:marked
+  The `@Component` decorator takes a required configuration object with the
+  information Angular needs to create and present the component and its view.
 
-    `@Component`!{_decoratorCn}能接受一个配置对象， Angular 会基于这些信息创建和展示组件及其视图。
+  `@Component`!{_decoratorCn}能接受一个配置对象， Angular 会基于这些信息创建和展示组件及其视图。
+  
+  Here are a few of the most useful `@Component` configuration options:
 
-    Here are a few of the possible `@Component` configuration options:
-
-    `@Component`的配置项包括：
+  `@Component`的配置项包括：
 
 :marked
-  <ul if-docs="ts"><li>`moduleId`: sets the source of the base address (`module.id`) for module-relative URLs such as the `templateUrl`.</ul>
-
-    `moduleId`: 为与模块相关的 URL（例如`templateUrl`）提供基地址。
-
-  - `selector`: CSS selector that tells Angular to create and insert an instance of this component
+  * `selector`: CSS selector that tells Angular to create and insert an instance of this component
   where it finds a `<hero-list>` tag in *parent* HTML.
   For example, if an app's  HTML contains `<hero-list></hero-list>`, then
   Angular inserts an instance of the `HeroListComponent` view between those tags.
-
+  
     `selector`： CSS 选择器，它告诉 Angular 在*父级* HTML 中查找`<hero-list>`标签，创建并插入该组件。
-  例如，如果应用的 HTML 包含`<hero-list></hero-list>`， Angular 就会把`HeroListComponent`的一个实例插入到这个标签中。
+      例如，如果应用的 HTML 包含`<hero-list></hero-list>`， Angular 就会把`HeroListComponent`的一个实例插入到这个标签中。
 
-  - `templateUrl`: module-relative address of this component's HTML template, shown [above](#templates).
-
+  * `templateUrl`: module-relative address of this component's HTML template, shown [above](#templates).
+  
     `templateUrl`：组件 HTML 模板的模块相对地址，[如前所示](#templates)。
 
-block dart-directives
-
 :marked
-  - `providers`: !{_array} of **dependency injection providers** for services that the component requires.
+  * `providers`: array of **dependency injection providers** for services that the component requires.
   This is one way to tell Angular that the component's constructor requires a `HeroService`
   so it can get the list of heroes to display. 
 
@@ -476,12 +465,11 @@ figure
 
   模板、元数据和组件共同描绘出这个视图。
 
-  Apply other metadata !{_decorator}s in a similar fashion to guide Angular behavior.
-  `@Injectable`, `@Input`, and `@Output` are a few of the more popular !{_decorator}s.
+  Apply other metadata decorators in a similar fashion to guide Angular behavior.
+  `@Injectable`, `@Input`, and `@Output` are a few of the more popular decorators.
 
   其它元数据!{_decoratorCn}用类似的方式来指导 Angular 的行为。
   例如`@Injectable`、`@Input`和`@Output`等是一些最常用的!{_decoratorCn}。
-
 <br class="l-clear-both">
 :marked
   The architectural takeaway is that you must add metadata to your code
@@ -568,6 +556,7 @@ figure
   between a template and its component.
 
   数据绑定在模板与对应组件的交互中扮演了重要的角色。
+  
 <br class="l-clear-both">
 figure
   img(src="/resources/images/devguide/architecture/parent-child-binding.png" alt="父/子绑定" style="float:left; width:300px; margin-left:-40px;margin-right:10px" )
@@ -593,12 +582,11 @@ figure
 
   Angular 模板是*动态的*。当 Angular 渲染它们时，它会根据**指令**提供的操作对 DOM 进行转换。
 
-  A directive is a class with a `@Directive` !{_decorator}.
+  A directive is a class with a `@Directive` decorator.
   A component is a *directive-with-a-template*;
-  a `@Component` !{_decorator} is actually a `@Directive` !{_decorator} extended with template-oriented features.
+  a `@Component` decorator is actually a `@Directive` decorator extended with template-oriented features.
   
   组件是一个*带模板的指令*；`@Component`!{_decoratorCn}实际上就是一个`@Directive`!{_decoratorCn}，只是扩展了一些面向模板的特性。
-
   <br class="l-clear-both">
 
 .l-sub-section
@@ -637,8 +625,6 @@ figure
   * [`*ngIf`](displaying-data.html#ngIf) includes the `HeroDetail` component only if a selected hero exists.
 
     [`*ngIf`](displaying-data.html#ngIf)表示只有在选择的英雄存在时，才会包含`HeroDetail`组件。
-
-block dart-bool
 
 :marked
   **Attribute** directives alter the appearance or behavior of an existing element.
@@ -733,7 +719,7 @@ figure
 +makeExcerpt('src/app/logger.service.ts', 'class')
 
 :marked
-  Here's a `HeroService` that uses a !{_PromiseLinked} to fetch heroes.
+  Here's a `HeroService` that uses a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to fetch heroes.
   The `HeroService` depends on the `Logger` service and another `BackendService` that handles the server communication grunt work.
 
   下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺 (Promise)](http://exploringjs.com/es6/ch_promises.html) 返回它们。
@@ -834,18 +820,14 @@ figure
   简单点说，我们必须先用注入器（injector）为`HeroService`注册一个**提供商（provider）**。
   提供商用来创建或返回服务，通常就是这个服务类本身（相当于`new HeroService()`）。
 
-block registering-providers
-  :marked
-    You can register providers in modules or in components.
-    
-    我们可以在模块中或组件中注册提供商。
-    
-    In general, add providers to the [root module](#module) so that
-    the same instance of a service is available everywhere.
+
+:marked
+  You can register providers in modules or in components.
   
-    但通常会把提供商添加到[根模块](#module)上，以便在任何地方都使用服务的同一个实例。
-  
-  +makeExcerpt('src/app/app.module.ts (module providers)', 'providers')
+  我们可以在模块中或组件中注册提供商。In general, add providers to the [root module](#module) so that
+  the same instance of a service is available everywhere.但通常会把提供商添加到[根模块](#module)上，以便在任何地方都使用服务的同一个实例。
+
++makeExcerpt('src/app/app.module.ts (module providers)', 'providers')
 
 :marked
   Alternatively, register at a component level in the `providers` property of the `@Component` metadata:
@@ -995,9 +977,7 @@ block registering-providers
     
   > [**路由器**](router.html)：在应用程序客户端的页面间导航，并且不离开浏览器。
 
-block angular-feature-testing
+
   :marked
     > [**Testing**](testing.html): Run unit tests on your application parts as they interact with the Angular framework
-      using the _Angular Testing Platform_.
-  
-    > [**测试**](testing.html)：使用 _Angular 测试平台_，在你的应用部件与 Angular 框架交互时进行单元测试。
+    using the _Angular Testing Platform_.> [**测试**](testing.html)：使用 _Angular 测试平台_，在你的应用部件与 Angular 框架交互时进行单元测试。
