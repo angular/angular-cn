@@ -284,8 +284,8 @@ a(id="why-peer-dependencies")
   But Angular has a *peerDependencies* section in 
   *its* `package.json`, which has important consequences for your application. 
   
-  在“快速起步”的`package.json`文件中，并没有*peerDependencies*区。
-  但是Angular本身在[*它自己的* package.json](https://github.com/angular/angular/blob/master/modules/angular2/package.json)中有，
+  在“快速起步”的`package.json`文件中，并没有[*peerDependencies*](https://nodejs.org/en/blog/npm/peer-dependencies/)区。
+  但是Angular本身在*它自己的* `package.json` 中有，
   它对我们的应用程序有重要的影响。
   
   This section explains why you load the [polyfill](#polyfills) *dependency* packages in the QuickStart application's`package.json`,
