@@ -730,6 +730,8 @@ a#ngoninit
     Even with a 300ms pause between requests, you could have multiple HTTP requests in flight
     and they may not return in the order sent.
 
+    借助[switchMap操作符](http://www.learnrxjs.io/operators/transformation/switchmap.html)
+        (正式名称是`flatMapLatest`)
     每次符合条件的按键事件都会触发一次对`http`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
     我们仍然可能同时拥有多个在途的 HTTP 请求，并且它们返回的顺序未必就是发送时的顺序。
     
@@ -737,8 +739,8 @@ a#ngoninit
      only the observable from the most recent `http` method call.
     Results from prior calls are canceled and discarded.
     
-    `switchMap`保留了原始的请求顺序，并且只返回最近一次 `http` 调用返回的可观察对象。
-          这是因为以前的调用都被取消或丢弃了。
+    `switchMap()`保留了原始的请求顺序，并且只返回最近一次 `http` 调用返回的可观察对象。
+    这是因为以前的调用都被取消或丢弃了。
 
     If the search text is empty, the `http()` method call is also short circuited
     and an observable containing an empty array is returned.
@@ -752,6 +754,7 @@ a#ngoninit
     注意，_取消_`HeroSearchService`的可观察对象并不会实际中止 (abort) 一个未完成的 HTTP 请求，
     除非服务支持这个特性，这个问题我们以后再讨论。
     目前我们的做法只是丢弃不希望的结果。
+    
 :marked
   * `catch` intercepts a failed observable.
   The simple example prints the error to the console; a real life app would do better.

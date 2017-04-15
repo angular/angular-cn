@@ -591,8 +591,10 @@ a#component-fixture
 
   The `title` property value is interpolated into the DOM within `<h1>` tags.
   Use the fixture's `DebugElement` to `query` for the `<h1>` element by CSS selector.
+  
   `title`属性被插值到DOM的`<h1>`标签中。
   用CSS选择器从fixture的`DebugElement`中`query``<h1>`元素。
+  
   The **`query`** method takes a predicate function and searches the fixture's entire DOM tree for the 
   _first_ element that satisfies the predicate. 
   The result is a _different_ `DebugElement`, one associated with the matching DOM element.
@@ -601,7 +603,9 @@ a#component-fixture
 .l-sub-section
   :marked
     The `queryAll` method returns an array of _all_ `DebugElements` that satisfy the predicate.
+    
     `queryAll`方法返回一列数组，包含所有`DebugElement`中满足predicate的元素。
+    
     A _predicate_ is a function that returns a boolean. 
     A query predicate receives a `DebugElement` and returns `true` if the element meets the selection criteria.
     **predicate**是返回布尔值的函数。
@@ -1000,9 +1004,11 @@ a#welcome-spec-setup
     The second parameter to the Jasmine `it` (e.g., `'expected name'`) is an optional addendum.
     If the expectation fails, Jasmine displays this addendum after the expectation failure message.
     In a spec with multiple expectations, it can help clarify what went wrong and which expectation failed . 
-     Jasmine的`it`方法的第二个参数（比如`'expected name'`）是可选附加参数。
+    
+    Jasmine的`it`方法的第二个参数（比如`'expected name'`）是可选附加参数。
     如果这个期待失败了，Jasmine在期待失败信息后面显示这个附加参数。
     在拥有多个期待的spec中，它可以帮助澄清发生了什么错误，哪个期待失败了。
+    
 :marked
   The remaining tests confirm the logic of the component when the service returns different values.
   The second test validates the effect of changing the user name.
@@ -1144,6 +1150,7 @@ a#when-stable
   ### _whenStable_
 
   ## **whenStable**
+  
   The test must wait for the `getQuote` promise to resolve in the next turn of the JavaScript engine.
 
   测试程序必须等待`getQuote`在JavaScript引擎的下一回合中被解析。
@@ -1153,9 +1160,13 @@ a#when-stable
   probes only the component API surface.
 
   本测试对`twainService.getQuote`返回的承诺没有直接的访问，因为它被埋没在`TwainComponent.ngOnInit`里，
-  所以对于只测试组件API表面的测试来说，它是无法被访问的。Fortunately, the `getQuote` promise is accessible to the _async test zone_ ,
+  所以对于只测试组件API表面的测试来说，它是无法被访问的。
+  
+  Fortunately, the `getQuote` promise is accessible to the _async test zone_ ,
   which intercepts all promises issued within the _async_ method call _no matter where they occur_.
+  
   幸运的是，**异步测试区域**可以访问`getQuote`承诺，因为它拦截所有调用**异步**方法所发出的承诺，不管它们在哪儿。
+  
   The `ComponentFixture.whenStable` method returns its own promise, which resolves when the `getQuote` promise finishes.
   In fact, the _whenStable_ promise resolves when _all pending asynchronous activities within this test_ complete &mdash; the definition of "stable."
 
@@ -1728,22 +1739,28 @@ a#routed-component-w-param
   `HeroDetailComponent`  subscribes to `ActivatedRoute.params` changes in its `ngOnInit` method.
 
   `HeroDetailComponent`在它的`ngOnInit`方法中监听`ActivatedRoute.params`的变化。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.ts', 'ng-on-init', 'src/app/hero/hero-detail.component.ts (ngOnInit)')(format='.')
 .l-sub-section
   :marked
     The expression after `route.params` chains an _Observable_ operator that _plucks_ the `id` from the `params`
     and then chains a `forEach` operator to subscribe to `id`-changing events.
     The `id` changes every time the user navigates to a different hero.
+    
     `route.params`之后的表达式链接了**可观察**操作符，它从`params`中提取`id`，然后链接`forEach`操作符来订阅`id`变化事件。
     每次`id`变化时，用户被导航到不同的英雄。
+    
     The `forEach` passes the new `id` value to the component's `getHero` method (not shown)
     which fetches a hero and sets the component's `hero` property.
     If the`id` parameter is missing, the `pluck` operator fails and the `catch` treats failure as a request to edit a new hero.
+    
     `forEach`将新的`id`值传递到组件的`getHero`方法（这里没有列出来），它获取英雄并将它赋值到组件的`hero`属性。
     如果`id`参数无效，`pluck`操作符就会失败，`catch`将失败当作创建新英雄来处理。
+    
     The [Router](router.html#route-parameters) guide covers `ActivatedRoute.params` in more detail.
 
     [路由器](router.html#route-parameters)章更详尽的讲述了`ActivatedRoute.params`。
+    
 :marked
   A test can explore how the `HeroDetailComponent` responds to different `id` parameter values
   by manipulating the `ActivatedRoute` injected into the component's constructor.
@@ -1767,10 +1784,12 @@ a#stub-observable
   This is a cross-application, re-usable _test helper class_.
   Consider placing such helpers in a `testing` folder sibling to the `app` folder.
   This sample keeps `ActivatedRouteStub` in `testing/router-stubs.ts`:
+  
   `hero-detail.component.spec.ts`依赖`ActivatedRouteStub`来为每个测试程序设置`ActivatedRoute.params`值。
   它是跨应用、可复用的**测试辅助类**。
   我们建议将这样的辅助类放到`app`目录下的名为`testing`的目录。
   本例把`ActivatedRouteStub`放到`testing/router-stubs.ts`：
+  
 +makeExample('testing/ts/src/testing/router-stubs.ts', 'activated-route-stub', 'testing/router-stubs.ts (ActivatedRouteStub)')(format='.')
 :marked
   Notable features of this stub are:
@@ -1922,6 +1941,7 @@ figure.image-display
   A `createComponent` method creates a `page` objectand fills in the blanks once the `hero` arrives.
   
   `createComponent`方法创建`page`，在`hero`到来时，自动填补空白。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'create-component', 'src/app/hero/hero-detail.component.spec.ts (createComponent)')(format='.')
 
 :marked
@@ -2126,6 +2146,7 @@ a#override-component-method
   Focus on the `overrideComponent` method.
 
   注意这个`overrideComponent`方法。
+  
 +makeExample('testing/ts/src/app/hero/hero-detail.component.spec.ts', 'override-component-method', 'src/app/hero/hero-detail.component.spec.ts (overrideComponent)')(format='.')
 :marked
   It takes two arguments: the component type to override (`HeroDetailComponent`) and an override metadata object.
@@ -2197,8 +2218,10 @@ a#more-overrides
   The `TestBed.overrideComponent` method can be called multiple times for the same or different components.
   The `TestBed` offers similar `overrideDirective`, `overrideModule`, and `overridePipe` methods
   for digging into and replacing parts of these other classes.
+  
   `TestBed.overrideComponent`方法可以在相同或不同的组件中被反复调用。
   `TestBed`还提供了类似的`overrideDirective`、`overrideModule`和`overridePipe`方法，用来深入并重载这些其它类的部件。
+  
   Explore the options and combinations on your own.
 
   自己探索这些选项和组合。
@@ -3087,6 +3110,7 @@ table
         (`null` in this example):
 
         `TestBed.get`方法接受一个可选的第二参数，它是在Angular找不到所需提供商时返回的对象。（在本例中为`null`）：
+        
       +makeExample('testing/ts/src/app/bag/bag.spec.ts', 'testbed-get')(format=".")
       :marked
         After calling `get`, the `TestBed` configuration is frozen for the duration of the current spec.
@@ -3513,9 +3537,13 @@ a#query-predicate
   :marked
     Many custom application directives inject the `Renderer` and call one of its `set...` methods.
 
-    很多制定应用程序指令注入`Renderer`并调用它其中一个方法`set...`。The test environment substitutes the `DebugDomRender` for the runtime `Renderer`.
+    很多制定应用程序指令注入`Renderer`并调用它其中一个方法`set...`。
+    
+    The test environment substitutes the `DebugDomRender` for the runtime `Renderer`.
     The `DebugDomRender` updates additional dictionary properties of the `DebugElement`
-    when something calls a `set...` method.运行时的`Renderer`在测试环境中的替代品为`DebugDomRender`。
+    when something calls a `set...` method.
+    
+    运行时的`Renderer`在测试环境中的替代品为`DebugDomRender`。
     在调用`set...`方法时，`DebugDomRender`更新`DebugElement`额外词典属性。
   
     These dictionary properties are primarily of interest to authors of Angular DOM inspection tools

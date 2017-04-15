@@ -726,7 +726,7 @@ a#service-needs-service
   You call that property within the `getHeroes()` method when anyone asks for heroes.
   
   现在，这个构造函数要求注入一个`Logger`类的实例，并把它存到名为`logger`的私有属性中。
-    当别人请求英雄数据时，在`getHeroes`方法中调用这个属性的方法。
+    当别人请求英雄数据时，在`getHeroes()`方法中调用这个属性的方法。
 
 a#injectable
 :marked
@@ -1415,7 +1415,7 @@ a#injection-token
   You can call `get()` with a second parameter, which is the value to return if the service
   is not found. Angular can't find the service if it's not registered with this or any ancestor injector.
 
-  `get`方法如果不能解析所请求的服务，会抛出异常。
+  `get()`方法如果不能解析所请求的服务，会抛出异常。
   调用`get`时，还可以使用第二个参数，一旦获取的服务 (`ROUS`) 没有在当前或任何祖先注入器中注册过，
   就把它作为返回值。
 .l-sub-section

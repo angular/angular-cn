@@ -706,7 +706,7 @@ a#committing-changes
 
   The `onSubmit()` method simply replaces the `hero` object with the combined values of the form:
 
-  `onSubmit`方法直接使用表单的值得合集来替换`hero`对象：
+  `onSubmit()`方法直接使用表单的值得合集来替换`hero`对象：
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','on-submit')(format='.')
 .l-sub-section
   :marked
@@ -717,7 +717,7 @@ a#committing-changes
 :marked
   The `addHero()` method discards pending changes and creates a brand new `hero` model object.
 
-  `addHero`方法放弃未处理的变化，并创建一个崭新的`hero`模型对象。
+  `addHero()`方法放弃未处理的变化，并创建一个崭新的`hero`模型对象。
 +makeExample('cb-form-validation/ts/src/app/reactive/hero-form-reactive.component.ts','add-hero')(format='.')
 :marked
   Then it calls `buildForm()` again which replaces the previous `heroForm` control model with a new one.

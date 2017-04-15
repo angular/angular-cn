@@ -376,8 +376,9 @@ table(width="100%")
         Implements an `ngDoCheck()` method with custom change detection.
         See how often Angular calls this hook and watch it post changes to a log.
 
-        实现了一个`ngDoCheck`方法，通过它可以自定义变更检测逻辑。
+        实现了一个`ngDoCheck()`方法，通过它可以自定义变更检测逻辑。
         这里将会看到：Angular会用什么频度调用这个钩子，监视它的变化，并把这些变化输出成一条日志。
+        
   tr(style='vertical-align:top')
     td <a href="#afterview">AfterView</a>
     td
@@ -548,11 +549,11 @@ figure.image-display
 
   *Reset*按钮清除了这个`heroes`列表。
   Angular从DOM中移除了所有英雄的div，并且同时销毁了附加在这些div上的侦探指令。
-  侦探的`ngOnDestroy`方法汇报了它自己的临终时刻。
+  侦探的`ngOnDestroy()`方法汇报了它自己的临终时刻。
 
   The `ngOnInit()` and `ngOnDestroy()` methods have more vital roles to play in real applications.
   
-  在真实的应用程序中，`ngOnInit`和`ngOnDestroy`方法扮演着更重要的角色。
+  在真实的应用程序中，`ngOnInit()`和`ngOnDestroy()`方法扮演着更重要的角色。
   
 a#oninit
 :marked
@@ -612,14 +613,14 @@ a#oninit
     Angular calls `ngOnChanges()` before `ngOnInit()` and many times after that.
     It only calls `ngOnInit()` once.
 
-    我们访问这些属性的第一次机会，实际上是`ngOnChanges`方法，Angular会在`ngOnInit`之前调用它。
-    但是在那之后，Angular还会调用`ngOnChanges`很多次。而`ngOnInit`只会被调用一次。
+    我们访问这些属性的第一次机会，实际上是`ngOnChanges()`方法，Angular会在`ngOnInit()`之前调用它。
+    但是在那之后，Angular还会调用`ngOnChanges()`很多次。而`ngOnInit()`只会被调用一次。
     
 :marked
   You can count on Angular to call the `ngOnInit()` method _soon_ after creating the component.
   That's where the heavy initialization logic belongs.
   
-  你可以信任Angular会在创建组件后立刻调用`ngOnInit`方法。
+  你可以信任Angular会在创建组件后立刻调用`ngOnInit()`方法。
     这里是放置复杂初始化逻辑的好地方。
 
 a#ondestroy
@@ -651,7 +652,7 @@ a#onchanges
   Angular calls its `ngOnChanges()` method whenever it detects changes to ***input properties*** of the component (or directive).
 
   在这个例子中，我们监听了`OnChanges`钩子。
-  一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular就会调用它的`ngOnChanges`方法。
+  一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular就会调用它的`ngOnChanges()`方法。
   
   This example monitors the `OnChanges` hook.
 
@@ -663,7 +664,7 @@ a#onchanges
   [SimpleChange](../api/core/index/SimpleChange-class.html) object holding the current and previous property values.
   This hook iterates over the changed properties and logs them.
 
-  `ngOnChanges`方法获取了一个对象，它把每个发生变化的属性名都映射到了一个[SimpleChange](../api/core/index/SimpleChange-class.html)对象，
+  `ngOnChanges()`方法获取了一个对象，它把每个发生变化的属性名都映射到了一个[SimpleChange](../api/core/index/SimpleChange-class.html)对象，
   该对象中有属性的当前值和前一个值。我们在这些发生了变化的属性上进行迭代，并记录它们。
 
   The example component, `OnChangesComponent`, has two input properties: `hero` and `power`.
@@ -801,14 +802,14 @@ a#wait-a-tick
   
   The `doSomething()` method updates the screen when the hero name exceeds 10 characters.
 
-  当英雄的名字超过10个字符时，`doSomething`方法就会更新屏幕。
+  当英雄的名字超过10个字符时，`doSomething()`方法就会更新屏幕。
 
 +makeExample('lifecycle-hooks/ts/src/app/after-view.component.ts', 'do-something', 'AfterViewComponent (doSomething)')(format=".")
 
 :marked
   Why does the `doSomething()` method wait a tick before updating `comment`?
 
-  为什么在更新`comment`属性之前，`doSomething`方法要等上一拍(tick)？
+  为什么在更新`comment`属性之前，`doSomething()`方法要等上一拍(tick)？
 
   Angular's unidirectional data flow rule forbids updates to the view *after* it has been composed.
   Both of these hooks fire _after_ the component's view has been composed.
@@ -949,7 +950,7 @@ a#no-unidirectional-flow-worries
    This component's `doSomething()` method update's the component's data-bound `comment` property immediately.
    There's no [need to wait](#wait-a-tick).
 
-   该组件的`doSomething`方法立即更新了组件被绑定的`comment`属性。
+   该组件的`doSomething()`方法立即更新了组件被绑定的`comment`属性。
    它[不用等](#wait-a-tick)下一回合。
 
    Recall that Angular calls both *AfterContent* hooks before calling either of the *AfterView* hooks.

@@ -2764,10 +2764,6 @@ a#add-secondary-route
 
   You are in effect saying, _when the user clicks this link, display the component associated with the `compose` route in the `popup` outlet_.
 
-  要使用`Router`进行相对导航，可以使用`ActivatedRoute`来告诉路由器我们正在*RouterState*中的什么地方，*RouterState*是激活路由组成的树。
-  要做到这一点，我们可以为`router.navigate`方法中*链接参数数组*后的对象型参数指定**relativeTo**属性。
-  只要把这个`relativeTo`属性设置为我们的`ActivatedRoute`，路由器就会把我们的导航信息和当前URL合并在一起。
-
 .l-sub-section
   :marked
     This `outlets` object within an outer object was completely unnecessary
@@ -3369,7 +3365,7 @@ a#CanDeactivate
   wanted to use this guard for this component and needed to get 
   the component's properties or confirm whether the router should allow navigation away from it.
 
-  另外，我们也可以为`CrisisDetailComponent`创建一个特定的`CanDeactivate`守卫。在需要访问外部信息时，`canDeactivate`方法为提供了组件、`ActivatedRoute`和`RouterStateSnapshot`的当前实例。如果只想为这个组件使用该守卫，并且需要使用该组件属性、或者需要路由器确认是否允许从该组件导航出去时，这个守卫就非常有用。
+  另外，我们也可以为`CrisisDetailComponent`创建一个特定的`CanDeactivate`守卫。在需要访问外部信息时，`canDeactivate()`方法为提供了组件、`ActivatedRoute`和`RouterStateSnapshot`的当前实例。如果只想为这个组件使用该守卫，并且需要使用该组件属性、或者需要路由器确认是否允许从该组件导航出去时，这个守卫就非常有用。
 
 +makeExcerpt('src/app/can-deactivate-guard.service.1.ts (component-specific)', '')
 

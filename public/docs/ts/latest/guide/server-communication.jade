@@ -432,7 +432,7 @@ a#HeroService
   In fact, the `http.get` method returns an **Observable** of HTTP Responses (`Observable<Response>`) from the RxJS library
   and `map()` is one of the RxJS *operators*.
   
-  事实上，`http.get`方法返回了一个 HTTP Response 类型的**可观察对象** (`Observable<Response>`)，这个对象来自 RxJS 库，而`map`是 RxJS 的*操作符*之一。
+  事实上，`http.get`方法返回了一个 HTTP Response 类型的**可观察对象** (`Observable<Response>`)，这个对象来自 RxJS 库，而`map()`是 RxJS 的*操作符*之一。
 
 a#rxjs-library
 .l-main-section
@@ -474,7 +474,7 @@ a#rxjs-library
   The `getHeroes()` method needs the `map()` and `catch()` operators so it imports them like this.
   
   每个代码文件都需要把它需要的操作符从RxJS库中导入，并添加进来。
-  `getHeroes`方法需要一个`map`和一个`catch`操作符，那就像这样导入它：
+  `getHeroes()`方法需要一个`map()`和一个`catch()`操作符，那就像这样导入它：
   
 +makeExample('server-communication/ts/src/app/toh/hero.service.ts', 'rxjs-imports', 'src/app/app.component.ts (import rxjs)')(format=".")
 
@@ -605,7 +605,7 @@ block error-handling
     The `handleError` method transforms the error into a developer-friendly message,
     logs it to the console, and returns the message in a new, failed Observable via `Observable.throw`.
 
-    `catch`操作符将错误对象传递给`http`的`handleError`方法。
+    `catch()`操作符将错误对象传递给`http`的`handleError()`方法。
     服务处理器 (`handleError`) 把响应对象记录到控制台中，
     把错误转换成对用户友好的消息，并且通过`Observable.throw`来把这个消息放进一个新的、用于表示“失败”的可观察对象。
 
@@ -710,7 +710,7 @@ a#headers
   
   In the `return` statement, `options` is the *third* argument of the `post()` method, as shown above.
 
-  在`return`声明中，`options`是传给`post`方法的*第三个*参数，就像前面见过的那样。
+  在`return`声明中，`options`是传给`post()`方法的*第三个*参数，就像前面见过的那样。
 
 a#json-results
 :marked
@@ -799,7 +799,7 @@ h2#promises 倒退为承诺 (Promise)
   The only obvious difference is that you call `then()` on the returned Promise instead of `subscribe`.
   Both methods take the same functional arguments.
   
-  唯一一个比较明显的不同点是我们调用这个返回的承诺的`then`方法，而不再是`subscribe`。
+  唯一一个比较明显的不同点是我们调用这个返回的承诺的`then()`方法，而不再是`subscribe`。
   我们给了这两个方法完全相同的调用参数。
 .l-sub-section
   :marked
@@ -809,14 +809,14 @@ h2#promises 倒退为承诺 (Promise)
     
     The Promise-based `then()` returns another Promise. You can keep chaining more `then()` and `catch()` calls, getting a new promise each time.
 
-    基于承诺的`then`返回了另一个承诺。我们可以链式调用多个`then`和`catch`方法，每次都返回一个新的承诺。
+    基于承诺的`then()`返回了另一个承诺。我们可以链式调用多个`then()`和`catch()`方法，每次都返回一个新的承诺。
     
     The `subscribe()` method returns a `Subscription`. A `Subscription` is not another `Observable`.
     It's the end of the line for Observables. You can't call `map()` on it or call `subscribe()` again.
     The `Subscription` object has a different purpose, signified by its primary method, `unsubscribe`.
 
-    但`subscribe`方法返回一个`Subscription`对象。但`Subscription`不是另一个`Observable`。
-    它是可观察对象的末端。我们不能在它上面调用`map`函数或再次调用`subscribe`函数。
+    但`subscribe()`方法返回一个`Subscription`对象。但`Subscription`不是另一个`Observable`。
+    它是可观察对象的末端。我们不能在它上面调用`map()`函数或再次调用`subscribe()`函数。
     `Subscription`对象的设计目的是不同的，这从它的主方法`unsubscribe`就能看出来。
     
     To understand the implications and consequences of subscriptions, watch [Ben Lesh's talk on Observables](https://www.youtube.com/watch?v=3LKMwkuK0ZE) or his video course on [egghead.io](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises).
@@ -1112,7 +1112,7 @@ block wikipedia-jsonp+
     The `search()` method adds each new search box value to that stream via the subject's `next()` method.
 
     组件创建`searchTermStream`为`string`类型的`Subject`。
-    `search`方法通过`subject`的`next`方法，将每个新搜索框的值添加到数据流中。
+    `search()`方法通过`subject`的`next()`方法，将每个新搜索框的值添加到数据流中。
 
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'subject')(format='.')
 
@@ -1316,7 +1316,7 @@ block redirect-to-web-api
       The `forRoot()` method name is a strong reminder that you should only call the `InMemoryWebApiModule` _once_,
       while setting the metadata for the root `AppModule`. Don't call it again.
 
-      `forRoot`方法的名字告诉我们，应该只在设置根模块`AppModule`时调用`InMemoryWebApiModule`*一次*。不要再次调用它。
+      `forRoot()`方法的名字告诉我们，应该只在设置根模块`AppModule`时调用`InMemoryWebApiModule`*一次*。不要再次调用它。
 
 :marked
   Here is the final, revised version of <code>src/app/app.module.ts</code>, demonstrating these steps.

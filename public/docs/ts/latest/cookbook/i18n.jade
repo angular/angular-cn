@@ -759,7 +759,7 @@ a#create-translation-providers
   1. The `getTranslationsWithSystemJs()` method reads the translation and returns the contents as a string.
   Notice that it appends `!text` to the filename, telling SystemJS to use the [text plugin](#text-plugin).
 
-      `getTranslationsWithSystemJs`方法读取翻译并以字符串的形式返回其内容。
+      `getTranslationsWithSystemJs()`方法读取翻译并以字符串的形式返回其内容。
   注意它在文件名上附加`!text`，告诉SystemJS使用[文本插件](#text-plugin)。
 
   1. The callback composes a providers array with the three translation providers.
@@ -779,7 +779,7 @@ a#bootstrap-the-app
   The Angular `bootstrapModule()` method has a second _options_ parameter
   that can influence the behavior of the compiler.
 
-  Angular的`bootstrapModule`方法接受**可选的**第二参数，它可以影响编译器的行为。
+  Angular的`bootstrapModule()`方法接受**可选的**第二参数，它可以影响编译器的行为。
 
   You'll create an _options_ object with the translation providers from `getTranslationProviders()`
   and pass it to `bootstrapModule`.
