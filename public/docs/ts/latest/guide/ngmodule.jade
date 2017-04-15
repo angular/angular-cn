@@ -429,6 +429,7 @@ a#declarations
   我们重写了`AppComponent`来把这个新的`TitleComponent`显示到`<app-title>`元素中，并使用一个输入型绑定来设置`subtitle`。
 
 +makeExample('ngmodule/ts/src/app/app.component.1.ts', '', 'src/app/app.component.ts (v1)')(format=".")
+
 :marked
   Angular won't recognize the `<app-title>` tag until you declare it in `AppModule`.
   Import the `TitleComponent` class and add it to the module's `declarations`:
@@ -485,11 +486,13 @@ a#providers
   更新`TitleComponent`，为它加入一个构造函数，注入`UserService`类，并把组件的`user`属性设置为它的实例。
 
 +makeExample('ngmodule/ts/src/app/title.component.ts', '', 'src/app/title.component.ts')(format=".")
+
 :marked
   You've defined and used the service. Now to _provide_ it for all components to use,
   add it to a `providers` property in the `AppModule` metadata:
 
   我们已经_定义_并_使用了_该服务。现在，我们通过把它加入`AppModule`元数据的`providers`属性中，来把它_提供_给所有组件使用。
+  
 +makeExample('ngmodule/ts/src/app/app.module.1.ts', 'providers', 'src/app/app.module.ts (providers)')(format=".")
 
 a#imports
@@ -505,6 +508,7 @@ a#imports
   注意，在修改过的`TitleComponent`中，有一个`*ngIf`指令在“守卫着”该消息。如果没有当前用户，就没有任何消息。
 
 +makeExample('ngmodule/ts/src/app/title.component.html', 'ngIf', 'src/app/title.component.html (ngIf)')(format=".")
+
 :marked
   Although `AppModule` doesn't declare `NgIf`, the application still compiles and runs.
   How can that be? The Angular compiler should either ignore or complain about unrecognized HTML.
@@ -517,6 +521,7 @@ a#imports
   Angular 能识别`NgIf`指令，是因为我们以前导入过它。最初版本的`AppModule`就导入了`BrowserModule`。
 
 +makeExample('ngmodule/ts/src/app/app.module.0.ts', 'imports', 'src/app/app.module.ts (imports)')(format=".")
+
 :marked
   Importing `BrowserModule` made all of its public components, directives, and pipes visible
   to the component templates in `AppModule`.
@@ -594,6 +599,7 @@ a#imports
 
   `ContactComponent`的选择器会去匹配名叫`<app-contact>`的元素。
   在`AppComponent`模板中`<app-title>`的下方添加一个具有此名字的元素：
+  
 +makeExample('ngmodule/ts/src/app/app.component.1b.ts', 'template', 'src/app/app.component.ts (template)')(format=".")
 
 :marked
@@ -664,6 +670,7 @@ a#imports
   把`FormsModule`加到`AppModule`元数据中的`imports`列表中：
 
 +makeExample('ngmodule/ts/src/app/app.module.1.ts', 'imports')(format=".")
+
 :marked
   Now `[(ngModel)]` binding will work and the user input will be validated by Angular forms,
   once you declare the new component, pipe, and directive.
@@ -712,6 +719,7 @@ a#import-name-conflict
     我们只要在 import 时使用`as`关键字来为第二个指令创建个别名就可以了。
     
   +makeExample('ngmodule/ts/src/app/app.module.1b.ts', 'import-alias')(format=".")
+  
   :marked
     This solves the immediate issue of referencing both directive _types_ in the same file but
     leaves another issue unresolved.
@@ -1033,6 +1041,7 @@ a#contact-module-v1
   下面是新的`ContactModule`：
 
 +makeExample('ngmodule/ts/src/app/contact/contact.module.2.ts', '', 'src/app/contact/contact.module.ts')
+
 :marked
   You copy from `AppModule` the contact-related import statements and `@NgModule` properties
   that concern the contact, and paste them into `ContactModule`.
@@ -1106,12 +1115,14 @@ a#contact-module-v1
   Here's the refactored version of the `AppModule` along with the previous version.
 
   下面是`AppModule`重构完的版本与之前版本的对比。
+  
 +makeTabs(
   `ngmodule/ts/src/app/app.module.2.ts,
    ngmodule/ts/src/app/app.module.1b.ts`,
    '',
   `src/app/app.module.ts (v2),
    src/app/app.module.ts (v1)`)
+
 :marked
   ### Improvements
 
@@ -1120,7 +1131,7 @@ a#contact-module-v1
 :marked
   There's a lot to like in the revised `AppModule`.
   
-  修改后的`AppModule`有很令人喜欢的特征。
+  修改后的`AppModule`有一些很棒的特性。
 
   * It does not change as the _Contact_ domain grows.
 
@@ -1211,8 +1222,9 @@ a#lazy-load
     `HeroModule`和`CrisisModule`会被惰性加载。
 
   <a id="app-component-template"></a>
+  
   The new `AppComponent` templatehas
-  a title, three links, and a `<router-outlet>`.<a id="app-component-template"></a>
+  a title, three links, and a `<router-outlet>`.
   
   我们从这个`AppComponent`新模板的顶部看起：标题、三个链接和`<router-outlet>`。
   
@@ -1228,6 +1240,7 @@ a#lazy-load
   对`AppModule`进行适度的修改：
 
 +makeExample('ngmodule/ts/src/app/app.module.3.ts', '', 'src/app/app.module.ts (v3)')
+
 .l-sub-section
   :marked
     Some file names bear a `.3` extension that indicates
@@ -1262,6 +1275,7 @@ a#lazy-load
   ### 应用路由
 
 +makeExample('ngmodule/ts/src/app/app-routing.module.ts', '', 'src/app/app-routing.module.ts')(format='.')
+
 :marked
   The router is the subject of the [Routing & Navigation](router.html) page, so this section skips many of the details and
   concentrates on the intersection of NgModules and routing.
@@ -1309,6 +1323,7 @@ a#lazy-load
   `RouterModule`类的`forRoot`静态方法和提供的配置，被添加到`imports`数组中，提供该模块的路由信息。
 
 +makeExample('ngmodule/ts/src/app/app-routing.module.ts', 'forRoot')(format='.')
+
 :marked
   The returned `AppRoutingModule` class is a `Routing Module` containing both the `RouterModule` directives
   and the dependency-injection providers that produce a configured `Router`.
@@ -1341,7 +1356,9 @@ a#lazy-load
 
   `src/app/contact`目录中也有一个新文件`contact-routing.module.ts`。
   它定义了我们前面提到过的`联系人`路由，并提供了`ContactRoutingModule`，就像这样：
+  
 +makeExample('ngmodule/ts/src/app/contact/contact-routing.module.ts', 'routing', 'src/app/contact/contact-routing.module.ts (routing)')(format='.')
+
 :marked
   This time you pass the route list to the `forChild` method of the `RouterModule`.
   The route list is only responsible for providing additional routes and is intended for feature modules.
@@ -1631,15 +1648,15 @@ a#core-module
 
     创建`src/app/core`文件夹
 
-  * Move the `UserService` and `TitleComponent` from `src/app/` to `src/app/core`.
+  1. Move the `UserService` and `TitleComponent` from `src/app/` to `src/app/core`.
 
     把`UserService`和`TitleComponent`从`src/app`移到`src/app/core`中
     
-  * Create a `CoreModule` class to own the core material.
+  1. Create a `CoreModule` class to own the core material.
 
     创建`CoreModule`类来管理这些核心素材
 
-  * Update the `AppRoot` module to  import `CoreModule`.
+  1. Update the `AppRoot` module to  import `CoreModule`.
   
     修改`AppRoot`模块，使其导入`CoreModule`模块
 
@@ -1864,11 +1881,14 @@ a#core-for-root
   这里的`CoreModule.forRoot`接收`UserServiceConfig`对象：
 
 +makeExample('ngmodule/ts/src/app/core/core.module.ts', 'for-root', 'src/app/core/core.module.ts (forRoot)')(format='.')
+
 :marked
   Lastly, call it within the `imports` list of the `AppModule`.
 
   最后，我们在`AppModule`的`imports`*列表*中调用它。
+  
 +makeExample('ngmodule/ts/src/app/app.module.ts', 'import-for-root', 'src/app//app.module.ts (imports)')(format='.')
+
 :marked
   The app displays "Miss Marple" as the user instead of the default "Sherlock Holmes".
 
