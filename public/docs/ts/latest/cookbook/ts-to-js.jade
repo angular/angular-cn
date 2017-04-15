@@ -20,6 +20,8 @@ include ../../../../_includes/_util-fns
 a#toc
 :marked
   ## Table of contents
+  
+  ## 目录
 
   * [_TypeScript_ to _ES6_ to _ES5_](#from-ts)<br>
 
@@ -179,7 +181,9 @@ a#modularity
   当想要让某个东西对其它模块可用时，就`export`它。
   
   _ES5_ lacks native support for modules. 
-  In an Angular _ES5_ application, you load each file manually by adding a `<script>` tag to `index.html`. _ES5_ 不支持模块。在 Angular _ES5_ 应用中，需要在`index.html`中添加`<script>`标签，手工加载每个文件。
+  In an Angular _ES5_ application, you load each file manually by adding a `<script>` tag to `index.html`. 
+  
+  _ES5_ 不支持模块。在 Angular _ES5_ 应用中，需要在`index.html`中添加`<script>`标签，手工加载每个文件。
   
 .alert.is-important
   :marked
@@ -204,6 +208,7 @@ a#modularity
   Every _ES5_ file should wrap code in an 
   [Immediately Invoked Function Expression (IIFE)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
   to limit unintentional leaking of private symbols into the global scope.
+  
   每个 _ES5_ 文件都应包裹在[立即调用函数表达式 (IIFE)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression) 中，
   防止把私有符号无意地泄漏到全局作用域。
   
