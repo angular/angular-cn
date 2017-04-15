@@ -128,6 +128,7 @@ figure
     装饰器是用来修饰 JavaScript 类的函数。
     Angular 有很多装饰器，它们负责把元数据附加到类上，以了解那些类的设计意图以及它们应如何工作。
     关于装饰器的<a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0" target="_blank">更多信息</a>。
+    
 :marked
   `NgModule` is a decorator function that takes a single metadata object whose properties describe the module. 
   The most important properties are:
@@ -242,12 +243,14 @@ figure
   例如，象下面这样，从`@angular/core`库中导入`Component`装饰器：
   
 +makeExample('src/app/app.component.ts', 'import', '')(format='.')
+
 :marked
   You also import Angular _modules_ from Angular _libraries_ using JavaScript import statements:
   
   还可以使用 JavaScript 的导入语句从 Angular _库_中导入 Angular _模块_。
   
 +makeExample('src/app/mini-app.ts', 'import-browser-module', '')(format='.')
+
 :marked
   In the example of the simple root module above, the application module needs material from within that `BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
   
@@ -411,7 +414,7 @@ figure
   In TypeScript, you attach metadata by using a **decorator**.
   Here's some metadata for `HeroListComponent`:
 
-  在!{_Lang} 中，我们用**装饰器 (!{_decorator}) **来附加元数据。
+  在TypeScript中，我们用**装饰器 (decorator) **来附加元数据。
   下面就是`HeroListComponent`的一些元数据。
 
 +makeExcerpt('src/app/hero-list.component.ts', 'metadata')
@@ -824,8 +827,12 @@ figure
 :marked
   You can register providers in modules or in components.
   
-  我们可以在模块中或组件中注册提供商。In general, add providers to the [root module](#module) so that
-  the same instance of a service is available everywhere.但通常会把提供商添加到[根模块](#module)上，以便在任何地方都使用服务的同一个实例。
+  我们可以在模块中或组件中注册提供商。
+  
+  In general, add providers to the [root module](#module) so that
+  the same instance of a service is available everywhere.
+  
+  但通常会把提供商添加到[根模块](#module)上，以便在任何地方都使用服务的同一个实例。
 
 +makeExcerpt('src/app/app.module.ts (module providers)', 'providers')
 
@@ -980,4 +987,6 @@ figure
 
   :marked
     > [**Testing**](testing.html): Run unit tests on your application parts as they interact with the Angular framework
-    using the _Angular Testing Platform_.> [**测试**](testing.html)：使用 _Angular 测试平台_，在你的应用部件与 Angular 框架交互时进行单元测试。
+    using the _Angular Testing Platform_.
+    
+    > [**测试**](testing.html)：使用 _Angular 测试平台_，在你的应用部件与 Angular 框架交互时进行单元测试。
