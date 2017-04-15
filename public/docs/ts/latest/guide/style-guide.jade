@@ -13,17 +13,49 @@ a#toc
 
 :marked
   # Contents
+  
+  # 目录
 
     * [Single responsibility](#single-responsibility)
+
+      [单一职责](#single-responsibility)
+
     * [Naming](#naming)
+
+      [命名](#naming)
+
     * [Coding conventions](#coding-conventions)
+
+      [代码规约](#coding-conventions)
+
     * [App structure and Angular modules](#application-structure-and-angular-modules)
+
+      [应用结构与Angular模块](#application-structure-and-angular-modules)
+
     * [Components](#components)
+
+      [组件](#components)
+
     * [Directives](#directives)
+
+      [指令](#directives)
+
     * [Services](#services)
+
+      [服务](#services)
+
     * [Data services](#data-services)
+
+      [数据服务](#data-services)
+
     * [Lifecycle hooks](#lifecycle-hooks)
+
+      [生命周期钩子](#lifecycle-hooks)
+
     * [Appendix](#appendix)
+
+      [附录](#appendix)
+
 
 .l-main-section
 :marked
@@ -506,7 +538,7 @@ a(href="#toc").to-top 回到顶部
     For example, something that gets data or heroes 
     should be called a `DataService` or a `HeroService`.
     
-    **坚持**使用大写驼峰命名法命名服务。
+    **坚持**为服务的类名加上`Service`后缀。
     例如，获取数据或英雄列表的服务应该命名为`DataService`或`HeroService`。
 
     A few terms are unambiguously services. They typically 
@@ -515,7 +547,7 @@ a(href="#toc").to-top 回到顶部
     Decide if this exception is agreeable in your project. 
     As always, strive for consistency.
 
-    有些词汇显然就是服务，比如那些以“er”后缀结尾的。比如把记日志的服务命名为`Logger`就比`LoggerService`更好些。需要在你的项目中决定这种特例是否可以接受。
+    有些词汇显然就是服务，比如那些以“-er”后缀结尾的。比如把记日志的服务命名为`Logger`就比`LoggerService`更好些。需要在你的项目中决定这种特例是否可以接受。
     但无论如何，都要尽量保持一致。
 
 .s-why
@@ -1082,10 +1114,10 @@ a(href="#toc").to-top 回到顶部
 :marked
   ### <a id="03-01"></a>Class
 
-    ### <a id="03-01"></a>类
+  ### <a id="03-01"></a>类
   #### <a href="#03-01">Style 03-01</a>
 
-    #### <a href="#03-01">风格 03-01</a>
+  #### <a href="#03-01">风格 03-01</a>
 
 .s-rule.do
   :marked
@@ -1165,6 +1197,7 @@ a(href="#toc").to-top 回到顶部
     **为何？** 把常量命名为大写蛇形命名法的传统源于现代 IDE 出现之前，
     以便阅读时可以快速发现那些`const`定义。
     TypeScript 本身就能够防止意外赋值。
+    
 .s-rule.do
   :marked
     **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
@@ -1575,7 +1608,7 @@ a(href="#toc").to-top 回到顶部
 
     **为何？**虽然 DRY 很重要，但如果要以牺牲 LIFT 的其它原则为代价，那就不值得了。
     这也就是为什么它被称为 *T-DRY*。
-    例如，把组件命名为`hero-view.component.html`是多余的，因为组件显然就是一个视图 (view)。
+    例如，把组件命名为`hero-view.component.html`是多余的，因为带有`.html`扩展名的文件显然就是一个视图 (view)。
     但如果它不那么显著，或不符合常规，就把它写出来。
 
 a(href="#toc").to-top Back to top
@@ -1932,8 +1965,8 @@ a(href="#toc").to-top 回到顶部
     singletons that are provided once for the entire application or 
     in a particular feature module.
 
-    **坚持**把可能被应用其它特性模块使用的公共组件、指令和管道放在`SharedModule`中，这些资产倾向于共享自己的新实例（而不是单例）。
-
+    **避免** 在共享模块中提供服务。服务通常是单例的，应该在整个应用或一个特定的特性模块中只有一份。
+    
 .s-rule.do
   :marked
     **Do** import all modules required by the assets in the `SharedModule`;
@@ -2310,9 +2343,12 @@ a(href="#toc").to-top 回到顶部
 :marked
   ## Components
 
-  ##组件### <a id="05-02"></a>Component selector nams
+  ##组件
+  
+  ### <a id="05-02"></a>Component selector nams
 
   ### <a id="05-02"></a>组件选择器命名
+  
   #### <a href="#05-02">Style 05-02</a>
 
   #### <a href="#05-02">风格05-02</a>
@@ -2479,7 +2515,7 @@ a(href="#toc").to-top 回到顶部
     **Do** use the `@Input()` and `@Output()` class decorators instead of the `inputs` and `outputs` properties of the 
     `@Directive` and `@Component` metadata:
 
-    **坚持** 使用`@Input`和`@Output`，而非`@Directive`和`@Component`装饰器的`inputs`和`outputs`属性:
+    **坚持** 使用`@Input()`和`@Output()`，而非`@Directive`和`@Component`装饰器的`inputs`和`outputs`属性:
 
 .s-rule.consider
   :marked
@@ -2975,7 +3011,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** use the `@Injectable()` class decorator instead of the `@Inject` parameter decorator when using types as tokens for the dependencies of a service.
 
-    **坚持**当使用类型作为令牌来注入服务的依赖时，使用`@Injectable`类装饰器，而非`@Inject`参数装饰器。
+    **坚持**当使用类型作为令牌来注入服务的依赖时，使用`@Injectable()`类装饰器，而非`@Inject()`参数装饰器。
 
 .s-why
   :marked
