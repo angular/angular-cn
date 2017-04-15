@@ -34,7 +34,7 @@ a#top
       
     * [Multiple bundles](#multiple-bundles)
     
-      [多重编译包](#multiple-bundles)
+      [多重包](#multiple-bundles)
     
     * [Loaders](#loaders)
 
@@ -49,6 +49,7 @@ a#top
     [配置Webpack](#configure-webpack)
 
     * [Polyfills](#polyfills)
+    
     * [Common configuration](#common-configuration)
       
       [公共配置](#common-configuration)
@@ -161,8 +162,8 @@ a(id="entries-outputs")
   It sees that you're importing `@angular/core` so it adds that to its dependency list for potential inclusion in the bundle.
   It opens the `@angular/core` file and follows _its_ network of `import` statements until it has built the complete dependency graph from `main.ts` down.
   
-  这里，Webpack看到我们正在导入*@angular/core*，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包中做准备。
-  它打开*@angular/core*并追踪由_该文件的_`import`语句构成的网络，直到构建出从`app.ts`往下的整个依赖图谱。
+  这里，Webpack看到我们正在导入`@angular/core`，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包中做准备。
+  它打开`@angular/core`并追踪由_该文件的_`import`语句构成的网络，直到构建出从`main.ts`往下的整个依赖图谱。
   
   Then it **outputs** these files to the `app.js` _bundle file_ designated in configuration:
   
@@ -194,7 +195,7 @@ a#multiple-bundles
   
   Change the configuration so that it has two entry points, `main.ts` and `vendor.ts`:
   
-  所以要修改配置，以获得两个入口点：`app.ts`和`vendor.ts`：
+  所以要修改配置，以获得两个入口点：`main.ts`和`vendor.ts`：
 
 .code-example
   code-example(language="javascript").
@@ -481,6 +482,7 @@ a#common-entries
 a#common-resolve
 :marked
   #### _resolve_ extension-less imports
+  
   #### _resolve_ 无扩展名的文件导入
 
   The app will `import` dozens if not hundreds of JavaScript and TypeScript files.
@@ -547,8 +549,8 @@ a#common-rules
     where the component-scoped styles sit. The `ExtractTextPlugin` (described below) applies the `style` and `css`
     loaders to these files.
 
-    第一个模式排除了`/src/app`目录下的`.css`文件，因为那里放着我们的组件局部样式。
-    它只包含了那些位于`/src`及其上级目录的`.css`文件，那里是应用级样式。
+    第一个模式是给全局样式使用的，它排除了`/src/app`目录下的`.css`文件，因为那里放着我们的组件局部样式。
+    它只包含了那些位于`/src/app`及其上级目录的`.css`文件，那里是应用级样式。
     `ExtractTextPlugin`(后面会讲到)使用`style`和`css`加载器来处理这些文件。
 
     The second pattern filters for component-scoped styles and loads them as strings via the `raw-loader`,
@@ -668,7 +670,7 @@ a(id="development-configuration")
   
   Refer to the [Webpack documentation](https://webpack.github.io/docs/) for details on these and other configuration options in this file.
   
-  要了解本文件中这些以及其它配置项的详情，请参阅Webpack文档。
+  要了解本文件中这些以及其它配置项的详情，请参阅[Webpack文档](https://webpack.github.io/docs/)。
   
   Grab the app code at the end of this guide and try:
   
@@ -772,7 +774,7 @@ a(id="test-configuration")
 :marked
   Reconfigure [Karma](https://karma-runner.github.io/1.0/index.html) to use Webpack to run the tests:
   
-  重新配置Karma，让它使用webpack来运行这些测试：
+  重新配置[Karma](https://karma-runner.github.io/1.0/index.html)，让它使用webpack来运行这些测试：
   
 +makeExample('webpack/ts/config/karma.conf.js', null, 'config/karma.conf.js')(format=".")
 
