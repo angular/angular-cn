@@ -121,10 +121,12 @@ a#overview
   The application is bigger because it includes the Angular compiler
   and a lot of library code that the application won't actually need.
   Bigger apps take longer to transmit and are slower to load.
+  
   JIT编译导致运行期间的性能损耗。
   由于需要在浏览器中执行这个编译过程，视图需要花更长时间才能渲染出来。
   由于应用包含了Angular编译器以及大量实际上并不需要的库代码，所以文件体积也会更大。
   更大的应用需要更长的时间进行传输，加载也更慢。
+  
   Compilation can uncover many component-template binding errors.
   JIT compilation discovers them at runtime, which is late in the process.
 
@@ -144,14 +146,15 @@ a#aot-jit
   There is actually only one Angular compiler. The difference between AOT and JIT is a matter of timing and tooling.
   With AOT, the compiler runs once at build time using one set of libraries;
   with JIT it runs every time for every user at runtime using a different set of libraries.
-a#why-aot
-:marked
+
   事实上只有一个Angular编译器，AOT和JIT之间的差别仅仅在于编译的时机和所用的工具。
   使用AOT，编译器仅仅使用一组库在构建期间运行一次；使用JIT，编译器在每个用户的每次运行期间都要用不同的库运行一次。
 
+a#why-aot
+:marked
   ## Why do AOT compilation?
 
-  ### 为什么需要AOT编译？
+  ## 为什么需要AOT编译？
 
   *Faster rendering*
 
@@ -170,7 +173,7 @@ a#why-aot
   The compiler _inlines_ external HTML templates and CSS style sheets within the application JavaScript,
   eliminating separate ajax requests for those source files.
 
-  编译器把外部html模板和css样式表内联到了该应用的JavaScript中。
+  编译器把外部HTML模板和CSS样式表内联到了该应用的JavaScript中。
   消除了用来下载那些源文件的Ajax请求。
 
   *Smaller Angular framework download size*
@@ -215,7 +218,7 @@ a#compile
   A few minor changes to the lone `app.component` lead to these two class and HTML files:
 
   AOT编译需要一些简单的准备步骤。我们先从<a href='../guide/setup.html'>搭建本地开发环境</a>开始。
-  只要单独对`app.component`文件的类文件和html文件做少量修改就可以了。
+  只要单独对`app.component`文件的类文件和HTML文件做少量修改就可以了。
 
 +makeTabs(
   `cb-aot-compiler/ts/src/app/app.component.html,
@@ -261,7 +264,7 @@ code-example(language="none" class="code-shell").
   to store the compiled output files in a new `aot` folder.
 
   `ngc`区真正新增的内容是底部的`angularCompilerOptions`。
-  它的`"genDir"`属性告诉编译器把编译结果保存在新的`aot`目录下。
+  它的`genDir`属性告诉编译器把编译结果保存在新的`aot`目录下。
 
   The `"skipMetadataEmit" : true` property prevents the compiler from generating metadata files with the compiled application.
   Metadata files are not necessary when targeting TypeScript files, so there is no reason to include them.
@@ -281,7 +284,7 @@ code-example(language="none" class="code-shell").
 :marked
   ***Compiling the application***
 
-  ### 编译该应用
+  *** 编译该应用 ***
 
   Initiate AOT compilation from the command line using the previously installed `ngc` compiler by executing:
 
@@ -371,7 +374,7 @@ a#bootstrap
 :marked
   Be sure to [recompile](#compiling-aot) with `ngc`!
 
-  确保用`ngc`进行重新编译！
+  确保用`ngc`进行[重新编译](#compiling-aot)！
 
 a#tree-shaking
 :marked
@@ -384,11 +387,15 @@ a#tree-shaking
   dead leaves in a tree.
 
   AOT编译为接下来通过一个叫做*摇树优化*的过程做好了准备。
-  摇树优化器从上到下遍历依赖图谱，并且*摇掉*用不到的代码，这些代码就像是圣诞树中那些死掉的松针一样。Tree shaking can greatly reduce the downloaded size of the application 
+  摇树优化器从上到下遍历依赖图谱，并且*摇掉*用不到的代码，这些代码就像是圣诞树中那些死掉的松针一样。
+  
+  Tree shaking can greatly reduce the downloaded size of the application 
   by removing unused portions of both source and library code. 
   In fact, most of the reduction in small apps comes from removing unreferenced Angular features. 
+  
   通过移除源码和库代码中用不到的部分，摇树优化可以大幅缩减应用的下载体积。
   事实上，在小型应用中大部分的缩减都是因为筛掉了那些没用到的Angular特性。
+  
   For example, this demo application doesn't use anything from the `@angular/forms` library.
   There is no reason to download forms-related Angular code and tree shaking ensures that you don't.
 
@@ -450,11 +457,13 @@ code-example(language="none" class="code-shell").
   The `dest` attribute tells Rollup to create a bundle called `build.js` in the `dist` folder.
   It overrides the default `onwarn` method in order to skip annoying messages about the AOT compiler's use of the `this` keyword.
 
+  这个配置文件告诉Rollup，该应用的入口点是`app/main.js`。
+  `dest`属性告诉Rollup要在`dist`目录下创建一个名叫`build.js`的捆文件。
+  它覆盖了默认的`onwarn`方法，以便忽略由于AOT编译器使用`this`关键字导致的噪音消息。
+  
   The next section covers the plugins in more depth.
 
-  它会告诉Rollup，该应用的入口点是`app/main.js`。
-  `dest`属性告诉Rollup要在`dist`目录下创建一个名叫`build.js`的捆文件。
-  然后是插件。
+  下一节我们将深入讲解插件。
 
 a#rollup-plugins
 :marked
@@ -473,9 +482,11 @@ a#rollup-plugins
   Rollup expects application source code to use `ES2015` modules. 
   Not all external dependencies are published as `ES2015` modules.
   In fact, most are not. Many of them are published as _CommonJS_ modules.
+  
   Rollup期望应用的源码使用`ES2015`模块。
   但并不是所有外部依赖都发布成了`ES2015`模块。
   事实上，大多数都不是。它们大多数都发布成了*CommonJS*模块。
+  
   The _RxJs_ Observable library is an essential Angular dependency published as an ES5 JavaScript _CommonJS_ module.
 
   可观察对象库*RxJS*是Angular所依赖的基础之一，它就是发布成了ES5 JavaScript的*CommonJS*模块。
@@ -488,6 +499,7 @@ a#rollup-plugins
 
   幸运的是，有一个Rollup插件，它会修改*RxJS*，以使用Rollup所需的ES`import`和`export`语句。
   然后Rollup就可以把该应用中用到的那部分`RxJS`代码留在“捆”文件中了。
+  它的用法很简单。把下列代码添加到`rollup-config.js`的`plugins`数组中：
 
 +makeExample('cb-aot-compiler/ts/rollup-config.js','commonjs','rollup-config.js (CommonJs to ES2015 Plugin)')(format='.')
 
@@ -546,7 +558,7 @@ a#load
 
   加载所生成的应用捆文件，并不需要使用像SystemJS这样的模块加载器。
   移除与SystemJS有关的那些脚本吧。
-  改用`script`标签来加载这些捆文件：
+  改用`<script>`标签来加载这些捆文件：
 
 +makeExample('cb-aot-compiler/ts/src/index.html','bundle','index.html (load bundle)')(format='.')
 
@@ -561,12 +573,16 @@ a#serve
   Use the same `lite-server` employed elsewhere in the documentation:
 
   你需要一个Web服务器来作为应用的宿主。
-  像与文档中其它部分一样，用*Lite Server*吧：
+  像与文档中其它部分一样，用`lite-server`吧：
+  
 code-example(language="none" class="code-shell").
   npm run lite
+
 :marked
   The server starts, launches a browser, and the app should appear.
+  
   启动了服务器、打开浏览器，应用就出现了。
+  
 a#source-code
 .l-main-section
 :marked
@@ -680,7 +696,9 @@ a#jit-dev-aot-prod
   ***index.html***
 
   The JIT and AOT apps require their own `index.html` files because they setup and launch so differently. 
+  
   JIT和AOT应用的设置和加载非常不一样，因此它们需要各自的`index.html`文件。
+  
   Here they are for comparison:
 
   下面是它们的比较：
@@ -751,8 +769,10 @@ a#jit-dev-aot-prod
     In the file structure of _this particular sample project_,
     the `node_modules` folder happens to be two levels up from the project root. 
     Therefore, `"typeRoots"` must be set to `"../../node_modules/@types/"`. 
+    
     在**这个特定的示例项目**的文件结构中，`node_modules`文件恰好比项目根目录高两级。
     因此，`"typeRoots"`必须设置为`"../../node_modules/@types/"`。
+    
     In a more typical project, `node_modules` would be a sibling of `tsconfig-aot.json`
     and `"typeRoots"` would be set to `"node_modules/@types/"`.
     Edit your `tsconfig-aot.json` to fit your project's file structure.
