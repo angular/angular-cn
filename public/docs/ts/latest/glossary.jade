@@ -51,7 +51,7 @@ a#aot
     帮助我们将一个应用程序组织成内聚的功能模块群。
     一个 Angular 模块标识应用程序使用的组件、指令和管道等，还包含应用程序需要的外部 Angular 模块的列表，例如`FormsModule`。
     
-    Every Angular application has an application root -module class. By convention, the class is
+    Every Angular application has an application root-module class. By convention, the class is
     called `AppModule` and resides in a file named `app.module.ts`.
 
     每个 Angular 应用程序都有一个应用程序根模块类。按规约这个类的名字为`AppModule`，存放在名为`app.module.ts`的文件。
@@ -127,6 +127,7 @@ a#attribute-directives
     Without a barrel, a consumer needs three import statements:
     
     如果没有封装桶，消费者需要三条导入语句：  
+    
   code-example.
     import { HeroComponent } from '../heroes/hero.component.ts';
     import { Hero }          from '../heroes/hero.model.ts';
@@ -265,7 +266,7 @@ a#component
     This form is also known as kebab-case.
 
     中线命名法是书写复合词或短语的一种形式，使用中线 (`-`) 分隔每个单词。
-    这种形式也称为[烤串命名法 (kebab-case)](#kebab-case)。
+    这种形式也称为烤串命名法 kebab-case。
 
     [Directive](#directive) selectors (like `my-app`) and
     the root of filenames (such as `hero-list.component.ts`) are often
@@ -366,7 +367,8 @@ a#decoration
       ```@Component({...})
       export class AppComponent {
         constructor(@Inject('SpecialFoo') public foo:Foo) {}
-        @Input() name:string;}
+        @Input() name:string;
+      }
       ```
       
       The scope of a decorator is limited to the language feature
@@ -582,14 +584,15 @@ a#directives
   :marked
     Short hand for [ECMAScript](#ecmascript) 5, the version of JavaScript run by most modern browsers.
 
-    [ECMAScript](#ecmascript) 2015 的简写。
+    “[ECMAScript](#ecmascript) 5”的简写，大部分现代浏览器使用的 JavaScript 版本。
+    
 :marked
   ## ES6
 .l-sub-section
   :marked
     Short hand for [ECMAScript](#ecmascript) 2015.
 
-    “ECMAScript 5”的简写，大部分现代浏览器使用的 JavaScript 版本。参见[ECMAScript](#ecmascript)。
+    [ECMAScript](#ecmascript) 2015 的简写。
 // #enddocregion e2
 
 a#F
@@ -619,7 +622,7 @@ a#H
     Data values flow *into* this property from the data source identified
     in the template expression to the right of the equal sign.
 
-    输入属性是一个指令属性，可以作为[属性绑定 (property binding)](./template-syntax.html#property-binding)的目标。
+    输入属性是一个指令属性，可以作为[属性绑定 (property binding)](./template-syntax.html#property-binding)（详情参见[模板语法](./template-syntax.html)页）的目标。
     数据值会从模板表达式等号右侧的数据源流入这个属性。
 
     See the [Input and output properties](./template-syntax.html#inputs-outputs) section of the [Template Syntax](./template-syntax.html) page.
@@ -899,6 +902,7 @@ a#N
     You can also write your own custom pipes.
     Read more in the page on [pipes](./pipes.html).
 
+    我们还可以写自己的自定义管道。
     更多信息，见[管道](./pipes.html)。
 
 :marked
@@ -1111,8 +1115,8 @@ a#structural-directives
     The `ngIf` "conditional element" directive and the `ngFor` "repeater" directive are well-known examples.
 
     结构型指令是[指令 (directive)](#directive)一种，
-    可以通过添加、删除或操作元素和其各级子元素来塑造或重塑 HTML 布局。
-    例如，`ngIf`是"条件化元素"指令，`ngFor`是“重复器”指令。
+    可以通过在DOM中添加、删除或操作元素和其各级子元素来塑造或重塑 HTML 布局。
+    例如，`ngIf`这个“条件化元素”指令，`ngFor`这个“重复器”指令都是众所周知的例子。
 
     Read more in the [Structural Directives](./structural-directives.html) page.
 
@@ -1175,7 +1179,7 @@ a#structural-directives
     Read about how to build template-driven forms
     in the [Forms](./forms.html) page.
 
-    更多信息，见[表单](./forms.html)。
+    要了解如何构建模板驱动表单的更多信息，参见[表单](./forms.html)页。
 
 :marked
   ## Template expression
@@ -1193,7 +1197,8 @@ a#structural-directives
     in the [Template expressions](./template-syntax.html#template-expressions) section
     of the [Template Syntax](./template-syntax.html#) page.
 
-    到[模板语法](guide/template-syntax.html#template-expressions)一章中了解更多模板表达式的知识。
+    到[模板语法](./template-syntax.html#)一章的[模板表达式](guide/template-syntax.html#template-expressions)部分了解更多模板表达式的知识。
+    
 // #enddocregion t1
 // #docregion t2
 :marked
@@ -1284,22 +1289,30 @@ a#Y
     A mechanism for encapsulating and intercepting
     a JavaScript application's asynchronous activity.
 
-      区域是一种用来封装和截听 JavaScript 应用程序异步活动的机制。The browser DOM and JavaScript have a limited number
+    区域是一种用来封装和截听 JavaScript 应用程序异步活动的机制。
+    
+    The browser DOM and JavaScript have a limited number
       of asynchronous activities,  such as DOM events (for example, clicks),
       [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), and
       [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
       calls to remote servers.
 
-      浏览器中的 DOM 和 JavaScript 之间常会有一些数量有限的异步活动，
+    浏览器中的 DOM 和 JavaScript 之间常会有一些数量有限的异步活动，
       例如 DOM 事件（例如点击）、[承诺 (promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-      和通过 [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) 调用远程服务。Zones intercept all of these activities and give a "zone client" the opportunity
+      和通过 [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) 调用远程服务。
+      
+    Zones intercept all of these activities and give a "zone client" the opportunity
       to take action before and after the async activity finishes.
 
-      区域能截听所有这些活动，并让“区域的客户”有机会在异步活动完成之前和之后采取行动。Angular runs your application in a zone where it can respond to
+    区域能截听所有这些活动，并让“区域的客户”有机会在异步活动完成之前和之后采取行动。
+    
+    Angular runs your application in a zone where it can respond to
       asynchronous events by checking for data changes and updating
       the information it displays via [data bindings](#data-binding).
 
-      Angular 会在一个 Zone 区域中运行应用程序，在这个区域中，它可以对异步事件做出反应，可以通过检查数据变更、利用[数据绑定 (data bindings)](#data-binding) 来更新信息显示。Learn more about zones in this
+    Angular 会在一个 Zone 区域中运行应用程序，在这个区域中，它可以对异步事件做出反应，可以通过检查数据变更、利用[数据绑定 (data bindings)](#data-binding) 来更新信息显示。
+    
+    Learn more about zones in this
       [Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U).
 
-      更多信息，见 [Brian Ford 的视频](https://www.youtube.com/watch?v=3IqtmUscE_U)。
+    更多信息，见 [Brian Ford 的视频](https://www.youtube.com/watch?v=3IqtmUscE_U)。
