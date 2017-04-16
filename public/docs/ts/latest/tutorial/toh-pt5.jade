@@ -44,7 +44,7 @@ figure.image-display
 :marked
   When you're done with this page, the app should look like this <live-example></live-example>.
   
-  运行这部分的<live-example>在线例子</live-example>。
+  完成本章之后，应用会变成这样：<live-example>在线例子</live-example>。
 
 include ../../../_includes/_see-addr-bar
 
@@ -257,7 +257,9 @@ code-example(language="sh" class="code-shell").
 :marked
 .callout.is-critical
   header Remove <i>HeroService</i> from the <i>HeroesComponent</i> providers
+  
   header 从<i>HeroesComponent</i>的<code>providers</code>中移除<i>HeroService</i>
+  
   :marked
     Go back to the `HeroesComponent` and **remove the `HeroService`** from its `providers` array.
     We are *promoting* this service from the `HeroesComponent` to the root `NgModule`.
@@ -271,8 +273,6 @@ code-example(language="sh" class="code-shell").
   The app still runs and displays heroes.
 
   应用仍然在运行，并显示着英雄列表。
-  我们把`AppComponent`重构成了一个新的`AppComponent`和`HeroesComponent`，它们工作得很好！
-  我们毫发无损的完成了这次重构。
 
 :marked
   ## Add routing
@@ -419,18 +419,23 @@ a#configure-routes
   The `RouterLink` directive (another of the `RouterModule` directives) is bound to a string
   that tells the router where to navigate when the user clicks the link.
 
-    注意，锚标签中的`[routerLink]`绑定。
-    我们把`RouterLink`指令（`ROUTER_DIRECTIVES`中的另一个指令）绑定到一个字符串。
-    它将告诉路由器，当用户点击这个链接时，应该导航到哪里。Since the link is not dynamic,  a routing instructionis defined with a one-time binding to the route path.
-    Looking back at the route configuration, you can confirm that `'/heroes'` is the path of the route to the `HeroesComponent`.由于这个链接不是动态的，我们只要用**一次性绑定**的方式绑定到路由的**路径 (path) **就行了。
-    回来看路由配置表，我们清楚的看到，这个路径 —— `'/heroes'`就是指向`HeroesComponent`的那个路由的路径。
-  .l-sub-section
-    :marked
-      Read more about dynamic router links and the link parameters array
-      in the [Appendix: Link Parameters Array](../guide/router.html#link-parameters-array) section of the
+  注意，锚标签中的`[routerLink]`绑定。
+  我们把`RouterLink`指令（`ROUTER_DIRECTIVES`中的另一个指令）绑定到一个字符串。
+  它将告诉路由器，当用户点击这个链接时，应该导航到哪里。
+  
+  Since the link is not dynamic,  a routing instructionis defined with a one-time binding to the route path.
+  Looking back at the route configuration, you can confirm that `'/heroes'` is the path of the route to the `HeroesComponent`.
+  
+  由于这个链接不是动态的，我们只要用**一次性绑定**的方式绑定到路由的**路径 (path) **就行了。
+  回来看路由配置表，我们清楚的看到，这个路径 —— `'/heroes'`就是指向`HeroesComponent`的那个路由的路径。
+  
+.l-sub-section
+  :marked
+    Read more about dynamic router links and the link parameters array
+    in the [Appendix: Link Parameters Array](../guide/router.html#link-parameters-array) section of the
     [Routing & Navigation](../guide/router.html#) page.
 
-      关于动态路由器链接和*链接参数数组更多信息，见[路由](../guide/router.html#link-parameters-array)。
+    关于动态路由器链接和*链接参数数组更多信息，见[路由与导航](../guide/router.html#)中的[附录：链接参数数组](../guide/router.html#link-parameters-array)部分。
 
 :marked
   Refresh the browser. The browser displays the app title and heroes link, but not the heroes list.
@@ -528,7 +533,7 @@ a#configure-routes
     Read more about *redirects* in the [Redirecting routes](../guide/router.html#!#redirect) section
     of the [Routing & Navigation](../guide/router.html#) page.
 
-      关于*重定向*的更多信息，见[路由](../guide/router.html#redirect)。
+    关于*重定向*的更多信息，见[路由](../guide/router.html#redirect)。
 
 :marked
   ### Add navigation to the template
@@ -821,7 +826,7 @@ code-example(format="nocode").
   extract the `id` parameter value from the `ActivatedRoute` service
   and use the `HeroService` to fetch the hero with that `id`.
 
-  在`ngOnInit`生命周期钩子中，我们从`ActivatedRoute`服务的可观察对象`params`中提取`id`参数，
+  在`ngOnInit()`生命周期钩子中，我们从`ActivatedRoute`服务的可观察对象`params`中提取`id`参数，
   并且使用`HeroService`来获取具有这个`id`的英雄数据。。
 
 +makeExample('toh-5/ts/src/app/hero-detail.component.ts', 'ngOnInit', 'src/app/hero-detail.component.ts')
@@ -830,13 +835,13 @@ code-example(format="nocode").
   The `switchMap` operator maps the `id` in the Observable route parameters
   to a new `Observable`, the result of the `HeroService.getHero()` method.
 
-  注意`switchMap`运算符如何将可观察的路由参数中的 id 映射到一个新的`Observable`，
-  即`HeroService.getHero`方法的结果。
+  注意`switchMap`运算符如何将可观察的路由参数中的 `id` 映射到一个新的`Observable`，
+  即`HeroService.getHero()`方法的结果。
     
   If a user re-navigates to this component while a `getHero` request is still processing,
     `switchMap` cancels the old request and then calls `HeroService.getHero()` again.
   
-  如果用户在 getHero 请求执行的过程中再次导航这个组件，switchMap 再次调用`HeroService.getHero`之前，
+  如果用户在 `getHero` 请求执行的过程中再次导航这个组件，`switchMap` 再次调用`HeroService.getHero()`之前，
       会取消之前的请求。
 
 :marked
@@ -887,7 +892,7 @@ code-example(format="nocode").
   using the `Location` service you injected previously.
   
   要导航到别处，用户可以点击`AppComponent`中的两个链接之一，也可以点击浏览器的后退按钮。
-  我们来添加第三个选项：一个`goBack`方法，它使用之前注入的`Location`服务，
+  我们来添加第三个选项：一个`goBack()`方法，它使用之前注入的`Location`服务，
     利用浏览器的历史堆栈，导航到上一步。
 
 +makeExample('toh-5/ts/src/app/hero-detail.component.ts', 'goBack', 'src/app/hero-detail.component.ts (goBack)')
@@ -997,7 +1002,8 @@ code-example(format="nocode").
   establish key facts about the entire app for the Angular compiler.
   
   `AppModule`中有将近 20 行代码是用来配置四个路由的。
-  绝大多数应用有更多路由，并且它们还有[守卫服务](../guide/router.html#guards)来保护不希望或未授权的导航。
+  绝大多数应用有更多路由，并且它们还有守卫服务来保护不希望或未授权的导航。
+  （要了解守卫服务的更多知识，参见[路由与导航](../guide/router.html)页的[路由守卫](../guide/router.html#guards)）
   路由的配置可能迅速占领这个模块，并掩盖其主要目的，即为 Angular 编译器设置整个应用的关键配置。
 
   It's a good idea to refactor the routing configuration into its own class.
@@ -1029,7 +1035,7 @@ code-example(format="nocode").
   * The Routing Module pulls the routes into a variable. The variable clarifies the
     routing module pattern in case you export the module in the future.
     
-    将路由抽出到一个变量中。你将来可能会导出它，而且它让**路由模块**模式更加明确。
+    将路由抽出到一个变量中。如果你将来要导出这个模块，这种 "路由模块" 的模式也会更加明确。
     
   * The Routing Module adds `RouterModule.forRoot(routes)` to `imports`.
   
@@ -1046,7 +1052,7 @@ code-example(format="nocode").
   
   * If you have guard services, the Routing Module adds module `providers`. (There are none in this example.)
 
-    如果有守卫服务，把它们添加到本模块的`providers`中；本例子无守卫服务。
+    如果有守卫服务，把它们添加到本模块的`providers`中（本例子中没有守卫服务）。
 
   ### Update *AppModule*
   
@@ -1071,7 +1077,7 @@ code-example(format="nocode").
     The revised and simplified `AppModule` is
     focused on identifying the key pieces of the app.
     
-    它更简单，专注于确定应用的关键部分。
+    这个修改并简化过的`AppModule`版本专注于本应用的关键部分。
     
 .l-main-section
 :marked
@@ -1215,7 +1221,7 @@ figure.image-display
   by telling the router where to go.
 
   点击按钮时，`HeroesComponent`导航到`HeroDetailComponent`。
-  该按钮的_点击_事件被绑定到`gotoDetail`方法，它使用命令式的导航，告诉路由器去哪儿。
+  该按钮的点击事件绑定到了`gotoDetail()`方法，它使用命令式的导航，告诉路由器去哪儿。
 
   This approach requires the following changes to the component class:
   
@@ -1243,7 +1249,7 @@ figure.image-display
   Here's the revised `HeroesComponent` class:
 
   注意，我们将一个包含两个元素的**链接参数数组** &mdash; 
-  路径和路由参数 &mdash; 传递到`router.navigate`，
+  路径和路由参数 &mdash; 传递到路由的`navigate（）`，
   与之前在`DashboardComponent`中使用`[routerLink]`绑定一样。
   修改完成的`HeroesComponent`类如下所示：
 
@@ -1340,7 +1346,9 @@ figure.image-display
   :marked
     **The *routerLinkActive* directive**
 
-      ***routerLinkActive*指令**The Angular router provides a `routerLinkActive` directive you can use to
+    ***routerLinkActive*指令**
+    
+    The Angular router provides a `routerLinkActive` directive you can use to
       add a class to the HTML navigation element whose route matches the active route.
       All you have to do is define the style for it. 
 
@@ -1352,8 +1360,8 @@ figure.image-display
 :marked
   Add a `styleUrls` property that refers to this CSS file as follows:
 
-    首先把`moduleId: module.id`添加到`AppComponent`组件的`@Component`元数据中以启用*相对于模块的*文件URL。
-    然后添加`styleUrls`属性，使其指向这个CSS文件，代码如下：
+  首先把`moduleId: module.id`添加到`AppComponent`组件的`@Component`元数据中以启用*相对于模块的*文件URL。
+  然后添加`styleUrls`属性，使其指向这个CSS文件，代码如下：
 
 +makeExample('toh-5/ts/src/app/app.component.ts','styleUrls')
 
