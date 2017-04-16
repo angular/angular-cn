@@ -61,7 +61,7 @@ angularIO.directive('liveExample', ['$location', function ($location) {
         '<iframe frameborder="0" width="100%" height="100%" src="' + src + '"></iframe>' +
       '</div>' +
       '<img ng-click="toggleEmbedded()" ng-if="!embeddedShow" src="' + img + '" alt="plunker">' +
-      '<p>You can also <a href="' + zipHref +'">download this example.</p>';
+      '<p>你也可以<a href="' + zipHref +'">下载这个例子。</p>';
   }
 
   return {
@@ -69,7 +69,7 @@ angularIO.directive('liveExample', ['$location', function ($location) {
     scope: true,
     compile: function (tElement, attrs) {
       var href, template;
-      var text = tElement.text() || 'live example';
+      var text = tElement.text() || '在线例子';
       if (attrs['title'] == undefined) { tElement[0].setAttribute('title', text); } // set default title (tooltip)
       var ex = attrs.name || NgIoUtil.getExampleName($location);
       var embedded = attrs.hasOwnProperty('embedded');
@@ -105,13 +105,13 @@ angularIO.directive('liveExample', ['$location', function ($location) {
         var template = a(text, { href: href, target: '_blank' });
 
         if (!noDownload) {
-          template += ' / ' + a('downloadable example', { href: zipHref, target: '_blank' });
+          template += ' / ' + a('可下载的例子', { href: zipHref, target: '_blank' });
         }
 
         // The hosted example and sources are in different locations for Dart.
         // Also show link to sources for Dart, unless noSource is specified.
         if (isForDart && !attrs.hasOwnProperty('nosource')) {
-          var srcText = attrs.srcText || 'view source';
+          var srcText = attrs.srcText || '查看源码';
           var srcHref = 'http://github.com/angular-examples/' + ex;
           template = span(template + ' (' + a(srcText, { href: srcHref, target: '_blank' }) + ')');
         }
