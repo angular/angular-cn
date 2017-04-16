@@ -1,0 +1,188 @@
+:marked
+  原文位于 <http://angularjs.blogspot.com/2017/03/angular-400-now-available.html>
+  
+  # Angular 4.0.0 Now Available
+  
+  # Angular 4.0.0 发布啦
+  
+  Angular version 4.0.0 - invisible-makeover - is now available. This is a major release following our announced adoption of [Semantic Versioning](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html), and is backwards compatible with 2.x.x for most applications.
+  
+  Angular 4.0.0 发布啦！这是遵循我们的[语义化版本策略](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html)的一个主版本，对于大多数应用来说，它都是与2.x.x保持向后兼容的。
+  
+  We are very excited to share this release with the community, as it includes some major improvements and functionality that we have been working on for the past 3 months. We’ve worked hard to make sure that it’s easy for developers to update to this release.
+  
+  我们很高兴与社区共享这个发布，在过去的三个月中，它做出了很多主要的功能增强。我们努力确保开发人员可以轻易地升级到这个版本。
+  
+  ## What’s New
+  
+  ## 改了什么？
+  
+  ### Smaller & Faster
+  
+  ### 更小、更快
+  
+  In this release we deliver on our promise to make Angular applications smaller and faster. By no means are we done yet, and you'll see us being focused on making further improvements in the coming months.
+  
+  在这个发布中，我们兑现了我们的承诺：让Angular应用更小、更快。但我们不会就此止步，将来，我们还会集中精力进一步提升它们。
+  
+  #### View Engine
+  
+  #### 视图引擎
+  
+  We’ve made changes under to hood to what AOT generated code looks like. These changes reduce the size of the generated code for your components by around 60%  in most cases. The more complex your templates are, the higher the savings.
+  
+  我们悄悄修改了AOT编译出的代码的样子。大多数情况下，这些改动能把组件生成代码的体积缩小大约60%。你的模板越复杂，提升就越明显。
+  
+  During our release candidate period, we heard from many developers that migrating to 4 reduced their production bundles by hundreds of kilobytes.
+  
+  在rc阶段，我们听说过很多开发者反映，在迁移到4之后，他们的产品包缩小了几百KB。
+  
+  Read the [Design Doc](https://docs.google.com/document/d/195L4WaDSoI_kkW094LlShH6gT3B7K1GZpSBnnLkQR-g/preview) to learn more about what we did with the View Engine.
+  
+  你可以阅读[设计文档](https://docs.google.com/document/d/195L4WaDSoI_kkW094LlShH6gT3B7K1GZpSBnnLkQR-g/preview)来了解我们用视图引擎做了什么。
+  
+  #### Animation Package
+  
+  #### 动画包
+  
+  We have pulled animations out of `@angular/core` and into their own package. This means that if you don’t use animations, this extra code will not end up in your production bundles. 
+  
+  我们把动画包从`@angular/core`中移到了它们自己的包中。这意味着如果你不用动画，那么这些代码就不会混进你的产品包中。
+  
+  This change also allows you to more easily find documentation and to take better advantage of autocompletion. You can add animations yourself to your main NgModule by importing BrowserAnimationsModule from `@angular/platform-browser/animations`.
+  
+  这项改动还允许你更容易找到文档，并且从自动完成功能中获益更多。你可以自己从`@angular/platform-browser/animations`中导入`BrowserAnimationsModule`来添加动画功能。
+  
+  ### New Features
+  
+  ### 新特性
+  
+  #### Improved `*ngIf` and `*ngFor`
+  
+  #### 强化了`*ngIf`和`*ngFor`
+  
+  Our template binding syntax now supports a couple helpful changes. You can now use an `if/else` style syntax, and assign local variables such as when unrolling an observable.
+  
+  我们的模板绑定语法做了一些很有用的改动。你现在可以使用`if/else`语法了。并且可以对局部变量进行赋值，比如对一个可观察对象进行解包的时候。
+  
+  ```
+  <div *ngIf="userList | async as users; else loading">
+  <user-profile *ngFor="let user of users; count as count; index as i" [user]="user">
+  User {{i}} of {{count}}
+    </user-profile>
+  </div>
+  <ng-template #loading>Loading...</ng-template>
+  ```
+  
+  #### Angular Universal
+  
+  #### Angular 统一平台（Universal）
+  
+  Universal, the project that allows developers to run Angular on a server, is now up to date with Angular again, and this is the first release since Universal, originally a community-driven project, was adopted by the Angular team. This release now includes the results of the internal and external work from the Universal team over the last few months. The majority of the Universal code is now located in @angular/platform-server. 
+  
+  Universal项目（它允许开发者在服务器上运行Angular）现在会再次与Angular同步更新，这是从Universal（原本是个社区驱动项目）被Angular开发组采纳之后的第一次发布。这个发布现在包含最近几个月Universal组内部和外部的工作成果。Universal的主代码位于`@angular/platform-server`。
+  
+  To learn more about taking advantage of Angular Universal, take a look at the new [`renderModuleFactory`](https://github.com/angular/angular/blob/56f232cdd70a352cb9151bc7cfe8981bc2710ea6/modules/%40angular/platform-server/src/utils.ts#L63-L72) method in `@angular/platform-server`, or Rob Wormald’s [Demo Repository](https://github.com/robwormald/ng-universal-demo/). More documentation and code samples are forthcoming.
+  
+  要了解如何从Angular Universal获益，可以看看`@angular/platform-server`中的[`renderModuleFactory`](https://github.com/angular/angular/blob/56f232cdd70a352cb9151bc7cfe8981bc2710ea6/modules/%40angular/platform-server/src/utils.ts#L63-L72)方法，或者看看Rob Wormald的[演示库](https://github.com/robwormald/ng-universal-demo/)。将来我们会加入更多的文档和范例代码。
+  
+  #### TypeScript 2.1 and 2.2 compatibility
+  
+  #### 与TypeScript 2.1和2.2兼容
+  
+  We’ve updated Angular to a more recent version of TypeScript. This will improve the speed of ngc and you will get better type checking throughout your application.
+  
+  我们已经把Angular更新扥凯恩TypeScript的最新版本。这会提升ngc的速度，而且你的应用也会获得更好地类型检查。
+  
+  #### Source Maps for Templates
+  
+  #### 模板的Source Maps
+  
+  Now when there is an error caused by something in one of your templates, we generate source maps that give a meaningful context in terms of the original template.
+  
+  现在，如果你的模板中出现了某个错误，我们会根据生成的Source Maps给出一个有意义的结果，指向原始模板中的正确位置。
+  
+  ### Packaging Changes
+  
+  ### 包的改动
+  
+  #### Flat ES Modules (Flat ESM / FESM)
+  
+  #### 扁平的ES模块 (Flat ESM / FESM)
+  
+  We now ship flattened versions of our modules ("rolled up" version of our code in the EcmaScript Module format, see [example file](https://github.com/angular/core-builds/blob/85cbe3f8d6107af033b0f8b56456c181cbcb5eb7/%40angular/core.js)). This format should help tree-shaking, help reduce the size of your generated bundles, and speed up build, transpilation, and loading in the browser in certain scenarios.
+  
+  我们的模块现在发布成了扁平结构（roll up过的版本使用的是Ecma Script模块格式，参见[范例文件](https://github.com/angular/core-builds/blob/85cbe3f8d6107af033b0f8b56456c181cbcb5eb7/%40angular/core.js)）。这个格式有利于进行摇树优化，可以帮助你生成的包的体积，提升构建、转移和在浏览器中加载的速度。
+  
+  Read more about the importance of Flat ES Modules in ["The cost of small modules"](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/).
+  
+  了解更多关于扁平ES模块的知识，参见["小模块的代价"](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
+  
+  #### Experimental ES2015 Builds
+  
+  #### 试验ES2015构建
+  
+  We now also ship our packages in the ES2015 Flat ESM format. This option is experimental and opt-in. Developers have reported up to 7% bundle size savings when combining these packages with Rollup. To try out these new packages, configure your build toolchain to resolve ["es2015" property](https://github.com/angular/core-builds/blob/dc0c8d828a8bae6591d2b9c77974271481af818c/package.json#L7) in package.json over the regular ["module" property](https://github.com/angular/core-builds/blob/dc0c8d828a8bae6591d2b9c77974271481af818c/package.json#L6).
+  
+  我们也把包发布成了ES2015扁平模块格式。这个选项是实验性的、可选的。开发人员报告说当把这些包和Rollup合用时节省了大约7%的体积。要试验这些新包，请把你的工具链设置为优先解析`package.json`中的[`es2015`属性](https://github.com/angular/core-builds/blob/dc0c8d828a8bae6591d2b9c77974271481af818c/package.json#L7)，而不是标准的[`module`属性](https://github.com/angular/core-builds/blob/dc0c8d828a8bae6591d2b9c77974271481af818c/package.json#L6)。
+  
+  #### Experimental Closure Compatibility
+  
+  #### 试验Closure兼容
+  
+  All of our code now has Closure annotations, making it possible to take advantage of advanced Closure optimizations, resulting in smaller bundle sizes and better tree shaking.
+  
+  所有代码都有Closure注解，这样就可以获益于Closure的高级优化特性，结果就是更小的包尺寸与更好地摇树优化。
+  
+  ## Updating to 4.0.0
+  
+  ## 升级到 4.0.0
+  
+  Updating to 4 is as easy as updating your Angular dependencies to the latest version, and double checking if you want animations. This will work for most use cases.
+  
+  升级到4，简单到几乎只需要把你的Angular依赖改为最新版本。如果你需要动画才需要再次检查一下。对大多数用户都是这样。
+  
+  #### On Linux/Mac: 
+  
+  #### 在Linux/Mac上
+  
+  `npm install @angular/{common,compiler,compiler-cli,core,forms,http,platform-browser,platform-browser-dynamic,platform-server,router,animations}@latest typescript@latest --save` 
+  
+  #### On Windows:
+  
+  #### 在Windows上：
+  
+  `npm install @angular/common@latest @angular/compiler@latest @angular/compiler-cli@latest @angular/core@latest @angular/forms@latest @angular/http@latest @angular/platform-browser@latest @angular/platform-browser-dynamic@latest @angular/platform-server@latest @angular/router@latest @angular/animations@latest typescript@latest --save`
+  
+  Then run whatever ng serve or npm start command you normally use, and everything should work.
+  
+  然后运行`ng serve`或`npm start`命令，就一切正常了。
+  
+  If you rely on Animations, import the new BrowserAnimationsModule from @angular/platform-browser/animations in your root NgModule. Without this, your code will compile and run, but animations will trigger an error. Imports from @angular/core were deprecated, use imports from the new package import { trigger, state, style, transition, animate } from '@angular/animations';.
+  
+  如果你依赖动画特性，请在你的根模块中导入`@angular/platform-browser/animations`中的`BrowserAnimationsModule`。如果没有这些，你的代码仍然可以正常编译和运行，但是动画部分会出错。不要再从`@angular/core`中导入了，改为从新包中导入。
+  `import { trigger, state, style, transition, animate } from '@angular/animations';`
+  
+  We are beginning work on an interactive [Angular Update Guide](https://angular-update-guide.firebaseapp.com/) if you would like to see more information about making any needed changes to your application.
+  
+  我们已经开始了交互式[Angular升级向导](https://angular-update-guide.firebaseapp.com/)的开发工作，借助它你可以得到升级时要对你的应用程序做什么改动的更多信息。
+  
+  ## Known Issues
+  
+  ## 已知问题
+  
+  One of the goals for version 4 was to make Angular compatible with TypeScript's [strictNullChecks](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html) setting, allowing for a more restrictive subset of types to be mandated. We discovered during the RC period that there is more work to be done for this to function properly in all use cases, so we intentionally made 4.0 incompatible with the strictNullChecks setting in order to  avoid breaking apps that would otherwise eagerly adopt this TypeScript mode when the proper support lands in 4.1 (tracking issue is [#15432](https://github.com/angular/angular/issues/15432)).
+  
+  第四版的目标之一是让Angular兼容TypeScript的[`strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html)设置，允许对类型的子集进行更多限定。我们在RC阶段讨论过，要让这个功能在更多用例中工作需要付出更多的努力，所以我们决定让4.0线不兼容`strictNullChecks`选项，从而避免破坏现有应用，我们准备在4.1中再采纳它（它的跟踪issue是[#15432](https://github.com/angular/angular/issues/15432)）
+  
+  ## What's next?
+  
+  ## 以后呢？
+  
+  We are in the process of setting the roadmap for the next 6 months, following the same cadence as our [published release schedule](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md) for 2.x. You'll see patch updates to 4.0.0 and we are already getting started on 4.1. We are going to continue making Angular smaller and faster, and we're going to evolve capabilities such as @angular/http, @angular/service-worker, and @angular/language-service out of experimental.
+  
+  我们已经在开始设定未来六个月的路线图了，就像我们2.x的[发布计划](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md)一样。你可以看到升级到4.0.0的同时，我们也开始了4.1的开发工作。我们准备继续让Angular更小、更快，我们准备提升`@angular/http`, `@angular/service-worker`和`@angular/language-service`的兼容性，让它们尽快走出试验阶段。
+  
+  You should also stay tuned for updates to our documentation, a stable release of the CLI, and guidance for library authors on packaging.
+
+  你还将看到我们的文档更新、CLI的稳定版和第三方库作者的打包指南。
