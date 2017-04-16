@@ -42,7 +42,7 @@ include ../_util-fns
 :marked
   ## Keep the app transpiling and running
   
-  ### 让应用代码保持转译和运行
+  ## 让应用代码保持转译和运行
   
   Enter the following command in the terminal window:
 
@@ -287,6 +287,7 @@ code-example(language="sh" class="code-shell").
     所以我们要把`hero`属性**替换**成`selectedHero`属性。
 
   +makeExample('toh-2/ts/src/app/app.component.ts', 'selected-hero', 'src/app/app.component.ts (selectedHero)')
+  
   :marked
     The hero names should all be unselected before the user picks a hero, so
     you won't initialize the `selectedHero` as you did with `hero`.
@@ -343,7 +344,7 @@ code-example(language="sh" class="code-shell").
     :marked
       Don't forget the asterisk (`*`) in front of `ngIf`.
       
-      记住，`ngIf`前导星号 (`*`) 是语法中的重要组成部分。
+      别忘了`ngIf`前的星号 (`*`)。
 
   :marked
     The app no longer fails and the list of names displays again in the browser.
@@ -412,10 +413,11 @@ code-example(language="sh" class="code-shell").
     :marked
       Read more about the `[class]` binding in the [Template Syntax](../guide/template-syntax.html#ngClass "Template syntax: NgClass") guide.
 
-      关于属性绑定的更多信息，见[模板语法](../guide/template-syntax.html#property-binding)。
+      关于`[class]`绑定的更多信息，参见[模板语法](../guide/template-syntax.html#ngClass "Template syntax: NgClass")。
 
   :marked
     The final version of the `<li>` looks like this:
+    
   +makeExample('toh-2/ts/src/app/app.component.1.html', 'class-selected-2', 'app.component.ts (styling each hero)')(format=".")
 
   :marked
