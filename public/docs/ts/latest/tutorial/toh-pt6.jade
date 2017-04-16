@@ -136,10 +136,12 @@ h1 提供 HTTP 服务
   The `forRoot()` configuration method takes an `InMemoryDataService` class
   that primes the in-memory database.
   Add the file `in-memory-data.service.ts` in `app` with the following content:
-
-    `forRoot`配置方法需要`InMemoryDataService`类实例，用来向内存数据库填充数据：
+  
+  `forRoot()`配置方法需要`InMemoryDataService`类实例，用来向内存数据库填充数据：
+  往`app`目录下新增一个文件`in-memory-data.service.ts`，填写下列内容：
 
 +makeExample('toh-6/ts/src/app/in-memory-data.service.ts', 'init', 'src/app/in-memory-data.service.ts')(format='.')
+
 :marked
   This file replaces `mock-heroes.ts`, which is now safe to delete.
   
@@ -199,7 +201,7 @@ h1 提供 HTTP 服务
   刷新浏览器后，英雄数据就会从模拟服务器被成功读取。
 
   <h3 id="http-promise">HTTP Promise</h3>
-
+  
 :marked
   The Angular `http.get` returns an RxJS `Observable`.
   *Observables* are a powerful way to manage asynchronous data flows.
@@ -218,14 +220,17 @@ h1 提供 HTTP 服务
 :marked
   The Angular `Observable` doesn't have a `toPromise` operator out of the box.
 
-    不幸的是，Angular 的`Observable`并没有一个`toPromise`操作符... 没有打包在一起发布。
-    Angular的`Observable`只是一个骨架实现。There are many operators like `toPromise` that extend `Observable` with useful capabilities.
-    To use those capabilities, you have to add the operators themselves.
-    That's as easy as importing them from the RxJS library like this:
+  不幸的是，Angular 的`Observable`并没有一个`toPromise`操作符... 没有打包在一起发布。Angular的`Observable`只是一个骨架实现。
+  
+  There are many operators like `toPromise` that extend `Observable` with useful capabilities.
+  To use those capabilities, you have to add the operators themselves.
+  That's as easy as importing them from the RxJS library like this:
 
   有很多像`toPromise`这样的操作符，用于扩展`Observable`，为其添加有用的能力。
     如果我们希望得到那些能力，就得自己添加那些操作符。
-    那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：+makeExample('toh-6/ts/src/app/hero.service.ts', 'rxjs', '')
+    那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：
+    
++makeExample('toh-6/ts/src/app/hero.service.ts', 'rxjs', '')
 
 .l-sub-section
   :marked
@@ -241,7 +246,7 @@ h1 提供 HTTP 服务
   In the *Promise*'s `then()` callback , you call the `json` method of the HTTP `Response` to extract the
   data within the response.
     
-  在 *promise* 的`then`回调中，我们调用 HTTP 的`Reponse`对象的`json`方法，以提取出其中的数据。
+  在 *promise* 的`then()`回调中，我们调用 HTTP 的`Reponse`对象的`json`方法，以提取出其中的数据。
   
 +makeExample('toh-6/ts/src/app/hero.service.ts', 'to-data', '')
 
@@ -296,7 +301,7 @@ h1 提供 HTTP 服务
   This demo service logs the error to the console; in real life,
   you would handle the error in code. For a demo, this works.
   
-  在这个范例服务中，我们把错误记录到控制台中；在真实世界中，我们应该做得更好。
+  在这个范例服务中，我们把错误记录到控制台中；在真实世界中，我们应该用代码对错误进行处理。但对于演示来说，这就够了。
 
   The code also includes an error to
   the caller in a rejected promise, so that the caller can display a proper error message to the user.
@@ -375,7 +380,7 @@ h1 提供 HTTP 服务
   Add the following `save()` method, which persists hero name changes using the hero service
   `update()` method and then navigates back to the previous view.
 
-  `save`方法使用 hero 服务的`update`方法来持久化对英雄名字的修改，然后导航回前一个视图：
+  `save()`方法使用 hero 服务的`update()`方法来持久化对英雄名字的修改，然后导航回前一个视图：
 
 +makeExample('toh-6/ts/src/app/hero-detail.component.ts', 'save', 'src/app/hero-detail.component.ts (save)')
 
@@ -387,7 +392,7 @@ h1 提供 HTTP 服务
   The overall structure of the `update()` method is similar to that of
   `getHeroes()`, but it uses an HTTP `put()` to persist server-side changes.
   
-  `update`方法的大致结构与`getHeroes`类似，不过我们使用 HTTP 的 *put* 方法来把修改持久化到服务端：
+  `update()`方法的大致结构与`getHeroes()`类似，不过我们使用 HTTP 的 `put()` 方法来把修改持久化到服务端：
 
 +makeExample('toh-6/ts/src/app/hero.service.ts', 'update', 'src/app/hero.service.ts (update)')
 
@@ -397,7 +402,7 @@ h1 提供 HTTP 服务
   calling `JSON.stringify`. The body content type
   (`application/json`) is identified in the request header.
 
-  我们通过一个编码在 URL 中的英雄 id 来告诉服务器应该更新哪个英雄。put 的 body 是该英雄的 JSON 字符串，它是通过调用`JSON.stringify`得到的。
+  我们通过一个编码在 URL 中的英雄 `id` 来告诉服务器应该更新哪个英雄。`put` 的 body 是该英雄的 JSON 字符串，它是通过调用`JSON.stringify`得到的。
   并且在请求头中标记出的 body 的内容类型（`application/json`）。
 
   Refresh the browser, change a hero name, save your change,
@@ -414,7 +419,7 @@ h1 提供 HTTP 服务
   To add a hero, the app needs the hero's name. You can use an `input`
   element paired with an add button.
 
-  要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个 input 元素和一个添加按钮来实现。
+  要添加一个新的英雄，我们得先知道英雄的名字。我们使用一个 `input` 元素和一个添加按钮来实现。
 
   Insert the following into the heroes component HTML, just after
   the heading:
@@ -479,12 +484,12 @@ h1 提供 HTTP 服务
   don't want the `<li>` click handler to be triggered because doing so would
   select the hero that the user will delete.
 
-  除了调用组件的`delete`方法之外，这个`delete`按钮的点击处理器还应该阻止点击事件向上冒泡 &mdash;
+  除了调用组件的`delete()`方法之外，这个删除按钮的点击处理器还应该阻止点击事件向上冒泡 &mdash;
   我们并不希望触发`<li>`的事件处理器，否则它会选中我们要删除的这位英雄。
 
   The logic of the `delete()` handler is a bit trickier:
 
-  `delete`处理器的逻辑略复杂：
+  `delete()`处理器的逻辑略复杂：
 
 +makeExample('toh-6/ts/src/app/heroes.component.ts', 'delete', 'src/app/heroes.component.ts (delete)')
 
@@ -508,7 +513,7 @@ h1 提供 HTTP 服务
 :marked
   ### Hero service _delete()_ method
   
-  ### hero 服务的`delete`方法
+  ### hero 服务的`delete()`方法
 
   Add the hero service's `delete()` method, which uses the `delete()` HTTP method to remove the hero from the server:
 
@@ -557,14 +562,14 @@ h1 提供 HTTP 服务
   Recall that the `HeroService`  chained the `toPromise` operator to the `Observable` result of `http.get()`.
   That operator converted the `Observable` into a `Promise` and you passed that promise back to the caller.
 
-  快速回忆一下`HeroService`，它在`http.get`返回的`Observable`后面串联了一个`toPromise`操作符。
+  快速回忆一下`HeroService`，它在`http.get()`返回的`Observable`后面串联了一个`toPromise`操作符。
   该操作符把`Observable`转换成了`Promise`，并且我们把那个承诺返回给了调用者。
     
   Converting to a Promise is often a good choice. You typically ask `http.get()` to fetch a single chunk of data.
   When you receive the data, you're done.
   The calling component can easily consume a single result in the form of a Promise.
 
-  转换成承诺通常是更好地选择，我们通常会要求`http.get`获取单块数据。只要接收到数据，就算完成。
+  转换成承诺通常是更好地选择，我们通常会要求`http.get()`获取单块数据。只要接收到数据，就算完成。
   使用承诺这种形式的结果是让调用方更容易写，并且承诺已经在 JavaScript 程序员中被广泛接受了。
 
 :marked
@@ -608,7 +613,7 @@ h1 提供 HTTP 服务
   after chaining it to another RxJS operator, <code>map()</code>,
   to extract heroes from the response data.
   RxJS operator chaining makes response processing easy and readable.
-  See the [discussion below about operators](#rxjs-imports).</span>
+  See the [discussion below about operators](#rxjs-imports).
   
   更重要的是，你不在需要调用`toPromise()`了，而是直接从`http.get()`返回一个`Observable`，然后再给它串上其它的RxJS操作符，如`map()`，以从响应数据中提取出英雄列表。
   串联RxJS操作符可以让响应过程更加容易，可读性也更好。
@@ -636,7 +641,7 @@ h1 提供 HTTP 服务
   As the user types in the search box, a *keyup* event binding calls the component's `search()`
   method with the new search box value.
   
-  当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的`search`方法，并传入新的搜索框的值。
+  当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的`search()`方法，并传入新的搜索框的值。
 
   As expected, the `*ngFor` repeats hero objects from the component's `heroes` property.
 
@@ -674,7 +679,7 @@ h1 提供 HTTP 服务
     `Subject`（主题）是一个_可观察的_事件流中的生产者。
     `searchTerms`生成一个产生字符串的`Observable`，用作按名称搜索时的过滤条件。Each call to `search()` puts a new string into this subject's _observable_ stream by calling `next()`.
 
-    每当调用`search`时都会调用`next`来把新的字符串放进该主题的_可观察_流中。
+    每当调用`search()`时都会调用`next()`来把新的字符串放进该主题的_可观察_流中。
 
 a#ngoninit
 :marked
@@ -719,7 +724,7 @@ a#ngoninit
   * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
   It cancels and discards previous search observables, returning only the latest search service observable.
   
-    `switchMap`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
+    `switchMap()`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
         它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
 .l-sub-section
@@ -732,7 +737,7 @@ a#ngoninit
 
     借助[switchMap操作符](http://www.learnrxjs.io/operators/transformation/switchmap.html)
         (正式名称是`flatMapLatest`)
-    每次符合条件的按键事件都会触发一次对`http`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
+    每次符合条件的按键事件都会触发一次对`http()`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
     我们仍然可能同时拥有多个在途的 HTTP 请求，并且它们返回的顺序未必就是发送时的顺序。
     
     `switchMap()` preserves the original request order while returning
@@ -751,7 +756,7 @@ a#ngoninit
     doesn't actually abort a pending HTTP request.
     For now , unwanted resultsare discarded.
     
-    注意，_取消_`HeroSearchService`的可观察对象并不会实际中止 (abort) 一个未完成的 HTTP 请求，
+    注意，*取消*`HeroSearchService`的可观察对象并不会实际中止 (abort) 一个未完成的 HTTP 请求，
     除非服务支持这个特性，这个问题我们以后再讨论。
     目前我们的做法只是丢弃不希望的结果。
     
@@ -881,7 +886,7 @@ figure.image-display
     
   * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
   
-    我们扩展了`HeroService`来支持 post、put 和 delete 方法。
+    我们扩展了`HeroService`来支持 `post()`、`put()` 和 `delete()` 方法。
     
   * You updated the components to allow adding, editing, and deleting of heroes.
   
