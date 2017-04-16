@@ -360,8 +360,6 @@ code-example(language="sh" class="code-shell").
 
     这些文件很多都很眼熟，它们在其他文档里已经出现过，特别是[_TypeScript配置_](../guide/typescript-configuration.html)和[_npm包_](../guide/npm-packages.html)这两章里。
 
-    这些文件很多都很眼熟，它们在其他文档里已经出现过，特别是[_TypeScript配置_](../guide/typescript-configuration.html)和[_npm包_](../guide/npm-packages.html)这两章里。
-
     Webpack, the plugins, and the loaders are also installed as packages.
     They are listed in the updated `packages.json`.
 
@@ -382,8 +380,6 @@ a#polyfills
 
   You'll need polyfills to run an Angular application in most browsers as explained
   in the [Browser Support](browser-support.html) guide.
-
-  我们在[_浏览器支持_](browser-support.html)章节里解释过，Angular应用要能在大多数的浏览器里运行，它还需要一些polyfills。
 
   我们在[_浏览器支持_](browser-support.html)章节里解释过，Angular应用要能在大多数的浏览器里运行，它还需要一些polyfills。
 
@@ -423,8 +419,6 @@ a(id="common-configuration")
 
   我们可以把这些通用的配置收归到一个文件，命名为`webpack.common.js`。
   
-  我们可以把这些通用的配置收归到一个文件，命名为`webpack.common.js`。
-  
 +makeExample('webpack/ts/config/webpack.common.js', null, 'config/webpack.common.js')(format=".")
 
 a#inside-webpack-commonjs
@@ -435,8 +429,6 @@ a#inside-webpack-commonjs
   
   Webpack is a NodeJS-based tool that reads configuration from a JavaScript commonjs module file.
   
-  Webpack是基于NodeJS的一个工具，它能够从一个*commonjs*规范的JavaScript模块文件里读取配置。
-
   Webpack是基于NodeJS的一个工具，它能够从一个*commonjs*规范的JavaScript模块文件里读取配置。
 
   The configuration imports dependencies with `require` statements
@@ -457,8 +449,6 @@ a#inside-webpack-commonjs
     [`module.rules`](#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载。
 
   * [`plugins`](#common-plugins)&mdash;creates instances of the plugins.
-
-    [`plugins`](#common-plugins) - 创建插件的实例。
 
     [`plugins`](#common-plugins) - 创建插件的实例。
 
