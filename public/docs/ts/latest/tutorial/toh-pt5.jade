@@ -189,7 +189,7 @@ code-example(language="sh" class="code-shell").
 :marked
   ### Create *AppComponent*
 
-  ## 创建 *AppComponent*
+  ### 创建 *AppComponent*
 
   The new `AppComponent` is the application shell.
   It will have some navigation links at the top and a display area below.
@@ -310,14 +310,21 @@ code-example(language="sh" class="code-shell").
   Open `index.html` and ensure there is a `<base href="...">` element
   (or a script that dynamically sets this element)
   at the top of the `<head>` section.
+  
+  打开`index.html`，确保它的`<head>`区顶部有一个`<base href="...">`元素（或动态生成该元素的脚本）。
 
 +makeExample('toh-5/ts/src/index.html', 'base-href', 'src/index.html (base-href)')
 
 .callout.is-important
   header base href is essential
+  
+  header 基地址（base href）是必须的
+  
   :marked
     For more information, see the [Set the base href](../guide/router.html#!#base-href)
     section of the [Routing and Navigation](../guide/router.html) page.
+    
+    要了解更多信息，请参见[路由与导航](../guide/router.html)章的[设置基地址（base href）](../guide/router.html#!#base-href)部分。
 
 
 a#configure-routes
