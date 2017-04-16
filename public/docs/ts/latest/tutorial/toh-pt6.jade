@@ -135,7 +135,9 @@ h1 提供 HTTP 服务
   导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
     `InMemoryWebApiModule`将`Http`客户端默认的后端服务 &mdash;
     这是一个辅助服务，负责与远程服务器对话 &mdash;
-    替换成了*内存 Web API*服务：+makeExample('toh-6/ts/src/app/app.module.ts', 'in-mem-web-api', '')
+    替换成了*内存 Web API*服务：
+    
++makeExample('toh-6/ts/src/app/app.module.ts', 'in-mem-web-api', '')
 
 :marked
   The `forRoot()` configuration method takes an `InMemoryDataService` class
@@ -739,18 +741,18 @@ a#ngoninit
   before passing along the latest string. You'll never make requests more frequently than 300ms.
   
     在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了 300 毫秒。
-        我们实际发起请求的间隔永远不会小于 300ms。
+    我们实际发起请求的间隔永远不会小于 300ms。
         
   * `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
   
     `distinctUntilChanged`确保只在过滤条件变化时才发送请求，
-        这样就不会重复请求同一个搜索词了。
+    这样就不会重复请求同一个搜索词了。
         
   * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
   It cancels and discards previous search observables, returning only the latest search service observable.
   
     `switchMap()`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
-        它会取消并丢弃以前的搜索可观察对象，只保留最近的。
+    它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
 .l-sub-section
   :marked
@@ -761,7 +763,7 @@ a#ngoninit
     and they may not return in the order sent.
 
     借助[switchMap操作符](http://www.learnrxjs.io/operators/transformation/switchmap.html)
-        (正式名称是`flatMapLatest`)
+    (正式名称是`flatMapLatest`)
     每次符合条件的按键事件都会触发一次对`http()`方法的调用。即使在发送每个请求前都有 300 毫秒的延迟，
     我们仍然可能同时拥有多个在途的 HTTP 请求，并且它们返回的顺序未必就是发送时的顺序。
     
@@ -977,7 +979,7 @@ figure.image-display
   :marked
     ## Next step
 
-    ### 下一步
+    ## 下一步
 
     Return to the [learning path](../guide/learning-angular.html#architecture), where
     you can read more about the concepts and practices found in this tutorial.
