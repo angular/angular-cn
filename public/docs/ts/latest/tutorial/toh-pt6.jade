@@ -310,21 +310,36 @@ h1 提供 HTTP 服务
   以便调用者能把一个合适的错误信息显示给用户。
 
   ### Get hero by id
-
+  
+  ### 通过id获取英雄
+  
   When the `HeroDetailComponent` asks the `HeroService` to fetch a hero,
   the `HeroService` currently fetches all heroes and
   filters for the one with the matching `id`.
   That's fine for a simulation, but it's wasteful to ask a real server for all heroes when you only want one.
   Most web APIs support a _get-by-id_ request in the form `api/hero/:id` (such as `api/hero/11`).
+  
+  当`HeroDetailComponent`向`HeroService`请求获取一个英雄时，`HeroService`会获取所有英雄，并从中过滤出与`id`匹配的那一个。
+  这对于例子来说倒是无可厚非，
+    不过在真实服务中，这种为了获取一个英雄而请求全部英雄的做法就有点浪费了，
+    许多Web API支持*get-by-id*请求，形如：`api/hero/:id`（如：`api/hero/11`）。
 
   Update the `HeroService.getHero()` method to make a _get-by-id_ request:
+  
+  修改 `HeroService.getHero()` 方法来发起一个 *get-by-id* 请求：
+  
 +makeExample('toh-6/ts/src/app/hero.service.ts', 'getHero', 'src/app/hero.service.ts')
 
 :marked
   This request is almost the same as `getHeroes()`.
   The hero id in the URL identifies which hero the server should update.
+  
+  此方法基本上与`getHeroes`方法一致，通过在URL中添加英雄的id来告诉服务器应该获取_那个_英雄，
+    匹配`api/hero/:id`模式。
 
   Also, the `data` in the response is a single hero object rather than an array.
+
+  我们还要把响应中返回的`data`改为一个英雄对象，而不再是对象数组。组。
 
   ### Unchanged _getHeroes_ API
   
@@ -335,7 +350,9 @@ h1 提供 HTTP 服务
   You still return a Promise from both methods.
   You won't have to update any of the components that call them.
   
-  虽然我们修改了 `getHeroes()` 和 `getHero()` 的内部实现，但它们的公共签名并没有变。它们仍然返回承诺（Promise）。我们不必修改任何调用它们的组件。
+  尽管我们在`getHeroes()`和`getHero()`方法的*内部*做了重大修改，
+    但是他们的公共签名却没有变。这两个方法仍然返回的是一个Promise对象，
+    所以并不需要修改任何调用他们的组件。
 
   Now it's time to add the ability to create and delete heroes.
 
@@ -609,15 +626,18 @@ h1 提供 HTTP 服务
   `HeroSearchService`中的`http.get()`调用和`HeroService`中的很相似，只是这次带了查询字符串。
 
   More importantly, you no longer call `toPromise()`.
-  Instead you return the *Observable* from the the `http.get()`,
-  after chaining it to another RxJS operator, <code>map()</code>,
-  to extract heroes from the response data.
+    Instead you return the *Observable* from the the `http.get()`, 
+    after chaining it to another RxJS operator, <code>map()</code>, 
+    to extract heroes from the response data.
+
+  更重要的是：我们不再调用`toPromise`方法，而是从`http.get`
+    方法中返回一个*Observable*对象，之后调用RxJS的<code>map</code>操作符
+    来从返回数据中提取英雄。  
+    
   RxJS operator chaining makes response processing easy and readable.
-  See the [discussion below about operators](#rxjs-imports).
-  
-  更重要的是，你不在需要调用`toPromise()`了，而是直接从`http.get()`返回一个`Observable`，然后再给它串上其它的RxJS操作符，如`map()`，以从响应数据中提取出英雄列表。
-  串联RxJS操作符可以让响应过程更加容易，可读性也更好。
-  参见[稍后对操作符的讨论](#rxjs-imports)。
+    See the [discussion below about operators](#rxjs-imports).
+    
+  链式RxJS操作可以让我们简单、易读的处理响应数据。详见[下面关于操作符的讨论](#rxjs-imports)
 
 :marked
   ### HeroSearchComponent
@@ -775,19 +795,29 @@ a#rxjs-imports
 
   Most RxJS operators are not included in Angular's base `Observable` implementation.
   The base implementation includes only what Angular itself requires.
+  
+  大部分RxJS操作符都不包括在Angular的`Observable`基本实现中，基本实现只包括Angular本身所需的功能。
 
   When you need more RxJS features, extend  `Observable` by *importing* the libraries in which they are defined.
   Here are all the RxJS imports that _this_ component needs:
 
+  如果想要更多的RxJS功能，我们必须*导入*其所定义的库来扩展`Observable`对象，
+    以下是*这个*模块所需导入的所有RxJS操作符：
+    
 +makeExample('toh-6/ts/src/app/hero-search.component.ts','rxjs-imports','src/app/hero-search.component.ts (rxjs imports)')(format='.')
 
 :marked
   The `import 'rxjs/add/...'` syntax may be unfamiliar.
   It's missing the usual list of symbols between the braces: `{...}`.
+  
+  你可能并不熟悉这种`import 'rxjs/add/...'`语法，它缺少了花括号中的导入列表：`{...}`。
 
   You don't need the operator symbols themselves.
   In each case, the mere act of importing the library
   loads and executes the library's script file which, in turn, adds the operator to the `Observable` class.
+
+  这是因为我们并不需要操作符本身，这种情况下，我们所做的其实是导入这个库，加载并运行其中的脚本，
+  它会把操作符添加到`Observable`类中。
 
 :marked
   ### Add the search component to the dashboard
