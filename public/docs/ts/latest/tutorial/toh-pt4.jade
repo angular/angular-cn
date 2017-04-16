@@ -2,15 +2,22 @@ include ../_util-fns
 
 :marked
   As the Tour of Heroes app evolves, you'll add more components that need access to hero data.
+  
+  随着《英雄指南》的成长，我们要添加更多需要访问英雄数据的组件。
 
   Instead of copying and pasting the same code over and over,
   you'll create a single reusable data service and
   inject it into the components that need it.
   Using a separate service keeps components lean and focused on supporting the view,
   and makes it easy to unit-test components with a mock service.
+  
+  为了不再把相同的代码复制一遍又一遍，我们要创建一个单一的可复用的数据服务，并且把它注入到需要它的那些组件中。
+  使用单独的服务可以保持组件精简，使其集中精力为视图提供支持，并且，借助模拟（Mock）服务，可以更容易的对组件进行单元测试。
 
   Because data services are invariably asynchronous,
   you'll finish the page with a *Promise*-based version of the data service.
+  
+  由于数据服务总是异步的，因此我们最终会提供一个基于承诺（Promise）的数据服务。
 
   When you're done with this page, the app should look like this <live-example></live-example>.
 
@@ -94,7 +101,13 @@ code-example(language="sh" class="code-shell").
   在这一章，我们将把获取英雄数据的任务重构为一个单独的服务，它将提供英雄数据，并把服务在所有需要英雄数据的组件间共享。
 
   ### Create the HeroService
-### 创建 HeroService  Create a file in the `app` folder called `hero.service.ts`. 在`app`目录下创建一个名叫`hero.service.ts`的文件。
+  
+  ### 创建 HeroService  
+  
+  Create a file in the `app` folder called `hero.service.ts`. 
+  
+  在`app`目录下创建一个名叫`hero.service.ts`的文件。
+  
 .l-sub-section
   :marked
     The naming convention for service files is the service name in lowercase followed by `.service`.
@@ -104,6 +117,7 @@ code-example(language="sh" class="code-shell").
     我们遵循的文件命名约定是：服务名称的小写形式（基本名），加上`.service`后缀。
     如果服务名称包含多个单词，我们就把基本名部分写成中线形式 ([dash-case](../guide/glossary.html#dash-case))。
     例如，`SpecialSuperHeroService`服务应该被定义在`special-super-hero.service.ts`文件中。
+    
 :marked
   Name the class `HeroService` and export it for others to import.
 
@@ -119,11 +133,13 @@ code-example(language="sh" class="code-shell").
   Notice that you imported the Angular `Injectable` function and applied that function as an `@Injectable()` decorator.
 
   注意，我们导入了 Angular 的`Injectable`函数，并作为`@Injectable()`装饰器使用这个函数。
+  
 .callout.is-helpful
   :marked
     Don't forget the parentheses. Omitting them leads to an error that's difficult to diagnose.
 
     **不要忘了写圆括号！**如果忘了写，就会导致一个很难诊断的错误。
+    
 :marked
   The `@Injectable()` decorator tells TypeScript to emit metadata about the service.
   The metadata specifies that Angular may need to inject other dependencies into this service.
@@ -172,6 +188,7 @@ code-example(language="sh" class="code-shell").
   还要复制`import {Hero}...`语句，因为我们的英雄数组用到了`Hero`类。
 
 +makeExample('toh-4/ts/src/app/mock-heroes.ts', null, 'src/app/mock-heroes.ts')
+
 :marked
   The `HEROES` constant is exported so it can be imported elsewhere, such as the `HeroService`.
   
@@ -183,6 +200,7 @@ code-example(language="sh" class="code-shell").
   在刚刚剪切出`HEROES`数组的`app.component.ts`文件中，添加一个尚未初始化的`heroes`属性：
   
 +makeExample('toh-4/ts/src/app/app.component.1.ts', 'heroes-prop', 'src/app/app.component.ts (heroes property)')(format=".")
+
 :marked
   ### Return mocked hero data
 
@@ -277,6 +295,7 @@ code-example(language="sh" class="code-shell").
   添加构造函数：
   
 +makeExample('toh-4/ts/src/app/app.component.1.ts', 'ctor', 'src/app/app.component.ts (constructor)')
+
 :marked
   The constructor itself does nothing. The parameter simultaneously
   defines a private `heroService` property and identifies it as a `HeroService` injection site.
@@ -293,6 +312,7 @@ code-example(language="sh" class="code-shell").
     Read more about dependency injection in the [Dependency Injection](../guide/dependency-injection.html) page.
 
     更多依赖注入的信息，见[依赖注入](../guide/dependency-injection.html)。
+    
 :marked
   The *injector* doesn't know yet how to create a `HeroService`.
   If you ran the code now, Angular would fail with this error:
@@ -343,7 +363,9 @@ a#child-component
   在真实的世界中，我们并不需要把一行代码包装成一个专门的方法，但无论如何，我们在演示代码中先这么写：
 
 +makeExcerpt('toh-4/ts/src/app/app.component.1.ts', 'getHeroes', 'src/app/app.component.ts')
+
 <a id="oninit"></a>
+
 :marked
   ### The *ngOnInit* lifecycle hook
   
@@ -460,6 +482,7 @@ code-example(format="nocode").
   把`HeroService`的`getHeroes`方法改写为返回承诺的形式：
   
 +makeExample('toh-4/ts/src/app/hero.service.ts', 'get-heroes', 'src/app/hero.service.ts (excerpt)')(format=".")
+
 :marked
   You're still mocking the data. You're simulating the behavior of an ultra-fast, zero-latency server,
   by returning an *immediately resolved Promise* with the mock heroes as the result.
@@ -496,6 +519,7 @@ code-example(format="nocode").
 
     回调中所用的 [ES2015 箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
     比等价的函数表达式更加简洁，能优雅的处理 *this* 指针。
+    
 :marked
   The callback sets the component's `heroes` property to the array of heroes returned by the service.
   
@@ -510,7 +534,8 @@ code-example(format="nocode").
   :marked
     At the end of this page, [Appendix: take it slow](#slow) describes what the app might be like with a poor connection.
 
-    查看附录中的“[慢一点](#slow)”，来了解在较差的网络连接中这个应用会是什么样的。
+    查看附录中的“[慢！](#slow)”，来了解在较差的网络连接中这个应用会是什么样的。
+    
 :marked
   ## Review the app structure
   
@@ -581,7 +606,7 @@ code-example(format="nocode").
 
   * You designed the service to return a Promise and the component to get the data from the Promise.
   
-  我们把服务设计为返回承诺，组件从承诺中获取数据。
+    我们把服务设计为返回承诺，组件从承诺中获取数据。
 
   Your app should look like this <live-example></live-example>.
   
@@ -608,7 +633,7 @@ code-example(format="nocode").
 :marked
   ## Appendix: Take it slow
   
-  ## 附件：慢一点
+  ## 附件：慢
   
   To simulate a slow connection,
   import the `Hero` symbol and add the following `getHeroesSlowly()` method to the `HeroService`.
