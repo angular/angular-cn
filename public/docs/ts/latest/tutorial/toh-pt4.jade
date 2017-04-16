@@ -375,7 +375,7 @@ a#child-component
 :marked
   Here's the essential outline for the `OnInit` interface (don't copy this into your code):
 
-  这是`OnInit`接口的基本轮廓：
+  这是`OnInit`接口的基本轮廓（但不要拷贝到你自己的代码中）：
 
 +makeExample('toh-4/ts/src/app/app.component.1.ts', 'on-init')(format=".")
 
@@ -616,10 +616,10 @@ code-example(format="nocode").
   Like `getHeroes()`, it also returns a `Promise`.
   But this Promise waits two seconds before resolving the Promise with mock heroes.
 
-  像`getHeroes`一样，它也返回一个承诺。
+  像`getHeroes()`一样，它也返回一个承诺。
   但是，这个承诺会在提供模拟数据之前等待两秒钟。
 
   Back in the `AppComponent`, replace `getHeroes()` with `getHeroesSlowly()`
   and see how the app behaves.
 
-  回到`AppComponent`，用`heroService.getHeroesSlowly`替换`heroService.getHeroes`，并观察应用的行为。
+  回到`AppComponent`，用`heroService.getHeroesSlowly()`替换`heroService.getHeroes()`，并观察应用的行为。
