@@ -166,12 +166,22 @@ code-example(language="sh" class="code-shell").
   Users should be able to edit the hero name in an `<input>` textbox.
   The textbox should both _display_ the hero's `name` property
   and _update_ that property as the user types.
+  
+  用户应该能在一个`<input>`输入框中编辑英雄的名字。
+  当用户输入时，这个输入框应该能同时*显示*和*修改*英雄的`name`属性。
 
   You need a two-way binding between the `<input>` form element and the `hero.name` property.
+  
+  也就是说，我们要在表单元素`<input>`和组件的`hero.name`属性之间建立双向绑定。
 
   ### Two-way binding
+  
+  ### 双向绑定
 
   Refactor the hero name in the template so it looks like this:
+  
+  把模板中的英雄名字重构成这样：
+  
 +makeExample('toh-1/ts/app/app.component.1.ts', 'name-input')(format='.')
 
 :marked
@@ -179,22 +189,40 @@ code-example(language="sh" class="code-shell").
   to the textbox.
   Data flows _in both directions:_ from the property to the textbox,
   and from the textbox back to the property.
+  
+  `[(ngModel)]`是一个Angular语法，用与把`hero.name`绑定到输入框中。
+  它的数据流是*双向的*：从属性到输入框，并且从输入框回到属性。
 
   Unfortunately, immediately after this change, the application breaks.
   If you looked in the browser console, you'd see Angular complaining that
   "`ngModel` ... isn't a known property of `input`."
+  
+  不幸的是，做了这项改动之后，我们的程序崩溃了。
+  打开浏览器的控制台，我们会看到Angular抱怨说："`ngModel` ... isn't a known property of `input`."（`ngModel`不是`input`元素的已知属性）
 
   Although `NgModel` is a valid Angular directive, it isn't available by default.
   It belongs to the optional `FormsModule`.
   You must opt-in to using that module.
+  
+  虽然`NgModel`是一个有效的Angular指令，但它默认情况下却是不可用的。
+  它属于一个可选模块`FormsModule`。
+  我们必须选择使用那个模块。
 
   ### Import the _FormsModule_
+  
+  ### 导入 _FormsModule_
 
   Open the `app.module.ts` file and import the `FormsModule` symbol from the `@angular/forms` library.
   Then add the `FormsModule` to the `@NgModule` metadata's `imports` array, which contains the list
   of external modules that the app uses.
+  
+  打开`app.module.ts`文件，并且从`@angular/forms`库中导入符号`FormsModule`。
+  然后把`FormsModule`添加到`@NgModule`元数据的`imports`数组中，它是当前应用正在使用的外部模块列表。
 
   The updated `AppModule` looks like this:
+  
+  修改后的`AppModule`是这样的：
+  
 +makeExample('toh-1/ts/src/app/app.module.ts', '', 'app.module.ts (FormsModule import)')
 
 .l-sub-section
