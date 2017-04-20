@@ -131,6 +131,8 @@ a#single-responsibility
   <a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>single responsibility principle</i> (SRP)</a>
   to all components, services, and other symbols. 
   This helps make the app cleaner, easier to read and maintain, and more testable.
+  
+  对所有的组件、服务等等应用<a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>单一职责原则</i> (SRP)</a>
 
   ### <a id="01-01"></a>Rule of One
   
@@ -327,7 +329,10 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="02-02"></a>Separate File names with dots and dashes### <a id="02-02"></a>使用点和横杠来分隔文件名
+  ### <a id="02-02"></a>Separate File names with dots and dashes
+  
+  ### <a id="02-02"></a>使用点和横杠来分隔文件名
+  
   #### <a href="#02-02">Style 02-02</a>
 
   #### <a href="#02-02">风格 02-02</a>
@@ -1397,7 +1402,7 @@ a(href="#toc").to-top 回到顶部
   Use the naming conventions for files in this guide.
 
   所有内容都遵循每个文件一个特性的原则。每个组件、服务和管道都在自己的文件里。
-  所有第三方程序包保存到其它目录里，不是`src`目录。
+  所有第三方程序包保存到其它目录里，而不是`src`目录。
   你不会修改它们，所以不希望它们弄乱我们的应用程序。
   使用本指南介绍的文件命名约定。
 
@@ -1407,8 +1412,6 @@ a(href="#toc").to-top 回到顶部
 
 .l-main-section
 :marked
-  ### <a id="04-01"></a>_LIFT_
-
   ### <a id="04-01"></a>_LIFT_
 
   #### <a href="#04-01">Style 04-01</a>
@@ -1653,13 +1656,13 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** Helps keep the app structure small and easy to maintain in the early stages, while being easy to evolve as the app grows.
 
-    **为何？**在早期阶段能够帮助保持应用的结构小巧且易于维护，这样当应用增长时就容易进化了。
+    **为何？** 在早期阶段能够帮助保持应用的结构小巧且易于维护，这样当应用增长时就容易进化了。
 
 .s-why-last
   :marked
     **Why?** Components often have four files (e.g. `*.html`, `*.css`, `*.ts`, and `*.spec.ts`) and can clutter a folder quickly.
 
-    **为何?**组件通常有四个文件 (`*.html`、 `*.css`、 `*.ts` 和 `*.spec.ts`)，它们很容易把一个目录弄乱。
+    **为何?** 组件通常有四个文件 (`*.html`、 `*.css`、 `*.ts` 和 `*.spec.ts`)，它们很容易把一个目录弄乱。
 
 a(id='file-tree')
 :marked
@@ -1950,7 +1953,7 @@ a(href="#toc").to-top 回到顶部
     **Do** declare components, directives, and pipes in a shared module when those 
     items will be re-used and referenced by the components declared in other feature modules.
     
-    **坚持**在共享模块中声明那些可能被那些特性模块引用的可复用组件、指令和管道。
+    **坚持**在共享模块中声明那些可能被特性模块引用的可复用组件、指令和管道。
 
 .s-rule.consider
   :marked
@@ -2004,7 +2007,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Avoid** specifying app-wide singleton providers in a `SharedModule`. Intentional singletons are OK. Take care.
 
-    **避免**在`SharedModule`中指定应用级的单例服务提供商。但如果是故意设计的单例也可以，不过还是要小心。
+    **避免**在`SharedModule`中指定应用级的单例服务提供商。如果是刻意要得到多个服务单例也行，不过还是要小心。
 
 .s-why
   :marked
@@ -2094,7 +2097,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** put a singleton service whose instance will be shared throughout the application in the `CoreModule` (e.g. `ExceptionService` and `LoggerService`).
 
-    **坚持**把一个要共享给整个应用的单例服务放进`CoreModule`中（例如`ExceptionService`和`LoggerService`）。
+    **坚持**把要共享给整个应用的单例服务放进`CoreModule`中（例如`ExceptionService`和`LoggerService`）。
 
 .s-rule.do
   :marked
@@ -2112,7 +2115,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Why?** `CoreModule` will contain singleton services. When a lazy loaded module imports these, it will get a new instance and not the intended app-wide singleton.
 
-    **为何？**`CoreModule`将包含一些单例服务。而如果惰性加载模块导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
+    **为何？**`CoreModule`将包含一些单例服务。而如果是由惰性加载模块来导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
 
 .s-rule.do
   :marked
@@ -2246,7 +2249,7 @@ a(href="#toc").to-top 回到顶部
   
   Only the root `AppModule` should import the `CoreModule`. 
 
-  应该只有`AppModule`才能导入`CoreModule`。
+  应该只有`AppModule`才允许导入`CoreModule`。
 
 .s-rule.do
   :marked
@@ -2343,7 +2346,7 @@ a(href="#toc").to-top 回到顶部
 :marked
   ## Components
 
-  ##组件
+  ## 组件
   
   ### <a id="05-02"></a>Component selector nams
 
@@ -2392,7 +2395,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** give components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
 
-    **坚持**通过选择器把组件定义为元素。
+    **坚持**给组建一个*元素*选择器，而不是*属性*或*类*选择器。
 
 .s-why
   :marked
@@ -2456,7 +2459,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** specify _component-relative_ URLs, prefixed with `./`.
     
-    **坚持**指定*相对于模块的* URL ，给它加上`./`前缀，并且往组件元数据中添加 `moduleId: module.id`。
+    **坚持**指定*相对于模块的* URL ，给它加上`./`前缀。
 
 .s-why
   :marked
@@ -3052,7 +3055,7 @@ a(href="#toc").to-top 回到顶部
   :marked
     **Do** refactor logic for making data operations and interacting with data to a service.
 
-    **坚持**把数据操作和互动重构到服务里。
+    **坚持**把数据操作和与数据交互的逻辑重构到服务里。
 
 .s-rule.do
   :marked
