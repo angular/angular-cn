@@ -1,20 +1,20 @@
 {
   "currentEnvironment": "JavaScript",
   "version": {
-    "raw": "4.0.0-beta.5",
+    "raw": "4.1.0-beta.1",
     "major": 4,
-    "minor": 0,
+    "minor": 1,
     "patch": 0,
     "prerelease": [
       "local"
     ],
-    "build": "sha.cf546a7",
-    "version": "4.0.0-local",
+    "build": "sha.f08dcf1",
+    "version": "4.1.0-local",
     "codeName": "snapshot",
     "isSnapshot": true,
-    "full": "4.0.0-local+sha.cf546a7",
+    "full": "4.1.0-local+sha.f08dcf1",
     "branch": "master",
-    "commitSHA": "cf546a7f45f1afa32163d4ba2f9688be882055dd"
+    "commitSHA": "f08dcf149e343de2d6d4c1f7d64df510fecf5730"
   },
   "sections": []
 }
