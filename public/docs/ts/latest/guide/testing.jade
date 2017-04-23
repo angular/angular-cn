@@ -15,8 +15,8 @@ a#top
   # 目录
 
   * [Live examples](#live-examples "Live examples of the tests in this guide")
-  
-      [在线例子](#live-examples "本章这些测试的在线例子")
+
+    [在线例子](#live-examples "本章这些测试的在线例子")
       
   * [Introduction to Angular testing](#testing-intro)
   
@@ -56,21 +56,23 @@ a#top
 
     [测试一个组件](#simple-component-test)
 
-    * [_TestBed_](#testbed)
+    * [`TestBed`](#testbed)
+    
+      [`TestBed`（测试台）](#testbed)
 
-    * [_createComponent_](#create-component)
+    * [`createComponent`](#create-component)
 
-    * [_ComponentFixture_, _DebugElement_, and _query(By.css)_](#component-fixture)
+    * [`ComponentFixture`, `DebugElement`, and `query(By.css)`](#component-fixture)
 
-      [_ComponentFixture_, _DebugElement_, 和 _query(By.css)_](#component-fixture)
+      [`ComponentFixture`, `DebugElement`, 和 `query(By.css)`](#component-fixture)
 
     * [The tests](#the-tests)
 
       [测试](#the-tests)
 
-    * [_detectChanges_: Angular change detection within a test](#detect-changes)
+    * [`detectChanges`: Angular change detection within a test](#detect-changes)
 
-      [_detectChanges_: 在测试中控制Angular的变更检测](#detect-changes)
+      [`detectChanges`: 在测试中控制Angular的变更检测](#detect-changes)
 
     * [Try the live example](#try-example)
 
@@ -85,19 +87,19 @@ a#top
 
     [测试带有外部模板的组件](#component-with-external-template)
 
-    * [The first asynchronous _beforeEach_](#async-in-before-each)
+    * [The first asynchronous `beforeEach`](#async-in-before-each)
 
-      [第一处异步代码：_beforeEach_](#async-in-before-each)
+      [第一处异步代码：`beforeEach`](#async-in-before-each)
 
-    * [_compileComponents_](#compile-components)
+    * [`compileComponents`](#compile-components)
 
-    * [The second synchronous _beforeEach_](#second-before-each)
+    * [The second synchronous `beforeEach`](#second-before-each)
 
-      [第二处同步代码：_beforeEach_](#second-before-each)
+      [第二处同步代码：`beforeEach`](#second-before-each)
 
-    * [Waiting for _compileComponents_](#waiting-compile-components)
+    * [Waiting for `compileComponents`](#waiting-compile-components)
 
-      [等待 _compileComponents_](#waiting-compile-components)
+      [等待 `compileComponents`](#waiting-compile-components)
 
     * [Try the live example](#live-external-template-example)
 
@@ -116,7 +118,7 @@ a#top
     
       [获取注入的服务](#get-injected-service)
       
-    * [_TestBed.get_](#testbed-get)
+    * [`TestBed.get`](#testbed-get)
 
     * [Always get the service from an injector](#service-from-injector)
 
@@ -139,31 +141,31 @@ a#top
 
       [同步测试](#sync-tests)
 
-    * [The _async_ funciton in it](#async)
+    * [The `async` funciton in it](#async)
 
       [`it`中的`async`函数](#async)
 
-    * [_whenStable_](#when-stable)
+    * [`whenStable`](#when-stable)
 
-    * [The _fakeAsync_ function](#fake-async)
+    * [The `fakeAsync` function](#fake-async)
 
       [`fakeAsync` 函数](#fake-async)
 
-    * [The _tick_ function](#tick)
+    * [The `tick` function](#tick)
 
       [`tick`函数](#tick)
 
-    * [_jasmine.done_](#jasmine-done)
+    * [`jasmine.done`](#jasmine-done)
 
   * [Test a component with inputs and outputs](#component-with-input-output)
 
     [测试带有输入属性和输出属性的组件](#component-with-input-output)
 
-    * [Test _DashboardHeroComponent_ stand-alone](#dashboard-standalone)
+    * [Test `DashboardHeroComponent` stand-alone](#dashboard-standalone)
 
       [单独测试`DashboardHeroComponent`](#dashboard-standalone)
 
-    * [_triggerEventHandler_](#trigger-event-handler)
+    * [`triggerEventHandler`](#trigger-event-handler)
 
   * [Test a component inside a test host component](#component-inside-test-host)
 
@@ -173,7 +175,7 @@ a#top
 
     [测试路由组件](#routed-component)
 
-    * [The _inject_ helper function](#inject)
+    * [The `inject` helper function](#inject)
 
       [`inject`助手函数](#inject)
 
@@ -181,15 +183,15 @@ a#top
 
       [测试带参数的路由组件](#routed-component-w-param)
 
-    * [Create an _Observable_ test double](#stub-observable)
+    * [Create an `Observable` test double](#stub-observable)
 
       [创建`Observable`测试桩（Stub）](#stub-observable)
 
-    * [Testing with the _Observable_ test double](#tests-w-observable-double)
+    * [Testing with the `Observable` test double](#tests-w-observable-double)
 
       [使用`Observable`测试桩进行测试](#tests-w-observable-double)
 
-  * [Use a _page_ object to simplify setup](#page-object)
+  * [Use a `page` object to simplify setup](#page-object)
 
     [使用`page`对象来简化设置](#page-object)
 
@@ -205,7 +207,7 @@ a#top
 
     [改写（Override）组件的提供商](#component-override)
 
-    * [The _overrideComponent_ method](#override-component-method)
+    * [The `overrideComponent` method](#override-component-method)
 
       [`overrideComponent`方法](#override-component-method)
 
@@ -222,7 +224,7 @@ a#top
       [更多的改写](#more-overrides)
 
 
-  * [Test a _RouterOutlet_ component](#router-outlet-component)
+  * [Test a `RouterOutlet` component](#router-outlet-component)
 
     [测试`RouterOutlet`组件](#router-outlet-component)
 
@@ -230,11 +232,11 @@ a#top
     
       [模拟不需要的组件](#stub-component)
       
-    * [Stubbing the _RouterLink_](#router-link-stub)
+    * [Stubbing the `RouterLink`](#router-link-stub)
     
-      [模拟_RouterLink_](#router-link-stub)
+      [模拟`RouterLink`](#router-link-stub)
       
-    * [_By.directive_ and injected directives](#by-directive)
+    * [`By.directive` and injected directives](#by-directive)
 
       [`By.directive`与注入的指令](#by-directive)
 
@@ -243,9 +245,9 @@ a#top
       [为什么要这样写测试？](#why-stubbed-routerlink-tests)
 
 
-  * ["Shallow component tests" with  *NO\_ERRORS\_SCHEMA*](#shallow-component-test)
+  * ["Shallow component tests" with  *NO_ERRORS_SCHEMA*](#shallow-component-test)
 
-    [使用`NO\_ERRORS\_SCHEMA`进行 "浅组件测试" ](#shallow-component-test)
+    [使用`NO_ERRORS_SCHEMA`进行 "浅组件测试" ](#shallow-component-test)
 
   * [Test an attribute directive](#attribute-directive)
 
@@ -280,25 +282,25 @@ a#top
 
     [Angular单元测试工具类 API ](#atu-apis)
 
-    * [_TestBed_ class summary](#testbed-class-summary)
+    * [`TestBed` class summary](#testbed-class-summary)
 
       [`TestBed`总结](#testbed-class-summary)
 
-    * [The _ComponentFixture_](#component-fixture-api-summary)
+    * [The `ComponentFixture`](#component-fixture-api-summary)
 
-      [`ComponentFixture`](#component-fixture-api-summary)
+      [`ComponentFixture`总结](#component-fixture-api-summary)
 
-    * [_ComponentFixture_ properties](#component-fixture-properties)
+    * [`ComponentFixture` properties](#component-fixture-properties)
 
       [`ComponentFixture`的属性](#component-fixture-properties)
 
-    * [The _ComponentFixture_ methods](#component-fixture-methods)
+    * [The `ComponentFixture` methods](#component-fixture-methods)
 
       [`ComponentFixture`方法](#component-fixture-methods)
 
-    * [_DebugElement_](#debug-element-details)
+    * [`DebugElement`](#debug-element-details)
 
-      [`DebugElement`](#debug-element-details)
+      [`DebugElement`详情](#debug-element-details)
 
 
   * [Test environment setup files](#setup-files)
@@ -514,23 +516,40 @@ a#isolated-v-testing-utilities
   examine an instance of a class all by itself without any dependence on Angular or any injected values.
   The tester creates a test instance of the class with `new`, supplying test doubles for the constructor parameters as needed, and
   then probes the test instance API surface.
+  
+  [独立单元测试](#isolated-unit-tests "不使用Angular测试工具集的单元测试")用于测试那些完全不依赖Angular或不需要注入值的类实例。
+  测试程序是所有`new`创建该类的实例，为构造函数参数提供所需的测试替身，然后测试该实例的API接口。
 
   *You should write isolated unit tests for pipes and services.*
+  
+  *我们应该为管道和服务书写独立单元测试。*
 
   You can test components in isolation as well.
   However, isolated unit tests don't reveal how components interact with Angular.
   In particular, they can't reveal how a component class interacts with its own template or with other components.
+  
+  我们也同样可以对组件写独立单元测试。
+  不过，独立单元测试无法体现组件与Angular的交互。
+  具体来说，就是不能发现组件类如何与它的模板或其它组件交互。
 
   Such tests require the **Angular testing utilities**.
   The  Angular testing utilities include the `TestBed` class and several helper functions from `@angular/core/testing`.
   They are the main focus of this guide and you'll learn about them
   when you write your [first component test](#simple-component-test).
   A comprehensive review of the Angular testing utilities appears [later in this guide](#atu-apis).
+  
+  这时你需要*Angular测试工具集*。
+  Angular测试工具集包括`TestBed`类和一些来自`@angular/core/testing`的助手函数。
+  本章将会重点讲解它们，通过[第一个组件测试](#simple-component-test)来讲解。
+  [本章稍后的部分](#atu-apis)将展示Angular测试工具集的全貌。
 
   But first you should write a dummy test to verify that your test environment is set up properly
   and to lock in a few basic testing skills.
+  
+  但首先，我们要先随便写一个测试来验证测试环境是否已经就绪了，并掌握一些基础的测试技术。
 
 a(href="#top").to-top Back to top
+a(href="#top").to-top 回到顶部
 
 .l-hr
 
@@ -705,9 +724,14 @@ figure.image-display
 a#live-karma-example
 :marked
   ### Try the live example
+  
+  ### 试试这个在线例子
 
   You can also try this test as a <live-example plnkr="1st-specs" title="First spec" embedded-style></live-example> in plunker.
   All of the tests in this guide are available as [live examples](#live-examples "Live examples of these tests").
+  
+  你还可以在plunker的<live-example plnkr="1st-specs" title="First spec" embedded-style></live-example>中试运行这个测试。
+  本章的所有测试都有相应的[在线例子](#live-examples "Live examples of these tests")。
 
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
@@ -717,27 +741,47 @@ a(href="#top").to-top 回到顶部
 a#simple-component-test
 :marked
   ## Test a component
+  
+  ## 测试一个组件
 
   An Angular component is the first thing most developers want to test.
   The `BannerComponent` in `src/app/banner-inline.component.ts` is the simplest component in this application and
   a good place to start.
   It presents the application title at the top of the screen within an `<h1>` tag.
+  
+  大多数开发人员首先要测试的就是Angular组件。
+  `src/app/banner-inline.component.ts`中的`BannerComponent`是这个应用中最简单的组件，也是一个好的起点。
+  它所表示的是屏幕顶部`<h1>`标签中的应用标题。
+  
 +makeExample('testing/ts/src/app/banner-inline.component.ts', '', 'src/app/banner-inline.component.ts')(format='.')
+
 :marked
   This version of the `BannerComponent` has an inline template and an interpolation binding.
   The component is probably too simple to be worth testing in real life but
   it's perfect for a first encounter with the Angular testing utilities.
+  
+  这个版本的`BannerComponent`有一个内联模板和一个插值表达式绑定。
+  这个组件可能太简单，以至于在真实的项目中都不值得测试，但它却是首次接触Angular测试工具集时的完美例子。
 
   The corresponding `src/app/banner-inline.component.spec.ts` sits in the same folder as the component,
   for reasons explained in the [FAQ](#faq) answer to
   ["Why put specs next to the things they test?"](#q-spec-file-location).
+  
+  组件对应的`src/app/banner-inline.component.spec.ts`文件与该组件位于同一个目录中，原因详见[FAQ](#faq)中的
+  [为什么要把测试规约文件放在被测试对象旁边？](#q-spec-file-location)
 
   Start with ES6 import statements to get access to symbols referenced in the spec.
+  
+  在测试文件中，我们先用ES6的`import`语句来引入测试所需的符号。
+  
 +makeExample('testing/ts/src/app/banner-inline.component.spec.ts', 'imports', 'src/app/banner-inline.component.spec.ts (imports)')(format='.')
 
 a#configure-testing-module
 :marked
   Here's the `describe` and the `beforeEach` that precedes the tests:
+  
+  测试前面的`describe`和`beforeEach`如下：
+  
 +makeExample('testing/ts/src/app/banner-inline.component.spec.ts', 'setup', 'src/app/banner-inline.component.spec.ts (beforeEach)')(format='.')
 
 a#testbed
@@ -2138,9 +2182,9 @@ a#tests-w-observable-double
   :marked
     Inspect and download _all_ of the guide's application test code with this <live-example plnkr="app-specs" embedded-style>live example</live-example>.
 
-a(href="#top").to-top Back to top
-
     到<live-example plnkr="app-specs">在线例子</live-example>查看和下载**所有**本章应用程序测试代码。
+    
+a(href="#top").to-top Back to top
 
 .l-hr
 

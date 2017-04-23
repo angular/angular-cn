@@ -27,10 +27,11 @@ block includes
   我们几乎会把它们看做某种CSS样式，事实上，我们也确实更喜欢在HTML模板中应用它们 —— 就像CSS样式一样。
 
   Introducing Angular pipes, a way to write display-value transformations that you can declare in your HTML.
+  
+  通过引入Angular管道，我们可以把这种简单的“显示-值”转换器声明在HTML中。
 
   You can run the <live-example></live-example> in Plunker and download the code from there.
 
-  欢迎来到Angular“管道(Pipe)”的世界！我们可以把这种简单的“值-显示”转换器声明在HTML中。
   试试<live-example>在线例子</live-example>。
 
 .l-main-section
@@ -286,7 +287,7 @@ figure.image-display
   To probe the behavior in the <live-example></live-example>,
   change the value and optional exponent in the template.
   
-  如果我们试一下这个<live-example>在线例子</live-example>，就可以通过修改值和模板中的可选部分来体会其行为。
+  如果我们试一下这个<live-example></live-example>，就可以通过修改值和模板中的可选部分来体会其行为。
 
   ## Power Boost Calculator
   
@@ -370,7 +371,7 @@ a#change-detection
   Notice the odd behavior in the <live-example></live-example>:
   when you add flying heroes, none of them are displayed under "Heroes who fly."
 
-  当运行例子时，我们看到一种奇怪的行为（试试<live-example>在线例子</live-example>）。添加的每个英雄都是会飞行的英雄，但是没有一个被显示出来。
+  当运行<live-example></live-example>时，我们看到一种奇怪的行为。添加的每个英雄都是会飞行的英雄，但是没有一个被显示出来。
 
   Although you're not getting the behavior you want, Angular isn't broken.
   It's just using a different change-detection algorithm that ignores changes to the list or any of its items.
@@ -560,7 +561,7 @@ a#impure-flying-heroes
   display updates as you add heroes, even when you mutate the `heroes` array.
   
   唯一的重大改动就是管道。
-    我们可以在<live-example>在线例子</live-example>中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
+    我们可以在<live-example></live-example>中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
 
 h3#async-pipe The impure #[i AsyncPipe]
 :marked
