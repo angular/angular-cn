@@ -56,20 +56,30 @@ angularIO.directive('liveExample', ['$location', function ($location) {
 
   function span(text) { return '<span>' + text + '</span>'; }
 
-  function embeddedTemplate(src, img, zipHref) {
-    return '<div ng-if="embeddedShow">' +
+  function embeddedTemplate(src, img, zipHref, translated) {
+    var basic = '<div ng-if="embeddedShow">' +
         '<iframe frameborder="0" width="100%" height="100%" src="' + src + '"></iframe>' +
       '</div>' +
-      '<img ng-click="toggleEmbedded()" ng-if="!embeddedShow" src="' + img + '" alt="plunker">' +
-      '<p>你也可以<a href="' + zipHref +'">下载这个例子。</p>';
+      '<img ng-click="toggleEmbedded()" ng-if="!embeddedShow" src="' + img + '" alt="plunker">';
+    var download = translated
+      ?
+      '<p>你还可以<a href="' + zipHref +'">下载这个例子</p>'
+      :
+      '<p>You can also <a href="' + zipHref +'">download this example.</p>';
+    return basic + download;
   }
 
   return {
     restrict: 'E',
     scope: true,
     compile: function (tElement, attrs) {
+      var translated = tElement.parent().hasClass('translated');
+      var textLiveExample = translated?'在线例子':'live example';
+      var textDownloadableExample = translated? '可下载的例子':'downloadable example';
+      var textViewSource = translated ? '查看源码':'view source';
+
       var href, template;
-      var text = tElement.text() || '在线例子';
+      var text = tElement.text() || textLiveExample;
       if (attrs['title'] == undefined) { tElement[0].setAttribute('title', text); } // set default title (tooltip)
       var ex = attrs.name || NgIoUtil.getExampleName($location);
       var embedded = attrs.hasOwnProperty('embedded');
@@ -95,7 +105,7 @@ angularIO.directive('liveExample', ['$location', function ($location) {
       if (embedded && !isForDart) {
         href = '/resources/live-examples/' + ex + '/' + exLang + '/' + plnkr + '.html';
         img = imageBase + (attrs.img || defaultImg);
-        template = embeddedTemplate(href, img, zipHref);
+        template = embeddedTemplate(href, img, zipHref, translated);
       } else {
         var href = isForDart
           ? 'http://angular-examples.github.io/' + ex
@@ -105,13 +115,13 @@ angularIO.directive('liveExample', ['$location', function ($location) {
         var template = a(text, { href: href, target: '_blank' });
 
         if (!noDownload) {
-          template += ' / ' + a('可下载的例子', { href: zipHref, target: '_blank' });
+          template += ' / ' + a(textDownloadableExample, { href: zipHref, target: '_blank' });
         }
 
         // The hosted example and sources are in different locations for Dart.
         // Also show link to sources for Dart, unless noSource is specified.
         if (isForDart && !attrs.hasOwnProperty('nosource')) {
-          var srcText = attrs.srcText || '查看源码';
+          var srcText = attrs.srcText || textViewSource;
           var srcHref = 'http://github.com/angular-examples/' + ex;
           template = span(template + ' (' + a(srcText, { href: srcHref, target: '_blank' }) + ')');
         }
