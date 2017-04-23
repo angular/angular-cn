@@ -23,8 +23,8 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
     }
 
     var nodes = container.querySelectorAll('p,h1,h2,h3,h4,h5,h6,header,a');
-    for(var i in nodes) {
-      (function(node) {
+    for (var i in nodes) {
+      (function (node) {
         if (isTranslation(node.textContent)) {
           var $translated = $(node);
           var prevNode = node.previousElementSibling;
@@ -53,12 +53,7 @@ var sourceVisible = localStorage.getItem('source-visible') === 'true';
   }
 
   function isTranslation(text) {
-    if (text) {
-      text = text.replace('在线例子', '');
-      return /[\u2E80-\u2EFF\u2F00-\u2FDF\u3000-\u303F\u31C0-\u31EF\u3200-\u32FF\u3300-\u33FF\u3400-\u4DBF\u4DC0-\u4DFF\u4E00-\u9FBF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]/.test(text);
-    }
-    return false;
-
+    return text && /[\u2E80-\u2EFF\u2F00-\u2FDF\u3000-\u303F\u31C0-\u31EF\u3200-\u32FF\u3300-\u33FF\u3400-\u4DBF\u4DC0-\u4DFF\u4E00-\u9FBF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]/.test(text);
   }
 
   function attributesToString(node) {
