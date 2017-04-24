@@ -956,7 +956,7 @@ a#route-config
     of routing in feature modules.
 
     作为简单的路由配置，将添加配置好的`RouterModule`到`AppModule`中就足够了。
-    随着应用的成长，我们将需要将路由配置重构到单独的文件，并创建**[路由模块](#routing-module)** - 一种特别的、专门为特征模块的路由器服务的**服务模块**。
+    随着应用的成长，我们将需要将路由配置重构到单独的文件，并创建**[路由模块](#routing-module)** - 一种特别的、专门为特性模块的路由器服务的**服务模块**。
 
 :marked
   Providing the `RouterModule` in the `AppModule` makes the Router available everywhere in the application.
@@ -1296,7 +1296,7 @@ a#redirect
     
   * Provides a module to replace or remove when testing the application.
   
-    测试特征模块时，可以替换或移除路由模块
+    测试特性模块时，可以替换或移除路由模块
     
   * Provides a well-known location for routing service providers including guards and resolvers.
   
@@ -1345,7 +1345,7 @@ a#routing-refactor
   The application continues to work just the same, and you can use `AppRoutingModule` as
   the central place to maintain future routing configuration.
 
-  应用继续正常运行，我们可以把路由模块作为为每个特征模块维护路由配置的中心地方。
+  应用继续正常运行，我们可以把路由模块作为为每个特性模块维护路由配置的中心地方。
 
 a#why-routing-module
 :marked
@@ -1356,7 +1356,7 @@ a#why-routing-module
   The _Routing Module_ *replaces* the routing configuration in the root or feature module.
   _Either_ configure routes in the Routing Module _or_ within the module itself but not in both.
 
-  **路由模块**在根模块或者特征模块替换了路由配置。在路由模块或者在模块内部配置路由，但不要同时在两处都配置。
+  **路由模块**在根模块或者特性模块替换了路由配置。在路由模块或者在模块内部配置路由，但不要同时在两处都配置。
 
   The Routing Module is a design choice whose value is most obvious when the configuration is complex
   and includes specialized guard and resolver services.
@@ -1384,7 +1384,7 @@ a#why-routing-module
   It is where developers expect to find and expand routing configuration.
 
   它在配置复杂时，能确保代码干净。
-  它让测试特征模块更加容易。
+  它让测试特性模块更加容易。
   它的存在突出了模块时被路由的事实。
   开发者可以很自然的从路由模块中查找和扩展路由配置。
 
@@ -3652,7 +3652,7 @@ include ../../../_includes/_see-addr-bar
   How do you combat this problem?  With asynchronous routing, which loads feature modules _lazily_, on request.
   Lazy loading has multiple benefits.
   
-  如何才能解决这个问题呢？我们引进了异步路由到应用程序中，并获得在请求时才**惰性**加载特征模块的能力。这样给我们带来了下列好处：
+  如何才能解决这个问题呢？我们引进了异步路由到应用程序中，并获得在请求时才**惰性**加载特性模块的能力。这样给我们带来了下列好处：
 
   * You can load feature areas only when requested by the user.
   
