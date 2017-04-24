@@ -101,11 +101,6 @@
     "basics": true
   },
 
-  "ngmodule": {
-    "title": "Angular模块 (NgModule)",
-    "intro": "用 @NgModule 定义应用中的模块"
-  },
-
   "animations": {
     "title": "动画",
     "intro": "Angular 动画系统指南。"
@@ -153,8 +148,8 @@
   },
 
   "ngmodule": {
-    "title": "Ng模块",
-    "intro": "用@NgModule定义应用模块。"
+    "title": "Angular模块 (NgModule)",
+    "intro": "用 @NgModule 定义应用中的模块"
   },
 
   "npm-packages": {
