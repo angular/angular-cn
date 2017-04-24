@@ -27,10 +27,6 @@
     margin-top: -($unit * 0);
   }
 
-  p.original-english {
-    margin-top: -($unit * 3);
-  }
-
   .card {
     height: auto;
     min-height: 194px;
@@ -120,4 +116,10 @@ body, .main-nav .main-nav-button, .translated-cn {
 
 img {
   max-width: 100%;
+}
+
+.l-sub-section, .alert {
+  p {
+    margin-bottom: 0;
+  }
 }

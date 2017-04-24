@@ -112,7 +112,7 @@ a#top
 
     * [Provide service test doubles](#service-test-doubles)
 
-      [测试复制品](#service-test-doubles)
+      [测试替身](#service-test-doubles)
 
     * [Get injected services](#get-injected-service)
     
@@ -1280,14 +1280,14 @@ a#service-test-doubles
 :marked
   ### Provide service test doubles
 
-  ### 提供服务复制品
+  ### 提供服务替身
 
   A _component-under-test_ doesn't have to be injected with real services.
   In fact, it is usually better if they are test doubles (stubs, fakes, spies, or mocks).
   The purpose of the spec is to test the component, not the service,
   and real services can be trouble.
 
-  被测试的组件不一定要注入真正的服务。实际上，服务的复制品（stubs, fakes, spies或者mocks）通常会更加合适。
+  被测试的组件不一定要注入真正的服务。实际上，服务的替身（stubs, fakes, spies或者mocks）通常会更加合适。
   spec的主要目的是测试组件，而不是服务。真实的服务可能自身有问题。
 
   Injecting the real `UserService` could be a nightmare.
@@ -1297,7 +1297,7 @@ a#service-test-doubles
   It is far easier and safer to create and register a test double in place of the real `UserService`.
 
   注入真实的`UserService`有可能很麻烦。真实的服务可能询问用户登录凭据，也可能试图连接认证服务器。
-  可能很难处理这些行为。所以在真实的`UserService`的位置创建和注册`UserService`复制品，会让测试更加容易和安全。
+  可能很难处理这些行为。所以在真实的`UserService`的位置创建和注册`UserService`替身，会让测试更加容易和安全。
 
   This particular test suite supplies a minimal `UserService` stub that satisfies the needs of the `WelcomeComponent`
   and its tests:
@@ -1493,6 +1493,9 @@ a#service-spy
 
     Spying on the real service isn't always easy, especially when the real service has injected dependencies.
     You can _stub and spy_ at the same time, as shown in [an example below](#spy-stub).
+    
+    刺探真实的服务往往并不容易，特别是真实的服务依赖其它服务时。
+    我们可以同时*打桩和刺探*，就像[后面的例子](#spy-stub)那样。
 
 :marked
   Here are the tests with commentary to follow:
@@ -2141,7 +2144,8 @@ a#inject
   :marked
     Do not configure the `TestBed` after calling `inject`.
 
-    不要再调用`inject`以后再试图配置`TestBed`。
+    不要在调用`inject`以后再试图配置`TestBed`。
+
 a(href="#top").to-top Back to top
 a(href="#top").to-top 回到顶部
 
