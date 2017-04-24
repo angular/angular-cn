@@ -68,7 +68,6 @@ block includes
     
       [为什么要加`@Injectable()`？](#injectable)
       
-
   * [Creating and registering a logger service](#logger-service)
   
     [创建并注册日志服务](#logger-service)
@@ -101,20 +100,15 @@ block includes
     
       [工厂提供商](#factory-provider)
     
-
   * [Dependency injection tokens](#dependency-injection-tokens)
 
     [依赖注入令牌](#dependency-injection-tokens)
 
- 
     * [Non-class dependencies](#non-class-dependencies)
 
       [非"类"依赖](#non-class-dependencies)
 
     * [`InjectionToken`](#injection-token)
-
-      [`InjectionToken`](#injection-token)
-
 
   * [Optional dependencies](#optional)
 
@@ -141,7 +135,7 @@ block includes
   To understand why dependency injection is so important, consider an example without it.
   Imagine writing the following code:
 
-  要想理解为什么依赖注入这么重要，就先来考虑不使用它的一个例子。想象下列代码：
+  要理解为什么依赖注入这么重要，不妨先考虑不使用它的一个例子。想象下列代码：
 
 +makeExample('dependency-injection/ts/src/app/car/car-no-di.ts', 'car', 'src/app/car/car.ts (without DI)')
 
@@ -201,7 +195,7 @@ block includes
   Will a new instance of `Engine` make an asynchronous call to the server?
   You certainly don't want that going on during tests.
 
-  当给`Car`类写测试的时候，我们被它那些隐藏的依赖所摆布。
+  当给`Car`类写测试的时候，我们就会受制于它背后的那些依赖。
   能在测试环境中成功创建新的`Engine`吗？
   `Engine`自己又依赖什么？那些依赖本身又依赖什么？
   `Engine`的新实例会发起到服务器的异步调用吗？
@@ -228,7 +222,7 @@ block includes
   That's super easy. Change the `Car` constructor to a version with DI:
 
   <a id="ctor-injection"></a>
-  答案超级简单。把`Car`的构造函数改造成使用 DI 的版本：
+  答案非常简单。把`Car`的构造函数改造成使用 DI 的版本：
 
 +makeTabs(
   'dependency-injection/ts/src/app/car/car.ts, dependency-injection/ts/src/app/car/car-no-di.ts',
@@ -1496,6 +1490,6 @@ a#injection-token
     Avoid the problem altogether by defining components and services in separate files.
 
     在`forwardRef()`方法的帮助下，实际上也可以先定义组件，
-    具体说明见这个[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)。
+    具体说明见这篇[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)。
     但是为什么要先给自己找麻烦呢？
     还是通过在独立的文件中定义组件和服务，完全避免此问题吧。

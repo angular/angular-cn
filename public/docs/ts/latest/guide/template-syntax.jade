@@ -311,21 +311,30 @@ a#expression-context
 +makeExample('template-syntax/ts/src/app/app.component.html', 'context-var')(format=".")
 
 :marked
-  The context for terms in an expression isa blend of the _template variables_,
+  The context for terms in an expression is a blend of the _template variables_,
   the directive's _context_ object (if it has one), and the component's _members_.
   If you reference a name that belongs to more than one of these namespaces,
   the template variable name takes precedence, followed by a name in the directive's _context_,
   and, lastly, the component's member names.
+  
+  表达式中的上下文变量是由*模板变量*、指令的*上下文变量*（如果有）和组件的*成员*叠加而成的。
+  如果我们要引用的变量名存在于一个以上的命名空间中，那么，模板变量是最优先的，其次是指令的上下文变量，最后是组件的成员。
 
   The previous example presents such a name collision. The component has a `hero`
   property and the `*ngFor` defines a `hero` template variable.
   The `hero` in `{{hero.name}}`
   refers to the template input variable, not the component's property.
+  
+  上一个例子中就体现了这种命名冲突。组件具有一个名叫`hero`的属性，而`*ngFor`声明了一个也叫`hero`的模板变量。
+  在`{{hero.name}}`表达式中的`hero`实际引用的是模板变量，而不是组件的属性。
 
   Template expressions cannot refer to anything in
   the global namespace. They can't refer to `window` or `document`. They
   can't call `console.log` or `Math.max`. They are restricted to referencing
   members of the expression context.
+  
+  模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
+  它们只能引用表达式上下文中的成员。
 
 a(href="#toc") back to top
 a(href="#toc") 回到顶部
@@ -1212,7 +1221,7 @@ a#one-time-initialization
 
   Imagine the following *malicious content*.
   
-  假设下面的*恶毒内容*
+  假设下面的*恶意内容*
 
 +makeExample('template-syntax/ts/src/app/app.component.ts', 'evil-title')(format=".")    
 
@@ -1372,12 +1381,18 @@ a(href="#toc") 回到顶部
   其中后两部分是可选的。形如：`[class.class-name]`。
 
   The following examples show how to add and remove the application's "special" class
-  with class bindings.  Here's how to set the attribute without binding:下列例子示范了如何通过 CSS 类绑定来添加和移除应用的 "special" 类。不用绑定直接设置 attribute 时是这样的：
+  with class bindings.  Here's how to set the attribute without binding:
+  
+  下列例子示范了如何通过 CSS 类绑定来添加和移除应用的 "special" 类。不用绑定直接设置 attribute 时是这样的：
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-1')(format=".")
 
 :marked
-  You can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.可以把它改写为绑定到所需 CSS 类名的绑定；这是一个或者全有或者全无的替换型绑定。
+  You can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
+  
+  可以把它改写为绑定到所需 CSS 类名的绑定；这是一个或者全有或者全无的替换型绑定。
   （译注：即当 badCurly 有值时 class 这个 attribute 设置的内容会被完全覆盖）
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'class-binding-2')(format=".")
 
 :marked
@@ -1421,7 +1436,10 @@ a(href="#toc") 回到顶部
 +makeExample('template-syntax/ts/src/app/app.component.html', 'style-binding-1')(format=".")
 
 :marked
-  Some style binding styles have aunit extension. The following example conditionally sets the font size in  “em” and “%” units .有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
+  Some style binding styles have a unit extension. The following example conditionally sets the font size in  “em” and “%” units.
+  
+  有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'style-binding-2')(format=".")
 
 .l-sub-section
@@ -1937,7 +1955,10 @@ a#ngStyle
 +makeExample('template-syntax/ts/src/app/app.component.ts', 'setStyles')(format=".")
 
 :marked
-  Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:把`NgStyle`属性绑定到`currentStyles`，以据此设置此元素的样式：
+  Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:
+  
+  把`NgStyle`属性绑定到`currentStyles`，以据此设置此元素的样式：
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgStyle-2')(format=".")
 
 .l-sub-section
@@ -1953,32 +1974,49 @@ a(href="#toc") 回到顶部
 a#ngModel
 :marked
   ### NgModel - Two-way binding to form elements with <span class="syntax">[(ngModel)]</span>
+  
+  ### NgModel - 使用<span class="syntax">[(ngModel)]</span>双向绑定到表单元素
 
   When developing data entry forms, you often both display a data property and
   update that property when the user makes changes.
+  
+  当开发数据输入表单时，我们通常都要既显示数据属性又根据用户的更改去修改那个属性。
 
   Two-way data binding with the `NgModel` directive makes that easy. Here's an example:
+  
+  使用`NgModel`指令进行双向数据绑定可以简化这种工作。例子如下：
 
 +makeExcerpt('src/app/app.component.html', 'NgModel-1', '')
 
 :marked
   #### _FormsModule_ is required to use _ngModel_
+  
+  #### 使用 `ngModel` 时需要 `FormsModule`
 
   Before using the `ngModel` directive in a two-way data binding,
   you must import the `FormsModule` and add it to the Angular module's `imports` list.
   Learn more about the `FormsModule` and `ngModel` in the
   [Forms](../guide/forms.html#ngModel) guide.
+  
+  在使用`ngModel`指令进行双向数据绑定之前，我们必须导入`FormsModule`并把它添加到Angular模块的`imports`列表中。
+  要了解`FormsModule`和`ngModel`的更多知识，参见[表单](../guide/forms.html#ngModel)一章。
 
   Here's how to import the `FormsModule` to make `[(ngModel)]` available.
+  
+  导入`FormsModule`并让`[(ngModel)]`可用的代码如下：
 
 +makeExcerpt('src/app/app.module.1.ts (FormsModule import)', '')
 
 :marked
   #### Inside <span class="syntax">[(ngModel)]</span>
+  
+  #### <span class="syntax">[(ngModel)]</span>内幕
 
   Looking back at the `name` binding, note that
   you could have achieved the same result with separate bindings to
   the `<input>` element's  `value` property and `input` event.
+  
+  回头看看`name`绑定，注意，你可以通过分别绑定到`<input>`元素的`value`属性和`input`事件来达到同样的效果。
 
 +makeExample('template-syntax/ts/src/app/app.component.html', 'without-NgModel')(format=".")
 
@@ -1986,8 +2024,13 @@ a#ngModel
   That's cumbersome. Who can remember which element property to set and which element event emits user changes?
   How do you extract the currently displayed text from the input box so you can update the data property?
   Who wants to look that up each time?
+  
+  那样显得很笨重，谁会记得该设置哪个元素属性以及当用户修改时触发哪个事件？
+  你该如何提取输入框中的文本并且更新数据属性？谁会希望每次都去查资料来确定这些？
 
   That `ngModel` directive hides these onerous details behind its own  `ngModel` input and `ngModelChange` output properties.
+  
+  `ngModel`指令通过自己的输入属性`ngModel`和输出属性`ngModelChange`隐藏了那些细节。
 
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-3')(format=".")
 
@@ -1995,6 +2038,8 @@ a#ngModel
   :marked
     The `ngModel` data property sets the element's value property and the `ngModelChange` event property
     listens for changes to the element's value.
+    
+    `ngModel`输入属性会设置该元素的值，并通过`ngModelChange`的输出属性来监听元素值的变化。
 
     The details are specific to each kind of element and therefore the `NgModel` directive only works for an element
     supported by a [ControlValueAccessor](../api/forms/index/ControlValueAccessor-interface.html)
@@ -2002,37 +2047,60 @@ a#ngModel
     The `<input>` box is one of those elements.
     Angular provides *value accessors* for all of the basic HTML form elements and the
     [_Forms_](forms.html) guide shows how to bind to them.
+    
+    各种元素都有很多特有的处理细节，因此`NgModel`指令只支持实现了[ControlValueAccessor](../api/forms/index/ControlValueAccessor-interface.html)的元素，
+    它们能让元素适配本协议。
+    `<input>`输入框正是其中之一。
+    Angular为所有的基础HTML表单都提供了*值访问器（Value accessor）*，[*表单*](forms.html)一章展示了如何绑定它们。
 
     You can't apply `[(ngModel)]` to a non-form native element or a third-party custom component
     until you write a suitable *value accessor*,
     a technique that is beyond the scope of this guide.
+    
+    我们不能把`[(ngModel)]`用到非表单类的原生元素或第三方自定义组件上，除非写一个合适的*值访问器*，这种技巧超出了本章的范围。
 
     You don't need a _value accessor_ for an Angular component that you write because you
     can name the value and event properties
     to suit Angular's basic [two-way binding syntax](#two-way) and skip `NgModel` altogether.
     The [`sizer` shown above](#two-way) is an example of this technique.
+    
+    我们自己写的Angular组件不需要*值访问器*，因为我们可以让值和事件的属性名适应Angular基本的[双向绑定语法](#two-way)，而不使用`NgModel`。
+    [前面看过的`sizer`](#two-way)就是使用这种技巧的例子。
 
 :marked
   Separate `ngModel` bindings is an improvement over binding to the element's native properties. You can do better.
+  
+  使用独立的`ngModel`绑定优于绑定到该元素的原生属性，那样我们可以做得更好。
 
   You shouldn't have to mention the data property twice. Angular should be able to capture
   the component's data property and set it
   with a single declaration, which it can with the `[(ngModel)]` syntax:
+  
+  我们不用被迫两次引用这个数据属性，Angular可以捕获该元素的数据属性，并且通过一个简单的声明来设置它，这样它就可以使用`[(ngModel)]`语法了。
 
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-1')(format=".")
 
 :marked
   Is `[(ngModel)]` all you need? Is there ever a reason to fall back to its expanded form?
+  
+  `[(ngModel)]`就是你需要的一切吗？有没有什么理由回退到它的展开形式？
 
   The `[(ngModel)]` syntax can only _set_ a data-bound property.
   If you need to do something more or something different, you can write the expanded form.
+  
+  `[(ngModel)]`语法只能*设置*数据绑定属性。
+  如果要做更多或者做点不一样的事，也可以写它的展开形式。
 
   The following contrived example forces the input value to uppercase:
+  
+  下面这个生造的例子强制输入框的内容变成大写：
 
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgModel-4')(format=".")
 
 :marked
   Here are all variations in action, including the uppercase version:
+  
+  这里是所有这些变体的动画，包括这个大写转换的版本：
 
 figure.image-display
     img(src='/resources/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations")
@@ -2045,27 +2113,55 @@ p
 a#structural-directives
 :marked
   ## Built-in _structural_ directives
+  
+  ## 内置*结构型*指令
 
   Structural directives are responsible for HTML layout.
   They shape or reshape the DOM's _structure_, typically by adding, removing, and manipulating
   the host elements to which they are attached.
+  
+  结构型指令的职责是HTML布局。
+  它们塑造或重塑DOM的*结构*，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。
 
   The deep details of structural directives are covered in the
   [_Structural Directives_](structural-directives.html) guide
   where you'll learn:
+  
+  关于结构型指令的详情参见[*结构型指令*](structural-directives.html)一章，在那里我们将学到：
 
   * why you
   [_prefix the directive name with an asterisk_ (\*)](structural-directives.html#asterisk "The * in *ngIf").
+  
+    为什么要[给结构型指令的名字加上(\*)前缀？](structural-directives.html#asterisk "The * in *ngIf")
+    
   * to use [`<ng-container>`](structural-directives.html#ngcontainer "<ng-container>")
   to group elements when there is no suitable host element for the directive.
+  
+    当没有合适的宿主元素防止指令时，可用`<ng-container>`](structural-directives.html#ngcontainer "<ng-container>对元素进行分组。
+    
   * how to write your own structural directive.
+  
+    如何写自己的结构型指令。
+    
   * that you can only apply [one structural directive](structural-directives.html#one-per-element "one per host element") to an element.
+  
+    我们只能往一个元素上应用[一个结构型指令](structural-directives.html#one-per-element "one per host element")。
 
   _This_ section is an introduction to the common structural directives:
+  
+  *本节*是对常见结构型指令的简介：
 
   * [`NgIf`](#ngIf) - conditionally add or remove an element from the DOM
+  
+    [`NgIf`](#ngIf) - 根据条件把一个元素添加到DOM中或从DOM移除
+    
   * [`NgFor`](#ngFor) - repeat a template for each item in a list
+  
+    [`NgFor`](#ngFor) - 对列表中的每个条目重复套用一个模板
+    
   * [`NgSwitch`](#ngSwitch) - a set of directives that switch among alternative views
+  
+    [`NgSwitch`](#ngSwitch) - 一组指令，用于切换一组视图
 
 .l-hr
 a#ngIf
@@ -2075,6 +2171,9 @@ a#ngIf
   You can add or remove an element from the DOM by applying an `NgIf` directive to
   that element (called the _host elment_).
   Bind the directive to a condition expression like `isActive` in this example.
+  
+  通过把`NgIf`指令应用到元素上（称为*宿主元素*），我们可以往DOM中添加或从DOM中移除这个元素。
+  在下面的例子中，该指令绑定到了类似于`isActive`这样的条件表达式。
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgIf-1')(format=".")
 
@@ -2088,6 +2187,8 @@ a#ngIf
   When the `isActive` expression returns a truthy value, `NgIf` adds the `HeroDetailComponent` to the DOM.
   When the expression is falsy, `NgIf` removes the `HeroDetailComponent`
   from the DOM, destroying that component and all of its sub-components.
+  
+  当`isActive`表达式返回真值时，`NgIf`把`HeroDetailComponent`添加到DOM中；为假时，`NgIf`会从DOM中移除`HeroDetailComponent`，并销毁该组件及其所有子组件。
 
   #### Show/hide is not the same thing
   
@@ -2125,6 +2226,8 @@ a#ngIf
 
   The show/hide technique is fine for a few elements with few children.
   You should be wary when hiding large component trees; `NgIf` may be the safer choice.
+  
+  显示/隐藏的技术对于只有少量子元素的元素是很好用的，但要当心别试图隐藏大型组件树。相比之下，`NgIf`则是个更安全的选择。
 
   #### Guard against null
   
@@ -2233,24 +2336,39 @@ a#template-input-variables
   The `let` keyword before `hero` creates a _template input variable_ called `hero`.
   The `ngFor` directive iterates over the `heroes` array returned by the parent component's `heroes` property
   and sets `hero` to the current item from the array during each iteration.
+  
+  `hero`前的`let`关键字创建了一个名叫`hero`的*模板输入变量*。
+  `ngFor`指令在由父组件的`heroes`属性返回的`heroes`数组上迭代，每次迭代都从数组中把当前元素赋值给`hero`变量。
 
   You reference the `hero` input variable within the `ngFor` host element
   (and within its descendents) to access the hero's properties.
   Here it is referenced first in an interpolation
   and then passed in a binding to the `hero` property of the `<hero-detail>` component.
   
+  我们可以在`ngFor`的宿主元素（及其子元素）中引用模板输入变量`hero`，从而访问该英雄的属性。
+  这里它首先在一个插值表达式中被引用到，然后通过一个绑定把它传给了`<hero-detail>`组件的`hero`属性。
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgFor-1-2')(format=".")  
 
 :marked
   Learn more about _template input variables_ in the
   [_Structural Directives_](structural-directives.html#template-input-variable) guide.
+  
+  要了解更多*模板输入变量*的知识，参见[*结构型指令*](structural-directives.html#template-input-variable)一章。
 
   #### *ngFor with _index_
+  
+  #### 带索引的`*ngFor`
 
   The `index` property of the `NgFor` directive context  returns the zero-based index of the item in each iteration.
   You can capture the `index` in a template input variable and use it in the template.
+  
+  `NgFor`指令上下文中的`index`属性返回一个从零开始的索引，表示当前条目在迭代中的顺序。
+  我们可以通过模板输入变量捕获这个`index`值，并把它用在模板中。
 
   The next example captures the `index` in a variable named `i` and displays it with the hero name like this.
+  
+  下面这个例子把`index`捕获到了`i`变量中，并且把它显示在英雄名字的前面。
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgFor-3')(format=".")
 
@@ -2264,6 +2382,8 @@ a#template-input-variables
 a#trackBy
 :marked
   #### *ngFor with _trackBy_
+  
+  #### 带`trackBy`的`*ngFor`
 
 
   The `NgFor` directive may perform poorly, especially with large lists.
@@ -2330,13 +2450,21 @@ p
 a#ngSwitch
 :marked
   ### The _NgSwitch_ directives
+  
+  ### `NgSwitch`指令
 
   *NgSwitch* is like the JavaScript `switch` statement.
   It can display _one_ element from among several possible elements, based on a _switch condition_.
   Angular puts only the *selected* element into the DOM.
+  
+  `NgSwitch`指令类似于JavaScript的`switch`语句。
+  它可以从多个可能的元素中根据*switch条件*来显示某一个。
+  Angular只会把*选中的*元素放进DOM中。
 
   *NgSwitch* is actually a set of three, cooperating directives:
   `NgSwitch`, `NgSwitchCase`, and `NgSwitchDefault` as seen in this example.
+  
+  `NgSwitch`实际上包括三个相互协作的指令：`NgSwitch`、`NgSwitchCase` 和 `NgSwitchDefault`，例子如下：
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgSwitch')(format=".")
 
@@ -2346,26 +2474,47 @@ figure.image-display
 :marked
   `NgSwitch` is the controller directive. Bind it to an expression that returns the *switch value*.
   The `emotion` value in this example is a string, but the switch value can be of any type.
+  
+  `NgSwitch`是主控指令，要把它绑定到一个返回*候选值*的表达式。
+  本例子中的`emotion`是个字符串，但实际上这个候选值可以是任意类型。
 
   **Bind to `[ngSwitch]`**. You'll get an error if you try to set `*ngSwitch` because
   `NgSwitch` is an *attribute* directive, not a *structural* directive.
   It changes the behavior of its companion directives.
   It doesn't touch the DOM directly.
+  
+  **绑定到`[ngSwitch]`**。如果试图用`*ngSwitch`的形式使用它就会报错，这是因为`NgSwitch`是一个*属性型*指令，而不是*结构型指令*。
+  它要修改的是所在元素的行为，而不会直接接触DOM结构。
 
   **Bind to `*ngSwitchCase` and `*ngSwitchDefault`**.
   The `NgSwitchCase` and `NgSwitchDefault` directives are _structural_ directives
   because they add or remove elements from the DOM.
+  
+  **绑定到`*ngSwitchCase`和`*ngSwitchDefault`**
+  `NgSwitchCase` 和 `NgSwitchDefault` 指令都是*结构型指令*，因为它们会从DOM中添加或移除元素。
 
   * `NgSwitchCase` adds its element to the DOM when its bound value equals the switch value.
+  
+    `NgSwitchCase`会在它绑定到的值等于候选值时，把它所在的元素加入到DOM中。
+    
   * `NgSwitchDefault` adds its element to the DOM when there is no selected `NgSwitchCase`.
+  
+    `NgSwitchDefault`会在没有任何一个`NgSwitchCase`被选中时把它所在的元素加入DOM中。
 
   The switch directives are particularly useful for adding and removing *component elements*.
   This example switches among four "emotional hero" components defined in the `hero-switch.components.ts` file.
   Each component has a `hero` [input property](#inputs-outputs "Input property")
   which is bound to the `currentHero` of the parent component.
+  
+  这组指令在要添加或移除*组件元素*时会非常有用。
+  这个例子会在`hero-switch.components.ts`中定义的四个"感人英雄"组件之间选择。
+  每个组件都有一个[输入属性](#inputs-outputs "Input property")`hero`，它绑定到父组件的`currentHero`上。
 
   Switch directives work as well with native elements and web components too.
   For example, you could replace the `<confused-hero>` switch case with the following.
+  
+  这组指令在原生元素和<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>上都可以正常工作。
+  比如，你可以把`<confused-hero>`分支改成这样：
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'NgSwitch-div')(format=".")
 
@@ -2378,14 +2527,21 @@ a#ref-vars
 a#ref-var
 :marked
   ## Template reference variables ( <span class="syntax">#var</span> )
+  
+  ## 模板引用变量 ( <span class="syntax">#var</span> )
 
 :marked
   A **template reference variable** is often a reference to a DOM element within a template.
   It can also be a reference to an Angular component or directive or a
   <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">web component</a>.
+  
+  **模板引用变量**通常用来引用模板中的某个DOM元素，它还可以引用Angular组件或指令或<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>。
 
   Use the hash symbol (#) to declare a reference variable.
   The `#phone` declares a `phone` variable on an `<input>` element.
+  
+  使用井号 (#) 来声明引用变量。
+  `#phone`的意思就是声明一个名叫`phone`的变量来引用`<input>`元素。
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'ref-var')(format=".")
 
@@ -2394,18 +2550,31 @@ a#ref-var
   The `phone` variable declared on this `<input>` is
   consumed in a `<button>` on the other side of the template
   
+  我们可以在模板中的任何地方引用模板引用变量。
+  比如声明在`<input>`上的`phone`变量就是在模板另一侧的`<button>`上使用的。
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'ref-phone')(format=".")
 
 :marked
   ### How a reference variable gets its value
+  
+  ### 模板引用变量怎么得到它的值？
 
   In most cases, Angular sets the reference variable's value to the element on which it was declared.
   In the previous example, `phone` refers to the _phone number_ `<input>` box.
   The phone button click handler passes the _input_ value to the component's `callPhone` method.
   But a directive can change that behavior and set the value to something else, such as itself.
   The `NgForm` directive does that.
+  
+  大多数情况下，Angular会把模板引用变量的值设置为声明它的那个元素。
+  在上一个例子中，`phone`引用的是表示*电话号码*的`<input>`框。
+  "拨号"按钮的点击事件处理器把这个*input*值传给了组件的`callPhone`方法。
+  不过，指令也可以修改这种行为，让这个值引用到别处，比如它自身。
+  `NgForm`指令就是这么做的。
 
   The following is a *simplified* version of the form example in the [Forms](forms.html) guide.
+  
+  下面是[表单](forms.html)一章中表单范例的*简化版*。
   
 +makeExample('template-syntax/ts/src/app/hero-form.component.html')(format=".")
 
@@ -2413,29 +2582,50 @@ a#ref-var
   A template reference variable, `heroForm`, appears three times in this example, separated
   by a large amount of HTML.
   What is the value of `heroForm`?
+  
+  模板引用变量`heroForm`在这个例子中出现了三次，中间隔着一大堆HTML。
+  `heroForm`的值是什么？
 
   If Angular hadn't taken it over when you imported the `FormsModule`,
   it would be the [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
   The `heroForm` is actually a reference to an Angular [NgForm](../api/forms/index/NgForm-directive.html "API: NgForm")
   directive with the ability to track the value and validity of every control in the form.
+  
+  如果你没有导入过`FormsModule`，Angular就不会控制这个表单，那么它就是一个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)实例。
+  这里的`heroForm`实际上是一个Angular [NgForm](../api/forms/index/NgForm-directive.html "API: NgForm") 指令的引用，
+  因此具备了跟踪表单中的每个控件的值和有效性的能力。
 
   The native `<form>` element doesn't have a `form` property.
   But the `NgForm` directive does, which explains how you can disable the submit button
   if the `heroForm.form.valid` is invalid and pass the entire form control tree
   to the parent component's `onSubmit` method.
+  
+  原生的`<form>`元素没有`form`属性，但`NgForm`指令有。这就解释了为何当`heroForm.form.valid`是无效时我们可以禁用提交按钮，
+  并能把整个表单控件树传给父组件的`onSubmit`方法。
 
   ### Template reference variable warning notes
+  
+  ### 关于模板引用变量的提醒
 
   A template _reference_ variable (`#phone`) is _not_ the same as a template _input_ variable (`let phone`)
   such as you might see in an [`*ngFor`](#template-input-variable).
   Learn the difference in the [_Structural Directives_](structural-directives.html#template-input-variable) guide.
+  
+  模板*引用*变量 (`#phone`) 和[`*ngFor`](#template-input-variable)部分看到过的模板*输入*变量 (`let phone`) 是不同的。
+  要了解详情，参见[结构型指令](structural-directives.html#template-input-variable)一章。
 
   The scope of a reference variable is the _entire template_.
   Do not define the same variable name more than once in the same template.
   The runtime value will be unpredictable.
+  
+  模板引用变量的作用范围是*整个模板*。
+  不要在同一个模板中多次定义同一个变量名，否则它在运行期间的值是无法确定的。
 
   You can use the `ref-` prefix alternative to `#`.
   This example declares the `fax` variable as `ref-fax` instead of `#fax`.
+  
+  我们也可以用`ref-`前缀代替`#`。
+  下面的例子中就用把`fax`变量声明成了`ref-fax`而不是`#fax`。
   
 +makeExample('template-syntax/ts/src/app/app.component.html', 'ref-fax')(format=".")
 
@@ -2600,9 +2790,12 @@ h3#aliasing-io
   This is frequently the case with [attribute directives](attribute-directives.html).
   Directive consumers expect to bind to the name of the directive.
   For example, when you apply a directive with a `myClick` selector to a `<div>` tag,
-  you expect to bind to an event property that is also called `myClick`.这是使用 [attribute 指令](attribute-directives.html)时的常见情况。
+  you expect to bind to an event property that is also called `myClick`.
+  
+  这是使用 [attribute 指令](attribute-directives.html)时的常见情况。
   指令的使用者期望绑定到指令名。例如，在`<div>`上用`myClick`选择器应用指令时，
   希望绑定的事件属性也叫`myClick`。
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'myClick')(format=".")
 
 :marked
@@ -2689,7 +2882,10 @@ a#pipe
 +makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-2')(format=".")
 
 :marked
-  And you can also [apply parameters](./pipes.html#parameterizing-a-pipe) to a pipe:还能对它们使用参数：
+  And you can also [apply parameters](./pipes.html#parameterizing-a-pipe) to a pipe:
+  
+  还能对它们使用参数：
+  
 +makeExample('template-syntax/ts/src/app/app.component.html', 'pipes-3')(format=".")
 
 :marked
@@ -2751,11 +2947,13 @@ a#safe-navigation-operator
 code-example(language="html").
   The null hero's name is {{nullHero.name}}
 
+:marked
+  JavaScript throws a null reference error, and so does Angular:
 
-  :marked
-    JavaScript throws a null reference error, and so does Angular:
-  JavaScript 抛出了空引用错误，Angular 也是如此：code-example(format="nocode").
-    TypeError: Cannot read property 'name' of null in [null].
+  JavaScript 抛出了空引用错误，Angular 也是如此：
+    
+code-example(format="nocode").
+  TypeError: Cannot read property 'name' of null in [null].
 
 :marked
   Worse, the *entire view disappears*.
