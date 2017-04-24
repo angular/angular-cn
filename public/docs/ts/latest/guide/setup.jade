@@ -61,6 +61,8 @@ code-example(language="sh" class="code-shell").
 .alert.is-important
   :marked
     `npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+    
+    在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
 
 a#download
 :marked
@@ -82,6 +84,8 @@ code-example(language="sh" class="code-shell").
 .alert.is-important
   :marked
     `npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+
+    在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
 
 a#non-essential
 .l-main-section
@@ -108,6 +112,7 @@ a#non-essential
   在项目目录下打开一个终端窗口，并根据你的操作系统执行以下命令：
 
   ### OS/X (bash)
+  
 code-example(language="sh" class="code-shell").
   xargs rm -rf &lt; non-essential-files.osx.txt
   rm src/app/*.spec*.ts
@@ -115,6 +120,7 @@ code-example(language="sh" class="code-shell").
 
 :marked
   ### Windows
+  
 code-example(language="sh" class="code-shell").
     for /f %i in (non-essential-files.txt) do del %i /F /S /Q
     rd .git /s /q

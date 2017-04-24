@@ -122,8 +122,8 @@
   },
 
   "deployment": {
-    "title": "Deployment",
-    "intro": "Learn how to deploy your Angular app."
+    "title": "部署",
+    "intro": "如何部署Angular应用。"
   },
 
   "hierarchical-dependency-injection": {
@@ -133,8 +133,8 @@
   },
 
   "reactive-forms": {
-    "title": "Reactive Forms",
-    "intro": "Create a reactive form using FormBuilder, groups, and arrays."
+    "title": "响应式表单",
+    "intro": "使用FormBuilder、组合数组创建响应式表单。"
   },
 
   "server-communication": {
