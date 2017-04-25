@@ -672,7 +672,7 @@ block hlc-error-handling
   我们的[数据服务器](#in-mem-web-api)遵循典型的 REST 指导原则。
   它期待在和`GET`英雄列表的同一个端点上存在一个[`POST`](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5)请求。
   它期待从请求体 (body) 中获得新英雄的数据，数据的结构和`Hero`对象相同，但是不带`id`属性。
-  请求体应该看起来像这样：
+  请求体应该是这样的：
 
 code-example(format="." language="javascript").
   { "name": "Windstorm" }

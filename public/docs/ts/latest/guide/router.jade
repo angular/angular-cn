@@ -61,10 +61,7 @@ include ../../../_includes/_see-addr-bar
 
     [基础知识](#basics)
 
-
     * [`<base href>`](#basics-base-href)
-
-      [`<base href>`](#basics-base-href)
 
     * [Router imports](#basics-router-imports)
 
@@ -90,16 +87,13 @@ include ../../../_includes/_see-addr-bar
 
       [小结](#basics-summary)
 
-
   * [The sample application](#sample-app-intro)
 
     [范例应用](#sample-app-intro)
 
-
   * [Milestone 1: Getting started with the router](#getting-started)
 
     [里程碑1：开始使用路由器](#getting-started)
-
 
     * [Setting the base href](#base-href)
 
@@ -119,8 +113,6 @@ include ../../../_includes/_see-addr-bar
 
     * [RouterOutlet](#router-outlet)
 
-      [RouterOutlet](#router-outlet)
-
     * [`RouterLink binding`](#router-link)
 
       [`RouterLink`绑定](#router-link)
@@ -137,11 +129,9 @@ include ../../../_includes/_see-addr-bar
 
       [把默认路由设置为英雄管理路由](#default-route)
 
-
   * [Milestone 2: Routing module](#routing-module)
 
     [里程碑2：路由模块](#routing-module)
-
 
     * [Refactor the routing configuration into a routing module](#routing-refactor)
 
@@ -151,11 +141,9 @@ include ../../../_includes/_see-addr-bar
 
       [我们需要路由模块吗？](#why-routing-module)
 
-
   * [Milestone 3: Heroes feature](#heroes-feature)
 
     [里程碑3：英雄管理特性区](#heroes-feature)
-
 
     * [Add heroes functionality](#heroes-functionality)
 
@@ -233,11 +221,9 @@ include ../../../_includes/_see-addr-bar
 
       [里程碑3总结](#milestone-3-wrap-up)
 
-
   * [Milestone 4: Crisis center feature](#milestone-4)
 
     [里程碑4：危机中心特性区](#milestone-4)
-
 
     * [A crisis center with child routes](#crisis-child-routes)
 
@@ -283,11 +269,9 @@ include ../../../_includes/_see-addr-bar
 
       [清理第二路由](#clear-secondary-routes)
 
-
   * [Milestone 5: Route guards](#guards)
 
     [里程碑5：路由守卫](#guards)
-
 
     * [`CanActivate`: requiring authentication](#can-activate-guard)
 
@@ -333,11 +317,9 @@ include ../../../_includes/_see-addr-bar
 
       [查询参数与URL片段](#query-parameters)
 
-
   * [Milestone 6: Asynchronous routing](#asynchronous-routing)
 
     [里程碑6：异步路由](#asynchronous-routing)
-
 
     * [Lazy loading route configuration](#lazy-loading-route-config)
 
@@ -375,11 +357,9 @@ include ../../../_includes/_see-addr-bar
 
       [总结与最终版应用](#final-app)
 
-
   * [Appendices](#appendices)
 
     [附录](#appendices)
-
 
     * [Appendix: link parameters array](#link-parameters-array)
 
@@ -400,8 +380,12 @@ a#basics
 
   This guide proceeds in phases, marked by milestones, starting from a simple two-pager
   and building toward a modular, multi-view design with child routes.
+  
+  本章是包括一系列里程碑，从一个单模块、两个页面的简单程序逐步走向带有多个子路由的多视图设计。
 
   An introduction to a few core router concepts will help orient you to the details that follow.
+  
+  在接触细节之前，我们先来介绍关于路由的一些核心概念。
 
 a#basics-base-href
 :marked
@@ -445,14 +429,23 @@ a#basics-router-imports
 a#basics-config
 :marked
   ### Configuration
+  
+  ### 配置
 
   A routed Angular application has one singleton instance of the *`Router`* service. 
   When the browser's URL changes, that router looks for a corresponding `Route`
   from which it can determine the component to display.
+  
+  每个带路由的Angular应用都有一个*`Router`（路由器）*服务的单例对象。
+  当浏览器的URL变化时，路由器会查找对应的`Route`（路由），并据此决定该显示哪个组件。
 
   A router has no routes until you configure it.
   The following example creates four route definitions, configures the router via the `RouterModule.forRoot` method,
   and adds the result to the `AppModule`'s `imports` array.
+  
+  路由器需要先配置才会有路由信息。
+  下面的例子创建了四个路由定义，并用`RouterModule.forRoot`方法来配置路由器，
+  并把它的返回值添加到`AppModule`的`imports`数组中。
 
 +makeExcerpt('src/app/app.module.0.ts (excerpt)', '')
 
@@ -460,11 +453,18 @@ a#example-config
 :marked
   The `appRoutes` array of *routes* describes how to navigate.
   Pass it to the `RouterModule.forRoot` method in the module `imports` to configure the router.
+  
+  这里的路由树组`appRoutes`描述如何进行导航。
+  把它传给`RouterModule.forRoot`方法并传给本模块的`imports`数组就可以配置路由器。
 
   Each `Route` maps a URL `path` to a component.
   There are _no leading slashes_ in the _path_. 
   The router parses and builds the final URL for you,
   allowing you to use both relative and absolute paths when navigating between application views.
+  
+  每个`Route`都会把一个URL的`path`映射到一个组件。
+  注意，`path`不能以*斜杠（`/`）*开头。
+  路由器会为解析和构建最终的URL，这样当我们在应用的多个视图之间导航时，可以任意使用相对路径和绝对路径。
 
   The `:id` in the first route is a token for a route parameter. In a URL such as `/hero/42`, "42"
   is the value of the `id` parameter. The corresponding `HeroDetailComponent`
@@ -487,10 +487,16 @@ a#example-config
   The `empty path` in the fourth route represents the default path for the application,
   the place to go when the path in the URL is empty, as it typically is at the start.
   This default route redirects to the route for the `/heroes` URL and, therefore, will display the `HeroesListComponent`.
+  
+  第四个路由中的空路径（`''`）表示应用的默认路径，当URL为空时就会访问那里，因此它通常会作为起点。
+  这个默认路由会重定向到URL `/heroes`，并显示`HeroesListComponent`。
 
   The `**` path in the last route is a **wildcard**. The router will select this route
   if the requested URL doesn't match any paths for routes defined earlier in the configuration. 
   This is useful for displaying a "404 - Not Found" page or redirecting to another route.
+  
+  最后一个路由中的`**`路径是一个**通配符**。当所请求的URL不匹配前面定义的路由表中的任何路径时，路由器就会选择此路由。
+  这个特性可用于显示"404 - Not Found"页，或自动重定向到其它路由。
 
   **The order of the routes in the configuration matters** and this is by design. The router uses a **first-match wins**
   strategy when matching routes, so more specific routes should be placed above less specific routes. 
@@ -498,7 +504,7 @@ a#example-config
   that matches the default route. 
   The wildcard route comes last because it matches _every URL_ and should be selected _only_ if no other routes are matched first.
 
-  **这些路由的定义顺序**是故意如此设计的。路由器使用**先匹配者优先**的策略来匹配路由，所以，具体路由应该放在通用路由的前面。在上面的配置中，带静态路径的路由被放在了前面，后面是空路径路由，因此它会作为默认路由。而通配符路由被放在最后面，这是因为它能匹配上*每一个URL*，因此应该**只有在**前面找不到其它能匹配的路由时才匹配它。
+  **这些路由的定义顺序**是刻意如此设计的。路由器使用**先匹配者优先**的策略来匹配路由，所以，具体路由应该放在通用路由的前面。在上面的配置中，带静态路径的路由被放在了前面，后面是空路径路由，因此它会作为默认路由。而通配符路由被放在最后面，这是因为它能匹配上*每一个URL*，因此应该**只有在**前面找不到其它能匹配的路由时才匹配它。
 
 a#basics-router-outlet
 :marked
@@ -520,7 +526,6 @@ a#basics-router-links
 :marked
   ### Router links
 
-
   ### 路由器链接
 
   Now you have routes configured and a place to render them, but
@@ -531,19 +536,32 @@ a#basics-router-links
   现在，我们已经有了配置好的一些路由，还找到了渲染它们的地方，但又该如何导航到它呢？固然，从浏览器的地址栏直接输入URL也能做到，但是大多数情况下，导航是某些用户操作的结果，比如点击一个A标签。
 
   Consider the following template:
+  
+  考虑下列模板：
 
 +makeExcerpt('src/app/app.component.1.ts', 'template', '')
+
 :marked
   The `RouterLink` directives on the anchor tags give the router control over those elements. 
   The navigation paths are fixed, so you can assign a string to the `routerLink` (a "one-time" binding).
+  
+  `a`标签上的`RouterLink`指令让路由器得以控制这个`a`元素。
+  这里的导航路径是固定的，因此可以把一个字符串赋给`routerLink`（"一次性"绑定）。
 
   Had the navigation path been more dynamic, you could have bound to a template expression that
   returned an array of route link parameters (the _link parameters array_). 
   The router resolves that array into a complete URL.
+  
+  如果需要更加动态的导航路径，那就把它绑定到一个返回*链接参数数组*的模板表达式。
+  路由器会把这个数组解析成完整的URL。
 
   The **`RouterLinkActive`** directive on each anchor tag helps visually distinguish the anchor for the currently selected "active" route.
   The router adds the `active` CSS class to the element when the associated *RouterLink* becomes active. 
   You can add this directive to the anchor or to its parent element.
+  
+  每个`a`标签上的**`RouterLinkActive`**指令可以帮用户在外观上区分出当前选中的"活动"路由。
+  当与它关联的*RouterLink*被激活时，路由器会把CSS类`active`添加到这个元素上。
+  我们可以把该指令添加到`a`元素或它的父元素上。
 
 a#basics-router-state
 :marked
@@ -654,7 +672,7 @@ table
         The directive for adding/removing classes from an HTML element when an associated
         <code>routerLink</code> contained on or inside the element becomes active/inactive.
       p.
-        当HTML元素上或元素内的routerLink变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。
+        当HTML元素上或元素内的<code>routerLink</code>变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。
   tr
     td
       p <code>ActivatedRoute</code>
@@ -674,8 +692,10 @@ table
         routes together with convenience methods for traversing the route tree.
       p 路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。
   tr
-    tdp <b><i>Link parameters array</i></b>
-    p <code><i>链接参数数组</i></code>td
+    td
+      p <b><i>Link parameters array</i></b>
+      p <i>链接参数数组</i>
+    td
       p.
         An array that the router interprets as a routing instruction.
         You can bind that array toa <code>RouterLink</code>  or pass the array as an argument to
@@ -699,26 +719,66 @@ a#sample-app-intro
   
   This guide describes development of a multi-page routed sample application.
   Along the way, it highlights design decisions and describes key features of the router such as:
+  
+  本章要讲的是如何开发一个带路由的多页面应用。
+  接下来，我们会重点讲它的设计决策，并描述路由的关键特性，比如：
 
   * Organizing the application features into modules.
+
+    把应用的各个特性组织成模块。
+
   * Navigating to a component (*Heroes* link to "Heroes List").
+
+    导航到组件（*Heroes*链接到"英雄列表"组件）。
+
   * Including a route parameter (passing the Hero `id` while routing to the "Hero Detail").
+
+    包含一个路由参数（当路由到"英雄详情"时，把该英雄的`id`传进去）。
+
   * Child routes (the *Crisis Center* has its own routes).
+
+    子路由（*危机中心*特性有一组自己的路由）。
+
   * The `CanActivate` guard (checking route access).
+
+    `CanActivate`守卫（检查路由的访问权限）。
+
   * The `CanActivateChild` guard (checking child route access).
+
+    `CanActivateChild`守卫（检查子路由的访问权限）。
+
   * The `CanDeactivate` guard (ask permission to discard unsaved changes).
+
+    `CanDeactivate`守卫（询问是否丢弃未保存的更改）。
+
   * The `Resolve` guard (pre-fetching route data).
+
+    `Resolve`守卫（预先获取路由数据）。
+
   * Lazy loading feature modules.
+
+    惰性加载特性模块。
+
   * The `CanLoad` guard (check before loading feature module assets).
+
+    `CanLoad`守卫（在加载特性模块之前进行检查）。
+
 
   The guide proceeds as a sequence of milestones as if you were building the app step-by-step.
   But, it is not a tutorial and it glosses over details of Angular application construction 
   that are more thoroughly covered elsewhere in the documentation.  
+  
+  如果打算一步步构建出本应用，本章就会经过一系列里程碑。
+  但是，本章并不是一个教程，它隐藏了构造Angular应用的细节，那些细节会在本文档的其它地方展开。
 
   The full source for the final version of the app can be seen and downloaded from the <live-example></live-example>.
+  
+  本应用的最终版源码可以在<live-example></live-example>中查看和下载。
 
 :marked
   ### The sample application in action
+  
+  ### 范例程序的动图
 
   Imagine an application that helps the _Hero Employment Agency_ run its business.
   Heroes need work and the agency finds crises for them to solve.
@@ -727,15 +787,29 @@ a#sample-app-intro
   英雄们需要找工作，而“英雄管理局”为它们寻找待解决的危机。
 
   The application has three main feature areas:
+  
+  本应用具有三个主要的特性区：
 
   1. A *Crisis Center* for maintaining the list of crises for assignment to heroes.
+  
+     *危机中心*用于维护要指派给英雄的危机列表。
+     
   1. A *Heroes* area for maintaining the list of heroes employed by the agency.
+  
+     *英雄*区用于维护管理局雇佣的英雄列表。
+     
   1. An *Admin* area to manage the list of crises and heroes.
+  
+    *管理*区会管理危机和英雄的列表。
 
   Try it by clicking on this <live-example title="Hero Employment Agency Live Example">live example link</live-example>.
   
+  点击<live-example title="Hero Employment Agency Live Example"></live-example>试用一下。
+  
   Once the app warms up, you'll see a row of navigation buttons
   and the *Heroes* view with its list of heroes.
+  
+  等应用热身完毕，我们就会看到一排导航按钮，以及一个*英雄列表*视图。
 
 figure.image-display
   img(src='/resources/images/devguide/router/hero-list.png' alt="Hero List" width="250")
@@ -753,7 +827,7 @@ figure.image-display
   Click the "Back" button and the app returns to the heroes list which displays the changed hero name.
   Notice that the name change took effect immediately.
 
-  修改会立即见效。我们再点击“后退”按钮，该应用又把我们带回了英雄列表页。
+  修改完名字，再点击“后退”按钮，我们又回到了英雄列表页，其中显示的英雄名已经变了。注意，对名字的修改会立即生效。
 
   Had you clicked the browser's back button instead of the "Back" button,
   the app would have returned you to the heroes list as well.
@@ -778,6 +852,9 @@ figure.image-display
 
   Alter the name of a crisis. 
   Notice that the corresponding name in the crisis list does _not_ change.
+  
+  修改危机的名称。
+  注意，危机列表中的相应名称**并没有**修改。
   
 figure.image-display
   img(src='/resources/images/devguide/router/crisis-center-detail.png' alt="Crisis Center Detail" width="250")
@@ -811,17 +888,29 @@ figure.image-display
   
   Behind this behavior is the router's `CanDeactivate` guard. 
   The guard gives you a chance to clean-up or ask the user's permission before navigating away from the current view.
+  
+  这种行为的幕后是路由器的`CanDeactivate`守卫。
+  该守卫让我们有机会进行清理工作或在离开当前视图之前请求用户的许可。
 
   The `Admin` and `Login` buttons illustrate other router capabilities to be covered later in the guide.
   This short introduction will do for now.
   
+  `Admin`和`Login`按钮用于演示路由器的其它能力，本章稍后的部分会讲解它们。我们现在先不管它。
+  
   Proceed to the first application milestone.
+  
+  我们这就开始本应用的第一个里程碑。
 
 .l-main-section#getting-started
 :marked
   ## Milestone 1: Getting started with the router
+  
+  ## 里程碑1：从路由器开始
 
   Begin with a simple version of the app that navigates between two empty views.
+  
+  开始本应用的一个简版，它在两个空路由之间导航。
+  
 figure.image-display
   img(src='/resources/images/devguide/router/router-1-anim.gif' alt="App in action" width="250")
 
@@ -860,10 +949,16 @@ a#base-href
   to the app's `index.html` for `pushState` routing to work.
   The browser uses the `<base href>` value to prefix *relative* URLs when referencing
   CSS files, scripts, and images.
+  
+  我们必须往本应用的`index.html`中**添加一个<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" target="_blank" title="base href">&lt;base href&gt; 元素</a>**，这样`pushState`才能正常工作。
+  当引用CSS文件、脚本和图片时，浏览器会用`<base href>`的值作为*相对*URL的前缀。
 
   Add the `<base>` element just after the  `<head>` tag.
   If the `app` folder is the application root, as it is for this application,
   set the `href` value in **`index.html`** *exactly* as shown here.
+  
+  把`<base>`元素添加到`<head>`元素中。
+  如果`app`目录是应用的根目录，对于本应用，可以像这样设置**`index.html`**中的`href`值：
 
 +makeExcerpt('src/index.html', 'base-href')
 
@@ -872,6 +967,9 @@ a#base-href
   :marked
     A live coding environment like Plunker sets the application base address dynamically so you can't specify a fixed address.
     That's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.
+    
+    像Plunker这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。
+    这就是为什么我们要用一个脚本动态写入`<base>`标签，而不是直接写`<base href...>`。
 
   code-example(language="html").
     &lt;script>document.write('&lt;base href="' + document.location + '" />');&lt;/script>
@@ -903,6 +1001,8 @@ a#import
 a#route-config
 :marked
   #### Define routes
+  
+  #### 定义路由
 
   A router must be configured with a list of route definitions.
   
@@ -1009,6 +1109,8 @@ a#router-outlet
 a#router-link
 :marked
   ### *RouterLink* binding
+  
+  ### `routerLink` 绑定
 
   Above the outlet, within the anchor tags, you see
   [attribute bindings](template-syntax.html#attribute-binding) to
@@ -1039,6 +1141,8 @@ a#router-link
 a#router-link-active
 :marked
   ### *RouterLinkActive* binding
+  
+  ### `routerLinkActive`绑定
 
   On each anchor tag, you also see [property bindings](template-syntax.html#property-binding) to
   the `RouterLinkActive` directive that look like `routerLinkActive="..."`.
@@ -1076,13 +1180,15 @@ a#router-directives
 :marked
   The current state of `app.component.ts` looks like this:
 
-  `app.component.ts`目前看起来是这样的：
+  `app.component.ts`目前是这样的：
 
 +makeExcerpt('src/app/app.component.1.ts')
 
 a#wildcard
 :marked
   ### Wildcard route
+  
+  ### 通配符路由
 
   You've created two routes in the app so far, one to `/crisis-center` and the other to `/heroes`. 
   Any other URL causes the router to throw an error and crash the app.
@@ -1228,7 +1334,7 @@ a#redirect
 
   The starter app's structure looks like this:
 
-  这个初学者应用的结构看起来是这样的：
+  这个初学者应用的结构是这样的：
 
 .filetree
   .file router-sample
@@ -2112,7 +2218,7 @@ include ../../../_includes/_see-addr-bar
 :marked
   It should look something like this, depending on where you run it:
 
-  看起来应该是这样，不过也取决于你在哪里运行它：
+  它应该是这样的，不过也取决于你在哪里运行它：
 
 code-example(language="bash").
   localhost:3000/heroes;id=15;foo=foo
@@ -2351,7 +2457,7 @@ a#milestone-3-wrap-up
 
   After these changes, the folder structure looks like this:
 
-  做完这些修改之后，目录结构看起来就像这样：
+  做完这些修改之后，目录结构是这样的：
 
 .filetree
   .file router-sample
@@ -2448,7 +2554,7 @@ a#crisis-child-routes
 
   If your app had many feature areas, the app component trees might look like this:
 
-  如果我们有更多特性区，它们的组件树看起来是这样的：
+  如果我们有更多特性区，它们的组件树是这样的：
 
 figure.image-display
   img(src='/resources/images/devguide/router/component-tree.png' alt="Component Tree" )
