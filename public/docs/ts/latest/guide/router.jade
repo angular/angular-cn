@@ -1193,42 +1193,73 @@ a#wildcard
   You've created two routes in the app so far, one to `/crisis-center` and the other to `/heroes`. 
   Any other URL causes the router to throw an error and crash the app.
   
+  我们以前在应用中创建过两个路由，一个是`/crisis-center`，另一个是`/heroes`。
+  所有其它URL都会导致路由器抛出错误，并让应用崩溃。
+  
   Add a **wildcard** route to intercept invalid URLs and handle them gracefully. 
   A _wildcard_ route has a path consisting of two asterisks. It matches _every_ URL. 
   The router will select _this_ route if it can't match a route earlier in the configuration.
   A wildcard route can navigate to a custom "404 Not Found" component or [redirect](#redirect) to an existing route.
+  
+  可以添加一个**通配符**路由来拦截所有无效的URL，并优雅的处理它们。
+  *通配符*路由的`path`是两个星号（`**`），它会匹配*任何* URL。
+  当路由器匹配不上以前定义的那些路由时，它就会选择*这个*路由。
+  通配符路由可以导航到自定义的"404 Not Found"组件，也可以[重定向](#redirect)到一个现有路由。
 
 .l-sub-section
   :marked
     The router selects the route with a [_first match wins_](#example-config) strategy.
     Wildcard routes are the least specific routes in the route configuration.
     Be sure it is the _last_ route in the configuration.
+    
+    路由器使用[先匹配者优先](#example-config)的策略来选择路由。
+    通配符路由是路由配置中最没有特定性的那个，因此务必确保它是配置中的*最后一个*路由。
 
 :marked
   To test this feature, add a button with a `RouterLink` to the `HeroListComponent` template and set the link to `"/sidekicks"`. 
+  
+  要测试本特性，请往`HeroListComponent`的模板中添加一个带`RouterLink`的按钮，并且把它的链接设置为`"/sidekicks"`。
+  
 +makeExcerpt('src/app/hero-list.component.ts')
+
 :marked
   The application will fail if the user clicks that button because you haven't defined a `"/sidekicks"` route yet. 
   
+  当用户点击该按钮时，应用就会失败，因为我们尚未定义过`"/sidekicks"`路由。
+  
   Instead of adding the `"/sidekicks"` route, define a `wildcard` route instead and have it navigate to a simple `PageNotFoundComponent`.
+  
+  不要添加`"/sidekicks"`路由，而是定义一个"通配符"路由，让它直接导航到`PageNotFoundComponent`组件。
+  
 +makeExcerpt('src/app/app.module.1.ts', 'wildcard')
 
 :marked
   Create the `PageNotFoundComponent` to display when users visit invalid URLs.
+  
+  创建`PageNotFoundComponent`，以便在用户访问无效网址时显示它。
+  
 +makeExcerpt('src/app/not-found.component.ts (404 component)', '')
 
 :marked
   As with the other components, add the `PageNotFoundComponent` to the `AppModule` declarations.
+  
+  像其它组件一样，把`PageNotFoundComponent`添加到`AppModule`的声明中。
 
   Now when the user visits `/sidekicks`, or any other invalid URL, the browser displays "Page not found".
   The browser address bar continues to point to the invalid URL.
 
+  现在，当用户访问`/sidekicks`或任何无效的URL时，浏览器就会显示"Page not found"。
+  浏览器的地址栏仍指向无效的URL。
 
 a#default-route
 :marked
   ### The _default_ route to heroes
+  
+  ### 把*默认*路由设置为英雄列表
 
   When the application launches, the initial URL in the browser bar is something like:
+  
+  应用启动时，浏览器地址栏中的初始URL是这样的：
 
 code-example.
   localhost:3000
@@ -1236,19 +1267,32 @@ code-example.
 :marked
   That doesn't match any of the configured routes which means that the application won't display any component when it's launched.
   The user must click one of the links to trigger a navigation and display a component.
+  
+  它不能匹配任何已配置的路由，这表示当应用启动时，它不会显示任何组件。
+  用户必须点击一个链接来触发导航或者显示组件。
 
   It would be nicer if the application had a **default route** that displayed the list of heroes immediately,
   just as it will when the user clicks the "Heroes" link or pastes `localhost:3000/heroes` into the address bar.
+  
+  如果应用有一个*默认路由*显然会更好，它会立即显示英雄列表，就像用户点击了"Heroes"链接或者把`localhost:3000/heroes`粘贴进地址栏一样。
 
 a#redirect
 :marked
   ### Redirecting routes
+  
+  ### 重定向路由
 
   The preferred solution is to add a `redirect` route that translates the initial relative URL (`''`)
   to the desired default path (`/heroes`). The browser address bar shows `.../heroes` as if you'd navigated there directly.
+  
+  首选方案是添加一个`redirect`路由来把最初的相对路径（`''`）转换成期望的默认路径（`/heroes`）。
+  浏览器地址栏会显示`.../heroes`，就像你直接导航到那里一样。
 
   Add the default route somewhere _above_ the wildcard route.
   It's just above the wildcard route in the following excerpt showing the complete `appRoutes` for this milestone.
+  
+  在通配符路由*上方*添加一个默认路由。
+  在下方的代码片段中，它出现在通配符路由的紧上方，展示了这个里程碑的完整`appRoutes`。
 
 +makeExcerpt('src/app/app-routing.module.1.ts' , 'appRoutes')
 
@@ -1257,17 +1301,27 @@ a#redirect
   The router throws an error if you don't.
   In this app, the router should select the route to the `HeroListComponent` only when the *entire URL* matches `''`,
   so set the `pathMatch` value to `'full'`.
+  
+  重定向路由需要一个`pathMatch`属性，来告诉路由器如何用URL去匹配路由的路径，否则路由器就会报错。
+  在本应用中，路由器应该只有在*完整的URL*等于`''`时才选择`HeroListComponent`组件，因此我们要把`pathMatch`设置为`'full'`。
 
 .l-sub-section
   :marked
     Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`.
     In this example, the redirect is in a top level route so the *remaining* URL and the *entire* URL are the same thing.
+    
+    从技术角度说，`pathMatch = 'full'`导致URL中*剩下的*、未匹配的部分必须等于`''`。
+    在这个例子中，跳转路由在一个顶级路由中，因此*剩下的*URL和*完整的*URL是一样的。
 
     The other possible `pathMatch` value is `'prefix'` which tells the router
     to match the redirect route when the *remaining* URL ***begins*** with the redirect route's _prefix_ path.
+    
+    `pathMatch`的另一个可能的值是`'prefix'`，它会告诉路由器：当*剩下的*URL以这个跳转路由中的`prefix`值开头时，就会匹配上这个跳转路由。
 
     Don't do that here. 
     If the `pathMatch` value were `'prefix'`, _every_ URL would match `''`.
+    
+    在这里不能这么做！如果`pathMatch`的值是`'prefix'`，那么*每个*URL都会匹配上`''`。
 
     Try setting it to `'prefix'` then click the `Go to sidekicks` button.
     Remember that's a bad URL and you should see the "Page not found" page.
@@ -1276,12 +1330,20 @@ a#redirect
     You're instantly re-routed to `/heroes`.
     _Every_ URL, good or bad, that falls through to _this_ route definition
     will be a match. 
+    
+    尝试把它设置为`'prefix'`，然后点击`Go to sidekicks`按钮。别忘了，它是一个无效URL，本应显示"Page not found"页。
+    但是，我们看到了"英雄列表"页。在地址栏中输入一个无效的URL，我们又被路由到了`/heroes`。
+    *每一个*URL，无论有效与否，都会匹配上这个路由定义。
 
     The default route should redirect to the `HeroListComponent` _only_ when the _entire_ url is  `''`.
     Remember to restore the redirect to `pathMatch = 'full'`.
+    
+    默认路由应该只有在*整个*URL等于`''`时才重定向到`HeroListComponent`，别忘了把重定向路由设置为`pathMatch = 'full'`。
 
     Learn more in Victor Savkin's 
     [post on redirects](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
+    
+    要了解更多，参见Victor Savkin的帖子[关于重定向](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes)。
 
 :marked
   ### Basics wrap up
@@ -1430,22 +1492,37 @@ a#routing-refactor
 
   Following convention, add a class name `AppRoutingModule` and export it
   so you can import it later in `AppModule`.
+  
+  遵循规约，添加一个`AppRoutingModule`类并导出它，以便稍后在`AppModule`中导入它。
 
   Finally, re-export the Angular `RouterModule` by adding it to the module `exports` array. 
   By re-exporting the `RouterModule` here and importing `AppRoutingModule` in `AppModule`,
   the components declared in `AppModule` will have access to router directives such as `RouterLink` and `RouterOutlet`.
+  
+  最后，可以通过把它添加到该模块的`exports`数组中来再次导出`RouterModule`。
+  通过在`AppModule`中导入`AppRoutingModule`并再次导出`RouterModule`，那些声明在`AppModule`中的组件就可以访问路由指令了，比如`RouterLink` 和 `RouterOutlet`。
 
   After these steps, the file should look like this.
+  
+  做完这些之后，该文件变成了这样：
+  
 +makeExample('src/app/app-routing.module.1.ts')
+
 :marked
-   Next, update the `app.module.ts` file, 
-   first importing the newly created `AppRoutingModule`from `app-routing.module.ts`,
-   then replacing `RouterModule.forRoot` in the `imports` array with the `AppRoutingModule`.
+  Next, update the `app.module.ts` file, 
+  first importing the newly created `AppRoutingModule` from `app-routing.module.ts`,
+  then replacing `RouterModule.forRoot` in the `imports` array with the `AppRoutingModule`.
+  
+  接下来，修改`app.module.ts`文件，首先从`app-routing.module.ts`中导入新创建的`AppRoutingModule`，
+  然后把`imports`数组中的`RouterModule.forRoot`替换为`AppRoutingModule`。
+  
 +makeExample('src/app/app.module.2.ts')
 .l-sub-section
   :marked
     Later in this guide you will create [multiple routing modules](#hero-routing-module) and discover that
     you must import those routing modules [in the correct order](#routing-module-order).
+    
+    本章稍后的部分，我们将创建一个[多路由模块](#hero-routing-module)，并讲解为何我们必须[以正确的顺序导入那些路由模块](#routing-module-order)。
 
 :marked
   The application continues to work just the same, and you can use `AppRoutingModule` as
