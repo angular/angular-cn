@@ -3,67 +3,149 @@ include ../_util-fns
 :marked
   _Reactive forms_ is an Angular technique for creating forms in a _reactive_ style.
   This guide explains reactive forms as you follow the steps to build a "Hero Detail Editor" form.
+  
+  *响应式表单*是Angular中用*响应式*风格创建表单的技术。
+  本章中，我们会在构建"英雄详情编辑器"的过程中，逐步讲解响应式表单的概念。
 
 a#toc
 :marked
   ## Contents
+  
+  ## 目录
 
-  * [Introduction to reactive forms](#intro)
-  * [Setup](#setup)
-  * [Create a data model](#data-model)
-  * [Create a _reactive forms_ component](#create-component)
-  * [Create its template file](#create-template)
-  * [Import the _ReactiveFormsModule_](#import)
-  * [Display the _HeroDetailComponent_](#update)
-  * [Add a FormGroup](#formgroup)
-  * [Taking a look at the form model](#json)
-  * [Introduction to _FormBuilder_](#formbuilder)
-  * [Validators.required](#validators)
-  * [Nested FormGroups](#grouping)
-  * [Inspect _FormControl_ properties](#properties)
-  * [Set form model data using _setValue_ and _patchValue_](#set-data)
-  * [Use _FormArray_ to present an array of _FormGroups_](#form-array)
-  * [Observe control changes](#observe-control)
-  * [Save form data](#save)
+  *[Introduction to reactive forms](#intro)
+
+    [响应式表单简介](#intro)
+
+  *[Setup](#setup)
+
+    [准备工作](#setup)
+
+  *[Create a data model](#data-model)
+
+    [创建数据模型](#data-model)
+
+  *[Create a _reactive forms_ component](#create-component)
+
+    [创建*响应式表单*组件](#create-component)
+
+  *[Create its template file](#create-template)
+
+    [创建模板文件](#create-template)
+
+  *[Import the _ReactiveFormsModule_](#import)
+
+    [导入`ReactiveFormsModule`](#import)
+
+  *[Display the _HeroDetailComponent_](#update)
+
+    [显示`HeroDetailComponent`](#update)
+
+  *[Add a FormGroup](#formgroup)
+
+    [添加FormGroup](#formgroup)
+
+  *[Taking a look at the form model](#json)
+
+    [表单模型概览](#json)
+
+  *[Introduction to _FormBuilder_](#formbuilder)
+
+    [`FormBuilder`简介](#formbuilder)
+
+  *[Validators.required](#validators)
+
+  *[Nested FormGroups](#grouping)
+
+    [嵌套的FormGroup](#grouping)
+
+  *[Inspect _FormControl_ properties](#properties)
+
+    [`FormControl`的属性](#properties)
+
+  *[Set form model data using _setValue_ and _patchValue_](#set-data)
+
+    [用`setValue`和`patchValue`设置表单的模型数据](#set-data)
+
+  *[Use _FormArray_ to present an array of _FormGroups_](#form-array)
+
+    [用`FormArray`来表示`FormGroup`的数组](#form-array)
+
+  *[Observe control changes](#observe-control)
+
+    [观察控件的变化](#observe-control)
+
+  *[Save form data](#save)
+
+    [保存表单数据](#save)
+
 
   Try the <live-example plnkr="final" title="Reactive Forms (final) in Plunker">Reactive Forms live-example</live-example>.
+  
+  试试<live-example plnkr="final" title="Reactive Forms (final) in Plunker">响应式表单的在线例子</live-example>。
 
   You can also run the <live-example title="Reactive Forms Demo in Plunker">Reactive Forms Demo</live-example> version
   and choose one of the intermediate steps from the "demo picker" at the top.
+  
+  你还可以运行<live-example title="Reactive Forms Demo in Plunker">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。
 
 a#intro
 :marked
   ## Introduction to Reactive Forms
+  
+  ## 响应式表单简介
 
   Angular offers two form-building technologies: _reactive_ forms and _template-driven_ forms.
   The two technologies belong to the `@angular/forms` library
   and share a common set of form control classes.
+  
+  Angular提供了两种构建表单的技术：*响应式*表单和*模板驱动*表单。
+  这两项技术都属于`@angular/forms`库，并且共享一组公共的表单控件类。
 
   But they diverge markedly in philosophy, programming style, and technique.
   They even have their own modules: the `ReactiveFormsModule` and the `FormsModule`.
+  
+  但是它们在设计哲学、编程风格和具体技术上有显著区别。
+  所以，它们都有自己的模块：`ReactiveFormsModule` 和 `FormsModule`。
 
   ### _Reactive_ forms
+  
+  ### *响应式*表单
+  
   Angular _reactive_ forms facilitate a _reactive style_ of programming 
   that favors explicit management of the data flowing between
   a non-UI _data model_ (typically retrieved from a server) and a 
   UI-oriented _form model_ that retains the states 
   and values of the HTML controls on screen. Reactive forms offer the ease 
   of using reactive patterns, testing, and validation.
+  
+  Angular的*响应式*表单能让实现*响应式编程风格*更容易，这种编程风格更喜欢在非UI的*数据模型*（通常接收自服务器）之间显式的管理数据流，
+  并且用一个UI导向的*表单模型*来保存屏幕上HTML控件的状态和值。
+  响应式表单可以让使用响应式编程模式、测试和校验变得更容易。
 
   With _reactive_ forms, you create a tree of Angular form control objects
   in the component class and bind them to native form control elements in the 
   component template, using techniques described in this guide. 
+  
+  使用*响应式*表单，我们可以在组件中创建表单控件的对象树，并使用本章中传授的技巧把它们绑定到组件模板中的原生表单控件元素上。
 
   You create and manipulate form control objects directly in the 
   component class. As the component class has immediate access to both the data 
   model and the form control structure, you can push data model values into 
   the form controls and pull user-changed values back out. The component can 
   observe changes in form control state and react to those changes.
+  
+  我们可以在组件类中直接创建和维护表单控件对象。由于组件类可以同时访问数据模型和表单控件结构，
+  因此我们可以把表单模型值的变化推送到表单控件中，并把变化后的值拉取回来。
+  组件可以监听表单控件状态的变化，并对此做出响应。
 
   One advantage of working with form control objects directly is that value and validity updates 
   are [always synchronous and under your control](#async-vs-sync "Async vs sync"). 
   You won't encounter the timing issues that sometimes plague a template-driven form
   and reactive forms can be easier to unit test.
+  
+  直接使用表单控件对象的优点之一是值和有效性状态的更新[总是同步的，并且在你的控制之下](#async-vs-sync "Async vs sync")。
+  我们不会遇到时序问题，这个问题有时在模板驱动表单中会成为灾难。而且响应式表单更容易进行单元测试。
 
   In keeping with the reactive paradigm, the component 
   preserves the immutability of the _data model_,
@@ -72,38 +154,65 @@ a#intro
   the component extracts user changes and forwards them to an external component or service, 
   which does something with them (such as saving them) 
   and returns a new _data model_ to the component that reflects the updated model state. 
+  
+  在响应式编程范式中，组件会负责维护*数据模型*的不可变性，把模型当做纯粹的原始数据源。
+  组件不会直接更新数据模型，而是把用户的修改提取出来，把它们转发给外部的组件或服务，外部程序才会使用这些进行处理（比如保存它们），
+  并且给组件返回一个新的*数据模型*，以反映模型状态的变化。
     
   Using reactive form directives does not require you to follow all reactive priniciples, 
   but it does facilitate the reactive programming approach should you choose to use it.
+  
+  使用响应式表单的指令，并不要求你遵循所有的响应式编程原则，但它能让你更容易使用响应式编程方法，从而更愿意使用它。
 
   ### _Template-driven_ forms
+  
+  ### *模板驱动*表单
 
   _Template-driven_ forms, introduced in the [Template guide](forms.html), take a completely different approach.
+  
+  在[模板](forms.html)一章我们介绍过的*模板驱动*表单，是一种完全不同的方式。
   
   You place HTML form controls (such as `<input>` and `<select>`) in the component template and 
   bind them to _data model_ properties in the component, using directives 
   like `ngModel`.
+  
+  我们把HTML表单控件（比如`<input>`和`<select>`）放进组件模板中，并用`ngModel`等指令把它们绑定到组件中*数据模型*的属性上。
 
   You don't create Angular form control objects. Angular directives 
   create them for you, using the information in your data bindings. 
   You don't push and pull data values. Angular handles that for you with `ngModel`.
   Angular updates the mutable _data model_ with user changes as they happen.
+  
+  我们不用自己创建Angular表单控件对象。Angular指令会使用数据绑定中的信息创建它们。
+  我们不用自己推送和拉取数据。Angular使用`ngModel`来替你管理它们。
+  当用户做出修改时，Angular会据此更新可变的*数据模型*。
 
   For this reason, the `ngModel` directive is not part of the ReactiveFormsModule.
+  
+  因此，`ngModel`并不是`ReactiveFormsModule`模块的一部分。
 
   While this means less code in the component class, 
   [template-driven forms are asynchronous](#async-vs-sync "Async vs sync")
   which may complicate development in more advanced scenarios. 
+  
+  虽然这意味着组件中的代码更少，但是[模板驱动表单是异步工作的](#async-vs-sync "Async vs sync")，这可能在更高级的场景中让开发复杂化。
 
 a#async-vs-sync
 :marked
   ### Async vs. sync
+  
+  ### 异步 vs. 同步
 
   Reactive forms are synchronous. Template-driven forms are asynchronous. It's a difference that matters.
+  
+  响应式表单是同步的。模板驱动表单是异步的。这个不同点很重要。
 
   In reactive forms, you create the entire form control tree in code. 
   You can immediately update a value or drill down through the descendents of the parent form 
   because all controls are always available.
+  
+  使用响应式表单，我们会在代码中创建整个表单控件树。
+  我们可以立即更新一个值或者深入到表单中的任意节点，因为所有的控件都始终是可用的。
 
   Template-driven forms delegate creation of their form controls to directives.
   To avoid "_changed after checked_" errors, 
@@ -111,48 +220,80 @@ a#async-vs-sync
   That means you must wait a tick before manipulating any of the controls
   from within the component class.
   
+  模板驱动表单会委托指令来创建它们的表单控件。
+  为了消除"检查完后又变化了"的错误，这些指令需要消耗一个以上的变更检测周期来构建整个控件树。
+  这意味着在从组件类中操纵任何控件之前，我们都必须先等待一个节拍。
+  
   For example, if you inject the form control with a `@ViewChild(NgForm)` query and examine it in the 
   [`ngAfterViewInit` lifecycle hook](lifecycle-hooks.html#afterview "Lifecycle hooks guide: AfterView"),
   you'll discover that it has no children.
   You must wait a tick, using `setTimeout`, before you can
   extract a value from a control, test its validity, or set it to a new value.
   
+  比如，如果我们用`@ViewChild(NgForm)`查询来注入表单控件，并在[生命周期钩子`ngAfterViewInit`](lifecycle-hooks.html#afterview "Lifecycle hooks guide: AfterView")中检查它，就会发现它没有子控件。
+  我们必须使用`setTimeout`等待一个节拍才能从控件中提取值、测试有效性，或把它设置为新值。
+  
   The asynchrony of template-driven forms also complicates unit testing. 
   You must wrap your test block in `async()` or `fakeAsync()` to 
   avoid looking for values in the form that aren't there yet. 
   With reactive forms, everything is available when you expect it to be.
+  
+  模板驱动表单的异步性让单元测试也变得复杂化了。
+  我们必须把测试代码包裹在`async()`或`fakeAsync()`中来解决要查阅的值尚不存在的情况。
+  使用响应式表单，在所期望的时机一切都是可用的。
 
   ### Which is better, reactive or template-driven? 
+  
+  ### 哪一个更好？响应式还是模板驱动？
 
   Neither is "better".
   They're two different architectural paradigms, 
   with their own strengths and weaknesses.
   Choose the approach that works best for you.
   You may decide to use both in the same application.
+  
+  没有哪个"更好"。
+  它们是两种架构范式，各有优缺点。
+  请自行选择更合适的方法，甚至可以在同一个应用中同时使用它们。
 
   The balance of this _reactive forms_ guide explores the _reactive_ paradigm and 
   concentrates exclusively on reactive forms techniques. 
   For information on _template-driven forms_, see the [_Forms_](forms.html) guide.
+  
+  在这章*响应式表单*中，我们只专注于*响应式*范式以及响应式表单技术的详情。
 
   In the next section, you'll set up your project for the reactive form demo.
   Then you'll learn about the [Angular form classes](#essentials) and how to use them in a reactive form.
+  
+  在下一节，我们将先准备一个响应式表单范例的项目，然后就可以开始学习[Angular表单类](#essentials)，并在响应式表单中使用它们了。
 
 .l-main-section
 a#setup
 :marked
   ## Setup
+  
+  ## 准备工作
 
   Follow the steps in the [_Setup_ guide](../guide/setup.html "Setup guide") 
   for creating a new project folder (perhaps called `reactive-forms`)
   based on the _QuickStart seed_.
+  
+  遵循[*准备工作*一章](../guide/setup.html "Setup guide")中的步骤基于*快速起步种子工程*创建一个新的项目目录（比如叫`reactive-forms`）。 
 
 .l-main-section
 a#data-model
 :marked
   ## Create a data model
+  
+  ## 创建数据模型
+  
   The focus of this guide is a reactive forms component that edits a hero.
   You'll need a `hero` class and some hero data.
   Create a new `data-model.ts` file in the `app` directory and copy the content below into it.
+  
+  本章的焦点是响应式表单组件以及编辑一个英雄。
+  我们需要一个`Hero`类和一些英雄数据。
+  在`app`目录下创建一个`data-model.ts`文件，并粘贴进下列内容：
 
 +makeExample('reactive-forms/ts/src/app/data-model.ts', '','src/app/data-model.ts')(format=".")
 
@@ -160,18 +301,28 @@ a#data-model
   The file exports two classes and two constants. The `Address` 
   and `Hero` classes define the application _data model_. 
   The `heroes` and `states` constants supply the test data. 
+  
+  这个文件导出两个类和两个常量。`Address`和`Hero`类定义应用的*数据模型*。
+  `heroes`和`states`常量提供测试数据。
 
 .l-main-section
 a#create-component
 :marked
   ## Create a _reactive forms_ component
+  
+  ## 创建*响应式表单*组件
+  
   Make a new file called 
   `hero-detail.component.ts` in the `app` directory and import these symbols:
+  
+  在`app`目录下创建一个名叫`hero-detail.component.ts`的新文件，并且导入下列符号：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-1.component.ts', 'imports','src/app/hero-detail.component.ts')(format=".")
 
 :marked
   Now enter the `@Component` decorator that specifies the `HeroDetailComponent` metadata:
+  
+  然后输入这个`@Component`来为`HeroDetailComponent`指定元数据：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail.component.ts', 'metadata','src/app/hero-detail.component.ts (excerpt)')(format=".")
 
@@ -180,30 +331,48 @@ a#create-component
   `FormControl` is a directive that allows you to create and manage 
   a `FormControl` instance directly.
   
+  
+  接下来，创建并导出一个带`FormControl`的`HeroDetailComponent`类。
+  `FormControl`是一个指令，它允许我们直接创建并管理一个`FormControl`实例。
+  
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-1.component.ts', 'v1','src/app/hero-detail.component.ts (excerpt)')(format=".")
 
 :marked
   Here you are creating a `FormControl` called `name`. 
   It will be bound in the template to an HTML `input` box for the hero name. 
+  
+  这里我们创建了一个名叫`name`的`FormControl`。
+  它将会绑定到模板中的一个`input`框，表示英雄的名字。
 
   A `FormControl` constructor accepts three, optional arguments: 
   the initial data value, an array of validators, and an array of async validators.
   
+  `FormControl`构造函数接收三个可选参数：
+  初始值、验证器数组和异步验证器数组。
+  
   This simple control doesn't have data or validators.
   In real apps, most form controls have both. 
+  
+  最简单的控件并不需要数据或验证器，但是在实际应用中，大部分表单控件都会同时具备它们。
 
 .l-sub-section
   :marked
     This guide touches only briefly on `Validators`. For an in-depth look at them,
     read the [Form Validation](../cookbook/form-validation.html) cookbook.
+    
+    本章中只会接触`Validators`中的一点点，要想更深入的了解它们，请阅读烹饪宝典中的[表单验证](../cookbook/form-validation.html)一章。
 
 .l-main-section
 a#create-template
 :marked
   ## Create the template
+  
+  ## 创建模板
 
   Now create the component's template, `src/app/hero-detail.component.html`, with the following markup.
+  
+  现在，在创建组件的模板文件`src/app/hero-detail.component.html`，内容如下：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-1.component.html', 'simple-control','src/app/hero-detail.component.html')(format=".")
 
@@ -212,6 +381,8 @@ a#create-template
   associate to the `name` `FormControl` in the class, 
   you need `[formControl]="name"` in the template on the `<input>`. 
   
+  要让Angular知道我们希望把这个输入框关联到类中的`FormControl`型属性`name`，我们需要在模板中的`<input>`上加一句`[formControl]="name"`。
+  
 
 .l-sub-section
   :marked
@@ -219,21 +390,38 @@ a#create-template
     <a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>,
     not Angular.
     It _styles_ the form but in no way impacts the logic of the form.
+    
+    请忽略CSS类`form-control`，它属于<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>而不是Angular。
+    它会为表单添加样式，但是对表单的逻辑毫无影响。
 
 a#import
 :marked
   ## Import the _ReactiveFormsModule_
+  
+  ## 导入`ReactiveFormsModule`
 
   The HeroDetailComponent template uses `formControlName` 
   directive from the `ReactiveFormsModule`.
   
+  `HeroDetailComponent`的模板中使用了来自`ReactiveFormsModule`的`formControlName`。
+  
   In this sample, you declare the `HeroDetailComponent` in the `AppModule`.
   Therefore, do the following three things in `app.module.ts`:
+  
+  在这个例子中，我们在`AppModule`中声明了`HeroDetailComponent`。因此现在`app.module.ts`中做了三件事：
 
   1. Use a JavaScript `import` statement to access 
   the `ReactiveFormsModule` and the `HeroDetailComponent`.
+  
+    使用JavaScript的`import`语句访问`ReactiveFormsModule`和`HeroDetailComponent`。
+    
   1. Add `ReactiveFormsModule` to the `AppModule`'s `imports` list.
+  
+    把`ReactiveFormsModule`添加到`AppModule`的`imports`列表中。
+    
   1. Add `HeroDetailComponent` to the declarations array.
+  
+    把`HeroDetailComponent`添加到声明数组中。
 
 +makeExample('reactive-forms/ts/src/app/app.module.ts', 'v1','src/app/app.module.ts (excerpt)')(format=".")
 
@@ -241,43 +429,76 @@ a#update
 .l-main-section
 :marked
   ## Display the _HeroDetailComponent_
+  
+  ## 显示`HeroDetailComponent`
+  
   Revise the `AppComponent` template so it displays the `HeroDetailComponent`.
+  
+  修改`AppComponent`的模板，以便显示`HeroDetailComponent`。
+  
 +makeExample('reactive-forms/ts/src/app/app.component.1.ts', '','src/app/app.component.ts')(format=".")
 
 a#essentials
 :marked
   ### Essential form classes
+  
+  ### 基础的表单类
+  
   It may be helpful to read a brief description of the core form classes.
+  
+  阅读一下这些核心表单类的简短描述也许会有用。
   
   * [_AbstractControl_](../api/forms/index/AbstractControl-class.html "API Reference: AbstractControl")
   is the abstract base class for the three concrete form control classes: 
   `FormControl`, `FormGroup`, and `FormArray`.
   It provides their common behaviors and properties, some of which are _observable_.
+  
+    [`AbstractControl`](../api/forms/index/AbstractControl-class.html "API Reference: AbstractControl")是三个具体表单类的抽象基类。
+    并为它们提供了一些共同的行为和属性，其中有些是*可观察对象（Observable）*。
 
   * [_FormControl_](../api/forms/index/FormControl-class.html "API Reference: FormControl") 
   tracks the value and validity status of an _individual_ form control.
   It corresponds to an HTML form control such as an input box or selector.
+  
+    [_FormControl_](../api/forms/index/FormControl-class.html "API Reference: FormControl")
+    用于跟踪一个*单独的*表单控件的值和有效性状态。它对应于一个HTML表单控件，比如输入框和下拉框。
 
   * [_FormGroup_](../api/forms/index/FormGroup-class.html "API Reference: FormGroup")
   tracks the value and validity state of a _group_ of `AbstractControl` instances.
   The group's properties include its child controls.
   The top-level form in your component is a `FormGroup`.
+  
+    [_FormGroup_](../api/forms/index/FormGroup-class.html "API Reference: FormGroup")用于
+    跟踪*一组*`AbstractControl`的实例的值和有效性状态。
+    该组的属性中包含了它的子控件。
+    组件中的顶级表单就是一个`FormGroup`。
 
   * [_FormArray_](../api/forms/index/FormArray-class.html "API Reference: FormArray")
   tracks the value and validity state of a numerically indexed _array_ of `AbstractControl` instances.
+  
+    [_FormArray_](../api/forms/index/FormArray-class.html "API Reference: FormArray")用于跟踪`AbstractControl`实例组成的有序数组的值和有效性状态。
 
   You'll learn more about these classes as you work through this guide.
+  
+  随着本章的深入，我们将学到关于这三个类的更多知识。
 
 
 :marked
   ### Style the app
+  
+  ### 为应用添加样式
+  
   You used bootstrap CSS classes in the template HTML of both the `AppComponent` and the `HeroDetailComponent`.
   Add the `bootstrap` _CSS stylesheet_ to the head of `index.html`:
+  
+  我们在`AppComponent`和`HeroDetailComponent`的模板中使用Bootstrap中的CSS类。请把`bootstrap`的*CSS样式表文件*添加到`index.html`的`head`区。
 
 +makeExample('reactive-forms/ts/src/index.html', 'bootstrap','index.html')(format=".")
 
 :marked
   Now that everything is wired up, the browser should display something like this: 
+  
+  这些做好之后，浏览器中应该显示成这样：
 
 figure.image-display
   img(src="/resources/images/devguide/reactive-forms/just-formcontrol.png" width="400px" alt="Single FormControl")
@@ -285,21 +506,30 @@ figure.image-display
 a#formgroup
 :marked
   ## Add a FormGroup
+  
+  ## 添加FormGroup
+  
   Usually, if you have multiple *FormControls*, you'll want to register 
   them within a parent `FormGroup`.
   This is simple to do. To add a `FormGroup`, add it to the imports section 
   of `hero-detail.component.ts`:
+  
+  通常，如果有多个*FormControl*，我们会希望把它们注册进一个父`FormGroup`中。这很容易。只要把它加入`hero-detail.component.ts`的`import`区就可以了。
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-2.component.ts', 'imports','src/app/hero-detail.component.ts')(format=".")
 
 :marked
   In the class, wrap the `FormControl` in a `FormGroup` called `heroForm` as follows:
+  
+  在这个类中，把`FormControl`包裹进了一个名叫`heroForm`的`FormGroup`中，代码如下：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-2.component.ts', 'v2','src/app/hero-detail.component.ts')(format=".")
 
 :marked
   Now that you've made changes in the class, they need to be reflected in the 
   template. Update `hero-detail.component.html` by replacing it with the following.
+  
+  现在我们改完了这个类，该把它映射到模板中了。把`hero-detail.component.html`改成这样：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-2.component.html', 'basic-form','src/app/hero-detail.component.html')(format=".")
 
@@ -307,6 +537,8 @@ a#formgroup
   Notice that now the single input is in a `form` element. The `novalidate` 
   attribute in the `<form>` element prevents the browser 
   from attempting native HTML validations. 
+  
+  注意，现在单行输入框位于一个`form`元素中。`<form>`元素上的`novalidate`属性会阻止浏览器使用原生HTML中的表单验证器。
 
   `formGroup` is a reactive form directive that takes an existing 
   `FormGroup` instance and associates it with an HTML element. 
