@@ -544,6 +544,9 @@ a#formgroup
   `FormGroup` instance and associates it with an HTML element. 
   In this case, it associates the `FormGroup` you saved as 
   `heroForm` with the form element.
+  
+  `formGroup`是一个响应式表单的指令，它拿到一个现有`FormGroup`实例，并把它关联到一个HTML元素上。
+  这种情况下，它关联到的是`form`元素上的`FormGroup`实例`heroForm`。
 
   Because the class now has a `FormGroup`, you must update the template 
   syntax for associating the input with the corresponding 
@@ -557,6 +560,11 @@ a#formgroup
   in the class. This syntax tells Angular to look for the parent 
   `FormGroup`, in this case `heroForm`, and then _inside_ that group 
   to look for a `FormControl` called `name`.
+  
+  由于现在有了一个`FormGroup`，因此我们必须修改模板语法来把输入框关联到组件类中对应的`FormControl`上。
+  以前没有父`FormGroup`的时候，`[formControl]="name"`也能正常工作，因为该指令可以独立工作，也就是说，不在`FormGroup`中时它也能用。
+  有了`FormGroup`，`name`输入框就需要再添加一个语法`formControlName=name`，以便让它关联到类中正确的`FormControl`上。
+  这个语法告诉Angular，查阅父`FormGroup`（这里是`heroForm`），然后在这个`FormGroup`中查阅一个名叫`name`的`FormControl`。
 
 .l-sub-section
   :marked
@@ -566,24 +574,37 @@ a#formgroup
     Like the `form-control` class, it _styles_ the form 
     but in no way impacts its logic.
 
+    请无视*CSS*类`form-group`，它属于<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>而不是Angular。
+    就像`form-control`类一样，它只是为表单添加样式，而对表单逻辑毫无影响。
 
 :marked
   The form looks great. But does it work? 
   When the user enters a name, where does the value go? 
+  
+  表单看起来很棒，但是它能用吗？
+  当用户输入名字时，它的值去了哪里？
 
 a#json
 :marked
   ## Taking a look at the form model
   
+  表单模型概览
+  
   The value goes into the **_form model_** that backs the group's `FormControls`.
   To see the form model, add the following line after the 
   closing `form` tag in the `hero-detail.component.html`:
+  
+  这个值进入了幕后**表单模型**中的`FormControl`构成的表单组。
+  要想知道表单模型是什么样的，请在`hero-detail.component.html`的`form`标签紧后面添加如下代码：
 
 +makeExample('reactive-forms/ts/src/app/hero-detail-3.component.html', 'form-value-json','src/app/hero-detail.component.html')(format=".")
 
 :marked
   The `heroForm.value` returns the _form model_.
   Piping it through the `JsonPipe` renders the model as JSON in the browser:
+  
+  `heroForm.value`会返回表单模型。
+  用`JsonPipe`管道把这个模型以JSON格式渲染到浏览器中。
 
 figure.image-display
   img(src="/resources/images/devguide/reactive-forms/json-output.png" width="400px" alt="JSON output")
@@ -594,47 +615,85 @@ figure.image-display
 
 
 
+  最初的`name`属性是个空字符串，在*name*输入框中输入之后，可以看到这些按键出现在了JSON中。
+  
+
 :marked
   Great! You have the basics of a form. 
+  
+  真棒！我们有了一个基本版表单。
   
   In real life apps, forms get big fast. 
   `FormBuilder` makes form development and maintenance easier.
 
+  
+  在真实的应用中，表单很快就会变大。
+  `FormBuilder`能让表单开发和维护变得更简单。
 
 .l-main-section
 a#formbuilder
 :marked
   ## Introduction to _FormBuilder_
+  
+  ## `FormBuilder`简介
 
   The `FormBuilder` class helps reduce repetition and 
   clutter by handling details of control creation for you. 
+  
+  `FormBuilder`类能通过处理控件创建的细节问题来帮我们减少重复劳动。
 
   To use `FormBuilder`, you need to import it into `hero-detail.component.ts`:
+  
+  要使用`FormBuilder`，我们就要先把它导入到`hero-detail.component.ts`中：
+  
 +makeExample('reactive-forms/ts/src/app/hero-detail-3a.component.ts', 'imports','src/app/hero-detail.component.ts (excerpt)')(format=".")
 
 :marked
   Use it now to refactor the `HeroDetailComponent` into something that's a little easier to read and write,
   by following this plan:
+  
+  现在，我们遵循下列步骤用`FormBuilder`来把`HeroDetailComponent`重构得更加容易读写。
 
   * Explicitly declare the type of the `heroForm` property to be `FormGroup`; you'll initialize it later.
+  
+    明确把`heroForm`属性的类型声明为`FormGroup`，稍后我们会初始化它。
+    
   * Inject a `FormBuilder` into the constructor.
+  
+    把`FormBuilder`注入到构造函数中。
+    
   * Add a new method that uses the `FormBuilder` to define the `heroForm`; call it `createForm`.
+  
+    添加一个名叫`createForm`的新方法，它会用`FormBuilder`来定义`heroForm`。
+    
   * Call `createForm` in the constructor.
+  
+    在构造函数中调用`createForm`。
 
   The revised `HeroDetailComponent` looks like this:
+  
+  修改过的`HeroDetailComponent`代码如下：
+  
 +makeExample('reactive-forms/ts/src/app/hero-detail-3a.component.ts', 'v3a','src/app/hero-detail.component.ts (excerpt)')(format=".")
 
 :marked
   `FormBuilder.group` is a factory method that creates a `FormGroup`. &nbsp;
   `FormBuilder.group` takes an object whose keys and values are `FormControl` names and their definitions. 
   In this example, the `name` control is defined by its initial data value, an empty string.
+  
+  `FormBuilder.group`是一个用来创建`FormGroup`的工厂方法，它接受一个对象，对象的键和值分别是`FormControl`的名字和它的定义。
+  在这个例子中，`name`控件的初始值是空字符串。
 
   Defining a group of controls in a single object makes for a compact, readable style.
   It beats writing an equivalent series of `new FormControl(...)` statements.
+  
+  把一组控件定义在一个单一对象中，可以更加紧凑、易读。
+  完成相同功能时，这种形式优于一系列`new FormControl(...)`语句。
 
 a#validators
 :marked
  ### Validators.required
+ 
  Though this guide doesn't go deeply into validations, here is one example that 
  demonstrates the simplicity of using `Validators.required` in reactive forms. 
 
