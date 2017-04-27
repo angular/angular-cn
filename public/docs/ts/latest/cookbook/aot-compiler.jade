@@ -36,15 +36,13 @@ a#toc
   
     [摇树优化（Tree Shaking）](#tree-shaking)
  
-    *[Rollup](#rollup)
+    * [Rollup](#rollup)
     
-      [Rollup](#rollup)
-    
-    *[Rollup Plugins](#rollup-plugins)
+    * [Rollup Plugins](#rollup-plugins)
     
       [Rollup插件](#rollup-plugins)
       
-    *[Run Rollup](#run-rollup)
+    * [Run Rollup](#run-rollup)
     
       [运行Rollup](#run-rollup)
 
@@ -64,27 +62,27 @@ a#toc
   
     [工作流与辅助脚本](#workflow)
 
-    *[Develop JIT along with AOT](#run-jit)
+    * [Develop JIT along with AOT](#run-jit)
     
-      [先用JIT开发再进行AOT](#run-jit)
+      [先用JIT开发，再用AOT发布](#run-jit)
 
   * [Tour of Heroes](#toh)
   
     [英雄指南](#toh)
 
-    *[JIT in development, AOT in production](#jit-dev-aot-prod)
+    * [JIT in development, AOT in production](#jit-dev-aot-prod)
     
       [开发环境JIT，生产环境AOT](#jit-dev-aot-prod)
       
-    *[Tree shaking](#shaking)
+    * [Tree shaking](#shaking)
     
       [摇树优化](#shaking)
       
-    *[Running the application](#running-app)
+    * [Running the application](#running-app)
     
       [运行本应用](#running-app)
       
-    *[Inspect the Bundle](#inspect-bundle)
+    * [Inspect the Bundle](#inspect-bundle)
     
       [审查捆(bundle)文件](#inspect-bundle)
 
@@ -277,12 +275,20 @@ code-example(language="none" class="code-shell").
 
 :marked
   ***Component-relative template URLS***
+  
+  ***相对于组件的模板URL***
 
   The AOT compiler requires that `@Component` URLS for external templates and CSS files be _component-relative_.
   That means that the value of `@Component.templateUrl` is a URL value _relative_ to the component class file.
   For example, an `'app.component.html'` URL means that the template file is a sibling of its companion `app.component.ts` file.
+  
+  AOT编译器要求`@Component`中的外部模板和CSS文件的URL是*相对于组件的*。
+  这意味着`@Component.templateUrl`的值是一个*相对于*组件类文件的URL值。
+  例如，`'app.component.html'` URL表示模板文件与它相应的`app.component.ts`文件放在一起。
 
   While JIT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AOT compilation.
+  
+  而JIT应用的URL更灵活，固定写成*相对于组件的*URL的形式对AOT编译的兼容性也更好。
 
 :marked
   ***Compiling the application***
@@ -358,10 +364,16 @@ a#bootstrap
 
   Make a copy of `main.ts` and name it `main-jit.ts`.
   This is the JIT version; set it aside as you may need it [later](#run-jit "Running with JIT").
+  
+  复制一份`main.ts`并把它改名为`main-jit.ts`。
+  这就是JIT版本，先把它放在一边，我们[稍后](#run-jit "Running with JIT")会用到它。
 
   Open `main.ts` and convert it to AOT compilation.
   Switch from the `platformBrowserDynamic.bootstrap` used in JIT compilation to
   `platformBrowser().bootstrapModuleFactory` and pass in the AOT-generated `AppModuleNgFactory`.
+  
+  打开`main.ts`，并把它改成AOT编译。
+  从`platformBrowserDynamic.bootstrap`改成使用`platformBrowser().bootstrapModuleFactory`并把`AppModuleNgFactory`的AOT编译结果传给它。
 
   Here is AOT bootstrap in `main.ts` next to the original JIT version:
 
@@ -482,8 +494,6 @@ a#rollup-plugins
 
   *RxJS*
   
-  *RxJS*
-    
   Rollup expects application source code to use `ES2015` modules. 
   Not all external dependencies are published as `ES2015` modules.
   In fact, most are not. Many of them are published as _CommonJS_ modules.
@@ -619,53 +629,97 @@ a#workflow
 .l-main-section
 :marked
   ## Workflow and convenience script
+  
+  ## 工作流与便利脚本
 
   You'll rebuild the AOT version of the application every time you make a change.
   Those _npm_ commands are long and difficult to remember.
+  
+  每当修改时，我们都将重新构建应用的AOT版本。
+  那些*npm*命令太长，很难记。
 
   Add the following _npm_ convenience script to the `package.json` so you can compile and rollup in one command.
+  
+  把下列*npm*便利脚本添加到`package.json`中，以便用一条命令就可以完成编译和Rollup打包工作。
+  
 +makeJson('cb-aot-compiler/ts/package.json', { paths: 'scripts.build:aot'}, "package.json (build:aot convenience script)")
+
 :marked
   Open a terminal window and try it.
+
+  打开终端窗口，并试一下。
+  
 code-example(language="none" class="code-shell").
   npm run build:aot
 
 a#run-jit
 :marked
   ### Develop JIT along with AOT
+  
+  ### 先用JIT开发，再AOT发布
 
   AOT compilation and rollup together take several seconds.
   You may be able to develop iteratively a little faster with SystemJS and JIT.
   The same source code can be built both ways. Here's one way to do that.
+  
+  AOT编译和Rollup打包加起来要花好几秒钟。
+  用SystemJS和JIT可以让开发期间的迭代更快一点。
+  同一套源码可以用这两种方式构建。下面是方法之一：
 
   * Make a copy of `index.html` and call it `index-jit.html`.
+  
+    复制一份`index.html`并命名为`index-jit.html`。
+    
   * Delete the script at the bottom of `index-jit.html` that loads `bundle.js`
+  
+    删除`index-jit.html`底部用来加载`bundle.js`的脚本
+    
   * Restore the SystemJS scripts like this:
+  
+    代之以如下的SystemJS脚本：
+  
 +makeExample('cb-aot-compiler/ts/src/index-jit.html','jit','src/index-jit.html (SystemJS scripts)')(format='.')
 
 :marked
   Notice the slight change to the `system.import` which now specifies `src/app/main-jit`.
   That's the JIT version of the bootstrap file that we preserved [above](#bootstrap).
+  
+  注意，这里稍微修改了一下`system.import`，现在它指向了`src/app/main-jit`。
+  这就是我们[以前](#bootstrap)预留的JIT版本的引导文件。
 
 :marked
   Open a _different_ terminal window and enter `npm start`.
+  
+  打开*另一个*终端窗口，并输入`npm start`：
+  
 code-example(language="none" class="code-shell").
   npm start
+
 :marked
   That compiles the app with JIT and launches the server.
   The server loads `index.html` which is still the AOT version, which you can confirm in the browser console.
   Change the address bar to `index-jit.html` and it loads the JIT version.
   This is also evident in the browser console.
 
+  它会使用JIT方式编译本应用，并启动服务器。
+  服务器仍然加载的是AOT版的`index.html`，我们可以在浏览器的控制台中确认这一点。
+  在地址栏中改为`index-jit.html`，它就会加载JIT版，这同样可以在浏览器控制台中确认。
+
   Develop as usual.
   The server and TypeScript compiler are in "watch mode" so your changes are reflected immediately in the browser.
+  
+  照常开发。服务器和TypeScript编译器都处于"监听模式"，因此我们的修改都可以立刻反映到浏览器中。
 
   To see those changes in AOT, switch to the original terminal and re-run `npm run build:aot`.
   When it finishes, go back to the browser and use the back button to
   return to the AOT version in the default `index.html`.
+  
+  要对比AOT版的变化，可以切换到原来的终端窗口中，并重新运行`npm run build:aot`。
+  结束时，回到浏览器中，并用浏览器的后退按钮回到默认`index.html`中的AOT版本。
 
   Now you can develop JIT and AOT, side-by-side.
-
+  
+  现在，我们就可以同时进行JIT和AOT开发了。
 
 a#toh
 .l-main-section
@@ -696,8 +750,6 @@ a#jit-dev-aot-prod
   Fortunately, the source code can be compiled either way without change _if_ you account for a few key differences.
 
   幸运的是，**如果**你处理了几个关键不同点，源代码可以在没有任何变化时，采取两种方式的任何一种都能编译。
-
-  ***index.html***
 
   ***index.html***
 
