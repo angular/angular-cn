@@ -58,7 +58,6 @@ figure
 
     [监听OnInit和OnDestroy](#spy)
 
-
     * [OnInit](#oninit)
 
     * [OnDestroy](#ondestroy)
@@ -69,11 +68,9 @@ figure
 
   * [AfterView](#afterview)
 
-
     * [Abide by the unidirectional data flow rule](#wait-a-tick)
 
       [遵循单向数据流规则](#wait-a-tick)
-
 
   * [AfterContent](#aftercontent)
 
@@ -933,12 +930,12 @@ a#aftercontent-hooks
   * The *AfterView* hooks concern `ViewChildren`, the child components whose element tags
   appear *within* the component's template.
 
-  *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
+    *AfterView*钩子所关心的是`ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
 
   * The *AfterContent* hooks concern `ContentChildren`, the child components that Angular
   projected into the component.
 
-  *AfterContent*钩子所关心的是`ContentChildren`，这些子组件被Angular投影进该组件中。
+    *AfterContent*钩子所关心的是`ContentChildren`，这些子组件被Angular投影进该组件中。
 
   The following *AfterContent* hooks take action based on changing values in a *content child*,
   which can only be reached by querying for them via the property decorated with
