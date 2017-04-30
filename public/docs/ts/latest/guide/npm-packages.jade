@@ -332,11 +332,11 @@ a(id="why-peer-dependencies")
   
   >A **dependency** says, "I need this thing directly available to *me*."
   >
-  >A **peerDependency** says, "If you want to use me, you need this thing available to *you*."
-  
-  >**dependency**说：“我需要这东西*对我*直接可用。”
+  >**dependency**说：“我需要这东西*对我*是直接可用的。”
   >
-  >**peerDependency**说：“如果你想使用我，你得先确保这东西*对你*可用”
+  >A **peerDependency** says, "If you want to use me, you need this thing available to *you*."
+  >
+  >**peerDependency**说：“如果你想使用我，你得先确保这东西*对你*是可用的”
   
   The Angular `package.json` specifies several *peer dependency* packages, 
   each pinned to a particular version of a third-party package.
@@ -397,4 +397,4 @@ a(id="why-peer-dependencies")
     When this feature request is implemented, Angular will switch from *peerDependencies* to *optionalPeerDependencies* for all polyfills.
 
     不过，有一个npm的新特性申请，叫做“可选的peerDependencies”，它将会允许我们更好的对这种关系建模。
-    一旦它被实现了，Angular将把所有填充库从*peerDependencies*区切换到*optionalPeerDependencies*区。
+    一旦它被实现了，Angular将把所有填充库从*peerDependencies*区切换到*optionalPeerDependencies*去。

@@ -77,8 +77,6 @@ block includes
   
     [解决冲突](#resolve-conflicts "当两指令具有相同的选择器时……")
     
-  <!-- CF: See my comment in the "Resolve diretive conflicts" section below proposing renaming or reorganizing that section. -->
-  
   * [Feature modules](#feature-modules "Partition the app into feature modules")
   
     [特性模块](#feature-modules "把应用分割成一些特性模块")
@@ -1090,9 +1088,12 @@ a#contact-module-v1
 
 :marked
   ### Refactor the _AppModule_
+  
   ### 重构 *AppModule*
 
   Return to the `AppModule` and remove everything specific to the contact feature set.
+  
+  返回`AppModule`并移除专属于联系人特性下的任何东西。
 
   * Delete the contact import statements.
   
