@@ -25,6 +25,8 @@ block includes
 
   The Angular HTTP library simplifies application programming with the **XHR** and **JSONP** APIs.
   
+  Angular的HTTP库，简化了使用**XHR**和**JSONP** API的编程方式。
+  
   # Contents
   
   # 目录
@@ -41,11 +43,9 @@ block includes
 
     [《英雄指南》的*HTTP*客户端演示程序](#http-client)
 
-
     * [The `HeroListComponent` class](#HeroListComponent)
 
       [`HeroListComponent`类](#HeroListComponent)
-
 
   * [Fetch data with `http.get()`](#fetch-data)
 
@@ -79,7 +79,6 @@ block includes
 
       [`HeroListComponent`错误处理](#hero-list-component)
 
-
   * [Send data to the server](#update)
 
     [把数据发到服务器](#update)
@@ -92,7 +91,6 @@ block includes
 
       [JSON结果](#json-results)
 
-
     * [Fall back to promises](#promises)
     
       [退化为承诺（Promise）](#promises)
@@ -100,7 +98,6 @@ block includes
   * [Cross-Origin Requests: Wikipedia example](#cors)
 
     [跨域请求：Wikipedia范例](#cors)
-
 
     * [Search Wikipedia](#search-wikipedia)
 
@@ -129,7 +126,6 @@ block includes
     * [Listen for search terms](#listen-for-search-terms)
 
       [监听搜索词汇](#listen-for-search-terms)
-
 
   * [Guarding against Cross-Site Request Forgery](#xsrf)
 
@@ -1100,16 +1096,27 @@ block wikipedia-jsonp+
     there's a lot more RxJS in the "smart" version,
     starting with `debounceTime`, `distinctUntilChanged`, and `switchMap` operators,
     imported as [described above](#rxjs-library).
-
+    
+    虽然它们的模板几乎相同，但是这个"智能"版涉及到了更多RxJS，比如`debounceTime`、`distinctUntilChanged`和`switchMap`操作符，
+    就像[前面提过的那样](#rxjs-library)导入。
+    
   a#create-stream
   :marked
     ### Create a stream of search terms
+    
+    ### 创建一个搜索关键词的流
 
     The `WikiComponent` passes a new search term directly to the `WikipediaService` after every keystroke.
+    
+    每当按键时，`WikiComponent`就会把一个新的搜索词直接传给`WikipediaService`。
 
     The `WikiSmartComponent` class turns the user's keystrokes into an Observable _stream of search terms_
     with the help of a `Subject`, which you import from RxJS:
+    
+    `WikiSmartComponent`类借助一个`Subject`实例把用户的按键传给一个搜索关键词的可观察流（Observable stream）。`Subject`是从RxJS中导入的。
+    
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'import-subject')(format='.')
+  
   :marked
     The component creates a `searchTermStream` as a `Subject` of type `string`.
     The `search()` method adds each new search box value to that stream via the subject's `next()` method.
@@ -1122,28 +1129,50 @@ block wikipedia-jsonp+
   a#listen-for-search-terms
   :marked
     ### Listen for search terms
+    
+    ### 监听搜索词
 
     The `WikiSmartComponent` listens to the *stream of search terms* and
     processes that stream _before_ calling the service.
+    
+    `WikiSmartComponent`监听*搜索关键词的流*，并且可以在调用搜索服务*之前*处理这个流。
+    
   +makeExample('server-communication/ts/src/app/wiki/wiki-smart.component.ts', 'observable-operators')(format='.')
+  
   :marked
     * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md" target="_blank" title="debounce operator"><i>debounceTime</i></a>
     waits for the user to stop typing for at least 300 milliseconds.
+    
+      <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/debounce.md" target="_blank" title="debounce operator"><i>debounceTime</i></a>
+      （防抖动）会等用户停止键入至少300毫秒后才触发。
 
     * <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/distinctuntilchanged.md" target="_blank" title="distinctUntilChanged operator"><i>distinctUntilChanged</i></a>
     ensures that the service is called only when the new search term is different from the previous search term.
+    
+      <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/distinctuntilchanged.md" target="_blank" title="distinctUntilChanged operator"><i>distinctUntilChanged</i></a>
+      会确保只有在新的搜索关键词和以前的那个不同时才会调用搜索服务。
 
     * The <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md" target="_blank" title="switchMap operator"><i>switchMap</i></a>
     calls the `WikipediaService` with a fresh, debounced search term and coordinates the stream(s) of service response.
+    
+      <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md" target="_blank" title="switchMap operator"><i>switchMap</i></a>
+      会用一个新的、防抖过的搜索关键词来调用`WikipediaService`，并切换到该服务的响应流。
 
     The role of `switchMap` is particularly important.
     The `WikipediaService` returns a separate Observable of string arrays (`Observable<string[]>`) for each search request.
     The user could issue multiple requests before a slow server has had time to reply,
     which means a backlog of response Observables could arrive at the client, at any moment, in any order.
+    
+    `switchMap`的角色是至关重要的。
+    `WikipediaService`为每个搜索请求返回一个独立的字符串数组型的可观察对象（`Observable<string[]>`）。
+    在一个慢速服务器有时间回复之前，用户可能会发起多个请求，这意味着这个流中的响应体可能在任何时刻、以任何顺序抵达客户端。
 
     The `switchMap` returns its own Observable that _combines_ all `WikipediaService` response Observables,
     re-arranges them in their original request order,
     and delivers to subscribers only the most recent search results.
+    
+    `switchMap`返回一个自有的可观察对象，该对象*组合*了`WikipediaService`中的所有响应体，
+    并把它们按原始请求顺序排列，只把最近一次返回的搜索结果提交给订阅者。
 
 a#xsrf
 .l-main-section
@@ -1173,44 +1202,72 @@ a#xsrf
   服务器接受这个 cookie 和页头，比较它们，只有在它们匹配的时候才处理请求。
   
   See the [XSRF topic on the Security page](security.html#xsrf) for more information about XSRF and Angular's `XSRFStrategy` counter measures.
+  
+  参见["安全"一章的XSRF主题](security.html#xsrf)，以了解关于XSRF和Angular的应对措施`XSRFStrategy`的更多信息。
 
 a#override-default-request-options
 .l-main-section
 :marked
   ## Override default request headers (and other request options)
+  
+  ## 覆盖默认的请求头（及其它请求选项）
 
   Request options (such as headers) are merged into the
   [default _RequestOptions_](https://angular.io/docs/ts/latest/api/http/index/BaseRequestOptions-class.html "API: BaseRequestOptions")
   before the request is processed.
   The `HttpModule` provides these default options via the `RequestOptions` token.
+  
+  请求选项（比如请求头），会在发起请求之前并入[default _RequestOptions_](https://angular.io/docs/ts/latest/api/http/index/BaseRequestOptions-class.html "API: BaseRequestOptions")中。
+  `HttpModule`通过`RequestOptions`令牌提供了这些默认选项。
 
   You can override these defaults to suit your application needs
   by creating a custom sub-class of `RequestOptions`
   that sets the default options for the application.
+  
+  我们可以通过创建一个`RequestOptions`的子类来把这些默认值覆盖为本应用中的默认选项，以适应应用中的需求。
 
   This sample creates a class that sets the default `Content-Type` header to JSON.
   It exports a constant with the necessary `RequestOptions` provider to simplify registration in `AppModule`.
+  
+  这个例子创建了一个类，它把默认的`Content-Type`请求头设置为JSON。
+  它导出了一个带有`RequestOptions`提供商的常量，以便注册进`AppModule`中。
 
 +makeExample('server-communication/ts/src/app/default-request-options.service.ts', '', 'src/app/default-request-options.service.ts')(format=".")
 :marked
   Then it registers the provider in the root `AppModule`.
+  
+  然后，它在根模块`AppModule`中注册了这个提供商。
+  
 +makeExample('server-communication/ts/src/app/app.module.ts', 'provide-default-request-options', 'src/app/app.module.ts (provide default request header)')(format=".")
+
 .l-sub-section
  :marked
    Remember to include this provider during setup when unit testing the app's HTTP services.
+   
+   在对应用的HTTP服务进行单元测试时，别忘了在初始化代码中包含这个提供商。
+   
 :marked
   After this change, the `header` option setting in `HeroService.create()` is no longer necessary,
+  
+  修改之后，`HeroService.create()`中的`header`选项就不再需要了。
 
 +makeExcerpt('src/app/toh/hero.service.ts', 'create')
+
 :marked
   You can confirm that `DefaultRequestOptions` is working by examing HTTP requests in the browser developer tools' network tab.
   If you're short-circuiting the server call with something like the [_in-memory web api_](#in-mem-web-api),
   try commenting-out the `create` header option,
   set a breakpoint on the POST call, and step through the request processing
   to verify the header is there.
+  
+  打开浏览器开发者工具的network页，我们就可以确认，`DefaultRequestOptions`工作是否正常。
+  如果你通过某些机制（比如[内存Web API](#in-mem-web-api)）短路了对服务器的调用，
+  可以试试注释掉`create`头选项，在POST调用上设置断点，并单步跟踪进请求过程来验证是否添加了这个头。
 
   Individual requests options, like this one, take precedence over the default `RequestOptions`.
   It might be wise to keep the `create` request header setting for extra safety.
+  
+  独立的请求选项，比如这一个，优先级高于默认的`RequestOptions`，保留`create`的请求头设置，以增强安全性，是一个明智之举。
 
 a#in-mem-web-api
 .l-main-section
@@ -1258,14 +1315,15 @@ a#in-mem-web-api
     It's an optional service in its own
     <a href="https://github.com/angular/in-memory-web-api" target="_blank" title="In-memory Web API"><i>angular-in-memory-web-api</i></a>
     library installed with npm (see `package.json`).
+    
+    内存Web API并不是Angular本身的一部分。
+    它是一个可选服务，要用npm来单独安装<a href="https://github.com/angular/in-memory-web-api" target="_blank" title="In-memory Web API"><i>angular-in-memory-web-api</i></a>库（参见`package.json`）。
 
     See the
     <a href="https://github.com/angular/in-memory-web-api/blob/master/README.md" target="_blank" title='In-memory Web API "README.md"'><i>README file</i></a>
     for configuration options, default behaviors, and limitations.
 
-    内存 Web API 不是 Angular 内核的一部分。
-    它是一个可选的服务，来自独立的`angular-in-memory-web-api`库。我们可以通过 npm (参见`package.json`) 来安装它，
-    并且通过 SystemJS (参见`systemjs.config.js`) 把它注册进模块加载器。
+    参见<a href="https://github.com/angular/in-memory-web-api/blob/master/README.md" target="_blank" title='In-memory Web API "README.md"'><i>README file</i></a>来了解配置选项、默认行为和限制。
 
 :marked
   The in-memory web API gets its data from a custom application class with a `createDb()`
