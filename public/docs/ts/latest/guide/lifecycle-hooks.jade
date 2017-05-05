@@ -67,7 +67,7 @@ figure
   * [DoCheck](#docheck)
 
   * [AfterView](#afterview)
-
+  
     * [Abide by the unidirectional data flow rule](#wait-a-tick)
 
       [遵循单向数据流规则](#wait-a-tick)
@@ -272,7 +272,11 @@ a#interface-optional
   Angular can't see TypeScript interfaces at runtime because they disappear from the transpiled JavaScript.
 
   从纯技术的角度讲，接口对JavaScript和TypeScript的开发者都是可选的。JavaScript语言本身没有接口。
-  Angular在运行时看不到TypeScript接口，因为它们在编译为JavaScript的时候已经消失了。Fortunately, they aren't necessary.
+  Angular在运行时看不到TypeScript接口，因为它们在编译为JavaScript的时候已经消失了。
+  
+  Fortunately, they aren't necessary.
+  
+  幸运的是，它们并不是必须的。
   
   You don't have to add the lifecycle hook interfaces to directives and components to benefit from the hooks themselves.
 
