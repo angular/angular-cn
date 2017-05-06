@@ -1598,8 +1598,12 @@ a#why-routing-module
   [Tour of Heroes tutorial](../tutorial/toh-pt4.html "Tour of Heroes: Services"),
   and you'll be copying much of the code 
   from the <live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>.
+  
+  这个例子重写了[《英雄指南》](../tutorial/toh-pt4.html "Tour of Heroes: Services")的"服务"部分的英雄列表特性，我们可以从<live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
 
   Here's how the user will experience this version of the app:
+  
+  下面是用户将看到的版本：
 
 figure.image-display
   img(src='/resources/images/devguide/router/router-2-anim.gif' alt="App in action" )
@@ -1607,35 +1611,80 @@ figure.image-display
 :marked
   A typical application has multiple *feature areas*, 
   each dedicated to a particular business purpose.
+  
+  典型的应用具有多个*特性区*，每个特性区都专注于特定的业务用途。
 
   While you could continue to add files to the `src/app/` folder,
   that is unrealistic and ultimately not maintainable.
   Most developers prefer to put each feature area in its own folder.
+  
+  虽然我们也可以把文件都放在`src/app/`目录下，但那样是不现实的，而且很难维护。
+  大部分开发人员更喜欢把每个特性区都放在它自己的目录下。
 
   You are about to break up the app into different *feature modules*, each with its own concerns.
   Then you'll import into the main module and navigate among them. 
+  
+  我们准备把应用拆分成多个不同的*特性模块*，每个特有模块都有自己的关注点。
+  然后，我们就会把它们导入到主模块中，并且在它们之间导航。
 
 a#heroes-functionality
 :marked
   ### Add heroes functionality
+  
+  ### 添加英雄管理功能
 
   Follow these steps:
   
+  按照下列步骤：
+  
   * Create the `src/app/heroes` folder; you'll be adding files implementing *hero management* there.
+  
+    创建`src/app/heroes`文件夹，我们将会把*英雄管理*功能的实现文件放在这里。
+    
   * Delete the placeholder `hero-list.component.ts` that's in the `app` folder.
+  
+    在`app`目录下删除占位用的`hero-list.component.ts`文件。
+    
   * Create a new `hero-list.component.ts` under `src/app/heroes`.
+  
+    在`src/app/heroes`目录下创建新的`hero-list.component.ts`文件。
+    
   * Copy into it the contents of the `app.component.ts` from
     the <live-example name="toh-4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example>.
+    
+      把<live-example name="toh-4" title="Tour of Heroes: Services example code">教程中的"服务"部分</live-example>的代码复制到`app.component.ts`中。
+      
   * Make a few minor but necessary changes:
+  
+    做一些微小但必要的修改：
 
     * Delete the `selector` (routed components don't need them).
+    
+      删除`selector`（路由组件不需要它们）。
+      
     * Delete the `<h1>`.
+    
+      删除`<h1>`。
+      
     * Relabel the `<h2>` to `<h2>HEROES</h2>`.
+    
+      给`<h2>`加文字，改成`<h2>HEROES</h2>`。
+      
     * Delete the `<hero-detail>` at the bottom of the template.
+    
+      删除模板底部的`<hero-detail>`。
+      
     * Rename the `AppComponent` class to `HeroListComponent`.
+    
+      把`AppComponent`类改名为`HeroListComponent`。
 
   * Copy the `hero-detail.component.ts` and the `hero.service.ts` files into the `heroes` subfolder.
+  
+    把`hero-detail.component.ts`和`hero.service.ts`复制到`heroes`子目录下。
+    
   * Create a (pre-routing) `heroes.module.ts` in the heroes folder that looks like this:
+  
+    在`heroes`子目录下（不带路由）的`heroes.module.ts`文件，内容如下：
 
 +makeExample('src/app/heroes/heroes.module.ts', 'v1','src/app/heroes/heroes.module.ts (pre-routing)')
 
@@ -1684,6 +1733,8 @@ a#hero-routing-module
 
   Create a new `heroes-routing.module.ts` in the `heroes` folder
   using the same techniques you learned while creating the `AppRoutingModule`.
+  
+  在`heroes`目录下创建一个新的`heroes-routing.module.ts`文件，使用的技术和以前创建`AppRoutingModule`时的一样。
 
 +makeExample('src/app/heroes/heroes-routing.module.ts','','src/app/heroes/heroes-routing.module.ts')
 
@@ -1691,6 +1742,9 @@ a#hero-routing-module
   :marked
     Put the routing module file in the same folder as its companion module file.
     Here both `heroes-routing.module.ts` and `heroes.module.ts` are in the same `src/app/heroes` folder.
+    
+    把路由模块文件和它对应的模块文件放在同一个目录下。
+    比如这里的`heroes-routing.module.ts`和`heroes.module.ts`都位于`src/app/heroes`目录下。
 
     Consider giving each feature module its own route configuration file.
     It may seem like overkill early when the feature routes are simple.
@@ -1702,6 +1756,8 @@ a#hero-routing-module
 :marked
   Import the hero components from their new locations in the `src/app/heroes/` folder, define the two hero routes,
   and export the `HeroRoutingModule` class.
+  
+  从新位置`src/app/heroes/`目录中导入英雄相关的组件，定义两个英雄路由，并导出`HeroRoutingModule`类。
 
   Now that you have routes for the `Heroes` module, register them with the `Router` via the 
   `RouterModule` _almost_ as you did in the `AppRoutingModule`.
@@ -1722,11 +1778,15 @@ a#hero-routing-module
     (or the `AppModule` if that's where you register top level application routes). 
     In any other module, you must call the **`RouterModule.forChild`** method to register additional routes.
     
-    **RouterModule.forRoot**只能由`AppModule`提供。但我们位于特性模块中，所以使用**`RouterModule.forChild`**来单独注册更多路由。
+    只在根模块`AppRoutingModule`中调用`RouterModule.forRoot`（如果在`AppModule`中注册应用的顶级路由，那就在`AppModule`中调用）。
+    在其它模块中，我们就必须调用**`RouterModule.forChild`**方法来注册附属路由。
     
 a#adding-routing-module
 :marked
   ### Add the routing module to the _HeroesModule_
+  
+  ### 把路由模块添加到`HeroesModule`中
+  
   Add the `HeroRoutingModule` to the `HeroModule`
   just as you added `AppRoutingModule` to the `AppModule`.
   
@@ -1736,32 +1796,52 @@ a#adding-routing-module
   Import the `HeroRoutingModule` token from `heroes-routing.module.ts` and 
   add it to the `imports` array of the `HeroesModule`. 
   The finished `HeroesModule` looks like this:
+  
+  打开`heroes.module.ts`，从`heroes-routing.module.ts`中导入`HeroRoutingModule`并把它添加到`HeroesModule`的`imports`数组中。
+  写完后的`HeroesModule`是这样的：
 
 +makeExample('src/app/heroes/heroes.module.ts','','src/app/heroes/heroes.module.ts')
 
 a#remove-duplicate-hero-routes
 :marked
   ### Remove duplicate hero routes
+  
+  ### 移除重复的英雄路由
 
   The hero routes are currently defined in _two_ places: in the `HeroesRoutingModule`,
   by way of the `HeroesModule`, and in the `AppRoutingModule`.
+  
+  英雄类的路由目前定义在两个地方：`HeroesRoutingModule`中（并最终给`HeroesModule`）和`AppRoutingModule`中。
 
   Routes provided by feature modules are combined together into their imported module's routes by the router. 
   This allows you to continue defining the feature module routes without modifying the main route configuration.
+  
+  由特性模块提供的路由会被路由器再组合上它们所导入的模块的路由。
+  这让我们可以继续定义特性路由模块中的路由，而不用修改主路由配置。
 
   But you don't want to define the same routes twice.
   Remove the `HeroListComponent` import and the `/heroes` route from the `app-routing.module.ts`.
+  
+  但我们显然不会想把同一个路由定义两次，那就移除`HeroListComponent`的导入和来自`app-routing.module.ts`中的`/heroes`路由。
 
   **Leave the default and the wildcard routes!**
   These are concerns at the top level of the application itself.
+  
+  **保留默认路由和通配符路由！**
+  它们是应用程序顶层该自己处理的关注点。
 
 +makeExcerpt('src/app/app-routing.module.2.ts (v2)', '')
 
 a#merge-hero-routes 
 :marked
   ### Import hero module into AppModule
+  
+  ### 把英雄模块导入到AppModule
+  
   The heroes feature module is ready, but the application doesn't know about the `HeroesModule` yet.
   Open `app.module.ts` and revise it as follows.
+  
+  
   
   Import the `HeroesModule` and add it to the `imports` array in the `@NgModule` metadata of the `AppModule`.
   
