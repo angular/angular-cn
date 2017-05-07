@@ -4,14 +4,18 @@ include ../_util-fns
   _Angular_ is the name for the Angular of today and tomorrow.
   _AngularJS_ is the name for all v1.x versions of Angular.
 
+  *Angular*这个名字专指现在和未来的Angular版本，而*AngularJS*专指Angular的所有v1.x版本。
+
   AngularJS apps are great. 
   Always consider the business case before moving to Angular.
   An important part of that case is the time and effort to get there.
   This guide describes the built-in tools for efficiently migrating AngularJS projects over to the
   Angular platform, a piece at a time.
 
-  已经有了一个AngularJS的程序并不表示我们就不能享受Angular提供的一切。
-  这是因为Angular带来了一些内置工具，来帮助我们把AngularJS的项目迁移到Angular平台。
+  有很多大型AngularJS应用。
+  在决定迁移到Angular之前，首先要深入思考业务案例。
+  在这些案例中，最重要的部分之一是时间和需要付出的努力。
+  本章描述用于把AngularJS应用高效迁移到Angular平台的内置工具，每次讲一点点。
 
   Some applications will be easier to upgrade than others, and there are
   ways in which we can make it easier for ourselves. It is possible to
@@ -181,11 +185,10 @@ include ../_util-fns
   保留AngularJS中好的部分，去掉坏的部分。当然，Angular还做了更多。
   说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular程序的AngularJS程序*。
 
-  There are a few rules in particular that will make it much easier to do
-
+  There are a few rules in particular that will make it much easier to do 
   *an incremental upgrade* using the Angular `upgrade` module:
 
-  特别是某些规则会让使用Angular的`upgrade`模块进行*增量升级*变得更简单：
+  有一些特别的规则可以让使用Angular的`upgrade`模块进行*增量升级*变得更简单：
 
   * The [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
     states that there should be one component per file. This not only makes
@@ -302,7 +305,7 @@ include ../_util-fns
 
   #### Using Component Directives
   
-  ### 使用组件型指令
+  #### 使用组件型指令
 
   In Angular, components are the main primitive from which user interfaces
   are built. We define the different parts of our UIs as components, and then
@@ -519,7 +522,6 @@ table
     between the frameworks. In Angular these services will always be in the
     *root injector* and available to all components.
   
-
     通过升级它们，我们就能让那些在AngularJS中能被注入的服务在Angular的代码中可用。
     在框架之间共享的是服务的同一个单例对象。在Angular中，这些外来服务总是被放在*根注入器*中，并可用于所有组件。
     它们总是具有*字符串令牌* —— 跟它们在AngularJS中的令牌相同。
@@ -608,6 +610,9 @@ figure.image-display
   switch between framework boundaries occurs. However, that switch only
   happens to the *children* of the component element. Consider a situation
   where we use an Angular component from AngularJS like this:
+
+  当我们使用一个属于另一个框架的组件时，就会发生一个跨框架边界的切换。不过，这种切换只发生在该组件元素的*子节点*上。
+  考虑一个场景，我们从AngularJS中使用一个Angular组件，就像这样：
 
 code-example(language="html" escape="html").
   <a-component></a-component>
@@ -814,6 +819,8 @@ figure.image-display
   We also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
   and add a mapping for the `@angular/upgrade/static` package: 
 
+  我们还需要通过`npm install @angular/upgrade --save`命令安装`@angular/upgrade`包，并且为`@angular/upgrade/static`包添加一个映射关系：
+
 +makeExample('upgrade-module/ts/src/systemjs.config.1.js', 'upgrade-static-umd', 'systemjs.config.js (map)')
 
 :marked
@@ -1006,7 +1013,7 @@ figure
   All that is left is to add it to `AppModule`'s `declarations` array.
 
   我们可以使用`UpgradeComponent`方法来把这个组件*升级*到Angular。
-  具体方法是创建一个Angular**指令**，继承`UpgradeComponent，在其构造函数中进行`super`调用，
+  具体方法是创建一个Angular**指令**，继承`UpgradeComponent`，在其构造函数中进行`super`调用，
   这样我们就得到一个完全升级的AngularJS组件，并且可以Angular中使用。
   剩下是工作就是把它加入到`AppModule`的`declarations`数组。
 
@@ -1213,9 +1220,13 @@ figure
   We recommend declaring the Factory Provider in a separate `ajs-upgraded-providers.ts` file
   so that they are all together, making it easier to reference them, create new ones and
   delete them once the upgrade is over. 
+
+  我们建议在一个独立的`ajs-upgraded-providers.ts`中声明这个工厂提供商，以便把它们都放在一起，这样便于引用、创建新的以及在升级完毕时删除它们。
   
   It's also recommended to export the `heroesServiceFactory` function so that Ahead-of-Time
   compilation can pick it up. 
+
+  我们还建议导出`heroesServiceFactory`函数，以便AOT编译器可以拿到它们。
 
 +makeExample('upgrade-module/ts/src/app/ajs-to-a-providers/ajs-upgraded-providers.ts', null, 'ajs-upgraded-providers.ts')
 
@@ -1286,23 +1297,35 @@ figure
 :marked
   ## Using Ahead-of-time compilation with hybrid apps
 
+  ## 在混合式应用中使用AOT编译
+
   We can take advantage of Ahead-of-time (AoT) compilation on hybrid apps just like on any other
   Angular application.
   The setup for an hybrid app is mostly the same as described in 
   [the Ahead-of-time Compilation chapter](../cookbook/aot-compiler.html)
   save for differences in `index.html` and `main-aot.ts`
 
+  我们也可以其它Angular应用一样在混合式应用中发挥AOT编译的优势。
+  对混合式应用的设置过程和[预编译](../cookbook/aot-compiler.html)章节中所讲的几乎完全一样，不同点在于`index.html`和`main-aot.ts`中。
+
   Our `index.html` will likely have script tags loading AngularJS files, so the `index.html` we
   use for AoT must also load those files. 
   An easy way to copy them is by adding each to the `copy-dist-files.js` file.
 
+  我们的`index.html`仍然需要script标签来加载AngularJS的文件，因此我们使用AOT编译的`index.html`也需要加载那些文件。
+  复制它们的简单方案是把它们全都添加到`copy-dist-files.js`文件中。
+
   We also need to use `UpgradeModule` to bootstrap a hybrid app after bootstrapping the 
   Module Factory:
+
+  我们还要使用`UpgradeModule`在启动了模块工厂之后引导一个混合式应用：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main-aot.ts', null, 'app/main-aot.ts')
 
 :marked
   And that's all we need to get the full benefit of AoT for Angular apps!
+
+  这就是我们为获取Angular应用的AOT优势所要做的一切。
 
 .alert.is-helpful
   :marked
@@ -1310,28 +1333,45 @@ figure
     so in order for upgraded components to work we needs to implement the lifecycle hooks 
     on the upgraded component class and forward them to the `UpgradeComponent` parent.  
 
+    AOT元数据收集器不能检测到父类原型中的生命周期钩子方法，因此为了让升级后的组件正常工作，我们要在升级后的组件类中实现生命周期钩子，
+    并且把它们转发给`UpgradeComponent`的父类。
+
 :marked
   ## Dividing routes between Angular and AngularJS
+
+  ## 在Angular和AngularJS之间划分路由
 
   Another important part of upgrading is upgrading routes.
   We could upgrade our whole app while still using the AngularJS router and then
   migrate all the routes in one fell swoop.
   But it would be much better to migrate routes one by one as they become upgraded.
+
+  升级中的另一个重要部分是升级路由。
+  我们固然可以升级整个应用但仍然使用AngularJS的路由器，然后一举把所有路由迁移过去。
+  但更好地方式是在升级每个路由时逐个把它们迁移过去。
   
   The first step to have a dual router setup is to add an Angular root component containing
   one outlet for each router. 
   AngularJS will use `ng-view`, and Angular will use `router-outlet`.
   When one is using it's router, the other outlet will be empty. 
 
+  让两个版本的路由器并存的第一步就是为每个路由器添加一个包含单一出口的根组件。
+  AngularJS将会使用`ng-view`，而Angular将会使用`router-outlet`。
+  当使用其中的一个路由器时，另一个路由出口就是空白的。
+
 +makeExample('upgrade-module/ts/src/app/divide-routes/app.component.ts', null, 'app.component.ts')
 
 :marked
   We want to use this component in the body of our `index.html` instead of an AngularJS component: 
 
+  我们要在`index.html`的`body`中使用该组件来代替AngularJS的组件。
+
 +makeExample('upgrade-module/ts/src/index-divide-routes.html', 'body', 'app.component.ts (body)')
 
 :marked
   Next we declare both AngularJS and Angular routes as normal:
+
+  接下来，我们用标准方式同时声明AngularJS和Angular的路由：
 
 +makeExample('upgrade-module/ts/src/app/divide-routes/app.module.ts', 'ajs-route', 'app.module.ts (AngularJS route)') 
 +makeExample('upgrade-module/ts/src/app/divide-routes/hero.module.ts', 'a-route', 'hero.module.ts (Angular route)')
@@ -1339,18 +1379,27 @@ figure
 :marked
   In our `app.module.ts` we need to add `AppComponent` to the declarations and boostrap array.
 
+  在`app.module.ts`中，我们需要把`AppComponent`添加到`declarations`和`bootstrap`数组中。
+
   Next we configure the router itself. 
   We want to use [hash navigation](./router.html#-hashlocationstrategy-) in Angular
   because that's what we're also using in AngularJS. 
 
+  接下来，我们配置路由器本身。
+  我们要在Angular中使用[hash navigation](./router.html#-hashlocationstrategy-)，因为我们也要在AngularJS中使用这种方式。
+
   Lastly, and most importantly, we want to use a custom `UrlHandlingStrategy` that will tell
   the Angular router which routes it should render - and only those.
+
+  最后，最重要的是，我们要使用一个自定义的`UrlHandlingStrategy`，它会告诉Angular路由器应该渲染（且只渲染）哪个路由。
 
 +makeExample('upgrade-module/ts/src/app/divide-routes/app.module.ts', 'router-config', 'app.module.ts (router config)')   
 
 :marked
   That's it! Now we're running both routers at the same time.
 
+
+  就这样！现在我们可以同时运行这两个路由器了。
 
 .l-main-section
 :marked
@@ -1771,15 +1820,18 @@ code-example(format="").
 :marked
   We also need to make a couple of adjustments
   to the `systemjs.config.js` file installed during [setup](setup.html).
-   
+
+  我们还需要对[环境设置](setup.html)期间安装的`systemjs.config.js`文件做一些调整。
+
   We want to point the browser to the project root when loading things through SystemJS,
   instead of using the  `<base>` URL.
+
+  我们要在通过SystemJS加载期间为浏览器指出项目的根在哪里，而不再使用`<base>` URL。
 
   We also need to install the `upgrade` package via `npm install @angular/upgrade --save`
   and add a mapping for the `@angular/upgrade/static` package. 
 
-  在我们从[搭建本地开发环境](setup.html)中拿来的`systemjs.config.js`文件中，我们还需要做一些调整，以适应我们的项目结构。
-  在使用SystemJS而不是`<base>` URL加载时，我们需要把浏览器指向项目的根目录。
+  我们还要通过`npm install @angular/upgrade --save`来安装`upgrade`包，并为`@angular/upgrade/static`包添加一个映射。
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/systemjs.config.1.js', 'paths', 'systemjs.config.js')
 
@@ -2274,11 +2326,17 @@ code-example(format="").
 :marked
   ## AoT compile the hybrid app
 
+  ## 对混合式应用做AOT编译
+
   To use AoT with our hybrid app we have to first set it up like any other Angular application,
   as shown in [the Ahead-of-time Compilation chapter](../cookbook/aot-compiler.html).
 
+  要在混合式应用中使用AOT编译，我们首先要像其它Angular应用一样设置它，就像[AOT编译一章](../cookbook/aot-compiler.html)所讲的那样。
+
   Then we have to change `main-aot.ts` bootstrap also bootstrap the AngularJS app 
   via `UpgradeModule`:
+
+  然后，我们就要修改`main-aot.ts`的引导代码，也通过`UpgradeModule`来引导AngularJS应用：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/app/main-aot.ts', null, 'app/main-aot.ts')
 
@@ -2286,19 +2344,27 @@ code-example(format="").
   We need to load all the AngularJS files we already use in `index.html` in `aot/index.html`
   as well:
 
+  我们还要把在`index.html`中已经用到的所有AngularJS文件加载到`aot/index.html`中：
+
 +makeExample('upgrade-phonecat-2-hybrid/ts/aot/index.html', null, 'aot/index.html')
 
 :marked
   These files need to be copied together with the polyfills. Files our application
   needs at runtime, like the `.json` phone lists and images, also need to be copied.
 
+  这些文件要带着相应的填充库复制到一起。应用运行时需要的文件，比如电话列表`.json`和图片，也需要复制过去。
+
   Install `fs-extra` via `npm install fs-extra --save-dev` for better file copying, and change
   `copy-dist-files.js` to the following:
+
+  通过`npm install fs-extra --save-dev`安装`fs-extra`可以更好的复制文件，并且把`copy-dist-files.js`文件改成这样：
 
 +makeExample('upgrade-phonecat-2-hybrid/ts/copy-dist-files.js', null, 'copy-dist-files.js')
 
 :marked
   And that's all you need to use AoT while upgrading your app!
+
+  这就是想要在升级应用期间AOT编译所需的一切！
 
 :marked
   ### Adding The Angular Router And Bootstrap
@@ -2308,13 +2374,21 @@ code-example(format="").
   At this point we've replaced all AngularJS application components with
   their Angular counterparts, even though we're still serving them from the AngularJS router.
 
+  此刻，我们已经把所有AngularJS的组件替换成了它们在Angular中的等价物，不过我们仍然在AngularJS路由器中使用它们。
+
   Most AngularJS apps have more than a couple of routes though, and it's very helpful to migrate
   one route at a time.
+
+  大多数AngularJS应用都有多组路由，而如果能每次迁移一个路由就会非常有用。
 
   Let's start by migrating the initial `/` and `/phones` routes to Angular, 
   while keeping `/phones/:phoneId` in the AngularJS router.
 
+  让我们开始把最初的`/`和`/phones`路由迁移到Angular，但把`/phones/:phoneId`留在AngularJS路由器中。
+
   #### Add the Angular router
+
+  #### 添加Angular路由器
 
   Angular has an [all-new router](router.html).
 
@@ -2388,6 +2462,8 @@ code-example(format="").
   There's a twist to our Routing Module though: we're also adding a custom `UrlHandlingStrategy`
   that tells the Angular router to only process the `/` and `/phones` routes.
 
+  这里路由模块会出现一个冲突：我们还添加了一个自定义的`UrlHandlingStrategy`，它会告诉Angular的路由器只处理`/`和`/phones`路由。
+
   Now update the `AppModule` to import this `AppRoutingModule` and also the
   declare the root `AppComponent` as the bootstrap component.
   That tells Angular that it should bootstrap the app with the _root_ `AppComponent` and 
@@ -2399,13 +2475,19 @@ code-example(format="").
   We can also remove the `ngDoBootstrap()` override from `app.module.ts` since we are now
   bootstrapping from Angular.
 
+  我们也可以移除`app.module.ts`中对`ngDoBootstrap()`的改写，因为我们正在从Angular中引导。
+
   And since `PhoneListComponent` isn't being rendered from a `<phone-list>` tag anymore,
   but rather routed to, we can do away with it's Angular selector as well.
+
+  并且，由于`PhoneListComponent`不再渲染到`<phone-list>`标签下，而是路由到它，我们同样也可以去掉它的Angular选择器。
 
 +makeExample('upgrade-phonecat-3-router/ts/app/app.module.ts', null, 'app/app.module.ts')
 
 :marked
   Now we need to tell the AngularJS router to only process the `/phones/:phoneId` route:
+
+  现在，我们要让AngularJS路由器只处理`/phones/:phoneId`路由：
 
 +makeExample('upgrade-phonecat-3-router/ts/app/app.config.ts', 'ajs-routes', 'app/app.config.ts (route config)')
 
@@ -2434,24 +2516,39 @@ code-example(format="").
   Angular is handling the initial `/` url, redirecting to `/phones`.
   Meanwhile when we click a link to the phone detail, AngularJS takes over.
 
+  我们现在同时运行着两个路由器！
+  Angular负责处理初始URL `/`，并重定向到`/phones`。而AngularJS负责处理到手机详情的链接。
+
   This way we can incrementally upgrade our app, reducing the risk of a massive one step router
   swap.
 
+  用这种方式，我们可以增量升级该应用，减少一次性更换路由带来的巨大风险。
+
   The next step is to migrate the `/phones/:phoneId` route.
+
+  下一步是迁移`/phones/:phoneId`路由。
 
 :marked
   The Angular router passes route parameters differently.
   Correct the `PhoneDetail` component constructor to expect an injected `ActivatedRoute` object.
   Extract the `phoneId` from the `ActivatedRoute.snapshot.params` and fetch the phone data as before:
 
+  Angular路由器会传入不同的路由参数。
+  改正`PhoneDetail`组件的构造函数，让它改用注入进来的`ActivatedRoute`对象。
+  从`ActivatedRoute.snapshot.params`中提取出`phoneId`，并像以前一样获取手机的数据：
+
 +makeExample('upgrade-phonecat-4-final/ts/app/phone-detail/phone-detail.component.ts', null, 'app/phone-detail/phone-detail.component.ts')
 
 :marked
   Since this was the last route we want to migrate over, we can also now delete the last 
   route config from `app/app.config.ts`, and add it to the Angular router configuration.
+
+  由于这是我们要迁移的最后一个路由，因此现在可以从`app/app.config.ts`中移除最后一个路由配置了，并把它添加到Angular的路由器配置里。
   
   We don't need our `UrlHandlingStrategy` anymore either, since now Angular is processing all
   routes. 
+
+  我们再也不需要`UrlHandlingStrategy`了，因为现在Angular会处理所有路由。
 
 +makeExample('upgrade-phonecat-4-final/ts/app/app-routing.module.ts', null, 'app/app-routing.module.ts')
 
@@ -2474,8 +2571,12 @@ code-example(format="").
   The application is still bootstrapped as a hybrid app.
   There's no need for that anymore.
 
+  应用仍然以混合式应用的方式启动，然而这再也没有必要了。
+
   Switch the bootstrap method of the application from the `UpgradeAdapter` 
   to the Angular way. 
+
+  把应用的引导（`bootstrap`）方法从`UpgradeAdapter`的改为Angular的。
 
 +makeExample('upgrade-phonecat-4-final/ts/app/main.ts', null, 'main.ts')
 
@@ -2492,7 +2593,8 @@ code-example(format="").
   Since we have no downgraded components anymore, we also don't need to have them listed
   in `entryComponents` either.
   
-  还要删除所有的`downgradeInjectable()`或`downgradeComponent()`以及与AngularJS相关的工厂或指令声明。因为我们不再需要降级任何组件了，也不再需要把它们列在`entryComponents`中。
+  还要删除所有的`downgradeInjectable()`或`downgradeComponent()`以及与AngularJS相关的工厂或指令声明。
+  因为我们不再需要降级任何组件了，也不再需要把它们列在`entryComponents`中。
 
 +makeExample('upgrade-phonecat-4-final/ts/app/app.module.ts', null, 'app.module.ts')  
 
@@ -2513,7 +2615,7 @@ code-example(format="").
   we still need are for Jasmine and Angular polyfills.
   The `@angular/upgrade` package and it's mapping in `systemjs.config.js` can also go.
 
-  AngularJS的外部类型定义文件还需要被反安装。我们现在只需要Jasmine的那些。
+  还需要反安装AngularJS的外部类型定义文件。我们现在只需要Jasmine的那些。
   `systemjs.config.js`中的`@angular/upgrade`包及其映射也可以移除了。
 
 code-example(format="").
