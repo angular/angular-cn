@@ -73,7 +73,7 @@ include ../../../_includes/_see-addr-bar
 
     * [Router outlet](#basics-router-outlet)
 
-      [路由插座](#basics-router-outlet)
+      [路由出口](#basics-router-outlet)
 
     * [Router links](#basics-router-links)
 
@@ -251,7 +251,7 @@ include ../../../_includes/_see-addr-bar
 
     * [Displaying multiple routes in named outlets](#named-outlets)
 
-      [使用命名插座（outlet）同时显示多个路由](#named-outlets)
+      [使用命名出口（outlet）同时显示多个路由](#named-outlets)
 
     * [Secondary routes](#secondary-routes)
 
@@ -510,7 +510,7 @@ a#basics-router-outlet
 :marked
   ### Router outlet
 
-  ### 路由插座
+  ### 路由出口
 
   Given this configuration, when the browser URL for this application becomes `/heroes`,
   the router matches that URL to the route path `/heroes` and displays the `HeroListComponent`
@@ -648,7 +648,7 @@ table
   tr
     td
       p <code>RouterOutlet</code>
-      p <code>RouterOutlet</code>（路由插座）
+      p <code>RouterOutlet</code>（路由出口）
     td
       p.
         The directive (<code>&lt;router-outlet></code>) that marks where the router displays a view.
@@ -1074,7 +1074,7 @@ a#shell
   The root `AppComponent` is the application shell. It has a title, a navigation bar with two links,
   and a *router outlet* where the router swaps views on and off the page. Here's what you get:
   
-  根组件`AppComponent`是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器插座*，路由器会在它所指定的位置上把视图切入或调出页面。就像下图中所标出的：
+  根组件`AppComponent`是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器出口*，路由器会在它所指定的位置上把视图切入或调出页面。就像下图中所标出的：
 
 figure.image-display
   img(src='/resources/images/devguide/router/shell-and-outlet.png' alt="Shell" width="300" )
@@ -1106,7 +1106,7 @@ a#router-outlet
     immediately _after_ the `<router-outlet>`.
 
     一个模板中只能有一个***未命名的***`<router-outlet>`。
-    但路由器可以支持多个*命名的*插座（outlet），将来我们会涉及到这部分特性。
+    但路由器可以支持多个*命名的*出口（outlet），将来我们会涉及到这部分特性。
 
 a#router-link
 :marked
@@ -1118,7 +1118,7 @@ a#router-link
   [attribute bindings](template-syntax.html#attribute-binding) to
   the `RouterLink` directive that look like `routerLink="..."`.
 
-  在插座上方的A标签中，有一个绑定`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`routerLink="..."`。我们从路由库中导入了`RouterLink`。
+  在出口上方的A标签中，有一个绑定`RouterLink`指令的[属性绑定](template-syntax.html#property-binding)，就像这样：`routerLink="..."`。我们从路由库中导入了`RouterLink`。
 
   The links in this example each have a string path, the path of a route that
   you configured earlier. There are no route parameters yet.
@@ -2832,7 +2832,7 @@ a#crisis-child-routes
     
   * Each area root component has its own router outlet and child routes.
   
-    每个特性区的根组件中都有自己的路由插座及其子路由。
+    每个特性区的根组件中都有自己的路由出口及其子路由。
     
   * Feature area routes rarely (if ever) cross with routes of other features.
   
@@ -3137,7 +3137,7 @@ a#named-outlets
 :marked
   ### Displaying multiple routes in named outlets
   
-  ### 用命名插座（outlet）显示多重路由
+  ### 用命名出口（outlet）显示多重路由
 
   You decide to give users a way to contact the crisis center.
   When a user clicks a "Contact" button, you want to display a message in a popup view. 
@@ -3150,33 +3150,33 @@ a#named-outlets
   Clearly you can't put the popup in the same outlet as the other pages.
   
   即使在应用中的不同页面之间切换，这个弹出框也应该始终保持打开状态，直到用户发送了消息或者手动取消。
-  显然，我们不能把这个弹出框跟其它放到页面放到同一个路由插座中。
+  显然，我们不能把这个弹出框跟其它放到页面放到同一个路由出口中。
 
   Until now, you've defined a single outlet and you've nested child routes 
   under that outlet to group routes together.
   The router only supports one primary _unnamed_ outlet per template.
   
-  迄今为止，我们只定义过单路由插座，并且在其中嵌套了子路由以便对路由分组。
-  在每个模板中，路由器只能支持一个*无名*主路由插座。
+  迄今为止，我们只定义过单路由出口，并且在其中嵌套了子路由以便对路由分组。
+  在每个模板中，路由器只能支持一个*无名*主路由出口。
   
   A template can also have any number of _named_ outlets.
   Each named outlet has its own set of routes with their own components.
   Multiple outlets can be displaying different content, determined by different routes, all at the same time.
   
-  模板还可以有多个*命名的*路由插座。
-  每个命名插座都自己有一组带组件的路由。
-  多重插座可以在同一时间根据不同的路由来显示不同的内容。
+  模板还可以有多个*命名的*路由出口。
+  每个命名出口都自己有一组带组件的路由。
+  多重出口可以在同一时间根据不同的路由来显示不同的内容。
 
   Add an outlet named "popup" in the `AppComponent`, directly below the unnamed outlet.
   
-  在`AppComponent`中添加一个名叫“popup”的插座，就在无名插座的下方。
+  在`AppComponent`中添加一个名叫“popup”的出口，就在无名出口的下方。
 
 +makeExcerpt('src/app/app.component.4.ts', 'outlets')
 
 :marked
   That's where a popup will go, once you learn how to route a popup component to it.
   
-  一旦我们学会了如何把一个弹出框组件路由到该插座，那里就是将会出现弹出框的地方。
+  一旦我们学会了如何把一个弹出框组件路由到该出口，那里就是将会出现弹出框的地方。
 
 a#secondary-routes
 :marked
@@ -3186,7 +3186,7 @@ a#secondary-routes
 
   Named outlets are the targets of  _secondary routes_.
   
-  命名插座是*第二路由*的目标。
+  命名出口是*第二路由*的目标。
   
   Secondary routes look like primary routes and you configure them the same way.
   They differ in a few key respects. 
@@ -3203,7 +3203,7 @@ a#secondary-routes
     
   * They are displayed in named outlets.
   
-    它们显示在命名插座中。
+    它们显示在命名出口中。
 
   Create a new component named `ComposeMessageComponent` in `src/app/compose-message.component.ts`.
   It displays a simple form with a header, an input box for the message,
@@ -3240,7 +3240,7 @@ src / app / compose - message.component.html`)
   The `closePopup()` method closes the popup view by navigating to the popup outlet with a `null`.
   That's a peculiarity covered [below](#clear-secondary-routes).
 
-  `closePopup()`方法用把`popup`插座导航到`null`的方式关闭了弹出框。
+  `closePopup()`方法用把`popup`出口导航到`null`的方式关闭了弹出框。
   这个奇怪的用法在[稍后的部分](#clear-secondary-routes)有讲解。
 
   As with other application components, you add the `ComposeMessageComponent` to the `declarations` of an `NgModule`.
@@ -3267,7 +3267,7 @@ a#add-secondary-route
 
   对`path`和`component`属性应该很熟悉了吧。
   注意这个新的属性`outlet`被设置成了`'popup'`。
-  这个路由现在指向了`popup`插座，而`ComposeMessageComponent`也将显示在那里。
+  这个路由现在指向了`popup`出口，而`ComposeMessageComponent`也将显示在那里。
 
   The user needs a way to open the popup.
   Open the `AppComponent` and add a "Contact" link.
@@ -3281,8 +3281,8 @@ a#add-secondary-route
   Although the `compose` route is pinned to the "popup" outlet, that's not sufficient for wiring the route to a `RouterLink` directive.
   You have to specify the named outlet in a _link parameters array_ and bind it to the `RouterLink` with a property binding.
 
-  虽然`compose`路由被钉死在了`popup`插座上，但这仍然不足以向`RouterLink`指令表明要加载该路由。
-  我们还要在*链接参数数组*中指定这个命名插座，并通过属性绑定的形式把它绑定到`RouterLink`上。
+  虽然`compose`路由被钉死在了`popup`出口上，但这仍然不足以向`RouterLink`指令表明要加载该路由。
+  我们还要在*链接参数数组*中指定这个命名出口，并通过属性绑定的形式把它绑定到`RouterLink`上。
 
   The _link parameters array_ contains an object with a single `outlets` property whose value
   is another object keyed by one (or more) outlet names.
