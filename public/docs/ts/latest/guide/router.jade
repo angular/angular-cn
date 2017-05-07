@@ -1848,7 +1848,7 @@ a#merge-hero-routes
   
   Import the `HeroesModule` and add it to the `imports` array in the `@NgModule` metadata of the `AppModule`.
   
-  导入`HeroesModule`并且把它加到根模块`APPModule`的`@NgModule`元数据中的`imports`数组中。
+  导入`HeroesModule`并且把它加到根模块`AppModule`的`@NgModule`元数据中的`imports`数组中。
   
   Remove the `HeroListComponent` from the `AppModule`'s `declarations` because it's now provided by the `HeroesModule`.
   This is important. There can be only _one_ owner for a declared component. 
@@ -3288,27 +3288,46 @@ a#add-secondary-route
   is another object keyed by one (or more) outlet names.
   In this case there is only the "popup" outlet property and its value is another _link parameters array_ that specifies the `compose` route.
 
+  *链接参数数组*包含一个只有一个`outlets`属性的对象，它的值是另一个对象，这个对象以一个或多个路由的出口名作为属性名。
+  在这里，它只有一个出口名“popup”，它的值则是另一个*链接参数数组*，用于指定`compose`路由。
+
   You are in effect saying, _when the user clicks this link, display the component associated with the `compose` route in the `popup` outlet_.
+
+  意思是，当用户点击此链接时，在路由出口`popup`中显示与`compose`路由相关联的组件。
 
 .l-sub-section
   :marked
     This `outlets` object within an outer object was completely unnecessary
     when there was only one route and one _unnamed_ outlet to think about.
 
+    当有且只有一个*无名*出口时，外部对象中的这个`outlets`对象并不是必须的。
+
     The router assumed that your route specification targeted the _unnamed_ primary outlet
     and created these objects for you.
+
+    路由器假设这个路由指向了*无名*的主出口，并为我们创建这些对象。
 
     Routing to a named outlet has revealed a previously hidden router truth: 
     you can target multiple outlets with multiple routes in the same `RouterLink` directive.
 
+    当路由到一个命名出口时，我们就会发现一个以前被隐藏的真相：
+    我们可以在同一个`RouterLink`指令中为多个路由出口指定多个路由。
+
     You're not actually doing that here. 
     But to target a named outlet, you must use the richer, more verbose syntax.
+
+    这里我们实际上没能这样做。要想指向命名出口，我们就得使用一种更强大也更啰嗦的语法。
 
 a#secondary-route-navigation
 :marked
   #### Secondary route navigation: merging routes during navigation
+
+  #### 第二路由导航：在导航期间合并路由
+
   Navigate to the _Crisis Center_ and click "Contact".
   you should see something like the following URL in the browser address bar.
+
+  导航到*危机中心*并点击“Contact”，我们将会在浏览器的地址栏看到如下URL：
 
 code-example.
   http://.../crisis-center(popup:compose)
@@ -3316,53 +3335,101 @@ code-example.
 :marked
   The interesting part of the URL follows the `...`:
 
+  这个URL中有意思的部分是`...`后面的这些：
+
   * The `crisis-center` is the primary navigation. 
+
+    `crisis-center`是主导航。
+
   * Parentheses surround the secondary route.
+
+    圆括号包裹的部分是第二路由。
+
   * The secondary route consists of an outlet name (`popup`), a `colon` separator, and the secondary route path (`compose`).
+
+    第二路由包括一个出口名称（`popup`）、一个冒号分隔符和第二路由的路径（`compose`）。
 
   Click the _Heroes_ link and look at the URL again.
 
+  点击*Heroes*链接，并再次查看URL：
+
 code-example.
   http://.../heroes(popup:compose)
+
 :marked
   The primary navigation part has changed; the secondary route is the same.
 
+  主导航的部分变化了，而第二路由没有变。
+
   The router is keeping track of two separate branches in a navigation tree and generating a representation of that tree in the URL.
+
+  路由器在导航树中对两个独立的分支保持追踪，并在URL中对这棵树进行表达。
 
   You can add many more outlets and routes, at the top level and in nested levels, creating a navigation tree with many branches.
   The router will generate the URL to go with it. 
+
+  我们还可以添加更多出口和更多路由（无论是在顶层还是在嵌套的子层）来创建一个带有多个分支的导航树。
+  路由器将会生成相应的URL。
   
   You can tell the router to navigate an entire tree at once by filling out the `outlets` object mentioned above.
   Then pass that object inside a _link parameters array_  to the `router.navigate` method.
 
+  通过像前面那样填充`outlets`对象，我们可以告诉路由器立即导航到一棵完整的树。
+  然后把这个对象通过一个*链接参数数组*传给`router.navigate`方法。
+
   Experiment with these possibilities at your leisure.
 
+
+  有空的时候你可以自行试验这些可能性。
 
 a#clear-secondary-routes
 :marked
   #### Clearing secondary routes
+
+  #### 清除第二路由
+
   As you've learned, a component in an outlet persists until you navigate away to a new component. 
   Secondary outlets are no different in this regard.
+
+  正如我们刚刚学到的，除非导航到新的组件，否则路由出口中的组件会始终存在。
+  这里涉及到的第二出口也同样如此。
 
   Each secondary outlet has its own navigation, independent of the navigation driving the primary outlet.
   Changing a current route that displays in the primary outlet has no effect on the popup outlet.
   That's why the popup stays visible as you navigate among the crises and heroes.
 
+  每个第二出口都有自己独立的导航，跟主出口的导航彼此独立。
+  修改主出口中的当前路由并不会影响到`popup`出口中的。
+  这就是为什么在危机中心和英雄管理之间导航时，弹出框始终都是可见的。
+
   Clicking the "send" or "cancel" buttons _does_ clear the popup view.
   To see how, look at the `closePopup()` method again:
+
+  点击“send”或“cancel”按钮，则*会*清除弹出框视图。
+  为何如此？我们再来看看`closePopup()`方法：
+
 +makeExcerpt('src/app/compose-message.component.ts (closePopup)', 'closePopup')
 
 :marked
   It navigates imperatively with the `Router.navigate()` method, passing in a [link parameters array](#link-parameters-array).
+
+  它使用`Router.navigate()`方法进行强制导航，并传入了一个[链接参数数组](#link-parameters-array)。
   
   Like the array bound to the _Contact_ `RouterLink` in the `AppComponent`,
   this one includes an object with an `outlets` property.
   The `outlets` property value is another object with outlet names for keys.
   The only named outlet is `'popup'`.
 
+  就像在`AppComponent`中绑定到的*Contact* `RouterLink`一样，它也包含了一个带`outlets`属性的对象。
+  `outlets`属性的值是另一个对象，该对象用一些出口名称作为属性名。
+  唯一的命名出口是`'popup'`。
+
   This time, the value of `'popup'` is `null`. That's not a route, but it is a legitimate value.
   Setting the popup `RouterOutlet` to `null` clears the outlet and removes 
   the secondary popup route from the current URL.
+
+  但这次，`'popup'`的值是`null`。`null`不是一个路由，但却是一个合法的值。
+  把`popup`这个`RouterOutlet`设置为`null`会清除该出口，并且从当前URL中移除第二路由`popup`。
 
 .l-main-section#guards
 :marked
@@ -3502,7 +3569,12 @@ a#can-activate-guard
   Those features aren't defined yet. 
   But you can start by adding a new feature module named `AdminModule`.
 
+  在下一节，我们将会使用一些新的*管理*特性来扩展危机中心。
+  那些特性尚未定义，但是我们可以先从添加一个名叫`AdminModule`的特性模块开始。
+
   Create an `admin` folder with a feature module file, a routing configuration file, and supporting components.
+
+  创建一个`admin`目录，它带有一个特性模块文件、一个路由配置文件和一些支持性组件。
 
   The admin feature file structure looks like this:
 
@@ -3548,7 +3620,10 @@ src / app / admin / manage - heroes.component.ts
     `[routerLinkActiveOptions]="{ exact: true }"`, marks the `./` link as active when
     the user navigates to the `/admin` URL and not when navigating to any of the child routes.
 
-    由于`AdminModule`中`AdminComponent`中的`RouterLink`是一个空路径的路由，所以它会匹配到管理特性区的任何路由。但我们只有在访问`Dashboard`路由时才希望该链接被激活。所以我们往`Dashboard`这个routerLink上添加了另一个绑定`[routerLinkActiveOptions]="{ exact: true }"`，这样就只有当我们导航到`/admin`这个URL时才会激活它，而不会在导航到它的某个子路由时。
+    由于`AdminModule`中`AdminComponent`中的`RouterLink`是一个空路径的路由，所以它会匹配到管理特性区的任何路由。
+    但我们只有在访问`Dashboard`路由时才希望该链接被激活。
+    所以我们往`Dashboard`这个routerLink上添加了另一个绑定`[routerLinkActiveOptions]="{ exact: true }"`，
+    这样就只有当我们导航到`/admin`这个URL时才会激活它，而不会在导航到它的某个子路由时。
 
 :marked
   The initial admin routing configuration:
@@ -3568,7 +3643,8 @@ a#component-less-route
   You haven't made a mistake in the configuration. 
   You've defined a _component-less_ route.
   
-  来看`AdminComponent`下的子路由，我们有一个带**path**和**children**的子路由，但它没有使用**component**。这并不是配置中的失误，而是在使用**无组件**路由。
+  来看`AdminComponent`下的子路由，我们有一个带**path**和**children**的子路由，
+  但它没有使用**component**。这并不是配置中的失误，而是在使用**无组件**路由。
 
   The goal is to group the `Crisis Center` management routes under the `admin` path.
   You don't need a component to do it. 
@@ -3595,6 +3671,7 @@ a#component-less-route
 a#guard-admin-feature
 :marked
   #### Guard the admin feature
+
   #### 守护“管理特性”区  
 
   Currently every route within the *Crisis Center* is open to everyone.
@@ -3708,8 +3785,8 @@ a#add-login-component
     to the stored URL if available, or use the default URL.
     There is nothing new about this component or the way you wire it into the router configuration.
     
-    我们需要一个`LoginComponent`来让用户登录进这个应用。在登录之后，我们跳转到前面保存的URL，如果没有，就跳转到默认URL。
-      该组件没有什么新内容，我们把它放进路由配置的方式也没什么新意。
+  我们需要一个`LoginComponent`来让用户登录进这个应用。在登录之后，我们跳转到前面保存的URL，如果没有，就跳转到默认URL。
+    该组件没有什么新内容，我们把它放进路由配置的方式也没什么新意。
 
   Register a `/login` route in the `login-routing.module.ts` and add the necessary providers to the `providers`
     array. In `app.module.ts`, import the `LoginComponent` and add it to the `AppModule` `declarations`.
@@ -3743,15 +3820,26 @@ a#can-activate-child-guard
 :marked
   ### _CanActivateChild_: guarding child routes
 
+  ### `CanAcitvateChild`：保护子路由
+
   You can also protect child routes with the `CanActivateChild` guard. 
   The `CanActivateChild` guard is similar to the `CanActivate` guard.
   The key difference is that it runs _before_  any child route is activated. 
 
+  我们还可以使用`CanActivateChild`守卫来保护子路由。
+  `CanActivateChild`守卫和`CanAcitvate`守卫很像。
+  它们的区别在于，`CanActivateChild`会在*任何子路由*被激活之前运行。
+
   You protected the admin feature module from unauthorized access. 
   You should also protect child routes _within_ the feature module.
 
+  我们要保护管理特性模块，防止它被非授权访问，还要保护这个特性模块*内部*的那些子路由。
+
   Extend the `AuthGuard` to protect when navigating between the `admin` routes. 
   Open `auth-guard.service.ts` and add the `CanActivateChild` interface to the imported tokens from the router package.
+
+  扩展`AuthGuard`以便在`admin`路由之间导航时提供保护。
+  打开`auth-guard.service.ts`并从路由库中导入`CanActivateChild`接口。
 
   Next, implement the `CanActivateChild` method which takes the same arguments as the `CanActivate` method:
   an `ActivatedRouteSnapshot` and `RouterStateSnapshot`. 
@@ -3759,11 +3847,17 @@ a#can-activate-child-guard
   async checks and a `boolean` for sync checks.
   This one returns a `boolean`:
 
+  接下来，实现`CanAcitvateChild`方法，它所接收的参数与`CanAcitvate`方法一样：一个`ActivatedRouteSnapshot`和一个`RouterStateSnapshot`。
+  `CanAcitvateChild`方法可以返回`Observable<boolean>`或`Promise<boolean>`来支持异步检查，或`boolean`来支持同步检查。
+  这里返回的是`boolean`：
+
 +makeExcerpt('src/app/auth-guard.service.3.ts (excerpt)', 'can-activate-child')
 
 :marked
   Add the same `AuthGuard` to the `component-less` admin route to protect all other child routes at one time
   instead of adding the `AuthGuard` to each route individually.
+
+  同样把这个`AuthGuard`添加到“无组件的”管理路由，来同时保护它的所有子路由，而不是为每个路由单独添加这个`AuthGuard`。
 
 +makeExcerpt('src/app/admin/admin-routing.module.3.ts (excerpt)', 'can-activate-child')
 
@@ -3983,11 +4077,19 @@ a#fetch-before-navigating
   At the moment, the `CrisisDetailComponent` retrieves the selected crisis.
   If the crisis is not found, it navigates back to the crisis list view. 
 
+  目前，`CrisisDetailComponent`会接收选中的危机。
+  如果该危机没有找到，它就会导航回危机列表视图。
+
   The experience might be better if all of this were handled first, before the route is activated.
   A `CrisisDetailResolver` service could retrieve a `Crisis` or navigate away if the `Crisis` does not exist
   _before_ activating the route and creating the `CrisisDetailComponent`.
 
+  如果能在该路由将要激活时提前处理了这个问题，那么用户体验会更好。
+  `CrisisDetailResolver`服务可以接收一个`Crisis`，而如果这个`Crisis`不存在，就会在激活该路由并创建`CrisisDetailComponent`之前先行离开。
+
   Create the `crisis-detail-resolver.service.ts` file within the `Crisis Center` feature area.
+
+  在“危机中心”特性区中创建`crisis-detail-resolver.service.ts`文件。
 
 +makeExample('src/app/crisis-center/crisis-detail-resolver.service.ts', '')
 
@@ -3996,21 +4098,37 @@ a#fetch-before-navigating
   and move them into the `CrisisDetailResolver`.
   Import the `Crisis` model, `CrisisService`, and the `Router` 
   so you can navigate elsewhere if you can't fetch the crisis. 
+
+  在`CrisisDetailComponent.ngOnInit`中拿到相关的危机检索逻辑，并且把它们移到`CrisisDetailResolver`中。
+  导入`Crisis`模型、`CrisisService`和`Router`以便让我们可以在找不到指定的危机时导航到别处。
   
   Be explicit. Implement the `Resolve` interface with a type of `Crisis`. 
+
+  为了更明确一点，可以实现一个带有`Crisis`类型的`Resolve`接口。
   
   Inject the `CrisisService` and `Router` and implement the `resolve()` method.
   That method could return a `Promise`, an `Observable`, or a synchronous return value.
+
+  注入`CrisisService`和`Router`，并实现`resolve()`方法。
+  该方法可以返回一个`Promise`、一个`Observable`来支持异步方式，或者直接返回一个值来支持同步方式。
 
   The `CrisisService.getCrisis` method returns a promise. 
   Return that promise to prevent the route from loading until the data is fetched. 
   If it doesn't return a valid `Crisis`, navigate the user back to the `CrisisListComponent`, 
   canceling the previous in-flight navigation to the `CrisisDetailComponent`.
 
+  `CrisisService.getCrisis`方法返回了一个`Promise`。
+  返回`Promise`可以阻止路由被加载，直到数据获取完毕。
+  如果它没有返回一个有效的`Crisis`，就把用户导航回`CrisisListComponent`，并取消以前到`CrisisDetailComponent`尚未完成的导航。
+
   Import this resolver in the `crisis-center-routing.module.ts` 
   and add a `resolve` object to the `CrisisDetailComponent` route configuration.
 
+  把这个解析器（resolver）导入到`crisis-center-routing.module.ts`中，并往`CrisisDetailComponent`的路由配置中添加一个`resolve`对象。
+
   Remember to add the `CrisisDetailResolver` service to the `CrisisCenterRoutingModule`'s `providers` array.
+
+  别忘了把`CrisisDetailResolver`服务添加到`CrisisCenterRoutingModule`的`providers`数组中。
 
 +makeExcerpt('src/app/crisis-center/crisis-center-routing.module.4.ts (resolver)', 'crisis-detail-resolver')
 
@@ -4019,6 +4137,10 @@ a#fetch-before-navigating
   Update the `CrisisDetailComponent` to get the crisis from the  `ActivatedRoute.data.crisis` property instead;
   that's where you said it should be when you re-configured the route.
   It will be there when the `CrisisDetailComponent` ask for it.
+
+  `CrisisDetailComponent`不应该再去获取这个危机的详情。
+  把`CrisisDetailComponent`改成从`ActivatedRoute.data.crisis`属性中获取危机详情，这正是我们重新配置路由的恰当时机。
+  当`CrisisDetailComponent`要求取得危机详情时，它就已经在那里了。
 
 +makeExcerpt('src/app/crisis-center/crisis-detail.component.ts (ngOnInit v2)', 'ngOnInit')
 
@@ -4182,17 +4304,23 @@ include ../../../_includes/_see-addr-bar
       
   * You can continue expanding lazy loaded feature areas without increasing the size of the initial load bundle.
   
-      你可以持续扩充惰性加载特性区的功能，而不用增加初始加载的包体积。
+      我们可以持续扩充惰性加载特性区的功能，而不用增加初始加载的包体积。
 
   You're already made part way there.  
   By organizing the application into modules&mdash;`AppModule`, 
   `HeroesModule`, `AdminModule` and `CrisisCenterModule`&mdash;you 
   have natural candidates for lazy loading.
 
+  我们已经完成了一部分。通过把应用组织成一些模块：`AppModule`、`HeroesModule`、`AdminModule`和`CrisisCenterModule`，
+  我们已经有了可用于实现惰性加载的候选者。
+
   Some modules, like `AppModule`, must be loaded from the start.
   But others can and should be lazy loaded.
   The `AdminModule`, for example, is needed by a few authorized users, so
   you should only load it when requested by the right people.
+
+  有些模块（比如`AppModule`）必须在启动时加载，但其它的都可以而且应该惰性加载。
+  比如`AdminModule`就只有少数已认证的用户才需要它，所以我们应该只有在正确的人请求它时才加载。
 
 a#lazy-loading-route-config
 :marked
@@ -4202,25 +4330,41 @@ a#lazy-loading-route-config
 
   Change the `admin` **path** in the `admin-routing.module.ts` from `'admin'` to an empty string, `''`, the _empty path_. 
 
+  把`admin-routing.module.ts`中的`admin`路径从`'admin'`改为空路径`''`。
+
   The `Router` supports  *empty path* routes;
   use them to group routes together without adding any additional path segments to the URL. 
   Users will still visit `/admin` and the `AdminComponent` still serves as the *Routing Component* containing child routes.
 
+  `Router`支持*空路径*路由，可以使用它们来分组路由，而不用往URL中添加额外的路径片段。
+  用户仍旧访问`/admin`，并且`AdminComponent`仍然作为用来包含子路由的*路由组件*。
+
   Open the `AppRoutingModule` and add a new `admin` route to its `appRoutes` array.
+
+  打开`AppRoutingModule`，并把一个新的`admin`路由添加到它的`appRoutes`数组中。
 
   Give it a `loadChildren` property (not a `children` property!), set to the address of the `AdminModule`.
   The address is the `AdminModule` file location (relative to the app root), 
   followed by a `#` separator, 
   followed by the name of the exported module class, `AdminModule`. 
 
+  给它一个`loadChildren`属性（注意不是`children`属性），把它设置为`AdminModule`的地址。
+  该地址是`AdminModule`的文件路径（相对于`app`目录的），加上一个`#`分隔符，再加上导出模块的类名`AdminModule`。
+
 +makeExample('router/ts/src/app/app-routing.module.5.ts', 'admin-1', 'app-routing.module.ts (load children)')
+
 :marked
   When the router navigates to this route, it uses the `loadChildren` string to dynamically load the `AdminModule`.
   Then it adds the `AdminModule` routes to its current route configuration.
   Finally, it loads the requested route to the destination admin component. 
 
+  当路由器导航到这个路由时，它会用`loadChildren`字符串来动态加载`AdminModule`，然后把`AdminModule`添加到当前的路由配置中，
+  最后，它把所请求的路由加载到目标`admin`组件中。
+
   The lazy loading and re-configuration happen just once, when the route is _first_ requested;
   the module and routes are available immediately for subsequent requests.
+
+  惰性加载和重新配置工作只会发生一次，也就是在该路由*首次*被请求时。在后续的请求中，该模块和路由都是立即可用的。
 
 .l-sub-section
   :marked
@@ -4233,12 +4377,19 @@ a#lazy-loading-route-config
   Take the final step and detach the admin feature set from the main application.
   The root `AppModule` must neither load nor reference the `AdminModule` or its files.
 
+  最后一步是把管理特性区从主应用中完全分离开。
+  根模块`AppModule`既不能加载也不能引用`AdminModule`及其文件。
+
   In `app.module.ts`, remove the `AdminModule` import statement from the top of the file
   and remove the `AdminModule` from the Angular module's `imports` array.
+
+  在`app.module.ts`中，从顶部移除`AdminModule`的导入语句，并且从Angular模块的`imports`数组中移除`AdminModule`。
 
 a#can-load-guard
 :marked
   ### _CanLoad_ Guard: guarding unauthorized loading of feature modules
+
+  ### `CanLoad`守卫：保护对特性模块的未授权加载
 
   You're already protecting the `AdminModule` with a `CanActivate` guard that prevents unauthorized users from
   accessing the admin feature area. 
@@ -4249,24 +4400,42 @@ a#can-load-guard
   But the router is still loading the `AdminModule` even if the user can't visit any of its components.
   Ideally, you'd only load the `AdminModule` if the user is logged in.
 
+  但是路由器仍然会加载`AdminModule` —— 即使用户无法访问它的任何一个组件。
+  理想的方式是，只有在用户已登录的情况下我们才加载`AdminModule`。
+
   Add a **`CanLoad`** guard that only loads the `AdminModule` once the user is logged in _and_ attempts to access the admin feature area.
+
+  添加一个**`CanLoad`**守卫，它只在用户已登录*并且*尝试访问管理特性区的时候，才加载`AdminModule`一次。
 
   The existing `AuthGuard` already has the essential logic in 
   its `checkLogin()` method to support the `CanLoad` guard. 
+
+  现有的`AuthGuard`的`checkLogin()`方法中已经有了支持`CanLoad`守卫的基础逻辑。
   
   Open `auth-guard.service.ts`.
   Import the `CanLoad` interface from `@angular/router`.
   Add it to the `AuthGuard` class's `implements` list.
   Then implement `canLoad` as follows:
 
+  打开`auth-guard.service.ts`，从`@angular/router`中导入`CanLoad`接口。
+  把它添加到`AuthGuard`类的`implements`列表中。
+  然后实现`canLoad`，代码如下：
+
 +makeExcerpt('src/app/auth-guard.service.ts (CanLoad guard)', 'canLoad')
+
 :marked
   The router sets the `canLoad()` method's `route` parameter to the intended destination URL.
   The `checkLogin()` method redirects to that URL once the user has logged in.
 
+  路由器会把`canLoad()`方法的`route`参数设置为准备访问的目标URL。
+  如果用户已经登录了，`checkLogin()`方法就会重定向到那个URL。
+
   Now import the `AuthGuard` into the `AppRoutingModule` and add the `AuthGuard` to the `canLoad` 
   array for the `admin` route. 
   The completed admin route looks like this:
+
+  现在，把`AuthGuard`导入到`AppRoutingModule`中，并把`AuthGuard`添加到`admin`路由的`canLoad`数组中。
+  完整的`admin`路由是这样的：
 
 +makeExample('router/ts/src/app/app-routing.module.5.ts', 'admin', 'app-routing.module.ts (lazy admin route)')
 
@@ -4274,12 +4443,21 @@ a#can-load-guard
 a#preloading
 :marked
   ### Preloading: background loading of feature areas
+
+  ### 预加载：特性区的后台加载
+
   You've learned how to load modules on-demand.
   You can also load modules asynchronously with _preloading_.
+
+  我们已经学会了如何按需加载模块，接下来再看看如何使用*预加载*技术异步加载模块。
 
   This may seem like what the app has been doing all along. Not quite.
   The `AppModule` is loaded when the application starts; that's _eager_ loading.
   Now the `AdminModule` loads only when the user clicks on a link; that's _lazy_ loading.
+
+  看起来好像应用一直都是这么做的，但其实并非如此。
+  `AppModule`在应用启动时就被加载了，它是*立即*加载的。
+  而`AdminModule`只有当用户点击某个链接时才会加载，它是*惰性*加载的。
   
   _Preloading_ is something in between.
   Consider the _Crisis Center_.
@@ -4288,48 +4466,90 @@ a#preloading
   For the smallest initial payload and fastest launch time, 
   you should eagerly load the `AppModule` and the `HeroesModule`.
 
+  *预加载*是介于两者之间的一种方式。
+  我们来看看*危机中心*。
+  用户第一眼不会看到它。
+  默认情况下，*英雄管理*才是第一视图。
+  为了获得尽可能小的初始加载体积和最快的加载速度，我们应该对`AppModule`和`HeroesModule`进行立即加载。
+
   You could lazy load the _Crisis Center_.
   But you're almost certain that the user will visit the _Crisis Center_ within minutes of launching the app.
   Ideally, the app would launch with just the `AppModule` and the `HeroesModule` loaded
   and then, almost immediately, load the `CrisisCenterModule` in the background.
   By the time the user navigates to the _Crisis Center_, its module will have been loaded and ready to go.
 
+  我们可以惰性加载*危机中心*。
+  但是，我们几乎可以肯定用户会在启动应用之后的几分钟内访问*危机中心*。
+  理想情况下，应用启动时应该只加载`AppModule`和`HeroesModule`，然后几乎立即开始后台加载`CrisisCenterModule`。
+  在用户浏览到*危机中心*之前，该模块应该已经加载完毕，可供访问了。
+
   That's _preloading_.
+
+  这就是*预加载*。
 
 a#how-preloading
 :marked
   #### How preloading works
 
+  #### 预加载的工作原理
+
   After each _successful_ navigation, the router looks in its configuration for an unloaded module that it can preload.
   Whether it preloads a module, and which modules it preloads, depends upon the *preload strategy*.
 
+  在每次*成功的*导航后，路由器会在自己的配置中查找尚未加载并且可以预加载的模块。
+  是否加载某个模块，以及要加载哪些模块，取决于*预加载策略*。
+
   The `Router` offers two preloading strategies out of the box:
 
+  `Router`内置了两种预加载策略：
+
   * No preloading at all which is the default. Lazy loaded feature areas are still loaded on demand.
+
+    完全不预加载，这是默认值。惰性加载的特性区仍然会按需加载。
+
   * Preloading of all lazy loaded feature areas.
+
+    预加载所有惰性加载的特性区。
 
   Out of the box, the router either never preloads, or preloads every lazy load module.
   The `Router` also supports [custom preloading strategies](#custom-preloading) for 
   fine control over which modules to preload and when.
 
+  默认情况下，路由器或者完全不预加载或者预加载每个惰性加载模块。
+  路由器还支持[自定义预加载策略](#custom-preloading)，以便完全控制要预加载哪些模块以及何时加载。
+
   In this next section, you'll update the `CrisisCenterModule` to load lazily 
   by default and use the `PreloadAllModules` strategy
   to load it (and _all other_ lazy loaded modules) as soon as possible.
+
+  在下一节，我们将会把`CrisisCenterModule`改为默认惰性加载的，并使用`PreloadAllModules`策略来尽快加载它（以及*所有其它*惰性加载模块）。
 
 a#lazy-load-crisis-center
 :marked
   #### Lazy load the _crisis center_
 
+  #### 惰性加载*危机中心*
+
   Update the route configuration to lazy load the `CrisisCenterModule`. 
   Take the same steps you used to configure `AdminModule` for lazy load.
 
+  修改路由配置，来惰性加载`CrisisCenterModule`。修改的步骤和配置惰性加载`AdminModule`时一样。
+
   1. Change the `crisis-center` path in the `CrisisCenterRoutingModule` to an empty string.
 
+    把`CrisisCenterRoutingModule`中的路径从`crisis-center`改为空字符串。
+
   1. Add a `crisis-center` route to the `AppRoutingModule`.
+
+    往`AppRoutingModule`中添加一个`crisis-center`路由。
   
   1. Set the `loadChildren` string to load the `CrisisCenterModule`.
 
+    设置`loadChildren`字符串来加载`CrisisCenterModule`。
+
   1. Remove all mention of the `CrisisCenterModule` from `app.module.ts`.
+
+    从`app.module.ts`中移除所有对`CrisisCenterModule`的引用。
 
   Here are the updated modules _before enabling preload_:
 
@@ -4348,7 +4568,11 @@ crisis - center - routing.module.ts
 :marked
   You could try this now and confirm that the  `CrisisCenterModule` loads after you click the "Crisis Center" button.
 
+  我们可以现在尝试它，并确认在点击了“Crisis Center”按钮之后加载了`CrisisCenterModule`。
+
   To enable preloading of all lazy loaded modules, import the `PreloadAllModules` token from the Angular router package.
+
+  要为所有惰性加载模块启用预加载功能，请从Angular的路由模块中导入`PreloadAllModules`。
 
   The second argument in the `RouterModule.forRoot` method takes an object for additional configuration options.
   The `preloadingStrategy` is one of those options. 
@@ -4362,80 +4586,152 @@ crisis - center - routing.module.ts
 :marked
   This tells the `Router` preloader to immediately load _all_ lazy loaded routes (routes with a `loadChildren` property).
 
+  这会让`Router`预加载器立即加载*所有*惰性加载路由（带`loadChildren`属性的路由）。
+
   When you visit `http://localhost:3000`, the `/heroes` route loads immediately upon launch
   and the router starts loading the `CrisisCenterModule` right after the `HeroesModule` loads.
+
+  当访问`http://localhost:3000`时，`/heroes`路由立即随之启动，并且路由器在加载了`HeroesModule`之后立即开始加载`CrisisCenterModule`。
   
   Surprisingly, the `AdminModule` does _not_ preload. Something is blocking it.
+
+  意外的是，`AdminModule`*没有*预加载，有什么东西阻塞了它。
 
 a#preload-canload
 :marked
   #### CanLoad blocks preload
 
+  #### CanLoad会阻塞预加载
+
   The `PreloadAllModules` strategy does not load feature areas protected by a [CanLoad](#can-load-guard) guard.
   This is by design.
+
+  `PreloadAllModules`策略不会加载被[CanLoad](#can-load-guard)守卫所保护的特性区。这是刻意设计的。
   
   You added a `CanLoad` guard to the route in the `AdminModule` a few steps back
   to block loading of that module until the user is authorized.
   That `CanLoad` guard takes precedence over the preload strategy.
+
+  我们几步之前刚刚给`AdminModule`中的路由添加了`CanLoad`守卫，以阻塞加载那个模块，直到用户认证结束。
+  `CanLoad`守卫的优先级高于预加载策略。
   
   If you want to preload a module _and_ guard against unauthorized access, 
   drop the `canLoad` guard and rely on the [CanActivate](#can-activate-guard) guard alone.
+
+  如果我们要加载一个模块*并且*保护它防止未授权访问，请移除`canLoad`守卫，只单独依赖[CanActivate](#can-activate-guard)守卫。
 
 a#custom-preloading
 :marked
   ### Custom Preloading Strategy
 
+  ### 自定义预加载策略
+
   Preloading every lazy loaded modules works well in many situations, 
   but it isn't always the right choice, especially on mobile devices and over low bandwidth connections. 
   You may choose to preload only certain feature modules, based on user metrics and other business and technical factors.
 
+  在大多数场景下，预加载每个惰性加载模块就很好了，但是有时候它却并不是正确的选择，特别是在移动设备和低带宽连接下。
+  我们可能出于用户的测量和其它商业和技术因素而选择只对某些特性模块进行预加载。
+
   You can control what and how the router preloads with a custom preloading strategy.
+
+  使用自定义预加载策略，我们可以控制路由器预加载哪些路由以及如何加载。
 
   In this section, you'll add a custom strategy that _only_ preloads routes whose `data.preload` flag is set to `true`. 
   Recall that you can add anything to the `data` property of a route. 
 
+  在这一节，我们将添加一个自定义策略，它*只*预加载那些`data.preload`标志为`true`的路由。
+  回忆一下，我们可以往路由的`data`属性中添加任何东西。
+
   Set the `data.preload` flag in the `crisis-center` route in the `AppRoutingModule`. 
+
+  在`AppRoutingModule`的`crisis-center`路由中设置`data.preload`标志。
 
 +makeExcerpt('src/app/app-routing.module.ts (route data preload)', 'preload-v2')
 
 :marked
   Add a new file to the project called `selective-preloading-strategy.ts`
   and define a `SelectivePreloadingStrategy` service class as follows:
+
+  往项目中添加一个新的名叫`selective-preloading-strategy.ts`的文件，并在其中定义一个服务类`SelectivePreloadingStrategy`，代码如下：
+
 +makeExcerpt('src/app/selective-preloading-strategy.ts', '')
 
 :marked
   `SelectivePreloadingStrategy` implements the `PreloadingStrategy`, which has one method, `preload`.
 
+  `SelectivePreloadingStrategy`实现了`PreloadingStrategy`，它只有一个方法`preload`。
+
   The router calls the `preload` method with two arguments:
 
+  路由器会用两个参数调用调用`preload`方法：
+
   1. The route to consider.
+
+    要加载的路由。
+
   1. A loader function that can load the routed module asynchronously.
 
-  An implementation of `preload`must return an `Observable`.
+    一个加载器（loader）函数，它能异步加载带路由的模块。
+
+  An implementation of `preload` must return an `Observable`.
   If the route should preload, it returns the observable returned by calling the loader function.
   If the route should _not_ preload, it returns an `Observable` of `null`. 
 
+  `preload`的实现必须返回一个`Observable`。
+  如果该路由应该预加载，它就会返回调用加载器函数所返回的`Observable`。
+  如果该路由*不*应该预加载，它就返回一个`null`值的`Observable`对象。
+
   In this sample, the  `preload` method loads the route if the route's `data.preload` flag is truthy.
+
+  在这个例子中，`preload`方法只有在路由的`data.preload`标识为真时才会加载该路由。
 
   It also has a side-effect. 
   `SelectivePreloadingStrategy` logs the `path` of a selected route in its public `preloadedModules` array.
+
+  它还有一个副作用。
+  `SelectivePreloadingStrategy`会把所选路由的`path`记录在它的公共数组`preloadedModules`中。
   
   Shortly, you'll extend the `AdminDashboardComponent` to inject this service and display its `preloadedModules` array.
 
+  很快，我们就会扩展`AdminDashboardComponent`来注入该服务，并且显示它的`preloadedModules`数组。
+
   But first, make a few changes to the `AppRoutingModule`.
 
+  但是首先，要对`AppRoutingModule`做少量修改。
+
   1. Import `SelectivePreloadingStrategy` into `AppRoutingModule`.
+
+    把`SelectivePreloadingStrategy`导入到`AppRoutingModule`中。
+
   1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategy`. 
+
+    把`PreloadAllModules`策略替换成对`forRoot`的调用，并且传入这个`SelectivePreloadingStrategy`。
+
   1. Add the `SelectivePreloadingStrategy` strategy to the `AppRoutingModule` providers array so it can be injected 
   elsewhere in the app.
 
+    把`SelectivePreloadingStrategy`策略添加到`AppRoutingModule`的`providers`数组中，以便它可以注入到应用中的任何地方。
+
   Now edit the `AdminDashboardComponent` to display the log of preloaded routes.
+
+  现在，编辑`AdminDashboardComponent`以显示这些预加载路由的日志。
  
   1. Import the `SelectivePreloadingStrategy` (it's a service).
+
+    导入`SelectivePreloadingStrategy`（它是一个服务）。
+
   1. Inject it into the dashboard's constructor.
+
+    把它注入到仪表盘的构造函数中。
+
   1. Update the template to display the strategy service's `preloadedModules` array.
 
+    修改模板来显示这个策略服务的`preloadedModules`数组。
+
   When you're done it looks like this.
+
+  当完成时，代码如下：
 
 +makeExcerpt('src/app/admin/admin-dashboard.component.ts (preloaded modules)', '')
 
@@ -4444,20 +4740,34 @@ a#custom-preloading
   Verify this by logging in to the `Admin` feature area and noting that the `crisis-center` is listed in the `Preloaded Modules`. 
   It's also logged to the browser's console. 
 
+  一旦应用加载完了初始路由，`CrisisCenterModule`也被预加载了。
+  通过`Admin`特性区中的记录就可以验证它，我们会看到“Preloaded Modules”中没有列出`crisis-center`。
+  它也被记录到了浏览器的控制台。
+
 a#inspect-config
 .l-main-section
 :marked
   ## Inspect the router's configuration
 
+  ## 审查路由器配置
+
   You put a lot of effort into configuring the router in several routing module files
   and were careful to list them [in the proper order](#routing-module-order).
   Are routes actually evaluated as you planned? 
   How is the router really configured?
+
+  我们把大量的精力投入到在一系列路由模块文件里配置路由器上，并且小心的[以合适的顺序](#routing-module-order)列出它们。
+  这些路由是否真的如同你预想的那样执行了？
+  路由器的真实配置是怎样的？
   
   You can inspect the router's current configuration any time by injecting it and
   examining its `config` property. 
   For example, update the `AppModule` as follows and look in the browser console window
   to see the finished route configuration.
+
+  通过注入它（Router）并检查它的`config`属性，我们可以随时审查路由器的当前配置。
+  例如，把`AppModule`修改为这样，并在浏览器的控制台窗口中查看最终的路由配置。
+
 +makeExcerpt('src/app/app.module.ts (inspect the router config)', 'inspect-config')
 
 a#final-app
@@ -4601,6 +4911,8 @@ a#link-parameters-array
 
 :marked
   If you wanted to, you could redefine the `AppComponent` template with *Crisis Center* routes exclusively:
+  
+  只要想，我们也可以用*危机中心*路由单独重定义`AppComponent`的模板：
 
 +makeExcerpt('src/app/app.component.3.ts', 'template', '')
 
@@ -4766,8 +5078,6 @@ code-example(format="nocode").
   [APP_BASE_HREF]: ../api/common/index/APP_BASE_HREF-let.html
 
 :marked
-  ### *HashLocationStrategy*
-
   ### *HashLocationStrategy*
 
   You can go old-school with the `HashLocationStrategy` by
