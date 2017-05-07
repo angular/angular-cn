@@ -55,7 +55,7 @@ a(id="tsconfig")
   
   该文件中的选项和标志是写Angular应用程序的基础。
   
-a #noImplicitAny
+a#noImplicitAny
 :marked
   ### *noImplicitAny* and *suppressImplicitAnyIndexErrors*
   
@@ -78,7 +78,7 @@ a #noImplicitAny
   
   The documentation setup sets the `noImplicitAny` flag to `true`.
 
-  [搭建本地开发环境](setup.html)文档将`noImplicitAny`标志设置为`true`。
+  本文档在环境搭建时将`noImplicitAny`标志设置为`true`。
 
   When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
   the type, it still generates the JavaScript files, but it also **reports an error**.
@@ -106,6 +106,8 @@ code-example(format=".").
 
 :marked
   The documentation setup sets this flag to `true` as well.
+
+  本文档在环境搭建时将`noImplicitAny`标志设置为`true`。
 
 a(id="typings")
 .l-main-section
@@ -165,6 +167,8 @@ code-example(format=".").
 :marked
   Thanks to that, you have all the `es6` typings even when targeting `es5`.
 
+  得益于这项设置，即使编译目标设置为`es5`，我们也能获得所有的`es6`类型信息。
+
   ### Installable typings files
   
   ### 安装类型定义文件
@@ -180,7 +184,12 @@ code-example(format=".").
   [`@types/*` scoped package](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
   and Typescript, starting at 2.0, automatically recognizes them.
 
+  我们还可以通过`npm`来使用[`@types/*`范围化包](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)来安装这些类型信息，
+  而TypeScript自从2.0开始，可以自动识别它们。
+
   For instance, to install typings for `jasmine` you could do `npm install @types/jasmine --save-dev`.
+
+  比如，要安装`jasmine`的类型信息，我们可以执行`npm install @types/jasmine --save-dev`。
   
 :marked
   QuickStart identifies two *typings*, or `d.ts`, files:

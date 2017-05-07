@@ -32,7 +32,6 @@ style.
 
     [*NgFor* 指令内幕](#ngFor)
 
-
     * [microsyntax](#microsyntax)
 
       [微语法](#microsyntax)
@@ -44,7 +43,6 @@ style.
     * [one structural directive per element](#one-per-element)
 
       [每个元素一个结构型指令](#one-per-element)
-
 
   * [Inside the *NgSwitch* directives](#ngSwitch)
 
@@ -65,7 +63,6 @@ style.
   * [Write a structural directive](#unless)
 
     [写自己的结构型指令](#unless)
-
 
 
   Try the <live-example></live-example>.
@@ -130,13 +127,21 @@ a#definition
   This guide won't repeat how to _use_ them. But it does explain _how they work_
   and how to [write your own](#unless) structural directive.
 
+  本章不会重复讲如何*使用*它们，而是解释它们的*工作原理*以及如何[写自己的结构型指令](#unless)。
+
 .callout.is-helpful
   header Directive spelling
+
+  header 指令的拼写形式
+
   :marked
      Throughout this guide, you'll see a directive spelled in both _UpperCamelCase_ and _lowerCamelCase_.
      Already you've seen `NgIf` and `ngIf`.
      There's a reason. `NgIf` refers to the directive _class_; 
      `ngIf` refers to the directive's _attribute name_. 
+
+     在本章中，我们将看到指令同时具有两种拼写形式*大驼峰`UpperCamelCase`和小驼峰`lowerCamelCase`，比如我们已经看过的`NgIf`和`ngIf`。
+     这里的原因在于，`NgIf`引用的是指令的*类名*，而`ngIf`引用的是指令的*属性名*。
      
      A directive _class_ is spelled in _UpperCamelCase_ (`NgIf`).
      A directive's _attribute name_ is spelled in _lowerCamelCase_ (`ngIf`).
@@ -144,21 +149,33 @@ a#definition
      The guide refers to the _attribute name_ when describing how
      you apply the directive to an element in the HTML template.
 
+     指令的*类名*拼写成*大驼峰形式*（`NgIf`），而它的*属性名*则拼写成*小驼峰形式*（`ngIf`）。
+     本章会在谈论指令的属性和工作原理时引用指令的*类名*，在描述如何在HTML模板中把该指令应用到元素时，引用指令的*属性名*。
+
 .l-sub-section
   :marked
     There are two other kinds of Angular directives, described extensively elsewhere:
     (1)&nbsp;components and (2)&nbsp;attribute directives.
+
+    还有另外两种Angular指令，在本开发指南的其它地方有讲解：(1) 组件 (2) 属性型指令。
   
     A *component* manages a region of HTML in the manner of a native HTML element.
     Technically it's a directive with a template. 
+
+    *组件*可以在原生HTML元素中管理一小片区域的HTML。从技术角度说，它就是一个带模板的指令。
 
     An [*attribute* directive](attribute-directives.html) changes the appearance or behavior
     of an element, component, or another directive.
     For example, the built-in [`NgStyle`](template-syntax.html#ngStyle) directive
     changes several element styles at the same time.
 
+    [*属性型*指令](attribute-directives.html)会改变某个元素、组件或其它指令的外观或行为。
+    比如，内置的[`NgStyle`](template-syntax.html#ngStyle)指令可以同时修改元素的多个样式。
+
     You can apply many _attribute_ directives to one host element.
     You can [only apply one](#one-per-element) _structural_ directive to a host element.
+
+    我们可以在一个宿主元素上应用多个*属性型*指令，但[只能应用一个](#one-per-element)*结构型*指令。
 
 a#ngIf
 .l-main-section
@@ -187,11 +204,16 @@ figure.image-display
 :marked
   The top paragraph is in the DOM. The bottom, disused paragraph is not; 
   in its place is a comment about "bindings" (more about that [later](#asterisk)).
+
+  可以看到第一段文字出现在了DOM中，而第二段则没有，在第二段的位置上是一个关于“绑定”的注释（[稍后](#asterisk)有更多讲解）。
   
   When the condition is false, `NgIf` removes its host element from the DOM,
   detaches it from DOM events (the attachments that it made),
   detaches the component from Angular change detection, and destroys it.
   The component and DOM nodes can be garbage-collected and free up memory.
+
+  当条件为假时，`NgIf`会从DOM中移除它的宿主元素，取消它监听过的那些DOM事件，从Angular变更检测中移除该组件，并销毁它。
+  这些组件和DOM节点可以被当做垃圾收集起来，并且释放它们占用的内存。
 
   ### Why *remove* rather than *hide*?
   
@@ -243,6 +265,8 @@ figure.image-display
   your preference should be to remove DOM elements that the user can't see
   and recover the unused resources with a structural directive like `NgIf` .
 
+  但是，除非有非常强烈的理由来保留它们，否则我们更倾向于移除用户看不见的那些DOM元素，并且使用`NgIf`这样的结构型指令来收回用不到的资源。
+
   **These same considerations apply to every structural directive, whether built-in or custom.**
   Before applying a structural directive, you might want to pause for a moment 
   to consider the consequences of adding and removing elements and of creating and destroying components.
@@ -254,11 +278,17 @@ a#asterisk
 .l-main-section
 :marked
   ## The asterisk (*) prefix
+
+  ## 星号（*）前缀
   
   Surely you noticed the asterisk (*) prefix to the directive name
   and wondered why it is necessary and what it does.
+
+  你可能注意到了指令名的星号（*）前缀，并且困惑于为什么需要它以及它是做什么的。
   
   Here is `*ngIf` displaying the hero's name if `hero` exists.
+
+  这里的`*ngIf`会在`hero`存在时显示英雄的名字。
 
 +makeExcerpt('src/app/app.component.html', 'asterisk', '')
 
@@ -267,19 +297,33 @@ a#asterisk
   Internally, Angular desugars it in two stages.
   First, it translates the `*ngIf="..."` into a template _attribute_, `template="ngIf ..."`,&nbsp; like this.
 
+  星号是一个用来简化更复杂语法的“语法糖”。
+  从内部实现来说，Angular会分两个阶段解开这个语法糖。
+  首先，它把`*ngIf="..."`翻译成一个`template`*属性* `template="ngIf ..."`，代码如下：
+
 +makeExcerpt('src/app/app.component.html', 'ngif-template-attr', '')
 
 :marked
   Then it translates the template _attribute_ into a `<ng-template>` _element_, wrapped around the host element, like this.
 
+  然后，它把这个`template`*属性*翻译成一个`<ng-template>`*元素*，并用它包裹宿主元素，代码如下：
+
 +makeExcerpt('src/app/app.component.html', 'ngif-template', '')
 
 :marked
   * The `*ngIf` directive moved to the `<ng-template>` element where it became a property binding,`[ngIf]`.
+
+    `*ngIf`指令被移到了`<ng-template>`元素上。在那里它变成了一个属性绑定`[ngIf]`。
+
   * The rest of the `<div>`, including its class attribute, moved inside the `<ng-template>` element.
+
+    `<div>`上的其余部分，包括它的`class`属性在内，移到了内部的`<ng-template>`元素上。
   
   None of these forms are actually rendered. 
   Only the finished product ends up in the DOM.
+
+  上述形式永远不会真的渲染出来。
+  只有最终产出的结果才会出现在DOM中。
 
 figure.image-display
   img(src='/resources/images/devguide/structural-directives/hero-div-in-dom.png' alt="hero div in DOM")
@@ -288,17 +332,27 @@ figure.image-display
   Angular consumed the `<ng-template>` content during its actual rendering and 
   replaced the `<ng-template>` with a diagnostic comment.
 
+  Angular会在真正渲染的时候填充`<ng-template>`的内容，并且把`<ng-template>`替换为一个供诊断用的注释。
+
   The [`NgFor`](#ngFor) and [`NgSwitch...`](#ngSwitch) directives follow the same pattern.
+
+  [`NgFor`](#ngFor)和[`NgSwitch...`](#ngSwitch)指令也都遵循同样的模式。
   
 a#ngFor
 .l-main-section
 :marked
   ## Inside _*ngFor_
 
+  ## `*ngFor`内幕
+
   Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax through
   template _attribute_ to `<ng-template>` _element_. 
 
+  Angular会把`*ngFor`用同样的方式把星号（*）语法的`template`*属性*转换成`<ng-template>`*元素*。
+
   Here's a full-featured application of `NgFor`, written all three ways:
+
+  这里有一个`NgFor`的全特性应用，同时用了这三种写法：
 
 +makeExcerpt('src/app/app.component.html', 'inside-ngfor', '')
 
@@ -307,7 +361,12 @@ a#ngFor
   The `NgFor` directive has more features, both required and optional, than the `NgIf` shown in this guide.
   At minimum `NgFor` needs a looping variable (`let hero`) and a list (`heroes`).
 
+  它明显比`ngIf`复杂得多，确实如此。
+  `NgFor`指令比本章展示过的`NgIf`具有更多的必选特性和可选特性。
+  至少`NgFor`会需要一个循环变量（`let hero`）和一个列表（`heroes`）。
+
   You enable these features in the string assigned to `ngFor`, which you write in Angular's [microsyntax](#microsyntax). 
+  我们可以通过把一个字符串赋值给`ngFor`来启用这些特性，这个字符串使用Angular的[微语法](#microsyntax)。
   
 .alert.is-helpful
   :marked
@@ -315,36 +374,62 @@ a#ngFor
     (the `<div>`) as it moves inside the `<ng-template>`. 
     In this example, the `[ngClass]="odd"` stays on the `<div>`.
 
+    `ngFor`字符串*之外*的每一样东西都会留在宿主元素（`<div>`）上，也就是说它移到了`<ng-template>`内部。
+    在这个例子中，`[ngClass]="odd"`留在了`<div>`上。
+
 a#microsyntax
 :marked
   ### Microsyntax
 
+  ### 微语法
+
   The Angular microsyntax lets you configure a directive in a compact, friendly string.
   The microsyntax parser translates that string into attributes on the `<ng-template>`:
+
+  Angular微语法能让我们通过简短的、友好的字符串来配置一个指令。
+  微语法解析器把这个字符串翻译成`<ng-template>`上的属性：
 
   * The `let` keyword declares a [_template input variable_](#template-input-variable) 
   that you reference within the template. The input variables in this example are `hero`, `i`, and `odd`.
   The parser translates `let hero`, `let i`, and `let odd` into variables named, 
   `let-hero`, `let-i`, and `let-odd`.
 
+    `let`关键字声明一个[模板输入变量](#template-input-variable)，我们会在模板中引用它。本例子中，这个输入变量就是`hero`、`i`和`odd`。
+    解析器会把`let hero`、`let i`和`let odd`翻译成命名变量`let-hero`、`let-i`和`let-odd`。
+
   * The microsyntax parser takes `of` and `trackby`, title-cases them (`of` -> `Of`, `trackBy` -> `TrackBy`), 
   and prefixes them with the directive's attribute name (`ngFor`), yielding the names `ngForOf` and `ngForTrackBy`.
   Those are the names of two `NgFor` _input properties_ .
   That's how the directive learns that the list is `heroes` and the track-by function is `trackById`.
 
+    微语法解析器接收`of`和`trackby`，把它们首字母大写（`of` -> `Of`, `trackBy` -> `TrackBy`），
+    并且给它们加上指令的属性名（`ngFor`）前缀，最终生成的名字是`ngForOf`和`ngForTrackBy`。
+    还有两个`NgFor`的*输入属性*，指令据此了解到列表是`heroes`，而track-by函数是`trackById`。
+
   * As the `NgFor` directive loops through the list, it sets and resets properties of its own _context_ object.
   These properties include `index` and `odd` and a special property named `$implicit`.
 
+    `NgFor`指令在列表上循环，每个循环中都会设置和重置它自己的*上下文*对象上的属性。
+    这些属性包括`index`和`odd`以及一个特殊的属性名`$implicit`（隐式变量）。
+
   * The `let-i` and `let-odd` variables were defined as `let i=index` and `let odd=odd`.
   Angular sets them to the current value of the context's `index` and `odd` properties.
+
+    `let-i`和`let-odd`变量是通过`let i=index`和`let odd=odd`来定义的。
+    Angular把它们设置为*上下文*对象中的`index`和`odd`属性的当前值。
 
   * The context property for `let-hero` wasn't specified. 
   It's intended source is implicit. 
   Angular sets `let-hero` to the value of the context's `$implicit` property
   which `NgFor` has initialized with the hero for the current iteration.
 
+    上下文中的属性`let-hero`没有指定过，实际上它来自一个隐式变量。
+    Angular会把`let-hero`设置为上下文对象中的`$implicit`属性，`NgFor`会用当前迭代中的英雄初始化它。
+
   * The [API guide](../api/common/index/NgFor-directive.html "API: NgFor") 
   describes additional `NgFor` directive properties and context properties.
+
+    [API参考手册](../api/common/index/NgFor-directive.html "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
 
   These microsyntax mechanisms are available to you when you write your own structural directives.
   Studying the 
@@ -352,15 +437,23 @@ a#microsyntax
   and [`NgFor`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 
   is a great way to learn more.
 
+  这些微语法机制在你写自己的结构型指令时也同样有效，参考[`NgIf`的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
+  和[`NgFor`的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 可以学到更多。
 
 a#template-input-variable
 a#template-input-variables
 :marked
   ### Template input variable
 
+  ### 模板输入变量
+
   A _template input variable_ is a variable whose value you can reference _within_ a single instance of the template.
   There are several such variables in this example: `hero`, `i`, and `odd`.
   All are preceded by the keyword `let`.
+
+  *模板输入变量*是这样一种变量，你可以*在单个实例的模板中*引用它的值。
+  这个例子中有好几个模板输入变量：`hero`、`i`和`odd`。
+  它们都是用`let`作为前导关键字。
 
   A _template input variable_ is **_not_** the same as a 
   [template _reference_ variable](template-syntax.html#ref-vars),
