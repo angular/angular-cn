@@ -113,7 +113,7 @@ figure.image-display
   
   服务解析逻辑会自下而上查找，碰到的第一个提供商会胜出。
   因此，注入器树中间层注入器上的提供商，可以拦截来自底层的对特定服务的请求。
-  这导致它可以"重新配置"和者说"遮蔽"高层的注入器。
+  这导致它可以“重新配置”和者说“遮蔽”高层的注入器。
 
   If you only specify providers at the top level (typically the root `AppModule`), the tree of injectors appears to be flat.
   All requests bubble up to the root <code>NgModule</code> injector that you configured with the `bootstrapModule` method.

@@ -305,26 +305,26 @@ a(id="why-peer-dependencies")
   Two packages, "A" and "B", could depend on the same third package "C". 
   "A" and "B" might both list "C" among their *dependencies*.
   
-  两个包，"A"和"B"，可能依赖共同的第三个包"C"。
-  "A"和"B"可能都在它们的*dependencies*中列出了"C"。
+  两个包，“A”和“B”，可能依赖共同的第三个包“C”。
+  "A"和“B”可能都在它们的*dependencies*中列出了“C”。
   
   What if "A" and "B" depend on different versions of "C" ("C1" and "C2"). The npm package system supports that. 
   It installs "C1" in the `node_modules` folder for "A" and "C2" in the `node_modules` folder for "B".
   Now "A" and "B" have their own copies of "C" and they run without interferring with one another.
   
-  如果"A"和"B"依赖于"C"的不同版本("C1"和"C2")。npm包管理系统也能支持！
-  它会把"C1"安装到"A"的`node_modules`目录下给"A"用，把"C2"安装到"B"的`node_modules`目录下给"B"用。
-  现在，"A"和"B"都有了它们自己的一份"C"的复本，它们运行起来也互不干扰。
+  如果“A”和“B”依赖于“C”的不同版本("C1"和“C2”)。npm包管理系统也能支持！
+  它会把“C1”安装到“A”的`node_modules`目录下给“A”用，把“C2”安装到“B”的`node_modules`目录下给“B”用。
+  现在，“A”和“B”都有了它们自己的一份“C”的复本，它们运行起来也互不干扰。
   
   But there is a problem. Package "A" may require the presence of "C1" without actually calling upon it directly.
   "A" may only work if *everyone is using "C1"*. It falls down if any part of the application relies on "C2".
   
-  但是有一个问题。包"A"可能只需要"C1"出现就行，而实际上并不会直接调用它。
-  "A"可能只有当*每个人都使用"C1"时*才能正常工作。如果程序中的任何一个部分依赖了"C2"，它就会失败。
+  但是有一个问题。包“A”可能只需要“C1”出现就行，而实际上并不会直接调用它。
+  "A"可能只有当*每个人都使用“C1”时*才能正常工作。如果程序中的任何一个部分依赖了“C2”，它就会失败。
   
   The solution is for "A" to declare that "C1" is a *peer dependency*.
   
-  要想解决这个问题，"A"就需要把"C1"定义为它的*平级依赖*。
+  要想解决这个问题，“A”就需要把“C1”定义为它的*平级依赖*。
   
   The difference between a `dependency` and a `peerDependency` is roughly this:
   

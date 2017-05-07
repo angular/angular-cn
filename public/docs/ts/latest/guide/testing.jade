@@ -1137,7 +1137,7 @@ a#compile-components
   
   `TestBed.compileComponents`方法会异步编译这个测试模块中配置的所有组件。
   在这个例子中，`BannerComponent`是唯一要编译的组件。
-  当`compileComponents`完成时，外部组件和css文件会被"内联"，而`TestBed.createComponent`会用同步的方式创建一个`BannerComponent`的新实例。
+  当`compileComponents`完成时，外部组件和css文件会被“内联”，而`TestBed.createComponent`会用同步的方式创建一个`BannerComponent`的新实例。
   
 .l-sub-section
   :marked
@@ -1229,7 +1229,7 @@ a#waiting-compile-components
     as you can see in _this_ <live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>.
     It too calls `compileComponents` although it doesn't have to because the `AppComponent`'s template is inline.
     
-    ["快速起步" 种子工程](setup.html)为其`AppComponent`提供了简单的测试，在<live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>中可以看到。
+    [“快速起步” 种子工程](setup.html)为其`AppComponent`提供了简单的测试，在<live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>中可以看到。
     它也调用了`compileComponents`，不过它并不是必须这么做，因为`AppComponent`的模板是内联的。
 
     There's no harm in it and you might call `compileComponents` anyway
@@ -1859,8 +1859,8 @@ a#dashboard-standalone
   The "click" event binding responds by calling `DashboardHeroComponent.click()`. 
   
   `heroEl`是个`DebugElement`，它代表了英雄所在的`<div>`。
-  测试程序用"click"事件名字来调用`triggerEventHandler`。
-  调用`DashboardHeroComponent.click()`时，"click"事件绑定作出响应。
+  测试程序用“click”事件名字来调用`triggerEventHandler`。
+  调用`DashboardHeroComponent.click()`时，“click”事件绑定作出响应。
   
   If the component behaves as expected, `click()` tells the component's `selected` property to emit the `hero` object,
   the test detects that value through its subscription to `selected`, and the test should pass.
@@ -1879,7 +1879,7 @@ a#trigger-event-handler
 
   In this example, the test triggers a "click" event with a null event object.
 
-  本例中，测试程序用null事件对象触发"click"事件。
+  本例中，测试程序用null事件对象触发“click”事件。
 
 +makeExample('testing/ts/src/app/dashboard/dashboard-hero.component.spec.ts', 'trigger-event-handler')(format='.')
 :marked
@@ -4099,7 +4099,7 @@ a#query-predicate
 :marked
   Here's an example of `Renderer` tests from the <live-example plnkr="bag-specs">live "Specs Bag" sample</live-example>.
 
-  下面是<live-example plnkr="bag-specs">在线"Specs Bag"例子</live-example>中`Renderer`测试程序的例子
+  下面是<live-example plnkr="bag-specs">在线“Specs Bag”例子</live-example>中`Renderer`测试程序的例子
   
 +makeExample('testing/ts/src/app/bag/bag.spec.ts', 'dom-attributes')(format=".")
 
@@ -4216,7 +4216,7 @@ table(width="100%")
   They're installed when you run `npm install`.
   
   这些范例测试是为在Jasmine和karma而写的。
-  那两条"捷径"设置会把适当的Jasmine和Karma包添加到`package.json`的`devDependencies`区。
+  那两条“捷径”设置会把适当的Jasmine和Karma包添加到`package.json`的`devDependencies`区。
   当我们运行`npm install`时，它们就会被安装上。
 
 a(href="#top").to-top Back to top

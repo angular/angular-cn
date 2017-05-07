@@ -5,7 +5,7 @@ include ../_util-fns
   This guide explains reactive forms as you follow the steps to build a "Hero Detail Editor" form.
   
   *响应式表单*是Angular中用*响应式*风格创建表单的技术。
-  本章中，我们会在构建"英雄详情编辑器"的过程中，逐步讲解响应式表单的概念。
+  本章中，我们会在构建“英雄详情编辑器”的过程中，逐步讲解响应式表单的概念。
 
 a#toc
 :marked
@@ -221,7 +221,7 @@ a#async-vs-sync
   from within the component class.
   
   模板驱动表单会委托指令来创建它们的表单控件。
-  为了消除"检查完后又变化了"的错误，这些指令需要消耗一个以上的变更检测周期来构建整个控件树。
+  为了消除“检查完后又变化了”的错误，这些指令需要消耗一个以上的变更检测周期来构建整个控件树。
   这意味着在从组件类中操纵任何控件之前，我们都必须先等待一个节拍。
   
   For example, if you inject the form control with a `@ViewChild(NgForm)` query and examine it in the 
@@ -252,7 +252,7 @@ a#async-vs-sync
   Choose the approach that works best for you.
   You may decide to use both in the same application.
   
-  没有哪个"更好"。
+  没有哪个“更好”。
   它们是两种架构范式，各有优缺点。
   请自行选择更合适的方法，甚至可以在同一个应用中同时使用它们。
 
@@ -1531,9 +1531,9 @@ a#form-array
     
     务必确保**添加了`type="button"`属性**。
     事实上，我们应该总是指定按钮的`type`。
-    如果不明确指定类型，按钮的默认类型就是"submit"（提交）。
-    当我们稍后添加了*表单提交*的动作时，每个"submit"按钮都是触发一次提交操作，而它将可能会做一些处理，比如保存当前的修改。
-    我们显然不会希望每当用户点击"Add a Secret Lair"按钮时就保存一次。
+    如果不明确指定类型，按钮的默认类型就是“submit”（提交）。
+    当我们稍后添加了*表单提交*的动作时，每个“submit”按钮都是触发一次提交操作，而它将可能会做一些处理，比如保存当前的修改。
+    我们显然不会希望每当用户点击“Add a Secret Lair”按钮时就保存一次。
 
 :marked
   ### Try it!
@@ -1543,7 +1543,7 @@ a#form-array
   Back in the browser, select the hero named "Magneta".
   "Magneta" doesn't have an address, as you can see in the diagnostic JSON at the bottom of the form.
   
-  回到浏览器中，选择名叫"Magneta"的英雄。
+  回到浏览器中，选择名叫“Magneta”的英雄。
   "Magneta"没有地址，我们会在表单底部的诊断用JSON中看到这一点。
 
 figure.image-display
@@ -1553,7 +1553,7 @@ figure.image-display
   Click the "_Add a Secret Lair_" button. 
   A new address section appears. Well done!
   
-  点击"Add a Secret Lair"按钮，一个新的地址区就出现了，干得好！
+  点击“Add a Secret Lair”按钮，一个新的地址区就出现了，干得好！
 
   ### Remove a lair
   
@@ -1617,7 +1617,7 @@ a#observe-control
   Return to the browser, select a hero (e.g, "Magneta"), and start typing in the _name_ input box.
   You should see a new name in the log after each keystroke.
   
-  返回浏览器，选择一个英雄（比如"Magneta"），并开始在*姓名*输入框中键入。
+  返回浏览器，选择一个英雄（比如“Magneta”），并开始在*姓名*输入框中键入。
   我们会看到，每次按键都会记录一个新名字。
 
   ### When to use it
@@ -1715,21 +1715,21 @@ figure.image-display
   
   Add the "Save" and "Revert" buttons near the top of the component's template:
   
-  把"Save"和"Revert"按钮添加到组件模板的顶部：
+  把“Save”和“Revert”按钮添加到组件模板的顶部：
   
 +makeExample('reactive-forms/ts/src/app/hero-detail.component.html', 'buttons','src/app/hero-detail.component.html (Save and Revert buttons)')(format=".")
 
 :marked
   The buttons are disabled until the user "dirties" the form by changing a value in any of its form controls (`heroForm.dirty`).
   
-  这些按钮默认是禁用的，直到用户通过修改任何一个表单控件的值"弄脏"了表单中的数据（即`heroForm.dirty`）。
+  这些按钮默认是禁用的，直到用户通过修改任何一个表单控件的值“弄脏”了表单中的数据（即`heroForm.dirty`）。
 
   Clicking a button of type `"submit"` triggers the `ngSubmit` event which calls the component's `onSubmit` method.
   Clicking the revert button triggers a call to the component's `revert` method.
   Users now can save or revert changes.
   
   点击一个类型为`"submit"`的按钮会触发`ngSubmit`事件，而它会调用组件的`onSubmit`方法。
-  点击"Revert"按钮则会调用组件的`revert`方法。
+  点击“Revert”按钮则会调用组件的`revert`方法。
   现在，用户可以保存或放弃修改了。
   
   This is the final step in the demo.

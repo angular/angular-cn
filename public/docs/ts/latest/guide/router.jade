@@ -496,7 +496,7 @@ a#example-config
   This is useful for displaying a "404 - Not Found" page or redirecting to another route.
   
   最后一个路由中的`**`路径是一个**通配符**。当所请求的URL不匹配前面定义的路由表中的任何路径时，路由器就会选择此路由。
-  这个特性可用于显示"404 - Not Found"页，或自动重定向到其它路由。
+  这个特性可用于显示“404 - Not Found”页，或自动重定向到其它路由。
 
   **The order of the routes in the configuration matters** and this is by design. The router uses a **first-match wins**
   strategy when matching routes, so more specific routes should be placed above less specific routes. 
@@ -546,7 +546,7 @@ a#basics-router-links
   The navigation paths are fixed, so you can assign a string to the `routerLink` (a "one-time" binding).
   
   `a`标签上的`RouterLink`指令让路由器得以控制这个`a`元素。
-  这里的导航路径是固定的，因此可以把一个字符串赋给`routerLink`（"一次性"绑定）。
+  这里的导航路径是固定的，因此可以把一个字符串赋给`routerLink`（“一次性”绑定）。
 
   Had the navigation path been more dynamic, you could have bound to a template expression that
   returned an array of route link parameters (the _link parameters array_). 
@@ -559,7 +559,7 @@ a#basics-router-links
   The router adds the `active` CSS class to the element when the associated *RouterLink* becomes active. 
   You can add this directive to the anchor or to its parent element.
   
-  每个`a`标签上的**`RouterLinkActive`**指令可以帮用户在外观上区分出当前选中的"活动"路由。
+  每个`a`标签上的**`RouterLinkActive`**指令可以帮用户在外观上区分出当前选中的“活动”路由。
   当与它关联的*RouterLink*被激活时，路由器会把CSS类`active`添加到这个元素上。
   我们可以把该指令添加到`a`元素或它的父元素上。
 
@@ -731,11 +731,11 @@ a#sample-app-intro
 
   * Navigating to a component (*Heroes* link to "Heroes List").
 
-    导航到组件（*Heroes*链接到"英雄列表"组件）。
+    导航到组件（*Heroes*链接到“英雄列表”组件）。
 
   * Including a route parameter (passing the Hero `id` while routing to the "Hero Detail").
 
-    包含一个路由参数（当路由到"英雄详情"时，把该英雄的`id`传进去）。
+    包含一个路由参数（当路由到“英雄详情”时，把该英雄的`id`传进去）。
 
   * Child routes (the *Crisis Center* has its own routes).
 
@@ -1206,7 +1206,7 @@ a#wildcard
   可以添加一个**通配符**路由来拦截所有无效的URL，并优雅的处理它们。
   *通配符*路由的`path`是两个星号（`**`），它会匹配*任何* URL。
   当路由器匹配不上以前定义的那些路由时，它就会选择*这个*路由。
-  通配符路由可以导航到自定义的"404 Not Found"组件，也可以[重定向](#redirect)到一个现有路由。
+  通配符路由可以导航到自定义的“404 Not Found”组件，也可以[重定向](#redirect)到一个现有路由。
 
 .l-sub-section
   :marked
@@ -1231,7 +1231,7 @@ a#wildcard
   
   Instead of adding the `"/sidekicks"` route, define a `wildcard` route instead and have it navigate to a simple `PageNotFoundComponent`.
   
-  不要添加`"/sidekicks"`路由，而是定义一个"通配符"路由，让它直接导航到`PageNotFoundComponent`组件。
+  不要添加`"/sidekicks"`路由，而是定义一个“通配符”路由，让它直接导航到`PageNotFoundComponent`组件。
 
 +makeExcerpt('src/app/app.module.1.ts', 'wildcard')
 
@@ -1250,7 +1250,7 @@ a#wildcard
   Now when the user visits `/sidekicks`, or any other invalid URL, the browser displays "Page not found".
   The browser address bar continues to point to the invalid URL.
 
-  现在，当用户访问`/sidekicks`或任何无效的URL时，浏览器就会显示"Page not found"。
+  现在，当用户访问`/sidekicks`或任何无效的URL时，浏览器就会显示“Page not found”。
   浏览器的地址栏仍指向无效的URL。
 
 a#default-route
@@ -1276,7 +1276,7 @@ code-example.
   It would be nicer if the application had a **default route** that displayed the list of heroes immediately,
   just as it will when the user clicks the "Heroes" link or pastes `localhost:3000/heroes` into the address bar.
   
-  如果应用有一个*默认路由*显然会更好，它会立即显示英雄列表，就像用户点击了"Heroes"链接或者把`localhost:3000/heroes`粘贴进地址栏一样。
+  如果应用有一个*默认路由*显然会更好，它会立即显示英雄列表，就像用户点击了“Heroes”链接或者把`localhost:3000/heroes`粘贴进地址栏一样。
 
 a#redirect
 :marked
@@ -1333,8 +1333,8 @@ a#redirect
     _Every_ URL, good or bad, that falls through to _this_ route definition
     will be a match. 
     
-    尝试把它设置为`'prefix'`，然后点击`Go to sidekicks`按钮。别忘了，它是一个无效URL，本应显示"Page not found"页。
-    但是，我们看到了"英雄列表"页。在地址栏中输入一个无效的URL，我们又被路由到了`/heroes`。
+    尝试把它设置为`'prefix'`，然后点击`Go to sidekicks`按钮。别忘了，它是一个无效URL，本应显示“Page not found”页。
+    但是，我们看到了“英雄列表”页。在地址栏中输入一个无效的URL，我们又被路由到了`/heroes`。
     *每一个*URL，无论有效与否，都会匹配上这个路由定义。
 
     The default route should redirect to the `HeroListComponent` _only_ when the _entire_ url is  `''`.
@@ -1601,7 +1601,7 @@ a#why-routing-module
   and you'll be copying much of the code 
   from the <live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>.
   
-  这个例子重写了[《英雄指南》](../tutorial/toh-pt4.html "Tour of Heroes: Services")的"服务"部分的英雄列表特性，我们可以从<live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
+  这个例子重写了[《英雄指南》](../tutorial/toh-pt4.html "Tour of Heroes: Services")的“服务”部分的英雄列表特性，我们可以从<live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
 
   Here's how the user will experience this version of the app:
   
@@ -1654,7 +1654,7 @@ a#heroes-functionality
   * Copy into it the contents of the `app.component.ts` from
     the <live-example name="toh-4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example>.
     
-      把<live-example name="toh-4" title="Tour of Heroes: Services example code">教程中的"服务"部分</live-example>的代码复制到`app.component.ts`中。
+      把<live-example name="toh-4" title="Tour of Heroes: Services example code">教程中的“服务”部分</live-example>的代码复制到`app.component.ts`中。
       
   * Make a few minor but necessary changes:
   
@@ -1759,7 +1759,7 @@ a#hero-routing-module
   Import the hero components from their new locations in the `src/app/heroes/` folder, define the two hero routes,
   and export the `HeroRoutingModule` class.
   
-  从新位置`src/app/heroes/`目录中导入英雄相关的组件，定义两个"英雄管理"路由，并导出`HeroRoutingModule`类。
+  从新位置`src/app/heroes/`目录中导入英雄相关的组件，定义两个“英雄管理”路由，并导出`HeroRoutingModule`类。
 
   Now that you have routes for the `Heroes` module, register them with the `Router` via the 
   `RouterModule` _almost_ as you did in the `AppRoutingModule`.
@@ -1808,7 +1808,7 @@ a#remove-duplicate-hero-routes
 :marked
   ### Remove duplicate hero routes
   
-  ### 移除重复的"英雄管理"路由
+  ### 移除重复的“英雄管理”路由
 
   The hero routes are currently defined in _two_ places: in the `HeroesRoutingModule`,
   by way of the `HeroesModule`, and in the `AppRoutingModule`.
@@ -1838,7 +1838,7 @@ a#merge-hero-routes
 :marked
   ### Import hero module into AppModule
   
-  ### 把"英雄管理"模块导入到AppModule
+  ### 把“英雄管理”模块导入到AppModule
   
   The heroes feature module is ready, but the application doesn't know about the `HeroesModule` yet.
   Open `app.module.ts` and revise it as follows.
@@ -1863,8 +1863,8 @@ a#merge-hero-routes
   You can evolve the hero feature with more components and different routes.
   That's a key benefit of creating a separate module for each feature area.  
   
-  最终，`AppModule`不再了解那些特定于"英雄"特性的知识，比如它的组件、路由细节等。
-  我们可以让"英雄"特性独立演化，添加更多的组件或各种各样的路由。
+  最终，`AppModule`不再了解那些特定于“英雄”特性的知识，比如它的组件、路由细节等。
+  我们可以让“英雄”特性独立演化，添加更多的组件或各种各样的路由。
   这是我们为每个特性区创建独立模块后获得的核心优势。
 
   After these steps, the `AppModule` should look like this:
@@ -1899,7 +1899,7 @@ a#routing-module-order
   hitting the wildcard route and navigating to "Page not found".
   
   当所有路由都在同一个`AppRoutingModule`时，我们要把默认路由和[通配符路由](#wildcard)放在最后（这里是在`/heroes`路由后面），
-  这样路由器才有机会匹配到`/heroes`路由，否则它就会先遇到并匹配上该通配符路由，并导航到"页面未找到"路由。
+  这样路由器才有机会匹配到`/heroes`路由，否则它就会先遇到并匹配上该通配符路由，并导航到“页面未找到”路由。
 
   The routes are no longer in one file. 
   They are distributed across two modules, `AppRoutingModule` and `HeroesRoutingModule`.
@@ -1913,8 +1913,8 @@ a#routing-module-order
   will intercept the attempt to navigate to a hero route.
   
   每个路由模块都会根据*导入的顺序*把自己的路由配置追加进去。
-  如果我们先列出了`AppRoutingModule`，那么通配符路由就会被注册在"英雄管理"路由*之前*。
-  通配符路由（它匹配*任意*URL）将会拦截住每一个到"英雄管理"路由的导航，因此事实上屏蔽了所有"英雄管理"路由。
+  如果我们先列出了`AppRoutingModule`，那么通配符路由就会被注册在“英雄管理”路由*之前*。
+  通配符路由（它匹配*任意*URL）将会拦截住每一个到“英雄管理”路由的导航，因此事实上屏蔽了所有“英雄管理”路由。
 
 .l-sub-section
   :marked
@@ -1923,7 +1923,7 @@ a#routing-module-order
     Learn about inspecting the runtime router configuration
     [below](#inspect-config "Inspect the router config").
     
-    反转路由模块的导入顺序，我们就会看到当点击英雄相关的链接时被导向了"页面未找到"路由。
+    反转路由模块的导入顺序，我们就会看到当点击英雄相关的链接时被导向了“页面未找到”路由。
     要学习如何在运行时查看路由器配置，参见[稍后的内容](#inspect-config "Inspect the router config")。
 
 a#route-def-with-parameter
@@ -2765,7 +2765,7 @@ a#milestone-4
   
   Begin by imitating the heroes feature:
   
-  我们先从模仿"英雄管理"中的特性开始：
+  我们先从模仿“英雄管理”中的特性开始：
   
   * Delete the placeholder crisis center file.
   
@@ -2781,7 +2781,7 @@ a#milestone-4
     
   * In the new files, change every mention of "hero" to "crisis", and "heroes" to "crises".
   
-    在这些新文件中，把每一个对"hero"替换为"crisis"，并把"heroes"替换为"crises"。
+    在这些新文件中，把每一个对“hero”替换为“crisis”，并把“heroes”替换为“crises”。
   
   You'll turn the `CrisisService` into a purveyor of mock crises instead of mock heroes:
   
@@ -3048,7 +3048,7 @@ a#relative-navigation
   :marked
     The router supports directory-like syntax in a _link parameters list_ to help guide route name lookup:
     
-    在*链接参数数组*中，路由器支持"目录式"语法来指导我们如何查询路由名：
+    在*链接参数数组*中，路由器支持“目录式”语法来指导我们如何查询路由名：
 
     `./` or `no leading slash` is relative to the current level.
     
@@ -3087,16 +3087,25 @@ a#relative-navigation
 a#nav-to-crisis
 :marked
   ### Navigate to crisis detail with a relative URL
+  
+  ### 用相对URL导航到危机详情
 
   Update the *Crisis List* `onSelect` method to use relative navigation so you don't have
   to start from the top of the route configuration.
+  
+  把*危机列表*的`onSelect`方法改成使用相对导航，以便我们不用每次都从路由配置的顶层开始。
 
   You've already injected the `ActivatedRoute` that you need to compose the relative navigation path.
+  
+  我们已经注入过了`ActivatedRoute`，我们需要它来和相对导航路径组合在一起。
+  
 +makeExcerpt('src/app/crisis-center/crisis-list.component.ts (constructor)', 'ctor')
 
 :marked
   When you visit the *Crisis Center*, the ancestor path is `/crisis-center`, 
   so you only need to add the `id` of the *Crisis Center* to the existing path. 
+  
+  当访问*危机中心*时，其祖先路径是`/crisis-center`，所以我们只需要把*危机*的`id`添加到现有路径中就可以了。
 
 +makeExcerpt('src/app/crisis-center/crisis-list.component.ts (relative navigation)', 'onSelect')
 
@@ -3104,66 +3113,112 @@ a#nav-to-crisis
   If you were using a `RouterLink` to navigate instead of the `Router` service, you'd use the _same_
   link parameters array, but you wouldn't provide the object with the `relativeTo` property. 
   The `ActivatedRoute` is implicit in a `RouterLink` directive.
+  
+  如果我们用`RouterLink`来代替`Router`服务进行导航，就要使用*相同*的链接参数数组，不过不再需要提供`relativeTo`属性。
+  `ActivatedRoute`已经隐含在了`RouterLink`指令中。
 
 +makeExcerpt('src/app/crisis-center/crisis-list.component.1.ts (relative routerLink)', 'relative-navigation-router-link')
 
 :marked
   Update the `gotoCrises` method of the `CrisisDetailComponent` to navigate back to the *Crisis Center* list using relative path navigation.
+  
+  修改`CrisisDetailComponent`的`gotoCrises`方法，来使用相对路径返回*危机中心*列表。
 
 +makeExcerpt('src/app/crisis-center/crisis-detail.component.ts (relative navigation)', 'gotoCrises-navigate')
 :marked
   Notice that the path goes up a level using the `../` syntax.
   If the current crisis `id` is `3`, the resulting path back to the crisis list is  `/crisis-center/;id=3;foo=foo`.
+  
+  注意这个路径使用了`../`语法返回上一级。
+  如果当前危机的`id`是`3`，那么最终返回到的路径就是`/crisis-center/;id=3;foo=foo`。
 
 a#named-outlets
 .l-main-section
 :marked
   ### Displaying multiple routes in named outlets
+  
+  ### 用命名插座（outlet）显示多重路由
 
   You decide to give users a way to contact the crisis center.
   When a user clicks a "Contact" button, you want to display a message in a popup view. 
   
+  我们决定给用户提供一种方式来联系危机中心。
+  当用户点击“Contact”按钮时，我们要在一个弹出框中显示一条消息。
+  
   The popup should stay open, even when switching between pages in the application, until the user closes it 
   by sending the message or canceling. 
   Clearly you can't put the popup in the same outlet as the other pages.
+  
+  即使在应用中的不同页面之间切换，这个弹出框也应该始终保持打开状态，直到用户发送了消息或者手动取消。
+  显然，我们不能把这个弹出框跟其它放到页面放到同一个路由插座中。
 
   Until now, you've defined a single outlet and you've nested child routes 
   under that outlet to group routes together.
   The router only supports one primary _unnamed_ outlet per template.
   
+  迄今为止，我们只定义过单路由插座，并且在其中嵌套了子路由以便对路由分组。
+  在每个模板中，路由器只能支持一个*无名*主路由插座。
+  
   A template can also have any number of _named_ outlets.
   Each named outlet has its own set of routes with their own components.
   Multiple outlets can be displaying different content, determined by different routes, all at the same time.
+  
+  模板还可以有多个*命名的*路由插座。
+  每个命名插座都自己有一组带组件的路由。
+  多重插座可以在同一时间根据不同的路由来显示不同的内容。
 
   Add an outlet named "popup" in the `AppComponent`, directly below the unnamed outlet.
+  
+  在`AppComponent`中添加一个名叫“popup”的插座，就在无名插座的下方。
 
 +makeExcerpt('src/app/app.component.4.ts', 'outlets')
 
 :marked
   That's where a popup will go, once you learn how to route a popup component to it.
+  
+  一旦我们学会了如何把一个弹出框组件路由到该插座，那里就是将会出现弹出框的地方。
 
 a#secondary-routes
 :marked
   #### Secondary routes
+  
+  #### 第二路由
 
   Named outlets are the targets of  _secondary routes_.
   
+  命名插座是*第二路由*的目标。
+  
   Secondary routes look like primary routes and you configure them the same way.
   They differ in a few key respects. 
+  
+  第二路由很像主路由，配置方式也一样。它们只有一些关键的不同点：
 
   * They are independent of each other.
+  
+    它们彼此互不依赖。
+    
   * They work in combination with other routes. 
+  
+    它们与其它路由组合使用。
+    
   * They are displayed in named outlets.
+  
+    它们显示在命名插座中。
 
   Create a new component named `ComposeMessageComponent` in `src/app/compose-message.component.ts`.
   It displays a simple form with a header, an input box for the message,
   and two buttons, "Send" and "Cancel".
+  
+  在`src/app/compose-message.component.ts`中创建一个名叫`ComposeMessageComponent`的新组件。
+  它显示一个简单的表单，包括一个头、一个消息输入框和两个按钮：“Send”和“Cancel”。
 
 figure.image-display
   img(src='/resources/images/devguide/router/contact-popup.png' alt="Contact popup" width="250")
 
 :marked
   Here's the component and its template:
+  
+  下面是该组件及其模板：
 
 +makeTabs(
 `router/ts/src/app/compose-message.component.ts,
@@ -3176,19 +3231,33 @@ src / app / compose - message.component.html`)
   It looks about the same as any other component you've seen in this guide.
   There are two noteworthy differences.
 
+  它看起来几乎和我们以前看到的其它组件一样，但有两个值得注意的区别。
+
   Note that the `send()` method simulates latency by waiting a second before "sending" the message and closing the popup.
+
+  主要`send()`方法在发送消息和关闭弹出框之前通过等待模拟了一秒钟的延迟。
   
   The `closePopup()` method closes the popup view by navigating to the popup outlet with a `null`.
   That's a peculiarity covered [below](#clear-secondary-routes).
 
+  `closePopup()`方法用把`popup`插座导航到`null`的方式关闭了弹出框。
+  这个奇怪的用法在[稍后的部分](#clear-secondary-routes)有讲解。
+
   As with other application components, you add the `ComposeMessageComponent` to the `declarations` of an `NgModule`.
   Do so in the `AppModule`.
+
+  像其它组件一样，我们还要把`ComposeMessageComponent`添加到`AppModule`的`declarations`中。
 
 a#add-secondary-route
 :marked
   #### Add a secondary route
+
+  #### 添加第二路由
   
   Open the `AppRoutingModule` and add a new `compose` route to the `appRoutes`.
+
+  打开`AppRoutingModule`，并把一个新的`compose`路由添加到`appRoutes`中。
+
 +makeExcerpt('src/app/app-routing.module.3.ts (compose route)', 'compose')
 
 :marked
@@ -3196,12 +3265,24 @@ a#add-secondary-route
   There's a new property, `outlet`, set to `'popup'`.
   This route now targets the popup outlet and the `ComposeMessageComponent` will display there. 
 
+  对`path`和`component`属性应该很熟悉了吧。
+  注意这个新的属性`outlet`被设置成了`'popup'`。
+  这个路由现在指向了`popup`插座，而`ComposeMessageComponent`也将显示在那里。
+
   The user needs a way to open the popup.
   Open the `AppComponent` and add a "Contact" link.
+
+  用户需要某种途径来打开这个弹出框。
+  打开`AppComponent`，并添加一个“Contact”链接。
+
 +makeExcerpt('src/app/app.component.4.ts', 'contact-link')
+
 :marked
   Although the `compose` route is pinned to the "popup" outlet, that's not sufficient for wiring the route to a `RouterLink` directive.
   You have to specify the named outlet in a _link parameters array_ and bind it to the `RouterLink` with a property binding.
+
+  虽然`compose`路由被钉死在了`popup`插座上，但这仍然不足以向`RouterLink`指令表明要加载该路由。
+  我们还要在*链接参数数组*中指定这个命名插座，并通过属性绑定的形式把它绑定到`RouterLink`上。
 
   The _link parameters array_ contains an object with a single `outlets` property whose value
   is another object keyed by one (or more) outlet names.
