@@ -200,5 +200,5 @@
   "webpack": {
     "title": "Webpack 简介",
     "intro": "使用基于 Webpack 的工具创建 Angular 应用"
-  },
+  }
 }
