@@ -201,9 +201,4 @@
     "title": "Webpack 简介",
     "intro": "使用基于 Webpack 的工具创建 Angular 应用"
   },
-
-  "universal": {
-    "title": "Angular统一平台（Universal）",
-    "intro": "如何使用Angular统一平台"
-  }
 }
