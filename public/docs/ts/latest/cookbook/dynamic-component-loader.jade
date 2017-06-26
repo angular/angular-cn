@@ -29,11 +29,11 @@ include ../_util-fns
 
        * [Resolving Components](#resolving-components)
 
-       [解析组件](#resolving-components)
+         [解析组件](#resolving-components)
 
        * [Selector References](#selector-references)
 
-       [通过选择器引用](#selector-references)
+         [通过选择器引用](#selector-references)
 
      * [A common _AdComponent_ interface](#common-interface)
 
@@ -209,53 +209,87 @@ a#resolving-components
   exists on this specific instance of the component. How do you know it's 
   this specific instance? Because it's referring to `adHost` and `adHost` is the 
   directive you set up earlier to tell Angular where to insert dynamic components.
+  
+  接下来，我们要把`viewContainerRef`指向这个组件的现有实例。但我们怎么才能找到这个实例呢？
+  很简单，因为它指向了`adHost`，而这个`adHost`就是我们以前设置过的指令，用来告诉Angular该把动态组件插入到什么位置。
 
   As you may recall, `AdDirective` injects `ViewContainerRef` into its constructor. 
   This is how the directive accesses the element that you want to use to host the dynamic component. 
+  
+  回忆一下，`AdDirective`曾在它的构造函数中注入了一个`ViewContainerRef`。
+  因此这个指令可以访问到这个被我们用作动态组件宿主的元素。
 
   To add the component to the template, you call `createComponent()` on `ViewContainerRef`.
+  
+  要把这个组件添加到模板中，我们可以调用`ViewContainerRef`的`createComponent()`。
 
   The `createComponent()` method returns a reference to the loaded component.
   Use that reference to interact with the component by assigning to its properties or calling its methods.
+  
+  `createComponent()`方法返回一个引用，指向这个刚刚加载的组件。
+  使用这个引用就可以与该组件进行交互，比如设置它的属性或调用它的方法。
 
 a#selector-references
 :marked
   #### Selector references
+  
+  #### 对选择器的引用
 
   Generally, the Angular compiler generates a `ComponentFactory`
   for any component referenced in a template. However, there are
   no selector references in the templates for
   dynamically loaded components since they load at runtime.
+  
+  通常，Angular编译器会为模板中所引用的每个组件都生成一个`ComponentFactory`类。
+  但是，对于动态加载的组件，模板中不会出现对它们的选择器的引用。
 
   To ensure that the compiler still generates a factory,
   add dynamically loaded components to the `NgModule`'s `entryComponents` array:
+  
+  要想确保编译器照常生成工厂类，就要把这些动态加载的组件添加到`NgModule`的`entryComponents`数组中：
+  
 +makeExample('cb-dynamic-component-loader/ts/src/app/app.module.ts', 'entry-components' ,'src/app/app.module.ts (entry components)')(format='.')
 
 a#common-interface
 :marked
   ### A common _AdComponent_ interface
+  
+  ### 公共的`AdComponent`接口
 
   In the ad banner, all components implement a common `AdComponent` interface to
   standardize the API for passing data to the components.
+  
+  在广告条中，所有组件都实现了一个公共接口`AdComponent`，它定义了一个标准化的API，让我们把数据传给组件。
 
   Here are two sample components and the `AdComponent` interface for reference:
+  
+  下面就是两个范例组件及其`AdComponent`接口：
 
 +makeTabs(
 `cb-dynamic-component-loader/ts/src/app/hero-job-ad.component.ts,
-cb - dynamic - component - loader / ts / src / app / hero - profile.component.ts,
-cb - dynamic - component - loader / ts / src / app / ad.component.ts`,
+cb-dynamic-component-loader/ts/src/app/hero-profile.component.ts,
+cb-dynamic-component-loader/ts/src/app/ad.component.ts`,
 null,
 `hero-job-ad.component.ts,
-hero - profile.component.ts,
+hero-profile.component.ts,
 ad.component.ts`
 )
+
 
 a#final-ad-baner
 :marked
   ### Final ad banner
-   The final ad banner looks like this:
+  
+  ### 最终的广告栏
+  
+  The final ad banner looks like this:
+  
+  最终的广告栏是这样的：
+  
 figure.image-display
   img(src="/resources/images/cookbooks/dynamic-component-loader/ads.gif" alt="Ads")
 
 :marked
   See the <live-example name="cb-dynamic-component-loader"></live-example>.
+
+  参见<live-example name="cb-dynamic-component-loader"></live-example>。
