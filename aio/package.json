@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "yarn check-env && ng",
-    "setup": "yarn check-env && yarn && yarn boilerplate:remove && yarn boilerplate:add",
+    "setup": "yarn && yarn boilerplate:remove && yarn boilerplate:add",
     "start": "yarn check-env && ng serve",
-    "build": "yarn check-env && yarn generate-plunkers && yarn docs && ng build -prod -sm",
+    "build": "yarn generate-plunkers && yarn docs && ng build -prod -sm",
     "lint": "yarn check-env && yarn docs-lint && ng lint",
     "test": "yarn check-env && ng test --sourcemap=false",
     "pree2e": "yarn ~~update-webdriver",
@@ -81,7 +81,6 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "2.2.0",
-    "vrsource-tslint-rules": "^4.0.1",
-    "yarn": "^0.27.5"
+    "vrsource-tslint-rules": "^4.0.1"
   }
 }
