@@ -1,8 +1,8 @@
 @title
-Component Styles
+组件样式
 
 @intro
-Learn how to apply CSS styles to components.
+学习如何给组件应用 CSS 样式。
 
 @description
 
@@ -12,33 +12,70 @@ Angular applications are styled with standard CSS. That means you can apply
 everything you know about CSS stylesheets, selectors, rules, and media queries
 directly to Angular applications.
 
+Angular 应用使用标准的 CSS 来设置样式。这意味着我们可以把关于 CSS
+的那些知识和技能直接用于我们的 Angular 程序中，例如：样式表、选择器、规则以及媒体查询等。
+
 Additionally, Angular can bundle *component styles*
 with components, enabling a more modular design than regular stylesheets.
 
+另外，Angular 还能把*组件样式*捆绑在我们的组件上，以实现比标准样式表更加模块化的设计。
+
 This page describes how to load and apply these component styles.
+
+在本章中，我们将学到如何加载和使用这些*组件样式*。
 
 ## Table Of Contents
 
+## 目录
+
 * [Using component styles](guide/component-styles#using-component-styles)
+
+  [使用组件样式](guide/component-styles#using-component-styles)
+  
 * [Special selectors](guide/component-styles#special-selectors)
+
+  [特殊的选择器](guide/component-styles#special-selectors)
+
 * [Loading styles into components](guide/component-styles#loading-styles)
+
+  [把样式加载进组件](guide/component-styles#loading-styles)
+
 * [Controlling view encapsulation: native, emulated, and none](guide/component-styles#view-encapsulation)
+
+  [控制视图的封装模式：仿真 (Emulated)、原生 (Native) 或无 (None)](guide/component-styles#view-encapsulation)
+
 * [Appendix 1: Inspecting the CSS generated in emulated view encapsulation](guide/component-styles#inspect-generated-css)
+
+  [附录 1：审查生成的运行时组件样式](guide/component-styles#inspect-generated-css)
+
 * [Appendix 2: Loading styles with relative URLs](guide/component-styles#relative-urls)
 
+  [附录 2：使用相对 URL 加载样式](guide/component-styles#relative-urls)
+
 You can run the <live-example></live-example> in Plunker and download the code from there.
+
+你可以在Plunker上运行本章这些代码的<live-example></live-example>并下载这些代码。
 
 
 
 ## Using component styles
 
+## 使用组件样式
+
 For every Angular component you write, you may define not only an HTML template,
 but also the CSS styles that go with that template, 
 specifying any selectors, rules, and media queries that you need.
 
+对于我们写的每个 Angular 组件来说，除了定义 HTML 模板之外，我们还要定义用于模板的 CSS 样式、
+指定任意的选择器、规则和媒体查询。
+
 One way to do this is to set the `styles` property in the component metadata.
 The `styles` property takes an array of strings that contain CSS code.
 Usually you give it one string, as in the following example:
+
+实现方式之一，是在组件的元数据中设置`styles`属性。
+`styles`属性可以接受一个包含 CSS 代码的字符串数组。
+通常我们只给它一个字符串就行了，如同下例：
 
 
 <code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts" linenums="false">
@@ -52,16 +89,35 @@ of that component. The `h1` selector in the preceding example applies only to th
 in the template of `HeroAppComponent`. Any `<h1>` elements elsewhere in
 the application are unaffected.
 
+我们放在组件样式中的选择器，*只会应用在组件自身的模板中*。上面这个例子中的`h1`选择器只会对
+`HeroAppComponent`模板中的`<h1>`标签生效，而对应用中其它地方的`<h1>`元素毫无影响。
+
 This is a big improvement in modularity compared to how CSS traditionally works.
 
+这种模块化相对于 CSS 的传统工作方式是一个巨大的改进。
+
 * You can use the CSS class names and selectors that make the most sense in the context of each component. 
+
+  可以使用对每个组件最有意义的 CSS 类名和选择器。
+  
 * Class names and selectors are local to the component and don't collide with 
   classes and selectors used elsewhere in the application.
+  
+  类名和选择器是仅属于组件内部的，它不会和应用中其它地方的类名和选择器出现冲突。
+  
 * Changes to styles elsewhere in the application don't affect the component's styles.
+
+  我们组件的样式*不会*因为别的地方修改了样式而被意外改变。
+  
 * You can co-locate the CSS code of each component with the TypeScript and HTML code of the component,
   which leads to a neat and tidy project structure.
+  
+  我们可以让每个组件的 CSS 代码和它的 TypeScript、HTML 代码放在一起，这将促成清爽整洁的项目结构。
+  
 * You can change or remove component CSS code without searching through the
   whole application to find where else the code is used.
+
+  将来我们可以修改或移除组件的 CSS 代码，而不用遍历整个应用来看它有没有被别处用到，只要看看当前组件就可以了。
 
 
 {@a special-selectors}
@@ -70,15 +126,21 @@ This is a big improvement in modularity compared to how CSS traditionally works.
 
 ## Special selectors
 
+## 特殊的选择器
+
 Component styles have a few special *selectors* from the world of shadow DOM style scoping
 (described in the [CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1) page on the 
 [W3C](https://www.w3.org) site).
 The following sections describe these selectors.
 
+组件样式中有一些从影子(Shadow) DOM 样式范围领域（记录在[W3C](https://www.w3.org)的[CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1)中） 引入的特殊*选择器*：
+
 ### :host
 
 Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
 targeting elements *inside* the component's template).
+
+使用`:host`伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="host" title="src/app/hero-details.component.css" linenums="false">
@@ -91,10 +153,17 @@ The `:host` selector is the only way to target the host element. You can't reach
 the host element from inside the component with other selectors because it's not part of the
 component's own template. The host element is in a parent component's template.
 
-Use the *function form* to apply host styles conditionally by 
+这是我们能以宿主元素为目标的*唯一*方式。除此之外，我们将没办法指定它，
+因为宿主不是组件自身模板的一部分，而是父组件模板的一部分。
+
+Use the *function form* to apply host styles conditionally by
 including another selector inside parentheses after `:host`.
 
+要把宿主样式作为条件，就要像*函数*一样把其它选择器放在`:host`后面的括号中。
+
 The next example targets the host element again, but only when it also has the `active` CSS class.
+  
+在下一个例子中，我们又一次把宿主元素作为目标，但是只有当它同时带有`active` CSS 类的时候才会生效。
 
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" title="src/app/hero-details.component.css" linenums="false">
@@ -109,12 +178,20 @@ Sometimes it's useful to apply styles based on some condition *outside* of a com
 For example, a CSS theme class could be applied to the document `<body>` element, and
 you want to change how your component looks based on that.
 
+有时候，基于某些来自组件视图*外部*的条件应用样式是很有用的。
+例如，在文档的`<body>`元素上可能有一个用于表示样式主题 (theme) 的 CSS 类，而我们应当基于它来决定组件的样式。
+
 Use the `:host-context()` pseudo-class selector, which works just like the function
 form of `:host()`. The `:host-context()` selector looks for a CSS class in any ancestor of the component host element,
 up to the document root. The `:host-context()` selector is useful when combined with another selector.
 
+这时可以使用`:host-context()`伪类选择器。它也以类似`:host()`形式使用。它在当前组件宿主元素的*祖先节点*中查找 CSS 类，
+直到文档的根节点为止。在与其它选择器组合使用时，它非常有用。
+
 The following example applies a `background-color` style to all `<h2>` elements *inside* the component, only
 if some ancestor element has the CSS class `theme-light`.
+  
+在下面的例子中，只有当某个祖先元素有 CSS 类`theme-light`时，我们才会把`background-color`样式应用到组件*内部*的所有`<h2>`元素中。
 
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" title="src/app/hero-details.component.css" linenums="false">
@@ -127,12 +204,19 @@ if some ancestor element has the CSS class `theme-light`.
 
 Component styles normally apply only to the HTML in the component's own template. 
 
+组件样式通常只会作用于组件自身的 HTML 上。
+
 Use the `/deep/` selector to force a style down through the child component tree into all the child component views.
 The `/deep/` selector works to any depth of nested components, and it applies to both the view
 children and content children of the component. 
+  
+我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
 
 The following example targets all `<h3>` elements, from the host element down 
 through this component to all of its child elements in the DOM. 
+
+在这个例子中，我们以所有的`<h3>`元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
+
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="deep" title="src/app/hero-details.component.css" linenums="false">
 
@@ -142,6 +226,8 @@ through this component to all of its child elements in the DOM.
 
 The `/deep/` selector also has the alias `>>>`. You can use either interchangeably.
 
+`/deep/`选择器还有一个别名`>>>`。我们可以任意交替使用它们。
+
 
 <div class="alert is-important">
 
@@ -150,6 +236,10 @@ The `/deep/` selector also has the alias `>>>`. You can use either interchangeab
 Use the `/deep/` and `>>>` selectors only with *emulated* view encapsulation.
 Emulated is the default and most commonly used view encapsulation. For more information, see the
 [Controlling view encapsulation](guide/component-styles#view-encapsulation) section.
+
+`/deep/`和`>>>`选择器只能被用在**仿真 (emulated) **模式下。
+这种方式是默认值，也是用得最多的方式。
+更多信息，见[控制视图封装模式](guide/component-styles#view-encapsulation)一节。
 
 
 </div>
@@ -162,18 +252,37 @@ Emulated is the default and most commonly used view encapsulation. For more info
 
 ## Loading styles into components
 
+## 把样式加载进组件中
+
 There are several ways to add styles to a component: 
 
+有几种方式把样式加入组件：
+
 * By setting `styles` or `styleUrls` metadata.
+
+  设置`styles`或`styleUrls`元数据
+  
 * Inline in the template HTML.
+
+  内联在模板的 HTML 中
+  
 * With CSS imports.
 
+  通过 CSS 文件导入
+  
 The scoping rules outlined earlier apply to each of these loading patterns.
+
+上述作用域规则对所有这些加载模式都适用。
 
 ### Styles in metadata
 
+### 元数据中的样式
+
 You can add a `styles` array property to the `@Component` decorator.
 Each string in the array (usually just one string) defines the CSS.
+
+我们可以给`@Component`装饰器添加一个`styles`数组型属性。
+这个数组中的每一个字符串（通常也只有一个）定义一份 CSS。
 
 
 <code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts">
@@ -184,8 +293,12 @@ Each string in the array (usually just one string) defines the CSS.
 
 ### Style URLs in metadata
 
+### 元数据中指定样式表的URL
+
 You can load styles from external CSS files by adding a `styleUrls` attribute
 into a component's `@Component` decorator:
+
+通过在组件的`@Component`装饰器中添加`styleUrls`属性，我们可以从外部CSS文件中加载样式：
 
 
 <code-example path="component-styles/src/app/hero-details.component.ts" region="styleurls" title="src/app/hero-details.component.ts">
@@ -204,6 +317,10 @@ The style file URL is *not* relative to the component file.
 That's why the example URL begins `src/app/`.
 To specify a URL relative to the component file, see [Appendix 2](guide/component-styles#relative-urls).
 
+URL是***相对于应用程序根目录的***，它通常是应用的宿主页面`index.html`所在的地方。
+      这个样式文件的 URL *不是*相对于组件文件的。这就是为什么范例中的 URL 用`src/app/`开头。
+      参见[附录 2](guide/component-styles#relative-urls) 来了解如何指定相对于组件文件的 URL。
+
 
 </div>
 
@@ -216,13 +333,22 @@ To specify a URL relative to the component file, see [Appendix 2](guide/componen
 If you use module bundlers like Webpack, you can also use the `styles` attribute
 to load styles from external files at build time. You could write:
 
+像 Webpack 这类模块打包器的用户可能会使用`styles`属性来在构建时从外部文件中加载样式。它们可能这样写：
+
 `styles: [require('my.component.css')]`
 
-Set the `styles` property, not the `styleUrls` property. The module 
+Set the `styles` property, notthe `styleUrls` property. The module 
 bundler loads the CSS strings, not Angular. 
-Angular sees the CSS strings only after the bundler loads them. 
-To Angular, it's as if you wrote the `styles` array by hand. 
-For information on loading CSS in this manner, refer to the module bundler's documentation.
+Angular  sees the CSS strings onlyafter the bundler loads them. 
+To Angular, it 's as if you wrote the `styles` array by hand. 
+For information on 
+loading CSS in this manner, refer to the module bundler's documentation.
+
+注意，这时候我们是在设置`styles`属性，**而不是**`styleUrls`属性！
+是模块打包器在加载 CSS 字符串，而不是 Angular。
+Angular 看到的只是打包器加载它们之后的 CSS 字符串。
+对 Angular 来说，这跟我们手写了`styles`数组没有任何区别。
+要了解这种 CSS 加载方式的更多信息，请参阅相应模块打包器的文档。
 
 
 </div>
@@ -231,8 +357,12 @@ For information on loading CSS in this manner, refer to the module bundler's doc
 
 ### Template inline styles
 
+### 模板内联样式
+
 You can embed styles directly into the HTML template by putting them
 inside `<style>` tags.
+
+我们也可以在组件的 HTML 模板中嵌入`<style>`标签。
 
 
 <code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" title="src/app/hero-controls.component.ts">
@@ -243,10 +373,16 @@ inside `<style>` tags.
 
 ### Template link tags
 
+### 模板中的link标签
+
 You can also embed `<link>` tags into the component's HTML template. 
 
+我们也可以在组件的 HTML 模板中嵌入`<link>`标签。
+
 As with `styleUrls`, the link tag's `href` URL is relative to the 
-application root, not the component file.
+application root, not  the component file.
+
+像`styleUrls`标签一样，这个 link 标签的`href`指向的 URL 也是相对于应用的根目录的，而不是组件文件。
 
 
 <code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" title="src/app/hero-team.component.ts">
@@ -261,8 +397,13 @@ You can also import CSS files into the CSS files using the standard CSS `@import
 For details, see [`@import`](https://developer.mozilla.org/en/docs/Web/CSS/@import)
 on the [MDN](https://developer.mozilla.org) site.
 
+我们还可以利用标准的 CSS [`@import`规则](https://developer.mozilla.org/en/docs/Web/CSS/@import)来把其它
+  CSS 文件导入到我们的 CSS 文件中。
+
 
 In this case, the URL is relative to the CSS file into which you're importing.
+
+在*这种*情况下，URL 是相对于我们执行导入操作的 CSS 文件的。
 
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="import" title="src/app/hero-details.component.css (excerpt)">
@@ -277,12 +418,19 @@ In this case, the URL is relative to the CSS file into which you're importing.
 
 ## Controlling view encapsulation: native, emulated, and none
 
+## 控制视图的封装模式：原生 (Native)、仿真 (Emulated) 和无 (None)
+
 As discussed earlier, component CSS styles are encapsulated into the component's view and don't
 affect the rest of the application.
+
+像上面讨论过的一样，组件的 CSS 样式被封装进了自己的视图中，而不会影响到应用程序的其它部分。
 
 To control how this encapsulation happens on a *per
 component* basis, you can set the *view encapsulation mode* in the component metadata.
 Choose from the following modes:
+
+通过在组件的元数据上设置*视图封装模式*，我们可以分别控制*每个组件*的封装模式。
+可选的封装模式一共有如下几种：
 
 * `Native` view encapsulation uses the browser's native shadow DOM implementation (see
   [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM) 
@@ -290,16 +438,28 @@ Choose from the following modes:
   to attach a shadow DOM to the component's host element, and then puts the component
   view inside that shadow DOM. The component's styles are included within the shadow DOM.
 
+  `Native`模式使用浏览器原生的 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
+  实现来为组件的宿主元素附加一个 Shadow DOM。组件的样式被包裹在这个 Shadow DOM 中。(译注：不进不出，没有样式能进来，组件样式出不去。)
+
 * `Emulated` view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing
   (and renaming) the CSS code to effectively scope the CSS to the component's view.
   For details, see [Appendix 1](guide/component-styles#inspect-generated-css).
 
-* `None` means that Angular does no view encapsulation. 
+  `Emulated`模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。
+  更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)
+
+* `None` means that Angular does no view encapsulation.
   Angular adds the CSS to the global styles. 
   The scoping rules, isolations, and protections discussed earlier don't apply. 
   This is essentially the same as pasting the component's styles into the HTML.
-  
+
+  `None`意味着 Angular 不使用视图封装。
+  Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。
+  从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)
+
 To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
+
+通过组件元数据中的`encapsulation`属性来设置组件封装模式：
 
 
 <code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" title="src/app/quest-summary.component.ts" linenums="false">
@@ -314,6 +474,9 @@ for shadow DOM (see [Shadow DOM v0](http://caniuse.com/#feat=shadowdom) on the
 which is why `Emulated` view encapsulation is the default mode and recommended
 in most cases.
 
+原生(`Native`)模式只适用于[有原生 Shadow DOM 支持的浏览器](http://caniuse.com/#feat=shadowdom)。
+因此仍然受到很多限制，这就是为什么我们会把仿真 (`Emulated`) 模式作为默认选项，并建议将其用于大多数情况。
+
 
 {@a inspect-generated-css}
 
@@ -321,12 +484,18 @@ in most cases.
 
 ## Appendix 1: Inspecting the CSS generated in emulated view encapsulation
 
+## 附录 1：查看仿真 (Emulated) 模式下生成的 CSS
+
 When using emulated view encapsulation, Angular preprocesses
 all component styles so that they approximate the standard shadow CSS scoping rules.
+
+当使用默认的仿真模式时，Angular 会对组件的所有样式进行预处理，让它们模仿出标准的 Shadow CSS 作用域规则。
 
 In the DOM of a running Angular application with emulated view
 encapsulation enabled, each DOM element has some extra attributes
 attached to it:
+
+当我们查看启用了仿真模式的 Angular 应用时，我们看到每个 DOM 元素都被加上了一些额外的属性。
 
 
 <code-example format="">
@@ -343,14 +512,25 @@ attached to it:
 
 There are two kinds of generated attributes:
 
+我们看到了两种被生成的属性：  
+
 * An element that would be a shadow DOM host in native encapsulation has a
   generated `_nghost` attribute. This is typically the case for component host elements.
+  
+  一个元素在原生封装方式下可能是 Shadow DOM 的宿主，在这里被自动添加上一个`_nghost`属性。
+  这是组件宿主元素的典型情况。
+
 * An element within a component's view has a `_ngcontent` attribute 
 that identifies to which host's emulated shadow DOM this element belongs.
+
+  组件视图中的每一个元素，都有一个`_ngcontent`属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
 
 The exact values of these attributes aren't important. They are automatically
 generated and you never refer to them in application code. But they are targeted
 by the generated component styles, which are in the `<head>` section of the DOM:
+
+这些属性的具体值并不重要。它们是自动生成的，并且我们永远不会在程序代码中直接引用到它们。
+但它们会作为生成的组件样式的目标，就像我们在 DOM 的`<head>`区所看到的：
 
 
 <code-example format="">
@@ -372,6 +552,9 @@ These styles are post-processed so that each selector is augmented
 with `_nghost` or `_ngcontent` attribute selectors. 
 These extra selectors enable the scoping rules described in this page.
 
+这些就是我们写的那些样式被处理后的结果，于是每个选择器都被增加了`_nghost`或`_ngcontent`属性选择器。
+在这些附加选择器的帮助下，我们实现了本指南中所描述的这些作用域规则。
+
 
 {@a relative-urls}
 
@@ -379,7 +562,12 @@ These extra selectors enable the scoping rules described in this page.
 
 ## Appendix 2: Loading styles with relative URLs
 
+## 附录 2：使用相对 URL 加载样式
+
 It's common practice to split a component's code, HTML, and CSS into three separate files in the same directory:
+
+把组件的代码 (ts/js)、HTML 和 CSS 分别放到同一个目录下的三个不同文件，是一个常用的实践：
+
 
 <code-example format="nocode">
   quest-summary.component.ts
@@ -394,8 +582,13 @@ You include the template and CSS files by setting the `templateUrl` and `styleUr
 Because these files are co-located with the component,
 it would be nice to refer to them by name without also having to specify a path back to the root of the application.
 
+我们会通过设置元数据的`templateUrl`和`styleUrls`属性把模板和 CSS 文件包含进来。
+既然这些文件都与组件（代码）文件放在一起，那么通过名字，而不是到应用程序根目录的全路径来指定它，就会是一个漂亮的方式。
+
 
 You can use a relative URL by prefixing your filenames with `./`:
+
+我们也可以通过为文件名加上`./`前缀来使用相对URL：
 
 
 <code-example path="component-styles/src/app/quest-summary.component.ts" title="src/app/quest-summary.component.ts">

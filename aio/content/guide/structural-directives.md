@@ -1,8 +1,8 @@
 @title
-Structural Directives
+结构型指令
 
 @intro
-Angular has a powerful template engine that lets us easily manipulate the DOM structure of our elements.
+Angular 有一个强力的模板引擎，它能让你轻松维护元素的DOM树结构。
 
 @description
 
@@ -19,25 +19,64 @@ Angular has a powerful template engine that lets us easily manipulate the DOM st
 This guide looks at how Angular manipulates the DOM with **structural directives** and 
 how you can write your own structural directives to do the same thing.
 
+在本章中，我们将看看Angular如何用*结构型指令*操纵DOM树，以及我们该如何写自己的结构型指令来完成同样的任务。
+
 ### Table of contents
 
+### 目录
+
 * [What are structural directives?](guide/structural-directives#definition)
+
+  [什么是结构型指令？](guide/structural-directives#definition)
+
 * [*NgIf* case study](guide/structural-directives#ngIf)
+
+  [*NgIf* 案例](guide/structural-directives#ngIf)
+
 * [The asterisk (*) prefix](guide/structural-directives#asterisk)
+
+  [星号（*）前缀](guide/structural-directives#asterisk)
+
 * [Inside *NgFor*](guide/structural-directives#ngFor)
 
+  [*NgFor* 指令内幕](guide/structural-directives#ngFor)
+
   * [microsyntax](guide/structural-directives#microsyntax)
+
+    [微语法](guide/structural-directives#microsyntax)
+
   * [template input variables](guide/structural-directives#template-input-variable)
+
+    [模板输入变量](guide/structural-directives#template-input-variable)
+
   * [one structural directive per element](guide/structural-directives#one-per-element)
 
+    [每个元素一个结构型指令](guide/structural-directives#one-per-element)
+
 * [Inside the *NgSwitch* directives](guide/structural-directives#ngSwitch)
+
+  [*NgSwitch* 指令内幕](guide/structural-directives#ngSwitch)
+
 * [Prefer the (*) prefix](guide/structural-directives#prefer-asterisk)
+
+  [优先使用（*）前缀](guide/structural-directives#prefer-asterisk)
+
 * [The &lt;ng-template> element](guide/structural-directives#template)
+
+  [&lt;ng-template> 元素](guide/structural-directives#template)
+
 * [Group sibling elements with &lt;ng-container&gt;](guide/structural-directives#ng-container)
+
+  [使用&lt;ng-container&gt;对兄弟元素进行分组](guide/structural-directives#ng-container)
+
 * [Write a structural directive](guide/structural-directives#unless)
+
+  [写自己的结构型指令](guide/structural-directives#unless)
 
 
 Try the <live-example></live-example>.
+
+试试<live-example></live-example>。
 
 
 {@a definition}
@@ -46,15 +85,26 @@ Try the <live-example></live-example>.
 
 ## What are structural directives?
 
+## 什么是结构型指令？
+
 Structural directives are responsible for HTML layout.
 They shape or reshape the DOM's _structure_, typically by adding, removing, or manipulating
 elements.
 
+结构型指令的职责是HTML布局。
+它们塑造或重塑DOM的结构，比如添加、移除或维护这些元素。
+
 As with other directives, you apply a structural directive to a _host element_. 
 The directive then does whatever it's supposed to do with that host element and its descendents.
 
+像其它指令一样，你可以把结构型指令应用到一个*宿主元素*上。
+然后它就可以对宿主元素及其子元素做点什么。
+
 Structural directives are easy to recognize. 
 An asterisk (*) precedes the directive attribute name as in this example.
+
+结构型指令非常容易识别。
+在这个例子中，星号（*）被放在指令的属性名之前。
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif)" region="ngif">
@@ -65,17 +115,26 @@ An asterisk (*) precedes the directive attribute name as in this example.
 
 No brackets. No parentheses. Just `*ngIf` set to a string.
 
+没有方括号，没有圆括号，只是把`*ngIf`设置为一个字符串。
+
 You'll learn in this guide that the [asterisk (*) is a convenience notation](guide/structural-directives#asterisk)
-and the string is a [_microsyntax_](guide/structural-directives#microsyntax) rather than the usual
+and the string isa [_microsyntax_](guide/structural-directives#microsyntax) rather than the usual
 [template expression](guide/template-syntax#template-expressions).
 Angular desugars this notation into a marked-up `<ng-template>` that surrounds the
 host element and its descendents. 
 Each structural directive does something different with that template.
 
+在这个例子中，我们将学到[星号(*)这个简写方法](guide/structural-directives#asterisk)，而这个字符串是一个[*微语法*](guide/structural-directives#microsyntax)，而不是通常的[模板表达式](guide/template-syntax#template-expressions)。
+Angular会解开这个语法糖，变成一个`<ng-template>`标记，包裹着宿主元素及其子元素。
+每个结构型指令都可以用这个模板做点不同的事情。
+
 Three of the common, built-in structural directives&mdash;[NgIf](guide/template-syntax#ngIf), 
 [NgFor](guide/template-syntax#ngFor), and [NgSwitch...](guide/template-syntax#ngSwitch)&mdash;are 
 described in the [_Template Syntax_](guide/template-syntax) guide and seen in samples throughout the Angular documentation. 
 Here's an example of them in a template:
+
+三个常用的内置结构型指令 —— [NgIf](guide/template-syntax#ngIf)、[NgFor](guide/template-syntax#ngFor)和[NgSwitch...](guide/template-syntax#ngSwitch)。
+我们在[*模板语法*](guide/template-syntax)一章中讲过它，并且在Angular文档的例子中到处都在用它。下面是模板中的例子：
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (built-in)" region="built-in">
@@ -86,6 +145,8 @@ Here's an example of them in a template:
 
 This guide won't repeat how to _use_ them. But it does explain _how they work_
 and how to [write your own](guide/structural-directives#unless) structural directive.
+
+本章不会重复讲如何*使用*它们，而是解释它们的*工作原理*以及如何[写自己的结构型指令](guide/structural-directives#unless)。
 
 
 <div class="callout is-helpful">
@@ -98,16 +159,28 @@ and how to [write your own](guide/structural-directives#unless) structural direc
 
 
 
+<header>
+  指令的拼写形式
+</header>
+
+
+
 Throughout this guide, you'll see a directive spelled in both _UpperCamelCase_ and _lowerCamelCase_.
 Already you've seen `NgIf` and `ngIf`.
 There's a reason. `NgIf` refers to the directive _class_; 
 `ngIf` refers to the directive's _attribute name_. 
+
+在本章中，我们将看到指令同时具有两种拼写形式*大驼峰`UpperCamelCase`和小驼峰`lowerCamelCase`，比如我们已经看过的`NgIf`和`ngIf`。
+这里的原因在于，`NgIf`引用的是指令的*类名*，而`ngIf`引用的是指令的*属性名*。
 
 A directive _class_ is spelled in _UpperCamelCase_ (`NgIf`).
 A directive's _attribute name_ is spelled in _lowerCamelCase_ (`ngIf`).
 The guide refers to the directive _class_ when talking about its properties and what the directive does.
 The guide refers to the _attribute name_ when describing how
 you apply the directive to an element in the HTML template.
+
+指令的*类名*拼写成*大驼峰形式*（`NgIf`），而它的*属性名*则拼写成*小驼峰形式*（`ngIf`）。
+本章会在谈论指令的属性和工作原理时引用指令的*类名*，在描述如何在HTML模板中把该指令应用到元素时，引用指令的*属性名*。
 
 
 </div>
@@ -121,16 +194,25 @@ you apply the directive to an element in the HTML template.
 There are two other kinds of Angular directives, described extensively elsewhere:
 (1)&nbsp;components and (2)&nbsp;attribute directives.
 
+还有另外两种Angular指令，在本开发指南的其它地方有讲解：(1) 组件 (2) 属性型指令。
+
 A *component* manages a region of HTML in the manner of a native HTML element.
 Technically it's a directive with a template. 
+
+*组件*可以在原生HTML元素中管理一小片区域的HTML。从技术角度说，它就是一个带模板的指令。
 
 An [*attribute* directive](guide/attribute-directives) changes the appearance or behavior
 of an element, component, or another directive.
 For example, the built-in [`NgStyle`](guide/template-syntax#ngStyle) directive
 changes several element styles at the same time.
 
+[*属性型*指令](guide/attribute-directives)会改变某个元素、组件或其它指令的外观或行为。
+比如，内置的[`NgStyle`](guide/template-syntax#ngStyle)指令可以同时修改元素的多个样式。
+
 You can apply many _attribute_ directives to one host element.
 You can [only apply one](guide/structural-directives#one-per-element) _structural_ directive to a host element.
+
+我们可以在一个宿主元素上应用多个*属性型*指令，但[只能应用一个](guide/structural-directives#one-per-element)*结构型*指令。
 
 
 </div>
@@ -143,8 +225,12 @@ You can [only apply one](guide/structural-directives#one-per-element) _structura
 
 ## NgIf case study
 
+## NgIf案例分析
+
 `NgIf` is the simplest structural directive and the easiest to understand.
 It takes a boolean expression and makes an entire chunk of the DOM appear or disappear.
+
+我们重点看下`ngIf`。它是一个很好的结构型指令案例：它接受一个布尔值，并据此让一整块DOM树出现或消失。
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-true)" region="ngif-true">
@@ -156,6 +242,9 @@ It takes a boolean expression and makes an entire chunk of the DOM appear or dis
 The `ngIf` directive doesn't hide elements with CSS. It adds and removes them physically from the DOM.
 Confirm that fact using browser developer tools to inspect the DOM.
 
+`ngIf`指令并不是使用CSS来隐藏元素的。它会把这些元素从DOM中物理删除。
+使用浏览器的开发者工具就可以确认这一点。
+
 
 <figure class='image-display'>
   <img src='assets/images/devguide/structural-directives/element-not-in-dom.png' alt="ngIf=false element not in DOM"></img>
@@ -166,14 +255,23 @@ Confirm that fact using browser developer tools to inspect the DOM.
 The top paragraph is in the DOM. The bottom, disused paragraph is not; 
 in its place is a comment about "bindings" (more about that [later](guide/structural-directives#asterisk)).
 
+可以看到第一段文字出现在了DOM中，而第二段则没有，在第二段的位置上是一个关于“绑定”的注释（[稍后](guide/structural-directives#asterisk)有更多讲解）。
+
 When the condition is false, `NgIf` removes its host element from the DOM,
 detaches it from DOM events (the attachments that it made),
 detaches the component from Angular change detection, and destroys it.
 The component and DOM nodes can be garbage-collected and free up memory.
 
+当条件为假时，`NgIf`会从DOM中移除它的宿主元素，取消它监听过的那些DOM事件，从Angular变更检测中移除该组件，并销毁它。
+这些组件和DOM节点可以被当做垃圾收集起来，并且释放它们占用的内存。
+
 ### Why *remove* rather than *hide*?
 
+### 为什么*移除*而不是*隐藏*？
+
 A directive could hide the unwanted paragraph instead by setting its `display` style to `none`.
+
+指令也可以通过把它的`display`风格设置为`none`而隐藏不需要的段落。
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (display-none)" region="display-none">
@@ -183,6 +281,8 @@ A directive could hide the unwanted paragraph instead by setting its `display` s
 
 
 While invisible, the element remains in the DOM. 
+
+当不可见时，这个元素仍然留在DOM中。
 
 
 <figure class='image-display'>
@@ -198,21 +298,38 @@ The component stays attached to its DOM element. It keeps listening to events.
 Angular keeps checking for changes that could affect data bindings.
 Whatever the component was doing, it keeps doing.
 
+对于简单的段落，隐藏和移除之间的差异影响不大，但对于资源占用较多的组件是不一样的。当我们隐藏掉一个元素时，组件的行为还在继续 —— 它仍然附加在它所属的DOM元素上，
+它也仍在监听事件。Angular会继续检查哪些能影响数据绑定的变更。
+组件原本要做的那些事情仍在继续。
+
 Although invisible, the component&mdash;and all of its descendant components&mdash;tie up resources.
 The performance and memory burden can be substantial, responsiveness can degrade, and the user sees nothing.
+
+虽然不可见，组件及其各级子组件仍然占用着资源，而这些资源如果分配给别人可能会更有用。
+在性能和内存方面的负担相当可观，响应度会降低，而用户却可能无法从中受益。
 
 On the positive side, showing the element again is quick.
 The component's previous state is preserved and ready to display.
 The component doesn't re-initialize&mdash;an operation that could be expensive.
 So hiding and showing is sometimes the right thing to do.
 
+当然，从积极的一面看，重新显示这个元素会非常快。
+  组件以前的状态被保留着，并随时可以显示。
+  组件不用重新初始化 —— 该操作可能会比较昂贵。
+  这时候隐藏和显示就成了正确的选择。
+
 But in the absence of a compelling reason to keep them around, 
 your preference should be to remove DOM elements that the user can't see
 and recover the unused resources with a structural directive like `NgIf` .
 
+但是，除非有非常强烈的理由来保留它们，否则我们更倾向于移除用户看不见的那些DOM元素，并且使用`NgIf`这样的结构型指令来收回用不到的资源。
+
 **These same considerations apply to every structural directive, whether built-in or custom.**
 Before applying a structural directive, you might want to pause for a moment 
 to consider the consequences of adding and removing elements and of creating and destroying components.
+
+**同样的考量也适用于每一个结构型指令，无论是内置的还是自定义的。**
+  我们应该提醒自己以及我们指令的使用者，来仔细考虑添加元素、移除元素以及创建和销毁组件的后果。
 
 
 {@a asterisk}
@@ -221,10 +338,16 @@ to consider the consequences of adding and removing elements and of creating and
 
 ## The asterisk (*) prefix
 
+## 星号（*）前缀
+
 Surely you noticed the asterisk (*) prefix to the directive name
 and wondered why it is necessary and what it does.
 
+你可能注意到了指令名的星号（*）前缀，并且困惑于为什么需要它以及它是做什么的。
+
 Here is `*ngIf` displaying the hero's name if `hero` exists.
+
+这里的`*ngIf`会在`hero`存在时显示英雄的名字。
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (asterisk)" region="asterisk">
@@ -237,6 +360,10 @@ The asterisk is "syntactic sugar" for something a bit more complicated.
 Internally, Angular desugars it in two stages.
 First, it translates the `*ngIf="..."` into a template _attribute_, `template="ngIf ..."`,&nbsp; like this.
 
+星号是一个用来简化更复杂语法的“语法糖”。
+从内部实现来说，Angular会分两个阶段解开这个语法糖。
+首先，它把`*ngIf="..."`翻译成一个`template`*属性* `template="ngIf ..."`，代码如下：
+
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-template-attr)" region="ngif-template-attr">
 
@@ -246,6 +373,8 @@ First, it translates the `*ngIf="..."` into a template _attribute_, `template="n
 
 Then it translates the template _attribute_ into a `<ng-template>` _element_, wrapped around the host element, like this.
 
+然后，它把这个`template`*属性*翻译成一个`<ng-template>`*元素*，并用它包裹宿主元素，代码如下：
+
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-template)" region="ngif-template">
 
@@ -254,10 +383,18 @@ Then it translates the template _attribute_ into a `<ng-template>` _element_, wr
 
 
 * The `*ngIf` directive moved to the `<ng-template>` element where it became a property binding,`[ngIf]`.
+
+  `*ngIf`指令被移到了`<ng-template>`元素上。在那里它变成了一个属性绑定`[ngIf]`。
+
 * The rest of the `<div>`, including its class attribute, moved inside the `<ng-template>` element.
+
+  `<div>`上的其余部分，包括它的`class`属性在内，移到了内部的`<ng-template>`元素上。
 
 None of these forms are actually rendered. 
 Only the finished product ends up in the DOM.
+
+上述形式永远不会真的渲染出来。
+只有最终产出的结果才会出现在DOM中。
 
 
 <figure class='image-display'>
@@ -269,7 +406,11 @@ Only the finished product ends up in the DOM.
 Angular consumed the `<ng-template>` content during its actual rendering and 
 replaced the `<ng-template>` with a diagnostic comment.
 
+Angular会在真正渲染的时候填充`<ng-template>`的内容，并且把`<ng-template>`替换为一个供诊断用的注释。
+
 The [`NgFor`](guide/structural-directives#ngFor) and [`NgSwitch...`](guide/structural-directives#ngSwitch) directives follow the same pattern.
+
+[`NgFor`](guide/structural-directives#ngFor)和[`NgSwitch...`](guide/structural-directives#ngSwitch)指令也都遵循同样的模式。
 
 
 {@a ngFor}
@@ -278,10 +419,16 @@ The [`NgFor`](guide/structural-directives#ngFor) and [`NgSwitch...`](guide/struc
 
 ## Inside _*ngFor_
 
+## `*ngFor`内幕
+
 Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax through
 template _attribute_ to `<ng-template>` _element_. 
 
+Angular会把`*ngFor`用同样的方式把星号（*）语法的`template`*属性*转换成`<ng-template>`*元素*。
+
 Here's a full-featured application of `NgFor`, written all three ways:
+
+这里有一个`NgFor`的全特性应用，同时用了这三种写法：
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (inside-ngfor)" region="inside-ngfor">
@@ -294,7 +441,13 @@ This is manifestly more complicated than `ngIf` and rightly so.
 The `NgFor` directive has more features, both required and optional, than the `NgIf` shown in this guide.
 At minimum `NgFor` needs a looping variable (`let hero`) and a list (`heroes`).
 
+它明显比`ngIf`复杂得多，确实如此。
+`NgFor`指令比本章展示过的`NgIf`具有更多的必选特性和可选特性。
+至少`NgFor`会需要一个循环变量（`let hero`）和一个列表（`heroes`）。
+
 You enable these features in the string assigned to `ngFor`, which you write in Angular's [microsyntax](guide/structural-directives#microsyntax). 
+
+我们可以通过把一个字符串赋值给`ngFor`来启用这些特性，这个字符串使用Angular的[微语法](guide/structural-directives#microsyntax)。
 
 
 <div class="alert is-helpful">
@@ -304,6 +457,9 @@ You enable these features in the string assigned to `ngFor`, which you write in 
 Everything _outside_ the `ngFor` string stays with the host element 
 (the `<div>`) as it moves inside the `<ng-template>`. 
 In this example, the `[ngClass]="odd"` stays on the `<div>`.
+
+`ngFor`字符串*之外*的每一样东西都会留在宿主元素（`<div>`）上，也就是说它移到了`<ng-template>`内部。
+在这个例子中，`[ngClass]="odd"`留在了`<div>`上。
 
 
 </div>
@@ -315,32 +471,55 @@ In this example, the `[ngClass]="odd"` stays on the `<div>`.
 
 ### Microsyntax
 
+### 微语法
+
 The Angular microsyntax lets you configure a directive in a compact, friendly string.
 The microsyntax parser translates that string into attributes on the `<ng-template>`:
+
+Angular微语法能让我们通过简短的、友好的字符串来配置一个指令。
+微语法解析器把这个字符串翻译成`<ng-template>`上的属性：
 
 * The `let` keyword declares a [_template input variable_](guide/structural-directives#template-input-variable) 
 that you reference within the template. The input variables in this example are `hero`, `i`, and `odd`.
 The parser translates `let hero`, `let i`, and `let odd` into variables named, 
 `let-hero`, `let-i`, and `let-odd`.
 
+  `let`关键字声明一个[模板输入变量](guide/structural-directives#template-input-variable)，我们会在模板中引用它。本例子中，这个输入变量就是`hero`、`i`和`odd`。
+  解析器会把`let hero`、`let i`和`let odd`翻译成命名变量`let-hero`、`let-i`和`let-odd`。
+
 * The microsyntax parser takes `of` and `trackby`, title-cases them (`of` -> `Of`, `trackBy` -> `TrackBy`), 
 and prefixes them with the directive's attribute name (`ngFor`), yielding the names `ngForOf` and `ngForTrackBy`.
 Those are the names of two `NgFor` _input properties_ .
 That's how the directive learns that the list is `heroes` and the track-by function is `trackById`.
 
+  微语法解析器接收`of`和`trackby`，把它们首字母大写（`of` -> `Of`, `trackBy` -> `TrackBy`），
+  并且给它们加上指令的属性名（`ngFor`）前缀，最终生成的名字是`ngForOf`和`ngForTrackBy`。
+  还有两个`NgFor`的*输入属性*，指令据此了解到列表是`heroes`，而track-by函数是`trackById`。
+
 * As the `NgFor` directive loops through the list, it sets and resets properties of its own _context_ object.
 These properties include `index` and `odd` and a special property named `$implicit`.
 
+  `NgFor`指令在列表上循环，每个循环中都会设置和重置它自己的*上下文*对象上的属性。
+  这些属性包括`index`和`odd`以及一个特殊的属性名`$implicit`（隐式变量）。
+
 * The `let-i` and `let-odd` variables were defined as `let i=index` and `let odd=odd`.
 Angular sets them to the current value of the context's `index` and `odd` properties.
+
+  `let-i`和`let-odd`变量是通过`let i=index`和`let odd=odd`来定义的。
+  Angular把它们设置为*上下文*对象中的`index`和`odd`属性的当前值。
 
 * The context property for `let-hero` wasn't specified. 
 It's intended source is implicit. 
 Angular sets `let-hero` to the value of the context's `$implicit` property
 which `NgFor` has initialized with the hero for the current iteration.
 
+  上下文中的属性`let-hero`没有指定过，实际上它来自一个隐式变量。
+  Angular会把`let-hero`设置为上下文对象中的`$implicit`属性，`NgFor`会用当前迭代中的英雄初始化它。
+
 * The [API guide](api/common/index/NgFor-directive "API: NgFor") 
 describes additional `NgFor` directive properties and context properties.
+
+  [API参考手册](api/common/index/NgFor-directive "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
 
 These microsyntax mechanisms are available to you when you write your own structural directives.
 Studying the 
@@ -348,6 +527,8 @@ Studying the
 and [`NgFor`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 
 is a great way to learn more.
 
+这些微语法机制在你写自己的结构型指令时也同样有效，参考[`NgIf`的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
+和[`NgFor`的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 可以学到更多。
 
 
 {@a template-input-variable}
@@ -358,9 +539,15 @@ is a great way to learn more.
 
 ### Template input variable
 
+### 模板输入变量
+
 A _template input variable_ is a variable whose value you can reference _within_ a single instance of the template.
 There are several such variables in this example: `hero`, `i`, and `odd`.
 All are preceded by the keyword `let`.
+
+*模板输入变量*是这样一种变量，你可以*在单个实例的模板中*引用它的值。
+这个例子中有好几个模板输入变量：`hero`、`i`和`odd`。
+它们都是用`let`作为前导关键字。
 
 A _template input variable_ is **_not_** the same as a 
 [template _reference_ variable](guide/template-syntax#ref-vars),
@@ -431,9 +618,10 @@ The `NgSwitchDefault` displays its host element when no sibling `NgSwitchCase` m
 
 
 
-The element to which you apply a directive is its _host_ element. 
-The `<happy-hero>` is the host element for the happy `*ngSwitchCase`.
-The `<unknown-hero>` is the host element for the `*ngSwitchDefault`.
+*Design thought*: minimize initialization effort and consider caching state in a
+companion service.
+
+*设计思路*：要最小化初始化的成本，并考虑把状态缓存在一个伴生的服务中。
 
 
 </div>
@@ -443,10 +631,36 @@ The `<unknown-hero>` is the host element for the `*ngSwitchDefault`.
 As with other structural directives, the `NgSwitchCase` and `NgSwitchDefault` 
 can be desugared into the template _attribute_ form.
 
+**These same considerations apply to every structural directive, whether built-in or custom.**
+We should ask ourselves &mdash; and the users of our directives &mdash; to think carefully
+about the consequences of adding and removing elements and of creating and destroying components.
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch-template-attr)" region="ngswitch-template-attr">
+**同样的考量也适用于每一个结构型指令，无论是内置的还是自定义的。**
+  我们应该提醒自己以及我们指令的使用者，来仔细考虑添加元素、移除元素以及创建和销毁组件的后果。
 
-</code-example>
+Let's see these dynamics at work. For fun, we'll stack the deck *against*
+our recommendation and consider a component called `heavy-loader` that
+***pretends*** to load a ton of data when initialized.
+
+让我们在实践中看看这些变化。为了娱乐，我们设想在甲板上有个叫`heavy-loader`(重型起重机)的组件，它会***假装***在初始化时装载一吨数据。
+
+We'll display two instances of the component.  We toggle the visibility of the first one with CSS.
+We toggle the second into and out of the DOM with `ngIf`.
+
+我们将显示该组件的两个实例。我们使用CSS切换第一个实例的可见性，用`ngIf`把第二个实例添加到DOM和将其移除。
+
+
+<code-tabs>
+
+  <code-pane title="template (excerpt)" path="structural-directives/src/app/structural-directives.component.html" region="message-log">
+
+  </code-pane>
+
+  <code-pane title="heavy-loader.component.ts" path="structural-directives/src/app/heavy-loader.component.ts">
+
+  </code-pane>
+
+</code-tabs>
 
 
 
@@ -495,6 +709,9 @@ That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
 
 
 Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
+
+借助内置的`ngOnInit`和`ngOnDestroy`[生命周期钩子](guide/lifecycle-hooks)，我们同时记录了组件的创建或销毁过程。
+下面是它的操作演示：
 
 
 <figure class='image-display'>
@@ -677,9 +894,13 @@ that does the opposite of `NgIf`.
 
 Creating a directive is similar to creating a component.
 
+创建指令很像创建组件。
+  
 * Import the `Directive` decorator (instead of the `Component` decorator).
 
-* Import the `Input`, `TemplateRef`, and `ViewContainerRef` symbols; you'll need them for _any_ structural directive.
+  导入`Directive`装饰器（而不再是`Component`）。
+  
+* Import the `Input`, `TemplateRef`, and `ViewContainerRef` symbols; you'll need them for _any_ structural directive .
 
 * Apply the decorator to the directive class.
 
@@ -783,8 +1004,11 @@ Then create some HTML to try it.
 
 
 
-When the `condition` is falsy, the top (A) paragraph appears and the bottom (B) paragraph disappears.
-When the `condition` is truthy, the top (A) paragraph is removed and the bottom (B) paragraph appears.
+When the `condition` is falsy, the top (A) paragraph appears and  the bottom (B) paragraph disappears.
+When the`condition` is truthy, the top (A)paragraph is removed  and the bottom (B)paragraph appears.
+
+当`condition`为`false`时，顶部的段落就会显示出来，而底部的段落消失了。
+当`condition`为`true`时，顶部的段落被移除了，而底部的段落显示了出来。
 
 
 <figure class='image-display'>
@@ -802,6 +1026,8 @@ When the `condition` is truthy, the top (A) paragraph is removed and the bottom 
 You can both try and download the source code for this guide in the <live-example></live-example>.  
 
 Here is the source from the `src/app/` folder.
+
+本章相关的代码如下：
 
 
 <code-tabs>

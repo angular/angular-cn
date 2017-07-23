@@ -1,8 +1,8 @@
 @title
-TypeScript to JavaScript
+从 TypeScript 到 JavaScript
 
 @intro
-Convert Angular TypeScript examples into ES6 and ES5 JavaScript.
+把 Angular 的 TypeScript 范例转换为 ES6 和 ES5 JavaScript.
 
 @description
 
@@ -11,11 +11,17 @@ Anything you can do with Angular in _TypeScript_, you can also do
 in JavaScript. Translating from one language to the other is mostly a
 matter of changing the way you organize your code and access Angular APIs.
 
+在 Angular 中，_TypeScript_ 可以做的任何事，也可以用 JavaScript 实现。
+将一种语言翻译成另一种语言，主要是改变了组织代码和访问 Angular API 的方式。
+
 _TypeScript_ is a popular language option for Angular development.
 Most code examples on the Internet as well as on this site are written in _TypeScript_.
 This cookbook contains recipes for translating _TypeScript_
 code examples to _ES6_ and to _ES5_ so that JavaScript developers
 can read and write Angular apps in their preferred dialect.
+
+_TypeScript_ 在 Angular 开发中比较流行。
+互联网上和本网站中的大多数范例都是用 _TypeScript_ 写的。
 
 
 {@a toc}
@@ -23,19 +29,53 @@ can read and write Angular apps in their preferred dialect.
 
 ## Table of contents
 
+## 目录
+
 * [_TypeScript_ to _ES6_ to _ES5_](guide/ts-to-js#from-ts)<br>
+
+  [_TypeScript_ 到 _ES6_ 到 _ES5_](guide/ts-to-js#from-ts)<br>
+
 * [Modularity: imports and exports](guide/ts-to-js#modularity)<br>
+
+  [模块化：导入和导出](guide/ts-to-js#modularity)<br>
+
 * [Classes and Class Metadata](guide/ts-to-js#class-metadata)<br>
+
+  [类和类的元数据](guide/ts-to-js#class-metadata)<br>
+
 * [_ES5_ DSL](guide/ts-to-js#dsl)<br>
+
+  [_ES5_ 领域专用语言](guide/ts-to-js#dsl)<br>
+
 * [Interfaces](guide/ts-to-js#interfaces)<br>
+
+  [接口](guide/ts-to-js#interfaces)<br>
+
 * [Input and Output Metadata](guide/ts-to-js#io-decorators)<br>
+
+  [输入和输出元数据](guide/ts-to-js#io-decorators)<br>
+
 * [Dependency Injection](guide/ts-to-js#dependency-injection)<br>
+
+  [依赖注入](guide/ts-to-js#dependency-injection)<br>
+
 * [Host Binding](guide/ts-to-js#host-binding)<br>
+
+  [宿主绑定](guide/ts-to-js#host-binding)<br>
+
 * [View and Child Decorators](guide/ts-to-js#view-child-decorators)<br>
+
+  [视图和子组件装饰器](guide/ts-to-js#view-child-decorators)<br>
+
 * [AOT compilation in _TypeScript_ Only](guide/ts-to-js#aot)<br>
+
+  [只用于 _TypeScript_ 的预编译](guide/ts-to-js#aot)<br>
+
 
 **Run and compare the live <live-example name="cb-ts-to-js">TypeScript</live-example> and <live-example name="cb-ts-to-js" lang="js">JavaScript</live-example>
 code shown in this cookbook.**
+
+运行在线例子，比较 <live-example name="cb-ts-to-js">TypeScript</live-example> 版和 <live-example name="cb-ts-to-js" lang="js">JavaScript</live-example> 版的代码。
 
 
 {@a from-ts}
@@ -44,16 +84,30 @@ code shown in this cookbook.**
 
 ## _TypeScript_ to _ES6_ to _ES5_
 
+##_TypeScript_ 到 _ES6_ 到 _ES5_
+
 _TypeScript_
 <a href="https://www.typescriptlang.org" target="_blank" title='"TypeScript is a typed, superset of JavaScript"'>is a typed superset of _ES6 JavaScript_</a>.
 _ES6 JavaScript_ is a superset of _ES5 JavaScript_. _ES5_ is the kind of JavaScript that runs natively in all modern browsers.
 The transformation of _TypeScript_ code all the way down to _ES5_ code can be seen as "shedding" features.
 
+_TypeScript_ <a href="https://www.typescriptlang.org" target="_blank" title='"TypeScript 是类型化的 JavaScript 的超集"'>是 _ES6 JavaScript_ 类型化的超集</a>。_ES6 JavaScript_ 是 _ES5 JavaScript_ 的超集。_ES5_ 是可以在所有现代浏览器中运行的 JavaScript。
+
 The downgrade progression is
 
+降级的过程是
+
 * _TypeScript_ to _ES6-with-decorators_
+
+  _TypeScript_ 降级到 _带装饰器的 ES6_
+
 * _ES6-with-decorators_ to _ES6-without-decorators_ ("_plain ES6_")
+
+  _带装饰器的 ES6_ 降级到 _没有装饰器的 ES6_ (“_普通 ES6_”)
+
 * _ES6-without-decorators_ to _ES5_
+
+  _没有装饰器的 ES6_ 降级到 _ES5_
 
 When translating from _TypeScript_ to _ES6-with-decorators_, remove
 [class property access modifiers](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)
@@ -63,14 +117,22 @@ Remove most of the
 such as `:string` and `:boolean`
 but **keep the constructor parameter types which are used for dependency injection**.
 
+ _TypeScript_ 翻译到 _带装饰器的 ES6_ 时，移除了[类属性访问修饰符](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)，如`public`和`private`。
+移除了大部分的[类型声明](https://www.typescriptlang.org/docs/handbook/basic-types.html)，如`:string`和`:boolean`。
+但**保留了用于依赖注入的构造函数参数类型**。
 
 From _ES6-with-decorators_ to _plain ES6_, remove all
 [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
 and the remaining types.
 You must declare properties in the class constructor (`this.title = '...'`) rather than in the body of the class.
 
+_带装饰器的 ES6_ 翻译到_普通 ES6_ 时，移除了所有的[装饰器](https://www.typescriptlang.org/docs/handbook/decorators.html)和剩下的类型。
+必须在构造函数中声明属性（`this.title = '...'`），而不是在类的代码体中。
+
 Finally, from _plain ES6_ to _ES5_, the main missing features are `import`
 statements and `class` declarations.
+
+最后，_普通 ES6_ 翻译成 _ES5_，缺少的主要特性是`import`和`class`声明。
 
 For _plain ES6_ transpilation you can _start_ with a setup similar to the
 [_TypeScript_ quickstart](https://github.com/angular/quickstart) and adjust the application code accordingly.
@@ -78,6 +140,9 @@ Transpile with [Babel](https://babeljs.io/) using the `es2015` preset.
 To use decorators and annotations with Babel, install the
 [`angular2`](https://github.com/shuhei/babel-plugin-angular2-annotations) preset as well.
 
+ 对_普通 ES6_ 的翻译，可以从类似 [_TypeScript_ 快速开始](https://github.com/angular/quickstart)的设置开始，
+调整相应代码。然后用 [Babel](https://babeljs.io/) 进行转译，使用`es2015`预设值。
+要在 Babel 中使用装饰器和注释，还需安装[`angular2`](https://github.com/shuhei/babel-plugin-angular2-annotations)预设值。
 
 
 {@a modularity}
@@ -86,13 +151,22 @@ To use decorators and annotations with Babel, install the
 
 ## Importing and Exporting
 
+## 导入和导出
+
 ### Importing Angular Code
 
+### 导入 Angular 代码
+
 In both _TypeScript_ and _ES6_, you import Angular classes, functions, and other members with _ES6_ `import` statements.
+
+在 _TypeScript_ 和 _ES6_ 中，可以使用 _ES6_ `import`语句导入 Angular 类、函数和其它成员。
 
 In _ES5_, you access the Angular entities of the [the Angular packages](glossary#scoped-package)
 through the global `ng` object.
 Anything you can import from `@angular` is a nested member of this `ng` object:
+
+在 _ES5_ 中，通过全局`ng`对象访问 [Angular 包](glossary#scoped-package)中的 Angular 实体。
+凡是可以从`@angular`导入的，都是该`ng`对象的嵌套成员。
 
 
 <code-tabs>
@@ -119,11 +193,19 @@ Anything you can import from `@angular` is a nested member of this `ng` object:
 
 ### Exporting Application Code
 
+### 导出应用代码
+
 Each file in a _TypeScript_ or _ES6_ Angular application constitutes an _ES6_ module.
 When you want to make something available to other modules, you `export` it.
 
-_ES5_ lacks native support for modules.
-In an Angular _ES5_ application, you load each file manually by adding a `<script>` tag to `index.html`.
+_TypeScript_ 或 _ES6_ Angular 应用中每个文件都构成一个 _ES6_ 模块。
+当想要让某个东西对其它模块可用时，就`export`它。
+
+_ES5_ lacks native support for modules. 
+In an Angular _ES5_ application, you load each file manually by adding a `<script>` tag to `index.html`. 
+
+_ES5_ 不支持模块。在 Angular _ES5_ 应用中，需要在`index.html`中添加`<script>`标签，手工加载每个文件。
+
 
 <div class="alert is-important">
 
@@ -131,6 +213,10 @@ In an Angular _ES5_ application, you load each file manually by adding a `<scrip
 
 The order of `<script>` tags is often significant.
 You must load a file that defines a public JavaScript entity before a file that references that entity.
+
+`<script>`标签的顺序通常很重要。
+必须在引用实体的文件之前，加载定义该公共 JavaScript 实体的文件。
+
 
 </div>
 
@@ -142,11 +228,21 @@ Then each code file "exports" public entities by attaching them to that namespac
 You could factor a large application into several sub-namespaces
 which leads to "exports" along the lines of `app.heroQueries.HeroComponent`.
 
-Every _ES5_ file should wrap code in an
+_ES5_ 中，最佳实践是，创建某种形式的模块化，避免污染全局作用域。
+添加一个应用命名空间对象（如`app`）到全局的`document`。
+接着，每个代码文件都通过附加到该命名空间来“导出”公共实体，例如，`app.HeroComponent`。
+可以把一个大型应用中分解成多个子命名空间，可以象这样进行“导出”，`app.heroQueries.HeroComponent`
+
+Every _ES5_ file should wrap code in an 
 [Immediately Invoked Function Expression (IIFE)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
 to limit unintentional leaking of private symbols into the global scope.
 
+每个 _ES5_ 文件都应包裹在[立即调用函数表达式 (IIFE)](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression) 中，
+防止把私有符号无意地泄漏到全局作用域。
+
 Here is a `HeroComponent` as it might be defined and "exported" in each of the four language variants.
+
+下面是`HeroComponent`定义和“导出”的四种不同语言变种。
 
 
 <code-tabs>
@@ -173,9 +269,15 @@ Here is a `HeroComponent` as it might be defined and "exported" in each of the f
 
 ### Importing Application Code
 
+### 导入应用代码
+
 In _TypeScript_ and _ES6_ apps, you `import` things that have been exported from other modules.
 
+在 _TypeScript_ 和 _ES6_ 应用中，可以导入 (`import`) 其它模块已导出的东西。
+
 In _ES5_ you use the shared namespace object to access "exported" entities from other files.
+
+在 _ES5_ 中，使用共享的命名空间对象访问其它文件“导出”的实体。
 
 
 <code-tabs>
@@ -209,6 +311,9 @@ Browserify in an Angular JavaScript project. In such a project, you would
 use _CommonJS_ modules and the `require` function to load Angular framework code.
 Then use `module.exports` and `require` to export and import application  code.
 
+还可以在 Angular JavaScript 项目中使用模块加载器，如 Webpack 或 Browserify。
+在这样的项目中，使用 _CommonJS_ 模块和`require`函数来加载 Angular 框架代码。
+用`module.exports`和`require`导入和导出应用代码。
 
 
 </div>
@@ -221,16 +326,28 @@ Then use `module.exports` and `require` to export and import application  code.
 
 ## Classes and Class Metadata
 
+## 类和类的元数据
+
 ### Classes
 
+### 类
+
 Most Angular _TypeScript_ and _ES6_ code is written as classes.
+
+大多数 Angular _TypeScript_ 和 _ES6_ 代码是写成了类。
 
 Properties and method parameters of _TypeScript_ classes may be marked with the access modifiers
 `private`, `internal`, and `public`.
 Remove these modifiers when translating to JavaScript.
 
+_TypeScript_ 类的属性和方法参数可以用访问修饰符`private`、`internal`和`public`标记。
+当翻译成 JavaScript 时，移除这些修饰符。
+
 Most type declarations (e.g, `:string` and `:boolean`) should be removed when translating to JavaScript.
 When translating to _ES6-with-decorators_, ***do not remove types from constructor parameters!***
+
+当翻译成 JavaScript 时，移除大多数类型声明（如，`:string`和`:boolean`）。
+当翻译成_带装饰器的 ES6_ 时，***不移除构造函数参数类型！***
 
 Look for types in _TypeScript_ property declarations.
 In general it is better to initialize such properties with default values because
@@ -238,10 +355,18 @@ many browser JavaScript engines can generate more performant code.
 When _TypeScript_ code follows this same advice, it can infer the property types
 and there is nothing to remove during translation.
 
+看一下 _TypeScript_ 属性声明中的类型。通常，最好用缺省值初始化这些属性，因为许多浏览器的 JavaScript
+引擎可生成更高性能的代码。当 _TypeScript_ 代码遵循这一建议时，它可以推导出属性类型，翻译时就不需要移除任何内容。
+
 In _ES6-without-decorators_, properties of classes must be assigned inside the constructor.
+
+在_不带装饰器的 ES6_ 中，类的属性必须在构造函数中指定。
 
 _ES5_ JavaScript has no classes.
 Use the constructor function pattern instead, adding methods to the prototype.
+
+_ES5_ JavaScript 没有类。
+使用构造函数模式，把方法添加到 prototype 中。
 
 
 <code-tabs>
@@ -268,18 +393,29 @@ Use the constructor function pattern instead, adding methods to the prototype.
 
 ### Metadata
 
+### 元数据
+
 When writing in _TypeScript_ or _ES6-with-decorators_,
 provide configuration and metadata by adorning a class with one or more *decorators*.
 For example, you supply metadata to a component class by preceding its definition with a
 [`@Component`](api/core/index/Component-decorator) decorator function whose
 argument is an object literal with metadata properties.
 
+当用 _TypeScript_ 或 _带装饰器的 ES6_ 编写代码时，使用一个或多个*装饰器 (decorator)* 来修饰类，
+提供配置和元数据。
+
 In _plain ES6_, you provide metadata by attaching an `annotations` array to the _class_.
 Each item in the array is a new instance of a metadata decorator created with a similar metadata object literal.
 
+在_普通 ES6_ 中，通过向_类_附加一个`annotations`数组来提供元数据。
+
 In _ES5_, you also provide an `annotations` array but you attach it to the _constructor function_ rather than to a class.
 
+在_ES5_中，也是提供一个`annotations`数组，但把它附加到_构造函数_，而不是类。
+
 See these variations side-by-side:
+
+看一下这些变种：
 
 
 <code-tabs>
@@ -306,7 +442,12 @@ See these variations side-by-side:
 
 ***External Template file***
 
+***外部模块文件***
+
 A large component template is often kept in a separate template file.
+
+大的组件模板通常是放在独立的文件中。
+
 
 <code-example path="cb-ts-to-js/ts/src/app/hero-title.component.html" title="src/app/hero-title.component.html" linenums="false">
 
@@ -315,6 +456,9 @@ A large component template is often kept in a separate template file.
 
 
 The component (`HeroTitleComponent` in this case) then references the template file in its metadata `templateUrl` property:
+
+接着，组件（这里是`HeroTitleComponent`）在它的元数据`templateUrl`属性中引用该模板文件：
+
 
 <code-tabs>
 
@@ -340,6 +484,8 @@ The component (`HeroTitleComponent` in this case) then references the template f
 
 Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the location of the template file _relative to the component module_.
 
+注意，_TypeScript_ 和两个_ES6_的`templateUrl`属性_相对于组件模块_来标识模板文件的位置。
+
 
 {@a dsl}
 
@@ -347,18 +493,31 @@ Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the 
 
 ## _ES5_ DSL
 
+## _ES5_ 领域专用语言
+
 This _ES5_ pattern of creating a constructor and annotating it with metadata is so common that Angular
 provides a convenience API to make it a little more compact and locates the metadata above the constructor,
 as you would if you wrote in _TypeScript_ or _ES6-with-decorators_.
 
+创建构造函数并用元数据对它进行注释，是一个常见的 _ES5_ 模式，Angular 提供了一套方便的 API，使代码更简洁，
+并且元数据也刚好位于构造函数的上方，看起来就像 _TypeScript_ 或 _带装饰器的 ES6_ 写的代码。
+
 This _API_ (_Application Programming Interface_) is commonly known as the _ES5 DSL_ (_Domain Specific Language_).
+
+这个 _API_ (_Application Programming Interface，应用编程接口_) 通常称作 _ES5 DSL_ (_Domain Specific Language，领域专用语言_)。
 
 Set an application namespace property (e.g., `app.HeroDslComponent`) to the result of an `ng.core.Component` function call.
 Pass the same metadata object to `ng.core.Component` as you did before.
 Then chain a call to the `Class` method which takes an object defining the class constructor and instance methods.
 
+把`ng.core.Component`函数调用的结果设置到应用命名空间属性，如`app.HeroDslComponent`。
+向`ng.core.Component`传递与之前一样的元数据对象。
+接着，在调用链上调用`Class`函数，它接收一个对象，其中定义了类的构造函数和实例方法。
+
 Here is an example of the `HeroComponent`, re-written with the DSL,
 next to the original _ES5_ version for comparison:
+
+下例中的`HeroComponent`，用 DSL 进行了重写，跟原来的 _ES5_ 版本进行对比一下：
 
 
 <code-tabs>
@@ -385,10 +544,19 @@ next to the original _ES5_ version for comparison:
 
 
 
+<header>
+  命名构造函数
+</header>
+
+
+
 A **named** constructor displays clearly in the console log
 if the component throws a runtime error.
 An **unnamed** constructor displays as an anonymous function (e.g., `class0`)
 which is impossible to find in the source code.
+
+如果组件抛出运行时异常，**命名**的构造函数在控制台日志中显示得更清楚。
+**未命名**的构造函数显示为匿名函数（如，`class0`），不可能在源代码中找到它。
 
 
 </div>
@@ -397,9 +565,15 @@ which is impossible to find in the source code.
 
 ### Properties with getters and setters
 
+### 具有 getter 和 setter 的属性
+
 _TypeScript_ and _ES6_ support with getters and setters.
 Here's an example of a read-only _TypeScript_ property with a getter
 that prepares a toggle-button label for the next clicked state:
+
+_TypeScript_ 和 _ES6_ 支持 getter 和 setter。
+下面是 _TypeScript_ 只读属性的例子，它有一个 getter，为下一次点击状态准备切换按钮的标签：
+
 
 <code-example path="cb-ts-to-js/ts/src/app/hero-queries.component.ts" region="defined-property" title="ts/src/app/hero-queries.component.ts" linenums="false">
 
@@ -414,6 +588,11 @@ The _ES5 DSL_ does not support _defined properties_ directly
 but you can still create them by extracting the "class" prototype and
 adding the _defined property_ in raw JavaScript like this:
 
+这个 _TypeScript_ "getter" 属性会翻译成 _ES5_ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
+   target="_blank" title="Defined Properties">已定义属性</a>。
+_ES5 DSL_ 不直接支持_已定义属性_，你仍可提取“类”原型，象下面这样添加_已定义属性_：
+
+
 <code-example path="cb-ts-to-js/js/src/app/hero-queries.component.js" region="defined-property" title="js/src/app/hero-queries.component.ts" linenums="false">
 
 </code-example>
@@ -421,8 +600,13 @@ adding the _defined property_ in raw JavaScript like this:
 
 
 ### DSL for other classes
+
+### 用于其它类的 DSL
+
 There are similar DSLs for other decorated classes.
 You can define a directive with `ng.core.Directive`:
+
+其它被装饰的类也有类似的DSL，可以用`ng.core.Directive`定义指令：
 
 
 <code-example>
@@ -436,6 +620,9 @@ You can define a directive with `ng.core.Directive`:
 
 
 and a pipe with `ng.core.Pipe`:
+
+用`ng.core.Pipe`添加一个管道：
+
 
 <code-example>
   app.MyPipe = ng.core.Pipe({
@@ -454,14 +641,24 @@ and a pipe with `ng.core.Pipe`:
 
 ## Interfaces
 
+## 接口
+
 A _TypeScript_ interface helps ensure that a class implements the interface's members correctly.
 We strongly recommend Angular interfaces where appropriate.
 For example, the component class that implements the `ngOnInit` lifecycle hook method
 should implement the `OnInit` interface.
 
+_TypeScript_用于确保一个类正确地实现了接口成员。
+在适当的地方，我们强烈推荐使用 Angular 接口。
+例如，实现了`ngOnInit`生命周期钩子方法的组件类应实现`OnInit`接口。
+
 _TypeScript_ interfaces exist for developer convenience and are not used by Angular at runtime.
 They have no physical manifestation in the generated JavaScript code.
 Just implement the methods and ignore interfaces when translating code samples from _TypeScript_ to JavaScript.
+
+_TypeScript_ 接口只是为了方便开发人员，Angular 在运行时并不使用它。
+它们在生成的 JavaScript中并不存在。
+当从 _TypeScript_ 翻译成 JavaScript 时，只保留了实现方法，而忽略接口。
 
 
 <code-tabs>
@@ -496,20 +693,36 @@ Just implement the methods and ignore interfaces when translating code samples f
 
 ## Input and Output Metadata
 
+## 输入和输出元数据
+
 ### Input and Output Decorators
+
+### 输入和输出装饰器
 
 In _TypeScript_ and _ES6-with-decorators_, you often add metadata to class _properties_ with _property decorators_.
 For example, you apply [`@Input` and `@Output` property decorators](guide/template-syntax#inputs-outputs)
 to public class properties that will be the target of data binding expressions in parent components.
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，经常会用_属性装饰器_往类的_属性_上添加元数据。
+例如，向公共类属性添加[`@Input`和`@Output`属性装饰器](guide/template-syntax#inputs-outputs) ，
+会使这些属性成为父组件绑定表达式的目标。
+
 There is no equivalent of a property decorator in _ES5_ or _plain ES6_.
 Fortunately, every property decorator has an equivalent representation in a class decorator metadata property.
 A _TypeScript_ `@Input` property decorator can be represented by an item in the `Component` metadata's `inputs` array.
+
+在 _ES5_ 或 _普通 ES6_ 中，没有等价的属性装饰器。
+幸运的是，每个属性装饰器在类的装饰器元数据属性中有等价的表示形式。
+_TypeScript_ 的`@Input`属性装饰器可以表示为`Component`元数据的`inputs`数组中的一项。
 
 You already know how to add `Component` or `Directive` class metadata in _any_ JavaScript dialect so
 there's nothing fundamentally new about adding another property.
 But note that what would have been _separate_ `@Input` and `@Output` property decorators for each class property are
 combined in the metadata `inputs` and `outputs` _arrays_.
+
+你已经知道如何用_任意的_ JavaScript 方言添加`Component` 或 `Directive`元数据，
+所以添加另一个属性也没什么新鲜的。
+但要注意的是，用于每个类属性的那些_分离_的`@Input`和`@Output`属性装饰器，都合并到了`inputs`和`outputs`_数组_中。
 
 
 <code-tabs>
@@ -543,44 +756,82 @@ differs from the corresponding class property name (`notOkMsg`).
 That's OK but you must tell Angular about it so that it can map an external binding of `cancelMsg`
 to the component's `notOkMsg` property.
 
-In _TypeScript_ and _ES6-with-decorators_,
+上例中，其中一个面向公共的绑定名 (`cancelMsg`)，不同于相应的类属性名 (`notOkMsg`)。
+这样做没有问题，但必须把它告诉 Angular，这样 Angular 才能把`cancelMsg`的外部绑定映射到组件的`notOkMsg`属性。
+
+In _TypeScript_ and _ES6-with-decorators_, 
 you specify the special binding name in the argument to the property decorator.
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，在属性装饰器的参数中指定特定的绑定名。
+
 In _ES5_ and _plain ES6_ code, convey this pairing with the `propertyName: bindingName` syntax in the class metadata.
+
+在 _ES5_ 或 _普通 ES6_ 中，用`propertyName: bindingName`语法表示在类的元数据中。
 
 
 
 ## Dependency Injection
+
+## 依赖注入
+
 Angular relies heavily on [Dependency Injection](guide/dependency-injection) to provide services to the objects it creates.
 When Angular creates a new component, directive, pipe or another service,
 it sets the class constructor parameters to instances of services provided by an _Injector_.
 
+Angular 严重依赖[依赖注入](guide/dependency-injection)来为它创建的对象提供服务。
+当 Angular 创建一个新组件、指令、管道或其它服务时，
+它把_注入器_提供的服务的实例传递给类的构造函数参数。
+
 The developer must tell Angular what to inject into each parameter.
+
+开发人员必须告诉 Angular 向每个参数中注入什么。
 
 ### Injection by Class Type
 
+### 按类的类型注入
+
 The easiest and most popular technique in _TypeScript_ and _ES6-with-decorators_ is to set the constructor parameter type
-to the class associated with the service to inject.
+to the class associated with the service to inject. 
+
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，最简单和流行的技术是把构造函数参数的类型设置为待注入服务的类。
 
 The _TypeScript_ transpiler writes parameter type information into the generated JavaScript.
 Angular reads that information at runtime and locates the corresponding service in the appropriate _Injector_..
 The _ES6-with-decorators_ transpiler does essentially the same thing using the same parameter-typing syntax.
 
+_TypeScript_ 转译器把参数类型信息写进生成的 JavaScript。
+Angular 在运行时读取该信息，并在适当的_注入器_中定位相应的服务。
+_带装饰器的 ES6_ 转译器本质上也使用同样的参数类型语法，做同样的工作。
+
 _ES5_ and _plain ES6_ lack types so you must identify "injectables" by attaching a **`parameters`** array to the constructor function.
 Each item in the array specifies the service's injection token.
+
+_ES5_ 或 _普通 ES6_ 缺少类型，必须向构造函数附加**`parameters`**数组来标识“可注入对象”。
+数组中的每一项指定一个服务的注入令牌。
 
 As with _TypeScript_ the most popular token is a class,
 or rather a _constructor function_ that represents a class in _ES5_ and _plain ES6_.
 The format of the `parameters` array varies:
 
+_TypeScript_ 中，最常用的令牌是类，而_ES5_ 和 _普通 ES6_ 使用_构造函数_表示一个类。
+因此，`parameters`数组会有所不同：
+
 * _plain ES6_ &mdash; nest each constructor function in a sub-array.
 
+  _普通 ES6_ &mdash; 函数构造嵌套在一个子数组中。
+
 * _ES5_ &mdash; simply list the constructor functions.
+
+  _ES5_ &mdash; 简单列出构造函数。
 
 When writing with _ES5 DSL_, set the `Class.constructor` property to
 an array whose first parameters are the injectable constructor functions and whose
 last parameter is the class constructor itself.
 This format should be familiar to AngularJS developers.
+
+当用 _ES5 DSL_ 时，把`Class.constructor`属性设置为一个数组，它的前面的参数是
+注入的服务，最后一个参数是类构造函数本身。
+AngularJS 的开发人员对这种形式应该很熟悉。
 
 
 <code-tabs>
@@ -611,21 +862,38 @@ This format should be familiar to AngularJS developers.
 
 ### Injection with the @Inject decorator
 
+### 用 @Inject 装饰器注入
+
 Sometimes the dependency injection token isn't a class or constructor function.
+
+有时，依赖注入的令牌不是类或构造函数。
 
 In _TypeScript_ and _ES6-with-decorators_, you precede the class constructor parameter
 by calling the `@Inject()` decorator with the injection token.
 In the following example, the token is the string `'heroName'`.
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以在类的构造函数参数前调用`@Inject()`装饰器来指定注入令牌。
+在这个例子中，这个令牌是字符串`'heroName'`
+
 The other JavaScript dialects add a `parameters` array to the class contructor function.
 Each item constains a new instance of `Inject`:
 
+其它 JavaScript 方言是通过向类的构造函数添加`parameters`数组。
+其中的每一项是`Inject`的实例。
+
 * _plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
+
+  _普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
 
 * _ES5_ &mdash; simply list the string tokens.
 
+  _ES5_ &mdash; 简单列出字符串令牌。
+
 When writing with _ES5 DSL_, set the `Class.constructor` property to a function definition
 array as before. Create a new instance of `ng.core.Inject(token)` for each parameter.
+
+当用 _ES5 DSL_ 时，象前面那样把`Class.constructor`属性设置为函数定义数组。
+为每个参数创建一个`ng.core.Inject(token)`。
 
 
 <code-tabs>
@@ -656,24 +924,51 @@ array as before. Create a new instance of `ng.core.Inject(token)` for each param
 
 ### Additional Injection Decorators
 
+### 其它注入装饰器
+
 You can qualify injection behavior with injection decorators from `@angular/core`.
+
+可以使用`@angular/core`中的注入装饰器来限定注入行为。
 
 In _TypeScript_ and _ES6-with-decorators_,
 you precede the constructor parameters with injection qualifiers such as:
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以将下列注入限定符加在构造函数参数前面：
+
 * [`@Optional`](api/core/index/Optional-decorator) sets the parameter to `null` if the service is missing
+
+  [`@Optional`](api/core/index/Optional-decorator) 如果找不到服务，设置参数为`null`
+
 * [`@Attribute`](api/core/index/Attribute-interface) to inject a host element attribute value
+
+  [`@Attribute`](api/core/index/Attribute-interface) 注入宿主元素属性值
+
 * [`@ContentChild`](api/core/index/ContentChild-decorator) to inject a content child
+
+  [`@ContentChild`](api/core/index/ContentChild-decorator) 注入内容子组件
+
 * [`@ViewChild`](api/core/index/ViewChild-decorator) to inject a view child
+
+  [`@ViewChild`](api/core/index/ViewChild-decorator) 注入视图子组件
+
 * [`@Host`](api/core/index/Host-decorator) to inject a service in this component or its host
+
+  [`@Host`](api/core/index/Host-decorator) 注入本组件或它宿主中的服务
+
 * [`@SkipSelf`](api/core/index/SkipSelf-decorator) to inject a service provided in an ancestor of this component
+
+  [`@SkipSelf`](api/core/index/SkipSelf-decorator) 注入本组件祖先中提供的服务
 
 In _plain ES6_ and _ES5_, create an instance of the equivalent injection qualifier in a nested array within the `parameters` array.
 For example, you'd write `new Optional()` in _plain ES6_ and `new ng.core.Optional()` in _ES5_.
 
+在_ES5_ 或 _普通 ES6_ 中，通过在`parameters`数组中创建一个嵌套数组，创建等价的注入限定符实例。
 
 When writing with _ES5 DSL_, set the `Class.constructor` property to a function definition
 array as before. Use a nested array to define a parameter's complete injection specification.
+
+当用 _ES5 DSL_ 时，象前面那样把`Class.constructor`属性设置为函数定义数组。
+用嵌套数组来定义参数完整的注入规格说明。
 
 
 <code-tabs>
@@ -711,6 +1006,11 @@ Without `Optional`, Angular would raise an error.
 With `Optional`, Angular sets the constructor parameter to `null`
 and the component displays the title without a prefix.
 
+上例中，`'titlePrefix'`令牌没有提供商。
+如果没有`Optional`，Angular 将抛出错误。
+加上`Optional`，Angular 将构造函数参数设置为`null`，
+组件显示没有前缀的标题。
+
 
 </div>
 
@@ -721,10 +1021,18 @@ and the component displays the title without a prefix.
 
 
 ## Host Binding
+
+## 宿主绑定
+
 Angular supports bindings to properties and events of the _host element_ which is the
 element whose tag matches the component selector.
 
+Angular 支持绑定到_宿主元素_的属性和事件，
+宿主元素是那些标签匹配组件选择器的元素。
+
 ### Host Decorators
+
+### 宿主装饰器
 
 In _TypeScript_ and _ES6-with-decorators_, you can use host property decorators to bind a host
 element to a component or directive.
@@ -733,14 +1041,27 @@ binds host element properties to component data properties.
 The [`@HostListener`](api/core/index/HostListener-interface) decorator binds
 host element events to component event handlers.
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以使用宿主属性装饰器把宿主元素绑定到组件或指令。
+[`@HostBinding`](api/core/index/HostBinding-interface)装饰器把宿主元素属性绑定到组件数据属性。
+[`@HostListener`](api/core/index/HostListener-interface)装饰器把宿主元素事件绑定到组件事件处理器。
+
 In _plain ES6_ or _ES5_, add a `host` attribute to the component metadata to achieve the
-same effect as `@HostBinding` and `@HostListener`.
+same effect as `@HostBinding` and `@HostListener`. 
+
+在_ES5_ 或 _普通 ES6_ 中，向组件元数据添加`host`属性可以获得同样的效果。
 
 The  `host` value is an object whose properties are host property and listener bindings:
 
+`host`的值是一个对象，它的属性是宿主属性和监听器绑定：
+
 * Each key follows regular Angular binding syntax: `[property]` for host bindings
   or `(event)` for host listeners.
+
+  每个键遵循 Angular 绑定语法：`[property]`用于宿主绑定，`(event)`用于宿主监听器。
+
 * Each value identifies the corresponding component property or method.
+
+  每个值标识相应的组件属性或方法。
 
 
 <code-tabs>
@@ -770,13 +1091,23 @@ The  `host` value is an object whose properties are host property and listener b
 
 
 ### Host Metadata
+
+### 宿主元数据
+
 Some developers prefer to specify host properties and listeners
 in the component metadata.
 They'd _rather_ do it the way you _must_ do it _ES5_ and _plain ES6_.
 
+一些开发人员更喜欢在组件元数据中指定宿主属性和监听器。
+它们宁愿采用这种方式，也是 _ES5_ 或 _普通 ES6_ 中必须采用的方式。
+
 The following re-implementation of the `HeroComponent` reminds us that _any property metadata decorator_
 can be expressed as component or directive metadata in both _TypeScript_ and _ES6-with-decorators_.
 These particular _TypeScript_ and _ES6_ code snippets happen to be identical.
+
+下面重新实现了`HeroComponent`，它提醒我们，在 _TypeScript_ 和 _带装饰器的 ES6_ 中，
+_任何属性元数据装饰器_都可以表示为组件或指令元数据。
+
 
 <code-tabs>
 
@@ -798,7 +1129,11 @@ These particular _TypeScript_ and _ES6_ code snippets happen to be identical.
 
 ### View and Child Decorators
 
+### 视图和子组件装饰器
+
 Several _property_ decorators query a component's nested view and content components.
+
+有几个_属性_装饰器可用于查询组件的嵌套视图和内容组件。
 
 
 <div class="l-sub-section">
@@ -807,8 +1142,14 @@ Several _property_ decorators query a component's nested view and content compon
 
 _View_ children are associated with element tags that appear _within_ the component's template.
 
+_视图_子组件与出现在组件模板_内_的元素标签相关联。
+
 _Content_ children are associated with elements that appear _between_ the component's element tags;
-they are projected into an `<ng-content>` slot in the component's template.
+they are projected into an `<ng-content>` slot in the component's template.     
+
+_内容_子组件与出现在组件元素标签_之间_的那些元素相关联，
+它们被投影到组件模板的`<ng-content>`中。
+
 
 </div>
 
@@ -819,11 +1160,23 @@ The [`@ViewChild`](api/core/index/ViewChild-decorator) and
 allow a component to query instances of other components that are used in
 its view.
 
+[`@ViewChild`](api/core/index/ViewChild-decorator) 和
+[`@ViewChildren`](api/core/index/ViewChildren-decorator)
+属性装饰器允许组件查询位于其视图中的其它组件的实例。
+
 In _ES5_ and _ES6_, you access a component's view children by adding a `queries` property to the component metadata.
 The `queries` property value is a hash map.
 
+在 _ES5_ 和 _ES6_ 中，通过向组件元数据添加`queries`属性来访问组件的视图子组件。
+`queries`属性是一个映射表。
+
 * each _key_ is the name of a component property that will hold the view child or children.
+
+  每个_键_是用来保存视图子组件的组件属性名。
+
 * each _value_ is a new instance of either `ViewChild` or `ViewChildren`.
+
+  每个_值_是`ViewChild`或`ViewChildren`的实例。
 
 
 <code-tabs>
@@ -853,8 +1206,15 @@ The [`@ContentChild`](api/core/index/ContentChild-decorator) and
 allow a component to query instances of other components that have been projected
 into its view from elsewhere.
 
+[`@ContentChild`](api/core/index/ContentChild-decorator) 和
+[`@ContentChildren`](api/core/index/ContentChildren-decorator)
+装饰器允许组件查询从其它地方投影到视图里的其它组件的实例。
+
 They can be added in the same way as [`@ViewChild`](api/core/index/ViewChild-decorator) and
 [`@ViewChildren`](api/core/index/ViewChildren-decorator).
+
+添加它们的方式与[`@ViewChild`](api/core/index/ViewChild-decorator) 和
+[`@ViewChildren`](api/core/index/ViewChildren-decorator) 相同。
 
 
 <code-tabs>
@@ -886,6 +1246,9 @@ They can be added in the same way as [`@ViewChild`](api/core/index/ViewChild-dec
 In _TypeScript_ and _ES6-with-decorators_ you can also use the `queries` metadata
 instead of the `@ViewChild` and `@ContentChild` property decorators.
 
+在 _TypeScript_ 和 _带装饰器的 ES6_ 中，还可以使用`queries`元数据代替
+`@ViewChild` 和 `@ContentChild`属性装饰器。
+
 
 </div>
 
@@ -897,8 +1260,15 @@ instead of the `@ViewChild` and `@ContentChild` property decorators.
 
 ## AOT Compilation in _TypeScript_ only
 
+## 只用于 _TypeScript_ 的预编译
+
 Angular offers two modes of template compilation, JIT (_Just-in-Time_) and
 [AOT (_Ahead-of-Time_)](guide/aot-compiler).
 Currently the AOT compiler only works with _TypeScript_ applications because, in part, it generates
 _TypeScript_ files as an intermediate result.
 **AOT is not an option for pure JavaScript applications** at this time.
+
+Angular 模板编译有两种方式：JiT (_Just-in-Time，即时编译_) 和
+[AoT (_Ahead-of-Time，预编译_)](guide/aot-compiler)。
+目前，预编译只能用于 _TypeScript_ 应用，因为（部分原因）它生成的中间结果是 _TypeScript_ 文件。
+当前，**预编译不能用于纯 JavaScript 应用**。
