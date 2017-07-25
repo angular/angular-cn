@@ -2,51 +2,51 @@
   "TopBar": [
     {
       "url": "features",
-      "title": "Features"
+      "title": "特性"
     },
     {
       "url": "docs",
-      "title": "Docs",
+      "title": "文档",
       "hidden": true
     },
     {
       "url": "resources",
-      "title": "Resources"
+      "title": "资源"
     },
     {
       "url": "events",
-      "title": "Events"
+      "title": "会议"
     }
   ],
 
   "SideNav": [
     {
       "url": "docs",
-      "title": "Docs",
-      "tooltip": "Angular Documentation",
+      "title": "文档",
+      "tooltip": "Angular 开发文档",
       "hidden": true
     },
 
     {
-      "title": "Getting started",
+      "title": "快速起步",
       "tooltip": "A gentle introduction to Angular.",
       "children": [
         {
           "url": "guide/learning-angular",
-          "title": "Learning Angular",
-          "tooltip": "A suggested path through the documentation for Angular newcomers."
+          "title": "学习 Angular",
+          "tooltip": "为 Angular 新手推荐的学习路径"
         },
 
         {
           "url": "guide/quickstart",
-          "title": "Basic Quickstart",
-          "tooltip": "A quick look at an Angular app without tooling."
+          "title": "基本版快速起步",
+          "tooltip": "如何不借助工具开始一个 Angular 项目"
         },
 
         {
           "url": "guide/cli-quickstart",
-          "title": "CLI Quickstart",
-          "tooltip": "A quick look at an Angular app built with the Angular CLI."
+          "title": "CLI 快速起步",
+          "tooltip": "使用 CLI 快速开始一个 Angular 项目"
         },
 
         {
@@ -57,13 +57,13 @@
 
         {
           "url": "guide/architecture",
-          "title": "Architecture",
-          "tooltip": "The basic building blocks of Angular applications."
+          "title": "架构",
+          "tooltip": "Angular 应用的基本构造块"
         },
 
         {
           "url": "guide/appmodule",
-          "title": "The root AppModule",
+          "title": "根模块",
           "tooltip": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\"."
         },
 
