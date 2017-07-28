@@ -43,7 +43,7 @@ Angular 初学者可能希望跟随下面的常见学习路径。
 
 1. {@a architecture}Read the [Architecture](guide/architecture) overview for the big picture.
 
-  {@a architecture}阅读[架构](guide/architecture)了解大局。
+  阅读[架构](guide/architecture)了解大局。
 
 1. [The Root Module](guide/appmodule) introduces the `NgModule` class that tells Angular how to compile and run your application.
 

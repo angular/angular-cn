@@ -1,7 +1,7 @@
 import {
   Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
   DoCheck, ElementRef, EventEmitter, Injector, Input, OnDestroy,
-  Output, ViewEncapsulation
+  Output, ViewEncapsulation, HostListener
 } from '@angular/core';
 
 import { EmbeddedComponents } from 'app/embedded/embedded.module';
@@ -110,6 +110,23 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
    */
   private selectorToContentPropertyName(selector: string) {
     return selector.replace(/-(.)/g, (match, $1) => $1.toUpperCase()) + 'Content';
+  }
+
+  @HostListener('click', ['$event'])
+  toggleTranslationOrigin($event: MouseEvent): void {
+    const element = $event.target as Element;
+    if (element.hasAttribute('translation-result')) {
+      const origin = element.nextElementSibling;
+      if (!origin) {
+        return;
+      }
+
+      if (origin.getAttribute('translation-origin') === 'on') {
+        origin.setAttribute('translation-origin', 'off');
+      } else {
+        origin.setAttribute('translation-origin', 'on');
+      }
+    }
   }
 }
 

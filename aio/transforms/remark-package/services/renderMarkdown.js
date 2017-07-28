@@ -1,6 +1,8 @@
 const remark = require('remark');
 const html = require('remark-html');
 
+const {markAndSwap} = require('./translator');
+
 /**
  * @dgService renderMarkdown
  * @description
@@ -18,7 +20,7 @@ module.exports = function renderMarkdown() {
                     .use(html);
 
   return function renderMarkdownImpl(content) {
-    return renderer.processSync(content).toString();
+    return markAndSwap(renderer.processSync(content).toString());
   };
 
   /**
