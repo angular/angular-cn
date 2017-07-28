@@ -109,9 +109,9 @@ In the example, change the component class's `name` property from `'Angular'` to
     
 ### 下一步
 
-Start [**learning Angular**](guide/guide/learning-angular "Learning Angular").
+Start [**learning Angular**](guide/learning-angular "Learning Angular").
     
-开始[**学习 Angular**](guide/guide/learning-angular "学习 Angular").
+开始[**学习 Angular**](guide/learning-angular "学习 Angular").
 
 </div>
 
