@@ -124,7 +124,7 @@ This file will hold the new `HeroDetailComponent`.
 往`app/`文件夹下添加一个名叫`hero-detail.component.ts`的文件。这个文件中会存放这个新的`HeroDetailComponent`。
 
 The file and component names follow the standard described in the Angular
-[style guide](guide/style-guide#naming).
+[style guide](guide/styleguide#naming).
 
 文件名和组件名遵循[风格指南](guide/style-guide#naming)中的标准方式。
 
@@ -146,7 +146,7 @@ Start writing the `HeroDetailComponent` as follows:
 `HeroDetailComponent`的代码如下：
 
 
-<code-example path="toh-3/app/hero-detail.component.1.ts" region="v1" title="app/hero-detail.component.ts (initial version)" linenums="false">
+<code-example path="toh-pt3/app/hero-detail.component.1.ts" region="v1" title="app/hero-detail.component.ts (initial version)" linenums="false">
 
 </code-example>
 
@@ -194,7 +194,7 @@ When you're done, the new template should look like this:
 这些完成之后，新的模板是这样的：
 
 
-<code-example path="toh-3/src/app/hero-detail.component.ts" region="template" title="src/app/hero-detail.component.ts (template)" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail.component.ts" region="template" title="src/app/hero-detail.component.ts (template)" linenums="false">
 
 </code-example>
 
@@ -211,7 +211,7 @@ Add that property to the `HeroDetailComponent` class like this:
 把这个属性添加到`HeroDetailComponent`类上，就像这样：
 
 
-<code-example path="toh-3/app/hero-detail.component.1.ts" region="hero" title="src/app/hero-detail.component.ts (hero property)">
+<code-example path="toh-pt3/app/hero-detail.component.1.ts" region="hero" title="src/app/hero-detail.component.ts (hero property)">
 
 </code-example>
 
@@ -220,7 +220,7 @@ Add that property to the `HeroDetailComponent` class like this:
 The `hero` property is typed as an instance of `Hero`.
 The `Hero` class is still in the `app.component.ts` file.
 Now there are two components that need to reference the `Hero` class.
-The Angular [style guide](guide/style-guide#rule-of-one "Style guide: rule of one") recommends one class per file anyway.
+The Angular [style guide](guide/styleguide#rule-of-one "Style guide: rule of one") recommends one class per file anyway.
 
 `hero`属性的类型是`Hero`。
 `Hero`类仍然在`app.component.ts`文件中。
@@ -232,7 +232,7 @@ Move the `Hero` class from `app.component.ts` to its own `hero.ts` file.
 因此我们要把`Hero`类从`app.component.ts`移到它自己的`hero.ts`文件中：
 
 
-<code-example path="toh-3/src/app/hero.ts" title="src/app/hero.ts" linenums="false">
+<code-example path="toh-pt3/src/app/hero.ts" title="src/app/hero.ts" linenums="false">
 
 </code-example>
 
@@ -245,7 +245,7 @@ Add the following `import` statement near the top of _both_ the `app.component.t
 把下列`import`语句添加到`app.component.ts`和`hero-detail.component.ts`文件的顶部。
 
 
-<code-example path="toh-3/app/hero-detail.component.1.ts" region="hero-import" title="toh-3/app/hero-detail.component.ts">
+<code-example path="toh-pt3/app/hero-detail.component.1.ts" region="hero-import" title="src/app/hero-detail.component.ts">
 
 </code-example>
 
@@ -266,7 +266,7 @@ The binding will look like this:
 这种绑定是这样的：
 
 
-<code-example path="toh-3/app/app.component.1.html" region="hero-detail-binding" title="toh-3/app/app.component.html" linenums="false">
+<code-example path="toh-pt3/app/app.component.1.html" region="hero-detail-binding" title="src/app/app.component.html" linenums="false">
 
 </code-example>
 
@@ -285,7 +285,7 @@ First, amend the `@angular/core` import statement to include the `Input` symbol.
 首先，修改`@angular/core`导入语句，使其包含符号`Input`。
 
 
-<code-example path="toh-3/src/app/hero-detail.component.ts" region="import-input" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail.component.ts" region="import-input" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -297,7 +297,7 @@ preceding it with the `@Input` decorator that you imported earlier.
 然后，通过在`hero`属性前面加上`@Input`装饰器，来表明它是一个输入属性。
 
 
-<code-example path="toh-3/src/app/hero-detail.component.ts" region="hero" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail.component.ts" region="hero" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -322,7 +322,7 @@ That's it. The `hero` property is the only thing in the `HeroDetailComponent` cl
 现在，`hero`属性是`HeroDetailComponent`类中唯一的东西。
 
 
-<code-example path="toh-3/src/app/hero-detail.component.ts" region="class" title="toh-3/src/app/hero-detail.component.ts" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail.component.ts" region="class" title="src/src/app/hero-detail.component.ts" linenums="false">
 
 </code-example>
 
@@ -337,7 +337,7 @@ Here's the complete `HeroDetailComponent`.
 下面是完整的`HeroDetailComponent`：
 
 
-<code-example path="toh-3/src/app/hero-detail.component.ts" title="src/app/hero-detail.component.ts">
+<code-example path="toh-pt3/src/app/hero-detail.component.ts" title="src/app/hero-detail.component.ts">
 
 </code-example>
 
@@ -348,7 +348,7 @@ Here's the complete `HeroDetailComponent`.
 
 ## 在`AppModule`中声明`HeroDetailComponent`
 
-Every component must be declared in one&mdash;and only one&mdash;Angular module.
+Every component must be declared in one&mdash;and only one&mdash;NgModule.
 
 每个组件都必须在一个（且只有一个）Angular模块中声明。
 
@@ -357,7 +357,7 @@ Open `app.module.ts` in your editor and import the `HeroDetailComponent` so you 
 打开`app.module.ts`并且导入`HeroDetailComponent`，以便我们可以引用它。
 
 
-<code-example path="toh-3/src/app/app.module.ts" region="hero-detail-import" title="src/app/app.module.ts">
+<code-example path="toh-pt3/src/app/app.module.ts" region="hero-detail-import" title="src/app/app.module.ts">
 
 </code-example>
 
@@ -368,7 +368,7 @@ Add `HeroDetailComponent` to the module's `declarations` array.
 把`HeroDetailComponent`添加到该模块的`declarations`数组中。
 
 
-<code-example path="toh-3/src/app/app.module.ts" region="declarations" title="src/app/app.module.ts" linenums="false">
+<code-example path="toh-pt3/src/app/app.module.ts" region="declarations" title="src/app/app.module.ts" linenums="false">
 
 </code-example>
 
@@ -387,7 +387,7 @@ This module declares only the two application components, `AppComponent` and `He
 
 
 
-Read more about Angular modules in the [NgModules](guide/ngmodule "Angular Modules (NgModule)") guide.
+Read more about NgModules in the [NgModules](guide/ngmodule "NgModules") guide.
 
 要了解关于Angular模块的更多知识，参见[Angular模块](guide/ngmodule "Angular Modules (NgModule)")页。
 
@@ -432,7 +432,7 @@ to the `hero` property of the `HeroDetailComponent`.
 协调主视图`AppComponent`与`HeroDetailComponent`的方式是把`AppComponent`的`selectedHero`属性绑定到`HeroDetailComponent`的`hero`属性上。
 
 
-<code-example path="toh-3/app/app.component.1.html" region="hero-detail-binding" title="app.component.ts (excerpt)" linenums="false">
+<code-example path="toh-pt3/app/app.component.1.html" region="hero-detail-binding" title="app.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -447,7 +447,7 @@ The revised `AppComponent` template should look like this:
 修改后的`AppComponent`模板是这样的：
 
 
-<code-example path="toh-3/src/app/app.component.ts" region="hero-detail-template" title="app.component.ts (excerpt)" linenums="false">
+<code-example path="toh-pt3/src/app/app.component.ts" region="hero-detail-template" title="app.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -576,19 +576,19 @@ Here are the code files discussed in this page.
 
 <code-tabs>
 
-  <code-pane title="src/app/hero-detail.component.ts" path="toh-3/src/app/hero-detail.component.ts">
+  <code-pane title="src/app/hero-detail.component.ts" path="toh-pt3/src/app/hero-detail.component.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.component.ts" path="toh-3/src/app/app.component.ts">
+  <code-pane title="src/app/app.component.ts" path="toh-pt3/src/app/app.component.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/hero.ts" path="toh-3/src/app/hero.ts">
+  <code-pane title="src/app/hero.ts" path="toh-pt3/src/app/hero.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts" path="toh-3/src/app/app.module.ts">
+  <code-pane title="src/app/app.module.ts" path="toh-pt3/src/app/app.module.ts">
 
   </code-pane>
 
@@ -613,12 +613,11 @@ Here's what you achieved in this page:
 
   我们学会了如何让一个组件接收输入
 
-* You learned to declare the required application directives in an Angular module. You
-listed the directives in the `NgModule` decorator's `declarations` array.
+* You learned to declare the required application directives in an NgModule. You
+listed the directives in the `@NgModule` decorator's `declarations` array.
 
   我们学会了在 Angular 模块中声明该应用所需的指令。
 只要把这些指令列在`NgModule`装饰器的`declarations`数组中就可以了。
-
 * You learned to bind a parent component to a child component.
 
   我们学会了把父组件绑定到子组件。
@@ -640,8 +639,4 @@ Data access should be refactored to a separate service
 and shared among the components that need data.
 
 通过抽取共享组件，我们的《英雄指南》变得更有复用性了，但在`AppComponent`中，我们仍然使用着硬编码的模拟数据。显然，这种方式不能“可持续发展”。
-  我们要把数据访问逻辑重构到一个独立的服务中，并在需要数据的组件之间共享。
-
-You’ll learn to create services in the [next tutorial](tutorial/toh-pt4) page.
-
-在[下一步](tutorial/toh-pt4)，我们将学习如何创建服务。
+  我们要把数据访问逻辑重构到一个独立的服务中，并在需要数据的组件之间共享。You’ll learn to create services in the [next tutorial](tutorial/toh-pt4"Services") page.在[下一步](tutorial/toh-pt4)，我们将学习如何创建服务。

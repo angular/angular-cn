@@ -11,7 +11,7 @@ import {TestBed, inject} from '@angular/core/testing';
 
 import {ResolveData} from '../src/config';
 import {PreActivation, Router} from '../src/router';
-import {RouterOutletMap} from '../src/router_outlet_map';
+import {ChildrenOutletContexts} from '../src/router_outlet_context';
 import {ActivatedRouteSnapshot, RouterStateSnapshot, createEmptyStateSnapshot} from '../src/router_state';
 import {DefaultUrlSerializer} from '../src/url_tree';
 import {TreeNode} from '../src/utils/tree';
@@ -36,7 +36,7 @@ describe('Router', () => {
   describe('setUpLocationChangeListener', () => {
     beforeEach(() => { TestBed.configureTestingModule({imports: [RouterTestingModule]}); });
 
-    it('should be indempotent', inject([Router, Location], (r: Router, location: Location) => {
+    it('should be idempotent', inject([Router, Location], (r: Router, location: Location) => {
          r.setUpLocationChangeListener();
          const a = (<any>r).locationSubscription;
          r.setUpLocationChangeListener();
@@ -57,7 +57,7 @@ describe('Router', () => {
     const inj = {get: (token: any) => () => `${token}_value`};
     let empty: RouterStateSnapshot;
 
-    beforeEach(() => { empty = createEmptyStateSnapshot(serializer.parse('/'), null); });
+    beforeEach(() => { empty = createEmptyStateSnapshot(serializer.parse('/'), null !); });
 
     it('should resolve data', () => {
       const r = {data: 'resolver'};
@@ -65,7 +65,7 @@ describe('Router', () => {
       const s = new RouterStateSnapshot('url', new TreeNode(empty.root, [new TreeNode(n, [])]));
 
       checkResolveData(s, empty, inj, () => {
-        expect(s.root.firstChild.data).toEqual({data: 'resolver_value'});
+        expect(s.root.firstChild !.data).toEqual({data: 'resolver_value'});
       });
     });
 
@@ -73,7 +73,7 @@ describe('Router', () => {
       const parentResolve = {data: 'resolver'};
       const childResolve = {};
 
-      const parent = createActivatedRouteSnapshot(null, {resolve: parentResolve});
+      const parent = createActivatedRouteSnapshot(null !, {resolve: parentResolve});
       const child = createActivatedRouteSnapshot('b', {resolve: childResolve});
 
       const s = new RouterStateSnapshot(
@@ -82,7 +82,7 @@ describe('Router', () => {
       const inj = {get: (token: any) => () => Promise.resolve(`${token}_value`)};
 
       checkResolveData(s, empty, inj, () => {
-        expect(s.root.firstChild.firstChild.data).toEqual({data: 'resolver_value'});
+        expect(s.root.firstChild !.firstChild !.data).toEqual({data: 'resolver_value'});
       });
     });
 
@@ -99,8 +99,8 @@ describe('Router', () => {
       const s2 = new RouterStateSnapshot(
           'url', new TreeNode(empty.root, [new TreeNode(n21, [new TreeNode(n22, [])])]));
       checkResolveData(s2, s1, inj, () => {
-        expect(s2.root.firstChild.data).toEqual({data: 'resolver1_value'});
-        expect(s2.root.firstChild.firstChild.data).toEqual({data: 'resolver2_value'});
+        expect(s2.root.firstChild !.data).toEqual({data: 'resolver1_value'});
+        expect(s2.root.firstChild !.firstChild !.data).toEqual({data: 'resolver2_value'});
       });
     });
   });
@@ -109,7 +109,7 @@ describe('Router', () => {
 function checkResolveData(
     future: RouterStateSnapshot, curr: RouterStateSnapshot, injector: any, check: any): void {
   const p = new PreActivation(future, curr, injector);
-  p.traverse(new RouterOutletMap());
+  p.traverse(new ChildrenOutletContexts());
   p.resolveData().subscribe(check, (e) => { throw e; });
 }
 

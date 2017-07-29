@@ -45,7 +45,7 @@ export function flatten<T>(arr: T[][]): T[] {
   return Array.prototype.concat.apply([], arr);
 }
 
-export function last<T>(a: T[]): T {
+export function last<T>(a: T[]): T|null {
   return a.length > 0 ? a[a.length - 1] : null;
 }
 
@@ -97,7 +97,10 @@ export function wrapIntoObservable<T>(value: T | NgModuleFactory<T>| Promise<T>|
   }
 
   if (isPromise(value)) {
-    return fromPromise(value);
+    // Use `Promise.resolve()` to wrap promise-like instances.
+    // Required ie when a Resolver returns a AngularJS `$q` promise to correctly trigger the
+    // change detection.
+    return fromPromise(Promise.resolve(value));
   }
 
   return of (value);

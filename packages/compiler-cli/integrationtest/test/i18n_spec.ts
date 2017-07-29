@@ -34,9 +34,10 @@ const EXPECTED_XMB = `<?xml version="1.0" encoding="UTF-8" ?>
 <!ELEMENT ex (#PCDATA)>
 ]>
 <messagebundle>
-  <msg id="8136548302122759730" desc="desc" meaning="meaning">translate me</msg>
-  <msg id="3492007542396725315">Welcome</msg>
-  <msg id="3772663375917578720">other-3rdP-component</msg>
+  <msg id="8136548302122759730" desc="desc" meaning="meaning"><source>src/basic.ts:1</source>translate me</msg>
+  <msg id="3492007542396725315"><source>src/basic.ts:5</source><source>src/entry_components.ts:1</source>Welcome</msg>
+  <msg id="126808141597411718"><source>node_modules/third_party/other_comp.d.ts:1,2</source>other-3rdP-component
+multi-lines</msg>
 </messagebundle>
 `;
 
@@ -46,19 +47,68 @@ const EXPECTED_XLIFF = `<?xml version="1.0" encoding="UTF-8" ?>
     <body>
       <trans-unit id="76e1eccb1b772fa9f294ef9c146ea6d0efa8a2d4" datatype="html">
         <source>translate me</source>
-        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/basic.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
         <note priority="1" from="description">desc</note>
         <note priority="1" from="meaning">meaning</note>
       </trans-unit>
       <trans-unit id="65cc4ab3b4c438e07c89be2b677d08369fb62da2" datatype="html">
         <source>Welcome</source>
-        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/basic.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entry_components.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
-      <trans-unit id="63a85808f03b8181e36a952e0fa38202c2304862" datatype="html">
-        <source>other-3rdP-component</source>
-        <target/>
+      <trans-unit id="b0a17f08a4bd742b2acf39780c257c2f519d33ed" datatype="html">
+        <source>other-3rdP-component
+multi-lines</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/third_party/other_comp.d.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
     </body>
+  </file>
+</xliff>
+`;
+
+const EXPECTED_XLIFF2 = `<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file original="ng.template" id="ngi18n">
+    <unit id="8136548302122759730">
+      <notes>
+        <note category="description">desc</note>
+        <note category="meaning">meaning</note>
+        <note category="location">src/basic.ts:1</note>
+      </notes>
+      <segment>
+        <source>translate me</source>
+      </segment>
+    </unit>
+    <unit id="3492007542396725315">
+      <notes>
+        <note category="location">src/basic.ts:5</note>
+        <note category="location">src/entry_components.ts:1</note>
+      </notes>
+      <segment>
+        <source>Welcome</source>
+      </segment>
+    </unit>
+    <unit id="126808141597411718">
+      <notes>
+        <note category="location">node_modules/third_party/other_comp.d.ts:1,2</note>
+      </notes>
+      <segment>
+        <source>other-3rdP-component
+multi-lines</source>
+      </segment>
+    </unit>
   </file>
 </xliff>
 `;
@@ -79,6 +129,13 @@ describe('template i18n extraction output', () => {
     expect(fs.existsSync(xlfOutput)).toBeTruthy();
     const xlf = fs.readFileSync(xlfOutput, {encoding: 'utf-8'});
     expect(xlf).toEqual(EXPECTED_XLIFF);
+  });
+
+  it('should extract i18n messages as xliff version 2.0', () => {
+    const xlfOutput = path.join(outDir, 'messages.xliff2.xlf');
+    expect(fs.existsSync(xlfOutput)).toBeTruthy();
+    const xlf = fs.readFileSync(xlfOutput, {encoding: 'utf-8'});
+    expect(xlf).toEqual(EXPECTED_XLIFF2);
   });
 
   it('should not emit js', () => {

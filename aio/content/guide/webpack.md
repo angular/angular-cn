@@ -1,11 +1,6 @@
-@title
-Webpack 简介
+# Webpack: An Introduction
 
-@intro
-使用基于 Webpack 的工具创建 Angular 应用
-
-@description
-
+# Webpack简介
 
 <style>
   h4 {font-size: 17px !important; text-transform: none !important;}
@@ -29,6 +24,8 @@ This guide offers a taste of Webpack and explains how to use it with Angular app
 
 
 {@a top}
+
+<!--
 
 
 # Contents
@@ -100,9 +97,7 @@ This guide offers a taste of Webpack and explains how to use it with Angular app
     [生产环境配置](guide/webpack#production-configuration)
 
   * [Test configuration](guide/webpack#test-configuration)
-  
-    [测试环境配置](guide/webpack#test-configuration)
-    
+  [测试环境配置](guide/webpack#test-configuration)
 * [Trying it out](guide/webpack#try)
 
   [试一下](guide/webpack#try)
@@ -114,11 +109,12 @@ This guide offers a taste of Webpack and explains how to use it with Angular app
 * [Conclusion](guide/webpack#conclusion)
 
   [总结](guide/webpack#conclusion)
+  
+-->
 
+You can also <a href="generated/zips/webpack/webpack.zip" target="_blank">download the final result.</a>
 
-You can also <a href="/resources/zips/webpack/webpack.zip">download the final result.</a>
-
-你还可以<a href="/resources/zips/webpack/webpack.zip">点这里下载最终结果</a>。
+你还可以<a href="generated/zips/webpack/webpack.zip" target="_blank">点这里下载最终结果</a>。
 
 {@a what-is-webpack}
 
@@ -189,19 +185,12 @@ Then it **outputs** these files to the `app.js` _bundle file_ designated in conf
 
 然后它把这些文件**输出**到当前配置所指定的_包文件_`app.js`中：
 
+<code-example name="webpack.config.js (single output)" language="javascript">
+  output: {
+    filename: 'app.js'
+  }
 
-<div class='code-example'>
-
-  <code-example name="webpack.config.js (single output)" language="javascript">
-    output: {
-      filename: 'app.js'
-    }
-
-  </code-example>
-
-</div>
-
-
+</code-example>
 
 This `app.js` output bundle is a single JavaScript file that contains the application source and its dependencies.
 You'll load it later with a `<script>` tag in the `index.html`.
@@ -227,22 +216,17 @@ Change the configuration so that it has two entry points, `main.ts` and `vendor.
 所以要修改配置，以获得两个入口点：`main.ts`和`vendor.ts`：
 
 
-<div class='code-example'>
+<code-example language="javascript">
+  entry: {
+    app: 'src/app.ts',
+    vendor: 'src/vendor.ts'
+  },
 
-  <code-example language="javascript">
-    entry: {
-      app: 'src/app.ts',
-      vendor: 'src/vendor.ts'
-    },
+  output: {
+    filename: '[name].js'
+  }
 
-    output: {
-      filename: '[name].js'
-    }
-
-  </code-example>
-
-</div>
-
+</code-example>
 
 
 Webpack constructs two separate dependency graphs
@@ -297,41 +281,34 @@ Webpack可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS�
 在这里，我们为TypeScript和CSS文件配置了加载器。
 
 
-<div class='code-example'>
-
-  <code-example language="javascript">
+<code-example language="javascript">
     rules: [
       {
-        test:/\.ts$/,
+        test: /\.ts$/,
         loader: 'awesome-typescript-loader'
       },
       {
-        test: /\.css$/,loaders: 'style-loader!css-loader'
+        test: /\.css$/,
+        loaders: 'style-loader!css-loader'
       }
     ]
 
-  </code-example>
-
-</div>
+</code-example>
 
 
 
-When Webpack encounters `import` statements like the following, 
-it applies the `test` RegEx patterns. 
+When Webpack encounters `import` statements like the following,
+it applies the `test` RegEx patterns.
 
 当Webpack遇到如下所示的`import`语句时，它就会调用正则表达式的`test`方法。
 
 
-<div class='code-example'>
+<code-example language="typescript">
+  import { AppComponent } from './app.component.ts';
 
-  <code-example language="typescript">
-    import { AppComponent } from './app.component.ts';
+  import 'uiframework/dist/uiframework.css';
 
-    import 'uiframework/dist/uiframework.css';
-
-  </code-example>
-
-</div>
+</code-example>
 
 
 
@@ -369,17 +346,12 @@ Tap into that pipeline with plugins such as the `uglify` minification plugin:
 Webpack有一条构建流水线，它被划分成多个经过精心定义的阶段(phase)。
 我们可以把插件(比如`uglify`代码最小化插件)挂到流水线上：
 
+<code-example language="javascript">
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 
-<div class='code-example'>
-
-  <code-example language="javascript">
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin()
-    ]
-
-  </code-example>
-
-</div>
+</code-example>
 
 
 
@@ -567,10 +539,9 @@ and exports several objects as properties of a `module.exports` object.
 
   [`entries`](guide/webpack#common-entries) - 包体的入口文件。
 
-* [`resolve`](guide/webpack#common-resolve)&mdash;how to resolve file names when they lack extensions.
+* [`resolve`](guide/webpack#common-resolves)&mdash;how to resolve file names when they lack extensions.
 
   [`resolve`](guide/webpack#common-resolve) - 省略扩展名时如何解释文件名。
-
 * [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.
 
   [`module.rules`](guide/webpack#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载。
@@ -613,7 +584,7 @@ This `entry` object defines the three bundles:
   `app` - 应用代码。
 
 
-{@a common-resolve}
+{@a common-resolves}
 
 
 #### _resolve_ extension-less imports
@@ -625,16 +596,10 @@ You could write `import` statements with explicit extensions like this example:
 
 如果你的应用程序只须`import`几十个JavaScript或TypeScript文件，而不是几百个，你可以在`import`语句里完整写上扩展名，如：
 
+<code-example language="typescript">
+  import { AppComponent } from './app.component.ts';
 
-<div class='code-example'>
-
-  <code-example language="typescript">
-    import { AppComponent } from './app.component.ts';
-
-  </code-example>
-
-</div>
-
+</code-example>
 
 
 But most `import` statements don't mention the extension at all.
@@ -698,7 +663,7 @@ Rules用来告诉Webpack加载不同文件或模块时该用哪个加载器。
 
   `images/fonts` - 图片和字体文件也能被打包。
   
-* CSS&mdash;the first pattern matches application-wide styles; the second handles 
+* CSS&mdash;the first pattern matches application-wide styles; the second handles
 component-scoped styles (the ones specified in a component's `styleUrls` metadata property).
 
   CSS - 第一个模式匹配应用级样式，第二个模式匹配组件局部样式(就是在组件元数据的`styleUrls`属性中指定的那些)。
@@ -866,11 +831,8 @@ The CSS styles are buried inside the Javascript bundles by default. The `Extract
 external `.css` files that the `HtmlWebpackPlugin` inscribes as `<link>` tags into the `index.html`.
 
 默认情况下，我们这些CSS样式会被埋没在JavaScript包中。`ExtractTextPlugin`会把它们提取成外部`.css`文件，
-这样`HtmlWebpackPlugin`插件就会转而把一个&lt;link&gt;标签写进`index.html`了。
-
-Refer to the [Webpack documentation](https://webpack.github.io/docs/) for details on these and other configuration options in this file.
-
-要了解本文件中这些以及其它配置项的详情，请参阅[Webpack文档](https://webpack.github.io/docs/)。
+这样`HtmlWebpackPlugin`插件就会转而把一个&lt;link&gt;标签写进`index.html`了。Refer to the [Webpack documentation](https://webpack.github.io/docs/) for details on these and 
+other configuration options in this file.要了解本文件中这些以及其它配置项的详情，请参阅[Webpack文档](https://webpack.github.io/docs/)。
 
 Grab the app code at the end of this guide and try:
 
@@ -1103,9 +1065,9 @@ Webpack techniques covered in this guide.
 
 
 The <code>app.component.html</code> displays this downloadable Angular logo
-<a href="assets/images/logos/angular/angular.png" target="_blank">
+<a href="assets/images/logos/angular/angular.png">
 <img src="assets/images/logos/angular/angular.png" height="40px" title="download Angular logo"></a>.
-Create a folder called `images` under the project's `assets` folder, then right-click (Cmd+click on Mac) 
+Create a folder called `images` under the project's `assets` folder, then right-click (Cmd+click on Mac)
 on the image and download it to that folder.
 
 <code>app.component.html</code>显示了这个可下载的Angular Logo
@@ -1136,7 +1098,7 @@ Here again are the TypeScript entry-point files that define the `polyfills` and 
 
 {@a highlights}
 
-### Highlights
+<h3 class="no-toc">Highlights</h3>
 
 ### 重点：
 

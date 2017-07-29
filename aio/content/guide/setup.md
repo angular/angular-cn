@@ -1,22 +1,11 @@
-@title
-搭建本地开发环境
+# Setup for local development
 
-@intro
-安装 Angular 《快速起步》种子，更快更有效地在本地开发应用
-
-@description
-
-
+# 搭建本地开发环境
 
 {@a develop-locally}
 
-
-## Setup a local development environment
-
-## 搭建本地开发环境
-
 The <live-example name=quickstart>QuickStart live-coding</live-example> example is an Angular _playground_.
-It's not where you'd develop a real application. 
+It's not where you'd develop a real application.
 You [should develop locally](guide/setup#why-locally "Why develop locally") on your own machine ... and that's also how we think you should learn Angular.
 
 <live-example name=quickstart>《快速起步》在线编程</live-example>例子是 Angular 的*游乐场*。
@@ -24,37 +13,19 @@ You [should develop locally](guide/setup#why-locally "Why develop locally") on y
  你应该在自己的电脑上[本地开发](guide/setup#why-locally "为什么在本地开发？")... 你也应该在本地环境学习 Angular。
 
 Setting up a new project on your machine is quick and easy with the **QuickStart seed**,
-maintained [on github](https://github.com/angular/quickstart "Install the github QuickStart repo"). 
+maintained [on github](https://github.com/angular/quickstart "Install the github QuickStart repo").
 
 利用 [github 上](https://github.com/angular/quickstart "安装 github 《快速起步》库")的**《快速起步》种子**在你的电脑上搭建一个新项目是很快很容易的。
 
 
 Make sure you have [node and npm installed](guide/setup#install-prerequisites "What if you don't have node and npm?").
-Then ...
 
-确定你已经安装了 [node和npm](guide/setup#install-prerequisites "如果你没有node和npm？")，然后：
-
-1. Create a project folder (you can call it `quickstart` and rename it later).
-
-   新建项目目录（你可以暂时为其取名`quickstart`，以后再重命名）。
-
-1. [Clone](guide/setup#clone "Clone it from github") or [download](guide/setup#download "download it from github") the **QuickStart seed** into your project folder.
-
-   [克隆](guide/setup#clone "从 github 克隆")或者[下载](guide/setup#download "从 github 下载")**《快速起步》种子**到你的项目目录。
-
-1. Install [npm](guide/setup#install-prerequisites "What if you don't have node and npm?") packages.
-  
-   安装 [npm](guide/setup#install-prerequisites "如果你没有 node和npm ？") 包。
-
-1. Run `npm start` to launch the sample application.
-
-   运行`npm start`来启动例子应用。
-
+确定你已经安装了 [node和npm](guide/setup#install-prerequisites "如果你没有node和npm？")。
 
 {@a clone}
 
 
-### Clone
+## Clone
 
 ### 克隆
 
@@ -77,7 +48,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 
 
-`npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+`npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
 在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
 
@@ -89,10 +60,9 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 {@a download}
 
 
-### Download
+## Download
 
 ### 下载
-
 <a href="https://github.com/angular/quickstart/archive/master.zip" title="Download the QuickStart seed repository">Download the QuickStart seed</a>
 and unzip it into your project folder. Then perform the remaining steps with these terminal commands.
 
@@ -113,7 +83,7 @@ and unzip it into your project folder. Then perform the remaining steps with the
 
 
 
-`npm start` fails in _Bash for Windows_ which does not support networking to servers as of January, 2017.
+`npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
 在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
 
@@ -190,7 +160,7 @@ Open a terminal window in the project folder and enter the following commands fo
 
 The **QuickStart seed** contains the same application as the QuickStart playground.
 But its true purpose is to provide a solid foundation for _local_ development.
-Consequently, there are _many more files_ in the project folder on your machine, 
+Consequently, there are _many more files_ in the project folder on your machine,
 most of which you can [learn about later](guide/setup-systemjs-anatomy "Setup Anatomy").
 
 **《快速起步》种子** 包含了与《快速起步》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
@@ -258,7 +228,7 @@ Focus on the following three TypeScript (`.ts`) files in the **`/src`** folder.
 
 
 
-All guides and cookbooks have _at least these core files_. 
+All guides and cookbooks have _at least these core files_.
 Each file has a distinct purpose and evolves independently as the application grows.
 
 所有指南和烹饪书都至少有*这几个核心文件*。每个文件都有独特的用途，并且随着应用的成长各自独立演变。
@@ -336,9 +306,7 @@ The following are all in `src/`
 
       Defines the same `AppComponent` as the one in the QuickStart playground.
       It is the **root** component of what will become a tree of nested components
-      as the application evolves. 
-
-      定义与《快速起步》游乐场同样的`AppComponent`。
+      as the application evolves. 定义与《快速起步》游乐场同样的`AppComponent`。
       它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。
     </td>
 
@@ -353,7 +321,7 @@ The following are all in `src/`
     <td>
 
 
-      Defines `AppModule`, the [root module](guide/appmodule "AppModule: the root module") that tells Angular how to assemble the application.
+      Defines `AppModule`, the [root module](guide/bootstrapping "AppModule: the root module") that tells Angular how to assemble the application.
       Right now it declares only the `AppComponent`. 
       Soon there will be more components to declare. 
 
@@ -373,8 +341,8 @@ The following are all in `src/`
     <td>
 
 
-      Compiles the application with the [JIT compiler](glossary#jit) and
-      [bootstraps](guide/appmodule#main "bootstrap the application") 
+      Compiles the application with the [JIT compiler](guide/glossary#jit) and
+      [bootstraps](guide/bootstrapping#main "bootstrap the application")
       the application's main module (`AppModule`) to run in the browser.
       The JIT compiler is a reasonable choice during the development of most projects and
       it's the only viable choice for a sample running in a _live-coding_ environment like Plunker.
@@ -400,7 +368,7 @@ The following are all in `src/`
 
 ### 下一步
 
-If you're new to Angular, we recommend staying on the [learning path](guide/learning-angular "Angular learning path").
+If you're new to Angular, we recommend you follow the [tutorial](tutorial "Tour of Heroes tutorial").
 
 如果你是 Angular 初学者，建议根据[学习路径](guide/learning-angular "Angular学习路径")学习。
 
@@ -440,8 +408,8 @@ Older versions produce errors.
 在终端/控制器窗口运行命令`node -v`和`npm -v`，来**确认你运行的 node 是`v4.x.x`或更高，npm 为`3.x.x`或更高。**
 老版本会产生错误。
 
-We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm. 
-You may need [nvm](https://github.com/creationix/nvm) if you already have projects running on your machine that 
+We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
+You may need [nvm](https://github.com/creationix/nvm) if you already have projects running on your machine that
 use other versions of node and npm.
 
 我们推荐使用 [nvm](https://github.com/creationix/nvm) 来管理多版本 node 和 npm。
@@ -466,10 +434,10 @@ You can play with the sample code, share your changes with friends, and download
 几乎每章文档里面的链接都在浏览器中打开完整的例子。
 你可以用这些代码做实验，或者与朋友共享你的修改，或者下载并在你自己的电脑上运行这些代码。
 
-The [QuickStart](quickstart "Angular QuickStart Playground") shows just the `AppComponent` file.
+The [QuickStart](guide/quickstart "Angular QuickStart Playground") shows just the `AppComponent` file.
 It creates the equivalent of `app.module.ts` and `main.ts` internally _for the playground only_.
 so the reader can discover Angular without distraction.
-The other samples are based on the QuickStart seed. 
+The other samples are based on the QuickStart seed.
 
 [快速起步](quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
 它在内部创建了只为*游乐场*而准备的等价`app.module.ts`和`main.ts`。
@@ -496,11 +464,11 @@ As much fun as this is ...
 
   只有本地 IDE 有类型支持、代码重构和代码自动完成
   
-Use the <live-example title="QuickStart Seed in Plunker">live coding</live-example> environment as a _playground_, 
+Use the <live-example title="QuickStart Seed in Plunker">live coding</live-example> environment as a _playground_,
 a place to try the documentation samples and experiment on your own.
 It's the perfect place to reproduce a bug when you want to
-<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="File a documentation issue">file a documentation issue</a> or
-<a href="https://github.com/angular/angular/issues/new" target="_blank" title="File an Angular issue">file an issue with Angular itself</a>.
+<a href="https://github.com/angular/angular/issues/new" title="File a documentation issue">file a documentation issue</a> or
+<a href="https://github.com/angular/angular/issues/new" title="File an Angular issue">file an issue with Angular itself</a>.
 
 把<live-example title="QuickStart Seed in Plunker"><i>在线编程</i></live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
 当你想要<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="提交关于文档的问题">提交关于文档的问题</a>或者

@@ -1,10 +1,7 @@
-@title
-Visual Studio 2015 快速起步
+# Visual Studio 2015 QuickStart
 
-@intro
-使用 Visual Studio 2015 快速起步
+# Visual Studio 2015 快速起步
 
-@description
 {@a top}
 
 Some developers prefer Visual Studio as their Integrated Development Environment (IDE).
@@ -41,51 +38,13 @@ Visual Studio 2015, follow these steps:
 
 要用Visual Studio 2015在**ASP.NET 4.x项目**中设置**《快速起步》**文件，请遵循如下步骤：
 
-
-*  [Prerequisite](guide/visual-studio-2015#prereq1): Install Node.js.
-
-   [前提条件](guide/visual-studio-2015#prereq1): 安装Node.js
-  
-*  [Prerequisite](guide/visual-studio-2015#prereq2): Install Visual Studio 2015 Update 3.
-
-   [前提条件](guide/visual-studio-2015#prereq2): 安装Visual Studio 2015 Update 3
-    
-*  [Prerequisite](guide/visual-studio-2015#prereq3): Configure external web tools.
-
-   [前提条件](guide/visual-studio-2015#prereq3): 配置External Web tools
-   
-*  [Prerequisite](guide/visual-studio-2015#prereq4): Install TypeScript 2.2 for Visual Studio 2015.
-
-   [前提条件](guide/visual-studio-2015#prereq4): 安装TypeScript 2 for Visual Studio 2015
-   
-*  [Step 1](guide/visual-studio-2015#download): Download the QuickStart files.
-
-   [第一步](guide/visual-studio-2015#download): 下载“快速起步”的文件
-   
-*  [Step 2](guide/visual-studio-2015#create-project): Create the Visual Studio ASP.NET project.
-
-   [第二步](guide/visual-studio-2015#create-project): 创建Visual Studio ASP.NET项目
-   
-*  [Step 3](guide/visual-studio-2015#copy): Copy the QuickStart files into the ASP.NET project folder.
-
-   [第三步](guide/visual-studio-2015#copy): 把“快速起步”中的文件拷贝到ASP.NET的项目目录中
-   
-*  [Step 4](guide/visual-studio-2015#restore): Restore required packages.
-
-   [第四步](guide/visual-studio-2015#restore): 恢复需要的包
-   
-*  [Step 5](guide/visual-studio-2015#build-and-run): Build and run the app.
-
-   [第五步](guide/visual-studio-2015#build-and-run): 构建和运行应用程序
-
-
 <div class="l-sub-section">
 
 
 
 If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
 then consider the _experimental_
-<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>. 
+<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>. 
 Note that the resulting code does not map to the docs. Adjust accordingly.   
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
@@ -480,7 +439,7 @@ Everything seems fine while you move about _within_ the app.
 But you'll see the problem right away if you refresh the browser
 or paste a link to an app page (called a "deep link") into the browser address bar.
 
-You'll most likely get a *404 - Page Not Found* response from the serer
+You'll most likely get a *404 - Page Not Found* response from the server
 for any address other than `/` or `/index.html`.
 
 You have to configure the server to return `index.html` for requests to these "unknown" pages.

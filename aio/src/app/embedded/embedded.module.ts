@@ -9,8 +9,9 @@ import { PrettyPrinter } from './code/pretty-printer.service';
 // It is not enough just to import them inside the AppModule
 
 // Reusable components (used inside embedded components)
-import { MdTabsModule } from '@angular/material';
+import { MdIconModule, MdSnackBarModule, MdTabsModule } from '@angular/material';
 import { CodeComponent } from './code/code.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 // Embedded Components
 import { ApiListComponent } from './api/api-list.component';
@@ -18,15 +19,18 @@ import { CodeExampleComponent } from './code/code-example.component';
 import { CodeTabsComponent } from './code/code-tabs.component';
 import { ContributorListComponent } from './contributor/contributor-list.component';
 import { ContributorComponent } from './contributor/contributor.component';
-import { DocTitleComponent } from './doc-title.component';
+import { CurrentLocationComponent } from './current-location.component';
 import { LiveExampleComponent, EmbeddedPlunkerComponent } from './live-example/live-example.component';
+import { ResourceListComponent } from './resource/resource-list.component';
+import { ResourceService } from './resource/resource.service';
+import { TocComponent } from './toc/toc.component';
 
 /** Components that can be embedded in docs
  * such as CodeExampleComponent, LiveExampleComponent,...
  */
 export const embeddedComponents: any[] = [
-  ApiListComponent, CodeExampleComponent, CodeTabsComponent,
-  ContributorListComponent, DocTitleComponent, LiveExampleComponent
+  ApiListComponent, CodeExampleComponent, CodeTabsComponent, ContributorListComponent,
+  CurrentLocationComponent, LiveExampleComponent, ResourceListComponent, TocComponent
 ];
 
 /** Injectable class w/ property returning components that can be embedded in docs */
@@ -35,18 +39,28 @@ export class EmbeddedComponents {
 }
 
 @NgModule({
-  imports: [ CommonModule, MdTabsModule ],
+  imports: [
+    CommonModule,
+    MdIconModule,
+    MdSnackBarModule,
+    MdTabsModule,
+    SharedModule
+  ],
   declarations: [
     embeddedComponents,
     CodeComponent,
     ContributorComponent,
     EmbeddedPlunkerComponent
   ],
+  exports: [
+    TocComponent
+  ],
   providers: [
     ContributorService,
     CopierService,
     EmbeddedComponents,
-    PrettyPrinter
+    PrettyPrinter,
+    ResourceService
   ],
   entryComponents: [ embeddedComponents ]
 })

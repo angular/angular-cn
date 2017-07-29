@@ -1,11 +1,6 @@
-@title
-动画
+# Animations
 
-@intro
-Angular 动画系统指南。
-
-@description
-
+# 动画
 
 Motion is an important aspect in the design of modern web applications. Good
 user interfaces transition smoothly between states with engaging animations
@@ -14,6 +9,9 @@ more fun but also easier to use.
 
 动画是现代Web应用设计中一个很重要的方面。我们希望用户界面能在不同的状态之间更平滑的转场。如果需要，还可以用适当的动画来吸引注意力。
 设计良好的动画不但会让UI更有趣，还会让它更容易使用。
+
+## Overview
+## 概述
 
 Angular's animation system lets you build animations that run with the same kind of native
 performance found in pure CSS animations. You can also tightly integrate your
@@ -24,8 +22,6 @@ Angular的动画系统赋予了制作各种动画效果的能力，以构建出�
 
 
 <div class="alert is-helpful">
-
-
 
 Angular animations are built on top of the standard [Web Animations API](https://w3c.github.io/web-animations/)
 and run natively on [browsers that support it](http://caniuse.com/#feat=web-animation).
@@ -41,56 +37,7 @@ add it to your page.
 
 </div>
 
-
-
-# Contents
-
-# 目录
-
-* [Example: Transitioning between two states](guide/animations#example-transitioning-between-states)
-
-  [范例：在两个状态之间进行转场(Transition)](guide/animations#example-transitioning-between-states)
-
-* [States and transitions](guide/animations#states-and-transitions)
-
-  [状态与转场](guide/animations#states-and-transitions)
-
-* [Example: Entering and leaving](guide/animations#example-entering-and-leaving).
-
-  [范例：进场与离场](guide/animations#example-entering-and-leaving)
-
-* [Example: Entering and leaving from different states](guide/animations#example-entering-and-leaving-from-different-states).
-
-  [范例：从其它状态进场与离场](guide/animations#example-entering-and-leaving-from-different-states)
-
-* [Animatable properties and units](guide/animations#animatable-properties-and-units).  
-
-  [可动的(Animatable)属性与单位](guide/animations#animatable-properties-and-units)
-
-* [Automatic property calculation](guide/animations#automatic-property-calculation).  
-
-  [自动属性值计算](guide/animations#automatic-property-calculation)
-
-* [Animation timing](guide/animations#animation-timing).  
-
-  [动画时间线(Timing)](guide/animations#animation-timing)
-
-* [Multi-step animations with keyframes](guide/animations#multi-step-animations-with-keyframes).  
-
-  [基于关键帧(Keyframes)的多阶段动画](guide/animations#multi-step-animations-with-keyframes)
-
-* [Parallel animation groups](guide/animations#parallel-animation-groups).  
-
-  [并行动画组(Group)](guide/animations#parallel-animation-groups)
-
-* [Animation callbacks](guide/animations#animation-callbacks).  
-
-  [动画回调](guide/animations#animation-callbacks)
-
-
 <div class="l-sub-section">
-
-
 
 The examples in this page are available as a <live-example></live-example>.
 
@@ -99,22 +46,14 @@ The examples in this page are available as a <live-example></live-example>.
 
 </div>
 
-
-
 {@a example-transitioning-between-states}
-
-
 
 ## Quickstart example: Transitioning between two states
 
 ## 快速起步范例：在两个状态间转场
 
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_basic_click.gif" alt="A simple transition animation" align="right" style="width:220px;margin-left:20px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_basic_click.gif" alt="A simple transition animation" class="right">
 
 You can build a simple animation that transitions an element between two states
 driven by a model attribute.
@@ -126,36 +65,22 @@ to import a few animation-specific imports and functions:
 
 动画会被定义在`@Component`元数据中。在添加动画之前，先引入一些与动画有关的函数：
 
+<code-example path="animations/src/app/app.module.ts" region="animations-module" title="app.module.ts (@NgModule imports excerpt)" linenums="false"></code-example>
 
-<code-example path="animations/src/app/app.module.ts" region="animations-module" title="app.module.ts (@NgModule imports excerpt)" linenums="false">
-
-</code-example>
-
-
-
-<code-example path="animations/src/app/hero-list-basic.component.ts" region="imports" title="hero-list-basic.component.ts" linenums="false">
-
-</code-example>
-
-
+<code-example path="animations/src/app/hero-list-basic.component.ts" region="imports" title="hero-list-basic.component.ts" linenums="false"></code-example>
 
 With these, you can define an *animation trigger* called `heroState` in the component
 metadata. It uses animations to transition between two states: `active` and `inactive`. When a
 hero is active, the element appears in a slightly larger size and lighter color.
 
+
 通过这些，可以在组件元数据中定义一个名叫`heroState`的*动画触发器*。它在两个状态`active`和`inactive`之间进行转场。
-当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。
-
-
-<code-example path="animations/src/app/hero-list-basic.component.ts" region="animationdef" title="hero-list-basic.component.ts (@Component excerpt)" linenums="false">
+当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。<code-example path="animations/src/app/hero-list-basic.component.ts" region="animationdef" title="hero-list-basic.component.ts (@Component excerpt)" linenums="false">
 
 </code-example>
 
 
-
 <div class="alert is-helpful">
-
-
 
 In this example, you are defining animation styles (color and transform) inline in the
 animation metadata.
@@ -165,18 +90,13 @@ animation metadata.
 
 </div>
 
-
-
 Now, using the `[@triggerName]` syntax, attach the animation that you just defined to
 one or more elements in the component's template.
 
-我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`[@triggerName]`语法来把它附加到一个或多个元素上。
 
-
-<code-example path="animations/src/app/hero-list-basic.component.ts" region="template" title="hero-list-basic.component.ts (excerpt)" linenums="false">
+我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`[@triggerName]`语法来把它附加到一个或多个元素上。<code-example path="animations/src/app/hero-list-basic.component.ts" region="template" title="hero-list-basic.component.ts (excerpt)" linenums="false">
 
 </code-example>
-
 
 
 Here, the animation trigger applies to every element repeated by an `ngFor`. Each of
@@ -189,13 +109,10 @@ attribute is bound to the expression `hero.state` and is always either `active` 
 With this setup, an animated transition appears whenever a hero object changes state.
 Here's the full component implementation:
 
-通过这些设置，一旦英雄对象的状态发生了变化，就会触发一个转场动画。下面是完整的组件实现：
 
-
-<code-example path="animations/src/app/hero-list-basic.component.ts" title="hero-list-basic.component.ts">
+通过这些设置，一旦英雄对象的状态发生了变化，就会触发一个转场动画。下面是完整的组件实现：<code-example path="animations/src/app/hero-list-basic.component.ts" title="hero-list-basic.component.ts">
 
 </code-example>
-
 
 
 ## States and transitions
@@ -220,12 +137,7 @@ We can define *styles* for each animation state:
 
 我们可以为每个动画状态定义了*一组样式*：
 
-
-<code-example path="animations/src/app/hero-list-basic.component.ts" region="states" title="src/app/hero-list-basic.component.ts" linenums="false">
-
-</code-example>
-
-
+<code-example path="animations/src/app/hero-list-basic.component.ts" region="states" title="src/app/hero-list-basic.component.ts" linenums="false"></code-example>
 
 These `state` definitions specify the *end styles* of each state.
 They are applied to the element once it has transitioned to that state, and stay
@@ -239,41 +151,28 @@ controls the timing of switching between one set of styles and the next:
 
 定义完状态，就能定义在状态之间的各种*转场*了。每个转场都会控制一条在一组样式和下一组样式之间切换的时间线：
 
+<code-example path="animations/src/app/hero-list-basic.component.ts" region="transitions" title="src/app/hero-list-basic.component.ts" linenums="false"></code-example>
 
-<code-example path="animations/src/app/hero-list-basic.component.ts" region="transitions" title="src/app/hero-list-basic.component.ts" linenums="false">
-
-</code-example>
-
-
-
-<figure class='image-display'>
-  <img src="assets/images/devguide/animations/ng_animate_transitions_inactive_active.png" alt="In Angular animations you define states and transitions between states" width="400"></img>
+<figure>
+  <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active.png" alt="In Angular animations you define states and transitions between states" width="400">
 </figure>
-
-
 
 If several transitions have the same timing configuration, you can combine
 them into the same `transition` definition:
 
-如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：
 
-
-<code-example path="animations/src/app/hero-list-combined-transitions.component.ts" region="transitions" title="src/app/hero-list-combined-transitions.component.ts" linenums="false">
+如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：<code-example path="animations/src/app/hero-list-combined-transitions.component.ts" region="transitions" title="src/app/hero-list-combined-transitions.component.ts" linenums="false">
 
 </code-example>
-
 
 
 When both directions of a transition have the same timing, as in the previous
 example, you can use the shorthand syntax `<=>`:
 
-如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：
 
-
-<code-example path="animations/src/app/hero-list-twoway.component.ts" region="transitions" title="src/app/hero-list-twoway.component.ts" linenums="false">
+如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：<code-example path="animations/src/app/hero-list-twoway.component.ts" region="transitions" title="src/app/hero-list-twoway.component.ts" linenums="false">
 
 </code-example>
-
 
 
 You can also apply a style during an animation but not keep it around
@@ -282,14 +181,11 @@ the element receives one set of styles immediately and is then animated to the n
 When the transition finishes, none of these styles are kept because they're not
 defined in a `state`.
 
+
 有时希望一些样式只在动画期间生效，但在结束后并不保留它们。这时可以把这些样式内联在`transition`中进行定义。
-在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。
-
-
-<code-example path="animations/src/app/hero-list-inline-styles.component.ts" region="transitions" title="src/app/hero-list-inline-styles.component.ts" linenums="false">
+在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。<code-example path="animations/src/app/hero-list-inline-styles.component.ts" region="transitions" title="src/app/hero-list-inline-styles.component.ts" linenums="false">
 
 </code-example>
-
 
 
 ### The wildcard state `*`
@@ -307,14 +203,10 @@ transitions that apply regardless of which state the animation is in. For exampl
 
 * The `* => *` transition applies when *any* change between two states takes place.
 
-  当在*任意*两个状态之间切换时，`* => *`转场都会生效。
 
-
-<figure class='image-display'>
-  <img src="assets/images/devguide/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="The wildcard state can be used to match many different transitions at once" width="400"></img>
+当在*任意*两个状态之间切换时，`* => *`转场都会生效。<figure >
+  <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="The wildcard state can be used to match many different transitions at once" width="400">
 </figure>
-
-
 
 ### The `void` state
 
@@ -331,14 +223,10 @@ leave animations.
 For example the `* => void` transition applies when the element leaves the view,
 regardless of what state it was in before it left.
 
-比如当一个元素离开视图时，`* => void`转场就会生效，而不管它在离场以前是什么状态。
 
-
-<figure class='image-display'>
-  <img src="assets/images/devguide/animations/ng_animate_transitions_void_in.png" alt="The void state can be used for enter and leave transitions" width="400"></img>
+比如当一个元素离开视图时，`* => void`转场就会生效，而不管它在离场以前是什么状态。<figure >
+  <img src="generated/images/guide/animations/ng_animate_transitions_void_in.png" alt="The void state can be used for enter and leave transitions" width="400">
 </figure>
-
-
 
 The wildcard state `*` also matches `void`.
 
@@ -349,11 +237,7 @@ The wildcard state `*` also matches `void`.
 ## 例子：进场与离场  
 
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_enter_leave.gif" alt="Enter and leave animations" align="right" style="width:250px;"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_enter_leave.gif" alt="Enter and leave animations" class="right" width="250">
 
 Using the `void` and `*` states you can define transitions that animate the
 entering and leaving of elements:
@@ -368,17 +252,13 @@ entering and leaving of elements:
 
   离场：`* => void`
 
-For example, in the `animations` array below there are two transitions that use 
+For example, in the `animations` array below there are two transitions that use
 the `void => *` and `* => void` syntax to animate the element in and out of the view.
 
 例如，在下面的`animations`数组中，这两个转场语句使用`void => *`和`* => void`语法来让该元素以动画形式进入和离开当前视图。
 
 
-<code-example path="animations/src/app/hero-list-enter-leave.component.ts" region="animationdef" title="hero-list-enter-leave.component.ts (excerpt)" linenums="false">
-
-</code-example>
-
-
+<code-example path="animations/src/app/hero-list-enter-leave.component.ts" region="animationdef" title="hero-list-enter-leave.component.ts (excerpt)" linenums="false"></code-example>
 
 Note that in this case the styles are applied to the void state directly in the
 transition definitions, and not in a separate `state(void)` definition. Thus, the transforms
@@ -391,8 +271,6 @@ and leaves to the right.
 
 <div class="l-sub-section">
 
-
-
 These two common animations have their own aliases:
 
 这两个常见的动画有自己的别名：
@@ -400,25 +278,16 @@ These two common animations have their own aliases:
 <code-example language="typescript">
   transition(':enter', [ ... ]); // void => *
   transition(':leave', [ ... ]); // * => void
-
 </code-example>
 
-
-
 </div>
-
-
 
 ## Example: Entering and leaving from different states
 
 ## 范例：从不同的状态下进场和离场
 
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_enter_leave_states.gif" alt="Enter and leave animations combined with state animations" align="right" style="width:200px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_enter_leave_states.gif" alt="Enter and leave animations combined with state animations" class="right" width="200">
 
 You can also combine this animation with the earlier state transition animation by
 using the hero state as the animation state. This lets you configure
@@ -445,20 +314,12 @@ is:
 
 This gives you fine-grained control over each transition:
 
-现在就对每一种转场都有了细粒度的控制：
 
-
-<figure class='image-display'>
-  <img src="assets/images/devguide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400"></img>
+现在就对每一种转场都有了细粒度的控制：<figure >
+  <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400">
 </figure>
 
-
-
-<code-example path="animations/src/app/hero-list-enter-leave-states.component.ts" region="animationdef" title="hero-list-enter-leave.component.ts (excerpt)" linenums="false">
-
-</code-example>
-
-
+<code-example path="animations/src/app/hero-list-enter-leave-states.component.ts" region="animationdef" title="hero-list-enter-leave.component.ts (excerpt)" linenums="false"></code-example>
 
 ## Animatable properties and units
 
@@ -494,11 +355,7 @@ If you don't provide a unit when specifying dimension, Angular assumes the defau
 
 ## 自动属性值计算  
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_auto.gif" alt="Animation with automated height calculation" align="right" style="width:220px;margin-left:20px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_auto.gif" alt="Animation with automated height calculation" class="right" width="220">
 
 Sometimes you don't know the value of a dimensional style property until runtime.
 For example, elements often have widths and heights that
@@ -515,13 +372,10 @@ property is computed at runtime and then plugged into the animation.
 In this example, the leave animation takes whatever height the element has before it
 leaves and animates from that height to zero:
 
-这个例子中的“离场”动画会取得该元素在离场前的高度，并且把它从这个高度用动画转场到0高度：
 
-
-<code-example path="animations/src/app/hero-list-auto.component.ts" region="animationdef" title="src/app/hero-list-auto.component.ts" linenums="false">
+这个例子中的“离场”动画会取得该元素在离场前的高度，并且把它从这个高度用动画转场到0高度：<code-example path="animations/src/app/hero-list-auto.component.ts" region="animationdef" title="src/app/hero-list-auto.component.ts" linenums="false">
 
 </code-example>
-
 
 
 ## Animation timing
@@ -590,11 +444,7 @@ and the delay (or as the *second* value when there is no delay):
   运行200毫秒，并且带缓动：`'0.2s ease-in-out'`
 
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_timings.gif" alt="Animations with specific timings" align="right" style="width:220px;margin-left:20px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_timings.gif" alt="Animations with specific timings" class="right" width="220">
 
 ### Example
 
@@ -605,13 +455,10 @@ Here are a couple of custom timings in action. Both enter and leave last for
 slight delay of 10 milliseconds as specified in `'0.2s 10 ease-out'`:
 
 
-这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，也就是`0.2s`，但它们有不同的缓动函数。“离场”动画会在100毫秒的延迟之后开始，也就是`'0.2s 10 ease-out'`：
 
-
-<code-example path="animations/src/app/hero-list-timings.component.ts" region="animationdef" title="hero-list-timings.component.ts (excerpt)" linenums="false">
+这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，也就是`0.2s`，但它们有不同的缓动函数。“离场”动画会在100毫秒的延迟之后开始，也就是`'0.2s 10 ease-out'`：<code-example path="animations/src/app/hero-list-timings.component.ts" region="animationdef" title="hero-list-timings.component.ts (excerpt)" linenums="false">
 
 </code-example>
-
 
 
 ## Multi-step animations with keyframes
@@ -619,11 +466,7 @@ slight delay of 10 milliseconds as specified in `'0.2s 10 ease-out'`:
 ## 基于关键帧(Keyframes)的多阶段动画
 
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_multistep.gif" alt="Animations with some bounce implemented with keyframes" align="right" style="width:220px;margin-left:20px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_multistep.gif" alt="Animations with some bounce implemented with keyframes" class="right" width="220">
 
 Animation *keyframes* go beyond a simple transition to a more intricate animation
 that goes through one or more intermediate styles when transitioning between two sets of styles.
@@ -639,13 +482,10 @@ which marks the beginning of the animation, and one, which marks the end.
 This example adds some "bounce" to the enter and leave animations with
 keyframes:
 
-在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：
 
-
-<code-example path="animations/src/app/hero-list-multistep.component.ts" region="animationdef" title="hero-list-multistep.component.ts (excerpt)" linenums="false">
+在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：<code-example path="animations/src/app/hero-list-multistep.component.ts" region="animationdef" title="hero-list-multistep.component.ts (excerpt)" linenums="false">
 
 </code-example>
-
 
 
 Note that the offsets are *not* defined in terms of absolute time. They are relative
@@ -665,11 +505,7 @@ offsets receive offsets `0`, `0.5`, and `1`.
 
 ## 并行动画组(Group)  
 
-<figure>
-  <img src="assets/images/devguide/animations/animation_groups.gif" alt="Parallel animations with different timings, implemented with groups" align="right" style="width:220px;margin-left:20px"></img>
-</figure>
-
-
+<img src="generated/images/guide/animations/animation_groups.gif" alt="Parallel animations with different timings, implemented with groups" class="right" width="220px">
 
 You've seen how to animate multiple style properties at the same time:
 just put all of them into the same `style()` definition.
@@ -686,14 +522,11 @@ For this you can use animation *groups*. In this example, using groups both on
 enter and leave allows for two different timing configurations. Both
 are applied to the same element in parallel, but run independently of each other:
 
+
 这种情况下就可以用动画*组*来解决了。在这个例子中，我们同时在进场和离场时使用了组，以便能让它们使用两种不同的时间线配置。
-它们被同时应用到同一个元素上，但又彼此独立运行：
-
-
-<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" title="hero-list-groups.component.ts (excerpt)" linenums="false">
+它们被同时应用到同一个元素上，但又彼此独立运行：<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" title="hero-list-groups.component.ts (excerpt)" linenums="false">
 
 </code-example>
-
 
 
 One group animates the element transform and width; the other group animates the opacity.
@@ -713,14 +546,9 @@ those callbacks like this:
 
 对于例子中的这个关键帧，我们有一个叫做`@flyInOut`的`trigger`。在那里我们可以挂钩到那些回调，比如：  
 
+<code-example path="animations/src/app/hero-list-multistep.component.ts" region="template" title="hero-list-multistep.component.ts (excerpt)" linenums="false"></code-example>
 
-<code-example path="animations/src/app/hero-list-multistep.component.ts" region="template" title="hero-list-multistep.component.ts (excerpt)" linenums="false">
-
-</code-example>
-
-
-
-The callbacks receive an `AnimationEvent` that contains contains useful properties such as 
+The callbacks receive an `AnimationEvent` that contains useful properties such as
 `fromState`, `toState` and `totalTime`.
 
 这些回调接收一个`AnimationTransitionEvent`参数，它包含一些有用的属性，例如`fromState`，`toState`和`totalTime`。

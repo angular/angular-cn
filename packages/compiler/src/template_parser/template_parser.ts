@@ -7,24 +7,27 @@
  */
 
 import {Inject, InjectionToken, Optional, SchemaMetadata, ɵConsole as Console} from '@angular/core';
-import {CompileDirectiveMetadata, CompileDirectiveSummary, CompilePipeSummary, CompileTemplateSummary, CompileTokenMetadata, CompileTypeMetadata, identifierName} from '../compile_metadata';
+
+import {CompileDirectiveMetadata, CompileDirectiveSummary, CompilePipeSummary, CompileTokenMetadata, CompileTypeMetadata, identifierName} from '../compile_metadata';
+import {CompileReflector} from '../compile_reflector';
 import {CompilerConfig} from '../config';
 import {AST, ASTWithSource, EmptyExpr} from '../expression_parser/ast';
 import {Parser} from '../expression_parser/parser';
 import {I18NHtmlParser} from '../i18n/i18n_html_parser';
-import {Identifiers, createIdentifierToken, identifierToken} from '../identifiers';
+import {Identifiers, createTokenForExternalReference, createTokenForReference} from '../identifiers';
 import {CompilerInjectable} from '../injectable';
 import * as html from '../ml_parser/ast';
 import {ParseTreeResult} from '../ml_parser/html_parser';
 import {expandNodes} from '../ml_parser/icu_ast_expander';
 import {InterpolationConfig} from '../ml_parser/interpolation_config';
-import {splitNsName} from '../ml_parser/tags';
+import {isNgTemplate, splitNsName} from '../ml_parser/tags';
 import {ParseError, ParseErrorLevel, ParseSourceSpan} from '../parse_util';
 import {ProviderElementContext, ProviderViewContext} from '../provider_analyzer';
 import {ElementSchemaRegistry} from '../schema/element_schema_registry';
 import {CssSelector, SelectorMatcher} from '../selector';
 import {isStyleUrlResolvable} from '../style_url_resolver';
 import {syntaxError} from '../util';
+
 import {BindingParser, BoundProperty} from './binding_parser';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, PropertyBindingType, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from './template_ast';
 import {PreparsedElementType, preparseElement} from './template_preparser';
@@ -53,7 +56,6 @@ const IDENT_PROPERTY_IDX = 9;
 // Group 10 = identifier inside ()
 const IDENT_EVENT_IDX = 10;
 
-const NG_TEMPLATE_ELEMENT = 'ng-template';
 // deprecated in 4.x
 const TEMPLATE_ELEMENT = 'template';
 // deprecated in 4.x
@@ -104,9 +106,9 @@ export class TemplateParseResult {
 @CompilerInjectable()
 export class TemplateParser {
   constructor(
-      private _config: CompilerConfig, private _exprParser: Parser,
-      private _schemaRegistry: ElementSchemaRegistry, private _htmlParser: I18NHtmlParser,
-      private _console: Console,
+      private _config: CompilerConfig, private _reflector: CompileReflector,
+      private _exprParser: Parser, private _schemaRegistry: ElementSchemaRegistry,
+      private _htmlParser: I18NHtmlParser, private _console: Console,
       @Optional() @Inject(TEMPLATE_TRANSFORMS) public transforms: TemplateAstVisitor[]) {}
 
   parse(
@@ -127,7 +129,7 @@ export class TemplateParser {
 
     if (errors.length > 0) {
       const errorString = errors.join('\n');
-      throw syntaxError(`Template parse errors:\n${errorString}`);
+      throw syntaxError(`Template parse errors:\n${errorString}`, errors);
     }
 
     return {template: result.templateAst !, pipes: result.usedPipes !};
@@ -140,20 +142,20 @@ export class TemplateParser {
     return this.tryParseHtml(
         this.expandHtml(this._htmlParser !.parse(
             template, templateUrl, true, this.getInterpolationConfig(component))),
-        component, template, directives, pipes, schemas, templateUrl);
+        component, directives, pipes, schemas);
   }
 
   tryParseHtml(
-      htmlAstWithErrors: ParseTreeResult, component: CompileDirectiveMetadata, template: string,
-      directives: CompileDirectiveSummary[], pipes: CompilePipeSummary[], schemas: SchemaMetadata[],
-      templateUrl: string): TemplateParseResult {
+      htmlAstWithErrors: ParseTreeResult, component: CompileDirectiveMetadata,
+      directives: CompileDirectiveSummary[], pipes: CompilePipeSummary[],
+      schemas: SchemaMetadata[]): TemplateParseResult {
     let result: TemplateAst[];
     const errors = htmlAstWithErrors.errors;
     const usedPipes: CompilePipeSummary[] = [];
     if (htmlAstWithErrors.rootNodes.length > 0) {
       const uniqDirectives = removeSummaryDuplicates(directives);
       const uniqPipes = removeSummaryDuplicates(pipes);
-      const providerViewContext = new ProviderViewContext(component);
+      const providerViewContext = new ProviderViewContext(this._reflector, component);
       let interpolationConfig: InterpolationConfig = undefined !;
       if (component.template && component.template.interpolation) {
         interpolationConfig = {
@@ -164,8 +166,8 @@ export class TemplateParser {
       const bindingParser = new BindingParser(
           this._exprParser, interpolationConfig !, this._schemaRegistry, uniqPipes, errors);
       const parseVisitor = new TemplateParseVisitor(
-          this._config, providerViewContext, uniqDirectives, bindingParser, this._schemaRegistry,
-          schemas, errors);
+          this._reflector, this._config, providerViewContext, uniqDirectives, bindingParser,
+          this._schemaRegistry, schemas, errors);
       result = html.visitAll(parseVisitor, htmlAstWithErrors.rootNodes, EMPTY_ELEMENT_CONTEXT);
       errors.push(...providerViewContext.errors);
       usedPipes.push(...bindingParser.getUsedPipes());
@@ -232,10 +234,10 @@ class TemplateParseVisitor implements html.Visitor {
   contentQueryStartId: number;
 
   constructor(
-      private config: CompilerConfig, public providerViewContext: ProviderViewContext,
-      directives: CompileDirectiveSummary[], private _bindingParser: BindingParser,
-      private _schemaRegistry: ElementSchemaRegistry, private _schemas: SchemaMetadata[],
-      private _targetErrors: TemplateParseError[]) {
+      private reflector: CompileReflector, private config: CompilerConfig,
+      public providerViewContext: ProviderViewContext, directives: CompileDirectiveSummary[],
+      private _bindingParser: BindingParser, private _schemaRegistry: ElementSchemaRegistry,
+      private _schemas: SchemaMetadata[], private _targetErrors: TemplateParseError[]) {
     // Note: queries start with id 1 so we can use the number in a Bloom filter!
     this.contentQueryStartId = providerViewContext.component.viewQueries.length + 1;
     directives.forEach((directive, index) => {
@@ -573,7 +575,8 @@ class TemplateParseVisitor implements html.Visitor {
         if ((elOrDirRef.value.length === 0 && directive.isComponent) ||
             (directive.exportAs == elOrDirRef.value)) {
           targetReferences.push(new ReferenceAst(
-              elOrDirRef.name, identifierToken(directive.type), elOrDirRef.sourceSpan));
+              elOrDirRef.name, createTokenForReference(directive.type.reference),
+              elOrDirRef.sourceSpan));
           matchedReferences.add(elOrDirRef.name);
         }
       });
@@ -594,7 +597,7 @@ class TemplateParseVisitor implements html.Visitor {
       } else if (!component) {
         let refToken: CompileTokenMetadata = null !;
         if (isTemplateElement) {
-          refToken = createIdentifierToken(Identifiers.TemplateRef);
+          refToken = createTokenForExternalReference(this.reflector, Identifiers.TemplateRef);
         }
         targetReferences.push(new ReferenceAst(elOrDirRef.name, refToken, elOrDirRef.sourceSpan));
       }
@@ -891,9 +894,8 @@ function isEmptyExpression(ast: AST): boolean {
 function isTemplate(
     el: html.Element, enableLegacyTemplate: boolean,
     reportDeprecation: (m: string, span: ParseSourceSpan) => void): boolean {
+  if (isNgTemplate(el.name)) return true;
   const tagNoNs = splitNsName(el.name)[1];
-  // `<ng-template>` is an angular construct and is lower case
-  if (tagNoNs === NG_TEMPLATE_ELEMENT) return true;
   // `<template>` is HTML and case insensitive
   if (tagNoNs.toLowerCase() === TEMPLATE_ELEMENT) {
     if (enableLegacyTemplate && tagNoNs.toLowerCase() === TEMPLATE_ELEMENT) {

@@ -1,11 +1,14 @@
 /* tslint:disable component-selector */
-import { Component, ElementRef, Input, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+import { CONTENT_URL_PREFIX } from 'app/documents/document.service';
+
+import { boolFromValue, getAttrs, getAttrValue } from 'app/shared/attribute-utils';
 
 const defaultPlnkrImg = 'plunker/placeholder.png';
-const imageBase  = 'assets/images/';
-const liveExampleBase = 'content/live-examples/';
-const zipBase = 'content/zips/';
+const imageBase  = CONTENT_URL_PREFIX + 'images/';
+const liveExampleBase = CONTENT_URL_PREFIX + 'live-examples/';
+const zipBase = CONTENT_URL_PREFIX + 'zips/';
 
 /**
 * Angular.io Live Example Embedded Component
@@ -18,11 +21,12 @@ const zipBase = 'content/zips/';
 *   <live-example
 *      [name="..."]      // name of the example directory
 *      [plnkr="...""]    // name of the plunker file (becomes part of zip file name as well)
-*      [embedded]        // embed the plunker in the doc page, else display in new browser tab (external)
+*      [embedded]        // embed the plunker in the doc page, else display in new browser tab (default)
 *      [img="..."]       // image to display if embedded in doc page
-*      [embedded-style]  // show external plnkr in embedded style
-*      [flat-style]      // show external plnkr in flat (original) style
+*      [embedded-style]  // show plnkr in embedded style (default and on narrow screens)
+*      [flat-style]      // show plnkr in flat (original) style
 *      [noDownload]      // no downloadable zip option
+*      [downloadOnly]    // just the zip
 *      [title="..."]>    // text for live example link and tooltip
 *        text            // higher precedence way to specify text for live example link and tooltip
 *  </live-example>
@@ -30,13 +34,13 @@ const zipBase = 'content/zips/';
 *   <p>Run <live-example>Try the live example</live-example></p>.
 *   // ~/resources/live-examples/{page}/plnkr.html
 *
-*   <p>Run <live-example name="toh-1">this example</live-example></p>.
-*   // ~/resources/live-examples/toh-1/plnkr.html
+*   <p>Run <live-example name="toh-pt1">this example</live-example></p>.
+*   // ~/resources/live-examples/toh-pt1/plnkr.html
 *
-*   // Link to the default plunker in the toh-1 sample
+*   // Link to the default plunker in the toh-pt1 sample
 *   // The title overrides default ("live example") with "Tour of Heroes - Part 1"
-*   <p>Run <live-example name="toh-1" title="Tour of Heroes - Part 1"></live-example></p>.
-*   // ~/resources/live-examples/toh-1/plnkr.html
+*   <p>Run <live-example name="toh-pt1" title="Tour of Heroes - Part 1"></live-example></p>.
+*   // ~/resources/live-examples/toh-pt1/plnkr.html
 *
 *   <p>Run <live-example plnkr="minimal"></live-example></p>.
 *   // ~/resources/live-examples/{page}/minimal.plnkr.html
@@ -56,8 +60,8 @@ const zipBase = 'content/zips/';
 *   // ~/resources/live-examples/{page}/plnkr.html
 *
 *   // Displays within the document page as an embedded style plunker editor
-*   <live-example name="toh-1" embedded plnkr="minimal" img="toh>Tour of Heroes - Part 1</live-example>
-*   // ~/resources/live-examples/toh-1/minimal.eplnkr.html
+*   <live-example name="toh-pt1" embedded plnkr="minimal" img="toh>Tour of Heroes - Part 1</live-example>
+*   // ~/resources/live-examples/toh-pt1/minimal.eplnkr.html
 */
 @Component({
   selector: 'live-example',
@@ -65,61 +69,75 @@ const zipBase = 'content/zips/';
 })
 export class LiveExampleComponent implements OnInit {
 
+  // Will force to embedded-style when viewport width is narrow
+  // "narrow" value was picked based on phone dimensions from http://screensiz.es/phone
+  readonly narrowWidth = 1000;
+
+  attrs: any;
   enableDownload = true;
+  exampleDir: string;
   isEmbedded = false;
+  mode = 'disabled';
   plnkr: string;
+  plnkrName: string;
   plnkrImg: string;
   showEmbedded = false;
   title: string;
   zip: string;
+  zipName: string;
 
-  constructor(private elementRef: ElementRef, location: Location ) {
-    const attrs = this.getAttrs();
+  constructor(
+    private elementRef: ElementRef,
+    location: Location ) {
 
+    const attrs = this.attrs = getAttrs(this.elementRef);
     let exampleDir = attrs.name;
     if (!exampleDir) {
       // take last segment, excluding hash fragment and query params
       exampleDir = location.path(false).match(/[^\/?\#]+(?=\/?(?:$|\#|\?))/)[0];
     }
-    exampleDir = exampleDir.trim();
+    this.exampleDir = exampleDir.trim();
+    this.zipName = exampleDir.indexOf('/') === -1 ? this.exampleDir : exampleDir.split('/')[0];
+    this.plnkrName = attrs.plnkr ? attrs.plnkr.trim() + '.' : '';
+    this.zip = `${zipBase}${exampleDir}/${this.plnkrName}${this.zipName}.zip`;
 
-    let plnkrStyle = 'eplnkr';
+    this.enableDownload = !boolFromValue(getAttrValue(attrs, 'nodownload'));
 
-    this.isEmbedded = boolFromAtty(attrs.embedded);
-    if (!this.isEmbedded) {
-      // Not embedded in doc page; determine if is embedded- or flat-style in another browser tab.
-      // External plunker is embedded style by default.
-      // Make flat style with `flat-style` or `embedded-style="false`
-      // Must support aliases
-      const flatStyle = getAttrValue(['flat-style', 'flatstyle', 'flatStyle']);
-      const isFlatStyle = boolFromAtty(flatStyle);
-      const embeddedStyle = getAttrValue(['embedded-style', 'embeddedstyle', 'embeddedStyle']);
-      const isEmbeddedStyle = boolFromAtty(embeddedStyle, !isFlatStyle);
-
-      plnkrStyle = isEmbeddedStyle ? 'eplnkr' : 'plnkr';
-    }
-
-    const plnkrName = attrs.plnkr ? attrs.plnkr.trim() + '.' : '';
-
-    this.plnkr = `${liveExampleBase}${exampleDir}/${plnkrName}${plnkrStyle}.html`;
-    this.zip = `${zipBase}${exampleDir}/${plnkrName}${exampleDir}.zip`;
-
-    const noDownload = getAttrValue(['noDownload', 'nodownload']); // noDownload aliases
-    this.enableDownload = !boolFromAtty(noDownload);
     this.plnkrImg = imageBase + (attrs.img || defaultPlnkrImg);
 
-    this.title = attrs.title || '';
-
-    function getAttrValue(atty: string | string[]) {
-      return attrs[typeof atty === 'string' ? atty : atty.find(a => attrs[a] !== undefined)];
+    if (boolFromValue(getAttrValue(attrs, 'downloadonly'))) {
+      this.mode = 'downloadOnly';
     }
   }
 
-  getAttrs(): any {
-    const attrs = this.elementRef.nativeElement.attributes;
-    const attrMap = {};
-    Object.keys(attrs).forEach(key => attrMap[attrs[key].name] = attrs[key].value);
-    return attrMap;
+  calcPlnkrLink(width: number) {
+
+    const attrs = this.attrs;
+    const exampleDir = this.exampleDir;
+
+    let plnkrStyle = 'eplnkr'; // embedded style by default
+    this.mode = 'default';     // display in another browser tab by default
+
+    this.isEmbedded = boolFromValue(attrs.embedded);
+
+    if (this.isEmbedded) {
+      this.mode = 'embedded'; // display embedded in the doc
+    } else {
+      // Not embedded in doc page; determine if is embedded- or flat-style in another browser tab.
+      // Embedded style if on tiny screen (reg. plunker no good on narrow screen)
+      // If wide enough, choose style based on style attributes
+      if (width > this.narrowWidth) {
+        // Make flat style with `flat-style` or `embedded-style="false`; support atty aliases
+        const flatStyle = getAttrValue(attrs, ['flat-style', 'flatstyle']);
+        const isFlatStyle = boolFromValue(flatStyle);
+
+        const embeddedStyle = getAttrValue(attrs, ['embedded-style', 'embeddedstyle']);
+        const isEmbeddedStyle = boolFromValue(embeddedStyle, !isFlatStyle);
+        plnkrStyle = isEmbeddedStyle ? 'eplnkr' : 'plnkr';
+      }
+    }
+
+    this.plnkr = `${liveExampleBase}${exampleDir}/${this.plnkrName}${plnkrStyle}.html`;
   }
 
   ngOnInit() {
@@ -127,15 +145,18 @@ export class LiveExampleComponent implements OnInit {
     // It is the original innerHTML of the host element.
     // Angular will sanitize this title when displayed so should be plain text.
     const title = this.elementRef.nativeElement.liveExampleContent;
-    this.title = (title || this.title || 'live example').trim();
+    this.title = (title || this.attrs.title || 'live example').trim();
+    this.onResize(window.innerWidth);
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize(width) {
+    if (this.mode !== 'downloadOnly') {
+      this.calcPlnkrLink(width);
+    }
   }
 
   toggleEmbedded () { this.showEmbedded = !this.showEmbedded; }
-}
-
-function boolFromAtty(atty: string , def: boolean = false) {
-  // tslint:disable-next-line:triple-equals
-  return atty == undefined ? def :  atty.trim() !== 'false';
 }
 
 ///// EmbeddedPlunkerComponent ///

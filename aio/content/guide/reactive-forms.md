@@ -1,11 +1,6 @@
-@title
-响应式表单
+# Reactive Forms
 
-@intro
-使用FormBuilder、组合数组创建响应式表单。
-
-@description
-
+# 响应式表单
 
 _Reactive forms_ is an Angular technique for creating forms in a _reactive_ style.
 This guide explains reactive forms as you follow the steps to build a "Hero Detail Editor" form.
@@ -15,78 +10,6 @@ This guide explains reactive forms as you follow the steps to build a "Hero Deta
 
 
 {@a toc}
-
-
-## Contents
-
-## 目录
-
-* [Introduction to reactive forms](guide/reactive-forms#intro)
-
-  [响应式表单简介](guide/reactive-forms#intro)
-
-* [Setup](guide/reactive-forms#setup)
-
-  [准备工作](guide/reactive-forms#setup)
-
-* [Create a data model](guide/reactive-forms#data-model)
-
-  [创建数据模型](guide/reactive-forms#data-model)
-
-* [Create a _reactive forms_ component](guide/reactive-forms#create-component)
-
-  [创建*响应式表单*组件](guide/reactive-forms#create-component)
-
-* [Create its template file](guide/reactive-forms#create-template)
-
-  [创建模板文件](guide/reactive-forms#create-template)
-
-* [Import the _ReactiveFormsModule_](guide/reactive-forms#import)
-
-  [导入`ReactiveFormsModule`](guide/reactive-forms#import)
-
-* [Display the _HeroDetailComponent_](guide/reactive-forms#update)
-
-  [显示`HeroDetailComponent`](guide/reactive-forms#update)
-
-* [Add a FormGroup](guide/reactive-forms#formgroup)
-
-  [添加FormGroup](guide/reactive-forms#formgroup)
-
-* [Taking a look at the form model](guide/reactive-forms#json)
-
-  [表单模型概览](guide/reactive-forms#json)
-
-* [Introduction to _FormBuilder_](guide/reactive-forms#formbuilder)
-
-  [`FormBuilder`简介](guide/reactive-forms#formbuilder)
-
-* [Validators.required](guide/reactive-forms#validators)
-
-* [Nested FormGroups](guide/reactive-forms#grouping)
-
-  [嵌套的FormGroup](guide/reactive-forms#grouping)
-
-* [Inspect _FormControl_ properties](guide/reactive-forms#properties)
-
-  [`FormControl`的属性](guide/reactive-forms#properties)
-
-* [Set form model data using _setValue_ and _patchValue_](guide/reactive-forms#set-data)
-
-  [用`setValue`和`patchValue`设置表单的模型数据](guide/reactive-forms#set-data)
-
-* [Use _FormArray_ to present an array of _FormGroups_](guide/reactive-forms#form-array)
-
-  [用`FormArray`来表示`FormGroup`的数组](guide/reactive-forms#form-array)
-
-* [Observe control changes](guide/reactive-forms#observe-control)
-
-  [观察控件的变化](guide/reactive-forms#observe-control)
-
-* [Save form data](guide/reactive-forms#save)
-
-  [保存表单数据](guide/reactive-forms#save)
-
 
 Try the <live-example plnkr="final" title="Reactive Forms (final) in Plunker">Reactive Forms live-example</live-example>.
 
@@ -122,11 +45,11 @@ They even have their own modules: the `ReactiveFormsModule` and the `FormsModule
 
 ### *响应式*表单
 
-Angular _reactive_ forms facilitate a _reactive style_ of programming 
+Angular _reactive_ forms facilitate a _reactive style_ of programming
 that favors explicit management of the data flowing between
-a non-UI _data model_ (typically retrieved from a server) and a 
-UI-oriented _form model_ that retains the states 
-and values of the HTML controls on screen. Reactive forms offer the ease 
+a non-UI _data model_ (typically retrieved from a server) and a
+UI-oriented _form model_ that retains the states
+and values of the HTML controls on screen. Reactive forms offer the ease
 of using reactive patterns, testing, and validation.
 
 Angular的*响应式*表单能让实现*响应式编程风格*更容易，这种编程风格更倾向于在非UI的*数据模型*（通常接收自服务器）之间显式的管理数据流，
@@ -134,42 +57,42 @@ Angular的*响应式*表单能让实现*响应式编程风格*更容易，这种
 响应式表单可以让使用响应式编程模式、测试和校验变得更容易。
 
 With _reactive_ forms, you create a tree of Angular form control objects
-in the component class and bind them to native form control elements in the 
-component template, using techniques described in this guide. 
+in the component class and bind them to native form control elements in the
+component template, using techniques described in this guide.
 
 使用*响应式*表单，我们可以在组件中创建表单控件的对象树，并使用本章中传授的技巧把它们绑定到组件模板中的原生表单控件元素上。
 
-You create and manipulate form control objects directly in the 
-component class. As the component class has immediate access to both the data 
-model and the form control structure, you can push data model values into 
-the form controls and pull user-changed values back out. The component can 
+You create and manipulate form control objects directly in the
+component class. As the component class has immediate access to both the data
+model and the form control structure, you can push data model values into
+the form controls and pull user-changed values back out. The component can
 observe changes in form control state and react to those changes.
 
 我们可以在组件类中直接创建和维护表单控件对象。由于组件类可以同时访问数据模型和表单控件结构，
 因此我们可以把表单模型值的变化推送到表单控件中，并把变化后的值拉取回来。
 组件可以监听表单控件状态的变化，并对此做出响应。
 
-One advantage of working with form control objects directly is that value and validity updates 
-are [always synchronous and under your control](guide/reactive-forms#async-vs-sync "Async vs sync"). 
+One advantage of working with form control objects directly is that value and validity updates
+are [always synchronous and under your control](guide/reactive-forms#async-vs-sync "Async vs sync").
 You won't encounter the timing issues that sometimes plague a template-driven form
 and reactive forms can be easier to unit test.
 
 直接使用表单控件对象的优点之一是值和有效性状态的更新[总是同步的，并且在你的控制之下](guide/reactive-forms#async-vs-sync "Async vs sync")。
 我们不会遇到时序问题，这个问题有时在模板驱动表单中会成为灾难。而且响应式表单更容易进行单元测试。
 
-In keeping with the reactive paradigm, the component 
+In keeping with the reactive paradigm, the component
 preserves the immutability of the _data model_,
 treating it as a pure source of original values.
-Rather than update the data model directly, 
-the component extracts user changes and forwards them to an external component or service, 
-which does something with them (such as saving them) 
-and returns a new _data model_ to the component that reflects the updated model state. 
+Rather than update the data model directly,
+the component extracts user changes and forwards them to an external component or service,
+which does something with them (such as saving them)
+and returns a new _data model_ to the component that reflects the updated model state.
 
 在响应式编程范式中，组件会负责维护*数据模型*的不可变性，把模型当做纯粹的原始数据源。
 组件不会直接更新数据模型，而是把用户的修改提取出来，把它们转发给外部的组件或服务，外部程序才会使用这些进行处理（比如保存它们），
 并且给组件返回一个新的*数据模型*，以反映模型状态的变化。
   
-Using reactive form directives does not require you to follow all reactive priniciples, 
+Using reactive form directives does not require you to follow all reactive priniciples,
 but it does facilitate the reactive programming approach should you choose to use it.
 
 使用响应式表单的指令，并不要求你遵循所有的响应式编程原则，但它能让你更容易使用响应式编程方法，从而更愿意使用它。
@@ -182,14 +105,14 @@ _Template-driven_ forms, introduced in the [Template guide](guide/forms), take a
 
 在[模板](guide/forms)一章我们介绍过的*模板驱动*表单，是一种完全不同的方式。
 
-You place HTML form controls (such as `<input>` and `<select>`) in the component template and 
-bind them to _data model_ properties in the component, using directives 
+You place HTML form controls (such as `<input>` and `<select>`) in the component template and
+bind them to _data model_ properties in the component, using directives
 like `ngModel`.
 
 我们把HTML表单控件（比如`<input>`和`<select>`）放进组件模板中，并用`ngModel`等指令把它们绑定到组件中*数据模型*的属性上。
 
-You don't create Angular form control objects. Angular directives 
-create them for you, using the information in your data bindings. 
+You don't create Angular form control objects. Angular directives
+create them for you, using the information in your data bindings.
 You don't push and pull data values. Angular handles that for you with `ngModel`.
 Angular updates the mutable _data model_ with user changes as they happen.
 
@@ -201,9 +124,9 @@ For this reason, the `ngModel` directive is not part of the ReactiveFormsModule.
 
 因此，`ngModel`并不是`ReactiveFormsModule`模块的一部分。
 
-While this means less code in the component class, 
+While this means less code in the component class,
 [template-driven forms are asynchronous](guide/reactive-forms#async-vs-sync "Async vs sync")
-which may complicate development in more advanced scenarios. 
+which may complicate development in more advanced scenarios.
 
 虽然这意味着组件中的代码更少，但是[模板驱动表单是异步工作的](guide/reactive-forms#async-vs-sync "Async vs sync")，这可能在更高级的场景中让开发复杂化。
 
@@ -219,15 +142,15 @@ Reactive forms are synchronous. Template-driven forms are asynchronous. It's a d
 
 响应式表单是同步的。模板驱动表单是异步的。这个不同点很重要。
 
-In reactive forms, you create the entire form control tree in code. 
-You can immediately update a value or drill down through the descendents of the parent form 
+In reactive forms, you create the entire form control tree in code.
+You can immediately update a value or drill down through the descendents of the parent form
 because all controls are always available.
 
 使用响应式表单，我们会在代码中创建整个表单控件树。
 我们可以立即更新一个值或者深入到表单中的任意节点，因为所有的控件都始终是可用的。
 
 Template-driven forms delegate creation of their form controls to directives.
-To avoid "_changed after checked_" errors, 
+To avoid "_changed after checked_" errors,
 these directives take more than one cycle to build the entire control tree.
 That means you must wait a tick before manipulating any of the controls
 from within the component class.
@@ -236,7 +159,7 @@ from within the component class.
 为了消除“检查完后又变化了”的错误，这些指令需要消耗一个以上的变更检测周期来构建整个控件树。
 这意味着在从组件类中操纵任何控件之前，我们都必须先等待一个节拍。
 
-For example, if you inject the form control with a `@ViewChild(NgForm)` query and examine it in the 
+For example, if you inject the form control with a `@ViewChild(NgForm)` query and examine it in the
 [`ngAfterViewInit` lifecycle hook](guide/lifecycle-hooks#afterview "Lifecycle hooks guide: AfterView"),
 you'll discover that it has no children.
 You must wait a tick, using `setTimeout`, before you can
@@ -245,21 +168,21 @@ extract a value from a control, test its validity, or set it to a new value.
 比如，如果我们用`@ViewChild(NgForm)`查询来注入表单控件，并在[生命周期钩子`ngAfterViewInit`](guide/lifecycle-hooks#afterview "Lifecycle hooks guide: AfterView")中检查它，就会发现它没有子控件。
 我们必须使用`setTimeout`等待一个节拍才能从控件中提取值、测试有效性，或把它设置为新值。
 
-The asynchrony of template-driven forms also complicates unit testing. 
-You must wrap your test block in `async()` or `fakeAsync()` to 
-avoid looking for values in the form that aren't there yet. 
+The asynchrony of template-driven forms also complicates unit testing.
+You must wrap your test block in `async()` or `fakeAsync()` to
+avoid looking for values in the form that aren't there yet.
 With reactive forms, everything is available when you expect it to be.
 
 模板驱动表单的异步性让单元测试也变得复杂化了。
 我们必须把测试代码包裹在`async()`或`fakeAsync()`中来解决要查阅的值尚不存在的情况。
 使用响应式表单，在所期望的时机一切都是可用的。
 
-### Which is better, reactive or template-driven? 
+### Which is better, reactive or template-driven?
 
 ### 哪一个更好？响应式还是模板驱动？
 
 Neither is "better".
-They're two different architectural paradigms, 
+They're two different architectural paradigms,
 with their own strengths and weaknesses.
 Choose the approach that works best for you.
 You may decide to use both in the same application.
@@ -268,8 +191,8 @@ You may decide to use both in the same application.
 它们是两种架构范式，各有优缺点。
 请自行选择更合适的方法，甚至可以在同一个应用中同时使用它们。
 
-The balance of this _reactive forms_ guide explores the _reactive_ paradigm and 
-concentrates exclusively on reactive forms techniques. 
+The balance of this _reactive forms_ guide explores the _reactive_ paradigm and
+concentrates exclusively on reactive forms techniques.
 For information on _template-driven forms_, see the [_Forms_](guide/forms) guide.
 
 在这章*响应式表单*中，我们只专注于*响应式*范式以及响应式表单技术的详情。
@@ -288,7 +211,7 @@ Then you'll learn about the [Angular form classes](guide/reactive-forms#essentia
 
 ## 准备工作
 
-Follow the steps in the [_Setup_ guide](guide/setup "Setup guide") 
+Follow the steps in the [_Setup_ guide](guide/setup "Setup guide")
 for creating a new project folder (perhaps called `reactive-forms`)
 based on the _QuickStart seed_.
 
@@ -318,9 +241,9 @@ Create a new `data-model.ts` file in the `app` directory and copy the content be
 
 
 
-The file exports two classes and two constants. The `Address` 
-and `Hero` classes define the application _data model_. 
-The `heroes` and `states` constants supply the test data. 
+The file exports two classes and two constants. The `Address`
+and `Hero` classes define the application _data model_.
+The `heroes` and `states` constants supply the test data.
 
 这个文件导出两个类和两个常量。`Address`和`Hero`类定义应用的*数据模型*。
 `heroes`和`states`常量提供测试数据。
@@ -334,7 +257,7 @@ The `heroes` and `states` constants supply the test data.
 
 ## 创建*响应式表单*组件
 
-Make a new file called 
+Make a new file called
 `hero-detail.component.ts` in the `app` directory and import these symbols:
 
 在`app`目录下创建一个名叫`hero-detail.component.ts`的新文件，并且导入下列符号：
@@ -357,8 +280,8 @@ Now enter the `@Component` decorator that specifies the `HeroDetailComponent` me
 
 
 
-Next, create an exported `HeroDetailComponent` class with a `FormControl`. 
-`FormControl` is a directive that allows you to create and manage 
+Next, create an exported `HeroDetailComponent` class with a `FormControl`.
+`FormControl` is a directive that allows you to create and manage
 a `FormControl` instance directly.
 
 
@@ -373,20 +296,20 @@ a `FormControl` instance directly.
 
 
 
-Here you are creating a `FormControl` called `name`. 
-It will be bound in the template to an HTML `input` box for the hero name. 
+Here you are creating a `FormControl` called `name`.
+It will be bound in the template to an HTML `input` box for the hero name.
 
 这里我们创建了一个名叫`name`的`FormControl`。
 它将会绑定到模板中的一个`input`框，表示英雄的名字。
 
-A `FormControl` constructor accepts three, optional arguments: 
+A `FormControl` constructor accepts three, optional arguments:
 the initial data value, an array of validators, and an array of async validators.
 
 `FormControl`构造函数接收三个可选参数：
 初始值、验证器数组和异步验证器数组。
 
 This simple control doesn't have data or validators.
-In real apps, most form controls have both. 
+In real apps, most form controls have both.
 
 最简单的控件并不需要数据或验证器，但是在实际应用中，大部分表单控件都会同时具备它们。
 
@@ -396,7 +319,7 @@ In real apps, most form controls have both.
 
 
 This guide touches only briefly on `Validators`. For an in-depth look at them,
-read the [Form Validation](cookbook/form-validation) cookbook.
+read the [Form Validation](guide/form-validation) guide.
 
 本章中只会接触`Validators`中的一点点，要想更深入的了解它们，请阅读烹饪宝典中的[表单验证](cookbook/form-validation)一章。
 
@@ -424,9 +347,9 @@ Now create the component's template, `src/app/hero-detail.component.html`, with 
 
 
 
-To let Angular know that this is the input that you want to 
-associate to the `name` `FormControl` in the class, 
-you need `[formControl]="name"` in the template on the `<input>`. 
+To let Angular know that this is the input that you want to
+associate to the `name` `FormControl` in the class,
+you need `[formControl]="name"` in the template on the `<input>`.
 
 要让Angular知道我们希望把这个输入框关联到类中的`FormControl`型属性`name`，我们需要在模板中的`<input>`上加一句`[formControl]="name"`。
 
@@ -436,8 +359,8 @@ you need `[formControl]="name"` in the template on the `<input>`.
 
 
 
-Disregard the `form-control` _CSS_ class. It belongs to the 
-<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>,
+Disregard the `form-control` _CSS_ class. It belongs to the
+<a href="http://getbootstrap.com/" title="Bootstrap CSS">Bootstrap CSS library</a>,
 not Angular.
 It _styles_ the form but in no way impacts the logic of the form.
 
@@ -456,7 +379,7 @@ It _styles_ the form but in no way impacts the logic of the form.
 
 ## 导入`ReactiveFormsModule`
 
-The HeroDetailComponent template uses `formControlName` 
+The HeroDetailComponent template uses `formControlName`
 directive from the `ReactiveFormsModule`.
 
 `HeroDetailComponent`的模板中使用了来自`ReactiveFormsModule`的`formControlName`。
@@ -466,7 +389,7 @@ Therefore, do the following three things in `app.module.ts`:
 
 在这个例子中，我们在`AppModule`中声明了`HeroDetailComponent`。因此现在`app.module.ts`中做了三件事：
 
-1. Use a JavaScript `import` statement to access 
+1. Use a JavaScript `import` statement to access
 the `ReactiveFormsModule` and the `HeroDetailComponent`.
 
   使用JavaScript的`import`语句访问`ReactiveFormsModule`和`HeroDetailComponent`。
@@ -516,22 +439,22 @@ It may be helpful to read a brief description of the core form classes.
 
 阅读一下这些核心表单类的简短描述也许会有用。
 
-* [_AbstractControl_](api/forms/index/AbstractControl-class "API Reference: AbstractControl")
-is the abstract base class for the three concrete form control classes: 
+* [_AbstractControl_](api/forms/AbstractControl "API Reference: AbstractControl")
+is the abstract base class for the three concrete form control classes:
 `FormControl`, `FormGroup`, and `FormArray`.
 It provides their common behaviors and properties, some of which are _observable_.
 
   [`AbstractControl`](api/forms/index/AbstractControl-class "API Reference: AbstractControl")是三个具体表单类的抽象基类。
   并为它们提供了一些共同的行为和属性，其中有些是*可观察对象（Observable）*。
 
-* [_FormControl_](api/forms/index/FormControl-class "API Reference: FormControl") 
+* [_FormControl_](api/forms/FormControl "API Reference: FormControl")
 tracks the value and validity status of an _individual_ form control.
 It corresponds to an HTML form control such as an input box or selector.
 
   [_FormControl_](api/forms/index/FormControl-class "API Reference: FormControl")
   用于跟踪一个*单独的*表单控件的值和有效性状态。它对应于一个HTML表单控件，比如输入框和下拉框。
 
-* [_FormGroup_](api/forms/index/FormGroup-class "API Reference: FormGroup")
+* [_FormGroup_](api/forms/FormGroup "API Reference: FormGroup")
 tracks the value and validity state of a _group_ of `AbstractControl` instances.
 The group's properties include its child controls.
 The top-level form in your component is a `FormGroup`.
@@ -541,7 +464,7 @@ The top-level form in your component is a `FormGroup`.
   该组的属性中包含了它的子控件。
   组件中的顶级表单就是一个`FormGroup`。
 
-* [_FormArray_](api/forms/index/FormArray-class "API Reference: FormArray")
+* [_FormArray_](api/forms/FormArray "API Reference: FormArray")
 tracks the value and validity state of a numerically indexed _array_ of `AbstractControl` instances.
 
   [_FormArray_](api/forms/index/FormArray-class "API Reference: FormArray")用于跟踪`AbstractControl`实例组成的有序数组的值和有效性状态。
@@ -568,13 +491,13 @@ Add the `bootstrap` _CSS stylesheet_ to the head of `index.html`:
 
 
 
-Now that everything is wired up, the browser should display something like this: 
+Now that everything is wired up, the browser should display something like this:
 
 这些做好之后，浏览器中应该显示成这样：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/just-formcontrol.png" width="400px" alt="Single FormControl"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/just-formcontrol.png" alt="Single FormControl">
 </figure>
 
 
@@ -586,9 +509,9 @@ Now that everything is wired up, the browser should display something like this:
 
 ## 添加FormGroup
 
-Usually, if you have multiple *FormControls*, you'll want to register 
+Usually, if you have multiple *FormControls*, you'll want to register
 them within a parent `FormGroup`.
-This is simple to do. To add a `FormGroup`, add it to the imports section 
+This is simple to do. To add a `FormGroup`, add it to the imports section
 of `hero-detail.component.ts`:
 
 通常，如果有多个*FormControl*，我们会希望把它们注册进一个父`FormGroup`中。这很容易。只要把它加入`hero-detail.component.ts`的`import`区就可以了。
@@ -611,7 +534,7 @@ In the class, wrap the `FormControl` in a `FormGroup` called `heroForm` as follo
 
 
 
-Now that you've made changes in the class, they need to be reflected in the 
+Now that you've made changes in the class, they need to be reflected in the
 template. Update `hero-detail.component.html` by replacing it with the following.
 
 现在我们改完了这个类，该把它映射到模板中了。把`hero-detail.component.html`改成这样：
@@ -623,31 +546,31 @@ template. Update `hero-detail.component.html` by replacing it with the following
 
 
 
-Notice that now the single input is in a `form` element. The `novalidate` 
-attribute in the `<form>` element prevents the browser 
-from attempting native HTML validations. 
+Notice that now the single input is in a `form` element. The `novalidate`
+attribute in the `<form>` element prevents the browser
+from attempting native HTML validations.
 
 注意，现在单行输入框位于一个`form`元素中。`<form>`元素上的`novalidate`属性会阻止浏览器使用原生HTML中的表单验证器。
 
-`formGroup` is a reactive form directive that takes an existing 
-`FormGroup` instance and associates it with an HTML element. 
-In this case, it associates the `FormGroup` you saved as 
+`formGroup` is a reactive form directive that takes an existing
+`FormGroup` instance and associates it with an HTML element.
+In this case, it associates the `FormGroup` you saved as
 `heroForm` with the form element.
 
 `formGroup`是一个响应式表单的指令，它拿到一个现有`FormGroup`实例，并把它关联到一个HTML元素上。
 这种情况下，它关联到的是`form`元素上的`FormGroup`实例`heroForm`。
 
-Because the class now has a `FormGroup`, you must update the template 
-syntax for associating the input with the corresponding 
-`FormControl` in the component class. 
-Without a parent `FormGroup`, 
-`[formControl]="name"` worked earlier because that directive 
-can stand alone, that is, it works without being in a `FormGroup`. 
-With a parent `FormGroup`, the `name` input needs the syntax 
-`formControlName=name` in order to be associated 
-with the correct `FormControl` 
-in the class. This syntax tells Angular to look for the parent 
-`FormGroup`, in this case `heroForm`, and then _inside_ that group 
+Because the class now has a `FormGroup`, you must update the template
+syntax for associating the input with the corresponding
+`FormControl` in the component class.
+Without a parent `FormGroup`,
+`[formControl]="name"` worked earlier because that directive
+can stand alone, that is, it works without being in a `FormGroup`.
+With a parent `FormGroup`, the `name` input needs the syntax
+`formControlName=name` in order to be associated
+with the correct `FormControl`
+in the class. This syntax tells Angular to look for the parent
+`FormGroup`, in this case `heroForm`, and then _inside_ that group
 to look for a `FormControl` called `name`.
 
 由于现在有了一个`FormGroup`，因此我们必须修改模板语法来把输入框关联到组件类中对应的`FormControl`上。
@@ -660,10 +583,10 @@ to look for a `FormControl` called `name`.
 
 
 
-Disregard the `form-group` _CSS_ class. It belongs to the 
-<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>,
+Disregard the `form-group` _CSS_ class. It belongs to the
+<a href="http://getbootstrap.com/" title="Bootstrap CSS">Bootstrap CSS library</a>,
 not Angular.
-Like the `form-control` class, it _styles_ the form 
+Like the `form-control` class, it _styles_ the form
 but in no way impacts its logic.
 
 请无视*CSS*类`form-group`，它属于<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>而不是Angular。
@@ -674,8 +597,8 @@ but in no way impacts its logic.
 
 
 
-The form looks great. But does it work? 
-When the user enters a name, where does the value go? 
+The form looks great. But does it work?
+When the user enters a name, where does the value go?
 
 表单看起来很棒，但是它能用吗？
 当用户输入名字时，它的值去了哪里？
@@ -689,7 +612,7 @@ When the user enters a name, where does the value go?
 ## 表单模型概览
 
 The value goes into the **_form model_** that backs the group's `FormControls`.
-To see the form model, add the following line after the 
+To see the form model, add the following line after the
 closing `form` tag in the `hero-detail.component.html`:
 
 这个值进入了幕后**表单模型**中的`FormControl`构成的表单组。
@@ -709,13 +632,13 @@ Piping it through the `JsonPipe` renders the model as JSON in the browser:
 用`JsonPipe`管道把这个模型以JSON格式渲染到浏览器中。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/json-output.png" width="400px" alt="JSON output"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/json-output.png" alt="JSON output">
 </figure>
 
 
 
-The initial `name` property value is the empty string. 
+The initial `name` property value is the empty string.
 Type into the _name_ input box and watch the keystokes appear in the JSON.
 
 
@@ -724,11 +647,11 @@ Type into the _name_ input box and watch the keystokes appear in the JSON.
 
 
 
-Great! You have the basics of a form. 
+Great! You have the basics of a form.
 
 真棒！我们有了一个基本版表单。
 
-In real life apps, forms get big fast. 
+In real life apps, forms get big fast.
 `FormBuilder` makes form development and maintenance easier.
 
 
@@ -744,8 +667,8 @@ In real life apps, forms get big fast.
 
 ## `FormBuilder`简介
 
-The `FormBuilder` class helps reduce repetition and 
-clutter by handling details of control creation for you. 
+The `FormBuilder` class helps reduce repetition and
+clutter by handling details of control creation for you.
 
 `FormBuilder`类能通过处理控件创建的细节问题来帮我们减少重复劳动。
 
@@ -793,7 +716,7 @@ The revised `HeroDetailComponent` looks like this:
 
 
 `FormBuilder.group` is a factory method that creates a `FormGroup`. &nbsp;
-`FormBuilder.group` takes an object whose keys and values are `FormControl` names and their definitions. 
+`FormBuilder.group` takes an object whose keys and values are `FormControl` names and their definitions.
 In this example, the `name` control is defined by its initial data value, an empty string.
 
 `FormBuilder.group`是一个用来创建`FormGroup`的工厂方法，它接受一个对象，对象的键和值分别是`FormControl`的名字和它的定义。
@@ -811,8 +734,8 @@ It beats writing an equivalent series of `new FormControl(...)` statements.
 
 ### Validators.required
 
-Though this guide doesn't go deeply into validations, here is one example that 
-demonstrates the simplicity of using `Validators.required` in reactive forms. 
+Though this guide doesn't go deeply into validations, here is one example that
+demonstrates the simplicity of using `Validators.required` in reactive forms.
 
 虽然本章不会深入讲解验证机制，但还是有一个例子来示范如何简单的在响应式表单中使用`Validators.required`。
 
@@ -827,8 +750,8 @@ First, import the `Validators` symbol.
 
 
 
-To make the `name` `FormControl` required, replace the `name` 
-property in the `FormGroup` with an array. 
+To make the `name` `FormControl` required, replace the `name`
+property in the `FormGroup` with an array.
 The first item is the initial value for `name`;
 the second is the required validator, `Validators.required`.
 
@@ -846,7 +769,7 @@ the second is the required validator, `Validators.required`.
 
 
 Reactive validators are simple, composable functions.
-Configuring validation is harder in template-driven forms where you must wrap validators in a directive. 
+Configuring validation is harder in template-driven forms where you must wrap validators in a directive.
 
 响应式验证器是一些简单、可组合的函数。
 在模板驱动表单中配置验证器有些困难，因为我们必须把验证器包装进指令中。
@@ -872,14 +795,14 @@ The browser displays the following:
 浏览器会显示下列内容：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/validators-json-output.png" width="400px" alt="Single FormControl"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/validators-json-output.png" alt="Single FormControl">
 </figure>
 
 
 
 `Validators.required` is working. The status is `INVALID` because the input box has no value.
-Type into the input box to see the status change from `INVALID` to `VALID`. 
+Type into the input box to see the status change from `INVALID` to `VALID`.
 
 `Validators.required`生效了，但状态还是`INVALID`，因为输入框中还没有值。
 在输入框中输入，就会看到这个状态从`INVALID`变成了`VALID`。
@@ -889,13 +812,13 @@ In a real app, you'd replace the diagnosic message with a user-friendly experien
 在真实的应用中，我们要把这些诊断信息替换成用户友好的信息。
 
 
-Using `Validators.required` is optional for the rest of the guide. 
+Using `Validators.required` is optional for the rest of the guide.
 It remains in each of the following examples with the same configuration.
 
 在本章的其余部分，`Validators.required`是可有可无的，但在每个与此范例配置相同的范例中都会保留它。
 
 For more on validating Angular forms, see the
-[Form Validation](cookbook/form-validation) guide. 
+[Form Validation](guide/form-validation) guide.
 
 要了解Angular表单验证器的更多知识，参见[表单验证器](cookbook/form-validation)一章。
 
@@ -904,12 +827,12 @@ For more on validating Angular forms, see the
 
 ### 更多的表单控件（FormControl）
 
-A hero has more than a name. 
-A hero has an address, a super power and sometimes a sidekick too. 
+A hero has more than a name.
+A hero has an address, a super power and sometimes a sidekick too.
 
 每个英雄可以有多个名字，还有一个住址、一项超能力，有时还会有一个副手。
 
-The address has a state property. The user will select a state with a `<select>` box and you'll populate 
+The address has a state property. The user will select a state with a `<select>` box and you'll populate
 the `<option>` elements with states. So import `states` from `data-model.ts`.
 
 住址中有一个所在州属性，用户将会从`<select>`框中选择一个州，我们会用`<option>`元素渲染各个州。我们从`data-model.ts`中导入`states`（州列表）。
@@ -921,7 +844,7 @@ the `<option>` elements with states. So import `states` from `data-model.ts`.
 
 
 
-Declare the `states` property and add some address `FormControls` to the `heroForm` as follows. 
+Declare the `states` property and add some address `FormControls` to the `heroForm` as follows.
 
 声明`states`属性并往`heroForm`中添加一些表示住址的`FormControl`，代码如下：
 
@@ -932,7 +855,7 @@ Declare the `states` property and add some address `FormControls` to the `heroFo
 
 
 
-Then add corresponding markup in `hero-detail.component.html` 
+Then add corresponding markup in `hero-detail.component.html`
 within the `form` element.
 
 然后在`hero-detail.component.html`文件中把对应的脚本添加到`form`元素中。
@@ -948,11 +871,11 @@ within the `form` element.
 
 
 
-*Reminder*: Ignore the many mentions of `form-group`, 
+*Reminder*: Ignore the many mentions of `form-group`,
 `form-control`, `center-block`, and `checkbox` in this markup.
 Those are _bootstrap_ CSS classes that Angular itself ignores.
 Pay attention to the `formGroupName` and `formControlName` attributes.
-They are the Angular directives that bind the HTML controls to the 
+They are the Angular directives that bind the HTML controls to the
 Angular `FormGroup` and `FormControl` properties in the component class.
 
 *注意*：不用管这些脚本中提到的`form-group`、`form-control`、`center-block`和`checkbox`等。
@@ -965,12 +888,12 @@ Angular `FormGroup` and `FormControl` properties in the component class.
 
 
 
-The revised template includes more text inputs, a select box for the `state`, radio buttons for the `power`, 
-and a checkbox for the `sidekick`. 
+The revised template includes more text inputs, a select box for the `state`, radio buttons for the `power`,
+and a checkbox for the `sidekick`.
 
 修改过的模板包含更多文本输入框，一个`state`选择框，`power`（超能力）的单选按钮和一个`sidekick`检查框。
 
-You must bind the option's value property with `[value]="state"`. 
+You must bind the option's value property with `[value]="state"`.
 If you do not bind the value, the select shows the first option from the data model.
 
 我们要用`[value]="state"`来绑定选项的`value`属性。
@@ -978,16 +901,16 @@ If you do not bind the value, the select shows the first option from the data mo
 
 The component _class_ defines control properties without regard for their representation in the template.
 You define the `state`, `power`, and `sidekick` controls the same way you defined the `name` control.
-You tie these controls to the template HTML elements in the same way, 
-specifiying the `FormControl` name with the `formControlName` directive. 
+You tie these controls to the template HTML elements in the same way,
+specifying the `FormControl` name with the `formControlName` directive.
 
 组件*类*定义了控件属性而不用管它们在模板中的表现形式。
 我们可以像定义`name`控件一样定义`state`、`power`和`sidekick`控件，并用`formControlName`指令来指定`FormControl`的名字。
 
-See the API reference for more information about 
-[radio buttons](api/forms/index/RadioControlValueAccessor-directive "API: RadioControlValueAccessor"), 
-[selects](api/forms/index/SelectControlValueAccessor-directive "API: SelectControlValueAccessor"), and
-[checkboxes](api/forms/index/CheckboxControlValueAccessor-directive "API: CheckboxControlValueAccessor").
+See the API reference for more information about
+[radio buttons](api/forms/RadioControlValueAccessor "API: RadioControlValueAccessor"),
+[selects](api/forms/SelectControlValueAccessor "API: SelectControlValueAccessor"), and
+[checkboxes](api/forms/CheckboxControlValueAccessor "API: CheckboxControlValueAccessor").
 
 参见API参考手册中的[radio buttons](api/forms/index/RadioControlValueAccessor-directive "API: RadioControlValueAccessor")、
   [selects](api/forms/index/SelectControlValueAccessor-directive "API: SelectControlValueAccessor")和
@@ -1002,12 +925,12 @@ See the API reference for more information about
 
 ### 多级`FormGroup`
 
-This form is getting big and unwieldy. You can group some of the related `FormControls` 
-into a nested `FormGroup`. The `street`, `city`, `state`, and `zip` are properties 
+This form is getting big and unwieldy. You can group some of the related `FormControls`
+into a nested `FormGroup`. The `street`, `city`, `state`, and `zip` are properties
 that would make a good _address_ `FormGroup`.
-Nesting groups and controls in this way allows you to 
-mirror the hierarchical structure of the data model 
-and helps track validation and state for related sets of controls. 
+Nesting groups and controls in this way allows you to
+mirror the hierarchical structure of the data model
+and helps track validation and state for related sets of controls.
 
 这个表单变得越来越大、越来越笨重。我们可以把一些相关的`FormControl`组织到多级`FormGroup`中。
 `street`、`city`、`state`和`zip`属性就可以作为一个名叫`address`的`FormGroup`。
@@ -1028,7 +951,7 @@ assign the result to a new `address` property of the parent `FormGroup`.
 
 
 
-You’ve changed the structure of the form controls in the component class; 
+You’ve changed the structure of the form controls in the component class;
 you must make corresponding adjustments to the component template.
 
 我们已经修改了组件类中表单控件的结构，还必须对组件模板进行相应的调整。
@@ -1041,7 +964,7 @@ That's the property of the _address_ child `FormGroup` within the parent `FormGr
 往这个`div`上添加一个`formGroupName`指令，并且把它绑定到`"address"`上。
 这个`address`属性是一个`FormGroup`，它的父`FormGroup`就是`heroForm`。
 
-To make this change visually obvious, slip in an `<h4>` header near the top with the text, _Secret Lair_. 
+To make this change visually obvious, slip in an `<h4>` header near the top with the text, _Secret Lair_.
 The new _address_ HTML looks like this:
 
 要让这个变化更加明显，在文本的顶部加入一个`<h4>`头：*Secret Lair*。
@@ -1055,18 +978,18 @@ The new _address_ HTML looks like this:
 
 
 After these changes, the JSON output in the browser shows the revised _form model_
-with the nested address `FormGroup`: 
+with the nested address `FormGroup`:
 
 做完这些之后，浏览器中的JSON输出就变成了带有多级`FormGroup`的住址。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/address-group.png" width="400px" alt="JSON output"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/address-group.png" alt="JSON output">
 </figure>
 
 
 
-Great! You’ve made a group and you can see that the template 
+Great! You’ve made a group and you can see that the template
 and the form model are talking to one another.
 
 真棒！我们制作了一个控件组，并且可以看到模板和表单模型已经能彼此通讯了。
@@ -1087,9 +1010,9 @@ Sometimes you're interested only in the state of one particular `FormControl`.
 但有时我们可能只关心一个特定`FormControl`的状态。
 
 You can inspect an individual `FormControl` within a form by extracting it with the `.get()` method.
-You can do this _within_ the component class or display it on the 
-page by adding the following to the template, 
-immediately after the `{{form.value | json}}` interpolation as follows: 
+You can do this _within_ the component class or display it on the
+page by adding the following to the template,
+immediately after the `{{form.value | json}}` interpolation as follows:
 
 我们可以使用`.get()`方法来提取表单中一个单独`FormControl`的状态。
 我们可以在组件类中这么做，或者通过往模板中添加下列代码来把它显示在页面中，就添加在`{{form.value | json}}`插值表达式的紧后面：
@@ -1112,7 +1035,7 @@ To get the state of a `FormControl` that’s inside a `FormGroup`, use dot notat
 
 
 
-You can use this technique to display _any_ property of a `FormControl` 
+You can use this technique to display _any_ property of a `FormControl`
 such as one of the following:
 
 我们可以使用此技术来显示`FromControl`的*任意*属性，代码如下：
@@ -1187,7 +1110,7 @@ such as one of the following:
     <td>
 
 
-      the validity of a `FormControl`. Possible values: `VALID`, 
+      the validity of a `FormControl`. Possible values: `VALID`,
        `INVALID`, `PENDING`, or `DISABLED`.
 
       `FormControl`的有效性。可能的值有`VALID`、`INVALID`、`PENDING`或`DISABLED`。
@@ -1222,11 +1145,9 @@ such as one of the following:
 
 
       `true` if the control user has not yet entered the HTML control
-      and triggered its blur event. Its opposite is `myControl.touched`.
-
-      如果用户尚未进入这个HTML控件，也没有触发过它的`blur`（失去焦点）事件，则为`true`。
+       and triggered its blur event. Its opposite is `myControl.touched`.
+                         如果用户尚未进入这个HTML控件，也没有触发过它的`blur`（失去焦点）事件，则为`true`。
       它是`myControl.touched`的反义词。
-                          
     </td>
 
   </tr>
@@ -1235,15 +1156,15 @@ such as one of the following:
 
 
 
-Learn about other `FormControl` properties in the 
-[_AbstractControl_](api/forms/index/AbstractControl-class) API reference.
+Learn about other `FormControl` properties in the
+[_AbstractControl_](api/forms/AbstractControl) API reference.
 
 要了解`FormControl`的更多属性，参见API参考手册的[_AbstractControl_](api/forms/index/AbstractControl-class)部分。
 
-One common reason for inspecting `FormControl` properties is to 
-make sure the user entered valid values. 
-Read more about validating Angular forms in the 
-[Form Validation](cookbook/form-validation) guide. 
+One common reason for inspecting `FormControl` properties is to
+make sure the user entered valid values.
+Read more about validating Angular forms in the
+[Form Validation](guide/form-validation) guide.
 
 检查`FormControl`属性的另一个原因是确保用户输入了有效的值。
 要了解更多关于Angular表单验证的知识，参见[表单验证](cookbook/form-validation)一章。
@@ -1278,7 +1199,7 @@ There are two important implications:
 
 组件必须把*数据模型*中的英雄值复制到*表单模型*中。这里隐含着两个非常重要的点。
 
-1. The developer must understand how the properties of the _data model_ 
+1. The developer must understand how the properties of the _data model_
 map to the properties of the _form model_.
 
   开发人员必须理解*数据模型*是如何映射到*表单模型*中的属性的。
@@ -1370,8 +1291,8 @@ Also be sure to update the import from `data-model` so you can reference the `He
 
 ## 使用`setValue`和`patchValue`来操纵表单模型
 
-Previously you created a control and initialized its value at the same time. 
-You can also initialize or reset the values _later_ with the 
+Previously you created a control and initialized its value at the same time.
+You can also initialize or reset the values _later_ with the
 `setValue` and `patchValue` methods.
 
 以前，我们创建了控件，并同时初始化它的值。
@@ -1395,17 +1316,17 @@ The `setValue` method checks the data object thoroughly before assigning any for
 
 `setValue`方法会在赋值给任何表单控件之前先检查数据对象的值。
 
-It will not accept a data object that doesn't match the FormGroup structure or is 
-missing values for any control in the group. This way, it can return helpful 
-error messages if you have a typo or if you've nested controls incorrectly. 
+It will not accept a data object that doesn't match the FormGroup structure or is
+missing values for any control in the group. This way, it can return helpful
+error messages if you have a typo or if you've nested controls incorrectly.
 `patchValue` will fail silently.
 
 它不会接受一个与FormGroup结构不同或缺少表单组中任何一个控件的数据对象。
 这种方式下，如果我们有什么拼写错误或控件嵌套的不正确，它就能返回一些有用的错误信息。
 `patchValue`会默默地失败。
 
-On the other hand,`setValue` will catch 
-the error and report it clearly. 
+On the other hand,`setValue` will catch
+the error and report it clearly.
 
 而`setValue`会捕获错误，并清晰的报告它。
 
@@ -1430,7 +1351,7 @@ This explains the conditional setting of the `address` property in the data obje
 ### _patchValue_
 
 With **`patchValue`**, you can assign values to specific controls in a `FormGroup`
-by supplying an object of key/value pairs for just the controls of interest. 
+by supplying an object of key/value pairs for just the controls of interest.
 
 借助**`patchValue`**，我们可以通过提供一个只包含要更新的控件的键值对象来把值赋给`FormGroup`中的指定控件。
 
@@ -1446,7 +1367,7 @@ This example sets only the form's `name` control.
 
 
 With **`patchValue`** you have more flexibility to cope with wildly divergent data and form models.
-But unlike `setValue`,  `patchValue` cannot check for missing control 
+But unlike `setValue`,  `patchValue` cannot check for missing control
 values and does not throw helpful errors.
 
 借助**`patchValue`**，我们可以更灵活地解决数据模型和表单模型之间的差异。
@@ -1478,7 +1399,7 @@ by binding to its `hero` input property.
 
 
 
-In this approach, the value of `hero` in the `HeroDetailComponent` changes 
+In this approach, the value of `hero` in the `HeroDetailComponent` changes
 every time the user selects a new hero.
 You should call  _setValue_ in the [ngOnChanges](guide/lifecycle-hooks#onchanges)
 hook, which Angular calls whenever the input `hero` property changes
@@ -1525,8 +1446,8 @@ Add the `ngOnChanges` method to the class as follows:
 
 ### *重置*表单的标识。
 
-You should  reset the form when the hero changes so that 
-control values from the previous hero are cleared and 
+You should  reset the form when the hero changes so that
+control values from the previous hero are cleared and
 status flags are restored to the _pristine_ state.
 You could call `reset` at the top of `ngOnChanges` like this.
 
@@ -1540,8 +1461,8 @@ You could call `reset` at the top of `ngOnChanges` like this.
 
 
 
-The `reset` method has an optional `state` value so you can reset the flags _and_ the control values at the same. 
-Internally, `reset` passes the argument to `setValue`. 
+The `reset` method has an optional `state` value so you can reset the flags _and_ the control values at the same time.
+Internally, `reset` passes the argument to `setValue`.
 A little refactoring and `ngOnChanges` becomes this:
 
 `reset`方法有一个可选的`state`值，让我们能在重置状态的同时*顺便设置*控件的值。
@@ -1568,17 +1489,17 @@ Together they look a bit like this:
 `HeroDetalComponent`是一个嵌套在`HeroListComponent`的*主从*视图中的子组件。如果把它们放在一起就是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/hero-list.png" width="420px" alt="HeroListComponent"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/hero-list.png" alt="HeroListComponent">
 </figure>
 
 
 
 The `HeroListComponent` uses an injected `HeroService` to retrieve heroes from the server
 and then presents those heroes to the user as a series of buttons.
-The `HeroService` emulates an HTTP service. 
-It returns an `Observable` of heroes that resolves after a short delay, 
-both to simulate network latency and to indicate visually 
+The `HeroService` emulates an HTTP service.
+It returns an `Observable` of heroes that resolves after a short delay,
+both to simulate network latency and to indicate visually
 the necessarily asynchronous nature of the application.
 
 `HeroListComponent`使用一个注入进来的`HeroService`来从服务器获取英雄列表，然后用一系列按钮把这些英雄展示给用户。
@@ -1605,11 +1526,11 @@ The techniques involved are covered elsewhere in the documentation, including th
 `HeroListComponent`和`HeroService`的其余部分的实现细节与响应式表单无关。
 那些技术涵盖于本文档中的其它部分，包括*《英雄指南》*中的[这里](tutorial/toh-pt3 "ToH: Multiple Components")和[这里](tutorial/toh-pt4 "ToH: Services")。
 
-If you're coding along with the steps in this reactive forms tutorial, 
-create the pertinent files based on the 
-[source code displayed below](guide/reactive-forms#source-code "Reactive Forms source code"). 
+If you're coding along with the steps in this reactive forms tutorial,
+create the pertinent files based on the
+[source code displayed below](guide/reactive-forms#source-code "Reactive Forms source code").
 Notice that `hero-list.component.ts` imports `Observable` and `finally` while `hero.service.ts` imports `Observable`, `of`,
-and `delay` from `rxjs`. 
+and `delay` from `rxjs`.
 Then return here to learn about _form array_ properties.
 
 如果你正在随着本教程写代码，可以基于[下面显示的代码](guide/reactive-forms#source-code "Reactive Forms source code")来创建相应的文件。
@@ -1678,7 +1599,7 @@ let the user add or modify addresses (removing addresses is your homework).
 在本章中，我们为`Hero.addresses`定义了一个`FormArray`，并且让用户添加或修改这些住址（移除住址功能请课后自行实现）。
 
 You’ll need to redefine the form model in the `HeroDetailComponent` constructor,
-which currently only displays the first hero address in an _address_ `FormGroup`. 
+which currently only displays the first hero address in an _address_ `FormGroup`.
 
 我们需要在`HeroDetailComponent`的构造函数中重新定义表单模型，它现在只用`FormGroup`显示第一个英雄住址。
 
@@ -1719,7 +1640,7 @@ the _form model_ doesn't have to match the _data model_.
 把表单的控件名从`address`改为`secretLairs`让我们遇到了一个重要问题：*表单模型*与*数据模型*不再匹配了。
 
 
-Obviously there has to be a relationship between the two. 
+Obviously there has to be a relationship between the two.
 But it can be anything that makes sense within the application domain.
 
 
@@ -1794,7 +1715,7 @@ Wrap the expression in a `secretLairs` convenience property for clarity and re-u
 
 
 
-### Display the _FormArray_ 
+### Display the _FormArray_
 
 ### 显示`FormArray`
 
@@ -1804,7 +1725,7 @@ Revise it to display zero, one, or more of the hero's _address_ `FormGroups`.
 当前HTML模板显示单个的地址`FormGroup`。
 我们要把它修改成能显示0、1或更多个表示英雄地址的`FormGroup`。
 
-This is mostly a matter of wrapping the previous template HTML for an address in a `<div>` and 
+This is mostly a matter of wrapping the previous template HTML for an address in a `<div>` and
 repeating that `<div>` with `*ngFor`.
 
 要改的部分主要是把以前表示地址的HTML模板包裹进一个`<div>`中，并且使用`*ngFor`来重复渲染这个`<div>`。
@@ -1813,14 +1734,14 @@ The trick lies in knowing how to write the `*ngFor`. There are three key points:
 
 诀窍在于要知道如何编写`*ngFor`。主要有三点：
 
-1. Add another wrapping `<div>`, around the `<div>` with `*ngFor`, and 
+1. Add another wrapping `<div>`, around the `<div>` with `*ngFor`, and
 set its `formArrayName` directive to `"secretLairs"`.
-This step establishes the _secretLairs_ `FormArray` as the context for form controls in the inner, repeated HTML template. 
+This step establishes the _secretLairs_ `FormArray` as the context for form controls in the inner, repeated HTML template.
 
   在`*ngFor`的`<div>`之外套上另一个包装`<div>`，并且把它的`formArrayName`指令设为`"secretLairs"`。
   这一步为内部的表单控件建立了一个`FormArray`型的`secretLairs`作为上下文，以便重复渲染HTML模板。
 
-1. The source of the repeated items is the `FormArray.controls`, not the `FormArray` itself. 
+1. The source of the repeated items is the `FormArray.controls`, not the `FormArray` itself.
 Each control is an _address_ `FormGroup`, exactly what the previous (now repeated) template HTML expected.
 
   这些重复条目的数据源是`FormArray.controls`而不是`FormArray`本身。
@@ -1858,7 +1779,7 @@ Here's the complete template for the _secret lairs_ section:
 
 ### 把新的小屋添加到`FormArray`中
 
-Add an `addLair` method that gets the _secretLairs_ `FormArray` and appends a new _address_ `FormGroup` to it. 
+Add an `addLair` method that gets the _secretLairs_ `FormArray` and appends a new _address_ `FormGroup` to it.
 
 添加一个`addLair`方法，它获取`secretLairs`数组，并把新的表示地址的`FormGroup`添加到其中。
 
@@ -1884,9 +1805,9 @@ Place a button on the form so the user can add a new _secret lair_ and wire it t
 
 
 
-Be sure to **add the `type="button"` attribute**. 
+Be sure to **add the `type="button"` attribute**.
 In fact, you should always specify a button's `type`.
-Without an explict type, the button type defaults to "submit".
+Without an explicit type, the button type defaults to "submit".
 When you later add a _form submit_ action, every "submit" button triggers the submit action which
 might do something like save the current changes.
 You do not want to save changes when the user clicks the _Add a Secret Lair_ button.
@@ -1913,13 +1834,13 @@ Back in the browser, select the hero named "Magneta".
 "Magneta"没有地址，我们会在表单底部的诊断用JSON中看到这一点。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/addresses-array.png" width="400px" alt="JSON output of addresses array"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/addresses-array.png" alt="JSON output of addresses array">
 </figure>
 
 
 
-Click the "_Add a Secret Lair_" button. 
+Click the "_Add a Secret Lair_" button.
 A new address section appears. Well done!
 
 点击“Add a Secret Lair”按钮，一个新的地址区就出现了，干得好！
@@ -1950,7 +1871,7 @@ Picking a hero changes the `HeroDetailComponent.hero` input property.
 选取英雄会修改输入属性`HeroDetailComponent.hero`。
 
 Angular does _not_ call `ngOnChanges` when the user modifies the hero's _name_ or _secret lairs_.
-Fortunately, you can learn about such changes by subscribing to one of the form control properties 
+Fortunately, you can learn about such changes by subscribing to one of the form control properties
 that raises a change event.
 
 当用户修改英雄的*名字*或*秘密小屋*时，Angular*并不会*调用`ngOnChanges`。
@@ -2008,7 +1929,7 @@ You should see a new name in the log after each keystroke.
 ### 什么时候用它
 
 An interpolation binding is the easier way to _display_ a name change.
-Subscribing to an observable form control property is handy for triggering 
+Subscribing to an observable form control property is handy for triggering
 application logic _within_ the component class.
 
 插值表达式绑定时显示姓名变化比较简单的方式。
@@ -2034,8 +1955,8 @@ After you implement both features in this section, the form will look like this:
 在实现完本节的这些特性之后，表单是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/reactive-forms/save-revert-buttons.png" width="389px" alt="Form with save & revert buttons"></img>
+<figure>
+  <img src="generated/images/guide/reactive-forms/save-revert-buttons.png" alt="Form with save & revert buttons">
 </figure>
 
 
@@ -2059,7 +1980,7 @@ to a save method on the injected `HeroService`.
 
 This original `hero` had the pre-save values. The user's changes are still in the _form model_.
 So you create a new `hero` from a combination of original hero values (the `hero.id`)
-and deep copies of the changed form model values, using the `prepareSaveHero` helper. 
+and deep copies of the changed form model values, using the `prepareSaveHero` helper.
 
 原始的`hero`中有一些保存之前的值，用户的修改仍然是在*表单模型*中。
 所以我们要根据原始英雄（根据`hero.id`找到它）的值组合出一个新的`hero`对象，并用`prepareSaveHero`助手来深层复制变化后的模型值。
@@ -2080,7 +2001,7 @@ and deep copies of the changed form model values, using the `prepareSaveHero` he
 **地址的深层复制**
 
 Had you assigned the `formModel.secretLairs` to `saveHero.addresses` (see line commented out),
-the addresses in `saveHero.addresses` array would be the same objects 
+the addresses in `saveHero.addresses` array would be the same objects
 as the lairs in the `formModel.secretLairs`.
 A user's subsequent changes to a lair street would mutate an address street in the `saveHero`.
 

@@ -6,7 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {COMPILER_OPTIONS, Compiler, CompilerFactory, CompilerOptions, Inject, InjectionToken, MissingTranslationStrategy, Optional, PLATFORM_INITIALIZER, PlatformRef, Provider, ReflectiveInjector, TRANSLATIONS, TRANSLATIONS_FORMAT, Type, ViewEncapsulation, createPlatformFactory, isDevMode, platformCore, ɵConsole as Console, ɵReflectionCapabilities as ReflectionCapabilities, ɵReflector as Reflector, ɵReflectorReader as ReflectorReader, ɵreflector as reflector} from '@angular/core';
+import {COMPILER_OPTIONS, Compiler, CompilerFactory, CompilerOptions, Inject, InjectionToken, MissingTranslationStrategy, Optional, PlatformRef, Provider, ReflectiveInjector, TRANSLATIONS, TRANSLATIONS_FORMAT, Type, ViewEncapsulation, createPlatformFactory, isDevMode, platformCore, ɵConsole as Console} from '@angular/core';
+
+import {CompileReflector} from '../compile_reflector';
 import {CompilerConfig} from '../config';
 import {DirectiveNormalizer} from '../directive_normalizer';
 import {DirectiveResolver} from '../directive_resolver';
@@ -23,12 +25,13 @@ import {ResourceLoader} from '../resource_loader';
 import {DomElementSchemaRegistry} from '../schema/dom_element_schema_registry';
 import {ElementSchemaRegistry} from '../schema/element_schema_registry';
 import {StyleCompiler} from '../style_compiler';
-import {SummaryResolver} from '../summary_resolver';
+import {JitSummaryResolver, SummaryResolver} from '../summary_resolver';
 import {TemplateParser} from '../template_parser/template_parser';
 import {DEFAULT_PACKAGE_URL_PROVIDER, UrlResolver} from '../url_resolver';
 import {ViewCompiler} from '../view_compiler/view_compiler';
 
 import {JitCompiler} from './compiler';
+import {JitReflector} from './jit_reflector';
 
 const _NO_RESOURCE_LOADER: ResourceLoader = {
   get(url: string): Promise<string>{
@@ -43,10 +46,10 @@ const baseHtmlParser = new InjectionToken('HtmlParser');
  * template compilation.
  */
 export const COMPILER_PROVIDERS: Array<any|Type<any>|{[k: string]: any}|any[]> = [
-  {provide: Reflector, useValue: reflector},
-  {provide: ReflectorReader, useExisting: Reflector},
+  {provide: CompileReflector, useValue: new JitReflector()},
   {provide: ResourceLoader, useValue: _NO_RESOURCE_LOADER},
-  SummaryResolver,
+  JitSummaryResolver,
+  {provide: SummaryResolver, useExisting: JitSummaryResolver},
   Console,
   Lexer,
   Parser,
@@ -56,10 +59,13 @@ export const COMPILER_PROVIDERS: Array<any|Type<any>|{[k: string]: any}|any[]> =
   },
   {
     provide: i18n.I18NHtmlParser,
-    useFactory: (parser: HtmlParser, translations: string, format: string, config: CompilerConfig,
-                 console: Console) =>
-                    new i18n.I18NHtmlParser(
-                        parser, translations, format, config.missingTranslation !, console),
+    useFactory: (parser: HtmlParser, translations: string | null, format: string,
+                 config: CompilerConfig, console: Console) => {
+      translations = translations || '';
+      const missingTranslation =
+          translations ? config.missingTranslation ! : MissingTranslationStrategy.Ignore;
+      return new i18n.I18NHtmlParser(parser, translations, format, missingTranslation, console);
+    },
     deps: [
       baseHtmlParser,
       [new Optional(), new Inject(TRANSLATIONS)],
@@ -129,10 +135,6 @@ export class JitCompilerFactory implements CompilerFactory {
   }
 }
 
-function _initReflector() {
-  reflector.reflectionCapabilities = new ReflectionCapabilities();
-}
-
 /**
  * A platform that included corePlatform and the compiler.
  *
@@ -141,7 +143,6 @@ function _initReflector() {
 export const platformCoreDynamic = createPlatformFactory(platformCore, 'coreDynamic', [
   {provide: COMPILER_OPTIONS, useValue: {}, multi: true},
   {provide: CompilerFactory, useClass: JitCompilerFactory},
-  {provide: PLATFORM_INITIALIZER, useValue: _initReflector, multi: true},
 ]);
 
 function _mergeOptions(optionsArr: CompilerOptions[]): CompilerOptions {
@@ -150,6 +151,7 @@ function _mergeOptions(optionsArr: CompilerOptions[]): CompilerOptions {
     defaultEncapsulation: _lastDefined(optionsArr.map(options => options.defaultEncapsulation)),
     providers: _mergeArrays(optionsArr.map(options => options.providers !)),
     missingTranslation: _lastDefined(optionsArr.map(options => options.missingTranslation)),
+    enableLegacyTemplate: _lastDefined(optionsArr.map(options => options.enableLegacyTemplate)),
   };
 }
 

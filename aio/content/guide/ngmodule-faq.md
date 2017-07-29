@@ -1,12 +1,6 @@
-@title
-Angular 模块常见问题
+# NgModule FAQs
 
-@intro
-对 @NgModule 常见问题的解答
-
-@description
-
-
+# Angular 模块常见问题
 
 NgModules help organize an application into cohesive blocks of functionality.
 
@@ -32,164 +26,6 @@ These FAQs assume that you have read the [NgModules](guide/ngmodule) page.
 
 
 </div>
-
-
-
-Declarations
-
-声明(declarations)
-
-* [What classes should I add to _declarations_?](guide/ngmodule-faq#q-what-to-declare)
-
-  [我应该把哪些类加到_declarations_中？](guide/ngmodule-faq#q-what-to-declare)
-  
-* [What is a _declarable_?](guide/ngmodule-faq#q-declarable)
-
-  [什么是*可声明的*？](guide/ngmodule-faq#q-declarable)
-
-* [What classes should I _not_ add to _declarations_?](guide/ngmodule-faq#q-what-not-to-declare)
-
-  [我*不应该*把哪些类加到_declarations_中？](guide/ngmodule-faq#q-what-not-to-declare)
-  
-* [Why list the same component in multiple _NgModule_ properties?](guide/ngmodule-faq#q-why-multiple-mentions)
-
-  [为什么要把同一个组件列在*NgModule*的不同属性中？](guide/ngmodule-faq#q-why-multiple-mentions)
-  
-* [What does "Can't bind to 'x' since it isn't a known property of 'y'" mean?](guide/ngmodule-faq#q-why-cant-bind-to)
-
-  ["_Can't bind to 'x' since it isn't a known property of 'y'_"是什么意思？](guide/ngmodule-faq#q-why-cant-bind-to)
-
-Imports
-
-导入(imports)
-
-* [What should I import?](guide/ngmodule-faq#q-what-to-import)
-
-  [我应该导入什么？](guide/ngmodule-faq#q-what-to-import)
-
-* [Should I import _BrowserModule_ or _CommonModule_?](guide/ngmodule-faq#q-browser-vs-common-module)
-
-  [我应该导入_BrowserModule_还是_CommonModule_？](guide/ngmodule-faq#q-browser-vs-common-module)
-  
-* [What if I import the same module twice?](guide/ngmodule-faq#q-reimport)
-
-  [如果我两次导入了同一个模块会怎么样？](guide/ngmodule-faq#q-reimport)
-
-Exports
-
-导出(exports)
-
-* [What should I export?](guide/ngmodule-faq#q-what-to-export)
-
-  [我应该导出什么？](guide/ngmodule-faq#q-what-to-export)
-
-* [What should I *not* export?](guide/ngmodule-faq#q-what-not-to-export)
-
-  [我*不*应该导出什么？](guide/ngmodule-faq#q-what-not-to-export)
-  
-* [Can I re-export imported classes and modules?](guide/ngmodule-faq#q-re-export)
-
-  [我能再次导出(re-export)所导入的类和模块吗？](guide/ngmodule-faq#q-re-export)
-  
-* [What is the _forRoot_ method?](guide/ngmodule-faq#q-for-root)
-
-  [_forRoot_方法是什么？](guide/ngmodule-faq#q-for-root)
-
-Service Providers
-
-服务提供商(providers)
-
-* [Why is a service provided in a feature module visible everywhere?](guide/ngmodule-faq#q-module-provider-visibility)
-
-  [为什么特性模块中提供的服务是到处可见的？](guide/ngmodule-faq#q-module-provider-visibility)
-
-* [Why is a service provided in a _lazy-loaded_ module visible only to that module?](guide/ngmodule-faq#q-lazy-loaded-module-provider-visibility)
-
-  [为什么*惰性加载*模块中的服务提供商只对那个模块本身可见？](guide/ngmodule-faq#q-lazy-loaded-module-provider-visibility)
-
-* [What if two modules provide the same service?](guide/ngmodule-faq#q-module-provider-duplicates)
-
-  [如果两个模块提供了*同一个*服务会怎样？](guide/ngmodule-faq#q-module-provider-duplicates)
-  
-* [How do I restrict service scope to a module?](guide/ngmodule-faq#q-component-scoped-providers)
-
-  [如何把服务的范围限制在某个模块中？](guide/ngmodule-faq#q-component-scoped-providers)
-
-* [Should I add app-wide providers to the root _AppModule_ or the root _AppComponent_?](guide/ngmodule-faq#q-root-component-or-module)
-
-  [我应该把全应用级的提供商添加到根模块*AppModule*还是根组件*AppComponent*？](guide/ngmodule-faq#q-root-component-or-module)
-
-* [Should I add other providers to a module or a component?](guide/ngmodule-faq#q-component-or-module)
-
-  [我应该把其它提供商添加到模块中还是组件中？](guide/ngmodule-faq#q-component-or-module)
-
-* [Why is it bad if _SharedModule_ provides a service to a lazy-loaded module?](guide/ngmodule-faq#q-why-bad)
-
-  [为什么让*SharedModule*为惰性加载模块提供服务是个馊主意？](guide/ngmodule-faq#q-why-bad)
-  
-* [Why does lazy loading create a child injector?](guide/ngmodule-faq#q-why-child-injector)
-
-  [为什么惰性加载模块要创建一个子注入器？](guide/ngmodule-faq#q-why-child-injector)
-
-* [How can I tell if a module or service was previously loaded?](guide/ngmodule-faq#q-is-it-loaded)
-
-  [我要怎样才能知道一个模块或服务已经被加载过？](guide/ngmodule-faq#q-is-it-loaded)
-
-
-Entry Components
-
-入口组件
-
-* [What is an _entry component_?](guide/ngmodule-faq#q-entry-component-defined)
-
-  [什么是*入口组件*？](guide/ngmodule-faq#q-entry-component-defined)
-
-* [What is the difference between a _bootstrap_ component and an _entry component_?](guide/ngmodule-faq#q-bootstrap_vs_entry_component)
-
-  [*引导*组件和*入口*组件有什么不同？](guide/ngmodule-faq#q-bootstrap_vs_entry_component)
-
-* [When do I add components to _entryComponents_?](guide/ngmodule-faq#q-when-entry-components)
-
-  [什么情况下我应该把组件添加到*entryComponent*中？](guide/ngmodule-faq#q-when-entry-components)
-
-* [Why does Angular need _entryComponents_?](guide/ngmodule-faq#q-why-entry-components)
-
-  [为什么Angular需要_entryComponents_？](guide/ngmodule-faq#q-why-entry-components)
-
-
-General
-
-一般问题
-
-* [What kinds of modules should I have and how should I use them?](guide/ngmodule-faq#q-module-recommendations)
-
-  [我需要哪些类型的模块？我应该如何使用它们？](guide/ngmodule-faq#q-module-recommendations)
-
-* [What's the difference between Angular and JavaScript Modules?](guide/ngmodule-faq#q-ng-vs-js-modules)
-
-  [Angular模块和JavaScript模块有什么不同？](guide/ngmodule-faq#q-ng-vs-js-modules)
-
-* [How does Angular find components, directives, and pipes in a template?](guide/ngmodule-faq#q-template-reference)
-
-  [Angular如何是在模板中查找组件、指令和管道的？](guide/ngmodule-faq#q-template-reference)
-
-* [What is a "template reference"?](guide/ngmodule-faq#q-template-reference)
-
-  [什么是“模板引用”？](guide/ngmodule-faq#q-template-reference)
-  
-* [What is the Angular compiler?](guide/ngmodule-faq#q-angular-compiler)
-
-  [什么是Angular编译器（Compiler）？](guide/ngmodule-faq#q-angular-compiler)
-
-* [Can you summarize the NgModule API?](guide/ngmodule-faq#q-ngmodule-api)
-
-  [你能总结一下_NgModule_ API吗？](guide/ngmodule-faq#q-ngmodule-api)
-
-
-
-<hr/>
-
-
 
 {@a q-what-to-declare}
 
@@ -619,7 +455,7 @@ The `forRoot` static method is a convention that makes it easy for developers to
 
 The `RouterModule.forRoot` method is a good example.
 Apps pass a `Routes` object to `RouterModule.forRoot` in order to configure the app-wide `Router` service with routes.
-`RouterModule.forRoot` returns a [ModuleWithProviders](api/core/index/ModuleWithProviders-interface).
+`RouterModule.forRoot` returns a [ModuleWithProviders](api/core/ModuleWithProviders).
 You add that result to the `imports` list of the root `AppModule`.
 
 `RouterModule.forRoot`就是一个很好的例子。
@@ -919,9 +755,9 @@ More generally, [prefer registering providers in modules](guide/ngmodule-faq#q-c
 
 更一般地说，[优先把提供商注册进模块中](guide/ngmodule-faq#q-component-or-module)，而不是组件中。
 
-### Discussion
+<h3 class="no-toc">Discussion</h3>
 
-### 讨论
+<h3 class="no-toc">讨论</h3>
 
 Angular registers all startup module providers with the application root injector.
 The services created from root injector providers are available to the entire application.
@@ -1129,7 +965,7 @@ Once the application begins, the app root injector is closed to new providers.
 
 Time passes and application logic triggers lazy loading of a module.
 Angular must add the lazy-loaded module's providers to an injector somewhere.
-It can't added them to the app root injector because that injector is closed to new providers.
+It can't add them to the app root injector because that injector is closed to new providers.
 So Angular creates a new child injector for the lazy-loaded module context.
 
 之后，应用逻辑开始惰性加载某个模块。
@@ -2471,7 +2307,7 @@ Here's an _NgModule_ class with imports, exports, and declarations.
 
 
 
-Of course you use _JavaScript_ modules to write _Angular_ modules as seen in the complete `contact.module.ts` file:
+Of course you use _JavaScript_ modules to write NgModules as seen in the complete `contact.module.ts` file:
 
 当然，我们同样得用*JavaScript*模块来写*Angular模块*，就像在最终版`contact.module.ts`文件中所见到的：
 

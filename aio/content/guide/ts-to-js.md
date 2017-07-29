@@ -1,11 +1,10 @@
-@title
-从 TypeScript 到 JavaScript
+# TypeScript to JavaScript
 
-@intro
-把 Angular 的 TypeScript 范例转换为 ES6 和 ES5 JavaScript.
+# 从 TypeScript 到 JavaScript
 
-@description
+## Introduction
 
+## 简介
 
 Anything you can do with Angular in _TypeScript_, you can also do
 in JavaScript. Translating from one language to the other is mostly a
@@ -20,66 +19,14 @@ This cookbook contains recipes for translating _TypeScript_
 code examples to _ES6_ and to _ES5_ so that JavaScript developers
 can read and write Angular apps in their preferred dialect.
 
-_TypeScript_ 在 Angular 开发中比较流行。
-互联网上和本网站中的大多数范例都是用 _TypeScript_ 写的。
+`TypeScript` 在 Angular 开发中比较流行。
+互联网上和本网站中的大多数范例都是用 `TypeScript` 写的。
+这本烹饪宝典会教你如何把 `TypeScript` 代码的例子翻译成 `ES6` 和 `ES5` 以便 JavaScript 的开发者可以用自己喜欢的语言来写 Angular 应用。
 
+Run and compare the live <live-example name="ts-to-js/ts">TypeScript</live-example> and <live-example name="ts-to-js/js">JavaScript</live-example>
+code shown in this cookbook.
 
-{@a toc}
-
-
-## Table of contents
-
-## 目录
-
-* [_TypeScript_ to _ES6_ to _ES5_](guide/ts-to-js#from-ts)<br>
-
-  [_TypeScript_ 到 _ES6_ 到 _ES5_](guide/ts-to-js#from-ts)<br>
-
-* [Modularity: imports and exports](guide/ts-to-js#modularity)<br>
-
-  [模块化：导入和导出](guide/ts-to-js#modularity)<br>
-
-* [Classes and Class Metadata](guide/ts-to-js#class-metadata)<br>
-
-  [类和类的元数据](guide/ts-to-js#class-metadata)<br>
-
-* [_ES5_ DSL](guide/ts-to-js#dsl)<br>
-
-  [_ES5_ 领域专用语言](guide/ts-to-js#dsl)<br>
-
-* [Interfaces](guide/ts-to-js#interfaces)<br>
-
-  [接口](guide/ts-to-js#interfaces)<br>
-
-* [Input and Output Metadata](guide/ts-to-js#io-decorators)<br>
-
-  [输入和输出元数据](guide/ts-to-js#io-decorators)<br>
-
-* [Dependency Injection](guide/ts-to-js#dependency-injection)<br>
-
-  [依赖注入](guide/ts-to-js#dependency-injection)<br>
-
-* [Host Binding](guide/ts-to-js#host-binding)<br>
-
-  [宿主绑定](guide/ts-to-js#host-binding)<br>
-
-* [View and Child Decorators](guide/ts-to-js#view-child-decorators)<br>
-
-  [视图和子组件装饰器](guide/ts-to-js#view-child-decorators)<br>
-
-* [AOT compilation in _TypeScript_ Only](guide/ts-to-js#aot)<br>
-
-  [只用于 _TypeScript_ 的预编译](guide/ts-to-js#aot)<br>
-
-
-**Run and compare the live <live-example name="cb-ts-to-js">TypeScript</live-example> and <live-example name="cb-ts-to-js" lang="js">JavaScript</live-example>
-code shown in this cookbook.**
-
-运行在线例子，比较 <live-example name="cb-ts-to-js">TypeScript</live-example> 版和 <live-example name="cb-ts-to-js" lang="js">JavaScript</live-example> 版的代码。
-
-
-{@a from-ts}
-
+运行并比较本章显示的在线例子的 <live-example name="ts-to-js/ts">TypeScript</live-example> 版和 <live-example name="ts-to-js/js">JavaScript</live-example> 版。
 
 
 ## _TypeScript_ to _ES6_ to _ES5_
@@ -87,27 +34,27 @@ code shown in this cookbook.**
 ##_TypeScript_ 到 _ES6_ 到 _ES5_
 
 _TypeScript_
-<a href="https://www.typescriptlang.org" target="_blank" title='"TypeScript is a typed, superset of JavaScript"'>is a typed superset of _ES6 JavaScript_</a>.
+<a href="https://www.typescriptlang.org" title='"TypeScript is a typed, superset of JavaScript"'>is a typed superset of _ES6 JavaScript_</a>.
 _ES6 JavaScript_ is a superset of _ES5 JavaScript_. _ES5_ is the kind of JavaScript that runs natively in all modern browsers.
 The transformation of _TypeScript_ code all the way down to _ES5_ code can be seen as "shedding" features.
 
 _TypeScript_ <a href="https://www.typescriptlang.org" target="_blank" title='"TypeScript 是类型化的 JavaScript 的超集"'>是 _ES6 JavaScript_ 类型化的超集</a>。_ES6 JavaScript_ 是 _ES5 JavaScript_ 的超集。_ES5_ 是可以在所有现代浏览器中运行的 JavaScript。
 
-The downgrade progression is
+The downgrade progression is as follows:
 
 降级的过程是
 
-* _TypeScript_ to _ES6-with-decorators_
+* _TypeScript_ to _ES6-with-decorators_.
 
-  _TypeScript_ 降级到 _带装饰器的 ES6_
+  _TypeScript_ 降级到 _带装饰器的 ES6_。
 
-* _ES6-with-decorators_ to _ES6-without-decorators_ ("_plain ES6_")
+* _ES6-with-decorators_ to _ES6-without-decorators_ ("_plain ES6_").
 
-  _带装饰器的 ES6_ 降级到 _没有装饰器的 ES6_ (“_普通 ES6_”)
+  _带装饰器的 ES6_ 降级到 _没有装饰器的 ES6_ (“_普通 ES6_”)。
 
-* _ES6-without-decorators_ to _ES5_
+* _ES6-without-decorators_ to _ES5_.
 
-  _没有装饰器的 ES6_ 降级到 _ES5_
+  _没有装饰器的 ES6_ 降级到 _ES5_。
 
 When translating from _TypeScript_ to _ES6-with-decorators_, remove
 [class property access modifiers](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)
@@ -115,9 +62,8 @@ such as `public` and `private`.
 Remove most of the
 [type declarations](https://www.typescriptlang.org/docs/handbook/basic-types.html),
 such as `:string` and `:boolean`
-but **keep the constructor parameter types which are used for dependency injection**.
-
- _TypeScript_ 翻译到 _带装饰器的 ES6_ 时，移除了[类属性访问修饰符](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)，如`public`和`private`。
+but **keep the constructor parameter types, which are used for dependency injection**.
+_TypeScript_ 翻译到 _带装饰器的 ES6_ 时，移除了[类属性访问修饰符](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)，如`public`和`private`。
 移除了大部分的[类型声明](https://www.typescriptlang.org/docs/handbook/basic-types.html)，如`:string`和`:boolean`。
 但**保留了用于依赖注入的构造函数参数类型**。
 
@@ -147,8 +93,6 @@ To use decorators and annotations with Babel, install the
 
 {@a modularity}
 
-
-
 ## Importing and Exporting
 
 ## 导入和导出
@@ -161,7 +105,7 @@ In both _TypeScript_ and _ES6_, you import Angular classes, functions, and other
 
 在 _TypeScript_ 和 _ES6_ 中，可以使用 _ES6_ `import`语句导入 Angular 类、函数和其它成员。
 
-In _ES5_, you access the Angular entities of the [the Angular packages](glossary#scoped-package)
+In _ES5_, you access the Angular entities of the [the Angular packages](guide/glossary#scoped-package)
 through the global `ng` object.
 Anything you can import from `@angular` is a nested member of this `ng` object:
 
@@ -170,28 +114,17 @@ Anything you can import from `@angular` is a nested member of this `ng` object:
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/app.module.ts" region="ng2import">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/app.module.ts" region="ng2import">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/app.module.es6" region="ng2import">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/app.module.es6" region="ng2import">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/app.module.es6" region="ng2import">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/app.module.es6" region="ng2import">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/app.module.js" region="ng2import">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/app.module.js" region="ng2import">
   </code-pane>
-
 </code-tabs>
 
-
-
-### Exporting Application Code
+### Exporting application code
 
 ### 导出应用代码
 
@@ -209,10 +142,8 @@ _ES5_ 不支持模块。在 Angular _ES5_ 应用中，需要在`index.html`中�
 
 <div class="alert is-important">
 
-
-
-The order of `<script>` tags is often significant.
-You must load a file that defines a public JavaScript entity before a file that references that entity.
+  The order of `<script>` tags is often significant.
+  You must load a file that defines a public JavaScript entity before a file that references that entity.
 
 `<script>`标签的顺序通常很重要。
 必须在引用实体的文件之前，加载定义该公共 JavaScript 实体的文件。
@@ -220,11 +151,9 @@ You must load a file that defines a public JavaScript entity before a file that 
 
 </div>
 
-
-
 The best practice in _ES5_ is to create a form of modularity that avoids polluting the global scope.
 Add one application namespace object such as `app` to the global `document`.
-Then each code file "exports" public entities by attaching them to that namespace object, e.g., `app.HeroComponent`.
+Then each code file "exports" public entities by attaching them to that namespace object, for example, `app.HeroComponent`.
 You could factor a large application into several sub-namespaces
 which leads to "exports" along the lines of `app.heroQueries.HeroComponent`.
 
@@ -246,28 +175,17 @@ Here is a `HeroComponent` as it might be defined and "exported" in each of the f
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero.component.ts" region="appexport">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero.component.ts" region="appexport">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="appexport">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="appexport">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero.component.es6" region="appexport">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero.component.es6" region="appexport">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero.component.js" region="appexport">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero.component.js" region="appexport">
   </code-pane>
-
 </code-tabs>
 
-
-
-### Importing Application Code
+### Importing application Code
 
 ### 导入应用代码
 
@@ -281,35 +199,22 @@ In _ES5_ you use the shared namespace object to access "exported" entities from 
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/app.module.ts" region="appimport">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/app.module.ts" region="appimport">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/app.module.es6" region="appimport">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/app.module.es6" region="appimport">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/app.module.es6" region="appimport">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/app.module.es6" region="appimport">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/app.module.js" region="appimport">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/app.module.js" region="appimport">
   </code-pane>
-
 </code-tabs>
-
-
 
 <div class="alert is-helpful">
 
-
-
-Alternatively, you can use a module loader such as Webpack or
-Browserify in an Angular JavaScript project. In such a project, you would
-use _CommonJS_ modules and the `require` function to load Angular framework code.
-Then use `module.exports` and `require` to export and import application  code.
+  Alternatively, you can use a module loader such as Webpack or
+  Browserify in an Angular JavaScript project. In such a project, you   would
+  use _CommonJS_ modules and the `require` function to load Angular   framework code.
+  Then use `module.exports` and `require` to export and import  application  code.
 
 还可以在 Angular JavaScript 项目中使用模块加载器，如 Webpack 或 Browserify。
 在这样的项目中，使用 _CommonJS_ 模块和`require`函数来加载 Angular 框架代码。
@@ -318,11 +223,7 @@ Then use `module.exports` and `require` to export and import application  code.
 
 </div>
 
-
-
 {@a class-metadata}
-
-
 
 ## Classes and Class Metadata
 
@@ -343,7 +244,7 @@ Remove these modifiers when translating to JavaScript.
 _TypeScript_ 类的属性和方法参数可以用访问修饰符`private`、`internal`和`public`标记。
 当翻译成 JavaScript 时，移除这些修饰符。
 
-Most type declarations (e.g, `:string` and `:boolean`) should be removed when translating to JavaScript.
+Most type declarations, for example, `:string` and `:boolean`, should be removed when translating to JavaScript.
 When translating to _ES6-with-decorators_, ***do not remove types from constructor parameters!***
 
 当翻译成 JavaScript 时，移除大多数类型声明（如，`:string`和`:boolean`）。
@@ -370,26 +271,15 @@ _ES5_ JavaScript 没有类。
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero.component.ts" region="class">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero.component.ts" region="class">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="class">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="class">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero.component.es6" region="class">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero.component.es6" region="class">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero.component.js" region="constructorproto">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero.component.js" region="constructorproto">
   </code-pane>
-
 </code-tabs>
-
-
 
 ### Metadata
 
@@ -398,7 +288,7 @@ _ES5_ JavaScript 没有类。
 When writing in _TypeScript_ or _ES6-with-decorators_,
 provide configuration and metadata by adorning a class with one or more *decorators*.
 For example, you supply metadata to a component class by preceding its definition with a
-[`@Component`](api/core/index/Component-decorator) decorator function whose
+[`@Component`](api/core/Component) decorator function whose
 argument is an object literal with metadata properties.
 
 当用 _TypeScript_ 或 _带装饰器的 ES6_ 编写代码时，使用一个或多个*装饰器 (decorator)* 来修饰类，
@@ -419,28 +309,17 @@ See these variations side-by-side:
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero.component.ts" region="metadata">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero.component.ts" region="metadata">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="metadata">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero.component.es6" region="metadata">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero.component.es6" region="metadata">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero.component.es6" region="metadata">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero.component.js" region="metadata">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero.component.js" region="metadata">
   </code-pane>
-
 </code-tabs>
 
-
-
-***External Template file***
+## External template file
 
 ***外部模块文件***
 
@@ -449,38 +328,24 @@ A large component template is often kept in a separate template file.
 大的组件模板通常是放在独立的文件中。
 
 
-<code-example path="cb-ts-to-js/ts/src/app/hero-title.component.html" title="src/app/hero-title.component.html" linenums="false">
-
+<code-example path="ts-to-js/ts/src/app/hero-title.component.html" title="src/app/hero-title.component.html" linenums="false">
 </code-example>
 
-
-
-The component (`HeroTitleComponent` in this case) then references the template file in its metadata `templateUrl` property:
+The component, `HeroTitleComponent` in this case, then references the template file in its metadata `templateUrl` property:
 
 接着，组件（这里是`HeroTitleComponent`）在它的元数据`templateUrl`属性中引用该模板文件：
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-title.component.ts" region="templateUrl">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-title.component.ts" region="templateUrl">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-title.component.es6" region="templateUrl">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-title.component.es6" region="templateUrl">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-title.component.es6" region="templateUrl">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-title.component.es6" region="templateUrl">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-title.component.js" region="templateUrl">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-title.component.js" region="templateUrl">
   </code-pane>
-
 </code-tabs>
-
-
 
 Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the location of the template file _relative to the component module_.
 
@@ -488,8 +353,6 @@ Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the 
 
 
 {@a dsl}
-
-
 
 ## _ES5_ DSL
 
@@ -506,9 +369,9 @@ This _API_ (_Application Programming Interface_) is commonly known as the _ES5 D
 
 这个 _API_ (_Application Programming Interface，应用编程接口_) 通常称作 _ES5 DSL_ (_Domain Specific Language，领域专用语言_)。
 
-Set an application namespace property (e.g., `app.HeroDslComponent`) to the result of an `ng.core.Component` function call.
+Set an application namespace property, for example, `app.HeroDslComponent`, to the result of an `ng.core.Component` function call.
 Pass the same metadata object to `ng.core.Component` as you did before.
-Then chain a call to the `Class` method which takes an object defining the class constructor and instance methods.
+Then chain a call to the `Class()` method which takes an object defining the class constructor and instance methods.
 
 把`ng.core.Component`函数调用的结果设置到应用命名空间属性，如`app.HeroDslComponent`。
 向`ng.core.Component`传递与之前一样的元数据对象。
@@ -521,47 +384,27 @@ next to the original _ES5_ version for comparison:
 
 
 <code-tabs>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero.component.js" region="dsl">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero.component.js">
   </code-pane>
-
 </code-tabs>
 
-
+{@a name-constructor}
 
 <div class="callout is-helpful">
 
+  A **named** constructor displays clearly in the console log
+  if the component throws a runtime error.
+  An **unnamed** constructor displays as an anonymous function, for   example, `class0`,
+  which is impossible to find in the source code.
 
-
-<header>
-  Name the constructor
-</header>
-
-
-
-<header>
-  命名构造函数
-</header>
-
-
-
-A **named** constructor displays clearly in the console log
-if the component throws a runtime error.
-An **unnamed** constructor displays as an anonymous function (e.g., `class0`)
-which is impossible to find in the source code.
-
-如果组件抛出运行时异常，**命名**的构造函数在控制台日志中显示得更清楚。
-**未命名**的构造函数显示为匿名函数（如，`class0`），不可能在源代码中找到它。
-
+  如果组件抛出运行时异常，**命名**的构造函数在控制台日志中显示得更清楚。
+  **未命名**的构造函数显示为匿名函数（如，`class0`），不可能在源代码中找到它。
 
 </div>
 
-
+{@a getters-setters}
 
 ### Properties with getters and setters
 
@@ -575,15 +418,12 @@ _TypeScript_ 和 _ES6_ 支持 getter 和 setter。
 下面是 _TypeScript_ 只读属性的例子，它有一个 getter，为下一次点击状态准备切换按钮的标签：
 
 
-<code-example path="cb-ts-to-js/ts/src/app/hero-queries.component.ts" region="defined-property" title="ts/src/app/hero-queries.component.ts" linenums="false">
-
+<code-example path="ts-to-js/ts/src/app/hero-queries.component.ts" region="defined-property" title="ts/src/app/hero-queries.component.ts" linenums="false">
 </code-example>
-
-
 
 This _TypeScript_ "getter" property is transpiled to an _ES5_
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
-   target="_blank" title="Defined Properties">defined property</a>.
+   title="Defined Properties">defined property</a>.
 The _ES5 DSL_ does not support _defined properties_ directly
 but you can still create them by extracting the "class" prototype and
 adding the _defined property_ in raw JavaScript like this:
@@ -593,11 +433,10 @@ adding the _defined property_ in raw JavaScript like this:
 _ES5 DSL_ 不直接支持_已定义属性_，你仍可提取“类”原型，象下面这样添加_已定义属性_：
 
 
-<code-example path="cb-ts-to-js/js/src/app/hero-queries.component.js" region="defined-property" title="js/src/app/hero-queries.component.ts" linenums="false">
-
+<code-example path="ts-to-js/js/src/app/hero-queries.component.js" region="defined-property" title="js/src/app/hero-queries.component.ts" linenums="false">
 </code-example>
 
-
+{@a dsl-other}
 
 ### DSL for other classes
 
@@ -617,8 +456,6 @@ You can define a directive with `ng.core.Directive`:
   });
 </code-example>
 
-
-
 and a pipe with `ng.core.Pipe`:
 
 用`ng.core.Pipe`添加一个管道：
@@ -630,21 +467,16 @@ and a pipe with `ng.core.Pipe`:
   }).Class({
     ...
   });
-
 </code-example>
 
-
-
 {@a interfaces}
-
-
 
 ## Interfaces
 
 ## 接口
 
 A _TypeScript_ interface helps ensure that a class implements the interface's members correctly.
-We strongly recommend Angular interfaces where appropriate.
+Always try to use Angular interfaces where appropriate.
 For example, the component class that implements the `ngOnInit` lifecycle hook method
 should implement the `OnInit` interface.
 
@@ -662,34 +494,19 @@ _TypeScript_ 接口只是为了方便开发人员，Angular 在运行时并不�
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-lifecycle.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-lifecycle.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-lifecycle.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-lifecycle.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-lifecycle.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-lifecycle.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-lifecycle.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-lifecycle.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-lifecycle.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-lifecycle.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
 
-
-
 {@a io-decorators}
-
-
 
 ## Input and Output Metadata
 
@@ -726,33 +543,20 @@ combined in the metadata `inputs` and `outputs` _arrays_.
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/confirm.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/confirm.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/confirm.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/confirm.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/confirm.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/confirm.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/confirm.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/confirm.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/confirm.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/confirm.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
 
-
-
-In the previous example, one of the public-facing binding names (`cancelMsg`)
-differs from the corresponding class property name (`notOkMsg`).
+In the previous example, one of the public-facing binding names, `cancelMsg`,
+differs from the corresponding class property name, `notOkMsg`.
 That's OK but you must tell Angular about it so that it can map an external binding of `cancelMsg`
 to the component's `notOkMsg` property.
 
@@ -768,9 +572,10 @@ In _ES5_ and _plain ES6_ code, convey this pairing with the `propertyName: bindi
 
 在 _ES5_ 或 _普通 ES6_ 中，用`propertyName: bindingName`语法表示在类的元数据中。
 
+{@a dependency-injection}
 
 
-## Dependency Injection
+## Dependency injection
 
 ## 依赖注入
 
@@ -786,7 +591,9 @@ The developer must tell Angular what to inject into each parameter.
 
 开发人员必须告诉 Angular 向每个参数中注入什么。
 
-### Injection by Class Type
+{@a injection-class-type}
+
+### Injection by class type
 
 ### 按类的类型注入
 
@@ -796,7 +603,7 @@ to the class associated with the service to inject.
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，最简单和流行的技术是把构造函数参数的类型设置为待注入服务的类。
 
 The _TypeScript_ transpiler writes parameter type information into the generated JavaScript.
-Angular reads that information at runtime and locates the corresponding service in the appropriate _Injector_..
+Angular reads that information at runtime and locates the corresponding service in the appropriate _Injector_.
 The _ES6-with-decorators_ transpiler does essentially the same thing using the same parameter-typing syntax.
 
 _TypeScript_ 转译器把参数类型信息写进生成的 JavaScript。
@@ -809,17 +616,13 @@ Each item in the array specifies the service's injection token.
 _ES5_ 或 _普通 ES6_ 缺少类型，必须向构造函数附加**`parameters`**数组来标识“可注入对象”。
 数组中的每一项指定一个服务的注入令牌。
 
-As with _TypeScript_ the most popular token is a class,
+As with _TypeScript_, the most popular token is a class,
 or rather a _constructor function_ that represents a class in _ES5_ and _plain ES6_.
 The format of the `parameters` array varies:
 
 _TypeScript_ 中，最常用的令牌是类，而_ES5_ 和 _普通 ES6_ 使用_构造函数_表示一个类。
-因此，`parameters`数组会有所不同：
-
-* _plain ES6_ &mdash; nest each constructor function in a sub-array.
-
-  _普通 ES6_ &mdash; 函数构造嵌套在一个子数组中。
-
+因此，`parameters`数组会有所不同：* _Plain ES6_ &mdash; nest each constructor function in a sub-array.
+_普通 ES6_ &mdash; 函数构造嵌套在一个子数组中。
 * _ES5_ &mdash; simply list the constructor functions.
 
   _ES5_ &mdash; 简单列出构造函数。
@@ -835,30 +638,17 @@ AngularJS 的开发人员对这种形式应该很熟悉。
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-di.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-di.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-di.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-di.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-di.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-di.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-di.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-di.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-di.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-di.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
-
-
 
 ### Injection with the @Inject decorator
 
@@ -875,16 +665,12 @@ In the following example, the token is the string `'heroName'`.
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以在类的构造函数参数前调用`@Inject()`装饰器来指定注入令牌。
 在这个例子中，这个令牌是字符串`'heroName'`
 
-The other JavaScript dialects add a `parameters` array to the class contructor function.
-Each item constains a new instance of `Inject`:
+The other JavaScript dialects add a `parameters` array to the class constructor function.
+Each item contains a new instance of `Inject`:
 
 其它 JavaScript 方言是通过向类的构造函数添加`parameters`数组。
-其中的每一项是`Inject`的实例。
-
-* _plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
-
-  _普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
-
+其中的每一项是`Inject`的实例。* _Plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
+_普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
 * _ES5_ &mdash; simply list the string tokens.
 
   _ES5_ &mdash; 简单列出字符串令牌。
@@ -897,30 +683,17 @@ array as before. Create a new instance of `ng.core.Inject(token)` for each param
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-di-inject.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-di-inject.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-di-inject.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-di-inject.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-di-inject.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-di-inject.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-di-inject.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-di-inject.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-di-inject.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-di-inject.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
-
-
 
 ### Additional Injection Decorators
 
@@ -935,29 +708,29 @@ you precede the constructor parameters with injection qualifiers such as:
 
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以将下列注入限定符加在构造函数参数前面：
 
-* [`@Optional`](api/core/index/Optional-decorator) sets the parameter to `null` if the service is missing
+* [`@Optional`](api/core/Optional) sets the parameter to `null` if the service is missing.
 
-  [`@Optional`](api/core/index/Optional-decorator) 如果找不到服务，设置参数为`null`
+  [`@Optional`](api/core/Optional) 如果找不到服务，设置参数为`null`
 
-* [`@Attribute`](api/core/index/Attribute-interface) to inject a host element attribute value
+* [`@Attribute`](api/core/Attribute) to inject a host element attribute value.
 
-  [`@Attribute`](api/core/index/Attribute-interface) 注入宿主元素属性值
+  [`@Attribute`](api/core/Attribute) 注入宿主元素属性值
 
-* [`@ContentChild`](api/core/index/ContentChild-decorator) to inject a content child
+* [`@ContentChild`](api/core/ContentChild) to inject a content child.
 
-  [`@ContentChild`](api/core/index/ContentChild-decorator) 注入内容子组件
+  [`@ContentChild`](api/core/ContentChild) 注入内容子组件
 
-* [`@ViewChild`](api/core/index/ViewChild-decorator) to inject a view child
+* [`@ViewChild`](api/core/ViewChild) to inject a view child.
 
-  [`@ViewChild`](api/core/index/ViewChild-decorator) 注入视图子组件
+  [`@ViewChild`](api/core/ViewChild) 注入视图子组件
 
-* [`@Host`](api/core/index/Host-decorator) to inject a service in this component or its host
+* [`@Host`](api/core/Host) to inject a service in this component or its host.
 
-  [`@Host`](api/core/index/Host-decorator) 注入本组件或它宿主中的服务
+  [`@Host`](api/core/Host) 注入本组件或它宿主中的服务
 
-* [`@SkipSelf`](api/core/index/SkipSelf-decorator) to inject a service provided in an ancestor of this component
+* [`@SkipSelf`](api/core/SkipSelf) to inject a service provided in an ancestor of this component.
 
-  [`@SkipSelf`](api/core/index/SkipSelf-decorator) 注入本组件祖先中提供的服务
+  [`@SkipSelf`](api/core/SkipSelf) 注入本组件祖先中提供的服务
 
 In _plain ES6_ and _ES5_, create an instance of the equivalent injection qualifier in a nested array within the `parameters` array.
 For example, you'd write `new Optional()` in _plain ES6_ and `new ng.core.Optional()` in _ES5_.
@@ -972,39 +745,24 @@ array as before. Use a nested array to define a parameter's complete injection s
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-title.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-title.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-title.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-title.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-title.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-title.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-title.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-title.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-title.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-title.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
-
-
 
 <div class="l-sub-section">
 
-
-
-In the example above, there is no provider for the `'titlePrefix'` token.
-Without `Optional`, Angular would raise an error.
-With `Optional`, Angular sets the constructor parameter to `null`
-and the component displays the title without a prefix.
+  In the example above, there is no provider for the `'titlePrefix'` token.
+  Without `@Optional()`, Angular would raise an error.
+  With `@Optional()`, Angular sets the constructor parameter to `null`
+  and the component displays the title without a prefix.
 
 上例中，`'titlePrefix'`令牌没有提供商。
 如果没有`Optional`，Angular 将抛出错误。
@@ -1014,17 +772,10 @@ and the component displays the title without a prefix.
 
 </div>
 
-
-
 {@a host-binding}
 
-
-
 ## Host Binding
-
-## 宿主绑定
-
-Angular supports bindings to properties and events of the _host element_ which is the
+## 宿主绑定Angular supports bindings to properties and events of the _host element_, which is the
 element whose tag matches the component selector.
 
 Angular 支持绑定到_宿主元素_的属性和事件，
@@ -1036,9 +787,9 @@ Angular 支持绑定到_宿主元素_的属性和事件，
 
 In _TypeScript_ and _ES6-with-decorators_, you can use host property decorators to bind a host
 element to a component or directive.
-The [`@HostBinding`](api/core/index/HostBinding-interface) decorator
+The [`@HostBinding`](api/core/HostBinding) decorator
 binds host element properties to component data properties.
-The [`@HostListener`](api/core/index/HostListener-interface) decorator binds
+The [`@HostListener`](api/core/HostListener) decorator binds
 host element events to component event handlers.
 
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以使用宿主属性装饰器把宿主元素绑定到组件或指令。
@@ -1065,30 +816,17 @@ The  `host` value is an object whose properties are host property and listener b
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-host.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-host.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-host.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-host.component.es6">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-host.component.es6">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-host.component.es6">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript" path="cb-ts-to-js/js/src/app/hero-host.component.js">
-
+  <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-host.component.js">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-host.component.js" region="dsl">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-host.component.js" region="dsl">
   </code-pane>
-
 </code-tabs>
-
-
 
 ### Host Metadata
 
@@ -1101,7 +839,7 @@ They'd _rather_ do it the way you _must_ do it _ES5_ and _plain ES6_.
 一些开发人员更喜欢在组件元数据中指定宿主属性和监听器。
 它们宁愿采用这种方式，也是 _ES5_ 或 _普通 ES6_ 中必须采用的方式。
 
-The following re-implementation of the `HeroComponent` reminds us that _any property metadata decorator_
+The following re-implementation of the `HeroComponent` shows that _any property metadata decorator_
 can be expressed as component or directive metadata in both _TypeScript_ and _ES6-with-decorators_.
 These particular _TypeScript_ and _ES6_ code snippets happen to be identical.
 
@@ -1110,22 +848,13 @@ _任何属性元数据装饰器_都可以表示为组件或指令元数据。
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-host-meta.component.ts">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-host-meta.component.ts">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-host-meta.component.es6">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-host-meta.component.es6">
   </code-pane>
-
 </code-tabs>
 
-
-
 {@a view-child-decorators}
-
-
 
 ### View and Child Decorators
 
@@ -1138,14 +867,10 @@ Several _property_ decorators query a component's nested view and content compon
 
 <div class="l-sub-section">
 
+  _View_ children are associated with element tags that appear _within_ the component's template.
 
-
-_View_ children are associated with element tags that appear _within_ the component's template.
-
-_视图_子组件与出现在组件模板_内_的元素标签相关联。
-
-_Content_ children are associated with elements that appear _between_ the component's element tags;
-they are projected into an `<ng-content>` slot in the component's template.     
+_视图_子组件与出现在组件模板_内_的元素标签相关联。_Content_ children are associated with elements that appear _between_ the component's element tags;
+they are projected into an `<ng-content>` slot in the component's template.
 
 _内容_子组件与出现在组件元素标签_之间_的那些元素相关联，
 它们被投影到组件模板的`<ng-content>`中。
@@ -1153,10 +878,8 @@ _内容_子组件与出现在组件元素标签_之间_的那些元素相关联�
 
 </div>
 
-
-
-The [`@ViewChild`](api/core/index/ViewChild-decorator) and
-[`@ViewChildren`](api/core/index/ViewChildren-decorator) property decorators
+The [`@ViewChild`](api/core/ViewChild) and
+[`@ViewChildren`](api/core/ViewChildren) property decorators
 allow a component to query instances of other components that are used in
 its view.
 
@@ -1168,83 +891,52 @@ In _ES5_ and _ES6_, you access a component's view children by adding a `queries`
 The `queries` property value is a hash map.
 
 在 _ES5_ 和 _ES6_ 中，通过向组件元数据添加`queries`属性来访问组件的视图子组件。
-`queries`属性是一个映射表。
-
-* each _key_ is the name of a component property that will hold the view child or children.
-
-  每个_键_是用来保存视图子组件的组件属性名。
-
-* each _value_ is a new instance of either `ViewChild` or `ViewChildren`.
-
-  每个_值_是`ViewChild`或`ViewChildren`的实例。
-
+`queries`属性是一个映射表。* Each _key_ is the name of a component property that will hold the view child or children.
+每个_键_是用来保存视图子组件的组件属性名。* Each _value_ is a new instance of either `ViewChild` or `ViewChildren`.
+每个_值_是`ViewChild`或`ViewChildren`的实例。
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-queries.component.ts" region="view">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-queries.component.ts" region="view">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6" region="view">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6" region="view">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-queries.component.es6" region="view">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-queries.component.es6" region="view">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-queries.component.js" region="view">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-queries.component.js" region="view">
   </code-pane>
-
 </code-tabs>
 
-
-
-The [`@ContentChild`](api/core/index/ContentChild-decorator) and
-[`@ContentChildren`](api/core/index/ContentChildren-decorator) property decorators
+The [`@ContentChild`](api/core/ContentChild) and
+[`@ContentChildren`](api/core/ContentChildren) property decorators
 allow a component to query instances of other components that have been projected
 into its view from elsewhere.
 
-[`@ContentChild`](api/core/index/ContentChild-decorator) 和
-[`@ContentChildren`](api/core/index/ContentChildren-decorator)
+[`@ContentChild`](api/core/ContentChild) 和
+[`@ContentChildren`](api/core/ContentChildren)
 装饰器允许组件查询从其它地方投影到视图里的其它组件的实例。
 
-They can be added in the same way as [`@ViewChild`](api/core/index/ViewChild-decorator) and
-[`@ViewChildren`](api/core/index/ViewChildren-decorator).
+They can be added in the same way as [`@ViewChild`](api/core/ViewChild) and
+[`@ViewChildren`](api/core/ViewChildren).
 
-添加它们的方式与[`@ViewChild`](api/core/index/ViewChild-decorator) 和
-[`@ViewChildren`](api/core/index/ViewChildren-decorator) 相同。
+添加它们的方式与[`@ViewChild`](api/core/ViewChild) 和
+[`@ViewChildren`](api/core/ViewChildren) 相同。
 
 
 <code-tabs>
-
-  <code-pane title="TypeScript" path="cb-ts-to-js/ts/src/app/hero-queries.component.ts" region="content">
-
+  <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-queries.component.ts" region="content">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript with decorators" path="cb-ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6" region="content">
-
+  <code-pane title="ES6 + Decorators" path="ts-to-js/js-es6-decorators/src/app/hero-queries.component.es6" region="content">
   </code-pane>
-
-  <code-pane title="ES6 JavaScript" path="cb-ts-to-js/js-es6/src/app/hero-queries.component.es6" region="content">
-
+  <code-pane title="ES6 JavaScript" path="ts-to-js/js-es6/src/app/hero-queries.component.es6" region="content">
   </code-pane>
-
-  <code-pane title="ES5 JavaScript with DSL" path="cb-ts-to-js/js/src/app/hero-queries.component.js" region="content">
-
+  <code-pane title="ES5 JavaScript with DSL" path="ts-to-js/js/src/app/hero-queries.component.js" region="content">
   </code-pane>
-
 </code-tabs>
-
-
 
 <div class="alert is-helpful">
 
-
-
-In _TypeScript_ and _ES6-with-decorators_ you can also use the `queries` metadata
-instead of the `@ViewChild` and `@ContentChild` property decorators.
+  In _TypeScript_ and _ES6-with-decorators_ you can also use the  `queries` metadata
+  instead of the `@ViewChild` and `@ContentChild` property decorators.
 
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，还可以使用`queries`元数据代替
 `@ViewChild` 和 `@ContentChild`属性装饰器。
@@ -1252,18 +944,14 @@ instead of the `@ViewChild` and `@ContentChild` property decorators.
 
 </div>
 
-
-
 {@a aot}
-
-
 
 ## AOT Compilation in _TypeScript_ only
 
 ## 只用于 _TypeScript_ 的预编译
 
-Angular offers two modes of template compilation, JIT (_Just-in-Time_) and
-[AOT (_Ahead-of-Time_)](guide/aot-compiler).
+Angular offers two modes of template compilation, JIT (_just-in-time_) and
+[AOT (_ahead-of-time_)](guide/aot-compiler).
 Currently the AOT compiler only works with _TypeScript_ applications because, in part, it generates
 _TypeScript_ files as an intermediate result.
 **AOT is not an option for pure JavaScript applications** at this time.

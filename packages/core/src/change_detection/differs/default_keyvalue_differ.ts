@@ -120,9 +120,9 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
       }
 
       this._removalsHead = insertBefore;
-      this._removalsTail = insertBefore;
 
-      for (let record = insertBefore; record !== null; record = record._nextRemoved) {
+      for (let record: KeyValueChangeRecord_<K, V>|null = insertBefore; record !== null;
+           record = record._nextRemoved) {
         if (record === this._mapHead) {
           this._mapHead = null;
         }
@@ -134,6 +134,10 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
         record._next = null;
       }
     }
+
+    // Make sure tails have no next records from previous runs
+    if (this._changesTail) this._changesTail._nextChanged = null;
+    if (this._additionsTail) this._additionsTail._nextAdded = null;
 
     return this.isDirty;
   }
@@ -147,8 +151,8 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
    * - The return value is the new value for the insertion pointer.
    */
   private _insertBeforeOrAppend(
-      before: KeyValueChangeRecord_<K, V>,
-      record: KeyValueChangeRecord_<K, V>): KeyValueChangeRecord_<K, V> {
+      before: KeyValueChangeRecord_<K, V>|null,
+      record: KeyValueChangeRecord_<K, V>): KeyValueChangeRecord_<K, V>|null {
     if (before) {
       const prev = before._prev;
       record._next = before;
@@ -178,7 +182,7 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
 
   private _getOrCreateRecordForKey(key: K, value: V): KeyValueChangeRecord_<K, V> {
     if (this._records.has(key)) {
-      const record = this._records.get(key);
+      const record = this._records.get(key) !;
       this._maybeAddToChanges(record, value);
       const prev = record._prev;
       const next = record._next;
@@ -222,7 +226,7 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
 
       this._changesHead = this._changesTail = null;
       this._additionsHead = this._additionsTail = null;
-      this._removalsHead = this._removalsTail = null;
+      this._removalsHead = null;
     }
   }
 
@@ -251,37 +255,6 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
       this._changesTail !._nextChanged = record;
       this._changesTail = record;
     }
-  }
-
-  toString(): string {
-    const items: any[] = [];
-    const previous: any[] = [];
-    const changes: any[] = [];
-    const additions: any[] = [];
-    const removals: any[] = [];
-    let record: KeyValueChangeRecord_<K, V>|null;
-
-    for (record = this._mapHead; record !== null; record = record._next) {
-      items.push(stringify(record));
-    }
-    for (record = this._previousMapHead; record !== null; record = record._nextPrevious) {
-      previous.push(stringify(record));
-    }
-    for (record = this._changesHead; record !== null; record = record._nextChanged) {
-      changes.push(stringify(record));
-    }
-    for (record = this._additionsHead; record !== null; record = record._nextAdded) {
-      additions.push(stringify(record));
-    }
-    for (record = this._removalsHead; record !== null; record = record._nextRemoved) {
-      removals.push(stringify(record));
-    }
-
-    return 'map: ' + items.join(', ') + '\n' +
-        'previous: ' + previous.join(', ') + '\n' +
-        'additions: ' + additions.join(', ') + '\n' +
-        'changes: ' + changes.join(', ') + '\n' +
-        'removals: ' + removals.join(', ') + '\n';
   }
 
   /** @internal */
@@ -316,11 +289,4 @@ class KeyValueChangeRecord_<K, V> implements KeyValueChangeRecord<K, V> {
   _nextChanged: KeyValueChangeRecord_<K, V>|null = null;
 
   constructor(public key: K) {}
-
-  toString(): string {
-    return looseIdentical(this.previousValue, this.currentValue) ?
-        stringify(this.key) :
-        (stringify(this.key) + '[' + stringify(this.previousValue) + '->' +
-         stringify(this.currentValue) + ']');
-  }
 }

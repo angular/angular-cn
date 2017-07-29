@@ -1,152 +1,40 @@
-@title
-模板语法
+# Template Syntax
 
-@intro
-学习如何写模板来显示数据，以及在数据绑定的帮助下响应用户事件。
-
-@description
-
-
+# 模板语法
 
 <style>
   h4 {font-size: 17px !important; text-transform: none !important;}
   .syntax { font-family: Consolas, 'Lucida Sans', Courier, sans-serif; color: black; font-size: 85%; }
   h4 .syntax { font-size: 100%; }
-
 </style>
 
-
-
-The Angular application manages what the user sees and can do, achieving this through the interaction of a 
+The Angular application manages what the user sees and can do, achieving this through the interaction of a
 component class instance (the *component*) and its user-facing template.
 
 Angular 应用管理着用户之所见和所为，并通过 Component 类的实例（*组件*）和面向用户的模板来与用户交互。
 
-You may be familiar with the component/template duality from your experience with model-view-controller (MVC) or model-view-viewmodel (MVVM). 
+You may be familiar with the component/template duality from your experience with model-view-controller (MVC) or model-view-viewmodel (MVVM).
 In Angular, the component plays the part of the controller/viewmodel, and the template represents the view.
 
 从使用模型-视图-控制器 (MVC) 或模型-视图-视图模型 (MVVM) 的经验中，很多开发人员都熟悉了组件和模板这两个概念。
   在 Angular 中，组件扮演着控制器或视图模型的角色，模板则扮演视图的角色。
-
-
-{@a toc}
-
-
-### Contents
-
-### 目录
-
-This guide covers the basic elements of the Angular template syntax, elements you'll need to construct the view:
-
-本章涵盖了Angular模板语法中的基本元素，你在构建视图时会用到它们：
-
-* [HTML in templates](guide/template-syntax#html)
-
-  [模板中的HTML](guide/template-syntax#html)
-
-* [Interpolation ( <span class="syntax">{&#xfeff;{...}}</span> )](guide/template-syntax#interpolation)
-
-  [插值表达式( <span class="syntax">{&#xfeff;{...}}</span> )](guide/template-syntax#interpolation)
-
-* [Template expressions](guide/template-syntax#template-expressions)
-
-  [模板表达式](guide/template-syntax#template-expressions)
-
-* [Template statements](guide/template-syntax#template-statements)
-
-  [模板语句](guide/template-syntax#template-statements)
-
-* [Binding syntax](guide/template-syntax#binding-syntax)
-
-  [绑定语法](guide/template-syntax#binding-syntax)
-
-* [Property binding ( <span class="syntax">[property]</span> )](#property-binding)
-
-  [属性 (property) 绑定 ( <span class="syntax">[property]</span> )](#property-binding)
-* [Attribute, class, and style bindings](guide/template-syntax#other-bindings)
-
-  [属性、类和样式绑定](guide/template-syntax#other-bindings)
-
-* [Event binding ( <span class="syntax">(event)</span> )](guide/template-syntax#event-binding)
-
-  [事件绑定 ( <span class="syntax">(event)</span> )](guide/template-syntax#event-binding)
-
-* [Two-way data binding ( <span class="syntax">[(...)]</span> )](#two-way)
-
-  [双向绑定 ( <span class="syntax">[(...)]</span> )](#two-way)
-
-* [Built-in directives](guide/template-syntax#directives)
-
-  [内置指令](guide/template-syntax#directives)
-
-* [Built-in attribute directives](guide/template-syntax#attribute-directives)
-
-  [内置属性型指令](guide/template-syntax#attribute-directives)
-
-  * [NgClass](guide/template-syntax#ngClass)
-  * [NgStyle](guide/template-syntax#ngStyle)
-  * [NgModel (<span class="syntax">[(ngModel)]</span>) ](#ngModel)
-
-* [Built-in structural directives](guide/template-syntax#structural-directives)
-
-  [内置结构型指令](guide/template-syntax#structural-directives)
-
-  * [NgIf](guide/template-syntax#ngIf)
   
-  * [NgFor](guide/template-syntax#ngFor)
-  
-    * [Template input variables](guide/template-syntax#template-input-variables)
-    
-      [模板输入变量](guide/template-syntax#template-input-variables)
-      
-    * [Microsyntax](guide/template-syntax#microsyntax)
-    
-      [微语法](guide/template-syntax#microsyntax)
+// TODO: Translate
+This page is a comprehensive technical reference to the Angular template language.
+It explains basic principles of the template language and describes most of the syntax that you'll encounter elsewhere in the documentation.
 
-  * [The NgSwitch directives](guide/template-syntax#ngSwitch)
-  
-    [NgSwitch指令](guide/template-syntax#ngSwitch)
-    
-* [Template reference variables( <span class="syntax">#var</span> )](guide/template-syntax#ref-vars)
-
-  [模板引用变量( <span class="syntax">#var</span> )](guide/template-syntax#ref-vars)  
-  
-* [Input and output properties( <span class="syntax">@Input</span> and <span class="syntax">@Output</span> )](guide/template-syntax#inputs-outputs)
-
-  [输入输出属性( <span class="syntax">@Input</span> and <span class="syntax">@Output</span> )](guide/template-syntax#inputs-outputs)
-  
-* [Template expression operators](guide/template-syntax#expression-operators)
-
-  [模板表达式操作符](guide/template-syntax#expression-operators)    
-
-  * [pipe( <span class="syntax">|</span> )](guide/template-syntax#pipe)
-  
-    [管道](guide/template-syntax#pipe)
-    
-  * [safe navigation operator (<span class="syntax">?.</span>)](guide/template-syntax#safe-navigation-operator)
-
-    [安全导航操作符 (<span class="syntax">?.</span>)](guide/template-syntax#safe-navigation-operator)
-
-The <live-example></live-example>
-demonstrates all of the syntax and code snippets described in this guide.
-
-<live-example></live-example>演示了本章中描述的所有语法和代码片段。
-
-
-<hr/>
-
+Many code snippets illustrate the points and concepts, all of them available
+in the <live-example title="Template Syntax Live Code"></live-example>.
 
 
 {@a html}
-
-
 ## HTML in templates
 
 ## 模板中的HTML
 
 HTML is the language of the Angular template.
-Almost all HTML syntax is valid template syntax. 
-The `<script>` element is a notable exception; 
+Almost all HTML syntax is valid template syntax.
+The `<script>` element is a notable exception;
 it is forbidden, eliminating the risk of script injection attacks.
 In practice, `<script>` is ignored and a warning appears in the browser console.
 See the [Security](guide/security) page for details.
@@ -155,28 +43,23 @@ HTML 是 Angular 模板的语言。几乎所有的HTML语法都是有效的模�
 但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。（实际上，`<script>`只是被忽略了。）
 参见[安全](guide/security)页了解详情。
 
-Some legal HTML doesn't make much sense in a template. 
-The `<html>`, `<body>`, and `<base>` elements have no useful role. 
+Some legal HTML doesn't make much sense in a template.
+The `<html>`, `<body>`, and `<base>` elements have no useful role.
 Pretty much everything else is fair game.
 
 有些合法的 HTML 被用在模板中是没有意义的。`<html>`、`<body>`和`<base>`元素这个舞台上中并没有扮演有用的角色。剩下的所有元素基本上就都一样用了。
 
-You can extend the HTML vocabulary of your templates with components and directives that appear as new elements and attributes. 
+You can extend the HTML vocabulary of your templates with components and directives that appear as new elements and attributes.
 In the following sections, you'll learn how to get and set DOM (Document Object Model) values dynamically through data binding.
 
 可以通过组件和指令来扩展模板中的 HTML 词汇。它们看上去就是新元素和属性。接下来将学习如何通过数据绑定来动态获取/设置 DOM（文档对象模型）的值。
 
 Begin with the first form of data binding&mdash;interpolation&mdash;to see how much richer template HTML can be.
-
-我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a interpolation}
-
 
 ## Interpolation ( <span class="syntax">{&#xfeff;{...}}</span> )
 
@@ -188,10 +71,7 @@ You met the double-curly braces of interpolation, `{{` and `}}`, early in your A
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="first-interpolation" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You use interpolation to weave calculated strings into the text between HTML element tags and within attribute assignments.
 
@@ -199,10 +79,7 @@ You use interpolation to weave calculated strings into the text between HTML ele
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="title+image" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The text between the braces is often the name of a component property. Angular replaces that name with the
 string value of the corresponding component property. In the example above, Angular evaluates the `title` and `heroImageUrl` properties
@@ -220,10 +97,7 @@ and then **converts to a string**. The following interpolation illustrates the p
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="sum-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The expression can invoke methods of the host component such as `getVal()`, seen here:
 
@@ -231,10 +105,7 @@ The expression can invoke methods of the host component such as `getVal()`, seen
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="sum-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Angular evaluates all expressions in double curly braces,
 converts the expression results to strings, and links them with neighboring literal strings. Finally,
@@ -245,23 +116,18 @@ Angular 对所有双花括号中的表达式求值，把求值的结果转换成
 You appear to be inserting the result between element tags and assigning it to attributes.
 It's convenient to think so, and you rarely suffer for this mistake.
 Though this is not exactly true. Interpolation is a special syntax that Angular converts into a
-[property binding](guide/template-syntax#property-binding), as is explained [below](guide/template-syntax#property-binding-or-interpolation-).
+[property binding](guide/template-syntax#property-binding), as is explained [below](guide/template-syntax#property-binding-or-interpolation).
 
 表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
 这样思考起来很方便，并且这个误解很少给我们带来麻烦。
 但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation-)将会解释这一点。
 
 But first, let's take a closer look at template expressions and statements.
-
-讲解属性绑定之前，先深入了解一下模板表达式和模板语句。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+讲解属性绑定之前，先深入了解一下模板表达式和模板语句。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a template-expressions}
-
 
 ## Template expressions
 
@@ -317,13 +183,12 @@ Other notable differences from JavaScript syntax include:
 
   不支持位运算`|`和`&`
   
-* new [template expression operators](guide/template-syntax#expression-operators), such as `|` and `?.`
+* new [template expression operators](guide/template-syntax#expression-operators), such as `|`, `?.` and `!`.
 
-  具有新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如`|`和`?.`
+  具有新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如`|`、`?.`和`!`。
 
 
 {@a expression-context}
-
 
 ### Expression context
 
@@ -338,10 +203,7 @@ In the following snippets, the `title`  within double-curly braces and the
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-expression" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 An expression may also refer to properties of the _template's_ context
 such as a [template input variable](guide/template-syntax#template-input-variable) (`let hero`)
@@ -352,10 +214,7 @@ or a [template reference variable](guide/template-syntax#ref-vars) (`#heroInput`
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-var" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The context for terms in an expression is a blend of the _template variables_,
 the directive's _context_ object (if it has one), and the component's _members_.
@@ -378,16 +237,12 @@ Template expressions cannot refer to anything in
 the global namespace. They can't refer to `window` or `document`. They
 can't call `console.log` or `Math.max`. They are restricted to referencing
 members of the expression context.
-
 模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
-它们只能引用表达式上下文中的成员。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+它们只能引用表达式上下文中的成员。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 {@a no-side-effects}
 
-
 {@a expression-guidelines}
-
 
 ### Expression guidelines
 
@@ -488,14 +343,11 @@ it returns the same object *reference* when called twice in a row.
 在单独的一次事件循环中，被依赖的值不应该改变。
   如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
   如果幂等的表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a template-statements}
-
 
 ## Template statements
 
@@ -511,10 +363,7 @@ appearing in quotes to the right of the `=`&nbsp;symbol as in `(event)="statemen
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 A template statement *has a side effect*.
 That's the whole point of an event.
@@ -578,10 +427,7 @@ The *deleteHero* in `(click)="deleteHero()"` is a method of the data-bound compo
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The statement context may also refer to properties of the template's own context.
 In the following examples, the template `$event` object,
@@ -594,10 +440,7 @@ are passed to an event handling method of the component.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-var-statement" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Template context names take precedence over component context names.
 In `deleteHero(hero)` above, the `hero` is the template input variable,
@@ -623,17 +466,12 @@ A method call or simple property assignment should be the norm.
 
 Now that you have a feel for template expressions and statements,
 you're ready to learn about the varieties of data binding syntax beyond interpolation.
-
 现在，对模板表达式和语句有了一点感觉了吧。
-  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a binding-syntax}
-
 
 ## Binding syntax: An overview
 
@@ -659,14 +497,15 @@ Angular 提供了各种各样的数据绑定，本章将逐一讨论。
 Binding types can be grouped into three categories distinguished by the direction of data flow:
 from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _view-to-source-to-view_:
 
+
 绑定的类型可以根据数据流的方向分成三类：
 *从数据源到视图*、*从视图到数据源*以及双向的*从视图到数据源再到视图*。
+  
 
 
-<table>
 
+<table >
   <tr>
-
     <th>
 
       <p>
@@ -678,7 +517,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </p>
 
     </th>
-
     <th>
 
       <p>
@@ -690,7 +528,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </p>
 
     </th>
-
     <th>
 
       <p>
@@ -704,9 +541,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
     </th>
 
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -734,7 +569,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </p>
 
     </td>
-
     <td>
 
       <code-example>
@@ -744,7 +578,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </code-example>
 
     </td>
-
     <td>
 
       <p>
@@ -781,30 +614,22 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
     </td>
 
-  </tr>
+  </tr>  <tr>
 
-  <tr>
-
-    <td>
-
-      <p>
-        One-way
-      </p>
+      <td>
+<p>        One-way</p>
 
       <p>
         单向
       </p>
 
-      <p>
-        from view target
-      </p>
+      <p>from view target</p>
 
       <p>
         从视图目标
       </p>
 
-      <p>
-        to data source
+      <p>to data source
       </p>
 
       <p>
@@ -813,18 +638,16 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
     </td>
 
-    <td>
+      <td>
 
-      <code-example>
-        (target)="statement"
-        on-target="statement"
-      </code-example>
+        <code-example>
+          (target)="statement"
+          on-target="statement"
+        </code-example>
 
-    </td>
+      </td>
 
-    <td>
-
-      <p>
+      <td><p>
         Event
       </p>
 
@@ -834,13 +657,11 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
     </td>
 
-  </tr>
+    </tr>
 
-  <tr>
+    <tr>
 
-    <td>
-
-      <p>
+      <td><p>
         Two-way
       </p>
 
@@ -850,29 +671,26 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
     </td>
 
-    <td>
+      <td>
 
-      <code-example>
-        [(target)]="expression"
-        bindon-target="expression"
-      </code-example>
+        <code-example>
+          [(target)]="expression"
+          bindon-target="expression"
+        </code-example>
 
-    </td>
+      </td>
 
-    <td>
-
-      <p>
+      <td><p>
         Two-way
       </p>
 
-      <p>
+    <p>
         双向
       </p>
 
     </td>
 
   </tr>
-
 </table>
 
 
@@ -932,10 +750,7 @@ you modify those elements by setting element attributes with string constants.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="img+button" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You still create a structure and initialize attribute values this way in Angular templates.
 
@@ -948,10 +763,7 @@ and drop them into  templates as if they were native HTML elements.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="hero-detail-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 That's HTML Plus.
 
@@ -963,10 +775,7 @@ Then you learn about data binding. The first binding you meet might look like th
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="disabled-button-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You'll get to that peculiar bracket notation in a moment. Looking beyond it,
 your intuition suggests that you're binding to the button's `disabled` attribute and setting
@@ -985,8 +794,6 @@ You are setting the *properties* of DOM elements, components, and directives.
 
 
 <div class="l-sub-section">
-
-
 
 ### HTML attribute vs. DOM property
 
@@ -1070,8 +877,6 @@ The value of the *property* matters.
 
 </div>
 
-
-
 This fact bears repeating:
 
 这句话值得再强调一次：
@@ -1082,8 +887,6 @@ This fact bears repeating:
 
 
 <div class="callout is-helpful">
-
-
 
 <header>
   A world without attributes
@@ -1106,8 +909,6 @@ HTML attributes effectively disappear.
 
 
 </div>
-
-
 
 With this model firmly in mind, read on to learn about binding targets.
 
@@ -1132,24 +933,14 @@ The following table summarizes:
   td, th {vertical-align: top}
 </style>
 
-
-
 <table width="100%">
-
   <col width="10%">
-
   </col>
-
   <col width="15%">
-
   </col>
-
   <col width="75%">
-
   </col>
-
   <tr>
-
     <th>
 
       <p>
@@ -1161,7 +952,6 @@ The following table summarizes:
       </p>
 
     </th>
-
     <th>
 
       <p>
@@ -1173,7 +963,6 @@ The following table summarizes:
       </p>
 
     </th>
-
     <th>
 
       <p>
@@ -1185,11 +974,8 @@ The following table summarizes:
       </p>
 
     </th>
-
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -1197,7 +983,6 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
 
       <p>
@@ -1225,19 +1010,12 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="property-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -1249,7 +1027,6 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
 
       <p>
@@ -1277,19 +1054,12 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="event-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -1301,7 +1071,6 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
 
       <p>
@@ -1313,23 +1082,15 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="2-way-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
       Attribute
     </td>
-
     <td>
 
       <p>
@@ -1341,19 +1102,12 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="attribute-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -1365,7 +1119,6 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
 
       <p>
@@ -1373,19 +1126,12 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="class-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
 
       <p>
@@ -1397,7 +1143,6 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
 
       <p>
@@ -1405,32 +1150,21 @@ The following table summarizes:
       </p>
 
     </td>
-
     <td>
-
       <code-example path="template-syntax/src/app/app.component.html" region="style-binding-syntax-1" title="src/app/app.component.html" linenums="false">
-
       </code-example>
-
     </td>
-
   </tr>
-
 </table>
-
-
 
 With this broad view in mind, you're ready to look at binding types in detail.
 
 放开眼界，我们来看看每种绑定类型的具体情况。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a property-binding}
-
 
 ## Property binding ( <span class="syntax">[property]</span> )
 
@@ -1449,10 +1183,7 @@ binding the `src` property of an image element to a component's `heroImageUrl` p
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Another example is disabling a button when the component says that it `isUnchanged`:
 
@@ -1460,10 +1191,7 @@ Another example is disabling a button when the component says that it `isUnchang
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Another is setting a property of a directive:
 
@@ -1471,10 +1199,7 @@ Another is setting a property of a directive:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Yet another is setting the model property of a custom component (a great way
 for parent and child components to communicate):
@@ -1483,10 +1208,7 @@ for parent and child components to communicate):
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-4" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 ### One-way *in*
 
@@ -1506,8 +1228,6 @@ You can't bind to a property of the target element to _read_ it. You can only _s
 
 <div class="l-sub-section">
 
-
-
 Similarly, you cannot use property binding to *call* a method on the target element.
 
 也不能使用属性 绑定 来*调用*目标元素上的方法。
@@ -1519,18 +1239,16 @@ If the element raises events, you can listen to them with an [event binding](gui
 If you must read a target element property or call one of its methods,
 you'll need a different technique.
 See the API reference for
-[ViewChild](api/core/index/ViewChild-decorator) and
-[ContentChild](api/core/index/ContentChild-decorator).
+[ViewChild](api/core/ViewChild) and
+[ContentChild](api/core/ContentChild).
 
 如果必须读取目标元素上的属性或调用它的某个方法，得用另一种技术。
 参见 API 参考手册中的
-[ViewChild](api/core/index/ViewChild-decorator) 和
-[ContentChild](api/core/index/ContentChild-decorator)。
+[ViewChild](api/core/ViewChild) 和
+[ContentChild](api/core/ContentChild)。
 
 
 </div>
-
-
 
 ### Binding target
 
@@ -1540,12 +1258,8 @@ An element property between enclosing square brackets identifies the target prop
 
 包裹在方括号中的元素属性名标记着目标属性。下列代码中的目标属性是 image 元素的`src`属性。
 
-
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Some people prefer the `bind-` prefix alternative, known as the *canonical form*:
 
@@ -1553,10 +1267,7 @@ Some people prefer the `bind-` prefix alternative, known as the *canonical form*
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-5" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The target name is always the name of a property, even when it appears to be the name of something else.
 You see `src` and may think it's the name of an attribute. No. It's the name of an image element property.
@@ -1572,14 +1283,9 @@ as it is in the following example:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 Technically, Angular is matching the name to a directive [input](guide/template-syntax#inputs-outputs),
 one of the property names listed in the directive's `inputs` array or a property decorated with `@Input()`.
@@ -1591,8 +1297,6 @@ Such inputs map to the directive's own properties.
 
 
 </div>
-
-
 
 If the name fails to match a property of a known directive or element, Angular reports an “unknown directive” error.
 
@@ -1644,10 +1348,7 @@ The `hero` property of the `HeroDetail` component expects a `Hero` object, which
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-4" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 ### Remember the brackets
 
@@ -1668,13 +1369,9 @@ Don't make the following mistake:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-6" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 {@a one-time-initialization}
-
 
 ### One-time string initialization
 
@@ -1706,14 +1403,13 @@ not a template expression. Angular sets it and forgets about it.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-7" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The `[hero]` binding, on the other hand, remains a live binding to the component's `currentHero` property.
 
 作为对比，`[hero]`绑定是组件的`currentHero`属性的活绑定，它会一直随着更新。
+
+{@a property-binding-or-interpolation}
 
 ### Property binding or interpolation?
 
@@ -1727,10 +1423,7 @@ The following binding pairs do the same thing:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-vs-interpolation" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 _Interpolation_ is a convenient alternative to _property binding_ in many cases.
 
@@ -1762,10 +1455,7 @@ Imagine the following *malicious content*.
 
 
 <code-example path="template-syntax/src/app/app.component.ts" region="evil-title" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
-
-
 
 Fortunately, Angular data binding is on alert for dangerous HTML.
 It [*sanitizes*](guide/security#sanitization-and-security-contexts) the values before displaying them.
@@ -1778,10 +1468,7 @@ nor property binding.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-vs-interpolation-sanitization" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Interpolation handles the script tags differently than property binding but both approaches render the
 content harmlessly.
@@ -1789,24 +1476,17 @@ content harmlessly.
 插值表达式处理 script 标签与属性绑定有所不同，但是二者都只渲染没有危害的内容。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/template-syntax/evil-title.png' alt="evil title made safe" width='500px'></img>
+<figure>
+  <img src='generated/images/guide/template-syntax/evil-title.png' alt="evil title made safe">
 </figure>
 
+<a href="#top-of-page">back to top</a>
 
-
-<p>
-  <a href="#toc">back to top</a>  <a href="#toc">回到顶部</a>
-</p>
-
-
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
-
-
 {@a other-bindings}
-
 
 ## Attribute, class, and style bindings
 
@@ -1827,8 +1507,6 @@ You can set the value of an attribute directly with an **attribute binding**.
 
 <div class="l-sub-section">
 
-
-
 This is the only exception to the rule that a binding sets a target property.
 This is the only binding that creates and sets an attribute.
 
@@ -1836,8 +1514,6 @@ This is the only binding that creates and sets an attribute.
 
 
 </div>
-
-
 
 This guide stresses repeatedly that setting an element property with a property binding
 is always preferred to setting the attribute with a string. Why does Angular offer attribute binding?
@@ -1865,10 +1541,7 @@ This fact becomes painfully obvious when you write something like this.
 
 <code-example language="html">
   &lt;tr&gt;&lt;td colspan="{{1 + 1}}"&gt;Three-Four&lt;/td&gt;&lt;/tr&gt;
-
 </code-example>
-
-
 
 And you get this error:
 
@@ -1881,8 +1554,6 @@ And you get this error:
   （模板解析错误：不能绑定到 'colspan'，因为它不是已知的原生属性）
 
 </code-example>
-
-
 
 As the message says, the `<td>` element does not have a `colspan` property.
 It has the "colspan" *attribute*, but
@@ -1910,10 +1581,7 @@ Bind `[attr.colspan]` to a calculated value:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-colspan" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Here's how the table renders:
 
@@ -1932,14 +1600,11 @@ attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-aria" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
-
-
 
 ### Class binding
 
@@ -1965,10 +1630,7 @@ with class bindings.  Here's how to set the attribute without binding:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="class-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
 
@@ -1977,10 +1639,7 @@ You can replace that with a binding to a string of the desired class names; this
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="class-binding-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Finally, you can bind to a specific class name.
 Angular adds the class when the template expression evaluates to truthy.
@@ -1991,14 +1650,9 @@ It removes the class when the expression is falsy.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="class-binding-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 While this is a fine way to toggle a single class name,
 the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when managing multiple class names at the same time.
@@ -2008,11 +1662,9 @@ the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
-
-
 
 ### Style binding
 
@@ -2032,25 +1684,16 @@ followed by a dot (`.`) and the name of a CSS style property: `[style.style-prop
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="style-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Some style binding styles have a unit extension. The following example conditionally sets the font size in  “em” and “%” units.
 
 有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
 
-
 <code-example path="template-syntax/src/app/app.component.html" region="style-binding-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 While this is a fine way to set a single style,
 the [NgStyle directive](guide/template-syntax#ngStyle) is generally preferred when setting several inline styles at the same time.
@@ -2060,11 +1703,7 @@ the [NgStyle directive](guide/template-syntax#ngStyle) is generally preferred wh
 
 </div>
 
-
-
 <div class="l-sub-section">
-
-
 
 Note that a _style property_ name can be written in either
 [dash-case](guide/glossary#dash-case), as shown above, or
@@ -2076,14 +1715,11 @@ Note that a _style property_ name can be written in either
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a event-binding}
-
 
 ## Event binding  ( <span class="syntax">(event)</span> )
 ## 事件绑定  ( <span class="syntax">(事件名)</span> )
@@ -2117,10 +1753,7 @@ the component's `onSave()` method whenever a click occurs:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 ### Target event
 
@@ -2133,10 +1766,7 @@ identifies the target event. In the following example, the target is the button'
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Some people prefer the `on-` prefix alternative, known as the **canonical form**:
 
@@ -2144,10 +1774,7 @@ Some people prefer the `on-` prefix alternative, known as the **canonical form**
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Element events may be the more common targets, but Angular looks first to see if the name matches an event property
 of a known directive, as it does in the following example:
@@ -2156,14 +1783,9 @@ of a known directive, as it does in the following example:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 The `myClick` directive is further described in the section
 on [aliasing input/output properties](guide/template-syntax#aliasing-io).
@@ -2171,8 +1793,6 @@ on [aliasing input/output properties](guide/template-syntax#aliasing-io).
 更多关于该`myClick`指令的解释，见[给输入/输出属性起别名](guide/template-syntax#aliasing-io)。
 
 </div>
-
-
 
 If the name fails to match an element event or an output property of a known directive,
 Angular reports an “unknown directive” error.
@@ -2214,10 +1834,7 @@ Consider this example:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="without-NgModel" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 This code sets the input box `value` property by binding to the `name` property.
 To listen for changes to the value, the code binds to the input box's `input` event.
@@ -2240,15 +1857,13 @@ If the event belongs to a directive (recall that components are directives),
 
 {@a eventemitter}
 
-
 {@a custom-event}
-
 
 ### Custom events with <span class="syntax">EventEmitter</span>
 
 ### 使用 <span class="syntax">EventEmitter</span> 实现自定义事件
 
-Directives typically raise custom events with an Angular [EventEmitter](api/core/index/EventEmitter-class).
+Directives typically raise custom events with an Angular [EventEmitter](api/core/EventEmitter).
 The directive creates an `EventEmitter` and exposes it as a property.
 The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload, which can be anything.
 Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
@@ -2272,16 +1887,10 @@ Here are the pertinent excerpts from that `HeroDetailComponent`:
 
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" linenums="false" title="src/app/hero-detail.component.ts (template)" region="template-1">
-
 </code-example>
-
-
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" linenums="false" title="src/app/hero-detail.component.ts (deleteRequest)" region="deleteRequest">
-
 </code-example>
-
-
 
 The component defines a `deleteRequest` property that returns an `EventEmitter`.
 When the user clicks *delete*, the component invokes the `delete()` method,
@@ -2296,10 +1905,7 @@ Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s
 
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component">
-
 </code-example>
-
-
 
 When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
 passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
@@ -2320,17 +1926,12 @@ Template statement side effects are not just OK, but expected.
 Deleting the hero updates the model, perhaps triggering other changes
 including queries and saves to a remote server.
 These changes percolate through the system and are ultimately displayed in this and other views.
-
 删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
-这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a two-way}
-
 
 ## Two-way binding ( <span class="syntax">[(...)]</span> )
 
@@ -2354,8 +1955,6 @@ Angular 为此提供一种特殊的_双向数据绑定_语法：**`[(x)]`**。
 
 <div class="callout is-important">
 
-
-
 <header>
   [( )] = banana in a box
 </header>
@@ -2375,8 +1974,6 @@ Visualize a *banana in a box* to remember that the parentheses go _inside_ the b
 
 </div>
 
-
-
 The `[(x)]` syntax is easy to demonstrate when the element has a settable property called `x`
 and a corresponding event named `xChange`.
 Here's a `SizerComponent` that fits the pattern.
@@ -2387,10 +1984,7 @@ It has a `size` value property and a companion `sizeChange` event:
 
 
 <code-example path="template-syntax/src/app/sizer.component.ts" title="src/app/sizer.component.ts">
-
 </code-example>
-
-
 
 The initial `size` is an input value from a property binding.
 Clicking the buttons increases or decreases the `size`, within min/max values constraints,
@@ -2406,10 +2000,7 @@ Here's an example in which the `AppComponent.fontSizePx` is two-way bound to the
 
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (two-way-1)" region="two-way-1">
-
 </code-example>
-
-
 
 The `AppComponent.fontSizePx` establishes the initial `SizerComponent.size` value.
 Clicking the buttons updates the `AppComponent.fontSizePx` via the two-way binding.
@@ -2428,10 +2019,7 @@ Angular将`SizerComponent`的绑定分解成这样：
 
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (two-way-2)" region="two-way-2">
-
 </code-example>
-
-
 
 The `$event` variable contains the payload of the `SizerComponent.sizeChange` event.
 Angular assigns the `$event` value to the `AppComponent.fontSizePx` when the user clicks the buttons.
@@ -2450,16 +2038,11 @@ However, no native HTML element follows the `x` value and `xChange` event patter
 可惜，原生 HTML 元素不遵循`x`值和`xChange`事件的模式。
 
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
-
-幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a directives}
-
 
 ## Built-in directives
 
@@ -2482,10 +2065,7 @@ Why create a directive to handle a click when you can write a simple binding suc
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You still benefit from directives that simplify complex tasks.
 Angular still ships with built-in directives; just not as many.
@@ -2503,10 +2083,7 @@ classified as either [_attribute_ directives](guide/template-syntax#attribute-di
 
 <hr/>
 
-
-
 {@a attribute-directives}
-
 
 ## Built-in _attribute_ directives
 
@@ -2520,7 +2097,7 @@ They are usually applied to elements as if they were HTML attributes, hence the 
 它们通常会作为HTML属性的名称而应用在元素上。
 
 Many details are covered in the [_Attribute Directives_](guide/attribute-directives) guide.
-Many Angular modules such as the [`RouterModule`](guide/router "Routing and Navigation")
+Many NgMdules such as the [`RouterModule`](guide/router "Routing and Navigation")
 and the [`FormsModule`](guide/forms "Forms") define their own attribute directives.
 This section is an introduction to the most commonly used attribute directives:
 
@@ -2539,14 +2116,11 @@ This section is an introduction to the most commonly used attribute directives:
 * [`NgModel`](guide/template-syntax#ngModel) - two-way data binding to an HTML form element
 
   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到HTML表单元素
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a ngClass}
-
 
 ### NgClass
 
@@ -2563,10 +2137,7 @@ A [class binding](guide/template-syntax#class-binding) is a good way to add or r
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="class-binding-3a" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 To add or remove *many* CSS classes at the same time, the `NgClass` directive may be the better choice.
 
@@ -2587,10 +2158,7 @@ Consider a `setCurrentClasses` component method that sets a component property,
 
 
 <code-example path="template-syntax/src/app/app.component.ts" region="setClasses" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
-
-
 
 Adding an `ngClass` property binding to `currentClasses` sets the element's classes accordingly:  
 
@@ -2598,14 +2166,9 @@ Adding an `ngClass` property binding to `currentClasses` sets the element's clas
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgClass-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 It's up to you to call `setCurrentClassess()`, both initially and when the dependent properties change.
 
@@ -2614,14 +2177,11 @@ It's up to you to call `setCurrentClassess()`, both initially and when the depen
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a ngStyle}
-
 
 ### NgStyle
 You can set inline styles dynamically, based on the state of the component.
@@ -2636,10 +2196,7 @@ A [style binding](guide/template-syntax#style-binding) is an easy way to set a *
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgStyle-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 To set *many* inline styles at the same time, the `NgStyle` directive may be the better choice.
 
@@ -2658,10 +2215,7 @@ with an object that defines three styles, based on the state of three other comp
 
 
 <code-example path="template-syntax/src/app/app.component.ts" region="setStyles" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
-
-
 
 Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:
 
@@ -2669,14 +2223,9 @@ Adding an `ngStyle` property binding to `currentStyles` sets the element's style
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgStyle-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 It's up to you to call `setCurrentStyles()`, both initially and when the dependent properties change.
 
@@ -2685,14 +2234,11 @@ It's up to you to call `setCurrentStyles()`, both initially and when the depende
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a ngModel}
-
 
 ### NgModel - Two-way binding to form elements with <span class="syntax">[(ngModel)]</span>
 
@@ -2709,17 +2255,14 @@ Two-way data binding with the `NgModel` directive makes that easy. Here's an exa
 
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (NgModel-1)" region="NgModel-1">
-
 </code-example>
-
-
 
 #### _FormsModule_ is required to use _ngModel_
 
 #### 使用 `ngModel` 时需要 `FormsModule`
 
 Before using the `ngModel` directive in a two-way data binding,
-you must import the `FormsModule` and add it to the Angular module's `imports` list.
+you must import the `FormsModule` and add it to the NgModule's `imports` list.
 Learn more about the `FormsModule` and `ngModel` in the
 [Forms](guide/forms#ngModel) guide.
 
@@ -2728,14 +2271,9 @@ Learn more about the `FormsModule` and `ngModel` in the
 
 Here's how to import the `FormsModule` to make `[(ngModel)]` available.
 
-导入`FormsModule`并让`[(ngModel)]`可用的代码如下：
 
-
-<code-example path="template-syntax/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (FormsModule import)" region="FormsModule import">
-
+导入`FormsModule`并让`[(ngModel)]`可用的代码如下：<code-example path="template-syntax/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (FormsModule import)" >
 </code-example>
-
-
 
 #### Inside <span class="syntax">[(ngModel)]</span>
 
@@ -2749,10 +2287,7 @@ the `<input>` element's  `value` property and `input` event.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="without-NgModel" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 That's cumbersome. Who can remember which element property to set and which element event emits user changes?
 How do you extract the currently displayed text from the input box so you can update the data property?
@@ -2767,14 +2302,9 @@ That `ngModel` directive hides these onerous details behind its own  `ngModel` i
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 The `ngModel` data property sets the element's value property and the `ngModelChange` event property
 listens for changes to the element's value.
@@ -2782,7 +2312,7 @@ listens for changes to the element's value.
 `ngModel`输入属性会设置该元素的值，并通过`ngModelChange`的输出属性来监听元素值的变化。
 
 The details are specific to each kind of element and therefore the `NgModel` directive only works for an element
-supported by a [ControlValueAccessor](api/forms/index/ControlValueAccessor-interface)
+supported by a [ControlValueAccessor](api/forms/ControlValueAccessor)
 that adapts an element to this protocol.
 The `<input>` box is one of those elements.
 Angular provides *value accessors* for all of the basic HTML form elements and the
@@ -2810,8 +2340,6 @@ The [`sizer` shown above](guide/template-syntax#two-way) is an example of this t
 
 </div>
 
-
-
 Separate `ngModel` bindings is an improvement over binding to the element's native properties. You can do better.
 
 使用独立的`ngModel`绑定优于绑定到该元素的原生属性，那样我们可以做得更好。
@@ -2824,10 +2352,7 @@ with a single declaration, which it can with the `[(ngModel)]` syntax:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Is `[(ngModel)]` all you need? Is there ever a reason to fall back to its expanded form?
 
@@ -2845,34 +2370,22 @@ The following contrived example forces the input value to uppercase:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-4" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Here are all variations in action, including the uppercase version:
 
-这里是所有这些变体的动画，包括这个大写转换的版本：
 
-
-<figure class='image-display'>
-  <img src='assets/images/devguide/template-syntax/ng-model-anim.gif' alt="NgModel variations"></img>
+这里是所有这些变体的动画，包括这个大写转换的版本：<figure >
+  <img src='generated/images/guide/template-syntax/ng-model-anim.gif' alt="NgModel variations">
 </figure>
 
+<a href="#top-of-page">back to top</a>
 
-
-<p>
-  <a href="#toc">back to top</a>  <a href="#toc">回到顶部</a>
-</p>
-
-
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
-
-
 {@a structural-directives}
-
 
 ## Built-in _structural_ directives
 
@@ -2928,15 +2441,12 @@ _This_ section is an introduction to the common structural directives:
 
 <hr/>
 
-
-
 {@a ngIf}
-
 
 ### NgIf
 
 You can add or remove an element from the DOM by applying an `NgIf` directive to
-that element (called the _host elment_).
+that element (called the _host element_).
 Bind the directive to a condition expression like `isActive` in this example.
 
 通过把`NgIf`指令应用到元素上（称为*宿主元素*），我们可以往DOM中添加或从DOM中移除这个元素。
@@ -2944,14 +2454,9 @@ Bind the directive to a condition expression like `isActive` in this example.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="alert is-critical">
-
-
 
 Don't forget the asterisk (`*`) in front of `ngIf`.
 
@@ -2959,8 +2464,6 @@ Don't forget the asterisk (`*`) in front of `ngIf`.
 
 
 </div>
-
-
 
 When the `isActive` expression returns a truthy value, `NgIf` adds the `HeroDetailComponent` to the DOM.
 When the expression is falsy, `NgIf` removes the `HeroDetailComponent`
@@ -2979,10 +2482,7 @@ You can control the visibility of an element with a
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Hiding an element is quite different from removing an element with `NgIf`.
 
@@ -3032,14 +2532,9 @@ The `nullHero` will never be displayed.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 See also the
 [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")
@@ -3050,14 +2545,11 @@ described below.
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a ngFor}
-
 
 ### NgFor
 
@@ -3075,10 +2567,7 @@ Here is an example of `NgFor` applied to a simple `<div>`:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You can also apply an `NgFor` to a component element, as in this example:
 
@@ -3086,14 +2575,9 @@ You can also apply an `NgFor` to a component element, as in this example:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 <div class="alert is-critical">
-
-
 
 Don't forget the asterisk (`*`) in front of `ngFor`.
 
@@ -3102,15 +2586,12 @@ Don't forget the asterisk (`*`) in front of `ngFor`.
 
 </div>
 
-
-
 The text assigned to `*ngFor` is the instruction that guides the repeater process.
 
 赋值给`*ngFor`的文本是用于指导重复器如何工作的指令。
 
 
 {@a microsyntax}
-
 
 #### *ngFor microsyntax
 
@@ -3141,9 +2622,7 @@ Learn about the _microsyntax_ in the [_Structural Directives_](guide/structural-
 
 {@a template-input-variable}
 
-
 {@a template-input-variables}
-
 
 ### Template input variables
 
@@ -3166,10 +2645,7 @@ and then passed in a binding to the `hero` property of the `<hero-detail>` compo
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Learn more about _template input variables_ in the
 [_Structural Directives_](guide/structural-directives#template-input-variable) guide.
@@ -3192,27 +2668,19 @@ The next example captures the `index` in a variable named `i` and displays it wi
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 <div class="l-sub-section">
 
-
-
 Learn about the other `NgFor` context values such as `last`, `even`,
-and `odd` in the [NgFor API reference](api/common/index/NgFor-directive).
+and `odd` in the [NgFor API reference](api/common/NgFor).
 
-要学习更多的*类似 index* 的值，例如`last`、`even`和`odd`，请参阅 [NgFor API 参考](api/common/index/NgFor-directive)。
+要学习更多的*类似 index* 的值，例如`last`、`even`和`odd`，请参阅 [NgFor API 参考](api/common/NgFor)。
 
 
 </div>
 
-
-
 {@a trackBy}
-
 
 #### *ngFor with _trackBy_
 
@@ -3249,10 +2717,7 @@ In this case, that value is the hero's `id`.
 
 
 <code-example path="template-syntax/src/app/app.component.ts" region="trackByHeroes" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
-
-
 
 In the microsyntax expression, set `trackBy` to this method.
 
@@ -3260,10 +2725,7 @@ In the microsyntax expression, set `trackBy` to this method.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="trackBy" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Here is an illustration of the _trackBy_ effect.
 "Reset heroes" creates new heroes with the same `hero.id`s.
@@ -3279,27 +2741,18 @@ Here is an illustration of the _trackBy_ effect.
   
 * With `trackBy`, only changing the `id` triggers element replacement.
 
-  有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
 
-
-<figure class='image-display'>
-  <img src='assets/images/devguide/template-syntax/ng-for-track-by-anim.gif' alt="trackBy"></img>
+有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。<figure >
+  <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
 </figure>
 
+<a href="#top-of-page">back to top</a>
 
-
-<p>
-  <a href="#toc">back to top</a>  <a href="#toc">回到顶部</a>
-</p>
-
-
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
-
-
 {@a ngSwitch}
-
 
 ### The _NgSwitch_ directives
 
@@ -3320,16 +2773,11 @@ Angular只会把*选中的*元素放进DOM中。
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
-<figure class='image-display'>
-  <img src='assets/images/devguide/template-syntax/switch-anim.gif' alt="trackBy"></img>
+<figure>
+  <img src="generated/images/guide/template-syntax/switch-anim.gif" alt="trackBy">
 </figure>
-
-
 
 `NgSwitch` is the controller directive. Bind it to an expression that returns the *switch value*.
 The `emotion` value in this example is a string, but the switch value can be of any type.
@@ -3377,23 +2825,17 @@ For example, you could replace the `<confused-hero>` switch case with the follow
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch-div" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a template-reference-variable}
-
 
 {@a ref-vars}
 
-
 {@a ref-var}
-
 
 ## Template reference variables ( <span class="syntax">#var</span> )
 
@@ -3402,7 +2844,7 @@ For example, you could replace the `<confused-hero>` switch case with the follow
 
 A **template reference variable** is often a reference to a DOM element within a template.
 It can also be a reference to an Angular component or directive or a
-<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">web component</a>.
+<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" title="MDN: Web Components">web component</a>.
 
 **模板引用变量**通常用来引用模板中的某个DOM元素，它还可以引用Angular组件或指令或<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>。
 
@@ -3414,10 +2856,7 @@ The `#phone` declares a `phone` variable on an `<input>` element.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-var" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You can refer to a template reference variable _anywhere_ in the template.
 The `phone` variable declared on this `<input>` is
@@ -3428,12 +2867,9 @@ consumed in a `<button>` on the other side of the template
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-phone" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
-### How a reference variable gets its value
+<h3 class="no-toc">How a reference variable gets its value</h3>
 
 ### 模板引用变量怎么得到它的值？
 
@@ -3455,10 +2891,7 @@ The following is a *simplified* version of the form example in the [Forms](guide
 
 
 <code-example path="template-syntax/src/app/hero-form.component.html" title="src/app/hero-form.component.html" linenums="false">
-
 </code-example>
-
-
 
 A template reference variable, `heroForm`, appears three times in this example, separated
 by a large amount of HTML.
@@ -3469,7 +2902,7 @@ What is the value of `heroForm`?
 
 If Angular hadn't taken it over when you imported the `FormsModule`,
 it would be the [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
-The `heroForm` is actually a reference to an Angular [NgForm](api/forms/index/NgForm-directive "API: NgForm")
+The `heroForm` is actually a reference to an Angular [NgForm](api/forms/NgForm "API: NgForm")
 directive with the ability to track the value and validity of every control in the form.
 
 如果你没有导入过`FormsModule`，Angular就不会控制这个表单，那么它就是一个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)实例。
@@ -3484,9 +2917,9 @@ to the parent component's `onSubmit` method.
 原生的`<form>`元素没有`form`属性，但`NgForm`指令有。这就解释了为何当`heroForm.form.valid`是无效时我们可以禁用提交按钮，
 并能把整个表单控件树传给父组件的`onSubmit`方法。
 
-### Template reference variable warning notes
+<h3 class="no-toc">Template reference variable warning notes</h3>
 
-### 关于模板引用变量的提醒
+<h3 class="no-toc">关于模板引用变量的提醒</h3>
 
 A template _reference_ variable (`#phone`) is _not_ the same as a template _input_ variable (`let phone`)
 such as you might see in an [`*ngFor`](guide/template-syntax#template-input-variable).
@@ -3510,17 +2943,13 @@ This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a inputs-outputs}
-
 
 ## Input and output properties ( <span class="syntax">@Input</span> and <span class="syntax">@Output</span> )
 
@@ -3543,8 +2972,6 @@ These directive properties must be declared as **inputs** or **outputs**.
 
 <div class="alert is-important">
 
-
-
 Remember: All **components** are **directives**.
 
 记住：所有**组件**皆为**指令**。
@@ -3556,8 +2983,6 @@ Remember: All **components** are **directives**.
 
 
 <div class="l-sub-section">
-
-
 
 Note the important distinction between a data binding **target** and a data binding **source**.
 
@@ -3590,8 +3015,6 @@ You can only bind to properties that are explicitly identified as *inputs* and *
 
 </div>
 
-
-
 In the following snippet, `iconUrl` and `onSave` are data-bound members of the `AppComponent`
 and are referenced within quoted syntax to the _right_ of the equals&nbsp;(`=`).
 
@@ -3599,10 +3022,7 @@ and are referenced within quoted syntax to the _right_ of the equals&nbsp;(`=`).
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="io-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 They are *neither inputs nor outputs* of the component. They are **sources** for their bindings.
 The targets are the native `<img>` and `<button>` elements.
@@ -3616,10 +3036,7 @@ is the **target** of a binding on the _left_ of the equals&nbsp;(`=`).
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="io-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 Both `HeroDetailComponent.hero` and `HeroDetailComponent.deleteRequest` are on the **left side** of binding declarations.
 `HeroDetailComponent.hero` is inside brackets; it is the target of a property binding.
@@ -3643,14 +3060,9 @@ In the `HeroDetailComponent`, such properties are marked as input or output prop
 
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" region="input-output-1" title="src/app/hero-detail.component.ts" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 Alternatively, you can identify members in the `inputs` and `outputs` arrays
 of the directive metadata, as in this example:
@@ -3659,10 +3071,7 @@ of the directive metadata, as in this example:
 
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" region="input-output-2" title="src/app/hero-detail.component.ts" linenums="false">
-
 </code-example>
-
-
 
 You can specify an input/output property either with a decorator or in a metadata array.
 Don't do both!
@@ -3671,8 +3080,6 @@ Don't do both!
 
 
 </div>
-
-
 
 ### Input or output?
 
@@ -3686,14 +3093,10 @@ Don't do both!
 
 The terms _input_ and _output_ reflect the perspective of the target directive.
 
-_输入_和_输出_这两个词是从目标指令的角度来说的。
 
-
-<figure class='image-display'>
-  <img src='assets/images/devguide/template-syntax/input-output.png' alt="Inputs and outputs"></img>
+_输入_和_输出_这两个词是从目标指令的角度来说的。<figure >
+  <img src="generated/images/guide/template-syntax/input-output.png" alt="Inputs and outputs">
 </figure>
-
-
 
 `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`
 because data flows *into* that property from a template binding expression.
@@ -3720,8 +3123,6 @@ because events stream *out* of that property and toward the handler in a templat
 
 </h3>
 
-
-
 Sometimes the public name of an input/output property should be different from the internal name.
 
 有时需要让输入/输出属性的公开名字不同于内部名字。
@@ -3737,10 +3138,7 @@ you expect to bind to an event property that is also called `myClick`.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="myClick" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 However, the directive name is often a poor choice for the name of a property within the directive class.
 The directive name rarely describes what the property does.
@@ -3764,14 +3162,9 @@ You can specify the alias for the property name by passing it into the input/out
 
 
 <code-example path="template-syntax/src/app/click.directive.ts" region="output-myClick" title="src/app/click.directive.ts" linenums="false">
-
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 You can also alias property names in the `inputs` and `outputs` arrays.
 You write a colon-delimited (`:`) string with
@@ -3782,21 +3175,15 @@ the directive property name on the *left* and the public alias on the *right*:
 
 
 <code-example path="template-syntax/src/app/click.directive.ts" region="output-myClick2" title="src/app/click.directive.ts" linenums="false">
-
 </code-example>
-
-
 
 </div>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a expression-operators}
-
 
 ## Template expression operators
 
@@ -3810,7 +3197,6 @@ for specific scenarios. The next sections cover two of these operators: _pipe_ a
 
 
 {@a pipe}
-
 
 ### The pipe operator ( <span class="syntax">|</span> )
 
@@ -3832,10 +3218,7 @@ Angular [管道](guide/pipes)对像这样的小型转换来说是个明智的选
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="pipes-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The pipe operator passes the result of an expression on the left to a pipe function on the right.
 
@@ -3847,10 +3230,7 @@ You can chain expressions through multiple pipes:
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="pipes-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 And you can also [apply parameters](guide/pipes#parameterizing-a-pipe) to a pipe:
 
@@ -3858,10 +3238,7 @@ And you can also [apply parameters](guide/pipes#parameterizing-a-pipe) to a pipe
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="pipes-3" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The `json` pipe is particularly helpful for debugging bindings:
 
@@ -3869,10 +3246,7 @@ The `json` pipe is particularly helpful for debugging bindings:
 
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (pipes-json)" region="pipes-json">
-
 </code-example>
-
-
 
 The generated output would look something like this
 
@@ -3884,17 +3258,13 @@ The generated output would look something like this
     "birthdate": "1970-02-25T08:00:00.000Z",
     "url": "http://www.imdb.com/title/tt0065832/",
     "rate": 325 }
-
 </code-example>
 
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
 
 <hr/>
 
-
-
 {@a safe-navigation-operator}
-
 
 ### The safe navigation operator ( <span class="syntax">?.</span> ) and null property paths
 
@@ -3909,10 +3279,7 @@ Angular 的**安全导航操作符 (`?.`) **是一种流畅而便利的方式，
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-2" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 What happens when the following data bound `title` property is null?
 
@@ -3920,10 +3287,7 @@ What happens when the following data bound `title` property is null?
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-1" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 The view still renders but the displayed value is blank; you see only "The title is" with nothing after it.
 That is reasonable behavior. At least the app doesn't crash.
@@ -3939,10 +3303,7 @@ that displays the `name` of a null hero.
 
 <code-example language="html">
   The null hero's name is {{nullHero.name}}
-
 </code-example>
-
-
 
 JavaScript throws a null reference error, and so does Angular:
 
@@ -3951,10 +3312,7 @@ JavaScript 抛出了空引用错误，Angular 也是如此：
 
 <code-example format="nocode">
   TypeError: Cannot read property 'name' of null in [null].
-
 </code-example>
-
-
 
 Worse, the *entire view disappears*.
 
@@ -3989,10 +3347,7 @@ You could code around that problem with [*ngIf](guide/template-syntax#ngIf).
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-4" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 You could try to chain parts of the property path with `&&`, knowing that the expression bails out
 when it encounters the first null.
@@ -4001,10 +3356,7 @@ when it encounters the first null.
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-5" title="src/app/app.component.html" linenums="false">
-
 </code-example>
-
-
 
 These approaches have merit but can be cumbersome, especially if the property path is long.
 Imagine guarding against a null somewhere in a long property path such as `a.b.c.d`.
@@ -4023,25 +3375,53 @@ Angular 安全导航操作符 (`?.`) 是在属性路径中保护空值的更加�
 
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-6" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
-
-
 It works perfectly with long property paths such as `a?.b?.c?.d`.
-
-在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。
-<a href="#toc">back to top</a><a href="#toc">回到顶部</a>
+在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。<a href="#top-of-page">back to top</a>
 
 <hr/>
 
+{@a non-null-assertion-operator}
 
+### The non-null assertion operator ( <span class="syntax">!</span> )
+
+As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is _unintentionally_ null or undefined.
+
+In this mode, typed variables disallow null and undefined by default. The type checker throws an error if you leave a variable unassigned or try to assign null or undefined to a variable whose type disallows null and undefined.
+
+The type checker also throws an error if it can't determine whether a variable will be null or undefined at runtime.
+You may know that can't happen but the type checker doesn't know.
+You tell the type checker that it can't happen by applying the post-fix
+[_non-null assertion operator (!)_](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
+
+The _Angular_ **non-null assertion operator (`!`)** serves the same purpose in an Angular template.
+
+For example, after you use [*ngIf](guide/template-syntax#ngIf) to check that `hero` is defined, you can assert that
+`hero` properties are also defined.
+
+<code-example path="template-syntax/src/app/app.component.html" region="non-null-assertion-1" title="src/app/app.component.html" linenums="false">
+</code-example>
+
+When the Angular compiler turns your template into TypeScript code,
+it prevents TypeScript from reporting that `hero.name` might be null or undefined.
+
+Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)"),
+the **non-null assertion operator** does not guard against null or undefined.
+Rather it tells the TypeScript type checker to suspend strict null checks for a specific property expression.
+
+You'll need this template operator when you turn on strict null checks. It's optional otherwise.
+
+
+<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+
+<hr/>
 
 ## Summary
 
 ## 小结
 
-You've completed this survey of template syntax. 
+You've completed this survey of template syntax.
 Now it's time to put that knowledge to work on your own components and directives.
 
 我们完成了模板语法的概述。现在，该把如何写组件和指令的知识投入到实际工作当中了。

@@ -16,6 +16,7 @@ const _MESSAGES_TAG = 'messagebundle';
 const _MESSAGE_TAG = 'msg';
 const _PLACEHOLDER_TAG = 'ph';
 const _EXEMPLE_TAG = 'ex';
+const _SOURCE_TAG = 'source';
 
 const _DOCTYPE = `<!ELEMENT messagebundle (msg)*>
 <!ATTLIST messagebundle class CDATA #IMPLIED>
@@ -54,8 +55,17 @@ export class Xmb extends Serializer {
         attrs['meaning'] = message.meaning;
       }
 
+      let sourceTags: xml.Tag[] = [];
+      message.sources.forEach((source: i18n.MessageSpan) => {
+        sourceTags.push(new xml.Tag(_SOURCE_TAG, {}, [
+          new xml.Text(
+              `${source.filePath}:${source.startLine}${source.endLine !== source.startLine ? ',' + source.endLine : ''}`)
+        ]));
+      });
+
       rootNode.children.push(
-          new xml.CR(2), new xml.Tag(_MESSAGE_TAG, attrs, visitor.serialize(message.nodes)));
+          new xml.CR(2),
+          new xml.Tag(_MESSAGE_TAG, attrs, [...sourceTags, ...visitor.serialize(message.nodes)]));
     });
 
     rootNode.children.push(new xml.CR());
@@ -119,11 +129,16 @@ class _Visitor implements i18n.Visitor {
   }
 
   visitPlaceholder(ph: i18n.Placeholder, context?: any): xml.Node[] {
-    return [new xml.Tag(_PLACEHOLDER_TAG, {name: ph.name})];
+    const exTag = new xml.Tag(_EXEMPLE_TAG, {}, [new xml.Text(`{{${ph.value}}}`)]);
+    return [new xml.Tag(_PLACEHOLDER_TAG, {name: ph.name}, [exTag])];
   }
 
   visitIcuPlaceholder(ph: i18n.IcuPlaceholder, context?: any): xml.Node[] {
-    return [new xml.Tag(_PLACEHOLDER_TAG, {name: ph.name})];
+    const exTag = new xml.Tag(_EXEMPLE_TAG, {}, [
+      new xml.Text(
+          `{${ph.value.expression}, ${ph.value.type}, ${Object.keys(ph.value.cases).map((value: string) => value + ' {...}').join(' ')}}`)
+    ]);
+    return [new xml.Tag(_PLACEHOLDER_TAG, {name: ph.name}, [exTag])];
   }
 
   serialize(nodes: i18n.Node[]): xml.Node[] {

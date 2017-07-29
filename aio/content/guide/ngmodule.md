@@ -1,12 +1,6 @@
-@title
-Angular模块 (NgModule)
+# NgModules
 
-@intro
-用 @NgModule 定义应用中的模块
-
-@description
-
-
+# Angular模块 (NgModule)
 
 **NgModules** help organize an application into cohesive blocks of functionality.
 <!-- CF: "app" and "application" are used interchangeably throughout this page.
@@ -29,7 +23,7 @@ Angular 模块是带有 **@NgModule** 装饰器函数的_类_。
   本章还会涉及到更多选项。
 
 Before reading this page, read the
-[The Root Module](guide/appmodule) page, which introduces NgModules and the essentials
+[The Root Module](guide/bootstrapping) page, which introduces NgModules and the essentials
 of creating and maintaining a single root `AppModule` for the entire application.
 
 请先阅读[根模块](guide/appmodule)一章，那里介绍过 Angular 模块，以及如何为整个应用创建和维护单一的*根*`AppModule`类。
@@ -38,19 +32,7 @@ This page covers NgModules in greater depth.
 
 本章的解释更加详尽，正如下面的目录所示。
 
-## Table of Contents
-
-## 目录
-
-
-<!-- CF: The titling for tables of contents in the advanced chapters is inconsistent:
-
-* some are titled "Contents" while others are titled "Table of Contents" (should probably be sentence case as it's an H2
-* some headings are H2, some are H3
-* some pages don't have tables of contents
-
-I didn't make changes here as I'm not sure what the correct style is.
--->
+<!-- CF: See my comment in the "Resolve directive conflicts" section below proposing renaming or reorganizing that section.
 
 * [Angular modularity](guide/ngmodule#angular-modularity "Add structure to the app with NgModule")
 
@@ -60,9 +42,9 @@ I didn't make changes here as I'm not sure what the correct style is.
 
   [应用的根模块](guide/ngmodule#root-module "任何应用都需要的启动模块")
 
-* [Bootstrap](guide/ngmodule#bootstrap "Launch the app in a browser with the root module as the entry point") the root module
+* [Bootstrap the root module](guide/ngmodule#bootstrap "Launch the app in a browser with the root module as the entry point")
 
-  [引导](guide/ngmodule#bootstrap "在浏览器中把根模块作为入口点来启动应用")根模块
+  [引导根模块](guide/ngmodule#bootstrap "在浏览器中把根模块作为入口点来启动应用")
 
 * [Declarations](guide/ngmodule#declarations "Declare the components, directives, and pipes that belong to a module")
 
@@ -84,9 +66,9 @@ I didn't make changes here as I'm not sure what the correct style is.
 
   [特性模块](guide/ngmodule#feature-modules "把应用分割成一些特性模块")
   
-* [Lazy loaded modules](guide/ngmodule#lazy-load "Load modules asynchronously") with the router
+* [Lazy loaded modules with the router](guide/ngmodule#lazy-load "Load modules asynchronously")
 
-  通过路由器[惰性加载模块](guide/ngmodule#lazy-load "惰性加载模块")
+  [用路由器惰性加载模块](guide/ngmodule#lazy-load "惰性加载模块")
   
 * [Shared modules](guide/ngmodule#shared-module "Create modules for commonly used components, directives, and pipes")
 
@@ -104,13 +86,16 @@ I didn't make changes here as I'm not sure what the correct style is.
 
   [禁止重复导入 _CoreModule_](guide/ngmodule#prevent-reimport "如果惰性加载模块导入了核心模块，就会出问题")
 
+<!--
 * [NgModule metadata properties](guide/ngmodule#ngmodule-properties "A technical summary of the @NgModule metadata properties")
-<!-- CF: This link goes to the top of this page. I would expect it to go to an "NgModule metadata properties"
+ CF: This link goes to the top of this page. I would expect it to go to an "NgModule metadata properties"
  section at the end of this page, but that section doesn't exist. -->
 
   [NgModule 元数据的属性](guide/ngmodule#ngmodule-properties "对@NgModule元数据属性的技术性总结")
 
-### 在线例子
+#### Live examples
+
+#### 在线例子
 
 This page explains NgModules through a progression of improvements to a sample with a "Tour of Heroes" theme. Here's an index to live examples at key moments in the evolution of the sample:
 
@@ -136,7 +121,7 @@ This page explains NgModules through a progression of improvements to a sample w
 
   <live-example>最终版</live-example>
 
-### Frequently asked questions (FAQs)
+#### Frequently asked questions (FAQs)
 
 ### 常见问题
 
@@ -144,7 +129,7 @@ This page covers NgModule concepts in a tutorial fashion.
 
 本章涵盖了英雄指南下的 Angular 模块概念。
 
-The companion [NgModule FAQs](cookbook/ngmodule-faq "NgModule FAQs") cookbook
+The companion [NgModule FAQs](guide/ngmodule-faq "NgModule FAQs") guide
 offers answers to specific design and implementation questions.
 Read this page before reading those FAQs.
 
@@ -170,9 +155,9 @@ Modules are a great way to organize an application and extend it with capabiliti
 
 Many Angular libraries are modules (such as `FormsModule`, `HttpModule`, and `RouterModule`).
 Many third-party libraries are available as NgModules (such as
-<a href="https://material.angular.io/" target="_blank">Material Design</a>,
-<a href="http://ionicframework.com/" target="_blank">Ionic</a>,
-<a href="https://github.com/angular/angularfire2" target="_blank">AngularFire2</a>).
+<a href="https://material.angular.io/">Material Design</a>,
+<a href="http://ionicframework.com/">Ionic</a>,
+<a href="https://github.com/angular/angularfire2">AngularFire2</a>).
 
 很多 Angular 库都是模块，例如：`FormsModule`、`HttpModule`、`RouterModule`。
   很多第三方库也封装成了 Angular 模块，例如：<a href="https://material.angular.io/" target="_blank">Material Design</a>、
@@ -240,7 +225,7 @@ Later in this page, you'll read about this process. For now, you'll start with t
 
 
 
-## _AppModule_: the application root module
+## The root _AppModule_
 
 ## _AppModule_ - 应用的根模块
 
@@ -320,13 +305,14 @@ This page describes two options, both targeting the browser.
 针对不同的平台，Angular 提供了很多引导选项。
 本章我们只讲两个选项，都是针对浏览器平台的。
 
-### Dynamic bootstrapping with the just-in-time (JIT) compiler
+### Compile just-in-time (JIT)
 
-### 通过即时 (JiT) 编译器动态引导
-In the first, _dynamic_ option, the [Angular compiler](cookbook/ngmodule-faq#q-angular-compiler "About the Angular Compiler")
+### 即时 (JiT) 编译
+
+In the first, _dynamic_ option, the [Angular compiler](guide/ngmodule-faq#q-angular-compiler "About the Angular Compiler")
 compiles the application in the browser and then launches the app.
 
-先看看_动态_选项，[Angular 编译器](cookbook/ngmodule-faq#q-angular-compiler "关于 Angular 编译器")在浏览器中编译并引导该应用。
+先看看_动态_选项，[Angular 编译器](guide/ngmodule-faq#q-angular-compiler "关于 Angular 编译器")在浏览器中编译并引导该应用。
 
 
 <code-example path="ngmodule/src/main.ts" title="src/main.ts (dynamic)" linenums="false">
@@ -339,11 +325,11 @@ The samples in this page demonstrate the dynamic bootstrapping approach.
 
 这里的例子演示进行动态引导的方法。
 
-<live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">Try the live example.</live-example>
+<live-example embedded plnkr="minimal.0" img="guide/ngmodule/minimal-plunker.png">Try the live example.</live-example>
 
 <live-example embedded plnkr="minimal.0" img="devguide/ngmodule/minimal-plunker.png">试试在线例子。</live-example>
 
-### Static bootstrapping with the ahead-of-time (AOT) compiler
+### Compile ahead-of-time (AOT)
 
 ### 使用预编译器 (AoT - Ahead-Of-Time) 进行静态引导
 
@@ -452,12 +438,6 @@ Import the `HighlightDirective` class and add it to the module's `declarations` 
 <code-example path="ngmodule/src/app/app.module.1.ts" region="directive" title="src/app/app.module.ts" linenums="false">
 
 </code-example>
-
-
-
-### Add a component
-
-### 添加组件
 
 Refactor the title into its own `TitleComponent`.
 The component's template binds to the component's `title` and `subtitle` properties like this:
@@ -634,7 +614,7 @@ More accurately, `NgIf` is declared in `CommonModule` from `@angular/common`.
 
 `CommonModule`提供了很多应用程序中常用的指令，包括`NgIf`和`NgFor`等。
 
-`BrowserModule` imports `CommonModule` and [re-exports](cookbook/ngmodule-faq#q-re-export) it.
+`BrowserModule` imports `CommonModule` and [re-exports](guide/ngmodule-faq#q-re-export) it.
 The net effect is that an importer of `BrowserModule` gets `CommonModule` directives automatically.
 
 `BrowserModule`导入了`CommonModule`并且[_重新导出_](cookbook/ngmodule-faq#q-re-export)了它。
@@ -658,9 +638,9 @@ a form component that imports form support from the Angular `FormsModule`.
 
 要解释这一点，我们可以再加入`ContactComponent`组件，它是一个表单组件，从 Angular 的`FormsModule`中导入了表单支持。
 
-### Add the _ContactComponent_
+<h3 class="no-toc">Add the _ContactComponent_</h3>
 
-### 添加 _ContactComponent_
+<h3 class="no-toc">添加 _ContactComponent_</h3>
 
 [Angular forms](guide/forms) are a great way to manage user data entry.
 
@@ -676,13 +656,13 @@ implemented with Angular forms in the [template-driven form](guide/forms#templat
 
 
 
-### Angular form styles
+<h3 class="no-toc">Angular form styles</h3>
 
 ### Angular 表单的风格
 
 You can write Angular form components in
 template-driven or
-[reactive](cookbook/dynamic-form) style.
+[reactive](guide/dynamic-form) style.
 <!-- CF: this link goes to a page titled "Dynamic Forms". Should the link text be "dynamic" instead of "reactive"? -->
 
 我们写 Angular 表单组件时，可以使用[_模板驱动式表单_](guide/forms)，
@@ -786,7 +766,9 @@ form features such as validation aren't yet available.
 退一步说，即使 Angular 有办法识别`ngModel`，`ContactComponent`也不会表现的像 Angular 表单，
 因为本组件表单的表单相关的特性（例如有效性验证）还不可用。
 
-### Import the FormsModule
+<h3 class="no-toc">Import the FormsModule</h3>
+
+<h3 class="no-toc">导入 FormsModule</h3>
 
 ### 导入`FormsModule`
 
@@ -833,7 +815,7 @@ Components, directives, and pipes belong to _one module only_.
 {@a declare-pipe}
 
 
-### Declare the contact component, directive, and pipe
+<h3 class="no-toc">Declare the contact component, directive, and pipe</h3>
 
 ### 声明联系人的组件、指令和管道
 
@@ -883,9 +865,9 @@ You'll learn more about that issue later in this page, in [Resolve directive con
 
 
 
-### Provide the _ContactService_
+<h3 class="no-toc">Provide the _ContactService_</h3>
 
-### 提供 _ContactService_
+<h3 class="no-toc">提供 _ContactService_</h3>
 
 The `ContactComponent` displays contacts retrieved by the `ContactService`,
 which Angular injects into its constructor.
@@ -925,12 +907,12 @@ Now you can inject `ContactService` (like `UserService`) into any component in t
 
 
 
-#### Application-scoped providers
+<h3 class="no-toc">Application-scoped providers</h3>
 
-#### 全应用范围的提供商
+<h3 class="no-toc">全应用范围的提供商</h3>
 
-The `ContactService` provider is _application_-scoped because Angular
-registers a module's `providers` with the application's *root injector*.
+  The `ContactService` provider is _application_-scoped because Angular
+  registers a module's `providers` with the application's *root injector*.
 
 `ContactService`的提供商是_全应用_范围的，这是因为 Angular 使用该应用的**根注入器**注册模块的`providers`。
 
@@ -964,8 +946,8 @@ Only Contact components should import the `ContactService` type.
     要想注入`ContactService`，你得先导入它的_类型_。
     而只有联系人组件才会导入`ContactService`_类型_。
 
-Read more in the [How do I restrict service scope to a module?](cookbook/ngmodule-faq#q-component-scoped-providers) section
-of the [NgModule FAQs](cookbook/ngmodule-faq) page.
+Read more in the [How do I restrict service scope to a module?](guide/ngmodule-faq#q-component-scoped-providers) section
+of the [NgModule FAQs](guide/ngmodule-faq) page.
 
 在[NgModule常见问题](cookbook/ngmodule-faq)页的[如何把服务的范围限制在一个模块中](cookbook/ngmodule-faq#q-component-scoped-providers)一节中可以了解更多。
 
@@ -974,9 +956,9 @@ of the [NgModule FAQs](cookbook/ngmodule-faq) page.
 
 
 
-### Run the app
+<h3 class="no-toc">Run the app</h3>
 
-### 运行该应用
+<h3 class="no-toc">运行该应用</h3>
 
 Everything is in place to run the application with its contact editor.
 
@@ -1046,10 +1028,7 @@ The app file structure looks like this:
 
 
 Try the example:
-
-试试这个例子：
-
-<live-example embedded plnkr="contact.1b" img="devguide/ngmodule/contact-1b-plunker.png"></live-example>
+试试这个例子：<live-example embedded plnkr="contact.1b" img="guide/ngmodule/contact-1b-plunker.png"></live-example>
 
 
 {@a resolve-conflicts}
@@ -1306,8 +1285,8 @@ Before `ContactComponent` can bind with `[(ngModel)]`, its `ContactModule` must 
 
 
 You also replaced `BrowserModule` by `CommonModule`, for reasons explained in the
-[Should I import BrowserModule or CommonModule?](cookbook/ngmodule-faq#q-browser-vs-common-module)
-section of the [NgModule FAQs](cookbook/ngmodule-faq) page.
+[Should I import BrowserModule or CommonModule?](guide/ngmodule-faq#q-browser-vs-common-module)
+section of the [NgModule FAQs](guide/ngmodule-faq) page.
 
 我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条常见问题](cookbook/ngmodule-faq#q-browser-vs-common-module)。
 
@@ -1421,7 +1400,7 @@ Try this `ContactModule` version of the sample.
 
 试试范例的`ContactModule`版。
 
-<live-example embedded plnkr="contact.2" img="devguide/ngmodule/contact-2-plunker.png">Try the live example.</live-example>
+<live-example embedded plnkr="contact.2" img="guide/ngmodule/contact-2-plunker.png">Try the live example.</live-example>
 
 <live-example embedded plnkr="contact.2" img="devguide/ngmodule/contact-2-plunker.png">试试在线例子</live-example>
 
@@ -1450,11 +1429,10 @@ Their specifics aren't important to the story and this page doesn't discuss ever
 
 
 Examine and download the complete source for this version from the
-<live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">live example.</live-example>
+<live-example plnkr="pre-shared.3" img="guide/ngmodule/v3-plunker.png">live example.</live-example>
 
 到<live-example plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">在线例子</live-example>
 试用并下载当前版本的完整代码。
-
 
 </div>
 
@@ -1705,8 +1683,8 @@ Angular doesn't recognize them but Angular developers do.
 当需要为根模块和特性模块分别提供不同的`导入`值时，***forRoot***和***forChild***是约定俗成的方法名。
 虽然 Angular 无法识别它们，但是 Angular 开发人员可以。
 
-[Follow this convention](cookbook/ngmodule-faq#q-for-root) if you write a similar module
-that has both shared [declarables](cookbook/ngmodule-faq#q-declarable) and services.
+[Follow this convention](guide/ngmodule-faq#q-for-root) if you write a similar module
+that has both shared [declarables](guide/ngmodule-faq#q-declarable) and services.
 
 当你要写类似的模块，来为根模块和特性模块分别导出一些[_声明_](cookbook/ngmodule-faq#q-declarable)和服务时，请[遵循这个约定](cookbook/ngmodule-faq#q-for-root)。
 
@@ -1851,7 +1829,7 @@ The `CrisisModule` is much the same.
 
 `CrisisModule`和本模块非常像，我们不再赘述。
 
-<live-example embedded plnkr="pre-shared.3" img="devguide/ngmodule/v3-plunker.png">试试在线例子。</live-example>
+<live-example embedded plnkr="pre-shared.3" img="guide/ngmodule/v3-plunker.png">试试在线例子。</live-example>
 
 
 {@a shared-module}
@@ -1986,7 +1964,7 @@ and only one provider of it.
 
 `UserService` is an application-wide singleton.
 You don't want each module to have its own separate instance.
-Yet there is [a real danger](cookbook/ngmodule-faq#q-why-it-is-bad) of that happening
+Yet there is [a real danger](guide/ngmodule-faq#q-why-bad) of that happening
 <!-- CF: This link goes to the top of the NgModule FAQs page.
 It looks like it is supposed to go to a specific question/section within the page. -->
 if the `SharedModule` provides the `UserService`.
@@ -2097,9 +2075,9 @@ whether that component is eagerly or lazily loaded.
 
 
 
-#### Why bother?
+<h3 class="no-toc">Why bother?</h3>
 
-#### 没必要？
+<h3 class="no-toc">没必要？</h3>
 
 This scenario is clearly contrived.
 The app is too small to worry about a single service file and a tiny, one-time component.
@@ -2262,7 +2240,7 @@ A module that adds providers to the application can offer a facility for configu
 
 By convention, the `forRoot` static method both provides and configures services at the same time.
 It takes a service configuration object and returns a
-[ModuleWithProviders](api/core/index/ModuleWithProviders-interface), which is
+[ModuleWithProviders](api/core/ModuleWithProviders), which is
 a simple object with the following properties:
 
 
@@ -2375,7 +2353,7 @@ Remember to _import_ the result; don't add it to any other `@NgModule` list.
 ## 禁止多次导入*CoreModule*
 
 Only the root `AppModule` should import the `CoreModule`.
-[Bad things happen](cookbook/ngmodule-faq#q-why-it-is-bad) if a lazy-loaded module imports it.
+[Bad things happen](guide/ngmodule-faq#q-why-bad) if a lazy-loaded module imports it.
 <!-- CF: Again, this link goes to the top of the NgModule FAQs page.
 It looks like it is supposed to go to a specific question/section within the page. -->
 
@@ -2436,7 +2414,7 @@ Angular 创建一个惰性加载模块，它具有自己的注入器，它是根
 该构造函数检测到存在`parentModule`，于是抛出一个错误。
 
 
-### Conclusion
+## Conclusion
 
 ### 总结
 
@@ -2444,15 +2422,15 @@ You made it! You can examine and download the complete source for this final ver
 
 完工！你可以到下面的在线例子中试验它，并下载最终版本的全部源码。
 
-<live-example embedded  img="devguide/ngmodule/final-plunker.png"></live-example>
+<live-example embedded  img="guide/ngmodule/final-plunker.png"></live-example>
 
 
-### Frequently asked questions
+## Frequently asked questions
 
 ### 常见问题 (FAQ) 
 
 Now that you understand NgModules, you may be interested
-in the companion [NgModule FAQs](cookbook/ngmodule-faq "NgModule FAQs") page
+in the companion [NgModule FAQs](guide/ngmodule-faq "NgModule FAQs") page
 with its ready answers to specific design and implementation questions.
 
 现在，你已经理解了 Angular 的模块。可能你还会对烹饪宝典中的

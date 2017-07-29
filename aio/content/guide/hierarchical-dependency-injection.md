@@ -1,12 +1,6 @@
-@title
-多级依赖注入器
+# Hierarchical Dependency Injectors
 
-@intro
-Angular 的多级依赖注入系统支持与组件树并行的嵌套式注入器。
-
-@description
-
-
+# 多级依赖注入器
 
 You learned the basics of Angular Dependency injection in the
 [Dependency Injection](guide/dependency-injection) guide.
@@ -79,8 +73,8 @@ open simultaneously.
 下图展示了当`HeroesCardComponent`的三个 `HeroTaxReturnComponent` 实例同时展开时的三级组件树状态。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/dependency-injection/component-hierarchy.png" alt="injector tree" width="600"></img>
+<figure>
+  <img src="generated/images/guide/dependency-injection/component-hierarchy.png" alt="injector tree">
 </figure>
 
 
@@ -240,8 +234,8 @@ Each tax return component has the following characteristics:
   能把所做的修改保存到它的报税单中，或者放弃它们。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/dependency-injection/hid-heroes-anim.gif" width="400" alt="Heroes in action"></img>
+<figure>
+  <img src="generated/images/guide/dependency-injection/hid-heroes-anim.gif" alt="Heroes in action">
 </figure>
 
 
@@ -366,8 +360,8 @@ Component (B) is the parent of another component (C) that defines its own, even 
 组件B是另一个组件C的父组件，而组件C又定义了自己的，*更特殊的*`CarService`提供商。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/dependency-injection/car-components.png" alt="car components" width="220"></img>
+<figure>
+  <img src="generated/images/guide/dependency-injection/car-components.png" alt="car components">
 </figure>
 
 
@@ -383,8 +377,8 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 当我们在最深层的组件C解析`Car`的实例时，它使用注入器C解析生成了一个`Car`的实例，使用注入器B解析了`Engine`，而`Tires`则是由根注入器A解析的。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/dependency-injection/injector-tree.png" alt="car injector tree" width="600"></img>
+<figure>
+  <img src="generated/images/guide/dependency-injection/injector-tree.png" alt="car injector tree">
 </figure>
 
 

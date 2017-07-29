@@ -33,8 +33,8 @@ When you’re done, users will be able to navigate the app like this:
 完成时，用户就能像这样在应用中导航：
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/nav-diagram.png' alt="查看导航"></img>
+<figure>
+  <img src='generated/images/guide/toh/nav-diagram.png' alt="查看导航">
 </figure>
 
 
@@ -271,7 +271,7 @@ Do the following:
   把`my-app`选择器改名为`my-heroes`。
 
 
-<code-example path="toh-5/src/app/heroes.component.ts" region="renaming" title="src/app/heroes.component.ts (showing renamings only)">
+<code-example path="toh-pt5/src/app/heroes.component.ts" region="renaming" title="src/app/heroes.component.ts (showing renamings only)">
 
 </code-example>
 
@@ -345,11 +345,11 @@ The first draft looks like this:
 
 <code-tabs>
 
-  <code-pane title="src/app/app.component.ts (v1)" path="toh-5/src/app/app.component.1.ts">
+  <code-pane title="src/app/app.component.ts (v1)" path="toh-pt5/src/app/app.component.1.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts (v1)" path="toh-5/src/app/app.module.1.ts">
+  <code-pane title="src/app/app.module.ts (v1)" path="toh-pt5/src/app/app.module.1.ts">
 
   </code-pane>
 
@@ -427,7 +427,7 @@ at the top of the `<head>` section.
 打开`index.html`，确保它的`<head>`区顶部有一个`<base href="...">`元素（或动态生成该元素的脚本）。
 
 
-<code-example path="toh-5/src/index.html" region="base-href" title="src/index.html (base-href)">
+<code-example path="toh-pt5/src/index.html" region="base-href" title="src/index.html (base-href)">
 
 </code-example>
 
@@ -449,7 +449,7 @@ at the top of the `<head>` section.
 
 
 
-For more information, see the [Set the base href](guide/router#!)
+For more information, see the [Set the base href](guide/router)
 section of the [Routing and Navigation](guide/router) page.
 
 要了解更多信息，请参见[路由与导航](guide/router)章的[设置基地址（base href）](guide/router#!)部分。
@@ -482,7 +482,7 @@ Define the first route as a route to the heroes component.
 我们的第一个路由是指向英雄列表组件的。
 
 
-<code-example path="toh-5/src/app/app.module.2.ts" region="heroes" title="src/app/app.module.ts (heroes route)">
+<code-example path="toh-pt5/src/app/app.module.2.ts" region="heroes" title="src/app/app.module.ts (heroes route)">
 
 </code-example>
 
@@ -528,7 +528,7 @@ Import the `RouterModule` and add it to the `AppModule` imports array.
 导入`RouterModule`并添加到`AppModule`的`imports`数组中。
 
 
-<code-example path="toh-5/src/app/app.module.2.ts" title="src/app/app.module.ts (app routing)">
+<code-example path="toh-pt5/src/app/app.module.2.ts" title="src/app/app.module.ts (app routing)">
 
 </code-example>
 
@@ -581,7 +581,7 @@ The revised template looks like this:
 修改过的模板是这样的：
 
 
-<code-example path="toh-5/src/app/app.component.1.ts" region="template-v2" title="src/app/app.component.ts (template-v2)">
+<code-example path="toh-pt5/src/app/app.component.1.ts" region="template-v2" title="src/app/app.component.ts (template-v2)">
 
 </code-example>
 
@@ -649,7 +649,7 @@ and the list of heroes displays.
 现在，`AppComponent`是这样的：
 
 
-<code-example path="toh-5/src/app/app.component.1.ts" region="v2" title="src/app/app.component.ts (v2)">
+<code-example path="toh-pt5/src/app/app.component.1.ts" region="v2" title="src/app/app.component.ts (v2)">
 
 </code-example>
 
@@ -673,7 +673,7 @@ To add another view, create a placeholder `DashboardComponent`, which users can 
 当我们有多个视图的时候，路由才有意义。所以我们需要另一个视图。先创建一个`DashboardComponent`的占位符，让用户可以导航到它或从它导航出来。
 
 
-<code-example path="toh-5/src/app/dashboard.component.1.ts" title="src/app/dashboard.component.ts (v1)">
+<code-example path="toh-pt5/src/app/dashboard.component.1.ts" title="src/app/dashboard.component.ts (v1)">
 
 </code-example>
 
@@ -694,7 +694,7 @@ add the following route definition to the `Routes` array of definitions.
 要让`app.module.ts`能导航到仪表盘，就要先导入仪表盘组件，然后把下列路由定义添加到`Routes`数组中。
 
 
-<code-example path="toh-5/src/app/app.module.3.ts" region="dashboard" title="src/app/app.module.ts (Dashboard route)">
+<code-example path="toh-pt5/src/app/app.module.3.ts" region="dashboard" title="src/app/app.module.ts (Dashboard route)">
 
 </code-example>
 
@@ -705,7 +705,7 @@ Also import and add `DashboardComponent` to the `AppModule`'s `declarations`.
 然后还得把`DashboardComponent`添加到`AppModule`的`declarations`数组中。
 
 
-<code-example path="toh-5/src/app/app.module.ts" region="dashboard" title="src/app/app.module.ts(dashboard)">
+<code-example path="toh-pt5/src/app/app.module.ts" region="dashboard" title="src/app/app.module.ts(dashboard)">
 
 </code-example>
 
@@ -729,7 +729,7 @@ to the array of route definitions:
 我们可以使用重定向路由来实现它。把下面的内容添加到路由定义数组中：
 
 
-<code-example path="toh-5/src/app/app.module.3.ts" region="redirect" title="src/app/app.module.ts (redirect)">
+<code-example path="toh-pt5/src/app/app.module.3.ts" region="redirect" title="src/app/app.module.ts (redirect)">
 
 </code-example>
 
@@ -739,7 +739,7 @@ to the array of route definitions:
 
 
 
-Read more about *redirects* in the [Redirecting routes](guide/router#!) section
+Read more about *redirects* in the [Redirecting routes](guide/router) section
 of the [Routing & Navigation](guide/router) page.
 
 关于*重定向*的更多信息，见[路由](guide/router#redirect)。
@@ -758,7 +758,7 @@ Add a dashboard navigation link to the template, just above the *Heroes* link.
 在模板上添加一个到仪表盘的导航链接，就放在*Heroes（英雄列表）*链接的上方。
 
 
-<code-example path="toh-5/src/app/app.component.1.ts" region="template-v3" title="src/app/app.component.ts (template-v3)">
+<code-example path="toh-pt5/src/app/app.component.1.ts" region="template-v3" title="src/app/app.component.ts (template-v3)">
 
 </code-example>
 
@@ -797,7 +797,7 @@ template file.
 把元数据中的`template`属性替换为`templateUrl`属性，它将指向一个新的模板文件。
 
 
-<code-example path="toh-5/src/app/dashboard.component.ts" region="metadata" title="src/app/dashboard.component.ts (metadata)">
+<code-example path="toh-pt5/src/app/dashboard.component.ts" region="metadata" title="src/app/dashboard.component.ts (metadata)">
 
 </code-example>
 
@@ -808,7 +808,7 @@ Create that file with this content:
 使用下列内容创建文件：
 
 
-<code-example path="toh-5/src/app/dashboard.component.1.html" title="src/app/dashboard.component.html">
+<code-example path="toh-pt5/src/app/dashboard.component.1.html" title="src/app/dashboard.component.html">
 
 </code-example>
 
@@ -847,7 +847,7 @@ In <code>dashboard.component.ts</code>, add the following `import` statements.
 打开<code>dashboard.component.ts</code>文件，并添加下列`import`语句。
 
 
-<code-example path="toh-5/src/app/dashboard.component.ts" region="imports" title="src/app/dashboard.component.ts (imports)">
+<code-example path="toh-pt5/src/app/dashboard.component.ts" region="imports" title="src/app/dashboard.component.ts (imports)">
 
 </code-example>
 
@@ -864,7 +864,7 @@ Now create the `DashboardComponent` class like this:
 我们现在就实现`DashboardComponent`类，像这样：
 
 
-<code-example path="toh-5/src/app/dashboard.component.ts" region="class" title="src/app/dashboard.component.ts (class)">
+<code-example path="toh-pt5/src/app/dashboard.component.ts" region="class" title="src/app/dashboard.component.ts (class)">
 
 </code-example>
 
@@ -982,7 +982,7 @@ Use the following *route definition*.
 我们将使用下列*路由定义*。
 
 
-<code-example path="toh-5/src/app/app.module.3.ts" region="hero-detail" title="src/app/app.module.ts (hero detail)">
+<code-example path="toh-pt5/src/app/app.module.3.ts" region="hero-detail" title="src/app/app.module.ts (hero detail)">
 
 </code-example>
 
@@ -1034,7 +1034,7 @@ Here's what the `HeroDetailComponent` looks like now:
 在重写`HeroDetailComponent`之前，我们先看看它现在的样子：
 
 
-<code-example path="toh-4/src/app/hero-detail.component.ts" title="src/app/hero-detail.component.ts (current)">
+<code-example path="toh-pt4/src/app/hero-detail.component.ts" title="src/app/hero-detail.component.ts (current)">
 
 </code-example>
 
@@ -1047,7 +1047,7 @@ The major changes are driven by how you get hero names.
 
 
 You'll no longer receive the hero in a parent component property binding.
-The new `HeroDetailComponent` should take the `id` parameter from the `params` Observable
+The new `HeroDetailComponent` should take the `id` parameter from the `paramMap` Observable
 in the `ActivatedRoute` service and use the `HeroService` to fetch the hero with that `id`.
 
 我们不会再从父组件的属性绑定中接收英雄数据。
@@ -1060,7 +1060,7 @@ Add the following imports:
 先添加下列导入语句：
 
 
-<code-example path="toh-5/src/app/hero-detail.component.1.ts" region="added-imports" title="src/app/hero-detail.component.ts">
+<code-example path="toh-pt5/src/app/hero-detail.component.1.ts" region="added-imports" title="src/app/hero-detail.component.ts">
 
 </code-example>
 
@@ -1072,13 +1072,13 @@ into the constructor, saving their values in private fields:
 然后注入`ActivatedRoute`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="ctor" title="src/app/hero-detail.component.ts (constructor)">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="ctor" title="src/app/hero-detail.component.ts (constructor)">
 
 </code-example>
 
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="rxjs-import" title="src/app/hero-detail.component.ts (switchMap import)">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="rxjs-import" title="src/app/hero-detail.component.ts (switchMap import)">
 
 </code-example>
 
@@ -1089,13 +1089,13 @@ Tell the class to implement the `OnInit` interface.
 我们告诉这个类，我们要实现`OnInit`接口。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="implement" title="src/app/hero-detail.component.ts">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="implement" title="src/app/hero-detail.component.ts">
 
 </code-example>
 
 
 
-Inside the `ngOnInit()` lifecycle hook, use the `params` Observable to
+Inside the `ngOnInit()` lifecycle hook, use the `paramMap` Observable to
 extract the `id` parameter value from the `ActivatedRoute` service
 and use the `HeroService` to fetch the hero with that `id`.
 
@@ -1103,7 +1103,7 @@ and use the `HeroService` to fetch the hero with that `id`.
 并且使用`HeroService`来获取具有这个`id`的英雄数据。。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="ngOnInit" title="src/app/hero-detail.component.ts">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="ngOnInit" title="src/app/hero-detail.component.ts">
 
 </code-example>
 
@@ -1141,7 +1141,7 @@ As described in the [ActivatedRoute: the one-stop-shop for route information](gu
 section of the [Routing & Navigation](guide/router) page,
 the `Router` manages the observables it provides and localizes
 the subscriptions. The subscriptions are cleaned up when the component is destroyed, protecting against
-memory leaks, so you don't need to unsubscribe from the route `params` `Observable`.
+memory leaks, so you don't need to unsubscribe from the route `paramMap` `Observable`.
 
 正如以前在[路由与导航](guide/router)章的[ActivatedRoute：一站式获取路由信息](guide/router#activated-route)部分讲过的，`Router`管理它提供的[可观察对象](guide/router#activated-route)，并使订阅局部化。当组件被销毁时，会清除
 订阅，防止内存泄漏，所以我们不需要从路由参数`Observable`_取消订阅_。
@@ -1161,7 +1161,7 @@ open `HeroService` and add a `getHero()` method that filters the heroes list fro
 在前面的代码片段中`HeroService`没有`getHero()`方法。要解决这个问题，请打开`HeroService`并添加一个`getHero()`方法，它会根据`id`从`getHeroes()`中过滤英雄列表。
 
 
-<code-example path="toh-5/src/app/hero.service.ts" region="getHero" title="src/app/hero.service.ts (getHero)">
+<code-example path="toh-pt5/src/app/hero.service.ts" region="getHero" title="src/app/hero.service.ts (getHero)">
 
 </code-example>
 
@@ -1184,7 +1184,7 @@ using the `Location` service you injected previously.
   利用浏览器的历史堆栈，导航到上一步。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="goBack" title="src/app/hero-detail.component.ts (goBack)">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="goBack" title="src/app/hero-detail.component.ts (goBack)">
 
 </code-example>
 
@@ -1196,7 +1196,7 @@ using the `Location` service you injected previously.
 
 Going back too far could take users out of the app.
 In a real app, you can prevent this issue with the <em>CanDeactivate</em> guard.
-Read more on the [CanDeactivate](api/router/index/CanDeactivate-interface) page.
+Read more on the [CanDeactivate](api/router/CanDeactivate) page.
 
 回退太多步会跑出我们的应用。
 在真实的应用中，我们需要使用<em>CanDeactivate</em>守卫对此进行防范。
@@ -1212,7 +1212,7 @@ You'll wire this method with an event binding to a *Back* button that you'll add
 然后，我们通过一个事件绑定把此方法绑定到模板底部的 *Back（后退）*按钮上。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.html" region="back-button">
+<code-example path="toh-pt5/src/app/hero-detail.component.html" region="back-button">
 
 </code-example>
 
@@ -1225,7 +1225,7 @@ called <code>hero-detail.component.html</code>:
 并把模板移到独立的<span ngio-ex>hero-detail.component.html</span>文件中去。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.html" title="src/app/hero-detail.component.html">
+<code-example path="toh-pt5/src/app/hero-detail.component.html" title="src/app/hero-detail.component.html">
 
 </code-example>
 
@@ -1236,7 +1236,7 @@ Update the component metadata with a `templateUrl` pointing to the template file
 然后修改组件元数据的`templateUrl`属性，让它指向我们刚刚创建的模板文件。
 
 
-<code-example path="toh-5/src/app/hero-detail.component.ts" region="metadata" title="src/app/hero-detail.component.ts (metadata)">
+<code-example path="toh-pt5/src/app/hero-detail.component.ts" region="metadata" title="src/app/hero-detail.component.ts (metadata)">
 
 </code-example>
 
@@ -1269,7 +1269,7 @@ with `<a>` tags. Change the opening `<a>` tag to the following:
 要达到这个效果，再次打开`dashboard.component.html`，将用来迭代的`<div *ngFor...>`替换为`<a>`，就像这样：
 
 
-<code-example path="toh-5/src/app/dashboard.component.html" region="click" title="src/app/dashboard.component.html (repeated &lt;a&gt; tag)">
+<code-example path="toh-pt5/src/app/dashboard.component.html" region="click" title="src/app/dashboard.component.html (repeated &lt;a&gt; tag)">
 
 </code-example>
 
@@ -1297,7 +1297,7 @@ token in the parameterized hero detail route definition that you added to
 这两个数组项与之前在`app.module.ts`添加的参数化的英雄详情路由定义中的 ***path*** 和 ***:id*** 对应。
 
 
-<code-example path="toh-5/src/app/app.module.3.ts" region="hero-detail" title="src/app/app.module.ts (hero detail)">
+<code-example path="toh-pt5/src/app/app.module.3.ts" region="hero-detail" title="src/app/app.module.ts (hero detail)">
 
 </code-example>
 
@@ -1346,7 +1346,7 @@ Create an `app-routing.module.ts` file as a sibling to `app.module.ts`. Give it 
 在`app.module.ts`所在目录创建`app-routing.module.ts`文件。将下面从`AppModule`类提取出来的代码拷贝进去：
 
 
-<code-example path="toh-5/src/app/app-routing.module.ts" title="src/app/app-routing.module.ts">
+<code-example path="toh-pt5/src/app/app-routing.module.ts" title="src/app/app-routing.module.ts">
 
 </code-example>
 
@@ -1383,30 +1383,23 @@ The following points are typical of routing modules:
 ### 修改 *AppModule*
 
 Delete the routing configuration from `AppModule` and import the `AppRoutingModule`.
-Use an ES `import` statement *and* add it to the `NgModule.imports` list.
+Use an ES2015 `import` statement *and* add it to the `NgModule.imports` list.
 
 删除`AppModule`中的路由配置，并导入`AppRoutingModule`
 （使用 ES `import`语句导入，**并**将它添加到`NgModule.imports`列表）。
 
 Here is the revised `AppModule`, compared to its pre-refactor state:
-  
+
 下面是修改后的`AppModule`，与重构前的对比：
 
-
 <code-tabs>
-
-  <code-pane title="src/app/app.module.ts (after)" path="toh-5/src/app/app.module.ts">
-
-  </code-pane>
-
-  <code-pane title="src/app/app.module.ts (before)" path="toh-5/src/app/app.module.3.ts">
-
-  </code-pane>
-
+  <code-pane path="toh-pt5/src/app/app.module.ts" title="src/app/app.module.ts (after)"></code-pane>
+  <code-pane path="toh-pt5/src/app/app.module.3.ts" title="src/app/app.module.ts (before)"></code-pane>
 </code-tabs>
 
+The revised and simplified `AppModule` is focused on identifying the key pieces of the app.
 
-
+修改并简化后的`AppModule`更专注于应用中的关键片段。
 
 ## Select a hero in the *HeroesComponent*
 
@@ -1419,7 +1412,7 @@ at the top and details of the selected hero below.
 在`HeroesComponent`中，当前模板展示了一个主从风格的界面：上方是英雄列表，底下是所选英雄的详情。
 
 
-<code-example path="toh-4/src/app/app.component.ts" region="template" title="src/app/heroes.component.ts (current template)" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.ts" region="template" title="src/app/heroes.component.ts (current template)" linenums="false">
 
 </code-example>
 
@@ -1454,7 +1447,7 @@ Add the following HTML fragment at the bottom of the template where the `<hero-d
 在模板底部原来放`<hero-detail>`的地方添加下列 HTML 片段：
 
 
-<code-example path="toh-5/src/app/heroes.component.html" region="mini-detail" title="src/app/heroes.component.ts">
+<code-example path="toh-pt5/src/app/heroes.component.html" region="mini-detail" title="src/app/heroes.component.ts">
 
 </code-example>
 
@@ -1465,8 +1458,8 @@ After clicking a hero, users should see something like this below the hero list:
 点击一个英雄，用户将会在英雄列表的下方看到这些：
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/mini-hero-detail.png' alt="Mini版英雄" height="70"></img>
+<figure>
+  <img src='generated/images/guide/toh/mini-hero-detail.png' alt="Mini版英雄">
 </figure>
 
 
@@ -1481,7 +1474,7 @@ that's included in the interpolation binding, right after the pipe operator ( | 
 注意，英雄的名字全被显示成大写字母。那是`uppercase`管道的效果，借助它，我们能干预插值表达式绑定的过程。可以管道操作符 ( | ) 后面看到它。
 
 
-<code-example path="toh-5/src/app/heroes.component.html" region="pipe">
+<code-example path="toh-pt5/src/app/heroes.component.html" region="pipe">
 
 </code-example>
 
@@ -1521,14 +1514,14 @@ It's difficult to find the component logic amidst the noise of HTML and CSS.
 
 这个组件文件太大了。要想在 HTML 和 CSS 的噪音中看清组件的工作逻辑太难了。
 
-Before making any more changes, migrate the template and styles to their own files. 
+Before making any more changes, migrate the template and styles to their own files.
 
 在做更多修改之前，我们先把模板和样式移到它们自己的文件中去：
 
-First, move the template contents from `heroes.component.ts` 
-into a new <code>heroes.component.html</code> file. 
-Don't copy the backticks. As for `heroes.component.ts`, you'll 
-come back to it in a minute. Next, move the 
+First, move the template contents from `heroes.component.ts`
+into a new <code>heroes.component.html</code> file.
+Don't copy the backticks. As for `heroes.component.ts`, you'll
+come back to it in a minute. Next, move the
 styles contents into a new <code>heroes.component.css</code> file.
 
 首先，从`heroes.component.ts`中把模板内容移到新的<code>heroes.component.html</code>文件中，但不要把反引号也拷贝过去。就像`heroes.component.ts`一样，我们很快就能做完。接着，把样式的内容移到新的<code>heroes.component.css</code>文件中。
@@ -1540,11 +1533,11 @@ The two new files should look like this:
 
 <code-tabs>
 
-  <code-pane title="src/app/heroes.component.html" path="toh-5/src/app/heroes.component.html">
+  <code-pane title="src/app/heroes.component.html" path="toh-pt5/src/app/heroes.component.html">
 
   </code-pane>
 
-  <code-pane title="src/app/heroes.component.css" path="toh-5/src/app/heroes.component.css">
+  <code-pane title="src/app/heroes.component.css" path="toh-pt5/src/app/heroes.component.css">
 
   </code-pane>
 
@@ -1552,15 +1545,15 @@ The two new files should look like this:
 
 
 
-Now, back in the component metadata for `heroes.component.ts`, 
-delete `template` and `styles`, replacing them with 
+Now, back in the component metadata for `heroes.component.ts`,
+delete `template` and `styles`, replacing them with
 `templateUrl` and `styleUrls` respectively.
 Set their properties to refer to the new files.
 
 现在，回来编辑`heroes.component.ts`中的组件元数据，删除`template` 和 `styles`属性，代之以相应的`templateUrl` 和 `styleUrls`属性。让它们指向这些新文件。
 
 
-<code-example path="toh-5/src/app/heroes.component.ts" region="metadata" title="src/app/heroes.component.ts (revised metadata)">
+<code-example path="toh-pt5/src/app/heroes.component.ts" region="metadata" title="src/app/heroes.component.ts (revised metadata)">
 
 </code-example>
 
@@ -1608,7 +1601,7 @@ This approach requires the following changes to the component class:
    实现`gotoDetail()`，调用路由器的`navigate()`方法
 
 
-<code-example path="toh-5/src/app/heroes.component.ts" region="gotoDetail" title="src/app/heroes.component.ts (gotoDetail)">
+<code-example path="toh-pt5/src/app/heroes.component.ts" region="gotoDetail" title="src/app/heroes.component.ts (gotoDetail)">
 
 </code-example>
 
@@ -1626,7 +1619,7 @@ Here's the revised `HeroesComponent` class:
 修改完成的`HeroesComponent`类如下所示：
 
 
-<code-example path="toh-5/src/app/heroes.component.ts" region="class" title="src/app/heroes.component.ts (class)">
+<code-example path="toh-pt5/src/app/heroes.component.ts" region="class" title="src/app/heroes.component.ts (class)">
 
 </code-example>
 
@@ -1670,7 +1663,7 @@ that file in the component metadata's `styleUrls` array property like this:
 把<code>dashboard.component.css</code>文件添加到`app`目录下，并在组件元数据的`styleUrls`数组属性中引用它。就像这样：
 
 
-<code-example path="toh-5/src/app/dashboard.component.ts" region="css" title="src/app/dashboard.component.ts (styleUrls)">
+<code-example path="toh-pt5/src/app/dashboard.component.ts" region="css" title="src/app/dashboard.component.ts (styleUrls)">
 
 </code-example>
 
@@ -1701,11 +1694,11 @@ Here's the content for the component CSS files.
 
 <code-tabs>
 
-  <code-pane title="src/app/hero-detail.component.css" path="toh-5/src/app/hero-detail.component.css">
+  <code-pane title="src/app/hero-detail.component.css" path="toh-pt5/src/app/hero-detail.component.css">
 
   </code-pane>
 
-  <code-pane title="src/app/dashboard.component.css" path="toh-5/src/app/dashboard.component.css">
+  <code-pane title="src/app/dashboard.component.css" path="toh-pt5/src/app/dashboard.component.css">
 
   </code-pane>
 
@@ -1728,7 +1721,7 @@ Add an <code>app.component.css</code> file to the `app` folder with the followin
 在`app`目录下添加一个<span ngio-ex>app.component.css</span>文件，内容如下：
 
 
-<code-example path="toh-5/src/app/app.component.css" title="src/app/app.component.css (navigation styles)">
+<code-example path="toh-pt5/src/app/app.component.css" title="src/app/app.component.css (navigation styles)">
 
 </code-example>
 
@@ -1750,7 +1743,7 @@ Angular路由器提供了`routerLinkActive`指令，我们可以用它来为匹�
   我们唯一要做的就是为它定义样式。真好！
   
 
-<code-example path="toh-5/src/app/app.component.ts" region="template" title="src/app/app.component.ts (active router links)">
+<code-example path="toh-pt5/src/app/app.component.ts" region="template" title="src/app/app.component.ts (active router links)">
 
 </code-example>
 
@@ -1766,7 +1759,7 @@ Add a `styleUrls` property that refers to this CSS file as follows:
 然后添加`styleUrls`属性，使其指向这个CSS文件，代码如下：
 
 
-<code-example path="toh-5/src/app/app.component.ts" region="styleUrls" title="toh-5/src/app/app.component.ts">
+<code-example path="toh-pt5/src/app/app.component.ts" region="styleUrls" title="src/app/app.component.ts">
 
 </code-example>
 
@@ -1796,14 +1789,14 @@ Here's an excerpt:
 下面是摘录：
 
 
-<code-example path="toh-5/src/styles.css" region="toh" title="src/styles.css (excerpt)">
+<code-example path="toh-pt5/src/styles.1.css" title="src/styles.css (excerpt)">
 
 </code-example>
 
 
 
 Create the file <code>styles.css</code>.
-Ensure that the file contains the [master styles provided here](https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/_boilerplate/src/styles.css).
+Ensure that the file contains the [master styles provided here](https://raw.githubusercontent.com/angular/angular/master/aio/tools/examples/shared/boilerplate/src/styles.css).
 Also edit <code>index.html</code> to refer to this stylesheet.
 
 如果在根目录下没有一个名叫`styles.css`的文件，就添加它。
@@ -1811,7 +1804,7 @@ Also edit <code>index.html</code> to refer to this stylesheet.
 并编辑`index.html`来引用这个样式表。
 
 
-<code-example path="toh-5/src/index.html" region="css" title="src/index.html (link ref)">
+<code-example path="toh-pt5/src/index.html" region="css" title="src/index.html (link ref)">
 
 </code-example>
 
@@ -1822,8 +1815,8 @@ Look at the app now. The dashboard, heroes, and navigation links are styled.
 看看现在的应用！我们的仪表盘、英雄列表和导航链接都漂亮多了！
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/heroes-dashboard-1.png' alt="查看导航栏"></img>
+<figure>
+  <img src='generated/images/guide/toh/heroes-dashboard-1.png' alt="查看导航栏">
 </figure>
 
 
@@ -2009,7 +2002,7 @@ You're still missing a key piece: remote data access.
 我们有了很多用于构建应用的基石。
   但我们仍然缺少很关键的一块：远程数据存取。
 
-In the next page,
+In the [next tutorial page](tutorial/toh-pt6 "Http")
 you’ll replace the mock data with data retrieved from a server using http.
 
 在下一章，我们将从硬编码模拟数据改为使用 http 服务从服务器获取数据。

@@ -1,12 +1,6 @@
-@title
-安全
+# Security
 
-@intro
-开发内容安全的 Angular 应用。
-
-@description
-
-
+# 安全
 
 This page describes Angular's built-in
 protections against common web-application vulnerabilities and attacks such as cross-site
@@ -18,38 +12,6 @@ Web应用程序的安全涉及到很多方面。针对常见的漏洞和攻击�
 For more information about the attacks and mitigations described below, see [OWASP Guide Project](https://www.owasp.org/index.php/Category:OWASP_Guide_Project).
 
 要了解更多攻防信息，参见[开放式Web应用程序安全项目(OWASP)](https://www.owasp.org/index.php/Category:OWASP_Guide_Project)。
-
-
-
-# Contents:
-
-# 目录：
-
-* [Reporting vulnerabilities](guide/security#report-issues).
-
-  [举报漏洞](guide/security#report-issues).
-
-* [Best practices](guide/security#best-practices).
-
-  [最佳实践](guide/security#best-practices).
-
-* [Preventing cross-site scripting (XSS)](guide/security#xss).
-
-  [防范跨站脚本(XSS)攻击](guide/security#xss).
-
-* [Trusting safe values](guide/security#bypass-security-apis).
-
-  [信任安全值](guide/security#bypass-security-apis).
-
-* [HTTP-Level vulnerabilities](guide/security#http).
-
-  [HTTP级别的漏洞](guide/security#http).
-
-* [Auditing Angular applications](guide/security#code-review).
-
-  [审计Angular应用程序](guide/security#code-review).
-
-
 
 You can run the <live-example></live-example> in Plunker and download the code from there.
 
@@ -71,7 +33,7 @@ You can run the <live-example></live-example> in Plunker and download the code f
 
 
 
-To report vulnerabilities in Angular itself, email us at [security@angular.io](guide/mailto:security@angular).
+To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).
 
 给我们（[security@angular.io](guide/mailto:security@angular)）发邮件，报告Angular本身的漏洞。
 
@@ -156,7 +118,7 @@ attacker-controlled data enters the DOM, expect security vulnerabilities.
 ### Angular的“跨站脚本安全模型”
 
 To systematically block XSS bugs, Angular treats all values as untrusted by default. When a value
-is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation, 
+is inserted into the DOM from a template, via property, attribute, style, class binding, or interpolation,
 Angular sanitizes and escapes untrusted values.
 
 为了系统性的防范XSS问题，Angular默认把所有值都当做不可信任的。
@@ -166,7 +128,7 @@ Angular将对这些值进行无害化处理（Sanitize），对不可信的值�
 _Angular templates are the same as executable code_: HTML, attributes, and binding expressions
 (but not the values bound) in templates are trusted to be safe. This means that applications must
 prevent values that an attacker can control from ever making it into the source code of a
-template. Never generate template source code by concatenating user input and templates. 
+template. Never generate template source code by concatenating user input and templates.
 To prevent these vulnerabilities, use
 the [offline template compiler](guide/security#offline-template-compiler), also known as _template injection_.
 
@@ -253,8 +215,8 @@ tag but keeps safe content such as the text content of the `<script>` tag and th
 Angular认为这些值是不安全的，并自动进行无害化处理。它会移除`<script>`标签，但保留安全的内容，比如该片段中的文本内容或`<b>`元素。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'></img>
+<figure>
+  <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
 </figure>
 
 
@@ -277,7 +239,7 @@ templates where possible.
 
 Content Security Policy (CSP) is a defense-in-depth
 technique to prevent XSS. To enable CSP, configure your web server to return an appropriate
-`Content-Security-Policy` HTTP header. Read more about content security policy at 
+`Content-Security-Policy` HTTP header. Read more about content security policy at
 [An Introduction to Content Security Policy](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
 on the HTML5Rocks website.
 
@@ -296,9 +258,9 @@ on the HTML5Rocks website.
 The offline template compiler prevents a whole class of vulnerabilities called template injection,
 and greatly improves application performance. Use the offline template compiler in production
 deployments; don't dynamically generate templates. Angular trusts template code, so generating
-templates, in particular templates containing user data, circumvents Angular's built-in protections. 
-For information about dynamically constructing forms in a safe way, see the 
-[Dynamic Forms](cookbook/dynamic-form) cookbook page.
+templates, in particular templates containing user data, circumvents Angular's built-in protections.
+For information about dynamically constructing forms in a safe way, see the
+[Dynamic Forms](guide/dynamic-form) guide page.
 
 离线模板编译器阻止了一整套被称为“模板注入”的漏洞，并能显著增强应用程序的性能。尽量在产品发布时使用离线模板编译器，
 而不要动态生成模板（比如在代码中拼接字符串生成模板）。由于Angular会信任模板本身的代码，所以，动态生成的模板 —— 特别是包含用户数据的模板 —— 会绕过Angular自带的保护机制。
@@ -310,7 +272,7 @@ For information about dynamically constructing forms in a safe way, see the
 
 HTML constructed on the server is vulnerable to injection attacks. Injecting template code into an
 Angular application is the same as injecting executable code into the
-application: it gives the attacker full control over the application. To prevent this, 
+application: it gives the attacker full control over the application. To prevent this,
 use a templating language that automatically escapes values to prevent XSS vulnerabilities on
 the server. Don't generate Angular templates on the server side using a templating language; doing this
 carries a high risk of introducing template-injection vulnerabilities.
@@ -334,10 +296,10 @@ carries a high risk of introducing template-injection vulnerabilities.
 
 
 Sometimes applications genuinely need to include executable code, display an `<iframe>` from some
-URL, or construct potentially dangerous URLs. To prevent automatic sanitization in any of these 
-situations, you can tell Angular that you inspected a value, checked how it was generated, and made 
-sure it will always be secure. But *be careful*. If you trust a value that might be malicious, you 
-are introducing a security vulnerability into your application. If in doubt, find a professional 
+URL, or construct potentially dangerous URLs. To prevent automatic sanitization in any of these
+situations, you can tell Angular that you inspected a value, checked how it was generated, and made
+sure it will always be secure. But *be careful*. If you trust a value that might be malicious, you
+are introducing a security vulnerability into your application. If in doubt, find a professional
 security reviewer.
 
 有时候，应用程序确实需要包含可执行的代码，比如使用URL显示`<iframe>`，或者构造出有潜在危险的URL。
@@ -381,8 +343,8 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/security/bypass-security-component.png' alt='A screenshot showing an alert box created from a trusted URL'></img>
+<figure>
+  <img src='generated/images/guide/security/bypass-security-component.png' alt='A screenshot showing an alert box created from a trusted URL'>
 </figure>
 
 
@@ -390,7 +352,7 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 If you need to convert user input into a trusted value, use a
 controller method. The following template allows users to enter a YouTube video ID and load the
 corresponding video in an `<iframe>`. The `<iframe src>` attribute is a resource URL security
-context, because an untrusted source can, for example, smuggle in file downloads that unsuspecting users 
+context, because an untrusted source can, for example, smuggle in file downloads that unsuspecting users
 could execute. So call a method on the controller to construct a trusted video URL, which causes
 Angular to allow binding into `<iframe src>`:
 
@@ -425,7 +387,7 @@ Angular to allow binding into `<iframe src>`:
 
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request
-forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily 
+forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily
 on the server side, but Angular provides helpers to make integration on the client side easier.
 
 Angular内置了一些支持来防范两个常见的HTTP漏洞：跨站请求伪造（XSRF）和跨站脚本包含（XSSI）。
@@ -445,8 +407,8 @@ Angular内置了一些支持来防范两个常见的HTTP漏洞：跨站请求伪
 
 
 In a cross-site request forgery (CSRF or XSRF), an attacker tricks the user into visiting
-a different web page (such as `evil.com`) with malignant code that secretly sends a malicious request 
-to the application's web server (such as `example-bank.com`). 
+a different web page (such as `evil.com`) with malignant code that secretly sends a malicious request
+to the application's web server (such as `example-bank.com`).
 
 在跨站请求伪造（XSRF或CSFR）中，攻击者欺骗用户，让他们访问一个假冒页面(例如`evil.com`)，
 该页面带有恶意代码，秘密的向你的应用程序服务器发送恶意请求(例如`example-bank.com`)。
@@ -461,15 +423,11 @@ Perhaps it's a request to transfer money from the user's account to the attacker
 The browser automatically sends the `example-bank.com` cookies (including the authentication cookie) with this request.
 
 该`evil.com`页面立刻发送恶意请求到`example-bank.com`。这个请求可能是从用户账户转账到攻击者的账户。
-与该请求一起，浏览器自动发出`example-bank.com`的cookie。
-
-If the `example-bank.com` server lacks XSRF protection, itcan't tell the difference between a legitimate request from the application
-and the forged request from `evil.com`.
-
-如果`example-bank.com`服务器缺乏XSRF保护，就无法辨识请求是从应用程序发来的合法请求还是从`evil.com`来的假请求。
+与该请求一起，浏览器自动发出`example-bank.com`的cookie。If the `example-bank.com` server lacks XSRF protection, it can't tell the difference between a legitimate 
+request from the application and the forged request from `evil.com`.如果`example-bank.com`服务器缺乏XSRF保护，就无法辨识请求是从应用程序发来的合法请求还是从`evil.com`来的假请求。
 
 To prevent this, the application must ensure that a user request originates from the real
-application, not from a different site. 
+application, not from a different site.
 The server and client must cooperate to thwart this attack.
 
 为了防止这种情况，你必须确保每个用户的请求都是从你自己的应用中发出的，而不是从另一个网站发出的。
@@ -484,70 +442,29 @@ The server compares the received cookie value to the request header value and re
   客户端代码获取这个cookie，并用它为接下来所有的请求添加自定义请求页头。
   服务器比较收到的cookie值与请求页头的值，如果它们不匹配，便拒绝请求。
   
-This technique is effective because all browsers implement the _same origin policy_. Only code from the website 
+This technique is effective because all browsers implement the _same origin policy_. Only code from the website
 on which cookies are set can read the cookies from that site and set custom headers on requests to that site.
 That means only your application can read this cookie token and set the custom header. The malicious code on `evil.com` can't.
 
 这个技术之所以有效，是因为所有浏览器都实现了_同源策略_。只有设置cookie的网站的代码可以访问该站的cookie，并为该站的请求设置自定义页头。
   这就是说，只有你的应用程序可以获取这个cookie令牌和设置自定义页头。`evil.com`的恶意代码不能。
 
-Angular's `http` has built-in support for the client-side half of this technique in its `XSRFStrategy`. 
-The default `CookieXSRFStrategy` is turned on automatically.
-Before sending an HTTP request, the `CookieXSRFStrategy` looks for a cookie called `XSRF-TOKEN` and 
-sets a header named `X-XSRF-TOKEN` with the value of that cookie. 
+Angular's `HttpClient` has built-in support for the client-side half of this technique. Read about it more in the [HttpClient guide](/guide/http).
 
-Angular的`http`客户端在其`XSRFStrategy`中具有对这项技术的内置支持。
-  默认的`CookieXSRFStrategy`会被自动开启
-  在发送每个请求之前，`CookieXSRFStrategy`查询名为`XSRF-TOKEN`的cookie，并设置一个名为`X-XSRF-TOKEN`的HTTP请求头，并把该cookie的值赋给它。
-  
-The server must do its part by setting the
-initial `XSRF-TOKEN` cookie and confirming that each subsequent state-modifying request
-includes a matching `XSRF-TOKEN` cookie and `X-XSRF-TOKEN` header.
-
-服务器必须要完成自己的任务，设置初始`XSRF-TOKEN`cookie，并确认接下来的每个请求包含了配对的`XSRF-TOKEN`cookie和`X-XSRF-TOKEN`页头。
-
-XSRF/CSRF tokens should be unique per user and session, have a large random value generated by a
-cryptographically secure random number generator, and  expire in a day or two.
-
-CSRF令牌对每个用户和session应该是唯一的，它包含一大串由安全的随机数字生成器生成的随机值，并且在一两天之内过期。
-
-Your server may use a different cookie or header name for this purpose.
-An Angular application can customize cookie and header names by providing its own `CookieXSRFStrategy` values.
-
-你的服务器可能使用不同的cookie或者页头名字。Angular应用可以通过自己的`CookieXSRFStrategy`值来自定义cookie和页头名字。
-  
-
-<code-example language="typescript">
-  { provide: XSRFStrategy, useValue: new CookieXSRFStrategy('myCookieName', 'My-Header-Name') }
-
-</code-example>
-
-
-
-Or you can implement and provide an entirely custom `XSRFStrategy`:
-
-或者你可以实现和提供完整的自定义`XSRFStrategy`：
-
-
-<code-example language="typescript">
-  { provide: XSRFStrategy, useClass: MyXSRFStrategy }
-
-</code-example>
-
-
+Angular 的 `HttpClient` 对这项技术的客户端部分提供了内置的支持要了解更多信息，参见 [HttpClient部分](/guide/http)。
 
 For information about CSRF at the Open Web Application Security Project (OWASP), see
-<a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29" target="_blank">Cross-Site Request Forgery (CSRF)</a> and
-<a href="https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet" target="_blank">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>.
-The Stanford University paper 
-<a href="https://seclab.stanford.edu/websec/csrf/csrf.pdf" target="_blank">Robust Defenses for Cross-Site Request Forgery</a> is a rich source of detail.
+<a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29">Cross-Site Request Forgery (CSRF)</a> and
+<a href="https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>.
+The Stanford University paper
+<a href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">Robust Defenses for Cross-Site Request Forgery</a> is a rich source of detail.
 
 到开放式Web应用程序安全项目(OWASP)的[这里](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
 和[这里](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet)学习更多关于跨站请求伪造（XSRF）的知识。
 这个[斯坦福大学论文](https://seclab.stanford.edu/websec/csrf/csrf.pdf)有详尽的细节。
 
-See also Dave Smith's easy-to-understand 
-<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">talk on XSRF at AngularConnect 2016</a>.
+See also Dave Smith's easy-to-understand
+<a href="https://www.youtube.com/watch?v=9inczw6qtpY" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">talk on XSRF at AngularConnect 2016</a>.
 
 参见Dave Smith在<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">AngularConnect 2016关于XSRF的演讲</a>。
 
@@ -578,7 +495,7 @@ well-known string `")]}',\n"`.
 只有在返回的JSON能像JavaScript一样可以被执行时，这种攻击才会生效。所以服务端会约定给所有JSON响应体加上前缀`")]}',\n"`，来把它们标记为不可执行的，
 以防范这种攻击。
 
-Angular's `Http` library recognizes this convention and automatically strips the string
+Angular's `HttpClient` library recognizes this convention and automatically strips the string
 `")]}',\n"` from all responses before further parsing.
 
 Angular的`Http`库会识别这种约定，并在进一步解析之前，自动把字符串`")]}',\n"`从所有响应中去掉。

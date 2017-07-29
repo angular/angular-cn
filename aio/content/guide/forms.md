@@ -1,11 +1,6 @@
-@title
-表单
+# Forms
 
-@intro
-表单创建一个有机、有效、引人注目的数据输入体验。Angular 表单协调一组数据绑定控件，跟踪变更，验证输入的有效性，并且显示错误信息。
-
-@description
-
+# 表单
 
 Forms are the mainstay of business applications.
 You use forms to log in, submit a help request, place an order, book a flight,
@@ -57,6 +52,7 @@ You can run the <live-example></live-example> in Plunker and download the code f
 你可以在Plunker中运行<live-example></live-example>，并且从那里下载代码。
 
 
+{@a template-driven}
 
 ## Template-driven forms
 
@@ -72,7 +68,7 @@ the form-specific directives and techniques described in this page.
 
 
 
-You can also use a reactive (or model-driven) approach to build forms. 
+You can also use a reactive (or model-driven) approach to build forms.
 However, this page focuses on template-driven forms.
 
 你还可以使用响应式（也叫模型驱动）的方式来构建表单。不过本章中只介绍模板驱动表单。
@@ -100,8 +96,8 @@ You'll learn to build a template-driven form that looks like this:
 我们将学习构建如下的“模板驱动”表单：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/hero-form-1.png" width="400px" alt="Clean Form"></img>
+<figure>
+  <img src="generated/images/guide/forms/hero-form-1.png" alt="Clean Form">
 </figure>
 
 
@@ -121,8 +117,8 @@ If you delete the hero name, the form displays a validation error in an attentio
 如果删除了英雄的名字，表单就会用醒目的样式把验证错误显示出来。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/hero-form-2.png" width="400px" alt="无效！名字是必填项"></img>
+<figure>
+  <img src="generated/images/guide/forms/hero-form-2.png" alt="无效！名字是必填项">
 </figure>
 
 
@@ -373,12 +369,12 @@ There are three changes:
 
    导入`FormsModule`和新组件`HeroFormComponent`。
 
-1. You add the `FormsModule` to the list of `imports` defined in the `ngModule` decorator. This gives the application
+1. You add the `FormsModule` to the list of `imports` defined in the `@NgModule` decorator. This gives the application
 access to all of the template-driven forms features, including `ngModel`.
 
    把`FormsModule`添加到`ngModule`装饰器的`imports`列表中，这样应用就能访问模板驱动表单的所有特性，包括`ngModel`。
 
-1. You add the `HeroFormComponent` to the list of `declarations` defined in the `ngModule` decorator. This makes
+1. You add the `HeroFormComponent` to the list of `declarations` defined in the `@NgModule` decorator. This makes
 the `HeroFormComponent` component visible throughout this module.
 
    把`HeroFormComponent`添加到`ngModule`装饰器的`declarations`列表中，使`HeroFormComponent`组件在整个模块中可见。
@@ -482,7 +478,7 @@ You added a *Submit* button at the bottom with some classes on it for styling.
 
 
 
-In template driven forms, if you've imported `FormsModule`, you don't have to do anything 
+In template driven forms, if you've imported `FormsModule`, you don't have to do anything
 to the `<form>` tag in order to make use of `FormsModule`. Continue on to see how this works.
 
 在模板驱动表单中，你只要导入了`FormsModule`就不用对`<form>`做任何改动来使用`FormsModule`。接下来你会看到它的原理。
@@ -575,6 +571,7 @@ you display its name using the interpolation syntax.
 模板输入变量`p`在每个迭代指向不同的超能力，使用双花括号插值表达式语法来显示它的名称。
 
 
+{@a ngModel}
 
 ## Two-way data binding with _ngModel_
 
@@ -585,8 +582,8 @@ Running the app right now would be disappointing.
 如果立即运行此应用，你将会失望。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/hero-form-3.png" width="400px" alt="没有数据绑定的早期表单"></img>
+<figure>
+  <img src="generated/images/guide/forms/hero-form-3.png" alt="没有数据绑定的早期表单">
 </figure>
 
 
@@ -644,8 +641,8 @@ Focus on the binding syntax: `[(ngModel)]="..."`.
 
 聚焦到绑定语法`[(ngModel)]="..."`上。
 
-You need one more addition to display the data. Declare 
-a template variable for the form. Update the `<form>` tag with 
+You need one more addition to display the data. Declare
+a template variable for the form. Update the `<form>` tag with
 `#heroForm="ngForm"` as follows:
 
 我们需要更多的工作来显示数据。在表单中声明一个模板变量。往`<form>`标签中加入`#heroForm="ngForm"`，代码如下：
@@ -664,14 +661,14 @@ The variable `heroForm` is now a reference to the `NgForm` directive that govern
 
 <div class="l-sub-section">
 
-
+{@a ngForm}
 
 ### The _NgForm_ directive
 
 ### `NgForm`指令
 
 What `NgForm` directive?
-You didn't add an [NgForm](api/forms/index/NgForm-directive) directive.
+You didn't add an [NgForm](api/forms/NgForm) directive.
 
 什么是`NgForm`指令？
 但我们明明没有添加过[NgForm](api/forms/index/NgForm-directive)指令啊！
@@ -704,8 +701,8 @@ At some point it might look like this:
 某一瞬间，它可能是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/ng-model-in-action.png" width="400px" alt="操作中的ngModel"></img>
+<figure>
+  <img src="generated/images/guide/forms/ng-model-in-action.png" alt="操作中的ngModel">
 </figure>
 
 
@@ -801,8 +798,8 @@ If you run the app  now and change every hero model property, the form might dis
 如果现在运行本应用，修改 Hero 模型的每个属性，表单是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/ng-model-in-action-2.png" width="400px" alt="ngModel in action"></img>
+<figure>
+  <img src="generated/images/guide/forms/ng-model-in-action-2.png" alt="ngModel in action">
 </figure>
 
 
@@ -992,8 +989,8 @@ The actions and effects are as follows:
 动作和它对应的效果如下：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/control-state-transitions-anim.gif" alt="控件状态转换"></img>
+<figure>
+  <img src="generated/images/guide/forms/control-state-transitions-anim.gif" alt="控件状态转换">
 </figure>
 
 
@@ -1003,8 +1000,8 @@ You should see the following transitions and class names:
 我们会看到下列转换及其类名：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/ng-control-class-changes.png" width="500px" alt="Control state transitions"></img>
+<figure>
+  <img src="generated/images/guide/forms/ng-control-class-changes.png" alt="Control state transitions">
 </figure>
 
 
@@ -1033,8 +1030,8 @@ on the left of the input box:
 可以在输入框的左侧添加带颜色的竖条，用于标记必填字段和无效输入：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/validity-required-indicator.png" width="400px" alt="无效表单"></img>
+<figure>
+  <img src="generated/images/guide/forms/validity-required-indicator.png" alt="无效表单">
 </figure>
 
 
@@ -1078,8 +1075,8 @@ When the user deletes the name, the form should look like this:
 当用户删除姓名时，应该是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/forms/name-required-error.png" width="400px" alt="必须填写姓名"></img>
+<figure>
+  <img src="generated/images/guide/forms/name-required-error.png" alt="必须填写姓名">
 </figure>
 
 
@@ -1119,7 +1116,7 @@ Here you created a variable called `name` and gave it the value "ngModel".
 
 
 Why "ngModel"?
-A directive's [exportAs](api/core/index/Directive-decorator) property
+A directive's [exportAs](api/core/Directive) property
 tells Angular how to link the reference variable to the directive.
 You set `name` to `ngModel` because the `ngModel` directive's `exportAs` property happens to be "ngModel".
 
@@ -1161,7 +1158,7 @@ you'll see the error message immediately, before you've done anything.
 
 Some developers want the message to display only when the user makes an invalid change.
 Hiding the message while the control is "pristine" achieves that goal.
-You'll see the significance of this choice when you [add a new hero](guide/forms#new-hero) to the form.
+You'll see the significance of this choice when you add a new hero to the form.
 
 有些人会为这种行为感到不安。它们希望只有在用户做出无效的更改时才显示这个消息。
 如果当控件是“全新”状态时也隐藏消息，就能达到这个目的。
@@ -1270,8 +1267,8 @@ to the hero form component's `onSubmit()` method:
 
 
 
-You'd already defined a template reference variable, 
-`#heroForm`, and initialized it with the value "ngForm". 
+You'd already defined a template reference variable,
+`#heroForm`, and initialized it with the value "ngForm".
 Now, use that variable to access the form with the Submit button.
 
 我们已经定义了一个模板引用变量`#heroForm`，并且把赋值为“ngForm”。
@@ -1291,7 +1288,7 @@ using an event binding. Here's the code:
 
 
 
-If you run the application now, you find that the button is enabled&mdash;although 
+If you run the application now, you find that the button is enabled&mdash;although
 it doesn't do anything useful yet.
 
 重新运行应用。表单打开时，状态是有效的，按钮是可用的。

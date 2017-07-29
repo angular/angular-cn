@@ -1,12 +1,6 @@
-@title
-组件样式
+# Component Styles
 
-@intro
-学习如何给组件应用 CSS 样式。
-
-@description
-
-
+# 组件样式
 
 Angular applications are styled with standard CSS. That means you can apply
 everything you know about CSS stylesheets, selectors, rules, and media queries
@@ -23,6 +17,8 @@ with components, enabling a more modular design than regular stylesheets.
 This page describes how to load and apply these component styles.
 
 在本章中，我们将学到如何加载和使用这些*组件样式*。
+
+<!--
 
 ## Table Of Contents
 
@@ -51,6 +47,8 @@ This page describes how to load and apply these component styles.
 * [Appendix 2: Loading styles with relative URLs](guide/component-styles#relative-urls)
 
   [附录 2：使用相对 URL 加载样式](guide/component-styles#relative-urls)
+
+-->
 
 You can run the <live-example></live-example> in Plunker and download the code from there.
 
@@ -200,14 +198,15 @@ if some ancestor element has the CSS class `theme-light`.
 
 
 
-### /deep/
+### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
 
 Component styles normally apply only to the HTML in the component's own template. 
 
 组件样式通常只会作用于组件自身的 HTML 上。
 
-Use the `/deep/` selector to force a style down through the child component tree into all the child component views.
-The `/deep/` selector works to any depth of nested components, and it applies to both the view
+Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child
+component tree into all the child component views.
+The `/deep/` combinator works to any depth of nested components, and it applies to both the view
 children and content children of the component. 
   
 我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
@@ -222,18 +221,13 @@ through this component to all of its child elements in the DOM.
 
 </code-example>
 
+The `/deep/` combinator also has the aliases `>>>`, and `::ng-deep`.
 
-
-The `/deep/` selector also has the alias `>>>`. You can use either interchangeably.
-
-`/deep/`选择器还有一个别名`>>>`。我们可以任意交替使用它们。
-
+`/deep/` 组合器还有两个别名：`>>>`和`::ng-deep`。
 
 <div class="alert is-important">
 
-
-
-Use the `/deep/` and `>>>` selectors only with *emulated* view encapsulation.
+Use `/deep/`, `>>>` and `::ng-deep` only with *emulated* view encapsulation.
 Emulated is the default and most commonly used view encapsulation. For more information, see the
 [Controlling view encapsulation](guide/component-styles#view-encapsulation) section.
 
@@ -244,13 +238,17 @@ Emulated is the default and most commonly used view encapsulation. For more info
 
 </div>
 
+<div class="alert is-important">
 
+The shadow-piercing descendant combinator is deprecated and [support is being removed from major browsers](https://www.chromestatus.com/features/6750456638341120) and tools.
+As such we plan to drop support in Angular (for all 3 of `/deep/`, `>>>` and `::ng-deep`).
+Until then `::ng-deep` should be preferred for a broader compatibility with the tools.
+
+</div>
 
 {@a loading-styles}
 
-
-
-## Loading styles into components
+## Loading component styles
 
 ## 把样式加载进组件中
 
@@ -416,7 +414,7 @@ In this case, the URL is relative to the CSS file into which you're importing.
 
 
 
-## Controlling view encapsulation: native, emulated, and none
+## View encapsulation
 
 ## 控制视图的封装模式：原生 (Native)、仿真 (Emulated) 和无 (None)
 
@@ -482,7 +480,7 @@ in most cases.
 
 
 
-## Appendix 1: Inspecting the CSS generated in emulated view encapsulation
+## Appendix: Inspecting generated CSS
 
 ## 附录 1：查看仿真 (Emulated) 模式下生成的 CSS
 
@@ -560,7 +558,7 @@ These extra selectors enable the scoping rules described in this page.
 
 
 
-## Appendix 2: Loading styles with relative URLs
+## Appendix: Loading with relative URLs
 
 ## 附录 2：使用相对 URL 加载样式
 

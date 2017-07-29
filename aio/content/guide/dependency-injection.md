@@ -1,12 +1,6 @@
-@title
-依赖注入
+# Dependency Injection
 
-@intro
-Angular 的依赖注入系统能够即时地创建和交付所依赖的服务。
-
-@description
-
-
+# 依赖注入
 
 **Dependency injection** is an important application design pattern.
 Angular has its own dependency injection framework, and
@@ -24,116 +18,11 @@ and [how to use it](guide/dependency-injection#angular-di) in an Angular app.
   然后，将学习在 Angular 应用中该[如何使用它](guide/dependency-injection#angular-di)。
 
 
-# Contents
-
-* [Why dependency injection?](guide/dependency-injection#why-di)
-
-  [为什么需要依赖注入？](guide/dependency-injection#why-di)
-  
-* [Angular dependency injection](guide/dependency-injection#angular-dependency-injection)
-
-  [Angular的依赖注入](guide/dependency-injection#angular-dependency-injection)
-
-  * [Configuring the injector](guide/dependency-injection#injector-config)
-  
-    [配置注入器](guide/dependency-injection#injector-config)
-  
-  * [Registering providers in an `NgModule`](guide/dependency-injection#register-providers-ngmodule)
-  
-    [在`NgModule`中注册提供商](guide/dependency-injection#register-providers-ngmodule)
-    
-  * [Registering providers in a component](guide/dependency-injection#register-providers-component)
-  
-    [在组件中注册提供商](guide/dependency-injection#register-providers-component)
-  
-  * [When to use `NgModule` versus an application component](guide/dependency-injection#ngmodule-vs-comp)
-  
-    [什么时候使用`NgModule`？什么时候使用应用组件？](guide/dependency-injection#ngmodule-vs-comp)
-  
-  * [Preparing the `HeroListComponent` for injection](guide/dependency-injection#prep-for-injection)
-  
-    [为依赖注入准备`HeroListComponent`](guide/dependency-injection#prep-for-injection)
-  
-  * [Implicit injector creation](guide/dependency-injection#di-metadata)
-  
-    [隐式依赖注入](guide/dependency-injection#di-metadata)
-  
-  * [Singleton services](guide/dependency-injection#singleton-services)
-  
-    [单例服务](guide/dependency-injection#singleton-services)
-  
-  * [Testing the component](guide/dependency-injection#testing-the-component)
-  
-    [测试组件](guide/dependency-injection#testing-the-component)
-  
-  * [When the service needs a service](guide/dependency-injection#service-needs-service)
-  
-    [什么时候服务需要另一个服务](guide/dependency-injection#service-needs-service)
-  
-  * [Why `@Injectable()`?](guide/dependency-injection#injectable)
-  
-    [为什么要加`@Injectable()`？](guide/dependency-injection#injectable)
-    
-* [Creating and registering a logger service](guide/dependency-injection#logger-service)
-
-  [创建并注册日志服务](guide/dependency-injection#logger-service)
-
-* [Injector providers](guide/dependency-injection#injector-providers)
-
-  [注入器提供商](guide/dependency-injection#injector-providers)
-
-  * [The `Provider` class and `provide` object literal](guide/dependency-injection#provide)
-  
-  * [`Provider`类和`provide`对象字面量](guide/dependency-injection#provide)
-  
-  * [Alternative class providers](guide/dependency-injection#class-provider)
-  
-    [代用类提供商](guide/dependency-injection#class-provider)
-    
-  * [Class provider with dependencies](guide/dependency-injection#class-provider-dependencies)
-  
-    [带有依赖的类提供商](guide/dependency-injection#class-provider-dependencies)
-    
-  * [Aliased class providers](guide/dependency-injection#aliased-class-providers)
-  
-    [别名类提供商](guide/dependency-injection#aliased-class-providers)
-    
-  * [Value providers](guide/dependency-injection#value-provider)
-  
-    [值提供商](guide/dependency-injection#value-provider)
-  
-  * [Factory providers](guide/dependency-injection#factory-provider)
-  
-    [工厂提供商](guide/dependency-injection#factory-provider)
-  
-* [Dependency injection tokens](guide/dependency-injection#dependency-injection-tokens)
-
-  [依赖注入令牌](guide/dependency-injection#dependency-injection-tokens)
-
-  * [Non-class dependencies](guide/dependency-injection#non-class-dependencies)
-
-    [非“类”依赖](guide/dependency-injection#non-class-dependencies)
-
-  * [`InjectionToken`](guide/dependency-injection#injection-token)
-
-* [Optional dependencies](guide/dependency-injection#optional)
-
-  [可选依赖](guide/dependency-injection#optional)
-
-* [Summary](guide/dependency-injection#summary)
-
-  [总结](guide/dependency-injection#summary)
-
-* [Appendix: Working with injectors directly](guide/dependency-injection#explicit-injector)
-
-  [附录：直接使用注入器](guide/dependency-injection#explicit-injector)
-
-
 Run the <live-example></live-example>.
 
 运行<live-example></live-example>.
 
-
+{@a why-di }
 
 ## Why dependency injection?
 ## 为什么需要依赖注入？
@@ -423,6 +312,7 @@ read on to see how it is implemented in Angular.
 现在，我们知道了什么是依赖注入，以及它的优点。再来看看它在 Angular 中是怎么实现的。
 
 
+{@a angular-di}
 
 ## Angular dependency injection
 ## Angular 依赖注入
@@ -674,11 +564,10 @@ the `HeroesComponent`.
 
 
 
-Also see *"Should I add app-wide providers to the root `AppModule` or the root `AppComponent`?"* in the [NgModule FAQ](cookbook/ngmodule-faq#q-root-component-or-module).
+Also see *"Should I add app-wide providers to the root `AppModule` or the root `AppComponent`?"* in the [NgModule FAQ](guide/ngmodule-faq#q-root-component-or-module).
  
 参见 [NgModule FAQ](cookbook/ngmodule-faq#q-root-component-or-module) 一章的
   **我该把“全应用级”提供商加到根模块`AppModule`还是根组件`AppComponent`？**
-
 
 
 </div>
@@ -900,7 +789,7 @@ You call that property within the `getHeroes()` method when anyone asks for hero
 
 ### 为什么要用 _@Injectable()_?
 
-**<a href="../api/core/index/Injectable-decorator.html">@Injectable()</a>** marks a class as available to an
+**[@Injectable()](api/core/Injectable)** marks a class as available to an
 injector for instantiation. Generally speaking, an injector reports an
 error when trying to instantiate a class that is not marked as
 `@Injectable()`.
@@ -993,7 +882,7 @@ like `HeroesComponent`. So why doesn't `HeroesComponent` have
 You *can* add it if you really want to. It isn't necessary because the
 `HeroesComponent` is already marked with `@Component`, and this
 decorator class (like `@Directive` and `@Pipe`, which you learn about later)
-is a subtype of <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a>.  It is in
+is a subtype of [@Injectable()](api/core/Injectable).  It is in
 fact `@Injectable()` decorators that
 identify a class as a target for instantiation by an injector.
 
@@ -1026,7 +915,7 @@ TypeScript 编译器默认忽略元数据。
 编译器就会在生成的 JavaScript 中，为_每一个至少拥有一个装饰器的类_添加元数据。
 
 While any decorator will trigger this effect, mark the service class with the
-<a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> decorator
+[@Injectable()](api/core/Injectable) decorator
 to make the intent clear.
 
 当然，任何装饰器都会触发这个效果，用 <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> 来标识服务
@@ -1063,7 +952,7 @@ The application will fail mysteriously if you forget the parentheses.
 </div>
 
 
-
+{@a logger-service}
 
 ## Creating and registering a logger service
 
@@ -1134,6 +1023,7 @@ The chain of creations started with the `Logger` provider. *Providers* are the s
 这个“创建链”始于`Logger`的提供商。这个*提供商*就是下一节的主题 。
 
 
+{@a providers}
 
 ## Injector providers
 ## 注入器的提供商们
@@ -1524,7 +1414,7 @@ Here you see the new and the old implementation side-by-side:
 </code-tabs>
 
 
-
+{@a token}
 
 ## Dependency injection tokens
 ## 依赖注入令牌
@@ -1680,7 +1570,7 @@ TypeScript 接口不会出现在生成的 JavaScript 代码中。
 ### _InjectionToken_
 
 One solution to choosing a provider token for non-class dependencies is
-to define and use an <a href="../api/core/index/InjectionToken-class.html"><b>InjectionToken</b></a>.
+to define and use an [*InjectionToken*](api/core/InjectionToken).
 The definition of such a token looks like this:
 
 解决方案是为非类依赖定义和使用<a href="../api/core/index/InjectionToken-class.html"><b>InjectionToken</b></a>作为提供商令牌。
@@ -1736,15 +1626,11 @@ it supports typing of the configuration object within the class.
 
 
 
-Aternatively, you can provide and inject the configuration object in an ngModule like `AppModule`.
+Alternatively, you can provide and inject the configuration object in an ngModule like `AppModule`.
 
 或者在 ngModule 中提供并注入这个配置对象，如`AppModule`。
 
-
-<code-example path="dependency-injection/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (ngmodule-providers)" region="ngmodule-providers">
-
-</code-example>
-
+<code-example path="dependency-injection/src/app/app.module.ts" region="ngmodule-providers" title="src/app/app.module.ts (ngmodule-providers)"></code-example>
 
 
 <div id='optional'>
@@ -1805,7 +1691,7 @@ nested injectors, in
 Angular 依赖注入比前面描述的更能干。
 学习更多高级特性，如对嵌套注入器的支持，见[多级依赖注入](guide/hierarchical-dependency-injection)一章。
 
-
+{@a explicit-injector}
 
 ## Appendix: Working with injectors directly
 ## 附录：直接使用注入器
@@ -1878,8 +1764,7 @@ must acquire services generically and dynamically.
 
 </div>
 
-
-
+{@a one-class-per-file}
 
 ## Appendix: Why have one class per file
 

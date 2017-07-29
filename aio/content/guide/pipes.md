@@ -1,12 +1,6 @@
-@title
-管道
+# Pipes
 
-@intro
-管道可以在模板中转换显示的内容。
-
-@description
-
-
+# 管道
 
 Every application starts out with what seems like a simple task: get data, transform them, and show them to users.
 Getting data could be as simple as creating a local variable or as complex as streaming data over a WebSocket.
@@ -41,7 +35,6 @@ You can run the <live-example></live-example> in Plunker and download the code f
 试试<live-example>在线例子</live-example>。
 
 
-
 ## Using pipes
 
 ## 使用管道
@@ -72,7 +65,7 @@ Focus on the component's template.
 
 
 Inside the interpolation expression, you flow the component's `birthday` value through the
-[pipe operator](guide/template-syntax#pipe) ( | ) to the [Date pipe](api/common/index/DatePipe-pipe)
+[pipe operator](guide/template-syntax#pipe) ( | ) to the [Date pipe](api/common/DatePipe)
 function on the right. All pipes work this way.
 
 在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
@@ -117,7 +110,7 @@ Angular内置了一些管道，比如`DatePipe`、`UpperCasePipe`、`LowerCasePi
 
 
 
-Read more about these and many other built-in pipes in the [pipes topics](api/#!?query=pipe) of the
+Read more about these and many other built-in pipes in the [pipes topics](api?type=pipe) of the
 [API Reference](api); filter for entries that include the word "pipe".
 
 要学习更多内置管道的知识，参见[API参考手册](api/#!?apiFilter=pipe)，并用“pipe”为关键词对结果进行过滤。
@@ -199,8 +192,8 @@ As you click the button, the displayed date alternates between
 当我们点击按钮的时候，显示的日志会在“**<samp>04/15/1988</samp>**”和“**<samp>Friday, April 15, 1988</samp>**”之间切换。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle"></img>
+<figure>
+  <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">
 </figure>
 
 
@@ -209,7 +202,7 @@ As you click the button, the displayed date alternates between
 
 
 
-Read more about the `DatePipe` format options in the [Date Pipe](api/common/index/DatePipe-pipe)
+Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)
 API Reference page.
 
 要了解更多`DatePipes`的格式选项，请参阅[API文档](api/common/index/DatePipe-class)。
@@ -303,7 +296,7 @@ Your pipe has one such parameter: the `exponent`.
 
 
 
-### The *PipeTransform* interface
+## The *PipeTransform* interface
 
 ### *PipeTransform*接口
 
@@ -318,21 +311,16 @@ Technically, it's optional; Angular looks for and executes the `transform` metho
 
 </div>
 
-
-
 Now you need a component to demonstrate the pipe.
 
 现在，我们需要一个组件来演示这个管道。
 
 
 <code-example path="pipes/src/app/power-booster.component.ts" title="src/app/power-booster.component.ts" linenums="false">
-
 </code-example>
 
-
-
-<figure class='image-display'>
-  <img src='assets/images/devguide/pipes/power-booster.png' alt="Power Booster"></img>
+<figure>
+  <img src='generated/images/guide/pipes/power-booster.png' alt="Power Booster">
 </figure>
 
 
@@ -351,8 +339,6 @@ Note the following:
 
 
 <div class="callout is-helpful">
-
-
 
 <header>
   Remember the declarations array
@@ -402,8 +388,8 @@ your pipe and two-way data binding with `ngModel`.
 
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator"></img>
+<figure>
+  <img src='generated/images/guide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator">
 </figure>
 
 
@@ -425,11 +411,9 @@ Angular通过*变更检测*过程来查找绑定值的更改，并在每一次Ja
 
 Angular picks a simpler, faster change detection algorithm when you use a pipe.
 
-当我们使用管道时，Angular选用了一种简单、快速的变更检测算法。
+<h3 class="no-toc">No pipe</h3>
 
-### No pipe
-
-### 无管道
+<h3 class="no-toc">无管道</h3>
 
 In the next example, the component uses the default, aggressive change detection strategy to monitor and update
 its display of every hero in the `heroes` array. Here's the template:
@@ -462,9 +446,9 @@ If you added the ability to remove or change a hero, Angular would detect those 
 `reset`按钮会把`heroes`替换成一个由原来的英雄组成的新数组，重置完之后，Angular就会更新显示。
 如果我们提供了删除或修改英雄的能力，Angular也会检测到那些更改，并更新显示。
 
-### Flying-heroes pipe
+<h3 class="no-toc"><i>FlyingHeroesPipe</i></h3>
 
-### “会飞的英雄”管道
+<h3 class="no-toc"><i>“会飞的英雄”管道（FlyingHeroesPipe）</i></h3>
 
 Add a `FlyingHeroesPipe` to the `*ngFor` repeater that filters the list of heroes to just those heroes who can fly.
 
@@ -533,8 +517,8 @@ code with checkbox switches and additional displays to help you experience these
 这个*飞行英雄*的例子用检查框和其它显示内容扩展了原有代码，来帮我们体验这些效果。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/pipes/flying-heroes-anim.gif' alt="Flying Heroes"></img>
+<figure>
+  <img src='generated/images/guide/pipes/flying-heroes-anim.gif' alt="Flying Heroes">
 </figure>
 
 
@@ -590,9 +574,9 @@ Before doing that, understand the difference between pure and impure, starting w
 
 在继续往下走之前，我们先理解一下*纯*和*非纯*之间的区别，从*纯*管道开始。
 
-### Pure pipes
+<h3 class="no-toc">Pure pipes</h3>
 
-### 纯管道
+<h3 class="no-toc">纯管道</h3>
 
 Angular executes a *pure pipe* only when it detects a *pure change* to the input value.
 A pure change is either a change to a primitive input value (`String`, `Number`, `Boolean`, `Symbol`)
@@ -639,7 +623,7 @@ a point that's discussed laterin this page.
 
 
 
-### Impure pipes
+<h3 class="no-toc">Impure pipes</h3>
 
 ### 非纯管道
 
@@ -659,7 +643,7 @@ An expensive, long-running pipe could destroy the user experience.
 {@a impure-flying-heroes}
 
 
-### An impure *FlyingHeroesPipe*
+<h3 class="no-toc">An impure <i>FlyingHeroesPipe</i></h3>
 
 ### 非纯版本的*FlyingHeroesPipe*
 
@@ -721,10 +705,8 @@ display updates as you add heroes, even when you mutate the `heroes` array.
   我们可以在<live-example></live-example>中确认，当我们输入新的英雄甚至修改#[code heroes]数组时，这个#[i 会飞的英雄]的显示也跟着更新了。
 
 
-<h3 id='async-pipe'>
-  The impure   <i>AsyncPipe</i>
-</h3>
-
+{@a async-pipe}
+<h3 class="no-toc">The impure <i>AsyncPipe</i></h3>
 
 
 <h3 id='async-pipe'>
@@ -768,9 +750,9 @@ and have to unsubscribe when it's destroyed
 这个Async管道节省了组件的样板代码。
 组件不用订阅这个异步数据源，而且不用在被销毁时取消订阅(如果订阅了而忘了反订阅容易导致隐晦的内存泄露)。
 
-### An impure caching pipe
+<h3 class="no-toc">An impure caching pipe</h3>
 
-### 一个非纯而且带缓存的管道
+<h3 class="no-toc">一个非纯而且带缓存的管道</h3>
 
 Write one more impure pipe, a pipe that makes an HTTP request.
 
@@ -783,7 +765,7 @@ If you're not careful, this pipe will punish the server with requests.
 如果我们不小心点，这个管道就会发起一大堆请求“攻击”服务器。
 
 In the following code, the pipe only calls the server when the request URL changes and it caches the server response.
-The code uses the [Angular http](guide/server-communication) client to retrieve data</span>:
+The code uses the [Angular http](guide/http) client to retrieve data</span>:
 
 我们确实得小心点。
 这个管道只有当所请求的URL发生变化时才会向服务器发起请求。它会缓存服务器的响应。
@@ -813,8 +795,8 @@ The component renders as the following:
 组件渲染起来是这样的：
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/pipes/hero-list.png' alt="Hero List"></img>
+<figure>
+  <img src='generated/images/guide/pipes/hero-list.png' alt="Hero List">
 </figure>
 
 
@@ -835,7 +817,7 @@ A breakpoint on the pipe's request for data shows the following:
 
   每个管道实例都只调用一次服务器。
 
-### *JsonPipe*
+<h3 class="no-toc"><i>JsonPipe</i></h3>
 
 In the previous code sample, the second `fetch` pipe binding demonstrates more pipe chaining.
 It displays the same hero data in JSON format by chaining through to the built-in `JsonPipe`.
@@ -860,7 +842,7 @@ It displays the same hero data in JSON format by chaining through to the built-i
 
 
 
-The [JsonPipe](api/common/index/JsonPipe-pipe)
+The [JsonPipe](api/common/JsonPipe)
 provides an easy way to diagnosis a mysteriously failing data binding or
 inspect an object for future binding.
 
@@ -874,7 +856,7 @@ inspect an object for future binding.
 {@a pure-pipe-pure-fn}
 
 
-### Pure pipes and pure functions
+<h3 class="no-toc">Pure pipes and pure functions</h3>
 
 ### 纯管道与纯函数
 
@@ -915,7 +897,7 @@ of your views.
 
 管道能很好的封装和共享的通用“值-显示”转换逻辑。我们可以像样式一样使用它们，把它们扔到模板表达式中，以提升视图的表现力和可用性。
 
-Explore Angular's inventory of built-in pipes in the [API Reference](api/#!?query=pipe).
+Explore Angular's inventory of built-in pipes in the [API Reference](api?type=pipe).
 Try writing a custom pipe and perhaps contributing it to the community.
 
 要浏览Angular的所有内置管道，请到[API参考手册](api/#!?query=pipe)。

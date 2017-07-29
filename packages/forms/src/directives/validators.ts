@@ -57,6 +57,7 @@ export const CHECKBOX_REQUIRED_VALIDATOR: Provider = {
   multi: true
 };
 
+
 /**
  * A Directive that adds the `required` validator to any controls marked with the
  * `required` attribute, via the {@link NG_VALIDATORS} binding.
@@ -93,6 +94,7 @@ export class RequiredValidator implements Validator {
 
   registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
 }
+
 
 /**
  * A Directive that adds the `required` validator to checkbox controls marked with the

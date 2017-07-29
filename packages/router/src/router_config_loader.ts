@@ -12,7 +12,7 @@ import {fromPromise} from 'rxjs/observable/fromPromise';
 import {of } from 'rxjs/observable/of';
 import {map} from 'rxjs/operator/map';
 import {mergeMap} from 'rxjs/operator/mergeMap';
-import {LoadChildren, Route} from './config';
+import {LoadChildren, LoadedRouterConfig, Route} from './config';
 import {flatten, wrapIntoObservable} from './utils/collection';
 
 /**
@@ -20,10 +20,6 @@ import {flatten, wrapIntoObservable} from './utils/collection';
  * @experimental
  */
 export const ROUTES = new InjectionToken<Route[][]>('ROUTES');
-
-export class LoadedRouterConfig {
-  constructor(public routes: Route[], public module: NgModuleRef<any>) {}
-}
 
 export class RouterConfigLoader {
   constructor(
@@ -36,7 +32,7 @@ export class RouterConfigLoader {
       this.onLoadStartListener(route);
     }
 
-    const moduleFactory$ = this.loadModuleFactory(route.loadChildren);
+    const moduleFactory$ = this.loadModuleFactory(route.loadChildren !);
 
     return map.call(moduleFactory$, (factory: NgModuleFactory<any>) => {
       if (this.onLoadEndListener) {

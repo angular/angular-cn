@@ -59,6 +59,10 @@ describe('diagnostics', () => {
         (ngHost as any)._reflector = null;
         ngService.getDiagnostics(fileName);
       });
+
+      // #17611
+      it('should not report diagnostic on iteration of any',
+         () => { accept('<div *ngFor="let value of anyValue">{{value.someField}}</div>'); });
     });
 
     describe('with $event', () => {
@@ -95,7 +99,7 @@ describe('diagnostics', () => {
       const code = '\n@Component({template: \'<form></form>\'}) export class MyComponent {}';
       addCode(code, (fileName, content) => {
         const diagnostics = ngService.getDiagnostics(fileName);
-        onlyModuleDiagnostics(diagnostics !);
+        expectOnlyModuleDiagnostics(diagnostics !);
       });
     });
 
@@ -134,7 +138,7 @@ describe('diagnostics', () => {
           ` @Component({template: \`<div *ngIf="something === 'foo'"></div>\`}) export class MyComponent { something: 'foo' | 'bar'; }`;
       addCode(code, fileName => {
         const diagnostics = ngService.getDiagnostics(fileName);
-        onlyModuleDiagnostics(diagnostics !);
+        expectOnlyModuleDiagnostics(diagnostics !);
       });
     });
 
@@ -155,7 +159,7 @@ describe('diagnostics', () => {
           ` @Component({template: \`<div *ngIf="something === undefined"></div>\`}) export class MyComponent { something = 'foo'; }})`;
       addCode(code, fileName => {
         const diagnostics = ngService.getDiagnostics(fileName);
-        onlyModuleDiagnostics(diagnostics !);
+        expectOnlyModuleDiagnostics(diagnostics !);
       });
     });
 
@@ -211,7 +215,7 @@ describe('diagnostics', () => {
        export class MyComponent {}
       `,
           fileName => {
-            const diagnostics = ngService.getDiagnostics(fileName);
+            const diagnostics = ngService.getDiagnostics(fileName) !;
             const expected = diagnostics.find(d => d.message.startsWith('Invalid providers for'));
             const notExpected = diagnostics.find(d => d.message.startsWith('Cannot read property'));
             expect(expected).toBeDefined();
@@ -233,7 +237,7 @@ describe('diagnostics', () => {
         })
         export class MyComponent {}
       `,
-          fileName => onlyModuleDiagnostics(ngService.getDiagnostics(fileName)));
+          fileName => expectOnlyModuleDiagnostics(ngService.getDiagnostics(fileName) !));
     });
 
     // Issue #15625
@@ -253,9 +257,61 @@ describe('diagnostics', () => {
           }
       `,
           fileName => {
-            const diagnostics = ngService.getDiagnostics(fileName);
-            onlyModuleDiagnostics(diagnostics);
+            const diagnostics = ngService.getDiagnostics(fileName) !;
+            expectOnlyModuleDiagnostics(diagnostics);
           });
+    });
+
+    // Issue #15885
+    it('should be able to remove null and undefined from a type', () => {
+      mockHost.overrideOptions(options => {
+        options.strictNullChecks = true;
+        return options;
+      });
+      addCode(
+          `
+        @Component({
+          selector: 'my-component',
+          template: \` {{test?.a}}
+          \`
+        })
+        export class MyComponent {
+          test: {a: number, b: number} | null = {
+            a: 1,
+            b: 2
+          };
+        }
+      `,
+          fileName => expectOnlyModuleDiagnostics(ngService.getDiagnostics(fileName)));
+    });
+
+    it('should be able to resolve modules using baseUrl', () => {
+      const app_component = `
+        import { Component } from '@angular/core';
+        import { NgForm } from '@angular/common';
+        import { Server } from 'app/server';
+
+        @Component({
+          selector: 'example-app',
+          template: '...',
+          providers: [Server]
+        })
+        export class AppComponent {
+          onSubmit(form: NgForm) {}
+        }
+      `;
+      const app_server = `
+        export class Server {}
+      `;
+      const fileName = '/app/app.component.ts';
+      mockHost.override(fileName, app_component);
+      mockHost.addScript('/other/files/app/server.ts', app_server);
+      mockHost.overrideOptions(options => {
+        options.baseUrl = '/other/files';
+        return options;
+      });
+      const diagnostic = ngService.getDiagnostics(fileName);
+      expect(diagnostic).toEqual([]);
     });
 
     function addCode(code: string, cb: (fileName: string, content?: string) => void) {
@@ -271,8 +327,9 @@ describe('diagnostics', () => {
       }
     }
 
-    function onlyModuleDiagnostics(diagnostics: Diagnostics) {
+    function expectOnlyModuleDiagnostics(diagnostics: Diagnostics | undefined) {
       // Expect only the 'MyComponent' diagnostic
+      if (!diagnostics) throw new Error('Expecting Diagnostics');
       expect(diagnostics.length).toBe(1);
       if (diagnostics.length > 1) {
         for (const diagnostic of diagnostics) {

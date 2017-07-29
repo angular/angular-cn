@@ -2,405 +2,449 @@
   "TopBar": [
     {
       "url": "features",
-      "title": "特性"
+      "title": "Features"
     },
     {
       "url": "docs",
-      "title": "文档",
-      "hidden": true
+      "title": "Docs"
     },
     {
       "url": "resources",
-      "title": "资源"
+      "title": "Resources"
     },
     {
       "url": "events",
-      "title": "会议"
+      "title": "Events"
     },
     {
-      "url": "translations/cn/home",
-      "title": "关于中文版"
+      "url": "https://blog.angular.io/",
+      "title": "Blog"
     }
   ],
-  "SideNav": [
+
+  "TopBarNarrow": [
     {
-      "url": "docs",
-      "title": "文档",
-      "tooltip": "Angular 开发文档",
-      "hidden": true
-    },
-    {
-      "title": "快速起步",
-      "tooltip": "Angular 破冰",
+      "title": "About Angular",
       "children": [
         {
-          "url": "guide/learning-angular",
-          "title": "学习 Angular",
-          "tooltip": "为 Angular 新手推荐的学习路径"
-        },
-        {
-          "url": "guide/quickstart",
-          "title": "基本版快速起步",
-          "tooltip": "如何不借助工具开始一个 Angular 项目"
-        },
-        {
-          "url": "guide/cli-quickstart",
-          "title": "CLI 快速起步",
-          "tooltip": "使用 CLI 快速开始一个 Angular 项目"
-        },
-        {
-          "url": "guide/setup",
-          "title": "开发环境",
-          "tooltip": "安装 Angular 《快速起步》种子，更快更有效地在本地开发应用"
-        },
-        {
-          "url": "guide/architecture",
-          "title": "架构概览",
-          "tooltip": "Angular 应用的基本构造块"
-        },
-        {
-          "url": "guide/appmodule",
-          "title": "AppModule: 根模块",
-          "tooltip": "如何在根 \"AppModule\" 中构建和启动应用。"
-        },
-        {
-          "url": "guide/displaying-data",
-          "title": "显示数据",
-          "tooltip": "属性绑定机制把数据显示到用户界面上。"
-        },
-        {
-          "url": "guide/user-input",
-          "title": "用户输入",
-          "tooltip": "用户输入触发 DOM 事件。我们通过事件绑定来监听它们，把更新过的数据导入回我们的组件和 model。"
-        },
-        {
-          "url": "guide/forms",
-          "title": "表单",
-          "tooltip": "表单创建一个有机、有效、引人注目的数据输入体验。Angular 表单协调一组数据绑定控件，跟踪变更，验证输入的有效性，并且显示错误信息。"
-        },
-        {
-          "url": "guide/dependency-injection",
-          "title": "依赖注入",
-          "tooltip": "Angular 的依赖注入系统能够即时地创建和交付所依赖的服务。"
-        },
-        {
-          "url": "tutorial/toh-pt1",
-          "title": "英雄编辑器",
-          "tooltip": "构建一个简单的英雄编辑器"
-        },
-        {
-          "url": "tutorial/toh-pt2",
-          "title": "主从结构",
-          "tooltip": "构建一个主从结构的页面，用于展现英雄列表"
-        },
-        {
-          "url": "tutorial/toh-pt3",
-          "title": "多个组件",
-          "tooltip": "把主从结构的页面重构成多个组件"
-        },
-        {
-          "url": "tutorial/toh-pt4",
-          "title": "服务",
-          "tooltip": "创建一个可复用的服务来调用英雄的数据"
-        },
-        {
-          "url": "tutorial/toh-pt5",
-          "title": "路由",
-          "tooltip": "添加 Angular 组件路由，并且学习在视图之间导航"
-        },
-        {
-          "url": "tutorial/toh-pt6",
-          "title": "HTTP",
-          "tooltip": "把服务和组件改为用 Angular 的 HTTP 服务实现"
-        }
-      ]
-    },
-    {
-      "title": "核心知识",
-      "tooltip": "学习 Angular 的核心知识",
-      "children": [
-        {
-          "title": "Angular 的模块",
-          "tooltip": "Learn how directives modify the layout and behavior of elements.",
-          "children": [
-            {
-              "url": "guide/ngmodule",
-              "title": "Angular 模块",
-              "tooltip": "使用 @NgModule 为应用定义模块"
-            },
-            {
-              "url": "guide/ngmodule-faq",
-              "title": "Angular 模块常见问题",
-              "tooltip": "关于 @NgModule 的常见问题及其答案"
-            }
-          ]
-        },
-        {
-          "url": "guide/component-communication",
-          "title": "组件交互",
-          "tooltip": "在不同的指令和组件之间共享信息"
-        },
-        {
-          "title": "依赖注入",
-          "tooltip": "关于依赖注入的更多知识",
-          "children": [
-            {
-              "url": "guide/cb-dependency-injection",
-              "title": "依赖注入",
-              "tooltip": "关于依赖注入的技巧"
-            },
-            {
-              "url": "guide/hierarchical-dependency-injection",
-              "title": "多级注入器",
-              "tooltip": "Angular 的多级注入体系会建立与组件平行的注入器树"
-            }
-          ]
-        },
-        {
-          "url": "guide/dynamic-component-loader",
-          "title": "动态组件",
-          "tooltip": "动态加载组件"
-        },
-        {
-          "title": "指令",
-          "tooltip": "指令如何修改元素的布局和行为",
-          "children": [
-            {
-              "url": "guide/attribute-directives",
-              "title": "属性型指令",
-              "tooltip": "属性型指令把行为添加到现有元素上。"
-            },
-            {
-              "url": "guide/structural-directives",
-              "title": "结构型指令",
-              "tooltip": "结构型指令可以操纵页面的布局"
-            }
-          ]
-        },
-        {
-          "title": "表单",
-          "tooltip": "关于表单的更多知识",
-          "children": [
-            {
-              "url": "guide/dynamic-form",
-              "title": "动态表单",
-              "tooltip": "使用FormGroup渲染动态表单"
-            },
-            {
-              "url": "guide/form-validation",
-              "title": "表单验证",
-              "tooltip": "验证用户的表单输入"
-            },
-            {
-              "url": "guide/reactive-forms",
-              "title": "响应式表单",
-              "tooltip": "使用FormBuilder、组合数组创建响应式表单。"
-            }
-          ]
-        },
-        {
-          "url": "guide/server-communication",
-          "title": "HTTP 客户端",
-          "tooltip": "通过 HTTP 客户端与远程服务器对话。"
-        },
-        {
-          "url": "guide/lifecycle-hooks",
-          "title": "生命周期钩子",
-          "tooltip": "Angular 调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
-        },
-        {
-          "url": "guide/pipes",
-          "title": "管道",
-          "tooltip": "管道可以在模板中转换显示的内容。"
-        },
-        {
-          "url": "guide/router",
-          "title": "路由与导航",
-          "tooltip": "揭示如何通过 Angular 路由进行基本的屏幕导航。"
-        },
-        {
-          "url": "guide/template-syntax",
-          "title": "模板语法",
-          "tooltip": "学习如何写模板来显示数据，以及在数据绑定的帮助下响应用户事件"
-        }
-      ]
-    },
-    {
-      "title": "API参考手册",
-      "tooltip": "Angular 中各种类和值的详细信息",
-      "url": "api"
-    },
-    {
-      "title": "其它技术",
-      "tooltip": "其它",
-      "children": [
-        {
-          "url": "guide/aot-compiler",
-          "title": "预（AOT）编译",
-          "tooltip": "为何使用以及如何使用预编译器"
-        },
-        {
-          "url": "guide/animations",
-          "title": "动画",
-          "tooltip": "Angular 动画体系指南"
-        },
-        {
-          "url": "guide/ajs-quick-reference",
-          "title": "从 AngularJS 升级到 Angular",
-          "tooltip": "学习如何把 AngularJS 的概念和技术对应到 Angular 中"
-        },
-        {
-          "url": "guide/component-styles",
-          "title": "组件样式",
-          "tooltip": "学习如何把 CSS 样式应用到组件中"
-        },
-        {
-          "url": "guide/deployment",
-          "title": "发布",
-          "tooltip": "学习如何发布 Angular 应用"
-        },
-        {
-          "url": "guide/i18n",
-          "title": "国际化 (i18n)",
-          "tooltip": "把 Angular 模板中的文本翻译成其它语言"
-        },
-        {
-          "url": "guide/security",
-          "title": "安全",
-          "tooltip": "开发内容安全的 Angular 应用。"
-        },
-        {
-          "title": "环境设置",
-          "tooltip": "本地环境设置的详细信息",
-          "children": [
-            {
-              "url": "guide/setup-systemjs-anatomy",
-              "title": "搭建剖析",
-              "tooltip": "解析 SystemJS 本地开发环境"
-            },
-            {
-              "url": "guide/browser-support",
-              "title": "浏览器支持",
-              "tooltip": "浏览器支持与填充 (Polyfill) 指南"
-            },
-            {
-              "url": "guide/npm-packages",
-              "title": "Npm包",
-              "tooltip": "推荐的 npm 包以及如何指定所依赖的包"
-            },
-            {
-              "url": "guide/typescript-configuration",
-              "title": "TypeScript 配置",
-              "tooltip": "Angular 开发者的 TypeScript 配置"
-            }
-          ]
-        },
-        {
-          "url": "guide/testing",
-          "title": "测试",
-          "tooltip": "测试 Angular 应用的技巧与实践"
-        },
-        {
-          "url": "guide/upgrade",
-          "title": "从 AngularJS 升级",
-          "tooltip": "AngularJS 应用可以逐步升级到 Angular。"
-        },
-        {
-          "url": "guide/ts-to-js",
-          "title": "从 TypeScript 到 JavaScript",
-          "tooltip": "把 TypeScript 格式的例子转成 ES6 和 ES5 JavaScript的"
-        },
-        {
-          "url": "guide/visual-studio-2015",
-          "title": "Visual Studio 2015 快速起步",
-          "tooltip": "在 Visual Studio 2015 中使用快速起步中的文件"
-        },
-        {
-          "url": "guide/webpack",
-          "title": "Webpack 简介",
-          "tooltip": "使用基于 Webpack 的工具创建 Angular 应用"
-        }
-      ]
-    },
-    {
-      "title": "参考手册",
-      "children": [
-        {
-          "url": "guide/change-log",
-          "title": "变更记录",
-          "tooltip": "本文档最近的改进历史"
-        },
-        {
-          "url": "guide/cheatsheet",
-          "title": "速查表",
-          "tooltip": "Angular 编码技术的快速指南"
-        },
-        {
-          "url": "guide/glossary",
-          "title": "词汇表",
-          "tooltip": "Angular 中最重要的词汇的简要定义"
-        },
-        {
-          "url": "guide/style-guide",
-          "title": "风格指南",
-          "tooltip": "写出 Angular 风格的程序"
-        }
-      ]
-    }
-  ],
-  "Footer": [
-    {
-      "title": "资源",
-      "children": [
-        {
-          "url": "about",
-          "title": "关于",
-          "tooltip": "Angular 贡献者"
+          "url": "features",
+          "title": "Features"
         },
         {
           "url": "resources",
-          "title": "资源列表",
-          "tooltip": "Angular 的工具、培训、博客等网上资源"
+          "title": "Resources"
+        },
+        {
+          "url": "events",
+          "title": "Events"
+        },
+        {
+          "url": "https://blog.angular.io/",
+          "title": "Blog"
+        }
+      ]
+    }
+  ],
+
+  "SideNav": [
+    {
+      "url": "docs",
+      "title": "Docs",
+      "tooltip": "Angular Documentation",
+      "hidden": true
+    },
+
+    {
+      "url": "guide/docs-style-guide",
+      "title": "Doc authors style guide",
+      "tooltip": "Style guide for documentation authors",
+      "hidden": true
+    },
+
+    {
+      "url": "guide/quickstart",
+      "title": "Getting Started",
+      "tooltip": "A gentle introduction to Angular."
+    },
+
+    {
+      "title": "Tutorial",
+      "tooltip": "The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.",
+      "children": [
+        {
+          "url": "tutorial",
+          "title": "1. Introduction",
+          "tooltip": "Part 1: Introduction to the Tour of Heroes tutorial"
+        },
+        {
+          "url": "tutorial/toh-pt1",
+          "title": "2. The Hero Editor",
+          "tooltip": "Part 2: Build a simple hero editor"
+        },
+        {
+          "url": "tutorial/toh-pt2",
+          "title": "3. Master/Detail",
+          "tooltip": "Part 3: Build a master/detail page with a list of heroes."
+        },
+        {
+          "url": "tutorial/toh-pt3",
+          "title": "4. Multiple Components",
+          "tooltip": "Part 4: Refactor the master/detail view into separate components."
+        },
+        {
+          "url": "tutorial/toh-pt4",
+          "title": "5. Services",
+          "tooltip": "Part 5: Create a reusable service to manage hero data."
+        },
+        {
+          "url": "tutorial/toh-pt5",
+          "title": "6. Routing",
+          "tooltip": "Part 6: Add the Angular router and navigate among the views."
+        },
+        {
+          "url": "tutorial/toh-pt6",
+          "title": "7. HTTP",
+          "tooltip": "Part 7: Use HTTP to retrieve and save hero data."
+        }
+      ]
+    },
+
+    {
+      "title": "Fundamentals",
+      "tooltip": "The fundamentals of Angular",
+      "children": [
+        {
+          "url": "guide/architecture",
+          "title": "Architecture",
+          "tooltip": "The basic building blocks of Angular applications."
+        },
+        {
+          "title": "Template & Data Binding",
+          "tooltip": "Template & Data Binding",
+          "children": [
+            {
+              "url": "guide/displaying-data",
+              "title": "Displaying Data",
+              "tooltip": "Property binding helps show app data in the UI."
+            },
+            {
+              "url": "guide/template-syntax",
+              "title": "Template Syntax",
+              "tooltip": "Learn how to write templates that display data and consume user events with the help of data binding."
+            },
+            {
+              "url": "guide/lifecycle-hooks",
+              "title": "Lifecycle Hooks",
+              "tooltip": "Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them."
+            },
+            {
+              "url": "guide/component-interaction",
+              "title": "Component Interaction",
+              "tooltip": "Share information between different directives and components."
+            },
+            {
+              "url": "guide/component-styles",
+              "title": "Component Styles",
+              "tooltip": "Add CSS styles that are specific to a component."
+            },
+            {
+              "url": "guide/dynamic-component-loader",
+              "title": "Dynamic Components",
+              "tooltip": "Load components dynamically."
+            },
+            {
+              "url": "guide/attribute-directives",
+              "title": "Attribute Directives",
+              "tooltip": "Attribute directives attach behavior to elements."
+            },
+            {
+              "url": "guide/structural-directives",
+              "title": "Structural Directives",
+              "tooltip": "Structural directives manipulate the layout of the page."
+            },
+            {
+              "url": "guide/pipes",
+              "title": "Pipes",
+              "tooltip": "Pipes transform displayed values within a template."
+            },
+            {
+              "url": "guide/animations",
+              "title": "Animations",
+              "tooltip": "A guide to Angular's animation system."
+            }
+          ]
+        },
+        {
+          "title": "Forms",
+          "tooltip": "Angular Forms",
+          "children": [
+            {
+              "url": "guide/user-input",
+              "title": "User Input",
+              "tooltip": "User input triggers DOM events. We listen to those events with event bindings that funnel updated values back into our components and models."
+            },
+            {
+              "url": "guide/forms",
+              "title": "Template-driven Forms",
+              "tooltip": "A form creates a cohesive, effective, and compelling data entry experience. An Angular form coordinates a set of data-bound user controls, tracks changes, validates input, and presents errors."
+            },
+            {
+              "url": "guide/form-validation",
+              "title": "Form Validation",
+              "tooltip": "Validate user's form entries."
+            },
+            {
+              "url": "guide/reactive-forms",
+              "title": "Reactive Forms",
+              "tooltip": "Create a reactive form using FormBuilder, groups, and arrays."
+            },
+            {
+              "url": "guide/dynamic-form",
+              "title": "Dynamic forms",
+              "tooltip": "Render dynamic forms with FormGroup."
+            }
+          ]
+        },
+
+        {
+          "url": "guide/bootstrapping",
+          "title": "Bootstrapping",
+          "tooltip": "Tell Angular how to construct and bootstrap the app in the root \"AppModule\"."
+        },
+
+        {
+          "title": "NgModules",
+          "tooltip": "Learn how to use NgModules to make your apps efficient.",
+          "children": [
+            {
+              "url": "guide/ngmodule",
+              "title": "NgModules",
+              "tooltip": "Define application modules with @NgModule."
+            },
+            {
+              "url": "guide/ngmodule-faq",
+              "title": "NgModule FAQs",
+              "tooltip": "Answers to frequently asked questions about @NgModule."
+            }
+        ]},
+
+        {
+          "title": "Dependency Injection",
+          "tooltip": "Dependency Injection: creating and injecting services",
+          "children": [
+            {
+              "url": "guide/dependency-injection",
+              "title": "Dependency Injection",
+              "tooltip": "Angular's dependency injection system creates and delivers dependent services \"just-in-time\"."
+            },
+            {
+              "url": "guide/hierarchical-dependency-injection",
+              "title": "Hierarchical Injectors",
+              "tooltip": "Angular's hierarchical dependency injection system supports nested injectors in parallel with the component tree."
+            },
+            {
+              "url": "guide/dependency-injection-in-action",
+              "title": "DI in Action",
+              "tooltip": "Techniques for Dependency Injection."
+            }
+          ]
+        },
+
+        {
+          "url": "guide/http",
+          "title": "HttpClient",
+          "tooltip": "Use HTTP to talk to a remote server."
+        },
+        {
+          "url": "guide/router",
+          "title": "Routing & Navigation",
+          "tooltip": "Discover the basics of screen navigation with the Angular Router."
+        },
+        {
+          "url": "guide/testing",
+          "title": "Testing",
+          "tooltip": "Techniques and practices for testing an Angular app."
+        },
+        {
+          "url": "guide/cheatsheet",
+          "title": "Cheat Sheet",
+          "tooltip": "A quick guide to common Angular coding techniques."
+        }
+    ]},
+
+    {
+      "title": "Techniques",
+      "tooltip": "Techniques for putting Angular to work in your environment",
+      "children": [
+
+        {
+          "url": "guide/i18n",
+          "title": "Internationalization (i18n)",
+          "tooltip": "Translate the app's template text into multiple languages."
+        },
+        {
+          "url": "guide/language-service",
+          "title": "Language Service",
+          "tooltip": "Use Angular Language Service to speed up dev time."
+        },
+        {
+          "url": "guide/security",
+          "title": "Security",
+          "tooltip": "Developing for content security in Angular applications."
+        },
+        {
+          "url": "guide/ts-to-js",
+          "title": "TypeScript to JavaScript",
+          "tooltip": "Convert Angular TypeScript examples into ES6 and ES5 JavaScript."
+        },
+        {
+          "title": "Setup & Deployment",
+          "tooltip": "Setup and Deployment",
+          "children": [
+            {
+              "url": "guide/setup",
+              "title": "Setup for local development",
+              "tooltip": "Install the Angular QuickStart seed for faster, more efficient development on your machine."
+            },
+            {
+              "url": "guide/setup-systemjs-anatomy",
+              "title": "Anatomy of the Setup",
+              "tooltip": "Inside the local development environment for SystemJS."
+            },
+            {
+              "url": "guide/browser-support",
+              "title": "Browser Support",
+              "tooltip": "Browser support and polyfills guide."
+            },
+            {
+              "url": "guide/npm-packages",
+              "title": "Npm Packages",
+              "tooltip": "Recommended npm packages, and how to specify package dependencies."
+            },
+
+            {
+              "url": "guide/typescript-configuration",
+              "title": "TypeScript Configuration",
+              "tooltip": "TypeScript configuration for Angular developers."
+            },
+            {
+              "url": "guide/aot-compiler",
+              "title": "Ahead-of-Time Compilation",
+              "tooltip": "Learn why and how to use the Ahead-of-Time (AOT) compiler."
+            },
+            {
+              "url": "guide/deployment",
+              "title": "Deployment",
+              "tooltip": "Learn how to deploy your Angular app."
+            }
+          ]
+        },
+
+        {
+          "title": "Upgrading",
+          "tooltip": "Incrementally upgrade an AngularJS application to Angular.",
+          "children": [
+            {
+              "url": "guide/upgrade",
+              "title": "Upgrading from AngularJS",
+              "tooltip": "Incrementally upgrade an AngularJS application to Angular."
+            },
+            {
+              "url": "guide/ajs-quick-reference",
+              "title": "Upgrade Cheatsheet",
+              "tooltip": "Learn how AngularJS concepts and techniques map to Angular."
+            }
+          ]
+        },
+
+        {
+          "url": "guide/visual-studio-2015",
+          "title": "Visual Studio 2015 QuickStart",
+          "tooltip": "Use Visual Studio 2015 with the QuickStart files."
+        },
+        {
+          "url": "guide/styleguide",
+          "title": "Style Guide",
+          "tooltip": "Write Angular with style."
+        },
+        {
+          "url": "guide/glossary",
+          "title": "Glossary",
+          "tooltip": "Brief definitions of the most important words in the Angular vocabulary."
+        }
+      ]
+    },
+
+    {
+      "title": "API",
+      "tooltip": "Details of the Angular classes and values.",
+      "url": "api"
+    }
+  ],
+
+  "Footer": [
+    {
+      "title": "Resources",
+      "children": [
+        {
+          "url": "about",
+          "title": "About",
+          "tooltip": "Angular contributors."
+        },
+        {
+          "url": "resources",
+          "title": "Resource Listing",
+          "tooltip": "Angular tools, training, and blogs from around the web."
         },
         {
           "url": "presskit",
-          "title": "宣传资料",
-          "tooltip": "我们的联系方式、LOGO和品牌"
+          "title": "Press Kit",
+          "tooltip": "Press contacts, logos, and branding."
+        },
+        {
+          "url": "https://blog.angularjs.org/",
+          "title": "Blog",
+          "tooltip": "Angular Blog"
         }
       ]
     },
     {
-      "title": "帮助",
+      "title": "Help",
       "children": [
         {
           "url": "http://stackoverflow.com/questions/tagged/angular2",
           "title": "Stack Overflow",
-          "tooltip": "Stack Overflow: 这里的社区会回答你关于 Angular 的技术问题"
+          "tooltip": "Stack Overflow: where the community answers your technical Angular questions."
         },
         {
           "url": "https://gitter.im/angular/angular",
           "title": "Gitter",
-          "tooltip": "和老鸟聊 Angular"
+          "tooltip": "Chat about Angular with other birds of a feather."
         },
         {
           "url": "https://github.com/angular/angular/issues",
-          "title": "报告问题",
-          "tooltip": "在 github 上报告问题和建议"
+          "title": "Report Issues",
+          "tooltip": "Post issues and suggestions on github."
+        },
+        {
+          "url": "https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md",
+          "title": "Code of Conduct",
+          "tooltip": "Treating each other with respect."
         }
       ]
     },
     {
-      "title": "社区",
+      "title": "Community",
       "children": [
         {
           "url": "events",
-          "title": "活动",
+          "title": "Events",
           "tooltip": "Post issues and suggestions on github."
         },
         {
           "url": "http://www.meetup.com/topics/angularjs/",
-          "title": "聚会",
-          "tooltip": "参加聚会，向别的开发人员学习"
+          "title": "Meetups",
+          "tooltip": "Attend a meetup and learn from fellow developers."
         },
         {
           "url": "https://twitter.com/angular",
@@ -414,8 +458,8 @@
         },
         {
           "url": "contribute",
-          "title": "做贡献",
-          "tooltip": "向 Angular 做贡献"
+          "title": "Contribute",
+          "tooltip": "Contribute to Angular"
         }
       ]
     },
@@ -428,5 +472,11 @@
         }
       ]
     }
+  ],
+
+  "docVersions": [
+    { "title": "v2", "url": "https://v2.angular.io" },
+    { "title": "AngularDart", "url": "https://webdev.dartlang.org/angular" }
+
   ]
 }

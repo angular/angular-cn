@@ -141,7 +141,7 @@ Create an array of ten heroes.
 我们先创建一个由十位英雄组成的数组。
 
 
-<code-example path="toh-2/src/app/app.component.ts" region="hero-array" title="src/app/app.component.ts (hero array)">
+<code-example path="toh-pt2/src/app/app.component.ts" region="hero-array" title="src/app/app.component.ts (hero array)">
 
 </code-example>
 
@@ -163,7 +163,7 @@ Create a public property in `AppComponent` that exposes the heroes for binding.
 我们在`AppComponent`上创建一个公共属性，用来暴露这些英雄，以供绑定。
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="hero-array-1" title="app.component.ts (hero array property)">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="hero-array-1" title="app.component.ts (hero array property)">
 
 </code-example>
 
@@ -199,7 +199,7 @@ insert the following chunk of HTML below the title and above the hero details.
 那就在标题和英雄详情之间，插入下面这段 HTML 代码。
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="heroes-template-1" title="app.component.ts (heroes template)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="heroes-template-1" title="app.component.ts (heroes template)" linenums="false">
 
 </code-example>
 
@@ -223,7 +223,7 @@ Modify the `<li>` tag by adding the built-in directive `*ngFor`.
 首先，修改`<li>`标签，往上添加内置指令`*ngFor`。
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="heroes-ngfor-1" title="app.component.ts (ngFor)">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="heroes-ngfor-1" title="app.component.ts (ngFor)">
 
 </code-example>
 
@@ -270,7 +270,7 @@ that uses the `hero` template variable to display the hero's properties.
 接着，我们在`<li>`标签中插入一些内容，以便使用模板变量`hero`来显示英雄的属性。
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="ng-for" title="app.component.ts (ngFor template)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="ng-for" title="app.component.ts (ngFor template)" linenums="false">
 
 </code-example>
 
@@ -294,7 +294,7 @@ to the following CSS classes:
 要想给我们的组件添加一些样式，请把`@Component`装饰器的`styles`属性设置为下列 CSS 类：
 
 
-<code-example path="toh-2/src/app/app.component.ts" region="styles" title="src/app/app.component.ts (styles)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.ts" region="styles" title="src/app/app.component.ts (styles)" linenums="false">
 
 </code-example>
 
@@ -319,7 +319,7 @@ The template for displaying heroes should look like this:
 用于显示英雄们的模板应该是这样的：
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="heroes-styled" title="src/app/app.component.ts (styled heroes)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="heroes-styled" title="src/app/app.component.ts (styled heroes)" linenums="false">
 
 </code-example>
 
@@ -356,7 +356,7 @@ Add a click event binding to the `<li>` like this:
 我们再往`<li>`元素上插入一句点击事件的绑定代码：  
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="selectedHero-click" title="app.component.ts (template excerpt)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="selectedHero-click" title="app.component.ts (template excerpt)" linenums="false">
 
 </code-example>
 
@@ -402,7 +402,7 @@ So replace the `hero` property with this simple `selectedHero` property:
 所以我们要把`hero`属性**替换**成`selectedHero`属性。
 
 
-<code-example path="toh-2/src/app/app.component.ts" region="selected-hero" title="src/app/app.component.ts (selectedHero)">
+<code-example path="toh-pt2/src/app/app.component.ts" region="selected-hero" title="src/app/app.component.ts (selectedHero)">
 
 </code-example>
 
@@ -418,7 +418,7 @@ Add an `onSelect()` method that sets the `selectedHero` property to the `hero` t
 现在，**添加一个`onSelect`方法**，用于将用户点击的英雄赋给`selectedHero`属性。
 
 
-<code-example path="toh-2/src/app/app.component.ts" region="on-select" title="src/app/app.component.ts (onSelect)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.ts" region="on-select" title="src/app/app.component.ts (onSelect)" linenums="false">
 
 </code-example>
 
@@ -431,7 +431,7 @@ Bind to the new `selectedHero` property instead as follows:
 我们这就修改模板，让它绑定到新的`selectedHero`属性。  
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="selectedHero-details" title="app.component.ts (template excerpt)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="selectedHero-details" title="app.component.ts (template excerpt)" linenums="false">
 
 </code-example>
 
@@ -470,7 +470,7 @@ Then add the `ngIf` built-in directive and set it to the `selectedHero` property
     然后，添加一个`ngIf`内置指令，把`ngIf`的值设置为组件的`selectedHero`属性。
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="ng-if" title="src/app/app.component.ts (ngIf)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="ng-if" title="src/app/app.component.ts (ngIf)" linenums="false">
 
 </code-example>
 
@@ -543,8 +543,8 @@ like this:
 例如，当用户点击“Magneta”时，它应该使用不一样的醒目的背景色。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/heroes-list-selected.png' alt="选中的英雄"></img>
+<figure>
+  <img src='generated/images/guide/toh/heroes-list-selected.png' alt="选中的英雄">
 </figure>
 
 
@@ -554,7 +554,7 @@ In the template, add the following `[class.selected]` binding to  the `<li>`:
 在这个模板中，往`<li>`上添加一个`[class.selected]`绑定：
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="class-selected-1" title="app.component.ts (setting the CSS class)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="class-selected-1" title="app.component.ts (setting the CSS class)" linenums="false">
 
 </code-example>
 
@@ -583,7 +583,7 @@ Read more about the `[class]` binding in the [Template Syntax](guide/template-sy
 The final version of the `<li>` looks like this:
 
 
-<code-example path="toh-2/src/app/app.component.1.html" region="class-selected-2" title="app.component.ts (styling each hero)" linenums="false">
+<code-example path="toh-pt2/src/app/app.component.1.html" region="class-selected-2" title="app.component.ts (styling each hero)" linenums="false">
 
 </code-example>
 
@@ -595,8 +595,8 @@ After clicking "Magneta", the list should look like this:
 我们选中英雄 Magneta，通过背景色的变化，它被清晰的标记出来。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/heroes-list-1.png' alt="英雄列表应用的输出"></img>
+<figure>
+  <img src='generated/images/guide/toh/heroes-list-1.png' alt="英雄列表应用的输出">
 </figure>
 
 
@@ -606,7 +606,7 @@ Here's the complete `app.component.ts` as of now:
 完整的`app.component.ts`文件如下：
 
 
-<code-example path="toh-2/src/app/app.component.ts" title="src/app/app.component.ts">
+<code-example path="toh-pt2/src/app/app.component.ts" title="src/app/app.component.ts">
 
 </code-example>
 
@@ -633,20 +633,14 @@ Here's what you achieved in this page:
 
   我们学会了如何在组件模板中使用内置的`ngIf`和`ngFor`指令
 
-Run the <live-example></live-example> for this part.
+## The road ahead
 
-运行这部分的<live-example></live-example>。
+## 前方的路
 
-### The Road Ahead
-
-### 前方的路
-
-Our Tour of Heroes has grown, but it’s far from complete.
-We can't put the entire app into a single component.
-We need to break it up into sub-components and teach them to work together
-as we learn in the [next chapter](tutorial/toh-pt3).
+You've expanded the Tour of Heroes app, but it's far from complete.
+An app shouldn't be one monolithic component.
+In the [next page](tutorial/toh-pt3 "Multiple Components"), you'll split the app into subcomponents and make them work together.
 
 我们的《英雄指南》长大了，但还远远不够完善。
 我们显然不能把整个应用都放进一个组件中。
-我们需要把它拆分成一系列子组件，然后教它们协同工作，
-就像我们将在[下一章](tutorial/toh-pt3)学到的那样。
+我们将在[下一章](tutorial/toh-pt3)把它拆分成一系列子组件，然后教它们协同工作。

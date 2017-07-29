@@ -1,3 +1,9 @@
+export class ContributorGroup {
+  name: string;
+  order: number;
+  contributors: Contributor[];
+}
+
 export class Contributor {
   group: string;
   name: string;
@@ -5,4 +11,5 @@ export class Contributor {
   website?: string;
   twitter?: string;
   bio?: string;
+  isFlipped? = false;
 }

@@ -1,11 +1,6 @@
-@title
-TypeScript 配置
+# TypeScript Configuration
 
-@intro
-Angular 开发者的 TypeScript 配置
-
-@description
-
+# TypeScript 配置
 
 TypeScript is a primary language for Angular application development.
 It is a superset of JavaScript with design-time support for type safety and tooling.
@@ -63,6 +58,8 @@ The [Setup](guide/setup) guide uses the following `tsconfig.json`:
 
 我们在[搭建本地开发环境](guide/setup)中创建过如下的`tsconfig.json`：
 
+
+<code-example path="quickstart/src/tsconfig.1.json" title="tsconfig.json" linenums="false"></code-example>
 
 This file contains options and flags that are essential for Angular applications.
 

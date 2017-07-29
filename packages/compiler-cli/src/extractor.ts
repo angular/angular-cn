@@ -27,17 +27,18 @@ export class Extractor {
       public host: ts.CompilerHost, private ngCompilerHost: CompilerHost,
       private program: ts.Program) {}
 
-  extract(formatName: string, outFile: string|null): Promise<void> {
+  extract(formatName: string, outFile: string|null): Promise<string[]> {
     // Checks the format and returns the extension
     const ext = this.getExtension(formatName);
 
     const promiseBundle = this.extractBundle();
 
     return promiseBundle.then(bundle => {
-      const content = this.serialize(bundle, ext);
+      const content = this.serialize(bundle, formatName);
       const dstFile = outFile || `messages.${ext}`;
-      const dstPath = path.join(this.options.genDir, dstFile);
+      const dstPath = path.join(this.options.genDir !, dstFile);
       this.host.writeFile(dstPath, content, false);
+      return [dstPath];
     });
   }
 
@@ -48,28 +49,44 @@ export class Extractor {
     return this.ngExtractor.extract(files);
   }
 
-  serialize(bundle: compiler.MessageBundle, ext: string): string {
+  serialize(bundle: compiler.MessageBundle, formatName: string): string {
+    const format = formatName.toLowerCase();
     let serializer: compiler.Serializer;
 
-    switch (ext) {
+    switch (format) {
       case 'xmb':
         serializer = new compiler.Xmb();
         break;
+      case 'xliff2':
+      case 'xlf2':
+        serializer = new compiler.Xliff2();
+        break;
       case 'xlf':
+      case 'xliff':
       default:
         serializer = new compiler.Xliff();
     }
-
-    return bundle.write(serializer);
+    return bundle.write(
+        serializer, (sourcePath: string) => this.options.basePath ?
+            path.relative(this.options.basePath, sourcePath) :
+            sourcePath);
   }
 
   getExtension(formatName: string): string {
     const format = (formatName || 'xlf').toLowerCase();
 
-    if (format === 'xmb') return 'xmb';
-    if (format === 'xlf' || format === 'xlif' || format === 'xliff') return 'xlf';
+    switch (format) {
+      case 'xmb':
+        return 'xmb';
+      case 'xlf':
+      case 'xlif':
+      case 'xliff':
+      case 'xlf2':
+      case 'xliff2':
+        return 'xlf';
+    }
 
-    throw new Error('Unsupported format "${formatName}"');
+    throw new Error(`Unsupported format "${formatName}"`);
   }
 
   static create(

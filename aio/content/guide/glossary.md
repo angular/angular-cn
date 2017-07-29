@@ -1,6 +1,4 @@
-@description
-
-
+# Angular Glossary
 
 Angular has its own vocabulary.
 Most Angular terms are common English words
@@ -20,17 +18,13 @@ unexpected definitions.
 [S](guide/glossary#S) [T](guide/glossary#T) [U](guide/glossary#U) [V](guide/glossary#V) [W](guide/glossary#W) [X](guide/glossary#X) [Y](guide/glossary#Y) [Z](guide/glossary#Z)
 
 
-
+{@a A}
 {@a aot}
 
 
 ## Ahead-of-time (AOT) compilation
 
 ## 预 (ahead-of-time, AoT) 编译
-
-<div class="l-sub-section">
-
-
 
 You can compile Angular applications at build time.
 By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly
@@ -43,55 +37,17 @@ Ahead-of-time compiled applications also benefit from decreased load time and in
   预编译的应用程序加载迅速，具有更高的性能。
 
 
-</div>
-
-
-
-## Angular module
-
-## Angular模块
-
-
-<div class="l-sub-section">
-
-
-
-Helps you organize an application into cohesive blocks of functionality.
-An Angular module identifies the components, directives, and pipes that the application uses along with the list of external Angular modules that the application needs, such as `FormsModule`.
-
-帮助我们将一个应用程序组织成内聚的功能模块群。
-一个 Angular 模块标识应用程序使用的组件、指令和管道等，还包含应用程序需要的外部 Angular 模块的列表，例如`FormsModule`。
-
-Every Angular application has an application root-module class. By convention, the class is
-called `AppModule` and resides in a file named `app.module.ts`.
-
-每个 Angular 应用程序都有一个应用程序根模块类。按规约这个类的名字为`AppModule`，存放在名为`app.module.ts`的文件。
-
-For details and examples, see the [Angular Modules (NgModule)](guide/ngmodule) page.
-
-要了解详情和范例，参见 [Angular 模块](guide/ngmodule)。
-
 
 </div>
-
 
 
 ## Annotation
 
-## 注解（Annotation）
-
-
-<div class="l-sub-section">
-
-
+## 注解
 
 In practice, a synonym for [Decoration](guide/glossary#decorator).
 
 实际上，是[装饰 (decoration)](guide/glossary#decorator) 的同义词。
-
-
-</div>
-
 
 
 {@a attribute-directive}
@@ -102,12 +58,7 @@ In practice, a synonym for [Decoration](guide/glossary#decorator).
 
 ## Attribute directives
 
-## 属性型指令 (attribute directive)
-
-
-<div class="l-sub-section">
-
-
+## 属性型指令
 
 A category of [directive](guide/glossary#directive) that can listen to and modify the behavior of
 other HTML elements, attributes, properties, and components. They are usually represented
@@ -124,21 +75,13 @@ Learn about them in the [_Attribute Directives_](guide/attribute-directives) gui
 要了解更多信息，请参见[_属性型指令_](guide/attribute-directives)页。
 
 
-</div>
-
-
-
+{@a B}
 
 ## Barrel
 
-## 封装桶 (barrel)
+## 封装桶
 
-
-<div class="l-sub-section">
-
-
-
-A  way to *rollup exports* from several ES2015 modules into a single convenient ES2015 module.
+A way to *roll up exports* from several ES2015 modules into a single convenient ES2015 module.
 The barrel itself is an ES2015 module file that re-exports *selected* exports of other ES2015 modules.
 
 封装桶是把多个模块的*导出结果*汇总到单一的 ES2015 模块的一种方式。
@@ -209,7 +152,7 @@ Angular 的每个[范围化包 (scoped package)](guide/glossary#scoped-package) 
 
 
 
-You can often achieve the same result using [Angular modules](guide/glossary#angular-module) instead.
+You can often achieve the same result using [NgModules](guide/glossary#ngmodule) instead.
 
 注意，你可以利用 [Angular 模块](guide/glossary#angular-module)达到同样的目的。
 
@@ -217,19 +160,9 @@ You can often achieve the same result using [Angular modules](guide/glossary#ang
 </div>
 
 
-
-</div>
-
-
-
 ## Binding
 
 ## 绑定 (binding)
-
-
-<div class="l-sub-section">
-
-
 
 Usually refers to [data binding](guide/glossary#data-binding) and the act of
 binding an HTML object property to a data object property.
@@ -244,20 +177,13 @@ between a "token"&mdash;also referred to as a "key"&mdash;and a dependency [prov
 这种用法很少，而且一般都会在上下文中写清楚。
 
 
-</div>
-
-
-
 ## Bootstrap
 
 ## 启动/引导 (bootstrap)
 
 
-<div class="l-sub-section">
+You launch an Angular application by "bootstrapping" it using the application root NgModule (`AppModule`).
 
-
-
-You launch an Angular application by "bootstrapping" it using the application root Angular module (`AppModule`).
 Bootstrapping identifies an application's top level "root" [component](guide/glossary#component),
 which is the first component that is loaded for the application.
 For more information, see the [Setup](guide/setup) page.
@@ -271,19 +197,11 @@ You can bootstrap multiple apps in the same `index.html`, each app with its own 
 你可以在同一个`index.html`中引导多个应用，每个应用都有它自己的顶级根组件。
 
 
-</div>
-
-
-
+{@a C}
 
 ## camelCase
 
 ## 驼峰式命名法 (camelCase)
-
-
-<div class="l-sub-section">
-
-
 
 The practice of writing compound words or phrases such that each word or abbreviation begins with a capital letter
 _except the first letter, which is lowercase_.
@@ -301,21 +219,12 @@ In Angular documentation, "camelCase" always means *lower camel case*.
 在文档中提到“驼峰式命名法 (camelCase) ”的时候，我们所指的都是小驼峰命名法。
 
 
-</div>
-
-
-
 {@a component}
 
 
 ## Component
 
 ## 组件 (component)
-
-
-<div class="l-sub-section">
-
-
 
 An Angular class responsible for exposing data to a [view](guide/glossary#view) and handling most of the view’s display and user-interaction logic.
 
@@ -340,19 +249,11 @@ the component in the role of "controller" or "view model".
 
 如果你熟悉 "MVC" 和 "MVVM" 模式，就会意识到组件充当了“控制器 (controller) ”和“视图模型 (view model) ”的角色。
 
-</div>
-
-
-
+{@a D}
 
 ## dash-case
 
 ## 中线命名法 (dash-case)
-
-
-<div class="l-sub-section">
-
-
 
 The practice of writing compound words or phrases such that each word is separated by a dash or hyphen (`-`).
 This form is also known as kebab-case.
@@ -367,18 +268,9 @@ spelled in dash-case.
 [指令](guide/glossary#directive)的选择器（例如`my-app`）和文件名（例如`hero-list.component.ts`）通常是用中线命名法来命名。
 
 
-</div>
-
-
-
 ## Data binding
 
 ## 数据绑定 (data binding)
-
-
-<div class="l-sub-section">
-
-
 
 Applications display data values to a user and respond to user
 actions (such as clicks, touches, and keystrokes).
@@ -431,12 +323,6 @@ Angular 有一个非常强大的数据绑定框架，具有各种数据绑定操
 
    [基于 ngModel 的双向数据绑定 (Two-way data binding with ngModel)](guide/template-syntax#ngModel)
 
-
-
-</div>
-
-
-
 {@a decorator}
 
 
@@ -445,18 +331,13 @@ Angular 有一个非常强大的数据绑定框架，具有各种数据绑定操
 
 ## Decorator | decoration
 
-## 装饰器 (decorator | decoration)
+## 装饰器（decorator | decoration）
 
-
-<div class="l-sub-section">
-
-
-
-A  *function* that adds metadata to a class, its members (properties, methods) and function arguments.
+A *function* that adds metadata to a class, its members (properties, methods) and function arguments.
 
 装饰器是一个**函数**，它将元数据添加到类、类成员（属性、方法）和函数参数。
 
-Decorators are a JavaScript language [feature](https://github.com/wycats/javascript-decorators), implemented in TypeScript and proposed for ES2016 (also known as ES7).
+Decorators are an experimental (stage 2), JavaScript language [feature](https://github.com/wycats/javascript-decorators). TypeScript adds support for decorators.
 
 装饰器是一个 JavaScript 的语言[特性](https://github.com/wycats/javascript-decorators)，装饰器在 TypeScript 里已经实现，并被推荐到了ES2016（也就是ES7）。
 
@@ -501,19 +382,9 @@ Always include parentheses `()` when applying a decorator.
 </div>
 
 
-
-</div>
-
-
-
 ## Dependency injection
 
-## 依赖注入 (dependency injection)
-
-
-<div class="l-sub-section">
-
-
+## 依赖注入（dependency injection）
 
 A design pattern and mechanism
 for creating and delivering parts of an application to other
@@ -602,10 +473,6 @@ Read more in the [Dependency Injection](guide/dependency-injection) page.
 更多信息，参见[依赖注入 (dependency injection)](guide/dependency-injection)。
 
 
-</div>
-
-
-
 {@a directive}
 
 
@@ -615,11 +482,6 @@ Read more in the [Dependency Injection](guide/dependency-injection) page.
 ## Directive
 
 ## 指令 (directive)
-
-
-<div class="l-sub-section">
-
-
 
 An Angular class responsible for creating, reshaping, and interacting with HTML elements
 in the browser DOM. The directive is Angular's most fundamental feature.
@@ -672,33 +534,25 @@ elements and their children.
   [结构型指令 (structural directive)](guide/glossary#structural-directive)：负责塑造或重塑 HTML
 布局。这一般是通过添加、删除或者操作 HTML 元素及其子元素来实现的。
 
-</div>
-
-
-
+{@a E}
 
 ## ECMAScript
-
-
-<div class="l-sub-section">
-
-
 
 The [official JavaScript language specification](https://en.wikipedia.org/wiki/ECMAScript).
 
 [官方 JavaScript 语言规范](https://en.wikipedia.org/wiki/ECMAScript)
 
 The latest approved version of JavaScript is
-[ECMAScript 2016](http://www.ecma-international.org/ecma-262/7.0/)
-(also known as "ES2016" or "ES7"). Many Angular developers write their applications
-in ES7 or a dialect that strives to be
+[ECMAScript 2017](http://www.ecma-international.org/ecma-262/8.0/)
+(also known as "ES2017" or "ES8"). Many Angular developers write their applications
+in ES8 or a dialect that strives to be
 compatible with it, such as [TypeScript](guide/glossary#typescript).
 
 最新批准的 JavaScript 版本是[ECMAScript 2016](http://www.ecma-international.org/ecma-262/7.0/)（也称“ES2016”或“ES7”）。
 Angular 的开发人员要么使用这个版本的语言，要么使用与之兼容的方言，例如 [TypeScript](guide/glossary#typesScript)。
 
 Most modern browsers only support the much older "ECMAScript 5" (also known as "ES5") standard.
-Applications written in ES2016, ES2015, or one of their dialects must be [transpiled](guide/glossary#transpile)
+Applications written in ES2017, ES2016, ES2015, or one of their dialects must be [transpiled](guide/glossary#transpile)
 to ES5 JavaScript.
 
 目前，几乎所有现代游览器只支持很老的“ECMAScript 5” （也称ES5）标准。
@@ -709,54 +563,23 @@ Angular developers can write in ES5 directly.
 Angular 的开发人员也可以选择直接使用 ES5 编程。
 
 
-</div>
-
-
-
 ## ES2015
-
-
-<div class="l-sub-section">
-
-
 
 Short hand for [ECMAScript](guide/glossary#ecmascript) 2015.
 
 [ECMAScript](guide/glossary#ecmascript) 2015 的缩写。
 
-
-</div>
-
-
-
 ## ES5
-
-<div class="l-sub-section">
-
-
 
 Short hand for [ECMAScript](guide/glossary#ecmascript) 5, the version of JavaScript run by most modern browsers.
 
 “[ECMAScript](guide/glossary#ecmascript) 5”的简写，大部分现代浏览器使用的 JavaScript 版本。
 
-
-</div>
-
-
-
 ## ES6
-
-<div class="l-sub-section">
-
-
 
 Short hand for [ECMAScript](guide/glossary#ecmascript) 2015.
 
 [ECMAScript](guide/glossary#ecmascript) 2015 的简写。
-
-</div>
-
-
 
 {@a F}
 
@@ -766,15 +589,11 @@ Short hand for [ECMAScript](guide/glossary#ecmascript) 2015.
 
 {@a H}
 
-
+{@a I}
 
 ## Injector
 
 ## 注入器 (injector)
-
-<div class="l-sub-section">
-
-
 
 An object in the Angular [dependency-injection system](guide/glossary#dependency-injection)
 that can find a named dependency in its cache or create a dependency
@@ -783,17 +602,9 @@ with a registered [provider](guide/glossary#provider).
 Angular [依赖注入系统 (Dependency Injection System)](guide/glossary#dependency-injection)中的一个对象，
 它可以在自己的缓存中找到一个命名的“依赖”或者利用已注册的[提供商 (provider)](guide/glossary#provider) 创建这样一个依赖。
 
-</div>
-
-
-
 ## Input
 
 ## 输入属性 (input)
-
-<div class="l-sub-section">
-
-
 
 A directive property that can be the *target* of a
 [property binding](guide/template-syntax#property-binding) (explained in detail in the [Template Syntax](guide/template-syntax) page).
@@ -808,18 +619,9 @@ See the [Input and output properties](guide/template-syntax#inputs-outputs) sect
 见[模板语法](guide/template-syntax)中的[输入与输出属性](guide/template-syntax#inputs-outputs)。
 
 
-</div>
-
-
-
 ## Interpolation
 
 ## 插值表达式 (interpolation)
-
-
-<div class="l-sub-section">
-
-
 
 A form of [property data binding](guide/glossary#data-binding) in which a
 [template expression](guide/glossary#template-expression) between double-curly braces
@@ -844,10 +646,7 @@ Read more about [interpolation](guide/template-syntax#interpolation) in the
 更多信息，见[模板语法](guide/template-syntax)中的[插值表达式](guide/template-syntax#interpolation)。
 
 
-</div>
-
-
-
+{@a J}
 
 {@a jit}
 
@@ -856,11 +655,7 @@ Read more about [interpolation](guide/template-syntax#interpolation) in the
 
 ## 即时 (just-in-time, JiT) 编译
 
-<div class="l-sub-section">
-
-
-
-A  bootstrapping method of compiling components and modules in the browser
+A bootstrapping method of compiling components and modules in the browser
 and launching the application dynamically. Just-in-time mode is a good choice during development.
 Consider using the [ahead-of-time](guide/glossary#aot) mode for production apps.
 
@@ -868,38 +663,22 @@ Angular 的即时编译在浏览器中启动并编译所有的组件和模块，
   它很适合在开发过程中使用。但是在产品发布时，推荐采用[预编译 (ahead-of-time)](guide/glossary#aot) 模式。
 
 
-</div>
-
-
-
+{@a K}
 
 ## kebab-case
 
 ## 烤串命名法 (kebab-case)
-
-
-<div class="l-sub-section">
-
-
 
 See [dash-case](guide/glossary#dash-case).
 
 见[中线命名法 (dash-case)](guide/glossary#dash-case)。
 
 
-</div>
-
-
-
+{@a L}
 
 ## Lifecycle hooks
 
 ## 生命周期钩子 (lifecycle hook)
-
-
-<div class="l-sub-section">
-
-
 
 [Directives](guide/glossary#directive) and [components](guide/glossary#component) have a lifecycle
 managed by Angular as it creates, updates, and destroys them.
@@ -956,33 +735,23 @@ Read more in the [Lifecycle Hooks](guide/lifecycle-hooks) page.
 
 更多信息，见[生命周期钩子 (lifecycle hook)](guide/lifecycle-hooks)。
 
-</div>
-
-
-
+{@a M}
 
 ## Module
 
 ## 模块 (module)
 
-
-<div class="l-sub-section">
-
-
-
 <div class="alert is-important">
-
 
 
 Angular has the following types of modules:
 
 Angular有下列模块类型：
 
-* [Angular modules](guide/glossary#angular-module).
-For details and examples, see the [Angular Modules](guide/ngmodule) page.
+* [NgModules](guide/glossary#ngmodule).
+For details and examples, see the [NgModules](guide/ngmodule) page.
 
   [Angular 模块](guide/glossary#angular-module)，见[Angular 模块](guide/ngmodule)。
-
 * ES2015 modules, as described in this section.
 
   本节描述的 ES2015 模块。
@@ -1010,7 +779,7 @@ a module that needs that class *imports* it.
 模块会**导出 (export) **代码中的某些值，最典型的就是类。
 模块如果需要什么东西，那就**导入 (import) **它。
   
-The structure of Angular modules and the import/export syntax
+The structure of NgModules and the import/export syntax
 is based on the [ES2015 module standard](http://www.2ality.com/2014/09/es6-modules-final.html).
   
 Angular 的模块结构和导入/导出语法是基于 [ES2015 模块标准](http://www.2ality.com/2014/09/es6-modules-final.html)的。
@@ -1026,7 +795,7 @@ Angular 不附带模块加载器，也不偏爱任何第三方库（虽然大多
 你可以选择任何与这个标准兼容的模块化库。
 
 Modules are typically named after the file in which the exported thing is defined.
-The Angular [DatePipe](https://github.com/angular/angular/blob/master/modules/@angular/common/src/pipes/date_pipe.ts)
+The Angular [DatePipe](https://github.com/angular/angular/blob/master/packages/common/src/pipes/date_pipe.ts)
 class belongs to a feature module named `date_pipe` in the file `date_pipe.ts`.
 
 模块一般与它定义导出物的文件同名。例如，Angular 的 [DatePipe](https://github.com/angular/angular/blob/master/modules/angular2/src/common/pipes/date_pipe.ts) 类属于名叫`date_pipe`的特性模块，位于`date_pipe.ts`文件中。
@@ -1037,15 +806,10 @@ You rarely access Angular feature modules directly. You usually import them from
 而通常会从一个 Angular [范围化包 (scoped package)](guide/glossary#scoped-package)中导入它们，例如`@angular/core`。
 
 
-</div>
-
-
-
 {@a N}
 
 
-
-## Observable
+## NgModule
 
 ## 可观察对象 (observable)
 
@@ -1053,6 +817,21 @@ You rarely access Angular feature modules directly. You usually import them from
 <div class="l-sub-section">
 
 
+
+Helps you organize an application into cohesive blocks of functionality.
+An NgModule identifies the components, directives, and pipes that the application uses along with the list of external NgModules that the application needs, such as `FormsModule`.
+
+Every Angular application has an application root-module class. By convention, the class is
+called `AppModule` and resides in a file named `app.module.ts`.
+
+For details and examples, see [NgModules](guide/ngmodule).
+
+
+</div>
+
+{@a O}
+
+## Observable
 
 An array whose items arrive asynchronously over time.
 Observables help you manage asynchronous data, such as data coming from a backend service.
@@ -1069,18 +848,9 @@ Observables are a proposed feature for ES 2016, the next version of JavaScript.
 在下个版本的 JavaScript - ES 2016 中，`Observable`是建议的特性之一。
 
 
-</div>
-
-
-
 ## Output
 
 ## 输出属性 (output)
-
-
-<div class="l-sub-section">
-
-
 
 A directive property that can be the *target* of event binding
 (read more in the [event binding](guide/template-syntax#event-binding)
@@ -1096,19 +866,11 @@ See the [Input and output properties](guide/template-syntax#inputs-outputs) sect
 参见[模板语法](/docs/ts/latest/guide/template-syntax.html)中的[输入与输出属性](guide/template-syntax#inputs-outputs)部分。
 
 
-</div>
-
-
-
+{@a P}
 
 ## PascalCase
 
 ## Pascal 命名法 (PascalCase)
-
-
-<div class="l-sub-section">
-
-
 
 The practice of writing individual words, compound words, or phrases such that each word or abbreviation begins with a capital letter.
 Class names are typically spelled in PascalCase. For example, `Person` and `HeroDetailComponent`.
@@ -1123,18 +885,9 @@ In this documentation, "PascalCase" means *upper camel case* and  "camelCase" me
 在本文档中，“Pascal 命名法”都是指的*大写驼峰式命名法*，“驼峰式命名法”指的都是*小写驼峰式命名法*。
 
 
-</div>
-
-
-
 ## Pipe
 
 ## 管道 (pipe)
-
-
-<div class="l-sub-section">
-
-
 
 An Angular pipe is a function that transforms input values to output values for
 display in a [view](guide/glossary#view).
@@ -1159,18 +912,9 @@ Read more in the page on [pipes](guide/pipes).
 更多信息，见[管道](guide/pipes)。
 
 
-</div>
-
-
-
 ## Provider
 
 ## 提供商 (provider)
-
-
-<div class="l-sub-section">
-
-
 
 A _provider_ creates a new instance of a dependency for the
 [dependency injection](guide/glossary#dependency-injection) system.
@@ -1180,22 +924,13 @@ It relates a lookup token to code&mdash;sometimes called a "recipe"&mdash;that c
 它把一个查找令牌和代码（有时也叫“配方”）关联到一起，以便创建依赖值。
 
 
-</div>
-
-
-
 {@a Q}
 
-
+{@a R}
 
 ## Reactive forms
 
 ## 响应式表单 (reactive forms)
-
-
-<div class="l-sub-section">
-
-
 
 A technique for building Angular forms through code in a component.
 The alternative technique is [template-driven forms](guide/glossary#template-driven-forms).
@@ -1228,18 +963,9 @@ Reactive forms are powerful, flexible, and a good choice for more complex data-e
 动态表单非常强大、灵活，它在复杂数据输入的场景下尤其好用，例如动态的生成表单控制器。
 
 
-</div>
-
-
-
 ## Router
 
 ## 路由器 (router)
-
-
-<div class="l-sub-section">
-
-
 
 Most applications consist of many screens or [views](guide/glossary#view).
 The user navigates among them by clicking links and buttons,
@@ -1274,10 +1000,6 @@ For more information, see the [Routing & Navigation](guide/router) page.
 更多信息，见[路由与导航](guide/router)。
 
 
-</div>
-
-
-
 ## Router module
 
 ## 路由器模块 (router module)
@@ -1285,9 +1007,7 @@ For more information, see the [Routing & Navigation](guide/router) page.
 
 <div class="l-sub-section">
 
-
-
-A separate [Angular module](guide/glossary#angular-module) that provides the necessary service providers and directives for navigating through application views.
+A separate [NgModule](guide/glossary#ngmodule) that provides the necessary service providers and directives for navigating through application views.
 
 一个独立的 [Angular 模块](guide/glossary#angular-module)，用来提供导航所需的服务提供商和指令。
 
@@ -1296,18 +1016,9 @@ For more information, see the [Routing & Navigation](guide/router) page.
 更多信息，见[路由与导航](guide/router)。
 
 
-</div>
-
-
-
 ## Routing component
 
 ## 路由组件 (routing component)
-
-
-<div class="l-sub-section">
-
-
 
 An Angular [component](guide/glossary#component) with a `RouterOutlet` that displays views based on router navigations.
 
@@ -1318,26 +1029,18 @@ For more information, see the [Routing & Navigation](guide/router) page.
 更多信息，见[路由与导航](guide/router)。
 
 
-</div>
-
-
-
+{@a S}
 
 ## Scoped package
 
 ## 范围化包 (scoped package)
-
-
-<div class="l-sub-section">
-
-
 
 A way to group related *npm* packages.
 Read more at the [npm-scope](https://docs.npmjs.com/misc/scope) page.
 
 对相关的*npm*包进行分组的一种方式，参阅[npm-scope](https://docs.npmjs.com/misc/scope)。
 
-Angular modules are delivered within *scoped packages* such as `@angular/core`,
+NgModules are delivered within *scoped packages* such as `@angular/core`,
 `@angular/common`, `@angular/platform-browser-dynamic`, `@angular/http`, and `@angular/router`.
 
 Angular 模块是用一系列*范围化包*的形式发布的，例如`@angular/core`、`@angular/common`、`@angular/platform-browser-dynamic`、`@angular/http`和`@angular/router`。
@@ -1355,19 +1058,9 @@ is that the scoped package name begins with the Angular *scope name*, `@angular`
 </code-example>
 
 
-
-</div>
-
-
-
 ## Service
 
 ## 服务 (service)
-
-
-<div class="l-sub-section">
-
-
 
 For data or logic that is not associated
 with a specific view or that you want to share across components, build services.
@@ -1391,14 +1084,9 @@ Applications often require services such as a data service or a logging service.
 
 应用通常都需要服务，比如数据服务或者日志服务。
 
-For more information, see the [Services](guide/.ial/toh-pt4) page of the [Tour of Heroes](guide/.ial/) tutorial.
+For more information, see the [Services](tutorial/toh-pt4) page of the [Tour of Heroes](tutorial) tutorial.
 
-更多信息，见[英雄指南](guide/.ial/)中的[服务](guide/.ial/toh-pt4)。
-
-
-</div>
-
-
+更多信息，见[英雄指南](tutorial)中的[服务](tutorial/toh-pt4)。
 
 {@a snake-case}
 
@@ -1407,19 +1095,10 @@ For more information, see the [Services](guide/.ial/toh-pt4) page of the [Tour o
 
 ## 蛇形命名法
 
-
-<div class="l-sub-section">
-
-
-
 The practice of writing compound words or phrases such that an
 underscore (`_`) separates one word from the next. This form is also known as *underscore case*.
 
 写复合词或短语的一种方式，在多个词之间用下划线(`_`)分隔。也叫*下划线命名法*
-
-
-</div>
-
 
 
 {@a structural-directive}
@@ -1429,10 +1108,6 @@ underscore (`_`) separates one word from the next. This form is also known as *u
 
 
 ## Structural directives
-
-<div class="l-sub-section">
-
-
 
 A category of [directive](guide/glossary#directive) that can
 shape or reshape HTML layout, typically by adding and removing elements in the DOM.
@@ -1447,19 +1122,11 @@ Read more in the [Structural Directives](guide/structural-directives) page.
 更多信息，见[结构型指令](guide/structural-directives)。
 
 
-</div>
-
-
-
+{@a T}
 
 ## Template
 
 ## 模板 (template)
-
-
-<div class="l-sub-section">
-
-
 
 A chunk of HTML that Angular uses to render a [view](guide/glossary#view) with
 the support and guidance of an Angular [directive](guide/glossary#directive),
@@ -1469,18 +1136,9 @@ most notably a [component](guide/glossary#component).
     的支持和持续指导下，用它来渲染[视图 (view)](guide/glossary#view)。
 
 
-</div>
-
-
-
 ## Template-driven forms
 
 ## 模板驱动表单 (template-driven forms)
-
-
-<div class="l-sub-section">
-
-
 
 A technique for building Angular forms using HTML forms and input elements in the view.
 The alternate technique is [Reactive Forms](guide/glossary#reactive-forms).
@@ -1518,18 +1176,9 @@ in the [Forms](guide/forms) page.
 要了解如何构建模板驱动表单的更多信息，参见[表单](guide/forms)页。
 
 
-</div>
-
-
-
 ## Template expression
 
 ## 模板表达式 (template expression)
-
-
-<div class="l-sub-section">
-
-
 
 A TypeScript-like syntax that Angular evaluates within
 a [data binding](guide/glossary#data-binding).
@@ -1543,18 +1192,9 @@ of the [Template Syntax](guide/template-syntax) page.
 到[模板语法](guide/template-syntax)一章的[模板表达式](guide/guide/template-syntax#template-expressions)部分了解更多模板表达式的知识。
 
 
-</div>
-
-
-
 ## Transpile
 
 ## 转译（transpile)
-
-
-<div class="l-sub-section">
-
-
 
 The process of transforming code written in one form of JavaScript
 (such as TypeScript) into another form of JavaScript  (such as [ES5](guide/glossary#es5)).
@@ -1562,16 +1202,7 @@ The process of transforming code written in one form of JavaScript
 把一种形式的 JavaScript（例如 TypeScript）转换成另一种形式的 JavaScript（例如 [ES5](guide/glossary#es5)）的过程。
 
 
-</div>
-
-
-
 ## TypeScript
-
-
-<div class="l-sub-section">
-
-
 
 A version of JavaScript that supports most [ECMAScript 2015](guide/glossary#es2015)
 language features such as [decorators](guide/glossary#decorator).
@@ -1597,22 +1228,13 @@ Read more about TypeScript at [typescriptlang.org](http://www.typescriptlang.org
 更多信息，见[typescript.org](http://www.typescriptlang.org/)。
 
 
-</div>
-
-
-
 {@a U}
 
-
+{@a V}
 
 ## View
 
 ## 视图 (view)
-
-
-<div class="l-sub-section">
-
-
 
 A portion of the screen that displays information and responds
 to user actions such as clicks, mouse moves, and keystrokes.
@@ -1636,10 +1258,6 @@ under the control of a [router](guide/glossary#router).
 任何视图都可能被动态加载或卸载，这一般会在[路由器 (router)](guide/glossary#router) 的控制下进行。
 
 
-</div>
-
-
-
 {@a W}
 
 
@@ -1649,15 +1267,11 @@ under the control of a [router](guide/glossary#router).
 {@a Y}
 
 
+{@a Z}
 
 ## Zone
 
 ## 区域 (zone)
-
-
-<div class="l-sub-section">
-
-
 
 A mechanism for encapsulating and intercepting
 a JavaScript application's asynchronous activity.
@@ -1689,6 +1303,3 @@ Learn more about zones in this
   [Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U).
 
 更多信息，见 [Brian Ford 的视频](https://www.youtube.com/watch?v=3IqtmUscE_U)。
-
-</div>
-

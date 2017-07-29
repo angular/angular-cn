@@ -1,10 +1,6 @@
-@title
-更新记录
+# Change Log
 
-@intro
-最新文档更新历史记录。
-
-@description
+# 变更记录
 
 
 
@@ -17,10 +13,9 @@ This log calls attention to recent significant changes.
 
 ## 更新到 Angular 4.0 。Angular 2.x 的文档在 [v2.angular.io](https://v2.angular.io) 。
 
-## All mention of moduleId removed. "Component relative paths" cookbook deleted (2017-03-13)
+## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
 ## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)
-
 We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.
 This plugin dynamically converts "component-relative" paths in templateUrl and styleUrls to "absolute paths" for you.
 
@@ -62,7 +57,7 @@ Revised samples are more clear and cover all topics discussed.
 
 All documentation samples have been realigned with the default folder structure of the Angular CLI.
 That's a step along the road to basing the sample in the Angular CLI.
-But it's also good in its own right. 
+But it's also good in its own right.
 It helps clearly separate app code from setup and configuration files.
 
 所有的文档范例都已经向Angular CLI的默认文件夹结构看齐了。
@@ -70,9 +65,9 @@ It helps clearly separate app code from setup and configuration files.
 不过也不仅是为了迁移，它确实能帮我们把应用代码从环境代码和配置代码中分离出来。
 
 All samples now have a `src/` folder at the project root.
-The former `app/` folder moves under `src/`. 
-Read about moving your existing project to this structure in 
-<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="Migrating samples/quickstart app to the src folder">
+The former `app/` folder moves under `src/`.
+Read about moving your existing project to this structure in
+<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="Migrating samples/quickstart app to the src folder">
 the QuickStart repo update instructions</a>.
 
 我们已经把所有范例改成了使用项目根目录下的`src/`文件夹。
@@ -110,8 +105,8 @@ Notably:
 The new [**Reactive Forms**](guide/reactive-forms) guide explains how and why to build a "reactive form".
 "Reactive Forms" are the code-based counterpart to the declarative "Template Driven" forms approach
 introduced in the [Forms](guide/forms) guide.
-Check it out before you decide how to add forms to your app. 
-Remember also that you can use both techniques in the same app, 
+Check it out before you decide how to add forms to your app.
+Remember also that you can use both techniques in the same app,
 choosing the approach that best fits each scenario.
 
 新的[**响应式表单**](guide/reactive-forms)指南解释了如何以及何时构建“响应式表单”。
@@ -141,14 +136,9 @@ Revised samples are clearer and cover all topics discussed
 
 ## Miscellaneous (2017-01-05)
 
-## 杂项 (2017-01-05)
-
-* [Setup](guide/setup) guide: 
-    added (optional) instructions on how to remove _non-essential_ files. 
-    
-    [环境搭建](guide/setup)指南:
+## 杂项 (2017-01-05)* [Setup](guide/setup) guide: 
+added (optional) instructions on how to remove _non-essential_ files. [环境搭建](guide/setup)指南:
     添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
-
 * No longer consolidate RxJS operator imports in `rxjs-extensions` file; each file should import what it needs.
     
     不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
@@ -157,7 +147,7 @@ Revised samples are clearer and cover all topics discussed
 
     所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
 
-* [Style Guide](guide/style-guide): copy edits and revised rules.
+* [Style Guide](guide/styleguide): copy edits and revised rules.
 
     [风格指南](guide/style-guide)：复制了编辑过的和修改过的规则。
 
@@ -165,7 +155,7 @@ Revised samples are clearer and cover all topics discussed
 
 ## 路由：更详细 (2016-12-21)
 
-Added more information to the [Router](guide/router) guide 
+Added more information to the [Router](guide/router) guide
 including sections named outlets, wildcard routes, and preload strategies.
 
 往[路由指南](guide/router)中添加了更多信息，包括“命名出口（Outlet）”、通配符路由和预加载策略。
@@ -174,8 +164,8 @@ including sections named outlets, wildcard routes, and preload strategies.
 
 ## Http：如何设置默认的请求头（以及其它配置项） (2016-12-14)
 
-Added section on how to set default request headers (and other request options) to 
-[HTTP](guide/server-communication#override-default-request-options) guide.
+Added section on how to set default request headers (and other request options) to
+HTTP guide.
 
 往[Http指南](guide/server-communication#override-default-request-options)中添加了一节“如何设置默认的请求头（以及其它配置项）”
 
@@ -183,7 +173,7 @@ Added section on how to set default request headers (and other request options) 
 
 ## 测试：添加了组件测试的plunker范例 (2016-12-02)
 
-Added two plunkers that each test _one simple component_ so you can write a component test plunker of your own: <live-example name="setup" plnkr="quickstart-specs">one</live-example> for the QuickStart seed's `AppComponent` and <live-example name="testing" plnkr="banner-specs">another</live-example> for the Testing guide's `BannerComponent`. 
+Added two plunkers that each test _one simple component_ so you can write a component test plunker of your own: <live-example name="setup" plnkr="quickstart-specs">one</live-example> for the QuickStart seed's `AppComponent` and <live-example name="testing" plnkr="banner-specs">another</live-example> for the Testing guide's `BannerComponent`.
 Linked to these plunkers in [Testing](guide/testing#live-examples) and [Setup anatomy](guide/setup-systemjs-anatomy) guides.
 
 添加了两个plunker例子，每个都测试一个简单的组件，以便你可以自己在plunker中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的`AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的`BannerComponent`。
@@ -193,7 +183,7 @@ Linked to these plunkers in [Testing](guide/testing#live-examples) and [Setup an
 
 ## 国际化：单复数和`select` (2016-11-30)  
 
-The [Internationalization (i18n)](cookbook/i18n) guide explains how to handle pluralization and 
+The [Internationalization (i18n)](guide/i18n) guide explains how to handle pluralization and 
 translation of alternative texts with `select`.
 The sample demonstrates these features too.
 
@@ -240,8 +230,8 @@ Docs and code samples updated and tested with Angular v.2.2.0 .
 
 ## 更新：用于AoT的_upgrade/static_模块NgUpgrade指南 (2016-11-14)  
 
-The updated [NgUpgrade Guide](guide/upgrade) guide covers the 
-new AOT friendly `upgrade/static` module 
+The updated [NgUpgrade Guide](guide/upgrade) guide covers the
+new AOT friendly `upgrade/static` module
 released in v.2.2.0, which is the recommended
 facility for migrating from AngularJS to Angular.
 The documentation for the version prior to v.2.2.0 has been removed.
@@ -254,7 +244,7 @@ The documentation for the version prior to v.2.2.0 has been removed.
 
 ## 在“从TypeScript到JavaScript”增加ES6的描述 (2016-11-14)  
 
-The updated [TypeScript to JavaScript](cookbook/ts-to-js) cookbook 
+The updated [TypeScript to JavaScript](guide/ts-to-js) guide
 now explains how to write apps in ES6/7
 
 更新了“[从TypeScript到JavaScript](cookbook/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
@@ -305,7 +295,7 @@ re-explains `[(ngModel)]` in terms of the basic `[()]` syntax.
 
 This change supports ES6 developers and aligns better with typical Angular libraries.
 It does not affect the module's API but it does affect how you load and import it.
-See the <a href="https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20" target="_blank">change note</a>
+See the <a href="https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20">change note</a>
 in the `in-memory-web-api` repo.
 
 这个变化支持ES6开发者，并与典型的Angular库看齐。
@@ -333,11 +323,11 @@ Docs and code samples updated and tested with Angular v.2.1.0 .
 
 使用Angular v.2.1.0更新和测试所有文档和代码例子。
 
-## NEW "Ahead of time (AOT) Compilation" cookbook (2016-10-11)
+## NEW "Ahead of time (AOT) Compilation" guide (2016-10-11)
 
 ## 添加了新的“预编译(AoT)"烹饪书(2016-10-11)
 
-The NEW [Ahead of time (AOT) Compilation](cookbook/aot-compiler) cookbook
+The NEW [Ahead of time (AOT) Compilation](guide/aot-compiler) guide
 explains what AOT compilation is and why you'd want it.
 It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
@@ -358,7 +348,7 @@ Docs and code samples updated and tested with Angular v.2.0.2 .
 ## 在“路由和导航”向导中添加**路由模块** (2016-10-5)
 
 The [Routing and Navigation](guide/router) guide now locates route configuration
-in a _Routing Module_. 
+in a _Routing Module_.
 The _Routing Module_ replaces the previous _routing object_ involving the `ModuleWithProviders`.
 
 [Routing and Navigation](guide/router)现在在**路由模块**中设置路由配置。
@@ -369,16 +359,16 @@ The _Routing Module_ replaces the previous _routing object_ involving the `Modul
 [路由与导航](guide/router)
 
 All guided samples with routing use the _Routing Module_ and prose content has been updated,
-most conspicuously in the 
-[NgModule](guide/ngmodule) guide and [NgModule FAQ](cookbook/ngmodule-faq) cookbook.
+most conspicuously in the
+[NgModule](guide/ngmodule) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
 所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](cookbook/ngmodule-faq)烹饪书。
 
-## New "Internationalization" Cookbook (2016-09-30)
+## New "Internationalization" guide (2016-09-30)
 
 ## 全新“国际化”烹饪书(2016-09-30)
 
-Added a new [Internationalization (i18n)](cookbook/i18n) cookbook that shows how
+Added a new [Internationalization (i18n)](guide/i18n) guide that shows how
 to use Angular "i18n" facilities to translate template text into multiple languages.
 
 添加了新的[国际化(i18n)](cookbook/i18n)烹饪书，展示了如何使用Angular的“i18n”工具来讲模板文本翻译到多种语言。
@@ -394,8 +384,8 @@ This library is also useful to you during early development before you have a se
 这个库在你拥有服务器之前的早期开发阶段也很有用。
 
 The package name was changed from "angular2-in-memory-web-api" which is still frozen-in-time on npm.
-The new "angular-in-memory-web-api" has new features. 
-<a href="https://github.com/angular/in-memory-web-api/blob/master/README.md" target="_blank">Read about them on github</a>.
+The new "angular-in-memory-web-api" has new features.
+<a href="https://github.com/angular/in-memory-web-api/blob/master/README.md">Read about them on github</a>.
 
 这个包的名字从“angular2-in-memory-web-api”（仍然有效，但不再更新了）重新命名了。
 新的“angular-in-memory-web-api”有新的功能。
@@ -405,10 +395,9 @@ The new "angular-in-memory-web-api" has new features.
 
 ## “风格指南”中添加了_NgModules_(2016-09-27)
 
-[StyleGuide](guide/style-guide) explains recommended conventions for Angular modules (NgModule).
+[StyleGuide](guide/styleguide) explains recommended conventions for NgModules.
 
 [StyleGuide](guide/style-guide)解释了我们为Angular模块（NgModule）而推荐的约定。
-
 Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.

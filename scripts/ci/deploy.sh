@@ -40,52 +40,33 @@ case ${CI_MODE} in
     travisFoldEnd "deploy.packages"
     ;;
   aio)
-    # Don't deploy if this build is not for master or aio-master
-    if [[ ${TRAVIS_BRANCH} != "master" && ${TRAVIS_BRANCH} != "aio-master" ]]; then
-      echo "Skipping deploy because this build is not for master or aio-master."
-      exit 0
-    fi
+    # Only deploy if this not a PR. PRs are deployed early in `build.sh`.
+    if [[ $TRAVIS_PULL_REQUEST == "false" ]]; then
 
-    travisFoldStart "deploy.aio"
-    (
-      cd ${TRAVIS_BUILD_DIR}/aio
-
-      if [[ $TRAVIS_PULL_REQUEST != "false" ]]; then
-        # This is a PR: deploy a snapshot for previewing
-        travisFoldStart "deploy.aio.pr-preview"
-          # Only deploy if this PR has touched relevant files.
-          readonly AIO_CHANGED_FILES_COUNT=$(git diff --name-only $TRAVIS_COMMIT_RANGE | grep ^aio/ | wc -l)
-          if [[ AIO_CHANGED_FILES_COUNT -eq 0 ]]; then
-            echo "Skipping deploy because this PR did not touch any files inside 'aio/'."
-          else
-            # Only deploy if this PR meets certain preconditions.
-            readonly AIO_PREVERIFY_EXIT_CODE=$(./aio-builds-setup/scripts/travis-preverify-pr.sh && echo 0 || echo $?)
-            case $AIO_PREVERIFY_EXIT_CODE in
-              2)
-                # An error occurred: Fail the build
-                exit 1;
-                ;;
-              1)
-                # Preconditions not met: Skip deploy
-                echo "Skipping deploy because this PR did not meet the preconditions."
-                ;;
-              0)
-                # Preconditions met: Deploy
-                yarn run deploy-preview
-                ;;
-            esac
-          fi
-        travisFoldEnd "deploy.aio.pr-preview"
-      elif [[ ${TRAVIS_BRANCH} == "aio-master" ]]; then
-        # This is upstream aio-master: Don't deploy to staging
-        echo "Skipping deploy to staging because this build is for upstream aio-master."
-      else
-        # This is upstream master: Deploy to staging
-        travisFoldStart "deploy.aio.staging"
-          yarn run deploy-staging
-        travisFoldEnd "deploy.aio.staging"
+      # Don't deploy if this build is not for master or the stable branch.
+      if [[ $TRAVIS_BRANCH != "master" ]] && [[ $TRAVIS_BRANCH != $STABLE_BRANCH ]]; then
+        echo "Skipping deploy because this build is not for master or the stable branch ($STABLE_BRANCH)."
+        exit 0
       fi
-    )
-    travisFoldEnd "deploy.aio"
+
+      travisFoldStart "deploy.aio"
+      (
+        cd ${TRAVIS_BUILD_DIR}/aio
+
+        if [[ $TRAVIS_BRANCH == $STABLE_BRANCH ]]; then
+          # This is upstream <stable-branch>: Deploy to production.
+          travisFoldStart "deploy.aio.production"
+            yarn deploy-production
+          travisFoldEnd "deploy.aio.production"
+        else
+          # This is upstream master: Deploy to staging.
+          travisFoldStart "deploy.aio.staging"
+            yarn deploy-staging
+          travisFoldEnd "deploy.aio.staging"
+        fi
+      )
+      travisFoldEnd "deploy.aio"
+
+    fi
     ;;
 esac

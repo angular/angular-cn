@@ -34,11 +34,11 @@ export const formDirectiveProvider: any = {
  *
  * **Set value**: You can set the form's initial value when instantiating the
  * {@link FormGroup}, or you can set it programmatically later using the {@link FormGroup}'s
- * {@link AbstractControl.setValue} or {@link AbstractControl.patchValue} methods.
+ * {@link AbstractControl#setValue} or {@link AbstractControl#patchValue} methods.
  *
  * **Listen to value**: If you want to listen to changes in the value of the form, you can subscribe
- * to the {@link FormGroup}'s {@link AbstractControl.valueChanges} event.  You can also listen to
- * its {@link AbstractControl.statusChanges} event to be notified when the validation status is
+ * to the {@link FormGroup}'s {@link AbstractControl#valueChanges} event.  You can also listen to
+ * its {@link AbstractControl#statusChanges} event to be notified when the validation status is
  * re-calculated.
  *
  * Furthermore, you can listen to the directive's `ngSubmit` event to be notified when the user has
@@ -69,7 +69,7 @@ export class FormGroupDirective extends ControlContainer implements Form,
   private _oldForm: FormGroup;
   directives: FormControlName[] = [];
 
-  @Input('formGroup') form: FormGroup = null;
+  @Input('formGroup') form: FormGroup = null !;
   @Output() ngSubmit = new EventEmitter();
 
   constructor(
@@ -167,10 +167,10 @@ export class FormGroupDirective extends ControlContainer implements Form,
 
   private _updateValidators() {
     const sync = composeValidators(this._validators);
-    this.form.validator = Validators.compose([this.form.validator, sync]);
+    this.form.validator = Validators.compose([this.form.validator !, sync !]);
 
     const async = composeAsyncValidators(this._asyncValidators);
-    this.form.asyncValidator = Validators.composeAsync([this.form.asyncValidator, async]);
+    this.form.asyncValidator = Validators.composeAsync([this.form.asyncValidator !, async !]);
   }
 
   private _checkFormPresent() {

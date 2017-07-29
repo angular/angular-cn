@@ -1,11 +1,6 @@
-@title
-用户输入
+# User Input
 
-@intro
-用户输入触发 DOM 事件。我们通过事件绑定来监听它们，把更新过的数据导入回我们的组件和 model。
-
-@description
-
+# 用户输入
 
 User actions such as clicking a link, pushing a button, and entering
 text raise DOM events.
@@ -146,8 +141,8 @@ Here's what the UI displays:
 
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/user-input/keyup1-anim.gif' alt="key up 1"></img>
+<figure>
+  <img src='generated/images/guide/user-input/keyup1-anim.gif' alt="key up 1">
 </figure>
 
 
@@ -268,8 +263,8 @@ Type something in the input box, and watch the display update with each keystrok
 在输入框中输入，就会看到每次按键时，显示也随之更新了。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/user-input/keyup-loop-back-anim.gif' alt="反馈"></img>
+<figure>
+  <img src='generated/images/guide/user-input/keyup-loop-back-anim.gif' alt="反馈">
 </figure>
 
 
@@ -347,8 +342,8 @@ Here's how it works.
 
 下面展示了它是如何工作的。
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/user-input/keyup3-anim.gif' alt="key up 3"></img>
+<figure>
+  <img src='generated/images/guide/user-input/keyup3-anim.gif' alt="key up 3">
 </figure>
 
 
@@ -396,8 +391,8 @@ clicking **Add**.
 用户可以通过输入英雄名和点击“添加”按钮来添加英雄。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/user-input/little-tour-anim.gif' alt="简版英雄指南"></img>
+<figure>
+  <img src='generated/images/guide/user-input/little-tour-anim.gif' alt="简版英雄指南">
 </figure>
 
 

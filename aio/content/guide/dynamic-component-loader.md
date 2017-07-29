@@ -1,11 +1,6 @@
-@title
-动态组件加载器
+# Dynamic Component Loader
 
-@intro
-如何动态加载组件
-
-@description
-
+# 动态组件加载器
 
 Component templates are not always fixed. An application may need to load new components at runtime.
 
@@ -15,43 +10,7 @@ This cookbook shows you how to use `ComponentFactoryResolver` to add components 
 
 这本烹饪书为你展示如何使用`ComponentFactoryResolver`来动态添加组件。
 
-{@a toc}
-
-# Contents
-
-# 目录
-
-   * [Dynamic component loading](guide/dynamic-component-loader#dynamic-loading)
-
-     [动态组件加载](guide/dynamic-component-loader#dynamic-loading)
-
-   * [The directive](guide/dynamic-component-loader#directive)
-
-     [指令](guide/dynamic-component-loader#directive)
-
-   * [Loading components](guide/dynamic-component-loader#loading-components)
-
-     [加载组件](guide/dynamic-component-loader#loading-components)
-
-     * [Resolving Components](guide/dynamic-component-loader#resolving-components)
-
-       [解析组件](guide/dynamic-component-loader#resolving-components)
-
-     * [Selector References](guide/dynamic-component-loader#selector-references)
-
-       [通过选择器引用](guide/dynamic-component-loader#selector-references)
-
-   * [A common _AdComponent_ interface](guide/dynamic-component-loader#common-interface)
-
-     [通用的`AdComponent`接口](guide/dynamic-component-loader#common-interface)
-
-   * [Final ad banner](guide/dynamic-component-loader#final-ad-banner)
-
-     [最终的广告Banner](guide/dynamic-component-loader#final-ad-banner)
-
-
-
-See the <live-example name="cb-dynamic-component-loader"></live-example>
+See the <live-example name="dynamic-component-loader"></live-example>
 of the code in this cookbook.
 
 到<live-example name="cb-dynamic-component-loader"></live-example>查看本烹饪书的源码。
@@ -86,7 +45,7 @@ Angular 自带的API就能支持动态加载组件。
 
 {@a directive}
 
-## The directive
+## The anchor directive
 
 ## 指令
 
@@ -101,7 +60,7 @@ mark valid insertion points in the template.
 广告条使用一个名叫`AdDirective`的辅助指令来在模板中标记出有效的插入点。
 
 
-<code-example path="cb-dynamic-component-loader/src/app/ad.directive.ts" title="src/app/ad.directive.ts" linenums="false">
+<code-example path="dynamic-component-loader/src/app/ad.directive.ts" title="src/app/ad.directive.ts" linenums="false">
 
 </code-example>
 
@@ -141,7 +100,7 @@ where to dynamically load components.
 这下，Angular就知道该把组件动态加载到哪里了。
 
 
-<code-example path="cb-dynamic-component-loader/src/app/ad-banner.component.ts" region="ad-host" title="src/app/ad-banner.component.ts (template)" linenums="false">
+<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="ad-host" title="src/app/ad-banner.component.ts (template)" linenums="false">
 
 </code-example>
 
@@ -156,7 +115,7 @@ because it doesn't render any additional output.
 {@a resolving-components}
 
 
-### Resolving components
+## Resolving components
 
 ### 解析组件
 
@@ -165,8 +124,8 @@ Take a closer look at the methods in `ad-banner.component.ts`.
 深入看看`ad-banner.component.ts`中的方法。
 
 `AdBannerComponent` takes an array of `AdItem` objects as input,
-which ultimately comes from `AdService`.  `AdItem` objects specify 
-the type of component to load and any data to bind to the 
+which ultimately comes from `AdService`.  `AdItem` objects specify
+the type of component to load and any data to bind to the
 component.`AdService` returns the actual ads making up the ad campaign.
 
 `AdBannerComponent`接收一个`AdItem`对象的数组作为输入，它最终来自`AdService`。
@@ -184,7 +143,7 @@ and loads a new component every 3 seconds by calling `loadComponent()`.
 通过`getAds()`方法，`AdBannerComponent`可以循环遍历`AdItems`的数组，并且每三秒调用一次`loadComponent()`来加载新组件。
 
 
-<code-example path="cb-dynamic-component-loader/src/app/ad-banner.component.ts" region="class" title="src/app/ad-banner.component.ts (excerpt)" linenums="false">
+<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="class" title="src/app/ad-banner.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -222,23 +181,23 @@ value to select an `adItem` from the array.
 
 
 
-After `loadComponent()` selects an ad, it uses `ComponentFactoryResolver` 
-to resolve a `ComponentFactory` for each specific component. 
+After `loadComponent()` selects an ad, it uses `ComponentFactoryResolver`
+to resolve a `ComponentFactory` for each specific component.
 The `ComponentFactory` then creates an instance of each component.
 
 在`loadComponent()`选取了一个广告之后，它使用`ComponentFactoryResolver`来为每个具体的组件解析出一个`ComponentFactory`。
 然后`ComponentFactory`会为每一个组件创建一个实例。
 
-Next, you're targeting the `viewContainerRef` that 
-exists on this specific instance of the component. How do you know it's 
-this specific instance? Because it's referring to `adHost` and `adHost` is the 
+Next, you're targeting the `viewContainerRef` that
+exists on this specific instance of the component. How do you know it's
+this specific instance? Because it's referring to `adHost` and `adHost` is the
 directive you set up earlier to tell Angular where to insert dynamic components.
 
 接下来，我们要把`viewContainerRef`指向这个组件的现有实例。但我们怎么才能找到这个实例呢？
 很简单，因为它指向了`adHost`，而这个`adHost`就是我们以前设置过的指令，用来告诉Angular该把动态组件插入到什么位置。
 
-As you may recall, `AdDirective` injects `ViewContainerRef` into its constructor. 
-This is how the directive accesses the element that you want to use to host the dynamic component. 
+As you may recall, `AdDirective` injects `ViewContainerRef` into its constructor.
+This is how the directive accesses the element that you want to use to host the dynamic component.
 
 回忆一下，`AdDirective`曾在它的构造函数中注入了一个`ViewContainerRef`。
 因此这个指令可以访问到这个被我们用作动态组件宿主的元素。
@@ -275,7 +234,7 @@ add dynamically loaded components to the `NgModule`'s `entryComponents` array:
 要想确保编译器照常生成工厂类，就要把这些动态加载的组件添加到`NgModule`的`entryComponents`数组中：
 
 
-<code-example path="cb-dynamic-component-loader/src/app/app.module.ts" region="entry-components" title="src/app/app.module.ts (entry components)" linenums="false">
+<code-example path="dynamic-component-loader/src/app/app.module.ts" region="entry-components" title="src/app/app.module.ts (entry components)" linenums="false">
 
 </code-example>
 
@@ -284,7 +243,7 @@ add dynamically loaded components to the `NgModule`'s `entryComponents` array:
 {@a common-interface}
 
 
-### A common _AdComponent_ interface
+## The _AdComponent_ interface
 
 ### 公共的`AdComponent`接口
 
@@ -300,15 +259,15 @@ Here are two sample components and the `AdComponent` interface for reference:
 
 <code-tabs>
 
-  <code-pane title="hero-job-ad.component.ts" path="cb-dynamic-component-loader/src/app/hero-job-ad.component.ts">
+  <code-pane title="hero-job-ad.component.ts" path="dynamic-component-loader/src/app/hero-job-ad.component.ts">
 
   </code-pane>
 
-  <code-pane title="hero-profile.component.ts" path="cb-dynamic-component-loader/src/app/hero-profile.component.ts">
+  <code-pane title="hero-profile.component.ts" path="dynamic-component-loader/src/app/hero-profile.component.ts">
 
   </code-pane>
 
-  <code-pane title="ad.component.ts" path="cb-dynamic-component-loader/src/app/ad.component.ts">
+  <code-pane title="ad.component.ts" path="dynamic-component-loader/src/app/ad.component.ts">
 
   </code-pane>
 
@@ -319,7 +278,7 @@ Here are two sample components and the `AdComponent` interface for reference:
 {@a final-ad-baner}
 
 
-### Final ad banner
+## Final ad banner
 
 ### 最终的广告栏
 
@@ -328,12 +287,10 @@ The final ad banner looks like this:
 最终的广告栏是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/cookbooks/dynamic-component-loader/ads.gif" alt="Ads"></img>
+<figure>
+  <img src="generated/images/guide/dynamic-component-loader/ads.gif" alt="Ads">
 </figure>
 
 
 
-See the <live-example name="cb-dynamic-component-loader"></live-example>.
-
-参见<live-example name="cb-dynamic-component-loader"></live-example>。
+See the <live-example name="dynamic-component-loader"></live-example>.参见<live-example name="cb-dynamic-component-loader"></live-example>。

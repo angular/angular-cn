@@ -68,6 +68,8 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
   private scriptVersion = new Map<string, number>();
   private overrides = new Map<string, string>();
   private projectVersion = 0;
+  private options: ts.CompilerOptions;
+  private overrideDirectory = new Set<string>();
 
   constructor(private scriptNames: string[], private data: MockData) {
     const moduleFilename = module.filename.replace(/\\/g, '/');
@@ -77,30 +79,7 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
     let distIndex = moduleFilename.indexOf('/dist/all');
     if (distIndex >= 0)
       this.nodeModulesPath = path.join(moduleFilename.substr(0, distIndex), 'node_modules');
-  }
-
-  override(fileName: string, content: string) {
-    this.scriptVersion.set(fileName, (this.scriptVersion.get(fileName) || 0) + 1);
-    if (fileName.endsWith('.ts')) {
-      this.projectVersion++;
-    }
-    if (content) {
-      this.overrides.set(fileName, content);
-    } else {
-      this.overrides.delete(fileName);
-    }
-  }
-
-  addScript(fileName: string, content: string) {
-    this.projectVersion++;
-    this.overrides.set(fileName, content);
-    this.scriptNames.push(fileName);
-  }
-
-  forgetAngular() { this.angularPath = undefined; }
-
-  getCompilationSettings(): ts.CompilerOptions {
-    return {
+    this.options = {
       target: ts.ScriptTarget.ES5,
       module: ts.ModuleKind.CommonJS,
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
@@ -111,6 +90,35 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
       lib: ['lib.es2015.d.ts', 'lib.dom.d.ts'],
     };
   }
+
+  override(fileName: string, content: string) {
+    this.scriptVersion.set(fileName, (this.scriptVersion.get(fileName) || 0) + 1);
+    if (fileName.endsWith('.ts')) {
+      this.projectVersion++;
+    }
+    if (content) {
+      this.overrides.set(fileName, content);
+      this.overrideDirectory.add(path.dirname(fileName));
+    } else {
+      this.overrides.delete(fileName);
+    }
+  }
+
+  addScript(fileName: string, content: string) {
+    this.projectVersion++;
+    this.overrides.set(fileName, content);
+    this.overrideDirectory.add(path.dirname(fileName));
+    this.scriptNames.push(fileName);
+  }
+
+  forgetAngular() { this.angularPath = undefined; }
+
+  overrideOptions(cb: (options: ts.CompilerOptions) => ts.CompilerOptions) {
+    this.options = cb((Object as any).assign({}, this.options));
+    this.projectVersion++;
+  }
+
+  getCompilationSettings(): ts.CompilerOptions { return this.options; }
 
   getProjectVersion(): string { return this.projectVersion.toString(); }
 
@@ -131,6 +139,7 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
   getDefaultLibFileName(options: ts.CompilerOptions): string { return 'lib.d.ts'; }
 
   directoryExists(directoryName: string): boolean {
+    if (this.overrideDirectory.has(directoryName)) return true;
     let effectiveName = this.getEffectiveName(directoryName);
     if (effectiveName === directoryName)
       return directoryExists(directoryName, this.data);

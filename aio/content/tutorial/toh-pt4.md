@@ -179,7 +179,7 @@ Create a file in the `app` folder called `hero.service.ts`.
 
 
 The naming convention for service files is the service name in lowercase followed by `.service`.
-For a multi-word service name, use lower [dash-case](guide/glossary#!).
+For a multi-word service name, use lower [dash-case](guide/glossary#dash-case).
 For example, the filename for `SpecialSuperHeroService` is `special-super-hero.service.ts`.
 
 我们遵循的文件命名约定是：服务名称的小写形式（基本名），加上`.service`后缀。
@@ -196,7 +196,7 @@ Name the class `HeroService` and export it for others to import.
 我们把这个类命名为`HeroService`，并导出它，以供别人使用。
 
 
-<code-example path="toh-4/src/app/hero.service.1.ts" region="empty-class" title="src/app/hero.service.ts (starting point)" linenums="false">
+<code-example path="toh-pt4/src/app/hero.service.1.ts" region="empty-class" title="src/app/hero.service.ts (starting point)" linenums="false">
 
 </code-example>
 
@@ -248,7 +248,7 @@ Add a `getHeroes()` method stub.
 添加一个名叫`getHeros`的桩方法。
 
 
-<code-example path="toh-4/src/app/hero.service.1.ts" region="getHeroes-stub" title="src/app/hero.service.ts (getHeroes stub)" linenums="false">
+<code-example path="toh-pt4/src/app/hero.service.1.ts" region="getHeroes-stub" title="src/app/hero.service.ts (getHeroes stub)" linenums="false">
 
 </code-example>
 
@@ -274,7 +274,7 @@ Additionally, copy the `import {Hero} ...` statement because the heroes array us
 还要复制`import {Hero}...`语句，因为我们的英雄数组用到了`Hero`类。
 
 
-<code-example path="toh-4/src/app/mock-heroes.ts" title="src/app/mock-heroes.ts">
+<code-example path="toh-pt4/src/app/mock-heroes.ts" title="src/app/mock-heroes.ts">
 
 </code-example>
 
@@ -290,7 +290,7 @@ add an uninitialized `heroes` property:
 在刚刚剪切出`HEROES`数组的`app.component.ts`文件中，添加一个尚未初始化的`heroes`属性：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="heroes-prop" title="src/app/app.component.ts (heroes property)" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="heroes-prop" title="src/app/app.component.ts (heroes property)" linenums="false">
 
 </code-example>
 
@@ -307,7 +307,7 @@ The `HeroService` looks like this:
 我们的`HeroService`服务现在是这样的：
 
 
-<code-example path="toh-4/src/app/hero.service.1.ts" region="full" title="src/app/hero.service.ts" linenums="false">
+<code-example path="toh-pt4/src/app/hero.service.1.ts" region="full" title="src/app/hero.service.ts" linenums="false">
 
 </code-example>
 
@@ -326,7 +326,7 @@ Import the `HeroService` so that you can reference it in the code.
 先导入`HeroService`，以便我们可以在代码中引用它。
 
 
-<code-example path="toh-4/src/app/app.component.ts" linenums="false" title="toh-4/src/app/app.component.ts (hero-service-import)" region="hero-service-import">
+<code-example path="toh-pt4/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (hero-service-import)" region="hero-service-import">
 
 </code-example>
 
@@ -345,7 +345,7 @@ You could create a new instance of the `HeroService` with `new` like this:
 你可能想用`new`来创建`HeroService`的实例，就像这样：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="new-service" title="toh-4/src/app/app.component.ts" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="new-service" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
 
@@ -401,7 +401,7 @@ Add the constructor:
 添加构造函数：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="ctor" title="src/app/app.component.ts (constructor)">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="ctor" title="src/app/app.component.ts (constructor)">
 
 </code-example>
 
@@ -454,7 +454,7 @@ in the `@Component` call.
 要做到这一点，我们在`@Component`组件的元数据底部添加`providers`数组属性如下：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" linenums="false" title="toh-4/src/app/app.component.ts (providers)" region="providers">
+<code-example path="toh-pt4/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (providers)" region="providers">
 
 </code-example>
 
@@ -483,7 +483,7 @@ You could call the service and get the data in one line.
 我们可以在同一行内调用此服务，并获得数据。
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="get-heroes" title="toh-4/src/app/app.component.ts" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="get-heroes" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
 
@@ -494,7 +494,7 @@ You don't really need a dedicated method to wrap one line.  Write it anyway:
 在真实的世界中，我们并不需要把一行代码包装成一个专门的方法，但无论如何，我们在演示代码中先这么写：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" linenums="false" title="toh-4/src/app/app.component.ts (getHeroes)" region="getHeroes">
+<code-example path="toh-pt4/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (getHeroes)" region="getHeroes">
 
 </code-example>
 
@@ -510,7 +510,7 @@ You don't really need a dedicated method to wrap one line.  Write it anyway:
 
  You might be tempted to call the `getHeroes()` method in a constructor, but
 a constructor should not contain complex logic,
-especially a constructor that calls a server, such as as a data access method.
+especially a constructor that calls a server, such as a data access method.
 The constructor is for simple initializations, like wiring constructor parameters to properties.
 
 你可能想在构造函数中调用`getHeroes()`方法，但构造函数不应该包含复杂的逻辑，特别是那些需要从服务器获取数据的逻辑更是如此。构造函数是为了简单的初始化工作而设计的，例如把构造函数的参数赋值给属性。
@@ -545,7 +545,7 @@ Here's the essential outline for the `OnInit` interface (don't copy this into yo
 这是`OnInit`接口的基本轮廓（但不要拷贝到你自己的代码中）：
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="on-init" title="toh-4/src/app/app.component.ts" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="on-init" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
 
@@ -570,7 +570,7 @@ at the right time. In this case, initialize by calling `getHeroes()`.
   在这个例子中，我们通过调用`getHeroes()`来完成初始化。
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" linenums="false" title="toh-4/src/app/app.component.ts (ng-on-init)" region="ng-on-init">
+<code-example path="toh-pt4/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (ng-on-init)" region="ng-on-init">
 
 </code-example>
 
@@ -592,7 +592,7 @@ its `getHeroes()` signature is synchronous.
 我们的`HeroService`立即返回一个模拟的英雄列表，它的`getHeroes()`函数签名是同步的。
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="get-heroes" title="toh-4/src/app/app.component.ts" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="get-heroes" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
 
@@ -630,7 +630,7 @@ The service does that work and eventually calls the function with the results or
 
 This is a simplified explanation. Read more about ES2015 Promises in the
 [Promises for asynchronous programming](http://exploringjs.com/es6/ch_promises.html) page of
-[Exploring ES6](http://http://exploringjs.com/es6.html).
+[Exploring ES6](http://exploringjs.com/es6.html).
 
 这里只是粗略说说，要了解更多 ES2015 Promise 的信息，见[ES6概览](http://http://exploringjs.com/es6.html)中的[承诺与异步编程](http://exploringjs.com/es6/ch_promises.html)。
 
@@ -644,7 +644,7 @@ Update the `HeroService` with this Promise-returning `getHeroes()` method:
 把`HeroService`的`getHeroes`方法改写为返回承诺的形式：
 
 
-<code-example path="toh-4/src/app/hero.service.ts" region="get-heroes" title="src/app/hero.service.ts (excerpt)" linenums="false">
+<code-example path="toh-pt4/src/app/hero.service.ts" region="get-heroes" title="src/app/hero.service.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -664,7 +664,7 @@ As a result of the change to `HeroService`, `this.heroes` is now set to a `Promi
 修改`HeroService`之后，`this.heroes`会被赋值为一个`Promise`而不再是英雄数组。
 
 
-<code-example path="toh-4/src/app/app.component.1.ts" region="getHeroes" title="src/app/app.component.ts (getHeroes - old)" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.1.ts" region="getHeroes" title="src/app/app.component.ts (getHeroes - old)" linenums="false">
 
 </code-example>
 
@@ -681,7 +681,7 @@ Pass the callback function as an argument to the Promise's `then()` method:
 我们把回调函数作为参数传给承诺对象的**then**方法：
 
 
-<code-example path="toh-4/src/app/app.component.ts" region="get-heroes" title="src/app/app.component.ts (getHeroes - revised)" linenums="false">
+<code-example path="toh-pt4/src/app/app.component.ts" region="get-heroes" title="src/app/app.component.ts (getHeroes - revised)" linenums="false">
 
 </code-example>
 
@@ -824,15 +824,15 @@ Here are the code files discussed in this page.
 
 <code-tabs>
 
-  <code-pane title="src/app/hero.service.ts" path="toh-4/src/app/hero.service.ts">
+  <code-pane title="src/app/hero.service.ts" path="toh-pt4/src/app/hero.service.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.component.ts" path="toh-4/src/app/app.component.ts">
+  <code-pane title="src/app/app.component.ts" path="toh-pt4/src/app/app.component.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/mock-heroes.ts" path="toh-4/src/app/mock-heroes.ts">
+  <code-pane title="src/app/mock-heroes.ts" path="toh-pt4/src/app/mock-heroes.ts">
 
   </code-pane>
 
@@ -884,7 +884,7 @@ As the app evolves, you'll discover how to design it to make it easier to grow a
   我们还要创建一个仪表盘，要添加在视图间路由的菜单链接，还要在模板中格式化数据。
   随着我们应用的进化，我们还会学到如何进行设计，让它更易于扩展和维护。
 
-Read about the Angular component router and navigation among the views in the [next tutorial](tutorial/toh-pt5) page.
+Read about the Angular component router and navigation among the views in the [next tutorial](tutorial/toh-pt5 "Routing and Navigation") page.
 
 我们将在[下一章](tutorial/toh-pt5)学习 Angular 组件路由，以及在视图间导航的知识。
 
@@ -900,7 +900,7 @@ import the `Hero` symbol and add the following `getHeroesSlowly()` method to the
 我们可以模拟慢速连接。导入`Hero`类，并且在`HeroService`中添加如下的`getHeroesSlowly()`方法：
 
 
-<code-example path="toh-4/src/app/hero.service.ts" region="get-heroes-slowly" title="app/hero.service.ts (getHeroesSlowly)" linenums="false">
+<code-example path="toh-pt4/src/app/hero.service.ts" region="get-heroes-slowly" title="app/hero.service.ts (getHeroesSlowly)" linenums="false">
 
 </code-example>
 

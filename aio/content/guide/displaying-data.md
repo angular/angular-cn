@@ -1,12 +1,6 @@
-@title
-显示数据
+# Displaying Data
 
-@intro
-属性绑定机制把数据显示到用户界面上。
-
-@description
-
-
+# 显示数据
 
 You can display data by binding controls in an HTML template to properties of an Angular component.
 
@@ -24,28 +18,9 @@ The final UI looks like this:
 最终的用户界面是这样的：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/displaying-data/final.png" alt="Final UI"></img>
+<figure>
+  <img src="generated/images/guide/displaying-data/final.png" alt="Final UI">
 </figure>
-
-
-
-# Contents
-
-# 目录
-
-* [Showing component properties with interpolation](guide/displaying-data#interpolation)
-
-  [通过插值表达式显示组件的属性](guide/displaying-data#interpolation)
-
-* [Showing an array property with NgFor](guide/displaying-data#ngFor)
-
-  [通过 NgFor 显示数组型属性](guide/displaying-data#ngFor)
-
-* [Conditional display with NgIf](guide/displaying-data#ngIf)
-
-  [通过 NgIf 实现按条件显示](guide/displaying-data#ngIf)
-
 
 <div class="l-sub-section">
 
@@ -60,7 +35,7 @@ snippets described in this page.
 </div>
 
 
-
+{@a interpolation}
 
 ## Showing component properties with interpolation
 
@@ -179,8 +154,8 @@ Now run the app. It should display the title and hero name:
 运行应用。它应该显示出标题和英雄名：
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/displaying-data/title-and-hero.png" alt="Title and Hero"></img>
+<figure>
+  <img src="generated/images/guide/displaying-data/title-and-hero.png" alt="Title and Hero">
 </figure>
 
 
@@ -237,6 +212,7 @@ This app uses more terse "variable assignment" style simply for brevity.
 为了让本应用更加简短，它采用了更简单的“变量赋值”风格。
 
 
+{@a ngFor}
 
 ## Showing an array property with ***ngFor**
 
@@ -331,8 +307,8 @@ Now the heroes appear in an unordered list.
 现在，英雄们出现在了一个无序列表中。
 
 
-<figure class='image-display'>
-  <img src="assets/images/devguide/displaying-data/hero-names-list.png" alt="ngfor之后"></img>
+<figure>
+  <img src="generated/images/guide/displaying-data/hero-names-list.png" alt="ngfor之后">
 </figure>
 
 
@@ -407,7 +383,7 @@ That brief syntax does a lot:
 
 
 
-## Using the Hero class
+### Using the Hero class
 
 ## 使用 Hero 类
 
@@ -442,7 +418,7 @@ Our display looks the same, but now we know much better what a hero really is.
 
 从显示上看还是一样，但现在我们知道了更多英雄信息。
 
-
+{@a ngIf}
 
 ## Conditional display with NgIf
 
@@ -485,7 +461,7 @@ Read more about `ngIf` and `*` in the [ngIf section](guide/template-syntax#ngIf)
 
 
 The template expression inside the double quotes,
-`*ngIf="heros.length > 3"`, looks and behaves much like TypeScript.
+`*ngIf="heroes.length > 3"`, looks and behaves much like TypeScript.
 When the component's list of heroes has more than three items, Angular adds the paragraph
 to the DOM and the message appears. If there are three or fewer items, Angular omits the
 paragraph, so no message appears. For more information,

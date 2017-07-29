@@ -1,11 +1,6 @@
-@title
-从 AngularJS 到 Angular 快速参考
+# AngularJS to Angular Quick Reference
 
-@intro
-学习如何把 AngularJS 中的概念和技术对应到 Angular 中
-
-@description
-
+# 从 AngularJS 到 Angular 快速参考
 
 {@a top}
 
@@ -20,35 +15,7 @@ by mapping AngularJS syntax to the equivalent Angular syntax.
 本章提供了一个快速的参考指南，指出一些常用的AngularJS语法及其在Angular中的等价物。
 
 
-**See the Angular syntax in this <live-example name="cb-ajs-quick-reference"></live-example>**.
-
-**可到<live-example name="cb-ajs-quick-reference"></live-example>中查看Angular语法**。
-
-## Contents
-
-   内容
-
-* [Template basics](guide/ajs-quick-reference#template-basics)&mdash;binding and local variables.
-
-  [模板基础](guide/ajs-quick-reference#template-basics) - 绑定变量与局部变量。
-
-* [Template directives](guide/ajs-quick-reference#template-directives)&mdash;built-in directives `ngIf` and `ngClass`.
-
-  [模板指令](guide/ajs-quick-reference#template-directives) - 内置指令`ngIf`和`ngClass`。
-
-* [Filters/pipes](guide/ajs-quick-reference#filters-pipes)&mdash;built-in *filters*, known as *pipes* in Angular.
-
-  [过滤器/管道](guide/ajs-quick-reference#filters-pipes) - 内置*过滤器(filter)*，在Angular中叫*管道(pipe)*。
-
-* [Modules/controllers/components](guide/ajs-quick-reference#controllers-components)&mdash;*modules* in Angular are slightly different from *modules* in AngularJS, and *controllers* are *components* in Angular.
-
-  [模块/控制器/组件](guide/ajs-quick-reference#controllers-components) - Angular 中的*模块*和AngularJS 中的略有不同；而*控制器*在Angular 中叫组件。
-  
-* [Style sheets](guide/ajs-quick-reference#style-sheets)&mdash;more options for CSS than in AngularJS.
-
-  [样式表](guide/ajs-quick-reference#style-sheets) - Angular 相对AngularJS 在 CSS 方面有了更多选项。
-
-
+**See the Angular syntax in this <live-example name="ajs-quick-reference"></live-example>**.
 
 ## Template basics
 
@@ -91,7 +58,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 绑定/插值表达式
 
-      <code-example>
+      <code-example hideCopy>
         Your favorite hero is: {{vm.favoriteHero}}
       </code-example>
 
@@ -118,7 +85,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 绑定/插值表达式
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="interpolation" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="interpolation" linenums="false">
 
       </code-example>
 
@@ -151,7 +118,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 过滤器
 
-      <code-example>
+      <code-example hideCopy>
         &lt;td>{{movie.title | uppercase}}&lt;/td>
       </code-example>
 
@@ -173,7 +140,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 管道
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="uppercase" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="uppercase" linenums="false">
 
       </code-example>
 
@@ -201,7 +168,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 局部变量
 
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;tr ng-repeat="movie in vm.movies">
           &lt;td>{{movie.title}}&lt;/td>
         &lt;/tr>
@@ -221,7 +188,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 输入变量
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="local" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="local" linenums="false">
 
       </code-example>
 
@@ -289,7 +256,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-app
-      <code-example>
+      <code-example hideCopy>
         &lt;body ng-app="movieHunter">
       </code-example>
 
@@ -314,11 +281,11 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 引导
 
-      <code-example path="cb-ajs-quick-reference/src/main.ts" title="main.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/main.ts" title="main.ts" linenums="false">
 
       </code-example>
       <br>
-      <code-example path="cb-ajs-quick-reference/src/app/app.module.1.ts" title="app.module.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" title="app.module.ts" linenums="false">
 
       </code-example>
 
@@ -344,7 +311,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-class
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;div ng-class="{active: isActive}">
         &lt;div ng-class="{active: isActive,
                            shazam: isImportant}">
@@ -373,7 +340,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngClass
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="ngClass" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngClass" linenums="false">
 
       </code-example>
 
@@ -412,7 +379,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-click
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;button ng-click="vm.toggleImage()">
         &lt;button ng-click="vm.toggleImage($event)">
       </code-example>
@@ -440,7 +407,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`click`事件
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="event-binding" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="event-binding" linenums="false">
 
       </code-example>
 
@@ -487,7 +454,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-controller
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;div ng-controller="MovieListCtrl as vm">
       </code-example>
 
@@ -508,7 +475,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### Component装饰器
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.ts" region="component" title="cb-ajs-quick-reference/src/app/movie-list.component.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false">
 
       </code-example>
 
@@ -519,7 +486,7 @@ AngularJS 为模板提供了七十多个内置指令。
       在Angular中，模板不用再指定它相关的控制器。
       反过来，组件会在组件类的装饰器中指定与它相关的模板。
 
-      For more information, see [Architecture Overview](guide/architecture#component).
+      For more information, see [Architecture Overview](guide/architecture#components).
 
       要了解更多，请参见[架构概览](guide/architecture#component)。
 
@@ -564,7 +531,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-href
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;a ng-href="angularDocsUrl">Angular Docs&lt;/a>
       </code-example>
 
@@ -578,7 +545,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In AngularJS, the `ng-href` is often used to activate a route as part of navigation.
 
       在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;a ng-href="#movies">Movies&lt;/a>
       </code-example>
 
@@ -595,7 +562,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`href`属性
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="href" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="href" linenums="false">
 
       </code-example>
 
@@ -615,7 +582,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在Angular中，`href`不再用作路由，而是改用第三个例子中所展示的`routerLink`指令。
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="router-link" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="router-link" linenums="false">
 
       </code-example>
 
@@ -635,7 +602,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-if
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;table ng-if="movies.length">
       </code-example>
 
@@ -654,7 +621,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### *ngIf
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="ngIf" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngIf" linenums="false">
 
       </code-example>
 
@@ -685,7 +652,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-model
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;input ng-model="vm.favoriteHero"/>
       </code-example>
 
@@ -703,7 +670,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### ngModel
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="ngModel" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngModel" linenums="false">
 
       </code-example>
 
@@ -730,7 +697,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-repeat
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;tr ng-repeat="movie in vm.movies">
       </code-example>
 
@@ -749,7 +716,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### *ngFor
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="ngFor" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngFor" linenums="false">
 
       </code-example>
 
@@ -784,7 +751,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-show
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;h3 ng-show="vm.favoriteHero">
           Your favorite hero is: {{vm.favoriteHero}}
         &lt;/h3>
@@ -808,7 +775,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`hidden`属性
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="hidden" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="hidden" linenums="false">
 
       </code-example>
 
@@ -844,7 +811,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### ng-src
 
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;img ng-src="{{movie.imageurl}}">
 
       </code-example>
@@ -865,7 +832,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`src`属性
 
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="src" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="src" linenums="false">
 
       </code-example>
 
@@ -892,7 +859,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### ng-style
 
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;div ng-style="{color: colorPreference}">
 
       </code-example>
@@ -916,7 +883,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngStyle
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="ngStyle" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngStyle" linenums="false">
 
       </code-example>
 
@@ -954,7 +921,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### ng-switch
 
-      <code-example format="">
+      <code-example hideCopy format="">
         &lt;div ng-switch="vm.favoriteHero &&
                         vm.checkMovieHero(vm.favoriteHero)">
             &lt;div ng-switch-when="true">
@@ -992,7 +959,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngSwitch
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.html" region="ngSwitch" title="cb-ajs-quick-reference/src/app/movie-list.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngSwitch" linenums="false">
 
       </code-example>
 
@@ -1082,7 +1049,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### currency
-      <code-example>
+      <code-example hideCopy>
         &lt;td>{{movie.price | currency}}&lt;/td>
       </code-example>
 
@@ -1097,7 +1064,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### currency
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="currency" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="currency" linenums="false">
 
       </code-example>
 
@@ -1115,7 +1082,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### date
-      <code-example>
+      <code-example hideCopy>
         &lt;td>{{movie.releaseDate | date}}&lt;/td>
       </code-example>
 
@@ -1130,7 +1097,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### date
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="date" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="date" linenums="false">
 
       </code-example>
 
@@ -1149,7 +1116,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### filter
-      <code-example>
+      <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | filter: {title:listFilter}">
       </code-example>
 
@@ -1181,7 +1148,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### json
-      <code-example>
+      <code-example hideCopy>
         &lt;pre>{{movie | json}}&lt;/pre>
       </code-example>
 
@@ -1196,7 +1163,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### json
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="json" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="json" linenums="false">
 
       </code-example>
 
@@ -1214,7 +1181,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### limitTo
-      <code-example>
+      <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | limitTo:2:0">
       </code-example>
 
@@ -1229,7 +1196,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### slice
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="slice" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="slice" linenums="false">
 
       </code-example>
 
@@ -1252,7 +1219,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### lowercase
-      <code-example>
+      <code-example hideCopy>
         &lt;div>{{movie.title | lowercase}}&lt;/div>
       </code-example>
 
@@ -1267,7 +1234,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### lowercase
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="lowercase" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="lowercase" linenums="false">
 
       </code-example>
 
@@ -1285,7 +1252,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### number
-      <code-example>
+
+      <code-example hideCopy>
         &lt;td>{{movie.starRating | number}}&lt;/td>
       </code-example>
 
@@ -1300,7 +1268,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### number
-      <code-example path="cb-ajs-quick-reference/src/app/app.component.html" region="number" title="cb-ajs-quick-reference/src/app/app.component.html" linenums="false">
+      
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="number" linenums="false">
 
       </code-example>
 
@@ -1326,7 +1295,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### orderBy
-      <code-example>
+      
+      <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | orderBy : 'title'">
       </code-example>
 
@@ -1371,7 +1341,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 ## 模块/控制器/组件
 
-In both AngularJS and Angular, Angular modules help you organize your application into cohesive blocks of functionality.
+In both AngularJS and Angular, modules help you organize your application into cohesive blocks of functionality.
 
 无论在AngularJS还是Angular中，我们都要借助“模块”来把应用拆分成一些紧密相关的功能块。
 
@@ -1415,7 +1385,7 @@ The Angular code is shown using TypeScript.
 
 
       ### IIFE
-      <code-example>
+      <code-example hideCopy>
         (function () {
           ...
         }());
@@ -1459,7 +1429,7 @@ The Angular code is shown using TypeScript.
 
       ### Angular模块
 
-      <code-example>
+      <code-example hideCopy>
         angular.module("movieHunter", ["ngRoute"]);
       </code-example>
 
@@ -1473,13 +1443,13 @@ The Angular code is shown using TypeScript.
     <td>
 
 
-      ### Angular modules
-      <code-example path="cb-ajs-quick-reference/src/app/app.module.1.ts" title="cb-ajs-quick-reference/src/app/app.module.ts" linenums="false">
+      ### NgModules
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" linenums="false">
 
       </code-example>
 
 
-      Angular modules, defined with the `NgModule` decorator, serve the same purpose:
+      NgModules, defined with the `NgModule` decorator, serve the same purpose:
 
       Angular的模块用`NgModule`装饰器进行定义，有如下用途：
 
@@ -1491,9 +1461,9 @@ The Angular code is shown using TypeScript.
 
         `declaration`: 用于记录组件、管道和指令。
 
-      For more information on modules, see [Angular Modules](guide/ngmodule).
+      For more information on modules, see [NgModules](guide/ngmodule).
 
-      要了解关于模块的更多知识，参见[Angular Modules](guide/ngmodule)。
+      要了解关于模块的更多知识，参见[NgModules](guide/ngmodule)。
 
     </td>
 
@@ -1505,10 +1475,7 @@ The Angular code is shown using TypeScript.
 
 
       ### Controller registration
-
-      ### 控制器注册
-
-      <code-example>
+### 控制器注册      <code-examplehideCopy>
         angular
           .module("movieHunter")
           .controller("MovieListCtrl",
@@ -1536,7 +1503,7 @@ The Angular code is shown using TypeScript.
 
       ### 组件装饰器
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.ts" region="component" title="cb-ajs-quick-reference/src/app/movie-list.component.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false">
 
       </code-example>
 
@@ -1570,7 +1537,7 @@ The Angular code is shown using TypeScript.
 
       ### 控制器函数
 
-      <code-example>
+      <code-example hideCopy>
         function MovieListCtrl(movieService) {
         }
       </code-example>
@@ -1588,7 +1555,7 @@ The Angular code is shown using TypeScript.
 
       ### 组件类
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.ts" region="class" title="cb-ajs-quick-reference/src/app/movie-list.component.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="class" linenums="false">
 
       </code-example>
 
@@ -1618,7 +1585,7 @@ The Angular code is shown using TypeScript.
 
       ### 依赖注入
 
-      <code-example>
+      <code-example hideCopy>
         MovieListCtrl.$inject = ['MovieService'];
         function MovieListCtrl(movieService) {
         }
@@ -1645,7 +1612,7 @@ The Angular code is shown using TypeScript.
 
       ### 依赖注入
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.ts" region="di" title="cb-ajs-quick-reference/src/app/movie-list.component.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="di" linenums="false">
 
       </code-example>
 
@@ -1724,7 +1691,7 @@ also encapsulate a style sheet within a specific component.
 
 
       ### Link tag
-      <code-example>
+      <code-example hideCopy>
         &lt;link href="styles.css" rel="stylesheet" />
       </code-example>
 
@@ -1742,7 +1709,7 @@ also encapsulate a style sheet within a specific component.
 
       ### Link标签
 
-      <code-example path="cb-ajs-quick-reference/src/index.html" region="style" title="cb-ajs-quick-reference/src/index.html" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/index.html" region="style" linenums="false">
 
       </code-example>
 
@@ -1760,7 +1727,7 @@ also encapsulate a style sheet within a specific component.
 
       在Angular中，我们可以在`@Component`的元数据中使用`styles`或`styleUrls`属性来为一个特定的组件定义样式表。
 
-      <code-example path="cb-ajs-quick-reference/src/app/movie-list.component.ts" region="style-url" title="cb-ajs-quick-reference/src/app/movie-list.component.ts" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="style-url" linenums="false">
 
       </code-example>
 

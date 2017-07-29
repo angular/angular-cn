@@ -6,7 +6,7 @@
 *found in the LICENSE file at https://angular.io/license
 */
 
-import {Compiler, Injectable, Injector, NgModuleFactoryLoader, NgModuleRef} from '@angular/core';
+import {Compiler, Injectable, Injector, NgModuleFactoryLoader, NgModuleRef, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {from} from 'rxjs/observable/from';
@@ -16,8 +16,8 @@ import {concatMap} from 'rxjs/operator/concatMap';
 import {filter} from 'rxjs/operator/filter';
 import {mergeAll} from 'rxjs/operator/mergeAll';
 import {mergeMap} from 'rxjs/operator/mergeMap';
-import {InternalRoute, Route, Routes} from './config';
-import {NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart} from './events';
+import {LoadedRouterConfig, Route, Routes} from './config';
+import {Event, NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart} from './events';
 import {Router} from './router';
 import {RouterConfigLoader} from './router_config_loader';
 
@@ -73,7 +73,7 @@ export class NoPreloading implements PreloadingStrategy {
  * @stable
  */
 @Injectable()
-export class RouterPreloader {
+export class RouterPreloader implements OnDestroy {
   private loader: RouterConfigLoader;
   private subscription: Subscription;
 
@@ -87,8 +87,8 @@ export class RouterPreloader {
   };
 
   setUpPreloading(): void {
-    const navigations = filter.call(this.router.events, (e: any) => e instanceof NavigationEnd);
-    this.subscription = concatMap.call(navigations, () => this.preload()).subscribe(() => {});
+    const navigations$ = filter.call(this.router.events, (e: Event) => e instanceof NavigationEnd);
+    this.subscription = concatMap.call(navigations$, () => this.preload()).subscribe(() => {});
   }
 
   preload(): Observable<any> {
@@ -96,12 +96,14 @@ export class RouterPreloader {
     return this.processRoutes(ngModule, this.router.config);
   }
 
+  // TODO(jasonaden): This class relies on code external to the class to call setUpPreloading. If
+  // this hasn't been done, ngOnDestroy will fail as this.subscription will be undefined. This
+  // should be refactored.
   ngOnDestroy(): void { this.subscription.unsubscribe(); }
 
   private processRoutes(ngModule: NgModuleRef<any>, routes: Routes): Observable<void> {
     const res: Observable<any>[] = [];
-    for (const r of routes) {
-      const route: InternalRoute = r;
+    for (const route of routes) {
       // we already have the config loaded, just recurse
       if (route.loadChildren && !route.canLoad && route._loadedConfig) {
         const childConfig = route._loadedConfig;
@@ -119,10 +121,10 @@ export class RouterPreloader {
     return mergeAll.call(from(res));
   }
 
-  private preloadConfig(ngModule: NgModuleRef<any>, route: InternalRoute): Observable<void> {
+  private preloadConfig(ngModule: NgModuleRef<any>, route: Route): Observable<void> {
     return this.preloadingStrategy.preload(route, () => {
-      const loaded = this.loader.load(ngModule.injector, route);
-      return mergeMap.call(loaded, (config: any): any => {
+      const loaded$ = this.loader.load(ngModule.injector, route);
+      return mergeMap.call(loaded$, (config: LoadedRouterConfig) => {
         route._loadedConfig = config;
         return this.processRoutes(config.module, config.routes);
       });

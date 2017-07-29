@@ -1,12 +1,6 @@
-@title
-教程: 英雄指南
+# Tutorial: Tour of Heroes
 
-@intro
-英雄指南教程带我们一步步使用 TypeScript 创建 Angular 应用。
-
-@description
-
-
+# 教程：英雄指南
 
 The grand plan for this tutorial is to build an app that helps a staffing agency manage its stable of heroes.
 
@@ -46,14 +40,14 @@ to pages with greater depth.
 完成本教程后，我们将学习足够的 Angular 核心技术，并确信 Angular 确实能做到我们需要它做的。
   我们将覆盖大量入门级知识，同时我们也会看到大量链接，指向更深入的章节。
 
-When you're done with this tutorial, the app will look like this <live-example name="toh-6"></live-example>.
+When you're done with this tutorial, the app will look like this <live-example name="toh-pt6"></live-example>.
 
 
 当完成这个教程时，应用运行起来是这样的：<live-example name="toh-6"></live-example>。
 
 
 
-## The end game
+## What you'll build
 
 ## 游戏的终点
 
@@ -63,13 +57,13 @@ view and the most heroic heroes:
 下面是本教程关于界面的构想：开始是“Dashboard（仪表盘）”视图，来展示我们最勇敢的英雄。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/heroes-dashboard-1.png' alt="英雄仪表盘的输出"></img>
+<figure>
+  <img src='generated/images/guide/toh/heroes-dashboard-1.png' alt="英雄仪表盘的输出">
 </figure>
 
 
 
-You can click the two links above the dashboard ("Dashboard" and "Heroes") 
+You can click the two links above the dashboard ("Dashboard" and "Heroes")
 to navigate between this Dashboard view and a Heroes view.
 
 仪表盘顶部中有两个链接：“Dashboard（仪表盘）”和“Heroes（英雄列表）”。
@@ -81,8 +75,8 @@ where you can change the hero's name.
 当我们点击仪表盘上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/hero-details-1.png' alt="英雄详情的输出"></img>
+<figure>
+  <img src='generated/images/guide/toh/hero-details-1.png' alt="英雄详情的输出">
 </figure>
 
 
@@ -96,8 +90,8 @@ If you click "Heroes," the app displays the "Heroes" master list view.
 如果我们点击“Heroes（英雄列表）”链接，应用将把我们带到“英雄”主列表视图。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/heroes-list-2.png' alt="英雄列表的输出"></img>
+<figure>
+  <img src='generated/images/guide/toh/heroes-list-2.png' alt="英雄列表的输出">
 </figure>
 
 
@@ -116,8 +110,8 @@ The following diagram captures all of the navigation options.
 下面这张图汇总了我们所有可能的导航路径。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/nav-diagram.png' alt="查看导航"></img>
+<figure>
+  <img src='generated/images/guide/toh/nav-diagram.png' alt="查看导航">
 </figure>
 
 
@@ -127,8 +121,8 @@ Here's the app in action:
 下图演示了我们应用中的所有操作。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/toh/toh-anim.gif' alt="英雄指南的所有动作"></img>
+<figure>
+  <img src='generated/images/guide/toh/toh-anim.gif' alt="英雄指南的所有动作">
 </figure>
 
 
@@ -148,3 +142,7 @@ met in many applications. Everything has a reason.
 Along the way, you'll become familiar with many of the core fundamentals of Angular.
 
 这一路上，我们将遇到很多 Angular 核心原理。
+
+// TODO: Translate
+
+Start now by building a simple [hero editor](tutorial/toh-pt1 "The Hero Editor").

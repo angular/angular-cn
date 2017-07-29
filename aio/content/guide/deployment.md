@@ -1,11 +1,6 @@
-@title
-部署
+# Deployment
 
-@intro
-如何部署Angular应用。
-
-@description
-
+# 部署
 
 This page describes tools and techniques for deploy and optimize your Angular application.
 
@@ -13,71 +8,6 @@ This page describes tools and techniques for deploy and optimize your Angular ap
 
 
 {@a toc}
-
-
-## Table of contents
-
-## 目录
-
-* [Overview](guide/deployment#overview)
-
-  [概览](guide/deployment#overview)
-
-* [Simplest deployment possible](guide/deployment#dev-deploy)
-
-  [最简化的部署方式](guide/deployment#dev-deploy)
-
-* [Optimize for production](guide/deployment#optimize)
-
-  [为生产环境优化](guide/deployment#optimize)
-
-  * [Ahead-of-Time (AOT) compilation](guide/deployment#aot)
-
-    [预编译（AOT）](guide/deployment#aot)
-
-  * [Webpack](guide/deployment#webpack)
-
-  * [Tree shaking with _rollup_](guide/deployment#rollup)
-
-    [使用`rollup`进行摇树优化](guide/deployment#rollup)
-
-  * [Pruned libraries](guide/deployment#prune)
-
-    [库的修剪](guide/deployment#prune)
-
-  * [Measure performance first](guide/deployment#measure)
-
-    [首先，度量性能](guide/deployment#measure)
-
-* [Angular configuration](guide/deployment#angular-configuration)
-
-  [Angular配置](guide/deployment#angular-configuration)
-
-  * [The `base` tag](guide/deployment#base-tag)
-
-    [`base`标签](guide/deployment#base-tag)
-
-  * [Enable production mode](guide/deployment#enable-prod-mode)
-
-    [启用生产模式](guide/deployment#enable-prod-mode)
-
-  * [Lazy loading](guide/deployment#lazy-loading)
-
-    [惰性加载](guide/deployment#lazy-loading)
-
-* [Server configuration](guide/deployment#server-configuration)
-
-  [服务器配置](guide/deployment#server-configuration)
-
-  * [Routed apps must fallback to `index.html`](guide/deployment#fallback)
-
-    [带路由的应用必须以`index.html`作为后备页面](guide/deployment#fallback)
-
-  * [CORS: requesting services from a different server](guide/deployment#cors)
-
-    [CORS：从其它服务器请求服务](guide/deployment#cors)
-
-
 
 {@a overview}
 
@@ -98,7 +28,7 @@ The techniques progress from _easy but suboptimal_ to _more optimal and more inv
 
 * [_Ahead of Time_ compilation (AOT)](guide/deployment#aot "AOT Compilation") is the first of
 [several optimization strategies](guide/deployment#optimize).
-You'll also want to read the [detailed instructions in the AOT Cookbook](cookbook/aot-compiler "AOT Cookbook").
+You'll also want to read the [detailed instructions in the AOT Cookbook](guide/aot-compiler "AOT Cookbook").
 
   [*预编译*(AOT)](guide/deployment#aot "AOT Compilation")是第一种[优化策略](guide/deployment#optimize)。
 详情参见[烹饪宝典中的AOT章节](cookbook/aot-compiler "AOT Cookbook")。
@@ -261,7 +191,7 @@ Notice the `paths` key:
 
 In the standard SystemJS config, the `npm` path points to the `node_modules/`.
 In this server config, it points to
-<a href="https://unpkg.com/" target="_blank" title="unpkg.com">https://unpkg.com</a>,
+<a href="https://unpkg.com/" title="unpkg.com">https://unpkg.com</a>,
 a site that hosts _npm packages_,
 and loads them from the web directly.
 There are other service providers that do the same thing.
@@ -371,7 +301,7 @@ Although deploying directly from the development environment works, it's far fro
 
 The client makes many small requests for individual application code and template files,
 a fact you can quickly confirm by looking at the network tab in a browser's developer tools.
-Each small file download can spend more time communicating with the server than tranfering data.
+Each small file download can spend more time communicating with the server than transferring data.
 
 客户端发起了很多小的请求来取得一个个单独的应用代码和模板文件，从浏览器开发工具的Network标签中就可以确认这一点。
 每个小文件都会花费很多时间在与服务器建立通讯而不是传输内容上。
@@ -387,7 +317,7 @@ can be significantly larger than is strictly necessary to execute the applicatio
 
 The many requests and large payloads mean
 the app takes longer to launch than it would if you optimized it.
-Several seconds may pass (or worse) before the user can see or do anything userful.
+Several seconds may pass (or worse) before the user can see or do anything useful.
 
 大量请求和载荷意味着应用相对于优化过的版本会花更多时间进行启动。
 当用户看到什么或做什么有用的事情之前，就已经过去了（浪费了）很多秒。
@@ -477,7 +407,7 @@ Apps compiled with AOT launch faster for several reasons.
 
   编译器会丢弃那些摇树优化（tree-shaking）工具能排除的代码。
 
-Learn more about AOT Compilation in the [AOT Cookbook](cookbook/aot-compiler "AOT Cookbook")
+Learn more about AOT Compilation in the [AOT Cookbook](guide/aot-compiler "AOT Cookbook")
 which describes running the AOT compiler from the command line
 and using [_rollup_](guide/deployment#rollup) for bundling, minification, uglification and tree shaking.
 
@@ -492,7 +422,7 @@ and using [_rollup_](guide/deployment#rollup) for bundling, minification, uglifi
 
 ### Webpack（与AOT）
 
-<a href="https://webpack.js.org/" target="_blank" title="Webpack 2">Webpack 2</a> is another
+<a href="https://webpack.js.org/" title="Webpack 2">Webpack 2</a> is another
 great option for inlining templates and style-sheets, for bundling, minifying, and uglifying the application.
 The "[Webpack: an introduction](guide/webpack "Webpack: an introduction")" guide will get you started
 using webpack with Angular.
@@ -501,7 +431,7 @@ using webpack with Angular.
 "[Webpack简介](guide/webpack "Webpack: an introduction")"一章中将会教你如何配合Angular使用Webpack。
 
 Consider configuring _Webpack_ with the official
-<a href="https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack" target="_blank" title="Ahead-of-Time Webpack Plugin">
+<a href="https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack" title="Ahead-of-Time Webpack Plugin">
 Angular Ahead-of-Time Webpack Plugin</a>.
 This plugin transpiles the TypeScript application code,
 bundles lazy loaded `NgModules` separately,
@@ -532,10 +462,10 @@ If a library exports something that the application doesn't import, a tree shaki
 如果一个库导出了一些东西，但是应用代码没有导入过它，摇树工具就会从代码中移除它。
 
 Tree shaking was popularized by
-<a href="http://rollupjs.org/" target="_blank" title="Rollup">Rollup</a>, a popular tool with an ecosystem of
+<a href="http://rollupjs.org/" title="Rollup">Rollup</a>, a popular tool with an ecosystem of
 plugins for bundling, minification, and uglification.
 Learn more about tree shaking and dead code elmination in
-<a href="https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80#.15ih9cyvl" target="_blank" title="Tree-shaking and Dead Code Elimination">
+<a href="https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80#.15ih9cyvl" title="Tree-shaking and Dead Code Elimination">
 this post</a> by rollup-creator, Rich Harris.
 
 常用的摇树优化工具是<a href="http://rollupjs.org/" target="_blank" title="Rollup">Rollup</a>，一个带有查件的生态系统，可以完成打包、最小化和混淆。
@@ -586,7 +516,7 @@ You should measure the app's actual behavior when running in the environments th
 我们应该在那些最重要的环境中实际运行，来度量应用的实际行为。
 
 The
-<a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
+<a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
 Chrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.
 
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
@@ -618,7 +548,7 @@ Angular configuration can make the difference between whether the app launches q
 
 ### `base`标签
 
-The HTML [_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)
+The HTML [_&lt;base href="..."/&gt;_](/guide/router)
 specifies a base path for resolving relative URLs to assets such as images, scripts, and style sheets.
 For example, given the `<base href="/my/app/">`, the browser resolves a URL such as `some/place/foo.jpg`
 into a server request for `my/app/some/place/foo.jpg`.
@@ -633,7 +563,7 @@ HTML中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/r
 
 
 
-See also the [*APP_BASE_HREF*](api/common/index/APP_BASE_HREF-let "API: APP_BASE_HREF") alternative.
+See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") alternative.
 
 参见另一种备选方案[*APP_BASE_HREF*](api/common/index/APP_BASE_HREF-let "API: APP_BASE_HREF")。
 
@@ -686,7 +616,7 @@ Switching to production mode can make it run faster by disabling development spe
 
 切换到生产模式可以通过禁用开发环境下特有的检查（比如双重变更检测周期）来让应用运行得更快。
 
-To enable [production mode](api/core/index/enableProdMode-function) when running remotely, add the following code to the `main.ts`.
+To enable [production mode](api/core/enableProdMode) when running remotely, add the following code to the `main.ts`.
 
 要在远程运行时启用[生产模式](api/core/index/enableProdMode-function)，请把下列代码添加到`main.ts`中。
 
@@ -960,7 +890,7 @@ and to
 ### 请求来自另一个服务器的服务（CORS）
 
 Angular developers may encounter a
-<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" title="Cross-origin resource sharing">
+<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" title="Cross-origin resource sharing">
 <i>cross-origin resource sharing</i></a> error when making a service request (typically a data service request).
 to a server other than the application's own host server.
 Browsers forbid such requests unless the server permits them explicitly.
@@ -971,7 +901,7 @@ Angular开发者在向与该应用的宿主服务器不同域的服务器发起�
 There isn't anything the client application can do about these errors.
 The server must be configured to accept the application's requests.
 Read about how to enable CORS for specific servers at
-<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>.
+<a href="http://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。
@@ -983,10 +913,5 @@ Read about how to enable CORS for specific servers at
 
 
 ## Next steps
-
-## 下一步
-
-If you want to go beyond the [simple _copy-deploy_](guide/deployment#dev-deploy "Simplest deployment possible") approach,
-read the [AOT Cookbook](cookbook/aot-compiler "AOT Cookbook") next.
-
-如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](cookbook/aot-compiler "AOT Cookbook")。
+ ## 下一步If you want to go beyond the [simple _copy-deploy_](guide/deployment#dev-deploy "Simplest deployment possible") approach,
+ read the [AOT Cookbook](guide/aot-compiler "AOT Cookbook") next.如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](cookbook/aot-compiler "AOT Cookbook")。

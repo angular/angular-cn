@@ -1,14 +1,9 @@
-@title
-npm 包
+# Npm Packages
 
-@intro
-推荐的 npm 包以及如何指定所依赖的包
-
-@description
-
+# npm 包
 
 Angular applications and Angular itself depend upon features and functionality provided by a variety of third-party packages.
-These packages are maintained and installed with the Node Package Manager (<a href="https://docs.npmjs.com/" target="_blank">npm</a>).
+These packages are maintained and installed with the Node Package Manager (<a href="https://docs.npmjs.com/">npm</a>).
 
 Angular应用程序以及Angular本身都依赖于很多第三方包(包括Angular自己)提供的特性和功能。
 这些包由Node包管理器(<a href="https://docs.npmjs.com/" target="_blank">npm</a>)负责安装和维护。
@@ -22,7 +17,7 @@ Node.js and npm are essential to Angular development.
 
 Node.js和npm是做Angular开发的基础。
 
-<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
+<a href="https://docs.npmjs.com/getting-started/installing-node" title="Installing Node.js and updating npm">
 Get them now</a> if they're not already installed on your machine.
 
 如果你的电脑上还没有装过，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">立即获取它</a>！
@@ -45,7 +40,7 @@ you already have projects running on your machine that use other versions of nod
 
 
 
-During [Setup](guide/setup), a <a href="https://docs.npmjs.com/files/package.json" target="_blank">package.json</a>
+During [Setup](guide/setup), a <a href="https://docs.npmjs.com/files/package.json">package.json</a>
 file is installed with a comprehensive starter set of
 packages as specified in the `dependencies` and `devDependencies` sections.
 
@@ -161,7 +156,7 @@ This package also includes the `bootstrapStatic()` method for bootstrapping appl
 ***@angular/platform-browser*** - 与DOM和浏览器相关的每样东西，特别是帮助往DOM中渲染的那部分。
 这个包还包含bootstrapStatic方法，用来引导那些在产品构建时需要离线预编译模板的应用程序。
 
-***@angular/platform-browser-dynamic*** : Includes [Providers](api/core/index/Provider-type-alias) and a [bootstrap](guide/ngmodule#bootstrap) method for applications that
+***@angular/platform-browser-dynamic*** : Includes [Providers](api/core/Provider) and a [bootstrap](guide/ngmodule#bootstrap) method for applications that
 compile templates on the client. Don’t use offline compilation.
 Use this package for bootstrapping during development and for bootstrapping plunker samples.
 
@@ -265,7 +260,6 @@ without waiting for Angular updates.
 ***angular-in-memory-web-api*** : An Angular-supported library that simulates a remote server's web api 
 without requiring an actual server or real HTTP calls. 
 Good for demos, samples, and early stage development (before you even have a server).
-Read about it in the [HTTP Client](guide/server-communication#in-mem-web-api) page.
 
 ***angular-in-memory-web-api*** - 一个Angular的支持库，它能模拟一个远端服务器的Web API，而不需要依赖一个真实的服务器或发起真实的HTTP调用。
 对演示、文档范例和开发的早期阶段(那时候我们可能还没有服务器呢)非常有用。
@@ -306,7 +300,7 @@ the TypeScript language server, including the *tsc* TypeScript compiler.
 
 ***[typescript](https://www.npmjs.com/package/typescript)*** - TypeScript语言的服务器，包含了TypeScript编译器*tsc*。
 
-***@types/\**** : TypeScript definition files.
+***@types/\* *** : TypeScript definition files.
 Learn more about it in the [TypeScript Configuration](guide/typescript-configuration#typings) guide.
 
 ***@types/\**** - “TypeScript定义”文件管理器。

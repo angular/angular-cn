@@ -133,7 +133,7 @@ for a hero named "Windstorm."
 往`AppComponent`中添加两个属性：`title`属性用来表示应用的名字，而`hero`属性用来表示名叫“Windstorm”的英雄。
 
 
-<code-example path="toh-1/app/app.component.1.ts" region="app-component-1" title="app.component.ts (AppComponent class)" linenums="false">
+<code-example path="toh-pt1/app/app.component.1.ts" region="app-component-1" title="app.component.ts (AppComponent class)" linenums="false">
 
 </code-example>
 
@@ -144,7 +144,7 @@ Now update the template in the `@Component` decorator with data bindings to thes
 下面，更新`@Component`装饰器中指定的模板，为这些新属性建立数据绑定。
 
 
-<code-example path="toh-1/app/app.component.1.ts" region="show-hero" title="app.component.ts (@Component)" linenums="false">
+<code-example path="toh-pt1/app/app.component.1.ts" region="show-hero" title="app.component.ts (@Component)" linenums="false">
 
 </code-example>
 
@@ -191,7 +191,7 @@ Add these properties near the top of the `app.component.ts` file, just below the
 现在，把下列代码放在`app.component.ts`的顶部，仅次于 import 语句。
 
 
-<code-example path="toh-1/src/app/app.component.ts" region="hero-class-1" title="src/app/app.component.ts (Hero class)" linenums="false">
+<code-example path="toh-pt1/src/app/app.component.ts" region="hero-class-1" title="src/app/app.component.ts (Hero class)" linenums="false">
 
 </code-example>
 
@@ -204,7 +204,7 @@ then initialize it with an `id` of `1` and the name `Windstorm`.
 然后以`1`为 id、以 “Windstorm” 为名字，初始化它。
 
 
-<code-example path="toh-1/src/app/app.component.ts" region="hero-property-1" title="src/app/app.component.ts (hero property)" linenums="false">
+<code-example path="toh-pt1/src/app/app.component.ts" region="hero-property-1" title="src/app/app.component.ts (hero property)" linenums="false">
 
 </code-example>
 
@@ -216,7 +216,7 @@ update the binding in the template to refer to the hero's `name` property.
 我们把`hero`从一个字符串换成了对象，所以也得更新模板中的绑定表达式，来引用`hero`的`name`属性。
 
 
-<code-example path="toh-1/app/app.component.1.ts" region="show-hero-2" title="toh-1/app/app.component.ts">
+<code-example path="toh-pt1/app/app.component.1.ts" region="show-hero-2" title="src/app/app.component.ts">
 
 </code-example>
 
@@ -246,7 +246,7 @@ thanks to the <i>template literals</i> feature in ES2015 and TypeScript. For mor
 
 
 
-<code-example path="toh-1/app/app.component.1.ts" region="multi-line-strings" title="app.component.ts (AppComponent's template)" linenums="false">
+<code-example path="toh-pt1/app/app.component.1.ts" region="multi-line-strings" title="app.component.ts (AppComponent's template)" linenums="false">
 
 </code-example>
 
@@ -277,7 +277,7 @@ Refactor the hero name in the template so it looks like this:
 把模板中的英雄名字重构成这样：
 
 
-<code-example path="toh-1/app/app.component.1.ts" region="name-input" title="toh-1/app/app.component.ts" linenums="false">
+<code-example path="toh-pt1/app/app.component.1.ts" region="name-input" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
 
@@ -322,7 +322,7 @@ The updated `AppModule` looks like this:
 修改后的`AppModule`是这样的：
 
 
-<code-example path="toh-1/src/app/app.module.ts" title="app.module.ts (FormsModule import)">
+<code-example path="toh-pt1/src/app/app.module.ts" title="app.module.ts (FormsModule import)">
 
 </code-example>
 
@@ -388,7 +388,7 @@ Here's the complete `app.component.ts` as it stands now:
 完整的`app.component.ts`是这样的：
 
 
-<code-example path="toh-1/src/app/app.component.ts" title="src/app/app.component.ts">
+<code-example path="toh-pt1/src/app/app.component.ts" title="src/app/app.component.ts">
 
 </code-example>
 
@@ -399,7 +399,7 @@ Here's the complete `app.component.ts` as it stands now:
 
 ## 前方的路
 
-In the [next tutorial page](tutorial/toh-pt2), you'll build on the Tour of Heroes app to display a list of heroes.
+In the [next tutorial page](tutorial/toh-pt2  "Master/Detail"), you'll build on the Tour of Heroes app to display a list of heroes.
 You'll also allow the user to select heroes and display their details.
 You'll learn more about how to retrieve lists and bind them to the template.
 

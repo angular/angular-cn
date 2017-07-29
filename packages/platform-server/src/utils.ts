@@ -18,7 +18,7 @@ import {INITIAL_CONFIG} from './tokens';
 
 const parse5 = require('parse5');
 
-export interface PlatformOptions {
+interface PlatformOptions {
   document?: string;
   url?: string;
   extraProviders?: Provider[];
@@ -57,12 +57,18 @@ the server-rendered app can be properly bootstrapped into a client app.`);
 /**
  * Renders a Module to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
- * {link renderModuleFactory} instead.
+ * {@link renderModuleFactory} instead.
  *
  * @experimental
  */
-export function renderModule<T>(module: Type<T>, options: PlatformOptions): Promise<string> {
+export function renderModule<T>(
+    module: Type<T>,
+    options: {document?: string, url?: string, extraProviders?: Provider[]}): Promise<string> {
   const platform = _getPlatform(platformDynamicServer, options);
   return _render(platform, platform.bootstrapModule(module));
 }
@@ -70,10 +76,15 @@ export function renderModule<T>(module: Type<T>, options: PlatformOptions): Prom
 /**
  * Renders a {@link NgModuleFactory} to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * @experimental
  */
 export function renderModuleFactory<T>(
-    moduleFactory: NgModuleFactory<T>, options: PlatformOptions): Promise<string> {
+    moduleFactory: NgModuleFactory<T>,
+    options: {document?: string, url?: string, extraProviders?: Provider[]}): Promise<string> {
   const platform = _getPlatform(platformServer, options);
   return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }

@@ -1,12 +1,6 @@
-@title
-测试
+# Testing
 
-@intro
-Angular 应用的测试技术与实践。
-
-@description
-
-
+# 测试
 
 This guide offers tips and techniques for testing Angular applications.
 Though this page includes some general testing principles and techniques,
@@ -16,318 +10,6 @@ the focus is on testing applications written with Angular.
 
 
 {@a top}
-
-
-# Contents
-
-# 目录
-
-* [Live examples](guide/testing#live-examples "Live examples of the tests in this guide")
-
-  [在线例子](guide/testing#live-examples "本章这些测试的在线例子")
-    
-* [Introduction to Angular testing](guide/testing#testing-intro)
-
-  [Angular测试简介](guide/testing#testing-intro)
-
-  * [Tools and technologies](guide/testing#tools-and-tech)
-
-    [工具与技术](guide/testing#tools-and-tech)
-
-  * [Setup](guide/testing#setup)
-
-    [环境设置](guide/testing#setup)
-
-  * [Isolated unit tests vs. the Angular testing utilities](guide/testing#isolated-v-testing-utilities)
-
-    [独立的单元测试 vs. Angular测试工具集](guide/testing#isolated-v-testing-utilities)
-
-
-* [The first karma test](guide/testing#1st-karma-test)
-
-  [第一个Karma测试](guide/testing#1st-karma-test)
-
-  * [Run with karma](guide/testing#run-karma)
-
-    [运行Karma](guide/testing#run-karma)
-
-  * [Test debugging](guide/testing#test-debugging)
-
-    [调试测试代码](guide/testing#test-debugging)
-
-  * [Try the live example](guide/testing#live-karma-example)
-
-    [试用在线例子](guide/testing#live-karma-example)
-
-
-* [Test a component](guide/testing#simple-component-test)
-
-  [测试一个组件](guide/testing#simple-component-test)
-
-  * [`TestBed`](guide/testing#testbed)
-  
-    [`TestBed`（测试台）](guide/testing#testbed)
-
-  * [`createComponent`](guide/testing#create-component)
-
-  * [`ComponentFixture`, `DebugElement`, and `query(By.css)`](guide/testing#component-fixture)
-
-    [`ComponentFixture`, `DebugElement`, 和 `query(By.css)`](guide/testing#component-fixture)
-
-  * [The tests](guide/testing#the-tests)
-
-    [测试](guide/testing#the-tests)
-
-  * [`detectChanges`: Angular change detection within a test](guide/testing#detect-changes)
-
-    [`detectChanges`: 在测试中控制Angular的变更检测](guide/testing#detect-changes)
-
-  * [Try the live example](guide/testing#try-example)
-
-    [试试在线例子](guide/testing#try-example)
-
-  * [Automatic change detection](guide/testing#auto-detect-changes)
-
-    [自动变更检测](guide/testing#auto-detect-changes)
-
-
-* [Test a component with an external template](guide/testing#component-with-external-template)
-
-  [测试带有外部模板的组件](guide/testing#component-with-external-template)
-
-  * [The first asynchronous `beforeEach`](guide/testing#async-in-before-each)
-
-    [第一处异步代码：`beforeEach`](guide/testing#async-in-before-each)
-
-  * [`compileComponents`](guide/testing#compile-components)
-
-  * [The second synchronous `beforeEach`](guide/testing#second-before-each)
-
-    [第二处同步代码：`beforeEach`](guide/testing#second-before-each)
-
-  * [Waiting for `compileComponents`](guide/testing#waiting-compile-components)
-
-    [等待 `compileComponents`](guide/testing#waiting-compile-components)
-
-  * [Try the live example](guide/testing#live-external-template-example)
-
-    [试试在线例子](guide/testing#live-external-template-example)
-
-
-* [Test a component with a service dependency](guide/testing#component-with-dependency)
-
-  [测试依赖服务的组件](guide/testing#component-with-dependency)
-
-  * [Provide service test doubles](guide/testing#service-test-doubles)
-
-    [测试替身](guide/testing#service-test-doubles)
-
-  * [Get injected services](guide/testing#get-injected-service)
-  
-    [获取注入的服务](guide/testing#get-injected-service)
-    
-  * [`TestBed.get`](guide/testing#testbed-get)
-
-  * [Always get the service from an injector](guide/testing#service-from-injector)
-
-    [总是从注入器中取得服务](guide/testing#service-from-injector)
-
-  * [Final setup and tests](guide/testing#welcome-spec-setup)
-
-    [最终设置与测试](guide/testing#welcome-spec-setup)
-
-
-* [Test a component with an async service](guide/testing#component-with-async-service)
-
-  [测试带有异步服务的组件](guide/testing#component-with-async-service)
-
-  * [Spying on the real service](guide/testing#service-spy)
-
-    [监听真实的服务](guide/testing#service-spy)
-
-  * [Synchronous tests](guide/testing#sync-tests)
-
-    [同步测试](guide/testing#sync-tests)
-
-  * [The `async` funciton in it](guide/testing#async)
-
-    [`it`中的`async`函数](guide/testing#async)
-
-  * [`whenStable`](guide/testing#when-stable)
-
-  * [The `fakeAsync` function](guide/testing#fake-async)
-
-    [`fakeAsync` 函数](guide/testing#fake-async)
-
-  * [The `tick` function](guide/testing#tick)
-
-    [`tick`函数](guide/testing#tick)
-
-  * [`jasmine.done`](guide/testing#jasmine-done)
-
-* [Test a component with inputs and outputs](guide/testing#component-with-input-output)
-
-  [测试带有输入属性和输出属性的组件](guide/testing#component-with-input-output)
-
-  * [Test `DashboardHeroComponent` stand-alone](guide/testing#dashboard-standalone)
-
-    [单独测试`DashboardHeroComponent`](guide/testing#dashboard-standalone)
-
-  * [`triggerEventHandler`](guide/testing#trigger-event-handler)
-
-* [Test a component inside a test host component](guide/testing#component-inside-test-host)
-
-  [在宿主组件中测试组件](guide/testing#component-inside-test-host)
-
-* [Test a routed component](guide/testing#routed-component)
-
-  [测试路由组件](guide/testing#routed-component)
-
-  * [The `inject` helper function](guide/testing#inject)
-
-    [`inject`助手函数](guide/testing#inject)
-
-  * [Test a routed component with parameters](guide/testing#routed-component-w-param)
-
-    [测试带参数的路由组件](guide/testing#routed-component-w-param)
-
-  * [Create an `Observable` test double](guide/testing#stub-observable)
-
-    [创建`Observable`测试桩（Stub）](guide/testing#stub-observable)
-
-  * [Testing with the `Observable` test double](guide/testing#tests-w-observable-double)
-
-    [使用`Observable`测试桩进行测试](guide/testing#tests-w-observable-double)
-
-* [Use a `page` object to simplify setup](guide/testing#page-object)
-
-  [使用`page`对象来简化设置](guide/testing#page-object)
-
-* [Set up with module imports](guide/testing#import-module)
-
-  [设置导入了其它模块的模块](guide/testing#import-module)
-
-* [Import the feature module](guide/testing#feature-module-import)
-
-  [导入特性模块](guide/testing#feature-module-import)
-
-* [Override a component's providers](guide/testing#component-override)
-
-  [改写（Override）组件的提供商](guide/testing#component-override)
-
-  * [The `overrideComponent` method](guide/testing#override-component-method)
-
-    [`overrideComponent`方法](guide/testing#override-component-method)
-
-  * [Provide a _spy-stub (HeroDetailServiceSpy)_](guide/testing#spy-stub)
-
-    [提供一个 *监听桩*（`HeroDetailServiceSpy`）](guide/testing#spy-stub)
-
-  * [The override tests](guide/testing#override-tests)
-
-    [改写测试](guide/testing#override-tests)
-
-  * [More overrides](guide/testing#more-overrides)
-
-    [更多的改写](guide/testing#more-overrides)
-
-
-* [Test a `RouterOutlet` component](guide/testing#router-outlet-component)
-
-  [测试`RouterOutlet`组件](guide/testing#router-outlet-component)
-
-  * [Stubbing unneeded components](guide/testing#stub-component)
-  
-    [模拟不需要的组件](guide/testing#stub-component)
-    
-  * [Stubbing the `RouterLink`](guide/testing#router-link-stub)
-  
-    [模拟`RouterLink`](guide/testing#router-link-stub)
-    
-  * [`By.directive` and injected directives](guide/testing#by-directive)
-
-    [`By.directive`与注入的指令](guide/testing#by-directive)
-
-  * [What good are these tests?](guide/testing#why-stubbed-routerlink-tests)
-
-    [为什么要这样写测试？](guide/testing#why-stubbed-routerlink-tests)
-
-
-* ["Shallow component tests" with  *NO_ERRORS_SCHEMA*](guide/testing#shallow-component-test)
-
-  [使用`NO_ERRORS_SCHEMA`进行 "浅组件测试" ](guide/testing#shallow-component-test)
-
-* [Test an attribute directive](guide/testing#attribute-directive)
-
-  [测试属性型指令](guide/testing#attribute-directive)
-
-* [Isolated unit tests](guide/testing#isolated-unit-tests "Unit testing without the Angular testing utilities")
-
-  [独立的单元测试](guide/testing#isolated-unit-tests "不使用Angular测试工具集的单元测试方式")
-
-  * [Services](guide/testing#isolated-service-tests)
-  
-    [服务](guide/testing#isolated-service-tests)
-    
-  * [Services with dependencies](guide/testing#services-with-dependencies)
-
-    [带依赖的服务](guide/testing#services-with-dependencies)
-
-  * [Pipes](guide/testing#isolated-pipe-tests)
-  
-    [管道](guide/testing#isolated-pipe-tests)
-    
-  * [Write Angular tests too](guide/testing#write-tests)
-
-    [写Angular测试](guide/testing#write-tests)
-
-  * [Components](guide/testing#isolated-component-tests)
-
-    [组件](guide/testing#isolated-component-tests)
-
-
-* [Angular testing utility APIs](guide/testing#atu-apis)
-
-  [Angular单元测试工具类 API ](guide/testing#atu-apis)
-
-  * [`TestBed` class summary](guide/testing#testbed-class-summary)
-
-    [`TestBed`总结](guide/testing#testbed-class-summary)
-
-  * [The `ComponentFixture`](guide/testing#component-fixture-api-summary)
-
-    [`ComponentFixture`总结](guide/testing#component-fixture-api-summary)
-
-  * [`ComponentFixture` properties](guide/testing#component-fixture-properties)
-
-    [`ComponentFixture`的属性](guide/testing#component-fixture-properties)
-
-  * [The `ComponentFixture` methods](guide/testing#component-fixture-methods)
-
-    [`ComponentFixture`方法](guide/testing#component-fixture-methods)
-
-  * [`DebugElement`](guide/testing#debug-element-details)
-
-    [`DebugElement`详情](guide/testing#debug-element-details)
-
-
-* [Test environment setup files](guide/testing#setup-files)
-
-  [测试环境设置所需的文件](guide/testing#setup-files)
-
-  * [npm packages](guide/testing#npm-packages)
-
-    [npm包](guide/testing#npm-packages)
-
-
-* [FAQ: Frequently asked questions](guide/testing#faq "Frequently asked questions")
-
-  [常见问题（FAQ）](guide/testing#faq "常见问题")
-
-
-It’s a big agenda. Fortunately, you can learn a little bit at a time and put each lesson to use.
-
-以上主题繁多。幸运的是，你可以慢慢地阅读并立刻应用每一个主题。
 
 ## Live examples
 
@@ -577,7 +259,7 @@ There are two fast paths to getting started with unit testing.
     遵循[环境设置](guide/setup "环境设置")中给出的步骤开始一个新项目。
 
 1. Start a new project with the
-<a href="https://github.com/angular/angular-cli/blob/master/README.md" target="_blank" title="Angular CLI">Angular CLI</a>.
+<a href="https://github.com/angular/angular-cli/blob/master/README.md" title="Angular CLI">Angular CLI</a>.
 
     使用[Angular CLI](https://github.com/angular/angular-cli/blob/master/README.md)创建新的项目。
 
@@ -598,7 +280,7 @@ For a discussion of the unit testing setup files, [see below](guide/testing#setu
 {@a isolated-v-testing-utilities}
 
 
-### Isolated unit tests vs. the Angular testing utilites
+### Isolated unit tests vs. the Angular testing utilities
 
 ### 独立单元测试 vs. Angular测试工具集
 
@@ -734,8 +416,8 @@ After a few moments, karma opens a browser and starts writing to the console.
 
 等一小段时间后，Karma便打开浏览器并开始向控制台输出。
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/testing/karma-browser.png' style="width:400px;" alt="Karma browser"></img>
+<figure>
+  <img src='generated/images/guide/testing/karma-browser.png' alt="Karma browser">
 </figure>
 
 
@@ -859,8 +541,8 @@ Debug specs in the browser in the same way thatyou debug an application.
     刷新浏览器...然后它就会停在断点上。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/testing/karma-1st-spec-debug.png' style="width:700px;" alt="Karma debugging"></img>
+<figure>
+  <img src='generated/images/guide/testing/karma-1st-spec-debug.png' alt="Karma debugging">
 </figure>
 
 
@@ -962,7 +644,7 @@ tailored specifically for this battery of tests.
 其效果是，你可以把被测试的组件从原有的应用模块中剥离出来，把它附加到一个动态生成的Angular测试模块上，而该测试模块可以为这些测试进行特殊裁剪。
 
 The `configureTestingModule` method takes an `@NgModule`-like metadata object.
-The metadata object can have most of the properties of a normal [Angular module](guide/ngmodule).
+The metadata object can have most of the properties of a normal [NgModule](guide/ngmodule).
 
 `configureTestingModule`方法接受一个类似`@NgModule`的元数据对象。这个元数据对象具有标准[Angular模块](guide/ngmodule)的大多数属性。
 
@@ -1091,7 +773,7 @@ predicate查询接受`DebugElement`参数，如果元素符合选择条件便返
 
 The **`By`** class is an Angular testing utility that produces useful predicates.
 Its `By.css` static method produces a
-<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors" target="_blank">standard CSS selector</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors">standard CSS selector</a>
 predicate that filters the same way as a jQuery selector.
 
 **`By`**类是Angular测试工具之一，它生成有用的predicate。
@@ -1423,7 +1105,7 @@ before calling `TestBed.createComponent` to instantiate the _component-under-tes
 
 
 
-Calling `compileComponents` closes the current `TestBed` instance is further configuration.
+Calling `compileComponents` closes the current `TestBed` instance to further configuration.
 You cannot call any more `TestBed` configuration methods, not `configureTestingModule`
 nor any of the `override...` methods. The `TestBed` throws an error if you try.
 
@@ -1478,6 +1160,8 @@ Most developers find that hard to read.
 The two `beforeEach` calls are widely preferred.
 
 大多数开发人员会觉得这样不易读，因此，更多采用的还是写两个`beforeEach`调用的方式。
+
+{@a live-external-template-example}
 
 ### Try the live example
 
@@ -1727,7 +1411,7 @@ The first is a sanity test; it confirms that the stubbed `UserService` is called
 
 
 
-The second parameter to the Jasmine `it` (e.g., `'expected name'`) is an optional addendum.
+The second parameter to the Jasmine matcher (e.g., `'expected name'`) is an optional addendum.
 If the expectation fails, Jasmine displays this addendum after the expectation failure message.
 In a spec with multiple expectations, it can help clarify what went wrong and which expectation failed . 
 
@@ -2373,7 +2057,7 @@ Make that easy by encapsulating the _click-triggering_ process in a helper such 
 
 The first parameter is the _element-to-click_. If you wish, you can pass a
 custom event object as the second parameter. The default is a (partial)
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">left-button mouse event object</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button">left-button mouse event object</a>
 accepted by many handlers including the `RouterLink` directive.
 
 第一个参数是**用来点击的元素**。如果你愿意，可以将自定义的事件对象传递给第二个参数。
@@ -2818,7 +2502,7 @@ Notable features of this stub are:
 
   这个stub类只实现`ActivatedRoute`的两个功能：`params`和`snapshot.params`。
 
-* <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>
+* <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md">_BehaviorSubject_</a>
 drives the stub's `params` _Observable_ and returns the same value to every `params` subscriber until it's given a new value.
 
   <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md" target="_blank">_BehaviorSubject_</a>驱使这个stub类的`params`可观察对象，并为每个`params`的订阅者返回同样的值，直到它接受到新值。
@@ -2961,8 +2645,8 @@ The `HeroDetailComponent` is a simple view with a title, two hero fields, and tw
 `HeroDetailComponent`是带有标题、两个英雄字段和两个按钮的简单视图。
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/testing/hero-detail.component.png' alt="HeroDetailComponent in action"></img>
+<figure>
+  <img src='generated/images/guide/testing/hero-detail.component.png' alt="HeroDetailComponent in action">
 </figure>
 
 
@@ -3804,8 +3488,8 @@ A better solution is to create an artificial test component that demonstrates al
 
 
 
-<figure class='image-display'>
-  <img src='assets/images/devguide/testing/highlight-directive-spec.png' width="200px" alt="HighlightDirective spec in action"></img>
+<figure>
+  <img src='generated/images/guide/testing/highlight-directive-spec.png' alt="HighlightDirective spec in action">
 </figure>
 
 
@@ -3842,7 +3526,7 @@ A few techniques are noteworthy:
 
   当**已知元素类型**时，`By.directive`是一种获取拥有这个指令的元素的好方法。
 
-* The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not" target="_blank">`:not` pseudo-class</a>
+* The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not">`:not` pseudo-class</a>
 in `By.css('h2:not([highlight])')` helps find `<h2>` elements that _do not_ have the directive.
 `By.css('*:not([highlight])')` finds _any_ element that does not have the directive.
 
@@ -4325,17 +4009,14 @@ Here's a summary of the stand-alone functions, in order of likely utility:
 
       Simulates the passage of time and the completion of pending asynchronous activities
       by flushing both _timer_ and _micro-task_ queues within the _fakeAsync test zone_.
-
       在**fakeAsync测试区域**内触发**计时器**和**微任务**队列，以模拟时间的推移和未完成异步任务的完成。
-      
 
 <div class="l-sub-section">
 
 
 
       The curious, dedicated reader might enjoy this lengthy blog post,
-      "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/"
-      target="_blank">_Tasks, microtasks, queues and schedules_</a>".
+      ["_Tasks, microtasks, queues and schedules_"](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/).
 
       好奇和执着的读者可能会喜欢这篇长博客：
       "<a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/"
@@ -4531,6 +4212,7 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 
 
 {@a testbed-methods}
+{@a testbed-api-summary}
 
 
 The `TestBed` API consists of static class methods that either update or reference a _global_ instance of the`TestBed`.
@@ -5318,9 +5000,7 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
 
 
       The immediate `DebugElement` children. Walk the tree by descending through `children`.
-
       `DebugElement`的直接子级。通过`children`来降序探索元素树。
-      
 
 <div class="l-sub-section">
 

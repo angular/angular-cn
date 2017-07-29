@@ -1,12 +1,6 @@
-@title
-浏览器支持
+# Browser support
 
-@intro
-浏览器支持与填充 (Polyfill) 指南
-
-@description
-
-
+# 浏览器支持
 
 Angular supports most recent browsers. This includes the following specific versions:
 
@@ -46,7 +40,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </th>
 
     <th>
-      IE mobile
+      IE Mobile
     </th>
 
   </tr>
@@ -94,7 +88,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
     <td>
-      Marshmallow (6.0)
+      Nougat (7.0)<br>Marshmallow (6.0)
     </td>
 
     <td>
@@ -219,9 +213,9 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
 
 
-Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request, 
-using <a href="https://saucelabs.com/" target="_blank">SauceLabs</a> and 
-<a href="https://www.browserstack.com" target="_blank">Browserstack</a>.
+Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request,
+using <a href="https://saucelabs.com/">SauceLabs</a> and
+<a href="https://www.browserstack.com">Browserstack</a>.
 
 Angular 在持续集成过程中，对每一个提交都会使用 <a href="https://saucelabs.com/" target="_blank">SauceLabs</a> 和
 <a href="https://www.browserstack.com" target="_blank">Browserstack</a> 在上述所有浏览器上执行单元测试。
@@ -251,7 +245,7 @@ that implement missing features in JavaScript.
 
 
 
-A particular browser may require at least one polyfill to run _any_ Angular application. 
+A particular browser may require at least one polyfill to run _any_ Angular application.
 You may need additional polyfills for specific features.
 
 要运行 Angular 应用，某些浏览器可能需要至少一个填充库。除此之外，如果要支持某些特定的特性，你可能还需要另一些填充库。
@@ -288,23 +282,22 @@ These are the polyfills required to run an Angular application on each supported
 <table>
 
   <tr style="vertical-align: top">
- 
+
     <th>
 
       <p>
-        Browsers (desktop & mobile)
+        Browsers (Desktop & Mobile)
       </p>
 
       <p>
         浏览器（桌面和移动）
       </p>
-
     </th>
 
     <th>
 
       <p>
-        Polyfills required
+        Polyfills Required
       </p>
 
       <p>
@@ -316,7 +309,7 @@ These are the polyfills required to run an Angular application on each supported
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
       Chrome, Firefox, Edge, Safari 9+
     </td>
@@ -328,7 +321,7 @@ These are the polyfills required to run an Angular application on each supported
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
       Safari 7 & 8, IE10 & 11, Android 4.1+
     </td>
@@ -342,7 +335,7 @@ These are the polyfills required to run an Angular application on each supported
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
       IE9
     </td>
@@ -379,57 +372,37 @@ Here are the features which may require additional polyfills:
 <table>
 
   <tr style="vertical-align: top">
- 
+
     <th>
-
-      <p>
-        Feature
-      </p>
-
-      <p>
-        特性
-      </p>
-
+      Feature
+      
+      特性
+      
     </th>
 
     <th>
-
-      <p>
-        Polyfill
-      </p>
-
-      <p>
-        填充库
-      </p>
+      Polyfill
+      
+      填充库
 
     </th>
 
     <th style="width: 50%">
-
-      <p>
-        Browsers (desktop & mobile)
-      </p>
-
-      <p>
-        浏览器（桌面和移动）
-      </p>
-
+      Browsers (Desktop & Mobile)
+      
+      浏览器（桌面和移动）
+      
     </th>
 
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
-
-      <p>
-         <a href="./animations.html">Animations</a>
-      </p>
-
-      <p>
-         <a href="./animations.html">动画</a>
-      </p>
-
+      [Animations](guide/animations)
+      
+      [动画](guide/animations)
+      
     </td>
 
     <td>
@@ -442,30 +415,21 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      <p>
-        All but Chrome and Firefox<br>Not supported in IE9
-      </p>
-
-      <p>
-        除 Chrome 和 Firefox 外的所有，但不支持 IE9
-      </p>
+      All but Chrome and Firefox<br>Not supported in IE9
+      
+      除 Chrome 和 Firefox 外的所有，但不支持 IE9
 
     </td>
 
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
 
-      <p>
-        <a href="../api/common/index/DatePipe-pipe.html" target="_blank">Date</a>        <span>,  </span>        <a href="../api/common/index/CurrencyPipe-pipe.html" target="_blank">currency</a>        <span>, </span>        <a href="../api/common/index/DecimalPipe-pipe.html" target="_blank">decimal</a>        <span> and </span>        <a href="../api/common/index/PercentPipe-pipe.html" target="_blank">percent</a>        <span> pipes</span>
-      </p>
-
-      <p>
-        <a href="../api/common/index/DatePipe-pipe.html" target="_blank">Date</a>        <span>、</span>        <a href="../api/common/index/CurrencyPipe-pipe.html" target="_blank">currency</a>        <span>、</span>        <a href="../api/common/index/DecimalPipe-pipe.html" target="_blank">decimal</a>        <span>&nbsp;和&nbsp;</span>        <a href="../api/common/index/PercentPipe-pipe.html" target="_blank">percent</a>        <span>&nbsp;管道</span>
-      </p>
-
+    [Date](api/common/DatePipe), [currency](api/common/CurrencyPipe), [decimal](api/common/DecimalPipe) and [percent](api/common/PercentPipe) pipes
+    
+    [Date](api/common/DatePipe)、[currency](api/common/CurrencyPipe)、[decimal](api/common/DecimalPipe) 和 [percent](api/common/PercentPipe) 管道
     </td>
 
     <td>
@@ -475,35 +439,25 @@ Here are the features which may require additional polyfills:
     </td>
 
     <td>
-
-      <p>
-        All but Chrome, Firefox, Edge, IE11 and Safari 10
-      </p>
-
-      <p>
-        除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
-      </p>
+      All but Chrome, Firefox, Edge, IE11 and Safari 10
+      
+      除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
 
     </td>
 
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
 
-      <p>
-        <a href="../api/common/index/NgClass-directive.html" target="_blank">NgClass</a>        <span>on SVG elements</span>
-      </p>
-
-      <p>
-        <span>在 SVG 元素上用&nbsp;</span>        <a href="../api/common/index/NgClass-directive.html" target="_blank">NgClass</a>
-      </p>
-
+       [NgClass](api/common/NgClass) on SVG elements
+       
+       在 SVG 元素上应用 [NgClass](api/common/NgClass)
     </td>
 
     <td>
- 
+
 
       [classList](guide/browser-support#classlist)
     </td>
@@ -515,23 +469,20 @@ Here are the features which may require additional polyfills:
   </tr>
 
   <tr style="vertical-align: top">
- 
+
     <td>
 
-      <p>
-        <a href="./server-communication.html">Http</a>        <span> when sending and receiving binary data</span>
-      </p>
-
-      <p>
-        <span>用&nbsp;</span>        <a href="./server-communication.html">Http</a>        <span>&nbsp;发送和接受二进制数据</span>
-      </p>
-
+      [Http](guide/http) when sending and receiving binary data
+      
+      用 [Http](guide/http) 发送和接收二进制数据
+      
     </td>
 
     <td>
- 
 
-      [Typed&nbsp;Array](guide/browser-support#typedarray) <br>[Blob](guide/browser-support#blob)<br>[FormData](guide/browser-support#formdata)
+      [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
+      [Blob](guide/browser-support#blob)<br>
+      [FormData](guide/browser-support#formdata)
     </td>
 
     <td>
@@ -546,7 +497,7 @@ Here are the features which may require additional polyfills:
 
 ### Suggested polyfills ##
 ### 建议的填充库 ##
-Below are the polyfills which are used to test the framework itself. They are a good starting point for an application. 
+Below are the polyfills which are used to test the framework itself. They are a good starting point for an application.
 
 下表中是用来测试框架本身的填充库，它们是应用程序的优质起点。
 
@@ -596,7 +547,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='core-es6' href="https://github.com/zloirock/core-js" target="_blank">ES6</a>
+      <a id='core-es6' href="https://github.com/zloirock/core-js">ES6</a>
     </td>
 
     <td>
@@ -612,7 +563,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='classlist' href="https://github.com/eligrey/classList.js" target="_blank">classList</a>
+      <a id='classlist' href="https://github.com/eligrey/classList.js">classList</a>
     </td>
 
     <td>
@@ -636,7 +587,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='intl' href="https://github.com/andyearnshaw/Intl.js" target="_blank">Intl</a>
+      <a id='intl' href="https://github.com/andyearnshaw/Intl.js">Intl</a>
     </td>
 
     <td>
@@ -652,7 +603,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='web-animations' href="https://github.com/web-animations/web-animations-js" target="_blank">Web Animations</a>
+      <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
     </td>
 
     <td>
@@ -668,7 +619,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js" target="_blank">Typed Array</a>
+      <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js">Typed Array</a>
     </td>
 
     <td>
@@ -684,7 +635,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-       <a id='blob' href="https://github.com/eligrey/Blob.js" target="_blank">Blob</a>
+       <a id='blob' href="https://github.com/eligrey/Blob.js">Blob</a>
     </td>
 
     <td>
@@ -700,7 +651,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-       <a id='formdata' href="https://github.com/francois2metz/html5-formdata" target="_blank">FormData</a>
+       <a id='formdata' href="https://github.com/francois2metz/html5-formdata">FormData</a>
     </td>
 
     <td>
@@ -718,7 +669,5 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
 
 \* Figures are for minified and gzipped code, 
-computed with the <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>.
-
-\* 这些指标测量的是最小化 (minify) 并且 gzip 过的代码，使用 <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
+computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.\* 这些指标测量的是最小化 (minify) 并且 gzip 过的代码，使用 <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
 计算出的结果。

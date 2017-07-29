@@ -1,36 +1,46 @@
 import { Component, Input } from '@angular/core';
 
 import { Contributor } from './contributors.model';
+import { CONTENT_URL_PREFIX } from 'app/documents/document.service';
 
 @Component({
   selector: 'aio-contributor',
   template: `
-    <header>
-      <img src="{{pictureBase}}{{person.picture || noPicture}}" alt="name" width="240" height="208">
-      <h3>{{person.name}}</h3>
-      <button *ngIf="person.bio" aria-label="View Bio" (click)="showBio=!showBio">View Bio</button>
+    <div [ngClass]="{ 'flipped': person.isFlipped }" class="contributor-card">
 
-      <!-- TODO: get the twitter/website icons and get rid of text -->
-      <a *ngIf="person.twitter" href="https://twitter.com/{{person.twitter}}">
-        <span class="icon-twitter">twitter</span>
-      </a>
-      <a *ngIf="person.website" href="{{person.website}}">
-        <span class="icon-publ">website</span>
-      </a>
-      <p>{{person.bio}}</p>
+        <div class="card-front" (click)="flipCard(person)">
+            <h3>{{person.name}}</h3>
 
-    <header>
-    <!-- TODO: This should be modal and float over the width of page -->
-    <article *ngIf="showBio">
-      <h3>{{person.name}}</h3>
-      <p>{{person.bio}}</p>
-    <article>
+            <div class="contributor-image" [style.background-image]="'url('+pictureBase+(person.picture || noPicture)+')'">
+                <div class="contributor-info">
+                    <a *ngIf="person.bio" md-button>
+                        View Bio
+                    </a>
+                    <a *ngIf="person.twitter" md-button class="icon"
+                        href="https://twitter.com/{{person.twitter}}" target="_blank" (click)="$event.stopPropagation()">
+                        <span class="fa fa-twitter fa-2x"></span>
+                    </a>
+                    <a *ngIf="person.website" md-button class="icon"
+                        href="{{person.website}}" target="_blank" (click)="$event.stopPropagation()">
+                        <span class="fa fa-link fa-2x"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-back" *ngIf="person.isFlipped" (click)="flipCard(person)">
+            <h3>{{person.name}}</h3>
+            <p class="contributor-bio">{{person.bio}}</p>
+        </div>
+    </div>
   `
 })
 export class ContributorComponent {
   @Input() person: Contributor;
-  showBio = false;
   noPicture = '_no-one.png';
-  pictureBase = 'content/images/bios/';
-}
+  pictureBase = CONTENT_URL_PREFIX + 'images/bios/';
 
+  flipCard(person) {
+    person.isFlipped = !person.isFlipped;
+  }
+}

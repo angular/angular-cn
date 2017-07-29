@@ -78,6 +78,9 @@ export function validateHtml(
   cmp.sex = 'f';
   tb.detectChanges();
   expect(el.query(By.css('#i18n-8')).nativeElement).toHaveText('femme');
+  cmp.sex = '0';
+  tb.detectChanges();
+  expect(el.query(By.css('#i18n-8')).nativeElement).toHaveText('autre');
 
   cmp.count = 123;
   tb.detectChanges();
@@ -110,6 +113,7 @@ export const HTML = `
     
     <div id="i18n-3"><p i18n><i>with placeholders</i></p></div>
     <div id="i18n-3b"><p i18n><i class="preserved-on-placeholders">with placeholders</i></p></div>
+    <div id="i18n-3c"><div i18n><div>with <div>nested</div> placeholders</div></div></div>
     
     <div>
         <p id="i18n-4" i18n-title title="on not translatable node"></p>
@@ -121,7 +125,7 @@ export const HTML = `
     <div i18n id="i18n-7">{count, plural, =0 {zero} =1 {one} =2 {two} other {<b>many</b>}}</div>
     
     <div i18n id="i18n-8">
-        {sex, select, m {male} f {female}}
+        {sex, select, m {male} f {female} 0 {other}}
     </div>
     <div i18n id="i18n-8b">
         {sexB, select, m {male} f {female}}
