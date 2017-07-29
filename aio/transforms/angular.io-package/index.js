@@ -153,6 +153,11 @@ module.exports =
               include: CONTENTS_PATH + '/marketing/contributors.json',
               fileReader: 'jsonFileReader'
             },
+            {
+              basePath: CONTENTS_PATH,
+              include: CONTENTS_PATH + '/translations/**/*.md',
+              fileReader: 'contentFileReader'
+            },
           ];
 
           collectExamples.exampleFolders = ['examples', 'examples'];

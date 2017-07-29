@@ -16,6 +16,10 @@
     {
       "url": "events",
       "title": "会议"
+    },
+    {
+      "url": "translations/cn/home",
+      "title": "关于中文版"
     }
   ],
   "SideNav": [
