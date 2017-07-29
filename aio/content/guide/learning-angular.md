@@ -19,9 +19,8 @@ You don't have to read the documentation straight through.  Most pages stand on 
 Those new to Angular may wish to follow this popular learning path.
 <br class="l-clear-left">
 
-每个人的学习方式不一样。
-你不一定要通读文档。本站大部分页面都是独立的。
-Angular 初学者可能希望跟随下面的常见学习路径。
+每个人的学习方式不一样，你不一定要通读文档，而本站的大部分页面都是可以独立阅读的。
+Angular 初学者可以遵循下面这种常见学习路径：
 
 <br class="l-clear-left">
 
