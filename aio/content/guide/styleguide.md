@@ -1,6 +1,6 @@
 # Style Guide
 
-# 风格之南
+# 风格指南
 
 Looking for an opinionated guide to Angular syntax, conventions, and application structure?
 Step right in!
