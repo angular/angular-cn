@@ -8,7 +8,7 @@ Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angu
 <div class="card-container">
   <a href="generated/live-examples/quickstart/eplnkr.html" target="_blank" class="docs-card"
     title="通过线上编程环境体验 Angular">
-      <section>Angular 浮光掠影</section>
+      <section>Angular 走马观花</section>
       <p>快速体验 Angular 的 "hello world" 应用。</p>
       <p class="card-footer">体验 Angular</p>
   </a>
