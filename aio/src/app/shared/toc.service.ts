@@ -66,9 +66,19 @@ export class TocService {
 
   private findTocHeadings(docElement: Element): HTMLHeadingElement[] {
     const headings = docElement.querySelectorAll('h1,h2,h3');
-    const skipNoTocHeadings = (heading: HTMLHeadingElement) => !/(?:no-toc|notoc)/i.test(heading.className);
+    const skipNoTocHeadings = (heading: HTMLHeadingElement) => !/(?:no-toc|notoc)/i.test(heading.className) && !this.isOriginalText(heading);
 
     return Array.prototype.filter.call(headings, skipNoTocHeadings);
+  }
+
+  private isOriginalText(heading: HTMLHeadingElement): boolean {
+    if (heading.hasAttribute('translation-origin')) {
+      const prevNode = heading.previousElementSibling;
+      if (prevNode.hasAttribute('translation-result')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private resetScrollSpyInfo() {

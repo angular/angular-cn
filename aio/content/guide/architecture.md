@@ -629,15 +629,19 @@ Of course, you can also write your own directives. Components such as
 
 ## 服务
 
-<img src="generated/images/guide/architecture/service.png" alt="服务" class="left">
+<img src="generated/images/guide/architecture/service.png" alt="Service" class="left">
 
 _Service_ is a broad category encompassing any value, function, or feature that your application needs.
 
 *服务*是一个广义范畴，包括：值、函数，或应用所需的特性。
 
 Almost anything can be a service.
-A service is typically a class with a narrow, well-defined purpose. It should do something specific and do it well.几乎任何东西都可以是一个服务。
-典型的服务是一个类，具有专注的、明确的用途。它应该做一件特定的事情，并把它做好。<br class="clear">
+A service is typically a class with a narrow, well-defined purpose. It should do something specific and do it well.
+
+几乎任何东西都可以是一个服务。
+典型的服务是一个类，具有专注的、明确的用途。它应该做一件特定的事情，并把它做好。
+
+<br class="clear">
 
 Examples include:
 
@@ -728,11 +732,13 @@ Angular 帮助我们*遵循*这些原则 —— 它让我们能轻易地把应�
 
 ## 依赖注入
 
-<img src="generated/images/guide/architecture/dependency-injection.png" alt="服务" class="left">
+<img src="generated/images/guide/architecture/dependency-injection.png" alt="Service" class="left">
 
 _Dependency injection_ is a way to supply a new instance of a class
 with the fully-formed dependencies it requires. Most dependencies are services.
-Angular uses dependency injection to provide new components with the services they need.“依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。
+Angular uses dependency injection to provide new components with the services they need.
+
+“依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。
 Angular 使用依赖注入来提供新组件以及组件所需的服务。<br class="clear">
 
 Angular can tell which services a component needs by looking at the types of its constructor parameters.

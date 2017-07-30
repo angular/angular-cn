@@ -385,7 +385,7 @@ That brief syntax does a lot:
 
 ### Using the Hero class
 
-## 使用 Hero 类
+### 使用 Hero 类
 
 After importing the `Hero` class, the `AppComponent.heroes` property can return a _typed_ array
 of `Hero` objects:

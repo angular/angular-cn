@@ -128,7 +128,12 @@ Though this is not exactly true. Interpolation is a special syntax that Angular 
 但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation)将会解释这一点。
 
 But first, let's take a closer look at template expressions and statements.
-讲解属性绑定之前，先深入了解一下模板表达式和模板语句。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+讲解属性绑定之前，先深入了解一下模板表达式和模板语句。
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -242,8 +247,13 @@ Template expressions cannot refer to anything in
 the global namespace. They can't refer to `window` or `document`. They
 can't call `console.log` or `Math.max`. They are restricted to referencing
 members of the expression context.
+
 模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
-它们只能引用表达式上下文中的成员。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+它们只能引用表达式上下文中的成员。
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 {@a no-side-effects}
 
@@ -471,8 +481,14 @@ A method call or simple property assignment should be the norm.
 
 Now that you have a feel for template expressions and statements,
 you're ready to learn about the varieties of data binding syntax beyond interpolation.
+
+
 现在，对模板表达式和语句有了一点感觉了吧。
-  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
+  
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1931,8 +1947,13 @@ Template statement side effects are not just OK, but expected.
 Deleting the hero updates the model, perhaps triggering other changes
 including queries and saves to a remote server.
 These changes percolate through the system and are ultimately displayed in this and other views.
+
 删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
-这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 

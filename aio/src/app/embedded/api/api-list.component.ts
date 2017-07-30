@@ -42,24 +42,24 @@ export class ApiListComponent implements OnInit {
 
   // API types
   types: Option[] = [
-    { value: 'all', title: 'All' },
-    { value: 'directive', title: 'Directive' },
-    { value: 'pipe', title: 'Pipe'},
-    { value: 'decorator', title: 'Decorator' },
-    { value: 'class', title: 'Class' },
-    { value: 'interface', title: 'Interface' },
-    { value: 'function', title: 'Function' },
-    { value: 'enum', title: 'Enum' },
-    { value: 'type-alias', title: 'Type Alias' },
-    { value: 'const', title: 'Const'}
+    { value: 'all', title: '全部' },
+    { value: 'directive', title: '指令' },
+    { value: 'pipe', title: '管道'},
+    { value: 'decorator', title: '装饰器' },
+    { value: 'class', title: '类' },
+    { value: 'interface', title: '接口' },
+    { value: 'function', title: '函数' },
+    { value: 'enum', title: '枚举' },
+    { value: 'type-alias', title: '类型别名' },
+    { value: 'const', title: '常量'}
   ];
 
   statuses: Option[] = [
-    { value: 'all', title: 'All' },
-    { value: 'stable', title: 'Stable' },
-    { value: 'deprecated', title: 'Deprecated' },
-    { value: 'experimental', title: 'Experimental' },
-    { value: 'security-risk', title: 'Security Risk' }
+    { value: 'all', title: '全部' },
+    { value: 'stable', title: '稳定' },
+    { value: 'deprecated', title: '弃用' },
+    { value: 'experimental', title: '试验' },
+    { value: 'security-risk', title: '安全风险' }
   ];
 
   @ViewChild('filter') queryEl: ElementRef;
@@ -167,7 +167,7 @@ export class ApiListComponent implements OnInit {
       type:   type   !== 'all' ? type   : undefined
     };
 
-    this.locationService.setSearch('API Search', params);
+    this.locationService.setSearch('API 搜索', params);
   }
 
   private setSearchCriteria(criteria: SearchCriteria) {

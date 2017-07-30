@@ -1,7 +1,16 @@
 import {
-  Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
-  DoCheck, ElementRef, EventEmitter, Injector, Input, OnDestroy,
-  Output, ViewEncapsulation, HostListener
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Injector,
+  Input,
+  OnDestroy,
+  Output,
 } from '@angular/core';
 
 import { EmbeddedComponents } from 'app/embedded/embedded.module';
@@ -20,7 +29,7 @@ const initialDocViewerContent = initialDocViewerElement ? initialDocViewerElemen
 
 @Component({
   selector: 'aio-doc-viewer',
-  template: ''
+  template: '',
   // TODO(robwormald): shadow DOM and emulated don't work here (?!)
   // encapsulation: ViewEncapsulation.Native
 })
@@ -33,14 +42,12 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   @Output()
   docRendered = new EventEmitter();
 
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    elementRef: ElementRef,
-    embeddedComponents: EmbeddedComponents,
-    private injector: Injector,
-    private titleService: Title,
-    private tocService: TocService
-    ) {
+  constructor(componentFactoryResolver: ComponentFactoryResolver,
+              elementRef: ElementRef,
+              embeddedComponents: EmbeddedComponents,
+              private injector: Injector,
+              private titleService: Title,
+              private tocService: TocService) {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
@@ -49,7 +56,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
       const factory = componentFactoryResolver.resolveComponentFactory(component);
       const selector = factory.selector;
       const contentPropertyName = this.selectorToContentPropertyName(selector);
-      this.embeddedComponentFactories.set(selector, { contentPropertyName, factory });
+      this.embeddedComponentFactories.set(selector, {contentPropertyName, factory});
     }
   }
 
@@ -71,16 +78,18 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     // and is considered to be safe
     this.hostElement.innerHTML = doc.contents || '';
 
-    if (!doc.contents) { return; }
+    if (!doc.contents) {
+      return;
+    }
 
     this.addTitleAndToc(doc.id);
 
     // TODO(i): why can't I use for-of? why doesn't typescript like Map#value() iterators?
-    this.embeddedComponentFactories.forEach(({ contentPropertyName, factory }, selector) => {
+    this.embeddedComponentFactories.forEach(({contentPropertyName, factory}, selector) => {
       const embeddedComponentElements = this.hostElement.querySelectorAll(selector);
 
       // cast due to https://github.com/Microsoft/TypeScript/issues/4947
-      for (const element of embeddedComponentElements as any as HTMLElement[]){
+      for (const element of embeddedComponentElements as any as HTMLElement[]) {
         // hack: preserve the current element content because the factory will empty it out
         // security: the source of this innerHTML is always authored by the documentation team
         // and is considered to be safe
@@ -93,7 +102,13 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   private addTitleAndToc(docId: string) {
     this.tocService.reset();
     let title = '';
-    const titleEl = this.hostElement.querySelector('h1');
+    const titleElements = this.hostElement.querySelectorAll('h1');
+    let titleEl;
+    if (titleElements.length > 1) {
+      titleEl = titleElements[1];
+    } else if (titleElements.length > 0) {
+      titleEl = titleElements[0];
+    }
     // Only create TOC for docs with an <h1> title
     // If you don't want a TOC, add "no-toc" class to <h1>
     if (titleEl) {
