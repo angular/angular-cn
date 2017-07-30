@@ -251,7 +251,11 @@ supporting classes into their own, dedicated files.
 As the app grows, this rule becomes even more important.
 
 随着应用程序的成长，本法则会变得越来越重要。
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 01-02}
@@ -352,7 +356,11 @@ As the app grows, this rule becomes even more important.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Naming
@@ -440,7 +448,11 @@ Naming conventions are hugely important to maintainability and readability. This
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-02}
@@ -559,7 +571,11 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-03}
@@ -845,7 +861,11 @@ and reference assets of different types.
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-04}
@@ -1033,7 +1053,11 @@ As always, strive for consistency.
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-05}
@@ -1115,7 +1139,11 @@ As always, strive for consistency.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 02-06}
 
@@ -1165,7 +1193,11 @@ As always, strive for consistency.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 02-07}
 
@@ -1356,7 +1388,11 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-09}
@@ -1474,7 +1510,11 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-10}
@@ -1636,7 +1676,11 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 02-11}
@@ -1743,7 +1787,11 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 02-12}
 
@@ -1994,7 +2042,11 @@ A consistent class and file name convention make these modules easy to spot and 
 
 </table>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Coding conventions
@@ -2066,7 +2118,11 @@ By convention, upper camel case indicates a constructable asset.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 03-02}
@@ -2196,7 +2252,11 @@ It is rarely worth the effort to change them at the risk of breaking existing co
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 03-03}
@@ -2311,7 +2371,11 @@ discourage the `I` prefix.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 03-04}
 
@@ -2399,7 +2463,11 @@ discourage the `I` prefix.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 03-06}
 
@@ -2487,7 +2555,11 @@ discourage the `I` prefix.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Application structure and NgModules
@@ -2513,7 +2585,11 @@ Use the naming conventions for files in this guide.
 所有第三方程序包保存到其它目录里，而不是`src`目录。
 你不会修改它们，所以不希望它们弄乱我们的应用程序。
 使用本指南介绍的文件命名约定。
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-01}
 
@@ -2567,7 +2643,11 @@ _can I quickly open and start work in all of the related files for this feature_
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-02}
 
@@ -2610,7 +2690,11 @@ A descriptive folder structure makes a world of difference to you and the people
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-03}
 
@@ -2691,7 +2775,11 @@ in a single file than as multiple files. Be wary of this loophole.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 04-04}
@@ -2770,7 +2858,11 @@ Use a flatter structure until there is an obvious value to creating a new folder
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 04-05}
@@ -2827,7 +2919,11 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 04-06}
@@ -3167,7 +3263,11 @@ Whatever you choose, be consistent.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-07}
 
@@ -3292,7 +3392,11 @@ and more difficult in a flat structure.
   <a href="#file-tree">Refer to this _folder and file structure_ example.</a>  <a href="#file-tree">点这里查看目录和文件结构的范例</a>
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 04-08}
@@ -3362,7 +3466,11 @@ for example, in `/src/app`.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 04-09}
@@ -3509,7 +3617,11 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-10}
 
@@ -3786,7 +3898,11 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-11}
 
@@ -4152,7 +4268,11 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-12}
 
@@ -4220,7 +4340,11 @@ Only the root `AppModule` should import the `CoreModule`.
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-13}
 
@@ -4263,7 +4387,11 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 04-14}
 
@@ -4300,7 +4428,11 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Components
@@ -4362,7 +4494,11 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-03}
 
@@ -4441,7 +4577,11 @@ Developers place components on the page as they would native HTML elements and w
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-04}
 
@@ -4583,7 +4723,11 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-12}
 
@@ -4687,7 +4831,11 @@ Put it on the line above when doing so is clearly more readable.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 {@a 05-13}
@@ -4769,7 +4917,11 @@ and the directive name doesn't describe the property.
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-14}
 
@@ -4832,7 +4984,11 @@ helps instantly identify which members of the component serve which purpose.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-15}
 
@@ -4933,7 +5089,11 @@ helps instantly identify which members of the component serve which purpose.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-16}
 
@@ -5022,7 +5182,11 @@ helps instantly identify which members of the component serve which purpose.
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 05-17}
 
@@ -5084,7 +5248,11 @@ helps instantly identify which members of the component serve which purpose.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Directives
@@ -5150,7 +5318,11 @@ helps instantly identify which members of the component serve which purpose.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 06-03}
 
@@ -5235,7 +5407,11 @@ Compare with the less preferred `host` metadata alternative.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Services
@@ -5296,7 +5472,11 @@ Compare with the less preferred `host` metadata alternative.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 07-02}
 
@@ -5359,7 +5539,11 @@ Compare with the less preferred `host` metadata alternative.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 07-03}
 
@@ -5447,7 +5631,11 @@ that instance is shared and available to all child components of that top level 
 
 </code-tabs>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a 07-04}
 
@@ -5510,7 +5698,11 @@ dependencies based on the declared types of that service's constructor parameter
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Data Services
@@ -5598,7 +5790,11 @@ easier to test the consumers with mock service implementations.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Lifecycle hooks
@@ -5656,7 +5852,11 @@ signatures. use those signatures to flag spelling and syntax mistakes.
 
 </code-example>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 
 ## Appendix
@@ -5699,7 +5899,11 @@ Useful tools and tips for Angular.
 
 </div>
 
-<a href="#toc" class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc" class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
+
 
 {@a A-02}
 
@@ -5760,4 +5964,7 @@ Useful tools and tips for Angular.
 
 </div>
 
-<a href="#toc"class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+<a href="#toc"class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>

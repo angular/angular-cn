@@ -49,7 +49,11 @@ The sample application and all tests in this guide are available as live example
 
    <live-example plnkr="bag-specs" embedded-style>其它规约汇总</live-example>。
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -319,7 +323,11 @@ But first you should write a dummy test to verify that your test environment is 
 and to lock in a few basic testing skills.
 
 但首先，我们要先随便写一个测试来验证测试环境是否已经就绪了，并掌握一些基础的测试技术。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -559,7 +567,11 @@ All of the tests in this guide are available as [live examples](guide/testing#li
 
 你还可以在plunker的<live-example plnkr="1st-specs" title="First spec" embedded-style></live-example>中试运行这个测试。
 本章的所有测试都有相应的[在线例子](guide/testing#live-examples "Live examples of these tests")。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -943,7 +955,11 @@ There is no harm in calling `detectChanges()` more often than is strictly necess
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -1193,7 +1209,11 @@ The tests in this guide only call `compileComponents` when necessary.
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -1431,7 +1451,11 @@ The third test checks that the component displays the proper message when there 
 接下来的测试程序确认当服务返回不同的值时组件的逻辑是否工作正常。
 第二个测试程序验证变换用户名字的效果。
 第三个测试程序检查如果用户没有登录，组件是否显示正确消息。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -1779,7 +1803,11 @@ code that involves the `intervalTimer`, as is common when
 testing async `Observable` methods.
 
 写带有`done`回调的测试函数，虽然比`async`和`fakeAsync`函数笨拙，但是在少数偶然情况下却是很有必要的技巧。比如，当测试涉及`intervalTimer`的代码时，你就没法调用`async`和`fakeAsync`函数，在测试异步`Observable`函数时也一样。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -2197,7 +2225,11 @@ Only the selected event test differs. It confirms that the selected `DashboardHe
 really does find its way up through the event binding to the host component.
 
 只有selected事件的测试不一样。它确保被选择的`DashboardHeroComponent`英雄确实通过事件绑定被传递到宿主组件。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -2387,7 +2419,11 @@ Do not configure the `TestBed` after calling `inject`.
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 {@a routed-component-w-param}
 
@@ -2625,7 +2661,11 @@ Inspect and download _all_ of the guide's application test code with this <live-
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -2728,7 +2768,11 @@ Here are a few more `HeroDetailComponent` tests to drive the point home.
 
 </code-example>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -2870,7 +2914,11 @@ especially when the feature module is small and mostly self-contained, as featur
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -3092,7 +3140,11 @@ for digging into and replacing parts of these other classes.
 Explore the options and combinations on your own.
 
 自己探索这些选项和组合。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -3335,7 +3387,11 @@ A future guide update will explain how to write such tests with the `RouterTesti
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -3408,7 +3464,11 @@ such as misspelled or misused components and directives.
 
 </div>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -3545,7 +3605,11 @@ and its `defaultColor`.
 * `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
 
   `DebugElement.properties`让我们可以访问由指令设置的自定义属性。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -3902,7 +3966,11 @@ Use Angular tests for that.
 
 但是，孤立测试无法确认`ButtonComp`是否与其模板正确的绑定，或者是否有数据绑定。
 使用Angular测试来应对它们。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <hr/>
 
@@ -5206,7 +5274,11 @@ Here's an example of `Renderer` tests from the <live-example plnkr="bag-specs">l
 
 </code-example>
 
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>回到顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>回到顶部</a>
+
 
 <div class='l' class='hr'>
 
@@ -5408,7 +5480,10 @@ They're installed when you run `npm install`.
 这些范例测试是为在Jasmine和karma而写的。
 那两条“捷径”设置会把适当的Jasmine和Karma包添加到`package.json`的`devDependencies`区。
 当我们运行`npm install`时，它们就会被安装上。
-<a href="#top" class='to-top'>Back to top</a><a href="#top" class='to-top'>返回顶部</a>
+
+<a href="#top" class='to-top'>Back to top</a>
+
+<a href="#top" class='to-top'>返回顶部</a>
 
 <div class='l' class='hr'>
 

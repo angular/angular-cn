@@ -358,7 +358,10 @@ it returns the same object *reference* when called twice in a row.
 在单独的一次事件循环中，被依赖的值不应该改变。
   如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
   如果幂等的表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -485,10 +488,7 @@ you're ready to learn about the varieties of data binding syntax beyond interpol
 
 现在，对模板表达式和语句有了一点感觉了吧。
   除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
-  
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1181,7 +1181,10 @@ The following table summarizes:
 With this broad view in mind, you're ready to look at binding types in detail.
 
 放开眼界，我们来看看每种绑定类型的具体情况。
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1503,7 +1506,11 @@ content harmlessly.
 
 <a href="#top-of-page">back to top</a>
 
-<a href="#top-of-page">回到顶部</a>
+
+
+  <a href="# top-of-page">回到顶部</a>
+
+
 
 <hr/>
 
@@ -1623,7 +1630,10 @@ attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-aria" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1683,7 +1693,10 @@ the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1736,7 +1749,10 @@ Note that a _style property_ name can be written in either
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2064,7 +2080,9 @@ However, no native HTML element follows the `x` value and `xChange` event patter
 可惜，原生 HTML 元素不遵循`x`值和`xChange`事件的模式。
 
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
-幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2142,7 +2160,10 @@ This section is an introduction to the most commonly used attribute directives:
 * [`NgModel`](guide/template-syntax#ngModel) - two-way data binding to an HTML form element
 
   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到HTML表单元素
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2203,7 +2224,10 @@ It's up to you to call `setCurrentClassess()`, both initially and when the depen
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2260,7 +2284,10 @@ It's up to you to call `setCurrentStyles()`, both initially and when the depende
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2571,7 +2598,10 @@ described below.
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2853,7 +2883,10 @@ For example, you could replace the `<confused-hero>` switch case with the follow
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch-div" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2971,7 +3004,10 @@ This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3205,7 +3241,10 @@ the directive property name on the *left* and the public alias on the *right*:
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3286,7 +3325,10 @@ The generated output would look something like this
     "rate": 325 }
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3439,7 +3481,10 @@ Rather it tells the TypeScript type checker to suspend strict null checks for a 
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.
 
 
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
