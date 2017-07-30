@@ -1,19 +1,19 @@
 {
-  "Community": {
+  "社区": {
     "order": 3,
     "subCategories": {
-      "Community Curations": {
+      "社区作品": {
         "order": 1,
         "resources": {
           "awesome-angular-components": {
-            "desc": "A community index of components and libraries maintained on GitHub",
+            "desc": "在 Github 上维护的一份组件与库的社区索引。",
             "rev": true,
-            "title": "Catalog of Angular Components & Libraries",
+            "title": "Angular 组件与库的名录",
             "url": "https://github.com/brillout/awesome-angular-components"
           }
         }
       },
-      "Groups": {
+      "讨论组": {
         "order": 2,
         "resources": {
           "sldkjfslkjfslkjdsklj": {
@@ -30,7 +30,7 @@
           }
         }
       },
-      "Podcasts": {
+      "Podcasts视频": {
         "order": 3,
         "resources": {
           "sdfjkdkfj": {
@@ -58,10 +58,10 @@
       }
     }
   },
-  "Development": {
+  "开发": {
     "order": 1,
     "subCategories": {
-      "Cross-Platform Development": {
+      "跨平台开发": {
         "order": 5,
         "resources": {
           "a2b": {
@@ -101,7 +101,7 @@
           }
         }
       },
-      "Data Libraries": {
+      "数据管理库": {
         "order": 3,
         "resources": {
           "-KLIzHDRfiB3d7W7vk-e": {
@@ -133,7 +133,7 @@
           }
         }
       },
-      "IDEs": {
+      "各种IDE": {
         "order": 1,
         "resources": {
           "ab": {
@@ -165,7 +165,7 @@
           }
         }
       },
-      "Tooling": {
+      "工具": {
         "order": 2,
         "resources": {
           "-KLIzHfBEr1qMMUDxfq3": {
@@ -224,7 +224,7 @@
           }
         }
       },
-      "UI Components": {
+      "UI 组件": {
         "order": 4,
         "resources": {
           "DevExtreme": {
@@ -329,10 +329,10 @@
       }
     }
   },
-  "Education": {
+  "教育": {
     "order": 2,
     "subCategories": {
-      "Books": {
+      "书籍": {
         "order": 1,
         "resources": {
           "-KLI8vJ0ZkvWhqPembZ7": {
@@ -415,7 +415,7 @@
           }
         }
       },
-      "Online Training": {
+      "在线培训": {
         "order": 3,
         "resources": {
           "-KLIBoTWXMiBcvG0dAM6": {
@@ -523,7 +523,7 @@
           }
         }
       },
-      "Workshops & Onsite Training": {
+      "工作室 & 现场培训": {
         "order": 2,
         "resources": {
           "-KLIBo3ANF3-1B9wxsoB": {
