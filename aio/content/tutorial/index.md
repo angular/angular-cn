@@ -12,7 +12,7 @@ has many of the features you'd expect to find in a full-blown, data-driven app: 
 a list of heroes, editing a selected hero's detail, and navigating among different
 views of heroic data.
 
-这篇《英雄指南》覆盖了 Angular 的核心原理。这次构建的应用会涉及很多特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在成熟的、数据驱动的应用中经常见到。
+这篇《英雄指南》涵盖`了 Angular 的核心原理。这次构建的应用会涉及很多特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在成熟的、数据驱动的应用中经常见到。
 
 You'll use built-in directives to show and hide elements and display lists of hero data.
 You'll create components to display hero details and show an array of heroes.
@@ -38,7 +38,7 @@ You'll cover a lot of ground at an introductory level, and you'll find many link
 to pages with greater depth.
 
 完成本教程后，我们将学习足够的 Angular 核心技术，并确信 Angular 确实能做到我们需要它做的。
-  我们将覆盖大量入门级知识，同时我们也会看到大量链接，指向更深入的章节。
+  我们将涵盖大量入门级知识，同时我们也会看到大量链接，指向更深入的章节。
 
 When you're done with this tutorial, the app will look like this <live-example name="toh-pt6"></live-example>.
 

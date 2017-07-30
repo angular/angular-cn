@@ -16,7 +16,7 @@ which requires some configuration.
 This page covers some aspects of TypeScript configuration and the TypeScript environment
 that are important to Angular developers, including details about the following files:
 
-本页面会覆盖TypeScript配置与环境的某些方面，这些对Angular开发者是很重要的。具体来说包括下列文件：
+本页面会涵盖TypeScript配置与环境的某些方面，这些对Angular开发者是很重要的。具体来说包括下列文件：
 
 * [tsconfig.json](guide/typescript-configuration#tsconfig) &mdash; TypeScript compiler configuration.
 

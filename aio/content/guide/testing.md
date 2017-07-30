@@ -1884,7 +1884,7 @@ The router seems particularly challenging.
 
 The [discussion below](guide/testing#routed-component) covers testing components that require the router.
 
-[下面](guide/testing#routed-component) 覆盖了如何测试带有路由器的组件。
+[下面](guide/testing#routed-component) 涵盖了如何测试带有路由器的组件。
 
 </div>
 

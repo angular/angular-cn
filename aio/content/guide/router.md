@@ -10,7 +10,7 @@ as users perform application tasks.
 This guide covers the router's primary features, illustrating them through the evolution
 of a small application that you can <live-example>run live in the browser</live-example>.
 
-本章覆盖了该路由器的主要特性。我们通过一个小型应用的成长演进来讲解它。参见<live-example>在线例子</live-example>。
+本章涵盖了该路由器的主要特性。我们通过一个小型应用的成长演进来讲解它。参见<live-example>在线例子</live-example>。
 
 <!-- style for all tables on this page -->
 <style>
@@ -5994,7 +5994,7 @@ You can provide optional route parameters in an object like this:
 These three examples cover the need for an app with one level routing.
 The moment you add a child router, such as the crisis center, you create new link array possibilities.
 
-这三个例子覆盖了我们在单级路由的应用中所需的一切。在添加一个像*危机中心*一样的子路由时，我们创建新链接数组组合。
+这三个例子涵盖了我们在单级路由的应用中所需的一切。在添加一个像*危机中心*一样的子路由时，我们创建新链接数组组合。
 
 Recall that you specified a default child route for the crisis center so this simple `RouterLink` is fine.
 

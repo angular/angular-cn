@@ -49,7 +49,7 @@ Revised samples are more clear and cover all topics discussed.
 
 对[模板语法](guide/template-syntax) 和 [结构型指令](guide/structural-directives)这两篇指南做了大幅修改，来让它们更加清晰、准确，并符合当前的最佳实践。
 讨论了`<ng-container>`。
-修改了例子，来让它们更清晰，并且覆盖了所有讨论到的主题。
+修改了例子，来让它们更清晰，并且涵盖了所有讨论到的主题。
 
 ## NEW: Samples re-structured with `src/` folder (2017-02-02)
 
@@ -132,7 +132,7 @@ It includes important advice on optimizing for production.
 Closes issue #3086.
 Revised samples are clearer and cover all topics discussed
 
-[多级依赖注入](guide/hierarchical-dependency-injection)做了显著修改。关闭了issue #3086。修改过的范例更加清晰，而且覆盖了讨论到的全部主题。
+[多级依赖注入](guide/hierarchical-dependency-injection)做了显著修改。关闭了issue #3086。修改过的范例更加清晰，而且涵盖了讨论到的全部主题。
 
 ## Miscellaneous (2017-01-05)
 
@@ -236,7 +236,7 @@ released in v.2.2.0, which is the recommended
 facility for migrating from AngularJS to Angular.
 The documentation for the version prior to v.2.2.0 has been removed.
 
-更新的[NgUpgrade指南](guide/upgrade)覆盖在v.2.2.0发布的AoT`upgrade/static`模块，
+更新的[NgUpgrade指南](guide/upgrade)涵盖在v.2.2.0发布的AoT`upgrade/static`模块，
 是从AngularJS升级至Angular的推荐工具。
 删除早于v.2.2.0版本的文档。
 
