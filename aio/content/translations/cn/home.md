@@ -1,3 +1,5 @@
+# 关于中文版
+
 ## Angular 开发组的致辞
 
 > **这是 Angular 开发组的项目经理（TPM）Naomi Black 和工程总监（Engineering Director）Brad Green 代表官方开发组发来的致辞，这标志着 angular.cn 正式获得了官方身份。如文档中的其它地方一样，点击任意中文即可显示原文。**
@@ -18,9 +20,9 @@ As a champion of open technology, Google has invested a lot and will continue to
 
 作为开源技术的倡导者，Google 已经并将继续投资于对 Angular 的完善和演进工作，造福并回馈中国区的用户以及全世界的用户。
 
-We are happy to see that Angular’s Chinese developer community has grown to its current large size, fueled by not only the passion for technologies among developers, but also by the desire to make this technology effective for real businesses. Many companies in China have already built their businesses based on Angular technology. We hope that the updated materials on this official site will continue to inspire and help putting this technology into more real world business services and applications in China. If your business already runs on Angular, we invite you to join our developer community here, and become involved in our effort in continuing improving and enhancing this technology. We welcome your comments and suggestions at any time. Please send your remarks to Google Developer Relations China team’s contact email at: ![email](/assets/images/translations/cn/mail-dev-rel.gif).
+We are happy to see that Angular’s Chinese developer community has grown to its current large size, fueled by not only the passion for technologies among developers, but also by the desire to make this technology effective for real businesses. Many companies in China have already built their businesses based on Angular technology. We hope that the updated materials on this official site will continue to inspire and help putting this technology into more real world business services and applications in China. If your business already runs on Angular, we invite you to join our developer community here, and become involved in our effort in continuing improving and enhancing this technology. We welcome your comments and suggestions at any time. Please send your remarks to Google Developer Relations China team’s contact email at: ![email](generated/images/translations/cn/mail-dev-rel.gif).
 
-看到中国的 Angular 开发社区已经如此繁荣，我们非常高兴。这不仅仅是出于开发者对技术的固有热情，更是因为我们希望“用 Angular 高效实现商业需求”的宏伟愿景。事实上，许多中国公司的业务早已基于 Angular 技术。我们希望通过对官网内容的持续更新，鼓励并协助大家把 Angular 更多的应用于现实世界中的业务服务与应用程序。如果您的业务大厦已经构建在 Angular 的基础之上，我们欢迎您加入中文社区，参与到我们持续增强和优化此项技术的努力中来。我们随时欢迎您的意见和建议，请发邮件到Google的技术推广部联系我们，我们的邮箱是![email](/assets/images/translations/cn/mail-dev-rel.gif)。
+看到中国的 Angular 开发社区已经如此繁荣，我们非常高兴。这不仅仅是出于开发者对技术的固有热情，更是因为我们希望“用 Angular 高效实现商业需求”的宏伟愿景。事实上，许多中国公司的业务早已基于 Angular 技术。我们希望通过对官网内容的持续更新，鼓励并协助大家把 Angular 更多的应用于现实世界中的业务服务与应用程序。如果您的业务大厦已经构建在 Angular 的基础之上，我们欢迎您加入中文社区，参与到我们持续增强和优化此项技术的努力中来。我们随时欢迎您的意见和建议，请发邮件到Google的技术推广部联系我们，我们的邮箱是![email](generated/images/translations/cn/mail-dev-rel.gif)。
 
 Angular succeeds because it is built by and for developers who come from many different backgrounds. We hope that these materials will help you to learn and understand Angular, and to contribute back to the framework in future. We are excited to see what you will build with Angular here in China, and how the framework itself will change as the result of your enthusiasm.
 
@@ -76,7 +78,7 @@ Bill Luan, Greater China Regional Lead, Developer Relations, Google
 
 ## 授权方式
 
-本文档遵循[“保持署名—非商用”创意共享4.0许可证（CC BY-NC 4.0）](http://creativecommons.org/licenses/by-nc/4.0/deed.zh)授权方式，你不用知会我们就可以转载，但必须保持署名（特别是：链接到 <https://angular.cn>，并且不得去掉本页入口链接，也不得修改本页内容），并且不得用于商业目的。如果需要进行任何商业推广，请接洽 Google 开发技术推广部![email](/assets/images/translations/cn/mail-dev-rel.gif)，我们将给出积极的回应。
+本文档遵循[“保持署名—非商用”创意共享4.0许可证（CC BY-NC 4.0）](http://creativecommons.org/licenses/by-nc/4.0/deed.zh)授权方式，你不用知会我们就可以转载，但必须保持署名（特别是：链接到 <https://angular.cn>，并且不得去掉本页入口链接，也不得修改本页内容），并且不得用于商业目的。如果需要进行任何商业推广，请接洽 Google 开发技术推广部![email](generated/images/translations/cn/mail-dev-rel.gif)，我们将给出积极的回应。
 
 本文档首发于 [Angular 中文网](https://angular.cn/)。如果你要进行转载，请自行同步，不过小心别 DDoS 了我们。
 
@@ -88,4 +90,4 @@ Angular 中文社区的简介和更多资源请参见[这里](/translations/cn/n
 
 ## 工作预告
 
-将来，Google 技术推广部还会有一系列线上和线下推广工作，如果您有意为这些活动贡献力量，请接洽Google 开发技术推广部![email](/assets/images/translations/cn/mail-dev-rel.gif)。
+将来，Google 技术推广部还会有一系列线上和线下推广工作，如果您有意为这些活动贡献力量，请接洽Google 开发技术推广部![email](generated/images/translations/cn/mail-dev-rel.gif)。
