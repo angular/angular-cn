@@ -325,7 +325,7 @@ The following are all in `src/`
       Right now it declares only the `AppComponent`. 
       Soon there will be more components to declare. 
 
-      定义`AppModule`，[根模块](guide/appmodule "AppModule: 根模块")为 Angular 描述如何组装应用。
+      定义`AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
       目前，它只声明了`AppComponent`。
       不久，它将声明更多组件。
     </td>
@@ -348,7 +348,7 @@ The following are all in `src/`
       it's the only viable choice for a sample running in a _live-coding_ environment like Plunker.
       You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.
 
-      使[即时 (JiT) 编译器](glossary#jit)用编译应用并且在浏览器中[启动](guide/appmodule#main "启动应用")并运行应用。
+      使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping#main "启动应用")并运行应用。
       对于大多数项目的开发，这都是合理的选择。而且它是在像 Plunker 这样的*在线编程*环境中运行例子的唯一选择。
       你将在本文档中学习其他编译和开发选择。
 
@@ -370,7 +370,7 @@ The following are all in `src/`
 
 If you're new to Angular, we recommend you follow the [tutorial](tutorial "Tour of Heroes tutorial").
 
-如果你是 Angular 初学者，建议根据[学习路径](guide/learning-angular "Angular学习路径")学习。
+如果你是 Angular 初学者，建议跟着[教程](tutorial "《英雄指南》教程")学习。
 
 
 </div>
@@ -439,7 +439,7 @@ It creates the equivalent of `app.module.ts` and `main.ts` internally _for the p
 so the reader can discover Angular without distraction.
 The other samples are based on the QuickStart seed.
 
-[快速起步](quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
+[快速起步](guide/quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
 它在内部创建了只为*游乐场*而准备的等价`app.module.ts`和`main.ts`。
 所以读者可以在零干扰的情况下探索 Angular。
 其他例子是基于 《快速起步》种子的。

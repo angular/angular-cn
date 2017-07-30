@@ -14,11 +14,12 @@ describe('h1Checker postprocessor', () => {
     processor.plugins = [plugin];
   });
 
-  it('should complain if there is more than one h1 in a document', () => {
+  it('should complain if there is more than two h1 in a document', () => {
     const doc = {
       docType: 'a',
       renderedContent: `
         <h1>Heading 1</h2>
+        <h1>标题1</h2>
         <h2>Heading 2</h2>
         <h1>Heading 1a</h1>
     `

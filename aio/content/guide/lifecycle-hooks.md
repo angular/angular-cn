@@ -639,7 +639,7 @@ Constructors should do no more than set the initial local variables to simple va
 An `ngOnInit()` is a good place for a component to fetch its initial data. The
 [Tour of Heroes Tutorial](tutorial/toh-pt4#oninit) guideshows how.
 
-`ngOnInit()`是组件获取初始数据的好地方。[指南](tutorial/toh-pt4#oninit)和[HTTP](guide/server-communication#oninit)章讲解了如何这样做。
+`ngOnInit()`是组件获取初始数据的好地方。[指南](tutorial/toh-pt4#oninit)中讲解了如何这样做。
 
 Remember also that a directive's data-bound input properties are not set until _after construction_.
 That's a problem if you need to initialize the directive based on those properties.
@@ -712,7 +712,7 @@ The `ngOnChanges()` method takes an object that maps each changed property name 
 [SimpleChange](api/core/SimpleChange) object holding the current and previous property values.
 This hook iterates over the changed properties and logs them.
 
-`ngOnChanges()`方法获取了一个对象，它把每个发生变化的属性名都映射到了一个[SimpleChange](api/core/index/SimpleChange-class)对象，
+`ngOnChanges()`方法获取了一个对象，它把每个发生变化的属性名都映射到了一个[SimpleChange](api/core/SimpleChange)对象，
 该对象中有属性的当前值和前一个值。我们在这些发生了变化的属性上进行迭代，并记录它们。
 
 The example component, `OnChangesComponent`, has two input properties: `hero` and `power`.
@@ -839,7 +839,7 @@ The following hooks take action based on changing values *within the child view*
 which can only be reached by querying for the child view via the property decorated with
 [@ViewChild](api/core/ViewChild).
 
-下列钩子基于*子视图中*的每一次数据变更采取行动，我们只能通过带[@ViewChild](api/core/index/ViewChild-decorator)装饰器的属性来访问子视图。
+下列钩子基于*子视图中*的每一次数据变更采取行动，我们只能通过带[@ViewChild](api/core/ViewChild)装饰器的属性来访问子视图。
 
 
 <code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="hooks" title="AfterViewComponent (class excerpts)" linenums="false"></code-example>
@@ -1004,7 +1004,7 @@ which can only be reached by querying for them via the property decorated with
 [@ContentChild](api/core/ContentChild).
 
 
-下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/index/ContentChild-decorator)装饰器的属性来查询到“子级内容”。<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false">
+下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。<code-example path="lifecycle-hooks/src/app/after.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false">
 
 </code-example>
 

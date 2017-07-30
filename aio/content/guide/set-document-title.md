@@ -74,7 +74,7 @@ The [Title](api/platform-browser/Title) service is a simple class that provides 
 for getting and setting the current HTML document title:
   
 幸运的是，Angular在*浏览器平台*的包中，提供了一个`Title`服务，弥补了这种差异。
-[Title](api/platform/browser/Title-class)服务是一个简单的类，提供了一个API，用来获取和设置当前HTML文档的标题。
+[Title](api/platform-browser/Title)服务是一个简单的类，提供了一个API，用来获取和设置当前HTML文档的标题。
 
 * `getTitle() : string`&mdash;Gets the title of the current HTML document.
 

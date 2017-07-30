@@ -541,7 +541,7 @@ and exports several objects as properties of a `module.exports` object.
 
 * [`resolve`](guide/webpack#common-resolves)&mdash;how to resolve file names when they lack extensions.
 
-  [`resolve`](guide/webpack#common-resolve) - 省略扩展名时如何解释文件名。
+  [`resolve`](guide/webpack#common-resolves) - 省略扩展名时如何解释文件名。
 * [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.
 
   [`module.rules`](guide/webpack#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载。
@@ -1071,8 +1071,8 @@ Create a folder called `images` under the project's `assets` folder, then right-
 on the image and download it to that folder.
 
 <code>app.component.html</code>显示了这个可下载的Angular Logo
-<a href="assets/images/logos/angular2/angular.png" target="_blank">
-<img src="assets/images/logos/angular2/angular.png" height="40px" title="download Angular logo"></a>。
+<a href="assets/images/logos/angular/angular.png" target="_blank">
+<img src="assets/images/logos/angular/angular.png" height="40px" title="download Angular logo"></a>。
 在项目的`assets`目录下创建一个名叫`images`的文件夹，然后右键点击（Mac上是Cmd+点击）本图片，并把它下载到`images`文件夹中。
 
 

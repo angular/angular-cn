@@ -154,7 +154,7 @@ Angular 的每个[范围化包 (scoped package)](guide/glossary#scoped-package) 
 
 You can often achieve the same result using [NgModules](guide/glossary#ngmodule) instead.
 
-注意，你可以利用 [Angular 模块](guide/glossary#angular-module)达到同样的目的。
+注意，你可以利用 [Angular 模块](guide/glossary#ngmodule)达到同样的目的。
 
 
 </div>
@@ -293,7 +293,7 @@ Angular 有一个非常强大的数据绑定框架，具有各种数据绑定操
 
  Read about the following forms of binding in the [Template Syntax](guide/template-syntax) page:
  
- 更多的绑定形式，见[模板语法](guide/template-syntax#data-binding)：
+ 更多的绑定形式，见[模板语法](guide/template-syntax)：
 
  * [Interpolation](guide/template-syntax#interpolation)
 
@@ -549,7 +549,7 @@ in ES8 or a dialect that strives to be
 compatible with it, such as [TypeScript](guide/glossary#typescript).
 
 最新批准的 JavaScript 版本是[ECMAScript 2016](http://www.ecma-international.org/ecma-262/7.0/)（也称“ES2016”或“ES7”）。
-Angular 的开发人员要么使用这个版本的语言，要么使用与之兼容的方言，例如 [TypeScript](guide/glossary#typesScript)。
+Angular 的开发人员要么使用这个版本的语言，要么使用与之兼容的方言，例如 [TypeScript](guide/glossary#typescript)。
 
 Most modern browsers only support the much older "ECMAScript 5" (also known as "ES5") standard.
 Applications written in ES2017, ES2016, ES2015, or one of their dialects must be [transpiled](guide/glossary#transpile)
@@ -751,7 +751,7 @@ Angular有下列模块类型：
 * [NgModules](guide/glossary#ngmodule).
 For details and examples, see the [NgModules](guide/ngmodule) page.
 
-  [Angular 模块](guide/glossary#angular-module)，见[Angular 模块](guide/ngmodule)。
+  [Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
 * ES2015 modules, as described in this section.
 
   本节描述的 ES2015 模块。
@@ -858,12 +858,12 @@ section of the [Template Syntax](guide/template-syntax) page).
 Events stream *out* of this property to the receiver identified
 in the template expression to the right of the equal sign.
 
-输出属性是一个指令属性，可作为[事件绑定](/docs/ts/latest/guide/template-syntax.html#property-binding)的 **目标** 。
+输出属性是一个指令属性，可作为[事件绑定](guide/template-syntax.html#event-binding)的 **目标** 。
 事件流从这个属性流*出*到模板表达式等号的右边的接收者。
 
 See the [Input and output properties](guide/template-syntax#inputs-outputs) section of the [Template Syntax](guide/template-syntax) page.
 
-参见[模板语法](/docs/ts/latest/guide/template-syntax.html)中的[输入与输出属性](guide/template-syntax#inputs-outputs)部分。
+参见[模板语法](guide/template-syntax)中的[输入与输出属性](guide/template-syntax#inputs-outputs)部分。
 
 
 {@a P}
@@ -881,7 +881,7 @@ Pascal 命名法是书写单词、复合词或短语的一种形式，每个单�
 This form is also known as *upper camel case* to distinguish it from *lower camel case* or simply [camelCase](guide/glossary#camelcase).
 In this documentation, "PascalCase" means *upper camel case* and  "camelCase" means *lower camel case*.
 
-这种形式也称**大写驼峰式命名法**，以区别于**小写驼峰式命名法”或[驼峰式命名法 (camelCase)](guide/glossary#camelCase)** 。
+这种形式也称**大写驼峰式命名法**，以区别于**小写驼峰式命名法”或[驼峰式命名法 (camelCase)](guide/glossary#camelcase)** 。
 在本文档中，“Pascal 命名法”都是指的*大写驼峰式命名法*，“驼峰式命名法”指的都是*小写驼峰式命名法*。
 
 
@@ -1009,7 +1009,7 @@ For more information, see the [Routing & Navigation](guide/router) page.
 
 A separate [NgModule](guide/glossary#ngmodule) that provides the necessary service providers and directives for navigating through application views.
 
-一个独立的 [Angular 模块](guide/glossary#angular-module)，用来提供导航所需的服务提供商和指令。
+一个独立的 [Angular 模块](guide/glossary#ngmodule)，用来提供导航所需的服务提供商和指令。
 
 For more information, see the [Routing & Navigation](guide/router) page.
 
@@ -1189,7 +1189,7 @@ Read about how to write template expressions
 in the [Template expressions](guide/template-syntax#template-expressions) section
 of the [Template Syntax](guide/template-syntax) page.
 
-到[模板语法](guide/template-syntax)一章的[模板表达式](guide/guide/template-syntax#template-expressions)部分了解更多模板表达式的知识。
+到[模板语法](guide/template-syntax)一章的[模板表达式](guide/template-syntax#template-expressions)部分了解更多模板表达式的知识。
 
 
 ## Transpile
@@ -1207,7 +1207,7 @@ The process of transforming code written in one form of JavaScript
 A version of JavaScript that supports most [ECMAScript 2015](guide/glossary#es2015)
 language features such as [decorators](guide/glossary#decorator).
 
-JavaScript 的一个版本，支持了几乎所有 [ECMAScript 2015](guide/glossary#ecmascript=2015) 语言特性，例如[装饰器 (decorator)](guide/glossary#decorator))。
+JavaScript 的一个版本，支持了几乎所有 [ECMAScript 2015](guide/glossary#es2015) 语言特性，例如[装饰器 (decorator)](guide/glossary#decorator))。
 
 TypeScript is also notable for its optional typing system, which provides
 compile-time type checking and strong tooling support (such as "intellisense,"

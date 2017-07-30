@@ -109,7 +109,7 @@ In _ES5_, you access the Angular entities of the [the Angular packages](guide/gl
 through the global `ng` object.
 Anything you can import from `@angular` is a nested member of this `ng` object:
 
-在 _ES5_ 中，通过全局`ng`对象访问 [Angular 包](glossary#scoped-package)中的 Angular 实体。
+在 _ES5_ 中，通过全局`ng`对象访问 [Angular 包](guide/glossary#scoped-package)中的 Angular 实体。
 凡是可以从`@angular`导入的，都是该`ng`对象的嵌套成员。
 
 
@@ -793,8 +793,8 @@ The [`@HostListener`](api/core/HostListener) decorator binds
 host element events to component event handlers.
 
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，可以使用宿主属性装饰器把宿主元素绑定到组件或指令。
-[`@HostBinding`](api/core/index/HostBinding-interface)装饰器把宿主元素属性绑定到组件数据属性。
-[`@HostListener`](api/core/index/HostListener-interface)装饰器把宿主元素事件绑定到组件事件处理器。
+[`@HostBinding`](api/core/HostBinding)装饰器把宿主元素属性绑定到组件数据属性。
+[`@HostListener`](api/core/HostListener)装饰器把宿主元素事件绑定到组件事件处理器。
 
 In _plain ES6_ or _ES5_, add a `host` attribute to the component metadata to achieve the
 same effect as `@HostBinding` and `@HostListener`. 
@@ -883,8 +883,8 @@ The [`@ViewChild`](api/core/ViewChild) and
 allow a component to query instances of other components that are used in
 its view.
 
-[`@ViewChild`](api/core/index/ViewChild-decorator) 和
-[`@ViewChildren`](api/core/index/ViewChildren-decorator)
+[`@ViewChild`](api/core/ViewChild) 和
+[`@ViewChildren`](api/core/ViewChildren)
 属性装饰器允许组件查询位于其视图中的其它组件的实例。
 
 In _ES5_ and _ES6_, you access a component's view children by adding a `queries` property to the component metadata.

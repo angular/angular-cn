@@ -452,7 +452,7 @@ at the top of the `<head>` section.
 For more information, see the [Set the base href](guide/router)
 section of the [Routing and Navigation](guide/router) page.
 
-要了解更多信息，请参见[路由与导航](guide/router)章的[设置基地址（base href）](guide/router#!)部分。
+要了解更多信息，请参见[路由与导航](guide/router)章的[设置基地址（base href）](guide/router)部分。
 
 
 
@@ -1200,7 +1200,7 @@ Read more on the [CanDeactivate](api/router/CanDeactivate) page.
 
 回退太多步会跑出我们的应用。
 在真实的应用中，我们需要使用<em>CanDeactivate</em>守卫对此进行防范。
-要了解更多，参见[CanDeactivate](api/router/index/CanDeactivate-interface)。
+要了解更多，参见[CanDeactivate](api/router/CanDeactivate)。
 
 
 </div>

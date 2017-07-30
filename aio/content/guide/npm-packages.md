@@ -160,7 +160,7 @@ This package also includes the `bootstrapStatic()` method for bootstrapping appl
 compile templates on the client. Don’t use offline compilation.
 Use this package for bootstrapping during development and for bootstrapping plunker samples.
 
-***@angular/platform-browser-dynamic*** - 为应用程序提供一些[提供商](api/core/index/Provider-type-alias)和[bootstrap](guide/ngmodule#bootstrap)方法，以便在客户端编译模板。不要用于离线编译。
+***@angular/platform-browser-dynamic*** - 为应用程序提供一些[提供商](api/core/Provider)和[bootstrap](guide/ngmodule#bootstrap)方法，以便在客户端编译模板。不要用于离线编译。
 我们使用这个包在开发期间引导应用，以及引导plunker中的范例。
 
 ***@angular/http*** : Angular's HTTP client.
@@ -263,7 +263,6 @@ Good for demos, samples, and early stage development (before you even have a ser
 
 ***angular-in-memory-web-api*** - 一个Angular的支持库，它能模拟一个远端服务器的Web API，而不需要依赖一个真实的服务器或发起真实的HTTP调用。
 对演示、文档范例和开发的早期阶段(那时候我们可能还没有服务器呢)非常有用。
-请到[Http客户端](guide/server-communication#appendix-tour-of-heroes-in-memory-server)一章中了解更多知识。
 
 ***bootstrap*** : [Bootstrap](http://getbootstrap.com/) is a popular HTML and CSS framework for designing responsive web apps.
 Some of the samples improve their appearance with *bootstrap*.

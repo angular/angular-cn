@@ -566,7 +566,7 @@ the `HeroesComponent`.
 
 Also see *"Should I add app-wide providers to the root `AppModule` or the root `AppComponent`?"* in the [NgModule FAQ](guide/ngmodule-faq#q-root-component-or-module).
  
-参见 [NgModule FAQ](cookbook/ngmodule-faq#q-root-component-or-module) 一章的
+参见 [NgModule FAQ](guide/ngmodule-faq#q-root-component-or-module) 一章的
   **我该把“全应用级”提供商加到根模块`AppModule`还是根组件`AppComponent`？**
 
 
@@ -732,7 +732,7 @@ under test:
 
 Learn more in [Testing](guide/testing).
 
-要学习更多知识，参见[测试](testing/index)。
+要学习更多知识，参见[测试](guide/testing)。
 
 
 </div>
@@ -794,7 +794,7 @@ injector for instantiation. Generally speaking, an injector reports an
 error when trying to instantiate a class that is not marked as
 `@Injectable()`.
 
-**<a href="../api/core/index/Injectable-decorator.html">@Injectable()</a>** 标识一个类可以被注入器实例化。
+**<a href="../api/core/Injectable">@Injectable()</a>** 标识一个类可以被注入器实例化。
   通常，在试图实例化没有被标识为`@Injectable()`的类时，注入器会报错。
 
 
@@ -887,7 +887,7 @@ fact `@Injectable()` decorators that
 identify a class as a target for instantiation by an injector.
 
 我们**可以**添加它。但是没有必要，因为`HerosComponent`已经有`@Component`装饰器了，
-  `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="../api/core/index/Injectable-decorator.html">Injectable</a> 的子类型。
+  `@Component`（和随后将会学到的`@Directive`和`@Pipe`一样）是 <a href="../api/core/Injectable">Injectable</a> 的子类型。
   实际上，正是这些`@Injectable()`装饰器是把一个类标识为注入器实例化的目标。
 
 
@@ -918,7 +918,7 @@ While any decorator will trigger this effect, mark the service class with the
 [@Injectable()](api/core/Injectable) decorator
 to make the intent clear.
 
-当然，任何装饰器都会触发这个效果，用 <a href="../api/core/index/Injectable-decorator.html">@Injectable()</a> 来标识服务
+当然，任何装饰器都会触发这个效果，用 <a href="../api/core/Injectable">@Injectable()</a> 来标识服务
 只是为了让这一意图更明显。
 
 
@@ -1573,7 +1573,7 @@ One solution to choosing a provider token for non-class dependencies is
 to define and use an [*InjectionToken*](api/core/InjectionToken).
 The definition of such a token looks like this:
 
-解决方案是为非类依赖定义和使用<a href="../api/core/index/InjectionToken-class.html"><b>InjectionToken</b></a>作为提供商令牌。
+解决方案是为非类依赖定义和使用<a href="../api/core/InjectionToken"><b>InjectionToken</b></a>作为提供商令牌。
 定义方式是这样的：
 
 

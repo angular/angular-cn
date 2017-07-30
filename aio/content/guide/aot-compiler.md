@@ -321,7 +321,8 @@ Here is AOT bootstrap in `main.ts` next to the original JIT version:
 
 
 Be sure to [recompile](guide/aot-compiler#compile) with `ngc`!
-确保用`ngc`进行[重新编译](guide/aot-compiler#compiling-aot)！
+
+确保用`ngc`进行[重新编译](guide/aot-compiler#compile)！
 
 {@a tree-shaking}
 

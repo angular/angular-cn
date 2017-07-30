@@ -460,7 +460,7 @@ which `NgFor` has initialized with the hero for the current iteration.
 * The [API guide](api/common/NgFor "API: NgFor")
 describes additional `NgFor` directive properties and context properties.
 
-  [API参考手册](api/common/index/NgFor-directive "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
+  [API参考手册](api/common/NgFor "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
 
 These microsyntax mechanisms are available to you when you write your own structural directives.
 Studying the
@@ -561,6 +561,7 @@ The `NgSwitchDefault` displays its host element when no sibling `NgSwitchCase` m
 
 *Design thought*: minimize initialization effort and consider caching state in a  
 companion service.
+
 *设计思路*：要最小化初始化的成本，并考虑把状态缓存在一个伴生的服务中。
 
 
@@ -588,20 +589,6 @@ We'll display two instances of the component.  We toggle the visibility of the f
 We toggle the second into and out of the DOM with `ngIf`.
 
 我们将显示该组件的两个实例。我们使用CSS切换第一个实例的可见性，用`ngIf`把第二个实例添加到DOM和将其移除。
-
-
-<code-tabs>
-
-  <code-pane title="template (excerpt)" path="structural-directives/src/app/structural-directives.component.html" region="message-log">
-
-  </code-pane>
-
-  <code-pane title="heavy-loader.component.ts" path="structural-directives/src/app/heavy-loader.component.ts">
-
-  </code-pane>
-
-</code-tabs>
-
 
 
 That, in turn, can be desugared into the `<ng-template>` element form.

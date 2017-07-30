@@ -149,7 +149,7 @@ added (optional) instructions on how to remove _non-essential_ files. [环境搭
 
 * [Style Guide](guide/styleguide): copy edits and revised rules.
 
-    [风格指南](guide/style-guide)：复制了编辑过的和修改过的规则。
+    [风格指南](guide/styleguide)：复制了编辑过的和修改过的规则。
 
 ## Router: more detail (2016-12-21)
 
@@ -167,7 +167,7 @@ including sections named outlets, wildcard routes, and preload strategies.
 Added section on how to set default request headers (and other request options) to
 HTTP guide.
 
-往[Http指南](guide/server-communication#override-default-request-options)中添加了一节“如何设置默认的请求头（以及其它配置项）”
+添加了一节“如何设置默认的请求头（以及其它配置项）”
 
 ## Testing: added component test plunkers (2016-12-02)
 
@@ -247,7 +247,7 @@ The documentation for the version prior to v.2.2.0 has been removed.
 The updated [TypeScript to JavaScript](guide/ts-to-js) guide
 now explains how to write apps in ES6/7
 
-更新了“[从TypeScript到JavaScript](cookbook/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
+更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
 
 by translating the common idioms in the TypeScript documentation examples
 (and elsewhere on the web) to ES6/7 and ES5.
@@ -332,7 +332,7 @@ explains what AOT compilation is and why you'd want it.
 It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
-全新[预编译(AoT)](cookbook/aot-compiler)烹饪书介绍了什么是AoT编译和为何你需要它。
+全新[预编译(AoT)](guide/aot-compiler)烹饪书介绍了什么是AoT编译和为何你需要它。
 它以**快速起步**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
@@ -362,7 +362,7 @@ All guided samples with routing use the _Routing Module_ and prose content has b
 most conspicuously in the
 [NgModule](guide/ngmodule) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](cookbook/ngmodule-faq)烹饪书。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
 
 ## New "Internationalization" guide (2016-09-30)
 
@@ -371,7 +371,7 @@ most conspicuously in the
 Added a new [Internationalization (i18n)](guide/i18n) guide that shows how
 to use Angular "i18n" facilities to translate template text into multiple languages.
 
-添加了新的[国际化(i18n)](cookbook/i18n)烹饪书，展示了如何使用Angular的“i18n”工具来讲模板文本翻译到多种语言。
+添加了新的[国际化(i18n)](guide/i18n)烹饪书，展示了如何使用Angular的“i18n”工具来讲模板文本翻译到多种语言。
 
 ## "angular-in-memory-web-api" package rename (2016-09-27)
 
@@ -397,7 +397,7 @@ The new "angular-in-memory-web-api" has new features.
 
 [StyleGuide](guide/styleguide) explains recommended conventions for NgModules.
 
-[StyleGuide](guide/style-guide)解释了我们为Angular模块（NgModule）而推荐的约定。
+[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。
 Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.

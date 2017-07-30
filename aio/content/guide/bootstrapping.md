@@ -8,7 +8,7 @@ that you [bootstrap](#main) to launch the application.
 You can call it anything you want. The conventional name is `AppModule`.
 
 Angular 模块类描述应用的部件是如何组合在一起的。
-每个应用都至少有一个 Angular 模块，也就是*根*模块，用来[引导](guide/appmodule#main)并运行应用。
+每个应用都至少有一个 Angular 模块，也就是*根*模块，用来[引导](#main)并运行应用。
 你可以为它取任何名字。常规名字是`AppModule`。
 
 The [setup](guide/setup) instructions produce a new project with the following minimal `AppModule`.
@@ -179,7 +179,7 @@ You launch the application by [_bootstrapping_](#main) the root `AppModule`.
 Among other things, the _bootstrapping_ process creates the component(s) listed in the `bootstrap` array
 and inserts each one into the browser DOM.
 
-通过[_引导_](guide/appmodule#main)根`AppModule`来启动应用。
+通过[_引导_](#main)根`AppModule`来启动应用。
 在启动过程中，其中一步是创建列在`bootstrap`数组的组件，
 并将它们每一个都插入到浏览器的DOM中。
 

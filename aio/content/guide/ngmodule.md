@@ -26,7 +26,7 @@ Before reading this page, read the
 [The Root Module](guide/bootstrapping) page, which introduces NgModules and the essentials
 of creating and maintaining a single root `AppModule` for the entire application.
 
-请先阅读[根模块](guide/appmodule)一章，那里介绍过 Angular 模块，以及如何为整个应用创建和维护单一的*根*`AppModule`类。
+请先阅读[根模块](guide/bootstrapping)一章，那里介绍过 Angular 模块，以及如何为整个应用创建和维护单一的*根*`AppModule`类。
 
 This page covers NgModules in greater depth.
 
@@ -91,7 +91,9 @@ This page covers NgModules in greater depth.
  CF: This link goes to the top of this page. I would expect it to go to an "NgModule metadata properties"
  section at the end of this page, but that section doesn't exist. -->
 
+<!--
   [NgModule 元数据的属性](guide/ngmodule#ngmodule-properties "对@NgModule元数据属性的技术性总结")
+-->
 
 #### Live examples
 
@@ -133,7 +135,7 @@ The companion [NgModule FAQs](guide/ngmodule-faq "NgModule FAQs") guide
 offers answers to specific design and implementation questions.
 Read this page before reading those FAQs.
 
-烹饪宝典中的 [Angular 模块常见问题](cookbook/ngmodule-faq "Angular 模块常见问题")为一些与设计和实现有关的问题提供了答案。
+烹饪宝典中的 [Angular 模块常见问题](guide/ngmodule-faq "Angular 模块常见问题")为一些与设计和实现有关的问题提供了答案。
 不过在阅读常见问题之前，要先阅读本章。
 
 
@@ -617,7 +619,7 @@ More accurately, `NgIf` is declared in `CommonModule` from `@angular/common`.
 `BrowserModule` imports `CommonModule` and [re-exports](guide/ngmodule-faq#q-re-export) it.
 The net effect is that an importer of `BrowserModule` gets `CommonModule` directives automatically.
 
-`BrowserModule`导入了`CommonModule`并且[_重新导出_](cookbook/ngmodule-faq#q-re-export)了它。
+`BrowserModule`导入了`CommonModule`并且[_重新导出_](guide/ngmodule-faq#q-re-export)了它。
 最终的效果是：只要导入`BrowserModule`就自动获得了`CommonModule`中的指令。
 
 
@@ -666,7 +668,7 @@ template-driven or
 <!-- CF: this link goes to a page titled "Dynamic Forms". Should the link text be "dynamic" instead of "reactive"? -->
 
 我们写 Angular 表单组件时，可以使用[_模板驱动式表单_](guide/forms)，
-    也可以使用[_响应式表单_](cookbook/dynamic-form)。
+    也可以使用[_响应式表单_](guide/dynamic-form)。
 
 The following sample imports the `FormsModule` from `@angular/forms` because
 the `ContactComponent` is written in _template-driven_ style.
@@ -699,7 +701,7 @@ and [custom pipe](guide/pipes#custom-pipes) (called `Awesome`),
 and an alternative version of the `HighlightDirective`.
 
 `ContactComponent`还有很多事要做。
-表单组件通常都是很复杂的。本组件具有它自己的`ContactService`和[自定义管道](guide/ngmodule#pipes.html) `Awesome`，
+表单组件通常都是很复杂的。本组件具有它自己的`ContactService`和[自定义管道](guide/pipes#custom-pipes) `Awesome`，
 以及`HighlightDirective`的另一个版本。
 
 To make it manageable, place all contact-related material in an `src/app/contact` folder
@@ -949,7 +951,7 @@ Only Contact components should import the `ContactService` type.
 Read more in the [How do I restrict service scope to a module?](guide/ngmodule-faq#q-component-scoped-providers) section
 of the [NgModule FAQs](guide/ngmodule-faq) page.
 
-在[NgModule常见问题](cookbook/ngmodule-faq)页的[如何把服务的范围限制在一个模块中](cookbook/ngmodule-faq#q-component-scoped-providers)一节中可以了解更多。
+在[NgModule常见问题](guide/ngmodule-faq)页的[如何把服务的范围限制在一个模块中](guide/ngmodule-faq#q-component-scoped-providers)一节中可以了解更多。
 
 
 </div>
@@ -1288,7 +1290,7 @@ You also replaced `BrowserModule` by `CommonModule`, for reasons explained in th
 [Should I import BrowserModule or CommonModule?](guide/ngmodule-faq#q-browser-vs-common-module)
 section of the [NgModule FAQs](guide/ngmodule-faq) page.
 
-我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条常见问题](cookbook/ngmodule-faq#q-browser-vs-common-module)。
+我们还用`CommonModule`替换了`BrowserModule`，其中缘由参见[这条常见问题](guide/ngmodule-faq#q-browser-vs-common-module)。
 
 You _declare_ the contact component, directive, and pipe in the module `declarations`.
 
@@ -1686,7 +1688,7 @@ Angular doesn't recognize them but Angular developers do.
 [Follow this convention](guide/ngmodule-faq#q-for-root) if you write a similar module
 that has both shared [declarables](guide/ngmodule-faq#q-declarable) and services.
 
-当你要写类似的模块，来为根模块和特性模块分别导出一些[_声明_](cookbook/ngmodule-faq#q-declarable)和服务时，请[遵循这个约定](cookbook/ngmodule-faq#q-for-root)。
+当你要写类似的模块，来为根模块和特性模块分别导出一些[_声明_](guide/ngmodule-faq#q-declarable)和服务时，请[遵循这个约定](guide/ngmodule-faq#q-for-root)。
 
 
 </div>
@@ -1971,7 +1973,7 @@ if the `SharedModule` provides the `UserService`.
 
 `UserService`是全应用级单例。
 我们不希望每个模块都各自有它的实例。
-而如果由`SharedModule`提供`UserService`，就会导致[铁板钉钉的危险](cookbook/ngmodule-faq#q-why-it-is-bad)。
+而如果由`SharedModule`提供`UserService`，就会导致[铁板钉钉的危险](guide/ngmodule-faq#q-why-bad)。
 
 
 <div class="alert is-critical">
@@ -2245,7 +2247,7 @@ a simple object with the following properties:
 
 
 按照约定，模块的静态方法***forRoot***可以同时提供并配置服务。
-它接收一个服务配置对象，并返回一个[ModuleWithProviders](api/core/index/ModuleWithProviders-interface)。这个简单对象具有两个属性：
+它接收一个服务配置对象，并返回一个[ModuleWithProviders](api/core/ModuleWithProviders)。这个简单对象具有两个属性：
 
 * `ngModule`: the `CoreModule` class
 
@@ -2358,7 +2360,7 @@ Only the root `AppModule` should import the `CoreModule`.
 It looks like it is supposed to go to a specific question/section within the page. -->
 
 只有根模块`AppModule`才能导入`CoreModule`。
-  如果惰性加载模块导入了它，就会[出问题](cookbook/ngmodule-faq#q-why-it-is-bad)。
+  如果惰性加载模块导入了它，就会[出问题](guide/ngmodule-faq#q-why-bad)。
 
 You could hope that no developer makes that mistake.
 Or you can guard against it and fail fast by adding the following `CoreModule` constructor.
@@ -2434,5 +2436,5 @@ in the companion [NgModule FAQs](guide/ngmodule-faq "NgModule FAQs") page
 with its ready answers to specific design and implementation questions.
 
 现在，你已经理解了 Angular 的模块。可能你还会对烹饪宝典中的
-[Angular 模块常见问题](cookbook/ngmodule-faq "Angular 模块常见问题")感兴趣，
+[Angular 模块常见问题](guide/ngmodule-faq "Angular 模块常见问题")感兴趣，
 它解答了很多关于设计和实现方面的问题。

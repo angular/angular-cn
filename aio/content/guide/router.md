@@ -1129,7 +1129,7 @@ Each definition translates to a [Route](api/router/Route) object which has two t
 `path`, the URL path segment for this route; and a
 `component`, the component associated with this route.
 
-每个定义都被翻译成了一个[Route](api/router/index/Route-interface)对象。该对象有一个`path`字段，表示该路由中的URL路径部分，和一个`component`字段，表示与该路由相关联的组件。
+每个定义都被翻译成了一个[Route](api/router/Route)对象。该对象有一个`path`字段，表示该路由中的URL路径部分，和一个`component`字段，表示与该路由相关联的组件。
 
 The router draws upon its registry of definitions when the browser URL changes
 or when application code tells the router to navigate along a route path.
@@ -1732,7 +1732,7 @@ The **Routing Module** has several characteristics:
   
 * Does **not** [declare components](guide/ngmodule-faq#routing-module).
 
-  **不要**[声明组件](cookbook/ngmodule-faq#routing-module)
+  **不要**[声明组件](guide/ngmodule-faq#routing-module)
 
 
 {@a routing-refactor}
@@ -2484,7 +2484,7 @@ The route path and parameters are available through an injected router service c
 [ActivatedRoute](api/router/ActivatedRoute).
 It has a great deal of useful information including:
 
-该路由的路径和参数可以通过注入进来的一个名叫[ActivatedRoute](api/router/index/ActivatedRoute-interface)的路由服务来获取。
+该路由的路径和参数可以通过注入进来的一个名叫[ActivatedRoute](api/router/ActivatedRoute)的路由服务来获取。
 它有一大堆有用的信息，包括：
 
 <table>

@@ -321,7 +321,7 @@ In real apps, most form controls have both.
 This guide touches only briefly on `Validators`. For an in-depth look at them,
 read the [Form Validation](guide/form-validation) guide.
 
-本章中只会接触`Validators`中的一点点，要想更深入的了解它们，请阅读烹饪宝典中的[表单验证](cookbook/form-validation)一章。
+本章中只会接触`Validators`中的一点点，要想更深入的了解它们，请阅读烹饪宝典中的[表单验证](guide/form-validation)一章。
 
 
 </div>
@@ -444,14 +444,14 @@ is the abstract base class for the three concrete form control classes:
 `FormControl`, `FormGroup`, and `FormArray`.
 It provides their common behaviors and properties, some of which are _observable_.
 
-  [`AbstractControl`](api/forms/index/AbstractControl-class "API Reference: AbstractControl")是三个具体表单类的抽象基类。
+  [`AbstractControl`](api/forms/AbstractControl "API Reference: AbstractControl")是三个具体表单类的抽象基类。
   并为它们提供了一些共同的行为和属性，其中有些是*可观察对象（Observable）*。
 
 * [_FormControl_](api/forms/FormControl "API Reference: FormControl")
 tracks the value and validity status of an _individual_ form control.
 It corresponds to an HTML form control such as an input box or selector.
 
-  [_FormControl_](api/forms/index/FormControl-class "API Reference: FormControl")
+  [_FormControl_](api/forms/FormControl "API Reference: FormControl")
   用于跟踪一个*单独的*表单控件的值和有效性状态。它对应于一个HTML表单控件，比如输入框和下拉框。
 
 * [_FormGroup_](api/forms/FormGroup "API Reference: FormGroup")
@@ -459,7 +459,7 @@ tracks the value and validity state of a _group_ of `AbstractControl` instances.
 The group's properties include its child controls.
 The top-level form in your component is a `FormGroup`.
 
-  [_FormGroup_](api/forms/index/FormGroup-class "API Reference: FormGroup")用于
+  [_FormGroup_](api/forms/FormGroup "API Reference: FormGroup")用于
   跟踪*一组*`AbstractControl`的实例的值和有效性状态。
   该组的属性中包含了它的子控件。
   组件中的顶级表单就是一个`FormGroup`。
@@ -467,7 +467,7 @@ The top-level form in your component is a `FormGroup`.
 * [_FormArray_](api/forms/FormArray "API Reference: FormArray")
 tracks the value and validity state of a numerically indexed _array_ of `AbstractControl` instances.
 
-  [_FormArray_](api/forms/index/FormArray-class "API Reference: FormArray")用于跟踪`AbstractControl`实例组成的有序数组的值和有效性状态。
+  [_FormArray_](api/forms/FormArray "API Reference: FormArray")用于跟踪`AbstractControl`实例组成的有序数组的值和有效性状态。
 
 You'll learn more about these classes as you work through this guide.
 
@@ -820,7 +820,7 @@ It remains in each of the following examples with the same configuration.
 For more on validating Angular forms, see the
 [Form Validation](guide/form-validation) guide.
 
-要了解Angular表单验证器的更多知识，参见[表单验证器](cookbook/form-validation)一章。
+要了解Angular表单验证器的更多知识，参见[表单验证器](guide/form-validation)一章。
 
 
 ### More FormControls
@@ -912,9 +912,9 @@ See the API reference for more information about
 [selects](api/forms/SelectControlValueAccessor "API: SelectControlValueAccessor"), and
 [checkboxes](api/forms/CheckboxControlValueAccessor "API: CheckboxControlValueAccessor").
 
-参见API参考手册中的[radio buttons](api/forms/index/RadioControlValueAccessor-directive "API: RadioControlValueAccessor")、
-  [selects](api/forms/index/SelectControlValueAccessor-directive "API: SelectControlValueAccessor")和
-  [checkboxes](api/forms/index/CheckboxControlValueAccessor-directive "API: CheckboxControlValueAccessor")
+参见API参考手册中的[radio buttons](api/forms/RadioControlValueAccessor "API: RadioControlValueAccessor")、
+  [selects](api/forms/SelectControlValueAccessor "API: SelectControlValueAccessor")和
+  [checkboxes](api/forms/CheckboxControlValueAccessor "API: CheckboxControlValueAccessor")
 
 
 
@@ -1159,7 +1159,7 @@ such as one of the following:
 Learn about other `FormControl` properties in the
 [_AbstractControl_](api/forms/AbstractControl) API reference.
 
-要了解`FormControl`的更多属性，参见API参考手册的[_AbstractControl_](api/forms/index/AbstractControl-class)部分。
+要了解`FormControl`的更多属性，参见API参考手册的[_AbstractControl_](api/forms/AbstractControl)部分。
 
 One common reason for inspecting `FormControl` properties is to
 make sure the user entered valid values.
@@ -1167,7 +1167,7 @@ Read more about validating Angular forms in the
 [Form Validation](guide/form-validation) guide.
 
 检查`FormControl`属性的另一个原因是确保用户输入了有效的值。
-要了解更多关于Angular表单验证的知识，参见[表单验证](cookbook/form-validation)一章。
+要了解更多关于Angular表单验证的知识，参见[表单验证](guide/form-validation)一章。
 
 
 

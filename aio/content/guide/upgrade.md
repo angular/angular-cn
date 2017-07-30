@@ -544,7 +544,7 @@ change detection. The code itself doesn't have to call `scope.$apply()`
 or anything like it.
 
 在Angular中，事情有点不一样。虽然变更检测仍然会在每一个事件之后发生，却不再需要每次调用`scope.$apply()`了。
-这是因为所有Angular代码都运行在一个叫做[Angular zone](api/core/index/NgZone-class)的地方。
+这是因为所有Angular代码都运行在一个叫做[Angular zone](api/core/NgZone)的地方。
 Angular总是知道什么时候代码执行完了，也就知道了它什么时候应该触发变更检测。代码本身并不需要调用`scope.$apply()`或其它类似的东西。
 
 In the case of hybrid applications, the `UpgradeModule` bridges the
@@ -588,7 +588,7 @@ are set. You can also hook into the changes by implementing the
 just like you could if it hadn't been downgraded.
 
 当我们降级一个Angular组件，然后把它用于AngularJS中时，组件的输入属性就会被AngularJS的变更检测体系监视起来。
-当那些输入属性发生变化时，组件中相应的属性就会被设置。我们也能通过实现[OnChanges](api/core/index/OnChanges-interface)
+当那些输入属性发生变化时，组件中相应的属性就会被设置。我们也能通过实现[OnChanges](api/core/OnChanges)
 接口来挂钩到这些更改，就像它未被降级时一样。
 
 Correspondingly, when you upgrade an AngularJS component and use it from Angular,
@@ -1300,7 +1300,7 @@ The setup for an hybrid app is mostly the same as described in
 save for differences in `index.html` and `main-aot.ts`
 
 我们也可以其它Angular应用一样在混合式应用中发挥AOT编译的优势。
-对混合式应用的设置过程和[预编译](cookbook/aot-compiler)章节中所讲的几乎完全一样，不同点在于`index.html`和`main-aot.ts`中。
+对混合式应用的设置过程和[预编译](guide/aot-compiler)章节中所讲的几乎完全一样，不同点在于`index.html`和`main-aot.ts`中。
 
 The `index.html` will likely have script tags loading AngularJS files, so the `index.html`
 for AOT must also load those files.
@@ -1488,7 +1488,7 @@ which is an important [preparation step](guide/upgrade#follow-the-angular-styleg
 a successful upgrade.
 
 这确实是一个很好地起点。特别是，该结构遵循了[AngularJS 风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)，
-要想成功升级，这是一个很重要的[准备步骤](guide/upgrade#following-the-angular-style-guide)。
+要想成功升级，这是一个很重要的[准备步骤](guide/upgrade#follow-the-angular-styleguide)。
 
 * Each component, service, and filter is in its own source file, as per the
   [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
@@ -1741,7 +1741,7 @@ By the time you're done, you'll be able to remove AngularJS from the project
 completely, but the key is to do this piece by piece without breaking the application.
 
 我们已经完成了准备工作，接下来就开始把PhoneCat升级到Angular。
-我们将在Angular[升级模块](guide/upgrade#upgrading-with-the-upgrade-adapter)的帮助下增量式的完成此项工作。
+我们将在Angular[升级模块](guide/upgrade#upgrading-with-ngupgrade)的帮助下增量式的完成此项工作。
 等我们完成的那一刻，就能把AngularJS从项目中完全移除了，但其中的关键是在不破坏此程序的前提下一小块一小块的完成它。
 
 

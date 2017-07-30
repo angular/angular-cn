@@ -55,7 +55,12 @@ In the following sections, you'll learn how to get and set DOM (Document Object 
 可以通过组件和指令来扩展模板中的 HTML 词汇。它们看上去就是新元素和属性。接下来将学习如何通过数据绑定来动态获取/设置 DOM（文档对象模型）的值。
 
 Begin with the first form of data binding&mdash;interpolation&mdash;to see how much richer template HTML can be.
-我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+
+我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -120,10 +125,10 @@ Though this is not exactly true. Interpolation is a special syntax that Angular 
 
 表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
 这样思考起来很方便，并且这个误解很少给我们带来麻烦。
-但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation-)将会解释这一点。
+但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation)将会解释这一点。
 
 But first, let's take a closer look at template expressions and statements.
-讲解属性绑定之前，先深入了解一下模板表达式和模板语句。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+讲解属性绑定之前，先深入了解一下模板表达式和模板语句。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -238,7 +243,7 @@ the global namespace. They can't refer to `window` or `document`. They
 can't call `console.log` or `Math.max`. They are restricted to referencing
 members of the expression context.
 模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
-它们只能引用表达式上下文中的成员。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+它们只能引用表达式上下文中的成员。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 {@a no-side-effects}
 
@@ -343,7 +348,7 @@ it returns the same object *reference* when called twice in a row.
 在单独的一次事件循环中，被依赖的值不应该改变。
   如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
   如果幂等的表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -467,7 +472,7 @@ A method call or simple property assignment should be the norm.
 Now that you have a feel for template expressions and statements,
 you're ready to learn about the varieties of data binding syntax beyond interpolation.
 现在，对模板表达式和语句有了一点感觉了吧。
-  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1160,7 +1165,7 @@ The following table summarizes:
 With this broad view in mind, you're ready to look at binding types in detail.
 
 放开眼界，我们来看看每种绑定类型的具体情况。
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1602,7 +1607,7 @@ attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-aria" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1662,7 +1667,7 @@ the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1715,7 +1720,7 @@ Note that a _style property_ name can be written in either
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1868,7 +1873,7 @@ The directive creates an `EventEmitter` and exposes it as a property.
 The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a message payload, which can be anything.
 Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
 
-通常，指令使用 Angular [EventEmitter](api/core/index/EventEmitter-class) 来触发自定义事件。
+通常，指令使用 Angular [EventEmitter](api/core/EventEmitter) 来触发自定义事件。
 指令创建一个`EventEmitter`实例，并且把它作为属性暴露出来。
 指令调用`EventEmitter.emit(payload)`来触发事件，可以传入任何东西作为消息载荷。
 父指令通过绑定到这个属性来监听事件，并通过`$event`对象来访问载荷。
@@ -1927,7 +1932,7 @@ Deleting the hero updates the model, perhaps triggering other changes
 including queries and saves to a remote server.
 These changes percolate through the system and are ultimately displayed in this and other views.
 删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
-这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2038,7 +2043,7 @@ However, no native HTML element follows the `x` value and `xChange` event patter
 可惜，原生 HTML 元素不遵循`x`值和`xChange`事件的模式。
 
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
-幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2116,7 +2121,7 @@ This section is an introduction to the most commonly used attribute directives:
 * [`NgModel`](guide/template-syntax#ngModel) - two-way data binding to an HTML form element
 
   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到HTML表单元素
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2177,7 +2182,7 @@ It's up to you to call `setCurrentClassess()`, both initially and when the depen
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2234,7 +2239,7 @@ It's up to you to call `setCurrentStyles()`, both initially and when the depende
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2318,7 +2323,7 @@ The `<input>` box is one of those elements.
 Angular provides *value accessors* for all of the basic HTML form elements and the
 [_Forms_](guide/forms) guide shows how to bind to them.
 
-各种元素都有很多特有的处理细节，因此`NgModel`指令只支持实现了[ControlValueAccessor](api/forms/index/ControlValueAccessor-interface)的元素，
+各种元素都有很多特有的处理细节，因此`NgModel`指令只支持实现了[ControlValueAccessor](api/forms/ControlValueAccessor)的元素，
 它们能让元素适配本协议。
 `<input>`输入框正是其中之一。
 Angular为所有的基础HTML表单都提供了*值访问器（Value accessor）*，[*表单*](guide/forms)一章展示了如何绑定它们。
@@ -2545,7 +2550,7 @@ described below.
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2827,7 +2832,7 @@ For example, you could replace the `<confused-hero>` switch case with the follow
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch-div" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2906,7 +2911,7 @@ The `heroForm` is actually a reference to an Angular [NgForm](api/forms/NgForm "
 directive with the ability to track the value and validity of every control in the form.
 
 如果你没有导入过`FormsModule`，Angular就不会控制这个表单，那么它就是一个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)实例。
-这里的`heroForm`实际上是一个Angular [NgForm](api/forms/index/NgForm-directive "API: NgForm") 指令的引用，
+这里的`heroForm`实际上是一个Angular [NgForm](api/forms/NgForm "API: NgForm") 指令的引用，
 因此具备了跟踪表单中的每个控件的值和有效性的能力。
 
 The native `<form>` element doesn't have a `form` property.
@@ -2945,7 +2950,7 @@ This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3179,7 +3184,7 @@ the directive property name on the *left* and the public alias on the *right*:
 
 </div>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3260,7 +3265,7 @@ The generated output would look something like this
     "rate": 325 }
 </code-example>
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3413,7 +3418,7 @@ Rather it tells the TypeScript type checker to suspend strict null checks for a 
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.
 
 
-<a href="#top-of-page">back to top</a><a href="#toc">回到顶部</a>
+<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
 
 <hr/>
 

@@ -126,7 +126,7 @@ This file will hold the new `HeroDetailComponent`.
 The file and component names follow the standard described in the Angular
 [style guide](guide/styleguide#naming).
 
-文件名和组件名遵循[风格指南](guide/style-guide#naming)中的标准方式。
+文件名和组件名遵循[风格指南](guide/styleguide#naming)中的标准方式。
 
 * The component _class_ name should be written in _upper camel case_ and end in the word "Component".
 The hero detail component class is `HeroDetailComponent`.
@@ -225,7 +225,7 @@ The Angular [style guide](guide/styleguide#rule-of-one "Style guide: rule of one
 `hero`属性的类型是`Hero`。
 `Hero`类仍然在`app.component.ts`文件中。
 现在，有两个组件需要`Hero`类的引用。
-而Angular[风格指南](guide/style-guide#rule-of-one "Style guide: rule of one")建议每个文件中只有一个类。
+而Angular[风格指南](guide/styleguide#rule-of-one "Style guide: rule of one")建议每个文件中只有一个类。
 
 Move the `Hero` class from `app.component.ts` to its own `hero.ts` file.
 
@@ -639,4 +639,8 @@ Data access should be refactored to a separate service
 and shared among the components that need data.
 
 通过抽取共享组件，我们的《英雄指南》变得更有复用性了，但在`AppComponent`中，我们仍然使用着硬编码的模拟数据。显然，这种方式不能“可持续发展”。
-  我们要把数据访问逻辑重构到一个独立的服务中，并在需要数据的组件之间共享。You’ll learn to create services in the [next tutorial](tutorial/toh-pt4"Services") page.在[下一步](tutorial/toh-pt4)，我们将学习如何创建服务。
+  我们要把数据访问逻辑重构到一个独立的服务中，并在需要数据的组件之间共享。
+  
+You’ll learn to create services in the [next tutorial](tutorial/toh-pt4 "Services") page.
+  
+在[下一步](tutorial/toh-pt4)，我们将学习如何创建服务。

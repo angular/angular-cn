@@ -488,7 +488,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       For more information, see [Architecture Overview](guide/architecture#components).
 
-      要了解更多，请参见[架构概览](guide/architecture#component)。
+      要了解更多，请参见[架构概览](guide/architecture#components)。
 
     </td>
 
@@ -1104,7 +1104,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
       The Angular `date` pipe is similar.
 
-      Angular的`date`管道和·中很相似。参见[备注](guide/ajs-quick-reference#string-dates)来了解字符串日期值。
+      Angular的`date`管道和它很相似。
 
     </td>
 

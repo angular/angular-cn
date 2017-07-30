@@ -671,7 +671,7 @@ What `NgForm` directive?
 You didn't add an [NgForm](api/forms/NgForm) directive.
 
 什么是`NgForm`指令？
-但我们明明没有添加过[NgForm](api/forms/index/NgForm-directive)指令啊！
+但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！
 
 Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.
 
@@ -952,7 +952,7 @@ You can leverage those class names to change the appearance of the control.
 Temporarily add a [template reference variable](guide/template-syntax#ref-vars) named `spy`
 to the _Name_ `<input>` tag and use it to display the input's CSS classes.
 
-往姓名`<input>`标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#local-vars)，
+往姓名`<input>`标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#ref-vars)，
 然后用这个 spy 来显示它上面的所有 CSS 类。
 
 
@@ -1121,7 +1121,7 @@ tells Angular how to link the reference variable to the directive.
 You set `name` to `ngModel` because the `ngModel` directive's `exportAs` property happens to be "ngModel".
 
 为什么是 “ngModel”？
-指令的 [exportAs](api/core/index/DirectiveMetadata-class#!) 属性告诉 Angular 如何链接模板引用变量到指令。
+指令的 [exportAs](api/core/Directive) 属性告诉 Angular 如何链接模板引用变量到指令。
 这里把`name`设置为`ngModel`是因为`ngModel`指令的`exportAs`属性设置成了 “ngModel”。
 
 
@@ -1162,7 +1162,7 @@ You'll see the significance of this choice when you add a new hero to the form.
 
 有些人会为这种行为感到不安。它们希望只有在用户做出无效的更改时才显示这个消息。
 如果当控件是“全新”状态时也隐藏消息，就能达到这个目的。
-在往表单中[添加新英雄](guide/forms#new-hero)时，将看到这种选择的重要性。
+在往表单中添加新英雄时，将看到这种选择的重要性。
 
 The hero *Alter Ego* is optional so you can leave that be.
 

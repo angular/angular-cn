@@ -35,7 +35,7 @@ You can run the <live-example></live-example> in Plunker and download the code f
 
 To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).
 
-给我们（[security@angular.io](guide/mailto:security@angular)）发邮件，报告Angular本身的漏洞。
+给我们（[security@angular.io](mailto:security@angular.io)）发邮件，报告Angular本身的漏洞。
 
 For more information about how Google handles security issues, see [Google's security
 philosophy](https://www.google.com/about/appsecurity/).
@@ -264,7 +264,7 @@ For information about dynamically constructing forms in a safe way, see the
 
 离线模板编译器阻止了一整套被称为“模板注入”的漏洞，并能显著增强应用程序的性能。尽量在产品发布时使用离线模板编译器，
 而不要动态生成模板（比如在代码中拼接字符串生成模板）。由于Angular会信任模板本身的代码，所以，动态生成的模板 —— 特别是包含用户数据的模板 —— 会绕过Angular自带的保护机制。
-要了解如何用安全的方式动态创建表单，请参见[动态表单烹饪宝典](cookbook/dynamic-form)一章。
+要了解如何用安全的方式动态创建表单，请参见[动态表单烹饪宝典](guide/dynamic-form)一章。
 
 ### Server-side XSS protection
 

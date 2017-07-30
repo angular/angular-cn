@@ -17,118 +17,118 @@ This cookbook explores many of the features of Dependency Injection (DI) in Angu
 
 * [Application-wide dependencies](guide/dependency-injection-in-action#app-wide-dependencies)
 
-  [应用程序全局依赖](guide/cb-dependency-injection#app-wide-dependencies)
+  [应用程序全局依赖](guide/dependency-injection-in-action#app-wide-dependencies)
   
 * [External module configuration](guide/dependency-injection-in-action#external-module-configuration)
 
-  [外部模块配置](guide/cb-dependency-injection#external-module-configuration)
+  [外部模块配置](guide/dependency-injection-in-action#external-module-configuration)
   
 * [`@Injectable()` and nested service dependencies](guide/dependency-injection-in-action#nested-dependencies)
 
-  [`@Injectable()`与嵌套服务的依赖](guide/cb-dependency-injection#nested-dependencies)
+  [`@Injectable()`与嵌套服务的依赖](guide/dependency-injection-in-action#nested-dependencies)
 
   * [`@Injectable()`](guide/dependency-injection-in-action#injectable-1)
 
 * [Limit service scope to a component subtree](guide/dependency-injection-in-action#service-scope)
 
-  [把服务作用域限制到一个子组件树](guide/cb-dependency-injection#service-scope)
+  [把服务作用域限制到一个子组件树](guide/dependency-injection-in-action#service-scope)
   
 * [Multiple service instances (sandboxing)](guide/dependency-injection-in-action#multiple-service-instances)
 
-  [多个服务实例(沙箱)](guide/cb-dependency-injection#multiple-service-instances)
+  [多个服务实例(沙箱)](guide/dependency-injection-in-action#multiple-service-instances)
   
 * [Qualify dependency lookup with `@Optional()` and `@Host()`](guide/dependency-injection-in-action#qualify-dependency-lookup)
 
-  [使用`@Optional()`和`@Host()`装饰器来限定依赖查找方式](guide/cb-dependency-injection#qualify-dependency-lookup)
+  [使用`@Optional()`和`@Host()`装饰器来限定依赖查找方式](guide/dependency-injection-in-action#qualify-dependency-lookup)
 
   * [Demonstration](guide/dependency-injection-in-action#demonstration)
   
-    [演示](guide/cb-dependency-injection#demonstration)
+    [演示](guide/dependency-injection-in-action#demonstration)
 
 * [Inject the component's DOM element](guide/dependency-injection-in-action#component-element)
 
-  [注入组件的DOM元素](guide/cb-dependency-injection#component-element)
+  [注入组件的DOM元素](guide/dependency-injection-in-action#component-element)
   
 * [Define dependencies with providers](guide/dependency-injection-in-action#providers)
 
-  [使用提供商定义依赖](guide/cb-dependency-injection#providers)
+  [使用提供商定义依赖](guide/dependency-injection-in-action#providers)
 
   * [Defining providers](guide/dependency-injection-in-action#defining-providers)
   
-    [定义提供商](guide/cb-dependency-injection#defining-providers)
+    [定义提供商](guide/dependency-injection-in-action#defining-providers)
     
   * [The *provide* object literal](guide/dependency-injection-in-action#provide)
   
-    [*provide* 字面量](guide/cb-dependency-injection#provide)
+    [*provide* 字面量](guide/dependency-injection-in-action#provide)
   
   * [`useValue`&mdash;the *value provider*](guide/dependency-injection-in-action#usevalue)
   
-    [`useValue` - *值提供商*](guide/cb-dependency-injection#usevalue)
+    [`useValue` - *值提供商*](guide/dependency-injection-in-action#usevalue)
     
   * [`useClass`&mdash;the *class provider*](guide/dependency-injection-in-action#useclass)
   
-    [`useClass` - *类提供商*](guide/cb-dependency-injection#useclass)
+    [`useClass` - *类提供商*](guide/dependency-injection-in-action#useclass)
     
   * [`useExisting`&mdash;the *alias provider*](guide/dependency-injection-in-action#useexisting)
   
-    [`useExisting` - *别名提供商*](guide/cb-dependency-injection#useexisting)
+    [`useExisting` - *别名提供商*](guide/dependency-injection-in-action#useexisting)
     
   * [`useFactory`&mdash;the *factory provider*](guide/dependency-injection-in-action#usefactory)
   
-    [`useFactory` - *工厂提供商*](guide/cb-dependency-injection#usefactory)
+    [`useFactory` - *工厂提供商*](guide/dependency-injection-in-action#usefactory)
 
 * [Provider token alternatives: the class-interface and `InjectionToken`](guide/dependency-injection-in-action#tokens)
 
-  [提供商可选令牌：类接口与`InjectionToken`](guide/cb-dependency-injection#tokens)  
+  [提供商可选令牌：类接口与`InjectionToken`](guide/dependency-injection-in-action#tokens)  
   
   * [class-interface](guide/dependency-injection-in-action#class-interface)
 
-    [类-接口](guide/cb-dependency-injection#class-interface)  
+    [类-接口](guide/dependency-injection-in-action#class-interface)  
     
   * [`InjectionToken`](guide/dependency-injection-in-action#injection-token)
     
 * [Inject into a derived class](guide/dependency-injection-in-action#di-inheritance)
 
-  [注入到一个派生类](guide/cb-dependency-injection#di-inheritance)
+  [注入到一个派生类](guide/dependency-injection-in-action#di-inheritance)
 
 * [Find a parent component by injection](guide/dependency-injection-in-action#find-parent)
 
-  [通过注入来查找父组件](guide/cb-dependency-injection#find-parent)
+  [通过注入来查找父组件](guide/dependency-injection-in-action#find-parent)
   
   * [Find parent with a known component type](guide/dependency-injection-in-action#known-parent)
 
-    [通过已知组件类型查找父组件](guide/cb-dependency-injection#known-parent)
+    [通过已知组件类型查找父组件](guide/dependency-injection-in-action#known-parent)
 
   * [Cannot find a parent by its base class](guide/dependency-injection-in-action#base-parent)
 
-    [无法通过自己的基类查找父组件](guide/cb-dependency-injection#base-parent)
+    [无法通过自己的基类查找父组件](guide/dependency-injection-in-action#base-parent)
 
   * [Find a parent by its class-interface](guide/dependency-injection-in-action#class-interface-parent)
   
-    [通过类-接口查找父组件](guide/cb-dependency-injection#class-interface-parent)    
+    [通过类-接口查找父组件](guide/dependency-injection-in-action#class-interface-parent)    
     
   * [Find a parent in a tree of parents with `@SkipSelf()`](guide/dependency-injection-in-action#parent-tree)
     
-    [在父组件树里查找一个父组件(*@SkipSelf*)](guide/cb-dependency-injection#parent-tree)
+    [在父组件树里查找一个父组件(*@SkipSelf*)](guide/dependency-injection-in-action#parent-tree)
     
   * [The `Parent` class-interface](guide/dependency-injection-in-action#parent-token)
 
-    [`Parent`类接口](guide/cb-dependency-injection#parent-token)
+    [`Parent`类接口](guide/dependency-injection-in-action#parent-token)
     
   * [A `provideParent()` helper function](guide/dependency-injection-in-action#provideparent)
 
-    [`provideParent()`助手函数](guide/cb-dependency-injection#provideparent)
+    [`provideParent()`助手函数](guide/dependency-injection-in-action#provideparent)
 
 * [Break circularities with a forward class reference (*forwardRef*)](guide/dependency-injection-in-action#forwardref)
 
-* [使用类的前向引用(*forwardRef*)打破循环依赖](guide/cb-dependency-injection#forwardref)
+* [使用类的前向引用(*forwardRef*)打破循环依赖](guide/dependency-injection-in-action#forwardref)
 
 -->
 
 See the <live-example name="dependency-injection-in-action"></live-example>
 of the code in this cookbook.        
 
-要获取本“烹饪宝典”的代码，**参见<live-example name="cb-dependency-injection"></live-example>**。
+要获取本“烹饪宝典”的代码，**参见<live-example name="dependency-injection-in-action"></live-example>**。
 
 {@a app-wide-dependencies}
 
@@ -171,7 +171,7 @@ guide.
 
 *提供商*是用来新建或者交付服务的。
 Angular拿到“类提供商”之后，会通过`new`操作来新建服务实例。
-从[依赖注入](guide/dependency-injection#!)一章可以学到关于提供商的更多知识。
+从[依赖注入](guide/dependency-injection#injector-providers)一章可以学到关于提供商的更多知识。
 
 
 </div>
@@ -527,7 +527,7 @@ And the template displays this data-bound property.
 Find this example in <live-example name="dependency-injection-in-action">live code</live-example>
 and confirm that the three `HeroBioComponent` instances have their own cached hero data. 
 
-到<live-example name="cb-dependency-injection">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
+到<live-example name="dependency-injection-in-action">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
 
 
 <figure>
@@ -591,7 +591,7 @@ The next example covers this second case.
 
 The `HeroBiosAndContactsComponent` is a revision of the `HeroBiosComponent` that you looked at [above](guide/dependency-injection-in-action#hero-bios-component).
 
-`HeroBiosAndContactsComponent`是[前面](guide/cb-dependency-injection#hero-bios-component)见过的`HeroBiosComponent`的修改版。
+`HeroBiosAndContactsComponent`是[前面](guide/dependency-injection-in-action#hero-bios-component)见过的`HeroBiosComponent`的修改版。
 
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="hero-bios-and-contacts" title="src/app/hero-bios.component.ts (HeroBiosAndContactsComponent)">
@@ -819,7 +819,7 @@ to its parent injector, where the process repeats until there are no more inject
 If the search is futile, the injector throws an error&mdash;unless the request was [optional](guide/dependency-injection-in-action#optional).
 
 如果注入器无法根据令牌在自己内部找到对应的提供商，它便将请求移交给它的父级注入器，这个过程不断重复，直到没有更多注入器为止。
-如果没找到，注入器就抛出一个错误...除非这个请求是[可选的](guide/cb-dependency-injection#optional)。
+如果没找到，注入器就抛出一个错误...除非这个请求是[可选的](guide/dependency-injection-in-action#optional)。
 
 
 </div>
@@ -902,7 +902,7 @@ The code behind it gives you plenty to think about.
 The `provide` object literal takes a *token* and a *definition object*.
 The *token* is usually a class but [it doesn't have to be](guide/dependency-injection-in-action#tokens).
 
-该`provide`对象需要一个*令牌*和一个*定义对象*。该*令牌*通常是一个类，但[并非一定是](guide/cb-dependency-injection#tokens)
+该`provide`对象需要一个*令牌*和一个*定义对象*。该*令牌*通常是一个类，但[并非一定是](guide/dependency-injection-in-action#tokens)
 
 The *definition* object has a required property that specifies how to create  the singleton instance of the service. In this case, the property.
 
@@ -951,7 +951,7 @@ It's a special kind of provider lookup key called an [InjectionToken](guide/depe
 You can use an `InjectionToken` for any kind of provider but it's particular
 helpful when the dependency is a simple value like a string, a number, or a function.
 
-`TITLE` 提供商的令牌*不是一个类*。它是一个特别类型的提供商查询键，名叫[InjectionToken](guide/cb-dependency-injection#injection-token).
+`TITLE` 提供商的令牌*不是一个类*。它是一个特别类型的提供商查询键，名叫[InjectionToken](guide/dependency-injection-in-action#injection-token).
 你可以把`InjectionToken`用作任何类型的提供商的令牌，但是它在依赖是简单类型（比如字符串、数字、函数）时会特别有帮助。
 
 The value of a *value provider* must be defined *now*. You can't create the value later.
@@ -1071,7 +1071,7 @@ Imagine that the `LoggerService` had a large API, much larger than the actual th
 You might want to shrink that API surface to just the members you actually need.
 Here the `MinimalLogger` [*class-interface*](guide/dependency-injection-in-action#class-interface) reduces the API to two members:
 
-想象一下如果`LoggerService`有个很大的API接口(虽然它其实只有三个方法，一个属性)，通过使用`MinimalLogger`[*类-接口*](guide/cb-dependency-injection#class-interface)别名，就能成功的把这个API接口缩小到只暴露两个成员：
+想象一下如果`LoggerService`有个很大的API接口(虽然它其实只有三个方法，一个属性)，通过使用`MinimalLogger`[*类-接口*](guide/dependency-injection-in-action#class-interface)别名，就能成功的把这个API接口缩小到只暴露两个成员：
 
 
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" title="src/app/minimal-logger.service.ts" linenums="false">
@@ -1202,7 +1202,7 @@ takes `2` of them to be the runners-up, and returns their concatenated names.
 Look at the <live-example name="dependency-injection-in-action"></live-example>
 for the full source code.
 
-该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把它们的名字拼接起来。请到<live-example name="cb-dependency-injection"></live-example>查看全部原代码。
+该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把它们的名字拼接起来。请到<live-example name="dependency-injection-in-action"></live-example>查看全部原代码。
 
 
 </div>
@@ -1508,7 +1508,8 @@ you can use Angular dependency injection to reach a parent component.
 This section describes some techniques for doing that.
 
 本章节描述了这项技术。
-<a>#known-parent</a>
+
+{@a known-parent}
 
 ### Find a parent component of known type
 
@@ -1549,7 +1550,7 @@ is there for safety,
 the <live-example name="dependency-injection-in-action"></live-example>
 confirms that the `alex` parameter is set.
 
-安全起见，我们添加了[@Optional](guide/cb-dependency-injection#optional)装饰器，但是<live-example name="cb-dependency-injection"></live-example>显示`alex`参数确实被设置了。
+安全起见，我们添加了[@Optional](guide/dependency-injection-in-action#optional)装饰器，但是<live-example name="dependency-injection-in-action"></live-example>显示`alex`参数确实被设置了。
 
 
 {@a base-parent}
@@ -1625,7 +1626,7 @@ The <live-example name="dependency-injection-in-action"></live-example>
 confirms that the `alex` parameter is null.
 *You cannot inject a parent by its base class.*
 
-可惜这样不行。<live-example name="cb-dependency-injection"></live-example>显示`alex`参数是null。
+可惜这样不行。<live-example name="dependency-injection-in-action"></live-example>显示`alex`参数是null。
 *不能通过基类注入父组件*。
 
 
@@ -1638,7 +1639,7 @@ confirms that the `alex` parameter is null.
 
 You can find a parent component with a [class-interface](guide/dependency-injection-in-action#class-interface).
 
-可以通过[类-接口](guide/cb-dependency-injection#class-interface)找到一个父组件。
+可以通过[类-接口](guide/dependency-injection-in-action#class-interface)找到一个父组件。
 
 The parent must cooperate by providing an *alias* to itself in the name of a *class-interface* token.
 
@@ -1647,13 +1648,13 @@ The parent must cooperate by providing an *alias* to itself in the name of a *cl
 Recall that Angular always adds a component instance to its own injector;
 that's why you could inject *Alex* into *Cathy* [earlier](guide/dependency-injection-in-action#known-parent).
 
-请记住Angular总是从它自己的注入器添加一个组件实例；这就是为什么在[之前](guide/cb-dependency-injection#known-parent)可以*Alex*注入到*Carol*。
+请记住Angular总是从它自己的注入器添加一个组件实例；这就是为什么在[之前](guide/dependency-injection-in-action#known-parent)可以*Alex*注入到*Carol*。
 
 Write an [*alias provider*](guide/dependency-injection-in-action#useexisting)&mdash;a `provide` object literal with a `useExisting`
 definition&mdash;that creates an *alternative* way to inject the same component instance
 and add that provider to the `providers` array of the `@Component` metadata for the `AlexComponent`:
 
-我们编写一个[*别名提供商*](guide/cb-dependency-injection#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
+我们编写一个[*别名提供商*](guide/dependency-injection-in-action#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
 它新建一个*备选的*方式来注入同一个组件实例，并把这个提供商添加到`AlexComponent`的`@Component`元数据里的`providers`数组。
 
 
@@ -1669,7 +1670,7 @@ and add that provider to the `providers` array of the `@Component` metadata for 
 [Parent](guide/dependency-injection-in-action#parent-token) is the provider's *class-interface* token.
 The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the circular reference you just created by having the `AlexComponent` refer to itself.
 
-[Parent](guide/cb-dependency-injection#parent-token)是该提供商的*类-接口*令牌。`AlexComponent`引用了自身，造成循环引用，使用[*forwardRef*](guide/cb-dependency-injection#forwardRef)打破了该循环。
+[Parent](guide/dependency-injection-in-action#parent-token)是该提供商的*类-接口*令牌。`AlexComponent`引用了自身，造成循环引用，使用[*forwardRef*](guide/dependency-injection-in-action#forwardref)打破了该循环。
 
 *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter,
 the same way you've done it before:
@@ -1728,8 +1729,8 @@ Here's *Barry*:
 *Barry*'s `providers` array looks just like [*Alex*'s](guide/dependency-injection-in-action#alex-providers).
 If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](guide/dependency-injection-in-action#provideparent).
 
-*Barry*的`providers`数组看起来很像[*Alex*的那个](guide/cb-dependency-injection#alex-providers).
-如果准备一直像这样编写[*别名提供商*](guide/cb-dependency-injection#useexisting)的话，我们应该建立一个[帮助函数](guide/cb-dependency-injection#provideparent)。
+*Barry*的`providers`数组看起来很像[*Alex*的那个](guide/dependency-injection-in-action#alex-providers).
+如果准备一直像这样编写[*别名提供商*](guide/dependency-injection-in-action#useexisting)的话，我们应该建立一个[帮助函数](guide/dependency-injection-in-action#provideparent)。
 
 For now, focus on *Barry*'s constructor:
 
@@ -1793,7 +1794,7 @@ Here's *Alice*, *Barry* and family in action:
 
 You [learned earlier](guide/dependency-injection-in-action#class-interface) that a *class-interface* is an abstract class used as an interface rather than as a base class.
 
-我们[以前学过](guide/cb-dependency-injection#class-interface)：*类-接口*是一个抽象类，被当成一个接口使用，而非基类。
+我们[以前学过](guide/dependency-injection-in-action#class-interface)：*类-接口*是一个抽象类，被当成一个接口使用，而非基类。
 
 The example defines a `Parent` *class-interface*.
 
@@ -1861,7 +1862,7 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 Writing variations of the same parent *alias provider* gets old quickly,
 especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-in-action#forwardref):
 
-编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef](guide/cb-dependency-injection#forwardRef)的时候尤其绕口：
+编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef](guide/dependency-injection-in-action#forwardref)的时候尤其绕口：
 
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">

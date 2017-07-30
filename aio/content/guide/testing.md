@@ -361,7 +361,7 @@ The `karma.conf.js` tells karma to look for spec files there,
 for reasons explained [below](guide/testing#q-spec-file-location).
 
 **将测试程序spec放到`app/`文件夹下的任何位置。**
-`karma.conf.js`告诉`Karma`在这个文件夹中寻找测试程序spec文件，原因在 [这里](guide/testing#spec-file-location) 有所解释。
+`karma.conf.js`告诉`Karma`在这个文件夹中寻找测试程序spec文件，原因在 [这里](guide/testing#q-spec-file-location) 有所解释。
 
 Add the following code to `src/app/1st.spec.ts`.
 
@@ -2115,8 +2115,6 @@ Here's the previous test, rewritten using this click helper.
 
 ## 在测试宿主组件中测试组件
 
-# 在测试宿主组件中测试组件
-
 In the previous approach, the tests themselves played the role of the host `DashboardComponent`.
 But does the `DashboardHeroComponent` work correctly when properly data-bound to a host component?
 
@@ -2225,7 +2223,7 @@ Testing the actual `DashboardComponent` seemed daunting because it injects the `
 It also injects the `HeroService`, but faking that is a [familiar story](guide/testing#component-with-async-service).
 The `Router` has a complicated API and is entwined with other services and application preconditions.
 
-它同时还注入了`HeroService`，但是我们已经知道如何[伪造](guide/testing#component-with-async-servic)它。
+它同时还注入了`HeroService`，但是我们已经知道如何[伪造](guide/testing#component-with-async-service)它。
 `Router`的API非常复杂，并且它缠绕了其它服务和许多应用的先决条件。
 
 Fortunately, the `DashboardComponent` isn't doing much with the `Router`
@@ -2966,7 +2964,7 @@ as seen in the following setup variation:
 
 Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](guide/testing#spy-stub).
 
-注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为已经[没有必要了](guide/testing#stub-hero-detail-service)。
+注意，`TestBed.configureTestingModule`不再提供（伪造）`HeroService`，因为已经[没有必要了](guide/testing#spy-stub)。
 
 
 {@a override-component-method}

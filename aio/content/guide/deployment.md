@@ -31,7 +31,7 @@ The techniques progress from _easy but suboptimal_ to _more optimal and more inv
 You'll also want to read the [detailed instructions in the AOT Cookbook](guide/aot-compiler "AOT Cookbook").
 
   [*预编译*(AOT)](guide/deployment#aot "AOT Compilation")是第一种[优化策略](guide/deployment#optimize)。
-详情参见[烹饪宝典中的AOT章节](cookbook/aot-compiler "AOT Cookbook")。
+详情参见[烹饪宝典中的AOT章节](guide/aot-compiler "AOT Cookbook")。
 
 * [Webpack](guide/deployment#webpack "Webpack Optimization") is a popular general purpose packaging tool with a rich ecosystem, including plugins for AOT.
 The Angular [webpack guide](guide/webpack "Webpack: an introduction") can get you started and
@@ -411,7 +411,7 @@ Learn more about AOT Compilation in the [AOT Cookbook](guide/aot-compiler "AOT C
 which describes running the AOT compiler from the command line
 and using [_rollup_](guide/deployment#rollup) for bundling, minification, uglification and tree shaking.
 
-要了解AOT编译器的更多知识，参见[烹饪宝典中的AOT一章](cookbook/aot-compiler "AOT Cookbook")，
+要了解AOT编译器的更多知识，参见[烹饪宝典中的AOT一章](guide/aot-compiler "AOT Cookbook")，
 它描述了如何在命令行中执行AOT编译器，并使用[_rollup_](guide/deployment#rollup)进行构建、最小化、混淆和摇树优化。
 
 
@@ -565,7 +565,7 @@ HTML中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/r
 
 See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") alternative.
 
-参见另一种备选方案[*APP_BASE_HREF*](api/common/index/APP_BASE_HREF-let "API: APP_BASE_HREF")。
+参见另一种备选方案[*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF")。
 
 
 </div>
@@ -618,7 +618,7 @@ Switching to production mode can make it run faster by disabling development spe
 
 To enable [production mode](api/core/enableProdMode) when running remotely, add the following code to the `main.ts`.
 
-要在远程运行时启用[生产模式](api/core/index/enableProdMode-function)，请把下列代码添加到`main.ts`中。
+要在远程运行时启用[生产模式](api/core/enableProdMode)，请把下列代码添加到`main.ts`中。
 
 
 <code-example path="deployment/src/main.ts" region="enableProdMode" title="src/main.ts (enableProdMode)" linenums="false">
@@ -914,4 +914,4 @@ Read about how to enable CORS for specific servers at
 
 ## Next steps
  ## 下一步If you want to go beyond the [simple _copy-deploy_](guide/deployment#dev-deploy "Simplest deployment possible") approach,
- read the [AOT Cookbook](guide/aot-compiler "AOT Cookbook") next.如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](cookbook/aot-compiler "AOT Cookbook")。
+ read the [AOT Cookbook](guide/aot-compiler "AOT Cookbook") next.如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](guide/aot-compiler "AOT Cookbook")。

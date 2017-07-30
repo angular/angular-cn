@@ -447,7 +447,7 @@ If you do, this page can help you understand their purpose.
       This file defines linting rules favored by the 
       [Angular style guide](guide/styleguide) and by the authors of the documentation.
 
-      该文件定义了 [Angular 风格指南](guide/style-guide)与本文档站作者喜爱的语法检查规则。
+      该文件定义了 [Angular 风格指南](guide/styleguide)与本文档站作者喜爱的语法检查规则。
     </td>
 
   </tr>

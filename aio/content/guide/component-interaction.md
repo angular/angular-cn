@@ -32,29 +32,29 @@ samples in the [Component Communication]() document.
 
 * [Pass data from parent to child with input binding](guide/component-interaction#parent-to-child)
 
-  [使用输入绑定把数据从父组件传给子组件](guide/component-communication#parent-to-child)
+  [使用输入绑定把数据从父组件传给子组件](guide/component-interaction#parent-to-child)
   
 * [Intercept input property changes with a setter](guide/component-interaction#parent-to-child-setter)
 
-  [使用赋值器（setter）拦截输入属性的变化](guide/component-communication#parent-to-child-setter)
+  [使用赋值器（setter）拦截输入属性的变化](guide/component-interaction#parent-to-child-setter)
   
 * [Intercept input property changes with `ngOnChanges()`](guide/component-interaction#parent-to-child-on-changes)
   
-  [使用`ngOnChanges()`拦截输入属性的变化](guide/component-communication#parent-to-child-on-changes)
+  [使用`ngOnChanges()`拦截输入属性的变化](guide/component-interaction#parent-to-child-on-changes)
 
 * [Parent calls an `@ViewChild()`](guide/component-interaction#parent-to-view-child)
 
-  [在父组件中调用`@ViewChild()`](guide/component-communication#parent-to-view-child)
+  [在父组件中调用`@ViewChild()`](guide/component-interaction#parent-to-view-child)
   
 * [Parent and children communicate via a service](guide/component-interaction#bidirectional-service)
 
-  [通过服务进行父子通讯](guide/component-communication#bidirectional-service)
+  [通过服务进行父子通讯](guide/component-interaction#bidirectional-service)
 
 -->
 
 **See the <live-example name="component-interaction"></live-example>**.
 
-**参见<live-example name="cb-component-communication"></live-example>**。
+**参见<live-example name="cb-component-interaction"></live-example>**。
 
 {@a parent-to-child}
 
@@ -118,7 +118,7 @@ E2E test that all children were instantiated and displayed as expected:
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/component-communication#top)
+[回到顶部](guide/component-interaction#top)
 
 {@a parent-to-child-setter}
 
@@ -176,7 +176,7 @@ E2E tests of input property setter with empty and non-empty names:
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/component-communication#top)
+[回到顶部](guide/component-interaction#top)
 
 {@a parent-to-child-on-changes}
 
@@ -257,7 +257,7 @@ the expected `ngOnChanges` calls and values:
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/component-communication#top)
+[回到顶部](guide/component-interaction#top)
 
 {@a child-to-parent}
 
@@ -328,7 +328,7 @@ Test that clicking the *Agree* and *Disagree* buttons update the appropriate cou
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/component-communication#top)
+[回到顶部](guide/component-interaction#top)
 
 
 
@@ -416,7 +416,7 @@ Test also that clicking the *Stop* button pauses the countdown timer:
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/component-communication#top)
+[回到顶部](guide/component-interaction#top)
 
 {@a parent-to-view-child}
 
@@ -445,8 +445,8 @@ The following example illustrates this technique with the same
 Neither its appearance nor its behavior will change.
 The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-example) is the same as well.
 
-下面的例子用与[倒计时](guide/component-communication#countdown-timer-example)相同的范例来解释这种技术。
-我们没有改变它的外观或行为。子组件[CountdownTimerComponent](guide/component-communication#countdown-timer-example)也和原来一样。
+下面的例子用与[倒计时](guide/component-interaction#countdown-timer-example)相同的范例来解释这种技术。
+我们没有改变它的外观或行为。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
 
 
 <div class="l-sub-section">
@@ -526,7 +526,7 @@ Use [the same countdown timer tests](guide/component-interaction#countdown-tests
 
 [Back to top](guide/component-interaction#top)
 
-[回到顶部](guide/'#top')
+[回到顶部](guide/component-interaction#top)
 
 {@a bidirectional-service}
 
@@ -629,4 +629,4 @@ and verify that the history meets expectations:
 
 
 
-[Back to top](guide/component-interaction#top)[回到顶部](guide/component-communication#top)
+[Back to top](guide/component-interaction#top)[回到顶部](guide/component-interaction#top)

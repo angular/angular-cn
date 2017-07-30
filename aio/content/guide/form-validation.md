@@ -504,7 +504,7 @@ This allows you to do the following:
   
 * [Test](guide/form-validation#testing-considerations) validation and control logic with isolated unit tests.
 
-  使用孤立单元测试来[测试](guide/form-validation#testing)验证和控制器逻辑
+  使用孤立单元测试来[测试](guide/form-validation#testing-considerations)验证和控制器逻辑
 
 The following sample re-writes the hero form in Reactive Forms style.
 

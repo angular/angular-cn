@@ -71,7 +71,7 @@ _Angular 模块_很重要。这里只是简单介绍，在 [Angular 模块](guid
 Every Angular app has at least one NgModule class, [the _root module_](guide/bootstrapping "Bootstrapping"),  
 conventionally named `AppModule`.
 
-每个 Angular 应用至少有一个模块（[_根模块_](guide/appmodule "AppModule: 根模块")），习惯上命名为`AppModule`。
+每个 Angular 应用至少有一个模块（[_根模块_](guide/bootstrapping "引导启动")），习惯上命名为`AppModule`。
 
 While the _root module_ may be the only module in a small application, most apps have many more
 _feature modules_, each a cohesive block of code dedicated to an application domain,
@@ -790,7 +790,7 @@ In general, add providers to the [root module](guide/architecture#modules) so th
 the same instance of a service is available everywhere.
 
 
-但通常会把提供商添加到[根模块](guide/architecture#module)上，以便在任何地方都使用服务的同一个实例。<code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers">
+但通常会把提供商添加到[根模块](guide/architecture#modules)上，以便在任何地方都使用服务的同一个实例。<code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers">
 
 </code-example>
 
@@ -920,7 +920,7 @@ publishing and subscribing to events.
 
 > [**HTTP**](guide/http): Communicate with a server to get data, save data, and invoke server-side actions with an HTTP client.
 
-> [**HTTP**](guide/server-communication)：通过 HTTP 客户端，可以与服务器通讯，以获得数据、保存数据和触发服务端动作。
+> [**HTTP**](guide/http)：通过 HTTP 客户端，可以与服务器通讯，以获得数据、保存数据和触发服务端动作。
 
 > [**Lifecycle hooks**](guide/lifecycle-hooks): Tap into key moments in the lifetime of a component, from its creation to its destruction,
 by implementing the lifecycle hook interfaces.

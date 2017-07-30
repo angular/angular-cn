@@ -69,7 +69,7 @@ Inside the interpolation expression, you flow the component's `birthday` value t
 function on the right. All pipes work this way.
 
 在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
-右侧的[Date管道](api/common/index/DatePipe-class)函数中。所有管道都会用这种方式工作。
+右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。
 
 
 <div class="l-sub-section">
@@ -113,7 +113,7 @@ Angular内置了一些管道，比如`DatePipe`、`UpperCasePipe`、`LowerCasePi
 Read more about these and many other built-in pipes in the [pipes topics](api?type=pipe) of the
 [API Reference](api); filter for entries that include the word "pipe".
 
-要学习更多内置管道的知识，参见[API参考手册](api/#!?apiFilter=pipe)，并用“pipe”为关键词对结果进行过滤。
+要学习更多内置管道的知识，参见[API参考手册](api?type=pipe)，并用“pipe”为关键词对结果进行过滤。
 
 Angular doesn't have a `FilterPipe` or an `OrderByPipe` for reasons explained in the [Appendix](guide/pipes#no-filter-pipe) of this page.
 
@@ -205,7 +205,7 @@ As you click the button, the displayed date alternates between
 Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)
 API Reference page.
 
-要了解更多`DatePipes`的格式选项，请参阅[API文档](api/common/index/DatePipe-class)。
+要了解更多`DatePipes`的格式选项，请参阅[API文档](api/common/DatePipe)。
 
 
 </div>
@@ -769,7 +769,7 @@ The code uses the [Angular http](guide/http) client to retrieve data</span>:
 
 我们确实得小心点。
 这个管道只有当所请求的URL发生变化时才会向服务器发起请求。它会缓存服务器的响应。
-代码如下，它使用[Angular http](guide/server-communication)客户端来接收数据
+代码如下，它使用[Angular http](guide/http)客户端来接收数据
 
 
 <code-example path="pipes/src/app/fetch-json.pipe.ts" title="src/app/fetch-json.pipe.ts">
@@ -846,7 +846,7 @@ The [JsonPipe](api/common/JsonPipe)
 provides an easy way to diagnosis a mysteriously failing data binding or
 inspect an object for future binding.
 
-[JsonPipe](api/common/index/JsonPipe-class)为你诊断数据绑定的某些神秘错误或为做进一步绑定而探查数据时，提供了一个简单途径。
+[JsonPipe](api/common/JsonPipe)为你诊断数据绑定的某些神秘错误或为做进一步绑定而探查数据时，提供了一个简单途径。
 
 
 </div>
@@ -900,7 +900,7 @@ of your views.
 Explore Angular's inventory of built-in pipes in the [API Reference](api?type=pipe).
 Try writing a custom pipe and perhaps contributing it to the community.
 
-要浏览Angular的所有内置管道，请到[API参考手册](api/#!?query=pipe)。
+要浏览Angular的所有内置管道，请到[API参考手册](api?type=pipe)。
 学着写写自定义管道，并贡献给开发社区。
 
 
