@@ -1506,11 +1506,7 @@ content harmlessly.
 
 <a href="#top-of-page">back to top</a>
 
-
-
-  <a href="# top-of-page">回到顶部</a>
-
-
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
