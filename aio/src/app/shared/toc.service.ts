@@ -20,7 +20,7 @@ export class TocService {
 
   constructor(
       @Inject(DOCUMENT) private document: any,
-      private domSanitizer: DomSanitizer,
+              private domSanitizer: DomSanitizer,
       private scrollSpyService: ScrollSpyService) { }
 
   genToc(docElement?: Element, docId = '') {
@@ -66,13 +66,15 @@ export class TocService {
 
   private findTocHeadings(docElement: Element): HTMLHeadingElement[] {
     const headings = docElement.querySelectorAll('h1,h2,h3');
-    const skipNoTocHeadings = (heading: HTMLHeadingElement) => !/(?:no-toc|notoc)/i.test(heading.className) && !this.isOriginalText(heading);
+    const skipNoTocHeadings = (heading: HTMLHeadingElement) => {
+      return !/(?:no-toc|notoc)/i.test(heading.className) && !this.isOriginalText(heading);
+    };
 
     return Array.prototype.filter.call(headings, skipNoTocHeadings);
   }
 
   private isOriginalText(heading: HTMLHeadingElement): boolean {
-    if (heading.hasAttribute('translation-origin')) {
+    if (heading && heading.hasAttribute('translation-origin')) {
       const prevNode = heading.previousElementSibling;
       if (prevNode.hasAttribute('translation-result')) {
         return true;
