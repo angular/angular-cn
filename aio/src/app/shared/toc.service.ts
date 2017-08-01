@@ -76,7 +76,7 @@ export class TocService {
   private isOriginalText(heading: HTMLHeadingElement): boolean {
     if (heading && heading.hasAttribute('translation-origin')) {
       const prevNode = heading.previousElementSibling;
-      if (prevNode.hasAttribute('translation-result')) {
+      if (prevNode && prevNode.hasAttribute('translation-result')) {
         return true;
       }
     }

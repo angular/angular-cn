@@ -1,12 +1,12 @@
 <span [ngSwitch]="mode">
-  <span *ngSwitchCase="'disabled'">{{title}} <em>(not available on this device)</em></span>
+  <span *ngSwitchCase="'disabled'">{{title}} <em>(在此设备上不可用)</em></span>
   <span *ngSwitchCase="'embedded'">
     <div *ngIf="showEmbedded" title="{{title}}">
       <aio-embedded-plunker [src]="plnkr"></aio-embedded-plunker>
     </div>
     <img *ngIf="!showEmbedded" (click)="toggleEmbedded()" [src]="plnkrImg" alt="{{title}}">
     <p *ngIf="enableDownload">
-      You can also <a [href]="zip" download title="Download example">download this example</a>.
+      你还可以 <a [href]="zip" download title="下载范例">下载这个例子</a>。
     </p>
   </span>
   <span *ngSwitchCase="'downloadOnly'">
@@ -15,7 +15,7 @@
   <span *ngSwitchDefault>
     <a [href]="plnkr" target="_blank" title="{{title}}">{{title}}</a>
     <span *ngIf="enableDownload">
-      /  <a [href]="zip" download title="Download example">download example</a>
+      /  <a [href]="zip" download title="下载范例">下载范例</a>
     </span>
   </span>
 </span>

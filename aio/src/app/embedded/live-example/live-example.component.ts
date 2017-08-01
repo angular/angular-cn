@@ -145,7 +145,7 @@ export class LiveExampleComponent implements OnInit {
     // It is the original innerHTML of the host element.
     // Angular will sanitize this title when displayed so should be plain text.
     const title = this.elementRef.nativeElement.liveExampleContent;
-    this.title = (title || this.attrs.title || 'live example').trim();
+    this.title = (title || this.attrs.title || '在线例子').trim();
     this.onResize(window.innerWidth);
   }
 
