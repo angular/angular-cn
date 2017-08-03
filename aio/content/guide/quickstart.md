@@ -18,7 +18,7 @@ application in TypeScript, using the Angular CLI
 while adhering to the [Style Guide](guide/styleguide) recommendations that
 benefit _every_ Angular project.
 
-在这一章CLI快速起步中，我们的目标是构建并运行一个超级简单的Angular应用。我们会使用Angular-CLI来让每个Angular应用从[风格指南](guide/style-guide)中获益。
+在这一章CLI快速起步中，我们的目标是构建并运行一个超级简单的Angular应用。我们会使用Angular-CLI来让每个Angular应用从[风格指南](guide/styleguide)中获益。
 
 By the end of the chapter, you'll have a basic understanding of development with the CLI
 and a foundation for both these documentation samples and for real world applications.
@@ -476,7 +476,7 @@ Any files outside of this folder are meant to support building your app.
       without changing any code by passing in `--aot` to `ng build` or `ng serve`.
 
       这是应用的主要入口点。
-      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并[启动应用的根模块`AppModule`](guide/guide/appmodule#main "启动应用")，使其运行在浏览器中。
+      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块`AppModule`，使其运行在浏览器中。
       你还可以使用[AOT compiler](guide/glossary#ahead-of-time-aot-compilation)编译器，而不用修改任何代码 —— 只要给`ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
 
     </td>
