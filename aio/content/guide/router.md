@@ -3631,7 +3631,9 @@ If your app had many feature areas, the app component trees might look like this
 Add the following `crisis-center.component.ts` to the `crisis-center` folder:
 
 
-往`crisis-center`目录下添加下列`crisis-center.component.ts`文件：<code-example path="router/src/app/crisis-center/crisis-center.component.ts" linenums="false" title="src/app/crisis-center/crisis-center.component.ts ">
+往`crisis-center`目录下添加下列`crisis-center.component.ts`文件：
+
+<code-example path="router/src/app/crisis-center/crisis-center.component.ts" linenums="false" title="src/app/crisis-center/crisis-center.component.ts ">
 </code-example>
 
 The `CrisisCenterComponent` has the following in common with the `AppComponent`:

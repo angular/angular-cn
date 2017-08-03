@@ -75,7 +75,9 @@ hero is active, the element appears in a slightly larger size and lighter color.
 
 
 通过这些，可以在组件元数据中定义一个名叫`heroState`的*动画触发器*。它在两个状态`active`和`inactive`之间进行转场。
-当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。<code-example path="animations/src/app/hero-list-basic.component.ts" region="animationdef" title="hero-list-basic.component.ts (@Component excerpt)" linenums="false">
+当英雄处于激活状态时，它会把该元素显示得稍微大一点、亮一点。
+
+<code-example path="animations/src/app/hero-list-basic.component.ts" region="animationdef" title="hero-list-basic.component.ts (@Component excerpt)" linenums="false">
 
 </code-example>
 
@@ -94,7 +96,9 @@ Now, using the `[@triggerName]` syntax, attach the animation that you just defin
 one or more elements in the component's template.
 
 
-我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`[@triggerName]`语法来把它附加到一个或多个元素上。<code-example path="animations/src/app/hero-list-basic.component.ts" region="template" title="hero-list-basic.component.ts (excerpt)" linenums="false">
+我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用`[@triggerName]`语法来把它附加到一个或多个元素上。
+
+<code-example path="animations/src/app/hero-list-basic.component.ts" region="template" title="hero-list-basic.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -110,7 +114,9 @@ With this setup, an animated transition appears whenever a hero object changes s
 Here's the full component implementation:
 
 
-通过这些设置，一旦英雄对象的状态发生了变化，就会触发一个转场动画。下面是完整的组件实现：<code-example path="animations/src/app/hero-list-basic.component.ts" title="hero-list-basic.component.ts">
+通过这些设置，一旦英雄对象的状态发生了变化，就会触发一个转场动画。下面是完整的组件实现：
+
+<code-example path="animations/src/app/hero-list-basic.component.ts" title="hero-list-basic.component.ts">
 
 </code-example>
 
@@ -161,7 +167,9 @@ If several transitions have the same timing configuration, you can combine
 them into the same `transition` definition:
 
 
-如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：<code-example path="animations/src/app/hero-list-combined-transitions.component.ts" region="transitions" title="src/app/hero-list-combined-transitions.component.ts" linenums="false">
+如果多个转场都有同样的时间线配置，就可以把它们合并进同一个`transition`定义中：
+
+<code-example path="animations/src/app/hero-list-combined-transitions.component.ts" region="transitions" title="src/app/hero-list-combined-transitions.component.ts" linenums="false">
 
 </code-example>
 
@@ -170,7 +178,9 @@ When both directions of a transition have the same timing, as in the previous
 example, you can use the shorthand syntax `<=>`:
 
 
-如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：<code-example path="animations/src/app/hero-list-twoway.component.ts" region="transitions" title="src/app/hero-list-twoway.component.ts" linenums="false">
+如果要对同一个转场的两个方向都使用相同的时间线（就像前面的例子中那样），就可以使用`<=>`这种简写语法：
+
+<code-example path="animations/src/app/hero-list-twoway.component.ts" region="transitions" title="src/app/hero-list-twoway.component.ts" linenums="false">
 
 </code-example>
 
@@ -183,7 +193,9 @@ defined in a `state`.
 
 
 有时希望一些样式只在动画期间生效，但在结束后并不保留它们。这时可以把这些样式内联在`transition`中进行定义。
-在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。<code-example path="animations/src/app/hero-list-inline-styles.component.ts" region="transitions" title="src/app/hero-list-inline-styles.component.ts" linenums="false">
+在这个例子中，该元素会立刻获得一组样式，然后动态转场到下一个状态。当转场结束时，这些样式并不会被保留，因为它们并没有被定义在`state`中。
+
+<code-example path="animations/src/app/hero-list-inline-styles.component.ts" region="transitions" title="src/app/hero-list-inline-styles.component.ts" linenums="false">
 
 </code-example>
 
@@ -373,7 +385,9 @@ In this example, the leave animation takes whatever height the element has befor
 leaves and animates from that height to zero:
 
 
-这个例子中的“离场”动画会取得该元素在离场前的高度，并且把它从这个高度用动画转场到0高度：<code-example path="animations/src/app/hero-list-auto.component.ts" region="animationdef" title="src/app/hero-list-auto.component.ts" linenums="false">
+这个例子中的“离场”动画会取得该元素在离场前的高度，并且把它从这个高度用动画转场到0高度：
+
+<code-example path="animations/src/app/hero-list-auto.component.ts" region="animationdef" title="src/app/hero-list-auto.component.ts" linenums="false">
 
 </code-example>
 
@@ -456,7 +470,9 @@ slight delay of 10 milliseconds as specified in `'0.2s 10 ease-out'`:
 
 
 
-这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，也就是`0.2s`，但它们有不同的缓动函数。“离场”动画会在100毫秒的延迟之后开始，也就是`'0.2s 10 ease-out'`：<code-example path="animations/src/app/hero-list-timings.component.ts" region="animationdef" title="hero-list-timings.component.ts (excerpt)" linenums="false">
+这里是两个自定义时间线的动态演示。“进场”和“离场”都持续200毫秒，也就是`0.2s`，但它们有不同的缓动函数。“离场”动画会在100毫秒的延迟之后开始，也就是`'0.2s 10 ease-out'`：
+
+<code-example path="animations/src/app/hero-list-timings.component.ts" region="animationdef" title="hero-list-timings.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -483,7 +499,9 @@ This example adds some "bounce" to the enter and leave animations with
 keyframes:
 
 
-在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：<code-example path="animations/src/app/hero-list-multistep.component.ts" region="animationdef" title="hero-list-multistep.component.ts (excerpt)" linenums="false">
+在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：
+
+<code-example path="animations/src/app/hero-list-multistep.component.ts" region="animationdef" title="hero-list-multistep.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -524,7 +542,9 @@ are applied to the same element in parallel, but run independently of each other
 
 
 这种情况下就可以用动画*组*来解决了。在这个例子中，我们同时在进场和离场时使用了组，以便能让它们使用两种不同的时间线配置。
-它们被同时应用到同一个元素上，但又彼此独立运行：<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" title="hero-list-groups.component.ts (excerpt)" linenums="false">
+它们被同时应用到同一个元素上，但又彼此独立运行：
+
+<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" title="hero-list-groups.component.ts (excerpt)" linenums="false">
 
 </code-example>
 

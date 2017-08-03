@@ -93,7 +93,9 @@ add `HttpModule` to the `imports` list of the `AppModule`.
 
 
 我们要能从本应用的任何地方访问这些服务，就要把`HttpModule`添加到`AppModule`的`imports`列表中。
-这里同时也是我们引导应用及其根组件`AppComponent`的地方。<code-example path="toh-pt6/src/app/app.module.ts" region="v1" title="src/app/app.module.ts (v1)">
+这里同时也是我们引导应用及其根组件`AppComponent`的地方。
+
+<code-example path="toh-pt6/src/app/app.module.ts" region="v1" title="src/app/app.module.ts (v1)">
 
 </code-example>
 
@@ -122,7 +124,9 @@ a mock service, the *in-memory web API*.
 Update <code>src/app/app.module.ts</code> with this version, which uses the mock service:
 
 
-修改<code>src/app/app.module.ts</code>，让它使用这个模拟服务：<code-example path="toh-pt6/src/app/app.module.ts" region="v2" title="src/app/app.module.ts (v2)">
+修改<code>src/app/app.module.ts</code>，让它使用这个模拟服务：
+
+<code-example path="toh-pt6/src/app/app.module.ts" region="v2" title="src/app/app.module.ts (v2)">
 
 </code-example>
 
@@ -135,7 +139,9 @@ to the module `imports`, effectively  replacing the `Http` client's XHR backend 
 导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。
   `InMemoryWebApiModule`将`Http`客户端默认的后端服务 &mdash;
   这是一个辅助服务，负责与远程服务器对话 &mdash;
-  替换成了*内存 Web API*服务：<code-example path="toh-pt6/src/app/app.module.ts" region="in-mem-web-api">
+  替换成了*内存 Web API*服务：
+  
+<code-example path="toh-pt6/src/app/app.module.ts" region="in-mem-web-api">
 
 </code-example>
 
@@ -146,7 +152,9 @@ Add the file `in-memory-data.service.ts` in `app` with the following content:
 
 
 `forRoot()`配置方法需要`InMemoryDataService`类实例，用来向内存数据库填充数据：
-往`app`目录下新增一个文件`in-memory-data.service.ts`，填写下列内容：<code-example path="toh-pt6/src/app/in-memory-data.service.ts" region="init" title="src/app/in-memory-data.service.ts" linenums="false">
+往`app`目录下新增一个文件`in-memory-data.service.ts`，填写下列内容：
+
+<code-example path="toh-pt6/src/app/in-memory-data.service.ts" region="init" title="src/app/in-memory-data.service.ts" linenums="false">
 
 </code-example>
 
@@ -174,7 +182,9 @@ Added hero "Zero" to confirm that the data service can handle a hero with `id==0
 In the current `HeroService` implementation, a Promise resolved with mock heroes is returned.
 
 
-在目前的`HeroService`的实现中，返回的是一个能解析（resolve）成模拟英雄列表的承诺（Promise）。<code-example path="toh-pt4/src/app/hero.service.ts" region="get-heroes" title="src/app/hero.service.ts (old getHeroes)">
+在目前的`HeroService`的实现中，返回的是一个能解析（resolve）成模拟英雄列表的承诺（Promise）。
+
+<code-example path="toh-pt4/src/app/hero.service.ts" region="get-heroes" title="src/app/hero.service.ts (old getHeroes)">
 
 </code-example>
 
@@ -189,7 +199,9 @@ fetching heroes with an HTTP client, which must be an asynchronous operation.
 Now convert `getHeroes()` to use HTTP.
 
 
-现在，我们把`getHeroes()`换成使用 HTTP。<code-example path="toh-pt6/src/app/hero.service.ts" region="getHeroes" title="src/app/hero.service.ts (updated getHeroes and new class members)">
+现在，我们把`getHeroes()`换成使用 HTTP。
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="getHeroes" title="src/app/hero.service.ts (updated getHeroes and new class members)">
 
 </code-example>
 
@@ -197,7 +209,9 @@ Now convert `getHeroes()` to use HTTP.
 Update the import statements as follows:
 
 
-更新后的导入声明如下：<code-example path="toh-pt6/src/app/hero.service.ts" region="imports" title="src/app/hero.service.ts (updated imports)">
+更新后的导入声明如下：
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="imports" title="src/app/hero.service.ts (updated imports)">
 
 </code-example>
 
@@ -222,7 +236,9 @@ Angular 的`http.get`返回一个 RxJS 的`Observable`对象。
 For now, you've converted the `Observable` to a `Promise` using the `toPromise` operator.
 
 
-*现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。<code-example path="toh-pt6/src/app/hero.service.ts" region="to-promise">
+*现在*，我们先利用`toPromise`操作符把`Observable`直接转换成`Promise`对象，回到已经熟悉的地盘。
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="to-promise">
 
 </code-example>
 
@@ -238,7 +254,9 @@ That's as easy as importing them from the RxJS library like this:
 
 有很多像`toPromise`这样的操作符，用于扩展`Observable`，为其添加有用的能力。
   如果我们希望得到那些能力，就得自己添加那些操作符。
-  那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：<code-example path="toh-pt6/src/app/hero.service.ts" region="rxjs">
+  那很容易，只要从 RxJS 库中导入它们就可以了，就像这样：
+  
+<code-example path="toh-pt6/src/app/hero.service.ts" region="rxjs">
 
 </code-example>
 
@@ -301,7 +319,9 @@ It receives a Promise of *heroes* just as it did before.
 At the end of `getHeroes()`, you `catch` server failures and pass them to an error handler.
 
 
-在`getHeroes()`的最后，我们`catch`了服务器的失败信息，并把它们传给了错误处理器：<code-example path="toh-pt6/src/app/hero.service.ts" region="catch">
+在`getHeroes()`的最后，我们`catch`了服务器的失败信息，并把它们传给了错误处理器：
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="catch">
 
 </code-example>
 
@@ -311,7 +331,9 @@ You must anticipate HTTP failures, as they happen frequently for reasons beyond 
 
 
 这是一个关键的步骤！
-我们必须预料到 HTTP 请求会失败，因为有太多我们无法控制的原因可能导致它们频繁出现各种错误。<code-example path="toh-pt6/src/app/hero.service.ts" region="handleError">
+我们必须预料到 HTTP 请求会失败，因为有太多我们无法控制的原因可能导致它们频繁出现各种错误。
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="handleError">
 
 </code-example>
 
@@ -408,7 +430,9 @@ At the end of the hero detail template, add a save button with a `click` event
 binding that invokes a new component method named `save()`.
 
 
-我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save()`的新方法：<code-example path="toh-pt6/src/app/hero-detail.component.html" region="save" title="src/app/hero-detail.component.html (save)">
+我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save()`的新方法：
+
+<code-example path="toh-pt6/src/app/hero-detail.component.html" region="save" title="src/app/hero-detail.component.html (save)">
 
 </code-example>
 
@@ -417,7 +441,9 @@ Add the following `save()` method, which persists hero name changes using the he
 `update()` method and then navigates back to the previous view.
 
 
-`save()`方法使用 hero 服务的`update()`方法来持久化对英雄名字的修改，然后导航回前一个视图：<code-example path="toh-pt6/src/app/hero-detail.component.ts" region="save" title="src/app/hero-detail.component.ts (save)">
+`save()`方法使用 hero 服务的`update()`方法来持久化对英雄名字的修改，然后导航回前一个视图：
+
+<code-example path="toh-pt6/src/app/hero-detail.component.ts" region="save" title="src/app/hero-detail.component.ts (save)">
 
 </code-example>
 
@@ -431,7 +457,9 @@ The overall structure of the `update()` method is similar to that of
 
 
 
-`update()`方法的大致结构与`getHeroes()`类似，不过我们使用 HTTP 的 `put()` 方法来把修改持久化到服务端：<code-example path="toh-pt6/src/app/hero.service.ts" region="update" title="src/app/hero.service.ts (update)">
+`update()`方法的大致结构与`getHeroes()`类似，不过我们使用 HTTP 的 `put()` 方法来把修改持久化到服务端：
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="update" title="src/app/hero.service.ts (update)">
 
 </code-example>
 
@@ -464,7 +492,9 @@ Insert the following into the heroes component HTML, just after
 the heading:
 
 
-把下列代码插入 heroes 组件的 HTML 中，放在标题的下面：<code-example path="toh-pt6/src/app/heroes.component.html" region="add" title="src/app/heroes.component.html (add)">
+把下列代码插入 heroes 组件的 HTML 中，放在标题的下面：
+
+<code-example path="toh-pt6/src/app/heroes.component.html" region="add" title="src/app/heroes.component.html (add)">
 
 </code-example>
 
@@ -473,7 +503,9 @@ In response to a click event, call the component's click handler and then
 clear the input field so that it's ready for another name.
 
 
-当点击事件触发时，我们调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。<code-example path="toh-pt6/src/app/heroes.component.ts" region="add" title="src/app/heroes.component.ts (add)">
+当点击事件触发时，我们调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。
+
+<code-example path="toh-pt6/src/app/heroes.component.ts" region="add" title="src/app/heroes.component.ts (add)">
 
 </code-example>
 
@@ -509,7 +541,9 @@ Add the following button element to the heroes component HTML, after the hero
 name in the repeated `<li>` element.
 
 
-把这个按钮元素添加到英雄列表组件的 HTML 中，把它放在`<li>`标签中的英雄名的后面：<code-example path="toh-pt6/src/app/heroes.component.html" region="delete">
+把这个按钮元素添加到英雄列表组件的 HTML 中，把它放在`<li>`标签中的英雄名的后面：
+
+<code-example path="toh-pt6/src/app/heroes.component.html" region="delete">
 
 </code-example>
 
@@ -517,7 +551,9 @@ name in the repeated `<li>` element.
 The `<li>` element should now look like this:
 
 
-`<li>`元素应该变成了这样：<code-example path="toh-pt6/src/app/heroes.component.html" region="li-element" title="src/app/heroes.component.html (li-element)">
+`<li>`元素应该变成了这样：
+
+<code-example path="toh-pt6/src/app/heroes.component.html" region="li-element" title="src/app/heroes.component.html (li-element)">
 
 </code-example>
 
@@ -533,7 +569,9 @@ select the hero that the user will delete.
 The logic of the `delete()` handler is a bit trickier:
 
 
-`delete()`处理器的逻辑略复杂：<code-example path="toh-pt6/src/app/heroes.component.ts" region="delete" title="src/app/heroes.component.ts (delete)">
+`delete()`处理器的逻辑略复杂：
+
+<code-example path="toh-pt6/src/app/heroes.component.ts" region="delete" title="src/app/heroes.component.ts (delete)">
 
 </code-example>
 
@@ -551,7 +589,9 @@ add this CSS:
 
 
 我们希望删除按钮被放在英雄条目的最右边。
-于是 CSS 变成了这样：<code-example path="toh-pt6/src/app/heroes.component.css" region="additions" title="src/app/heroes.component.css (additions)">
+于是 CSS 变成了这样：
+
+<code-example path="toh-pt6/src/app/heroes.component.css" region="additions" title="src/app/heroes.component.css (additions)">
 
 </code-example>
 
@@ -563,7 +603,9 @@ add this CSS:
 Add the hero service's `delete()` method, which uses the `delete()` HTTP method to remove the hero from the server:
 
 
-hero 服务的`delete()`方法使用 HTTP 的 `delete()` 方法来从服务器上移除该英雄：<code-example path="toh-pt6/src/app/hero.service.ts" region="delete" title="src/app/hero.service.ts (delete)">
+hero 服务的`delete()`方法使用 HTTP 的 `delete()` 方法来从服务器上移除该英雄：
+
+<code-example path="toh-pt6/src/app/hero.service.ts" region="delete" title="src/app/hero.service.ts (delete)">
 
 </code-example>
 
@@ -642,7 +684,9 @@ As the user types a name into a search box, you'll make repeated HTTP requests f
 Start by creating `HeroSearchService` that sends search queries to the server's web API.
 
 
-我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的 Web API。<code-example path="toh-pt6/src/app/hero-search.service.ts" title="src/app/hero-search.service.ts">
+我们先创建`HeroSearchService`服务，它会把搜索请求发送到我们服务器上的 Web API。
+
+<code-example path="toh-pt6/src/app/hero-search.service.ts" title="src/app/hero-search.service.ts">
 
 </code-example>
 
@@ -675,7 +719,9 @@ Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`
 The component template is simple&mdash;just a text box and a list of matching search results.
 
 
-组件模板很简单，就是一个输入框和一个显示匹配的搜索结果的列表。<code-example path="toh-pt6/src/app/hero-search.component.html" title="src/app/hero-search.component.html">
+组件模板很简单，就是一个输入框和一个显示匹配的搜索结果的列表。
+
+<code-example path="toh-pt6/src/app/hero-search.component.html" title="src/app/hero-search.component.html">
 
 </code-example>
 
@@ -707,7 +753,9 @@ The `async` pipe subscribes to the `Observable` and produces the array of heroes
 Create the `HeroSearchComponent` class and metadata.
 
 
-该创建`HeroSearchComponent`类及其元数据了。<code-example path="toh-pt6/src/app/hero-search.component.ts" title="src/app/hero-search.component.ts">
+该创建`HeroSearchComponent`类及其元数据了。
+
+<code-example path="toh-pt6/src/app/hero-search.component.ts" title="src/app/hero-search.component.ts">
 
 </code-example>
 
@@ -719,7 +767,9 @@ Create the `HeroSearchComponent` class and metadata.
 Focus on the `searchTerms`:
 
 
-仔细看下这个`searchTerms`：<code-example path="toh-pt6/src/app/hero-search.component.ts" region="searchTerms">
+仔细看下这个`searchTerms`：
+
+<code-example path="toh-pt6/src/app/hero-search.component.ts" region="searchTerms">
 
 </code-example>
 
@@ -744,7 +794,9 @@ of search terms into a stream of `Hero` arrays and assign the result to the `her
 
 
 `Subject`也是一个`Observable`对象。
-我们要把搜索词的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。<code-example path="toh-pt6/src/app/hero-search.component.ts" region="search">
+我们要把搜索词的流转换成`Hero`数组的流，并把结果赋值给`heroes`属性。
+
+<code-example path="toh-pt6/src/app/hero-search.component.ts" region="search">
 
 </code-example>
 
@@ -834,7 +886,9 @@ Here are all the RxJS imports that _this_ component needs:
 
 
 如果想要更多的RxJS功能，我们必须*导入*其所定义的库来扩展`Observable`对象，
-  以下是*这个*模块所需导入的所有RxJS操作符：<code-example path="toh-pt6/src/app/hero-search.component.ts" region="rxjs-imports" title="src/app/hero-search.component.ts (rxjs imports)" linenums="false">
+  以下是*这个*模块所需导入的所有RxJS操作符：
+  
+<code-example path="toh-pt6/src/app/hero-search.component.ts" region="rxjs-imports" title="src/app/hero-search.component.ts (rxjs imports)" linenums="false">
 
 </code-example>
 
@@ -859,7 +913,9 @@ loads and executes the library's script file which, in turn, adds the operator t
 Add the hero search HTML element to the bottom of the `DashboardComponent` template.
 
 
-将表示“英雄搜索”组件的 HTML 元素添加到`DashboardComponent`模版的最后面。<code-example path="toh-pt6/src/app/dashboard.component.html" title="src/app/dashboard.component.html" linenums="false">
+将表示“英雄搜索”组件的 HTML 元素添加到`DashboardComponent`模版的最后面。
+
+<code-example path="toh-pt6/src/app/dashboard.component.html" title="src/app/dashboard.component.html" linenums="false">
 
 </code-example>
 

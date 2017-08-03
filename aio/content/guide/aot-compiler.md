@@ -171,7 +171,9 @@ then modify it as follows.
 
 
 `ngc`需要自己的带有AOT专用设置的`tsconfig.json`。
-把原始的`tsconfig.json`拷贝到一个名叫`tsconfig-aot.json`的文件中，然后像这样修改它：<code-example path="aot-compiler/tsconfig-aot.json" title="tsconfig-aot.json" linenums="false">
+把原始的`tsconfig.json`拷贝到一个名叫`tsconfig-aot.json`的文件中，然后像这样修改它：
+
+<code-example path="aot-compiler/tsconfig-aot.json" title="tsconfig-aot.json" linenums="false">
 </code-example>
 
 The `compilerOptions` section is unchanged except for one property.
@@ -231,7 +233,9 @@ Initiate AOT compilation from the command line using the previously installed `n
 
 Windows users should surround the `ngc` command in double quotes:
 
-Windows用户应该双引号`ngc`命令：<code-example format='.'>
+Windows用户应该双引号`ngc`命令：
+
+<code-example format='.'>
   "node_modules/.bin/ngc" -p tsconfig-aot.json
 </code-example>
 
@@ -405,7 +409,9 @@ The cookbook configuration file looks like this.
 
 
 接下来，在项目根目录新建一个配置文件（`rollup-config.js`），来告诉Rollup如何处理应用。
-本烹饪书配置文件是这样的：<code-example path="aot-compiler/rollup-config.js" title="rollup-config.js" linenums="false">
+本烹饪书配置文件是这样的：
+
+<code-example path="aot-compiler/rollup-config.js" title="rollup-config.js" linenums="false">
 </code-example>
 
 This config file tells Rollup that the app entry point is `src/app/main.js` .
@@ -454,7 +460,9 @@ the `plugins` array in `rollup-config.js`:
 
 幸运的是，有一个Rollup插件，它会修改*RxJS*，以使用Rollup所需的ES`import`和`export`语句。
 然后Rollup就可以把该应用中用到的那部分`RxJS`代码留在“捆”文件中了。
-它的用法很简单。把下列代码添加到`rollup-config.js`的`plugins`数组中：<code-example path="aot-compiler/rollup-config.js" region="commonjs" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
+它的用法很简单。把下列代码添加到`rollup-config.js`的`plugins`数组中：
+
+<code-example path="aot-compiler/rollup-config.js" region="commonjs" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
 </code-example>
 
 *Minification*
@@ -468,7 +476,9 @@ Add the following to the `plugins` array:
 
 Rollup做摇树优化时会大幅减小代码体积。最小化过程则会让它更小。
 本烹饪宝典依赖于Rollup插件*uglify*来最小化并混淆代码。
-把下列代码添加到`plugins`数组中：<code-example path="aot-compiler/rollup-config.js" region="uglify" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
+把下列代码添加到`plugins`数组中：
+
+<code-example path="aot-compiler/rollup-config.js" region="uglify" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
 </code-example>
 
 <div class="l-sub-section">
@@ -502,7 +512,9 @@ Execute the Rollup process with this command:
 
 Windows users should surround the `rollup` command in double quotes:
 
-Windows用户要把`rollup`命令放进双引号中：<code-example language="none" class="code-shell">
+Windows用户要把`rollup`命令放进双引号中：
+
+<code-example language="none" class="code-shell">
   "node_modules/.bin/rollup"  -c rollup-config.js
 </code-example>
 
@@ -521,7 +533,9 @@ Instead, load the bundle file using a single `<script>` tag **_after_** the `</b
 
 加载所生成的应用捆文件，并不需要使用像SystemJS这样的模块加载器。
 移除与SystemJS有关的那些脚本吧。
-改用`<script>`标签来加载这些捆文件：<code-example path="aot-compiler/src/index.html" region="bundle" title="index.html (load bundle)" linenums="false">
+改用`<script>`标签来加载这些捆文件：
+
+<code-example path="aot-compiler/src/index.html" region="bundle" title="index.html (load bundle)" linenums="false">
 </code-example>
 
 {@a serve}
@@ -804,7 +818,9 @@ Edit your `tsconfig-aot.json` to fit your project's file structure.
 Rollup does the tree shaking as before.
 
 
-Rollup和以前一样，仍然进行摇树优化。<code-example path="toh-pt6/rollup-config.js" title="rollup-config.js" linenums="false">
+Rollup和以前一样，仍然进行摇树优化。
+
+<code-example path="toh-pt6/rollup-config.js" title="rollup-config.js" linenums="false">
 </code-example>
 
 {@a running-app}
@@ -824,7 +840,7 @@ Rollup和以前一样，仍然进行摇树优化。<code-example path="toh-pt6/r
   <a href="generated/zips/toh-pt6/toh-pt6.zip" target="_blank">Tour of Heroes' zip</a>
   and run `npm install` on it.
 
-  // TODO: Translate
+  下列步骤假设你已经下载了<a href="generated/zips/toh-pt6/toh-pt6.zip" target="_blank">《英雄指南》的zip包</a>，并且在其中运行过了`npm install`。
 
 </div>
 

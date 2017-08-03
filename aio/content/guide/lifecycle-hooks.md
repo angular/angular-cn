@@ -555,7 +555,9 @@ The sneaky spy directive is simple, consisting almost entirely of `ngOnInit()` a
 that log messages to the parent via an injected `LoggerService`.
 
 
-我们这个鬼鬼祟祟的侦探指令很简单，几乎完全由`ngOnInit()`和`ngOnDestroy()`钩子组成，它通过一个注入进来的`LoggerService`来把消息记录到父组件中去。<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" title="src/app/spy.directive.ts" linenums="false">
+我们这个鬼鬼祟祟的侦探指令很简单，几乎完全由`ngOnInit()`和`ngOnDestroy()`钩子组成，它通过一个注入进来的`LoggerService`来把消息记录到父组件中去。
+
+<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" title="src/app/spy.directive.ts" linenums="false">
 
 </code-example>
 
@@ -725,7 +727,9 @@ The example component, `OnChangesComponent`, has two input properties: `hero` an
 The host `OnChangesParentComponent` binds to them like this:
 
 
-宿主`OnChangesParentComponent`绑定了它们，就像这样：<code-example path="lifecycle-hooks/src/app/on-changes-parent.component.html" region="on-changes" title="src/app/on-changes-parent.component.html">
+宿主`OnChangesParentComponent`绑定了它们，就像这样：
+
+<code-example path="lifecycle-hooks/src/app/on-changes-parent.component.html" region="on-changes" title="src/app/on-changes-parent.component.html">
 
 </code-example>
 
@@ -853,7 +857,9 @@ which can only be reached by querying for the child view via the property decora
 The `doSomething()` method updates the screen when the hero name exceeds 10 characters.
 
 
-当英雄的名字超过10个字符时，`doSomething()`方法就会更新屏幕。<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" title="AfterViewComponent (doSomething)" linenums="false">
+当英雄的名字超过10个字符时，`doSomething()`方法就会更新屏幕。
+
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" title="AfterViewComponent (doSomething)" linenums="false">
 
 </code-example>
 
@@ -1004,7 +1010,9 @@ which can only be reached by querying for them via the property decorated with
 [@ContentChild](api/core/ContentChild).
 
 
-下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。<code-example path="lifecycle-hooks/src/app/after.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false">
+下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
+
+<code-example path="lifecycle-hooks/src/app/after.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false">
 
 </code-example>
 

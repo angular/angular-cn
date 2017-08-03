@@ -2321,7 +2321,9 @@ Learn more about the `FormsModule` and `ngModel` in the
 Here's how to import the `FormsModule` to make `[(ngModel)]` available.
 
 
-导入`FormsModule`并让`[(ngModel)]`可用的代码如下：<code-example path="template-syntax/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (FormsModule import)" >
+导入`FormsModule`并让`[(ngModel)]`可用的代码如下：
+
+<code-example path="template-syntax/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (FormsModule import)" >
 </code-example>
 
 #### Inside <span class="syntax">[(ngModel)]</span>

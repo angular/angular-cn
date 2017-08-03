@@ -156,7 +156,7 @@ During development you're likely to bootstrap the `AppModule` in a `main.ts` fil
 
 The NgModule &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
 
-// TODO: Translate
+NgModule（一个带`@NgModule`装饰器的类）是 Angular 的基础特性之一。
 
 JavaScript also has its own module system for managing collections of JavaScript objects.
 It's completely different and unrelated to the NgModule system.
@@ -288,7 +288,9 @@ that it acquires from a service.
 
 {@a component-code}
 例如，`HeroListComponent`有一个`heroes`属性，它返回一个英雄数组，这个数组从一个服务获得。
-`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把它/她设置到`selectedHero`属性。<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (class)" region="class">
+`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把它/她设置到`selectedHero`属性。
+
+<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (class)" region="class">
 
 </code-example>
 
@@ -318,7 +320,9 @@ A template looks like regular HTML, except for a few differences. Here is a
 template for our `HeroListComponent`:
 
 
-多数情况下，模板看起来很像标准 HTML，当然也有一点不同的地方。下面是`HeroListComponent`组件的一个模板：<code-example path="architecture/src/app/hero-list.component.html" title="src/app/hero-list.component.html">
+多数情况下，模板看起来很像标准 HTML，当然也有一点不同的地方。下面是`HeroListComponent`组件的一个模板：
+
+<code-example path="architecture/src/app/hero-list.component.html" title="src/app/hero-list.component.html">
 
 </code-example>
 
@@ -381,7 +385,9 @@ Here's some metadata for `HeroListComponent`:
 
 
 在TypeScript中，我们用**装饰器 (decorator) **来附加元数据。
-下面就是`HeroListComponent`的一些元数据。<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (metadata)" region="metadata">
+下面就是`HeroListComponent`的一些元数据。
+
+<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (metadata)" region="metadata">
 
 </code-example>
 
@@ -468,7 +474,9 @@ Angular 支持**数据绑定**，一种让模板的各部分与组件的各部�
 The `HeroListComponent` [example](guide/architecture#templates) template has three forms:
 
 
-`HeroListComponent`[示例](guide/architecture#templates)模板中有三种形式：<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" title="src/app/hero-list.component.html (binding)" region="binding">
+`HeroListComponent`[示例](guide/architecture#templates)模板中有三种形式：
+
+<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" title="src/app/hero-list.component.html (binding)" region="binding">
 
 </code-example>
 
@@ -493,7 +501,9 @@ Here's an example from the `HeroDetailComponent` template:
 
 
 **双向数据绑定**是重要的第四种绑定形式，它使用`ngModel`指令组合了属性绑定和事件绑定的功能。
-下面是`HeroDetailComponent`模板的范例：<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" title="src/app/hero-detail.component.html (ngModel)" region="ngModel">
+下面是`HeroDetailComponent`模板的范例：
+
+<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" title="src/app/hero-detail.component.html (ngModel)" region="ngModel">
 
 </code-example>
 
@@ -575,7 +585,9 @@ sometimes by name but more often as the target of an assignment or a binding.
 The [example template](guide/architecture#templates) uses two built-in structural directives:
 
 
-下面的[范例模板](guide/architecture#templates)中用到了两个内置的结构型指令：<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" title="src/app/hero-list.component.html (structural)" region="structural">
+下面的[范例模板](guide/architecture#templates)中用到了两个内置的结构型指令：
+
+<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" title="src/app/hero-list.component.html (structural)" region="structural">
 
 </code-example>
 
@@ -602,7 +614,9 @@ by setting its display value property and responding to change events.
 
 
 `ngModel`指令就是属性型指令的一个例子，它实现了双向数据绑定。
-`ngModel`修改现有元素（一般是`<input>`）的行为：设置其显示属性值，并响应 change 事件。<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" title="src/app/hero-detail.component.html (ngModel)" region="ngModel">
+`ngModel`修改现有元素（一般是`<input>`）的行为：设置其显示属性值，并响应 change 事件。
+
+<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" title="src/app/hero-detail.component.html (ngModel)" region="ngModel">
 
 </code-example>
 
@@ -680,7 +694,9 @@ Yet services are fundamental to any Angular application. Components are big cons
 Here's an example of a service class that logs to the browser console:
 
 
-下面是一个服务类的范例，用于把日志记录到浏览器的控制台：<code-example path="architecture/src/app/logger.service.ts" linenums="false" title="src/app/logger.service.ts (class)" region="class">
+下面是一个服务类的范例，用于把日志记录到浏览器的控制台：
+
+<code-example path="architecture/src/app/logger.service.ts" linenums="false" title="src/app/logger.service.ts (class)" region="class">
 
 </code-example>
 
@@ -690,7 +706,9 @@ The `HeroService` depends on the `Logger` service and another `BackendService` t
 
 
 下面是`HeroService`类，用于获取英雄数据，并通过一个已解析的[承诺 (Promise)](http://exploringjs.com/es6/ch_promises.html) 返回它们。
-`HeroService`还依赖于`Logger`服务和另一个用于处理服务器通讯的`BackendService`服务。<code-example path="architecture/src/app/hero.service.ts" linenums="false" title="src/app/hero.service.ts (class)" region="class">
+`HeroService`还依赖于`Logger`服务和另一个用于处理服务器通讯的`BackendService`服务。
+
+<code-example path="architecture/src/app/hero.service.ts" linenums="false" title="src/app/hero.service.ts (class)" region="class">
 
 </code-example>
 
@@ -796,7 +814,9 @@ In general, add providers to the [root module](guide/architecture#modules) so th
 the same instance of a service is available everywhere.
 
 
-但通常会把提供商添加到[根模块](guide/architecture#modules)上，以便在任何地方都使用服务的同一个实例。<code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers">
+但通常会把提供商添加到[根模块](guide/architecture#modules)上，以便在任何地方都使用服务的同一个实例。
+
+<code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers">
 
 </code-example>
 
@@ -804,7 +824,9 @@ the same instance of a service is available everywhere.
 Alternatively, register at a component level in the `providers` property of the `@Component` metadata:
 
 
-或者，也可以在`@Component`元数据中的`providers`属性中把它注册在组件层：<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (component providers)" region="providers">
+或者，也可以在`@Component`元数据中的`providers`属性中把它注册在组件层：
+
+<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (component providers)" region="providers">
 
 </code-example>
 
