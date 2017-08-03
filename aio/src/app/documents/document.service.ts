@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
-import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { of } from 'rxjs/observable/of';
+import { LocationService } from 'app/shared/location.service';
+import { Logger } from 'app/shared/logger.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { AsyncSubject } from 'rxjs/AsyncSubject';
+
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { DocumentContents } from './document-contents';
-export { DocumentContents } from './document-contents';
 
-import { LocationService } from 'app/shared/location.service';
-import { Logger } from 'app/shared/logger.service';
+export { DocumentContents } from './document-contents';
 
 export const FILE_NOT_FOUND_ID = 'file-not-found';
 export const FETCHING_ERROR_ID = 'fetching-error';
@@ -23,10 +23,9 @@ const FETCHING_ERROR_CONTENTS = `
   <div class="nf-container l-flex-wrap flex-center">
     <div class="nf-icon material-icons">error_outline</div>
     <div class="nf-response l-flex-wrap">
-      <h1 class="no-toc">Request for document failed.</h1>
+      <h1 class="no-toc">请求文档失败</h1>
       <p>
-        We are unable to retrieve the "<current-location></current-location>" page at this time.
-        Please check your connection and try again later.
+      抱歉，这次我们没能取到 "<current-location></current-location>" 页。请检查你的网络连接，稍后再试。
       </p>
     </div>
   </div>
@@ -39,10 +38,9 @@ export class DocumentService {
 
   currentDocument: Observable<DocumentContents>;
 
-  constructor(
-    private logger: Logger,
-    private http: Http,
-    location: LocationService) {
+  constructor(private logger: Logger,
+              private http: Http,
+              location: LocationService) {
     // Whenever the URL changes we try to get the appropriate doc
     this.currentDocument = location.currentPath.switchMap(path => this.getDocument(path));
   }
@@ -50,7 +48,7 @@ export class DocumentService {
   private getDocument(url: string) {
     const id = url || 'index';
     this.logger.log('getting document', id);
-    if ( !this.cache.has(id)) {
+    if (!this.cache.has(id)) {
       this.cache.set(id, this.fetchDocument(id));
     }
     return this.cache.get(id);
@@ -61,12 +59,12 @@ export class DocumentService {
     this.logger.log('fetching document from', requestPath);
     const subject = new AsyncSubject();
     this.http
-      .get(requestPath)
-      .map(response => response.json())
-      .catch((error: Response) => {
-        return error.status === 404 ? this.getFileNotFoundDoc(id) : this.getErrorDoc(id, error);
-      })
-      .subscribe(subject);
+        .get(requestPath)
+        .map(response => response.json())
+        .catch((error: Response) => {
+          return error.status === 404 ? this.getFileNotFoundDoc(id) : this.getErrorDoc(id, error);
+        })
+        .subscribe(subject);
     return subject.asObservable();
   }
 
@@ -78,7 +76,7 @@ export class DocumentService {
     } else {
       return of({
         id: FILE_NOT_FOUND_ID,
-        contents: 'Document not found'
+        contents: '文档未找到',
       });
     }
   }
@@ -88,7 +86,7 @@ export class DocumentService {
     this.cache.delete(id);
     return Observable.of({
       id: FETCHING_ERROR_ID,
-      contents: FETCHING_ERROR_CONTENTS
+      contents: FETCHING_ERROR_CONTENTS,
     });
   }
 }

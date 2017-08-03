@@ -911,7 +911,7 @@ class TestHttp {
   static versionFull = '4.0.0-local+sha.73808dd';
 
   static docVersions: NavigationNode[] = [
-    { title: 'v2', url: 'https://v2.angular.io' }
+    { title: 'v2', url: 'https://v2.angular.cn' }
   ];
 
   // tslint:disable:quotemark
