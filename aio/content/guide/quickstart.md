@@ -140,17 +140,12 @@ It takes time to set up a new project, most of it spent installing npm packages.
 
 
 <h2 id='serve'>
- 
-  <p>
   Step 3: Serve the application
-  </p>
-
-  <p>
-    步骤3. 启动开发服务器
-  </p>
-
 </h2>
 
+<h2 id='serve'>
+  步骤3. 启动开发服务器
+</h2>
 
 
 Go to the project directory and launch the server.

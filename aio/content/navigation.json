@@ -34,8 +34,21 @@
     },
 
     {
+      "url": "guide/docs-style-guide",
+      "title": "文档风格指南",
+      "tooltip": "给文档作者的风格指南",
+      "hidden": true
+    },
+
+    {
+      "url": "guide/quickstart",
       "title": "快速起步",
-      "tooltip": "Angular 破冰",
+      "tooltip": "Angular 破冰"
+    },
+
+    {
+      "title": "教程",
+      "tooltip": "此《英雄指南》教程会带你用 TypeScript 一步步创建一个 Angular 应用。",
       "children": [
         {
           "url": "tutorial",
