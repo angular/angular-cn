@@ -146,6 +146,6 @@ Along the way, you'll become familiar with many of the core fundamentals of Angu
 
 这一路上，我们将遇到很多 Angular 核心原理。
 
-// TODO: Translate
-
 Start now by building a simple [hero editor](tutorial/toh-pt1 "The Hero Editor").
+
+现在就开始构建一个简单的[英雄编辑器](tutorial/toh-pt1 "英雄编辑器")吧！

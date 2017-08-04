@@ -692,23 +692,32 @@ Next, create an `app.module.ts` file and add the following `NgModule` class:
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="ngmodule" title="app.module.ts">
 </code-example>
 
-// TODO: Translate
 This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app must have.
 It also imports `UpgradeModule` from `@angular/upgrade/static`, which exports providers that will be used
 for upgrading and downgrading services and components.
 
+最小化的`NgModule`导入了`BrowserModule`，它是每个基于浏览器的 Angular 应用必备的。
+它还从`@angular/upgrade/static`中导入了`UpgradeModule`，它导出了一些服务提供商，这些提供商会用于升级、降级服务和组件。
+
 In the constructor of the `AppModule`, use dependency injection to get a hold of the `UpgradeModule` instance,
 and use it to bootstrap the AngularJS app in the `AppModule.ngDoBootstrap` method.
 The `upgrade.bootstrap` method takes the exact same arguments as [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap):
+
+在 `AppModule` 的构造函数中，使用依赖注入技术获取了一个 `UpgradeModule` 实例，并用它在`AppModule.ngDoBootstrap`方法中启动 AngularJS 应用。
+`upgrade.bootstrap` 方法接受和 [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 完全相同的参数。
 
 <div class="l-sub-section">
 
 Note that you do not add a `bootstrap` declaration to the `@NgModule` decorator, since
 AngularJS will own the root template of the application.
 
+注意，我们不需要在 `@NgModule` 中加入 `bootstrap` 声明，因为 AngularJS 控制着该应用的根模板。
+
 </div>
 
 Now you can bootstrap `AppModule` using the `platformBrowserDynamic.bootstrapModule` method.
+
+现在，我们就可以使用 `platformBrowserDynamic.bootstrapModule` 方法来启动 `AppModule` 了。
 
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="bootstrap" title="app.module.ts'">
 </code-example>

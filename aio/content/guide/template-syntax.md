@@ -19,13 +19,16 @@ In Angular, the component plays the part of the controller/viewmodel, and the te
 从使用模型-视图-控制器 (MVC) 或模型-视图-视图模型 (MVVM) 的经验中，很多开发人员都熟悉了组件和模板这两个概念。
   在 Angular 中，组件扮演着控制器或视图模型的角色，模板则扮演视图的角色。
   
-// TODO: Translate
 This page is a comprehensive technical reference to the Angular template language.
 It explains basic principles of the template language and describes most of the syntax that you'll encounter elsewhere in the documentation.
+
+这是一篇关于 Angular 模板语言的技术大全。
+它解释了模板语言的基本原理，并描述了我们将在文档中其它地方遇到的大部分语法。
 
 Many code snippets illustrate the points and concepts, all of them available
 in the <live-example title="Template Syntax Live Code"></live-example>.
 
+这里还有很多代码片段用来解释技术点和概念，它们全都在<live-example title="模板语法的在线例子"></live-example>中。
 
 {@a html}
 ## HTML in templates
