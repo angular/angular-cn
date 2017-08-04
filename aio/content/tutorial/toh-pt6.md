@@ -934,7 +934,9 @@ If you enter characters that match any existing hero names, you'll see something
 
 
 再次运行该应用，跳转到*仪表盘*，并在英雄下方的搜索框里输入一些文本。
-运行效果如下：<figure >
+运行效果如下：
+
+<figure >
   <img src='generated/images/guide/toh/toh-hero-search.png' alt="Hero Search Component">
 </figure>
 

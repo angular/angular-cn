@@ -223,7 +223,9 @@ recognizes the directive when it encounters `myHighlight` in the template.
 Now when the app runs, the `myHighlight` directive highlights the paragraph text.
 
 
-运行应用，就会看到我们的指令确实高亮了段落中的文本。<figure >
+运行应用，就会看到我们的指令确实高亮了段落中的文本。
+
+<figure >
   <img src="generated/images/guide/attribute-directives/first-highlight.png" alt="First Highlight">
 </figure>
 
@@ -559,7 +561,9 @@ Revise the `AppComponent.color` so that it has no initial value.
 Here are the harness and directive in action.
 
 
-下面是测试程序和指令的动图。<figure >
+下面是测试程序和指令的动图。
+
+<figure >
   <img src="generated/images/guide/attribute-directives/highlight-directive-v2-anim.gif" alt="Highlight v.2">
 </figure>
 
@@ -625,7 +629,9 @@ Angular之所以知道`defaultColor`绑定属于`HighlightDirective`，是因为
 Here's how the harness should work when you're done coding.
 
 
-当这些代码完成时，测试程序工作时的动图如下：<figure >
+当这些代码完成时，测试程序工作时的动图如下：
+
+<figure >
   <img src="generated/images/guide/attribute-directives/highlight-directive-final-anim.gif" alt="Final Highlight">
 </figure>
 

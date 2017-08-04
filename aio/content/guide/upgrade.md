@@ -497,7 +497,9 @@ ways:
     projection together.
 
 
-通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。<figure >
+通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
+
+<figure >
   <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application" >
 </figure>
 
@@ -564,7 +566,9 @@ AngularJS and Angular approaches. Here's what happens:
   detection after every event.
 
 
-`UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。<figure >
+`UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
+
+<figure >
   <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application" >
 </figure>
 

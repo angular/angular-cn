@@ -536,9 +536,13 @@ The heroes will never know they're being watched.
 
   Kidding aside, pay attention to two key points:
 
-不开玩笑了，注意下面两个关键点：1. Angular calls hook methods for *directives* as well as components.<br><br>
+不开玩笑了，注意下面两个关键点：
 
-就像对组件一样，Angular也会对*指令*调用这些钩子方法。2. A spy directive can provide insight into a DOM object that you cannot change directly.
+1. Angular calls hook methods for *directives* as well as components.<br><br>
+
+    就像对组件一样，Angular也会对*指令*调用这些钩子方法。
+
+2. A spy directive can provide insight into a DOM object that you cannot change directly.
 Obviously you can't touch the implementation of a native `<div>`.
 You can't modify a third party component either.
 But you can watch both with a directive.
@@ -576,7 +580,9 @@ Each spy's birth and death marks the birth and death of the attached hero `<div>
 with an entry in the *Hook Log* as seen here:
 
 
-每个“侦探”的出生和死亡也同时标记出了存放英雄的那个`<div>`的出生和死亡。*钩子记录*中的结构是这样的：<figure >
+每个“侦探”的出生和死亡也同时标记出了存放英雄的那个`<div>`的出生和死亡。*钩子记录*中的结构是这样的：
+
+<figure >
   <img src='generated/images/guide/lifecycle-hooks/spy-directive.gif' alt="Spy Directive">
 </figure>
 
@@ -600,6 +606,8 @@ The `ngOnInit()` and `ngOnDestroy()` methods have more vital roles to play in re
 {@a oninit}
 
 ### _OnInit()_
+
+### _OnInit()钩子_
 
 Use `ngOnInit()` for two main reasons:
 
@@ -675,6 +683,8 @@ That's where the heavy initialization logic belongs.
 
 ### _OnDestroy()_
 
+### _OnDestroy()钩子_
+
 Put cleanup logic in `ngOnDestroy()`, the logic that *must* run before Angular destroys the directive.
 
 一些清理逻辑*必须*在Angular销毁指令之前运行，把它们放在`ngOnDestroy()`中。
@@ -700,7 +710,6 @@ You risk memory leaks if you neglect to do so.
 
 Angular calls its `ngOnChanges()` method whenever it detects changes to ***input properties*** of the component (or directive).
 
-在这个例子中，我们监听了`OnChanges`钩子。
 一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular就会调用它的`ngOnChanges()`方法。
 
 This example monitors the `OnChanges` hook.
@@ -737,7 +746,9 @@ The host `OnChangesParentComponent` binds to them like this:
 Here's the sample in action as the user makes changes.
 
 
-下面是此例子中的当用户做出更改时的操作演示：<figure >
+下面是此例子中的当用户做出更改时的操作演示：
+
+<figure >
   <img src='generated/images/guide/lifecycle-hooks/on-changes-anim.gif' alt="OnChanges">
 </figure>
 
@@ -793,7 +804,9 @@ so you can see how often `DoCheck` is called. The results are illuminating:
 
 该代码检测一些**相关的值**，捕获当前值并与以前的值进行比较。
 当英雄或它的超能力发生了非实质性改变时，我们就往日志中写一条特殊的消息。
-这样你可以看到`DoCheck`被调用的频率。结果非常显眼：<figure >
+这样你可以看到`DoCheck`被调用的频率。结果非常显眼：
+
+<figure >
   <img src='generated/images/guide/lifecycle-hooks/do-check-anim.gif' alt="DoCheck">
 </figure>
 
@@ -856,13 +869,11 @@ which can only be reached by querying for the child view via the property decora
 
 The `doSomething()` method updates the screen when the hero name exceeds 10 characters.
 
-
 当英雄的名字超过10个字符时，`doSomething()`方法就会更新屏幕。
 
 <code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" title="AfterViewComponent (doSomething)" linenums="false">
 
 </code-example>
-
 
 Why does the `doSomething()` method wait a tick before updating `comment`?
 

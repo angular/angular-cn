@@ -2429,7 +2429,9 @@ The following contrived example forces the input value to uppercase:
 Here are all variations in action, including the uppercase version:
 
 
-这里是所有这些变体的动画，包括这个大写转换的版本：<figure >
+这里是所有这些变体的动画，包括这个大写转换的版本：
+
+<figure >
   <img src='generated/images/guide/template-syntax/ng-model-anim.gif' alt="NgModel variations">
 </figure>
 
@@ -2799,7 +2801,9 @@ Here is an illustration of the _trackBy_ effect.
 * With `trackBy`, only changing the `id` triggers element replacement.
 
 
-有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。<figure >
+有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
+
+<figure >
   <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
 </figure>
 
@@ -3157,7 +3161,9 @@ Don't do both!
 The terms _input_ and _output_ reflect the perspective of the target directive.
 
 
-_输入_和_输出_这两个词是从目标指令的角度来说的。<figure >
+_输入_和_输出_这两个词是从目标指令的角度来说的。
+
+<figure >
   <img src="generated/images/guide/template-syntax/input-output.png" alt="Inputs and outputs">
 </figure>
 

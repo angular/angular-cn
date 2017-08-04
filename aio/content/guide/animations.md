@@ -216,7 +216,9 @@ transitions that apply regardless of which state the animation is in. For exampl
 * The `* => *` transition applies when *any* change between two states takes place.
 
 
-当在*任意*两个状态之间切换时，`* => *`转场都会生效。<figure >
+  当在*任意*两个状态之间切换时，`* => *`转场都会生效。
+
+<figure >
   <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="The wildcard state can be used to match many different transitions at once" width="400">
 </figure>
 
@@ -236,7 +238,9 @@ For example the `* => void` transition applies when the element leaves the view,
 regardless of what state it was in before it left.
 
 
-比如当一个元素离开视图时，`* => void`转场就会生效，而不管它在离场以前是什么状态。<figure >
+比如当一个元素离开视图时，`* => void`转场就会生效，而不管它在离场以前是什么状态。
+
+<figure >
   <img src="generated/images/guide/animations/ng_animate_transitions_void_in.png" alt="The void state can be used for enter and leave transitions" width="400">
 </figure>
 
@@ -327,7 +331,9 @@ is:
 This gives you fine-grained control over each transition:
 
 
-现在就对每一种转场都有了细粒度的控制：<figure >
+现在就对每一种转场都有了细粒度的控制：
+
+<figure >
   <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400">
 </figure>
 
