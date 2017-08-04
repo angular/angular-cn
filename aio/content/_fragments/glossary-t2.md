@@ -22,6 +22,8 @@ The process of transforming code written in one form of JavaScript
 
 ## TypeScript
 
+## TypeScript 语言
+
 
 <div class="l-sub-section">
 

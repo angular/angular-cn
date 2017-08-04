@@ -2170,6 +2170,8 @@ This section is an introduction to the most commonly used attribute directives:
 
 ### NgClass
 
+### NgClass 指令
+
 You typically control how elements appear
 by adding and removing CSS classes dynamically.
 You can bind to the `ngClass` to add or remove several classes simultaneously.
@@ -2233,6 +2235,9 @@ It's up to you to call `setCurrentClassess()`, both initially and when the depen
 {@a ngStyle}
 
 ### NgStyle
+
+### NgStyle 指令
+
 You can set inline styles dynamically, based on the state of the component.
 With `NgStyle` you can set many inline styles simultaneously.
 
@@ -2501,6 +2506,8 @@ _This_ section is an introduction to the common structural directives:
 
 ### NgIf
 
+### NgIf 指令
+
 You can add or remove an element from the DOM by applying an `NgIf` directive to
 that element (called the _host element_).
 Bind the directive to a condition expression like `isActive` in this example.
@@ -2611,6 +2618,8 @@ described below.
 {@a ngFor}
 
 ### NgFor
+
+### NgFor 指令
 
 `NgFor` is a _repeater_ directive &mdash; a way to present a list of items.
 You define a block of HTML that defines how a single item should be displayed.
@@ -3460,6 +3469,8 @@ It works perfectly with long property paths such as `a?.b?.c?.d`.
 {@a non-null-assertion-operator}
 
 ### The non-null assertion operator ( <span class="syntax">!</span> )
+
+// TODO: Translate
 
 As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is _unintentionally_ null or undefined.
 

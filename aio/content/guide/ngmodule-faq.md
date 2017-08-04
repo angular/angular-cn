@@ -1251,6 +1251,8 @@ Read with appropriate caution and reflection.
 
 ### _SharedModule_
 
+### _SharedModule_ 共享模块
+
 Create a `SharedModule` with the components, directives, and pipes that you use
 everywhere in your app. This module should consist entirely of `declarations`,
 most of them exported.
@@ -1277,6 +1279,8 @@ both those loaded when the app starts and those you lazy load later.
 在任何特性模块中（无论是你在应用启动时主动加载的模块还是之后惰性加载的模块），你都可以随意导入这个`SharedModule`。
 
 ### _CoreModule_
+
+### _CoreModule_ 核心模块
 
 Create a `CoreModule` with `providers` for the singleton services you load when the application starts.
 
@@ -2408,6 +2412,8 @@ how to link this module with other modules.
 
 
 ## NgModule API
+
+## NgModule 模块 API
 
 The following table summarizes the `NgModule` metadata properties.
 

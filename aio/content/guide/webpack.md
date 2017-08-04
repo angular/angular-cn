@@ -453,6 +453,8 @@ Open a terminal window and install the npm packages.
 
 ### Polyfills
 
+### Polyfills 填充库
+
 You'll need polyfills to run an Angular application in most browsers as explained
 in the [Browser Support](guide/browser-support) guide.
 
@@ -556,6 +558,8 @@ and exports several objects as properties of a `module.exports` object.
 
 #### _entry_
 
+#### _entry_ 入口
+
 The first export is the `entry` object:
 
 如上所述，第一个导出的对象是*entries*：
@@ -636,6 +640,8 @@ add `.css` and `.html` to the list.
 
 #### _module.rules_
 
+#### _module.rules_ 规则
+
 Rules tell Webpack which loaders to use for each file, or module:
 
 Rules用来告诉Webpack加载不同文件或模块时该用哪个加载器。
@@ -711,6 +717,8 @@ Multiple loaders can be chained using the array notation.
 
 #### _plugins_
 
+#### _插件_
+
 Finally, create instances of three plugins:
 
 最后，创建三个插件实例：
@@ -726,6 +734,8 @@ Finally, create instances of three plugins:
 
 
 #### *CommonsChunkPlugin*
+
+#### *CommonsChunkPlugin* 插件
 
 The `app.js` bundle should contain only application code. All vendor code belongs in the `vendor.js` bundle. 
 
@@ -761,6 +771,8 @@ It would remove `polyfills` from `vendor` if they shared dependencies, which the
 
 
 #### _HtmlWebpackPlugin_
+
+#### _HtmlWebpackPlugin_ 插件
 
 Webpack generates a number of js and CSS files.
 You _could_ insert them into the `index.html` _manually_. That would be tedious and error-prone.

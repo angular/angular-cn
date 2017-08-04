@@ -407,6 +407,8 @@ Right-click `index.html` in Solution Explorer and select option `Set As Start Pa
 
 ### To run in VS with F5
 
+// TODO: Translate
+
 Most Visual Studio developers like to press the F5 key and see the IIS server come up. 
 To use the IIS server with the QuickStart app, you must make the following three changes. 
 

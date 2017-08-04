@@ -605,6 +605,8 @@ That, in turn, can be desugared into the `<ng-template>` element form.
 
 ## Prefer the asterisk (*) syntax.
 
+// TODO: Translate
+
 The asterisk (*) syntax is more clear than the other desugared forms.
 Use [&lt;ng-container&gt;](guide/structural-directives#ng-container) when there's no single element
 to host the directive.
@@ -949,6 +951,8 @@ When the`condition` is truthy, the top (A)paragraph is removed  and the bottom (
 
 
 ## Summary
+
+## 总结
 
 You can both try and download the source code for this guide in the <live-example></live-example>.
 

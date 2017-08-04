@@ -644,6 +644,8 @@ Here's the `describe` and the `beforeEach` that precedes the tests:
 
 ### _TestBed_
 
+### _TestBed_ 测试台
+
 `TestBed` is the first and most important of the  Angular testing utilities.
 It creates an Angular testing module&mdash;an `@NgModule` class&mdash;that
 you configure with the `configureTestingModule` method to produce the module environment for the class you want to test.
@@ -707,6 +709,8 @@ Optional `override` methods can fine-tune aspects of the configuration.
 
 
 ### _createComponent_
+
+### _createComponent_ 方法
 
 After configuring `TestBed`, you tell it to create an instance of the _component-under-test_.
 In this example, `TestBed.createComponent` creates an instance of `BannerComponent` and
@@ -1065,6 +1069,8 @@ All this is necessary in order to call the asynchronous `TestBed.compileComponen
 
 ### _compileComponents_
 
+### _compileComponents_ 方法
+
 The `TestBed.configureTestingModule` method returns the `TestBed` class so you can chain
 calls to other `TestBed` static methods such as `compileComponents`.
 
@@ -1332,6 +1338,8 @@ The component injector is a property of the fixture's `DebugElement`.
 
 
 ### _TestBed.get_
+
+### _TestBed.get_ 方法
 
 You _may_ also be able to get the service from the root injector via `TestBed.get`.
 This is easier to remember and less verbose.
@@ -1644,6 +1652,8 @@ The `fakeAsync` alternative, [covered below](guide/testing#fake-async), removes 
 
 ### _whenStable_
 
+### _whenStable_ 方法
+
 The test must wait for the `getQuote` promise to resolve in the next turn of the JavaScript engine.
 
 测试程序必须等待`getQuote`在JavaScript引擎的下一回合中被解析。
@@ -1766,6 +1776,8 @@ chained in a long sequence of promise callbacks.
 
 
 ### _jasmine.done_
+
+### _jasmine.done_ 方法
 
 While the `async` and `fakeAsync` functions greatly
 simplify Angular asynchronous testing,
@@ -2031,6 +2043,8 @@ the test detects that value through its subscription to `selected`, and the test
 
 
 ### _triggerEventHandler_
+
+### _triggerEventHandler_ 方法
 
 The Angular `DebugElement.triggerEventHandler` can raise _any data-bound event_ by its _event name_.
 The second parameter is the event object passed to the handler.
@@ -4902,6 +4916,8 @@ Here are the most useful methods for testers.
 
 
 ### _DebugElement_
+
+### _DebugElement_ 方法
 
 The `DebugElement` provides crucial insights into the component's DOM representation.
 

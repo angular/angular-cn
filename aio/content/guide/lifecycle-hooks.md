@@ -708,6 +708,8 @@ You risk memory leaks if you neglect to do so.
 
 ## _OnChanges()_
 
+## _OnChanges()_ 钩子
+
 Angular calls its `ngOnChanges()` method whenever it detects changes to ***input properties*** of the component (or directive).
 
 一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular就会调用它的`ngOnChanges()`方法。
@@ -776,6 +778,8 @@ Angular不会关注这个英雄对象的`name`属性的变化。
 
 ## _DoCheck()_
 
+## _DoCheck()_ 钩子
+
 Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch on its own.
 
 使用`DoCheck`钩子来检测那些Angular自身无法捕获的变更并采取行动。
@@ -832,6 +836,8 @@ Clearly our implementation must be very lightweight or the user experience suffe
 {@a afterview}
 
 ## AfterView
+
+## AfterView 钩子
 
 The *AfterView* sample explores the `AfterViewInit()` and `AfterViewChecked()` hooks that Angular calls
 *after* it creates a component's child views.
@@ -913,6 +919,8 @@ Write lean hook methods to avoid performance problems.
 {@a aftercontent}
 
 ## AfterContent
+
+## AfterContent 钩子
 
 The *AfterContent* sample explores the `AfterContentInit()` and `AfterContentChecked()` hooks that Angular calls
 *after* Angular projects external content into the component.

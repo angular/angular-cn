@@ -76,6 +76,8 @@ An introduction to a few core router concepts will help orient you to the detail
 
 ### *&lt;base href>*
 
+### *&lt;base href>* 元素
+
 Most routing applications should add a `<base>` element to the `index.html` as the first child in the  `<head>` tag
 to tell the router how to compose navigation URLs.
 
@@ -306,6 +308,10 @@ to get information from parent, child and sibling routes.
 路由器状态为我们提供了从任意激活路由开始向上或向下遍历路由树的一种方式，以获得关于父、子、兄弟路由的信息。
 
 ### Router events
+
+### 路由事件
+
+// TODO: Translate
 
 During each navigation, the `Router` emits navigation events through the `Router.events` property. These events range from when the navigation starts and ends to many points in between. The full list of navigation events is displayed in the table below.
 
@@ -1224,6 +1230,8 @@ The corresponding component template looks like this:
 
 
 ### *RouterOutlet*
+
+### *RouterOutlet* 指令
 
 The `RouterOutlet` is a directive from the router library that marks
 the spot in the template where the router should display the views for that outlet.
@@ -2623,6 +2631,8 @@ Use `queryParamMap` instead.
 
 #### _Activated Route_ in action
 
+#### _Activated Route_ 实战
+
 Import the `Router`, `ActivatedRoute`, and `ParamMap` tokens from the router package.
 
 我们要从路由器（`router`）包中导入`Router`、`ActivatedRoute`和`Params`类。
@@ -2686,6 +2696,8 @@ with a new `id` while the `HeroService` is still retrieving the old `id`, `switc
 Finally, you activate the observable with `subscribe` method and (re)set the component's `hero` property with the retrieved hero.
 
 #### _ParamMap_ API
+
+#### _ParamMap_ 参数 API
 
 The `ParamMap` API is inspired by the [URLSearchParams interface](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams). It provides methods
 to handle parameter access for both route parameters (`paramMap`) and query parameters (`queryParamMap`).
@@ -4895,6 +4907,8 @@ You need the `CanDeactivate` guard.
 
 ### Cancel and save
 
+### 取消与保存
+
 The sample application doesn't talk to a server.
 Fortunately, you have another way to demonstrate an asynchronous router hook.
 
@@ -6261,6 +6275,8 @@ Those developers may still use HTML5 URLs by taking two remedial steps:
 {@a hashlocationstrategy}
 
 #### *HashLocationStrategy*
+
+#### *HashLocationStrategy* 策略
 
 You can go old-school with the `HashLocationStrategy` by
 providing the `useHash: true` in an object as the second argument of the `RouterModule.forRoot`

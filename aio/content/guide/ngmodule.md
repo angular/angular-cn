@@ -1591,6 +1591,8 @@ the latter separated from the former by a `#`.
 
 ### RouterModule.forRoot
 
+### RouterModule.forRoot 方法
+
 The `forRoot` static class method of the `RouterModule` with the provided configuration and
 added to the `imports` array provides the routing concerns for the module.
 

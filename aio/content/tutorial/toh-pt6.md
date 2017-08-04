@@ -1,5 +1,7 @@
 # HTTP
 
+# HTTP 服务
+
 In this page, you'll make the following improvements.
 
 在这一章中，我们将进行如下增强：
@@ -224,6 +226,8 @@ mock server.
 {@a http-promise}
 
 ### HTTP Promise
+
+### Http 承诺（Promise）
 
 The Angular `http.get` returns an RxJS `Observable`.
 *Observables* are a powerful way to manage asynchronous data flows.
@@ -711,6 +715,8 @@ RxJS operator chaining makes response processing easy and readable.
 链式RxJS操作可以让我们简单、易读的处理响应数据。详见[下面关于操作符的讨论](tutorial/toh-pt6#rxjs-imports)
 
 ### HeroSearchComponent
+
+### HeroSearchComponent 组件
 
 Let's create a new `HeroSearchComponent` that calls this new `HeroSearchService`.
 

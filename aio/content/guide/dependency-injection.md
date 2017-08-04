@@ -1569,6 +1569,8 @@ TypeScript 接口不会出现在生成的 JavaScript 代码中。
 
 ### _InjectionToken_
 
+### _InjectionToken_ 值
+
 One solution to choosing a provider token for non-class dependencies is
 to define and use an [*InjectionToken*](api/core/InjectionToken).
 The definition of such a token looks like this:

@@ -33,6 +33,8 @@ that are important to Angular developers, including details about the following 
 
 ## *tsconfig.json*
 
+## *tsconfig.json* 文件
+
 Typically, you add a TypeScript configuration file called `tsconfig.json` to your project to
 guide the compiler as it generates JavaScript files.
 
@@ -164,6 +166,8 @@ The `node_modules/@angular/core/` folder of any Angular application contains sev
 **我们不需要为那些包含了`d.ts`文件的库获取*类型定义*文件 —— Angular的所有包都是如此。**
 
 ### lib.d.ts
+
+### lib.d.ts 文件
 
 TypeScript includes a special declaration file called `lib.d.ts`. This file contains the ambient declarations for various common JavaScript constructs present in JavaScript runtimes and the DOM.
 

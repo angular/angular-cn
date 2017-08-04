@@ -135,6 +135,8 @@ The following sections describe these selectors.
 
 ### :host
 
+### :host 选择器
+
 Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
 targeting elements *inside* the component's template).
 
@@ -172,6 +174,8 @@ The next example targets the host element again, but only when it also has the `
 
 ### :host-context
 
+### :host-context 选择器
+
 Sometimes it's useful to apply styles based on some condition *outside* of a component's view.
 For example, a CSS theme class could be applied to the document `<body>` element, and
 you want to change how your component looks based on that.
@@ -199,6 +203,8 @@ if some ancestor element has the CSS class `theme-light`.
 
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
+
+### 已废弃 `/deep/`、`>>>`和`::ng-deep`
 
 Component styles normally apply only to the HTML in the component's own template. 
 
@@ -390,6 +396,8 @@ application root, not  the component file.
 
 
 ### CSS @imports
+
+### CSS @imports 语法
 
 You can also import CSS files into the CSS files using the standard CSS `@import` rule.
 For details, see [`@import`](https://developer.mozilla.org/en/docs/Web/CSS/@import)

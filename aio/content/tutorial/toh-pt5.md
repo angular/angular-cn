@@ -247,6 +247,8 @@ move the display of *Heroes* out of `AppComponent` and into its own `HeroesCompo
 
 ### *HeroesComponent*
 
+### *HeroesComponent* 组件
+
 `AppComponent` is already dedicated to *Heroes*.
 Instead of moving the code out of `AppComponent`, rename it to `HeroesComponent`
 and create a separate `AppComponent` shell.
@@ -419,6 +421,8 @@ Angular 路由器是一个可选的外部 Angular NgModule，名叫`RouterModule
 
 
 ### *&lt;base href>*
+
+### *&lt;base href>* 组件
 
 Open `index.html` and ensure there is a `<base href="...">` element
 (or a script that dynamically sets this element)

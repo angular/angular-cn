@@ -110,6 +110,9 @@ You can exclude them from production installations by adding `--production` to t
 
 
 ## *dependencies*
+
+## *dependencies* 依赖
+
 The `dependencies` section of `package.json` contains:
 
 应用程序的`package.json`文件中，`dependencies`区下有三类包：
@@ -276,6 +279,8 @@ Some of the samples improve their appearance with *bootstrap*.
 
 
 ## *devDependencies*
+
+## *devDependencies* 依赖
 
 The packages listed in the *devDependencies* section of the `package.json` help you develop the application.
 You don't have to deploy them with the production application although there is no harm in doing so.

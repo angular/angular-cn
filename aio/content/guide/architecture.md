@@ -154,6 +154,8 @@ During development you're likely to bootstrap the `AppModule` in a `main.ts` fil
 
 ### NgModules vs. JavaScript modules
 
+### NgModules vs. JavaScript 模块
+
 The NgModule &mdash; a class decorated with `@NgModule` &mdash; is a fundamental feature of Angular.
 
 NgModule（一个带`@NgModule`装饰器的类）是 Angular 的基础特性之一。

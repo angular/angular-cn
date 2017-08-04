@@ -734,6 +734,8 @@ It beats writing an equivalent series of `new FormControl(...)` statements.
 
 ### Validators.required
 
+### Validators.required 验证器
+
 Though this guide doesn't go deeply into validations, here is one example that
 demonstrates the simplicity of using `Validators.required` in reactive forms.
 
@@ -1300,6 +1302,8 @@ You can also initialize or reset the values _later_ with the
 
 ### _setValue_
 
+### _setValue_ 方法
+
 With **`setValue`**, you assign _every_ form control value _at once_
 by passing in a data object whose properties exactly match the _form model_ behind the `FormGroup`.
 
@@ -1349,6 +1353,8 @@ This explains the conditional setting of the `address` property in the data obje
 
 
 ### _patchValue_
+
+### _patchValue_ 方法
 
 With **`patchValue`**, you can assign values to specific controls in a `FormGroup`
 by supplying an object of key/value pairs for just the controls of interest.

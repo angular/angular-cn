@@ -302,7 +302,7 @@ Once all the dependencies are in place, the `AppComponent` displays the user inf
 
 ### *@Injectable()*
 
-### *@Injectable()*
+### *@Injectable()* 注解
 
 Notice the `@Injectable()`decorator on the `UserContextService` class. 
 
@@ -1231,6 +1231,8 @@ That's the subject of the next section.
 
 ### class-interface
 
+### 类-接口
+
 The previous *Hero of the Month* example used the `MinimalLogger` class
 as the token for a provider of a `LoggerService`.
 
@@ -1331,6 +1333,8 @@ Notice that it doesn't have a single member. It never grows no matter how many m
 
 
 ### _InjectionToken_
+
+### _InjectionToken_ 值
 
 Dependency objects can be simple values like dates, numbers and strings, or
 shapeless objects like arrays and functions.

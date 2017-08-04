@@ -1,5 +1,7 @@
 # Angular Glossary
 
+# Angular 词汇表
+
 Angular has its own vocabulary.
 Most Angular terms are common English words
 with a specific meaning within the Angular system.
@@ -538,6 +540,8 @@ elements and their children.
 
 ## ECMAScript
 
+## ECMAScript 语言
+
 The [official JavaScript language specification](https://en.wikipedia.org/wiki/ECMAScript).
 
 [官方 JavaScript 语言规范](https://en.wikipedia.org/wiki/ECMAScript)
@@ -565,17 +569,23 @@ Angular 的开发人员也可以选择直接使用 ES5 编程。
 
 ## ES2015
 
+## ES2015 语言
+
 Short hand for [ECMAScript](guide/glossary#ecmascript) 2015.
 
 [ECMAScript](guide/glossary#ecmascript) 2015 的缩写。
 
 ## ES5
 
+## ES5 语言
+
 Short hand for [ECMAScript](guide/glossary#ecmascript) 5, the version of JavaScript run by most modern browsers.
 
 “[ECMAScript](guide/glossary#ecmascript) 5”的简写，大部分现代浏览器使用的 JavaScript 版本。
 
 ## ES6
+
+## ES6 语言
 
 Short hand for [ECMAScript](guide/glossary#ecmascript) 2015.
 
@@ -832,6 +842,8 @@ For details and examples, see [NgModules](guide/ngmodule).
 {@a O}
 
 ## Observable
+
+## Observable 对象
 
 An array whose items arrive asynchronously over time.
 Observables help you manage asynchronous data, such as data coming from a backend service.
@@ -1109,6 +1121,8 @@ underscore (`_`) separates one word from the next. This form is also known as *u
 
 ## Structural directives
 
+## 结构型指令
+
 A category of [directive](guide/glossary#directive) that can
 shape or reshape HTML layout, typically by adding and removing elements in the DOM.
 The `ngIf` "conditional element" directive and the `ngFor` "repeater" directive are well-known examples.
@@ -1203,6 +1217,8 @@ The process of transforming code written in one form of JavaScript
 
 
 ## TypeScript
+
+## TypeScript 语言
 
 A version of JavaScript that supports most [ECMAScript 2015](guide/glossary#es2015)
 language features such as [decorators](guide/glossary#decorator).
