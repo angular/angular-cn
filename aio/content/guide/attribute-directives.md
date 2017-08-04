@@ -584,7 +584,7 @@ Add a second **input** property to `HighlightDirective` called `defaultColor`:
 
 把第二个名叫`defaultColor`的**输入**属性添加到`HighlightDirective`中：
 
-<code-example path="attribute-directives/src/app/highlight.directive.ts(defaultColor)" linenums="false" title="src/app/highlight.directive.ts (defaultColor)(excerpt)">
+<code-example path="attribute-directives/src/app/highlight.directive.ts" linenums="false" title="src/app/highlight.directive.ts (defaultColor)(excerpt)">
 
 </code-example>
 

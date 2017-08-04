@@ -615,7 +615,7 @@ Use `ngOnInit()` for two main reasons:
 
 Experienced developers agree that components should be cheap and safe to construct.
 
-有经验的开发者认同组件的构建应该很便宜和安全。
+有经验的开发者会认同组件的构建应该很便宜和安全。
 
 
 <div class="l-sub-section">
@@ -1011,11 +1011,6 @@ which can only be reached by querying for them via the property decorated with
 
 
 下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
-
-<code-example path="lifecycle-hooks/src/app/after.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false">
-
-</code-example>
-
 
 {@a no-unidirectional-flow-worries}
 
