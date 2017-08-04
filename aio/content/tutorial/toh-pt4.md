@@ -892,7 +892,7 @@ Read about the Angular component router and navigation among the views in the [n
 
 ## Appendix: Take it slow
 
-## 附件：慢
+## 附件：慢一点……
 
 To simulate a slow connection,
 import the `Hero` symbol and add the following `getHeroesSlowly()` method to the `HeroService`.
