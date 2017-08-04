@@ -8,14 +8,17 @@
 _Angular_ is the name for the Angular of today and tomorrow.
 _AngularJS_ is the name for all v1.x versions of Angular.
 
+_Angular_ 是 Angular 现在以及未来的名字，而 _AngularJS_ 则用来专指所有 Angular 的 1.x 版本。
+
 This guide helps you transition from AngularJS to Angular
 by mapping AngularJS syntax to the equivalent Angular syntax.
 
-在AngularJS和Angular之间，有很多不同的概念和语法。
 本章提供了一个快速的参考指南，指出一些常用的AngularJS语法及其在Angular中的等价物。
 
 
 **See the Angular syntax in this <live-example name="ajs-quick-reference"></live-example>**.
+
+**参见 <live-example name="ajs-quick-reference"></live-example> 以学习 Angular 语法**
 
 ## Template basics
 
