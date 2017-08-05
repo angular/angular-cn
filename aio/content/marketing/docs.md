@@ -52,7 +52,7 @@ and using [decorators](https://www.typescriptlang.org/docs/handbook/decorators.h
 
 You can sit with us!
 
-你也可以和我们一起战斗！
+你也可以和我们一起做贡献！
 
 You can file documentation
 [issues](https://github.com/angular/angular/issues "Angular Github issues") and create
