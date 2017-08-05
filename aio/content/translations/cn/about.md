@@ -68,6 +68,7 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - 贵池（来自 Angular 中文社区）
 - zhibinr（来自 Github ）
 - jin-xinchen（来自 Github ）
+- looding（来自 Github ）
 - 另外还有一些做好事不留名的活雷锋
 
 想让你的名字也出现在这里吗？请提供[反馈、纠错](https://github.com/angular/angular-cn/issues)。

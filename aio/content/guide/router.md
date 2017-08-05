@@ -4439,7 +4439,7 @@ and the entire navigation is canceled.
 
 在分层路由的每个级别上，我们都可以设置多个守卫。
 路由器会先按照从最深的子路由由下往上检查的顺序来检查`CanDeactivate()`和`CanActivateChild()`守卫。
-然后它会按照从上到下的顺序检查`CanActivate()`和`CanActivateChild()`守卫。
+然后它会按照从上到下的顺序检查`CanActivate()`守卫。
 如果特性模块是异步加载的，在加载它之前还会检查`CanLoad()`守卫。
 如果*任何*一个守卫返回`false`，其它尚未完成的守卫会被取消，这样整个导航就被取消了。
 
