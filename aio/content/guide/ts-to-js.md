@@ -143,8 +143,8 @@ _ES5_ 不支持模块。在 Angular _ES5_ 应用中，需要在`index.html`中�
 
 <div class="alert is-important">
 
-  The order of `<script>` tags is often significant.
-  You must load a file that defines a public JavaScript entity before a file that references that entity.
+The order of `<script>` tags is often significant.
+You must load a file that defines a public JavaScript entity before a file that references that entity.
 
 `<script>`标签的顺序通常很重要。
 必须在引用实体的文件之前，加载定义该公共 JavaScript 实体的文件。
@@ -212,10 +212,10 @@ In _ES5_ you use the shared namespace object to access "exported" entities from 
 
 <div class="alert is-helpful">
 
-  Alternatively, you can use a module loader such as Webpack or
-  Browserify in an Angular JavaScript project. In such a project, you   would
-  use _CommonJS_ modules and the `require` function to load Angular   framework code.
-  Then use `module.exports` and `require` to export and import  application  code.
+Alternatively, you can use a module loader such as Webpack or
+Browserify in an Angular JavaScript project. In such a project, you   would
+use _CommonJS_ modules and the `require` function to load Angular   framework code.
+Then use `module.exports` and `require` to export and import  application  code.
 
 还可以在 Angular JavaScript 项目中使用模块加载器，如 Webpack 或 Browserify。
 在这样的项目中，使用 _CommonJS_ 模块和`require`函数来加载 Angular 框架代码。
@@ -322,7 +322,7 @@ See these variations side-by-side:
 
 ## External template file
 
-***外部模块文件***
+## 外部模板文件
 
 A large component template is often kept in a separate template file.
 
@@ -347,6 +347,7 @@ The component, `HeroTitleComponent` in this case, then references the template f
   <code-pane title="ES5 JavaScript" path="ts-to-js/js/src/app/hero-title.component.js" region="templateUrl">
   </code-pane>
 </code-tabs>
+
 
 Note that both the _TypeScript_ and _ES6_ `templateUrl` properties identify the location of the template file _relative to the component module_.
 
@@ -622,8 +623,12 @@ or rather a _constructor function_ that represents a class in _ES5_ and _plain E
 The format of the `parameters` array varies:
 
 _TypeScript_ 中，最常用的令牌是类，而_ES5_ 和 _普通 ES6_ 使用_构造函数_表示一个类。
-因此，`parameters`数组会有所不同：* _Plain ES6_ &mdash; nest each constructor function in a sub-array.
-_普通 ES6_ &mdash; 函数构造嵌套在一个子数组中。
+因此，`parameters`数组会有所不同：
+
+* _Plain ES6_ &mdash; nest each constructor function in a sub-array.
+
+  _普通 ES6_ &mdash; 函数构造嵌套在一个子数组中。
+    
 * _ES5_ &mdash; simply list the constructor functions.
 
   _ES5_ &mdash; 简单列出构造函数。
@@ -670,8 +675,12 @@ The other JavaScript dialects add a `parameters` array to the class constructor 
 Each item contains a new instance of `Inject`:
 
 其它 JavaScript 方言是通过向类的构造函数添加`parameters`数组。
-其中的每一项是`Inject`的实例。* _Plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
-_普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
+其中的每一项是`Inject`的实例。
+
+* _Plain ES6_ &mdash; each item is a new instance of `Inject(token)` in a sub-array.
+
+    _普通 ES6_ &mdash; 每一项是嵌套在一个子数组中的`Inject(token)`的实例。
+    
 * _ES5_ &mdash; simply list the string tokens.
 
   _ES5_ &mdash; 简单列出字符串令牌。
@@ -760,10 +769,10 @@ array as before. Use a nested array to define a parameter's complete injection s
 
 <div class="l-sub-section">
 
-  In the example above, there is no provider for the `'titlePrefix'` token.
-  Without `@Optional()`, Angular would raise an error.
-  With `@Optional()`, Angular sets the constructor parameter to `null`
-  and the component displays the title without a prefix.
+In the example above, there is no provider for the `'titlePrefix'` token.
+Without `@Optional()`, Angular would raise an error.
+With `@Optional()`, Angular sets the constructor parameter to `null`
+and the component displays the title without a prefix.
 
 上例中，`'titlePrefix'`令牌没有提供商。
 如果没有`Optional`，Angular 将抛出错误。
@@ -776,7 +785,9 @@ array as before. Use a nested array to define a parameter's complete injection s
 {@a host-binding}
 
 ## Host Binding
-## 宿主绑定Angular supports bindings to properties and events of the _host element_, which is the
+## 宿主绑定
+
+Angular supports bindings to properties and events of the _host element_, which is the
 element whose tag matches the component selector.
 
 Angular 支持绑定到_宿主元素_的属性和事件，
@@ -868,9 +879,11 @@ Several _property_ decorators query a component's nested view and content compon
 
 <div class="l-sub-section">
 
-  _View_ children are associated with element tags that appear _within_ the component's template.
+_View_ children are associated with element tags that appear _within_ the component's template.
 
-_视图_子组件与出现在组件模板_内_的元素标签相关联。_Content_ children are associated with elements that appear _between_ the component's element tags;
+_视图_子组件与出现在组件模板_内_的元素标签相关联。
+
+_Content_ children are associated with elements that appear _between_ the component's element tags;
 they are projected into an `<ng-content>` slot in the component's template.
 
 _内容_子组件与出现在组件元素标签_之间_的那些元素相关联，
@@ -892,9 +905,15 @@ In _ES5_ and _ES6_, you access a component's view children by adding a `queries`
 The `queries` property value is a hash map.
 
 在 _ES5_ 和 _ES6_ 中，通过向组件元数据添加`queries`属性来访问组件的视图子组件。
-`queries`属性是一个映射表。* Each _key_ is the name of a component property that will hold the view child or children.
-每个_键_是用来保存视图子组件的组件属性名。* Each _value_ is a new instance of either `ViewChild` or `ViewChildren`.
-每个_值_是`ViewChild`或`ViewChildren`的实例。
+`queries`属性是一个映射表。
+
+* Each _key_ is the name of a component property that will hold the view child or children.
+
+    每个_键_是用来保存视图子组件的组件属性名。
+    
+* Each _value_ is a new instance of either `ViewChild` or `ViewChildren`.
+
+    每个_值_是`ViewChild`或`ViewChildren`的实例。
 
 <code-tabs>
   <code-pane title="TypeScript" path="ts-to-js/ts/src/app/hero-queries.component.ts" region="view">
@@ -936,8 +955,8 @@ They can be added in the same way as [`@ViewChild`](api/core/ViewChild) and
 
 <div class="alert is-helpful">
 
-  In _TypeScript_ and _ES6-with-decorators_ you can also use the  `queries` metadata
-  instead of the `@ViewChild` and `@ContentChild` property decorators.
+In _TypeScript_ and _ES6-with-decorators_ you can also use the  `queries` metadata
+instead of the `@ViewChild` and `@ContentChild` property decorators.
 
 在 _TypeScript_ 和 _带装饰器的 ES6_ 中，还可以使用`queries`元数据代替
 `@ViewChild` 和 `@ContentChild`属性装饰器。
