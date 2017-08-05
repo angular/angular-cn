@@ -3470,21 +3470,33 @@ It works perfectly with long property paths such as `a?.b?.c?.d`.
 
 ### The non-null assertion operator ( <span class="syntax">!</span> )
 
-// TODO: Translate
+### 非空断言操作符（<span class="syntax">!</span>）
 
 As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is _unintentionally_ null or undefined.
 
+在 TypeScript 2.0 中，我们可以使用`--strictNullChecks`标志强制开启[严格空值检查](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript")。TypeScript就会确保不存在意料之外的null或undefined。
+
 In this mode, typed variables disallow null and undefined by default. The type checker throws an error if you leave a variable unassigned or try to assign null or undefined to a variable whose type disallows null and undefined.
+
+在这种模式下，有类型的变量默认是不允许null或undefined值的，如果有未赋值的变量，或者试图把null或undefined赋值给不允许为空的变量，类型检查器就会抛出一个错误。
 
 The type checker also throws an error if it can't determine whether a variable will be null or undefined at runtime.
 You may know that can't happen but the type checker doesn't know.
 You tell the type checker that it can't happen by applying the post-fix
 [_non-null assertion operator (!)_](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
 
+如果类型检查器在运行期间无法确定一个变量是null或undefined，那么它也会抛出一个错误。
+我们自己可能知道它不会为空，但类型检查器不知道。
+所以我们要告诉类型检查器，它不会为空，这时就要用到[*非空断言操作符*](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator")。
+
 The _Angular_ **non-null assertion operator (`!`)** serves the same purpose in an Angular template.
+
+*Angular* 模板中的**非空断言操作符（`!`）也是同样的用途。
 
 For example, after you use [*ngIf](guide/template-syntax#ngIf) to check that `hero` is defined, you can assert that
 `hero` properties are also defined.
+
+例如，在用[*ngIf](guide/template-syntax#ngIf)来检查过`hero`是已定义的之后，就可以断言`hero`属性一定是已定义的。
 
 <code-example path="template-syntax/src/app/app.component.html" region="non-null-assertion-1" title="src/app/app.component.html" linenums="false">
 </code-example>
@@ -3492,13 +3504,18 @@ For example, after you use [*ngIf](guide/template-syntax#ngIf) to check that `he
 When the Angular compiler turns your template into TypeScript code,
 it prevents TypeScript from reporting that `hero.name` might be null or undefined.
 
+在 Angular 编译器把你的模板转换成 TypeScript 代码时，这个操作符会防止 TypeScript 报告 "`hero.name`可能为null或undefined"的错误。
+
 Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)"),
 the **non-null assertion operator** does not guard against null or undefined.
 Rather it tells the TypeScript type checker to suspend strict null checks for a specific property expression.
 
+与[_安全导航操作符_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")不同的是，**非空断言操作符**不会防止出现null或undefined。
+它只是告诉 TypeScript 的类型检查器对特定的属性表达式，不做 "严格空值检测"。
+
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.
 
-
+如果我们打开了严格控制检测，那就要用到这个模板操作符，而其它情况下则是可选的。
 
 <a href="#top-of-page">back to top</a>
 
