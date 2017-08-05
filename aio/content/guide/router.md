@@ -311,18 +311,24 @@ to get information from parent, child and sibling routes.
 
 ### 路由事件
 
-// TODO: Translate
-
 During each navigation, the `Router` emits navigation events through the `Router.events` property. These events range from when the navigation starts and ends to many points in between. The full list of navigation events is displayed in the table below.
+
+在每次导航中，`Router`都会通过`Router.events`属性发布一些导航事件。这些事件的范围涵盖了从开始导航到结束导航之间的很多时间点。下表中列出了全部导航事件：
 
 <table>
   <tr>
     <th>
       Router Event
+      
+      路由器事件
+      
     </th>
 
     <th>
       Description
+      
+      描述
+      
     </th>
   </tr>
 
@@ -334,6 +340,8 @@ During each navigation, the `Router` emits navigation events through the `Router
 
       An [event](api/router/NavigationStart) triggered when navigation starts.
 
+      本[事件](api/router/NavigationStart)会在导航开始时触发。
+      
     </td>
   </tr>
 
@@ -344,6 +352,8 @@ During each navigation, the `Router` emits navigation events through the `Router
     <td>
 
       An [event](api/router/RoutesRecognized) triggered when the Router parses the URL and the routes are recognized.
+
+      本[事件](api/router/RoutesRecognized)会在路由器解析完URL，并识别出了相应的路由时触发
 
     </td>
   </tr>
@@ -357,6 +367,8 @@ During each navigation, the `Router` emits navigation events through the `Router
       An [event](api/router/RouteConfigLoadStart) triggered before the `Router` 
       [lazy loads](#asynchronous-routing) a route configuration.
 
+      本[事件](api/router/RouteConfigLoadStart)会在`Router`对一个路由配置进行[惰性加载](#asynchronous-routing)之前触发。
+
     </td>
   </tr>
 
@@ -368,6 +380,8 @@ During each navigation, the `Router` emits navigation events through the `Router
 
       An [event](api/router/RouteConfigLoadEnd) triggered after a route has been lazy loaded.
 
+      本[事件](api/router/RouteConfigLoadEnd)会在路由被惰性加载之后触发。
+      
     </td>
   </tr>
 
@@ -378,6 +392,8 @@ During each navigation, the `Router` emits navigation events through the `Router
     <td>
 
       An [event](api/router/NavigationEnd) triggered when navigation ends successfully.
+
+      本[事件](api/router/NavigationEnd)会在导航成功结束之后触发。
 
     </td>
   </tr>
@@ -391,6 +407,9 @@ During each navigation, the `Router` emits navigation events through the `Router
       An [event](api/router/NavigationCancel) triggered when navigation is canceled. 
       This is due to a [Route Guard](#guards) returning false during navigation.
 
+      本[事件](api/router/NavigationCancel)会在导航被取消之后触发。
+      这可能是因为在导航期间某个[路由守卫](#guards)返回了`false`。
+
     </td>
   </tr>
 
@@ -402,12 +421,15 @@ During each navigation, the `Router` emits navigation events through the `Router
 
       An [event](api/router/NavigationError) triggered when navigation fails due to an unexpected error.
 
+      这个[事件](api/router/NavigationError)会在导航由于意料之外的错误而失败时触发。
+
     </td>
   </tr>
 </table>
 
 These events are logged to the console when the `enableTracing` option is enabled also. Since the events are provided as an `Observable`, you can `filter()` for events of interest and `subscribe()` to them to make decisions based on the sequence of events in the navigation process.
 
+当打开了`enableTracing`选项时，这些事件也同时会记录到控制台中。由于这些事件是以`Observable`的形式提供的，所以我们可以对自己感兴趣的事件进行`filter()`，并`subscribe()`它们，以便根据导航过程中的事件顺序做出决策。
 
 {@a basics-summary}
 

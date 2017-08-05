@@ -593,6 +593,7 @@ We toggle the second into and out of the DOM with `ngIf`.
 
 That, in turn, can be desugared into the `<ng-template>` element form.
 
+换句话说，可以把它"解语法糖"，成为`<ng-template>`元素的形式。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch-template)" region="ngswitch-template">
 
@@ -605,16 +606,21 @@ That, in turn, can be desugared into the `<ng-template>` element form.
 
 ## Prefer the asterisk (*) syntax.
 
-// TODO: Translate
+## 优先使用星号（`*`）语法
 
 The asterisk (*) syntax is more clear than the other desugared forms.
 Use [&lt;ng-container&gt;](guide/structural-directives#ng-container) when there's no single element
 to host the directive.
 
+星号（`*`）语法比不带语法糖的形式更加清晰。
+如果找不到单一的元素来应用该指令，可以使用[&lt;ng-container&gt;](guide/structural-directives#ng-container)作为该指令的容器。
+
 While there's rarely a good reason to apply a structural directive in template _attribute_ or _element_ form,
 it's still important to know that Angular creates a `<ng-template>` and to understand how it works.
 You'll refer to the `<ng-template>` when you [write your own structural directive](guide/structural-directives#unless).
 
+虽然很少有理由在模板中使用结构型指令的*属性*形式和*元素*形式，但这些幕后知识仍然是很重要的，即：Angular会创建`<ng-template>`，还要了解它的工作原理。
+当需要[写自己的结构型指令](guide/structural-directives#unless)时，我们就要使用`<ng-template>`。
 
 {@a template}
 
@@ -622,14 +628,22 @@ You'll refer to the `<ng-template>` when you [write your own structural directiv
 
 ## The *&lt;ng-template&gt;*
 
+## *&lt;ng-template&gt;*指令
+
 The &lt;ng-template&gt; is an Angular element for rendering HTML.
 It is never displayed directly.
 In fact, before rendering the view, Angular _replaces_ the `<ng-template>` and its contents with a comment.
+
+&lt;ng-template&gt;是一个 Angular 元素，用来渲染HTML。
+它永远不会直接显示出来。
+事实上，在渲染视图之前，Angular 会把`<ng-template>`及其内容*替换为*一个注释。
 
 If there is no structural directive and you merely wrap some elements in a `<ng-template>`,
 those elements disappear.
 That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
 
+如果没有使用结构型指令，而仅仅把一些别的元素包装进`<ng-template>`中，那些元素就是不可见的。
+在下面的这个短语"Hip! Hip! Hooray!"中，中间的这个 "Hip!"（欢呼声） 就是如此。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (template-tag)" region="template-tag">
 
@@ -639,9 +653,7 @@ That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
 
 Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
 
-借助内置的`ngOnInit`和`ngOnDestroy`[生命周期钩子](guide/lifecycle-hooks)，我们同时记录了组件的创建或销毁过程。
-下面是它的操作演示：
-
+Angular 抹掉了中间的那个 "Hip!" ，让欢呼声显得不再那么热烈了。
 
 <figure>
   <img src='generated/images/guide/structural-directives/template-rendering.png' alt="template tag rendering">
@@ -652,6 +664,7 @@ Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
 A structural directive puts a `<ng-template>` to work
 as you'll see when you [write your own structural directive](guide/structural-directives#unless).
 
+结构型指令会让`<ng-template>`正常工作，在我们[写自己的结构型指令](guide/structural-directives#unless)时就会看到这一点。
 
 {@a ngcontainer}
 
@@ -662,9 +675,13 @@ as you'll see when you [write your own structural directive](guide/structural-di
 
 ## Group sibling elements with &lt;ng-container&gt;
 
+## 使用&lt;ng-container&gt;把一些兄弟元素归为一组
+
 There's often a _root_ element that can and should host the structural directive.
 The list element (`<li>`) is a typical host element of an `NgFor` repeater.
 
+通常都要有一个*根*元素作为结构型指令的数组。
+列表元素（`<li>`）就是一个典型的供`NgFor`使用的宿主元素。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngfor-li)" region="ngfor-li">
 
@@ -675,6 +692,7 @@ The list element (`<li>`) is a typical host element of an `NgFor` repeater.
 When there isn't a host element, you can usually wrap the content in a native HTML container element,
 such as a `<div>`, and attach the directive to that wrapper.
 
+当没有这样一个单一的宿主元素时，我们可以把这些内容包裹在一个原生的HTML容器元素中，比如`<div>`，并且把结构型指令附加到这个"包裹"上。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif)" region="ngif">
 
@@ -686,10 +704,14 @@ Introducing another container element&mdash;typically a `<span>` or `<div>`&mdas
 group the elements under a single _root_ is usually harmless.
 _Usually_ ... but not _always_.
 
+但引入另一个容器元素（通常是`<span>`或`<div>`）来把一些元素归到一个单一的*根元素*下，通常也会带来问题。注意，是"通常"而不是"总会"。
+
 The grouping element may break the template appearance because CSS styles
 neither expect nor accommodate the new layout.
 For example, suppose you have the following paragraph layout.
 
+这种用于分组的元素可能会破坏模板的外观表现，因为CSS的样式既不曾期待也不会接受这种新的元素布局。
+比如，假设你有下列分段布局。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-span)" region="ngif-span">
 
@@ -699,6 +721,7 @@ For example, suppose you have the following paragraph layout.
 
 You also have a CSS style rule that happens to apply to a `<span>` within a `<p>`aragraph.
 
+而我们的CSS样式规则是应用于`<p>`元素下的`<span>`的。
 
 <code-example path="structural-directives/src/app/app.component.css" linenums="false" title="src/app/app.component.css (p-span)" region="p-span">
 
@@ -708,6 +731,7 @@ You also have a CSS style rule that happens to apply to a `<span>` within a `<p>
 
 The constructed paragraph renders strangely.
 
+这样渲染出来的段落就会非常奇怪。
 
 <figure>
   <img src='generated/images/guide/structural-directives/bad-paragraph.png' alt="spanned paragraph with bad style">
@@ -717,12 +741,18 @@ The constructed paragraph renders strangely.
 
 The `p span` style, intended for use elsewhere, was inadvertently applied here.
 
+本来为其它地方准备的`p span`样式，被意外的应用到了这里。
+
 Another problem: some HTML elements require all immediate children to be of a specific type.
 For example, the `<select>` element requires `<option>` children.
 You can't wrap the _options_ in a conditional `<div>` or a `<span>`.
 
+另一个问题是：有些HTML元素需要所有的直属下级都具有特定的类型。
+比如，`<select>`元素要求直属下级必须为`<option>`，那么我们就没办法把这些选项包装进`<div>`或`<span>`中。
+
 When you try this,
 
+如果这样做：
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (select-span)" region="select-span">
 
@@ -732,6 +762,7 @@ When you try this,
 
 the drop down is empty.
 
+下拉列表就是空的。
 
 <figure>
   <img src='generated/images/guide/structural-directives/bad-select.png' alt="spanned options don't work">
@@ -741,13 +772,20 @@ the drop down is empty.
 
 The browser won't display an `<option>` within a `<span>`.
 
+浏览器不会显示`<span>`中的`<option>`。
+
 ### &lt;ng-container&gt; to the rescue
+
+### &lt;ng-container&gt; 的救赎
 
 The Angular `<ng-container>` is a grouping element that doesn't interfere with styles or layout
 because Angular _doesn't put it in the DOM_.
 
+Angular的`<ng-container>`是一个分组元素，但它不会污染样式或元素布局，因为 Angular *压根不会把它放进 DOM* 中。
+
 Here's the conditional paragraph again, this time using `<ng-container>`.
 
+下面是重新实现的条件化段落，这次我们使用`<ng-container>`。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-ngcontainer)" region="ngif-ngcontainer">
 
@@ -757,6 +795,7 @@ Here's the conditional paragraph again, this time using `<ng-container>`.
 
 It renders properly.
 
+这次就渲染对了。
 
 <figure>
   <img src='generated/images/guide/structural-directives/good-paragraph.png' alt="ngcontainer paragraph with proper style">
@@ -766,6 +805,7 @@ It renders properly.
 
 Now conditionally exclude a _select_ `<option>` with `<ng-container>`.
 
+我们再用`<ng-container>`来根据条件排除选择框中的某个`<option>`。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (select-ngcontainer)" region="select-ngcontainer">
 
@@ -775,6 +815,7 @@ Now conditionally exclude a _select_ `<option>` with `<ng-container>`.
 
 The drop down works properly.
 
+下拉框也工作正常。
 
 <figure>
   <img src='generated/images/guide/structural-directives/select-ngcontainer-anim.gif' alt="ngcontainer options work properly">
@@ -786,6 +827,8 @@ The `<ng-container>` is a syntax element recognized by the Angular parser.
 It's not a directive, component, class, or interface.
 It's more like the curly braces in a JavaScript `if`-block:
 
+`<ng-container>`是一个由 Angular 解析器负责识别处理的语法元素。
+它不是一个指令、组件、类或接口，更像是 JavaScript 中 `if` 块中的花括号。
 
 <code-example language="javascript">
   if (someCondition) {
@@ -802,6 +845,8 @@ Without those braces, JavaScript would only execute the first statement
 when you intend to conditionally execute all of them as a single block.
 The `<ng-container>` satisfies a similar need in Angular templates.
 
+没有这些花括号，JavaScript 只会执行第一句，而你原本的意图是把其中的所有语句都视为一体来根据条件执行。
+而`<ng-container>`满足了 Angular 模板中类似的需求。
 
 {@a unless}
 
@@ -809,11 +854,15 @@ The `<ng-container>` satisfies a similar need in Angular templates.
 
 ## Write a structural directive
 
+## 写一个结构型指令
+
 In this section, you write an `UnlessDirective` structural directive
 that does the opposite of `NgIf`.
 `NgIf` displays the template content when the condition is `true`.
 `UnlessDirective` displays the content when the condition is ***false***.
 
+在本节中，我们会写一个名叫`UnlessDirective`的结构型指令，它是`NgIf`的反义词。
+`NgIf`在条件为`true`的时候显示模板内容，而`UnlessDirective`则会在条件为`false`时显示模板内容。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (myUnless-1)" region="myUnless-1">
 
@@ -831,12 +880,19 @@ Creating a directive is similar to creating a component.
   
 * Import the `Input`, `TemplateRef`, and `ViewContainerRef` symbols; you'll need them for _any_ structural directive .
 
+  导入符号`Input`、`TemplateRef` 和 `ViewContainerRef`，我们在*任何*结构型指令中都会需要它们。
+
 * Apply the decorator to the directive class.
+
+  给指令类添加装饰器。
 
 * Set the CSS *attribute selector* that identifies the directive when applied to an element in a template.
 
+  设置 CSS *属性选择器* ，以便在模板中标识出这个指令该应用于哪个元素。
+
 Here's how you might begin:
 
+这里是起点：
 
 <code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (skeleton)" region="skeleton">
 
@@ -848,16 +904,29 @@ The directive's _selector_ is typically the directive's **attribute name** in sq
 The brackets define a CSS
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">attribute selector</a>.
 
+指令的*选择器*通常是把指令的属性名括在方括号中，如`[myUnless]`。
+这个方括号定义出了一个 CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">属性选择器</a>。
+
 The directive _attribute name_ should be spelled in _lowerCamelCase_ and begin with a prefix.
 Don't use `ng`. That prefix belongs to Angular.
 Pick something short that fits you or your company.
 In this example, the prefix is `my`.
 
 
+该指令的*属性名*应该拼写成*小驼峰*形式，并且带有一个前缀。
+但是，这个前缀不能用`ng`，因为它只属于 Angular 本身。
+请选择一些简短的，适合你自己或公司的前缀。
+在这个例子中，前缀是`my`。
+
 The directive _class_ name ends in `Directive` per the [style guide](guide/styleguide#02-03 "Angular Style Guide").
 Angular's own directives do not.
 
+指令的*类名*用`Directive`结尾，参见[风格指南](guide/styleguide#02-03 "Angular 风格指南")。
+但 Angular 自己的指令例外。
+
 ### _TemplateRef_ and _ViewContainerRef_
+
+### _TemplateRef_ 和 _ViewContainerRef_
 
 A simple structural directive like this one creates an
 [_embedded view_](api/core/EmbeddedViewRef "API: EmbeddedViewRef")
@@ -865,13 +934,18 @@ from the Angular-generated `<ng-template>` and inserts that view in a
 [_view container_](api/core/ViewContainerRef "API: ViewContainerRef")
 adjacent to the directive's original `<p>` host element.
 
+像这个例子一样的简单结构型指令会从 Angular 生成的`<ng-template>`元素中创建一个[*内嵌的视图*](api/core/EmbeddedViewRef "API: EmbeddedViewRef")，并把这个视图插入到一个[*视图容器*](api/core/ViewContainerRef "API: ViewContainerRef")中，紧挨着本指令原来的宿主元素`<p>`（译注：注意不是子节点，而是兄弟节点）。
+
 You'll acquire the `<ng-template>` contents with a
 [`TemplateRef`](api/core/TemplateRef "API: TemplateRef")
 and access the _view container_ through a
 [`ViewContainerRef`](api/core/ViewContainerRef "API: ViewContainerRef").
 
+我们可以使用[`TemplateRef`](api/core/TemplateRef "API: TemplateRef")取得`<ng-template>`的内容，并通过[`ViewContainerRef`](api/core/ViewContainerRef "API: ViewContainerRef")来访问这个*视图容器*。
+
 You inject both in the directive constructor as private variables of the class.
 
+我们可以把它们都注入到指令的构造函数中，作为该类的私有属性。
 
 <code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (ctor)" region="ctor">
 
@@ -881,9 +955,13 @@ You inject both in the directive constructor as private variables of the class.
 
 ### The _myUnless_ property
 
+### *myUnless* 属性
+
 The directive consumer expects to bind a true/false condition to `[myUnless]`.
 That means the directive needs a `myUnless` property, decorated with `@Input`
 
+该指令的使用者会把一个true/false条件绑定到`[myUnless]`属性上。
+也就是说，该指令需要一个带有`@Input`的`myUnless`属性。
 
 <div class="l-sub-section">
 
@@ -891,6 +969,7 @@ That means the directive needs a `myUnless` property, decorated with `@Input`
 
 Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outputs) guide.
 
+要了解关于`@Input`的更多知识，参见[*模板语法*](guide/template-syntax#inputs-outputs)一章。
 
 </div>
 
@@ -905,16 +984,25 @@ Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outp
 Angular sets the  `myUnless` property whenever the value of the condition changes.
 Because the `myUnless` property does work, it needs a setter.
 
+一旦该值的条件发生了变化，Angular 就会去设置 `myUnless` 属性，这时候，我们就需要为它定义一个设置器（setter）。
+
 * If the condition is falsy and the view hasn't been created previously,
 tell the _view container_ to create the _embedded view_ from the template.
+
+  如果条件为假，并且以前尚未创建过该视图，就告诉*视图容器（ViewContainer）*根据模板创建一个*内嵌视图*。
 
 * If the condition is truthy and the view is currently displayed,
 clear the container which also destroys the view.
 
+  如果条件为真，并且视图已经显示出来了，就会清除该容器，并销毁该视图。
+
 Nobody reads the `myUnless` property so it doesn't need a getter.
+
+没有人会读取`myUnless`属性，因此它不需要定义设置器（getter）。
 
 The completed directive code looks like this:
 
+完整的指令代码如下：
 
 <code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (excerpt)" region="no-docs">
 
@@ -924,8 +1012,11 @@ The completed directive code looks like this:
 
 Add this directive to the `declarations` array of the AppModule.
 
+把这个指令添加到AppModule的`declarations`数组中。
+
 Then create some HTML to try it.
 
+然后创建一些 HTML 来试用一下。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (myUnless)" region="myUnless">
 
@@ -955,6 +1046,8 @@ When the`condition` is truthy, the top (A)paragraph is removed  and the bottom (
 ## 总结
 
 You can both try and download the source code for this guide in the <live-example></live-example>.
+
+你可以去<live-example></live-example>中下载本章的源码。
 
 Here is the source from the `src/app/` folder.
 
@@ -997,9 +1090,28 @@ Here is the source from the `src/app/` folder.
 
 You learned
 
+我们学到了
+
 * that structural directives manipulate HTML layout.
+
+  结构型指令可以操纵 HTML 的元素布局。
+
 * to use [`<ng-container>`](guide/structural-directives#ngcontainer) as a grouping element when there is no suitable host element.
+
+  当没有合适的容器元素时，可以使用[`<ng-container>`](guide/structural-directives#ngcontainer)对元素进行分组。
+
 * that the Angular desugars [asterisk (*) syntax](guide/structural-directives#asterisk) into a `<ng-template>`.
+
+  Angular 会把[星号（*）语法](guide/structural-directives#asterisk)解开成`<ng-template>`。
+  
 * how that works for the `NgIf`, `NgFor` and `NgSwitch` built-in directives.
+
+  内置指令`NgIf`、`NgFor`和`NgSwitch`的工作原理。
+
 * about the [_microsyntax_](guide/structural-directives#microsyntax) that expands into a [`<ng-template>`](guide/structural-directives#template).
+
+  [*微语法*](guide/structural-directives#microsyntax)如何展开成[`<ng-template>`](guide/structural-directives#template)。
+
 * to write a [custom structural directive](guide/structural-directives#unless), `UnlessDirective`.
+
+  写了一个[自定义结构型指令](guide/structural-directives#unless) —— `UnlessDirective`。
