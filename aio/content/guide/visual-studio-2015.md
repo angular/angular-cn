@@ -407,17 +407,27 @@ Right-click `index.html` in Solution Explorer and select option `Set As Start Pa
 
 ### To run in VS with F5
 
-// TODO: Translate
+### 按 F5 以在 VS 中运行
 
 Most Visual Studio developers like to press the F5 key and see the IIS server come up. 
 To use the IIS server with the QuickStart app, you must make the following three changes. 
 
+大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
+要在这个《快速起步》应用中使用 IIS 服务器，我们要做下列修改：
+
 1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
+
+   在 `index.html` 中，把基地址从 `<base href="/">` 改为 `<base href="/src/">` 。
+   
 2. Also in `index.html`, change  the scripts to use `/node_modules` with a slash 
 instead of `node_modules` without the slash. 
+
+   同样在`index.html`中，修改脚本来用带有斜杠的`/node_modules`代替不带斜杠的`node_modules`。
+   
 3. In `src/systemjs.config.js`, near the top of the file, 
 change the npm `path` to `/node_modules/` with a slash.
 
+   在`src/systemjs.config.js`的顶部，把 npm 的 `path` 设置为带斜杠的`/node_modules/`。
 
 <div class="alert is-important">
 
@@ -426,6 +436,7 @@ change the npm `path` to `/node_modules/` with a slash.
 After these changes, `npm start` no longer works.
 You must choose to configure _either_ for F5 with IIS _or_ for  `npm start` with the lite-server.
 
+做完这些修改之后，`npm start`不再工作了。我们必须选择配置为IIS + F5，还是`npm start` + lite-server。
 
 </div>
 
@@ -433,31 +444,50 @@ You must choose to configure _either_ for F5 with IIS _or_ for  `npm start` with
 
 ### For apps that use routing
 
+### 为了使用路由的应用
+
 If your app uses routing, you need to teach the server to always return 
 `index.html` when the user asks for an HTML page
 for reasons explained in the [Deployment](guide/deployment#fallback) guide.
+
+如果应用要使用路由，就要让服务器在用户要求 HTML 页面时始终返回`index.html`。
+此中原因，在[发布](guide/deployment#fallback)一章中有解释。
 
 Everything seems fine while you move about _within_ the app. 
 But you'll see the problem right away if you refresh the browser
 or paste a link to an app page (called a "deep link") into the browser address bar.
 
+当我们在应用*内部*移动时，看起来一切正常。但是如果刷新浏览器，或者在地址栏中输入一个到具体页面的地址（也就是"深链接"）时，问题就来了。
+
 You'll most likely get a *404 - Page Not Found* response from the server
 for any address other than `/` or `/index.html`.
+
+我们很可能从服务器得到得到*404 - 页面不存在* —— 只有 `/` 或 `/index.html` 例外。
 
 You have to configure the server to return `index.html` for requests to these "unknown" pages.
 The `lite-server` development server does out-of-the-box.
 If you've switched over to F5 and IIS, you have to configure IIS to do it.
 This section walks through the steps to adapt the QuickStart application.
 
+我们就要配置服务器，为那些"未知"的页面返回`index.html`。
+`lite-server`开发服务器内置了这项功能。如果要切换到 F5 + IIS，我们就要自己来配置IIS实现它了。
+接下来我们就看看对快速起步应用做配置的步骤。
+
 #### Configure IIS rewrite rules
+
+#### 配置 IIS 重写规则
 
 Visual Studio ships with IIS Express, which has the rewrite module baked in. 
 However, if you're using regular IIS you'll have to install the rewrite 
 module.  
 
+Visual Studio 自带了一个 IIS Express，其中有一个重写（rewrite）模块。
+不过，如果使用标准版的 IIS ，就要自己去安装这个重写模块了。
+
 Tell Visual Studio how to handle requests for route app pages by adding these 
 rewrite rules near the bottom of the `web.config`:
 
+通过把下列重写规则添加到`web.config`的底部，就可以告诉 Visual Studio如何处理到应用页面的请求。
 
 <code-example format='.'>
   &lt;system.webServer&gt;
@@ -486,9 +516,12 @@ rewrite rules near the bottom of the `web.config`:
 The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
 you want some requests to get through, such as web API requests. 
 
+匹配 url `<match url=".*" />`语句将会重写每一个请求。如果需要直接放行某些请求，比如一些Web API请求，我们就必须调整它才行。
+
 The URL in `<action type="Rewrite" url="/src/"/>` should 
 match the base href in `index.html`.
 
+`<action type="Rewrite" url="/src/"/>`中的 url将会匹配`index.html`中的基地址（base href）。
 
 </div>
 
