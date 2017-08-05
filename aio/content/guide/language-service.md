@@ -245,4 +245,4 @@ For more in-depth information, see the
 For more information, see [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language 
 Service from [ng-conf](https://www.ng-conf.org/) 2017.
 
-要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 讲解的 Angular 语言服务。
+要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。
