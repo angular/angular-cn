@@ -63,6 +63,7 @@ Remove most of the
 [type declarations](https://www.typescriptlang.org/docs/handbook/basic-types.html),
 such as `:string` and `:boolean`
 but **keep the constructor parameter types, which are used for dependency injection**.
+
 _TypeScript_ 翻译到 _带装饰器的 ES6_ 时，移除了[类属性访问修饰符](http://www.typescriptlang.org/docs/handbook/classes.html#public-private-and-protected-modifiers)，如`public`和`private`。
 移除了大部分的[类型声明](https://www.typescriptlang.org/docs/handbook/basic-types.html)，如`:string`和`:boolean`。
 但**保留了用于依赖注入的构造函数参数类型**。
