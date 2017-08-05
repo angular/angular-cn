@@ -27,7 +27,7 @@ Make sure you have [node and npm installed](guide/setup#install-prerequisites "W
 
 ## Clone
 
-### 克隆
+## 克隆
 
 Perform the _clone-to-launch_ steps with these terminal commands.
 
@@ -62,7 +62,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 ## Download
 
-### 下载
+## 下载
 <a href="https://github.com/angular/quickstart/archive/master.zip" title="Download the QuickStart seed repository">Download the QuickStart seed</a>
 and unzip it into your project folder. Then perform the remaining steps with these terminal commands.
 
@@ -126,6 +126,8 @@ Open a terminal window in the project folder and enter the following commands fo
 
 ### OS/X (bash)
 
+### OS/X (bash) 命令
+
 
 <code-example language="sh" class="code-shell">
   xargs rm -rf &lt; non-essential-files.osx.txt
@@ -137,6 +139,8 @@ Open a terminal window in the project folder and enter the following commands fo
 
 
 ### Windows
+
+### Windows 命令
 
 
 <code-example language="sh" class="code-shell">
@@ -375,8 +379,6 @@ If you're new to Angular, we recommend you follow the [tutorial](tutorial "Tour 
 
 </div>
 
-<br></br><br></br>
-
 {@a install-prerequisites}
 
 
@@ -384,8 +386,6 @@ If you're new to Angular, we recommend you follow the [tutorial](tutorial "Tour 
 ## Appendix: node and npm
 
 ## 附录：node 与 npm
-
-
 
 Node.js and npm are essential to modern web development with Angular and other platforms.
 Node powers client development and build tools.
@@ -395,8 +395,10 @@ Node.js 和 npm 对使用 Angular 和其他平台进行现代网络开发是至�
 Node 驱动客户端开发和构建工具。
 *npm* 包管理器本身是 *node* 应用，用于安装 JavaScript 库。
 
+<p>
 <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
-Get them now</a> if they're not already installed on your machine.
+</a> if they're not already installed on your machine.
+</p>
 
 如果你的电脑没有安装它们，<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">
 立刻安装它们</a>。
