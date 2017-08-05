@@ -31,7 +31,7 @@ code shown in this cookbook.
 
 ## _TypeScript_ to _ES6_ to _ES5_
 
-##_TypeScript_ 到 _ES6_ 到 _ES5_
+## 从_TypeScript_ 到 _ES6_ 到 _ES5_
 
 _TypeScript_
 <a href="https://www.typescriptlang.org" title='"TypeScript is a typed, superset of JavaScript"'>is a typed superset of _ES6 JavaScript_</a>.
