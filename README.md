@@ -33,4 +33,4 @@ master分支下是老版本的文档，新版本的文档位于aio分支下。�
 
 ## 更多信息
 
-关于本中文版以及三位译者的更多信息，请参见[“关于中文版”](https://angular.cn/translate/cn/home.html)链接。
+关于本中文版以及三位译者的更多信息，请参见[“关于中文版”](https://angular.cn/translations/cn/home)链接。
