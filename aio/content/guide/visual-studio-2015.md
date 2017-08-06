@@ -313,8 +313,6 @@ Include the files in the Visual Studio project as follows:
 <h2 id='restore'> 第四步: 恢复需要的包 </h2>
 
 
-// TODO: bugfix
-
 Restore the packages required for an Angular application as follows:
 
 按下面的步骤恢复Angular应用程序需要的包：

@@ -10,7 +10,7 @@ function swap(text) {
 }
 
 function markAndSwap(text) {
-  return swap(mark(text));
+  return mark(text);
 }
 
 function isTranslation(text) {

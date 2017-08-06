@@ -226,9 +226,7 @@ Angular 在持续集成过程中，对每一个提交都会使用 <a href="https
 
 
 ## Polyfills #
-
 ## 填充库 (polyfill) #
-
 Angular is built on the latest standards of the web platform.
 Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
 
@@ -275,9 +273,7 @@ Note that polyfills cannot magically transform an old, slow browser into a moder
 
 
 ### Mandatory polyfills ##
-
 ### 强制性填充库 ##
-
 These are the polyfills required to run an Angular application on each supported browser:
 
 下表是填充库对每个支持的浏览器都是需要的：
@@ -289,17 +285,24 @@ These are the polyfills required to run an Angular application on each supported
 
     <th>
 
-    Browsers (Desktop & Mobile)
-    
-    浏览器（桌面和移动）
-        
+      <p>
+        Browsers (Desktop & Mobile)
+      </p>
+
+      <p>
+        浏览器（桌面和移动）
+      </p>
     </th>
 
     <th>
 
-    Polyfills Required
-    
-    需要的填充库
+      <p>
+        Polyfills Required
+      </p>
+
+      <p>
+        需要的填充库
+      </p>
 
     </th>
 
@@ -313,8 +316,6 @@ These are the polyfills required to run an Angular application on each supported
 
     <td>
       None
-      
-      无
     </td>
 
   </tr>
@@ -343,8 +344,6 @@ These are the polyfills required to run an Angular application on each supported
 
 
       [ES6<br>classList](guide/browser-support#classlist)
-      
-      [ES6<br>classList](guide/browser-support#classlist) 支持
 
     </td>
 
@@ -352,10 +351,10 @@ These are the polyfills required to run an Angular application on each supported
 
 </table>
 
+
+
 ### Optional browser features to polyfill ##
-
 ### 可选浏览器特性的填充库 ##
-
 Some features of Angular may require additional polyfills.
 
 有些 Angular 特性可能需要额外的填充库。
@@ -440,9 +439,9 @@ Here are the features which may require additional polyfills:
     </td>
 
     <td>
-      All but Chrome, Firefox, Edge, IE11 and Safari 10
+      <p>All but Chrome, Firefox, Edge, IE11 and Safari 10</p>
       
-      除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
+      <p>除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器</p>
 
     </td>
 
@@ -452,9 +451,9 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-       [NgClass](api/common/NgClass) on SVG elements
+       <p>[NgClass](api/common/NgClass) on SVG elements</p>
        
-       在 SVG 元素上应用 [NgClass](api/common/NgClass)
+       <p>在 SVG 元素上应用 [NgClass](api/common/NgClass)</p>
     </td>
 
     <td>
@@ -473,9 +472,9 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      [Http](guide/http) when sending and receiving binary data
+      <p>[Http](guide/http) when sending and receiving binary data</p>
       
-      用 [Http](guide/http) 发送和接收二进制数据
+      <p>用 [Http](guide/http) 发送和接收二进制数据</p>
       
     </td>
 
@@ -508,24 +507,38 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <th>
+
+      <p>
         Polyfill
-        
+      </p>
+
+      <p>
         填充库
+      </p>
+
     </th>
 
     <th>
 
+      <p>
         Licence
+      </p>
 
+      <p>
         授权方式
+      </p>
 
     </th>
 
     <th>
 
+      <p>
         Size*
+      </p>
 
+      <p>
         大小*
+      </p>
 
     </th>
 
@@ -555,9 +568,13 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
     <td>
 
+      <p>
         Public domain
+      </p>
 
-        公共领域
+      <p>
+        公共域
+      </p>
 
     </td>
 
@@ -649,7 +666,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
 </table>
 
-// TODO: Bugfix
+
 
 \* Figures are for minified and gzipped code, 
 computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.

@@ -12,10 +12,10 @@ import {
   OnDestroy,
   Output,
 } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { DocumentContents } from 'app/documents/document.service';
 
 import { EmbeddedComponents } from 'app/embedded/embedded.module';
-import { DocumentContents } from 'app/documents/document.service';
-import { Title } from '@angular/platform-browser';
 import { TocService } from 'app/shared/toc.service';
 
 interface EmbeddedComponentFactory {
@@ -51,6 +51,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
+    this.swapOriginAndResult(this.hostElement);
 
     for (const component of embeddedComponents.components) {
       const factory = componentFactoryResolver.resolveComponentFactory(component);
@@ -77,6 +78,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     // security: the doc.content is always authored by the documentation team
     // and is considered to be safe
     this.hostElement.innerHTML = doc.contents || '';
+    this.swapOriginAndResult(this.hostElement);
 
     if (!doc.contents) {
       return;
@@ -152,6 +154,17 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
         origin.setAttribute('translation-origin', 'off');
       } else {
         origin.setAttribute('translation-origin', 'on');
+      }
+    }
+  }
+
+  swapOriginAndResult(root: Element): void {
+    const results = root.querySelectorAll('[translation-result]');
+    for (let i = 0; i < results.length; ++i) {
+      const result = results.item(i);
+      const origin = result.previousElementSibling;
+      if (origin && origin.hasAttribute('translation-origin')) {
+        origin.parentElement.insertBefore(result, origin);
       }
     }
   }

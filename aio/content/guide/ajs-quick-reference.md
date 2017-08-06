@@ -2,8 +2,6 @@
 
 # 从 AngularJS 到 Angular 快速参考
 
-// TODO: bugfix
-
 {@a top}
 
 

@@ -806,7 +806,6 @@ The application  would fail the moment a user navigated to "Heroes".
 {@a q-component-or-module}
 
 
-// TODO: bugfix
 ## Should I add other providers to a module or a component?
 
 ## 我应该把其它提供商注册到模块中还是组件中？
