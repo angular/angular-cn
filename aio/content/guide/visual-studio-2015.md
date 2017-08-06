@@ -1,6 +1,6 @@
 # Visual Studio 2015 QuickStart
 
-# Visual Studio 2015 快速起步
+# Visual Studio 2015 快速上手
 
 {@a top}
 
@@ -11,7 +11,7 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 This cookbook describes the steps required to set up and use the
 Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**.
 
-本烹饪宝典介绍了在**Visual Studio 2015的ASP.NET 4.x项目中**，用Angular实现“快速起步”所需的步骤。
+本烹饪宝典介绍了在**Visual Studio 2015的ASP.NET 4.x项目中**，用Angular实现“快速上手”所需的步骤。
   
 
 <div class="l-sub-section">
@@ -21,7 +21,7 @@ Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**
 There is no *live example* for this cookbook because it describes Visual Studio, not 
 the QuickStart application itself.
 
-本烹饪宝典中没有*在线例子*，因为它介绍的是Visual Studio，而不是《快速起步》应用程序本身。
+本烹饪宝典中没有*在线例子*，因为它介绍的是Visual Studio，而不是《快速上手》应用程序本身。
 
 
 </div>
@@ -36,7 +36,7 @@ the QuickStart application itself.
 To set up the QuickStart files with an **ASP.NET 4.x project** in
 Visual Studio 2015, follow these steps:
 
-要用Visual Studio 2015在**ASP.NET 4.x项目**中设置**《快速起步》**文件，请遵循如下步骤：
+要用Visual Studio 2015在**ASP.NET 4.x项目**中设置**《快速上手》**文件，请遵循如下步骤：
 
 <div class="l-sub-section">
 
@@ -203,7 +203,7 @@ Step 1: Download the QuickStart files
 </h2>
 
 <h2 id='download'>
-第一步: 现在“快速起步”文件
+第一步: 现在“快速上手”文件
 </h2>
 
 
@@ -211,7 +211,7 @@ Step 1: Download the QuickStart files
 [Download the QuickStart source](https://github.com/angular/quickstart)
 from GitHub. If you downloaded as a zip file, extract the files.
 
-从GitHub[下载“快速起步”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
+从GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
 
 
 
@@ -272,7 +272,7 @@ no authentication, and no hosting. Pick the template and options appropriate for
 
 
 <h2 id='copy'>
-  第三步: 把“快速起步”的文件复制到ASP.NET项目所在的目录
+  第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录
 </h2>
 
 
@@ -280,7 +280,7 @@ no authentication, and no hosting. Pick the template and options appropriate for
 Copy the QuickStart files you downloaded from GitHub into the folder containing the `.csproj` file.
 Include the files in the Visual Studio project as follows:
 
-拷贝从GitHub下载的“快速起步”文件到包含`.csproj`文件的目录中。按照下面的步骤把它们加到Visual Studio中：
+拷贝从GitHub下载的“快速上手”文件到包含`.csproj`文件的目录中。按照下面的步骤把它们加到Visual Studio中：
 
 * Click the `Show All Files` button in Solution Explorer to reveal all of the hidden files in the project.
 
@@ -375,7 +375,7 @@ Most Visual Studio developers like to press the F5 key and see the IIS server co
 To use the IIS server with the QuickStart app, you must make the following three changes. 
 
 大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
-要在这个《快速起步》应用中使用 IIS 服务器，我们要做下列修改：
+要在这个《快速上手》应用中使用 IIS 服务器，我们要做下列修改：
 
 1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
 
@@ -509,7 +509,7 @@ It's faster to run without the debugger by pressing `Ctrl-F5`.
 
 The default browser opens and displays the QuickStart sample application.
 
-默认浏览器打开并显示《快速起步》例子应用。
+默认浏览器打开并显示《快速上手》例子应用。
 
 Try editing any of the project files. Save and refresh the browser to
 see the changes. 

@@ -36,7 +36,7 @@ There are three kinds of directives in Angular:
 You saw a component for the first time in the [QuickStart](guide/quickstart) guide.
 
 *组件*是这三种指令中最常用的。
-你在[快速起步](guide/quickstart)例子中第一次见到组件。
+你在[快速上手](guide/quickstart)例子中第一次见到组件。
 
 *Structural Directives* change the structure of the view.
 Two examples are [NgFor](guide/template-syntax#ngFor) and [NgIf](guide/template-syntax#ngIf).

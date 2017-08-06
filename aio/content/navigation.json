@@ -42,7 +42,7 @@
 
     {
       "url": "guide/quickstart",
-      "title": "快速起步",
+      "title": "快速上手",
       "tooltip": "Angular 破冰"
     },
 
@@ -338,7 +338,7 @@
 
         {
           "url": "guide/visual-studio-2015",
-          "title": "Visual Studio 2015 快速起步",
+          "title": "Visual Studio 2015 快速上手",
           "tooltip": "在 Visual Studio 2015 中使用快速起步中的文件"
         },
         {

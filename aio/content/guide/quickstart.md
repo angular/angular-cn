@@ -1,6 +1,6 @@
 # QuickStart
 
-# 快速起步
+# 快速上手
 
 Good tools make application development quicker and easier to maintain than
 if you did everything by hand.

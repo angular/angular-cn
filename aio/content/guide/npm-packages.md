@@ -70,7 +70,7 @@ You'll install more than you need for the QuickStart guide.
 No worries!
 You only serve to the client those packages that the application actually requests.
 
-它们远远超过了我们将在“快速起步”中所需要用到的。
+它们远远超过了我们将在“快速上手”中所需要用到的。
 实际上，它比我们在大多数应用中需要的还多。
 安装的包比我们实际需要的包多，其实并没有什么坏处。
 我们最终只会往客户端发送程序中实际用到的那些包。
@@ -323,14 +323,14 @@ There isn't a [*peerDependencies*](https://nodejs.org/en/blog/npm/peer-dependenc
 But Angular has a *peerDependencies* section in 
 *its* `package.json`, which has important consequences for your application. 
 
-在“快速起步”的`package.json`文件中，并没有[*peerDependencies*](https://nodejs.org/en/blog/npm/peer-dependencies/)区。
+在“快速上手”的`package.json`文件中，并没有[*peerDependencies*](https://nodejs.org/en/blog/npm/peer-dependencies/)区。
 但是Angular本身在*它自己的* `package.json` 中有，
 它对我们的应用程序有重要的影响。
 
 This section explains why you load the [polyfill](guide/npm-packages#polyfills) *dependency* packages in the QuickStart application's`package.json`,
 and why you'll need those packages in your own applications.
 
-它解释了为什么我们要在“快速起步”的`package.json`文件中加载这些[填充库(polyfill)](guide/npm-packages#polyfills)依赖包，
+它解释了为什么我们要在“快速上手”的`package.json`文件中加载这些[填充库(polyfill)](guide/npm-packages#polyfills)依赖包，
 以及为什么我们在自己的应用中会需要它们。
 
 An explanation of [peer dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/) follows.

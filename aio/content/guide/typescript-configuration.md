@@ -181,7 +181,7 @@ like `Promise` if the target is `es6`.
 Since the QuickStart is targeting `es5`, you can override the
 list of declaration files to be included:
 
-因为《快速起步》的目标为`es5`，所以我们可以重写声明文件列表来包含：
+因为《快速上手》的目标为`es5`，所以我们可以重写声明文件列表来包含：
 
 
 <code-example format=".">
@@ -220,7 +220,7 @@ For instance, to install typings for `jasmine` you could do `npm install @types/
 
 QuickStart identifies two *typings*, or `d.ts`, files:
 
-我们在“快速起步”中指定过两个*类型定义*文件（`d.ts`）：
+我们在“快速上手”中指定过两个*类型定义*文件（`d.ts`）：
 
 * [jasmine](http://jasmine.github.io/) typings for the Jasmine test framework.
 
@@ -233,4 +233,4 @@ you can view an example in the [webpack](guide/webpack) page.
   
 QuickStart doesn't require these typings but many of the samples do.
 
-“快速起步”本身不需要这些类型定义，但是文档中的很多例子都需要。
+“快速上手”本身不需要这些类型定义，但是文档中的很多例子都需要。

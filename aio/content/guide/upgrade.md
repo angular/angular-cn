@@ -686,7 +686,7 @@ and add a mapping for the `@angular/upgrade/static` package:
 <code-example path="upgrade-module/src/systemjs.config.1.js" region="upgrade-static-umd" title="systemjs.config.js (map)">
 </code-example>
 
-现在，把Angular引入项目中。根据[搭建本地开发环境](guide/setup)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速起步”的Github仓库</a>中拷贝素材进来。
+现在，把Angular引入项目中。根据[搭建本地开发环境](guide/setup)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速上手”的Github仓库</a>中拷贝素材进来。
 
 Next, create an `app.module.ts` file and add the following `NgModule` class:
 

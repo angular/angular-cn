@@ -130,7 +130,7 @@ The `node_modules` for the Quickstart installation is typically 20,500+ files an
 The application itself requires a tiny fraction of that to run.
 
 `node_modules`文件夹包含着在浏览器中运行应用时所需的更多代码。
-"快速起步"项目中所需的`node_modules`通常由20,500+个文件和180+ MB的体积。
+"快速上手"项目中所需的`node_modules`通常由20,500+个文件和180+ MB的体积。
 运行应用时其实只需要其中很小的一部分。
 
 It takes a long time to upload all of that useless bulk and
@@ -765,7 +765,7 @@ The list is by no means exhaustive, but should provide you with a good starting 
 * [Lite-Server](https://github.com/johnpapa/lite-server): the default dev server installed with the
 [Quickstart repo](https://github.com/angular/quickstart) is pre-configured to fallback to `index.html`.
 
-  [Lite-Server](https://github.com/johnpapa/lite-server)是["快速起步"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到`index.html`。
+  [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到`index.html`。
 
 * [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server):  setup the
 `historyApiFallback` entry in the dev server options as follows:

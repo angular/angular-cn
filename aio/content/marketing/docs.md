@@ -15,9 +15,9 @@ Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angu
 
   <div class="docs-card">
       <section>开始使用 Angular</section>
-      <p>跟随 "快速起步" 构建你自己的开发环境。</p>
+      <p>跟随 "快速上手" 构建你自己的开发环境。</p>
       <p class="card-footer" >
-        <a href="guide/quickstart" title="Angular 快速起步">快速起步</a>
+        <a href="guide/quickstart" title="Angular 快速上手">快速上手</a>
       </p>
   </div>
 

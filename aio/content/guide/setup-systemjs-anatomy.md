@@ -160,7 +160,7 @@ If you do, this page can help you understand their purpose.
 
       The history of changes to the _QuickStart_ repository.
 
-      *快速起步*库的更新历史。
+      *快速上手*库的更新历史。
 
       Delete or ignore.
 
@@ -264,7 +264,7 @@ If you do, this page can help you understand their purpose.
       [_Deleting non-essential files_](guide/setup#non-essential "Setup: Deleting non-essential files") section.
       *Do this only in the beginning to avoid accidentally deleting your own tests and git setup!*
 
-      这个列表中的文件在清理时可以删除，它是原始的“快速起步”种子工程中的测试和git维护文件。
+      这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和git维护文件。
       步骤参见可选的[删除非必要文件](guide/setup#non-essential "Setup: Deleting non-essential files")部分。
       *只在最初做这件事，以免不小心删除了你自己的测试文件和git配置！*
     </td>
@@ -360,7 +360,7 @@ If you do, this page can help you understand their purpose.
 
       Global styles for the application. Initialized with an `<h1>` style for the QuickStart demo.
 
-      应用的全局样式。初始化后，有个为《快速起步》演示准备的`<h1>`样式。
+      应用的全局样式。初始化后，有个为《快速上手》演示准备的`<h1>`样式。
 
     </td>
 

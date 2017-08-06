@@ -8,14 +8,14 @@ The <live-example name=quickstart>QuickStart live-coding</live-example> example 
 It's not where you'd develop a real application.
 You [should develop locally](guide/setup#why-locally "Why develop locally") on your own machine ... and that's also how we think you should learn Angular.
 
-<live-example name=quickstart>《快速起步》在线编程</live-example>例子是 Angular 的*游乐场*。
+<live-example name=quickstart>《快速上手》在线编程</live-example>例子是 Angular 的*游乐场*。
  它不是开发真实应用的地方。 
  你应该在自己的电脑上[本地开发](guide/setup#why-locally "为什么在本地开发？")... 你也应该在本地环境学习 Angular。
 
 Setting up a new project on your machine is quick and easy with the **QuickStart seed**,
 maintained [on github](https://github.com/angular/quickstart "Install the github QuickStart repo").
 
-利用 [github 上](https://github.com/angular/quickstart "安装 github 《快速起步》库")的**《快速起步》种子**在你的电脑上搭建一个新项目是很快很容易的。
+利用 [github 上](https://github.com/angular/quickstart "安装 github 《快速上手》库")的**《快速上手》种子**在你的电脑上搭建一个新项目是很快很容易的。
 
 
 Make sure you have [node and npm installed](guide/setup#install-prerequisites "What if you don't have node and npm?").
@@ -66,7 +66,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 <a href="https://github.com/angular/quickstart/archive/master.zip" title="Download the QuickStart seed repository">Download the QuickStart seed</a>
 and unzip it into your project folder. Then perform the remaining steps with these terminal commands.
 
-<a href="https://github.com/angular/quickstart/archive/master.zip" title="下载《快速起步》种子库">下载《快速起步》种子</a>
+<a href="https://github.com/angular/quickstart/archive/master.zip" title="下载《快速上手》种子库">下载《快速上手》种子</a>
 并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。
 
 
@@ -158,7 +158,7 @@ Open a terminal window in the project folder and enter the following commands fo
 
 ## What's in the QuickStart seed?
 
-## 《快速起步》种子库里都有什么？
+## 《快速上手》种子库里都有什么？
 
 
 
@@ -167,7 +167,7 @@ But its true purpose is to provide a solid foundation for _local_ development.
 Consequently, there are _many more files_ in the project folder on your machine,
 most of which you can [learn about later](guide/setup-systemjs-anatomy "Setup Anatomy").
 
-**《快速起步》种子** 包含了与《快速起步》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
+**《快速上手》种子** 包含了与《快速上手》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
 所以你的电脑里的项目目录里面有*更多文件*，参见[搭建剖析](guide/setup-systemjs-anatomy "Setup Anatomy")。
 
 
@@ -310,7 +310,7 @@ The following are all in `src/`
 
       Defines the same `AppComponent` as the one in the QuickStart playground.
       It is the **root** component of what will become a tree of nested components
-      as the application evolves. 定义与《快速起步》游乐场同样的`AppComponent`。
+      as the application evolves. 定义与《快速上手》游乐场同样的`AppComponent`。
       它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。
     </td>
 
@@ -439,10 +439,10 @@ It creates the equivalent of `app.module.ts` and `main.ts` internally _for the p
 so the reader can discover Angular without distraction.
 The other samples are based on the QuickStart seed.
 
-[快速起步](guide/quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
+[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
 它在内部创建了只为*游乐场*而准备的等价`app.module.ts`和`main.ts`。
 所以读者可以在零干扰的情况下探索 Angular。
-其他例子是基于 《快速起步》种子的。
+其他例子是基于 《快速上手》种子的。
 
 As much fun as this is ...
 

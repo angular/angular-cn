@@ -347,7 +347,7 @@ Because template-driven forms are in their own module, you need to add the `Form
 
 Replace the contents of the "QuickStart" version with the following:
 
-把“快速起步”版的文件替换为如下内容：
+把“快速上手”版的文件替换为如下内容：
 
 <code-example path="forms/src/app/app.module.ts" title="src/app/app.module.ts">
 
@@ -410,7 +410,7 @@ If you wrote it and it should belong to this module, ​_do_​ declare it in th
 
 Replace the contents of the "QuickStart" version with the following:
 
-把“快速起步”的版本内容替换成下列代码：
+把“快速上手”的版本内容替换成下列代码：
 
 
 <code-example path="forms/src/app/app.component.ts" title="src/app/app.component.ts">

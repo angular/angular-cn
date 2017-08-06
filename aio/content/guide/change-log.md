@@ -205,7 +205,7 @@ see quickstart issue: [angular/quickstart#294](https://github.com/angular/quicks
 
 ## QuickStart Rewrite (2016-11-18)
 
-## 全新《快速起步》 (2016-11-18)
+## 全新《快速上手》 (2016-11-18)
 
 The QuickStart is completely rewritten so that it actually is quick.
 It references a minimal "Hello Angular" app running in Plunker.
@@ -213,7 +213,7 @@ The new [Setup](guide/setup) page tells you how to install a local development e
 by downloading (or cloning) the QuickStart github repository.
 You are no longer asked to copy-and-paste code into setup files that were not explained anyway.
 
-完全重写了《快速起步》，变得更加快速。
+完全重写了《快速上手》，变得更加快速。
 它使用了在 Plunker 中运行的最小化的 “Hello Angular” 应用。
 新添加的[搭建本地开发环境](guide/setup)页面解释了如何通过下载或者克隆 QuickStart github 库来安装本地开发环境。
 你将不再需要拷贝粘贴代码到一些并没有对其解释的配置文件中。
@@ -333,7 +333,7 @@ It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
 全新[预编译(AoT)](guide/aot-compiler)烹饪书介绍了什么是AoT编译和为何你需要它。
-它以**快速起步**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
+它以**快速上手**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
 

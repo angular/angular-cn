@@ -701,7 +701,7 @@ The sample above is a trivial variation of the QuickStart application.
 In this section you apply what you've learned about AOT compilation and tree shaking
 to an app with more substance, the [_Tour of Heroes_](tutorial/toh-pt6) application.
 
-上面的例子是《快速起步》应用的一个简单的变体。
+上面的例子是《快速上手》应用的一个简单的变体。
 在本节中，你将在一个更多内容的应用 - [英雄指南](tutorial/toh-pt6)上使用从AOT编译和摇树优化学到的知识。
 
 

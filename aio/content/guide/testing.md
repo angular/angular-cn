@@ -413,7 +413,7 @@ Both processes watch pertinent files, write messages to the console, and re-run 
 The documentation setup defines the `test` command in the `scripts` section of npm's `package.json`.
 The Angular CLI has different commands to do the same thing. Adjust accordingly.
 
-《快速起步》在npm的`package.json`中的`scripts`里定义了`test`命令。
+《快速上手》在npm的`package.json`中的`scripts`里定义了`test`命令。
 Angular CLI使用不同的命令来做同样的事情。对不同的环境采取不同的方案。
 
 </div>
@@ -1202,7 +1202,7 @@ The [Quickstart seed](guide/setup) provides a similar test of its `AppComponent`
 as you can see in _this_ <live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>.
 It too calls `compileComponents` although it doesn't have to because the `AppComponent`'s template is inline.
 
-[“快速起步” 种子工程](guide/setup)为其`AppComponent`提供了简单的测试，在<live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>中可以看到。
+[“快速上手” 种子工程](guide/setup)为其`AppComponent`提供了简单的测试，在<live-example name="setup" plnkr="quickstart-specs" title="QuickStart seed spec" embedded-style></live-example>中可以看到。
 它也调用了`compileComponents`，不过它并不是必须这么做，因为`AppComponent`的模板是内联的。
 
 There's no harm in it and you might call `compileComponents` anyway
