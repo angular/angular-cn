@@ -46,7 +46,7 @@ to pages with greater depth.
 When you're done with this tutorial, the app will look like this <live-example name="toh-pt6"></live-example>.
 
 
-当完成这个教程时，应用运行起来是这样的：<live-example name="toh-6"></live-example>。
+当完成这个教程时，应用运行起来是这样的：<live-example name="toh-pt6"></live-example>。
 
 
 
