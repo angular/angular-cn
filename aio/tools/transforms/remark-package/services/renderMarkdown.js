@@ -2,7 +2,7 @@ const remark = require('remark');
 const html = require('remark-html');
 const code = require('./handlers/code');
 
-const {markAndSwap} = require('./translator');
+const {mark} = require('./translator');
 
 /**
  * @dgService renderMarkdown
@@ -22,7 +22,7 @@ module.exports = function renderMarkdown() {
                     .use(html, { handlers });
 
   return function renderMarkdownImpl(content) {
-    return markAndSwap(renderer.processSync(content).toString());
+    return mark(renderer.processSync(content).toString());
   };
 
   /**

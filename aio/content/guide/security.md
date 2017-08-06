@@ -70,7 +70,9 @@ For more information, see the [Trusting safe values](guide/security#bypass-secur
   **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
-## Preventing cross-site scripting (XSS) <a id="xss"></a>
+<a id="xss"></a>
+
+## Preventing cross-site scripting (XSS) 
 
 ## 防范跨站脚本(XSS)攻击
 

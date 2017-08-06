@@ -12,10 +12,9 @@ import {
   OnDestroy,
   Output,
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { DocumentContents } from 'app/documents/document.service';
-
 import { EmbeddedComponents } from 'app/embedded/embedded.module';
+import { DocumentContents } from 'app/documents/document.service';
+import { Title } from '@angular/platform-browser';
 import { TocService } from 'app/shared/toc.service';
 
 interface EmbeddedComponentFactory {
