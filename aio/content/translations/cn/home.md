@@ -88,7 +88,7 @@ Bill Luan, Greater China Regional Lead, Developer Relations, Google
 
 三位译者汪志成、叶志敏和杨林的简介请参见[这里](/translations/cn/about)。
 
-Angular 中文社区的简介和更多资源请参见[这里](/translations/cn/nice-angular)。
+Nice Angular 社区的简介请参见[这里](/translations/cn/nice-angular)。
 
 ## 工作预告
 
