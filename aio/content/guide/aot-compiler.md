@@ -5,6 +5,8 @@
 This cookbook describes how to radically improve performance by compiling _ahead-of-time_ (AOT)
 during a build process.
 
+本章描述了如何通过在构建期间使用预编译（AOT编译）技术来根本性的提高性能。
+
 {@a overview}
 
 ## Overview
@@ -390,8 +392,8 @@ Rollup只能对`ES2015`模块摇树，因为那里有`import`和`export`语句�
   It's not important that the code itself be written with `ES2015` syntax such as `class` and `const`.
   What matters is that the code uses ES `import` and `export` statements rather than `require` statements.
 
-回忆一下，`tsconfig-aot.json`中曾配置为生成`ES2015`的模块。
-代码本身是否用到了`ES2015`语法（例如`class`和`const`）并不重要，重要的是这些代码使用的应该是`import`和`export`语句，而不是`require`语句。
+  回忆一下，`tsconfig-aot.json`中曾配置为生成`ES2015`的模块。
+  代码本身是否用到了`ES2015`语法（例如`class`和`const`）并不重要，重要的是这些代码使用的应该是`import`和`export`语句，而不是`require`语句。
 
 
 </div>
@@ -440,6 +442,8 @@ Optional plugins filter and transform the Rollup inputs and output.
 这些可选插件过滤并转换Rollup的输入和输出。
 
 *RxJS*
+
+*RxJS* 库
 
 Rollup expects application source code to use `ES2015` modules. 
 Not all external dependencies are published as `ES2015` modules.

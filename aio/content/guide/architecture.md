@@ -634,12 +634,8 @@ Angular 还有少量指令，它们或者修改结构布局（例如 [ngSwitch](
 Of course, you can also write your own directives. Components such as
 `HeroListComponent` are one kind of custom directive.
 
-<!-- PENDING: link to where to learn more about other kinds! -->
-
 当然，我们也能编写自己的指令。像`HeroListComponent`这样的组件就是一种自定义指令。
 
-
-<hr/>
 
 ## Services
 

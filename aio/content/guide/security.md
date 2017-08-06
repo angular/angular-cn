@@ -20,17 +20,12 @@ You can run the <live-example></live-example> in Plunker and download the code f
 
 
 <h2 id='report-issues'>
-
-  <p>
-     Reporting vulnerabilities
-  </p>
-
-  <p>
-     举报漏洞
-  </p>
-
+Reporting vulnerabilities
 </h2>
 
+<h2 id='report-issues'>
+举报漏洞
+</h2>
 
 
 To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).
@@ -45,17 +40,12 @@ philosophy](https://www.google.com/about/appsecurity/).
 
 
 <h2 id='best-practices'>
-
-  <p>
-     Best practices
-  </p>
-
-  <p>
-     最佳实践
-  </p>
-
+Best practices
 </h2>
 
+<h2 id='best-practices'>
+最佳实践
+</h2>
 
 
 * **Keep current with the latest Angular library releases.**
@@ -80,21 +70,9 @@ For more information, see the [Trusting safe values](guide/security#bypass-secur
   **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
+## Preventing cross-site scripting (XSS) <a id="xss"></a>
 
-
-<h2 id='xss'>
-
-  <p>
-     Preventing cross-site scripting (XSS)
-  </p>
-
-  <p>
-     防范跨站脚本(XSS)攻击
-  </p>
-
-</h2>
-
-
+## 防范跨站脚本(XSS)攻击
 
 [Cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) enables attackers
 to inject malicious code into web pages. Such code can then, for example, steal user data (in

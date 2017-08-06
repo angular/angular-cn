@@ -250,6 +250,10 @@ The shadow-piercing descendant combinator is deprecated and [support is being re
 As such we plan to drop support in Angular (for all 3 of `/deep/`, `>>>` and `::ng-deep`).
 Until then `::ng-deep` should be preferred for a broader compatibility with the tools.
 
+CSS标准中用于 "刺穿Shadow DOM" 的组合器已经被废弃，并将[这个特性从主流浏览器和工具中移除](https://www.chromestatus.com/features/6750456638341120)。
+因此，我们也将在 Angular 中移除对它们的支持（包括`/deep/`、`>>>` 和 `::ng-deep`）。
+目前，建议先统一使用`::ng-deep`，以便兼容将来的工具。
+
 </div>
 
 {@a loading-styles}

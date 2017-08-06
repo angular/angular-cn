@@ -2420,18 +2420,17 @@ Angular 创建一个惰性加载模块，它具有自己的注入器，它是根
 
 ## Conclusion
 
-### 总结
+## 总结
 
 You made it! You can examine and download the complete source for this final version from the live example.
 
 完工！你可以到下面的在线例子中试验它，并下载最终版本的全部源码。
-
+<br/>
 <live-example embedded  img="guide/ngmodule/final-plunker.png"></live-example>
-
 
 ## Frequently asked questions
 
-### 常见问题 (FAQ) 
+## 常见问题 (FAQ) 
 
 Now that you understand NgModules, you may be interested
 in the companion [NgModule FAQs](guide/ngmodule-faq "NgModule FAQs") page

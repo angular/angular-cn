@@ -219,6 +219,9 @@ The wildcard route comes last because it matches _every URL_ and should be selec
 
 If you need to see what events are happening during the navigation lifecycle, there is the **enableTracing** option as part of the router's default configuration. This outputs each router event that took place during each navigation lifecycle to the browser console. This should only be used for _debugging_ purposes. You set the `enableTracing: true` option in the object passed as the second argument to the `RouterModule.forRoot()` method.
 
+如果我们想要看到在导航的生命周期中发生过哪些事件，可以使用路由器默认配置中的**enableTracing**选项。它会把每个导航生命周期中的事件输出到浏览器的控制台。
+这应该只用于*调试*。我们只需要把`enableTracing: true`选项作为第二个参数传给`RouterModule.forRoot()`方法就可以了。
+
 {@a basics-router-outlet}
 
 
@@ -5982,7 +5985,7 @@ The appendix material isn't essential. Continued reading is for the curious.
 
 ### Appendix: link parameters array
 
-## 附录：链接参数数组
+### 附录：链接参数数组
 
 A link parameters array holds the following ingredients for router navigation:
 
@@ -6134,7 +6137,7 @@ any legal sequence of route paths, (required) router parameters, and (optional) 
 
 ### Appendix: *LocationStrategy* and browser URL styles
 
-## 附录：*LocationStrategy*以及浏览器URL样式
+### 附录：*LocationStrategy*以及浏览器URL样式
 
 When the router navigates to a new component view, it updates the browser's location and history
 with a URL for that view.
@@ -6217,7 +6220,7 @@ Learn about providers and the bootstrap process in the
 
 #### Which strategy is best?
 
-### 哪种策略更好？
+#### 哪种策略更好？
 
 You must choose a strategy and you need to make the right call early in the project.
 It won't be easy to change later once the application is in production
@@ -6251,7 +6254,7 @@ resort to hash routes.
 
 #### HTML5 URLs and the  *&lt;base href>*
 
-### HTML 5 URL与*&lt;base href>*While the router uses the 
+#### HTML 5 URL与*&lt;base href>*While the router uses the 
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries"  title="Browser history push-state">HTML5 pushState</a>
 style by default, you *must* configure that strategy with a **base href**.
 

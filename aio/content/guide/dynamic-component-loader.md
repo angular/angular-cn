@@ -117,7 +117,7 @@ because it doesn't render any additional output.
 
 ## Resolving components
 
-### 解析组件
+## 解析组件
 
 Take a closer look at the methods in `ad-banner.component.ts`.
 
@@ -245,7 +245,7 @@ add dynamically loaded components to the `NgModule`'s `entryComponents` array:
 
 ## The _AdComponent_ interface
 
-### 公共的`AdComponent`接口
+## 公共的`AdComponent`接口
 
 In the ad banner, all components implement a common `AdComponent` interface to
 standardize the API for passing data to the components.
@@ -280,7 +280,7 @@ Here are two sample components and the `AdComponent` interface for reference:
 
 ## Final ad banner
 
-### 最终的广告栏
+## 最终的广告栏
 
 The final ad banner looks like this:
 
@@ -293,4 +293,6 @@ The final ad banner looks like this:
 
 
 
-See the <live-example name="dynamic-component-loader"></live-example>.参见<live-example name="cb-dynamic-component-loader"></live-example>。
+See the <live-example name="dynamic-component-loader"></live-example>.
+
+参见<live-example name="cb-dynamic-component-loader"></live-example>。

@@ -226,7 +226,9 @@ Angular 在持续集成过程中，对每一个提交都会使用 <a href="https
 
 
 ## Polyfills #
+
 ## 填充库 (polyfill) #
+
 Angular is built on the latest standards of the web platform.
 Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
 
@@ -273,7 +275,9 @@ Note that polyfills cannot magically transform an old, slow browser into a moder
 
 
 ### Mandatory polyfills ##
+
 ### 强制性填充库 ##
+
 These are the polyfills required to run an Angular application on each supported browser:
 
 下表是填充库对每个支持的浏览器都是需要的：
@@ -285,24 +289,17 @@ These are the polyfills required to run an Angular application on each supported
 
     <th>
 
-      <p>
-        Browsers (Desktop & Mobile)
-      </p>
-
-      <p>
-        浏览器（桌面和移动）
-      </p>
+    Browsers (Desktop & Mobile)
+    
+    浏览器（桌面和移动）
+        
     </th>
 
     <th>
 
-      <p>
-        Polyfills Required
-      </p>
-
-      <p>
-        需要的填充库
-      </p>
+    Polyfills Required
+    
+    需要的填充库
 
     </th>
 
@@ -316,6 +313,8 @@ These are the polyfills required to run an Angular application on each supported
 
     <td>
       None
+      
+      无
     </td>
 
   </tr>
@@ -344,6 +343,8 @@ These are the polyfills required to run an Angular application on each supported
 
 
       [ES6<br>classList](guide/browser-support#classlist)
+      
+      [ES6<br>classList](guide/browser-support#classlist) 支持
 
     </td>
 
@@ -351,10 +352,10 @@ These are the polyfills required to run an Angular application on each supported
 
 </table>
 
-
-
 ### Optional browser features to polyfill ##
+
 ### 可选浏览器特性的填充库 ##
+
 Some features of Angular may require additional polyfills.
 
 有些 Angular 特性可能需要额外的填充库。
@@ -507,38 +508,24 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <th>
-
-      <p>
         Polyfill
-      </p>
-
-      <p>
+        
         填充库
-      </p>
-
     </th>
 
     <th>
 
-      <p>
         Licence
-      </p>
 
-      <p>
         授权方式
-      </p>
 
     </th>
 
     <th>
 
-      <p>
         Size*
-      </p>
 
-      <p>
         大小*
-      </p>
 
     </th>
 
@@ -568,13 +555,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
     <td>
 
-      <p>
         Public domain
-      </p>
 
-      <p>
-        公共域
-      </p>
+        公共领域
 
     </td>
 
@@ -666,8 +649,10 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
 </table>
 
-
+// TODO: Bugfix
 
 \* Figures are for minified and gzipped code, 
-computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.\* 这些指标测量的是最小化 (minify) 并且 gzip 过的代码，使用 <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
+computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.
+
+\* 这些指标测量的是最小化 (minify) 并且 gzip 过的代码，使用 <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
 计算出的结果。

@@ -490,6 +490,8 @@ All are preceded by the keyword `let`.
 这个例子中有好几个模板输入变量：`hero`、`i`和`odd`。
 它们都是用`let`作为前导关键字。
 
+// TODO: Translate
+
 A _template input variable_ is **_not_** the same as a
 [template _reference_ variable](guide/template-syntax#ref-vars),
 neither _semantically_ nor _syntactically_.

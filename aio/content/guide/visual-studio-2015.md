@@ -58,15 +58,11 @@ Note that the resulting code does not map to the docs. Adjust accordingly.
 
 
 <h2 id='prereq1'>
- 
-  <p>
-    Prerequisite: Node.js
-  </p>
+Prerequisite: Node.js
+</h2>
 
-  <p>
-    前提条件: Node.js
-  </p>
-
+<h2 id='prereq1'>
+前提条件: Node.js
 </h2>
 
 
@@ -93,15 +89,11 @@ Older versions produce errors.
 
 
 <h2 id='prereq2'>
+Prerequisite: Visual Studio 2015 Update 3
+</h2>
 
-  <p>
-     Prerequisite: Visual Studio 2015 Update 3
-  </p>
-
-  <p>
-     前提条件: Visual Studio 2015 Update 3
-  </p>
-
+<h2 id='prereq2'>
+前提条件: Visual Studio 2015 Update 3
 </h2>
 
 
@@ -122,15 +114,11 @@ Or use `Tools | Extensions and Updates` to update to Update 3 directly from Visu
 
 
 <h2 id='prereq3'>
+Prerequisite: Configure External Web tools
+</h2>
 
-  <p>
-     Prerequisite: Configure External Web tools
-  </p>
-
-  <p>
-     前提条件: 配置External Web tools
-  </p>
-
+<h2 id='prereq3'>
+前提条件: 配置External Web tools
 </h2>
 
 
@@ -173,15 +161,11 @@ Visual Studio将优先在当前的工作区查找外部工具，如果没有找�
 
 
 <h2 id='prereq4'>
+Prerequisite: Install TypeScript 2.2 for Visual Studio 2015
+</h2>
 
-  <p>
-     Prerequisite: Install TypeScript 2.2 for Visual Studio 2015
-  </p>
-
-  <p>
-     前提条件: 安装TypeScript 2.2 for Visual Studio 2015
-  </p>
-
+<h2 id='prereq4'>
+前提条件: 安装TypeScript 2.2 for Visual Studio 2015
 </h2>
 
 
@@ -215,15 +199,11 @@ restart it to make sure everything is clean.
 
 
 <h2 id='download'>
+Step 1: Download the QuickStart files
+</h2>
 
-  <p>
-     Step 1: Download the QuickStart files
-  </p>
-
-  <p>
-     第一步: 现在“快速起步”文件
-  </p>
-
+<h2 id='download'>
+第一步: 现在“快速起步”文件
 </h2>
 
 
@@ -236,15 +216,11 @@ from GitHub. If you downloaded as a zip file, extract the files.
 
 
 <h2 id='create-project'>
+Step 2: Create the Visual Studio ASP.NET project
+</h2>
 
-  <p>
-     Step 2: Create the Visual Studio ASP.NET project
-  </p>
-
-  <p>
-     第二步：创建Visual Studio ASP.net项目
-  </p>
-
+<h2 id='create-project'>
+第二步：创建Visual Studio ASP.net项目
 </h2>
 
 
@@ -321,35 +297,23 @@ Include the files in the Visual Studio project as follows:
 
     src/app目录（如果询问是否要搜索TypeScript类型，回答*No*）
 
-
   * src/styles.css
-
 
   * src/index.html
 
-
   * package.json
-
 
   * src/tsconfig.json
 
   * typings.json
   
 
+<h2 id='restore'> Step 4: Restore the required packages </h2>
 
-<h2 id='restore'>
-
-  <p>
-     Step 4: Restore the required packages
-  </p>
-
-  <p>
-     第四步: 恢复需要的包
-  </p>
-
-</h2>
+<h2 id='restore'> 第四步: 恢复需要的包 </h2>
 
 
+// TODO: bugfix
 
 Restore the packages required for an Angular application as follows:
 

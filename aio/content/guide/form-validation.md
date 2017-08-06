@@ -248,8 +248,11 @@ on custom validation directives.
 
 * The `#name` template variable is gone because the app no longer refers to the Angular control for this element.
 
-模板变量`#name`消失了，因为我们不再需要为这个元素引用Angular控制器。* Binding to the new `formErrors.name` property is sufficient to display all name validation error messages.
-绑定到新的`formErrors.name`属性，就可以处理所有名字验证错误信息了。
+模板变量`#name`消失了，因为我们不再需要为这个元素引用Angular控制器。
+
+* Binding to the new `formErrors.name` property is sufficient to display all name validation error messages.
+
+    绑定到新的`formErrors.name`属性，就可以处理所有名字验证错误信息了。
 
 {@a component-class}
 
@@ -871,7 +874,7 @@ and whose value is an arbitrary dictionary of values that you could insert into 
 
 ### Custom validation directive
 
-#### 自定义验证指令
+### 自定义验证指令
 
 In the Reactive Forms component, the `'name'` control's validator function list
 has a `forbiddenNameValidator` at the bottom.
@@ -932,9 +935,14 @@ its `forbiddenName` property bound to “bob". If you were to replace
 `useExisting` with `useClass`, then you’d be registering a new class instance, one that
 doesn’t have a `forbiddenName`.
 
+如果你熟悉 Angular 的验证机制，可能会注意到自定义验证指令是使用`useExisting`而不是`useClass`来实例化的。这是因为注册的验证器必须是这个 `ForbiddenValidatorDirective` 实例本身，也就是表单中 `forbiddenName` 属性被绑定到了"bob"的那个。如果用`useClass`来代替`useExisting`，就会注册一个新的类实例，而它是没有`forbiddenName`的。
+
 To see this in action, run the example and then type “bob” in the name of Hero Form 2.
 Notice that you get a validation error. Now change from `useExisting` to `useClass` and try again.
 This time, when you type “bob”, there's no "bob" error message.
+
+要查看它的运行效果，请打开范例，并在英雄表单2的 name 字段输入 "bob"。
+注意，我们会看到一个验证错误。现在，把 `useExisting` 改成 `useClass` 再试一下。这次，当你敲 "bob" 时，就不会再出现错误信息了。
 
 </div>
 

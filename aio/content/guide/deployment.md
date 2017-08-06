@@ -913,5 +913,10 @@ Read about how to enable CORS for specific servers at
 
 
 ## Next steps
- ## 下一步If you want to go beyond the [simple _copy-deploy_](guide/deployment#dev-deploy "Simplest deployment possible") approach,
- read the [AOT Cookbook](guide/aot-compiler "AOT Cookbook") next.如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](guide/aot-compiler "AOT Cookbook")。
+
+## 下一步
+ 
+If you want to go beyond the [simple _copy-deploy_](guide/deployment#dev-deploy "Simplest deployment possible") approach,
+read the [AOT Cookbook](guide/aot-compiler "AOT Cookbook") next.
+
+如果我们准备超越[简单*复制*部署](guide/deployment#dev-deploy "Simplest deployment possible")的方式，请参阅[烹饪宝典中的AOT部分](guide/aot-compiler "AOT Cookbook")。

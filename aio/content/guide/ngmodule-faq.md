@@ -806,7 +806,7 @@ The application  would fail the moment a user navigated to "Heroes".
 {@a q-component-or-module}
 
 
-
+// TODO: bugfix
 ## Should I add other providers to a module or a component?
 
 ## 我应该把其它提供商注册到模块中还是组件中？
@@ -1129,7 +1129,7 @@ although doing so is harmless.
 
 ## When do I add components to _entryComponents_?
 
-### 什么时候我应该把组件加到`entryComponents`中？
+## 什么时候我应该把组件加到`entryComponents`中？
 
 Most application developers won't need to add components to the `entryComponents`.
 
@@ -1169,7 +1169,7 @@ in the templates of other components.
 
 ## Why does Angular need _entryComponents_?
 
-### 为什么Angular需要*入口组件*？
+## 为什么Angular需要*入口组件*？
 
 _Entry components_ are also declared.
 Why doesn't the Angular compiler generate code for every component in `@NgModule.declarations`?
@@ -1226,7 +1226,7 @@ the compiler omits it.
 
 ## What kinds of modules should I have and how should I use them?
 
-#### 有哪些类型的模块？我应该如何使用它们？
+## 有哪些类型的模块？我应该如何使用它们？
 
 Every app is different. Developers have various levels of experience and comfort with the available choices.
 Some suggestions and guidelines appear to have wide appeal.
@@ -2206,7 +2206,7 @@ Real-world modules are often hybrids that knowingly deviate from these guideline
 
 ## What's the difference between Angular and JavaScript Modules?
 
-### Angular模块和JavaScript模块有什么区别？
+## Angular模块和JavaScript模块有什么区别？
 
 Angular and JavaScript are different yet complementary module systems.
 
@@ -2364,7 +2364,7 @@ Angular只查询两种组件、指令或管道：1）那些在当前模块中声
 
 ## What is the Angular compiler?
 
-### 什么是Angular编译器？
+## 什么是Angular编译器？
 
 The Angular compiler converts the application code you write into highly performant JavaScript code.
 The `@NgModule` metadata play an important role in guiding the compilation process.

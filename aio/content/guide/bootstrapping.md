@@ -283,4 +283,8 @@ to visit those features.
 
 你最初的应用只有一个单一的模块 —— *根*模块。
 当这个应用不断成长时，你就要考虑把它们拆分到多个 "特性" 模块中了。
-这些特性模块中的一部分可以稍后加载（即惰性加载），它们只会在用户访问到这些特性时才会加载。When you're ready to explore these possibilities, visit the [NgModules](guide/ngmodule) guide.如果你要了解这些知识，请访问[Angular 模块 (NgModule)](guide/ngmodule)页
+这些特性模块中的一部分可以稍后加载（即惰性加载），它们只会在用户访问到这些特性时才会加载。
+
+When you're ready to explore these possibilities, visit the [NgModules](guide/ngmodule) guide.
+
+如果你要了解这些知识，请访问[Angular 模块 (NgModule)](guide/ngmodule)页

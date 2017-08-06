@@ -17,8 +17,8 @@ Node.js and npm are essential to Angular development.
 
 Node.js和npm是做Angular开发的基础。
 
-<a href="https://docs.npmjs.com/getting-started/installing-node" title="Installing Node.js and updating npm">
-Get them now</a> if they're not already installed on your machine.
+<p><a href="https://docs.npmjs.com/getting-started/installing-node" title="Installing Node.js and updating npm">
+Get them now</a> if they're not already installed on your machine.</p>
 
 如果你的电脑上还没有装过，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">立即获取它</a>！
 

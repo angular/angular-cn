@@ -8,6 +8,8 @@ An **Attribute** directive changes the appearance or behavior of a DOM element.
 
 Try the <live-example title="Attribute Directive example"></live-example>.
 
+你可以到这里试试：<live-example title="Attribute Directive example"></live-example>。
+
 {@a directive-overview}
 
 ## Directives overview

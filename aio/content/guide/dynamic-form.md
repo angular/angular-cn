@@ -250,7 +250,10 @@ Finally, display an instance of the form in the `AppComponent` shell.
 {@a dynamic-template}
 
 ## Dynamic Template
-## 动态模板Although in this example you're modelling a job application for heroes, there are 
+
+## 动态模板
+
+Although in this example you're modelling a job application for heroes, there are 
 no references to any specific hero question
 outside the objects returned by `QuestionService`.
 

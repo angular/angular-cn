@@ -215,7 +215,6 @@ transitions that apply regardless of which state the animation is in. For exampl
 
 * The `* => *` transition applies when *any* change between two states takes place.
 
-
   当在*任意*两个状态之间切换时，`* => *`转场都会生效。
 
 <figure >
