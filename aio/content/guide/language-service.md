@@ -223,8 +223,8 @@ context, it can then determine what the children can be.
 It's a little more involved if you are in an interpolation. If you have an interpolation of `{{data.---}}` inside a `div` and need the completion list after `data.---`, the compiler can't use the HTML AST to find the answer. The HTML AST can only tell the compiler that there is some text with the characters "`{{data.---}}`". That's when the template parser produces an expression AST, which resides within the template AST. The Angular Language Services then looks at `data.---` within its context and asks the TypeScript Language Service what the members of data are. TypeScript then returns the list of possibilities.
 
 
-如果我们在插值表达式中，还会多牵扯到一点东西。如果我们在`div`元素中有一个插值表达式`{{data.---}}`，并且需要在`data.---`之后提供自动完成列表，编译器就没办法使用 HTML AST 来找出答案。
-HTML AST只能告诉编译器，有一些具有 "`{{data.---}}`" 特征的文本。也就是说模板解析器会生成表达式的 AST ，并且放在模板的 AST 中。Angular 语言服务然后在这个情境下查找`data.---`，并找 TypeScript 语言服务问这些数据都有哪些成员。然后 TypeScript 就会返回一个可能的列表。
+如果是在插值表达式中，还会牵扯到更多东西。如果我们在`div`元素中有一个插值表达式`{{data.---}}`，并且需要在输入了`data.`之后提供自动完成列表，编译器就没办法使用 HTML AST 来找出答案了。
+HTML AST只能告诉编译器，有一些具有 "`{{data.---}}`" 特征的文本。也就是说模板解析器会生成表达式的 AST ，并且放在模板的 AST 中。Angular 语言服务然后在这个情境下查找`data.---`，并向 TypeScript 语言服务询问这些数据都有哪些成员。然后 TypeScript 就会返回一个可能的列表。
 
 For more in-depth information, see the 
 [Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)
