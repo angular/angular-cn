@@ -1,7 +1,19 @@
-**Please do not add issues or pull requests to this repo.** 
-We are no longer making changes to documentation in this repository.
-We will no longer process new issues or PRs and we will close them automatically.
+> 注意：新版本文档位于aio分支下，master分支下是老版本的文档。
 
-**Please post new [issues](https://github.com/angular/angular/issues) and [pull requests](https://github.com/angular/angular/pulls) to the content folder in [https://github.com/angular/angular/tree/master/aio/content](https://github.com/angular/angular/tree/master/aio/content)**.
+> 对于错别字或明显的语法错误，建议直接发 PR（在content目录下相应的文件上直接编辑，保存时就会自动变成PR）。
 
-Be sure to prefix your issue/PR title with "**docs(aio):**"
+出错的URL：
+
+错误的内容（请拷贝进来一份精确的出错文本，以便我定位）：
+
+
+
+建议的修改方式（可选）：
+
+
+
+英雄留名（会出现在鸣谢清单中，默认使用你的github id）：
+
+
+
+感谢您的贡献。
