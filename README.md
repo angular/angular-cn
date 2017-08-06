@@ -1,3 +1,7 @@
+# 注意
+
+master分支下是老版本的文档，新版本的文档位于aio分支下。目前aio只是部署到了 <https://angular.cn>，但尚未撰写中文的部署指南，不过你可以尝试自行按照英文版的readme.md进行部署。
+
 # angular.io 中文版
 
 这里是 angular.io 字幕组，哦不对，是汉化组。译者汪志成 (雪狼)、叶志敏 (Rex) 和杨林 (todoubaba) 欢迎您的到访。
