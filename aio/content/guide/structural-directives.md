@@ -490,42 +490,61 @@ All are preceded by the keyword `let`.
 这个例子中有好几个模板输入变量：`hero`、`i`和`odd`。
 它们都是用`let`作为前导关键字。
 
-// TODO: Translate
-
 A _template input variable_ is **_not_** the same as a
 [template _reference_ variable](guide/template-syntax#ref-vars),
 neither _semantically_ nor _syntactically_.
+
+*模板输入变量*和[模板引用变量](guide/template-syntax#ref-vars)是**不同的**，无论是在*语义*上还是*语法*上。
 
 You declare a template _input_ variable using the `let` keyword (`let hero`).
 The variable's scope is limited to a _single instance_ of the repeated template.
 You can use the same variable name again in the definition of other structural directives.
 
+我们使用`let`关键字（如`let hero`）在模板中声明一个模板*输入*变量。
+这个变量的范围被限制在所重复模板的*单一实例*上。
+事实上，我们可以在其它结构型指令中使用同样的变量名。
+
 You declare a template _reference_ variable by prefixing the variable name with `#` (`#var`).
 A _reference_ variable refers to its attached element, component or directive.
 It can be accessed _anywhere_ in the _entire template_.
 
+而声明模板*引用*变量使用的是给变量名加`#`前缀的方式（`#var`）。
+一个*引用*变量引用的是它所附着到的元素、组件或指令。它可以在*整个模板*的*任意位置*访问。
+
 Template _input_ and _reference_ variable names have their own namespaces. The `hero` in `let hero` is never the same
 variable as the `hero` declared as `#hero`.
 
+模板*输入*变量和*引用*变量具有各自独立的命名空间。`let hero`中的`hero`和`#hero`中的`hero`并不是同一个变量。
 
 {@a one-per-element}
 
 
 ### One structural directive per host element
 
+### 每个宿主元素上只能有一个结构型指令
+
 Someday you'll want to repeat a block of HTML but only when a particular condition is true.
 You'll _try_ to put both an `*ngFor` and an `*ngIf` on the same host element.
 Angular won't let you. You may apply only one _structural_ directive to an element.
+
+有时我们会希望只有当特定的条件为真时才重复渲染一个 HTML 块。
+你可能试过把`*ngFor`和`*ngIf`放在同一个宿主元素上，但Angular 不允许。这是因为我们在一个元素上只能放一个*结构型*指令。
 
 The reason is simplicity. Structural directives can do complex things with the host element and its descendents.
 When two directives lay claim to the same host element, which one takes precedence?
 Which should go first, the `NgIf` or the `NgFor`? Can the `NgIf` cancel the effect of the `NgFor`?
 If so (and it seems like it should be so), how should Angular generalize the ability to cancel for other structural directives?
 
+原因很简单。结构型指令可能会对宿主元素及其子元素做很复杂的事。当两个指令放在同一个元素上时，谁先谁后？`NgIf`优先还是`NgFor`优先？`NgIf`可以取消`NgFor`的效果吗？
+如果要这样做，Angular 应该如何把这种能力泛化，以取消其它结构型指令的效果呢？
+
 There are no easy answers to these questions. Prohibiting multiple structural directives makes them moot.
 There's an easy solution for this use case: put the `*ngIf` on a container element that wraps the `*ngFor` element.
 One or both elements can be an [`ng-container`](guide/structural-directives#ngcontainer) so you don't have to introduce extra levels of HTML.
 
+对这些问题，没有办法简单回答。而禁止多个结构型指令则可以简单地解决这个问题。
+这种情况下有一个简单的解决方案：把`*ngIf`放在一个"容器"元素上，再包装进 `*ngFor` 元素。
+这个元素可以使用[`ng-container`](guide/structural-directives#ngcontainer)，以免引入一个新的HTML层级。
 
 {@a ngSwitch}
 
@@ -533,10 +552,15 @@ One or both elements can be an [`ng-container`](guide/structural-directives#ngco
 
 ## Inside _NgSwitch_ directives
 
+## `NgSwitch` 内幕
+
 The Angular _NgSwitch_ is actually a set of cooperating directives: `NgSwitch`, `NgSwitchCase`, and `NgSwitchDefault`.
+
+Angular 的 `NgSwitch` 实际上是一组相互合作的指令：`NgSwitch`、`NgSwitchCase` 和 `NgSwitchDefault`。
 
 Here's an example.
 
+例子如下：
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch)" region="ngswitch">
 
@@ -547,15 +571,24 @@ Here's an example.
 The switch value assigned to `NgSwitch` (`hero.emotion`) determines which
 (if any) of the switch cases are displayed.
 
+一个值(`hero.emotion`)被被赋值给了`NgSwitch`，以决定要显示哪一个分支。
+
 `NgSwitch` itself is not a structural directive.
 It's an _attribute_ directive that controls the behavior of the other two switch directives.
 That's why you write `[ngSwitch]`, never `*ngSwitch`.
+
+`NgSwitch`本身不是结构型指令，而是一个*属性型*指令，它控制其它两个switch指令的行为。
+这也就是为什么我们要写成`[ngSwitch]`而不是`*ngSwitch`的原因。
 
 `NgSwitchCase` and `NgSwitchDefault` _are_ structural directives.
 You attach them to elements using the asterisk (*) prefix notation.
 An `NgSwitchCase` displays its host element when its value matches the switch value.
 The `NgSwitchDefault` displays its host element when no sibling `NgSwitchCase` matches the switch value.
 
+`NgSwitchCase` 和 `NgSwitchDefault` *都是*结构型指令。
+因此我们要使用星号（`*`）前缀来把它们附着到元素上。
+`NgSwitchCase`会在它的值匹配上选项值的时候显示它的宿主元素。
+`NgSwitchDefault`则会当没有兄弟`NgSwitchCase`匹配上时显示它的宿主元素。
 
 <div class="l-sub-section">
 
@@ -573,6 +606,8 @@ companion service.
 
 As with other structural directives, the `NgSwitchCase` and `NgSwitchDefault`
 can be desugared into the template _attribute_ form.
+
+像其它的结构型指令一样，`NgSwitchCase` 和 `NgSwitchDefault` 也可以解开语法糖，编程模板*属性*的形式。
 
 **These same considerations apply to every structural directive, whether built-in or custom.**
 We should ask ourselves &mdash; and the users of our directives &mdash; to think carefully
