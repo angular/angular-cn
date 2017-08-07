@@ -1912,7 +1912,7 @@ This example recreates the heroes feature in the "Services" episode of the
 and you'll be copying much of the code
 from the <live-example name="toh-pt4" title="Tour of Heroes: Services example code"></live-example>.
 
-这个例子重写了[《英雄指南》](tutorial/toh-pt4 "Tour of Heroes: Services")的“服务”部分的英雄列表特性，我们可以从<live-example name="toh-4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
+这个例子重写了[《英雄指南》](tutorial/toh-pt4 "Tour of Heroes: Services")的“服务”部分的英雄列表特性，我们可以从<live-example name="toh-pt4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
 
 Here's how the user will experience this version of the app:
 
@@ -1970,7 +1970,7 @@ Follow these steps:
 * Copy into it the contents of the `app.component.ts` from
   the <live-example name="toh-pt4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example>.
   
-    把<live-example name="toh-4" title="Tour of Heroes: Services example code">教程中的“服务”部分</live-example>的代码复制到`app.component.ts`中。
+    把<live-example name="toh-pt4" title="Tour of Heroes: Services example code">教程中的“服务”部分</live-example>的代码复制到`app.component.ts`中。
     
 * Make a few minor but necessary changes:
 
