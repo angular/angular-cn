@@ -52,7 +52,7 @@ When you're done with this tutorial, the app will look like this <live-example n
 
 ## What you'll build
 
-## 游戏的终点
+## 我们要构建出什么
 
 Here's a visual idea of where this tutorial leads, beginning with the "Dashboard"
 view and the most heroic heroes:
