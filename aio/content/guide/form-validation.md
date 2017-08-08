@@ -247,6 +247,8 @@ to the `FormControl`.
 
 ### Adding to template-driven forms
 
+### 添加到模板驱动表单
+
 In template-driven forms, you don't have direct access to the `FormControl` instance, so you can't pass the 
 validator in like you can for reactive forms. Instead, you need to add a directive to the template.
 
