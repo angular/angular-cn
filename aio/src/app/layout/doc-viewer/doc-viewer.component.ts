@@ -50,7 +50,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
-    this.swapOriginAndResult(this.hostElement);
+    swapOriginAndResult(this.hostElement);
 
     for (const component of embeddedComponents.components) {
       const factory = componentFactoryResolver.resolveComponentFactory(component);
@@ -77,7 +77,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     // security: the doc.content is always authored by the documentation team
     // and is considered to be safe
     this.hostElement.innerHTML = doc.contents || '';
-    this.swapOriginAndResult(this.hostElement);
+    swapOriginAndResult(this.hostElement);
 
     if (!doc.contents) {
       return;
@@ -142,7 +142,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
 
   @HostListener('click', ['$event'])
   toggleTranslationOrigin($event: MouseEvent): void {
-    const element = $event.target as Element;
+    const element = findTranslationResult($event.target as Element);
     if (element.hasAttribute('translation-result')) {
       const origin = element.nextElementSibling;
       if (!origin) {
@@ -157,14 +157,22 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     }
   }
 
-  swapOriginAndResult(root: Element): void {
-    const results = root.querySelectorAll('[translation-result]');
-    for (let i = 0; i < results.length; ++i) {
-      const result = results.item(i);
-      const origin = result.previousElementSibling;
-      if (origin && origin.hasAttribute('translation-origin')) {
-        origin.parentElement.insertBefore(result, origin);
-      }
+}
+
+function findTranslationResult(element: Element): Element {
+  while (element && !element.hasAttribute('translation-result')) {
+    element = element.parentElement;
+  }
+  return element;
+}
+
+function swapOriginAndResult(root: Element): void {
+  const results = root.querySelectorAll('[translation-result]');
+  for (let i = 0; i < results.length; ++i) {
+    const result = results.item(i);
+    const origin = result.previousElementSibling;
+    if (origin && origin.hasAttribute('translation-origin')) {
+      origin.parentElement.insertBefore(result, origin);
     }
   }
 }
