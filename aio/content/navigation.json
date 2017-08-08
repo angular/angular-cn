@@ -41,6 +41,12 @@
     },
 
     {
+      "url": "guide/webpack",
+      "title": "Webpack: 简介",
+      "hidden": true
+    },
+
+    {
       "url": "guide/quickstart",
       "title": "快速上手",
       "tooltip": "Angular 破冰"
@@ -165,7 +171,7 @@
             {
               "url": "guide/forms",
               "title": "模板驱动表单",
-              "tooltip": "A form creates a cohesive, effective, and compelling data entry experience. An Angular form coordinates a set of data-bound user controls, tracks changes, validates input, and presents errors."
+              "tooltip": "表单可以创建集中、高效、引人注目的输入体验。Angular 表单可以协调一组数据绑定控件，跟踪变更，验证输入，并表达错误信息。"
             },
             {
               "url": "guide/form-validation",
@@ -381,7 +387,7 @@
           "tooltip": "我们的联系方式、LOGO 和品牌"
         },
         {
-          "url": "https://blog.angularjs.org/",
+          "url": "https://blog.angular.io/",
           "title": "博客",
           "tooltip": "Angular 官方博客"
         }
