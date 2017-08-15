@@ -12,9 +12,9 @@ import {
   OnDestroy,
   Output,
 } from '@angular/core';
-import { EmbeddedComponents } from 'app/embedded/embedded.module';
-import { DocumentContents } from 'app/documents/document.service';
 import { Title } from '@angular/platform-browser';
+import { DocumentContents } from 'app/documents/document.service';
+import { EmbeddedComponents } from 'app/embedded/embedded.module';
 import { TocService } from 'app/shared/toc.service';
 
 interface EmbeddedComponentFactory {
@@ -145,7 +145,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     const element = findTranslationResult($event.target as Element);
     if (element.hasAttribute('translation-result')) {
       const origin = element.nextElementSibling;
-      if (!origin || origin.hasAttribute('translation-result')) {
+      if (!origin || origin.hasAttribute('translation-result') || origin.tagName !== element.tagName) {
         return;
       }
 
