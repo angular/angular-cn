@@ -103,20 +103,16 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   private addTitleAndToc(docId: string) {
     this.tocService.reset();
     let title = '';
-    const titleElements = this.hostElement.querySelectorAll('h1');
-    let titleEl;
-    if (titleElements.length > 1) {
-      titleEl = titleElements[1];
-    } else if (titleElements.length > 0) {
-      titleEl = titleElements[0];
-    }
+    const translatedTitleEl = this.hostElement.querySelector('h1[translation-result]');
+    const originalTitleEl = this.hostElement.querySelector('h1[translation-origin]');
+    const titleEl = translatedTitleEl || originalTitleEl;
     // Only create TOC for docs with an <h1> title
     // If you don't want a TOC, add "no-toc" class to <h1>
     if (titleEl) {
-      title = (titleEl.innerText || titleEl.textContent).trim();
+      title = (titleEl.textContent).trim();
       if (!/(no-toc|notoc)/i.test(titleEl.className)) {
         this.tocService.genToc(this.hostElement, docId);
-        titleEl.insertAdjacentHTML('afterend', '<aio-toc class="embedded"></aio-toc>');
+        (originalTitleEl || translatedTitleEl).insertAdjacentHTML('afterend', '<aio-toc class="embedded"></aio-toc>');
       }
     }
     this.titleService.setTitle(title ? `Angular - ${title}` : 'Angular');
