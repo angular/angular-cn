@@ -50,7 +50,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 `npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
-在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
+在*Bash for Windows*中`npm start`可能会失败，因为到2017-04为止它还不支持访问网络上的服务器。
 
 
 </div>
