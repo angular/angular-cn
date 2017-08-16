@@ -470,7 +470,7 @@ It's the perfect place to reproduce a bug when you want to
 <a href="https://github.com/angular/angular/issues/new" title="File a documentation issue">file a documentation issue</a> or
 <a href="https://github.com/angular/angular/issues/new" title="File an Angular issue">file an issue with Angular itself</a>.
 
-把<live-example title="QuickStart Seed in Plunker"><i>在线编程</i></live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
+把<live-example title="QuickStart Seed in Plunker">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
 当你想要<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="提交关于文档的问题">提交关于文档的问题</a>或者
 <a href="https://github.com/angular/angular/issues/new" target="_blank" title="提交关于 Angular 的问题">提交关于 Angular 自身的问题</a>时，
 它是重现错误的完美地方。
