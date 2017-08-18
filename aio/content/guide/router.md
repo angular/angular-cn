@@ -182,7 +182,7 @@ is the value of the `id` parameter. The corresponding `HeroDetailComponent`
 will use that value to find and present the hero whose `id` is 42.
 You'll learn more about route parameters later in this guide.
 
-第一个路由中的`:id`是一个路由参数的令牌(Token)。比如`/hero/42`这个URL中，“42”就是`id`参数的值。
+第二个路由中的`:id`是一个路由参数的令牌(Token)。比如`/hero/42`这个URL中，“42”就是`id`参数的值。
 此URL对应的`HeroDetailComponent`组件将据此查找和展现`id`为42的英雄。
 在本章中稍后的部分，我们将会学习关于路由参数的更多知识。
 
