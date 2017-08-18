@@ -165,7 +165,7 @@ and adds the result to the `AppModule`'s `imports` array.
 The `appRoutes` array of *routes* describes how to navigate.
 Pass it to the `RouterModule.forRoot` method in the module `imports` to configure the router.
 
-这里的路由树组`appRoutes`描述如何进行导航。
+这里的路由数组`appRoutes`描述如何进行导航。
 把它传给`RouterModule.forRoot`方法并传给本模块的`imports`数组就可以配置路由器。
 
 Each `Route` maps a URL `path` to a component.
