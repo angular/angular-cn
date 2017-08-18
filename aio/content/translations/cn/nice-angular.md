@@ -1,6 +1,4 @@
-<h1 class="no-toc">About Nice Angular community</h1>
-
-<h1 class="no-toc">Nice Angular 社区简介</h1>
+# Nice Angular 社区简介
 
 ## Nice Angular社区：QQ群
   

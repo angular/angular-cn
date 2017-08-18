@@ -335,12 +335,6 @@ aio-shell {
   text-transform: uppercase;
 }
 
-aio-shell:not(.view-SideNav) {
-  md-sidenav-container.sidenav-container {
-    max-width: none;
-  }
-}
-
 div[layout=row]{
     display: flex;
     justify-content: center;

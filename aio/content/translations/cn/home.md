@@ -1,6 +1,4 @@
-<h1 class="no-toc">About Chinese version</h1>
-
-<h1 class="no-toc">关于中文版</h1>
+# 关于中文版
 
 ## Angular 开发组的致辞
 
