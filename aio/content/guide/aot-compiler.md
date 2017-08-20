@@ -609,6 +609,10 @@ Add the following _npm_ convenience script to the `package.json` so you can comp
 把下列*npm*便利脚本添加到`package.json`中，以便用一条命令就可以完成编译和Rollup打包工作。
 
 
+<code-example language="json">
+  "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
+</code-example>
+
 Open a terminal window and try it.
 
 打开终端窗口，并试一下。
@@ -869,9 +873,14 @@ AOT编译假设上面介绍的一些支持文件都以准备好。
   </code-pane>
 </code-tabs>
 
-Extend the `scripts` section of the `package.json` with these npm scripts:
+With the following npm script in the `scripts` section of the `package.json`, you can easily serve
+the AOT-compiled application:
 
 使用下面的npm脚本，扩展`package.json`文件的`scripts`部分：
+
+<code-example language="json">
+  "serve:aot": "lite-server -c bs-config.aot.json",
+</code-example>
 
 
 Copy the AOT distribution files into the `/aot` folder with the node script:
@@ -890,7 +899,7 @@ Copy the AOT distribution files into the `/aot` folder with the node script:
 
 </div>
 
-Now AOT-compile the app and launch it with the `lite-server`:
+Now AOT-compile the app and launch:
 
 现在AOT编译应用，并使用`lite`服务器启动它：
 

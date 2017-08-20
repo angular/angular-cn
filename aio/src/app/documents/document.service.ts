@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LocationService } from 'app/shared/location.service';
 import { Logger } from 'app/shared/logger.service';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 
@@ -39,7 +38,7 @@ export class DocumentService {
   currentDocument: Observable<DocumentContents>;
 
   constructor(private logger: Logger,
-              private http: Http,
+              private http: HttpClient,
               location: LocationService) {
     // Whenever the URL changes we try to get the appropriate doc
     this.currentDocument = location.currentPath.switchMap(path => this.getDocument(path));
@@ -56,15 +55,21 @@ export class DocumentService {
 
   private fetchDocument(id: string): Observable<DocumentContents> {
     const requestPath = `${DOC_CONTENT_URL_PREFIX}${id}.json`;
+    const subject = new AsyncSubject<DocumentContents>();
+
     this.logger.log('fetching document from', requestPath);
-    const subject = new AsyncSubject();
     this.http
-        .get(requestPath)
-        .map(response => response.json())
-        .catch((error: Response) => {
-          return error.status === 404 ? this.getFileNotFoundDoc(id) : this.getErrorDoc(id, error);
-        })
-        .subscribe(subject);
+      .get<DocumentContents>(requestPath, {responseType: 'json'})
+      .do(data => {
+        if (!data || typeof data !== 'object') {
+          this.logger.log('received invalid data:', data);
+          throw Error('Invalid data');
+        }
+      })
+      .catch((error: HttpErrorResponse) => {
+        return error.status === 404 ? this.getFileNotFoundDoc(id) : this.getErrorDoc(id, error);
+      })
+      .subscribe(subject);
     return subject.asObservable();
   }
 
@@ -81,7 +86,7 @@ export class DocumentService {
     }
   }
 
-  private getErrorDoc(id: string, error: Response): Observable<DocumentContents> {
+  private getErrorDoc(id: string, error: HttpErrorResponse): Observable<DocumentContents> {
     this.logger.error('Error fetching document', error);
     this.cache.delete(id);
     return Observable.of({

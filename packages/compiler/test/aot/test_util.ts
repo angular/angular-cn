@@ -330,8 +330,15 @@ export class MockAotCompilerHost implements AotCompilerHost {
   private metadataCollector = new MetadataCollector();
   private metadataVisible: boolean = true;
   private dtsAreSource: boolean = true;
+  private resolveModuleNameHost: ts.ModuleResolutionHost;
 
-  constructor(private tsHost: MockCompilerHost) {}
+  constructor(private tsHost: MockCompilerHost) {
+    this.resolveModuleNameHost = Object.create(tsHost);
+    this.resolveModuleNameHost.fileExists = (fileName) => {
+      fileName = stripNgResourceSuffix(fileName);
+      return tsHost.fileExists(fileName);
+    };
+  }
 
   hideMetadata() { this.metadataVisible = false; }
 
@@ -369,9 +376,20 @@ export class MockAotCompilerHost implements AotCompilerHost {
     moduleName = moduleName.replace(EXT, '');
     const resolved = ts.resolveModuleName(
                            moduleName, containingFile.replace(/\\/g, '/'),
-                           {baseDir: '/', genDir: '/'}, this.tsHost)
+                           {baseDir: '/', genDir: '/'}, this.resolveModuleNameHost)
                          .resolvedModule;
     return resolved ? resolved.resolvedFileName : null;
+  }
+
+  resourceNameToFileName(resourceName: string, containingFile: string) {
+    // Note: we convert package paths into relative paths to be compatible with the the
+    // previous implementation of UrlResolver.
+    if (resourceName && resourceName.charAt(0) !== '.' && !path.isAbsolute(resourceName)) {
+      resourceName = `./${resourceName}`;
+    }
+    const filePathWithNgResource =
+        this.moduleNameToFileName(addNgResourceSuffix(resourceName), containingFile);
+    return filePathWithNgResource ? stripNgResourceSuffix(filePathWithNgResource) : null;
   }
 
   // AotSummaryResolverHost
@@ -382,9 +400,9 @@ export class MockAotCompilerHost implements AotCompilerHost {
         (this.dtsAreSource || !DTS.test(sourceFilePath));
   }
 
-  getOutputFileName(sourceFilePath: string): string {
-    return sourceFilePath.replace(EXT, '') + '.d.ts';
-  }
+  toSummaryFileName(filePath: string): string { return filePath.replace(EXT, '') + '.d.ts'; }
+
+  fromSummaryFileName(filePath: string): string { return filePath; }
 
   // AotCompilerHost
   fileNameToModuleName(importedFile: string, containingFile: string): string|null {
@@ -593,7 +611,15 @@ export function expectNoDiagnostics(program: ts.Program) {
 }
 
 export function isSource(fileName: string): boolean {
-  return !/\.d\.ts$/.test(fileName) && /\.ts$/.test(fileName);
+  return !isDts(fileName) && /\.ts$/.test(fileName);
+}
+
+function isDts(fileName: string): boolean {
+  return /\.d.ts$/.test(fileName);
+}
+
+function isSourceOrDts(fileName: string): boolean {
+  return /\.ts$/.test(fileName);
 }
 
 export function compile(
@@ -610,7 +636,8 @@ export function compile(
   const preCompile = options.preCompile || (() => {});
   const postCompile = options.postCompile || expectNoDiagnostics;
   const rootDirArr = toMockFileArray(rootDirs);
-  const scriptNames = rootDirArr.map(entry => entry.fileName).filter(isSource);
+  const scriptNames = rootDirArr.map(entry => entry.fileName)
+                          .filter(options.useSummaries ? isSource : isSourceOrDts);
 
   const host = new MockCompilerHost(scriptNames, arrayToMockDir(rootDirArr));
   const aotHost = new MockAotCompilerHost(host);
@@ -641,9 +668,19 @@ export function compile(
   }
   let outDir: MockDirectory = {};
   if (emit) {
-    outDir = arrayToMockDir(toMockFileArray([
-                              host.writtenFiles, host.overrides
-                            ]).filter((entry) => !isSource(entry.fileName)));
+    const dtsFilesWithGenFiles = new Set<string>(genFiles.map(gf => gf.srcFileUrl).filter(isDts));
+    outDir =
+        arrayToMockDir(toMockFileArray([host.writtenFiles, host.overrides])
+                           .filter((entry) => !isSource(entry.fileName))
+                           .concat(rootDirArr.filter(e => dtsFilesWithGenFiles.has(e.fileName))));
   }
   return {genFiles, outDir};
+}
+
+function stripNgResourceSuffix(fileName: string): string {
+  return fileName.replace(/\.\$ngresource\$.*/, '');
+}
+
+function addNgResourceSuffix(fileName: string): string {
+  return `${fileName}.$ngresource$`;
 }

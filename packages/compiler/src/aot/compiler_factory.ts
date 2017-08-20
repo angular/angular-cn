@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {MissingTranslationStrategy, ViewEncapsulation, ɵConsole as Console} from '@angular/core';
 import {CompilerConfig} from '../config';
+import {MissingTranslationStrategy, ViewEncapsulation} from '../core';
 import {DirectiveNormalizer} from '../directive_normalizer';
 import {DirectiveResolver} from '../directive_resolver';
 import {Lexer} from '../expression_parser/lexer';
@@ -22,7 +22,8 @@ import {PipeResolver} from '../pipe_resolver';
 import {DomElementSchemaRegistry} from '../schema/dom_element_schema_registry';
 import {StyleCompiler} from '../style_compiler';
 import {TemplateParser} from '../template_parser/template_parser';
-import {createOfflineCompileUrlResolver} from '../url_resolver';
+import {UrlResolver} from '../url_resolver';
+import {syntaxError} from '../util';
 import {ViewCompiler} from '../view_compiler/view_compiler';
 
 import {AotCompiler} from './compiler';
@@ -33,6 +34,19 @@ import {StaticSymbol, StaticSymbolCache} from './static_symbol';
 import {StaticSymbolResolver} from './static_symbol_resolver';
 import {AotSummaryResolver} from './summary_resolver';
 
+export function createAotUrlResolver(host: {
+  resourceNameToFileName(resourceName: string, containingFileName: string): string | null;
+}): UrlResolver {
+  return {
+    resolve: (basePath: string, url: string) => {
+      const filePath = host.resourceNameToFileName(url, basePath);
+      if (!filePath) {
+        throw syntaxError(`Couldn't resolve resource ${url} from ${basePath}`);
+      }
+      return filePath;
+    }
+  };
+}
 
 /**
  * Creates a new AotCompiler based on options and a host.
@@ -41,12 +55,11 @@ export function createAotCompiler(compilerHost: AotCompilerHost, options: AotCom
     {compiler: AotCompiler, reflector: StaticReflector} {
   let translations: string = options.translations || '';
 
-  const urlResolver = createOfflineCompileUrlResolver();
+  const urlResolver = createAotUrlResolver(compilerHost);
   const symbolCache = new StaticSymbolCache();
   const summaryResolver = new AotSummaryResolver(compilerHost, symbolCache);
   const symbolResolver = new StaticSymbolResolver(compilerHost, symbolCache, summaryResolver);
   const staticReflector = new StaticReflector(summaryResolver, symbolResolver);
-  const console = new Console();
   const htmlParser = new I18NHtmlParser(
       new HtmlParser(), translations, options.i18nFormat, options.missingTranslation, console);
   const config = new CompilerConfig({
@@ -54,6 +67,7 @@ export function createAotCompiler(compilerHost: AotCompilerHost, options: AotCom
     useJit: false,
     enableLegacyTemplate: options.enableLegacyTemplate !== false,
     missingTranslation: options.missingTranslation,
+    preserveWhitespaces: options.preserveWhitespaces,
   });
   const normalizer = new DirectiveNormalizer(
       {get: (url: string) => compilerHost.loadResource(url)}, urlResolver, htmlParser, config);

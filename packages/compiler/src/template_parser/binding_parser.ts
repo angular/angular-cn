@@ -6,9 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {SecurityContext} from '@angular/core';
-
 import {CompileDirectiveSummary, CompilePipeSummary} from '../compile_metadata';
+import {SecurityContext} from '../core';
 import {ASTWithSource, BindingPipe, EmptyExpr, ParserError, RecursiveAstVisitor, TemplateBinding} from '../expression_parser/ast';
 import {Parser} from '../expression_parser/parser';
 import {InterpolationConfig} from '../ml_parser/interpolation_config';
@@ -219,7 +218,7 @@ export class BindingParser {
     // This will occur when a @trigger is not paired with an expression.
     // For animations it is valid to not have an expression since */void
     // states will be applied by angular when the element is attached/detached
-    const ast = this._parseBinding(expression || 'null', false, sourceSpan);
+    const ast = this._parseBinding(expression || 'undefined', false, sourceSpan);
     targetMatchableAttrs.push([name, ast.source !]);
     targetProps.push(new BoundProperty(name, ast, BoundPropertyType.ANIMATION, sourceSpan));
   }

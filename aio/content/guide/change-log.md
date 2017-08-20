@@ -244,8 +244,8 @@ The documentation for the version prior to v.2.2.0 has been removed.
 
 ## 在“从TypeScript到JavaScript”增加ES6的描述 (2016-11-14)  
 
-The updated [TypeScript to JavaScript](guide/ts-to-js) guide
-now explains how to write apps in ES6/7
+The updated TypeScript to JavaScript guide (removed August 2017, PR #18694)
+explains how to write apps in ES6/7
 
 更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
 

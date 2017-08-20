@@ -7,7 +7,7 @@
  */
 
 import {AotSummaryResolver, CompileMetadataResolver, CompilerConfig, DEFAULT_INTERPOLATION_CONFIG, DirectiveNormalizer, DirectiveResolver, DomElementSchemaRegistry, HtmlParser, InterpolationConfig, JitSummaryResolver, NgAnalyzedModules, NgModuleResolver, ParseTreeResult, PipeResolver, ResourceLoader, StaticReflector, StaticSymbol, StaticSymbolCache, StaticSymbolResolver, SummaryResolver, analyzeNgModules, createOfflineCompileUrlResolver, extractProgramSymbols} from '@angular/compiler';
-import {AngularCompilerOptions, getClassMembersFromDeclaration, getPipesTable, getSymbolQuery} from '@angular/compiler-cli';
+import {AngularCompilerOptions, getClassMembersFromDeclaration, getPipesTable, getSymbolQuery} from '@angular/compiler-cli/src/language_services';
 import {ViewEncapsulation, ɵConsole as Console} from '@angular/core';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -405,7 +405,8 @@ export class TypeScriptServiceHost implements LanguageServiceHost {
           {
             loadSummary(filePath: string) { return null; },
             isSourceFile(sourceFilePath: string) { return true; },
-            getOutputFileName(sourceFilePath: string) { return sourceFilePath; }
+            toSummaryFileName(sourceFilePath: string) { return sourceFilePath; },
+            fromSummaryFileName(filePath: string): string{return filePath;},
           },
           this._staticSymbolCache);
       result = this._staticSymbolResolver = new StaticSymbolResolver(

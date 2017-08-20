@@ -164,17 +164,6 @@ export declare abstract class ChangeDetectorRef {
 }
 
 /** @stable */
-export declare function Class(clsDef: ClassDefinition): Type<any>;
-
-/** @stable */
-export declare type ClassDefinition = {
-    extends?: Type<any>;
-    constructor: Function | any[];
-} & {
-    [x: string]: Type<any> | Function | any[];
-};
-
-/** @stable */
 export interface ClassProvider {
     multi?: boolean;
     provide: any;
@@ -206,12 +195,12 @@ export declare abstract class CompilerFactory {
 
 /** @experimental */
 export declare type CompilerOptions = {
-    /** @deprecated */ useDebug?: boolean;
     useJit?: boolean;
     defaultEncapsulation?: ViewEncapsulation;
     providers?: StaticProvider[];
     missingTranslation?: MissingTranslationStrategy;
     enableLegacyTemplate?: boolean;
+    preserveWhitespaces?: boolean;
 };
 
 /** @stable */
@@ -335,7 +324,6 @@ export declare class DebugNode {
     readonly references: {
         [key: string]: any;
     };
-    /** @deprecated */ readonly source: string;
     constructor(nativeNode: any, parent: DebugNode | null, _debugContext: DebugContext);
 }
 
@@ -355,7 +343,6 @@ export declare class DefaultIterableDiffer<V> implements IterableDiffer<V>, Iter
     forEachPreviousItem(fn: (record: IterableChangeRecord_<V>) => void): void;
     forEachRemovedItem(fn: (record: IterableChangeRecord_<V>) => void): void;
     onDestroy(): void;
-    toString(): string;
 }
 
 /** @experimental */
@@ -392,8 +379,6 @@ export declare function enableProdMode(): void;
 
 /** @stable */
 export declare class ErrorHandler {
-    constructor(
-        deprecatedParameter?: boolean);
     handleError(error: any): void;
 }
 
@@ -527,7 +512,6 @@ export interface IterableDiffer<V> {
 /** @stable */
 export interface IterableDifferFactory {
     create<V>(trackByFn?: TrackByFunction<V>): IterableDiffer<V>;
-    /** @deprecated */ create<V>(_cdr?: ChangeDetectorRef | TrackByFunction<V>, trackByFn?: TrackByFunction<V>): IterableDiffer<V>;
     supports(objects: any): boolean;
 }
 
@@ -570,7 +554,6 @@ export interface KeyValueDiffer<K, V> {
 /** @stable */
 export interface KeyValueDifferFactory {
     create<K, V>(): KeyValueDiffer<K, V>;
-    /** @deprecated */ create<K, V>(_cdr?: ChangeDetectorRef): KeyValueDiffer<K, V>;
     supports(objects: any): boolean;
 }
 
@@ -759,7 +742,7 @@ export declare class QueryList<T> {
     toString(): string;
 }
 
-/** @stable */
+/** @deprecated */
 export declare abstract class ReflectiveInjector implements Injector {
     readonly abstract parent: Injector | null;
     abstract createChildFromResolved(providers: ResolvedReflectiveProvider[]): ReflectiveInjector;
@@ -984,7 +967,6 @@ export declare abstract class TemplateRef<C> {
 export declare class Testability implements PublicTestability {
     constructor(_ngZone: NgZone);
     decreasePendingRequestCount(): number;
-    /** @deprecated */ findBindings(using: any, provider: string, exactMatch: boolean): any[];
     findProviders(using: any, provider: string, exactMatch: boolean): any[];
     getPendingRequestCount(): number;
     increasePendingRequestCount(): number;
@@ -1000,11 +982,6 @@ export declare class TestabilityRegistry {
     getAllTestabilities(): Testability[];
     getTestability(elem: any): Testability | null;
     registerApplication(token: any, testability: Testability): void;
-}
-
-/** @deprecated */
-export interface TrackByFn {
-    (index: number, item: any): any;
 }
 
 /** @stable */
@@ -1029,10 +1006,8 @@ export declare const Type: FunctionConstructor;
 
 /** @stable */
 export interface TypeDecorator {
-    annotations: any[];
     (target: Object, propertyKey?: string | symbol, parameterIndex?: number): void;
     <T extends Type<any>>(type: T): T;
-    Class(obj: ClassDefinition): Type<any>;
 }
 
 /** @stable */

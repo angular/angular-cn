@@ -6,12 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ChangeDetectionStrategy, ComponentFactory, RendererType2, SchemaMetadata, Type, ViewEncapsulation, ɵstringify as stringify} from '@angular/core';
-
 import {StaticSymbol} from './aot/static_symbol';
+import {ChangeDetectionStrategy, SchemaMetadata, Type, ViewEncapsulation} from './core';
 import {LifecycleHooks} from './lifecycle_reflector';
 import {CssSelector} from './selector';
-import {splitAtColon} from './util';
+import {splitAtColon, stringify} from './util';
 
 
 
@@ -252,8 +251,9 @@ export class CompileTemplateMetadata {
   animations: any[];
   ngContentSelectors: string[];
   interpolation: [string, string]|null;
+  preserveWhitespaces: boolean;
   constructor({encapsulation, template, templateUrl, styles, styleUrls, externalStylesheets,
-               animations, ngContentSelectors, interpolation, isInline}: {
+               animations, ngContentSelectors, interpolation, isInline, preserveWhitespaces}: {
     encapsulation: ViewEncapsulation | null,
     template: string|null,
     templateUrl: string|null,
@@ -263,7 +263,8 @@ export class CompileTemplateMetadata {
     ngContentSelectors: string[],
     animations: any[],
     interpolation: [string, string]|null,
-    isInline: boolean
+    isInline: boolean,
+    preserveWhitespaces: boolean
   }) {
     this.encapsulation = encapsulation;
     this.template = template;
@@ -278,6 +279,7 @@ export class CompileTemplateMetadata {
     }
     this.interpolation = interpolation;
     this.isInline = isInline;
+    this.preserveWhitespaces = preserveWhitespaces;
   }
 
   toSummary(): CompileTemplateSummary {
@@ -291,7 +293,7 @@ export class CompileTemplateMetadata {
 
 export interface CompileEntryComponentMetadata {
   componentType: any;
-  componentFactory: StaticSymbol|ComponentFactory<any>;
+  componentFactory: StaticSymbol|object;
 }
 
 // Note: This should only use interfaces as nested data types
@@ -314,8 +316,8 @@ export interface CompileDirectiveSummary extends CompileTypeSummary {
   changeDetection: ChangeDetectionStrategy|null;
   template: CompileTemplateSummary|null;
   componentViewType: StaticSymbol|ProxyClass|null;
-  rendererType: StaticSymbol|RendererType2|null;
-  componentFactory: StaticSymbol|ComponentFactory<any>|null;
+  rendererType: StaticSymbol|object|null;
+  componentFactory: StaticSymbol|object|null;
 }
 
 /**
@@ -341,8 +343,8 @@ export class CompileDirectiveMetadata {
     entryComponents: CompileEntryComponentMetadata[],
     template: CompileTemplateMetadata,
     componentViewType: StaticSymbol|ProxyClass|null,
-    rendererType: StaticSymbol|RendererType2|null,
-    componentFactory: StaticSymbol|ComponentFactory<any>|null,
+    rendererType: StaticSymbol|object|null,
+    componentFactory: StaticSymbol|object|null,
   }): CompileDirectiveMetadata {
     const hostListeners: {[key: string]: string} = {};
     const hostProperties: {[key: string]: string} = {};
@@ -419,8 +421,8 @@ export class CompileDirectiveMetadata {
   template: CompileTemplateMetadata|null;
 
   componentViewType: StaticSymbol|ProxyClass|null;
-  rendererType: StaticSymbol|RendererType2|null;
-  componentFactory: StaticSymbol|ComponentFactory<any>|null;
+  rendererType: StaticSymbol|object|null;
+  componentFactory: StaticSymbol|object|null;
 
   constructor({isHost,          type,      isComponent,       selector,      exportAs,
                changeDetection, inputs,    outputs,           hostListeners, hostProperties,
@@ -444,8 +446,8 @@ export class CompileDirectiveMetadata {
     entryComponents: CompileEntryComponentMetadata[],
     template: CompileTemplateMetadata|null,
     componentViewType: StaticSymbol|ProxyClass|null,
-    rendererType: StaticSymbol|RendererType2|null,
-    componentFactory: StaticSymbol|ComponentFactory<any>|null,
+    rendererType: StaticSymbol|object|null,
+    componentFactory: StaticSymbol|object|null,
   }) {
     this.isHost = !!isHost;
     this.type = type;
@@ -516,7 +518,8 @@ export function createHostComponentMeta(
       animations: [],
       isInline: true,
       externalStylesheets: [],
-      interpolation: null
+      interpolation: null,
+      preserveWhitespaces: false,
     }),
     exportAs: null,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -530,7 +533,8 @@ export function createHostComponentMeta(
     queries: [],
     viewQueries: [],
     componentViewType: hostViewType,
-    rendererType: {id: '__Host__', encapsulation: ViewEncapsulation.None, styles: [], data: {}},
+    rendererType:
+        {id: '__Host__', encapsulation: ViewEncapsulation.None, styles: [], data: {}} as object,
     entryComponents: [],
     componentFactory: null
   });
@@ -716,7 +720,7 @@ function _normalizeArray(obj: any[] | undefined | null): any[] {
 
 export class ProviderMeta {
   token: any;
-  useClass: Type<any>|null;
+  useClass: Type|null;
   useValue: any;
   useExisting: any;
   useFactory: Function|null;
@@ -724,7 +728,7 @@ export class ProviderMeta {
   multi: boolean;
 
   constructor(token: any, {useClass, useValue, useExisting, useFactory, deps, multi}: {
-    useClass?: Type<any>,
+    useClass?: Type,
     useValue?: any,
     useExisting?: any,
     useFactory?: Function|null,

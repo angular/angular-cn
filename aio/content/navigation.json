@@ -278,11 +278,6 @@
           "tooltip": "Angular 应用开发中的安全技术。"
         },
         {
-          "url": "guide/ts-to-js",
-          "title": "从 TypeScript 到 JavaScript",
-          "tooltip": "如何把 Angular 的 TypeScript 范例转换成 ES6 和 ES5 的。"
-        },
-        {
           "title": "环境设置与部署",
           "tooltip": "环境设置与部署",
           "children": [
@@ -316,6 +311,11 @@
               "url": "guide/aot-compiler",
               "title": "预（AOT）编译",
               "tooltip": "学习如何使用 AOT 预编译器。"
+            },
+            {
+              "url": "guide/metadata",
+              "title": "元数据与AOT",
+              "tooltip": "Angular 如何在 AOT 中处理元数据"
             },
             {
               "url": "guide/deployment",

@@ -7,33 +7,35 @@
  */
 
 import {isSyntaxError, syntaxError} from '@angular/compiler';
-import {MetadataBundler, createBundleIndexHost} from '@angular/tsc-wrapped';
+import {createBundleIndexHost} from '@angular/tsc-wrapped';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
+
 import * as api from './transformers/api';
 import * as ng from './transformers/entry_points';
 
 const TS_EXT = /\.ts$/;
 
-export type Diagnostics = ts.Diagnostic[] | api.Diagnostic[];
+export type Diagnostics = Array<ts.Diagnostic|api.Diagnostic>;
 
-function isTsDiagnostics(diagnostics: any): diagnostics is ts.Diagnostic[] {
-  return diagnostics && diagnostics[0] && (diagnostics[0].file || diagnostics[0].messageText);
+function isTsDiagnostic(diagnostic: any): diagnostic is ts.Diagnostic {
+  return diagnostic && (diagnostic.file || diagnostic.messageText);
 }
 
-function formatDiagnostics(cwd: string, diags: Diagnostics): string {
+export function formatDiagnostics(options: api.CompilerOptions, diags: Diagnostics): string {
   if (diags && diags.length) {
-    if (isTsDiagnostics(diags)) {
-      return ts.formatDiagnostics(diags, {
-        getCurrentDirectory: () => cwd,
-        getCanonicalFileName: fileName => fileName,
-        getNewLine: () => ts.sys.newLine
-      });
-    } else {
-      return diags
-          .map(d => {
-            let res = api.DiagnosticCategory[d.category];
+    const tsFormatHost: ts.FormatDiagnosticsHost = {
+      getCurrentDirectory: () => options.basePath || process.cwd(),
+      getCanonicalFileName: fileName => fileName,
+      getNewLine: () => ts.sys.newLine
+    };
+    return diags
+        .map(d => {
+          if (isTsDiagnostic(d)) {
+            return ts.formatDiagnostics([d], tsFormatHost);
+          } else {
+            let res = ts.DiagnosticCategory[d.category];
             if (d.span) {
               res +=
                   ` at ${d.span.start.file.url}(${d.span.start.line + 1},${d.span.start.col + 1})`;
@@ -44,149 +46,141 @@ function formatDiagnostics(cwd: string, diags: Diagnostics): string {
               res += `: ${d.message}\n`;
             }
             return res;
-          })
-          .join();
-    }
+          }
+        })
+        .join();
   } else
     return '';
 }
 
-/**
- * Throw a syntax error exception with a message formatted for output
- * if the args parameter contains diagnostics errors.
- *
- * @param cwd   The directory to report error as relative to.
- * @param args  A list of potentially empty diagnostic errors.
- */
-export function throwOnDiagnostics(cwd: string, ...args: Diagnostics[]) {
-  if (args.some(diags => !!(diags && diags[0]))) {
-    throw syntaxError(args.map(diags => {
-                            if (diags && diags[0]) {
-                              return formatDiagnostics(cwd, diags);
-                            }
-                          })
-                          .filter(message => !!message)
-                          .join(''));
-  }
+export interface ParsedConfiguration {
+  options: api.CompilerOptions;
+  rootNames: string[];
+  errors: Diagnostics;
 }
 
-function syntheticError(message: string): ts.Diagnostic {
-  return {
-    file: null as any as ts.SourceFile,
-    start: 0,
-    length: 0,
-    messageText: message,
-    category: ts.DiagnosticCategory.Error,
-    code: 0
-  };
+export function calcProjectFileAndBasePath(project: string):
+    {projectFile: string, basePath: string} {
+  const projectIsDir = fs.lstatSync(project).isDirectory();
+  const projectFile = projectIsDir ? path.join(project, 'tsconfig.json') : project;
+  const projectDir = projectIsDir ? project : path.dirname(project);
+  const basePath = path.resolve(process.cwd(), projectDir);
+  return {projectFile, basePath};
+}
+
+export function createNgCompilerOptions(
+    basePath: string, config: any, tsOptions: ts.CompilerOptions): api.CompilerOptions {
+  return {...tsOptions, ...config.angularCompilerOptions, genDir: basePath, basePath};
 }
 
 export function readConfiguration(
-    project: string, basePath: string,
-    checkFunc: (cwd: string, ...args: any[]) => void = throwOnDiagnostics,
-    existingOptions?: ts.CompilerOptions) {
-  // Allow a directory containing tsconfig.json as the project value
-  // Note, TS@next returns an empty array, while earlier versions throw
-  const projectFile =
-      fs.lstatSync(project).isDirectory() ? path.join(project, 'tsconfig.json') : project;
-  let {config, error} = ts.readConfigFile(projectFile, ts.sys.readFile);
-
-  if (error) checkFunc(basePath, [error]);
-  const parseConfigHost = {
-    useCaseSensitiveFileNames: true,
-    fileExists: fs.existsSync,
-    readDirectory: ts.sys.readDirectory,
-    readFile: ts.sys.readFile
-  };
-  const parsed = ts.parseJsonConfigFileContent(config, parseConfigHost, basePath, existingOptions);
-
-  checkFunc(basePath, parsed.errors);
-
-  // Default codegen goes to the current directory
-  // Parsed options are already converted to absolute paths
-  const ngOptions = config.angularCompilerOptions || {};
-  // Ignore the genDir option
-  ngOptions.genDir = basePath;
-
-  return {parsed, ngOptions};
-}
-
-function getProjectDirectory(project: string): string {
-  let isFile: boolean;
+    project: string, existingOptions?: ts.CompilerOptions): ParsedConfiguration {
   try {
-    isFile = fs.lstatSync(project).isFile();
-  } catch (e) {
-    // Project doesn't exist. Assume it is a file has an extension. This case happens
-    // when the project file is passed to set basePath but no tsconfig.json file exists.
-    // It is used in tests to ensure that the options can be passed in without there being
-    // an actual config file.
-    isFile = path.extname(project) !== '';
-  }
+    const {projectFile, basePath} = calcProjectFileAndBasePath(project);
 
-  // If project refers to a file, the project directory is the file's parent directory
-  // otherwise project is the project directory.
-  return isFile ? path.dirname(project) : project;
+    let {config, error} = ts.readConfigFile(projectFile, ts.sys.readFile);
+
+    if (error) {
+      return {errors: [error], rootNames: [], options: {}};
+    }
+    const parseConfigHost = {
+      useCaseSensitiveFileNames: true,
+      fileExists: fs.existsSync,
+      readDirectory: ts.sys.readDirectory,
+      readFile: ts.sys.readFile
+    };
+    const parsed =
+        ts.parseJsonConfigFileContent(config, parseConfigHost, basePath, existingOptions);
+    const rootNames = parsed.fileNames.map(f => path.normalize(f));
+
+    const options = createNgCompilerOptions(basePath, config, parsed.options);
+    return {rootNames, options, errors: parsed.errors};
+  } catch (e) {
+    const errors: Diagnostics = [{
+      category: ts.DiagnosticCategory.Error,
+      message: e.stack,
+    }];
+    return {errors, rootNames: [], options: {}};
+  }
 }
 
 export function performCompilation(
-    basePath: string, files: string[], options: ts.CompilerOptions, ngOptions: any,
-    consoleError: (s: string) => void = console.error,
-    checkFunc: (cwd: string, ...args: any[]) => void = throwOnDiagnostics,
-    tsCompilerHost?: ts.CompilerHost) {
-  try {
-    ngOptions.basePath = basePath;
-    ngOptions.genDir = basePath;
+    {rootNames, options, host, oldProgram, emitCallback, customTransformers}: {
+      rootNames: string[],
+      options: api.CompilerOptions,
+      host?: api.CompilerHost,
+      oldProgram?: api.Program,
+      emitCallback?: api.TsEmitCallback,
+      customTransformers?: api.CustomTransformers
+    }): {
+  program?: api.Program,
+  emitResult?: ts.EmitResult,
+  diagnostics: Diagnostics,
+} {
+  const [major, minor] = ts.version.split('.');
 
-    let host = tsCompilerHost || ts.createCompilerHost(options, true);
-    host.realpath = p => p;
-
-    const rootFileNames = files.map(f => path.normalize(f));
-
-    const addGeneratedFileName = (fileName: string) => {
-      if (fileName.startsWith(basePath) && TS_EXT.exec(fileName)) {
-        rootFileNames.push(fileName);
-      }
-    };
-
-    if (ngOptions.flatModuleOutFile && !ngOptions.skipMetadataEmit) {
-      const {host: bundleHost, indexName, errors} =
-          createBundleIndexHost(ngOptions, rootFileNames, host);
-      if (errors) checkFunc(basePath, errors);
-      if (indexName) addGeneratedFileName(indexName);
-      host = bundleHost;
-    }
-
-    const ngHostOptions = {...options, ...ngOptions};
-    const ngHost = ng.createHost({tsHost: host, options: ngHostOptions});
-
-    const ngProgram =
-        ng.createProgram({rootNames: rootFileNames, host: ngHost, options: ngHostOptions});
-
-    // Check parameter diagnostics
-    checkFunc(basePath, ngProgram.getTsOptionDiagnostics(), ngProgram.getNgOptionDiagnostics());
-
-    // Check syntactic diagnostics
-    checkFunc(basePath, ngProgram.getTsSyntacticDiagnostics());
-
-    // Check TypeScript semantic and Angular structure diagnostics
-    checkFunc(
-        basePath, ngProgram.getTsSemanticDiagnostics(), ngProgram.getNgStructuralDiagnostics());
-
-    // Check Angular semantic diagnostics
-    checkFunc(basePath, ngProgram.getNgSemanticDiagnostics());
-
-    ngProgram.emit({
-      emitFlags: api.EmitFlags.Default |
-          ((ngOptions.skipMetadataEmit || ngOptions.flatModuleOutFile) ? 0 : api.EmitFlags.Metadata)
-    });
-  } catch (e) {
-    if (isSyntaxError(e)) {
-      console.error(e.message);
-      consoleError(e.message);
-      return 1;
-    }
-    throw e;
+  if (Number(major) < 2 || (Number(major) === 2 && Number(minor) < 3)) {
+    throw new Error('Must use TypeScript > 2.3 to have transformer support');
   }
 
-  return 0;
+  const allDiagnostics: Diagnostics = [];
+
+  function checkDiagnostics(diags: Diagnostics | undefined) {
+    if (diags) {
+      allDiagnostics.push(...diags);
+      return diags.every(d => d.category !== ts.DiagnosticCategory.Error);
+    }
+    return true;
+  }
+
+  let program: api.Program|undefined;
+  let emitResult: ts.EmitResult|undefined;
+  try {
+    if (!host) {
+      host = ng.createCompilerHost({options});
+    }
+
+    program = ng.createProgram({rootNames, host, options, oldProgram});
+
+    let shouldEmit = true;
+    // Check parameter diagnostics
+    shouldEmit = shouldEmit && checkDiagnostics([
+                   ...program !.getTsOptionDiagnostics(), ...program !.getNgOptionDiagnostics()
+                 ]);
+
+    // Check syntactic diagnostics
+    shouldEmit = shouldEmit && checkDiagnostics(program !.getTsSyntacticDiagnostics());
+
+    // Check TypeScript semantic and Angular structure diagnostics
+    shouldEmit =
+        shouldEmit &&
+        checkDiagnostics(
+            [...program !.getTsSemanticDiagnostics(), ...program !.getNgStructuralDiagnostics()]);
+
+    // Check Angular semantic diagnostics
+    shouldEmit = shouldEmit && checkDiagnostics(program !.getNgSemanticDiagnostics());
+
+    if (shouldEmit) {
+      emitResult = program !.emit({
+        emitCallback,
+        customTransformers,
+        emitFlags: api.EmitFlags.Default |
+            ((options.skipMetadataEmit || options.flatModuleOutFile) ? 0 : api.EmitFlags.Metadata)
+      });
+      allDiagnostics.push(...emitResult.diagnostics);
+    }
+  } catch (e) {
+    let errMsg: string;
+    if (isSyntaxError(e)) {
+      // don't report the stack for syntax errors as they are well known errors.
+      errMsg = e.message;
+    } else {
+      errMsg = e.stack;
+    }
+    allDiagnostics.push({
+      category: ts.DiagnosticCategory.Error,
+      message: errMsg,
+    });
+  }
+  return {program, emitResult, diagnostics: allDiagnostics};
 }

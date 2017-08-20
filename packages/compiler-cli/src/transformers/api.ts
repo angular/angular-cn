@@ -9,21 +9,16 @@
 import {ParseSourceSpan} from '@angular/compiler';
 import * as ts from 'typescript';
 
-export enum DiagnosticCategory {
-  Warning = 0,
-  Error = 1,
-  Message = 2,
-}
-
 export interface Diagnostic {
   message: string;
   span?: ParseSourceSpan;
-  category: DiagnosticCategory;
+  category: ts.DiagnosticCategory;
 }
 
 export interface CompilerOptions extends ts.CompilerOptions {
   // Absolute path to a directory where generated file structure is written.
   // If unspecified, generated files will be written alongside sources.
+  // @deprecated - no effect
   genDir?: string;
 
   // Path to the directory containing the tsconfig.json file.
@@ -95,36 +90,68 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // Whether to enable lowering expressions lambdas and expressions in a reference value
   // position.
   disableExpressionLowering?: boolean;
+
+  // The list of expected files, when provided:
+  // - extra files are filtered out,
+  // - missing files are created empty.
+  expectedOut?: string[];
+
+  // Locale of the application
+  i18nOutLocale?: string;
+  // Export format (xlf, xlf2 or xmb)
+  i18nOutFormat?: string;
+  // Path to the extracted message file
+  i18nOutFile?: string;
+
+  // Import format if different from `i18nFormat`
+  i18nInFormat?: string;
+  // Locale of the imported translations
+  i18nInLocale?: string;
+  // Path to the translation file
+  i18nInFile?: string;
+  // How to handle missing messages
+  i18nInMissingTranslations?: 'error'|'warning'|'ignore';
+
+  // Whether to remove blank text nodes from compiled templates. It is `true` by default
+  // in Angular 5 and will be re-visited in Angular 6.
+  preserveWhitespaces?: boolean;
 }
 
-export interface ModuleFilenameResolver {
+export interface CompilerHost extends ts.CompilerHost {
   /**
    * Converts a module name that is used in an `import` to a file path.
    * I.e. `path/to/containingFile.ts` containing `import {...} from 'module-name'`.
    */
   moduleNameToFileName(moduleName: string, containingFile?: string): string|null;
-
   /**
-   * Converts a file path to a module name that can be used as an `import.
+   * Converts a file path to a module name that can be used as an `import ...`
    * I.e. `path/to/importedFile.ts` should be imported by `path/to/containingFile.ts`.
-   *
-   * See ImportResolver.
    */
   fileNameToModuleName(importedFilePath: string, containingFilePath: string): string|null;
-
-  getNgCanonicalFileName(fileName: string): string;
-
-  assumeFileExists(fileName: string): void;
-}
-
-export interface CompilerHost extends ts.CompilerHost, ModuleFilenameResolver {
+  /**
+   * Converts a file path for a resource that is used in a source file or another resource
+   * into a filepath.
+   */
+  resourceNameToFileName(resourceName: string, containingFilePath: string): string|null;
+  /**
+   * Converts a file name into a representation that should be stored in a summary file.
+   * This has to include changing the suffix as well.
+   * E.g.
+   * `some_file.ts` -> `some_file.d.ts`
+   *
+   * @param referringSrcFileName the soure file that refers to fileName
+   */
+  toSummaryFileName(fileName: string, referringSrcFileName: string): string;
+  /**
+   * Converts a fileName that was processed by `toSummaryFileName` back into a real fileName
+   * given the fileName of the library that is referrig to it.
+   */
+  fromSummaryFileName(fileName: string, referringLibFileName: string): string;
   /**
    * Load a referenced resource either statically or asynchronously. If the host returns a
    * `Promise<string>` it is assumed the user of the corresponding `Program` will call
    * `loadNgStructureAsync()`. Returing  `Promise<string>` outside `loadNgStructureAsync()` will
    * cause a diagnostics diagnostic error or an exception to be thrown.
-   *
-   * If `loadResource()` is not provided, `readFile()` will be called to load the resource.
    */
   readResource?(fileName: string): Promise<string>|string;
 }
@@ -140,11 +167,23 @@ export enum EmitFlags {
   All = DTS | JS | Metadata | I18nBundle | Summary
 }
 
-// TODO(chuckj): Support CustomTransformers once we require TypeScript 2.3+
-// export interface CustomTransformers {
-//   beforeTs?: ts.TransformerFactory<ts.SourceFile>[];
-//   afterTs?: ts.TransformerFactory<ts.SourceFile>[];
-// }
+export interface CustomTransformers {
+  beforeTs?: ts.TransformerFactory<ts.SourceFile>[];
+  afterTs?: ts.TransformerFactory<ts.SourceFile>[];
+}
+
+export interface TsEmitArguments {
+  program: ts.Program;
+  host: CompilerHost;
+  options: CompilerOptions;
+  targetSourceFile?: ts.SourceFile;
+  writeFile?: ts.WriteFileCallback;
+  cancellationToken?: ts.CancellationToken;
+  emitOnlyDtsFiles?: boolean;
+  customTransformers?: ts.CustomTransformers;
+}
+
+export interface TsEmitCallback { (args: TsEmitArguments): ts.EmitResult; }
 
 export interface Program {
   /**
@@ -155,7 +194,7 @@ export interface Program {
   getTsProgram(): ts.Program;
 
   /**
-   * Retreive options diagnostics for the TypeScript options used to create the program. This is
+   * Retrieve options diagnostics for the TypeScript options used to create the program. This is
    * faster than calling `getTsProgram().getOptionsDiagnostics()` since it does not need to
    * collect Angular structural information to produce the errors.
    */
@@ -167,7 +206,7 @@ export interface Program {
   getNgOptionDiagnostics(cancellationToken?: ts.CancellationToken): Diagnostic[];
 
   /**
-   * Retrive the syntax diagnostics from TypeScript. This is faster than calling
+   * Retrieve the syntax diagnostics from TypeScript. This is faster than calling
    * `getTsProgram().getSyntacticDiagnostics()` since it does not need to collect Angular structural
    * information to produce the errors.
    */
@@ -188,7 +227,7 @@ export interface Program {
   getNgStructuralDiagnostics(cancellationToken?: ts.CancellationToken): Diagnostic[];
 
   /**
-   * Retreive the semantic diagnostics from TypeScript. This is equivilent to calling
+   * Retrieve the semantic diagnostics from TypeScript. This is equivilent to calling
    * `getTsProgram().getSemanticDiagnostics()` directly and is included for completeness.
    */
   getTsSemanticDiagnostics(sourceFile?: ts.SourceFile, cancellationToken?: ts.CancellationToken):
@@ -222,10 +261,10 @@ export interface Program {
    *
    * Angular structural information is required to emit files.
    */
-  emit({// transformers,
-        emitFlags, cancellationToken}: {
-    emitFlags: EmitFlags,
-    // transformers?: CustomTransformers, // See TODO above
+  emit({emitFlags, cancellationToken, customTransformers, emitCallback}: {
+    emitFlags?: EmitFlags,
     cancellationToken?: ts.CancellationToken,
-  }): void;
+    customTransformers?: CustomTransformers,
+    emitCallback?: TsEmitCallback
+  }): ts.EmitResult;
 }

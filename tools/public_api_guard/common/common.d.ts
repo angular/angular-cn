@@ -33,6 +33,10 @@ export declare class DecimalPipe implements PipeTransform {
     transform(value: any, digits?: string): string | null;
 }
 
+/** @deprecated */
+export declare class DeprecatedI18NPipesModule {
+}
+
 /** @stable */
 export declare const DOCUMENT: InjectionToken<Document>;
 
@@ -240,9 +244,8 @@ export declare class NgSwitchDefault {
     constructor(viewContainer: ViewContainerRef, templateRef: TemplateRef<Object>, ngSwitch: NgSwitch);
 }
 
-/** @experimental */
+/** @stable */
 export declare class NgTemplateOutlet implements OnChanges {
-    /** @deprecated */ ngOutletContext: Object;
     ngTemplateOutlet: TemplateRef<any>;
     ngTemplateOutletContext: Object;
     constructor(_viewContainerRef: ViewContainerRef);

@@ -1,3 +1,127 @@
+<a name="5.0.0-beta.4"></a>
+# [5.0.0-beta.4](https://github.com/angular/angular/compare/5.0.0-beta.3...5.0.0-beta.4) (2017-08-16)
+
+
+### Bug Fixes
+
+* **aio:** fix compilation error by using the correct type for `providers` ([4d523fd](https://github.com/angular/angular/commit/4d523fd))
+* **aio:** skip PWA test when redeploying non-public commit ([06faac8](https://github.com/angular/angular/commit/06faac8))
+* **compiler:** Don't strip CSS source maps ([64b4be9](https://github.com/angular/angular/commit/64b4be9))
+* **forms:** re-assigning options should not clear select ([32ff21c](https://github.com/angular/angular/commit/32ff21c)), closes [#18330](https://github.com/angular/angular/issues/18330)
+* **language-service:** remove tsickle dependency ([bc22ff1](https://github.com/angular/angular/commit/bc22ff1))
+
+
+### Features
+
+* **common:** mark NgTemplateOutlet API as stable ([0a73e8d](https://github.com/angular/angular/commit/0a73e8d))
+* **forms:** add status to `AbstractControlDirective` ([233ef93](https://github.com/angular/angular/commit/233ef93))
+* **forms:** add updateOn support to ngModelOptions ([1cfa79c](https://github.com/angular/angular/commit/1cfa79c))
+
+
+### Performance Improvements
+
+* **aio:** update to new version of build-optimizer ([088532b](https://github.com/angular/angular/commit/088532b))
+* **core:** add option to remove blank text nodes from compiled templates ([d2c0d98](https://github.com/angular/angular/commit/d2c0d98))
+* **core:** Remove decorator DSL which depends on Reflect ([cac130e](https://github.com/angular/angular/commit/cac130e))
+
+
+
+<a name="4.3.5"></a>
+## [4.3.5](https://github.com/angular/angular/compare/4.3.4...4.3.5) (2017-08-16)
+
+
+### Bug Fixes
+
+* **aio:** skip PWA test when redeploying non-public commit ([b9c1c91](https://github.com/angular/angular/commit/b9c1c91))
+* **core:** forbid destroyed views to be inserted or moved in VC ([972538b](https://github.com/angular/angular/commit/972538b)), closes [#18615](https://github.com/angular/angular/issues/18615)
+* **forms:** re-assigning options should not clear select ([a1624f2](https://github.com/angular/angular/commit/a1624f2)), closes [#18330](https://github.com/angular/angular/issues/18330)
+
+
+### Performance Improvements
+
+* **aio:** update to new version of build-optimizer ([d7be4f1](https://github.com/angular/angular/commit/d7be4f1))
+
+
+
+<a name="4.3.4"></a>
+## [4.3.4](https://github.com/angular/angular/compare/4.3.3...4.3.4) (2017-08-10)
+
+### Bug Fixes
+
+* **animations:** revert container/queried animations accordingly during cancel ([#18516](https://github.com/angular/angular/issues/18516)) ([5a165eb](https://github.com/angular/angular/commit/5a165eb))
+* **animations:** support persisting dynamic styles within animation states ([#18468](https://github.com/angular/angular/issues/18468)) ([e0660b1](https://github.com/angular/angular/commit/e0660b1)), closes [#18423](https://github.com/angular/angular/issues/18423) [#17505](https://github.com/angular/angular/issues/17505)
+* **benchpress:** compile cleanly with TS 2.4 ([#18455](https://github.com/angular/angular/issues/18455)) ([5afc7ab](https://github.com/angular/angular/commit/5afc7ab))
+* **compiler:** cleanly compile with TypeScript 2.4 ([#18456](https://github.com/angular/angular/issues/18456)) ([5e4054b](https://github.com/angular/angular/commit/5e4054b))
+* **compiler:** ignore [@import](https://github.com/import) in multi-line css ([#18452](https://github.com/angular/angular/issues/18452)) ([e7e7622](https://github.com/angular/angular/commit/e7e7622)), closes [#18038](https://github.com/angular/angular/issues/18038)
+
+
+<a name="5.0.0-beta.3"></a>
+# [5.0.0-beta.3](https://github.com/angular/angular/compare/5.0.0-beta.2...5.0.0-beta.3) (2017-08-09)
+
+
+### Bug Fixes
+
+* **animations:** revert container/queried animations accordingly during cancel ([#18516](https://github.com/angular/angular/issues/18516)) ([c0c03dc](https://github.com/angular/angular/commit/c0c03dc))
+* **animations:** support persisting dynamic styles within animation states ([#18468](https://github.com/angular/angular/issues/18468)) ([05472cb](https://github.com/angular/angular/commit/05472cb)), closes [#18423](https://github.com/angular/angular/issues/18423) [#17505](https://github.com/angular/angular/issues/17505)
+* **benchpress:** compile cleanly with TS 2.4 ([#18455](https://github.com/angular/angular/issues/18455)) ([e25b3dd](https://github.com/angular/angular/commit/e25b3dd))
+* **common:** don't recreate view when context shape doesn't change ([#18277](https://github.com/angular/angular/issues/18277)) ([685cc26](https://github.com/angular/angular/commit/685cc26)), closes [#13407](https://github.com/angular/angular/issues/13407)
+* **compiler:** cleanly compile with TypeScript 2.4 ([#18456](https://github.com/angular/angular/issues/18456)) ([7c47b62](https://github.com/angular/angular/commit/7c47b62))
+* **compiler:** ignore [@import](https://github.com/import) in multi-line css ([#18452](https://github.com/angular/angular/issues/18452)) ([1dca575](https://github.com/angular/angular/commit/1dca575)), closes [#18038](https://github.com/angular/angular/issues/18038)
+* **compiler-cli:** disable buggy expression lowering ([#18513](https://github.com/angular/angular/issues/18513)) ([ca695e0](https://github.com/angular/angular/commit/ca695e0))
+* **compiler-cli:** fix and re-enable expression lowering ([#18570](https://github.com/angular/angular/issues/18570)) ([6f2038c](https://github.com/angular/angular/commit/6f2038c)), closes [#18388](https://github.com/angular/angular/issues/18388)
+* **compiler-cli:** modified ngc to throw all errors, not just syntax ([#18388](https://github.com/angular/angular/issues/18388)) ([5651e4a](https://github.com/angular/angular/commit/5651e4a))
+* **compiler-cli:** remove minimist dependency of compiler-cli/index ([#18532](https://github.com/angular/angular/issues/18532)) ([5b7432b](https://github.com/angular/angular/commit/5b7432b))
+* **core:** fix platform-browser-dynamic ([#18576](https://github.com/angular/angular/issues/18576)) ([f0a5501](https://github.com/angular/angular/commit/f0a5501))
+* **core:** forbid destroyed views to be inserted or moved in VC ([#18568](https://github.com/angular/angular/issues/18568)) ([e54bd59](https://github.com/angular/angular/commit/e54bd59)), closes [#17780](https://github.com/angular/angular/issues/17780)
+
+### Features
+
+* **core:** Create StaticInjector which does not depend on Reflect polyfill. ([d9d00bd](https://github.com/angular/angular/commit/d9d00bd))
+* **forms:** add default updateOn values for groups and arrays ([#18536](https://github.com/angular/angular/issues/18536)) ([ff5c58b](https://github.com/angular/angular/commit/ff5c58b))
+* **forms:** add updateOn blur option to FormControls ([#18408](https://github.com/angular/angular/issues/18408)) ([333a708](https://github.com/angular/angular/commit/333a708)), closes [#7113](https://github.com/angular/angular/issues/7113)
+* **forms:** add updateOn submit option to FormControls ([#18514](https://github.com/angular/angular/issues/18514)) ([f69561b](https://github.com/angular/angular/commit/f69561b))
+
+### Performance Improvements
+
+* switch angular to use StaticInjector instead of ReflectiveInjector ([fcadbf4](https://github.com/angular/angular/commit/fcadbf4)), closes [#18496](https://github.com/angular/angular/issues/18496)
+
+
+### BREAKING CHANGES
+
+* `platformXXXX()` no longer accepts providers which depend on reflection.
+Specifically the method signature when from `Provider[]` to
+`StaticProvider[]`.
+
+Example:
+Before:
+```
+[
+  MyClass,
+  {provide: ClassA, useClass: SubClassA}
+]
+
+```
+
+After:
+```
+[
+  {provide: MyClass, deps: [Dep1,...]},
+  {provide: ClassA, useClass: SubClassA, deps: [Dep1,...]}
+]
+```
+
+NOTE: This only applies to platform creation and providers for the JIT
+compiler. It does not apply to `@Component` or `@NgModule` provides
+declarations.
+
+Benchpress note: Previously Benchpress also supported reflective
+provides, which now require static providers.
+
+DEPRECATION:
+
+- `ReflectiveInjector` is now deprecated as it will be remove. Use
+  `Injector.create` as a replacement.
+
 <a name="5.0.0-beta.2"></a>
 # [5.0.0-beta.2](https://github.com/angular/angular/compare/5.0.0-beta.1...5.0.0-beta.2) (2017-08-02)
 
@@ -14,15 +138,12 @@
 * **router:** add events tracking activation of individual routes ([49cd851](https://github.com/angular/angular/commit/49cd851))
 
 
-
 <a name="4.3.3"></a>
 ## [4.3.3](https://github.com/angular/angular/compare/4.3.2...4.3.3) (2017-08-02)
-
 
 ### Bug Fixes
 
 * **compiler:** fix for element needing implicit parent placed in top-level ng-container ([f5cbc2e](https://github.com/angular/angular/commit/f5cbc2e)), closes [#18314](https://github.com/angular/angular/issues/18314)
-
 
 
 <a name="5.0.0-beta.1"></a>

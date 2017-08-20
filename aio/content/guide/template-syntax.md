@@ -2140,7 +2140,7 @@ They are usually applied to elements as if they were HTML attributes, hence the 
 它们通常会作为HTML属性的名称而应用在元素上。
 
 Many details are covered in the [_Attribute Directives_](guide/attribute-directives) guide.
-Many NgMdules such as the [`RouterModule`](guide/router "Routing and Navigation")
+Many NgModules such as the [`RouterModule`](guide/router "Routing and Navigation")
 and the [`FormsModule`](guide/forms "Forms") define their own attribute directives.
 This section is an introduction to the most commonly used attribute directives:
 

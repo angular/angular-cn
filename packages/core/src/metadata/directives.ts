@@ -54,7 +54,8 @@ export interface DirectiveDecorator {
    *
    * **Metadata Properties:**
    *
-   * * **exportAs** - name under which the component instance is exported in a template
+   * * **exportAs** - name under which the component instance is exported in a template. Can be
+   * given a single name or a comma-delimited list of names.
    * * **host** - map of class property to host element bindings for events, properties and
    * attributes
    * * **inputs** - list of class property names to data-bind as component inputs
@@ -675,6 +676,16 @@ export interface Component extends Directive {
    * {@link ComponentFactoryResolver}.
    */
   entryComponents?: Array<Type<any>|any[]>;
+
+  /**
+   * If preserveWhitespaces is set to `false` potentially superfluous blank characters (space, tab,
+   * new line) will be removed from compiled templates. This can greatly reduce generated code size
+   * as well as speed up components' creation. The whitespace removal algorithm will drop all
+   * the blank text nodes and collapse series of whitespaces to just one space.
+   * Those transformations can potentially influence layout of the generated markup so
+   * the `preserveWhitespaces` should be used with care.
+   */
+  preserveWhitespaces?: boolean;
 }
 
 /**
