@@ -263,7 +263,7 @@ Angular instead inspects directive and component classes and calls the hook meth
 Angular finds and calls methods like `ngOnInit()`, with or without the interfaces.
 
 Angular会去检测我们的指令和组件的类，一旦发现钩子方法被定义了，就调用它们。
-Agnular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。
+Angular会找到并调用像`ngOnInit()`这样的钩子方法，有没有接口无所谓。
 
 Nonetheless, it's good practice to add interfaces to TypeScript directive classes
 in order to benefit from strong typing and editor tooling.
