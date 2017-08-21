@@ -906,7 +906,7 @@ The *token* is usually a class but [it doesn't have to be](guide/dependency-inje
 
 The *definition* object has a required property that specifies how to create  the singleton instance of the service. In this case, the property.
 
-该*定义*对象有一个主属性(即`userValue`)，用来标识该提供商会如何新建和返回依赖。
+该*定义*对象有一个必填属性(即`useValue`)，用来标识该提供商会如何新建和返回该服务的单例对象。
 
 
 
@@ -919,7 +919,7 @@ The *definition* object has a required property that specifies how to create  th
 
 *Set the `useValue` property to a ***fixed value*** that the provider can return as the service instance (AKA, the "dependency object").
 
-把一个***固定的值**，也就是该提供商可以将其作为依赖对象返回的值，赋给`userValue`属性。
+把一个***固定的值**，也就是该提供商可以将其作为依赖对象返回的值，赋给`useValue`属性。
 
 Use this technique to provide *runtime configuration constants* such as website base addresses and feature flags.
 You can use a *value provider* in a unit test to replace a production service with a fake or mock.
