@@ -31,7 +31,7 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 
 但你可以在精神上支持我们，比如：
 
-- 在 Github 上 <iframe src="./github-btn.html?user=angular&amp;repo=angular-cn&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="130" height="30""></iframe>我们 或 <iframe src="./github-btn.html?user=angular&amp;repo=angular-cn&amp;type=fork&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="130" height="30""></iframe> 我们
+- 在 Github 上 Star 我们
 - 提供[反馈、纠错](https://github.com/angular/angular-cn/issues)
 - 帮我们宣传
 - 等等
