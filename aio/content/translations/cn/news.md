@@ -1,7 +1,7 @@
 # Angular News
 # Angular 新闻中心
 
-## 阿里的 Angular 组件库 ng-zorro 发布！
+## Angular 组件库 NG-ZORRO 发布！
 
 仓库地址：[NG-ZORRO/ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)
 
