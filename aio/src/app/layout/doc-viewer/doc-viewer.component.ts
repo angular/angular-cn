@@ -139,7 +139,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   @HostListener('click', ['$event'])
   toggleTranslationOrigin($event: MouseEvent): void {
     const element = findTranslationResult($event.target as Element);
-    if (element.hasAttribute('translation-result')) {
+    if (element && element.hasAttribute('translation-result')) {
       const origin = element.nextElementSibling;
       if (!origin || origin.hasAttribute('translation-result') || origin.tagName !== element.tagName) {
         return;
