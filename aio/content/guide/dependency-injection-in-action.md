@@ -1397,7 +1397,7 @@ and then pass them down to the base class through the constructor.
 In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent` 
 to display a *sorted* list of heroes.
 
-在这个生造的例子里，`SortedHeroesComponent`继承自`HeroesBaseComponent`，显示一个*被排序*的英雄列表。
+在这个刻意生成的例子里，`SortedHeroesComponent`继承自`HeroesBaseComponent`，显示一个*被排序*的英雄列表。
 
 
 <figure>
@@ -1427,7 +1427,7 @@ and displays them in the order they arrive from the database.
 This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
 That's why you call the `HeroService` from within the `ngOnInit` rather than the constructor.
 
-让构造函数保持简单。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作(比如连接服务)。
+让构造函数保持简单。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作(比如与服务器进行会话)。
 这就是为什么我们要在`ngOnInit`里面调用`HeroService`，而不是在构造函数中。
 
 
@@ -1573,7 +1573,7 @@ Imagine a component for rendering breaking news about a financial instrument.
 For  business reasons, this news component makes frequent calls 
 directly into its parent instrument as changing market data streams by.
 
-一个可复用的组件可能是多个组件的子级。想象一个用来渲染金融工具头条新闻的组件。为了合理(咳咳)的商业理由，该新闻组件在实时变化的市场数据流过时，要频繁的直接调用其父级工具。
+一个可复用的组件可能是多个组件的子级。想象一个用来渲染金融工具头条新闻的组件。由于商业原因，该新闻组件在实时变化的市场数据流过时，要频繁的直接调用其父级工具。
 
 The app probably defines more than a dozen financial instrument components.
 If you're lucky, they all implement the same base class
@@ -1600,7 +1600,9 @@ There's no artifact to look for.
 
 This isn't necessarily good design.
 This example is examining *whether a component can 
-inject its parent via the parent's base class*.这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
+inject its parent via the parent's base class
+
+*.这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
 
 The sample's `CraigComponent` explores this question. [Looking back](guide/dependency-injection-in-action#alex) ,
 you see that the `Alex` component *extends* (*inherits*) from a class named `Base`.
@@ -1866,7 +1868,7 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 Writing variations of the same parent *alias provider* gets old quickly,
 especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-in-action#forwardref):
 
-编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef](guide/dependency-injection-in-action#forwardref)的时候尤其绕口：
+编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef*](guide/dependency-injection-in-action#forwardref)的时候尤其绕口：
 
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
