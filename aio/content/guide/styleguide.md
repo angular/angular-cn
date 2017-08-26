@@ -121,6 +121,8 @@ This helps make the app cleaner, easier to read and maintain, and more testable.
 
 ### Rule of One
 
+### 单一原则
+
 #### Style 01-01
 
 #### 风格 01-01
@@ -1149,11 +1151,11 @@ As always, strive for consistency.
 
 ### Directive selectors
 
-### {@a 02-06}指令选择器
+### 指令选择器
 
 #### Style 02-06
 
-#### <a href="#02-06">风格 02-06</a>
+#### 风格 02-06
 
 
 <div class="s-rule do">
@@ -1203,11 +1205,11 @@ As always, strive for consistency.
 
 ### Custom prefix for components
 
-### {@a 02-07}为组件添加自定义前缀
+### 为组件添加自定义前缀
 
 #### Style 02-07
 
-#### <a href="#02-07">风格 02-07</a>
+#### 风格 02-07
 
 
 <div class="s-rule do">
@@ -1797,11 +1799,11 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 ### Angular _NgModule_ names
 
-### {@a 02-12}Angular *NgModule* 命名
+### Angular *NgModule* 命名
 
 #### Style 02-12
 
-#### <a href="#02-12">风格 02-12</a>
+#### 风格 02-12
 
 
 <div class="s-rule do">
@@ -2381,11 +2383,11 @@ discourage the `I` prefix.
 
 ### Properties and methods
 
-### {@a 03-04}属性和方法
+### 属性和方法
 
 #### Style 03-04
 
-#### <a href="#03-04">样式 03-04</a>
+#### 样式 03-04
 
 
 <div class="s-rule do">
@@ -2473,11 +2475,11 @@ discourage the `I` prefix.
 
 ### Import line spacing
 
-### {@a 03-06}导入语句中的空行
+### 导入语句中的空行
 
 #### Style 03-06
 
-#### <a href="#03-06">风格 03-06</a>
+#### 风格 03-06
 
 
 <div class="s-rule consider">
@@ -2597,7 +2599,7 @@ Use the naming conventions for files in this guide.
 
 #### Style 04-01
 
-#### <a href="#04-01">风格 04-01</a>
+#### 风格 04-01
 
 
 <div class="s-rule do">
@@ -2653,11 +2655,11 @@ _can I quickly open and start work in all of the related files for this feature_
 
 ### Locate
 
-### {@a 04-02}定位
+### 定位
 
 #### Style 04-02
 
-#### <a href="#04-02"> 风格04-02</a>
+####  风格04-02
 
 
 <div class="s-rule do">
@@ -2700,11 +2702,11 @@ A descriptive folder structure makes a world of difference to you and the people
 
 ### Identify
 
-### {@a 04-03}识别
+### 识别
 
 #### Style 04-03
 
-#### <a href="#04-03">风格 04-03</a>
+#### 风格 04-03
 
 
 <div class="s-rule do">
@@ -3273,11 +3275,11 @@ Whatever you choose, be consistent.
 
 ### _Folders-by-feature_ structure
 
-### {@a 04-07}按特性组织的目录结构
+### 按特性组织的目录结构
 
 #### Style 04-07
 
-#### <a href="#04-07">风格 04-07</a>
+#### 风格 04-07
 
 
 <div class="s-rule do">
@@ -3483,7 +3485,7 @@ for example, in `/src/app`.
 
 #### 风格 04-09
 
-#### <a href="#04-09">风格 04-09</a>
+#### 风格 04-09
 
 <div class="s-rule do">
 
@@ -3627,11 +3629,11 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 
 ### Shared feature module
 
-### {@a 04-10}共享特性模块
+### 共享特性模块
 
 #### Style 04-10
 
-#### <a href="#04-10">风格 04-10</a>
+#### 风格 04-10
 
 
 <div class="s-rule do">
@@ -3908,11 +3910,11 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 ### Core feature module
 
-### {@a 04-11}核心特性模块
+### 核心特性模块
 
 #### Style 04-11
 
-#### <a href="#04-11">风格04-11</a>
+#### 风格04-11
 
 
 <div class="s-rule consider">
@@ -4278,11 +4280,11 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 ### Prevent re-import of the core module
 
-### {@a 04-12}防止多次导入`CoreModule`
+### 防止多次导入`CoreModule`
 
 #### Style 04-12
 
-#### <a href="#04-12">风格 04-12</a>  
+#### 风格 04-12  
 
 Only the root `AppModule` should import the `CoreModule`.
 
@@ -4350,11 +4352,11 @@ Only the root `AppModule` should import the `CoreModule`.
 
 ### Lazy Loaded folders
 
-### {@a 04-13}惰性加载的目录
+### 惰性加载的目录
 
 #### Style 04-13
 
-#### <a href="#04-13">样式 04-13</a>
+#### 样式 04-13
 
 A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
 
@@ -4397,11 +4399,11 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 ### Never directly import lazy loaded folders
 
-### {@a 04-14}永远不要直接导入惰性加载的目录
+### 永远不要直接导入惰性加载的目录
 
 #### Style 04-14
 
-#### <a href="#04-14">样式 04-14</a>
+#### 样式 04-14
 
 
 <div class="s-rule avoid">
@@ -4504,11 +4506,11 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 ### Components as elements
 
-### {@a 05-03}把组件当做元素
+### 把组件当做元素
 
 #### Style 05-03
 
-#### <a href="#05-03">风格 05-03</a>
+#### 风格 05-03
 
 
 <div class="s-rule do">
@@ -4587,11 +4589,11 @@ Developers place components on the page as they would native HTML elements and w
 
 ### Extract templates and styles to their own files
 
-### {@a 05-04}把模板和样式提取到它们自己的文件
+### 把模板和样式提取到它们自己的文件
 
 #### Style 05-04
 
-#### <a href="#05-04">风格 05-04</a>
+#### 风格 05-04
 
 
 <div class="s-rule do">
@@ -4733,11 +4735,11 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 
 ### Decorate _input_ and _output_ properties
 
-### {@a 05-12}内联输入和输出属性装饰器
+### 内联输入和输出属性装饰器
 
 #### Style 05-12
 
-#### <a href="#05-12">风格 05-12</a>
+#### 风格 05-12
 
 
 <div class="s-rule do">
@@ -4927,11 +4929,11 @@ and the directive name doesn't describe the property.
 
 ### Member sequence
 
-### {@a 05-14}成员顺序
+### 成员顺序
 
 #### Style 05-14
 
-#### <a href="#05-14">风格 05-14</a>
+#### 风格 05-14
 
 
 <div class="s-rule do">
@@ -4994,11 +4996,11 @@ helps instantly identify which members of the component serve which purpose.
 
 ### Delegate complex component logic to services
 
-### {@a 05-15}把逻辑放到服务里
+### 把逻辑放到服务里
 
 #### Style 05-15
 
-#### <a href="#05-14">风格 05-15</a>
+#### 风格 05-15
 
 
 <div class="s-rule do">
@@ -5099,11 +5101,11 @@ helps instantly identify which members of the component serve which purpose.
 
 ### Don't prefix _output_ properties
 
-### {@a 05-16}不要给输出属性加前缀
+### 不要给输出属性加前缀
 
 #### Style 05-16
 
-#### <a href="#05-16">风格 05-16</a>
+#### 风格 05-16
 
 
 <div class="s-rule do">
@@ -5192,11 +5194,11 @@ helps instantly identify which members of the component serve which purpose.
 
 ### Put presentation logic in the component class
 
-### {@a 05-17}把表现层逻辑放到组件类里
+### 把表现层逻辑放到组件类里
 
 #### Style 05-17
 
-#### <a href="#05-17">风格 05-17</a>
+#### 风格 05-17
 
 
 <div class="s-rule do">
@@ -5328,11 +5330,11 @@ helps instantly identify which members of the component serve which purpose.
 
 ### _HostListener_/_HostBinding_ decorators versus _host_ metadata
 
-### {@a 06-03}*HostListener* 和 *HostBinding* 装饰器 vs. 组件元数据 *host*
+### *HostListener* 和 *HostBinding* 装饰器 vs. 组件元数据 *host*
 
 #### Style 06-03
 
-#### <a href="#06-03">风格 06-03</a>
+#### 风格 06-03
 
 
 <div class="s-rule consider">
@@ -5482,11 +5484,11 @@ Compare with the less preferred `host` metadata alternative.
 
 ### Single responsibility
 
-### {@a 07-02}单一职责
+### 单一职责
 
 #### Style 07-02
 
-#### <a href="#07-02">风格 07-02</a>
+#### 风格 07-02
 
 
 <div class="s-rule do">
@@ -5549,11 +5551,11 @@ Compare with the less preferred `host` metadata alternative.
 
 ### Providing a service
 
-### {@a 07-03}提供一个服务
+### 提供一个服务
 
 #### Style 07-03
 
-#### <a href="#07-03">风格 07-03</a>
+#### 风格 07-03
 
 
 <div class="s-rule do">
@@ -5641,11 +5643,11 @@ that instance is shared and available to all child components of that top level 
 
 ### Use the @Injectable() class decorator
 
-### {@a 07-04}使用 @Injectable() 类装饰器
+### 使用 @Injectable() 类装饰器
 
 #### Style 07-04
 
-#### <a href="#07-04">风格 07-04</a>
+#### 风格 07-04
 
 
 <div class="s-rule do">
@@ -5706,6 +5708,8 @@ dependencies based on the declared types of that service's constructor parameter
 
 
 ## Data Services
+
+## 数据服务
 
 {@a 08-01}
 
@@ -5802,17 +5806,22 @@ easier to test the consumers with mock service implementations.
 ## 生命周期钩子
 
 Use Lifecycle hooks to tap into important events exposed by Angular.
-使用生命周期钩子来介入到 Angular 暴露的重要事件里。<a href="#toc"class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+使用生命周期钩子来介入到 Angular 暴露的重要事件里。
+
+<a href="#toc"class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
 
 {@a 09-01}
 
 ### Implement lifecycle hook interfaces
 
-### {@a 09-01}实现生命周期钩子接口
+### 实现生命周期钩子接口
 
 #### Style 09-01
 
-#### <a href="#09-01">风格 09-01</a>
+#### 风格 09-01
 
 
 <div class="s-rule do">
@@ -5864,7 +5873,12 @@ signatures. use those signatures to flag spelling and syntax mistakes.
 ## 附录
 
 Useful tools and tips for Angular.
-有用的 Angular 工具和小提示<a href="#toc"class='to-top'>Back to top</a><a href="#toc" class='to-top'>回到顶部</a>
+
+有用的 Angular 工具和小提示
+
+<a href="#toc"class='to-top'>Back to top</a>
+
+<a href="#toc" class='to-top'>回到顶部</a>
 
 {@a A-01}
 
@@ -5872,7 +5886,7 @@ Useful tools and tips for Angular.
 
 #### Style A-01
 
-#### <a href="#A-01">风格 A-01</a>
+#### 风格 A-01
 
 
 <div class="s-rule do">
@@ -5909,11 +5923,11 @@ Useful tools and tips for Angular.
 
 ### File templates and snippets
 
-### {@a A-02}文档模板和代码片段
+### 文档模板和代码片段
 
 #### Style A-02
 
-#### <a href="#A-02">风格 A-02</a>
+#### 风格 A-02
 
 
 <div class="s-rule do">
