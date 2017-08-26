@@ -121,7 +121,7 @@ This helps make the app cleaner, easier to read and maintain, and more testable.
 
 ### Rule of One
 
-### 单一原则
+### 单一规则
 
 #### Style 01-01
 

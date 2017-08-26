@@ -79,9 +79,9 @@ aligned with Angular*.
 
 Angular是一个基于AngularJS中最好的部分构思出来的版本。在这种意义上，它的目标和Angular风格指南是一样的：
 保留AngularJS中好的部分，去掉坏的部分。当然，Angular还做了更多。
-说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular程序的AngularJS程序*。There are a few rules in particular that will make it much easier to do
+说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular程序的AngularJS程序*。
 
-*an incremental upgrade* using the Angular `upgrade/static` module:
+There are a few rules in particular that will make it much easier to do *an incremental upgrade* using the Angular `upgrade/static` module:
 
 有一些特别的规则可以让使用Angular的`upgrade`模块进行*增量升级*变得更简单：
 
