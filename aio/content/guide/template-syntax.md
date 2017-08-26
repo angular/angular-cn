@@ -491,7 +491,10 @@ you're ready to learn about the varieties of data binding syntax beyond interpol
 
 现在，对模板表达式和语句有了一点感觉了吧。
   除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+  
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2081,7 +2084,10 @@ However, no native HTML element follows the `x` value and `xChange` event patter
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
 
 幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。
-<a href="#top-of-page">back to top</a><a href="#top-of-page">回到顶部</a>
+
+<a href="#top-of-page">back to top</a>
+
+<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
