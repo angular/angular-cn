@@ -12,14 +12,18 @@ to meet rapidly changing business and regulatory requirements.
 
 It may be more economical to create the forms dynamically, based on metadata that describes the business object model.
 
-基于业务对象模型的元数据，动态创建表单可能会更划算。This cookbook shows you how to use `formGroup` to dynamically 
+基于业务对象模型的元数据，动态创建表单可能会更划算。
+
+This cookbook shows you how to use `formGroup` to dynamically 
 render a simple form with different control types and validation.
 It's a primitive start.
 It might evolve to support a much richer variety of questions, more graceful rendering, and superior user experience.
 All such greatness has humble beginnings.
 
 在此烹饪宝典中，我们会展示如何利用`formGroup`来动态渲染一个简单的表单，包括各种控件类型和验证规则。
-这个起点很简陋，但可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。The example in this cookbook is a dynamic form to build an 
+这个起点很简陋，但可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。
+
+The example in this cookbook is a dynamic form to build an 
 online application experience for heroes seeking employment.
 The agency is constantly tinkering with the application process.
 You can create the forms on the fly *without changing the application code*. 
