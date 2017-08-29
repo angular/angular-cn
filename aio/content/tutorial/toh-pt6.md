@@ -535,7 +535,7 @@ Refresh the browser and create some heroes.
 
 ## Add the ability to delete a hero
 
-## 支持添加英雄
+## 删除英雄
 
 Each hero in the heroes view should have a delete button.
 
