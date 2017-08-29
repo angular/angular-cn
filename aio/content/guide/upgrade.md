@@ -252,6 +252,7 @@ Component directives may also use the following attributes:
 * `transclude: true/{}`, if the component needs to transclude content from elsewhere.
 
   `transclude: true`：如果组件需要从其它地方透传内容，就设置它。
+  
 * `require`, if the component needs to communicate with some parent component's
   controller.
 

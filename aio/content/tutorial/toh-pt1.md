@@ -6,6 +6,15 @@
 
 @description
 
+<div class="l-sub-section">
+
+### 阅读指南（译者）
+
+对于没有前端基础的同学来说，读本教程的时候可能会遇到一些陌生的名词。不要慌，你可以跳到[词汇表](guide/glossary)查找对它的详细解释。
+
+如果想对Angular的概念有一个宏观的了解，请先阅读[架构概览](guide/architecture)。
+
+</div>
 
 ## Setup to develop locally
 
