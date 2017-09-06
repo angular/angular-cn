@@ -73,7 +73,6 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - bluewaitor（来自 Github ）
 - zhouchangsheng（来自Github）
 - wxchenxueqi（来自Github）
-- looading（来自Github）
 - VelChen（来自Github）
 - vthinkxie（来自Github）
 - 另外还有一些做好事不留名的活雷锋
