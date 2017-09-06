@@ -1707,7 +1707,7 @@ The fourth test verifies the same component behavior in a different way.
 Notice that `fakeAsync` replaces `async` as the `it` argument.
 The `fakeAsync` function is another of the Angular testing utilities.
 
-注意，在`it`的参数中，`async`被`faceAsync`替换。
+注意，在`it`的参数中，`async`被`fakeAsync`替换。
 `fakeAsync`是另一种Angular测试工具。
 
 Like [async](guide/testing#async), it _takes_ a parameterless function and _returns_ a function
