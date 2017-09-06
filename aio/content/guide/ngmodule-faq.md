@@ -785,7 +785,7 @@ But for routed applications, "almost" isn't good enough.
 
 `AppComponent`的注入器是根注入器的*子级*，注入器层次中的下一级。
 这对于没有路由器的应用来说*几乎是*整个应用了。
-但这个“几乎”对于带路有的应用仍然是不够的。
+但这个“几乎”对于带路由的应用仍然是不够的。
 
 `AppComponent` services don't exist at the root level where routing operates.
 Lazy-loaded modules can't reach them.

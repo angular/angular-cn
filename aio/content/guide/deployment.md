@@ -698,7 +698,7 @@ This section covers changes you may have make to the server or to files deployed
 
 ### Routed apps must fallback to `index.html`
 
-### 带路有的应用必须以`index.html`作为后备页面
+### 带路由的应用必须以`index.html`作为后备页面
 
 Angular apps are perfect candidates for serving with a simple static HTML server.
 You don't need a server-side engine to dynamically compose application pages because
