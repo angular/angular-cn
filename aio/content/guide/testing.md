@@ -940,7 +940,7 @@ The test must call `fixture.detectChanges()` manually to trigger another cycle o
 
 第二和第三个测试程序显示了一个重要的局限性。
 Angular测试环境**不会**知道测试程序改变了组件的`title`属性。
-自动检测只对异步行为比如承诺的解析、计时器和DOM时间作出反应。
+自动检测只对异步行为比如承诺的解析、计时器和DOM事件作出反应。
 但是直接修改组件属性值的这种同步更新是不会触发**自动检测**的。
 测试程序必须手动调用`fixture.detectChange()`，来触发新一轮的变更检测周期。
 
@@ -1543,7 +1543,7 @@ replaces the critical `getQuote` method with a Jasmine spy.
 The spy is designed such that any call to `getQuote` receives an immediately resolved promise with a test quote.
 The spy bypasses the actual `getQuote` method and therefore does not contact the server.
 
-这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一条预设的名言。Spy拦截了实际`getQuote`方法，所有它不会联系服务。
+这个Spy的设计是，所有调用`getQuote`的方法都会收到立刻解析的承诺，得到一条预设的名言。Spy拦截了实际`getQuote`方法，所以它不会联系服务端。
 
 
 <div class="l-sub-section">
