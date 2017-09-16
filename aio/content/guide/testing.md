@@ -294,7 +294,7 @@ The tester creates a test instance of the class with `new`, supplying test doubl
 then probes the test instance API surface.
 
 [独立单元测试](guide/testing#isolated-unit-tests "不使用Angular测试工具集的单元测试")用于测试那些完全不依赖Angular或不需要注入值的类实例。
-测试程序是所有`new`创建该类的实例，为构造函数参数提供所需的测试替身，然后测试该实例的API接口。
+测试程序会`new`出一个测试类的实例，为构造函数参数提供所需的测试替身，然后测试该实例的API接口。
 
 *You should write isolated unit tests for pipes and services.*
 
