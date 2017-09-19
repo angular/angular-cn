@@ -1202,7 +1202,7 @@ takes `2` of them to be the runners-up, and returns their concatenated names.
 Look at the <live-example name="dependency-injection-in-action"></live-example>
 for the full source code.
 
-该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把它们的名字拼接起来。请到<live-example name="dependency-injection-in-action"></live-example>查看全部原代码。
+该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字拼接起来。请到<live-example name="dependency-injection-in-action"></live-example>查看全部原代码。
 
 
 </div>
@@ -1410,7 +1410,7 @@ The `HeroesBaseComponent` could stand on its own.
 It demands its own instance of the `HeroService` to get heroes
 and displays them in the order they arrive from the database.
 
-`HeroesBaseComponent`能自己独立运行。它在自己的实例里要求`HeroService`，用来得到英雄，并将它们按照数据库返回的顺序显示出来。
+`HeroesBaseComponent`能自己独立运行。它在自己的实例里要求`HeroService`，用来得到英雄，并将他们按照数据库返回的顺序显示出来。
 
 
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="heroes-base" title="src/app/sorted-heroes.component.ts (HeroesBaseComponent)">

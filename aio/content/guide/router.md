@@ -877,7 +877,7 @@ Imagine an application that helps the _Hero Employment Agency_ run its business.
 Heroes need work and the agency finds crises for them to solve.
 
 假设本程序会用来帮助“英雄管理局”运行他们的业务。
-英雄们需要找工作，而“英雄管理局”为它们寻找待解决的危机。
+英雄们需要找工作，而“英雄管理局”为他们寻找待解决的危机。
 
 The application has three main feature areas:
 
@@ -2057,7 +2057,7 @@ The heroes feature has two interacting components, the hero list and the hero de
 The list view is self-sufficient; you navigate to it, it gets a list of heroes and displays them.
 
 “英雄”特性有两个相互协作的组件，列表和详情。
-列表视图是自给自足的，我们导航到它，它会自行获取英雄列表并显示它们。
+列表视图是自给自足的，我们导航到它，它会自行获取英雄列表并显示他们。
 
 The detail view is different. It displays a particular hero. It can't know which hero to show on its own.
 That information must come from outside.
@@ -4657,7 +4657,7 @@ You could hide the link until the user logs in. But that's tricky and difficult 
 Instead you'll write a `canActivate()` guard method to redirect anonymous users to the
 login page when they try to enter the admin area.
 
-我们换种方式：写一个`CanActivate()`守卫，当匿名用户尝试访问管理组件时，把它/她重定向到登录页。
+我们换种方式：写一个`CanActivate()`守卫，将正在尝试访问管理组件匿名用户重定向到登录页。
 
 This is a general purpose guard&mdash;you can imagine other features
 that require authenticated users&mdash;so you create an

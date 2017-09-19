@@ -106,7 +106,7 @@ The *Hero Employment Agency* uses this form to maintain personal information abo
 Every hero needs a job. It's the company mission to match the right hero with the right crisis.
 
 这里是*英雄职业介绍所*，使用这个表单来维护候选英雄们的个人信息。每个英雄都需要一份工作。
-公司的任务就是让适当的英雄去解决它/她所擅长应对的危机！
+公司的使命就是让合适的英雄去应对恰当的危机！
 
 Two of the three fields on this form are required. Required fields have a green bar on the left to make them easy to spot.
 

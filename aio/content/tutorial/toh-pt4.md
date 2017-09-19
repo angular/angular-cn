@@ -710,7 +710,7 @@ The callback sets the component's `heroes` property to the array of heroes retur
 The app is still running, showing a list of heroes, and
 responding to a name selection with a detail view.
 
-我们的程序仍在运行，仍在显示英雄列表，在选择英雄时，仍然会把它/她显示在详情页面中。
+程序仍在运行，显示英雄列表，在选择英雄姓名时，会在详情视图中显示英雄的信息。
 
 
 <div class="l-sub-section">

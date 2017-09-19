@@ -413,5 +413,5 @@ You'll also allow the user to select heroes and display their details.
 You'll learn more about how to retrieve lists and bind them to the template.
 
 在[教程的下一章](tutorial/toh-pt2)，我们将在这个《英雄指南》中显示一个英雄列表。
-我们将允许允许用户选择一个英雄，并且显示它/她的详情。
+我们将允许允许用户选择英雄，并显示他们的详情。
 我们还将学会如何获取列表以及将它们绑定到模板中。
