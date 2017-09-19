@@ -2777,7 +2777,7 @@ Most, if not all, are previously displayed heroes.
 But Angular sees only a fresh list of new object references.
 It has no choice but to tear down the old DOM elements and insert all new DOM elements.
 
-它们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*我们*知道这一点，是因为每个英雄的`id`没有变化。
+他们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*我们*知道这一点，是因为每个英雄的`id`没有变化。
   但在 Angular 看来，它只是一个由新的对象引用构成的新列表，
   它没有选择，只能清理旧列表、舍弃那些 DOM 元素，并且用新的 DOM 元素来重建一个新列表。
 

@@ -821,7 +821,7 @@ Create that file with this content:
 `*ngFor` is used again to iterate over a list of heroes and display their names.
 The extra `<div>` elements will help with styling later.
 
-我们再次使用`*ngFor`来在英雄列表上迭代，并显示它们的名字。
+我们再次使用`*ngFor`来在英雄列表上迭代，并显示他们的名字。
 还添加了一个额外的`<div>`元素，来帮助稍后的美化工作。
 
 ### Sharing the *HeroService*

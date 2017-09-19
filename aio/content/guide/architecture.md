@@ -288,7 +288,7 @@ that it acquires from a service.
 `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
 
 例如，`HeroListComponent`有一个`heroes`属性，它返回一个英雄数组，这个数组从一个服务获得。
-`HeroListComponent`还有一个`selectHero()`方法，当用户从列表中点选一个英雄时，就把它/她设置到`selectedHero`属性。
+`HeroListComponent`还有一个当用户从列表中点选一个英雄时设置`selectedHero`属性的`selectHero()`方法。
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (class)" region="class">
 
