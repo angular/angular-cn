@@ -74,8 +74,6 @@ Bill Luan, Greater China Regional Lead, Developer Relations, Google
 对于英文词汇，我们尽量采用业内成熟的译法，以利于口头交流。对少部分在 Angular 之外比较罕见的专有名词，我们会在译文中写成中英双语。
 这部分做了初步的梳理，但是仍可能有遗漏，如果你发现哪里有问题，请到我们的<a href="https://github.com/angular/angular-cn" target="_blank">github</a>上提出 issue 或 Pull Request 。
 
-同时，要注意：我们只翻译 “TypeScript” 版的文档，其它语言的版本大同小异，可以在看懂 TypeScript 版之后再对照看 JS 和 Dart 的英文版。不过我们还是建议你试用一下 TypeScript 。
-
 ## 授权方式
 
 本文档遵循[“保持署名—非商用”创意共享4.0许可证（CC BY-NC 4.0）](http://creativecommons.org/licenses/by-nc/4.0/deed.zh)授权方式，你不用知会我们就可以转载，但必须保持署名（特别是：链接到 <https://angular.cn>，并且不得去掉本页入口链接，也不得修改本页内容），并且不得用于商业目的。如果需要进行任何商业推广，请接洽 Google 开发技术推广部![email](generated/images/translations/cn/mail-dev-rel.gif)，我们将给出积极的回应。
