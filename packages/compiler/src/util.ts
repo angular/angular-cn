@@ -9,12 +9,7 @@
 import * as o from './output/output_ast';
 import {ParseError} from './parse_util';
 
-const CAMEL_CASE_REGEXP = /([A-Z])/g;
 const DASH_CASE_REGEXP = /-+([a-z0-9])/g;
-
-export function camelCaseToDashCase(input: string): string {
-  return input.replace(CAMEL_CASE_REGEXP, (...m: any[]) => '-' + m[1].toLowerCase());
-}
 
 export function dashCaseToCamelCase(input: string): string {
   return input.replace(DASH_CASE_REGEXP, (...m: any[]) => m[1].toUpperCase());
@@ -212,13 +207,16 @@ export function isPromise(obj: any): obj is Promise<any> {
 }
 
 export class Version {
-  constructor(public full: string) {}
+  public readonly major: string;
+  public readonly minor: string;
+  public readonly patch: string;
 
-  get major(): string { return this.full.split('.')[0]; }
-
-  get minor(): string { return this.full.split('.')[1]; }
-
-  get patch(): string { return this.full.split('.').slice(2).join('.'); }
+  constructor(public full: string) {
+    const splits = full.split('.');
+    this.major = splits[0];
+    this.minor = splits[1];
+    this.patch = splits.slice(2).join('.');
+  }
 }
 
 export interface Console {

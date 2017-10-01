@@ -61,10 +61,6 @@ Begin with the first form of data binding&mdash;interpolation&mdash;to see how m
 
 我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a interpolation}
@@ -133,10 +129,6 @@ Though this is not exactly true. Interpolation is a special syntax that Angular 
 But first, let's take a closer look at template expressions and statements.
 
 讲解属性绑定之前，先深入了解一下模板表达式和模板语句。
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -254,10 +246,6 @@ members of the expression context.
 模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
 它们只能引用表达式上下文中的成员。
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 {@a no-side-effects}
 
 {@a expression-guidelines}
@@ -361,10 +349,6 @@ it returns the same object *reference* when called twice in a row.
 在单独的一次事件循环中，被依赖的值不应该改变。
   如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
   如果幂等的表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -492,10 +476,6 @@ you're ready to learn about the varieties of data binding syntax beyond interpol
 现在，对模板表达式和语句有了一点感觉了吧。
   除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
   
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a binding-syntax}
@@ -1188,10 +1168,6 @@ With this broad view in mind, you're ready to look at binding types in detail.
 
 放开眼界，我们来看看每种绑定类型的具体情况。
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a property-binding}
@@ -1510,7 +1486,6 @@ content harmlessly.
   <img src='generated/images/guide/template-syntax/evil-title.png' alt="evil title made safe">
 </figure>
 
-<a href="#top-of-page">back to top</a>
 
 <a href="#top-of-page">回到顶部</a>
 
@@ -1633,10 +1608,6 @@ attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指
 </code-example>
 
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 ### Class binding
@@ -1695,11 +1666,6 @@ the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when
 
 </div>
 
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 ### Style binding
@@ -1750,11 +1716,6 @@ Note that a _style property_ name can be written in either
 
 
 </div>
-
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -1969,10 +1930,6 @@ These changes percolate through the system and are ultimately displayed in this 
 删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
 这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a two-way}
@@ -2085,10 +2042,6 @@ Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is
 
 幸运的是，Angular 以 [_NgModel_](guide/template-syntax#ngModel) 指令为桥梁，允许在表单元素上使用双向数据绑定。
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a directives}
@@ -2166,10 +2119,6 @@ This section is an introduction to the most commonly used attribute directives:
 
   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到HTML表单元素
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a ngClass}
@@ -2231,11 +2180,6 @@ It's up to you to call `setCurrentClassess()`, both initially and when the depen
 
 </div>
 
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a ngStyle}
@@ -2293,11 +2237,6 @@ It's up to you to call `setCurrentStyles()`, both initially and when the depende
 
 
 </div>
-
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -2446,10 +2385,6 @@ Here are all variations in action, including the uppercase version:
   <img src='generated/images/guide/template-syntax/ng-model-anim.gif' alt="NgModel variations">
 </figure>
 
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a structural-directives}
@@ -2497,13 +2432,14 @@ _This_ section is an introduction to the common structural directives:
 
   [`NgIf`](guide/template-syntax#ngIf) - 根据条件把一个元素添加到DOM中或从DOM移除
   
-* [`NgFor`](guide/template-syntax#ngFor) - repeat a template for each item in a list
-
-  [`NgFor`](guide/template-syntax#ngFor) - 对列表中的每个条目重复套用一个模板
-  
 * [`NgSwitch`](guide/template-syntax#ngSwitch) - a set of directives that switch among alternative views
+* [NgForOf](guide/template-syntax#ngFor) - repeat a template for each item in a list
 
   [`NgSwitch`](guide/template-syntax#ngSwitch) - 一组指令，用于切换一组视图
+
+* [NgForOf](guide/template-syntax#ngFor) - repeat a template for each item in a list
+
+  [NgForOf](guide/template-syntax#ngFor) - 对列表中的每个条目重复套用同一个模板
 
 
 <hr/>
@@ -2614,20 +2550,15 @@ described below.
 
 </div>
 
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a ngFor}
 
-### NgFor
+### NgForOf
 
 ### NgFor 指令
 
-`NgFor` is a _repeater_ directive &mdash; a way to present a list of items.
+`NgForOf` is a _repeater_ directive &mdash; a way to present a list of items.
 You define a block of HTML that defines how a single item should be displayed.
 You tell Angular to use that block as a template for rendering each item in the list.
 
@@ -2635,7 +2566,7 @@ You tell Angular to use that block as a template for rendering each item in the 
 我们的目标是展示一个由多个条目组成的列表。首先定义了一个 HTML 块，它规定了单个条目应该如何显示。
 再告诉 Angular 把这个块当做模板，渲染列表中的每个条目。
 
-Here is an example of `NgFor` applied to a simple `<div>`:
+Here is an example of `NgForOf` applied to a simple `<div>`:
 
 下例中，`NgFor`应用在一个简单的`<div>`上：
 
@@ -2643,7 +2574,7 @@ Here is an example of `NgFor` applied to a simple `<div>`:
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1" title="src/app/app.component.html" linenums="false">
 </code-example>
 
-You can also apply an `NgFor` to a component element, as in this example:
+You can also apply an `NgForOf` to a component element, as in this example:
 
 也可以把`NgFor`应用在一个组件元素上，就下例这样：
 
@@ -2703,13 +2634,13 @@ Learn about the _microsyntax_ in the [_Structural Directives_](guide/structural-
 ### 模板输入变量
 
 The `let` keyword before `hero` creates a _template input variable_ called `hero`.
-The `ngFor` directive iterates over the `heroes` array returned by the parent component's `heroes` property
+The `NgForOf` directive iterates over the `heroes` array returned by the parent component's `heroes` property
 and sets `hero` to the current item from the array during each iteration.
 
 `hero`前的`let`关键字创建了一个名叫`hero`的*模板输入变量*。
 `ngFor`指令在由父组件的`heroes`属性返回的`heroes`数组上迭代，每次迭代都从数组中把当前元素赋值给`hero`变量。
 
-You reference the `hero` input variable within the `ngFor` host element
+You reference the `hero` input variable within the `NgForOf` host element
 (and within its descendents) to access the hero's properties.
 Here it is referenced first in an interpolation
 and then passed in a binding to the `hero` property of the `<hero-detail>` component.
@@ -2730,7 +2661,7 @@ Learn more about _template input variables_ in the
 
 #### 带索引的`*ngFor`
 
-The `index` property of the `NgFor` directive context  returns the zero-based index of the item in each iteration.
+The `index` property of the `NgForOf` directive context returns the zero-based index of the item in each iteration.
 You can capture the `index` in a template input variable and use it in the template.
 
 `NgFor`指令上下文中的`index`属性返回一个从零开始的索引，表示当前条目在迭代中的顺序。
@@ -2746,10 +2677,10 @@ The next example captures the `index` in a variable named `i` and displays it wi
 
 <div class="l-sub-section">
 
-Learn about the other `NgFor` context values such as `last`, `even`,
-and `odd` in the [NgFor API reference](api/common/NgFor).
+`NgFor` is implemented by the `NgForOf` directive. Read more about the other `NgForOf` context values such as `last`, `even`,
+and `odd` in the [NgForOf API reference](api/common/NgForOf).
 
-要学习更多的*类似 index* 的值，例如`last`、`even`和`odd`，请参阅 [NgFor API 参考](api/common/NgFor)。
+要学习更多的*类似 index* 的值，例如`last`、`even`和`odd`，请参阅 [NgFor API 参考](api/common/NgForOf)。
 
 
 </div>
@@ -2761,7 +2692,7 @@ and `odd` in the [NgFor API reference](api/common/NgFor).
 #### 带`trackBy`的`*ngFor`
 
 
-The `NgFor` directive may perform poorly, especially with large lists.
+The `NgForOf` directive may perform poorly, especially with large lists.
 A small change to one item, an item removed, or an item added can trigger a cascade of DOM manipulations.
 
 `ngFor`指令有时候会性能较差，特别是在大型列表中。
@@ -2782,7 +2713,7 @@ It has no choice but to tear down the old DOM elements and insert all new DOM el
   它没有选择，只能清理旧列表、舍弃那些 DOM 元素，并且用新的 DOM 元素来重建一个新列表。
 
 Angular can avoid this churn with `trackBy`.
-Add a method to the component that returns the value `NgFor` _should_ track.
+Add a method to the component that returns the value `NgForOf` _should_ track.
 In this case, that value is the hero's `id`.
 
 如果给它指定一个`trackBy`，Angular 就可以避免这种折腾。
@@ -2822,7 +2753,6 @@ Here is an illustration of the _trackBy_ effect.
   <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
 </figure>
 
-<a href="#top-of-page">back to top</a>
 
 <a href="#top-of-page">回到顶部</a>
 
@@ -2902,11 +2832,6 @@ For example, you could replace the `<confused-hero>` switch case with the follow
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch-div" title="src/app/app.component.html" linenums="false">
 </code-example>
-
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3023,11 +2948,6 @@ This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
 </code-example>
-
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3263,11 +3183,6 @@ the directive property name on the *left* and the public alias on the *right*:
 
 </div>
 
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
-
 <hr/>
 
 {@a expression-operators}
@@ -3346,11 +3261,6 @@ The generated output would look something like this
     "url": "http://www.imdb.com/title/tt0065832/",
     "rate": 325 }
 </code-example>
-
-
-<a href="#top-of-page">back to top</a>
-
-<a href="#top-of-page">回到顶部</a>
 
 <hr/>
 
@@ -3468,6 +3378,7 @@ Angular 安全导航操作符 (`?.`) 是在属性路径中保护空值的更加�
 </code-example>
 
 It works perfectly with long property paths such as `a?.b?.c?.d`.
+
 在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。<a href="#top-of-page">back to top</a>
 
 <hr/>

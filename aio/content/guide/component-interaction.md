@@ -110,7 +110,7 @@ E2E test that all children were instantiated and displayed as expected:
 端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="parent-to-child" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 
@@ -168,7 +168,7 @@ E2E tests of input property setter with empty and non-empty names:
 端到端测试：输入属性的setter，分别使用空名字和非空名字。
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 
@@ -249,7 +249,7 @@ the expected `ngOnChanges` calls and values:
 测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges`应该被调用，属性的值也符合预期。
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 
@@ -320,7 +320,7 @@ Test that clicking the *Agree* and *Disagree* buttons update the appropriate cou
 测试确保点击*Agree*和*Disagree*按钮时，计数器被正确更新。
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 
@@ -408,7 +408,7 @@ Test also that clicking the *Stop* button pauses the countdown timer:
 测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击*Stop*按钮来停止倒计时：
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 
@@ -623,7 +623,7 @@ and verify that the history meets expectations:
 测试确保点击父组件`MissionControlComponent`和子组件`AstronautComponent`两个的组件的按钮时，*History*日志和预期的一样。
 
 
-<code-example path="component-interaction/e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e-spec.ts">
+<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/app.e2e-spec.ts">
 
 </code-example>
 

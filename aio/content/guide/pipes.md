@@ -71,28 +71,8 @@ function on the right. All pipes work this way.
 在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
 右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。
 
-
-<div class="l-sub-section">
-
-
-
-The `Date` and `Currency` pipes need the *ECMAScript Internationalization API*.
-Safari and other older browsers don't support it. You can add support with a polyfill.
-
-`Date`和`Currency`管道需要**ECMAScript国际化（I18n）API**，但Safari和其它老式浏览器不支持它，该问题可以用垫片（Polyfill）解决。
-
-
-<code-example language="html">
-  &lt;script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"&gt;&lt;/script&gt;
-
-</code-example>
-
-
-
-</div>
-
-
-
+在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
+右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。
 
 ## Built-in pipes
 

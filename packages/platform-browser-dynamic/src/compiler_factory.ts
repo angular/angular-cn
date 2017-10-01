@@ -32,8 +32,9 @@ const baseHtmlParser = new InjectionToken('HtmlParser');
 
 export class CompilerImpl implements Compiler {
   private _delegate: JitCompiler;
+  public readonly injector: Injector;
   constructor(
-      private _injector: Injector, private _metadataResolver: CompileMetadataResolver,
+      injector: Injector, private _metadataResolver: CompileMetadataResolver,
       templateParser: TemplateParser, styleCompiler: StyleCompiler, viewCompiler: ViewCompiler,
       ngModuleCompiler: NgModuleCompiler, summaryResolver: SummaryResolver<Type<any>>,
       compileReflector: CompileReflector, compilerConfig: CompilerConfig, console: Console) {
@@ -41,9 +42,8 @@ export class CompilerImpl implements Compiler {
         _metadataResolver, templateParser, styleCompiler, viewCompiler, ngModuleCompiler,
         summaryResolver, compileReflector, compilerConfig, console,
         this.getExtraNgModuleProviders.bind(this));
+    this.injector = injector;
   }
-
-  get injector(): Injector { return this._injector; }
 
   private getExtraNgModuleProviders() {
     return [this._metadataResolver.getProviderMetadata(
@@ -70,9 +70,6 @@ export class CompilerImpl implements Compiler {
                 ngModuleFactory: result.ngModuleFactory as NgModuleFactory<T>,
                 componentFactories: result.componentFactories as ComponentFactory<any>[],
               }));
-  }
-  getNgContentSelectors(component: Type<any>): string[] {
-    return this._delegate.getNgContentSelectors(component);
   }
   loadAotSummaries(summaries: () => any[]) { this._delegate.loadAotSummaries(summaries); }
   hasAotSummary(ref: Type<any>): boolean { return this._delegate.hasAotSummary(ref); }
@@ -127,7 +124,7 @@ export const COMPILER_PROVIDERS = <StaticProvider[]>[
     I18NHtmlParser, Console]
   },
   { provide: DirectiveNormalizer, deps: [ResourceLoader, UrlResolver, HtmlParser, CompilerConfig]},
-  { provide: CompileMetadataResolver, deps: [CompilerConfig, NgModuleResolver,
+  { provide: CompileMetadataResolver, deps: [CompilerConfig, HtmlParser, NgModuleResolver,
                       DirectiveResolver, PipeResolver,
                       SummaryResolver,
                       ElementSchemaRegistry,
@@ -137,7 +134,7 @@ export const COMPILER_PROVIDERS = <StaticProvider[]>[
                       [Optional, ERROR_COLLECTOR_TOKEN]]},
   DEFAULT_PACKAGE_URL_PROVIDER,
   { provide: StyleCompiler, deps: [UrlResolver]},
-  { provide: ViewCompiler, deps: [CompilerConfig, CompileReflector, ElementSchemaRegistry]},
+  { provide: ViewCompiler, deps: [CompileReflector]},
   { provide: NgModuleCompiler, deps: [CompileReflector] },
   { provide: CompilerConfig, useValue: new CompilerConfig()},
   { provide: Compiler, useClass: CompilerImpl, deps: [Injector, CompileMetadataResolver,
@@ -160,8 +157,7 @@ export class JitCompilerFactory implements CompilerFactory {
       useJit: true,
       defaultEncapsulation: ViewEncapsulation.Emulated,
       missingTranslation: MissingTranslationStrategy.Warning,
-      enableLegacyTemplate: true,
-      preserveWhitespaces: true,
+      enableLegacyTemplate: false,
     };
 
     this._defaultOptions = [compilerOptions, ...defaultOptions];

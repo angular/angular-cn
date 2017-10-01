@@ -24,6 +24,7 @@ import {StyleCompiler} from '../style_compiler';
 import {TemplateParser} from '../template_parser/template_parser';
 import {UrlResolver} from '../url_resolver';
 import {syntaxError} from '../util';
+import {TypeCheckCompiler} from '../view_compiler/type_check_compiler';
 import {ViewCompiler} from '../view_compiler/view_compiler';
 
 import {AotCompiler} from './compiler';
@@ -65,9 +66,10 @@ export function createAotCompiler(compilerHost: AotCompilerHost, options: AotCom
   const config = new CompilerConfig({
     defaultEncapsulation: ViewEncapsulation.Emulated,
     useJit: false,
-    enableLegacyTemplate: options.enableLegacyTemplate !== false,
+    enableLegacyTemplate: options.enableLegacyTemplate === true,
     missingTranslation: options.missingTranslation,
     preserveWhitespaces: options.preserveWhitespaces,
+    strictInjectionParameters: options.strictInjectionParameters,
   });
   const normalizer = new DirectiveNormalizer(
       {get: (url: string) => compilerHost.loadResource(url)}, urlResolver, htmlParser, config);
@@ -76,15 +78,16 @@ export function createAotCompiler(compilerHost: AotCompilerHost, options: AotCom
   const tmplParser = new TemplateParser(
       config, staticReflector, expressionParser, elementSchemaRegistry, htmlParser, console, []);
   const resolver = new CompileMetadataResolver(
-      config, new NgModuleResolver(staticReflector), new DirectiveResolver(staticReflector),
-      new PipeResolver(staticReflector), summaryResolver, elementSchemaRegistry, normalizer,
-      console, symbolCache, staticReflector);
+      config, htmlParser, new NgModuleResolver(staticReflector),
+      new DirectiveResolver(staticReflector), new PipeResolver(staticReflector), summaryResolver,
+      elementSchemaRegistry, normalizer, console, symbolCache, staticReflector);
   // TODO(vicb): do not pass options.i18nFormat here
-  const viewCompiler = new ViewCompiler(config, staticReflector, elementSchemaRegistry);
+  const viewCompiler = new ViewCompiler(staticReflector);
+  const typeCheckCompiler = new TypeCheckCompiler(options, staticReflector);
   const compiler = new AotCompiler(
-      config, compilerHost, staticReflector, resolver, tmplParser, new StyleCompiler(urlResolver),
-      viewCompiler, new NgModuleCompiler(staticReflector), new TypeScriptEmitter(), summaryResolver,
-      options.locale || null, options.i18nFormat || null, options.enableSummariesForJit || null,
+      config, options, compilerHost, staticReflector, resolver, tmplParser,
+      new StyleCompiler(urlResolver), viewCompiler, typeCheckCompiler,
+      new NgModuleCompiler(staticReflector), new TypeScriptEmitter(), summaryResolver,
       symbolResolver);
   return {compiler, reflector: staticReflector};
 }

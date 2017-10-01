@@ -101,6 +101,7 @@ function compileTemplateMetadata({encapsulation, template, templateUrl, styles, 
     encapsulation: noUndefined(encapsulation),
     template: noUndefined(template),
     templateUrl: noUndefined(templateUrl),
+    htmlAst: null,
     styles: styles || [],
     styleUrls: styleUrls || [],
     externalStylesheets: externalStylesheets || [],
@@ -121,16 +122,19 @@ export function main() {
       schemas?: SchemaMetadata[], preserveWhitespaces?: boolean) => TemplateAst[];
   let console: ArrayConsole;
 
-  function commonBeforeEach() {
+  function configureCompiler() {
+    console = new ArrayConsole();
     beforeEach(() => {
-      console = new ArrayConsole();
       TestBed.configureCompiler({
         providers: [
           {provide: Console, useValue: console},
+          {provide: CompilerConfig, useValue: new CompilerConfig({enableLegacyTemplate: true})}
         ],
       });
     });
+  }
 
+  function commonBeforeEach() {
     beforeEach(inject([TemplateParser], (parser: TemplateParser) => {
       const someAnimation = new CompileAnimationEntryMetadata('someAnimation', []);
       const someTemplate = compileTemplateMetadata({animations: [someAnimation]});
@@ -286,6 +290,7 @@ export function main() {
       });
     });
 
+    configureCompiler();
     commonBeforeEach();
 
     describe('security context', () => {
@@ -318,6 +323,7 @@ export function main() {
       TestBed.configureCompiler({providers: [TEST_COMPILER_PROVIDERS, MOCK_SCHEMA_REGISTRY]});
     });
 
+    configureCompiler();
     commonBeforeEach();
 
     describe('parse', () => {
@@ -367,6 +373,7 @@ export function main() {
                animations: [],
                template: null,
                templateUrl: null,
+               htmlAst: null,
                ngContentSelectors: [],
                externalStylesheets: [],
                styleUrls: [],
@@ -1207,7 +1214,7 @@ There is no directive with "exportAs" set to "dirA" ("<div [ERROR ->]#a="dirA"><
 
         it('should report variables as errors', () => {
           expect(() => parse('<div let-a></div>', [])).toThrowError(`Template parse errors:
-"let-" is only supported on template elements. ("<div [ERROR ->]let-a></div>"): TestComp@0:5`);
+"let-" is only supported on ng-template elements. ("<div [ERROR ->]let-a></div>"): TestComp@0:5`);
         });
 
         it('should report duplicate reference names', () => {
@@ -2129,13 +2136,13 @@ The pipe 'test' could not be found ("{{[ERROR ->]a | test}}"): TestComp@0:2`);
 
   });
 
-  describe('Template Parser - opt-out `<template>` support', () => {
+  describe('Template Parser - `<template>` support disabled by default', () => {
     beforeEach(() => {
       TestBed.configureCompiler({
-        providers: [{
-          provide: CompilerConfig,
-          useValue: new CompilerConfig({enableLegacyTemplate: false}),
-        }],
+        providers: [
+          {provide: Console, useValue: console},
+          {provide: CompilerConfig, useValue: new CompilerConfig()}
+        ],
       });
     });
 
@@ -2190,7 +2197,7 @@ class TemplateHumanizer implements TemplateAstVisitor {
 
   constructor(
       private includeSourceSpan: boolean,
-      private interpolationConfig: InterpolationConfig = DEFAULT_INTERPOLATION_CONFIG){};
+      private interpolationConfig: InterpolationConfig = DEFAULT_INTERPOLATION_CONFIG) {}
 
   visitNgContent(ast: NgContentAst, context: any): any {
     const res = [NgContentAst];

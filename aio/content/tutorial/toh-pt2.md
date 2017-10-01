@@ -613,7 +613,7 @@ Here's the complete `app.component.ts` as of now:
 
 
 
-## The road you've travelled
+## Summary
 
 ## 已走的路
 
@@ -633,9 +633,9 @@ Here's what you achieved in this page:
 
   我们学会了如何在组件模板中使用内置的`ngIf`和`ngFor`指令
 
-## The road ahead
+## Next step
 
-## 前方的路
+## 下一步
 
 You've expanded the Tour of Heroes app, but it's far from complete.
 An app shouldn't be one monolithic component.

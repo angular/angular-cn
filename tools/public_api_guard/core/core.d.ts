@@ -125,15 +125,15 @@ export declare class ApplicationModule {
 }
 
 /** @stable */
-export declare abstract class ApplicationRef {
-    readonly abstract componentTypes: Type<any>[];
-    readonly abstract components: ComponentRef<any>[];
-    readonly abstract isStable: Observable<boolean>;
-    readonly abstract viewCount: number;
-    abstract attachView(view: ViewRef): void;
-    abstract bootstrap<C>(componentFactory: ComponentFactory<C> | Type<C>, rootSelectorOrNode?: string | any): ComponentRef<C>;
-    abstract detachView(view: ViewRef): void;
-    abstract tick(): void;
+export declare class ApplicationRef {
+    readonly componentTypes: Type<any>[];
+    readonly components: ComponentRef<any>[];
+    readonly isStable: Observable<boolean>;
+    readonly viewCount: number;
+    attachView(viewRef: ViewRef): void;
+    bootstrap<C>(componentOrFactory: ComponentFactory<C> | Type<C>, rootSelectorOrNode?: string | any): ComponentRef<C>;
+    detachView(viewRef: ViewRef): void;
+    tick(): void;
 }
 
 /** @experimental */
@@ -182,7 +182,6 @@ export declare class Compiler {
     compileModuleAndAllComponentsSync<T>(moduleType: Type<T>): ModuleWithComponentFactories<T>;
     compileModuleAsync<T>(moduleType: Type<T>): Promise<NgModuleFactory<T>>;
     compileModuleSync<T>(moduleType: Type<T>): NgModuleFactory<T>;
-    /** @deprecated */ getNgContentSelectors(component: Type<any>): string[];
 }
 
 /** @experimental */
@@ -465,8 +464,9 @@ export interface InjectDecorator {
 }
 
 /** @stable */
-export declare class InjectionToken<T> extends OpaqueToken {
-    constructor(desc: string);
+export declare class InjectionToken<T> {
+    protected _desc: string;
+    constructor(_desc: string);
     toString(): string;
 }
 
@@ -499,7 +499,7 @@ export interface IterableChanges<V> {
     forEachIdentityChange(fn: (record: IterableChangeRecord<V>) => void): void;
     forEachItem(fn: (record: IterableChangeRecord<V>) => void): void;
     forEachMovedItem(fn: (record: IterableChangeRecord<V>) => void): void;
-    forEachOperation(fn: (record: IterableChangeRecord<V>, previousIndex: number, currentIndex: number) => void): void;
+    forEachOperation(fn: (record: IterableChangeRecord<V>, previousIndex: number | null, currentIndex: number | null) => void): void;
     forEachPreviousItem(fn: (record: IterableChangeRecord<V>) => void): void;
     forEachRemovedItem(fn: (record: IterableChangeRecord<V>) => void): void;
 }
@@ -661,13 +661,6 @@ export interface OnInit {
     ngOnInit(): void;
 }
 
-/** @deprecated */
-export declare class OpaqueToken {
-    protected _desc: string;
-    constructor(_desc: string);
-    toString(): string;
-}
-
 /** @stable */
 export declare const Optional: OptionalDecorator;
 
@@ -701,13 +694,13 @@ export declare const PLATFORM_INITIALIZER: InjectionToken<(() => void)[]>;
 export declare const platformCore: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
 
 /** @stable */
-export declare abstract class PlatformRef {
-    readonly abstract destroyed: boolean;
-    readonly abstract injector: Injector;
-    /** @stable */ abstract bootstrapModule<M>(moduleType: Type<M>, compilerOptions?: CompilerOptions | CompilerOptions[]): Promise<NgModuleRef<M>>;
-    /** @experimental */ abstract bootstrapModuleFactory<M>(moduleFactory: NgModuleFactory<M>): Promise<NgModuleRef<M>>;
-    abstract destroy(): void;
-    abstract onDestroy(callback: () => void): void;
+export declare class PlatformRef {
+    readonly destroyed: boolean;
+    readonly injector: Injector;
+    /** @stable */ bootstrapModule<M>(moduleType: Type<M>, compilerOptions?: (CompilerOptions & BootstrapOptions) | Array<CompilerOptions & BootstrapOptions>): Promise<NgModuleRef<M>>;
+    /** @experimental */ bootstrapModuleFactory<M>(moduleFactory: NgModuleFactory<M>, options?: BootstrapOptions): Promise<NgModuleRef<M>>;
+    destroy(): void;
+    onDestroy(callback: () => void): void;
 }
 
 /** @experimental */
@@ -729,6 +722,7 @@ export declare class QueryList<T> {
     readonly first: T;
     readonly last: T;
     readonly length: number;
+    destroy(): void;
     filter(fn: (item: T, index: number, array: T[]) => boolean): T[];
     find(fn: (item: T, index: number, array: T[]) => boolean): T | undefined;
     forEach(fn: (item: T, index: number, array: T[]) => void): void;
@@ -982,6 +976,8 @@ export declare class TestabilityRegistry {
     getAllTestabilities(): Testability[];
     getTestability(elem: any): Testability | null;
     registerApplication(token: any, testability: Testability): void;
+    unregisterAllApplications(): void;
+    unregisterApplication(token: any): void;
 }
 
 /** @stable */

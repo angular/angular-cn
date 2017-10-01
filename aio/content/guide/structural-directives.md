@@ -298,23 +298,10 @@ Here is `*ngIf` displaying the hero's name if `hero` exists.
 
 
 The asterisk is "syntactic sugar" for something a bit more complicated.
-Internally, Angular desugars it in two stages.
-First, it translates the `*ngIf="..."` into a template _attribute_, `template="ngIf ..."`,&nbsp; like this.
+Internally, Angular translates the `*ngIf` _attribute_ into a `<ng-template>` _element_, wrapped around the host element, like this.
 
 星号是一个用来简化更复杂语法的“语法糖”。
-从内部实现来说，Angular会分两个阶段解开这个语法糖。
-首先，它把`*ngIf="..."`翻译成一个`template`*属性* `template="ngIf ..."`，代码如下：
-
-
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-template-attr)" region="ngif-template-attr">
-
-</code-example>
-
-
-
-Then it translates the template _attribute_ into a `<ng-template>` _element_, wrapped around the host element, like this.
-
-然后，它把这个`template`*属性*翻译成一个`<ng-template>`*元素*，并用它包裹宿主元素，代码如下：
+从内部实现来说，Angular把`*ngIf` *属性* 翻译成一个`<ng-template>` *元素* 并用它来包裹宿主元素，代码如下：
 
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-template)" region="ngif-template">
@@ -330,11 +317,10 @@ Then it translates the template _attribute_ into a `<ng-template>` _element_, wr
 * The rest of the `<div>`, including its class attribute, moved inside the `<ng-template>` element.
 
   `<div>`上的其余部分，包括它的`class`属性在内，移到了内部的`<ng-template>`元素上。
+  
+The first form is not actually rendered, only the finished product ends up in the DOM.
 
-None of these forms are actually rendered.
-Only the finished product ends up in the DOM.
-
-上述形式永远不会真的渲染出来。
+第一种形态永远不会真的渲染出来。
 只有最终产出的结果才会出现在DOM中。
 
 
@@ -362,12 +348,11 @@ The [`NgFor`](guide/structural-directives#ngFor) and [`NgSwitch...`](guide/struc
 
 ## `*ngFor`内幕
 
-Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax through
-template _attribute_ to `<ng-template>` _element_.
+Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax to `<ng-template>` _element_.
 
 Angular会把`*ngFor`用同样的方式把星号（*）语法的`template`*属性*转换成`<ng-template>`*元素*。
 
-Here's a full-featured application of `NgFor`, written all three ways:
+Here's a full-featured application of `NgFor`, written both ways:
 
 这里有一个`NgFor`的全特性应用，同时用了这三种写法：
 
@@ -457,15 +442,19 @@ which `NgFor` has initialized with the hero for the current iteration.
   上下文中的属性`let-hero`没有指定过，实际上它来自一个隐式变量。
   Angular会把`let-hero`设置为上下文对象中的`$implicit`属性，`NgFor`会用当前迭代中的英雄初始化它。
 
-* The [API guide](api/common/NgFor "API: NgFor")
+* The [API guide](api/common/NgForOf "API: NgFor")
 describes additional `NgFor` directive properties and context properties.
 
-  [API参考手册](api/common/NgFor "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
+  [API参考手册](api/common/NgForOf "API: NgFor")中描述了`NgFor`指令的其它属性和上下文属性。
+
+* `NgFor` is implemented by the `NgForOf` directive. Read more about additional `NgForOf` directive properties and context properties [NgForOf API reference](api/common/NgForOf).
+
+  `NgFor`是由`NgForOf`指令来实现的。请参阅[NgForOf API reference](api/common/NgForOf)来了解`NgForOf`指令的更多属性及其上下文属性。
 
 These microsyntax mechanisms are available to you when you write your own structural directives.
 Studying the
 [source code for `NgIf`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
-and [`NgFor`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor")
+and [`NgForOf`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgForOf")
 is a great way to learn more.
 
 这些微语法机制在你写自己的结构型指令时也同样有效，参考[`NgIf`的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
@@ -605,32 +594,9 @@ companion service.
 
 
 As with other structural directives, the `NgSwitchCase` and `NgSwitchDefault`
-can be desugared into the template _attribute_ form.
+can be desugared into the `<ng-template>` element form.
 
-像其它的结构型指令一样，`NgSwitchCase` 和 `NgSwitchDefault` 也可以解开语法糖，编程模板*属性*的形式。
-
-**These same considerations apply to every structural directive, whether built-in or custom.**
-We should ask ourselves &mdash; and the users of our directives &mdash; to think carefully
-about the consequences of adding and removing elements and of creating and destroying components.
-
-**同样的考量也适用于每一个结构型指令，无论是内置的还是自定义的。**
-  我们应该提醒自己以及我们指令的使用者，来仔细考虑添加元素、移除元素以及创建和销毁组件的后果。
-
-Let's see these dynamics at work. For fun, we'll stack the deck *against*
-our recommendation and consider a component called `heavy-loader` that
-***pretends*** to load a ton of data when initialized.
-
-让我们在实践中看看这些变化。为了娱乐，我们设想在甲板上有个叫`heavy-loader`(重型起重机)的组件，它会***假装***在初始化时装载一吨数据。
-
-We'll display two instances of the component.  We toggle the visibility of the first one with CSS.
-We toggle the second into and out of the DOM with `ngIf`.
-
-我们将显示该组件的两个实例。我们使用CSS切换第一个实例的可见性，用`ngIf`把第二个实例添加到DOM和将其移除。
-
-
-That, in turn, can be desugared into the `<ng-template>` element form.
-
-换句话说，可以把它"解语法糖"，成为`<ng-template>`元素的形式。
+像其它的结构型指令一样，`NgSwitchCase` 和 `NgSwitchDefault` 也可以解开语法糖，变成 `<ng-template>` 的形式。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch-template)" region="ngswitch-template">
 
@@ -645,7 +611,7 @@ That, in turn, can be desugared into the `<ng-template>` element form.
 
 ## 优先使用星号（`*`）语法
 
-The asterisk (*) syntax is more clear than the other desugared forms.
+The asterisk (*) syntax is more clear than the desugared form.
 Use [&lt;ng-container&gt;](guide/structural-directives#ng-container) when there's no single element
 to host the directive.
 

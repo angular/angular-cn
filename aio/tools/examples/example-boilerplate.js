@@ -4,46 +4,49 @@ const path = require('canonical-path');
 const shelljs = require('shelljs');
 const yargs = require('yargs');
 
+const ngPackagesInstaller = require('../ng-packages-installer');
+
 const SHARED_PATH = path.resolve(__dirname, 'shared');
 const SHARED_NODE_MODULES_PATH = path.resolve(SHARED_PATH, 'node_modules');
 const BOILERPLATE_BASE_PATH = path.resolve(SHARED_PATH, 'boilerplate');
+const BOILERPLATE_COMMON_BASE_PATH = path.resolve(BOILERPLATE_BASE_PATH, 'common');
 const EXAMPLES_BASE_PATH = path.resolve(__dirname, '../../content/examples');
 const TESTING_BASE_PATH = path.resolve(EXAMPLES_BASE_PATH, 'testing');
 
-const BOILERPLATE_SRC_PATHS = [
-  'src/styles.css',
-  'src/systemjs-angular-loader.js',
-  'src/systemjs.config.js',
-  'src/tsconfig.json',
-  'bs-config.json',
-  'bs-config.e2e.json',
-  'package.json',
-  'tslint.json'
-];
-
-const BOILERPLATE_TEST_PATHS = [
-  'src/browser-test-shim.js',
-  'karma-test-shim.js',
-  'karma.conf.js'
-];
-
-const ANGULAR_DIST_PATH = path.resolve(__dirname, '../../../dist');
-const ANGULAR_PACKAGES_PATH = path.resolve(ANGULAR_DIST_PATH, 'packages-dist');
-const ANGULAR_PACKAGES = [
-  'animations',
-  'common',
-  'compiler',
-  'compiler-cli',
-  'core',
-  'forms',
-  'http',
-  'platform-browser',
-  'platform-browser-dynamic',
-  'platform-server',
-  'router',
-  'tsc-wrapped',
-  'upgrade',
-];
+const BOILERPLATE_PATHS = {
+  cli: [
+    'src/environments/environment.prod.ts',
+    'src/environments/environment.ts',
+    'src/assets/.gitkeep',
+    'src/favicon.ico',
+    'src/polyfills.ts',
+    'src/test.ts',
+    'src/tsconfig.app.json',
+    'src/tsconfig.spec.json',
+    'src/typings.d.ts',
+    'e2e/app.po.ts',
+    'e2e/tsconfig.e2e.json',
+    '.angular-cli.json',
+    '.editorconfig',
+    'karma.conf.js',
+    'package.json',
+    'protractor.conf.js',
+    'tsconfig.json',
+    'tslint.json'
+  ],
+  systemjs: [
+    'src/systemjs-angular-loader.js',
+    'src/systemjs.config.js',
+    'src/tsconfig.json',
+    'bs-config.json',
+    'bs-config.e2e.json',
+    'package.json',
+    'tslint.json'
+  ],
+  common: [
+    'src/styles.css'
+  ]
+};
 
 const EXAMPLE_CONFIG_FILENAME = 'example-config.json';
 
@@ -54,30 +57,26 @@ class ExampleBoilerPlate {
    * @param useLocal if true then overwrite the Angular library files with locally built ones
    */
   add(useLocal) {
-    // first install the shared node_modules
-    this.installNodeModules(SHARED_PATH);
-
-    // Replace the Angular packages with those from the dist folder, if necessary
-    if (useLocal) {
-      ANGULAR_PACKAGES.forEach(packageName => this.overridePackage(ANGULAR_PACKAGES_PATH, packageName));
-    }
+    // Install the shared `node_modules/` (if necessary overwrite Angular packages from npm with local ones).
+    this.installNodeModules(SHARED_PATH, useLocal);
 
     // Get all the examples folders, indicated by those that contain a `example-config.json` file
     const exampleFolders = this.getFoldersContaining(EXAMPLES_BASE_PATH, EXAMPLE_CONFIG_FILENAME, 'node_modules');
     exampleFolders.forEach(exampleFolder => {
+      const exampleConfig = this.loadJsonFile(path.resolve(exampleFolder, EXAMPLE_CONFIG_FILENAME));
 
       // Link the node modules - requires admin access (on Windows) because it adds symlinks
       const destinationNodeModules = path.resolve(exampleFolder, 'node_modules');
       fs.ensureSymlinkSync(SHARED_NODE_MODULES_PATH, destinationNodeModules);
 
-      // Copy the boilerplate source files
-      BOILERPLATE_SRC_PATHS.forEach(filePath => this.copyFile(BOILERPLATE_BASE_PATH, exampleFolder, filePath));
+      const boilerPlateType = exampleConfig.projectType || 'cli';
+      const boilerPlateBasePath = path.resolve(BOILERPLATE_BASE_PATH, boilerPlateType);
 
-      // Copy the boilerplate test files (if the example is configured to do unit testing)
-      const exampleConfig = this.loadJsonFile(path.resolve(exampleFolder, EXAMPLE_CONFIG_FILENAME));
-      if (exampleConfig.unittesting) {
-        BOILERPLATE_TEST_PATHS.forEach(filePath => this.copyFile(TESTING_BASE_PATH, exampleFolder, filePath));
-      }
+      // Copy the boilerplate specific files
+      BOILERPLATE_PATHS[boilerPlateType].forEach(filePath => this.copyFile(boilerPlateBasePath, exampleFolder, filePath));
+
+      // Copy the boilerplate common files
+      BOILERPLATE_PATHS.common.forEach(filePath => this.copyFile(BOILERPLATE_COMMON_BASE_PATH, exampleFolder, filePath));
     });
   }
 
@@ -99,15 +98,14 @@ class ExampleBoilerPlate {
       .argv;
   }
 
-  installNodeModules(basePath) {
+  installNodeModules(basePath, useLocal) {
     shelljs.exec('yarn', {cwd: basePath});
-  }
 
-  overridePackage(basePath, packageName) {
-    const sourceFolder = path.resolve(basePath, packageName);
-    const destinationFolder = path.resolve(SHARED_NODE_MODULES_PATH, '@angular', packageName);
-    shelljs.rm('-rf', destinationFolder);
-    fs.copySync(sourceFolder, destinationFolder);
+    if (useLocal) {
+      ngPackagesInstaller.overwritePackages(basePath);
+    } else {
+      ngPackagesInstaller.restorePackages(basePath);
+    }
   }
 
   getFoldersContaining(basePath, filename, ignore) {

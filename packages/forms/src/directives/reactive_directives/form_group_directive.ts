@@ -34,12 +34,13 @@ export const formDirectiveProvider: any = {
  *
  * **Set value**: You can set the form's initial value when instantiating the
  * {@link FormGroup}, or you can set it programmatically later using the {@link FormGroup}'s
- * {@link AbstractControl#setValue} or {@link AbstractControl#patchValue} methods.
+ * {@link AbstractControl#setValue setValue} or {@link AbstractControl#patchValue patchValue}
+ * methods.
  *
  * **Listen to value**: If you want to listen to changes in the value of the form, you can subscribe
- * to the {@link FormGroup}'s {@link AbstractControl#valueChanges} event.  You can also listen to
- * its {@link AbstractControl#statusChanges} event to be notified when the validation status is
- * re-calculated.
+ * to the {@link FormGroup}'s {@link AbstractControl#valueChanges valueChanges} event.  You can also
+ * listen to its {@link AbstractControl#statusChanges statusChanges} event to be notified when the
+ * validation status is re-calculated.
  *
  * Furthermore, you can listen to the directive's `ngSubmit` event to be notified when the user has
  * triggered a form submission. The `ngSubmit` event will be emitted with the original form
@@ -65,7 +66,8 @@ export const formDirectiveProvider: any = {
 })
 export class FormGroupDirective extends ControlContainer implements Form,
     OnChanges {
-  private _submitted: boolean = false;
+  public readonly submitted: boolean = false;
+
   private _oldForm: FormGroup;
   directives: FormControlName[] = [];
 
@@ -86,8 +88,6 @@ export class FormGroupDirective extends ControlContainer implements Form,
       this._updateRegistrations();
     }
   }
-
-  get submitted(): boolean { return this._submitted; }
 
   get formDirective(): Form { return this; }
 
@@ -133,7 +133,7 @@ export class FormGroupDirective extends ControlContainer implements Form,
   }
 
   onSubmit($event: Event): boolean {
-    this._submitted = true;
+    (this as{submitted: boolean}).submitted = true;
     syncPendingControls(this.form, this.directives);
     this.ngSubmit.emit($event);
     return false;
@@ -143,7 +143,7 @@ export class FormGroupDirective extends ControlContainer implements Form,
 
   resetForm(value: any = undefined): void {
     this.form.reset(value);
-    this._submitted = false;
+    (this as{submitted: boolean}).submitted = false;
   }
 
 
@@ -151,10 +151,10 @@ export class FormGroupDirective extends ControlContainer implements Form,
   _updateDomValue() {
     this.directives.forEach(dir => {
       const newCtrl: any = this.form.get(dir.path);
-      if (dir._control !== newCtrl) {
-        cleanUpControl(dir._control, dir);
+      if (dir.control !== newCtrl) {
+        cleanUpControl(dir.control, dir);
         if (newCtrl) setUpControl(newCtrl, dir);
-        dir._control = newCtrl;
+        (dir as{control: FormControl}).control = newCtrl;
       }
     });
 

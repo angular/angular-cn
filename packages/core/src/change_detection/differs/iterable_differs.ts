@@ -17,7 +17,7 @@ import {Optional, SkipSelf, StaticProvider} from '../../di';
 export type NgIterable<T> = Array<T>| Iterable<T>;
 
 /**
- * A strategy for tracking changes over time to an iterable. Used by {@link NgFor} to
+ * A strategy for tracking changes over time to an iterable. Used by {@link NgForOf} to
  * respond to changes in an iterable by effecting equivalent changes in the DOM.
  *
  * @stable
@@ -63,8 +63,9 @@ export interface IterableChanges<V> {
    *        of the item, after applying the operations up to this point.
    */
   forEachOperation(
-      fn: (record: IterableChangeRecord<V>, previousIndex: number, currentIndex: number) => void):
-      void;
+      fn:
+          (record: IterableChangeRecord<V>, previousIndex: number|null,
+           currentIndex: number|null) => void): void;
 
   /**
    * Iterate over changes in the order of original `Iterable` showing where the original items

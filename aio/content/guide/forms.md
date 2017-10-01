@@ -1042,7 +1042,7 @@ that you add to the project as a sibling to `index.html`:
 在新建的`forms.css`文件中，添加两个样式来实现这一效果。把这个文件添加到项目中，与`index.html`相邻。
 
 
-<code-example path="forms/src/forms.css" title="src/forms.css">
+<code-example path="forms/src/assets/forms.css" title="src/assets/forms.css">
 
 </code-example>
 
@@ -1568,7 +1568,7 @@ Here’s the code for the final version of the application:
 
   </code-pane>
 
-  <code-pane title="forms.css" path="forms/src/forms.css">
+  <code-pane title="forms.css" path="forms/src/assets/forms.css">
 
   </code-pane>
 

@@ -60,6 +60,19 @@ groups:
       - IgorMinar
       - mhevery
 
+  bazel:
+    conditions:
+      files:
+        include:
+          - "WORKSPACE"
+          - "*.bazel"
+          - "*.bzl"
+          - "packages/bazel/*"
+    users:
+      - alexeagle #primary
+      - chuckjaz
+      - vikerman #fallback
+
   build-and-ci:
     conditions:
       files:
@@ -70,7 +83,6 @@ groups:
           - "tools/*"
         exclude:
           - "tools/public_api_guard/*"
-          - "tools/ngc-wrapped/*"
           - "aio/*"
     users:
       - IgorMinar #primary
@@ -136,9 +148,8 @@ groups:
   compiler-cli:
     conditions:
       files:
-        - "packages/tsc-wrapped/*"
         - "packages/compiler-cli/*"
-        - "tools/ngc-wrapped/*"
+        - "packages/bazel/*"
     users:
       - alexeagle
       - chuckjaz
@@ -150,7 +161,10 @@ groups:
   common:
     conditions:
       files:
-        - "packages/common/*"
+        include:
+          - "packages/common/*"
+        exclude:
+          - "packages/common/http/*"
     users:
       - pkozlowski-opensource #primary
       - vicb
@@ -170,6 +184,7 @@ groups:
   http:
     conditions:
       files:
+        - "packages/common/http/*"
         - "packages/http/*"
     users:
       - vikerman #primary

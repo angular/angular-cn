@@ -21,7 +21,7 @@ else
     cd $INTEGRATION_DIR
     rm -rf $PROJECT
     $NG set --global packageManager=yarn
-    $NG new $PROJECT --skip-install
+    $NG new $PROJECT --skip-install --skip-git
     echo "==================="
     echo $PROJECT created
     echo "==================="
@@ -38,8 +38,7 @@ else
 
     sed -i -E 's/ng build/ng build --prod --build-optimizer/g' package.json
     sed -i -E 's/ng test/ng test --single-run/g' package.json
-    # workaround for https://github.com/angular/angular-cli/issues/7401
-    sed -i -E 's/"@angular\/cli\"\: \".*\"/"@angular\/cli":  "https:\/\/github.com\/angular\/cli-builds"/g' package.json
+    sed -i -E 's/"typescript\"\: \".*\"/"typescript":  "2.4.2"/g' package.json
 
     yarn add \
       file:../../dist/packages-dist/compiler-cli \

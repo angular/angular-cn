@@ -16,7 +16,7 @@ import {AnimationStyleNormalizer} from '../dsl/style_normalization/animation_sty
 import {ENTER_CLASSNAME, LEAVE_CLASSNAME, NG_ANIMATING_CLASSNAME, NG_ANIMATING_SELECTOR, NG_TRIGGER_CLASSNAME, NG_TRIGGER_SELECTOR, copyObj, eraseStyles, setStyles} from '../util';
 
 import {AnimationDriver} from './animation_driver';
-import {getOrSetAsInMap, listenOnPlayer, makeAnimationEvent, normalizeKeyframes, optimizeGroupPlayer} from './shared';
+import {getBodyNode, getOrSetAsInMap, listenOnPlayer, makeAnimationEvent, normalizeKeyframes, optimizeGroupPlayer} from './shared';
 
 const QUEUED_CLASSNAME = 'ng-animate-queued';
 const QUEUED_SELECTOR = '.ng-animate-queued';
@@ -837,7 +837,7 @@ export class TransitionAnimationEngine {
     }
 
     const allLeaveNodes: any[] = [];
-    const leaveNodesWithoutAnimations: any[] = [];
+    const leaveNodesWithoutAnimations = new Set<any>();
     for (let i = 0; i < this.collectedLeaveElements.length; i++) {
       const element = this.collectedLeaveElements[i];
       const details = element[REMOVAL_FLAG] as ElementAnimationState;
@@ -845,7 +845,7 @@ export class TransitionAnimationEngine {
         addClass(element, LEAVE_CLASSNAME);
         allLeaveNodes.push(element);
         if (!details.hasAnimation) {
-          leaveNodesWithoutAnimations.push(element);
+          leaveNodesWithoutAnimations.add(element);
         }
       }
     }
@@ -937,12 +937,14 @@ export class TransitionAnimationEngine {
     }
 
     // these can only be detected here since we have a map of all the elements
-    // that have animations attached to them...
-    const enterNodesWithoutAnimations: any[] = [];
+    // that have animations attached to them... We use a set here in the event
+    // multiple enter captures on the same element were caught in different
+    // renderer namespaces (e.g. when a @trigger was on a host binding that had *ngIf)
+    const enterNodesWithoutAnimations = new Set<any>();
     for (let i = 0; i < allEnterNodes.length; i++) {
       const element = allEnterNodes[i];
       if (!subTimelines.has(element)) {
-        enterNodesWithoutAnimations.push(element);
+        enterNodesWithoutAnimations.add(element);
       }
     }
 
@@ -1303,7 +1305,7 @@ export class TransitionAnimationPlayer implements AnimationPlayer {
   private _containsRealPlayer = false;
 
   private _queuedCallbacks: {[name: string]: (() => any)[]} = {};
-  private _destroyed = false;
+  public readonly destroyed = false;
   public parentPlayer: AnimationPlayer;
 
   public markedForDestroy: boolean = false;
@@ -1311,8 +1313,6 @@ export class TransitionAnimationPlayer implements AnimationPlayer {
   constructor(public namespaceId: string, public triggerName: string, public element: any) {}
 
   get queued() { return this._containsRealPlayer == false; }
-
-  get destroyed() { return this._destroyed; }
 
   setRealPlayer(player: AnimationPlayer) {
     if (this._containsRealPlayer) return;
@@ -1366,7 +1366,7 @@ export class TransitionAnimationPlayer implements AnimationPlayer {
   finish(): void { this._player.finish(); }
 
   destroy(): void {
-    this._destroyed = true;
+    (this as{destroyed: boolean}).destroyed = true;
     this._player.destroy();
   }
 
@@ -1435,9 +1435,11 @@ function cloakElement(element: any, value?: string) {
 }
 
 function cloakAndComputeStyles(
-    driver: AnimationDriver, elements: any[], elementPropsMap: Map<any, Set<string>>,
+    driver: AnimationDriver, elements: Set<any>, elementPropsMap: Map<any, Set<string>>,
     defaultStyle: string): [Map<any, ɵStyleData>, any[]] {
-  const cloakVals = elements.map(element => cloakElement(element));
+  const cloakVals: string[] = [];
+  elements.forEach(element => cloakVals.push(cloakElement(element)));
+
   const valuesMap = new Map<any, ɵStyleData>();
   const failedElements: any[] = [];
 
@@ -1456,7 +1458,10 @@ function cloakAndComputeStyles(
     valuesMap.set(element, styles);
   });
 
-  elements.forEach((element, i) => cloakElement(element, cloakVals[i]));
+  // we use a index variable here since Set.forEach(a, i) does not return
+  // an index value for the closure (but instead just the value)
+  let i = 0;
+  elements.forEach(element => cloakElement(element, cloakVals[i++]));
   return [valuesMap, failedElements];
 }
 
@@ -1523,13 +1528,6 @@ function removeClass(element: any, className: string) {
       delete classes[className];
     }
   }
-}
-
-function getBodyNode(): any|null {
-  if (typeof document != 'undefined') {
-    return document.body;
-  }
-  return null;
 }
 
 function removeNodesAfterAnimationDone(

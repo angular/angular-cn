@@ -362,7 +362,7 @@ You can edit the hero's name and see the changes reflected immediately in the `<
 
 
 
-## The road you've travelled
+## Summary
 
 ## 我们已经走过的路
 
@@ -404,9 +404,9 @@ Here's the complete `app.component.ts` as it stands now:
 
 
 
-## The road ahead
+## Next step
 
-## 前方的路
+## 下一步
 
 In the [next tutorial page](tutorial/toh-pt2  "Master/Detail"), you'll build on the Tour of Heroes app to display a list of heroes.
 You'll also allow the user to select heroes and display their details.

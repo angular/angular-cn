@@ -7,7 +7,7 @@
  */
 
 import {StaticReflector, StaticSymbol, StaticSymbolCache, StaticSymbolResolver, StaticSymbolResolverHost, core as compilerCore} from '@angular/compiler';
-import {CollectorOptions} from '@angular/tsc-wrapped';
+import {CollectorOptions, METADATA_VERSION} from '@angular/compiler-cli';
 
 import {MockStaticSymbolResolverHost, MockSummaryResolver} from './static_symbol_resolver_spec';
 
@@ -878,12 +878,48 @@ describe('StaticReflector', () => {
     });
   });
 
+  // Regression #18170
+  it('should continue to aggresively evaluate enum member accessors', () => {
+    const data = Object.create(DEFAULT_TEST_DATA);
+    const file = '/tmp/src/my_component.ts';
+    data[file] = `
+      import {Component} from '@angular/core';
+      import {intermediate} from './index';
+
+      @Component({
+        template: '<div></div>',
+        providers: [{provide: 'foo', useValue: [...intermediate]}]
+      })
+      export class MyComponent { }
+    `;
+    data['/tmp/src/intermediate.ts'] = `
+      import {MyEnum} from './indirect';
+      export const intermediate = [{
+        data: {
+          c: [MyEnum.Value]
+        }
+      }];`;
+    data['/tmp/src/index.ts'] = `export * from './intermediate';`;
+    data['/tmp/src/indirect.ts'] = `export * from './consts';`;
+    data['/tmp/src/consts.ts'] = `
+      export enum MyEnum {
+        Value = 3
+      }
+    `;
+    init(data);
+
+    expect(reflector.annotations(reflector.getStaticSymbol(file, 'MyComponent'))[0]
+               .providers[0]
+               .useValue)
+        .toEqual([{data: {c: [3]}}]);
+  });
+
 });
 
 const DEFAULT_TEST_DATA: {[key: string]: any} = {
   '/tmp/@angular/common/src/forms-deprecated/directives.d.ts': [{
     '__symbolic': 'module',
-    'version': 3,
+    'version': METADATA_VERSION,
     'metadata': {
       'FORM_DIRECTIVES': [{
         '__symbolic': 'reference',
@@ -894,7 +930,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   }],
   '/tmp/@angular/common/src/directives/ng_for.d.ts': {
     '__symbolic': 'module',
-    'version': 3,
+    'version': METADATA_VERSION,
     'metadata': {
       'NgFor': {
         '__symbolic': 'class',
@@ -924,19 +960,19 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
     }
   },
   '/tmp/@angular/core/src/linker/view_container_ref.d.ts':
-      {version: 3, 'metadata': {'ViewContainerRef': {'__symbolic': 'class'}}},
+      {version: METADATA_VERSION, 'metadata': {'ViewContainerRef': {'__symbolic': 'class'}}},
   '/tmp/@angular/core/src/linker/template_ref.d.ts': {
-    version: 3,
+    version: METADATA_VERSION,
     'module': './template_ref',
     'metadata': {'TemplateRef': {'__symbolic': 'class'}}
   },
   '/tmp/@angular/core/src/change_detection/differs/iterable_differs.d.ts':
-      {version: 3, 'metadata': {'IterableDiffers': {'__symbolic': 'class'}}},
+      {version: METADATA_VERSION, 'metadata': {'IterableDiffers': {'__symbolic': 'class'}}},
   '/tmp/@angular/core/src/change_detection/change_detector_ref.d.ts':
-      {version: 3, 'metadata': {'ChangeDetectorRef': {'__symbolic': 'class'}}},
+      {version: METADATA_VERSION, 'metadata': {'ChangeDetectorRef': {'__symbolic': 'class'}}},
   '/tmp/src/app/hero-detail.component.d.ts': {
     '__symbolic': 'module',
-    'version': 3,
+    'version': METADATA_VERSION,
     'metadata': {
       'HeroDetailComponent': {
         '__symbolic': 'class',
@@ -971,10 +1007,10 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
       }
     }
   },
-  '/src/extern.d.ts': {'__symbolic': 'module', 'version': 3, metadata: {s: 's'}},
+  '/src/extern.d.ts': {'__symbolic': 'module', 'version': METADATA_VERSION, metadata: {s: 's'}},
   '/tmp/src/error-reporting.d.ts': {
     __symbolic: 'module',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {
       SomeClass: {
         __symbolic: 'class',
@@ -994,7 +1030,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   },
   '/tmp/src/error-references.d.ts': {
     __symbolic: 'module',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {
       Link1: {__symbolic: 'reference', module: 'src/error-references', name: 'Link2'},
       Link2: {__symbolic: 'reference', module: 'src/error-references', name: 'ErrorSym'},
@@ -1004,7 +1040,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   },
   '/tmp/src/function-declaration.d.ts': {
     __symbolic: 'module',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {
       one: {
         __symbolic: 'function',
@@ -1031,7 +1067,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   },
   '/tmp/src/function-reference.ts': {
     __symbolic: 'module',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {
       one: {
         __symbolic: 'call',
@@ -1058,7 +1094,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   },
   '/tmp/src/function-recursive.d.ts': {
     __symbolic: 'modules',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {
       recursive: {
         __symbolic: 'function',
@@ -1103,7 +1139,7 @@ const DEFAULT_TEST_DATA: {[key: string]: any} = {
   },
   '/tmp/src/spread.ts': {
     __symbolic: 'module',
-    version: 3,
+    version: METADATA_VERSION,
     metadata: {spread: [0, {__symbolic: 'spread', expression: [1, 2, 3, 4]}, 5]}
   },
   '/tmp/src/custom-decorator.ts': `

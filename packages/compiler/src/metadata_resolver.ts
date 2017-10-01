@@ -12,14 +12,16 @@ import {assertArrayOfStrings, assertInterpolationSymbols} from './assertions';
 import * as cpl from './compile_metadata';
 import {CompileReflector} from './compile_reflector';
 import {CompilerConfig} from './config';
-import {ChangeDetectionStrategy, Component, Directive, ModuleWithProviders, Provider, Query, SchemaMetadata, Type, createAttribute, createComponent, createHost, createInject, createInjectable, createInjectionToken, createOptional, createSelf, createSkipSelf} from './core';
+import {ChangeDetectionStrategy, Component, Directive, ModuleWithProviders, Provider, Query, SchemaMetadata, Type, ViewEncapsulation, createAttribute, createComponent, createHost, createInject, createInjectable, createInjectionToken, createOptional, createSelf, createSkipSelf} from './core';
 import {DirectiveNormalizer} from './directive_normalizer';
 import {DirectiveResolver} from './directive_resolver';
 import {Identifiers} from './identifiers';
 import {getAllLifecycleHooks} from './lifecycle_reflector';
+import {HtmlParser} from './ml_parser/html_parser';
 import {NgModuleResolver} from './ng_module_resolver';
 import {PipeResolver} from './pipe_resolver';
 import {ElementSchemaRegistry} from './schema/element_schema_registry';
+import {CssSelector} from './selector';
 import {SummaryResolver} from './summary_resolver';
 import {Console, SyncAsync, ValueTransformer, isPromise, noUndefined, resolveForwardRef, stringify, syntaxError, visitValue} from './util';
 
@@ -44,9 +46,9 @@ export class CompileMetadataResolver {
   private _ngModuleOfTypes = new Map<Type, Type>();
 
   constructor(
-      private _config: CompilerConfig, private _ngModuleResolver: NgModuleResolver,
-      private _directiveResolver: DirectiveResolver, private _pipeResolver: PipeResolver,
-      private _summaryResolver: SummaryResolver<any>,
+      private _config: CompilerConfig, private _htmlParser: HtmlParser,
+      private _ngModuleResolver: NgModuleResolver, private _directiveResolver: DirectiveResolver,
+      private _pipeResolver: PipeResolver, private _summaryResolver: SummaryResolver<any>,
       private _schemaRegistry: ElementSchemaRegistry,
       private _directiveNormalizer: DirectiveNormalizer, private _console: Console,
       private _staticSymbolCache: StaticSymbolCache, private _reflector: CompileReflector,
@@ -167,6 +169,54 @@ export class CompileMetadataResolver {
     return typeSummary && typeSummary.summaryKind === kind ? typeSummary : null;
   }
 
+  getHostComponentMetadata(
+      compMeta: cpl.CompileDirectiveMetadata,
+      hostViewType?: StaticSymbol|cpl.ProxyClass): cpl.CompileDirectiveMetadata {
+    const hostType = this.getHostComponentType(compMeta.type.reference);
+    if (!hostViewType) {
+      hostViewType = this.getHostComponentViewClass(hostType);
+    }
+    // Note: ! is ok here as this method should only be called with normalized directive
+    // metadata, which always fills in the selector.
+    const template = CssSelector.parse(compMeta.selector !)[0].getMatchingElementTemplate();
+    const templateUrl = '';
+    const htmlAst = this._htmlParser.parse(template, templateUrl);
+    return cpl.CompileDirectiveMetadata.create({
+      isHost: true,
+      type: {reference: hostType, diDeps: [], lifecycleHooks: []},
+      template: new cpl.CompileTemplateMetadata({
+        encapsulation: ViewEncapsulation.None,
+        template,
+        templateUrl,
+        htmlAst,
+        styles: [],
+        styleUrls: [],
+        ngContentSelectors: [],
+        animations: [],
+        isInline: true,
+        externalStylesheets: [],
+        interpolation: null,
+        preserveWhitespaces: false,
+      }),
+      exportAs: null,
+      changeDetection: ChangeDetectionStrategy.Default,
+      inputs: [],
+      outputs: [],
+      host: {},
+      isComponent: true,
+      selector: '*',
+      providers: [],
+      viewProviders: [],
+      queries: [],
+      viewQueries: [],
+      componentViewType: hostViewType,
+      rendererType:
+          {id: '__Host__', encapsulation: ViewEncapsulation.None, styles: [], data: {}} as object,
+      entryComponents: [],
+      componentFactory: null
+    });
+  }
+
   loadDirectiveMetadata(ngModuleType: any, directiveType: any, isSync: boolean): SyncAsync<null> {
     if (this._directiveCache.has(directiveType)) {
       return null;
@@ -261,6 +311,7 @@ export class CompileMetadataResolver {
         encapsulation: noUndefined(compMeta.encapsulation),
         template: noUndefined(compMeta.template),
         templateUrl: noUndefined(compMeta.templateUrl),
+        htmlAst: null,
         styles: compMeta.styles || [],
         styleUrls: compMeta.styleUrls || [],
         animations: animations || [],
@@ -835,10 +886,10 @@ export class CompileMetadataResolver {
           dependenciesMetadata.map((dep) => dep ? stringifyType(dep.token) : '?').join(', ');
       const message =
           `Can't resolve all parameters for ${stringifyType(typeOrFunc)}: (${depsTokens}).`;
-      if (throwOnUnknownDeps) {
+      if (throwOnUnknownDeps || this._config.strictInjectionParameters) {
         this._reportError(syntaxError(message), typeOrFunc);
       } else {
-        this._console.warn(`Warning: ${message} This will become an error in Angular v5.x`);
+        this._console.warn(`Warning: ${message} This will become an error in Angular v6.x`);
       }
     }
 

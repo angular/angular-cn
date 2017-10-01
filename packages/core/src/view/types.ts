@@ -43,7 +43,6 @@ export interface NgModuleDefinition extends Definition<NgModuleDefinitionFactory
 }
 
 export interface NgModuleDefinitionFactory extends DefinitionFactory<NgModuleDefinition> {}
-;
 
 export interface ViewDefinition extends Definition<ViewDefinitionFactory> {
   flags: ViewFlags;
@@ -233,6 +232,7 @@ export const enum QueryValueType {
 }
 
 export interface ElementDef {
+  // set to null for `<ng-container>`
   name: string|null;
   ns: string|null;
   /** ns, name, value */

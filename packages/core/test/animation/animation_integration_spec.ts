@@ -733,6 +733,46 @@ export function main() {
              flushMicrotasks();
              expect(fixture.debugElement.nativeElement.children.length).toBe(0);
            }));
+
+        it('should properly evaluate pre/auto-style values when components are inserted/removed which contain host animations',
+           fakeAsync(() => {
+             @Component({
+               selector: 'parent-cmp',
+               template: `
+                <child-cmp *ngFor="let item of items"></child-cmp>
+              `
+             })
+             class ParentCmp {
+               items: any[] = [1, 2, 3, 4, 5];
+             }
+
+             @Component({
+               selector: 'child-cmp',
+               template: '... child ...',
+               animations:
+                   [trigger('host', [transition(':leave', [animate(1000, style({opacity: 0}))])])]
+             })
+             class ChildCmp {
+               @HostBinding('@host') public hostAnimation = 'a';
+             }
+
+             TestBed.configureTestingModule({declarations: [ParentCmp, ChildCmp]});
+
+             const engine = TestBed.get(ɵAnimationEngine);
+             const fixture = TestBed.createComponent(ParentCmp);
+             const cmp = fixture.componentInstance;
+             const element = fixture.nativeElement;
+             fixture.detectChanges();
+
+             cmp.items = [0, 2, 4, 6];  // 1,3,5 get removed
+             fixture.detectChanges();
+
+             const items = element.querySelectorAll('child-cmp');
+             for (let i = 0; i < items.length; i++) {
+               const item = items[i];
+               expect(item.style['display']).toBeFalsy();
+             }
+           }));
       });
 
       it('should cancel and merge in mid-animation styles into the follow-up animation, but only for animation keyframes that start right away',
@@ -2012,7 +2052,9 @@ export function main() {
              exp2: any = false;
              event1: AnimationEvent;
              event2: AnimationEvent;
+             // tslint:disable:semicolon
              callback1 = (event: any) => { this.event1 = event; };
+             // tslint:disable:semicolon
              callback2 = (event: any) => { this.event2 = event; };
            }
 
@@ -2121,7 +2163,7 @@ export function main() {
              exp: any = false;
 
              @HostListener('@myAnimation2.start', ['$event'])
-             callback = (event: any) => { this.event = event; };
+             callback = (event: any) => { this.event = event; }
            }
 
            TestBed.configureTestingModule({declarations: [Cmp]});
@@ -2330,7 +2372,7 @@ export function main() {
             trigger('child', [
               transition(':enter', [
                 style({ opacity: 0 }),
-                animate(1500, style({ opactiy: 1 }))
+                animate(1500, style({ opacity: 1 }))
               ])
             ])
           ]
@@ -2729,7 +2771,7 @@ export function main() {
           fixture.detectChanges();
           expect(getLog().length).toEqual(0);
         });
-        
+
         it('should respect parent/sub animations when the respective area in the DOM is disabled',
            fakeAsync(() => {
              @Component({

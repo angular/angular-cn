@@ -92,4 +92,12 @@ describe('site App', function() {
     // Todo: add test to confirm tracking URL when navigate.
   });
 
+  describe('search', () => {
+    it('should find pages when searching by a partial word in the title', () => {
+      page.enterSearch('ngCont');
+      expect(page.getSearchResults().map(link => link.getText())).toContain('NgControl');
+      page.enterSearch('accessor');
+      expect(page.getSearchResults().map(link => link.getText())).toContain('ControlValueAccessor');
+    });
+  });
 });

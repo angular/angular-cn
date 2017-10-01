@@ -134,8 +134,3 @@ the concept of a "document title" for that specific platform.
 Ideally, the application itself neither knows nor cares about the runtime environment.
 
 我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。
-
-
-[Back to top](guide/set-document-title#top)
-
-[回到顶部](guide/set-document-title#top)

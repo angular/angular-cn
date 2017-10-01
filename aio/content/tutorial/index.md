@@ -131,7 +131,7 @@ Here's the app in action:
 
 
 
-## Up next
+## Next step
 
 ## 接下来
 

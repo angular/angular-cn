@@ -364,6 +364,12 @@
       "title": "API 参考手册",
       "tooltip": "关于 Angular 中类和值的详细信息。",
       "url": "api"
+    },
+    {
+      "url": "guide/change-log",
+      "title": "Change Log",
+      "tooltip": "Angular Documentation Change Log",
+      "hidden": true
     }
   ],
 
@@ -397,7 +403,7 @@
       "title": "帮助",
       "children": [
         {
-          "url": "http://stackoverflow.com/questions/tagged/angular2",
+          "url": "https://stackoverflow.com/questions/tagged/angular",
           "title": "Stack Overflow",
           "tooltip": "Stack Overflow: 这里的社区会回答你关于 Angular 的技术问题"
         },

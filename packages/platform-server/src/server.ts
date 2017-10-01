@@ -15,9 +15,9 @@ import {BrowserModule, DOCUMENT, ɵSharedStylesHost as SharedStylesHost, ɵTRANS
 import {ɵplatformCoreDynamic as platformCoreDynamic} from '@angular/platform-browser-dynamic';
 import {NoopAnimationsModule, ɵAnimationRendererFactory} from '@angular/platform-browser/animations';
 
+import {DominoAdapter, parseDocument} from './domino_adapter';
 import {SERVER_HTTP_PROVIDERS} from './http';
 import {ServerPlatformLocation} from './location';
-import {Parse5DomAdapter, parseDocument} from './parse5_adapter';
 import {PlatformState} from './platform_state';
 import {ServerRendererFactory2} from './server_renderer';
 import {ServerStylesHost} from './styles_host';
@@ -30,7 +30,7 @@ function notSupported(feature: string): Error {
 export const INTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[] = [
   {provide: DOCUMENT, useFactory: _document, deps: [Injector]},
   {provide: PLATFORM_ID, useValue: PLATFORM_SERVER_ID},
-  {provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector]}, {
+  {provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector]}, {
     provide: PlatformLocation,
     useClass: ServerPlatformLocation,
     deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
@@ -40,8 +40,8 @@ export const INTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[] = [
   {provide: ALLOW_MULTIPLE_PLATFORMS, useValue: true}
 ];
 
-function initParse5Adapter(injector: Injector) {
-  return () => { Parse5DomAdapter.makeCurrent(); };
+function initDominoAdapter(injector: Injector) {
+  return () => { DominoAdapter.makeCurrent(); };
 }
 
 export function instantiateServerRendererFactory(
@@ -80,7 +80,7 @@ export class ServerModule {
 function _document(injector: Injector) {
   let config: PlatformConfig|null = injector.get(INITIAL_CONFIG, null);
   if (config && config.document) {
-    return parseDocument(config.document);
+    return parseDocument(config.document, config.url);
   } else {
     return getDOM().createHtmlDocument();
   }

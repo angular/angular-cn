@@ -46,9 +46,29 @@ The examples in this page are available as a <live-example></live-example>.
 
 </div>
 
+## Setup
+
+Before you can add animations to your application, you need
+to import a few animation-specific modules and functions to the root application module.
+
+<code-example path="animations/src/app/app.module.ts" region="animations-module" title="app.module.ts (animation module import excerpt)" linenums="false"></code-example>
+
+#### Example basics
+
+The animations examples in this guide animate a list of heroes.
+
+A `Hero` class has a `name` property, a `state` property that indicates if the hero is active or not,
+and a `toggleState()` method to switch between the states.
+
+<code-example path="animations/src/app/hero.service.ts" region="hero" title="hero.service.ts (Hero class)" linenums="false"></code-example>
+
+Across the top of the screen (`app.hero-team-builder.component.ts`)
+are a series of buttons that add and remove heroes from the list (via the `HeroService`). 
+The buttons trigger changes to the list that all of the example components see at the same time.
+
 {@a example-transitioning-between-states}
 
-## Quickstart example: Transitioning between two states
+## Transitioning between two states
 
 ## 快速起步范例：在两个状态间转场
 
@@ -60,12 +80,9 @@ driven by a model attribute.
 
 我们来构建一个简单的动画，它会让一个元素用模型驱动的方式在两个状态之间转场。
 
-Animations are defined inside `@Component` metadata. Before you can add animations, you need
-to import a few animation-specific imports and functions:
+Animations can be defined inside `@Component` metadata. 
 
-动画会被定义在`@Component`元数据中。在添加动画之前，先引入一些与动画有关的函数：
-
-<code-example path="animations/src/app/app.module.ts" region="animations-module" title="app.module.ts (@NgModule imports excerpt)" linenums="false"></code-example>
+动画会被定义在`@Component`元数据中。
 
 <code-example path="animations/src/app/hero-list-basic.component.ts" region="imports" title="hero-list-basic.component.ts" linenums="false"></code-example>
 

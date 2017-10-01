@@ -597,7 +597,7 @@ Here are the code files discussed in this page.
 
 
 
-## The road you’ve travelled
+## Summary
 
 ## 走过的路
 
@@ -628,9 +628,9 @@ Your app should look like this <live-example></live-example>.
 
 
 
-## The road ahead
+## Next step
 
-## 前方的路
+## 下一步
 
 The Tour of Heroes app is more reusable with shared components,
 but its (mock) data is still hard coded within the `AppComponent`.

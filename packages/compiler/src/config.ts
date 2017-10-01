@@ -21,23 +21,26 @@ export class CompilerConfig {
   public jitDevMode: boolean;
   public missingTranslation: MissingTranslationStrategy|null;
   public preserveWhitespaces: boolean;
+  public strictInjectionParameters: boolean;
 
   constructor(
       {defaultEncapsulation = ViewEncapsulation.Emulated, useJit = true, jitDevMode = false,
-       missingTranslation, enableLegacyTemplate, preserveWhitespaces}: {
+       missingTranslation, enableLegacyTemplate, preserveWhitespaces, strictInjectionParameters}: {
         defaultEncapsulation?: ViewEncapsulation,
         useJit?: boolean,
         jitDevMode?: boolean,
         missingTranslation?: MissingTranslationStrategy,
         enableLegacyTemplate?: boolean,
-        preserveWhitespaces?: boolean
+        preserveWhitespaces?: boolean,
+        strictInjectionParameters?: boolean,
       } = {}) {
     this.defaultEncapsulation = defaultEncapsulation;
     this.useJit = !!useJit;
     this.jitDevMode = !!jitDevMode;
     this.missingTranslation = missingTranslation || null;
-    this.enableLegacyTemplate = enableLegacyTemplate !== false;
+    this.enableLegacyTemplate = enableLegacyTemplate === true;
     this.preserveWhitespaces = preserveWhitespacesDefault(noUndefined(preserveWhitespaces));
+    this.strictInjectionParameters = strictInjectionParameters === true;
   }
 }
 

@@ -319,7 +319,7 @@ set the color of each form control's border.
 
 这个英雄表单使用 `.ng-valid` 和 `.ng-invalid` 来设置每个表单控件的边框颜色。
 
-<code-example path="form-validation/src/forms.css" title="forms.css (status classes)">
+<code-example path="form-validation/src/assets/forms.css" title="forms.css (status classes)">
 
 </code-example>
 

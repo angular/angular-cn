@@ -1801,17 +1801,8 @@ Here's an excerpt:
 
 Create the file <code>styles.css</code>.
 Ensure that the file contains the [master styles provided here](https://raw.githubusercontent.com/angular/angular/master/aio/tools/examples/shared/boilerplate/src/styles.css).
-Also edit <code>index.html</code> to refer to this stylesheet.
 
-如果在根目录下没有一个名叫`styles.css`的文件，就添加它。
-确保它包含[这里给出的主样式](https://raw.githubusercontent.com/angular/angular.io/master/public/docs/_examples/_boilerplate/src/styles.css)。
-并编辑`index.html`来引用这个样式表。
-
-
-<code-example path="toh-pt5/src/index.html" region="css" title="src/index.html (link ref)">
-
-</code-example>
-
+创建文件<code>styles.css</code>。确保该文件的内容包含[如下的主样式](https://raw.githubusercontent.com/angular/angular/master/aio/tools/examples/shared/boilerplate/src/styles.css)。
 
 
 Look at the app now. The dashboard, heroes, and navigation links are styled.
@@ -1960,9 +1951,9 @@ Verify that you have the following structure:
 
 
 
-## The road you’ve travelled
+## Summary
 
-## 走过的路
+## 小结
 
 Here's what you achieved in this page:
 
@@ -1996,7 +1987,7 @@ Your app should look like this <live-example></live-example>.
 
 我们的应用现在变成了这样：<live-example></live-example>。
 
-### The road ahead
+### Next step
 
 ### 前方的路
 

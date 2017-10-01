@@ -310,6 +310,179 @@ to get information from parent, child and sibling routes.
 
 路由器状态为我们提供了从任意激活路由开始向上或向下遍历路由树的一种方式，以获得关于父、子、兄弟路由的信息。
 
+{@a activated-route}
+
+
+### Activated route
+
+### 激活的路由
+
+The route path and parameters are available through an injected router service called the
+[ActivatedRoute](api/router/ActivatedRoute).
+It has a great deal of useful information including:
+
+该路由的路径和参数可以通过注入进来的一个名叫[ActivatedRoute](api/router/ActivatedRoute)的路由服务来获取。
+它有一大堆有用的信息，包括：
+
+<table>
+  <tr>
+    <th>
+      Property
+      
+      属性
+    </th>
+
+    <th>
+      Description
+      
+      描述
+    </th>
+  </tr>
+
+  <tr>
+    <td>
+      <code>url</code>
+    </td>
+    <td>
+
+    An `Observable` of the route path(s), represented as an array of strings for each part of the route path.
+
+    路由路径的`Observable`对象，是一个由路由路径中的各个部分组成的字符串数组。
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>data</code>
+    </td>
+    <td>
+
+    An `Observable` that contains the `data` object provided for the route. Also contains any resolved values from the [resolve guard](#resolve-guard).
+
+    一个`Observable`，其中包含提供给路由的`data`对象。也包含由[解析守卫（resolve guard）](#resolve-guard)解析而来的值。
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>paramMap</code>
+    </td>
+    <td>
+
+    An `Observable` that contains a [map](api/router/ParamMap) of the required and [optional parameters](#optional-route-parameters) specific to the route. The map supports retrieving single and multiple values from the same parameter.
+
+    一个`Observable`，其中包含一个由当前路由的必要参数和[可选参数](#optional-route-parameters)组成的[map](api/router/ParamMap)对象。用这个map可以获取来自同名参数的单一值或多重值。
+    
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>queryParamMap</code>
+    </td>
+    <td>
+
+    An `Observable` that contains a [map](api/router/ParamMap) of the [query parameters](#query-parameters) available to all routes.
+    The map supports retrieving single and multiple values from the query parameter.
+
+    一个`Observable`，其中包含一个对所有路由都有效的[查询参数](#query-parameters)组成的[map](api/router/ParamMap)对象。
+    用这个map可以获取来自查询参数的单一值或多重值。
+    
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>fragment</code>
+    </td>
+    <td>
+
+    An `Observable` of the URL [fragment](#fragment) available to all routes.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>outlet</code>
+    </td>
+    <td>
+
+    The name of the `RouterOutlet` used to render the route. For an unnamed outlet, the outlet name is _primary_.
+
+    要把该路由渲染到的`RouterOutlet`的名字。对于无名路由，它的路由名是`primary`，而不是空串。
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>routeConfig</code>
+    </td>
+    <td>
+
+    The route configuration used for the route that contains the origin path.
+
+    用于该路由的路由配置信息，其中包含原始路径。
+    
+    </td>
+  </tr>
+
+    <tr>
+    <td>
+      <code>parent</code>
+    </td>
+    <td>
+
+    The route's parent `ActivatedRoute` when this route is a [child route](#child-routing-component).
+
+    当该路由是一个[子路由](#child-routing-component)时，表示该路由的父级`ActivatedRoute`。
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>firstChild</code>
+    </td>
+    <td>
+
+    Contains the first `ActivatedRoute` in the list of this route's child routes.
+
+    包含该路由的子路由列表中的第一个`ActivatedRoute`。
+    
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>children</code>
+    </td>
+    <td>
+
+    Contains all the [child routes](#child-routing-component) activated under the current route.
+
+    包含当前路由下所有已激活的[子路由](#child-routing-component)。
+    
+    </td>
+  </tr>
+</table>
+
+<div class="l-sub-section">
+
+Two older properties are still available. They are less capable than their replacements, discouraged, and may be deprecated in a future Angular version.
+
+有两个旧式属性仍然是有效的，但它们不如其替代品那样强力，我们建议你不要再用它们，并且将在未来的 Angular 版本中废弃。
+
+**`params`** &mdash; An `Observable` that contains the required and [optional parameters](#optional-route-parameters) specific to the route. Use `paramMap` instead.
+
+**`params`** —— 一个`Observable`对象，其中包含当前路由的必要参数和[可选参数](#optional-route-parameters)。请改用`paramMap`。
+
+**`queryParams`** &mdash; An `Observable` that contains the [query parameters](#query-parameters) available to all routes.
+Use `queryParamMap` instead.
+
+**`queryParams`** —— 一个`Observable`对象，其中包含对所有路由都有效的[查询参数](#query-parameters)。请改用`queryParamMap`。
+
+</div>
+
 ### Router events
 
 ### 路由事件
@@ -367,7 +540,7 @@ During each navigation, the `Router` emits navigation events through the `Router
     </td>
     <td>
 
-      An [event](api/router/RouteConfigLoadStart) triggered before the `Router` 
+      An [event](api/router/RouteConfigLoadStart) triggered before the `Router`
       [lazy loads](#asynchronous-routing) a route configuration.
 
       本[事件](api/router/RouteConfigLoadStart)会在`Router`对一个路由配置进行[惰性加载](#asynchronous-routing)之前触发。
@@ -407,7 +580,7 @@ During each navigation, the `Router` emits navigation events through the `Router
     </td>
     <td>
 
-      An [event](api/router/NavigationCancel) triggered when navigation is canceled. 
+      An [event](api/router/NavigationCancel) triggered when navigation is canceled.
       This is due to a [Route Guard](#guards) returning false during navigation.
 
       本[事件](api/router/NavigationCancel)会在导航被取消之后触发。
@@ -1479,7 +1652,7 @@ When the application launches, the initial URL in the browser bar is something l
   localhost:3000
 </code-example>
 
-That doesn't match any of the concrete configured routes which means 
+That doesn't match any of the concrete configured routes which means
 the router falls through to the wildcard route and displays the `PageNotFoundComponent`.
 
 The application needs a **default route** to a valid page.
@@ -2085,7 +2258,7 @@ using the same techniques you learned while creating the `AppRoutingModule`.
 在`heroes`目录下创建一个新的`heroes-routing.module.ts`文件，使用的技术和以前创建`AppRoutingModule`时的一样。
 
 
-<code-example path="router/src/app/heroes/heroes-routing.module.ts" title="src/app/heroes/heroes-routing.module.ts">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" title="src/app/heroes/heroes-routing.module.ts">
 
 </code-example>
 
@@ -2336,7 +2509,7 @@ The route to `HeroDetailComponent` has a twist.
 `HeroDetailComponent`的路由有点特殊。
 
 
-<code-example path="router/src/app/heroes/heroes-routing.module.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (excerpt)" region="hero-detail-route">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (excerpt)" region="hero-detail-route">
 
 </code-example>
 
@@ -2390,70 +2563,6 @@ a route for some other hero.
 </div>
 
 
-
-{@a navigate}
-
-
-### Navigate to hero detail imperatively
-
-### 命令式地导航到英雄详情
-
-Users *will not* navigate to the detail component by clicking a link
-so you won't add a new `RouterLink` anchor tag to the shell.
-
-*这次我们不打算通过点击链接来导航到详情组件*，因此也不用再把带`RouterLink`的新的A标签加到壳组件中。
-
-Instead, when the user *clicks* a hero in the list, you'll ask the router
-to navigate to the hero detail view for the selected hero.
-
-而是改为当用户在列表中*点击*一个英雄时，我们将*要求*路由器导航到所选英雄的详情视图
-
-Start in the `HeroListComponent`.
-Revise its constructor so that it acquires the `Router` and the `HeroService` by dependency injection:
-
-从`HeroListComponent`开始。
-修改它的构造函数，让它通过依赖注入获得`Router`和`HeroService`：
-
-
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (constructor)" region="ctor">
-
-</code-example>
-
-
-
-Make the following few changes to the component's template:
-
-还要对模板进行一点修改：
-
-
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (template)" region="template">
-
-</code-example>
-
-
-
-The template defines an `*ngFor` repeater such as [you've seen before](guide/displaying-data#ngFor).
-There's a `(click)` [event binding](guide/template-syntax#event-binding) to the component's
-`onSelect` method which you implement as follows:
-
-模板像[以前](guide/displaying-data#ngFor)一样定义了一个`*ngFor`重复器。
-还有一个`(click)`[事件绑定](guide/template-syntax#event-binding)，绑定到了组件的`onSelect`方法，就像这样：
-
-
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (select)" region="select">
-
-</code-example>
-
-
-
-The component's `onSelect` calls the router's **`navigate`** method with a _link parameters array_.
-You can use this same syntax in a `RouterLink` if you decide later to navigate in HTML template rather than in component code.
-
-它用一个**链接参数数组**调用路由器的**`navigate`**方法。
-如果我们想把它用在HTML中，那么也可以把相同的语法用在`RouterLink`中。
-
-
-
 {@a route-parameters}
 
 
@@ -2504,157 +2613,9 @@ the `HeroDetailComponent` via the `ActivatedRoute` service.
 
 </div>
 
-
-
 {@a activated-route}
 
-
-### ActivatedRoute: the one-stop-shop for route information
-
-### ActivatedRoute：一站式获取路由信息
-
-The route path and parameters are available through an injected router service called the
-[ActivatedRoute](api/router/ActivatedRoute).
-It has a great deal of useful information including:
-
-该路由的路径和参数可以通过注入进来的一个名叫[ActivatedRoute](api/router/ActivatedRoute)的路由服务来获取。
-它有一大堆有用的信息，包括：
-
-<table>
-  <tr>
-    <th>
-      Property
-    </th>
-
-    <th>
-      Description
-    </th>
-  </tr>
-
-  <tr>
-    <td>
-      <code>url</code>
-    </td>
-    <td>
-
-    An `Observable` of the route path(s), represented as an array of strings for each part of the route path.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>data</code>
-    </td>
-    <td>
-
-    An `Observable` that contains the `data` object provided for the route. Also contains any resolved values from the [resolve guard](#resolve-guard).
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>paramMap</code>
-    </td>
-    <td>
-
-    An `Observable` that contains a [map](api/router/ParamMap) of the required and [optional parameters](#optional-route-parameters) specific to the route. The map supports retrieving single and multiple values from the same parameter.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>queryParamMap</code>
-    </td>
-    <td>
-
-    An `Observable` that contains a [map](api/router/ParamMap) of the [query parameters](#query-parameters) available to all routes. 
-    The map supports retrieving single and multiple values from the query parameter.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>fragment</code>
-    </td>
-    <td>
-
-    An `Observable` of the URL [fragment](#fragment) available to all routes.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>outlet</code>
-    </td>
-    <td>
-
-    The name of the `RouterOutlet` used to render the route. For an unnamed outlet, the outlet name is _primary_.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>routeConfig</code>
-    </td>
-    <td>
-
-    The route configuration used for the route that contains the origin path.
-
-    </td>
-  </tr>
-
-    <tr>
-    <td>
-      <code>parent</code>
-    </td>
-    <td>
-
-    The route's parent `ActivatedRoute` when this route is a [child route](#child-routing-component).
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>firstChild</code>
-    </td>
-    <td>
-
-    Contains the first `ActivatedRoute` in the list of this route's child routes.
-
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <code>children</code>
-    </td>
-    <td>
-
-    Contains all the [child routes](#child-routing-component) activated under the current route.
-
-    </td>
-  </tr>
-</table>
-
-<div class="l-sub-section">
-
-Two older properties are still available. They are less capable than their replacements, discouraged, and may be deprecated in a future Angular version.
-
-**`params`** &mdash; An `Observable` that contains the required and [optional parameters](#optional-route-parameters) specific to the route. Use `paramMap` instead.
-
-**`queryParams`** &mdash; An `Observable` that contains the [query parameters](#query-parameters) available to all routes. 
-Use `queryParamMap` instead.
-
-</div>
-
-#### _Activated Route_ in action
+### _Activated Route_ in action
 
 #### _Activated Route_ 实战
 
@@ -2703,14 +2664,13 @@ pull the hero `id` from the parameters and retrieve the hero to display.
 
 </code-example>
 
-The `paramMap` processing is a bit tricky. When the map changes, you `get()` 
+The `paramMap` processing is a bit tricky. When the map changes, you `get()`
 the `id` parameter from the changed parameters.
 
-Then you tell the `HeroService` to fetch the hero with that `id` and return the result of the `HeroService` request. 
+Then you tell the `HeroService` to fetch the hero with that `id` and return the result of the `HeroService` request.
 
 You might think to use the RxJS `map` operator.
 But the `HeroService` returns an `Observable<Hero>`.
-Your subscription wants the `Hero`, not an `Observable<Hero>`.
 So you flatten the `Observable` with the `switchMap` operator instead.
 
 由于参数是作为`Observable`提供的，所以我们得用`switchMap`操作符来根据名字取得`id`参数，并告诉`HeroService`来获取带有那个`id`的英雄。
@@ -2718,7 +2678,11 @@ So you flatten the `Observable` with the `switchMap` operator instead.
 The `switchMap` operator also cancels previous in-flight requests. If the user re-navigates to this route
 with a new `id` while the `HeroService` is still retrieving the old `id`, `switchMap` discards that old request and returns the hero for the new `id`.
 
-Finally, you activate the observable with `subscribe` method and (re)set the component's `hero` property with the retrieved hero.
+`switchMap`操作符也会取消以前未完成的在途请求。如果用户使用心得`id`再次导航到该路由，而`HeroService`仍在接受老`id`对应的英雄，那么`switchMap`就会抛弃老的请求，并返回这个新`id`的英雄信息。
+
+The observable `Subscription` will be handled by the `AsyncPipe` and the component's `hero` property will be (re)set with the retrieved hero.
+
+这个可观察对象的`Subscription`（订阅）将会由`AsyncPipe`处理，并且组件的`hero`属性将会设置为刚刚接收到的这个英雄。
 
 #### _ParamMap_ API
 
@@ -2727,14 +2691,20 @@ Finally, you activate the observable with `subscribe` method and (re)set the com
 The `ParamMap` API is inspired by the [URLSearchParams interface](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams). It provides methods
 to handle parameter access for both route parameters (`paramMap`) and query parameters (`queryParamMap`).
 
+`ParamMap` API 是参照[URLSearchParams 接口](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)来设计的。它提供了一些方法来处理对路由参数（`paramMap`）和查询参数(`queryParamMap`)中的参数访问。
+
 <table>
   <tr>
     <th>
       Member
+      
+      成员
     </th>
 
     <th>
       Description
+      
+      描述
     </th>
   </tr>
 
@@ -2746,6 +2716,7 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 
     Returns `true` if the parameter name is in the map of parameters.
 
+    如果参数名位于参数列表中，就返回 `true` 。
     </td>
   </tr>
 
@@ -2755,8 +2726,9 @@ to handle parameter access for both route parameters (`paramMap`) and query para
     </td>
     <td>
 
-    Returns the parameter name value (a `string`) if present, or `null` if the parameter name is not in the map. Returns the _first_ element if the parameter value is actually an array of values. 
+    Returns the parameter name value (a `string`) if present, or `null` if the parameter name is not in the map. Returns the _first_ element if the parameter value is actually an array of values.
 
+    如果这个map中有参数名对应的参数值（字符串），就返回它，否则返回`null`。如果参数值实际上是一个数组，就返回它的*第一个*元素。
     </td>
   </tr>
 
@@ -2768,6 +2740,8 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 
     Returns a `string array` of the parameter name value if found, or an empty `array` if the parameter name value is not in the map. Use `getAll` when a single parameter could have multiple values.
 
+    如果这个map中有参数名对应的值，就返回一个字符串数组，否则返回空数组。当一个参数名可能对应多个值的时候，请使用`getAll`。
+        
     </td>
   </tr>
 
@@ -2779,6 +2753,8 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 
     Returns a `string array` of all parameter names in the map.
 
+    返回这个map中的所有参数名组成的字符串数组。
+    
     </td>
   </tr>
 </table>
@@ -3028,7 +3004,7 @@ as a route parameter with an `:id` placeholder token in the route `path`:
 路由器在导航URL中内嵌了`id`的值，这是因为我们把它用一个`:id`占位符当做路由参数定义在了路由的`path`中：
 
 
-<code-example path="router/src/app/heroes/heroes-routing.module.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (hero-detail-route)" region="hero-detail-route">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (hero-detail-route)" region="hero-detail-route">
 
 </code-example>
 
@@ -3217,19 +3193,8 @@ when the user navigates to the component. In `ngOnInit` you subscribe to those v
 ActivatedRoute.paramMap属性是一个路由参数的可观察对象。当用户导航到这个组件时，paramMap会发射一个新值，其中包含`id`。
 在ngOnInit中，我们订阅了这些值，设置到selectedId，并获取英雄数据。
 
-Add an `isSelected` method that returns `true` when a hero's `id` matches the selected `id`.
-
-我们添加了一个`isSelected`方法，当英雄的id和选中的id匹配时，它返回真值。
-
-
-<code-example path="router/src/app/heroes/hero-list.component.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (isSelected)" region="isSelected">
-
-</code-example>
-
-
-
-Finally, update the template with a [class binding](guide/template-syntax#class-binding) to that `isSelected` method.
-The binding adds the `selected` CSS class when the method returns `true` and removes it when `false`.
+Update the template with a [class binding](guide/template-syntax#class-binding).
+The binding adds the `selected` CSS class when the comparison returns `true` and removes it when `false`.
 Look for it within the repeated `<li>` tag as shown here:
 
 最后，我们用[CSS类绑定](guide/template-syntax#class-binding)更新模板，把它绑定到`isSelected`方法上。
@@ -3544,7 +3509,7 @@ Here are the relevant files for this version of the sample application.
 
   </code-pane>
 
-  <code-pane title="heroes-routing.module.ts" path="router/src/app/heroes/heroes-routing.module.ts">
+  <code-pane title="heroes-routing.module.ts" path="router/src/app/heroes/heroes-routing.module.1.ts">
 
   </code-pane>
 
@@ -3932,12 +3897,7 @@ The router then calculates the target URL based on the active route's location.
 {@a nav-to-crisis}
 
 
-### Navigate to crisis detail with a relative URL
-
-### 用相对URL导航到危机详情
-
-Update the *Crisis List* `onSelect` method to use relative navigation so you don't have
-to start from the top of the route configuration.
+### Navigate to crisis list with a relative URL
 
 把*危机列表*的`onSelect`方法改成使用相对导航，以便我们不用每次都从路由配置的顶层开始。
 
@@ -3945,37 +3905,12 @@ You've already injected the `ActivatedRoute` that you need to compose the relati
 
 我们已经注入过了`ActivatedRoute`，我们需要它来和相对导航路径组合在一起。
 
-
-<code-example path="router/src/app/crisis-center/crisis-list.component.ts" linenums="false" title="src/app/crisis-center/crisis-list.component.ts (constructor)" region="ctor">
-
-</code-example>
-
-
-
-When you visit the *Crisis Center*, the ancestor path is `/crisis-center`,
-so you only need to add the `id` of the *Crisis Center* to the existing path.
-
-当访问*危机中心*时，其祖先路径是`/crisis-center`，所以我们只需要把*危机*的`id`添加到现有路径中就可以了。
-
-
-<code-example path="router/src/app/crisis-center/crisis-list.component.ts" linenums="false" title="src/app/crisis-center/crisis-list.component.ts (relative navigation)" region="onSelect">
-
-</code-example>
-
-
-
-If you were using a `RouterLink` to navigate instead of the `Router` service, you'd use the _same_
+When using a `RouterLink` to navigate instead of the `Router` service, you'd use the _same_
 link parameters array, but you wouldn't provide the object with the `relativeTo` property.
 The `ActivatedRoute` is implicit in a `RouterLink` directive.
 
 如果我们用`RouterLink`来代替`Router`服务进行导航，就要使用*相同*的链接参数数组，不过不再需要提供`relativeTo`属性。
 `ActivatedRoute`已经隐含在了`RouterLink`指令中。
-
-
-<code-example path="router/src/app/crisis-center/crisis-list.component.1.ts" linenums="false" title="src/app/crisis-center/crisis-list.component.ts (relative routerLink)" region="relative-navigation-router-link">
-
-</code-example>
-
 
 
 Update the `gotoCrises` method of the `CrisisDetailComponent` to navigate back to the *Crisis Center* list using relative path navigation.
@@ -3986,7 +3921,6 @@ Update the `gotoCrises` method of the `CrisisDetailComponent` to navigate back t
 <code-example path="router/src/app/crisis-center/crisis-detail.component.ts" linenums="false" title="src/app/crisis-center/crisis-detail.component.ts (relative navigation)" region="gotoCrises-navigate">
 
 </code-example>
-
 
 
 Notice that the path goes up a level using the `../` syntax.
@@ -4995,8 +4929,7 @@ The `DialogService`, provided in the `AppModule` for app-wide use, does the aski
 
 `DialogService`（为了在应用级使用，已经注入到了`AppModule`）就可以做到这些。
 
-It returns a [promise](http://exploringjs.com/es6/ch_promises.html) that
-*resolves* when the user eventually decides what to do: either
+It returns an `Observable` that *resolves* when the user eventually decides what to do: either
 to discard changes and navigate away (`true`) or to preserve the pending changes and stay in the crisis editor (`false`).
 
 它返回[promise](http://exploringjs.com/es6/ch_promises.html)，当用户最终决定了如何去做时，它就会被*解析* —— 或者决定放弃更改直接导航离开（`true`），或者保留未完成的修改，留在危机编辑器中（`false`）。
@@ -5172,8 +5105,12 @@ That method could return a `Promise`, an `Observable`, or a synchronous return v
 注入`CrisisService`和`Router`，并实现`resolve()`方法。
 该方法可以返回一个`Promise`、一个`Observable`来支持异步方式，或者直接返回一个值来支持同步方式。
 
-The `CrisisService.getCrisis` method returns a promise.
-Return that promise to prevent the route from loading until the data is fetched.
+The `CrisisService.getCrisis` method returns an Observable.
+Return that observable to prevent the route from loading until the data is fetched.
+The `Router` guards require an Observable to `complete`, meaning it has emitted all
+of its values. You use the `take` operator with an argument of `1` to ensure that the
+Observable completes after retrieving the first value from the Observable returned by the
+`getCrisis` method.
 If it doesn't return a valid `Crisis`, navigate the user back to the `CrisisListComponent`,
 canceling the previous in-flight navigation to the `CrisisDetailComponent`.
 
@@ -5229,6 +5166,11 @@ That's the router's job. Write this class and let the router take it from there.
 
     我们依赖路由器调用此守卫。不必关心用户用哪种方式导航离开，这是路由器的工作。我们只要写出这个类，等路由器从那里取出它就可以了。
 
+1. The Observable provided to the Router _must_ complete.
+If the Observable does not complete, the navigation will not continue.
+
+    由路由器提供的 Observable *必须* 完成（complete），否则导航不会继续。
+
 The relevant *Crisis Center* code for this milestone follows.
 
 本里程碑中与*危机中心*有关的代码如下：
@@ -5236,7 +5178,7 @@ The relevant *Crisis Center* code for this milestone follows.
 
 <code-tabs>
 
-  <code-pane title="app.component.ts" path="router/src/app/app.component.ts">
+  <code-pane title="app.component.ts" path="router/src/app/app.component.6.ts">
 
   </code-pane>
 
@@ -5915,6 +5857,78 @@ It's also logged to the browser's console.
 通过`Admin`特性区中的记录就可以验证它，我们会看到“Preloaded Modules”中没有列出`crisis-center`。
 它也被记录到了浏览器的控制台。
 
+
+{@a redirect-advanced}
+
+## Migrating URLs with Redirects
+
+## 使用重定向迁移 URL
+
+You've setup the routes for navigating around your application. You've used navigation imperatively and declaratively to many different routes. But like any application, requirements change over time. You've setup links and navigation to `/heroes` and `/hero/:id` from the `HeroListComponent` and `HeroDetailComponent` components. If there was a requirement that links to `heroes` become `superheroes`, you still want the previous URLs to navigate correctly. You also don't want to go and update every link in your application, so redirects makes refactoring routes trivial.
+
+我们已经设置好了路由，并且用命令式和声明式的方式导航到了很多不同的路由。但是，任何应用的需求都会随着时间而改变。我们把链接`/heroes`和`hero/:id`指向了`HeroListComponent`和`HeroDetailComponent`组件。如果有这样一个需求，要把链接`heroes`变成`superheroes`，我们希望以前的URL仍然能正常导航。但我们也不想在应用中找到并修改每一个链接，这时候，重定向就可以省去这些琐碎的重构工作。
+
+{@a url-refactor}
+
+### Changing /heroes to /superheroes
+
+### 把`/heroes`修改为`/superheros`
+
+Let's take the `Hero` routes and migrate them to new URLs. The `Router` checks for redirects in your configuration before navigating, so each redirect is triggered when needed. To support this change, you'll add redirects from the old routes to the new routes in the `heroes-routing.module`.
+
+我们先取得`Hero`路由，并把它们迁移到新的URL。`Router`（路由器）会在开始导航之前先在配置中检查所有重定向语句，以便将来按需触发重定向。要支持这种修改，我们就要在`heroes-routing.module`文件中把老的路由重定向到新的路由。
+
+<code-example path="router/src/app/heroes/heroes-routing.module.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (heroes redirects)">
+
+</code-example>
+
+
+You'll notice two different types of redirects. The first change is from  `/heroes` to `/superheroes` without any parameters. This is a straightforward redirect, unlike the change from `/hero/:id` to `/superhero/:id`, which includes the `:id` route parameter. Router redirects also use powerful pattern matching, so the `Router` inspects the URL and replaces route parameters in the `path` with their appropriate destination. Previously, you navigated to a URL such as `/hero/15` with a route parameter `id` of `15`.
+
+注意，这里有两种类型的重定向。第一种是不带参数的从`/heroes`重定向到`/superheroes`。这是一种非常直观的重定向。第二种是从`/hero/:id`重定向到`/superhero/:id`，它还要包含一个`:id`路由参数。
+路由器重定向时使用强大的模式匹配功能，这样，路由器就会检查URL，并且把`path`中带的路由参数替换成相应的目标形式。以前，我们导航到形如`/hero/15`的URL时，带了一个路由参数`id`，它的值是`15`。
+
+<div class="l-sub-section">
+
+The `Router` also supports [query parameters](#query-parameters) and the [fragment](#fragment) when using redirects.
+
+在重定向的时候，路由器还支持[查询参数](#query-parameters)和[片段(fragment)](#fragment)。
+
+* When using absolute redirects, the `Router` will use the query parameters and the fragment from the redirectTo in the route config.
+
+  当使用绝对地址重定向时，路由器将会使用路由配置的`redirectTo`属性中规定的查询参数和片段。
+    
+* When using relative redirects, the `Router` use the query params and the fragment from the source URL.
+
+  当使用相对地址重定向时，路由器将会使用源地址（跳转前的地址）中的查询参数和片段。
+
+</div>
+
+Before updating the `app-routing.module.ts`, you'll need to consider an important rule. Currently, our empty path route redirects to `/heroes`, which redirects to `/superheroes`. This _won't_ work and is by design as the `Router` handles redirects once at each level of routing configuration. This prevents chaining of redirects, which can lead to endless redirect loops.
+
+在修改`app-routing.module.ts`之前，我们要先考虑一条重要的规则。
+目前，我们把空路径路由重定向到了`/heroes`，它又被重定向到了`/superheroes`。这样*不行*，从设计上就不行。因为路由器在每一层的路由配置中只会处理一次重定向。这样可以防止出现无限循环的重定向。
+
+So instead, you'll update the empty path route in `app-routing.module.ts` to redirect to `/superheroes`.
+
+所以，我们要在`app-routing.module.ts`中修改空路径路由，让它重定向到`/superheroes`。
+
+<code-example path="router/src/app/app-routing.module.ts" linenums="false" title="src/app/app-routing.module.ts (superheroes redirect)">
+
+</code-example>
+
+Since `RouterLink`s aren't tied to route configuration, you'll need to update the associated router links so they remain active when the new route is active. You'll update the `app.component.ts` template for the `/heroes` routerLink.
+
+由于`RouterLink`指令没有关联到路由配置，所以我们需要修改相关的路由链接，以便在新的路由激活时，它们也能保持激活状态。我们要修改`app.component.ts`模板中的`/heroes`路由链接。
+
+<code-example path="router/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (superheroes active routerLink)">
+
+</code-example>
+
+With the redirects setup, all previous routes now point to their new destinations and both URLs still function as intended.
+
+
+当这些重定向设置好之后，所有以前的路由都指向了它们的新目标，并且每个URL也仍然能正常工作。
 
 {@a inspect-config}
 

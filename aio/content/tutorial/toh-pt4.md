@@ -840,9 +840,9 @@ Here are the code files discussed in this page.
 
 
 
-## The road you've travelled
+## Summary
 
-## 走过的路
+## 小结
 
 Here's what you achieved in this page:
 
@@ -872,9 +872,9 @@ Your app should look like this <live-example></live-example>.
 
 现在应用变成了这样：<live-example></live-example>。
 
-## The road ahead
+## Next step
 
-## 前方的路
+## 下一步
 
 The Tour of Heroes has become more reusable using shared components and services.
 The next goal is to create a dashboard, add menu links that route between the views, and format data in a template.

@@ -427,9 +427,11 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-    [Date](api/common/DatePipe), [currency](api/common/CurrencyPipe), [decimal](api/common/DecimalPipe) and [percent](api/common/PercentPipe) pipes
+    If you use the following deprecated i18n pipes: [date](api/common/DeprecatedDatePipe), [currency](api/common/DeprecatedCurrencyPipe), [decimal](api/common/DeprecatedDecimalPipe) and [percent](api/common/DeprecatedPercentPipe)
     
-    [Date](api/common/DatePipe)、[currency](api/common/CurrencyPipe)、[decimal](api/common/DecimalPipe) 和 [percent](api/common/PercentPipe) 管道
+    如果你使用下列已废弃的i18n管道：
+    [date](api/common/DeprecatedDatePipe)、[currency](api/common/DeprecatedCurrencyPipe)、[decimal](api/common/DeprecatedDecimalPipe) 和 [percent](api/common/DeprecatedPercentPipe)
+    
     </td>
 
     <td>

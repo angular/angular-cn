@@ -6,7 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {ParseLocation, ParseSourceFile, ParseSourceSpan} from '@angular/compiler';
 import * as o from '@angular/compiler/src/output/output_ast';
+import {MappingItem, RawSourceMap, SourceMapConsumer} from 'source-map';
 import * as ts from 'typescript';
 
 import {TypeScriptNodeEmitter} from '../../src/transformers/node_emitter';
@@ -169,16 +171,17 @@ describe('TypeScriptNodeEmitter', () => {
     expect(emitStmt(o.literalMap([
                        {key: 'someKey', value: o.literal(1), quoted: false},
                        {key: 'a', value: o.literal('a'), quoted: false},
-                       {key: '*', value: o.literal('star'), quoted: true},
+                       {key: 'b', value: o.literal('b'), quoted: true},
+                       {key: '*', value: o.literal('star'), quoted: false},
                      ]).toStmt())
                .replace(/\s+/gm, ''))
-        .toEqual(`({someKey:1,a:"a","*":"star"});`);
+        .toEqual(`({someKey:1,a:"a","b":"b","*":"star"});`);
   });
 
   it('should support blank literals', () => {
     expect(emitStmt(o.literal(null).toStmt())).toEqual('null;');
     expect(emitStmt(o.literal(undefined).toStmt())).toEqual('undefined;');
-    expect(emitStmt(o.variable('a', null).isBlank().toStmt())).toEqual('a == null;');
+    expect(emitStmt(o.variable('a', null).isBlank().toStmt())).toEqual('(a == null);');
   });
 
   it('should support external identifiers', () => {
@@ -194,23 +197,28 @@ describe('TypeScriptNodeEmitter', () => {
     expect(emitStmt(o.not(someVar).toStmt())).toEqual('!someVar;');
     expect(emitStmt(o.assertNotNull(someVar).toStmt())).toEqual('someVar;');
     expect(emitStmt(someVar.conditional(o.variable('trueCase'), o.variable('falseCase')).toStmt()))
-        .toEqual('someVar ? trueCase : falseCase;');
+        .toEqual('(someVar ? trueCase : falseCase);');
+    expect(emitStmt(someVar.conditional(o.variable('trueCase'), o.variable('falseCase'))
+                        .conditional(o.variable('trueCase'), o.variable('falseCase'))
+                        .toStmt()))
+        .toEqual('((someVar ? trueCase : falseCase) ? trueCase : falseCase);');
 
-    expect(emitStmt(lhs.equals(rhs).toStmt())).toEqual('lhs == rhs;');
-    expect(emitStmt(lhs.notEquals(rhs).toStmt())).toEqual('lhs != rhs;');
-    expect(emitStmt(lhs.identical(rhs).toStmt())).toEqual('lhs === rhs;');
-    expect(emitStmt(lhs.notIdentical(rhs).toStmt())).toEqual('lhs !== rhs;');
-    expect(emitStmt(lhs.minus(rhs).toStmt())).toEqual('lhs - rhs;');
-    expect(emitStmt(lhs.plus(rhs).toStmt())).toEqual('lhs + rhs;');
-    expect(emitStmt(lhs.divide(rhs).toStmt())).toEqual('lhs / rhs;');
-    expect(emitStmt(lhs.multiply(rhs).toStmt())).toEqual('lhs * rhs;');
-    expect(emitStmt(lhs.modulo(rhs).toStmt())).toEqual('lhs % rhs;');
-    expect(emitStmt(lhs.and(rhs).toStmt())).toEqual('lhs && rhs;');
-    expect(emitStmt(lhs.or(rhs).toStmt())).toEqual('lhs || rhs;');
-    expect(emitStmt(lhs.lower(rhs).toStmt())).toEqual('lhs < rhs;');
-    expect(emitStmt(lhs.lowerEquals(rhs).toStmt())).toEqual('lhs <= rhs;');
-    expect(emitStmt(lhs.bigger(rhs).toStmt())).toEqual('lhs > rhs;');
-    expect(emitStmt(lhs.biggerEquals(rhs).toStmt())).toEqual('lhs >= rhs;');
+    expect(emitStmt(lhs.equals(rhs).toStmt())).toEqual('(lhs == rhs);');
+    expect(emitStmt(lhs.notEquals(rhs).toStmt())).toEqual('(lhs != rhs);');
+    expect(emitStmt(lhs.identical(rhs).toStmt())).toEqual('(lhs === rhs);');
+    expect(emitStmt(lhs.notIdentical(rhs).toStmt())).toEqual('(lhs !== rhs);');
+    expect(emitStmt(lhs.minus(rhs).toStmt())).toEqual('(lhs - rhs);');
+    expect(emitStmt(lhs.plus(rhs).toStmt())).toEqual('(lhs + rhs);');
+    expect(emitStmt(lhs.divide(rhs).toStmt())).toEqual('(lhs / rhs);');
+    expect(emitStmt(lhs.multiply(rhs).toStmt())).toEqual('(lhs * rhs);');
+    expect(emitStmt(lhs.plus(rhs).multiply(rhs).toStmt())).toEqual('((lhs + rhs) * rhs);');
+    expect(emitStmt(lhs.modulo(rhs).toStmt())).toEqual('(lhs % rhs);');
+    expect(emitStmt(lhs.and(rhs).toStmt())).toEqual('(lhs && rhs);');
+    expect(emitStmt(lhs.or(rhs).toStmt())).toEqual('(lhs || rhs);');
+    expect(emitStmt(lhs.lower(rhs).toStmt())).toEqual('(lhs < rhs);');
+    expect(emitStmt(lhs.lowerEquals(rhs).toStmt())).toEqual('(lhs <= rhs);');
+    expect(emitStmt(lhs.bigger(rhs).toStmt())).toEqual('(lhs > rhs);');
+    expect(emitStmt(lhs.biggerEquals(rhs).toStmt())).toEqual('(lhs >= rhs);');
   });
 
   it('should support function expressions', () => {
@@ -377,6 +385,80 @@ describe('TypeScriptNodeEmitter', () => {
 
   it('should support a preamble', () => {
     expect(emitStmt(o.variable('a').toStmt(), '/* SomePreamble */')).toBe('/* SomePreamble */ a;');
+  });
+
+  describe('source maps', () => {
+    function emitStmt(stmt: o.Statement | o.Statement[], preamble?: string): string {
+      const stmts = Array.isArray(stmt) ? stmt : [stmt];
+
+      const program = ts.createProgram(
+          [someGenFileName], {
+            module: ts.ModuleKind.CommonJS,
+            target: ts.ScriptTarget.ES2017,
+            sourceMap: true,
+            inlineSourceMap: true,
+            inlineSources: true,
+          },
+          host);
+      const moduleSourceFile = program.getSourceFile(someGenFileName);
+      const transformers: ts.CustomTransformers = {
+        before: [context => {
+          return sourceFile => {
+            const [newSourceFile] = emitter.updateSourceFile(sourceFile, stmts, preamble);
+            return newSourceFile;
+          };
+        }]
+      };
+      let result: string = '';
+      const emitResult = program.emit(
+          moduleSourceFile, (fileName, data, writeByteOrderMark, onError, sourceFiles) => {
+            if (fileName.startsWith(someGenFilePath)) {
+              result = data;
+            }
+          }, undefined, undefined, transformers);
+      return result;
+    }
+
+    it('should produce a source map that maps back to the source', () => {
+      const statement = someVar.set(o.literal(1)).toDeclStmt();
+      const text = '<my-comp> a = 1 </my-comp>';
+      const sourceName = 'ng://some.file.html';
+      const sourceUrl = 'file:///ng:/some.file.html';
+      const file = new ParseSourceFile(text, sourceName);
+      const start = new ParseLocation(file, 0, 0, 0);
+      const end = new ParseLocation(file, text.length, 0, text.length);
+      statement.sourceSpan = new ParseSourceSpan(start, end);
+
+      const result = emitStmt(statement);
+
+      // find the source map:
+      const sourceMapMatch = /sourceMappingURL\=data\:application\/json;base64,(.*)$/.exec(result);
+      const sourceMapBase64 = sourceMapMatch ![1];
+      const sourceMapBuffer = Buffer.from(sourceMapBase64, 'base64');
+      const sourceMapText = sourceMapBuffer.toString('utf8');
+      const sourceMap: RawSourceMap = JSON.parse(sourceMapText);
+      const consumer = new SourceMapConsumer(sourceMap);
+      const mappings: MappingItem[] = [];
+      consumer.eachMapping(mapping => { mappings.push(mapping); });
+      expect(mappings).toEqual([
+        {
+          source: sourceUrl,
+          generatedLine: 3,
+          generatedColumn: 0,
+          originalLine: 1,
+          originalColumn: 0,
+          name: null
+        },
+        {
+          source: sourceUrl,
+          generatedLine: 3,
+          generatedColumn: 16,
+          originalLine: 1,
+          originalColumn: 26,
+          name: null
+        }
+      ]);
+    });
   });
 });
 

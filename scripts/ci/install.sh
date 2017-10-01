@@ -28,26 +28,23 @@ mkdir -p ${LOGS_DIR}
 # Install node
 #nvm install ${NODE_VERSION}
 
-if [[ ${CI_MODE} != "aio" && ${CI_MODE} != 'docs_test' ]]; then
-  # Install version of npm that we are locked against
-  travisFoldStart "install-npm"
-    npm install -g npm@${NPM_VERSION}
-  travisFoldEnd "install-npm"
+
+# Install version of yarn that we are locked against
+travisFoldStart "install-yarn"
+  curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version "${YARN_VERSION}"
+travisFoldEnd "install-yarn"
 
 
-  # Install all npm dependencies according to shrinkwrap.json
-  travisFoldStart "npm-install"
-    node tools/npm/check-node-modules --purge || npm install
-  travisFoldEnd "npm-install"
-fi
+# Install all npm dependencies according to yarn.lock
+travisFoldStart "yarn-install"
+  node tools/npm/check-node-modules --purge || yarn install
+travisFoldEnd "yarn-install"
 
 
-if [[ ${TRAVIS} && (${CI_MODE} == "e2e" || ${CI_MODE} == "e2e_2" || ${CI_MODE} == "aio" || ${CI_MODE} == "aio_e2e" || ${CI_MODE} == "aio_tools_test") ]]; then
-  # Install version of yarn that we are locked against
-  travisFoldStart "install-yarn"
-    curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version "${YARN_VERSION}"
-  travisFoldEnd "install-yarn"
-fi
+# Install bower packages
+travisFoldStart "bower-install"
+  $(npm bin)/bower install
+travisFoldEnd "bower-install"
 
 
 if [[ ${TRAVIS} && (${CI_MODE} == "aio" || ${CI_MODE} == "aio_e2e" || ${CI_MODE} == "aio_tools_test") ]]; then
@@ -61,14 +58,14 @@ if [[ ${TRAVIS} && (${CI_MODE} == "aio" || ${CI_MODE} == "aio_e2e" || ${CI_MODE}
 fi
 
 # Install bazel
-if [[ ${TRAVIS} && ${CI_MODE} == "bazel" ]]; then
+if [[ ${TRAVIS} && (${CI_MODE} == "bazel" || ${CI_MODE} == "e2e_2") ]]; then
   travisFoldStart "bazel-install"
   (
     mkdir tmp
     cd tmp
-    curl --location --compressed https://github.com/bazelbuild/bazel/releases/download/0.5.2/bazel-0.5.2-installer-linux-x86_64.sh > bazel-0.5.2-installer-linux-x86_64.sh
-    chmod +x bazel-0.5.2-installer-linux-x86_64.sh
-    ./bazel-0.5.2-installer-linux-x86_64.sh --user
+    curl --location --compressed https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh > bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
+    chmod +x bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh
+    ./bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh --user
     cd ..
     rm -rf tmp
   )
@@ -101,19 +98,6 @@ if [[ ${TRAVIS} && (${CI_MODE} == "browserstack_required" || ${CI_MODE} == "brow
     )
   travisFoldEnd "install-browserstack"
 fi
-
-
-# Install Selenium WebDriver
-travisFoldStart "webdriver-manager-update"
-  $(npm bin)/webdriver-manager update
-travisFoldEnd "webdriver-manager-update"
-
-
-# Install bower packages
-travisFoldStart "bower-install"
-  $(npm bin)/bower install
-travisFoldEnd "bower-install"
-
 
 # Print return arrows as a log separator
 travisFoldReturnArrows

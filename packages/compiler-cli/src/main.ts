@@ -11,58 +11,49 @@
 import 'reflect-metadata';
 
 import * as ts from 'typescript';
-import * as tsc from '@angular/tsc-wrapped';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as tsickle from 'tsickle';
 import * as api from './transformers/api';
 import * as ngc from './transformers/entry_points';
-import {performCompilation, readConfiguration, formatDiagnostics, Diagnostics, ParsedConfiguration} from './perform-compile';
+import {GENERATED_FILES} from './transformers/util';
 
+import {exitCodeFromResult, performCompilation, readConfiguration, formatDiagnostics, Diagnostics, ParsedConfiguration, PerformCompilationResult} from './perform_compile';
+import {performWatchCompilation, createPerformWatchHost} from './perform_watch';
 import {isSyntaxError} from '@angular/compiler';
-import {CodeGenerator} from './codegen';
 
 export function main(
-    args: string[], consoleError: (s: string) => void = console.error): Promise<number> {
-  const parsedArgs = require('minimist')(args);
-  const {rootNames, options, errors: configErrors} = readCommandLineAndConfiguration(parsedArgs);
-  if (configErrors.length) {
-    return Promise.resolve(reportErrorsAndExit(options, configErrors, consoleError));
-  }
-  if (options.disableTransformerPipeline) {
-    return disabledTransformerPipelineNgcMain(parsedArgs, consoleError);
-  }
-  const {diagnostics: compileDiags} =
-      performCompilation({rootNames, options, emitCallback: createEmitCallback(options)});
-  return Promise.resolve(reportErrorsAndExit(options, compileDiags, consoleError));
-}
-
-export function mainSync(
-    args: string[], consoleError: (s: string) => void = console.error): number {
-  const parsedArgs = require('minimist')(args);
-  const {rootNames, options, errors: configErrors} = readCommandLineAndConfiguration(parsedArgs);
+    args: string[], consoleError: (s: string) => void = console.error,
+    config?: NgcParsedConfiguration): number {
+  let {project, rootNames, options, errors: configErrors, watch, emitFlags} =
+      config || readNgcCommandLineAndConfiguration(args);
   if (configErrors.length) {
     return reportErrorsAndExit(options, configErrors, consoleError);
   }
-  const {diagnostics: compileDiags} =
-      performCompilation({rootNames, options, emitCallback: createEmitCallback(options)});
+  if (watch) {
+    const result = watchMode(project, options, consoleError);
+    return reportErrorsAndExit({}, result.firstCompileResult, consoleError);
+  }
+  const {diagnostics: compileDiags} = performCompilation(
+      {rootNames, options, emitFlags, emitCallback: createEmitCallback(options)});
   return reportErrorsAndExit(options, compileDiags, consoleError);
 }
 
-function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback {
-  const tsickleOptions: tsickle.TransformerOptions = {
-    googmodule: false,
-    untyped: true,
-    convertIndexImportShorthand: true,
-    transformDecorators: options.annotationsAs !== 'decorators',
-    transformTypesToClosure: options.annotateForClosureCompiler,
-  };
-
-  const tsickleHost: tsickle.TransformerHost = {
-    shouldSkipTsickleProcessing: (fileName) => /\.d\.ts$/.test(fileName),
+function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback|undefined {
+  const transformDecorators = options.annotationsAs !== 'decorators';
+  const transformTypesToClosure = options.annotateForClosureCompiler;
+  if (!transformDecorators && !transformTypesToClosure) {
+    return undefined;
+  }
+  const tsickleHost: tsickle.TsickleHost = {
+    shouldSkipTsickleProcessing: (fileName) =>
+                                     /\.d\.ts$/.test(fileName) || GENERATED_FILES.test(fileName),
     pathToModuleName: (context, importPath) => '',
     shouldIgnoreWarningsForPath: (filePath) => false,
     fileNameToModuleId: (fileName) => fileName,
+    googmodule: false,
+    untyped: true,
+    convertIndexImportShorthand: false, transformDecorators, transformTypesToClosure,
   };
 
   return ({
@@ -76,73 +67,84 @@ function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback {
            options
          }) =>
              tsickle.emitWithTsickle(
-                 program, tsickleHost, tsickleOptions, host, options, targetSourceFile, writeFile,
+                 program, tsickleHost, host, options, targetSourceFile, writeFile,
                  cancellationToken, emitOnlyDtsFiles, {
                    beforeTs: customTransformers.before,
                    afterTs: customTransformers.after,
                  });
 }
 
-function readCommandLineAndConfiguration(args: any): ParsedConfiguration {
-  const project = args.p || args.project || '.';
+export interface NgcParsedConfiguration extends ParsedConfiguration { watch?: boolean; }
+
+function readNgcCommandLineAndConfiguration(args: string[]): NgcParsedConfiguration {
+  const options: api.CompilerOptions = {};
+  const parsedArgs = require('minimist')(args);
+  if (parsedArgs.i18nFile) options.i18nInFile = parsedArgs.i18nFile;
+  if (parsedArgs.i18nFormat) options.i18nInFormat = parsedArgs.i18nFormat;
+  if (parsedArgs.locale) options.i18nInLocale = parsedArgs.locale;
+  const mt = parsedArgs.missingTranslation;
+  if (mt === 'error' || mt === 'warning' || mt === 'ignore') {
+    options.i18nInMissingTranslations = mt;
+  }
+  const config = readCommandLineAndConfiguration(
+      args, options, ['i18nFile', 'i18nFormat', 'locale', 'missingTranslation', 'watch']);
+  const watch = parsedArgs.w || parsedArgs.watch;
+  return {...config, watch};
+}
+
+export function readCommandLineAndConfiguration(
+    args: string[], existingOptions: api.CompilerOptions = {},
+    ngCmdLineOptions: string[] = []): ParsedConfiguration {
+  let cmdConfig = ts.parseCommandLine(args);
+  const project = cmdConfig.options.project || '.';
+  const cmdErrors = cmdConfig.errors.filter(e => {
+    if (typeof e.messageText === 'string') {
+      const msg = e.messageText;
+      return !ngCmdLineOptions.some(o => msg.indexOf(o) >= 0);
+    }
+    return true;
+  });
+  if (cmdErrors.length) {
+    return {
+      project,
+      rootNames: [],
+      options: cmdConfig.options,
+      errors: cmdErrors,
+      emitFlags: api.EmitFlags.Default
+    };
+  }
   const allDiagnostics: Diagnostics = [];
-  const config = readConfiguration(project);
-  const options = mergeCommandLineParams(args, config.options);
-  return {rootNames: config.rootNames, options, errors: config.errors};
+  const config = readConfiguration(project, cmdConfig.options);
+  const options = {...config.options, ...existingOptions};
+  if (options.locale) {
+    options.i18nInLocale = options.locale;
+  }
+  return {
+    project,
+    rootNames: config.rootNames, options,
+    errors: config.errors,
+    emitFlags: config.emitFlags
+  };
 }
 
 function reportErrorsAndExit(
     options: api.CompilerOptions, allDiagnostics: Diagnostics,
     consoleError: (s: string) => void = console.error): number {
-  const exitCode = allDiagnostics.some(d => d.category === ts.DiagnosticCategory.Error) ? 1 : 0;
   if (allDiagnostics.length) {
     consoleError(formatDiagnostics(options, allDiagnostics));
   }
-  return exitCode;
+  return exitCodeFromResult(allDiagnostics);
 }
 
-function mergeCommandLineParams(
-    cliArgs: {[k: string]: string}, options: api.CompilerOptions): api.CompilerOptions {
-  // TODO: also merge in tsc command line parameters by calling
-  // ts.readCommandLine.
-  if (cliArgs.i18nFile) options.i18nInFile = cliArgs.i18nFile;
-  if (cliArgs.i18nFormat) options.i18nInFormat = cliArgs.i18nFormat;
-  if (cliArgs.locale) options.i18nInLocale = cliArgs.locale;
-  const mt = cliArgs.missingTranslation;
-  if (mt === 'error' || mt === 'warning' || mt === 'ignore') {
-    options.i18nInMissingTranslations = mt;
-  }
-  return options;
-}
-
-function disabledTransformerPipelineNgcMain(
-    args: any, consoleError: (s: string) => void = console.error): Promise<number> {
-  const cliOptions = new tsc.NgcCliOptions(args);
-  const project = args.p || args.project || '.';
-  return tsc.main(project, cliOptions, disabledTransformerPipelineCodegen)
-      .then(() => 0)
-      .catch(e => {
-        if (e instanceof tsc.UserError || isSyntaxError(e)) {
-          consoleError(e.message);
-        } else {
-          consoleError(e.stack);
-        }
-        return Promise.resolve(1);
-      });
-}
-
-function disabledTransformerPipelineCodegen(
-    ngOptions: tsc.AngularCompilerOptions, cliOptions: tsc.NgcCliOptions, program: ts.Program,
-    host: ts.CompilerHost) {
-  if (ngOptions.enableSummariesForJit === undefined) {
-    // default to false
-    ngOptions.enableSummariesForJit = false;
-  }
-  return CodeGenerator.create(ngOptions, cliOptions, program, host).codegen();
+export function watchMode(
+    project: string, options: api.CompilerOptions, consoleError: (s: string) => void) {
+  return performWatchCompilation(createPerformWatchHost(project, diagnostics => {
+    consoleError(formatDiagnostics(options, diagnostics));
+  }, options, options => createEmitCallback(options)));
 }
 
 // CLI entry point
 if (require.main === module) {
   const args = process.argv.slice(2);
-  main(args).then((exitCode: number) => process.exitCode = exitCode);
+  process.exitCode = main(args);
 }

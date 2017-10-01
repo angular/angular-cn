@@ -996,7 +996,7 @@ Verify that you have the following structure:
   </div>
 </div>
 
-## Home Stretch
+## Summary
 
 ## 最后冲刺
 

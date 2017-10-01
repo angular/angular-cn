@@ -7,10 +7,14 @@
  */
 
 import {AotCompilerHost, AotCompilerOptions, GeneratedFile, createAotCompiler, toTypeScript} from '@angular/compiler';
-import {MetadataBundlerHost, MetadataCollector, ModuleMetadata} from '@angular/tsc-wrapped';
+import {MetadataBundlerHost} from '@angular/compiler-cli/src/metadata/bundler';
+import {MetadataCollector} from '@angular/compiler-cli/src/metadata/collector';
+import {ModuleMetadata} from '@angular/compiler-cli/src/metadata/index';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
+
+export interface MetadataProvider { getMetadata(source: ts.SourceFile): ModuleMetadata|undefined; }
 
 let nodeModulesPath: string;
 let angularSourcePath: string;
@@ -327,12 +331,13 @@ const DTS = /\.d\.ts$/;
 const GENERATED_FILES = /\.ngfactory\.ts$|\.ngstyle\.ts$/;
 
 export class MockAotCompilerHost implements AotCompilerHost {
-  private metadataCollector = new MetadataCollector();
   private metadataVisible: boolean = true;
   private dtsAreSource: boolean = true;
   private resolveModuleNameHost: ts.ModuleResolutionHost;
 
-  constructor(private tsHost: MockCompilerHost) {
+  constructor(
+      private tsHost: MockCompilerHost,
+      private metadataProvider: MetadataProvider = new MetadataCollector()) {
     this.resolveModuleNameHost = Object.create(tsHost);
     this.resolveModuleNameHost.fileExists = (fileName) => {
       fileName = stripNgResourceSuffix(fileName);
@@ -359,7 +364,7 @@ export class MockAotCompilerHost implements AotCompilerHost {
       }
     } else {
       const sf = this.tsHost.getSourceFile(modulePath, ts.ScriptTarget.Latest);
-      const metadata = this.metadataCollector.getMetadata(sf);
+      const metadata = this.metadataProvider.getMetadata(sf);
       return metadata ? [metadata] : [];
     }
     return undefined;
@@ -405,7 +410,7 @@ export class MockAotCompilerHost implements AotCompilerHost {
   fromSummaryFileName(filePath: string): string { return filePath; }
 
   // AotCompilerHost
-  fileNameToModuleName(importedFile: string, containingFile: string): string|null {
+  fileNameToModuleName(importedFile: string, containingFile: string): string {
     return importedFile.replace(EXT, '');
   }
 
@@ -628,7 +633,6 @@ export function compile(
       useSummaries?: boolean,
       preCompile?: (program: ts.Program) => void,
       postCompile?: (program: ts.Program) => void,
-      stubsOnly?: boolean,
     }& AotCompilerOptions = {},
     tsOptions: ts.CompilerOptions = {}): {genFiles: GeneratedFile[], outDir: MockDirectory} {
   // when using summaries, always emit so the next step can use the results.
@@ -651,8 +655,7 @@ export function compile(
   const {compiler, reflector} = createAotCompiler(aotHost, options);
   const analyzedModules =
       compiler.analyzeModulesSync(program.getSourceFiles().map(sf => sf.fileName));
-  const genFiles = options.stubsOnly ? compiler.emitAllStubs(analyzedModules) :
-                                       compiler.emitAllImpls(analyzedModules);
+  const genFiles = compiler.emitAllImpls(analyzedModules);
   genFiles.forEach((file) => {
     const source = file.source || toTypeScript(file);
     if (isSource(file.genFileUrl)) {

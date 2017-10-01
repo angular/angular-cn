@@ -447,7 +447,7 @@ export class AnimationTimelineContext {
       private _driver: AnimationDriver, public element: any,
       public subInstructions: ElementInstructionMap, public errors: any[],
       public timelines: TimelineBuilder[], initialTimeline?: TimelineBuilder) {
-    this.currentTimeline = initialTimeline || new TimelineBuilder(element, 0);
+    this.currentTimeline = initialTimeline || new TimelineBuilder(this._driver, element, 0);
     timelines.push(this.currentTimeline);
   }
 
@@ -530,7 +530,7 @@ export class AnimationTimelineContext {
       easing: ''
     };
     const builder = new SubTimelineBuilder(
-        instruction.element, instruction.keyframes, instruction.preStyleProps,
+        this._driver, instruction.element, instruction.keyframes, instruction.preStyleProps,
         instruction.postStyleProps, updatedTimings, instruction.stretchStartingKeyframe);
     this.timelines.push(builder);
     return updatedTimings;
@@ -556,7 +556,12 @@ export class AnimationTimelineContext {
     }
     if (selector.length > 0) {  // if :self is only used then the selector is empty
       const multi = limit != 1;
-      results.push(...this._driver.query(this.element, selector, multi));
+      let elements = this._driver.query(this.element, selector, multi);
+      if (limit !== 0) {
+        elements = limit < 0 ? elements.slice(elements.length + limit, elements.length) :
+                               elements.slice(0, limit);
+      }
+      results.push(...elements);
     }
 
     if (!optional && results.length == 0) {
@@ -582,7 +587,7 @@ export class TimelineBuilder {
   private _currentEmptyStepKeyframe: ɵStyleData|null = null;
 
   constructor(
-      public element: any, public startTime: number,
+      private _driver: AnimationDriver, public element: any, public startTime: number,
       private _elementTimelineStylesLookup?: Map<any, ɵStyleData>) {
     if (!this._elementTimelineStylesLookup) {
       this._elementTimelineStylesLookup = new Map<any, ɵStyleData>();
@@ -632,7 +637,7 @@ export class TimelineBuilder {
   fork(element: any, currentTime?: number): TimelineBuilder {
     this.applyStylesToKeyframe();
     return new TimelineBuilder(
-        element, currentTime || this.currentTime, this._elementTimelineStylesLookup);
+        this._driver, element, currentTime || this.currentTime, this._elementTimelineStylesLookup);
   }
 
   private _loadKeyframe() {
@@ -796,10 +801,10 @@ class SubTimelineBuilder extends TimelineBuilder {
   public timings: AnimateTimings;
 
   constructor(
-      public element: any, public keyframes: ɵStyleData[], public preStyleProps: string[],
-      public postStyleProps: string[], timings: AnimateTimings,
+      driver: AnimationDriver, public element: any, public keyframes: ɵStyleData[],
+      public preStyleProps: string[], public postStyleProps: string[], timings: AnimateTimings,
       private _stretchStartingKeyframe: boolean = false) {
-    super(element, timings.delay);
+    super(driver, element, timings.delay);
     this.timings = {duration: timings.duration, delay: timings.delay, easing: timings.easing};
   }
 
