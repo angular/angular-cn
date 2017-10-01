@@ -64,7 +64,7 @@ Angular的`Router`（即“路由器”）借鉴了这个模型。它把浏览�
 This guide proceeds in phases, marked by milestones, starting from a simple two-pager
 and building toward a modular, multi-view design with child routes.
 
-本章是包括一系列里程碑，从一个单模块、两个页面的简单程序逐步走向带有多个子路由的多视图设计。
+本章包括一系列里程碑，从一个单模块、两个页面的简单程序逐步走向带有多个子路由的多视图设计。
 
 An introduction to a few core router concepts will help orient you to the details that follow.
 
