@@ -4,14 +4,14 @@ Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 */
 
-import { NgZone, Injectable, Type } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Injectable, NgZone } from '@angular/core';
+import { WebWorkerClient } from 'app/shared/web-worker';
 import 'rxjs/add/observable/race';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/publish';
-import { WebWorkerClient } from 'app/shared/web-worker';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface SearchResults {
   query: string;
@@ -46,7 +46,7 @@ export class SearchService {
     const searchResults = Observable
       // Wait for the initDelay or the first search
       .race(
-        Observable.timer(initDelay),
+        Observable.timer(initDelay).map((time) => time.toString()),
         this.searchesSubject.first()
       )
       .concatMap(() => {
