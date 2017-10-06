@@ -290,7 +290,7 @@ AngularJS 1.5 introduces the [component API](https://docs.angularjs.org/api/ng/t
 that makes it easier to define component directives like these. It is a good idea to use
 this API for component directives for several reasons:
 
-AngularJS.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)，它让像这样定义指令变得更简单了。
+AngularJS 1.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)，它让像这样定义指令变得更简单了。
 为组件型指令使用这个API是一个好主意，因为：
 
 * It requires less boilerplate code.
