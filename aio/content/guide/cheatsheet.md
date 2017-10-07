@@ -366,7 +366,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </tr><tr>
 <td><code><b>ngOnChanges(changeRecord)</b> { ... }</code></td>
 <td><p>Called after every change to input properties and before processing content or child views.</p>
-<p>每当输入属性发生变化时就会调用，但位于处理内容（`ng-content`）或子视图之前。</p>
+<p>每当输入属性发生变化时就会调用，但位于处理内容（<code>ng-content</code>）或子视图之前。</p>
 </td>
 </tr><tr>
 <td><code><b>ngOnInit()</b> { ... }</code></td>
@@ -381,12 +381,12 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </tr><tr>
 <td><code><b>ngAfterContentInit()</b> { ... }</code></td>
 <td><p>Called after <code>ngOnInit</code> when the component's or directive's content has been initialized.</p>
-<p><code>ngOnInit</code>完成之后，当组件或指令的内容（`ng-content`）已经初始化完毕时调用。</p>
+<p><code>ngOnInit</code>完成之后，当组件或指令的内容（<code>ng-content</code>）已经初始化完毕时调用。</p>
 </td>
 </tr><tr>
 <td><code><b>ngAfterContentChecked()</b> { ... }</code></td>
 <td><p>Called after every check of the component's or directive's content.</p>
-<p>每当组件或指令的内容（`ng-content`）做变更检测时调用。</p>
+<p>每当组件或指令的内容（<code>ng-content</code>）做变更检测时调用。</p>
 </td>
 </tr><tr>
 <td><code><b>ngAfterViewInit()</b> { ... }</code></td>
@@ -460,32 +460,32 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </tr><tr>
 <td><code>&lt;a [routerLink]="[ '/path' ]" routerLinkActive="active"&gt;</code></td>
 <td><p>The provided classes are added to the element when the <code>routerLink</code> becomes the current active route.</p>
-<p>当 <code>routerLink</code> 指向的路由变成活动路由时，为当前元素添加一些类（比如这里的 `active`）。</p>
+<p>当 <code>routerLink</code> 指向的路由变成活动路由时，为当前元素添加一些类（比如这里的 <code>active</code>）。</p>
 </td>
 </tr><tr>
 <td><code>class <b>CanActivate</b>Guard implements <b>CanActivate</b> {<br>    canActivate(<br>      route: ActivatedRouteSnapshot,<br>      state: RouterStateSnapshot<br>    ): Observable&lt;boolean&gt;|Promise&lt;boolean&gt;|boolean { ... }<br>}<br><br>{ path: ..., canActivate: [<b>CanActivate</b>Guard] }</code></td>
 <td><p>An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>
-<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活该路由。应该返回一个 `boolean` 或能解析成 `boolean` 的 `Observable/Promise`。</p>
+<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活该路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>
 </td>
 </tr><tr>
 <td><code>class <b>CanDeactivate</b>Guard implements <b>CanDeactivate</b>&lt;T&gt; {<br>    canDeactivate(<br>      component: T,<br>      route: ActivatedRouteSnapshot,<br>      state: RouterStateSnapshot<br>    ): Observable&lt;boolean&gt;|Promise&lt;boolean&gt;|boolean { ... }<br>}<br><br>{ path: ..., canDeactivate: [<b>CanDeactivate</b>Guard] }</code></td>
 <td><p>An interface for defining a class that the router should call first to determine if it should deactivate this component after a navigation. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>
-<p>用来定义类的接口。路由器会在导航离开前首先调用本接口以决定是否取消激活本路由。应该返回一个 `boolean` 或能解析成 `boolean` 的 `Observable/Promise`。</p>
+<p>用来定义类的接口。路由器会在导航离开前首先调用本接口以决定是否取消激活本路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>
 </td>
 </tr><tr>
 <td><code>class <b>CanActivateChild</b>Guard implements <b>CanActivateChild</b> {<br>    canActivateChild(<br>      route: ActivatedRouteSnapshot,<br>      state: RouterStateSnapshot<br>    ): Observable&lt;boolean&gt;|Promise&lt;boolean&gt;|boolean { ... }<br>}<br><br>{ path: ..., canActivateChild: [CanActivateGuard],<br>    children: ... }</code></td>
 <td><p>An interface for defining a class that the router should call first to determine if it should activate the child route. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>
-<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活一个子路由。应该返回一个 `boolean` 或能解析成 `boolean` 的 `Observable/Promise`。</p>
+<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活一个子路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>
 </td>
 </tr><tr>
 <td><code>class <b>Resolve</b>Guard implements <b>Resolve</b>&lt;T&gt; {<br>    resolve(<br>      route: ActivatedRouteSnapshot,<br>      state: RouterStateSnapshot<br>    ): Observable&lt;any&gt;|Promise&lt;any&gt;|any { ... }<br>}<br><br>{ path: ..., resolve: [<b>Resolve</b>Guard] }</code></td>
 <td><p>An interface for defining a class that the router should call first to resolve route data before rendering the route. Should return a value or an Observable/Promise that resolves to a value.</p>
-<p>用来定义类的接口。路由器会在渲染该路由之前，首先调用它来解析路由数据。应该返回一个值或能解析成值的 `Observable/Promise`。</p>
+<p>用来定义类的接口。路由器会在渲染该路由之前，首先调用它来解析路由数据。应该返回一个值或能解析成值的 <code>Observable/Promise</code>。</p>
 </td>
 </tr><tr>
 <td><code>class <b>CanLoad</b>Guard implements <b>CanLoad</b> {<br>    canLoad(<br>      route: Route<br>    ): Observable&lt;boolean&gt;|Promise&lt;boolean&gt;|boolean { ... }<br>}<br><br>{ path: ..., canLoad: [<b>CanLoad</b>Guard], loadChildren: ... }</code></td>
 <td><p>An interface for defining a class that the router should call first to check if the lazy loaded module should be loaded. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>
-<p>用来定义类的接口。路由器会首先调用它来决定是否应该加载一个惰性加载模块。应该返回一个 `boolean` 或能解析成 `boolean` 的 `Observable/Promise`。</p>
+<p>用来定义类的接口。路由器会首先调用它来决定是否应该加载一个惰性加载模块。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>
 </td>
 </tr>
 </tbody></table>
