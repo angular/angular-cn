@@ -54,7 +54,7 @@ is available to <code>declarations</code> of this module.</p>
 </tr><tr>
 <td><code><b>providers:</b> [MyService, { provide: ... }]</code></td>
 <td><p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>
-<p>依赖注入提供商的列表，它们对本模块中的内容以及导入了本模块的所有模块都是可见的。</p>
+<p>依赖注入提供商的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。</p>
 </td>
 </tr><tr>
 <td><code><b>bootstrap:</b> [MyAppComponent]</code></td>
