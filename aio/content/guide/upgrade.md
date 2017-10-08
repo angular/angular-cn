@@ -44,6 +44,7 @@ make incremental upgrading seamless.
 Angular `upgrade`模块的设计目标就是让你渐进、无缝的完成升级。
 
 ## Preparation
+
 ## 准备工作
 
 There are many ways to structure AngularJS applications. When you begin
@@ -59,7 +60,7 @@ AngularJS应用程序的组织方式有很多种。当我们想把它们升级�
 
 ### Follow the AngularJS Style Guide
 
-### 遵循Angular风格指南
+### 遵循AngularJS风格指南
 
 The [AngularJS Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)
 collects patterns and practices that have been proven to result in
@@ -67,8 +68,8 @@ cleaner and more maintainable AngularJS applications. It contains a wealth
 of information about how to write and organize AngularJS code - and equally
 importantly - how **not** to write and organize AngularJS code.
 
-[Angular风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)收集了一些已证明能写出干净且可维护的AngularJS程序的模式与实践。
-它包含了很多关于如何书写和组织Angular代码的有价值信息，同样重要的是，**不应该**采用的书写和组织Angular代码的方式。
+[AngularJS风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)收集了一些已证明能写出干净且可维护的AngularJS程序的模式与实践。
+它包含了很多关于如何书写和组织AngularJS代码的有价值信息，同样重要的是，**不应该**采用的书写和组织AngularJS代码的方式。
 
 Angular is a reimagined version of the best parts of AngularJS. In that
 sense, its goals are the same as the AngularJS Style Guide's: To preserve
@@ -77,13 +78,13 @@ more to Angular than just that of course, but this does mean that
 *following the style guide helps make your AngularJS app more closely
 aligned with Angular*.
 
-Angular是一个基于AngularJS中最好的部分构思出来的版本。在这种意义上，它的目标和Angular风格指南是一样的：
+Angular是一个基于AngularJS中最好的部分构思出来的版本。在这种意义上，它的目标和AngularJS风格指南是一样的：
 保留AngularJS中好的部分，去掉坏的部分。当然，Angular还做了更多。
 说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular程序的AngularJS程序*。
 
 There are a few rules in particular that will make it much easier to do *an incremental upgrade* using the Angular `upgrade/static` module:
 
-有一些特别的规则可以让使用Angular的`upgrade`模块进行*增量升级*变得更简单：
+有一些特别的规则可以让使用Angular的`upgrade/static`模块进行*增量升级*变得更简单：
 
 * The [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
   states that there should be one component per file. This not only makes
@@ -92,8 +93,8 @@ There are a few rules in particular that will make it much easier to do *an incr
   each controller, component, service, and filter is in its own source file.
 
   [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
-  规定每个文件应该只放一个组件。这不仅让组件更容易浏览和查找，而且还将允许我们逐个迁移它们的语言和框架。
-  在这个范例程序中，每个控制器、工厂和过滤器都在它自己的源文件中。
+  规定每个文件应该只放一个组件。这不仅让组件更容易浏览和查找，而且还让我们能逐个迁移它们的语言和框架。
+  在这个范例程序中，每个控制器、工厂和过滤器都位于各自的源文件中。
 
 * The [Folders-by-Feature Structure](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)
   and [Modularity](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
@@ -123,10 +124,9 @@ doesn't work that well if you have to load all those files to the HTML page with
 &lt;script&gt; tags. Especially when you also have to maintain those tags in the correct
 order. That's why it's a good idea to start using a *module loader*.
 
-当我们把应用代码分解成每个文件中放一个组件之后，我们通常会得到一个由大量相对较小的文件组成的项目结构。
+当我们把应用代码分解到每个文件中只放一个组件的粒度后，我们通常会得到一个由大量相对较小的文件组成的项目结构。
 这比组织成少量大文件要整洁得多，但如果你不得不通过`<script>`标签在HTML页面中加载所有这些文件，那就不好玩了。
-尤其是当你不得不按正确的顺序维护这些标签时更是如此。
-这就是为什么开始使用*模块加载器*是一个好主意了。
+尤其是当你不得不自己按正确的顺序维护这些标签时更是如此，那我们就要开始使用*模块加载器*了。
 
 Using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
 [Webpack](http://webpack.github.io/), or [Browserify](http://browserify.org/)
@@ -147,7 +147,7 @@ in the correct order.
 When moving applications into production, module loaders also make it easier
 to package them all up into production bundles with batteries included.
 
-当我们的应用程序投入生产环境时，模块加载器也会让把所有这些文件打成完整的产品包变得更容易。
+当我们的应用程序投入生产环境时，模块加载器也会让把所有这些文件打成完整的产品包变得容易一些。
 
 
 ### Migrating to TypeScript
@@ -160,8 +160,7 @@ This means there's one less thing to learn and think about during the actual upg
 It also means you can start using TypeScript features in your AngularJS code.
 
 Angular升级计划的一部分是引入TypeScript，即使在开始升级之前，引入TypeScript编译器也是有意义的。
-这意味着等真正升级的时候需要学习和思考的东西更少。
-它还意味着我们可以在AngularJS代码中开始使用TypeScript的特性。
+这意味着等真正升级的时候需要学习和思考的东西会更少，并且我们可以在AngularJS代码中开始使用TypeScript的特性。
 
 Since TypeScript is a superset of ECMAScript 2015, which in turn is a superset
 of ECMAScript 5, "switching" to TypeScript doesn't necessarily require anything
@@ -169,28 +168,28 @@ more than installing the TypeScript compiler and renaming files from
 `*.js` to `*.ts`. But just doing that is not hugely useful or exciting, of course.
 Additional steps like the following can give us much more bang for the buck:
 
-因为TypeScript是ECMAScript 2015的一个超集，而ES2015又是ECMAScript 5的一个超集。
+TypeScript是ECMAScript 2015的超集，而ES2015又是ECMAScript 5的超集。
 这意味着除了安装一个TypeScript编译器，并把文件名都从`*.js`改成`*.ts`之外，其实什么都不用做。
-当然，如果仅仅这样做也没什么大用，也没什么令人兴奋之处。
-下面这些额外步骤可以让我们精神抖擞起来：
+当然，如果仅仅这样做也没什么大用，也没什么有意思的地方。
+下面这些额外的步骤可以让我们打起精神：
 
 * For applications that use a module loader, TypeScript imports and exports
   (which are really ECMAScript 2015 imports and exports) can be used to organize
   code into modules.
 
-  对那些使用了模块加载器的程序，TypeScript的导入和导出(这实际上是ECMAScript 2015导入和导出)可以把代码组织到模块中。
+  对那些使用了模块加载器的程序，TypeScript的导入和导出语法(实际上是ECMAScript 2015的导入和导出)可以把代码组织成模块。
 
 * Type annotations can be gradually added to existing functions and variables
   to pin down their types and get benefits like build-time error checking,
   great autocompletion support and inline documentation.
 
-  类型注解可以逐步添加到已存在的函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
+  可以逐步把类型注解添加到现有函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
 
 * JavaScript features new to ES2015, like arrow functions, `let`s and `const`s,
   default function parameters, and destructuring assignments can also be gradually
   added to make the code more expressive.
 
-  那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也能逐渐添加进来，让代码更有表现力。
+  那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也可以逐渐添加进来，让代码更有表现力。
 
 * Services and controllers can be turned into *classes*. That way they'll be a step
   closer to becoming Angular service and component classes, which will make
@@ -206,7 +205,7 @@ In Angular, components are the main primitive from which user interfaces
 are built. You define the different portions of the UI as components and
 compose them into a full user experience.
 
-在Angular中，组件是用来构建用户界面的主要元素。我们把UI中的不同部分定义成组件，然后通过在模板中使用这些组件最终合成为UI。
+在Angular中，组件是用来构建用户界面的主要元素。我们把UI中的不同部分定义成组件，然后在模板中使用这些组件合成出最终的UI。
 
 You can also do this in AngularJS, using *component directives*. These are
 directives that define their own templates, controllers, and input/output bindings -
@@ -230,7 +229,7 @@ these attributes:
 * `scope: {}` - an isolate scope. In Angular, components are always isolated
   from their surroundings, and you should do this in AngularJS too.
 
-  `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中，我们也应该这么做。
+  `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中也同样如此。
   
 * `bindToController: {}`. Component inputs and outputs should be bound
   to the controller instead of using the `$scope`.
@@ -239,11 +238,11 @@ these attributes:
 
 * `controller` and `controllerAs`. Components have their own controllers.
 
-  `controller`和`controllerAs`。组件有它们自己的控制器。
+  `controller`和`controllerAs`。组件要有自己的控制器。
 
 * `template` or `templateUrl`. Components have their own templates.
 
-  `template`或`templateUrl`。组件有它们自己的模板。
+  `template`或`templateUrl`。组件要有自己的模板。
 
 Component directives may also use the following attributes:
 
@@ -264,7 +263,7 @@ Component directives **should not** use the following attributes:
 
 * `compile`. This will not be supported in Angular.
 
-  `compile`。它在Angular中将不再被支持。
+  `compile`。Angular不再支持它。
 
 * `replace: true`. Angular never replaces a component element with the
   component template. This attribute is also deprecated in AngularJS.
@@ -290,7 +289,7 @@ AngularJS 1.5 introduces the [component API](https://docs.angularjs.org/api/ng/t
 that makes it easier to define component directives like these. It is a good idea to use
 this API for component directives for several reasons:
 
-AngularJS.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)，它让像这样定义指令变得更简单了。
+AngularJS 1.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)，它让定义指令变得更简单了。
 为组件型指令使用这个API是一个好主意，因为：
 
 * It requires less boilerplate code.
@@ -299,11 +298,11 @@ AngularJS.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular.M
 
 * It enforces the use of component best practices like `controllerAs`.
 
-  它强制使用组件的最佳实践，比如`controllerAs`。
+  它强制你遵循组件的最佳实践，比如`controllerAs`。
 
 * It has good default values for directive attributes like `scope` and `restrict`.
 
-  对于指令中像`scope`和`restrict`这样的属性，它有良好的默认值。
+  指令中像`scope`和`restrict`这样的属性应该有良好的默认值。
 
 The component directive example from above looks like this when expressed
 using the component API:
@@ -764,7 +763,9 @@ using the `downgradeComponent()` method. The result is an AngularJS
 
 
 Because `HeroDetailComponent` is an Angular component, you must also add it to the 
-`declarations` in the `AppModule`.由于`HeroDetailComponent`是一个Angular组件，所以我们必须同时把它加入`AppModule`的`declarations`字段中。
+`declarations` in the `AppModule`.
+
+由于`HeroDetailComponent`是一个Angular组件，所以我们必须同时把它加入`AppModule`的`declarations`字段中。
 
 And because this component is being used from the AngularJS module, and is an entry point into 
 the Angular application, you must add it to the `entryComponents` for the 
