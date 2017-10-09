@@ -318,8 +318,8 @@ are another convenient feature that AngularJS 1.5 introduces. They all have near
 exact [equivalents in Angular](guide/lifecycle-hooks), so organizing component lifecycle
 logic around them will ease the eventual Angular upgrade process.
 
-控制器的生命周期钩子`$onInit()`、`$onDestroy()`和`$onChanges()`是AngularJS.5引入的另一些便利特性。
-它们都很接近于[Angular中的等价物](guide/lifecycle-hooks)，所以，围绕它们组织组件生命周期的逻辑会更容易升级。
+控制器的生命周期钩子`$onInit()`、`$onDestroy()`和`$onChanges()`是AngularJS 1.5引入的另一些便利特性。
+它们都很像[Angular中的等价物](guide/lifecycle-hooks)，所以，围绕它们组织组件生命周期的逻辑会更容易升级。
 
 
 
@@ -335,18 +335,18 @@ since there's a natural coexistence between the two frameworks during the
 transition period.
 
 不管要升级什么，Angular中的`ngUpgrade`库都会是一个非常有用的工具 —— 除非是小到没功能的应用。
-借助它，我们可以在同一个应用程序中混用并匹配AngularJS和2的组件，并让它们实现无缝的互操作。
-这意味着我们不用必须一次性做完所有升级工作，因为在整个演进过程中，这两个框架可以很自然的和睦相处。
+借助它，我们可以在同一个应用程序中混用并匹配AngularJS和Angular的组件，并让它们实现无缝的互操作。
+这意味着我们不用被迫一次性做完所有的升级工作，因为在整个演进过程中，这两个框架可以很自然的和睦相处。
 
 ### How ngUpgrade Works
 
-### 升级模块如何工作
+### 升级模块工作原理
 
 The primary tool provided by ngUpgrade is called the `UpgradeModule`.
 This is a module that contains utilities for bootstrapping and managing hybrid
 applications that support both Angular and AngularJS code.
 
-`upgrade`模块提供的主要工具叫做`UpgradeModule`。这是一个服务，它可以引导并管理同时支持Angular和AngularJS的混合式应用程序。
+`upgrade`模块提供的主要工具叫做`UpgradeModule`。这是一个服务，它可以启动并管理一个能同时支持Angular和AngularJS的混合式应用。
 
 When you use ngUpgrade, what you're really doing is *running both AngularJS and
 Angular at the same time*. All Angular code is running in the Angular
@@ -920,7 +920,7 @@ The safest bet for ensuring compatibility is using the
 introduced in AngularJS 1.5.
 
 不是所有种类的AngularJS指令都能升级。该指令必须是一个严格的*组件型指令*，具有[上面的准备指南中描述的](guide/upgrade#using-component-directives)那些特征。
-确保兼容性的最安全的方式是AngularJS.5中引入的[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)。
+确保兼容性的最安全的方式是AngularJS 1.5中引入的[组件API](https://docs.angularjs.org/api/ng/type/angular.Module)。
 
 A simple example of an upgradable component is one that just has a template
 and a controller:
