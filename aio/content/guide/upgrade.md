@@ -354,16 +354,15 @@ framework, and AngularJS code in the AngularJS framework. Both of these are the
 actual, fully featured versions of the frameworks. There is no emulation going on,
 so you can expect to have all the features and natural behavior of both frameworks.
 
-当使用`UpgradeModule`时，我们实际做的是*同时运行两个版本的Angular*。所有Angular的代码运行在Angular框架中，
-而AngularJS的代码运行在AngularJS框架中。所有这些都是真实的、全功能的框架版本。
-没有进行任何仿真，所以我们可以期待同时存在这两个框架的所有特性和天生的行为。
+当使用`UpgradeModule`时，我们实际上在*同时运行两个版本的Angular*。所有Angular的代码运行在Angular框架中，而AngularJS的代码运行在AngularJS框架中。所有这些都是真实的、全功能的框架版本。
+没有进行任何仿真，所以我们可以认为同时存在着这两个框架的所有特性和自然行为。
 
 What happens on top of this is that components and services managed by one
 framework can interoperate with those from the other framework. This happens
 in three main areas: Dependency injection, the DOM, and change detection.
 
-所有这些事情的背后，本质上是一个框架中管理的组件和服务能和来自另一个中的进行互操作。
-这发生在三个主要的领域：依赖注入、DOM和变更检测。
+所有这些事情的背后，本质上是一个框架中管理的组件和服务能和来自另一个框架的进行互操作。
+这些主要体现在三个方面：依赖注入、DOM和变更检测。
 
 #### Dependency Injection
 
@@ -373,7 +372,7 @@ Dependency injection is front and center in both AngularJS and
 Angular, but there are some key differences between the two
 frameworks in how it actually works.
 
-无论是在AngularJS中还是在Angular中，依赖注入都处于前沿和中心的位置，但在两个框架的工作原理上，却存在着一些关键的不同之处。
+无论是在AngularJS中还是在Angular中，依赖注入都位于前沿和中心的位置，但在两个框架的工作原理上，却存在着一些关键的不同之处。
 
 
 <table>
@@ -387,9 +386,11 @@ frameworks in how it actually works.
   </tr>
   <tr>
     <td>
+
       Dependency injection tokens are always strings
 
       依赖注入的令牌(Token)永远是字符串(译注：指服务名称)。
+      
     </td>
     <td>
 
@@ -398,6 +399,7 @@ frameworks in how it actually works.
 
       令牌[可能有不同的类型](guide/dependency-injection)。
       通常是类，也可能是字符串。
+      
     </td>
   </tr>
   <tr>
@@ -406,14 +408,15 @@ frameworks in how it actually works.
       There is exactly one injector. Even in multi-module applications,
       everything is poured into one big namespace.
 
-      只有一个注入器。即使在多模块的应用程序中，每样东西也都被装入一个巨大的命名空间中。
+      只有一个注入器。即使在多模块的应用程序中，每样东西也都会被装入一个巨大的命名空间中。
+      
     </td>
     <td>
 
       There is a [tree hierarchy of injectors](guide/hierarchical-dependency-injection),
       with a root injector and an additional injector for each component.
 
-      有一组[树状多层注入器](guide/hierarchical-dependency-injection)，有一个根注入器，每个组件也另外有一个注入器。
+      这是一个[树状多层注入器](guide/hierarchical-dependency-injection)：有一个根注入器，而且每个组件也有一个自己的注入器。
 
     </td>
   </tr>
@@ -441,11 +444,13 @@ everything work seamlessly:
   use in AngularJS.
 
 
-通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
+  通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
   只有那些来自Angular根注入器的服务才能被降级。同样的，在框架之间共享的是同一个单例对象。
-  当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。<figure >
-  <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application" >
-</figure>
+  当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。
+  
+  <figure >
+    <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application" >
+  </figure>
 
 #### Components and the DOM
 
@@ -497,7 +502,7 @@ ways:
     projection together.
 
 
-通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
+    通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
 
 <figure >
   <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application" >
@@ -507,6 +512,7 @@ Whenever you use a component that belongs to the other framework, a
 switch between framework boundaries occurs. However, that switch only
 happens to the elements in the template of thatcomponent . Consider a situation
 where you use an Angular component from AngularJS like this:
+
 当我们使用一个属于另一个框架的组件时，就会发生一个跨框架边界的切换。不过，这种切换只发生在该组件元素的*子节点*上。
 考虑一个场景，我们从AngularJS中使用一个Angular组件，就像这样：
 
@@ -565,12 +571,11 @@ AngularJS and Angular approaches. Here's what happens:
   every turn of the Angular zone. This also triggers AngularJS change
   detection after every event.
 
+  `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
 
-`UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
-
-<figure >
-  <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application" >
-</figure>
+  <figure >
+    <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application" >
+  </figure>
 
 In practice, you do not need to call `$apply()`,
 regardless of whether it is in AngularJS on Angular. The
@@ -636,6 +641,7 @@ bootstrapping the AngularJS module.
 
 
 Read more about [NgModules](guide/ngmodule).
+
 要了解Angular模块的更多信息，请参阅[Angular模块](guide/ngmodule)页。
 
 </div>
@@ -644,7 +650,6 @@ Read more about [NgModules](guide/ngmodule).
 
 ### 引导AngularJS+2的混合式应用程序
 
-// TDOO: Translate
 To bootstrap a hybrid application, you must bootstrap each of the Angular and
 AngularJS parts of the application. You must bootstrap the Angular bits first and
 then ask the `UpgradeModule` to bootstrap the AngularJS bits next.
@@ -680,13 +685,16 @@ To begin converting your AngularJS application to a hybrid, you need to load the
 You can see how this can be done with SystemJS by following the instructions in [Setup](guide/setup),
 selectively copying code from the [QuickStart github repository](https://github.com/angular/quickstart).
 
+要想把 AngularJS 应用变成 Hybrid 应用，就要先加载 Angular 框架。
+根据 [搭建本地开发环境](guide/setup)中给出的步骤，选择性的把<a href="https://github.com/angular/quickstart" target="_blank">“快速上手”的Github仓库</a>中的代码复制过来。
+
 You also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
 and add a mapping for the `@angular/upgrade/static` package:
 
+也可以通过 `npm install @angular/upgrade --save` 命令来安装 `@angular/upgrade` 包，并给它添加一个到 `@angular/upgrade/static` 包的映射。
+
 <code-example path="upgrade-module/src/systemjs.config.1.js" region="upgrade-static-umd" title="systemjs.config.js (map)">
 </code-example>
-
-现在，把Angular引入项目中。根据[搭建本地开发环境](guide/setup)中的指导，你可以有选择的从<a href="https://github.com/angular/quickstart" target="_blank">“快速上手”的Github仓库</a>中拷贝素材进来。
 
 Next, create an `app.module.ts` file and add the following `NgModule` class:
 
@@ -744,7 +752,10 @@ in an AngularJS context. This could be a completely new component or one that wa
 previously AngularJS but has been rewritten for Angular.
 
 一旦我们开始运行混合式应用，我们就可以开始逐渐升级代码了。做这件事的一种更常见的模式就是在AngularJS的上下文中使用Angular的组件。
-该组件可能是全新的，也可能是把原本AngularJS的组件用Angular重写而成的。Say you have a simple Angular component that shows information about a hero:
+该组件可能是全新的，也可能是把原本AngularJS的组件用Angular重写而成的。
+
+Say you have a simple Angular component that shows information about a hero:
+
 假设我们有一个简单的用来显示英雄信息的Angular组件：
 
 <code-example path="upgrade-module/src/app/downgrade-static/hero-detail.component.ts" title="hero-detail.component.ts">
@@ -966,6 +977,7 @@ the scope/controller bindings of the original AngularJS component
 directive. When you use the component from an Angular template,
  provide the inputs and outputs using **Angular template syntax**,
 observing the following rules:
+
 升级后的组件也可能有输入属性和输出属性，它们是在原AngularJS组件型指令的scope/controller绑定中定义的。
 当我们从Angular模板中使用该组件时，我们要使用**Angular模板语法**来提供这些输入属性和输出属性，但要遵循下列规则：
 
@@ -1117,6 +1129,7 @@ and then provide the input and output using Angular template syntax:我们可以
 </code-example>
 
 ### Projecting AngularJS Content into Angular Components
+
 ### 把AngularJS的内容投影到Angular组件中
 
 <img src="generated/images/guide/upgrade/ajs-to-a-with-projection.png" alt="Projecting AngularJS content into Angular" class="left">

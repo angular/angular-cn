@@ -283,12 +283,12 @@
           "children": [
             {
               "url": "guide/setup",
-              "title": "设置本地开发环境",
+              "title": "搭建本地开发环境",
               "tooltip": "在你自己的机器上安装 Angular QuickStart 种子，以便更快、更高效的开发。"
             },
             {
               "url": "guide/setup-systemjs-anatomy",
-              "title": "设置方式剖析",
+              "title": "搭建方式剖析",
               "tooltip": "基于 SystemJS 的本地开发环境内幕。"
             },
             {
