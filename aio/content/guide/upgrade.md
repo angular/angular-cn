@@ -1120,7 +1120,9 @@ with one input and one output:
 
 
 You can upgrade this component to Angular, annotate inputs and outputs in the upgrade directive, 
-and then provide the input and output using Angular template syntax:我们可以把这个组件升级到Angular，然后使用Angular的模板语法提供这个输入属性和输出属性：
+and then provide the input and output using Angular template syntax:
+
+我们可以把这个组件升级到Angular，然后使用Angular的模板语法提供这个输入属性和输出属性：
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io-upgrade" title="hero-detail.component.ts">
 </code-example>
@@ -1218,6 +1220,7 @@ Maybe you want access to AngularJS's built-in services like `$location` or `$tim
 In these situations, it is possible to *upgrade* an AngularJS provider to
 Angular. This makes it possible to then inject it somewhere in Angular
 code. For example, you might have a service called `HeroesService` in AngularJS:
+
 在这些情况下，把一个AngularJS提供商*升级到*Angular也是有可能的。这就让它将来有可能被注入到Angular代码中的某些地方。
 比如，我们可能在AngularJS中有一个名叫`HeroesService`的服务：
 
@@ -1251,6 +1254,7 @@ compilation can pick it up.
 
 
 You can then inject it in Angular using it's class as a type annotation:
+
 然后我们可以一个字符串型令牌，把它注入到Angular中：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" title="hero-detail.component.ts">
@@ -1282,7 +1286,10 @@ useful when you start migrating services to Angular or creating new services
 in Angular while retaining components written in AngularJS.
 
 除了能升级AngularJS依赖之外，我们还能*降级*Angular的依赖，以便我们能在AngularJS中使用它们。
-当我们已经开始把服务移植到Angular或在Angular中创建新服务，但同时还有一些用AngularJS写成的组件时，这会非常有用。For example, you might have an Angular service called `Heroes`:
+当我们已经开始把服务移植到Angular或在Angular中创建新服务，但同时还有一些用AngularJS写成的组件时，这会非常有用。
+
+For example, you might have an Angular service called `Heroes`:
+
 例如，我们可能有一个Angular的`Heroes`服务：
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/heroes.ts" title="heroes.ts">
@@ -1312,6 +1319,7 @@ The name of the AngularJS dependency is up to you:
 
 
 After this, the service is injectable anywhere in  AngularJS code:
+
 此后，该服务就能被注入到AngularJS代码中的任何地方了：
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/hero-detail.component.ts" title="hero-detail.component.ts">
@@ -1375,7 +1383,10 @@ To follow along with the tutorial, clone the
 [angular-phonecat](https://github.com/angular/angular-phonecat) repository
 and apply the steps as you go.
 
-要跟随本教程，请先把[angular-phonecat](https://github.com/angular/angular-phonecat)仓库克隆到本地，并跟我们一起应用这些步骤。In terms of project structure, this is where the work begins:
+要跟随本教程，请先把[angular-phonecat](https://github.com/angular/angular-phonecat)仓库克隆到本地，并跟我们一起应用这些步骤。
+
+In terms of project structure, this is where the work begins:
+
 在项目结构方面，我们工作的起点是这样的：
 
 <div class='filetree'>
@@ -1605,6 +1616,8 @@ Now launch the TypeScript compiler from the command line in watch mode:
 
 Keep this process running in the background, watching and recompiling as you make changes.
 
+让这个进程一直在后台运行，监听任何变化并自动重新编译。
+
 Next, convert your current JavaScript files into TypeScript. Since
 TypeScript is a super-set of ECMAScript 2015, which in turn is a super-set
 of ECMAScript 5, you can simply switch the file extensions from `.js` to `.ts`
@@ -1669,6 +1682,7 @@ as an `angular.resource.IResourceService` - a type defined by the AngularJS typi
 You can apply the same trick to the application's route configuration file in `app.config.ts`,
 where you are using the location and route services. By annotating them accordingly TypeScript
 can verify you're calling their APIs with the correct kinds of arguments.
+
 我们可以在应用的路由配置中使用同样的技巧，那里我们用到了location和route服务。
 一旦给它们提供了类型信息，TypeScript就能检查我们是否在用类型的正确参数来调用它们了。
 
@@ -1690,6 +1704,7 @@ the `noImplicitAny` configuration option in `tsconfig.json`. This would
 cause the TypeScript compiler to display a warning when there's any code that
 does not yet have type annotations. You could use it as a guide to inform
 us about how close you are to having a fully annotated project.
+
 如果我们想这么做，那么在`tsconfig.json`中启用`noImplicitAny`配置项就是一个好主意。
 这样，如果遇到什么还没有类型注解的代码，TypeScript编译器就会显示一个警告。
 我们可以用它作为指南，告诉我们现在与一个完全类型化的项目距离还有多远。
@@ -1709,7 +1724,9 @@ ES2015/TypeScript classes are under the hood, so that means you can just plug in
 class as a component controller and AngularJS will happily use it.
 
 AngularJS期望控制器是一个构造函数。这实际上就是ES2015/TypeScript中的类，
-这也就意味着只要我们把一个类注册为组件控制器，AngularJS就会愉快的使用它。Here's what the new class for the phone list component controller looks like:
+这也就意味着只要我们把一个类注册为组件控制器，AngularJS就会愉快的使用它。
+
+Here's what the new class for the phone list component controller looks like:
 新的“电话列表(phone list)”组件控制器类是这样的：
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-list/phone-list.component.ts" title="app/phone-list/phone-list.component.ts">
@@ -2052,6 +2069,7 @@ and the other loads the details of a specified phone:
 
 The methods now return Observables of type `PhoneData` and `PhoneData[]`. This is
 a type you don't have yet. Add a simple interface for it:
+
 该方法现在返回一个`Phone`类型或`Phone[]`类型的可观察对象(Observable)。
 这是一个我们从未用过的类型，因此我们得为它新增一个简单的接口：
 
@@ -2080,8 +2098,11 @@ Notice that you're importing the `map` operator of the RxJS `Observable` separat
 Do this for every RxJS operator.
 
 注意，我们单独导入了RxJS `Observable`中的`map`操作符。
-我们需要对想用的所有RxJS操作符这么做，因为Angular默认不会加载所有RxJS操作符。The new `Phone` service has the same features as the original, `ngResource`-based service. 
+我们需要对想用的所有RxJS操作符这么做，因为Angular默认不会加载所有RxJS操作符。
+
+The new `Phone` service has the same features as the original, `ngResource`-based service. 
 Because it's an Angular service, you register it with the `NgModule` providers:
+
 这个新的`Phone`服务具有和老的基于`ngResource`的服务相同的特性。
 因为它是Angular服务，我们通过`NgModule`的`providers`数组来注册它：
 
@@ -2126,6 +2147,7 @@ without having to yet migrate the components that use it.
 You could  use the `toPromise` method of `Observable` to turn those
 Observables into Promises in the service. In many cases that
 reduce the number of changes to the component controllers.
+
 我们也能使用`Observable`的`toPromise`方法来在服务中把这些可观察对象转变成承诺，以进一步减小组件控制器中需要修改的代码量。
 
 </div>
@@ -2224,6 +2246,7 @@ that the return value of the `downgradeComponent` method is a directive factory.
 The new `PhoneListComponent` uses the Angular `ngModel` directive, located in the `FormsModule`.
 Add the `FormsModule` to `NgModule` imports, declare the new `PhoneListComponent` and
 finally add it to `entryComponents` since you downgraded it:
+
 新的`PhoneListComponent`使用Angular的`ngModel`指令，它位于`FormsModule`中。
 把`FormsModule`添加到`NgModule`的`imports`中，并声明新的`PhoneListComponent`组件，
 最后由我们把它降级了，添加到`entryComponents`：
@@ -2417,6 +2440,7 @@ Install `fs-extra` via `npm install fs-extra --save-dev` for better file copying
 
 
 And that's all you need to use AOT while upgrading your app!
+
 这就是想要在升级应用期间AOT编译所需的一切！
 
 ### Adding The Angular Router And Bootstrap
@@ -2575,7 +2599,7 @@ It is time to take off the training wheels and let the application begin
 its new life as a pure, shiny Angular app. The remaining tasks all have to
 do with removing code - which of course is every programmer's favorite task!
 
-是时候把辅助训练的轮子摘下来了！让我们的应用作为一个纯粹、闪亮的Angular程序开始它的新生命吧。
+终于可以把辅助训练的轮子摘下来了！让我们的应用作为一个纯粹、闪亮的Angular程序开始它的新生命吧。
   剩下的所有任务就是移除代码 —— 这当然是每个程序员最喜欢的任务！
 
 The application is still bootstrapped as a hybrid app.
@@ -2699,6 +2723,7 @@ Update the `protractor-conf.js` to sync with hybrid apps:
 When you start to upgrade components and their templates to Angular, you'll make more changes 
  because the E2E tests have matchers that are specific to AngularJS. 
 For PhoneCat you need to make the following changes in order to make things work with Angular:
+
 当我们开始组件和模块升级到Angular时，还需要一系列后续的修改。
 这是因为E2E测试有一些匹配器是AngularJS中特有的。对于PhoneCat来说，为了让它能在Angular下工作，我们得做下列修改：
 
@@ -2841,6 +2866,7 @@ the page.
 当引导方式从`UpgradeModule`切换到纯Angular的时，AngularJS就从页面中完全消失了。
 此时，我们需要告诉Protractor，它不用再找AngularJS应用了，而是从页面中查找*Angular*应用。
 于是在`protractor-conf.js`中做下列修改：
+
 Replace the `ng12Hybrid` previously added with the following in `protractor-conf.js`:
 
 替换之前在`protractor-conf.js`中加入 `ng12Hybrid`，象这样：
@@ -2884,9 +2910,12 @@ During TypeScript conversion no changes are strictly necessary. But it may be
 a good idea to convert the unit test code into TypeScript as well.
 
 在转成TypeScript期间，严格来讲没有什么改动是必须的。但把单元测试代码转成TypeScript仍然是个好主意，
-产品代码从TypeScript中获得的那些增益也同样适用于测试代码。For instance, in the phone detail component spec , you can use  ES2015
+产品代码从TypeScript中获得的那些增益也同样适用于测试代码。
+
+For instance, in the phone detail component spec , you can use  ES2015
 features like arrow functions and block-scoped variablesand benefit from the type
 definitions  of the AngularJS services you're consuming:
+
 比如，在这个电话详情组件的规约中，我们不仅用到了ES2015中的箭头函数和块作用域变量这些特性，还为所用的一些
 AngularJS服务提供了类型定义。
 
@@ -2961,6 +2990,7 @@ AngularJS `$httpBackend` to a mocked-out Angular Http backend.
 
 For the component specs , you can mock out the `Phone` service itself, and have it provide
 canned phone data. You use Angular's component unit testing APIs for both components.
+
 对于组件的规约，我们可以模拟出`Phone`服务本身，并且让它提供电话的数据。我们可以对这些组件使用Angular的组件单元测试API。
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.spec.ts" title="app/phone-detail/phone-detail.component.spec.ts">
