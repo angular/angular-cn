@@ -6268,7 +6268,9 @@ resort to hash routes.
 
 #### HTML5 URLs and the  *&lt;base href>*
 
-#### HTML 5 URL与*&lt;base href>*While the router uses the 
+#### HTML 5 URL与*&lt;base href>*
+
+While the router uses the 
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries"  title="Browser history push-state">HTML5 pushState</a>
 style by default, you *must* configure that strategy with a **base href**.
 
