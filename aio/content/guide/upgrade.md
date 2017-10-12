@@ -646,14 +646,18 @@ Read more about [NgModules](guide/ngmodule).
 
 ### Bootstrapping hybrid applications
 
-### 引导AngularJS+2的混合式应用程序
+### 引导混合式应用程序
 
 To bootstrap a hybrid application, you must bootstrap each of the Angular and
 AngularJS parts of the application. You must bootstrap the Angular bits first and
 then ask the `UpgradeModule` to bootstrap the AngularJS bits next.
 
+要想引导混合式应用，我们在应用中必须同时引导 Angular 和 AngularJS。要先引导 Angular ，然后再调用 `UpgradeModule` 来引导 AngularJS。
+
 In an AngularJS application you have a root AngularJS module, which will also
 be used to bootstrap the AngularJS application.
+
+在 AngularJS 应用中有一个 AngularJS 的根模块，我们用它来引导 AngularJS 应用。
 
 <code-example path="upgrade-module/src/app/ajs-bootstrap/app.module.ts" region="ng1module" title="app.module.ts">
 </code-example>
@@ -663,6 +667,8 @@ directive somewhere on the HTML page. But for hybrid applications, you manually 
 `UpgradeModule`. Therefore, it is a good preliminary step to switch AngularJS applications to use the
 manual JavaScript [`angular.bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap)
 method even before switching them to hybrid mode.
+
+单纯的 AngularJS 应用可以在 HTML 页面中使用 `ng-app` 指令进行引导，但对于混合式应用我们要通过 `UpgradeModule` 模块进行手动引导。在此之前，
 
 Say you have an `ng-app` driven bootstrap such as this one:
 
