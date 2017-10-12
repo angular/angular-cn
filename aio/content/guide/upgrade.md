@@ -668,9 +668,11 @@ directive somewhere on the HTML page. But for hybrid applications, you manually 
 manual JavaScript [`angular.bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap)
 method even before switching them to hybrid mode.
 
-单纯的 AngularJS 应用可以在 HTML 页面中使用 `ng-app` 指令进行引导，但对于混合式应用我们要通过 `UpgradeModule` 模块进行手动引导。在此之前，
+单纯的 AngularJS 应用可以在 HTML 页面中使用 `ng-app` 指令进行引导，但对于混合式应用我们要通过 `UpgradeModule` 模块进行手动引导。因此，在切换成混合式应用之前，最好先把 AngularJS 改写成使用 [`angular.bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 进行手动引导的方式。
 
 Say you have an `ng-app` driven bootstrap such as this one:
+
+比如我们现在有这样一个通过 `ng-app` 进行引导的应用：
 
 <code-example path="upgrade-module/src/index-ng-app.html">
 </code-example>
@@ -678,7 +680,6 @@ Say you have an `ng-app` driven bootstrap such as this one:
 You can remove the `ng-app` and `ng-strict-di` directives from the HTML
 and instead switch to calling `angular.bootstrap` from JavaScript, which
 will result in the same thing:
-
 
 我们可以从HTML中移除`ng-app`和`ng-strict-di`指令，改为从JavaScript中调用`angular.bootstrap`，它能达到同样效果：
 
