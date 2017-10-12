@@ -1919,7 +1919,7 @@ Now create a new `app.module.ts` with the minimum `NgModule` class:
 
 ### Bootstrapping a hybrid PhoneCat
 
-### 引导PhoneCat的1+2混合式应用
+### 引导PhoneCat的混合式应用
 
 Next, you'll bootstrap the application as a *hybrid application*
 that supports both AngularJS and Angular components. After that,
