@@ -443,7 +443,6 @@ everything work seamlessly:
   When you register a downgraded service, you must explicitly specify a *string token* that you want to
   use in AngularJS.
 
-
   通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
   只有那些来自Angular根注入器的服务才能被降级。同样的，在框架之间共享的是同一个单例对象。
   当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。
@@ -500,7 +499,6 @@ ways:
 2. By transcluding or projecting content from the other framework. ngUpgrade
     bridges the related concepts of AngularJS transclusion and Angular content
     projection together.
-
 
     通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
 
@@ -1727,6 +1725,7 @@ AngularJS期望控制器是一个构造函数。这实际上就是ES2015/TypeScr
 这也就意味着只要我们把一个类注册为组件控制器，AngularJS就会愉快的使用它。
 
 Here's what the new class for the phone list component controller looks like:
+
 新的“电话列表(phone list)”组件控制器类是这样的：
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-list/phone-list.component.ts" title="app/phone-list/phone-list.component.ts">
