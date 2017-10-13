@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 // #enddocregion imports
 
 @Directive({
-  selector: '[appHighlight]'
+  selector: '[myHighlight]'
 })
 export class HighlightDirective {
 
@@ -15,7 +15,7 @@ export class HighlightDirective {
   // #enddocregion defaultColor
 
   // #docregion color
-  @Input('appHighlight') highlightColor: string;
+  @Input('myHighlight') highlightColor: string;
   // #enddocregion color
 
   // #docregion mouse-enter

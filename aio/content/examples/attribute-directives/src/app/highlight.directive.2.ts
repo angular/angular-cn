@@ -4,7 +4,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]'
+  selector: '[myHighlight]'
 })
 export class HighlightDirective {
   // #docregion ctor
