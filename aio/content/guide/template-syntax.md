@@ -2490,7 +2490,7 @@ You can control the visibility of an element with a
 
 Hiding an element is quite different from removing an element with `NgIf`.
 
-但隐藏子树和用`NgIf`排除子树是截然不同的。
+但隐藏子树和用`NgIf`移除子树是截然不同的。
 
 When you hide an element, that element and all of its descendents remain in the DOM.
 All components for those elements stay in memory and
@@ -2745,8 +2745,7 @@ Here is an illustration of the _trackBy_ effect.
   
 * With `trackBy`, only changing the `id` triggers element replacement.
 
-
-有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
+  有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
 
 <figure >
   <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
