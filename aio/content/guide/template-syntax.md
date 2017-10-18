@@ -2433,7 +2433,6 @@ _This_ section is an introduction to the common structural directives:
   [`NgIf`](guide/template-syntax#ngIf) - 根据条件把一个元素添加到DOM中或从DOM移除
   
 * [`NgSwitch`](guide/template-syntax#ngSwitch) - a set of directives that switch among alternative views
-* [NgForOf](guide/template-syntax#ngFor) - repeat a template for each item in a list
 
   [`NgSwitch`](guide/template-syntax#ngSwitch) - 一组指令，用于切换一组视图
 
