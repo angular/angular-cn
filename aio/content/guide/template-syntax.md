@@ -2414,7 +2414,7 @@ where you'll learn:
 * to use [`<ng-container>`](guide/structural-directives#ngcontainer "<ng-container>")
 to group elements when there is no suitable host element for the directive.
 
-  当没有合适的宿主元素防止指令时，可用`<ng-container>`](structural-directives.html#ngcontainer "<ng-container>对元素进行分组。
+  当没有合适的宿主元素放置指令时，可用[`<ng-container>`](guide/structural-directives#ngcontainer "<ng-container>")对元素进行分组。
   
 * how to write your own structural directive.
 
