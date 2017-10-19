@@ -36,8 +36,7 @@ Guidelines that literally should always be followed are extremely rare.
 On the other hand, you need a really unusual case for breaking a *Do* guideline.
 
 **坚持**意味着总是应该遵循的约定。
-_总是_可能有点太强了。应该_总是_遵循的指导原则非常少。
-但是，只有遇到非常不寻常的情况才能打破*坚持*的原则。
+说*"总是"*可能显得有点绝对，应该*"总是"*遵循的指导原则非常少，但是，只有遇到非常不寻常的情况才能打破*坚持*的原则。
 
 
 </div>
