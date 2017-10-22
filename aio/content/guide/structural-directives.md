@@ -1001,7 +1001,7 @@ clear the container which also destroys the view.
 
 Nobody reads the `myUnless` property so it doesn't need a getter.
 
-没有人会读取`myUnless`属性，因此它不需要定义设置器（getter）。
+没有人会读取`myUnless`属性，因此它不需要定义getter。
 
 The completed directive code looks like this:
 

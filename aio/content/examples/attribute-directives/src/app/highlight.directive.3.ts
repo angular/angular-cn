@@ -3,13 +3,13 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]'
+  selector: '[myHighlight]'
 })
 export class HighlightDirective {
 
   constructor(private el: ElementRef) { }
 
-  @Input('appHighlight') highlightColor: string;
+  @Input('myHighlight') highlightColor: string;
 
   // #docregion mouse-enter
   @HostListener('mouseenter') onMouseEnter() {
