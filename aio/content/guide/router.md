@@ -1655,9 +1655,13 @@ When the application launches, the initial URL in the browser bar is something l
 That doesn't match any of the concrete configured routes which means
 the router falls through to the wildcard route and displays the `PageNotFoundComponent`.
 
+它不能匹配上任何具体的路由，于是就会走到通配符路由中去，并且显示`PageNotFoundComponent`。
+
 The application needs a **default route** to a valid page.
 The default page for this app is the list of heroes.
 The app should navigate there as if the user clicked the "Heroes" link or pasted `localhost:3000/heroes` into the address bar.
+
+但我们的应用需要一个有效的**默认路由**，在这里应该用英雄列表作为默认页。当用户点击"Heroes"链接或把`localhost:3000/heroes`粘贴到地址栏时，它应该导航到列表页。
 
 {@a redirect}
 
@@ -2054,7 +2058,7 @@ It is where developers expect to find and expand routing configuration.
 
 它在配置复杂时，能确保代码干净。
 它让测试特性模块更加容易。
-它的存在突出了模块时被路由的事实。
+它的存在让我们一眼就能看出这个模块是带路由的。
 开发者可以很自然的从路由模块中查找和扩展路由配置。
 
 {@a heroes-feature}
@@ -3474,8 +3478,6 @@ After these changes, the folder structure looks like this:
 
 Here are the relevant files for this version of the sample application.
 
-Here are the relevant files for this version of the sample application.
-
 这里是当前版本的范例程序相关文件。
 
 
@@ -3675,6 +3677,8 @@ instead you use the router to *navigate* to it.
 ### 子路由配置
 
 As a host page for the "Crisis Center" feature, add the following `crisis-center-home.component.ts` to the `crisis-center` folder.
+
+把下面这个`crisis-center-home.component.ts`添加到`crisis-center`目录下，作为 "危机中心" 特性区的宿主页面。
 
 <code-example path="router/src/app/crisis-center/crisis-center-home.component.ts" linenums="false" title="src/app/crisis-center/crisis-center-home.component.ts" >
 </code-example>
