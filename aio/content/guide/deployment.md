@@ -468,7 +468,7 @@ Learn more about tree shaking and dead code elmination in
 <a href="https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80#.15ih9cyvl" title="Tree-shaking and Dead Code Elimination">
 this post</a> by rollup-creator, Rich Harris.
 
-常用的摇树优化工具是<a href="http://rollupjs.org/" target="_blank" title="Rollup">Rollup</a>，一个带有查件的生态系统，可以完成打包、最小化和混淆。
+<a href="http://rollupjs.org/" target="_blank" title="Rollup">Rollup</a>普及了摇树优化，它拥有打包、最小化和混淆的插件生态系统，是一个广受欢迎的构建工具。
 要了解关于摇树优化和消除死代码技术的更多知识，参见<a href="https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80#.15ih9cyvl" target="_blank" title="Tree-shaking and Dead Code Elimination">这个帖子</a>，它的作者就是rollup之父Rich Harris。
 
 
