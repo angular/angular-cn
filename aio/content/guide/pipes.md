@@ -71,9 +71,6 @@ function on the right. All pipes work this way.
 在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
 右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。
 
-在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到
-右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。
-
 ## Built-in pipes
 
 ## 内置的管道

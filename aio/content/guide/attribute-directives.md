@@ -66,11 +66,11 @@ The controller class implements the desired directive behavior.
 属性型指令至少需要一个带有`@Directive`装饰器的控制器类。该装饰器指定了一个用于标识属性的选择器。
 控制器类实现了指令需要的指令行为。
 
-This page demonstrates building a simple _myHighlight_ attribute
+This page demonstrates building a simple _appHighlight_ attribute
 directive to set an element's background color
 when the user hovers over that element. You can apply it like this:
 
-本章展示了如何创建一个简单的属性型指令 _myHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
+本章展示了如何创建一个简单的属性型指令 _appHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
 
 <code-example path="attribute-directives/src/app/app.component.1.html" linenums="false" title="src/app/app.component.html (applied)" region="applied"></code-example>
 
@@ -125,11 +125,11 @@ the HTML in the template that is associated with the directive.
 
 The [CSS selector for an attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)
 is the attribute name in square brackets.
-Here, the directive's selector is `[myHighlight]`.
-Angular locates all elements in the template that have an attribute named `myHighlight`.
+Here, the directive's selector is `[appHighlight]`.
+Angular locates all elements in the template that have an attribute named `appHighlight`.
 
 [用于 attribute 的 CSS 选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors)就是属性名称加方括号。
-这里，指令的选择器是`[myHighlight]`，Angular 将会在模板中找到所有带`myHighlight`属性的元素。
+这里，指令的选择器是`[appHighlight]`，Angular 将会在模板中找到所有带`appHighlight`属性的元素。
 
 
 <div class="l-sub-section">
@@ -138,21 +138,21 @@ Angular locates all elements in the template that have an attribute named `myHig
 
 ### 为什么不直接叫做 "highlight"？
 
-Though *highlight* is a more concise name than *myHighlight* and would work,
+Though *highlight* is a more concise name than *appHighlight* and would work,
 a best practice is to prefix selector names to ensure
 they don't conflict with standard HTML attributes.
 This also reduces the risk of colliding with third-party directive names.
 
-尽管*highlight* 是一个比 *myHighlight* 更简洁的名字，而且它确实也能工作。
+尽管*highlight* 是一个比 *appHighlight* 更简洁的名字，而且它确实也能工作。
 但是最佳实践是在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。
 它同时减少了与第三方指令名字发生冲突的危险。
 
 Make sure you do **not** prefix the `highlight` directive name with **`ng`** because
 that prefix is reserved for Angular and using it could cause bugs that are difficult to diagnose.
-For a simple demo, the short prefix, `my`, helps distinguish your custom directive.
+For a simple demo, the short prefix, `app`, helps distinguish your custom directive.
 
 确认你**没有**给`highlight`指令添加**`ng`**前缀。
-那个前缀属于 Angular，使用它可能导致难以诊断的 bug。例如，这个简短的前缀`my`可以帮助你区分自定义指令。
+那个前缀属于 Angular，使用它可能导致难以诊断的 bug。例如，这个简短的前缀`app`可以帮助你区分自定义指令。
 
 
 </div>
@@ -211,18 +211,18 @@ Now reference this template in the `AppComponent`:
 
 Next, add an `import` statement to fetch the `Highlight` directive and
 add that class to the `declarations` NgModule metadata. This way Angular
-recognizes the directive when it encounters `myHighlight` in the template.
+recognizes the directive when it encounters `appHighlight` in the template.
 
 
 接下来，添加了一个`import`语句来获得`Highlight`指令类，并把这个类添加到 NgModule 元数据的`declarations`数组中。
-这样，当 Angular 在模板中遇到`myHighlight`时，就能认出这是指令了。
+这样，当 Angular 在模板中遇到`appHighlight`时，就能认出这是指令了。
 
 <code-example path="attribute-directives/src/app/app.module.ts" title="src/app/app.module.ts">
 
 </code-example>
 
 
-Now when the app runs, the `myHighlight` directive highlights the paragraph text.
+Now when the app runs, the `appHighlight` directive highlights the paragraph text.
 
 
 运行应用，就会看到我们的指令确实高亮了段落中的文本。
@@ -249,7 +249,7 @@ Open the console in the browser tools and look for an error like this:
 
 <code-example format="nocode">
   EXCEPTION: Template parse errors:
-    Can't bind to 'myHighlight' since it isn't a known property of 'p'.
+    Can't bind to 'appHighlight' since it isn't a known property of 'p'.
 </code-example>
 
 Angular detects that you're trying to bind to *something* but it can't find this directive
@@ -258,17 +258,17 @@ After specifying `HighlightDirective` in the `declarations` array,
 Angular knows it can apply the directive to components declared in this module.
 
 Angular 检测到你正在尝试绑定到*某些东西*，但它不认识。所以它在`declarations`元数据数组中查找。
-把`HighlightDirective`列在元数据的这个数组中，Angular 就会检查对应的导入语句，从而找到`highlight.directive.ts`，并了解`myHightlight`的功能。
+把`HighlightDirective`列在元数据的这个数组中，Angular 就会检查对应的导入语句，从而找到`highlight.directive.ts`，并了解`appHighlight`的功能。
 
 
 </div>
 
-To summarize, Angular found the `myHighlight` attribute on the `<p>` element.
+To summarize, Angular found the `appHighlight` attribute on the `<p>` element.
 It created an instance of the `HighlightDirective` class and
 injected a reference to the `<p>` element into the directive's constructor
 which sets the `<p>` element's background style to yellow.
 
-总结：Angular 在`<p>`元素上发现了一个`myHighlight`属性。
+总结：Angular 在`<p>`元素上发现了一个`appHighlight`属性。
 然后它创建了一个`HighlightDirective`类的实例，并把所在元素的引用注入到了指令的构造函数中。
 在构造函数中，我们把`<p>`元素的背景设置为了黄色。
 
@@ -279,12 +279,12 @@ which sets the `<p>` element's background style to yellow.
 
 ## 响应用户引发的事件
 
-Currently, `myHighlight` simply sets an element color.
+Currently, `appHighlight` simply sets an element color.
 The directive could be more dynamic.
 It could detect when the user mouses into or out of the element
 and respond by setting or clearing the highlight color.
 
-当前，`myHighlight`只是简单的设置元素的颜色。
+当前，`appHighlight`只是简单的设置元素的颜色。
 这个指令应该在用户鼠标悬浮一个元素时，设置它的颜色。
 
 Begin by adding `HostListener` to the list of imported symbols;
@@ -447,28 +447,28 @@ That's good, but it would be nice to _simultaneously_ apply the directive and se
 </code-example>
 
 
-The `[myHighlight]` attribute binding both applies the highlighting directive to the `<p>` element
+The `[appHighlight]` attribute binding both applies the highlighting directive to the `<p>` element
 and sets the directive's highlight color with a property binding.
-You're re-using the directive's attribute selector (`[myHighlight]`) to do both jobs.
+You're re-using the directive's attribute selector (`[appHighlight]`) to do both jobs.
 That's a crisp, compact syntax.
 
-`[myHighlight]`属性同时做了两件事：把这个高亮指令应用到了`<p>`元素上，并且通过属性绑定设置了该指令的高亮颜色。
-我们复用了该指令的属性选择器`[myHighlight]`来同时完成它们。
+`[appHighlight]`属性同时做了两件事：把这个高亮指令应用到了`<p>`元素上，并且通过属性绑定设置了该指令的高亮颜色。
+我们复用了该指令的属性选择器`[appHighlight]`来同时完成它们。
 这是清爽、简约的语法。
 
-You'll have to rename the directive's `highlightColor` property to `myHighlight` because that's now the color property binding name.
+You'll have to rename the directive's `highlightColor` property to `appHighlight` because that's now the color property binding name.
 
 
-我们还要把该指令的`highlightColor`改名为`myHighlight`，因为它是颜色属性目前的绑定名。
+我们还要把该指令的`highlightColor`改名为`appHighlight`，因为它是颜色属性目前的绑定名。
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (renamed to match directive selector)" region="color-2">
 
 </code-example>
 
 
-This is disagreeable. The word, `myHighlight`, is a terrible property name and it doesn't convey the property's intent.
+This is disagreeable. The word, `appHighlight`, is a terrible property name and it doesn't convey the property's intent.
 
-这可不好。因为`myHighlight`是一个糟糕的属性名，而且不能反映该属性的意图。
+这可不好。因为`appHighlight`是一个糟糕的属性名，而且不能反映该属性的意图。
 
 
 {@a input-alias}
@@ -484,7 +484,7 @@ Fortunately you can name the directive property whatever you want _and_ **_alias
 Restore the original property name and specify the selector as the alias in the argument to `@Input`. 
 
 
-恢复原始属性名，并在`@Input`的参数中把选择器`myHighlight`指定为别名。
+恢复原始属性名，并在`@Input`的参数中把选择器`appHighlight`指定为别名。
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" linenums="false" title="src/app/highlight.directive.ts (color property with alias)" region="color">
 
@@ -492,9 +492,9 @@ Restore the original property name and specify the selector as the alias in the 
 
 
 _Inside_ the directive the property is known as `highlightColor`.
-_Outside_ the directive, where you bind to it, it's known as `myHighlight`.
+_Outside_ the directive, where you bind to it, it's known as `appHighlight`.
 
-在指令内部，该属性叫`highlightColor`，在外部，当我们绑定到它时，它叫`myHighlight`。
+在指令内部，该属性叫`highlightColor`，在外部，当我们绑定到它时，它叫`appHighlight`。
 
 You get the best of both worlds: the property name you want and the binding syntax you want:
 
@@ -606,9 +606,9 @@ then with the `defaultColor`, and falls back to "red" if both properties are und
 </code-example>
 
 
-How do you bind to a second property when you're already binding to the `myHighlight` attribute name?
+How do you bind to a second property when you're already binding to the `appHighlight` attribute name?
 
-当已经绑定过`myHighlight`属性时，要如何绑定到第二个属性呢？
+当已经绑定过`appHighlight`属性时，要如何绑定到第二个属性呢？
 
 As with components, you can add as many directive property bindings as you need by stringing them along in the template.
 The developer should be able to write the following template HTML to both bind to the `AppComponent.color`
@@ -687,11 +687,11 @@ You can also experience and download the <live-example title="Attribute Directiv
 
 ### 附录：为什么要加*@Input*？
 
-In this demo, the `hightlightColor` property is an ***input*** property of
+In this demo, the `highlightColor` property is an ***input*** property of
 the `HighlightDirective`. You've seen it applied without an alias:
 
 
-在这个例子中`hightlightColor`是`HighlightDirective`的一个***输入型***属性。我们见过它没有用别名时的代码：
+在这个例子中`highlightColor`是`HighlightDirective`的一个***输入型***属性。我们见过它没有用别名时的代码：
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (color)" region="color">
 
@@ -775,9 +775,9 @@ Now apply that reasoning to the following example:
   `color`属性位于右侧的绑定表达式中，它属于模板所在的组件。
     该模板和组件相互信任。因此`color`不需要`@Input`装饰器。
 
-* The `myHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
+* The `appHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
   not a property of the template's component. There are trust issues.
   Therefore, the directive property must carry the `@Input` decorator.
 
-  `myHighlight`属性位于左侧，它引用了`MyHighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
+  `appHighlight`属性位于左侧，它引用了`appHighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
 所以，该属性必须带`@Input`装饰器。
