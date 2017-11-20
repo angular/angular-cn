@@ -568,7 +568,7 @@ The `pow` template input variable is a different power in each iteration;
 you display its name using the interpolation syntax.
 
 列表中的每一项超能力都会渲染成`<option>`标签。
-模板输入变量`p`在每个迭代指向不同的超能力，使用双花括号插值表达式语法来显示它的名称。
+模板输入变量`pow`在每个迭代指向不同的超能力，使用双花括号插值表达式语法来显示它的名称。
 
 
 {@a ngModel}
