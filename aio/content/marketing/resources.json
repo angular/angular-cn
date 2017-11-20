@@ -338,12 +338,18 @@
             "title": "Amexio - Angular Extensions",
             "url": "http://www.amexio.tech/",
             "logo": "http://www.amexio.org/amexio-logo.png"
-          }          ,
+          },
           "zorro": {
             "desc": "An enterprise-class UI components based on Ant Design and Angular.",
             "rev": true,
             "title": "NG-ZORRO",
             "url": "https://ng.ant.design/"
+          },
+          "element": {
+            "desc": "Angular UI libraries derived from Element UI.",
+            "rev": true,
+            "title": "Element Angular",
+            "url": "https://github.com/eleme/element-angular"
           }
         }
       }
