@@ -16,7 +16,10 @@ with components, enabling a more modular design than regular stylesheets.
 
 This page describes how to load and apply these component styles.
 
-在本章中，我们将学到如何加载和使用这些*组件样式*。You can run the <live-example></live-example> in Stackblitz and download the code from there.
+在本章中，我们将学到如何加载和使用这些*组件样式*。
+
+You can run the <live-example></live-example> in Stackblitz and download the code from there.
+
 你可以在Plunker上运行本章这些代码的<live-example></live-example>并下载这些代码。
 
 ## Using component styles
