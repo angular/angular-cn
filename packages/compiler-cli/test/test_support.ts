@@ -12,6 +12,7 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import * as ng from '../index';
 
+// TEST_TMPDIR is set by bazel.
 const tmpdir = process.env.TEST_TMPDIR || os.tmpdir();
 
 function getNgRootDir() {
@@ -21,7 +22,6 @@ function getNgRootDir() {
 }
 
 export function writeTempFile(name: string, contents: string): string {
-  // TEST_TMPDIR is set by bazel.
   const id = (Math.random() * 1000000).toFixed(0);
   const fn = path.join(tmpdir, `tmp.${id}.${name}`);
   fs.writeFileSync(fn, contents);
@@ -29,8 +29,12 @@ export function writeTempFile(name: string, contents: string): string {
 }
 
 export function makeTempDir(): string {
-  const id = (Math.random() * 1000000).toFixed(0);
-  const dir = path.join(tmpdir, `tmp.${id}`);
+  let dir: string;
+  while (true) {
+    const id = (Math.random() * 1000000).toFixed(0);
+    dir = path.join(tmpdir, `tmp.${id}`);
+    if (!fs.existsSync(dir)) break;
+  }
   fs.mkdirSync(dir);
   return dir;
 }
@@ -64,10 +68,10 @@ export function setup(): TestSupport {
   function write(fileName: string, content: string) {
     const dir = path.dirname(fileName);
     if (dir != '.') {
-      const newDir = path.join(basePath, dir);
+      const newDir = path.resolve(basePath, dir);
       if (!fs.existsSync(newDir)) fs.mkdirSync(newDir);
     }
-    fs.writeFileSync(path.join(basePath, fileName), content, {encoding: 'utf-8'});
+    fs.writeFileSync(path.resolve(basePath, fileName), content, {encoding: 'utf-8'});
   }
 
   function writeFiles(...mockDirs: {[fileName: string]: string}[]) {
@@ -112,7 +116,7 @@ export function setup(): TestSupport {
 export function expectNoDiagnostics(options: ng.CompilerOptions, diags: ng.Diagnostics) {
   const errorDiags = diags.filter(d => d.category !== ts.DiagnosticCategory.Message);
   if (errorDiags.length) {
-    throw new Error(`Expected no diagnostics: ${ng.formatDiagnostics(options, errorDiags)}`);
+    throw new Error(`Expected no diagnostics: ${ng.formatDiagnostics(errorDiags)}`);
   }
 }
 

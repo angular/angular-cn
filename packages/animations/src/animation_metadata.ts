@@ -115,7 +115,7 @@ export interface AnimationStateMetadata extends AnimationMetadata {
  * @experimental Animation support is experimental.
  */
 export interface AnimationTransitionMetadata extends AnimationMetadata {
-  expr: string;
+  expr: string|((fromState: string, toState: string) => boolean);
   animation: AnimationMetadata|AnimationMetadata[];
   options: AnimationOptions|null;
 }
@@ -256,6 +256,11 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * within a template by referencing the name of the trigger followed by the expression value that
  the
  * trigger is bound to (in the form of `[@triggerName]="expression"`.
+ *
+ * Animation trigger bindings strigify values and then match the previous and current values against
+ * any linked transitions. If a boolean value is provided into the trigger binding then it will both
+ * be represented as `1` or `true` and `0` or `false` for a true and false boolean values
+ * respectively.
  *
  * ### Usage
  *
@@ -734,6 +739,22 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  * ])
  * ```
  *
+ * ### Boolean values
+ * if a trigger binding value is a boolean value then it can be matched using a transition
+ * expression that compares `true` and `false` or `1` and `0`.
+ *
+ * ```
+ * // in the template
+ * <div [@openClose]="open ? true : false">...</div>
+ *
+ * // in the component metadata
+ * trigger('openClose', [
+ *   state('true', style({ height: '*' })),
+ *   state('false', style({ height: '0px' })),
+ *   transition('false <=> true', animate(500))
+ * ])
+ * ```
+ *
  * ### Using :increment and :decrement
  * In addition to the :enter and :leave transition aliases, the :increment and :decrement aliases
  * can be used to kick off a transition when a numeric value has increased or decreased in value.
@@ -815,7 +836,8 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  * @experimental Animation support is experimental.
  */
 export function transition(
-    stateChangeExpr: string, steps: AnimationMetadata | AnimationMetadata[],
+    stateChangeExpr: string | ((fromState: string, toState: string) => boolean),
+    steps: AnimationMetadata | AnimationMetadata[],
     options: AnimationOptions | null = null): AnimationTransitionMetadata {
   return {type: AnimationMetadataType.Transition, expr: stateChangeExpr, animation: steps, options};
 }
@@ -832,7 +854,7 @@ export function transition(
  * var fadeAnimation = animation([
  *   style({ opacity: '{{ start }}' }),
  *   animate('{{ time }}',
- *     style({ opacity: '{{ end }}'))
+ *     style({ opacity: '{{ end }}'}))
  * ], { params: { time: '1000ms', start: 0, end: 1 }});
  * ```
  *

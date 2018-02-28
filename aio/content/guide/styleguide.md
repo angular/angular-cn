@@ -5369,8 +5369,8 @@ helps instantly identify which members of the component serve which purpose.
 
 **Why?** The property associated with `@HostBinding` or the method associated with `@HostListener`
 can be modified only in a single place&mdash;in the directive's class.
-If you use the `host` metadata property, you must modify both the property declaration inside the controller,
-and the metadata associated with the directive.
+If you use the `host` metadata property, you must modify both the property/method declaration in the 
+directive's class and the metadata in the decorator associated with the directive.
 
 **为何？**对于关联到`@HostBinding`的属性或关联到`@HostListener`的方法，要修改时，只需在指令类中的一个地方修改。
 如果使用元数据属性`host`，你就得在组件类中修改属性声明的同时修改相关的元数据。

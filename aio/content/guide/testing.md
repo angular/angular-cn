@@ -364,11 +364,7 @@ Add the following code to `src/app/1st.spec.ts`.
 
 添加下面的代码到`app/1st.spec.ts`。
 
-<code-example path="testing/src/app/1st.spec.ts" title="src/app/1st.spec.ts" linenums="false">
-
-</code-example>
-
-
+<code-example path="testing/src/app/1st.spec.ts" title="src/app/1st.spec.ts" linenums="false"></code-example>
 
 {@a run-karma}
 
@@ -578,9 +574,7 @@ It presents the application title at the top of the screen within an `<h1>` tag.
 它所表示的是屏幕顶部`<h1>`标签中的应用标题。
 
 
-<code-example path="testing/src/app/banner-inline.component.ts" title="src/app/banner-inline.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner-inline.component.ts" title="src/app/banner-inline.component.ts" linenums="false"></code-example>
 
 
 
@@ -603,9 +597,7 @@ Start with ES6 import statements to get access to symbols referenced in the spec
 在测试文件中，我们先用ES6的`import`语句来引入测试所需的符号。
 
 
-<code-example path="testing/src/app/banner-inline.component.spec.ts" region="imports" title="src/app/banner-inline.component.spec.ts (imports)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner-inline.component.spec.ts" region="imports" title="src/app/banner-inline.component.spec.ts (imports)" linenums="false"></code-example>
 
 
 
@@ -617,9 +609,7 @@ Here's the `describe` and the `beforeEach` that precedes the tests:
 测试前面的`describe`和`beforeEach`如下：
 
 
-<code-example path="testing/src/app/banner-inline.component.spec.ts" region="setup" title="src/app/banner-inline.component.spec.ts (beforeEach)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner-inline.component.spec.ts" region="setup" title="src/app/banner-inline.component.spec.ts (beforeEach)" linenums="false"></code-example>
 
 
 
@@ -799,9 +789,7 @@ Jasmine runs the `beforeEach` function before each of these tests
 再每个测试程序之前，Jasmin都一次运行`beforeEach`函数：
 
 
-<code-example path="testing/src/app/banner-inline.component.spec.ts" region="tests" title="src/app/banner-inline.component.spec.ts (tests)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner-inline.component.spec.ts" region="tests" title="src/app/banner-inline.component.spec.ts (tests)" linenums="false"></code-example>
 
 
 
@@ -841,9 +829,7 @@ a fact demonstrated in the following test:
 `TestBed.createComponent`**不会**触发变更检测。该工具不会自动将组件的`title`属性值推送到数据绑定的元素，下面的测试程序展示了这个事实：
 
 
-<code-example path="testing/src/app/banner-inline.component.spec.ts" region="test-w-o-detect-changes" title="src/app/banner-inline.component.spec.ts (no detectChanges)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner-inline.component.spec.ts" region="test-w-o-detect-changes" title="src/app/banner-inline.component.spec.ts (no detectChanges)" linenums="false"></code-example>
 
 
 
@@ -884,9 +870,7 @@ First import it from the testing utility library :
 这可以通过为`TestBed`配置上`ComponentFixtureAutoDetect`提供商来做到。首先从测试工具库中导入它：
 
 
-<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="import-ComponentFixtureAutoDetect" title="src/app/banner.component.detect-changes.spec.ts (import)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="import-ComponentFixtureAutoDetect" title="src/app/banner.component.detect-changes.spec.ts (import)" linenums="false"></code-example>
 
 
 
@@ -895,9 +879,7 @@ Then add it to the `providers` array of the testing module configuration:
 然后把它添加到测试模块配置的`providers`数组中：
 
 
-<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="auto-detect" title="src/app/banner.component.detect-changes.spec.ts (AutoDetect)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="auto-detect" title="src/app/banner.component.detect-changes.spec.ts (AutoDetect)" linenums="false"></code-example>
 
 
 
@@ -906,9 +888,7 @@ Here are three tests that illustrate how automatic change detection works.
 下列测试阐明了自动变更检测的工作原理。
 
 
-<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="auto-detect-tests" title="src/app/banner.component.detect-changes.spec.ts (AutoDetect Tests)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="auto-detect-tests" title="src/app/banner.component.detect-changes.spec.ts (AutoDetect Tests)" linenums="false"></code-example>
 
 
 
@@ -965,9 +945,7 @@ It has _external_ template and css files, specified in `templateUrl` and `styleU
 它有一个*外部*模板和CSS文件，通过`templateUrl`和`styleUrls`属性来指定。
 
 
-<code-example path="testing/src/app/banner.component.ts" title="src/app/banner.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.ts" title="src/app/banner.component.ts" linenums="false"></code-example>
 
 
 
@@ -1004,9 +982,7 @@ The first `beforeEach` handles asynchronous compilation.
 第一个`beforeEach`处理异步编译工作。
 
 
-<code-example path="testing/src/app/banner.component.spec.ts" region="async-before-each" title="src/app/banner.component.spec.ts (first beforeEach)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.spec.ts" region="async-before-each" title="src/app/banner.component.spec.ts (first beforeEach)" linenums="false"></code-example>
 
 
 
@@ -1018,9 +994,7 @@ has to be imported.
 `async`函数是Angular测试工具集的一部分，这里必须引入它。
 
 
-<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="import-async" title="src/app/banner.component.detect-changes.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.detect-changes.spec.ts" region="import-async" title="src/app/banner.component.detect-changes.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1129,9 +1103,7 @@ A _synchronous_ `beforeEach` containing the remaining setup steps follows the as
 这个同步的`beforeEach`包含异步`beforeEach`之后的其余步骤。
 
 
-<code-example path="testing/src/app/banner.component.spec.ts" region="sync-before-each" title="src/app/banner.component.spec.ts (second beforeEach)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/banner.component.spec.ts" region="sync-before-each" title="src/app/banner.component.spec.ts (second beforeEach)" linenums="false"></code-example>
 
 
 
@@ -1222,9 +1194,7 @@ It knows who the user is based on a property of the injected `UserService`:
 `WelcomeComponent`为登陆的用户显示一条欢迎信息。它从注入的`UserService`的属性得知用户的身份：
 
 
-<code-example path="testing/src/app/welcome.component.ts" title="src/app/welcome.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.ts" title="src/app/welcome.component.ts" linenums="false"></code-example>
 
 
 
@@ -1234,9 +1204,7 @@ Here's the testing module configuration for the spec file, `src/app/welcome.comp
 `WelcomeComponent`有与服务进行交互的决策逻辑，这样的逻辑让这个组件值得测试。下面是spec文件的测试模块配置，`src/app/welcome.component.spec.ts`：
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="config-test-module" title="src/app/welcome.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="config-test-module" title="src/app/welcome.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1277,9 +1245,7 @@ and its tests:
 这个测试套件提供了最小化的`UserService`stub类，用来满足`WelcomeComponent`和它的测试的需求：
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="user-service-stub" title="src/app/welcome.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="user-service-stub" title="src/app/welcome.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1308,9 +1274,7 @@ The component injector is a property of the fixture's `DebugElement`.
 组件注入器是fixture的`DebugElement`的属性。
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="injected-service" title="WelcomeComponent's injector" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="injected-service" title="WelcomeComponent's injector" linenums="false"></code-example>
 
 
 
@@ -1333,9 +1297,7 @@ so it is safe to call `TestBed.get` as follows:
 幸运的是，在这个测试套件中，**唯一**的`UserService`提供商就是根测试模块，所以像下面这样调用`TestBed.get`很安全：
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="inject-from-testbed" title="TestBed injector" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="inject-from-testbed" title="TestBed injector" linenums="false"></code-example>
 
 
 
@@ -1375,9 +1337,7 @@ a clone of the provided `userServiceStub`.
 被注入组件的`userService`实例是完全**不一样**的对象，它提供的是`userServiceStub`的克隆。
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="stub-not-injected" title="src/app/welcome.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="stub-not-injected" title="src/app/welcome.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1393,9 +1353,7 @@ Here's the complete `beforeEach` using `TestBed.get`:
 这里是使用`TestBed.get`的完整`beforeEach`：
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="setup" title="src/app/welcome.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="setup" title="src/app/welcome.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1404,9 +1362,7 @@ And here are some tests:
 下面是一些测试程序:
 
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="tests" title="src/app/welcome.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="tests" title="src/app/welcome.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1469,9 +1425,7 @@ Here is the `TwainComponent`.
 下面是`TwainComponent`：
 
 
-<code-example path="testing/src/app/shared/twain.component.ts" region="component" title="src/app/shared/twain.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.ts" region="component" title="src/app/shared/twain.component.ts" linenums="false"></code-example>
 
 
 
@@ -1488,9 +1442,7 @@ They should emulate such calls. The setup in this `src/app/shared/twain.componen
 它们应该仿真这样的请求。`src/app/shared/twain.component.spec.ts`里的配置是其中一种伪造方法：
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="setup" title="src/app/shared/twain.component.spec.ts (setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="setup" title="src/app/shared/twain.component.spec.ts (setup)" linenums="false"></code-example>
 
 
 
@@ -1509,9 +1461,7 @@ replaces the critical `getQuote` method with a Jasmine spy.
 但是与其伪造服务对象，它注入了真实的服务（参见测试模块的`providers`），并用Jasmine的`spy`替换关键的`getQuote`方法。
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="spy" title="src/app/shared/twain.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="spy" title="src/app/shared/twain.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -1547,9 +1497,7 @@ Here are the tests with commentary to follow:
 下面是接下来带有注解的测试程序：
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="tests" title="src/app/shared/twain.component.spec.ts (tests)">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="tests" title="src/app/shared/twain.component.spec.ts (tests)"></code-example>
 
 
 
@@ -1591,9 +1539,7 @@ Notice the `async` in the third test.
 注意第三个测试程序的`async`方法。
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="async-test" title="src/app/shared/twain.component.spec.ts (async test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="async-test" title="src/app/shared/twain.component.spec.ts (async test)" linenums="false"></code-example>
 
 
 
@@ -1673,9 +1619,7 @@ The fourth test verifies the same component behavior in a different way.
 第四个测试程序用不同的方法验证同样的组件行为。
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="fake-async-test" title="src/app/shared/twain.component.spec.ts (fakeAsync test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="fake-async-test" title="src/app/shared/twain.component.spec.ts (fakeAsync test)" linenums="false"></code-example>
 
 
 
@@ -1772,9 +1716,7 @@ Here is a `done` version of the previous two tests:
 下面是上面两个测试程序的`done`版本：
 
 
-<code-example path="testing/src/app/shared/twain.component.spec.ts" region="done-test" title="src/app/shared/twain.component.spec.ts (done test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/twain.component.spec.ts" region="done-test" title="src/app/shared/twain.component.spec.ts (done test)" linenums="false"></code-example>
 
 
 
@@ -1829,9 +1771,7 @@ The `DashboardHeroComponent` is embedded in the `DashboardComponent` template li
 `DashboardHeroComponent`是这样内嵌在`DashboardCompoent`的模板中的：
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.html" region="dashboard-hero" title="src/app/dashboard/dashboard.component.html (excerpt)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.html" region="dashboard-hero" title="src/app/dashboard/dashboard.component.html (excerpt)" linenums="false"></code-example>
 
 
 
@@ -1845,9 +1785,7 @@ Here's the component's definition:
 下面是组件的定义：
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.ts" region="component" title="src/app/dashboard/dashboard-hero.component.ts (component)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.ts" region="component" title="src/app/dashboard/dashboard-hero.component.ts (component)" linenums="false"></code-example>
 
 
 
@@ -1874,9 +1812,7 @@ A quick look at the `DashboardComponent` constructor discourages the first appro
 简单看看`DashbaordComponent`的构造函数就否决了第一种方案：
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="ctor" title="src/app/dashboard/dashboard.component.ts (constructor)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="ctor" title="src/app/dashboard/dashboard.component.ts (constructor)" linenums="false"></code-example>
 
 
 
@@ -1919,9 +1855,7 @@ Here's the spec file setup.
 
 下面是spec文件的设置。
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="setup" title="src/app/dashboard/dashboard-hero.component.spec.ts (setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="setup" title="src/app/dashboard/dashboard-hero.component.spec.ts (setup)" linenums="false"></code-example>
 
 
 
@@ -1942,9 +1876,7 @@ The first test follows:
 紧接着第一个测试程序：
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="name-test" title="src/app/dashboard/dashboard-hero.component.spec.ts (name test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="name-test" title="src/app/dashboard/dashboard-hero.component.spec.ts (name test)" linenums="false"></code-example>
 
 
 
@@ -1956,9 +1888,7 @@ the test must match the element value with the uppercased name:
 所以测试程序必须使用大写名字来匹配元素的值：
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.html" title="src/app/dashboard/dashboard-hero.component.html" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.html" title="src/app/dashboard/dashboard-hero.component.html" linenums="false"></code-example>
 
 
 
@@ -1986,9 +1916,7 @@ host component (`DashboardComponent` presumably) can hear:
 
 第二个测试程序验证点击行为。点击英雄应该出发`selected`事件，可供宿主组件(`DashbaordComponent`)监听：
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="click-test" title="src/app/dashboard/dashboard-hero.component.spec.ts (click test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="click-test" title="src/app/dashboard/dashboard-hero.component.spec.ts (click test)" linenums="false"></code-example>
 
 
 
@@ -2028,9 +1956,7 @@ In this example, the test triggers a "click" event with a null event object.
 本例中，测试程序用null事件对象触发“click”事件。
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="trigger-event-handler" title="src/app/dashboard/dashboard-hero.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="trigger-event-handler" title="src/app/dashboard/dashboard-hero.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -2062,9 +1988,7 @@ Make that easy by encapsulating the _click-triggering_ process in a helper such 
 把**click触发**过程封装到辅助方法中可以简化这个任务，比如下面的`click`辅助方法：
 
 
-<code-example path="testing/src/testing/index.ts" region="click-event" title="testing/index.ts (click helper)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/testing/index.ts" region="click-event" title="testing/index.ts (click helper)" linenums="false"></code-example>
 
 
 
@@ -2111,9 +2035,7 @@ Here's the previous test, rewritten using this click helper.
 
 下面是使用了click辅助函数重新编写的上一个测试程序：
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="click-test-2" title="src/app/dashboard/dashboard-hero.component.spec.ts (click test revised)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="click-test-2" title="src/app/dashboard/dashboard-hero.component.spec.ts (click test revised)" linenums="false"></code-example>
 
 
 
@@ -2140,9 +2062,7 @@ It's easier to emulate the `DashboardComponent` host with a _test host_ like thi
 使用实际的`DashbaordComponent`宿主来测试是可行的，但是这么做似乎不合算。
 像下面这样使用**测试宿主组件**来模拟`DashbaordComponent`显得更加容易：
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host" title="src/app/dashboard/dashboard-hero.component.spec.ts (test host)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host" title="src/app/dashboard/dashboard-hero.component.spec.ts (test host)" linenums="false"></code-example>
 
 
 
@@ -2165,9 +2085,7 @@ The setup for the test-host tests is similar to the setup for the stand-alone te
 
 配置使用测试宿主的测试程序与配置孤立测试相似：
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-setup" title="src/app/dashboard/dashboard-hero.component.spec.ts (test host setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-setup" title="src/app/dashboard/dashboard-hero.component.spec.ts (test host setup)" linenums="false"></code-example>
 
 
 
@@ -2200,9 +2118,7 @@ The tests themselves are almost identical to the stand-alone version:
 这些测试本身和它们的孤立版本几乎相同：
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-tests" title="src/app/dashboard/dashboard-hero.component.spec.ts (test-host)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-tests" title="src/app/dashboard/dashboard-hero.component.spec.ts (test-host)" linenums="false"></code-example>
 
 
 
@@ -2227,9 +2143,7 @@ Testing the actual `DashboardComponent` seemed daunting because it injects the `
 
 测试实际的`DashbaordComponent`似乎令人生畏，因为它注入了`Router`。
 
-<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="ctor" title="src/app/dashboard/dashboard.component.ts (constructor)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="ctor" title="src/app/dashboard/dashboard.component.ts (constructor)" linenums="false"></code-example>
 
 
 
@@ -2244,9 +2158,7 @@ Fortunately, the `DashboardComponent` isn't doing much with the `Router`
 幸运的是，`DashbaordComponent`没有使用`Router`做很多事情。
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="goto-detail" title="src/app/dashboard/dashboard.component.ts (goToDetail)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.ts" region="goto-detail" title="src/app/dashboard/dashboard.component.ts (goToDetail)" linenums="false"></code-example>
 
 
 
@@ -2259,9 +2171,7 @@ Stubbing the router with a test implementation is an easy option. This should do
 用模拟类来替换路由器是一种简单的方案。下面的代码应该可以：
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="router-stub" title="src/app/dashboard/dashboard.component.spec.ts (Router Stub)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="router-stub" title="src/app/dashboard/dashboard.component.spec.ts (Router Stub)" linenums="false"></code-example>
 
 
 
@@ -2271,9 +2181,7 @@ create a test instance of the `DashboardComponent` for subsequent testing.
 现在我们来利用`Router`和`HeroService`的测试stub类来配置测试模块，并为接下来的测试创建`DashboardComponent`的测试实例。
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="compile-and-create-body" title="src/app/dashboard/dashboard.component.spec.ts (compile and create)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="compile-and-create-body" title="src/app/dashboard/dashboard.component.spec.ts (compile and create)" linenums="false"></code-example>
 
 
 
@@ -2282,9 +2190,7 @@ The following test clicks the displayed hero and confirms (with the help of a sp
 下面的测试程序点击显示的英雄，并利用spy来确认`Router.navigateByUrl`被调用了，而且传进的url是所期待的值。
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="navigate-test" title="src/app/dashboard/dashboard.component.spec.ts (navigate test)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="navigate-test" title="src/app/dashboard/dashboard.component.spec.ts (navigate test)" linenums="false"></code-example>
 
 
 
@@ -2300,9 +2206,7 @@ Notice the `inject` function in the second `it` argument.
 注意第二个`it`参数里面的`inject`函数。
 
 
-<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="inject" title="src/app/dashboard/dashboard.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard.component.spec.ts" region="inject" title="src/app/dashboard/dashboard.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -2362,9 +2266,7 @@ If you need a service provided by the component's _own_ injector,  call `fixture
 
 如果你需要组件自己的注入器提供的服务，调用`fixture.debugElement.injector.get`：
 
-<code-example path="testing/src/app/welcome.component.spec.ts" region="injected-service" title="Component's injector" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/welcome.component.spec.ts" region="injected-service" title="Component's injector" linenums="false"></code-example>
 
 
 
@@ -2428,9 +2330,7 @@ Angular注入`ActivatedRoute`到`HeroDetailComponent`中，
 然后组件提取`id`，这样它就可以通过`HeroDetailService`获取相应的英雄。
 下面是`HeroDetailComponent`的构造函数：
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ctor" title="src/app/hero/hero-detail.component.ts (constructor)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ctor" title="src/app/hero/hero-detail.component.ts (constructor)" linenums="false"></code-example>
 
 
 
@@ -2439,9 +2339,7 @@ Angular注入`ActivatedRoute`到`HeroDetailComponent`中，
 `HeroDetailComponent`在它的`ngOnInit`方法中监听`ActivatedRoute.params`的变化。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ng-on-init" title="src/app/hero/hero-detail.component.ts (ngOnInit)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ng-on-init" title="src/app/hero/hero-detail.component.ts (ngOnInit)" linenums="false"></code-example>
 
 
 
@@ -2503,9 +2401,7 @@ This sample keeps `ActivatedRouteStub` in `testing/router-stubs.ts`:
 本例把`ActivatedRouteStub`放到`testing/router-stubs.ts`：
 
 
-<code-example path="testing/src/testing/router-stubs.ts" region="activated-route-stub" title="testing/router-stubs.ts (ActivatedRouteStub)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/testing/router-stubs.ts" region="activated-route-stub" title="testing/router-stubs.ts (ActivatedRouteStub)" linenums="false"></code-example>
 
 
 
@@ -2573,9 +2469,7 @@ Here's a test demonstrating the component's behavior when the observed `id` refe
 下面的测试程序是演示组件在被观察的`id`指向现有英雄时的行为：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-good-id" title="src/app/hero/hero-detail.component.spec.ts (existing id)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-good-id" title="src/app/hero/hero-detail.component.spec.ts (existing id)" linenums="false"></code-example>
 
 
 
@@ -2602,9 +2496,7 @@ This test supplies a "bad" id and expects the component to try to navigate.
 该测试程序提供了“坏”的id，期望组件尝试导航。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-bad-id" title="src/app/hero/hero-detail.component.spec.ts (bad id)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-bad-id" title="src/app/hero/hero-detail.component.spec.ts (bad id)" linenums="false"></code-example>
 
 
 
@@ -2623,9 +2515,7 @@ New heroes have `id=0` and a blank `name`. This test confirms that the component
 新英雄的`id`为零，`name`为空。本测试程序确认组件是按照预期的这样做的：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-no-id" title="src/app/hero/hero-detail.component.spec.ts (no id)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-no-id" title="src/app/hero/hero-detail.component.spec.ts (no id)" linenums="false"></code-example>
 
 
 
@@ -2670,9 +2560,7 @@ But there's already plenty of template complexity.
 但是它已经有很多模板复杂性。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.html" title="src/app/hero/hero-detail.component.html" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.html" title="src/app/hero/hero-detail.component.html" linenums="false"></code-example>
 
 
 
@@ -2707,9 +2595,7 @@ Here's the `Page` class for the `hero-detail.component.spec.ts`
 下面是为`hero-detail.component.spec.ts`准备的`page`类：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="page" title="src/app/hero/hero-detail.component.spec.ts (Page)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="page" title="src/app/hero/hero-detail.component.spec.ts (Page)" linenums="false"></code-example>
 
 
 
@@ -2722,9 +2608,7 @@ A `createComponent` method creates a `page` objectand fills in the blanks once t
 `createComponent`方法创建`page`，在`hero`到来时，自动填补空白。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="create-component" title="src/app/hero/hero-detail.component.spec.ts (createComponent)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="create-component" title="src/app/hero/hero-detail.component.spec.ts (createComponent)" linenums="false"></code-example>
 
 
 
@@ -2740,9 +2624,7 @@ Here are a few more `HeroDetailComponent` tests to drive the point home.
 这里是一些更多的`HeroDetailComponent`测试程序，进一步的展示了这一点。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="selected-tests" title="src/app/hero/hero-detail.component.spec.ts (selected tests)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="selected-tests" title="src/app/hero/hero-detail.component.spec.ts (selected tests)" linenums="false"></code-example>
 
 
 <a href="#top" class='to-top'>回到顶部</a>
@@ -2764,9 +2646,7 @@ Earlier component tests configured the testing module with a few `declarations` 
 此前的组件测试程序使用了一些`declarations`来配置模块，就像这样：
 
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="compile-components" title="src/app/dashboard/dashboard-hero.component.spec.ts (config)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="compile-components" title="src/app/dashboard/dashboard-hero.component.spec.ts (config)" linenums="false"></code-example>
 
 
 
@@ -2811,9 +2691,7 @@ One approach is to configure the testing module from the individual pieces as in
 一种方法是在测试模块中一一配置，就像这样：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-forms-module" title="src/app/hero/hero-detail.component.spec.ts (FormsModule setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-forms-module" title="src/app/hero/hero-detail.component.spec.ts (FormsModule setup)" linenums="false"></code-example>
 
 
 
@@ -2825,9 +2703,7 @@ The test configuration can use the `SharedModule` too as seen in this alternativ
 测试配置也可以使用`SharedModule`，请看下面另一种配置：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-shared-module" title="src/app/hero/hero-detail.component.spec.ts (SharedModule setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-shared-module" title="src/app/hero/hero-detail.component.spec.ts (SharedModule setup)" linenums="false"></code-example>
 
 
 
@@ -2851,9 +2727,7 @@ Try a test configuration that imports the `HeroModule` like this one:
 试试下面这个导入`HeroModule`的测试配置：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-hero-module" title="src/app/hero/hero-detail.component.spec.ts (HeroModule setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-hero-module" title="src/app/hero/hero-detail.component.spec.ts (HeroModule setup)" linenums="false"></code-example>
 
 
 
@@ -2905,9 +2779,7 @@ The `HeroDetailComponent` provides its own `HeroDetailService`.
 
 `HeroDetailComponent`提供自己的`HeroDetailService`服务。
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="prototype" title="src/app/hero/hero-detail.component.ts (prototype)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="prototype" title="src/app/hero/hero-detail.component.ts (prototype)" linenums="false"></code-example>
 
 
 
@@ -2947,9 +2819,7 @@ Fortunately, the `HeroDetailService` delegates responsibility for remote data ac
 幸运的是，`HeroDetailService`将远程数据访问的责任交给了注入进来的`HeroService`。
 
 
-<code-example path="testing/src/app/hero/hero-detail.service.ts" region="prototype" title="src/app/hero/hero-detail.service.ts (prototype)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.service.ts" region="prototype" title="src/app/hero/hero-detail.service.ts (prototype)" linenums="false"></code-example>
 
 
 
@@ -2974,9 +2844,7 @@ as seen in the following setup variation:
 `TestBed.overrideComponent`方法可以将组件的`providers`替换为容易管理的**测试替身**，参见下面的设置变化：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-override" title="src/app/hero/hero-detail.component.spec.ts (Override setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-override" title="src/app/hero/hero-detail.component.spec.ts (Override setup)" linenums="false"></code-example>
 
 
 
@@ -2997,9 +2865,7 @@ Focus on the `overrideComponent` method.
 注意这个`overrideComponent`方法。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-component-method" title="src/app/hero/hero-detail.component.spec.ts (overrideComponent)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-component-method" title="src/app/hero/hero-detail.component.spec.ts (overrideComponent)" linenums="false"></code-example>
 
 
 
@@ -3068,9 +2934,7 @@ Accordingly, the stub implements its methods as spies:
 因此，这个桩类会把它的方法实现为刺探方法：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="hds-spy" title="src/app/hero/hero-detail.component.spec.ts (HeroDetailServiceSpy)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="hds-spy" title="src/app/hero/hero-detail.component.spec.ts (HeroDetailServiceSpy)" linenums="false"></code-example>
 
 
 
@@ -3087,9 +2951,7 @@ and confirm that service methods were called.
 现在，测试程序可以通过操控stub的`testHero`，直接控制组件的英雄，并确保服务的方法被调用过。
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-tests" title="src/app/hero/hero-detail.component.spec.ts (override tests)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-tests" title="src/app/hero/hero-detail.component.spec.ts (override tests)" linenums="false"></code-example>
 
 
 
@@ -3134,9 +2996,7 @@ It also displays a navigation bar with anchors and their `RouterLink` directives
 {@a app-component-html}
 
 
-<code-example path="testing/src/app/app.component.html" title="src/app/app.component.html" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/app.component.html" title="src/app/app.component.html" linenums="false"></code-example>
 
 
 
@@ -3145,9 +3005,7 @@ The component class does nothing.
 组件的类没有做任何事。
 
 
-<code-example path="testing/src/app/app.component.ts" title="src/app/app.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/app.component.ts" title="src/app/app.component.ts" linenums="false"></code-example>
 
 
 
@@ -3170,9 +3028,7 @@ The test setup should look familiar.
 该测试配置应该看起来很眼熟：
 
 
-<code-example path="testing/src/app/app.component.spec.ts" region="setup-stubs" title="src/app/app.component.spec.ts (Stub Setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/app.component.spec.ts" region="setup-stubs" title="src/app/app.component.spec.ts (Stub Setup)" linenums="false"></code-example>
 
 
 
@@ -3218,9 +3074,7 @@ The `RouterLinkStubDirective` contributes substantively to the test:
 `RouterLinkStubDirective`为测试作出了重要的贡献：
 
 
-<code-example path="testing/src/testing/router-stubs.ts" region="router-link" title="testing/router-stubs.ts (RouterLinkStubDirective)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/testing/router-stubs.ts" region="router-link" title="testing/router-stubs.ts (RouterLinkStubDirective)" linenums="false"></code-example>
 
 
 
@@ -3249,9 +3103,7 @@ A little more setup triggers the initial data binding and gets references to the
 
 再一步配置触发了数据绑定的初始化，获取导航链接的引用：
 
-<code-example path="testing/src/app/app.component.spec.ts" region="test-setup" title="src/app/app.component.spec.ts (test setup)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/app.component.spec.ts" region="test-setup" title="src/app/app.component.spec.ts (test setup)" linenums="false"></code-example>
 
 
 
@@ -3277,9 +3129,7 @@ Here are some tests that leverage this setup:
 下面是一些使用这个配置的测试程序：
 
 
-<code-example path="testing/src/app/app.component.spec.ts" region="tests" title="src/app/app.component.spec.ts (selected tests)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/app.component.spec.ts" region="tests" title="src/app/app.component.spec.ts (selected tests)" linenums="false"></code-example>
 
 
 
@@ -3450,9 +3300,7 @@ for no reason other than to show that it can.
 本例子应用的`HighlightDirective`使用数据绑定的颜色或者默认颜色来设置元素的背景色。
 它同时设置元素的`customProperty`属性为`true`，这里仅仅是为了显示它能这么做而已，并无其它原因。
 
-<code-example path="testing/src/app/shared/highlight.directive.ts" title="src/app/shared/highlight.directive.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/highlight.directive.ts" title="src/app/shared/highlight.directive.ts" linenums="false"></code-example>
 
 
 
@@ -3460,9 +3308,7 @@ It's used throughout the application, perhaps most simply in the `AboutComponent
 
 它的使用贯穿整个应用，也许最简单的使用在`AboutComponent`里：
 
-<code-example path="testing/src/app/about.component.ts" title="src/app/about.component.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/about.component.ts" title="src/app/about.component.ts" linenums="false"></code-example>
 
 
 
@@ -3471,9 +3317,7 @@ techniques explored above (in particular the ["Shallow test"](guide/testing#shal
 
 使用`AboutComponent`来测试这个`HightlightDirective`的使用，只需要上面解释过的知识就够了，（尤其是["浅测试程序"](guide/testing#shallow-component-test)方法)。
 
-<code-example path="testing/src/app/about.component.spec.ts" region="tests" title="src/app/about.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/about.component.spec.ts" region="tests" title="src/app/about.component.spec.ts" linenums="false"></code-example>
 
 
 
@@ -3496,9 +3340,7 @@ A better solution is to create an artificial test component that demonstrates al
 更好的方法是创建一个展示所有使用该组件的方法的人工测试组件。
 
 
-<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="test-component" title="src/app/shared/highlight.directive.spec.ts (TestComponent)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="test-component" title="src/app/shared/highlight.directive.spec.ts (TestComponent)" linenums="false"></code-example>
 
 
 
@@ -3526,9 +3368,7 @@ Here are some tests of this component:
 
 下面是一些该组件的测试程序：
 
-<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="selected-tests" title="src/app/shared/highlight.directive.spec.ts (selected tests)">
-
-</code-example>
+<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="selected-tests" title="src/app/shared/highlight.directive.spec.ts (selected tests)"></code-example>
 
 
 
@@ -3667,9 +3507,7 @@ written without assistance from Angular testing utilities.
 下面是未使用Angular测试工具的一些`FancyService`的同步和异步单元测试：
 
 
-<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="FancyService" title="src/app/bag/bag.no-testbed.spec.ts">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="FancyService" title="src/app/bag/bag.no-testbed.spec.ts"></code-example>
 
 
 
@@ -3736,9 +3574,7 @@ The `DependentService` is a simple example:
 `DependentService`是一个简单的例子：
 
 
-<code-example path="testing/src/app/bag/bag.ts" region="DependentService" title="src/app/bag/bag.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.ts" region="DependentService" title="src/app/bag/bag.ts" linenums="false"></code-example>
 
 
 
@@ -3750,9 +3586,7 @@ Here are several ways to test it.
 
 这里是几种测试它的方法。
 
-<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="DependentService" title="src/app/bag/bag.no-testbed.spec.ts">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="DependentService" title="src/app/bag/bag.no-testbed.spec.ts"></code-example>
 
 
 
@@ -3803,9 +3637,7 @@ Here's a naive implementation with a regular expression.
 下面是使用正则表达式实现的简单代码：
 
 
-<code-example path="testing/src/app/shared/title-case.pipe.ts" title="src/app/shared/title-case.pipe.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/shared/title-case.pipe.ts" title="src/app/shared/title-case.pipe.ts" linenums="false"></code-example>
 
 
 
@@ -3816,9 +3648,7 @@ Use simple Jasmine to explore the expected cases and the edge cases.
 使用Jasmine来探索预期的用例和极端的用例。
 
 
-<code-example path="testing/src/app/shared/title-case.pipe.spec.ts" region="excerpt" title="src/app/shared/title-case.pipe.spec.ts">
-
-</code-example>
+<code-example path="testing/src/app/shared/title-case.pipe.spec.ts" region="excerpt" title="src/app/shared/title-case.pipe.spec.ts"></code-example>
 
 
 
@@ -3840,9 +3670,7 @@ Consider adding component tests such as this one:
 考虑像这样添加组件测试程序：
 
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="title-case-pipe" title="src/app/hero/hero-detail.component.spec.ts (pipe test)">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="title-case-pipe" title="src/app/hero/hero-detail.component.spec.ts (pipe test)"></code-example>
 
 
 
@@ -3864,9 +3692,7 @@ Consider this `ButtonComp` component.
 考虑这个`ButtonComp`组件。
 
 
-<code-example path="testing/src/app/bag/bag.ts" region="ButtonComp" title="src/app/bag/bag.ts (ButtonComp)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.ts" region="ButtonComp" title="src/app/bag/bag.ts (ButtonComp)" linenums="false"></code-example>
 
 
 
@@ -3876,9 +3702,7 @@ to an update of the on-screen message.
 下面的Angular测试演示点击模板里的按钮后，引起了屏幕上的消息的更新。
 
 
-<code-example path="testing/src/app/bag/bag.spec.ts" region="ButtonComp" title="src/app/bag/bag.spec.ts (ButtonComp)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.spec.ts" region="ButtonComp" title="src/app/bag/bag.spec.ts (ButtonComp)" linenums="false"></code-example>
 
 
 
@@ -3899,9 +3723,7 @@ component inputs.
 
 下面是一套单元测试程序，用来验证面对多种输入时组件的输出。
 
-<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="ButtonComp" title="src/app/bag/bag.no-testbed.spec.ts (ButtonComp)" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.no-testbed.spec.ts" region="ButtonComp" title="src/app/bag/bag.no-testbed.spec.ts (ButtonComp)" linenums="false"></code-example>
 
 
 
@@ -4440,12 +4262,10 @@ Here are the most important static methods, in order of likely utility.
       The `TestBed.get` method takes an optional second parameter,
       the object to return if Angular can't find the provider
       (`null` in this example):
-
+      
       `TestBed.get`方法接受一个可选的第二参数，它是在Angular找不到所需提供商时返回的对象。（在本例中为`null`）：
 
-      <code-example path="testing/src/app/bag/bag.spec.ts" region="testbed-get" title="src/app/bag/bag.spec.ts" linenums="false">
-
-      </code-example>
+      <code-example path="testing/src/app/bag/bag.spec.ts" region="testbed-get" title="src/app/bag/bag.spec.ts" linenums="false"></code-example>
 
 
       After calling `get`, the `TestBed` configuration is frozen for the duration of the current spec.
@@ -5185,9 +5005,7 @@ The following example finds all `DebugElements` with a reference to a template l
 这个条件方法是任何接受一个`DebugElement`并返回真值的方法。
 下面的例子查询所有拥有名为`content`的模块本地变量的所有`DebugElement`：
 
-<code-example path="testing/src/app/bag/bag.spec.ts" region="custom-predicate" title="src/app/bag/bag.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/bag/bag.spec.ts" region="custom-predicate" title="src/app/bag/bag.spec.ts" linenums="false"></code-example>
 
 
 
@@ -5208,9 +5026,7 @@ Angular的`By`类为常用条件方法提供了三个静态方法：
   `By.directive(directive)` - 返回Angular能匹配一个指令类实例的所有元素。
 
 
-<code-example path="testing/src/app/hero/hero-list.component.spec.ts" region="by" title="src/app/hero/hero-list.component.spec.ts" linenums="false">
-
-</code-example>
+<code-example path="testing/src/app/hero/hero-list.component.spec.ts" region="by" title="src/app/hero/hero-list.component.spec.ts" linenums="false"></code-example>
 
 <div class='l' class='hr'>
 

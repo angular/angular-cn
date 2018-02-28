@@ -10,7 +10,7 @@ import {Summary, SummaryResolver} from '../summary_resolver';
 
 import {StaticSymbol, StaticSymbolCache} from './static_symbol';
 import {deserializeSummaries} from './summary_serializer';
-import {ngfactoryFilePath, stripGeneratedFileSuffix, summaryFileName} from './util';
+import {stripGeneratedFileSuffix, summaryFileName} from './util';
 
 export interface AotSummaryResolverHost {
   /**
@@ -65,13 +65,15 @@ export class AotSummaryResolver implements SummaryResolver<StaticSymbol> {
   }
 
   resolveSummary(staticSymbol: StaticSymbol): Summary<StaticSymbol>|null {
-    staticSymbol.assertNoMembers();
-    let summary = this.summaryCache.get(staticSymbol);
+    const rootSymbol = staticSymbol.members.length ?
+        this.staticSymbolCache.get(staticSymbol.filePath, staticSymbol.name) :
+        staticSymbol;
+    let summary = this.summaryCache.get(rootSymbol);
     if (!summary) {
       this._loadSummaryFile(staticSymbol.filePath);
       summary = this.summaryCache.get(staticSymbol) !;
     }
-    return summary || null;
+    return (rootSymbol === staticSymbol && summary) || null;
   }
 
   getSymbolsOf(filePath: string): StaticSymbol[]|null {
@@ -119,11 +121,7 @@ export class AotSummaryResolver implements SummaryResolver<StaticSymbol> {
       if (moduleName) {
         this.knownFileNameToModuleNames.set(filePath, moduleName);
       }
-      importAs.forEach((importAs) => {
-        this.importAs.set(
-            importAs.symbol,
-            this.staticSymbolCache.get(ngfactoryFilePath(filePath), importAs.importAs));
-      });
+      importAs.forEach((importAs) => { this.importAs.set(importAs.symbol, importAs.importAs); });
     }
     return hasSummary;
   }

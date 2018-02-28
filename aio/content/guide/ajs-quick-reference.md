@@ -88,9 +88,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 绑定/插值表达式
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="interpolation" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="interpolation" linenums="false"></code-example>
 
 
       In Angular, a template expression in curly braces still denotes one-way binding.
@@ -143,9 +141,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 管道
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="uppercase" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="uppercase" linenums="false"></code-example>
 
 
       In Angular you use similar syntax with the pipe (|) character to filter output, but now you call them **pipes**.
@@ -191,9 +187,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### 输入变量
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="local" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="local" linenums="false"></code-example>
 
 
       Angular has true template input variables that are explicitly defined using the `let` keyword.
@@ -252,6 +246,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-app
+
       <code-example hideCopy>
         &lt;body ng-app="movieHunter">
       </code-example>
@@ -277,13 +272,10 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 引导
 
-      <code-example hideCopy path="ajs-quick-reference/src/main.ts" title="main.ts" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/main.ts" title="main.ts" linenums="false"></code-example>
       <br>
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" title="app.module.ts" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" title="app.module.ts" linenums="false"></code-example>
 
 
       Angular doesn't have a bootstrap directive.
@@ -294,9 +286,6 @@ AngularJS 为模板提供了七十多个内置指令。
       Angular 没有引导指令。
       我们总是通过显式调用一个`bootstrap`函数，并传入应用模块的名字(`AppComponent`)来启动应用。
 
-      For more information see the [Setup](guide/setup) page.
-
-      要了解更多，参见[搭建本地开发环境](guide/setup)。
     </td>
 
   </tr>
@@ -307,6 +296,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-class
+
       <code-example hideCopy format="">
         &lt;div ng-class="{active: isActive}">
         &lt;div ng-class="{active: isActive,
@@ -336,9 +326,8 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngClass
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngClass" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngClass" linenums="false"></code-example>
 
 
       In Angular, the `ngClass` directive works similarly.
@@ -360,7 +349,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       Angular还有**类绑定**，它是单独添加或移除一个类的好办法 —— 就像第三个例子中展示的。
 
-      For more information see the [Attribute, class, and style bindings](guide/template-syntax#other-bindings) 
+      For more information see the [Attribute, class, and style bindings](guide/template-syntax#other-bindings)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解更多信息，参见[模板语法](guide/template-syntax)中的[属性、CSS类和样式绑定](guide/template-syntax#other-bindings)部分。
@@ -375,6 +364,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-click
+
       <code-example hideCopy format="">
         &lt;button ng-click="vm.toggleImage()">
         &lt;button ng-click="vm.toggleImage($event)">
@@ -403,9 +393,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`click`事件
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="event-binding" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="event-binding" linenums="false"></code-example>
 
 
       AngularJS event-based directives do not exist in Angular.
@@ -435,7 +423,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       要查看DOM事件的列表，请参见[网络事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 
-      For more information, see the [Event binding](guide/template-syntax#event-binding) 
+      For more information, see the [Event binding](guide/template-syntax#event-binding)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解更多，请参见[模板语法](guide/template-syntax)中的[事件绑定](guide/template-syntax#event-binding)部分。
@@ -450,6 +438,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-controller
+
       <code-example hideCopy format="">
         &lt;div ng-controller="MovieListCtrl as vm">
       </code-example>
@@ -471,9 +460,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### Component装饰器
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false"></code-example>
 
 
       In Angular, the template no longer specifies its associated controller.
@@ -527,8 +514,9 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-href
+
       <code-example hideCopy format="">
-        &lt;a ng-href="angularDocsUrl">Angular Docs&lt;/a>
+        &lt;a ng-href="{{ angularDocsUrl }}">Angular Docs&lt;/a>
       </code-example>
 
 
@@ -542,7 +530,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。
       <code-example hideCopy format="">
-        &lt;a ng-href="#movies">Movies&lt;/a>
+        &lt;a ng-href="#{{ moviesHash }}">Movies&lt;/a>
       </code-example>
 
 
@@ -558,9 +546,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`href`属性
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="href" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="href" linenums="false"></code-example>
 
 
       Angular uses property binding; there is no built-in *href* directive.
@@ -569,7 +555,7 @@ AngularJS 为模板提供了七十多个内置指令。
       在Angular中，并没有内置的*href*指令，改用属性绑定。
       我们把元素的`href`属性放在方括号中，并把它设成一个引号中的模板表达式。
 
-      For more information see the [Property binding](guide/template-syntax#property-binding) 
+      For more information see the [Property binding](guide/template-syntax#property-binding)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解[属性绑定](guide/template-syntax#property-binding)的更多知识，参见[模板语法](guide/template-syntax)。
@@ -578,12 +564,10 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在Angular中，`href`不再用作路由，而是改用第三个例子中所展示的`routerLink`指令。
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="router-link" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="router-link" linenums="false"></code-example>
 
 
-      For more information on routing, see the [RouterLink binding](guide/router#router-link) 
+      For more information on routing, see the [RouterLink binding](guide/router#router-link)
       section of the [Routing & Navigation](guide/router) page.
 
       要了解关于路由的更多信息，请参见[路由与导航](guide/router)的[RouterLink绑定](guide/router#router-link)部分。
@@ -598,6 +582,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-if
+
       <code-example hideCopy format="">
         &lt;table ng-if="movies.length">
       </code-example>
@@ -617,12 +602,11 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### *ngIf
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngIf" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngIf" linenums="false"></code-example>
 
 
-      The `*ngIf` directive in Angular works the same as the `ng-if` directive in AngularJS. It removes 
+      The `*ngIf` directive in Angular works the same as the `ng-if` directive in AngularJS. It removes
       or recreates a portion of the DOM based on an expression.
 
       Angular中的`*ngIf`指令与AngularJS中的`ng-if`指令一样，
@@ -648,6 +632,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-model
+
       <code-example hideCopy format="">
         &lt;input ng-model="vm.favoriteHero"/>
       </code-example>
@@ -666,9 +651,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### ngModel
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngModel" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngModel" linenums="false"></code-example>
 
 
       In Angular, **two-way binding** is denoted by `[()]`, descriptively referred to as a "banana in a box". This syntax is a shortcut for defining both property binding (from the component to the view)
@@ -677,8 +660,8 @@ AngularJS 为模板提供了七十多个内置指令。
       在Angular中，**双向绑定**使用[()]标记出来，它被形象的比作“盒子中的香蕉”。
       这种语法是一个简写形式，用来同时定义一个属性绑定(从组件到视图)和一个事件绑定(从视图到组件)，因此，我们得到了双向绑定。
 
-      For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to 
-      form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel) 
+      For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to
+      form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解使用ngModel进行双向绑定的更多知识，参见[模板语法](guide/template-syntax)中的[NgModel&mdash;使用`[(ngModel)]`进行双向绑定](../guide/template-syntax.html#ngModel)部分。
@@ -693,6 +676,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-repeat
+
       <code-example hideCopy format="">
         &lt;tr ng-repeat="movie in vm.movies">
       </code-example>
@@ -712,12 +696,11 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### *ngFor
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngFor" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngFor" linenums="false"></code-example>
 
 
-      The `*ngFor` directive in Angular is similar to the `ng-repeat` directive in AngularJS. It repeats 
+      The `*ngFor` directive in Angular is similar to the `ng-repeat` directive in AngularJS. It repeats
       the associated DOM element for each item in the specified collection.
       More accurately, it turns the defined element (`<tr>` in this example) and its contents into a template and
       uses that template to instantiate a view for each item in the list.
@@ -747,6 +730,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ng-show
+
       <code-example hideCopy format="">
         &lt;h3 ng-show="vm.favoriteHero">
           Your favorite hero is: {{vm.favoriteHero}}
@@ -771,9 +755,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`hidden`属性
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="hidden" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="hidden" linenums="false"></code-example>
 
 
       Angular uses property binding; there is no built-in *show* directive.
@@ -791,7 +773,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在这个例子中，如果`favoriteHero`变量不是真值，`<div>`元素就会被隐藏。
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)  
+      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解关于属性绑定的更多信息，参见[模板语法](guide/template-syntax)中的[模板表达式](guide/template-syntax#property-binding)部分。
@@ -828,9 +810,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       ### 绑定到`src`属性
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="src" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="src" linenums="false"></code-example>
 
 
       Angular uses property binding; there is no built-in *src* directive.
@@ -839,7 +819,7 @@ AngularJS 为模板提供了七十多个内置指令。
       在Angular中，并没有一个内置的*src*指令，可以使用属性绑定。
       把`src`属性放到方括号中，并且把它设为一个引号中的绑定表达式。
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)  
+      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解属性绑定的更多知识，参见[模板语法](guide/template-syntax)中的[属性绑定](guide/template-syntax#property-binding)部分。
@@ -879,9 +859,8 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngStyle
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngStyle" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="ngStyle" linenums="false"></code-example>
 
 
       In Angular, the `ngStyle` directive works similarly. It sets a CSS style on an HTML element based on an expression.
@@ -896,12 +875,12 @@ AngularJS 为模板提供了七十多个内置指令。
 
       Angular还有**样式绑定**语法，它是单独设置一个样式的好方法。它展示在第二个例子中。
 
-      For more information on style binding, see the [Style binding](guide/template-syntax#style-binding) section of the 
+      For more information on style binding, see the [Style binding](guide/template-syntax#style-binding) section of the
       [Template Syntax](guide/template-syntax) page.
 
       要了解样式绑定的更多知识，参见[模板语法](guide/template-syntax)中的[样式绑定](guide/template-syntax#style-binding)部分。
 
-      For more information on the `ngStyle` directive, see [NgStyle](guide/template-syntax#ngStyle) 
+      For more information on the `ngStyle` directive, see [NgStyle](guide/template-syntax#ngStyle)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解关于`ngStyle`指令的更多知识，参见[模板语法](guide/template-syntax)中的[NgStyle](guide/template-syntax#ngStyle)部分。
@@ -955,9 +934,8 @@ AngularJS 为模板提供了七十多个内置指令。
 
 
       ### ngSwitch
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngSwitch" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="ngSwitch" linenums="false"></code-example>
 
 
       In Angular, the `ngSwitch` directive works similarly.
@@ -982,7 +960,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在这个例子中，`ngSwitchCase`和`ngSwitchDefault`前面的星号(*)是必须的。
 
-      For more information, see [The NgSwitch directives](guide/template-syntax#ngSwitch) 
+      For more information, see [The NgSwitch directives](guide/template-syntax#ngSwitch)
       section of the [Template Syntax](guide/template-syntax) page.
 
       要了解更多信息，参见[模板语法](guide/template-syntax)中的[NgSwitch指令](guide/template-syntax#ngSwitch)部分。
@@ -1039,6 +1017,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### currency
+
       <code-example hideCopy>
         &lt;td>{{movie.price | currency}}&lt;/td>
       </code-example>
@@ -1054,9 +1033,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### currency
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="currency" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="currency" linenums="false"></code-example>
 
 
       The Angular `currency` pipe is similar although some of the parameters have changed.
@@ -1072,6 +1050,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### date
+
       <code-example hideCopy>
         &lt;td>{{movie.releaseDate | date}}&lt;/td>
       </code-example>
@@ -1087,9 +1066,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### date
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="date" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="date" linenums="false"></code-example>
 
 
       The Angular `date` pipe is similar.
@@ -1106,6 +1084,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### filter
+
       <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | filter: {title:listFilter}">
       </code-example>
@@ -1138,6 +1117,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### json
+
       <code-example hideCopy>
         &lt;pre>{{movie | json}}&lt;/pre>
       </code-example>
@@ -1153,9 +1133,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### json
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="json" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="json" linenums="false"></code-example>
 
 
       The Angular `json` pipe does the same thing.
@@ -1171,6 +1150,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### limitTo
+
       <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | limitTo:2:0">
       </code-example>
@@ -1186,9 +1166,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### slice
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="slice" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="slice" linenums="false"></code-example>
 
 
       The `SlicePipe` does the same thing but the *order of the parameters is reversed*, in keeping
@@ -1209,6 +1188,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### lowercase
+
       <code-example hideCopy>
         &lt;div>{{movie.title | lowercase}}&lt;/div>
       </code-example>
@@ -1224,9 +1204,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### lowercase
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="lowercase" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="lowercase" linenums="false"></code-example>
 
 
       The Angular `lowercase` pipe does the same thing.
@@ -1258,10 +1237,8 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### number
-      
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="number" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="number" linenums="false"></code-example>
 
 
       The Angular `number` pipe is similar.
@@ -1285,7 +1262,7 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### orderBy
-      
+
       <code-example hideCopy>
         &lt;tr ng-repeat="movie in movieList | orderBy : 'title'">
       </code-example>
@@ -1370,6 +1347,7 @@ The Angular code is shown using TypeScript.
 
 
       ### IIFE
+
       <code-example hideCopy>
         (function () {
           ...
@@ -1391,12 +1369,12 @@ The Angular code is shown using TypeScript.
 
       ### 没了
 
-      This is a nonissue in Angular because ES 2015 modules 
+      This is a nonissue in Angular because ES 2015 modules
       handle the namespacing for you.
 
       在Angular中我们不用担心这个问题，因为使用ES 2015的模块，模块会替我们处理命名空间问题。
 
-      For more information on modules, see the [Modules](guide/architecture#modules) section of the 
+      For more information on modules, see the [Modules](guide/architecture#modules) section of the
       [Architecture Overview](guide/architecture).
 
       要了解关于模块的更多信息，参见[架构概览](guide/architecture)中的[模块](guide/architecture#modules)部分。
@@ -1419,7 +1397,7 @@ The Angular code is shown using TypeScript.
       </code-example>
 
 
-      In AngularJS, an Angular module keeps track of controllers, services, and other code. 
+      In AngularJS, an Angular module keeps track of controllers, services, and other code.
       The second argument defines the list of other modules that this module depends upon.
 
       在AngularJS中，Angular模块用来对控制器、服务和其它代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。
@@ -1429,9 +1407,8 @@ The Angular code is shown using TypeScript.
 
 
       ### NgModules
-      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" linenums="false">
 
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" linenums="false"></code-example>
 
 
       NgModules, defined with the `NgModule` decorator, serve the same purpose:
@@ -1460,7 +1437,8 @@ The Angular code is shown using TypeScript.
 
 
       ### Controller registration
-### 控制器注册      <code-examplehideCopy>
+      
+### 控制器注册      <code-example hideCopy>
         angular
           .module("movieHunter")
           .controller("MovieListCtrl",
@@ -1488,9 +1466,7 @@ The Angular code is shown using TypeScript.
 
       ### 组件装饰器
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="component" linenums="false"></code-example>
 
 
       Angular adds a decorator to the component class to provide any required metadata.
@@ -1504,7 +1480,7 @@ The Angular code is shown using TypeScript.
 
       这就是把模板关联到代码的方式，它定义在组件类中。
 
-      For more information, see the [Components](guide/architecture#components) 
+      For more information, see the [Components](guide/architecture#components)
       section of the [Architecture Overview](guide/architecture) page.
 
       要了解关于模板的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
@@ -1540,9 +1516,7 @@ The Angular code is shown using TypeScript.
 
       ### 组件类
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="class" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="class" linenums="false"></code-example>
 
 
       In Angular, you create a component class.
@@ -1553,7 +1527,7 @@ The Angular code is shown using TypeScript.
 
       注意：如果你正在用TypeScript写AngularJS，那么必须用`export`关键字来导出组件类。
 
-      For more information, see the [Components](guide/architecture#components) 
+      For more information, see the [Components](guide/architecture#components)
       section of the [Architecture Overview](guide/architecture) page.
 
       要了解关于组件的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
@@ -1597,9 +1571,7 @@ The Angular code is shown using TypeScript.
 
       ### 依赖注入
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="di" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="di" linenums="false"></code-example>
 
 
       In Angular, you pass in dependencies as arguments to the component class constructor.
@@ -1610,7 +1582,7 @@ The Angular code is shown using TypeScript.
       在这个例子中，我们注入了一个`MovieService`。
       即使在最小化之后，第一个参数的TypeScript类型也会告诉Angular它该注入什么。
 
-      For more information, see the [Dependency injection](guide/architecture#dependency-injection) 
+      For more information, see the [Dependency injection](guide/architecture#dependency-injection)
       section of the [Architecture Overview](guide/architecture).
 
       要了解关于依赖注入的更多信息，参见[架构概览](guide/architecture)中的[依赖注入](guide/architecture#dependency-injection)部分。
@@ -1669,6 +1641,7 @@ also encapsulate a style sheet within a specific component.
 
 
       ### Link tag
+
       <code-example hideCopy>
         &lt;link href="styles.css" rel="stylesheet" />
       </code-example>
@@ -1683,31 +1656,27 @@ also encapsulate a style sheet within a specific component.
     <td>
 
 
-      ### Link tag
+      ### Styles configuration
+      
+      ### 样式配置
+      
+      <code-example hideCopy path="ajs-quick-reference/.angular-cli.1.json" region="styles" linenums="false">
 
-      ### Link标签
-
-      <code-example hideCopy path="ajs-quick-reference/src/index.html" region="style" linenums="false">
-
-      </code-example>
-
-
-      In Angular, you can continue to use the link tag to define the styles for your application in the `index.html` file.
-      But now you can also encapsulate styles for your components.
+      With the Angular CLI, you can configure your global styles in the `.angular-cli.json` file.
+      You can rename the extension to `.scss` to use sass.
 
       在Angular2中，我们可以继续在`index.html`中使用link标签来为应用程序定义样式。
       但是也能在组件中封装样式。
 
 
       ### StyleUrls
+      
       In Angular, you can use the `styles` or `styleUrls` property of the `@Component` metadata to define
       a style sheet for a particular component.
 
       在Angular中，我们可以在`@Component`的元数据中使用`styles`或`styleUrls`属性来为一个特定的组件定义样式表。
 
-      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="style-url" linenums="false">
-
-      </code-example>
+      <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="style-url" linenums="false"></code-example>
 
 
       This allows you to set appropriate styles for individual components that won’t leak into

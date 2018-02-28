@@ -4,6 +4,9 @@ const argv = require('yargs').argv;
 const globby = require('globby');
 const xSpawn = require('cross-spawn');
 const treeKill = require('tree-kill');
+const shelljs = require('shelljs');
+
+shelljs.set('-e');
 
 const AIO_PATH = path.join(__dirname, '../../');
 const SHARED_PATH = path.join(__dirname, '/shared');
@@ -13,13 +16,9 @@ const SJS_SPEC_FILENAME = 'e2e-spec.ts';
 const CLI_SPEC_FILENAME = 'e2e/app.e2e-spec.ts';
 const EXAMPLE_CONFIG_FILENAME = 'example-config.json';
 const IGNORED_EXAMPLES = [ // temporary ignores
-  'aot-compiler',  // Temporarily disabled until we figure out how to make it pass with the latest ngc.
-
-  'toh-',
   'quickstart',
   'http',
   'setup',
-  'i18n',
   'webpack',
   'upgrade-p'
 ];
@@ -44,21 +43,18 @@ const IGNORED_EXAMPLES = [ // temporary ignores
  *    e.g. --shard=1/3 // the second of every three specs: 1, 4, 7, etc
  */
 function runE2e() {
-  let promise = Promise.resolve();
   if (argv.setup) {
     // Run setup.
-    console.log('runE2e: copy boilerplate');
-    const spawnInfo = spawnExt('yarn', ['boilerplate:add', argv.local ? '--local' : ''], { cwd: AIO_PATH });
-    promise = spawnInfo.promise
-      .then(() => {
-        console.log('runE2e: update webdriver');
-        return spawnExt('yarn', ['webdriver:update'], { cwd: SHARED_PATH }).promise;
-      });
+    console.log('runE2e: setup boilerplate');
+    const installPackagesCommand = `example-use-${argv.local ? 'local' : 'npm'}`;
+    const addBoilerplateCommand = 'boilerplate:add';
+    shelljs.exec(`yarn ${installPackagesCommand}`, { cwd: AIO_PATH });
+    shelljs.exec(`yarn ${addBoilerplateCommand}`, { cwd: AIO_PATH });
   }
 
   const outputFile = path.join(AIO_PATH, './protractor-results.txt');
 
-  return promise
+  return Promise.resolve()
     .then(() => findAndRunE2eTests(argv.filter, outputFile, argv.shard))
     .then((status) => {
       reportStatus(status, outputFile);
@@ -204,8 +200,10 @@ function runProtractorAoT(appDir, outputFile) {
 // All protractor output is appended to the outputFile.
 // CLI version
 function runE2eTestsCLI(appDir, outputFile) {
-  // --preserve-symlinks is needed due the symlinked node_modules in each example
-  const e2eSpawn = spawnExt('ng', ['e2e', '--preserve-symlinks'], { cwd: appDir });
+  // `--preserve-symlinks` is needed due the symlinked `node_modules/` in each example.
+  // `--no-webdriver-update` is needed to preserve the ChromeDriver version already installed.
+  const args = ['e2e', '--preserve-symlinks', '--no-webdriver-update'];
+  const e2eSpawn = spawnExt('yarn', args, { cwd: appDir });
   return e2eSpawn.promise.then(
     function () {
       fs.appendFileSync(outputFile, `Passed: ${appDir}\n\n`);

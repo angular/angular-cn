@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "@angular/core": ["../../dist/packages/core"]
+      "@angular/core": ["../../dist/packages/core"],
+      "@angular/common": ["../../dist/packages/common"]
     },
     "outDir": "../../dist/packages/service-worker"
   },
@@ -19,6 +20,7 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": false,
     "flatModuleOutFile": "service-worker.js",
-    "flatModuleId": "@angular/service-worker"
+    "flatModuleId": "@angular/service-worker",
+    "skipTemplateCodegen": true
   }
 }

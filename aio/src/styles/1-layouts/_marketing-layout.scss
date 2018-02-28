@@ -311,7 +311,7 @@ aio-shell {
     }
 
     @media (max-width: 600px) {
-      md-sidenav-container.sidenav-container {
+      mat-sidenav-container.sidenav-container {
         padding-top: 0;
       }
     }
@@ -333,6 +333,12 @@ aio-shell {
   color: $blue;
   margin-top: 10px;
   text-transform: uppercase;
+}
+
+aio-shell:not(.view-SideNav) {
+  mat-sidenav-container.sidenav-container {
+    max-width: none;
+  }
 }
 
 div[layout=row]{

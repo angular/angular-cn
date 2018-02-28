@@ -62,34 +62,39 @@
           "tooltip": "第一部分：《英雄指南》教程简介"
         },
         {
+          "url": "tutorial/toh-pt0",
+          "title": "2. 应用的“外壳”",
+          "tooltip": "第二部分：创建应用的外壳"
+        },
+        {
           "url": "tutorial/toh-pt1",
-          "title": "2. 英雄编辑器",
-          "tooltip": "第二部分：构建一个简单的英雄编辑器"
+          "title": "3. 英雄编辑器",
+          "tooltip": "第三部分：构建一个简单的英雄编辑器"
         },
         {
           "url": "tutorial/toh-pt2",
-          "title": "3. 主从结构",
-          "tooltip": "第三部分：构建一个主从结构的页面，用于展现英雄列表"
+          "title": "4. 主从结构",
+          "tooltip": "第四部分：构建一个主从结构的页面，用于展现英雄列表"
         },
         {
           "url": "tutorial/toh-pt3",
-          "title": "4. 多个组件",
-          "tooltip": "第四部分：把主从结构的页面重构成多个组件"
+          "title": "5. 多个组件",
+          "tooltip": "第五部分：把主从结构的页面重构成多个组件"
         },
         {
           "url": "tutorial/toh-pt4",
-          "title": "5. 服务",
-          "tooltip": "第五部分：创建一个可复用的服务来调用英雄的数据"
+          "title": "6. 服务",
+          "tooltip": "第六部分：创建一个可复用的服务来管理英雄数据"
         },
         {
           "url": "tutorial/toh-pt5",
-          "title": "6. 路由",
-          "tooltip": "第六部分：添加 Angular 组件路由，并且学习在视图之间导航"
+          "title": "7. 路由",
+          "tooltip": "第七部分：添加 Angular 路由器，并且学习在视图之间导航"
         },
         {
           "url": "tutorial/toh-pt6",
-          "title": "7. HTTP",
-          "tooltip": "第七部分：把服务和组件改为用 Angular 的 HTTP 服务实现"
+          "title": "8. HTTP",
+          "tooltip": "第八部分：通过 HTTP 来获取并保存英雄数据"
         }
       ]
     },
@@ -199,17 +204,17 @@
 
         {
           "title": "NgModules",
-          "tooltip": "学习如何使用 NgModule 让你的应用更高效。",
+          "tooltip": "使用 NgModules 来模块化我们的应用",
           "children": [
             {
               "url": "guide/ngmodule",
-              "title": "NgModule",
+              "title": "NgModules",
               "tooltip": "使用 @NgModule 定义应用的模块。"
             },
             {
               "url": "guide/ngmodule-faq",
               "title": "NgModule 常见问题",
-              "tooltip": "回答关于 @NgModule 的常见问题。"
+              "tooltip": "回答关于 NgModules 的常见问题。"
             }
         ]},
 
@@ -218,9 +223,14 @@
           "tooltip": "依赖注入：创建并注入各种服务。",
           "children": [
             {
+              "url": "guide/dependency-injection-pattern",
+              "title": "The Dependency Injection pattern",
+              "tooltip": "Learn about the dependency injection pattern behind the Angular DI system."
+            },
+            {
               "url": "guide/dependency-injection",
-              "title": "依赖注入",
-              "tooltip": "Angular 的依赖注入系统能够即时（JIT）地创建和交付所依赖的服务。"
+              "title": "Angular 依赖注入",
+              "tooltip": "Angular 的依赖注入系统能够为 Angular 创建的类创建并交付它们所依赖的服务。"
             },
             {
               "url": "guide/hierarchical-dependency-injection",
@@ -313,14 +323,40 @@
               "tooltip": "学习如何使用 AOT 预编译器。"
             },
             {
-              "url": "guide/metadata",
-              "title": "元数据与AOT",
-              "tooltip": "Angular 如何在 AOT 中处理元数据"
-            },
-            {
               "url": "guide/deployment",
               "title": "部署",
               "tooltip": "学习如何部署你的 Angular 应用。"
+            }
+          ]
+        },
+        {
+          "title": "Service Workers",
+          "tooltip": "Angular service workers: Controlling caching of application resources.",
+          "children": [
+            {
+              "url": "guide/service-worker-intro",
+              "title": "Introduction",
+              "tooltip": "Angular's implementation of service workers improves user experience with slow or unreliable network connectivity."
+            },
+            {
+              "url": "guide/service-worker-getting-started",
+              "title": "Getting Started",
+              "tooltip": "Enabling the service worker in a CLI project and observing behavior in the browser."
+            },
+            {
+              "url": "guide/service-worker-communications",
+              "title": "Service Worker Communication",
+              "tooltip": "Services that enable you to interact with an Angular service worker."
+            },
+            {
+              "url": "guide/service-worker-devops",
+              "title": "Service Worker in Production",
+              "tooltip": "Running applications with service workers, managing application update, debugging, and killing applications."
+            },
+            {
+              "url": "guide/service-worker-config",
+              "title": "Service Worker Configuration",
+              "tooltip": "Configuring service worker caching behavior."
             }
           ]
         },
@@ -341,7 +377,11 @@
             }
           ]
         },
-
+        {
+          "url": "guide/universal",
+          "title": "Server-side Rendering",
+          "tooltip": "Render HTML server-side with Angular Universal."
+        },
         {
           "url": "guide/visual-studio-2015",
           "title": "Visual Studio 2015 快速上手",
@@ -466,6 +506,7 @@
   ],
 
   "docVersions": [
+    { "title": "v4 (LTS)", "url": "https://v4.angular.io" },
     { "title": "v2", "url": "https://v2.angular.cn" },
     { "title": "AngularDart", "url": "https://webdev.dartlang.org/angular" }
 

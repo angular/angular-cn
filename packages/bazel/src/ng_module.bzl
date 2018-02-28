@@ -50,7 +50,7 @@ def _expected_outs(ctx, label):
     declaration_files += [ctx.new_file(ctx.bin_dir, basename + ext) for ext in declarations]
     summary_files += [ctx.new_file(ctx.bin_dir, basename + ext) for ext in summaries]
 
-  i18n_messages_files = [ctx.new_file(ctx.bin_dir, ctx.label.name + "_ngc_messages.xmb")]
+  i18n_messages_files = [ctx.new_file(ctx.genfiles_dir, ctx.label.name + "_ngc_messages.xmb")]
 
   return struct(
     closure_js = closure_js_files,
@@ -71,9 +71,10 @@ def _ngc_tsconfig(ctx, files, srcs, **kwargs):
       "angularCompilerOptions": {
           "generateCodeForLibraries": False,
           "allowEmptyCodegenFiles": True,
-          "enableSummariesforJit": True,
+          "enableSummariesForJit": True,
           # FIXME: wrong place to de-dupe
-          "expectedOut": depset([o.path for o in expected_outs]).to_list()
+          "expectedOut": depset([o.path for o in expected_outs]).to_list(),
+          "preserveWhitespaces": False,
       }
   })
 
@@ -115,7 +116,7 @@ def ngc_compile_action(ctx, label, inputs, outputs, messages_out, config_file_pa
   else:
     supports_workers = str(int(ctx.attr._supports_workers))
 
-  arguments = _EXTRA_NODE_OPTIONS_FLAGS
+  arguments = list(_EXTRA_NODE_OPTIONS_FLAGS)
   # One at-sign makes this a params-file, enabling the worker strategy.
   # Two at-signs escapes the argument so it's passed through to ngc
   # rather than the contents getting expanded.
@@ -144,7 +145,10 @@ def ngc_compile_action(ctx, label, inputs, outputs, messages_out, config_file_pa
                executable = ctx.executable._ng_xi18n,
                arguments = (_EXTRA_NODE_OPTIONS_FLAGS +
                             [config_file_path] +
-                            [messages_out[0].short_path]),
+                            # The base path is bin_dir because of the way the ngc
+                            # compiler host is configured. So we need to explictily
+                            # point to genfiles/ to redirect the output.
+                            ["../genfiles/" + messages_out[0].short_path]),
                progress_message = "Extracting Angular 2 messages (ng_xi18n)",
                mnemonic = "Angular2MessageExtractor")
 

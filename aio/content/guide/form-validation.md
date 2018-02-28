@@ -64,7 +64,7 @@ information, see [Custom validators](guide/form-validation#custom-validators) se
 
     `<input>`元素带有一些HTML验证属性：`required` 和 `minlength`。它还带有一个自定义的验证器指令`forbiddenName`。要了解更多信息，参见[自定义验证器](guide/form-validation#custom-validators)一节。
 
-* `#name="ngModel"` exports `NgModel` into a local variable callled `name`. `NgModel` mirrors many of the properties of its underlying 
+* `#name="ngModel"` exports `NgModel` into a local variable called `name`. `NgModel` mirrors many of the properties of its underlying 
 `FormControl` instance, so you can use this in the template to check for control states such as `valid` and `dirty`. For a full list of control properties, see the [AbstractControl](api/forms/AbstractControl) 
 API reference.
 
@@ -232,6 +232,12 @@ and whose value is an arbitrary dictionary of values that you could insert into 
 `forbiddenNameValidator`工厂函数返回配置好的验证器函数。
 该函数接受一个Angular控制器对象，并在控制器值有效时返回null，或无效时返回验证错误对象。
 验证错误对象通常有一个名为验证秘钥（`forbiddenName`）的属性。其值为一个任意词典，我们可以用来插入错误信息（`{name}`）。
+
+Custom async validators are similar to sync validators, but they must instead return a Promise or Observable
+that later emits null or a validation error object. In the case of an Observable, the Observable must complete,
+at which point the form uses the last value emitted for validation.
+
+自定义异步验证器和同步验证器很像，只是它们必须返回一个稍后会输出 null 或“验证错误对象”的承诺（Promise）或可观察对象，如果是可观察对象，那么它必须在某个时间点被完成（complete），那时候这个表单就会使用它输出的最后一个值作为验证结果。（译注：HTTP 服务是自动完成的，但是某些自定义的可观察对象可能需要手动调用 complete 方法）
 
 ### Adding to reactive forms
 

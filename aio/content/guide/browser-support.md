@@ -207,11 +207,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
 </table>
 
-
-
 <div class="l-sub-section">
-
-
 
 Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request,
 using <a href="https://saucelabs.com/">SauceLabs</a> and
@@ -224,40 +220,23 @@ Angular 在持续集成过程中，对每一个提交都会使用 <a href="https
 </div>
 
 
+## Polyfills
 
-## Polyfills #
-## 填充库 (polyfill) #
+## 填充库 (polyfill)
+
 Angular is built on the latest standards of the web platform.
 Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
 
 Angular 构建于 Web 平台的最新标准之上。
 要支持这么多浏览器是一个不小的挑战，因为它们不支持现代浏览器的所有特性。
 
-You can compensate by loading polyfill scripts ("polyfills") on the host web page (`index.html`)
-that implement missing features in JavaScript.
+You compensate by loading polyfill scripts ("polyfills") for the browsers that you must support.
+The [table below](#polyfill-libs) identifies most of the polyfills you might need.
 
-你可以通过在宿主页面 (`index.html`) 中加载填充脚本 (“polyfills”) 来加以弥补，这些脚本实现了浏览器缺失的 JavaScript 特性。
-
-
-<code-example path="quickstart/src/index.html" region="polyfills" title="quickstart/src/index.html" linenums="false">
-
-</code-example>
-
-
-
-A particular browser may require at least one polyfill to run _any_ Angular application.
-You may need additional polyfills for specific features.
-
-要运行 Angular 应用，某些浏览器可能需要至少一个填充库。除此之外，如果要支持某些特定的特性，你可能还需要另一些填充库。
-
-The tables below can help you determine which polyfills to load, depending on the browsers you target and the features you use.
-
-下表将帮你决定加载哪些填充库，具体取决于目标浏览器和要用到的特性。
-
+我们可以通过加载填充脚本("polyfills")来为想要支持的浏览器弥补这些特性。
+[下表](#polyfill-libs) 列出了可能用到的大多数填充脚本。
 
 <div class="alert is-important">
-
-
 
 The suggested polyfills are the ones that run full Angular applications.
 You may need additional polyfills to support features not covered by this list.
@@ -267,16 +246,83 @@ Note that polyfills cannot magically transform an old, slow browser into a moder
 你可能还会需要另一些的填充库来支持没有出现在此列表中的哪些特性。
 注意，这些填充库并没有神奇的魔力来把老旧、慢速的浏览器变成现代、快速的浏览器，它只是填充了 API。
 
+</div>
+
+## Enabling polyfills
+
+## 启用填充脚本
+
+[Angular CLI](https://github.com/angular/angular-cli/wiki) users enable polyfills through the `src/polyfills.ts` file that
+the CLI created with your project.
+
+[Angular CLI](https://github.com/angular/angular-cli/wiki) 的用户可以通过自动创建的 `src/polyfills.ts` 文件来启用这些填充脚本。
+
+This file incorporates the mandatory and many of the optional polyfills as JavaScript `import` statements.
+
+这个文件把强制的和很多可选的填充脚本组织成 JavaScript 的 `import` 语句。
+
+The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and 
+their corresponding `import` statements are ready to go.
+You probably won't touch these.
+
+**强制性** 填充脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
+
+But if you need an optional polyfill, you'll have to install its npm package with `npm` or `yarn`.
+For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation),
+you could install it with either of the following commands:
+
+但是如果要用一个可选的填充库，就要通过 `npm` 或 `yarn` 来安装它们的 npm 包了。
+比如，[如果你需要 web 动画的填充脚本](http://caniuse.com/#feat=web-animation)，就要通过下列命令之一来安装它：
+
+<code-example language="sh" class="code-shell">
+  npm install --save web-animations-js
+  yarn add web-animations-js
+</code-example>
+
+Then open the `polyfills.ts` file and un-comment the corresponding `import` statement
+as in the following example:
+
+然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
+
+<code-example title="src/polyfills.ts">
+  /**
+  * Required to support Web Animations `@angular/platform-browser/animations`.
+  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+  **/
+  import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+</code-example>
+
+If you can't find the polyfill you want in `polyfills.ts`, 
+add it yourself, following the same pattern:
+
+如果在 `polyfills.ts` 中找不到要使用的填充脚本，就可以仿照下列模式自行添加它：
+
+1. install the npm package
+
+   安装 npm 包
+   
+1. `import` the file in `polyfills.ts`
+
+   在 `polyfills.ts` 中 `import` 这个文件
+
+<div class="l-sub-section">
+
+Non-CLI users should follow the instructions [below](#non-cli).
+
+不使用 CLI 的用户可以遵循[下列](#non-cli)步骤自行操作。
 
 </div>
 
+{@a polyfill-libs}
 
 
-### Mandatory polyfills ##
-### 强制性填充库 ##
+### Mandatory polyfills
+
+### 强制性填充库
+
 These are the polyfills required to run an Angular application on each supported browser:
 
-下表是填充库对每个支持的浏览器都是需要的：
+下表中的填充库是每个浏览器都要用到的：
 
 
 <table>
@@ -315,7 +361,8 @@ These are the polyfills required to run an Angular application on each supported
     </td>
 
     <td>
-      None
+
+      [ES7/reflect](guide/browser-support#core-es7-reflect) (JIT only)
     </td>
 
   </tr>
@@ -352,9 +399,10 @@ These are the polyfills required to run an Angular application on each supported
 </table>
 
 
+### Optional browser features to polyfill
 
-### Optional browser features to polyfill ##
-### 可选浏览器特性的填充库 ##
+### 可选浏览器特性的填充库
+
 Some features of Angular may require additional polyfills.
 
 有些 Angular 特性可能需要额外的填充库。
@@ -399,6 +447,35 @@ Here are the features which may require additional polyfills:
   <tr style="vertical-align: top">
 
     <td>
+
+      [JIT compilation](guide/aot-compiler). 
+      Required to reflect for metadata.
+      
+      [JIT 编译](guide/aot-compiler) 需要 reflect 来提供元数据。
+      
+    </td>
+
+    <td>
+
+      [ES7/reflect](guide/browser-support#core-es7-reflect)
+      
+    </td>
+
+    <td>
+      All current browsers.
+      Enabled by default.
+      Can remove If you always use AOT and only use Angular decorators.
+      
+      默认对目前的所有浏览器都启用了。如果总是使用 AOT 模式，并且只使用 Angular 自带的装饰器，那么可以移除它。
+      
+    </td>
+
+  </tr>
+
+  <tr style="vertical-align: top">
+
+    <td>
+
       [Animations](guide/animations)
       
       [动画](guide/animations)
@@ -549,6 +626,23 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
+      <a id='core-es7-reflect' href="https://github.com/zloirock/core-js/blob/master/es7/reflect.js">ES7/reflect</a>
+    </td>
+
+    <td>
+      MIT
+    </td>
+
+    <td>
+      0.5KB
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
       <a id='core-es6' href="https://github.com/zloirock/core-js">ES6</a>
     </td>
 
@@ -673,5 +767,23 @@ Below are the polyfills which are used to test the framework itself. They are a 
 \* Figures are for minified and gzipped code, 
 computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.
 
-\* 这些指标测量的是最小化 (minify) 并且 gzip 过的代码，使用 <a href="http://closure-compiler.appspot.com/home" target="_blank">closure compiler</a>
-计算出的结果。
+{@a non-cli}
+## Polyfills for non-CLI users
+
+## 不使用 CLI 的用户的填充库
+
+If you aren't using the CLI, you should add your polyfill scripts directly to the host web page (`index.html`), perhaps like this.
+
+如果你不使用 CLI，就要直接把填充库添加到宿主页（`index.html`）中，就像这样：
+
+<code-example title="src/index.html">
+  &lt;!-- pre-zone polyfills -->
+  &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
+  &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>
+
+  &lt;!-- zone.js required by Angular -->
+  &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
+
+  &lt;!-- application polyfills -->
+</code-example>
+

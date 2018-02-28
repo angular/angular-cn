@@ -187,7 +187,6 @@ You launch an Angular application by "bootstrapping" it using the application ro
 
 Bootstrapping identifies an application's top level "root" [component](guide/glossary#component),
 which is the first component that is loaded for the application.
-For more information, see the [Setup](guide/setup) page.
 
 通过应用程序根 Angular 模块来启动 Angular 应用程序。
   启动过程标识应用的顶级“根”[组件 (component)](guide/glossary#component)，也就是应用加载的第一个组件。
@@ -219,6 +218,12 @@ In Angular documentation, "camelCase" always means *lower camel case*.
 这种形式也叫做**小写驼峰式命名法 (lower camel case)**，以区分于**大写驼峰式命名法**，也称 [Pascal 命名法 (PascalCase)](guide/glossary#pascalcase)。
 在文档中提到“驼峰式命名法 (camelCase) ”的时候，我们所指的都是小驼峰命名法。
 
+
+## CLI
+
+The Angular CLI is a `command line interface` tool that can create a project, add files, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
+
+Learn more in the [Getting Started](guide/quickstart) guide.
 
 {@a component}
 
@@ -796,7 +801,7 @@ Angular 的模块结构和导入/导出语法是基于 [ES2015 模块标准](htt
 An application that adheres to this standard requires a module loader to
 load modules on request and resolve inter-module dependencies.
 Angular doesn't include a module loader and doesn't have a preference
-for any particular third- party library (although most examples use SystemJS).
+for any particular third- party library.
 You can use any module library that conforms to the standard.
 
 采用这个标准的应用程序需要一个模块加载器来按需加载模块，并解析模块间的依赖关系。

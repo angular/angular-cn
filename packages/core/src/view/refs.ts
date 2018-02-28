@@ -88,7 +88,7 @@ class ComponentFactory_ extends ComponentFactory<any> {
       throw new Error('ngModule should be provided');
     }
     const viewDef = resolveDefinition(this.viewDefFactory);
-    const componentNodeIndex = viewDef.nodes[0].element !.componentProvider !.index;
+    const componentNodeIndex = viewDef.nodes[0].element !.componentProvider !.nodeIndex;
     const view = Services.createRootView(
         injector, projectableNodes || [], rootSelectorOrNode, viewDef, ngModule, EMPTY_CONTEXT);
     const component = asProviderData(view, componentNodeIndex).instance;
@@ -113,7 +113,7 @@ class ComponentRef_ extends ComponentRef<any> {
     this.instance = _component;
   }
   get location(): ElementRef {
-    return new ElementRef(asElementData(this._view, this._elDef.index).renderElement);
+    return new ElementRef(asElementData(this._view, this._elDef.nodeIndex).renderElement);
   }
   get injector(): Injector { return new Injector_(this._view, this._elDef); }
   get componentType(): Type<any> { return <any>this._component.constructor; }
@@ -255,9 +255,12 @@ export class ViewRef_ implements EmbeddedViewRef<any>, InternalViewRef {
     if (fs.begin) {
       fs.begin();
     }
-    Services.checkAndUpdateView(this._view);
-    if (fs.end) {
-      fs.end();
+    try {
+      Services.checkAndUpdateView(this._view);
+    } finally {
+      if (fs.end) {
+        fs.end();
+      }
     }
   }
   checkNoChanges(): void { Services.checkNoChangesView(this._view); }
@@ -318,7 +321,7 @@ class TemplateRef_ extends TemplateRef<any> implements TemplateData {
   }
 
   get elementRef(): ElementRef {
-    return new ElementRef(asElementData(this._parentView, this._def.index).renderElement);
+    return new ElementRef(asElementData(this._parentView, this._def.nodeIndex).renderElement);
   }
 }
 
@@ -340,12 +343,12 @@ class Injector_ implements Injector {
 export function nodeValue(view: ViewData, index: number): any {
   const def = view.def.nodes[index];
   if (def.flags & NodeFlags.TypeElement) {
-    const elData = asElementData(view, def.index);
+    const elData = asElementData(view, def.nodeIndex);
     return def.element !.template ? elData.template : elData.renderElement;
   } else if (def.flags & NodeFlags.TypeText) {
-    return asTextData(view, def.index).renderText;
+    return asTextData(view, def.nodeIndex).renderText;
   } else if (def.flags & (NodeFlags.CatProvider | NodeFlags.TypePipe)) {
-    return asProviderData(view, def.index).instance;
+    return asProviderData(view, def.nodeIndex).instance;
   }
   throw new Error(`Illegal state: read nodeValue for node index ${index}`);
 }
@@ -478,6 +481,8 @@ class NgModuleRef_ implements NgModuleData, InternalNgModuleRef<any> {
   /** @internal */
   _providers: any[];
 
+  readonly injector: Injector = this;
+
   constructor(
       private _moduleType: Type<any>, public _parent: Injector,
       public _bootstrapComponents: Type<any>[], public _def: NgModuleDefinition) {
@@ -492,8 +497,6 @@ class NgModuleRef_ implements NgModuleData, InternalNgModuleRef<any> {
   get instance() { return this.get(this._moduleType); }
 
   get componentFactoryResolver() { return this.get(ComponentFactoryResolver); }
-
-  get injector(): Injector { return this; }
 
   destroy(): void {
     if (this._destroyed) {

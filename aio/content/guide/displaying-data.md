@@ -48,10 +48,14 @@ With interpolation, you put the property name in the view template, enclosed in 
 要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
 要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如`{{myHero}}`。
 
-Follow the [setup](guide/setup) instructions for creating a new project
+Follow the [quickstart](guide/quickstart) instructions for creating a new project
 named <code>displaying-data</code>.
 
 按照[开发环境](guide/setup)的说明，创建一个新项目，名为<code>displaying-data</code>。
+
+Delete the <code>app.component.html</code> file. It is not needed for this example.
+
+删除 <code>app.component.html</code> 文件，这个范例中不再需要它了。
 
 Then modify the <code>app.component.ts</code> file by
 changing the template and the body of the component.
@@ -73,7 +77,7 @@ You added two properties to the formerly empty component: `title` and `myHero`.
 
 再把两个属性`title`和`myHero`添加到之前空白的组件中。
 
-The revised template displays the two component properties using double curly brace
+The template displays the two component properties using double curly brace
 interpolation:
 
 修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
@@ -129,7 +133,7 @@ Angular is creating an instance for you. How?
 
 注意，我们没有调用 **new** 来创建`AppComponent`类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
 
-The CSS `selector` in the `@Component` decorator specifies an element named `<my-app>`.
+The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
 That element is a placeholder in the body of your `index.html` file:
 
 注意`@Component`装饰器中指定的 CSS 选择器`selector`，它指定了一个叫`my-app`的元素。
@@ -142,9 +146,9 @@ That element is a placeholder in the body of your `index.html` file:
 
 
 
-When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angular looks for a `<my-app>`
+When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angular looks for a `<app-root>`
 in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
-inside the `<my-app>` tag.
+inside the `<app-root>` tag.
 
 当我们通过`main.ts`中的`AppComponent`类启动时，Angular 在`index.html`中查找一个`<my-app>`元素，
 然后实例化一个`AppComponent`，并将其渲染到`<my-app>`标签中。
@@ -191,17 +195,29 @@ In either style, the template data bindings have the same access to the componen
 
 无论用哪种风格，模板数据绑定在访问组件属性方面都是完全一样的。
 
+<div class="alert is-helpful">
+  
+  By default, the Angular CLI generates components with a template file. You can override that with:
+
+  默认情况下，Angular CLI 生成组件时会带有模板文件，我们可以通过参数覆盖它：
+
+  <code-example hideCopy language="sh" class="code-shell">
+    ng generate component hero -it
+  </code-example>
+
+</div>
+
 
 ## Constructor or variable initialization?
 
 ## 使用构造函数还是变量初始化？
 
-Although this example uses variable assignment to initialize the components, you can instead declare and initialize the properties using a constructor:
+Although this example uses variable assignment to initialize the components, you could instead declare and initialize the properties using a constructor:
 
 虽然这个例子使用了变量赋值的方式初始化组件，你还可以使用构造函数来声明和初始化属性。
 
 
-<code-example path="displaying-data/src/app/app-ctor.component.ts" linenums="false" title="src/app/app-ctor.component.ts (class)" region="class">
+<code-example path="displaying-data/src/app/app-ctor.component.ts" linenums="false" region="class">
 
 </code-example>
 
@@ -330,16 +346,19 @@ In real applications, most bindings are to more specialized objects.
 现在使用的是到了一个字符串数组的绑定。在真实的应用中，大多是到一个对象数组的绑定。
 
 To convert this binding to use specialized objects, turn the array
-of hero names into an array of `Hero` objects. For that you'll need a `Hero` class.
+of hero names into an array of `Hero` objects. For that you'll need a `Hero` class:
 
 要将此绑定转换成使用对象，需要把这个英雄名字数组变成`Hero`对象数组。但首先得有一个`Hero`类。
 
-Create a new file in the `app` folder called  `hero.ts` with the following code:
+<code-example language="sh" class="code-shell">
+  ng generate class hero
+</code-example>
 
-在`app`目录下创建一个名叫`hero.ts`的新文件，内容如下：
+With the following code:
 
+代码如下：
 
-<code-example path="displaying-data/src/app/hero.ts" linenums="false" title="src/app/hero.ts (excerpt)">
+<code-example path="displaying-data/src/app/hero.ts" linenums="false" title="src/app/hero.ts">
 
 </code-example>
 

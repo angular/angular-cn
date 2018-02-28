@@ -51,6 +51,7 @@ export interface Directive {
   providers?: Provider[];
   exportAs?: string;
   queries?: {[key: string]: any};
+  guards?: {[key: string]: any};
 }
 export const createDirective =
     makeMetadataFactory<Directive>('Directive', (dir: Directive = {}) => dir);
@@ -259,4 +260,9 @@ function makeMetadataFactory<T>(name: string, props?: (...args: any[]) => T): Me
   factory.isTypeOf = (obj: any) => obj && obj.ngMetadataName === name;
   factory.ngMetadataName = name;
   return factory;
+}
+
+export interface Route {
+  children?: Route[];
+  loadChildren?: string|Type|any;
 }

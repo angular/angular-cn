@@ -1,79 +1,68 @@
-# Ahead-of-Time Compilation
+# The Ahead-of-Time (AOT) Compiler
 
-# 预 (AoT) 编译器
+The Angular Ahead-of-Time (AOT) compiler converts your Angular HTML and TypeScript code into efficient JavaScript code during the build phase _before_ the browser downloads and runs that code.
 
-This cookbook describes how to radically improve performance by compiling _ahead-of-time_ (AOT)
-during a build process.
+Angular 的“预先（AOT）编译器”会在构建期间把 Angular 应用的 HTML 和 TypeScript 代码编译成高效的 JavaScript 代码，之后浏览器就可以下载并快速运行这些代码。
 
-本章描述了如何通过在构建期间使用预编译（AOT编译）技术来根本性的提高性能。
+This guide explains how to build with the AOT compiler and how to write Angular metadata that AOT can compile.
+
+本章描述了如何使用 AOT 编译器，以及如何书写能被 AOT 编译的 Angular 元数据。
+
+<div class="l-sub-section">
+
+  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
+
+  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">观看 Angular 编译器的作者Tobias Bosch 在 AngularConnect 2016 上对编译器的解释。</a>
+
+</div>
 
 {@a overview}
 
-## Overview
+## Angular compilation
 
 ## 概览
 
 An Angular application consists largely of components and their HTML templates.
 Before the browser can render the application,
-the components and templates must be converted to executable JavaScript by the _Angular compiler_.
+the components and templates must be converted to executable JavaScript by an _Angular compiler_.
+
+Angular offers two ways to compile your application:
+
+1. **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime
+1. **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
+
+JIT compilation is the default when you run the _build-only_ or the _build-and-serve-locally_ CLI commands:
+
+<code-example language="sh" class="code-shell">
+  ng build
+  ng serve
+</code-example>
+
+{@a compile}
+
+For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-and-serve-locally_ CLI commands:
+
+<code-example language="sh" class="code-shell">
+  ng build --aot
+  ng serve --aot
+</code-example>
 
 Angular应用主要包含组件和它们的HTML模板。
 在浏览器可以渲染应用之前，组件和模板必须要被**Angular编译器**转换为可以执行的JavaScript。
 
 <div class="l-sub-section">
 
-  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
+The `--prod` meta-flag compiles with AOT by default.
 
-观看编译器作者Tobias Bosch在AngularConnect 2016大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular编译器</a>的演讲。
+See the [CLI documentation](https://github.com/angular/angular-cli/wiki) for details, especially the [`build` topic](https://github.com/angular/angular-cli/wiki/build).
+
+要了解更多，请参见[CLI 文档](https://github.com/angular/angular-cli/wiki)，特别是[`build` 这个主题](https://github.com/angular/angular-cli/wiki/build)。
 
 </div>
 
-You can compile the app in the browser, at runtime, as the application loads, using the **_just-in-time_ (JIT) compiler**.
-This is the standard development approach shown throughout the documentation.
-It's great but it has shortcomings.
-
-你可以在浏览器中使用*即时编译器*（Just-in-Time - JIT）在运行期间编译该应用，也就是在应用加载时。
-这是本文档中展示过的标准开发方式。
-它很不错，但是有自己的缺点。
-
-JIT compilation incurs a runtime performance penalty.
-Views take longer to render because of the in-browser compilation step.
-The application is bigger because it includes the Angular compiler
-and a lot of library code that the application won't actually need.
-Bigger apps take longer to transmit and are slower to load.
-
-JIT编译导致运行期间的性能损耗。
-由于需要在浏览器中执行这个编译过程，视图需要花更长时间才能渲染出来。
-由于应用包含了Angular编译器以及大量实际上并不需要的库代码，所以文件体积也会更大。
-更大的应用需要更长的时间进行传输，加载也更慢。
-
-Compilation can uncover many component-template binding errors.
-JIT compilation discovers them at runtime, which is late in the process.
-
-编译可以发现一些组件模板绑定错误。JIT编译在运行时才揭露它们，那样有点太晚了。
-
-The **_ahead-of-time_ (AOT) compiler** can catch template errors early and improve performance
-by compiling at build time.
-
-而**预编译**（AOT）会在构建时编译，这样可以在早期截获模板错误，提高应用性能。
-
-
-{@a aot-jit}
-
-## _Ahead-of-time_ (AOT) vs _just-in-time_ (JIT)
-## 预编译（AOT） vs 即时编译（JIT）
-
-There is actually only one Angular compiler. The difference between AOT and JIT is a matter of timing and tooling.
-With AOT, the compiler runs once at build time using one set of libraries;
-with JIT it runs every time for every user at runtime using a different set of libraries.
-
-事实上只有一个Angular编译器，AOT和JIT之间的差别仅仅在于编译的时机和所用的工具。
-使用AOT，编译器仅仅使用一组库在构建期间运行一次；使用JIT，编译器在每个用户的每次运行期间都要用不同的库运行一次。
-
-
 {@a why-aot}
 
-## Why do AOT compilation?
+## Why compile with AOT?
 
 ## 为什么需要AOT编译？
 
@@ -127,827 +116,949 @@ there are fewer opportunities for injection attacks.
 AOT编译远在HTML模版和组件被服务到客户端之前，将它们编译到JavaScript文件。
 没有模版可以阅读，没有高风险客户端HTML或JavaScript可利用，所以注入攻击的机会较少。
 
+## Angular Metadata and AOT
 
-{@a compile}
+## Angular 元数据与 AOT
 
-## Compile with AOT
+The Angular **AOT compiler** extracts and interprets **metadata** about the parts of the application that Angular is supposed to manage.
 
-## 用AOT进行编译
+Angular 的 **AOT 编译器**会提取并解释应用中由 Angular 管理的各个部件的**元数据**。
 
-Preparing for offline compilation takes a few simple steps.
-Take the <a href='../guide/setup.html'>Setup</a> as a starting point.
-A few minor changes to the lone `app.component` lead to these two class and HTML files:
+Angular metadata tells Angular how to construct instances of your application classes and interact with them at runtime.
 
-AOT编译需要一些简单的准备步骤。我们先从<a href='../guide/setup.html'>搭建本地开发环境</a>开始。
-只要单独对`app.component`文件的类文件和HTML文件做少量修改就可以了。
+Angular 的元数据会告诉 Angular 如何创建应用中类的实例以及如何在运行期间与它们交互。
 
+You specify the metadata with **decorators** such as `@Component()` and `@Input()`.
+You also specify metadata implicitly in the constructor declarations of these decorated classes.
 
-<code-tabs>
-  <code-pane title="src/app/app.component.html" path="aot-compiler/src/app/app.component.html">
-  </code-pane>
-  <code-pane title="src/app/app.component.ts" path="aot-compiler/src/app/app.component.ts">
-  </code-pane>
-</code-tabs>
+我们通过**装饰器**来指定元数据，比如 `@Component()` 和 `@Input()`。
+我们还可以在这些带装饰器的类的构造函数中隐式指定元数据。
 
-Install a few new npm dependencies with the following command: 
+In the following example, the `@Component()` metadata object and the class constructor tell Angular how to create and display an instance of `TypicalComponent`.
 
-用下列命令安装少量新的npm依赖：
+在下列范例中，`@Component()` 元数据对象和类的构造函数会告诉 Angular 如何创建和显示 `TypicalComponent` 的实例。
 
+```typescript
+@Component({
+  selector: 'app-typical',
+  template: '<div>A typical component for {{data.name}}</div>'
+)}
+export class TypicalComponent {
+  @Input() data: TypicalData;
+  constructor(private someService: SomeService) { ... }
+}
+```
 
-<code-example language="none" class="code-shell">
-  npm install @angular/compiler-cli @angular/platform-server --save
-</code-example>
+The Angular compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
+When it needs to create a `TypicalComponent` instance, Angular calls the factory, which produces a new visual element, bound to a new instance of the component class with its injected dependency.
 
-You will run the `ngc` compiler provided in the `@angular/compiler-cli` npm package
-instead of the TypeScript compiler (`tsc`).
+Angular 编译器只提取**一次**元数据，并且为 `TypicalComponent` 生成一个**工厂**。
+当它需要创建 `TypicalComponent` 的实例时，Angular 调用这个工厂，工厂会生成一个新的可视元素，并且把它（及其依赖）绑定到组件类的一个新实例上。
 
-你要用`@angular/compiler-cli`包中提供的`ngc`编译器来代替TypeScript编译器（`tsc`）。
+## Metadata restrictions
 
-`ngc` is a drop-in replacement for `tsc` and is configured much the same way.
+## 元数据的限制
 
-`ngc`是一个`tsc`的高仿替代品，它们的配置方式几乎完全一样。
+You write metadata in a _subset_ of TypeScript that must conform to the following general constraints:
 
-`ngc` requires its own `tsconfig.json` with AOT-oriented settings.
-Copy the original `src/tsconfig.json` to a file called `tsconfig-aot.json` on the project root,
-then modify it as follows.
+我们只能使用 TypeScript 的一个**子集**书写元数据，它必须满足下列限制：
 
+1. Limit [expression syntax](#expression-syntax) to the supported subset of JavaScript.
 
-`ngc`需要自己的带有AOT专用设置的`tsconfig.json`。
-把原始的`tsconfig.json`拷贝到一个名叫`tsconfig-aot.json`的文件中，然后像这样修改它：
+   [表达式语法](#expression-syntax)只支持 JavaScript 的一个有限的子集。
+   
+2. Only reference exported symbols after [code folding](#folding).
 
-<code-example path="aot-compiler/tsconfig-aot.json" title="tsconfig-aot.json" linenums="false">
-</code-example>
+   只能引用[代码收缩](#folding)后导出的符号。
+   
+3. Only call [functions supported](#supported-functions) by the compiler.
 
-The `compilerOptions` section is unchanged except for one property.
-**Set the `module` to `es2015`**.
-This is important as explained later in the [Tree Shaking](guide/aot-compiler#tree-shaking) section.
+   只能调用编译器[支持的那些函数](#supported-functions)。
+   
+4. Decorated and data-bound class members must be public.
 
-`compilerOptions`部分只修改了一个属性：**把`module`设置为`es2015`。
-这一点非常重要，我们会在后面的[摇树优化](guide/aot-compiler#tree-shaking)部分解释为什么。
+   被装饰和用于数据绑定的类成员必须是公共（public）的。
 
-What's really new is the `ngc` section at the bottom called `angularCompilerOptions`.
-Its `genDir` property tells the compiler
-to store the compiled output files in a new `aot` folder.
+The next sections elaborate on these points.
 
-`ngc`区真正新增的内容是底部的`angularCompilerOptions`。
-它的`genDir`属性告诉编译器把编译结果保存在新的`aot`目录下。
+我们将在下一节详细解释这些问题。
 
-The `"skipMetadataEmit" : true` property prevents the compiler from generating metadata files with the compiled application.
-Metadata files are not necessary when targeting TypeScript files, so there is no reason to include them.
+## How AOT works
 
-`"skipMetadataEmit" : true`属性阻止编译器为编译后的应用生成元数据文件。
-当输出成TypeScript文件时，元数据并不是必须的，因此不需要包含它们。
+## AOT 工作原理
 
+It helps to think of the AOT compiler as having two phases: a code analysis phase in which it simply records a representation of the source; and a code generation phase in which the compiler's `StaticReflector` handles the interpretation as well as places restrictions on what it interprets.
 
-***Component-relative template URLS***
+我们可以把 AOT 编译器看做两个阶段：在代码分析阶段，它只记录源代码，而在代码生成阶段，编译器的`StaticReflector`会解释这些结果，并为这些结果加上限制。
 
-***相对于组件的模板URL***
+## Phase 1: analysis
 
-The AOT compiler requires that `@Component` URLS for external templates and CSS files be _component-relative_.
-That means that the value of `@Component.templateUrl` is a URL value _relative_ to the component class file.
-For example, an `'app.component.html'` URL means that the template file is a sibling of its companion `app.component.ts` file.
+## 阶段1：分析
 
-AOT编译器要求`@Component`中的外部模板和CSS文件的URL是*相对于组件的*。
-这意味着`@Component.templateUrl`的值是一个*相对于*组件类文件的URL值。
-例如，`'app.component.html'` URL表示模板文件与它相应的`app.component.ts`文件放在一起。
+The TypeScript compiler does some of the analytic work of the first phase. It emits the `.d.ts` _type definition files_ with type information that the AOT compiler needs to generate application code.
 
-While JIT app URLs are more flexible, stick with _component-relative_ URLs for compatibility with AOT compilation.
+TypeScript 编译器会做一些初步的分析工作，它会生成**类型定义文件**`.d.ts`，其中带有类型信息，Angular 编译器需要借助它们来生成代码。
 
-而JIT应用的URL更灵活，固定写成*相对于组件的*URL的形式对AOT编译的兼容性也更好。
+At the same time, the AOT **_collector_** analyzes the metadata recorded in the Angular decorators and outputs metadata information in **`.metadata.json`** files, one per `.d.ts` file.
 
+同时，AOT **收集器（collector）** 会记录 Angular 装饰器中的元数据，并把它们输出到**`.metadata.json`**文件中，和每个`.d.ts`文件相对应。
 
-***Compiling the application***
+You can think of `.metadata.json` as a diagram of the overall structure of a decorator's metadata, represented as an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
-*** 编译该应用 ***
-
-Initiate AOT compilation from the command line using the previously installed `ngc` compiler by executing:
-
-在命令行中执行下列命令，借助刚安装好的`ngc`编译器来启动AOT编译：
-
-
-<code-example language="none" class="code-shell">
-  node_modules/.bin/ngc -p tsconfig-aot.json
-</code-example>
+我们可以把`.metadata.json`文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
 
 <div class="l-sub-section">
 
+Angular's [schema.ts](https://github.com/angular/angular/blob/master/packages/compiler-cli/src/metadata/schema.ts)
+describes the JSON format as a collection of TypeScript interfaces.
 
-
-Windows users should surround the `ngc` command in double quotes:
-
-Windows用户应该双引号`ngc`命令：
-
-<code-example format='.'>
-  "node_modules/.bin/ngc" -p tsconfig-aot.json
-</code-example>
+Angular 的 [schema.ts](https://github.com/angular/angular/blob/master/packages/compiler-cli/src/metadata/schema.ts) 把这个 JSON 格式表示成了一组 TypeScript 接口。
 
 </div>
 
-`ngc` expects the `-p` switch to point to a `tsconfig.json` file or a folder containing a `tsconfig.json` file.
+{@a expression-syntax}
+### Expression syntax
 
-`ngc`希望`-p`选项指向一个`tsconfig.json`文件，或者一个包含`tsconfig.json`文件的目录。
+The _collector_ only understands a subset of JavaScript.
+Define metadata objects with the following limited syntax:
 
-After `ngc` completes, look for a collection of _NgFactory_ files in the `aot` folder.
-The `aot` folder is the directory specified as `genDir` in `tsconfig-aot.json`.
+这个**收集器**只能理解 JavaScript 的一个子集。
+请使用下列受限语法定义元数据对象：
 
-在`ngc`完成时，会在`aot`目录下看到一组*NgFactory*文件（该目录是在`tsconfig-aot.json`的`genDir`属性中指定的）。
+Syntax                             | Example
+-----------------------------------|-----------------------------------
+Literal object                     | `{cherry: true, apple: true, mincemeat: false}`
+Literal array                      | `['cherries', 'flour', 'sugar']`
+Spread in literal array            | `['apples', 'flour', ...the_rest]`
+Calls                              | `bake(ingredients)`
+New                                | `new Oven()`
+Property access                    | `pie.slice`
+Array index                        | `ingredients[0]`
+Identifier reference               | `Component`
+A template string                  | <code>&#96;pie is ${multiplier} times better than cake&#96;</code>
+Literal string                     | `'pi'`
+Literal number                     | `3.14153265`
+Literal boolean                    | `true`
+Literal null                       | `null`
+Supported prefix operator          | `!cake`
+Supported Binary operator          | `a + b`
+Conditional operator               | `a ? b : c`
+Parentheses                        | `(a + b)`
 
-These factory files are essential to the compiled application.
-Each component factory creates an instance of the component at runtime by combining the original class file
-and a JavaScript representation of the component's template.
-Note that the original component class is still referenced internally by the generated factory.
+If an expression uses unsupported syntax, the _collector_ writes an error node to the `.metadata.json` file. The compiler later reports the error if it needs that
+piece of metadata to generate the application code.
 
-这些工厂文件对于编译后的应用是必要的。
-每个组件工厂都可以在运行时创建一个组件的实例，其中带有一个原始的类文件和一个用JavaScript表示的组件模板。
-注意，原始的组件类依然是由所生成的这个工厂进行内部引用的。
-
+如果表达式使用了不支持的语法，**收集器**就会往`.metadata.json`文件中写入一个错误节点。稍后，如果编译器用到元数据中的这部分内容来生成应用代码，它就会报告这个错误。
 
 <div class="l-sub-section">
 
-  The curious can open `aot/app.component.ngfactory.ts` to see the original Angular template syntax
-  compiled to TypeScript, its intermediate form.
+ If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in `tsconfig`.
 
-如果你好奇，可以打开`aot/app.component.ngfactory.ts`来看看原始Angular模板语法被编译成TypeScript时的中间结果。JIT compilation generates these same _NgFactories_ in memory where they are largely invisible.
-AOT compilation reveals them as separate, physical files.
+如果你希望`ngc`立即汇报这些语法错误，而不要生成带有错误信息的`.metadata.json`文件，可以到`tsconfig`中设置 `strictMetadataEmit` 选项。
 
-JIT编译器在内存中同样会生成这一堆*NgFactory*，但它们大部分是不可见的。
-AOT编译器则会生成在单独的物理文件中。
+```
+  "angularCompilerOptions": {
+   ...
+   "strictMetadataEmit" : true
+ }
+ ```
 
+Angular libraries have this option to ensure that all Angular `.metadata.json` files are clean and it is a best practice to do the same when building your own libraries.
 
-</div>
-
-<div class="alert is-important">
-
-  Do not edit the _NgFactories_! Re-compilation replaces these files and all edits will be lost.
-
-不要编辑这些*NgFactory*！重新编译时会替换这些文件，你做的所有修改都会丢失。
-
+Angular 库通过这个选项来确保所有的 `.metadata.json` 文件都是干净的。当你要构建自己的代码库时，这也同样是一项最佳实践。
 
 </div>
 
-{@a bootstrap}
+{@a function-expression}
+{@a arrow-functions}
+### No arrow functions
 
-## Bootstrap
+The AOT compiler does not support [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)
+and [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), also called _lambda_ functions.
 
-## 引导
+Consider the following component decorator:
 
-The AOT approach changes application bootstrapping.
+```ts
+@Component({
+  ...
+  providers: [{provide: server, useFactory: () => new Server()}]
+})
+```
 
-AOT也改变了应用的引导方式。
+The AOT _collector_ does not support the arrow function, `() => new Server()`, in a metadata expression.
+It generates an error node in place of the function.
 
-Instead of bootstrapping `AppModule`, you bootstrap the application with the generated module factory, `AppModuleNgFactory`.
+When the compiler later interprets this node, it reports an error that invites you to turn the arrow function into an _exported function_.
 
-引导的方式从引导`AppModule`改成了引导生成的模块工厂：`AppModuleNgFactory`。
+You can fix the error by converting to this:
 
-Make a copy of `main.ts` and name it `main-jit.ts`.
-This is the JIT version; set it aside as you may need it [later](guide/aot-compiler#run-jit "Running with JIT").
+```ts
+export function serverFactory() {
+  return new Server();
+}
 
-复制一份`main.ts`并把它改名为`main-jit.ts`。
-这就是JIT版本，先把它放在一边，我们[稍后](guide/aot-compiler#run-jit "Running with JIT")会用到它。
+@Component({
+  ...
+  providers: [{provide: server, useFactory: serverFactory}]
+})
+```
 
-Open `main.ts` and convert it to AOT compilation.
-Switch from the `platformBrowserDynamic.bootstrap` used in JIT compilation to
-`platformBrowser().bootstrapModuleFactory` and pass in the AOT-generated `AppModuleNgFactory`.
+Beginning in version 5, the compiler automatically performs this rewritting while emitting the `.js` file.
 
-打开`main.ts`，并把它改成AOT编译。
-从`platformBrowserDynamic.bootstrap`改成使用`platformBrowser().bootstrapModuleFactory`并把`AppModuleNgFactory`的AOT编译结果传给它。
+### Limited function calls
 
-Here is AOT bootstrap in `main.ts` next to the original JIT version:
+The _collector_ can represent a function call or object creation with `new` as long as the syntax is valid. The _collector_ only cares about proper syntax.
 
-这里是AOT版本`main.ts`中的引导过程，下一个是你所熟悉的JIT版本。
-
-
-<code-tabs>
-  <code-pane title="src/main.ts" path="aot-compiler/src/main.ts">
-  </code-pane>
-  <code-pane title="src/main-jit.ts" path="aot-compiler/src/main-jit.ts">
-  </code-pane>
-</code-tabs>
-
-
-
-Be sure to [recompile](guide/aot-compiler#compile) with `ngc`!
-
-确保用`ngc`进行[重新编译](guide/aot-compiler#compile)！
-
-{@a tree-shaking}
-
-## Tree shaking
-
-## 摇树优化（Tree shaking）
-
-AOT compilation sets the stage for further optimization through a process called _tree shaking_.
-A tree shaker walks the dependency graph, top to bottom, and _shakes out_ unused code like
-dead leaves in a tree.
-
-AOT编译为接下来通过一个叫做*摇树优化*的过程做好了准备。
-摇树优化器从上到下遍历依赖图谱，并且*摇掉*用不到的代码，这些代码就像是圣诞树中那些死掉的松针一样。
-
-Tree shaking can greatly reduce the downloaded size of the application 
-by removing unused portions of both source and library code. 
-In fact, most of the reduction in small apps comes from removing unreferenced Angular features. 
-
-通过移除源码和库代码中用不到的部分，摇树优化可以大幅缩减应用的下载体积。
-事实上，在小型应用中大部分的缩减都是因为筛掉了那些没用到的Angular特性。
-
-For example, this demo application doesn't use anything from the `@angular/forms` library.
-There is no reason to download forms-related Angular code and tree shaking ensures that you don't.
-
-例如，这个演示程序中没有用到`@angular/forms`库中的任何东西，那么也就没有理由去下载这些与表单有关的Angular代码了。摇树优化可以帮你确保这一点。
-
-Tree shaking and AOT compilation are separate steps.
-Tree shaking can only target JavaScript code.
-AOT compilation converts more of the application to JavaScript,
-which in turn makes more of the application "tree shakable".
-
-摇树优化和AOT编译是单独的步骤。
-摇树优化仅仅针对JavaScript代码。
-AOT编译会把应用中的大部分都转换成JavaScript，这种转换会让应用更容易被“摇树优化”。
+But beware. The compiler may later refuse to generate a call to a _particular_ function or creation of a _particular_ object.
+The compiler only supports calls to a small set of functions and will use `new` for only a few designated classes. These functions and classes are in a table of [below](#supported-functions).
 
 
-{@a rollup}
+### Folding
+{@a exported-symbols}
+The compiler can only resolve references to **_exported_** symbols.
+Fortunately, the _collector_ enables limited use of non-exported symbols through _folding_.
 
-### Rollup
+The _collector_ may be able to evaluate an expression during collection and record the result in the `.metadata.json` instead of the original expression.
 
-### Rollup 工具
+For example, the _collector_ can evaluate the expression `1 + 2 + 3 + 4` and replace it with the result, `10`.
 
-This cookbook illustrates a tree shaking utility called _Rollup_.
+This process is called _folding_. An expression that can be reduced in this manner is _foldable_.
 
-这个烹饪宝典中用来示范的摇树优化工具是*Rollup*。
+{@a var-declaration}
+The collector can evaluate references to
+module-local `const` declarations and initialized `var` and `let` declarations, effectively removing them from the `.metadata.json` file.
 
-Rollup statically analyzes the application by following the trail of `import` and `export` statements.
-It produces a final code _bundle_ that excludes code that is exported, but never imported.
+Consider the following component definition:
 
-Rollup会通过跟踪`import`和`export`语句来对本应用进行静态分析。
-它所生成的最终代码*捆*中会排除那些被导出过但又从未被导入的代码。
+```ts
+const template = '<div>{{hero.name}}</div>';
 
-Rollup can only tree shake `ES2015` modules which have `import` and `export` statements.
+@Component({
+  selector: 'app-hero',
+  template: template
+})
+export class HeroComponent {
+  @Input() hero: Hero;
+}
+```
 
-Rollup只能对`ES2015`模块摇树，因为那里有`import`和`export`语句。
+The compiler could not refer to the `template` constant because it isn't exported.
+
+But the _collector_ can _fold_ the `template` constant into the metadata definition by inlining its contents.
+The effect is the same as if you had written:
+
+```TypeScript
+@Component({
+  selector: 'app-hero',
+  template: '<div>{{hero.name}}</div>'
+})
+export class HeroComponent {
+  @Input() hero: Hero;
+}
+```
+
+There is no longer a reference to `template` and, therefore, nothing to trouble the compiler when it later interprets the _collector's_ output in `.metadata.json`.
+
+You can take this example a step further by including the `template` constant in another expression:
+
+```TypeScript
+const template = '<div>{{hero.name}}</div>';
+
+@Component({
+  selector: 'app-hero',
+  template: template + '<div>{{hero.title}}</div>'
+})
+export class HeroComponent {
+  @Input() hero: Hero;
+}
+```
+
+The _collector_ reduces this expression to its equivalent _folded_ string:
+
+`'<div>{{hero.name}}</div><div>{{hero.title}}</div>'`.
+
+#### Foldable syntax
+
+The following table describes which expressions the _collector_ can and cannot fold:
+
+Syntax                             | Foldable
+-----------------------------------|-----------------------------------
+Literal object                     | yes
+Literal array                      | yes
+Spread in literal array            | no
+Calls                              | no
+New                                | no
+Property access                    | yes, if target is foldable
+Array index                        | yes, if target and index are foldable
+Identifier reference               | yes, if it is a reference to a local
+A template with no substitutions   | yes
+A template with substitutions      | yes, if the substitutions are foldable
+Literal string                     | yes
+Literal number                     | yes
+Literal boolean                    | yes
+Literal null                       | yes
+Supported prefix operator          | yes, if operand is foldable
+Supported binary operator          | yes, if both left and right are foldable
+Conditional operator               | yes, if condition is foldable
+Parentheses                        | yes, if the expression is foldable
+
+If an expression is not foldable, the collector writes it to `.metadata.json` as an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) for the compiler to resolve.
 
 
-<div class="l-sub-section">
+## Phase 2: code generation
 
-  Recall that `tsconfig-aot.json` is configured to produce `ES2015` modules.
-  It's not important that the code itself be written with `ES2015` syntax such as `class` and `const`.
-  What matters is that the code uses ES `import` and `export` statements rather than `require` statements.
+The _collector_ makes no attempt to understand the metadata that it collects and outputs to `.metadata.json`. It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
 
-  回忆一下，`tsconfig-aot.json`中曾配置为生成`ES2015`的模块。
-  代码本身是否用到了`ES2015`语法（例如`class`和`const`）并不重要，重要的是这些代码使用的应该是`import`和`export`语句，而不是`require`语句。
+It's the compiler's job to interpret the `.metadata.json` in the code generation phase.
 
+The compiler understands all syntax forms that the _collector_ supports, but it may reject _syntactically_ correct metadata if the _semantics_ violate compiler rules.
+
+The compiler can only reference _exported symbols_.
+
+Decorated component class members must be public. You cannot make an `@Input()` property private or internal.
+
+Data bound properties must also be public.
+
+```TypeScript
+// BAD CODE - title is private
+@Component({
+  selector: 'app-root',
+  template: '<h1>{{title}}</h1>'
+})
+export class AppComponent {
+  private title = 'My App'; // Bad
+}
+```
+
+{@a supported-functions}
+Most importantly, the compiler only generates code to create instances of certain classes, support certain decorators, and call certain functions from the following lists.
+
+
+### New instances
+
+The compiler only allows metadata that create instances of the class `InjectionToken` from `@angular/core`.
+
+### Annotations/Decorators
+
+The compiler only supports metadata for these Angular decorators.
+
+Decorator         | Module
+------------------|--------------
+`Attribute`       | `@angular/core`
+`Component`       | `@angular/core`
+`ContentChild`    | `@angular/core`
+`ContentChildren` | `@angular/core`
+`Directive`       | `@angular/core`
+`Host`            | `@angular/core`
+`HostBinding`     | `@angular/core`
+`HostListener`    | `@angular/core`
+`Inject`          | `@angular/core`
+`Injectable`      | `@angular/core`
+`Input`           | `@angular/core`
+`NgModule`        | `@angular/core`
+`Optional`        | `@angular/core`
+`Output`          | `@angular/core`
+`Pipe`            | `@angular/core`
+`Self`            | `@angular/core`
+`SkipSelf`        | `@angular/core`
+`ViewChild`       | `@angular/core`
+
+
+### Macro-functions and macro-static methods
+
+The compiler also supports _macros_ in the form of functions or static
+methods that return an expression.
+
+For example, consider the following function:
+
+```TypeScript
+export function wrapInArray<T>(value: T): T[] {
+  return [value];
+}
+```
+
+You can call the `wrapInArray` in a metadata definition because it returns the value of an expression that conforms to the compiler's restrictive JavaScript subset.
+
+You might use  `wrapInArray()` like this:
+
+```TypeScript
+@NgModule({
+  declarations: wrapInArray(TypicalComponent)
+})
+export class TypicalModule {}
+```
+
+The compiler treats this usage as if you had written:
+
+```TypeScript
+@NgModule({
+  declarations: [TypicalComponent]
+})
+export class TypicalModule {}
+```
+
+The collector is simplistic in its determination of what qualifies as a macro
+function; it can only contain a single `return` statement.
+
+The Angular [`RouterModule`](api/router/RouterModule) exports two macro static methods, `forRoot` and `forChild`, to help declare root and child routes.
+Review the [source code](https://github.com/angular/angular/blob/master/packages/router/src/router_module.ts#L139 "RouterModule.forRoot source code")
+for these methods to see how macros can simplify configuration of complex [NgModules](guide/ngmodule).
+
+### Metadata rewriting
+
+The compiler treats object literals containing the fields `useClass`, `useValue`, `useFactory`, and `data` specially. The compiler converts the expression initializing one of these fields into an exported variable, which replaces the expression. This process of rewriting these expressions removes all the restrictions on what can be in them because
+the compiler doesn't need to know the expression's value&mdash;it just needs to be able to generate a reference to the value.
+
+
+
+You might write something like:
+
+```ts
+class TypicalServer {
+
+}
+
+@NgModule({
+  providers: [{provide: SERVER, useFactory: () => TypicalServer}]
+})
+export class TypicalModule {}
+```
+
+Without rewriting, this would be invalid because lambdas are not supported and `TypicalServer` is not exported.
+
+To allow this, the compiler automatically rewrites this to something like:
+
+```ts
+class TypicalServer {
+
+}
+
+export const ɵ0 = () => new TypicalServer();
+
+@NgModule({
+  providers: [{provide: SERVER, useFactory: ɵ0}]
+})
+export class TypicalModule {}
+```
+
+This allows the compiler to generate a reference to `ɵ0` in the
+factory without having to know what the value of `ɵ0` contains.
+
+The compiler does the rewriting during the emit of the `.js` file. This doesn't rewrite the `.d.ts` file, however, so TypeScript doesn't recognize it as being an export. Thus, it does not pollute the ES module's exported API.
+
+
+## Metadata Errors
+
+The following are metadata errors you may encounter, with explanations and suggested corrections.
+
+[Expression form not supported](#expression-form-not-supported)<br>
+[Reference to a local (non-exported) symbol](#reference-to-a-local-symbol)<br>
+[Only initialized variables and constants](#only-initialized-variables)<br>
+[Reference to a non-exported class](#reference-to-a-non-exported-class)<br>
+[Reference to a non-exported function](#reference-to-a-non-exported-function)<br>
+[Function calls are not supported](#function-calls-not-supported)<br>
+[Destructured variable or constant not supported](#destructured-variable-not-supported)<br>
+[Could not resolve type](#could-not-resolve-type)<br>
+[Name expected](#name-expected)<br>
+[Unsupported enum member name](#unsupported-enum-member-name)<br>
+[Tagged template expressions are not supported](#tagged-template-expressions-not-supported)<br>
+[Symbol reference expected](#symbol-reference-expected)<br>
+
+<hr>
+
+<h3 class="no-toc">Expression form not supported</h3>
+
+The compiler encountered an expression it didn't understand while evalutating Angular metadata.
+
+Language features outside of the compiler's [restricted expression syntax](#expression-syntax)
+can produce this error, as seen in the following example:
+
+```
+// ERROR
+export class Fooish { ... }
+...
+const prop = typeof Fooish; // typeof is not valid in metadata
+  ...
+  // bracket notation is not valid in metadata
+  { provide: 'token', useValue: { [prop]: 'value' } };
+  ...
+```
+
+You can use `typeof` and bracket notation in normal application code.
+You just can't use those features within expressions that define Angular metadata.
+
+Avoid this error by sticking to the compiler's [restricted expression syntax](#expression-syntax)
+when writing Angular metadata
+and be wary of new or unusual TypeScript features.
+
+<hr>
+
+{@a reference-to-a-local-symbol}
+<h3 class="no-toc">Reference to a local (non-exported) symbol</h3>
+
+<div class="alert is-helpful">
+
+_Reference to a local (non-exported) symbol 'symbol name'. Consider exporting the symbol._
 
 </div>
 
-In the terminal window, install the Rollup dependencies with this command:
+The compiler encountered a referenced to a locally defined symbol that either wasn't exported or wasn't initialized.
 
-通过下列命令安装Rollup依赖：
+Here's a `provider` example of the problem.
 
+```
+// ERROR
+let foo: number; // neither exported nor initialized
 
-<code-example language="none" class="code-shell">
-  npm install rollup rollup-plugin-node-resolve rollup-plugin-commonjs rollup-plugin-uglify --save-dev
-</code-example>
+@Component({
+  selector: 'my-component',
+  template: ... ,
+  providers: [
+    { provide: Foo, useValue: foo }
+  ]
+})
+export class MyComponent {}
+```
+The compiler generates the component factory, which includes the `useValue` provider code, in a separate module. _That_ factory module can't reach back to _this_ source module to access the local (non-exported) `foo` variable.
 
-Next, create a configuration file (`rollup-config.js`)
-in the project root directory to tell Rollup how to process the application.
-The cookbook configuration file looks like this.
+You could fix the problem by initializing `foo`.
 
+```
+let foo = 42; // initialized
+```
 
-接下来，在项目根目录新建一个配置文件（`rollup-config.js`），来告诉Rollup如何处理应用。
-本烹饪书配置文件是这样的：
+The compiler will [fold](#folding) the expression into the provider as if you had written this.
 
-<code-example path="aot-compiler/rollup-config.js" title="rollup-config.js" linenums="false">
-</code-example>
+```
+  providers: [
+    { provide: Foo, useValue: 42 }
+  ]```
 
-This config file tells Rollup that the app entry point is `src/app/main.js` .
-The `dest` attribute tells Rollup to create a bundle called `build.js` in the `dist` folder.
-It overrides the default `onwarn` method in order to skip annoying messages about the AOT compiler's use of the `this` keyword.
+Alternatively, you can fix it by exporting `foo` with the expectation that `foo` will be assigned at runtime when you actually know its value.
 
-这个配置文件告诉Rollup，该应用的入口点是`app/main.js`。
-`dest`属性告诉Rollup要在`dist`目录下创建一个名叫`build.js`的捆文件。
-它覆盖了默认的`onwarn`方法，以便忽略由于AOT编译器使用`this`关键字导致的噪音消息。
+```
+// CORRECTED
+export let foo: number; // exported
 
-The next section covers the plugins in more depth.
+@Component({
+  selector: 'my-component',
+  template: ... ,
+  providers: [
+    { provide: Foo, useValue: foo }
+  ]
+})
+export class MyComponent {}
+```
 
-下一节我们将深入讲解插件。
+Adding `export` often works for variables referenced in metadata such as `providers` and `animations` because the compiler can generate _references_ to the exported variables in these expressions. It doesn't need the _values_ of those variables.
 
+Adding `export` doesn't work when the compiler needs the _actual value_
+in order to generate code.
+For example, it doesn't work for the `template` property.
 
-{@a rollup-plugins}
+```
+// ERROR
+export let someTemplate: string; // exported but not initialized
 
-### Rollup Plugins
+@Component({
+  selector: 'my-component',
+  template: someTemplate
+})
+export class MyComponent {}
+```
 
-### Rollup插件
+The compiler needs the value of the `template` property _right now_ to generate the component factory.
+The variable reference alone is insufficient.
+Prefixing the declaration with `export` merely produces a new error, "[`Only initialized variables and constants can be referenced`](#only-initialized-variables)".
 
-Optional plugins filter and transform the Rollup inputs and output.
+<hr>
 
-这些可选插件过滤并转换Rollup的输入和输出。
+{@a only-initialized-variables}
+<h3 class="no-toc">Only initialized variables and constants</h3>
 
-*RxJS*
+<div class="alert is-helpful">
 
-*RxJS* 库
-
-Rollup expects application source code to use `ES2015` modules. 
-Not all external dependencies are published as `ES2015` modules.
-In fact, most are not. Many of them are published as _CommonJS_ modules.
-
-Rollup期望应用的源码使用`ES2015`模块。
-但并不是所有外部依赖都发布成了`ES2015`模块。
-事实上，大多数都不是。它们大多数都发布成了*CommonJS*模块。
-
-The _RxJs_ Observable library is an essential Angular dependency published as an ES5 JavaScript _CommonJS_ module.
-
-可观察对象库*RxJS*是Angular所依赖的基础之一，它就是发布成了ES5 JavaScript的*CommonJS*模块。
-
-Luckily, there is a Rollup plugin that modifies _RxJs_
-to use the ES `import` and `export` statements that Rollup requires.
-Rollup then preserves the parts of `RxJS` referenced by the application
-in the final bundle. Using it is straigthforward. Add the following to
-the `plugins` array in `rollup-config.js`:
-
-
-幸运的是，有一个Rollup插件，它会修改*RxJS*，以使用Rollup所需的ES`import`和`export`语句。
-然后Rollup就可以把该应用中用到的那部分`RxJS`代码留在“捆”文件中了。
-它的用法很简单。把下列代码添加到`rollup-config.js`的`plugins`数组中：
-
-<code-example path="aot-compiler/rollup-config.js" region="commonjs" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
-</code-example>
-
-*Minification*
-
-*最小化*
-
-Rollup tree shaking reduces code size considerably.  Minification makes it smaller still.
-This cookbook relies on the _uglify_ Rollup plugin to minify and mangle the code.
-Add the following to the `plugins` array:
-
-
-Rollup做摇树优化时会大幅减小代码体积。最小化过程则会让它更小。
-本烹饪宝典依赖于Rollup插件*uglify*来最小化并混淆代码。
-把下列代码添加到`plugins`数组中：
-
-<code-example path="aot-compiler/rollup-config.js" region="uglify" title="rollup-config.js (CommonJs to ES2015 Plugin)" linenums="false">
-</code-example>
-
-<div class="l-sub-section">
-
-  In a production setting, you would also enable gzip on the web server to compress
-  the code into an even smaller package going over the wire.
-
-在生产环境中，我们还应该打开Web服务器的gzip特性来把代码压缩得更小。
-
+_Only initialized variables and constants can be referenced because the value of this variable is needed by the template compiler._
 
 </div>
 
-{@a run-rollup}
+The compiler found a reference to an exported variable or static field that wasn't initialized.
+It needs the value of that variable to generate code.
 
-### Run Rollup
+The following example tries to set the component's `template` property to the value of
+the exported `someTemplate` variable which is declared but _unassigned_.
 
-### 运行Rollup
+```
+// ERROR
+export let someTemplate: string;
 
-Execute the Rollup process with this command:
+@Component({
+  selector: 'my-component',
+  template: someTemplate
+})
+export class MyComponent {}
+```
 
-通过下列命令执行Rollup过程：
+You'd also get this error if you imported `someTemplate` from some other module and neglected to initialize it there.
 
+```
+// ERROR - not initialized there either
+import { someTemplate } from './config';
 
-<code-example language="none" class="code-shell">
-  node_modules/.bin/rollup -c rollup-config.js
-</code-example>
+@Component({
+  selector: 'my-component',
+  template: someTemplate
+})
+export class MyComponent {}
+```
 
-<div class="l-sub-section">
+The compiler cannot wait until runtime to get the template information.
+It must statically derive the value of the `someTemplate` variable from the source code
+so that it can generate the component factory, which includes
+instructions for building the element based on the template.
 
+To correct this error, provide the initial value of the variable in an initializer clause _on the same line_.
 
+```
+// CORRECTED
+export let someTemplate = '<h1>Greetings from Angular</h1>';
 
-Windows users should surround the `rollup` command in double quotes:
+@Component({
+  selector: 'my-component',
+  template: someTemplate
+})
+export class MyComponent {}
+```
 
-Windows用户要把`rollup`命令放进双引号中：
+<hr>
 
-<code-example language="none" class="code-shell">
-  "node_modules/.bin/rollup"  -c rollup-config.js
-</code-example>
+<h3 class="no-toc">Reference to a non-exported class</h3>
+
+<div class="alert is-helpful">
+
+_Reference to a non-exported class <class name>. Consider exporting the class._
 
 </div>
 
-{@a load}
-
-## Load the bundle
-
-## 加载捆文件
-
-Loading the generated application bundle does not require a module loader like SystemJS.
-Remove the scripts that concern SystemJS.
-Instead, load the bundle file using a single `<script>` tag **_after_** the `</body>` tag:
-
-
-加载所生成的应用捆文件，并不需要使用像SystemJS这样的模块加载器。
-移除与SystemJS有关的那些脚本吧。
-改用`<script>`标签来加载这些捆文件：
-
-<code-example path="aot-compiler/src/index.html" region="bundle" title="index.html (load bundle)" linenums="false">
-</code-example>
-
-{@a serve}
-
-## Serve the app
-
-## 启动应用服务器
-
-You'll need a web server to host the application.
-Use the same `lite-server` employed elsewhere in the documentation:
-
-你需要一个Web服务器来作为应用的宿主。
-像与文档中其它部分一样，用`lite-server`吧：
-
-
-<code-example language="none" class="code-shell">
-  npm run lite
-
-</code-example>
-
-The server starts, launches a browser, and the app should appear.
-
-启动了服务器、打开浏览器，应用就出现了。
-
-
-{@a source-code}
-
-## AOT QuickStart source code
-
-## AOT快速起步源代码
-
-Here's the pertinent source code:
-
-下面是相关源代码：
-
-<code-tabs>
-  <code-pane title="src/app/app.component.html" path="aot-compiler/src/app/app.component.html">
-  </code-pane>
-  <code-pane title="src/app/app.component.ts" path="aot-compiler/src/app/app.component.ts">
-  </code-pane>
-  <code-pane title="src/main.ts" path="aot-compiler/src/main.ts">
-  </code-pane>
-  <code-pane title="src/index.html" path="aot-compiler/src/index.html">
-  </code-pane>
-  <code-pane title="tsconfig-aot.json" path="aot-compiler/tsconfig-aot.json">
-  </code-pane>
-  <code-pane title="rollup-config.js" path="aot-compiler/rollup-config.js">
-  </code-pane>
-</code-tabs>
-
-{@a workflow}
-
-## Workflow and convenience script
-
-## 工作流与便利脚本
-
-You'll rebuild the AOT version of the application every time you make a change.
-Those _npm_ commands are long and difficult to remember.
-
-每当修改时，我们都将重新构建应用的AOT版本。
-那些*npm*命令太长，很难记。
-
-Add the following _npm_ convenience script to the `package.json` so you can compile and rollup in one command.
-
-把下列*npm*便利脚本添加到`package.json`中，以便用一条命令就可以完成编译和Rollup打包工作。
-
-
-<code-example language="json">
-  "build:aot": "ngc -p tsconfig-aot.json && rollup -c rollup-config.js",
-</code-example>
-
-Open a terminal window and try it.
-
-打开终端窗口，并试一下。
-
-
-<code-example language="none" class="code-shell">
-  npm run build:aot
-</code-example>
-
-{@a run-jit}
-
-### Develop JIT along with AOT
-
-### 先用JIT开发，再AOT发布
-
-AOT compilation and rollup together take several seconds.
-You may be able to develop iteratively a little faster with SystemJS and JIT.
-The same source code can be built both ways. Here's one way to do that.
-
-AOT编译和Rollup打包加起来要花好几秒钟。
-用SystemJS和JIT可以让开发期间的迭代更快一点。
-同一套源码可以用这两种方式构建。下面是方法之一：
-
-* Make a copy of `index.html` and call it `index-jit.html`.
-
-  复制一份`index.html`并命名为`index-jit.html`。
-  
-* Delete the script at the bottom of `index-jit.html` that loads `bundle.js`
-
-  删除`index-jit.html`底部用来加载`bundle.js`的脚本
-  
-* Restore the SystemJS scripts like this:
-
-  代之以如下的SystemJS脚本：
-
-
-<code-example path="aot-compiler/src/index-jit.html" region="jit" title="src/index-jit.html (SystemJS scripts)" linenums="false">
-</code-example>
-
-Notice the slight change to the `system.import` which now specifies `src/app/main-jit`.
-That's the JIT version of the bootstrap file that we preserved [above](guide/aot-compiler#bootstrap).
-
-注意，这里稍微修改了一下`system.import`，现在它指向了`src/app/main-jit`。
-这就是我们[以前](guide/aot-compiler#bootstrap)预留的JIT版本的引导文件。
-
-
-Open a _different_ terminal window and enter `npm start`.
-
-打开*另一个*终端窗口，并输入`npm start`：
-
-
-<code-example language="none" class="code-shell">
-  npm start
-
-</code-example>
-
-That compiles the app with JIT and launches the server.
-The server loads `index.html` which is still the AOT version, which you can confirm in the browser console.
-Change the address bar to `index-jit.html` and it loads the JIT version.
-This is also evident in the browser console.
-
-它会使用JIT方式编译本应用，并启动服务器。
-服务器仍然加载的是AOT版的`index.html`，我们可以在浏览器的控制台中确认这一点。
-在地址栏中改为`index-jit.html`，它就会加载JIT版，这同样可以在浏览器控制台中确认。
-
-Develop as usual.
-The server and TypeScript compiler are in "watch mode" so your changes are reflected immediately in the browser.
-
-照常开发。服务器和TypeScript编译器都处于“监听模式”，因此我们的修改都可以立刻反映到浏览器中。
-
-To see those changes in AOT, switch to the original terminal and re-run `npm run build:aot`.
-When it finishes, go back to the browser and use the back button to
-return to the AOT version in the default `index.html`.
-
-要对比AOT版的变化，可以切换到原来的终端窗口中，并重新运行`npm run build:aot`。
-结束时，回到浏览器中，并用浏览器的后退按钮回到默认`index.html`中的AOT版本。
-
-Now you can develop JIT and AOT, side-by-side.
-
-现在，我们就可以同时进行JIT和AOT开发了。
-
-
-{@a toh}
-
-## Tour of Heroes
-
-## 英雄指南
-
-The sample above is a trivial variation of the QuickStart application.
-In this section you apply what you've learned about AOT compilation and tree shaking
-to an app with more substance, the [_Tour of Heroes_](tutorial/toh-pt6) application.
-
-上面的例子是《快速上手》应用的一个简单的变体。
-在本节中，你将在一个更多内容的应用 - [英雄指南](tutorial/toh-pt6)上使用从AOT编译和摇树优化学到的知识。
-
-
-{@a jit-dev-aot-prod}
-
-### JIT in development, AOT in production
-
-### 开发器使用JIT, 产品期使用AOT
-
-Today AOT compilation and tree shaking take more time than is practical for development. That will change soon.
-For now, it's best to JIT compile in development and switch to AOT compilation before deploying to production.
-
-目前，AOT编译和摇树优化对开发来说，占用的时间太多了。这将在未来得到改变。
-当前的最佳实践是在开发器使用JIT编译，然后在发布产品前切换到AOT编译。
-
-Fortunately, the source code can be compiled either way without change _if_ you account for a few key differences.
-
-幸运的是，**如果**你处理了几个关键不同点，源代码可以在没有任何变化时，采取两种方式的任何一种都能编译。
-
-***index.html***
-
-The JIT and AOT apps require their own `index.html` files because they setup and launch so differently. 
-
-JIT和AOT应用的设置和加载非常不一样，因此它们需要各自的`index.html`文件。
-
-Here they are for comparison:
-
-下面是它们的比较：
-
-
-<code-tabs>
-  <code-pane title="aot/index.html (AOT)" path="toh-pt6/aot/index.html">
-  </code-pane>
-  <code-pane title="src/index.html (JIT)" path="toh-pt6/src/index.html">
-  </code-pane>
-</code-tabs>
-
-
-The JIT version relies on `SystemJS` to load individual modules.
-Its scripts appear in its `index.html`.
-
-JIT版本依靠`SystemJS`来加载单个模块，并需要`reflect-metadata`垫片。
-所以它们出现在它的`index.html`中。
-
-The AOT version loads the entire application in a single script, `aot/dist/build.js`.
-It does not need `SystemJS`, so that script is absent from its `index.html`
-
-***main.ts***
-
-JIT and AOT applications boot in much the same way but require different Angular libraries to do so.
-The key differences, covered in the [Bootstrap](guide/aot-compiler#bootstrap) section above,
-are evident in these `main` files which can and should reside in the same folder:
-
-AOT版本用一个单独的脚本来加载整个应用 - `aot/dist/build.js`。它不需要`SystemJS`和`reflect-metadata`垫片，所以它们不会出现在`index.html`中。
-
-
-<code-tabs>
-  <code-pane title="main-aot.ts (AOT)" path="toh-pt6/src/main-aot.ts">
-  </code-pane>
-  <code-pane title="main.ts (JIT)" path="toh-pt6/src/main.ts">
-  </code-pane>
-</code-tabs>
-
-***TypeScript configuration***
-
-***TypeScript配置***
-
-JIT-compiled applications transpile to `commonjs` modules.
-AOT-compiled applications transpile to _ES2015_/_ES6_ modules to facilitate tree shaking.
-AOT requires its own TypeScript configuration settings as well.
-
-JIT编译的应用编译为`commonjs`模块。
-AOT编译的应用编译为**ES2015/ES6**模块，用来支持摇树优化。
-而且AOT需要它自己的TypeScript配置设置。
-
-You'll need separate TypeScript configuration files such as these:
-
-你将需要单独的TypeScript配置文件，像这些：
-
-
-<code-tabs>
-  <code-pane title="tsconfig-aot.json (AOT)" path="toh-pt6/tsconfig-aot.json">
-  </code-pane>
-  <code-pane title="src/tsconfig.json (JIT)" path="toh-pt6/src/tsconfig.1.json">
-  </code-pane>
-</code-tabs>
-
-<div class="callout is-helpful">
-
-  <header>
-    `@types` and node modules
-  </header>
-
-
-
-<header>
-  @Types和node模块
-</header>In the file structure of _this particular sample project_,
-the `node_modules` folder happens to be two levels up from the project root.
-Therefore, `"typeRoots"` must be set to `"../../node_modules/@types/"`.
-
-在**这个特定的示例项目**的文件结构中，`node_modules`文件恰好比项目根目录高两级。
-因此，`"typeRoots"`必须设置为`"../../node_modules/@types/"`。In a more typical project, `node_modules` would be a sibling of `tsconfig-aot.json`
-and `"typeRoots"` would be set to `"node_modules/@types/"`.
-Edit your `tsconfig-aot.json` to fit your project's file structure.
-
-在一个更典型的项目中，`node_modules`位于`tsconfig-aot.json`同级，
-这时`"typeRoots"`应设置为`"node_modules/@types/"`。
-编辑你的`tsconfig-aot.json`，使之适合项目的文件结构。
-
+Metadata referenced a class that wasn't exported.
+
+For example, you may have defined a class and used it as an injection token in a providers array
+but neglected to export that class.
+
+```
+// ERROR
+abstract class MyStrategy { }
+
+  ...
+  providers: [
+    { provide: MyStrategy, useValue: ... }
+  ]
+  ...
+```
+
+Angular generates a class factory in a separate module and that
+factory [can only access exported classes](#exported-symbols).
+To correct this error, export the referenced class.
+
+```
+// CORRECTED
+export abstract class MyStrategy { }
+
+  ...
+  providers: [
+    { provide: MyStrategy, useValue: ... }
+  ]
+  ...
+```
+<hr>
+
+<h3 class="no-toc">Reference to a non-exported function</h3>
+
+Metadata referenced a function that wasn't exported.
+
+For example, you may have set a providers `useFactory` property to a locally defined function that you neglected to export.
+
+```
+// ERROR
+function myStrategy() { ... }
+
+  ...
+  providers: [
+    { provide: MyStrategy, useFactory: myStrategy }
+  ]
+  ...
+```
+
+Angular generates a class factory in a separate module and that
+factory [can only access exported functions](#exported-symbols).
+To correct this error, export the function.
+
+```
+// CORRECTED
+export function myStrategy() { ... }
+
+  ...
+  providers: [
+    { provide: MyStrategy, useFactory: myStrategy }
+  ]
+  ...
+```
+<hr>
+
+{@a function-calls-not-supported}
+<h3 class="no-toc">Function calls are not supported</h3>
+
+<div class="alert is-helpful">
+
+_Function calls are not supported. Consider replacing the function or lambda with a reference to an exported function._
 
 </div>
 
-{@a shaking}
+The compiler does not currently support [function expressions or lambda functions](#function-expression).
+For example, you cannot set a provider's `useFactory` to an anonymous function or arrow function like this.
 
-### Tree shaking
+```
+// ERROR
+  ...
+  providers: [
+    { provide: MyStrategy, useFactory: function() { ... } },
+    { provide: OtherStrategy, useFactory: () => { ... } }
+  ]
+  ...
+```
+You also get this error if you call a function or method in a provider's `useValue`.
+```
+// ERROR
+import { calculateValue } from './utilities';
 
-### 摇树优化
+  ...
+  providers: [
+    { provide: SomeValue, useValue: calculateValue() }
+  ]
+  ...
+```
 
-Rollup does the tree shaking as before.
+To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
 
+<code-example linenums="false">
+// CORRECTED
+import { calculateValue } from './utilities';
 
-Rollup和以前一样，仍然进行摇树优化。
-
-<code-example path="toh-pt6/rollup-config.js" title="rollup-config.js" linenums="false">
+export function myStrategy() { ... }
+export function otherStrategy() { ... }
+export function someValueFactory() {
+  return calculateValue();
+}
+  ...
+  providers: [
+    { provide: MyStrategy, useFactory: myStrategy },
+    { provide: OtherStrategy, useFactory: otherStrategy },
+    { provide: SomeValue, useFactory: someValueFactory }
+  ]
+  ...
 </code-example>
 
-{@a running-app}
+<hr>
 
-### Running the application
+{@a destructured-variable-not-supported}
+<h3 class="no-toc">Destructured variable or constant not supported</h3>
 
-### 运行应用
+<div class="alert is-helpful">
 
-
-<div class="alert is-important">
-
-  The general audience instructions for running the AOT build of the Tour of Heroes app are not ready.
-  
-  面向大众的运行AOT构建的英雄指南应用的说明还没有准备好。
-
-  The following instructions presuppose that you have downloaded the
-  <a href="generated/zips/toh-pt6/toh-pt6.zip" target="_blank">Tour of Heroes' zip</a>
-  and run `npm install` on it.
-
-  下列步骤假设你已经下载了<a href="generated/zips/toh-pt6/toh-pt6.zip" target="_blank">《英雄指南》的zip包</a>，并且在其中运行过了`npm install`。
+_Referencing an exported destructured variable or constant is not supported by the template compiler. Consider simplifying this to avoid destructuring._
 
 </div>
 
-Run the JIT-compiled app with `npm start` as for all other JIT examples.
+The compiler does not support references to variables assigned by [destructuring](https://www.typescriptlang.org/docs/handbook/variable-declarations.html#destructuring).
 
-和其他JIT例子一样，使用`npm start`命令，运行JIT编译的应用：
+For example, you cannot write something like this:
 
-Compiling with AOT presupposes certain supporting files, most of them discussed above.
+<code-example linenums="false">
+// ERROR
+import { configuration } from './configuration';
 
-AOT编译假设上面介绍的一些支持文件都以准备好。
-
-<code-tabs>
-  <code-pane title="src/index.html" path="toh-pt6/src/index.html">
-  </code-pane>
-  <code-pane title="copy-dist-files.js" path="toh-pt6/copy-dist-files.js">
-  </code-pane>
-  <code-pane title="rollup-config.js" path="toh-pt6/rollup-config.js">
-  </code-pane>
-  <code-pane title="tsconfig-aot.json" path="toh-pt6/tsconfig-aot.json">
-  </code-pane>
-</code-tabs>
-
-With the following npm script in the `scripts` section of the `package.json`, you can easily serve
-the AOT-compiled application:
-
-使用下面的npm脚本，扩展`package.json`文件的`scripts`部分：
-
-<code-example language="json">
-  "serve:aot": "lite-server -c bs-config.aot.json",
+// destructured assignment to foo and bar
+const {foo, bar} = configuration;
+  ...
+  providers: [
+    {provide: Foo, useValue: foo},
+    {provide: Bar, useValue: bar},
+  ]
+  ...
 </code-example>
 
+To correct this error, refer to non-destructured values.
 
-Copy the AOT distribution files into the `/aot` folder with the node script:
-
-使用下面的node脚本，拷贝AOT发布文件到`/aot/`目录：
-
-<code-example language="none" class="code-shell">
-  node copy-dist-files
+<code-example linenums="false">
+// CORRECTED
+import { configuration } from './configuration';
+  ...
+  providers: [
+    {provide: Foo, useValue: configuration.foo},
+    {provide: Bar, useValue: configuration.bar},
+  ]
+  ...
 </code-example>
 
-<div class="l-sub-section">
+<hr>
 
-  You won't do that again until there are updates to `zone.js` or the `core-js` shim for old browsers.
+<h3 class="no-toc">Could not resolve type</h3>
 
-直到`zone.js`或者支持老版本浏览器的`core-js`垫片有更新，你不需要再这样做。
+The compiler encountered a type and can't determine which module exports that type.
+
+This can happen if you refer to an ambient type.
+For example, the `Window` type is an ambiant type declared in the global `.d.ts` file.
+
+You'll get an error if you reference it in the component constructor,
+which the compiler must statically analyze.
+
+```
+// ERROR
+@Component({ })
+export class MyComponent {
+  constructor (private win: Window) { ... }
+}
+```
+TypeScript understands ambiant types so you don't import them.
+The Angular compiler does not understand a type that you neglect to export or import.
+
+In this case, the compiler doesn't understand how to inject something with the `Window` token.
+
+Do not refer to ambient types in metadata expressions.
+
+If you must inject an instance of an ambiant type,
+you can finesse the problem in four steps:
+
+1. Create an injection token for an instance of the ambiant type.
+1. Create a factory function that returns that instance.
+1. Add a `useFactory` provider with that factory function.
+1. Use `@Inject` to inject the instance.
+
+Here's an illustrative example.
+
+<code-example linenums="false">
+// CORRECTED
+import { Inject } from '@angular/core';
+
+export const WINDOW = new InjectionToken('Window');
+export function _window() { return window; }
+
+@Component({
+  ...
+  providers: [
+    { provide: WINDOW, useFactory: _window }
+  ]
+})
+export class MyComponent {
+  constructor (@Inject(WINDOW) private win: Window) { ... }
+}
+</code-example>
+
+The `Window` type in the constructor is no longer a problem for the compiler because it
+uses the `@Inject(WINDOW)` to generate the injection code.
+
+Angular does something similar with the `DOCUMENT` token so you can inject the browser's `document` object (or an abstraction of it, depending upon the platform in which the application runs).
+
+<code-example linenums="false">
+import { Inject }   from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+
+@Component({ ... })
+export classMyComponent {
+  constructor (@Inject(DOCUMENT) private doc: Document) { ... }
+}
+</code-example>
+<hr>
+
+<h3 class="no-toc">Name expected</h3>
+
+The compiler expected a name in an expression it was evaluating.
+This can happen if you use a number as a property name as in the following example.
+
+```
+// ERROR
+provider: [{ provide: Foo, useValue: { 0: 'test' } }]
+```
+
+Change the name of the property to something non-numeric.
+
+```
+// CORRECTED
+provider: [{ provide: Foo, useValue: { '0': 'test' } }]
+```
+
+<hr>
+
+<h3 class="no-toc">Unsupported enum member name</h3>
+
+Angular couldn't determine the value of the [enum member](https://www.typescriptlang.org/docs/handbook/enums.html)
+that you referenced in metadata.
+
+The compiler can understand simple enum values but not complex values such as those derived from computed properties.
+
+<code-example linenums="false">
+// ERROR
+enum Colors {
+  Red = 1,
+  White,
+  Blue = "Blue".length // computed
+}
+
+  ...
+  providers: [
+    { provide: BaseColor,   useValue: Colors.White } // ok
+    { provide: DangerColor, useValue: Colors.Red }   // ok
+    { provide: StrongColor, useValue: Colors.Blue }  // bad
+  ]
+  ...
+</code-example>
+
+Avoid referring to enums with complicated initializers or computed properties.
+
+<hr>
+
+{@a tagged-template-expressions-not-supported}
+<h3 class="no-toc">Tagged template expressions are not supported</h3>
+
+<div class="alert is-helpful">
+
+_Tagged template expressions are not supported in metadata._
 
 </div>
 
-Now AOT-compile the app and launch:
+The compiler encountered a JavaScript ES2015 [tagged template expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals) such as,
+```
+// ERROR
+const expression = 'funky';
+const raw = String.raw`A tagged template ${expression} string`;
+ ...
+ template: '<div>' + raw + '</div>'
+ ...
+```
+[`String.raw()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw)
+is a _tag function_ native to JavaScript ES2015.
 
-现在AOT编译应用，并使用`lite`服务器启动它：
+The AOT compiler does not support tagged template expressions; avoid them in metadata expressions.
 
+<hr>
 
-<code-example language="none" class="code-shell">
-  npm run build:aot && npm run serve:aot
-</code-example>
+<h3 class="no-toc">Symbol reference expected</h3>
 
-{@a inspect-bundle}
+The compiler expected a reference to a symbol at the location specified in the error message.
 
-### Inspect the Bundle
+This error can occur if you use an expression in the `extends` clause of a class.
 
-### 检查包裹
+<!--
 
-It's fascinating to see what the generated JavaScript bundle looks like after Rollup.
-The code is minified, so you won't learn much from inspecting the bundle directly.
-But the <a href="https://github.com/danvk/source-map-explorer/blob/master/README.md">source-map-explorer</a>
-tool can be quite revealing.
+Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](https://github.com/angular/angular/pull/17712#discussion_r132025495).
 
-看看Rollup之后生成的JavaScript包，非常神奇。
-代码已经被最小化，所以你不会从中直接学到任何知识。
-但是<a href="https://github.com/danvk/source-map-explorer/blob/master/README.md" target="_blank">source-map-explorer</a> 工具非常有用。
+-->
 
-Install it:
+## Summary
 
-安装：
-
-<code-example language="none" class="code-shell">
-  npm install source-map-explorer --save-dev
-</code-example>
-
-Run the following command to generate the map.
-
-运行下面的命令来生成源映射。
-
-
-<code-example language="none" class="code-shell">
-  node_modules/.bin/source-map-explorer aot/dist/build.js
-</code-example>
-
-The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
-showing exactly which application and NgModules and classes are included in the bundle.
-
-`source-map-explorer`分析从包生成的源映射，并画出一个依赖地图，显示包中包含哪些应用程序和Angular模块和类。
-
-Here's the map for _Tour of Heroes_.
-下面是英雄指南的地图：<a href="generated/images/guide/aot-compiler/toh-pt6-bundle.png"  title="View larger image">
-<figure >
-  <img src="generated/images/guide/aot-compiler/toh-pt6-bundle-700w.png" alt="toh-pt6-bundle">
-</figure>
-</a>
+* What the AOT compiler does and why it is important.
+* Why metadata must be written in a subset of JavaScript.
+* What that subset is.
+* Other restrictions on metadata definition.
+* Macro-functions and macro-static methods.
+* Compiler errors related to metadata.

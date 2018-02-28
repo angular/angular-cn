@@ -5154,7 +5154,7 @@ It will be there when the `CrisisDetailComponent` ask for it.
 
 
 
-**Two critical points**
+**Three critical points**
 
 **两个关键点**
 

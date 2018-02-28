@@ -25,22 +25,9 @@ and a foundation for both these documentation samples and for real world applica
 
 在本章的末尾，我们会通过CLI对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
-<!--
-
-You'll pursue these ends in the following high-level steps:
-
-1. [Set up](guide/cli-quickstart#devenv) the development environment.
-2. [Create](guide/cli-quickstart#create-proj) a new project and skeleton application.
-3. [Serve](guide/cli-quickstart#serve) the application.
-4. [Edit](guide/cli-quickstart#first-component) the application.
-
--->
-
 And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">download the example.</a>
 
-你还可以 <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">下载这个例子</a> 。
-
-
+你还可以 <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">下载这个例子。</a>
 
 <h2 id='devenv'>
   Step 1. Set up the Development Environment
@@ -127,8 +114,8 @@ Generate a new project and skeleton application by running the following command
 
 
 
-Patience please.
-It takes time to set up a new project, most of it spent installing npm packages.
+Patience, please.
+It takes time to set up a new project; most of it is spent installing npm packages.
 
 请耐心等待。
 创建新项目需要花费很多时间，大多数时候都是在安装那些npm包。
@@ -156,7 +143,6 @@ Go to the project directory and launch the server.
 <code-example language="sh" class="code-shell">
   cd my-app
   ng serve --open
-
 </code-example>
 
 
@@ -467,8 +453,8 @@ Any files outside of this folder are meant to support building your app.
       The main entry point for your app.
       Compiles the application with the [JIT compiler](guide/glossary#jit)
       and bootstraps the application's root module (`AppModule`) to run in the browser.
-      You can also use the [AOT compiler](guide/glossary#ahead-of-time-aot-compilation)
-      without changing any code by passing in `--aot` to `ng build` or `ng serve`.
+      You can also use the [AOT compiler](guide/aot-compiler)
+      without changing any code by appending the`--aot` flag to the `ng build` and `ng serve` commands.
 
       这是应用的主要入口点。
       使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块`AppModule`，使其运行在浏览器中。

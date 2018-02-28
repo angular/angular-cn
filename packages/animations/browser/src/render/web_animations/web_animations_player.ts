@@ -65,7 +65,7 @@ export class WebAnimationsPlayer implements AnimationPlayer {
 
     const keyframes = this.keyframes.map(styles => copyStyles(styles, false));
     const previousStyleProps = Object.keys(this.previousStyles);
-    if (previousStyleProps.length) {
+    if (previousStyleProps.length && keyframes.length) {
       let startingKeyframe = keyframes[0];
       let missingStyleProps: string[] = [];
       previousStyleProps.forEach(prop => {
@@ -183,6 +183,13 @@ export class WebAnimationsPlayer implements AnimationPlayer {
       });
     }
     this.currentSnapshot = styles;
+  }
+
+  /* @internal */
+  triggerCallback(phaseName: string): void {
+    const methods = phaseName == 'start' ? this._onStartFns : this._onDoneFns;
+    methods.forEach(fn => fn());
+    methods.length = 0;
   }
 }
 

@@ -18,7 +18,7 @@ function createDiv() {
   return document.createElement('div');
 }
 
-export function main() {
+{
   describe('Animation', () => {
     // these tests are only mean't to be run within the DOM (for now)
     if (typeof Element == 'undefined') return;
@@ -119,6 +119,14 @@ export function main() {
            expect(() => validateAndThrowAnimationSequence(steps)).not.toThrow();
          });
 
+      it('should not allow triggers to be defined with a prefixed `@` symbol', () => {
+        const steps = trigger('@foo', []);
+
+        expect(() => validateAndThrowAnimationSequence(steps))
+            .toThrowError(
+                /animation triggers cannot be prefixed with an `@` sign \(e\.g\. trigger\('@foo', \[...\]\)\)/);
+      });
+
       it('should throw an error if an animation time is invalid', () => {
         const steps = [animate('500xs', style({opacity: 1}))];
 
@@ -208,6 +216,26 @@ export function main() {
             .toThrowError(
                 /The provided animation property "abc" is not a supported CSS property for animations/);
       });
+
+      it('should allow a vendor-prefixed property to be used in an animation sequence without throwing an error',
+         () => {
+           const steps = [
+             style({webkitTransform: 'translateX(0px)'}),
+             animate(1000, style({webkitTransform: 'translateX(100px)'}))
+           ];
+
+           expect(() => validateAndThrowAnimationSequence(steps)).not.toThrow();
+         });
+
+      it('should allow for old CSS properties (like transform) to be auto-prefixed by webkit',
+         () => {
+           const steps = [
+             style({transform: 'translateX(-100px)'}),
+             animate(1000, style({transform: 'translateX(500px)'}))
+           ];
+
+           expect(() => validateAndThrowAnimationSequence(steps)).not.toThrow();
+         });
     });
 
     describe('keyframe building', () => {

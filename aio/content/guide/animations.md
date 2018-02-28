@@ -28,9 +28,7 @@ and run natively on [browsers that support it](http://caniuse.com/#feat=web-anim
 
 Angular动画是基于标准的[Web动画API(Web Animations API)](https://w3c.github.io/web-animations/)构建的，它们在[支持此API的浏览器中](http://caniuse.com/#feat=web-animation)会用原生方式工作。
 
-For other browsers, a polyfill is required. Grab
-[`web-animations.min.js` from GitHub](https://github.com/web-animations/web-animations-js) and
-add it to your page.
+For other browsers, a polyfill is required. Uncomment the `web-animations-js` polyfill from the `polyfills.ts` file.
 
 至于其它浏览器，就需要一个填充库(polyfill)了。你可以[从这里获取`web-animations.min.js`](https://github.com/web-animations/web-animations-js)，并把它加入你的页面中。   
 

@@ -9,122 +9,6 @@ This cookbook explores many of the features of Dependency Injection (DI) in Angu
 依赖注入是一个用来管理代码依赖的强大模式。在这本“烹饪宝典”中，我们会讨论Angular依赖注入的许多特性。
 {@a toc}
 
-<!--
-
-# Contents
-
-# 目录
-
-* [Application-wide dependencies](guide/dependency-injection-in-action#app-wide-dependencies)
-
-  [应用程序全局依赖](guide/dependency-injection-in-action#app-wide-dependencies)
-  
-* [External module configuration](guide/dependency-injection-in-action#external-module-configuration)
-
-  [外部模块配置](guide/dependency-injection-in-action#external-module-configuration)
-  
-* [`@Injectable()` and nested service dependencies](guide/dependency-injection-in-action#nested-dependencies)
-
-  [`@Injectable()`与嵌套服务的依赖](guide/dependency-injection-in-action#nested-dependencies)
-
-  * [`@Injectable()`](guide/dependency-injection-in-action#injectable-1)
-
-* [Limit service scope to a component subtree](guide/dependency-injection-in-action#service-scope)
-
-  [把服务作用域限制到一个子组件树](guide/dependency-injection-in-action#service-scope)
-  
-* [Multiple service instances (sandboxing)](guide/dependency-injection-in-action#multiple-service-instances)
-
-  [多个服务实例(沙箱)](guide/dependency-injection-in-action#multiple-service-instances)
-  
-* [Qualify dependency lookup with `@Optional()` and `@Host()`](guide/dependency-injection-in-action#qualify-dependency-lookup)
-
-  [使用`@Optional()`和`@Host()`装饰器来限定依赖查找方式](guide/dependency-injection-in-action#qualify-dependency-lookup)
-
-  * [Demonstration](guide/dependency-injection-in-action#demonstration)
-  
-    [演示](guide/dependency-injection-in-action#demonstration)
-
-* [Inject the component's DOM element](guide/dependency-injection-in-action#component-element)
-
-  [注入组件的DOM元素](guide/dependency-injection-in-action#component-element)
-  
-* [Define dependencies with providers](guide/dependency-injection-in-action#providers)
-
-  [使用提供商定义依赖](guide/dependency-injection-in-action#providers)
-
-  * [Defining providers](guide/dependency-injection-in-action#defining-providers)
-  
-    [定义提供商](guide/dependency-injection-in-action#defining-providers)
-    
-  * [The *provide* object literal](guide/dependency-injection-in-action#provide)
-  
-    [*provide* 字面量](guide/dependency-injection-in-action#provide)
-  
-  * [`useValue`&mdash;the *value provider*](guide/dependency-injection-in-action#usevalue)
-  
-    [`useValue` - *值提供商*](guide/dependency-injection-in-action#usevalue)
-    
-  * [`useClass`&mdash;the *class provider*](guide/dependency-injection-in-action#useclass)
-  
-    [`useClass` - *类提供商*](guide/dependency-injection-in-action#useclass)
-    
-  * [`useExisting`&mdash;the *alias provider*](guide/dependency-injection-in-action#useexisting)
-  
-    [`useExisting` - *别名提供商*](guide/dependency-injection-in-action#useexisting)
-    
-  * [`useFactory`&mdash;the *factory provider*](guide/dependency-injection-in-action#usefactory)
-  
-    [`useFactory` - *工厂提供商*](guide/dependency-injection-in-action#usefactory)
-
-* [Provider token alternatives: the class-interface and `InjectionToken`](guide/dependency-injection-in-action#tokens)
-
-  [提供商可选令牌：类接口与`InjectionToken`](guide/dependency-injection-in-action#tokens)  
-  
-  * [class-interface](guide/dependency-injection-in-action#class-interface)
-
-    [类-接口](guide/dependency-injection-in-action#class-interface)  
-    
-  * [`InjectionToken`](guide/dependency-injection-in-action#injection-token)
-    
-* [Inject into a derived class](guide/dependency-injection-in-action#di-inheritance)
-
-  [注入到一个派生类](guide/dependency-injection-in-action#di-inheritance)
-
-* [Find a parent component by injection](guide/dependency-injection-in-action#find-parent)
-
-  [通过注入来查找父组件](guide/dependency-injection-in-action#find-parent)
-  
-  * [Find parent with a known component type](guide/dependency-injection-in-action#known-parent)
-
-    [通过已知组件类型查找父组件](guide/dependency-injection-in-action#known-parent)
-
-  * [Cannot find a parent by its base class](guide/dependency-injection-in-action#base-parent)
-
-    [无法通过自己的基类查找父组件](guide/dependency-injection-in-action#base-parent)
-
-  * [Find a parent by its class-interface](guide/dependency-injection-in-action#class-interface-parent)
-  
-    [通过类-接口查找父组件](guide/dependency-injection-in-action#class-interface-parent)    
-    
-  * [Find a parent in a tree of parents with `@SkipSelf()`](guide/dependency-injection-in-action#parent-tree)
-    
-    [在父组件树里查找一个父组件(*@SkipSelf*)](guide/dependency-injection-in-action#parent-tree)
-    
-  * [The `Parent` class-interface](guide/dependency-injection-in-action#parent-token)
-
-    [`Parent`类接口](guide/dependency-injection-in-action#parent-token)
-    
-  * [A `provideParent()` helper function](guide/dependency-injection-in-action#provideparent)
-
-    [`provideParent()`助手函数](guide/dependency-injection-in-action#provideparent)
-
-* [Break circularities with a forward class reference (*forwardRef*)](guide/dependency-injection-in-action#forwardref)
-
-* [使用类的前向引用(*forwardRef*)打破循环依赖](guide/dependency-injection-in-action#forwardref)
-
--->
-
 See the <live-example name="dependency-injection-in-action"></live-example>
 of the code in this cookbook.        
 
@@ -166,7 +50,7 @@ is all the registration you need.
 
 A *provider* is something that can create or deliver a service.
 Angular creates a service instance from a class provider by using `new`.
-Read more about providers in the [Dependency Injection](guide/dependency-injection#injector-providers)
+Read more about providers in the [Dependency Injection](guide/dependency-injection#register-providers-ngmodule)
 guide.
 
 *提供商*是用来新建或者交付服务的。

@@ -332,10 +332,9 @@ Note the following:
 
 
 
-You must manually register custom pipes.
+You must register custom pipes.
 If you don't, Angular reports an error.
-In the previous example, you didn't list the `DatePipe` because all
-Angular built-in pipes are pre-registered.
+Angular CLI's generator registers the pipe automatically.
 
 我们必须手动注册自定义管道。如果忘了，Angular就会报告一个错误。
 在前一个例子中我们没有把`DatePipe`列进去，这是因为Angular所有的内置管道都已经预注册过了。

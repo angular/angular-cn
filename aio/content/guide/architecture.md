@@ -136,7 +136,7 @@ Here's a simple root module:
 
 <div class="l-sub-section">
 
-  The `export` of `AppComponent` is just to show how to export; it isn't actually necessary in this example. A root module has no reason to _export_ anything because other components don't need to _import_ the root module.
+  The `export` of `AppComponent` is just to show how to use the `exports` array to export a component; it isn't actually necessary in this example. A root module has no reason to _export_ anything because other components don't need to _import_ the root module.
 
 `AppComponent`的`export`语句只是用于演示如何导出的，它在这个例子中并不是必须的。根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
 

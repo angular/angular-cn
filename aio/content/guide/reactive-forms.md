@@ -211,13 +211,15 @@ Then you'll learn about the [Angular form classes](guide/reactive-forms#essentia
 
 ## 准备工作
 
-Follow the steps in the [_Setup_ guide](guide/setup "Setup guide")
-for creating a new project folder (perhaps called `reactive-forms`)
-based on the _QuickStart seed_.
+Create a new project named <code>angular-reactive-forms</code>:
 
-遵循[*准备工作*一章](guide/setup "Setup guide")中的步骤基于*快速起步种子工程*创建一个新的项目目录（比如叫`reactive-forms`）。 
+创建一个名叫<code>angular-reactive-forms</code>的新项目：
 
+<code-example language="sh" class="code-shell">
 
+  ng new angular-reactive-forms
+
+</code-example>
 
 {@a data-model}
 
@@ -228,18 +230,27 @@ based on the _QuickStart seed_.
 
 The focus of this guide is a reactive forms component that edits a hero.
 You'll need a `hero` class and some hero data.
-Create a new `data-model.ts` file in the `app` directory and copy the content below into it.
 
 本章的焦点是响应式表单组件以及编辑一个英雄。
 我们需要一个`Hero`类和一些英雄数据。
-在`app`目录下创建一个`data-model.ts`文件，并粘贴进下列内容：
 
+Using the CLI, generate a new class named `data-model`:
+
+使用 CLI 创建一个名叫 `data-model` 的新类：
+
+<code-example language="sh" class="code-shell">
+
+  ng generate class data-model
+
+</code-example>
+
+And copy the content below:
+
+并复制下列内容：
 
 <code-example path="reactive-forms/src/app/data-model.ts" title="src/app/data-model.ts" linenums="false">
 
 </code-example>
-
-
 
 The file exports two classes and two constants. The `Address`
 and `Hero` classes define the application _data model_.
@@ -257,40 +268,34 @@ The `heroes` and `states` constants supply the test data.
 
 ## 创建*响应式表单*组件
 
-Make a new file called
-`hero-detail.component.ts` in the `app` directory and import these symbols:
+Generate a new component named `HeroDetail`:
 
-在`app`目录下创建一个名叫`hero-detail.component.ts`的新文件，并且导入下列符号：
+生成一个名叫 `HeroDetail` 的新组件：
 
+<code-example language="sh" class="code-shell">
 
-<code-example path="reactive-forms/src/app/hero-detail-1.component.ts" region="imports" title="src/app/hero-detail.component.ts" linenums="false">
-
-</code-example>
-
-
-
-Now enter the `@Component` decorator that specifies the `HeroDetailComponent` metadata:
-
-然后输入这个`@Component`来为`HeroDetailComponent`指定元数据：
-
-
-<code-example path="reactive-forms/src/app/hero-detail.component.ts" region="metadata" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+  ng generate component HeroDetail
 
 </code-example>
 
+And import:
 
+并导入：
 
-Next, create an exported `HeroDetailComponent` class with a `FormControl`.
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-1.component.ts" region="import" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
+
+</code-example>
+
+Next, update the `HeroDetailComponent` class with a `FormControl`.
 `FormControl` is a directive that allows you to create and manage
 a `FormControl` instance directly.
+
 
 
 接下来，创建并导出一个带`FormControl`的`HeroDetailComponent`类。
 `FormControl`是一个指令，它允许我们直接创建并管理一个`FormControl`实例。
 
-
-
-<code-example path="reactive-forms/src/app/hero-detail-1.component.ts" region="v1" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-1.component.ts" region="v1" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -336,12 +341,12 @@ read the [Form Validation](guide/form-validation) guide.
 
 ## 创建模板
 
-Now create the component's template, `src/app/hero-detail.component.html`, with the following markup.
+Now update the component's template, with the following markup.
 
 现在，在创建组件的模板文件`src/app/hero-detail.component.html`，内容如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-1.component.html" region="simple-control" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-1.component.html" region="simple-control" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -384,23 +389,18 @@ directive from the `ReactiveFormsModule`.
 
 `HeroDetailComponent`的模板中使用了来自`ReactiveFormsModule`的`formControlName`。
 
-In this sample, you declare the `HeroDetailComponent` in the `AppModule`.
-Therefore, do the following three things in `app.module.ts`:
+Do the following two things in `app.module.ts`:
 
-在这个例子中，我们在`AppModule`中声明了`HeroDetailComponent`。因此现在`app.module.ts`中做了三件事：
+在 `app.module.ts` 中做了下面两件事：
 
 1. Use a JavaScript `import` statement to access
-the `ReactiveFormsModule` and the `HeroDetailComponent`.
+the `ReactiveFormsModule`.
 
   使用JavaScript的`import`语句访问`ReactiveFormsModule`和`HeroDetailComponent`。
   
 1. Add `ReactiveFormsModule` to the `AppModule`'s `imports` list.
 
   把`ReactiveFormsModule`添加到`AppModule`的`imports`列表中。
-  
-1. Add `HeroDetailComponent` to the declarations array.
-
-  把`HeroDetailComponent`添加到声明数组中。
 
 
 <code-example path="reactive-forms/src/app/app.module.ts" region="v1" title="src/app/app.module.ts (excerpt)" linenums="false">
@@ -422,7 +422,7 @@ Revise the `AppComponent` template so it displays the `HeroDetailComponent`.
 修改`AppComponent`的模板，以便显示`HeroDetailComponent`。
 
 
-<code-example path="reactive-forms/src/app/app.component.1.ts" title="src/app/app.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/app.component.1.html" title="src/app/app.component.html" linenums="false">
 
 </code-example>
 
@@ -480,12 +480,12 @@ You'll learn more about these classes as you work through this guide.
 ### 为应用添加样式
 
 You used bootstrap CSS classes in the template HTML of both the `AppComponent` and the `HeroDetailComponent`.
-Add the `bootstrap` _CSS stylesheet_ to the head of `index.html`:
+Add the `bootstrap` _CSS stylesheet_ to the head of `styles.css`:
 
 我们在`AppComponent`和`HeroDetailComponent`的模板中使用Bootstrap中的CSS类。请把`bootstrap`的*CSS样式表文件*添加到`index.html`的`head`区。
 
 
-<code-example path="reactive-forms/src/index.html" region="bootstrap" title="index.html" linenums="false">
+<code-example path="reactive-forms/src/styles.1.css" title="styles.css" linenums="false">
 
 </code-example>
 
@@ -517,7 +517,7 @@ of `hero-detail.component.ts`:
 通常，如果有多个*FormControl*，我们会希望把它们注册进一个父`FormGroup`中。这很容易。只要把它加入`hero-detail.component.ts`的`import`区就可以了。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-2.component.ts" region="imports" title="src/app/hero-detail.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-2.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
 
 </code-example>
 
@@ -528,7 +528,7 @@ In the class, wrap the `FormControl` in a `FormGroup` called `heroForm` as follo
 在这个类中，把`FormControl`包裹进了一个名叫`heroForm`的`FormGroup`中，代码如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-2.component.ts" region="v2" title="src/app/hero-detail.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-2.component.ts" region="v2" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
 
 </code-example>
 
@@ -540,7 +540,7 @@ template. Update `hero-detail.component.html` by replacing it with the following
 现在我们改完了这个类，该把它映射到模板中了。把`hero-detail.component.html`改成这样：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-2.component.html" region="basic-form" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-2.component.html" region="basic-form" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -619,7 +619,7 @@ closing `form` tag in the `hero-detail.component.html`:
 要想知道表单模型是什么样的，请在`hero-detail.component.html`的`form`标签紧后面添加如下代码：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3.component.html" region="form-value-json" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3.component.html" region="form-value-json" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -677,7 +677,7 @@ To use `FormBuilder`, you need to import it into `hero-detail.component.ts`:
 要使用`FormBuilder`，我们就要先把它导入到`hero-detail.component.ts`中：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3a.component.ts" region="imports" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3a.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -709,7 +709,7 @@ The revised `HeroDetailComponent` looks like this:
 修改过的`HeroDetailComponent`代码如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3a.component.ts" region="v3a" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3a.component.ts" region="v3a" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -746,7 +746,7 @@ First, import the `Validators` symbol.
 首先，导入`Validators`符号。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3.component.ts" region="imports" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -760,7 +760,7 @@ the second is the required validator, `Validators.required`.
 要想让`name`这个`FormControl`是必须的，请把`FormGroup`中的`name`属性改为一个数组。第一个条目是`name`的初始值，第二个是`required`验证器：`Validators.required`。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3.component.ts" region="required" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3.component.ts" region="required" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -786,7 +786,7 @@ Update the diagnostic message at the bottom of the template to display the form'
 修改模板底部的诊断信息，以显示表单的有效性状态。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-3.component.html" region="form-value-json" title="src/app/hero-detail.component.html (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3.component.html" region="form-value-json" title="src/app/hero-detail/hero-detail.component.html (excerpt)" linenums="false">
 
 </code-example>
 
@@ -840,7 +840,7 @@ the `<option>` elements with states. So import `states` from `data-model.ts`.
 住址中有一个所在州属性，用户将会从`<select>`框中选择一个州，我们会用`<option>`元素渲染各个州。我们从`data-model.ts`中导入`states`（州列表）。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-4.component.ts" region="imports" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-4.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -851,7 +851,7 @@ Declare the `states` property and add some address `FormControls` to the `heroFo
 声明`states`属性并往`heroForm`中添加一些表示住址的`FormControl`，代码如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-4.component.ts" region="v4" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-4.component.ts" region="v4" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -863,7 +863,7 @@ within the `form` element.
 然后在`hero-detail.component.html`文件中把对应的脚本添加到`form`元素中。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-4.component.html" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-4.component.html" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -947,7 +947,7 @@ assign the result to a new `address` property of the parent `FormGroup`.
 再次使用`FormBuilder`创建一个子级`FormGroup`，其中包括这些住址控件。把结果赋值给父`FormGroup`中新的`address`属性。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-5.component.ts" region="v5" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-5.component.ts" region="v5" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -973,7 +973,7 @@ The new _address_ HTML looks like this:
 新的*住址*组的HTML如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-5.component.html" region="add-group" title="src/app/hero-detail.component.html (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-5.component.html" region="add-group" title="src/app/hero-detail/hero-detail.component.html (excerpt)" linenums="false">
 
 </code-example>
 
@@ -1020,7 +1020,7 @@ immediately after the `{{form.value | json}}` interpolation as follows:
 我们可以在组件类中这么做，或者通过往模板中添加下列代码来把它显示在页面中，就添加在`{{form.value | json}}`插值表达式的紧后面：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-5.component.html" region="inspect-value" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-5.component.html" region="inspect-value" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -1031,7 +1031,7 @@ To get the state of a `FormControl` that’s inside a `FormGroup`, use dot notat
 要点取得`FormGroup`中的`FormControl`的状态，使用点语法来指定到控件的路径。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-5.component.html" region="inspect-child-control" title="src/app/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-5.component.html" region="inspect-child-control" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -1238,7 +1238,7 @@ Here, again, is the component's `FormGroup` definition.
 这里又是组件的`FormGroup`定义。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-6.component.ts" region="hero-form-model" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="hero-form-model" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -1268,7 +1268,7 @@ Take a moment to refactor the _address_ `FormGroup` definition for brevity and c
 花一点时间来重构一下`address`这个`FormGroup`定义，来让它更简洁清晰，代码如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="address-form-group" title="src/app/hero-detail-7.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="address-form-group" title="src/app/hero-detail/hero-detail-7.component.ts" linenums="false">
 
 </code-example>
 
@@ -1279,7 +1279,7 @@ Also be sure to update the import from `data-model` so you can reference the `He
 为了确保从`data-model`中导入，我们可以引用`Hero`和`Address`类：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="import-address" title="src/app/hero-detail-7.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="import-address" title="src/app/hero-detail/hero-detail-7.component.ts" linenums="false">
 
 </code-example>
 
@@ -1310,7 +1310,7 @@ by passing in a data object whose properties exactly match the _form model_ behi
 借助**`setValue`**，我们可以*立即*设置*每个*表单控件的值，只要把与*表单模型*的属性精确匹配的数据模型传进去就可以了。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="set-value" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="set-value" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -1346,7 +1346,7 @@ This explains the conditional setting of the `address` property in the data obje
 下面的例子解释了如何在数据对象参数中对`address`属性进行有条件的设置：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="set-value-address" title="src/app/hero-detail-7.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="set-value-address" title="src/app/hero-detail/hero-detail-7.component.ts" linenums="false">
 
 </code-example>
 
@@ -1366,7 +1366,7 @@ This example sets only the form's `name` control.
 这个例子只会设置表单的`name`控件。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-6.component.ts" region="patch-value" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="patch-value" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -1399,7 +1399,7 @@ by binding to its `hero` input property.
 当用户点击一个英雄时，列表组件把所选的英雄通过输入属性`hero`传给`HeroDetailComponent`。
 
 
-<code-example path="reactive-forms/src/app/hero-list.component.1.html" title="hero-list.component.html (simplified)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-list/hero-list.component.1.html" title="hero-list.component.html (simplified)" linenums="false">
 
 </code-example>
 
@@ -1420,7 +1420,7 @@ First, import the `OnChanges` and `Input` symbols in `hero-detail.component.ts`.
 首先，在`hero-detail.component.ts`中导入`OnChanges`和`Input`符号。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-6.component.ts" region="import-input" title="src/app/hero-detail.component.ts (core imports)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="import-input" title="src/app/hero-detail/hero-detail.component.ts (core imports)" linenums="false">
 
 </code-example>
 
@@ -1431,7 +1431,7 @@ Add the `hero` input property.
 添加输入属性`hero`。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-6.component.ts" region="hero" title="src/app/hero-detail-6.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="hero" title="src/app/hero-detail/hero-detail-6.component.ts" linenums="false">
 
 </code-example>
 
@@ -1442,7 +1442,7 @@ Add the `ngOnChanges` method to the class as follows:
 向该类中添加`ngOnChanges`方法，代码如下：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="ngOnChanges-1" title="src/app/hero-detail.component.ts (ngOnchanges)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="ngOnChanges-1" title="src/app/hero-detail/hero-detail.component.ts (ngOnchanges)" linenums="false">
 
 </code-example>
 
@@ -1461,7 +1461,7 @@ You could call `reset` at the top of `ngOnChanges` like this.
 我们可以在`ngOnChanges`的顶部调用`reset`，就像这样：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="reset" title="src/app/hero-detail-7.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="reset" title="src/app/hero-detail/hero-detail-7.component.ts" linenums="false">
 
 </code-example>
 
@@ -1476,7 +1476,7 @@ A little refactoring and `ngOnChanges` becomes this:
 略微重构之后，`ngOnChanges`会变成这样：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="ngOnChanges" title="src/app/hero-detail.component.ts (ngOnchanges - revised)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="ngOnChanges" title="src/app/hero-detail/hero-detail.component.ts (ngOnchanges - revised)" linenums="false">
 
 </code-example>
 
@@ -1533,7 +1533,7 @@ The techniques involved are covered elsewhere in the documentation, including th
 那些技术涵盖于本文档中的其它部分，包括*《英雄指南》*中的[这里](tutorial/toh-pt3 "ToH: Multiple Components")和[这里](tutorial/toh-pt4 "ToH: Services")。
 
 If you're coding along with the steps in this reactive forms tutorial,
-create the pertinent files based on the
+generate the pertinent files based on the
 [source code displayed below](guide/reactive-forms#source-code "Reactive Forms source code").
 Notice that `hero-list.component.ts` imports `Observable` and `finally` while `hero.service.ts` imports `Observable`, `of`,
 and `delay` from `rxjs`.
@@ -1577,7 +1577,7 @@ To get access to the `FormArray` class, import it into `hero-detail.component.ts
 要访问`FormArray`类，请先把它导入`hero-detail.component.ts`中：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="imports" title="src/app/hero-detail.component.ts (excerpt)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
@@ -1610,7 +1610,7 @@ which currently only displays the first hero address in an _address_ `FormGroup`
 我们需要在`HeroDetailComponent`的构造函数中重新定义表单模型，它现在只用`FormGroup`显示第一个英雄住址。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-7.component.ts" region="address-form-group" title="src/app/hero-detail-7.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="address-form-group" title="src/app/hero-detail/hero-detail-7.component.ts" linenums="false">
 
 </code-example>
 
@@ -1629,7 +1629,7 @@ Replace the _address_ `FormGroup` definition with a _secretLairs_ `FormArray` de
 把`FormGroup`型的住址替换为`FormArray`型的`secretLairs`定义：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="secretLairs-form-array" title="src/app/hero-detail-8.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="secretLairs-form-array" title="src/app/hero-detail/hero-detail-8.component.ts" linenums="false">
 
 </code-example>
 
@@ -1684,7 +1684,7 @@ initialized by an array of hero address `FormGroups`.
 下面的`setAddresses`方法把`secretLairs`数组替换为一个新的`FormArray`，使用一组表示英雄地址的`FormGroup`来进行初始化。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="set-addresses" title="src/app/hero-detail-8.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="set-addresses" title="src/app/hero-detail/hero-detail-8.component.ts" linenums="false">
 
 </code-example>
 
@@ -1715,7 +1715,7 @@ Wrap the expression in a `secretLairs` convenience property for clarity and re-u
 把这个表达式包装进一个名叫`secretLairs`的便捷属性中来让它更清晰，并供复用。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="get-secret-lairs" title="src/app/hero-detail.component.ts (secretLayers property)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="get-secret-lairs" title="src/app/hero-detail/hero-detail.component.ts (secretLayers property)" linenums="false">
 
 </code-example>
 
@@ -1764,7 +1764,7 @@ Here's the skeleton for the _secret lairs_ section of the HTML template:
 下面是HTML模板中*秘密小屋*部分的代码骨架：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.html" region="form-array-skeleton" title="src/app/hero-detail.component.html (*ngFor)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.html" region="form-array-skeleton" title="src/app/hero-detail/hero-detail.component.html (*ngFor)" linenums="false">
 
 </code-example>
 
@@ -1775,7 +1775,7 @@ Here's the complete template for the _secret lairs_ section:
 这里是*秘密小屋*部分的完整模板：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.html" region="form-array" title="src/app/hero-detail.component.html (excerpt)">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.html" region="form-array" title="src/app/hero-detail/hero-detail.component.html (excerpt)">
 
 </code-example>
 
@@ -1790,7 +1790,7 @@ Add an `addLair` method that gets the _secretLairs_ `FormArray` and appends a ne
 添加一个`addLair`方法，它获取`secretLairs`数组，并把新的表示地址的`FormGroup`添加到其中。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="add-lair" title="src/app/hero-detail.component.ts (addLair method)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="add-lair" title="src/app/hero-detail/hero-detail.component.ts (addLair method)" linenums="false">
 
 </code-example>
 
@@ -1801,7 +1801,7 @@ Place a button on the form so the user can add a new _secret lair_ and wire it t
 把一个按钮放在表单中，以便用户可以添加新的*秘密小屋*，并把它传给组件的`addLair`方法。
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.html" region="add-lair" title="src/app/hero-detail.component.html (addLair button)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.html" region="add-lair" title="src/app/hero-detail/hero-detail.component.html (addLair button)" linenums="false">
 
 </code-example>
 
@@ -1894,7 +1894,7 @@ Add the following method to log changes to the value of the _name_ `FormControl`
 添加下列方法，以监听姓名这个`FormControl`中值的变化。
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.ts" region="log-name-change" title="src/app/hero-detail.component.ts (logNameChange)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.ts" region="log-name-change" title="src/app/hero-detail/hero-detail.component.ts (logNameChange)" linenums="false">
 
 </code-example>
 
@@ -1905,7 +1905,7 @@ Call it in the constructor, after creating the form.
 在构造函数中调用它，就在创建表单的代码之后：
 
 
-<code-example path="reactive-forms/src/app/hero-detail-8.component.ts" region="ctor" title="src/app/hero-detail-8.component.ts" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.ts" region="ctor" title="src/app/hero-detail/hero-detail-8.component.ts" linenums="false">
 
 </code-example>
 
@@ -1918,7 +1918,7 @@ Display that array at the bottom of the component template with this `*ngFor` bi
 用`*ngFor`绑定在组件模板的底部显示这个数组：
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.html" region="name-change-log" title="src/app/hero-detail.component.html (Name change log)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.html" region="name-change-log" title="src/app/hero-detail/hero-detail.component.html (Name change log)" linenums="false">
 
 </code-example>
 
@@ -1978,7 +1978,7 @@ to a save method on the injected `HeroService`.
 在这个范例应用中，当用户提交表单时，`HeroDetailComponent`会把英雄实例的*数据模型*传给所注入进来的`HeroService`的一个方法来进行保存。
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.ts" region="on-submit" title="src/app/hero-detail.component.ts (onSubmit)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.ts" region="on-submit" title="src/app/hero-detail/hero-detail.component.ts (onSubmit)" linenums="false">
 
 </code-example>
 
@@ -1992,7 +1992,7 @@ and deep copies of the changed form model values, using the `prepareSaveHero` he
 所以我们要根据原始英雄（根据`hero.id`找到它）的值组合出一个新的`hero`对象，并用`prepareSaveHero`助手来深层复制变化后的模型值。
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.ts" region="prepare-save-hero" title="src/app/hero-detail.component.ts (prepareSaveHero)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.ts" region="prepare-save-hero" title="src/app/hero-detail/hero-detail.component.ts (prepareSaveHero)" linenums="false">
 
 </code-example>
 
@@ -2037,7 +2037,7 @@ Reverting is easy. Simply re-execute the `ngOnChanges` method that built the _fo
 丢弃很容易。只要重新执行`ngOnChanges`方法就可以拆而，它会重新从原始的、未修改过的`hero`数据模型来构建出*表单模型*。
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.ts" region="revert" title="src/app/hero-detail.component.ts (revert)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.ts" region="revert" title="src/app/hero-detail/hero-detail.component.ts (revert)" linenums="false">
 
 </code-example>
 
@@ -2052,7 +2052,7 @@ Add the "Save" and "Revert" buttons near the top of the component's template:
 把“Save”和“Revert”按钮添加到组件模板的顶部：
 
 
-<code-example path="reactive-forms/src/app/hero-detail.component.html" region="buttons" title="src/app/hero-detail.component.html (Save and Revert buttons)" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.html" region="buttons" title="src/app/hero-detail/hero-detail.component.html (Save and Revert buttons)" linenums="false">
 
 </code-example>
 
@@ -2079,13 +2079,9 @@ Try the <live-example plnkr="final" title="Reactive Forms (final) in Plunker"></
 
 
 
-## Conclusion
+## Summary
 
 ## 总结
-
-This page covered:
-
-本章包括：
 
 * How to create a reactive form component and its corresponding template.
 
@@ -2130,6 +2126,10 @@ The key files of the final version are as follows:
 
 <code-tabs>
 
+  <code-pane title="src/app/app.component.html" path="reactive-forms/src/app/app.component.html">
+
+  </code-pane>
+
   <code-pane title="src/app/app.component.ts" path="reactive-forms/src/app/app.component.ts">
 
   </code-pane>
@@ -2138,19 +2138,19 @@ The key files of the final version are as follows:
 
   </code-pane>
 
-  <code-pane title="src/app/hero-detail.component.ts" path="reactive-forms/src/app/hero-detail.component.ts">
+  <code-pane title="src/app/hero-detail/hero-detail.component.ts" path="reactive-forms/src/app/hero-detail/hero-detail.component.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/hero-detail.component.html" path="reactive-forms/src/app/hero-detail.component.html">
+  <code-pane title="src/app/hero-detail/hero-detail.component.html" path="reactive-forms/src/app/hero-detail/hero-detail.component.html">
 
   </code-pane>
 
-  <code-pane title="src/app/hero-list.component.html" path="reactive-forms/src/app/hero-list.component.html">
+  <code-pane title="src/app/hero-list/hero-list.component.html" path="reactive-forms/src/app/hero-list/hero-list.component.html">
 
   </code-pane>
 
-  <code-pane title="src/app/hero-list.component.ts" path="reactive-forms/src/app/hero-list.component.ts">
+  <code-pane title="src/app/hero-list/hero-list.component.ts" path="reactive-forms/src/app/hero-list/hero-list.component.ts">
 
   </code-pane>
 

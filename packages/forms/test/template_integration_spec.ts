@@ -16,7 +16,7 @@ import {merge} from 'rxjs/observable/merge';
 
 import {NgModelCustomComp, NgModelCustomWrapper} from './value_accessor_integration_spec';
 
-export function main() {
+{
   describe('template-driven forms integration tests', () => {
 
     function initTest<T>(component: Type<T>, ...directives: Type<any>[]): ComponentFixture<T> {
@@ -295,7 +295,7 @@ export function main() {
 
              const form = fixture.debugElement.children[0].injector.get(NgForm);
              const name = form.control.get('name') as FormControl;
-             expect(name._updateOn).toBeUndefined();
+             expect((name as any)._updateOn).toBeUndefined();
              expect(name.updateOn).toEqual('change');
            }));
 
@@ -309,7 +309,7 @@ export function main() {
 
              const form = fixture.debugElement.children[0].injector.get(NgForm);
              const name = form.control.get('name') as FormControl;
-             expect(name._updateOn).toEqual('blur');
+             expect((name as any)._updateOn).toEqual('blur');
              expect(name.updateOn).toEqual('blur');
            }));
 
@@ -484,6 +484,64 @@ export function main() {
              sub.unsubscribe();
            }));
 
+        it('should not fire ngModelChange event on blur unless value has changed', fakeAsync(() => {
+             const fixture = initTest(NgModelChangesForm);
+             fixture.componentInstance.name = 'Carson';
+             fixture.componentInstance.options = {updateOn: 'blur'};
+             fixture.detectChanges();
+             tick();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual([], 'Expected ngModelChanges not to fire.');
+
+             const input = fixture.debugElement.query(By.css('input')).nativeElement;
+             dispatchEvent(input, 'blur');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual([], 'Expected ngModelChanges not to fire if value unchanged.');
+
+             input.value = 'Carson';
+             dispatchEvent(input, 'input');
+             fixture.detectChanges();
+             tick();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual([], 'Expected ngModelChanges not to fire on input.');
+
+             dispatchEvent(input, 'blur');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired'], 'Expected ngModelChanges to fire once blurred if value changed.');
+
+             dispatchEvent(input, 'blur');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired'],
+                     'Expected ngModelChanges not to fire again on blur unless value changed.');
+
+             input.value = 'Bess';
+             dispatchEvent(input, 'input');
+             fixture.detectChanges();
+             tick();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(['fired'], 'Expected ngModelChanges not to fire on input after blur.');
+
+             dispatchEvent(input, 'blur');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired', 'fired'],
+                     'Expected ngModelChanges to fire again on blur if value changed.');
+
+           }));
+
       });
 
       describe('submit', () => {
@@ -497,7 +555,7 @@ export function main() {
 
              const form = fixture.debugElement.children[0].injector.get(NgForm);
              const name = form.control.get('name') as FormControl;
-             expect(name._updateOn).toEqual('submit');
+             expect((name as any)._updateOn).toEqual('submit');
              expect(name.updateOn).toEqual('submit');
            }));
 
@@ -764,6 +822,62 @@ export function main() {
              sub.unsubscribe();
            }));
 
+        it('should not fire ngModelChange event on submit unless value has changed',
+           fakeAsync(() => {
+             const fixture = initTest(NgModelChangesForm);
+             fixture.componentInstance.name = 'Carson';
+             fixture.componentInstance.options = {updateOn: 'submit'};
+             fixture.detectChanges();
+             tick();
+
+             const formEl = fixture.debugElement.query(By.css('form')).nativeElement;
+             dispatchEvent(formEl, 'submit');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual([], 'Expected ngModelChanges not to fire if value unchanged.');
+
+             const input = fixture.debugElement.query(By.css('input')).nativeElement;
+             input.value = 'Carson';
+             dispatchEvent(input, 'input');
+             fixture.detectChanges();
+             tick();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual([], 'Expected ngModelChanges not to fire on input.');
+
+             dispatchEvent(formEl, 'submit');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired'], 'Expected ngModelChanges to fire once submitted if value changed.');
+
+             dispatchEvent(formEl, 'submit');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired'],
+                     'Expected ngModelChanges not to fire again on submit unless value changed.');
+
+             input.value = 'Bess';
+             dispatchEvent(input, 'input');
+             fixture.detectChanges();
+             tick();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(['fired'], 'Expected ngModelChanges not to fire on input after submit.');
+
+             dispatchEvent(formEl, 'submit');
+             fixture.detectChanges();
+
+             expect(fixture.componentInstance.events)
+                 .toEqual(
+                     ['fired', 'fired'],
+                     'Expected ngModelChanges to fire again on submit if value changed.');
+           }));
+
       });
 
       describe('ngFormOptions', () => {
@@ -777,12 +891,12 @@ export function main() {
 
              const form = fixture.debugElement.children[0].injector.get(NgForm);
              const controlOne = form.control.get('one') !as FormControl;
-             expect(controlOne._updateOn).toBeUndefined();
+             expect((controlOne as any)._updateOn).toBeUndefined();
              expect(controlOne.updateOn)
                  .toEqual('blur', 'Expected first control to inherit updateOn from parent form.');
 
              const controlTwo = form.control.get('two') !as FormControl;
-             expect(controlTwo._updateOn).toBeUndefined();
+             expect((controlTwo as any)._updateOn).toBeUndefined();
              expect(controlTwo.updateOn)
                  .toEqual('blur', 'Expected last control to inherit updateOn from parent form.');
            }));
@@ -818,12 +932,13 @@ export function main() {
 
              const form = fixture.debugElement.children[0].injector.get(NgForm);
              const controlOne = form.control.get('one') !as FormControl;
-             expect(controlOne._updateOn).toBeUndefined();
+             expect((controlOne as any)._updateOn).toBeUndefined();
              expect(controlOne.updateOn)
                  .toEqual('change', 'Expected control updateOn to inherit form updateOn.');
 
              const controlTwo = form.control.get('two') !as FormControl;
-             expect(controlTwo._updateOn).toEqual('blur', 'Expected control to set blur override.');
+             expect((controlTwo as any)._updateOn)
+                 .toEqual('blur', 'Expected control to set blur override.');
              expect(controlTwo.updateOn)
                  .toEqual('blur', 'Expected control updateOn to override form updateOn.');
            }));
@@ -1668,6 +1783,23 @@ class NgAsyncValidator implements AsyncValidator {
   template: `<input name="async" ngModel ng-async-validator>`
 })
 class NgModelAsyncValidation {
+}
+
+@Component({
+  selector: 'ng-model-changes-form',
+  template: `
+    <form>
+      <input name="async" [ngModel]="name" (ngModelChange)="log()" 
+             [ngModelOptions]="options">
+    </form>
+  `
+})
+class NgModelChangesForm {
+  name: string;
+  events: string[] = [];
+  options: any;
+
+  log() { this.events.push('fired'); }
 }
 
 function sortedClassList(el: HTMLElement) {

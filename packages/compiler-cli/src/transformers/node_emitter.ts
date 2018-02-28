@@ -26,20 +26,27 @@ export class TypeScriptNodeEmitter {
         ...stmts.map(stmt => stmt.visitStatement(converter, null)).filter(stmt => stmt != null));
     const preambleStmts: ts.Statement[] = [];
     if (preamble) {
-      if (preamble.startsWith('/*') && preamble.endsWith('*/')) {
-        preamble = preamble.substr(2, preamble.length - 4);
-      }
-      const commentStmt = ts.createNotEmittedStatement(sourceFile);
-      ts.setSyntheticLeadingComments(
-          commentStmt,
-          [{kind: ts.SyntaxKind.MultiLineCommentTrivia, text: preamble, pos: -1, end: -1}]);
-      ts.setEmitFlags(commentStmt, ts.EmitFlags.CustomPrologue);
+      const commentStmt = this.createCommentStatement(sourceFile, preamble);
       preambleStmts.push(commentStmt);
     }
-    const newSourceFile = ts.updateSourceFileNode(
-        sourceFile,
-        [...preambleStmts, ...converter.getReexports(), ...converter.getImports(), ...statements]);
+    const sourceStatments =
+        [...preambleStmts, ...converter.getReexports(), ...converter.getImports(), ...statements];
+    converter.updateSourceMap(sourceStatments);
+    const newSourceFile = ts.updateSourceFileNode(sourceFile, sourceStatments);
     return [newSourceFile, converter.getNodeMap()];
+  }
+
+  /** Creates a not emitted statement containing the given comment. */
+  createCommentStatement(sourceFile: ts.SourceFile, comment: string): ts.Statement {
+    if (comment.startsWith('/*') && comment.endsWith('*/')) {
+      comment = comment.substr(2, comment.length - 4);
+    }
+    const commentStmt = ts.createNotEmittedStatement(sourceFile);
+    ts.setSyntheticLeadingComments(
+        commentStmt,
+        [{kind: ts.SyntaxKind.MultiLineCommentTrivia, text: comment, pos: -1, end: -1}]);
+    ts.setEmitFlags(commentStmt, ts.EmitFlags.CustomPrologue);
+    return commentStmt;
   }
 }
 
@@ -63,7 +70,6 @@ function createLiteral(value: any) {
  */
 class _NodeEmitterVisitor implements StatementVisitor, ExpressionVisitor {
   private _nodeMap = new Map<ts.Node, Node>();
-  private _mapped = new Set<Node>();
   private _importsWithPrefixes = new Map<string, string>();
   private _reexports = new Map<string, {name: string, as: string}[]>();
   private _templateSources = new Map<ParseSourceFile, ts.SourceMapSource>();
@@ -92,17 +98,49 @@ class _NodeEmitterVisitor implements StatementVisitor, ExpressionVisitor {
 
   getNodeMap() { return this._nodeMap; }
 
+  updateSourceMap(statements: ts.Statement[]) {
+    let lastRangeStartNode: ts.Node|undefined = undefined;
+    let lastRangeEndNode: ts.Node|undefined = undefined;
+    let lastRange: ts.SourceMapRange|undefined = undefined;
+
+    const recordLastSourceRange = () => {
+      if (lastRange && lastRangeStartNode && lastRangeEndNode) {
+        if (lastRangeStartNode == lastRangeEndNode) {
+          ts.setSourceMapRange(lastRangeEndNode, lastRange);
+        } else {
+          ts.setSourceMapRange(lastRangeStartNode, lastRange);
+          // Only emit the pos for the first node emitted in the range.
+          ts.setEmitFlags(lastRangeStartNode, ts.EmitFlags.NoTrailingSourceMap);
+          ts.setSourceMapRange(lastRangeEndNode, lastRange);
+          // Only emit emit end for the last node emitted in the range.
+          ts.setEmitFlags(lastRangeEndNode, ts.EmitFlags.NoLeadingSourceMap);
+        }
+      }
+    };
+
+    const visitNode = (tsNode: ts.Node) => {
+      const ngNode = this._nodeMap.get(tsNode);
+      if (ngNode) {
+        const range = this.sourceRangeOf(ngNode);
+        if (range) {
+          if (!lastRange || range.source != lastRange.source || range.pos != lastRange.pos ||
+              range.end != lastRange.end) {
+            recordLastSourceRange();
+            lastRangeStartNode = tsNode;
+            lastRange = range;
+          }
+          lastRangeEndNode = tsNode;
+        }
+      }
+      ts.forEachChild(tsNode, visitNode);
+    };
+    statements.forEach(visitNode);
+    recordLastSourceRange();
+  }
+
   private record<T extends ts.Node>(ngNode: Node, tsNode: T|null): RecordedNode<T> {
     if (tsNode && !this._nodeMap.has(tsNode)) {
       this._nodeMap.set(tsNode, ngNode);
-      if (!this._mapped.has(ngNode)) {
-        this._mapped.add(ngNode);
-        const range = this.sourceRangeOf(ngNode);
-        if (range) {
-          ts.setSourceMapRange(tsNode, range);
-        }
-      }
-      ts.forEachChild(tsNode, child => this.record(ngNode, tsNode));
     }
     return tsNode as RecordedNode<T>;
   }
@@ -112,12 +150,14 @@ class _NodeEmitterVisitor implements StatementVisitor, ExpressionVisitor {
       const span = node.sourceSpan;
       if (span.start.file == span.end.file) {
         const file = span.start.file;
-        let source = this._templateSources.get(file);
-        if (!source) {
-          source = ts.createSourceMapSource(file.url, file.content, pos => pos);
-          this._templateSources.set(file, source);
+        if (file.url) {
+          let source = this._templateSources.get(file);
+          if (!source) {
+            source = ts.createSourceMapSource(file.url, file.content, pos => pos);
+            this._templateSources.set(file, source);
+          }
+          return {pos: span.start.offset, end: span.end.offset, source};
         }
-        return {pos: span.start.offset, end: span.end.offset, source};
       }
     }
     return null;

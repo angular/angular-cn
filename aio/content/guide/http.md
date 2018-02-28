@@ -371,6 +371,8 @@ has a single `intercept()` method. Here is a simple interceptor which does nothi
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 
+import {Observable} from 'rxjs/Observable';
+
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -406,6 +408,8 @@ Simply declaring the `NoopInterceptor` above doesn't cause your app to use it. Y
 ```javascript
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
+import {NoopInterceptor} from 'noop.interceptor.ts';
 
 @NgModule({
   providers: [{
@@ -743,14 +747,14 @@ In order to prevent collisions in environments where multiple Angular apps share
 
 ### 配置自定义 cookie/header 名称
 
-If your backend service uses different names for the XSRF token cookie or header, use `HttpClientXsrfModule.withConfig()` to override the defaults.
+If your backend service uses different names for the XSRF token cookie or header, use `HttpClientXsrfModule.withOptions()` to override the defaults.
 
 如果我们的后端服务中对 XSRF 令牌的 cookie 或 头使用了不一样的名字，就要使用 `HttpClientXsrfModule.withConfig()` 来覆盖掉默认值。
 
 ```javascript
 imports: [
   HttpClientModule,
-  HttpClientXsrfModule.withConfig({
+  HttpClientXsrfModule.withOptions({
     cookieName: 'My-Xsrf-Cookie',
     headerName: 'My-Xsrf-Header',
   }),

@@ -1,54 +1,66 @@
-@title
-教程：英雄指南
+<h1 class="no-toc">Tutorial: Tour of Heroes</h1>
 
-@intro
+<h1 class="no-toc">教程：英雄指南</h1>
 
-@description
+The _Tour of Heroes_ tutorial covers the fundamentals of Angular.  
+In this tutorial you will build an app that helps a staffing agency manage its stable of heroes.
 
-The grand plan for this tutorial is to build an app that helps a staffing agency manage its stable of heroes.
+**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，我们将构建一个应用，来帮助招聘机构来管理一群英雄。
 
-本教程的终极计划是构建一个程序，来帮助招聘公司管理一群英雄。
-  即使英雄们也需要找工作。
+This basic app has many of the features you'd expect to find in a data-driven application.
+It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
 
-The Tour of Heroes app covers the core fundamentals of Angular. You'll build a basic app that
-has many of the features you'd expect to find in a full-blown, data-driven app: acquiring and displaying
-a list of heroes, editing a selected hero's detail, and navigating among different
-views of heroic data.
+这个入门级 app 包含很多数据驱动的应用所需的特性。
+它需要获取并显示英雄的列表、编辑所选英雄的详情，并且在英雄数据的不同视图之间导航。
 
-这篇《英雄指南》涵盖`了 Angular 的核心原理。这次构建的应用会涉及很多特性：获得并显示英雄列表，编辑所选英雄的详情，并在英雄数据的多个视图之间建立导航。这些特性，在成熟的、数据驱动的应用中经常见到。
+By the end of the tutorial you will be able to do the following:
 
-You'll use built-in directives to show and hide elements and display lists of hero data.
-You'll create components to display hero details and show an array of heroes.
-You'll use one-way data binding for read-only data. You'll add editable fields to update a model
-with two-way data binding. You'll bind component methods to user events, like keystrokes and clicks.
-You'll enable users to select a hero from a master list and edit that hero in the details view. You'll
-format data with pipes. You'll create a shared service to assemble the heroes.
-And you'll use routing to navigate among different views and their components.
-<!-- CF: Should this be a bullet list? -->
+在本教程的最后，我们将完成下列工作：
 
-我们将使用内置指令来显示 / 隐藏元素，并且显示英雄数据的列表。
-  我们将创建组件来显示英雄的详情和英雄列表。
-  我们将对只读数据使用单向数据绑定。我们将添加一些可编辑字段，并通过双向数据绑定更新模型。
-  我们将把组件上的方法绑定到用户事件上，比如按键和点击。
-  我们将让用户能从主列表视图中选择一个英雄，然后在详情视图中编辑它。
-  我们将通过管道对数据进行格式化。
-  我们将创建一个共享服务来管理我们的英雄们。
-  我们将使用路由在不同的视图及其组件之间进行导航。
+* Use built-in Angular directives to show and hide elements and display lists of hero data.
 
-You'll learn enough core Angular to get started and gain confidence that
-Angular can do whatever you need it to do.
-You'll cover a lot of ground at an introductory level, and you'll find many links
-to pages with greater depth.
+  使用内置指令来显示 / 隐藏元素，并且显示英雄数据的列表。
+  
+* Create Angular components to display hero details and show an array of heroes.
 
-完成本教程后，我们将学习足够的 Angular 核心技术，并确信 Angular 确实能做到我们需要它做的。
-  我们将涵盖大量入门级知识，同时我们也会看到大量链接，指向更深入的章节。
+  创建 Angular 组件以显示英雄的详情，并显示一个英雄数组。
+  
+* Use one-way data binding for read-only data.
 
-When you're done with this tutorial, the app will look like this <live-example name="toh-pt6"></live-example>.
+  为只读数据使用单项数据绑定。
+  
+* Add editable fields to update a model with two-way data binding.
 
+  添加可编辑字段，使用双向数据绑定来更新模型。
+  
+* Bind component methods to user events, like keystrokes and clicks.
 
-当完成这个教程时，应用运行起来是这样的：<live-example name="toh-pt6"></live-example>。
+  把组件中的方法绑定到用户事件上，比如按键和点击。
+  
+* Enable users to select a hero from a master list and edit that hero in the details view. 
 
+  让用户可以在主列表中选择一个英雄，然后在详情视图中编辑他。
+  
+* Format data with pipes.
 
+  使用管道来格式化数据。
+  
+* Create a shared service to assemble the heroes.
+
+  创建共享的服务来管理这些英雄。
+  
+* Use routing to navigate among different views and their components.
+
+  使用路由在不同的视图及其组件之间导航。
+
+You'll learn enough Angular to get started and gain confidence that
+Angular can do whatever you need it to do. 
+
+完成本教程后，我们将学到足够的 Angular 知识，并确信 Angular 确实能提供我们所需的支持。
+  
+After completing all tutorial steps, the final app will look like this <live-example name="toh-pt6"></live-example>.
+
+完成本教程的所有步骤之后，最终的应用会是这样的：<live-example name="toh-pt6"></live-example>。
 
 ## What you'll build
 
@@ -63,8 +75,6 @@ view and the most heroic heroes:
 <figure>
   <img src='generated/images/guide/toh/heroes-dashboard-1.png' alt="英雄仪表盘的输出">
 </figure>
-
-
 
 You can click the two links above the dashboard ("Dashboard" and "Heroes")
 to navigate between this Dashboard view and a Heroes view.
@@ -82,8 +92,6 @@ where you can change the hero's name.
   <img src='generated/images/guide/toh/hero-details-1.png' alt="英雄详情的输出">
 </figure>
 
-
-
 Clicking the "Back" button returns you to the Dashboard.
 Links at the top take you to either of the main views.
 If you click "Heroes," the app displays the "Heroes" master list view.
@@ -96,8 +104,6 @@ If you click "Heroes," the app displays the "Heroes" master list view.
 <figure>
   <img src='generated/images/guide/toh/heroes-list-2.png' alt="英雄列表的输出">
 </figure>
-
-
 
 When you click a different hero name, the read-only mini detail beneath the list reflects the new choice.
 
@@ -117,8 +123,6 @@ The following diagram captures all of the navigation options.
   <img src='generated/images/guide/toh/nav-diagram.png' alt="查看导航">
 </figure>
 
-
-
 Here's the app in action:
 
 下图演示了我们应用中的所有操作。
@@ -127,25 +131,3 @@ Here's the app in action:
 <figure>
   <img src='generated/images/guide/toh/toh-anim.gif' alt="英雄指南的所有动作">
 </figure>
-
-
-
-
-## Next step
-
-## 接下来
-
-You'll build the Tour of Heroes app, step by step.
-Each step is motivated with a requirement that you've likely
-met in many applications. Everything has a reason.
-
-让我们一起一步步构建出《英雄指南》。
-  正如我们在无数应用遇到那样，每一步都由一个需求驱动。毕竟做任何事都要有个理由。
-
-Along the way, you'll become familiar with many of the core fundamentals of Angular.
-
-这一路上，我们将遇到很多 Angular 核心原理。
-
-Start now by building a simple [hero editor](tutorial/toh-pt1 "The Hero Editor").
-
-现在就开始构建一个简单的[英雄编辑器](tutorial/toh-pt1 "英雄编辑器")吧！
