@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {C, E, T, V, b, c, cR, cr, e, t, v} from '../../src/render3/index';
+import {bind, container, containerRefreshEnd, containerRefreshStart, elementEnd, elementStart, embeddedViewEnd, embeddedViewStart, text, textBinding} from '../../src/render3/instructions';
 
 import {renderToHtml} from './render_util';
 
@@ -16,29 +16,26 @@ describe('JS control flow', () => {
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'div');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         if (ctx.condition) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'span');
-              { T(1); }
-              e();
+              elementStart(0, 'span');
+              { text(1); }
+              elementEnd();
             }
-            t(1, b(ctx.message));
+            textBinding(1, bind(ctx.message));
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<div><span>Hello</span></div>');
@@ -67,44 +64,38 @@ describe('JS control flow', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'div');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         if (ctx.condition) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'span');
-              {
-                C(1);
-                c();
-              }
-              e();
+              elementStart(0, 'span');
+              { container(1); }
+              elementEnd();
             }
-            cR(1);
+            containerRefreshStart(1);
             {
               if (ctx.condition2) {
-                let cm2 = V(2);
+                let cm2 = embeddedViewStart(2);
                 {
                   if (cm2) {
-                    T(0, 'Hello');
+                    text(0, 'Hello');
                   }
                 }
-                v();
+                embeddedViewEnd();
               }
             }
-            cr();
+            containerRefreshEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<div><span>Hello</span></div>');
@@ -137,39 +128,37 @@ describe('JS control flow', () => {
   it('should work with containers with views as parents', () => {
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        { T(1, 'hello'); }
-        e();
-        C(2);
-        c();
+        elementStart(0, 'div');
+        { text(1, 'hello'); }
+        elementEnd();
+        container(2);
       }
-      cR(2);
+      containerRefreshStart(2);
       {
         if (ctx.condition1) {
-          let cm0 = V(0);
+          let cm0 = embeddedViewStart(0);
           {
             if (cm0) {
-              C(0);
-              c();
+              container(0);
             }
-            cR(0);
+            containerRefreshStart(0);
             {
               if (ctx.condition2) {
-                let cm0 = V(0);
+                let cm0 = embeddedViewStart(0);
                 {
                   if (cm0) {
-                    T(0, 'world');
+                    text(0, 'world');
                   }
                 }
-                v();
+                embeddedViewEnd();
               }
             }
-            cr();
+            containerRefreshEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, {condition1: true, condition2: true}))
@@ -184,29 +173,26 @@ describe('JS control flow', () => {
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'ul');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'ul');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         for (let i = 0; i < ctx.data.length; i++) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'li');
-              { T(1); }
-              e();
+              elementStart(0, 'li');
+              { text(1); }
+              elementEnd();
             }
-            t(1, b(ctx.data[i]));
+            textBinding(1, bind(ctx.data[i]));
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<ul><li>a</li><li>b</li><li>c</li></ul>');
@@ -233,42 +219,36 @@ describe('JS control flow', () => {
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'ul');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'ul');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         for (let i = 0; i < ctx.data[0].length; i++) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'li');
-              {
-                C(1);
-                c();
-              }
-              e();
+              elementStart(0, 'li');
+              { container(1); }
+              elementEnd();
             }
-            cR(1);
+            containerRefreshStart(1);
             {
               ctx.data[1].forEach((value: string, ind: number) => {
-                if (V(2)) {
-                  T(0);
+                if (embeddedViewStart(2)) {
+                  text(0);
                 }
-                t(0, b(ctx.data[0][i] + value));
-                v();
+                textBinding(0, bind(ctx.data[0][i] + value));
+                embeddedViewEnd();
               });
             }
-            cr();
+            containerRefreshEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<ul><li>aman</li><li>bmbn</li><li>cmcn</li></ul>');
@@ -294,45 +274,43 @@ describe('JS control flow', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
+        elementStart(0, 'div');
         {
-          T(1, 'Before');
-          C(2);
-          c();
-          T(3, 'After');
+          text(1, 'Before');
+          container(2);
+          text(3, 'After');
         }
-        e();
+        elementEnd();
       }
-      cR(2);
+      containerRefreshStart(2);
       {
         for (let i = 0; i < ctx.cafes.length; i++) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'h2');
-              { T(1); }
-              e();
-              C(2);
-              c();
-              T(3, '-');
+              elementStart(0, 'h2');
+              { text(1); }
+              elementEnd();
+              container(2);
+              text(3, '-');
             }
-            t(1, b(ctx.cafes[i].name));
-            cR(2);
+            textBinding(1, bind(ctx.cafes[i].name));
+            containerRefreshStart(2);
             {
               for (let j = 0; j < ctx.cafes[i].entrees.length; j++) {
-                if (V(1)) {
-                  T(0);
+                if (embeddedViewStart(1)) {
+                  text(0);
                 }
-                t(0, b(ctx.cafes[i].entrees[j]));
-                v();
+                textBinding(0, bind(ctx.cafes[i].entrees[j]));
+                embeddedViewEnd();
               }
             }
-            cr();
+            containerRefreshEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     const ctx = {
@@ -376,63 +354,60 @@ describe('JS control flow', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
+        elementStart(0, 'div');
         {
-          T(1, 'Before');
-          C(2);
-          c();
-          T(3, 'After');
+          text(1, 'Before');
+          container(2);
+          text(3, 'After');
         }
-        e();
+        elementEnd();
       }
-      cR(2);
+      containerRefreshStart(2);
       {
         for (let i = 0; i < ctx.cafes.length; i++) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'h2');
-              { T(1); }
-              e();
-              C(2);
-              c();
-              T(3, '-');
+              elementStart(0, 'h2');
+              { text(1); }
+              elementEnd();
+              container(2);
+              text(3, '-');
             }
-            t(1, b(ctx.cafes[i].name));
-            cR(2);
+            textBinding(1, bind(ctx.cafes[i].name));
+            containerRefreshStart(2);
             {
               for (let j = 0; j < ctx.cafes[i].entrees.length; j++) {
-                let cm1 = V(1);
+                let cm1 = embeddedViewStart(1);
                 {
                   if (cm1) {
-                    E(0, 'h3');
-                    { T(1); }
-                    e();
-                    C(2);
-                    c();
+                    elementStart(0, 'h3');
+                    { text(1); }
+                    elementEnd();
+                    container(2);
                   }
-                  t(1, b(ctx.cafes[i].entrees[j].name));
-                  cR(2);
+                  textBinding(1, bind(ctx.cafes[i].entrees[j].name));
+                  containerRefreshStart(2);
                   {
                     for (let k = 0; k < ctx.cafes[i].entrees[j].foods.length; k++) {
-                      if (V(1)) {
-                        T(0);
+                      if (embeddedViewStart(1)) {
+                        text(0);
                       }
-                      t(0, b(ctx.cafes[i].entrees[j].foods[k]));
-                      v();
+                      textBinding(0, bind(ctx.cafes[i].entrees[j].foods[k]));
+                      embeddedViewEnd();
                     }
                   }
-                  cr();
+                  containerRefreshEnd();
                 }
-                v();
+                embeddedViewEnd();
               }
             }
-            cr();
+            containerRefreshEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     const ctx = {
@@ -469,38 +444,35 @@ describe('JS control flow', () => {
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'div');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         if (ctx.condition) {
-          let cm1 = V(1);
+          let cm1 = embeddedViewStart(1);
           {
             if (cm1) {
-              E(0, 'span');
-              { T(1, 'Hello'); }
-              e();
+              elementStart(0, 'span');
+              { text(1, 'Hello'); }
+              elementEnd();
             }
           }
-          v();
+          embeddedViewEnd();
         } else {
-          let cm2 = V(2);
+          let cm2 = embeddedViewStart(2);
           {
             if (cm2) {
-              E(0, 'div');
-              { T(1, 'Goodbye'); }
-              e();
+              elementStart(0, 'div');
+              { text(1, 'Goodbye'); }
+              elementEnd();
             }
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<div><span>Hello</span></div>');
@@ -520,31 +492,28 @@ describe('JS for loop', () => {
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        {
-          C(1);
-          c();
-        }
-        e();
+        elementStart(0, 'div');
+        { container(1); }
+        elementEnd();
       }
-      cR(1);
+      containerRefreshStart(1);
       {
         for (let i = 0; i < ctx.data1.length; i++) {
-          if (V(1)) {
-            T(0);
+          if (embeddedViewStart(1)) {
+            text(0);
           }
-          t(0, b(ctx.data1[i]));
-          v();
+          textBinding(0, bind(ctx.data1[i]));
+          embeddedViewEnd();
         }
         for (let j = 0; j < ctx.data2.length; j++) {
-          if (V(2)) {
-            T(0);
+          if (embeddedViewStart(2)) {
+            text(0);
           }
-          t(0, b(ctx.data2[j]));
-          v();
+          textBinding(0, bind(ctx.data2[j]));
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx)).toEqual('<div>abc12</div>');
@@ -567,40 +536,38 @@ describe('function calls', () => {
     function spanify(ctx: {message: string | null}, cm: boolean) {
       const message = ctx.message;
       if (cm) {
-        E(0, 'span');
-        { T(1); }
-        e();
+        elementStart(0, 'span');
+        { text(1); }
+        elementEnd();
       }
-      t(1, b(message));
+      textBinding(1, bind(message));
     }
 
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
+        elementStart(0, 'div');
         {
-          T(1, 'Before');
-          C(2);
-          c();
-          C(3);
-          c();
-          T(4, 'After');
+          text(1, 'Before');
+          container(2);
+          container(3);
+          text(4, 'After');
         }
-        e();
+        elementEnd();
       }
-      cR(2);
+      containerRefreshStart(2);
       {
-        let cm0 = V(0);
+        let cm0 = embeddedViewStart(0);
         { spanify({message: ctx.data[0]}, cm0); }
-        v();
+        embeddedViewEnd();
       }
-      cr();
-      cR(3);
+      containerRefreshEnd();
+      containerRefreshStart(3);
       {
-        let cm0 = V(0);
+        let cm0 = embeddedViewStart(0);
         { spanify({message: ctx.data[1]}, cm0); }
-        v();
+        embeddedViewEnd();
       }
-      cr();
+      containerRefreshEnd();
     }
 
     expect(renderToHtml(Template, ctx))

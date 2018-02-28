@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
+  return 5;
+}
+
 export default [
   'mg',
   [
@@ -40,9 +45,5 @@ export default [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'Ar', 'Ariary',
-  function(n: number):
-      number {
-        if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'MGA': ['Ar'], 'USD': ['US$', '$']}, plural
 ];

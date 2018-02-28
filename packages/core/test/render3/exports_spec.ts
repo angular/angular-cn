@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {C, D, E, T, V, a, b, c, cR, cr, defineComponent, defineDirective, e, k, p, t, v} from '../../src/render3/index';
+import {defineComponent, defineDirective} from '../../src/render3/index';
+import {bind, container, containerRefreshEnd, containerRefreshStart, elementAttribute, elementClass, elementEnd, elementProperty, elementStart, embeddedViewEnd, embeddedViewStart, load, text, textBinding} from '../../src/render3/instructions';
 
 import {renderToHtml} from './render_util';
 
@@ -16,12 +17,12 @@ describe('exports', () => {
     /** <input value="one" #myInput> {{ myInput.value }} */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'input', ['value', 'one']);
-        e();
-        T(1);
+        elementStart(0, 'input', ['value', 'one']);
+        elementEnd();
+        text(1);
       }
-      let myInput = E(0);
-      t(1, (myInput as any).value);
+      let myInput = elementStart(0);
+      textBinding(1, (myInput as any).value);
     }
 
     expect(renderToHtml(Template, {})).toEqual('<input value="one">one');
@@ -32,12 +33,11 @@ describe('exports', () => {
     /** <comp #myComp></comp> {{ myComp.name }} */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, MyComponent.ngComponentDef);
-        { D(1, MyComponent.ngComponentDef.n(), MyComponent.ngComponentDef); }
-        e();
-        T(2);
+        elementStart(0, MyComponent);
+        elementEnd();
+        text(2);
       }
-      t(2, D<MyComponent>(1).name);
+      textBinding(2, load<MyComponent>(1).name);
     }
 
     class MyComponent {
@@ -78,14 +78,12 @@ describe('exports', () => {
     /** <comp #myComp></comp> <div [myDir]="myComp"></div> */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, MyComponent.ngComponentDef);
-        { D(1, MyComponent.ngComponentDef.n(), MyComponent.ngComponentDef); }
-        e();
-        E(2, 'div');
-        { D(3, MyDir.ngDirectiveDef.n(), MyDir.ngDirectiveDef); }
-        e();
+        elementStart(0, MyComponent);
+        elementEnd();
+        elementStart(2, 'div', null, [MyDir]);
+        elementEnd();
       }
-      p(2, 'myDir', b(D<MyComponent>(1)));
+      elementProperty(2, 'myDir', bind(load<MyComponent>(1)));
     }
 
     renderToHtml(Template, {});
@@ -97,18 +95,17 @@ describe('exports', () => {
     /** <div someDir #myDir="someDir"></div> {{ myDir.name }} */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'div');
-        D(1, SomeDirDef.n(), SomeDirDef);
-        e();
-        T(2);
+        elementStart(0, 'div', null, [SomeDir]);
+        elementEnd();
+        text(2);
       }
-      t(2, D<SomeDir>(1).name);
+      textBinding(2, load<SomeDir>(1).name);
     }
 
     class SomeDir {
       name = 'Drew';
+      static ngDirectiveDef = defineDirective({type: SomeDir, factory: () => new SomeDir});
     }
-    const SomeDirDef = defineDirective({type: SomeDir, factory: () => new SomeDir});
 
     expect(renderToHtml(Template, {})).toEqual('<div></div>Drew');
   });
@@ -118,12 +115,12 @@ describe('exports', () => {
       /** {{ myInput.value}} <input value="one" #myInput> */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          T(0);
-          E(1, 'input', ['value', 'one']);
-          e();
+          text(0);
+          elementStart(1, 'input', ['value', 'one']);
+          elementEnd();
         }
-        let myInput = E(1);
-        t(0, b((myInput as any).value));
+        let myInput = elementStart(1);
+        textBinding(0, bind((myInput as any).value));
       }
 
       expect(renderToHtml(Template, {})).toEqual('one<input value="one">');
@@ -134,13 +131,13 @@ describe('exports', () => {
       /** <div [title]="myInput.value"</div> <input value="one" #myInput> */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'div');
-          e();
-          E(1, 'input', ['value', 'one']);
-          e();
+          elementStart(0, 'div');
+          elementEnd();
+          elementStart(1, 'input', ['value', 'one']);
+          elementEnd();
         }
-        let myInput = E(1);
-        p(0, 'title', b(myInput && (myInput as any).value));
+        let myInput = elementStart(1);
+        elementProperty(0, 'title', bind(myInput && (myInput as any).value));
       }
 
       expect(renderToHtml(Template, {})).toEqual('<div title="one"></div><input value="one">');
@@ -150,13 +147,13 @@ describe('exports', () => {
       /** <div [attr.aria-label]="myInput.value"</div> <input value="one" #myInput> */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'div');
-          e();
-          E(1, 'input', ['value', 'one']);
-          e();
+          elementStart(0, 'div');
+          elementEnd();
+          elementStart(1, 'input', ['value', 'one']);
+          elementEnd();
         }
-        let myInput = E(1);
-        a(0, 'aria-label', b(myInput && (myInput as any).value));
+        let myInput = elementStart(1);
+        elementAttribute(0, 'aria-label', bind(myInput && (myInput as any).value));
       }
 
       expect(renderToHtml(Template, {})).toEqual('<div aria-label="one"></div><input value="one">');
@@ -166,17 +163,17 @@ describe('exports', () => {
       /** <div [class.red]="myInput.checked"</div> <input type="checkbox" checked #myInput> */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'div');
-          e();
-          E(1, 'input', ['type', 'checkbox', 'checked', 'true']);
-          e();
+          elementStart(0, 'div');
+          elementEnd();
+          elementStart(1, 'input', ['type', 'checkbox', 'checked', 'true']);
+          elementEnd();
         }
-        let myInput = E(1);
-        k(0, 'red', b(myInput && (myInput as any).checked));
+        let myInput = elementStart(1);
+        elementClass(0, 'red', bind(myInput && (myInput as any).checked));
       }
 
       expect(renderToHtml(Template, {}))
-          .toEqual('<div class="red"></div><input type="checkbox" checked="true">');
+          .toEqual('<div class="red"></div><input checked="true" type="checkbox">');
     });
 
     it('should work with component refs', () => {
@@ -207,14 +204,12 @@ describe('exports', () => {
       /** <div [myDir]="myComp"></div><comp #myComp></comp> */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'div');
-          { D(1, MyDir.ngDirectiveDef.n(), MyDir.ngDirectiveDef); }
-          e();
-          E(2, MyComponent.ngComponentDef);
-          { D(3, MyComponent.ngComponentDef.n(), MyComponent.ngComponentDef); }
-          e();
+          elementStart(0, 'div', null, [MyDir]);
+          elementEnd();
+          elementStart(2, MyComponent);
+          elementEnd();
         }
-        p(0, 'myDir', b(D<MyComponent>(3)));
+        elementProperty(0, 'myDir', bind(load<MyComponent>(3)));
       }
 
       renderToHtml(Template, {});
@@ -226,18 +221,17 @@ describe('exports', () => {
        */
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          T(0);
-          T(1);
-          E(2, 'comp');
-          { D(3, MyComponent.ngComponentDef.n(), MyComponent.ngComponentDef); }
-          e();
-          E(4, 'input', ['value', 'one']);
-          e();
+          text(0);
+          text(1);
+          elementStart(2, MyComponent);
+          elementEnd();
+          elementStart(4, 'input', ['value', 'one']);
+          elementEnd();
         }
-        let myInput = E(4);
-        let myComp = D(3) as MyComponent;
-        t(0, b(myInput && (myInput as any).value));
-        t(1, b(myComp && myComp.name));
+        let myInput = elementStart(4);
+        let myComp = load<MyComponent>(3);
+        textBinding(0, bind(myInput && (myInput as any).value));
+        textBinding(1, bind(myComp && myComp.name));
       }
 
       let myComponent: MyComponent;
@@ -260,30 +254,27 @@ describe('exports', () => {
     it('should work inside a view container', () => {
       function Template(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'div');
-          {
-            C(1);
-            c();
-          }
-          e();
+          elementStart(0, 'div');
+          { container(1); }
+          elementEnd();
         }
-        cR(1);
+        containerRefreshStart(1);
         {
           if (ctx.condition) {
-            let cm1 = V(1);
+            let cm1 = embeddedViewStart(1);
             {
               if (cm1) {
-                T(0);
-                E(1, 'input', ['value', 'one']);
-                e();
+                text(0);
+                elementStart(1, 'input', ['value', 'one']);
+                elementEnd();
               }
-              let myInput = E(1);
-              t(0, b(myInput && (myInput as any).value));
+              let myInput = elementStart(1);
+              textBinding(0, bind(myInput && (myInput as any).value));
             }
-            v();
+            embeddedViewEnd();
           }
         }
-        cr();
+        containerRefreshEnd();
       }
 
       expect(renderToHtml(Template, {

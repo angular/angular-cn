@@ -1,11 +1,11 @@
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_library", "ts_web_test")
+load("//tools:defaults.bzl", "ts_library")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_web_test")
 load("@build_bazel_rules_nodejs//:defs.bzl", "jasmine_node_test")
 
 ts_library(
     name = "test_lib",
     testonly = 1,
     srcs = glob(["**/*.ts"]),
-    tsconfig = "//packages:tsconfig",
     deps = [
         "//packages:types",
         "//packages/core",
@@ -23,8 +23,12 @@ ts_web_test(
     name = "test_web",
     bootstrap = [
         "//:web_test_bootstrap_scripts",
-        "//:angularjs",
+        # "//:angularjs",
     ],
+    # Disable since tests need to request different AngularJS versions at
+    # runtime, which is not yet supported.
+    # (Related issue: https://github.com/bazelbuild/rules_typescript/issues/131)
+    tags = ["manual"],
     # do not sort
     deps = [
         "//tools/testing:browser",

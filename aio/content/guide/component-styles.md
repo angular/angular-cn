@@ -16,19 +16,15 @@ with components, enabling a more modular design than regular stylesheets.
 
 This page describes how to load and apply these component styles.
 
-在本章中，我们将学到如何加载和使用这些*组件样式*。
-
-You can run the <live-example></live-example> in Plunker and download the code from there.
-
+在本章中，我们将学到如何加载和使用这些*组件样式*。You can run the <live-example></live-example> in Stackblitz and download the code from there.
 你可以在Plunker上运行本章这些代码的<live-example></live-example>并下载这些代码。
-
 
 ## Using component styles
 
 ## 使用组件样式
 
 For every Angular component you write, you may define not only an HTML template,
-but also the CSS styles that go with that template, 
+but also the CSS styles that go with that template,
 specifying any selectors, rules, and media queries that you need.
 
 对于我们写的每个 Angular 组件来说，除了定义 HTML 模板之外，我们还要定义用于模板的 CSS 样式、
@@ -75,7 +71,7 @@ This scoping restriction is a ***styling modularity feature***.
 
   可以使用对每个组件最有意义的 CSS 类名和选择器。
   
-* Class names and selectors are local to the component and don't collide with 
+* Class names and selectors are local to the component and don't collide with
   classes and selectors used elsewhere in the application.
   
   类名和选择器是仅属于组件内部的，它不会和应用中其它地方的类名和选择器出现冲突。
@@ -102,7 +98,7 @@ This scoping restriction is a ***styling modularity feature***.
 ## 特殊的选择器
 
 Component styles have a few special *selectors* from the world of shadow DOM style scoping
-(described in the [CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1) page on the 
+(described in the [CSS Scoping Module Level 1](https://www.w3.org/TR/css-scoping-1) page on the
 [W3C](https://www.w3.org) site).
 The following sections describe these selectors.
 
@@ -170,19 +166,17 @@ if some ancestor element has the CSS class `theme-light`.
 
 ### 已废弃 `/deep/`、`>>>`和`::ng-deep`
 
-Component styles normally apply only to the HTML in the component's own template. 
+Component styles normally apply only to the HTML in the component's own template.
 
 组件样式通常只会作用于组件自身的 HTML 上。
 
 Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child
 component tree into all the child component views.
 The `/deep/` combinator works to any depth of nested components, and it applies to both the view
-children and content children of the component. 
-  
-我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
+children and content children of the component. 我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
 
-The following example targets all `<h3>` elements, from the host element down 
-through this component to all of its child elements in the DOM. 
+The following example targets all `<h3>` elements, from the host element down
+through this component to all of its child elements in the DOM.
 
 在这个例子中，我们以所有的`<h3>`元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
 
@@ -226,7 +220,7 @@ CSS标准中用于 "刺穿Shadow DOM" 的组合器已经被废弃，并将[这�
 
 ## 把样式加载进组件中
 
-There are several ways to add styles to a component: 
+There are several ways to add styles to a component:
 
 有几种方式把样式加入组件：
 
@@ -290,8 +284,8 @@ to a component's `@Component` decorator:
 
 <code-tabs>
   <code-pane title="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
-  <code-pane title="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.1.css"></code-pane>
-</code-tabs> 
+  <code-pane title="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.css"></code-pane>
+</code-tabs>
 
 <div class="alert is-critical">
 
@@ -332,7 +326,7 @@ inside `<style>` tags.
 
 ### Template link tags
 
-You can also write `<link>` tags into the component's HTML template. 
+You can also write `<link>` tags into the component's HTML template.
 
 我们也可以在组件的 HTML 模板中写`<link>`标签。
 
@@ -341,7 +335,7 @@ You can also write `<link>` tags into the component's HTML template.
 
 <div class="alert is-critical">
 
-The link tag's `href` URL must be relative to the 
+The link tag's `href` URL must be relative to the
 _**application root**_, not relative to the component file.
 
 When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
@@ -378,7 +372,7 @@ See the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-
 
 ### Non-CSS style files
 
-If you're building with the CLI, 
+If you're building with the CLI,
 you can write style files in [sass](http://sass-lang.com/), [less](http://lesscss.org/), or [stylus](http://stylus-lang.com/) and specify those files in the `@Component.styleUrls` metadata with the appropriate extensions (`.scss`, `.less`, `.styl`) as in the following example:
 
 <code-example>
@@ -393,7 +387,7 @@ you can write style files in [sass](http://sass-lang.com/), [less](http://lesscs
 The CLI build process runs the pertinent CSS preprocessor.
 
 When generating a component file with `ng generate component`, the CLI emits an empty CSS styles file (`.css`) by default.
-You can configure the CLI to default to your preferred CSS preprocessor 
+You can configure the CLI to default to your preferred CSS preprocessor
 as explained in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
 "CSS Preprocessor integration").
 
@@ -422,7 +416,7 @@ Choose from the following modes:
 可选的封装模式一共有如下几种：
 
 * `Native` view encapsulation uses the browser's native shadow DOM implementation (see
-  [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM) 
+  [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
   on the [MDN](https://developer.mozilla.org) site)
   to attach a shadow DOM to the component's host element, and then puts the component
   view inside that shadow DOM. The component's styles are included within the shadow DOM.
@@ -438,14 +432,12 @@ Choose from the following modes:
   更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)
 
 * `None` means that Angular does no view encapsulation.
-  Angular adds the CSS to the global styles. 
-  The scoping rules, isolations, and protections discussed earlier don't apply. 
+  Angular adds the CSS to the global styles.
+  The scoping rules, isolations, and protections discussed earlier don't apply.
   This is essentially the same as pasting the component's styles into the HTML.
-
   `None`意味着 Angular 不使用视图封装。
   Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。
   从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)
-
 To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
 
 通过组件元数据中的`encapsulation`属性来设置组件封装模式：
@@ -455,7 +447,7 @@ To set the components encapsulation mode, use the `encapsulation` property in th
 </code-example>
 
 `Native` view encapsulation only works on browsers that have native support
-for shadow DOM (see [Shadow DOM v0](http://caniuse.com/#feat=shadowdom) on the 
+for shadow DOM (see [Shadow DOM v0](http://caniuse.com/#feat=shadowdom) on the
 [Can I use](http://caniuse.com) site). The support is still limited,
 which is why `Emulated` view encapsulation is the default mode and recommended
 in most cases.
@@ -502,7 +494,7 @@ There are two kinds of generated attributes:
   一个元素在原生封装方式下可能是 Shadow DOM 的宿主，在这里被自动添加上一个`_nghost`属性。
   这是组件宿主元素的典型情况。
 
-* An element within a component's view has a `_ngcontent` attribute 
+* An element within a component's view has a `_ngcontent` attribute
 that identifies to which host's emulated shadow DOM this element belongs.
 
   组件视图中的每一个元素，都有一个`_ngcontent`属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
@@ -528,7 +520,7 @@ by the generated component styles, which are in the `<head>` section of the DOM:
 </code-example>
 
 These styles are post-processed so that each selector is augmented
-with `_nghost` or `_ngcontent` attribute selectors. 
+with `_nghost` or `_ngcontent` attribute selectors.
 These extra selectors enable the scoping rules described in this page.
 
 这些就是我们写的那些样式被处理后的结果，于是每个选择器都被增加了`_nghost`或`_ngcontent`属性选择器。

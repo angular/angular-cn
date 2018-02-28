@@ -13,7 +13,7 @@ For more information about the attacks and mitigations described below, see [OWA
 
 要了解更多攻防信息，参见[开放式Web应用程序安全项目(OWASP)](https://www.owasp.org/index.php/Category:OWASP_Guide_Project)。
 
-You can run the <live-example></live-example> in Plunker and download the code from there.
+You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
 运行<live-example></live-example>来试用本页的代码。
 

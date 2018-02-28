@@ -1,24 +1,29 @@
 workspace(name = "bazel_integration_test")
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+# Using a pre-release snapshot to pick up a commit that makes all nodejs_binary
+# programs produce source-mapped stack traces and uglify sourcemaps.
+RULES_NODEJS_VERSION = "4303cbef12e5e252ad66cc35cff1123e3a44ee83"
 
-git_repository(
+http_archive(
     name = "build_bazel_rules_nodejs",
-    remote = "https://github.com/bazelbuild/rules_nodejs.git",
-    tag = "0.3.1",
+    url = "https://github.com/bazelbuild/rules_nodejs/archive/%s.zip" % RULES_NODEJS_VERSION,
+    strip_prefix = "rules_nodejs-%s" % RULES_NODEJS_VERSION,
+    sha256 = "fccb9a7122f339d89c9994dc0fea33c737dd76e66281d0da0cb841da5f1edec7",
 )
 
 load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
 node_repositories(package_json = ["//:package.json"])
 
-git_repository(
+RULES_TYPESCRIPT_VERSION = "d3cc5cd72d89aee0e4c2553ae1b99c707ecbef4e"
+
+http_archive(
     name = "build_bazel_rules_typescript",
-    remote = "https://github.com/bazelbuild/rules_typescript.git",
-#    tag = "0.6.0",
-    commit = "89d2c75066bea3d9c942f29dd1d2ea543c58d6d5"
+    url = "https://github.com/bazelbuild/rules_typescript/archive/%s.zip" % RULES_TYPESCRIPT_VERSION,
+    strip_prefix = "rules_typescript-%s" % RULES_TYPESCRIPT_VERSION,
+    sha256 = "a233fcca41c3e59f639ac71c396edb30e9e9716cf8ed5fb20b51ff8910d5d895",
 )
 
-load("@build_bazel_rules_typescript//:setup.bzl", "ts_setup_workspace")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
 
@@ -32,10 +37,11 @@ local_repository(
     path = "node_modules/rxjs/src",
 )
 
-git_repository(
+http_archive(
     name = "io_bazel_rules_sass",
-    remote = "https://github.com/bazelbuild/rules_sass.git",
-    tag = "0.0.3",
+    url = "https://github.com/bazelbuild/rules_sass/archive/0.0.3.zip",
+    strip_prefix = "rules_sass-0.0.3",
+    sha256 = "8fa98e7b48a5837c286a1ea254b5a5c592fced819ee9fe4fdd759768d97be868",
 )
 
 load("@io_bazel_rules_sass//sass:sass.bzl", "sass_repositories")

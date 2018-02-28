@@ -94,7 +94,7 @@ CLI 会创建`src/app/highlight.directive.ts`及相应的测试文件（`.../spe
 
 <div class="l-sub-section">
 
-_Directives_ must be declared in [Angular Modules](guide/ngmodule) in the same manner as _components_.
+_Directives_ must be declared in [Angular Modules](guide/ngmodules) in the same manner as _components_.
 
 和**组件**一样，这些**指令**也必须在[Angular模块](guide/ngmodule)中进行声明。
 

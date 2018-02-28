@@ -91,10 +91,22 @@
   dependencies:
     "@types/node" "*"
 
+"@types/events@*":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
+
 "@types/fs-extra@4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-4.0.2.tgz#7b9b1bbf85962cbe029b5a83c9b530d7c75af3ba"
   dependencies:
+    "@types/node" "*"
+
+"@types/glob@*":
+  version "5.0.35"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.35.tgz#1ae151c802cece940443b5ac246925c85189f32a"
+  dependencies:
+    "@types/events" "*"
+    "@types/minimatch" "*"
     "@types/node" "*"
 
 "@types/hammerjs@2.0.35":
@@ -104,6 +116,10 @@
 "@types/jasmine@2.2.22-alpha":
   version "2.2.22-alpha"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.2.22-alpha.tgz#eecaee43fe42ef6b5cfefad1bcc370c433f485bf"
+
+"@types/minimatch@*":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*":
   version "8.0.28"
@@ -124,6 +140,13 @@
 "@types/selenium-webdriver@^2.53.35", "@types/selenium-webdriver@~2.53.39":
   version "2.53.42"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
+
+"@types/shelljs@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.7.8.tgz#4b4d6ee7926e58d7bca448a50ba442fd9f6715bd"
+  dependencies:
+    "@types/glob" "*"
+    "@types/node" "*"
 
 "@types/source-map@^0.5.1":
   version "0.5.1"
@@ -227,17 +250,21 @@ amdetective@0.0.2:
   dependencies:
     esprima "~1.2.2"
 
-angular-animate@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.5.0.tgz#0e31f31fa7ab2ddf5ea5787e476548644d62fb93"
+"angular-1.5@npm:angular@1.5":
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.11.tgz#8c5ba7386f15965c9acf3429f6881553aada30d6"
 
-angular-mocks@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.5.0.tgz#81b3e4b21098d7c545c6f0a0a97f897b26879dd9"
+"angular-mocks-1.5@npm:angular-mocks@1.5":
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.5.11.tgz#a0e1dd0ea55fd77ee7a757d75536c5e964c86f81"
 
-angular@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.0.tgz#d96ee97ab6df6cfd0915accbee484d098adb74ec"
+"angular-mocks@npm:angular-mocks@1.6":
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.6.9.tgz#4fed8c8293a5080e0919a7ff0dcf0f704864b7ba"
+
+"angular@npm:angular@1.6":
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.9.tgz#bc812932e18909038412d594a5990f4bb66c0619"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -1944,9 +1971,9 @@ domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
-domino@1.0.29:
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/domino/-/domino-1.0.29.tgz#de8aa1f6f98e3c5538feb7a61fa69c1eabbace06"
+domino@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/domino/-/domino-2.0.1.tgz#9e1d63215d0fe8dcb8202bff07effa1a216db504"
 
 dot-prop@^3.0.0:
   version "3.0.0"
@@ -7096,6 +7123,10 @@ tslib@^1.0.0, tslib@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
 
+tslib@^1.8.1:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
+
 tslint-eslint-rules@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/tslint-eslint-rules/-/tslint-eslint-rules-4.1.1.tgz#7c30e7882f26bc276bff91d2384975c69daf88ba"
@@ -7137,11 +7168,11 @@ tsscmp@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
 
-tsutils@2.12.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.12.1.tgz#f4d95ce3391c8971e46e54c4cf0edb0a21dd5b24"
+tsutils@2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.20.0.tgz#303394064bc80be8ee04e10b8609ae852e9312d3"
   dependencies:
-    tslib "^1.7.1"
+    tslib "^1.8.1"
 
 tsutils@^1.4.0:
   version "1.9.1"

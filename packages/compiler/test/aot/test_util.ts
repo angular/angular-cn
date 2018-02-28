@@ -386,6 +386,8 @@ export class MockAotCompilerHost implements AotCompilerHost {
     return resolved ? resolved.resolvedFileName : null;
   }
 
+  getOutputName(filePath: string) { return filePath; }
+
   resourceNameToFileName(resourceName: string, containingFile: string) {
     // Note: we convert package paths into relative paths to be compatible with the the
     // previous implementation of UrlResolver.
@@ -529,6 +531,7 @@ const minCoreIndex = `
   export * from './src/change_detection';
   export * from './src/metadata';
   export * from './src/di/metadata';
+  export * from './src/di/injectable';
   export * from './src/di/injector';
   export * from './src/di/injection_token';
   export * from './src/linker';
@@ -536,16 +539,25 @@ const minCoreIndex = `
   export * from './src/codegen_private_exports';
 `;
 
-export function setup(options: {compileAngular: boolean, compileAnimations: boolean} = {
-  compileAngular: true,
-  compileAnimations: true,
-}) {
+export function setup(
+    options: {compileAngular: boolean, compileAnimations: boolean, compileCommon?: boolean} = {
+      compileAngular: true,
+      compileAnimations: true,
+      compileCommon: false,
+    }) {
   let angularFiles = new Map<string, string>();
 
   beforeAll(() => {
     if (options.compileAngular) {
       const emittingHost = new EmittingCompilerHost([], {emitMetadata: true});
       emittingHost.addScript('@angular/core/index.ts', minCoreIndex);
+      const emittingProgram = ts.createProgram(emittingHost.scripts, settings, emittingHost);
+      emittingProgram.emit();
+      emittingHost.writtenAngularFiles(angularFiles);
+    }
+    if (options.compileCommon) {
+      const emittingHost =
+          new EmittingCompilerHost(['@angular/common/index.ts'], {emitMetadata: true});
       const emittingProgram = ts.createProgram(emittingHost.scripts, settings, emittingHost);
       emittingProgram.emit();
       emittingHost.writtenAngularFiles(angularFiles);
@@ -607,7 +619,11 @@ export function expectNoDiagnostics(program: ts.Program) {
     if (diagnostics && diagnostics.length) {
       throw new Error(
           'Errors from TypeScript:\n' +
-          diagnostics.map(d => `${fileInfo(d)}${d.messageText}${lineInfo(d)}`).join(' \n'));
+          diagnostics
+              .map(
+                  d =>
+                      `${fileInfo(d)}${ts.flattenDiagnosticMessageText(d.messageText, '\n')}${lineInfo(d)}`)
+              .join(' \n'));
     }
   }
   expectNoDiagnostics(program.getOptionsDiagnostics());

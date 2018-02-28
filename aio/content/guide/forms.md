@@ -47,7 +47,7 @@ This page shows you how to build a simple form from scratch. Along the way you'l
 
   使用模板引用变量在 HTML 元素之间共享信息
 
-You can run the <live-example></live-example> in Plunker and download the code from there.
+You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
 你可以在Plunker中运行<live-example></live-example>，并且从那里下载代码。
 

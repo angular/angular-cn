@@ -346,10 +346,10 @@ The following are all in `src/`
 
 
       Compiles the application with the [JIT compiler](guide/glossary#jit) and
-      [bootstraps](guide/bootstrapping#main "bootstrap the application")
+      [bootstraps](guide/bootstrapping)
       the application's main module (`AppModule`) to run in the browser.
       The JIT compiler is a reasonable choice during the development of most projects and
-      it's the only viable choice for a sample running in a _live-coding_ environment like Plunker.
+      it's the only viable choice for a sample running in a _live-coding_ environment like Stackblitz.
       You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.
 
       使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping#main "启动应用")并运行应用。
@@ -424,7 +424,7 @@ use other versions of node and npm.
 
 ## 附录：为何在本地开发
   
-<live-example title="QuickStart Seed in Plunker">Live coding</live-example> in the browser is a great way to explore Angular.
+<live-example title="QuickStart Seed in Stackblitz">Live coding</live-example> in the browser is a great way to explore Angular.
 
 在浏览器中<live-example title="QuickStart Seed in Plunker">在线编程</live-example>是很好的探索 Angular 的方法。
 
@@ -448,9 +448,9 @@ As much fun as this is ...
 
 虽然有这么多的乐趣，但是...  
 
-* you can't ship your app in plunker
+* you can't ship your app in Stackblitz
 
-  你不能在 plunker 里面发布你的应用  
+  你不能在 Stackblitz 里面发布你的应用  
     
 * you aren't always online when writing code
 
@@ -464,7 +464,7 @@ As much fun as this is ...
 
   只有本地 IDE 有类型支持、代码重构和代码自动完成
   
-Use the <live-example title="QuickStart Seed in Plunker">live coding</live-example> environment as a _playground_,
+Use the <live-example title="QuickStart Seed in Stackblitz">live coding</live-example> environment as a _playground_,
 a place to try the documentation samples and experiment on your own.
 It's the perfect place to reproduce a bug when you want to
 <a href="https://github.com/angular/angular/issues/new" title="File a documentation issue">file a documentation issue</a> or
@@ -478,3 +478,10 @@ It's the perfect place to reproduce a bug when you want to
 For real development, we strongly recommend [developing locally](guide/setup#develop-locally).
 
 对于现实项目开发，我们强烈推荐在[本地开发](guide/setup#develop-locally)。
+
+## Appendix: develop locally with IE
+
+If you develop angular locally with `ng serve`, there will be `websocket` connection being setup automatically between browser and local dev server, so when your code change, browser can automatically refresh.
+
+In windows, by default one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
+So if IE was refreshed manunally or automatically by `ng serve`, sometimes, the websocket will not close properly, when websocket connections exceed limitations, `SecurityError` will be thrown, this error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.

@@ -29,7 +29,7 @@ const defaultLineNumsCount = 10; // by default, show linenums over this number
   selector: 'aio-code',
   template: `
     <pre class="prettyprint lang-{{language}}">
-      <button *ngIf="!hideCopy" class="material-icons copy-button"
+      <button *ngIf="!hideCopy" class="material-icons copy-button no-print"
         title="Copy code snippet"
         [attr.aria-label]="ariaLabel"
         (click)="doCopy()">
@@ -170,7 +170,7 @@ export class CodeComponent implements OnChanges {
   }
 }
 
-function leftAlign(text) {
+function leftAlign(text: string) {
   let indent = Number.MAX_VALUE;
   const lines = text.split('\n');
   lines.forEach(line => {

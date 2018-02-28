@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'es-CL',
   [
@@ -56,10 +61,33 @@ export default [
     '{1}, {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '¤#,##0.00;¤-#,##0.00', '#E0'], '$', 'Peso chileno', function(n: number):
-                                                                                    number {
-                                                                                      if (n === 1)
-                                                                                        return 1;
-                                                                                      return 5;
-                                                                                    }
+  ['#,##0.###', '#,##0 %', '¤#,##0.00;¤-#,##0.00', '#E0'], '$', 'Peso chileno', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CLP': ['$'],
+    'CNY': [, '¥'],
+    'ESP': ['₧'],
+    'EUR': [, '€'],
+    'FKP': [, 'FK£'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'SSP': [, 'SD£'],
+    'SYP': [, 'S£'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'VEF': [, 'BsF'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural
 ];

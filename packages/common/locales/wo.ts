@@ -9,6 +9,10 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  return 5;
+}
+
 export default [
   'wo',
   [
@@ -40,5 +44,5 @@ export default [
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'CFA', 'Franc CFA bu Afrik Sowwu-jant',
-  function(n: number): number { return 5;}
+  {'JPY': ['JP¥', '¥']}, plural
 ];

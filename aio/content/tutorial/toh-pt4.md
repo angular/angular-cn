@@ -97,7 +97,7 @@ Since you did not, you'll have to provide it yourself.
 
 Open the `AppModule` class, import the `HeroService`, and add it to the `@NgModule.providers` array.
 
-<code-example path="toh-pt4/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers">
+<code-example path="toh-pt4/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers-heroservice">
 </code-example>
 
 The `providers` array tells Angular to create a single, shared instance of `HeroService`
@@ -105,9 +105,15 @@ and inject into any class that asks for it.
 
 The `HeroService` is now ready to plug into the `HeroesComponent`.
 
+<div class="alert is-important">
+
+This is a interim code sample that will allow you to provide and use the `HeroService`.  At this point, the code will differ from the `HeroService` in the ["final code review"](#final-code-review).
+
+</div>
+
 <div class="alert is-helpful">
 
-  Learn more about _providers_ in the [NgModules](guide/ngmodule#providers) guide.
+  Learn more about _providers_ in the [Providers](guide/providers) guide.
 
 </div>
 
@@ -121,7 +127,7 @@ Import the `HeroService` instead.
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" title="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
 </code-example>
 
-Replace the the definition of the `heroes` property with a simple declaration.
+Replace the definition of the `heroes` property with a simple declaration.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="heroes">
 </code-example>
@@ -232,11 +238,11 @@ Find the `getHeroes` method and replace it with the following code
 
 <code-tabs>
 
-  <code-pane title="hero.component.ts (Observable)" 
+  <code-pane title="heroes.component.ts (Observable)" 
     path="toh-pt4/src/app/heroes/heroes.component.ts" region="getHeroes">
   </code-pane>
 
-  <code-pane title="hero.component.ts (Original)" 
+  <code-pane title="heroes.component.ts (Original)" 
     path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
   </code-pane>
 
@@ -421,6 +427,10 @@ Here are the code files discussed on this page and your app should look like thi
 
   <code-pane title="src/app/messages/messages.component.css"
   path="toh-pt4/src/app/messages/messages.component.css">
+  </code-pane>
+
+  <code-pane title="src/app/app.module.ts"
+  path="toh-pt4/src/app/app.module.ts">
   </code-pane>
 
   <code-pane title="src/app/app.component.html"

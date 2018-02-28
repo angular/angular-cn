@@ -13,18 +13,6 @@ See the <live-example name="set-document-title"></live-example>.
 
 参见<live-example name="set-document-title"></live-example>
 
-<div class="l-sub-section">
-  <img src='generated/images/plunker/plunker-switch-to-editor-button.png'alt="pop out the window" class="right">
-  <img src='generated/images/plunker/plunker-separate-window-button.png' alt="pop out the window" class="right">
-
-  To see the browser title bar change in the live example,
-  open it again in the Plunker editor by clicking the icon in the upper right,
-  then pop out the preview window by clicking the blue 'X' button in the upper right corner.
-  
-  要在在线例子中看到浏览器标题的变化，请点击右上角的图标在Plunker编辑器中打开它，然后点击预览窗口右上角的蓝色'X'按钮，弹出窗口。
-
-</div>
-
 ## The problem with *&lt;title&gt;*
 
 ## *&lt;title&gt;*的问题

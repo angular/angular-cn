@@ -11,199 +11,100 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
   <tr>
 
-    <th>
+<th>
+      Browser
+</th>
+
+<th>
+      Supported versions
+</th>
+
+  </tr>
+
+  <tr>
+
+    <td>
       Chrome
-    </th>
+    </td>
 
-    <th>
+    <td>
+
+      <p>
+        latest
+      </p>
+
+      <p>
+        最新版
+      </p>
+
+    </td>
+  </tr>
+
+  <tr>
+
+    <td>
       Firefox
-    </th>
+    </td>
 
-    <th>
+    <td>
+      latest
+    </td>
+  </tr>
+
+  <tr>
+
+    <td>
       Edge
-    </th>
+    </td>
 
-    <th>
+    <td>
+      2 most recent major versions
+    </td>
+  </tr>
+  <tr> 
+    <td>
       IE
-    </th>
-
-    <th>
-      Safari
-    </th>
-
-    <th>
-      iOS
-    </th>
-
-    <th>
-      Android
-    </th>
-
-    <th>
+    </td>
+    <td>
+      11<br>10<br>9
+    </td>
+  </tr>
+ <tr>
+   <tr> 
+    <td>
       IE Mobile
-    </th>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-      <p>
-        latest
-      </p>
-
-      <p>
-        最新版
-      </p>
-
     </td>
-
-    <td>
-
-      <p>
-        latest
-      </p>
-
-      <p>
-        最新版
-      </p>
-
-    </td>
-
-    <td>
-      14
-    </td>
-
     <td>
       11
     </td>
-
-    <td>
-      10
-    </td>
-
-    <td>
-      10
-    </td>
-
-    <td>
-      Nougat (7.0)<br>Marshmallow (6.0)
-    </td>
-
-    <td>
-      11
-    </td>
-
   </tr>
+ <tr>
+    <td>
+      Safari
+    </td>
 
+    <td>
+      2 most recent major versions
+    </td>
+  </tr>
   <tr>
-
     <td>
-
+      iOS
     </td>
 
     <td>
-
+      2 most recent major versions
     </td>
-
-    <td>
-      13
-    </td>
-
-    <td>
-      10
-    </td>
-
-    <td>
-      9
-    </td>
-
-    <td>
-      9
-    </td>
-
-    <td>
-      Lollipop<br>(5.0, 5.1)
-    </td>
-
-    <td>
-
-    </td>
-
-  </tr>
-
+  </tr> 
   <tr>
-
     <td>
-
+      Android
     </td>
 
     <td>
-
+      Nougat (7.0)<br>Marshmallow (6.0)<br>Lollipop (5.0, 5.1)<br>KitKat (4.4)
     </td>
-
-    <td>
-
-    </td>
-
-    <td>
-      9
-    </td>
-
-    <td>
-      8
-    </td>
-
-    <td>
-      8
-    </td>
-
-    <td>
-      KitKat<br>(4.4)
-    </td>
-
-    <td>
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-    </td>
-
-    <td>
-
-    </td>
-
-    <td>
-
-    </td>
-
-    <td>
-
-    </td>
-
-    <td>
-      7
-    </td>
-
-    <td>
-      7
-    </td>
-
-    <td>
-      Jelly Bean<br>(4.1, 4.2, 4.3)
-    </td>
-
-    <td>
-
-    </td>
-
-  </tr>
+  </tr> 
 
 </table>
 
@@ -261,26 +162,23 @@ This file incorporates the mandatory and many of the optional polyfills as JavaS
 
 这个文件把强制的和很多可选的填充脚本组织成 JavaScript 的 `import` 语句。
 
-The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and 
-their corresponding `import` statements are ready to go.
-You probably won't touch these.
+The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.
 
 **强制性** 填充脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
 
-But if you need an optional polyfill, you'll have to install its npm package with `npm` or `yarn`.
-For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation),
-you could install it with either of the following commands:
+But if you need an optional polyfill, you'll have to install its npm package.
+For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
 
 但是如果要用一个可选的填充库，就要通过 `npm` 或 `yarn` 来安装它们的 npm 包了。
 比如，[如果你需要 web 动画的填充脚本](http://caniuse.com/#feat=web-animation)，就要通过下列命令之一来安装它：
 
 <code-example language="sh" class="code-shell">
+  # note that the web-animations-js polyfill is only here as an example
+  # it isn't a strict requirement of Angular anymore (more below)
   npm install --save web-animations-js
-  yarn add web-animations-js
 </code-example>
 
-Then open the `polyfills.ts` file and un-comment the corresponding `import` statement
-as in the following example:
+Then open the `polyfills.ts` file and un-comment the corresponding `import` statement as in the following example:
 
 然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
 
@@ -292,7 +190,7 @@ as in the following example:
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 </code-example>
 
-If you can't find the polyfill you want in `polyfills.ts`, 
+If you can't find the polyfill you want in `polyfills.ts`,
 add it yourself, following the same pattern:
 
 如果在 `polyfills.ts` 中找不到要使用的填充脚本，就可以仿照下列模式自行添加它：
@@ -363,6 +261,7 @@ These are the polyfills required to run an Angular application on each supported
     <td>
 
       [ES7/reflect](guide/browser-support#core-es7-reflect) (JIT only)
+
     </td>
 
   </tr>
@@ -375,8 +274,8 @@ These are the polyfills required to run an Angular application on each supported
 
     <td>
 
-
       [ES6](guide/browser-support#core-es6)
+
     </td>
 
   </tr>
@@ -388,7 +287,6 @@ These are the polyfills required to run an Angular application on each supported
     </td>
 
     <td>
-
 
       [ES6<br>classList](guide/browser-support#classlist)
 
@@ -408,7 +306,7 @@ Some features of Angular may require additional polyfills.
 有些 Angular 特性可能需要额外的填充库。
 
 For example, the animations library relies on the standard web animation API, which is only available in Chrome and Firefox today.
-You'll need a polyfill to use animations in other browsers.
+(note that the dependency of web-animations-js in Angular is only necessary if `AnimationBuilder` is used.)
 
 例如，动画库依赖于标准的 web 动画 API，目前它只在 Chrome 和 Firefox 上可用。你可能需要一个填充库来在其它浏览器上使用动画功能。
 
@@ -448,7 +346,8 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      [JIT compilation](guide/aot-compiler). 
+      [JIT compilation](guide/aot-compiler).
+
       Required to reflect for metadata.
       
       [JIT 编译](guide/aot-compiler) 需要 reflect 来提供元数据。
@@ -458,13 +357,11 @@ Here are the features which may require additional polyfills:
     <td>
 
       [ES7/reflect](guide/browser-support#core-es7-reflect)
-      
     </td>
 
     <td>
-      All current browsers.
-      Enabled by default.
-      Can remove If you always use AOT and only use Angular decorators.
+      All current browsers. Enabled by default.
+      Can remove if you always use AOT and only use Angular decorators.
       
       默认对目前的所有浏览器都启用了。如果总是使用 AOT 模式，并且只使用 Angular 自带的装饰器，那么可以移除它。
       
@@ -480,10 +377,14 @@ Here are the features which may require additional polyfills:
       
       [动画](guide/animations)
       
+      <br>Only if `Animation Builder` is used within the application--standard
+      animation support in Angular doesn't require any polyfills (as of NG6).
+      
+      <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何填充库的（截至 NG6）。
+
     </td>
 
     <td>
-
 
       [Web Animations](guide/browser-support#web-animations)
 
@@ -491,11 +392,10 @@ Here are the features which may require additional polyfills:
     </td>
 
     <td>
-
-      All but Chrome and Firefox<br>Not supported in IE9
+      <p>If AnimationBuilder is used then the polyfill will enable scrubbing
+      support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>
       
-      除 Chrome 和 Firefox 外的所有，但不支持 IE9
-
+      <p>如果使用了AnimationBuilder，那么填充库将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
     </td>
 
   </tr>
@@ -504,17 +404,24 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-    If you use the following deprecated i18n pipes: [date](api/common/DeprecatedDatePipe), [currency](api/common/DeprecatedCurrencyPipe), [decimal](api/common/DeprecatedDecimalPipe) and [percent](api/common/DeprecatedPercentPipe)
-    
+    If you use the following deprecated i18n pipes:
+
     如果你使用下列已废弃的i18n管道：
-    [date](api/common/DeprecatedDatePipe)、[currency](api/common/DeprecatedCurrencyPipe)、[decimal](api/common/DeprecatedDecimalPipe) 和 [percent](api/common/DeprecatedPercentPipe)
+     
+     [date](api/common/DeprecatedDatePipe), 
+     
+     [currency](api/common/DeprecatedCurrencyPipe),
+      
+     [decimal](api/common/DeprecatedDecimalPipe),
+      
+     [percent](api/common/DeprecatedPercentPipe)
     
     </td>
 
     <td>
 
-
       [Intl API](guide/browser-support#intl)
+
     </td>
 
     <td>
@@ -530,15 +437,17 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-       <p>[NgClass](api/common/NgClass) on SVG elements</p>
+       <p>[NgClass](api/common/NgClass) 
+       
+       on SVG elements</p>
        
        <p>在 SVG 元素上应用 [NgClass](api/common/NgClass)</p>
     </td>
 
     <td>
 
-
       [classList](guide/browser-support#classlist)
+
     </td>
 
     <td>
@@ -551,7 +460,9 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      <p>[Http](guide/http) when sending and receiving binary data</p>
+      <p>[Http](guide/http) 
+      
+      when sending and receiving binary data</p>
       
       <p>用 [Http](guide/http) 发送和接收二进制数据</p>
       
@@ -560,8 +471,11 @@ Here are the features which may require additional polyfills:
     <td>
 
       [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
+
       [Blob](guide/browser-support#blob)<br>
+
       [FormData](guide/browser-support#formdata)
+
     </td>
 
     <td>
@@ -575,7 +489,9 @@ Here are the features which may require additional polyfills:
 
 
 ### Suggested polyfills ##
+
 ### 建议的填充库 ##
+
 Below are the polyfills which are used to test the framework itself. They are a good starting point for an application.
 
 下表中是用来测试框架本身的填充库，它们是应用程序的优质起点。
@@ -628,6 +544,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
     <td>
 
       <a id='core-es7-reflect' href="https://github.com/zloirock/core-js/blob/master/es7/reflect.js">ES7/reflect</a>
+
     </td>
 
     <td>
@@ -643,7 +560,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
       <a id='core-es6' href="https://github.com/zloirock/core-js">ES6</a>
+
     </td>
 
     <td>
@@ -659,7 +578,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
       <a id='classlist' href="https://github.com/eligrey/classList.js">classList</a>
+
     </td>
 
     <td>
@@ -683,7 +604,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
       <a id='intl' href="https://github.com/andyearnshaw/Intl.js">Intl</a>
+
     </td>
 
     <td>
@@ -699,7 +622,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
-      <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
+       <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
     </td>
 
     <td>
@@ -715,7 +638,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
       <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js">Typed Array</a>
+
     </td>
 
     <td>
@@ -731,7 +656,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
        <a id='blob' href="https://github.com/eligrey/Blob.js">Blob</a>
+
     </td>
 
     <td>
@@ -747,7 +674,9 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
        <a id='formdata' href="https://github.com/francois2metz/html5-formdata">FormData</a>
+
     </td>
 
     <td>
@@ -763,7 +692,6 @@ Below are the polyfills which are used to test the framework itself. They are a 
 </table>
 
 
-
 \* Figures are for minified and gzipped code, 
 computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.
 
@@ -772,7 +700,7 @@ computed with the <a href="http://closure-compiler.appspot.com/home" >closure co
 
 ## 不使用 CLI 的用户的填充库
 
-If you aren't using the CLI, you should add your polyfill scripts directly to the host web page (`index.html`), perhaps like this.
+If you are not using the CLI, you should add your polyfill scripts directly to the host web page (`index.html`), perhaps like this.
 
 如果你不使用 CLI，就要直接把填充库添加到宿主页（`index.html`）中，就像这样：
 
@@ -780,10 +708,24 @@ If you aren't using the CLI, you should add your polyfill scripts directly to th
   &lt;!-- pre-zone polyfills -->
   &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
   &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>
+  &lt;script>
+    /**
+     * you can configure some zone flags which can disable zone interception for some
+     * asynchronous activities to improve startup performance - use these options only
+     * if you know what you are doing as it could result in hard to trace down bugs..
+     */
+    // __Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
+    // __Zone_disable_on_property = true; // disable patch onProperty such as onclick
+    // __zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
 
+    /*
+     * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
+     * with the following flag, it will bypass `zone.js` patch for IE/Edge
+     */
+    // __Zone_enable_cross_context_check = true;
+  &lt;/script>
   &lt;!-- zone.js required by Angular -->
   &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
 
   &lt;!-- application polyfills -->
 </code-example>
-

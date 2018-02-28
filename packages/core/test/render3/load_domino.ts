@@ -9,11 +9,14 @@
 // Needed to run animation tests
 require('zone.js/dist/zone-node.js');
 
+import {DominoAdapter} from '@angular/platform-server/src/domino_adapter';
+import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
+
 if (typeof window == 'undefined') {
   const domino = require('domino');
-  const createWindow = domino.createWindow;
-  const window = createWindow('', 'http://localhost');
-  (global as any).document = window.document;
+
+  DominoAdapter.makeCurrent();
+  (global as any).document = getDOM().getDefaultDocument();
 
   // Trick to avoid Event patching from
   // https://github.com/angular/angular/blob/7cf5e95ac9f0f2648beebf0d5bd9056b79946970/packages/platform-browser/src/dom/events/dom_events.ts#L112-L132
@@ -24,4 +27,6 @@ if (typeof window == 'undefined') {
   // For animation tests, see
   // https://github.com/angular/angular/blob/master/packages/animations/browser/src/render/shared.ts#L140
   (global as any).Element = domino.impl.Element;
+  (global as any).isBrowser = false;
+  (global as any).isNode = true;
 }

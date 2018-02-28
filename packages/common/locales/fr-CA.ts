@@ -9,6 +9,12 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
+
 export default [
   'fr-CA',
   [
@@ -48,11 +54,38 @@ export default [
     '{1} \'à\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || i === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien', {
+    'AUD': ['$ AU', '$'],
+    'BEF': ['FB'],
+    'BYN': [, 'Br'],
+    'CAD': ['$'],
+    'CYP': ['£CY'],
+    'EGP': [, '£E'],
+    'FRF': ['F'],
+    'GEL': [],
+    'HKD': ['$ HK', '$'],
+    'IEP': ['£IE'],
+    'ILP': ['£IL'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'ITL': ['₤IT'],
+    'KRW': [, '₩'],
+    'LBP': [, '£L'],
+    'MTP': ['£MT'],
+    'MXN': [, '$'],
+    'NZD': ['$ NZ', '$'],
+    'RHD': ['$RH'],
+    'RON': [, 'L'],
+    'RWF': [, 'FR'],
+    'SGD': ['$ SG', '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['$ US', '$'],
+    'VND': [, '₫'],
+    'WST': ['WS$'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': []
+  },
+  plural
 ];

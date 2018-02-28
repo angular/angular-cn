@@ -1423,10 +1423,9 @@ The Angular code is shown using TypeScript.
 
         `declaration`: 用于记录组件、管道和指令。
 
-      For more information on modules, see [NgModules](guide/ngmodule).
+      For more information on modules, see [NgModules](guide/ngmodules).
 
       要了解关于模块的更多知识，参见[NgModules](guide/ngmodule)。
-
     </td>
 
   </tr>
@@ -1660,7 +1659,7 @@ also encapsulate a style sheet within a specific component.
       
       ### 样式配置
       
-      <code-example hideCopy path="ajs-quick-reference/.angular-cli.1.json" region="styles" linenums="false">
+      <code-example hideCopy path="ajs-quick-reference/.angular-cli.1.json" region="styles" linenums="false"></code-example>
 
       With the Angular CLI, you can configure your global styles in the `.angular-cli.json` file.
       You can rename the extension to `.scss` to use sass.

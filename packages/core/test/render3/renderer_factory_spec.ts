@@ -10,11 +10,12 @@ import {AnimationEvent} from '@angular/animations';
 import {MockAnimationDriver, MockAnimationPlayer} from '@angular/animations/browser/testing';
 
 import {RendererType2, ViewEncapsulation} from '../../src/core';
-import {D, E, L, T, b, defineComponent, detectChanges, e, p} from '../../src/render3';
-import {createRendererType2} from '../../src/view';
+import {defineComponent, detectChanges} from '../../src/render3/index';
+import {bind, directiveRefresh, elementEnd, elementProperty, elementStart, listener, text} from '../../src/render3/instructions';
+import {createRendererType2} from '../../src/view/index';
 
 import {getAnimationRendererFactory2, getRendererFactory2} from './imported_renderer2';
-import {containerEl, document, renderComponent, renderToHtml} from './render_util';
+import {containerEl, document, renderComponent, renderToHtml, toHtml} from './render_util';
 
 describe('renderer factory lifecycle', () => {
   let logs: string[] = [];
@@ -34,7 +35,7 @@ describe('renderer factory lifecycle', () => {
       template: function(ctx: SomeComponent, cm: boolean) {
         logs.push('component');
         if (cm) {
-          T(0, 'foo');
+          text(0, 'foo');
         }
       },
       factory: () => new SomeComponent
@@ -55,20 +56,19 @@ describe('renderer factory lifecycle', () => {
   function Template(ctx: any, cm: boolean) {
     logs.push('function');
     if (cm) {
-      T(0, 'bar');
+      text(0, 'bar');
     }
   }
 
   function TemplateWithComponent(ctx: any, cm: boolean) {
     logs.push('function_with_component');
     if (cm) {
-      T(0, 'bar');
-      E(1, SomeComponent.ngComponentDef);
-      { D(2, SomeComponent.ngComponentDef.n(), SomeComponent.ngComponentDef); }
-      e();
+      text(0, 'bar');
+      elementStart(1, SomeComponent);
+      elementEnd();
     }
     SomeComponent.ngComponentDef.h(2, 1);
-    SomeComponent.ngComponentDef.r(2, 1);
+    directiveRefresh(2, 1);
   }
 
   beforeEach(() => { logs = []; });
@@ -127,7 +127,7 @@ describe('animation renderer factory', () => {
       tag: 'some-component',
       template: function(ctx: SomeComponent, cm: boolean) {
         if (cm) {
-          T(0, 'foo');
+          text(0, 'foo');
         }
       },
       factory: () => new SomeComponent
@@ -144,15 +144,15 @@ describe('animation renderer factory', () => {
       tag: 'some-component',
       template: function(ctx: SomeComponentWithAnimation, cm: boolean) {
         if (cm) {
-          E(0, 'div');
+          elementStart(0, 'div');
           {
-            L('@myAnimation.start', ctx.callback.bind(ctx));
-            L('@myAnimation.done', ctx.callback.bind(ctx));
-            T(1, 'foo');
+            listener('@myAnimation.start', ctx.callback.bind(ctx));
+            listener('@myAnimation.done', ctx.callback.bind(ctx));
+            text(1, 'foo');
           }
-          e();
+          elementEnd();
         }
-        p(0, '@myAnimation', b(ctx.exp));
+        elementProperty(0, '@myAnimation', bind(ctx.exp));
       },
       factory: () => new SomeComponentWithAnimation,
       rendererType: createRendererType2({
@@ -178,14 +178,14 @@ describe('animation renderer factory', () => {
 
   it('should work with components without animations', () => {
     renderComponent(SomeComponent, getAnimationRendererFactory2(document));
-    expect(containerEl.innerHTML).toEqual('foo');
+    expect(toHtml(containerEl)).toEqual('foo');
   });
 
-  it('should work with animated components', (done) => {
+  isBrowser && it('should work with animated components', (done) => {
     const factory = getAnimationRendererFactory2(document);
     const component = renderComponent(SomeComponentWithAnimation, factory);
-    expect(containerEl.innerHTML)
-        .toEqual('<div class="ng-tns-c1-0 ng-trigger ng-trigger-myAnimation">foo</div>');
+    expect(toHtml(containerEl))
+        .toMatch(/<div class="ng-tns-c\d+-0 ng-trigger ng-trigger-myAnimation">foo<\/div>/);
 
     component.exp = 'on';
     detectChanges(component);

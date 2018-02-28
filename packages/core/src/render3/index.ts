@@ -6,9 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {createComponentRef, detectChanges, getHostElement, markDirty, renderComponent} from './component';
-import {NgOnChangesFeature, PublicFeature, defineComponent, defineDirective} from './definition';
-import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveDefFlags, DirectiveType} from './definition_interfaces';
+import {createComponentRef, detectChanges, getHostElement, getRenderedText, markDirty, renderComponent, whenRendered} from './component';
+import {NgOnChangesFeature, PublicFeature, defineComponent, defineDirective, definePipe} from './definition';
+import {InjectFlags} from './di';
+import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveDefFlags, DirectiveType} from './interfaces/definition';
+
+export {InjectFlags, QUERY_READ_CONTAINER_REF, QUERY_READ_ELEMENT_REF, QUERY_READ_FROM_NODE, QUERY_READ_TEMPLATE_REF, inject, injectElementRef, injectTemplateRef, injectViewContainerRef} from './di';
+export {CssSelector} from './interfaces/projection';
+
 
 // Naming scheme:
 // - Capital letters are for creating things: T(Text), E(Element), D(Directive), V(View),
@@ -20,31 +25,25 @@ import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveD
 // - lower case for closing: c(containerEnd), e(elementEnd), v(viewEnd)
 // clang-format off
 export {
-  inject, injectElementRef, injectTemplateRef, injectViewContainerRef,
-
-  LifecycleHook,
 
   NO_CHANGE as NC,
 
   bind as b,
-  bind1 as b1,
-  bind2 as b2,
-  bind3 as b3,
-  bind4 as b4,
-  bind5 as b5,
-  bind6 as b6,
-  bind7 as b7,
-  bind8 as b8,
-  bindV as bV,
+  interpolation1 as i1,
+  interpolation2 as i2,
+  interpolation3 as i3,
+  interpolation4 as i4,
+  interpolation5 as i5,
+  interpolation6 as i6,
+  interpolation7 as i7,
+  interpolation8 as i8,
+  interpolationV as iV,
 
-  componentRefresh as r,
+  directiveRefresh as r,
 
-  containerStart as C,
-  containerEnd as c,
+  container as C,
   containerRefreshStart as cR,
   containerRefreshEnd as cr,
-
-  directive as D,
 
   elementAttribute as a,
   elementClass as k,
@@ -53,24 +52,51 @@ export {
   elementStart as E,
   elementStyle as s,
 
-  lifecycle as l,
   listener as L,
-  memory as m,
+  store as st,
+  load as ld,
 
   projection as P,
   projectionDef as pD,
 
-  query as Q,
-  queryRefresh as qR,
-
   text as T,
   textBinding as t,
 
-  viewStart as V,
-  viewEnd as v,
+  embeddedViewStart as V,
+  embeddedViewEnd as v,
 } from './instructions';
+
+export {
+  pipe as Pp,
+  pipeBind1 as pb1,
+  pipeBind2 as pb2,
+  pipeBind3 as pb3,
+  pipeBind4 as pb4,
+  pipeBindV as pbV,
+} from './pipe';
+
+export {
+  QueryList,
+
+  query as Q,
+  queryRefresh as qR,
+} from './query';
+export {
+  pureFunction0 as f0,
+  pureFunction1 as f1,
+  pureFunction2 as f2,
+  pureFunction3 as f3,
+  pureFunction4 as f4,
+  pureFunction5 as f5,
+  pureFunction6 as f6,
+  pureFunction7 as f7,
+  pureFunction8 as f8,
+  pureFunctionV as fV,
+} from './pure_function';
+
+
 // clang-format on
-export {QueryList} from './query';
+
 export {
   ComponentDef,
   ComponentTemplate,
@@ -82,5 +108,12 @@ export {
   PublicFeature,
   defineComponent,
   defineDirective,
+  definePipe,
+  detectChanges,
+  createComponentRef,
+  getHostElement,
+  getRenderedText,
+  markDirty,
+  renderComponent,
+  whenRendered,
 };
-export {createComponentRef, detectChanges, getHostElement, markDirty, renderComponent};

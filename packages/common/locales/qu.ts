@@ -9,6 +9,10 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  return 5;
+}
+
 export default [
   'qu',
   [
@@ -39,5 +43,5 @@ export default [
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'], ['{1} {0}', , '{0} {1}', '{1} {0}'],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], 'S/', 'PEN',
-  function(n: number): number { return 5;}
+  {'JPY': ['JP¥', '¥'], 'PEN': ['S/'], 'USD': ['US$', '$']}, plural
 ];

@@ -234,3 +234,12 @@ you can view an example in the [webpack](guide/webpack) page.
 QuickStart doesn't require these typings but many of the samples do.
 
 “快速上手”本身不需要这些类型定义，但是文档中的很多例子都需要。
+
+
+{@a target}
+
+
+### *target*
+
+By default, the target is `es5`, you can configure the target to `es6` if you only want to deploy the application to
+es6 compatible browser. But if you configure the target to `es6` in some old browser such as `IE`, `Syntax Error` will be thrown.

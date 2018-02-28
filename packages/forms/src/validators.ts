@@ -125,6 +125,9 @@ export class Validators {
    * Validator that performs email validation.
    */
   static email(control: AbstractControl): ValidationErrors|null {
+    if (isEmptyInputValue(control.value)) {
+      return null;  // don't validate empty values to allow optional controls
+    }
     return EMAIL_REGEXP.test(control.value) ? null : {'email': true};
   }
 
@@ -163,7 +166,14 @@ export class Validators {
     let regex: RegExp;
     let regexStr: string;
     if (typeof pattern === 'string') {
-      regexStr = `^${pattern}$`;
+      regexStr = '';
+
+      if (pattern.charAt(0) !== '^') regexStr += '^';
+
+      regexStr += pattern;
+
+      if (pattern.charAt(pattern.length - 1) !== '$') regexStr += '$';
+
       regex = new RegExp(regexStr);
     } else {
       regexStr = pattern.toString();

@@ -38,6 +38,8 @@ export function isNgDiagnostic(diagnostic: any): diagnostic is Diagnostic {
 }
 
 export interface CompilerOptions extends ts.CompilerOptions {
+  // NOTE: These comments and aio/content/guides/aot-compiler.md should be kept in sync.
+
   // Write statistics about compilation (e.g. total time, ...)
   // Note: this is the --diagnostics command line option from TS (which is @internal
   // on ts.CompilerOptions interface).
@@ -57,7 +59,7 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // Produce an error if the metadata written for a class would produce an error if used.
   strictMetadataEmit?: boolean;
 
-  // Don't produce .ngfactory.ts or .ngstyle.ts files
+  // Don't produce .ngfactory.js or .ngstyle.js files
   skipTemplateCodegen?: boolean;
 
   // Always report errors when the type of a parameter supplied whose injection type cannot
@@ -130,6 +132,9 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // position.
   disableExpressionLowering?: boolean;
 
+  // Disable TypeScript Version Check.
+  disableTypeScriptVersionCheck?: boolean;
+
   // Locale of the application
   i18nOutLocale?: string;
   // Export format (xlf, xlf2 or xmb)
@@ -146,8 +151,8 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // How to handle missing messages
   i18nInMissingTranslations?: 'error'|'warning'|'ignore';
 
-  // Whether to remove blank text nodes from compiled templates. It is `true` by default
-  // in Angular 5 and will be re-visited in Angular 6.
+  // Whether to remove blank text nodes from compiled templates. It is `false` by default starting
+  // from Angular 6.
   preserveWhitespaces?: boolean;
 
   /** generate all possible generated files  */
@@ -158,6 +163,17 @@ export interface CompilerOptions extends ts.CompilerOptions {
    * in JIT mode. This is off by default.
    */
   enableSummariesForJit?: boolean;
+
+  /**
+   * Tells the compiler to generate definitions using the Render3 style code generation.
+   * This option defaults to `false`.
+   *
+   * Not all features are supported with this option enabled. It is only supported
+   * for experimentation and testing of Render3 style code generation.
+   *
+   * @experimental
+   */
+  enableIvy?: boolean;
 
   /** @internal */
   collectAllErrors?: boolean;

@@ -47,6 +47,7 @@ export class StaticReflector implements CompileReflector {
   private methodCache = new Map<StaticSymbol, {[key: string]: boolean}>();
   private staticCache = new Map<StaticSymbol, string[]>();
   private conversionMap = new Map<StaticSymbol, (context: StaticSymbol, args: any[]) => any>();
+  private resolvedExternalReferences = new Map<string, StaticSymbol>();
   private injectionToken: StaticSymbol;
   private opaqueToken: StaticSymbol;
   ROUTES: StaticSymbol;
@@ -81,12 +82,21 @@ export class StaticReflector implements CompileReflector {
   }
 
   resolveExternalReference(ref: o.ExternalReference, containingFile?: string): StaticSymbol {
+    let key: string|undefined = undefined;
+    if (!containingFile) {
+      key = `${ref.moduleName}:${ref.name}`;
+      const declarationSymbol = this.resolvedExternalReferences.get(key);
+      if (declarationSymbol) return declarationSymbol;
+    }
     const refSymbol =
         this.symbolResolver.getSymbolByModule(ref.moduleName !, ref.name !, containingFile);
     const declarationSymbol = this.findSymbolDeclaration(refSymbol);
     if (!containingFile) {
       this.symbolResolver.recordModuleNameForFileName(refSymbol.filePath, ref.moduleName !);
       this.symbolResolver.recordImportAs(declarationSymbol, refSymbol);
+    }
+    if (key) {
+      this.resolvedExternalReferences.set(key, declarationSymbol);
     }
     return declarationSymbol;
   }
@@ -112,6 +122,16 @@ export class StaticReflector implements CompileReflector {
       }
     }
     return symbol;
+  }
+
+  public tryAnnotations(type: StaticSymbol): any[] {
+    const originalRecorder = this.errorRecorder;
+    this.errorRecorder = (error: any, fileName: string) => {};
+    try {
+      return this.annotations(type);
+    } finally {
+      this.errorRecorder = originalRecorder;
+    }
   }
 
   public annotations(type: StaticSymbol): any[] {
@@ -321,6 +341,8 @@ export class StaticReflector implements CompileReflector {
   }
 
   private initializeConversionMap(): void {
+    this._registerDecoratorOrConstructor(
+        this.findDeclaration(ANGULAR_CORE, 'Injectable'), createInjectable);
     this.injectionToken = this.findDeclaration(ANGULAR_CORE, 'InjectionToken');
     this.opaqueToken = this.findDeclaration(ANGULAR_CORE, 'OpaqueToken');
     this.ROUTES = this.tryFindDeclaration(ANGULAR_ROUTER, 'ROUTES');
@@ -328,8 +350,6 @@ export class StaticReflector implements CompileReflector {
         this.findDeclaration(ANGULAR_CORE, 'ANALYZE_FOR_ENTRY_COMPONENTS');
 
     this._registerDecoratorOrConstructor(this.findDeclaration(ANGULAR_CORE, 'Host'), createHost);
-    this._registerDecoratorOrConstructor(
-        this.findDeclaration(ANGULAR_CORE, 'Injectable'), createInjectable);
     this._registerDecoratorOrConstructor(this.findDeclaration(ANGULAR_CORE, 'Self'), createSelf);
     this._registerDecoratorOrConstructor(
         this.findDeclaration(ANGULAR_CORE, 'SkipSelf'), createSkipSelf);

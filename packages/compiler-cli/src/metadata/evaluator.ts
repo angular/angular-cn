@@ -356,9 +356,6 @@ export class Evaluator {
           }
         }
         const args = arrayOrEmpty(callExpression.arguments).map(arg => this.evaluateNode(arg));
-        if (!this.options.verboseInvalidExpression && args.some(isMetadataError)) {
-          return args.find(isMetadataError);
-        }
         if (this.isFoldable(callExpression)) {
           if (isMethodCallOf(callExpression, 'concat')) {
             const arrayValue = <MetadataValue[]>this.evaluateNode(
@@ -384,9 +381,6 @@ export class Evaluator {
       case ts.SyntaxKind.NewExpression:
         const newExpression = <ts.NewExpression>node;
         const newArgs = arrayOrEmpty(newExpression.arguments).map(arg => this.evaluateNode(arg));
-        if (!this.options.verboseInvalidExpression && newArgs.some(isMetadataError)) {
-          return recordEntry(newArgs.find(isMetadataError), node);
-        }
         const newTarget = this.evaluateNode(newExpression.expression);
         if (isMetadataError(newTarget)) {
           return recordEntry(newTarget, node);

@@ -195,21 +195,102 @@
             }
           ]
         },
+        {
+          "title": "Observables & RxJS",
+          "tooltip": "Observables & RxJS",
+          "children": [
+            {
+              "url": "guide/observables",
+              "title": "Observables",
+              "tooltip": ""
+            },
+            {
+              "url": "guide/rx-library",
+              "title": "The RxJS Library",
+              "tooltip": ""
+            },
+            {
+              "url": "guide/observables-in-angular",
+              "title": "Observables in Angular",
+              "tooltip": ""
+            },
+            {
+              "url": "guide/practical-observable-usage",
+              "title": "Practical Usage",
+              "tooltip": ""
+            },
+            {
+              "url": "guide/comparing-observables",
+              "title": "Compare to Other Techniques",
+              "tooltip": ""
+            }
+          ]
+        },
 
         {
           "url": "guide/bootstrapping",
           "title": "引导启动",
           "tooltip": "在应用的根模块（AppModule）中告诉 Angular 如何构造并引导引用。"
         },
-
         {
+
           "title": "NgModules",
-          "tooltip": "使用 NgModules 来模块化我们的应用",
+          "tooltip": "NgModules.",
           "children": [
             {
-              "url": "guide/ngmodule",
-              "title": "NgModules",
-              "tooltip": "使用 @NgModule 定义应用的模块。"
+              "url": "guide/ngmodules",
+              "title": "NgModules Introduction",
+              "tooltip": "Use NgModules to make your apps efficient."
+            },
+            {
+              "url": "guide/ngmodule-vs-jsmodule",
+              "title": "JS Modules vs NgModules",
+              "tooltip": "Differentiate between JavaScript modules and NgModules."
+            },
+            {
+              "url": "guide/frequent-ngmodules",
+              "title": "Frequently Used NgModules",
+              "tooltip": "Introduction to the most frequently used NgModules."
+            },
+            {
+              "url": "guide/module-types",
+              "title": "Types of Feature Modules",
+              "tooltip": "Description of the different types of feature modules."
+            },
+            {
+              "url": "guide/entry-components",
+              "title": "Entry Components",
+              "tooltip": "All about entry components in Angular."
+            },
+            {
+              "url": "guide/feature-modules",
+              "title": "Feature Modules",
+              "tooltip": "Create feature modules to organize your code."
+            },
+            {
+              "url": "guide/providers",
+              "title": "Providers",
+              "tooltip": "Providers and NgModules."
+            },
+            {
+              "url": "guide/singleton-services",
+              "title": "Singleton Services",
+              "tooltip": "Creating singleton services."
+            },
+            {
+              "url": "guide/lazy-loading-ngmodules",
+              "title": "Lazy Loading Feature Modules",
+              "tooltip": "Lazy load modules to speed up your apps."
+            },
+            {
+              "url": "guide/sharing-ngmodules",
+              "title": "Sharing NgModules",
+              "tooltip": "Share NgModules to streamline your apps."
+            },
+            {
+              "url": "guide/ngmodule-api",
+              "title": "NgModule API",
+              "tooltip": "Understand the details of NgModules."
             },
             {
               "url": "guide/ngmodule-faq",

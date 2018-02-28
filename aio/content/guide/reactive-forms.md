@@ -11,11 +11,11 @@ This guide explains reactive forms as you follow the steps to build a "Hero Deta
 
 {@a toc}
 
-Try the <live-example plnkr="final" title="Reactive Forms (final) in Plunker">Reactive Forms live-example</live-example>.
+Try the <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz">Reactive Forms live-example</live-example>.
 
 试试<live-example plnkr="final" title="Reactive Forms (final) in Plunker">响应式表单的在线例子</live-example>。
 
-You can also run the <live-example title="Reactive Forms Demo in Plunker">Reactive Forms Demo</live-example> version
+You can also run the <live-example title="Reactive Forms Demo in Stackblitz">Reactive Forms Demo</live-example> version
 and choose one of the intermediate steps from the "demo picker" at the top.
 
 你还可以运行<live-example title="Reactive Forms Demo in Plunker">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。
@@ -619,7 +619,7 @@ closing `form` tag in the `hero-detail.component.html`:
 要想知道表单模型是什么样的，请在`hero-detail.component.html`的`form`标签紧后面添加如下代码：
 
 
-<code-example path="reactive-forms/src/app/hero-detail/hero-detail-3.component.html" region="form-value-json" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
+<code-example path="reactive-forms/src/app/hero-detail/hero-detail-2.component.html" region="form-value-json" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -876,7 +876,7 @@ within the `form` element.
 *Reminder*: Ignore the many mentions of `form-group`,
 `form-control`, `center-block`, and `checkbox` in this markup.
 Those are _bootstrap_ CSS classes that Angular itself ignores.
-Pay attention to the `formGroupName` and `formControlName` attributes.
+Pay attention to the `[formGroup]` and `formControlName` attributes.
 They are the Angular directives that bind the HTML controls to the
 Angular `FormGroup` and `FormControl` properties in the component class.
 
@@ -2071,7 +2071,7 @@ Users now can save or revert changes.
 现在，用户可以保存或放弃修改了。
 
 This is the final step in the demo.
-Try the <live-example plnkr="final" title="Reactive Forms (final) in Plunker"></live-example>.
+Try the <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz"></live-example>.
 
 
 这是本演示的最后一步。
@@ -2167,6 +2167,6 @@ The key files of the final version are as follows:
 
 
 You can download the complete source for all steps in this guide
-from the <live-example title="Reactive Forms Demo in Plunker">Reactive Forms Demo</live-example> live example.
+from the <live-example title="Reactive Forms Demo in Stackblitz">Reactive Forms Demo</live-example> live example.
 
 你可以到<live-example title="Reactive Forms Demo in Plunker">响应式表单在线例子</live-example>中下载本章所有步骤的完整代码。

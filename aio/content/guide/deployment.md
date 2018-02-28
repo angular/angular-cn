@@ -447,7 +447,7 @@ modified to serve `index.html`:
             &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" /&gt;
             &lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" /&gt;
           &lt;/conditions&gt;
-          &lt;action type="Rewrite" url="/src/" /&gt;
+          &lt;action type="Rewrite" url="/index.html" /&gt;
         &lt;/rule&gt;
       &lt;/rules&gt;
     &lt;/rewrite&gt;
@@ -491,7 +491,7 @@ and to
 
 Angular developers may encounter a
 <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" title="Cross-origin resource sharing">
-<i>cross-origin resource sharing</i></a> error when making a service request (typically a data service request).
+<i>cross-origin resource sharing</i></a> error when making a service request (typically a data service request)
 to a server other than the application's own host server.
 Browsers forbid such requests unless the server permits them explicitly.
 

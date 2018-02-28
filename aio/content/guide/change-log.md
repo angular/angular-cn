@@ -174,7 +174,7 @@ HTTP guide.
 ## 测试：添加了组件测试的plunker范例 (2016-12-02)
 
 Added two plunkers that each test _one simple component_ so you can write a component test plunker of your own: <live-example name="setup" plnkr="quickstart-specs">one</live-example> for the QuickStart seed's `AppComponent` and <live-example name="testing" plnkr="banner-specs">another</live-example> for the Testing guide's `BannerComponent`.
-Linked to these plunkers in [Testing](guide/testing#live-examples) and [Setup anatomy](guide/setup-systemjs-anatomy) guides.
+Linked to these plunkers in "Testing" and "Setup anatomy" guides.
 
 添加了两个plunker例子，每个都测试一个简单的组件，以便你可以自己在plunker中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的`AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的`BannerComponent`。
 并在[测试](guide/testing#live-examples)和[环境设置剖析](guide/setup-systemjs-anatomy)中链接到它们。
@@ -244,15 +244,16 @@ The documentation for the version prior to v.2.2.0 has been removed.
 
 ## 在“从TypeScript到JavaScript”增加ES6的描述 (2016-11-14)  
 
-The updated TypeScript to JavaScript guide (removed August 2017, PR #18694)
-explains how to write apps in ES6/7
+The updated TypeScript to JavaScript guide explains how to write apps in ES6/7
 
 更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
-
 by translating the common idioms in the TypeScript documentation examples
 (and elsewhere on the web) to ES6/7 and ES5.
 
 将TypeScript文档示例中（以及网站其它地方）的习惯用法翻译成ES6/7和ES5。
+
+This was [removed in August 2017](https://github.com/angular/angular/pull/18694) but can still be
+viewed in the [v2 documentation](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html).
 
 ## Sync with Angular v.2.1.1 (2016-10-21)
 
@@ -360,7 +361,7 @@ The _Routing Module_ replaces the previous _routing object_ involving the `Modul
 
 All guided samples with routing use the _Routing Module_ and prose content has been updated,
 most conspicuously in the
-[NgModule](guide/ngmodule) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
+[NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
 所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
 

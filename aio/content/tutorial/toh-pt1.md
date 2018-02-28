@@ -36,7 +36,7 @@ and annotate the component class with `@Component`.
 
 The CLI generated three metadata properties:
 
-1. `selector`&mdash; the components CSS element selector
+1. `selector`&mdash; the component's CSS element selector
 1. `templateUrl`&mdash; the location of the component's template file.
 1. `styleUrls`&mdash; the location of the component's private CSS styles.
 
@@ -211,7 +211,7 @@ and what other files and libraries the app requires.
 This information is called _metadata_
 
 Some of the metadata is in the `@Component` decorators that you added to your component classes.
-Other critical metadata is in [`@NgModule`](guide/ngmodule) decorators.
+Other critical metadata is in [`@NgModule`](guide/ngmodules) decorators.
 
 The most important `@NgModule`decorator annotates the top-level **AppModule** class.
 
@@ -236,7 +236,7 @@ When the browser refreshes, the app should work again. You can edit the hero's n
 
 ### Declare _HeroesComponent_ 
 
-Every component must be declared in _exactly one_ [NgModule](guide/ngmodule).
+Every component must be declared in _exactly one_ [NgModule](guide/ngmodules).
 
 _You_ didn't declare the `HeroesComponent`.
 So why did the application work?

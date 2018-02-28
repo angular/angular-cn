@@ -29,7 +29,10 @@ export class GaService {
     this.ga('send', 'pageview');
   }
 
-  ga(...args) {
-    this.window['ga'](...args);
+  ga(...args: any[]) {
+    const gaFn = (this.window as any)['ga'];
+    if (gaFn) {
+      gaFn(...args);
+    }
   }
 }

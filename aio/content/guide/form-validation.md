@@ -282,7 +282,7 @@ comes together:
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive" title="shared/forbidden-name.directive.ts (directive)">
 </code-example>
 
-Once the `ForbiddenValidatorDirective` is ready, you can simply add its selector, `forbiddenName`, to any input element to activate it. For example:
+Once the `ForbiddenValidatorDirective` is ready, you can simply add its selector, `appForbiddenName`, to any input element to activate it. For example:
 
 一旦 `ForbiddenValidatorDirective` 写好了，我们只要把`forbiddenName`选择器添加到输入框上就可以激活这个验证器了。比如：
 

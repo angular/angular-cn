@@ -5,32 +5,33 @@
       display: none;
     }
 
-    .mat-icon, .material-icons {
-      visibility: hidden;
-      display: inline-block;
+    .header-link {
+      box-sizing: border-box;
       color: $mediumgray;
-      margin: 0 8px;
-    }
+      display: inline-block;
+      margin-left: -42px;
+      padding: 0 8px;
+      text-decoration: none;
+      user-select: none;
+      vertical-align: middle;
+      visibility: hidden;
+      width: 40px;
 
-    &:hover {
-      .mat-icon, .material-icons {
-        visibility: visible;
+      @media (max-width: 600px) {
+        float: right;
+        margin-left: 0;
       }
     }
 
-    a.header-link {
-      text-decoration: none;
-      padding-left: 8px;
-      margin-left: -50px;
-      display: inline-block;
-      vertical-align: middle;
+    &:hover .header-link {
+      visibility: visible;
     }
   }
 
   .l-sub-section {
     h1, h2, h3, h4, h5, h6 {
       a {
-        padding-right: 24px;
+        padding-right: 64px;
         margin-left: -74px;
       }
     }
@@ -39,7 +40,7 @@
   .alert {
     h1, h2, h3, h4, h5, h6 {
       a {
-        padding-right: 40px;
+        padding-right: 80px;
         margin-left: -90px;
       }
     }

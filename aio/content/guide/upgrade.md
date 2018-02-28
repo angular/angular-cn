@@ -636,9 +636,7 @@ bootstrapping the AngularJS module.
 
 <div class="l-sub-section">
 
-
-
-Read more about [NgModules](guide/ngmodule).
+For more information, see [NgModules](guide/ngmodules).
 
 要了解Angular模块的更多信息，请参阅[Angular模块](guide/ngmodule)页。
 
@@ -949,7 +947,7 @@ and a controller:
 
 You can *upgrade* this component to Angular  using the `UpgradeComponent` class.
 By creating a new Angular  **directive** that extends `UpgradeComponent` and doing a `super` call
-inside it's constructor, you have a fully upgraded AngularJS component to be used inside Angular .
+inside its constructor, you have a fully upgraded AngularJS component to be used inside Angular .
 All that is left is to add it to `AppModule`'s `declarations` array.
 
 我们可以使用`UpgradeComponent`方法来把这个组件*升级*到Angular。
@@ -969,7 +967,7 @@ All that is left is to add it to `AppModule`'s `declarations` array.
 Upgraded components are Angular **directives**, instead of **components**, because Angular
 is unaware that AngularJS will create elements under it. As far as Angular knows, the upgraded
 component is just a directive - a tag - and Angular doesn't have to concern itself with
-it's children.
+its children.
 
 升级后的组件是Angular的**指令**，而不是**组件**，因为Angular不知道AngularJS将在它下面创建元素。
 Angular所知道的是升级后的组件只是一个指令（一个标签），Angular不需要关心组件本身及其子元素。
@@ -1258,7 +1256,7 @@ compilation can pick it up.
 
 
 
-You can then inject it in Angular using it's class as a type annotation:
+You can then inject it in Angular using its class as a type annotation:
 
 然后我们可以一个字符串型令牌，把它注入到Angular中：
 
@@ -1937,7 +1935,7 @@ instead.
 但在混合式应用中，它不再工作了。我们得用[ngUpgrade bootstrap](#bootstrapping-hybrid-applications)方法代替。
 
 First, remove the `ng-app` attribute from `index.html`.
-Then import `UpgradeModule` in the `AppModule`, and override it's `ngDoBootstrap` method:
+Then import `UpgradeModule` in the `AppModule`, and override its `ngDoBootstrap` method:
 
 首先，从`index.html`中移除`ng-app`。然后在`AppModule`中导入`UpgradeModule`，并改写它的`ngDoBootstrap`方法：
 
@@ -2536,7 +2534,7 @@ instead of the default "push state" strategy.
 Now update the `AppModule` to import this `AppRoutingModule` and also the
 declare the root `AppComponent` as the bootstrap component.
 That tells Angular that it should bootstrap the app with the _root_ `AppComponent` and
-insert it's view into the host web page.
+insert its view into the host web page.
 
 现在，修改`AppModule`，让它导入这个`AppRoutingModule`，并同时声明根组件`AppComponent`。
 这会告诉Angular，它应该使用根组件`AppComponent`引导应用，并把它的视图插入到宿主页面中。
@@ -2654,7 +2652,7 @@ module configuration files and not needed in Angular:
 
 The external typings for AngularJS may be uninstalled as well. The only ones
 you still need are for Jasmine and Angular polyfills.
-The `@angular/upgrade` package and it's mapping in `systemjs.config.js` can also go.
+The `@angular/upgrade` package and its mapping in `systemjs.config.js` can also go.
 
 还需要反安装AngularJS的外部类型定义文件。我们现在只需要Jasmine的那些。
 `systemjs.config.js`中的`@angular/upgrade`包及其映射也可以移除了。

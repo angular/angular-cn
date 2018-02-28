@@ -898,12 +898,12 @@ describe('ngc transformer command-line', () => {
 
           export * from './util';
 
-          // Note: the lamda will be lowered into an exported expression
+          // Note: the lambda will be lowered into an exported expression
           @NgModule({providers: [{provide: 'aToken', useValue: () => 2}]})
           export class MyModule {}
         `);
         write('util.ts', `
-          // Note: The lamda will be lowered into an exported expression
+          // Note: The lambda will be lowered into an exported expression
           const x = () => 2;
 
           export const y = x;
@@ -1144,7 +1144,7 @@ describe('ngc transformer command-line', () => {
       shouldExist('app/main.js');
     });
 
-    it('shoud be able to compile libraries with summaries and flat modules', () => {
+    it('should be able to compile libraries with summaries and flat modules', () => {
       writeFiles();
       compile();
 
@@ -1466,7 +1466,7 @@ describe('ngc transformer command-line', () => {
         `);
        }));
 
-    it('should recomiple when the html file changes',
+    it('should recompile when the html file changes',
        expectRecompile(() => { write('greet.html', '<p> Hello {{name}} again!</p>'); }));
 
     it('should recompile when the css file changes',
@@ -1698,6 +1698,40 @@ describe('ngc transformer command-line', () => {
       expect(messages[0]).toContain(`is imported recursively by the module 'MyFaultyImport`);
     });
 
+    // Regression test for #21273
+    it('should not report errors for unknown property annotations', () => {
+      write('src/tsconfig.json', `{
+        "extends": "../tsconfig-base.json",
+        "files": ["test-module.ts"]
+      }`);
+
+      write('src/test-decorator.ts', `
+        export function Convert(p: any): any {
+          // Make sur this doesn't look like a macro function
+          var r = p;
+          return r;
+        }
+      `);
+      write('src/test-module.ts', `
+        import {Component, Input, NgModule} from '@angular/core';
+        import {Convert} from './test-decorator';
+
+        @Component({template: '{{name}}'})
+        export class TestComponent {
+          @Input() @Convert(convert) name: string;
+        }
+
+        function convert(n: any) { return n; }
+
+        @NgModule({declarations: [TestComponent]})
+        export class TestModule {}
+      `);
+      const messages: string[] = [];
+      expect(
+          main(['-p', path.join(basePath, 'src/tsconfig.json')], message => messages.push(message)))
+          .toBe(0, `Compile failed:\n ${messages.join('\n    ')}`);
+    });
+
     it('should allow using 2 classes with the same name in declarations with noEmitOnError=true',
        () => {
          write('src/tsconfig.json', `{
@@ -1805,6 +1839,279 @@ describe('ngc transformer command-line', () => {
     't1' references 't2' at lib/indirect1.ts(3,27)
       't2' contains the error at lib/indirect2.ts(4,27).
 `);
+    });
+  });
+
+  describe('ivy', () => {
+    function emittedFile(name: string): string {
+      const outputName = path.resolve(outDir, name);
+      expect(fs.existsSync(outputName)).toBe(true);
+      return fs.readFileSync(outputName, {encoding: 'UTF-8'});
+    }
+
+    it('should emit the hello world example', () => {
+      write('tsconfig.json', `{
+        "extends": "./tsconfig-base.json",
+        "files": ["hello-world.ts"],
+        "angularCompilerOptions": {
+          "enableIvy": true
+        }
+      }`);
+
+      write('hello-world.ts', `
+        import {Component, NgModule} from '@angular/core';
+
+        @Component({
+          selector: 'hello-world',
+          template: 'Hello, world!'
+        })
+        export class HelloWorldComponent {
+
+        }
+
+        @NgModule({
+          declarations: [HelloWorldComponent]
+        })
+        export class HelloWorldModule {}
+      `);
+      const exitCode = main(['-p', path.join(basePath, 'tsconfig.json')]);
+      expect(exitCode).toBe(0, 'Compile failed');
+      expect(emittedFile('hello-world.js')).toContain('ngComponentDef');
+    });
+
+    it('should emit an injection of a string token', () => {
+      write('tsconfig.json', `{
+        "extends": "./tsconfig-base.json",
+        "files": ["hello-world.ts"],
+        "angularCompilerOptions": {
+          "enableIvy": true
+        }
+      }`);
+
+      write('hello-world.ts', `
+        import {Component, Inject, NgModule} from '@angular/core';
+
+        @Component({
+          selector: 'hello-world',
+          template: 'Hello, world!'
+        })
+        export class HelloWorldComponent {
+          constructor (@Inject('test') private test: string) {}
+        }
+
+        @NgModule({
+          declarations: [HelloWorldComponent],
+          providers: [
+            {provide: 'test', useValue: 'test'}
+          ]
+        })
+        export class HelloWorldModule {}
+      `);
+      const errors: string[] = [];
+      const exitCode = main(['-p', path.join(basePath, 'tsconfig.json')], msg => errors.push(msg));
+      expect(exitCode).toBe(0, `Compile failed:\n${errors.join('\n  ')}`);
+      expect(emittedFile('hello-world.js')).toContain('ngComponentDef');
+    });
+
+    it('should emit an example that uses the E() instruction', () => {
+      write('tsconfig.json', `{
+        "extends": "./tsconfig-base.json",
+        "files": ["hello-world.ts"],
+        "angularCompilerOptions": {
+          "enableIvy": true
+        }
+      }`);
+
+      write('hello-world.ts', `
+        import {Component, NgModule} from '@angular/core';
+
+        @Component({
+          selector: 'hello-world',
+          template: '<h1><div style="text-align:center"> Hello, {{name}}! </div></h1> '
+        })
+        export class HelloWorldComponent {
+          name = 'World';
+        }
+
+        @NgModule({declarations: [HelloWorldComponent]})
+        export class HelloWorldModule {}
+      `);
+      const errors: string[] = [];
+      const exitCode = main(['-p', path.join(basePath, 'tsconfig.json')], msg => errors.push(msg));
+      expect(exitCode).toBe(0, `Compile failed:\n${errors.join('\n  ')}`);
+      expect(emittedFile('hello-world.js')).toContain('ngComponentDef');
+    });
+  });
+
+  describe('tree shakeable services', () => {
+
+    function compileService(source: string): string {
+      write('service.ts', source);
+
+      const exitCode = main(['-p', path.join(basePath, 'tsconfig.json')], errorSpy);
+      expect(exitCode).toEqual(0);
+
+      const servicePath = path.resolve(outDir, 'service.js');
+      return fs.readFileSync(servicePath, 'utf8');
+    }
+
+    beforeEach(() => {
+      writeConfig(`{
+        "extends": "./tsconfig-base.json",
+        "files": ["service.ts"]
+      }`);
+      write('module.ts', `
+        import {NgModule} from '@angular/core';
+
+        @NgModule({})
+        export class Module {}
+      `);
+    });
+
+    describe(`doesn't break existing injectables`, () => {
+      it('on simple services', () => {
+        const source = compileService(`
+        import {Injectable, NgModule} from '@angular/core';
+        
+        @Injectable()
+        export class Service {
+          constructor(public param: string) {}
+        }
+        
+        @NgModule({
+          providers: [{provide: Service, useValue: new Service('test')}],
+        })
+        export class ServiceModule {}
+        `);
+        expect(source).not.toMatch(/ngInjectableDef/);
+      });
+      it('on a service with a base class service', () => {
+        const source = compileService(`
+        import {Injectable, NgModule} from '@angular/core';
+        
+        @Injectable()
+        export class Dep {}
+
+        export class Base {
+          constructor(private dep: Dep) {}
+        }
+        @Injectable()
+        export class Service extends Base {}
+        
+        @NgModule({
+          providers: [Service],
+        })
+        export class ServiceModule {}
+        `);
+        expect(source).not.toMatch(/ngInjectableDef/);
+      });
+    });
+
+    it('compiles a basic InjectableDef', () => {
+      const source = compileService(`
+        import {Injectable} from '@angular/core';
+        import {Module} from './module';
+
+        @Injectable({
+          scope: Module,
+        })
+        export class Service {}
+      `);
+      expect(source).toMatch(/ngInjectableDef = .+\.defineInjectable\(/);
+      expect(source).toMatch(/ngInjectableDef.*token: Service/);
+      expect(source).toMatch(/ngInjectableDef.*scope: .+\.Module/);
+    });
+
+    it('compiles a useValue InjectableDef', () => {
+      const source = compileService(`
+        import {Injectable} from '@angular/core';
+        import {Module} from './module';
+
+        export const CONST_SERVICE: Service = null;
+
+        @Injectable({
+          scope: Module,
+          useValue: CONST_SERVICE
+        })
+        export class Service {}
+      `);
+      expect(source).toMatch(/ngInjectableDef.*return CONST_SERVICE/);
+    });
+
+    it('compiles a useExisting InjectableDef', () => {
+      const source = compileService(`
+        import {Injectable} from '@angular/core';
+        import {Module} from './module';
+
+        @Injectable()
+        export class Existing {}
+
+        @Injectable({
+          scope: Module,
+          useExisting: Existing,
+        })
+        export class Service {}
+      `);
+      expect(source).toMatch(/ngInjectableDef.*return ..\.inject\(Existing\)/);
+    });
+
+    it('compiles a useFactory InjectableDef with optional dep', () => {
+      const source = compileService(`
+        import {Injectable, Optional} from '@angular/core';
+        import {Module} from './module';
+
+        @Injectable()
+        export class Existing {}
+
+        @Injectable({
+          scope: Module,
+          useFactory: (existing: Existing|null) => new Service(existing),
+          deps: [[new Optional(), Existing]],
+        })
+        export class Service {
+          constructor(e: Existing|null) {}
+        }
+      `);
+      expect(source).toMatch(/ngInjectableDef.*return ..\(..\.inject\(Existing, null, 0\)/);
+    });
+
+    it('compiles a useFactory InjectableDef with skip-self dep', () => {
+      const source = compileService(`
+        import {Injectable, SkipSelf} from '@angular/core';
+        import {Module} from './module';
+
+        @Injectable()
+        export class Existing {}
+
+        @Injectable({
+          scope: Module,
+          useFactory: (existing: Existing) => new Service(existing),
+          deps: [[new SkipSelf(), Existing]],
+        })
+        export class Service {
+          constructor(e: Existing) {}
+        }
+      `);
+      expect(source).toMatch(/ngInjectableDef.*return ..\(..\.inject\(Existing, undefined, 1\)/);
+    });
+
+    it('compiles a service that depends on a token', () => {
+      const source = compileService(`
+        import {Inject, Injectable, InjectionToken} from '@angular/core';
+        import {Module} from './module';
+
+        export const TOKEN = new InjectionToken('desc', {scope: Module, factory: () => true});
+
+        @Injectable({
+          scope: Module,
+        })
+        export class Service {
+          constructor(@Inject(TOKEN) value: boolean) {}
+        }
+      `);
+      expect(source).toMatch(/ngInjectableDef = .+\.defineInjectable\(/);
+      expect(source).toMatch(/ngInjectableDef.*token: Service/);
+      expect(source).toMatch(/ngInjectableDef.*scope: .+\.Module/);
     });
   });
 });

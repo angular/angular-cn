@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'es-MX',
   [
@@ -53,9 +58,29 @@ export default [
     '{1}, {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], '$', 'peso mexicano', function(n: number):
-                                                                          number {
-                                                                            if (n === 1) return 1;
-                                                                            return 5;
-                                                                          }
+  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], '$', 'peso mexicano', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'BYN': [, 'p.'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'ESP': ['₧'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': ['$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VEF': [, 'BsF'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural
 ];

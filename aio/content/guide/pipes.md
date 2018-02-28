@@ -30,7 +30,7 @@ Introducing Angular pipes, a way to write display-value transformations that you
 
 通过引入Angular管道，我们可以把这种简单的“显示-值”转换器声明在HTML中。
 
-You can run the <live-example></live-example> in Plunker and download the code from there.
+You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
 试试<live-example>在线例子</live-example>。
 
@@ -744,7 +744,7 @@ If you're not careful, this pipe will punish the server with requests.
 如果我们不小心点，这个管道就会发起一大堆请求“攻击”服务器。
 
 In the following code, the pipe only calls the server when the request URL changes and it caches the server response.
-The code uses the [Angular http](guide/http) client to retrieve data</span>:
+The code uses the [Angular http](guide/http) client to retrieve data:
 
 我们确实得小心点。
 这个管道只有当所请求的URL发生变化时才会向服务器发起请求。它会缓存服务器的响应。

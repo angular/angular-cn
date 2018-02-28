@@ -135,7 +135,7 @@ Convert that method to use `HttpClient`
 Refresh the browser. The hero data should successfully load from the
 mock server.
 
-You've swapped `http.get` for `of` and the app keeps working without any other changes
+You've swapped `of` for `http.get` and the app keeps working without any other changes
 because both functions return an `Observable<Hero[]>`.
 
 ### Http methods return one value
@@ -287,7 +287,7 @@ The `HttpClient.put()` method takes three parameters
 The URL is unchanged. The heroes web API knows which hero to update by looking at the hero's `id`.
 
 The heroes web API expects a special header in HTTP save requests.
-That header is in the `httpOption` constant defined in the `HeroService`.
+That header is in the `httpOptions` constant defined in the `HeroService`.
 
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 

@@ -84,7 +84,7 @@ Visual Studio Code 可以从商店中安装语言服务，这个功能就在左�
 我们也可以使用 VS 的快速打开（⌘+P）功能来查找这个扩展插件。打开它之后就输入下列命令：
 
 ```sh
-ext install ng-template
+ext install Angular.ng-template
 ```
 
 Then click the install button to install the Angular Language Service. 

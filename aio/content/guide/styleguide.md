@@ -2300,7 +2300,18 @@ It is rarely worth the effort to change them at the risk of breaking existing co
 
 
 
-**Consider** using a class instead of an interface.
+**Consider** using a class instead of an interface for services and declarables (components, directives, and pipes).
+
+
+</div>
+
+
+
+<div class="s-rule consider">
+
+
+
+**Consider** using an interface for data models.
 
 **考虑**用类代替接口。
 
@@ -4515,8 +4526,7 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 <div class="s-rule do">
 
 
-
-**Do** give components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
+**Consider** giving components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
 
 **坚持**给组件一个*元素*选择器，而不是*属性*或*类*选择器。
 
@@ -4552,7 +4562,11 @@ Developers place components on the page as they would native HTML elements and w
 
 </div>
 
+<div class="l-sub-section">
 
+There are a few cases where you give a component an attribute, such as when you want to augment a built-in element. For example, [Material Design](https://material.angular.io/components/button/overview) uses this technique with `<button mat-button>`. However, you wouldn't use this technique on a custom element.
+
+</div>
 
 <code-example path="styleguide/src/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts" region="example" title="app/heroes/hero-button/hero-button.component.ts">
 

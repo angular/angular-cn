@@ -1,13 +1,12 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
+load("//tools:defaults.bzl", "ng_module")
 
-ts_library(
+ng_module(
     name = "testing",
     testonly = 1,
     srcs = glob(["**/*.ts"]),
     module_name = "@angular/router/testing",
-    tsconfig = "//packages:tsconfig",
     deps = [
         "//packages/common",
         "//packages/common/testing",

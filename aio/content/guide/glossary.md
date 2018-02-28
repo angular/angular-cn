@@ -28,8 +28,7 @@ unexpected definitions.
 ## 预 (ahead-of-time, AoT) 编译
 
 You can compile Angular applications at build time.
-By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly
-to a module factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
+By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly to a module factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
 Ahead-of-time compiled applications also benefit from decreased load time and increased performance.
  
 开发者可以在构造时 (build-time) 编译 Angular 应用程序。
@@ -37,9 +36,6 @@ Ahead-of-time compiled applications also benefit from decreased load time and in
   意味着不再需要把 Angular 编译器添加到 JavaScript 包中。
   预编译的应用程序加载迅速，具有更高的性能。
 
-
-
-</div>
 
 
 ## Annotation
@@ -181,7 +177,6 @@ between a "token"&mdash;also referred to as a "key"&mdash;and a dependency [prov
 ## Bootstrap
 
 ## 启动/引导 (bootstrap)
-
 
 You launch an Angular application by "bootstrapping" it using the application root NgModule (`AppModule`).
 
@@ -763,12 +758,8 @@ Angular has the following types of modules:
 Angular有下列模块类型：
 
 * [NgModules](guide/glossary#ngmodule).
-For details and examples, see the [NgModules](guide/ngmodule) page.
-
-  [Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
+For details and examples, see the [NgModules](guide/ngmodules) page.[Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
 * ES2015 modules, as described in this section.
-
-  本节描述的 ES2015 模块。
 
 
 </div>
@@ -825,9 +816,6 @@ You rarely access Angular feature modules directly. You usually import them from
 
 ## NgModule
 
-## 可观察对象 (observable)
-
-
 <div class="l-sub-section">
 
 
@@ -838,10 +826,11 @@ An NgModule identifies the components, directives, and pipes that the applicatio
 Every Angular application has an application root-module class. By convention, the class is
 called `AppModule` and resides in a file named `app.module.ts`.
 
-For details and examples, see [NgModules](guide/ngmodule).
+For details and examples, see [NgModules](guide/ngmodules) and the 
+related files in that section.
 
 
-</div>
+
 
 {@a O}
 
@@ -1017,9 +1006,6 @@ For more information, see the [Routing & Navigation](guide/router) page.
 
 
 ## Router module
-
-## 路由器模块 (router module)
-
 
 <div class="l-sub-section">
 

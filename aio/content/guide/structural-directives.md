@@ -435,7 +435,7 @@ Angular sets them to the current value of the context's `index` and `odd` proper
   Angular把它们设置为*上下文*对象中的`index`和`odd`属性的当前值。
 
 * The context property for `let-hero` wasn't specified.
-It's intended source is implicit.
+Its intended source is implicit.
 Angular sets `let-hero` to the value of the context's `$implicit` property
 which `NgFor` has initialized with the hero for the current iteration.
 

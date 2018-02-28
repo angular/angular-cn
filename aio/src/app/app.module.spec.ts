@@ -23,18 +23,20 @@ describe('AppModule', () => {
   });
 
   it('should provide a list of eagerly-loaded embedded components', () => {
-    const eagerSelector = Object.keys(componentsMap).find(selector => Array.isArray(componentsMap[selector]));
-    const selectorCount = eagerSelector.split(',').length;
 
-    expect(eagerSelector).not.toBeNull();
-    expect(selectorCount).toBe(componentsMap[eagerSelector].length);
+    const eagerConfig = Object.keys(componentsMap).filter(selector => Array.isArray(componentsMap[selector]));
+    expect(eagerConfig.length).toBeGreaterThan(0);
+
+    const eagerSelectors = eagerConfig.reduce<string[]>((selectors, config) => selectors.concat(config.split(',')), []);
+    expect(eagerSelectors.length).toBeGreaterThan(0);
 
     // For example...
-    expect(eagerSelector).toContain('aio-toc');
+    expect(eagerSelectors).toContain('aio-toc');
+    expect(eagerSelectors).toContain('aio-announcement-bar');
   });
 
   it('should provide a list of lazy-loaded embedded components', () => {
-    const lazySelector = Object.keys(componentsMap).find(selector => selector.includes('code-example'));
+    const lazySelector = Object.keys(componentsMap).find(selector => selector.includes('code-example'))!;
     const selectorCount = lazySelector.split(',').length;
 
     expect(lazySelector).not.toBeNull();

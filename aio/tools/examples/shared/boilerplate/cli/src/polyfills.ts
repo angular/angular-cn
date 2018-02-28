@@ -50,12 +50,12 @@ import 'core-js/es7/reflect';
  * Required to support Web Animations `@angular/platform-browser/animations`.
  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
  **/
-import 'web-animations-js';
+// import 'web-animations-js';
 
 
 
 /***************************************************************************************************
- * Zone JS is required by Angular itself.
+ * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
@@ -64,13 +64,3 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-
-/**
- * Date, currency, decimal and percent pipes.
- * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
- */
-// import 'intl';  // Run `npm install --save intl`.
-/**
- * Need to import at least one locale-data with intl.
- */
-// import 'intl/locale-data/jsonp/en';

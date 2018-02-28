@@ -159,6 +159,12 @@ import {map} from 'rxjs/operator/map';
     });
 
     describe('email', () => {
+      it('should not error on an empty string',
+         () => expect(Validators.email(new FormControl(''))).toBeNull());
+
+      it('should not error on null',
+         () => expect(Validators.email(new FormControl(null))).toBeNull());
+
       it('should error on invalid email',
          () => expect(Validators.email(new FormControl('some text'))).toEqual({'email': true}));
 
@@ -270,6 +276,18 @@ import {map} from 'rxjs/operator/map';
 
       it('should not error on "undefined" pattern',
          () => expect(Validators.pattern(undefined !)(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing both boundary symbols',
+         () => expect(Validators.pattern('^[aA]*$')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing only start boundary symbols',
+         () => expect(Validators.pattern('^[aA]*')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing only end boundary symbols',
+         () => expect(Validators.pattern('[aA]*$')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string not containing any boundary symbols',
+         () => expect(Validators.pattern('[aA]*')(new FormControl('aaAA'))).toBeNull());
     });
 
     describe('compose', () => {

@@ -1,8 +1,8 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
+load("//tools:defaults.bzl", "ng_module", "ng_package")
 
-ts_library(
+ng_module(
     name = "common",
     srcs = glob(
         [
@@ -11,9 +11,24 @@ ts_library(
         ],
     ),
     module_name = "@angular/common",
-    tsconfig = "//packages:tsconfig",
     deps = [
         "//packages/core",
         "@rxjs",
+    ],
+)
+
+ng_package(
+    name = "npm_package",
+    entry_point = "packages/common/index.js",
+    secondary_entry_points = [
+        "testing",
+        "http",
+        "http/testing",
+    ],
+    deps = [
+        "//packages/common",
+        "//packages/common/http",
+        "//packages/common/http/testing",
+        "//packages/common/testing",
     ],
 )

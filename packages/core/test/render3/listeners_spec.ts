@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {C, D, E, L, T, V, c, cR, cr, defineComponent, e, v} from '../../src/render3/index';
+import {defineComponent, defineDirective} from '../../src/render3/index';
+import {container, containerRefreshEnd, containerRefreshStart, directiveRefresh, elementEnd, elementStart, embeddedViewEnd, embeddedViewStart, listener, text} from '../../src/render3/instructions';
 
 import {containerEl, renderComponent, renderToHtml} from './render_util';
 
@@ -26,12 +27,12 @@ describe('event listeners', () => {
       /** <button (click)="onClick()"> Click me </button> */
       template: function CompTemplate(ctx: any, cm: boolean) {
         if (cm) {
-          E(0, 'button');
+          elementStart(0, 'button');
           {
-            L('click', ctx.onClick.bind(ctx));
-            T(1, 'Click me');
+            listener('click', function() { ctx.onClick(); });
+            text(1, 'Click me');
           }
-          e();
+          elementEnd();
         }
       },
       factory: () => {
@@ -54,17 +55,51 @@ describe('event listeners', () => {
     expect(comp.counter).toEqual(2);
   });
 
+  it('should call function chain on event emit', () => {
+    /** <button (click)="onClick(); onClick2(); "> Click me </button> */
+    function Template(ctx: any, cm: boolean) {
+      if (cm) {
+        elementStart(0, 'button');
+        {
+          listener('click', function() {
+            ctx.onClick();
+            ctx.onClick2();
+          });
+          text(1, 'Click me');
+        }
+        elementEnd();
+      }
+    }
+
+    const ctx = {
+      counter: 0,
+      counter2: 0,
+      onClick: function() { this.counter++; },
+      onClick2: function() { this.counter2++; }
+    };
+    renderToHtml(Template, ctx);
+    const button = containerEl.querySelector('button') !;
+
+    button.click();
+    expect(ctx.counter).toBe(1);
+    expect(ctx.counter2).toBe(1);
+
+    button.click();
+    expect(ctx.counter).toBe(2);
+    expect(ctx.counter2).toBe(2);
+  });
+
   it('should evaluate expression on event emit', () => {
 
     /** <button (click)="showing=!showing"> Click me </button> */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        E(0, 'button');
+        elementStart(0, 'button');
         {
-          L('click', () => ctx.showing = !ctx.showing);
-          T(1, 'Click me');
+          listener('click', function() { ctx.showing = !ctx.showing; });
+          text(1, 'Click me');
         }
-        e();
+        elementEnd();
       }
     }
 
@@ -88,23 +123,23 @@ describe('event listeners', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        C(0);
+        container(0);
       }
-      cR(0);
+      containerRefreshStart(0);
       {
         if (ctx.showing) {
-          if (V(1)) {
-            E(0, 'button');
+          if (embeddedViewStart(1)) {
+            elementStart(0, 'button');
             {
-              L('click', ctx.onClick.bind(ctx));
-              T(1, 'Click me');
+              listener('click', function() { ctx.onClick(); });
+              text(1, 'Click me');
             }
-            e();
+            elementEnd();
           }
-          v();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     let comp = new MyComp();
@@ -124,6 +159,42 @@ describe('event listeners', () => {
     expect(comp.counter).toEqual(2);
   });
 
+  it('should support host listeners', () => {
+    let events: string[] = [];
+
+    class HostListenerDir {
+      /* @HostListener('click') */
+      onClick() { events.push('click!'); }
+
+      static ngDirectiveDef = defineDirective({
+        type: HostListenerDir,
+        factory: function HostListenerDir_Factory() {
+          const $dir$ = new HostListenerDir();
+          listener('click', function() { $dir$.onClick(); });
+          return $dir$;
+        },
+      });
+    }
+
+    function Template(ctx: any, cm: boolean) {
+      if (cm) {
+        elementStart(0, 'button', ['hostListenerDir', ''], [HostListenerDir]);
+        text(2, 'Click');
+        elementEnd();
+      }
+      HostListenerDir.ngDirectiveDef.h(1, 0);
+      directiveRefresh(1, 0);
+    }
+
+    renderToHtml(Template, {});
+    const button = containerEl.querySelector('button') !;
+    button.click();
+    expect(events).toEqual(['click!']);
+
+    button.click();
+    expect(events).toEqual(['click!', 'click!']);
+  });
+
   it('should destroy listeners in nested views', () => {
 
     /**
@@ -136,36 +207,34 @@ describe('event listeners', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        C(0);
-        c();
+        container(0);
       }
-      cR(0);
+      containerRefreshStart(0);
       {
         if (ctx.showing) {
-          if (V(0)) {
-            T(0, 'Hello');
-            C(1);
-            c();
+          if (embeddedViewStart(0)) {
+            text(0, 'Hello');
+            container(1);
           }
-          cR(1);
+          containerRefreshStart(1);
           {
             if (ctx.button) {
-              if (V(0)) {
-                E(0, 'button');
+              if (embeddedViewStart(0)) {
+                elementStart(0, 'button');
                 {
-                  L('click', ctx.onClick.bind(ctx));
-                  T(1, 'Click');
+                  listener('click', function() { ctx.onClick(); });
+                  text(1, 'Click');
                 }
-                e();
+                elementEnd();
               }
-              v();
+              embeddedViewEnd();
             }
           }
-          cr();
-          v();
+          containerRefreshEnd();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     const comp = {showing: true, counter: 0, button: true, onClick: function() { this.counter++; }};
@@ -196,29 +265,26 @@ describe('event listeners', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        C(0);
-        c();
+        container(0);
       }
-      cR(0);
+      containerRefreshStart(0);
       {
         if (ctx.showing) {
-          if (V(0)) {
-            T(0, 'Hello');
-            E(1, MyComp.ngComponentDef);
-            { D(2, MyComp.ngComponentDef.n(), MyComp.ngComponentDef); }
-            e();
-            E(3, MyComp.ngComponentDef);
-            { D(4, MyComp.ngComponentDef.n(), MyComp.ngComponentDef); }
-            e();
+          if (embeddedViewStart(0)) {
+            text(0, 'Hello');
+            elementStart(1, MyComp);
+            elementEnd();
+            elementStart(3, MyComp);
+            elementEnd();
           }
           MyComp.ngComponentDef.h(2, 1);
           MyComp.ngComponentDef.h(4, 3);
-          MyComp.ngComponentDef.r(2, 1);
-          MyComp.ngComponentDef.r(4, 3);
-          v();
+          directiveRefresh(2, 1);
+          directiveRefresh(4, 3);
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     const ctx = {showing: true};
@@ -255,53 +321,50 @@ describe('event listeners', () => {
      */
     function Template(ctx: any, cm: boolean) {
       if (cm) {
-        C(0);
-        c();
+        container(0);
       }
-      cR(0);
+      containerRefreshStart(0);
       {
         if (ctx.condition) {
-          if (V(0)) {
-            T(0, 'Hello');
-            C(1);
-            c();
-            C(2);
-            c();
+          if (embeddedViewStart(0)) {
+            text(0, 'Hello');
+            container(1);
+            container(2);
           }
-          cR(1);
+          containerRefreshStart(1);
           {
             if (ctx.sub1) {
-              if (V(0)) {
-                E(0, 'button');
+              if (embeddedViewStart(0)) {
+                elementStart(0, 'button');
                 {
-                  L('click', () => ctx.counter1++);
-                  T(1, 'Click');
+                  listener('click', function() { ctx.counter1++; });
+                  text(1, 'Click');
                 }
-                e();
+                elementEnd();
               }
-              v();
+              embeddedViewEnd();
             }
           }
-          cr();
-          cR(2);
+          containerRefreshEnd();
+          containerRefreshStart(2);
           {
             if (ctx.sub2) {
-              if (V(0)) {
-                E(0, 'button');
+              if (embeddedViewStart(0)) {
+                elementStart(0, 'button');
                 {
-                  L('click', () => ctx.counter2++);
-                  T(1, 'Click');
+                  listener('click', function() { ctx.counter2++; });
+                  text(1, 'Click');
                 }
-                e();
+                elementEnd();
               }
-              v();
+              embeddedViewEnd();
             }
           }
-          cr();
-          v();
+          containerRefreshEnd();
+          embeddedViewEnd();
         }
       }
-      cr();
+      containerRefreshEnd();
     }
 
     const ctx = {condition: true, counter1: 0, counter2: 0, sub1: true, sub2: true};

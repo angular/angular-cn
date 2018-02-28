@@ -62,7 +62,8 @@ Angular apps are modular and Angular has its own modularity system called _NgMod
 Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。
 
 NgModules are a big deal.
-This page introduces modules; the [NgModules](guide/ngmodule) page covers them in depth.
+This page introduces modules; the [NgModules](guide/ngmodules) pages 
+relating to NgModules covers them in detail.
 
 _Angular 模块_很重要。这里只是简单介绍，在 [Angular 模块](guide/ngmodule)中会做深入讲解。
 
@@ -242,7 +243,7 @@ Hang in there. The confusion yields to clarity with time and experience.
 
 
 
-Learn more from the [NgModules](guide/ngmodule) page.
+Learn more from the [NgModules](guide/ngmodules) page.
 更多信息，见 [Angular 模块](guide/ngmodule)。
 
 </div>
@@ -327,12 +328,12 @@ template for our `HeroListComponent`:
 </code-example>
 
 
-Although this template uses typical HTML elements like `<h2>` and  `<p>`, it also has some differences. Code like `*ngFor`, `{{hero.name}}`, `(click)`, `[hero]`, and `<hero-detail>` uses Angular's [template syntax](guide/template-syntax).
+Although this template uses typical HTML elements like `<h2>` and  `<p>`, it also has some differences. Code like `*ngFor`, `{{hero.name}}`, `(click)`, `[hero]`, and `<app-hero-detail>` uses Angular's [template syntax](guide/template-syntax).
 
 模板除了可以使用像`<h2>`和`<p>`这样的典型的 HTML 元素，还能使用其它元素。
 例如，像`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<hero-detail>`这样的代码使用了 Angular 的[模板语法](guide/template-syntax)。
 
-In the last line of the template, the `<hero-detail>` tag is a custom element that represents a new component, `HeroDetailComponent`.
+In the last line of the template, the `<app-hero-detail>` tag is a custom element that represents a new component, `HeroDetailComponent`.
 
 在模板的最后一行，`<hero-detail>`标签就是一个用来表示新组件`HeroDetailComponent`的自定义元素。
 
@@ -347,7 +348,7 @@ The `HeroDetailComponent` is a **child** of the `HeroListComponent`.
 
 <img src="generated/images/guide/architecture/component-tree.png" alt="Metadata" class="left">
 
-Notice how `<hero-detail>` rests comfortably among native HTML elements. Custom components mix seamlessly with native HTML in the same layouts.
+Notice how `<app-hero-detail>` rests comfortably among native HTML elements. Custom components mix seamlessly with native HTML in the same layouts.
 
 注意到了吗？`<hero-detail>`舒适地躺在原生 HTML 元素之间。
 自定义组件和原生 HTML 在同一布局中融合得天衣无缝。
@@ -409,8 +410,8 @@ Here are a few of the most useful `@Component` configuration options:
 
 
 * `selector`: CSS selector that tells Angular to create and insert an instance of this component
-where it finds a `<hero-list>` tag in *parent* HTML.
-For example, if an app's  HTML contains `<hero-list></hero-list>`, then
+where it finds a `<app-hero-list>` tag in *parent* HTML.
+For example, if an app's  HTML contains `<app-hero-list></app-hero-list>`, then
 Angular inserts an instance of the `HeroListComponent` view between those tags.
 
   `selector`： CSS 选择器，它告诉 Angular 在*父级* HTML 中查找`<hero-list>`标签，创建并插入该组件。

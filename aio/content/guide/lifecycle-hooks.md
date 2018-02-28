@@ -2,9 +2,7 @@
 
 # 生命周期钩子
 
-<img src="generated/images/guide/lifecycle-hooks/hooks-in-sequence.png" alt="Us" class="left">
-
-A component has a lifecycle managed by Angular .
+A component has a lifecycle managed by Angular.
 
 每个组件都有一个被Angular管理的生命周期。
 
@@ -18,7 +16,7 @@ that provide visibility into these key life moments and the ability to act when 
 
 Angular提供了**生命周期钩子**，把这些关键生命时刻暴露出来，赋予我们在它们发生时采取行动的能力。
 
-A directive has the same set of lifecycle hooks, minus the hooks that are specific to component content and views.
+A directive has the same set of lifecycle hooks.
 
 除了那些组件内容和视图相关的钩子外,指令有相同生命周期钩子。
 
@@ -46,7 +44,7 @@ Angular在创建组件后立刻调用它，：
 
 <code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" title="peek-a-boo.component.ts (excerpt)" linenums="false"></code-example>
 
-No directive or component will implement all of the lifecycle hooks and some of the hooks only make sense for components.
+No directive or component will implement all of the lifecycle hooks.
 Angular only calls a directive/component hook method *if it is defined*.
 
 没有指令或者组件会实现所有这些接口，并且有些钩子只对组件有意义。只有在指令/组件中*定义过的*那些钩子方法才会被Angular调用。
@@ -144,17 +142,13 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
     <td>
 
-      Respond after Angular projects external content into the component's view.
+      Respond after Angular projects external content into the component's view / the view that a directive is in.
 
       当把内容投影进组件之后调用。
 
       Called _once_ after the first `ngDoCheck()`.
 
       第一次`ngDoCheck()`之后调用，只调用一次。
-
-      _A component-only hook_.
-
-      **只适用于组件**。
 
     </td>
   </tr>
@@ -164,17 +158,13 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
     <td>
 
-      Respond after Angular checks the content projected into the component.
+      Respond after Angular checks the content projected into the directive/component.
 
       每次完成被投影组件内容的变更检测之后调用。
 
       Called after the `ngAfterContentInit()` and every subsequent `ngDoCheck()`.
 
       `ngAfterContentInit()`和每次`ngDoCheck()`之后调用
-
-      _A component-only hook_.
-
-      **只适合组件**。
 
     </td>
   </tr>
@@ -184,17 +174,13 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
     <td>
 
-      Respond after Angular initializes the component's views and child views.
+      Respond after Angular initializes the component's views and child views / the view that a directive is in.
 
       初始化完组件视图及其子视图之后调用。
 
       Called _once_ after the first `ngAfterContentChecked()`.
 
       第一次`ngAfterContentChecked()`之后调用，只调用一次。
-
-      _A component-only hook_.
-
-      **只适合组件**。
 
     </td>
   </tr>
@@ -204,17 +190,13 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
     <td>
 
-      Respond after Angular checks the component's views and child views.
+      Respond after Angular checks the component's views and child views / the view that a directive is in.
 
       每次做完组件视图和子视图的变更检测之后调用。
 
       Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked()`.
 
       `ngAfterViewInit()`和每次`ngAfterContentChecked()`之后调用。
-
-      _A component-only hook_.
-
-      **只适合组件**。
 
     </td>
   </tr>

@@ -9,6 +9,12 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
+
 export default [
   'fr-GF',
   [
@@ -42,11 +48,51 @@ export default [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', function(n: number):
-                                                                  number {
-                                                                    let i = Math.floor(Math.abs(n));
-                                                                    if (i === 0 || i === 1)
-                                                                      return 1;
-                                                                    return 5;
-                                                                  }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'ARS': ['$AR', '$'],
+    'AUD': ['$AU', '$'],
+    'BEF': ['FB'],
+    'BMD': ['$BM', '$'],
+    'BND': ['$BN', '$'],
+    'BSD': ['$BS', '$'],
+    'BZD': ['$BZ', '$'],
+    'CAD': ['$CA', '$'],
+    'CLP': ['$CL', '$'],
+    'CNY': [, '¥'],
+    'COP': ['$CO', '$'],
+    'CYP': ['£CY'],
+    'EGP': [, '£E'],
+    'FJD': ['$FJ', '$'],
+    'FKP': ['£FK', '£'],
+    'FRF': ['F'],
+    'GBP': ['£GB', '£'],
+    'GIP': ['£GI', '£'],
+    'HKD': [, '$'],
+    'IEP': ['£IE'],
+    'ILP': ['£IL'],
+    'ITL': ['₤IT'],
+    'JPY': [, '¥'],
+    'KMF': [, 'FC'],
+    'LBP': ['£LB', '£L'],
+    'MTP': ['£MT'],
+    'MXN': ['$MX', '$'],
+    'NAD': ['$NA', '$'],
+    'NIO': [, '$C'],
+    'NZD': ['$NZ', '$'],
+    'RHD': ['$RH'],
+    'RON': [, 'L'],
+    'RWF': [, 'FR'],
+    'SBD': ['$SB', '$'],
+    'SGD': ['$SG', '$'],
+    'SRD': ['$SR', '$'],
+    'TTD': ['$TT', '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['$US', '$'],
+    'UYU': ['$UY', '$'],
+    'WST': ['WS$'],
+    'XCD': [, '$'],
+    'XPF': ['FCFP'],
+    'ZMW': [, 'Kw']
+  },
+  plural
 ];

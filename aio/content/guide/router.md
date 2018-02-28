@@ -1269,7 +1269,7 @@ set the `href` value in **`index.html`** *exactly* as shown here.
 
 
 
-A live coding environment like Plunker sets the application base address dynamically so you can't specify a fixed address.
+A live coding environment like Stackblitz sets the application base address dynamically so you can't specify a fixed address.
 That's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.
 
 像Plunker这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。
@@ -1940,7 +1940,7 @@ The **Routing Module** has several characteristics:
 
   为路由服务提供商（包括守卫和解析器等）提供一个共同的地方
   
-* Does **not** [declare components](guide/ngmodule-faq#routing-module).
+* Does **not** declare components.
 
   **不要**[声明组件](guide/ngmodule-faq#routing-module)
 
@@ -5973,7 +5973,7 @@ to see the finished route configuration.
 ## 总结与最终的应用
 
 You've covered a lot of ground in this guide and the application is too big to reprint here.
-Please visit the <live-example title="Router Sample in Plunker"></live-example>
+Please visit the <live-example title="Router Sample in Stackblitz"></live-example>
 where you can download the final source code.
 
 本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title="Router Sample in Plunker"></live-example>，在那里你可以下载最终的源码。
