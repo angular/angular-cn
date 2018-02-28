@@ -758,10 +758,14 @@ Angular has the following types of modules:
 Angular有下列模块类型：
 
 * [NgModules](guide/glossary#ngmodule).
-For details and examples, see the [NgModules](guide/ngmodules) page.[Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
+For details and examples, see the [NgModules](guide/ngmodules) page.
+
+  [Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
+  
 * ES2015 modules, as described in this section.
 
-
+  ES2015模块，如本节所述。
+  
 </div>
 
 

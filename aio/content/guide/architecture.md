@@ -440,8 +440,12 @@ The template, metadata, and component together describe a view.
 模板、元数据和组件共同描绘出这个视图。
 
 Apply other metadata decorators in a similar fashion to guide Angular behavior.
-`@Injectable`, `@Input`, and `@Output` are a few of the more popular decorators.其它元数据装饰器用类似的方式来指导 Angular 的行为。
-例如`@Injectable`、`@Input`和`@Output`等是一些最常用的装饰器。<br class="clear">
+`@Injectable`, `@Input`, and `@Output` are a few of the more popular decorators.
+
+其它元数据装饰器用类似的方式来指导 Angular 的行为。
+例如`@Injectable`、`@Input`和`@Output`等是一些最常用的装饰器。
+
+<br class="clear">
 
 The architectural takeaway is that you must add metadata to your code
 so that Angular knows what to do.
@@ -470,7 +474,13 @@ a mechanism for coordinating parts of a template with parts of a component.
 Add binding markup to the template HTML to tell Angular how to connect both sides.
 
 Angular 支持**数据绑定**，一种让模板的各部分与组件的各部分相互合作的机制。
-我们往模板 HTML 中添加绑定标记，来告诉 Angular 如何把二者联系起来。As the diagram shows, there are four forms of data binding syntax. Each form has a direction &mdash; to the DOM, from the DOM, or in both directions.如图所示，数据绑定的语法有四种形式。每种形式都有一个方向 —— 绑定到 DOM 、绑定自 DOM 以及双向绑定。<br class="clear">
+我们往模板 HTML 中添加绑定标记，来告诉 Angular 如何把二者联系起来。
+
+As the diagram shows, there are four forms of data binding syntax. Each form has a direction &mdash; to the DOM, from the DOM, or in both directions.
+
+如图所示，数据绑定的语法有四种形式。每种形式都有一个方向 —— 绑定到 DOM 、绑定自 DOM 以及双向绑定。
+
+<br class="clear">
 
 The `HeroListComponent` [example](guide/architecture#templates) template has three forms:
 

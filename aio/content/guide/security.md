@@ -403,8 +403,12 @@ Perhaps it's a request to transfer money from the user's account to the attacker
 The browser automatically sends the `example-bank.com` cookies (including the authentication cookie) with this request.
 
 该`evil.com`页面立刻发送恶意请求到`example-bank.com`。这个请求可能是从用户账户转账到攻击者的账户。
-与该请求一起，浏览器自动发出`example-bank.com`的cookie。If the `example-bank.com` server lacks XSRF protection, it can't tell the difference between a legitimate 
-request from the application and the forged request from `evil.com`.如果`example-bank.com`服务器缺乏XSRF保护，就无法辨识请求是从应用程序发来的合法请求还是从`evil.com`来的假请求。
+与该请求一起，浏览器自动发出`example-bank.com`的cookie。
+
+If the `example-bank.com` server lacks XSRF protection, it can't tell the difference between a legitimate 
+request from the application and the forged request from `evil.com`.
+
+如果`example-bank.com`服务器缺乏XSRF保护，就无法辨识请求是从应用程序发来的合法请求还是从`evil.com`来的假请求。
 
 To prevent this, the application must ensure that a user request originates from the real
 application, not from a different site.

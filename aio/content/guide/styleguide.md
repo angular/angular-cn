@@ -3401,7 +3401,10 @@ and more difficult in a flat structure.
 
 
 <div class='file-tree-reference'>
-  <a href="#file-tree">Refer to this _folder and file structure_ example.</a>  <a href="#file-tree">点这里查看目录和文件结构的范例</a>
+  <a href="#file-tree">Refer to this _folder and file structure_ example.</a> 
+   
+  <a href="#file-tree">点这里查看目录和文件结构的范例</a>
+  
 </div>
 
 
@@ -5601,7 +5604,9 @@ Compare with the less preferred `host` metadata alternative.
 
 
 **Why?** When providing the service to a top level component, 
-that instance is shared and available to all child components of that top level component.**为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。
+that instance is shared and available to all child components of that top level component.
+
+**为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。
 
 
 </div>

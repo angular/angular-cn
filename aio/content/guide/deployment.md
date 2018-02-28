@@ -408,7 +408,8 @@ The list is by no means exhaustive, but should provide you with a good starting 
 [rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
 to the `.htaccess` file as shown
 (https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/):
-[Apache](https://httpd.apache.org/)：在`.htaccess`文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
+
+  [Apache](https://httpd.apache.org/)：在`.htaccess`文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
 代码如下（[出处](https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/)）：
 
   <code-example format=".">
@@ -427,8 +428,9 @@ to the `.htaccess` file as shown
 [Front Controller Pattern Web Apps](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps),
 modified to serve `index.html`:
 
+  [NGinx](http://nginx.org/)：使用`try_files`指向`index.html`，详细描述见[Web应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
 
-[NGinx](http://nginx.org/)：使用`try_files`指向`index.html`，详细描述见[Web应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。<code-example format=".">
+<code-example format=".">
   try_files $uri $uri/ /index.html;
 
 </code-example>
@@ -437,7 +439,9 @@ modified to serve `index.html`:
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
 [here](http://stackoverflow.com/a/26152011/2116927):
 
-[IIS](https://www.iis.net/)：往`web.config`中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：<code-example format='.'>
+  [IIS](https://www.iis.net/)：往`web.config`中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
+  
+<code-example format='.'>
   &lt;system.webServer&gt;
     &lt;rewrite&gt;
       &lt;rules&gt;
@@ -475,13 +479,13 @@ and to
 [rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).
 
 
-[Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。<code-example format=".">
+  [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。<code-example format=".">
   "rewrites": [ {
     "source": "**",
     "destination": "/index.html"
   } ]
 
-  </code-example>
+</code-example>
 
 {@a cors}
 

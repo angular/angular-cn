@@ -4171,7 +4171,12 @@ you should see something like the following URL in the browser address bar.
 
 The interesting part of the URL follows the `...`:
 
-这个URL中有意思的部分是`...`后面的这些：* The `crisis-center` is the primary navigation. `crisis-center`是主导航。
+这个URL中有意思的部分是`...`后面的这些：
+
+* The `crisis-center` is the primary navigation. 
+
+  `crisis-center`是主导航。
+  
 * Parentheses surround the secondary route.
 
   圆括号包裹的部分是第二路由。
@@ -5820,7 +5825,13 @@ But first, make a few changes to the `AppRoutingModule`.
 但是首先，要对`AppRoutingModule`做少量修改。
 
 1. Import `SelectivePreloadingStrategy` into `AppRoutingModule`.
-把`SelectivePreloadingStrategy`导入到`AppRoutingModule`中。1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategy`. 把`PreloadAllModules`策略替换成对`forRoot`的调用，并且传入这个`SelectivePreloadingStrategy`。
+
+   把`SelectivePreloadingStrategy`导入到`AppRoutingModule`中。
+   
+1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategy`.
+ 
+   把`PreloadAllModules`策略替换成对`forRoot`的调用，并且传入这个`SelectivePreloadingStrategy`。
+   
 1. Add the `SelectivePreloadingStrategy` strategy to the `AppRoutingModule` providers array so it can be injected 
 elsewhere in the app.
 

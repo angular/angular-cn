@@ -1138,6 +1138,7 @@ they're added behind the scenes by the `angular2-template-loader` plug-in.
 
   `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
   本应用也导入这些模块，如果没有`CommonsChunkPlugin`插件检测出这种重叠，并且把它们从`app.js`中移除，它们就会同时出现在`app.js`包中。
+  
 {@a conclusion}
 
 ## Conclusion

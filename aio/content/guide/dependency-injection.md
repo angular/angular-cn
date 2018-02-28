@@ -1035,10 +1035,11 @@ you'll get a runtime null reference error.
 You actually can define the component first with the help of the `forwardRef()` method as explained
 in this [blog post](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).
 
-But it's best to avoid the problem altogether by defining components and services in separate files.
-
 在`forwardRef()`方法的帮助下，实际上也可以先定义组件，
 具体说明见这篇[博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)。
+
+But it's best to avoid the problem altogether by defining components and services in separate files.
+
 但是为什么要先给自己找麻烦呢？
 还是通过在独立的文件中定义组件和服务，完全避免此问题吧。
 

@@ -136,20 +136,27 @@ Revised samples are clearer and cover all topics discussed
 
 ## Miscellaneous (2017-01-05)
 
-## 杂项 (2017-01-05)* [Setup](guide/setup) guide: 
-added (optional) instructions on how to remove _non-essential_ files. [环境搭建](guide/setup)指南:
-    添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
+## 杂项 (2017-01-05)
+
+* [Setup](guide/setup) guide: 
+
+  [环境搭建](guide/setup)指南:
+
+  added (optional) instructions on how to remove _non-essential_ files. 
+
+  添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
+  
 * No longer consolidate RxJS operator imports in `rxjs-extensions` file; each file should import what it needs.
     
-    不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
+  不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
 
 * All samples prepend template/style URLs with `./` as a best practice.
 
-    所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
+  所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
 
 * [Style Guide](guide/styleguide): copy edits and revised rules.
 
-    [风格指南](guide/styleguide)：复制了编辑过的和修改过的规则。
+  [风格指南](guide/styleguide)：复制了编辑过的和修改过的规则。
 
 ## Router: more detail (2016-12-21)
 

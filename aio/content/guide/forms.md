@@ -350,7 +350,7 @@ access to all of the template-driven forms features, including `ngModel`.
   If a component, directive, or pipe belongs to a module in the `imports` array, ​_don't_​ re-declare it in the `declarations` array.
   If you wrote it and it should belong to this module, ​_do_​ declare it in the `declarations` array.
 
-如果某个组件、指令或管道是属于`imports`中所导入的某个模块的，那就_不能再_把它再声明到本模块的`declarations`数组中。
+  如果某个组件、指令或管道是属于`imports`中所导入的某个模块的，那就_不能再_把它再声明到本模块的`declarations`数组中。
 如果它是你自己写的，并且确实属于当前模块，*才应该*把它声明在`declarations`数组中。
 
 

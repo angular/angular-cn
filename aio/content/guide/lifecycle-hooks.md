@@ -614,7 +614,7 @@ Experienced developers agree that components should be cheap and safe to constru
   [explains why](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)
   you should avoid complex constructor logic.
 
-Misko Hevery，Angular项目的头，在[这里解释](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)了你为什么应该避免复杂的构造函数逻辑。
+  Misko Hevery，Angular项目的组长，在[这里解释](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)了你为什么应该避免复杂的构造函数逻辑。
 
 
 </div>

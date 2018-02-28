@@ -2294,7 +2294,6 @@ Do that in a new file called `ajs-upgraded-providers.ts` and import it in `app.m
 来把`$routeParams`包装成Angular的服务提供商。
 新建一个名叫`ajs-upgraded-providers.ts`的文件，并且在`app.module.ts`中导入它：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/ajs-upgraded-providers.ts" title="app/ajs-upgraded-providers.ts">
 </code-example>
 
