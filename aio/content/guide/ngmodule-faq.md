@@ -295,7 +295,7 @@ For example, there's no point in re-exporting `HttpClientModule` because it does
 Its only purpose is to add http service providers to the application as a whole.
 
   纯服务模块没有公开（导出）的声明。
-  例如，没必要重新导出`HttpModule`，因为它不导出任何东西。
+  例如，没必要重新导出`HttpClientModule`，因为它不导出任何东西。
   它唯一的用途是一起把http的那些服务提供商添加到应用中。
 
 
@@ -337,7 +337,7 @@ Its only purpose is to add http service providers to the application as a whole.
 
 不要费心去导出纯服务类。
 纯服务类的模块不会导出任何可供其它模块使用的[可声明类](guide/ngmodule-faq#q-declarable)。
-例如，不用重新导出`HttpModule`，因为它没有导出任何东西。
+例如，不用重新导出`HttpClientModule`，因为它没有导出任何东西。
 它唯一的用途是把那些http服务提供商一起添加到应用中。
 
 
@@ -420,7 +420,7 @@ By adding the `HttpClientModule` once, every application component can make HTTP
 Angular就是如此设计的。
 通过模块导入来实现可扩展性是Angular模块系统的主要设计目标。
 把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
-只要添加一次`HttpModule`，那么应用中的每个组件就都可以发起Http请求了。
+只要添加一次`HttpClientModule`，那么应用中的每个组件就都可以发起Http请求了。
 
 However, this might feel like an unwelcome surprise if you expect the module's services
 to be visible only to the components declared by that feature module.
@@ -535,7 +535,7 @@ losing the special header. The server will reject http requests from this module
 
 To avoid this problem, import the `HttpClientModule` only in the `AppModule`, the application _root module_.
 
-要消除这个问题，就只能在应用的根模块`AppModule`中导入`HttpModule`。
+要消除这个问题，就只能在应用的根模块`AppModule`中导入`HttpClientModule`。
 
 If you must guard against this kind of "provider corruption", *don't rely on a launch-time module's `providers`.*
 
