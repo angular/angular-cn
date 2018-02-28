@@ -476,7 +476,7 @@ Any files outside of this folder are meant to support building your app.
       the [Browser Support guide](guide/browser-support) for more information.
 
       不同的浏览器对Web标准的支持程度也不同。
-      填充库（polyfill）能帮我们把这些不同点进行标准化。
+      腻子脚本（polyfill）能帮我们把这些不同点进行标准化。
       你只要使用`core-js` 和 `zone.js`通常就够了，不过你也可以查看[浏览器支持指南](guide/browser-support)以了解更多信息。
 
     </td>

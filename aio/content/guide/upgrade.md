@@ -1864,7 +1864,7 @@ Now you can load Angular via SystemJS. You'll add the Angular polyfills and the
 SystemJS config to the end of the `<head>` section, and then you'll use `System.import`
 to load the actual application:
 
-现在我们可以通过SystemJS加载Angular了。我们将把Angular的填充库(polyfills)
+现在我们可以通过SystemJS加载Angular了。我们将把Angular的腻子脚本(polyfills)
 和SystemJS的配置加到`<head>`区的末尾，然后，我们就用`System.import`来加载实际的应用：
 
 
@@ -2430,7 +2430,7 @@ as well:
 These files need to be copied together with the polyfills. The files the application
 needs at runtime, like the `.json` phone lists and images, also need to be copied.
 
-这些文件要带着相应的填充库复制到一起。应用运行时需要的文件，比如电话列表`.json`和图片，也需要复制过去。
+这些文件要带着相应的腻子脚本复制到一起。应用运行时需要的文件，比如电话列表`.json`和图片，也需要复制过去。
 
 Install `fs-extra` via `npm install fs-extra --save-dev` for better file copying, and change
 `copy-dist-files.js` to the following:

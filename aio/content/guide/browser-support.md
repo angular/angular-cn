@@ -123,7 +123,7 @@ Angular 在持续集成过程中，对每一个提交都会使用 <a href="https
 
 ## Polyfills
 
-## 填充库 (polyfill)
+## 腻子脚本 (polyfill)
 
 Angular is built on the latest standards of the web platform.
 Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
@@ -134,8 +134,8 @@ Angular 构建于 Web 平台的最新标准之上。
 You compensate by loading polyfill scripts ("polyfills") for the browsers that you must support.
 The [table below](#polyfill-libs) identifies most of the polyfills you might need.
 
-我们可以通过加载填充脚本("polyfills")来为想要支持的浏览器弥补这些特性。
-[下表](#polyfill-libs) 列出了可能用到的大多数填充脚本。
+我们可以通过加载腻子脚本("polyfills")来为想要支持的浏览器弥补这些特性。
+[下表](#polyfill-libs) 列出了可能用到的大多数腻子脚本。
 
 <div class="alert is-important">
 
@@ -143,34 +143,34 @@ The suggested polyfills are the ones that run full Angular applications.
 You may need additional polyfills to support features not covered by this list.
 Note that polyfills cannot magically transform an old, slow browser into a modern, fast one.
 
-这些建议的填充库是运行完整 Angular 应用所需的。
-你可能还会需要另一些的填充库来支持没有出现在此列表中的哪些特性。
-注意，这些填充库并没有神奇的魔力来把老旧、慢速的浏览器变成现代、快速的浏览器，它只是填充了 API。
+这些建议的腻子脚本是运行完整 Angular 应用所需的。
+你可能还会需要另一些的腻子脚本来支持没有出现在此列表中的哪些特性。
+注意，这些腻子脚本并没有神奇的魔力来把老旧、慢速的浏览器变成现代、快速的浏览器，它只是填充了 API。
 
 </div>
 
 ## Enabling polyfills
 
-## 启用填充脚本
+## 启用腻子脚本
 
 [Angular CLI](https://github.com/angular/angular-cli/wiki) users enable polyfills through the `src/polyfills.ts` file that
 the CLI created with your project.
 
-[Angular CLI](https://github.com/angular/angular-cli/wiki) 的用户可以通过自动创建的 `src/polyfills.ts` 文件来启用这些填充脚本。
+[Angular CLI](https://github.com/angular/angular-cli/wiki) 的用户可以通过自动创建的 `src/polyfills.ts` 文件来启用这些腻子脚本。
 
 This file incorporates the mandatory and many of the optional polyfills as JavaScript `import` statements.
 
-这个文件把强制的和很多可选的填充脚本组织成 JavaScript 的 `import` 语句。
+这个文件把强制的和很多可选的腻子脚本组织成 JavaScript 的 `import` 语句。
 
 The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.
 
-**强制性** 填充脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
+**强制性** 腻子脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
 
 But if you need an optional polyfill, you'll have to install its npm package.
 For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
 
-但是如果要用一个可选的填充库，就要通过 `npm` 或 `yarn` 来安装它们的 npm 包了。
-比如，[如果你需要 web 动画的填充脚本](http://caniuse.com/#feat=web-animation)，就要通过下列命令之一来安装它：
+但是如果要用一个可选的腻子脚本，就要通过 `npm` 或 `yarn` 来安装它们的 npm 包了。
+比如，[如果你需要 web 动画的腻子脚本](http://caniuse.com/#feat=web-animation)，就要通过下列命令之一来安装它：
 
 <code-example language="sh" class="code-shell">
   # note that the web-animations-js polyfill is only here as an example
@@ -193,7 +193,7 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 If you can't find the polyfill you want in `polyfills.ts`,
 add it yourself, following the same pattern:
 
-如果在 `polyfills.ts` 中找不到要使用的填充脚本，就可以仿照下列模式自行添加它：
+如果在 `polyfills.ts` 中找不到要使用的腻子脚本，就可以仿照下列模式自行添加它：
 
 1. install the npm package
 
@@ -216,11 +216,11 @@ Non-CLI users should follow the instructions [below](#non-cli).
 
 ### Mandatory polyfills
 
-### 强制性填充库
+### 强制性腻子脚本
 
 These are the polyfills required to run an Angular application on each supported browser:
 
-下表中的填充库是每个浏览器都要用到的：
+下表中的腻子脚本是每个浏览器都要用到的：
 
 
 <table>
@@ -245,7 +245,7 @@ These are the polyfills required to run an Angular application on each supported
       </p>
 
       <p>
-        需要的填充库
+        需要的腻子脚本
       </p>
 
     </th>
@@ -299,20 +299,20 @@ These are the polyfills required to run an Angular application on each supported
 
 ### Optional browser features to polyfill
 
-### 可选浏览器特性的填充库
+### 可选浏览器特性的腻子脚本
 
 Some features of Angular may require additional polyfills.
 
-有些 Angular 特性可能需要额外的填充库。
+有些 Angular 特性可能需要额外的腻子脚本。
 
 For example, the animations library relies on the standard web animation API, which is only available in Chrome and Firefox today.
 (note that the dependency of web-animations-js in Angular is only necessary if `AnimationBuilder` is used.)
 
-例如，动画库依赖于标准的 web 动画 API，目前它只在 Chrome 和 Firefox 上可用。你可能需要一个填充库来在其它浏览器上使用动画功能。
+例如，动画库依赖于标准的 web 动画 API，目前它只在 Chrome 和 Firefox 上可用。你可能需要一个腻子脚本来在其它浏览器上使用动画功能。
 
 Here are the features which may require additional polyfills:
 
-下列特性可能需要更多填充库：
+下列特性可能需要更多腻子脚本：
 
 
 <table>
@@ -329,7 +329,7 @@ Here are the features which may require additional polyfills:
     <th>
       Polyfill
       
-      填充库
+      腻子脚本
 
     </th>
 
@@ -380,7 +380,7 @@ Here are the features which may require additional polyfills:
       <br>Only if `Animation Builder` is used within the application--standard
       animation support in Angular doesn't require any polyfills (as of NG6).
       
-      <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何填充库的（截至 NG6）。
+      <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。
 
     </td>
 
@@ -395,7 +395,7 @@ Here are the features which may require additional polyfills:
       <p>If AnimationBuilder is used then the polyfill will enable scrubbing
       support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>
       
-      <p>如果使用了AnimationBuilder，那么填充库将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
+      <p>如果使用了AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
     </td>
 
   </tr>
@@ -490,11 +490,11 @@ Here are the features which may require additional polyfills:
 
 ### Suggested polyfills ##
 
-### 建议的填充库 ##
+### 建议的腻子脚本 ##
 
 Below are the polyfills which are used to test the framework itself. They are a good starting point for an application.
 
-下表中是用来测试框架本身的填充库，它们是应用程序的优质起点。
+下表中是用来测试框架本身的腻子脚本，它们是应用程序的优质起点。
 
 
 <table>
@@ -508,7 +508,7 @@ Below are the polyfills which are used to test the framework itself. They are a 
       </p>
 
       <p>
-        填充库
+        腻子脚本
       </p>
 
     </th>
@@ -698,11 +698,11 @@ computed with the <a href="http://closure-compiler.appspot.com/home" >closure co
 {@a non-cli}
 ## Polyfills for non-CLI users
 
-## 不使用 CLI 的用户的填充库
+## 不使用 CLI 的用户的腻子脚本
 
 If you are not using the CLI, you should add your polyfill scripts directly to the host web page (`index.html`), perhaps like this.
 
-如果你不使用 CLI，就要直接把填充库添加到宿主页（`index.html`）中，就像这样：
+如果你不使用 CLI，就要直接把腻子脚本添加到宿主页（`index.html`）中，就像这样：
 
 <code-example title="src/index.html">
   &lt;!-- pre-zone polyfills -->

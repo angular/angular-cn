@@ -95,7 +95,7 @@ The `dependencies` section of `package.json` contains:
   
 * **Polyfill packages**: Polyfills plug gaps in a browser's JavaScript implementation.
 
-  **填充库**：填充库负责抹平不同浏览器的 JavaScript 实现之间的差异。
+  **腻子脚本**：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
 
 ### Angular Packages
 
@@ -160,7 +160,7 @@ using the [JIT compiler](guide/aot-compiler).
 
 ### Polyfill packages
 
-### 填充包
+### 腻子脚本包
 
 Many browsers lack native support for some features in the latest HTML standards,
 features that Angular requires.
@@ -169,8 +169,8 @@ The [Browser Support](guide/browser-support) guide explains which browsers need 
 how you can add them.
 
 很多浏览器欠缺对 Angular 所需的某些最新 HTML 标准、特性的原生支持。
-[填充库](https://en.wikipedia.org/wiki/Polyfill) 可以模拟这些缺失的特性。
-[浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些填充库，以及如何添加它们。
+[腻子脚本](https://en.wikipedia.org/wiki/Polyfill) 可以模拟这些缺失的特性。
+[浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些腻子脚本，以及如何添加它们。
 
 The default `package.json` installs the **[core-js](https://github.com/zloirock/core-js)** package
 which polyfills missing features for several popular browser.

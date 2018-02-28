@@ -453,7 +453,7 @@ Open a terminal window and install the npm packages.
 
 ### Polyfills
 
-### Polyfills 填充库
+### Polyfills 腻子脚本
 
 You'll need polyfills to run an Angular application in most browsers as explained
 in the [Browser Support](guide/browser-support) guide.
