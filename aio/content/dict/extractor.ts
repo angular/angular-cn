@@ -29,8 +29,8 @@ export function gatherTranslations(text: string): DictEntry[] {
   return result;
 }
 
-export function listMarkdownFiles(): string[] {
-  return globby.sync(__dirname + '/../**/*.md');
+export function listMarkdownFiles(directory: string): string[] {
+  return globby.sync(directory + '**/*.md');
 }
 
 export function gatherFromMarkdownFile(fileName: string): DictEntry[] {
@@ -41,13 +41,12 @@ export function gatherFromMarkdownFile(fileName: string): DictEntry[] {
   return entries;
 }
 
-export function gatherFromMarkdownFiles(): DictEntry[] {
-  const files = listMarkdownFiles();
+export function gatherFromMarkdownFiles(directory: string): DictEntry[] {
+  const files = listMarkdownFiles(directory);
   const entries = files.map(gatherFromMarkdownFile);
   return entries.reduce((result, value) => result.concat(value), []);
 }
 
-const entries = gatherFromMarkdownFiles();
-const dict = JSON.stringify(entries, null, 2);
-const fs = require('fs');
-fs.writeFileSync(__dirname + '/dict-current.json', dict, 'utf-8');
+const contentDirectory = process.argv[2];
+
+gatherFromMarkdownFiles(contentDirectory);

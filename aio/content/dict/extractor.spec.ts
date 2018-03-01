@@ -31,19 +31,19 @@ describe('gather to dictionary', () => {
 
   it('should gather from real file', function () {
     const fs = require('fs');
-    const content = fs.readFileSync(__dirname + '/../../content/guide/forms.md', 'utf-8');
+    const content = fs.readFileSync(__dirname + '/../guide/forms.md', 'utf-8');
     const result = gatherTranslations(content);
     expect(result[0]).eql({original: '# Forms', translation: '# 表单'});
   });
 
   it('should list files recursive', function () {
-    expect(listMarkdownFiles().length).greaterThan(10);
+    expect(listMarkdownFiles(__dirname + '/../').length).greaterThan(10);
   });
   it('should gather from directory', () => {
-    const entries = gatherFromMarkdownFiles();
+    const entries = gatherFromMarkdownFiles(__dirname + '/../');
     const dict = JSON.stringify(entries, null, 2);
     const fs = require('fs');
-    fs.writeFileSync(__dirname + '/../../content/dict.json', dict, 'utf-8');
+    fs.writeFileSync(__dirname + '/../dict/dict-2.json', dict, 'utf-8');
     expect(entries.length).greaterThan(100);
   });
 });
