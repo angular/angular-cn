@@ -11571,7 +11571,7 @@
   },
   {
     "original": "## What's the difference between a _bootstrap_ component and an _entry component_?",
-    "translation": "### *引导组件*和*入口组件*有什么不同？",
+    "translation": "## *引导组件*和*入口组件*有什么不同？",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-faq.md"
   },
   {
@@ -12226,7 +12226,7 @@
   },
   {
     "original": "## The *PipeTransform* interface",
-    "translation": "### *PipeTransform*接口",
+    "translation": "## *PipeTransform*接口",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
   },
   {
@@ -15776,7 +15776,7 @@
   },
   {
     "original": "### _Activated Route_ in action",
-    "translation": "#### _Activated Route_ 实战",
+    "translation": "### _Activated Route_ 实战",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {

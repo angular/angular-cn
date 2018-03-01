@@ -870,7 +870,7 @@ For more information, see [Entry Components](guide/entry-components).
 
 ## What's the difference between a _bootstrap_ component and an _entry component_?
 
-### *引导组件*和*入口组件*有什么不同？
+## *引导组件*和*入口组件*有什么不同？
 
 A bootstrapped component _is_ an [entry component](guide/ngmodule-faq#q-entry-component-defined)
 that Angular loads into the DOM during the bootstrap process (application launch).

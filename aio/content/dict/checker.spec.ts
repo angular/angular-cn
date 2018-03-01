@@ -3,17 +3,31 @@ import { DictEntry } from './dict-entry';
 import { gatherFromMarkdownFiles, isTranslation } from './extractor';
 
 describe('auto check translations', function () {
-  const entries = gatherFromMarkdownFiles(__dirname + '/../');
+  const entries = gatherFromMarkdownFiles(__dirname + '/../')
+    .filter(isNotCheatSheet)
+    .filter(isNotMarketingDocs)
+    .filter(isNotCnPages);
+
   it('should not have <code-example> in translation', function () {
     const codeExamples = entries.filter(entry => entry.translation.indexOf('<code-example') !== -1);
     expect(codeExamples).eql([]);
   });
+
   it('english should not be translations', function () {
     const lines = entries.filter(entry => isTranslation(entry.original))
-      .filter(isNotImg)
-      .filter(isNotCheatSheet)
-      .filter(isNotMarketingDocs)
-      .filter(isNotCnPages);
+      .filter(isNotImg);
+    expect(lines).eql([]);
+  });
+
+  it('should have same head level', function () {
+    const lines = entries
+      .filter(entry => isHead(entry.original) && isHead(entry.translation))
+      .filter(entry => {
+        const originalLevel = entry.original.replace(/^(#+).*$/, '$1').length;
+        const translationLevel = entry.translation.replace(/^(#+).*$/, '$1').length;
+        return originalLevel !== translationLevel;
+      });
+
     expect(lines).eql([]);
   });
 });
@@ -32,4 +46,8 @@ function isNotMarketingDocs(entry: DictEntry): boolean {
 
 function isNotCnPages(entry: DictEntry): boolean {
   return !/cn\/.*?.md$/.test(entry.sourceFile);
+}
+
+function isHead(line: string): boolean {
+  return /^#/.test(line);
 }

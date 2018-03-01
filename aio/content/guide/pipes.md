@@ -276,7 +276,7 @@ Your pipe has one such parameter: the `exponent`.
 
 ## The *PipeTransform* interface
 
-### *PipeTransform*接口
+## *PipeTransform*接口
 
 The `transform` method is essential to a pipe.
 The `PipeTransform` *interface* defines that method and guides both tooling and the compiler.

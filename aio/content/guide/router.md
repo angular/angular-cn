@@ -2621,7 +2621,7 @@ the `HeroDetailComponent` via the `ActivatedRoute` service.
 
 ### _Activated Route_ in action
 
-#### _Activated Route_ 实战
+### _Activated Route_ 实战
 
 Import the `Router`, `ActivatedRoute`, and `ParamMap` tokens from the router package.
 
