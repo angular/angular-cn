@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { dirs } from './dirs';
 import { gatherFromMarkdownFiles, gatherTranslations, listMarkdownFiles, splitAndTrim } from './extractor';
 
 describe('gather to dictionary', () => {
@@ -31,20 +32,20 @@ describe('gather to dictionary', () => {
 
   it('should gather from real file', function () {
     const fs = require('fs');
-    const content = fs.readFileSync(__dirname + '/../guide/forms.md', 'utf-8');
+    const content = fs.readFileSync(dirs.content + 'guide/forms.md', 'utf-8');
     const result = gatherTranslations(content);
     expect(result[0]).eql({original: '# Forms', translation: '# 表单'});
   });
 
   it('should list files recursive', function () {
-    expect(listMarkdownFiles(__dirname + '/../').length).greaterThan(10);
+    expect(listMarkdownFiles(dirs.content).length).greaterThan(10);
   });
 
   it('should gather from directory', () => {
-    const entries = gatherFromMarkdownFiles(__dirname + '/../');
+    const entries = gatherFromMarkdownFiles(dirs.content);
     const dict = JSON.stringify(entries, null, 2);
     const fs = require('fs');
-    fs.writeFileSync(__dirname + '/../dict/dict-3.json', dict, 'utf-8');
+    fs.writeFileSync(dirs.here + 'dict-3.json', dict, 'utf-8');
     expect(entries.length).greaterThan(100);
   });
 

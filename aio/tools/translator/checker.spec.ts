@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import { DictEntry } from './dict-entry';
+import { dirs } from './dirs';
 import { gatherFromMarkdownFiles, isTranslation } from './extractor';
 
 describe('auto check translations', function () {
-  const entries = gatherFromMarkdownFiles(__dirname + '/../')
+  const entries = gatherFromMarkdownFiles(dirs.content)
     .filter(isNotCheatSheet)
     .filter(isNotMarketingDocs)
     .filter(isNotCnPages);
