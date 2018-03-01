@@ -31,6 +31,11 @@ describe('auto check translations', function () {
 
     expect(lines).eql([]);
   });
+
+  it('english should not be <div class', function () {
+    const lines = entries.filter(entry => /^ *<div.*/.test(entry.original));
+    expect(lines).eql([]);
+  });
 });
 
 function isNotImg(entry: DictEntry): boolean {
