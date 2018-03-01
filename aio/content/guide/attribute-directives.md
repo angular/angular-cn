@@ -183,7 +183,9 @@ This first implementation sets the background color of the host element to yello
 
 To use the new `HighlightDirective`, add a paragraph (`<p>`) element to the template of the root `AppComponent` and apply the directive as an attribute.
 
-运行应用，就会看到我们的指令确实高亮了段落中的文本。<code-example path="attribute-directives/src/app/app.component.1.html" title="src/app/app.component.html" region="applied"></code-example>
+运行应用，就会看到我们的指令确实高亮了段落中的文本。
+
+<code-example path="attribute-directives/src/app/app.component.1.html" title="src/app/app.component.html" region="applied"></code-example>
 
 Now run the application to see the `HighlightDirective` in action.
 
@@ -312,9 +314,10 @@ In this section, you give the developer the power to set the highlight color whi
 我们应该让指令的使用者可以指定要用哪种颜色进行高亮。
 
 Begin by adding `Input` to the list of symbols imported from `@angular/core`.
-<code-example path="attribute-directives/src/app/highlight.directive.3.ts" linenums="false" title="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
 我们先从`@angular/core`中导入`Input`。
+
+<code-example path="attribute-directives/src/app/highlight.directive.3.ts" linenums="false" title="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
 Add a `highlightColor` property to the directive class like this:
 

@@ -17,6 +17,7 @@ Run the <live-example></live-example>.
 
 
 ## Binding to user input events
+
 ## 绑定到用户输入事件
 
 You can use [Angular event bindings](guide/template-syntax#event-binding)
@@ -74,6 +75,7 @@ When the user clicks the button, Angular calls the `onClickMe` method from `Clic
 
 
 ## Get user input from the $event object
+
 ## 通过 $event 对象取得用户输入
 
 DOM events carry a payload of information that may be useful to the component.
@@ -100,7 +102,7 @@ DOM event object in the `$event` variable which this code passes as a parameter 
 事件对象，上面的代码将它作为参数传递给`onKey()`方法。
 
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" title="src/app/keyup.components.ts (类 v.1)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" title="src/app/keyup.components.ts (class v.1)" linenums="false">
 
 </code-example>
 
@@ -374,6 +376,7 @@ To fix this issue, listen to both the _Enter_ key and the _blur_ event.
 
 
 ## Put it all together
+
 ## 把它们放在一起
 
 The previous page showed how to [display data](guide/displaying-data).
@@ -406,9 +409,8 @@ Below is the "Little Tour of Heroes"  component.
 
 </code-example>
 
-
-
 ### Observations
+
 ### 小结
 
 * **Use template variables to refer to elements** &mdash;

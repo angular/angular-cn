@@ -3,6 +3,7 @@
 <h1 class="no-toc">速查表</h1>
 
 <div id="cheatsheet">
+
 <table class="is-full-width is-fixed-layout">
 <tbody><tr>
 <th>

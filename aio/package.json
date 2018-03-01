@@ -133,7 +133,7 @@
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "lighthouse": "^2.5.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "lunr": "^2.1.0",
     "protractor": "^5.2.0",
     "rehype": "^4.0.0",

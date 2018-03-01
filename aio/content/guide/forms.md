@@ -234,8 +234,9 @@ The `alterEgo` is optional, so the constructor lets you omit it; note the questi
 
 You can create a new hero like this:
 
+可以这样创建新英雄：
 
-可以这样创建新英雄：<code-example path="forms/src/app/hero-form/hero-form.component.ts " linenums="false" region="SkyDog">
+<code-example path="forms/src/app/hero-form/hero-form.component.ts " linenums="false" region="SkyDog">
 
 </code-example>
 
@@ -367,7 +368,9 @@ access to all of the template-driven forms features, including `ngModel`.
 Replace the contents of its template with the following:
 
 
-把“快速上手”的版本内容替换成下列代码：<code-example path="forms/src/app/app.component.html" title="src/app/app.component.html">
+把“快速上手”的版本内容替换成下列代码：
+
+<code-example path="forms/src/app/app.component.html" title="src/app/app.component.html">
 
 </code-example>
 
@@ -483,7 +486,9 @@ a technique seen previously in the [Displaying Data](guide/displaying-data) page
 Add the following HTML *immediately below* the *Alter Ego* group:
 
 
-在 *Alter Ego* 的紧下方添加如下 HTML：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (powers)" region="powers">
+在 *Alter Ego* 的紧下方添加如下 HTML：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (powers)" region="powers">
 
 </code-example>
 
@@ -536,7 +541,9 @@ makes binding the form to the model easy.
 Find the `<input>` tag for *Name* and update it like this:
 
 
-找到 *Name* 对应的`<input>`标签，并且像这样修改它：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-1">
+找到 *Name* 对应的`<input>`标签，并且像这样修改它：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-1">
 
 </code-example>
 
@@ -561,7 +568,9 @@ a template variable for the form. Update the `<form>` tag with
 `#heroForm="ngForm"` as follows:
 
 
-我们需要更多的工作来显示数据。在表单中声明一个模板变量。往`<form>`标签中加入`#heroForm="ngForm"`，代码如下：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="template-variable">
+我们需要更多的工作来显示数据。在表单中声明一个模板变量。往`<form>`标签中加入`#heroForm="ngForm"`，代码如下：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="template-variable">
 
 </code-example>
 
@@ -576,13 +585,19 @@ The variable `heroForm` is now a reference to the `NgForm` directive that govern
 
   ### The _NgForm_ directive
 
-### `NgForm`指令What `NgForm` directive?
+### `NgForm`指令
+
+What `NgForm` directive?
 You didn't add an [NgForm](api/forms/NgForm) directive.
 
 什么是`NgForm`指令？
-但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.
+但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！
 
-Angular替你做了。Angular会在`<form>`标签上自动创建并附加一个`NgForm`指令。The `NgForm` directive supplements the `form` element with additional features.
+Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.
+
+Angular替你做了。Angular会在`<form>`标签上自动创建并附加一个`NgForm`指令。
+
+The `NgForm` directive supplements the `form` element with additional features.
 It holds the controls you created for the elements with an `ngModel` directive
 and `name` attribute, and monitors their properties, including their validity.
 It also has its own `valid` property which is true only *if every contained
@@ -660,7 +675,9 @@ Then you can confirm that two-way data binding works *for the entire hero model*
 After revision, the core of the form should look like this:
 
 
-修改之后，这个表单的核心是这样的：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModel-2">
+修改之后，这个表单的核心是这样的：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModel-2">
 
 </code-example>
 
@@ -670,7 +687,10 @@ After revision, the core of the form should look like this:
 
 * Each input element has an `id` property that is used by the `label` element's `for` attribute
 to match the label to its input control.
-每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。* Each input element has a `name` property that is required by Angular forms to register the control with the form.
+
+  每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。
+
+* Each input element has a `name` property that is required by Angular forms to register the control with the form.
 
   每个 input 元素都有`name`属性，Angular 表单用它注册控件。
 
@@ -834,7 +854,9 @@ to the _Name_ `<input>` tag and use it to display the input's CSS classes.
 
 
 往姓名`<input>`标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#ref-vars)，
-然后用这个 spy 来显示它上面的所有 CSS 类。<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-2">
+然后用这个 spy 来显示它上面的所有 CSS 类。
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-2">
 
 </code-example>
 
@@ -960,7 +982,9 @@ To achieve this effect, extend the `<input>` tag with the following:
 Here's an example of an error message added to the _name_ input box:
 
 
-这个例子中我们把一条错误信息添加到了_name_输入框中：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="name-with-error-msg">
+这个例子中我们把一条错误信息添加到了_name_输入框中：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="name-with-error-msg">
 
 </code-example>
 
@@ -989,7 +1013,9 @@ You control visibility of the name error message by binding properties of the `n
 control to the message `<div>` element's `hidden` property.
 
 
-我们把`div`元素的`hidden`属性绑定到`name`控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (hidden-error-msg)" region="hidden-error-msg">
+我们把`div`元素的`hidden`属性绑定到`name`控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (hidden-error-msg)" region="hidden-error-msg">
 
 </code-example>
 
@@ -1034,7 +1060,9 @@ Place a *New Hero* button at the bottom of the form and bind its click event to 
 
 
 我们希望在这个表单中添加新的英雄。
-  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到`newHero`组件。<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" title="src/app/hero-form/hero-form.component.html (New Hero button)">
+  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到`newHero`组件。
+  
+<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" title="src/app/hero-form/hero-form.component.html (New Hero button)">
 
 </code-example>
 
@@ -1072,7 +1100,9 @@ You have to clear all of the flags imperatively, which you can do
 by calling the form's `reset()` method after calling the `newHero()` method.
 
 
-我们必须清除所有标记，在调用`newHero()`方法后调用表单的`reset()`方法即可。<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-form-reset" title="src/app/hero-form/hero-form.component.html (Reset the form)">
+我们必须清除所有标记，在调用`newHero()`方法后调用表单的`reset()`方法即可。
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-form-reset" title="src/app/hero-form/hero-form.component.html (Reset the form)">
 
 </code-example>
 
@@ -1100,7 +1130,9 @@ to the hero form component's `onSubmit()` method:
 
 
 现在这样仅仅触发“表单提交”是没用的。
-要让它有用，就要把该表单的`ngSubmit`事件属性绑定到英雄表单组件的`onSubmit()`方法上：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (ngSubmit)" region="ngSubmit">
+要让它有用，就要把该表单的`ngSubmit`事件属性绑定到英雄表单组件的`onSubmit()`方法上：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (ngSubmit)" region="ngSubmit">
 
 </code-example>
 
@@ -1117,7 +1149,9 @@ the `heroForm` variable to the button's `disabled` property
 using an event binding. Here's the code:
 
 
-我们要把表单的总体有效性通过`heroForm`变量绑定到此按钮的`disabled`属性上，代码如下：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (submit-button)" region="submit-button">
+我们要把表单的总体有效性通过`heroForm`变量绑定到此按钮的`disabled`属性上，代码如下：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (submit-button)" region="submit-button">
 
 </code-example>
 
@@ -1185,7 +1219,9 @@ Wrap the form in a `<div>` and bind
 its `hidden` property to the `HeroFormComponent.submitted` property.
 
 
-先把表单包裹进`<div>`中，再把它的`hidden`属性绑定到`HeroFormComponent.submitted`属性。<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="edit-div">
+先把表单包裹进`<div>`中，再把它的`hidden`属性绑定到`HeroFormComponent.submitted`属性。
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="edit-div">
 
 </code-example>
 
@@ -1195,7 +1231,9 @@ as this fragment from the `HeroFormComponent` shows:
 
 
 主表单从一开始就是可见的，因为`submitted`属性是 false，直到提交了这个表单。
-来自`HeroFormComponent`的代码片段告诉了我们这一点：<code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" title="src/app/hero-form/hero-form.component.ts (submitted)" region="submitted">
+来自`HeroFormComponent`的代码片段告诉了我们这一点：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" title="src/app/hero-form/hero-form.component.ts (submitted)" region="submitted">
 
 </code-example>
 
@@ -1209,7 +1247,9 @@ Add the following HTML below the `<div>` wrapper you just wrote:
 
 
 现在，当表单处于已提交状态时，需要显示一些别的东西。
-在刚刚写的`<div>`包装下方，添加下列 HTML 语句：<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="submitted">
+在刚刚写的`<div>`包装下方，添加下列 HTML 语句：
+
+<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="submitted">
 
 </code-example>
 

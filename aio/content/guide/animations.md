@@ -11,6 +11,7 @@ more fun but also easier to use.
 设计良好的动画不但会让UI更有趣，还会让它更容易使用。
 
 ## Overview
+
 ## 概述
 
 Angular's animation system lets you build animations that run with the same kind of native
@@ -574,6 +575,7 @@ One group animates the element transform and width; the other group animates the
 
 
 ## Animation callbacks
+
 ## 动画回调
 
 A callback is fired when an animation is started and also when it is done.

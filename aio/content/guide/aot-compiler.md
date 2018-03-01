@@ -47,9 +47,6 @@ For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-
   ng serve --aot
 </code-example>
 
-Angular应用主要包含组件和它们的HTML模板。
-在浏览器可以渲染应用之前，组件和模板必须要被**Angular编译器**转换为可以执行的JavaScript。
-
 <div class="l-sub-section">
 
 The `--prod` meta-flag compiles with AOT by default.

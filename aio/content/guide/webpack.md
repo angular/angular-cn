@@ -97,7 +97,9 @@ This guide offers a taste of Webpack and explains how to use it with Angular app
     [生产环境配置](guide/webpack#production-configuration)
 
   * [Test configuration](guide/webpack#test-configuration)
-  [测试环境配置](guide/webpack#test-configuration)
+  
+    [测试环境配置](guide/webpack#test-configuration)
+  
 * [Trying it out](guide/webpack#try)
 
   [试一下](guide/webpack#try)
@@ -544,6 +546,7 @@ and exports several objects as properties of a `module.exports` object.
 * [`resolve`](guide/webpack#common-resolves)&mdash;how to resolve file names when they lack extensions.
 
   [`resolve`](guide/webpack#common-resolves) - 省略扩展名时如何解释文件名。
+  
 * [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.
 
   [`module.rules`](guide/webpack#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载。

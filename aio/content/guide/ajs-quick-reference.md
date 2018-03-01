@@ -529,6 +529,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In AngularJS, the `ng-href` is often used to activate a route as part of navigation.
 
       在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。
+      
       <code-example hideCopy format="">
         &lt;a ng-href="#{{ moviesHash }}">Movies&lt;/a>
       </code-example>
@@ -1100,7 +1101,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### none
+      
       ### 没了
+      
       For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.
 
       在Angular中，出于性能的考虑，并没有一个类似的管道。
@@ -1279,7 +1282,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
 
 
       ### none
+      
       ### 没了
+      
       For performance reasons, no comparable pipe exists in Angular.
       Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.
 
@@ -1437,7 +1442,9 @@ The Angular code is shown using TypeScript.
 
       ### Controller registration
       
-### 控制器注册      <code-example hideCopy>
+      ### 控制器注册      
+
+      <code-example hideCopy>
         angular
           .module("movieHunter")
           .controller("MovieListCtrl",

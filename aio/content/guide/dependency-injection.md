@@ -266,6 +266,7 @@ and the `UserService` provided in `AppModule`.
 {@a testing-the-component}
 
 ## Testing the component
+
 ## 测试组件
 
 Earlier you saw that designing a class for dependency injection makes the class easier to test.
@@ -861,7 +862,9 @@ The token description is another developer aid.
 Register the dependency provider using the `InjectionToken` object:
 
 
-使用这个`InjectionToken`对象注册依赖的提供商：<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"  linenums="false">
+使用这个`InjectionToken`对象注册依赖的提供商：
+
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"  linenums="false">
 </code-example>
 
 Now you can inject the configuration object into any constructor that needs it, with
@@ -885,12 +888,15 @@ it supports typing of the configuration object within the class.
 
 Alternatively, you can provide and inject the configuration object in an ngModule like `AppModule`.
 
-或者在 ngModule 中提供并注入这个配置对象，如`AppModule`。<code-example path="dependency-injection/src/app/app.module.ts" region="providers" title="src/app/app.module.ts (providers)"></code-example>
+或者在 ngModule 中提供并注入这个配置对象，如`AppModule`。
+
+<code-example path="dependency-injection/src/app/app.module.ts" region="providers" title="src/app/app.module.ts (providers)"></code-example>
 
 
 {@a optional}
 
 ## Optional dependencies
+
 ## 可选依赖
 
 The `HeroService` *requires* a `Logger`, but what if it could get by without

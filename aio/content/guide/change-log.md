@@ -16,6 +16,7 @@ This log calls attention to recent significant changes.
 ## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
 ## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)
+
 We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.
 This plugin dynamically converts "component-relative" paths in templateUrl and styleUrls to "absolute paths" for you.
 
@@ -254,6 +255,7 @@ The documentation for the version prior to v.2.2.0 has been removed.
 The updated TypeScript to JavaScript guide explains how to write apps in ES6/7
 
 更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
+
 by translating the common idioms in the TypeScript documentation examples
 (and elsewhere on the web) to ES6/7 and ES5.
 
@@ -406,6 +408,7 @@ The new "angular-in-memory-web-api" has new features.
 [StyleGuide](guide/styleguide) explains recommended conventions for NgModules.
 
 [StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。
+
 Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.

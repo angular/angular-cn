@@ -672,7 +672,7 @@ Here's a typical example:
 Angular把该令牌传给注入器，然后把得到的结果赋给参数。下面是一个典型的例子：
 
 
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts (组件构造器注入)" linenums="false">
+<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts" linenums="false">
 
 </code-example>
 
@@ -719,7 +719,7 @@ usually in the `providers` array of the `Component` or `Directive` metadata:
 Angular会使用一些自带的提供商来初始化这些注入器。我们必须自行注册属于_自己_的提供商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。
 
 
-<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="providers" title="src/app/app.component.ts (提供商)">
+<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="providers" title="src/app/app.component.ts (providers)">
 
 </code-example>
 
@@ -738,7 +738,7 @@ You mention the class in the `providers` array and you're done.
 简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。
 
 
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="class-provider" title="src/app/hero-bios.component.ts (类提供商)" linenums="false">
+<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="class-provider" title="src/app/hero-bios.component.ts (class provider)" linenums="false">
 
 </code-example>
 
@@ -1595,9 +1595,7 @@ Here's *Alex* and family in action:
 Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*. 
 Both *Alice* and *Barry* implement the `Parent` *class-interface*.
 
-想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。
-
-*Alice*和*Barry*都实现了这个`Parent`*类-接口*。
+想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。*Alice*和*Barry*都实现了这个`Parent`*类-接口*。
 
 *Barry* is the problem. He needs to reach his parent, *Alice*, and also be a parent to *Carol*.
 That means he must both *inject* the `Parent` *class-interface* to get *Alice* and

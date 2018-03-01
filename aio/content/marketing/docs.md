@@ -6,6 +6,7 @@ Angular is a platform that makes it easy to build applications with the web. Ang
 Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。
 
 <div class="card-container">
+
   <a href="generated/live-examples/toh-pt1/stackblitz.html" target="_blank" class="docs-card"
     title="通过线上编程环境体验 Angular">
       <section>Angular 走马观花</section>

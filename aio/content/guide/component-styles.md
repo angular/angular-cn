@@ -176,7 +176,9 @@ Component styles normally apply only to the HTML in the component's own template
 Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child
 component tree into all the child component views.
 The `/deep/` combinator works to any depth of nested components, and it applies to both the view
-children and content children of the component. 我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
+children and content children of the component. 
+
+我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
 
 The following example targets all `<h3>` elements, from the host element down
 through this component to all of its child elements in the DOM.
@@ -438,9 +440,11 @@ Choose from the following modes:
   Angular adds the CSS to the global styles.
   The scoping rules, isolations, and protections discussed earlier don't apply.
   This is essentially the same as pasting the component's styles into the HTML.
+  
   `None`意味着 Angular 不使用视图封装。
   Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。
   从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)
+  
 To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
 
 通过组件元数据中的`encapsulation`属性来设置组件封装模式：

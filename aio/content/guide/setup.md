@@ -63,6 +63,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 ## Download
 
 ## 下载
+
 <a href="https://github.com/angular/quickstart/archive/master.zip" title="Download the QuickStart seed repository">Download the QuickStart seed</a>
 and unzip it into your project folder. Then perform the remaining steps with these terminal commands.
 

@@ -311,7 +311,7 @@
   },
   {
     "original": "In AngularJS, the `ng-href` is often used to activate a route as part of navigation.",
-    "translation": "在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。\n      <code-example hideCopy format=\"\">\n        &lt;a ng-href=\"#{{ moviesHash }}\">Movies&lt;/a>\n      </code-example>",
+    "translation": "在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
@@ -565,12 +565,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
-    "original": "<td>",
-    "translation": "### none\n      ### 没了\n      For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
+    "original": "### none",
+    "translation": "### 没了",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
-    "original": "### none\n      ### 没了\n      For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
+    "original": "For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
     "translation": "在Angular中，出于性能的考虑，并没有一个类似的管道。\n      过滤逻辑应该在组件中用代码实现。\n      如果它将被复用在几个模板中，可以考虑构建一个自定义管道。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
@@ -625,12 +625,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
-    "original": "<td>",
-    "translation": "### none\n      ### 没了\n      For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
+    "original": "### none",
+    "translation": "### 没了",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
-    "original": "### none\n      ### 没了\n      For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
+    "original": "For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
     "translation": "在Angular中，出于性能的考虑，并没有一个类似的管道。\n      排序逻辑应该在组件中用代码实现。\n      如果它将被复用在几个模板中，可以考虑构建一个自定义管道。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
@@ -706,7 +706,7 @@
   },
   {
     "original": "### Controller registration",
-    "translation": "### 控制器注册      <code-example hideCopy>\n        angular\n          .module(\"movieHunter\")\n          .controller(\"MovieListCtrl\",\n                      [\"movieService\",\n                       MovieListCtrl]);\n      </code-example>",
+    "translation": "### 控制器注册",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ajs-quick-reference.md"
   },
   {
@@ -845,8 +845,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/animations.md"
   },
   {
-    "original": "动画是现代Web应用设计中一个很重要的方面。我们希望用户界面能在不同的状态之间更平滑的转场。如果需要，还可以用适当的动画来吸引注意力。\n设计良好的动画不但会让UI更有趣，还会让它更容易使用。",
-    "translation": "## Overview\n## 概述",
+    "original": "## Overview",
+    "translation": "## 概述",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/animations.md"
   },
   {
@@ -1240,8 +1240,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/animations.md"
   },
   {
-    "original": "其中一个动画组对元素的`transform`和`width`做动画，另一个组则对`opacity`做动画。",
-    "translation": "## Animation callbacks\n## 动画回调",
+    "original": "## Animation callbacks",
+    "translation": "## 动画回调",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/animations.md"
   },
   {
@@ -1282,11 +1282,6 @@
   {
     "original": "## Angular compilation",
     "translation": "## 概览",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/aot-compiler.md"
-  },
-  {
-    "original": "<code-example language=\"sh\" class=\"code-shell\">\n  ng build --aot\n  ng serve --aot\n</code-example>",
-    "translation": "Angular应用主要包含组件和它们的HTML模板。\n在浏览器可以渲染应用之前，组件和模板必须要被**Angular编译器**转换为可以执行的JavaScript。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/aot-compiler.md"
   },
   {
@@ -1635,8 +1630,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/architecture.md"
   },
   {
-    "original": "每个 Angular 库的名字都带有`@angular`前缀。",
-    "translation": "You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.\n用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。<br class=\"clear\">",
+    "original": "You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.",
+    "translation": "用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。<br class=\"clear\">",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/architecture.md"
   },
   {
@@ -2451,7 +2446,7 @@
   },
   {
     "original": "To use the new `HighlightDirective`, add a paragraph (`<p>`) element to the template of the root `AppComponent` and apply the directive as an attribute.",
-    "translation": "运行应用，就会看到我们的指令确实高亮了段落中的文本。<code-example path=\"attribute-directives/src/app/app.component.1.html\" title=\"src/app/app.component.html\" region=\"applied\"></code-example>",
+    "translation": "运行应用，就会看到我们的指令确实高亮了段落中的文本。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/attribute-directives.md"
   },
   {
@@ -2535,7 +2530,7 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/attribute-directives.md"
   },
   {
-    "original": "Begin by adding `Input` to the list of symbols imported from `@angular/core`.\n<code-example path=\"attribute-directives/src/app/highlight.directive.3.ts\" linenums=\"false\" title=\"src/app/highlight.directive.ts (imports)\" region=\"imports\"></code-example>",
+    "original": "Begin by adding `Input` to the list of symbols imported from `@angular/core`.",
     "translation": "我们先从`@angular/core`中导入`Input`。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/attribute-directives.md"
   },
@@ -3056,11 +3051,11 @@
   },
   {
     "original": "## All mention of moduleId removed. \"Component relative paths\" guide deleted (2017-03-13)",
-    "translation": "## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)\nWe added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.\nThis plugin dynamically converts \"component-relative\" paths in templateUrl and styleUrls to \"absolute paths\" for you.",
+    "translation": "## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
   {
-    "original": "## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)\nWe added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.\nThis plugin dynamically converts \"component-relative\" paths in templateUrl and styleUrls to \"absolute paths\" for you.",
+    "original": "We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.\nThis plugin dynamically converts \"component-relative\" paths in templateUrl and styleUrls to \"absolute paths\" for you.",
     "translation": "我们往建议的SystemJS配置中新增了一个SystemJS插件 (systemjs-angular-loader.js) 。\n这个插件可以帮你把templateUrl和styleUrls中的组件相对路径动态转换为绝对路径。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
@@ -3286,11 +3281,11 @@
   },
   {
     "original": "The updated TypeScript to JavaScript guide explains how to write apps in ES6/7",
-    "translation": "更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用\nby translating the common idioms in the TypeScript documentation examples\n(and elsewhere on the web) to ES6/7 and ES5.",
+    "translation": "更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
   {
-    "original": "更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用\nby translating the common idioms in the TypeScript documentation examples\n(and elsewhere on the web) to ES6/7 and ES5.",
+    "original": "by translating the common idioms in the TypeScript documentation examples\n(and elsewhere on the web) to ES6/7 and ES5.",
     "translation": "将TypeScript文档示例中（以及网站其它地方）的习惯用法翻译成ES6/7和ES5。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
@@ -3436,11 +3431,11 @@
   },
   {
     "original": "[StyleGuide](guide/styleguide) explains recommended conventions for NgModules.",
-    "translation": "[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。\nBarrels now are far less useful and have been removed from the style guide;\nthey remain valuable but are not a matter of Angular style.\nAlso relaxed the rule that discouraged use of the `@Component.host` property.",
+    "translation": "[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
   {
-    "original": "[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。\nBarrels now are far less useful and have been removed from the style guide;\nthey remain valuable but are not a matter of Angular style.\nAlso relaxed the rule that discouraged use of the `@Component.host` property.",
+    "original": "Barrels now are far less useful and have been removed from the style guide;\nthey remain valuable but are not a matter of Angular style.\nAlso relaxed the rule that discouraged use of the `@Component.host` property.",
     "translation": "现在，封装桶不再那么重要，风格指南已经移除了它们。\n它们仍然很有价值，但是它们与Angular风格无关。\n我们同时对**不推荐使用`@Component.host`属性**的规则有所放宽。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
@@ -3475,12 +3470,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/cheatsheet.md"
   },
   {
-    "original": "<h1 class=\"no-toc\">速查表</h1>",
-    "translation": "<div id=\"cheatsheet\">\n<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th>\n<p>Bootstrapping</p>\n<p>启动</p>\n</th>\n<th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>\n</p>\n</th>\n</tr>\n<tr>\n<td><code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code></td>\n<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>\n<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>\n</td>\n</tr>\n</tbody></table>",
+    "original": "<div id=\"cheatsheet\">",
+    "translation": "<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th>\n<p>Bootstrapping</p>\n<p>启动</p>\n</th>\n<th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>\n</p>\n</th>\n</tr>\n<tr>\n<td><code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code></td>\n<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>\n<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>\n</td>\n</tr>\n</tbody></table>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/cheatsheet.md"
   },
   {
-    "original": "<div id=\"cheatsheet\">\n<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th>\n<p>Bootstrapping</p>\n<p>启动</p>\n</th>\n<th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>\n</p>\n</th>\n</tr>\n<tr>\n<td><code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code></td>\n<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>\n<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>\n</td>\n</tr>\n</tbody></table>",
+    "original": "<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th>\n<p>Bootstrapping</p>\n<p>启动</p>\n</th>\n<th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>\n</p>\n</th>\n</tr>\n<tr>\n<td><code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code></td>\n<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>\n<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>\n</td>\n</tr>\n</tbody></table>",
     "translation": "<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th><p>NgModules</p>\n<p>Angular 模块</p>\n</th>\n<th><p><code>import { NgModule } from '@angular/core';</code>\n</p>\n</th>\n</tr>\n<tr>\n<td><code>@<b>NgModule</b>({ declarations: ..., imports: ...,<br>     exports: ..., providers: ..., bootstrap: ...})<br>class MyModule {}</code></td>\n<td><p>Defines a module that contains components, directives, pipes, and providers.</p>\n<p>定义一个模块，其中可以包含组件、指令、管道和服务提供商。</p>\n</td>\n</tr><tr>\n<td><code><b>declarations:</b> [MyRedComponent, MyBlueComponent, MyDatePipe]</code></td>\n<td><p>List of components, directives, and pipes that belong to this module.</p>\n<p>属于当前模块的组件、指令和管道的列表。</p>\n</td>\n</tr><tr>\n<td><code><b>imports:</b> [BrowserModule, SomeOtherModule]</code></td>\n<td><p>List of modules to import into this module. Everything from the imported modules\nis available to <code>declarations</code> of this module.</p>\n<p>本模块所导入的模块列表</p>\n</td>\n</tr><tr>\n<td><code><b>exports:</b> [MyRedComponent, MyDatePipe]</code></td>\n<td><p>List of components, directives, and pipes visible to modules that import this module.</p>\n<p>那些导入了本模块的模块所能看到的组件、指令和管道的列表</p>\n</td>\n</tr><tr>\n<td><code><b>providers:</b> [MyService, { provide: ... }]</code></td>\n<td><p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>\n<p>依赖注入提供商的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。</p>\n</td>\n</tr><tr>\n<td><code><b>bootstrap:</b> [MyAppComponent]</code></td>\n<td><p>List of components to bootstrap when this module is bootstrapped.</p>\n<p>当本模块启动时，随之启动的组件列表。</p>\n</td>\n</tr>\n</tbody></table>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/cheatsheet.md"
   },
@@ -4115,8 +4110,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/component-styles.md"
   },
   {
-    "original": "组件样式通常只会作用于组件自身的 HTML 上。",
-    "translation": "Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child\ncomponent tree into all the child component views.\nThe `/deep/` combinator works to any depth of nested components, and it applies to both the view\nchildren and content children of the component. 我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。",
+    "original": "Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child\ncomponent tree into all the child component views.\nThe `/deep/` combinator works to any depth of nested components, and it applies to both the view\nchildren and content children of the component.",
+    "translation": "我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/component-styles.md"
   },
   {
@@ -4270,12 +4265,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/component-styles.md"
   },
   {
-    "original": "`Emulated`模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。\n  更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)",
-    "translation": "* `None` means that Angular does no view encapsulation.\n  Angular adds the CSS to the global styles.\n  The scoping rules, isolations, and protections discussed earlier don't apply.\n  This is essentially the same as pasting the component's styles into the HTML.\n  `None`意味着 Angular 不使用视图封装。\n  Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。\n  从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)\nTo set the components encapsulation mode, use the `encapsulation` property in the component metadata:",
+    "original": "* `None` means that Angular does no view encapsulation.\n  Angular adds the CSS to the global styles.\n  The scoping rules, isolations, and protections discussed earlier don't apply.\n  This is essentially the same as pasting the component's styles into the HTML.",
+    "translation": "`None`意味着 Angular 不使用视图封装。\n  Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。\n  从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/component-styles.md"
   },
   {
-    "original": "* `None` means that Angular does no view encapsulation.\n  Angular adds the CSS to the global styles.\n  The scoping rules, isolations, and protections discussed earlier don't apply.\n  This is essentially the same as pasting the component's styles into the HTML.\n  `None`意味着 Angular 不使用视图封装。\n  Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。\n  从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)\nTo set the components encapsulation mode, use the `encapsulation` property in the component metadata:",
+    "original": "To set the components encapsulation mode, use the `encapsulation` property in the component metadata:",
     "translation": "通过组件元数据中的`encapsulation`属性来设置组件封装模式：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/component-styles.md"
   },
@@ -4725,11 +4720,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "我们通常在构造函数里面，为参数指定类型，让Angular来处理依赖注入。该参数类型就是依赖注入器所需的*令牌*。\nAngular把该令牌传给注入器，然后把得到的结果赋给参数。下面是一个典型的例子：",
-    "translation": "<code-example path=\"dependency-injection-in-action/src/app/hero-bios.component.ts\" region=\"ctor\" title=\"src/app/hero-bios.component.ts (组件构造器注入)\" linenums=\"false\">",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
-  },
-  {
     "original": "Angular asks the injector for the service associated with the `LoggerService`\nand assigns the returned value to the `logger` parameter.",
     "translation": "Angular向注入器请求与`LoggerService`对应的服务，并将返回值赋给`logger`参数。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
@@ -4750,11 +4740,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "新建的注入器中没有提供商。\nAngular会使用一些自带的提供商来初始化这些注入器。我们必须自行注册属于_自己_的提供商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。",
-    "translation": "<code-example path=\"dependency-injection-in-action/src/app/app.component.ts\" region=\"providers\" title=\"src/app/app.component.ts (提供商)\">",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
-  },
-  {
     "original": "### Defining providers",
     "translation": "### 定义提供商",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
@@ -4762,11 +4747,6 @@
   {
     "original": "The simple class provider is the most typical by far.\nYou mention the class in the `providers` array and you're done.",
     "translation": "简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
-  },
-  {
-    "original": "简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。",
-    "translation": "<code-example path=\"dependency-injection-in-action/src/app/hero-bios.component.ts\" region=\"class-provider\" title=\"src/app/hero-bios.component.ts (类提供商)\" linenums=\"false\">",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
   },
   {
@@ -5281,12 +5261,7 @@
   },
   {
     "original": "Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*. \nBoth *Alice* and *Barry* implement the `Parent` *class-interface*.",
-    "translation": "想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
-  },
-  {
-    "original": "想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。",
-    "translation": "*Alice*和*Barry*都实现了这个`Parent`*类-接口*。",
+    "translation": "想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。*Alice*和*Barry*都实现了这个`Parent`*类-接口*。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection-in-action.md"
   },
   {
@@ -5455,8 +5430,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection.md"
   },
   {
-    "original": "{@a testing-the-component}",
-    "translation": "## Testing the component\n## 测试组件",
+    "original": "## Testing the component",
+    "translation": "## 测试组件",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection.md"
   },
   {
@@ -5791,7 +5766,7 @@
   },
   {
     "original": "Register the dependency provider using the `InjectionToken` object:",
-    "translation": "使用这个`InjectionToken`对象注册依赖的提供商：<code-example path=\"dependency-injection/src/app/providers.component.ts\" region=\"providers-9\"  linenums=\"false\">\n</code-example>",
+    "translation": "使用这个`InjectionToken`对象注册依赖的提供商：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection.md"
   },
   {
@@ -5806,12 +5781,12 @@
   },
   {
     "original": "Alternatively, you can provide and inject the configuration object in an ngModule like `AppModule`.",
-    "translation": "或者在 ngModule 中提供并注入这个配置对象，如`AppModule`。<code-example path=\"dependency-injection/src/app/app.module.ts\" region=\"providers\" title=\"src/app/app.module.ts (providers)\"></code-example>",
+    "translation": "或者在 ngModule 中提供并注入这个配置对象，如`AppModule`。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection.md"
   },
   {
-    "original": "{@a optional}",
-    "translation": "## Optional dependencies\n## 可选依赖",
+    "original": "## Optional dependencies",
+    "translation": "## 可选依赖",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/dependency-injection.md"
   },
   {
@@ -6010,11 +5985,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
-    "original": "Angular应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：",
-    "translation": "<code-example format=\"nocode\">\n  Angular is running in the development mode. Call enableProdMode() to enable the production mode.\n  （Angular正运行在开发模式下。调用enableProdMode()来启用生产模式）",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
-  },
-  {
     "original": "Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.",
     "translation": "切换到生产模式可以通过禁用开发环境下特有的检查（比如双重变更检测周期）来让应用运行得更快。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
@@ -6146,7 +6116,7 @@
   },
   {
     "original": "* [Firebase hosting](https://firebase.google.com/docs/hosting/): add a\n[rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).",
-    "translation": "[Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。<code-example format=\".\">\n  \"rewrites\": [ {\n    \"source\": \"**\",\n    \"destination\": \"/index.html\"\n  } ]",
+    "translation": "[Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
@@ -7396,7 +7366,7 @@
   },
   {
     "original": "You can create a new hero like this:",
-    "translation": "可以这样创建新英雄：<code-example path=\"forms/src/app/hero-form/hero-form.component.ts \" linenums=\"false\" region=\"SkyDog\">",
+    "translation": "可以这样创建新英雄：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7511,7 +7481,7 @@
   },
   {
     "original": "Replace the contents of its template with the following:",
-    "translation": "把“快速上手”的版本内容替换成下列代码：<code-example path=\"forms/src/app/app.component.html\" title=\"src/app/app.component.html\">",
+    "translation": "把“快速上手”的版本内容替换成下列代码：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7591,7 +7561,7 @@
   },
   {
     "original": "Add the following HTML *immediately below* the *Alter Ego* group:",
-    "translation": "在 *Alter Ego* 的紧下方添加如下 HTML：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (powers)\" region=\"powers\">",
+    "translation": "在 *Alter Ego* 的紧下方添加如下 HTML：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7631,7 +7601,7 @@
   },
   {
     "original": "Find the `<input>` tag for *Name* and update it like this:",
-    "translation": "找到 *Name* 对应的`<input>`标签，并且像这样修改它：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"ngModelName-1\">",
+    "translation": "找到 *Name* 对应的`<input>`标签，并且像这样修改它：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7646,7 +7616,7 @@
   },
   {
     "original": "You need one more addition to display the data. Declare\na template variable for the form. Update the `<form>` tag with\n`#heroForm=\"ngForm\"` as follows:",
-    "translation": "我们需要更多的工作来显示数据。在表单中声明一个模板变量。往`<form>`标签中加入`#heroForm=\"ngForm\"`，代码如下：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"template-variable\">",
+    "translation": "我们需要更多的工作来显示数据。在表单中声明一个模板变量。往`<form>`标签中加入`#heroForm=\"ngForm\"`，代码如下：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7656,21 +7626,21 @@
   },
   {
     "original": "### The _NgForm_ directive",
-    "translation": "### `NgForm`指令What `NgForm` directive?\nYou didn't add an [NgForm](api/forms/NgForm) directive.",
+    "translation": "### `NgForm`指令",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
-    "original": "### `NgForm`指令What `NgForm` directive?\nYou didn't add an [NgForm](api/forms/NgForm) directive.",
-    "translation": "什么是`NgForm`指令？\n但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.",
+    "original": "What `NgForm` directive?\nYou didn't add an [NgForm](api/forms/NgForm) directive.",
+    "translation": "什么是`NgForm`指令？\n但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
-    "original": "什么是`NgForm`指令？\n但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.",
-    "translation": "Angular替你做了。Angular会在`<form>`标签上自动创建并附加一个`NgForm`指令。The `NgForm` directive supplements the `form` element with additional features.\nIt holds the controls you created for the elements with an `ngModel` directive\nand `name` attribute, and monitors their properties, including their validity.\nIt also has its own `valid` property which is true only *if every contained\ncontrol* is valid.",
+    "original": "Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.",
+    "translation": "Angular替你做了。Angular会在`<form>`标签上自动创建并附加一个`NgForm`指令。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
-    "original": "Angular替你做了。Angular会在`<form>`标签上自动创建并附加一个`NgForm`指令。The `NgForm` directive supplements the `form` element with additional features.\nIt holds the controls you created for the elements with an `ngModel` directive\nand `name` attribute, and monitors their properties, including their validity.\nIt also has its own `valid` property which is true only *if every contained\ncontrol* is valid.",
+    "original": "The `NgForm` directive supplements the `form` element with additional features.\nIt holds the controls you created for the elements with an `ngModel` directive\nand `name` attribute, and monitors their properties, including their validity.\nIt also has its own `valid` property which is true only *if every contained\ncontrol* is valid.",
     "translation": "`NgForm`指令为`form`增补了一些额外特性。\n它会控制那些带有`ngModel`指令和`name`属性的元素，监听他们的属性（包括其有效性）。\n它还有自己的`valid`属性，这个属性只有在*它包含的每个控件*都有效时才是真。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
@@ -7711,16 +7681,16 @@
   },
   {
     "original": "After revision, the core of the form should look like this:",
-    "translation": "修改之后，这个表单的核心是这样的：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"ngModel-2\">",
+    "translation": "修改之后，这个表单的核心是这样的：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\nto match the label to its input control.\n每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。* Each input element has a `name` property that is required by Angular forms to register the control with the form.",
+    "original": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\nto match the label to its input control.",
+    "translation": "每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
-    "original": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\nto match the label to its input control.\n每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。* Each input element has a `name` property that is required by Angular forms to register the control with the form.",
+    "original": "* Each input element has a `name` property that is required by Angular forms to register the control with the form.",
     "translation": "每个 input 元素都有`name`属性，Angular 表单用它注册控件。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
@@ -7786,7 +7756,7 @@
   },
   {
     "original": "Temporarily add a [template reference variable](guide/template-syntax#ref-vars) named `spy`\nto the _Name_ `<input>` tag and use it to display the input's CSS classes.",
-    "translation": "往姓名`<input>`标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#ref-vars)，\n然后用这个 spy 来显示它上面的所有 CSS 类。<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"ngModelName-2\">",
+    "translation": "往姓名`<input>`标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#ref-vars)，\n然后用这个 spy 来显示它上面的所有 CSS 类。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7901,7 +7871,7 @@
   },
   {
     "original": "Here's an example of an error message added to the _name_ input box:",
-    "translation": "这个例子中我们把一条错误信息添加到了_name_输入框中：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"name-with-error-msg\">",
+    "translation": "这个例子中我们把一条错误信息添加到了_name_输入框中：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7916,7 +7886,7 @@
   },
   {
     "original": "You control visibility of the name error message by binding properties of the `name`\ncontrol to the message `<div>` element's `hidden` property.",
-    "translation": "我们把`div`元素的`hidden`属性绑定到`name`控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (hidden-error-msg)\" region=\"hidden-error-msg\">",
+    "translation": "我们把`div`元素的`hidden`属性绑定到`name`控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7946,7 +7916,7 @@
   },
   {
     "original": "Now you'll add a new hero in this form.\nPlace a *New Hero* button at the bottom of the form and bind its click event to a `newHero` component method.",
-    "translation": "我们希望在这个表单中添加新的英雄。\n  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到`newHero`组件。<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" region=\"new-hero-button-no-reset\" title=\"src/app/hero-form/hero-form.component.html (New Hero button)\">",
+    "translation": "我们希望在这个表单中添加新的英雄。\n  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到`newHero`组件。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7966,7 +7936,7 @@
   },
   {
     "original": "You have to clear all of the flags imperatively, which you can do\nby calling the form's `reset()` method after calling the `newHero()` method.",
-    "translation": "我们必须清除所有标记，在调用`newHero()`方法后调用表单的`reset()`方法即可。<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" region=\"new-hero-button-form-reset\" title=\"src/app/hero-form/hero-form.component.html (Reset the form)\">",
+    "translation": "我们必须清除所有标记，在调用`newHero()`方法后调用表单的`reset()`方法即可。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7986,7 +7956,7 @@
   },
   {
     "original": "A \"form submit\" is useless at the moment.\nTo make it useful, bind the form's `ngSubmit` event property\nto the hero form component's `onSubmit()` method:",
-    "translation": "现在这样仅仅触发“表单提交”是没用的。\n要让它有用，就要把该表单的`ngSubmit`事件属性绑定到英雄表单组件的`onSubmit()`方法上：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (ngSubmit)\" region=\"ngSubmit\">",
+    "translation": "现在这样仅仅触发“表单提交”是没用的。\n要让它有用，就要把该表单的`ngSubmit`事件属性绑定到英雄表单组件的`onSubmit()`方法上：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -7996,7 +7966,7 @@
   },
   {
     "original": "You'll bind the form's overall validity via\nthe `heroForm` variable to the button's `disabled` property\nusing an event binding. Here's the code:",
-    "translation": "我们要把表单的总体有效性通过`heroForm`变量绑定到此按钮的`disabled`属性上，代码如下：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (submit-button)\" region=\"submit-button\">",
+    "translation": "我们要把表单的总体有效性通过`heroForm`变量绑定到此按钮的`disabled`属性上，代码如下：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -8051,12 +8021,12 @@
   },
   {
     "original": "Wrap the form in a `<div>` and bind\nits `hidden` property to the `HeroFormComponent.submitted` property.",
-    "translation": "先把表单包裹进`<div>`中，再把它的`hidden`属性绑定到`HeroFormComponent.submitted`属性。<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"edit-div\">",
+    "translation": "先把表单包裹进`<div>`中，再把它的`hidden`属性绑定到`HeroFormComponent.submitted`属性。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
     "original": "The main form is visible from the start because the\n`submitted` property is false until you submit the form,\nas this fragment from the `HeroFormComponent` shows:",
-    "translation": "主表单从一开始就是可见的，因为`submitted`属性是 false，直到提交了这个表单。\n来自`HeroFormComponent`的代码片段告诉了我们这一点：<code-example path=\"forms/src/app/hero-form/hero-form.component.ts\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.ts (submitted)\" region=\"submitted\">",
+    "translation": "主表单从一开始就是可见的，因为`submitted`属性是 false，直到提交了这个表单。\n来自`HeroFormComponent`的代码片段告诉了我们这一点：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -8066,7 +8036,7 @@
   },
   {
     "original": "Now the app needs to show something else while the form is in the submitted state.\nAdd the following HTML below the `<div>` wrapper you just wrote:",
-    "translation": "现在，当表单处于已提交状态时，需要显示一些别的东西。\n在刚刚写的`<div>`包装下方，添加下列 HTML 语句：<code-example path=\"forms/src/app/hero-form/hero-form.component.html\" linenums=\"false\" title=\"src/app/hero-form/hero-form.component.html (excerpt)\" region=\"submitted\">",
+    "translation": "现在，当表单处于已提交状态时，需要显示一些别的东西。\n在刚刚写的`<div>`包装下方，添加下列 HTML 语句：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
@@ -9512,11 +9482,6 @@
   {
     "original": "In fact, each `subscribe()` initiates a separate, independent execution of the observable.\nSubscribing twice results in two HTTP requests.",
     "translation": "*注意这个`subscribe()`方法*。 所有从`HttpClient`返回的可观察对象都是*冷的（cold）*，也就是说，它们只是发起请求的*蓝图*而已。在我们调用`subscribe()`之前，什么都不会发生，而当我们每次调用`subscribe()`时，就会独立发起一次请求。\n比如，下列代码会使用同样的数据发送两次同样的 POST 请求：",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/http.md"
-  },
-  {
-    "original": "<code-example \n  path=\"http/src/app/heroes/heroes.service.ts\"\n  region=\"update-headers\" linenums=\"false\">\n</code-example>",
-    "translation": "`HttpHeaders`类是不可变对象（immutable），所以每个`set()`都会返回一个新实例，并且应用上这些修改。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/http.md"
   },
   {
@@ -11036,11 +11001,11 @@
   },
   {
     "original": "* A component could be imported from another app module (so you can't declare it) and re-exported by this module.",
-    "translation": "`HeroComponent`可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。\n* A component could be exported for inclusion in an external component's template\nas well as dynamically loaded in a pop-up dialog.",
+    "translation": "`HeroComponent`可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-faq.md"
   },
   {
-    "original": "`HeroComponent`可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。\n* A component could be exported for inclusion in an external component's template\nas well as dynamically loaded in a pop-up dialog.",
+    "original": "* A component could be exported for inclusion in an external component's template\nas well as dynamically loaded in a pop-up dialog.",
     "translation": "`HeroComponent`可能被导入，以便用在外部组件的模板中，但也可能同时被一个弹出式对话框加载。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-faq.md"
   },
@@ -12145,11 +12110,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
   },
   {
-    "original": "在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到\n右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。",
-    "translation": "在这个插值表达式中，我们让组件的`birthday`值通过[管道操作符](guide/template-syntax#pipe)( | )流动到\n右侧的[Date管道](api/common/DatePipe)函数中。所有管道都会用这种方式工作。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
-  },
-  {
     "original": "## Built-in pipes",
     "translation": "## 内置的管道",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
@@ -12210,8 +12170,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
   },
   {
-    "original": "</div>",
-    "translation": "## Chaining pipes\n## 链式管道",
+    "original": "## Chaining pipes",
+    "translation": "## 链式管道",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/pipes.md"
   },
   {
@@ -15985,8 +15945,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
-    "original": "{@a optional-route-parameters}",
-    "translation": "### Route Parameters: Required or optional?\n### 路由参数：必须还是可选？",
+    "original": "### Route Parameters: Required or optional?",
+    "translation": "### 路由参数：必须还是可选？",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
@@ -16361,11 +16321,16 @@
   },
   {
     "original": "This section shows you how to organize the crisis center\nto conform to the following recommended pattern for Angular applications:",
-    "translation": "本节会展示如何组织危机中心，来满足Angular应用所推荐的模式：* Each feature area resides in its own folder. 把每个特性放在自己的目录中。\n* Each feature has its own Angular feature module.",
+    "translation": "本节会展示如何组织危机中心，来满足Angular应用所推荐的模式：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
-    "original": "本节会展示如何组织危机中心，来满足Angular应用所推荐的模式：* Each feature area resides in its own folder. 把每个特性放在自己的目录中。\n* Each feature has its own Angular feature module.",
+    "original": "* Each feature area resides in its own folder.",
+    "translation": "把每个特性放在自己的目录中。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
+  },
+  {
+    "original": "* Each feature has its own Angular feature module.",
     "translation": "每个特性都有自己的Angular特性模块。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
@@ -16665,12 +16630,17 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
-    "original": "第二路由很像主路由，配置方式也一样。它们只有一些关键的不同点：",
-    "translation": "* They are independent of each other.\n它们彼此互不依赖。* They work in combination with other routes. 它们与其它路由组合使用。\n* They are displayed in named outlets.",
+    "original": "* They are independent of each other.",
+    "translation": "它们彼此互不依赖。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
-    "original": "* They are independent of each other.\n它们彼此互不依赖。* They work in combination with other routes. 它们与其它路由组合使用。\n* They are displayed in named outlets.",
+    "original": "* They work in combination with other routes.",
+    "translation": "它们与其它路由组合使用。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
+  },
+  {
+    "original": "* They are displayed in named outlets.",
     "translation": "它们显示在命名出口中。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
@@ -18280,8 +18250,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/security.md"
   },
   {
-    "original": "为了防范XSS攻击，我们必须阻止恶意代码进入DOM。比如，如果某个攻击者能骗我们把`<script>`标签插入到DOM，就可以在我们的网站上运行任何代码。\n除了`<script>`，攻击者还可以使用很多DOM元素和属性来执行代码，比如`<img onerror=\"...\">`、`<a href=\"javascript:...\">`。\n如果攻击者所控制的数据混进了DOM，就会导致安全漏洞。",
-    "translation": "### Angular’s cross-site scripting security model\n### Angular的“跨站脚本安全模型”",
+    "original": "### Angular’s cross-site scripting security model",
+    "translation": "### Angular的“跨站脚本安全模型”",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/security.md"
   },
   {
@@ -18831,11 +18801,11 @@
   },
   {
     "original": "## Download",
-    "translation": "## 下载\n<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
+    "translation": "## 下载",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
   },
   {
-    "original": "## 下载\n<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
+    "original": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
     "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>\n并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
   },
@@ -21035,11 +21005,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
-    "original": "#### 风格 04-09",
-    "translation": "#### 风格 04-09",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
-  },
-  {
     "original": "**Do** create an NgModule for all distinct features in an application;\nfor example, a `Heroes` feature.",
     "translation": "**坚持**为应用中每个明显的特性创建一个 Angular 模块。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -21685,8 +21650,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
-    "original": "<a href=\"#toc\" class='to-top'>回到顶部</a>",
-    "translation": "## Directives\n## 指令",
+    "original": "## Directives",
+    "translation": "## 指令",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
@@ -22540,17 +22505,17 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "<div class=\"alert is-important\">",
+    "original": "<!-- placeholder -->",
     "translation": "译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，\n而接下来的部分重点是对它们进行比较。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，\n而接下来的部分重点是对它们进行比较。",
+    "original": "<!-- placeholder -->",
     "translation": "我们无法改变历史，因此，在本章的翻译中，保留了它们的英文形式，不加翻译，以免混淆。\n本章中，如果提到“属性”的地方，一定是指 property，因为在 Angular 中，实际上很少涉及 attribute。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "我们无法改变历史，因此，在本章的翻译中，保留了它们的英文形式，不加翻译，以免混淆。\n本章中，如果提到“属性”的地方，一定是指 property，因为在 Angular 中，实际上很少涉及 attribute。",
+    "original": "<!-- placeholder -->",
     "translation": "但在其它章节中，为简单起见，凡是能通过上下文明显区分开的，就仍统一译为“属性”，\n区分不明显的，会加注英文。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
@@ -23090,11 +23055,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "会得到这个错误：",
-    "translation": "<code-example format=\"nocode\">\n  Template parse errors:\n  Can't bind to 'colspan' since it isn't a known native property\n  （模板解析错误：不能绑定到 'colspan'，因为它不是已知的原生属性）",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
-  },
-  {
     "original": "As the message says, the `<td>` element does not have a `colspan` property.\nIt has the \"colspan\" *attribute*, but\ninterpolation and property binding can set only *properties*, not attributes.",
     "translation": "正如提示中所说，`<td>`元素没有`colspan`属性。\n  但是插值表达式和属性绑定只能设置*属性*，不能设置 attribute。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
@@ -23190,8 +23150,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "{@a event-binding}",
-    "translation": "## Event binding  ( <span class=\"syntax\">(event)</span> )\n## 事件绑定  ( <span class=\"syntax\">(事件名)</span> )",
+    "original": "## Event binding  ( <span class=\"syntax\">(event)</span> )",
+    "translation": "## 事件绑定  ( <span class=\"syntax\">(事件名)</span> )",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
@@ -25210,8 +25170,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
-    "original": "</div>",
-    "translation": "### Transcluding Angular Content into AngularJS Component Directives\n### 把Angular的内容透传进AngularJS的组件型指令",
+    "original": "### Transcluding Angular Content into AngularJS Component Directives",
+    "translation": "### 把Angular的内容透传进AngularJS的组件型指令",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
@@ -25230,8 +25190,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
-    "original": "<code-example path=\"upgrade-module/src/app/a-to-ajs-transclusion/container.component.ts\" title=\"container.component.ts\">\n</code-example>",
-    "translation": "### Making AngularJS Dependencies Injectable to Angular\n### 让AngularJS中的依赖可被注入到Angular",
+    "original": "### Making AngularJS Dependencies Injectable to Angular",
+    "translation": "### 让AngularJS中的依赖可被注入到Angular",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
@@ -25500,8 +25460,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
-    "original": "如果项目中有任何AngularJS的服务，它们也是转换成类的优秀候选人，像控制器一样，它们也是构造函数。\n但是在本项目中，我们只有一个`Phone`工厂，这有点特别，因为它是一个`ngResource`工厂。\n所以我们不会在准备阶段中处理它，而是在下一节中直接把它转换成Angular服务。",
-    "translation": "### Installing Angular\n### 安装Angular",
+    "original": "### Installing Angular",
+    "translation": "### 安装Angular",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
@@ -25970,12 +25930,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
-    "original": "<code-example path=\"upgrade-phonecat-3-final/index.html\" region=\"appcomponent\" title=\"index.html (body)\" linenums=\"false\">\n</code-example>",
-    "translation": "#### Create the _Routing Module_\n#### 创建*路由模块*\nA router needs configuration whether it's the AngularJS or Angular or any other router.",
+    "original": "#### Create the _Routing Module_",
+    "translation": "#### 创建*路由模块*",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
   {
-    "original": "#### Create the _Routing Module_\n#### 创建*路由模块*\nA router needs configuration whether it's the AngularJS or Angular or any other router.",
+    "original": "A router needs configuration whether it's the AngularJS or Angular or any other router.",
     "translation": "无论在AngularJS还是Angular或其它框架中，路由器都需要进行配置。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/upgrade.md"
   },
@@ -26270,8 +26230,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
-    "original": "运行<live-example></live-example>",
-    "translation": "## Binding to user input events\n## 绑定到用户输入事件",
+    "original": "## Binding to user input events",
+    "translation": "## 绑定到用户输入事件",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
@@ -26305,8 +26265,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
-    "original": "当用户点击按钮时，Angular 调用`ClickMeComponent`的`onClickMe`方法。",
-    "translation": "## Get user input from the $event object\n## 通过 $event 对象取得用户输入",
+    "original": "## Get user input from the $event object",
+    "translation": "## 通过 $event 对象取得用户输入",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
@@ -26322,11 +26282,6 @@
   {
     "original": "When a user presses and releases a key, the `keyup` event occurs, and Angular provides a corresponding\nDOM event object in the `$event` variable which this code passes as a parameter to the component's `onKey()` method.",
     "translation": "当用户按下并释放一个按键时，触发`keyup`事件，Angular 在`$event`变量提供一个相应的 DOM\n事件对象，上面的代码将它作为参数传递给`onKey()`方法。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
-  },
-  {
-    "original": "当用户按下并释放一个按键时，触发`keyup`事件，Angular 在`$event`变量提供一个相应的 DOM\n事件对象，上面的代码将它作为参数传递给`onKey()`方法。",
-    "translation": "<code-example path=\"user-input/src/app/keyup.components.ts\" region=\"key-up-component-1-class-no-type\" title=\"src/app/keyup.components.ts (类 v.1)\" linenums=\"false\">",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
@@ -26485,8 +26440,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
-    "original": "</code-example>",
-    "translation": "## Put it all together\n## 把它们放在一起",
+    "original": "## Put it all together",
+    "translation": "## 把它们放在一起",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
@@ -26510,8 +26465,8 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
-    "original": "</code-example>",
-    "translation": "### Observations\n### 小结",
+    "original": "### Observations",
+    "translation": "### 小结",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/user-input.md"
   },
   {
@@ -27005,12 +26960,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/webpack.md"
   },
   {
-    "original": "[生产环境配置](guide/webpack#production-configuration)",
-    "translation": "* [Test configuration](guide/webpack#test-configuration)\n  [测试环境配置](guide/webpack#test-configuration)\n* [Trying it out](guide/webpack#try)",
+    "original": "* [Test configuration](guide/webpack#test-configuration)",
+    "translation": "[测试环境配置](guide/webpack#test-configuration)",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/webpack.md"
   },
   {
-    "original": "* [Test configuration](guide/webpack#test-configuration)\n  [测试环境配置](guide/webpack#test-configuration)\n* [Trying it out](guide/webpack#try)",
+    "original": "* [Trying it out](guide/webpack#try)",
     "translation": "[试一下](guide/webpack#try)",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/webpack.md"
   },
@@ -27251,11 +27206,11 @@
   },
   {
     "original": "* [`resolve`](guide/webpack#common-resolves)&mdash;how to resolve file names when they lack extensions.",
-    "translation": "[`resolve`](guide/webpack#common-resolves) - 省略扩展名时如何解释文件名。\n* [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.",
+    "translation": "[`resolve`](guide/webpack#common-resolves) - 省略扩展名时如何解释文件名。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/webpack.md"
   },
   {
-    "original": "[`resolve`](guide/webpack#common-resolves) - 省略扩展名时如何解释文件名。\n* [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.",
+    "original": "* [`module.rules`](guide/webpack#common-rules)&mdash; `module` is an object with `rules` for deciding how files are loaded.",
     "translation": "[`module.rules`](guide/webpack#common-rules) - `module`是一个对象，里面的`rules`属性用来决定文件如何加载。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/webpack.md"
   },
@@ -27630,12 +27585,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/marketing/docs.md"
   },
   {
-    "original": "Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。",
-    "translation": "<div class=\"card-container\">\n  <a href=\"generated/live-examples/toh-pt1/stackblitz.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">\n      <section>Angular 走马观花</section>\n      <p>快速体验 Angular 的 \"hello world\" 应用。</p>\n      <p class=\"card-footer\">体验 Angular</p>\n  </a>",
+    "original": "<div class=\"card-container\">",
+    "translation": "<a href=\"generated/live-examples/toh-pt1/stackblitz.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">\n      <section>Angular 走马观花</section>\n      <p>快速体验 Angular 的 \"hello world\" 应用。</p>\n      <p class=\"card-footer\">体验 Angular</p>\n  </a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/marketing/docs.md"
   },
   {
-    "original": "<div class=\"card-container\">\n  <a href=\"generated/live-examples/toh-pt1/stackblitz.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">\n      <section>Angular 走马观花</section>\n      <p>快速体验 Angular 的 \"hello world\" 应用。</p>\n      <p class=\"card-footer\">体验 Angular</p>\n  </a>",
+    "original": "<a href=\"generated/live-examples/toh-pt1/stackblitz.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">\n      <section>Angular 走马观花</section>\n      <p>快速体验 Angular 的 \"hello world\" 应用。</p>\n      <p class=\"card-footer\">体验 Angular</p>\n  </a>",
     "translation": "<a href=\"guide/quickstart\" class=\"docs-card\" title=\"Angular 快速上手\">\n      <section>开始使用 Angular</section>\n      <p>跟随\"快速上手\"构建你的开发环境</p>\n      <p class=\"card-footer\">快速上手</p>\n  </a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/marketing/docs.md"
   },
@@ -27945,7 +27900,12 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/translations/cn/home.md"
   },
   {
-    "original": "# Angular News\n# Angular 新闻中心",
+    "original": "# Angular News",
+    "translation": "# Angular 新闻中心",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/translations/cn/news.md"
+  },
+  {
+    "original": "# Angular 新闻中心",
     "translation": "## Angular 组件库 NG-ZORRO 发布！",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/translations/cn/news.md"
   },

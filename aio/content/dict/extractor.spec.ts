@@ -39,12 +39,14 @@ describe('gather to dictionary', () => {
   it('should list files recursive', function () {
     expect(listMarkdownFiles(__dirname + '/../').length).greaterThan(10);
   });
+
   it('should gather from directory', () => {
     const entries = gatherFromMarkdownFiles(__dirname + '/../');
     const dict = JSON.stringify(entries, null, 2);
     const fs = require('fs');
-    fs.writeFileSync(__dirname + '/../dict/dict-2.json', dict, 'utf-8');
+    fs.writeFileSync(__dirname + '/../dict/dict-3.json', dict, 'utf-8');
     expect(entries.length).greaterThan(100);
   });
+
 });
 

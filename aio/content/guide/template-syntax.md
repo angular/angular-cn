@@ -704,13 +704,18 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
 <div class="alert is-important">
 
-
+<!-- placeholder -->
 
 译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，
 而接下来的部分重点是对它们进行比较。
 
+<!-- placeholder -->
+
+
 我们无法改变历史，因此，在本章的翻译中，保留了它们的英文形式，不加翻译，以免混淆。
 本章中，如果提到“属性”的地方，一定是指 property，因为在 Angular 中，实际上很少涉及 attribute。
+
+<!-- placeholder -->
 
 但在其它章节中，为简单起见，凡是能通过上下文明显区分开的，就仍统一译为“属性”，
 区分不明显的，会加注英文。
@@ -1556,8 +1561,6 @@ And you get this error:
 <code-example format="nocode">
   Template parse errors:
   Can't bind to 'colspan' since it isn't a known native property
-  （模板解析错误：不能绑定到 'colspan'，因为它不是已知的原生属性）
-
 </code-example>
 
 As the message says, the `<td>` element does not have a `colspan` property.
@@ -1722,6 +1725,7 @@ Note that a _style property_ name can be written in either
 {@a event-binding}
 
 ## Event binding  ( <span class="syntax">(event)</span> )
+
 ## 事件绑定  ( <span class="syntax">(事件名)</span> )
 
 The bindings directives you've met so far flow data in one direction: **from a component to an element**.

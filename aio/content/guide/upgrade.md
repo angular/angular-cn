@@ -1180,6 +1180,7 @@ remains in "AngularJS land" and is managed by the AngularJS framework.
 </div>
 
 ### Transcluding Angular Content into AngularJS Component Directives
+
 ### 把Angular的内容透传进AngularJS的组件型指令
 
 <img src="generated/images/guide/upgrade/a-to-ajs-with-transclusion.png" alt="Projecting Angular content into AngularJS" class="left">
@@ -1210,6 +1211,7 @@ the component tag with contents that will then get transcluded:
 </code-example>
 
 ### Making AngularJS Dependencies Injectable to Angular
+
 ### 让AngularJS中的依赖可被注入到Angular
 
 When running a hybrid app, you may encounter situations where you need to inject
@@ -1781,6 +1783,7 @@ You'll instead turn it directly into an Angular service.
 所以我们不会在准备阶段中处理它，而是在下一节中直接把它转换成Angular服务。
 
 ### Installing Angular
+
 ### 安装Angular
 
 Having completed the preparation work, get going with the Angular
@@ -2502,7 +2505,9 @@ It replaces the old AngularJS `ng-view` directive:
 </code-example>
 
 #### Create the _Routing Module_
+
 #### 创建*路由模块*
+
 A router needs configuration whether it's the AngularJS or Angular or any other router.
 
 无论在AngularJS还是Angular或其它框架中，路由器都需要进行配置。

@@ -2917,6 +2917,7 @@ It holds the _path to the `HeroListComponent`_:
 {@a optional-route-parameters}
 
 ### Route Parameters: Required or optional?
+
 ### 路由参数：必须还是可选？
 
 Use [*route parameters*](#route-parameters) to specify a *required* parameter value *within* the route URL
@@ -3597,7 +3598,12 @@ any other feature's component.
 This section shows you how to organize the crisis center
 to conform to the following recommended pattern for Angular applications:
 
-本节会展示如何组织危机中心，来满足Angular应用所推荐的模式：* Each feature area resides in its own folder. 把每个特性放在自己的目录中。
+本节会展示如何组织危机中心，来满足Angular应用所推荐的模式：
+
+* Each feature area resides in its own folder. 
+
+  把每个特性放在自己的目录中。
+  
 * Each feature has its own Angular feature module.
 
   每个特性都有自己的Angular特性模块。
@@ -4003,7 +4009,13 @@ They differ in a few key respects.
 第二路由很像主路由，配置方式也一样。它们只有一些关键的不同点：
 
 * They are independent of each other.
-它们彼此互不依赖。* They work in combination with other routes. 它们与其它路由组合使用。
+
+  它们彼此互不依赖。
+  
+* They work in combination with other routes. 
+
+  它们与其它路由组合使用。
+  
 * They are displayed in named outlets.
 
   它们显示在命名出口中。

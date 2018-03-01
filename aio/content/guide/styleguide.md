@@ -3498,8 +3498,6 @@ for example, in `/src/app`.
 
 #### 风格 04-09
 
-#### 风格 04-09
-
 <div class="s-rule do">
 
 
@@ -5274,6 +5272,7 @@ helps instantly identify which members of the component serve which purpose.
 
 
 ## Directives
+
 ## 指令
 
 {@a 06-01}

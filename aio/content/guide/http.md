@@ -477,8 +477,6 @@ before making the next request.
   region="update-headers" linenums="false">
 </code-example>
 
-`HttpHeaders`类是不可变对象（immutable），所以每个`set()`都会返回一个新实例，并且应用上这些修改。
-
 #### URL Parameters
 
 #### URL 参数

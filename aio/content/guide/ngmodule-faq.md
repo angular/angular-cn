@@ -118,6 +118,7 @@ Membership in one list doesn't imply membership in another list.
 * A component could be imported from another app module (so you can't declare it) and re-exported by this module.
 
   `HeroComponent`可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。
+  
 * A component could be exported for inclusion in an external component's template
 as well as dynamically loaded in a pop-up dialog.
 

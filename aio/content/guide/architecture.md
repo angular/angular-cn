@@ -207,6 +207,7 @@ Each Angular library name begins with the `@angular` prefix.
 每个 Angular 库的名字都带有`@angular`前缀。
 
 You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.
+
 用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。<br class="clear">
 
 For example, import Angular's `Component` decorator from the `@angular/core` library like this:

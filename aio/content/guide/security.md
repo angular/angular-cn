@@ -95,6 +95,7 @@ attacker-controlled data enters the DOM, expect security vulnerabilities.
 如果攻击者所控制的数据混进了DOM，就会导致安全漏洞。
 
 ### Angular’s cross-site scripting security model
+
 ### Angular的“跨站脚本安全模型”
 
 To systematically block XSS bugs, Angular treats all values as untrusted by default. When a value

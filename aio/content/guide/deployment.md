@@ -129,8 +129,6 @@ Angular应用默认运行在开发模式下，正如在浏览器控制台中看�
 
 <code-example format="nocode">
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
-  （Angular正运行在开发模式下。调用enableProdMode()来启用生产模式）
-
 </code-example>
 
 Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
@@ -479,7 +477,9 @@ and to
 [rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).
 
 
-  [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。<code-example format=".">
+  [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
+  
+<code-example format=".">
   "rewrites": [ {
     "source": "**",
     "destination": "/index.html"
