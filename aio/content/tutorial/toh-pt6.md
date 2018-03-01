@@ -281,7 +281,7 @@ That's as easy as importing them from the RxJS library like this:
 In the *Promise*'s `then()` callback , you call the `json` method of the HTTP `Response` to extract the
 data within the response.
   
-在 *promise* 的`then()`回调中，我们调用 HTTP 的`Reponse`对象的`json`方法，以提取出其中的数据。
+在 *promise* 的`then()`回调中，我们调用 HTTP 的`Response`对象的`json`方法，以提取出其中的数据。
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="to-data"></code-example>
 
