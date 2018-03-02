@@ -3,24 +3,24 @@ import { DictEntry } from './dict-entry';
 import { dirs } from './dirs';
 import { gatherFromMarkdownFiles, isTranslation } from './extractor';
 
-describe('auto check translations', function () {
+describe('自动检查翻译结果', function () {
   const entries = gatherFromMarkdownFiles(dirs.content)
     .filter(isNotCheatSheet)
     .filter(isNotMarketingDocs)
     .filter(isNotCnPages);
 
-  it('should not have <code-example> in translation', function () {
+  it('译文里不应该出现 <code-example>', function () {
     const codeExamples = entries.filter(entry => entry.translation.indexOf('<code-example') !== -1);
     expect(codeExamples).eql([]);
   });
 
-  it('english should not be translations', function () {
+  it('原文中不应该有汉语', function () {
     const lines = entries.filter(entry => isTranslation(entry.original))
       .filter(isNotImg);
     expect(lines).eql([]);
   });
 
-  it('should have same head level', function () {
+  it('原文和译文应该有相同的标题等级', function () {
     const lines = entries
       .filter(entry => isHead(entry.original) && isHead(entry.translation))
       .filter(entry => {
@@ -32,7 +32,7 @@ describe('auto check translations', function () {
     expect(lines).eql([]);
   });
 
-  it('english should not be <div class', function () {
+  it('原文不应该是以 <div 开头的', function () {
     const lines = entries.filter(entry => /^ *<div.*/.test(entry.original));
     expect(lines).eql([]);
   });
