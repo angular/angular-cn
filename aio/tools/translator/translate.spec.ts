@@ -1,13 +1,9 @@
 import { expect } from 'chai';
 import { dirs } from './dirs';
-import { dict, kernelText, lookup, normalizeLines, translate } from './translate';
+import { kernelText, lookup, normalizeLines, translate } from './translate';
 
 
 describe('根据字典进行翻译', () => {
-  it('忽略明显错误的条目', function () {
-    expect(dict.filter(entry => /^<div/.test(entry.original))).eql([]);
-  });
-
   it('抽取核心字符', function () {
     expect(kernelText(' # Forms   ABC ')).eql('# Forms ABC');
   });
@@ -21,6 +17,22 @@ describe('根据字典进行翻译', () => {
     expect(lines).eql('1. abc\n\n11. def\n');
   });
 
+  it('把 html tag 拆解开', function () {
+    const lines = normalizeLines(`
+  <header>
+    Angular forms don't require a style library
+  </header>
+`);
+    expect(lines).eq(`
+
+  <header>
+
+    Angular forms don't require a style library
+
+  </header>
+
+`);
+  });
   it('自动根据字典翻译单个文件', function () {
     const fs = require('fs');
     const content = fs.readFileSync(__dirname + '/../../../../content-en/' + 'guide/forms.md', 'utf-8');

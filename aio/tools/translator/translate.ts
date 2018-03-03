@@ -1,14 +1,10 @@
 import * as _ from 'lodash';
 import { DictEntry } from './dict-entry';
 
-const dict1 = require('./dict-1.json') as DictEntry[];
-const dict2 = require('./dict-2.json') as DictEntry[];
-const dict3 = require('./dict-3.json') as DictEntry[];
-export const dict = dict1.concat(dict2).concat(dict3)
-  .filter(entry => !/^\s*<div/.test(entry.original));
+export const dict = require('./dict-3.json') as DictEntry[];
 
 export function lookup(english: string, filename: RegExp = /.*/): DictEntry[] {
-  let entries = dict3
+  let entries = dict
     .filter(entry => filename.test(entry.sourceFile))
     .filter(entry => kernelText(entry.original) === kernelText(english));
   return _.uniqBy(entries, 'translation');
@@ -61,5 +57,9 @@ function repeat(indent: number): string {
 }
 
 export function normalizeLines(text: string): string {
-  return text.replace(/(?=\n *(\d+\.|-|\*|#|<) )\n/g, '\n\n');
+  // 列表、标题等自带换行含义的markdown
+  const blockElementPattern = /(?=\n *(\d+\.|-|\*|#|<) )\n/g;
+  const htmlTagPattern = /\n(\s*<.*?>\s*)\n/g;
+  return text.replace(blockElementPattern, '\n\n')
+    .replace(htmlTagPattern, '\n\n$1\n\n');
 }

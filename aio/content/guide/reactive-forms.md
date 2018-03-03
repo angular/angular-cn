@@ -1148,8 +1148,10 @@ such as one of the following:
 
       `true` if the control user has not yet entered the HTML control
        and triggered its blur event. Its opposite is `myControl.touched`.
-                         如果用户尚未进入这个HTML控件，也没有触发过它的`blur`（失去焦点）事件，则为`true`。
+       
+      如果用户尚未进入这个HTML控件，也没有触发过它的`blur`（失去焦点）事件，则为`true`。
       它是`myControl.touched`的反义词。
+      
     </td>
 
   </tr>

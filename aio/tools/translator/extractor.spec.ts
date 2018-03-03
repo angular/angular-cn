@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { DictEntry } from './dict-entry';
 import { dirs } from './dirs';
 import { gatherFromMarkdownFiles, gatherTranslations, listMarkdownFiles, splitAndTrim } from './extractor';
 
@@ -42,12 +43,17 @@ describe('从对照翻译文件中采集生成字典', () => {
   });
 
   it('从对照文本的文件夹中采集生成字典（非测试）', () => {
-    const entries = gatherFromMarkdownFiles(dirs.content);
-    const dict = JSON.stringify(entries, null, 2);
-    const fs = require('fs');
-    fs.writeFileSync(dirs.here + 'dict-3.json', dict, 'utf-8');
-    expect(entries.length).greaterThan(100);
+    gatherFromDirectory(dirs.aio + '../../content-1/', dirs.here + 'dict-1.json');
+    gatherFromDirectory(dirs.aio + '../../content-2/', dirs.here + 'dict-2.json');
+    gatherFromDirectory(dirs.aio + '../../content-3/', dirs.here + 'dict-3.json');
   });
 
 });
 
+function gatherFromDirectory(directory: string, dictFile: string): DictEntry[] {
+  const entries = gatherFromMarkdownFiles(directory);
+  const dict = JSON.stringify(entries, null, 2);
+  const fs = require('fs');
+  fs.writeFileSync(dictFile, dict, 'utf-8');
+  return entries;
+}

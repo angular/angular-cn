@@ -19,6 +19,7 @@ The Angular CLI uses `yarn` by default to install npm packages when you create a
 <div class="l-sub-section">
 
 Node.js and npm are essential to Angular development. 
+
 Node.js和npm是做Angular开发的基础。
 
 [Get them now](https://docs.npmjs.com/getting-started/installing-node "Installing Node.js and updating npm")

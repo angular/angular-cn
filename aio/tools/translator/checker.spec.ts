@@ -1,7 +1,16 @@
 import { expect } from 'chai';
-import { DictEntry } from './dict-entry';
 import { dirs } from './dirs';
-import { gatherFromMarkdownFiles, isTranslation } from './extractor';
+import { gatherFromMarkdownFiles } from './extractor';
+import {
+  isHead,
+  isNotCheatSheet,
+  isNotCnPages,
+  isNotImg,
+  isNotMarketingDocs,
+  originalIsNotChinese,
+  originalIsNotTag,
+  translationHasNotCodeExample,
+} from './utils';
 
 describe('自动检查翻译结果', function () {
   const entries = gatherFromMarkdownFiles(dirs.content)
@@ -10,12 +19,12 @@ describe('自动检查翻译结果', function () {
     .filter(isNotCnPages);
 
   it('译文里不应该出现 <code-example>', function () {
-    const codeExamples = entries.filter(entry => entry.translation.indexOf('<code-example') !== -1);
+    const codeExamples = entries.filter(translationHasNotCodeExample);
     expect(codeExamples).eql([]);
   });
 
   it('原文中不应该有汉语', function () {
-    const lines = entries.filter(entry => isTranslation(entry.original))
+    const lines = entries.filter(originalIsNotChinese)
       .filter(isNotImg);
     expect(lines).eql([]);
   });
@@ -33,27 +42,7 @@ describe('自动检查翻译结果', function () {
   });
 
   it('原文不应该是以 <div 开头的', function () {
-    const lines = entries.filter(entry => /^ *<div.*/.test(entry.original));
+    const lines = entries.filter(originalIsNotTag);
     expect(lines).eql([]);
   });
 });
-
-function isNotImg(entry: DictEntry): boolean {
-  return !/^<(img|figure)/.test(entry.translation);
-}
-
-function isNotCheatSheet(entry: DictEntry): boolean {
-  return !/cheatsheet.md$/.test(entry.sourceFile);
-}
-
-function isNotMarketingDocs(entry: DictEntry): boolean {
-  return !/marketing\/docs.md$/.test(entry.sourceFile);
-}
-
-function isNotCnPages(entry: DictEntry): boolean {
-  return !/cn\/.*?.md$/.test(entry.sourceFile);
-}
-
-function isHead(line: string): boolean {
-  return /^#/.test(line);
-}
