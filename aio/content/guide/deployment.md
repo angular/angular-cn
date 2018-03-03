@@ -22,13 +22,14 @@ For the simplest deployment, build for development and copy the output directory
    使用开发环境进行构建
 
   <code-example language="none" class="code-shell">
-    ng build
-  </code-example>
 
+    ng build
+
+  </code-example>
 
 2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
 
-  把输出目录（默认为`dist/`）下的*每个文件*都复制到到服务器上的某个目录下。
+   把输出目录（默认为`dist/`）下的*每个文件*都复制到到服务器上的某个目录下。
 
 3. If you copy the files into a server _sub-folder_, append the build flag, `--base-href` and set the `<base href>` appropriately.<br><br>
 
@@ -36,11 +37,13 @@ For the simplest deployment, build for development and copy the output directory
 
   For example, if the `index.html` is on the server at `/my/app/index.html`, set the _base href_  to
   `<base href="/my/app/">` like this.
-  
+
   比如，如果 `index.html` 位于服务器上的 `/my/app/index.html` 路径下，就要把 *base href* 设置为 `<base href="/my/app/">`，就像这样：
 
   <code-example language="none" class="code-shell">
+
     ng build --base-href=/my/app/
+
   </code-example>
 
   You'll see that the `<base href>` is set properly in the generated `dist/index.html`.<br><br>
@@ -55,7 +58,7 @@ For the simplest deployment, build for development and copy the output directory
 Learn more about server-side redirects [below](guide/deployment#fallback).
 
    配置服务器，使其在找不到文件时把请求重定向到 `index.html`。要了解服务端重定向的更多知识，参见 [下面](guide/deployment#fallback) 的内容。
-   
+
 This is _not_ a production deployment. It's not optimized and it won't be fast for users.
 It might be good enough for sharing your progress and ideas internally with managers, teammates, and other stakeholders.
 
@@ -73,34 +76,36 @@ starting with `--prod`.
 ### Build with _--prod_
 
 <code-example language="none" class="code-shell">
+
   ng build --prod
+
 </code-example>
 
 The `--prod` _meta-flag_ engages the following optimization features.
 
 * [Ahead-of-Time (AOT) Compilation](guide/aot-compiler): pre-compiles Angular component templates.
 
-  [预(AOT)编译](guide/aot-compiler)：预编译 Angular 组件的模板。
-  
+   [预(AOT)编译](guide/aot-compiler)：预编译 Angular 组件的模板。
+
 * [Production mode](#enable-prod-mode): deploys the production environment which enables _production mode_.
 
-  [生产模式](#enable-prod-mode)：启用生产模式部署到生产环境。
-  
+   [生产模式](#enable-prod-mode)：启用生产模式部署到生产环境。
+
 * Bundling: concatenates your many application and library files into a few bundles.
 
-  打捆（Bundle）：把这些模块串接成一个单独的捆文件（bundle）。
-  
+   打捆（Bundle）：把这些模块串接成一个单独的捆文件（bundle）。
+
 * Minification: removes excess whitespace, comments, and optional tokens.
 
-  最小化：移除不必要的空格、注释和可选令牌（Token）。
-  
+   最小化：移除不必要的空格、注释和可选令牌（Token）。
+
 * Uglification: rewrites code to use short, cryptic variable and function names.
 
-  混淆：使用短的、无意义的变量名和函数名来重写代码。
-  
+   混淆：使用短的、无意义的变量名和函数名来重写代码。
+
 * Dead code elimination: removes unreferenced modules and much unused code.
 
-  消除死代码：移除未引用过的模块和未使用过的代码。
+   消除死代码：移除未引用过的模块和未使用过的代码。
 
 The remaining [copy deployment steps](#copy-files) are the same as before.
 
@@ -109,7 +114,9 @@ The remaining [copy deployment steps](#copy-files) are the same as before.
 You may further reduce bundle sizes by adding the `build-optimizer` flag.
 
 <code-example language="none" class="code-shell">
+
   ng build --prod --build-optimizer
+
 </code-example>
 
 See the [CLI Documentation](https://github.com/angular/angular-cli/wiki/build) 
@@ -126,9 +133,10 @@ console:
 
 Angular应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：
 
-
 <code-example format="nocode">
+
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
+
 </code-example>
 
 Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
@@ -171,7 +179,6 @@ If you do that, the module will be loaded immediately.
 我们本打算惰性加载一个模块，但可能无意中在根模块`AppModule`文件中使用一个JavaScript的`import`语句导入了它。
 这样一来，该模块就被立即加载了。
 
-
 The bundling configuration must take lazy loading into consideration.
 Because lazy loaded modules aren't imported in JavaScript (as just noted), bundlers exclude them by default.
 Bundlers don't know about the router configuration and won't create separate bundles for lazy loaded modules.
@@ -213,26 +220,34 @@ tool is a great way to inspect the generated JavaScript bundles after a producti
 Install `source-map-explorer`:
 
 <code-example language="none" class="code-shell">
+
   npm install source-map-explorer --save-dev
+
 </code-example>
 
 Build your app for production _including the source maps_
 
 <code-example language="none" class="code-shell">
+
   ng build --prod --sourcemaps
+
 </code-example>
 
 List the generated bundles in the `dist/` folder.
 
 <code-example language="none" class="code-shell">
+
   ls dist/*.bundle.js
+
 </code-example>
 
 Run the explorer to generate a graphical representation of one of the bundles.
 The following example displays the graph for the _main_ bundle.
 
 <code-example language="none" class="code-shell">
+
   node_modules/.bin/source-map-explorer dist/main.*.bundle.js
+
 </code-example>
 
 The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
@@ -241,7 +256,9 @@ showing exactly which classes are included in the bundle.
 Here's the output for the _main_ bundle of the QuickStart.
 
 <figure>
+
   <img src="generated/images/guide/cli-quickstart/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">
+
 </figure>
 
 {@a base-tag}
@@ -296,7 +313,6 @@ The `ng build --watch` command will regenerate output files when source files ch
 This `--watch` flag is useful if you're building during development and 
 are automatically re-deploying changes to another server.
 
-
 See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) for more details and options.
 
 <hr>
@@ -310,7 +326,6 @@ See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) f
 This section covers changes you may have make to the server or to files deployed to the server.
 
 这一节涵盖了我们对服务器或准备部署到服务器的文件要做的那些修改。
-
 
 {@a fallback}
 
@@ -330,9 +345,7 @@ to return the application's host page (`index.html`) when asked for a file that 
 
 如果该应用使用Angular路由器，我们就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
 
-
 {@a deep-link}
-
 
 A routed application should support "deep links".
 A _deep link_ is a URL that specifies a path to a component inside the app.
@@ -383,34 +396,35 @@ The list is by no means exhaustive, but should provide you with a good starting 
 * [Lite-Server](https://github.com/johnpapa/lite-server): the default dev server installed with the
 [Quickstart repo](https://github.com/angular/quickstart) is pre-configured to fallback to `index.html`.
 
-  [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到`index.html`。
+   [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到`index.html`。
 
 * [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server):  setup the
 `historyApiFallback` entry in the dev server options as follows:
 
-  [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了`historyApiFallback`，代码如下：
-  
+   [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了`historyApiFallback`，代码如下：
+
   <code-example>
+
     historyApiFallback: {
       disableDotRule: true,
       htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
     }
-  </code-example>
 
+  </code-example>
 
 #### Production servers
 
 #### 生产服务器
 
 * [Apache](https://httpd.apache.org/): add a
-[rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
-to the `.htaccess` file as shown
-(https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/):
+[rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
+  (https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/):
 
-  [Apache](https://httpd.apache.org/)：在`.htaccess`文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
+   [Apache](https://httpd.apache.org/)：在`.htaccess`文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
 代码如下（[出处](https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/)）：
 
   <code-example format=".">
+
     RewriteEngine On
     &#35 If an existing asset or directory is requested go to it as it is
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
@@ -419,44 +433,44 @@ to the `.htaccess` file as shown
 
     &#35 If the requested resource doesn't exist, use index.html
     RewriteRule ^ /index.html
-  </code-example>
 
+  </code-example>
 
 * [NGinx](http://nginx.org/): use `try_files`, as described in
 [Front Controller Pattern Web Apps](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps),
 modified to serve `index.html`:
 
-  [NGinx](http://nginx.org/)：使用`try_files`指向`index.html`，详细描述见[Web应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
+   [NGinx](http://nginx.org/)：使用`try_files`指向`index.html`，详细描述见[Web应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
 
-<code-example format=".">
-  try_files $uri $uri/ /index.html;
+  <code-example format=".">
 
-</code-example>
+    try_files $uri $uri/ /index.html;
 
+  </code-example>
 
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
 [here](http://stackoverflow.com/a/26152011/2116927):
 
-  [IIS](https://www.iis.net/)：往`web.config`中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
-  
-<code-example format='.'>
-  &lt;system.webServer&gt;
-    &lt;rewrite&gt;
-      &lt;rules&gt;
-        &lt;rule name="Angular Routes" stopProcessing="true"&gt;
-          &lt;match url=".*" /&gt;
-          &lt;conditions logicalGrouping="MatchAll"&gt;
-            &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" /&gt;
-            &lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" /&gt;
-          &lt;/conditions&gt;
-          &lt;action type="Rewrite" url="/index.html" /&gt;
-        &lt;/rule&gt;
-      &lt;/rules&gt;
-    &lt;/rewrite&gt;
-  &lt;/system.webServer&gt;
+   [IIS](https://www.iis.net/)：往`web.config`中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
+
+  <code-example format='.'>
+
+    &lt;system.webServer&gt;
+      &lt;rewrite&gt;
+        &lt;rules&gt;
+          &lt;rule name="Angular Routes" stopProcessing="true"&gt;
+            &lt;match url=".*" /&gt;
+            &lt;conditions logicalGrouping="MatchAll"&gt;
+              &lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" /&gt;
+              &lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" /&gt;
+            &lt;/conditions&gt;
+            &lt;action type="Rewrite" url="/index.html" /&gt;
+          &lt;/rule&gt;
+        &lt;/rules&gt;
+      &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
 
   </code-example>
-
 
 * [GitHub Pages](https://pages.github.com/): you can't
 [directly configure](https://github.com/isaacs/github/issues/408)
@@ -468,7 +482,7 @@ It's also a good idea to
 and to
 [create a `.nojekyll` file](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)
 
-  [GitHub页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github的页面服务，但可以添加一个404页，只要把`index.html`复制到`404.html`就可以了。
+   [GitHub页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github的页面服务，但可以添加一个404页，只要把`index.html`复制到`404.html`就可以了。
   它仍然会给出一个404响应，但是浏览器将会正确处理该页，并正常加载该应用。
   使用[在主分支的`docs/`下启动服务](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
   并[创建一个`.nojekyll`文件](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)也是一个好办法。
@@ -476,16 +490,16 @@ and to
 * [Firebase hosting](https://firebase.google.com/docs/hosting/): add a
 [rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).
 
+   [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
 
-  [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
-  
-<code-example format=".">
-  "rewrites": [ {
-    "source": "**",
-    "destination": "/index.html"
-  } ]
+  <code-example format=".">
 
-</code-example>
+    "rewrites": [ {
+      "source": "**",
+      "destination": "/index.html"
+    } ]
+
+  </code-example>
 
 {@a cors}
 
@@ -506,6 +520,7 @@ There isn't anything the client application can do about these errors.
 The server must be configured to accept the application's requests.
 Read about how to enable CORS for specific servers at
 <a href="http://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
+
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。

@@ -19,6 +19,7 @@ To understand why dependency injection is so important, consider an example with
 Imagine writing the following code:
 
 <code-example path="dependency-injection/src/app/car/car-no-di.ts" region="car" title="src/app/car/car.ts (without DI)">
+
 </code-example>
 
 The `Car` class creates everything it needs inside its constructor.
@@ -69,9 +70,11 @@ That's super easy. Change the `Car` constructor to a version with DI:
 <code-tabs>
 
   <code-pane title="src/app/car/car.ts (excerpt with DI)" path="dependency-injection/src/app/car/car.ts" region="car-ctor">
+
   </code-pane>
 
   <code-pane title="src/app/car/car.ts (excerpt without DI)" path="dependency-injection/src/app/car/car-no-di.ts" region="car-ctor">
+
   </code-pane>
 
 </code-tabs>
@@ -91,6 +94,7 @@ parameters and properties simultaneously.
 Now you can create a car by passing the engine and tires to the constructor.
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation" linenums="false">
+
 </code-example>
 
 How cool is that?
@@ -121,6 +125,7 @@ You can pass mocks to the constructor that do exactly what you want them to do
 during each test:
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-mocks" linenums="false">
+
 </code-example>
 
 **You just learned what dependency injection is**.
@@ -137,6 +142,7 @@ You need something that takes care of assembling these parts.
 You _could_ write a giant class to do that:
 
 <code-example path="dependency-injection/src/app/car/car-factory.ts" title="src/app/car/car-factory.ts">
+
 </code-example>
 
 It's not so bad now with only three creation methods.
@@ -154,6 +160,7 @@ You register some classes with this injector, and it figures out how to create t
 When you need a `Car`, you simply ask the injector to get it for you and you're good to go.
 
 <code-example path="dependency-injection/src/app/car/car-injector.ts" region="injector-call" title="src/app/car/car-injector.ts" linenums="false">
+
 </code-example>
 
 Everyone wins. The `Car` knows nothing about creating an `Engine` or `Tires`.

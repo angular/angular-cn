@@ -49,13 +49,13 @@ This page shows you how to build a simple form from scratch. Along the way you'l
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-你可以在Plunker中运行<live-example></live-example>，并且从那里下载代码。
+运行<live-example></live-example>来试用本页的代码。
 
 {@a template-driven}
 
 ## Template-driven forms
 
-## 模板驱动的表单
+## 模板驱动表单 (template-driven forms)
 
 You can build forms by writing templates in the Angular [template syntax](guide/template-syntax) with
 the form-specific directives and techniques described in this page.
@@ -1209,7 +1209,7 @@ When you click the *Edit* button, this block disappears and the editable form re
 
 ## Summary
 
-## 总结
+## 小结
 
 The Angular form discussed in this page takes advantage of the following
 framework features to provide support for data modification, validation, and more:

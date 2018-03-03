@@ -18,12 +18,11 @@ If you do, this page can help you understand their purpose.
 在这两个文件夹*之外*的文件为开发环境设定条件。
 这些文件很少会需要变动，你可能永远都不需要阅览或者修改它们。
 
-
 <style>
+
   td, th {vertical-align: top}
+
 </style>
-
-
 
 <table width="100%">
 
@@ -39,18 +38,18 @@ If you do, this page can help you understand their purpose.
 
     <th>
 
-
       File
 
       文件
+
     </th>
 
     <th>
- 
 
       Purpose
 
       用途
+
     </th>
 
   </tr>
@@ -58,13 +57,14 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>src/app/</code>
+
     </td>
 
     <td>
 
-
-      Angular application files go here. 
+      Angular application files go here.
 
       你的 Angular 应用文件。
 
@@ -87,11 +87,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>e2e/</code>
+
     </td>
 
     <td>
-
 
       _End-to-end_ (e2e) tests of the application,
       written in Jasmine and run by the
@@ -111,11 +112,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>node_modules/</code>
+
     </td>
 
     <td>
-
 
       The _npm_ packages installed with the `npm install` command.
 
@@ -136,14 +138,11 @@ If you do, this page can help you understand their purpose.
 
     <td>
 
-
-      Tooling configuration files and folders. 
+      Tooling configuration files and folders.
 
       配置文件和文件夹的工具。
 
       Ignore them until you have a compelling reason to do otherwise.
-
-      除非非常必要，否则可以忽略。
 
     </td>
 
@@ -152,18 +151,17 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>CHANGELOG.md</code>
+
     </td>
 
     <td>
 
-
       The history of changes to the _QuickStart_ repository.
-
-      *快速上手*库的更新历史。
-
       Delete or ignore.
 
+      *快速上手*库的更新历史。
       删除或忽略。
 
     </td>
@@ -173,11 +171,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>favicon.ico</code>
+
     </td>
 
     <td>
-
 
       The application icon that appears in the browser tab.
 
@@ -190,11 +189,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>index.html</code>
+
     </td>
 
     <td>
-
 
       The application host page.
       It loads a few essential scripts in a prescribed order.
@@ -216,11 +216,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>karma.conf.js</code>
+
     </td>
 
     <td>
-
 
       Configuration for the <a href="https://karma-runner.github.io/1.0/index.html" title="Karma unit test runner">karma</a>
       test runner described in the [Testing](guide/testing) guide.
@@ -234,11 +235,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>karma-test-shim.js</code>
+
     </td>
 
     <td>
-
 
       Script to run <a href="https://karma-runner.github.io/1.0/index.html" title="Karma unit test runner">karma</a>
       with SystemJS as described in the [Testing](guide/testing) guide.
@@ -252,11 +254,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>non-essential-files.txt</code>
+
     </td>
 
     <td>
-
 
       A list of files that you can delete if you want to purge your setup of the
       original QuickStart Seed testing and git maintenance artifacts.
@@ -267,6 +270,7 @@ If you do, this page can help you understand their purpose.
       这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和git维护文件。
       步骤参见可选的[删除非必要文件](guide/setup#non-essential "Setup: Deleting non-essential files")部分。
       *只在最初做这件事，以免不小心删除了你自己的测试文件和git配置！*
+
     </td>
 
   </tr>
@@ -274,11 +278,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>LICENSE</code>
+
     </td>
 
     <td>
-
 
       The open source MIT license to use this setup code in your application.
 
@@ -291,11 +296,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>package.json</code>
+
     </td>
 
     <td>
-
 
       Identifies `npm `package dependencies for the project.
 
@@ -309,6 +315,7 @@ If you do, this page can help you understand their purpose.
       包含了一些命令脚本，用来运行应用、运行测试与其他。输入`npm run`来查看命令列表。
       到<a href="https://github.com/angular/quickstart/blob/master/README.md#npm-scripts" 
          target="_blank" title="Angular 文档例子的 npm 脚本">这里</a>阅读更多关于它们的说明。
+
     </td>
 
   </tr>
@@ -316,17 +323,19 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>protractor.config.js</code>
+
     </td>
 
     <td>
-
 
       Configuration for the
       <a href="http://www.protractortest.org/" title="Protractor: end-to-end testing for Angular">protractor</a>
       _end-to-end_ (e2e) test runner.
 
       <a href="http://www.protractortest.org/" target="_blank" title="Protractor: Angular 的端对端测试">protractor</a> *端对端* (e2e) 测试器运行器的配置。
+
     </td>
 
   </tr>
@@ -334,17 +343,19 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>README.md</code>
+
     </td>
 
     <td>
-
 
       Instruction for using this git repository in your project.
       Worth reading before deleting.
 
       项目中使用这个 git 库的说明。
       在删除前值得阅读。
+
     </td>
 
   </tr>
@@ -352,11 +363,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>styles.css</code>
+
     </td>
 
     <td>
-
 
       Global styles for the application. Initialized with an `<h1>` style for the QuickStart demo.
 
@@ -369,11 +381,12 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>systemjs<br>.config.js</code>
+
     </td>
 
     <td>
-
 
       Tells the **SystemJS** module loader where to find modules
       referenced in JavaScript `import` statements. For example:
@@ -381,13 +394,15 @@ If you do, this page can help you understand their purpose.
       为 **SystemJS** 模块加载器指定去哪儿查找在 JavaScript 的`import`语句中引用的模块。例如：
 
       <code-example language="ts">
-        import { Component } from '@angular/core;
-      </code-example>
 
+        import { Component } from '@angular/core;
+
+      </code-example>
 
       Don't touch this file unless you are fully versed in SystemJS configuration.
 
       除非你完全理解 SystemJS 的配置，不要修改它。
+
     </td>
 
   </tr>
@@ -395,18 +410,19 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>systemjs<br>.config.extras.js</code>
+
     </td>
 
     <td>
-
 
       Optional extra SystemJS configuration.
       A way to add SystemJS mappings, such as for application _barrels_,
       without changing the original `system.config.js`.
 
       可选的额外 SystemJS 配置。
-      是添加 SystemJS 映射的途径，例如在无需修改原始`systemjs.config.js`的情况下为应用映射*封装桶*。  
+      是添加 SystemJS 映射的途径，例如在无需修改原始`systemjs.config.js`的情况下为应用映射*封装桶*。
 
     </td>
 
@@ -415,16 +431,17 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>tsconfig.json</code>
+
     </td>
 
     <td>
-
 
       Tells the TypeScript compiler how to transpile TypeScript source files
       into JavaScript files that run in all modern browsers.
 
-      为 TypeScript 编译器指定如何将 TypeScript 代码转换为 JavaScript 文件，用来在所有现代浏览器中运行。  
+      为 TypeScript 编译器指定如何将 TypeScript 代码转换为 JavaScript 文件，用来在所有现代浏览器中运行。
 
     </td>
 
@@ -433,21 +450,23 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>tslint.json</code>
+
     </td>
 
     <td>
-
 
       The `npm` installed TypeScript linter inspects your TypeScript code
       and complains when you violate one of its rules.
 
       利用`npm`安装的 TypeScript 语法检查器 (linter) 检测 TypeScript 代码并在你违反它的规则时提示你。
 
-      This file defines linting rules favored by the 
+      This file defines linting rules favored by the
       [Angular style guide](guide/styleguide) and by the authors of the documentation.
 
       该文件定义了 [Angular 风格指南](guide/styleguide)与本文档站作者喜爱的语法检查规则。
+
     </td>
 
   </tr>

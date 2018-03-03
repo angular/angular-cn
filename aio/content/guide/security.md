@@ -17,16 +17,13 @@ You can run the <live-example></live-example> in Stackblitz and download the cod
 
 运行<live-example></live-example>来试用本页的代码。
 
-
-
 <h2 id='report-issues'>
-Reporting vulnerabilities
-</h2>
 
-<h2 id='report-issues'>
-举报漏洞
-</h2>
+  Reporting vulnerabilities
 
+  举报漏洞
+
+</h2>
 
 To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).
 
@@ -37,23 +34,20 @@ philosophy](https://www.google.com/about/appsecurity/).
 
 要了解关于“谷歌如何处理安全问题”的更多信息，参见[谷歌的安全哲学](https://www.google.com/about/appsecurity/)。
 
-
-
 <h2 id='best-practices'>
-Best practices
-</h2>
 
-<h2 id='best-practices'>
-最佳实践
-</h2>
+  Best practices
 
+  最佳实践
+
+</h2>
 
 * **Keep current with the latest Angular library releases.**
 We regularly update the Angular libraries, and these updates may fix security defects discovered in
 previous versions. Check the Angular [change
 log](https://github.com/angular/angular/blob/master/CHANGELOG.md) for security-related updates.
 
-  **及时把Angular包更新到最新版本。**
+   **及时把Angular包更新到最新版本。**
 我们会频繁的更新Angular库，这些更新可能会修复之前版本中发现的安全漏洞。查看Angular的[更新记录](https://github.com/angular/angular/blob/master/CHANGELOG.md)，了解与安全有关的更新。
 
 * **Don't modify your copy of Angular.**
@@ -61,20 +55,22 @@ Private, customized versions of Angular tend to fall behind the current version 
 important security fixes and enhancements. Instead, share your Angular improvements with the
 community and make a pull request.
 
-  **不要修改你的Angular副本。**
+   **不要修改你的Angular副本。**
 私有的、定制版的Angular往往跟不上最新版本，这可能导致你忽略重要的安全修复与增强。反之，应该在社区共享你对Angular所做的改进并创建Pull Request。
 
 * **Avoid Angular APIs marked in the documentation as “_Security Risk_.”**
 For more information, see the [Trusting safe values](guide/security#bypass-security-apis) section of this page.
 
-  **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的Angular API。** 
+   **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
-<a id="xss"></a>
+<h2 id='xss'>
 
-## Preventing cross-site scripting (XSS) 
+  Preventing cross-site scripting (XSS)
 
-## 防范跨站脚本(XSS)攻击
+  防范跨站脚本(XSS)攻击
+
+</h2>
 
 [Cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) enables attackers
 to inject malicious code into web pages. Such code can then, for example, steal user data (in
@@ -84,7 +80,7 @@ common attacks on the web.
 [跨站脚本(XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting)允许攻击者将恶意代码注入到页面中。这些代码可以偷取用户数据
 （特别是它们的登录数据），还可以冒充用户执行操作。它是Web上最常见的攻击方式之一。
 
-To block XSS attacks, you must prevent malicious code from entering the DOM(Document Object Model). For example, if
+To block XSS attacks, you must prevent malicious code from entering the DOM (Document Object Model). For example, if
 attackers can trick you into inserting a `<script>` tag in the DOM, they can run arbitrary code on
 your website. The attack isn't limited to `<script>` tags&mdash;many elements and properties in the
 DOM allow code execution, for example, `<img onerror="...">` and `<a href="javascript:...">`. If
@@ -134,19 +130,19 @@ Angular定义了四个安全环境 - HTML，样式，URL，和资源URL：
 
 * **HTML** is used when interpreting a value as HTML, for example, when binding to `innerHtml`.
 
-  **HTML**：值需要被解释为HTML时使用，比如当绑定到`innerHTML`时。
+   **HTML**：值需要被解释为HTML时使用，比如当绑定到`innerHTML`时。
 
 * **Style** is used when binding CSS into the `style` property.
 
-  **样式**：值需要作为CSS绑定到`style`属性时使用。
+   **样式**：值需要作为CSS绑定到`style`属性时使用。
 
-* **URL** is used for URL properties such as `<a href>`.
+* **URL** is used for URL properties, such as `<a href>`.
 
   **URL**：值需要被用作URL属性时使用，比如`<a href>`。
 
 * **Resource URL** is a URL that will be loaded and executed as code, for example, in `<script src>`.
 
-  **资源URL**：值需要被当做代码而加载并执行时使用，比如`<script src>`中的URL。
+   **资源URL**：值需要被当做代码而加载并执行时使用，比如`<script src>`中的URL。
 
 Angular sanitizes untrusted values for HTML, styles, and URLs; sanitizing resource URLs isn't
 possible because they contain arbitrary code. In development mode, Angular prints a console warning
@@ -164,12 +160,9 @@ content, and once by binding it to the `innerHTML` property of an element:
 
 下面的例子绑定了`htmlSnippet`的值，一次把它放进插值表达式里，另一次把它绑定到元素的`innerHTML`属性上。
 
-
 <code-example path="security/src/app/inner-html-binding.component.html" title="src/app/inner-html-binding.component.html">
 
 </code-example>
-
-
 
 Interpolated content is always escaped&mdash;the HTML isn't interpreted and the browser displays
 angle brackets in the element's text content.
@@ -183,24 +176,20 @@ vulnerability. For example, code contained in a `<script>` tag is executed:
 如果希望这段HTML被正常解释，就必须绑定到一个HTML属性上，比如`innerHTML`。但是如果把一个可能被攻击者控制的值绑定到`innerHTML`就会导致XSS漏洞。
 比如，包含在`<script>`标签的代码就会被执行：
 
-
 <code-example path="security/src/app/inner-html-binding.component.ts" linenums="false" title="src/app/inner-html-binding.component.ts (class)" region="class">
 
 </code-example>
-
-
 
 Angular recognizes the value as unsafe and automatically sanitizes it, which removes the `<script>`
 tag but keeps safe content such as the text content of the `<script>` tag and the `<b>` element.
 
 Angular认为这些值是不安全的，并自动进行无害化处理。它会移除`<script>`标签，但保留安全的内容，比如该片段中的文本内容或`<b>`元素。
 
-
 <figure>
+
   <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
+
 </figure>
-
-
 
 ### Avoid direct use of the DOM APIs
 
@@ -228,9 +217,7 @@ on the HTML5Rocks website.
 要打开CSP，请配置你的Web服务器，让它返回合适的HTTP头`Content_Security_Policy`。
 要了解关于内容安全策略的更多信息，请参阅HTML5Rocks上的[内容安全策略简介](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
 
-
 {@a offline-template-compiler}
-
 
 ### Use the offline template compiler
 
@@ -262,19 +249,13 @@ carries a high risk of introducing template-injection vulnerabilities.
   务必使用一个能够自动进行无害化处理以防范XSS漏洞的后端模板语言。不要在服务器端使用模板语言生成Angular模板，
   这样会带来很高的“模板注入”风险。
 
-
-
 <h2 id='bypass-security-apis'>
+
   Trusting safe values
-</h2>
 
-
-
-<h2 id='bypass-security-apis'>
   信任安全值
+
 </h2>
-
-
 
 Sometimes applications genuinely need to include executable code, display an `<iframe>` from some
 URL, or construct potentially dangerous URLs. To prevent automatic sanitization in any of these
@@ -292,11 +273,15 @@ following methods:
 
 注入`DomSanitizer`服务，然后调用下面的方法之一，你就可以把一个值标记为可信任的。
 
-  * `bypassSecurityTrustHtml`
-  * `bypassSecurityTrustScript`
-  * `bypassSecurityTrustStyle`
-  * `bypassSecurityTrustUrl`
-  * `bypassSecurityTrustResourceUrl`
+* `bypassSecurityTrustHtml`
+
+* `bypassSecurityTrustScript`
+
+* `bypassSecurityTrustStyle`
+
+* `bypassSecurityTrustUrl`
+
+* `bypassSecurityTrustResourceUrl`
 
 Remember, whether a value is safe depends on context, so choose the right context for
 your intended use of the value. Imagine that the following template needs to bind a URL to a
@@ -304,12 +289,9 @@ your intended use of the value. Imagine that the following template needs to bin
 
 记住，一个值是否安全取决于它所在的环境，所以你要为这个值按预定的用法选择正确的环境。假设下面的模板需要把`javascript.alert(...)`方法绑定到URL。
 
-
 <code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (URL)" region="URL">
 
 </code-example>
-
-
 
 Normally, Angular automatically sanitizes the URL, disables the dangerous code, and
 in development mode, logs this action to the console. To prevent
@@ -317,18 +299,15 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 
 通常，Angular会自动无害化这个URL并禁止危险的代码。为了防止这种行为，我们可以调用`bypassSecurityTrustUrl`把这个URL值标记为一个可信任的URL：
 
-
 <code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-url)" region="trust-url">
 
 </code-example>
 
-
-
 <figure>
+
   <img src='generated/images/guide/security/bypass-security-component.png' alt='A screenshot showing an alert box created from a trusted URL'>
+
 </figure>
-
-
 
 If you need to convert user input into a trusted value, use a
 controller method. The following template allows users to enter a YouTube video ID and load the
@@ -340,32 +319,22 @@ Angular to allow binding into `<iframe src>`:
 如果需要把用户输入转换为一个可信任的值，我们可以很方便的在控制器方法中处理。下面的模板允许用户输入一个YouTube视频的ID，
   然后把相应的视频加载到`<iframe>`中。`<iframe src>`是一个“资源URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
   所以我们要调用一个控制器方法来构造一个新的、可信任的视频URL，然后把它绑定到`<iframe src>`。
-  
 
 <code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (iframe)" region="iframe">
 
 </code-example>
 
-
-
 <code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-video-url)" region="trust-video-url">
 
 </code-example>
 
-
-
-
 <h2 id='http'>
+
   HTTP-level vulnerabilities
-</h2>
 
-
-
-<h2 id='http'>
   HTTP级别的漏洞
+
 </h2>
-
-
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request
 forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily
@@ -373,19 +342,14 @@ on the server side, but Angular provides helpers to make integration on the clie
 
 Angular内置了一些支持来防范两个常见的HTTP漏洞：跨站请求伪造（XSRF）和跨站脚本包含（XSSI）。
   这两个漏洞主要在服务器端防范，但是Angular也自带了一些辅助特性，可以让客户端的集成变得更容易。
-  
 
 <h3 id='xsrf'>
+
   Cross-site request forgery
-</h3>
 
-
-
-<h3 id='xsrf'>
   跨站请求伪造（XSRF）
+
 </h3>
-
-
 
 In a cross-site request forgery (CSRF or XSRF), an attacker tricks the user into visiting
 a different web page (such as `evil.com`) with malignant code that secretly sends a malicious request
@@ -406,7 +370,7 @@ The browser automatically sends the `example-bank.com` cookies (including the au
 该`evil.com`页面立刻发送恶意请求到`example-bank.com`。这个请求可能是从用户账户转账到攻击者的账户。
 与该请求一起，浏览器自动发出`example-bank.com`的cookie。
 
-If the `example-bank.com` server lacks XSRF protection, it can't tell the difference between a legitimate 
+If the `example-bank.com` server lacks XSRF protection, it can't tell the difference between a legitimate
 request from the application and the forged request from `evil.com`.
 
 如果`example-bank.com`服务器缺乏XSRF保护，就无法辨识请求是从应用程序发来的合法请求还是从`evil.com`来的假请求。
@@ -417,7 +381,7 @@ The server and client must cooperate to thwart this attack.
 
 为了防止这种情况，你必须确保每个用户的请求都是从你自己的应用中发出的，而不是从另一个网站发出的。
   客户端和服务器必须合作来抵挡这种攻击。
-  
+
 In a common anti-XSRF technique, the application server sends a randomly
 generated authentication token in a cookie.
 The client code reads the cookie and adds a custom request header with the token in all subsequent requests.
@@ -426,7 +390,7 @@ The server compares the received cookie value to the request header value and re
 常见的反XSRF技术是服务器随机生成一个用户认证令牌到cookie中。
   客户端代码获取这个cookie，并用它为接下来所有的请求添加自定义请求页头。
   服务器比较收到的cookie值与请求页头的值，如果它们不匹配，便拒绝请求。
-  
+
 This technique is effective because all browsers implement the _same origin policy_. Only code from the website
 on which cookies are set can read the cookies from that site and set custom headers on requests to that site.
 That means only your application can read this cookie token and set the custom header. The malicious code on `evil.com` can't.
@@ -453,18 +417,13 @@ See also Dave Smith's easy-to-understand
 
 参见Dave Smith在<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">AngularConnect 2016关于XSRF的演讲</a>。
 
-
 <h3 id='xssi'>
+
   Cross-site script inclusion (XSSI)
-</h3>
 
-
-
-<h3 id='xssi'>
   跨站脚本包含(XSSI)
+
 </h3>
-
-
 
 Cross-site script inclusion, also known as JSON vulnerability, can allow an attacker's website to
 read data from a JSON API. The attack works on older browsers by overriding native JavaScript
@@ -490,24 +449,19 @@ post](https://security.googleblog.com/2011/05/website-security-for-webmasters.ht
 
 要学习更多这方面的知识，请参见[谷歌Web安全博客文章](https://security.googleblog.com/2011/05/website-security-for-webmasters.html)的XSSI小节。
 
-
-
 <h2 id='code-review'>
+
   Auditing Angular applications
-</h2>
 
-
-
-<h2 id='code-review'>
   审计Angular应用程序
+
 </h2>
-
-
 
 Angular applications must follow the same security principles as regular web applications, and
 must be audited as such. Angular-specific APIs that should be audited in a security review,
 such as the [_bypassSecurityTrust_](guide/security#bypass-security-apis) methods, are marked in the documentation
 as security sensitive.
+
 
 Angular应用应该遵循和常规Web应用一样的安全原则并按照这些原则进行审计。Angular中某些应该在安全评审中被审计的API（
 比如[_bypassSecurityTrust_](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。

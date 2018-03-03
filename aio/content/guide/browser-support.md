@@ -6,17 +6,24 @@ Angular supports most recent browsers. This includes the following specific vers
 
 Angular 支持大多数常用浏览器，包括下列版本：
 
-
 <table>
 
   <tr>
 
 <th>
+
       Browser
+
+      浏览器
+
 </th>
 
 <th>
+
       Supported versions
+
+      支持的版本
+
 </th>
 
   </tr>
@@ -24,86 +31,141 @@ Angular 支持大多数常用浏览器，包括下列版本：
   <tr>
 
     <td>
+
       Chrome
+
     </td>
 
     <td>
 
-      <p>
-        latest
-      </p>
-
-      <p>
-        最新版
-      </p>
-
-    </td>
-  </tr>
-
-  <tr>
-
-    <td>
-      Firefox
-    </td>
-
-    <td>
       latest
+
+      最新版
+
     </td>
+
   </tr>
 
   <tr>
 
     <td>
+
+      Firefox
+
+    </td>
+
+    <td>
+
+      latest
+
+      最新版
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <td>
+
       Edge
+
     </td>
 
     <td>
+
       2 most recent major versions
+
+      最近的两个主版本
+
     </td>
+
   </tr>
+
   <tr> 
+
     <td>
+
       IE
+
     </td>
+
     <td>
+
       11<br>10<br>9
+
     </td>
+
   </tr>
+
  <tr>
+
    <tr> 
+
     <td>
+
       IE Mobile
+
     </td>
+
     <td>
+
       11
+
     </td>
+
   </tr>
+
  <tr>
+
     <td>
+
       Safari
+
     </td>
 
     <td>
+
       2 most recent major versions
+
+      最近的两个主版本
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
+
       iOS
+
     </td>
 
     <td>
+
       2 most recent major versions
+
+      最近的两个主版本
+
     </td>
+
   </tr> 
+
   <tr>
+
     <td>
+
       Android
+
     </td>
 
     <td>
+
       Nougat (7.0)<br>Marshmallow (6.0)<br>Lollipop (5.0, 5.1)<br>KitKat (4.4)
+
     </td>
+
   </tr> 
 
 </table>
@@ -117,9 +179,7 @@ using <a href="https://saucelabs.com/">SauceLabs</a> and
 Angular 在持续集成过程中，对每一个提交都会使用 <a href="https://saucelabs.com/" target="_blank">SauceLabs</a> 和
 <a href="https://www.browserstack.com" target="_blank">Browserstack</a> 在上述所有浏览器上执行单元测试。
 
-
 </div>
-
 
 ## Polyfills
 
@@ -173,9 +233,11 @@ For example, [if you need the web animations polyfill](http://caniuse.com/#feat=
 比如，[如果你需要 web 动画的腻子脚本](http://caniuse.com/#feat=web-animation)，就要通过下列命令之一来安装它：
 
 <code-example language="sh" class="code-shell">
+
   # note that the web-animations-js polyfill is only here as an example
   # it isn't a strict requirement of Angular anymore (more below)
   npm install --save web-animations-js
+
 </code-example>
 
 Then open the `polyfills.ts` file and un-comment the corresponding `import` statement as in the following example:
@@ -183,11 +245,13 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
 
 <code-example title="src/polyfills.ts">
+
   /**
   * Required to support Web Animations `@angular/platform-browser/animations`.
   * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
   **/
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+
 </code-example>
 
 If you can't find the polyfill you want in `polyfills.ts`,
@@ -198,7 +262,7 @@ add it yourself, following the same pattern:
 1. install the npm package
 
    安装 npm 包
-   
+
 1. `import` the file in `polyfills.ts`
 
    在 `polyfills.ts` 中 `import` 这个文件
@@ -213,7 +277,6 @@ Non-CLI users should follow the instructions [below](#non-cli).
 
 {@a polyfill-libs}
 
-
 ### Mandatory polyfills
 
 ### 强制性腻子脚本
@@ -222,31 +285,23 @@ These are the polyfills required to run an Angular application on each supported
 
 下表中的腻子脚本是每个浏览器都要用到的：
 
-
 <table>
 
   <tr style="vertical-align: top">
 
     <th>
 
-      <p>
-        Browsers (Desktop & Mobile)
-      </p>
+      Browsers (Desktop & Mobile)
 
-      <p>
-        浏览器（桌面和移动）
-      </p>
+      浏览器（桌面和移动）
+
     </th>
 
     <th>
 
-      <p>
-        Polyfills Required
-      </p>
+      Polyfills Required
 
-      <p>
-        需要的腻子脚本
-      </p>
+      需要的腻子脚本
 
     </th>
 
@@ -255,7 +310,9 @@ These are the polyfills required to run an Angular application on each supported
   <tr style="vertical-align: top">
 
     <td>
+
       Chrome, Firefox, Edge, Safari 9+
+
     </td>
 
     <td>
@@ -269,7 +326,9 @@ These are the polyfills required to run an Angular application on each supported
   <tr style="vertical-align: top">
 
     <td>
+
       Safari 7 & 8, IE10 & 11, Android 4.1+
+
     </td>
 
     <td>
@@ -283,7 +342,9 @@ These are the polyfills required to run an Angular application on each supported
   <tr style="vertical-align: top">
 
     <td>
+
       IE9
+
     </td>
 
     <td>
@@ -295,7 +356,6 @@ These are the polyfills required to run an Angular application on each supported
   </tr>
 
 </table>
-
 
 ### Optional browser features to polyfill
 
@@ -314,30 +374,32 @@ Here are the features which may require additional polyfills:
 
 下列特性可能需要更多腻子脚本：
 
-
 <table>
 
   <tr style="vertical-align: top">
 
     <th>
+
       Feature
-      
+
       特性
-      
+
     </th>
 
     <th>
+
       Polyfill
-      
+
       腻子脚本
 
     </th>
 
     <th style="width: 50%">
-      Browsers (Desktop & Mobile)
-      
-      浏览器（桌面和移动）
-      
+
+       Browsers (Desktop & Mobile)
+
+       浏览器（桌面和移动）
+
     </th>
 
   </tr>
@@ -349,22 +411,24 @@ Here are the features which may require additional polyfills:
       [JIT compilation](guide/aot-compiler).
 
       Required to reflect for metadata.
-      
+
       [JIT 编译](guide/aot-compiler) 需要 reflect 来提供元数据。
-      
+
     </td>
 
     <td>
 
       [ES7/reflect](guide/browser-support#core-es7-reflect)
+
     </td>
 
     <td>
+
       All current browsers. Enabled by default.
       Can remove if you always use AOT and only use Angular decorators.
-      
+
       默认对目前的所有浏览器都启用了。如果总是使用 AOT 模式，并且只使用 Angular 自带的装饰器，那么可以移除它。
-      
+
     </td>
 
   </tr>
@@ -379,7 +443,7 @@ Here are the features which may require additional polyfills:
       
       <br>Only if `Animation Builder` is used within the application--standard
       animation support in Angular doesn't require any polyfills (as of NG6).
-      
+
       <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。
 
     </td>
@@ -389,13 +453,16 @@ Here are the features which may require additional polyfills:
       [Web Animations](guide/browser-support#web-animations)
 
       [Web 动画](guide/browser-support#web-animations)
+
     </td>
 
     <td>
+
       <p>If AnimationBuilder is used then the polyfill will enable scrubbing
       support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>
-      
+
       <p>如果使用了AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
+
     </td>
 
   </tr>
@@ -407,15 +474,15 @@ Here are the features which may require additional polyfills:
     If you use the following deprecated i18n pipes:
 
     如果你使用下列已废弃的i18n管道：
-     
+
      [date](api/common/DeprecatedDatePipe), 
-     
+
      [currency](api/common/DeprecatedCurrencyPipe),
-      
-     [decimal](api/common/DeprecatedDecimalPipe),
-      
+
+     [decimal](api/common/DeprecatedDecimalPipe), 
+
      [percent](api/common/DeprecatedPercentPipe)
-    
+
     </td>
 
     <td>
@@ -425,9 +492,10 @@ Here are the features which may require additional polyfills:
     </td>
 
     <td>
-      <p>All but Chrome, Firefox, Edge, IE11 and Safari 10</p>
-      
-      <p>除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器</p>
+
+      All but Chrome, Firefox, Edge, IE11 and Safari 10
+
+      除了 Chrome、Firefox、Edge、IE11 和 Safari 10 外的所有浏览器
 
     </td>
 
@@ -437,11 +505,12 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-       <p>[NgClass](api/common/NgClass) 
-       
-       on SVG elements</p>
-       
-       <p>在 SVG 元素上应用 [NgClass](api/common/NgClass)</p>
+       [NgClass](api/common/NgClass) 
+
+       on SVG elements
+
+       在 SVG 元素上应用时
+
     </td>
 
     <td>
@@ -451,7 +520,9 @@ Here are the features which may require additional polyfills:
     </td>
 
     <td>
+
       IE10, IE11
+
     </td>
 
   </tr>
@@ -460,33 +531,37 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      <p>[Http](guide/http) 
-      
-      when sending and receiving binary data</p>
-      
-      <p>用 [Http](guide/http) 发送和接收二进制数据</p>
-      
+      [Http](guide/http) 
+
+      when sending and receiving binary data
+
+      用 [Http](guide/http) 发送和接收二进制数据时
+
     </td>
 
     <td>
 
-      [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
+      [Typed&nbsp;Array](guide/browser-support#typedarray)
 
-      [Blob](guide/browser-support#blob)<br>
+<br>
+
+      [Blob](guide/browser-support#blob)
+
+<br>
 
       [FormData](guide/browser-support#formdata)
 
     </td>
 
     <td>
+
       IE 9
+
     </td>
 
   </tr>
 
 </table>
-
-
 
 ### Suggested polyfills ##
 
@@ -496,44 +571,31 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
 下表中是用来测试框架本身的腻子脚本，它们是应用程序的优质起点。
 
-
 <table>
 
   <tr>
 
     <th>
 
-      <p>
-        Polyfill
-      </p>
+      Polyfill
 
-      <p>
-        腻子脚本
-      </p>
+      腻子脚本
 
     </th>
 
     <th>
 
-      <p>
-        Licence
-      </p>
+      License
 
-      <p>
-        授权方式
-      </p>
+      授权方式
 
     </th>
 
     <th>
 
-      <p>
-        Size*
-      </p>
+      Size*
 
-      <p>
-        大小*
-      </p>
+      大小*
 
     </th>
 
@@ -548,11 +610,15 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT
+
     </td>
 
     <td>
+
       0.5KB
+
     </td>
 
   </tr>
@@ -566,11 +632,15 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT
+
     </td>
 
     <td>
+
       27.4KB
+
     </td>
 
   </tr>
@@ -585,18 +655,16 @@ Below are the polyfills which are used to test the framework itself. They are a 
 
     <td>
 
-      <p>
-        Public domain
-      </p>
+      Public domain
 
-      <p>
-        公共域
-      </p>
+      公共域
 
     </td>
 
     <td>
+
       1KB
+
     </td>
 
   </tr>
@@ -610,11 +678,15 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT / Unicode license
+
     </td>
 
     <td>
+
       13.5KB
+
     </td>
 
   </tr>
@@ -622,15 +694,21 @@ Below are the polyfills which are used to test the framework itself. They are a 
   <tr>
 
     <td>
+
        <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
+
     </td>
 
     <td>
+
       Apache
+
     </td>
 
     <td>
+
       14.8KB
+
     </td>
 
   </tr>
@@ -644,11 +722,15 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT
+
     </td>
 
     <td>
+
       4KB
+
     </td>
 
   </tr>
@@ -662,11 +744,15 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT
+
     </td>
 
     <td>
+
       1.3KB
+
     </td>
 
   </tr>
@@ -680,22 +766,28 @@ Below are the polyfills which are used to test the framework itself. They are a 
     </td>
 
     <td>
+
       MIT
+
     </td>
 
     <td>
+
       0.4KB
+
     </td>
 
   </tr>
 
 </table>
 
+\* Figures are for minified and gzipped code,
+computed with the <a href="http://closure-compiler.appspot.com/home">closure compiler</a>.
 
-\* Figures are for minified and gzipped code, 
-computed with the <a href="http://closure-compiler.appspot.com/home" >closure compiler</a>.
+\* 这里的数据都按最小化并且 gzip 压缩后的版本算，是由<a href="http://closure-compiler.appspot.com/home">closure compiler</a>计算出的。
 
 {@a non-cli}
+
 ## Polyfills for non-CLI users
 
 ## 不使用 CLI 的用户的腻子脚本
@@ -705,13 +797,17 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
 如果你不使用 CLI，就要直接把腻子脚本添加到宿主页（`index.html`）中，就像这样：
 
 <code-example title="src/index.html">
+
   &lt;!-- pre-zone polyfills -->
   &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
   &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>
   &lt;script>
     /**
+
      * you can configure some zone flags which can disable zone interception for some
+
      * asynchronous activities to improve startup performance - use these options only
+
      * if you know what you are doing as it could result in hard to trace down bugs..
      */
     // __Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
@@ -719,7 +815,9 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
     // __zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
 
     /*
+
      * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
+
      * with the following flag, it will bypass `zone.js` patch for IE/Edge
      */
     // __Zone_enable_cross_context_check = true;
@@ -728,4 +826,6 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
   &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
 
   &lt;!-- application polyfills -->
+
 </code-example>
+

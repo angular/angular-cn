@@ -3,6 +3,7 @@
 #### Prerequisites
 
 A basic understanding of the following:
+
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
 <hr />
@@ -47,8 +48,11 @@ The `@NgModule` decorator identifies `AppModule` as an `NgModule` class.
 `@NgModule` takes a metadata object that tells Angular how to compile and launch the application.
 
 * **_declarations_**&mdash;this application's lone component.
+
 * **_imports_**&mdash;import `BrowserModule` to have browser specific services such as DOM rendering, sanitization, and location.
+
 * **_providers_**&mdash;the service providers.
+
 * **_bootstrap_**&mdash;the _root_ component that Angular creates and inserts
 into the `index.html` host web page.
 
@@ -92,41 +96,40 @@ import the module that has the declarable you need in it.
 
 **Only `@NgModule` references** go in the `imports` array.
 
-
 ### Using directives with `@NgModule`
 
 Use the `declarations` array for directives.
 To use a directive, component, or pipe in a module, you must do a few things:
 
 1. Export it from the file where you wrote it.
-2. Import it into the appropriate module.
-3. Declare it in the `@NgModule` `declarations` array.
 
+2. Import it into the appropriate module.
+
+3. Declare it in the `@NgModule` `declarations` array.
 
 Those three steps look like the following. In the file where you create your directive, export it.
 The following example, named `ItemDirective` is the default directive structure that the CLI generates in its own file, `item.directive.ts`:
 
 <code-example path="bootstrapping/src/app/item.directive.ts" region="directive" title="src/app/item.directive.ts" linenums="false">
+
 </code-example>
 
 The key point here is that you have to export it so you can import it elsewhere. Next, import it
 into the NgModule, in this example `app.module.ts`, with a JavaScript import statement:
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="directive-import" title="src/app/app.module.ts" linenums="false">
+
 </code-example>
 
 And in the same file, add it to the `@NgModule` `declarations` array:
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="declarations" title="src/app/app.module.ts" linenums="false">
-</code-example>
 
+</code-example>
 
 Now you could use your `ItemDirective` in a component. This example uses `AppModule`, but you'd do it the same way for a feature module. For more about directives, see [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives). You'd also use the same technique for [pipes](guide/pipes) and components.
 
 Remember, components, directives, and pipes belong to one module only. You only need to declare them once in your app because you share them by importing the necessary modules. This saves you time and helps keep your app lean.
-
-
-
 
 {@a imports}
 
@@ -171,8 +174,6 @@ most applications have only one component tree and bootstrap a single root compo
 
 This one root component is usually called `AppComponent` and is in the
 root module's `bootstrap` array.
-
-
 
 ## More about Angular Modules
 

@@ -200,6 +200,7 @@ It's certainly a good idea to give the user some kind of feedback when data acce
 But displaying the raw error object returned by `HttpClient` is far from the best way to do it.
 
 {@a error-details}
+
 ### Getting error details
 
 ### 获取错误详情
@@ -264,6 +265,7 @@ _Pipe_ it onto the `HttpClient` method result just before the error handler.
 </code-example>
 
 {@a rxjs}
+
 ## Observables and operators
 
 The previous sections of this guide referred to RxJS `Observables` and operators such as `catchError` and `retry`.
@@ -422,6 +424,7 @@ Merely calling `HeroService.deleteHero()` **does not initiate the DELETE request
 </code-example>
 
 {@a always-subscribe}
+
 ### Always _subscribe_!
 
 An `HttpClient` method does not begin its HTTP request until you call `subscribe()` on the observable returned by that method. This is true for _all_ `HttpClient` _methods_.
@@ -905,6 +908,7 @@ Data services, such as `PackageSearchService`, are unaware that
 some of their `HttpClient` requests actually return cached responses.
 
 {@a cache-refresh}
+
 #### Return a multi-valued _Observable_
 
 The `HttpClient.get()` method normally returns an _observable_ 

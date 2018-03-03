@@ -2,21 +2,20 @@
 
 # 依赖注入
 
-
-Dependency Injection is a powerful pattern for managing code dependencies. 
+Dependency Injection is a powerful pattern for managing code dependencies.
 This cookbook explores many of the features of Dependency Injection (DI) in Angular.
 
 依赖注入是一个用来管理代码依赖的强大模式。在这本“烹饪宝典”中，我们会讨论Angular依赖注入的许多特性。
+
 {@a toc}
 
-See the <live-example name="dependency-injection-in-action"></live-example>
-of the code in this cookbook.        
+See the <live-example name="dependency-injection-in-action"></live-example> of the code in this cookbook.
 
-要获取本“烹饪宝典”的代码，**参见<live-example name="dependency-injection-in-action"></live-example>**。
+到<live-example name="dependency-injection-in-action"></live-example>查看本烹饪书的源码。
 
 {@a app-wide-dependencies}
 
-## Application-wide dependencies   
+## Application-wide dependencies
 
 ## 应用程序全局依赖
 
@@ -24,18 +23,15 @@ Register providers for dependencies used throughout the application in the root 
 
 在应用程序根组件`AppComponent`中注册那些被应用程序全局使用的依赖提供商。
 
-The following example shows importing and registering 
+The following example shows importing and registering
 the `LoggerService`, `UserContext`, and the `UserService`
 in the `@Component` metadata `providers` array.
 
 在下面的例子中，通过`@Component`元数据的`providers`数组导入和注册了几个服务(`LoggerService`, `UserContext`和`UserService`)。
 
-
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="import-services" title="src/app/app.component.ts (excerpt)" linenums="false">
 
 </code-example>
-
-
 
 All of these services are implemented as classes.
 Service classes can act as their own providers which is why listing them in the `providers` array
@@ -43,10 +39,7 @@ is all the registration you need.
 
 所有这些服务都是用类实现的。服务类能充当自己的提供商，这就是为什么只要把它们列在`providers`数组里就算注册成功了。
 
-
 <div class="l-sub-section">
-
-
 
 A *provider* is something that can create or deliver a service.
 Angular creates a service instance from a class provider by using `new`.
@@ -57,29 +50,22 @@ guide.
 Angular拿到“类提供商”之后，会通过`new`操作来新建服务实例。
 从[依赖注入](guide/dependency-injection#injector-providers)一章可以学到关于提供商的更多知识。
 
-
 </div>
-
-
 
 Now that you've registered these services,
 Angular can inject them into the constructor of *any* component or service, *anywhere* in the application.
 
 现在我们已经注册了这些服务，这样Angular就能在应用程序的*任何地方*，把它们注入到*任何*组件和服务的构造函数里。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts (component constructor injection)" linenums="false">
 
 </code-example>
-
-
 
 <code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="ctor" title="src/app/user-context.service.ts (service constructor injection)" linenums="false">
 
 </code-example>
 
 {@a external-module-configuration}
-
 
 ## External module configuration
 
@@ -100,19 +86,13 @@ in the `providers` list of the `AppModule`.
 
 下面的例子是第二种情况，它为组件路由器配置了一个非默认的[地址策略（location strategy）](guide/router#location-strategy)，并把它加入到`AppModule`的`providers`数组中。
 
-
 <code-example path="dependency-injection-in-action/src/app/app.module.ts" region="providers" title="src/app/app.module.ts (providers)" linenums="false">
 
 </code-example>
 
-
-
 {@a injectable}
 
-
 {@a nested-dependencies}
-
-
 
 ## _@Injectable()_ and nested service dependencies
 
@@ -124,7 +104,7 @@ It's the dependency injection's job to create and cache that service.
 
 这些被注入服务的消费者不需要知道如何创建这个服务，它也不应该在乎。新建和缓存这个服务是依赖注入器的工作。
 
-Sometimes a service depends on other services , which may depend on yet other services.
+Sometimes a service depends on other services, which may depend on yet other services.
 Resolving these nested dependencies in the correct order is also the framework's job.
 At each step, the consumer of dependencies simply declares what it requires in its
 constructor and the framework takes over.
@@ -132,72 +112,62 @@ constructor and the framework takes over.
 有时候一个服务依赖其它服务...而其它服务可能依赖另外的更多服务。按正确的顺序解析这些嵌套依赖也是框架的工作。
 在每一步，依赖的使用者只要在它的构造函数里简单声明它需要什么，框架就会完成所有剩下的事情。
 
-
 The following example shows injecting both the `LoggerService` and the `UserContext` in the `AppComponent`.
 
 在下列例子中，我们往`AppComponent`里注入的`LoggerService`和`UserContext`。
 
-
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="ctor" title="src/app/app.component.ts" linenums="false">
 
 </code-example>
-
-
 
 The `UserContext` in turn has its own dependencies on both the `LoggerService` and
 a `UserService` that gathers information about a particular user.
 
 `UserContext`有两个依赖`LoggerService`(再一次)和负责获取特定用户信息的`UserService`。
 
-
 <code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectables" title="user-context.service.ts (injection)" linenums="false">
 
 </code-example>
 
-
-
 When Angular creates the `AppComponent`, the dependency injection framework creates an instance of the `LoggerService` and
 starts to create the `UserContextService`.
-The `UserContextService` needs the `LoggerService`, which the framework already has, and the `UserService`, which it has yet to create. 
-The `UserService` has no dependencies so the dependency injection framework can justuse `new` to instantiateone .
+The `UserContextService` needs the `LoggerService`, which the framework already has, and the `UserService`, which it has yet to create.
+The `UserService` has no dependencies so the dependency injection framework can just
+use `new` to instantiate one.
 
 当Angular新建`AppComponent`时，依赖注入框架先创建一个`LoggerService`的实例，然后创建`UserContextService`实例。
 `UserContextService`需要框架已经创建好的`LoggerService`实例和尚未创建的`UserService`实例。
 `UserService`没有其它依赖，所以依赖注入框架可以直接`new`一个实例。
 
-The beauty of dependency injection is that  `AppComponent` doesn't care about any of this. 
-You simply declare what is needed in the constructor (`LoggerService` and `UserContextService`) and the framework does the rest.
+The beauty of dependency injection is that `AppComponent` doesn't care about any of this.
+You simply declare what is needed in the constructor (`LoggerService` and `UserContextService`)
+and the framework does the rest.
 
 依赖注入最帅的地方在于，`AppComponent`的作者不需要在乎这一切。作者只是在(`LoggerService`和`UserContextService`的)构造函数里面简单的声明一下，框架就完成了剩下的工作。
 
 Once all the dependencies are in place, the `AppComponent` displays the user information:
 
 一旦所有依赖都准备好了，`AppComponent`就会显示用户信息：
- 
 
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/logged-in-user.png" alt="Logged In User">
+
 </figure>
 
-
-
 {@a injectable-1}
-
 
 ### *@Injectable()*
 
 ### *@Injectable()* 注解
 
-Notice the `@Injectable()`decorator on the `UserContextService` class. 
+Notice the `@Injectable()`decorator on the `UserContextService` class.
 
 注意在`UserContextService`类里面的`@Injectable()`装饰器。
-
 
 <code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectable" title="user-context.service.ts (@Injectable)" linenums="false">
 
 </code-example>
-
-
 
 That decorator makes it possible for Angular to identify the types of its two dependencies, `LoggerService` and `UserService`.
 
@@ -205,35 +175,28 @@ That decorator makes it possible for Angular to identify the types of its two de
 
 Technically, the `@Injectable()`decorator is only required for a service class that has _its own dependencies_.
 The `LoggerService` doesn't depend on anything. The logger would work if you omitted `@Injectable()`
-and the generated code would be slightly smaller. 
+and the generated code would be slightly smaller.
 
 严格来说，这个`@Injectable()`装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
 `LoggerService`不依赖任何东西，所以该日志服务在没有`@Injectable()`的时候应该也能工作，生成的代码也更少一些。
 
-But the service would break the moment you gave it a dependency and you'd have to go back 
-and add `@Injectable()` to fix it. Add `@Injectable()` from the start for the sake of consistency and to avoid future pain.
+But the service would break the moment you gave it a dependency and you'd have to go back
+and add `@Injectable()` to fix it. Add `@Injectable()` from the start for the sake
+of consistency and to avoid future pain.
 
 但是在给它添加依赖的那一瞬间，该服务就会停止工作，要想修复它，就必须要添加`@Injectable()`。
 为了保持一致性和防止将来的麻烦，推荐从一开始就加上`@Injectable()`。
 
-
 <div class="alert is-helpful">
-
-
 
 Although this site recommends applying `@Injectable()` to all service classes, don't feel bound by it.
 Some developers prefer to add it only where needed and that's a reasonable policy too.
 
 虽然推荐在所有服务中使用`@Injectable()`，但你也不需要一定要这么做。一些开发者就更喜欢在真正需要的地方才添加，这也是一个合理的策略。
 
-
 </div>
 
-
-
 <div class="l-sub-section">
-
-
 
 The `AppComponent` class had two dependencies as well but no `@Injectable()`.
 It didn't need `@Injectable()` because that component class has the `@Component` decorator.
@@ -243,18 +206,16 @@ In Angular with TypeScript, a *single* decorator&mdash;*any* decorator&mdash;is 
 它不需要`@Injectable()`，这是因为组件类有`@Component`装饰器。
 在用TypeScript的Angular应用里，有一个*单独的*装饰器 &mdash; *任何*装饰器 &mdash; 来标识依赖的类型就够了。
 
-
 </div>
 
 {@a service-scope}
-
 
 ## Limit service scope to a component subtree
 
 ## 把服务作用域限制到一个组件支树
 
-All injected service dependencies are singletons meaning that, 
-for a given dependency injector , there is only one instance of service. 
+All injected service dependencies are singletons meaning that,
+for a given dependency injector, there is only one instance of service.
 
 所有被注入的服务依赖都是单例的，也就是说，在任意一个依赖注入器("injector")中，每个服务只有唯一的实例。
 
@@ -264,7 +225,7 @@ if provided in multiple components.
 
 但是Angular应用程序有多个依赖注入器，组织成一个与组件树平行的树状结构。所以，可以在任何组件级别*提供*(和建立)特定的服务。如果在多个组件中注入，服务就会被新建出多个实例，分别提供给不同的组件。
 
-By default, a service dependency provided in one component is visible to all of its child components and 
+By default, a service dependency provided in one component is visible to all of its child components and
 Angular injects the same service instance into all child components that ask for that service.
 
 默认情况下，一个组件中注入的服务依赖，会在该组件的所有子组件中可见，而且Angular会把同样的服务实例注入到需要该服务的子组件中。
@@ -273,7 +234,7 @@ Accordingly, dependencies provided in the root `AppComponent` can be injected in
 
 所以，在根部的`AppComponent`提供的依赖单例就能被注入到应用程序中*任何地方*的*任何*组件。
 
-That isn't always desirable. 
+That isn't always desirable.
 Sometimes you want to restrict service availability to a particular region of the application.
 
 但这不一定总是想要的。有时候我们想要把服务的有效性限制到应用程序的一个特定区域。
@@ -288,12 +249,9 @@ Here, the `HeroService` is available to the `HeroesBaseComponent` because it is 
 这个例子中展示了为子组件和根组件`AppComponent`提供服务的相似之处，它们的语法是相同的。
 这里通过列入`providers`数组，在`HeroesBaseComponent`中提供了`HeroService`：
 
-
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="injection" title="src/app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)">
 
 </code-example>
-
-
 
 When Angular creates the `HeroesBaseComponent`, it also creates a new instance of `HeroService`
 that is visible only to the component and its children, if any.
@@ -305,10 +263,7 @@ That would result in a *different* instance of the service, living in a *differe
 
 也可以在应用程序别处的*不同的*组件里提供`HeroService`。这样就会导致在*不同*注入器中存在该服务的*不同*实例。
 
-
 <div class="l-sub-section">
-
-
 
 Examples of such scoped `HeroService` singletons appear throughout the accompanying sample code,
 including the `HeroBiosComponent`, `HeroOfTheMonthComponent`, and `HeroesBaseComponent`.
@@ -317,15 +272,9 @@ Each of these components has its own `HeroService` instance managing its own ind
 这个例子中，局部化的`HeroService`单例，遍布整份范例代码，包括`HeroBiosComponent`、`HeroOfTheMonthComponent`和`HeroBaseComponent`。
 这些组件每个都有自己的`HeroService`实例，用来管理独立的英雄库。
 
-
 </div>
 
-
-
-
 <div class="alert is-helpful">
-
-
 
 ### Take a break!
 
@@ -336,11 +285,9 @@ ever need to build their applications. It doesn't always have to be more complic
 
 对一些Angular开发者来说，这么多依赖注入知识可能已经是它们需要知道的全部了。不是每个人都需要更复杂的用法。
 
-
 </div>
 
 {@a multiple-service-instances}
-
 
 ## Multiple service instances (sandboxing)
 
@@ -350,7 +297,7 @@ Sometimes you want multiple instances of a service at *the same level of the com
 
 在*同一个级别的组件树*里，有时需要一个服务的多个实例。
 
-A good example is a service that holds state for its companion component instance. 
+A good example is a service that holds state for its companion component instance.
 You need a separate instance of the service for each component.
 Each service has its own work-state, isolated from the service-and-state of a different component.
 This is called *sandboxing* because each service and component instance has its own sandbox to play in.
@@ -360,46 +307,36 @@ This is called *sandboxing* because each service and component instance has its 
 每个服务有自己的工作状态，与其它组件的服务和状态隔离。我们称作*沙盒化*，因为每个服务和组件实例都在自己的沙盒里运行。
 
 {@a hero-bios-component}
-
-Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`. 
+Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`.
 
 想象一下，一个`HeroBiosComponent`组件显示三个`HeroBioComponent`的实例。
-
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="simple" title="ap/hero-bios.component.ts">
 
 </code-example>
-
-
 
 Each `HeroBioComponent` can edit a single hero's biography.
 A `HeroBioComponent` relies on a `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
 
 每个`HeroBioComponent`都能编辑一个英雄的生平。`HeroBioComponent`依赖`HeroCacheService`服务来对该英雄进行读取、缓存和执行其它持久化操作。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-cache.service.ts" region="service" title="src/app/hero-cache.service.ts">
 
 </code-example>
-
-
 
 Clearly the three instances of the `HeroBioComponent` can't share the same `HeroCacheService`.
 They'd be competing with each other to determine which hero to cache.
 
 很明显，这三个`HeroBioComponent`实例不能共享一样的`HeroCacheService`。要不然它们会相互冲突，争相把自己的英雄放在缓存里面。
 
-Each `HeroBioComponent` gets its *own* `HeroCacheService` instance 
+Each `HeroBioComponent` gets its *own* `HeroCacheService` instance
 by listing the `HeroCacheService` in its metadata `providers` array.
 
 通过在自己的元数据(metadata)`providers`数组里面列出`HeroCacheService`, 每个`HeroBioComponent`就能*拥有*自己独立的`HeroCacheService`实例。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="component" title="src/app/hero-bio.component.ts">
 
 </code-example>
-
-
 
 The parent `HeroBiosComponent` binds a value to the `heroId`.
 The `ngOnInit` passes that `id` to the service, which fetches and caches the hero.
@@ -408,24 +345,19 @@ And the template displays this data-bound property.
 
 父组件`HeroBiosComponent`把一个值绑定到`heroId`。`ngOnInit`把该`id`传递到服务，然后服务获取和缓存英雄。`hero`属性的getter从服务里面获取缓存的英雄，并在模板里显示它绑定到属性值。
 
-Find this example in <live-example name="dependency-injection-in-action">live code</live-example>
-and confirm that the three `HeroBioComponent` instances have their own cached hero data. 
+Find this example in <live-example name="dependency-injection-in-action">live code</live-example> and confirm that the three `HeroBioComponent` instances have their own cached hero data.
 
 到<live-example name="dependency-injection-in-action">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios.png" alt="Bios">
+
 </figure>
-
-
 
 {@a optional}
 
-
 {@a qualify-dependency-lookup}
-
-
 
 ## Qualify dependency lookup with _@Optional()_ and `@Host()`
 
@@ -449,25 +381,23 @@ used individually or together.
 但是有时候，需要限制这个(依赖)查找逻辑，且/或提供一个缺失的依赖。
 单独或联合使用`@Host`和`@Optional`限定型装饰器，就可以修改Angular的查找行为。
 
-The `@Optional` decorator tells Angular to continue when it can't find the dependency. 
+The `@Optional` decorator tells Angular to continue when it can't find the dependency.
 Angular sets the injection parameter to `null` instead.
 
 当Angular找不到依赖时，`@Optional`装饰器会告诉Angular继续执行。Angular把此注入参数设置为`null`(而不用默认的抛出错误的行为)。
 
-The `@Host` decorator stops the upward search at the *host component*. 
+The `@Host` decorator stops the upward search at the *host component*.
 
 `@Host`装饰器将把往上搜索的行为截止在*宿主组件*
 
-The host component is typically the component requesting the dependency. 
+The host component is typically the component requesting the dependency.
 But when this component is projected into a *parent* component, that parent component becomes the host.
 The next example covers this second case.
 
 宿主组件通常是申请这个依赖的组件。但当这个组件被投影(projected)进一个*父组件*后，这个父组件就变成了宿主。
 下一个例子会演示第二种情况。
 
-
 {@a demonstration}
-
 
 ### Demonstration
 
@@ -477,23 +407,17 @@ The `HeroBiosAndContactsComponent` is a revision of the `HeroBiosComponent` that
 
 `HeroBiosAndContactsComponent`是[前面](guide/dependency-injection-in-action#hero-bios-component)见过的`HeroBiosComponent`的修改版。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="hero-bios-and-contacts" title="src/app/hero-bios.component.ts (HeroBiosAndContactsComponent)">
 
 </code-example>
-
-
 
 Focus on the template:
 
 注意看模板：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="template" title="dependency-injection-in-action/src/app/hero-bios.component.ts" linenums="false">
 
 </code-example>
-
-
 
 Now there is a new `<hero-contact>` element between the `<hero-bio>` tags.
 Angular *projects*, or *transcludes*, the corresponding `HeroContactComponent` into the `HeroBioComponent` view,
@@ -502,49 +426,40 @@ placing it in the `<ng-content>` slot of the `HeroBioComponent` template:
 我们在`<hero-bio>`标签中插入了一个新的`<hero-contact>`元素。Angular就会把相应的`HeroContactComponent`*投影*(*transclude*)进`HeroBioComponent`的视图里，
 将它放在`HeroBioComponent`模板的`<ng-content>`标签槽里。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="template" title="src/app/hero-bio.component.ts (template)" linenums="false">
 
 </code-example>
-
-
 
 It looks like this, with the hero's telephone number from `HeroContactComponent` projected above the hero description:
 
 从`HeroContactComponent`获得的英雄电话号码，被投影到上面的英雄描述里，就像这样：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-and-content.png" alt="bio and contact">
+
 </figure>
-
-
 
 Here's the `HeroContactComponent` which demonstrates the qualifying decorators:
 
 下面的`HeroContactComponent`，示范了限定型装饰器(@Optional和@Host)：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="component" title="src/app/hero-contact.component.ts">
 
 </code-example>
-
-
 
 Focus on the constructor parameters:
 
 注意看构造函数的参数：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="ctor-params" title="src/app/hero-contact.component.ts" linenums="false">
 
 </code-example>
 
-
-
-The `@Host()` function decorating the  `heroCache` property ensures that 
+The `@Host()` function decorating the  `heroCache` property ensures that
 you get a reference to the cache service from the parent `HeroBioComponent`.
-Angular throws an error if the parent lacks that service, even if a component higher in the component tree happens to have it.
+Angular throws an error if the parent lacks that service, even if a component higher
+in the component tree happens to have it.
 
 `@Host()`函数是`heroCache`属性的装饰器，确保从其父组件`HeroBioComponent`得到一个缓存服务。如果该父组件不存在这个服务，Angular就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，Angular也会抛出错误。
 
@@ -560,17 +475,15 @@ Thanks to `@Optional()`, Angular sets the `loggerService` to null and the rest o
 
 如果没有同时使用`@Optional()`装饰器的话，Angular就会抛出错误。多亏了`@Optional()`，Angular把`loggerService`设置为null，并继续执行组件而不会抛出错误。
 
-
 Here's the `HeroBiosAndContactsComponent` in action.
 
 下面是`HeroBiosAndContactsComponent`的执行结果：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios-and-contacts.png" alt="Bios with contact into">
+
 </figure>
-
-
 
 If you comment out the `@Host()` decorator, Angular now walks up the injector ancestor tree
 until it finds the logger at the `AppComponent` level. The logger logic kicks in and the hero display updates
@@ -579,10 +492,10 @@ with the gratuitous "!!!", indicating that the logger was found.
 如果注释掉`@Host()`装饰器，Angular就会沿着注入器树往上走，直到在`AppComponent`中找到该日志服务。日志服务的逻辑加入进来，更新了英雄的显示信息，这表明确实找到了日志服务。
 
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-contact-no-host.png" alt="Without @Host">
+
 </figure>
-
-
 
 On the other hand, if you restore the `@Host()` decorator and comment out `@Optional`,
 the application fails for lack of the required logger at the host component level.
@@ -592,6 +505,7 @@ the application fails for lack of the required logger at the host component leve
 另一方面，如果恢复`@Host()`装饰器，注释掉`@Optional`，应用程序就会运行失败，因为它在宿主组件级别找不到需要的日志服务。
 <br>
 `EXCEPTION: No provider for LoggerService! (HeroContactComponent -> LoggerService)`
+
 {@a component-element}
 
 ## Inject the component's DOM element
@@ -609,47 +523,41 @@ the [Attribute Directives](guide/attribute-directives) page.
 
 为了说明这一点，我们在[属性型指令](guide/attribute-directives)`HighlightDirective`的基础上，编写了一个简化版本。
 
-
 <code-example path="dependency-injection-in-action/src/app/highlight.directive.ts" title="src/app/highlight.directive.ts">
 
 </code-example>
-
-
 
 The directive sets the background to a highlight color when the user mouses over the
 DOM element to which it is applied.
 
 当用户把鼠标移到DOM元素上时，指令将该元素的背景设置为一个高亮颜色。
 
-Angular sets the constructor's `el` parameter to the injected `ElementRef`, which is 
-a wrapper around that DOM element. 
+Angular sets the constructor's `el` parameter to the injected `ElementRef`, which is
+a wrapper around that DOM element.
 Its `nativeElement` property exposes the DOM element for the directive to manipulate.
 
 Angular把构造函数参数`el`设置为注入的`ElementRef`，该`ElementRef`代表了宿主的DOM元素， 它的`nativeElement`属性把该DOM元素暴露给了指令。
 
-The sample code applies the directive's `myHighlight` attribute to two `<div>` tags, 
+The sample code applies the directive's `myHighlight` attribute to two `<div>` tags,
 first without a value (yielding the default color) and then with an assigned color value.
 
 下面的代码把指令的`myHighlight`属性(Attribute)填加到两个`<div>`标签里，一个没有赋值，一个赋值了颜色。
-
 
 <code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" title="src/app/app.component.html (highlight)" linenums="false">
 
 </code-example>
 
-
-
 The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
 
 下图显示了鼠标移到`<hero-bios-and-contacts>`标签的效果：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
+
 </figure>
 
 {@a providers}
-
 
 ## Define dependencies with providers
 
@@ -671,12 +579,9 @@ Here's a typical example:
 我们通常在构造函数里面，为参数指定类型，让Angular来处理依赖注入。该参数类型就是依赖注入器所需的*令牌*。
 Angular把该令牌传给注入器，然后把得到的结果赋给参数。下面是一个典型的例子：
 
-
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts" linenums="false">
+<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts (component constructor injection)" linenums="false">
 
 </code-example>
-
-
 
 Angular asks the injector for the service associated with the `LoggerService`
 and assigns the returned value to the `logger` parameter.
@@ -693,10 +598,7 @@ A *provider* is a recipe for delivering a service associated with a *token*.
 如果它没有，也能在***提供商***的帮助下新建一个。
 *提供商*就是一个用于交付服务的配方，它被关联到一个令牌。
 
-
 <div class="l-sub-section">
-
-
 
 If the injector doesn't have a provider for the requested *token*, it delegates the request
 to its parent injector, where the process repeats until there are no more injectors.
@@ -705,10 +607,7 @@ If the search is futile, the injector throws an error&mdash;unless the request w
 如果注入器无法根据令牌在自己内部找到对应的提供商，它便将请求移交给它的父级注入器，这个过程不断重复，直到没有更多注入器为止。
 如果没找到，注入器就抛出一个错误...除非这个请求是[可选的](guide/dependency-injection-in-action#optional)。
 
-
 </div>
-
-
 
 A new injector has no providers.
 Angular initializes the injectors it creates with some providers it cares about.
@@ -718,15 +617,11 @@ usually in the `providers` array of the `Component` or `Directive` metadata:
 新建的注入器中没有提供商。
 Angular会使用一些自带的提供商来初始化这些注入器。我们必须自行注册属于_自己_的提供商，通常用`组件`或者`指令`元数据中的`providers`数组进行注册。
 
-
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="providers" title="src/app/app.component.ts (providers)">
 
 </code-example>
 
-
-
 {@a defining-providers}
-
 
 ### Defining providers
 
@@ -737,12 +632,9 @@ You mention the class in the `providers` array and you're done.
 
 简单的类提供商是最典型的例子。只要在`providers`数值里面提到该类就可以了。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="class-provider" title="src/app/hero-bios.component.ts (class provider)" linenums="false">
 
 </code-example>
-
-
 
 It's that simple because the most common injected service is an instance of a class.
 But not every dependency can be satisfied by creating a new instance of a class.
@@ -757,27 +649,21 @@ It's visually simple: a few properties and the logs produced by a logger.
 `HeroOfTheMonthComponent`例子示范了一些替代方案，展示了为什么需要它们。
 它看起来很简单：一些属性和一个日志输出。
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/hero-of-month.png" alt="Hero of the month">
+
 </figure>
-
-
 
 The code behind it gives you plenty to think about.
 
 这段代码的背后有很多值得深入思考的地方。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="hero-of-the-month" title="hero-of-the-month.component.ts">
 
 </code-example>
 
-
-
-
 {@a provide}
-
 
 #### The *provide* object literal
 
@@ -788,20 +674,17 @@ The *token* is usually a class but [it doesn't have to be](guide/dependency-inje
 
 该`provide`对象需要一个*令牌*和一个*定义对象*。该*令牌*通常是一个类，但[并非一定是](guide/dependency-injection-in-action#tokens)
 
-The *definition* object has a required property that specifies how to create  the singleton instance of the service. In this case, the property.
+The *definition* object has a required property that specifies how to create the singleton instance of the service. In this case, the property.
 
 该*定义*对象有一个必填属性(即`useValue`)，用来标识该提供商会如何新建和返回该服务的单例对象。
 
-
-
 {@a usevalue}
 
-
-#### useValue &mdash; the *value provider*
+#### useValue&mdash;the *value provider*
 
 #### useValue - *值-提供商
 
-*Set the `useValue` property to a ***fixed value*** that the provider can return as the service instance (AKA, the "dependency object").
+Set the `useValue` property to a ***fixed value*** that the provider can return as the service instance (AKA, the "dependency object").
 
 把一个***固定的值**，也就是该提供商可以将其作为依赖对象返回的值，赋给`useValue`属性。
 
@@ -818,12 +701,9 @@ the second specifies a literal string resource:
 `HeroOfTheMonthComponent`例子有两个*值-提供商*。
 第一个提供了一个`Hero`类的实例；第二个指定了一个字符串资源：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-value" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
 
 </code-example>
-
-
 
 The `Hero` provider token is a class which makes sense because the value is a `Hero`
 and the consumer of the injected hero would want the type information.
@@ -845,23 +725,17 @@ The `someHero` variable in this example was set earlier in the file:
 一个*值-提供商*的值必须要*立即*定义。不能事后再定义它的值。很显然，标题字符串是立刻可用的。
 该例中的`someHero`变量是以前在下面这个文件中定义的：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="some-hero" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
-
-
 
 The other providers create their values *lazily* when they're needed for injection.
 
 其它提供商只在需要注入它们的时候才创建并*惰性加载*它们的值。
 
-
-
 {@a useclass}
 
-
-#### useClass &mdash; the *class provider*
+#### useClass&mdash;the *class provider*
 
 #### useClass - *类-提供商*
 
@@ -879,15 +753,12 @@ Here are two examples in the `HeroOfTheMonthComponent`:
 
 请看下面`HeroOfTheMonthComponent`里的两个例子：
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-class" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
 
 </code-example>
 
-
-
 The first provider is the *de-sugared*, expanded form of the most typical case in which the
-class to be created (`HeroService`) is also the provider's dependency injection token. 
+class to be created (`HeroService`) is also the provider's dependency injection token.
 It's in this long form to de-mystify the preferred short form.
 
 第一个提供商是*展开了语法糖的*，是一个典型情况的展开。一般来说，被新建的类(`HeroService`)同时也是该提供商的注入令牌。
@@ -899,35 +770,24 @@ When _this component_ requests the `LoggerService`, it receives the `DateLoggerS
 
 第二个提供商使用`DateLoggerService`来满足`LoggerService`。该`LoggerService`在`AppComponent`级别已经被注册。当_这个组件_要求`LoggerService`的时候，它得到的却是`DateLoggerService`服务。
 
-
 <div class="l-sub-section">
-
-
 
 This component and its tree of child components receive the `DateLoggerService` instance.
 Components outside the tree continue to receive the original `LoggerService` instance.
 
 这个组件及其子组件会得到`DateLoggerService`实例。这个组件树之外的组件得到的仍是`LoggerService`实例。
 
-
 </div>
-
-
 
 The `DateLoggerService` inherits from `LoggerService`; it appends the current date/time to each message:
 
 `DateLoggerService`从`LoggerService`继承；它把当前的日期/时间附加到每条信息上。
 
-
 <code-example path="dependency-injection-in-action/src/app/date-logger.service.ts" region="date-logger-service" title="src/app/date-logger.service.ts" linenums="false">
 
 </code-example>
 
-
-
-
 {@a useexisting}
-
 
 #### _useExisting_&mdash;the *alias provider*
 
@@ -939,12 +799,9 @@ creating ***two ways to access the same service object***.
 
 使用`useExisting`，提供商可以把一个令牌映射到另一个令牌上。实际上，第一个令牌是第二个令牌所对应的服务的一个***别名***，创造了***访问同一个服务对象的两种方法***。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-existing" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
-
-
 
 Narrowing an API through an aliasing interface is _one_ important use case for this technique.
 The following example shows aliasing for that purpose.
@@ -957,66 +814,50 @@ Here the `MinimalLogger` [*class-interface*](guide/dependency-injection-in-actio
 
 想象一下如果`LoggerService`有个很大的API接口(虽然它其实只有三个方法，一个属性)，通过使用`MinimalLogger`[*类-接口*](guide/dependency-injection-in-action#class-interface)别名，就能成功的把这个API接口缩小到只暴露两个成员：
 
-
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" title="src/app/minimal-logger.service.ts" linenums="false">
 
 </code-example>
-
-
 
 Now put it to use in a simplified version of the `HeroOfTheMonthComponent`.
 
 现在，在一个简化版的`HeroOfTheMonthComponent`中使用它。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.1.ts" title="src/app/hero-of-the-month.component.ts (minimal version)" linenums="false">
 
 </code-example>
-
-
 
 The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `MinimalLogger` so only the `logs` and `logInfo` members are visible in a TypeScript-aware editor:
 
 `HeroOfTheMonthComponent`构造函数的`logger`参数是一个`MinimalLogger`类型，支持TypeScript的编辑器里，只能看到它的两个成员`logs`和`logInfo`：
 
-
 <figure>
-  <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger受限API">
+
+  <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger restricted API">
+
 </figure>
 
-
-
-Behind the scenes,Angular actually sets the `logger` parameter to the  full service registered under the `LoggingService` token 
-which happens to be the `DateLoggerService` that was [provided above](guide/dependency-injection-in-action#useclass).
+Behind the scenes, Angular actually sets the `logger` parameter to the full service registered under the `LoggingService` token which happens to be the `DateLoggerService` that was [provided above](guide/dependency-injection-in-action#useclass).
 
 实际上，Angular确实想把`logger`参数设置为注入器里`LoggerService`的完整版本。只是在之前的提供商注册里使用了`useClass`，
 所以该完整版本被`DateLoggerService`取代了。
 
-
 <div class="l-sub-section">
-
-
 
 The following image, which displays the logging date, confirms the point:
 
 在下面的图片中，显示了日志日期，可以确认这一点：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/date-logger-entry.png" alt="DateLoggerService entry">
+
 </figure>
-
-
 
 </div>
 
-
-
-
 {@a usefactory}
 
-
-#### _useFactory_&mdash; the *factory provider*
+#### _useFactory_&mdash;the *factory provider*
 
 #### useFactory - *工厂-提供商*
 
@@ -1025,12 +866,9 @@ as in this example.
 
 `useFactory` 提供商通过调用工厂函数来新建一个依赖对象，如下例所示。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-factory" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
-
-
 
 Use this technique to ***create a dependency object***
 with a factory function whose inputs are some ***combination of injected services and local state***.
@@ -1044,7 +882,7 @@ to the "Hero of the Month" contest.
 该*依赖对象*不一定是一个类实例。它可以是任何东西。在这个例子里，*依赖对象*是一个字符串，代表了**本月英雄**比赛的亚军的名字。
 
 The local state is the number `2`, the number of runners-up this component should show.
-It executes `runnersUpFactory` immediately with `2`. 
+It executes `runnersUpFactory` immediately with `2`.
 
 本地状态是数字`2`，该组件应该显示的亚军的个数。我们立刻用`2`来执行`runnersUpFactory`。
 
@@ -1053,33 +891,27 @@ The true provider factory function is the function that `runnersUpFactory` retur
 
 `runnersUpFactory`自身不是提供商工厂函数。真正的提供商工厂函数是`runnersUpFactory`返回的函数。
 
-
 <code-example path="dependency-injection-in-action/src/app/runners-up.ts" region="factory-synopsis" title="runners-up.ts (excerpt)" linenums="false">
 
 </code-example>
-
-
 
 That returned function takes a winning `Hero` and a `HeroService` as arguments.
 
 这个返回的函数需要一个`Hero`和一个`HeroService`参数。
 
-Angular supplies these arguments from injected values identified by 
-the two *tokens* in the `deps` array. 
+Angular supplies these arguments from injected values identified by
+the two *tokens* in the `deps` array.
 The two `deps` values are *tokens* that the injector uses
 to provide these factory function dependencies.
 
 Angular通过使用`deps`数组中的两个*令牌*，来识别注入的值，用来提供这些参数。这两个`deps`值是供注入器使用的*令牌*，用来提供工厂函数的依赖。
 
-After some undisclosed work, the function returns the string of names 
+After some undisclosed work, the function returns the string of names
 and Angular injects it into the `runnersUp` parameter of the `HeroOfTheMonthComponent`.
 
 一些内部工作后，这个函数返回名字字符串，Angular将其注入到`HeroOfTheMonthComponent`组件的`runnersUp`参数里。
 
-
 <div class="l-sub-section">
-
-
 
 The function retrieves candidate heroes from the `HeroService`,
 takes `2` of them to be the runners-up, and returns their concatenated names.
@@ -1088,29 +920,25 @@ for the full source code.
 
 该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字拼接起来。请到<live-example name="dependency-injection-in-action"></live-example>查看全部原代码。
 
-
 </div>
 
-
-
 {@a tokens}
-
-
 
 ## Provider token alternatives: the *class-interface* and *InjectionToken*
 
 ## 备选提供商令牌：*类-接口*和*InjectionToken*
 
 Angular dependency injection is easiest when the provider *token* is a class
-that is also the type of the returned dependency object , orwhat you usually call the *service*.
+that is also the type of the returned dependency object, or what you usually call the *service*.
 
 Angular依赖注入当*令牌*是类的时候是最简单的，该类同时也是返回的依赖对象的类型(通常直接称之为*服务*)。
 
 But the token doesn't have to be a class and even when it is a class,
 it doesn't have to be the same type as the returned object.
-That's the subject of the next section. 
+That's the subject of the next section.
 
 但令牌不一定都是类，就算它是一个类，它也不一定都返回类型相同的对象。这是下一节的主题。
+
 {@a class-interface}
 
 ### class-interface
@@ -1122,23 +950,17 @@ as the token for a provider of a `LoggerService`.
 
 在前面的*每月英雄*的例子中，我们用了`MinimalLogger`类作为`LoggerService` 提供商的令牌。
 
-
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-existing" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts">
 
 </code-example>
-
-
 
 The `MinimalLogger` is an abstract class.
 
 该`MinimalLogger`是一个抽象类。
 
-
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" title="dependency-injection-in-action/src/app/minimal-logger.service.ts" linenums="false">
 
 </code-example>
-
-
 
 You usually inherit from an abstract class.
 But *no class* in this application inherits from `MinimalLogger`.
@@ -1166,10 +988,7 @@ Such a narrowing interface helps decouple the concrete class from its consumers.
 
 ***类-接口***应该*只*定义允许它的消费者调用的成员。窄的接口有助于解耦该类的具体实现和它的消费者。
 
-
 <div class="l-sub-section">
-
-
 
 #### Why *MinimalLogger* is a class and not a TypeScript interface
 
@@ -1197,24 +1016,17 @@ The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript for 
 
 当然，一个真实的类会占用内存。为了节省内存占用，该类应该***没有具体的实现***。`MinimalLogger`会被转译成下面这段没有优化过的，尚未最小化的JavaScript：
 
-
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" region="minimal-logger-transpiled" title="dependency-injection-in-action/src/app/minimal-logger.service.ts" linenums="false">
 
 </code-example>
-
-
 
 Notice that it doesn't have a single member. It never grows no matter how many members you add to the class *as long as those members are typed but not implemented*. Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
 
 注意，***只要不实现它***，不管添加多少成员，它永远不会增长大小。
 
-
 </div>
 
-
-
 {@a injection-token}
-
 
 ### _InjectionToken_
 
@@ -1233,39 +1045,30 @@ another token that happens to have the same name.
 这样的对象没有应用程序接口，所以不能用一个类来表示。更适合表示它们的是：唯一的和符号性的令牌，一个JavaScript对象，拥有一个友好的名字，但不会与其它的同名令牌发生冲突。
 
 The `InjectionToken` has these characteristics.
-You encountered them twice in the *Hero of the Month* example, 
+You encountered them twice in the *Hero of the Month* example,
 in the *title* value provider and in the *runnersUp* factory provider.
 
 `InjectionToken`具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* 工厂提供商。
-
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="provide-injection-token" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
 
 </code-example>
 
-
-
 You created the `TITLE` token like this:
 
 这样创建`TITLE`令牌：
-
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="injection-token" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
 
 </code-example>
 
-
-
 The type parameter, while optional, conveys the dependency's type to developers and tooling.
 The token description is another developer aid.
 
-带类型（可选）的参数，向开发人员和开发工具揭示了该依赖的类型。
-令牌描述则通过另一种形式给开发人员提供帮助。
-
+类型参数，虽然是可选的，但可以向开发者和开发工具传达类型信息。
+而且这个令牌的描述信息也可以为开发者提供帮助。
 
 {@a di-inheritance}
-
-
 
 ## Inject into a derived class
 
@@ -1278,17 +1081,16 @@ and then pass them down to the base class through the constructor.
 
 当编写一个继承自另一个组件的组件时，要格外小心。如果基础组件有依赖注入，必须要在派生类中重新提供和重新注入它们，并将它们通过构造函数传给基类。
 
-In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent` 
+In this contrived example, `SortedHeroesComponent` inherits from `HeroesBaseComponent`
 to display a *sorted* list of heroes.
 
 在这个刻意生成的例子里，`SortedHeroesComponent`继承自`HeroesBaseComponent`，显示一个*被排序*的英雄列表。
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/sorted-heroes.png" alt="Sorted Heroes">
+
 </figure>
-
-
 
 The `HeroesBaseComponent` could stand on its own.
 It demands its own instance of the `HeroService` to get heroes
@@ -1296,16 +1098,11 @@ and displays them in the order they arrive from the database.
 
 `HeroesBaseComponent`能自己独立运行。它在自己的实例里要求`HeroService`，用来得到英雄，并将他们按照数据库返回的顺序显示出来。
 
-
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="heroes-base" title="src/app/sorted-heroes.component.ts (HeroesBaseComponent)">
 
 </code-example>
 
-
-
 <div class="l-sub-section">
-
-
 
 ***Keep constructors simple.*** They should do little more than initialize variables.
 This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
@@ -1314,10 +1111,7 @@ That's why you call the `HeroService` from within the `ngOnInit` rather than the
 让构造函数保持简单。它们应该***只***用来初始化变量。这个规则会帮助我们在测试环境中放心的构造组件，以免在构造它们时，无意做了一些非常戏剧化的动作(比如与服务器进行会话)。
 这就是为什么我们要在`ngOnInit`里面调用`HeroService`，而不是在构造函数中。
 
-
 </div>
-
-
 
 Users want to see the heroes in alphabetical order.
 Rather than modify the original component, sub-class it and create a
@@ -1333,12 +1127,9 @@ then pass it down to the base class inside the constructor.
 
 可惜，Angular不能直接在基类里直接注入`HeroService`。必须在*这个*组件里再次提供`HeroService`，然后通过构造函数传给基类。
 
-
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="sorted-heroes" title="src/app/sorted-heroes.component.ts (SortedHeroesComponent)">
 
 </code-example>
-
-
 
 Now take note of the `afterGetHeroes()` method.
 Your first instinct might have been to create an `ngOnInit` method in `SortedHeroesComponent` and do the sorting there.
@@ -1357,10 +1148,7 @@ These complications argue for *avoiding component inheritance*.
 
 分析上面的这些复杂性是为了强调*避免使用组件继承*这一点。
 
-
 {@a find-parent}
-
-
 
 ## Find a parent component by injection
 
@@ -1411,27 +1199,20 @@ In the following example, the parent `AlexComponent` has several children includ
 
 在下面的例子中，父组件`AlexComponent`有几个子组件，包括`CathyComponent`:
 
-
 {@a alex}
-
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-1" title="parent-finder.component.ts (AlexComponent v.1)" linenums="false">
 
 </code-example>
-
-
 
 *Cathy* reports whether or not she has access to *Alex*
 after injecting an `AlexComponent` into her constructor:
 
 在注入*AlexComponent`进来后，*Cathy*报告它是否对*Alex*有访问权：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" title="parent-finder.component.ts (CathyComponent)" linenums="false">
 
 </code-example>
-
-
 
 Notice that even though the [@Optional](guide/dependency-injection-in-action#optional) qualifier
 is there for safety,
@@ -1440,9 +1221,7 @@ confirms that the `alex` parameter is set.
 
 安全起见，我们添加了[@Optional](guide/dependency-injection-in-action#optional)装饰器，但是<live-example name="dependency-injection-in-action"></live-example>显示`alex`参数确实被设置了。
 
-
 {@a base-parent}
-
 
 ### Cannot find a parent by its base class
 
@@ -1454,7 +1233,7 @@ What if you *don't* know the concrete parent component class?
 
 A re-usable component might be a child of multiple components.
 Imagine a component for rendering breaking news about a financial instrument.
-For  business reasons, this news component makes frequent calls 
+For business reasons, this news component makes frequent calls
 directly into its parent instrument as changing market data streams by.
 
 一个可复用的组件可能是多个组件的子级。想象一个用来渲染金融工具头条新闻的组件。由于商业原因，该新闻组件在实时变化的市场数据流过时，要频繁的直接调用其父级工具。
@@ -1465,10 +1244,7 @@ whose API your `NewsComponent` understands.
 
 该应用程序可能有多于一打的金融工具组件。如果幸运，它们可能会从同一个基类派生，其API是`NewsComponent`组件所能理解的。
 
-
 <div class="l-sub-section">
-
-
 
 Looking for components that implement an interface would be better.
 That's not possible because TypeScript interfaces disappear
@@ -1477,39 +1253,31 @@ There's no artifact to look for.
 
 更好的方式是通过接口来寻找实现了它的组件。但这是不可能的，因为TypeScript的接口在编译成JavaScript以后就消失了，JavaScript不支持接口。我们没有东西可查。
 
-
 </div>
 
-
-
 This isn't necessarily good design.
-This example is examining *whether a component can 
-inject its parent via the parent's base class
+This example is examining *whether a component can
+inject its parent via the parent's base class*.
 
 *.这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
 
-The sample's `CraigComponent` explores this question. [Looking back](guide/dependency-injection-in-action#alex) ,
+The sample's `CraigComponent` explores this question. [Looking back](guide/dependency-injection-in-action#alex),
 you see that the `Alex` component *extends* (*inherits*) from a class named `Base`.
 
-`CraigComponent`例子探究了这个问题。[往回看Alex]{#alex}，我们看到`Alex`组件*扩展*(*派生*)自一个叫`Base`的类。
+`CraigComponent`例子探究了这个问题。[往回看Alex]{guide/dependency-injection-in-action#alex}，我们看到`Alex`组件*扩展*(*派生*)自一个叫`Base`的类。
 
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" title="parent-finder.component.ts (Alex class signature)" linenums="false">
 
 </code-example>
 
-
-
 The `CraigComponent` tries to inject `Base` into its `alex` constructor parameter and reports if it succeeded.
 
 `CraigComponent`试图把`Base`注入到到它的`alex`构造函数参数，来报告是否成功。
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="craig" title="parent-finder.component.ts (CraigComponent)" linenums="false">
 
 </code-example>
-
-
 
 Unfortunately, this does not work.
 The <live-example name="dependency-injection-in-action"></live-example>
@@ -1519,9 +1287,7 @@ confirms that the `alex` parameter is null.
 可惜这样不行。<live-example name="dependency-injection-in-action"></live-example>显示`alex`参数是null。
 *不能通过基类注入父组件*。
 
-
 {@a class-interface-parent}
-
 
 ### Find a parent by its class-interface
 
@@ -1547,15 +1313,11 @@ and add that provider to the `providers` array of the `@Component` metadata for 
 我们编写一个[*别名提供商*](guide/dependency-injection-in-action#useexisting) &mdash；一个拥有`useExisting`定义的`provide`函数 &mdash;
 它新建一个*备选的*方式来注入同一个组件实例，并把这个提供商添加到`AlexComponent`的`@Component`元数据里的`providers`数组。
 
-
 {@a alex-providers}
-
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="parent-finder.component.ts (AlexComponent providers)" linenums="false">
 
 </code-example>
-
-
 
 [Parent](guide/dependency-injection-in-action#parent-token) is the provider's *class-interface* token.
 The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the circular reference you just created by having the `AlexComponent` refer to itself.
@@ -1567,32 +1329,27 @@ the same way you've done it before:
 
 *Carol*，*Alex*的第三个子组件，把父级注入到了自己的`parent`参数，和之前做的一样：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" title="parent-finder.component.ts (CarolComponent class)" linenums="false">
 
 </code-example>
-
-
 
 Here's *Alex* and family in action:
 
 下面是*Alex*和其家庭的运行结果：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
+
 </figure>
-
-
 
 {@a parent-tree}
 
-
-### Find the parent in a tree of parentswith _@SkipSelf()_
+### Find the parent in a tree of parents with _@SkipSelf()_
 
 ### 通过父级树找到父组件
 
-Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*. 
+Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*.
 Both *Alice* and *Barry* implement the `Parent` *class-interface*.
 
 想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。*Alice*和*Barry*都实现了这个`Parent`*类-接口*。
@@ -1607,12 +1364,9 @@ Here's *Barry*:
 
 下面是*Barry*的代码：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" title="parent-finder.component.ts (BarryComponent)" linenums="false">
 
 </code-example>
-
-
 
 *Barry*'s `providers` array looks just like [*Alex*'s](guide/dependency-injection-in-action#alex-providers).
 If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](guide/dependency-injection-in-action#provideparent).
@@ -1623,7 +1377,6 @@ If you're going to keep writing [*alias providers*](guide/dependency-injection-i
 For now, focus on *Barry*'s constructor:
 
 眼下，请注意*Barry*的构造函数：
-
 
 <code-tabs>
 
@@ -1637,44 +1390,38 @@ For now, focus on *Barry*'s constructor:
 
 </code-tabs>
 
-
-
-
-
 It's identical to *Carol*'s constructor except for the additional `@SkipSelf` decorator.
 
 除额外添加了一个的`@SkipSelf`外，它和*Carol*的构造函数一样。
 
 `@SkipSelf` is essential for two reasons:
 
- 添加`@SkipSelf`主要是出于两个原因：
- 
+添加`@SkipSelf`主要是出于两个原因：
+
 1. It tells the injector to start its search for a `Parent` dependency in a component *above* itself,
 which *is* what parent means.
 
-    它告诉注入器从一个在自己*上一级*的组件开始搜索一个`Parent`依赖。
+   它告诉注入器从一个在自己*上一级*的组件开始搜索一个`Parent`依赖。
 
 2. Angular throws a cyclic dependency error if you omit the `@SkipSelf` decorator.
 
-    如果没写`@SkipSelf`装饰器的话，Angular就会抛出一个循环依赖错误。
+   如果没写`@SkipSelf`装饰器的话，Angular就会抛出一个循环依赖错误。
 
-    `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
+  `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
 
-    `不能创建循环依赖实例！(BethComponent -> Parent -> BethComponent)`
+  `不能创建循环依赖实例！(BethComponent -> Parent -> BethComponent)`
 
 Here's *Alice*, *Barry* and family in action:
 
 这里是*Alice*，*Barry*和该家庭的操作演示：
 
-
 <figure>
+
   <img src="generated/images/guide/dependency-injection-in-action/alice.png" alt="Alice in action">
+
 </figure>
 
-
-
 {@a parent-token}
-
 
 ### The *Parent* class-interface
 
@@ -1688,12 +1435,9 @@ The example defines a `Parent` *class-interface*.
 
 我们的例子定义了一个`Parent`*类-接口*。
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="parent" title="parent-finder.component.ts (Parent class-interface)" linenums="false">
 
 </code-example>
-
-
 
 The `Parent` *class-interface* defines a `name` property with a type declaration but *no implementation*.
 The `name` property is the only member of a parent component that a child component can call.
@@ -1706,12 +1450,9 @@ A component that could serve as a parent *should* implement the *class-interface
 
 一个能用做父级的组件*应该*实现*类-接口*，和下面的`AliceComponent`的做法一样：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-class-signature" title="parent-finder.component.ts (AliceComponent class signature)" linenums="false">
 
 </code-example>
-
-
 
 Doing so adds clarity to the code.  But it's not technically necessary.
 Although the `AlexComponent` has a `name` property, as required by its `Base` class,
@@ -1719,29 +1460,20 @@ its class signature doesn't mention `Parent`:
 
 这样做可以提升代码的清晰度，但严格来说并不是必须的。虽然`AlexComponent`有一个`name`属性(来自`Base`类的要求)，但它的类签名并不需要提及`Parent`。
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" title="parent-finder.component.ts (AlexComponent class signature)" linenums="false">
 
 </code-example>
 
-
-
 <div class="l-sub-section">
 
-
-
-The `AlexComponent` *should* implement `Parent` as a matter of proper style. 
-It doesn't in this example *only* to demonstrate that the code will compile and run without the interface 
+The `AlexComponent` *should* implement `Parent` as a matter of proper style.
+It doesn't in this example *only* to demonstrate that the code will compile and run without the interface
 
 为了正确的代码风格，该`AlexComponent`*应该*实现`Parent`。在这个例子里它没有这样，只是为了演示在没有该接口的情况下，该代码仍会被正确编译并运行。
 
-
 </div>
 
-
-
 {@a provideparent}
-
 
 ### A _provideParent()_ helper function
 
@@ -1752,34 +1484,25 @@ especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-
 
 编写父组件相同的各种*别名提供商*很快就会变得啰嗦，在用[*forwardRef*](guide/dependency-injection-in-action#forwardref)的时候尤其绕口：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
 
 </code-example>
-
-
 
 You can extract that logic into a helper function like this:
 
 可以像这样把该逻辑抽取到一个助手函数里：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-the-parent" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
 
 </code-example>
-
-
 
 Now you can add a simpler, more meaningful parent provider to your components:
 
 现在就可以为组件添加一个更简单、直观的父级提供商了：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
 
 </code-example>
-
-
 
 You can do better. The current version of the helper function can only alias the `Parent` *class-interface*.
 The application might have a variety of parent types, each with its own *class-interface* token.
@@ -1790,27 +1513,19 @@ Here's a revised version that defaults to `parent` but also accepts an optional 
 
 下面是一个修改版本，默认接受一个`Parent`，但同时接受一个可选的第二参数，可以用来指定一个不同的父级*类-接口*。
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
 
 </code-example>
-
-
 
 And here's how you could use it with a different parent type:
 
 下面的代码演示了如何使它添加一个不同类型的父级：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" title="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
 
 </code-example>
 
-
-
 {@a forwardref}
-
-
 
 ## Break circularities with a forward class reference (*forwardRef*)
 
@@ -1822,9 +1537,9 @@ You can't refer directly to a class until it's been defined.
 在TypeScript里面，类声明的顺序是很重要的。如果一个类尚未定义，就不能引用它。
 
 This isn't usually a problem, especially if you adhere to the recommended *one class per file* rule.
-But sometimes circular references are unavoidable. 
+But sometimes circular references are unavoidable.
 You're in a bind when class 'A' refers to class 'B' and 'B' refers to 'A'.
-One of them has to be defined first. 
+One of them has to be defined first.
 
 这通常不是一个问题，特别是当我们遵循*一个文件一个类*规则的时候。
 但是有时候循环引用可能不能避免。当一个类*A引用类B*，同时'B'引用'A'的时候，我们就陷入困境了：它们中间的某一个必须要先定义。
@@ -1836,7 +1551,6 @@ Angular的`forwardRef()`函数建立一个*间接地*引用，Angular可以随�
 The *Parent Finder* sample is full of circular class references that are impossible to break.
 
 *Parent Finder*是一个充满了无法解决的循环引用的例子
-
 
 You face this dilemma when a class makes *a reference to itself*
 as does the `AlexComponent` in its `providers` array.
@@ -1850,10 +1564,7 @@ Break the circularity with `forwardRef`:
 
 我们使用`forwardRef`来打破这种循环：
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="parent-finder.component.ts (AlexComponent providers)" linenums="false">
 
 </code-example>
-
-
 

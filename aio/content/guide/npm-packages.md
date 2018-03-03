@@ -4,7 +4,7 @@
 
  The [**Angular CLI**](https://cli.angular.io/), Angular applications, and Angular itself depend upon features and functionality provided by libraries that are available as [**npm**](https://docs.npmjs.com/) packages.
 
-[**Angular CLI**](https://cli.angular.io/)、Angular应用程序以及Angular本身都依赖于很多第三方包(包括Angular自己)提供的特性和功能。这些都是 [**npm**](https://docs.npmjs.com/) 包。
+ [**Angular CLI**](https://cli.angular.io/)、Angular应用程序以及Angular本身都依赖于很多第三方包(包括Angular自己)提供的特性和功能。这些都是 [**npm**](https://docs.npmjs.com/) 包。
 
 You can download and install these npm packages with the [**npm client**](https://docs.npmjs.com/cli/install), which runs as a node.js application.
 
@@ -18,7 +18,7 @@ The Angular CLI uses `yarn` by default to install npm packages when you create a
 
 <div class="l-sub-section">
 
-Node.js and npm are essential to Angular development. 
+Node.js and npm are essential to Angular development.
 
 Node.js和npm是做Angular开发的基础。
 
@@ -31,8 +31,8 @@ if they're not already installed on your machine.
 by running the commands `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-通过在终端/控制台窗口中运行`node -v`和`npm -v`命令，来**验证下你是否正在使用node `v4.x.x`和npm `3.x.x`**。
-    过老的版本有可能出现问题。
+在终端/控制器窗口运行命令`node -v`和`npm -v`，来**确认你运行的 node 是`v4.x.x`或更高，npm 为`3.x.x`或更高。**
+老版本会产生错误。
 
 Consider using [nvm](https://github.com/creationix/nvm) for managing multiple
 versions of node and npm. You may need [nvm](https://github.com/creationix/nvm) if
@@ -86,17 +86,17 @@ The `dependencies` section of `package.json` contains:
 
 应用程序的`package.json`文件中，`dependencies`下包括：
 
-* **Angular packages **: Angular core and optional modules; their package names begin `@angular/`.
+* **Angular packages**: Angular core and optional modules; their package names begin `@angular/`.
 
   **Angular 包**：Angular 的核心和可选模块，它们的包名以`@angular/`开头。
   
 * **Support packages**: 3rd party libraries that must be present for Angular apps to run.
 
-  **支持包**：那些Angular 应用运行时必需的第三方库。
-  
+   **支持包**：那些Angular 应用运行时必需的第三方库。
+
 * **Polyfill packages**: Polyfills plug gaps in a browser's JavaScript implementation.
 
-  **腻子脚本**：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
+   **腻子脚本**：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
 
 ### Angular Packages
 
@@ -187,7 +187,6 @@ which polyfills missing features for several popular browser.
 
 **[rxjs](https://github.com/benlesh/RxJS)**：很多 Angular API 都会返回**可观察对象（Observable）**。RxJS 是个对[Observables规范](https://github.com/zenparsing/es-observable)的当前实现。[TC39](http://www.ecma-international.org/memento/TC39.htm)委员会将来会决定它是否成为 JavaScript 语言标准的一部分。
 
-
 **[zone.js](https://github.com/angular/zone.js)**: Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the
 [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
 
@@ -225,6 +224,10 @@ For example, see the [Angular language service extension for VS Code](https://ma
 **[codelyzer](https://www.npmjs.com/package/codelyzer)**: A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).
 
 **[codelyzer](https://www.npmjs.com/package/codelyzer)**：专用于 Angular 应用的 linter，它的规则适用于 Angular 的[风格指南](guide/styleguide)。
+
+**jasmine/... **: packages to support the [Jasmine](https://jasmine.github.io/) test library.
+
+**jasmine/... **：[Jasmine](https://jasmine.github.io/) 测试库的支持包。
 
 **karma/... **: packages to support the [karma](https://www.npmjs.com/package/karma) test runner.
 
@@ -277,5 +280,6 @@ The browser downloads this bundle, not the original package files.
 浏览器要下载的是这个包，而不是原始的包文件。
 
 See the [Deployment](guide/deployment) to learn more.
+
 
 参见[部署](guide/deployment)一章了解详情。

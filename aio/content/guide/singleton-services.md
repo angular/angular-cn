@@ -2,7 +2,10 @@
 
 #### Prerequisites:
 
+#### 前提条件：
+
 * A basic understanding of [Bootstrapping](guide/bootstrapping).
+
 * Familiarity with [Providers](guide/providers).
 
 For a sample app using the app-wide singleton service that this page describes, see the
@@ -24,6 +27,7 @@ The following example module is called, as a convention, `CoreModule`. This use 
 a way of providing services from a designated NgModule.
 
 <code-example path="ngmodules/src/app/core/core.module.ts" region="user-service" title="src/app/core/core.module.ts" linenums="false">
+
 </code-example>
 
 Here, `CoreModule` provides the `UserService`, and because `AppModule`
@@ -51,15 +55,18 @@ As a general rule, import modules with providers _exactly once_,
 preferably in the application's _root module_.
 That's also usually the best place to configure, wrap, and override them.
 
+作为一个通用的规则，应该*只导入一次*带提供商的模块，最好在应用的*根模块*中。
+那里也是配置、包装和改写这些服务的最佳位置。
+
 For more detailed information on services, see the [Services](tutorial/toh-pt4) chapter of the
 [Tour of Heroes tutorial](tutorial).
-
 
 ## `forRoot()`
 
 If a module provides both providers and declarations (components, directives, pipes) then loading it in a child injector such as a route, would duplicate the provider instances. The duplication of providers would cause issues as they would shadow the root instances, which are probably meant to be singletons. For this reason Angular provides a way to separate providers out of the module so that same module can be imported into the root module with `providers` and child modules without `providers`.
 
 1. Create a static method `forRoot()` (by convention) on the module.
+
 2. Place the providers into the `forRoot` method as follows.
 
 <!-- MH: show a simple example how to do that without going to deep into it. -->
@@ -79,6 +86,7 @@ facility for configuring those providers as well through the
 a simple object with the following properties:
 
 * `ngModule`: in this example, the `CoreModule` class.
+
 * `providers`: the configured providers.
 
 In the <live-example name="ngmodules">live example</live-example>
@@ -158,23 +166,30 @@ Now `parentModule` exists and the constructor throws the error.
 Here are the two files in their entirety for reference:
 
 <code-tabs linenums="false">
+
  <code-pane
    title="app.module.ts"
    path="ngmodules/src/app/app.module.ts">
+
  </code-pane>
+
  <code-pane
    title="core.module.ts"
    region="whole-core-module"
    path="ngmodules/src/app/core/core.module.ts">
- </code-pane>
-</code-tabs>
 
+ </code-pane>
+
+</code-tabs>
 
 <hr>
 
 ## More on NgModules
 
 You may also be interested in:
+
 * [Sharing Modules](guide/sharing-ngmodules), which elaborates on the concepts covered on this page.
+
 * [Lazy Loading Modules](guide/lazy-loading-ngmodules).
+
 * [NgModule FAQ](guide/ngmodule-faq).

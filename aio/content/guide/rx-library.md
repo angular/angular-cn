@@ -5,15 +5,18 @@ Reactive programming is an asynchronous programming paradigm concerned with data
 RxJS provides an implementation of the `Observable` type, which is needed until the type becomes part of the language and until browsers support it. The library also provides utility functions for creating and working with observables. These utility functions can be used for:
 
 * Converting existing code for async operations into observables
+
 * Iterating through the values in a stream
+
 * Mapping values to different types
+
 * Filtering streams
+
 * Composing multiple streams
 
 ## Observable creation functions
 
 RxJS offers a number of functions that can be used to create new observables. These functions can simplify the process of creating observables from things such as events, timers, promises, and so on. For example:
-
 
 <code-example path="rx-library/src/simple-creation.ts" region="promise" title="Create an observable from a promise"></code-example>
 
@@ -48,7 +51,9 @@ The `pipe()` function is also a method on the RxJS `Observable`, so you use this
 RxJS provides many operators (over 150 of them), but only a handful are used frequently. Here is a list of common operators; for usage examples, see  [RxJS 5 Operators By Example](https://github.com/btroncone/learn-rxjs/blob/master/operators/complete.md) in RxJS documentation.
 
 <div class="l-sub-section">
+
   Note that, for Angular apps, we prefer combining operators with pipes, rather than chaining. Chaining is used in many RxJS examples.
+
 </div>
 
 | Area | Operators |
@@ -61,6 +66,8 @@ RxJS provides many operators (over 150 of them), but only a handful are used fre
 | Multicasting | `share` |
 
 ## Error handling
+
+## 错误处理
 
 In addition to the `error()` handler that you provide on subscription, RxJS provides the `catchError` operator that lets you handle known errors in the observable recipe.
 

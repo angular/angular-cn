@@ -8,7 +8,7 @@ It is a superset of JavaScript with design-time support for type safety and tool
 TypeScript是Angular应用开发中使用的主语言。
 它是JavaScript的“方言”之一，为类型安全和工具化而做了设计期支持。
 
-Browsers can't execute TypeScript directly. Typescript must be "transpiled" into JavaScript using the *tsc* compiler
+Browsers can't execute TypeScript directly. Typescript must be "transpiled" into JavaScript using the *tsc* compiler,
 which requires some configuration.
 
 浏览器不能直接执行TypeScript。它得先用*tsc*编译器转译(transpile)成JavaScript，而且编译器需要进行一些配置。
@@ -18,18 +18,16 @@ that are important to Angular developers, including details about the following 
 
 本页面会涵盖TypeScript配置与环境的某些方面，这些对Angular开发者是很重要的。具体来说包括下列文件：
 
-* [tsconfig.json](guide/typescript-configuration#tsconfig) &mdash; TypeScript compiler configuration.
+* [tsconfig.json](guide/typescript-configuration#tsconfig)&mdash;TypeScript compiler configuration.
 
   [tsconfig.json](guide/typescript-configuration#tsconfig) - TypeScript编译器配置。
   
-* [typings](guide/typescript-configuration#typings) &mdash; TypesScript declaration files.
+* [typings](guide/typescript-configuration#typings)&mdash;TypesScript declaration files.
 
   [typings](guide/typescript-configuration#typings) - TypesScript类型声明文件。
 
 
 {@a tsconfig}
-
-
 
 ## *tsconfig.json*
 
@@ -40,10 +38,7 @@ guide the compiler as it generates JavaScript files.
 
 我们通常会往项目中加入一个TypeScript配置文件(`tsconfig.json`)，来指导编译器如何生成JavaScript文件。
 
-
 <div class="l-sub-section">
-
-
 
 For details about `tsconfig.json`, see the official
 [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
@@ -51,15 +46,11 @@ For details about `tsconfig.json`, see the official
 要了解关于`tsconfig.json`的详情，请参阅官方提供的
 [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。
 
-
 </div>
-
-
 
 The [Setup](guide/setup) guide uses the following `tsconfig.json`:
 
 我们在[搭建本地开发环境](guide/setup)中创建过如下的`tsconfig.json`：
-
 
 <code-example path="quickstart/src/tsconfig.1.json" title="tsconfig.json" linenums="false"></code-example>
 
@@ -67,9 +58,7 @@ This file contains options and flags that are essential for Angular applications
 
 该文件中的选项和标志是写Angular应用程序的基础。
 
-
 {@a noImplicitAny}
-
 
 ### *noImplicitAny* and *suppressImplicitAnyIndexErrors*
 
@@ -91,14 +80,12 @@ the compiler silently defaults the type to `any`. That's what is meant by *impli
 如果编译器无法根据变量的用途推断出变量的类型，它就会悄悄的把变量类型默认为`any`。这就是*隐式`any`*的含义。
 
 The documentation setup sets the `noImplicitAny` flag to `true`.
-
-本文档在环境搭建时将`noImplicitAny`标志设置为`true`。
-
 When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
 the type, it still generates the JavaScript files, but it also **reports an error**.
 Many seasoned developers prefer this stricter setting because type checking catches more
 unintentional errors at compile time.
 
+本文档在环境搭建时将`noImplicitAny`标志设置为`true`。
 当`noImplicitAny`标志是`true`并且TypeScript编译器无法推断出类型时，它仍然会生成JavaScript文件。
 但是它也会**报告一个错误**。
 很多饱经沧桑的程序员更喜欢这种严格的设置，因为类型检查能在编译期间捕获更多意外错误。
@@ -115,22 +102,17 @@ You can suppress them with the following additional flag:
 大多数程序员可能觉得*这种错误*是个烦恼而不是助力。
 我们可以使用另一个标志来禁止它们。
 
-
 <code-example format=".">
+
   "suppressImplicitAnyIndexErrors":true
 
 </code-example>
-
-
 
 The documentation setup sets this flag to `true` as well.
 
 本文档在环境搭建时将`noImplicitAny`标志设置为`true`。
 
-
 {@a typings}
-
-
 
 ## TypeScript Typings
 
@@ -139,7 +121,7 @@ The documentation setup sets this flag to `true` as well.
 Many JavaScript libraries, such as jQuery, the Jasmine testing library, and Angular,
 extend the JavaScript environment with features and syntax
 that the TypeScript compiler doesn't recognize natively.
-When the compiler doesn't recognize something, it throws an error. 
+When the compiler doesn't recognize something, it throws an error.
 
 很多JavaScript库，比如jQuery、Jasmine测试库和Angular，会通过新的特性和语法来扩展JavaScript环境。
 而TypeScript编译器并不能原生的识别它们。
@@ -161,7 +143,8 @@ The `node_modules/@angular/core/` folder of any Angular application contains sev
 很多库在自己的npm包中都包含了它们的类型定义文件，TypeScript编译器和编辑器都能找到它们。Angular库也是这样的。
 任何Angular应用程序的`node_modules/@angular/core/`目录下，都包含几个`d.ts`文件，它们描述了Angular的各个部分。
 
-**You need do nothing to get *typings* files for library packages that include `d.ts` files. Angular packages include them already.**
+**You need do nothing to get *typings* files for library packages that include `d.ts` files.
+Angular packages include them already.**
 
 **我们不需要为那些包含了`d.ts`文件的库获取*类型定义*文件 —— Angular的所有包都是如此。**
 
@@ -183,13 +166,11 @@ list of declaration files to be included:
 
 因为《快速上手》的目标为`es5`，所以我们可以重写声明文件列表来包含：
 
-
 <code-example format=".">
+
   "lib": ["es2015", "dom"]
 
 </code-example>
-
-
 
 Thanks to that, you have all the `es6` typings even when targeting `es5`.
 
@@ -217,27 +198,24 @@ For instance, to install typings for `jasmine` you could do `npm install @types/
 
 比如，要安装`jasmine`的类型信息，我们可以执行`npm install @types/jasmine --save-dev`。
 
-
 QuickStart identifies two *typings*, or `d.ts`, files:
 
 我们在“快速上手”中指定过两个*类型定义*文件（`d.ts`）：
 
 * [jasmine](http://jasmine.github.io/) typings for the Jasmine test framework.
 
-  [jasmine](http://jasmine.github.io/)是Jasmine测试框架的类型定义
-  
-* [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *nodejs* environment; 
+   [jasmine](http://jasmine.github.io/)是Jasmine测试框架的类型定义
+
+* [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *nodejs* environment;
 you can view an example in the [webpack](guide/webpack) page.
 
-  [node](https://www.npmjs.com/package/@types/node)是为了在*nodejs*环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
-  
+   [node](https://www.npmjs.com/package/@types/node)是为了在*nodejs*环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
+
 QuickStart doesn't require these typings but many of the samples do.
 
 “快速上手”本身不需要这些类型定义，但是文档中的很多例子都需要。
 
-
 {@a target}
-
 
 ### *target*
 

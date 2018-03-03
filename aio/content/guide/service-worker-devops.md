@@ -5,6 +5,7 @@ This page is a reference for deploying and supporting production apps that use t
 #### Prerequisites
 
 A basic understanding of the following:
+
 * [Service Worker Communication](guide/service-worker-communications).
 
 <hr />
@@ -70,7 +71,9 @@ if the risk of serving invalid, broken, or outdated content is high.
 Hash mismatches can occur for a variety of reasons:
 
 * Caching layers in between the origin server and the end user could serve stale content.
+
 * A non-atomic deployment could result in the Angular service worker having visibility of partially updated content.
+
 * Errors during the build process could result in updated resources without `ngsw.json` being updated. The reverse could also happen resulting in an updated `ngsw.json` without updated resources.
 
 #### Unhashed content
@@ -119,6 +122,7 @@ might change the version of a running app. Some of them are
 error conditions:
 
 * The current version becomes invalid due to a failed hash.
+
 * An unrelated error causes the service worker to enter safe mode; that is, temporary deactivation.
 
 The Angular service worker is aware of which versions are in 
@@ -129,6 +133,7 @@ Other reasons the Angular service worker might change the version
 of a running app are normal events:
 
 * The page is reloaded/refreshed.
+
 * The page requests an update be immediately activated via the `SwUpdate` service.
 
 ### Service worker updates
@@ -146,7 +151,6 @@ app&mdash;the old caches are still valid and content is still served
 normally. However, occasionally a bugfix or feature in the Angular 
 service worker requires the invalidation of old caches. In this case, 
 the app will be refreshed transparently from the network.
-
 
 ## Debugging the Angular service worker
 
@@ -177,6 +181,7 @@ Clients: 7b79a015-69af-4d3d-9ae6-95ba90c79486, 5bc08295-aaf2-42f3-a4cc-9e4ef9100
 Last update tick: 1s496u
 Last update run: never
 Task queue:
+
  * init post-load (update, cleanup)
 
 Debug log:
@@ -207,7 +212,6 @@ network, running as little service worker code as possible.
 In both cases, the parenthetical annotation provides the 
 error that caused the service worker to enter the degraded state.
 
-
 #### Latest manifest hash
 
 ```
@@ -215,7 +219,6 @@ Latest manifest hash: eea7f5f464f90789b621170af5a569d6be077e5c
 ```
 
 This is the SHA1 hash of the most up-to-date version of the app that the service worker knows about.
-
 
 #### Last update check
 
@@ -241,7 +244,6 @@ is the "latest manifest hash" listed above. Both clients are on the
 latest version. Each client is listed by its ID from the `Clients` 
 API in the browser.
 
-
 #### Idle task queue
 
 ```
@@ -249,6 +251,7 @@ API in the browser.
 Last update tick: 1s496u
 Last update run: never
 Task queue:
+
  * init post-load (update, cleanup)
 ```
 
@@ -264,7 +267,6 @@ counter shows the last time idle tasks were actually executed.
 "Last update tick" shows the time since the last event after 
 which the queue might be processed.
 
-
 #### Debug log
 
 ```
@@ -272,7 +274,6 @@ Debug log:
 ```
 
 Errors that occur within the service worker will be logged here.
-
 
 ### Developer Tools
 
@@ -329,5 +330,6 @@ the past on your site.
 ## More on Angular service workers
 
 You may also be interested in the following:
+
 * [Service Worker Configuration](guide/service-worker-config).
 

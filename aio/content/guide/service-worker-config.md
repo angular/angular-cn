@@ -5,6 +5,7 @@
 #### Prerequisites
 
 A basic understanding of the following:
+
 * [Service Worker in Production](guide/service-worker-devops).
 
 <hr />
@@ -23,13 +24,17 @@ The configuration file uses the JSON format. All file paths must begin with `/`,
 Patterns use a limited glob format:
 
 * `**` matches 0 or more path segments.
+
 * `*` matches exactly one path segment or filename segment.
+
 * The `!` prefix marks the pattern as being negative, meaning that only files that don't match the pattern will be included.
 
 Example patterns:
 
 * `/**/*.html` specifies all HTML files.
+
 * `/*.html` specifies only HTML files in the root.
+
 * `!/**/*.map` exclude all sourcemaps.
 
 Each section of the configuration file is described below. 
@@ -127,12 +132,15 @@ export interface DataGroup {
 ```
 
 ### `name`
+
 Similar to `assetGroups`, every data group has a `name` which uniquely identifies it.
 
 ### `urls`
+
 A list of URL patterns. URLs that match these patterns will be cached according to this data group's policy.
 
 ### `version`
+
 Occasionally APIs change formats in a way that is not backward-compatible. A new version of the app may not be compatible with the old API format and thus may not be compatible with existing cached resources from that API.
 
 `version` provides a mechanism to indicate that the resources being cached have been updated in a backwards-incompatible way, and that the old cache entries&mdash;those from previous versions&mdash;should be discarded. 
@@ -140,23 +148,31 @@ Occasionally APIs change formats in a way that is not backward-compatible. A new
 `version` is an integer field and defaults to `0`.
 
 ### `cacheConfig`
+
 This section defines the policy by which matching requests will be cached.
 
 #### `maxSize`
+
 (required) The maximum number of entries, or responses, in the cache. Open-ended caches can grow in unbounded ways and eventually exceed storage quotas, calling for eviction.
 
 #### `maxAge`
+
 (required) The `maxAge` parameter indicates how long responses are allowed to remain in the cache before being considered invalid and evicted. `maxAge` is a duration string, using the following unit suffixes:
 
 * `d`: days
+
 * `h`: hours
+
 * `m`: minutes
+
 * `s`: seconds
+
 * `u`: milliseconds
 
 For example, the string `3d12h` will cache content for up to three and a half days.
 
 #### `timeout`
+
 This duration string specifies the network timeout. The network timeout is how long the Angular service worker will wait for the network to respond before using a cached response, if configured to do so.
 
 #### `strategy`

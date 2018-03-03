@@ -13,7 +13,7 @@ This guide explains how to build with the AOT compiler using different compiler 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">观看 Angular 编译器的作者Tobias Bosch 在 AngularConnect 2016 上对编译器的解释。</a>
-
+  
 </div>
 
 {@a overview}
@@ -29,13 +29,16 @@ the components and templates must be converted to executable JavaScript by an _A
 Angular offers two ways to compile your application:
 
 1. **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime
+
 1. **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
 
 JIT compilation is the default when you run the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
+
   ng build
   ng serve
+
 </code-example>
 
 {@a compile}
@@ -43,8 +46,10 @@ JIT compilation is the default when you run the _build-only_ or the _build-and-s
 For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
+
   ng build --aot
   ng serve --aot
+
 </code-example>
 
 <div class="l-sub-section">
@@ -288,7 +293,6 @@ rules.
 
   *Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
 
-
 ## Angular Metadata and AOT
 
 ## Angular 元数据与 AOT
@@ -339,15 +343,15 @@ You write metadata in a _subset_ of TypeScript that must conform to the followin
 1. Limit [expression syntax](#expression-syntax) to the supported subset of JavaScript.
 
    [表达式语法](#expression-syntax)只支持 JavaScript 的一个有限的子集。
-   
+
 2. Only reference exported symbols after [code folding](#folding).
 
    只能引用[代码收缩](#folding)后导出的符号。
-   
+
 3. Only call [functions supported](#supported-functions) by the compiler.
 
    只能调用编译器[支持的那些函数](#supported-functions)。
-   
+
 4. Decorated and data-bound class members must be public.
 
    被装饰和用于数据绑定的类成员必须是公共（public）的。
@@ -390,6 +394,7 @@ Angular 的 [schema.ts](https://github.com/angular/angular/blob/master/packages/
 </div>
 
 {@a expression-syntax}
+
 ### Expression syntax
 
 The _collector_ only understands a subset of JavaScript.
@@ -427,7 +432,7 @@ piece of metadata to generate the application code.
 
  If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in `tsconfig`.
 
-如果你希望`ngc`立即汇报这些语法错误，而不要生成带有错误信息的`.metadata.json`文件，可以到`tsconfig`中设置 `strictMetadataEmit` 选项。
+ 如果你希望`ngc`立即汇报这些语法错误，而不要生成带有错误信息的`.metadata.json`文件，可以到`tsconfig`中设置 `strictMetadataEmit` 选项。
 
 ```
   "angularCompilerOptions": {
@@ -444,6 +449,7 @@ Angular 库通过这个选项来确保所有的 `.metadata.json` 文件都是干
 
 {@a function-expression}
 {@a arrow-functions}
+
 ### No arrow functions
 
 The AOT compiler does not support [function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)
@@ -479,6 +485,7 @@ export function serverFactory() {
 Beginning in version 5, the compiler automatically performs this rewritting while emitting the `.js` file.
 
 {@a function-calls}
+
 ### Limited function calls
 
 The _collector_ can represent a function call or object creation with `new` as long as the syntax is valid. The _collector_ only cares about proper syntax.
@@ -486,8 +493,8 @@ The _collector_ can represent a function call or object creation with `new` as l
 But beware. The compiler may later refuse to generate a call to a _particular_ function or creation of a _particular_ object.
 The compiler only supports calls to a small set of functions and will use `new` for only a few designated classes. These functions and classes are in a table of [below](#supported-functions).
 
-
 ### Folding
+
 {@a exported-symbols}
 The compiler can only resolve references to **_exported_** symbols.
 Fortunately, the _collector_ enables limited use of non-exported symbols through _folding_.
@@ -578,7 +585,6 @@ Parentheses                        | yes, if the expression is foldable
 
 If an expression is not foldable, the collector writes it to `.metadata.json` as an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) for the compiler to resolve.
 
-
 ## Phase 2: code generation
 
 The _collector_ makes no attempt to understand the metadata that it collects and outputs to `.metadata.json`. It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
@@ -606,7 +612,6 @@ export class AppComponent {
 
 {@a supported-functions}
 Most importantly, the compiler only generates code to create instances of certain classes, support certain decorators, and call certain functions from the following lists.
-
 
 ### New instances
 
@@ -636,7 +641,6 @@ Decorator         | Module
 `Self`            | `@angular/core`
 `SkipSelf`        | `@angular/core`
 `ViewChild`       | `@angular/core`
-
 
 ### Macro-functions and macro-static methods
 
@@ -685,8 +689,6 @@ for these methods to see how macros can simplify configuration of complex [NgMod
 The compiler treats object literals containing the fields `useClass`, `useValue`, `useFactory`, and `data` specially. The compiler converts the expression initializing one of these fields into an exported variable, which replaces the expression. This process of rewriting these expressions removes all the restrictions on what can be in them because
 the compiler doesn't need to know the expression's value&mdash;it just needs to be able to generate a reference to the value.
 
-
-
 You might write something like:
 
 ```typescript
@@ -721,7 +723,6 @@ This allows the compiler to generate a reference to `ɵ0` in the
 factory without having to know what the value of `ɵ0` contains.
 
 The compiler does the rewriting during the emit of the `.js` file. This doesn't rewrite the `.d.ts` file, however, so TypeScript doesn't recognize it as being an export. Thus, it does not pollute the ES module's exported API.
-
 
 ## Metadata Errors
 
@@ -770,6 +771,7 @@ and be wary of new or unusual TypeScript features.
 <hr>
 
 {@a reference-to-a-local-symbol}
+
 <h3 class="no-toc">Reference to a local (non-exported) symbol</h3>
 
 <div class="alert is-helpful">
@@ -808,7 +810,8 @@ The compiler will [fold](#folding) the expression into the provider as if you ha
 ```
   providers: [
     { provide: Foo, useValue: 42 }
-  ]```
+  ]
+```
 
 Alternatively, you can fix it by exporting `foo` with the expectation that `foo` will be assigned at runtime when you actually know its value.
 
@@ -850,6 +853,7 @@ Prefixing the declaration with `export` merely produces a new error, "[`Only ini
 <hr>
 
 {@a only-initialized-variables}
+
 <h3 class="no-toc">Only initialized variables and constants</h3>
 
 <div class="alert is-helpful">
@@ -946,6 +950,7 @@ export abstract class MyStrategy { }
   ]
   ...
 ```
+
 <hr>
 
 <h3 class="no-toc">Reference to a non-exported function</h3>
@@ -979,9 +984,11 @@ export function myStrategy() { ... }
   ]
   ...
 ```
+
 <hr>
 
 {@a function-calls-not-supported}
+
 <h3 class="no-toc">Function calls are not supported</h3>
 
 <div class="alert is-helpful">
@@ -1017,6 +1024,7 @@ import { calculateValue } from './utilities';
 To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { calculateValue } from './utilities';
 
@@ -1032,11 +1040,13 @@ export function someValueFactory() {
     { provide: SomeValue, useFactory: someValueFactory }
   ]
   ...
+
 </code-example>
 
 <hr>
 
 {@a destructured-variable-not-supported}
+
 <h3 class="no-toc">Destructured variable or constant not supported</h3>
 
 <div class="alert is-helpful">
@@ -1050,6 +1060,7 @@ The compiler does not support references to variables assigned by [destructuring
 For example, you cannot write something like this:
 
 <code-example linenums="false">
+
 // ERROR
 import { configuration } from './configuration';
 
@@ -1061,11 +1072,13 @@ const {foo, bar} = configuration;
     {provide: Bar, useValue: bar},
   ]
   ...
+
 </code-example>
 
 To correct this error, refer to non-destructured values.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { configuration } from './configuration';
   ...
@@ -1074,6 +1087,7 @@ import { configuration } from './configuration';
     {provide: Bar, useValue: configuration.bar},
   ]
   ...
+
 </code-example>
 
 <hr>
@@ -1106,13 +1120,17 @@ If you must inject an instance of an ambiant type,
 you can finesse the problem in four steps:
 
 1. Create an injection token for an instance of the ambiant type.
+
 1. Create a factory function that returns that instance.
+
 1. Add a `useFactory` provider with that factory function.
+
 1. Use `@Inject` to inject the instance.
 
 Here's an illustrative example.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { Inject } from '@angular/core';
 
@@ -1128,6 +1146,7 @@ export function _window() { return window; }
 export class MyComponent {
   constructor (@Inject(WINDOW) private win: Window) { ... }
 }
+
 </code-example>
 
 The `Window` type in the constructor is no longer a problem for the compiler because it
@@ -1136,14 +1155,17 @@ uses the `@Inject(WINDOW)` to generate the injection code.
 Angular does something similar with the `DOCUMENT` token so you can inject the browser's `document` object (or an abstraction of it, depending upon the platform in which the application runs).
 
 <code-example linenums="false">
+
 import { Inject }   from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({ ... })
-export classMyComponent {
+export class MyComponent {
   constructor (@Inject(DOCUMENT) private doc: Document) { ... }
 }
+
 </code-example>
+
 <hr>
 
 <h3 class="no-toc">Name expected</h3>
@@ -1173,6 +1195,7 @@ that you referenced in metadata.
 The compiler can understand simple enum values but not complex values such as those derived from computed properties.
 
 <code-example linenums="false">
+
 // ERROR
 enum Colors {
   Red = 1,
@@ -1187,6 +1210,7 @@ enum Colors {
     { provide: StrongColor, useValue: Colors.Blue }  // bad
   ]
   ...
+
 </code-example>
 
 Avoid referring to enums with complicated initializers or computed properties.
@@ -1194,6 +1218,7 @@ Avoid referring to enums with complicated initializers or computed properties.
 <hr>
 
 {@a tagged-template-expressions-not-supported}
+
 <h3 class="no-toc">Tagged template expressions are not supported</h3>
 
 <div class="alert is-helpful">
@@ -1308,7 +1333,6 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   guard to the use of its template, implying that the template will only be instantiated if
   the `ngIf` input property is true.
 
-
   ### Non-null type assertion operator
 
   Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator)
@@ -1378,12 +1402,21 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
     person?: Person;
   }
   ```
+
 ## Summary
 
+## 小结
+
 * What the AOT compiler does and why it is important.
+
 * Why metadata must be written in a subset of JavaScript.
+
 * What that subset is.
+
 * Other restrictions on metadata definition.
+
 * Macro-functions and macro-static methods.
+
 * Compiler errors related to metadata.
+
 * Validation of binding expressions

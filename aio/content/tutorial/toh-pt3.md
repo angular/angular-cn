@@ -15,7 +15,9 @@ The `HeroDetailsComponent` will present details of a selected hero.
 Use the Angular CLI to generate a new component named `hero-detail`.
 
 <code-example language="sh" class="code-shell">
+
   ng generate component hero-detail
+
 </code-example>
 
 The command scaffolds the `HeroDetailComponent` files and declares the component in `AppModule`.
@@ -43,6 +45,7 @@ Open the `HeroDetailComponent` class file and import the `Hero` symbol.
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" 
 region="import-hero" title="src/app/hero-detail/hero-detail.component.ts (import Hero)">
+
 </code-example>
 
 The `hero` property 
@@ -51,16 +54,19 @@ annotated with the `@Input()` decorator,
 because the _external_ `HeroesComponent` [will bind to it](#heroes-component-template) like this.
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding">
+
 </code-example>
 
 Amend the `@angular/core` import statement to include the `Input` symbol.
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" title="src/app/hero-detail/hero-detail.component.ts (import Input)" linenums="false">
+
 </code-example>
 
 Add a `hero` property, preceded by the `@Input()` decorator.
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="input-hero"  linenums="false">
+
 </code-example>
 
 That's the only change you should make to the `HeroDetailComponent` class.
@@ -106,6 +112,7 @@ The revised `HeroesComponent` template should look like this:
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html"
   title="heroes.component.html" linenums="false">
+
 </code-example>
 
 The browser refreshes and the app starts working again as it did before.
@@ -134,23 +141,26 @@ Here are the code files discussed on this page and your app should look like thi
 <code-tabs>
 
   <code-pane title="src/app/hero-detail/hero-detail.component.ts" path="toh-pt3/src/app/hero-detail/hero-detail.component.ts">
+
   </code-pane>
 
   <code-pane title="src/app/hero-detail/hero-detail.component.html" path="toh-pt3/src/app/hero-detail/hero-detail.component.html">
+
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component.html" path="toh-pt3/src/app/heroes/heroes.component.html">
+
   </code-pane>
 
 </code-tabs>
 
 ## Summary
 
+## 小结
+
 * You created a separate, reusable `HeroDetailComponent`.
 
-
 * You used a [property binding](guide/template-syntax#property-binding) to give the parent `HeroesComponent` control over the child `HeroDetailComponent`.
-
 
 * You used the [`@Input` decorator](guide/template-syntax#inputs-outputs) 
 to make the `hero` property available for binding

@@ -19,15 +19,17 @@ Services are a great way to share information among classes that _don't know eac
 You'll create a `MessageService` and inject it in two places:
 
 1. in `HeroService` which uses the service to send a message.
-2. in `MessagesComponent` which displays that message.
 
+2. in `MessagesComponent` which displays that message.
 
 ## Create the _HeroService_
 
 Using the Angular CLI, create a service called `hero`.
 
 <code-example language="sh" class="code-shell">
+
   ng generate service hero
+
 </code-example>
 
 The command generates skeleton `HeroService` class in `src/app/hero.service.ts`
@@ -35,6 +37,7 @@ The `HeroService` class should look like the below.
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="new"
  title="src/app/hero.service.ts (new service)" linenums="false">
+
 </code-example>
 
 ### _@Injectable()_ services
@@ -66,14 +69,17 @@ The implementation in _this_ tutorial will continue to deliver _mock heroes_.
 Import the `Hero` and `HEROES`.
 
 <code-example path="toh-pt4/src/app/hero.service.ts" region="import-heroes">
+
 </code-example>
 
 Add a `getHeroes` method to return the _mock heroes_.
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="getHeroes">
+
 </code-example>
 
 {@a provide}
+
 ## Provide the `HeroService`
 
 You must _provide_ the `HeroService` in the _dependency injection system_
@@ -90,7 +96,9 @@ That's such a popular choice that you could have told the CLI to provide it ther
 by appending `--module=app`.
 
 <code-example language="sh" class="code-shell">
+
   ng generate service hero --module=app
+
 </code-example>
 
 Since you did not, you'll have to provide it yourself.
@@ -98,6 +106,7 @@ Since you did not, you'll have to provide it yourself.
 Open the `AppModule` class, import the `HeroService`, and add it to the `@NgModule.providers` array.
 
 <code-example path="toh-pt4/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers-heroservice">
+
 </code-example>
 
 The `providers` array tells Angular to create a single, shared instance of `HeroService`
@@ -125,11 +134,13 @@ Delete the `HEROES` import as you won't need that anymore.
 Import the `HeroService` instead.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" title="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
+
 </code-example>
 
 Replace the definition of the `heroes` property with a simple declaration.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="heroes">
+
 </code-example>
 
 {@a inject}
@@ -139,6 +150,7 @@ Replace the definition of the `heroes` property with a simple declaration.
 Add a private `heroService` parameter of type `HeroService` to the constructor.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="ctor">
+
 </code-example>
 
 The parameter simultaneously defines a private `heroService` property and identifies it as a `HeroService` injection site.
@@ -151,6 +163,7 @@ sets the `heroService` parameter to the singleton instance of `HeroService`.
 Create a function to retrieve the heroes from the service.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
+
 </code-example>
 
 {@a oninit}
@@ -167,6 +180,7 @@ Instead, call `getHeroes()` inside the [*ngOnInit lifecycle hook*](guide/lifecyc
 let Angular call `ngOnInit` at an appropriate time _after_ constructing a `HeroesComponent` instance.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="ng-on-init">
+
 </code-example>
 
 ### See it run
@@ -182,6 +196,7 @@ The `HeroesComponent` consumes the `getHeroes()` result
 as if heroes could be fetched synchronously.
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="get-heroes">
+
 </code-example>
 
 This will not work in a real app.
@@ -212,6 +227,7 @@ Open the `HeroService` file and import the `Observable` and `of` symbols from Rx
 
 <code-example path="toh-pt4/src/app/hero.service.ts" 
 title="src/app/hero.service.ts (Observable imports)" region="import-observable">
+
 </code-example>
 
 Replace the `getHeroes` method with this one.
@@ -240,10 +256,12 @@ Find the `getHeroes` method and replace it with the following code
 
   <code-pane title="heroes.component.ts (Observable)" 
     path="toh-pt4/src/app/heroes/heroes.component.ts" region="getHeroes">
+
   </code-pane>
 
   <code-pane title="heroes.component.ts (Original)" 
     path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
+
   </code-pane>
 
 </code-tabs>
@@ -269,8 +287,11 @@ the `HeroService` requests heroes from the server.
 In this section you will 
 
 * add a `MessagesComponent` that displays app messages at the bottom of the screen.
+
 * create an injectable, app-wide `MessageService` for sending messages to be displayed
+
 * inject `MessageService` into the `HeroService`
+
 * display a message when `HeroService` fetches heroes successfully.
 
 ### Create _MessagesComponent_
@@ -278,7 +299,9 @@ In this section you will
 Use the CLI to create the `MessagesComponent`.
 
 <code-example language="sh" class="code-shell">
+
   ng generate component messages
+
 </code-example>
 
 The CLI creates the component files in the `src/app/messages` folder and declare `MessagesComponent` in `AppModule`.
@@ -288,6 +311,7 @@ Modify the `AppComponent` template to display the generated `MessagesComponent`
 <code-example
   title = "/src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
+
 </code-example>
 
 You should see the default paragraph from `MessagesComponent` at the bottom of the page.
@@ -298,7 +322,9 @@ Use the CLI to create the `MessageService` in `src/app`.
 The `--module=app` option tells the CLI to  [_provide_ this service](#provide) in the `AppModule`,
 
 <code-example language="sh" class="code-shell">
+
   ng generate service message --module=app
+
 </code-example>
 
 Open `MessageService` and replace its contents with the following.
@@ -306,11 +332,13 @@ Open `MessageService` and replace its contents with the following.
 <code-example
   title = "/src/app/message.service.ts"
   path="toh-pt4/src/app/message.service.ts">
+
 </code-example>
 
 The service exposes its cache of `messages` and two methods: one to `add()` a message to the cache and another to `clear()` the cache.
 
 {@a inject-message-service}
+
 ### Inject it into the `HeroService`
 
 Re-open the `HeroService` and import the `MessageService`.
@@ -318,6 +346,7 @@ Re-open the `HeroService` and import the `MessageService`.
 <code-example
   title = "/src/app/hero.service.ts (import MessageService)"
   path="toh-pt4/src/app/hero.service.ts" region="import-message-service">
+
 </code-example>
 
 Modify the constructor with a parameter that declares a private `messageService` property.
@@ -326,6 +355,7 @@ when it creates the `HeroService`.
 
 <code-example
   path="toh-pt4/src/app/hero.service.ts" region="ctor">
+
 </code-example>
 
 <div class="l-sub-section">
@@ -340,6 +370,7 @@ you inject the `MessageService` into the `HeroService` which is injected into th
 Modify the `getHeroes` method to send a message when the heroes are fetched.
 
 <code-example path="toh-pt4/src/app/hero.service.ts" region="getHeroes">
+
 </code-example>
 
 ### Display the message from `HeroService`
@@ -352,6 +383,7 @@ Open `MessagesComponent` and import the `MessageService`.
 <code-example
   title = "/src/app/messages/messages.component.ts (import MessageService)"
   path="toh-pt4/src/app/messages/messages.component.ts" region="import-message-service">
+
 </code-example>
 
 Modify the constructor with a parameter that declares a **public** `messageService` property.
@@ -360,6 +392,7 @@ when it creates the `HeroService`.
 
 <code-example
   path="toh-pt4/src/app/messages/messages.component.ts" region="ctor">
+
 </code-example>
 
 The `messageService` property **must be public** because you're about to bind to it in the template.
@@ -377,15 +410,14 @@ Replace the CLI-generated `MessagesComponent` template with the following.
 <code-example
   title = "src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
+
 </code-example>
 
 This template binds directly to the component's `messageService`.
 
 * The `*ngIf` only displays the messages area if there are messages to show.
 
-
 * An `*ngFor` presents the list of messages in repeated `<div>` elements.
-
 
 * An Angular [event binding](guide/template-syntax#event-binding) binds the button's click event
 to `MessageService.clear()`.
@@ -407,47 +439,65 @@ Here are the code files discussed on this page and your app should look like thi
 
   <code-pane title="src/app/hero.service.ts" 
   path="toh-pt4/src/app/hero.service.ts">
+
   </code-pane>
 
   <code-pane title="src/app/message.service.ts" 
   path="toh-pt4/src/app/message.service.ts">
+
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component.ts"
   path="toh-pt4/src/app/heroes/heroes.component.ts">
+
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.ts"
   path="toh-pt4/src/app/messages/messages.component.ts">
+
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
+
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.css"
   path="toh-pt4/src/app/messages/messages.component.css">
+
   </code-pane>
 
   <code-pane title="src/app/app.module.ts"
   path="toh-pt4/src/app/app.module.ts">
+
   </code-pane>
 
   <code-pane title="src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
+
   </code-pane>
 
 </code-tabs>
 
 ## Summary
 
+## 小结
+
 * You refactored data access to the `HeroService` class.
+
 * You _provided_ the `HeroService` in the root `AppModule` so that it can be injected anywhere.
+
 * You used [Angular Dependency Injection](guide/dependency-injection) to inject it into a component.
+
 * You gave the `HeroService` _get data_ method an asynchronous signature.
+
 * You discovered `Observable` and the RxJS _Observable_ library.
+
 * You used RxJS `of()` to return an _Observable_ of mock heroes (`Observable<Hero[]>`).
+
 * The component's `ngOnInit` lifecycle hook calls the `HeroService` method, not the constructor.
+
 * You created a `MessageService` for loosely-coupled communication between classes.
+
 * The `HeroService` injected into a component is created with another injected service,
  `MessageService`.

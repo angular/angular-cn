@@ -2,7 +2,12 @@
 
 #### Prerequisites:
 
+#### 前提条件：
+
 A basic understanding of the following concepts:
+
+对下列概念有基本的理解：
+
 * [Bootstrapping](guide/bootstrapping).
 
 <hr />
@@ -15,15 +20,13 @@ To contrast the two types of components, there are components which are included
 
 </div>
 
-
 There are two main kinds of entry components:
 
 * The bootstrapped root component.
+
 * A component you specify in a route definition.
 
-
 ## A bootstrapped entry component
-
 
 The following is an example of specifying a bootstrapped component,
 `AppComponent`, in a basic `app.module.ts`:
@@ -58,11 +61,9 @@ it should generate code to bootstrap the application with this component.
 
 </div>
 
-
 A bootstrapped component is necessarily an entry component because bootstrapping is an imperative process, thus it needs to have an entry component.
 
 ## A routed entry component
-
 
 The second kind of entry component occurs in a route definition like
 this:
@@ -79,7 +80,6 @@ const routes: Routes = [
 A route definition refers to a component by its type with `component: CustomerListComponent`.
 
 All router components must be entry components. Because this would require you to add the component in two places (router and `entryComponents`) the Compiler is smart enough to recognize that this is a router definition and automatically add the router component into `entryComponents`.
-
 
 ## The `entryComponents` array
 
@@ -101,13 +101,16 @@ If a component isn't an _entry component_ and isn't found in a template,
 the tree shaker will throw it away. So, it's best to add only the components that are truly entry components to help keep your app
 as trim as possible.
 
-
 <hr />
 
 ## More on Angular modules
 
 You may also be interested in the following:
+
 * [Types of NgModules](guide/module-types)
+
 * [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
+
 * [Providers](guide/providers).
+
 * [NgModules FAQ](guide/ngmodule-faq).

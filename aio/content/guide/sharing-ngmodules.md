@@ -1,13 +1,18 @@
 # Sharing Modules
 
 #### Prerequisites
-A basic understanding of the following:
-* [Feature Modules](guide/feature-modules).
-* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
-* [Frequently Used Modules](guide/frequent-ngmodules).
-* [Routing and Navigation](guide/router).
-* [Lazy loading modules](guide/lazy-loading-ngmodules).
 
+A basic understanding of the following:
+
+* [Feature Modules](guide/feature-modules).
+
+* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
+
+* [Frequently Used Modules](guide/frequent-ngmodules).
+
+* [Routing and Navigation](guide/router).
+
+* [Lazy loading modules](guide/lazy-loading-ngmodules).
 
 <!--* Components (#TBD) We don’t have a page just on the concept of components, but I think one would be helpful for beginners.-->
 
@@ -18,7 +23,6 @@ used directives, pipes, and components into one module and then import just that
 you need it in other parts of your app.
 
 Consider the following module from an imaginary app:
-
 
 ```typescript
 import { CommonModule } from '@angular/common';
@@ -39,8 +43,12 @@ export class SharedModule { }
 
 Note the following:
 
+请注意以下几点：
+
 * It imports the `CommonModule` because the module's component needs common directives.
+
 * It declares and exports the utility pipe, directive, and component classes.
+
 * It re-exports the `CommonModule` and `FormsModule`.
 
 By re-exporting `CommonModule` and `FormsModule`, any other module that imports this
@@ -65,11 +73,12 @@ The most common way to get a hold of shared services is through Angular
 
 To read about sharing services, see [Providers](guide/providers).
 
-
 <hr />
 
 ## More on NgModules
 
 You may also be interested in the following:
+
 * [Providers](guide/providers).
+
 * [Types of Feature Modules](guide/module-types).

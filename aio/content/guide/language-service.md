@@ -25,7 +25,9 @@ you can hit tab to complete.
 自动完成可以在输入时为我们提供当前情境下的候选内容和提示，从而提高开发速度。下面这个例子展示了插值表达式中的自动完成功能。当我们进行输入的时候，就可以按tab键来自动完成。
 
 <figure>
+
   <img src="generated/images/guide/language-service/language-completion.gif" alt="autocompletion">
+
 </figure>
 
 There are also completions within 
@@ -39,12 +41,14 @@ show up in the completion list.
 ## 错误检查
 
 The Angular Language Service can also forewarn you of mistakes in your code. 
-In this example, Angular doesn't know what `orders` is or where it comes from. 
+In this example, Angular doesn't know what `orders` is or where it comes from.
 
 Angular 语言服务还能对代码中存在的错误进行预警。在这个例子中，Angular 不知道什么是`orders`或者它来自哪里。
 
 <figure>
+
   <img src="generated/images/guide/language-service/language-error.gif" alt="error checking">
+
 </figure>
 
 ## Navigation
@@ -58,9 +62,10 @@ click and press F12 to go directly to its definition.
 导航可以让我们在鼠标悬浮时看到某个组件、指令、模块等来自哪里，然后可以点击并按 F12 直接跳转到它的定义处。
 
 <figure>
-  <img src="generated/images/guide/language-service/language-navigation.gif" alt="navigation">
-</figure>
 
+  <img src="generated/images/guide/language-service/language-navigation.gif" alt="navigation">
+
+</figure>
 
 ## Angular Language Service in your editor
 
@@ -126,7 +131,7 @@ npm install
 
 *OR* 
 
-*或*
+*或* 
 
 ```sh
 yarn
@@ -139,7 +144,6 @@ yarn
 ```sh
 yarn install
 ```
-
 
 ### Sublime Text
 
@@ -174,7 +178,6 @@ Next, in your user preferences (`Cmd+,` or `Ctrl+,`), add:
 ```json
 "typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
 ```
-
 
 ## Installing in your project
 
@@ -222,19 +225,13 @@ context, it can then determine what the children can be.
 
 It's a little more involved if you are in an interpolation. If you have an interpolation of `{{data.---}}` inside a `div` and need the completion list after `data.---`, the compiler can't use the HTML AST to find the answer. The HTML AST can only tell the compiler that there is some text with the characters "`{{data.---}}`". That's when the template parser produces an expression AST, which resides within the template AST. The Angular Language Services then looks at `data.---` within its context and asks the TypeScript Language Service what the members of data are. TypeScript then returns the list of possibilities.
 
-
 如果是在插值表达式中，还会牵扯到更多东西。如果我们在`div`元素中有一个插值表达式`{{data.---}}`，并且需要在输入了`data.`之后提供自动完成列表，编译器就没办法使用 HTML AST 来找出答案了。
 HTML AST只能告诉编译器，有一些具有 "`{{data.---}}`" 特征的文本。也就是说模板解析器会生成表达式的 AST ，并且放在模板的 AST 中。Angular 语言服务然后在这个情境下查找`data.---`，并向 TypeScript 语言服务询问这些数据都有哪些成员。然后 TypeScript 就会返回一个可能的列表。
 
 For more in-depth information, see the 
 [Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)
 
-
 要了解更多更深入的信息，参见 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)
-
-
-
-
 
 <hr>
 
@@ -246,3 +243,4 @@ For more information, see [Chuck Jazdzewski's presentation](https://www.youtube.
 Service from [ng-conf](https://www.ng-conf.org/) 2017.
 
 要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。
+

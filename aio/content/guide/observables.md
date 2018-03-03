@@ -39,6 +39,7 @@ An `Observable` instance begins publishing values only when someone subscribes t
    In order to show how subscribing works, we need to create a new observable. There is a  constructor that you use to create new instances, but for illustration, we can use some static methods on the `Observable` class that create simple observables of frequently used types:
 
   * `Observable.of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
+
   * `Observable.from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
 
 </div>
@@ -48,7 +49,9 @@ Here's an example of creating and subscribing to a simple observable, with an ob
 <code-example
   path="observables/src/subscribing.ts"
   region="observer"
-  title="Subscribe using observer"></code-example>
+  title="Subscribe using observer">
+
+</code-example>
 
 Alternatively, the `subscribe()` method can accept callback function definitions in line, for `next`, `error`, and `complete` handlers. For example, the following `subscribe()` call is the same as the one that specifies the predefined observer:
 
@@ -97,18 +100,24 @@ Notice that if you subscribe twice, there will be two separate streams, each emi
 <code-example path="observables/src/multicasting.ts" region="multicast_sequence" title="Create a multicast subscriber"></code-example>
 
 <div class="l-sub-section">
+
    Multicasting observables take a bit more setup, but they can be useful for certain applications. Later we will look at tools that simplify the process of multicasting, allowing you to take any observable and make it multicasting.
+
 </div>
 
 ## Error handling
 
+## 错误处理
+
 Because observables produce values asynchronously, try/catch will not effectively catch errors. Instead, you handle errors by specifying an `error` callback on the observer. Producing an error also causes the observable to clean up subscriptions and stop producing values. An observable can  either produce values (calling the `next` callback), or it can complete, calling either the `complete` or `error` callback.
 
 <code-example>
+
 myObservable.subscribe({
   next(num) { console.log('Next num: ' + num)},
   error(err) { console.log('Received an errror: ' + err)}
 });
+
 </code-example>
 
 Error handling (and specifically recovering from an error) is covered in more detail in a later section.

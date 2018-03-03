@@ -1,6 +1,7 @@
 # JavaScript Modules vs. NgModules
 
 #### Prerequisites
+
 A basic understanding of [JavaScript/ECMAScript modules](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/).
 
 <hr>
@@ -52,15 +53,17 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-
 The NgModule classes differ from JavaScript module in the following key ways:
 
 * An NgModule bounds [declarable classes](guide/ngmodule-faq#q-declarable) only.
 Declarables are the only classes that matter to the [Angular compiler](guide/ngmodule-faq#q-angular-compiler).
+
 * Instead of defining all member classes in one giant file as in a JavaScript module,
 you list the module's classes in the `@NgModule.declarations` list.
+
 * An NgModule can only export the [declarable classes](guide/ngmodule-faq#q-declarable)
 it owns or imports from other modules. It doesn't declare or export any other kind of class.
+
 * Unlike JavaScript modules, an NgModule can extend the _entire_ application with services
 by adding providers to the `@NgModule.providers` list.
 
@@ -69,6 +72,9 @@ by adding providers to the `@NgModule.providers` list.
 ## More on NgModules
 
 For more information on NgModules, see:
+
 * [Bootstrapping](guide/bootstrapping).
+
 * [Frequently used modules](guide/frequent-ngmodules).
+
 * [Providers](guide/providers).

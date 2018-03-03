@@ -10,7 +10,6 @@ Unlike the other scripts that make up an application, such as the Angular app bu
 
 Even across a fast reliable network, round-trip delays can introduce significant latency when loading the application. Using a service worker to reduce dependency on the network can significantly improve the user experience. 
 
-
 ## Service workers in Angular
 
 Angular applications, as single-page applications, are in a prime position to benefit from the advantages of service workers. Starting with version 5.0.0, Angular ships with a service worker implementation. Angular developers can take advantage of this service worker and benefit from the increased reliability and performance it provides, without needing to code against low-level APIs.
@@ -20,9 +19,13 @@ Angular's service worker is designed to optimize the end user experience of usin
 The Angular service worker's behavior follows that design goal:
 
 * Caching an application is like installing a native application. The application is cached as one unit, and all files update together.
+
 * A running application continues to run with the same version of all files. It does not suddenly start receiving cached files from a newer version, which are likely incompatible.
+
 * When users refresh the application, they see the latest fully cached version. New tabs load the latest cached code.
+
 * Updates happen in the background, relatively quickly after changes are published. The previous version of the application is served until an update is installed and ready.
+
 * The service worker conserves bandwidth when possible. Resources are only downloaded if they've changed.
 
 To support these behaviors, the Angular service worker loads a *manifest* file from the server. The manifest describes the resources to cache and includes hashes of every file's contents. When an update to the application is deployed, the contents of the manifest change, informing the service worker that a new version of the application should be downloaded and cached. This manifest is generated from a user-provided configuration file called `ngsw-config.json`, by using a build tool such as the Angular CLI.
@@ -34,6 +37,7 @@ Installing the Angular service worker is as simple as including an `NgModule`. I
 To use Angular service workers, you must have the following Angular and CLI versions:
 
 * Angular 5.0.0 or later.
+
 * Angular CLI 1.6.0 or later.
 
 Your application must run in a web browser that supports service workers. Currently, the latest versions of Chrome and Firefox are supported. To learn about other browsers that are service worker ready, see the [Can I Use](http://caniuse.com/#feat=serviceworkers) page.
@@ -50,4 +54,5 @@ The remainder of this Angular documentation specifically addresses the Angular i
 ## More on Angular service workers
 
 You may also be interested in the following:
+
 * [Getting Started with service workers](guide/service-worker-getting-started).

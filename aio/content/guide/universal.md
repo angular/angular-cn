@@ -27,11 +27,14 @@ which runs in a [node express](https://expressjs.com/) server.
 There are three main reasons to create a Universal version of your app.
 
 1. Facilitate web crawlers (SEO)
+
 1. Improve performance on mobile and low-powered devices
+
 1. Show the first page quickly
 
 {@a seo}
 {@a web-crawlers}
+
 #### Facilitate web crawlers
 
 Google, Bing, Facebook, Twitter and other social media sites rely on web crawlers to index your application content and make that content searchable on the web.
@@ -72,6 +75,7 @@ The user perceives near-instant performance from the landing page
 and gets the full interactive experience after the full app loads.
 
 {@a how-does-it-work}
+
 ### How it works
 
 To make a Universal app, you install the `platform-server` package.
@@ -128,28 +132,72 @@ A node/express web server turns client requests into the HTML pages rendered by 
 You will create:
 
  * a server-side app module, `app.server.module.ts`
+
  * an entry point for the server-side, `main.server.ts`
+
  * an express web server to handle requests, `server.ts`
+
  * a TypeScript config file, `tsconfig.server.json`
+
  * a Webpack config file for the server, `webpack.server.config.js`
 
 When you're done, the folder structure will look like this:
 
 <code-example format="." language="none" linenums="false">
+
 src/
-  index.html                 <i>app web page</i>
-  main.ts                    <i>bootstrapper for client app</i>
-  main.server.ts             <i>* bootstrapper for server app</i>
-  tsconfig.app.json          <i>TypeScript client configuration</i>
-  tsconfig.server.json       <i>* TypeScript server configuration</i>
-  tsconfig.spec.json         <i>TypeScript spec configuration</i>
-  style.css                  <i>styles for the app</i>
-  app/ ...                   <i>application code</i>
-    app.server.module.ts     <i>* server-side application module</i>
-server.ts                    <i>* express web server</i>
-tsconfig.json                <i>TypeScript client configuration</i>
-package.json                 <i>npm configuration</i>
-webpack.server.config.js     <i>* Webpack server configuration</i>
+  index.html
+
+                 <i>app web page</i>
+
+  main.ts
+
+                    <i>bootstrapper for client app</i>
+
+  main.server.ts
+
+             <i>* bootstrapper for server app</i>
+
+  tsconfig.app.json
+
+          <i>TypeScript client configuration</i>
+
+  tsconfig.server.json
+
+       <i>* TypeScript server configuration</i>
+
+  tsconfig.spec.json
+
+         <i>TypeScript spec configuration</i>
+
+  style.css
+
+                  <i>styles for the app</i>
+
+  app/ ...
+
+                   <i>application code</i>
+
+    app.server.module.ts
+
+     <i>* server-side application module</i>
+
+server.ts
+
+                    <i>* express web server</i>
+
+tsconfig.json
+
+                <i>TypeScript client configuration</i>
+
+package.json
+
+                 <i>npm configuration</i>
+
+webpack.server.config.js
+
+     <i>* Webpack server configuration</i>
+
 </code-example>
 
 The files marked with `*` are new and not in the original tutorial sample.
@@ -158,6 +206,8 @@ This guide covers them in the sections below.
 {@a preparation}
 
 ## Preparation
+
+## 准备工作
 
 Download the [Tour of Heroes](generated/zips/toh-pt6/toh-pt6.zip) project and install the dependencies from it.
 
@@ -168,14 +218,19 @@ Download the [Tour of Heroes](generated/zips/toh-pt6/toh-pt6.zip) project and in
 To get started, install these packages.
 
  * `@angular/platform-server` - Universal server-side components.
+
  * `@nguniversal/module-map-ngfactory-loader` - For handling lazy-loading in the context of a server-render.
+
  * `@nguniversal/express-engine` - An express engine for Universal applications.
+
  * `ts-loader` - To transpile the server application
 
 Install them with the following commands:
 
 <code-example format="." language="bash">
+
 npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader @nguniversal/express-engine
+
 </code-example>
 
 {@a transition}
@@ -196,6 +251,7 @@ Open file `src/app/app.module.ts` and find the `BrowserModule` import in the `Ng
 Replace that import with this one:
 
 <code-example path="universal/src/app/app.module.ts" region="browsermodule" title="src/app/app.module.ts (withServerTransition)">
+
 </code-example>
 
 Angular adds the `appId` value (which can be _any_ string) to the style-names of the server-rendered pages,
@@ -204,6 +260,7 @@ so that they can be identified and removed when the client app starts.
 You can get runtime information about the current platform and the `appId` by injection.
 
 <code-example path="universal/src/app/app.module.ts" region="platform-detection" title="src/app/app.module.ts (platform detection)">
+
 </code-example>
 
 {@a http-urls}
@@ -225,6 +282,7 @@ inject it into the service, and prepend the origin to the request URL.
 Start by changing the `HeroService` constructor to take a second `origin` parameter that is optionally injected via the `APP_BASE_HREF` token.
 
 <code-example path="universal/src/app/hero.service.ts" region="ctor" title="src/app/hero.service.ts (constructor with optional origin)">
+
 </code-example>
 
 Note how the constructor prepends the origin (if it exists) to the `heroesUrl`.
@@ -254,6 +312,7 @@ The app server module class (conventionally named `AppServerModule`) is an Angul
 Create an `app.server.module.ts` file in the `src/app/` directory with the following `AppServerModule` code:
 
 <code-example path="universal/src/app/app.server.module.ts" title="src/app/app.server.module.ts">
+
 </code-example>
 
 Notice that it imports first the client app's `AppModule`, the Angular Universal's `ServerModule` and the `ModuleMapLoaderModule`.
@@ -284,6 +343,7 @@ The sample web server for _this_ guide is based on the popular [Express](https:/
 Create a `server.ts` file in the root directory and add the following code:
 
 <code-example path="universal/server.ts" title="server.ts">
+
 </code-example>
 
 <div class="alert is-critical">
@@ -295,11 +355,13 @@ Create a `server.ts` file in the root directory and add the following code:
 </div>
 
 {@a universal-engine}
+
 #### Universal template engine
 
 The important bit in this file is the `ngExpressEngine` function:
 
 <code-example path="universal/server.ts" title="server.ts" region="ngExpressEngine">
+
 </code-example>
 
 The `ngExpressEngine` is a wrapper around the universal's `renderModuleFactory` function that turns a client's requests into server-rendered HTML pages.
@@ -347,7 +409,9 @@ All static asset requests have a file extension (e.g., `main.js` or `/node_modul
 So we can easily recognize the three types of requests and handle them differently.
 
 1. data request -  request URL that begins `/api`
+
 2. app navigation - request URL with no file extension
+
 3. static asset - all other requests.
 
 An Express server is a pipeline of middleware that filters and processes URL requests one after the other.
@@ -355,6 +419,7 @@ An Express server is a pipeline of middleware that filters and processes URL req
 You configure the Express server pipeline with calls to `app.get()` like this one for data requests.
 
 <code-example path="universal/server.ts" title="server.ts (data URL)" region="data-request" linenums="false">
+
 </code-example>
 
 <div class="l-sub-section">
@@ -384,6 +449,7 @@ If your server handles HTTP requests, you'll have to add your own security plumb
 The following code filters for request URLs with no extensions and treats them as navigation requests.
 
 <code-example path="universal/server.ts" title="server.ts (navigation)" region="navigation-request" linenums="false">
+
 </code-example>
 
 #### Serve static files safely
@@ -397,6 +463,7 @@ and will only honor requests for files from the `/dist` folder.
 The following express code routes all remaining requests to `/dist`; it returns a `404 - NOT FOUND` if the file is not found.
 
 <code-example path="universal/server.ts" title="server.ts (static files)" region="static" linenums="false">
+
 </code-example>
 
 {@a universal-configuration}
@@ -412,6 +479,7 @@ The server application requires its own build configuration.
 Create a `tsconfig.server.json` file in the project root directory to configure TypeScript and AOT compilation of the universal app.
 
 <code-example path="universal/src/tsconfig.server.json" title="src/tsconfig.server.json">
+
 </code-example>
 
 This config extends from the root's `tsconfig.json` file. Certain settings are noteworthy for their differences.
@@ -419,6 +487,7 @@ This config extends from the root's `tsconfig.json` file. Certain settings are n
 * The `module` property must be **commonjs** which can be require()'d into our server application.
 
 * The `angularCompilerOptions` section guides the AOT compiler:
+
   * `entryModule` - the root module of the server application, expressed as `path/to/file#ClassName`.
 
 ### Universal Webpack configuration
@@ -429,6 +498,7 @@ but since the server is a typescript application, you will use Webpack to transp
 Create a `webpack.server.config.js` file in the project root directory with the following code.
 
 <code-example path="universal/webpack.server.config.js" title="webpack.server.config.js">
+
 </code-example>
 
 **Webpack configuration** is a rich topic beyond the scope of this guide.
@@ -440,6 +510,7 @@ Now that you've created the TypeScript and Webpack config files, you can build a
 First add the _build_ and _serve_ commands to the `scripts` section of the `package.json`:
 
 <code-example format="." language="ts">
+
 "scripts": {
     ...
     "build:universal": "npm run build:client-and-server-bundles && npm run webpack:server",
@@ -448,6 +519,7 @@ First add the _build_ and _serve_ commands to the `scripts` section of the `pack
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     ...
 }
+
 </code-example>
 
 {@a build}
@@ -457,7 +529,9 @@ First add the _build_ and _serve_ commands to the `scripts` section of the `pack
 From the command prompt, type
 
 <code-example format="." language="bash">
+
 npm run build:universal
+
 </code-example>
 
 The Angular CLI compiles and bundles the universal app into two different folders, `browser` and `server`.
@@ -466,16 +540,21 @@ Webpack transpiles the `server.ts` file into Javascript.
 {@a serve}
 
 #### Serve
+
 After building the application, start the server.
 
 <code-example format="." language="bash">
+
 npm run serve:universal
+
 </code-example>
 
 The console window should say
 
 <code-example format="." language="bash">
+
 Node server listening on http://localhost:4000
+
 </code-example>
 
 ## Universal in action
@@ -490,8 +569,11 @@ You can click on a hero on the Dashboard page to display its Details page.
 But clicks, mouse-moves, and keyboard entries are inert.
 
 * Clicking a hero on the Heroes page does nothing.
+
 * You can't add or delete a hero.
+
 * The search box on the Dashboard page is ignored.
+
 * The _back_ and _save_ buttons on the Details page don't work.
 
 User events other than `routerLink` clicks aren't supported.
@@ -514,13 +596,18 @@ Try one of the "3G" speeds.
 The server-rendered app still launches quickly but the full client app may take seconds to load.
 
 {@a summary}
+
 ## Summary
+
+## 小结
 
 This guide showed you how to take an existing Angular application and make it into a Universal app that does server-side rendering.
 It also explained some of the key reasons for doing so.
 
  - Facilitate web crawlers (SEO)
+
  - Support low-bandwidth or low-power devices
+
  - Fast first page load
 
 Angular Universal can greatly improve the perceived startup performance of your app.

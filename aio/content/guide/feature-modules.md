@@ -3,9 +3,13 @@
 Feature modules are NgModules for the purpose of  organizing code.
 
 #### Prerequisites
+
 A basic understanding of the following:
+
 * [Bootstrapping](guide/bootstrapping).
+
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
+
 * [Frequently Used Modules](guide/frequent-ngmodules).
 
 For the final sample app with a feature module that this page describes,
@@ -19,7 +23,6 @@ you can keep code related to a specific functionality or feature
 separate from other code. Delineating areas of your
 app helps with collaboration between developers and teams, separating
 directives, and managing the size of the root module.
-
 
 ## Feature modules vs. root modules
 
@@ -42,7 +45,6 @@ name of your module. You can omit the "Module" suffix from the name because the 
 ng generate module CustomerDashboard
 
 ```
-
 
 This causes the CLI to create a folder called `customer-dashboard` with a file inside called `customer-dashboard.module.ts` with the following contents:
 
@@ -71,11 +73,9 @@ ng generate component customer-dashboard/CustomerDashboard
 
 This generates a folder for the new component within the customer-dashboard folder and updates the feature module with the `CustomerDashboardComponent` info:
 
-
 <code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="customer-dashboard-component" title="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
+
 </code-example>
-
-
 
 The `CustomerDashboardComponent` is now in the JavaScript import list at the top and added to the `declarations` array, which lets Angular know to associate this new component with this feature module.
 
@@ -84,38 +84,37 @@ The `CustomerDashboardComponent` is now in the JavaScript import list at the top
 To incorporate the feature module into your app, you have to let the root module, `app.module.ts`, know about it. Notice the `CustomerDashboardModule` export at the bottom of `customer-dashboard.module.ts`. This exposes it so that other modules can get to it. To import it into the `AppModule`, add it to the imports in `app.module.ts` and to the `imports` array:
 
 <code-example path="feature-modules/src/app/app.module.ts" region="app-module" title="src/app/app.module.ts" linenums="false">
+
 </code-example>
 
-
 Now the `AppModule` knows about the feature module. If you were to add any service providers to the feature module, `AppModule` would know about those too, as would any other feature modules. However, NgModules don’t expose their components.
-
 
 ## Rendering a feature module’s component template
 
 When the CLI generated the `CustomerDashboardComponent` for the feature module, it included a template, `customer-dashboard.component.html`, with the following markup:
 
 <code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" region="feature-template" title="src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" linenums="false">
-</code-example>
 
+</code-example>
 
 To see this HTML in the `AppComponent`, you first have to export the `CustomerDashboardComponent` in the `CustomerDashboardModule`. In `customer-dashboard.module.ts`, just beneath the `declarations` array, add an `exports` array containing `CustomerDashboardModule`:
 
 <code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="component-exports" title="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
+
 </code-example>
-
-
 
 Next, in the `AppComponent`, `app.component.html`, add the tag `<app-customer-dashboard>`:
 
 <code-example path="feature-modules/src/app/app.component.html" region="app-component-template" title="src/app/app.component.html" linenums="false">
-</code-example>
 
+</code-example>
 
 Now, in addition to the title that renders by default, the `CustomerDashboardComponent` template renders too:
 
-
 <figure>
+
  <img src="generated/images/guide/feature-modules/feature-module.png" alt="feature module component">
+
 </figure>
 
 <hr />
@@ -123,6 +122,9 @@ Now, in addition to the title that renders by default, the `CustomerDashboardCom
 ## More on NgModules
 
 You may also be interested in the following:
+
 * [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
+
 * [Providers](guide/providers).
+
 * [Types of Feature Modules](guide/module-types).

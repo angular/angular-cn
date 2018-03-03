@@ -3,7 +3,11 @@
 #### Prerequisites
 
 A basic understanding of the following concepts:
+
+对下列概念有基本的理解：
+
 * [Bootstrapping](guide/bootstrapping).
+
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
 <hr />
@@ -16,7 +20,9 @@ decorator. The metadata falls
 into three categories:
 
 * **Static:** Compiler configuration which tells the compiler about directive selectors and where in templates the directives should be applied through selector matching. This is configured via the `declarations` array.
+
 * **Runtime:** Injector configuration via the `providers` array.
+
 * **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
 
 ```typescript
@@ -43,11 +49,19 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <th>
+
       Property
+
+      属性
+
     </th>
 
     <th>
+
       Description
+
+      描述
+
     </th>
 
   </tr>
@@ -55,7 +69,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>declarations</code>
+
     </td>
 
     <td>
@@ -64,14 +80,23 @@ The following table summarizes the `@NgModule` metadata properties.
       (*components*, *directives*, and *pipes*) that _belong to this module_.
 
       <ol>
+
         <li>When compiling a template, you need to determine a set of selectors which should be used for triggering their corresponding directives.</li>
+
         <li>
+
           The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
+
           <ul>
+
             <li>All selectors of directives listed in `declarations`.</li>
+
             <li>All selectors of directives exported from imported NgModules.</li>
+
           </ul>
+
         </li>
+
       </ol>
 
       Components, directives, and pipes must belong to _exactly_ one module.
@@ -86,7 +111,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>providers</code>
+
     </td>
 
     <td>
@@ -117,7 +144,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>imports</code>
+
     </td>
 
     <td>
@@ -145,7 +174,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>exports</code>
+
     </td>
 
     <td>
@@ -179,7 +210,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>bootstrap</code>
+
     </td>
 
     <td>
@@ -200,7 +233,9 @@ The following table summarizes the `@NgModule` metadata properties.
   <tr>
 
     <td style="vertical-align: top">
+
       <code>entryComponents</code>
+
     </td>
 
     <td>
@@ -224,19 +259,24 @@ The following table summarizes the `@NgModule` metadata properties.
 
       For more information, see [Entry Components](guide/entry-components).
 
+      要了解更多，参见[入口组件](guide/entry-components)一章。
+
     </td>
 
   </tr>
 
 </table>
 
-
 <hr />
 
 ## More on NgModules
 
 You may also be interested in the following:
+
 * [Feature Modules](guide/feature-modules).
+
 * [Entry Components](guide/entry-components).
+
 * [Providers](guide/providers).
+
 * [Types of Feature Modules](guide/module-types).

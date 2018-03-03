@@ -82,7 +82,8 @@ Angular是一个基于AngularJS中最好的部分构思出来的版本。在这�
 保留AngularJS中好的部分，去掉坏的部分。当然，Angular还做了更多。
 说这些的意思是：*遵循这个风格指南可以让你写出更接近Angular程序的AngularJS程序*。
 
-There are a few rules in particular that will make it much easier to do *an incremental upgrade* using the Angular `upgrade/static` module:
+There are a few rules in particular that will make it much easier to do
+*an incremental upgrade* using the Angular `upgrade/static` module:
 
 有一些特别的规则可以让使用Angular的`upgrade/static`模块进行*增量升级*变得更简单：
 
@@ -92,7 +93,7 @@ There are a few rules in particular that will make it much easier to do *an incr
   them between languages and frameworks one at a time. In this example application,
   each controller, component, service, and filter is in its own source file.
 
-  [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
+   [单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)
   规定每个文件应该只放一个组件。这不仅让组件更容易浏览和查找，而且还让我们能逐个迁移它们的语言和框架。
   在这个范例程序中，每个控制器、工厂和过滤器都位于各自的源文件中。
 
@@ -101,7 +102,7 @@ There are a few rules in particular that will make it much easier to do *an incr
   rules define similar principles on a higher level of abstraction: Different parts of the
   application should reside in different directories and NgModules.
 
-  [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
+   [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和Angular模块中。
 
 When an application is laid out feature per feature in this way, it can also be
 migrated one feature at a time. For applications that don't already look like
@@ -149,7 +150,6 @@ to package them all up into production bundles with batteries included.
 
 当我们的应用程序投入生产环境时，模块加载器也会让把所有这些文件打成完整的产品包变得容易一些。
 
-
 ### Migrating to TypeScript
 
 ### 迁移到TypeScript
@@ -177,29 +177,29 @@ TypeScript是ECMAScript 2015的超集，而ES2015又是ECMAScript 5的超集。
   (which are really ECMAScript 2015 imports and exports) can be used to organize
   code into modules.
 
-  对那些使用了模块加载器的程序，TypeScript的导入和导出语法(实际上是ECMAScript 2015的导入和导出)可以把代码组织成模块。
+   对那些使用了模块加载器的程序，TypeScript的导入和导出语法(实际上是ECMAScript 2015的导入和导出)可以把代码组织成模块。
 
 * Type annotations can be gradually added to existing functions and variables
   to pin down their types and get benefits like build-time error checking,
   great autocompletion support and inline documentation.
 
-  可以逐步把类型注解添加到现有函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
+   可以逐步把类型注解添加到现有函数和变量上，以固定它们的类型，并获得其优点：比如编译期错误检查、更好的支持自动完成，以及内联式文档等。
 
 * JavaScript features new to ES2015, like arrow functions, `let`s and `const`s,
   default function parameters, and destructuring assignments can also be gradually
   added to make the code more expressive.
 
-  那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也可以逐渐添加进来，让代码更有表现力。
+   那些ES2015中新增的特性，比如箭头函数、`let`、`const`、默认函数参数、解构赋值等也可以逐渐添加进来，让代码更有表现力。
 
 * Services and controllers can be turned into *classes*. That way they'll be a step
   closer to becoming Angular service and component classes, which will make
   life easier after the upgrade.
 
-  服务和控制器可以转成*类*。这样我们就能一步步接近Angular的服务和组件类了，这样等到我们开始升级时，也会更简单。
+   服务和控制器可以转成*类*。这样我们就能一步步接近Angular的服务和组件类了，这样等到我们开始升级时，也会更简单。
 
-#### Using Component Directives
+### Using Component Directives
 
-#### 使用组件型指令
+### 使用组件型指令
 
 In Angular, components are the main primitive from which user interfaces
 are built. You define the different portions of the UI as components and
@@ -224,25 +224,25 @@ these attributes:
 
 * `restrict: 'E'`. Components are usually used as elements.
 
-  `restrict: 'E'`。组件通常会以元素的方式使用。
+   `restrict: 'E'`。组件通常会以元素的方式使用。
 
 * `scope: {}` - an isolate scope. In Angular, components are always isolated
   from their surroundings, and you should do this in AngularJS too.
 
-  `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中也同样如此。
-  
+   `scope: {}` - 一个独立作用域。在Angular中，组件永远是从它们的环境中被隔离出来的，在AngularJS中也同样如此。
+
 * `bindToController: {}`. Component inputs and outputs should be bound
   to the controller instead of using the `$scope`.
 
-  `bindToController: {}`。组件的输入和输出应该绑定到控制器，而不是`$scope`。
+   `bindToController: {}`。组件的输入和输出应该绑定到控制器，而不是`$scope`。
 
 * `controller` and `controllerAs`. Components have their own controllers.
 
-  `controller`和`controllerAs`。组件要有自己的控制器。
+   `controller`和`controllerAs`。组件要有自己的控制器。
 
 * `template` or `templateUrl`. Components have their own templates.
 
-  `template`或`templateUrl`。组件要有自己的模板。
+   `template`或`templateUrl`。组件要有自己的模板。
 
 Component directives may also use the following attributes:
 
@@ -250,12 +250,12 @@ Component directives may also use the following attributes:
 
 * `transclude: true/{}`, if the component needs to transclude content from elsewhere.
 
-  `transclude: true`：如果组件需要从其它地方透传内容，就设置它。
-  
+   `transclude: true`：如果组件需要从其它地方透传内容，就设置它。
+
 * `require`, if the component needs to communicate with some parent component's
   controller.
 
-  `require`：如果组件需要和父组件的控制器通讯，就设置它。
+   `require`：如果组件需要和父组件的控制器通讯，就设置它。
 
 Component directives **should not** use the following attributes:
 
@@ -263,26 +263,26 @@ Component directives **should not** use the following attributes:
 
 * `compile`. This will not be supported in Angular.
 
-  `compile`。Angular不再支持它。
+   `compile`。Angular不再支持它。
 
 * `replace: true`. Angular never replaces a component element with the
   component template. This attribute is also deprecated in AngularJS.
 
-  `replace: true`。Angular永远不会用组件模板替换一个组件元素。这个特性在AngularJS中也同样不建议使用了。
+   `replace: true`。Angular永远不会用组件模板替换一个组件元素。这个特性在AngularJS中也同样不建议使用了。
 
 * `priority` and `terminal`. While AngularJS components may use these,
   they are not used in Angular and it is better not to write code
   that relies on them.
 
-  `priority`和`terminal`。虽然AngularJS的组件可能使用这些，但它们在Angular中已经没用了，并且最好不要再写依赖它们的代码。
+   `priority`和`terminal`。虽然AngularJS的组件可能使用这些，但它们在Angular中已经没用了，并且最好不要再写依赖它们的代码。
 
 An AngularJS component directive that is fully aligned with the Angular
 architecture may look something like this:
 
-
 AngularJS中一个完全向Angular架构对齐过的组件型指令是这样的：
 
 <code-example path="upgrade-module/src/app/hero-detail.directive.ts" title="hero-detail.directive.ts">
+
 </code-example>
 
 AngularJS 1.5 introduces the [component API](https://docs.angularjs.org/api/ng/type/angular.Module#component)
@@ -294,23 +294,23 @@ AngularJS 1.5引入了[组件API](https://docs.angularjs.org/api/ng/type/angular
 
 * It requires less boilerplate code.
 
-  它需要更少的样板代码。
+   它需要更少的样板代码。
 
 * It enforces the use of component best practices like `controllerAs`.
 
-  它强制你遵循组件的最佳实践，比如`controllerAs`。
+   它强制你遵循组件的最佳实践，比如`controllerAs`。
 
 * It has good default values for directive attributes like `scope` and `restrict`.
 
-  指令中像`scope`和`restrict`这样的属性应该有良好的默认值。
+   指令中像`scope`和`restrict`这样的属性应该有良好的默认值。
 
 The component directive example from above looks like this when expressed
 using the component API:
 
-
 如果使用这个组件API进行快捷定义，那么上面看到的组件型指令就变成了这样：
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io" title="hero-detail.component.ts">
+
 </code-example>
 
 Controller lifecycle hook methods `$onInit()`, `$onDestroy()`, and `$onChanges()`
@@ -320,8 +320,6 @@ logic around them will ease the eventual Angular upgrade process.
 
 控制器的生命周期钩子`$onInit()`、`$onDestroy()`和`$onChanges()`是AngularJS 1.5引入的另一些便利特性。
 它们都很像[Angular中的等价物](guide/lifecycle-hooks)，所以，围绕它们组织组件生命周期的逻辑会更容易升级。
-
-
 
 ## Upgrading with ngUpgrade
 
@@ -374,24 +372,34 @@ frameworks in how it actually works.
 
 无论是在AngularJS中还是在Angular中，依赖注入都位于前沿和中心的位置，但在两个框架的工作原理上，却存在着一些关键的不同之处。
 
-
 <table>
+
   <tr>
+
     <th>
+
       AngularJS
+
     </th>
+
     <th>
+
       Angular
+
     </th>
+
   </tr>
+
   <tr>
+
     <td>
 
       Dependency injection tokens are always strings
 
       依赖注入的令牌(Token)永远是字符串(译注：指服务名称)。
-      
+
     </td>
+
     <td>
 
       Tokens [can have different types](guide/dependency-injection).
@@ -399,18 +407,22 @@ frameworks in how it actually works.
 
       令牌[可能有不同的类型](guide/dependency-injection)。
       通常是类，也可能是字符串。
-      
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
 
       There is exactly one injector. Even in multi-module applications,
       everything is poured into one big namespace.
 
       只有一个注入器。即使在多模块的应用程序中，每样东西也都会被装入一个巨大的命名空间中。
-      
+
     </td>
+
     <td>
 
       There is a [tree hierarchy of injectors](guide/hierarchical-dependency-injection),
@@ -419,7 +431,9 @@ frameworks in how it actually works.
       这是一个[树状多层注入器](guide/hierarchical-dependency-injection)：有一个根注入器，而且每个组件也有一个自己的注入器。
 
     </td>
+
   </tr>
+
 </table>
 
 Even accounting for these differences you can still have dependency injection
@@ -433,7 +447,7 @@ everything work seamlessly:
   between the frameworks. In Angular these services will always be in the
   *root injector* and available to all components.
 
-  通过升级它们，我们就能让那些在AngularJS中能被注入的服务在Angular的代码中可用。
+   通过升级它们，我们就能让那些在AngularJS中能被注入的服务在Angular的代码中可用。
   在框架之间共享的是服务的同一个单例对象。在Angular中，这些外来服务总是被放在*根注入器*中，并可用于所有组件。
   它们总是具有*字符串令牌* —— 跟它们在AngularJS中的令牌相同。
 
@@ -443,13 +457,15 @@ everything work seamlessly:
   When you register a downgraded service, you must explicitly specify a *string token* that you want to
   use in AngularJS.
 
-  通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
+   通过降级它们，我们也能让那些在Angular中能被注入的服务在AngularJS的代码中可用。
   只有那些来自Angular根注入器的服务才能被降级。同样的，在框架之间共享的是同一个单例对象。
   当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。
-  
-  <figure >
-    <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application" >
-  </figure>
+
+<figure>
+
+  <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application">
+
+</figure>
 
 #### Components and the DOM
 
@@ -495,27 +511,31 @@ ways:
    AngularJS component.
 
    通过使用来自另一个框架的组件：AngularJS的模板中用到了Angular的组件，或者Angular的模板中使用了AngularJS的组件。
-   
+
 2. By transcluding or projecting content from the other framework. ngUpgrade
     bridges the related concepts of AngularJS transclusion and Angular content
     projection together.
 
-    通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
+   通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
 
-<figure >
-  <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application" >
+<figure>
+
+  <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application">
+
 </figure>
 
 Whenever you use a component that belongs to the other framework, a
 switch between framework boundaries occurs. However, that switch only
-happens to the elements in the template of thatcomponent . Consider a situation
+happens to the elements in the template of that component. Consider a situation
 where you use an Angular component from AngularJS like this:
 
 当我们使用一个属于另一个框架的组件时，就会发生一个跨框架边界的切换。不过，这种切换只发生在该组件元素的*子节点*上。
 考虑一个场景，我们从AngularJS中使用一个Angular组件，就像这样：
 
 <code-example language="html" escape="html">
+
   &lt;a-component&gt;&lt;/a-component&gt;
+
 </code-example>
 
 The DOM element `<a-component>` will remain to be an AngularJS managed
@@ -528,7 +548,6 @@ use AngularJS component directives from Angular.
 此时，`<a-component>`这个DOM元素仍然由AngularJS管理，因为它是在AngularJS的模板中定义的。
 这也意味着你可以往它上面添加别的AngularJS指令，却*不能*添加Angular的指令。
 只有在`<a-component>`组件的模板中才是Angular的天下。同样的规则也适用于在Angular中使用AngularJS组件型指令的情况。
-
 
 #### Change Detection
 
@@ -562,18 +581,20 @@ AngularJS and Angular approaches. Here's what happens:
   This is true whether the event originated in AngularJS or Angular code.
   The zone triggers Angular change detection after every event.
 
-  应用中发生的每件事都运行在Angular的zone里。
+   应用中发生的每件事都运行在Angular的zone里。
   无论事件发生在AngularJS还是Angular的代码中，都是如此。
 
 * The `UpgradeModule` will invoke the AngularJS `$rootScope.$apply()` after
   every turn of the Angular zone. This also triggers AngularJS change
   detection after every event.
 
-  `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
+   `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
 
-  <figure >
-    <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application" >
-  </figure>
+<figure>
+
+  <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application">
+
+</figure>
 
 In practice, you do not need to call `$apply()`,
 regardless of whether it is in AngularJS on Angular. The
@@ -581,11 +602,9 @@ regardless of whether it is in AngularJS on Angular. The
 is no need to remove such calls from existing code. Those calls just trigger
 additional AngularJS change detection checks in a hybrid application.
 
-
 在实践中，我们不用在自己的代码中调用`$apply()`，而不用管这段代码是在AngularJS还是Angular中。
 `UpgradeModule`都替我们做了。我们仍然*可以*调用`$apply()`，也就是说我们不必从现有代码中移除此调用。
 在混合式应用中，这些调用只会触发一次额外的 AngularJS 变更检测。
-
 
 When you downgrade an Angular component and then use it from AngularJS,
 the component's inputs will be watched using AngularJS change detection.
@@ -658,6 +677,7 @@ be used to bootstrap the AngularJS application.
 在 AngularJS 应用中有一个 AngularJS 的根模块，我们用它来引导 AngularJS 应用。
 
 <code-example path="upgrade-module/src/app/ajs-bootstrap/app.module.ts" region="ng1module" title="app.module.ts">
+
 </code-example>
 
 Pure AngularJS applications can be automatically bootstrapped by using an `ng-app`
@@ -673,6 +693,7 @@ Say you have an `ng-app` driven bootstrap such as this one:
 比如我们现在有这样一个通过 `ng-app` 进行引导的应用：
 
 <code-example path="upgrade-module/src/index-ng-app.html">
+
 </code-example>
 
 You can remove the `ng-app` and `ng-strict-di` directives from the HTML
@@ -682,6 +703,7 @@ will result in the same thing:
 我们可以从HTML中移除`ng-app`和`ng-strict-di`指令，改为从JavaScript中调用`angular.bootstrap`，它能达到同样效果：
 
 <code-example path="upgrade-module/src/app/ajs-bootstrap/app.module.ts" region="bootstrap" title="app.module.ts">
+
 </code-example>
 
 To begin converting your AngularJS application to a hybrid, you need to load the Angular framework.
@@ -697,14 +719,15 @@ and add a mapping for the `@angular/upgrade/static` package:
 也可以通过 `npm install @angular/upgrade --save` 命令来安装 `@angular/upgrade` 包，并给它添加一个到 `@angular/upgrade/static` 包的映射。
 
 <code-example path="upgrade-module/src/systemjs.config.1.js" region="upgrade-static-umd" title="systemjs.config.js (map)">
+
 </code-example>
 
 Next, create an `app.module.ts` file and add the following `NgModule` class:
 
-
 接下来，创建一个`app.module.ts`文件，并添加下列`NgModule`类：
 
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="ngmodule" title="app.module.ts">
+
 </code-example>
 
 This bare minimum `NgModule` imports `BrowserModule`, the module every Angular browser-based app must have.
@@ -735,6 +758,7 @@ Now you can bootstrap `AppModule` using the `platformBrowserDynamic.bootstrapMod
 现在，我们就可以使用 `platformBrowserDynamic.bootstrapModule` 方法来启动 `AppModule` 了。
 
 <code-example path="upgrade-module/src/app/ajs-a-hybrid-bootstrap/app.module.ts" region="bootstrap" title="app.module.ts'">
+
 </code-example>
 
 Congratulations! You're running a hybrid application! The
@@ -745,7 +769,6 @@ existing AngularJS code works as before _and_ you're ready to start adding Angul
 ### Using Angular Components from AngularJS Code
 
 ### 在AngularJS的代码中使用Angular的组件
-
 
 <img src="generated/images/guide/upgrade/ajs-to-a.png" alt="Using an Angular component from AngularJS code" class="left">
 
@@ -762,6 +785,7 @@ Say you have a simple Angular component that shows information about a hero:
 假设我们有一个简单的用来显示英雄信息的Angular组件：
 
 <code-example path="upgrade-module/src/app/downgrade-static/hero-detail.component.ts" title="hero-detail.component.ts">
+
 </code-example>
 
 If you want to use this component from AngularJS, you need to *downgrade* it
@@ -772,24 +796,23 @@ using the `downgradeComponent()` method. The result is an AngularJS
 如果我们这么做，就会得到一个AngularJS的*指令*，我们可以把它注册到AngularJS的模块中：
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="downgradecomponent" title="app.module.ts">
+
 </code-example>
 
-
-
-Because `HeroDetailComponent` is an Angular component, you must also add it to the 
+Because `HeroDetailComponent` is an Angular component, you must also add it to the
 `declarations` in the `AppModule`.
 
 由于`HeroDetailComponent`是一个Angular组件，所以我们必须同时把它加入`AppModule`的`declarations`字段中。
 
-And because this component is being used from the AngularJS module, and is an entry point into 
-the Angular application, you must add it to the `entryComponents` for the 
+And because this component is being used from the AngularJS module, and is an entry point into
+the Angular application, you must add it to the `entryComponents` for the
 NgModule.
-
 
 并且由于这个组件在AngularJS模块中使用，也是我们Angular应用的一个入口点，我们还需要
 将它加入到Angular模块的`entryComponents`列表中。
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="ngmodule" title="app.module.ts">
+
 </code-example>
 
 <div class="l-sub-section">
@@ -797,7 +820,6 @@ NgModule.
 All Angular components, directives and pipes must be declared in an NgModule.
 
 所有Angular组件、指令和管道都必须声明在NgModule中。
-
 
 </div>
 
@@ -807,6 +829,7 @@ use like any other directive in AngularJS templates.
 这里我们得到的是一个叫做`heroDetail`的AngularJS指令，我们可以像用其它指令一样把它用在AngularJS模板中。
 
 <code-example path="upgrade-module/src/index-downgrade-static.html" region="usecomponent">
+
 </code-example>
 
 <div class="alert is-helpful">
@@ -819,7 +842,6 @@ An AngularJS element directive is matched based on its _name_.
 AngularJS的元素型指令是基于它的*名字*匹配的。
 *Angular组件中的`selector`元数据，在降级后的版本中会被忽略。*
 
-
 </div>
 
 Most components are not quite this simple, of course. Many of them
@@ -830,17 +852,17 @@ like this:
 当然，大多数组件都不像这个这么简单。它们中很多都有*输入属性和输出属性*，来把它们连接到外部世界。
 Angular的英雄详情组件带有像这样的输入属性与输出属性：
 
-
 <code-example path="upgrade-module/src/app/downgrade-io/hero-detail.component.ts" title="hero-detail.component.ts">
+
 </code-example>
 
 These inputs and outputs can be supplied from the AngularJS template, and the
 `downgradeComponent()` method takes care of wiring them up:
 
-
 这些输入属性和输出属性的值来自于AngularJS的模板，而`downgradeComponent()`方法负责桥接它们：
 
 <code-example path="upgrade-module/src/index-downgrade-io.html" region="usecomponent">
+
 </code-example>
 
 Note that even though you are in an AngularJS template, **you're using Angular
@@ -850,20 +872,15 @@ components. The expressions themselves are still regular AngularJS expressions.
 注意，虽然我们正在AngularJS的模板中，**但却在使用Angular的属性(Attribute)语法来绑定到输入属性与输出属性**。
 这是降级的组件本身要求的。而表达式本身仍然是标准的AngularJS表达式。
 
-
 <div class="callout is-important">
 
 <header>
+
   Use kebab-case for downgraded component attributes
-</header>
 
-
-
-<header>
   在降级过的组件属性中使用中线命名法
+
 </header>
-
-
 
 There's one notable exception to the rule of using Angular attribute syntax
 for downgraded components. It has to do with input or output names that consist
@@ -872,8 +889,8 @@ of multiple words. In Angular, you would bind these attributes using camelCase:
 为降级过的组件使用Angular的属性(Attribute)语法规则时有一个值得注意的例外。
 它适用于由多个单词组成的输入或输出属性。在Angular中，我们要使用小驼峰命名法绑定这些属性：
 
-
 <code-example format="">
+
   [myHero]="hero"
 
 </code-example>
@@ -882,9 +899,10 @@ But when using them from AngularJS templates, you must use kebab-case:
 
 但是从AngularJS的模板中使用它们时，我们得使用中线命名法：
 
-
 <code-example format="">
+
   [my-hero]="hero"
+
 </code-example>
 
 </div>
@@ -899,17 +917,16 @@ Since this is an AngularJS template, you can still use other AngularJS
 directives on the element, even though it has Angular binding attributes on it.
 For example, you can easily make multiple copies of the component using `ng-repeat`:
 
-
 由于这是一个AngularJS模板，虽然它已经有了Angular中绑定的属性(Attribute)，我们仍可以在这个元素上使用其它AngularJS指令。
 例如，我们可以用`ng-repeat`简单的制作该组件的多份拷贝：
 
-<code-example path="upgrade-module/src/index-downgrade-io.html" region="userepeatedcomponent" >
+<code-example path="upgrade-module/src/index-downgrade-io.html" region="userepeatedcomponent">
+
 </code-example>
 
 ### Using AngularJS Component Directives from Angular Code
 
 ### 从Angular代码中使用AngularJS组件型指令
-
 
 <img src="generated/images/guide/upgrade/a-to-ajs.png" alt="Using an AngularJS component from Angular code" class="left">
 
@@ -941,13 +958,13 @@ and a controller:
 
 可升级组件的简单例子是只有一个模板和一个控制器的指令：
 
-
 <code-example path="upgrade-module/src/app/upgrade-static/hero-detail.component.ts" region="hero-detail" title="hero-detail.component.ts">
+
 </code-example>
 
-You can *upgrade* this component to Angular  using the `UpgradeComponent` class.
-By creating a new Angular  **directive** that extends `UpgradeComponent` and doing a `super` call
-inside its constructor, you have a fully upgraded AngularJS component to be used inside Angular .
+You can *upgrade* this component to Angular using the `UpgradeComponent` class.
+By creating a new Angular **directive** that extends `UpgradeComponent` and doing a `super` call
+inside its constructor, you have a fully upgraded AngularJS component to be used inside Angular.
 All that is left is to add it to `AppModule`'s `declarations` array.
 
 我们可以使用`UpgradeComponent`方法来把这个组件*升级*到Angular。
@@ -957,9 +974,11 @@ All that is left is to add it to `AppModule`'s `declarations` array.
 
 
 <code-example path="upgrade-module/src/app/upgrade-static/hero-detail.component.ts" region="hero-detail-upgrade" title="hero-detail.component.ts">
+
 </code-example>
 
 <code-example path="upgrade-module/src/app/upgrade-static/app.module.ts" region="hero-detail-upgrade" title="app.module.ts">
+
 </code-example>
 
 <div class="alert is-helpful">
@@ -972,57 +991,53 @@ its children.
 升级后的组件是Angular的**指令**，而不是**组件**，因为Angular不知道AngularJS将在它下面创建元素。
 Angular所知道的是升级后的组件只是一个指令（一个标签），Angular不需要关心组件本身及其子元素。
 
-
 </div>
 
 An upgraded component may also have inputs and outputs, as defined by
 the scope/controller bindings of the original AngularJS component
 directive. When you use the component from an Angular template,
- provide the inputs and outputs using **Angular template syntax**,
+provide the inputs and outputs using **Angular template syntax**,
 observing the following rules:
 
 升级后的组件也可能有输入属性和输出属性，它们是在原AngularJS组件型指令的scope/controller绑定中定义的。
 当我们从Angular模板中使用该组件时，我们要使用**Angular模板语法**来提供这些输入属性和输出属性，但要遵循下列规则：
 
 <table>
+
   <tr>
-    <th>
-    </th>
-    <th>
 
-      <p>
-        Binding definition
-      </p>
-
-      <p>
-        绑定定义
-      </p>
-
-    </th>
     <th>
 
-      <p>
-        Template syntax
-      </p>
+    </th>
 
-      <p>
-        模板语法
-      </p>
+    <th>
+
+      Binding definition
+
+      绑定定义
 
     </th>
+
+    <th>
+
+      Template syntax
+
+      模板语法
+
+    </th>
+
   </tr>
+
   <tr>
+
     <th>
 
-      <p>
-        Attribute binding
-      </p>
+      Attribute binding
 
-      <p>
-        属性(Attribute)绑定
-      </p>
+      属性(Attribute)绑定
 
     </th>
+
     <td>
 
       `myAttribute: '@myAttribute'`
@@ -1034,70 +1049,73 @@ observing the following rules:
       `<my-component myAttribute="value">`
 
     </td>
+
   </tr>
+
   <tr>
+
     <th>
 
-      <p>
-        Expression binding
-      </p>
+      Expression binding
 
-      <p>
-        表达式绑定
-      </p>
+      表达式绑定
 
     </th>
+
     <td>
 
       `myOutput: '&myOutput'`
 
     </td>
+
     <td>
 
       `<my-component (myOutput)="action()">`
 
     </td>
+
   </tr>
+
   <tr>
+
     <th>
 
-      <p>
-        One-way binding
-      </p>
+      One-way binding
 
-      <p>
-        单向绑定
-      </p>
+      单向绑定
 
     </th>
+
     <td>
 
       `myValue: '<myValue'`
 
     </td>
+
     <td>
 
       `<my-component [myValue]="anExpression">`
 
     </td>
+
   </tr>
+
   <tr>
+
     <th>
 
-      <p>
-        Two-way binding
-      </p>
+      Two-way binding
 
-      <p>
-        双向绑定
-      </p>
+      双向绑定
 
     </th>
+
     <td>
 
       `myValue: '=myValue'`
 
     </td>
+
     <td>
 
       As a two-way binding: `<my-component [(myValue)]="anExpression">`.
@@ -1108,7 +1126,9 @@ observing the following rules:
       用作双向绑定：`<my-component [(myValue)]="anExpression"`
 
     </td>
+
   </tr>
+
 </table>
 
 For example, imagine a hero detail AngularJS component directive
@@ -1116,21 +1136,21 @@ with one input and one output:
 
 举个例子，假设我们在AngularJS中有一个表示“英雄详情”的组件型指令，它带有一个输入属性和一个输出属性：
 
-
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io" title="hero-detail.component.ts">
+
 </code-example>
 
-
-
-You can upgrade this component to Angular, annotate inputs and outputs in the upgrade directive, 
+You can upgrade this component to Angular, annotate inputs and outputs in the upgrade directive,
 and then provide the input and output using Angular template syntax:
 
 我们可以把这个组件升级到Angular，然后使用Angular的模板语法提供这个输入属性和输出属性：
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io-upgrade" title="hero-detail.component.ts">
+
 </code-example>
 
 <code-example path="upgrade-module/src/app/upgrade-io/container.component.ts" title="container.component.ts">
+
 </code-example>
 
 ### Projecting AngularJS Content into Angular Components
@@ -1154,19 +1174,19 @@ tag within them. Here's an example of such a component:
 
 Angular的组件通过使用`<ng-content>`标签来支持内容投影。下面是这类组件的一个例子：
 
-
 <code-example path="upgrade-module/src/app/ajs-to-a-projection/hero-detail.component.ts" title="hero-detail.component.ts">
+
 </code-example>
 
 When using the component from AngularJS, you can supply contents for it. Just
 like they would be transcluded in AngularJS, they get projected to the location
 of the `<ng-content>` tag in Angular:
 
-
 当从AngularJS中使用该组件时，我们可以为它提供内容。正如它们将在AngularJS中被透传一样，
 它们也在Angular中被投影到了`<ng-content>`标签所在的位置：
 
-<code-example path="upgrade-module/src/index-ajs-to-a-projection.html" region="usecomponent" >
+<code-example path="upgrade-module/src/index-ajs-to-a-projection.html" region="usecomponent">
+
 </code-example>
 
 <div class="alert is-helpful">
@@ -1175,7 +1195,6 @@ When AngularJS content gets projected inside an Angular component, it still
 remains in "AngularJS land" and is managed by the AngularJS framework.
 
 当AngularJS的内容被投影到Angular组件中时，它仍然留在“AngularJS王国”中，并被AngularJS框架管理着。
-
 
 </div>
 
@@ -1198,8 +1217,8 @@ point:
 
 如果一个AngularJS组件型指令支持透传，它就会在自己的模板中使用`ng-transclude`指令标记出透传到的位置：
 
-
 <code-example path="upgrade-module/src/app/a-to-ajs-transclusion/hero-detail.component.ts" title="hero-detail.component.ts">
+
 </code-example>
 
 If you upgrade this component and use it from Angular, you can populate
@@ -1208,6 +1227,7 @@ the component tag with contents that will then get transcluded:
 如果我们升级这个组件，并把它用在Angular中，我们就能把准备透传的内容放进这个组件的标签中。
 
 <code-example path="upgrade-module/src/app/a-to-ajs-transclusion/container.component.ts" title="container.component.ts">
+
 </code-example>
 
 ### Making AngularJS Dependencies Injectable to Angular
@@ -1230,6 +1250,7 @@ code. For example, you might have a service called `HeroesService` in AngularJS:
 比如，我们可能在AngularJS中有一个名叫`HeroesService`的服务：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/heroes.service.ts" title="heroes.service.ts">
+
 </code-example>
 
 You can upgrade the service using a Angular [factory provider](guide/dependency-injection#factory-providers)
@@ -1249,14 +1270,13 @@ compilation can pick it up.
 
 我们还建议导出`heroesServiceFactory`函数，以便AOT编译器可以拿到它们。
 
-
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/ajs-upgraded-providers.ts" title="ajs-upgraded-providers.ts">
+
 </code-example>
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/app.module.ts" region="register" title="app.module.ts">
+
 </code-example>
-
-
 
 You can then inject it in Angular using its class as a type annotation:
 
@@ -1278,7 +1298,6 @@ provider can be upgraded.
 它没有影响该依赖的处理过程，同时还得到了启用静态类型检查的好处。
 任何AngularJS中的服务、工厂和提供商都能被升级 —— 尽管这不是必须的。
 
-
 </div>
 
 ### Making Angular Dependencies Injectable to AngularJS
@@ -1298,36 +1317,34 @@ For example, you might have an Angular service called `Heroes`:
 例如，我们可能有一个Angular的`Heroes`服务：
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/heroes.ts" title="heroes.ts">
+
 </code-example>
 
 Again, as with Angular components, register the provider with the `NgModule` by adding it to the module's `providers` list.
 
 仿照Angular组件，我们通过把该提供商加入`NgModule`的`providers`列表中来注册它。
 
-
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="ngmodule" title="app.module.ts">
+
 </code-example>
 
-
-
-Now wrap the Angular `Heroes` in an *AngularJS factory function* using `downgradeInjectable()` 
-and plug the factory into an AngularJS module. 
+Now wrap the Angular `Heroes` in an *AngularJS factory function* using `downgradeInjectable()`
+and plug the factory into an AngularJS module.
 The name of the AngularJS dependency is up to you:
 
 现在，我们使用`upgradeAdapter.downgradeNg2Provider()`来把Angular的`Heroes`包装成*AngularJS的工厂函数*，并把这个工厂注册进AngularJS的模块中。
 依赖在AngularJS中的名字你可以自己定：
 
-
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="register" title="app.module.ts">
+
 </code-example>
 
-
-
-After this, the service is injectable anywhere in  AngularJS code:
+After this, the service is injectable anywhere in AngularJS code:
 
 此后，该服务就能被注入到AngularJS代码中的任何地方了：
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/hero-detail.component.ts" title="hero-detail.component.ts">
+
 </code-example>
 
 ## Using Ahead-of-time compilation with hybrid apps
@@ -1356,6 +1373,7 @@ bootstrap the hybrid app:
 我们还要使用所生成的`AppModuleFactory`而不是原来的`AppModule`来引导一个混合式应用：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main-aot.ts" title="app/main-aot.ts">
+
 </code-example>
 
 And that's all you need do to get the full benefit of AOT for Angular apps!
@@ -1395,134 +1413,263 @@ In terms of project structure, this is where the work begins:
 在项目结构方面，我们工作的起点是这样的：
 
 <div class='filetree'>
+
   <div class='file'>
+
     angular-phonecat
+
   </div>
+
   <div class='children'>
+
     <div class='file'>
+
       bower.json
+
     </div>
+
     <div class='file'>
+
       karma.conf.js
+
     </div>
+
     <div class='file'>
+
       package.json
+
     </div>
+
     <div class='file'>
+
       app
+
     </div>
+
     <div class='children'>
+
       <div class='file'>
+
         core
+
       </div>
+
       <div class='children'>
+
         <div class='file'>
+
           checkmark
+
         </div>
+
         <div class='children'>
+
           <div class='file'>
+
             checkmark.filter.js
+
           </div>
+
           <div class='file'>
+
             checkmark.filter.spec.js
+
           </div>
+
         </div>
+
         <div class='file'>
+
           phone
+
         </div>
+
         <div class='children'>
+
           <div class='file'>
+
             phone.module.js
+
           </div>
+
           <div class='file'>
+
             phone.service.js
+
           </div>
+
           <div class='file'>
+
             phone.service.spec.js
+
           </div>
+
         </div>
+
         <div class='file'>
+
           core.module.js
+
         </div>
+
       </div>
+
       <div class='file'>
+
         phone-detail
+
       </div>
+
       <div class='children'>
+
         <div class='file'>
+
           phone-detail.component.js
+
         </div>
+
         <div class='file'>
+
           phone-detail.component.spec.js
+
         </div>
+
         <div class='file'>
+
           phone-detail.module.js
+
         </div>
+
         <div class='file'>
+
           phone-detail.template.html
+
         </div>
+
       </div>
+
       <div class='file'>
+
         phone-list
+
       </div>
+
       <div class='children'>
+
         <div class='file'>
+
           phone-list.component.js
+
         </div>
+
         <div class='file'>
+
           phone-list.component.spec.js
+
         </div>
+
         <div class='file'>
+
           phone-list.module.js
+
         </div>
+
         <div class='file'>
+
           phone-list.template.html
+
         </div>
+
       </div>
+
       <div class='file'>
+
         img
+
       </div>
+
       <div class='children'>
+
         <div class='file'>
+
            ...
+
         </div>
+
       </div>
+
       <div class='file'>
+
         phones
+
       </div>
+
       <div class='children'>
+
         <div class='file'>
+
            ...
+
         </div>
+
       </div>
+
       <div class='file'>
+
         app.animations.js
+
       </div>
+
       <div class='file'>
+
         app.config.js
+
       </div>
+
       <div class='file'>
+
         app.css
+
       </div>
+
       <div class='file'>
+
         app.module.js
+
       </div>
+
       <div class='file'>
+
         index.html
+
       </div>
+
     </div>
+
     <div class='file'>
+
       e2e-tests
+
     </div>
+
     <div class='children'>
+
       <div class='file'>
+
         protractor-conf.js
+
       </div>
+
       <div class='file'>
+
         scenarios.js
+
       </div>
+
     </div>
+
   </div>
+
 </div>
 
 This is actually a pretty good starting point. The code uses the AngularJS 1.5
@@ -1537,7 +1684,7 @@ a successful upgrade.
 * Each component, service, and filter is in its own source file, as per the
   [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
 
-  每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)所要求的。
+   每个组件、服务和过滤器都在它自己的源文件中 —— 就像[单一规则](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility)所要求的。
 
 * The `core`, `phone-detail`, and `phone-list` modules are each in their
   own subdirectory. Those subdirectories contain the JavaScript code as well as
@@ -1546,7 +1693,7 @@ a successful upgrade.
   and [Modularity](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)
   rules.
 
-  `core`、`phone-detail`和`phone-list`模块都在它们自己的子目录中。那些子目录除了包含HTML模板之外，还包含JavaScript代码，它们共同完成一个特性。
+   `core`、`phone-detail`和`phone-list`模块都在它们自己的子目录中。那些子目录除了包含HTML模板之外，还包含JavaScript代码，它们共同完成一个特性。
   这是[按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y152)
   和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则所要求的。
 
@@ -1554,9 +1701,8 @@ a successful upgrade.
   found, as described in the rules for
   [Organizing Tests](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#organizing-tests).
 
-  单元测试都和应用代码在一起，它们很容易找到。就像规则
+   单元测试都和应用代码在一起，它们很容易找到。就像规则
   [组织测试文件](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#organizing-tests)中要求的那样。
-
 
 ### Switching to TypeScript
 
@@ -1577,7 +1723,9 @@ Begin by installing TypeScript to the project.
 让我们先把TypeScript包安装到项目中。
 
 <code-example format="">
+
   npm i typescript --save-dev
+
 </code-example>
 
 Install type definitions for the existing libraries that
@@ -1587,7 +1735,9 @@ Jasmine unit test framework.
 我们还要为那些没有自带类型信息的库（比如 AngularJS 和 Jasmine）安装类型定义文件。
 
 <code-example format="">
+
   npm install @types/jasmine @types/angular @types/angular-animate @types/angular-cookies @types/angular-mocks @types/angular-resource @types/angular-route @types/angular-sanitize --save-dev
+
 </code-example>
 
 You should also configure the TypeScript compiler with a `tsconfig.json` in the project directory
@@ -1605,10 +1755,12 @@ JavaScript (based on the `tsconfig.json` configuration file):
 最后，我们应该把下列 npm 脚本添加到 `package.json` 中，用于把 TypeScript 文件编译成 JavaScript （根据`tsconfig.json`的配置）：
 
 <code-example format="">
+
   "script": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     ...
+
 </code-example>
 
 Now launch the TypeScript compiler from the command line in watch mode:
@@ -1616,7 +1768,9 @@ Now launch the TypeScript compiler from the command line in watch mode:
 现在，从命令行中用监视模式启动 TypeScript 编译器：
 
 <code-example format="">
+
   npm run tsc:w
+
 </code-example>
 
 Keep this process running in the background, watching and recompiling as you make changes.
@@ -1669,8 +1823,8 @@ what the filter is supposed to do.
 比如，我们可以给`checkmark`过滤器加上注解，表明它期待一个`boolean`类型的参数。
 这可以更清楚的表明此过滤器打算做什么
 
-
 <code-example path="upgrade-phonecat-1-typescript/app/core/checkmark/checkmark.filter.ts" title="app/core/checkmark/checkmark.filter.ts">
+
 </code-example>
 
 In the `Phone` service, you can explicitly annotate the `$resource` service dependency
@@ -1678,11 +1832,9 @@ as an `angular.resource.IResourceService` - a type defined by the AngularJS typi
 
 在`Phone`服务中，我们可以明确的把`$resource`服务声明为`angular.resource.IResourceService`，一个AngularJS类型定义提供的类型。
 
-
 <code-example path="upgrade-phonecat-1-typescript/app/core/phone/phone.service.ts" title="app/core/phone/phone.service.ts">
+
 </code-example>
-
-
 
 You can apply the same trick to the application's route configuration file in `app.config.ts`,
 where you are using the location and route services. By annotating them accordingly TypeScript
@@ -1692,6 +1844,7 @@ can verify you're calling their APIs with the correct kinds of arguments.
 一旦给它们提供了类型信息，TypeScript就能检查我们是否在用类型的正确参数来调用它们了。
 
 <code-example path="upgrade-phonecat-1-typescript/app/app.config.ts" title="app/app.config.ts">
+
 </code-example>
 
 <div class="l-sub-section">
@@ -1736,6 +1889,7 @@ Here's what the new class for the phone list component controller looks like:
 新的“电话列表(phone list)”组件控制器类是这样的：
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-list/phone-list.component.ts" title="app/phone-list/phone-list.component.ts">
+
 </code-example>
 
 What was previously done in the controller function is now done in the class
@@ -1762,8 +1916,8 @@ that the user is looking at and another for the URL of the currently displayed i
 
 在电话详情控制器中，我们有两个成员：一个是用户正在查看的电话，另一个是正在显示的图像：
 
-
 <code-example path="upgrade-phonecat-1-typescript/app/phone-detail/phone-detail.component.ts" title="app/phone-detail/phone-detail.component.ts">
+
 </code-example>
 
 This makes the controller code look a lot more like Angular already. You're
@@ -1796,17 +1950,13 @@ completely, but the key is to do this piece by piece without breaking the applic
 我们将在Angular[升级模块](guide/upgrade#upgrading-with-ngupgrade)的帮助下增量式的完成此项工作。
 等我们完成的那一刻，就能把AngularJS从项目中完全移除了，但其中的关键是在不破坏此程序的前提下一小块一小块的完成它。
 
-
 <div class="alert is-important">
-
-
 
 The project also contains some animations.
 You won't upgrade them in this version of the guide.
 Turn to the [Angular animations](guide/animations) guide to learn about that.
 
 该项目还包含一些动画，在此指南的当前版本我们先不升级它，等到后面的发行版再改。
-
 
 </div>
 
@@ -1819,19 +1969,20 @@ and get the following configurations from there:
 
 * Add Angular and the other new dependencies to `package.json`
 
-  把Angular和其它新依赖添加到`package.json`中
-  
+   把Angular和其它新依赖添加到`package.json`中
+
 * The SystemJS configuration file `systemjs.config.js` to the project root directory.
 
-  把SystemJS的配置文件`systemjs.config.js`添加到项目的根目录。
+   把SystemJS的配置文件`systemjs.config.js`添加到项目的根目录。
 
 Once these are done, run:
 
 这些完成之后，就运行：
 
-
 <code-example format="">
+
   npm install
+
 </code-example>
 
 Soon you can load Angular dependencies into the application via `index.html`,
@@ -1849,7 +2000,9 @@ instead of `app`:
 把`app/index.html`移入项目的根目录，然后把`package.json`中的开发服务器根目录也指向项目的根目录，而不再是`app`目录：
 
 <code-example format="">
+
   "start": "http-server ./ -a localhost -p 8000 -c-1",
+
 </code-example>
 
 Now you're able to serve everything from the project root to the web browser. But you do *not*
@@ -1859,8 +2012,8 @@ cause relative URLs to be resolved back to the `/app` directory:
 
 现在，我们能把项目根目录下的每一样东西发给浏览器了。但我们不想为了适应开发环境中的设置，被迫修改应用代码中用到的所有图片和数据的路径。因此，我们往`index.html`中添加一个`<base>`标签，它将导致各种相对路径被解析回`/app`目录：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/index.html" region="base" title="index.html">
+
 </code-example>
 
 Now you can load Angular via SystemJS. You'll add the Angular polyfills and the
@@ -1870,8 +2023,8 @@ to load the actual application:
 现在我们可以通过SystemJS加载Angular了。我们将把Angular的腻子脚本(polyfills)
 和SystemJS的配置加到`<head>`区的末尾，然后，我们就用`System.import`来加载实际的应用：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/index.html" region="angular" title="index.html">
+
 </code-example>
 
 You also need to make a couple of adjustments
@@ -1890,6 +2043,7 @@ and add a mapping for the `@angular/upgrade/static` package.
 我们还要通过`npm install @angular/upgrade --save`来安装`upgrade`包，并为`@angular/upgrade/static`包添加一个映射。
 
 <code-example path="upgrade-phonecat-2-hybrid/systemjs.config.1.js" region="paths" title="systemjs.config.js">
+
 </code-example>
 
 ### Creating the _AppModule_
@@ -1906,16 +2060,16 @@ The file contents remain:
 把它改名为`app.module.ng1.ts`，同时也要在`index.html`中更新对应的脚本名。
 文件的内容保留：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ajs.ts" title="app.module.ajs.ts">
+
 </code-example>
 
 Now create a new `app.module.ts` with the minimum `NgModule` class:
 
 然后创建一个新的`app.module.ts`文件，其中是一个最小化的`NgModule`类：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="bare" title="app.module.ts">
+
 </code-example>
 
 ### Bootstrapping a hybrid PhoneCat
@@ -1943,6 +2097,7 @@ Then import `UpgradeModule` in the `AppModule`, and override its `ngDoBootstrap`
 首先，从`index.html`中移除`ng-app`。然后在`AppModule`中导入`UpgradeModule`，并改写它的`ngDoBootstrap`方法：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="upgrademodule" title="app/app.module.ts">
+
 </code-example>
 
 Note that you are bootstrapping the AngularJS module from inside `ngDoBootstrap`.
@@ -1959,8 +2114,8 @@ so it is already being loaded by the browser.
 
 最后，在`src/main.ts`中引导这个`AppModule`。该文件在`systemjs.config.js`中被配置为了应用的入口，所以它已经被加载进了浏览器中。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/main.ts" region="bootstrap" title="app/main.ts">
+
 </code-example>
 
 Now you're running both AngularJS and Angular at the same time. That's pretty
@@ -2003,7 +2158,6 @@ and still have full typing support.
 但如果我们声明`angular`为`angular.IAngularStatic`，指明它是一个全局变量，
 仍然可以获得全面的类型支持。
 
-
 </div>
 
 ### Upgrading the Phone service
@@ -2020,11 +2174,11 @@ ngResource and you're using it for two things:
 
 * For loading the list of all phones into the phone list component.
 
-  把所有电话的列表加载到电话列表组件中。
-  
+   把所有电话的列表加载到电话列表组件中。
+
 * For loading the details of a single phone into the phone detail component.
 
-  把一台电话的详情加载到电话详情组件中。
+   把一台电话的详情加载到电话详情组件中。
 
 You can replace this implementation with an Angular service class, while
 keeping the controllers in AngularJS land.
@@ -2039,8 +2193,8 @@ Re-open the `app.module.ts` file, import and add `HttpModule` to the `imports` a
 
 再次打开`app.module.ts`文件，导入并把`HttpModule`添加到`AppModule`的`imports`数组中：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="httpmodule" title="app.module.ts">
+
 </code-example>
 
 Now you're ready to upgrade the Phone service itself. Replace the ngResource-based
@@ -2048,8 +2202,8 @@ service in `phone.service.ts` with a TypeScript class decorated as `@Injectable`
 
 现在，我们已经准备好了升级`Phones`服务本身。我们将为`phone.service.ts`文件中基于ngResource的服务加上`@Injectable`装饰器：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="classdef" title="app/core/phone/phone.service.ts (skeleton)" linenums="false">
+
 </code-example>
 
 The `@Injectable` decorator will attach some dependency injection metadata
@@ -2067,11 +2221,11 @@ be injected to it and it is stored as a private field. The service is then
 used in the two instance methods, one of which loads the list of all phones,
 and the other loads the details of a specified phone:
 
-
 在它的构造函数中，该类期待一个`Http`服务。`Http`服务将被注入进来并存入一个私有字段。
 然后该服务在两个实例方法中被使用到，一个加载所有电话的列表，另一个加载一台指定电话的详情：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="fullclass" title="app/core/phone/phone.service.ts">
+
 </code-example>
 
 The methods now return Observables of type `PhoneData` and `PhoneData[]`. This is
@@ -2081,6 +2235,7 @@ a type you don't have yet. Add a simple interface for it:
 这是一个我们从未用过的类型，因此我们得为它新增一个简单的接口：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="phonedata-interface" title="app/core/phone/phone.service.ts (interface)" linenums="false">
+
 </code-example>
 
 `@angular/upgrade/static` has a `downgradeInjectable` method for the purpose of making
@@ -2089,16 +2244,16 @@ Angular services available to AngularJS code. Use it to plug in the `Phone` serv
 `@angular/upgrade/static`有一个`downgradeInjectable`方法，可以使Angular服务在AngularJS的代码中可用。
 使用它来插入`Phone`服务：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="downgrade-injectable" title="app/core/phone/phone.service.ts (downgrade)" linenums="false">
+
 </code-example>
 
 Here's the full, final code for the service:
 
 最终，该类的全部代码如下：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" title="app/core/phone/phone.service.ts">
+
 </code-example>
 
 Notice that you're importing the `map` operator of the RxJS `Observable` separately.
@@ -2107,13 +2262,14 @@ Do this for every RxJS operator.
 注意，我们单独导入了RxJS `Observable`中的`map`操作符。
 我们需要对想用的所有RxJS操作符这么做，因为Angular默认不会加载所有RxJS操作符。
 
-The new `Phone` service has the same features as the original, `ngResource`-based service. 
+The new `Phone` service has the same features as the original, `ngResource`-based service.
 Because it's an Angular service, you register it with the `NgModule` providers:
 
 这个新的`Phone`服务具有和老的基于`ngResource`的服务相同的特性。
 因为它是Angular服务，我们通过`NgModule`的`providers`数组来注册它：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phone" title="app.module.ts">
+
 </code-example>
 
 Now that you are loading `phone.service.ts` through an import that is resolved
@@ -2132,9 +2288,11 @@ it's really an instance of the `Phone` class and you annotate its type according
 但它实际上是一个`Phones`类的实例，并且我们可以据此注解它的类型：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ajs.ts" title="app/phone-list/phone-list.component.ts">
+
 </code-example>
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.ajs.ts" title="app/phone-detail/phone-detail.component.ts">
+
 </code-example>
 
 Now there are two AngularJS components using an Angular service!
@@ -2146,14 +2304,11 @@ without having to yet migrate the components that use it.
 这里的两个AngularJS控制器在使用Angular的服务！控制器不需要关心这一点，尽管实际上该服务返回的是可观察对象(Observable)，而不是承诺(Promise)。
 无论如何，我们达到的效果都是把服务移植到Angular，而不用被迫移植组件来使用它。
 
-
 <div class="alert is-helpful">
 
-
-
-You could  use the `toPromise` method of `Observable` to turn those
-Observables into Promises in the service. In many cases that
-reduce the number of changes to the component controllers.
+You could use the `toPromise` method of `Observable` to turn those
+Observables into Promises in the service. In many cases that reduce
+the number of changes to the component controllers.
 
 我们也能使用`Observable`的`toPromise`方法来在服务中把这些可观察对象转变成承诺，以进一步减小组件控制器中需要修改的代码量。
 
@@ -2162,7 +2317,6 @@ reduce the number of changes to the component controllers.
 ### Upgrading Components
 
 ### 升级组件
-
 
 Upgrade the AngularJS components to Angular components next.
 Do it one component at a time while still keeping the application in hybrid mode.
@@ -2182,6 +2336,7 @@ You can then also remove the static `$inject` property from the class:
 的组件了。然后，我们还从类中移除静态`$inject`属性。
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="initialclass" title="app/phone-list/phone-list.component.ts">
+
 </code-example>
 
 The `selector` attribute is a CSS selector that defines where on the page the component
@@ -2198,8 +2353,8 @@ with Angular's two-way `[(ngModel)]` binding syntax:
 
 现在，我们还需要将组件的模版也转换为Angular语法。在搜索控件中，我们要为把AngularJS的`$ctrl`表达式替换成Angular的双向绑定语法`[(ngModel)]`：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="controls" title="app/phone-list/phone-list.template.html (search controls)" linenums="false">
+
 </code-example>
 
 Replace the list's `ng-repeat` with an `*ngFor` as
@@ -2210,8 +2365,8 @@ Replace the image tag's `ng-src` with a binding to the native `src` property.
 该语法在[模板语法指南中讲过](guide/template-syntax#directives)。
 对于图片，我们可以把`img`标签的`ng-src`替换为一个标准的`src`属性(property)绑定。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="list" title="app/phone-list/phone-list.template.html (phones)" linenums="false">
+
 </code-example>
 
 #### No Angular _filter_ or _orderBy_ filters
@@ -2229,8 +2384,8 @@ which implements the filtering and ordering logic inside the component itself.
 
 我们把`filter`和`orderBy`过滤器改成绑定到控制器中的`getPhones()`方法，通过该方法，组件本身实现了过滤和排序逻辑。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="getphones" title="app/phone-list/phone-list.component.ts">
+
 </code-example>
 
 Now you need to downgrade the Angular component so you can use it in AngularJS.
@@ -2246,8 +2401,8 @@ that the return value of the `downgradeComponent` method is a directive factory.
 强制类型转换`as angular.IDirectiveFactory`告诉TypeScript编译器`downgradeComponent`方法
 的返回值是一个指令工厂。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.ts" region="downgrade-component" title="app/phone-list/phone-list.component.ts">
+
 </code-example>
 
 The new `PhoneListComponent` uses the Angular `ngModel` directive, located in the `FormsModule`.
@@ -2259,6 +2414,7 @@ finally add it to `entryComponents` since you downgraded it:
 最后由我们把它降级了，添加到`entryComponents`：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phonelist" title="app.module.ts">
+
 </code-example>
 
 Remove the &lt;script&gt; tag for the phone list component from `index.html`.
@@ -2269,8 +2425,8 @@ Now set the remaining `phone-detail.component.ts` as follows:
 
 现在，剩下的`phone-detail.component.ts`文件变成了这样：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.ts" title="app/phone-detail/phone-detail.component.ts">
+
 </code-example>
 
 This is similar to the phone list component.
@@ -2298,9 +2454,11 @@ Do that in a new file called `ajs-upgraded-providers.ts` and import it in `app.m
 新建一个名叫`ajs-upgraded-providers.ts`的文件，并且在`app.module.ts`中导入它：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/ajs-upgraded-providers.ts" title="app/ajs-upgraded-providers.ts">
+
 </code-example>
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="routeparams" title="app/app.module.ts ($routeParams)" linenums="false">
+
 </code-example>
 
 Convert the phone detail component template into Angular syntax as follows:
@@ -2308,8 +2466,8 @@ Convert the phone detail component template into Angular syntax as follows:
 我们现在也要把该组件的模板转变成Angular的语法。
 这里是它完整的新模板：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.template.html" title="app/phone-detail/phone-detail.template.html">
+
 </code-example>
 
 There are several notable changes here:
@@ -2318,13 +2476,12 @@ There are several notable changes here:
 
 * You've removed the `$ctrl.` prefix from all expressions.
 
-  我们从所有表达式中移除了`$ctrl.`前缀。
-
+   我们从所有表达式中移除了`$ctrl.`前缀。
 
 * You've replaced `ng-src` with property
   bindings for the standard `src` property.
 
-  正如我们在电话列表中做过的那样，我们把`ng-src`替换成了标准的`src`属性绑定。
+   正如我们在电话列表中做过的那样，我们把`ng-src`替换成了标准的`src`属性绑定。
 
 * You're using the property binding syntax around `ng-class`. Though Angular
   does have [a very similar `ngClass`](guide/template-syntax#directives)
@@ -2332,18 +2489,18 @@ There are several notable changes here:
   In Angular, you always specify  in the template when an attribute's value is
   a property expression, as opposed to a literal string.
 
-  我们在`ng-class`周围使用了属性绑定语法。虽然Angular中有一个
+   我们在`ng-class`周围使用了属性绑定语法。虽然Angular中有一个
   和AngularJS中[非常相似的`ngClass`](guide/template-syntax#directives)指令，
   但是它的值不会神奇的作为表达式进行计算。在Angular中，模板中的属性(Attribute)值总是被作为
   属性(Property)表达式计算，而不是作为字符串字面量。
 
 * You've replaced `ng-repeat`s with `*ngFor`s.
 
-  我们把`ng-repeat`替换成了`*ngFor`。
+   我们把`ng-repeat`替换成了`*ngFor`。
 
 * You've replaced `ng-click` with an event binding for the standard `click`.
 
-  我们把`ng-click`替换成了一个到标准`click`事件的绑定。
+   我们把`ng-click`替换成了一个到标准`click`事件的绑定。
 
 * You've wrapped the whole template in an `ngIf` that causes it only to be
   rendered when there is a phone present. You need this because when the component
@@ -2352,7 +2509,7 @@ There are several notable changes here:
   when you try to refer to properties on undefined objects. You need to be explicit
   about cases where this is expected.
 
-  我们把整个模板都包裹进了一个`ngIf`中，这导致只有当存在一个电话时它才会渲染。我们必须这么做，
+   我们把整个模板都包裹进了一个`ngIf`中，这导致只有当存在一个电话时它才会渲染。我们必须这么做，
   是因为组件首次加载时我们还没有`phone`变量，这些表达式就会引用到一个不存在的值。
   和AngularJS不同，当我们尝试引用未定义对象上的属性时，Angular中的表达式不会默默失败。
   我们必须明确指出这种情况是我们所期望的。
@@ -2361,8 +2518,8 @@ Add `PhoneDetailComponent` component to the `NgModule` _declarations_ and _entry
 
 把`PhoneDetailComponent`组件添加到`NgModule`的_declarations_和_entryComponents_中：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phonedetail" title="app.module.ts">
+
 </code-example>
 
 You should now also remove the phone detail component &lt;script&gt; tag from `index.html`.
@@ -2390,8 +2547,8 @@ Rename the file to `checkmark.pipe.ts` to conform with Angular conventions:
 实现方式和以前一样，但把它们包装进`transform`方法中就可以了。
 把该文件改名成`checkmark.pipe.ts`，以符合Angular中的命名约定：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.ts" title="app/core/checkmark/checkmark.pipe.ts" linenums="false">
+
 </code-example>
 
 Now import and declare the newly created pipe and
@@ -2399,8 +2556,8 @@ remove the filter &lt;script&gt; tag from `index.html`:
 
 当我们做这个修改时，也要同时从`core`模块文件中移除对该过滤器的注册。该模块的内容变成了：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="checkmarkpipe" title="app.module.ts">
+
 </code-example>
 
 ### AOT compile the hybrid app
@@ -2418,6 +2575,7 @@ by the AOT compiler:
 然后，我们就要修改`main-aot.ts`的引导代码，通过所生成的`AppComponentFactory`来引导AngularJS应用：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main-aot.ts" title="app/main-aot.ts">
+
 </code-example>
 
 You need to load all the AngularJS files you already use in `index.html` in `aot/index.html`
@@ -2425,8 +2583,8 @@ as well:
 
 我们还要把在`index.html`中已经用到的所有AngularJS文件加载到`aot/index.html`中：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/aot/index.html" title="aot/index.html">
+
 </code-example>
 
 These files need to be copied together with the polyfills. The files the application
@@ -2439,11 +2597,9 @@ Install `fs-extra` via `npm install fs-extra --save-dev` for better file copying
 
 通过`npm install fs-extra --save-dev`安装`fs-extra`可以更好的复制文件，并且把`copy-dist-files.js`文件改成这样：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/copy-dist-files.js" title="copy-dist-files.js">
+
 </code-example>
-
-
 
 And that's all you need to use AOT while upgrading your app!
 
@@ -2476,11 +2632,11 @@ at the top of the applications component tree.
 You don't yet have such a root component, because the app is still managed as an AngularJS app.
 Create a new `app.component.ts` file with the following `AppComponent` class:
 
-
 我们还没有这样一个根组件，因为该应用仍然是像一个AngularJS应用那样被管理的。
 创建新的`app.component.ts`文件，放入像这样的`AppComponent`类：
 
-<code-example path="upgrade-phonecat-3-final/app/app.component.ts" title="app/app.component.ts" >
+<code-example path="upgrade-phonecat-3-final/app/app.component.ts" title="app/app.component.ts">
+
 </code-example>
 
 It has a simple template that only includes the `<router-outlet>.
@@ -2497,11 +2653,11 @@ element on the host web page when the application launches.
 Add this `<phonecat-app>` element to the `index.html`.
 It replaces the old AngularJS `ng-view` directive:
 
-
 把这个`<phonecat-app>`元素插入到`index.html`中。
 用它来代替AngularJS中的`ng-view`指令：
 
 <code-example path="upgrade-phonecat-3-final/index.html" region="appcomponent" title="index.html (body)" linenums="false">
+
 </code-example>
 
 #### Create the _Routing Module_
@@ -2516,11 +2672,11 @@ The details of Angular router configuration are best left to the [Routing docume
 which recommends that you create a `NgModule` dedicated to router configuration
 (called a _Routing Module_).
 
-
 Angular路由器配置的详情最好去查阅下[路由与导航](guide/router)文档。
 它建议你创建一个专们用于路由器配置的`NgModule`（名叫*路由模块*）。
 
 <code-example path="upgrade-phonecat-3-final/app/app-routing.module.ts" title="app/app-routing.module.ts">
+
 </code-example>
 
 This module defines a `routes` object with two routes to the two phone components
@@ -2549,6 +2705,7 @@ and the `UpgradeModule` import.
 我们还要从`app.module.ts`中移除调用`ngDoBootstrap()`来引导AngularJS模块的代码，以及对`UpgradeModule`的导入代码。
 
 <code-example path="upgrade-phonecat-3-final/app/app.module.ts" title="app/app.module.ts">
+
 </code-example>
 
 And since you are routing to `PhoneListComponent` and `PhoneDetailComponent` directly rather than
@@ -2569,6 +2726,7 @@ and let that directive construct the appropriate URL to the `PhoneDetailComponen
 我们可以通过把每个电话的`id`绑定到`routerLink`指令来生成它们了，该指令的构造函数会为`PhoneDetailComponent`生成正确的URL：
 
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.template.html" region="list" title="app/phone-list/phone-list.template.html (list with links)" linenums="false">
+
 </code-example>
 
 <div class="l-sub-section">
@@ -2587,12 +2745,12 @@ The Angular router passes route parameters differently.
 Correct the `PhoneDetail` component constructor to expect an injected `ActivatedRoute` object.
 Extract the `phoneId` from the `ActivatedRoute.snapshot.params` and fetch the phone data as before:
 
-
 Angular路由器会传入不同的路由参数。
 改正`PhoneDetail`组件的构造函数，让它改用注入进来的`ActivatedRoute`对象。
 从`ActivatedRoute.snapshot.params`中提取出`phoneId`，并像以前一样获取手机的数据：
 
 <code-example path="upgrade-phonecat-3-final/app/phone-detail/phone-detail.component.ts" title="app/phone-detail/phone-detail.component.ts">
+
 </code-example>
 
 You are now running a pure Angular application!
@@ -2617,10 +2775,10 @@ There's no need for that anymore.
 
 Switch the bootstrap method of the application from the `UpgradeModule` to the Angular way.
 
-
 把应用的引导（`bootstrap`）方法从`UpgradeAdapter`的改为Angular的。
 
 <code-example path="upgrade-phonecat-3-final/app/main.ts" title="main.ts">
+
 </code-example>
 
 If you haven't already, remove all references to the `UpgradeModule` from `app.module.ts`,
@@ -2635,11 +2793,11 @@ together with the associated AngularJS factory or directive declarations.
 Since you no longer have downgraded components, you no longer list them
 in `entryComponents`.
 
-
 还要删除所有的`downgradeInjectable()`或`downgradeComponent()`以及与AngularJS相关的工厂或指令声明。
 因为我们不再需要降级任何组件了，也不再需要把它们列在`entryComponents`中。
 
 <code-example path="upgrade-phonecat-3-final/app/app.module.ts" title="app.module.ts">
+
 </code-example>
 
 You may also completely remove the following files. They are AngularJS
@@ -2648,10 +2806,15 @@ module configuration files and not needed in Angular:
 我们还要完全移除了下列文件。它们是AngularJS的模块配置文件和类型定义文件，在Angular中不需要了：
 
 * `app/app.module.ajs.ts`
+
 * `app/app.config.ts`
+
 * `app/core/core.module.ts`
+
 * `app/core/phone/phone.module.ts`
+
 * `app/phone-detail/phone-detail.module.ts`
+
 * `app/phone-list/phone-list.module.ts`
 
 The external typings for AngularJS may be uninstalled as well. The only ones
@@ -2661,10 +2824,11 @@ The `@angular/upgrade` package and its mapping in `systemjs.config.js` can also 
 还需要反安装AngularJS的外部类型定义文件。我们现在只需要Jasmine的那些。
 `systemjs.config.js`中的`@angular/upgrade`包及其映射也可以移除了。
 
-
 <code-example format="">
+
   npm uninstall @angular/upgrade --save
   npm uninstall @types/angular @types/angular-animate @types/angular-cookies @types/angular-mocks @types/angular-resource @types/angular-route @types/angular-sanitize --save-dev
+
 </code-example>
 
 Finally, from `index.html`, remove all references to AngularJS scripts and jQuery.
@@ -2674,6 +2838,7 @@ When you're done, this is what it should look like:
 当这些全部做完时，`index.html`应该是这样的：
 
 <code-example path="upgrade-phonecat-3-final/index.html" region="full" title="index.html">
+
 </code-example>
 
 That is the last you'll see of AngularJS! It has served us well but now
@@ -2721,80 +2886,81 @@ Update the `protractor-conf.js` to sync with hybrid apps:
 
 再对`protractor-conf.js`做下列修改，与混合应用同步：
 
-
 <code-example format="">
+
   ng12Hybrid: true
+
 </code-example>
 
-
-
-When you start to upgrade components and their templates to Angular, you'll make more changes 
- because the E2E tests have matchers that are specific to AngularJS. 
+When you start to upgrade components and their templates to Angular, you'll make more changes
+because the E2E tests have matchers that are specific to AngularJS.
 For PhoneCat you need to make the following changes in order to make things work with Angular:
 
 当我们开始组件和模块升级到Angular时，还需要一系列后续的修改。
 这是因为E2E测试有一些匹配器是AngularJS中特有的。对于PhoneCat来说，为了让它能在Angular下工作，我们得做下列修改：
 
 <table>
+
   <tr>
+
     <th>
 
-      <p>
-        Previous code
-      </p>
+      Previous code
 
-      <p>
-        老代码
-      </p>
+      老代码
 
     </th>
+
     <th>
 
-      <p>
-        New code
-      </p>
+      New code
 
-      <p>
-        新代码
-      </p>
+      新代码
 
     </th>
+
     <th>
 
-      <p>
-        Notes
-      </p>
+      Notes
 
-      <p>
-        说明
-      </p>
+      说明
 
     </th>
+
   </tr>
+
   <tr>
+
     <td>
 
       `by.repeater('phone in $ctrl.phones').column('phone.name')`
 
     </td>
+
     <td>
 
       `by.css('.phones .name')`
 
     </td>
+
     <td>
 
       The repeater matcher relies on AngularJS `ng-repeat`
 
       repeater匹配器依赖于AngularJS中的`ng-repeat`
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
 
       `by.repeater('phone in $ctrl.phones')`
 
     </td>
+
     <td>
 
       `by.css('.phones li')`
@@ -2806,55 +2972,73 @@ For PhoneCat you need to make the following changes in order to make things work
       The repeater matcher relies on AngularJS `ng-repeat`
 
       repeater匹配器依赖于AngularJS中的`ng-repeat`
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
 
       `by.model('$ctrl.query')`
 
     </td>
+
     <td>
 
       `by.css('input')`
 
     </td>
+
     <td>
 
       The model matcher relies on AngularJS `ng-model`
 
       model匹配器依赖于AngularJS中的`ng-model`
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
 
       `by.model('$ctrl.orderProp')`
 
     </td>
+
     <td>
 
       `by.css('select')`
 
     </td>
+
     <td>
 
       The model matcher relies on AngularJS `ng-model`
 
       model匹配器依赖于AngularJS中的`ng-model`
+
     </td>
+
   </tr>
+
   <tr>
+
     <td>
 
       `by.binding('$ctrl.phone.name')`
 
     </td>
+
     <td>
 
       `by.css('h1')`
 
     </td>
+
     <td>
 
       The binding matcher relies on AngularJS data binding
@@ -2862,7 +3046,9 @@ For PhoneCat you need to make the following changes in order to make things work
       binding匹配器依赖于AngularJS的数据绑定
 
     </td>
+
   </tr>
+
 </table>
 
 When the bootstrap method is switched from that of `UpgradeModule` to
@@ -2879,9 +3065,10 @@ Replace the `ng12Hybrid` previously added with the following in `protractor-conf
 
 替换之前在`protractor-conf.js`中加入 `ng12Hybrid`，象这样：
 
-
 <code-example format="">
+
   useAllAngular2AppRoots: true,
+
 </code-example>
 
 Also, there are a couple of Protractor API calls in the PhoneCat test code that
@@ -2890,19 +3077,19 @@ service is no longer present after the upgrade, replace those calls with ones
 that use WebDriver's generic URL APIs instead. The first of these is
 the redirection spec:
 
-
 同样，我们的测试代码中有两个Protractor API调用内部使用了`$location`。该服务没有了，
 我们就得把这些调用用一个WebDriver的通用URL API代替。第一个API是“重定向(redirect)”规约：
 
 <code-example path="upgrade-phonecat-3-final/e2e-spec.ts" region="redirect" title="e2e-tests/scenarios.ts">
+
 </code-example>
 
 And the second is the phone links spec:
 
-
 然后是“电话链接(phone links)”规约：
 
 <code-example path="upgrade-phonecat-3-final/e2e-spec.ts" region="links" title="e2e-tests/scenarios.ts">
+
 </code-example>
 
 ### Unit Tests
@@ -2920,14 +3107,15 @@ a good idea to convert the unit test code into TypeScript as well.
 在转成TypeScript期间，严格来讲没有什么改动是必须的。但把单元测试代码转成TypeScript仍然是个好主意，
 产品代码从TypeScript中获得的那些增益也同样适用于测试代码。
 
-For instance, in the phone detail component spec , you can use  ES2015
-features like arrow functions and block-scoped variablesand benefit from the type
-definitions  of the AngularJS services you're consuming:
+For instance, in the phone detail component spec, you can use ES2015
+features like arrow functions and block-scoped variables and benefit from the type
+definitions of the AngularJS services you're consuming:
 
 比如，在这个电话详情组件的规约中，我们不仅用到了ES2015中的箭头函数和块作用域变量这些特性，还为所用的一些
 AngularJS服务提供了类型定义。
 
 <code-example path="upgrade-phonecat-1-typescript/app/phone-detail/phone-detail.component.spec.ts" title="app/phone-detail/phone-detail.component.spec.ts">
+
 </code-example>
 
 Once you start the upgrade process and bring in SystemJS, configuration changes
@@ -2937,8 +3125,8 @@ which can be done with the following kind of shim file:
 一旦我们开始了升级过程并引入了SystemJS，还需要对Karma进行配置修改。
 我们需要让SystemJS加载所有的Angular新代码，
 
-
 <code-example path="upgrade-phonecat-2-hybrid/karma-test-shim.1.js" title="karma-test-shim.js">
+
 </code-example>
 
 The shim first loads the SystemJS configuration, then Angular's test support libraries,
@@ -2951,8 +3139,8 @@ as the base directory, instead of `app`.
 
 然后需要修改Karma配置，来让它使用本应用的根目录作为基础目录(base directory)，而不是`app`。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="basepath" title="karma.conf.js">
+
 </code-example>
 
 Once done, you can load SystemJS and other dependencies, and also switch the configuration
@@ -2962,8 +3150,8 @@ the shim and SystemJS load them.
 一旦这些完成了，我们就能加载SystemJS和其它依赖，并切换配置文件来加载那些应用文件，而*不用*在Karma页面中包含它们。
 我们要让这个shim文件和SystemJS去加载它们。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="files" title="karma.conf.js">
+
 </code-example>
 
 Since the HTML templates of Angular components will be loaded as well, you must help
@@ -2971,8 +3159,8 @@ Karma out a bit so that it can route them to the right paths:
 
 由于Angular组件中的HTML模板也同样要被加载，所以我们得帮Karma一把，帮它在正确的路径下找到这些模板：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/karma.conf.ajs.js" region="html" title="karma.conf.js">
+
 </code-example>
 
 The unit test files themselves also need to be switched to Angular when their production
@@ -2981,8 +3169,8 @@ as the pipe has no dependencies:
 
 如果产品代码被切换到了Angular，单元测试文件本身也需要切换过来。对勾(checkmark)管道的规约可能是最简单的，因为它没有任何依赖：
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.spec.ts" title="app/core/checkmark/checkmark.pipe.spec.ts">
+
 </code-example>
 
 The unit test for the phone service is a bit more involved. You need to switch from the mocked-out
@@ -2990,32 +3178,32 @@ AngularJS `$httpBackend` to a mocked-out Angular Http backend.
 
 `Phone`服务的测试会牵扯到一点别的。我们需要把模拟版的AngularJS `$httpBackend`服务切换到模拟板的Angular Http后端。
 
-
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.spec.ts" title="app/core/phone/phone.service.spec.ts">
+
 </code-example>
 
-
-
-For the component specs , you can mock out the `Phone` service itself, and have it provide
+For the component specs, you can mock out the `Phone` service itself, and have it provide
 canned phone data. You use Angular's component unit testing APIs for both components.
 
 对于组件的规约，我们可以模拟出`Phone`服务本身，并且让它提供电话的数据。我们可以对这些组件使用Angular的组件单元测试API。
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-detail/phone-detail.component.spec.ts" title="app/phone-detail/phone-detail.component.spec.ts">
+
 </code-example>
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.component.spec.ts" title="app/phone-list/phone-list.component.spec.ts">
+
 </code-example>
 
 Finally, revisit both of the component tests when you switch to the Angular
 router. For the details component, provide a mock of Angular `ActivatedRoute` object
 instead of using the AngularJS `$routeParams`.
 
-
 最后，当我们切换到Angular路由时，我们需要重新过一遍这些组件测试。对详情组件来说，我们需要提供一个Angular
 `RouteParams`的mock对象，而不再用AngularJS中的`$routeParams`。
 
 <code-example path="upgrade-phonecat-3-final/app/phone-detail/phone-detail.component.spec.ts" region="activatedroute" title="app/phone-detail/phone-detail.component.spec.ts">
+
 </code-example>
 
 And for the phone list component, a few adjustments to the router make
@@ -3024,4 +3212,6 @@ the `RouteLink` directives work.
 对于电话列表组件，还要再做少量的调整，以便路由器能让`RouteLink`指令正常工作。
 
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.component.spec.ts" region="routestuff" title="app/phone-list/phone-list.component.spec.ts">
+
 </code-example>
+
