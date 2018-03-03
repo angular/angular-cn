@@ -290,7 +290,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
-    "original": "### ng-hide\n      In AngularJS, the `ng-hide` directive shows or hides the associated HTML element based on\n      an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).",
+    "original": "In AngularJS, the `ng-hide` directive shows or hides the associated HTML element based on\n      an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).",
     "translation": "在AngularJS中，`ng-hide`指令会基于一个表达式显示或隐藏相关的HTML元素。\n      参见[ng-show](guide/ajs-quick-reference#ng-show)了解更多。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
@@ -565,6 +565,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
+    "original": "### none",
+    "translation": "### 没了\n      For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
+  },
+  {
     "original": "Converts a JavaScript object into a JSON string. This is useful for debugging.",
     "translation": "把一个JavaScript对象转换成一个JSON字符串。这对调试很有用。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
@@ -612,6 +617,11 @@
   {
     "original": "Displays the collection in the order specified by the expression.\n      In this example, the movie title orders the `movieList`.",
     "translation": "使用表达式中所指定的方式对集合进行排序。\n      在这个例子中，`movieList`被根据movie的title排序了。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
+  },
+  {
+    "original": "### none",
+    "translation": "### 没了\n      For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -822,6 +832,11 @@
   {
     "original": "Motion is an important aspect in the design of modern web applications. Good\nuser interfaces transition smoothly between states with engaging animations\nthat call attention where it's needed. Well-designed animations can make a UI not only\nmore fun but also easier to use.",
     "translation": "动画是现代Web应用设计中一个很重要的方面。我们希望用户界面能在不同的状态之间更平滑的转场。如果需要，还可以用适当的动画来吸引注意力。\n设计良好的动画不但会让UI更有趣，还会让它更容易使用。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/animations.md"
+  },
+  {
+    "original": "## Overview",
+    "translation": "## 概述",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/animations.md"
   },
   {
@@ -1217,6 +1232,11 @@
   {
     "original": "One group animates the element transform and width; the other group animates the opacity.",
     "translation": "其中一个动画组对元素的`transform`和`width`做动画，另一个组则对`opacity`做动画。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/animations.md"
+  },
+  {
+    "original": "## Animation callbacks",
+    "translation": "## 动画回调",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/animations.md"
   },
   {
@@ -3125,6 +3145,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
+    "original": "### Suggested polyfills ##",
+    "translation": "### 建议的填充库 ##\nBelow are the polyfills which are used to test the framework itself. They are a good starting point for an application.",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
+  },
+  {
     "original": "Polyfill",
     "translation": "填充库",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
@@ -3145,7 +3170,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
-    "original": "{@a non-cli}\n## Polyfills for non-CLI users",
+    "original": "## Polyfills for non-CLI users",
     "translation": "## 不使用 CLI 的用户的填充库",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
@@ -3171,7 +3196,12 @@
   },
   {
     "original": "## All mention of moduleId removed. \"Component relative paths\" guide deleted (2017-03-13)",
-    "translation": "## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)\nWe added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.\nThis plugin dynamically converts \"component-relative\" paths in templateUrl and styleUrls to \"absolute paths\" for you.",
+    "translation": "## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/change-log.md"
+  },
+  {
+    "original": "We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.\nThis plugin dynamically converts \"component-relative\" paths in templateUrl and styleUrls to \"absolute paths\" for you.",
+    "translation": "我们往建议的SystemJS配置中新增了一个SystemJS插件 (systemjs-angular-loader.js) 。\n这个插件可以帮你把templateUrl和styleUrls中的组件相对路径动态转换为绝对路径。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/change-log.md"
   },
   {
@@ -3276,7 +3306,7 @@
   },
   {
     "original": "## Miscellaneous (2017-01-05)",
-    "translation": "## 杂项 (2017-01-05)* [Setup](guide/setup) guide: \nadded (optional) instructions on how to remove _non-essential_ files. [环境搭建](guide/setup)指南:\n    添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。",
+    "translation": "## 杂项 (2017-01-05)* [Setup](guide/setup) guide:",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/change-log.md"
   },
   {
@@ -5525,8 +5555,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/dependency-injection.md"
   },
   {
-    "original": "{@a testing-the-component}",
-    "translation": "## Testing the component\n## 测试组件",
+    "original": "## Testing the component",
+    "translation": "## 测试组件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/dependency-injection.md"
   },
   {
@@ -5880,8 +5910,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/dependency-injection.md"
   },
   {
-    "original": "{@a optional}",
-    "translation": "## Optional dependencies\n## 可选依赖",
+    "original": "## Optional dependencies",
+    "translation": "## 可选依赖",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/dependency-injection.md"
   },
   {
@@ -7691,7 +7721,12 @@
   },
   {
     "original": "### The _NgForm_ directive",
-    "translation": "### `NgForm`指令What `NgForm` directive?\nYou didn't add an [NgForm](api/forms/NgForm) directive.",
+    "translation": "### `NgForm`指令What `NgForm` directive?",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/forms.md"
+  },
+  {
+    "original": "You didn't add an [NgForm](api/forms/NgForm) directive.",
+    "translation": "什么是`NgForm`指令？\n但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/forms.md"
   },
   {
@@ -10030,7 +10065,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a custom-id}\n### Set a custom id for persistence and maintenance",
+    "original": "### Set a custom id for persistence and maintenance",
     "translation": "### 设置一个自定义的`id`来提升可搜索性和可维护性",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10060,7 +10095,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a no-element}\n### Translate text without creating an element",
+    "original": "### Translate text without creating an element",
     "translation": "### 翻译文本，而不必创建元素",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10070,7 +10105,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a translate-attributes}\n## Add i18n translation attributes",
+    "original": "## Add i18n translation attributes",
     "translation": "## 添加 *i18n* 翻译属性",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10090,7 +10125,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a plural-ICU}\n## Translate singular and plural",
+    "original": "## Translate singular and plural",
     "translation": "## 处理单数与复数",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10160,7 +10195,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a select-ICU}\n## Select among alternative text messages",
+    "original": "## Select among alternative text messages",
     "translation": "## 在候选文本中选择",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10170,7 +10205,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a nesting-ICUS}\n## Nesting plural and select ICU expressions",
+    "original": "## Nesting plural and select ICU expressions",
     "translation": "## 把\"复数\"与\"选择\"表达式嵌套在一起",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10180,7 +10215,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a ng-xi18n}\n## Create a translation source file with _ng xi18n_",
+    "original": "## Create a translation source file with _ng xi18n_",
     "translation": "## 使用_ng-xi18n_工具创建翻译源文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10195,7 +10230,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a other-formats}\n### Other translation formats",
+    "original": "### Other translation formats",
     "translation": "### 其它翻译格式",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10205,7 +10240,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a ng-xi18n-options}\n### Other options",
+    "original": "### Other options",
     "translation": "### 其它选项",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10215,7 +10250,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a translate}\n## Translate text messages",
+    "original": "## Translate text messages",
     "translation": "## 翻译文本信息",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10230,7 +10265,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a localization-folder}\n### Create a localization folder",
+    "original": "### Create a localization folder",
     "translation": "### 新建一个本土化目录",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10250,7 +10285,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a translate-text-nodes}\n### Translate text nodes",
+    "original": "### Translate text nodes",
     "translation": "### 翻译文本节点",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10270,7 +10305,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a translate-select}\n### Translate _select_",
+    "original": "### Translate _select_",
     "translation": "### 翻译*选择*（select）",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10295,7 +10330,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a translate-nested}\n### Translate a nested expression",
+    "original": "### Translate a nested expression",
     "translation": "### 翻译嵌套的表达式",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10315,7 +10350,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a app-pre-translation}\n### The app and its translation file",
+    "original": "### The app and its translation file",
     "translation": "### 应用及其翻译文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10325,7 +10360,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a merge}\n## Merge the completed translation file into the app",
+    "original": "## Merge the completed translation file into the app",
     "translation": "## 合并已经翻译的文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -10340,7 +10375,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
   {
-    "original": "{@a merge-jit}\n### Merge with the JIT compiler",
+    "original": "### Merge with the JIT compiler",
     "translation": "### 用JiT编译器合并",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/i18n.md"
   },
@@ -13180,7 +13215,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ngmodule.md"
   },
   {
-    "original": "{@a refactor-appmodule}\n### Refactor the _AppModule_",
+    "original": "### Refactor the _AppModule_",
     "translation": "### 重构 *AppModule*",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ngmodule.md"
   },
@@ -14072,6 +14107,11 @@
   {
     "original": "Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)\nAPI Reference page.",
     "translation": "要了解更多`DatePipes`的格式选项，请参阅[API文档](api/common/DatePipe)。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/pipes.md"
+  },
+  {
+    "original": "## Chaining pipes",
+    "translation": "## 链式管道",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/pipes.md"
   },
   {
@@ -17750,8 +17790,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "{@a optional-route-parameters}",
-    "translation": "### Route Parameters: Required or optional?\n### 路由参数：必须还是可选？",
+    "original": "### Route Parameters: Required or optional?",
+    "translation": "### 路由参数：必须还是可选？",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
@@ -20012,6 +20052,11 @@
   {
     "original": "To block XSS attacks, you must prevent malicious code from entering the DOM(Document Object Model). For example, if\nattackers can trick you into inserting a `<script>` tag in the DOM, they can run arbitrary code on\nyour website. The attack isn't limited to `<script>` tags&mdash;many elements and properties in the\nDOM allow code execution, for example, `<img onerror=\"...\">` and `<a href=\"javascript:...\">`. If\nattacker-controlled data enters the DOM, expect security vulnerabilities.",
     "translation": "为了防范XSS攻击，我们必须阻止恶意代码进入DOM。比如，如果某个攻击者能骗我们把`<script>`标签插入到DOM，就可以在我们的网站上运行任何代码。\n除了`<script>`，攻击者还可以使用很多DOM元素和属性来执行代码，比如`<img onerror=\"...\">`、`<a href=\"javascript:...\">`。\n如果攻击者所控制的数据混进了DOM，就会导致安全漏洞。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
+  },
+  {
+    "original": "### Angular’s cross-site scripting security model",
+    "translation": "### Angular的“跨站脚本安全模型”",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -23365,6 +23410,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
+    "original": "## Directives",
+    "translation": "## 指令",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
+  },
+  {
     "original": "### Use directives to enhance an element",
     "translation": "### 使用指令来增强已有元素",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
@@ -23760,7 +23810,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
   {
-    "original": "{@a html}\n## HTML in templates",
+    "original": "## HTML in templates",
     "translation": "## 模板中的HTML",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
@@ -24810,8 +24860,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
   {
-    "original": "{@a event-binding}",
-    "translation": "## Event binding  ( <span class=\"syntax\">(event)</span> )\n## 事件绑定  ( <span class=\"syntax\">(事件名)</span> )",
+    "original": "## Event binding  ( <span class=\"syntax\">(event)</span> )",
+    "translation": "## 事件绑定  ( <span class=\"syntax\">(事件名)</span> )",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
   {
@@ -26686,7 +26736,12 @@
   },
   {
     "original": "### Get injected services",
-    "translation": "### 获取注入的服务\nThe tests need access to the (stub) `UserService` injected into the `WelcomeComponent`.",
+    "translation": "### 获取注入的服务",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
+  },
+  {
+    "original": "The tests need access to the (stub) `UserService` injected into the `WelcomeComponent`.",
+    "translation": "测试程序需要访问被注入到`WelcomeComponent`中的`UserService`（stub类）。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -27340,8 +27395,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
-    "original": "{@a routed-component-w-param}",
-    "translation": "### Test a routed component with parameters\n### 测试带有路由和路由参数的组件\nClicking a _Dashboard_ hero triggers navigation to `heroes/:id`, where `:id`\nis a route parameter whose value is the `id` of the hero to edit. \nThat URL matches a route to the `HeroDetailComponent`.",
+    "original": "### Test a routed component with parameters",
+    "translation": "### 测试带有路由和路由参数的组件\nClicking a _Dashboard_ hero triggers navigation to `heroes/:id`, where `:id`\nis a route parameter whose value is the `id` of the hero to edit. \nThat URL matches a route to the `HeroDetailComponent`.",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28146,7 +28201,12 @@
   },
   {
     "original": "### Pipes",
-    "translation": "### 管道\nPipes are easy to test without the Angular testing utilities.",
+    "translation": "### 管道",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
+  },
+  {
+    "original": "Pipes are easy to test without the Angular testing utilities.",
+    "translation": "管道很容易测试，无需Angular测试工具。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -29755,6 +29815,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
+    "original": "### Transcluding Angular Content into AngularJS Component Directives",
+    "translation": "### 把Angular的内容透传进AngularJS的组件型指令",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
+  },
+  {
     "original": "Just as you can project AngularJS content into Angular components,\nyou can *transclude* Angular content into AngularJS components, whenever\nyou are using upgraded versions from them.",
     "translation": "就像我们能把AngularJS的内容投影进Angular组件一样，我们也能把Angular的内容*透传*进AngularJS的组件，\n但不管怎样，我们都要使用它们升级过的版本。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
@@ -29767,6 +29832,11 @@
   {
     "original": "If you upgrade this component and use it from Angular, you can populate\nthe component tag with contents that will then get transcluded:",
     "translation": "如果我们升级这个组件，并把它用在Angular中，我们就能把准备透传的内容放进这个组件的标签中。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
+  },
+  {
+    "original": "### Making AngularJS Dependencies Injectable to Angular",
+    "translation": "### 让AngularJS中的依赖可被注入到Angular",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
@@ -30032,6 +30102,11 @@
   {
     "original": "If you had any AngularJS services in the project, those would also be\na good candidate for converting to classes, since like controllers,\nthey're also constructor functions. But you only have the `Phone` factory\nin this project, and that's a bit special since it's an `ngResource`\nfactory. So you won't be doing anything to it in the preparation stage.\nYou'll instead turn it directly into an Angular service.",
     "translation": "如果项目中有任何AngularJS的服务，它们也是转换成类的优秀候选人，像控制器一样，它们也是构造函数。\n但是在本项目中，我们只有一个`Phone`工厂，这有点特别，因为它是一个`ngResource`工厂。\n所以我们不会在准备阶段中处理它，而是在下一节中直接把它转换成Angular服务。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
+  },
+  {
+    "original": "### Installing Angular",
+    "translation": "### 安装Angular",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
@@ -30500,6 +30575,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
+    "original": "#### Create the _Routing Module_",
+    "translation": "#### 创建*路由模块*\nA router needs configuration whether it's the AngularJS or Angular or any other router.",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
+  },
+  {
     "original": "The details of Angular router configuration are best left to the [Routing documentation](guide/router)\nwhich recommends that you create a `NgModule` dedicated to router configuration\n(called a _Routing Module_).",
     "translation": "Angular路由器配置的详情最好去查阅下[路由与导航](guide/router)文档。\n它建议你创建一个专们用于路由器配置的`NgModule`（名叫*路由模块*）。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
@@ -30790,6 +30870,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
   },
   {
+    "original": "## Binding to user input events",
+    "translation": "## 绑定到用户输入事件",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
+  },
+  {
     "original": "You can use [Angular event bindings](guide/template-syntax#event-binding)\nto respond to any [DOM event](https://developer.mozilla.org/en-US/docs/Web/Events).\nMany DOM events are triggered by user input. Binding to these events provides a way to\nget input from the user.",
     "translation": "你可以使用 [Angular 事件绑定](guide/template-syntax#event-binding)机制来响应任何 [DOM 事件](https://developer.mozilla.org/en-US/docs/Web/Events)。\n许多 DOM 事件是由用户输入触发的。绑定这些事件可以获取用户输入。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
@@ -30817,6 +30902,11 @@
   {
     "original": "When the user clicks the button, Angular calls the `onClickMe` method from `ClickMeComponent`.",
     "translation": "当用户点击按钮时，Angular 调用`ClickMeComponent`的`onClickMe`方法。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
+  },
+  {
+    "original": "## Get user input from the $event object",
+    "translation": "## 通过 $event 对象取得用户输入",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
   },
   {
@@ -30985,6 +31075,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
   },
   {
+    "original": "## Put it all together",
+    "translation": "## 把它们放在一起",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
+  },
+  {
     "original": "The previous page showed how to [display data](guide/displaying-data).\nThis page demonstrated event binding techniques.",
     "translation": "上一章介绍了如何[显示数据](guide/displaying-data)。\n本章展示了事件绑定技术。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
@@ -30997,6 +31092,11 @@
   {
     "original": "Below is the \"Little Tour of Heroes\"  component.",
     "translation": "下面就是“简版英雄指南”组件。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
+  },
+  {
+    "original": "### Observations",
+    "translation": "### 小结",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/user-input.md"
   },
   {

@@ -290,7 +290,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ajs-quick-reference.md"
   },
   {
-    "original": "### ng-hide\n      In AngularJS, the `ng-hide` directive shows or hides the associated HTML element based on\n      an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).",
+    "original": "In AngularJS, the `ng-hide` directive shows or hides the associated HTML element based on\n      an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).",
     "translation": "在AngularJS中，`ng-hide`指令会基于一个表达式显示或隐藏相关的HTML元素。\n      参见[ng-show](guide/ajs-quick-reference#ng-show)了解更多。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ajs-quick-reference.md"
   },
@@ -2955,7 +2955,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "{@a non-cli}\n## Polyfills for non-CLI users",
+    "original": "## Polyfills for non-CLI users",
     "translation": "## 不使用 CLI 的用户的腻子脚本",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
@@ -9330,7 +9330,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/http.md"
   },
   {
-    "original": "{@a error-details}\n### Getting error details",
+    "original": "### Getting error details",
     "translation": "### 获取错误详情",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/http.md"
   },
@@ -9535,7 +9535,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a custom-id}\n### Set a custom id for persistence and maintenance",
+    "original": "### Set a custom id for persistence and maintenance",
     "translation": "### 设置一个自定义的`id`来提升可搜索性和可维护性",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9565,7 +9565,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a no-element}\n### Translate text without creating an element",
+    "original": "### Translate text without creating an element",
     "translation": "### 翻译文本，而不必创建元素",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9575,7 +9575,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a translate-attributes}\n## Add i18n translation attributes",
+    "original": "## Add i18n translation attributes",
     "translation": "## 添加 *i18n* 翻译属性",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9595,7 +9595,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a plural-ICU}\n## Translate singular and plural",
+    "original": "## Translate singular and plural",
     "translation": "## 处理单数与复数",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9665,7 +9665,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a select-ICU}\n## Select among alternative text messages",
+    "original": "## Select among alternative text messages",
     "translation": "## 在候选文本中选择",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9675,7 +9675,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a nesting-ICUS}\n## Nesting plural and select ICU expressions",
+    "original": "## Nesting plural and select ICU expressions",
     "translation": "## 把\"复数\"与\"选择\"表达式嵌套在一起",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9685,7 +9685,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a ng-xi18n}\n## Create a translation source file with _ng xi18n_",
+    "original": "## Create a translation source file with _ng xi18n_",
     "translation": "## 使用_ng-xi18n_工具创建翻译源文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9700,7 +9700,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a other-formats}\n### Other translation formats",
+    "original": "### Other translation formats",
     "translation": "### 其它翻译格式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9710,7 +9710,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a ng-xi18n-options}\n### Other options",
+    "original": "### Other options",
     "translation": "### 其它选项",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9720,7 +9720,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a translate}\n## Translate text messages",
+    "original": "## Translate text messages",
     "translation": "## 翻译文本信息",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9735,7 +9735,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a localization-folder}\n### Create a localization folder",
+    "original": "### Create a localization folder",
     "translation": "### 新建一个本土化目录",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9755,7 +9755,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a translate-text-nodes}\n### Translate text nodes",
+    "original": "### Translate text nodes",
     "translation": "### 翻译文本节点",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9775,7 +9775,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a translate-select}\n### Translate _select_",
+    "original": "### Translate _select_",
     "translation": "### 翻译*选择*（select）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9800,7 +9800,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a translate-nested}\n### Translate a nested expression",
+    "original": "### Translate a nested expression",
     "translation": "### 翻译嵌套的表达式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9820,7 +9820,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a app-pre-translation}\n### The app and its translation file",
+    "original": "### The app and its translation file",
     "translation": "### 应用及其翻译文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9830,7 +9830,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a merge}\n## Merge the completed translation file into the app",
+    "original": "## Merge the completed translation file into the app",
     "translation": "## 合并已经翻译的文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -9845,7 +9845,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
   {
-    "original": "{@a merge-jit}\n### Merge with the JIT compiler",
+    "original": "### Merge with the JIT compiler",
     "translation": "### 用JiT编译器合并",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/i18n.md"
   },
@@ -11520,7 +11520,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
   {
-    "original": "### `SharedModule`\n`SharedModule` is a conventional name for an `NgModule` with the components, directives, and pipes that you use\neverywhere in your app. This module should consist entirely of `declarations`,\nmost of them exported.",
+    "original": "`SharedModule` is a conventional name for an `NgModule` with the components, directives, and pipes that you use\neverywhere in your app. This module should consist entirely of `declarations`,\nmost of them exported.",
     "translation": "为那些可能会在应用中到处使用的组件、指令和管道创建`SharedModule`。\n  这种模块应该只包含`declarations`，并且应该导出几乎所有`declarations`里面的声明。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
@@ -11540,7 +11540,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
   {
-    "original": "### `CoreModule`\n`CoreModule` is a conventional name for an `NgModule` with `providers` for\nthe singleton services you load when the application starts.",
+    "original": "`CoreModule` is a conventional name for an `NgModule` with `providers` for\nthe singleton services you load when the application starts.",
     "translation": "为你要在应用启动时加载的那些服务创建一个带`providers`的`CoreModule`。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
@@ -21765,7 +21765,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "{@a html}\n## HTML in templates",
+    "original": "## HTML in templates",
     "translation": "## 模板中的HTML",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },

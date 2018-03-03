@@ -47,9 +47,13 @@ export function isHead(line: string): boolean {
 
 export function normalizeLines(text: string): string {
   // 列表、标题等自带换行含义的markdown
-  const blockElementPattern = /(?=\n *(\d+\.|-|\*|#|<) )\n/g;
-  const htmlTagPattern = /(\s*<.*?>\s*?)\n/g;
+  const blockElementPattern = /(?=\n *(\d+\.|-|\*) )\n/g;
   text = text.replace(blockElementPattern, '\n\n');
+  const hxPattern = /(\n *#.*)\n/g;
+  text = text.replace(hxPattern, '\n$1\n\n');
+  const leadHxPattern = /^( *#.*)\n/g;
+  text = text.replace(leadHxPattern, '$1\n\n');
+  const htmlTagPattern = /(\s*<.*?>\s*?)\n/g;
   text = text.replace(htmlTagPattern, '\n\n$1\n\n');
   text = text.replace(/\n\n+/, '\n\n');
   return text;

@@ -26,7 +26,7 @@ export function translate(content: string): string[] {
       if (!line.trim()) {
         return line;
       }
-      const translations = lookup(line, /forms.md$/);
+      const translations = lookup(line);
       const indent = indentOf(line);
       const padding = repeat(indent);
       if (translations.length === 0) {
@@ -48,6 +48,8 @@ export function translateFile(sourceFile: string, targetFile: string): void {
 export function translateDirectory(sourceDir: string, targetDir: string): void {
   const files = listMarkdownFiles(sourceDir);
   files.forEach(fileName => {
+    console.log('translating ...', fileName);
     translateFile(fileName, fileName.replace(/^.*content-en\//, dirs.content));
+    console.log('translated ', fileName);
   });
 }
