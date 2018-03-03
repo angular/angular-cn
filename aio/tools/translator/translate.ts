@@ -34,7 +34,7 @@ export function translate(content: string): string[] {
       } else if (translations.length === 1) {
         return line + '\n\n' + padding + translations[0].translation;
       } else {
-        return line + '\n\n' + translations.map(t => '???\n' + padding + t.translation).join('\n\n');
+        return line + '\n\n' + padding + translations[translations.length - 1].translation;
       }
     });
 }
