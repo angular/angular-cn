@@ -1275,11 +1275,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/aot-compiler.md"
   },
   {
-    "original": "<a href=\"https://www.youtube.com/watch?v=kW9cJsvcsGo\">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.",
-    "translation": "观看 Angular 编译器的作者Tobias Bosch 在 AngularConnect 2016 上对编译器的解释。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/aot-compiler.md"
-  },
-  {
     "original": "## Angular compilation",
     "translation": "## 概览",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/aot-compiler.md"
@@ -1621,7 +1616,7 @@
   },
   {
     "original": "You install them with the **npm** package manager and import parts of them with JavaScript `import` statements.",
-    "translation": "用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。<br class=\"clear\">",
+    "translation": "用 **npm** 包管理工具安装它们，用 JavaScript 的`import`语句导入其中某些部件。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/architecture.md"
   },
   {
@@ -2046,7 +2041,7 @@
   },
   {
     "original": "_Dependency injection_ is a way to supply a new instance of a class\nwith the fully-formed dependencies it requires. Most dependencies are services.\nAngular uses dependency injection to provide new components with the services they need.",
-    "translation": "“依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。\nAngular 使用依赖注入来提供新组件以及组件所需的服务。<br class=\"clear\">",
+    "translation": "“依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。\nAngular 使用依赖注入来提供新组件以及组件所需的服务。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/architecture.md"
   },
   {
@@ -2765,8 +2760,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        最新版",
+    "original": "latest",
+    "translation": "最新版",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
@@ -2855,13 +2850,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        浏览器（桌面和移动）",
+    "original": "Browsers (Desktop & Mobile)",
+    "translation": "浏览器（桌面和移动）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        需要的腻子脚本",
+    "original": "Polyfills Required",
+    "translation": "需要的腻子脚本",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
@@ -2890,12 +2885,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "<th>\n      Polyfill",
+    "original": "Polyfill",
     "translation": "腻子脚本",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "<th style=\"width: 50%\">\n      Browsers (Desktop & Mobile)",
+    "original": "Browsers (Desktop & Mobile)",
     "translation": "浏览器（桌面和移动）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
@@ -2905,7 +2900,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "<td>\n      All current browsers. Enabled by default.\n      Can remove if you always use AOT and only use Angular decorators.",
+    "original": "All current browsers. Enabled by default.\n      Can remove if you always use AOT and only use Angular decorators.",
     "translation": "默认对目前的所有浏览器都启用了。如果总是使用 AOT 模式，并且只使用 Angular 自带的装饰器，那么可以移除它。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
@@ -2915,18 +2910,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "<br>Only if `Animation Builder` is used within the application--standard\n      animation support in Angular doesn't require any polyfills (as of NG6).",
-    "translation": "<br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
-  },
-  {
     "original": "[Web Animations](guide/browser-support#web-animations)",
     "translation": "[Web 动画](guide/browser-support#web-animations)",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
-  },
-  {
-    "original": "<td>\n      <p>If AnimationBuilder is used then the polyfill will enable scrubbing\n      support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>",
-    "translation": "如果使用了AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
@@ -2940,16 +2925,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "on SVG elements</p>",
-    "translation": "在 SVG 元素上应用 [NgClass](api/common/NgClass)",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
-  },
-  {
-    "original": "when sending and receiving binary data</p>",
-    "translation": "用 [Http](guide/http) 发送和接收二进制数据",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
-  },
-  {
     "original": "### Suggested polyfills ##",
     "translation": "### 建议的腻子脚本 ##",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
@@ -2960,23 +2935,23 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        腻子脚本",
+    "original": "Polyfill",
+    "translation": "腻子脚本",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        授权方式",
+    "original": "Licence",
+    "translation": "授权方式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        大小*",
+    "original": "Size*",
+    "translation": "大小*",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        公共域",
+    "original": "Public domain",
+    "translation": "公共域",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
@@ -3285,7 +3260,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/change-log.md"
   },
   {
-    "original": "This change supports ES6 developers and aligns better with typical Angular libraries.\nIt does not affect the module's API but it does affect how you load and import it.\nSee the <a href=\"https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20\">change note</a>\nin the `in-memory-web-api` repo.",
+    "original": "in the `in-memory-web-api` repo.",
     "translation": "这个变化支持ES6开发者，并与典型的Angular库看齐。\n它不会影响模块的API，但是它改变了加载和导入它的方式。\n参见`in-memory-web-api`库的<a href=\"https://github.com/angular/in-memory-web-api/blob/master/CHANGELOG.md#0113-2016-10-20\" target=\"_blank\">变更记录</a>。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/change-log.md"
   },
@@ -3430,118 +3405,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>",
-    "translation": "用 <code>NgModule</code> 中指定的根组件进行启动。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<th><p>NgModules</p>",
-    "translation": "Angular 模块",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Defines a module that contains components, directives, pipes, and providers.</p>",
-    "translation": "定义一个模块，其中可以包含组件、指令、管道和服务提供商。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of components, directives, and pipes that belong to this module.</p>",
-    "translation": "属于当前模块的组件、指令和管道的列表。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><code><b>imports:</b> [BrowserModule, SomeOtherModule]</code></td>\n<td><p>List of modules to import into this module. Everything from the imported modules\nis available to <code>declarations</code> of this module.</p>",
-    "translation": "本模块所导入的模块列表",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of components, directives, and pipes visible to modules that import this module.</p>",
-    "translation": "那些导入了本模块的模块所能看到的组件、指令和管道的列表",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>",
-    "translation": "依赖注入提供商的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of components to bootstrap when this module is bootstrapped.</p>",
-    "translation": "当本模块启动时，随之启动的组件列表。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Template syntax",
     "translation": "模板语法",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds property <code>value</code> to the result of expression <code>firstName</code>.</p>",
-    "translation": "把<code>value</code>属性绑定到表达式<code>firstName</code>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds attribute <code>role</code> to the result of expression <code>myAriaRole</code>.</p>",
-    "translation": "把属性（Attribute）<code>role</code>绑定到表达式<code>myAriaRole</code>的结果。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the presence of the CSS class <code>extra-sparkle</code> on the element to the truthiness of the expression <code>isDelightful</code>.</p>",
-    "translation": "根据<code>isDelightful</code>表达式的结果是否为真，决定CSS类<code>extra-sparkle</code>是否出现在当前元素上。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds style property <code>width</code> to the result of expression <code>mySize</code> in pixels. Units are optional.</p>",
-    "translation": "把CSS样式属性<code>width</code>的px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Calls method <code>readRainbow</code> when a click event is triggered on this button element (or its children) and passes in the event object.</p>",
-    "translation": "当这个按钮元素（及其子元素）上的click事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code></p>",
-    "translation": "把一个属性绑定到插值字符串（如\"Hello Seabiscuit\"）。这种写法等价于<code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds text content to an interpolated string, for example, \"Hello Seabiscuit\".</p>",
-    "translation": "把文本内容绑定到插值字符串（如\"Hello Seabiscuit\"）",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Sets up two-way data binding. Equivalent to: <code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code></p>",
-    "translation": "设置双向绑定。等价于<code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Creates a local variable <code>movieplayer</code> that provides access to the <code>video</code> element instance in data-binding and event-binding expressions in the current template.</p>",
-    "translation": "创建一个局部变量<code>movieplayer</code>，支持在当前模板的数据绑定和事件绑定表达式中访问<code>video</code>元素的实例。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>",
-    "translation": "星号<code>*</code>会把当前元素转换成内嵌式模板，等价于：<code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Transforms the current value of expression <code>cardNumber</code> via the pipe called <code>myCardNumberFormatter</code>.</p>",
-    "translation": "使用名叫<code>myCardNumberFormatter</code>的管道对表达式<code>cardNumber</code>的当前值进行变幻",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>The safe navigation operator (<code>?</code>) means that the <code>employer</code> field is optional and if <code>undefined</code>, the rest of the expression should be ignored.</p>",
-    "translation": "安全导航操作符（<code>?</code>）表示<code>employer</code>字段是可选的，如果它是 <code>undefined</code> ，那么表达式其余的部分就会被忽略，并返回 <code>undefined</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An SVG snippet template needs an <code>svg:</code> prefix on its root element to disambiguate the SVG element from an HTML component.</p>",
-    "translation": "模板中的 SVG 片段需要给它的根元素加上<code>svg:</code>前缀，以便把 SVG 元素和 HTML 元素区分开。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An <code>&lt;svg&gt;</code> root element is detected as an SVG element automatically, without the prefix.</p>",
-    "translation": "以<code>&lt;svg&gt;</code>作为根元素时会自动识别为 SVG 元素，不需要前缀。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -3550,33 +3415,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Removes or recreates a portion of the DOM tree based on the <code>showSection</code> expression.</p>",
-    "translation": "根据<code>showSection</code>表达式的结果，移除或重新创建 DOM 树的一部分。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>",
-    "translation": "把li元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of <code>conditionExpression</code>.</p>",
-    "translation": "根据<code>conditionExpression</code>的当前值选择一个嵌入式模板，并用它替换这个 div 的内容。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the presence of CSS classes on the element to the truthiness of the associated map values. The right-hand expression should return {class-name: true/false} map.</p>",
-    "translation": "根据 map 中的 value 是否为真，来决定该元素上是否出现与 name 对应的 CSS 类。右侧的表达式应该返回一个形如 <code>{class-name: true/false}</code> 的 map。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Forms",
     "translation": "表单",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Provides two-way data-binding, parsing, and validation for form controls.</p>",
-    "translation": "为表单控件提供双向数据绑定、解析和验证功能。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -3585,33 +3425,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Declares that a class is a component and provides metadata about the component.</p>",
-    "translation": "声明一个类是组件，并提供该组件的元数据。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Declares that a class is a directive and provides metadata about the directive.</p>",
-    "translation": "声明一个类是指令，并提供该指令的元数据。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Declares that a class is a pipe and provides metadata about the pipe.</p>",
-    "translation": "声明一个类是管道，并提供该管道的元数据。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "声明一个类具有一些依赖，当依赖注入器试图创建该类的实例时，应该把这些依赖注入到该类的构造函数中。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Directive configuration",
     "translation": "指令配置",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<code>[attribute]</code>, <code>.class</code>, and <code>:not()</code>.</p>",
-    "translation": "指定一个 CSS 选择器，用于在模板中标记出该指令。支持的选择器类型包括：<code>元素名</code>、<code>[属性名]</code>, <code>.类名</code> 和 <code>:not()</code>。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -3620,38 +3435,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of dependency injection providers for this directive and its children.</p>",
-    "translation": "该指令及其子指令的依赖注入提供商列表。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Component configuration",
     "translation": "组件配置",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<code>@Component</code> extends <code>@Directive</code>,\nso the <code>@Directive</code> configuration applies to components as well</p>",
-    "translation": "<code>@Component</code> 继承自 <code>@Directive</code>，因此 <code>@Directive</code> 的配置也能用于 <code>@Component</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>If set, the <code>templateUrl</code> and <code>styleUrl</code> are resolved relative to the component.</p>",
-    "translation": "如果设置了，那么 <code>templateUrl</code> 和 <code>styleUrl</code> 的路径就会相对于当前组件进行解析。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of dependency injection providers scoped to this component's view.</p>",
-    "translation": "依赖注入提供商列表，但它们的范围被限定为当前组件的视图。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Inline template or external template URL of the component's view.</p>",
-    "translation": "当前组件视图的内联模板或外部模板的 URL 。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of inline CSS styles or external stylesheet URLs for styling the component’s view.</p>",
-    "translation": "用于为当前组件的视图提供样式的内联 CSS 或外部样式表 URL 的列表。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -3660,98 +3445,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>).</p>",
-    "translation": "声明一个输入属性，你可以通过属性绑定来更新它，如 <code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Declares an output property that fires events that you can subscribe to with an event binding (example: <code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>).</p>",
-    "translation": "声明一个输出属性，它发出事件，你可以用事件绑定来订阅它们（如：<code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>）。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds a host element property (here, the CSS class <code>valid</code>) to a directive/component property (<code>isValid</code>).</p>",
-    "translation": "把宿主元素的一个属性（这里是 CSS 类 <code>valid</code>）绑定到指令或组件上的 <code>isValid</code> 属性。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Subscribes to a host element event (<code>click</code>) with a directive/component method (<code>onClick</code>), optionally passing an argument (<code>$event</code>).</p>",
-    "translation": "用指令或组件上的<code>onClick</code>方法订阅宿主元素上的<code>click</code>事件，并从中获取<code>$event</code>参数（可选）",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the first result of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class.</p>",
-    "translation": "把组件内容查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the results of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class.</p>",
-    "translation": "把组件内容查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the first result of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class. Not available for directives.</p>",
-    "translation": "把组件视图查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。对指令无效。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Binds the results of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class. Not available for directives.</p>",
-    "translation": "把组件视图查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上。对指令无效。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Directive and component change detection and lifecycle hooks",
     "translation": "指令和组件的变更检测与生命周期钩子",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "由类的方法实现。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.</p>",
-    "translation": "在任何其它生命周期钩子之前调用。可以用它来注入依赖项，但不要在这里做正事。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after every change to input properties and before processing content or child views.</p>",
-    "translation": "每当输入属性发生变化时就会调用，但位于处理内容（<code>ng-content</code>）或子视图之前。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after the constructor, initializing input properties, and the first call to <code>ngOnChanges</code>.</p>",
-    "translation": "在调用完构造函数、初始化完所有输入属性并首次调用过<code>ngOnChanges</code>之后调用。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.</p>",
-    "translation": "每当对组件或指令的输入属性进行变更检测时就会调用。可以用它来扩展变更检测逻辑，执行自定义的检测逻辑。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after <code>ngOnInit</code> when the component's or directive's content has been initialized.</p>",
-    "translation": "<code>ngOnInit</code>完成之后，当组件或指令的内容（<code>ng-content</code>）已经初始化完毕时调用。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after every check of the component's or directive's content.</p>",
-    "translation": "每当组件或指令的内容（<code>ng-content</code>）做变更检测时调用。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after <code>ngAfterContentInit</code> when the component's view has been initialized. Applies to components only.</p>",
-    "translation": "当<code>ngAfterContentInit</code>完毕，并且组件的视图已经初始化完毕时调用。只适用于组件。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called after every check of the component's view. Applies to components only.</p>",
-    "translation": "当组件视图每次执行变更检测时调用。只适用于组件。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Called once, before the instance is destroyed.</p>",
-    "translation": "只在实例被销毁前调用一次。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -3760,68 +3455,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Sets or overrides the provider for <code>MyService</code> to the <code>MyMockService</code> class.</p>",
-    "translation": "把 <code>MyService</code> 的服务提供商设置或改写为 <code>MyMockService</code> 类。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Sets or overrides the provider for <code>MyService</code> to the <code>myFactory</code> factory function.</p>",
-    "translation": "把 <code>MyService</code> 的服务提供商设置或改写为 <code>myFactory</code> 工厂函数。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Sets or overrides the provider for <code>MyValue</code> to the value <code>41</code>.</p>",
-    "translation": "把 <code>MyValue</code> 的服务提供商改写为一个特定的值 <code>41</code> 。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
     "original": "Routing and navigation",
     "translation": "路由与导航",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Configures routes for the application. Supports static, parameterized, redirect, and wildcard routes. Also supports custom route data and resolve.</p>",
-    "translation": "为该应用配置路由。支持静态、参数化、重定向和通配符路由。也支持自定义路由数据和解析（resolve）函数。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Marks the location to load the component of the active route.</p>",
-    "translation": "标记出一个位置，用来加载活动路由的组件。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>Creates a link to a different view based on a route instruction consisting of a route path, required and optional parameters, query parameters, and a fragment. To navigate to a root route, use the <code>/</code> prefix; for a child route, use the <code>./</code>prefix; for a sibling or parent, use the <code>../</code> prefix.</p>",
-    "translation": "使用路由体系创建一个到其它视图的链接。路由体系由路由路径、必要参数、可选参数、查询参数和文档片段组成。要导航到根路由，请使用<code>/</code>前缀；要导航到子路由，使用<code>./</code>前缀；要导航到兄弟路由或父级路由，使用<code>../</code>前缀。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>The provided classes are added to the element when the <code>routerLink</code> becomes the current active route.</p>",
-    "translation": "当 <code>routerLink</code> 指向的路由变成活动路由时，为当前元素添加一些类（比如这里的 <code>active</code>）。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
-    "translation": "用来定义类的接口。路由器会首先调用本接口来决定是否激活该路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An interface for defining a class that the router should call first to determine if it should deactivate this component after a navigation. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
-    "translation": "用来定义类的接口。路由器会在导航离开前首先调用本接口以决定是否取消激活本路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An interface for defining a class that the router should call first to determine if it should activate the child route. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
-    "translation": "用来定义类的接口。路由器会首先调用本接口来决定是否激活一个子路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An interface for defining a class that the router should call first to resolve route data before rendering the route. Should return a value or an Observable/Promise that resolves to a value.</p>",
-    "translation": "用来定义类的接口。路由器会在渲染该路由之前，首先调用它来解析路由数据。应该返回一个值或能解析成值的 <code>Observable/Promise</code>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>An interface for defining a class that the router should call first to check if the lazy loaded module should be loaded. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
-    "translation": "用来定义类的接口。路由器会首先调用它来决定是否应该加载一个惰性加载模块。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
   },
   {
@@ -4625,7 +4260,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "See the <live-example name=\"dependency-injection-in-action\"></live-example>\nof the code in this cookbook.",
+    "original": "of the code in this cookbook.",
     "translation": "要获取本“烹饪宝典”的代码，**参见<live-example name=\"dependency-injection-in-action\"></live-example>**。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -4855,7 +4490,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "Find this example in <live-example name=\"dependency-injection-in-action\">live code</live-example>\nand confirm that the three `HeroBioComponent` instances have their own cached hero data.",
+    "original": "and confirm that the three `HeroBioComponent` instances have their own cached hero data.",
     "translation": "到<live-example name=\"dependency-injection-in-action\">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -5240,7 +4875,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "The function retrieves candidate heroes from the `HeroService`,\ntakes `2` of them to be the runners-up, and returns their concatenated names.\nLook at the <live-example name=\"dependency-injection-in-action\"></live-example>\nfor the full source code.",
+    "original": "for the full source code.",
     "translation": "该函数从`HeroService`获取英雄参赛者，从中取`2`个作为亚军，并把他们的名字拼接起来。请到<live-example name=\"dependency-injection-in-action\"></live-example>查看全部原代码。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -5455,7 +5090,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "Notice that even though the [@Optional](guide/dependency-injection-in-action#optional) qualifier\nis there for safety,\nthe <live-example name=\"dependency-injection-in-action\"></live-example>\nconfirms that the `alex` parameter is set.",
+    "original": "confirms that the `alex` parameter is set.",
     "translation": "安全起见，我们添加了[@Optional](guide/dependency-injection-in-action#optional)装饰器，但是<live-example name=\"dependency-injection-in-action\"></live-example>显示`alex`参数确实被设置了。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -5500,7 +5135,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "Unfortunately, this does not work.\nThe <live-example name=\"dependency-injection-in-action\"></live-example>\nconfirms that the `alex` parameter is null.\n*You cannot inject a parent by its base class.*",
+    "original": "confirms that the `alex` parameter is null.\n*You cannot inject a parent by its base class.*",
     "translation": "可惜这样不行。<live-example name=\"dependency-injection-in-action\"></live-example>显示`alex`参数是null。\n*不能通过基类注入父组件*。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -6205,18 +5840,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
   },
   {
-    "original": "3. If you copy the files into a server _sub-folder_, append the build flag, `--base-href` and set the `<base href>` appropriately.<br><br>",
-    "translation": "如果要把文件部署到服务器上的*某个子路径*下，构建时还要添加`--base-href`（基地址）标识，并设置合适的`<base href>`。<br><br>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
-  },
-  {
     "original": "For example, if the `index.html` is on the server at `/my/app/index.html`, set the _base href_  to\n  `<base href=\"/my/app/\">` like this.",
     "translation": "比如，如果 `index.html` 位于服务器上的 `/my/app/index.html` 路径下，就要把 *base href* 设置为 `<base href=\"/my/app/\">`，就像这样：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
   },
   {
-    "original": "You'll see that the `<base href>` is set properly in the generated `dist/index.html`.<br><br>\n  If you copy to the server's root directory, omit this step and leave the `<base href>` alone.<br><br>\n  Learn more about the role of `<base href>` [below](guide/deployment#base-tag).",
-    "translation": "我们会看到在生成的 `dist/index.html` 中 `<base href>` 已经被设置好了。<br><br>\n  如果复制到服务器的根目录下，就省略这个步骤，并且让 `<base href>` 保持原样。<br><br> \n  要了解 `<base href>` 的作用，参见 [下面](guide/deployment#base-tag) 的内容。",
+    "original": "Learn more about the role of `<base href>` [below](guide/deployment#base-tag).",
+    "translation": "我们会看到在生成的 `dist/index.html` 中 `",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
   },
   {
@@ -6412,11 +6042,6 @@
   {
     "original": "### Requesting services from a different server (CORS)",
     "translation": "### 请求来自另一个服务器的服务（CORS）",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
-  },
-  {
-    "original": "<i>cross-origin resource sharing</i></a> error when making a service request (typically a data service request)\nto a server other than the application's own host server.\nBrowsers forbid such requests unless the server permits them explicitly.",
-    "translation": "Angular开发者在向与该应用的宿主服务器不同域的服务器发起请求时，可能会遇到一种<a href=\"https://en.wikipedia.org/wiki/Cross-origin_resource_sharing\" target=\"_blank\" title=\"Cross-origin resource sharing\"><i>跨域资源共享（CORS）</i></a>错误。\n浏览器会阻止该请求，除非得到那台服务器的明确许可。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/deployment.md"
   },
   {
@@ -6785,7 +6410,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dynamic-component-loader.md"
   },
   {
-    "original": "See the <live-example name=\"dynamic-component-loader\"></live-example>\nof the code in this cookbook.",
+    "original": "of the code in this cookbook.",
     "translation": "到<live-example name=\"cb-dynamic-component-loader\"></live-example>查看本烹饪书的源码。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dynamic-component-loader.md"
   },
@@ -7520,36 +7145,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
     "original": "The *Hero Employment Agency* uses this form to maintain personal information about heroes.\nEvery hero needs a job. It's the company mission to match the right hero with the right crisis.",
     "translation": "这里是*英雄职业介绍所*，使用这个表单来维护候选英雄们的个人信息。每个英雄都需要一份工作。\n公司的使命就是让合适的英雄去应对恰当的危机！",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
@@ -7562,36 +7157,6 @@
   {
     "original": "If you delete the hero name, the form displays a validation error in an attention-grabbing style:",
     "translation": "如果删除了英雄的名字，表单就会用醒目的样式把验证错误显示出来。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -7656,7 +7221,7 @@
   },
   {
     "original": "## Setup",
-    "translation": "???\n## 搭建",
+    "translation": "## 搭建",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -7800,7 +7365,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "1. You add the `FormsModule` to the list of `imports` defined in the `@NgModule` decorator. This gives the application\n  access to all of the template-driven forms features, including `ngModel`.",
+    "original": "1. You add the `FormsModule` to the list of `imports` defined in the `@NgModule` decorator. This gives the application\naccess to all of the template-driven forms features, including `ngModel`.",
     "translation": "把`FormsModule`添加到`ngModule`装饰器的`imports`列表中，这样应用就能访问模板驱动表单的所有特性，包括`ngModel`。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
@@ -7835,6 +7400,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
+    "original": "Create the template file with the following contents:",
+    "translation": "创建模板文件，内容如下：",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
     "original": "The language is simply HTML5. You're presenting two of the `Hero` fields, `name` and `alterEgo`, and\nopening them up for user input in input boxes.",
     "translation": "这只是一段普通的旧式 HTML 5 代码。这里有两个`Hero`字段，`name`和`alterEgo`，供用户输入。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
@@ -7865,8 +7435,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  Angular 表单不需要任何样式库",
+    "original": "Angular forms don't require a style library",
+    "translation": "Angular 表单不需要任何样式库",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -7915,36 +7485,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
     "original": "You don't see hero data because you're not binding to the `Hero` yet.\nYou know how to do that from earlier pages.\n[Displaying Data](guide/displaying-data) teaches property binding.\n[User Input](guide/user-input) shows how to listen for DOM events with an\nevent binding and how to update a component property with the displayed value.",
     "translation": "因为还没有绑定到某个英雄，所以看不到任何数据。\n解决方案见前面的章节。\n[显示数据](guide/displaying-data)介绍了属性绑定。\n[用户输入](guide/user-input)介绍了如何通过事件绑定来监听 DOM 事件，以及如何用显示值更新组件的属性。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
@@ -7990,7 +7530,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "What `NgForm` directive?\n  You didn't add an [NgForm](api/forms/NgForm) directive.",
+    "original": "What `NgForm` directive?\nYou didn't add an [NgForm](api/forms/NgForm) directive.",
     "translation": "什么是`NgForm`指令？\n但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
@@ -8000,43 +7540,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "The `NgForm` directive supplements the `form` element with additional features.\n  It holds the controls you created for the elements with an `ngModel` directive\n  and `name` attribute, and monitors their properties, including their validity.\n  It also has its own `valid` property which is true only *if every contained\n  control* is valid.",
+    "original": "The `NgForm` directive supplements the `form` element with additional features.\nIt holds the controls you created for the elements with an `ngModel` directive\nand `name` attribute, and monitors their properties, including their validity.\nIt also has its own `valid` property which is true only *if every contained\ncontrol* is valid.",
     "translation": "`NgForm`指令为`form`增补了一些额外特性。\n它会控制那些带有`ngModel`指令和`name`属性的元素，监听他们的属性（包括其有效性）。\n它还有自己的`valid`属性，这个属性只有在*它包含的每个控件*都有效时才是真。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
     "original": "If you ran the app now and started typing in the *Name* input box,\nadding and deleting characters, you'd see them appear and disappear\nfrom the interpolated text.\nAt some point it might look like this:",
     "translation": "如果现在运行这个应用，开始在*姓名*输入框中键入，添加和删除字符，将看到它们从插值结果中显示和消失。\n某一瞬间，它可能是这样的：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8070,7 +7580,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\n  to match the label to its input control.",
+    "original": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\nto match the label to its input control.",
     "translation": "每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
@@ -8080,38 +7590,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "If you run the app now and change every hero model property, the form might display like this:",
+    "original": "If you run the app  now and change every hero model property, the form might display like this:",
     "translation": "如果现在运行本应用，修改 Hero 模型的每个属性，表单是这样的：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8137,6 +7617,36 @@
   {
     "original": "The *NgModel* directive doesn't just track state; it updates the control with special Angular CSS classes that reflect the state.\nYou can leverage those class names to change the appearance of the control.",
     "translation": "*NgModel* 指令不仅仅跟踪状态。它还使用特定的 Angular CSS 类来更新控件，以反映当前状态。\n可以利用这些 CSS 类来修改控件的外观，显示或隐藏消息。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "State",
+    "translation": "状态",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "Class if true",
+    "translation": "为真时的 CSS 类",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "Class if false",
+    "translation": "为假时的 CSS 类",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "The control has been visited.",
+    "translation": "控件被访问过。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "The control's value has changed.",
+    "translation": "控件的值变化了。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "The control's value is valid.",
+    "translation": "控件的值有效。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8175,68 +7685,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
     "original": "You should see the following transitions and class names:",
     "translation": "我们会看到下列转换及其类名：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8257,36 +7707,6 @@
   {
     "original": "You can mark required fields and invalid data at the same time with a colored bar\non the left of the input box:",
     "translation": "可以在输入框的左侧添加带颜色的竖条，用于标记必填字段和无效输入：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8312,36 +7732,6 @@
   {
     "original": "When the user deletes the name, the form should look like this:",
     "translation": "当用户删除姓名时，应该是这样的：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-2.png\" alt=\"无效！名字是必填项\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/hero-form-3.png\" alt=\"没有数据绑定的早期表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/ng-model-in-action.png\" alt=\"操作中的ngModel\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/control-state-transitions-anim.gif\" alt=\"控件状态转换\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/validity-required-indicator.png\" alt=\"无效表单\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
-  },
-  {
-    "original": "???",
-    "translation": "<img src=\"generated/images/guide/forms/name-required-error.png\" alt=\"必须填写姓名\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -8415,8 +7805,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
-    "original": "Enter a name and click *New Hero* again.\nThe app displays a _Name is required_ error message.\nYou don't want error messages when you create a new (empty) hero.\nWhy are you getting one now?",
+    "original": "Enter a name and click *New Hero* again.\nThe app displays a _Name is required_ error message. \nYou don't want error messages when you create a new (empty) hero.\nWhy are you getting one now?",
     "translation": "输入名字，再次点击 *New Hero* 按钮。\n这次，出现了错误信息！为什么？我们不希望显示新（空）的英雄时，出现错误信息。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
+  },
+  {
+    "original": "Inspecting the element in the browser tools reveals that the *name* input box is _no longer pristine_.\nThe form remembers that you entered a name before clicking *New Hero*.\nReplacing the hero *did not restore the pristine state* of the form controls.",
+    "translation": "使用浏览器工具审查这个元素就会发现，这个 *name* 输入框并不是全新的。\n表单记得我们在点击 *New Hero* 前输入的名字。\n更换了英雄*并不会重置控件的“全新”状态*。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/forms.md"
   },
   {
@@ -10075,11 +9470,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/http.md"
   },
   {
-    "original": "</div>",
-    "translation": "Angular 的 HTTP 测试库是为这种模式的测试而设计的：应用执行代码并首先发起请求，之后，测试代码会期待（expect）特定的请求发起过或没发起，然后对那些请求进行断言，最终，通过刷新（flushing）每个被期待的请求来提供响应，此后还可能会触发更多新的请求。最后，测试代码还可以根据需要去验证应用不曾发起过预期之外的请求。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/http.md"
-  },
-  {
     "original": "### Setup",
     "translation": "### 初始设置",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/http.md"
@@ -10735,16 +10125,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        钩子",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        目的和时机",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
-  },
-  {
     "original": "Respond when Angular (re)sets data-bound input properties.\n      The method receives a `SimpleChanges` object of current and previous property values.",
     "translation": "当Angular（重新）设置数据绑定输入属性时响应。\n      该方法接受当前和上一属性值的`SimpleChanges`对象",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
@@ -10875,7 +10255,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
-    "original": "The <live-example></live-example>\ndemonstrates the lifecycle hooks in action through a series of exercises\npresented as components under the control of the root `AppComponent`.",
+    "original": "demonstrates the lifecycle hooks in action through a series of exercises\npresented as components under the control of the root `AppComponent`.",
     "translation": "<live-example></live-example>通过在受控于根组件`AppComponent`的一些组件上进行的一系列练习，演示了生命周期钩子的运作方式。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
@@ -10887,16 +10267,6 @@
   {
     "original": "Here's a brief description of each exercise:",
     "translation": "下面是每个练习简短的描述：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        组件",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        描述",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
@@ -10935,8 +10305,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        计数器",
+    "original": "Counter",
+    "translation": "计数器",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
@@ -11012,11 +10382,6 @@
   {
     "original": "Kidding aside, pay attention to two key points:",
     "translation": "不开玩笑了，注意下面两个关键点：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "1. Angular calls hook methods for *directives* as well as components.<br><br>",
-    "translation": "就像对组件一样，Angular也会对*指令*调用这些钩子方法。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
@@ -12740,8 +12105,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  别忘了`declarations`数组",
+    "original": "Remember the declarations array",
+    "translation": "别忘了`declarations`数组",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
@@ -12792,11 +12157,6 @@
   {
     "original": "You can add heroes and Angular updates the display when you do.\nIf you click the `reset` button, Angular replaces `heroes` with a new array of the original heroes and updates the display.\nIf you added the ability to remove or change a hero, Angular would detect those changes and update the display as well.",
     "translation": "我们可以添加新的英雄，加完之后，Angular就会更新显示。\n`reset`按钮会把`heroes`替换成一个由原来的英雄组成的新数组，重置完之后，Angular就会更新显示。\n如果我们提供了删除或修改英雄的能力，Angular也会检测到那些更改，并更新显示。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
-  },
-  {
-    "original": "FlyingHeroesPipe",
-    "translation": "“会飞的英雄”管道（FlyingHeroesPipe）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
@@ -12945,11 +12305,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
-    "original": "The impure <i>AsyncPipe</i>",
-    "translation": "<h3 id='async-pipe'>\n  非纯  <i>AsyncPipe</i>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
-  },
-  {
     "original": "The Angular `AsyncPipe` is an interesting example of an impure pipe.\nThe `AsyncPipe` accepts a `Promise` or `Observable` as input\nand subscribes to the input automatically, eventually returning the emitted values.",
     "translation": "Angular的`AsyncPipe`是一个有趣的非纯管道的例子。\n  `AsyncPipe`接受一个`Promise`或`Observable`作为输入，并且自动订阅这个输入，最终返回它们给出的值。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
@@ -13025,8 +12380,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  借助json管道进行调试",
+    "original": "Debugging with the json pipe",
+    "translation": "借助json管道进行调试",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
@@ -13140,13 +12495,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "And you can also <a href=\"generated/zips/cli-quickstart/cli-quickstart.zip\" target=\"_blank\">download the example.</a>",
-    "translation": "你还可以 <a href=\"generated/zips/cli-quickstart/cli-quickstart.zip\" target=\"_blank\">下载这个例子。</a>",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='devenv'>\n  步骤1. 设置开发环境",
+    "original": "download the example.",
+    "translation": "你还可以",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
@@ -13170,11 +12520,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='create-proj'>\n  步骤2. 创建新项目",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
-  },
-  {
     "original": "Open a terminal window.",
     "translation": "打开终端窗口。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
@@ -13187,11 +12532,6 @@
   {
     "original": "Patience, please.\nIt takes time to set up a new project; most of it is spent installing npm packages.",
     "translation": "请耐心等待。\n创建新项目需要花费很多时间，大多数时候都是在安装那些npm包。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='serve'>\n  步骤3. 启动开发服务器",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
@@ -13212,11 +12552,6 @@
   {
     "original": "Your app greets you with a message:",
     "translation": "本应用会用一条消息来跟你打招呼：",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='first-component'>\n  步骤4. 编辑我们的第一个Angular组件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
@@ -13295,12 +12630,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      File",
+    "original": "File",
     "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      Purpose",
+    "original": "Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
@@ -13370,12 +12705,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      File",
+    "original": "File",
     "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      Purpose",
+    "original": "Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/quickstart.md"
   },
@@ -14075,13 +13410,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/reactive-forms.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        属性",
+    "original": "Property",
+    "translation": "属性",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/reactive-forms.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        说明",
+    "original": "Description",
+    "translation": "说明",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/reactive-forms.md"
   },
   {
@@ -14965,7 +14300,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
+    "original": "Description",
     "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -15045,7 +14380,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
+    "original": "Description",
     "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -15105,68 +14440,63 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        路由器部件",
+    "original": "Router Part",
+    "translation": "路由器部件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        含义",
+    "original": "Meaning",
+    "translation": "含义",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        为激活的URL显示应用组件。管理从一个组件到另一个组件的导航",
+    "original": "Displays the application component for the active URL.\n        Manages navigation from one component to the next.",
+    "translation": "为激活的URL显示应用组件。管理从一个组件到另一个组件的导航",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        一个独立的Angular模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。",
+    "original": "A separate NgModule that provides the necessary service providers\n        and directives for navigating through application views.",
+    "translation": "一个独立的Angular模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        定义了一个路由数组，每一个都会把一个URL路径映射到一个组件。",
+    "original": "Defines an array of Routes, each mapping a URL path to a component.",
+    "translation": "定义了一个路由数组，每一个都会把一个URL路径映射到一个组件。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        定义路由器该如何根据URL模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。",
+    "original": "Defines how the router should navigate to a component based on a URL pattern.\n        Most routes consist of a path and a component type.",
+    "translation": "定义路由器该如何根据URL模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        该指令（<code>&lt;router-outlet></code>）用来标记出路由器该在哪里显示视图。",
+    "original": "The directive (<code>&lt;router-outlet></code>) that marks where the router displays a view.",
+    "translation": "该指令（<code>&lt;router-outlet></code>）用来标记出路由器该在哪里显示视图。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        该指令用来把一个可点击的HTML元素绑定到路由。\n        点击带有绑定到<i>字符串</i>或<i>链接参数数组</i>的<code>routerLink</code>指令的元素就会触发一次导航。",
+    "original": "The directive for binding a clickable HTML element to\n        a route. Clicking an element with a <code>routerLink</code> directive\n        that is bound to a <i>link parameters array</i> triggers a navigation.",
+    "translation": "该指令用来把一个可点击的HTML元素绑定到路由。\n        点击带有绑定到<i>字符串</i>或<i>链接参数数组</i>的<code>routerLink</code>指令的元素就会触发一次导航。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        当HTML元素上或元素内的<code>routerLink</code>变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。",
+    "original": "The directive for adding/removing classes from an HTML element when an associated\n        <code>routerLink</code> contained on or inside the element becomes active/inactive.",
+    "translation": "当HTML元素上或元素内的<code>routerLink</code>变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。",
+    "original": "A service that is provided to each route component that contains route specific\n        information such as route parameters, static data, resolve data, global query params, and the global fragment.",
+    "translation": "为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。",
+    "original": "The current state of the router including a tree of the currently activated\n        routes together with convenience methods for traversing the route tree.",
+    "translation": "路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        这个数组会被路由器解释成一个路由操作指南。我们可以把一个<code>RouterLink</code>绑定到该数组，或者把它作为参数传给<code>Router.navigate</code>方法。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        一个带有<code>RouterOutlet</code>的Angular组件，它根据路由器的导航来显示相应的视图。",
+    "original": "An array that the router interprets as a routing instruction.\n        You can bind that array toa <code>RouterLink</code>  or pass the array as an argument to\n        the <code>Router.navigate</code> method.",
+    "translation": "这个数组会被路由器解释成一个路由操作指南。我们可以把一个<code>RouterLink</code>绑定到该数组，或者把它作为参数传给<code>Router.navigate</code>方法。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
@@ -16260,7 +15590,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
+    "original": "Description",
     "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -18340,7 +17670,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "You've covered a lot of ground in this guide and the application is too big to reprint here.\nPlease visit the <live-example title=\"Router Sample in Stackblitz\"></live-example>\nwhere you can download the final source code.",
+    "original": "where you can download the final source code.",
     "translation": "本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title=\"Router Sample in Plunker\"></live-example>，在那里你可以下载最终的源码。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -18630,11 +17960,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='report-issues'>\n举报漏洞",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
     "original": "To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).",
     "translation": "给我们（[security@angular.io](mailto:security@angular.io)）发邮件，报告Angular本身的漏洞。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
@@ -18642,11 +17967,6 @@
   {
     "original": "For more information about how Google handles security issues, see [Google's security\nphilosophy](https://www.google.com/about/appsecurity/).",
     "translation": "要了解关于“谷歌如何处理安全问题”的更多信息，参见[谷歌的安全哲学](https://www.google.com/about/appsecurity/)。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='best-practices'>\n最佳实践",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
@@ -18800,11 +18120,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='bypass-security-apis'>\n  信任安全值",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
     "original": "Sometimes applications genuinely need to include executable code, display an `<iframe>` from some\nURL, or construct potentially dangerous URLs. To prevent automatic sanitization in any of these\nsituations, you can tell Angular that you inspected a value, checked how it was generated, and made\nsure it will always be secure. But *be careful*. If you trust a value that might be malicious, you\nare introducing a security vulnerability into your application. If in doubt, find a professional\nsecurity reviewer.",
     "translation": "有时候，应用程序确实需要包含可执行的代码，比如使用URL显示`<iframe>`，或者构造出有潜在危险的URL。\n    为了防止在这种情况下被自动无害化，你可以告诉Angular：我已经审查了这个值，检查了它是怎么生成的，并确信它总是安全的。\n    但是**千万要小心**！如果你信任了一个可能是恶意的值，就会在应用中引入一个安全漏洞。如果你有疑问，请找一个安全专家复查下。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
@@ -18830,18 +18145,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='http'>\n  HTTP级别的漏洞",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
     "original": "Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request\nforgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily\non the server side, but Angular provides helpers to make integration on the client side easier.",
     "translation": "Angular内置了一些支持来防范两个常见的HTTP漏洞：跨站请求伪造（XSRF）和跨站脚本包含（XSSI）。\n  这两个漏洞主要在服务器端防范，但是Angular也自带了一些辅助特性，可以让客户端的集成变得更容易。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
-    "original": "</h3>",
-    "translation": "<h3 id='xsrf'>\n  跨站请求伪造（XSRF）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
@@ -18895,11 +18200,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
-    "original": "</h3>",
-    "translation": "<h3 id='xssi'>\n  跨站脚本包含(XSSI)",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
     "original": "Cross-site script inclusion, also known as JSON vulnerability, can allow an attacker's website to\nread data from a JSON API. The attack works on older browsers by overriding native JavaScript\nobject constructors, and then including an API URL using a `<script>` tag.",
     "translation": "跨站脚本包含，也被称为Json漏洞，它可以允许一个攻击者的网站从JSON API读取数据。这种攻击发生在老的浏览器上，\n它重写原生JavaScript对象的构造函数，然后使用`<script>`标签包含一个API的URL。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
@@ -18920,11 +18220,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='code-review'>\n  审计Angular应用程序",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
-  },
-  {
     "original": "Angular applications must follow the same security principles as regular web applications, and\nmust be audited as such. Angular-specific APIs that should be audited in a security review,\nsuch as the [_bypassSecurityTrust_](guide/security#bypass-security-apis) methods, are marked in the documentation\nas security sensitive.",
     "translation": "Angular应用应该遵循和常规Web应用一样的安全原则并按照这些原则进行审计。Angular中某些应该在安全评审中被审计的API（\n比如[_bypassSecurityTrust_](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/security.md"
@@ -18941,7 +18236,7 @@
   },
   {
     "original": "See the <live-example name=\"set-document-title\"></live-example>.",
-    "translation": "参见<live-example name=\"set-document-title\"></live-example>",
+    "translation": "参见",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/set-document-title.md"
   },
   {
@@ -19065,8 +18360,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Try the <live-example name=\"setup\">sample application</live-example> \n      and the <live-example name=\"setup\" stackblitz=\"quickstart-specs\">unit test</live-example>\n      as _live examples_.",
-    "translation": "在live example中试试<live-example name=\"setup\">范例程序</live-example>和<live-example name=\"setup\" plnkr=\"quickstart-specs\">单元测试</live-example>",
+    "original": "as _live examples_.",
+    "translation": "在live example中试试",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -19120,12 +18415,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Configuration for the <a href=\"https://karma-runner.github.io/1.0/index.html\" title=\"Karma unit test runner\">karma</a>\n      test runner described in the [Testing](guide/testing) guide.",
+    "original": "test runner described in the [Testing](guide/testing) guide.",
     "translation": "在[测试](guide/testing)指南中提到的 <a href=\"https://karma-runner.github.io/1.0/index.html\" target=\"_blank\" title=\"Karma测试运行器\">karma</a> 测试运行器的配置。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Script to run <a href=\"https://karma-runner.github.io/1.0/index.html\" title=\"Karma unit test runner\">karma</a>\n      with SystemJS as described in the [Testing](guide/testing) guide.",
+    "original": "with SystemJS as described in the [Testing](guide/testing) guide.",
     "translation": "在[测试](guide/testing)指南中提到的 <a href=\"https://karma-runner.github.io/1.0/index.html\" target=\"_blank\" title=\"Karma测试运行器\">karma</a> 测试运行器的脚本。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
@@ -19310,13 +18605,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        文件",
+    "original": "File",
+    "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        用途",
+    "original": "Purpose",
+    "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
@@ -19350,11 +18645,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
-    "original": "</a> if they're not already installed on your machine.",
-    "translation": "如果你的电脑没有安装它们，<a href=\"https://docs.npmjs.com/getting-started/installing-node\" target=\"_blank\" title=\"安装 Node.js 和更新 npm\">\n立刻安装它们</a>。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
-  },
-  {
     "original": "**Verify that you are running node `v4.x.x` or higher and npm `3.x.x` or higher**\nby running the commands `node -v` and `npm -v` in a terminal/console window.\nOlder versions produce errors.",
     "translation": "在终端/控制器窗口运行命令`node -v`和`npm -v`，来**确认你运行的 node 是`v4.x.x`或更高，npm 为`3.x.x`或更高。**\n老版本会产生错误。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
@@ -19367,11 +18657,6 @@
   {
     "original": "## Appendix: Why develop locally",
     "translation": "## 附录：为何在本地开发",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
-  },
-  {
-    "original": "<live-example title=\"QuickStart Seed in Stackblitz\">Live coding</live-example> in the browser is a great way to explore Angular.",
-    "translation": "在浏览器中<live-example title=\"QuickStart Seed in Plunker\">在线编程</live-example>是很好的探索 Angular 的方法。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
@@ -19475,8 +18760,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/structural-directives.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  指令的拼写形式",
+    "original": "Directive spelling",
+    "translation": "指令的拼写形式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/structural-directives.md"
   },
   {
@@ -20181,7 +19466,7 @@
   },
   {
     "original": "to all components, services, and other symbols.\nThis helps make the app cleaner, easier to read and maintain, and more testable.",
-    "translation": "对所有的组件、服务等等应用<a href=\"https://wikipedia.org/wiki/Single_responsibility_principle\" target=\"_blank\"><i>单一职责原则</i> (SRP)</a>",
+    "translation": "对所有的组件、服务等等应用",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
@@ -20440,13 +19725,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        符号名",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        文件名",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
@@ -20495,13 +19780,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        符号名",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        文件名",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
@@ -20675,13 +19960,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        符号名",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        文件名",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
@@ -20720,12 +20005,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      Test Type",
+    "original": "Test Type",
     "translation": "测试类型",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      File Names",
+    "original": "File Names",
     "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
@@ -20775,12 +20060,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      Test Type",
+    "original": "Test Type",
     "translation": "测试类型",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      File Names",
+    "original": "File Names",
     "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
@@ -20975,7 +20260,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
   {
-    "original": "**Why?** <a href=\"https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines\">TypeScript guidelines</a>\ndiscourage the `I` prefix.",
+    "original": "discourage the `I` prefix.",
     "translation": "**为何？**<a href=\"https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines\" target=\"_blank\">TypeScript 指导原则</a>不建议使用 “I” 前缀。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/styleguide.md"
   },
@@ -22580,12 +21865,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "* <code>new</code>",
+    "original": "new",
     "translation": "`new`运算符",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "* chaining expressions with <code>;</code> or <code>,</code>",
+    "original": ";</code> or <code>,",
     "translation": "使用`;`或`,`的链式表达式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
@@ -22765,7 +22050,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "* <code>new</code>",
+    "original": "new",
     "translation": "`new`运算符",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
@@ -22855,73 +22140,48 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        数据方向",
+    "original": "Data direction",
+    "translation": "数据方向",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        语法",
+    "original": "Syntax",
+    "translation": "语法",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        绑定类型",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        单向",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        从数据源",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        到视图目标",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        插值表达式",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        类",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</p>",
-    "translation": "<p>\n        样式",
+    "original": "Type",
+    "translation": "绑定类型",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
     "original": "One-way",
-    "translation": "<p>\n        单向",
+    "translation": "单向",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        到数据源",
+    "original": "from data source",
+    "translation": "从数据源",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        事件",
+    "original": "to view target",
+    "translation": "到视图目标",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        双向",
+    "original": "Interpolation",
+    "translation": "插值表达式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        双向",
+    "original": "Class",
+    "translation": "类",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
+  },
+  {
+    "original": "Style",
+    "translation": "样式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23090,8 +22350,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  没有 attribute 的世界",
+    "original": "A world without attributes",
+    "translation": "没有 attribute 的世界",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23115,78 +22375,78 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        绑定类型",
+    "original": "Type",
+    "translation": "绑定类型",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        目标",
+    "original": "Target",
+    "translation": "目标",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        范例",
+    "original": "Examples",
+    "translation": "范例",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        元素的 property",
+    "original": "Element&nbsp;property",
+    "translation": "元素的 property",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        组件的 property",
+    "original": "Component&nbsp;property",
+    "translation": "组件的 property",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        指令的 property",
+    "original": "Directive&nbsp;property",
+    "translation": "指令的 property",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        事件",
+    "original": "Event",
+    "translation": "事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        元素的事件",
+    "original": "Element&nbsp;event",
+    "translation": "元素的事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        组件的事件",
+    "original": "Component&nbsp;event",
+    "translation": "组件的事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        指令的事件",
+    "original": "Directive&nbsp;event",
+    "translation": "指令的事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        双向",
+    "original": "Two-way",
+    "translation": "双向",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        事件与 property",
+    "original": "Event and property",
+    "translation": "事件与 property",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        attribute（例外情况）",
+    "original": "Attribute (the&nbsp;exception)",
+    "translation": "attribute（例外情况）",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        CSS 类",
+    "original": "Class",
+    "translation": "CSS 类",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        样式",
+    "original": "Style",
+    "translation": "样式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23417,11 +22677,6 @@
   {
     "original": "Interpolation handles the script tags differently than property binding but both approaches render the\ncontent harmlessly.",
     "translation": "插值表达式处理 script 标签与属性绑定有所不同，但是二者都只渲染没有危害的内容。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "</figure>",
-    "translation": "回到顶部",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23670,7 +22925,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "### Custom events with <span class=\"syntax\">EventEmitter</span>",
+    "original": "EventEmitter",
     "translation": "### 使用 <span class=\"syntax\">EventEmitter</span> 实现自定义事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
@@ -23740,8 +22995,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  [( )] = 盒子里的香蕉",
+    "original": "[( )] = banana in a box",
+    "translation": "[( )] = 盒子里的香蕉",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23930,7 +23185,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "### NgModel - Two-way binding to form elements with <span class=\"syntax\">[(ngModel)]</span>",
+    "original": "[(ngModel)]",
     "translation": "### NgModel - 使用<span class=\"syntax\">[(ngModel)]</span>双向绑定到表单元素",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
@@ -23960,7 +23215,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "#### Inside <span class=\"syntax\">[(ngModel)]</span>",
+    "original": "[(ngModel)]",
     "translation": "#### <span class=\"syntax\">[(ngModel)]</span>内幕",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
@@ -24295,11 +23550,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</figure>",
-    "translation": "回到顶部",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
     "original": "### The _NgSwitch_ directives",
     "translation": "### `NgSwitch`指令",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
@@ -24485,8 +23735,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n     给输入/输出属性起别名",
+    "original": "Aliasing input/output properties",
+    "translation": "给输入/输出属性起别名",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -24646,7 +23896,7 @@
   },
   {
     "original": "It works perfectly with long property paths such as `a?.b?.c?.d`.",
-    "translation": "在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。<a href=\"#top-of-page\">back to top</a>",
+    "translation": "在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -25460,8 +24710,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</header>",
-    "translation": "<header>\n  在降级过的组件属性中使用中线命名法",
+    "original": "Use kebab-case for downgraded component attributes",
+    "translation": "在降级过的组件属性中使用中线命名法",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
@@ -25520,33 +24770,33 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        绑定定义",
+    "original": "Binding definition",
+    "translation": "绑定定义",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        模板语法",
+    "original": "Template syntax",
+    "translation": "模板语法",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        属性(Attribute)绑定",
+    "original": "Attribute binding",
+    "translation": "属性(Attribute)绑定",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        表达式绑定",
+    "original": "Expression binding",
+    "translation": "表达式绑定",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        单向绑定",
+    "original": "One-way binding",
+    "translation": "单向绑定",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        双向绑定",
+    "original": "Two-way binding",
+    "translation": "双向绑定",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
@@ -26006,7 +25256,7 @@
   },
   {
     "original": "work, once you have an ES6 `import` statement in a file all UMD typed modules must also be\nimported via `import` statements instead of being globally available.",
-    "translation": "`@types/angular`声明为UMD模块，根据<a href=\"https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions\" target=\"_blank\">UMD类型</a>\n的工作方式，一旦你在文件中有一条ES6的`import`语句，所有的UMD类型化的模型必须都通过`import`语句导入，\n而是不是全局可用。",
+    "translation": "`@types/angular`声明为UMD模块，根据",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
@@ -26505,18 +25755,18 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        老代码",
+    "original": "Previous code",
+    "translation": "老代码",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        新代码",
+    "original": "New code",
+    "translation": "新代码",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
-    "original": "</p>",
-    "translation": "<p>\n        说明",
+    "original": "Notes",
+    "translation": "说明",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/upgrade.md"
   },
   {
@@ -26646,7 +25896,7 @@
   },
   {
     "original": "Run the <live-example></live-example>.",
-    "translation": "运行<live-example></live-example>",
+    "translation": "运行",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/user-input.md"
   },
   {
@@ -26955,11 +26205,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='prereq1'>\n前提条件: Node.js",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
     "original": "Install **[Node.js® and npm](https://nodejs.org/en/download/)**\nif they are not already on your machine.",
     "translation": "如果你的电脑里没有Node.js®和npm，请安装**[它们](https://nodejs.org/en/download/)**。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
@@ -26970,11 +26215,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='prereq2'>\n前提条件: Visual Studio 2015 Update 3",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
     "original": "The minimum requirement for developing Angular applications with Visual Studio is Update 3.\nEarlier versions do not follow the best practices for developing applications with TypeScript.\nTo view your version of Visual Studio 2015, go to `Help | About Visual Studio`.",
     "translation": "使用Visual Studio开发Angular应用程序的最低要求是Update 3。\n早期版本没有遵循使用TypeScript开发应用程序的最佳实践。\n要查看你的Visual Studio 2015版本号，到`Help | About Visual Studio`。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
@@ -26982,11 +26222,6 @@
   {
     "original": "If you don't have it, install **[Visual Studio 2015 Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs)**.\nOr use `Tools | Extensions and Updates` to update to Update 3 directly from Visual Studio 2015.",
     "translation": "如果还没有，安装**[Visual Studio 2015 Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs)**。或者使用`Tools | Extensions and Updates`来直接在Visual Studio 2015中更新到Update 3。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='prereq3'>\n前提条件: 配置External Web tools",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
@@ -27025,11 +26260,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='prereq4'>\n前提条件: 安装TypeScript 2.2 for Visual Studio 2015",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
     "original": "While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2.2, \nwhich you need to develop Angular applications.",
     "translation": "Visual Studio Update 3自带TypeScript支持，但是它的TypeScript版本开发Angular应用需要的不是2.2。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
@@ -27060,18 +26290,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
-    "original": "</h2>",
-    "translation": "<h2 id='download'>\n第一步: 现在“快速上手”文件",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
     "original": "[Download the QuickStart source](https://github.com/angular/quickstart)\nfrom GitHub. If you downloaded as a zip file, extract the files.",
     "translation": "从GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='create-project'>\n第二步：创建Visual Studio ASP.net项目",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
@@ -27102,11 +26322,6 @@
   {
     "original": "This cookbook uses the `Empty` template with no added folders, \nno authentication, and no hosting. Pick the template and options appropriate for your project.",
     "translation": "本烹饪宝典选择了`Empty`模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='copy'>\n  第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
@@ -27167,11 +26382,6 @@
   {
     "original": "* **Do not** include the `node_modules` folder in the project. Let it be a hidden project folder.",
     "translation": "**不要**将`node_modules`目录添加到项目中，让它隐藏。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
-  },
-  {
-    "original": "</h2>",
-    "translation": "<h2 id='build-and-run'>\n  第五步：构建和运行应用",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/visual-studio-2015.md"
   },
   {
@@ -27390,7 +26600,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
   },
   {
-    "original": "You can also <a href=\"generated/zips/webpack/webpack.zip\" target=\"_blank\">download the final result.</a>",
+    "original": "download the final result.",
     "translation": "你还可以<a href=\"generated/zips/webpack/webpack.zip\" target=\"_blank\">点这里下载最终结果</a>。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
   },
@@ -27935,16 +27145,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
   },
   {
-    "original": "<img src=\"assets/images/logos/angular/angular.png\" height=\"40px\" title=\"download Angular logo\"></a>.\nCreate a folder called `images` under the project's `assets` folder, then right-click (Cmd+click on Mac)\non the image and download it to that folder.",
-    "translation": "<code>app.component.html</code>显示了这个可下载的Angular Logo",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
-  },
-  {
-    "original": "<a href=\"assets/images/logos/angular/angular.png\" target=\"_blank\">",
-    "translation": "<img src=\"assets/images/logos/angular/angular.png\" height=\"40px\" title=\"download Angular logo\"></a>。\n在项目的`assets`目录下创建一个名叫`images`的文件夹，然后右键点击（Mac上是Cmd+点击）本图片，并把它下载到`images`文件夹中。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
-  },
-  {
     "original": "Here again are the TypeScript entry-point files that define the `polyfills` and `vendor` bundles.",
     "translation": "这里又是TypeScript的入口点文件，它定义了`polyfills`和`vendor`这两个包。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/webpack.md"
@@ -28002,16 +27202,6 @@
   {
     "original": "Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop",
     "translation": "Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
-  },
-  {
-    "original": "</a>",
-    "translation": "<a href=\"guide/quickstart\" class=\"docs-card\" title=\"Angular 快速上手\">",
-    "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
-  },
-  {
-    "original": "</a>",
-    "translation": "<a href=\"guide/architecture\" class=\"docs-card\" title=\"Angular 架构\">",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {

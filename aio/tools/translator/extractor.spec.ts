@@ -30,6 +30,21 @@ describe('从对照翻译文件中采集生成字典', () => {
     expect(result).eql([{original: 'a', translation: '一'}]);
   });
 
+  it('处理 html 标签包裹的翻译文本', () => {
+    const result = gatherTranslations(`
+    <p>
+    a
+    </p>
+
+    <p>
+    一
+</p>
+    
+    `);
+    expect(result).eql([{original: 'a', translation: '一'}]);
+
+  });
+
   it('从真实的文件中采集（测试）', function () {
     const fs = require('fs');
     const content = fs.readFileSync(dirs.content + 'guide/forms.md', 'utf-8');

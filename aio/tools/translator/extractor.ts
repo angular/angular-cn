@@ -2,6 +2,7 @@ import * as globby from 'globby';
 import { DictEntry } from './dict-entry';
 import {
   isNotCnPages,
+  isOnlyTag,
   normalizeLines,
   originalIsNotChinese,
   originalIsNotTag,
@@ -28,7 +29,20 @@ export function gatherTranslations(text: string): DictEntry[] {
     const translation = purifyText(lines[i]);
     if (isTranslation(translation)) {
       const original = purifyText(lines[i - 1]);
-      result.push({original, translation});
+      // 对于包裹在 html tag 中的翻译文本进行特殊处理
+      if (isOnlyTag(original)) {
+        const prevTag = lines[i - 4].trim();
+        const prevEndTag = lines[i - 2].trim();
+        const thisEndTag = lines[i + 1].trim();
+        if (original === prevTag && prevEndTag === thisEndTag) {
+          result.push({
+            original: lines[i - 3],
+            translation: lines[i],
+          });
+        }
+      } else {
+        result.push({original, translation});
+      }
     }
   }
   return result

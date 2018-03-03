@@ -9,12 +9,20 @@ export function originalIsNotChinese(entry: DictEntry): boolean {
   return !isTranslation(entry.original);
 }
 
+export function isTagLine(text: string) {
+  return /^\s*<\/?\w+.*/.test(text);
+}
+
 export function originalIsNotTag(entry: DictEntry): boolean {
-  return !/^\s*<div.*/.test(entry.original);
+  return !isTagLine(entry.original);
+}
+
+export function isOnlyTag(text: string) {
+  return /^\s*<\w+>\s*$/.test(text);
 }
 
 export function originalIsOnlyTag(entry: DictEntry): boolean {
-  return !/^\s*<\w+>\s*$/.test(entry.original);
+  return !isOnlyTag(entry.original);
 }
 
 export function isNotImg(entry: DictEntry): boolean {
@@ -40,10 +48,11 @@ export function isHead(line: string): boolean {
 export function normalizeLines(text: string): string {
   // 列表、标题等自带换行含义的markdown
   const blockElementPattern = /(?=\n *(\d+\.|-|\*|#|<) )\n/g;
-  const htmlTagPattern = /\n(\s*<.*?>\s*?)\n/g;
-  return text.replace(blockElementPattern, '\n\n')
-    .replace(htmlTagPattern, '\n\n$1\n\n')
-    .replace(/\n\n+/, '\n\n');
+  const htmlTagPattern = /(\s*<.*?>\s*?)\n/g;
+  text = text.replace(blockElementPattern, '\n\n');
+  text = text.replace(htmlTagPattern, '\n\n$1\n\n');
+  text = text.replace(/\n\n+/, '\n\n');
+  return text;
 }
 
 export function indentOf(line): number {
