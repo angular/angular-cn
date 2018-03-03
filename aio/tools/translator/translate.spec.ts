@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { dirs } from './dirs';
-import { kernelText, lookup, translate } from './translate';
+import { kernelText, lookup, translateDirectory, translateFile } from './translate';
 
 
 describe('根据字典进行翻译', () => {
@@ -12,10 +12,11 @@ describe('根据字典进行翻译', () => {
     expect(lookup('# Forms')[0].translation).eql('# 表单');
   });
 
-  it('自动根据字典翻译单个文件', function () {
-    const fs = require('fs');
-    const content = fs.readFileSync(__dirname + '/../../../../content-en/' + 'guide/forms.md', 'utf-8');
-    const result = translate(content);
-    fs.writeFileSync(dirs.content + 'guide/forms.md', result.join('\n\n'), 'utf-8');
+  it('自动根据字典翻译单个文件（测试）', function () {
+    translateFile(__dirname + '/../../../../content-en/' + 'guide/forms.md', dirs.content + 'guide/forms.md');
+  });
+
+  it('自动根据字典翻译所有文件（非测试）', function () {
+    translateDirectory(__dirname + '/../../../../content-en/', dirs.content);
   });
 });

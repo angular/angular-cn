@@ -1,5 +1,8 @@
+import * as fs from 'fs';
 import * as _ from 'lodash';
 import { DictEntry } from './dict-entry';
+import { dirs } from './dirs';
+import { listMarkdownFiles } from './extractor';
 import { indentOf, normalizeLines, repeat } from './utils';
 
 export const dict = require('./dict-3.json') as DictEntry[];
@@ -34,4 +37,17 @@ export function translate(content: string): string[] {
         return line + '\n\n' + translations.map(t => '???\n' + padding + t.translation).join('\n\n');
       }
     });
+}
+
+export function translateFile(sourceFile: string, targetFile: string): void {
+  const content = fs.readFileSync(sourceFile, 'utf-8');
+  const result = translate(content);
+  fs.writeFileSync(targetFile, result.join('\n\n'), 'utf-8');
+}
+
+export function translateDirectory(sourceDir: string, targetDir: string): void {
+  const files = listMarkdownFiles(sourceDir);
+  files.forEach(fileName => {
+    translateFile(fileName, fileName.replace(/^.*content-en\//, dirs.content));
+  });
 }
