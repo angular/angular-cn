@@ -53,9 +53,15 @@ export function normalizeLines(text: string): string {
   text = text.replace(hxPattern, '\n$1\n\n');
   const leadHxPattern = /^( *#.*)\n/g;
   text = text.replace(leadHxPattern, '$1\n\n');
-  const htmlTagPattern = /(\s*<.*?>\s*?)\n/g;
-  text = text.replace(htmlTagPattern, '\n\n$1\n\n');
-  text = text.replace(/\n\n+/, '\n\n');
+  const htmlTagPattern = /(\s*)<(\/?\w+)(.*?)>(\s*?)\n/g;
+  text = text.replace(htmlTagPattern, (line, _1, _2, _3, _4) => {
+    if (_2 === 'a') {
+      return line;
+    } else {
+      return `\n\n${line}\n\n`;
+    }
+  });
+  text = text.replace(/\n\s*\n+/g, '\n\n');
   return text;
 }
 

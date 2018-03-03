@@ -35,7 +35,6 @@ def`);
 
     Angular forms don't require a style library
 
-
   </header>
 
 `);

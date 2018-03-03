@@ -74,7 +74,6 @@ export function gatherFromMarkdownFiles(directory: string): DictEntry[] {
 
 export function purifyText(text): string {
   return text
-    .replace(/^<(\w+)[\s\S]*?>([\s\S]*)<\/\1>$/, '$2')
     .replace(/^(.*)<code-example .*$/, '$1')
     .trim();
 }

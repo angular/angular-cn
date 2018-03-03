@@ -8,7 +8,7 @@ import { indentOf, normalizeLines, repeat } from './utils';
 export const dict = require('./dict-3.json') as DictEntry[];
 
 export function lookup(english: string, filename: RegExp = /.*/): DictEntry[] {
-  let entries = dict
+  const entries = dict
     .filter(entry => filename.test(entry.sourceFile))
     .filter(entry => kernelText(entry.original) === kernelText(english));
   return _.uniqBy(entries, 'translation');
