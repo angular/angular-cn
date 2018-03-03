@@ -1,8 +1,8 @@
 import * as globby from 'globby';
 import { DictEntry } from './dict-entry';
-import { normalizeLines } from './translate';
 import {
   isNotCnPages,
+  normalizeLines,
   originalIsNotChinese,
   originalIsNotTag,
   originalIsOnlyTag,
@@ -26,8 +26,8 @@ export function gatherTranslations(text: string): DictEntry[] {
   const result = [];
   for (let i = 1; i < lines.length; ++i) {
     const translation = purifyText(lines[i]);
-    const original = purifyText(lines[i - 1]);
     if (isTranslation(translation)) {
+      const original = purifyText(lines[i - 1]);
       result.push({original, translation});
     }
   }
@@ -72,6 +72,10 @@ export function purifyEntry(entry: DictEntry): DictEntry {
   };
 }
 
-const contentDirectory = process.argv[2];
-
-gatherFromMarkdownFiles(contentDirectory);
+export function gatherFromDirectory(directory: string, dictFile: string): DictEntry[] {
+  const entries = gatherFromMarkdownFiles(directory);
+  const dict = JSON.stringify(entries, null, 2);
+  const fs = require('fs');
+  fs.writeFileSync(dictFile, dict, 'utf-8');
+  return entries;
+}

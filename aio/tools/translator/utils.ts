@@ -36,3 +36,33 @@ export function isNotCnPages(entry: DictEntry): boolean {
 export function isHead(line: string): boolean {
   return /^#/.test(line);
 }
+
+export function normalizeLines(text: string): string {
+  // 列表、标题等自带换行含义的markdown
+  const blockElementPattern = /(?=\n *(\d+\.|-|\*|#|<) )\n/g;
+  const htmlTagPattern = /\n(\s*<.*?>\s*?)\n/g;
+  return text.replace(blockElementPattern, '\n\n')
+    .replace(htmlTagPattern, '\n\n$1\n\n')
+    .replace(/\n\n+/, '\n\n');
+}
+
+export function indentOf(line): number {
+  let pattern = /^( *)[\s\S]*/;
+  if (!pattern.test(line)) {
+    return 0;
+  }
+  const leadSpaces = line.replace(pattern, '$1').length;
+  if (/^ *(\d+\.|-|\*) /.test(line)) {
+    return leadSpaces + 3;
+  } else {
+    return leadSpaces;
+  }
+}
+
+export function repeat(indent: number): string {
+  let result = '';
+  for (let i = 0; i < indent; ++i) {
+    result = result + ' ';
+  }
+  return result;
+}

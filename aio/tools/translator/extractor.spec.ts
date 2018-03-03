@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import { DictEntry } from './dict-entry';
 import { dirs } from './dirs';
-import { gatherFromMarkdownFiles, gatherTranslations, listMarkdownFiles, splitAndTrim } from './extractor';
+import { gatherFromDirectory, gatherTranslations, listMarkdownFiles, splitAndTrim, } from './extractor';
 
 describe('从对照翻译文件中采集生成字典', () => {
   it('空字符串应该拆分成空数组', function () {
@@ -31,7 +30,7 @@ describe('从对照翻译文件中采集生成字典', () => {
     expect(result).eql([{original: 'a', translation: '一'}]);
   });
 
-  it('从真实的文件中采集', function () {
+  it('从真实的文件中采集（测试）', function () {
     const fs = require('fs');
     const content = fs.readFileSync(dirs.content + 'guide/forms.md', 'utf-8');
     const result = gatherTranslations(content);
@@ -49,11 +48,3 @@ describe('从对照翻译文件中采集生成字典', () => {
   });
 
 });
-
-function gatherFromDirectory(directory: string, dictFile: string): DictEntry[] {
-  const entries = gatherFromMarkdownFiles(directory);
-  const dict = JSON.stringify(entries, null, 2);
-  const fs = require('fs');
-  fs.writeFileSync(dictFile, dict, 'utf-8');
-  return entries;
-}
