@@ -52,6 +52,95 @@ def`);
     b
 `);
   });
+  it('拆解单行的 h\\d 标签', function () {
+    const lines = normalizeLines(`
+    a
+    <h3 id="abc">line</h3>
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <h3 id="abc">
+
+    line
+
+    </h3>
+
+    b
+`);
+  });
+
+  it('拆解单行的 th 标签', function () {
+    const lines = normalizeLines(`
+    a
+    <th>line</th>
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <th>
+
+    line
+
+    </th>
+
+    b
+`);
+  });
+
+  it('拆解单行注释', function () {
+    const lines = normalizeLines(`
+    a
+    <!-- no -->
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <!-- no -->
+
+    b
+`);
+  });
+
+  it('拆解 @a 标记', function () {
+    const lines = normalizeLines(`
+    a
+    {@a test}
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    {@a test}
+
+    b
+`);
+  });
+
+  it('拆解多行代码', function () {
+    const lines = normalizeLines(`
+    a
+    \`\`\`
+      var a = 1
+    \`\`\`
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    \`\`\`
+
+      var a = 1
+
+    \`\`\`
+
+    b
+`);
+  });
+
   it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
   <header>
@@ -76,4 +165,5 @@ def`);
     const lines = normalizeLines(`\n  a  \n\n\n b `);
     expect(lines).eql(`\n  a  \n\n b `);
   });
+
 });
