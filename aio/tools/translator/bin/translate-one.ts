@@ -3,4 +3,5 @@
 import { dirs } from '../dirs';
 import { translateFile } from '../translate';
 
-translateFile(__dirname + '/../../../../../content-en/' + 'guide/http.md', dirs.content + 'guide/http.md');
+const filename = 'aot-compiler.md';
+translateFile(__dirname + '/../../../../../content-en/' + 'guide/' + filename, dirs.content + 'guide/' + filename);

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { dirs } from './dirs';
-import { gatherFromDirectory, gatherTranslations, listMarkdownFiles, splitAndTrim, } from './extractor';
+import { gatherTranslations, listMarkdownFiles, splitAndTrim, } from './extractor';
 
 describe('从对照翻译文件中采集生成字典', () => {
   it('空字符串应该拆分成空数组', function () {
@@ -47,19 +47,12 @@ describe('从对照翻译文件中采集生成字典', () => {
 
   it('从真实的文件中采集（测试）', function () {
     const fs = require('fs');
-    const content = fs.readFileSync(dirs.content + 'guide/forms.md', 'utf-8');
+    const content = fs.readFileSync(dirs.content + 'guide/ajs-quick-reference.md', 'utf-8');
     const result = gatherTranslations(content);
-    expect(result[0]).eql({original: '# Forms', translation: '# 表单'});
+    expect(result).eql({original: '# Forms', translation: '# 表单'});
   });
 
   it('递归查找所有 markdown 文件', function () {
     expect(listMarkdownFiles(dirs.content).length).greaterThan(10);
   });
-
-  it('从对照文本的文件夹中采集生成字典（非测试）', () => {
-    gatherFromDirectory(dirs.aio + '../../content-1/', dirs.here + 'dict-1.json');
-    gatherFromDirectory(dirs.aio + '../../content-2/', dirs.here + 'dict-2.json');
-    gatherFromDirectory(dirs.aio + '../../content-3/', dirs.here + 'dict-3.json');
-  });
-
 });

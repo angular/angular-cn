@@ -23,7 +23,21 @@ def`);
     expect(lines).eql('\n\n# abc\n\ndef');
   });
 
-  it('把 html tag 拆解开', function () {
+  it('拆解单行的成对 tag', function () {
+    const lines = normalizeLines(`
+    a
+    <div class="abc">DEF</div>
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <div class="abc">DEF</div>
+
+    b
+`);
+  });
+  it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
   <header>
     Angular forms don't require a style library
