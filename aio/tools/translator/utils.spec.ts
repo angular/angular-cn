@@ -37,6 +37,21 @@ def`);
     b
 `);
   });
+
+  it('拆解单行的自封闭 tag', function () {
+    const lines = normalizeLines(`
+    a
+    <hr/>
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <hr/>
+
+    b
+`);
+  });
   it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
   <header>
