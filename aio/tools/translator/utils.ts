@@ -9,12 +9,8 @@ export function originalIsNotChinese(entry: DictEntry): boolean {
   return !isTranslation(entry.original);
 }
 
-export function isTagLine(text: string) {
-  return /^\s*<\/?\w+.*/.test(text);
-}
-
-export function originalIsNotTag(entry: DictEntry): boolean {
-  return !isTagLine(entry.original);
+export function originalIsNotAlertDivTag(entry: DictEntry): boolean {
+  return !/^<div class="alert [^>\n]*>$/.test(entry.original);
 }
 
 export function isOnlyBeginTag(text: string) {

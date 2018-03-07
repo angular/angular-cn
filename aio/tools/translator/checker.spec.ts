@@ -8,7 +8,7 @@ import {
   isNotImg,
   isNotMarketingDocs,
   originalIsNotChinese,
-  originalIsNotTag,
+  originalIsNotAlertDivTag,
   translationHasNotCodeExample,
 } from './utils';
 
@@ -42,7 +42,7 @@ describe('自动检查翻译结果', function () {
   });
 
   it('原文不应该是以 <div 开头的', function () {
-    const lines = entries.filter(originalIsNotTag);
+    const lines = entries.filter(originalIsNotAlertDivTag);
     expect(lines).eql([]);
   });
 });

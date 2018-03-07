@@ -258,7 +258,7 @@ Now you need a component to demonstrate the pipe.
 
 Note the following:
 
-要注意的有两点：
+请注意以下几点：
 
 * You use your custom pipe the same way you use built-in pipes.
 

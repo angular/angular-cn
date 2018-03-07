@@ -49,7 +49,7 @@ The following example exports `NgModel` into a variable called `name`:
 
 Note the following:
 
-要注意的有两点：
+请注意以下几点：
 
 * The `<input>` element carries the HTML validation attributes: `required` and `minlength`. It 
 also carries a custom validator directive, `forbiddenName`. For more 

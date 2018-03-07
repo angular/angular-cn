@@ -5,6 +5,7 @@ import {
   isOnlyBeginTag,
   normalizeLines,
   originalIsNotChinese,
+  originalIsNotAlertDivTag,
   originalIsNotOnlyBeginTag,
   translationHasNotCodeExample,
 } from './utils';
@@ -48,6 +49,7 @@ export function gatherTranslations(text: string): DictEntry[] {
     .filter(isNotCnPages)
     .filter(translationHasNotCodeExample)
     .filter(originalIsNotChinese)
+    .filter(originalIsNotAlertDivTag)
     .filter(originalIsNotOnlyBeginTag)
     .map(purifyEntry);
 }

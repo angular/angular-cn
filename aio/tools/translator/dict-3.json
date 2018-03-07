@@ -1480,6 +1480,31 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/aot-compiler.md"
   },
   {
+    "original": "Property",
+    "translation": "属性",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/api-page-class.md"
+  },
+  {
+    "original": "Type",
+    "translation": "绑定类型",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/api-page-class.md"
+  },
+  {
+    "original": "Description",
+    "translation": "描述",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/api-page-class.md"
+  },
+  {
+    "original": "Type",
+    "translation": "绑定类型",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/api-page-class.md"
+  },
+  {
+    "original": "Type",
+    "translation": "绑定类型",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/api-page-class.md"
+  },
+  {
     "original": "# Architecture Overview",
     "translation": "# 架构概览",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/architecture.md"
@@ -2955,13 +2980,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
-    "original": "[Animations](guide/animations)",
-    "translation": "[动画](guide/animations)",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
-  },
-  {
-    "original": "<br>Only if `Animation Builder` is used within the application--standard\n      animation support in Angular doesn't require any polyfills (as of NG6).",
-    "translation": "<br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。",
+    "original": "[Animations](guide/animations)\n      <br>Only if `Animation Builder` is used within the application--standard\n      animation support in Angular doesn't require any polyfills (as of NG6).",
+    "translation": "[动画](guide/animations)\n      <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
@@ -3450,6 +3470,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/change-log.md"
   },
   {
+    "original": "Template syntax",
+    "translation": "模板语法",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/cheatsheet.md"
+  },
+  {
     "original": "# Component Interaction",
     "translation": "# 组件之间的交互",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
@@ -3520,6 +3545,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
   },
   {
+    "original": "<h3 class=\"no-toc\">Test it</h3>",
+    "translation": "<h3 class=\"no-toc\">测试一下</h3>",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
+  },
+  {
     "original": "E2E test that all children were instantiated and displayed as expected:",
     "translation": "端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
@@ -3547,6 +3577,11 @@
   {
     "original": "Here's the `NameParentComponent` demonstrating name variations including a name with all spaces:",
     "translation": "下面的`NameParentComponent`展示了各种名字的处理方式，包括一个全是空格的名字。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
+  },
+  {
+    "original": "<h3 class=\"no-toc\">Test it</h3>",
+    "translation": "<h3 class=\"no-toc\">测试一下</h3>",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-interaction.md"
   },
   {
@@ -3881,7 +3916,7 @@
   },
   {
     "original": "You can run the <live-example></live-example> in Stackblitz and download the code from there.",
-    "translation": "你可以在 Stackblitz 上运行本章这些代码的<live-example></live-example>并下载这些代码。",
+    "translation": "运行<live-example></live-example>来试用本页的代码。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/component-styles.md"
   },
   {
@@ -4235,7 +4270,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "See the <live-example name=\"dependency-injection-in-action\"></live-example> of the code in this cookbook.",
+    "original": "See the <live-example name=\"dependency-injection-in-action\"></live-example>\nof the code in this cookbook.",
     "translation": "到<live-example name=\"dependency-injection-in-action\"></live-example>查看本烹饪书的源码。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -4465,7 +4500,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
   {
-    "original": "Find this example in <live-example name=\"dependency-injection-in-action\">live code</live-example> and confirm that the three `HeroBioComponent` instances have their own cached hero data.",
+    "original": "Find this example in <live-example name=\"dependency-injection-in-action\">live code</live-example>\nand confirm that the three `HeroBioComponent` instances have their own cached hero data.",
     "translation": "到<live-example name=\"dependency-injection-in-action\">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/dependency-injection-in-action.md"
   },
@@ -6821,7 +6856,7 @@
   },
   {
     "original": "Note the following:",
-    "translation": "请注意以下几点：",
+    "translation": "要注意的有两点：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/form-validation.md"
   },
   {
@@ -10285,6 +10320,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
   },
   {
+    "original": "Description",
+    "translation": "描述",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
+  },
+  {
     "original": "Demonstrates every lifecycle hook.\n      Each hook method writes to the on-screen log.",
     "translation": "展示每个生命周期钩子，每个钩子方法都会在屏幕上显示一条日志。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/lifecycle-hooks.md"
@@ -10755,6 +10795,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/module-types.md"
   },
   {
+    "original": "Feature",
+    "translation": "特性",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/module-types.md"
+  },
+  {
     "original": "A basic understanding of the following concepts:",
     "translation": "对下列概念有基本的理解：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-api.md"
@@ -11105,7 +11150,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
   {
-    "original": "<!--KW--I don't understand how Angular doesn't understand these methods...-->",
+    "original": "Angular doesn't recognize these names but Angular developers do.\nFollow this convention when you write similar modules with configurable service providers.",
     "translation": "Angular并不识别这些名字，但是Angular的开发人员可以。\n当你写类似的需要可配置的服务提供商时，请遵循这个约定。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/ngmodule-faq.md"
   },
@@ -18530,7 +18575,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Try the <live-example name=\"setup\">sample application</live-example> \n      and the <live-example name=\"setup\" stackblitz=\"quickstart-specs\">unit test</live-example>\n      as _live examples_.",
+    "original": "Try the <live-example name=\"setup\">sample application</live-example>\n      and the <live-example name=\"setup\" stackblitz=\"quickstart-specs\">unit test</live-example>\n      as _live examples_.",
     "translation": "在live example中试试<live-example name=\"setup\">范例程序</live-example>和<live-example name=\"setup\" plnkr=\"quickstart-specs\">单元测试</live-example>",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
@@ -18550,8 +18595,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Tooling configuration files and folders.",
-    "translation": "配置文件和文件夹的工具。",
+    "original": "Tooling configuration files and folders.\n      Ignore them until you have a compelling reason to do otherwise.",
+    "translation": "配置文件和文件夹的工具。\n      除非你有足够的理由，否则别动它。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -18681,7 +18726,7 @@
   },
   {
     "original": "`npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).",
-    "translation": "在*Bash for Windows*中`npm start`可能会失败，因为到2017-04为止它还不支持访问网络上的服务器。",
+    "translation": "在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
@@ -22345,23 +22390,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "Interpolation",
-    "translation": "插值表达式",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Property",
-    "translation": "属性",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Class",
-    "translation": "CSS 类",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Style",
-    "translation": "样式",
+    "original": "Interpolation<br>\n      Property<br>\n      Attribute<br>\n      Class<br>\n      Style",
+    "translation": "插值表达式<br>\n      属性<br>\n      Attribute<br>\n      CSS 类<br>\n      样式",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -22382,21 +22412,6 @@
   {
     "original": "Two-way",
     "translation": "双向",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "<!-- placeholder -->",
-    "translation": "译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，\n而接下来的部分重点是对它们进行比较。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "<!-- placeholder -->",
-    "translation": "我们无法改变历史，因此，在本章的翻译中，保留了它们的英文形式，不加翻译，以免混淆。\n本章中，如果提到“属性”的地方，一定是指 property，因为在 Angular 中，实际上很少涉及 attribute。",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "<!-- placeholder -->",
-    "translation": "但在其它章节中，为简单起见，凡是能通过上下文明显区分开的，就仍统一译为“属性”，\n区分不明显的，会加注英文。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -22590,18 +22605,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "Element&nbsp;property",
-    "translation": "元素的 property",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Component&nbsp;property",
-    "translation": "组件的 property",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Directive&nbsp;property",
-    "translation": "指令的 property",
+    "original": "Element&nbsp;property<br>\n      Component&nbsp;property<br>\n      Directive&nbsp;property",
+    "translation": "元素的 property<br>\n      组件的 property<br>\n      指令的 property",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -22610,18 +22615,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
-    "original": "Element&nbsp;event",
-    "translation": "元素的事件",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Component&nbsp;event",
-    "translation": "组件的事件",
-    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
-  },
-  {
-    "original": "Directive&nbsp;event",
-    "translation": "指令的事件",
+    "original": "Element&nbsp;event<br>\n      Component&nbsp;event<br>\n      Directive&nbsp;event",
+    "translation": "元素的事件<br>\n      组件的事件<br>\n      指令的事件",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -22952,6 +22947,21 @@
   {
     "original": "Here's how the table renders:",
     "translation": "这里是表格渲染出来的样子：",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
+  },
+  {
+    "original": "One-Two",
+    "translation": "1-2列",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
+  },
+  {
+    "original": "Five",
+    "translation": "五列",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
+  },
+  {
+    "original": "Six",
+    "translation": "六列",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {
@@ -23892,6 +23902,11 @@
   {
     "original": "The following discussion refers to _components_ for brevity and \nbecause this topic is mostly a concern for component authors.",
     "translation": "为简洁起见，以下讨论会涉及到**组件**，因为这个主题主要是组件作者所关心的问题。",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
+  },
+  {
+    "original": "<h3 class=\"no-toc\">Discussion</h3>",
+    "translation": "<h3 class=\"no-toc\">讨论</h3>",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/template-syntax.md"
   },
   {

@@ -24790,11 +24790,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
   {
-    "original": "<div class=\"alert is-important\">",
-    "translation": "译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，\n而接下来的部分重点是对它们进行比较。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
-  },
-  {
     "original": "Binding types other than interpolation have a **target name** to the left of the equal sign,\neither surrounded by punctuation (`[]`, `()`) or preceded by a prefix (`bind-`, `on-`, `bindon-`).",
     "translation": "除了插值表达式之外的绑定类型，在等号左边是**目标名**，\n  无论是包在括号中 (`[]`、`()`) 还是用前缀形式 (`bind-`、`on-`、`bindon-`) 。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
