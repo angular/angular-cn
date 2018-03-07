@@ -1520,7 +1520,7 @@ Here's how the table renders:
   </td><td>
 
   Six
-  
+
   六列
 
   </td></tr>

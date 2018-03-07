@@ -279,6 +279,18 @@ ng generate directive highlight
   </td>
 `);
   });
+
+  it('拆解任意位置的 <tr>', function () {
+    expect(normalizeLines(`
+  <tr><td>abc</td></tr>
+`)).eql(`
+  <tr>
+
+      <td>abc</td>
+
+  </tr>
+`);
+  });
   it('拆解独行的 li', function () {
     expect(normalizeLines(`
 <ul>
