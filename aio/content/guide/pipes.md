@@ -511,7 +511,7 @@ a point that's discussed later in this page.
 
 <h3 class="no-toc">Impure pipes</h3>
 
-### 非纯管道
+<h3 class="no-toc">非纯管道</h3>
 
 Angular executes an *impure pipe*  during every component change detection cycle.
 An impure pipe is called often, as often as every keystroke or mouse-move.

@@ -5,7 +5,7 @@ import { dirs } from './dirs';
 import { listMarkdownFiles } from './extractor';
 import { indentOf, normalizeLines, repeat } from './utils';
 
-export const dict = require('./dict-2.json') as DictEntry[];
+export const dict = require('./dict-latest.json') as DictEntry[];
 
 export function lookup(english: string, filename: RegExp = /.*/): DictEntry[] {
   const entries = dict
