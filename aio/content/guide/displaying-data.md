@@ -18,9 +18,7 @@ The final UI looks like this:
 最终的用户界面是这样的：
 
 <figure>
-
   <img src="generated/images/guide/displaying-data/final.png" alt="Final UI">
-
 </figure>
 
 <div class="l-sub-section">
@@ -135,9 +133,7 @@ Now run the app. It should display the title and hero name:
 运行应用。它应该显示出标题和英雄名：
 
 <figure>
-
   <img src="generated/images/guide/displaying-data/title-and-hero.png" alt="Title and Hero">
-
 </figure>
 
 The next few sections review some of the coding choices in the app.
@@ -275,9 +271,7 @@ Now the heroes appear in an unordered list.
 现在，英雄们出现在了一个无序列表中。
 
 <figure>
-
   <img src="generated/images/guide/displaying-data/hero-names-list.png" alt="After ngfor">
-
 </figure>
 
 ## Creating a class for the data
@@ -337,15 +331,15 @@ That brief syntax does a lot:
 
 * Declares a constructor parameter and its type.
 
-  声明了一个构造函数参数及其类型。  
+   声明了一个构造函数参数及其类型。
 
 * Declares a public property of the same name.
 
-  声明了一个同名的公共属性。
+   声明了一个同名的公共属性。
 
 * Initializes that property with the corresponding argument when creating an instance of the class.
 
-  当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值。
+   当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值。
 
 ### Using the Hero class
 
@@ -487,4 +481,3 @@ Here's the final code:
   </code-pane>
 
 </code-tabs>
-

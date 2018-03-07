@@ -35,8 +35,10 @@ Angular offers two ways to compile your application:
 JIT compilation is the default when you run the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
+
   ng build
   ng serve
+
 </code-example>
 
 {@a compile}
@@ -44,8 +46,10 @@ JIT compilation is the default when you run the _build-only_ or the _build-and-s
 For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
+
   ng build --aot
   ng serve --aot
+
 </code-example>
 
 <div class="l-sub-section">
@@ -1085,6 +1089,7 @@ import { calculateValue } from './utilities';
 To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { calculateValue } from './utilities';
 
@@ -1100,6 +1105,7 @@ export function someValueFactory() {
     { provide: SomeValue, useFactory: someValueFactory }
   ]
   ...
+
 </code-example>
 
 <hr>
@@ -1119,6 +1125,7 @@ The compiler does not support references to variables assigned by [destructuring
 For example, you cannot write something like this:
 
 <code-example linenums="false">
+
 // ERROR
 import { configuration } from './configuration';
 
@@ -1130,11 +1137,13 @@ const {foo, bar} = configuration;
     {provide: Bar, useValue: bar},
   ]
   ...
+
 </code-example>
 
 To correct this error, refer to non-destructured values.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { configuration } from './configuration';
   ...
@@ -1143,6 +1152,7 @@ import { configuration } from './configuration';
     {provide: Bar, useValue: configuration.bar},
   ]
   ...
+
 </code-example>
 
 <hr>
@@ -1188,6 +1198,7 @@ you can finesse the problem in four steps:
 Here's an illustrative example.
 
 <code-example linenums="false">
+
 // CORRECTED
 import { Inject } from '@angular/core';
 
@@ -1203,6 +1214,7 @@ export function _window() { return window; }
 export class MyComponent {
   constructor (@Inject(WINDOW) private win: Window) { ... }
 }
+
 </code-example>
 
 The `Window` type in the constructor is no longer a problem for the compiler because it
@@ -1211,6 +1223,7 @@ uses the `@Inject(WINDOW)` to generate the injection code.
 Angular does something similar with the `DOCUMENT` token so you can inject the browser's `document` object (or an abstraction of it, depending upon the platform in which the application runs).
 
 <code-example linenums="false">
+
 import { Inject }   from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -1218,6 +1231,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class MyComponent {
   constructor (@Inject(DOCUMENT) private doc: Document) { ... }
 }
+
 </code-example>
 
 <hr>
@@ -1253,6 +1267,7 @@ that you referenced in metadata.
 The compiler can understand simple enum values but not complex values such as those derived from computed properties.
 
 <code-example linenums="false">
+
 // ERROR
 enum Colors {
   Red = 1,
@@ -1267,6 +1282,7 @@ enum Colors {
     { provide: StrongColor, useValue: Colors.Blue }  // bad
   ]
   ...
+
 </code-example>
 
 Avoid referring to enums with complicated initializers or computed properties.

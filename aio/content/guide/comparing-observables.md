@@ -97,25 +97,39 @@ The following code snippets illustrate how the same kind of operation is defined
 
   <th>
 
-    <td>Operation</td>
+    <td>
 
-    <td>Observable</td>
+        Operation
 
-    <td>Promise</td>
+    </td>
+
+    <td>
+
+        Observable
+
+    </td>
+
+    <td>
+
+        Promise
+
+    </td>
 
   </th>
 
   <tr>
 
-    <td>Creation</td>
+    <td>
+
+        Creation
+
+    </td>
 
     <td>
 
       <pre>new Observable((observer) => {
   observer.next(123);
-});
-
-</pre>
+});</pre>
 
     </td>
 
@@ -123,35 +137,45 @@ The following code snippets illustrate how the same kind of operation is defined
 
       <pre>new Promise((resolve, reject) => {
   resolve(123);
-});
-
-</pre>
+});</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td>Transform</td>
+    <td>
 
-    <td><pre>obs.map((value) => value * 2 );</pre></td>
+        Transform
 
-    <td><pre>promise.then((value) => value * 2);</pre></td>
+    </td>
+
+    <td>
+
+        <pre>obs.map((value) => value * 2 );</pre>
+
+    </td>
+
+    <td>
+
+        <pre>promise.then((value) => value * 2);</pre>
+
+    </td>
 
   </tr>
-
   <tr>
 
-    <td>Subscribe</td>
+    <td>
+
+        Subscribe
+
+    </td>
 
     <td>
 
       <pre>sub = obs.subscribe((value) => {
   console.log(value)
-});
-
-</pre>
+});</pre>
 
     </td>
 
@@ -159,24 +183,32 @@ The following code snippets illustrate how the same kind of operation is defined
 
       <pre>promise.then((value) => {
   console.log(value);
-});
-
-</pre>
+});</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td>Unsubscribe</td>
+    <td>
 
-    <td><pre>sub.unsubscribe();</pre></td>
+        Unsubscribe
 
-    <td>Implied by promise resolution.</td>
+    </td>
+
+    <td>
+
+        <pre>sub.unsubscribe();</pre>
+
+    </td>
+
+    <td>
+
+        Implied by promise resolution.
+
+    </td>
 
   </tr>
-
 </table>
 
 ## Observables compared to events API
@@ -191,15 +223,27 @@ Here are some code samples that illustrate how the same kind of operation is def
 
   <th>
 
-    <td>Observable</td>
+    <td>
 
-    <td>Events API</td>
+        Observable
+
+    </td>
+
+    <td>
+
+        Events API
+
+    </td>
 
   </th>
 
   <tr>
 
-    <td>Creation & cancellation</td>
+    <td>
+
+        Creation & cancellation
+
+    </td>
 
     <td>
 
@@ -209,9 +253,7 @@ let clicks$ = fromEvent(buttonEl, ‘click’);
 let subscription = clicks$
   .subscribe(e => console.log(‘Clicked’, e))
 // Stop listening
-subscription.unsubscribe();
-
-</pre>
+subscription.unsubscribe();</pre>
 
    </td>
 
@@ -225,24 +267,24 @@ subscription.unsubscribe();
 button.addEventListener(‘click’, handler);
 // Stop listening
 button.removeEventListener(‘click’, handler);
-
 </pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td>Subscription</td>
+    <td>
+
+        Subscription
+
+    </td>
 
     <td>
 
 <pre>observable.subscribe(() => {
   // notification handlers here
-});
-
-</pre>
+});</pre>
 
     </td>
 
@@ -250,24 +292,23 @@ button.removeEventListener(‘click’, handler);
 
 <pre>element.addEventListener(eventName, (event) => {
   // notification handler here
-});
-
-</pre>
+});</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td>Configuration</td>
+    <td>
+
+        Configuration
+
+    </td>
 
     <td>Listen for keystrokes, but provide a stream representing the value in the input.
 <pre>fromEvent(inputEl, 'keydown').pipe(
   map(e => e.target.value)
-);
-
-</pre>
+);</pre>
 
     </td>
 
@@ -275,14 +316,11 @@ button.removeEventListener(‘click’, handler);
 <pre>element.addEventListener(eventName, (event) => {
   // Cannot change the passed Event into another
   // value before it gets to the handler
-});
-
-</pre>
+});</pre>
 
     </td>
 
   </tr>
-
 </table>
 
 ## Observables compared to arrays
@@ -293,20 +331,31 @@ An observable produces values over time. An array is created as a static set of 
 
   <th>
 
-    <td>Observable</td>
+    <td>
 
-    <td>Array</td>
+        Observable
+
+    </td>
+
+    <td>
+
+        Array
+
+    </td>
 
   </th>
 
   <tr>
 
-    <td>Given</td>
+    <td>
+
+        Given
+
+    </td>
 
     <td>
 
       <pre>obs: ➞1➞2➞3➞5➞7</pre>
-
       <pre>obsB: ➞'a'➞'b'➞'c'</pre>
 
     </td>
@@ -314,21 +363,22 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr: [1, 2, 3, 5, 7]</pre>
-
       <pre>arrB: ['a', 'b', 'c']</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>concat()</pre></td>
+    <td>
+
+        <pre>concat()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.concat(obsB)</pre>
-
       <pre>➞1➞2➞3➞5➞7➞'a'➞'b'➞'c'</pre>
 
     </td>
@@ -336,21 +386,22 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.concat(arrB)</pre>
-
       <pre>[1,2,3,5,7,'a','b','c']</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>filter()</pre></td>
+    <td>
+
+        <pre>filter()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.filter((v) => v>3)</pre>
-
       <pre>➞5➞7</pre>
 
     </td>
@@ -358,21 +409,22 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.filter((v) => v>3)</pre>
-
       <pre>[5, 7]</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>find()</pre></td>
+    <td>
+
+        <pre>find()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.find((v) => v>3)</pre>
-
       <pre>➞5</pre>
 
     </td>
@@ -380,21 +432,22 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.find((v) => v>10)</pre>
-
       <pre>5</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>findIndex()</pre></td>
+    <td>
+
+        <pre>findIndex()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.findIndex((v) => v>3)</pre>
-
       <pre>➞3</pre>
 
     </td>
@@ -402,16 +455,18 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.findIndex((v) => v>3)</pre>
-
       <pre>3</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>forEach()</pre></td>
+    <td>
+
+        <pre>forEach()</pre>
+
+    </td>
 
     <td>
 
@@ -422,9 +477,7 @@ An observable produces values over time. An array is created as a static set of 
 2
 3
 4
-5
-
-</pre>
+5</pre>
 
     </td>
 
@@ -437,22 +490,22 @@ An observable produces values over time. An array is created as a static set of 
 2
 3
 4
-5
-
-</pre>
+5</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>map()</pre></td>
+    <td>
+
+        <pre>map()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.map((v) => -v)</pre>
-
       <pre>➞-1➞-2➞-3➞-5➞-7</pre>
 
     </td>
@@ -460,21 +513,22 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.map((v) => -v)</pre>
-
       <pre>[-1, -2, -3, -5, -7]</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
-    <td><pre>reduce()</pre></td>
+    <td>
+
+        <pre>reduce()</pre>
+
+    </td>
 
     <td>
 
       <pre>obs.scan((s,v)=> s+v, 0)</pre>
-
       <pre>➞1➞3➞6➞11➞18</pre>
 
     </td>
@@ -482,12 +536,9 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.reduce((s,v) => s+v, 0)</pre>
-
       <pre>18</pre>
 
     </td>
 
   </tr>
-
 </table>
-

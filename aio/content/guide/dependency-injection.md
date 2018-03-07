@@ -16,22 +16,17 @@ Start by reviewing this simplified version of the _heroes_ feature
 from the [The Tour of Heroes](tutorial/).
 
 <code-tabs>
-
   <code-pane title="src/app/heroes/heroes.component.ts" path="dependency-injection/src/app/heroes/heroes.component.1.ts"
   region="v1">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/hero-list.component.ts" path="dependency-injection/src/app/heroes/hero-list.component.1.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/hero.ts" path="dependency-injection/src/app/heroes/hero.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/mock-heroes.ts" path="dependency-injection/src/app/heroes/mock-heroes.ts">
-
   </code-pane>
 
 </code-tabs>
@@ -88,6 +83,7 @@ That's a defect we can safely ignore in this guide where our focus is on
 _injecting the service_ into the `HeroList` component.
 
 {@a injector-config}
+
 {@a bootstrap}
 
 ## Register a service provider
@@ -199,7 +195,7 @@ providing the `HeroService` in the `HeroComponent` may be a good choice.
 
 <div class="l-sub-section">
 
-The scope and lifetime of component-provided services is a consequence of [the way Angular creates component instances](#component-child-injectors).
+The scope and lifetime of component-provided services is a consequence of [the way Angular creates component instances](#component-child-injectors). 
 
 </div>
 
@@ -222,15 +218,11 @@ Of course, the `HeroListComponent` should do something with the injected `HeroSe
 Here's the revised component, making use of the injected service, side-by-side with the previous version for comparison.
 
 <code-tabs>
-
   <code-pane title="hero-list.component (with DI)" path="dependency-injection/src/app/heroes/hero-list.component.2.ts">
-
   </code-pane>
 
   <code-pane title="hero-list.component (without DI)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts">
-
   </code-pane>
-
 </code-tabs>
 
 Notice that the `HeroListComponent` doesn't know where the `HeroService` comes from.
@@ -329,11 +321,9 @@ Here is the revised `HeroService` that injects the `Logger`, side-by-side with t
 <code-tabs>
 
   <code-pane title="src/app/heroes/hero.service (v2)" path="dependency-injection/src/app/heroes/hero.service.2.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/hero.service (v1)" path="dependency-injection/src/app/heroes/hero.service.1.ts">
-
   </code-pane>
 
 </code-tabs>
@@ -734,11 +724,9 @@ Here you see the new and the old implementation side-by-side:
 <code-tabs>
 
   <code-pane title="src/app/heroes/heroes.component (v3)" path="dependency-injection/src/app/heroes/heroes.component.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component (v2)" path="dependency-injection/src/app/heroes/heroes.component.1.ts">
-
   </code-pane>
 
 </code-tabs>
@@ -1063,4 +1051,3 @@ But it's best to avoid the problem altogether by defining components and service
 还是通过在独立的文件中定义组件和服务，完全避免此问题吧。
 
 </div>
-

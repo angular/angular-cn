@@ -12,7 +12,9 @@ For clarity and precision, every guideline on _this_ page is illustrated with a 
 followed by the page markup for that example ... as shown here.
 
 ```html
+
   followed by the page markup for that example ... as shown here.
+
 ```
 
 ## Doc generation and tooling
@@ -123,11 +125,8 @@ All section heading text should be in "Sentence case", which means the first wor
 **Always follow the section heading with at least one blank line.**
 
 <h2 class="no-toc">
-
 Main section heading
-
 </h2>
-
 There are usually one or more main sections that may be further divided into secondary sections.
 
 Begin a main section heading with the markdown `##` characters. Alternatively, you can write the equivalent `<h2>` HTML tag.
@@ -139,12 +138,11 @@ The main section heading should be followed by a blank line and then the content
   ## Sections
 
   A typical document is divided into sections.
+
 ```
 
 <h3 class="no-toc">
-
 Secondary section heading
-
 </h3>
 
 A secondary section heading is related to a main heading and _falls textually within_ the bounds of that main heading.
@@ -158,6 +156,7 @@ The secondary heading should be followed by a blank line and then the content fo
   ### Secondary section heading
 
   A secondary section ...
+
 ```
 
 #### Additional section headings
@@ -171,6 +170,7 @@ Try to minimize the heading depth, preferably only two. But more headings, such 
   #### Additional section headings
 
   Try to minimize ...
+
 ```
 
 ## Subsections
@@ -214,9 +214,7 @@ To exclude a heading from the TOC, create the heading as an `<h2>` or `<h3>` ele
 ```html
 
 <h3 class="no-toc">
-
 This heading is not displayed in the TOC
-
 </h3>
 
 ```
@@ -226,9 +224,7 @@ You can turn off TOC generation for the _entire_ page by writing the title with 
 ```html
 
 <h1 class="no-toc">
-
 A guide without a TOC
-
 </h1>
 
 ```
@@ -247,11 +243,13 @@ Look for the `SideNav` node in `navigation.json`. The `SideNav` node is an array
 Find the header for your page. For example, a guide page that describes an Angular feature is probably a child of the `Fundamentals` header.
 
 ```html
+
 {
   "title": "Fundamentals",
   "tooltip": "The fundamentals of Angular",
   "children": [ ... ]
 }
+
 ```
 
 A _header_ node child can be an _item_ node or another _header_ node. If your guide page belongs under a sub-header, find that sub-header in the JSON.
@@ -259,11 +257,13 @@ A _header_ node child can be an _item_ node or another _header_ node. If your gu
 Add an _item_ node for your guide page as a child of the appropriate _header_ node. It probably looks something like this one.
 
 ```html
+
 {
   "url": "guide/architecture",
   "title": "Architecture",
   "tooltip": "The basic building blocks of Angular applications."
 }
+
 ```
 
 A navigation node has the following properties:
@@ -368,6 +368,7 @@ The following _code-example_ displays the sample's `app.module.ts`.
 Here's the brief markup that produced that lengthy snippet:
 
 ```html
+
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   title="src/app/app.module.ts">
@@ -443,6 +444,7 @@ First you surround that fragment in the source file with a named _docregion_ as 
 Then you reference that _docregion_ in the `region` attribute of the `<code-example>` like this
 
 ```html
+
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   region="class">
@@ -472,6 +474,7 @@ Here's the markup for an "avoid" example in the
 [_Angular Style Guide_](guide/styleguide#style-05-03 "Style 05-03: components as elements").
 
 ```html
+
 <code-example
   path="styleguide/src/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts"
   region="example"
@@ -507,33 +510,24 @@ The next example displays multiple code tabs, each with its own title.
 It demonstrates control over display of line numbers at both the `<code-tabs>` and `<code-pane>` levels.
 
 <code-tabs linenums="false">
-
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
-
   </code-pane>
-
   <code-pane
     title="app.component.ts"
     path="docs-style-guide/src/app/app.component.ts"
     linenums="true">
-
   </code-pane>
-
   <code-pane
     title="app.component.css (heroes)"
     path="docs-style-guide/src/app/app.component.css"
     region="heroes">
-
   </code-pane>
-
   <code-pane
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
-
   </code-pane>
-
 </code-tabs>
 
 Here's the markup for that example.
@@ -544,33 +538,24 @@ The `linenums` attribute in the second pane restores line numbering for _itself 
 ```html
 
 <code-tabs linenums="false">
-
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
-
   </code-pane>
-
   <code-pane
     title="app.component.ts"
     path="docs-style-guide/src/app/app.component.ts"
     linenums="true">
-
   </code-pane>
-
   <code-pane
     title="app.component.css (heroes)"
     path="docs-style-guide/src/app/app.component.css"
     region="heroes">
-
   </code-pane>
-
   <code-pane
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
-
   </code-pane>
-
 </code-tabs>
 
 ```
@@ -590,22 +575,31 @@ The sample source code for this page, located in `context/examples/docs-style-gu
 Code snippet markup is always in the form of a comment. Here's the default _docregion_ markup for a TypeScript or JavaScript file:
 
 ```
+
 // #docregion
 ... some code ...
 // #enddocregion
+
 ```
+
 Different file types have different comment syntax so adjust accordingly.
 
 ```html
+
 <!-- #docregion -->
+
 ... some HTML ...
+
 <!-- #enddocregion -->
+
 ```
 
 ```
+
 /* #docregion */
 ... some CSS ...
 /* #enddocregion */
+
 ```
 
 The doc generation process erases these comments before displaying them in the doc viewer.
@@ -633,9 +627,7 @@ The `src/main.ts` is a simple example of a file with a single _#docregion_ at th
 
 <code-example
   path="docs-style-guide/src/main.ts"
-  title="src/main.ts">
-
-</code-example>
+  title="src/main.ts"></code-example>
 
 </div>
 
@@ -645,19 +637,20 @@ You'll often display multiple snippets from different fragments within the same 
 You distinguish among them by giving each fragment its own _#docregion name_ as follows.
 
 ```
+
 // #docregion region-name
 ... some code ...
 // #enddocregion region-name
+
 ```
 
 Remember to refer to this region by name in the `region` attribute of the `<code-example>` or `<code-pane>` as you did in an example above like this:
 
 ```html
+
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
-  region="class">
-
-</code-example>
+  region="class"></code-example>
 
 ```
 
@@ -666,7 +659,9 @@ The _#docregion_ with no name is the _default region_. Do _not_ set the `region`
 #### Nested _#docregions_
 
 You can nest _#docregions_ within _#docregions_
+
 ```
+
 // #docregion
 ... some code ...
 // #docregion inner-region
@@ -674,6 +669,7 @@ You can nest _#docregions_ within _#docregions_
 // #enddocregion inner-region
 ... yet more code ...
 /// #enddocregion
+
 ```
 
 <div class="l-sub-section">
@@ -714,21 +710,16 @@ export class AppComponent {
 Here's are the two corresponding code snippets displayed side-by-side.
 
 <code-tabs>
-
   <code-pane
     title="app.component.ts (class)"
     path="docs-style-guide/src/app/app.component.ts"
     region="class">
-
   </code-pane>
-
   <code-pane
     title="app.component.ts (class-skeleton)"
     path="docs-style-guide/src/app/app.component.ts"
     region="class-skeleton">
-
   </code-pane>
-
 </code-tabs>
 
 Some observations:
@@ -758,16 +749,13 @@ Here's an example that excerpts certain scripts from `package.json` into a parti
 
 <code-example
   path="docs-style-guide/package.1.json"
-  title="package.json (selected scripts)">
-
-</code-example>
+  title="package.json (selected scripts)"></code-example>
 
 ```html
+
 <code-example
   path="docs-style-guide/package.1.json"
-  title="package.json (selected scripts)">
-
-</code-example>
+  title="package.json (selected scripts)"></code-example>
 
 ```
 
@@ -781,9 +769,11 @@ Such partial and intermediate files need their own names.
 Follow the doc sample naming convention. Add a number before the file extension as illustrated here:
 
 ```html
+
 package.1.json
 app.component.1.ts
 app.component.2.ts
+
 ```
 
 You'll find many such files among the samples in the Angular documentation.
@@ -792,9 +782,7 @@ Remember to exclude these files from stackblitz by listing them in the `stackbli
 
 <code-example
   path="docs-style-guide/stackblitz.json"
-  title="stackblitz.json">
-
-</code-example>
+  title="stackblitz.json"></code-example>
 
 {@a live-examples}
 
@@ -939,7 +927,9 @@ See the ["Anchors"](guide/docs-style-guide#anchors "Style Guide - Anchors") sect
 When navigating within the page, you can omit the page URL when specifying the link that [scrolls up](#anchors "Anchors") to the beginning of this section.
 
 ```html
+
 ... the link that [scrolls up](#anchors "Anchors") to ...
+
 ```
 
 {@a ugly-anchors}
@@ -951,7 +941,9 @@ It is often a good idea to *lock-in* a good anchor name.
 Sometimes the section header text makes for an unattractive anchor. [This one](#ugly-long-section-header-anchors) is pretty bad.
 
 ```html
+
 [This one](#ugly-long-section-header-anchors) is pretty bad.
+
 ```
 
 The greater danger is that **a future rewording of the header text would break** a link to this section.
@@ -970,7 +962,9 @@ text to which it applies, using the special `{@a name}` syntax like this.
 Now [link to that custom anchor name](#ugly-anchors) as you did before.
 
 ```html
+
 Now [link to that custom anchor name](#ugly-anchors) as you did before.
+
 ```
 
 <div class="l-sub-section">
@@ -980,6 +974,7 @@ Alternatively, you can use the HTML `<a>` tag.
 If you do, be sure to set the `id` attribute - not the `name` attribute! The docs generator will not convert the `name` to the proper link URL.
 
 ```html
+
 <a id="anchors"></a>
 
 ## Anchors
@@ -1011,6 +1006,7 @@ A helpful, informational alert.
 </div>
 
 Here is the markup for these alerts.
+
 ```html
 
 <div class="alert is-critical">
@@ -1042,7 +1038,11 @@ Callouts (like alerts) are meant to draw attention to important points. Use a ca
 
 <div class="callout is-critical">
 
-<header>A critical point</header>
+<header>
+
+A critical point
+
+</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1050,7 +1050,11 @@ Callouts (like alerts) are meant to draw attention to important points. Use a ca
 
 <div class="callout is-important">
 
-<header>An important point</header>
+<header>
+
+An important point
+
+</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1058,18 +1062,27 @@ Callouts (like alerts) are meant to draw attention to important points. Use a ca
 
 <div class="callout is-helpful">
 
-<header>A helpful point</header>
+<header>
+
+A helpful point
+
+</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
 </div>
 
 Here is the markup for the first of these callouts.
+
 ```html
 
 <div class="callout is-critical">
 
-<header>A critical point</header>
+<header>
+
+A critical point
+
+</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1242,38 +1255,65 @@ Here is the markup for this file tree.
 Use HTML tables to present tabular data.
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table>
-
   <tr>
 
-    <th>Framework</th>
+    <th>
 
-    <th>Task</th>
+        Framework
 
-    <th>Speed</th>
+    </th>
+
+    <th>
+
+        Task
+
+    </th>
+
+    <th>
+
+        Speed
+
+    </th>
 
   </tr>
-
   <tr>
 
-    <td><code>AngularJS</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>AngularJS</code>
 
-    <td>Fast</td>
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
+
+    <td>
+
+        Fast
+
+    </td>
 
   </tr>
-
   <tr>
 
-    <td><code>Angular v2</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>Angular v2</code>
+
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
 
     <!-- can use markdown too; remember blank lines -->
 
@@ -1284,12 +1324,19 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
-
   <tr>
 
-    <td><code>Angular v4</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>Angular v4</code>
+
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
 
     <td>
 
@@ -1298,7 +1345,6 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
-
 </table>
 
 Here is the markup for this table.
@@ -1306,38 +1352,65 @@ Here is the markup for this table.
 ```html
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table>
-
   <tr>
 
-    <th>Framework</th>
+    <th>
 
-    <th>Task</th>
+        Framework
 
-    <th>Speed</th>
+    </th>
+
+    <th>
+
+        Task
+
+    </th>
+
+    <th>
+
+        Speed
+
+    </th>
 
   </tr>
-
   <tr>
 
-    <td><code>AngularJS</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>AngularJS</code>
 
-    <td>Fast</td>
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
+
+    <td>
+
+        Fast
+
+    </td>
 
   </tr>
-
   <tr>
 
-    <td><code>Angular v2</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>Angular v2</code>
+
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
 
     <!-- can use markdown too; remember blank lines -->
 
@@ -1348,12 +1421,19 @@ Here is the markup for this table.
     </td>
 
   </tr>
-
   <tr>
 
-    <td><code>Angular v4</code></td>
+    <td>
 
-    <td>Routing</td>
+        <code>Angular v4</code>
+
+    </td>
+
+    <td>
+
+        Routing
+
+    </td>
 
     <td>
 
@@ -1362,7 +1442,6 @@ Here is the markup for this table.
     </td>
 
   </tr>
-
 </table>
 
 ```
@@ -1378,8 +1457,11 @@ Angular doc generation copies these image folders to the _runtime_ location, `ge
 Set the image `src` attribute to begin in _that_ directory.
 
 Here's the `src` attribute for the "flying hero" image belonging to this page.
+
 ```
+
 src="generated/images/guide/docs-style-guide/flying-hero.png"
+
 ```
 
 <h3 class="no-toc">Use the HTML <i>&lt;img&gt;</i> tag</h3>
@@ -1395,18 +1477,14 @@ You should nest the `<img>` tag within a `<figure>` tag, which styles the image 
 Here's a conforming example
 
 <figure>
-
   <img src="generated/images/guide/docs-style-guide/flying-hero.png" alt="flying hero">
-
 </figure>
 
 ```html
 
 <figure>
-
   <img src="generated/images/guide/docs-style-guide/flying-hero.png"
        alt="flying hero">
-
 </figure>
 
 ```
@@ -1420,19 +1498,15 @@ The doc generator reads the image dimensions from the file and adds width and he
 Here's the "flying hero" at a more reasonable scale.
 
 <figure>
-
  <img src="generated/images/guide/docs-style-guide/flying-hero.png" alt="flying Angular hero" width="200">
-
 </figure>
 
 ```html
 
 <figure>
-
  <img src="generated/images/guide/docs-style-guide/flying-hero.png"
    alt="flying Angular hero"
    width="200">
-
 </figure>
 
 ```
@@ -1442,13 +1516,9 @@ Wide images can be a problem. Most browsers try to rescale the image but wide im
 **Do not set a width greater than 700px**. If you wish to display a larger image, provide a link to the actual image that the user can click on to see the full size image separately as in this example of `source-map-explorer` output from the "Ahead-of-time Compilation" guide:
 
 <a href="generated/images/guide/docs-style-guide/toh-pt6-bundle.png" title="Click to view larger image">
-
   <figure>
-
     <img src="generated/images/guide/docs-style-guide/toh-pt6-bundle-700w.png" alt="toh-pt6-bundle" width="300px">
-
   </figure>
-
 </a>
 
 <h3 class="no-toc">Image compression</h3>
@@ -1474,6 +1544,7 @@ Headings and code-examples automatically clear a floating image. If you need to 
 The markup for the above example is:
 
 ```html
+
 <img src="generated/images/guide/docs-style-guide/flying-hero.png"
    alt="flying Angular hero"
    width="200"

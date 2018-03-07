@@ -6,7 +6,7 @@
 
 <header class="api-header">
 
-        <h1><label class="api-status-label experimental">experimental</label><label class="api-type-label class">class</label>Class Name</h1>
+    <h1><label class="api-status-label experimental">experimental</label><label class="api-type-label class">class</label>Class Name</h1>
 
 </header>
 
@@ -19,7 +19,7 @@
 
 <p>
 
-    Class description goes here. This is a short and to the point one or two sentence description that easily introduces the reader to the class.
+Class description goes here. This is a short and to the point one or two sentence description that easily introduces the reader to the class.
 
 </p>
 
@@ -47,9 +47,9 @@
 
         <p>
 
-            The longer class description goes here which can include multiple paragraphs.
+The longer class description goes here which can include multiple paragraphs.
 
-        </p>
+</p>
 
         </p>Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.</p>
 
@@ -100,6 +100,7 @@
         <h2>Constructor</h2>
 
         <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
+
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -242,17 +243,17 @@
 
             <p>
 
-                Description goes here
+Description goes here
 
-            </p>
+</p>
 
             <br>
 
             <p>
 
-                Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
+Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
 
-            </p>
+</p>
 
         </td>
 
@@ -282,18 +283,20 @@
 
             <p>
 
-                Description goes here
+Description goes here
 
-            </p>
+</p>
 
             <hr>
 
             <h5>Declaration</h5>
 
             <code-example language="ts" hidecopy="true" ng-version="5.2.0">
+
                 <aio-code class="simple-code"><pre class="prettyprint lang-ts">
                     <code class="animated fadeIn"><span class="kwd">class</span><span class="pln"> </span><a href="api/animations/AnimationBuilder" class="code-anchor"><span class="typ">AnimationBuilder</span></a><span class="pln"> </span><span class="pun">{</span><span class="pln"></span><a class="code-anchor" href="api/animations/AnimationBuilder#build"><span class="pln">build</span><span class="pun">(</span><span class="pln">animation</span><span class="pun">:</span><span class="pln"> </span><span class="typ">AnimationMetadata</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">AnimationMetadata</span><span class="pun">[]):</span><span class="pln"> </span><span class="typ">AnimationFactory</span></a><span class="pln"></span><span class="pun">}</span></code></pre>
                 </aio-code>
+
             </code-example>
 
             <h6>Parameters</h6>
@@ -302,17 +305,17 @@
 
             <p>
 
-                Returns information and results goes here.
+Returns information and results goes here.
 
-            </p>
+</p>
 
             <h6>Errors</h6>
 
             <p>
 
-                Error information goes here
+Error information goes here
 
-            </p>
+</p>
 
             <hr>
 
@@ -327,6 +330,7 @@
                 <td>
 
                     <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
+
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -347,6 +351,7 @@
                 <td>
 
                     <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
+
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -371,9 +376,9 @@
 
             <p>
 
-                Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
+Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
 
-            </p>
+</p>
 
         </td>
 
@@ -387,11 +392,12 @@
 
         <p>
 
-            Intro description text about what the example is and how it can be used.
+Intro description text about what the example is and how it can be used.
 
-        </p>
+</p>
 
             <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
+
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -400,9 +406,9 @@
 
         <p>
 
-            Further explanation provided as needed. Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball.
+Further explanation provided as needed. Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball.
 
-        </p>
+</p>
 
     </section>
 

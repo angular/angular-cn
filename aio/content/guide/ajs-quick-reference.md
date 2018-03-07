@@ -62,7 +62,9 @@ The following table lists some of the key AngularJS template features with their
       ### 绑定/插值表达式
 
       <code-example hideCopy>
+
         Your favorite hero is: {{vm.favoriteHero}}
+
       </code-example>
 
       In AngularJS, an expression in curly braces denotes one-way binding.
@@ -116,7 +118,9 @@ The following table lists some of the key AngularJS template features with their
       ### 过滤器
 
       <code-example hideCopy>
+
         &lt;td>{{movie.title | uppercase}}&lt;/td>
+
       </code-example>
 
       To filter output in AngularJS templates, use the pipe character (|) and one or more filters.
@@ -161,9 +165,11 @@ The following table lists some of the key AngularJS template features with their
       ### 局部变量
 
       <code-example hideCopy format="">
+
         &lt;tr ng-repeat="movie in vm.movies">
           &lt;td>{{movie.title}}&lt;/td>
         &lt;/tr>
+
       </code-example>
 
       Here, `movie` is a user-defined local variable.
@@ -240,7 +246,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-app
 
       <code-example hideCopy>
+
         &lt;body ng-app="movieHunter">
+
       </code-example>
 
       The application startup process is called **bootstrapping**.
@@ -263,6 +271,7 @@ AngularJS 为模板提供了七十多个内置指令。
       ### 引导
 
       <code-example hideCopy path="ajs-quick-reference/src/main.ts" title="main.ts" linenums="false"></code-example>
+
       <br>
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.module.1.ts" title="app.module.ts" linenums="false"></code-example>
@@ -286,9 +295,11 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-class
 
       <code-example hideCopy format="">
+
         &lt;div ng-class="{active: isActive}">
         &lt;div ng-class="{active: isActive,
                            shazam: isImportant}">
+
       </code-example>
 
       In AngularJS, the `ng-class` directive includes/excludes CSS classes
@@ -350,8 +361,10 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-click
 
       <code-example hideCopy format="">
+
         &lt;button ng-click="vm.toggleImage()">
         &lt;button ng-click="vm.toggleImage($event)">
+
       </code-example>
 
       In AngularJS, the `ng-click` directive allows you to specify custom behavior when an element is clicked.
@@ -420,7 +433,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-controller
 
       <code-example hideCopy format="">
+
         &lt;div ng-controller="MovieListCtrl as vm">
+
       </code-example>
 
       In AngularJS, the `ng-controller` directive attaches a controller to the view.
@@ -491,7 +506,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-href
 
       <code-example hideCopy format="">
+
         &lt;a ng-href="{{ angularDocsUrl }}">Angular Docs&lt;/a>
+
       </code-example>
 
       The `ng-href` directive allows AngularJS to preprocess the `href` property so that it
@@ -505,7 +522,9 @@ AngularJS 为模板提供了七十多个内置指令。
       在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。
 
       <code-example hideCopy format="">
+
         &lt;a ng-href="#{{ moviesHash }}">Movies&lt;/a>
+
       </code-example>
 
       Routing is handled differently in Angular.
@@ -555,7 +574,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-if
 
       <code-example hideCopy format="">
+
         &lt;table ng-if="movies.length">
+
       </code-example>
 
       In AngularJS, the `ng-if` directive removes or recreates a portion of the DOM,
@@ -602,7 +623,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-model
 
       <code-example hideCopy format="">
+
         &lt;input ng-model="vm.favoriteHero"/>
+
       </code-example>
 
       In AngularJS, the `ng-model` directive binds a form control to a property in the controller associated with the template.
@@ -642,7 +665,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-repeat
 
       <code-example hideCopy format="">
+
         &lt;tr ng-repeat="movie in vm.movies">
+
       </code-example>
 
       In AngularJS, the `ng-repeat` directive repeats the associated DOM element
@@ -694,9 +719,11 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-show
 
       <code-example hideCopy format="">
+
         &lt;h3 ng-show="vm.favoriteHero">
           Your favorite hero is: {{vm.favoriteHero}}
         &lt;/h3>
+
       </code-example>
 
       In AngularJS, the `ng-show` directive shows or hides the associated DOM element, based on
@@ -749,7 +776,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-src
 
       <code-example hideCopy format="">
+
         &lt;img ng-src="{{movie.imageurl}}">
+
       </code-example>
 
       The `ng-src` directive allows AngularJS to preprocess the `src` property so that it
@@ -790,7 +819,9 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-style
 
       <code-example hideCopy format="">
+
         &lt;div ng-style="{color: colorPreference}">
+
       </code-example>
 
       In AngularJS, the `ng-style` directive sets a CSS style on an HTML element
@@ -846,6 +877,7 @@ AngularJS 为模板提供了七十多个内置指令。
       ### ng-switch
 
       <code-example hideCopy format="">
+
         &lt;div ng-switch="vm.favoriteHero &&
                         vm.checkMovieHero(vm.favoriteHero)">
             &lt;div ng-switch-when="true">
@@ -858,6 +890,7 @@ AngularJS 为模板提供了七十多个内置指令。
               Please enter your favorite hero.
             &lt;/div>
         &lt;/div>
+
       </code-example>
 
       In AngularJS, the `ng-switch` directive swaps the contents of
@@ -963,7 +996,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### currency
 
       <code-example hideCopy>
+
         &lt;td>{{movie.price | currency}}&lt;/td>
+
       </code-example>
 
       Formats a number as currency.
@@ -993,7 +1028,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### date
 
       <code-example hideCopy>
+
         &lt;td>{{movie.releaseDate | date}}&lt;/td>
+
       </code-example>
 
       Formats a date to a string based on the requested format.
@@ -1023,7 +1060,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### filter
 
       <code-example hideCopy>
+
         &lt;tr ng-repeat="movie in movieList | filter: {title:listFilter}">
+
       </code-example>
 
       Selects a subset of items from the defined collection, based on the filter criteria.
@@ -1055,7 +1094,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### json
 
       <code-example hideCopy>
+
         &lt;pre>{{movie | json}}&lt;/pre>
+
       </code-example>
 
       Converts a JavaScript object into a JSON string. This is useful for debugging.
@@ -1085,7 +1126,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### limitTo
 
       <code-example hideCopy>
+
         &lt;tr ng-repeat="movie in movieList | limitTo:2:0">
+
       </code-example>
 
       Selects up to the first parameter (2) number of items from the collection
@@ -1121,7 +1164,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### lowercase
 
       <code-example hideCopy>
+
         &lt;div>{{movie.title | lowercase}}&lt;/div>
+
       </code-example>
 
       Converts the string to lowercase.
@@ -1151,7 +1196,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### number
 
       <code-example hideCopy>
+
         &lt;td>{{movie.starRating | number}}&lt;/td>
+
       </code-example>
 
       Formats a number as text.
@@ -1189,7 +1236,9 @@ AngularJS中的很多内置过滤器在Angular中都有对应的管道。
       ### orderBy
 
       <code-example hideCopy>
+
         &lt;tr ng-repeat="movie in movieList | orderBy : 'title'">
+
       </code-example>
 
       Displays the collection in the order specified by the expression.
@@ -1273,9 +1322,11 @@ The Angular code is shown using TypeScript.
       ### IIFE
 
       <code-example hideCopy>
+
         (function () {
           ...
         }());
+
       </code-example>
 
       In AngularJS, an immediately invoked function expression (or IIFE) around controller code
@@ -1314,7 +1365,9 @@ The Angular code is shown using TypeScript.
       ### Angular模块
 
       <code-example hideCopy>
+
         angular.module("movieHunter", ["ngRoute"]);
+
       </code-example>
 
       In AngularJS, an Angular module keeps track of controllers, services, and other code.
@@ -1359,11 +1412,13 @@ The Angular code is shown using TypeScript.
       ### 控制器注册
 
       <code-example hideCopy>
+
         angular
           .module("movieHunter")
           .controller("MovieListCtrl",
                       ["movieService",
                        MovieListCtrl]);
+
       </code-example>
 
       AngularJS has code in each controller that looks up an appropriate Angular module
@@ -1415,8 +1470,10 @@ The Angular code is shown using TypeScript.
       ### 控制器函数
 
       <code-example hideCopy>
+
         function MovieListCtrl(movieService) {
         }
+
       </code-example>
 
       In AngularJS, you write the code for the model and methods in a controller function.
@@ -1459,9 +1516,11 @@ The Angular code is shown using TypeScript.
       ### 依赖注入
 
       <code-example hideCopy>
+
         MovieListCtrl.$inject = ['MovieService'];
         function MovieListCtrl(movieService) {
         }
+
       </code-example>
 
       In AngularJS, you pass in any dependencies as controller function arguments.
@@ -1557,7 +1616,9 @@ also encapsulate a style sheet within a specific component.
       ### Link 标签
 
       <code-example hideCopy>
+
         &lt;link href="styles.css" rel="stylesheet" />
+
       </code-example>
 
       AngularJS, uses a `link` tag in the head section of the `index.html` file

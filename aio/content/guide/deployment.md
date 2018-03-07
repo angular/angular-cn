@@ -7,6 +7,7 @@ This page describes techniques for deploying your Angular application to a remot
 本章会描述在远程服务器上部署Angular应用的工具与技术。
 
 {@a dev-deploy}
+
 {@a copy-files}
 
 ## Simplest deployment possible
@@ -33,7 +34,7 @@ For the simplest deployment, build for development and copy the output directory
 
 3. If you copy the files into a server _sub-folder_, append the build flag, `--base-href` and set the `<base href>` appropriately.<br><br>
 
-  如果要把文件部署到服务器上的*某个子路径*下，构建时还要添加`--base-href`（基地址）标识，并设置合适的`<base href>`。<br><br>
+   如果要把文件部署到服务器上的*某个子路径*下，构建时还要添加`--base-href`（基地址）标识，并设置合适的`<base href>`。<br><br>
 
   For example, if the `index.html` is on the server at `/my/app/index.html`, set the _base href_  to
   `<base href="/my/app/">` like this.
@@ -256,9 +257,7 @@ showing exactly which classes are included in the bundle.
 Here's the output for the _main_ bundle of the QuickStart.
 
 <figure>
-
   <img src="generated/images/guide/cli-quickstart/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">
-
 </figure>
 
 {@a base-tag}

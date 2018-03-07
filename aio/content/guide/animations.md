@@ -277,8 +277,10 @@ These two common animations have their own aliases:
 这两个常见的动画有自己的别名：
 
 <code-example language="typescript">
+
   transition(':enter', [ ... ]); // void => *
   transition(':leave', [ ... ]); // * => void
+
 </code-example>
 
 </div>

@@ -81,7 +81,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr> 
 
     <td>
@@ -97,9 +96,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
-
    <tr> 
 
     <td>
@@ -115,7 +112,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
 
     <td>
@@ -133,7 +129,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -151,7 +146,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr> 
-
   <tr>
 
     <td>
@@ -235,7 +229,9 @@ For example, [if you need the web animations polyfill](http://caniuse.com/#feat=
 <code-example language="sh" class="code-shell">
 
   # note that the web-animations-js polyfill is only here as an example
+
   # it isn't a strict requirement of Angular anymore (more below)
+
   npm install --save web-animations-js
 
 </code-example>
@@ -247,7 +243,9 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 <code-example title="src/polyfills.ts">
 
   /**
+
   * Required to support Web Animations `@angular/platform-browser/animations`.
+
   * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
   **/
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
@@ -438,12 +436,10 @@ Here are the features which may require additional polyfills:
     <td>
 
       [Animations](guide/animations)
-      
-      [动画](guide/animations)
-      
       <br>Only if `Animation Builder` is used within the application--standard
       animation support in Angular doesn't require any polyfills (as of NG6).
 
+      [动画](guide/animations)
       <br>只有在应用中用到了 `Animation Builder` 时才需要；Angular 标准的动画支持是不需要任何腻子脚本的（截至 NG6）。
 
     </td>
@@ -541,13 +537,9 @@ Here are the features which may require additional polyfills:
 
     <td>
 
-      [Typed&nbsp;Array](guide/browser-support#typedarray)
+      [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
 
-<br>
-
-      [Blob](guide/browser-support#blob)
-
-<br>
+      [Blob](guide/browser-support#blob)<br>
 
       [FormData](guide/browser-support#formdata)
 
@@ -828,4 +820,3 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
   &lt;!-- application polyfills -->
 
 </code-example>
-

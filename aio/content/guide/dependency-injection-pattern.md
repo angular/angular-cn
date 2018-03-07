@@ -65,16 +65,15 @@ When you can't control the dependencies, a class becomes difficult to test.
 How can you make `Car` more robust, flexible, and testable?
 
 {@a ctor-injection}
+
 That's super easy. Change the `Car` constructor to a version with DI:
 
 <code-tabs>
 
   <code-pane title="src/app/car/car.ts (excerpt with DI)" path="dependency-injection/src/app/car/car.ts" region="car-ctor">
-
   </code-pane>
 
   <code-pane title="src/app/car/car.ts (excerpt without DI)" path="dependency-injection/src/app/car/car-no-di.ts" region="car-ctor">
-
   </code-pane>
 
 </code-tabs>

@@ -16,6 +16,7 @@ By convention, it is usually called `AppModule`.
 If you use the CLI to generate an app, the default `AppModule` is as follows:
 
 ```typescript
+
 /* JavaScript imports */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -83,11 +84,13 @@ this module and the other module imports this one.
 An example of what goes into a declarations array follows:
 
 ```typescript
+
   declarations: [
     YourComponent,
     YourPipe,
     YourDirective
   ],
+
 ```
 
 A declarable can only belong to one module, so only declare it in

@@ -77,12 +77,12 @@ The running application displays three heroes:
 运行应用程序会显示三个英雄：
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/parent-to-child.png" alt="Parent-to-child">
-
 </figure>
 
 <h3 class="no-toc">Test it</h3>
+
+<h3 class="no-toc">测试一下</h3>
 
 E2E test that all children were instantiated and displayed as expected:
 
@@ -124,12 +124,12 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 </code-example>
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/setter.png" alt="Parent-to-child-setter">
-
 </figure>
 
 <h3 class="no-toc">Test it</h3>
+
+<h3 class="no-toc">测试一下</h3>
 
 E2E tests of input property setter with empty and non-empty names:
 
@@ -186,9 +186,7 @@ Here's the output of a button-pushing sequence:
 下面是点击按钮的结果。
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/parent-to-child-on-changes.gif" alt="Parent-to-child-onchanges">
-
 </figure>
 
 <h3 class="no-toc">Test it</h3>
@@ -248,9 +246,7 @@ and the method processes it:
 框架(Angular)把事件参数(用`$event`表示)传给事件处理方法，这个方法会处理：
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/child-to-parent.gif" alt="Child-to-parent">
-
 </figure>
 
 <h3 class="no-toc">Test it</h3>
@@ -282,6 +278,7 @@ as seen in the following example.
 父组件不能使用数据绑定来读取子组件的属性或调用子组件的方法。但可以在父组件模板里，新建一个本地变量来代表子组件，然后利用这个变量来读取子组件的属性和调用子组件的方法，如下例所示。
 
 {@a countdown-timer-example}
+
 The following is a child `CountdownTimerComponent` that repeatedly counts down to zero and launches a rocket.
 It has `start` and `stop` methods that control the clock and it displays a
 countdown status message in its own template.
@@ -321,9 +318,7 @@ Here we see the parent and child working together.
 下面是父组件和子组件一起工作时的效果。
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/countdown-timer-anim.gif" alt="countdown timer">
-
 </figure>
 
 {@a countdown-tests}
@@ -512,9 +507,7 @@ facilitated by the service:
 *History*日志证明了：在父组件`MissionControlComponent`和子组件`AstronautComponent`之间，信息通过该服务实现了双向传递。
 
 <figure>
-
   <img src="generated/images/guide/component-interaction/bidirectional-service.gif" alt="bidirectional-service">
-
 </figure>
 
 <h3 class="no-toc">Test it</h3>

@@ -280,9 +280,7 @@ the mouse hovers over the `p` and disappears as it moves out.
 运行本应用并确认：当把鼠标移到`p`上的时候，背景色就出现了，而移开的时候，它消失了。
 
 <figure>
-
   <img src="generated/images/guide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight">
-
 </figure>
 
 {@a bindings}
@@ -437,9 +435,7 @@ Here are the harness and directive in action.
 下面是测试程序和指令的动图。
 
 <figure>
-
   <img src="generated/images/guide/attribute-directives/highlight-directive-v2-anim.gif" alt="Highlight v.2">
-
 </figure>
 
 {@a second-property}
@@ -494,9 +490,7 @@ Here's how the harness should work when you're done coding.
 当这些代码完成时，测试程序工作时的动图如下：
 
 <figure>
-
   <img src="generated/images/guide/attribute-directives/highlight-directive-final-anim.gif" alt="Final Highlight">
-
 </figure>
 
 ## Summary
@@ -528,19 +522,12 @@ The final source code follows:
 最终的源码如下：
 
 <code-tabs>
-
   <code-pane title="app/app.component.ts" path="attribute-directives/src/app/app.component.ts"></code-pane>
-
   <code-pane title="app/app.component.html" path="attribute-directives/src/app/app.component.html"></code-pane>
-
   <code-pane title="app/highlight.directive.ts" path="attribute-directives/src/app/highlight.directive.ts"></code-pane>
-
   <code-pane title="app/app.module.ts" path="attribute-directives/src/app/app.module.ts"></code-pane>
-
   <code-pane title="main.ts" path="attribute-directives/src/main.ts"></code-pane>
-
   <code-pane title="index.html" path="attribute-directives/src/index.html"></code-pane>
-
 </code-tabs>
 
 You can also experience and download the <live-example title="Attribute Directive example"></live-example>.

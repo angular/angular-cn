@@ -9,7 +9,8 @@ This cookbook explores many of the features of Dependency Injection (DI) in Angu
 
 {@a toc}
 
-See the <live-example name="dependency-injection-in-action"></live-example> of the code in this cookbook.
+See the <live-example name="dependency-injection-in-action"></live-example>
+of the code in this cookbook.
 
 到<live-example name="dependency-injection-in-action"></live-example>查看本烹饪书的源码。
 
@@ -150,9 +151,7 @@ Once all the dependencies are in place, the `AppComponent` displays the user inf
 一旦所有依赖都准备好了，`AppComponent`就会显示用户信息：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/logged-in-user.png" alt="Logged In User">
-
 </figure>
 
 {@a injectable-1}
@@ -307,6 +306,7 @@ This is called *sandboxing* because each service and component instance has its 
 每个服务有自己的工作状态，与其它组件的服务和状态隔离。我们称作*沙盒化*，因为每个服务和组件实例都在自己的沙盒里运行。
 
 {@a hero-bios-component}
+
 Imagine a `HeroBiosComponent` that presents three instances of the `HeroBioComponent`.
 
 想象一下，一个`HeroBiosComponent`组件显示三个`HeroBioComponent`的实例。
@@ -345,14 +345,13 @@ And the template displays this data-bound property.
 
 父组件`HeroBiosComponent`把一个值绑定到`heroId`。`ngOnInit`把该`id`传递到服务，然后服务获取和缓存英雄。`hero`属性的getter从服务里面获取缓存的英雄，并在模板里显示它绑定到属性值。
 
-Find this example in <live-example name="dependency-injection-in-action">live code</live-example> and confirm that the three `HeroBioComponent` instances have their own cached hero data.
+Find this example in <live-example name="dependency-injection-in-action">live code</live-example>
+and confirm that the three `HeroBioComponent` instances have their own cached hero data.
 
 到<live-example name="dependency-injection-in-action">在线例子</live-example>中找到这个例子，确认三个`HeroBioComponent`实例拥有自己独立的英雄数据缓存。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios.png" alt="Bios">
-
 </figure>
 
 {@a optional}
@@ -435,9 +434,7 @@ It looks like this, with the hero's telephone number from `HeroContactComponent`
 从`HeroContactComponent`获得的英雄电话号码，被投影到上面的英雄描述里，就像这样：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-and-content.png" alt="bio and contact">
-
 </figure>
 
 Here's the `HeroContactComponent` which demonstrates the qualifying decorators:
@@ -480,9 +477,7 @@ Here's the `HeroBiosAndContactsComponent` in action.
 下面是`HeroBiosAndContactsComponent`的执行结果：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios-and-contacts.png" alt="Bios with contact into">
-
 </figure>
 
 If you comment out the `@Host()` decorator, Angular now walks up the injector ancestor tree
@@ -492,9 +487,7 @@ with the gratuitous "!!!", indicating that the logger was found.
 如果注释掉`@Host()`装饰器，Angular就会沿着注入器树往上走，直到在`AppComponent`中找到该日志服务。日志服务的逻辑加入进来，更新了英雄的显示信息，这表明确实找到了日志服务。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-contact-no-host.png" alt="Without @Host">
-
 </figure>
 
 On the other hand, if you restore the `@Host()` decorator and comment out `@Optional`,
@@ -552,9 +545,7 @@ The following image shows the effect of mousing over the `<hero-bios-and-contact
 下图显示了鼠标移到`<hero-bios-and-contacts>`标签的效果：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
-
 </figure>
 
 {@a providers}
@@ -650,9 +641,7 @@ It's visually simple: a few properties and the logs produced by a logger.
 它看起来很简单：一些属性和一个日志输出。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/hero-of-month.png" alt="Hero of the month">
-
 </figure>
 
 The code behind it gives you plenty to think about.
@@ -831,9 +820,7 @@ The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `Mini
 `HeroOfTheMonthComponent`构造函数的`logger`参数是一个`MinimalLogger`类型，支持TypeScript的编辑器里，只能看到它的两个成员`logs`和`logInfo`：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger restricted API">
-
 </figure>
 
 Behind the scenes, Angular actually sets the `logger` parameter to the full service registered under the `LoggingService` token which happens to be the `DateLoggerService` that was [provided above](guide/dependency-injection-in-action#useclass).
@@ -848,9 +835,7 @@ The following image, which displays the logging date, confirms the point:
 在下面的图片中，显示了日志日期，可以确认这一点：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/date-logger-entry.png" alt="DateLoggerService entry">
-
 </figure>
 
 </div>
@@ -1087,9 +1072,7 @@ to display a *sorted* list of heroes.
 在这个刻意生成的例子里，`SortedHeroesComponent`继承自`HeroesBaseComponent`，显示一个*被排序*的英雄列表。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/sorted-heroes.png" alt="Sorted Heroes">
-
 </figure>
 
 The `HeroesBaseComponent` could stand on its own.
@@ -1266,7 +1249,6 @@ you see that the `Alex` component *extends* (*inherits*) from a class named `Bas
 
 `CraigComponent`例子探究了这个问题。[往回看Alex]{guide/dependency-injection-in-action#alex}，我们看到`Alex`组件*扩展*(*派生*)自一个叫`Base`的类。
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" title="parent-finder.component.ts (Alex class signature)" linenums="false">
 
 </code-example>
@@ -1338,9 +1320,7 @@ Here's *Alex* and family in action:
 下面是*Alex*和其家庭的运行结果：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
-
 </figure>
 
 {@a parent-tree}
@@ -1416,9 +1396,7 @@ Here's *Alice*, *Barry* and family in action:
 这里是*Alice*，*Barry*和该家庭的操作演示：
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection-in-action/alice.png" alt="Alice in action">
-
 </figure>
 
 {@a parent-token}
@@ -1567,4 +1545,3 @@ Break the circularity with `forwardRef`:
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" title="parent-finder.component.ts (AlexComponent providers)" linenums="false">
 
 </code-example>
-

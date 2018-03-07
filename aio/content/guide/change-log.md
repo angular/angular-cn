@@ -140,7 +140,7 @@ Revised samples are clearer and cover all topics discussed.
 * [Setup](guide/setup) guide:
 added (optional) instructions on how to remove _non-essential_ files.
 
-  [环境搭建](guide/setup)指南:
+   [环境搭建](guide/setup)指南:
   添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
 
 * No longer consolidate RxJS operator imports in `rxjs-extensions` file; each file should import what it needs.
