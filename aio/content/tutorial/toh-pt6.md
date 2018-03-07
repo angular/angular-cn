@@ -610,6 +610,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroService_, _InMemoryDataService_, _AppModule_
 
 <code-tabs>
+
   <code-pane 
     title="hero.service.ts" 
     path="toh-pt6/src/app/hero.service.ts">
@@ -622,6 +623,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="app.module.ts" 
     path="toh-pt6/src/app/app.module.ts">
   </code-pane>
+
 </code-tabs>
 
 {@a heroescomponent}
@@ -629,6 +631,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroesComponent_
 
 <code-tabs>
+
   <code-pane 
     title="heroes/heroes.component.html" 
     path="toh-pt6/src/app/heroes/heroes.component.html">
@@ -641,6 +644,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="heroes/heroes.component.css" 
     path="toh-pt6/src/app/heroes/heroes.component.css">
   </code-pane>
+
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -648,6 +652,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroDetailComponent_
 
 <code-tabs>
+
   <code-pane 
     title="hero-detail/hero-detail.component.html"
     path="toh-pt6/src/app/hero-detail/hero-detail.component.html">
@@ -656,6 +661,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-detail/hero-detail.component.ts" 
     path="toh-pt6/src/app/hero-detail/hero-detail.component.ts">
   </code-pane>
+
 </code-tabs>
 
 {@a herosearchcomponent}
@@ -663,6 +669,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroSearchComponent_
 
 <code-tabs>
+
   <code-pane 
     title="hero-search/hero-search.component.html"
     path="toh-pt6/src/app/hero-search/hero-search.component.html">
@@ -675,6 +682,7 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-search/hero-search.component.css"
     path="toh-pt6/src/app/hero-search/hero-search.component.css">
   </code-pane>
+
 </code-tabs>
 
 ## Summary

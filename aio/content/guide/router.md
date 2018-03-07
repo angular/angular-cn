@@ -294,6 +294,7 @@ It has a great deal of useful information including:
 它有一大堆有用的信息，包括：
 
 <table>
+
   <tr>
 
     <th>
@@ -493,6 +494,7 @@ It has a great deal of useful information including:
     </td>
 
   </tr>
+
 </table>
 
 <div class="l-sub-section">
@@ -521,6 +523,7 @@ During each navigation, the `Router` emits navigation events through the `Router
 在每次导航中，`Router`都会通过`Router.events`属性发布一些导航事件。这些事件的范围涵盖了从开始导航到结束导航之间的很多时间点。下表中列出了全部导航事件：
 
 <table>
+
   <tr>
 
     <th>
@@ -669,6 +672,7 @@ During each navigation, the `Router` emits navigation events through the `Router
     </td>
 
   </tr>
+
 </table>
 
 These events are logged to the console when the `enableTracing` option is enabled also. Since the events are provided as an `Observable`, you can `filter()` for events of interest and `subscribe()` to them to make decisions based on the sequence of events in the navigation process.
@@ -2488,6 +2492,7 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 `ParamMap` API 是参照[URLSearchParams 接口](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)来设计的。它提供了一些方法来处理对路由参数（`paramMap`）和查询参数(`queryParamMap`)中的参数访问。
 
 <table>
+
   <tr>
 
     <th>
@@ -2579,6 +2584,7 @@ to handle parameter access for both route parameters (`paramMap`) and query para
     </td>
 
   </tr>
+
 </table>
 
 {@a reuse}

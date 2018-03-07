@@ -254,6 +254,7 @@ Your app should look like this <live-example></live-example>.
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 
 <code-tabs>
+
   <code-pane title="src/app/heroes/heroes.component.ts" path="toh-pt2/src/app/heroes/heroes.component.ts">
   </code-pane>
 
@@ -262,6 +263,7 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 
   <code-pane title="src/app/heroes/heroes.component.css" path="toh-pt2/src/app/heroes/heroes.component.css">
   </code-pane>
+
 </code-tabs>
 
 ## Summary

@@ -56,7 +56,7 @@ export function normalizeLines(text: string): string {
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n');
   const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^>\n]*)>(.*)<\/\2>( *)(?=\n)/g;
   text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>$5\n');
-  const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)(?=\n)/g;
+  const oneLineCommentPattern = /\n( *)(<!--[\s\S]*?-->)( *)(?=\n)/g;
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n');
   const oneLineBrTagPattern = /\n( *)(<br class="clear">)( *)(?=\n)/g;
   text = text.replace(oneLineBrTagPattern, '\n\n$1$2$3\n');
@@ -67,7 +67,7 @@ export function normalizeLines(text: string): string {
   const multiLinePairedTagPattern = /\n( *)<(header)( *[^>\n]*)>\n*(.*?)\n*( *)<\/\2>( *)(?=\n)/g;
   text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$4\n\n$5</$2>$6\n');
 
-  const blockTagPattern = /\n( *)<(\/?)(td|th|div|code-example|code-tabs)( *[^>\n]*)>( *)(?=\n)/g;
+  const blockTagPattern = /\n( *)<(\/?)(td|th|div|code-example|code-tabs|h\d+|p|tr)\b( *[^>\n]*)>( *)(?=\n)/g;
   text = text.replace(blockTagPattern, '\n\n$1<$2$3$4>$5\n');
 
   const multiLineCodePattern = /\n( *)```(\w*)( *)(?=\n)/g;

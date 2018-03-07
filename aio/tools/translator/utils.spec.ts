@@ -89,6 +89,27 @@ def
 `);
   });
 
+  it('拆解多行的 h\\d 标签', function () {
+    const lines = normalizeLines(`
+    a
+    <h3 id="abc">
+        line
+    </h3>
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <h3 id="abc">
+
+        line
+
+    </h3>
+
+    b
+`);
+  });
+
   it('拆解单行的 th 标签', function () {
     const lines = normalizeLines(`
     a
@@ -118,6 +139,23 @@ def
     a
 
     <!-- no -->
+
+    b
+`);
+  });
+
+  it('拆解多行注释', function () {
+    const lines = normalizeLines(`
+    a
+    <!-- no
+    abc -->
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <!-- no
+    abc -->
 
     b
 `);

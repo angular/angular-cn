@@ -125,8 +125,11 @@ All section heading text should be in "Sentence case", which means the first wor
 **Always follow the section heading with at least one blank line.**
 
 <h2 class="no-toc">
+
 Main section heading
+
 </h2>
+
 There are usually one or more main sections that may be further divided into secondary sections.
 
 Begin a main section heading with the markdown `##` characters. Alternatively, you can write the equivalent `<h2>` HTML tag.
@@ -142,7 +145,9 @@ The main section heading should be followed by a blank line and then the content
 ```
 
 <h3 class="no-toc">
+
 Secondary section heading
+
 </h3>
 
 A secondary section heading is related to a main heading and _falls textually within_ the bounds of that main heading.
@@ -214,7 +219,9 @@ To exclude a heading from the TOC, create the heading as an `<h2>` or `<h3>` ele
 ```html
 
 <h3 class="no-toc">
+
 This heading is not displayed in the TOC
+
 </h3>
 
 ```
@@ -224,7 +231,9 @@ You can turn off TOC generation for the _entire_ page by writing the title with 
 ```html
 
 <h1 class="no-toc">
+
 A guide without a TOC
+
 </h1>
 
 ```
@@ -510,6 +519,7 @@ The next example displays multiple code tabs, each with its own title.
 It demonstrates control over display of line numbers at both the `<code-tabs>` and `<code-pane>` levels.
 
 <code-tabs linenums="false">
+
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
@@ -528,6 +538,7 @@ It demonstrates control over display of line numbers at both the `<code-tabs>` a
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
   </code-pane>
+
 </code-tabs>
 
 Here's the markup for that example.
@@ -538,6 +549,7 @@ The `linenums` attribute in the second pane restores line numbering for _itself 
 ```html
 
 <code-tabs linenums="false">
+
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
@@ -556,6 +568,7 @@ The `linenums` attribute in the second pane restores line numbering for _itself 
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
   </code-pane>
+
 </code-tabs>
 
 ```
@@ -710,6 +723,7 @@ export class AppComponent {
 Here's are the two corresponding code snippets displayed side-by-side.
 
 <code-tabs>
+
   <code-pane
     title="app.component.ts (class)"
     path="docs-style-guide/src/app/app.component.ts"
@@ -720,6 +734,7 @@ Here's are the two corresponding code snippets displayed side-by-side.
     path="docs-style-guide/src/app/app.component.ts"
     region="class-skeleton">
   </code-pane>
+
 </code-tabs>
 
 Some observations:
@@ -1259,6 +1274,7 @@ Use HTML tables to present tabular data.
 </style>
 
 <table>
+
   <tr>
 
     <th>
@@ -1280,6 +1296,7 @@ Use HTML tables to present tabular data.
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1301,6 +1318,7 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1324,6 +1342,7 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1345,6 +1364,7 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
+
 </table>
 
 Here is the markup for this table.
@@ -1356,6 +1376,7 @@ Here is the markup for this table.
 </style>
 
 <table>
+
   <tr>
 
     <th>
@@ -1377,6 +1398,7 @@ Here is the markup for this table.
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1398,6 +1420,7 @@ Here is the markup for this table.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1421,6 +1444,7 @@ Here is the markup for this table.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1442,6 +1466,7 @@ Here is the markup for this table.
     </td>
 
   </tr>
+
 </table>
 
 ```

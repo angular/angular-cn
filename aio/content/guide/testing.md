@@ -1609,9 +1609,7 @@ in a helper such as the `click()` function below:
 
 The first parameter is the _element-to-click_. If you wish, you can pass a
 custom event object as the second parameter. The default is a (partial)
-
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button">left-button mouse event object</a>
-
 accepted by many handlers including the `RouterLink` directive.
 
 <div class="alert is-important">
@@ -2701,6 +2699,7 @@ The [_TestBed_](#testbed-api-summary) and [_ComponentFixture_](#component-fixtur
 Here's a summary of the stand-alone functions, in order of likely utility:
 
 <table>
+
   <tr>
 
     <th>
@@ -2876,6 +2875,7 @@ Here's a summary of the stand-alone functions, in order of likely utility:
     </td>
 
   </tr>
+
 </table>
 
 <hr>
@@ -2933,6 +2933,7 @@ Call `TestBed` methods _within_ a `beforeEach()` to ensure a fresh start before 
 Here are the most important static methods, in order of likely utility.
 
 <table>
+
   <tr>
 
     <th>
@@ -3153,6 +3154,7 @@ Here are the most important static methods, in order of likely utility.
     </td>
 
   </tr>
+
 </table
 
 A few of the `TestBed` instance methods are not covered by static `TestBed` _class_ methods.
@@ -3176,6 +3178,7 @@ its DOM representation, and aspects of its Angular environment.
 Here are the most important properties for testers, in order of likely utility.
 
 <table>
+
   <tr>
 
     <th>
@@ -3264,6 +3267,7 @@ Here are the most important properties for testers, in order of likely utility.
     </td>
 
   </tr>
+
 </table>
 
 {@a component-fixture-methods}
@@ -3276,6 +3280,7 @@ Call these method to trigger Angular behavior in response to simulated user acti
 Here are the most useful methods for testers.
 
 <table>
+
   <tr>
 
     <th>
@@ -3412,6 +3417,7 @@ Here are the most useful methods for testers.
     </td>
 
   </tr>
+
 </table>
 
 {@a debug-element-details}
@@ -3426,6 +3432,7 @@ you can walk (and query) the fixture's entire element and component subtrees.
 Here are the most useful `DebugElement` members for testers, in approximate order of utility:
 
 <table>
+
   <tr>
 
     <th>
@@ -3693,6 +3700,7 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
     </td>
 
   </tr>
+
 </table>
 
 {@a query-predicate}

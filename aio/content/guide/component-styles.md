@@ -290,8 +290,10 @@ to a component's `@Component` decorator:
 我们可以通过把外部 CSS 文件添加到 `@Component` 的 `styleUrls` 属性中来加载外部样式。
 
 <code-tabs>
+
   <code-pane title="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
   <code-pane title="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.css"></code-pane>
+
 </code-tabs>
 
 <div class="alert is-critical">

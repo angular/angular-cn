@@ -132,7 +132,7 @@ Visual Studio将优先在当前的工作区查找外部工具，如果没有找�
 <h2 id='prereq4'>
 
   Prerequisite: Install TypeScript 2.2 for Visual Studio 2015
-  
+
   前提条件: 安装TypeScript 2.2 for Visual Studio 2015
 
 </h2>

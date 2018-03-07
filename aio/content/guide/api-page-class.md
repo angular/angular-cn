@@ -17,11 +17,7 @@
 
 </div>
 
-<p>
-
-Class description goes here. This is a short and to the point one or two sentence description that easily introduces the reader to the class.
-
-</p>
+<p>Class description goes here. This is a short and to the point one or two sentence description that easily introduces the reader to the class.</p>
 
 <div class="api-body">
 
@@ -45,11 +41,7 @@ Class description goes here. This is a short and to the point one or two sentenc
 
         <h2>Description</h2>
 
-        <p>
-
-The longer class description goes here which can include multiple paragraphs.
-
-</p>
+        <p>The longer class description goes here which can include multiple paragraphs.</p>
 
         </p>Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.</p>
 
@@ -112,7 +104,6 @@ The longer class description goes here which can include multiple paragraphs.
         <h2>Properties</h2>
 
         <table class="is-full-width list-table">
-
         <thead>
 
         <tr>
@@ -144,8 +135,8 @@ The longer class description goes here which can include multiple paragraphs.
         </tr>
 
         </thead>
-
         <tbody>
+
         <tr>
 
         <td>
@@ -167,6 +158,7 @@ The longer class description goes here which can include multiple paragraphs.
         </td>
 
         </tr>
+
         <tr>
 
         <td>
@@ -190,6 +182,7 @@ The longer class description goes here which can include multiple paragraphs.
         </td>
 
         </tr>
+
         <tr>
 
         <td>
@@ -213,6 +206,7 @@ The longer class description goes here which can include multiple paragraphs.
         </td>
 
         </tr>
+
         </tbody>
     </table>
     </section>
@@ -221,7 +215,6 @@ The longer class description goes here which can include multiple paragraphs.
         <h2>Methods</h2>
 
         <table class="is-full-width item-table">
-
         <thead>
 
         <tr>
@@ -235,33 +228,25 @@ The longer class description goes here which can include multiple paragraphs.
         </tr>
 
         </thead>
-
         <tbody>
+
         <tr>
 
         <td>
 
-            <p>
-
-Description goes here
-
-</p>
+            <p>Description goes here</p>
 
             <br>
 
-            <p>
-
-Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
-
-</p>
+            <p>Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.</p>
 
         </td>
 
         </tr>
+
         </tbody>
     </table>
     <table class="is-full-width api-method item-table">
-
         <thead>
 
         <tr>
@@ -275,17 +260,13 @@ Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round 
         </tr>
 
         </thead>
-
         <tbody>
+
         <tr>
 
         <td>
 
-            <p>
-
-Description goes here
-
-</p>
+            <p>Description goes here</p>
 
             <hr>
 
@@ -303,19 +284,11 @@ Description goes here
 
             <h6>Returns</h6>
 
-            <p>
-
-Returns information and results goes here.
-
-</p>
+            <p>Returns information and results goes here.</p>
 
             <h6>Errors</h6>
 
-            <p>
-
-Error information goes here
-
-</p>
+            <p>Error information goes here</p>
 
             <hr>
 
@@ -325,6 +298,7 @@ Error information goes here
 
                 <table class="is-full-width">
                 <tbody>
+
                 <tr>
 
                 <td>
@@ -346,6 +320,7 @@ Error information goes here
                 </td>
 
                 </tr>
+
                 <tr>
 
                 <td>
@@ -367,6 +342,7 @@ Error information goes here
                 </td>
 
                 </tr>
+
                 </tbody>
             </table>
 
@@ -374,15 +350,12 @@ Error information goes here
 
             <h5>Example: Descriptive Title of Method Example</h5>
 
-            <p>
-
-Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.
-
-</p>
+            <p>Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.</p>
 
         </td>
 
         </tr>
+
         </tbody>
     </table>
     </section>
@@ -390,11 +363,7 @@ Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round 
 
         <h2>Example: Descriptive Title of Combined Example Goes Here</h2>
 
-        <p>
-
-Intro description text about what the example is and how it can be used.
-
-</p>
+        <p>Intro description text about what the example is and how it can be used.</p>
 
             <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
 
@@ -404,11 +373,7 @@ Intro description text about what the example is and how it can be used.
     </span><span class="pun">}[],</span><span class="pln"> duration</span><span class="pun">:</span><span class="pln"> number</span><span class="pun">,</span><span class="pln"> delay</span><span class="pun">:</span><span class="pln"> number</span><span class="pun">,</span><span class="pln"> easing</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">,</span><span class="pln"> previousPlayers</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">[])</span></code>
         </pre></aio-code></code-example>
 
-        <p>
-
-Further explanation provided as needed. Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball.
-
-</p>
+        <p>Further explanation provided as needed. Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball.</p>
 
     </section>
 

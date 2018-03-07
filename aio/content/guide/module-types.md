@@ -73,6 +73,7 @@ typical characteristics, in real world apps, you may see hybrids.
    </td>
 
  </tr>
+
  <tr>
 
    <td>
@@ -202,6 +203,7 @@ typical characteristics, in real world apps, you may see hybrids.
 The following table summarizes the key characteristics of each feature module group.
 
 <table>
+
  <tr>
 
    <th style="vertical-align: top">
@@ -407,6 +409,7 @@ The following table summarizes the key characteristics of each feature module gr
    </td>
 
  </tr>
+
 </table>
 
 <hr />

@@ -89,9 +89,11 @@ Here's the complete solution:
 这里是完整的方案(代码)。
 
 <code-tabs>
+
   <code-pane title="src/main.ts" path="set-document-title/src/main.ts"></code-pane>
   <code-pane title="src/app/app.module.ts" path="set-document-title/src/app/app.module.ts"></code-pane>
   <code-pane title="src/app/app.component.ts" path="set-document-title/src/app/app.component.ts"></code-pane>
+
 </code-tabs>
 
 ## Why provide the `Title` service in `bootstrap`

@@ -298,6 +298,7 @@ Any files outside of this folder are meant to support building your app.
   </col>
   <col width="80%">
   </col>
+
   <tr>
 
     <th>
@@ -317,6 +318,7 @@ Any files outside of this folder are meant to support building your app.
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -337,6 +339,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -358,6 +361,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -376,6 +380,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -403,6 +408,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -422,6 +428,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -444,6 +451,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -467,6 +475,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -489,6 +498,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -509,6 +519,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -529,6 +540,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -547,6 +559,7 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+
 </table>
 
 ### The root folder
@@ -613,6 +626,7 @@ These files go in the root folder next to `src/`.
   </col>
   <col width="80%">
   </col>
+
   <tr>
 
     <th>
@@ -632,6 +646,7 @@ These files go in the root folder next to `src/`.
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -654,6 +669,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -672,6 +688,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -694,6 +711,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -715,6 +733,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -732,6 +751,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -750,6 +770,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -769,6 +790,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -787,6 +809,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -807,6 +830,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -824,6 +848,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -844,6 +869,7 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
+
 </table>
 
 <div class="l-sub-section">

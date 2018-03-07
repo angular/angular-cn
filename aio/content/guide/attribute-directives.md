@@ -522,12 +522,14 @@ The final source code follows:
 最终的源码如下：
 
 <code-tabs>
+
   <code-pane title="app/app.component.ts" path="attribute-directives/src/app/app.component.ts"></code-pane>
   <code-pane title="app/app.component.html" path="attribute-directives/src/app/app.component.html"></code-pane>
   <code-pane title="app/highlight.directive.ts" path="attribute-directives/src/app/highlight.directive.ts"></code-pane>
   <code-pane title="app/app.module.ts" path="attribute-directives/src/app/app.module.ts"></code-pane>
   <code-pane title="main.ts" path="attribute-directives/src/main.ts"></code-pane>
   <code-pane title="index.html" path="attribute-directives/src/index.html"></code-pane>
+
 </code-tabs>
 
 You can also experience and download the <live-example title="Attribute Directive example"></live-example>.

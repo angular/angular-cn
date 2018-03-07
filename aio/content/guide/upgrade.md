@@ -373,6 +373,7 @@ frameworks in how it actually works.
 无论是在AngularJS中还是在Angular中，依赖注入都位于前沿和中心的位置，但在两个框架的工作原理上，却存在着一些关键的不同之处。
 
 <table>
+
   <tr>
 
     <th>
@@ -388,6 +389,7 @@ frameworks in how it actually works.
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -409,6 +411,7 @@ frameworks in how it actually works.
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -430,6 +433,7 @@ frameworks in how it actually works.
     </td>
 
   </tr>
+
 </table>
 
 Even accounting for these differences you can still have dependency injection
@@ -992,6 +996,7 @@ observing the following rules:
 当我们从Angular模板中使用该组件时，我们要使用**Angular模板语法**来提供这些输入属性和输出属性，但要遵循下列规则：
 
 <table>
+
   <tr>
 
     <th>
@@ -1015,6 +1020,7 @@ observing the following rules:
     </th>
 
   </tr>
+
   <tr>
 
     <th>
@@ -1038,6 +1044,7 @@ observing the following rules:
     </td>
 
   </tr>
+
   <tr>
 
     <th>
@@ -1061,6 +1068,7 @@ observing the following rules:
     </td>
 
   </tr>
+
   <tr>
 
     <th>
@@ -1084,6 +1092,7 @@ observing the following rules:
     </td>
 
   </tr>
+
   <tr>
 
     <th>
@@ -1112,6 +1121,7 @@ observing the following rules:
     </td>
 
   </tr>
+
 </table>
 
 For example, imagine a hero detail AngularJS component directive
@@ -2883,6 +2893,7 @@ For PhoneCat you need to make the following changes in order to make things work
 这是因为E2E测试有一些匹配器是AngularJS中特有的。对于PhoneCat来说，为了让它能在Angular下工作，我们得做下列修改：
 
 <table>
+
   <tr>
 
     <th>
@@ -2910,6 +2921,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -2933,6 +2945,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -2956,6 +2969,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -2979,6 +2993,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -3002,6 +3017,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -3025,6 +3041,7 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
+
 </table>
 
 When the bootstrap method is switched from that of `UpgradeModule` to

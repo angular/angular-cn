@@ -1930,11 +1930,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
   },
   {
-    "original": "The code referenced on this page is available as a <live-example></live-example>.",
-    "translation": "<p>\n  本章所引用的代码见<live-example></live-example>。\n</p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
-  },
-  {
     "original": "## Modules",
     "translation": "## 模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
@@ -3420,13 +3415,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        latest\n      </p>",
-    "translation": "<p>\n        最新版\n      </p>",
+    "original": "latest",
+    "translation": "最新版",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        latest\n      </p>",
-    "translation": "<p>\n        最新版\n      </p>",
+    "original": "latest",
+    "translation": "最新版",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -3475,13 +3470,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Browsers (Desktop & Mobile)\n      </p>",
-    "translation": "<p>\n        浏览器（桌面和移动）\n      </p>",
+    "original": "Browsers (Desktop & Mobile)",
+    "translation": "浏览器（桌面和移动）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Polyfills Required\n      </p>",
-    "translation": "<p>\n        需要的填充库\n      </p>",
+    "original": "Polyfills Required",
+    "translation": "需要的填充库",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -3565,23 +3560,23 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Polyfill\n      </p>",
-    "translation": "<p>\n        填充库\n      </p>",
+    "original": "Polyfill",
+    "translation": "填充库",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Licence\n      </p>",
-    "translation": "<p>\n        授权方式\n      </p>",
+    "original": "Licence",
+    "translation": "授权方式",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Size*\n      </p>",
-    "translation": "<p>\n        大小*\n      </p>",
+    "original": "Size*",
+    "translation": "大小*",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<p>\n        Public domain\n      </p>",
-    "translation": "<p>\n        公共域\n      </p>",
+    "original": "Public domain",
+    "translation": "公共域",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -4185,7 +4180,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.\n</p>",
+    "original": "</p>",
     "translation": "<p>声明一个类具有一些依赖，当依赖注入器试图创建该类的实例时，应该把这些依赖注入到该类的构造函数中。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/cheatsheet.md"
   },
@@ -4290,7 +4285,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/cheatsheet.md"
   },
   {
-    "original": "<th><p>(implemented as class methods)\n</p>",
+    "original": "</p>",
     "translation": "<p>由类的方法实现。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/cheatsheet.md"
   },
@@ -6910,13 +6905,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
-    "original": "<p>\n      <b>Future proofing:</b> No need to remember <code>@Injectable()</code> when you add a dependency later.\n    </p>",
-    "translation": "<p>\n      <b>面向未来:</b> 没有必要记得在后来添加依赖的时候添加 <code>@Injectable()</code>。\n    </p>",
+    "original": "<b>Future proofing:</b> No need to remember <code>@Injectable()</code> when you add a dependency later.",
+    "translation": "<b>面向未来:</b> 没有必要记得在后来添加依赖的时候添加 <code>@Injectable()</code>。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
-    "original": "<p>\n      <b>Consistency:</b> All services follow the same rules, and you don't have to wonder why a decorator is missing.\n    </p>",
-    "translation": "<p>\n      <b>一致性:</b>所有的服务都遵循同样的规则，不需要考虑为什么某个地方少了一个。\n    </p>",
+    "original": "<b>Consistency:</b> All services follow the same rules, and you don't have to wonder why a decorator is missing.",
+    "translation": "<b>一致性:</b>所有的服务都遵循同样的规则，不需要考虑为什么某个地方少了一个。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
@@ -7250,13 +7245,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
-    "original": "<p>\n  What if the dependency value isn't a class? Sometimes the thing you want to inject is a\n  string, function, or object.\n</p>",
-    "translation": "<p>\n  如果依赖值不是一个类呢？有时候想要注入的东西是一个字符串，函数或者对象。\n</p>",
+    "original": "What if the dependency value isn't a class? Sometimes the thing you want to inject is a\n  string, function, or object.",
+    "translation": "如果依赖值不是一个类呢？有时候想要注入的东西是一个字符串，函数或者对象。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
-    "original": "<p>\n  Applications often define configuration objects with lots of small facts\n  (like the title of the application or the address of a web API endpoint)\n  but these configuration objects aren't always instances of a class.\n  They can be object literals such as this one:\n</p>",
-    "translation": "<p>\n   应用程序经常为很多很小的因素定义配置对象（例如应用程序的标题或网络API终点的地址）。\n  但是这些配置对象不总是类的实例，它们可能是对象，如下面这个：\n</p>",
+    "original": "Applications often define configuration objects with lots of small facts\n  (like the title of the application or the address of a web API endpoint)\n  but these configuration objects aren't always instances of a class.\n  They can be object literals such as this one:",
+    "translation": "应用程序经常为很多很小的因素定义配置对象（例如应用程序的标题或网络API终点的地址）。\n  但是这些配置对象不总是类的实例，它们可能是对象，如下面这个：",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
@@ -9605,33 +9600,33 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        State\n      </p>",
-    "translation": "<p>\n        状态\n      </p>",
+    "original": "State",
+    "translation": "状态",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        Class if true\n      </p>",
-    "translation": "<p>\n        为真时的 CSS 类\n      </p>",
+    "original": "Class if true",
+    "translation": "为真时的 CSS 类",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        Class if false\n      </p>",
-    "translation": "<p>\n        为假时的 CSS 类\n      </p>",
+    "original": "Class if false",
+    "translation": "为假时的 CSS 类",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        The control has been visited.\n      </p>",
-    "translation": "<p>\n        控件被访问过。\n      </p>",
+    "original": "The control has been visited.",
+    "translation": "控件被访问过。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        The control's value has changed.\n      </p>",
-    "translation": "<p>\n        控件的值变化了。\n      </p>",
+    "original": "The control's value has changed.",
+    "translation": "控件的值变化了。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
-    "original": "<p>\n        The control's value is valid.\n      </p>",
-    "translation": "<p>\n        控件的值有效。\n      </p>",
+    "original": "The control's value is valid.",
+    "translation": "控件的值有效。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/forms.md"
   },
   {
@@ -12995,16 +12990,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
   },
   {
-    "original": "<p>Hook\n    </p>",
-    "translation": "<p>\n        钩子\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "<p>Purpose and Timing\n    </p>",
-    "translation": "<p>\n        目的和时机\n      </p></th>\n  </tr>\n  <tr style='vertical-align:top'>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
-  },
-  {
     "original": "Respond when Angular (re)sets data-bound input properties.\n      The method receives a `SimpleChanges` object of current and previous property values.",
     "translation": "当Angular（重新）设置数据绑定输入属性时响应。\n      该方法接受当前和上一属性值的`SimpleChanges`对象",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
@@ -13170,16 +13155,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
   },
   {
-    "original": "<p>Component\n    </p>",
-    "translation": "<p>\n        组件\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
-  },
-  {
-    "original": "<p>Description\n    </p>",
-    "translation": "<p>\n        描述\n      </p></th>\n  </tr>\n  <tr style='vertical-align:top'>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
-  },
-  {
     "original": "Demonstrates every lifecycle hook.\n      Each hook method writes to the on-screen log.",
     "translation": "展示每个生命周期钩子，每个钩子方法都会在屏幕上显示一条日志。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
@@ -13215,8 +13190,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
   },
   {
-    "original": "<p>\n        Counter\n      </p>",
-    "translation": "<p>\n        计数器\n      </p>",
+    "original": "Counter",
+    "translation": "计数器",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/lifecycle-hooks.md"
   },
   {
@@ -14595,18 +14570,18 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Feature Module\n      </p>",
-    "translation": "<p>\n        特性模块\n      </p>",
+    "original": "Feature Module",
+    "translation": "特性模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Guidelines\n      </p>",
-    "translation": "<p>\n        指导原则\n      </p>",
+    "original": "Guidelines",
+    "translation": "指导原则",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Domain\n      </p>",
-    "translation": "<p>\n        领域\n      </p>",
+    "original": "Domain",
+    "translation": "领域",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -14650,8 +14625,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Routed\n      </p>",
-    "translation": "<p>\n        路由特性模块\n      </p>",
+    "original": "Routed",
+    "translation": "路由特性模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -14695,8 +14670,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Routing\n      </p>",
-    "translation": "<p>\n        路由模块\n      </p>",
+    "original": "Routing",
+    "translation": "路由模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -14770,8 +14745,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Service\n      </p>",
-    "translation": "<p>\n        服务\n      </p>",
+    "original": "Service",
+    "translation": "服务",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -14795,8 +14770,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Widget\n      </p>",
-    "translation": "<p>\n        窗口部件\n      </p>",
+    "original": "Widget",
+    "translation": "窗口部件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -14835,173 +14810,173 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Feature Module\n      </p>",
-    "translation": "<p>\n        特性模块\n      </p>",
+    "original": "Feature Module",
+    "translation": "特性模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Declarations\n      </p>",
-    "translation": "<p>\n        声明`declarations`\n      </p>",
+    "original": "Declarations",
+    "translation": "声明`declarations`",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Providers\n      </p>",
-    "translation": "<p>\n        提供商`providers`\n      </p>",
+    "original": "Providers",
+    "translation": "提供商`providers`",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Exports\n      </p>",
-    "translation": "<p>\n        导出什么\n      </p>",
+    "original": "Exports",
+    "translation": "导出什么",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Imported By\n      </p>",
-    "translation": "<p>\n        被谁导入\n      </p>",
+    "original": "Imported By",
+    "translation": "被谁导入",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Examples\n      </p>",
-    "translation": "<p>\n        范例\n      </p>",
+    "original": "Examples",
+    "translation": "范例",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Domain\n      </p>",
-    "translation": "<p>\n        领域\n      </p>",
+    "original": "Domain",
+    "translation": "领域",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Rare\n      </p>",
-    "translation": "<p>\n        罕见\n      </p>",
+    "original": "Rare",
+    "translation": "罕见",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Top component\n      </p>",
-    "translation": "<p>\n        顶级组件\n      </p>",
+    "original": "Top component",
+    "translation": "顶级组件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Feature, <code>AppModule</code>\n      </p>",
-    "translation": "<p>\n        特性模块和<code>AppModule</code>\n      </p>",
+    "original": "Feature, <code>AppModule</code>",
+    "translation": "特性模块和<code>AppModule</code>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        <code>ContactModule</code> (before routing)\n      </p>",
-    "translation": "<p>\n        <code>ContactModule</code>（路由之前的那个例子）\n      </p>",
+    "original": "<code>ContactModule</code> (before routing)",
+    "translation": "<code>ContactModule</code>（路由之前的那个例子）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Routed\n      </p>",
-    "translation": "<p>\n        路由\n      </p>",
+    "original": "Routed",
+    "translation": "路由",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Rare\n      </p>",
-    "translation": "<p>\n        罕见\n      </p>",
+    "original": "Rare",
+    "translation": "罕见",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        No\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "No",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Nobody\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "Nobody",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        <code>ContactModule</code>, <code>HeroModule</code>, <code>CrisisModule</code>\n      </p>",
-    "translation": "<p>\n        <code>ContactModule</code>、<code>HeroModule</code>、<code>CrisisModule</code>\n      </p>",
+    "original": "<code>ContactModule</code>, <code>HeroModule</code>, <code>CrisisModule</code>",
+    "translation": "<code>ContactModule</code>、<code>HeroModule</code>、<code>CrisisModule</code>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Routing\n      </p>",
-    "translation": "<p>\n        路由\n      </p>",
+    "original": "Routing",
+    "translation": "路由",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        No\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "No",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        No\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "No",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        <code>HttpModule</code>, <code>CoreModule</code>\n      </p>",
-    "translation": "<p>\n        <code>HttpModule</code>、<code>CoreModule</code>\n      </p>",
+    "original": "<code>HttpModule</code>, <code>CoreModule</code>",
+    "translation": "<code>HttpModule</code>、<code>CoreModule</code>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Service\n      </p>",
-    "translation": "<p>\n        服务\n      </p>",
+    "original": "Service",
+    "translation": "服务",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        No\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "No",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        No\n      </p>",
-    "translation": "<p>\n        无\n      </p>",
+    "original": "No",
+    "translation": "无",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        <code>HttpModule</code>, <code>CoreModule</code>\n      </p>",
-    "translation": "<p>\n        <code>HttpModule</code>、<code>CoreModule</code>\n      </p>",
+    "original": "<code>HttpModule</code>, <code>CoreModule</code>",
+    "translation": "<code>HttpModule</code>、<code>CoreModule</code>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Widget\n      </p>",
-    "translation": "<p>\n        窗口部件\n      </p>",
+    "original": "Widget",
+    "translation": "窗口部件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Rare\n      </p>",
-    "translation": "<p>\n        罕见\n      </p>",
+    "original": "Rare",
+    "translation": "罕见",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Yes\n      </p>",
-    "translation": "<p>\n        有\n      </p>",
+    "original": "Yes",
+    "translation": "有",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Feature\n      </p>",
-    "translation": "<p>\n        特性模块\n      </p>",
+    "original": "Feature",
+    "translation": "特性模块",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        <code>CommonModule</code>, <code>SharedModule</code>\n      </p>",
-    "translation": "<p>\n        <code>CommonModule</code>、<code>SharedModule</code>\n      </p>",
+    "original": "<code>CommonModule</code>, <code>SharedModule</code>",
+    "translation": "<code>CommonModule</code>、<code>SharedModule</code>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -15155,13 +15130,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Property\n      </p>",
-    "translation": "<p>\n        属性\n      </p>",
+    "original": "Property",
+    "translation": "属性",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule-faq.md"
   },
   {
@@ -15345,7 +15320,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
   {
-    "original": "**NgModules** help organize an application into cohesive blocks of functionality.\n<!-- CF: \"app\" and \"application\" are used interchangeably throughout this page.\nI'm not sure what's appropriate, so I left them as is for now.  -->",
+    "original": "<!-- CF: \"app\" and \"application\" are used interchangeably throughout this page.\nI'm not sure what's appropriate, so I left them as is for now.  -->",
     "translation": "**Angular 模块**能帮你把应用组织成多个内聚的功能块。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
@@ -16130,7 +16105,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
   {
-    "original": "While you can do everything within the root module,\nfeature modules help you partition the app into areas of specific interest and purpose.\n<!-- CF: Is this paragraph just restating the previous paragraph?\nIf so, I recommend removing it or merging the two -->",
+    "original": "<!-- CF: Is this paragraph just restating the previous paragraph?\nIf so, I recommend removing it or merging the two -->",
     "translation": "虽然这些都能在根模块中做，但特性模块可以帮助我们把应用切分成具有特定关注点和目标的不同区域。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
@@ -16680,7 +16655,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
   {
-    "original": "`UserService` is an application-wide singleton.\nYou don't want each module to have its own separate instance.\nYet there is [a real danger](guide/ngmodule-faq#q-why-bad) of that happening\n<!-- CF: This link goes to the top of the NgModule FAQs page.\nIt looks like it is supposed to go to a specific question/section within the page. -->\nif the `SharedModule` provides the `UserService`.",
+    "original": "if the `SharedModule` provides the `UserService`.",
     "translation": "`UserService`是全应用级单例。\n我们不希望每个模块都各自有它的实例。\n而如果由`SharedModule`提供`UserService`，就会导致[铁板钉钉的危险](guide/ngmodule-faq#q-why-bad)。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
@@ -16935,7 +16910,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
   {
-    "original": "Only the root `AppModule` should import the `CoreModule`.\n[Bad things happen](guide/ngmodule-faq#q-why-bad) if a lazy-loaded module imports it.\n<!-- CF: Again, this link goes to the top of the NgModule FAQs page.\nIt looks like it is supposed to go to a specific question/section within the page. -->",
+    "original": "<!-- CF: Again, this link goes to the top of the NgModule FAQs page.\nIt looks like it is supposed to go to a specific question/section within the page. -->",
     "translation": "只有根模块`AppModule`才能导入`CoreModule`。\n  如果惰性加载模块导入了它，就会[出问题](guide/ngmodule-faq#q-why-bad)。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ngmodule.md"
   },
@@ -17725,8 +17700,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/pipes.md"
   },
   {
-    "original": "<h3 class=\"no-toc\">The impure <i>AsyncPipe</i></h3>",
-    "translation": "<h3 id='async-pipe'>\n  非纯  <i>AsyncPipe</i>\n</h3>",
+    "original": "<h3 id='async-pipe'>",
+    "translation": "非纯  <i>AsyncPipe</i>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/pipes.md"
   },
   {
@@ -17925,8 +17900,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='devenv'>\n  Step 1. Set up the Development Environment\n</h2>",
-    "translation": "<h2 id='devenv'>\n  步骤1. 设置开发环境\n</h2>",
+    "original": "<h2 id='devenv'>",
+    "translation": "步骤1. 设置开发环境",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
@@ -17950,8 +17925,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='create-proj'>\n  Step 2. Create a new project\n</h2>",
-    "translation": "<h2 id='create-proj'>\n  步骤2. 创建新项目\n</h2>",
+    "original": "<h2 id='create-proj'>",
+    "translation": "步骤2. 创建新项目",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
@@ -17970,8 +17945,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='serve'>\n  Step 3: Serve the application\n</h2>",
-    "translation": "<h2 id='serve'>\n  步骤3. 启动开发服务器\n</h2>",
+    "original": "<h2 id='serve'>",
+    "translation": "步骤3. 启动开发服务器",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
@@ -17995,8 +17970,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='first-component'>\n  Step 4: Edit your first Angular component\n</h2>",
-    "translation": "<h2 id='first-component'>\n  步骤4. 编辑我们的第一个Angular组件\n</h2>",
+    "original": "<h2 id='first-component'>",
+    "translation": "步骤4. 编辑我们的第一个Angular组件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
@@ -18850,13 +18825,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/reactive-forms.md"
   },
   {
-    "original": "<p>\n        Property\n      </p>",
-    "translation": "<p>\n        属性\n      </p>",
+    "original": "Property",
+    "translation": "属性",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/reactive-forms.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        说明\n      </p>",
+    "original": "Description",
+    "translation": "说明",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/reactive-forms.md"
   },
   {
@@ -19885,123 +19860,118 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        Router Part\n      </p>",
-    "translation": "<p>\n        路由器部件\n      </p>",
+    "original": "Router Part",
+    "translation": "路由器部件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        Meaning\n      </p>",
-    "translation": "<p>\n        含义\n      </p>",
+    "original": "Meaning",
+    "translation": "含义",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>Router</code>\n      </p>",
-    "translation": "<p>\n        <code>Router</code>（路由器）\n      </p>",
+    "original": "<code>Router</code>",
+    "translation": "<code>Router</code>（路由器）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        Displays the application component for the active URL.\n        Manages navigation from one component to the next.\n      </p>",
-    "translation": "<p>\n        为激活的URL显示应用组件。管理从一个组件到另一个组件的导航\n      </p>",
+    "original": "Displays the application component for the active URL.\n        Manages navigation from one component to the next.",
+    "translation": "为激活的URL显示应用组件。管理从一个组件到另一个组件的导航",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>RouterModule</code>\n      </p>",
-    "translation": "<p>\n        <code>RouterModule</code>（路由器模块）\n      </p>",
+    "original": "<code>RouterModule</code>",
+    "translation": "<code>RouterModule</code>（路由器模块）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        A separate NgModule that provides the necessary service providers\n        and directives for navigating through application views.\n      </p>",
-    "translation": "<p>\n        一个独立的Angular模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。\n      </p>",
+    "original": "A separate NgModule that provides the necessary service providers\n        and directives for navigating through application views.",
+    "translation": "一个独立的Angular模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>Routes</code>\n      </p>",
-    "translation": "<p>\n        <code>Routes</code>（路由数组）\n      </p>",
+    "original": "<code>Routes</code>",
+    "translation": "<code>Routes</code>（路由数组）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        Defines an array of Routes, each mapping a URL path to a component.\n      </p>",
-    "translation": "<p>\n        定义了一个路由数组，每一个都会把一个URL路径映射到一个组件。\n      </p>",
+    "original": "Defines an array of Routes, each mapping a URL path to a component.",
+    "translation": "定义了一个路由数组，每一个都会把一个URL路径映射到一个组件。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>Route</code>\n      </p>",
-    "translation": "<p>\n        <code>Route</code>（路由）\n      </p>",
+    "original": "<code>Route</code>",
+    "translation": "<code>Route</code>（路由）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        Defines how the router should navigate to a component based on a URL pattern.\n        Most routes consist of a path and a component type.\n      </p>",
-    "translation": "<p>\n        定义路由器该如何根据URL模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。\n      </p>",
+    "original": "Defines how the router should navigate to a component based on a URL pattern.\n        Most routes consist of a path and a component type.",
+    "translation": "定义路由器该如何根据URL模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>RouterOutlet</code>\n      </p>",
-    "translation": "<p>\n        <code>RouterOutlet</code>（路由出口）\n      </p>",
+    "original": "<code>RouterOutlet</code>",
+    "translation": "<code>RouterOutlet</code>（路由出口）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        The directive (<code>&lt;router-outlet></code>) that marks where the router displays a view.\n      </p>",
-    "translation": "<p>\n        该指令（<code>&lt;router-outlet></code>）用来标记出路由器该在哪里显示视图。\n      </p>",
+    "original": "The directive (<code>&lt;router-outlet></code>) that marks where the router displays a view.",
+    "translation": "该指令（<code>&lt;router-outlet></code>）用来标记出路由器该在哪里显示视图。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>RouterLink</code>\n      </p>",
-    "translation": "<p>\n        <code>RouterLink</code>（路由链接）\n      </p>",
+    "original": "<code>RouterLink</code>",
+    "translation": "<code>RouterLink</code>（路由链接）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        The directive for binding a clickable HTML element to\n        a route. Clicking an element with a <code>routerLink</code> directive\n        that is bound to a <i>link parameters array</i> triggers a navigation.\n      </p>",
-    "translation": "<p>\n        该指令用来把一个可点击的HTML元素绑定到路由。\n        点击带有绑定到<i>字符串</i>或<i>链接参数数组</i>的<code>routerLink</code>指令的元素就会触发一次导航。\n      </p>",
+    "original": "The directive for binding a clickable HTML element to\n        a route. Clicking an element with a <code>routerLink</code> directive\n        that is bound to a <i>link parameters array</i> triggers a navigation.",
+    "translation": "该指令用来把一个可点击的HTML元素绑定到路由。\n        点击带有绑定到<i>字符串</i>或<i>链接参数数组</i>的<code>routerLink</code>指令的元素就会触发一次导航。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>RouterLinkActive</code>\n      </p>",
-    "translation": "<p>\n        <code>RouterLinkActive</code>（活动路由链接）\n      </p>",
+    "original": "<code>RouterLinkActive</code>",
+    "translation": "<code>RouterLinkActive</code>（活动路由链接）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        The directive for adding/removing classes from an HTML element when an associated\n        <code>routerLink</code> contained on or inside the element becomes active/inactive.\n      </p>",
-    "translation": "<p>\n        当HTML元素上或元素内的<code>routerLink</code>变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。\n      </p>",
+    "original": "The directive for adding/removing classes from an HTML element when an associated\n        <code>routerLink</code> contained on or inside the element becomes active/inactive.",
+    "translation": "当HTML元素上或元素内的<code>routerLink</code>变为激活或非激活状态时，该指令为这个HTML元素添加或移除CSS类。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>ActivatedRoute</code>\n      </p>",
-    "translation": "<p>\n        <code>ActivatedRoute</code>（激活的路由）\n      </p>",
+    "original": "<code>ActivatedRoute</code>",
+    "translation": "<code>ActivatedRoute</code>（激活的路由）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        A service that is provided to each route component that contains route specific\n        information such as route parameters, static data, resolve data, global query params, and the global fragment.\n      </p>",
-    "translation": "<p>\n        为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。\n      </p>",
+    "original": "A service that is provided to each route component that contains route specific\n        information such as route parameters, static data, resolve data, global query params, and the global fragment.",
+    "translation": "为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <code>RouterState</code>\n      </p>",
-    "translation": "<p>\n        <code>RouterState</code>（路由器状态）\n      </p>",
+    "original": "<code>RouterState</code>",
+    "translation": "<code>RouterState</code>（路由器状态）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        The current state of the router including a tree of the currently activated\n        routes together with convenience methods for traversing the route tree.\n      </p>",
-    "translation": "<p>\n        路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。\n      </p>",
+    "original": "The current state of the router including a tree of the currently activated\n        routes together with convenience methods for traversing the route tree.",
+    "translation": "路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <b><i>Link parameters array</i></b>\n      </p>",
-    "translation": "<p>\n        <i>链接参数数组</i>\n      </p>",
+    "original": "<b><i>Link parameters array</i></b>",
+    "translation": "<i>链接参数数组</i>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        An array that the router interprets as a routing instruction.\n        You can bind that array toa <code>RouterLink</code>  or pass the array as an argument to\n        the <code>Router.navigate</code> method.\n      </p>",
-    "translation": "<p>\n        这个数组会被路由器解释成一个路由操作指南。我们可以把一个<code>RouterLink</code>绑定到该数组，或者把它作为参数传给<code>Router.navigate</code>方法。\n      </p>",
+    "original": "An array that the router interprets as a routing instruction.\n        You can bind that array toa <code>RouterLink</code>  or pass the array as an argument to\n        the <code>Router.navigate</code> method.",
+    "translation": "这个数组会被路由器解释成一个路由操作指南。我们可以把一个<code>RouterLink</code>绑定到该数组，或者把它作为参数传给<code>Router.navigate</code>方法。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "<p>\n        <b><i>Routing component</i></b>\n      </p>",
-    "translation": "<p>\n        <b><i>路由组件</i></b>\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
-  },
-  {
-    "original": "<p>      An Angular component with a <code>RouterOutlet</code> that displays views based on router navigations.\n</p>",
-    "translation": "<p>\n        一个带有<code>RouterOutlet</code>的Angular组件，它根据路由器的导航来显示相应的视图。\n      </p>",
+    "original": "<b><i>Routing component</i></b>",
+    "translation": "<b><i>路由组件</i></b>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
@@ -23435,8 +23405,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h2 id='report-issues'>\nReporting vulnerabilities\n</h2>",
-    "translation": "<h2 id='report-issues'>\n举报漏洞\n</h2>",
+    "original": "<h2 id='report-issues'>",
+    "translation": "举报漏洞",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23450,8 +23420,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h2 id='best-practices'>\nBest practices\n</h2>",
-    "translation": "<h2 id='best-practices'>\n最佳实践\n</h2>",
+    "original": "<h2 id='best-practices'>",
+    "translation": "最佳实践",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23605,8 +23575,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h2 id='bypass-security-apis'>\n  Trusting safe values\n</h2>",
-    "translation": "<h2 id='bypass-security-apis'>\n  信任安全值\n</h2>",
+    "original": "<h2 id='bypass-security-apis'>",
+    "translation": "信任安全值",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23635,8 +23605,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h2 id='http'>\n  HTTP-level vulnerabilities\n</h2>",
-    "translation": "<h2 id='http'>\n  HTTP级别的漏洞\n</h2>",
+    "original": "<h2 id='http'>",
+    "translation": "HTTP级别的漏洞",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23645,8 +23615,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h3 id='xsrf'>\n  Cross-site request forgery\n</h3>",
-    "translation": "<h3 id='xsrf'>\n  跨站请求伪造（XSRF）\n</h3>",
+    "original": "<h3 id='xsrf'>",
+    "translation": "跨站请求伪造（XSRF）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23695,8 +23665,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h3 id='xssi'>\n  Cross-site script inclusion (XSSI)\n</h3>",
-    "translation": "<h3 id='xssi'>\n  跨站脚本包含(XSSI)\n</h3>",
+    "original": "<h3 id='xssi'>",
+    "translation": "跨站脚本包含(XSSI)",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -23720,8 +23690,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
-    "original": "<h2 id='code-review'>\n  Auditing Angular applications\n</h2>",
-    "translation": "<h2 id='code-review'>\n  审计Angular应用程序\n</h2>",
+    "original": "<h2 id='code-review'>",
+    "translation": "审计Angular应用程序",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/security.md"
   },
   {
@@ -24115,13 +24085,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
-    "original": "<p>\n        File\n      </p>",
-    "translation": "<p>\n        文件\n      </p>",
+    "original": "File",
+    "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
-    "original": "<p>\n        Purpose\n      </p>",
-    "translation": "<p>\n        用途\n      </p>",
+    "original": "Purpose",
+    "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
@@ -25250,13 +25220,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        Symbol Name\n      </p>",
-    "translation": "<p>\n        符号名\n      </p>",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        File Name\n      </p>",
-    "translation": "<p>\n        文件名\n      </p>",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
@@ -25305,13 +25275,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        Symbol Name\n      </p>",
-    "translation": "<p>\n        符号名\n      </p>",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        File Name\n      </p>",
-    "translation": "<p>\n        文件名\n      </p>",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
@@ -25485,13 +25455,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        Symbol Name\n      </p>",
-    "translation": "<p>\n        符号名\n      </p>",
+    "original": "Symbol Name",
+    "translation": "符号名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "<p>\n        File Name\n      </p>",
-    "translation": "<p>\n        文件名\n      </p>",
+    "original": "File Name",
+    "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
@@ -27665,78 +27635,48 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Data direction\n      </p>",
-    "translation": "<p>\n        数据方向\n      </p>",
+    "original": "Data direction",
+    "translation": "数据方向",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Syntax\n      </p>",
-    "translation": "<p>\n        语法\n      </p>",
+    "original": "Syntax",
+    "translation": "语法",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Type\n      </p>",
-    "translation": "<p>\n        绑定类型\n      </p>",
+    "original": "Type",
+    "translation": "绑定类型",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        One-way\n      </p>",
-    "translation": "<p>\n        单向\n      </p>",
+    "original": "One-way",
+    "translation": "单向",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        from data source\n      </p>",
-    "translation": "<p>\n        从数据源\n      </p>",
+    "original": "from data source",
+    "translation": "从数据源",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        to view target\n      </p>",
-    "translation": "<p>\n        到视图目标\n      </p>",
+    "original": "to view target",
+    "translation": "到视图目标",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Interpolation\n      </p>",
-    "translation": "<p>\n        插值表达式\n      </p>",
+    "original": "Interpolation",
+    "translation": "插值表达式",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Class\n      </p>",
-    "translation": "<p>\n        类\n      </p>",
+    "original": "Class",
+    "translation": "类",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Style\n      </p>",
-    "translation": "<p>\n        样式\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<p>        One-way</p>",
-    "translation": "<p>\n        单向\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<p>from view target</p>",
-    "translation": "<p>\n        从视图目标\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<p>to data source\n      </p>",
-    "translation": "<p>\n        到数据源\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<td><p>\n        Event\n      </p>",
-    "translation": "<p>\n        事件\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<td><p>\n        Two-way\n      </p>",
-    "translation": "<p>\n        双向\n      </p>",
-    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
-  },
-  {
-    "original": "<td><p>\n        Two-way\n      </p>",
-    "translation": "<p>\n        双向\n      </p>",
+    "original": "Style",
+    "translation": "样式",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
@@ -27920,78 +27860,78 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Type\n      </p>",
-    "translation": "<p>\n        绑定类型\n      </p>",
+    "original": "Type",
+    "translation": "绑定类型",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Target\n      </p>",
-    "translation": "<p>\n        目标\n      </p>",
+    "original": "Target",
+    "translation": "目标",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Examples\n      </p>",
-    "translation": "<p>\n        范例\n      </p>",
+    "original": "Examples",
+    "translation": "范例",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Element&nbsp;property\n      </p>",
-    "translation": "<p>\n        元素的 property\n      </p>",
+    "original": "Element&nbsp;property",
+    "translation": "元素的 property",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Component&nbsp;property\n      </p>",
-    "translation": "<p>\n        组件的 property\n      </p>",
+    "original": "Component&nbsp;property",
+    "translation": "组件的 property",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Directive&nbsp;property\n      </p>",
-    "translation": "<p>\n        指令的 property\n      </p>",
+    "original": "Directive&nbsp;property",
+    "translation": "指令的 property",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Event\n      </p>",
-    "translation": "<p>\n        事件\n      </p>",
+    "original": "Event",
+    "translation": "事件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Element&nbsp;event\n      </p>",
-    "translation": "<p>\n        元素的事件\n      </p>",
+    "original": "Element&nbsp;event",
+    "translation": "元素的事件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Component&nbsp;event\n      </p>",
-    "translation": "<p>\n        组件的事件\n      </p>",
+    "original": "Component&nbsp;event",
+    "translation": "组件的事件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Directive&nbsp;event\n      </p>",
-    "translation": "<p>\n        指令的事件\n      </p>",
+    "original": "Directive&nbsp;event",
+    "translation": "指令的事件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Two-way\n      </p>",
-    "translation": "<p>\n        双向\n      </p>",
+    "original": "Two-way",
+    "translation": "双向",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Event and property\n      </p>",
-    "translation": "<p>\n        事件与 property\n      </p>",
+    "original": "Event and property",
+    "translation": "事件与 property",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Attribute (the&nbsp;exception)\n      </p>",
-    "translation": "<p>\n        attribute（例外情况）\n      </p>",
+    "original": "Attribute (the&nbsp;exception)",
+    "translation": "attribute（例外情况）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Class\n      </p>",
-    "translation": "<p>\n        CSS 类\n      </p>",
+    "original": "Class",
+    "translation": "CSS 类",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n        Style\n      </p>",
-    "translation": "<p>\n        样式\n      </p>",
+    "original": "Style",
+    "translation": "样式",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
@@ -29345,8 +29285,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
-    "original": "<p>\n     Aliasing input/output properties\n  </p>",
-    "translation": "<p>\n     给输入/输出属性起别名\n  </p>",
+    "original": "Aliasing input/output properties",
+    "translation": "给输入/输出属性起别名",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
@@ -29665,13 +29605,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Technology\n      </p>",
-    "translation": "<p>\n        技术\n      </p>",
+    "original": "Technology",
+    "translation": "技术",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Purpose\n      </p>",
-    "translation": "<p>\n        目的\n      </p>",
+    "original": "Purpose",
+    "translation": "目的",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -29680,8 +29620,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Angular testing utilities\n      </p>",
-    "translation": "<p>\n        Angular测试工具\n      </p>",
+    "original": "Angular testing utilities",
+    "translation": "Angular测试工具",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -31895,13 +31835,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Function\n      </p>",
-    "translation": "<p>\n        函数\n      </p>",
+    "original": "Function",
+    "translation": "函数",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -32000,13 +31940,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Methods\n      </p>",
-    "translation": "<p>\n        方法\n      </p>",
+    "original": "Methods",
+    "translation": "方法",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -32130,13 +32070,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Properties\n      </p>",
-    "translation": "<p>\n        属性\n      </p>",
+    "original": "Properties",
+    "translation": "属性",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -32185,13 +32125,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Methods\n      </p>",
-    "translation": "<p>\n        方法\n      </p>",
+    "original": "Methods",
+    "translation": "方法",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -32270,13 +32210,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Member\n      </p>",
-    "translation": "<p>\n        成员\n      </p>",
+    "original": "Member",
+    "translation": "成员",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -32410,13 +32350,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        File\n      </p>",
-    "translation": "<p>\n        文件\n      </p>",
+    "original": "File",
+    "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "<p>\n        Description\n      </p>",
-    "translation": "<p>\n        描述\n      </p>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -33335,33 +33275,33 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Binding definition\n      </p>",
-    "translation": "<p>\n        绑定定义\n      </p>",
+    "original": "Binding definition",
+    "translation": "绑定定义",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Template syntax\n      </p>",
-    "translation": "<p>\n        模板语法\n      </p>",
+    "original": "Template syntax",
+    "translation": "模板语法",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Attribute binding\n      </p>",
-    "translation": "<p>\n        属性(Attribute)绑定\n      </p>",
+    "original": "Attribute binding",
+    "translation": "属性(Attribute)绑定",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Expression binding\n      </p>",
-    "translation": "<p>\n        表达式绑定\n      </p>",
+    "original": "Expression binding",
+    "translation": "表达式绑定",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        One-way binding\n      </p>",
-    "translation": "<p>\n        单向绑定\n      </p>",
+    "original": "One-way binding",
+    "translation": "单向绑定",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Two-way binding\n      </p>",
-    "translation": "<p>\n        双向绑定\n      </p>",
+    "original": "Two-way binding",
+    "translation": "双向绑定",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
@@ -34320,18 +34260,18 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Previous code\n      </p>",
-    "translation": "<p>\n        老代码\n      </p>",
+    "original": "Previous code",
+    "translation": "老代码",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        New code\n      </p>",
-    "translation": "<p>\n        新代码\n      </p>",
+    "original": "New code",
+    "translation": "新代码",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "<p>\n        Notes\n      </p>",
-    "translation": "<p>\n        说明\n      </p>",
+    "original": "Notes",
+    "translation": "说明",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
@@ -34770,8 +34710,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq1'>\nPrerequisite: Node.js\n</h2>",
-    "translation": "<h2 id='prereq1'>\n前提条件: Node.js\n</h2>",
+    "original": "<h2 id='prereq1'>",
+    "translation": "前提条件: Node.js",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34785,8 +34725,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq2'>\nPrerequisite: Visual Studio 2015 Update 3\n</h2>",
-    "translation": "<h2 id='prereq2'>\n前提条件: Visual Studio 2015 Update 3\n</h2>",
+    "original": "<h2 id='prereq2'>",
+    "translation": "前提条件: Visual Studio 2015 Update 3",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34800,8 +34740,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq3'>\nPrerequisite: Configure External Web tools\n</h2>",
-    "translation": "<h2 id='prereq3'>\n前提条件: 配置External Web tools\n</h2>",
+    "original": "<h2 id='prereq3'>",
+    "translation": "前提条件: 配置External Web tools",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34840,8 +34780,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq4'>\nPrerequisite: Install TypeScript 2.2 for Visual Studio 2015\n</h2>",
-    "translation": "<h2 id='prereq4'>\n前提条件: 安装TypeScript 2.2 for Visual Studio 2015\n</h2>",
+    "original": "<h2 id='prereq4'>",
+    "translation": "前提条件: 安装TypeScript 2.2 for Visual Studio 2015",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34875,8 +34815,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='download'>\nStep 1: Download the QuickStart files\n</h2>",
-    "translation": "<h2 id='download'>\n第一步: 现在“快速上手”文件\n</h2>",
+    "original": "<h2 id='download'>",
+    "translation": "第一步: 现在“快速上手”文件",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34885,8 +34825,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='create-project'>\nStep 2: Create the Visual Studio ASP.NET project\n</h2>",
-    "translation": "<h2 id='create-project'>\n第二步：创建Visual Studio ASP.net项目\n</h2>",
+    "original": "<h2 id='create-project'>",
+    "translation": "第二步：创建Visual Studio ASP.net项目",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34920,8 +34860,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='copy'>\n  Step 3: Copy the QuickStart files into the ASP.NET project folder\n</h2>",
-    "translation": "<h2 id='copy'>\n  第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录\n</h2>",
+    "original": "<h2 id='copy'>",
+    "translation": "第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
@@ -34985,8 +34925,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='build-and-run'>\n  Step 5: Build and run the app\n</h2>",
-    "translation": "<h2 id='build-and-run'>\n  第五步：构建和运行应用\n</h2>",
+    "original": "<h2 id='build-and-run'>",
+    "translation": "第五步：构建和运行应用",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/visual-studio-2015.md"
   },
   {

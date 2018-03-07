@@ -142,6 +142,7 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -163,6 +164,7 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -188,6 +190,7 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -209,6 +212,7 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
+
 </table>
 
 ## Observables compared to events API
@@ -272,6 +276,7 @@ button.removeEventListener(‘click’, handler);
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -297,6 +302,7 @@ button.removeEventListener(‘click’, handler);
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -321,6 +327,7 @@ button.removeEventListener(‘click’, handler);
     </td>
 
   </tr>
+
 </table>
 
 ## Observables compared to arrays
@@ -368,6 +375,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -391,6 +399,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -414,6 +423,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -437,6 +447,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -460,6 +471,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -495,6 +507,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -518,6 +531,7 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -541,4 +555,5 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
+
 </table>

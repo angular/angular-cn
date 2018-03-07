@@ -518,6 +518,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
   </col>
   <col width="20%">
   </col>
+
   <tr>
 
     <th>
@@ -545,6 +546,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -611,6 +613,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </td>
 
     </tr>
+
     <tr>
 
       <td>
@@ -641,7 +644,9 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </td>
 
     </tr>
+
   </tr>
+
 </table>
 
 
@@ -877,6 +882,7 @@ The following table summarizes:
   </col>
   <col width="75%">
   </col>
+
   <tr>
 
     <th>
@@ -904,6 +910,7 @@ The following table summarizes:
     </th>
 
   </tr>
+
   <tr>
 
     <td>
@@ -935,6 +942,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -966,6 +974,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -993,6 +1002,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1019,6 +1029,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1044,6 +1055,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
   <tr>
 
     <td>
@@ -1069,6 +1081,7 @@ The following table summarizes:
     </td>
 
   </tr>
+
 </table>
 
 With this broad view in mind, you're ready to look at binding types in detail.

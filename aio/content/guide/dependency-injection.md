@@ -16,6 +16,7 @@ Start by reviewing this simplified version of the _heroes_ feature
 from the [The Tour of Heroes](tutorial/).
 
 <code-tabs>
+
   <code-pane title="src/app/heroes/heroes.component.ts" path="dependency-injection/src/app/heroes/heroes.component.1.ts"
   region="v1">
   </code-pane>
@@ -218,11 +219,13 @@ Of course, the `HeroListComponent` should do something with the injected `HeroSe
 Here's the revised component, making use of the injected service, side-by-side with the previous version for comparison.
 
 <code-tabs>
+
   <code-pane title="hero-list.component (with DI)" path="dependency-injection/src/app/heroes/hero-list.component.2.ts">
   </code-pane>
 
   <code-pane title="hero-list.component (without DI)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts">
   </code-pane>
+
 </code-tabs>
 
 Notice that the `HeroListComponent` doesn't know where the `HeroService` comes from.
