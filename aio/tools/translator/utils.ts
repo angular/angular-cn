@@ -56,6 +56,11 @@ export function normalizeLines(text: string): string {
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n');
   const oneLineBrTagPattern = /\n( *)(<br class="clear">)( *)(?=\n)/g;
   text = text.replace(oneLineBrTagPattern, '\n\n$1$2$3\n');
+
+  // 原文中有 back to top 被分成两行的情况，这里把它标准化一下
+  const specialBackToTopPattern = /<a href="#toc">Back to top\s+<\/a>/g;
+  text = text.replace(specialBackToTopPattern, '<a href="#toc">Back to top</a>');
+
   const backToTopPattern = /\n( *)(<a href="#toc">Back to top<\/a>)( *)(?=\n)/g;
   text = text.replace(backToTopPattern, '\n\n$1$2$3\n');
   const atTagCommentPattern = /\n( *)({@a.*})( *)(?=\n)/g;

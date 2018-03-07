@@ -3,5 +3,5 @@
 import { dirs } from '../dirs';
 import { translateFile } from '../translate';
 
-const filename = 'guide/template-syntax.md';
+const filename = 'guide/router.md';
 translateFile(__dirname + '/../../../../../content-en/' + filename, dirs.content + filename);

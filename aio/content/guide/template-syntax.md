@@ -1504,26 +1504,39 @@ Here's how the table renders:
 这里是表格渲染出来的样子：
 
 <table border="1px">
-  <tr><td colspan="2">
 
-  One-Two
+  <tr>
 
-  1-2列
+      <td colspan="2">
 
-  </td></tr>
-  <tr><td>
+          One-Two
 
-  Five
+          1-2列
 
-  五列
+      </td>
 
-  </td><td>
+  </tr>
 
-  Six
+  <tr>
 
-  六列
+      <td>
 
-  </td></tr>
+          Five
+
+          五列
+
+      </td>
+
+<td>
+
+    Six
+
+    六列
+
+</td>
+
+  </tr>
+
  </table>
 
 One of the primary use cases for attribute binding

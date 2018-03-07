@@ -6856,7 +6856,7 @@
   },
   {
     "original": "Note the following:",
-    "translation": "要注意的有两点：",
+    "translation": "请注意以下几点：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/form-validation.md"
   },
   {
@@ -12211,7 +12211,7 @@
   },
   {
     "original": "Note the following:",
-    "translation": "要注意的有两点：",
+    "translation": "请注意以下几点：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/pipes.md"
   },
   {
@@ -17946,7 +17946,7 @@
   },
   {
     "original": "* The first item in the array identifies the parent route (`/crisis-center`).",
-    "translation": "数组中的第一个条目用来标记出父路由('/crisis-center')。",
+    "translation": "数组中的第一个条目标记出了父路由(`/crisis-center`)。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {

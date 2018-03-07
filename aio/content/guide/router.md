@@ -5622,7 +5622,7 @@ navigates from the root of the application down to the *Dragon Crisis*:
 
 * The first item in the array identifies the parent route (`/crisis-center`).
 
-   数组中的第一个条目用来标记出父路由('/crisis-center')。
+   数组中的第一个条目标记出了父路由(`/crisis-center`)。
 
 * There are no parameters for this parent route so you're done with it.
 
