@@ -286,7 +286,11 @@ ng generate directive highlight
 `)).eql(`
   <tr>
 
-      <td>abc</td>
+      <td>
+
+          abc
+
+      </td>
 
   </tr>
 `);

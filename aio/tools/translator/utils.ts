@@ -68,6 +68,9 @@ export function normalizeLines(text: string): string {
   const trTagPattern = /( *)(<tr\b *[^>\n]*>)(.*)(<\/tr>)/g;
   text = text.replace(trTagPattern, '\n\n$1$2\n\n$1    $3\n\n$1$4\n\n');
 
+  const thTdTagPattern = /( *)<(th|td)\b( *[^>\n]*)>(.*?)<\/\2>/g;
+  text = text.replace(thTdTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>\n\n');
+
   const blockTagPattern = /\n( *)<(\/?)(td|th|div|code-example|code-tabs|h\d+|p|tr)\b( *[^>\n]*)>( *)(?=\n)/g;
   text = text.replace(blockTagPattern, '\n\n$1<$2$3$4>$5\n');
 
