@@ -46,6 +46,7 @@ export function isHead(line: string): boolean {
 }
 
 export function normalizeLines(text: string): string {
+  text = '\n' + text + '\n';
   // 列表、标题等自带换行含义的markdown
   const blockElementPattern = /(?=\n *(\d+\.|-|\*) )\n/g;
   text = text.replace(blockElementPattern, '\n\n');
@@ -55,7 +56,7 @@ export function normalizeLines(text: string): string {
   text = text.replace(leadHxPattern, '$1\n\n');
   const oneLinePairedTagPattern = /\n( *)<(p|code-example|div|h\d+|a)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n\n');
-  const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^> \n]*)>(.*)<\/\2>( *)\n/g;
+  const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^> \n]*)>(.*)<\/\2>( *)/g;
   text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1$4\n\n$1</$2>$5\n\n');
   const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)\n/g;
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n\n');
@@ -76,7 +77,7 @@ export function normalizeLines(text: string): string {
 
   const multipleBlankLinePattern = /\n\s*\n+/g;
   text = text.replace(multipleBlankLinePattern, '\n\n');
-  return text;
+  return text.replace(/^\n+/, '\n').replace(/\n+$/, '\n');
 }
 
 export function indentOf(line): number {

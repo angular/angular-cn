@@ -45,7 +45,7 @@ export function translate(content: string): string[] {
 export function translateFile(sourceFile: string, targetFile: string): void {
   const content = fs.readFileSync(sourceFile, 'utf-8');
   const result = translate(content);
-  fs.writeFileSync(targetFile, result.join('\n\n'), 'utf-8');
+  fs.writeFileSync(targetFile, result.join('\n\n').trim() + '\n', 'utf-8');
 }
 
 export function translateDirectory(sourceDir: string, targetDir: string): void {

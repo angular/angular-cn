@@ -3,24 +3,46 @@ import { normalizeLines } from './utils';
 
 describe(' 工具函数', () => {
   it('把“1. ”列表处理成空行分隔的格式，以便处理', function () {
-    const lines = normalizeLines('1. abc\n11. def\n');
-    expect(lines).eql('1. abc\n\n11. def\n');
+    const lines = normalizeLines(`1. abc
+11. def
+`);
+    expect(lines).eql(`
+1. abc
+
+11. def
+`);
   });
 
   it('把“- ”列表处理成空行分隔的格式，以便处理', function () {
-    const lines = normalizeLines('- abc\n- def\n');
-    expect(lines).eql('- abc\n\n- def\n');
+    const lines = normalizeLines(`- abc
+- def
+`);
+    expect(lines).eql(`
+- abc
+
+- def
+`);
   });
 
   it('把“* ”列表处理成空行分隔的格式，以便处理', function () {
-    const lines = normalizeLines('* abc\n* def\n');
-    expect(lines).eql('* abc\n\n* def\n');
+    const lines = normalizeLines(`* abc
+* def
+`);
+    expect(lines).eql(`
+* abc
+
+* def
+`);
   });
 
   it('把“# ”标题处理成空行分隔的格式，以便处理', function () {
     const lines = normalizeLines(`\n# abc
 def`);
-    expect(lines).eql('\n\n# abc\n\ndef');
+    expect(lines).eql(`
+# abc
+
+def
+`);
   });
 
   it('拆解单行的成对 tag', function () {
@@ -159,13 +181,11 @@ def`);
   </header>
 `);
     expect(lines).eq(`
-
   <header>
 
     Angular forms don't require a style library
 
   </header>
-
 `);
   });
 
@@ -181,7 +201,6 @@ def`);
 
 `);
     expect(lines).eq(`
-
     <p>
 
     a
@@ -193,7 +212,6 @@ def`);
     一
 
 </p>
-
 `);
   });
 
@@ -203,34 +221,64 @@ def`);
     abc
   </td>
 `)).eql(`
-
   <td>
 
     abc
 
   </td>
-
 `);
   });
   it('拆解独行的 li', function () {
     expect(normalizeLines(`
-<li><span>abc</span></li>
+<ul>
+<li><a href="#">a</a></li>
+<li><a href="#">b</a></li>
+<li><a href="#">c</a></li>
+</ul>
+
 `)).eql(`
+<ul>
 
 <li>
 
-<span>abc</span>
+<a href="#">a</a>
 
 </li>
 
+<li>
+
+<a href="#">b</a>
+
+</li>
+
+<li>
+
+<a href="#">c</a>
+
+</li>
+
+</ul>
 `);
   });
   it('不要拆解行内的 html tag', function () {
-    expect(normalizeLines(`\na <b> c\n\n`)).eql('\na <b> c\n\n');
+    expect(normalizeLines(`
+a <b> c
+
+`)).eql(`
+a <b> c
+`);
   });
   it('把连续的三行及以上空行简化为两个空行', function () {
-    const lines = normalizeLines(`\n  a  \n\n\n b `);
-    expect(lines).eql(`\n  a  \n\n b `);
+    const lines = normalizeLines(`
+  a  
+
+
+ b`);
+    expect(lines).eql(`
+  a  
+
+ b
+`);
   });
 
 });
