@@ -181,7 +181,7 @@ Added two plunkers that each test _one simple component_ so you can write a comp
 Linked to these plunkers in "Testing" and "Setup anatomy" guides.
 
 添加了两个plunker例子，每个都测试一个简单的组件，以便你可以自己在plunker中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的`AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的`BannerComponent`。
-并在[测试](guide/testing#live-examples)和[环境设置剖析](guide/setup-systemjs-anatomy)中链接到它们。
+并在“测试”和“环境设置剖析”中链接到它们。
 
 ## Internationalization: pluralization and _select_ (2016-11-30)
 
@@ -252,11 +252,14 @@ The updated TypeScript to JavaScript guide explains how to write apps in ES6/7
 by translating the common idioms in the TypeScript documentation examples
 (and elsewhere on the web) to ES6/7 and ES5.
 
-更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用。
+更新了“从TypeScript到JavaScript”，以解释如何使用ES6/7编写应用。
 将TypeScript文档示例中（以及网站其它地方）的习惯用法翻译成ES6/7和ES5。
 
 This was [removed in August 2017](https://github.com/angular/angular/pull/18694) but can still be
 viewed in the [v2 documentation](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html).
+
+本章已经 [于2017年8月移除](https://github.com/angular/angular/pull/18694)，
+不过仍然可以在[第二版的文档中](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html)看到。
 
 ## Sync with Angular v.2.1.1 (2016-10-21)
 
@@ -362,7 +365,7 @@ All guided samples with routing use the _Routing Module_ and prose content has b
 most conspicuously in the
 [NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodules)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
 
 ## New "Internationalization" guide (2016-09-30)
 

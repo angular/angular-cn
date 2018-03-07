@@ -49,7 +49,7 @@ guide.
 
 *提供商*是用来新建或者交付服务的。
 Angular拿到“类提供商”之后，会通过`new`操作来新建服务实例。
-从[依赖注入](guide/dependency-injection#injector-providers)一章可以学到关于提供商的更多知识。
+从[依赖注入](guide/dependency-injection#register-providers-ngmodule)一章可以学到关于提供商的更多知识。
 
 </div>
 

@@ -1307,7 +1307,7 @@ and create a **[Routing Module](#routing-module)**, a special type of `Service M
 of routing in feature modules.
 
 作为简单的路由配置，将添加配置好的`RouterModule`到`AppModule`中就足够了。
-随着应用的成长，我们将需要将路由配置重构到单独的文件，并创建**[路由模块](guide/router#routing-module)** - 一种特别的、专门为特性模块的路由器服务的**服务模块**。
+随着应用的成长，我们将需要将路由配置重构到单独的文件，并创建**[路由模块](#routing-module)** - 一种特别的、专门为特性模块的路由器服务的**服务模块**。
 
 </div>
 
@@ -1823,19 +1823,19 @@ The **Routing Module** has several characteristics:
 
 * Separates routing concerns from other application concerns.
 
-   把路由这个关注点从其它应用类关注点中分离出去
+   把路由这个关注点从其它应用类关注点中分离出去。
 
 * Provides a module to replace or remove when testing the application.
 
-   测试特性模块时，可以替换或移除路由模块
+   测试特性模块时，可以替换或移除路由模块。
 
 * Provides a well-known location for routing service providers including guards and resolvers.
 
-   为路由服务提供商（包括守卫和解析器等）提供一个共同的地方
+   为路由服务提供商（包括守卫和解析器等）提供一个共同的地方。
 
 * Does **not** declare components.
 
-   **不要**[声明组件](guide/ngmodule-faq#routing-module)
+   **不要**声明组件。
 
 {@a routing-refactor}
 

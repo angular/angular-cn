@@ -147,6 +147,7 @@ as an `Observable<Hero[]>`.
 </code-example>
 
 Convert that method to use `HttpClient`
+
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes-1">
@@ -532,6 +533,7 @@ Replace the generated `HeroSearchComponent` class and metadata as follows.
 <code-example path="toh-pt6/src/app/hero-search/hero-search.component.ts" title="src/app/hero-search/hero-search.component.ts"></code-example>
 
 Notice the declaration of `heroes$` as an `Observable`
+
 <code-example 
   path="toh-pt6/src/app/hero-search/hero-search.component.ts" 
   region="heroes-stream">

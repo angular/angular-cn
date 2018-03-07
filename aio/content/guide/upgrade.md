@@ -651,7 +651,7 @@ bootstrapping the AngularJS module.
 
 For more information, see [NgModules](guide/ngmodules).
 
-要了解更多，请参阅[NgModules](guide/ngmodule)页。
+要了解更多，请参阅[NgModules](guide/ngmodules)页。
 
 </div>
 

@@ -57,7 +57,7 @@ NgModules are a big deal.
 This page introduces modules; the [NgModules](guide/ngmodules) pages 
 relating to NgModules covers them in detail.
 
-NgModules 很重要。这里只是简单介绍，在 [NgModules](guide/ngmodule)中会做深入讲解。
+NgModules 很重要。这里只是简单介绍，在 [NgModules](guide/ngmodules)中会做深入讲解。
 
 <br class="clear">
 
@@ -229,7 +229,7 @@ Hang in there. The confusion yields to clarity with time and experience.
 
   Learn more from the [NgModules](guide/ngmodules) page.
 
-  更多信息，参见 [NgModules](guide/ngmodule)。
+  更多信息，参见 [NgModules](guide/ngmodules)。
 
 </div>
 

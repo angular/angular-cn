@@ -137,6 +137,7 @@ The browser refreshes and display's the hero's information.
 ## Format with the _UppercasePipe_
 
 Modify the `hero.name` binding like this.
+
 <code-example
   path="toh-pt1/src/app/heroes/heroes.component.html"
   region="pipe">

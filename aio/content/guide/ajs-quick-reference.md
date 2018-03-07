@@ -1397,7 +1397,7 @@ The Angular code is shown using TypeScript.
 
       For more information on modules, see [NgModules](guide/ngmodules).
 
-      要了解关于模块的更多知识，参见[NgModules](guide/ngmodule)。
+      要了解关于模块的更多知识，参见[NgModules](guide/ngmodules)。
 
     </td>
 

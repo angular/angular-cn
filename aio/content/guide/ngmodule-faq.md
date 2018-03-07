@@ -973,7 +973,7 @@ most of them exported.
 The `SharedModule` may re-export other widget modules, such as `CommonModule`,
 `FormsModule`, and NgModules with the UI controls that you use most widely.
 
-`SharedModule`可以重新导出其它[小部件模块](guide/ngmodule-faq#widget-feature-module)，比如`CommonModule`、`FormsModule`和提供你广泛使用的UI控件的那些模块。
+`SharedModule`可以重新导出其它小部件模块，比如`CommonModule`、`FormsModule`和提供你广泛使用的UI控件的那些模块。
 
 The `SharedModule` should not have `providers` for reasons [explained previously](guide/ngmodule-faq#q-why-bad).
 Nor should any of its imported or re-exported modules have `providers`.

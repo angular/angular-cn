@@ -722,7 +722,7 @@ Angular有下列模块类型：
 * [NgModules](guide/glossary#ngmodule).
 For details and examples, see the [NgModules](guide/ngmodules) page. 
 
-   [Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodule)。
+   [Angular 模块](guide/glossary#ngmodule)，见[Angular 模块](guide/ngmodules)。
 
 * ES2015 modules, as described in this section.
 
