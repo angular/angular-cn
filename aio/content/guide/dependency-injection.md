@@ -820,7 +820,7 @@ There is no `AppConfig` class.
 The `HERO_DI_CONFIG` constant conforms to the `AppConfig` interface. 
 Unfortunately, you cannot use a TypeScript interface as a token:
 
-`CONFIG`常量有一个接口：`AppConfig`。不幸的是，不能把 TypeScript 接口用作令牌：
+`HERO_DI_CONFIG`常量有一个接口：`AppConfig`。不幸的是，不能把 TypeScript 接口用作令牌：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9-interface"  linenums="false">
 

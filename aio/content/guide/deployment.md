@@ -70,6 +70,8 @@ It might be good enough for sharing your progress and ideas internally with mana
 
 ## Optimize for production
 
+## 为生产环境优化
+
 Although deploying directly from the development environment works, 
 you can generate an optimized build with additional CLI command line flags,
 starting with `--prod`.
@@ -204,12 +206,22 @@ The cause may not be what you think it is.
 You can waste a lot of time and money optimizing something that has no tangible benefit or even makes the app slower.
 You should measure the app's actual behavior when running in the environments that are important to you.
 
+如果我们能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。
+真正的原因可能并不是你所想的那样。
+我们可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。
+我们应该在那些最重要的环境中实际运行，来度量应用的实际行为。
+
 The
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
 Chrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.
 
+<a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
+  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。
+
 The [WebPageTest](https://www.webpagetest.org/) tool is another good choice
 that can also help verify that your deployment was successful.
+
+[WebPageTest](https://www.webpagetest.org/)工具是另一个不错的选择，它能帮你验证你的部署是否成功了。
 
 {@a inspect-bundle}
 
@@ -270,18 +282,29 @@ For example, given the `<base href="/my/app/">`, the browser resolves a URL such
 into a server request for `my/app/some/place/foo.jpg`.
 During navigation, the Angular router uses the _base href_ as the base path to component, template, and module files.
 
+HTML中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
+比如，指定`<base href="/my/app/">`时，浏览器就会把`some/place/foo.jpg`这样的URL解析成到`my/app/some/place/foo.jpg`的服务端请求。
+在浏览期间，Angular路由器会使用*base href*作为组件、模板和模块文件的基地址。
+
 <div class="l-sub-section">
 
 See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") alternative.
+
+参见另一种备选方案[*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF")。
 
 </div>
 
 In development, you typically start the server in the folder that holds `index.html`.
 That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
 
+在开发期间，我们通常会在`index.html`所在的目录中启动服务器。这个目录就是根目录，因为`/`就是本应用的根，所以我们要在`index.html`的顶部添加`<base href="/">`。
+
 But on the shared or production server, you might serve the app from a subfolder.
 For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,
 the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the server version of the `index.html`.
+
+但是在共享服务器或生产服务器上，我们可能得从子目录下启动服务器。
+比如，当加载本应用的URL是`http://www.mysite.com/my/app/`时，子目录就是`my/app/`，而我们就要在服务器版的`index.html`中添加`<base href="/my/app/">`。
 
 When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.

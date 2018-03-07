@@ -46,7 +46,7 @@ With interpolation, you put the property name in the view template, enclosed in 
 Follow the [quickstart](guide/quickstart) instructions for creating a new project
 named <code>displaying-data</code>.
 
-按照[开发环境](guide/setup)的说明，创建一个新项目，名为<code>displaying-data</code>。
+按照[快速起步](guide/quickstart)的说明，创建一个新项目，名为<code>displaying-data</code>。
 
 Delete the <code>app.component.html</code> file. It is not needed for this example.
 

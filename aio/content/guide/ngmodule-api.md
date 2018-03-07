@@ -114,6 +114,9 @@ The following table summarizes the `@NgModule` metadata properties.
       Components, directives, and pipes must belong to _exactly_ one module.
       The compiler emits an error if you try to declare the same class in more than one module.
 
+      组件、指令和管道*只能*属于一个模块。
+      如果尝试把同一个类声明在多个模块中，编译器就会报告一个错误。
+
       Don't re-declare a class imported from another module.
 
     </td>
@@ -198,6 +201,8 @@ The following table summarizes the `@NgModule` metadata properties.
       A list of declarations&mdash;*component*, *directive*, and *pipe* classes&mdash;that
       an importing module can use.
 
+      可供导入了自己的模块使用的可声明对象（**组件**、**指令**、**管道类**）的列表。
+
       Exported declarations are the module's _public API_.
       A component in another module can [use](guide/ngmodule-faq#q-template-reference) _this_
       module's `UserComponent` if it imports this module and this module exports `UserComponent`.
@@ -212,6 +217,8 @@ The following table summarizes the `@NgModule` metadata properties.
 
       A module can list another module among its `exports`, in which case
       all of that module's public components, directives, and pipes are exported.
+
+      一个模块可以把另一个模块加入自己的`exports`列表中，这时，另一个模块的所有公开组件、指令和管道都会被导出。
 
       [Re-export](guide/ngmodule-faq#q-reexport) makes module transitivity explicit.
       If Module 'A' re-exports `CommonModule` and Module 'B' imports Module 'A',

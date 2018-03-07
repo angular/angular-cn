@@ -325,7 +325,7 @@ Update it with the following:
 
   There are two changes:
 
-  有三处更改
+  有两处更改
 
   1. You import `FormsModule`.
 
@@ -358,7 +358,7 @@ Update it with the following:
 
 Replace the contents of its template with the following:
 
-把“快速上手”的版本内容替换成下列代码：
+把模板中的内容替换成如下代码：
 
 <code-example path="forms/src/app/app.component.html" title="src/app/app.component.html">
 

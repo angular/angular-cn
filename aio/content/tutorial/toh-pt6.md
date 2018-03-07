@@ -1,5 +1,7 @@
 # HTTP
 
+# HTTP 服务
+
 In this tutorial, you'll add the following data persistence features with help from
 Angular's `HttpClient`.
 
@@ -10,6 +12,8 @@ Angular's `HttpClient`.
 * Users can search for heroes by name.
 
 When you're done with this page, the app should look like this <live-example></live-example>.
+
+当我们完成这一章时，应用会变成这样：<live-example></live-example>。
 
 ## Enable HTTP services
 
@@ -93,6 +97,8 @@ Now back to the `HttpClient` story.
 
 ## Heroes and HTTP
 
+## 英雄与 HTTP
+
 Import some HTTP symbols that you'll need:
 
 <code-example
@@ -149,6 +155,8 @@ Convert that method to use `HttpClient`
 
 Refresh the browser. The hero data should successfully load from the
 mock server.
+
+刷新浏览器后，英雄数据就会从模拟服务器被成功读取。
 
 You've swapped `of` for `http.get` and the app keeps working without any other changes
 because both functions return an `Observable<Hero[]>`.
@@ -256,6 +264,8 @@ Here is the final version of `getHeroes` with the `tap` that logs the operation.
 
 ### Get hero by id
 
+### 通过id获取英雄
+
 Most web APIs support a _get by id_ request in the form `api/hero/:id` 
 (such as `api/hero/11`).
 Add a `HeroService.getHero()` method to make that request:
@@ -282,6 +292,8 @@ the server.
 
 At the end of the hero detail template, add a save button with a `click` event
 binding that invokes a new component method named `save()`.
+
+我们先来确保对英雄名字的编辑不会丢失。先在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save()`的新方法：
 
 <code-example path="toh-pt6/src/app/hero-detail/hero-detail.component.html" region="save" title="src/app/hero-detail/hero-detail.component.html (save)"></code-example>
 
@@ -338,6 +350,8 @@ the heading:
 
 In response to a click event, call the component's click handler and then
 clear the input field so that it's ready for another name.
+
+当点击事件触发时，我们调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.ts" region="add" title="src/app/heroes/heroes.component.ts (add)"></code-example>
 
@@ -422,6 +436,8 @@ Note that
 
 Refresh the browser and try the new delete functionality.
 
+刷新浏览器，并试一下这个新的删除功能。
+
 ## Search by name
 
 In this last exercise, you learn to chain `Observable` operators together
@@ -487,6 +503,8 @@ as listed in the [final code review](#herosearchcomponent) below.
 
 As the user types in the search box, a *keyup* event binding calls the component's `search()`
 method with the new search box value.
+
+当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的`search()`方法，并传入新的搜索框的值。
 
 {@a asyncpipe}
 
@@ -564,10 +582,19 @@ Here's the code.
 * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
 before passing along the latest string. You'll never make requests more frequently than 300ms.
 
+   在传出最终字符串之前，`debounceTime(300)`将会等待，直到新增字符串的事件暂停了 300 毫秒。
+  我们实际发起请求的间隔永远不会小于 300ms。
+
 * `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
+
+   `distinctUntilChanged`确保只在过滤条件变化时才发送请求，
+  这样就不会重复请求同一个搜索词了。
 
 * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
 It cancels and discards previous search observables, returning only the latest search service observable.
+
+   `switchMap()`会为每个从`debounce`和`distinctUntilChanged`中通过的搜索词调用搜索服务。
+  它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
 <div class="l-sub-section">
 
@@ -600,6 +627,8 @@ If you enter characters that match any existing hero names, you'll see something
 ## Final code review
 
 Your app should look like this <live-example></live-example>.
+
+我们的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page (all in the `src/app/` folder).
 
@@ -693,17 +722,31 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 
 You're at the end of your journey, and you've accomplished a lot.
 
+旅程即将结束，不过我们已经收获颇丰。
+
 * You added the necessary dependencies to use HTTP in the app.
+
+   我们添加了在应用程序中使用 HTTP 的必备依赖。
 
 * You refactored `HeroService` to load heroes from a web API.
 
+   我们重构了`HeroService`，以通过 web API 来加载英雄数据。
+
 * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
+
+   我们扩展了`HeroService`来支持 `post()`、`put()` 和 `delete()` 方法。
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 
+   我们更新了组件，以允许用户添加、编辑和删除英雄。
+
 * You configured an in-memory web API.
 
+   我们配置了一个内存 Web API。
+
 * You learned how to use Observables.
+
+   我们学会了如何使用“可观察对象”。
 
 This concludes the "Tour of Heroes" tutorial.
 You're ready to learn more about Angular development in the fundamentals section,

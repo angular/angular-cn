@@ -2,15 +2,27 @@
 
 There are new requirements for the Tour of Heroes app:
 
+我们收到了《英雄指南》的一些新需求：
+
 * Add a *Dashboard* view.
+
+   添加一个*仪表盘*视图。
 
 * Add the ability to navigate between the *Heroes* and *Dashboard* views.
 
+   在*英雄列表*和*仪表盘*视图之间导航。
+
 * When users click a hero name in either view, navigate to a detail view of the selected hero.
+
+   无论在哪个视图中点击一个英雄，都会导航到该英雄的详情页。
 
 * When users click a *deep link* in an email, open the detail view for a particular hero.
 
+   在邮件中点击一个*深链接*，会直接打开一个特定英雄的详情视图。
+
 When you’re done, users will be able to navigate the app like this:
+
+完成时，用户就能像这样在应用中导航：
 
 <figure>
 
@@ -300,6 +312,8 @@ After the browser refreshes you can navigate freely between the two views by cli
 
 ## Navigating to hero details
 
+## 导航到英雄详情
+
 The `HeroDetailsComponent` displays details of a selected hero.
 At the moment the `HeroDetailsComponent` is only visible at the bottom of the `HeroesComponent`
 
@@ -440,6 +454,8 @@ The `HeroDetailComponent` needs a new way to obtain the _hero-to-display_.
 
 Add the following imports:
 
+先添加下列导入语句：
+
 <code-example 
   path="toh-pt5/src/app/hero-detail/hero-detail.component.ts" 
   region="added-imports" 
@@ -451,6 +467,8 @@ Add the following imports:
 
 Inject the `ActivatedRoute`, `HeroService`, and `Location` services
 into the constructor, saving their values in private fields:
+
+然后注入`ActivatedRoute`和`HeroService`服务到构造函数中，将它们的值保存到私有变量中：
 
 <code-example 
   path="toh-pt5/src/app/hero-detail/hero-detail.component.ts" region="ctor">
@@ -492,6 +510,8 @@ Add it now.
 
 ### Add *HeroService.getHero()*
 
+### 添加 *HeroService.getHero()*
+
 Open `HeroService` and add this `getHero()` method
 
 <code-example 
@@ -528,6 +548,8 @@ the router navigates to the detail view for the hero with `id: 11`,  "Mr. Nice".
 
 ### Find the way back
 
+### 回到原路
+
 By clicking the browser's back button, 
 you can go back to the hero list or dashboard view,
 depending upon which sent you to the detail view.
@@ -556,7 +578,13 @@ Refresh the browser and start clicking.
 Users can navigate around the app, from the dashboard to hero details and back,
 from heroes list to the mini detail to the hero details and back to the heroes again.
 
+刷新浏览器，并开始点击。
+  我们能在应用中导航：从仪表盘到英雄详情再回来，从英雄列表到 mini 版英雄详情到英雄详情，再回到英雄列表。
+  我们可以在仪表盘和英雄列表之间跳来跳去。
+
 You've met all of the navigational requirements that propelled this page.
+
+我们已经满足了在本章开头设定的所有导航需求。
 
 ## Final code review
 
@@ -667,6 +695,8 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You added the Angular router to navigate among different components.
 
+   添加了 Angular *路由器*在各个不同组件之间导航。
+
 * You turned the `AppComponent` into a navigation shell with `<a>` links and a `<router-outlet>`.
 
 * You configured the router in an `AppRoutingModule` 
@@ -680,3 +710,6 @@ Here are the code files discussed on this page and your app should look like thi
 * You used router link parameters to navigate to the detail view of a user-selected hero.
 
 * You shared the `HeroService` among multiple components.
+
+
+   在多个组件之间共享了`HeroService`服务。

@@ -3496,7 +3496,7 @@ The `Crisis Detail` route is a child of the `Crisis List`. Since the router [reu
 by default, the `Crisis Detail` component will be re-used as you select different crises.
 In contrast, back in the `Hero Detail` route, the component was recreated each time you selected a different hero.
 
-`Crisis Detail`路由是`Crisis List`的子路由。由于路由器默认会[复用组件](guide/router#reuse)，因此当我们选择了另一个危机时，`CrisisDetailComponent`会被复用。  
+`Crisis Detail`路由是`Crisis List`的子路由。由于路由器默认会[复用组件](#reuse)，因此当我们选择了另一个危机时，`CrisisDetailComponent`会被复用。  
 作为对比，回到`Hero Detail`路由时，每当我们选择了不同的英雄时，该组件都会被重新创建。
 
 At the top level, paths that begin with `/` refer to the root of the application.

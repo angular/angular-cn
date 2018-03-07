@@ -119,6 +119,8 @@ The browser refreshes and the app starts working again as it did before.
 
 ## What changed?
 
+## 有哪些变化？
+
 As [before](tutorial/toh-pt2), whenever a user clicks on a hero name,
 the hero detail appears below the hero list.
 Now the `HeroDetailComponent` is presenting those details instead of the `HeroesComponent`.

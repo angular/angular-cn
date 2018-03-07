@@ -836,13 +836,13 @@ You inject both in the directive constructor as private variables of the class.
 
 ### The _appUnless_ property
 
-### *myUnless* 属性
+### *appUnless* 属性
 
 The directive consumer expects to bind a true/false condition to `[appUnless]`.
 That means the directive needs an `appUnless` property, decorated with `@Input`
 
-该指令的使用者会把一个true/false条件绑定到`[myUnless]`属性上。
-也就是说，该指令需要一个带有`@Input`的`myUnless`属性。
+该指令的使用者会把一个true/false条件绑定到`[appUnless]`属性上。
+也就是说，该指令需要一个带有`@Input`的`appUnless`属性。
 
 <div class="l-sub-section">
 
@@ -859,7 +859,7 @@ Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outp
 Angular sets the `appUnless` property whenever the value of the condition changes.
 Because the `appUnless` property does work, it needs a setter.
 
-一旦该值的条件发生了变化，Angular 就会去设置 `myUnless` 属性，这时候，我们就需要为它定义一个设置器（setter）。
+一旦该值的条件发生了变化，Angular 就会去设置 `appUnless` 属性，这时候，我们就需要为它定义一个设置器（setter）。
 
 * If the condition is falsy and the view hasn't been created previously,
 tell the _view container_ to create the _embedded view_ from the template.
@@ -873,7 +873,7 @@ clear the container which also destroys the view.
 
 Nobody reads the `appUnless` property so it doesn't need a getter.
 
-没有人会读取`myUnless`属性，因此它不需要定义设置器（getter）。
+没有人会读取`appUnless`属性，因此它不需要定义设置器（getter）。
 
 The completed directive code looks like this:
 

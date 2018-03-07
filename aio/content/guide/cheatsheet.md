@@ -952,6 +952,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
 </p>
 
+<p>由类的方法实现。</p>
+
 </th>
 
 </tr>

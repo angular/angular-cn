@@ -1242,7 +1242,7 @@ This isn't necessarily good design.
 This example is examining *whether a component can
 inject its parent via the parent's base class*.
 
-*.这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
+这并不是好的设计。问题是*一个组件是否能通过它父组件的基类来注入它的父组件呢*？
 
 The sample's `CraigComponent` explores this question. [Looking back](guide/dependency-injection-in-action#alex),
 you see that the `Alex` component *extends* (*inherits*) from a class named `Base`.

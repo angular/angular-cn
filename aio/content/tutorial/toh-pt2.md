@@ -3,6 +3,9 @@
 In this page, you'll expand the Tour of Heroes app to display a list of heroes, and
 allow users to select a hero and display the hero's details.
 
+我们需要管理多个英雄。我们将扩展《英雄指南》应用，让它显示一个英雄列表，
+  允许用户选择一个英雄，查看该英雄的详细信息。
+
 ## Create mock heroes
 
 You'll need some heroes to display.
@@ -20,6 +23,8 @@ title="src/app/mock-heroes.ts">
 </code-example>
 
 ## Displaying heroes
+
+## 显示我们的英雄
 
 You're about to display the list of heroes at the top of the `HeroesComponent`.
 
@@ -82,6 +87,8 @@ After the browser refreshes, the list of heroes appears.
 
 ### Style the heroes
 
+### 给我们的英雄们“美容”
+
 The heroes list should be attractive and should respond visually when users 
 hover over and select a hero from the list.
 
@@ -128,6 +135,8 @@ and update the hero detail.
 ### Add a click event binding
 
 Add a click event binding to the `<li>` like this:
+
+我们再往`<li>`元素上插入一句点击事件的绑定代码：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" title="heroes.component.html (template excerpt)" linenums="false">
 
@@ -215,6 +224,8 @@ When the user picks a hero, `selectedHero` has a value and
 
 ### Style the selected hero
 
+### 给所选英雄添加样式
+
 It's difficult to identify the _selected hero_ in the list when all `<li>` elements look alike.
 
 If the user clicks "Magneta", that hero should render with a distinctive but subtle background color like this:
@@ -250,6 +261,8 @@ The finished `<li>` looks like this:
 ## Final code review
 
 Your app should look like this <live-example></live-example>. 
+
+我们的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 

@@ -53,6 +53,8 @@ Note the following:
 
 * It re-exports the `CommonModule` and `FormsModule`.
 
+   它重新导出了`CommonModule`和`FormsModule`
+
 By re-exporting `CommonModule` and `FormsModule`, any other module that imports this
 `SharedModule`, gets access to directives like `NgIf` and `NgFor` from `CommonModule`
 and can bind to component properties with `[(ngModel)]`, a directive in the `FormsModule`.

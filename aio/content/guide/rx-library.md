@@ -101,4 +101,6 @@ This can be useful when scanning through code and looking for observable values.
 
 For example:
 
+比如：
+
 <code-example path="rx-library/src/naming-convention.ts" title="Naming observables"></code-example>

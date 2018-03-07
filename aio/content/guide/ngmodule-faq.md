@@ -149,7 +149,7 @@ The "x" class isn't visible to other modules until you add it to the `exports` l
 Import NgModules whose public (exported) [declarable classes](guide/bootstrapping#the-declarations-array)
 you need to reference in this module's component templates.
 
-一句话：导入你需要在当前模块的组件模板中使用的那些公开的（被导出的）[可声明类](guide/ngmodule-faq#q-declarable)。
+导入你需要在当前模块的组件模板中使用的那些公开的（被导出的）[可声明类](guide/ngmodule-faq#q-declarable)。
 
 This always means importing `CommonModule` from `@angular/common` for access to
 the Angular directives such as `NgIf` and `NgFor`.
@@ -339,18 +339,18 @@ Its only purpose is to add http service providers to the application as a whole.
 
 ## What is the `forRoot()` method?
 
-## *forRoot*方法是什么？
+## *forRoot()*方法是什么？
 
 The `forRoot()` static method is a convention that makes it easy for developers to configure the module's providers.
 
-静态方法`forRoot`是一个约定，它可以让开发人员更轻松的配置模块的提供商。
+静态方法`forRoot()`是一个约定，它可以让开发人员更轻松的配置模块的提供商。
 
 The `RouterModule.forRoot()` method is a good example.
 Apps pass a `Routes` object to `RouterModule.forRoot()` in order to configure the app-wide `Router` service with routes.
 `RouterModule.forRoot()` returns a [ModuleWithProviders](api/core/ModuleWithProviders).
 You add that result to the `imports` list of the root `AppModule`.
 
-`RouterModule.forRoot`就是一个很好的例子。
+`RouterModule.forRoot()`就是一个很好的例子。
 应用把一个`Routes`对象传给`RouterModule.forRoot`，为的就是使用路由配置全应用级的`Router`服务。
 `RouterModule.forRoot`返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
 我们把这个结果添加到根模块`AppModule`的`imports`列表中。

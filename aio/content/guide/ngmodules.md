@@ -32,6 +32,8 @@ section.
 
 Modules are a great way to organize an application and extend it with capabilities from external libraries.
 
+模块是组织应用和使用外部库扩展应用的最佳途径。
+
 Angular libraries are NgModules, such as `FormsModule`, `HttpClientModule`, and `RouterModule`.
 Many third-party libraries are available as NgModules such as
 <a href="https://material.angular.io/">Material Design</a>,

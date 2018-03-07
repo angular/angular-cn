@@ -163,12 +163,12 @@ between a "token"&mdash;also referred to as a "key"&mdash;and a dependency [prov
 
 You launch an Angular application by "bootstrapping" it using the application root NgModule (`AppModule`).
 
+通过应用程序根 Angular 模块(`AppModule`)来启动 Angular 应用程序。
+
 Bootstrapping identifies an application's top level "root" [component](guide/glossary#component),
 which is the first component that is loaded for the application.
 
-通过应用程序根 Angular 模块来启动 Angular 应用程序。
-  启动过程标识应用的顶级“根”[组件 (component)](guide/glossary#component)，也就是应用加载的第一个组件。
-  更多信息，见[设置](guide/setup)。
+启动过程标识应用的顶级“根”[组件 (component)](guide/glossary#component)，也就是应用加载的第一个组件。
 
 You can bootstrap multiple apps in the same `index.html`, each app with its own top-level root.
 

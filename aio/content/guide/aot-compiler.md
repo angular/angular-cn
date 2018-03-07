@@ -12,7 +12,7 @@ This guide explains how to build with the AOT compiler using different compiler 
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
 
-  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">观看 Angular 编译器的作者Tobias Bosch 在 AngularConnect 2016 上对编译器的解释。</a>
+  观看编译器作者Tobias Bosch在AngularConnect 2016大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular编译器</a>的演讲。
 
 </div>
 
@@ -20,7 +20,7 @@ This guide explains how to build with the AOT compiler using different compiler 
 
 ## Angular compilation
 
-## 概览
+## Angular 中的编译
 
 An Angular application consists largely of components and their HTML templates.
 Before the browser can render the application,

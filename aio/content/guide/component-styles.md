@@ -337,6 +337,8 @@ inside `<style>` tags.
 
 ### Template link tags
 
+### 模板中的link标签
+
 You can also write `<link>` tags into the component's HTML template.
 
 我们也可以在组件的 HTML 模板中写`<link>`标签。
@@ -474,7 +476,7 @@ in most cases.
 
 ## Inspecting generated CSS
 
-## 附录 1：查看仿真 (Emulated) 模式下生成的 CSS
+## 查看仿真 (Emulated) 模式下生成的 CSS
 
 When using emulated view encapsulation, Angular preprocesses
 all component styles so that they approximate the standard shadow CSS scoping rules.

@@ -1613,7 +1613,7 @@ also encapsulate a style sheet within a specific component.
 
       ### Link tag
 
-      ### Link 标签
+      ### Link标签
 
       <code-example hideCopy>
 
@@ -1639,8 +1639,8 @@ also encapsulate a style sheet within a specific component.
       With the Angular CLI, you can configure your global styles in the `.angular-cli.json` file.
       You can rename the extension to `.scss` to use sass.
 
-      在Angular2中，我们可以继续在`index.html`中使用link标签来为应用程序定义样式。
-      但是也能在组件中封装样式。
+      使用 Angular CLI，我们可以在 `.angular-cli.json` 文件中配置全局样式。
+      也可以把扩展名改为 `.scss` 来使用 sass。
 
       ### StyleUrls
 

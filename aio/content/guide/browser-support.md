@@ -790,7 +790,7 @@ computed with the <a href="http://closure-compiler.appspot.com/home">closure com
 
 ## Polyfills for non-CLI users
 
-## 不使用 CLI 的用户的腻子脚本
+## 非 CLI 的用户的腻子脚本
 
 If you are not using the CLI, you should add your polyfill scripts directly to the host web page (`index.html`), perhaps like this.
 

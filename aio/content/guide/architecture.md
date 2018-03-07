@@ -307,11 +307,11 @@ template for our `HeroListComponent`:
 Although this template uses typical HTML elements like `<h2>` and  `<p>`, it also has some differences. Code like `*ngFor`, `{{hero.name}}`, `(click)`, `[hero]`, and `<app-hero-detail>` uses Angular's [template syntax](guide/template-syntax).
 
 模板除了可以使用像`<h2>`和`<p>`这样的典型的 HTML 元素，还能使用其它元素。
-例如，像`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<hero-detail>`这样的代码使用了 Angular 的[模板语法](guide/template-syntax)。
+例如，像`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<app-hero-detail>`这样的代码使用了 Angular 的[模板语法](guide/template-syntax)。
 
 In the last line of the template, the `<app-hero-detail>` tag is a custom element that represents a new component, `HeroDetailComponent`.
 
-在模板的最后一行，`<hero-detail>`标签就是一个用来表示新组件`HeroDetailComponent`的自定义元素。
+在模板的最后一行，`<app-hero-detail>`标签就是一个用来表示新组件`HeroDetailComponent`的自定义元素。
 
 The `HeroDetailComponent` is a *different* component than the `HeroListComponent` you've been reviewing.
 The `HeroDetailComponent` (code not shown) presents facts about a particular hero, the
@@ -326,7 +326,7 @@ The `HeroDetailComponent` is a **child** of the `HeroListComponent`.
 
 Notice how `<app-hero-detail>` rests comfortably among native HTML elements. Custom components mix seamlessly with native HTML in the same layouts.
 
-注意到了吗？`<hero-detail>`舒适地躺在原生 HTML 元素之间。
+注意到了吗？`<app-hero-detail>`舒适地躺在原生 HTML 元素之间。
 自定义组件和原生 HTML 在同一布局中融合得天衣无缝。
 
 <hr class="clear"/>
@@ -384,8 +384,8 @@ where it finds a `<app-hero-list>` tag in *parent* HTML.
 For example, if an app's  HTML contains `<app-hero-list></app-hero-list>`, then
 Angular inserts an instance of the `HeroListComponent` view between those tags.
 
-   `selector`： CSS 选择器，它告诉 Angular 在*父级* HTML 中查找`<hero-list>`标签，创建并插入该组件。
-    例如，如果应用的 HTML 包含`<hero-list></hero-list>`， Angular 就会把`HeroListComponent`的一个实例插入到这个标签中。
+   `selector`： CSS 选择器，它告诉 Angular 在*父级* HTML 中查找`<app-hero-list>`标签，创建并插入该组件。
+    例如，如果应用的 HTML 包含`<app-hero-list></app-hero-list>`， Angular 就会把`HeroListComponent`的一个实例插入到这个标签中。
 
 * `templateUrl`: module-relative address of this component's HTML template, shown [above](guide/architecture#templates).
 

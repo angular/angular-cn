@@ -160,8 +160,8 @@ The `<app-question>` tag matches the `DynamicFormQuestionComponent`,
 the component responsible for rendering the details of each _individual_
 question based on values in the data-bound question object.
 
-它代表了问卷问题列表，每个问题都被绑定到一个`<df-question>`组件元素。
-`<df-question>`标签匹配到的是组件`DynamicFormQuestionComponent`，该组件的职责是根据各个问卷问题对象的值来动态渲染表单控件。
+它代表了问卷问题列表，每个问题都被绑定到一个`<app-question>`组件元素。
+`<app-question>`标签匹配到的是组件`DynamicFormQuestionComponent`，该组件的职责是根据各个问卷问题对象的值来动态渲染表单控件。
 
 <code-tabs>
 

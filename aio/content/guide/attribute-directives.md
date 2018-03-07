@@ -180,6 +180,8 @@ This first implementation sets the background color of the host element to yello
 
 ## Apply the attribute directive
 
+## 使用属性型指令
+
 To use the new `HighlightDirective`, add a paragraph (`<p>`) element to the template of the root `AppComponent` and apply the directive as an attribute.
 
 运行应用，就会看到我们的指令确实高亮了段落中的文本。
@@ -216,7 +218,7 @@ The directive could be more dynamic.
 It could detect when the user mouses into or out of the element
 and respond by setting or clearing the highlight color.
 
-当前，`myHighlight`只是简单的设置元素的颜色。
+当前，`appHighlight`只是简单的设置元素的颜色。
 这个指令应该在用户鼠标悬浮一个元素时，设置它的颜色。
 
 Begin by adding `HostListener` to the list of imported symbols.
@@ -352,8 +354,8 @@ and sets the directive's highlight color with a property binding.
 You're re-using the directive's attribute selector (`[appHighlight]`) to do both jobs.
 That's a crisp, compact syntax.
 
-`[myHighlight]`属性同时做了两件事：把这个高亮指令应用到了`<p>`元素上，并且通过属性绑定设置了该指令的高亮颜色。
-我们复用了该指令的属性选择器`[myHighlight]`来同时完成它们。
+`[appHighlight]`属性同时做了两件事：把这个高亮指令应用到了`<p>`元素上，并且通过属性绑定设置了该指令的高亮颜色。
+我们复用了该指令的属性选择器`[appHighlight]`来同时完成它们。
 这是清爽、简约的语法。
 
 You'll have to rename the directive's `highlightColor` property to `appHighlight` because that's now the color property binding name.
@@ -364,7 +366,7 @@ You'll have to rename the directive's `highlightColor` property to `appHighlight
 
 This is disagreeable. The word, `appHighlight`, is a terrible property name and it doesn't convey the property's intent.
 
-这可不好。因为`myHighlight`是一个糟糕的属性名，而且不能反映该属性的意图。
+这可不好。因为`appHighlight`是一个糟糕的属性名，而且不能反映该属性的意图。
 
 {@a input-alias}
 
@@ -385,7 +387,7 @@ Restore the original property name and specify the selector as the alias in the 
 _Inside_ the directive the property is known as `highlightColor`.
 _Outside_ the directive, where you bind to it, it's known as `appHighlight`.
 
-在指令内部，该属性叫`highlightColor`，在外部，当我们绑定到它时，它叫`myHighlight`。
+在指令内部，该属性叫`highlightColor`，在外部，当我们绑定到它时，它叫`appHighlight`。
 
 You get the best of both worlds: the property name you want and the binding syntax you want:
 
@@ -397,7 +399,7 @@ Now that you're binding via the alias to the `highlightColor`, modify the `onMou
 If someone neglects to bind to `appHighlightColor`, highlight the host element in red:
 
 现在，我们绑定到了`highlightColor`属性，并修改`onMouseEnter()`方法来使用它。
-如果有人忘了绑定到`highlightColor`，那就用红色进行高亮。
+如果有人忘了绑定到`appHighlightColor`，那就用红色进行高亮。
 
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" linenums="false" title="src/app/highlight.directive.ts (mouse enter)" region="mouse-enter"></code-example>
 
@@ -469,7 +471,7 @@ then with the `defaultColor`, and falls back to "red" if both properties are und
 
 How do you bind to a second property when you're already binding to the `appHighlight` attribute name?
 
-当已经绑定过`myHighlight`属性时，要如何绑定到第二个属性呢？
+当已经绑定过`appHighlight`属性时，要如何绑定到第二个属性呢？
 
 As with components, you can add as many directive property bindings as you need by stringing them along in the template.
 The developer should be able to write the following template HTML to both bind to the `AppComponent.color`
@@ -623,5 +625,5 @@ Now apply that reasoning to the following example:
   Therefore, the directive property must carry the `@Input` decorator.
 
 
-   `myHighlight`属性位于左侧，它引用了`MyHighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
+   `appHighlight`属性位于左侧，它引用了`HighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
 所以，该属性必须带`@Input`装饰器。

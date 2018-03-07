@@ -248,6 +248,8 @@ region="ng-imports">
 
 When the browser refreshes, the app should work again. You can edit the hero's name and see the changes reflected immediately in the `<h2>` above the textbox.
 
+浏览器刷新。又见到我们的英雄了。我们可以编辑英雄的名字，也能看到这个改动立刻体现在`<h2>`中。
+
 ### Declare _HeroesComponent_ 
 
 Every component must be declared in _exactly one_ [NgModule](guide/ngmodules).
