@@ -17,7 +17,6 @@ export function lookup(english: string, filename: RegExp = /.*/): DictEntry[] {
 export function kernelText(text: string): string {
   return text
     .replace(/[\s\n]+/g, '')
-    .replace(/^#+/g, '')
     .replace(/\.$/g, '')
     .trim();
 }

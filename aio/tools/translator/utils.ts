@@ -17,12 +17,12 @@ export function originalIsNotTag(entry: DictEntry): boolean {
   return !isTagLine(entry.original);
 }
 
-export function isOnlyTag(text: string) {
+export function isOnlyBeginTag(text: string) {
   return /^\s*<\w+>\s*$/.test(text);
 }
 
-export function originalIsOnlyTag(entry: DictEntry): boolean {
-  return !isOnlyTag(entry.original);
+export function originalIsNotOnlyBeginTag(entry: DictEntry): boolean {
+  return !isOnlyBeginTag(entry.original);
 }
 
 export function isNotImg(entry: DictEntry): boolean {
@@ -53,10 +53,10 @@ export function normalizeLines(text: string): string {
   text = text.replace(hxPattern, '\n$1\n\n');
   const leadHxPattern = /^( *#.*)\n/g;
   text = text.replace(leadHxPattern, '$1\n\n');
-  const oneLinePairedTagPattern = /\n( *)<(p|code-example|div)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
+  const oneLinePairedTagPattern = /\n( *)<(p|code-example|div|h\d+|a)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n\n');
-  const oneLineHnTagPattern = /\n( *)<(h\d+|th|td)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
-  text = text.replace(oneLineHnTagPattern, '\n\n$1<$2$3>\n\n$1$4\n\n$1</$2>$5\n\n');
+  const oneLineThTdTagPattern = /\n( *)<(th|td)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
+  text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1$4\n\n$1</$2>$5\n\n');
   const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)\n/g;
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n\n');
   const atTagCommentPattern = /\n( *)({@a.*})( *)\n/g;
@@ -66,8 +66,8 @@ export function normalizeLines(text: string): string {
   const multiLinePairedTagPattern = /\n( *)<(header|p)( *[^> \n]*)>\n*(.*?)\n*( *)<\/\2>( *)\n/g;
   text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$4\n\n$5</$2>$6\n\n');
 
-  const multiLineCodePattern = /\n( *)```( *)\n/g;
-  text = text.replace(multiLineCodePattern, '\n\n$1```$2\n\n');
+  const multiLineCodePattern = /\n( *)```(\w*)( *)\n/g;
+  text = text.replace(multiLineCodePattern, '\n\n$1```$2$3\n\n');
 
   const multipleBlankLinePattern = /\n\s*\n+/g;
   text = text.replace(multipleBlankLinePattern, '\n\n');

@@ -13,7 +13,7 @@ This guide explains how to build with the AOT compiler using different compiler 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">观看 Angular 编译器的作者Tobias Bosch 在 AngularConnect 2016 上对编译器的解释。</a>
-  
+
 </div>
 
 {@a overview}
@@ -35,10 +35,8 @@ Angular offers two ways to compile your application:
 JIT compilation is the default when you run the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
-
   ng build
   ng serve
-
 </code-example>
 
 {@a compile}
@@ -46,10 +44,8 @@ JIT compilation is the default when you run the _build-only_ or the _build-and-s
 For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
 <code-example language="sh" class="code-shell">
-
   ng build --aot
   ng serve --aot
-
 </code-example>
 
 <div class="l-sub-section">
@@ -126,6 +122,7 @@ You can control your app compilation by providing template compiler options in t
 `"angularCompilerOptions"` object as shown below:
 
 ```json
+
 {
   "compilerOptions": {
     "experimentalDecorators": true,
@@ -137,6 +134,7 @@ You can control your app compilation by providing template compiler options in t
     ...
   }
 }
+
 ```
 
 ### *skipMetadataEmit*
@@ -316,6 +314,7 @@ In the following example, the `@Component()` metadata object and the class const
 在下列范例中，`@Component()` 元数据对象和类的构造函数会告诉 Angular 如何创建和显示 `TypicalComponent` 的实例。
 
 ```typescript
+
 @Component({
   selector: 'app-typical',
   template: '<div>A typical component for {{data.name}}</div>'
@@ -324,6 +323,7 @@ export class TypicalComponent {
   @Input() data: TypicalData;
   constructor(private someService: SomeService) { ... }
 }
+
 ```
 
 The Angular compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
@@ -435,10 +435,12 @@ piece of metadata to generate the application code.
  如果你希望`ngc`立即汇报这些语法错误，而不要生成带有错误信息的`.metadata.json`文件，可以到`tsconfig`中设置 `strictMetadataEmit` 选项。
 
 ```
+
   "angularCompilerOptions": {
    ...
    "strictMetadataEmit" : true
  }
+
  ```
 
 Angular libraries have this option to ensure that all Angular `.metadata.json` files are clean and it is a best practice to do the same when building your own libraries.
@@ -448,6 +450,7 @@ Angular 库通过这个选项来确保所有的 `.metadata.json` 文件都是干
 </div>
 
 {@a function-expression}
+
 {@a arrow-functions}
 
 ### No arrow functions
@@ -458,10 +461,12 @@ and [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Re
 Consider the following component decorator:
 
 ```typescript
+
 @Component({
   ...
   providers: [{provide: server, useFactory: () => new Server()}]
 })
+
 ```
 
 The AOT _collector_ does not support the arrow function, `() => new Server()`, in a metadata expression.
@@ -472,6 +477,7 @@ When the compiler later interprets this node, it reports an error that invites y
 You can fix the error by converting to this:
 
 ```typescript
+
 export function serverFactory() {
   return new Server();
 }
@@ -480,6 +486,7 @@ export function serverFactory() {
   ...
   providers: [{provide: server, useFactory: serverFactory}]
 })
+
 ```
 
 Beginning in version 5, the compiler automatically performs this rewritting while emitting the `.js` file.
@@ -496,6 +503,7 @@ The compiler only supports calls to a small set of functions and will use `new` 
 ### Folding
 
 {@a exported-symbols}
+
 The compiler can only resolve references to **_exported_** symbols.
 Fortunately, the _collector_ enables limited use of non-exported symbols through _folding_.
 
@@ -506,12 +514,14 @@ For example, the _collector_ can evaluate the expression `1 + 2 + 3 + 4` and rep
 This process is called _folding_. An expression that can be reduced in this manner is _foldable_.
 
 {@a var-declaration}
+
 The collector can evaluate references to
 module-local `const` declarations and initialized `var` and `let` declarations, effectively removing them from the `.metadata.json` file.
 
 Consider the following component definition:
 
 ```typescript
+
 const template = '<div>{{hero.name}}</div>';
 
 @Component({
@@ -521,6 +531,7 @@ const template = '<div>{{hero.name}}</div>';
 export class HeroComponent {
   @Input() hero: Hero;
 }
+
 ```
 
 The compiler could not refer to the `template` constant because it isn't exported.
@@ -529,6 +540,7 @@ But the _collector_ can _fold_ the `template` constant into the metadata definit
 The effect is the same as if you had written:
 
 ```typescript
+
 @Component({
   selector: 'app-hero',
   template: '<div>{{hero.name}}</div>'
@@ -536,6 +548,7 @@ The effect is the same as if you had written:
 export class HeroComponent {
   @Input() hero: Hero;
 }
+
 ```
 
 There is no longer a reference to `template` and, therefore, nothing to trouble the compiler when it later interprets the _collector's_ output in `.metadata.json`.
@@ -543,6 +556,7 @@ There is no longer a reference to `template` and, therefore, nothing to trouble 
 You can take this example a step further by including the `template` constant in another expression:
 
 ```typescript
+
 const template = '<div>{{hero.name}}</div>';
 
 @Component({
@@ -552,6 +566,7 @@ const template = '<div>{{hero.name}}</div>';
 export class HeroComponent {
   @Input() hero: Hero;
 }
+
 ```
 
 The _collector_ reduces this expression to its equivalent _folded_ string:
@@ -600,6 +615,7 @@ Decorated component class members must be public. You cannot make an `@Input()` 
 Data bound properties must also be public.
 
 ```typescript
+
 // BAD CODE - title is private
 @Component({
   selector: 'app-root',
@@ -608,9 +624,11 @@ Data bound properties must also be public.
 export class AppComponent {
   private title = 'My App'; // Bad
 }
+
 ```
 
 {@a supported-functions}
+
 Most importantly, the compiler only generates code to create instances of certain classes, support certain decorators, and call certain functions from the following lists.
 
 ### New instances
@@ -650,9 +668,11 @@ methods that return an expression.
 For example, consider the following function:
 
 ```typescript
+
 export function wrapInArray<T>(value: T): T[] {
   return [value];
 }
+
 ```
 
 You can call the `wrapInArray` in a metadata definition because it returns the value of an expression that conforms to the compiler's restrictive JavaScript subset.
@@ -660,19 +680,23 @@ You can call the `wrapInArray` in a metadata definition because it returns the v
 You might use  `wrapInArray()` like this:
 
 ```typescript
+
 @NgModule({
   declarations: wrapInArray(TypicalComponent)
 })
 export class TypicalModule {}
+
 ```
 
 The compiler treats this usage as if you had written:
 
 ```typescript
+
 @NgModule({
   declarations: [TypicalComponent]
 })
 export class TypicalModule {}
+
 ```
 
 The collector is simplistic in its determination of what qualifies as a macro
@@ -692,6 +716,7 @@ the compiler doesn't need to know the expression's value&mdash;it just needs to 
 You might write something like:
 
 ```typescript
+
 class TypicalServer {
 
 }
@@ -700,6 +725,7 @@ class TypicalServer {
   providers: [{provide: SERVER, useFactory: () => TypicalServer}]
 })
 export class TypicalModule {}
+
 ```
 
 Without rewriting, this would be invalid because lambdas are not supported and `TypicalServer` is not exported.
@@ -707,6 +733,7 @@ Without rewriting, this would be invalid because lambdas are not supported and `
 To allow this, the compiler automatically rewrites this to something like:
 
 ```typescript
+
 class TypicalServer {
 
 }
@@ -717,6 +744,7 @@ export const ɵ0 = () => new TypicalServer();
   providers: [{provide: SERVER, useFactory: ɵ0}]
 })
 export class TypicalModule {}
+
 ```
 
 This allows the compiler to generate a reference to `ɵ0` in the
@@ -751,6 +779,7 @@ Language features outside of the compiler's [restricted expression syntax](#expr
 can produce this error, as seen in the following example:
 
 ```
+
 // ERROR
 export class Fooish { ... }
 ...
@@ -759,6 +788,7 @@ const prop = typeof Fooish; // typeof is not valid in metadata
   // bracket notation is not valid in metadata
   { provide: 'token', useValue: { [prop]: 'value' } };
   ...
+
 ```
 
 You can use `typeof` and bracket notation in normal application code.
@@ -785,6 +815,7 @@ The compiler encountered a referenced to a locally defined symbol that either wa
 Here's a `provider` example of the problem.
 
 ```
+
 // ERROR
 let foo: number; // neither exported nor initialized
 
@@ -796,26 +827,33 @@ let foo: number; // neither exported nor initialized
   ]
 })
 export class MyComponent {}
+
 ```
+
 The compiler generates the component factory, which includes the `useValue` provider code, in a separate module. _That_ factory module can't reach back to _this_ source module to access the local (non-exported) `foo` variable.
 
 You could fix the problem by initializing `foo`.
 
 ```
+
 let foo = 42; // initialized
+
 ```
 
 The compiler will [fold](#folding) the expression into the provider as if you had written this.
 
 ```
+
   providers: [
     { provide: Foo, useValue: 42 }
   ]
+
 ```
 
 Alternatively, you can fix it by exporting `foo` with the expectation that `foo` will be assigned at runtime when you actually know its value.
 
 ```
+
 // CORRECTED
 export let foo: number; // exported
 
@@ -827,6 +865,7 @@ export let foo: number; // exported
   ]
 })
 export class MyComponent {}
+
 ```
 
 Adding `export` often works for variables referenced in metadata such as `providers` and `animations` because the compiler can generate _references_ to the exported variables in these expressions. It doesn't need the _values_ of those variables.
@@ -836,6 +875,7 @@ in order to generate code.
 For example, it doesn't work for the `template` property.
 
 ```
+
 // ERROR
 export let someTemplate: string; // exported but not initialized
 
@@ -844,6 +884,7 @@ export let someTemplate: string; // exported but not initialized
   template: someTemplate
 })
 export class MyComponent {}
+
 ```
 
 The compiler needs the value of the `template` property _right now_ to generate the component factory.
@@ -869,6 +910,7 @@ The following example tries to set the component's `template` property to the va
 the exported `someTemplate` variable which is declared but _unassigned_.
 
 ```
+
 // ERROR
 export let someTemplate: string;
 
@@ -877,11 +919,13 @@ export let someTemplate: string;
   template: someTemplate
 })
 export class MyComponent {}
+
 ```
 
 You'd also get this error if you imported `someTemplate` from some other module and neglected to initialize it there.
 
 ```
+
 // ERROR - not initialized there either
 import { someTemplate } from './config';
 
@@ -890,6 +934,7 @@ import { someTemplate } from './config';
   template: someTemplate
 })
 export class MyComponent {}
+
 ```
 
 The compiler cannot wait until runtime to get the template information.
@@ -900,6 +945,7 @@ instructions for building the element based on the template.
 To correct this error, provide the initial value of the variable in an initializer clause _on the same line_.
 
 ```
+
 // CORRECTED
 export let someTemplate = '<h1>Greetings from Angular</h1>';
 
@@ -908,6 +954,7 @@ export let someTemplate = '<h1>Greetings from Angular</h1>';
   template: someTemplate
 })
 export class MyComponent {}
+
 ```
 
 <hr>
@@ -926,6 +973,7 @@ For example, you may have defined a class and used it as an injection token in a
 but neglected to export that class.
 
 ```
+
 // ERROR
 abstract class MyStrategy { }
 
@@ -934,6 +982,7 @@ abstract class MyStrategy { }
     { provide: MyStrategy, useValue: ... }
   ]
   ...
+
 ```
 
 Angular generates a class factory in a separate module and that
@@ -941,6 +990,7 @@ factory [can only access exported classes](#exported-symbols).
 To correct this error, export the referenced class.
 
 ```
+
 // CORRECTED
 export abstract class MyStrategy { }
 
@@ -949,6 +999,7 @@ export abstract class MyStrategy { }
     { provide: MyStrategy, useValue: ... }
   ]
   ...
+
 ```
 
 <hr>
@@ -960,6 +1011,7 @@ Metadata referenced a function that wasn't exported.
 For example, you may have set a providers `useFactory` property to a locally defined function that you neglected to export.
 
 ```
+
 // ERROR
 function myStrategy() { ... }
 
@@ -968,6 +1020,7 @@ function myStrategy() { ... }
     { provide: MyStrategy, useFactory: myStrategy }
   ]
   ...
+
 ```
 
 Angular generates a class factory in a separate module and that
@@ -975,6 +1028,7 @@ factory [can only access exported functions](#exported-symbols).
 To correct this error, export the function.
 
 ```
+
 // CORRECTED
 export function myStrategy() { ... }
 
@@ -983,6 +1037,7 @@ export function myStrategy() { ... }
     { provide: MyStrategy, useFactory: myStrategy }
   ]
   ...
+
 ```
 
 <hr>
@@ -1001,6 +1056,7 @@ The compiler does not currently support [function expressions or lambda function
 For example, you cannot set a provider's `useFactory` to an anonymous function or arrow function like this.
 
 ```
+
 // ERROR
   ...
   providers: [
@@ -1008,9 +1064,13 @@ For example, you cannot set a provider's `useFactory` to an anonymous function o
     { provide: OtherStrategy, useFactory: () => { ... } }
   ]
   ...
+
 ```
+
 You also get this error if you call a function or method in a provider's `useValue`.
+
 ```
+
 // ERROR
 import { calculateValue } from './utilities';
 
@@ -1019,12 +1079,12 @@ import { calculateValue } from './utilities';
     { provide: SomeValue, useValue: calculateValue() }
   ]
   ...
+
 ```
 
 To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
 
 <code-example linenums="false">
-
 // CORRECTED
 import { calculateValue } from './utilities';
 
@@ -1040,7 +1100,6 @@ export function someValueFactory() {
     { provide: SomeValue, useFactory: someValueFactory }
   ]
   ...
-
 </code-example>
 
 <hr>
@@ -1060,7 +1119,6 @@ The compiler does not support references to variables assigned by [destructuring
 For example, you cannot write something like this:
 
 <code-example linenums="false">
-
 // ERROR
 import { configuration } from './configuration';
 
@@ -1072,13 +1130,11 @@ const {foo, bar} = configuration;
     {provide: Bar, useValue: bar},
   ]
   ...
-
 </code-example>
 
 To correct this error, refer to non-destructured values.
 
 <code-example linenums="false">
-
 // CORRECTED
 import { configuration } from './configuration';
   ...
@@ -1087,7 +1143,6 @@ import { configuration } from './configuration';
     {provide: Bar, useValue: configuration.bar},
   ]
   ...
-
 </code-example>
 
 <hr>
@@ -1103,12 +1158,15 @@ You'll get an error if you reference it in the component constructor,
 which the compiler must statically analyze.
 
 ```
+
 // ERROR
 @Component({ })
 export class MyComponent {
   constructor (private win: Window) { ... }
 }
+
 ```
+
 TypeScript understands ambiant types so you don't import them.
 The Angular compiler does not understand a type that you neglect to export or import.
 
@@ -1130,7 +1188,6 @@ you can finesse the problem in four steps:
 Here's an illustrative example.
 
 <code-example linenums="false">
-
 // CORRECTED
 import { Inject } from '@angular/core';
 
@@ -1146,7 +1203,6 @@ export function _window() { return window; }
 export class MyComponent {
   constructor (@Inject(WINDOW) private win: Window) { ... }
 }
-
 </code-example>
 
 The `Window` type in the constructor is no longer a problem for the compiler because it
@@ -1155,7 +1211,6 @@ uses the `@Inject(WINDOW)` to generate the injection code.
 Angular does something similar with the `DOCUMENT` token so you can inject the browser's `document` object (or an abstraction of it, depending upon the platform in which the application runs).
 
 <code-example linenums="false">
-
 import { Inject }   from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -1163,7 +1218,6 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class MyComponent {
   constructor (@Inject(DOCUMENT) private doc: Document) { ... }
 }
-
 </code-example>
 
 <hr>
@@ -1174,15 +1228,19 @@ The compiler expected a name in an expression it was evaluating.
 This can happen if you use a number as a property name as in the following example.
 
 ```
+
 // ERROR
 provider: [{ provide: Foo, useValue: { 0: 'test' } }]
+
 ```
 
 Change the name of the property to something non-numeric.
 
 ```
+
 // CORRECTED
 provider: [{ provide: Foo, useValue: { '0': 'test' } }]
+
 ```
 
 <hr>
@@ -1195,7 +1253,6 @@ that you referenced in metadata.
 The compiler can understand simple enum values but not complex values such as those derived from computed properties.
 
 <code-example linenums="false">
-
 // ERROR
 enum Colors {
   Red = 1,
@@ -1210,7 +1267,6 @@ enum Colors {
     { provide: StrongColor, useValue: Colors.Blue }  // bad
   ]
   ...
-
 </code-example>
 
 Avoid referring to enums with complicated initializers or computed properties.
@@ -1228,14 +1284,18 @@ _Tagged template expressions are not supported in metadata._
 </div>
 
 The compiler encountered a JavaScript ES2015 [tagged template expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals) such as,
+
 ```
+
 // ERROR
 const expression = 'funky';
 const raw = String.raw`A tagged template ${expression} string`;
  ...
  template: '<div>' + raw + '</div>'
  ...
+
 ```
+
 [`String.raw()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw)
 is a _tag function_ native to JavaScript ES2015.
 
@@ -1254,6 +1314,7 @@ This error can occur if you use an expression in the `extends` clause of a class
 Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](https://github.com/angular/angular/pull/17712#discussion_r132025495).
 
 -->
+
 {@a binding-expresion-validation}
 
   ## Phase 3: binding expression validation
@@ -1270,6 +1331,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   For example, consider the following component:
 
   ```typescript
+
   @Component({
     selector: 'my-component',
     template: '{{person.addresss.street}}'
@@ -1277,12 +1339,15 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   class MyComponent {
     person?: Person;
   }
+
   ```
 
   This will produce the following error:
 
   ```
+
   my.component.ts.MyComponent.html(1,1): : Property 'addresss' does not exist on type 'Person'. Did you mean 'address'?
+
   ```
 
   The file name reported in the error message, `my.component.ts.MyComponent.html`, is a synthetic file
@@ -1307,6 +1372,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   interpolation if the value of `person` is initialized as shown below:
 
   ```typescript
+
   @Component({
     selector: 'my-component',
     template: '<span *ngIf="person"> {{person.addresss.street}} </span>'
@@ -1314,6 +1380,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   class MyComponent {
     person?: Person;
   }
+
   ```
 
   Using `*ngIf` allows the TypeScript compiler to infer that the `person` used in the
@@ -1326,7 +1393,9 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   like `*ngIf`. This static member for `*ngIf` is:
 
   ```typescript
+
     public static ngIfUseIfTypeGuard: void;
+
   ```
 
   This declares that the input property `ngIf` of the `NgIf` directive should be treated as a
@@ -1346,6 +1415,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   is suppressed in the example by using `address!.street`.
 
   ```typescript
+
   @Component({
     selector: 'my-component',
     template: '<span *ngIf="person"> {{person.name}} lives on {{address!.street}} </span>'
@@ -1359,6 +1429,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
       this.address = address;
     }
   }
+
   ```
 
   The non-null assertion operator should be used sparingly as refactoring of the component
@@ -1368,6 +1439,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   in the `*ngIf`as shown below:
 
   ```typescript
+
   @Component({
     selector: 'my-component',
     template: '<span *ngIf="person && address"> {{person.name}} lives on {{address.street}} </span>'
@@ -1381,6 +1453,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
       this.address = address;
     }
   }
+
   ```
 
   ### Disabling type checking using `$any()`
@@ -1394,6 +1467,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   by casting `person` to the `any` type.
 
   ```typescript
+
   @Component({
     selector: 'my-component',
     template: '{{$any(person).addresss.street}}'
@@ -1401,6 +1475,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   class MyComponent {
     person?: Person;
   }
+
   ```
 
 ## Summary

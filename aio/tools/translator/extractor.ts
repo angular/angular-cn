@@ -2,11 +2,10 @@ import * as globby from 'globby';
 import { DictEntry } from './dict-entry';
 import {
   isNotCnPages,
-  isOnlyTag,
+  isOnlyBeginTag,
   normalizeLines,
   originalIsNotChinese,
-  originalIsNotTag,
-  originalIsOnlyTag,
+  originalIsNotOnlyBeginTag,
   translationHasNotCodeExample,
 } from './utils';
 
@@ -30,11 +29,11 @@ export function gatherTranslations(text: string): DictEntry[] {
     if (isTranslation(translation)) {
       const original = purifyText(lines[i - 1]);
       // 对于包裹在 html tag 中的翻译文本进行特殊处理
-      if (isOnlyTag(original)) {
-        const prevTag = lines[i - 4].trim();
+      if (isOnlyBeginTag(original)) {
+        const prevBeginTag = lines[i - 4].trim();
         const prevEndTag = lines[i - 2].trim();
         const thisEndTag = lines[i + 1].trim();
-        if (original === prevTag && prevEndTag === thisEndTag) {
+        if (original === prevBeginTag && prevEndTag === thisEndTag) {
           result.push({
             original: lines[i - 3],
             translation: lines[i],
@@ -49,8 +48,7 @@ export function gatherTranslations(text: string): DictEntry[] {
     .filter(isNotCnPages)
     .filter(translationHasNotCodeExample)
     .filter(originalIsNotChinese)
-    .filter(originalIsNotTag)
-    .filter(originalIsOnlyTag)
+    .filter(originalIsNotOnlyBeginTag)
     .map(purifyEntry);
 }
 

@@ -45,6 +45,17 @@ describe('从对照翻译文件中采集生成字典', () => {
 
   });
 
+  it('处理 a 标签包裹的单行翻译文本', () => {
+    const result = gatherTranslations(`
+    <a>a</a>
+
+    <a>一</a>
+    
+    `);
+    expect(result).eql([{original: '<a>a</a>', translation: '<a>一</a>'}]);
+
+  });
+
   it('从真实的文件中采集（测试）', function () {
     const fs = require('fs');
     const content = fs.readFileSync(dirs.content + 'guide/forms.md', 'utf-8');

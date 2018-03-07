@@ -61,11 +61,7 @@ def`);
     expect(lines).eql(`
     a
 
-    <h3 id="abc">
-
-    line
-
-    </h3>
+    <h3 id="abc">line</h3>
 
     b
 `);

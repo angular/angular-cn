@@ -4,7 +4,7 @@ import { kernelText, lookup } from './translate';
 
 describe('根据字典进行翻译', () => {
   it('抽取核心字符', function () {
-    expect(kernelText(' # Forms   ABC. ')).eql('FormsABC');
+    expect(kernelText(' # Forms   ABC. ')).eql('#FormsABC');
   });
 
   it('查字典', () => {
