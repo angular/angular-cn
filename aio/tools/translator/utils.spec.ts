@@ -212,6 +212,19 @@ def`);
 
 `);
   });
+  it('拆解独行的 li', function () {
+    expect(normalizeLines(`
+<li><span>abc</span></li>
+`)).eql(`
+
+<li>
+
+<span>abc</span>
+
+</li>
+
+`);
+  });
   it('不要拆解行内的 html tag', function () {
     expect(normalizeLines(`\na <b> c\n\n`)).eql('\na <b> c\n\n');
   });

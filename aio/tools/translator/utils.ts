@@ -55,7 +55,7 @@ export function normalizeLines(text: string): string {
   text = text.replace(leadHxPattern, '$1\n\n');
   const oneLinePairedTagPattern = /\n( *)<(p|code-example|div|h\d+|a)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n\n');
-  const oneLineThTdTagPattern = /\n( *)<(th|td)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
+  const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^> \n]*)>(.*)<\/\2>( *)\n/g;
   text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1$4\n\n$1</$2>$5\n\n');
   const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)\n/g;
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n\n');
