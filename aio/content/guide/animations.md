@@ -78,7 +78,7 @@ driven by a model attribute.
 
 我们来构建一个简单的动画，它会让一个元素用模型驱动的方式在两个状态之间转场。
 
-Animations can be defined inside `@Component` metadata.
+Animations can be defined inside `@Component` metadata. 
 
 动画会被定义在`@Component`元数据中。
 
@@ -162,9 +162,7 @@ controls the timing of switching between one set of styles and the next:
 <code-example path="animations/src/app/hero-list-basic.component.ts" region="transitions" title="src/app/hero-list-basic.component.ts" linenums="false"></code-example>
 
 <figure>
-
   <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active.png" alt="In Angular animations you define states and transitions between states" width="400">
-
 </figure>
 
 If several transitions have the same timing configuration, you can combine
@@ -210,9 +208,7 @@ transitions that apply regardless of which state the animation is in. For exampl
    当在*任意*两个状态之间切换时，`* => *`转场都会生效。
 
 <figure>
-
   <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="The wildcard state can be used to match many different transitions at once" width="400">
-
 </figure>
 
 ### The `void` state
@@ -233,9 +229,7 @@ regardless of what state it was in before it left.
 比如当一个元素离开视图时，`* => void`转场就会生效，而不管它在离场以前是什么状态。
 
 <figure>
-
   <img src="generated/images/guide/animations/ng_animate_transitions_void_in.png" alt="The void state can be used for enter and leave transitions" width="400">
-
 </figure>
 
 The wildcard state `*` also matches `void`.
@@ -283,10 +277,8 @@ These two common animations have their own aliases:
 这两个常见的动画有自己的别名：
 
 <code-example language="typescript">
-
   transition(':enter', [ ... ]); // void => *
   transition(':leave', [ ... ]); // * => void
-
 </code-example>
 
 </div>
@@ -325,9 +317,7 @@ This gives you fine-grained control over each transition:
 现在就对每一种转场都有了细粒度的控制：
 
 <figure>
-
   <img src="generated/images/guide/animations/ng_animate_transitions_inactive_active_void.png" alt="This example transitions between active, inactive, and void states" width="400">
-
 </figure>
 
 <code-example path="animations/src/app/hero-list-enter-leave-states.component.ts" region="animationdef" title="hero-list-enter-leave.component.ts (excerpt)" linenums="false"></code-example>

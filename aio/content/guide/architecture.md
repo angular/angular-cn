@@ -32,9 +32,7 @@ You'll learn the details in the pages that follow. For now, focus on the big pic
 当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。
 
 <figure>
-
   <img src="generated/images/guide/architecture/overview2.png" alt="overview">
-
 </figure>
 
 <div class="l-sub-section">
@@ -42,7 +40,7 @@ You'll learn the details in the pages that follow. For now, focus on the big pic
   The code referenced on this page is available as a <live-example></live-example>.
 
   本章所引用的代码见<live-example></live-example>。
-  
+
 </div>
 
 ## Modules
@@ -492,9 +490,7 @@ from the root of the application component tree through all child components.
 Angular 在每个 JavaScript 事件循环中处理*所有的*数据绑定，它会从组件树的根部开始，递归处理全部子组件。
 
 <figure>
-
   <img src="generated/images/guide/architecture/component-databinding.png" alt="Data Binding">
-
 </figure>
 
 Data binding plays an important role in communication between a template and its component.
@@ -502,9 +498,7 @@ Data binding plays an important role in communication between a template and its
 数据绑定在模板与对应组件的交互中扮演了重要的角色。
 
 <figure>
-
   <img src="generated/images/guide/architecture/parent-child-binding.png" alt="Parent/Child binding">
-
 </figure>
 
 Data binding is also important for communication between parent and child components.
@@ -743,9 +737,7 @@ The process of `HeroService` injection looks a bit like this:
 `HeroService`注入的过程差不多是这样的：
 
 <figure>
-
   <img src="generated/images/guide/architecture/injector-injects.png" alt="Service">
-
 </figure>
 
 If the injector doesn't have a `HeroService`, how does it know how to make one?
@@ -917,5 +909,6 @@ by implementing the lifecycle hook interfaces.
 
 > [**Testing**](guide/testing): Run unit tests on your application parts as they interact with the Angular framework
 using the _Angular Testing Platform_.
+
 
 > [**测试**](guide/testing)：使用 _Angular 测试平台_，在你的应用部件与 Angular 框架交互时进行单元测试。
