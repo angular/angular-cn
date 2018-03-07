@@ -1,4 +1,5 @@
 import { Component, ComponentRef, DoCheck, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { HostListener } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs/Observable';
@@ -69,25 +70,26 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
 
   constructor(
     elementRef: ElementRef,
-    private embedComponentsService: EmbedComponentsService,
-    private logger: Logger,
-    private titleService: Title,
-    private metaService: Meta,
+              private embedComponentsService: EmbedComponentsService,
+              private logger: Logger,
+              private titleService: Title,
+              private metaService: Meta,
     private tocService: TocService
     ) {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
+    swapOriginAndResult(this.hostElement);
 
-    if ( this.hostElement.firstElementChild){
+    if (this.hostElement.firstElementChild) {
       this.currViewContainer = this.hostElement.firstElementChild as HTMLElement;
     }
 
     this.onDestroy$.subscribe(() => this.destroyEmbeddedComponents());
     this.docContents$
-        .switchMap(newDoc => this.render(newDoc))
-        .takeUntil(this.onDestroy$)
-        .subscribe();
+      .switchMap(newDoc => this.render(newDoc))
+      .takeUntil(this.onDestroy$)
+      .subscribe();
   }
 
   ngDoCheck() {
@@ -116,11 +118,11 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
 
     if (hasToc) {
       titleEl!.insertAdjacentHTML('afterend', '<aio-toc class="embedded"></aio-toc>');
-  }
+    }
 
     return () => {
       this.tocService.reset();
-      let title: string|null = '';
+      let title: string | null = '';
 
       // Only create ToC for docs with an `<h1>` heading.
       // If you don't want a ToC, add "no-toc" class to `<h1>`.
@@ -145,23 +147,24 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     this.setNoIndex(doc.id === FILE_NOT_FOUND_ID || doc.id === FETCHING_ERROR_ID);
 
     return this.void$
-        // Security: `doc.contents` is always authored by the documentation team
-        //           and is considered to be safe.
-        .do(() => this.nextViewContainer.innerHTML = doc.contents || '')
-        .do(() => addTitleAndToc = this.prepareTitleAndToc(this.nextViewContainer, doc.id))
-        .switchMap(() => this.embedComponentsService.embedInto(this.nextViewContainer))
-        .do(() => this.docReady.emit())
-        .do(() => this.destroyEmbeddedComponents())
-        .do(componentRefs => this.embeddedComponentRefs = componentRefs)
-        .switchMap(() => this.swapViews(addTitleAndToc))
-        .do(() => this.docRendered.emit())
-        .catch(err => {
-          const errorMessage = (err instanceof Error) ? err.stack : err;
-          this.logger.error(`[DocViewer] Error preparing document '${doc.id}': ${errorMessage}`);
-          this.nextViewContainer.innerHTML = '';
-          this.setNoIndex(true);
-          return this.void$;
-        });
+    // Security: `doc.contents` is always authored by the documentation team
+    //           and is considered to be safe.
+      .do(() => this.nextViewContainer.innerHTML = doc.contents || '')
+      .do(() => swapOriginAndResult(this.nextViewContainer))
+      .do(() => addTitleAndToc = this.prepareTitleAndToc(this.nextViewContainer, doc.id))
+      .switchMap(() => this.embedComponentsService.embedInto(this.nextViewContainer))
+      .do(() => this.docReady.emit())
+      .do(() => this.destroyEmbeddedComponents())
+      .do(componentRefs => this.embeddedComponentRefs = componentRefs)
+      .switchMap(() => this.swapViews(addTitleAndToc))
+      .do(() => this.docRendered.emit())
+      .catch(err => {
+        const errorMessage = (err instanceof Error) ? err.stack : err;
+        this.logger.error(`[DocViewer] Error preparing document '${doc.id}': ${errorMessage}`);
+        this.nextViewContainer.innerHTML = '';
+        this.setNoIndex(true);
+        return this.void$;
+      });
   }
 
   /**
@@ -169,8 +172,8 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
    */
   private setNoIndex(val: boolean) {
     if (val) {
-      this.metaService.addTag({ name: 'googlebot', content: 'noindex' });
-      this.metaService.addTag({ name: 'robots', content: 'noindex' });
+      this.metaService.addTag({name: 'googlebot', content: 'noindex'});
+      this.metaService.addTag({name: 'robots', content: 'noindex'});
     } else {
       this.metaService.removeTag('name="googlebot"');
       this.metaService.removeTag('name="robots"');
@@ -204,26 +207,26 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
       return 1000 * seconds;
     };
     const animateProp =
-        (elem: HTMLElement, prop: keyof CSSStyleDeclaration, from: string, to: string, duration = 200) => {
-          const animationsDisabled = !DocViewerComponent.animationsEnabled
-                                     || this.hostElement.classList.contains(NO_ANIMATIONS);
-          if (prop === 'length' || prop === 'parentRule') {
-            // We cannot animate length or parentRule properties because they are readonly
-            return this.void$;
-          }
-          elem.style.transition = '';
-          return animationsDisabled
-              ? this.void$.do(() => elem.style[prop] = to)
-              : this.void$
-                    // In order to ensure that the `from` value will be applied immediately (i.e.
-                    // without transition) and that the `to` value will be affected by the
-                    // `transition` style, we need to ensure an animation frame has passed between
-                    // setting each style.
-                    .switchMap(() => raf$).do(() => elem.style[prop] = from)
-                    .switchMap(() => raf$).do(() => elem.style.transition = `all ${duration}ms ease-in-out`)
-                    .switchMap(() => raf$).do(() => (elem.style as any)[prop] = to)
-                    .switchMap(() => timer(getActualDuration(elem))).switchMap(() => this.void$);
-        };
+      (elem: HTMLElement, prop: keyof CSSStyleDeclaration, from: string, to: string, duration = 200) => {
+        const animationsDisabled = !DocViewerComponent.animationsEnabled
+          || this.hostElement.classList.contains(NO_ANIMATIONS);
+        if (prop === 'length' || prop === 'parentRule') {
+          // We cannot animate length or parentRule properties because they are readonly
+          return this.void$;
+        }
+        elem.style.transition = '';
+        return animationsDisabled
+          ? this.void$.do(() => elem.style[prop] = to)
+          : this.void$
+          // In order to ensure that the `from` value will be applied immediately (i.e.
+          // without transition) and that the `to` value will be affected by the
+          // `transition` style, we need to ensure an animation frame has passed between
+          // setting each style.
+            .switchMap(() => raf$).do(() => elem.style[prop] = from)
+            .switchMap(() => raf$).do(() => elem.style.transition = `all ${duration}ms ease-in-out`)
+            .switchMap(() => raf$).do(() => (elem.style as any)[prop] = to)
+            .switchMap(() => timer(getActualDuration(elem))).switchMap(() => this.void$);
+      };
 
     const animateLeave = (elem: HTMLElement) => animateProp(elem, 'opacity', '1', '0.1');
     const animateEnter = (elem: HTMLElement) => animateProp(elem, 'opacity', '0.1', '1');
@@ -232,24 +235,60 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
 
     if (this.currViewContainer.parentElement) {
       done$ = done$
-          // Remove the current view from the viewer.
-          .switchMap(() => animateLeave(this.currViewContainer))
-          .do(() => this.currViewContainer.parentElement!.removeChild(this.currViewContainer))
-          .do(() => this.docRemoved.emit());
+      // Remove the current view from the viewer.
+        .switchMap(() => animateLeave(this.currViewContainer))
+        .do(() => this.currViewContainer.parentElement!.removeChild(this.currViewContainer))
+        .do(() => this.docRemoved.emit());
     }
 
     return done$
-        // Insert the next view into the viewer.
-        .do(() => this.hostElement.appendChild(this.nextViewContainer))
-        .do(() => onInsertedCb())
-        .do(() => this.docInserted.emit())
-        .switchMap(() => animateEnter(this.nextViewContainer))
-        // Update the view references and clean up unused nodes.
-        .do(() => {
-          const prevViewContainer = this.currViewContainer;
-          this.currViewContainer = this.nextViewContainer;
-          this.nextViewContainer = prevViewContainer;
-          this.nextViewContainer.innerHTML = '';  // Empty to release memory.
-        });
+    // Insert the next view into the viewer.
+      .do(() => this.hostElement.appendChild(this.nextViewContainer))
+      .do(() => onInsertedCb())
+      .do(() => this.docInserted.emit())
+      .switchMap(() => animateEnter(this.nextViewContainer))
+      // Update the view references and clean up unused nodes.
+      .do(() => {
+        const prevViewContainer = this.currViewContainer;
+        this.currViewContainer = this.nextViewContainer;
+        this.nextViewContainer = prevViewContainer;
+        this.nextViewContainer.innerHTML = '';  // Empty to release memory.
+      });
+  }
+
+  @HostListener('click', ['$event'])
+  toggleTranslationOrigin($event: MouseEvent): void {
+    const element = findTranslationResult($event.target as Element);
+    if (element && element.hasAttribute('translation-result')) {
+      const origin = element.nextElementSibling;
+      if (!origin || origin.hasAttribute('translation-result') || origin.tagName !== element.tagName) {
+        return;
+      }
+
+      if (origin.getAttribute('translation-origin') === 'on') {
+        origin.setAttribute('translation-origin', 'off');
+      } else {
+        origin.setAttribute('translation-origin', 'on');
+      }
+    }
+  }
+
+}
+
+function findTranslationResult(element: Element | null): Element | null {
+  while (element && !element.hasAttribute('translation-result')) {
+    element = element.parentElement;
+  }
+  return element;
+}
+
+function swapOriginAndResult(root: Element): void {
+  const results = root.querySelectorAll('[translation-result]');
+  for (let i = 0; i < results.length; ++i) {
+    const result = results.item(i);
+    const origin = result.previousElementSibling;
+    if (origin && origin.hasAttribute('translation-origin') && origin.parentElement) {
+      origin.parentElement.insertBefore(result, origin);
+    }
   }
 }
