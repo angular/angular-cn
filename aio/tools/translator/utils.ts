@@ -66,6 +66,9 @@ export function normalizeLines(text: string): string {
   const multiLinePairedTagPattern = /\n( *)<(header|p)( *[^> \n]*)>\n*(.*?)\n*( *)<\/\2>( *)\n/g;
   text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$4\n\n$5</$2>$6\n\n');
 
+  const blockTagPattern = /\n( *)<(\/?)(td|th|div)( *[^> \n]*)>( *)\n/g;
+  text = text.replace(blockTagPattern, '\n\n$1<$2$3$4>$5\n\n');
+
   const multiLineCodePattern = /\n( *)```(\w*)( *)\n/g;
   text = text.replace(multiLineCodePattern, '\n\n$1```$2$3\n\n');
 

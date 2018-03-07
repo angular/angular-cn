@@ -121,7 +121,7 @@
   },
   {
     "original": "For more information, see [Filters/pipes](guide/ajs-quick-reference#filters-pipes) below.",
-    "translation": "请参见下面[过滤器/管道](guide/ajs-quick-reference#filters-pipes)了解更多信息。\n    </td>",
+    "translation": "请参见下面[过滤器/管道](guide/ajs-quick-reference#filters-pipes)了解更多信息。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -146,7 +146,7 @@
   },
   {
     "original": "For more information, see the [ngFor micro-syntax](guide/template-syntax#microsyntax)\n      section of the [Template Syntax](guide/template-syntax) page.",
-    "translation": "要了解更多信息，请参见[模板语法](guide/template-syntax)中的[ngFor微语法](guide/template-syntax#microsyntax)部分。\n    </td>",
+    "translation": "要了解更多信息，请参见[模板语法](guide/template-syntax)中的[ngFor微语法](guide/template-syntax#microsyntax)部分。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -311,7 +311,7 @@
   },
   {
     "original": "Routing is handled differently in Angular.",
-    "translation": "路由在Angular中的处理方式不同。\n    </td>",
+    "translation": "路由在Angular中的处理方式不同。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -346,7 +346,7 @@
   },
   {
     "original": "In this example, the `<table>` element is removed from the DOM unless the `movies` array has a length greater than zero.",
-    "translation": "在这个例子中，除非`movies`数组的长度大于0，否则`<table>`元素就会被从DOM中移除。\n    </td>",
+    "translation": "在这个例子中，除非`movies`数组的长度大于0，否则`<table>`元素就会被从DOM中移除。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -386,7 +386,7 @@
   },
   {
     "original": "In this example, the table row (`<tr>`) element repeats for each movie object in the collection of movies.",
-    "translation": "在这个例子中，对`movies`集合中的每一个`movie`对象重复渲染了这个表格行元素(`<tr>`)。\n    </td>",
+    "translation": "在这个例子中，对`movies`集合中的每一个`movie`对象重复渲染了这个表格行元素(`<tr>`)。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -401,7 +401,7 @@
   },
   {
     "original": "For more information, see [Structural Directives](guide/structural-directives).",
-    "translation": "要了解更多信息，参见[结构性指令](guide/structural-directives)。\n    </td>",
+    "translation": "要了解更多信息，参见[结构性指令](guide/structural-directives)。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -411,7 +411,7 @@
   },
   {
     "original": "In this example, the `<div>` element is shown if the `favoriteHero` variable is truthy.",
-    "translation": "在这个例子中，如果`favoriteHero`变量为真，`<div>`元素就会显示出来。\n    </td>",
+    "translation": "在这个例子中，如果`favoriteHero`变量为真，`<div>`元素就会显示出来。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -541,7 +541,7 @@
   },
   {
     "original": "The Angular `currency` pipe is similar although some of the parameters have changed.",
-    "translation": "Angular的`currency`管道和1中很相似，只是有些参数变化了。\n    </td>",
+    "translation": "Angular的`currency`管道和1中很相似，只是有些参数变化了。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -571,17 +571,17 @@
   },
   {
     "original": "The Angular `json` pipe does the same thing.",
-    "translation": "Angular的`json`管道做完全相同的事。\n    </td>",
+    "translation": "Angular的`json`管道做完全相同的事。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
     "original": "Selects up to the first parameter (2) number of items from the collection\n      starting (optionally) at the beginning index (0).",
-    "translation": "从集合中选择从(第二参数指定的)起始索引号(0)开始的最多(第一参数指定的)条目数(2)个条目。\n    </td>",
+    "translation": "从集合中选择从(第二参数指定的)起始索引号(0)开始的最多(第一参数指定的)条目数(2)个条目。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
     "original": "The `SlicePipe` does the same thing but the *order of the parameters is reversed*, in keeping\n      with the JavaScript `Slice` method.\n      The first parameter is the starting index; the second is the limit.\n      As in AngularJS, coding this operation within the component instead could improve performance.",
-    "translation": "`SlicePipe`做同样的事，但是*两个参数的顺序是相反的*，以便于JavaScript中的`slice`方法保持一致。\n      第一个参数是起始索引号，第二个参数是限制的数量。\n      和AngularJS中一样，如果们改用组件中的代码实现此操作，性能将会提升。\n    </td>",
+    "translation": "`SlicePipe`做同样的事，但是*两个参数的顺序是相反的*，以便于JavaScript中的`slice`方法保持一致。\n      第一个参数是起始索引号，第二个参数是限制的数量。\n      和AngularJS中一样，如果们改用组件中的代码实现此操作，性能将会提升。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -591,7 +591,7 @@
   },
   {
     "original": "The Angular `lowercase` pipe does the same thing.",
-    "translation": "Angular的`lowercase`管道和1中的功能完全相同。\n    </td>",
+    "translation": "Angular的`lowercase`管道和1中的功能完全相同。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -606,12 +606,12 @@
   },
   {
     "original": "Angular also has a `percent` pipe, which formats a number as a local percentage\n      as shown in the third example.",
-    "translation": "Angular还有一个`percent`管道，它把一个数组格式化为本地化的(local)百分比格式，如第三个范例所示。\n    </td>",
+    "translation": "Angular还有一个`percent`管道，它把一个数组格式化为本地化的(local)百分比格式，如第三个范例所示。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
     "original": "Displays the collection in the order specified by the expression.\n      In this example, the movie title orders the `movieList`.",
-    "translation": "使用表达式中所指定的方式对集合进行排序。\n      在这个例子中，`movieList`被根据movie的title排序了。\n    </td>",
+    "translation": "使用表达式中所指定的方式对集合进行排序。\n      在这个例子中，`movieList`被根据movie的title排序了。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -666,7 +666,7 @@
   },
   {
     "original": "In AngularJS, an Angular module keeps track of controllers, services, and other code.\n      The second argument defines the list of other modules that this module depends upon.",
-    "translation": "在AngularJS中，Angular模块用来对控制器、服务和其它代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。\n    </td>",
+    "translation": "在AngularJS中，Angular模块用来对控制器、服务和其它代码进行跟踪。第二个参数定义该模块依赖的其它模块列表。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -731,7 +731,7 @@
   },
   {
     "original": "In AngularJS, you write the code for the model and methods in a controller function.",
-    "translation": "在Angular1中，我们在控制器函数中写模型和方法的代码。\n    </td>",
+    "translation": "在Angular1中，我们在控制器函数中写模型和方法的代码。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "original": "For more information, see the [Components](guide/architecture#components)\n      section of the [Architecture Overview](guide/architecture) page.",
-    "translation": "要了解关于组件的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。\n    </td>",
+    "translation": "要了解关于组件的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -781,7 +781,7 @@
   },
   {
     "original": "For more information, see the [Dependency injection](guide/architecture#dependency-injection)\n      section of the [Architecture Overview](guide/architecture).",
-    "translation": "要了解关于依赖注入的更多信息，参见[架构概览](guide/architecture)中的[依赖注入](guide/architecture#dependency-injection)部分。\n    </td>",
+    "translation": "要了解关于依赖注入的更多信息，参见[架构概览](guide/architecture)中的[依赖注入](guide/architecture#dependency-injection)部分。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -796,7 +796,7 @@
   },
   {
     "original": "AngularJS, uses a `link` tag in the head section of the `index.html` file\n      to define the styles for the application.",
-    "translation": "在AngularJS中，我们在`index.html`的`head`区使用`link`标签来为应用程序定义样式。\n    </td>",
+    "translation": "在AngularJS中，我们在`index.html`的`head`区使用`link`标签来为应用程序定义样式。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ajs-quick-reference.md"
   },
   {
@@ -1591,7 +1591,7 @@
   },
   {
     "original": "<div class=\"l-sub-section\">",
-    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>\n<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>\n</div>",
+    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>\n<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
   },
   {
@@ -2831,7 +2831,7 @@
   },
   {
     "original": "**Only `@NgModule` classes** go in the `imports` array. Do not put any other kind of class in `imports`.",
-    "translation": "`imports`数组中应该**只有`NgModule`类**。不要放置其它类型的类。\n</div>",
+    "translation": "`imports`数组中应该**只有`NgModule`类**。不要放置其它类型的类。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/bootstrapping.md"
   },
   {
@@ -3090,12 +3090,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
-    "original": "<th>\n      Feature",
+    "original": "Feature",
     "translation": "特性",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
-    "original": "<th>\n      Polyfill",
+    "original": "Polyfill",
     "translation": "填充库",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
@@ -3110,7 +3110,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
-    "original": "<td>\n      All current browsers.\n      Enabled by default.\n      Can remove If you always use AOT and only use Angular decorators.",
+    "original": "All current browsers.\n      Enabled by default.\n      Can remove If you always use AOT and only use Angular decorators.",
     "translation": "默认对目前的所有浏览器都启用了。如果总是使用 AOT 模式，并且只使用 Angular 自带的装饰器，那么可以移除它。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
@@ -3121,7 +3121,7 @@
   },
   {
     "original": "[Web Animations](guide/browser-support#web-animations)",
-    "translation": "[Web 动画](guide/browser-support#web-animations)\n    </td>",
+    "translation": "[Web 动画](guide/browser-support#web-animations)",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/browser-support.md"
   },
   {
@@ -12291,7 +12291,7 @@
   },
   {
     "original": "Don't provide application-wide singleton services in a routed feature module\n      or in an NgModule that the routed module imports.",
-    "translation": "不要在路由特性模块及其导入的模块中提供*全应用级*的单例服务。\n    </td>",
+    "translation": "不要在路由特性模块及其导入的模块中提供*全应用级*的单例服务。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ngmodule-faq.md"
   },
   {
@@ -12391,7 +12391,7 @@
   },
   {
     "original": "Do *not* import service modules in other feature modules.\n      If you deviate from this guideline, know what you're doing and why.",
-    "translation": "*不要*在任何特性模块中导入它们。\n      如果你要违背这条指导原则，请务必想清楚你在做什么，并要有充分的理由。\n    </td>",
+    "translation": "*不要*在任何特性模块中导入它们。\n      如果你要违背这条指导原则，请务必想清楚你在做什么，并要有充分的理由。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ngmodule-faq.md"
   },
   {
@@ -12926,7 +12926,7 @@
   },
   {
     "original": "Both are advanced techniques that few developers ever employ.\n      If you are one of those few, you must add these components to the\n      `entryComponents` list yourself, either programmatically or by hand.",
-    "translation": "所有这些高级技巧是只有极少数开发人员才会去用的。\n      如果你是其中的一位，那么你就不得不自行把这些组件添加到`entryComponents`列表中 —— 无论是用程序添加还是手动添加。\n    </td>",
+    "translation": "所有这些高级技巧是只有极少数开发人员才会去用的。\n      如果你是其中的一位，那么你就不得不自行把这些组件添加到`entryComponents`列表中 —— 无论是用程序添加还是手动添加。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/ngmodule-faq.md"
   },
   {
@@ -14800,12 +14800,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<table width=\"100%\">\n  <col width=\"20%\">\n  </col>\n  <col width=\"80%\">\n  </col>\n  <tr>\n    <th>\n      File",
+    "original": "File",
     "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "</th>\n    <th>\n      Purpose",
+    "original": "<th>\n      Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
@@ -14821,7 +14821,7 @@
   },
   {
     "original": "A folder where you can put images and anything else to be copied wholesale\n      when you build your application.",
-    "translation": "这个文件夹下你可以放图片等任何东西，在构建应用时，它们全都会拷贝到发布包中。\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "这个文件夹下你可以放图片等任何东西，在构建应用时，它们全都会拷贝到发布包中。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -14831,7 +14831,7 @@
   },
   {
     "original": "Every site wants to look good on the bookmark bar.\n      Get started with your very own Angular icon.",
-    "translation": "每个网站都希望自己在书签栏中能好看一点。\n      请把它换成你自己的图标。\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "每个网站都希望自己在书签栏中能好看一点。\n      请把它换成你自己的图标。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -14875,12 +14875,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<table width=\"100%\">\n  <col width=\"20%\">\n  </col>\n  <col width=\"80%\">\n  </col>\n  <tr>\n    <th>\n      File",
+    "original": "File",
     "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "</th>\n    <th>\n      Purpose",
+    "original": "<th>\n      Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
@@ -15591,17 +15591,22 @@
   },
   {
     "original": "the value of a `FormControl`.",
-    "translation": "`FormControl`的值。\n    </td>",
+    "translation": "`FormControl`的值。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/reactive-forms.md"
   },
   {
     "original": "the validity of a `FormControl`. Possible values: `VALID`,\n       `INVALID`, `PENDING`, or `DISABLED`.",
-    "translation": "`FormControl`的有效性。可能的值有`VALID`、`INVALID`、`PENDING`或`DISABLED`。\n    </td>",
+    "translation": "`FormControl`的有效性。可能的值有`VALID`、`INVALID`、`PENDING`或`DISABLED`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/reactive-forms.md"
   },
   {
     "original": "`true` if the user has _not_ changed the value in the UI.\n       Its opposite is `myControl.dirty`.",
-    "translation": "如果用户*尚未*改变过这个控件的值，则为`true`。它总是与`myControl.dirty`相反。\n    </td>",
+    "translation": "如果用户*尚未*改变过这个控件的值，则为`true`。它总是与`myControl.dirty`相反。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/reactive-forms.md"
+  },
+  {
+    "original": "<code>myControl.untouched</code>",
+    "translation": "`true` if the control user has not yet entered the HTML control\n       and triggered its blur event. Its opposite is `myControl.touched`.\n                         如果用户尚未进入这个HTML控件，也没有触发过它的`blur`（失去焦点）事件，则为`true`。\n      它是`myControl.touched`的反义词。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/reactive-forms.md"
   },
   {
@@ -16460,23 +16465,23 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<table>\n  <tr>\n    <th>\n      Property",
-    "translation": "属性\n    </th>",
+    "original": "Property",
+    "translation": "属性",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
-    "translation": "描述\n    </th>\n  </tr>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
     "original": "An `Observable` of the route path(s), represented as an array of strings for each part of the route path.",
-    "translation": "路由路径的`Observable`对象，是一个由路由路径中的各个部分组成的字符串数组。\n    </td>\n  </tr>",
+    "translation": "路由路径的`Observable`对象，是一个由路由路径中的各个部分组成的字符串数组。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
     "original": "An `Observable` that contains the `data` object provided for the route. Also contains any resolved values from the [resolve guard](#resolve-guard).",
-    "translation": "一个`Observable`，其中包含提供给路由的`data`对象。也包含由[解析守卫（resolve guard）](#resolve-guard)解析而来的值。\n    </td>\n  </tr>",
+    "translation": "一个`Observable`，其中包含提供给路由的`data`对象。也包含由[解析守卫（resolve guard）](#resolve-guard)解析而来的值。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
@@ -16491,7 +16496,7 @@
   },
   {
     "original": "The name of the `RouterOutlet` used to render the route. For an unnamed outlet, the outlet name is _primary_.",
-    "translation": "要把该路由渲染到的`RouterOutlet`的名字。对于无名路由，它的路由名是`primary`，而不是空串。\n    </td>\n  </tr>",
+    "translation": "要把该路由渲染到的`RouterOutlet`的名字。对于无名路由，它的路由名是`primary`，而不是空串。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
@@ -16501,7 +16506,7 @@
   },
   {
     "original": "The route's parent `ActivatedRoute` when this route is a [child route](#child-routing-component).",
-    "translation": "当该路由是一个[子路由](#child-routing-component)时，表示该路由的父级`ActivatedRoute`。\n    </td>\n  </tr>",
+    "translation": "当该路由是一个[子路由](#child-routing-component)时，表示该路由的父级`ActivatedRoute`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
@@ -16540,12 +16545,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<table>\n  <tr>\n    <th>\n      Router Event",
+    "original": "Router Event",
     "translation": "路由器事件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
+    "original": "Description",
     "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
@@ -17770,23 +17775,23 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<table>\n  <tr>\n    <th>\n      Member",
-    "translation": "成员\n    </th>",
+    "original": "Member",
+    "translation": "成员",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
-    "original": "<th>\n      Description",
-    "translation": "描述\n    </th>\n  </tr>",
+    "original": "Description",
+    "translation": "描述",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
     "original": "Returns `true` if the parameter name is in the map of parameters.",
-    "translation": "如果参数名位于参数列表中，就返回 `true` 。\n    </td>\n  </tr>",
+    "translation": "如果参数名位于参数列表中，就返回 `true` 。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
     "original": "Returns the parameter name value (a `string`) if present, or `null` if the parameter name is not in the map. Returns the _first_ element if the parameter value is actually an array of values.",
-    "translation": "如果这个map中有参数名对应的参数值（字符串），就返回它，否则返回`null`。如果参数值实际上是一个数组，就返回它的*第一个*元素。\n    </td>\n  </tr>",
+    "translation": "如果这个map中有参数名对应的参数值（字符串），就返回它，否则返回`null`。如果参数值实际上是一个数组，就返回它的*第一个*元素。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/router.md"
   },
   {
@@ -20531,12 +20536,12 @@
   },
   {
     "original": "File",
-    "translation": "文件\n    </th>",
+    "translation": "文件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
     "original": "Purpose",
-    "translation": "用途\n    </th>",
+    "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -20616,7 +20621,7 @@
   },
   {
     "original": "A list of files that you can delete if you want to purge your setup of the\n      original QuickStart Seed testing and git maintenance artifacts.\n      See instructions in the optional\n      [_Deleting non-essential files_](guide/setup#non-essential \"Setup: Deleting non-essential files\") section.\n      *Do this only in the beginning to avoid accidentally deleting your own tests and git setup!*",
-    "translation": "这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和git维护文件。\n      步骤参见可选的[删除非必要文件](guide/setup#non-essential \"Setup: Deleting non-essential files\")部分。\n      *只在最初做这件事，以免不小心删除了你自己的测试文件和git配置！*\n    </td>",
+    "translation": "这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和git维护文件。\n      步骤参见可选的[删除非必要文件](guide/setup#non-essential \"Setup: Deleting non-essential files\")部分。\n      *只在最初做这件事，以免不小心删除了你自己的测试文件和git配置！*",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -20631,17 +20636,17 @@
   },
   {
     "original": "Contains command scripts for running the application,\n      running tests, and more. Enter `npm run` for a listing.\n      <a href=\"https://github.com/angular/quickstart/blob/master/README.md#npm-scripts\"\n         title=\"npm scripts for Angular documentation samples\">Read more</a> about them.",
-    "translation": "包含了一些命令脚本，用来运行应用、运行测试与其他。输入`npm run`来查看命令列表。\n      到<a href=\"https://github.com/angular/quickstart/blob/master/README.md#npm-scripts\" \n         target=\"_blank\" title=\"Angular 文档例子的 npm 脚本\">这里</a>阅读更多关于它们的说明。\n    </td>",
+    "translation": "包含了一些命令脚本，用来运行应用、运行测试与其他。输入`npm run`来查看命令列表。\n      到<a href=\"https://github.com/angular/quickstart/blob/master/README.md#npm-scripts\" \n         target=\"_blank\" title=\"Angular 文档例子的 npm 脚本\">这里</a>阅读更多关于它们的说明。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
     "original": "Configuration for the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      _end-to-end_ (e2e) test runner.",
-    "translation": "<a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor: Angular 的端对端测试\">protractor</a> *端对端* (e2e) 测试器运行器的配置。\n    </td>",
+    "translation": "<a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor: Angular 的端对端测试\">protractor</a> *端对端* (e2e) 测试器运行器的配置。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
     "original": "Instruction for using this git repository in your project.\n      Worth reading before deleting.",
-    "translation": "项目中使用这个 git 库的说明。\n      在删除前值得阅读。\n    </td>",
+    "translation": "项目中使用这个 git 库的说明。\n      在删除前值得阅读。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -20656,7 +20661,7 @@
   },
   {
     "original": "Don't touch this file unless you are fully versed in SystemJS configuration.",
-    "translation": "除非你完全理解 SystemJS 的配置，不要修改它。\n    </td>",
+    "translation": "除非你完全理解 SystemJS 的配置，不要修改它。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -20676,7 +20681,7 @@
   },
   {
     "original": "This file defines linting rules favored by the \n      [Angular style guide](guide/styleguide) and by the authors of the documentation.",
-    "translation": "该文件定义了 [Angular 风格指南](guide/styleguide)与本文档站作者喜爱的语法检查规则。\n    </td>",
+    "translation": "该文件定义了 [Angular 风格指南](guide/styleguide)与本文档站作者喜爱的语法检查规则。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -20805,8 +20810,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup.md"
   },
   {
+    "original": "<code>app/app.component.ts</code>",
+    "translation": "Defines the same `AppComponent` as the one in the QuickStart playground.\n      It is the **root** component of what will become a tree of nested components\n      as the application evolves. 定义与《快速上手》游乐场同样的`AppComponent`。\n      它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup.md"
+  },
+  {
     "original": "Defines `AppModule`, the [root module](guide/bootstrapping \"AppModule: the root module\") that tells Angular how to assemble the application.\n      Right now it declares only the `AppComponent`. \n      Soon there will be more components to declare.",
-    "translation": "定义`AppModule`，[根模块](guide/bootstrapping \"AppModule: 根模块\")为 Angular 描述如何组装应用。\n      目前，它只声明了`AppComponent`。\n      不久，它将声明更多组件。\n    </td>",
+    "translation": "定义`AppModule`，[根模块](guide/bootstrapping \"AppModule: 根模块\")为 Angular 描述如何组装应用。\n      目前，它只声明了`AppComponent`。\n      不久，它将声明更多组件。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/setup.md"
   },
   {
@@ -22205,28 +22215,28 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      Test Type",
+    "original": "Test Type",
     "translation": "测试类型",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      File Names",
+    "original": "File Names",
     "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
     "original": "Components",
-    "translation": "组件\n    </td>",
+    "translation": "组件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
     "original": "Services",
-    "translation": "服务\n    </td>",
+    "translation": "服务",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
     "original": "Pipes",
-    "translation": "管道\n    </td>",
+    "translation": "管道",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
@@ -22260,18 +22270,18 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      Test Type",
+    "original": "Test Type",
     "translation": "测试类型",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "<th>\n      File Names",
+    "original": "File Names",
     "translation": "文件名",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
     "original": "End-to-End Tests",
-    "translation": "端到端测试\n    </td>",
+    "translation": "端到端测试",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
@@ -22860,8 +22870,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "</div>",
-    "translation": "<div class='file-tree-reference'>\n  <a href=\"#file-tree\">Refer to this _folder and file structure_ example.</a>  <a href=\"#file-tree\">点这里查看目录和文件结构的范例</a>\n</div>",
+    "original": "<div class='file-tree-reference'>",
+    "translation": "<a href=\"#file-tree\">Refer to this _folder and file structure_ example.</a>  <a href=\"#file-tree\">点这里查看目录和文件结构的范例</a>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
@@ -26296,7 +26306,7 @@
   },
   {
     "original": "The [karma test runner](https://karma-runner.github.io/1.0/index.html)\n      is ideal for writing and running unit tests while developing the application.\n      It can be an integral part of the project's development and continuous integration processes.\n      This guide describes how to set up and run tests with karma.",
-    "translation": "[karma测试运行器](https://karma-runner.github.io/1.0/index.html)是在开发应用的过程中\n      编写和运行单元测试的理想工具。\n      它能成为项目开发和连续一体化进程的不可分割的一部分。本章讲述了如何用Karma设置和运行测试程序。\n    </td>",
+    "translation": "[karma测试运行器](https://karma-runner.github.io/1.0/index.html)是在开发应用的过程中\n      编写和运行单元测试的理想工具。\n      它能成为项目开发和连续一体化进程的不可分割的一部分。本章讲述了如何用Karma设置和运行测试程序。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28506,12 +28516,12 @@
   },
   {
     "original": "Runs the body of a test (`it`) or setup (`beforeEach`) function within a special _async test zone_.\n      See [discussion above](guide/testing#async).",
-    "translation": "在特殊的**async测试区域**运行测试程序（`it`)或者设置（`beforeEach`）的主体。\n      参见[上面的讨论](guide/testing#async).\n    </td>",
+    "translation": "在特殊的**async测试区域**运行测试程序（`it`)或者设置（`beforeEach`）的主体。\n      参见[上面的讨论](guide/testing#async).",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Runs the body of a test (`it`) within a special _fakeAsync test zone_, enabling\n      a linear control flow coding style. See [discussion above](guide/testing#fake-async).",
-    "translation": "在特殊的**fakeAsync测试区域**运行测试程序（`it`）的主体，造就控制流更加线性的代码风格。\n      参见[上面的讨论](guide/testing#fake-async).\n    </td>",
+    "translation": "在特殊的**fakeAsync测试区域**运行测试程序（`it`）的主体，造就控制流更加线性的代码风格。\n      参见[上面的讨论](guide/testing#fake-async).",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28631,27 +28641,27 @@
   },
   {
     "original": "Create an instance of a component of type `T` based on the current `TestBed` configuration.\n      After calling `compileComponent`, the `TestBed` configuration is frozen for the duration of the current spec.",
-    "translation": "基于当前`TestBed`的配置创建一个类型为T的组件实例。\n      一旦调用，`TestBed`的配置就会在当前测试期间被冻结。\n    </td>",
+    "translation": "基于当前`TestBed`的配置创建一个类型为T的组件实例。\n      一旦调用，`TestBed`的配置就会在当前测试期间被冻结。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Replace metadata for the given `NgModule`. Recall that modules can import other modules.\n      The `overrideModule` method can reach deeply into the current testing module to\n      modify one of these inner modules.",
-    "translation": "替换指定的`NgModule`的元数据。回想一下，模块可以导入其他模块。\n      `overrideModule`方法可以深入到当前测试模块深处，修改其中一个内部模块。\n    </td>",
+    "translation": "替换指定的`NgModule`的元数据。回想一下，模块可以导入其他模块。\n      `overrideModule`方法可以深入到当前测试模块深处，修改其中一个内部模块。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Replace metadata for the given component class, which could be nested deeply\n      within an inner module.",
-    "translation": "替换指定组件类的元数据，该组件类可能嵌套在一个很深的内部模块中。\n    </td>",
+    "translation": "替换指定组件类的元数据，该组件类可能嵌套在一个很深的内部模块中。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Replace metadata for the given directive class, which could be nested deeply\n      within an inner module.",
-    "translation": "替换指定指令类的元数据，该指令可能嵌套在一个很深的内部模块中。\n    </td>",
+    "translation": "替换指定指令类的元数据，该指令可能嵌套在一个很深的内部模块中。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Replace metadata for the given pipe class, which could be nested deeply\n      within an inner module.",
-    "translation": "替换指定管道类的元数据，该管道可能嵌套在一个很深的内部模块中。\n    </td>",
+    "translation": "替换指定管道类的元数据，该管道可能嵌套在一个很深的内部模块中。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28691,7 +28701,7 @@
   },
   {
     "original": "Specify the Angular compiler factory, a `PlatformRef`, and a default Angular testing module.\n      Alternatives for non-browser platforms are available in the general form\n      `@angular/platform-<platform_name>/testing/<platform_name>`.",
-    "translation": "指定Angular编译器工厂，`PlatformRef`，和默认Angular测试模块。\n      以`@angular/platform-<platform_name>/testing/<platform_name>`的形式提供非浏览器平台的替代品。\n    </td>",
+    "translation": "指定Angular编译器工厂，`PlatformRef`，和默认Angular测试模块。\n      以`@angular/platform-<platform_name>/testing/<platform_name>`的形式提供非浏览器平台的替代品。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28741,7 +28751,7 @@
   },
   {
     "original": "The instance of the component class created by `TestBed.createComponent`.",
-    "translation": "被`TestBed.createComponent`创建的组件类实例。\n    </td>",
+    "translation": "被`TestBed.createComponent`创建的组件类实例。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28751,12 +28761,12 @@
   },
   {
     "original": "The `debugElement` provides insight into the component and its DOM element during test and debugging.\n      It's a critical property for testers. The most interesting members are covered [below](guide/testing#debug-element-details).",
-    "translation": "`debugElement`在测试和调试期间，提供对组件及其DOM元素的访问。\n      它是测试者至关重要的属性。它最有用的成员在[下面](guide/testing#debug-element-details)有所介绍。\n    </td>",
+    "translation": "`debugElement`在测试和调试期间，提供对组件及其DOM元素的访问。\n      它是测试者至关重要的属性。它最有用的成员在[下面](guide/testing#debug-element-details)有所介绍。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "The native DOM element at the root of the component.",
-    "translation": "组件的原生根DOM元素。\n    </td>",
+    "translation": "组件的原生根DOM元素。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28806,7 +28816,7 @@
   },
   {
     "original": "Runs `checkNoChanges`afterwards to confirm that there are no circular updates unless\n      called as `detectChanges(false)`;",
-    "translation": "之后，运行`checkNoChanges`，来确认没有循环更新，除非它被这样调用：`detectChanges(false)`。\n    </td>",
+    "translation": "之后，运行`checkNoChanges`，来确认没有循环更新，除非它被这样调用：`detectChanges(false)`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28826,12 +28836,12 @@
   },
   {
     "original": "Do a change detection run to make sure there are no pending changes.\n      Throws an exceptions if there are.",
-    "translation": "运行一次变更检测来确认没有待处理的变化。如果有未处理的变化，它将抛出一个错误。\n    </td>",
+    "translation": "运行一次变更检测来确认没有待处理的变化。如果有未处理的变化，它将抛出一个错误。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "If the fixture is currently _stable_, returns `true`.\n      If there are async tasks that have not completed, returns `false`.",
-    "translation": "如果fixture当前是**稳定的**，则返回`true`。\n      如果有异步任务没有完成，则返回`false`。\n    </td>",
+    "translation": "如果fixture当前是**稳定的**，则返回`true`。\n      如果有异步任务没有完成，则返回`false`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28841,7 +28851,7 @@
   },
   {
     "original": "To resume testing after completion of asynchronous activity or\n      asynchronous change detection, hook that promise.\n      See [above](guide/testing#when-stable).",
-    "translation": "钩住这个承诺，以在异步行为或者异步变更检测之后继续测试。参见[上面](guide/testing#when-stable)。\n    </td>",
+    "translation": "钩住这个承诺，以在异步行为或者异步变更检测之后继续测试。参见[上面](guide/testing#when-stable)。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28881,27 +28891,27 @@
   },
   {
     "original": "The corresponding DOM element in the browser (null for WebWorkers).",
-    "translation": "与浏览器中DOM元素对应（WebWorkers时，值为null）。\n    </td>",
+    "translation": "与浏览器中DOM元素对应（WebWorkers时，值为null）。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Calling `query(predicate: Predicate<DebugElement>)` returns the first `DebugElement`\n      that matches the [predicate](guide/testing#query-predicate) at any depth in the subtree.",
-    "translation": "调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中第一个匹配[predicate](guide/testing#query-predicate)的`DebugElement`。\n    </td>",
+    "translation": "调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中第一个匹配[predicate](guide/testing#query-predicate)的`DebugElement`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "Calling `queryAll(predicate: Predicate<DebugElement>)` returns all `DebugElements`\n      that matches the [predicate](guide/testing#query-predicate) at any depth in subtree.",
-    "translation": "调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中所有匹配[predicate](guide/testing#query-predicate)`DebugElement`。\n    </td>",
+    "translation": "调用`query(predicate: Predicate<DebugElement>)`返回子树所有层中所有匹配[predicate](guide/testing#query-predicate)`DebugElement`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "The host dependency injector.\n      For example, the root element's component instance injector.",
-    "translation": "宿主依赖注入器。\n      比如，根元素的组件实例注入器。\n    </td>",
+    "translation": "宿主依赖注入器。\n      比如，根元素的组件实例注入器。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
     "original": "The element's own component instance, if it has one.",
-    "translation": "元素自己的组件实例（如果有）。  \n    </td>",
+    "translation": "元素自己的组件实例（如果有）。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28911,7 +28921,7 @@
   },
   {
     "original": "When an element is repeated within `*ngFor`, the context is an `NgForRow` whose `$implicit`\n      property is the value of the row instance value.\n      For example, the `hero` in `*ngFor=\"let hero of heroes\"`.",
-    "translation": "当一个元素被`*ngFor`重复，它的上下文为`NgForRow`，它的`$implicit`属性值是该行的实例值。\n      比如，`*ngFor=\"let hero of heroes\"`里的`hero`。\n    </td>",
+    "translation": "当一个元素被`*ngFor`重复，它的上下文为`NgForRow`，它的`$implicit`属性值是该行的实例值。\n      比如，`*ngFor=\"let hero of heroes\"`里的`hero`。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -28946,7 +28956,7 @@
   },
   {
     "original": "This component's injector lookup tokens.\n      Includes the component itself plus the tokens that the component lists in its `providers` metadata.",
-    "translation": "组件注入器的查询令牌。\n      包括组件自己的令牌和组件的`providers`元数据中列出来的令牌。\n    </td>",
+    "translation": "组件注入器的查询令牌。\n      包括组件自己的令牌和组件的`providers`元数据中列出来的令牌。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -29036,7 +29046,7 @@
   },
   {
     "original": "[SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md)\n      loads the application and test files.\n      This script tells SystemJS where to find those files and how to load them.\n      It's the same version of `systemjs.config.js` you installed during [setup](guide/testing#setup).",
-    "translation": "[SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md)加载应用文件和测试文件。\n      这个脚本告诉SystemJS到哪里去找那些文件，以及如何加载它们。\n      它和你在[环境设置](guide/testing#setup)期间安装的那个`systemjs.config.js`是同一个版本。\n    </td>",
+    "translation": "[SystemJS](https://github.com/systemjs/systemjs/blob/master/README.md)加载应用文件和测试文件。\n      这个脚本告诉SystemJS到哪里去找那些文件，以及如何加载它们。\n      它和你在[环境设置](guide/testing#setup)期间安装的那个`systemjs.config.js`是同一个版本。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -29051,7 +29061,7 @@
   },
   {
     "original": "The sample version for this guide adds the **model barrel**\n      to the SystemJs `packages` configuration.",
-    "translation": "本章的例子中把**模型桶（barrel）*添加到了SystemJS的`packages`配置中。\n    </td>",
+    "translation": "本章的例子中把**模型桶（barrel）*添加到了SystemJS的`packages`配置中。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -30931,22 +30941,22 @@
   },
   {
     "original": "The repeater matcher relies on AngularJS `ng-repeat`",
-    "translation": "repeater匹配器依赖于AngularJS中的`ng-repeat`\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "repeater匹配器依赖于AngularJS中的`ng-repeat`",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
     "original": "The repeater matcher relies on AngularJS `ng-repeat`",
-    "translation": "repeater匹配器依赖于AngularJS中的`ng-repeat`\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "repeater匹配器依赖于AngularJS中的`ng-repeat`",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
     "original": "The model matcher relies on AngularJS `ng-model`",
-    "translation": "model匹配器依赖于AngularJS中的`ng-model`\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "model匹配器依赖于AngularJS中的`ng-model`",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
     "original": "The model matcher relies on AngularJS `ng-model`",
-    "translation": "model匹配器依赖于AngularJS中的`ng-model`\n    </td>\n  </tr>\n  <tr>\n    <td>",
+    "translation": "model匹配器依赖于AngularJS中的`ng-model`",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/upgrade.md"
   },
   {
@@ -32402,6 +32412,11 @@
   {
     "original": "Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop",
     "translation": "Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。",
+    "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
+  },
+  {
+    "original": "<div class=\"card-container\">",
+    "translation": "<a href=\"generated/live-examples/quickstart/eplnkr.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">\n      <section>Angular 走马观花</section>",
     "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
   },
   {

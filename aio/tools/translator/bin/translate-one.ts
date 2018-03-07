@@ -3,5 +3,5 @@
 import { dirs } from '../dirs';
 import { translateFile } from '../translate';
 
-const filename = 'aot-compiler.md';
+const filename = 'ajs-quick-reference.md';
 translateFile(__dirname + '/../../../../../content-en/' + 'guide/' + filename, dirs.content + 'guide/' + filename);

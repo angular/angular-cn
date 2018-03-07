@@ -182,6 +182,21 @@ def`);
 `);
   });
 
+  it('拆解独行的 th/td', function () {
+    expect(normalizeLines(`
+  <td>
+    abc
+  </td>
+`)).eql(`
+
+  <td>
+
+    abc
+
+  </td>
+
+`);
+  });
   it('不要拆解行内的 html tag', function () {
     expect(normalizeLines(`\na <b> c\n\n`)).eql('\na <b> c\n\n');
   });
