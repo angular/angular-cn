@@ -1142,9 +1142,7 @@ Begin with a simple version of the app that navigates between two empty views.
 ### 设置*&lt;base href>*
 
 The router uses the browser's
-
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" title="HTML5 browser history push-state">history.pushState</a>
-
 for navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to
 look, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.
 

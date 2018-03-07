@@ -52,7 +52,7 @@ export function normalizeLines(text: string): string {
   text = text.replace(blockElementPattern, '\n\n');
   const hxPattern = /(\n *#+ .*)(?=\n)/g;
   text = text.replace(hxPattern, '\n$1\n');
-  const oneLinePairedTagPattern = /\n( *)<(p|div|h\d+|a|code-example|section)( ?[^>\n]*)>([^<\n]*)<\/\2>( *)(?=\n)/g;
+  const oneLinePairedTagPattern = /\n( *)<(p|div|h\d+|code-example|section)( ?[^>\n]*)>([^<\n]*)<\/\2>( *)(?=\n)/g;
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n');
   const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^>\n]*)>(.*)<\/\2>( *)(?=\n)/g;
   text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>$5\n');

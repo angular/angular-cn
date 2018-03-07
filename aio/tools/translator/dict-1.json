@@ -1840,7 +1840,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/aot-compiler.md"
   },
   {
-    "original": "and run `npm install` on it.",
+    "original": "The following instructions presuppose that you have downloaded the\n  <a href=\"generated/zips/toh-pt6/toh-pt6.zip\" target=\"_blank\">Tour of Heroes' zip</a>\n  and run `npm install` on it.",
     "translation": "下列步骤假设你已经下载了<a href=\"generated/zips/toh-pt6/toh-pt6.zip\" target=\"_blank\">《英雄指南》的zip包</a>，并且在其中运行过了`npm install`。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/aot-compiler.md"
   },
@@ -2035,8 +2035,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
   },
   {
-    "original": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>",
-    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
+    "original": "<div class=\"l-sub-section\">",
+    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>\n<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
   },
   {
@@ -12160,7 +12160,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/i18n.md"
   },
   {
-    "original": "that derives from the\n<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">Common Locale Data Repository (CLDR)</a>,\nwhich specifies the\n<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">pluralization rules</a>.",
+    "original": "This syntax conforms to the\n<a href=\"http://userguide.icu-project.org/formatparse/messages\" title=\"ICU Message Format\">ICU Message Format</a>\nthat derives from the\n<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">Common Locale Data Repository (CLDR)</a>,\nwhich specifies the\n<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">pluralization rules</a>.",
     "translation": "这个写法符合<a href=\"http://userguide.icu-project.org/formatparse/messages\" title=\"ICU Message Format\">ICU消息格式</a>，它源自<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">通用区域设置数据库(CLDR)</a>，其中指定了<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">复数规则</a>。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/i18n.md"
   },
@@ -20195,7 +20195,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "for navigation. Thanks to `pushState`, you can make  in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
+    "original": "The router uses the browser's\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" title=\"HTML5 browser history push-state\">history.pushState</a>\nfor navigation. Thanks to `pushState`, you can make  in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
     "translation": "路由器使用浏览器的<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"HTML5 browser history push-state\">history.pushState</a>进行导航。\n感谢`pushState`！有了它，我们就能按所期望的样子来显示应用内部的URL路径，比如：`localhost:3000/crisis-center`。虽然我们使用的全部是客户端合成的视图，但应用内部的这些URL看起来和来自服务器的没有什么不同。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
@@ -23370,12 +23370,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "style by default, you *must* configure that strategy with a **base href**.",
+    "original": "While the router uses the \n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\"  title=\"Browser history push-state\">HTML5 pushState</a>\nstyle by default, you *must* configure that strategy with a **base href**.",
     "translation": "由于路由器默认使用“<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"Browser history push-state\">HTML 5 pushState</a>”风格，所以我们*必须*用一个**base href**来配置该策略（Strategy）。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "tag in the `<head>` of the `index.html`.",
+    "original": "The preferred way to configure the strategy is to add a\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base\" title=\"base href\">&lt;base href&gt; element</a>\ntag in the `<head>` of the `index.html`.",
     "translation": "配置该策略的首选方式是往`index.html`的`<head>`中添加一个[&lt;base href> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base)标签。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
@@ -23875,7 +23875,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "e2e test runner.",
+    "original": "_End-to-end_ (e2e) tests of the application,\n      written in Jasmine and run by the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      e2e test runner.",
     "translation": "应用的*端对端*(e2e)测试，用 Jasmine 写成并用 <a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor:Angular 的端对端测试\">protractor</a> 端对端测试运行器测试。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
@@ -23955,7 +23955,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "_end-to-end_ (e2e) test runner.",
+    "original": "Configuration for the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      _end-to-end_ (e2e) test runner.",
     "translation": "<a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor: Angular 的端对端测试\">protractor</a> *端对端* (e2e) 测试器运行器的配置。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
@@ -24040,8 +24040,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
-    "original": "and unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
-    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>",
+    "original": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
+    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>\n并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
@@ -26035,7 +26035,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
   {
-    "original": "that humans start to struggle when the number of adjacent interesting things exceeds nine.\nSo when a folder has ten or more files, it may be time to create subfolders.",
+    "original": "On the other hand,\n<a href=\"https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two\">psychologists believe</a>\nthat humans start to struggle when the number of adjacent interesting things exceeds nine.\nSo when a folder has ten or more files, it may be time to create subfolders.",
     "translation": "另一方面，<a href=\"https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two\" target=\"_blank\">心理学家们相信</a>，\n当关注的事物超过 9 个时，人类就会开始感到吃力。\n所以，当一个文件夹中的文件有 10 个或更多个文件时，可能就是创建子目录的时候了。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/styleguide.md"
   },
@@ -30030,7 +30030,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "predicate that filters the same way as a jQuery selector.",
+    "original": "The **`By`** class is an Angular testing utility that produces useful predicates.\nIts `By.css` static method produces a\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors\">standard CSS selector</a>\npredicate that filters the same way as a jQuery selector.",
     "translation": "**`By`**类是Angular测试工具之一，它生成有用的predicate。\n它的`By.css`静态方法产生<a href=\"https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors\" target=\"_blank\">标准CSS选择器</a>\npredicate，与JQuery选择器相同的方式过滤。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
@@ -30790,7 +30790,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
-    "original": "accepted by many handlers including the `RouterLink` directive.",
+    "original": "The first parameter is the _element-to-click_. If you wish, you can pass a\ncustom event object as the second parameter. The default is a (partial)\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button\">left-button mouse event object</a>\naccepted by many handlers including the `RouterLink` directive.",
     "translation": "第一个参数是**用来点击的元素**。如果你愿意，可以将自定义的事件对象传递给第二个参数。\n默认的是（局部的）<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button\" target=\"_blank\">鼠标左键事件对象</a>，\n它被许多事件处理器接受，包括`RouterLink`指令。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
@@ -33820,7 +33820,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
-    "original": "work, once you have an ES6 `import` statement in a file all UMD typed modules must also be\nimported via `import` statements instead of being globally available.",
+    "original": "`@types/angular` is declared as a UMD module, and due to the way\n<a href=\"https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions\">UMD typings</a>\nwork, once you have an ES6 `import` statement in a file all UMD typed modules must also be\nimported via `import` statements instead of being globally available.",
     "translation": "`@types/angular`声明为UMD模块，根据<a href=\"https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions\" target=\"_blank\">UMD类型</a>\n的工作方式，一旦你在文件中有一条ES6的`import`语句，所有的UMD类型化的模型必须都通过`import`语句导入，\n而是不是全局可用。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
@@ -38805,7 +38805,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt6.md"
   },
   {
-    "original": "to the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.",
+    "original": "Rather than require a real API server, this example simulates communication with the remote server by adding the\n<a href=\"https://github.com/angular/in-memory-web-api\" title=\"In-memory Web API\">InMemoryWebApiModule</a>\nto the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.",
     "translation": "导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。\n  `InMemoryWebApiModule`将`Http`客户端默认的后端服务 &mdash;\n  这是一个辅助服务，负责与远程服务器对话 &mdash;\n  替换成了*内存 Web API*服务：",
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt6.md"
   },
