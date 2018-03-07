@@ -18,7 +18,7 @@ export function originalIsNotCodeExampleTag(entry: DictEntry): boolean {
 }
 
 export function originalIsNotPureCloseTag(entry: DictEntry): boolean {
-  return !/^<\/(td|a|div)>$/.test(entry.original);
+  return !/^<\/(td|a|div|header|p|figure)>$/.test(entry.original);
 }
 
 export function isOnlyBeginTag(text: string) {

@@ -125,8 +125,8 @@ When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angu
 in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
 inside the `<app-root>` tag.
 
-当我们通过`main.ts`中的`AppComponent`类启动时，Angular 在`index.html`中查找一个`<my-app>`元素，
-然后实例化一个`AppComponent`，并将其渲染到`<my-app>`标签中。
+当我们通过`main.ts`中的`AppComponent`类启动时，Angular 在`index.html`中查找一个`<app-root>`元素，
+然后实例化一个`AppComponent`，并将其渲染到`<app-root>`标签中。
 
 Now run the app. It should display the title and hero name:
 

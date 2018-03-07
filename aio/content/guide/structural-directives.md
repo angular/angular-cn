@@ -788,7 +788,7 @@ The directive's _selector_ is typically the directive's **attribute name** in sq
 The brackets define a CSS
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">attribute selector</a>.
 
-指令的*选择器*通常是把指令的属性名括在方括号中，如`[myUnless]`。
+指令的*选择器*通常是把指令的属性名括在方括号中，如`[appUnless]`。
 这个方括号定义出了一个 CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors" title="MDN: Attribute selectors">属性选择器</a>。
 
 The directive _attribute name_ should be spelled in _lowerCamelCase_ and begin with a prefix.

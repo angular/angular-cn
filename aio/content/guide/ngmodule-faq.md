@@ -351,8 +351,8 @@ Apps pass a `Routes` object to `RouterModule.forRoot()` in order to configure th
 You add that result to the `imports` list of the root `AppModule`.
 
 `RouterModule.forRoot()`就是一个很好的例子。
-应用把一个`Routes`对象传给`RouterModule.forRoot`，为的就是使用路由配置全应用级的`Router`服务。
-`RouterModule.forRoot`返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
+应用把一个`Routes`对象传给`RouterModule.forRoot()`，为的就是使用路由配置全应用级的`Router`服务。
+`RouterModule.forRoot()`返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
 我们把这个结果添加到根模块`AppModule`的`imports`列表中。
 
 Only call and import a `.forRoot()` result in the root application module, `AppModule`.
