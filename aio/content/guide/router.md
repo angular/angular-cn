@@ -1214,7 +1214,7 @@ set the `href` value in **`index.html`** *exactly* as shown here.
 A live coding environment like Stackblitz sets the application base address dynamically so you can't specify a fixed address.
 That's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.
 
-像Plunker这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。
+像Stackblitz这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。
 这就是为什么我们要用一个脚本动态写入`<base>`标签，而不是直接写`<base href...>`。
 
 <code-example language="html">
@@ -5527,7 +5527,7 @@ You've covered a lot of ground in this guide and the application is too big to r
 Please visit the <live-example title="Router Sample in Stackblitz"></live-example>
 where you can download the final source code.
 
-本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title="Router Sample in Plunker"></live-example>，在那里你可以下载最终的源码。
+本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title="Router Sample in Stackblitz"></live-example>，在那里你可以下载最终的源码。
 
 {@a appendices}
 

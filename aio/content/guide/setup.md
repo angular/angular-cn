@@ -315,7 +315,7 @@ The following are all in `src/`
       You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.
 
       使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping#main "启动应用")并运行应用。
-      对于大多数项目的开发，这都是合理的选择。而且它是在像 Plunker 这样的*在线编程*环境中运行例子的唯一选择。
+      对于大多数项目的开发，这都是合理的选择。而且它是在像 Stackblitz 这样的*在线编程*环境中运行例子的唯一选择。
       你将在本文档中学习其他编译和开发选择。
 
     </td>
@@ -380,7 +380,7 @@ use other versions of node and npm.
 
 <live-example title="QuickStart Seed in Stackblitz">Live coding</live-example> in the browser is a great way to explore Angular.
 
-在浏览器中<live-example title="QuickStart Seed in Plunker">在线编程</live-example>是很好的探索 Angular 的方法。
+在浏览器中<live-example title="QuickStart Seed in Stackblitz">在线编程</live-example>是很好的探索 Angular 的方法。
 
 Links on almost every documentation page open completed samples in the browser.
 You can play with the sample code, share your changes with friends, and download and run the code on your own machine.
@@ -424,7 +424,7 @@ It's the perfect place to reproduce a bug when you want to
 <a href="https://github.com/angular/angular/issues/new" title="File a documentation issue">file a documentation issue</a> or
 <a href="https://github.com/angular/angular/issues/new" title="File an Angular issue">file an issue with Angular itself</a>.
 
-把<live-example title="QuickStart Seed in Plunker">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
+把<live-example title="QuickStart Seed in Stackblitz">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
 当你想要<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="提交关于文档的问题">提交关于文档的问题</a>或者
 <a href="https://github.com/angular/angular/issues/new" target="_blank" title="提交关于 Angular 的问题">提交关于 Angular 自身的问题</a>时，
 它是重现错误的完美地方。

@@ -12,12 +12,12 @@ This guide explains reactive forms as you follow the steps to build a "Hero Deta
 
 Try the <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz">Reactive Forms live-example</live-example>.
 
-试试<live-example plnkr="final" title="Reactive Forms (final) in Plunker">响应式表单的在线例子</live-example>。
+试试<live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz">响应式表单的在线例子</live-example>。
 
 You can also run the <live-example title="Reactive Forms Demo in Stackblitz">Reactive Forms Demo</live-example> version
 and choose one of the intermediate steps from the "demo picker" at the top.
 
-你还可以运行<live-example title="Reactive Forms Demo in Plunker">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。
+你还可以运行<live-example title="Reactive Forms Demo in Stackblitz">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。
 
 {@a intro}
 
@@ -1793,7 +1793,7 @@ This is the final step in the demo.
 Try the <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz"></live-example>.
 
 这是本演示的最后一步。
-去试试<live-example plnkr="final" title="Reactive Forms (final) in Plunker"></live-example>吧。
+去试试<live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz"></live-example>吧。
 
 ## Summary
 
@@ -1881,4 +1881,4 @@ You can download the complete source for all steps in this guide
 from the <live-example title="Reactive Forms Demo in Stackblitz">Reactive Forms Demo</live-example> live example.
 
 
-你可以到<live-example title="Reactive Forms Demo in Plunker">响应式表单在线例子</live-example>中下载本章所有步骤的完整代码。
+你可以到<live-example title="Reactive Forms Demo in Stackblitz">响应式表单在线例子</live-example>中下载本章所有步骤的完整代码。

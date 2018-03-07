@@ -146,8 +146,7 @@ for bootstrapping applications for production builds that pre-compile with [AOT]
 and methods to compile and run the app on the client 
 using the [JIT compiler](guide/aot-compiler).
 
-**@angular/platform-browser-dynamic**： 为应用程序提供一些[提供商](api/core/Provider)和[bootstrap](guide/ngmodule#bootstrap)方法，以便在客户端编译模板。不要用于离线编译。
-我们使用这个包在开发期间引导应用，以及引导plunker中的范例。
+**@angular/platform-browser-dynamic**： 为应用程序提供一些[提供商](api/core/Provider)和方法，以便在客户端使用 [JIT 编译器](guide/aot-compiler)运行本应用。
 
 **@angular/router**: The [router module](/guide/router) navigates among your app pages when the browser URL changes.
 

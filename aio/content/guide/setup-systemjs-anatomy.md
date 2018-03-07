@@ -76,7 +76,7 @@ If you do, this page can help you understand their purpose.
       and the <live-example name="setup" stackblitz="quickstart-specs">unit test</live-example>
       as _live examples_.
 
-      在live example中试试<live-example name="setup">范例程序</live-example>和<live-example name="setup" plnkr="quickstart-specs">单元测试</live-example>
+      在live example中试试<live-example name="setup">范例程序</live-example>和<live-example name="setup" stackblitz="quickstart-specs">单元测试</live-example>
 
     </td>
 
