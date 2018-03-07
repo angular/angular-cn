@@ -167,6 +167,7 @@ the `ngsw/` virtual directory. Currently, the single exposed URL
 is `ngsw/state`. Here is an example of this debug page's contents:
 
 ```
+
 NGSW Debug Info:
 
 Driver state: NORMAL ((nominal))
@@ -185,6 +186,7 @@ Task queue:
  * init post-load (update, cleanup)
 
 Debug log:
+
 ```
 
 #### Driver state
@@ -192,7 +194,9 @@ Debug log:
 The first line indicates the driver state: 
 
 ```
+
 Driver state: NORMAL ((nominal))
+
 ```
 
 `NORMAL` indicates that the service worker is operating normally and is not in a degraded state. 
@@ -215,7 +219,9 @@ error that caused the service worker to enter the degraded state.
 #### Latest manifest hash
 
 ```
+
 Latest manifest hash: eea7f5f464f90789b621170af5a569d6be077e5c
+
 ```
 
 This is the SHA1 hash of the most up-to-date version of the app that the service worker knows about.
@@ -223,7 +229,9 @@ This is the SHA1 hash of the most up-to-date version of the app that the service
 #### Last update check
 
 ```
+
 Last update check: never
+
 ```
 
 This indicates the last time the service worker checked for a new version, or update, of the app. `never` indicates that the service worker has never checked for an update. 
@@ -233,9 +241,11 @@ In this example debug file, the update check is currently scheduled, as explaine
 #### Version
 
 ```
+
 === Version eea7f5f464f90789b621170af5a569d6be077e5c ===
 
 Clients: 7b79a015-69af-4d3d-9ae6-95ba90c79486, 5bc08295-aaf2-42f3-a4cc-9e4ef9100f65
+
 ```
 
 In this example, the service worker has one version of the app cached and 
@@ -247,12 +257,14 @@ API in the browser.
 #### Idle task queue
 
 ```
+
 === Idle Task Queue ===
 Last update tick: 1s496u
 Last update run: never
 Task queue:
 
  * init post-load (update, cleanup)
+
 ```
 
 The Idle Task Queue is the queue of all pending tasks that happen 
@@ -270,7 +282,9 @@ which the queue might be processed.
 #### Debug log
 
 ```
+
 Debug log:
+
 ```
 
 Errors that occur within the service worker will be logged here.
@@ -332,4 +346,3 @@ the past on your site.
 You may also be interested in the following:
 
 * [Service Worker Configuration](guide/service-worker-config).
-

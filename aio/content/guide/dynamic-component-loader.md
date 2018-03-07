@@ -259,9 +259,7 @@ Here are two sample components and the `AdComponent` interface for reference:
  最终的广告栏是这样的：
 
 <figure>
-
   <img src="generated/images/guide/dynamic-component-loader/ads.gif" alt="Ads">
-
 </figure>
 
 See the <live-example name="dynamic-component-loader"></live-example>.

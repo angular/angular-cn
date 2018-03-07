@@ -16,7 +16,9 @@ CLI processes the configuration file during `ng build --prod`. Manually, you can
 it with the `ngsw-config` tool:
 
 ```sh
+
 ngsw-config dist src/ngsw-config.json /base/href
+
 ```
 
 The configuration file uses the JSON format. All file paths must begin with `/`, which is the deployment directory&mdash;usually `dist` in CLI projects.
@@ -55,6 +57,7 @@ Specifies the file that serves as the index page to satisfy navigation requests.
 This field contains an array of asset groups, each of which defines a set of asset resources and the policy by which they are cached.
 
 ```json
+
 {
   "assetGroups": [{
     ...
@@ -62,6 +65,7 @@ This field contains an array of asset groups, each of which defines a set of ass
     ...
   }]
 }
+
 ```
 
 Each asset group specifies both a group of resources and a policy that governs them. This policy determines when the resources are fetched and what happens when changes are detected.
@@ -69,6 +73,7 @@ Each asset group specifies both a group of resources and a policy that governs t
 Asset groups follow the Typescript interface shown here:
 
 ```typescript
+
 interface AssetGroup {
   name: string;
   installMode?: 'prefetch' | 'lazy';
@@ -79,6 +84,7 @@ interface AssetGroup {
     urls?: string[];
   };
 }
+
 ```
 
 ### `name`
@@ -118,6 +124,7 @@ Unlike asset resources, data requests are not versioned along with the app. They
 Data groups follow this Typescript interface:
 
 ```typescript
+
 export interface DataGroup {
   name: string;
   urls: string[];
@@ -129,6 +136,7 @@ export interface DataGroup {
     strategy?: 'freshness' | 'performance';
   };
 }
+
 ```
 
 ### `name`
@@ -182,4 +190,3 @@ The Angular service worker can use either of two caching strategies for data res
 * `performance`, the default, optimizes for responses that are as fast as possible. If a resource exists in the cache, the cached version is used. This allows for some staleness, depending on the `maxAge`, in exchange for better performance. This is suitable for resources that don't change often; for example, user avatar images.
 
 * `freshness` optimizes for currency of data, preferentially fetching requested data from the network. Only if the network times out, according to `timeout`, does the request fall back to the cache. This is useful for resources that change frequently; for example, account balances.
-

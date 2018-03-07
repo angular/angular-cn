@@ -166,20 +166,15 @@ Now `parentModule` exists and the constructor throws the error.
 Here are the two files in their entirety for reference:
 
 <code-tabs linenums="false">
-
  <code-pane
    title="app.module.ts"
    path="ngmodules/src/app/app.module.ts">
-
  </code-pane>
-
  <code-pane
    title="core.module.ts"
    region="whole-core-module"
    path="ngmodules/src/app/core/core.module.ts">
-
  </code-pane>
-
 </code-tabs>
 
 <hr>

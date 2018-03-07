@@ -25,9 +25,7 @@ you can hit tab to complete.
 自动完成可以在输入时为我们提供当前情境下的候选内容和提示，从而提高开发速度。下面这个例子展示了插值表达式中的自动完成功能。当我们进行输入的时候，就可以按tab键来自动完成。
 
 <figure>
-
   <img src="generated/images/guide/language-service/language-completion.gif" alt="autocompletion">
-
 </figure>
 
 There are also completions within 
@@ -41,14 +39,12 @@ show up in the completion list.
 ## 错误检查
 
 The Angular Language Service can also forewarn you of mistakes in your code. 
-In this example, Angular doesn't know what `orders` is or where it comes from.
+In this example, Angular doesn't know what `orders` is or where it comes from. 
 
 Angular 语言服务还能对代码中存在的错误进行预警。在这个例子中，Angular 不知道什么是`orders`或者它来自哪里。
 
 <figure>
-
   <img src="generated/images/guide/language-service/language-error.gif" alt="error checking">
-
 </figure>
 
 ## Navigation
@@ -62,9 +58,7 @@ click and press F12 to go directly to its definition.
 导航可以让我们在鼠标悬浮时看到某个组件、指令、模块等来自哪里，然后可以点击并按 F12 直接跳转到它的定义处。
 
 <figure>
-
   <img src="generated/images/guide/language-service/language-navigation.gif" alt="navigation">
-
 </figure>
 
 ## Angular Language Service in your editor
@@ -89,7 +83,9 @@ Visual Studio Code 可以从商店中安装语言服务，这个功能就在左�
 我们也可以使用 VS 的快速打开（⌘+P）功能来查找这个扩展插件。打开它之后就输入下列命令：
 
 ```sh
+
 ext install Angular.ng-template
+
 ```
 
 Then click the install button to install the Angular Language Service. 
@@ -118,6 +114,7 @@ you need to have in `package.json`:
 devDependencies {
 	"@angular/language-service": "^4.0.0"
 }
+
 ```
 
 Then in the terminal window at the root of your project, 
@@ -126,15 +123,9 @@ install the `devDependencies` with `npm` or `yarn`:
 然后，打开终端窗口，在项目根目录下使用`npm`或`yarn`来安装这些`devDependencies`：
 
 ```sh
+
 npm install 
-```
 
-*OR* 
-
-*或* 
-
-```sh
-yarn
 ```
 
 *OR* 
@@ -142,7 +133,19 @@ yarn
 *或*
 
 ```sh
+
+yarn
+
+```
+
+*OR* 
+
+*或*
+
+```sh
+
 yarn install
+
 ```
 
 ### Sublime Text
@@ -156,7 +159,9 @@ Install the latest version of typescript in a local `node_modules` directory:
 把最新版本的 TypeScript 安装到本地的`node_modules`目录下：
 
 ```sh
+
 npm install --save-dev typescript
+
 ```
 
 Then install the Angular Language Service in the same location:
@@ -164,7 +169,9 @@ Then install the Angular Language Service in the same location:
 然后把 Angular 语言服务安装到同一位置：
 
 ```sh
+
 npm install --save-dev @angular/language-service
+
 ```
 
 Starting with TypeScript 2.3, TypeScript has a language service plugin model that the language service can use. 
@@ -176,7 +183,9 @@ Next, in your user preferences (`Cmd+,` or `Ctrl+,`), add:
 接下来，在你的用户首选项中（按`Cmd+,`或`Ctrl+,`）添加：
 
 ```json
+
 "typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
+
 ```
 
 ## Installing in your project
@@ -189,18 +198,24 @@ following `npm` command:
 我们还可以使用下列`npm`命令来把 Angular 语言服务安装到工程中：
 
 ```sh
+
 npm install --save-dev @angular/language-service
+
 ```
+
 Additionally, add the following to the `"compilerOptions"` section of 
 your project's `tsconfig.json`.
 
 另外，还要在工程的`tsconfig.json`中添加下列`"compilerOptions"`区域：
 
 ```json
+
   "plugins": [
       {"name": "@angular/language-service"}
   ]
+
 ```
+
 Note that this only provides diagnostics and completions in `.ts` 
 files. You need a custom sublime plugin (or modifications to the current plugin) 
 for completions in HTML files.
@@ -242,5 +257,5 @@ For more in-depth information, see the
 For more information, see [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language 
 Service from [ng-conf](https://www.ng-conf.org/) 2017.
 
-要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。
 
+要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。

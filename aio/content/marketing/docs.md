@@ -1,5 +1,3 @@
-
-
 <h1 class="no-toc">What is Angular?</h1>
 
 Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop
@@ -12,7 +10,7 @@ Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angu
     title="Experience Angular in a live coding environment">
 
       <section>Get a Glimpse of Angular</section>
-      
+
       <section>Angular 走马观花</section>
 
       <p>A quick look at an Angular "hello world" application.</p>
@@ -44,7 +42,7 @@ Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angu
   <a href="guide/architecture" class="docs-card" title="Angular Architecture">
 
       <section>Fundamentals</section>
-      
+
       <section>基本原理</section>
 
       <p>Learn Angular application fundamentals, starting with an architecture overview.</p>
@@ -54,6 +52,7 @@ Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angu
       <p class="card-footer">Architecture</p>
 
       <p class="card-footer">架构</p>
+
   </a>
 
 </div>

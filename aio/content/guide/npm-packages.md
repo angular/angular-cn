@@ -88,8 +88,8 @@ The `dependencies` section of `package.json` contains:
 
 * **Angular packages**: Angular core and optional modules; their package names begin `@angular/`.
 
-  **Angular 包**：Angular 的核心和可选模块，它们的包名以`@angular/`开头。
-  
+   **Angular 包**：Angular 的核心和可选模块，它们的包名以`@angular/`开头。
+
 * **Support packages**: 3rd party libraries that must be present for Angular apps to run.
 
    **支持包**：那些Angular 应用运行时必需的第三方库。

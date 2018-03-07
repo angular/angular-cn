@@ -15,9 +15,7 @@ of a small application that you can <live-example>run live in the browser</live-
 <!-- style for all tables on this page -->
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 ## Overview
@@ -296,7 +294,6 @@ It has a great deal of useful information including:
 它有一大堆有用的信息，包括：
 
 <table>
-
   <tr>
 
     <th>
@@ -496,7 +493,6 @@ It has a great deal of useful information including:
     </td>
 
   </tr>
-
 </table>
 
 <div class="l-sub-section">
@@ -525,7 +521,6 @@ During each navigation, the `Router` emits navigation events through the `Router
 在每次导航中，`Router`都会通过`Router.events`属性发布一些导航事件。这些事件的范围涵盖了从开始导航到结束导航之间的很多时间点。下表中列出了全部导航事件：
 
 <table>
-
   <tr>
 
     <th>
@@ -674,7 +669,6 @@ During each navigation, the `Router` emits navigation events through the `Router
     </td>
 
   </tr>
-
 </table>
 
 These events are logged to the console when the `enableTracing` option is enabled also. Since the events are provided as an `Observable`, you can `filter()` for events of interest and `subscribe()` to them to make decisions based on the sequence of events in the navigation process.
@@ -726,7 +720,7 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>Router</code>
-      
+
       <code>路由器</code>
 
     </td>
@@ -766,7 +760,7 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>Routes</code>
-      
+
       <code>路由定义（数组）</code>
 
     </td>
@@ -786,7 +780,7 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>Route</code>
-      
+
       <code>路由器</code>
 
     </td>
@@ -900,7 +894,7 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <b><i>Link parameters array</i></b>
-      
+
       <b><i>链接参数数组</i></b>
 
     </td>
@@ -922,7 +916,7 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <b><i>Routing component</i></b>
-      
+
       <b><i>路由组件</i></b>
 
     </td>
@@ -1038,9 +1032,7 @@ and the *Heroes* view with its list of heroes.
 等应用热身完毕，我们就会看到一排导航按钮，以及一个*英雄列表*视图。
 
 <figure>
-
   <img src='generated/images/guide/router/hero-list.png' alt="Hero List">
-
 </figure>
 
 Select one hero and the app takes you to a hero editing screen.
@@ -1048,9 +1040,7 @@ Select one hero and the app takes you to a hero editing screen.
 选择其中之一，该应用就会把我们带到此英雄的编辑页面。
 
 <figure>
-
   <img src='generated/images/guide/router/hero-detail.png' alt="Crisis Center Detail">
-
 </figure>
 
 Alter the name.
@@ -1071,9 +1061,7 @@ Now click the *Crisis Center* link for a list of ongoing crises.
 现在，点击*危机中心*链接，前往*危机*列表页。
 
 <figure>
-
   <img src='generated/images/guide/router/crisis-center-list.png' alt="Crisis Center List">
-
 </figure>
 
 Select a crisis and the application takes you to a crisis editing screen.
@@ -1089,9 +1077,7 @@ Notice that the corresponding name in the crisis list does _not_ change.
 注意，危机列表中的相应名称**并没有**修改。
 
 <figure>
-
   <img src='generated/images/guide/router/crisis-center-detail.png' alt="Crisis Center Detail">
-
 </figure>
 
 Unlike *Hero Detail*, which updates as you type,
@@ -1113,9 +1099,7 @@ Up pops a dialog box.
 我们会看到弹出了一个对话框。
 
 <figure>
-
   <img src='generated/images/guide/router/confirm-dialog.png' alt="Confirm Dialog">
-
 </figure>
 
 You can say "OK" and lose your changes or click "Cancel" and continue editing.
@@ -1148,9 +1132,7 @@ Begin with a simple version of the app that navigates between two empty views.
 开始本应用的一个简版，它在两个空路由之间导航。
 
 <figure>
-
   <img src='generated/images/guide/router/router-1-anim.gif' alt="App in action">
-
 </figure>
 
 {@a base-href}
@@ -1160,7 +1142,9 @@ Begin with a simple version of the app that navigates between two empty views.
 ### 设置*&lt;base href>*
 
 The router uses the browser's
+
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" title="HTML5 browser history push-state">history.pushState</a>
+
 for navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to
 look, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.
 
@@ -1208,7 +1192,7 @@ set the `href` value in **`index.html`** *exactly* as shown here.
 <header>
 
   Live example note
-  
+
   在线例子说明
 
 </header>
@@ -1329,9 +1313,7 @@ and a *router outlet* where the router swaps views on and off the page. Here's w
 根组件`AppComponent`是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器出口*，路由器会在它所指定的位置上把视图切入或调出页面。就像下图中所标出的：
 
 <figure>
-
   <img src='generated/images/guide/router/shell-and-outlet.png' alt="Shell">
-
 </figure>
 
 {@a shell-template}
@@ -1884,7 +1866,6 @@ then replacing `RouterModule.forRoot` in the `imports` array with the `AppRoutin
 接下来，修改`app.module.ts`文件，首先从`app-routing.module.ts`中导入新创建的`AppRoutingModule`，
 然后把`imports`数组中的`RouterModule.forRoot`替换为`AppRoutingModule`。
 
-
 <code-example path="router/src/app/app.module.2.ts" title="src/app/app.module.ts">
 
 </code-example>
@@ -1977,9 +1958,7 @@ Here's how the user will experience this version of the app:
 下面是用户将看到的版本：
 
 <figure>
-
   <img src='generated/images/guide/router/router-2-anim.gif' alt="App in action">
-
 </figure>
 
 A typical application has multiple *feature areas*,
@@ -2511,7 +2490,6 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 `ParamMap` API 是参照[URLSearchParams 接口](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)来设计的。它提供了一些方法来处理对路由参数（`paramMap`）和查询参数(`queryParamMap`)中的参数访问。
 
 <table>
-
   <tr>
 
     <th>
@@ -2603,7 +2581,6 @@ to handle parameter access for both route parameters (`paramMap`) and query para
     </td>
 
   </tr>
-
 </table>
 
 {@a reuse}
@@ -2764,9 +2741,7 @@ it would be nice if the viewed hero was preselected in the list.
 比如，当从`HeroDetailComponent`返回英雄列表时，如果能自动选中刚刚查看过的英雄就好了。
 
 <figure>
-
   <img src='generated/images/guide/router/selected-hero.png' alt="Selected hero">
-
 </figure>
 
 You'll implement this feature in a moment by including the viewed hero's `id`
@@ -2999,9 +2974,7 @@ When the user navigates from the heroes list to the "Magneta" hero and back, "Ma
 当用户从英雄列表导航到英雄“Magneta”并返回时，“Magneta”看起来是选中的：
 
 <figure>
-
   <img src='generated/images/guide/router/selected-hero.png' alt="Selected List">
-
 </figure>
 
 The optional `foo` route parameter is harmless and continues to be ignored.
@@ -3408,9 +3381,7 @@ If your app had many feature areas, the app component trees might look like this
 如果我们有更多特性区，它们的组件树是这样的：
 
 <figure>
-
   <img src='generated/images/guide/router/component-tree.png' alt="Component Tree">
-
 </figure>
 
 {@a child-routing-component}
@@ -3767,9 +3738,7 @@ and two buttons, "Send" and "Cancel".
 它显示一个简单的表单，包括一个头、一个消息输入框和两个按钮：“Send”和“Cancel”。
 
 <figure>
-
   <img src='generated/images/guide/router/contact-popup.png' alt="Contact popup">
-
 </figure>
 
 Here's the component and its template:
@@ -5856,4 +5825,3 @@ in the `AppModule`.
 <code-example path="router/src/app/app.module.6.ts" linenums="false" title="src/app/app.module.ts (hash URL strategy)">
 
 </code-example>
-

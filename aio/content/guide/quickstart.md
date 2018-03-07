@@ -134,9 +134,7 @@ Your app greets you with a message:
 本应用会用一条消息来跟你打招呼：
 
 <figure>
-
   <img src='generated/images/guide/cli-quickstart/app-works.png' alt="The app works!">
-
 </figure>
 
 <h2 id='first-component'>
@@ -172,9 +170,7 @@ Open `src/app/app.component.css` and give the component some style.
 <code-example path="cli-quickstart/src/app/app.component.css" title="src/app/app.component.css" linenums="false"></code-example>
 
 <figure>
-
   <img src='generated/images/guide/cli-quickstart/my-first-app.png' alt="Output of QuickStart app">
-
 </figure>
 
 Looking good!
@@ -294,21 +290,14 @@ Any files outside of this folder are meant to support building your app.
 </div>
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
-
   <col width="20%">
-
   </col>
-
   <col width="80%">
-
   </col>
-
   <tr>
 
     <th>
@@ -328,7 +317,6 @@ Any files outside of this folder are meant to support building your app.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -349,7 +337,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -371,7 +358,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -390,7 +376,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -418,7 +403,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -438,7 +422,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -461,7 +444,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -485,7 +467,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -508,7 +489,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -529,7 +509,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -550,7 +529,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -569,7 +547,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
 </table>
 
 ### The root folder
@@ -628,21 +605,14 @@ These files go in the root folder next to `src/`.
 </div>
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
-
   <col width="20%">
-
   </col>
-
   <col width="80%">
-
   </col>
-
   <tr>
 
     <th>
@@ -662,7 +632,6 @@ These files go in the root folder next to `src/`.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -685,7 +654,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -704,7 +672,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -727,7 +694,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -749,7 +715,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -767,7 +732,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -786,7 +750,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -806,7 +769,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -825,7 +787,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -846,7 +807,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -864,7 +824,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -885,7 +844,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
 </table>
 
 <div class="l-sub-section">
@@ -902,4 +860,3 @@ You can skip the "Setup" step since you're already using the Angular CLI setup.
 你可以跳过“环境设置”一章，因为你已经在使用 Angular-CLI 设置好环境了。
 
 </div>
-

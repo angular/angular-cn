@@ -7,13 +7,9 @@ This guide offers tips and techniques for unit and integration testing Angular a
 The guide presents tests of a sample CLI application that is much like the [_Tour of Heroes_ tutorial](tutorial).
 The sample application and all tests in this guide are available for inspection and experimentation:
 
-*
+* <live-example embedded-style>Sample app</live-example>
 
- <live-example embedded-style>Sample app</live-example>
-
-*
-
- <live-example stackblitz="specs">Tests</live-example>
+* <live-example stackblitz="specs">Tests</live-example>
 
 <hr>
 
@@ -54,9 +50,7 @@ It shows that Karma ran three tests that all passed.
 A chrome browser also opens and displays the test output in the "Jasmine HTML Reporter" like this.
 
 <figure>
-
   <img src='generated/images/guide/testing/initial-jasmine-html-reporter.png' alt="Jasmine HTML Reporter in the browser">
-
 </figure>
 
 Most people find this browser output easier to read than the console log.
@@ -765,8 +759,11 @@ Your instinct is to write a test that immediately inspects the `<h1>` like this:
 </code-example>
 
 _That test fails_ with the message:
+
 ```javascript
+
 expected '' to contain 'Test Tour of Heroes'.
+
 ```
 
 Binding happens when Angular performs **change detection**.
@@ -1116,8 +1113,11 @@ The following test confirms the expected behavior when the service returns an `E
 </code-example>
 
 Note that the `it()` function receives an argument of the following form.
+
 ```javascript
+
 fakeAsync(() => { /* test body */ })`
+
 ```
 
 The `fakeAsync` function enables a linear coding style by running the test body in a special _fakeAsync test zone_.
@@ -1401,10 +1401,12 @@ The second argument is null because the observable never emits a value.
 #### Learn about marble testing
 
 {@a marble-frame}
+
 A _marble frame_ is a virtual unit of testing time.
 Each symbol (`-`, `x`, `|`, `#`) marks the passing of one frame.
 
 {@a cold-observable}
+
 A _cold_ observable doesn't produce values until you subscribe to it.
 Most of your application observables are cold.
 All [_HttpClient_](guide/http) methods return cold observables.
@@ -1607,7 +1609,9 @@ in a helper such as the `click()` function below:
 
 The first parameter is the _element-to-click_. If you wish, you can pass a
 custom event object as the second parameter. The default is a (partial)
+
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button">left-button mouse event object</a>
+
 accepted by many handlers including the `RouterLink` directive.
 
 <div class="alert is-important">
@@ -2036,6 +2040,7 @@ question for a separate set of tests.
 </div>
 
 {@a by-directive}
+
 {@a inject-directive}
 
 #### _By.directive_ and injected directives
@@ -2121,9 +2126,7 @@ tests with the `RouterTestingModule`.
 The `HeroDetailComponent` is a simple view with a title, two hero fields, and two buttons.
 
 <figure>
-
   <img src='generated/images/guide/testing/hero-detail.component.png' alt="HeroDetailComponent in action">
-
 </figure>
 
 But there's plenty of template complexity even in this simple form.
@@ -2594,9 +2597,7 @@ A better solution is to create an artificial test component that demonstrates al
 <code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="test-component" title="app/shared/highlight.directive.spec.ts (TestComponent)" linenums="false"></code-example>
 
 <figure>
-
   <img src='generated/images/guide/testing/highlight-directive-spec.png' alt="HighlightDirective spec in action">
-
 </figure>
 
 <div class="l-sub-section">
@@ -2683,9 +2684,7 @@ Debug specs in the browser in the same way that you debug an application.
   1. Refresh the browser, and it stops at the breakpoint.
 
 <figure>
-
   <img src='generated/images/guide/testing/karma-1st-spec-debug.png' alt="Karma debugging">
-
 </figure>
 
 <hr>
@@ -2702,7 +2701,6 @@ The [_TestBed_](#testbed-api-summary) and [_ComponentFixture_](#component-fixtur
 Here's a summary of the stand-alone functions, in order of likely utility:
 
 <table>
-
   <tr>
 
     <th>
@@ -2878,7 +2876,6 @@ Here's a summary of the stand-alone functions, in order of likely utility:
     </td>
 
   </tr>
-
 </table>
 
 <hr>
@@ -2923,6 +2920,7 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 </code-example>
 
 {@a testbed-methods}
+
 {@a testbed-api-summary}
 
 The `TestBed` API consists of static class methods that either update or reference a _global_ instance of the`TestBed`.
@@ -2935,7 +2933,6 @@ Call `TestBed` methods _within_ a `beforeEach()` to ensure a fresh start before 
 Here are the most important static methods, in order of likely utility.
 
 <table>
-
   <tr>
 
     <th>
@@ -3156,7 +3153,6 @@ Here are the most important static methods, in order of likely utility.
     </td>
 
   </tr>
-
 </table
 
 A few of the `TestBed` instance methods are not covered by static `TestBed` _class_ methods.
@@ -3180,7 +3176,6 @@ its DOM representation, and aspects of its Angular environment.
 Here are the most important properties for testers, in order of likely utility.
 
 <table>
-
   <tr>
 
     <th>
@@ -3269,7 +3264,6 @@ Here are the most important properties for testers, in order of likely utility.
     </td>
 
   </tr>
-
 </table>
 
 {@a component-fixture-methods}
@@ -3282,7 +3276,6 @@ Call these method to trigger Angular behavior in response to simulated user acti
 Here are the most useful methods for testers.
 
 <table>
-
   <tr>
 
     <th>
@@ -3419,7 +3412,6 @@ Here are the most useful methods for testers.
     </td>
 
   </tr>
-
 </table>
 
 {@a debug-element-details}
@@ -3434,7 +3426,6 @@ you can walk (and query) the fixture's entire element and component subtrees.
 Here are the most useful `DebugElement` members for testers, in approximate order of utility:
 
 <table>
-
   <tr>
 
     <th>
@@ -3702,7 +3693,6 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
     </td>
 
   </tr>
-
 </table>
 
 {@a query-predicate}

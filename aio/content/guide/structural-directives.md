@@ -3,7 +3,6 @@
 # 结构型指令
 
 <style>
-
   h4 {font-size: 17px !important; text-transform: none !important;}
   .syntax { font-family: Consolas, 'Lucida Sans', Courier, sans-serif; color: black; font-size: 85%; }
 
@@ -157,9 +156,7 @@ Confirm that fact using browser developer tools to inspect the DOM.
 使用浏览器的开发者工具就可以确认这一点。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/element-not-in-dom.png' alt="ngIf=false element not in DOM">
-
 </figure>
 
 The top paragraph is in the DOM. The bottom, disused paragraph is not;
@@ -192,9 +189,7 @@ While invisible, the element remains in the DOM.
 当不可见时，这个元素仍然留在DOM中。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/element-display-in-dom.png' alt="hidden element still in DOM">
-
 </figure>
 
 The difference between hiding and removing doesn't matter for a simple paragraph.
@@ -280,9 +275,7 @@ The first form is not actually rendered, only the finished product ends up in th
 只有最终产出的结果才会出现在DOM中。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/hero-div-in-dom.png' alt="hero div in DOM">
-
 </figure>
 
 Angular consumed the `<ng-template>` content during its actual rendering and
@@ -584,9 +577,7 @@ Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
 Angular 抹掉了中间的那个 "Hip!" ，让欢呼声显得不再那么热烈了。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/template-rendering.png' alt="template tag rendering">
-
 </figure>
 
 A structural directive puts a `<ng-template>` to work
@@ -651,9 +642,7 @@ The constructed paragraph renders strangely.
 这样渲染出来的段落就会非常奇怪。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/bad-paragraph.png' alt="spanned paragraph with bad style">
-
 </figure>
 
 The `p span` style, intended for use elsewhere, was inadvertently applied here.
@@ -680,9 +669,7 @@ the drop down is empty.
 下拉列表就是空的。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/bad-select.png' alt="spanned options don't work">
-
 </figure>
 
 The browser won't display an `<option>` within a `<span>`.
@@ -711,9 +698,7 @@ It renders properly.
 这次就渲染对了。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/good-paragraph.png' alt="ngcontainer paragraph with proper style">
-
 </figure>
 
 Now conditionally exclude a _select_ `<option>` with `<ng-container>`.
@@ -729,9 +714,7 @@ The drop down works properly.
 下拉框也工作正常。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/select-ngcontainer-anim.gif' alt="ngcontainer options work properly">
-
 </figure>
 
 The `<ng-container>` is a syntax element recognized by the Angular parser.
@@ -786,7 +769,7 @@ Creating a directive is similar to creating a component.
 
 * Import the `Input`, `TemplateRef`, and `ViewContainerRef` symbols; you'll need them for _any_ structural directive.
 
-  导入符号`Input`、`TemplateRef` 和 `ViewContainerRef`，我们在*任何*结构型指令中都会需要它们。
+   导入符号`Input`、`TemplateRef` 和 `ViewContainerRef`，我们在*任何*结构型指令中都会需要它们。
 
 * Apply the decorator to the directive class.
 
@@ -922,9 +905,7 @@ When the `condition` is truthy, the top (A) paragraph is removed and the bottom 
 当`condition`为`true`时，顶部的段落被移除了，而底部的段落显示了出来。
 
 <figure>
-
   <img src='generated/images/guide/structural-directives/unless-anim.gif' alt="UnlessDirective in action">
-
 </figure>
 
 {@a summary}

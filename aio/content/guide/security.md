@@ -138,7 +138,7 @@ Angular定义了四个安全环境 - HTML，样式，URL，和资源URL：
 
 * **URL** is used for URL properties, such as `<a href>`.
 
-  **URL**：值需要被用作URL属性时使用，比如`<a href>`。
+   **URL**：值需要被用作URL属性时使用，比如`<a href>`。
 
 * **Resource URL** is a URL that will be loaded and executed as code, for example, in `<script src>`.
 
@@ -186,9 +186,7 @@ tag but keeps safe content such as the text content of the `<script>` tag and th
 Angular认为这些值是不安全的，并自动进行无害化处理。它会移除`<script>`标签，但保留安全的内容，比如该片段中的文本内容或`<b>`元素。
 
 <figure>
-
   <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
-
 </figure>
 
 ### Avoid direct use of the DOM APIs
@@ -304,9 +302,7 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 </code-example>
 
 <figure>
-
   <img src='generated/images/guide/security/bypass-security-component.png' alt='A screenshot showing an alert box created from a trusted URL'>
-
 </figure>
 
 If you need to convert user input into a trusted value, use a

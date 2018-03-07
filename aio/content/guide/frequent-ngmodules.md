@@ -37,61 +37,133 @@ of some of the things they contain:
 
  <tr>
 
-   <td><code>BrowserModule</code></td>
+   <td>
 
-   <td><code>@angular/platform-browser</code></td>
+       <code>BrowserModule</code>
 
-   <td>When you want to run your app in a browser</td>
+   </td>
 
- </tr>
+   <td>
 
- <tr>
+       <code>@angular/platform-browser</code>
 
-   <td><code>CommonModule</code></td>
+   </td>
 
-   <td><code>@angular/common</code></td>
+   <td>
 
-   <td>When you want to use <code>NgIf</code>, <code>NgFor</code></td>
+       When you want to run your app in a browser
 
- </tr>
-
- <tr>
-
-   <td><code>FormsModule</code></td>
-
-   <td><code>@angular/forms</code></td>
-
-   <td>When you build template driven forms (includes <code>NgModel</code>)</td>
+   </td>
 
  </tr>
 
  <tr>
 
-   <td><code>ReactiveFormsModule</code></td>
+   <td>
 
-   <td><code>@angular/forms</code></td>
+       <code>CommonModule</code>
 
-   <td>When building reactive forms</td>
+   </td>
+
+   <td>
+
+       <code>@angular/common</code>
+
+   </td>
+
+   <td>
+
+       When you want to use <code>NgIf</code>, <code>NgFor</code>
+
+   </td>
 
  </tr>
 
  <tr>
 
-   <td><code>RouterModule</code></td>
+   <td>
 
-   <td><code>@angular/router</code></td>
+       <code>FormsModule</code>
 
-   <td>For Routing and when you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code></td>
+   </td>
+
+   <td>
+
+       <code>@angular/forms</code>
+
+   </td>
+
+   <td>
+
+       When you build template driven forms (includes <code>NgModel</code>)
+
+   </td>
 
  </tr>
 
  <tr>
 
-   <td><code>HttpClientModule</code></td>
+   <td>
 
-   <td><code>@angular/common/http</code></td>
+       <code>ReactiveFormsModule</code>
 
-   <td>When you to talk to a server</td>
+   </td>
+
+   <td>
+
+       <code>@angular/forms</code>
+
+   </td>
+
+   <td>
+
+       When building reactive forms
+
+   </td>
+
+ </tr>
+
+ <tr>
+
+   <td>
+
+       <code>RouterModule</code>
+
+   </td>
+
+   <td>
+
+       <code>@angular/router</code>
+
+   </td>
+
+   <td>
+
+       For Routing and when you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>
+
+   </td>
+
+ </tr>
+
+ <tr>
+
+   <td>
+
+       <code>HttpClientModule</code>
+
+   </td>
+
+   <td>
+
+       <code>@angular/common/http</code>
+
+   </td>
+
+   <td>
+
+       When you to talk to a server
+
+   </td>
 
  </tr>
 
@@ -106,6 +178,7 @@ or your feature module as appropriate, and list them in the `@NgModule`
 `app.module.ts`.
 
 ```typescript
+
 /* import modules so that AppModule can access them */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -123,6 +196,7 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
 ```
 
 The imports at the top of the array are JavaScript import statements
@@ -147,9 +221,7 @@ If you do import `BrowserModule` into a lazy loaded feature module,
 Angular returns an error telling you to use `CommonModule` instead.
 
 <figure>
-
  <img src="generated/images/guide/frequent-ngmodules/browser-module-error.gif" width=750 alt="BrowserModule error">
-
 </figure>
 
 <hr />

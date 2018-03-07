@@ -20,12 +20,11 @@ that are important to Angular developers, including details about the following 
 
 * [tsconfig.json](guide/typescript-configuration#tsconfig)&mdash;TypeScript compiler configuration.
 
-  [tsconfig.json](guide/typescript-configuration#tsconfig) - TypeScript编译器配置。
-  
+   [tsconfig.json](guide/typescript-configuration#tsconfig) - TypeScript编译器配置。
+
 * [typings](guide/typescript-configuration#typings)&mdash;TypesScript declaration files.
 
-  [typings](guide/typescript-configuration#typings) - TypesScript类型声明文件。
-
+   [typings](guide/typescript-configuration#typings) - TypesScript类型声明文件。
 
 {@a tsconfig}
 

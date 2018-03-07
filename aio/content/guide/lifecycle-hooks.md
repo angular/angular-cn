@@ -60,19 +60,23 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 当Angular使用构造函数新建一个组件或指令后，就会按下面的顺序在特定时刻调用这些生命周期钩子方法：
 
 <table width="100%">
-
   <col width="20%"></col>
-
   <col width="80%"></col>
-
   <tr>
 
-    <th>Hook</th>
+    <th>
 
-    <th>Purpose and Timing</th>
+        Hook
+
+    </th>
+
+    <th>
+
+        Purpose and Timing
+
+    </th>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -96,7 +100,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -119,7 +122,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -141,7 +143,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -163,7 +164,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -185,7 +185,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -207,7 +206,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -229,7 +227,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -253,7 +250,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
 </table>
 
 {@a interface-optional}
@@ -323,19 +319,25 @@ Here's a brief description of each exercise:
 下面是每个练习简短的描述：
 
 <table width="100%">
-
   <col width="20%"></col>
-
   <col width="80%"></col>
-
   <tr>
 
-    <th>Component</th>
+    <th>
 
-    <th>Description</th>
+        Component
+
+    </th>
+
+    <th>
+
+        Description
+
+        描述
+
+    </th>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -354,7 +356,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -379,7 +380,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -400,7 +400,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -420,7 +419,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -440,7 +438,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -461,7 +458,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -490,7 +486,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
 </table>
 
 The remainder of this page discusses selected exercises in further detail.
@@ -518,9 +513,7 @@ This snapshot reflects the state of the log after the user clicked the *Create..
 用户点击**Create...**按钮，然后点击**Destroy...**按钮后，日志的状态如下图所示：
 
 <figure>
-
   <img src="generated/images/guide/lifecycle-hooks/peek-a-boo.png" alt="Peek-a-boo">
-
 </figure>
 
 The sequence of log messages follows the prescribed hook calling order:
@@ -575,7 +568,7 @@ The heroes will never know they're being watched.
 
   1. Angular calls hook methods for *directives* as well as components.<br><br>
 
-    就像对组件一样，Angular也会对*指令*调用这些钩子方法。<br><br>
+     就像对组件一样，Angular也会对*指令*调用这些钩子方法。<br><br>
 
   2. A spy directive can provide insight into a DOM object that you cannot change directly.
   Obviously you can't touch the implementation of a native `<div>`.
@@ -611,9 +604,7 @@ with an entry in the *Hook Log* as seen here:
 每个“侦探”的出生和死亡也同时标记出了存放英雄的那个`<div>`的出生和死亡。*钩子记录*中的结构是这样的：
 
 <figure>
-
   <img src='generated/images/guide/lifecycle-hooks/spy-directive.gif' alt="Spy Directive">
-
 </figure>
 
 Adding a hero results in a new hero `<div>`. The spy's `ngOnInit()` logs that event.
@@ -764,9 +755,7 @@ Here's the sample in action as the user makes changes.
 下面是此例子中的当用户做出更改时的操作演示：
 
 <figure>
-
   <img src='generated/images/guide/lifecycle-hooks/on-changes-anim.gif' alt="OnChanges">
-
 </figure>
 
 The log entries appear as the string value of the *power* property changes.
@@ -820,9 +809,7 @@ so you can see how often `DoCheck` is called. The results are illuminating:
 这样你可以看到`DoCheck`被调用的频率。结果非常显眼：
 
 <figure>
-
   <img src='generated/images/guide/lifecycle-hooks/do-check-anim.gif' alt="DoCheck">
-
 </figure>
 
 While the `ngDoCheck()` hook can detect when the hero's `name` has changed, it has a frightful cost.
@@ -909,9 +896,7 @@ Here's *AfterView* in action:
 这里是*AfterView*的操作演示：
 
 <figure>
-
   <img src='generated/images/guide/lifecycle-hooks/after-view-anim.gif' alt="AfterView">
-
 </figure>
 
 Notice that Angular frequently calls `AfterViewChecked()`, often when there are no changes of interest.
@@ -981,9 +966,7 @@ In this case, the projected content is the `<my-child>` from the parent.
 在这里，被投影进去的内容就是来自父组件的`<my-child>`标签。
 
 <figure>
-
   <img src='generated/images/guide/lifecycle-hooks/projected-child-view.png' alt="Projected Content">
-
 </figure>
 
 <div class="l-sub-section">

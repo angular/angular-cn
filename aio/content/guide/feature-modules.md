@@ -42,6 +42,7 @@ root project directory. Replace `CustomerDashboard` with the
 name of your module. You can omit the "Module" suffix from the name because the CLI appends it:
 
 ```sh
+
 ng generate module CustomerDashboard
 
 ```
@@ -49,6 +50,7 @@ ng generate module CustomerDashboard
 This causes the CLI to create a folder called `customer-dashboard` with a file inside called `customer-dashboard.module.ts` with the following contents:
 
 ```typescript
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -59,6 +61,7 @@ import { CommonModule } from '@angular/common';
   declarations: []
 })
 export class CustomerDashboardModule { }
+
 ```
 
 The structure of an NgModule is the same whether it is a root module or a feature module. In the CLI generated feature module, there are two JavaScript import statements at the top of the file: the first imports `NgModule`, which, like the root module, lets you use the `@NgModule` decorator; the second imports `CommonModule`, which contributes many common directives such as `ngIf` and `ngFor`. Feature modules import `CommonModule` instead of `BrowserModule`, which is only imported once in the root module. `CommonModule` only contains information for common directives such as `ngIf` and `ngFor` which are needed in most templates, whereas `BrowserModule` configures the Angular app for the browser which needs to be done only once.
@@ -67,6 +70,7 @@ The `declarations` array is available for you to add declarables, which
 are components, directives, and pipes that belong exclusively to this particular module. To add a component, enter the following command at the command line where `customer-dashboard` is the directory where the CLI generated the feature module and `CustomerDashboard` is the name of the component:
 
 ```sh
+
 ng generate component customer-dashboard/CustomerDashboard
 
 ```
@@ -112,9 +116,7 @@ Next, in the `AppComponent`, `app.component.html`, add the tag `<app-customer-da
 Now, in addition to the title that renders by default, the `CustomerDashboardComponent` template renders too:
 
 <figure>
-
  <img src="generated/images/guide/feature-modules/feature-module.png" alt="feature module component">
-
 </figure>
 
 <hr />

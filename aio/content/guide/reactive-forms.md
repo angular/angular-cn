@@ -447,9 +447,7 @@ Now that everything is wired up, the browser should display something like this:
 这些做好之后，浏览器中应该显示成这样：
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/just-formcontrol.png" alt="Single FormControl">
-
 </figure>
 
 {@a formgroup}
@@ -561,9 +559,7 @@ Piping it through the `JsonPipe` renders the model as JSON in the browser:
 用`JsonPipe`管道把这个模型以JSON格式渲染到浏览器中。
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/json-output.png" alt="JSON output">
-
 </figure>
 
 The initial `name` property value is the empty string.
@@ -695,9 +691,7 @@ The browser displays the following:
 浏览器会显示下列内容：
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/validators-json-output.png" alt="Single FormControl">
-
 </figure>
 
 `Validators.required` is working. The status is `INVALID` because the input box has no value.
@@ -857,9 +851,7 @@ with the nested address `FormGroup`:
 做完这些之后，浏览器中的JSON输出就变成了带有多级`FormGroup`的住址。
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/address-group.png" alt="JSON output">
-
 </figure>
 
 Great! You’ve made a group and you can see that the template
@@ -905,9 +897,7 @@ such as one of the following:
 我们可以使用此技术来显示`FromControl`的*任意*属性，代码如下：
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
@@ -1309,9 +1299,7 @@ Together they look a bit like this:
 `HeroDetalComponent`是一个嵌套在`HeroListComponent`的*主从*视图中的子组件。如果把它们放在一起就是这样的：
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/hero-list.png" alt="HeroListComponent">
-
 </figure>
 
 The `HeroListComponent` uses an injected `HeroService` to retrieve heroes from the server
@@ -1609,9 +1597,7 @@ Back in the browser, select the hero named "Magneta".
 "Magneta"没有地址，我们会在表单底部的诊断用JSON中看到这一点。
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/addresses-array.png" alt="JSON output of addresses array">
-
 </figure>
 
 Click the "_Add a Secret Lair_" button.
@@ -1714,9 +1700,7 @@ After you implement both features in this section, the form will look like this:
 在实现完本节的这些特性之后，表单是这样的：
 
 <figure>
-
   <img src="generated/images/guide/reactive-forms/save-revert-buttons.png" alt="Form with save & revert buttons">
-
 </figure>
 
 ### Save

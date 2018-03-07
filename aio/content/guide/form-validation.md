@@ -49,7 +49,7 @@ The following example exports `NgModel` into a variable called `name`:
 
 Note the following:
 
-请注意以下几点：
+要注意的有两点：
 
 * The `<input>` element carries the HTML validation attributes: `required` and `minlength`. It 
 also carries a custom validator directive, `forbiddenName`. For more 
@@ -164,7 +164,7 @@ for the template.
 
    这个例子添加了一些getter方法。在响应式表单中，我们通常会通过它所属的控件组（FormGroup）的`get`方法来访问表单控件，但有时候为模板定义一些getter作为简短形式。
 
-If you look at the template for the name input again, it is fairly similar to the template-driven example.
+If you look at the template for the name input again, it is fairly similar to the template-driven example. 
 
 如果我们到模板中找到name输入框，就会发现它和模板驱动的例子很相似。
 

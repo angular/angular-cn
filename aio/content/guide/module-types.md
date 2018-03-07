@@ -1,5 +1,3 @@
-
-
 # Types of Feature Modules
 
 #### Prerequisites
@@ -52,7 +50,11 @@ typical characteristics, in real world apps, you may see hybrids.
 
  <tr>
 
-   <td>Domain</td>
+   <td>
+
+       Domain
+
+   </td>
 
    <td>
 
@@ -71,10 +73,13 @@ typical characteristics, in real world apps, you may see hybrids.
    </td>
 
  </tr>
-
  <tr>
 
-   <td>Routed</td>
+   <td>
+
+       Routed
+
+   </td>
 
    <td>
 
@@ -94,7 +99,11 @@ typical characteristics, in real world apps, you may see hybrids.
 
  <tr>
 
-   <td>Routing</td>
+   <td>
+
+       Routing
+
+   </td>
 
    <td>
 
@@ -104,17 +113,41 @@ typical characteristics, in real world apps, you may see hybrids.
 
      <ul>
 
-     <li>Defines routes.</li>
+     <li>
 
-     <li>Adds router configuration to the module's imports.</li>
+         Defines routes.
 
-     <li>Adds guard and resolver service providers to the module's providers.</li>
+     </li>
 
-     <li>The name of the routing module should parallel the name of its companion module, using the suffix "Routing". For example, <code>FooModule</code> in <code>foo.module.ts</code> has a routing module named <code>FooRoutingModule</code> in <code>foo-routing.module.ts</code>. If the companion module is the root <code>AppModule</code>, the <code>AppRoutingModule</code> adds router configuration to its imports with <code>RouterModule.forRoot(routes)</code>. All other routing modules are children that import <code>RouterModule.forChild(routes)</code>.</li>
+     <li>
 
-     <li>A routing module re-exports the <code>RouterModule</code> as a convenience so that components of the companion module have access to router directives such as <code>RouterLink</code> and <code>RouterOutlet</code>.</li>
+         Adds router configuration to the module's imports.
 
-     <li>A routing module does not have its own declarations. Components, directives, and pipes are the responsibility of the feature module, not the routing module.</li>
+     </li>
+
+     <li>
+
+         Adds guard and resolver service providers to the module's providers.
+
+     </li>
+
+     <li>
+
+         The name of the routing module should parallel the name of its companion module, using the suffix "Routing". For example, <code>FooModule</code> in <code>foo.module.ts</code> has a routing module named <code>FooRoutingModule</code> in <code>foo-routing.module.ts</code>. If the companion module is the root <code>AppModule</code>, the <code>AppRoutingModule</code> adds router configuration to its imports with <code>RouterModule.forRoot(routes)</code>. All other routing modules are children that import <code>RouterModule.forChild(routes)</code>.
+
+     </li>
+
+     <li>
+
+         A routing module re-exports the <code>RouterModule</code> as a convenience so that components of the companion module have access to router directives such as <code>RouterLink</code> and <code>RouterOutlet</code>.
+
+     </li>
+
+     <li>
+
+         A routing module does not have its own declarations. Components, directives, and pipes are the responsibility of the feature module, not the routing module.
+
+     </li>
 
      </ul>
 
@@ -126,7 +159,11 @@ typical characteristics, in real world apps, you may see hybrids.
 
  <tr>
 
-   <td>Service</td>
+   <td>
+
+       Service
+
+   </td>
 
    <td>
 
@@ -140,7 +177,11 @@ typical characteristics, in real world apps, you may see hybrids.
 
  <tr>
 
-   <td>Widget</td>
+   <td>
+
+       Widget
+
+   </td>
 
    <td>
 
@@ -161,7 +202,6 @@ typical characteristics, in real world apps, you may see hybrids.
 The following table summarizes the key characteristics of each feature module group.
 
 <table>
-
  <tr>
 
    <th style="vertical-align: top">
@@ -198,74 +238,175 @@ The following table summarizes the key characteristics of each feature module gr
 
  <tr>
 
-   <td>Domain</td>
+   <td>
 
-   <td>Yes</td>
+       Domain
 
-   <td>Rare</td>
+   </td>
 
-   <td>Top component</td>
+   <td>
 
-   <td>Feature, AppModule</td>
+       Yes
 
- </tr>
+   </td>
 
- <tr>
+   <td>
 
-   <td>Routed</td>
+       Rare
 
-   <td>Yes</td>
+   </td>
 
-   <td>Rare</td>
+   <td>
 
-   <td>No</td>
+       Top component
 
-   <td>None</td>
+   </td>
 
- </tr>
+   <td>
 
- <tr>
+       Feature, AppModule
 
-   <td>Routing</td>
-
-   <td>No</td>
-
-   <td>Yes (Guards)</td>
-
-   <td>RouterModule</td>
-
-   <td>Feature (for routing)</td>
+   </td>
 
  </tr>
 
  <tr>
 
-   <td>Service</td>
+   <td>
 
-   <td>No</td>
+       Routed
 
-   <td>Yes</td>
+   </td>
 
-   <td>No</td>
+   <td>
 
-   <td>AppModule</td>
+       Yes
+
+   </td>
+
+   <td>
+
+       Rare
+
+   </td>
+
+   <td>
+
+       No
+
+   </td>
+
+   <td>
+
+       None
+
+   </td>
 
  </tr>
 
  <tr>
 
-   <td>Widget</td>
+   <td>
 
-   <td>Yes</td>
+       Routing
 
-   <td>Rare</td>
+   </td>
 
-   <td>Yes</td>
+   <td>
 
-   <td>Feature</td>
+       No
+
+   </td>
+
+   <td>
+
+       Yes (Guards)
+
+   </td>
+
+   <td>
+
+       RouterModule
+
+   </td>
+
+   <td>
+
+       Feature (for routing)
+
+   </td>
 
  </tr>
 
+ <tr>
+
+   <td>
+
+       Service
+
+   </td>
+
+   <td>
+
+       No
+
+   </td>
+
+   <td>
+
+       Yes
+
+   </td>
+
+   <td>
+
+       No
+
+   </td>
+
+   <td>
+
+       AppModule
+
+   </td>
+
+ </tr>
+
+ <tr>
+
+   <td>
+
+       Widget
+
+   </td>
+
+   <td>
+
+       Yes
+
+   </td>
+
+   <td>
+
+       Rare
+
+   </td>
+
+   <td>
+
+       Yes
+
+   </td>
+
+   <td>
+
+       Feature
+
+       特性
+
+   </td>
+
+ </tr>
 </table>
 
 <hr />

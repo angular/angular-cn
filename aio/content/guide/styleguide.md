@@ -2724,7 +2724,7 @@ and more difficult in a flat structure.
   <a href="#file-tree">Refer to this _folder and file structure_ example.</a>
 
   <a href="#file-tree">点这里查看目录和文件结构的范例</a>
-  
+
 </div>
 
 <a href="#toc">Back to top</a>
@@ -4643,9 +4643,7 @@ Useful tools and tips for Angular.
 **考虑**使用 [Visual Studio Code](https://code.visualstudio.com/)的[代码片段](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2) 来实施本风格指南。
 
 <a href="https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2">
-
   <img src="generated/images/guide/styleguide/use-extension.gif" alt="Use Extension">
-
 </a>
 
 **Consider** using [snippets](https://atom.io/packages/angular-2-typescript-snippets) for [Atom](https://atom.io/) that follow these styles and guidelines.

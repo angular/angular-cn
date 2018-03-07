@@ -32,6 +32,7 @@ The following is an example of specifying a bootstrapped component,
 `AppComponent`, in a basic `app.module.ts`:
 
 ```typescript
+
 @NgModule({
   declarations: [
     AppComponent
@@ -45,6 +46,7 @@ The following is an example of specifying a bootstrapped component,
   providers: [],
   bootstrap: [AppComponent] // bootstrapped entry component
 })
+
 ```
 
 A bootstrapped component is an entry component
@@ -69,12 +71,14 @@ The second kind of entry component occurs in a route definition like
 this:
 
 ```typescript
+
 const routes: Routes = [
   {
     path: '',
     component: CustomerListComponent
   }
 ];
+
 ```
 
 A route definition refers to a component by its type with `component: CustomerListComponent`.

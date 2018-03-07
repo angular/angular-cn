@@ -38,7 +38,7 @@ Visual Studio 2015, follow these steps:
 If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
 then consider the _experimental_
 <a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>. 
-Note that the resulting code does not map to the docs. Adjust accordingly.
+Note that the resulting code does not map to the docs. Adjust accordingly.   
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
     参见_预览版_<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
@@ -116,13 +116,13 @@ Configure Visual Studio to use the global external web tools instead of the tool
      * 在右侧，将`$(PATH)`移动到 `$(DevEnvDir`)上面。这样，Visual Stuio就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如npm）。
 
   * Click OK to close the dialog.
-  
-    点击OK关闭对话框。
+
+     点击OK关闭对话框。
 
   * Restart Visual Studio for this change to take effect.
 
-    重启Visual Studio，以让设置变化生效。
-    
+     重启Visual Studio，以让设置变化生效。
+
 Visual Studio now looks first for external tools in the current workspace and 
 if it doesn't find them, it looks in the global path. If Visual Studio doesn't 
 find them in either location, it will use its own versions of the tools.

@@ -1,5 +1,3 @@
-
-
 <h1 class="no-toc">Tutorial: Tour of Heroes</h1>
 
 <h1 class="no-toc">教程：英雄指南</h1>
@@ -74,9 +72,7 @@ view and the most heroic heroes:
 下面是本教程关于界面的构想：开始是“Dashboard（仪表盘）”视图，来展示我们最勇敢的英雄。
 
 <figure>
-
   <img src='generated/images/guide/toh/heroes-dashboard-1.png' alt="Output of heroes dashboard">
-
 </figure>
 
 You can click the two links above the dashboard ("Dashboard" and "Heroes")
@@ -91,9 +87,7 @@ where you can change the hero's name.
 当我们点击仪表盘上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
 
 <figure>
-
   <img src='generated/images/guide/toh/hero-details-1.png' alt="Details of hero in app">
-
 </figure>
 
 Clicking the "Back" button returns you to the Dashboard.
@@ -105,9 +99,7 @@ If you click "Heroes," the app displays the "Heroes" master list view.
 如果我们点击“Heroes（英雄列表）”链接，应用将把我们带到“英雄”主列表视图。
 
 <figure>
-
   <img src='generated/images/guide/toh/heroes-list-2.png' alt="Output of heroes list app">
-
 </figure>
 
 When you click a different hero name, the read-only mini detail beneath the list reflects the new choice.
@@ -124,9 +116,7 @@ The following diagram captures all of the navigation options.
 下面这张图汇总了我们所有可能的导航路径。
 
 <figure>
-
   <img src='generated/images/guide/toh/nav-diagram.png' alt="View navigations">
-
 </figure>
 
 Here's the app in action:
@@ -134,8 +124,5 @@ Here's the app in action:
 下图演示了我们应用中的所有操作。
 
 <figure>
-
   <img src='generated/images/guide/toh/toh-anim.gif' alt="Tour of Heroes in Action">
-
 </figure>
-

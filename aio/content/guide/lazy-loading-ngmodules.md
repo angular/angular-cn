@@ -37,7 +37,9 @@ create one with the CLI. If you do already have an app, skip to
 where `customer-app` is the name of your app:
 
 ```sh
+
 ng new customer-app --routing
+
 ```
 
 This creates an app called `customer-app` and the `--routing` flag
@@ -51,7 +53,9 @@ Next, you’ll need a feature module to route to. To make one, enter
 the following command at the terminal window prompt where `customers` is the name of the module:
 
 ```sh
+
 ng generate module customers --routing
+
 ```
 
 This creates a customers folder with two files inside; `CustomersModule`
@@ -69,7 +73,9 @@ adding a JavaScript import statement at the top of the file and adding
 In order to see the module being lazy loaded in the browser, create a component to render some HTML when the app loads `CustomersModule`. At the command line, enter the following:
 
 ```sh
+
 ng generate component customers/customer-list
+
 ```
 
 This creates a folder inside of `customers` called `customer-list`
@@ -86,7 +92,9 @@ Just like with the routing module, the CLI imports the
 For another place to route to, create a second feature module with routing:
 
 ```sh
+
 ng generate module orders --routing
+
 ```
 
 This makes a new folder called `orders` containing an `OrdersModule` and an `OrdersRoutingModule`.
@@ -94,7 +102,9 @@ This makes a new folder called `orders` containing an `OrdersModule` and an `Ord
 Now, just like with the `CustomersModule`, give it some content:
 
 ```sh
+
 ng generate component orders/order-list
+
 ```
 
 ## Set up the UI
@@ -111,15 +121,15 @@ so you can easily navigate to your modules in the browser:
 To see your app in the browser so far, enter the following command in the terminal window:
 
 ```sh
+
 ng serve
+
 ```
 
 Then go to `localhost:4200` where you should see “app works!” and three buttons.
 
 <figure>
-
  <img src="generated/images/guide/lazy-loading-ngmodules/three-buttons.png" width="300" alt="three buttons in the browser">
-
 </figure>
 
 To make the buttons work, you need to configure the routing modules.
@@ -132,9 +142,7 @@ The two feature modules, `OrdersModule` and `CustomersModule`, have to be
 wired up to the `AppRoutingModule` so the router knows about them. The structure is as follows:
 
 <figure>
-
  <img src="generated/images/guide/lazy-loading-ngmodules/lazy-load-relationship.jpg" width="400" alt="lazy loaded modules diagram">
-
 </figure>
 
 Each feature module acts as a doorway via the router. In the `AppRoutingModule`, you configure the routes to the feature modules, in this case `OrdersModule` and `CustomersModule`. This way, the router knows to go to the feature module. The feature module then connects the `AppRoutingModule` to the `CustomersRoutingModule` or the `OrdersRoutingModule`. Those routing modules tell the router where to go to load relevant components.
@@ -182,25 +190,19 @@ Now, if you view the app in the browser, the three buttons take you to each modu
 You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Alt+i` on a PC and go to the Network Tab.
 
 <figure>
-
  <img src="generated/images/guide/lazy-loading-ngmodules/network-tab.png" width="600" alt="lazy loaded modules diagram">
-
 </figure>
 
 Click on the Orders or Customers button. If you see a chunk appear, you’ve wired everything up properly and the feature module is being lazy loaded. A chunk should appear for Orders and for Customers but will only appear once for each.
 
 <figure>
-
  <img src="generated/images/guide/lazy-loading-ngmodules/chunk-arrow.png" width="600" alt="lazy loaded modules diagram">
-
 </figure>
 
 To see it again, or to test after working in the project, clear everything out by clicking the circle with a line through it in the upper left of the Network Tab:
 
 <figure>
-
  <img src="generated/images/guide/lazy-loading-ngmodules/clear.gif" width="200" alt="lazy loaded modules diagram">
-
 </figure>
 
 Then reload with `Cmd+r` or `Ctrl+r`, depending on your platform.

@@ -261,9 +261,7 @@ The final form looks like this:
 完整的表单是这样的：
 
 <figure>
-
   <img src="generated/images/guide/dynamic-form/dynamic-form.png" alt="Dynamic-Form">
-
 </figure>
 
 [Back to top](guide/dynamic-form#top)

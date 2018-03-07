@@ -35,10 +35,7 @@ Use the CLI to generate it.
 
 <div class="l-sub-section">
 
-`--flat` puts the file in `src/app` instead of its own folder.
-
-<br>
-
+`--flat` puts the file in `src/app` instead of its own folder.<br>
 `--module=app` tells the CLI to register it in the `imports` array of the `AppModule`.
 
 </div>
@@ -208,22 +205,17 @@ The CLI generates the files for the `DashboardComponent` and declares it in `App
 Replace the default file content in these three files as follows and then return for a little discussion:
 
 <code-tabs>
-
   <code-pane 
     title="src/app/dashboard/dashboard.component.html" path="toh-pt5/src/app/dashboard/dashboard.component.1.html">
-
   </code-pane>
 
   <code-pane 
     title="src/app/dashboard/dashboard.component.ts" path="toh-pt5/src/app/dashboard/dashboard.component.ts">
-
   </code-pane>
 
   <code-pane 
     title="src/app/dashboard/dashboard.component.css" path="toh-pt5/src/app/dashboard/dashboard.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 The  _template_ presents a grid of hero name links.
@@ -569,24 +561,20 @@ You've met all of the navigational requirements that propelled this page.
 Here are the code files discussed on this page and your app should look like this <live-example></live-example>.
 
 {@a approutingmodule}
+
 {@a appmodule}
 
 #### _AppRoutingModule_ and _AppModule_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/app-routing.module.ts" 
     path="toh-pt5/src/app/app-routing.module.ts">
-
   </code-pane>
-
   <code-pane 
     title="src/app/app.module.ts" 
     path="toh-pt5/src/app/app.module.ts">
-
   </code-pane>
-
 </code-tabs>
 
 {@a appcomponent}
@@ -594,19 +582,15 @@ Here are the code files discussed on this page and your app should look like thi
 #### _AppComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/app.component.html"
     path="toh-pt5/src/app/app.component.html">
-
   </code-pane>
 
   <code-pane 
     title="src/app/app.component.css"
     path="toh-pt5/src/app/app.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 {@a dashboardcomponent}
@@ -614,22 +598,17 @@ Here are the code files discussed on this page and your app should look like thi
 #### _DashboardComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/dashboard/dashboard.component.html" path="toh-pt5/src/app/dashboard/dashboard.component.html">
-
   </code-pane>
 
   <code-pane 
     title="src/app/dashboard/dashboard.component.ts" path="toh-pt5/src/app/dashboard/dashboard.component.ts">
-
   </code-pane>
 
   <code-pane 
     title="src/app/dashboard/dashboard.component.css" path="toh-pt5/src/app/dashboard/dashboard.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 {@a heroescomponent}
@@ -637,24 +616,19 @@ Here are the code files discussed on this page and your app should look like thi
 #### _HeroesComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/heroes/heroes.component.html" path="toh-pt5/src/app/heroes/heroes.component.html">
-
   </code-pane>
 
   <code-pane 
     title="src/app/heroes/heroes.component.ts" 
     path="toh-pt5/src/app/heroes/heroes.component.ts">
-
   </code-pane>
 
   <code-pane 
     title="src/app/heroes/heroes.component.css" 
     path="toh-pt5/src/app/heroes/heroes.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -662,22 +636,17 @@ Here are the code files discussed on this page and your app should look like thi
 #### _HeroDetailComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/hero-detail/hero-detail.component.html" path="toh-pt5/src/app/hero-detail/hero-detail.component.html">
-
   </code-pane>
 
   <code-pane 
     title="src/app/hero-detail/hero-detail.component.ts" path="toh-pt5/src/app/hero-detail/hero-detail.component.ts">
-
   </code-pane>
 
   <code-pane 
     title="src/app/hero-detail/hero-detail.component.css" path="toh-pt5/src/app/hero-detail/hero-detail.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 ## Summary

@@ -89,9 +89,7 @@ You'll learn to build a template-driven form that looks like this:
 我们将学习构建如下的“模板驱动”表单：
 
 <figure>
-
   <img src="generated/images/guide/forms/hero-form-1.png" alt="Clean Form">
-
 </figure>
 
 The *Hero Employment Agency* uses this form to maintain personal information about heroes.
@@ -109,9 +107,7 @@ If you delete the hero name, the form displays a validation error in an attentio
 如果删除了英雄的名字，表单就会用醒目的样式把验证错误显示出来。
 
 <figure>
-
   <img src="generated/images/guide/forms/hero-form-2.png" alt="Invalid, Name Required">
-
 </figure>
 
 Note that the *Submit* button is disabled, and the "required" bar to the left of the input control changes from green to red.
@@ -496,9 +492,7 @@ Running the app right now would be disappointing.
 如果立即运行此应用，你将会失望。
 
 <figure>
-
   <img src="generated/images/guide/forms/hero-form-3.png" alt="Early form with no binding">
-
 </figure>
 
 You don't see hero data because you're not binding to the `Hero` yet.
@@ -599,9 +593,7 @@ At some point it might look like this:
 某一瞬间，它可能是这样的：
 
 <figure>
-
   <img src="generated/images/guide/forms/ng-model-in-action.png" alt="ngModel in action">
-
 </figure>
 
 The diagnostic is evidence that values really are flowing from the input box to the model and
@@ -675,9 +667,7 @@ If you run the app now and change every hero model property, the form might disp
 如果现在运行本应用，修改 Hero 模型的每个属性，表单是这样的：
 
 <figure>
-
   <img src="generated/images/guide/forms/ng-model-in-action-2.png" alt="ngModel in action">
-
 </figure>
 
 The diagnostic near the top of the form
@@ -845,9 +835,7 @@ The actions and effects are as follows:
 动作和它对应的效果如下：
 
 <figure>
-
   <img src="generated/images/guide/forms/control-state-transitions-anim.gif" alt="Control State Transition">
-
 </figure>
 
 You should see the following transitions and class names:
@@ -855,9 +843,7 @@ You should see the following transitions and class names:
 我们会看到下列转换及其类名：
 
 <figure>
-
   <img src="generated/images/guide/forms/ng-control-class-changes.png" alt="Control state transitions">
-
 </figure>
 
 The `ng-valid`/`ng-invalid` pair is the most interesting, because you want to send a
@@ -881,9 +867,7 @@ on the left of the input box:
 可以在输入框的左侧添加带颜色的竖条，用于标记必填字段和无效输入：
 
 <figure>
-
   <img src="generated/images/guide/forms/validity-required-indicator.png" alt="Invalid Form">
-
 </figure>
 
 You achieve this effect by adding these class definitions to a new `forms.css` file
@@ -919,9 +903,7 @@ When the user deletes the name, the form should look like this:
 当用户删除姓名时，应该是这样的：
 
 <figure>
-
   <img src="generated/images/guide/forms/name-required-error.png" alt="Name required">
-
 </figure>
 
 To achieve this effect, extend the `<input>` tag with the following:
@@ -1291,4 +1273,3 @@ Here’s the code for the final version of the application:
   </code-pane>
 
 </code-tabs>
-

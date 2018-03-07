@@ -373,7 +373,6 @@ frameworks in how it actually works.
 无论是在AngularJS中还是在Angular中，依赖注入都位于前沿和中心的位置，但在两个框架的工作原理上，却存在着一些关键的不同之处。
 
 <table>
-
   <tr>
 
     <th>
@@ -389,7 +388,6 @@ frameworks in how it actually works.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -411,7 +409,6 @@ frameworks in how it actually works.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -433,7 +430,6 @@ frameworks in how it actually works.
     </td>
 
   </tr>
-
 </table>
 
 Even accounting for these differences you can still have dependency injection
@@ -462,9 +458,7 @@ everything work seamlessly:
   当我们注册一个要降级的服务时，要明确指定一个打算在AngularJS中使用的*字符串令牌*。
 
 <figure>
-
   <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application">
-
 </figure>
 
 #### Components and the DOM
@@ -519,9 +513,7 @@ ways:
    通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule`牵线搭桥，把AngularJS的透传概念和Angular的内容投影概念关联起来。
 
 <figure>
-
   <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application">
-
 </figure>
 
 Whenever you use a component that belongs to the other framework, a
@@ -591,9 +583,7 @@ AngularJS and Angular approaches. Here's what happens:
    `UpgradeModule`将在每一次离开Angular zone时调用AngularJS的`$rootScope.$apply()`。这样也就同样会在每个事件之后触发AngularJS的变更检测。
 
 <figure>
-
   <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application">
-
 </figure>
 
 In practice, you do not need to call `$apply()`,
@@ -972,7 +962,6 @@ All that is left is to add it to `AppModule`'s `declarations` array.
 这样我们就得到一个完全升级的AngularJS组件，并且可以Angular中使用。
 剩下是工作就是把它加入到`AppModule`的`declarations`数组。
 
-
 <code-example path="upgrade-module/src/app/upgrade-static/hero-detail.component.ts" region="hero-detail-upgrade" title="hero-detail.component.ts">
 
 </code-example>
@@ -1003,7 +992,6 @@ observing the following rules:
 当我们从Angular模板中使用该组件时，我们要使用**Angular模板语法**来提供这些输入属性和输出属性，但要遵循下列规则：
 
 <table>
-
   <tr>
 
     <th>
@@ -1027,7 +1015,6 @@ observing the following rules:
     </th>
 
   </tr>
-
   <tr>
 
     <th>
@@ -1051,7 +1038,6 @@ observing the following rules:
     </td>
 
   </tr>
-
   <tr>
 
     <th>
@@ -1075,7 +1061,6 @@ observing the following rules:
     </td>
 
   </tr>
-
   <tr>
 
     <th>
@@ -1099,7 +1084,6 @@ observing the following rules:
     </td>
 
   </tr>
-
   <tr>
 
     <th>
@@ -1128,7 +1112,6 @@ observing the following rules:
     </td>
 
   </tr>
-
 </table>
 
 For example, imagine a hero detail AngularJS component directive
@@ -2900,7 +2883,6 @@ For PhoneCat you need to make the following changes in order to make things work
 这是因为E2E测试有一些匹配器是AngularJS中特有的。对于PhoneCat来说，为了让它能在Angular下工作，我们得做下列修改：
 
 <table>
-
   <tr>
 
     <th>
@@ -2928,7 +2910,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -2952,7 +2933,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -2976,7 +2956,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -3000,7 +2979,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -3024,7 +3002,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -3048,7 +3025,6 @@ For PhoneCat you need to make the following changes in order to make things work
     </td>
 
   </tr>
-
 </table>
 
 When the bootstrap method is switched from that of `UpgradeModule` to
@@ -3214,4 +3190,3 @@ the `RouteLink` directives work.
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.component.spec.ts" region="routestuff" title="app/phone-list/phone-list.component.spec.ts">
 
 </code-example>
-

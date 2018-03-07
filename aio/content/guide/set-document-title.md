@@ -81,9 +81,7 @@ Bind that method to three anchor tags and voilà!
 我们把这个方法绑定到三个A标签，瞧瞧！
 
 <figure>
-
   <img src="generated/images/guide/set-document-title/set-title-anim.gif" alt="Set title">
-
 </figure>
 
 Here's the complete solution:
@@ -91,13 +89,9 @@ Here's the complete solution:
 这里是完整的方案(代码)。
 
 <code-tabs>
-
   <code-pane title="src/main.ts" path="set-document-title/src/main.ts"></code-pane>
-
   <code-pane title="src/app/app.module.ts" path="set-document-title/src/app/app.module.ts"></code-pane>
-
   <code-pane title="src/app/app.component.ts" path="set-document-title/src/app/app.component.ts"></code-pane>
-
 </code-tabs>
 
 ## Why provide the `Title` service in `bootstrap`
@@ -120,5 +114,5 @@ you'll have to provide a different `Title` service that understands
 the concept of a "document title" for that specific platform.
 Ideally, the application itself neither knows nor cares about the runtime environment.
 
-我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。
 
+我们的做法正是如此。这里的`Title`服务是Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的`Title`服务。

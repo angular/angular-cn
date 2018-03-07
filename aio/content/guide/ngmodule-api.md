@@ -26,6 +26,7 @@ into three categories:
 * **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
 
 ```typescript
+
 @NgModule({
   // Static, that is compiler configuration
   declarations: [], // Configure the selectors
@@ -38,6 +39,7 @@ into three categories:
   imports: [], // composing NgModules together
   exports: [] // making NgModules available to other parts of the app
 })
+
 ```
 
 ## `@NgModule` metadata
@@ -81,22 +83,30 @@ The following table summarizes the `@NgModule` metadata properties.
 
       <ol>
 
-        <li>When compiling a template, you need to determine a set of selectors which should be used for triggering their corresponding directives.</li>
-
         <li>
 
-          The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
-
-          <ul>
-
-            <li>All selectors of directives listed in `declarations`.</li>
-
-            <li>All selectors of directives exported from imported NgModules.</li>
-
-          </ul>
+            When compiling a template, you need to determine a set of selectors which should be used for triggering their corresponding directives.
 
         </li>
 
+        <li>
+          The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
+          <ul>
+
+            <li>
+
+                All selectors of directives listed in `declarations`.
+
+            </li>
+
+            <li>
+
+                All selectors of directives exported from imported NgModules.
+
+            </li>
+
+          </ul>
+        </li>
       </ol>
 
       Components, directives, and pipes must belong to _exactly_ one module.

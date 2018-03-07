@@ -68,7 +68,7 @@ In this example
 
 * `heroes` is the list from the `HeroesComponent` class.
 
-* `hero` holds the current hero object for each iteration through the list.
+* `hero` holds the current hero object for each iteration through the list. 
 
 <div class="alert is-important">
 
@@ -254,19 +254,14 @@ Your app should look like this <live-example></live-example>.
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 
 <code-tabs>
-
   <code-pane title="src/app/heroes/heroes.component.ts" path="toh-pt2/src/app/heroes/heroes.component.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component.html" path="toh-pt2/src/app/heroes/heroes.component.html">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component.css" path="toh-pt2/src/app/heroes/heroes.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 ## Summary

@@ -64,11 +64,8 @@ open simultaneously.
 `HeroesListComponent`组件保存和管理着`HeroTaxReturnComponent`的多个实例。
 下图展示了当`HeroesCardComponent`的三个 `HeroTaxReturnComponent` 实例同时展开时的三级组件树状态。
 
-
 <figure>
-
   <img src="generated/images/guide/dependency-injection/component-hierarchy.png" alt="injector tree">
-
 </figure>
 
 ### Injector bubbling
@@ -215,9 +212,7 @@ Each tax return component has the following characteristics:
    能把所做的修改保存到它的报税单中，或者放弃它们。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection/hid-heroes-anim.gif" alt="Heroes in action">
-
 </figure>
 
 One might suppose that the `HeroTaxReturnComponent` has logic to manage and restore changes.
@@ -325,9 +320,7 @@ Component (B) is the parent of another component (C) that defines its own, even 
 组件B是另一个组件C的父组件，而组件C又定义了自己的，*更特殊的*`CarService`提供商。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection/car-components.png" alt="car components">
-
 </figure>
 
 Behind the scenes, each component sets up its own injector with zero, one, or more providers defined for that component itself.
@@ -341,9 +334,7 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 当我们在最深层的组件C解析`Car`的实例时，它使用注入器C解析生成了一个`Car`的实例，使用注入器B解析了`Engine`，而`Tires`则是由根注入器A解析的。
 
 <figure>
-
   <img src="generated/images/guide/dependency-injection/injector-tree.png" alt="car injector tree">
-
 </figure>
 
 <div class="l-sub-section">
@@ -354,4 +345,3 @@ which you can review and download from the <live-example></live-example>.
 *车辆*场景下的代码位于`car.components.ts`和`car.services.ts`文件中，这个例子你可以在<live-example></live-example>查看和下载。
 
 </div>
-

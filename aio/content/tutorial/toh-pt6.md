@@ -592,9 +592,7 @@ Run the app again. In the *Dashboard*, enter some text in the search box.
 If you enter characters that match any existing hero names, you'll see something like this.
 
 <figure>
-
   <img src='generated/images/guide/toh/toh-hero-search.png' alt="Hero Search Component">
-
 </figure>
 
 ## Final code review
@@ -604,31 +602,26 @@ Your app should look like this <live-example></live-example>.
 Here are the code files discussed on this page (all in the `src/app/` folder).
 
 {@a heroservice}
+
 {@a inmemorydataservice}
+
 {@a appmodule}
 
 #### _HeroService_, _InMemoryDataService_, _AppModule_
 
 <code-tabs>
-
   <code-pane 
     title="hero.service.ts" 
     path="toh-pt6/src/app/hero.service.ts">
-
   </code-pane>
-
   <code-pane 
     title="in-memory-data.service.ts"
     path="toh-pt6/src/app/in-memory-data.service.ts">
-
   </code-pane>
-
   <code-pane 
     title="app.module.ts" 
     path="toh-pt6/src/app/app.module.ts">
-
   </code-pane>
-
 </code-tabs>
 
 {@a heroescomponent}
@@ -636,25 +629,18 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroesComponent_
 
 <code-tabs>
-
   <code-pane 
     title="heroes/heroes.component.html" 
     path="toh-pt6/src/app/heroes/heroes.component.html">
-
   </code-pane>
-
   <code-pane 
     title="heroes/heroes.component.ts" 
     path="toh-pt6/src/app/heroes/heroes.component.ts">
-
   </code-pane>
-
   <code-pane 
     title="heroes/heroes.component.css" 
     path="toh-pt6/src/app/heroes/heroes.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -662,19 +648,14 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroDetailComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-detail/hero-detail.component.html"
     path="toh-pt6/src/app/hero-detail/hero-detail.component.html">
-
   </code-pane>
-
   <code-pane 
     title="hero-detail/hero-detail.component.ts" 
     path="toh-pt6/src/app/hero-detail/hero-detail.component.ts">
-
   </code-pane>
-
 </code-tabs>
 
 {@a herosearchcomponent}
@@ -682,25 +663,18 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroSearchComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-search/hero-search.component.html"
     path="toh-pt6/src/app/hero-search/hero-search.component.html">
-
   </code-pane>
-
   <code-pane 
     title="hero-search/hero-search.component.ts"
     path="toh-pt6/src/app/hero-search/hero-search.component.ts">
-
   </code-pane>
-
   <code-pane 
     title="hero-search/hero-search.component.css"
     path="toh-pt6/src/app/hero-search/hero-search.component.css">
-
   </code-pane>
-
 </code-tabs>
 
 ## Summary

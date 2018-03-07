@@ -59,4 +59,3 @@ The [ActivatedRoute](https://angular.io/api/router/ActivatedRoute) is an injecte
 Reactive forms have properties that use observables to monitor form control values. The [`FormControl`](https://angular.io/api/forms/FormControl) properties `valueChanges` and `statusChanges` contain observables that raise change events. Subscribing to an observable form-control property is a way of triggering application logic within the component class. For example:
 
 <code-example path="observables-in-angular/src/main.ts" title="Reactive forms" region="forms"></code-example>
-

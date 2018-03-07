@@ -33,6 +33,7 @@ There are three main reasons to create a Universal version of your app.
 1. Show the first page quickly
 
 {@a seo}
+
 {@a web-crawlers}
 
 #### Facilitate web crawlers
@@ -146,57 +147,19 @@ When you're done, the folder structure will look like this:
 <code-example format="." language="none" linenums="false">
 
 src/
-  index.html
-
-                 <i>app web page</i>
-
-  main.ts
-
-                    <i>bootstrapper for client app</i>
-
-  main.server.ts
-
-             <i>* bootstrapper for server app</i>
-
-  tsconfig.app.json
-
-          <i>TypeScript client configuration</i>
-
-  tsconfig.server.json
-
-       <i>* TypeScript server configuration</i>
-
-  tsconfig.spec.json
-
-         <i>TypeScript spec configuration</i>
-
-  style.css
-
-                  <i>styles for the app</i>
-
-  app/ ...
-
-                   <i>application code</i>
-
-    app.server.module.ts
-
-     <i>* server-side application module</i>
-
-server.ts
-
-                    <i>* express web server</i>
-
-tsconfig.json
-
-                <i>TypeScript client configuration</i>
-
-package.json
-
-                 <i>npm configuration</i>
-
-webpack.server.config.js
-
-     <i>* Webpack server configuration</i>
+  index.html                 <i>app web page</i>
+  main.ts                    <i>bootstrapper for client app</i>
+  main.server.ts             <i>* bootstrapper for server app</i>
+  tsconfig.app.json          <i>TypeScript client configuration</i>
+  tsconfig.server.json       <i>* TypeScript server configuration</i>
+  tsconfig.spec.json         <i>TypeScript spec configuration</i>
+  style.css                  <i>styles for the app</i>
+  app/ ...                   <i>application code</i>
+    app.server.module.ts     <i>* server-side application module</i>
+server.ts                    <i>* express web server</i>
+tsconfig.json                <i>TypeScript client configuration</i>
+package.json                 <i>npm configuration</i>
+webpack.server.config.js     <i>* Webpack server configuration</i>
 
 </code-example>
 

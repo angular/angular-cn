@@ -20,6 +20,7 @@ unexpected definitions.
 [S](guide/glossary#S) [T](guide/glossary#T) [U](guide/glossary#U) [V](guide/glossary#V) [W](guide/glossary#W) [X](guide/glossary#X) [Y](guide/glossary#Y) [Z](guide/glossary#Z)
 
 {@a A}
+
 {@a aot}
 
 ## Ahead-of-time (AOT) compilation
@@ -276,31 +277,31 @@ Angular 有一个非常强大的数据绑定框架，具有各种数据绑定操
 
  * [Interpolation](guide/template-syntax#interpolation).
 
-   [插值表达式 (interpolation)](guide/template-syntax#interpolation)。
+    [插值表达式 (interpolation)](guide/template-syntax#interpolation)。
 
  * [Property binding](guide/template-syntax#property-binding).
 
-   [property 绑定 (property binding)](guide/template-syntax#property-binding)。
+    [property 绑定 (property binding)](guide/template-syntax#property-binding)。
 
  * [Event binding](guide/template-syntax#event-binding).
 
-   [事件绑定 (event binding)](guide/template-syntax#event-binding)。
+    [事件绑定 (event binding)](guide/template-syntax#event-binding)。
 
  * [Attribute binding](guide/template-syntax#attribute-binding).
 
-   [attribute 绑定 (attribute binding)](guide/template-syntax#attribute-binding)。
+    [attribute 绑定 (attribute binding)](guide/template-syntax#attribute-binding)。
 
  * [Class binding](guide/template-syntax#class-binding).
 
-   [CSS 类绑定 (class binding)](guide/template-syntax#class-binding)。
+    [CSS 类绑定 (class binding)](guide/template-syntax#class-binding)。
 
  * [Style binding](guide/template-syntax#style-binding).
 
-   [样式绑定 (style binding)](guide/template-syntax#style-binding)。
+    [样式绑定 (style binding)](guide/template-syntax#style-binding)。
 
  * [Two-way data binding with ngModel](guide/template-syntax#ngModel).
 
-   [基于 ngModel 的双向数据绑定 (Two-way data binding with ngModel)](guide/template-syntax#ngModel)。
+    [基于 ngModel 的双向数据绑定 (Two-way data binding with ngModel)](guide/template-syntax#ngModel)。
 
 {@a decorator}
 
@@ -333,11 +334,13 @@ Angular 使用自己的一套装饰器来实现应用程序各部件之间的相
 `@Component`装饰器中省略的参数对象会包含与组件有关的元数据。
 
 ```
+
 @Component({...})
 export class AppComponent {
   constructor(@Inject('SpecialFoo') public foo:Foo) {}
   @Input() name:string;
 }
+
 ```
 
 The scope of a decorator is limited to the language feature
@@ -346,7 +349,7 @@ classes that follow it in the file.
 
 装饰器的作用域会被限制在它所装饰的语言特性。
 在同一文件中，装饰器不会“泄露”到它后面的其它类。
-  
+
 <div class="alert is-important">
 
 Always include parentheses `()` when applying a decorator.

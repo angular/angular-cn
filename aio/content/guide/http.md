@@ -454,12 +454,14 @@ Subscribing twice results in two HTTP requests.
 比如，下列代码会使用同样的数据发送两次同样的 POST 请求：
 
 ```javascript
+
 const req = http.get<Heroes>('/api/heroes');
 // 0 requests made - .subscribe() not called.
 req.subscribe();
 // 1 request made.
 req.subscribe();
 // 2 requests made.
+
 ```
 
 </div>
@@ -592,7 +594,7 @@ The `switchMap()` operator has three important characteristics.
 it cancels that request and sends a new one.
 
 3. It returns service responses in their original request order, even if the
-server returns them out of order.
+server returns them out of order. 
 
 <div class="l-sub-section">
 
@@ -631,9 +633,11 @@ In this sense, each interceptor is fully capable of handling the request entirel
 Most interceptors inspect the request on the way in and forward the (perhaps altered) request to the `handle()` method of the `next` object which implements the [`HttpHandler`](api/common/http/HttpHandler) interface.
 
 ```javascript
+
 export abstract class HttpHandler {
   abstract handle(req: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
+
 ```
 
 Like `intercept()`, the `handle()` method transforms an HTTP request into an `Observable` of [`HttpEvents`](#httpevents) which ultimately include the server's response. The `intercept()` method could inspect that observable and alter it before returning it to the caller.
@@ -743,9 +747,12 @@ If an interceptor could modify the original request object, the re-tried operati
 TypeScript will prevent you from setting `HttpRequest` readonly properties. 
 
 ```javascript
+
   // Typescript disallows the following assignment because req.url is readonly
   req.url = req.url.replace('http://', 'https://');
+
 ```
+
 To alter the request, clone it first and modify the clone before passing it to `next.handle()`. 
 You can clone and modify the request in a single step as in this example.
 
@@ -764,7 +771,9 @@ The `readonly` assignment guard can't prevent deep updates and, in particular,
 it can't prevent you from modifying a property of a request body object.
 
 ```javascript
+
   req.body.name = req.body.name.trim(); // bad idea!
+
 ```
 
 If you must mutate the request body, copy it first, change the copy, 
@@ -787,9 +796,11 @@ If you set the cloned request body to `null`, Angular knows you intend to clear 
 这种克隆一个请求并设置一组新的请求头的操作非常常见，因此有了一种快捷写法：
 
 ```javascript
+
   newReq = req.clone({ ... }); // body not mentioned => preserve original body
   newReq = req.clone({ body: undefined }); // preserve original body
   newReq = req.clone({ body: null }); // clear the body
+
 ```
 
 #### Set default headers
@@ -885,6 +896,7 @@ the cached response, by-passing the `next` handler (and all other interceptors d
 If a cachable request is not in cache, the code calls `sendRequest`.
 
 {@a send-request}
+
 <code-example 
   path="http/src/app/http-interceptors/caching-interceptor.ts"
   region="send-request">
@@ -1082,10 +1094,7 @@ At the end, tests may verify that the app has made no unexpected requests.
 
 <div class="alert is-helpful">
 
-You can run
-
- <live-example stackblitz="specs">these sample tests</live-example> 
-
+You can run <live-example stackblitz="specs">these sample tests</live-example> 
 in a live coding environment.
 
 The tests described in this guide are in `src/testing/http-client.spec.ts`.
@@ -1197,4 +1206,3 @@ Call `request.error()` with an `ErrorEvent` instead of `request.flush()`, as in 
   linenums="false">
 
 </code-example>
-

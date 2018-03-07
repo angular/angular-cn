@@ -3,11 +3,9 @@
 # 模板语法
 
 <style>
-
   h4 {font-size: 17px !important; text-transform: none !important;}
   .syntax { font-family: Consolas, 'Lucida Sans', Courier, sans-serif; color: black; font-size: 85%; }
   h4 .syntax { font-size: 100%; }
-
 </style>
 
 The Angular application manages what the user sees and can do, achieving this through the interaction of a
@@ -172,11 +170,11 @@ JavaScript 中那些具有或可能引发副作用的表达式是被禁止的，
 
 * <code>new</code>
 
-  `new`运算符
+   `new`运算符
 
 * chaining expressions with <code>;</code> or <code>,</code>
 
-  使用`;`或`,`的链式表达式
+   使用`;`或`,`的链式表达式
 
 * increment and decrement operators (`++` and `--`)
 
@@ -400,7 +398,7 @@ However, certain JavaScript syntax is not allowed:
 
 * <code>new</code>
 
-  `new`运算符
+   `new`运算符
 
 * increment and decrement operators, `++` and `--`
 
@@ -510,25 +508,16 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 *从数据源到视图*、*从视图到数据源*以及双向的*从视图到数据源再到视图*。
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
-
   <col width="30%">
-
   </col>
-
   <col width="50%">
-
   </col>
-
   <col width="20%">
-
   </col>
-
   <tr>
 
     <th>
@@ -556,7 +545,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -579,30 +567,16 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 
     <td>
 
-      Interpolation
-
-      插值表达式
-
-<br>
-
-      Property
-
-      属性
-
-<br>
-
-      Attribute
-
-<br>
-
-      Class
-
-      CSS 类
-
-<br>
-
+      Interpolation<br>
+      Property<br>
+      Attribute<br>
+      Class<br>
       Style
 
+      插值表达式<br>
+      属性<br>
+      Attribute<br>
+      CSS 类<br>
       样式
 
     </td>
@@ -637,7 +611,6 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </td>
 
     </tr>
-
     <tr>
 
       <td>
@@ -668,30 +641,21 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       </td>
 
     </tr>
-
   </tr>
-
 </table>
 
 
 
 <div class="alert is-important">
 
-<!-- placeholder -->
-
 译注：由于 HTML attribute 和 DOM property 在中文中都被翻译成了“属性”，无法区分，
 而接下来的部分重点是对它们进行比较。
-
-<!-- placeholder -->
 
 我们无法改变历史，因此，在本章的翻译中，保留了它们的英文形式，不加翻译，以免混淆。
 本章中，如果提到“属性”的地方，一定是指 property，因为在 Angular 中，实际上很少涉及 attribute。
 
-<!-- placeholder -->
-
 但在其它章节中，为简单起见，凡是能通过上下文明显区分开的，就仍统一译为“属性”，
 区分不明显的，会加注英文。
-
 
 </div>
 
@@ -882,7 +846,6 @@ HTML attributes effectively disappear.
 在 Angular 的世界中，attribute 唯一的作用是用来初始化元素和指令的状态。
 当进行数据绑定时，只是在与元素和指令的 property 和事件打交道，而 attribute 就完全靠边站了。
 
-
 </div>
 
 With this model firmly in mind, read on to learn about binding targets.
@@ -904,25 +867,16 @@ The following table summarizes:
 下面是的汇总表：
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
-
   <col width="10%">
-
   </col>
-
   <col width="15%">
-
   </col>
-
   <col width="75%">
-
   </col>
-
   <tr>
 
     <th>
@@ -950,7 +904,6 @@ The following table summarizes:
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -963,20 +916,12 @@ The following table summarizes:
 
     <td>
 
-      Element&nbsp;property
-
-      元素的 property
-
-<br>
-
-      Component&nbsp;property
-
-      组件的 property
-
-<br>
-
+      Element&nbsp;property<br>
+      Component&nbsp;property<br>
       Directive&nbsp;property
 
+      元素的 property<br>
+      组件的 property<br>
       指令的 property
 
     </td>
@@ -990,7 +935,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1003,20 +947,12 @@ The following table summarizes:
 
     <td>
 
-      Element&nbsp;event
-
-      元素的事件
-
-<br>
-
-      Component&nbsp;event
-
-      组件的事件
-
-<br>
-
+      Element&nbsp;event<br>
+      Component&nbsp;event<br>
       Directive&nbsp;event
 
+      元素的事件<br>
+      组件的事件<br>
       指令的事件
 
     </td>
@@ -1030,7 +966,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1058,7 +993,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1085,7 +1019,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1111,7 +1044,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1137,7 +1069,6 @@ The following table summarizes:
     </td>
 
   </tr>
-
 </table>
 
 With this broad view in mind, you're ready to look at binding types in detail.
@@ -1455,9 +1386,7 @@ content harmlessly.
 插值表达式处理 script 标签与属性绑定有所不同，但是二者都只渲染没有危害的内容。
 
 <figure>
-
   <img src='generated/images/guide/template-syntax/evil-title.png' alt="evil title made safe">
-
 </figure>
 
 <hr/>
@@ -1562,11 +1491,26 @@ Here's how the table renders:
 这里是表格渲染出来的样子：
 
 <table border="1px">
+  <tr><td colspan="2">
 
-  <tr><td colspan="2">One-Two</td></tr>
+  One-Two
 
-  <tr><td>Five</td><td>Six</td></tr>
+  1-2列
 
+  </td></tr>
+  <tr><td>
+
+  Five
+
+  五列
+
+  </td><td>
+
+  Six
+  
+  六列
+
+  </td></tr>
  </table>
 
 One of the primary use cases for attribute binding
@@ -2340,9 +2284,7 @@ Here are all variations in action, including the uppercase version:
 这里是所有这些变体的动画，包括这个大写转换的版本：
 
 <figure>
-
   <img src='generated/images/guide/template-syntax/ng-model-anim.gif' alt="NgModel variations">
-
 </figure>
 
 <hr/>
@@ -2700,9 +2642,7 @@ Here is an illustration of the _trackBy_ effect.
    有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
 
 <figure>
-
   <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
-
 </figure>
 
 <hr/>
@@ -2731,9 +2671,7 @@ Angular只会把*选中的*元素放进DOM中。
 </code-example>
 
 <figure>
-
   <img src="generated/images/guide/template-syntax/switch-anim.gif" alt="trackBy">
-
 </figure>
 
 `NgSwitch` is the controller directive. Bind it to an expression that returns the *switch value*.
@@ -2931,13 +2869,15 @@ Remember that all **components** are **directives**.
 记住，所有的**组件**都是**指令**。
 
 The following discussion refers to _components_ for brevity and 
-because this topic is mostly a concern for component authors.
+because this topic is mostly a concern for component authors. 
 
 为简洁起见，以下讨论会涉及到**组件**，因为这个主题主要是组件作者所关心的问题。
 
 </div>
 
 <h3 class="no-toc">Discussion</h3>
+
+<h3 class="no-toc">讨论</h3>
 
 You are usually binding a template to its _own component class_.
 In such binding expressions, the component's property or method is to the _right_ of the (`=`).
@@ -3051,9 +2991,7 @@ The terms _input_ and _output_ reflect the perspective of the target directive.
 _输入_和_输出_这两个词是从目标指令的角度来说的。
 
 <figure>
-
   <img src="generated/images/guide/template-syntax/input-output.png" alt="Inputs and outputs">
-
 </figure>
 
 `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`

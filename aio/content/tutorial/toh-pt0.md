@@ -104,24 +104,20 @@ Here's an excerpt from the `styles.css` for the _Tour of Heroes_ sample app.
 The source code for this tutorial and the complete _Tour of Heroes_ global styles 
 are available in the <live-example></live-example>. 
 
-Here are the code files discussed on this page.
+Here are the code files discussed on this page. 
 
 <code-tabs>
 
   <code-pane title="src/app/app.component.ts" path="toh-pt0/src/app/app.component.ts">
-
   </code-pane>
 
   <code-pane title="src/app/app.component.html" path="toh-pt0/src/app/app.component.html">
-
   </code-pane>
 
   <code-pane 
     title="src/styles.css (excerpt)" 
     path="toh-pt0/src/styles.1.css">
-
   </code-pane>
-
 </code-tabs>
 
 ## Summary
@@ -132,4 +128,4 @@ Here are the code files discussed on this page.
 
 * You learned that Angular components display data.
 
-* You used the double curly braces of interpolation to display the app title. 
+* You used the double curly braces of interpolation to display the app title.

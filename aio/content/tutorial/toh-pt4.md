@@ -256,12 +256,10 @@ Find the `getHeroes` method and replace it with the following code
 
   <code-pane title="heroes.component.ts (Observable)" 
     path="toh-pt4/src/app/heroes/heroes.component.ts" region="getHeroes">
-
   </code-pane>
 
   <code-pane title="heroes.component.ts (Original)" 
     path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
-
   </code-pane>
 
 </code-tabs>
@@ -439,42 +437,34 @@ Here are the code files discussed on this page and your app should look like thi
 
   <code-pane title="src/app/hero.service.ts" 
   path="toh-pt4/src/app/hero.service.ts">
-
   </code-pane>
 
   <code-pane title="src/app/message.service.ts" 
   path="toh-pt4/src/app/message.service.ts">
-
   </code-pane>
 
   <code-pane title="src/app/heroes/heroes.component.ts"
   path="toh-pt4/src/app/heroes/heroes.component.ts">
-
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.ts"
   path="toh-pt4/src/app/messages/messages.component.ts">
-
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
-
   </code-pane>
 
   <code-pane title="src/app/messages/messages.component.css"
   path="toh-pt4/src/app/messages/messages.component.css">
-
   </code-pane>
 
   <code-pane title="src/app/app.module.ts"
   path="toh-pt4/src/app/app.module.ts">
-
   </code-pane>
 
   <code-pane title="src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
-
   </code-pane>
 
 </code-tabs>

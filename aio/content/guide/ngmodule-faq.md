@@ -316,7 +316,9 @@ Angular's own `BrowserModule` exports a couple of NgModules like this:
 Angular自己的`BrowserModule`就重新导出了一组模块，例如：
 
 ```typescript
+
   exports: [CommonModule, ApplicationModule]
+
 ```
 
 An NgModule can export a combination of its own declarations, selected imported classes, and imported NgModules.
@@ -373,10 +375,11 @@ configure services in root and feature modules respectively.
 
 Angular doesn't recognize these names but Angular developers do.
 Follow this convention when you write similar modules with configurable service providers.
-<!--KW--I don't understand how Angular doesn't understand these methods...-->
 
 Angular并不识别这些名字，但是Angular的开发人员可以。
 当你写类似的需要可配置的服务提供商时，请遵循这个约定。
+
+<!--KW--I don't understand how Angular doesn't understand these methods...-->
 
 <hr/>
 

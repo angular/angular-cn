@@ -146,9 +146,7 @@ As you click the button, the displayed date alternates between
 当我们点击按钮的时候，显示的日志会在“**<samp>04/15/1988</samp>**”和“**<samp>Friday, April 15, 1988</samp>**”之间切换。
 
 <figure>
-
   <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">
-
 </figure>
 
 <div class="l-sub-section">
@@ -255,9 +253,7 @@ Now you need a component to demonstrate the pipe.
 </code-example>
 
 <figure>
-
   <img src='generated/images/guide/pipes/power-booster.png' alt="Power Booster">
-
 </figure>
 
 Note the following:
@@ -312,9 +308,7 @@ your pipe and two-way data binding with `ngModel`.
 </code-example>
 
 <figure>
-
   <img src='generated/images/guide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator">
-
 </figure>
 
 {@a change-detection}
@@ -423,9 +417,7 @@ code with checkbox switches and additional displays to help you experience these
 这个*飞行英雄*的例子用检查框和其它显示内容扩展了原有代码，来帮我们体验这些效果。
 
 <figure>
-
   <img src='generated/images/guide/pipes/flying-heroes-anim.gif' alt="Flying Heroes">
-
 </figure>
 
 Replacing the array is an efficient way to signal Angular to update the display.
@@ -514,7 +506,6 @@ a point that's discussed later in this page.
 
 或者我们也可以完全不用管道。
 有时候，使用组件的属性能比用管道更好的达到目的，这一点我们等后面会再提起。
-
 
 </div>
 
@@ -664,9 +655,7 @@ The component renders as the following:
 组件渲染起来是这样的：
 
 <figure>
-
   <img src='generated/images/guide/pipes/hero-list.png' alt="Hero List">
-
 </figure>
 
 A breakpoint on the pipe's request for data shows the following:

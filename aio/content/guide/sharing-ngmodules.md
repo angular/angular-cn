@@ -25,6 +25,7 @@ you need it in other parts of your app.
 Consider the following module from an imaginary app:
 
 ```typescript
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { OrdersPipe } from './orders.pipe';
                  CommonModule, FormsModule ]
 })
 export class SharedModule { }
+
 ```
 
 Note the following:

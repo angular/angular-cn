@@ -19,9 +19,7 @@ If you do, this page can help you understand their purpose.
 这些文件很少会需要变动，你可能永远都不需要阅览或者修改它们。
 
 <style>
-
   td, th {vertical-align: top}
-
 </style>
 
 <table width="100%">
@@ -74,7 +72,7 @@ If you do, this page can help you understand their purpose.
 
       "Hello Angular" 这个例子中有 `AppComponent`、`AppModule`、 一个组件单元测试 (`app.component.spec.ts`) 以及引导文件 `main.ts`。
 
-      Try the <live-example name="setup">sample application</live-example> 
+      Try the <live-example name="setup">sample application</live-example>
       and the <live-example name="setup" stackblitz="quickstart-specs">unit test</live-example>
       as _live examples_.
 
@@ -130,19 +128,21 @@ If you do, this page can help you understand their purpose.
   <tr>
 
     <td>
+
       <code>.editorconfig<br>
 .git/<br>
 .gitignore<br>
 .travis.yml</code>
+
     </td>
 
     <td>
 
       Tooling configuration files and folders.
+      Ignore them until you have a compelling reason to do otherwise.
 
       配置文件和文件夹的工具。
-
-      Ignore them until you have a compelling reason to do otherwise.
+      除非你有足够的理由，否则别动它。
 
     </td>
 
@@ -472,4 +472,3 @@ If you do, this page can help you understand their purpose.
   </tr>
 
 </table>
-

@@ -3,7 +3,6 @@
 # Webpack简介
 
 <style>
-
   h4 {font-size: 17px !important; text-transform: none !important;}
   .syntax { font-family: Consolas, 'Lucida Sans', Courier, sans-serif; color: black; font-size: 85%; }
 
@@ -781,23 +780,23 @@ There are additional plugins:
 
 * *`NoEmitOnErrorsPlugin`&mdash;stops the build if there is an error.
 
-  *`NoEmitOnErrorsPlugin`* - 如果出错就停止构建。* 
+   *`NoEmitOnErrorsPlugin`* - 如果出错就停止构建。*
 
 * *`UglifyJsPlugin`&mdash;minifies the bundles.
 
-  *`UglifyJsPlugin`* - 最小化(minify)生成的包。
+   *`UglifyJsPlugin`* - 最小化(minify)生成的包。
 
 * *`ExtractTextPlugin`&mdash;extracts embedded css as external files, adding cache-busting hash to the filename.
 
-  *`ExtractTextPlugin`* - 把内嵌的css抽取成外部文件，并为其文件名添加“缓存无效哈希”。
+   *`ExtractTextPlugin`* - 把内嵌的css抽取成外部文件，并为其文件名添加“缓存无效哈希”。
 
 * *`DefinePlugin`&mdash;use to define environment variables that you can reference within the application.
 
-  *`DefinePlugin`* - 用来定义环境变量，以便我们在自己的程序中引用它。
+   *`DefinePlugin`* - 用来定义环境变量，以便我们在自己的程序中引用它。
 
 * *`LoaderOptionsPlugins`&mdash;to override options of certain loaders.
 
-  *`LoaderOptionsPlugins`* - 为特定的加载器提供选项。
+   *`LoaderOptionsPlugins`* - 为特定的加载器提供选项。
 
 Thanks to the `DefinePlugin` and the `ENV` variable defined at top, you can enable Angular production mode like this:
 
@@ -993,9 +992,9 @@ they're added behind the scenes by the `angular2-template-loader` plug-in.
 The application imports these modules too; they'd be duplicated in the `app.js` bundle
 if the `CommonsChunkPlugin` hadn't detected the overlap and removed them from `app.js`.
 
-  `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
+   `vendor.ts`由`import`提供商依赖的语句组成，它最终决定了`vender.js`的内容。
   本应用也导入这些模块，如果没有`CommonsChunkPlugin`插件检测出这种重叠，并且把它们从`app.js`中移除，它们就会同时出现在`app.js`包中。
-  
+
 {@a conclusion}
 
 ## Conclusion

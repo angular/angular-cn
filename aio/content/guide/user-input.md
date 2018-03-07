@@ -131,9 +131,7 @@ Here's what the UI displays:
 </code-example>
 
 <figure>
-
   <img src='generated/images/guide/user-input/keyup1-anim.gif' alt="key up 1">
-
 </figure>
 
 <div class="l-sub-section">
@@ -240,9 +238,7 @@ Type something in the input box, and watch the display update with each keystrok
 在输入框中输入，就会看到每次按键时，显示也随之更新了。
 
 <figure>
-
   <img src='generated/images/guide/user-input/keyup-loop-back-anim.gif' alt="loop back">
-
 </figure>
 
 <div class="l-sub-section">
@@ -309,9 +305,7 @@ Here's how it works.
 下面展示了它是如何工作的。
 
 <figure>
-
   <img src='generated/images/guide/user-input/keyup3-anim.gif' alt="key up 3">
-
 </figure>
 
 ## On blur
@@ -353,9 +347,7 @@ clicking **Add**.
 用户可以通过输入英雄名和点击“添加”按钮来添加英雄。
 
 <figure>
-
   <img src='generated/images/guide/user-input/little-tour-anim.gif' alt="Little Tour of Heroes">
-
 </figure>
 
 Below is the "Little Tour of Heroes"  component.

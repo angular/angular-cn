@@ -25,4 +25,3 @@ Writing this in full JavaScript can be quite involved. With observables, you can
 Exponential backoff is a technique in which you retry an API after failure, making the time in between retries longer after each consecutive failure, with a maximum number of retries after which the request is considered to have failed. This can be quite complex to implement with promises and other methods of tracking AJAX calls. With observables, it is very easy:
 
 <code-example path="practical-observable-usage/src/backoff.ts" title="Exponential backoff"></code-example>
-

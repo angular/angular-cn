@@ -15,7 +15,9 @@ Beginning in Angular 5.0.0, you can easily enable Angular service worker support
 If you're generating a new CLI project, you can use the CLI to set up the Angular service worker as part of creating the project. To do so, add the `--service-worker` flag to the `ng new`  command:
 
 ```sh
+
 ng new my-project --service-worker 
+
 ```
 
 The `--service-worker` flag takes care of configuring your app to 
@@ -44,7 +46,9 @@ To add a service worker to an existing app:
 Add the package `@angular/service-worker`, using the yarn utility as shown here:
 
 ```sh
+
 yarn add @angular/service-worker
+
 ```
 
 ### Step 2: Enable service worker build support in the CLI
@@ -52,7 +56,9 @@ yarn add @angular/service-worker
 To enable the Angular service worker, the CLI must generate an Angular service worker manifest at build time. To cause the CLI to generate the manifest for an existing project, set the `serviceWorker` flag to `true` in the project's `.angular-cli.json` file as shown here:
 
 ```sh
+
 ng set apps.0.serviceWorker=true
+
 ```
 
 ### Step 3: Import and register the service worker
@@ -85,7 +91,9 @@ Alternately, save the following as `src/ngsw-config.json`:
 Finally, build the project: 
 
 ```sh
+
 ng build --prod
+
 ```
 
 The CLI project is now set up to use the Angular service worker.
@@ -102,8 +110,10 @@ Because `ng serve` does not work with service workers, you must use a seperate H
 To serve with `http-server`, change to the directory containing your web files and start the web server: 
 
 ```sh
+
 cd dist
 http-server -p 8080
+
 ```
 
 ### Initial load
@@ -123,9 +133,7 @@ To simulate a network issue, disable network interaction for your application. I
 3. Check the **Offline box**.
 
 <figure>
-
   <img src="generated/images/guide/service-worker/offline-checkbox.png" alt="The offline checkbox in the Network tab is checked">
-
 </figure>
 
 Now the app has no access to network interaction.
@@ -137,9 +145,7 @@ With the addition of an Angular service worker, the application behavior changes
 If you look at the Network tab, you can verify that the service worker is active.
 
 <figure>
-
   <img src="generated/images/guide/service-worker/sw-active.png" alt="Requests are marked as from ServiceWorker">
-
 </figure>
 
 Notice that under the "Size" column, the requests state is `(from ServiceWorker)`. This means that the resources are not being loaded from the network. Instead, they are being loaded from the service worker's cache.
@@ -176,9 +182,11 @@ next step is understanding how updates work.
 7. Build and run the server again:
 
 ```sh
+
 ng build --prod
 cd dist
 http-server -p 8080
+
 ```
 
 ### Updating your application in the browser
@@ -188,9 +196,7 @@ Now look at how the browser and service worker handle the updated application.
 1. Open http://localhost:8080 again in the same window. What happens?
 
 <figure>
-
   <img src="generated/images/guide/service-worker/welcome-msg-en.png" alt="It still says Welcome to Service Workers!">
-
 </figure>
 
 What went wrong? Nothing, actually. The Angular service worker is doing its job and serving the version of the application that it has **installed**, even though there is an update available. In the interest of speed, the service worker doesn't wait to check for updates before it serves the application that it has cached.
@@ -200,9 +206,7 @@ If you look at the `http-server` logs, you can see the service worker requesting
 2. Refresh the page.
 
 <figure>
-
   <img src="generated/images/guide/service-worker/welcome-msg-fr.png" alt="The text has changed to say Bienvenue à app!">
-
 </figure>
 
 The service worker installed the updated version of your app *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
