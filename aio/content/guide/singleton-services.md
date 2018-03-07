@@ -89,6 +89,8 @@ a simple object with the following properties:
 
 * `providers`: the configured providers.
 
+   `providers` - 配置好的服务提供商
+
 In the <live-example name="ngmodules">live example</live-example>
 the root `AppModule` imports the `CoreModule` and adds the
 `providers` to the `AppModule` providers. Specifically,
@@ -118,11 +120,15 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 
 Lastly, call it within the `imports` list of the `AppModule`.
 
+最后，我们在`AppModule`的`imports`*列表*中调用它。
+
 <code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" title="src/app/app.module.ts (imports)" linenums="false">
 
 </code-example>
 
 The app displays "Miss Marple" as the user instead of the default "Sherlock Holmes".
+
+该应用不再显示默认的 “Sherlock Holmes”，而是用 “Miss Marple” 作为用户名称。
 
 Remember to _import_ `CoreModule` as a Javascript import at the top of the file; don't add it to more than one `@NgModule` `imports` list.
 
@@ -154,6 +160,10 @@ find a requested provider.
 The `@Optional` decorator means not finding the service is OK.
 The injector returns `null`, the `parentModule` parameter is null,
 and the constructor concludes uneventfully.
+
+默认情况下，当注入器找不到想找的提供商时，会抛出一个错误。
+但`@Optional`装饰器表示找不到该服务也无所谓。
+于是注入器会返回`null`，`parentModule`参数也就被赋成了空值，而构造函数没有任何异常。
 
 It's a different story if you improperly import `CoreModule` into a lazy-loaded module such as `CustomersModule`.
 

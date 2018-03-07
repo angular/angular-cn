@@ -17,13 +17,9 @@ You can run the <live-example></live-example> in Stackblitz and download the cod
 
 运行<live-example></live-example>来试用本页的代码。
 
-<h2 id='report-issues'>
+<h2 id='report-issues'>Reporting vulnerabilities</h2>
 
-  Reporting vulnerabilities
-
-  举报漏洞
-
-</h2>
+<h2 id='report-issues'>举报漏洞</h2>
 
 To report vulnerabilities in Angular itself, email us at [security@angular.io](mailto:security@angular.io).
 
@@ -34,13 +30,9 @@ philosophy](https://www.google.com/about/appsecurity/).
 
 要了解关于“谷歌如何处理安全问题”的更多信息，参见[谷歌的安全哲学](https://www.google.com/about/appsecurity/)。
 
-<h2 id='best-practices'>
+<h2 id='best-practices'>Best practices</h2>
 
-  Best practices
-
-  最佳实践
-
-</h2>
+<h2 id='best-practices'>最佳实践</h2>
 
 * **Keep current with the latest Angular library releases.**
 We regularly update the Angular libraries, and these updates may fix security defects discovered in
@@ -64,13 +56,9 @@ For more information, see the [Trusting safe values](guide/security#bypass-secur
    **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
-<h2 id='xss'>
+<h2 id='xss'>Preventing cross-site scripting (XSS)</h2>
 
-  Preventing cross-site scripting (XSS)
-
-  防范跨站脚本(XSS)攻击
-
-</h2>
+<h2 id='xss'>防范跨站脚本(XSS)攻击</h2>
 
 [Cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) enables attackers
 to inject malicious code into web pages. Such code can then, for example, steal user data (in
@@ -247,13 +235,9 @@ carries a high risk of introducing template-injection vulnerabilities.
   务必使用一个能够自动进行无害化处理以防范XSS漏洞的后端模板语言。不要在服务器端使用模板语言生成Angular模板，
   这样会带来很高的“模板注入”风险。
 
-<h2 id='bypass-security-apis'>
+<h2 id='bypass-security-apis'>Trusting safe values</h2>
 
-  Trusting safe values
-
-  信任安全值
-
-</h2>
+<h2 id='bypass-security-apis'>信任安全值</h2>
 
 Sometimes applications genuinely need to include executable code, display an `<iframe>` from some
 URL, or construct potentially dangerous URLs. To prevent automatic sanitization in any of these
@@ -324,13 +308,9 @@ Angular to allow binding into `<iframe src>`:
 
 </code-example>
 
-<h2 id='http'>
+<h2 id='http'>HTTP-level vulnerabilities</h2>
 
-  HTTP-level vulnerabilities
-
-  HTTP级别的漏洞
-
-</h2>
+<h2 id='http'>HTTP级别的漏洞</h2>
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request
 forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily
@@ -339,13 +319,9 @@ on the server side, but Angular provides helpers to make integration on the clie
 Angular内置了一些支持来防范两个常见的HTTP漏洞：跨站请求伪造（XSRF）和跨站脚本包含（XSSI）。
   这两个漏洞主要在服务器端防范，但是Angular也自带了一些辅助特性，可以让客户端的集成变得更容易。
 
-<h3 id='xsrf'>
+<h3 id='xsrf'>Cross-site request forgery</h3>
 
-  Cross-site request forgery
-
-  跨站请求伪造（XSRF）
-
-</h3>
+<h3 id='xsrf'>跨站请求伪造（XSRF）</h3>
 
 In a cross-site request forgery (CSRF or XSRF), an attacker tricks the user into visiting
 a different web page (such as `evil.com`) with malignant code that secretly sends a malicious request
@@ -413,13 +389,9 @@ See also Dave Smith's easy-to-understand
 
 参见Dave Smith在<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">AngularConnect 2016关于XSRF的演讲</a>。
 
-<h3 id='xssi'>
+<h3 id='xssi'>Cross-site script inclusion (XSSI)</h3>
 
-  Cross-site script inclusion (XSSI)
-
-  跨站脚本包含(XSSI)
-
-</h3>
+<h3 id='xssi'>跨站脚本包含(XSSI)</h3>
 
 Cross-site script inclusion, also known as JSON vulnerability, can allow an attacker's website to
 read data from a JSON API. The attack works on older browsers by overriding native JavaScript
@@ -445,13 +417,9 @@ post](https://security.googleblog.com/2011/05/website-security-for-webmasters.ht
 
 要学习更多这方面的知识，请参见[谷歌Web安全博客文章](https://security.googleblog.com/2011/05/website-security-for-webmasters.html)的XSSI小节。
 
-<h2 id='code-review'>
+<h2 id='code-review'>Auditing Angular applications</h2>
 
-  Auditing Angular applications
-
-  审计Angular应用程序
-
-</h2>
+<h2 id='code-review'>审计Angular应用程序</h2>
 
 Angular applications must follow the same security principles as regular web applications, and
 must be audited as such. Angular-specific APIs that should be audited in a security review,

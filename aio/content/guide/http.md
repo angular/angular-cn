@@ -450,9 +450,6 @@ You can think of these observables as _blueprints_ for actual HTTP requests.
 In fact, each `subscribe()` initiates a separate, independent execution of the observable.
 Subscribing twice results in two HTTP requests.
 
-*注意这个`subscribe()`方法*。 所有从`HttpClient`返回的可观察对象都是*冷的（cold）*，也就是说，它们只是发起请求的*蓝图*而已。在我们调用`subscribe()`之前，什么都不会发生，而当我们每次调用`subscribe()`时，就会独立发起一次请求。
-比如，下列代码会使用同样的数据发送两次同样的 POST 请求：
-
 ```javascript
 
 const req = http.get<Heroes>('/api/heroes');
@@ -482,6 +479,8 @@ For the reasons [explained above](#always-subscribe), the caller (`HeroesCompone
 in order to initiate the request.
 
 ## Advanced usage
+
+## 高级用法
 
 The above sections detail how to use the basic HTTP functionality in `@angular/common/http`, but sometimes you need to do more than make simple requests and get data back.
 
@@ -793,8 +792,6 @@ If you set the cloned request body to `undefined`, Angular assumes you intend to
 That is not what you want.
 If you set the cloned request body to `null`, Angular knows you intend to clear the request body.
 
-这种克隆一个请求并设置一组新的请求头的操作非常常见，因此有了一种快捷写法：
-
 ```javascript
 
   newReq = req.clone({ ... }); // body not mentioned => preserve original body
@@ -963,8 +960,6 @@ the cached response first (and immediately), followed later
 by the response from the server.
 Subscribers see a sequence of _two_ responses.
 
-现在，如果 URL 被缓存过，那么任何人调用`http.get(url)`时都会收到*两次*响应。
-
 ### Listening to progress events
 
 ### 监听进度事件
@@ -1105,7 +1100,7 @@ There are also tests of an application data service that call `HttpClient` in
 
 ### Setup
 
-### 初始设置
+### 环境设置
 
 To begin testing calls to `HttpClient`, 
 import the `HttpClientTestingModule` and the mocking controller, `HttpTestingController`,
@@ -1149,6 +1144,8 @@ Now you can write a test that expects a GET Request to occur and provides a mock
 </code-example>
 
 The last step, verifying that no requests remain outstanding, is common enough for you to move it into an `afterEach()` step:
+
+最后一步，验证没有发起过预期之外的请求，足够通用，因此我们可以把它移到`afterEach()`中：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"

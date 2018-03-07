@@ -186,6 +186,8 @@ method included in the sample source code.
 
 ### Error handling
 
+### 错误处理
+
 Things go wrong, especially when you're getting data from a remote server.
 The `HeroService.getHeroes()` method should catch errors and do something appropriate.
 

@@ -12,7 +12,7 @@ This cookbook explores many of the features of Dependency Injection (DI) in Angu
 See the <live-example name="dependency-injection-in-action"></live-example>
 of the code in this cookbook.
 
-到<live-example name="dependency-injection-in-action"></live-example>查看本烹饪书的源码。
+要获取本“烹饪宝典”的代码，**参见<live-example name="dependency-injection-in-action"></live-example>**。
 
 {@a app-wide-dependencies}
 

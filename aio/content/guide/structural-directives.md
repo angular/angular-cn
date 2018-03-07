@@ -374,9 +374,6 @@ Its intended source is implicit.
 Angular sets `let-hero` to the value of the context's `$implicit` property
 which `NgFor` has initialized with the hero for the current iteration.
 
-   上下文中的属性`let-hero`没有指定过，实际上它来自一个隐式变量。
-  Angular会把`let-hero`设置为上下文对象中的`$implicit`属性，`NgFor`会用当前迭代中的英雄初始化它。
-
 * The [API guide](api/common/NgForOf "API: NgFor")
 describes additional `NgFor` directive properties and context properties.
 

@@ -69,6 +69,8 @@ sub.unsubscribe();
 
 ### Error handling
 
+### 错误处理
+
 * Observable execution errors are delivered to the subscriber's error handler, and the subscriber automatically unsubscribes from the observable.
 
 <code-example hideCopy>
@@ -259,7 +261,7 @@ let subscription = clicks$
 // Stop listening
 subscription.unsubscribe();</pre>
 
-   </td>
+    </td>
 
    <td>
 
@@ -273,7 +275,7 @@ button.addEventListener(‘click’, handler);
 button.removeEventListener(‘click’, handler);
 </pre>
 
-    </td>
+   </td>
 
   </tr>
 
@@ -311,14 +313,18 @@ button.removeEventListener(‘click’, handler);
 
     </td>
 
-    <td>Listen for keystrokes, but provide a stream representing the value in the input.
+    <td>
+
+        Listen for keystrokes, but provide a stream representing the value in the input.
 <pre>fromEvent(inputEl, 'keydown').pipe(
   map(e => e.target.value)
 );</pre>
 
     </td>
 
-    <td>Does not support configuration.
+    <td>
+
+        Does not support configuration.
 <pre>element.addEventListener(eventName, (event) => {
   // Cannot change the passed Event into another
   // value before it gets to the handler

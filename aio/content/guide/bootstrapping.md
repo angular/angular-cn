@@ -1,5 +1,7 @@
 # Bootstrapping
 
+# 启动过程
+
 #### Prerequisites
 
 A basic understanding of the following:
@@ -152,6 +154,8 @@ the class was imported from another module.
 You don't have any services to provide yet.
 But you will create some before long and you may chose to provide many of them here.
 
+我们还没有提供任何服务，但是很快就会创建一些，而且可能也会选择在这里提供它们。
+
 {@a bootstrap-array}
 
 ## The `providers` array
@@ -172,6 +176,9 @@ Each bootstrapped component is the base of its own tree of components.
 Inserting a bootstrapped component usually triggers a cascade of
 component creations that fill out that tree.
 
+每个被引导的组件都是它自己的组件树的根。
+插入一个被引导的组件通常触发一系列组件的创建并形成组件树。
+
 While you can put more than one component tree on a host web page,
 most applications have only one component tree and bootstrap a single root component.
 
@@ -179,6 +186,8 @@ This one root component is usually called `AppComponent` and is in the
 root module's `bootstrap` array.
 
 ## More about Angular Modules
+
+## 关于Angular模块的更多知识
 
 For more on NgModules you're likely to see frequently in apps,
 see [Frequently Used Modules](#).

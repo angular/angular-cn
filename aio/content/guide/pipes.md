@@ -582,7 +582,7 @@ display updates as you add heroes, even when you mutate the `heroes` array.
 
 <h3 class="no-toc">The impure <i>AsyncPipe</i></h3>
 
-<h3 class="no-toc">非纯管道 <i>AsyncPipe</i></h3>
+<h3 id='async-pipe'>非纯  <i>AsyncPipe</i></h3>
 
 The Angular `AsyncPipe` is an interesting example of an impure pipe.
 The `AsyncPipe` accepts a `Promise` or `Observable` as input

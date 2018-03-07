@@ -46,6 +46,8 @@ into three categories:
 
 The following table summarizes the `@NgModule` metadata properties.
 
+下面是`@NgModule`元数据中属性的汇总表：
+
 <table>
 
   <tr>
@@ -62,7 +64,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       Description
 
-      描述
+      说明
 
     </th>
 
@@ -129,6 +131,8 @@ The following table summarizes the `@NgModule` metadata properties.
     <td>
 
       A list of dependency-injection providers.
+
+      依赖注入提供商的列表。
 
       Angular registers these providers with the NgModule's injector.
       If it is the NgModule used for bootstrapping then it is the root injector.
@@ -231,8 +235,12 @@ The following table summarizes the `@NgModule` metadata properties.
 
       Usually there's only one component in this list, the _root component_ of the application.
 
+      通常，在这个列表中只有一个组件，也就是应用的*根组件*。
+
       Angular can launch with multiple bootstrap components,
       each with its own location in the host web page.
+
+      Angular也可以引导多个引导组件，它们每一个都在宿主页面中有自己的位置。
 
       A bootstrap component is automatically added to `entryComponents`.
 

@@ -782,6 +782,8 @@ You rarely access Angular feature modules directly. You usually import them from
 
 ## NgModule
 
+## 可观察对象 (observable)
+
 Helps you organize an application into cohesive blocks of functionality.
 An NgModule identifies the components, directives, and pipes that the application uses along with the list of external NgModules that the application needs, such as `FormsModule`.
 
@@ -957,7 +959,7 @@ For more information, see the [Routing & Navigation](guide/router) page.
 
 ## Router module
 
-## 路由器模块
+## 路由器模块 (router module)
 
 A separate [NgModule](guide/glossary#ngmodule) that provides the necessary service providers and directives for navigating through application views.
 

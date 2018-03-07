@@ -46,13 +46,9 @@ Note that the resulting code does not map to the docs. Adjust accordingly.
 
 </div>
 
-<h2 id='prereq1'>
+<h2 id='prereq1'>Prerequisite: Node.js</h2>
 
-  Prerequisite: Node.js
-
-  前提条件: Node.js
-
-</h2>
+<h2 id='prereq1'>前提条件: Node.js</h2>
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
@@ -69,13 +65,9 @@ Older versions produce errors.
 
 </div>
 
-<h2 id='prereq2'>
+<h2 id='prereq2'>Prerequisite: Visual Studio 2015 Update 3</h2>
 
-  Prerequisite: Visual Studio 2015 Update 3
-
-  前提条件: Visual Studio 2015 Update 3
-
-</h2>
+<h2 id='prereq2'>前提条件: Visual Studio 2015 Update 3</h2>
 
 The minimum requirement for developing Angular applications with Visual Studio is Update 3.
 Earlier versions do not follow the best practices for developing applications with TypeScript.
@@ -90,13 +82,9 @@ Or use `Tools | Extensions and Updates` to update to Update 3 directly from Visu
 
 如果还没有，安装**[Visual Studio 2015 Update 3](https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs)**。或者使用`Tools | Extensions and Updates`来直接在Visual Studio 2015中更新到Update 3。
 
-<h2 id='prereq3'>
+<h2 id='prereq3'>Prerequisite: Configure External Web tools</h2>
 
-  Prerequisite: Configure External Web tools
-
-  前提条件: 配置External Web tools
-
-</h2>
+<h2 id='prereq3'>前提条件: 配置External Web tools</h2>
 
 Configure Visual Studio to use the global external web tools instead of the tools that ship with Visual Studio:
 
@@ -129,13 +117,9 @@ find them in either location, it will use its own versions of the tools.
 
 Visual Studio将优先在当前的工作区查找外部工具，如果没有找到，便查找全局路径，如果还没有找到，Visual Studio就使用自带的工具版本。
 
-<h2 id='prereq4'>
+<h2 id='prereq4'>Prerequisite: Install TypeScript 2.2 for Visual Studio 2015</h2>
 
-  Prerequisite: Install TypeScript 2.2 for Visual Studio 2015
-
-  前提条件: 安装TypeScript 2.2 for Visual Studio 2015
-
-</h2>
+<h2 id='prereq4'>前提条件: 安装TypeScript 2.2 for Visual Studio 2015</h2>
 
 While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2.2, 
 which you need to develop Angular applications.
@@ -163,26 +147,18 @@ restart it to make sure everything is clean.
 
 至此，Visual Studio准备好了。重新启动Visual Stuido，这样我们可以有一个崭新的开始。
 
-<h2 id='download'>
+<h2 id='download'>Step 1: Download the QuickStart files</h2>
 
-  Step 1: Download the QuickStart files
-
-  第一步: 现在“快速上手”文件
-
-</h2>
+<h2 id='download'>第一步: 现在“快速上手”文件</h2>
 
 [Download the QuickStart source](https://github.com/angular/quickstart)
 from GitHub. If you downloaded as a zip file, extract the files.
 
 从GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的zip文件，解压它。
 
-<h2 id='create-project'>
+<h2 id='create-project'>Step 2: Create the Visual Studio ASP.NET project</h2>
 
-  Step 2: Create the Visual Studio ASP.NET project
-
-  第二步：创建Visual Studio ASP.net项目
-
-</h2>
+<h2 id='create-project'>第二步：创建Visual Studio ASP.net项目</h2>
 
 Create the ASP.NET 4.x project in the usual way as follows:
 
@@ -213,13 +189,9 @@ no authentication, and no hosting. Pick the template and options appropriate for
 
 </div>
 
-<h2 id='copy'>
+<h2 id='copy'>Step 3: Copy the QuickStart files into the ASP.NET project folder</h2>
 
-  Step 3: Copy the QuickStart files into the ASP.NET project folder
-
-  第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录
-
-</h2>
+<h2 id='copy'>第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录</h2>
 
 Copy the QuickStart files you downloaded from GitHub into the folder containing the `.csproj` file.
 Include the files in the Visual Studio project as follows:
@@ -248,13 +220,9 @@ Include the files in the Visual Studio project as follows:
 
   * src/tsconfig.json
 
-<h2 id='restore'>
+<h2 id='restore'>Step 4: Restore the required packages</h2>
 
-  Step 4: Restore the required packages
-
-  第四步: 恢复需要的包
-
-</h2>
+<h2 id='restore'> 第四步: 恢复需要的包 </h2>
 
 Restore the packages required for an Angular application as follows:
 
@@ -289,13 +257,9 @@ Restore the packages required for an Angular application as follows:
 
    **不要**将`node_modules`目录添加到项目中，让它隐藏。
 
-<h2 id='build-and-run'>
+<h2 id='build-and-run'>Step 5: Build and run the app</h2>
 
-  Step 5: Build and run the app
-
-  第五步：构建和运行应用
-
-</h2>
+<h2 id='build-and-run'>第五步：构建和运行应用</h2>
 
 First, ensure that `src/index.html` is set as the start page.
 Right-click `index.html` in Solution Explorer and select option `Set As Start Page`.

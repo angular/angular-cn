@@ -128,7 +128,7 @@
 
             Description
 
-            描述
+            说明
 
         </th>
 
@@ -311,7 +311,7 @@
     </span><span class="pun">}[],</span><span class="pln"> duration</span><span class="pun">:</span><span class="pln"> number</span><span class="pun">,</span><span class="pln"> delay</span><span class="pun">:</span><span class="pln"> number</span><span class="pun">,</span><span class="pln"> easing</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">,</span><span class="pln"> previousPlayers</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">[])</span></code>
         </pre></aio-code></code-example>
 
-                </td>
+        </td>
 
                 <td>
 

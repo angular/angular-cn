@@ -124,11 +124,7 @@ All section heading text should be in "Sentence case", which means the first wor
 
 **Always follow the section heading with at least one blank line.**
 
-<h2 class="no-toc">
-
-Main section heading
-
-</h2>
+<h2 class="no-toc">Main section heading</h2>
 
 There are usually one or more main sections that may be further divided into secondary sections.
 
@@ -144,11 +140,7 @@ The main section heading should be followed by a blank line and then the content
 
 ```
 
-<h3 class="no-toc">
-
-Secondary section heading
-
-</h3>
+<h3 class="no-toc">Secondary section heading</h3>
 
 A secondary section heading is related to a main heading and _falls textually within_ the bounds of that main heading.
 
@@ -218,11 +210,7 @@ To exclude a heading from the TOC, create the heading as an `<h2>` or `<h3>` ele
 
 ```html
 
-<h3 class="no-toc">
-
-This heading is not displayed in the TOC
-
-</h3>
+<h3 class="no-toc">This heading is not displayed in the TOC</h3>
 
 ```
 
@@ -230,11 +218,7 @@ You can turn off TOC generation for the _entire_ page by writing the title with 
 
 ```html
 
-<h1 class="no-toc">
-
-A guide without a TOC
-
-</h1>
+<h1 class="no-toc">A guide without a TOC</h1>
 
 ```
 
@@ -803,6 +787,8 @@ Remember to exclude these files from stackblitz by listing them in the `stackbli
 
 ## Live examples
 
+## 在线例子
+
 By adding `<live-example>` to the page you generate links that run sample code in the Stackblitz live coding environment and download that code to the reader's file system.
 
 Live examples (AKA "stackblitz") are defined by one or more `stackblitz.json` files in the root of a code sample folder. Each sample folder usually has a single unnamed definition file, the default `stackblitz.json`.
@@ -1309,6 +1295,8 @@ Use HTML tables to present tabular data.
 
         Routing
 
+        路由
+
     </td>
 
     <td>
@@ -1330,6 +1318,8 @@ Use HTML tables to present tabular data.
     <td>
 
         Routing
+
+        路由
 
     </td>
 
@@ -1354,6 +1344,8 @@ Use HTML tables to present tabular data.
     <td>
 
         Routing
+
+        路由
 
     </td>
 
@@ -1411,6 +1403,8 @@ Here is the markup for this table.
 
         Routing
 
+        路由
+
     </td>
 
     <td>
@@ -1432,6 +1426,8 @@ Here is the markup for this table.
     <td>
 
         Routing
+
+        路由
 
     </td>
 
@@ -1456,6 +1452,8 @@ Here is the markup for this table.
     <td>
 
         Routing
+
+        路由
 
     </td>
 

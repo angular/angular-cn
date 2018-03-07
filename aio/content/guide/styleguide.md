@@ -676,8 +676,6 @@ and reference assets of different types.
 
 <a href="#toc">Back to top</a>
 
-<a href="#toc">回到顶部</a>
-
 {@a 02-04}
 
 ### Service names
@@ -1062,8 +1060,6 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 </code-example>
 
 <a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
 
 {@a 02-09}
 
@@ -1808,8 +1804,6 @@ It is rarely worth the effort to change them at the risk of breaking existing co
 
 **Consider** using an interface for data models.
 
-**考虑**用类代替接口。
-
 </div>
 
 <div class="s-why">
@@ -1917,8 +1911,6 @@ discourage the `I` prefix.
 
 <a href="#toc">Back to top</a>
 
-<a href="#toc">回到顶部</a>
-
 {@a 03-06}
 
 ### Import line spacing
@@ -2007,8 +1999,6 @@ Use the naming conventions for files in this guide.
 
 <a href="#toc">Back to top</a>
 
-<a href="#toc">回到顶部</a>
-
 {@a 04-01}
 
 ### _LIFT_
@@ -2084,8 +2074,6 @@ A descriptive folder structure makes a world of difference to you and the people
 </div>
 
 <a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
 
 {@a 04-03}
 
@@ -2205,8 +2193,6 @@ Use a flatter structure until there is an obvious value to creating a new folder
 </div>
 
 <a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
 
 {@a 04-05}
 
@@ -3623,7 +3609,7 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 **Consider** giving components an _element_ selector, as opposed to _attribute_ or _class_ selectors.
 
-**坚持**给组件一个*元素*选择器，而不是*属性*或*类*选择器。
+**考虑**给组件一个*元素*选择器，而不是*属性*或*类*选择器。
 
 </div>
 
@@ -3911,8 +3897,6 @@ and the directive name doesn't describe the property.
 
 <a href="#toc">Back to top</a>
 
-<a href="#toc">回到顶部</a>
-
 {@a 05-14}
 
 ### Member sequence
@@ -4094,8 +4078,6 @@ helps instantly identify which members of the component serve which purpose.
 
 <a href="#toc">Back to top</a>
 
-<a href="#toc">回到顶部</a>
-
 {@a 05-17}
 
 ### Put presentation logic in the component class
@@ -4189,8 +4171,6 @@ helps instantly identify which members of the component serve which purpose.
 </code-example>
 
 <a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
 
 {@a 06-03}
 

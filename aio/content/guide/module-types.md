@@ -38,11 +38,15 @@ typical characteristics, in real world apps, you may see hybrids.
 
      Feature Module
 
+     特性模块
+
    </th>
 
    <th style="vertical-align: top">
 
      Guidelines
+
+     指导原则
 
    </th>
 
@@ -53,6 +57,8 @@ typical characteristics, in real world apps, you may see hybrids.
    <td>
 
        Domain
+
+       领域
 
    </td>
 
@@ -70,6 +76,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
      They might be imported by the root `AppModule` of a small application that lacks routing.
 
+     对于缺少路由的小型应用，它们可能只会被根模块`AppModule`导入一次。
+
    </td>
 
  </tr>
@@ -80,6 +88,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
        Routed
 
+       路由
+
    </td>
 
    <td>
@@ -87,6 +97,8 @@ typical characteristics, in real world apps, you may see hybrids.
      Routed feature modules are domain feature modules whose top components are the targets of router navigation routes.
 
      All lazy-loaded modules are routed feature modules by definition.
+
+     根据这个定义，所有惰性加载的模块都是路由特性模块。
 
      Routed feature modules don’t export anything because their components never appear in the template of an external component.
 
@@ -104,6 +116,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
        Routing
 
+       路由
+
    </td>
 
    <td>
@@ -111,6 +125,8 @@ typical characteristics, in real world apps, you may see hybrids.
      A routing module provides routing configuration for another module and separates routing concerns from its companion module.
 
      A routing module typically does the following:
+
+     路由模块通常会做这些：
 
      <ul>
 
@@ -164,6 +180,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
        Service
 
+       服务
+
    </td>
 
    <td>
@@ -182,6 +200,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
        Widget
 
+       窗口部件
+
    </td>
 
    <td>
@@ -193,6 +213,8 @@ typical characteristics, in real world apps, you may see hybrids.
      A widget module should rarely have providers.
 
      Import widget modules in any module whose component templates need the widgets.
+
+     如果任何模块的组件模板中需要用到这些窗口部件，就请导入相应的窗口部件模块。
 
    </td>
 
@@ -210,11 +232,15 @@ The following table summarizes the key characteristics of each feature module gr
 
      Feature Module
 
+     特性模块
+
    </th>
 
    <th style="vertical-align: top">
 
      Declarations
+
+     声明`declarations`
 
    </th>
 
@@ -222,11 +248,15 @@ The following table summarizes the key characteristics of each feature module gr
 
      Providers
 
+     提供商`providers`
+
    </th>
 
    <th style="vertical-align: top">
 
      Exports
+
+     导出什么
 
    </th>
 
@@ -244,11 +274,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Domain
 
+       领域
+
    </td>
 
    <td>
 
        Yes
+
+       有
 
    </td>
 
@@ -256,11 +290,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Rare
 
+       罕见
+
    </td>
 
    <td>
 
        Top component
+
+       顶级组件
 
    </td>
 
@@ -278,11 +316,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Routed
 
+       路由
+
    </td>
 
    <td>
 
        Yes
+
+       有
 
    </td>
 
@@ -290,11 +332,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Rare
 
+       罕见
+
    </td>
 
    <td>
 
        No
+
+       无
 
    </td>
 
@@ -312,11 +358,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Routing
 
+       路由
+
    </td>
 
    <td>
 
        No
+
+       无
 
    </td>
 
@@ -346,11 +396,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Service
 
+       服务
+
    </td>
 
    <td>
 
        No
+
+       无
 
    </td>
 
@@ -358,11 +412,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Yes
 
+       有
+
    </td>
 
    <td>
 
        No
+
+       无
 
    </td>
 
@@ -380,11 +438,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Widget
 
+       窗口部件
+
    </td>
 
    <td>
 
        Yes
+
+       有
 
    </td>
 
@@ -392,11 +454,15 @@ The following table summarizes the key characteristics of each feature module gr
 
        Rare
 
+       罕见
+
    </td>
 
    <td>
 
        Yes
+
+       有
 
    </td>
 

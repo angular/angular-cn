@@ -344,7 +344,7 @@ Here's a brief description of each exercise:
 
         Description
 
-        描述
+        说明
 
     </th>
 

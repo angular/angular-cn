@@ -29,13 +29,9 @@ And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" targ
 
 你还可以 <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">下载这个例子。</a>
 
-<h2 id='devenv'>
+<h2 id='devenv'>Step 1. Set up the Development Environment</h2>
 
-  Step 1. Set up the Development Environment
-
-  步骤1. 设置开发环境
-
-</h2>
+<h2 id='devenv'>步骤1. 设置开发环境</h2>
 
 You need to set up your development environment before you can do anything.
 
@@ -68,13 +64,9 @@ Then **install the [Angular CLI](https://github.com/angular/angular-cli)** globa
 
 </code-example>
 
-<h2 id='create-proj'>
+<h2 id='create-proj'>Step 2. Create a new project</h2>
 
-  Step 2. Create a new project
-
-  步骤2. 创建新项目
-
-</h2>
+<h2 id='create-proj'>步骤2. 创建新项目</h2>
 
 Open a terminal window.
 
@@ -100,13 +92,9 @@ It takes time to set up a new project; most of it is spent installing npm packag
 
 </div>
 
-<h2 id='serve'>
+<h2 id='serve'>Step 3: Serve the application</h2>
 
-  Step 3: Serve the application
-
-  步骤3. 启动开发服务器
-
-</h2>
+<h2 id='serve'>步骤3. 启动开发服务器</h2>
 
 Go to the project directory and launch the server.
 
@@ -137,13 +125,9 @@ Your app greets you with a message:
   <img src='generated/images/guide/cli-quickstart/app-works.png' alt="The app works!">
 </figure>
 
-<h2 id='first-component'>
+<h2 id='first-component'>Step 4: Edit your first Angular component</h2>
 
-  Step 4: Edit your first Angular component
-
-  步骤4. 编辑我们的第一个Angular组件
-
-</h2>
+<h2 id='first-component'>步骤4. 编辑我们的第一个Angular组件</h2>
 
 The CLI created the first Angular component for you.
 This is the _root component_ and it is named `app-root`.
@@ -641,7 +625,7 @@ These files go in the root folder next to `src/`.
 
       Purpose
 
-      用途
+      目的
 
     </th>
 

@@ -651,7 +651,7 @@ bootstrapping the AngularJS module.
 
 For more information, see [NgModules](guide/ngmodules).
 
-要了解Angular模块的更多信息，请参阅[Angular模块](guide/ngmodule)页。
+要了解更多，请参阅[NgModules](guide/ngmodule)页。
 
 </div>
 
@@ -1272,8 +1272,6 @@ compilation can pick it up.
 </code-example>
 
 You can then inject it in Angular using its class as a type annotation:
-
-然后我们可以一个字符串型令牌，把它注入到Angular中：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" title="hero-detail.component.ts">
 

@@ -414,9 +414,11 @@ Here are the features which may require additional polyfills:
 
       [JIT compilation](guide/aot-compiler).
 
+      [JIT 编译](guide/aot-compiler) 
+      
       Required to reflect for metadata.
 
-      [JIT 编译](guide/aot-compiler) 需要 reflect 来提供元数据。
+      需要 reflect 来提供元数据。
 
     </td>
 

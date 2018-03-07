@@ -1,5 +1,7 @@
 # NgModules
 
+# Angular模块 (NgModule)
+
 #### Prerequisites
 
 A basic understanding of the following concepts:
@@ -26,6 +28,8 @@ section.
 
 ## Angular modularity
 
+## Angular 模块化
+
 Modules are a great way to organize an application and extend it with capabilities from external libraries.
 
 Angular libraries are NgModules, such as `FormsModule`, `HttpClientModule`, and `RouterModule`.
@@ -37,6 +41,8 @@ Many third-party libraries are available as NgModules such as
 NgModules consolidate components, directives, and pipes into
 cohesive blocks of functionality, each focused on a
 feature area, application business domain, workflow, or common collection of utilities.
+
+Angular 模块把组件、指令和管道打包成内聚的功能块，每个模块聚焦于一个特性区域、业务领域、工作流或通用工具。
 
 Modules can also add services to the application.
 Such services might be internally developed, like something you'd develop yourself or come from outside sources, such as the Angular router and HTTP client.

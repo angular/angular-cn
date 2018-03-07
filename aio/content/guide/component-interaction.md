@@ -82,7 +82,7 @@ The running application displays three heroes:
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 E2E test that all children were instantiated and displayed as expected:
 
@@ -129,7 +129,7 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 E2E tests of input property setter with empty and non-empty names:
 
@@ -191,7 +191,7 @@ Here's the output of a button-pushing sequence:
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 Test that ***both*** input properties are set initially and that button clicks trigger
 the expected `ngOnChanges` calls and values:
@@ -251,7 +251,7 @@ and the method processes it:
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 Test that clicking the *Agree* and *Disagree* buttons update the appropriate counters:
 
@@ -325,7 +325,7 @@ Here we see the parent and child working together.
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 Test that the seconds displayed in the parent template
 match the seconds displayed in the child's status message.
@@ -431,7 +431,7 @@ that it takes future values from the timer component.
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 Use [the same countdown timer tests](guide/component-interaction#countdown-tests) as before.
 
@@ -512,7 +512,7 @@ facilitated by the service:
 
 <h3 class="no-toc">Test it</h3>
 
-<h3 class="no-toc">测试一下</h3>
+<h3 class="no-toc">测试一下！</h3>
 
 Tests click buttons of both the parent `MissionControlComponent` and the `AstronautComponent` children
 and verify that the history meets expectations:

@@ -1631,6 +1631,8 @@ followed by a dot (`.`) and the name of a CSS style property: `[style.style-prop
 Some style binding styles have a unit extension.
 The following example conditionally sets the font size in  “em” and “%” units .
 
+有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
+
 <code-example path="template-syntax/src/app/app.component.html" region="style-binding-2" title="src/app/app.component.html" linenums="false">
 
 </code-example>
@@ -3032,13 +3034,9 @@ because events stream *out* of that property and toward the handler in a templat
 从`HeroDetailComponent`角度来看，`HeroDetailComponent.deleteRequest`是个**输出**属性，
 因为事件从那个属性流*出*，流向模板绑定语句中的处理器。
 
-<h3 id='aliasing-io'>
+<h3 id='aliasing-io'>Aliasing input/output properties</h3>
 
-  Aliasing input/output properties
-
-  给输入/输出属性起别名
-
-</h3>
+<h3 id='aliasing-io'>给输入/输出属性起别名</h3>
 
 Sometimes the public name of an input/output property should be different from the internal name.
 

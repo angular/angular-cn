@@ -913,7 +913,7 @@ For more information, see [Entry Components](guide/entry-components).
 
 ## Why does Angular need _entryComponents_?
 
-## 为什么 Angular 需要*入口组件*？
+## 为什么Angular需要*入口组件*？
 
 The reason is _tree shaking_. For production apps you want to load the smallest, fastest code possible. The code should contain only the classes that you actually need.
 It should exclude a component that's never used, whether or not that component is declared.

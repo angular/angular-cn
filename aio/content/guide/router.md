@@ -309,7 +309,7 @@ It has a great deal of useful information including:
 
       Description
 
-      描述
+      说明
 
     </th>
 
@@ -538,7 +538,7 @@ During each navigation, the `Router` emits navigation events through the `Router
 
       Description
 
-      描述
+      说明
 
     </th>
 
@@ -725,7 +725,7 @@ Here are the key `Router` terms and their meanings:
 
       <code>Router</code>
 
-      <code>路由器</code>
+      <code>Router</code>（路由器）
 
     </td>
 
@@ -746,6 +746,8 @@ Here are the key `Router` terms and their meanings:
 
       <code>RouterModule</code>
 
+      <code>RouterModule</code>（路由器模块）
+
     </td>
 
     <td>
@@ -765,7 +767,7 @@ Here are the key `Router` terms and their meanings:
 
       <code>Routes</code>
 
-      <code>路由定义（数组）</code>
+      <code>Routes</code>（路由数组）
 
     </td>
 
@@ -785,7 +787,7 @@ Here are the key `Router` terms and their meanings:
 
       <code>Route</code>
 
-      <code>路由器</code>
+      <code>Route</code>（路由）
 
     </td>
 
@@ -806,6 +808,8 @@ Here are the key `Router` terms and their meanings:
 
       <code>RouterOutlet</code>
 
+      <code>RouterOutlet</code>（路由出口）
+
     </td>
 
     <td>
@@ -824,6 +828,8 @@ Here are the key `Router` terms and their meanings:
 
       <code>RouterLink</code>
 
+      <code>RouterLink</code>（路由链接）
+
     </td>
 
     <td>
@@ -841,6 +847,8 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>RouterLinkActive</code>
+
+      <code>RouterLinkActive</code>（活动路由链接）
 
     </td>
 
@@ -861,6 +869,8 @@ Here are the key `Router` terms and their meanings:
 
       <code>ActivatedRoute</code>
 
+      <code>ActivatedRoute</code>（激活的路由）
+
     </td>
 
     <td>
@@ -879,6 +889,8 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>RouterState</code>
+
+      <code>RouterState</code>（路由器状态）
 
     </td>
 
@@ -2507,7 +2519,7 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 
       Description
 
-      描述
+      说明
 
     </th>
 
