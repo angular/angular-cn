@@ -315,6 +315,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
   },
   {
+    "original": "In AngularJS, the `ng-href` is often used to activate a route as part of navigation.",
+    "translation": "在AngularJS 中，`ng-href`通常用来作为导航的一部分，激活一个路由。",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
+  },
+  {
     "original": "Routing is handled differently in Angular.",
     "translation": "路由在Angular中的处理方式不同。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
@@ -566,7 +571,12 @@
   },
   {
     "original": "### none",
-    "translation": "### 没了\n      For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
+    "translation": "### 没了",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
+  },
+  {
+    "original": "For performance reasons, no comparable pipe exists in Angular. Do all your filtering in the component. If you need the same filtering code in several templates, consider building a custom pipe.",
+    "translation": "在Angular中，出于性能的考虑，并没有一个类似的管道。\n      过滤逻辑应该在组件中用代码实现。\n      如果它将被复用在几个模板中，可以考虑构建一个自定义管道。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
   },
   {
@@ -621,7 +631,12 @@
   },
   {
     "original": "### none",
-    "translation": "### 没了\n      For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
+    "translation": "### 没了",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
+  },
+  {
+    "original": "For performance reasons, no comparable pipe exists in Angular.\n      Instead, use component code to order or sort results. If you need the same ordering or sorting code in several templates, consider building a custom pipe.",
+    "translation": "在Angular中，出于性能的考虑，并没有一个类似的管道。\n      排序逻辑应该在组件中用代码实现。\n      如果它将被复用在几个模板中，可以考虑构建一个自定义管道。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/ajs-quick-reference.md"
   },
   {
@@ -1825,7 +1840,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/aot-compiler.md"
   },
   {
-    "original": "The following instructions presuppose that you have downloaded the\n  <a href=\"generated/zips/toh-pt6/toh-pt6.zip\" target=\"_blank\">Tour of Heroes' zip</a>\n  and run `npm install` on it.",
+    "original": "and run `npm install` on it.",
     "translation": "下列步骤假设你已经下载了<a href=\"generated/zips/toh-pt6/toh-pt6.zip\" target=\"_blank\">《英雄指南》的zip包</a>，并且在其中运行过了`npm install`。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/aot-compiler.md"
   },
@@ -2015,8 +2030,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
   },
   {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>\n<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
+    "original": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>",
+    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/architecture.md"
   },
   {
@@ -3416,7 +3431,12 @@
   },
   {
     "original": "## Polyfills #",
-    "translation": "## 填充库 (polyfill) #\nAngular is built on the latest standards of the web platform.\nTargeting such a wide range of browsers is challenging because they do not support all features of modern browsers.",
+    "translation": "## 填充库 (polyfill) #",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
+  },
+  {
+    "original": "Angular is built on the latest standards of the web platform.\nTargeting such a wide range of browsers is challenging because they do not support all features of modern browsers.",
+    "translation": "Angular 构建于 Web 平台的最新标准之上。\n要支持这么多浏览器是一个不小的挑战，因为它们不支持现代浏览器的所有特性。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -3441,7 +3461,12 @@
   },
   {
     "original": "### Mandatory polyfills ##",
-    "translation": "### 强制性填充库 ##\nThese are the polyfills required to run an Angular application on each supported browser:",
+    "translation": "### 强制性填充库 ##",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
+  },
+  {
+    "original": "These are the polyfills required to run an Angular application on each supported browser:",
+    "translation": "下表是填充库对每个支持的浏览器都是需要的：",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -3456,7 +3481,12 @@
   },
   {
     "original": "### Optional browser features to polyfill ##",
-    "translation": "### 可选浏览器特性的填充库 ##\nSome features of Angular may require additional polyfills.",
+    "translation": "### 可选浏览器特性的填充库 ##",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
+  },
+  {
+    "original": "Some features of Angular may require additional polyfills.",
+    "translation": "有些 Angular 特性可能需要额外的填充库。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -3480,7 +3510,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
-    "original": "<th style=\"width: 50%\">\n      Browsers (Desktop & Mobile)",
+    "original": "Browsers (Desktop & Mobile)",
     "translation": "浏览器（桌面和移动）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
@@ -3521,7 +3551,12 @@
   },
   {
     "original": "### Suggested polyfills ##",
-    "translation": "### 建议的填充库 ##\nBelow are the polyfills which are used to test the framework itself. They are a good starting point for an application.",
+    "translation": "### 建议的填充库 ##",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
+  },
+  {
+    "original": "Below are the polyfills which are used to test the framework itself. They are a good starting point for an application.",
+    "translation": "下表中是用来测试框架本身的填充库，它们是应用程序的优质起点。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/browser-support.md"
   },
   {
@@ -6610,6 +6645,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
   },
   {
+    "original": "",
+    "translation": "EXCEPTION: No provider for Logger! (HeroListComponent -> HeroService -> Logger)\n  (异常：Logger类没有提供商！(HeroListComponent -> HeroService -> Logger))",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
+  },
+  {
     "original": "That's Angular telling you that the dependency injector couldn't find the *provider* for the logger.\nIt needed that provider to create a `Logger` to inject into a new\n`HeroService`, which it needed to\ncreate and inject into a new `HeroListComponent`.",
     "translation": "Angular 告诉我们，依赖注入器找不到日志服务的*提供商*。\n在创建`HeroListComponent`的新实例时需要创建并注入`HeroService`，\n而`HeroService`需要创建并注入一个`Logger`实例，\nAngular 需要这个`Logger`实例的提供商来。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/dependency-injection.md"
@@ -7462,6 +7502,11 @@
   {
     "original": "Angular apps run in development mode by default, as you can see by the following message on the browser\nconsole:",
     "translation": "Angular应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/deployment.md"
+  },
+  {
+    "original": "",
+    "translation": "Angular is running in the development mode. Call enableProdMode() to enable the production mode.\n  （Angular正运行在开发模式下。调用enableProdMode()来启用生产模式）",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/deployment.md"
   },
   {
@@ -11360,7 +11405,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/http.md"
   },
   {
-    "original": "<div class=\"alert is-important\">\n*Note that `HttpClient`'s support is only the client half of the XSRF protection scheme.* Your backend service must be configured to set the cookie for your page, and to verify that the header is present on all eligible requests. If not, Angular's default protection will be ineffective.",
+    "original": "*Note that `HttpClient`'s support is only the client half of the XSRF protection scheme.* Your backend service must be configured to set the cookie for your page, and to verify that the header is present on all eligible requests. If not, Angular's default protection will be ineffective.",
     "translation": "*注意，`HttpClient`支持的只是 XSRF 防护方案的客户端这一半。* 我们的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/http.md"
   },
@@ -11760,7 +11805,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/i18n.md"
   },
   {
-    "original": "This syntax conforms to the\n<a href=\"http://userguide.icu-project.org/formatparse/messages\" title=\"ICU Message Format\">ICU Message Format</a>\nthat derives from the\n<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">Common Locale Data Repository (CLDR)</a>,\nwhich specifies the\n<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">pluralization rules</a>.",
+    "original": "that derives from the\n<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">Common Locale Data Repository (CLDR)</a>,\nwhich specifies the\n<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">pluralization rules</a>.",
     "translation": "这个写法符合<a href=\"http://userguide.icu-project.org/formatparse/messages\" title=\"ICU Message Format\">ICU消息格式</a>，它源自<a href=\"http://cldr.unicode.org/\" title=\"CLDR\">通用区域设置数据库(CLDR)</a>，其中指定了<a href=\"http://cldr.unicode.org/index/cldr-spec/plural-rules\" title=\"Pluralization Rules\">复数规则</a>。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/i18n.md"
   },
@@ -17670,7 +17715,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      Purpose",
+    "original": "Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
@@ -17745,7 +17790,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
   {
-    "original": "<th>\n      Purpose",
+    "original": "Purpose",
     "translation": "用途",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/quickstart.md"
   },
@@ -19745,7 +19790,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "The router uses the browser's\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" title=\"HTML5 browser history push-state\">history.pushState</a>\nfor navigation. Thanks to `pushState`, you can make  in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
+    "original": "for navigation. Thanks to `pushState`, you can make  in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
     "translation": "路由器使用浏览器的<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"HTML5 browser history push-state\">history.pushState</a>进行导航。\n感谢`pushState`！有了它，我们就能按所期望的样子来显示应用内部的URL路径，比如：`localhost:3000/crisis-center`。虽然我们使用的全部是客户端合成的视图，但应用内部的这些URL看起来和来自服务器的没有什么不同。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
@@ -22920,12 +22965,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "While the router uses the \n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\"  title=\"Browser history push-state\">HTML5 pushState</a>\nstyle by default, you *must* configure that strategy with a **base href**.",
+    "original": "style by default, you *must* configure that strategy with a **base href**.",
     "translation": "由于路由器默认使用“<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"Browser history push-state\">HTML 5 pushState</a>”风格，所以我们*必须*用一个**base href**来配置该策略（Strategy）。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
   {
-    "original": "The preferred way to configure the strategy is to add a\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base\" title=\"base href\">&lt;base href&gt; element</a>\ntag in the `<head>` of the `index.html`.",
+    "original": "tag in the `<head>` of the `index.html`.",
     "translation": "配置该策略的首选方式是往`index.html`的`<head>`中添加一个[&lt;base href> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base)标签。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/router.md"
   },
@@ -23425,7 +23470,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "_End-to-end_ (e2e) tests of the application,\n      written in Jasmine and run by the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      e2e test runner.",
+    "original": "e2e test runner.",
     "translation": "应用的*端对端*(e2e)测试，用 Jasmine 写成并用 <a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor:Angular 的端对端测试\">protractor</a> 端对端测试运行器测试。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
@@ -23505,7 +23550,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Configuration for the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      _end-to-end_ (e2e) test runner.",
+    "original": "_end-to-end_ (e2e) test runner.",
     "translation": "<a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor: Angular 的端对端测试\">protractor</a> *端对端* (e2e) 测试器运行器的配置。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup-systemjs-anatomy.md"
   },
@@ -23590,8 +23635,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
-    "original": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
-    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>\n并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。",
+    "original": "and unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
+    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/setup.md"
   },
   {
@@ -27815,6 +27860,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
   },
   {
+    "original": "",
+    "translation": "Template parse errors:\n  Can't bind to 'colspan' since it isn't a known native property\n  （模板解析错误：不能绑定到 'colspan'，因为它不是已知的原生属性）",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
+  },
+  {
     "original": "As the message says, the `<td>` element does not have a `colspan` property.\nIt has the \"colspan\" *attribute*, but\ninterpolation and property binding can set only *properties*, not attributes.",
     "translation": "正如提示中所说，`<td>`元素没有`colspan`属性。\n  但是插值表达式和属性绑定只能设置*属性*，不能设置 attribute。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/template-syntax.md"
@@ -30511,7 +30561,12 @@
   },
   {
     "original": "### Test a routed component with parameters",
-    "translation": "### 测试带有路由和路由参数的组件\nClicking a _Dashboard_ hero triggers navigation to `heroes/:id`, where `:id`\nis a route parameter whose value is the `id` of the hero to edit. \nThat URL matches a route to the `HeroDetailComponent`.",
+    "translation": "### 测试带有路由和路由参数的组件",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
+  },
+  {
+    "original": "Clicking a _Dashboard_ hero triggers navigation to `heroes/:id`, where `:id`\nis a route parameter whose value is the `id` of the hero to edit. \nThat URL matches a route to the `HeroDetailComponent`.",
+    "translation": "点击**Dashboard**英雄触发导航到`heros/:id`，其中`:id`是路由参数，它的值是进行编辑的英雄的`id`。\n这个URL匹配到`HeroDetailComponent`的路由。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/testing.md"
   },
   {
@@ -33691,7 +33746,12 @@
   },
   {
     "original": "#### Create the _Routing Module_",
-    "translation": "#### 创建*路由模块*\nA router needs configuration whether it's the AngularJS or Angular or any other router.",
+    "translation": "#### 创建*路由模块*",
+    "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
+  },
+  {
+    "original": "A router needs configuration whether it's the AngularJS or Angular or any other router.",
+    "translation": "无论在AngularJS还是Angular或其它框架中，路由器都需要进行配置。",
     "sourceFile": "/Users/twer/private/GDE/content-1/guide/upgrade.md"
   },
   {
@@ -36725,6 +36785,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt4.md"
   },
   {
+    "original": "",
+    "translation": "EXCEPTION: No provider for HeroService! (AppComponent -> HeroService)\n  (异常：没有 HeroService 的提供商！(AppComponent -> HeroService))",
+    "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt4.md"
+  },
+  {
     "original": "To teach the injector how to make a `HeroService`,\nadd the following `providers` array property to the bottom of the component metadata\nin the `@Component` call.",
     "translation": "我们还得注册一个`HeroService`**提供商**，来告诉*注入器*如何创建`HeroService`。\n要做到这一点，我们在`@Component`组件的元数据底部添加`providers`数组属性如下：",
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt4.md"
@@ -38335,7 +38400,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt6.md"
   },
   {
-    "original": "Rather than require a real API server, this example simulates communication with the remote server by adding the\n<a href=\"https://github.com/angular/in-memory-web-api\" title=\"In-memory Web API\">InMemoryWebApiModule</a>\nto the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.",
+    "original": "to the module `imports`, effectively  replacing the `Http` client's XHR backend service with an in-memory alternative.",
     "translation": "导入`InMemoryWebApiModule`并将其加入到模块的`imports`数组。\n  `InMemoryWebApiModule`将`Http`客户端默认的后端服务 &mdash;\n  这是一个辅助服务，负责与远程服务器对话 &mdash;\n  替换成了*内存 Web API*服务：",
     "sourceFile": "/Users/twer/private/GDE/content-1/tutorial/toh-pt6.md"
   },

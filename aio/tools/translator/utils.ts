@@ -50,7 +50,7 @@ export function normalizeLines(text: string): string {
   // 列表、标题等自带换行含义的markdown
   const blockElementPattern = /(?=\n *(\d+\.|-|\*) )\n/g;
   text = text.replace(blockElementPattern, '\n\n');
-  const hxPattern = /(\n *# .*)(?=\n)/g;
+  const hxPattern = /(\n *#+ .*)(?=\n)/g;
   text = text.replace(hxPattern, '\n$1\n');
   const oneLinePairedTagPattern = /\n( *)<(p|div|h\d+|a|code-example)( ?[^>\n]*)>([^<\n]*)<\/\2>( *)(?=\n)/g;
   text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n');

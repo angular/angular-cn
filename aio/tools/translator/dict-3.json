@@ -14820,7 +14820,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "The router uses the browser's\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" title=\"HTML5 browser history push-state\">history.pushState</a>\nfor navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
+    "original": "for navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to\nlook, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.",
     "translation": "路由器使用浏览器的<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"HTML5 browser history push-state\">history.pushState</a>进行导航。\n感谢`pushState`！有了它，我们就能按所期望的样子来显示应用内部的URL路径，比如：`localhost:3000/crisis-center`。虽然我们使用的全部是客户端合成的视图，但应用内部的这些URL看起来和来自服务器的没有什么不同。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -18020,12 +18020,12 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "While the router uses the\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" title=\"Browser history push-state\">HTML5 pushState</a>\nstyle by default, you *must* configure that strategy with a **base href**.",
+    "original": "style by default, you *must* configure that strategy with a **base href**.",
     "translation": "由于路由器默认使用“<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries\" target=\"_blank\" title=\"Browser history push-state\">HTML 5 pushState</a>”风格，所以我们*必须*用一个**base href**来配置该策略（Strategy）。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
   {
-    "original": "The preferred way to configure the strategy is to add a\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base\" title=\"base href\">&lt;base href&gt; element</a>\ntag in the `<head>` of the `index.html`.",
+    "original": "tag in the `<head>` of the `index.html`.",
     "translation": "配置该策略的首选方式是往`index.html`的`<head>`中添加一个[&lt;base href> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base)标签。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/router.md"
   },
@@ -18530,7 +18530,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "_End-to-end_ (e2e) tests of the application,\n      written in Jasmine and run by the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      e2e test runner.",
+    "original": "e2e test runner.",
     "translation": "应用的*端对端*(e2e)测试，用 Jasmine 写成并用 <a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor:Angular 的端对端测试\">protractor</a> 端对端测试运行器测试。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
@@ -18600,7 +18600,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
   {
-    "original": "Configuration for the\n      <a href=\"http://www.protractortest.org/\" title=\"Protractor: end-to-end testing for Angular\">protractor</a>\n      _end-to-end_ (e2e) test runner.",
+    "original": "_end-to-end_ (e2e) test runner.",
     "translation": "<a href=\"http://www.protractortest.org/\" target=\"_blank\" title=\"Protractor: Angular 的端对端测试\">protractor</a> *端对端* (e2e) 测试器运行器的配置。",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup-systemjs-anatomy.md"
   },
@@ -18685,8 +18685,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
-    "original": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"Download the QuickStart seed repository\">Download the QuickStart seed</a>\nand unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
-    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>\n并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。",
+    "original": "and unzip it into your project folder. Then perform the remaining steps with these terminal commands.",
+    "translation": "<a href=\"https://github.com/angular/quickstart/archive/master.zip\" title=\"下载《快速上手》种子库\">下载《快速上手》种子</a>",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/setup.md"
   },
   {
