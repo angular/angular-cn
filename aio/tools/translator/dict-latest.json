@@ -12736,7 +12736,7 @@
   },
   {
     "original": "**@angular/platform-browser-dynamic**: Includes [Providers](api/core/Provider)\nand methods to compile and run the app on the client \nusing the [JIT compiler](guide/aot-compiler).",
-    "translation": "**@angular/platform-browser-dynamic**： 为应用程序提供一些[提供商](api/core/Provider)和[bootstrap](guide/ngmodule#bootstrap)方法，以便在客户端编译模板。不要用于离线编译。\n我们使用这个包在开发期间引导应用，以及引导plunker中的范例。",
+    "translation": "**@angular/platform-browser-dynamic**： 为应用程序提供一些[提供商](api/core/Provider)和方法，以便在客户端使用 [JIT 编译器](guide/aot-compiler)运行本应用。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/npm-packages.md"
   },
   {
@@ -13806,12 +13806,12 @@
   },
   {
     "original": "Try the <live-example stackblitz=\"final\" title=\"Reactive Forms (final) in Stackblitz\">Reactive Forms live-example</live-example>.",
-    "translation": "试试<live-example plnkr=\"final\" title=\"Reactive Forms (final) in Plunker\">响应式表单的在线例子</live-example>。",
+    "translation": "试试<live-example stackblitz=\"final\" title=\"Reactive Forms (final) in Stackblitz\">响应式表单的在线例子</live-example>。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/reactive-forms.md"
   },
   {
     "original": "You can also run the <live-example title=\"Reactive Forms Demo in Stackblitz\">Reactive Forms Demo</live-example> version\nand choose one of the intermediate steps from the \"demo picker\" at the top.",
-    "translation": "你还可以运行<live-example title=\"Reactive Forms Demo in Plunker\">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。",
+    "translation": "你还可以运行<live-example title=\"Reactive Forms Demo in Stackblitz\">响应式表单的演示程序</live-example>，并从顶部选取一个中间步骤。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/reactive-forms.md"
   },
   {
@@ -15041,7 +15041,7 @@
   },
   {
     "original": "This is the final step in the demo.\nTry the <live-example stackblitz=\"final\" title=\"Reactive Forms (final) in Stackblitz\"></live-example>.",
-    "translation": "这是本演示的最后一步。\n去试试<live-example plnkr=\"final\" title=\"Reactive Forms (final) in Plunker\"></live-example>吧。",
+    "translation": "这是本演示的最后一步。\n去试试<live-example stackblitz=\"final\" title=\"Reactive Forms (final) in Stackblitz\"></live-example>吧。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/reactive-forms.md"
   },
   {
@@ -15096,7 +15096,7 @@
   },
   {
     "original": "You can download the complete source for all steps in this guide\nfrom the <live-example title=\"Reactive Forms Demo in Stackblitz\">Reactive Forms Demo</live-example> live example.",
-    "translation": "你可以到<live-example title=\"Reactive Forms Demo in Plunker\">响应式表单在线例子</live-example>中下载本章所有步骤的完整代码。",
+    "translation": "你可以到<live-example title=\"Reactive Forms Demo in Stackblitz\">响应式表单在线例子</live-example>中下载本章所有步骤的完整代码。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/reactive-forms.md"
   },
   {
@@ -15791,7 +15791,7 @@
   },
   {
     "original": "A live coding environment like Stackblitz sets the application base address dynamically so you can't specify a fixed address.\nThat's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.",
-    "translation": "像Plunker这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。\n这就是为什么我们要用一个脚本动态写入`<base>`标签，而不是直接写`<base href...>`。",
+    "translation": "像Stackblitz这样的在线编程环境会动态设置应用的基地址（base href），因此我们没办法指定固定的地址。\n这就是为什么我们要用一个脚本动态写入`<base>`标签，而不是直接写`<base href...>`。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
@@ -18736,7 +18736,7 @@
   },
   {
     "original": "You've covered a lot of ground in this guide and the application is too big to reprint here.\nPlease visit the <live-example title=\"Router Sample in Stackblitz\"></live-example>\nwhere you can download the final source code.",
-    "translation": "本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title=\"Router Sample in Plunker\"></live-example>，在那里你可以下载最终的源码。",
+    "translation": "本章中涉及到了很多背景知识，而且本应用程序也太大了，所以没法在这里显示。请访问<live-example title=\"Router Sample in Stackblitz\"></live-example>，在那里你可以下载最终的源码。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/router.md"
   },
   {
@@ -19471,7 +19471,7 @@
   },
   {
     "original": "Try the <live-example name=\"setup\">sample application</live-example>\n      and the <live-example name=\"setup\" stackblitz=\"quickstart-specs\">unit test</live-example>\n      as _live examples_.",
-    "translation": "在live example中试试<live-example name=\"setup\">范例程序</live-example>和<live-example name=\"setup\" plnkr=\"quickstart-specs\">单元测试</live-example>",
+    "translation": "在live example中试试<live-example name=\"setup\">范例程序</live-example>和<live-example name=\"setup\" stackblitz=\"quickstart-specs\">单元测试</live-example>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup-systemjs-anatomy.md"
   },
   {
@@ -19716,7 +19716,7 @@
   },
   {
     "original": "Compiles the application with the [JIT compiler](guide/glossary#jit) and\n      [bootstraps](guide/bootstrapping)\n      the application's main module (`AppModule`) to run in the browser.\n      The JIT compiler is a reasonable choice during the development of most projects and\n      it's the only viable choice for a sample running in a _live-coding_ environment like Stackblitz.\n      You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.",
-    "translation": "使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping#main \"启动应用\")并运行应用。\n      对于大多数项目的开发，这都是合理的选择。而且它是在像 Plunker 这样的*在线编程*环境中运行例子的唯一选择。\n      你将在本文档中学习其他编译和开发选择。",
+    "translation": "使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping#main \"启动应用\")并运行应用。\n      对于大多数项目的开发，这都是合理的选择。而且它是在像 Stackblitz 这样的*在线编程*环境中运行例子的唯一选择。\n      你将在本文档中学习其他编译和开发选择。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
   },
   {
@@ -19761,7 +19761,7 @@
   },
   {
     "original": "<live-example title=\"QuickStart Seed in Stackblitz\">Live coding</live-example> in the browser is a great way to explore Angular.",
-    "translation": "在浏览器中<live-example title=\"QuickStart Seed in Plunker\">在线编程</live-example>是很好的探索 Angular 的方法。",
+    "translation": "在浏览器中<live-example title=\"QuickStart Seed in Stackblitz\">在线编程</live-example>是很好的探索 Angular 的方法。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
   },
   {
@@ -19801,7 +19801,7 @@
   },
   {
     "original": "Use the <live-example title=\"QuickStart Seed in Stackblitz\">live coding</live-example> environment as a _playground_,\na place to try the documentation samples and experiment on your own.\nIt's the perfect place to reproduce a bug when you want to\n<a href=\"https://github.com/angular/angular/issues/new\" title=\"File a documentation issue\">file a documentation issue</a> or\n<a href=\"https://github.com/angular/angular/issues/new\" title=\"File an Angular issue\">file an issue with Angular itself</a>.",
-    "translation": "把<live-example title=\"QuickStart Seed in Plunker\">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。\n当你想要<a href=\"https://github.com/angular/angular.io/issues/new\" target=\"_blank\" title=\"提交关于文档的问题\">提交关于文档的问题</a>或者\n<a href=\"https://github.com/angular/angular/issues/new\" target=\"_blank\" title=\"提交关于 Angular 的问题\">提交关于 Angular 自身的问题</a>时，\n它是重现错误的完美地方。",
+    "translation": "把<live-example title=\"QuickStart Seed in Stackblitz\">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。\n当你想要<a href=\"https://github.com/angular/angular.io/issues/new\" target=\"_blank\" title=\"提交关于文档的问题\">提交关于文档的问题</a>或者\n<a href=\"https://github.com/angular/angular/issues/new\" target=\"_blank\" title=\"提交关于 Angular 的问题\">提交关于 Angular 自身的问题</a>时，\n它是重现错误的完美地方。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
   },
   {
