@@ -158,6 +158,34 @@ def`);
 `);
   });
 
+  it('拆解多行的成对 tag', function () {
+    const lines = normalizeLines(`
+    <p>
+    a
+    </p>
+
+    <p>
+    一
+</p>
+
+`);
+    expect(lines).eq(`
+
+    <p>
+
+    a
+
+    </p>
+
+    <p>
+
+    一
+
+</p>
+
+`);
+  });
+
   it('不要拆解行内的 html tag', function () {
     expect(normalizeLines(`\na <b> c\n\n`)).eql('\na <b> c\n\n');
   });

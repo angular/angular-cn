@@ -63,7 +63,7 @@ export function normalizeLines(text: string): string {
   text = text.replace(atTagCommentPattern, '\n\n$1$2$3\n\n');
   const oneLineClosedTagPattern = /\n( *)<(hr|p)(\/?)>( *)\n/g;
   text = text.replace(oneLineClosedTagPattern, '\n\n$1<$2$3>$4\n\n');
-  const multiLinePairedTagPattern = /\n( *)<(header)( *[^> \n]*)>\n?(.*?)\n?( *)<\/\2>( *)\n/g;
+  const multiLinePairedTagPattern = /\n( *)<(header|p)( *[^> \n]*)>\n*(.*?)\n*( *)<\/\2>( *)\n/g;
   text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$4\n\n$5</$2>$6\n\n');
 
   const multiLineCodePattern = /\n( *)```( *)\n/g;
