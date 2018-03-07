@@ -24,7 +24,7 @@ const initialDocViewerContent = initialDocViewerElement ? initialDocViewerElemen
 
 @Component({
   selector: 'aio-doc-viewer',
-  template: '',
+  template: ''
   // TODO(robwormald): shadow DOM and emulated don't work here (?!)
   // encapsulation: ViewEncapsulation.Native
 })
@@ -68,7 +68,6 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   @Output() docRendered = new EventEmitter<void>();
 
   constructor(
-
     elementRef: ElementRef,
     private embedComponentsService: EmbedComponentsService,
     private logger: Logger,
@@ -79,7 +78,6 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
-    swapOriginAndResult(this.hostElement);
 
     if ( this.hostElement.firstElementChild){
       this.currViewContainer = this.hostElement.firstElementChild as HTMLElement;
@@ -115,20 +113,14 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   protected prepareTitleAndToc(targetElem: HTMLElement, docId: string): () => void {
     const titleEl = targetElem.querySelector('h1');
     const hasToc = !!titleEl && !/no-?toc/i.test(titleEl.className);
-    swapOriginAndResult(this.hostElement);
 
     if (hasToc) {
-
       titleEl!.insertAdjacentHTML('afterend', '<aio-toc class="embedded"></aio-toc>');
   }
 
     return () => {
       this.tocService.reset();
       let title: string|null = '';
-
-      const translatedTitleEl = this.hostElement.querySelector('h1[translation-result]') as HTMLElement;
-      const originalTitleEl = this.hostElement.querySelector('h1[translation-origin]') as HTMLElement;
-      const titleEl = translatedTitleEl || originalTitleEl;
 
       // Only create ToC for docs with an `<h1>` heading.
       // If you don't want a ToC, add "no-toc" class to `<h1>`.
@@ -137,7 +129,6 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
 
         if (hasToc) {
           this.tocService.genToc(targetElem, docId);
-          (originalTitleEl || translatedTitleEl).insertAdjacentHTML('afterend', '<aio-toc class="embedded"></aio-toc>');
         }
       }
 
@@ -260,41 +251,5 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
           this.nextViewContainer = prevViewContainer;
           this.nextViewContainer.innerHTML = '';  // Empty to release memory.
         });
-  }
-
-  @HostListener('click', ['$event'])
-  toggleTranslationOrigin($event: MouseEvent): void {
-    const element = findTranslationResult($event.target as Element);
-    if (element && element.hasAttribute('translation-result')) {
-      const origin = element.nextElementSibling;
-      if (!origin || origin.hasAttribute('translation-result') || origin.tagName !== element.tagName) {
-        return;
-      }
-
-      if (origin.getAttribute('translation-origin') === 'on') {
-        origin.setAttribute('translation-origin', 'off');
-      } else {
-        origin.setAttribute('translation-origin', 'on');
-      }
-    }
-  }
-
-}
-
-function findTranslationResult(element: Element): Element {
-  while (element && !element.hasAttribute('translation-result')) {
-    element = element.parentElement;
-  }
-  return element;
-}
-
-function swapOriginAndResult(root: Element): void {
-  const results = root.querySelectorAll('[translation-result]');
-  for (let i = 0; i < results.length; ++i) {
-    const result = results.item(i);
-    const origin = result.previousElementSibling;
-    if (origin && origin.hasAttribute('translation-origin')) {
-      origin.parentElement.insertBefore(result, origin);
-    }
   }
 }
