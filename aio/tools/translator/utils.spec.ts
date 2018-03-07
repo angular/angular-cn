@@ -100,7 +100,7 @@ def
 
     <th>
 
-    line
+        line
 
     </th>
 
@@ -135,6 +135,19 @@ def
     <br class="clear">
 
     b
+`);
+  });
+
+  it('拆解 code-example', function () {
+    const lines = normalizeLines(`
+<code-example language="sh" class="code-shell">
+ng generate directive highlight
+
+`);
+    expect(lines).eql(`
+<code-example language="sh" class="code-shell">
+
+ng generate directive highlight
 `);
   });
 
@@ -177,13 +190,13 @@ def
   it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
   <header>
-    Angular forms don't require a style library
+      Angular forms don't require a style library
   </header>
 `);
     expect(lines).eq(`
   <header>
 
-    Angular forms don't require a style library
+      Angular forms don't require a style library
 
   </header>
 `);
@@ -192,7 +205,7 @@ def
   it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
     <p>
-    a
+        a
     </p>
 
     <p>
@@ -203,7 +216,7 @@ def
     expect(lines).eq(`
     <p>
 
-    a
+        a
 
     </p>
 
@@ -241,19 +254,19 @@ def
 
 <li>
 
-<a href="#">a</a>
+    <a href="#">a</a>
 
 </li>
 
 <li>
 
-<a href="#">b</a>
+    <a href="#">b</a>
 
 </li>
 
 <li>
 
-<a href="#">c</a>
+    <a href="#">c</a>
 
 </li>
 

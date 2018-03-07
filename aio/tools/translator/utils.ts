@@ -50,34 +50,35 @@ export function normalizeLines(text: string): string {
   // 列表、标题等自带换行含义的markdown
   const blockElementPattern = /(?=\n *(\d+\.|-|\*) )\n/g;
   text = text.replace(blockElementPattern, '\n\n');
-  const hxPattern = /(\n *#.*)\n/g;
-  text = text.replace(hxPattern, '\n$1\n\n');
-  const leadHxPattern = /^( *#.*)\n/g;
-  text = text.replace(leadHxPattern, '$1\n\n');
-  const oneLinePairedTagPattern = /\n( *)<(p|code-example|div|h\d+|a)( ?[^> \n]*)>([^<\n]*)<\/\2>( *)\n/g;
-  text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n\n');
-  const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^> \n]*)>(.*)<\/\2>( *)/g;
-  text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>$5\n\n');
-  const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)\n/g;
-  text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n\n');
-  const oneLineBrTagPattern = /\n( *)(<br class="clear">)( *)\n/g;
-  text = text.replace(oneLineBrTagPattern, '\n\n$1$2$3\n\n');
-  const atTagCommentPattern = /\n( *)({@a.*})( *)\n/g;
-  text = text.replace(atTagCommentPattern, '\n\n$1$2$3\n\n');
-  const oneLineClosedTagPattern = /\n( *)<(hr|p)(\/?)>( *)\n/g;
-  text = text.replace(oneLineClosedTagPattern, '\n\n$1<$2$3>$4\n\n');
-  const multiLinePairedTagPattern = /\n( *)<(header|p)( *[^> \n]*)>\n*(.*?)\n*( *)<\/\2>( *)\n/g;
-  text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>$6\n\n');
+  const hxPattern = /(\n *# .*)(?=\n)/g;
+  text = text.replace(hxPattern, '\n$1\n');
+  const oneLinePairedTagPattern = /\n( *)<(p|div|h\d+|a|code-example)( ?[^>\n]*)>([^<\n]*)<\/\2>( *)(?=\n)/g;
+  text = text.replace(oneLinePairedTagPattern, '\n\n$1<$2$3>$4</$2>$5\n');
+  const oneLineThTdTagPattern = /\n( *)<(th|td|li)( ?[^>\n]*)>(.*)<\/\2>( *)(?=\n)/g;
+  text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1    $4\n\n$1</$2>$5\n');
+  const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)(?=\n)/g;
+  text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n');
+  const oneLineBrTagPattern = /\n( *)(<br class="clear">)( *)(?=\n)/g;
+  text = text.replace(oneLineBrTagPattern, '\n\n$1$2$3\n');
+  const atTagCommentPattern = /\n( *)({@a.*})( *)(?=\n)/g;
+  text = text.replace(atTagCommentPattern, '\n\n$1$2$3\n');
+  const oneLineClosedTagPattern = /\n( *)<(hr|p)(\/?)>( *)(?=\n)/g;
+  text = text.replace(oneLineClosedTagPattern, '\n\n$1<$2$3>$4\n');
+  const multiLinePairedTagPattern = /\n( *)<(header|p)( *[^>\n]*)>\n*(.*?)\n*( *)<\/\2>( *)(?=\n)/g;
+  text = text.replace(multiLinePairedTagPattern, '\n\n$1<$2$3>\n\n$4\n\n$5</$2>$6\n');
 
-  const blockTagPattern = /\n( *)<(\/?)(td|th|div)( *[^> \n]*)>( *)\n/g;
-  text = text.replace(blockTagPattern, '\n\n$1<$2$3$4>$5\n\n');
+  const blockTagPattern = /\n( *)<(\/?)(td|th|div|code-example)( *[^>\n]*)>( *)(?=\n)/g;
+  text = text.replace(blockTagPattern, '\n\n$1<$2$3$4>$5\n');
 
-  const multiLineCodePattern = /\n( *)```(\w*)( *)\n/g;
-  text = text.replace(multiLineCodePattern, '\n\n$1```$2$3\n\n');
+  const multiLineCodePattern = /\n( *)```(\w*)( *)(?=\n)/g;
+  text = text.replace(multiLineCodePattern, '\n\n$1```$2$3\n');
 
   const multipleBlankLinePattern = /\n\s*\n+/g;
   text = text.replace(multipleBlankLinePattern, '\n\n');
-  return text.replace(/^\n+/, '\n').replace(/\n+$/, '\n');
+
+  text = text.replace(/^\n+/, '\n').replace(/\n+$/, '\n');
+
+  return text;
 }
 
 export function indentOf(line): number {
