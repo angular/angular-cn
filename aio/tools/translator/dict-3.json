@@ -2970,6 +2970,11 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
   },
   {
+    "original": "<p>If AnimationBuilder is used then the polyfill will enable scrubbing\n      support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>",
+    "translation": "<p>如果使用了AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>",
+    "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
+  },
+  {
     "original": "If you use the following deprecated i18n pipes:",
     "translation": "如果你使用下列已废弃的i18n管道：",
     "sourceFile": "/Users/twer/private/GDE/content-3/guide/browser-support.md"
@@ -27480,13 +27485,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "A quick look at an Angular \"hello world\" application.",
-    "translation": "快速体验 Angular 的 \"hello world\" 应用。",
+    "original": "<p>A quick look at an Angular \"hello world\" application.</p>",
+    "translation": "<p>快速体验 Angular 的 \"hello world\" 应用。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "<p class=\"card-footer\">",
-    "translation": "体验 Angular",
+    "original": "<p class=\"card-footer\">Angular in Action</p>",
+    "translation": "<p class=\"card-footer\">体验 Angular</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
@@ -27495,13 +27500,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "Get going on your own environment with the Quickstart.",
-    "translation": "跟随\"快速上手\"构建你的开发环境",
+    "original": "<p>Get going on your own environment with the Quickstart.</p>",
+    "translation": "<p>跟随\"快速上手\"构建你的开发环境</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "<p class=\"card-footer\">",
-    "translation": "快速上手",
+    "original": "<p class=\"card-footer\">Quickstart</p>",
+    "translation": "<p class=\"card-footer\">快速上手</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
@@ -27510,13 +27515,13 @@
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "Learn Angular application fundamentals, starting with an architecture overview.",
-    "translation": "学习 Angular 应用的基本原理。<br/>从架构概览开始。",
+    "original": "<p>Learn Angular application fundamentals, starting with an architecture overview.</p>",
+    "translation": "<p>学习 Angular 应用的基本原理。<br/>从架构概览开始。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {
-    "original": "<p class=\"card-footer\">",
-    "translation": "架构",
+    "original": "<p class=\"card-footer\">Architecture</p>",
+    "translation": "<p class=\"card-footer\">架构</p>",
     "sourceFile": "/Users/twer/private/GDE/content-3/marketing/docs.md"
   },
   {

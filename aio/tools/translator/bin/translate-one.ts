@@ -3,5 +3,5 @@
 import { dirs } from '../dirs';
 import { translateFile } from '../translate';
 
-const filename = 'attribute-directives.md';
-translateFile(__dirname + '/../../../../../content-en/' + 'guide/' + filename, dirs.content + 'guide/' + filename);
+const filename = 'guide/i18n.md';
+translateFile(__dirname + '/../../../../../content-en/' + filename, dirs.content + filename);
