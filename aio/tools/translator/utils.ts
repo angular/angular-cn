@@ -59,6 +59,8 @@ export function normalizeLines(text: string): string {
   text = text.replace(oneLineThTdTagPattern, '\n\n$1<$2$3>\n\n$1$4\n\n$1</$2>$5\n\n');
   const oneLineCommentPattern = /\n( *)(<!--.*-->)( *)\n/g;
   text = text.replace(oneLineCommentPattern, '\n\n$1$2$3\n\n');
+  const oneLineBrTagPattern = /\n( *)(<br class="clear">)( *)\n/g;
+  text = text.replace(oneLineBrTagPattern, '\n\n$1$2$3\n\n');
   const atTagCommentPattern = /\n( *)({@a.*})( *)\n/g;
   text = text.replace(atTagCommentPattern, '\n\n$1$2$3\n\n');
   const oneLineClosedTagPattern = /\n( *)<(hr|p)(\/?)>( *)\n/g;

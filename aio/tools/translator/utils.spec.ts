@@ -101,6 +101,21 @@ def`);
 `);
   });
 
+  it('拆解单行br', function () {
+    const lines = normalizeLines(`
+    a
+    <br class="clear">
+    b
+`);
+    expect(lines).eql(`
+    a
+
+    <br class="clear">
+
+    b
+`);
+  });
+
   it('拆解 @a 标记', function () {
     const lines = normalizeLines(`
     a
