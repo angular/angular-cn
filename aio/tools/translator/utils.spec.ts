@@ -89,24 +89,14 @@ def
 `);
   });
 
-  it('拆解多行的 h\\d 标签', function () {
+  it('把多行 hn 处理成单行', function () {
     const lines = normalizeLines(`
-    a
-    <h3 id="abc">
-        line
+    <h3 id="nav">
+      abc
     </h3>
-    b
 `);
     expect(lines).eql(`
-    a
-
-    <h3 id="abc">
-
-        line
-
-    </h3>
-
-    b
+    <h3 id="nav">abc</h3>
 `);
   });
 

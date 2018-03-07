@@ -1290,11 +1290,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/aot-compiler.md"
   },
   {
-    "original": "</code-example>",
-    "translation": "Angular应用主要包含组件和它们的HTML模板。\n在浏览器可以渲染应用之前，组件和模板必须要被**Angular编译器**转换为可以执行的JavaScript。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/aot-compiler.md"
-  },
-  {
     "original": "See the [CLI documentation](https://github.com/angular/angular-cli/wiki) for details, especially the [`build` topic](https://github.com/angular/angular-cli/wiki/build).",
     "translation": "要了解更多，请参见[CLI 文档](https://github.com/angular/angular-cli/wiki)，特别是[`build` 这个主题](https://github.com/angular/angular-cli/wiki/build)。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/aot-compiler.md"
@@ -1605,11 +1600,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
   },
   {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "<a href=\"http://exploringjs.com/es6/ch_modules.html\" >Learn more about the JavaScript module system on the web.</a>\n<a href=\"http://exploringjs.com/es6/ch_modules.html\" target=\"_blank\">学习更多关于 JavaScript 模块的知识。</a>",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
-  },
-  {
     "original": "These are two different and _complementary_ module systems. Use them both to write your apps.",
     "translation": "这两个模块化系统是互补的，我们在写程序时都会用到。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
@@ -1652,11 +1642,6 @@
   {
     "original": "It's easy to confuse the two systems because they share the common vocabulary of \"imports\" and \"exports\".\nHang in there. The confusion yields to clarity with time and experience.",
     "translation": "这两个系统比较容易混淆，因为它们共享相同的词汇 “imports” 和 “exports”。不过没关系，先放一放，随着时间和经验的增长，自然就清楚了。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
-  },
-  {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "Learn more from the [NgModules](guide/ngmodule) page.\n更多信息，见 [Angular 模块](guide/ngmodule)。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/architecture.md"
   },
   {
@@ -3630,42 +3615,42 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>\n<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>",
+    "original": "<p>Bootstraps the app, using the root component from the specified <code>NgModule</code>. </p>",
+    "translation": "<p>用 <code>NgModule</code> 中指定的根组件进行启动。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<table class=\"is-full-width is-fixed-layout\">\n<tbody><tr>\n<th><p>NgModules</p>",
+    "original": "<p>NgModules</p>",
     "translation": "<p>Angular 模块</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Defines a module that contains components, directives, pipes, and providers.</p>",
+    "original": "<p>Defines a module that contains components, directives, pipes, and providers.</p>",
     "translation": "<p>定义一个模块，其中可以包含组件、指令、管道和服务提供商。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of components, directives, and pipes that belong to this module.</p>",
+    "original": "<p>List of components, directives, and pipes that belong to this module.</p>",
     "translation": "<p>属于当前模块的组件、指令和管道的列表。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of modules to import into this module. Everything from the imported modules\nis available to <code>declarations</code> of this module.</p>",
+    "original": "<p>List of modules to import into this module. Everything from the imported modules\nis available to <code>declarations</code> of this module.</p>",
     "translation": "<p>本模块所导入的模块列表</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of components, directives, and pipes visible to modules that import this module.</p>",
+    "original": "<p>List of components, directives, and pipes visible to modules that import this module.</p>",
     "translation": "<p>那些导入了本模块的模块所能看到的组件、指令和管道的列表</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>",
+    "original": "<p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>",
     "translation": "<p>依赖注入提供商的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of components to bootstrap when this module is bootstrapped.</p>",
+    "original": "<p>List of components to bootstrap when this module is bootstrapped.</p>",
     "translation": "<p>当本模块启动时，随之启动的组件列表。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3675,73 +3660,73 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds property <code>value</code> to the result of expression <code>firstName</code>.</p>\n<p>把<code>value</code>属性绑定到表达式<code>firstName</code></p>",
+    "original": "<p>Binds property <code>value</code> to the result of expression <code>firstName</code>.</p>",
+    "translation": "<p>把<code>value</code>属性绑定到表达式<code>firstName</code></p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds attribute <code>role</code> to the result of expression <code>myAriaRole</code>.</p>\n<p>把属性（Attribute）<code>role</code>绑定到表达式<code>myAriaRole</code>的结果。</p>",
+    "original": "<p>Binds attribute <code>role</code> to the result of expression <code>myAriaRole</code>.</p>",
+    "translation": "<p>把属性（Attribute）<code>role</code>绑定到表达式<code>myAriaRole</code>的结果。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the presence of the CSS class <code>extra-sparkle</code> on the element to the truthiness of the expression <code>isDelightful</code>.</p>\n<p>根据<code>isDelightful</code>表达式的结果是否为真，决定CSS类<code>extra-sparkle</code>是否出现在当前元素上。</p>",
+    "original": "<p>Binds the presence of the CSS class <code>extra-sparkle</code> on the element to the truthiness of the expression <code>isDelightful</code>.</p>",
+    "translation": "<p>根据<code>isDelightful</code>表达式的结果是否为真，决定CSS类<code>extra-sparkle</code>是否出现在当前元素上。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds style property <code>width</code> to the result of expression <code>mySize</code> in pixels. Units are optional.</p>\n<p>把CSS样式属性<code>width</code>的px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>",
+    "original": "<p>Binds style property <code>width</code> to the result of expression <code>mySize</code> in pixels. Units are optional.</p>",
+    "translation": "<p>把CSS样式属性<code>width</code>的px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Calls method <code>readRainbow</code> when a click event is triggered on this button element (or its children) and passes in the event object.</p>\n<p>当这个按钮元素（及其子元素）上的click事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>",
+    "original": "<p>Calls method <code>readRainbow</code> when a click event is triggered on this button element (or its children) and passes in the event object.</p>",
+    "translation": "<p>当这个按钮元素（及其子元素）上的click事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds a property to an interpolated string, for example, \"Hello Seabiscuit\". Equivalent to:\n<code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code></p>\n<p>把一个属性绑定到插值字符串（如\"Hello Seabiscuit\"）。这种写法等价于<code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code></p>",
+    "original": "<p>Binds a property to an interpolated string, for example, \"Hello Seabiscuit\". Equivalent to: <code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code></p>",
+    "translation": "<p>把一个属性绑定到插值字符串（如\"Hello Seabiscuit\"）。这种写法等价于<code>&lt;div [title]=\"'Hello ' + ponyName\"&gt;</code></p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Binds text content to an interpolated string, for example, \"Hello Seabiscuit\".</p>",
+    "original": "<p>Binds text content to an interpolated string, for example, \"Hello Seabiscuit\".</p>",
     "translation": "<p>把文本内容绑定到插值字符串（如\"Hello Seabiscuit\"）</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Sets up two-way data binding. Equivalent to: <code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code></p>\n<p>设置双向绑定。等价于<code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code>。</p>",
+    "original": "<p>Sets up two-way data binding. Equivalent to: <code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code></p>",
+    "translation": "<p>设置双向绑定。等价于<code>&lt;my-cmp [title]=\"name\" (titleChange)=\"name=$event\"&gt;</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Creates a local variable <code>movieplayer</code> that provides access to the <code>video</code> element instance in data-binding and event-binding expressions in the current template.</p>\n<p>创建一个局部变量<code>movieplayer</code>，支持在当前模板的数据绑定和事件绑定表达式中访问<code>video</code>元素的实例。</p>",
+    "original": "<p>Creates a local variable <code>movieplayer</code> that provides access to the <code>video</code> element instance in data-binding and event-binding expressions in the current template.</p>",
+    "translation": "<p>创建一个局部变量<code>movieplayer</code>，支持在当前模板的数据绑定和事件绑定表达式中访问<code>video</code>元素的实例。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>The <code>*</code> symbol turns the current element into an embedded template. Equivalent to:\n<code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>\n<p>星号<code>*</code>会把当前元素转换成内嵌式模板，等价于：<code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>",
+    "original": "<p>The <code>*</code> symbol turns the current element into an embedded template. Equivalent to: <code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>",
+    "translation": "<p>星号<code>*</code>会把当前元素转换成内嵌式模板，等价于：<code>&lt;template [myUnless]=\"myExpression\"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/template&gt;</code></p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Transforms the current value of expression <code>cardNumber</code> via the pipe called <code>myCardNumberFormatter</code>.</p>\n<p>使用名叫<code>myCardNumberFormatter</code>的管道对表达式<code>cardNumber</code>的当前值进行变幻</p>",
+    "original": "<p>Transforms the current value of expression <code>cardNumber</code> via the pipe called <code>myCardNumberFormatter</code>.</p>",
+    "translation": "<p>使用名叫<code>myCardNumberFormatter</code>的管道对表达式<code>cardNumber</code>的当前值进行变幻</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>The safe navigation operator (<code>?</code>) means that the <code>employer</code> field is optional and if <code>undefined</code>, the rest of the expression should be ignored.</p>\n<p>安全导航操作符（<code>?</code>）表示<code>employer</code>字段是可选的，如果它是 <code>undefined</code> ，那么表达式其余的部分就会被忽略，并返回 <code>undefined</code>。</p>",
+    "original": "<p>The safe navigation operator (<code>?</code>) means that the <code>employer</code> field is optional and if <code>undefined</code>, the rest of the expression should be ignored.</p>",
+    "translation": "<p>安全导航操作符（<code>?</code>）表示<code>employer</code>字段是可选的，如果它是 <code>undefined</code> ，那么表达式其余的部分就会被忽略，并返回 <code>undefined</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An SVG snippet template needs an <code>svg:</code> prefix on its root element to disambiguate the SVG element from an HTML component.</p>\n<p>模板中的 SVG 片段需要给它的根元素加上<code>svg:</code>前缀，以便把 SVG 元素和 HTML 元素区分开。</p>",
+    "original": "<p>An SVG snippet template needs an <code>svg:</code> prefix on its root element to disambiguate the SVG element from an HTML component.</p>",
+    "translation": "<p>模板中的 SVG 片段需要给它的根元素加上<code>svg:</code>前缀，以便把 SVG 元素和 HTML 元素区分开。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An <code>&lt;svg&gt;</code> root element is detected as an SVG element automatically, without the prefix.</p>\n<p>以<code>&lt;svg&gt;</code>作为根元素时会自动识别为 SVG 元素，不需要前缀。</p>",
+    "original": "<p>An <code>&lt;svg&gt;</code> root element is detected as an SVG element automatically, without the prefix.</p>",
+    "translation": "<p>以<code>&lt;svg&gt;</code>作为根元素时会自动识别为 SVG 元素，不需要前缀。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -3750,23 +3735,23 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Removes or recreates a portion of the DOM tree based on the <code>showSection</code> expression.</p>\n<p>根据<code>showSection</code>表达式的结果，移除或重新创建 DOM 树的一部分。</p>",
+    "original": "<p>Removes or recreates a portion of the DOM tree based on the <code>showSection</code> expression.</p>",
+    "translation": "<p>根据<code>showSection</code>表达式的结果，移除或重新创建 DOM 树的一部分。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>",
+    "original": "<p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>",
     "translation": "<p>把li元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of <code>conditionExpression</code>.</p>\n<p>根据<code>conditionExpression</code>的当前值选择一个嵌入式模板，并用它替换这个 div 的内容。</p>",
+    "original": "<p>Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of <code>conditionExpression</code>.</p>",
+    "translation": "<p>根据<code>conditionExpression</code>的当前值选择一个嵌入式模板，并用它替换这个 div 的内容。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the presence of CSS classes on the element to the truthiness of the associated map values. The right-hand expression should return {class-name: true/false} map.</p>\n<p>根据 map 中的 value 是否为真，来决定该元素上是否出现与 name 对应的 CSS 类。右侧的表达式应该返回一个形如 <code>{class-name: true/false}</code> 的 map。</p>",
+    "original": "<p>Binds the presence of CSS classes on the element to the truthiness of the associated map values. The right-hand expression should return {class-name: true/false} map.</p>",
+    "translation": "<p>根据 map 中的 value 是否为真，来决定该元素上是否出现与 name 对应的 CSS 类。右侧的表达式应该返回一个形如 <code>{class-name: true/false}</code> 的 map。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -3775,7 +3760,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Provides two-way data-binding, parsing, and validation for form controls.</p>",
+    "original": "<p>Provides two-way data-binding, parsing, and validation for form controls.</p>",
     "translation": "<p>为表单控件提供双向数据绑定、解析和验证功能。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3785,22 +3770,22 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Declares that a class is a component and provides metadata about the component.</p>",
+    "original": "<p>Declares that a class is a component and provides metadata about the component.</p>",
     "translation": "<p>声明一个类是组件，并提供该组件的元数据。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Declares that a class is a directive and provides metadata about the directive.</p>",
+    "original": "<p>Declares that a class is a directive and provides metadata about the directive.</p>",
     "translation": "<p>声明一个类是指令，并提供该指令的元数据。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Declares that a class is a pipe and provides metadata about the pipe.</p>",
+    "original": "<p>Declares that a class is a pipe and provides metadata about the pipe.</p>",
     "translation": "<p>声明一个类是管道，并提供该管道的元数据。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</p>",
+    "original": "<p>Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.</p>",
     "translation": "<p>声明一个类具有一些依赖，当依赖注入器试图创建该类的实例时，应该把这些依赖注入到该类的构造函数中。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3810,8 +3795,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Specifies a CSS selector that identifies this directive within a template. Supported selectors include <code>element</code>,\n<code>[attribute]</code>, <code>.class</code>, and <code>:not()</code>.</p>\n<p>指定一个 CSS 选择器，用于在模板中标记出该指令。支持的选择器类型包括：<code>元素名</code>、<code>[属性名]</code>, <code>.类名</code> 和 <code>:not()</code>。</p>",
+    "original": "<p>Specifies a CSS selector that identifies this directive within a template. Supported selectors include <code>element</code>, <code>[attribute]</code>, <code>.class</code>, and <code>:not()</code>.</p>",
+    "translation": "<p>指定一个 CSS 选择器，用于在模板中标记出该指令。支持的选择器类型包括：<code>元素名</code>、<code>[属性名]</code>, <code>.类名</code> 和 <code>:not()</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -3820,7 +3805,7 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of dependency injection providers for this directive and its children.</p>",
+    "original": "<p>List of dependency injection providers for this directive and its children.</p>",
     "translation": "<p>该指令及其子指令的依赖注入提供商列表。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3830,27 +3815,22 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</th>",
-    "translation": "<th><p>\n<code>@Component</code> extends <code>@Directive</code>,\nso the <code>@Directive</code> configuration applies to components as well</p>\n<p><code>@Component</code> 继承自 <code>@Directive</code>，因此 <code>@Directive</code> 的配置也能用于 <code>@Component</code>。</p>",
+    "original": "<p>If set, the <code>templateUrl</code> and <code>styleUrl</code> are resolved relative to the component.</p>",
+    "translation": "<p>如果设置了，那么 <code>templateUrl</code> 和 <code>styleUrl</code> 的路径就会相对于当前组件进行解析。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>If set, the <code>templateUrl</code> and <code>styleUrl</code> are resolved relative to the component.</p>\n<p>如果设置了，那么 <code>templateUrl</code> 和 <code>styleUrl</code> 的路径就会相对于当前组件进行解析。</p>",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
-  },
-  {
-    "original": "<td><p>List of dependency injection providers scoped to this component's view.</p>",
+    "original": "<p>List of dependency injection providers scoped to this component's view.</p>",
     "translation": "<p>依赖注入提供商列表，但它们的范围被限定为当前组件的视图。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Inline template or external template URL of the component's view.</p>",
+    "original": "<p>Inline template or external template URL of the component's view.</p>",
     "translation": "<p>当前组件视图的内联模板或外部模板的 URL 。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>List of inline CSS styles or external stylesheet URLs for styling the component’s view.</p>",
+    "original": "<p>List of inline CSS styles or external stylesheet URLs for styling the component’s view.</p>",
     "translation": "<p>用于为当前组件的视图提供样式的内联 CSS 或外部样式表 URL 的列表。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3860,43 +3840,43 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Declares an input property that you can update via property binding (example:\n<code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>).</p>\n<p>声明一个输入属性，你可以通过属性绑定来更新它，如 <code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>。 </p>",
+    "original": "<p>Declares an input property that you can update via property binding (example: <code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>).</p>",
+    "translation": "<p>声明一个输入属性，你可以通过属性绑定来更新它，如 <code>&lt;my-cmp [myProperty]=\"someExpression\"&gt;</code>。 </p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Declares an output property that fires events that you can subscribe to with an event binding (example: <code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>).</p>\n<p>声明一个输出属性，它发出事件，你可以用事件绑定来订阅它们（如：<code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>）。</p>",
+    "original": "<p>Declares an output property that fires events that you can subscribe to with an event binding (example: <code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>).</p>",
+    "translation": "<p>声明一个输出属性，它发出事件，你可以用事件绑定来订阅它们（如：<code>&lt;my-cmp (myEvent)=\"doSomething()\"&gt;</code>）。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds a host element property (here, the CSS class <code>valid</code>) to a directive/component property (<code>isValid</code>).</p>\n<p>把宿主元素的一个属性（这里是 CSS 类 <code>valid</code>）绑定到指令或组件上的 <code>isValid</code> 属性。</p>",
+    "original": "<p>Binds a host element property (here, the CSS class <code>valid</code>) to a directive/component property (<code>isValid</code>).</p>",
+    "translation": "<p>把宿主元素的一个属性（这里是 CSS 类 <code>valid</code>）绑定到指令或组件上的 <code>isValid</code> 属性。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Subscribes to a host element event (<code>click</code>) with a directive/component method (<code>onClick</code>), optionally passing an argument (<code>$event</code>).</p>\n<p>用指令或组件上的<code>onClick</code>方法订阅宿主元素上的<code>click</code>事件，并从中获取<code>$event</code>参数（可选）</p>",
+    "original": "<p>Subscribes to a host element event (<code>click</code>) with a directive/component method (<code>onClick</code>), optionally passing an argument (<code>$event</code>).</p>",
+    "translation": "<p>用指令或组件上的<code>onClick</code>方法订阅宿主元素上的<code>click</code>事件，并从中获取<code>$event</code>参数（可选）</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the first result of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class.</p>\n<p>把组件内容查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。</p>",
+    "original": "<p>Binds the first result of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class.</p>",
+    "translation": "<p>把组件内容查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the results of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class.</p>\n<p>把组件内容查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上</p>",
+    "original": "<p>Binds the results of the component content query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class.</p>",
+    "translation": "<p>把组件内容查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the first result of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class. Not available for directives.</p>\n<p>把组件视图查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。对指令无效。</p>",
+    "original": "<p>Binds the first result of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponent</code>) of the class. Not available for directives.</p>",
+    "translation": "<p>把组件视图查询（<code>myPredicate</code>）的第一个结果绑定到该类的 <code>myChildComponent</code> 属性上。对指令无效。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Binds the results of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class. Not available for directives.</p>\n<p>把组件视图查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上。对指令无效。</p>",
+    "original": "<p>Binds the results of the component view query (<code>myPredicate</code>) to a property (<code>myChildComponents</code>) of the class. Not available for directives.</p>",
+    "translation": "<p>把组件视图查询（<code>myPredicate</code>）的全部结果绑定到该类的 <code>myChildComponents</code> 属性上。对指令无效。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -3910,47 +3890,47 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.</p>",
+    "original": "<p>Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.</p>",
     "translation": "<p>在任何其它生命周期钩子之前调用。可以用它来注入依赖项，但不要在这里做正事。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Called after every change to input properties and before processing content or child views.</p>\n<p>每当输入属性发生变化时就会调用，但位于处理内容（<code>ng-content</code>）或子视图之前。</p>",
+    "original": "<p>Called after every change to input properties and before processing content or child views.</p>",
+    "translation": "<p>每当输入属性发生变化时就会调用，但位于处理内容（<code>ng-content</code>）或子视图之前。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Called after the constructor, initializing input properties, and the first call to <code>ngOnChanges</code>.</p>\n<p>在调用完构造函数、初始化完所有输入属性并首次调用过<code>ngOnChanges</code>之后调用。</p>",
+    "original": "<p>Called after the constructor, initializing input properties, and the first call to <code>ngOnChanges</code>.</p>",
+    "translation": "<p>在调用完构造函数、初始化完所有输入属性并首次调用过<code>ngOnChanges</code>之后调用。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.</p>",
+    "original": "<p>Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.</p>",
     "translation": "<p>每当对组件或指令的输入属性进行变更检测时就会调用。可以用它来扩展变更检测逻辑，执行自定义的检测逻辑。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Called after <code>ngOnInit</code> when the component's or directive's content has been initialized.</p>\n<p><code>ngOnInit</code>完成之后，当组件或指令的内容（<code>ng-content</code>）已经初始化完毕时调用。</p>",
+    "original": "<p>Called after <code>ngOnInit</code> when the component's or directive's content has been initialized.</p>",
+    "translation": "<p><code>ngOnInit</code>完成之后，当组件或指令的内容（<code>ng-content</code>）已经初始化完毕时调用。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Called after every check of the component's or directive's content.</p>\n<p>每当组件或指令的内容（<code>ng-content</code>）做变更检测时调用。</p>",
+    "original": "<p>Called after every check of the component's or directive's content.</p>",
+    "translation": "<p>每当组件或指令的内容（<code>ng-content</code>）做变更检测时调用。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Called after <code>ngAfterContentInit</code> when the component's view has been initialized. Applies to components only.</p>\n<p>当<code>ngAfterContentInit</code>完毕，并且组件的视图已经初始化完毕时调用。只适用于组件。</p>",
+    "original": "<p>Called after <code>ngAfterContentInit</code> when the component's view has been initialized. Applies to components only.</p>",
+    "translation": "<p>当<code>ngAfterContentInit</code>完毕，并且组件的视图已经初始化完毕时调用。只适用于组件。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Called after every check of the component's view. Applies to components only.</p>",
+    "original": "<p>Called after every check of the component's view. Applies to components only.</p>",
     "translation": "<p>当组件视图每次执行变更检测时调用。只适用于组件。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Called once, before the instance is destroyed.</p>",
+    "original": "<p>Called once, before the instance is destroyed.</p>",
     "translation": "<p>只在实例被销毁前调用一次。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
@@ -3960,18 +3940,18 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Sets or overrides the provider for <code>MyService</code> to the <code>MyMockService</code> class.</p>\n<p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>MyMockService</code> 类。</p>",
+    "original": "<p>Sets or overrides the provider for <code>MyService</code> to the <code>MyMockService</code> class.</p>",
+    "translation": "<p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>MyMockService</code> 类。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Sets or overrides the provider for <code>MyService</code> to the <code>myFactory</code> factory function.</p>\n<p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>myFactory</code> 工厂函数。</p>",
+    "original": "<p>Sets or overrides the provider for <code>MyService</code> to the <code>myFactory</code> factory function.</p>",
+    "translation": "<p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>myFactory</code> 工厂函数。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Sets or overrides the provider for <code>MyValue</code> to the value <code>41</code>.</p>\n<p>把 <code>MyValue</code> 的服务提供商改写为一个特定的值 <code>41</code> 。</p>",
+    "original": "<p>Sets or overrides the provider for <code>MyValue</code> to the value <code>41</code>.</p>",
+    "translation": "<p>把 <code>MyValue</code> 的服务提供商改写为一个特定的值 <code>41</code> 。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -3980,48 +3960,48 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Configures routes for the application. Supports static, parameterized, redirect, and wildcard routes. Also supports custom route data and resolve.</p>",
+    "original": "<p>Configures routes for the application. Supports static, parameterized, redirect, and wildcard routes. Also supports custom route data and resolve.</p>",
     "translation": "<p>为该应用配置路由。支持静态、参数化、重定向和通配符路由。也支持自定义路由数据和解析（resolve）函数。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "<td><p>Marks the location to load the component of the active route.</p>",
+    "original": "<p>Marks the location to load the component of the active route.</p>",
     "translation": "<p>标记出一个位置，用来加载活动路由的组件。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>Creates a link to a different view based on a route instruction consisting of a route path, required and optional parameters, query parameters, and a fragment. To navigate to a root route, use the <code>/</code> prefix; for a child route, use the <code>./</code>prefix; for a sibling or parent, use the <code>../</code> prefix.</p>\n<p>使用路由体系创建一个到其它视图的链接。路由体系由路由路径、必要参数、可选参数、查询参数和文档片段组成。要导航到根路由，请使用<code>/</code>前缀；要导航到子路由，使用<code>./</code>前缀；要导航到兄弟路由或父级路由，使用<code>../</code>前缀。</p>",
+    "original": "<p>Creates a link to a different view based on a route instruction consisting of a route path, required and optional parameters, query parameters, and a fragment. To navigate to a root route, use the <code>/</code> prefix; for a child route, use the <code>./</code>prefix; for a sibling or parent, use the <code>../</code> prefix.</p>",
+    "translation": "<p>使用路由体系创建一个到其它视图的链接。路由体系由路由路径、必要参数、可选参数、查询参数和文档片段组成。要导航到根路由，请使用<code>/</code>前缀；要导航到子路由，使用<code>./</code>前缀；要导航到兄弟路由或父级路由，使用<code>../</code>前缀。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>The provided classes are added to the element when the <code>routerLink</code> becomes the current active route.</p>\n<p>当 <code>routerLink</code> 指向的路由变成活动路由时，为当前元素添加一些类（比如这里的 <code>active</code>）。</p>",
+    "original": "<p>The provided classes are added to the element when the <code>routerLink</code> becomes the current active route.</p>",
+    "translation": "<p>当 <code>routerLink</code> 指向的路由变成活动路由时，为当前元素添加一些类（比如这里的 <code>active</code>）。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>\n<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活该路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
+    "original": "<p>An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
+    "translation": "<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活该路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An interface for defining a class that the router should call first to determine if it should deactivate this component after a navigation. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>\n<p>用来定义类的接口。路由器会在导航离开前首先调用本接口以决定是否取消激活本路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
+    "original": "<p>An interface for defining a class that the router should call first to determine if it should deactivate this component after a navigation. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
+    "translation": "<p>用来定义类的接口。路由器会在导航离开前首先调用本接口以决定是否取消激活本路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An interface for defining a class that the router should call first to determine if it should activate the child route. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>\n<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活一个子路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
+    "original": "<p>An interface for defining a class that the router should call first to determine if it should activate the child route. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
+    "translation": "<p>用来定义类的接口。路由器会首先调用本接口来决定是否激活一个子路由。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An interface for defining a class that the router should call first to resolve route data before rendering the route. Should return a value or an Observable/Promise that resolves to a value.</p>\n<p>用来定义类的接口。路由器会在渲染该路由之前，首先调用它来解析路由数据。应该返回一个值或能解析成值的 <code>Observable/Promise</code>。</p>",
+    "original": "<p>An interface for defining a class that the router should call first to resolve route data before rendering the route. Should return a value or an Observable/Promise that resolves to a value.</p>",
+    "translation": "<p>用来定义类的接口。路由器会在渲染该路由之前，首先调用它来解析路由数据。应该返回一个值或能解析成值的 <code>Observable/Promise</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
-    "original": "</td>",
-    "translation": "<td><p>An interface for defining a class that the router should call first to check if the lazy loaded module should be loaded. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>\n<p>用来定义类的接口。路由器会首先调用它来决定是否应该加载一个惰性加载模块。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
+    "original": "<p>An interface for defining a class that the router should call first to check if the lazy loaded module should be loaded. Should return a boolean or an Observable/Promise that resolves to a boolean.</p>",
+    "translation": "<p>用来定义类的接口。路由器会首先调用它来决定是否应该加载一个惰性加载模块。应该返回一个 <code>boolean</code> 或能解析成 <code>boolean</code> 的 <code>Observable/Promise</code>。</p>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/cheatsheet.md"
   },
   {
@@ -8122,11 +8102,6 @@
   {
     "original": "After revision, the core of the form should look like this:",
     "translation": "修改之后，这个表单的核心是这样的：",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/forms.md"
-  },
-  {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "* Each input element has an `id` property that is used by the `label` element's `for` attribute\nto match the label to its input control.\n每个 input 元素都有`id`属性，`label`元素的`for`属性用它来匹配到对应的输入控件。* Each input element has a `name` property that is required by Angular forms to register the control with the form.",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/forms.md"
   },
   {
@@ -14160,11 +14135,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/npm-packages.md"
   },
   {
-    "original": "<div class=\"l-sub-section\">",
-    "translation": "Node.js and npm are essential to Angular development. \nNode.js和npm是做Angular开发的基础。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/npm-packages.md"
-  },
-  {
     "original": "[Get them now](https://docs.npmjs.com/getting-started/installing-node \"Installing Node.js and updating npm\")\nif they're not already installed on your machine.",
     "translation": "如果你的电脑上还没有装过，请 [立即获取它们](https://docs.npmjs.com/getting-started/installing-node \"Installing Node.js and updating npm\")！",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/npm-packages.md"
@@ -14810,8 +14780,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/pipes.md"
   },
   {
-    "original": "<h3 id='async-pipe'>",
-    "translation": "非纯  <i>AsyncPipe</i>",
+    "original": "<h3 class=\"no-toc\">The impure <i>AsyncPipe</i></h3>",
+    "translation": "<h3 id='async-pipe'>非纯  <i>AsyncPipe</i></h3>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/pipes.md"
   },
   {
@@ -15010,8 +14980,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='devenv'>",
-    "translation": "步骤1. 设置开发环境",
+    "original": "<h2 id='devenv'>Step 1. Set up the Development Environment</h2>",
+    "translation": "<h2 id='devenv'>步骤1. 设置开发环境</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -15035,8 +15005,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='create-proj'>",
-    "translation": "步骤2. 创建新项目",
+    "original": "<h2 id='create-proj'>Step 2. Create a new project</h2>",
+    "translation": "<h2 id='create-proj'>步骤2. 创建新项目</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -15055,8 +15025,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='serve'>",
-    "translation": "步骤3. 启动开发服务器",
+    "original": "<h2 id='serve'>Step 3: Serve the application</h2>",
+    "translation": "<h2 id='serve'>步骤3. 启动开发服务器</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -15080,8 +15050,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
-    "original": "<h2 id='first-component'>",
-    "translation": "步骤4. 编辑我们的第一个Angular组件",
+    "original": "<h2 id='first-component'>Step 4: Edit your first Angular component</h2>",
+    "translation": "<h2 id='first-component'>步骤4. 编辑我们的第一个Angular组件</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/quickstart.md"
   },
   {
@@ -20515,8 +20485,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h2 id='report-issues'>",
-    "translation": "举报漏洞",
+    "original": "<h2 id='report-issues'>Reporting vulnerabilities</h2>",
+    "translation": "<h2 id='report-issues'>举报漏洞</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20530,8 +20500,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h2 id='best-practices'>",
-    "translation": "最佳实践",
+    "original": "<h2 id='best-practices'>Best practices</h2>",
+    "translation": "<h2 id='best-practices'>最佳实践</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20685,8 +20655,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h2 id='bypass-security-apis'>",
-    "translation": "信任安全值",
+    "original": "<h2 id='bypass-security-apis'>Trusting safe values</h2>",
+    "translation": "<h2 id='bypass-security-apis'>信任安全值</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20715,8 +20685,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h2 id='http'>",
-    "translation": "HTTP级别的漏洞",
+    "original": "<h2 id='http'>HTTP-level vulnerabilities</h2>",
+    "translation": "<h2 id='http'>HTTP级别的漏洞</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20725,8 +20695,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h3 id='xsrf'>",
-    "translation": "跨站请求伪造（XSRF）",
+    "original": "<h3 id='xsrf'>Cross-site request forgery</h3>",
+    "translation": "<h3 id='xsrf'>跨站请求伪造（XSRF）</h3>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20775,8 +20745,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h3 id='xssi'>",
-    "translation": "跨站脚本包含(XSSI)",
+    "original": "<h3 id='xssi'>Cross-site script inclusion (XSSI)</h3>",
+    "translation": "<h3 id='xssi'>跨站脚本包含(XSSI)</h3>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -20800,8 +20770,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
-    "original": "<h2 id='code-review'>",
-    "translation": "审计Angular应用程序",
+    "original": "<h2 id='code-review'>Auditing Angular applications</h2>",
+    "translation": "<h2 id='code-review'>审计Angular应用程序</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/security.md"
   },
   {
@@ -24130,11 +24100,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
   },
   {
-    "original": "<div class=\"s-why\">",
-    "translation": "**Why?** When providing the service to a top level component, \nthat instance is shared and available to all child components of that top level component.**为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
-  },
-  {
     "original": "**Why?** This is ideal when a service is sharing methods or state.",
     "translation": "**为何？**服务是共享方法或状态的理想载体。",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/styleguide.md"
@@ -24787,6 +24752,21 @@
   {
     "original": "Style",
     "translation": "样式",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
+  },
+  {
+    "original": "Event",
+    "translation": "事件",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
+  },
+  {
+    "original": "Two-way",
+    "translation": "双向",
+    "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
+  },
+  {
+    "original": "Two-way",
+    "translation": "双向",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/template-syntax.md"
   },
   {
@@ -27125,11 +27105,6 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
-    "original": "</div>",
-    "translation": "<a href=\"#top\" class='to-top'>回到顶部</a>",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
-  },
-  {
     "original": "## Test a component with an external template",
     "translation": "## 测试带有外部模板的组件",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
@@ -27262,11 +27237,6 @@
   {
     "original": "There's no harm in it and you might call `compileComponents` anyway\nin case you decide later to re-factor the template into a separate file.\nThe tests in this guide only call `compileComponents` when necessary.",
     "translation": "这样做也没坏处，如果你将来可能会把模板重构到独立的文件中去，那就可以调用`compileComponents`。\n不过本章中的这些测试只会在必要时才调用`compileComponents`。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
-  },
-  {
-    "original": "</div>",
-    "translation": "<a href=\"#top\" class='to-top'>回到顶部</a>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/testing.md"
   },
   {
@@ -31765,8 +31735,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq1'>",
-    "translation": "前提条件: Node.js",
+    "original": "<h2 id='prereq1'>Prerequisite: Node.js</h2>",
+    "translation": "<h2 id='prereq1'>前提条件: Node.js</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31780,8 +31750,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq2'>",
-    "translation": "前提条件: Visual Studio 2015 Update 3",
+    "original": "<h2 id='prereq2'>Prerequisite: Visual Studio 2015 Update 3</h2>",
+    "translation": "<h2 id='prereq2'>前提条件: Visual Studio 2015 Update 3</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31795,8 +31765,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq3'>",
-    "translation": "前提条件: 配置External Web tools",
+    "original": "<h2 id='prereq3'>Prerequisite: Configure External Web tools</h2>",
+    "translation": "<h2 id='prereq3'>前提条件: 配置External Web tools</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31835,8 +31805,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='prereq4'>",
-    "translation": "前提条件: 安装TypeScript 2.2 for Visual Studio 2015",
+    "original": "<h2 id='prereq4'>Prerequisite: Install TypeScript 2.2 for Visual Studio 2015</h2>",
+    "translation": "<h2 id='prereq4'>前提条件: 安装TypeScript 2.2 for Visual Studio 2015</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31870,8 +31840,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='download'>",
-    "translation": "第一步: 现在“快速上手”文件",
+    "original": "<h2 id='download'>Step 1: Download the QuickStart files</h2>",
+    "translation": "<h2 id='download'>第一步: 现在“快速上手”文件</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31880,8 +31850,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='create-project'>",
-    "translation": "第二步：创建Visual Studio ASP.net项目",
+    "original": "<h2 id='create-project'>Step 2: Create the Visual Studio ASP.NET project</h2>",
+    "translation": "<h2 id='create-project'>第二步：创建Visual Studio ASP.net项目</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31915,8 +31885,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='copy'>",
-    "translation": "第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录",
+    "original": "<h2 id='copy'>Step 3: Copy the QuickStart files into the ASP.NET project folder</h2>",
+    "translation": "<h2 id='copy'>第三步: 把“快速上手”的文件复制到ASP.NET项目所在的目录</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -31980,8 +31950,8 @@
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
-    "original": "<h2 id='build-and-run'>",
-    "translation": "第五步：构建和运行应用",
+    "original": "<h2 id='build-and-run'>Step 5: Build and run the app</h2>",
+    "translation": "<h2 id='build-and-run'>第五步：构建和运行应用</h2>",
     "sourceFile": "/Users/twer/private/GDE/content-2/guide/visual-studio-2015.md"
   },
   {
@@ -32802,21 +32772,6 @@
   {
     "original": "Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop",
     "translation": "Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。",
-    "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
-  },
-  {
-    "original": "<div class=\"card-container\">",
-    "translation": "<a href=\"generated/live-examples/quickstart/eplnkr.html\" target=\"_blank\" class=\"docs-card\"\n    title=\"通过线上编程环境体验 Angular\">",
-    "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
-  },
-  {
-    "original": "</a>",
-    "translation": "<a href=\"guide/quickstart\" class=\"docs-card\" title=\"Angular 快速上手\">",
-    "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
-  },
-  {
-    "original": "</a>",
-    "translation": "<a href=\"guide/architecture\" class=\"docs-card\" title=\"Angular 架构\">",
     "sourceFile": "/Users/twer/private/GDE/content-2/marketing/docs.md"
   },
   {
