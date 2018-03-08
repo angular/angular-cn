@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT, DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { ScrollSpyInfo, ScrollSpyService } from 'app/shared/scroll-spy.service';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 
 export interface TocItem {
@@ -18,10 +18,10 @@ export class TocService {
   activeItemIndex = new ReplaySubject<number | null>(1);
   private scrollSpyInfo: ScrollSpyInfo | null;
 
-  constructor(
-      @Inject(DOCUMENT) private document: any,
+  constructor(@Inject(DOCUMENT) private document: any,
               private domSanitizer: DomSanitizer,
-      private scrollSpyService: ScrollSpyService) { }
+              private scrollSpyService: ScrollSpyService) {
+  }
 
   genToc(docElement?: Element, docId = '') {
     this.resetScrollSpyInfo();
@@ -75,7 +75,10 @@ export class TocService {
 
   private isOriginalText(heading: HTMLHeadingElement): boolean {
     if (heading && heading.hasAttribute('translation-origin')) {
-      const prevNode = heading.previousElementSibling;
+      let prevNode = heading.previousElementSibling;
+      if (prevNode && prevNode.tagName === 'AIO-TOC') {
+        prevNode = prevNode.previousElementSibling;
+      }
       if (prevNode && prevNode.hasAttribute('translation-result')) {
         return true;
       }
