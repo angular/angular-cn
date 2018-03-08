@@ -130,7 +130,7 @@ This interpolation binding presents the component's `title` property value
 inside the HTML header tag.
 
 双花括号语法是 Angular 的*插值绑定*语法。
-这个插值绑定的意思是把组件的 `title` 属性的值绑定到 HTML 中的 header 标记中。
+这个插值绑定的意思是把组件的 `title` 属性的值绑定到 HTML 中的 `h1` 标记中。
 
 The browser refreshes and displays the new application title.
 
@@ -160,7 +160,7 @@ Here's an excerpt from the `styles.css` for the _Tour of Heroes_ sample app.
 
 ## Final code review
 
-## 最终的代码
+## 查看最终代码
 
 The source code for this tutorial and the complete _Tour of Heroes_ global styles 
 are available in the <live-example></live-example>. 
