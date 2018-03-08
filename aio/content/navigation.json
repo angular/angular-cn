@@ -73,12 +73,12 @@
         },
         {
           "url": "tutorial/toh-pt2",
-          "title": "4. 主从结构",
+          "title": "4. 显示英雄列表",
           "tooltip": "第四部分：构建一个主从结构的页面，用于展现英雄列表"
         },
         {
           "url": "tutorial/toh-pt3",
-          "title": "5. 多个组件",
+          "title": "5. 主从结构",
           "tooltip": "第五部分：把主从结构的页面重构成多个组件"
         },
         {
