@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {isSyntaxError, syntaxError} from '@angular/compiler';
+import {Position, isSyntaxError, syntaxError} from '@angular/compiler';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
@@ -17,40 +17,88 @@ import {createMessageDiagnostic} from './transformers/util';
 
 const TS_EXT = /\.ts$/;
 
-export type Diagnostics = Array<ts.Diagnostic|api.Diagnostic>;
+export type Diagnostics = ReadonlyArray<ts.Diagnostic|api.Diagnostic>;
 
 export function filterErrorsAndWarnings(diagnostics: Diagnostics): Diagnostics {
   return diagnostics.filter(d => d.category !== ts.DiagnosticCategory.Message);
 }
 
-export function formatDiagnostics(options: api.CompilerOptions, diags: Diagnostics): string {
+const defaultFormatHost: ts.FormatDiagnosticsHost = {
+  getCurrentDirectory: () => ts.sys.getCurrentDirectory(),
+  getCanonicalFileName: fileName => fileName,
+  getNewLine: () => ts.sys.newLine
+};
+
+function displayFileName(fileName: string, host: ts.FormatDiagnosticsHost): string {
+  return path.relative(host.getCurrentDirectory(), host.getCanonicalFileName(fileName));
+}
+
+export function formatDiagnosticPosition(
+    position: Position, host: ts.FormatDiagnosticsHost = defaultFormatHost): string {
+  return `${displayFileName(position.fileName, host)}(${position.line + 1},${position.column+1})`;
+}
+
+export function flattenDiagnosticMessageChain(
+    chain: api.DiagnosticMessageChain, host: ts.FormatDiagnosticsHost = defaultFormatHost): string {
+  let result = chain.messageText;
+  let indent = 1;
+  let current = chain.next;
+  const newLine = host.getNewLine();
+  while (current) {
+    result += newLine;
+    for (let i = 0; i < indent; i++) {
+      result += '  ';
+    }
+    result += current.messageText;
+    const position = current.position;
+    if (position) {
+      result += ` at ${formatDiagnosticPosition(position, host)}`;
+    }
+    current = current.next;
+    indent++;
+  }
+  return result;
+}
+
+export function formatDiagnostic(
+    diagnostic: api.Diagnostic, host: ts.FormatDiagnosticsHost = defaultFormatHost) {
+  let result = '';
+  const newLine = host.getNewLine();
+  const span = diagnostic.span;
+  if (span) {
+    result += `${formatDiagnosticPosition({
+      fileName: span.start.file.url,
+      line: span.start.line,
+      column: span.start.col
+    }, host)}: `;
+  } else if (diagnostic.position) {
+    result += `${formatDiagnosticPosition(diagnostic.position, host)}: `;
+  }
+  if (diagnostic.span && diagnostic.span.details) {
+    result += `: ${diagnostic.span.details}, ${diagnostic.messageText}${newLine}`;
+  } else if (diagnostic.chain) {
+    result += `${flattenDiagnosticMessageChain(diagnostic.chain, host)}.${newLine}`;
+  } else {
+    result += `: ${diagnostic.messageText}${newLine}`;
+  }
+  return result;
+}
+
+export function formatDiagnostics(
+    diags: Diagnostics, host: ts.FormatDiagnosticsHost = defaultFormatHost): string {
   if (diags && diags.length) {
-    const tsFormatHost: ts.FormatDiagnosticsHost = {
-      getCurrentDirectory: () => options.basePath || process.cwd(),
-      getCanonicalFileName: fileName => fileName,
-      getNewLine: () => ts.sys.newLine
-    };
     return diags
-        .map(d => {
-          if (api.isTsDiagnostic(d)) {
-            return ts.formatDiagnostics([d], tsFormatHost);
+        .map(diagnostic => {
+          if (api.isTsDiagnostic(diagnostic)) {
+            return ts.formatDiagnostics([diagnostic], host);
           } else {
-            let res = ts.DiagnosticCategory[d.category];
-            if (d.span) {
-              res +=
-                  ` at ${d.span.start.file.url}(${d.span.start.line + 1},${d.span.start.col + 1})`;
-            }
-            if (d.span && d.span.details) {
-              res += `: ${d.span.details}, ${d.messageText}\n`;
-            } else {
-              res += `: ${d.messageText}\n`;
-            }
-            return res;
+            return formatDiagnostic(diagnostic, host);
           }
         })
         .join('');
-  } else
+  } else {
     return '';
+  }
 }
 
 export interface ParsedConfiguration {
@@ -151,7 +199,7 @@ export function performCompilation({rootNames, options, host, oldProgram, emitCa
 }): PerformCompilationResult {
   let program: api.Program|undefined;
   let emitResult: ts.EmitResult|undefined;
-  let allDiagnostics: Diagnostics = [];
+  let allDiagnostics: Array<ts.Diagnostic|api.Diagnostic> = [];
   try {
     if (!host) {
       host = ng.createCompilerHost({options});
@@ -192,7 +240,7 @@ export function performCompilation({rootNames, options, host, oldProgram, emitCa
   }
 }
 function defaultGatherDiagnostics(program: api.Program): Diagnostics {
-  const allDiagnostics: Diagnostics = [];
+  const allDiagnostics: Array<ts.Diagnostic|api.Diagnostic> = [];
 
   function checkDiagnostics(diags: Diagnostics | undefined) {
     if (diags) {
@@ -209,7 +257,7 @@ function defaultGatherDiagnostics(program: api.Program): Diagnostics {
 
   // Check syntactic diagnostics
   checkOtherDiagnostics =
-      checkOtherDiagnostics && checkDiagnostics(program.getTsSyntacticDiagnostics());
+      checkOtherDiagnostics && checkDiagnostics(program.getTsSyntacticDiagnostics() as Diagnostics);
 
   // Check TypeScript semantic and Angular structure diagnostics
   checkOtherDiagnostics =
@@ -219,7 +267,7 @@ function defaultGatherDiagnostics(program: api.Program): Diagnostics {
 
   // Check Angular semantic diagnostics
   checkOtherDiagnostics =
-      checkOtherDiagnostics && checkDiagnostics(program.getNgSemanticDiagnostics());
+      checkOtherDiagnostics && checkDiagnostics(program.getNgSemanticDiagnostics() as Diagnostics);
 
   return allDiagnostics;
 }

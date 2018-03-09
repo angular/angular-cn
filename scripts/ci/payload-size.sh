@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu -o pipefail
+
 readonly PROJECT_NAME="angular-payload-size"
 
 # Calculate the size of target file uncompressed size, gzip7 size, gzip9 size
@@ -18,26 +20,24 @@ calculateSize() {
   payloadData="$payloadData\"gzip9/$label\": ${size["gzip9"]}, "
 }
 
-# Check whether the file size is under limit
-# Write to global variable $failed
-# Read from global variables $size, $size7, $size9, $label, $limitUncompressed
+# Check whether the file size is under limit.
+# Exit with an error if limit is exceeded.
+#   $1: string - The name in database.
+#   $2: string - The payload size limit file.
 checkSize() {
-  for fileType in "uncompressed" "gzip7" "gzip9"; do
-    if [[ ${size[$fileType]} -gt ${payloadLimits[$name, $fileType, $label]} ]]; then
-      failed=true
-      echo "$fileType $label size is ${size[$fileType]} which is greater than ${payloadLimits[$name, $fileType, $label]}"
-    fi
-  done
+  name="$1"
+  limitFile="$2"
+  node ${PROJECT_ROOT}/scripts/ci/payload-size.js $limitFile $name $TRAVIS_BRANCH $TRAVIS_COMMIT
 }
 
-# Write timestamp to global variable $payloadData
+# Write timestamp to global variable `$payloadData`.
 addTimestamp() {
   # Add Timestamp
   timestamp=$(date +%s)
   payloadData="$payloadData\"timestamp\": $timestamp, "
 }
 
-# Write travis commit message to global variable $payloadData
+# Write travis commit message to global variable `$payloadData`.
 addMessage() {
   # Grab the set of SHAs for the message. This can fail when you force push or do initial build
   # because $TRAVIS_COMMIT_RANGE will contain the previous SHA which will not be in the
@@ -47,9 +47,9 @@ addMessage() {
   payloadData="$payloadData\"message\": \"$message\""
 }
 
-# Add change source: application, dependencies, or 'application+dependencies'
-# Read from global variables $parentDir
-# Update the change source to global variable $payloadData
+# Add change source: `application`, `dependencies`, or `application+dependencies`
+# Read from global variable `$parentDir`.
+# Update the change source in global variable `$payloadData`.
 addChange() {
   yarnChanged=false
   allChangedFiles=$(git diff --name-only $TRAVIS_COMMIT_RANGE $parentDir | wc -l)
@@ -73,17 +73,17 @@ addChange() {
   payloadData="$payloadData\"change\": \"$change\", "
 }
 
-# Upload data to firebase database if it's commit, print out data for pull
-# requests
+# Upload data to firebase database if it's commit, print out data for pull requests.
+#   $1: string - The name in database.
 uploadData() {
   name="$1"
   payloadData="{${payloadData}}"
 
-  echo The data for $name is:
-  echo $payloadData
+  echo $payloadData > /tmp/current.log
+
+  readonly safeBranchName=$(echo $TRAVIS_BRANCH | sed -e 's/\./_/g')
 
   if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-    readonly safeBranchName=$(echo $TRAVIS_BRANCH | sed -e 's/\./_/g')
     readonly dbPath=/payload/$name/$safeBranchName/$TRAVIS_COMMIT
 
     # WARNING: FIREBASE_TOKEN should NOT be printed.
@@ -92,23 +92,24 @@ uploadData() {
   fi
 }
 
-# Track payload size, $1 is the name in database, $2 is the file path
-# $3 is whether we check the payload size and fail the test if the size exceeds
-# limit, $4 is whether record the type of changes: true | false
+# Track payload size.
+#   $1: string       - The name in database.
+#   $2: string       - The file path.
+#   $3: true | false - Whether to check the payload size and fail the test if it exceeds limit.
+#   $4: true | false - Whether to record the type of changes.
+#   $5: [string]     - The payload size limit file. Only necessary if `$3` is `true`.
 trackPayloadSize() {
   name="$1"
   path="$2"
   checkSize="$3"
-  trackChange=$4
+  trackChange="$4"
+  limitFile="${5:-}"
 
   payloadData=""
-  failed=false
+
   for filename in $path; do
     declare -A size
     calculateSize
-    if [[ $checkSize = true ]]; then
-      checkSize
-    fi
   done
   addTimestamp
   if [[ $trackChange = true ]]; then
@@ -116,8 +117,7 @@ trackPayloadSize() {
   fi
   addMessage
   uploadData $name
-  if [[ $failed = true ]]; then
-    echo exit 1
-    exit 1
+  if [[ $checkSize = true ]]; then
+    checkSize $name $limitFile
   fi
 }

@@ -10,7 +10,7 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing/src/testin
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {el, stringifyElement} from '@angular/platform-browser/testing/src/browser_util';
 
-export function main() {
+{
   describe('dom adapter', () => {
     let defaultDoc: any;
     beforeEach(() => {
@@ -72,6 +72,12 @@ export function main() {
       const d = getDOM().createElement('div');
       getDOM().setStyle(d, 'background-url', 'url(http://test.com/bg.jpg)');
       expect(getDOM().getStyle(d, 'background-url')).toBe('url(http://test.com/bg.jpg)');
+    });
+
+    it('should parse camel-case styles correctly', () => {
+      const d = getDOM().createElement('div');
+      getDOM().setStyle(d, 'marginRight', '10px');
+      expect(getDOM().getStyle(d, 'margin-right')).toBe('10px');
     });
 
     if (getDOM().supportsDOMEvents()) {

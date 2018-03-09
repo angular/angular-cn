@@ -110,8 +110,8 @@ export class BoundEventAst implements TemplateAst {
  */
 export class ReferenceAst implements TemplateAst {
   constructor(
-      public name: string, public value: CompileTokenMetadata, public sourceSpan: ParseSourceSpan) {
-  }
+      public name: string, public value: CompileTokenMetadata, public originalValue: string,
+      public sourceSpan: ParseSourceSpan) {}
   visit(visitor: TemplateAstVisitor, context: any): any {
     return visitor.visitReference(this, context);
   }
@@ -192,7 +192,8 @@ export class ProviderAst implements TemplateAst {
   constructor(
       public token: CompileTokenMetadata, public multiProvider: boolean, public eager: boolean,
       public providers: CompileProviderMetadata[], public providerType: ProviderAstType,
-      public lifecycleHooks: LifecycleHooks[], public sourceSpan: ParseSourceSpan) {}
+      public lifecycleHooks: LifecycleHooks[], public sourceSpan: ParseSourceSpan,
+      readonly isModule: boolean) {}
 
   visit(visitor: TemplateAstVisitor, context: any): any {
     // No visit method in the visitor for now...

@@ -9,15 +9,15 @@
 import {fakeAsync, tick} from '@angular/core/testing';
 import {describe, expect, it} from '@angular/core/testing/src/testing_internal';
 import {AbstractControl, AsyncValidatorFn, FormArray, FormControl, Validators} from '@angular/forms';
+import {normalizeAsyncValidator} from '@angular/forms/src/directives/normalize_validator';
+import {AsyncValidator, ValidationErrors, ValidatorFn} from '@angular/forms/src/directives/validators';
 import {Observable} from 'rxjs/Observable';
 import {of } from 'rxjs/observable/of';
 import {timer} from 'rxjs/observable/timer';
 import {first} from 'rxjs/operator/first';
 import {map} from 'rxjs/operator/map';
-import {normalizeAsyncValidator} from '../src/directives/normalize_validator';
-import {AsyncValidator, ValidationErrors, ValidatorFn} from '../src/directives/validators';
 
-export function main() {
+(function() {
   function validator(key: string, error: any): ValidatorFn {
     return (c: AbstractControl) => {
       const r: ValidationErrors = {};
@@ -159,6 +159,12 @@ export function main() {
     });
 
     describe('email', () => {
+      it('should not error on an empty string',
+         () => expect(Validators.email(new FormControl(''))).toBeNull());
+
+      it('should not error on null',
+         () => expect(Validators.email(new FormControl(null))).toBeNull());
+
       it('should error on invalid email',
          () => expect(Validators.email(new FormControl('some text'))).toEqual({'email': true}));
 
@@ -270,6 +276,18 @@ export function main() {
 
       it('should not error on "undefined" pattern',
          () => expect(Validators.pattern(undefined !)(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing both boundary symbols',
+         () => expect(Validators.pattern('^[aA]*$')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing only start boundary symbols',
+         () => expect(Validators.pattern('^[aA]*')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string containing only end boundary symbols',
+         () => expect(Validators.pattern('[aA]*$')(new FormControl('aaAA'))).toBeNull());
+
+      it('should work with pattern string not containing any boundary symbols',
+         () => expect(Validators.pattern('[aA]*')(new FormControl('aaAA'))).toBeNull());
     });
 
     describe('compose', () => {
@@ -435,4 +453,4 @@ export function main() {
 
     });
   });
-}
+})();

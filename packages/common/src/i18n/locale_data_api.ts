@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {CURRENCIES} from './currencies';
 import localeEn from './locale_en';
-import {LOCALE_DATA, LocaleDataIndex, ExtraLocaleDataIndex} from './locale_data';
+import {LOCALE_DATA, LocaleDataIndex, ExtraLocaleDataIndex, CurrencyIndex} from './locale_data';
+import {CURRENCIES_EN, CurrenciesSymbols} from './currencies';
 
 /**
  * The different format styles that can be used to represent numbers.
@@ -253,7 +253,7 @@ export function getLocaleWeekEndRange(locale: string): [WeekDay, WeekDay] {
  */
 export function getLocaleDateFormat(locale: string, width: FormatWidth): string {
   const data = findLocaleData(locale);
-  return data[LocaleDataIndex.DateFormat][width];
+  return getLastDefinedValue(data[LocaleDataIndex.DateFormat], width);
 }
 
 /**
@@ -278,7 +278,7 @@ export function getLocaleDateFormat(locale: string, width: FormatWidth): string 
  */
 export function getLocaleTimeFormat(locale: string, width: FormatWidth): string {
   const data = findLocaleData(locale);
-  return data[LocaleDataIndex.TimeFormat][width];
+  return getLastDefinedValue(data[LocaleDataIndex.TimeFormat], width);
 }
 
 /**
@@ -389,6 +389,14 @@ export function getLocaleCurrencySymbol(locale: string): string|null {
 export function getLocaleCurrencyName(locale: string): string|null {
   const data = findLocaleData(locale);
   return data[LocaleDataIndex.CurrencyName] || null;
+}
+
+/**
+ * Returns the currency values for the locale
+ */
+function getLocaleCurrencies(locale: string): {[code: string]: CurrenciesSymbols} {
+  const data = findLocaleData(locale);
+  return data[LocaleDataIndex.Currencies];
 }
 
 /**
@@ -526,13 +534,37 @@ export function findLocaleData(locale: string): any {
 }
 
 /**
- * Return the currency symbol for a given currency code, or the code if no symbol available
- * (e.g.: $, US$, or USD)
+ * Returns the currency symbol for a given currency code, or the code if no symbol available
+ * (e.g.: format narrow = $, format wide = US$, code = USD)
+ * If no locale is provided, it uses the locale "en" by default
  *
- * @internal
+ * @experimental i18n support is experimental.
  */
-export function findCurrencySymbol(code: string, format: 'wide' | 'narrow') {
-  const currency = CURRENCIES[code] || {};
-  const symbol = currency[0] || code;
-  return format === 'wide' ? symbol : currency[1] || symbol;
+export function getCurrencySymbol(code: string, format: 'wide' | 'narrow', locale = 'en'): string {
+  const currency = getLocaleCurrencies(locale)[code] || CURRENCIES_EN[code] || [];
+  const symbolNarrow = currency[CurrencyIndex.SymbolNarrow];
+
+  if (format === 'narrow' && typeof symbolNarrow === 'string') {
+    return symbolNarrow;
+  }
+
+  return currency[CurrencyIndex.Symbol] || code;
+}
+
+// Most currencies have cents, that's why the default is 2
+const DEFAULT_NB_OF_CURRENCY_DIGITS = 2;
+
+/**
+ * Returns the number of decimal digits for the given currency.
+ * Its value depends upon the presence of cents in that particular currency.
+ *
+ * @experimental i18n support is experimental.
+ */
+export function getNumberOfCurrencyDigits(code: string): number {
+  let digits;
+  const currency = CURRENCIES_EN[code];
+  if (currency) {
+    digits = currency[CurrencyIndex.NbOfDigits];
+  }
+  return typeof digits === 'number' ? digits : DEFAULT_NB_OF_CURRENCY_DIGITS;
 }

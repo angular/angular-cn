@@ -9,34 +9,42 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  return 5;
+}
+
 export default [
-  'se-FI', [['i.b.', 'e.b.'], , ['iđitbeaivet', 'eahketbeaivet']],
-  [['i.b.', 'e.b.'], , ['iđitbeaivi', 'eahketbeaivi']],
+  'se-FI',
   [
-    ['S', 'M', 'D', 'G', 'D', 'B', 'L'], ['sotn', 'vuos', 'maŋ', 'gask', 'duor', 'bear', 'láv'],
-    [
-      'sotnabeaivi', 'vuossárgga', 'maŋŋebárgga', 'gaskavahku', 'duorastaga', 'bearjadaga',
-      'lávvardaga'
-    ],
-    ['sotn', 'vuos', 'maŋ', 'gask', 'duor', 'bear', 'láv']
+    ['i', 'e'],
+    ['ib', 'eb'],
   ],
   [
-    ['S', 'M', 'D', 'G', 'D', 'B', 'L'], ['sotn', 'vuos', 'maŋ', 'gask', 'duor', 'bear', 'láv'],
-    [
-      'sotnabeaivi', 'vuossárga', 'maŋŋebárga', 'gaskavahkku', 'duorasdat', 'bearjadat', 'lávvardat'
-    ],
-    ['sotn', 'vuos', 'maŋ', 'gask', 'duor', 'bear', 'láv']
+    ['ib', 'eb'],
+    ,
   ],
+  [
+    ['S', 'M', 'D', 'G', 'D', 'B', 'L'], ['so', 'má', 'di', 'ga', 'du', 'be', 'lá'],
+    ['sotnabeaivi', 'mánnodat', 'disdat', 'gaskavahkku', 'duorastat', 'bearjadat', 'lávvordat'],
+    ['so', 'má', 'di', 'ga', 'du', 'be', 'lá']
+  ],
+  ,
   [
     ['O', 'G', 'N', 'C', 'M', 'G', 'S', 'B', 'Č', 'G', 'S', 'J'],
-    ['ođđj', 'guov', 'njuk', 'cuo', 'mies', 'geas', 'suoi', 'borg', 'čakč', 'golg', 'skáb', 'juov'],
     [
-      'ođđajagemánnu', 'guovvamánnu', 'njukčamánnu', 'cuoŋománnu', 'miessemánnu', 'geassemánnu',
-      'suoidnemánnu', 'borgemánnu', 'čakčamánnu', 'golggotmánnu', 'skábmamánnu', 'juovlamánnu'
+      'ođđj', 'guov', 'njuk', 'cuoŋ', 'mies', 'geas', 'suoi', 'borg', 'čakč', 'golg', 'skáb',
+      'juov'
+    ],
+    [
+      'ođđajagemánnu', 'guovvamánnu', 'njukčamánnu', 'cuoŋománnu', 'miessemánnu',
+      'geassemánnu', 'suoidnemánnu', 'borgemánnu', 'čakčamánnu', 'golggotmánnu',
+      'skábmamánnu', 'juovlamánnu'
     ]
   ],
-  , [['o.Kr.', 'm.Kr.'], , ['ovdal Kristtusa', 'maŋŋel Kristtusa']], 1, [6, 0],
-  ['y-MM-dd', 'y MMM d', 'y MMMM d', 'y MMMM d, EEEE'],
+  , [['oKr.', 'mKr.'], , ['ovdal Kristusa', 'maŋŋel Kristusa']], 1, [6, 0],
+  ['dd.MM.y', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{1} {0}',
@@ -44,10 +52,13 @@ export default [
     ,
   ],
   [',', ' ', ';', '%', '+', '−', '·10^', '·', '‰', '∞', '¤¤¤', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', function(n: number):
-                                                                  number {
-                                                                    if (n === 1) return 1;
-                                                                    if (n === 2) return 2;
-                                                                    return 5;
-                                                                  }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'DKK': ['Dkr', 'kr'],
+    'JPY': ['JP¥', '¥'],
+    'NOK': ['kr'],
+    'SEK': ['Skr', 'kr'],
+    'THB': ['฿'],
+    'USD': ['US$', '$']
+  },
+  plural
 ];

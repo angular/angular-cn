@@ -11,6 +11,11 @@
 
 import {registerLocaleData} from '../src/i18n/locale_data';
 
+function plural_af(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export const locale_af = [
   'af',
   [
@@ -41,13 +46,23 @@ export const locale_af = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R', 'Suid-Afrikaanse rand', function(n: number):
-                                                                                number {
-                                                                                  if (n === 1)
-                                                                                    return 1;
-                                                                                  return 5;
-                                                                                }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R', 'Suid-Afrikaanse rand', {
+    'JPY': ['JP¥', '¥'],
+    'MXN': [, '$'],
+    'RON': [, 'leu'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'ZAR': ['R']
+  },
+  plural_af
 ];
+
+function plural_am(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_am = [
   'am',
@@ -78,15 +93,26 @@ export const locale_am = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'ብር', 'የኢትዮጵያ ብር', function(n: number):
-                                                                      number {
-                                                                        let i =
-                                                                            Math.floor(Math.abs(n));
-                                                                        if (i === 0 || n === 1)
-                                                                          return 1;
-                                                                        return 5;
-                                                                      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'ብር', 'የኢትዮጵያ ብር', {
+    'AUD': ['AU$', '$'],
+    'CNH': ['የቻይና ዩዋን'],
+    'ETB': ['ብር'],
+    'JPY': ['JP¥', '¥'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_am
 ];
+
+function plural_ar(n: number): number {
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return 3;
+  if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return 4;
+  return 5;
+}
 
 export const locale_ar = [
   'ar',
@@ -97,8 +123,8 @@ export const locale_ar = [
   [['ص', 'م'], , ['صباحًا', 'مساءً']],
   [
     ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
-    ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
-    ,
+    ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'], ,
+    ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت']
   ],
   ,
   [
@@ -109,25 +135,77 @@ export const locale_ar = [
     ],
   ],
   , [['ق.م', 'م'], , ['قبل الميلاد', 'ميلادي']], 6, [5, 6],
-  ['d‏/M‏/y', 'dd‏/MM‏/y', 'd MMMM، y', 'EEEE، d MMMM، y'],
+  ['d\u200f/M\u200f/y', 'dd\u200f/MM\u200f/y', 'd MMMM y', 'EEEE، d MMMM y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  ['.', ',', ';', '‎%‎', '‎+', '‎-', 'E', '×', '‰', '∞', 'ليس رقمًا', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'ج.م.‏', 'جنيه مصري',
-  function(n: number):
-      number {
-        if (n === 0) return 0;
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return 3;
-        if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return 4;
-        return 5;
-      }
+  ['.', ',', ';', '\u200e%\u200e', '\u200e+', '\u200e-', 'E', '×', '‰', '∞', 'ليس رقمًا', ':'],
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'ج.م.\u200f', 'جنيه مصري', {
+    'AED': ['د.إ.\u200f'],
+    'ARS': [, 'AR$'],
+    'AUD': ['AU$'],
+    'BBD': [, 'BB$'],
+    'BHD': ['د.ب.\u200f'],
+    'BMD': [, 'BM$'],
+    'BND': [, 'BN$'],
+    'BSD': [, 'BS$'],
+    'BZD': [, 'BZ$'],
+    'CAD': ['CA$'],
+    'CLP': [, 'CL$'],
+    'CNY': ['CN¥'],
+    'COP': [, 'CO$'],
+    'CUP': [, 'CU$'],
+    'DOP': [, 'DO$'],
+    'DZD': ['د.ج.\u200f'],
+    'EGP': ['ج.م.\u200f', 'E£'],
+    'FJD': [, 'FJ$'],
+    'GBP': ['£', 'UK£'],
+    'GYD': [, 'GY$'],
+    'HKD': ['HK$'],
+    'IQD': ['د.ع.\u200f'],
+    'IRR': ['ر.إ.'],
+    'JMD': [, 'JM$'],
+    'JOD': ['د.أ.\u200f'],
+    'JPY': ['JP¥'],
+    'KWD': ['د.ك.\u200f'],
+    'KYD': [, 'KY$'],
+    'LBP': ['ل.ل.\u200f', 'L£'],
+    'LYD': ['د.ل.\u200f'],
+    'MAD': ['د.م.\u200f'],
+    'MRO': ['أ.م.\u200f'],
+    'MXN': ['MX$'],
+    'NZD': ['NZ$'],
+    'OMR': ['ر.ع.\u200f'],
+    'QAR': ['ر.ق.\u200f'],
+    'SAR': ['ر.س.\u200f'],
+    'SBD': [, 'SB$'],
+    'SDD': ['د.س.\u200f'],
+    'SDG': ['ج.س.'],
+    'SRD': [, 'SR$'],
+    'SYP': ['ل.س.\u200f', '£'],
+    'THB': ['฿'],
+    'TND': ['د.ت.\u200f'],
+    'TTD': [, 'TT$'],
+    'TWD': ['NT$'],
+    'USD': ['US$'],
+    'UYU': [, 'UY$'],
+    'XXX': ['***'],
+    'YER': ['ر.ي.\u200f']
+  },
+  plural_ar
 ];
+
+function plural_ar_DZ(n: number): number {
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return 3;
+  if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return 4;
+  return 5;
+}
 
 export const locale_ar_DZ = [
   'ar-DZ',
@@ -138,8 +216,8 @@ export const locale_ar_DZ = [
   [['ص', 'م'], , ['صباحًا', 'مساءً']],
   [
     ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
-    ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
-    ,
+    ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'], ,
+    ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت']
   ],
   ,
   [
@@ -150,25 +228,73 @@ export const locale_ar_DZ = [
     ],
   ],
   , [['ق.م', 'م'], , ['قبل الميلاد', 'ميلادي']], 6, [5, 6],
-  ['d‏/M‏/y', 'dd‏/MM‏/y', 'd MMMM، y', 'EEEE، d MMMM، y'],
+  ['d\u200f/M\u200f/y', 'dd\u200f/MM\u200f/y', 'd MMMM y', 'EEEE، d MMMM y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  [',', '.', ';', '‎%‎', '‎+', '‎-', 'E', '×', '‰', '∞', 'ليس رقمًا', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'د.ج.‏', 'دينار جزائري',
-  function(n: number):
-      number {
-        if (n === 0) return 0;
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return 3;
-        if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return 4;
-        return 5;
-      }
+  [',', '.', ';', '\u200e%\u200e', '\u200e+', '\u200e-', 'E', '×', '‰', '∞', 'ليس رقمًا', ':'],
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'د.ج.\u200f', 'دينار جزائري', {
+    'AED': ['د.إ.\u200f'],
+    'ARS': [, 'AR$'],
+    'AUD': ['AU$'],
+    'BBD': [, 'BB$'],
+    'BHD': ['د.ب.\u200f'],
+    'BMD': [, 'BM$'],
+    'BND': [, 'BN$'],
+    'BSD': [, 'BS$'],
+    'BZD': [, 'BZ$'],
+    'CAD': ['CA$'],
+    'CLP': [, 'CL$'],
+    'CNY': ['CN¥'],
+    'COP': [, 'CO$'],
+    'CUP': [, 'CU$'],
+    'DOP': [, 'DO$'],
+    'DZD': ['د.ج.\u200f'],
+    'EGP': ['ج.م.\u200f', 'E£'],
+    'FJD': [, 'FJ$'],
+    'GBP': ['£', 'UK£'],
+    'GYD': [, 'GY$'],
+    'HKD': ['HK$'],
+    'IQD': ['د.ع.\u200f'],
+    'IRR': ['ر.إ.'],
+    'JMD': [, 'JM$'],
+    'JOD': ['د.أ.\u200f'],
+    'JPY': ['JP¥'],
+    'KWD': ['د.ك.\u200f'],
+    'KYD': [, 'KY$'],
+    'LBP': ['ل.ل.\u200f', 'L£'],
+    'LYD': ['د.ل.\u200f'],
+    'MAD': ['د.م.\u200f'],
+    'MRO': ['أ.م.\u200f'],
+    'MXN': ['MX$'],
+    'NZD': ['NZ$'],
+    'OMR': ['ر.ع.\u200f'],
+    'QAR': ['ر.ق.\u200f'],
+    'SAR': ['ر.س.\u200f'],
+    'SBD': [, 'SB$'],
+    'SDD': ['د.س.\u200f'],
+    'SDG': ['ج.س.'],
+    'SRD': [, 'SR$'],
+    'SYP': ['ل.س.\u200f', '£'],
+    'THB': ['฿'],
+    'TND': ['د.ت.\u200f'],
+    'TTD': [, 'TT$'],
+    'TWD': ['NT$'],
+    'USD': ['US$'],
+    'UYU': [, 'UY$'],
+    'XXX': ['***'],
+    'YER': ['ر.ي.\u200f']
+  },
+  plural_ar_DZ
 ];
+
+function plural_az(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_az = [
   'az',
@@ -211,13 +337,28 @@ export const locale_az = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₼', 'Azərbaycan Manatı', function(n: number):
-                                                                                number {
-                                                                                  if (n === 1)
-                                                                                    return 1;
-                                                                                  return 5;
-                                                                                }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₼', 'Azərbaycan Manatı', {
+    'AZN': ['₼'],
+    'JPY': ['JP¥', '¥'],
+    'RON': [, 'ley'],
+    'SYP': [, 'S£'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_az
 ];
+
+function plural_be(n: number): number {
+  if (n % 10 === 1 && !(n % 100 === 11)) return 1;
+  if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 4 &&
+      !(n % 100 >= 12 && n % 100 <= 14))
+    return 3;
+  if (n % 10 === 0 || n % 10 === Math.floor(n % 10) && n % 10 >= 5 && n % 10 <= 9 ||
+      n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 14)
+    return 4;
+  return 5;
+}
 
 export const locale_be = [
   'be',
@@ -260,19 +401,42 @@ export const locale_be = [
     '{1} \'у\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'Br', 'беларускі рубель',
-  function(n: number):
-      number {
-        if (n % 10 === 1 && !(n % 100 === 11)) return 1;
-        if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 4 &&
-            !(n % 100 >= 12 && n % 100 <= 14))
-          return 3;
-        if (n % 10 === 0 || n % 10 === Math.floor(n % 10) && n % 10 >= 5 && n % 10 <= 9 ||
-            n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 14)
-          return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'Br', 'беларускі рубель', {
+    'AUD': ['A$'],
+    'BBD': [, 'Bds$'],
+    'BMD': [, 'BD$'],
+    'BRL': [, 'R$'],
+    'BSD': [, 'B$'],
+    'BYN': ['Br'],
+    'BZD': [, 'BZ$'],
+    'CAD': [, 'CA$'],
+    'CUC': [, 'CUC$'],
+    'CUP': [, '$MN'],
+    'DOP': [, 'RD$'],
+    'FJD': [, 'FJ$'],
+    'FKP': [, 'FK£'],
+    'GYD': [, 'G$'],
+    'ISK': [, 'Íkr'],
+    'JMD': [, 'J$'],
+    'KYD': [, 'CI$'],
+    'LRD': [, 'L$'],
+    'MXN': ['MX$'],
+    'NAD': [, 'N$'],
+    'NZD': [, 'NZ$'],
+    'RUB': ['₽', 'руб.'],
+    'SBD': [, 'SI$'],
+    'SGD': [, 'S$'],
+    'TTD': [, 'TT$'],
+    'UYU': [, '$U'],
+    'XCD': ['EC$']
+  },
+  plural_be
 ];
+
+function plural_bg(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_bg = [
   'bg', [['am', 'pm'], , ['пр.об.', 'сл.об.']],
@@ -296,19 +460,76 @@ export const locale_bg = [
   ],
   , [['пр.Хр.', 'сл.Хр.'], , ['преди Христа', 'след Христа']], 1, [6, 0],
   ['d.MM.yy \'г\'.', 'd.MM.y \'г\'.', 'd MMMM y \'г\'.', 'EEEE, d MMMM y \'г\'.'],
-  ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
+  ['H:mm \'ч\'.', 'H:mm:ss \'ч\'.', 'H:mm:ss \'ч\'. z', 'H:mm:ss \'ч\'. zzzz'],
   [
     '{1}, {0}',
     ,
     ,
   ],
-  [',', ' ', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '0.00 ¤', '#E0'], 'лв.', 'Български лев', function(n: number):
-                                                                        number {
-                                                                          if (n === 1) return 1;
-                                                                          return 5;
-                                                                        }
+  [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '#,##0%', '0.00 ¤', '#E0'], 'лв.', 'Български лев', {
+    'ARS': [],
+    'AUD': [],
+    'BBD': [],
+    'BDT': [],
+    'BGN': ['лв.'],
+    'BMD': [],
+    'BND': [],
+    'BRL': [],
+    'BSD': [],
+    'BYN': [],
+    'BZD': [],
+    'CAD': [],
+    'CLP': [],
+    'CNY': [],
+    'COP': [],
+    'CRC': [],
+    'CUP': [],
+    'DOP': [],
+    'FJD': [],
+    'GBP': [, '£'],
+    'GIP': [],
+    'GYD': [],
+    'HKD': [],
+    'ILS': [],
+    'INR': [],
+    'JMD': [],
+    'JPY': [, '¥'],
+    'KHR': [],
+    'KRW': [],
+    'KYD': [],
+    'KZT': [],
+    'LAK': [],
+    'LRD': [],
+    'MNT': [],
+    'MXN': [],
+    'NAD': [],
+    'NGN': [],
+    'NZD': [],
+    'PHP': [],
+    'PYG': [],
+    'RON': [],
+    'SBD': [],
+    'SGD': [],
+    'SRD': [],
+    'SSP': [],
+    'TRY': [],
+    'TTD': [],
+    'TWD': [],
+    'UAH': [],
+    'USD': ['щ.д.', '$'],
+    'UYU': [],
+    'VND': [],
+    'XCD': [, '$']
+  },
+  plural_bg
 ];
+
+function plural_bn(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_bn = [
   'bn',
@@ -345,11 +566,8 @@ export const locale_bn = [
       'নভেম্বর', 'ডিসেম্বর'
     ],
   ],
-  [
-    ['খ্রিস্টপূর্ব', 'খৃষ্টাব্দ'],
-    ,
-  ],
-  5, [6, 0], ['d/M/yy', 'd MMM, y', 'd MMMM, y', 'EEEE, d MMMM, y'],
+  [['খ্রিস্টপূর্ব', 'খৃষ্টাব্দ'], , ['খ্রিস্টপূর্ব', 'খ্রীষ্টাব্দ']], 5, [6, 0],
+  ['d/M/yy', 'd MMM, y', 'd MMMM, y', 'EEEE, d MMMM, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
@@ -358,13 +576,19 @@ export const locale_bn = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##,##0%', '#,##,##0.00¤', '#E0'], '৳', 'বাংলাদেশী টাকা',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  {'BDT': ['৳'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']}, plural_bn
 ];
+
+function plural_br(n: number): number {
+  if (n % 10 === 1 && !(n % 100 === 11 || n % 100 === 71 || n % 100 === 91)) return 1;
+  if (n % 10 === 2 && !(n % 100 === 12 || n % 100 === 72 || n % 100 === 92)) return 2;
+  if (n % 10 === Math.floor(n % 10) && (n % 10 >= 3 && n % 10 <= 4 || n % 10 === 9) &&
+      !(n % 100 >= 10 && n % 100 <= 19 || n % 100 >= 70 && n % 100 <= 79 ||
+        n % 100 >= 90 && n % 100 <= 99))
+    return 3;
+  if (!(n === 0) && n % 1e6 === 0) return 4;
+  return 5;
+}
 
 export const locale_br = [
   'br',
@@ -413,19 +637,39 @@ export const locale_br = [
     '{1} \'da\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        if (n % 10 === 1 && !(n % 100 === 11 || n % 100 === 71 || n % 100 === 91)) return 1;
-        if (n % 10 === 2 && !(n % 100 === 12 || n % 100 === 72 || n % 100 === 92)) return 2;
-        if (n % 10 === Math.floor(n % 10) && (n % 10 >= 3 && n % 10 <= 4 || n % 10 === 9) &&
-            !(n % 100 >= 10 && n % 100 <= 19 || n % 100 >= 70 && n % 100 <= 79 ||
-              n % 100 >= 90 && n % 100 <= 99))
-          return 3;
-        if (!(n === 0) && n % 1e6 === 0) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AUD': ['$A', '$'],
+    'BRL': [, 'R$'],
+    'CAD': ['$CA', '$'],
+    'CNY': [, '¥'],
+    'EGP': [, '£ E'],
+    'GBP': ['£ RU', '£'],
+    'HKD': ['$ HK', '$'],
+    'ILS': [, '₪'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'LBP': [, '£L'],
+    'NZD': ['$ ZN', '$'],
+    'TOP': [, '$ T'],
+    'TWD': [, '$'],
+    'USD': ['$ SU', '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$']
+  },
+  plural_br
 ];
+
+function plural_bs(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+          !(i % 100 >= 12 && i % 100 <= 14) ||
+      f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
+          !(f % 100 >= 12 && f % 100 <= 14))
+    return 3;
+  return 5;
+}
 
 export const locale_bs = [
   'bs',
@@ -453,7 +697,7 @@ export const locale_bs = [
     ]
   ],
   , [['p. n. e.', 'n. e.'], , ['prije nove ere', 'nove ere']], 1, [6, 0],
-  ['d.M.yy.', 'd. MMM. y.', 'd. MMMM y.', 'EEEE, d. MMMM y.'],
+  ['d.M.yy.', 'd. MMM y.', 'd. MMMM y.', 'EEEE, d. MMMM y.'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{1} {0}',
@@ -461,21 +705,33 @@ export const locale_bs = [
     '{1} \'u\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'KM', 'Bosanskohercegovačka konvertibilna marka',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11))
-          return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-                !(i % 100 >= 12 && i % 100 <= 14) ||
-            f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
-                !(f % 100 >= 12 && f % 100 <= 14))
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'KM', 'Bosanskohercegovačka konvertibilna marka', {
+    'AUD': [, '$'],
+    'BAM': ['KM'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'HRK': ['kn'],
+    'ILS': [, '₪'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'RSD': ['din.'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': [, '$'],
+    'XCD': [, '$'],
+    'XPF': []
+  },
+  plural_bs
 ];
+
+function plural_ca(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_ca = [
   'ca',
@@ -520,14 +776,26 @@ export const locale_ca = [
     '{1} \'a\' \'les\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AUD': ['AU$', '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': ['¥'],
+    'ESP': ['₧'],
+    'JPY': ['JP¥', '¥'],
+    'MXN': [, '$'],
+    'THB': ['฿'],
+    'USD': [, '$'],
+    'VEF': [],
+    'XCD': [, '$']
+  },
+  plural_ca
 ];
+
+function plural_chr(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_chr = [
   'chr',
@@ -559,12 +827,16 @@ export const locale_chr = [
     '{1} ᎤᎾᎢ {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'US ᎠᏕᎳ', function(n: number):
-                                                                  number {
-                                                                    if (n === 1) return 1;
-                                                                    return 5;
-                                                                  }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'US ᎠᏕᎳ', {'JPY': ['JP¥', '¥']}, plural_chr
 ];
+
+function plural_cs(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return 3;
+  if (!(v === 0)) return 4;
+  return 5;
+}
 
 export const locale_cs = [
   'cs',
@@ -595,11 +867,8 @@ export const locale_cs = [
       'listopad', 'prosinec'
     ]
   ],
-  [
-    ['př.n.l.', 'n.l.'],
-    ['př. n. l.', 'n. l.'],
-  ],
-  1, [6, 0], ['dd.MM.yy', 'd. M. y', 'd. MMMM y', 'EEEE d. MMMM y'],
+  [['př.n.l.', 'n.l.'], ['př. n. l.', 'n. l.'], ['před naším letopočtem', 'našeho letopočtu']], 1,
+  [6, 0], ['dd.MM.yy', 'd. M. y', 'd. MMMM y', 'EEEE d. MMMM y'],
   ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
   [
     '{1} {0}',
@@ -607,16 +876,30 @@ export const locale_cs = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'Kč', 'česká koruna',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return 3;
-        if (!(v === 0)) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'Kč', 'česká koruna', {
+    'AUD': ['AU$', '$'],
+    'CSK': ['Kčs'],
+    'CZK': ['Kč'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': ['JP¥', '¥'],
+    'RON': [, 'L'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫'],
+    'XEU': ['ECU']
+  },
+  plural_cs
 ];
+
+function plural_cy(n: number): number {
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  if (n === 3) return 3;
+  if (n === 6) return 4;
+  return 5;
+}
 
 export const locale_cy = [
   'cy',
@@ -669,16 +952,27 @@ export const locale_cy = [
     '{1} \'am\' {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '£', 'Punt Prydain', function(n: number):
-                                                                        number {
-                                                                          if (n === 0) return 0;
-                                                                          if (n === 1) return 1;
-                                                                          if (n === 2) return 2;
-                                                                          if (n === 3) return 3;
-                                                                          if (n === 6) return 4;
-                                                                          return 5;
-                                                                        }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '£', 'Punt Prydain', {
+    'BDT': [, 'TK'],
+    'BWP': [],
+    'HKD': ['HK$'],
+    'JPY': ['JP¥', '¥'],
+    'KRW': [, '₩'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'ZAR': [],
+    'ZMW': []
+  },
+  plural_cy
 ];
+
+function plural_da(n: number): number {
+  let i = Math.floor(Math.abs(n)),
+      t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
+  if (n === 1 || !(t === 0) && (i === 0 || i === 1)) return 1;
+  return 5;
+}
 
 export const locale_da = [
   'da',
@@ -721,21 +1015,31 @@ export const locale_da = [
     '{1} \'kl\'. {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', '.'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr.', 'dansk krone',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)),
-            t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
-        if (n === 1 || !(t === 0) && (i === 0 || i === 1)) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr.', 'dansk krone', {
+    'AUD': ['AU$', '$'],
+    'DKK': ['kr.'],
+    'ISK': [, 'kr.'],
+    'JPY': ['JP¥', '¥'],
+    'NOK': [, 'kr.'],
+    'RON': [, 'L'],
+    'SEK': [, 'kr.'],
+    'THB': ['฿'],
+    'TWD': ['NT$']
+  },
+  plural_da
 ];
+
+function plural_de(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_de = [
   'de',
   [
     ['vm.', 'nm.'],
-    ['vorm.', 'nachm.'],
+    ['AM', 'PM'],
   ],
   [
     ['vorm.', 'nachm.'],
@@ -779,22 +1083,42 @@ export const locale_de = [
     '{1} \'um\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euro', {
+    'ATS': ['öS'],
+    'AUD': ['AU$', '$'],
+    'BGM': ['BGK'],
+    'BGO': ['BGJ'],
+    'CUC': [, 'Cub$'],
+    'DEM': ['DM'],
+    'FKP': [, 'Fl£'],
+    'GNF': [, 'F.G.'],
+    'KMF': [, 'FC'],
+    'RON': [, 'L'],
+    'RWF': [, 'F.Rw'],
+    'SYP': [],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'ZMW': [, 'K']
+  },
+  plural_de
 ];
+
+function plural_de_AT(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_de_AT = [
   'de-AT',
   [
     ['vm.', 'nm.'],
+    ['AM', 'PM'],
+  ],
+  [
+    ['vm.', 'nm.'],
     ['vorm.', 'nachm.'],
   ],
-  ,
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
     ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -833,20 +1157,37 @@ export const locale_de_AT = [
     '{1} \'um\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':', '.'],
-  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], '€', 'Euro', {
+    'ATS': ['öS'],
+    'AUD': ['AU$', '$'],
+    'BGM': ['BGK'],
+    'BGO': ['BGJ'],
+    'CUC': [, 'Cub$'],
+    'DEM': ['DM'],
+    'FKP': [, 'Fl£'],
+    'GNF': [, 'F.G.'],
+    'KMF': [, 'FC'],
+    'RON': [, 'L'],
+    'RWF': [, 'F.Rw'],
+    'SYP': [],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'ZMW': [, 'K']
+  },
+  plural_de_AT
 ];
+
+function plural_de_CH(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_de_CH = [
   'de-CH',
   [
     ['vm.', 'nm.'],
-    ['vorm.', 'nachm.'],
+    ['AM', 'PM'],
   ],
   [
     ['vorm.', 'nachm.'],
@@ -855,7 +1196,7 @@ export const locale_de_CH = [
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
     ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-    ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.']
+    ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
   ],
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
@@ -890,14 +1231,31 @@ export const locale_de_CH = [
     '{1} \'um\' {0}',
   ],
   ['.', '’', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤-#,##0.00', '#E0'], 'CHF', 'Schweizer Franken',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤-#,##0.00', '#E0'], 'CHF', 'Schweizer Franken', {
+    'ATS': ['öS'],
+    'AUD': ['AU$', '$'],
+    'BGM': ['BGK'],
+    'BGO': ['BGJ'],
+    'CUC': [, 'Cub$'],
+    'DEM': ['DM'],
+    'EUR': [],
+    'FKP': [, 'Fl£'],
+    'GNF': [, 'F.G.'],
+    'KMF': [, 'FC'],
+    'RON': [, 'L'],
+    'RWF': [, 'F.Rw'],
+    'SYP': [],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'ZMW': [, 'K']
+  },
+  plural_de_CH
 ];
+
+function plural_el(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_el = [
   'el',
@@ -905,10 +1263,7 @@ export const locale_el = [
     ['πμ', 'μμ'],
     ['π.μ.', 'μ.μ.'],
   ],
-  [
-    ['π.μ.', 'μ.μ.'],
-    ,
-  ],
+  ,
   [
     ['Κ', 'Δ', 'Τ', 'Τ', 'Π', 'Π', 'Σ'], ['Κυρ', 'Δευ', 'Τρί', 'Τετ', 'Πέμ', 'Παρ', 'Σάβ'],
     ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'],
@@ -940,12 +1295,15 @@ export const locale_el = [
     '{1} - {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'Ευρώ', function(n: number):
-                                                                 number {
-                                                                   if (n === 1) return 1;
-                                                                   return 5;
-                                                                 }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'Ευρώ',
+  {'GRD': ['Δρχ'], 'JPY': ['JP¥', '¥'], 'THB': ['฿']}, plural_el
 ];
+
+function plural_en_AU(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_AU = [
   'en-AU',
@@ -953,7 +1311,7 @@ export const locale_en_AU = [
     ['am', 'pm'],
     ,
   ],
-  [['am', 'pm'], ['AM', 'PM'], ['am', 'pm']],
+  ,
   [
     ['Su.', 'M.', 'Tu.', 'W.', 'Th.', 'F.', 'Sa.'],
     ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
@@ -977,32 +1335,71 @@ export const locale_en_AU = [
     ,
     '{1} \'at\' {0}',
   ],
-  ['.', ',', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Australian Dollar',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['.', ',', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', '.'],
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Australian Dollar', {
+    'AUD': ['$'],
+    'BDT': [, 'Tk'],
+    'BOB': [, '$b'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'CUP': [, '₱'],
+    'EGP': [, '£'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'ISK': [, 'Kr'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'PYG': [, 'Gs'],
+    'SCR': ['Rs'],
+    'SEK': [, 'Kr'],
+    'TWD': [, '$'],
+    'USD': [, '$'],
+    'UYU': [, '$U'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': ['CFP']
+  },
+  plural_en_AU
 ];
+
+function plural_en_CA(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_CA = [
   'en-CA',
   [
     ['a', 'p'],
-    ['AM', 'PM'],
+    ['a.m.', 'p.m.'],
   ],
   [
-    ['AM', 'PM'],
+    ['a.m.', 'p.m.'],
     ,
   ],
   [
-    ['S', 'M', 'T', 'W', 'T', 'F', 'S'], ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    ['S', 'M', 'T', 'W', 'T', 'F', 'S'], ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
     ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
   ],
   ,
+  [
+    ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+    ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'],
+    [
+      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+      'October', 'November', 'December'
+    ]
+  ],
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -1011,7 +1408,7 @@ export const locale_en_CA = [
       'October', 'November', 'December'
     ]
   ],
-  , [['B', 'A'], ['BC', 'AD'], ['Before Christ', 'Anno Domini']], 0, [6, 0],
+  [['B', 'A'], ['BC', 'AD'], ['Before Christ', 'Anno Domini']], 0, [6, 0],
   ['y-MM-dd', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
@@ -1019,15 +1416,16 @@ export const locale_en_CA = [
     ,
     '{1} \'at\' {0}',
   ],
-  ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['.', ',', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Canadian Dollar',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'CAD': ['$'], 'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_en_CA
 ];
+
+function plural_en_GB(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_GB = [
   'en-GB',
@@ -1063,13 +1461,14 @@ export const locale_en_GB = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '£', 'British Pound',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_en_GB
 ];
+
+function plural_en_IE(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_IE = [
   'en-IE', [['a', 'p'], ['AM', 'PM'], ['a.m.', 'p.m.']],
@@ -1101,13 +1500,14 @@ export const locale_en_IE = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_en_IE
 ];
+
+function plural_en_IN(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_IN = [
   'en-IN',
@@ -1134,7 +1534,7 @@ export const locale_en_IN = [
     ]
   ],
   , [['B', 'A'], ['BC', 'AD'], ['Before Christ', 'Anno Domini']], 0, [0, 0],
-  ['dd/MM/yy', 'dd-MMM-y', 'd MMMM y', 'EEEE d MMMM y'],
+  ['dd/MM/yy', 'dd-MMM-y', 'd MMMM y', 'EEEE, d MMMM, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1}, {0}',
@@ -1143,13 +1543,14 @@ export const locale_en_IN = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'Indian Rupee',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_en_IN
 ];
+
+function plural_en_SG(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_SG = [
   'en-SG',
@@ -1185,13 +1586,14 @@ export const locale_en_SG = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Singapore Dollar',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'SGD': ['$'], 'USD': ['US$', '$']}, plural_en_SG
 ];
+
+function plural_en_ZA(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_en_ZA = [
   'en-ZA',
@@ -1227,13 +1629,13 @@ export const locale_en_ZA = [
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R', 'South African Rand',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$'], 'ZAR': ['R']}, plural_en_ZA
 ];
+
+function plural_es(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_es = [
   'es',
@@ -1268,12 +1670,35 @@ export const locale_es = [
     '{1}, {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', function(n: number):
-                                                                  number {
-                                                                    if (n === 1) return 1;
-                                                                    return 5;
-                                                                  }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CNY': [, '¥'],
+    'EGP': [],
+    'ESP': ['₧'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'THB': ['฿'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural_es
 ];
+
+function plural_es_419(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_es_419 = [
   'es-419',
@@ -1296,16 +1721,6 @@ export const locale_es_419 = [
     ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA']
   ],
   [
-    ['e', 'f', 'm', 'a', 'm', 'j', 'j', 'a', 's', 'o', 'n', 'd'],
-    [
-      'ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'
-    ],
-    [
-      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
-      'octubre', 'noviembre', 'diciembre'
-    ]
-  ],
-  [
     ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     [
       'ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'
@@ -1315,7 +1730,7 @@ export const locale_es_419 = [
       'octubre', 'noviembre', 'diciembre'
     ]
   ],
-  [['a. C.', 'd. C.'], , ['antes de Cristo', 'después de Cristo']], 1, [6, 0],
+  , [['a. C.', 'd. C.'], , ['antes de Cristo', 'después de Cristo']], 1, [6, 0],
   ['d/M/yy', 'd MMM y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
@@ -1324,12 +1739,40 @@ export const locale_es_419 = [
     '{1}, {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], 'EUR', 'euro', function(n: number):
-                                                                   number {
-                                                                     if (n === 1) return 1;
-                                                                     return 5;
-                                                                   }
+  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], 'EUR', 'euro', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'ESP': ['₧'],
+    'EUR': [, '€'],
+    'FKP': [, 'FK£'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'SSP': [, 'SD£'],
+    'SYP': [, 'S£'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VEF': [, 'BsF'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural_es_419
 ];
+
+function plural_es_MX(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_es_MX = [
   'es-MX',
@@ -1349,7 +1792,7 @@ export const locale_es_MX = [
     ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA']
   ],
   [
-    ['e', 'f', 'm', 'a', 'm', 'j', 'j', 'a', 's', 'o', 'n', 'd'],
+    ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     [
       'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
@@ -1367,20 +1810,45 @@ export const locale_es_MX = [
     ]
   ],
   [['a. C.', 'd. C.'], , ['antes de Cristo', 'después de Cristo']], 0, [6, 0],
-  ['dd/MM/yy', 'dd/MM/y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
-  ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
+  ['dd/MM/yy', 'd MMM y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
+  ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
   [
     '{1} {0}',
     ,
     '{1}, {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'peso mexicano', function(n: number):
-                                                                         number {
-                                                                           if (n === 1) return 1;
-                                                                           return 5;
-                                                                         }
+  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], '$', 'peso mexicano', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'BYN': [, 'p.'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'ESP': ['₧'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': ['$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VEF': [, 'BsF'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural_es_MX
 ];
+
+function plural_es_US(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_es_US = [
   'es-US',
@@ -1390,25 +1858,11 @@ export const locale_es_US = [
   ],
   ,
   [
-    ['d', 'l', 'm', 'm', 'j', 'v', 's'], ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.'],
-    ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-    ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA']
-  ],
-  [
     ['D', 'L', 'M', 'M', 'J', 'V', 'S'], ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.'],
     ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
     ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA']
   ],
-  [
-    ['e', 'f', 'm', 'a', 'm', 'j', 'j', 'a', 's', 'o', 'n', 'd'],
-    [
-      'ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'
-    ],
-    [
-      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
-      'octubre', 'noviembre', 'diciembre'
-    ]
-  ],
+  ,
   [
     ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     [
@@ -1419,7 +1873,7 @@ export const locale_es_US = [
       'octubre', 'noviembre', 'diciembre'
     ]
   ],
-  [['a. C.', 'd. C.'], , ['antes de Cristo', 'después de Cristo']], 0, [6, 0],
+  , [['a. C.', 'd. C.'], , ['antes de Cristo', 'después de Cristo']], 0, [6, 0],
   ['d/M/yy', 'd MMM y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
@@ -1428,13 +1882,35 @@ export const locale_es_US = [
     '{1}, {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], '$', 'dólar estadounidense', function(n: number):
-                                                                                 number {
-                                                                                   if (n === 1)
-                                                                                     return 1;
-                                                                                   return 5;
-                                                                                 }
+  ['#,##0.###', '#,##0 %', '¤#,##0.00', '#E0'], '$', 'dólar estadounidense', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'ESP': ['₧'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'VEF': [, 'BsF'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural_es_US
 ];
+
+function plural_et(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_et = [
   'et',
@@ -1467,21 +1943,24 @@ export const locale_et = [
   ],
   [',', ' ', ';', '%', '+', '−', '×10^', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  {'AUD': ['AU$', '$'], 'EEK': ['kr'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_et
 ];
+
+function plural_eu(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_eu = [
   'eu',
   [
+    ['g', 'a'],
+    ['AM', 'PM'],
+  ],
+  [
     ['AM', 'PM'],
     ,
   ],
-  ,
   [
     ['I', 'A', 'A', 'A', 'O', 'O', 'L'], ['ig.', 'al.', 'ar.', 'az.', 'og.', 'or.', 'lr.'],
     ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'],
@@ -1513,27 +1992,33 @@ export const locale_eu = [
     ]
   ],
   [['K.a.', 'K.o.'], , ['K.a.', 'Kristo ondoren']], 1, [6, 0],
-  ['yy/M/d', 'y MMM d', 'y(\'e\')\'ko\' MMMM d', 'y(\'e\')\'ko\' MMMM d, EEEE'],
+  [
+    'yy/M/d', 'y MMM d', 'y(\'e\')\'ko\' MMMM\'ren\' d(\'a\')',
+    'y(\'e\')\'ko\' MMMM\'ren\' d(\'a\'), EEEE'
+  ],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss (z)', 'HH:mm:ss (zzzz)'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '% #,##0', '#,##0.00 ¤', '#E0'], '€', 'euroa', function(n: number):
-                                                                   number {
-                                                                     if (n === 1) return 1;
-                                                                     return 5;
-                                                                   }
+  [',', '.', ';', '%', '+', '−', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '% #,##0', '#,##0.00 ¤', '#E0'], '€', 'euroa',
+  {'ESP': ['₧'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']}, plural_eu
 ];
 
+function plural_fa(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
+
 export const locale_fa = [
-  'fa', [['ق', 'ب'], ['ق.ظ.', 'ب.ظ.'], ['قبل‌ازظهر', 'بعدازظهر']],
-  [['ق.ظ.', 'ب.ظ.'], , ['قبل‌ازظهر', 'بعدازظهر']],
+  'fa', [['ق', 'ب'], ['ق.ظ.', 'ب.ظ.'], ['قبل\u200cازظهر', 'بعدازظهر']],
+  [['ق.ظ.', 'ب.ظ.'], , ['قبل\u200cازظهر', 'بعدازظهر']],
   [
     ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'],
-    ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'], ,
+    ['یکشنبه', 'دوشنبه', 'سه\u200cشنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'], ,
     ['۱ش', '۲ش', '۳ش', '۴ش', '۵ش', 'ج', 'ش']
   ],
   ,
@@ -1555,19 +2040,30 @@ export const locale_fa = [
   ['y/M/d', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
   ['H:mm', 'H:mm:ss', 'H:mm:ss (z)', 'H:mm:ss (zzzz)'],
   [
-    '{1}،‏ {0}',
+    '{1}،\u200f {0}',
     ,
     '{1}، ساعت {0}',
   ],
-  ['.', ',', ';', '%', '‎+', '‎−', 'E', '×', '‰', '∞', 'ناعدد', ':'],
-  ['#,##0.###', '#,##0%', '‎¤ #,##0.00', '#E0'], 'ریال', 'ریال ایران',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  ['.', ',', ';', '%', '\u200e+', '\u200e−', 'E', '×', '‰', '∞', 'ناعدد', ':'],
+  ['#,##0.###', '#,##0%', '\u200e¤ #,##0.00', '#E0'], 'ریال', 'ریال ایران', {
+    'AFN': ['؋'],
+    'CAD': ['$CA', '$'],
+    'CNY': ['¥CN', '¥'],
+    'HKD': ['$HK', '$'],
+    'IRR': ['ریال'],
+    'MXN': ['$MX', '$'],
+    'NZD': ['$NZ', '$'],
+    'THB': ['฿'],
+    'XCD': ['$EC', '$']
+  },
+  plural_fa
 ];
+
+function plural_fi(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_fi = [
   'fi',
@@ -1620,14 +2116,111 @@ export const locale_fi = [
     ,
   ],
   [',', ' ', ';', '%', '+', '−', 'E', '×', '‰', '∞', 'epäluku', '.'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AOA': [],
+    'ARS': [],
+    'AUD': [],
+    'BAM': [],
+    'BBD': [],
+    'BDT': [],
+    'BMD': [],
+    'BND': [],
+    'BOB': [],
+    'BRL': [],
+    'BSD': [],
+    'BWP': [],
+    'BYN': [],
+    'BZD': [],
+    'CAD': [],
+    'CLP': [],
+    'CNY': [],
+    'COP': [],
+    'CRC': [],
+    'CUC': [],
+    'CUP': [],
+    'CZK': [],
+    'DKK': [],
+    'DOP': [],
+    'EGP': [],
+    'ESP': [],
+    'FIM': ['mk'],
+    'FJD': [],
+    'FKP': [],
+    'GEL': [],
+    'GIP': [],
+    'GNF': [],
+    'GTQ': [],
+    'GYD': [],
+    'HKD': [],
+    'HNL': [],
+    'HRK': [],
+    'HUF': [],
+    'IDR': [],
+    'ILS': [],
+    'INR': [],
+    'ISK': [],
+    'JMD': [],
+    'KHR': [],
+    'KMF': [],
+    'KPW': [],
+    'KRW': [],
+    'KYD': [],
+    'KZT': [],
+    'LAK': [],
+    'LBP': [],
+    'LKR': [],
+    'LRD': [],
+    'LTL': [],
+    'LVL': [],
+    'MGA': [],
+    'MMK': [],
+    'MNT': [],
+    'MUR': [],
+    'MXN': [],
+    'MYR': [],
+    'NAD': [],
+    'NGN': [],
+    'NIO': [],
+    'NOK': [],
+    'NPR': [],
+    'NZD': [],
+    'PHP': [],
+    'PKR': [],
+    'PLN': [],
+    'PYG': [],
+    'RON': [],
+    'RUR': [],
+    'RWF': [],
+    'SBD': [],
+    'SEK': [],
+    'SGD': [],
+    'SHP': [],
+    'SRD': [],
+    'SSP': [],
+    'STD': [],
+    'SYP': [],
+    'THB': [],
+    'TOP': [],
+    'TRY': [],
+    'TTD': [],
+    'TWD': [],
+    'UAH': [],
+    'UYU': [],
+    'VEF': [],
+    'VND': [],
+    'XCD': [],
+    'XPF': [],
+    'ZAR': [],
+    'ZMW': []
+  },
+  plural_fi
 ];
+
+function plural_fr(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
 
 export const locale_fr = [
   'fr',
@@ -1662,14 +2255,60 @@ export const locale_fr = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', function(n: number):
-                                                                  number {
-                                                                    let i = Math.floor(Math.abs(n));
-                                                                    if (i === 0 || i === 1)
-                                                                      return 1;
-                                                                    return 5;
-                                                                  }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'ARS': ['$AR', '$'],
+    'AUD': ['$AU', '$'],
+    'BEF': ['FB'],
+    'BMD': ['$BM', '$'],
+    'BND': ['$BN', '$'],
+    'BSD': ['$BS', '$'],
+    'BZD': ['$BZ', '$'],
+    'CAD': ['$CA', '$'],
+    'CLP': ['$CL', '$'],
+    'CNY': [, '¥'],
+    'COP': ['$CO', '$'],
+    'CYP': ['£CY'],
+    'EGP': [, '£E'],
+    'FJD': ['$FJ', '$'],
+    'FKP': ['£FK', '£'],
+    'FRF': ['F'],
+    'GBP': ['£GB', '£'],
+    'GIP': ['£GI', '£'],
+    'HKD': [, '$'],
+    'IEP': ['£IE'],
+    'ILP': ['£IL'],
+    'ITL': ['₤IT'],
+    'JPY': [, '¥'],
+    'KMF': [, 'FC'],
+    'LBP': ['£LB', '£L'],
+    'MTP': ['£MT'],
+    'MXN': ['$MX', '$'],
+    'NAD': ['$NA', '$'],
+    'NIO': [, '$C'],
+    'NZD': ['$NZ', '$'],
+    'RHD': ['$RH'],
+    'RON': [, 'L'],
+    'RWF': [, 'FR'],
+    'SBD': ['$SB', '$'],
+    'SGD': ['$SG', '$'],
+    'SRD': ['$SR', '$'],
+    'TTD': ['$TT', '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['$US', '$'],
+    'UYU': ['$UY', '$'],
+    'WST': ['WS$'],
+    'XCD': [, '$'],
+    'XPF': ['FCFP'],
+    'ZMW': [, 'Kw']
+  },
+  plural_fr
 ];
+
+function plural_fr_CA(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
 
 export const locale_fr_CA = [
   'fr-CA',
@@ -1678,8 +2317,8 @@ export const locale_fr_CA = [
     ['a.m.', 'p.m.'],
   ],
   [
-    ['AM', 'PM'],
     ['a.m.', 'p.m.'],
+    ,
   ],
   [
     ['D', 'L', 'M', 'M', 'J', 'V', 'S'], ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
@@ -1700,29 +2339,70 @@ export const locale_fr_CA = [
   ],
   , [['av. J.-C.', 'ap. J.-C.'], , ['avant Jésus-Christ', 'après Jésus-Christ']], 0, [6, 0],
   ['yy-MM-dd', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
-  ['HH \'h\' mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
+  [
+    'HH \'h\' mm', 'HH \'h\' mm \'min\' ss \'s\'', 'HH \'h\' mm \'min\' ss \'s\' z',
+    'HH \'h\' mm \'min\' ss \'s\' zzzz'
+  ],
   [
     '{1} {0}',
     ,
     '{1} \'à\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || i === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien', {
+    'AUD': ['$ AU', '$'],
+    'BEF': ['FB'],
+    'BYN': [, 'Br'],
+    'CAD': ['$'],
+    'CYP': ['£CY'],
+    'EGP': [, '£E'],
+    'FRF': ['F'],
+    'GEL': [],
+    'HKD': ['$ HK', '$'],
+    'IEP': ['£IE'],
+    'ILP': ['£IL'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'ITL': ['₤IT'],
+    'KRW': [, '₩'],
+    'LBP': [, '£L'],
+    'MTP': ['£MT'],
+    'MXN': [, '$'],
+    'NZD': ['$ NZ', '$'],
+    'RHD': ['$RH'],
+    'RON': [, 'L'],
+    'RWF': [, 'FR'],
+    'SGD': ['$ SG', '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['$ US', '$'],
+    'VND': [, '₫'],
+    'WST': ['WS$'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': []
+  },
+  plural_fr_CA
 ];
+
+function plural_ga(n: number): number {
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  if (n === Math.floor(n) && n >= 3 && n <= 6) return 3;
+  if (n === Math.floor(n) && n >= 7 && n <= 10) return 4;
+  return 5;
+}
 
 export const locale_ga = [
   'ga',
   [
     ['a', 'p'],
+    ['r.n.', 'i.n.'],
+  ],
+  [
+    ['a', 'p'],
     ['a.m.', 'p.m.'],
   ],
-  ,
   [
     ['D', 'L', 'M', 'C', 'D', 'A', 'S'], ['Domh', 'Luan', 'Máirt', 'Céad', 'Déar', 'Aoine', 'Sath'],
     [
@@ -1751,16 +2431,15 @@ export const locale_ga = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        if (n === Math.floor(n) && n >= 3 && n <= 6) return 3;
-        if (n === Math.floor(n) && n >= 7 && n <= 10) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'Euro', {'THB': ['฿'], 'TWD': ['NT$']},
+  plural_ga
 ];
+
+function plural_gl(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_gl = [
   'gl',
@@ -1773,7 +2452,7 @@ export const locale_gl = [
     ['d.', 'l.', 'm.', 'm.', 'x.', 'v.', 's.'],
     ['dom.', 'luns', 'mar.', 'mér.', 'xov.', 'ven.', 'sáb.'],
     ['domingo', 'luns', 'martes', 'mércores', 'xoves', 'venres', 'sábado'],
-    ['dom.', 'luns', 'mar.', 'mér.', 'xov.', 'ven.', 'sáb.']
+    ['do.', 'lu.', 'ma.', 'mé.', 'xo.', 've.', 'sá.']
   ],
   [
     ['D', 'L', 'M', 'M', 'X', 'V', 'S'], ['Dom.', 'Luns', 'Mar.', 'Mér.', 'Xov.', 'Ven.', 'Sáb.'],
@@ -1801,7 +2480,7 @@ export const locale_gl = [
     ]
   ],
   [['a.C.', 'd.C.'], , ['antes de Cristo', 'despois de Cristo']], 1, [6, 0],
-  ['dd/MM/yy', 'd \'de\' MMM \'de\' y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
+  ['dd/MM/yy', 'dd/MM/y', 'd \'de\' MMMM \'de\' y', 'EEEE, d \'de\' MMMM \'de\' y'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{0}, {1}',
@@ -1809,14 +2488,22 @@ export const locale_gl = [
     '{0} \'do\' {1}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euro', {
+    'ESP': ['₧'],
+    'JPY': ['JP¥', '¥'],
+    'KMF': [, 'FC'],
+    'MXN': ['$MX', '$'],
+    'RUB': [, 'руб'],
+    'THB': ['฿'],
+    'TWD': ['NT$']
+  },
+  plural_gl
 ];
+
+function plural_gsw(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_gsw = [
   'gsw', [['vorm.', 'nam.'], , ['am Vormittag', 'am Namittag']],
@@ -1848,13 +2535,15 @@ export const locale_gsw = [
     ,
   ],
   ['.', '’', ';', '%', '+', '−', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'CHF', 'Schwiizer Franke', function(n: number):
-                                                                                number {
-                                                                                  if (n === 1)
-                                                                                    return 1;
-                                                                                  return 5;
-                                                                                }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'CHF', 'Schwiizer Franke', {'ATS': ['öS']},
+  plural_gsw
 ];
+
+function plural_gu(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_gu = [
   'gu',
@@ -1883,17 +2572,18 @@ export const locale_gu = [
   [
     '{1} {0}',
     ,
-    ,
+    '{1} એ {0} વાગ્યે',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##,##0%', '¤#,##,##0.00', '[#E0]'], '₹', 'ભારતીય રૂપિયા',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'MUR': [, 'રૂ.'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']},
+  plural_gu
 ];
+
+function plural_haw(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_haw = [
   'haw',
@@ -1929,12 +2619,14 @@ export const locale_haw = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'USD', function(n: number):
-                                                               number {
-                                                                 if (n === 1) return 1;
-                                                                 return 5;
-                                                               }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'USD', {'JPY': ['JP¥', '¥']}, plural_haw
 ];
+
+function plural_hi(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_hi = [
   'hi',
@@ -1958,7 +2650,7 @@ export const locale_hi = [
     ]
   ],
   , [['ईसा-पूर्व', 'ईस्वी'], , ['ईसा-पूर्व', 'ईसवी सन']], 0, [0, 0],
-  ['d/M/yy', 'dd/MM/y', 'd MMMM y', 'EEEE, d MMMM y'],
+  ['d/M/yy', 'd MMM y', 'd MMMM y', 'EEEE, d MMMM y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1}, {0}',
@@ -1967,13 +2659,20 @@ export const locale_hi = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##,##0%', '¤#,##,##0.00', '[#E0]'], '₹', 'भारतीय रुपया',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'RON': [, 'लेई'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_hi
 ];
+
+function plural_hr(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+          !(i % 100 >= 12 && i % 100 <= 14) ||
+      f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
+          !(f % 100 >= 12 && f % 100 <= 14))
+    return 3;
+  return 5;
+}
 
 export const locale_hr = [
   'hr',
@@ -2017,21 +2716,33 @@ export const locale_hr = [
     '{1} \'u\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'HRK', 'hrvatska kuna',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11))
-          return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-                !(i % 100 >= 12 && i % 100 <= 14) ||
-            f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
-                !(f % 100 >= 12 && f % 100 <= 14))
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'HRK', 'hrvatska kuna', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$'],
+    'XPF': []
+  },
+  plural_hr
 ];
+
+function plural_hu(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_hu = [
   'hu',
@@ -2057,8 +2768,8 @@ export const locale_hu = [
       'szeptember', 'október', 'november', 'december'
     ]
   ],
-  , [['ie.', 'isz.'], ['i. e.', 'i. sz.'], ['időszámításunk előtt', 'időszámításunk szerint']], 1,
-  [6, 0], ['y. MM. dd.', 'y. MMM d.', 'y. MMMM d.', 'y. MMMM d., EEEE'],
+  , [['ie.', 'isz.'], ['i. e.', 'i. sz.'], ['Krisztus előtt', 'időszámításunk szerint']], 1, [6, 0],
+  ['y. MM. dd.', 'y. MMM d.', 'y. MMMM d.', 'y. MMMM d., EEEE'],
   ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
   [
     '{1} {0}',
@@ -2066,15 +2777,44 @@ export const locale_hu = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'Ft', 'magyar forint', function(n: number):
-                                                                           number {
-                                                                             if (n === 1) return 1;
-                                                                             return 5;
-                                                                           }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'Ft', 'magyar forint', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'HUF': ['Ft'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$']
+  },
+  plural_hu
 ];
 
+function plural_hy(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
+
 export const locale_hy = [
-  'hy', [['ա', 'հ'], ['ԿԱ', 'ԿՀ'], ['AM', 'PM']], [['ԿԱ', 'ԿՀ'], , ['AM', 'PM']],
+  'hy',
+  [
+    ['ա', 'հ'],
+    ['ԿԱ', 'ԿՀ'],
+  ],
+  [
+    ['ԿԱ', 'ԿՀ'],
+    ,
+  ],
   [
     ['Կ', 'Ե', 'Ե', 'Չ', 'Հ', 'Ո', 'Շ'], ['կիր', 'երկ', 'երք', 'չրք', 'հնգ', 'ուր', 'շբթ'],
     ['կիրակի', 'երկուշաբթի', 'երեքշաբթի', 'չորեքշաբթի', 'հինգշաբթի', 'ուրբաթ', 'շաբաթ'],
@@ -2106,14 +2846,13 @@ export const locale_hy = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'ՈչԹ', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '֏', 'Հայկական դրամ',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || i === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '֏', 'հայկական դրամ',
+  {'AMD': ['֏'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_hy
 ];
+
+function plural_in(n: number): number {
+  return 5;
+}
 
 export const locale_in = [
   'id',
@@ -2145,9 +2884,24 @@ export const locale_in = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', '.'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'Rp', 'Rupiah Indonesia',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'Rp', 'Rupiah Indonesia', {
+    'AUD': ['AU$', '$'],
+    'IDR': ['Rp'],
+    'INR': ['Rs', '₹'],
+    'JPY': ['JP¥', '¥'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_in
 ];
+
+function plural_is(n: number): number {
+  let i = Math.floor(Math.abs(n)),
+      t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
+  if (t === 0 && i % 10 === 1 && !(i % 100 === 11) || !(t === 0)) return 1;
+  return 5;
+}
 
 export const locale_is = [
   'is',
@@ -2185,15 +2939,29 @@ export const locale_is = [
     '{1} \'kl\'. {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'ISK', 'íslensk króna',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)),
-            t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
-        if (t === 0 && i % 10 === 1 && !(i % 100 === 11) || !(t === 0)) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'ISK', 'íslensk króna', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'INR': [, '₹'],
+    'JPY': ['JP¥', '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫']
+  },
+  plural_is
 ];
+
+function plural_it(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_it = [
   'it',
@@ -2217,7 +2985,7 @@ export const locale_it = [
     ]
   ],
   , [['aC', 'dC'], ['a.C.', 'd.C.'], ['avanti Cristo', 'dopo Cristo']], 1, [6, 0],
-  ['dd/MM/yy', 'dd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
+  ['dd/MM/yy', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{1}, {0}',
@@ -2225,14 +2993,29 @@ export const locale_it = [
     '{1} {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'BRL': [, 'R$'],
+    'BYN': [, 'Br'],
+    'EGP': [, '£E'],
+    'HKD': [, '$'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NOK': [, 'NKr'],
+    'THB': ['฿'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$']
+  },
+  plural_it
 ];
+
+function plural_iw(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (i === 2 && v === 0) return 2;
+  if (v === 0 && !(n >= 0 && n <= 10) && n % 10 === 0) return 4;
+  return 5;
+}
 
 export const locale_iw = [
   'he',
@@ -2240,7 +3023,10 @@ export const locale_iw = [
     ['לפנה״צ', 'אחה״צ'],
     ,
   ],
-  ,
+  [
+    ['לפנה״צ', 'אחה״צ'],
+    ['AM', 'PM'],
+  ],
   [
     ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'],
     ['יום א׳', 'יום ב׳', 'יום ג׳', 'יום ד׳', 'יום ה׳', 'יום ו׳', 'שבת'],
@@ -2264,17 +3050,14 @@ export const locale_iw = [
     ,
     '{1} בשעה {0}',
   ],
-  ['.', ',', ';', '%', '‎+', '‎-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '‏#,##0.00 ¤;‏-#,##0.00 ¤', '#E0'], '₪', 'שקל חדש',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (i === 2 && v === 0) return 2;
-        if (v === 0 && !(n >= 0 && n <= 10) && n % 10 === 0) return 4;
-        return 5;
-      }
+  ['.', ',', ';', '%', '\u200e+', '\u200e-', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '#,##0%', '\u200f#,##0.00 ¤;\u200f-#,##0.00 ¤', '#E0'], '₪', 'שקל חדש',
+  {'CNY': ['\u200eCN¥\u200e', '¥'], 'ILP': ['ל״י'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_iw
 ];
+
+function plural_ja(n: number): number {
+  return 5;
+}
 
 export const locale_ja = [
   'ja',
@@ -2307,8 +3090,13 @@ export const locale_ja = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '￥', '日本円',
-  function(n: number): number { return 5;}
+  {'CNY': ['元', '￥'], 'JPY': ['￥'], 'RON': [, 'レイ']}, plural_ja
 ];
+
+function plural_ka(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_ka = [
   'ka',
@@ -2340,12 +3128,27 @@ export const locale_ka = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'არ არის რიცხვი', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '₾', 'ქართული ლარი', function(n: number):
-                                                                            number {
-                                                                              if (n === 1) return 1;
-                                                                              return 5;
-                                                                            }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₾', 'ქართული ლარი', {
+    'AUD': [, '$'],
+    'CNY': [, '¥'],
+    'GEL': ['₾'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'NZD': [, '$'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural_ka
 ];
+
+function plural_kk(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_kk = [
   'kk',
@@ -2384,7 +3187,7 @@ export const locale_kk = [
       'Қазан', 'Қараша', 'Желтоқсан'
     ]
   ],
-  [['б.з.д.', 'б.з.'], , ['Біздің заманымызға дейін', 'Біздің заманымыз']], 1, [6, 0],
+  [['б.з.д.', 'б.з.'], , ['Біздің заманымызға дейін', 'біздің заманымыз']], 1, [6, 0],
   ['dd.MM.yy', 'y \'ж\'. dd MMM', 'y \'ж\'. d MMMM', 'y \'ж\'. d MMMM, EEEE'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
@@ -2393,13 +3196,13 @@ export const locale_kk = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'сан емес', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₸', 'Қазақстан теңгесі', function(n: number):
-                                                                              number {
-                                                                                if (n === 1)
-                                                                                  return 1;
-                                                                                return 5;
-                                                                              }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₸', 'Қазақстан теңгесі',
+  {'JPY': ['JP¥', '¥'], 'KZT': ['₸'], 'RUB': ['₽'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_kk
 ];
+
+function plural_km(n: number): number {
+  return 5;
+}
 
 export const locale_km = [
   'km',
@@ -2430,8 +3233,14 @@ export const locale_km = [
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '#,##0.00¤', '#E0'], '៛', 'រៀល​កម្ពុជា',
-  function(n: number): number { return 5;}
+  {'JPY': ['JP¥', '¥'], 'KHR': ['៛'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_km
 ];
+
+function plural_kn(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_kn = [
   'kn',
@@ -2451,13 +3260,21 @@ export const locale_kn = [
   ,
   [
     ['ಜ', 'ಫೆ', 'ಮಾ', 'ಏ', 'ಮೇ', 'ಜೂ', 'ಜು', 'ಆ', 'ಸೆ', 'ಅ', 'ನ', 'ಡಿ'],
+    ['ಜನವರಿ', 'ಫೆಬ್ರವರಿ', 'ಮಾರ್ಚ್', 'ಏಪ್ರಿ', 'ಮೇ', 'ಜೂನ್', 'ಜುಲೈ', 'ಆಗ', 'ಸೆಪ್ಟೆಂ', 'ಅಕ್ಟೋ', 'ನವೆಂ', 'ಡಿಸೆಂ'],
+    [
+      'ಜನವರಿ', 'ಫೆಬ್ರವರಿ', 'ಮಾರ್ಚ್', 'ಏಪ್ರಿಲ್', 'ಮೇ', 'ಜೂನ್', 'ಜುಲೈ', 'ಆಗಸ್ಟ್', 'ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್', 'ನವೆಂಬರ್',
+      'ಡಿಸೆಂಬರ್'
+    ]
+  ],
+  [
+    ['ಜ', 'ಫೆ', 'ಮಾ', 'ಏ', 'ಮೇ', 'ಜೂ', 'ಜು', 'ಆ', 'ಸೆ', 'ಅ', 'ನ', 'ಡಿ'],
     ['ಜನ', 'ಫೆಬ್ರ', 'ಮಾರ್ಚ್', 'ಏಪ್ರಿ', 'ಮೇ', 'ಜೂನ್', 'ಜುಲೈ', 'ಆಗ', 'ಸೆಪ್ಟೆಂ', 'ಅಕ್ಟೋ', 'ನವೆಂ', 'ಡಿಸೆಂ'],
     [
       'ಜನವರಿ', 'ಫೆಬ್ರವರಿ', 'ಮಾರ್ಚ್', 'ಏಪ್ರಿಲ್', 'ಮೇ', 'ಜೂನ್', 'ಜುಲೈ', 'ಆಗಸ್ಟ್', 'ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್', 'ನವೆಂಬರ್',
       'ಡಿಸೆಂಬರ್'
     ]
   ],
-  , [['ಕ್ರಿ.ಪೂ', 'ಕ್ರಿ.ಶ'], , ['ಕ್ರಿಸ್ತ ಪೂರ್ವ', 'ಕ್ರಿಸ್ತ ಶಕ']], 0, [0, 0],
+  [['ಕ್ರಿ.ಪೂ', 'ಕ್ರಿ.ಶ'], , ['ಕ್ರಿಸ್ತ ಪೂರ್ವ', 'ಕ್ರಿಸ್ತ ಶಕ']], 0, [0, 0],
   ['d/M/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['hh:mm a', 'hh:mm:ss a', 'hh:mm:ss a z', 'hh:mm:ss a zzzz'],
   [
@@ -2467,13 +3284,12 @@ export const locale_kn = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '₹', 'ಭಾರತೀಯ ರೂಪಾಯಿ',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'RON': [, 'ಲೀ'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_kn
 ];
+
+function plural_ko(n: number): number {
+  return 5;
+}
 
 export const locale_ko = [
   'ko', [['AM', 'PM'], , ['오전', '오후']], ,
@@ -2497,8 +3313,14 @@ export const locale_ko = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '₩', '대한민국 원',
-  function(n: number): number { return 5;}
+  {'AUD': ['AU$', '$'], 'JPY': ['JP¥', '¥'], 'RON': [, 'L'], 'TWD': ['NT$'], 'USD': ['US$', '$']},
+  plural_ko
 ];
+
+function plural_ky(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_ky = [
   'ky', [['тң', 'тк'], , ['таңкы', 'түштөн кийинки']], ,
@@ -2539,13 +3361,39 @@ export const locale_ky = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'сан эмес', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'сом', 'Кыргызстан сому', function(n: number):
-                                                                              number {
-                                                                                if (n === 1)
-                                                                                  return 1;
-                                                                                return 5;
-                                                                              }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'сом', 'Кыргызстан сому', {
+    'AUD': [, '$'],
+    'BMD': [, 'BD$'],
+    'BRL': [, 'R$'],
+    'BSD': [, 'B$'],
+    'BZD': [, 'BZ$'],
+    'CAD': [, 'C$'],
+    'DOP': [, 'RD$'],
+    'EGP': [, 'LE'],
+    'GBP': [, '£'],
+    'HKD': [, 'HK$'],
+    'HRK': [, 'Kn'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JMD': [, 'J$'],
+    'JPY': ['JP¥', '¥'],
+    'KGS': ['сом'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'THB': ['฿'],
+    'TTD': [, 'TT$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'XCD': [, '$']
+  },
+  plural_ky
 ];
+
+function plural_ln(n: number): number {
+  if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
+  return 5;
+}
 
 export const locale_ln = [
   'ln',
@@ -2582,12 +3430,12 @@ export const locale_ln = [
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'FC', 'Falánga ya Kongó',
-  function(n: number):
-      number {
-        if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
-        return 5;
-      }
+  {'CDF': ['FC'], 'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_ln
 ];
+
+function plural_lo(n: number): number {
+  return 5;
+}
 
 export const locale_lo = [
   'lo',
@@ -2625,8 +3473,18 @@ export const locale_lo = [
     'ບໍ່​ແມ່ນ​ໂຕ​ເລກ', ':'
   ],
   ['#,##0.###', '#,##0%', '¤#,##0.00;¤-#,##0.00', '#'], '₭', 'ລາວ ກີບ',
-  function(n: number): number { return 5;}
+  {'JPY': ['JP¥', '¥'], 'LAK': ['₭'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']}, plural_lo
 ];
+
+function plural_lt(n: number): number {
+  let f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (n % 10 === 1 && !(n % 100 >= 11 && n % 100 <= 19)) return 1;
+  if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 9 &&
+      !(n % 100 >= 11 && n % 100 <= 19))
+    return 3;
+  if (!(f === 0)) return 4;
+  return 5;
+}
 
 export const locale_lt = [
   'lt',
@@ -2675,22 +3533,53 @@ export const locale_lt = [
     ,
   ],
   [',', ' ', ';', '%', '+', '−', '×10^', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euras',
-  function(n: number):
-      number {
-        let f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (n % 10 === 1 && !(n % 100 >= 11 && n % 100 <= 19)) return 1;
-        if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 9 &&
-            !(n % 100 >= 11 && n % 100 <= 19))
-          return 3;
-        if (!(f === 0)) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'Euras', {
+    'AUD': [, '$'],
+    'BDT': [],
+    'BRL': [, 'R$'],
+    'BYN': [, 'Br'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [],
+    'INR': [],
+    'JPY': [, '¥'],
+    'KHR': [],
+    'KRW': [, '₩'],
+    'LAK': [],
+    'MNT': [],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'PLN': [, 'zl'],
+    'PYG': [, 'Gs'],
+    'RUB': [, 'rb'],
+    'TWD': [, '$'],
+    'USD': [, '$'],
+    'VND': [],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': []
+  },
+  plural_lt
 ];
+
+function plural_lv(n: number): number {
+  let v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (n % 10 === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19 ||
+      v === 2 && f % 100 === Math.floor(f % 100) && f % 100 >= 11 && f % 100 <= 19)
+    return 0;
+  if (n % 10 === 1 && !(n % 100 === 11) || v === 2 && f % 10 === 1 && !(f % 100 === 11) ||
+      !(v === 2) && f % 10 === 1)
+    return 1;
+  return 5;
+}
 
 export const locale_lv = [
   'lv', [['priekšp.', 'pēcp.'], , ['priekšpusdienā', 'pēcpusdienā']],
-  [['priekšp.', 'pēcp.'], ['priekšp.', 'pēcpusd.'], ['priekšpusdiena', 'pēcpusdiena']],
+  [['priekšp.', 'pēcpusd.'], , ['priekšpusdiena', 'pēcpusdiena']],
   [
     ['S', 'P', 'O', 'T', 'C', 'P', 'S'],
     ['svētd.', 'pirmd.', 'otrd.', 'trešd.', 'ceturtd.', 'piektd.', 'sestd.'],
@@ -2724,19 +3613,15 @@ export const locale_lv = [
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NS', ':'],
   ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'eiro',
-  function(n: number):
-      number {
-        let v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (n % 10 === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19 ||
-            v === 2 && f % 100 === Math.floor(f % 100) && f % 100 >= 11 && f % 100 <= 19)
-          return 0;
-        if (n % 10 === 1 && !(n % 100 === 11) || v === 2 && f % 10 === 1 && !(f % 100 === 11) ||
-            !(v === 2) && f % 10 === 1)
-          return 1;
-        return 5;
-      }
+  {'AUD': ['AU$', '$'], 'LVL': ['Ls'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_lv
 ];
+
+function plural_mk(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && i % 10 === 1 || f % 10 === 1) return 1;
+  return 5;
+}
 
 export const locale_mk = [
   'mk', [['претпл.', 'попл.'], , ['претпладне', 'попладне']], ,
@@ -2770,15 +3655,28 @@ export const locale_mk = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'ден', 'Македонски денар',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && i % 10 === 1 || f % 10 === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'ден', 'Македонски денар', {
+    'AUD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MKD': ['ден'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural_mk
 ];
+
+function plural_ml(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_ml = [
   'ml',
@@ -2791,9 +3689,8 @@ export const locale_ml = [
     ['ഞ', 'തി', 'ചൊ', 'ബു', 'വ്യാ', 'വെ', 'ശ'],
     ['ഞായർ', 'തിങ്കൾ', 'ചൊവ്വ', 'ബുധൻ', 'വ്യാഴം', 'വെള്ളി', 'ശനി'],
     [
-      'ഞായറാഴ്‌ച', 'തിങ്കളാഴ്‌ച', 'ചൊവ്വാഴ്ച',
-      'ബുധനാഴ്‌ച', 'വ്യാഴാഴ്‌ച',
-      'വെള്ളിയാഴ്‌ച', 'ശനിയാഴ്‌ച'
+      'ഞായറാഴ്\u200cച', 'തിങ്കളാഴ്\u200cച', 'ചൊവ്വാഴ്ച', 'ബുധനാഴ്\u200cച', 'വ്യാഴാഴ്\u200cച',
+      'വെള്ളിയാഴ്\u200cച', 'ശനിയാഴ്\u200cച'
     ],
     ['ഞാ', 'തി', 'ചൊ', 'ബു', 'വ്യാ', 'വെ', 'ശ']
   ],
@@ -2801,34 +3698,21 @@ export const locale_ml = [
     ['ഞാ', 'തി', 'ചൊ', 'ബു', 'വ്യാ', 'വെ', 'ശ'],
     ['ഞായർ', 'തിങ്കൾ', 'ചൊവ്വ', 'ബുധൻ', 'വ്യാഴം', 'വെള്ളി', 'ശനി'],
     [
-      'ഞായറാഴ്‌ച', 'തിങ്കളാഴ്‌ച',
-      'ചൊവ്വാഴ്‌ച', 'ബുധനാഴ്‌ച',
-      'വ്യാഴാഴ്‌ച', 'വെള്ളിയാഴ്‌ച',
-      'ശനിയാഴ്‌ച'
+      'ഞായറാഴ്\u200cച', 'തിങ്കളാഴ്\u200cച', 'ചൊവ്വാഴ്\u200cച', 'ബുധനാഴ്\u200cച', 'വ്യാഴാഴ്\u200cച',
+      'വെള്ളിയാഴ്\u200cച', 'ശനിയാഴ്\u200cച'
     ],
     ['ഞാ', 'തി', 'ചൊ', 'ബു', 'വ്യാ', 'വെ', 'ശ']
-  ],
-  [
-    ['ജ', 'ഫ', 'മാ', 'ഏ', 'മെ', 'ജൂൺ', 'ജൂ', 'ഓ', 'സെ', 'ഒ', 'ന', 'ഡി'],
-    ['ജനു', 'ഫെബ്രു', 'മാർ', 'ഏപ്രി', 'മേയ്', 'ജൂൺ', 'ജൂലൈ', 'ഓഗ', 'സെപ്റ്റം', 'ഒക്ടോ', 'നവം', 'ഡിസം'],
-    [
-      'ജനുവരി', 'ഫെബ്രുവരി', 'മാർച്ച്', 'ഏപ്രിൽ', 'മേയ്', 'ജൂൺ', 'ജൂലൈ', 'ഓഗസ്റ്റ്', 'സെപ്റ്റംബർ',
-      'ഒക്‌ടോബർ', 'നവംബർ', 'ഡിസംബർ'
-    ]
   ],
   [
     ['ജ', 'ഫെ', 'മാ', 'ഏ', 'മെ', 'ജൂൺ', 'ജൂ', 'ഓ', 'സെ', 'ഒ', 'ന', 'ഡി'],
     ['ജനു', 'ഫെബ്രു', 'മാർ', 'ഏപ്രി', 'മേയ്', 'ജൂൺ', 'ജൂലൈ', 'ഓഗ', 'സെപ്റ്റം', 'ഒക്ടോ', 'നവം', 'ഡിസം'],
     [
-      'ജനുവരി', 'ഫെബ്രുവരി', 'മാർച്ച്', 'ഏപ്രിൽ', 'മേയ്', 'ജൂൺ', 'ജൂലൈ', 'ഓഗസ്റ്റ്', 'സെപ്റ്റംബർ',
-      'ഒക്‌ടോബർ', 'നവംബർ', 'ഡിസംബർ'
+      'ജനുവരി', 'ഫെബ്രുവരി', 'മാർച്ച്', 'ഏപ്രിൽ', 'മേയ്', 'ജൂൺ', 'ജൂലൈ', 'ഓഗസ്റ്റ്', 'സെപ്റ്റംബർ', 'ഒക്\u200cടോബർ',
+      'നവംബർ', 'ഡിസംബർ'
     ]
   ],
-  [
-    ['ക്രി.മു.', 'എഡി'], ,
-    ['ക്രിസ്‌തുവിന് മുമ്പ്', 'ആന്നോ ഡൊമിനി']
-  ],
-  0, [0, 0], ['d/M/yy', 'y, MMM d', 'y, MMMM d', 'y, MMMM d, EEEE'],
+  , [['ക്രി.മു.', 'എഡി'], , ['ക്രിസ്\u200cതുവിന് മുമ്പ്', 'ആന്നോ ഡൊമിനി']], 0, [0, 0],
+  ['d/M/yy', 'y, MMM d', 'y, MMMM d', 'y, MMMM d, EEEE'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
@@ -2836,12 +3720,14 @@ export const locale_ml = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '₹', 'ഇന്ത്യൻ രൂപ', function(n: number):
-                                                                       number {
-                                                                         if (n === 1) return 1;
-                                                                         return 5;
-                                                                       }
+  ['#,##,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '₹', 'ഇന്ത്യൻ രൂപ', {'THB': ['฿'], 'TWD': ['NT$']},
+  plural_ml
 ];
+
+function plural_mn(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_mn = [
   'mn', [['үө', 'үх'], ['ҮӨ', 'ҮХ'], ['ү.ө', 'ү.х']],
@@ -2856,32 +3742,38 @@ export const locale_mn = [
   ],
   ,
   [
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+    ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
     [
       '1-р сар', '2-р сар', '3-р сар', '4-р сар', '5-р сар', '6-р сар', '7-р сар', '8-р сар',
       '9-р сар', '10-р сар', '11-р сар', '12-р сар'
     ],
     [
       'Нэгдүгээр сар', 'Хоёрдугаар сар', 'Гуравдугаар сар', 'Дөрөвдүгээр сар', 'Тавдугаар сар',
-      'Зургадугаар сар', 'Долдугаар сар', 'Наймдугаар сар', 'Есдүгээр сар', 'Аравдугаар сар',
+      'Зургаадугаар сар', 'Долдугаар сар', 'Наймдугаар сар', 'Есдүгээр сар', 'Аравдугаар сар',
       'Арван нэгдүгээр сар', 'Арван хоёрдугаар сар'
     ]
   ],
-  , [['МЭӨ', 'МЭ'], ['м.э.ө', 'м.э.'], ['манай эриний өмнөх', 'манай эриний']], 1, [6, 0],
-  ['y-MM-dd', 'y MMM d', 'y\'оны\' MMMM\'сарын\' d\'өдөр\'', 'EEEE, y \'оны\' MM \'сарын\' d'],
-  ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
+  , [['МЭӨ', 'МЭ'], , ['манай эриний өмнөх', 'манай эриний']], 1, [6, 0],
+  ['y.MM.dd', , 'y \'оны\' MMM\'ын\' d', 'y \'оны\' MMM\'ын\' d. EEEE \'гараг\'.'],
+  ['HH:mm', 'HH:mm:ss', 'HH:mm:ss (z)', 'HH:mm:ss (zzzz)'],
   [
-    '{1}, {0}',
     '{1} {0}',
+    ,
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₮', 'төгрөг', function(n: number):
-                                                                   number {
-                                                                     if (n === 1) return 1;
-                                                                     return 5;
-                                                                   }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₮', 'төгрөг',
+  {'JPY': ['JP¥', '¥'], 'MNT': ['₮'], 'SEK': [, 'кр'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_mn
 ];
+
+function plural_mo(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (!(v === 0) || n === 0 ||
+      !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19)
+    return 3;
+  return 5;
+}
 
 export const locale_mo = [
   'ro-MD',
@@ -2915,17 +3807,34 @@ export const locale_mo = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'L', 'leu moldovenesc',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (!(v === 0) || n === 0 ||
-            !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19)
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'L', 'leu moldovenesc', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MDL': ['L'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$']
+  },
+  plural_mo
 ];
+
+function plural_mr(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_mr = [
   'mr',
@@ -2961,13 +3870,12 @@ export const locale_mr = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##0%', '¤#,##0.00', '[#E0]'], '₹', 'भारतीय रुपया',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_mr
 ];
+
+function plural_ms(n: number): number {
+  return 5;
+}
 
 export const locale_ms = [
   'ms',
@@ -2998,14 +3906,28 @@ export const locale_ms = [
   1, [6, 0], ['d/MM/yy', 'd MMM y', 'd MMMM y', 'EEEE, d MMMM y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
+    '{1}, {0}',
+    ,
     '{1} {0}',
-    ,
-    ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'RM', 'Ringgit Malaysia',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'RM', 'Ringgit Malaysia', {
+    'CAD': [, '$'],
+    'JPY': ['JP¥', '¥'],
+    'MXN': [, '$'],
+    'MYR': ['RM'],
+    'TWD': ['NT$'],
+    'USD': [, '$']
+  },
+  plural_ms
 ];
+
+function plural_mt(n: number): number {
+  if (n === 1) return 1;
+  if (n === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 2 && n % 100 <= 10) return 3;
+  if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19) return 4;
+  return 5;
+}
 
 export const locale_mt = [
   'mt',
@@ -3050,14 +3972,12 @@ export const locale_mt = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'ewro',
-  function(n: number):
-      number {
-        if (n === 1) return 1;
-        if (n === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 2 && n % 100 <= 10) return 3;
-        if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19) return 4;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural_mt
 ];
+
+function plural_my(n: number): number {
+  return 5;
+}
 
 export const locale_my = [
   'my',
@@ -3081,17 +4001,34 @@ export const locale_my = [
     ]
   ],
   , [['ဘီစီ', 'အေဒီ'], , ['ခရစ်တော် မပေါ်မီနှစ်', 'ခရစ်နှစ်']], 0, [6, 0],
-  ['dd-MM-yy', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
-  ['HH:mm', 'HH:mm:ss', 'z HH:mm:ss', 'zzzz HH:mm:ss'],
+  ['dd-MM-yy', 'y၊ MMM d', 'y၊ d MMMM', 'y၊ MMMM d၊ EEEE'],
+  ['B H:mm', 'B HH:mm:ss', 'z HH:mm:ss', 'zzzz HH:mm:ss'],
   [
     '{1} {0}',
     ,
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'ဂဏန်းမဟုတ်သော', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'K', 'မြန်မာကျပ်',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'K', 'မြန်မာ ကျပ်', {
+    'ANG': ['NAf'],
+    'AWG': ['Afl'],
+    'BBD': [, 'Bds$'],
+    'BSD': [, 'B$'],
+    'HTG': ['G'],
+    'JPY': ['JP¥', '¥'],
+    'MMK': ['K'],
+    'PAB': ['B/.'],
+    'THB': ['฿'],
+    'TTD': ['TT$', '$'],
+    'USD': ['US$', '$']
+  },
+  plural_my
 ];
+
+function plural_ne(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_ne = [
   'ne',
@@ -3107,18 +4044,14 @@ export const locale_ne = [
   ],
   ,
   [
-    ['१', '२', '३', '४', '५', '६', '७', '८', '९', '१०', '११', '१२'],
+    ['जन', 'फेब', 'मार्च', 'अप्र', 'मे', 'जुन', 'जुल', 'अग', 'सेप', 'अक्टो', 'नोभे', 'डिसे'],
     [
       'जनवरी', 'फेब्रुअरी', 'मार्च', 'अप्रिल', 'मे', 'जुन', 'जुलाई', 'अगस्ट', 'सेप्टेम्बर', 'अक्टोबर', 'नोभेम्बर',
       'डिसेम्बर'
     ],
-    [
-      'जनवरी', 'फेब्रुअरी', 'मार्च', 'अप्रिल', 'मई', 'जुन', 'जुलाई', 'अगस्ट', 'सेप्टेम्बर', 'अक्टोबर', 'नोभेम्बर',
-      'डिसेम्बर'
-    ]
   ],
   [
-    ['१', '२', '३', '४', '५', '६', '७', '८', '९', '१०', '११', '१२'],
+    ['जन', 'फेेब', 'मार्च', 'अप्र', 'मे', 'जुन', 'जुल', 'अग', 'सेप', 'अक्टो', 'नोभे', 'डिसे'],
     [
       'जनवरी', 'फेब्रुअरी', 'मार्च', 'अप्रिल', 'मे', 'जुन', 'जुलाई', 'अगस्ट', 'सेप्टेम्बर', 'अक्टोबर', 'नोभेम्बर',
       'डिसेम्बर'
@@ -3128,7 +4061,7 @@ export const locale_ne = [
     ['ईसा पूर्व', 'सन्'],
     ,
   ],
-  0, [6, 0], ['y-MM-dd', 'y MMM d', 'y MMMM d', 'y MMMM d, EEEE'],
+  0, [6, 0], ['yy/M/d', 'y MMM d', 'y MMMM d', 'y MMMM d, EEEE'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{1}, {0}',
@@ -3136,12 +4069,15 @@ export const locale_ne = [
     '{1} {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'नेरू', 'नेपाली रूपैयाँ', function(n: number):
-                                                                        number {
-                                                                          if (n === 1) return 1;
-                                                                          return 5;
-                                                                        }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'नेरू', 'नेपाली रूपैयाँ',
+  {'JPY': ['JP¥', '¥'], 'NPR': ['नेरू', 'रू'], 'THB': ['฿'], 'USD': ['US$', '$']}, plural_ne
 ];
+
+function plural_nl(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_nl = [
   'nl',
@@ -3173,14 +4109,24 @@ export const locale_nl = [
     '{1} \'om\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤ -#,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤ -#,##0.00', '#E0'], '€', 'Euro', {
+    'AUD': ['AU$', '$'],
+    'CAD': ['C$', '$'],
+    'FJD': ['FJ$', '$'],
+    'JPY': ['JP¥', '¥'],
+    'SBD': ['SI$', '$'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'XPF': []
+  },
+  plural_nl
 ];
+
+function plural_no(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_no = [
   'nb',
@@ -3219,20 +4165,41 @@ export const locale_no = [
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   ['{1}, {0}', , '{1} \'kl\'. {0}', '{1} {0}'],
   [',', ' ', ';', '%', '+', '−', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], 'kr', 'norske kroner', function(n: number):
-                                                                            number {
-                                                                              if (n === 1) return 1;
-                                                                              return 5;
-                                                                            }
+  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], 'kr', 'norske kroner', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NOK': ['kr'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XPF': []
+  },
+  plural_no
 ];
 
+function plural_or(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export const locale_or = [
-  'or',
+  'or', [['ପୂ', 'ଅ'], ['am', 'pm'], ['AM', 'PM']],
   [
-    ['am', 'pm'],
-    ,
+    ['AM', 'ଅପରାହ୍ନ'],
+    ['ପୂର୍ବାହ୍ନ', 'ଅପରାହ୍ନ'],
   ],
-  ,
   [
     ['ର', 'ସୋ', 'ମ', 'ବୁ', 'ଗୁ', 'ଶୁ', 'ଶ'], ['ରବି', 'ସୋମ', 'ମଙ୍ଗଳ', 'ବୁଧ', 'ଗୁରୁ', 'ଶୁକ୍ର', 'ଶନି'],
     ['ରବିବାର', 'ସୋମବାର', 'ମଙ୍ଗଳବାର', 'ବୁଧବାର', 'ଗୁରୁବାର', 'ଶୁକ୍ରବାର', 'ଶନିବାର'],
@@ -3246,25 +4213,22 @@ export const locale_or = [
       'ନଭେମ୍ବର', 'ଡିସେମ୍ବର'
     ],
   ],
-  ,
-  [
-    ['BCE', 'CE'],
-    ,
-  ],
-  0, [0, 0], ['d-M-yy', 'd MMM y', 'd MMMM y', 'EEEE, d MMMM y'],
+  , [['BC', 'AD'], , ['ଖ୍ରୀଷ୍ଟପୂର୍ବ', 'ଖ୍ରୀଷ୍ଟାବ୍ଦ']], 0, [0, 0],
+  ['M/d/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
-    '{1} {0}',
+    '{1}, {0}',
     ,
-    ,
+    '{0} ଠାରେ {1}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'ଟଙକା', function(n: number):
-                                                                          number {
-                                                                            if (n === 1) return 1;
-                                                                            return 5;
-                                                                          }
+  ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'ଟଙ୍କା', {}, plural_or
 ];
+
+function plural_pa(n: number): number {
+  if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
+  return 5;
+}
 
 export const locale_pa = [
   'pa',
@@ -3299,12 +4263,21 @@ export const locale_pa = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '[#E0]'], '₹', 'ਭਾਰਤੀ ਰੁਪਇਆ',
-  function(n: number):
-      number {
-        if (n === Math.floor(n) && n >= 0 && n <= 1) return 1;
-        return 5;
-      }
+  {'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']}, plural_pa
 ];
+
+function plural_pl(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+      !(i % 100 >= 12 && i % 100 <= 14))
+    return 3;
+  if (v === 0 && !(i === 1) && i % 10 === Math.floor(i % 10) && i % 10 >= 0 && i % 10 <= 1 ||
+      v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
+      v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 12 && i % 100 <= 14)
+    return 4;
+  return 5;
+}
 
 export const locale_pl = [
   'pl',
@@ -3348,21 +4321,32 @@ export const locale_pl = [
     '{1} {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'zł', 'złoty polski',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-            !(i % 100 >= 12 && i % 100 <= 14))
-          return 3;
-        if (v === 0 && !(i === 1) && i % 10 === Math.floor(i % 10) && i % 10 >= 0 && i % 10 <= 1 ||
-            v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
-            v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 12 && i % 100 <= 14)
-          return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'zł', 'złoty polski', {
+    'AUD': [, '$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'PLN': ['zł'],
+    'RON': [, 'lej'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫']
+  },
+  plural_pl
 ];
+
+function plural_pt(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === Math.floor(i) && i >= 0 && i <= 1) return 1;
+  return 5;
+}
 
 export const locale_pt = [
   'pt',
@@ -3397,14 +4381,23 @@ export const locale_pt = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R$', 'Real brasileiro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === Math.floor(i) && i >= 0 && i <= 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'R$', 'Real brasileiro', {
+    'AUD': ['AU$', '$'],
+    'JPY': ['JP¥', '¥'],
+    'PTE': ['Esc.'],
+    'RON': [, 'L'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_pt
 ];
+
+function plural_pt_PT(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === Math.floor(i) && i >= 0 && i <= 1) return 1;
+  return 5;
+}
 
 export const locale_pt_PT = [
   'pt-PT', [['a.m.', 'p.m.'], , ['da manhã', 'da tarde']], [['a.m.', 'p.m.'], , ['manhã', 'tarde']],
@@ -3435,14 +4428,26 @@ export const locale_pt_PT = [
     '{1} \'às\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === Math.floor(i) && i >= 0 && i <= 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AUD': ['AU$', '$'],
+    'JPY': ['JP¥', '¥'],
+    'PTE': ['​'],
+    'RON': [, 'L'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_pt_PT
 ];
+
+function plural_ro(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (!(v === 0) || n === 0 ||
+      !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19)
+    return 3;
+  return 5;
+}
 
 export const locale_ro = [
   'ro',
@@ -3476,22 +4481,45 @@ export const locale_ro = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'RON', 'leu românesc',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (!(v === 0) || n === 0 ||
-            !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19)
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'RON', 'leu românesc', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$']
+  },
+  plural_ro
 ];
+
+function plural_ru(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+      !(i % 100 >= 12 && i % 100 <= 14))
+    return 3;
+  if (v === 0 && i % 10 === 0 ||
+      v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
+      v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14)
+    return 4;
+  return 5;
+}
 
 export const locale_ru = [
   'ru',
   [
-    ['ДП', 'ПП'],
+    ['AM', 'PM'],
     ,
   ],
   ,
@@ -3536,21 +4564,23 @@ export const locale_ru = [
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'не число', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '₽', 'Российский рубль',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-            !(i % 100 >= 12 && i % 100 <= 14))
-          return 3;
-        if (v === 0 && i % 10 === 0 ||
-            v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
-            v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14)
-          return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '₽', 'российский рубль', {
+    'GEL': [, 'ლ'],
+    'RON': [, 'L'],
+    'RUB': ['₽'],
+    'RUR': ['р.'],
+    'THB': ['฿'],
+    'TMT': ['ТМТ'],
+    'TWD': ['NT$'],
+    'UAH': ['₴'],
+    'XXX': ['XXXX']
+  },
+  plural_ru
 ];
+
+function plural_sh(n: number): number {
+  return 5;
+}
 
 export const locale_sh = [
   'sr-Latn',
@@ -3585,9 +4615,25 @@ export const locale_sh = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'RSD', 'Srpski dinar',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'RSD', 'Srpski dinar', {
+    'AUD': [, '$'],
+    'BAM': ['KM'],
+    'BYN': [, 'r.'],
+    'GEL': [, 'ლ'],
+    'KRW': [, '₩'],
+    'NZD': [, '$'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural_sh
 ];
+
+function plural_si(n: number): number {
+  let i = Math.floor(Math.abs(n)), f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (n === 0 || n === 1 || i === 0 && f === 1) return 1;
+  return 5;
+}
 
 export const locale_si = [
   'si',
@@ -3600,42 +4646,30 @@ export const locale_si = [
     ,
   ],
   [
-    ['ඉ', 'ස', 'අ', 'බ', 'බ්‍ර', 'සි', 'සෙ'],
-    ['ඉරිදා', 'සඳුදා', 'අඟහ', 'බදාදා', 'බ්‍රහස්', 'සිකු', 'සෙන'],
-    [
-      'ඉරිදා', 'සඳුදා', 'අඟහරුවාදා', 'බදාදා', 'බ්‍රහස්පතින්දා', 'සිකුරාදා',
-      'සෙනසුරාදා'
-    ],
-    ['ඉරි', 'සඳු', 'අඟ', 'බදා', 'බ්‍රහ', 'සිකු', 'සෙන']
+    ['ඉ', 'ස', 'අ', 'බ', 'බ්\u200dර', 'සි', 'සෙ'],
+    ['ඉරිදා', 'සඳුදා', 'අඟහ', 'බදාදා', 'බ්\u200dරහස්', 'සිකු', 'සෙන'],
+    ['ඉරිදා', 'සඳුදා', 'අඟහරුවාදා', 'බදාදා', 'බ්\u200dරහස්පතින්දා', 'සිකුරාදා', 'සෙනසුරාදා'],
+    ['ඉරි', 'සඳු', 'අඟ', 'බදා', 'බ්\u200dරහ', 'සිකු', 'සෙන']
   ],
   ,
   [
     ['ජ', 'පෙ', 'මා', 'අ', 'මැ', 'ජූ', 'ජූ', 'අ', 'සැ', 'ඔ', 'නෙ', 'දෙ'],
+    ['ජන', 'පෙබ', 'මාර්තු', 'අප්\u200dරේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝ', 'සැප්', 'ඔක්', 'නොවැ', 'දෙසැ'],
     [
-      'ජන', 'පෙබ', 'මාර්තු', 'අප්‍රේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝ', 'සැප්', 'ඔක්',
-      'නොවැ', 'දෙසැ'
-    ],
-    [
-      'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්‍රේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝස්තු',
-      'සැප්තැම්බර්', 'ඔක්තෝබර්', 'නොවැම්බර්', 'දෙසැම්බර්'
+      'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්\u200dරේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝස්තු', 'සැප්තැම්බර්', 'ඔක්තෝබර්',
+      'නොවැම්බර්', 'දෙසැම්බර්'
     ]
   ],
   [
     ['ජ', 'පෙ', 'මා', 'අ', 'මැ', 'ජූ', 'ජූ', 'අ', 'සැ', 'ඔ', 'නෙ', 'දෙ'],
+    ['ජන', 'පෙබ', 'මාර්', 'අප්\u200dරේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝ', 'සැප්', 'ඔක්', 'නොවැ', 'දෙසැ'],
     [
-      'ජන', 'පෙබ', 'මාර්', 'අප්‍රේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝ', 'සැප්', 'ඔක්', 'නොවැ',
-      'දෙසැ'
-    ],
-    [
-      'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්‍රේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝස්තු',
-      'සැප්තැම්බර්', 'ඔක්තෝබර්', 'නොවැම්බර්', 'දෙසැම්බර්'
+      'ජනවාරි', 'පෙබරවාරි', 'මාර්තු', 'අප්\u200dරේල්', 'මැයි', 'ජූනි', 'ජූලි', 'අගෝස්තු', 'සැප්තැම්බර්', 'ඔක්තෝබර්',
+      'නොවැම්බර්', 'දෙසැම්බර්'
     ]
   ],
-  [
-    ['ක්‍රි.පූ.', 'ක්‍රි.ව.'], ,
-    ['ක්‍රිස්තු පූර්ව', 'ක්‍රිස්තු වර්ෂ']
-  ],
-  1, [6, 0], ['y-MM-dd', 'y MMM d', 'y MMMM d', 'y MMMM d, EEEE'],
+  [['ක්\u200dරි.පූ.', 'ක්\u200dරි.ව.'], , ['ක්\u200dරිස්තු පූර්ව', 'ක්\u200dරිස්තු වර්ෂ']], 1, [6, 0],
+  ['y-MM-dd', 'y MMM d', 'y MMMM d', 'y MMMM d, EEEE'],
   ['HH.mm', 'HH.mm.ss', 'HH.mm.ss z', 'HH.mm.ss zzzz'],
   [
     '{1} {0}',
@@ -3643,16 +4677,24 @@ export const locale_si = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', '.'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#'], 'රු.',
-  'ශ්‍රී ලංකා රුපියල',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)),
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (n === 0 || n === 1 || i === 0 && f === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#'], 'රු.', 'ශ්\u200dරී ලංකා රුපියල', {
+    'JPY': ['JP¥', '¥'],
+    'LKR': ['රු.'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'XOF': ['සිෆ්එ']
+  },
+  plural_si
 ];
+
+function plural_sk(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return 3;
+  if (!(v === 0)) return 4;
+  return 5;
+}
 
 export const locale_sk = [
   'sk',
@@ -3684,23 +4726,40 @@ export const locale_sk = [
     ]
   ],
   [['pred Kr.', 'po Kr.'], , ['pred Kristom', 'po Kristovi']], 1, [6, 0],
-  ['d. M. y', , 'd. MMMM y', 'EEEE, d. MMMM y'], ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
+  ['d. M. y', , 'd. MMMM y', 'EEEE d. MMMM y'], ['H:mm', 'H:mm:ss', 'H:mm:ss z', 'H:mm:ss zzzz'],
   [
     '{1} {0}',
     '{1}, {0}',
     ,
   ],
   [',', ' ', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return 3;
-        if (!(v === 0)) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'euro', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': ['NIS', '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'USD': [, '$'],
+    'VND': [, '₫']
+  },
+  plural_sk
 ];
+
+function plural_sl(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (v === 0 && i % 100 === 1) return 1;
+  if (v === 0 && i % 100 === 2) return 2;
+  if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 || !(v === 0))
+    return 3;
+  return 5;
+}
 
 export const locale_sl = [
   'sl',
@@ -3732,18 +4791,23 @@ export const locale_sl = [
     ,
   ],
   [',', '.', ';', '%', '+', '−', 'e', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'evro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (v === 0 && i % 100 === 1) return 1;
-        if (v === 0 && i % 100 === 2) return 2;
-        if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 ||
-            !(v === 0))
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '€', 'evro', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'GBP': [, '£'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'XCD': [, '$']
+  },
+  plural_sl
 ];
+
+function plural_sq(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_sq = [
   'sq',
@@ -3756,26 +4820,26 @@ export const locale_sq = [
     ,
   ],
   [
-    ['D', 'H', 'M', 'M', 'E', 'P', 'S'], ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'],
+    ['D', 'H', 'M', 'M', 'E', 'P', 'Sh'], ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'],
     ['e diel', 'e hënë', 'e martë', 'e mërkurë', 'e enjte', 'e premte', 'e shtunë'],
     ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht']
   ],
   [
-    ['D', 'H', 'M', 'M', 'E', 'P', 'S'], ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'],
+    ['D', 'H', 'M', 'M', 'E', 'P', 'Sh'], ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht'],
     ['E diel', 'E hënë', 'E martë', 'E mërkurë', 'E enjte', 'E premte', 'E shtunë'],
     ['Die', 'Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht']
   ],
   [
-    ['j', 's', 'm', 'p', 'm', 'q', 'k', 'g', 's', 't', 'n', 'd'],
-    ['jan', 'shk', 'mar', 'pri', 'maj', 'qer', 'kor', 'gsh', 'sht', 'tet', 'nën', 'dhj'],
+    ['j', 'sh', 'm', 'p', 'm', 'q', 'k', 'g', 'sh', 't', 'n', 'dh'],
+    ['jan', 'shk', 'mar', 'pri', 'maj', 'qer', 'korr', 'gush', 'sht', 'tet', 'nën', 'dhj'],
     [
       'janar', 'shkurt', 'mars', 'prill', 'maj', 'qershor', 'korrik', 'gusht', 'shtator', 'tetor',
       'nëntor', 'dhjetor'
     ]
   ],
   [
-    ['J', 'S', 'M', 'P', 'M', 'Q', 'K', 'G', 'S', 'T', 'N', 'D'],
-    ['Jan', 'Shk', 'Mar', 'Pri', 'Maj', 'Qer', 'Kor', 'Gsh', 'Sht', 'Tet', 'Nën', 'Dhj'],
+    ['J', 'Sh', 'M', 'P', 'M', 'Q', 'K', 'G', 'Sh', 'T', 'N', 'Dh'],
+    ['Jan', 'Shk', 'Mar', 'Pri', 'Maj', 'Qer', 'Korr', 'Gush', 'Sht', 'Tet', 'Nën', 'Dhj'],
     [
       'Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor',
       'Nëntor', 'Dhjetor'
@@ -3790,13 +4854,21 @@ export const locale_sq = [
     '{1} \'në\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'Lekë', 'Leku shqiptar', function(n: number):
-                                                                             number {
-                                                                               if (n === 1)
-                                                                                 return 1;
-                                                                               return 5;
-                                                                             }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'Lekë', 'Leku shqiptar',
+  {'ALL': ['Lekë'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'USD': ['US$', '$']}, plural_sq
 ];
+
+function plural_sr(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+          !(i % 100 >= 12 && i % 100 <= 14) ||
+      f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
+          !(f % 100 >= 12 && f % 100 <= 14))
+    return 3;
+  return 5;
+}
 
 export const locale_sr = [
   'sr',
@@ -3831,21 +4903,24 @@ export const locale_sr = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'RSD', 'Српски динар',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11))
-          return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-                !(i % 100 >= 12 && i % 100 <= 14) ||
-            f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
-                !(f % 100 >= 12 && f % 100 <= 14))
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'RSD', 'Српски динар', {
+    'AUD': [, '$'],
+    'BAM': ['КМ', 'KM'],
+    'GEL': [, 'ლ'],
+    'KRW': [, '₩'],
+    'NZD': [, '$'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural_sr
 ];
+
+function plural_sv(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_sv = [
   'sv',
@@ -3877,20 +4952,53 @@ export const locale_sv = [
     ,
   ],
   [',', ' ', ';', '%', '+', '−', '×10^', '×', '‰', '∞', '¤¤¤', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr', 'svensk krona',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr', 'svensk krona', {
+    'AUD': [, '$'],
+    'BBD': ['Bds$', '$'],
+    'BMD': ['BM$', '$'],
+    'BRL': ['BR$', 'R$'],
+    'BSD': ['BS$', '$'],
+    'BZD': ['BZ$', '$'],
+    'CNY': [, '¥'],
+    'DKK': ['Dkr', 'kr'],
+    'DOP': ['RD$', '$'],
+    'EEK': ['Ekr'],
+    'EGP': ['EG£', 'E£'],
+    'ESP': [],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'IEP': ['IE£'],
+    'INR': [, '₹'],
+    'ISK': ['Ikr', 'kr'],
+    'JMD': ['JM$', '$'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'NOK': ['Nkr', 'kr'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'SEK': ['kr'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural_sv
 ];
 
+function plural_sw(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export const locale_sw = [
-  'sw', [['am', 'pm'], ['AM', 'PM'], ['Asubuhi', 'Mchana']],
+  'sw',
   [
     ['am', 'pm'],
     ['AM', 'PM'],
+  ],
+  [
+    ['AM', 'PM'],
+    ,
   ],
   [
     ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -3915,14 +5023,21 @@ export const locale_sw = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'TSh', 'Shilingi ya Tanzania',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'TSh', 'Shilingi ya Tanzania', {
+    'JPY': ['JP¥', '¥'],
+    'KES': ['Ksh'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'TZS': ['TSh'],
+    'USD': ['US$', '$']
+  },
+  plural_sw
 ];
+
+function plural_ta(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_ta = [
   'ta',
@@ -3955,13 +5070,14 @@ export const locale_ta = [
     '{1} ’அன்று’ {0}',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'இந்திய ரூபாய்', function(n: number):
-                                                                                 number {
-                                                                                   if (n === 1)
-                                                                                     return 1;
-                                                                                   return 5;
-                                                                                 }
+  ['#,##,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'இந்திய ரூபாய்',
+  {'THB': ['฿'], 'TWD': ['NT$']}, plural_ta
 ];
+
+function plural_te(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_te = [
   'te',
@@ -3987,29 +5103,22 @@ export const locale_te = [
       'డిసెంబర్'
     ]
   ],
-  [
-    ['జ', 'ఫి', 'మా', 'ఏ', 'మే', 'జూ', 'జు', 'ఆ', 'సె', 'అ', 'న', 'డి'],
-    ['జన', 'ఫిబ్ర', 'మార్చి', 'ఏప్రి', 'మే', 'జూన్', 'జులై', 'ఆగస్టు', 'సెప్టెం', 'అక్టో', 'నవం', 'డిసెం'],
-    [
-      'జనవరి', 'ఫిబ్రవరి', 'మార్చి', 'ఏప్రిల్', 'మే', 'జూన్', 'జులై', 'ఆగస్టు', 'సెప్టెంబర్', 'అక్టోబర్', 'నవంబర్',
-      'డిసెంబర్'
-    ]
-  ],
-  [['క్రీపూ', 'క్రీశ'], , ['క్రీస్తు పూర్వం', 'క్రీస్తు శకం']], 0, [0, 0],
+  , [['క్రీపూ', 'క్రీశ'], , ['క్రీస్తు పూర్వం', 'క్రీస్తు శకం']], 0, [0, 0],
   ['dd-MM-yy', 'd MMM, y', 'd MMMM, y', 'd, MMMM y, EEEE'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
     ,
-    ,
+    '{1} {0}కి',
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##,##0.###', '#,##0%', '¤#,##,##0.00', '#E0'], '₹', 'రూపాయి', function(n: number):
-                                                                      number {
-                                                                        if (n === 1) return 1;
-                                                                        return 5;
-                                                                      }
+  ['#,##,##0.###', '#,##0%', '¤#,##,##0.00', '#E0'], '₹', 'రూపాయి',
+  {'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_te
 ];
+
+function plural_th(n: number): number {
+  return 5;
+}
 
 export const locale_th = [
   'th',
@@ -4047,9 +5156,19 @@ export const locale_th = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'THB', 'บาทไทย',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'THB', 'บาท',
+  {'AUD': ['AU$', '$'], 'TWD': ['NT$'], 'USD': ['US$', '$']}, plural_th
 ];
+
+function plural_tl(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && (i === 1 || i === 2 || i === 3) ||
+      v === 0 && !(i % 10 === 4 || i % 10 === 6 || i % 10 === 9) ||
+      !(v === 0) && !(f % 10 === 4 || f % 10 === 6 || f % 10 === 9))
+    return 1;
+  return 5;
+}
 
 export const locale_tl = [
   'fil',
@@ -4082,11 +5201,8 @@ export const locale_tl = [
       'Oktubre', 'Nobyembre', 'Disyembre'
     ]
   ],
-  [
-    ['BC', 'AD'],
-    ,
-  ],
-  0, [6, 0], ['M/d/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
+  [['BC', 'AD'], , ['Before Christ', 'Anno Domini']], 0, [6, 0],
+  ['M/d/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1}, {0}',
@@ -4095,17 +5211,13 @@ export const locale_tl = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '₱', 'Piso ng Pilipinas',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && (i === 1 || i === 2 || i === 3) ||
-            v === 0 && !(i % 10 === 4 || i % 10 === 6 || i % 10 === 9) ||
-            !(v === 0) && !(f % 10 === 4 || f % 10 === 6 || f % 10 === 9))
-          return 1;
-        return 5;
-      }
+  {'PHP': ['₱'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_tl
 ];
+
+function plural_tr(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_tr = [
   'tr',
@@ -4140,12 +5252,22 @@ export const locale_tr = [
     ,
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '%#,##0', '¤#,##0.00', '#E0'], '₺', 'Türk Lirası', function(n: number):
-                                                                       number {
-                                                                         if (n === 1) return 1;
-                                                                         return 5;
-                                                                       }
+  ['#,##0.###', '%#,##0', '¤#,##0.00', '#E0'], '₺', 'Türk Lirası',
+  {'AUD': ['AU$', '$'], 'RON': [, 'L'], 'THB': ['฿'], 'TRY': ['₺'], 'TWD': ['NT$']}, plural_tr
 ];
+
+function plural_uk(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+      !(i % 100 >= 12 && i % 100 <= 14))
+    return 3;
+  if (v === 0 && i % 10 === 0 ||
+      v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
+      v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14)
+    return 4;
+  return 5;
+}
 
 export const locale_uk = [
   'uk',
@@ -4188,21 +5310,34 @@ export const locale_uk = [
     '{1} \'о\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'Е', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₴', 'українська гривня',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-            !(i % 100 >= 12 && i % 100 <= 14))
-          return 3;
-        if (v === 0 && i % 10 === 0 ||
-            v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 ||
-            v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14)
-          return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₴', 'українська гривня', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'TWD': [, 'NT$'],
+    'UAH': ['₴'],
+    'UAK': ['крб.'],
+    'USD': [, '$'],
+    'VND': [, '₫'],
+    'XCD': [, '$']
+  },
+  plural_uk
 ];
+
+function plural_ur(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
 
 export const locale_ur = [
   'ur',
@@ -4216,7 +5351,7 @@ export const locale_ur = [
   ],
   [
     ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-    ['اتوار', 'سوموار', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'],
+    ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'],
     ,
   ],
   ,
@@ -4232,22 +5367,22 @@ export const locale_ur = [
     ['قبل مسیح', 'عیسوی'],
     ,
   ],
-  0, [6, 0], ['d/M/yy', 'y MMM d', 'd MMMM، y', 'EEEE، d MMMM، y'],
+  0, [6, 0], ['d/M/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  ['.', ',', ';', '%', '‎+', '‎-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], 'Rs', 'پاکستانی روپیہ',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['.', ',', ';', '%', '\u200e+', '\u200e-', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], 'Rs', 'پاکستانی روپیہ',
+  {'JPY': ['JP¥', '¥'], 'PKR': ['Rs'], 'THB': ['฿'], 'TWD': ['NT$']}, plural_ur
 ];
+
+function plural_uz(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
 
 export const locale_uz = [
   'uz',
@@ -4286,14 +5421,14 @@ export const locale_uz = [
     ,
     ,
   ],
-  [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'haqiqiy son emas', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'soʻm', 'O‘zbekiston so‘mi', function(n: number):
-                                                                                 number {
-                                                                                   if (n === 1)
-                                                                                     return 1;
-                                                                                   return 5;
-                                                                                 }
+  [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'son emas', ':'],
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'soʻm', 'O‘zbekiston so‘mi',
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$'], 'UZS': ['soʻm']}, plural_uz
 ];
+
+function plural_vi(n: number): number {
+  return 5;
+}
 
 export const locale_vi = [
   'vi',
@@ -4346,9 +5481,14 @@ export const locale_vi = [
     '{0} {1}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₫', 'Đồng Việt Nam',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], '₫', 'Đồng Việt Nam',
+  {'AUD': ['AU$', '$'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']},
+  plural_vi
 ];
+
+function plural_zh(n: number): number {
+  return 5;
+}
 
 export const locale_zh = [
   'zh',
@@ -4385,9 +5525,21 @@ export const locale_zh = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '￥', '人民币',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '￥', '人民币', {
+    'AUD': ['AU$', '$'],
+    'CNY': ['￥', '¥'],
+    'ILR': ['ILS'],
+    'JPY': ['JP¥', '¥'],
+    'KRW': ['￦', '₩'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_zh
 ];
+
+function plural_zh_CN(n: number): number {
+  return 5;
+}
 
 export const locale_zh_CN = [
   'zh-Hans',
@@ -4424,9 +5576,21 @@ export const locale_zh_CN = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '￥', '人民币',
-  function(n: number): number { return 5;}
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '￥', '人民币', {
+    'AUD': ['AU$', '$'],
+    'CNY': ['￥', '¥'],
+    'ILR': ['ILS'],
+    'JPY': ['JP¥', '¥'],
+    'KRW': ['￦', '₩'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$']
+  },
+  plural_zh_CN
 ];
+
+function plural_zh_HK(n: number): number {
+  return 5;
+}
 
 export const locale_zh_HK = [
   'zh-Hant-HK',
@@ -4460,8 +5624,12 @@ export const locale_zh_HK = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', '非數值', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'HK$', '港元',
-  function(n: number): number { return 5;}
+  {'AUD': ['AU$', '$'], 'RON': [, 'L'], 'USD': ['US$', '$']}, plural_zh_HK
 ];
+
+function plural_zh_TW(n: number): number {
+  return 5;
+}
 
 export const locale_zh_TW = [
   'zh-Hant',
@@ -4495,8 +5663,15 @@ export const locale_zh_TW = [
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', '非數值', ':'],
   ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', '新台幣',
-  function(n: number): number { return 5;}
+  {'AUD': ['AU$', '$'], 'KRW': ['￦', '₩'], 'RON': [, 'L'], 'TWD': ['$'], 'USD': ['US$', '$']},
+  plural_zh_TW
 ];
+
+function plural_zu(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || n === 1) return 1;
+  return 5;
+}
 
 export const locale_zu = [
   'zu',
@@ -4504,7 +5679,10 @@ export const locale_zu = [
     ['a', 'p'],
     ['AM', 'PM'],
   ],
-  ,
+  [
+    ['AM', 'PM'],
+    ,
+  ],
   [
     ['S', 'M', 'B', 'T', 'S', 'H', 'M'], ['Son', 'Mso', 'Bil', 'Tha', 'Sin', 'Hla', 'Mgq'],
     ['ISonto', 'UMsombuluko', 'ULwesibili', 'ULwesithathu', 'ULwesine', 'ULwesihlanu', 'UMgqibelo'],
@@ -4515,8 +5693,8 @@ export const locale_zu = [
     ['J', 'F', 'M', 'E', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     ['Jan', 'Feb', 'Mas', 'Eph', 'Mey', 'Jun', 'Jul', 'Aga', 'Sep', 'Okt', 'Nov', 'Dis'],
     [
-      'UMasingana', 'Februwari', 'Mashi', 'Ephreli', 'Meyi', 'Juni', 'Julayi', 'Agasti',
-      'Septhemba', 'Okthoba', 'Novemba', 'Disemba'
+      'Januwari', 'Februwari', 'Mashi', 'Ephreli', 'Meyi', 'Juni', 'Julayi', 'Agasti', 'Septhemba',
+      'Okthoba', 'Novemba', 'Disemba'
     ]
   ],
   [
@@ -4539,13 +5717,21 @@ export const locale_zu = [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R', 'i-South African Rand',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || n === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'R', 'i-South African Rand', {
+    'BYN': [, 'P.'],
+    'DKK': [, 'Kr'],
+    'HRK': [, 'Kn'],
+    'ISK': [, 'Kr'],
+    'JPY': ['JP¥', '¥'],
+    'NOK': [, 'Kr'],
+    'PLN': [, 'Zł'],
+    'SEK': [, 'Kr'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': ['US$', '$'],
+    'ZAR': ['R']
+  },
+  plural_zu
 ];
 
 
@@ -4895,6 +6081,5 @@ switch (goog.LOCALE) {
 }
 
 if (l) {
-  l[0] = goog.LOCALE;
-  registerLocaleData(l);
+  registerLocaleData(l, goog.LOCALE);
 }

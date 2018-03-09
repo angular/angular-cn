@@ -563,7 +563,7 @@ export class MetadataBundler {
 
   private convertExpressionNode(moduleName: string, value: MetadataSymbolicExpression):
       MetadataSymbolicExpression {
-    const result: MetadataSymbolicExpression = {__symbolic: value.__symbolic};
+    const result: MetadataSymbolicExpression = { __symbolic: value.__symbolic } as any;
     for (const key in value) {
       (result as any)[key] = this.convertValue(moduleName, (value as any)[key]);
     }
@@ -597,8 +597,9 @@ export class CompilerHostAdapter implements MetadataBundlerHost {
   constructor(private host: ts.CompilerHost) {}
 
   getMetadataFor(fileName: string): ModuleMetadata|undefined {
+    if (!this.host.fileExists(fileName + '.ts')) return undefined;
     const sourceFile = this.host.getSourceFile(fileName + '.ts', ts.ScriptTarget.Latest);
-    return this.collector.getMetadata(sourceFile);
+    return sourceFile && this.collector.getMetadata(sourceFile);
   }
 }
 

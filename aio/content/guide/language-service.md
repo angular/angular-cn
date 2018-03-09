@@ -61,7 +61,6 @@ click and press F12 to go directly to its definition.
   <img src="generated/images/guide/language-service/language-navigation.gif" alt="navigation">
 </figure>
 
-
 ## Angular Language Service in your editor
 
 ## 编辑器中的 Angular 语言服务
@@ -84,7 +83,9 @@ Visual Studio Code 可以从商店中安装语言服务，这个功能就在左�
 我们也可以使用 VS 的快速打开（⌘+P）功能来查找这个扩展插件。打开它之后就输入下列命令：
 
 ```sh
-ext install ng-template
+
+ext install Angular.ng-template
+
 ```
 
 Then click the install button to install the Angular Language Service. 
@@ -113,6 +114,7 @@ you need to have in `package.json`:
 devDependencies {
 	"@angular/language-service": "^4.0.0"
 }
+
 ```
 
 Then in the terminal window at the root of your project, 
@@ -121,7 +123,9 @@ install the `devDependencies` with `npm` or `yarn`:
 然后，打开终端窗口，在项目根目录下使用`npm`或`yarn`来安装这些`devDependencies`：
 
 ```sh
+
 npm install 
+
 ```
 
 *OR* 
@@ -129,7 +133,9 @@ npm install
 *或*
 
 ```sh
+
 yarn
+
 ```
 
 *OR* 
@@ -137,9 +143,10 @@ yarn
 *或*
 
 ```sh
-yarn install
-```
 
+yarn install
+
+```
 
 ### Sublime Text
 
@@ -152,7 +159,9 @@ Install the latest version of typescript in a local `node_modules` directory:
 把最新版本的 TypeScript 安装到本地的`node_modules`目录下：
 
 ```sh
+
 npm install --save-dev typescript
+
 ```
 
 Then install the Angular Language Service in the same location:
@@ -160,7 +169,9 @@ Then install the Angular Language Service in the same location:
 然后把 Angular 语言服务安装到同一位置：
 
 ```sh
+
 npm install --save-dev @angular/language-service
+
 ```
 
 Starting with TypeScript 2.3, TypeScript has a language service plugin model that the language service can use. 
@@ -172,9 +183,10 @@ Next, in your user preferences (`Cmd+,` or `Ctrl+,`), add:
 接下来，在你的用户首选项中（按`Cmd+,`或`Ctrl+,`）添加：
 
 ```json
-"typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
-```
 
+"typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
+
+```
 
 ## Installing in your project
 
@@ -186,18 +198,24 @@ following `npm` command:
 我们还可以使用下列`npm`命令来把 Angular 语言服务安装到工程中：
 
 ```sh
+
 npm install --save-dev @angular/language-service
+
 ```
+
 Additionally, add the following to the `"compilerOptions"` section of 
 your project's `tsconfig.json`.
 
 另外，还要在工程的`tsconfig.json`中添加下列`"compilerOptions"`区域：
 
 ```json
+
   "plugins": [
       {"name": "@angular/language-service"}
   ]
+
 ```
+
 Note that this only provides diagnostics and completions in `.ts` 
 files. You need a custom sublime plugin (or modifications to the current plugin) 
 for completions in HTML files.
@@ -222,19 +240,13 @@ context, it can then determine what the children can be.
 
 It's a little more involved if you are in an interpolation. If you have an interpolation of `{{data.---}}` inside a `div` and need the completion list after `data.---`, the compiler can't use the HTML AST to find the answer. The HTML AST can only tell the compiler that there is some text with the characters "`{{data.---}}`". That's when the template parser produces an expression AST, which resides within the template AST. The Angular Language Services then looks at `data.---` within its context and asks the TypeScript Language Service what the members of data are. TypeScript then returns the list of possibilities.
 
-
 如果是在插值表达式中，还会牵扯到更多东西。如果我们在`div`元素中有一个插值表达式`{{data.---}}`，并且需要在输入了`data.`之后提供自动完成列表，编译器就没办法使用 HTML AST 来找出答案了。
 HTML AST只能告诉编译器，有一些具有 "`{{data.---}}`" 特征的文本。也就是说模板解析器会生成表达式的 AST ，并且放在模板的 AST 中。Angular 语言服务然后在这个情境下查找`data.---`，并向 TypeScript 语言服务询问这些数据都有哪些成员。然后 TypeScript 就会返回一个可能的列表。
 
 For more in-depth information, see the 
 [Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)
 
-
 要了解更多更深入的信息，参见 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)
-
-
-
-
 
 <hr>
 
@@ -244,5 +256,6 @@ For more in-depth information, see the
 
 For more information, see [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language 
 Service from [ng-conf](https://www.ng-conf.org/) 2017.
+
 
 要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。

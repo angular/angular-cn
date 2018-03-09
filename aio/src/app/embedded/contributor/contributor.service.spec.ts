@@ -3,7 +3,7 @@ import { Injector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { ContributorService } from './contributor.service';
-import { Contributor, ContributorGroup } from './contributors.model';
+import { ContributorGroup } from './contributors.model';
 
 describe('ContributorService', () => {
 
@@ -43,7 +43,7 @@ describe('ContributorService', () => {
 
     it('contributors observable should complete', () => {
       let completed = false;
-      contribService.contributors.subscribe(null, null, () => completed = true);
+      contribService.contributors.subscribe(undefined, undefined, () => completed = true);
       expect(true).toBe(true, 'observable completed');
     });
 

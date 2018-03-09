@@ -17,7 +17,7 @@ import {MockXhrFactory} from './xhr_mock';
 
 function trackEvents(obs: Observable<HttpEvent<any>>): HttpEvent<any>[] {
   const events: HttpEvent<any>[] = [];
-  obs.subscribe(event => events.push(event));
+  obs.subscribe(event => events.push(event), err => events.push(err));
   return events;
 }
 
@@ -25,7 +25,9 @@ const TEST_POST = new HttpRequest('POST', '/test', 'some body', {
   responseType: 'text',
 });
 
-export function main() {
+const XSSI_PREFIX = ')]}\'\n';
+
+{
   describe('XhrBackend', () => {
     let factory: MockXhrFactory = null !;
     let backend: HttpXhrBackend = null !;
@@ -92,6 +94,27 @@ export function main() {
       const res = events[1] as HttpResponse<{data: string}>;
       expect(res.body !.data).toBe('some data');
     });
+    it('handles a blank json response', () => {
+      const events = trackEvents(backend.handle(TEST_POST.clone({responseType: 'json'})));
+      factory.mock.mockFlush(200, 'OK', '');
+      expect(events.length).toBe(2);
+      const res = events[1] as HttpResponse<{data: string}>;
+      expect(res.body).toBeNull();
+    });
+    it('handles a json error response', () => {
+      const events = trackEvents(backend.handle(TEST_POST.clone({responseType: 'json'})));
+      factory.mock.mockFlush(500, 'Error', JSON.stringify({data: 'some data'}));
+      expect(events.length).toBe(2);
+      const res = events[1] as any as HttpErrorResponse;
+      expect(res.error !.data).toBe('some data');
+    });
+    it('handles a json error response with XSSI prefix', () => {
+      const events = trackEvents(backend.handle(TEST_POST.clone({responseType: 'json'})));
+      factory.mock.mockFlush(500, 'Error', XSSI_PREFIX + JSON.stringify({data: 'some data'}));
+      expect(events.length).toBe(2);
+      const res = events[1] as any as HttpErrorResponse;
+      expect(res.error !.data).toBe('some data');
+    });
     it('handles a json string response', () => {
       const events = trackEvents(backend.handle(TEST_POST.clone({responseType: 'json'})));
       expect(factory.mock.responseType).toEqual('text');
@@ -102,7 +125,7 @@ export function main() {
     });
     it('handles a json response with an XSSI prefix', () => {
       const events = trackEvents(backend.handle(TEST_POST.clone({responseType: 'json'})));
-      factory.mock.mockFlush(200, 'OK', ')]}\'\n' + JSON.stringify({data: 'some data'}));
+      factory.mock.mockFlush(200, 'OK', XSSI_PREFIX + JSON.stringify({data: 'some data'}));
       expect(events.length).toBe(2);
       const res = events[1] as HttpResponse<{data: string}>;
       expect(res.body !.data).toBe('some data');

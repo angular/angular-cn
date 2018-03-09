@@ -67,7 +67,7 @@ export class UpgradeNg1ComponentAdapterBuilder {
 
   extractBindings() {
     const btcIsObject = typeof this.directive !.bindToController === 'object';
-    if (btcIsObject && Object.keys(this.directive !.scope).length) {
+    if (btcIsObject && Object.keys(this.directive !.scope !).length) {
       throw new Error(
           `Binding definitions on scope and controller at the same time are not supported.`);
     }
@@ -174,8 +174,10 @@ class UpgradeNg1ComponentAdapter implements OnInit, OnChanges, DoCheck {
     }
     for (let j = 0; j < outputs.length; j++) {
       const emitter = (this as any)[outputs[j]] = new EventEmitter<any>();
-      this.setComponentProperty(
-          outputs[j], (emitter => (value: any) => emitter.emit(value))(emitter));
+      if (this.propOuts.indexOf(outputs[j]) === -1) {
+        this.setComponentProperty(
+            outputs[j], (emitter => (value: any) => emitter.emit(value))(emitter));
+      }
     }
     for (let k = 0; k < propOuts.length; k++) {
       this.checkLastValues.push(INITIAL_VALUE);

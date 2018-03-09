@@ -14,8 +14,8 @@
 
 export interface Inject { token: any; }
 export const createInject = makeMetadataFactory<Inject>('Inject', (token: any) => ({token}));
-export const createInjectionToken =
-    makeMetadataFactory<object>('InjectionToken', (desc: string) => ({_desc: desc}));
+export const createInjectionToken = makeMetadataFactory<object>(
+    'InjectionToken', (desc: string) => ({_desc: desc, ngInjectableDef: undefined}));
 
 export interface Attribute { attributeName?: string; }
 export const createAttribute =
@@ -51,6 +51,7 @@ export interface Directive {
   providers?: Provider[];
   exportAs?: string;
   queries?: {[key: string]: any};
+  guards?: {[key: string]: any};
 }
 export const createDirective =
     makeMetadataFactory<Directive>('Directive', (dir: Directive = {}) => dir);
@@ -125,7 +126,16 @@ export interface ModuleWithProviders {
   ngModule: Type;
   providers?: Provider[];
 }
-
+export interface Injectable {
+  scope?: Type|any;
+  useClass?: Type|any;
+  useExisting?: Type|any;
+  useValue?: any;
+  useFactory?: Type|any;
+  deps?: Array<Type|any[]>;
+}
+export const createInjectable =
+    makeMetadataFactory('Injectable', (injectable: Injectable = {}) => injectable);
 export interface SchemaMetadata { name: string; }
 
 export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
@@ -137,7 +147,6 @@ export const NO_ERRORS_SCHEMA: SchemaMetadata = {
 };
 
 export const createOptional = makeMetadataFactory('Optional');
-export const createInjectable = makeMetadataFactory('Injectable');
 export const createSelf = makeMetadataFactory('Self');
 export const createSkipSelf = makeMetadataFactory('SkipSelf');
 export const createHost = makeMetadataFactory('Host');
@@ -193,6 +202,7 @@ export const enum NodeFlags {
   TypeViewQuery = 1 << 27,
   StaticQuery = 1 << 28,
   DynamicQuery = 1 << 29,
+  TypeModuleProvider = 1 << 30,
   CatQuery = TypeContentQuery | TypeViewQuery,
 
   // mutually exclusive values...
@@ -203,7 +213,18 @@ export const enum DepFlags {
   None = 0,
   SkipSelf = 1 << 0,
   Optional = 1 << 1,
-  Value = 2 << 2,
+  Self = 1 << 2,
+  Value = 1 << 3,
+}
+
+/** Injection flags for DI. */
+export const enum InjectFlags {
+  Default = 0,
+
+  /** Skip the node that is requesting injection. */
+  SkipSelf = 1 << 0,
+  /** Don't descend into ancestors of the node requesting injection. */
+  Self = 1 << 1,
 }
 
 export const enum ArgumentType {Inline = 0, Dynamic = 1}
@@ -259,4 +280,9 @@ function makeMetadataFactory<T>(name: string, props?: (...args: any[]) => T): Me
   factory.isTypeOf = (obj: any) => obj && obj.ngMetadataName === name;
   factory.ngMetadataName = name;
   return factory;
+}
+
+export interface Route {
+  children?: Route[];
+  loadChildren?: string|Type|any;
 }

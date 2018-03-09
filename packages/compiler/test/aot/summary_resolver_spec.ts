@@ -8,6 +8,7 @@
 
 import {AotSummaryResolver, AotSummaryResolverHost, CompileSummaryKind, CompileTypeSummary, ResolvedStaticSymbol, StaticSymbol, StaticSymbolCache, StaticSymbolResolver} from '@angular/compiler';
 import {deserializeSummaries, serializeSummaries} from '@angular/compiler/src/aot/summary_serializer';
+import {ConstantPool} from '@angular/compiler/src/constant_pool';
 import * as o from '@angular/compiler/src/output/output_ast';
 import {OutputContext} from '@angular/compiler/src/util';
 import * as path from 'path';
@@ -16,7 +17,7 @@ import {MockStaticSymbolResolverHost, MockSummaryResolver} from './static_symbol
 
 const EXT = /(\.d)?\.ts$/;
 
-export function main() {
+{
   describe('AotSummaryResolver', () => {
     let summaryResolver: AotSummaryResolver;
     let symbolCache: StaticSymbolCache;
@@ -95,6 +96,15 @@ export function main() {
            expect(host.isSourceFile).toHaveBeenCalledWith('someFile.ts');
          });
     });
+
+    describe('regression', () => {
+      // #18170
+      it('should support resolving symbol with members ', () => {
+        init();
+        expect(summaryResolver.resolveSummary(symbolCache.get('/src.d.ts', 'Src', ['One', 'Two'])))
+            .toBeNull();
+      });
+    });
   });
 }
 
@@ -118,5 +128,10 @@ export class MockAotSummaryResolverHost implements AotSummaryResolverHost {
 }
 
 export function createMockOutputContext(): OutputContext {
-  return {statements: [], genFilePath: 'someGenFilePath', importExpr: () => o.NULL_EXPR};
+  return {
+    statements: [],
+    genFilePath: 'someGenFilePath',
+    importExpr: () => o.NULL_EXPR,
+    constantPool: new ConstantPool()
+  };
 }

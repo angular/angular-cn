@@ -9,11 +9,17 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
   'de-CH',
   [
     ['vm.', 'nm.'],
-    ['vorm.', 'nachm.'],
+    ['AM', 'PM'],
   ],
   [
     ['vorm.', 'nachm.'],
@@ -22,7 +28,7 @@ export default [
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
     ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-    ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.']
+    ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
   ],
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
@@ -31,18 +37,20 @@ export default [
   ],
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-    ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'],
     [
-      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-      'November', 'Dezember'
+      'Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'
+    ],
+    [
+      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September',
+      'Oktober', 'November', 'Dezember'
     ]
   ],
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     [
-      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-      'November', 'Dezember'
+      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September',
+      'Oktober', 'November', 'Dezember'
     ]
   ],
   [
@@ -57,11 +65,23 @@ export default [
     '{1} \'um\' {0}',
   ],
   ['.', '’', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤-#,##0.00', '#E0'], 'CHF', 'Schweizer Franken',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤ #,##0.00;¤-#,##0.00', '#E0'], 'CHF', 'Schweizer Franken', {
+    'ATS': ['öS'],
+    'AUD': ['AU$', '$'],
+    'BGM': ['BGK'],
+    'BGO': ['BGJ'],
+    'CUC': [, 'Cub$'],
+    'DEM': ['DM'],
+    'EUR': [],
+    'FKP': [, 'Fl£'],
+    'GNF': [, 'F.G.'],
+    'KMF': [, 'FC'],
+    'RON': [, 'L'],
+    'RWF': [, 'F.Rw'],
+    'SYP': [],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'ZMW': [, 'K']
+  },
+  plural
 ];

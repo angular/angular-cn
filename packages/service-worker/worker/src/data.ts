@@ -332,7 +332,7 @@ export class DataGroup {
         await this.syncLru();
 
         // Finally, fall back on the network.
-        return this.scope.fetch(req);
+        return this.safeFetch(req);
     }
   }
 
@@ -347,7 +347,7 @@ export class DataGroup {
       res = fromCache.res;
       // Check the age of the resource.
       if (this.config.refreshAheadMs !== undefined && fromCache.age >= this.config.refreshAheadMs) {
-        ctx.waitUntil(this.safeCacheResponse(req, this.scope.fetch(req)));
+        ctx.waitUntil(this.safeCacheResponse(req, this.safeFetch(req)));
       }
     }
 
@@ -370,8 +370,7 @@ export class DataGroup {
     }
 
     // The request completed in time, so cache it inline with the response flow.
-    // Make sure to clone it so the real response can still be returned to the user.
-    await this.cacheResponse(req, res.clone(), lru);
+    await this.cacheResponse(req, res, lru);
     return res;
   }
 
@@ -409,22 +408,39 @@ export class DataGroup {
 
     // No response in the cache. No choice but to fall back on the full network fetch.
     res = await networkFetch;
-    await this.cacheResponse(req, res.clone(), lru, true);
+    await this.cacheResponse(req, res, lru, true);
     return res;
   }
 
   private networkFetchWithTimeout(req: Request): [Promise<Response|undefined>, Promise<Response>] {
-    const networkFetch = this.scope.fetch(req);
-
     // If there is a timeout configured, race a timeout Promise with the network fetch.
     // Otherwise, just fetch from the network directly.
     if (this.config.timeoutMs !== undefined) {
+      const networkFetch = this.scope.fetch(req);
+      const safeNetworkFetch = (async() => {
+        try {
+          return await networkFetch;
+        } catch (err) {
+          return this.adapter.newResponse(null, {
+            status: 504,
+            statusText: 'Gateway Timeout',
+          });
+        }
+      })();
+      const networkFetchUndefinedError = (async() => {
+        try {
+          return await networkFetch;
+        } catch (err) {
+          return undefined;
+        }
+      })();
       // Construct a Promise<undefined> for the timeout.
       const timeout = this.adapter.timeout(this.config.timeoutMs) as Promise<undefined>;
-      // Race that with the network fetch. This will either be a Response, an error, or
-      // `undefined` in the event that the request times out.
-      return [Promise.race([networkFetch, timeout]), networkFetch];
+      // Race that with the network fetch. This will either be a Response, or `undefined`
+      // in the event that the request errored or timed out.
+      return [Promise.race([networkFetchUndefinedError, timeout]), safeNetworkFetch];
     } else {
+      const networkFetch = this.safeFetch(req);
       // Do a plain fetch.
       return [networkFetch, networkFetch];
     }
@@ -500,8 +516,9 @@ export class DataGroup {
     // until enough other resources are requested that it falls off the end of the LRU chain.
     lru.accessed(req.url);
 
-    // Store the response in the cache.
-    await(await this.cache).put(req, res);
+    // Store the response in the cache (cloning because the browser will consume
+    // the body during the caching operation).
+    await(await this.cache).put(req, res.clone());
 
     // Store the age of the cache.
     const ageTable = await this.ageTable;
@@ -537,5 +554,16 @@ export class DataGroup {
       cache.delete(this.adapter.newRequest(url, {method: 'HEAD'})),
       ageTable.delete(url),
     ]);
+  }
+
+  private async safeFetch(req: Request): Promise<Response> {
+    try {
+      return this.scope.fetch(req);
+    } catch (err) {
+      return this.adapter.newResponse(null, {
+        status: 504,
+        statusText: 'Gateway Timeout',
+      });
+    }
   }
 }

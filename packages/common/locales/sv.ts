@@ -9,6 +9,12 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
   'sv',
   [
@@ -39,11 +45,34 @@ export default [
     ,
   ],
   [',', ' ', ';', '%', '+', '−', '×10^', '×', '‰', '∞', '¤¤¤', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr', 'svensk krona',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'kr', 'svensk krona', {
+    'AUD': [, '$'],
+    'BBD': ['Bds$', '$'],
+    'BMD': ['BM$', '$'],
+    'BRL': ['BR$', 'R$'],
+    'BSD': ['BS$', '$'],
+    'BZD': ['BZ$', '$'],
+    'CNY': [, '¥'],
+    'DKK': ['Dkr', 'kr'],
+    'DOP': ['RD$', '$'],
+    'EEK': ['Ekr'],
+    'EGP': ['EG£', 'E£'],
+    'ESP': [],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'IEP': ['IE£'],
+    'INR': [, '₹'],
+    'ISK': ['Ikr', 'kr'],
+    'JMD': ['JM$', '$'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'NOK': ['Nkr', 'kr'],
+    'NZD': [, '$'],
+    'RON': [, 'L'],
+    'SEK': ['kr'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'VND': [, '₫']
+  },
+  plural
 ];

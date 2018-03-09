@@ -9,11 +9,21 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
-  'sw', [['am', 'pm'], ['AM', 'PM'], ['Asubuhi', 'Mchana']],
+  'sw',
   [
     ['am', 'pm'],
     ['AM', 'PM'],
+  ],
+  [
+    ['AM', 'PM'],
+    ,
   ],
   [
     ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -38,11 +48,13 @@ export default [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'TSh', 'Shilingi ya Tanzania',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'TSh', 'Shilingi ya Tanzania', {
+    'JPY': ['JP¥', '¥'],
+    'KES': ['Ksh'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'TZS': ['TSh'],
+    'USD': ['US$', '$']
+  },
+  plural
 ];

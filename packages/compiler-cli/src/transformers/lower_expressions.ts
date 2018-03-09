@@ -6,8 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {createLoweredSymbol, isLoweredSymbol} from '@angular/compiler';
 import * as ts from 'typescript';
+
 import {CollectorOptions, MetadataCollector, MetadataValue, ModuleMetadata, isMetadataGlobalReferenceExpression} from '../metadata/index';
+import {MetadataCache, MetadataTransformer, ValueTransform} from './metadata_cache';
 
 export interface LoweringRequest {
   kind: ts.SyntaxKind;
@@ -181,11 +184,13 @@ function createVariableStatementForDeclarations(declarations: Declaration[]): ts
       /* modifiers */ undefined, ts.createVariableDeclarationList(varDecls, ts.NodeFlags.Const));
 }
 
-export function getExpressionLoweringTransformFactory(requestsMap: RequestsMap):
-    (context: ts.TransformationContext) => (sourceFile: ts.SourceFile) => ts.SourceFile {
+export function getExpressionLoweringTransformFactory(
+    requestsMap: RequestsMap, program: ts.Program): (context: ts.TransformationContext) =>
+    (sourceFile: ts.SourceFile) => ts.SourceFile {
   // Return the factory
   return (context: ts.TransformationContext) => (sourceFile: ts.SourceFile): ts.SourceFile => {
-    const requests = requestsMap.getRequests(sourceFile);
+    // We need to use the original SourceFile for reading metadata, and not the transformed one.
+    const requests = requestsMap.getRequests(program.getSourceFile(sourceFile.fileName));
     if (requests && requests.size) {
       return transformSourceFile(sourceFile, requests, context);
     }
@@ -223,14 +228,12 @@ function shouldLower(node: ts.Node | undefined): boolean {
   return true;
 }
 
-const REWRITE_PREFIX = '\u0275';
-
 function isPrimitive(value: any): boolean {
   return Object(value) !== value;
 }
 
 function isRewritten(value: any): boolean {
-  return isMetadataGlobalReferenceExpression(value) && value.name.startsWith(REWRITE_PREFIX);
+  return isMetadataGlobalReferenceExpression(value) && isLoweredSymbol(value.name);
 }
 
 function isLiteralFieldNamed(node: ts.Node, names: Set<string>): boolean {
@@ -247,35 +250,39 @@ function isLiteralFieldNamed(node: ts.Node, names: Set<string>): boolean {
 
 const LOWERABLE_FIELD_NAMES = new Set(['useValue', 'useFactory', 'data']);
 
-export class LowerMetadataCache implements RequestsMap {
-  private collector: MetadataCollector;
-  private metadataCache = new Map<string, MetadataAndLoweringRequests>();
+export class LowerMetadataTransform implements RequestsMap, MetadataTransformer {
+  private cache: MetadataCache;
+  private requests = new Map<string, RequestLocationMap>();
 
-  constructor(options: CollectorOptions, private strict?: boolean) {
-    this.collector = new MetadataCollector(options);
-  }
-
-  getMetadata(sourceFile: ts.SourceFile): ModuleMetadata|undefined {
-    return this.ensureMetadataAndRequests(sourceFile).metadata;
-  }
-
+  // RequestMap
   getRequests(sourceFile: ts.SourceFile): RequestLocationMap {
-    return this.ensureMetadataAndRequests(sourceFile).requests;
-  }
-
-  private ensureMetadataAndRequests(sourceFile: ts.SourceFile): MetadataAndLoweringRequests {
-    let result = this.metadataCache.get(sourceFile.fileName);
+    let result = this.requests.get(sourceFile.fileName);
     if (!result) {
-      result = this.getMetadataAndRequests(sourceFile);
-      this.metadataCache.set(sourceFile.fileName, result);
+      // Force the metadata for this source file to be collected which
+      // will recursively call start() populating the request map;
+      this.cache.getMetadata(sourceFile);
+
+      // If we still don't have the requested metadata, the file is not a module
+      // or is a declaration file so return an empty map.
+      result = this.requests.get(sourceFile.fileName) || new Map<number, LoweringRequest>();
     }
     return result;
   }
 
-  private getMetadataAndRequests(sourceFile: ts.SourceFile): MetadataAndLoweringRequests {
+  // MetadataTransformer
+  connect(cache: MetadataCache): void { this.cache = cache; }
+
+  start(sourceFile: ts.SourceFile): ValueTransform|undefined {
     let identNumber = 0;
-    const freshIdent = () => REWRITE_PREFIX + identNumber++;
+    const freshIdent = () => createLoweredSymbol(identNumber++);
     const requests = new Map<number, LoweringRequest>();
+    this.requests.set(sourceFile.fileName, requests);
+
+    const replaceNode = (node: ts.Node) => {
+      const name = freshIdent();
+      requests.set(node.pos, {name, kind: node.kind, location: node.pos, end: node.end});
+      return {__symbolic: 'reference', name};
+    };
 
     const isExportedSymbol = (() => {
       let exportTable: Set<string>;
@@ -301,13 +308,8 @@ export class LowerMetadataCache implements RequestsMap {
       }
       return false;
     };
-    const replaceNode = (node: ts.Node) => {
-      const name = freshIdent();
-      requests.set(node.pos, {name, kind: node.kind, location: node.pos, end: node.end});
-      return {__symbolic: 'reference', name};
-    };
 
-    const substituteExpression = (value: MetadataValue, node: ts.Node): MetadataValue => {
+    return (value: MetadataValue, node: ts.Node): MetadataValue => {
       if (!isPrimitive(value) && !isRewritten(value)) {
         if ((node.kind === ts.SyntaxKind.ArrowFunction ||
              node.kind === ts.SyntaxKind.FunctionExpression) &&
@@ -321,17 +323,6 @@ export class LowerMetadataCache implements RequestsMap {
       }
       return value;
     };
-
-    // Do not validate or lower metadata in a declaration file. Declaration files are requested
-    // when we need to update the version of the metadata to add informatoin that might be missing
-    // in the out-of-date version that can be recovered from the .d.ts file.
-    const declarationFile = sourceFile.isDeclarationFile;
-
-    const metadata = this.collector.getMetadata(
-        sourceFile, this.strict && !declarationFile,
-        declarationFile ? undefined : substituteExpression);
-
-    return {metadata, requests};
   }
 }
 

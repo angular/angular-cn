@@ -9,6 +9,10 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  return 5;
+}
+
 export default [
   'qu-BO',
   [
@@ -24,10 +28,10 @@ export default [
   ,
   [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-    ['Qul', 'Hat', 'Pau', 'Ayr', 'Aym', 'Int', 'Ant', 'Qha', 'Uma', 'Kan', 'Aya', 'Kap'],
+    ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'],
     [
-      'Qulla puquy', 'Hatun puquy', 'Pauqar waray', 'Ayriwa', 'Aymuray', 'Inti raymi', 'Anta Sitwa',
-      'Qhapaq Sitwa', 'Uma raymi', 'Kantaray', 'Ayamarqʼa', 'Kapaq Raymi'
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre',
+      'Octubre', 'Noviembre', 'Diciembre'
     ]
   ],
   ,
@@ -39,5 +43,5 @@ export default [
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'], ['{1} {0}', , '{0} {1}', '{1} {0}'],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], 'Bs', 'BOB',
-  function(n: number): number { return 5;}
+  {'BOB': ['Bs'], 'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural
 ];

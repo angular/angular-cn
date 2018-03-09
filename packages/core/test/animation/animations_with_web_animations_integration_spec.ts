@@ -15,7 +15,7 @@ import {browserDetection} from '@angular/platform-browser/testing/src/browser_ut
 
 import {TestBed} from '../../testing';
 
-export function main() {
+(function() {
   // these tests are only mean't to be run within the DOM (for now)
   // Buggy in Chromium 39, see https://github.com/angular/angular/issues/15793
   if (typeof Element == 'undefined' || !ɵsupportsWebAnimations()) return;
@@ -60,7 +60,6 @@ export function main() {
 
       cmp.exp = true;
       fixture.detectChanges();
-      engine.flush();
 
       expect(engine.players.length).toEqual(1);
       let webPlayer = engine.players[0].getRealPlayer() as ɵWebAnimationsPlayer;
@@ -68,6 +67,8 @@ export function main() {
       expect(webPlayer.keyframes).toEqual([
         {height: '0px', offset: 0}, {height: '100px', offset: 1}
       ]);
+
+      webPlayer.finish();
 
       if (!browserDetection.isOldChrome) {
         cmp.exp = false;
@@ -378,9 +379,9 @@ export function main() {
 
       player = engine.players[0] !;
       webPlayer = player.getRealPlayer() as ɵWebAnimationsPlayer;
-      expect(approximate(parseFloat(webPlayer.previousStyles['width'] as string), 150))
+      expect(approximate(parseFloat(webPlayer.keyframes[0]['width'] as string), 150))
           .toBeLessThan(0.05);
-      expect(approximate(parseFloat(webPlayer.previousStyles['height'] as string), 300))
+      expect(approximate(parseFloat(webPlayer.keyframes[0]['height'] as string), 300))
           .toBeLessThan(0.05);
     });
 
@@ -445,14 +446,14 @@ export function main() {
          expect(players.length).toEqual(5);
          for (let i = 0; i < players.length; i++) {
            const p = players[i] as ɵWebAnimationsPlayer;
-           expect(approximate(parseFloat(p.previousStyles['width'] as string), 250))
+           expect(approximate(parseFloat(p.keyframes[0]['width'] as string), 250))
                .toBeLessThan(0.05);
-           expect(approximate(parseFloat(p.previousStyles['height'] as string), 500))
+           expect(approximate(parseFloat(p.keyframes[0]['height'] as string), 500))
                .toBeLessThan(0.05);
          }
        });
   });
-}
+})();
 
 function approximate(value: number, target: number) {
   return Math.abs(target - value) / value;

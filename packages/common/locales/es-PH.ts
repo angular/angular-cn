@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'es-PH',
   [
@@ -42,9 +47,28 @@ export default [
     '{1}, {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '₱', 'peso filipino', function(n: number):
-                                                                           number {
-                                                                             if (n === 1) return 1;
-                                                                             return 5;
-                                                                           }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '₱', 'peso filipino', {
+    'AUD': [, '$'],
+    'BRL': [, 'R$'],
+    'CNY': [, '¥'],
+    'EGP': [],
+    'ESP': ['₧'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'PHP': ['₱'],
+    'RON': [, 'L'],
+    'THB': ['฿'],
+    'TWD': [, 'NT$'],
+    'USD': ['US$', '$'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': []
+  },
+  plural
 ];

@@ -20,7 +20,6 @@ import {GENERATED_FILES} from './transformers/util';
 
 import {exitCodeFromResult, performCompilation, readConfiguration, formatDiagnostics, Diagnostics, ParsedConfiguration, PerformCompilationResult, filterErrorsAndWarnings} from './perform_compile';
 import {performWatchCompilation, createPerformWatchHost} from './perform_watch';
-import {isSyntaxError} from '@angular/compiler';
 
 export function main(
     args: string[], consoleError: (s: string) => void = console.error,
@@ -28,16 +27,17 @@ export function main(
   let {project, rootNames, options, errors: configErrors, watch, emitFlags} =
       config || readNgcCommandLineAndConfiguration(args);
   if (configErrors.length) {
-    return reportErrorsAndExit(options, configErrors, consoleError);
+    return reportErrorsAndExit(configErrors, /*options*/ undefined, consoleError);
   }
   if (watch) {
     const result = watchMode(project, options, consoleError);
-    return reportErrorsAndExit({}, result.firstCompileResult, consoleError);
+    return reportErrorsAndExit(result.firstCompileResult, options, consoleError);
   }
   const {diagnostics: compileDiags} = performCompilation(
       {rootNames, options, emitFlags, emitCallback: createEmitCallback(options)});
-  return reportErrorsAndExit(options, compileDiags, consoleError);
+  return reportErrorsAndExit(compileDiags, options, consoleError);
 }
+
 
 function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback|undefined {
   const transformDecorators = options.annotationsAs !== 'decorators';
@@ -45,7 +45,16 @@ function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback|un
   if (!transformDecorators && !transformTypesToClosure) {
     return undefined;
   }
-  const tsickleHost: tsickle.TsickleHost = {
+  if (transformDecorators) {
+    // This is needed as a workaround for https://github.com/angular/tsickle/issues/635
+    // Otherwise tsickle might emit references to non imported values
+    // as TypeScript elided the import.
+    options.emitDecoratorMetadata = true;
+  }
+  const tsickleHost: Pick<
+      tsickle.TsickleHost, 'shouldSkipTsickleProcessing'|'pathToModuleName'|
+      'shouldIgnoreWarningsForPath'|'fileNameToModuleId'|'googmodule'|'untyped'|
+      'convertIndexImportShorthand'|'transformDecorators'|'transformTypesToClosure'> = {
     shouldSkipTsickleProcessing: (fileName) =>
                                      /\.d\.ts$/.test(fileName) || GENERATED_FILES.test(fileName),
     pathToModuleName: (context, importPath) => '',
@@ -67,8 +76,8 @@ function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback|un
            options
          }) =>
              tsickle.emitWithTsickle(
-                 program, tsickleHost, host, options, targetSourceFile, writeFile,
-                 cancellationToken, emitOnlyDtsFiles, {
+                 program, {...tsickleHost, options, host}, host, options, targetSourceFile,
+                 writeFile, cancellationToken, emitOnlyDtsFiles, {
                    beforeTs: customTransformers.before,
                    afterTs: customTransformers.after,
                  });
@@ -128,11 +137,17 @@ export function readCommandLineAndConfiguration(
 }
 
 function reportErrorsAndExit(
-    options: api.CompilerOptions, allDiagnostics: Diagnostics,
+    allDiagnostics: Diagnostics, options?: api.CompilerOptions,
     consoleError: (s: string) => void = console.error): number {
   const errorsAndWarnings = filterErrorsAndWarnings(allDiagnostics);
   if (errorsAndWarnings.length) {
-    consoleError(formatDiagnostics(options, errorsAndWarnings));
+    let currentDir = options ? options.basePath : undefined;
+    const formatHost: ts.FormatDiagnosticsHost = {
+      getCurrentDirectory: () => currentDir || ts.sys.getCurrentDirectory(),
+      getCanonicalFileName: fileName => fileName,
+      getNewLine: () => ts.sys.newLine
+    };
+    consoleError(formatDiagnostics(errorsAndWarnings, formatHost));
   }
   return exitCodeFromResult(allDiagnostics);
 }
@@ -140,7 +155,7 @@ function reportErrorsAndExit(
 export function watchMode(
     project: string, options: api.CompilerOptions, consoleError: (s: string) => void) {
   return performWatchCompilation(createPerformWatchHost(project, diagnostics => {
-    consoleError(formatDiagnostics(options, diagnostics));
+    consoleError(formatDiagnostics(diagnostics));
   }, options, options => createEmitCallback(options)));
 }
 

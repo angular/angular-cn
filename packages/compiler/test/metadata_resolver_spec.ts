@@ -18,7 +18,7 @@ import {MockResourceLoader} from '../testing/src/resource_loader_mock';
 import {MalformedStylesComponent} from './metadata_resolver_fixture';
 import {TEST_COMPILER_PROVIDERS} from './test_bindings';
 
-export function main() {
+{
   describe('CompileMetadataResolver', () => {
     beforeEach(() => { TestBed.configureCompiler({providers: TEST_COMPILER_PROVIDERS}); });
 
@@ -398,6 +398,18 @@ export function main() {
          }
 
          expect(() => resolver.getNgModuleMetadata(ModuleWithComponentInBootstrap)).not.toThrow();
+       }));
+
+    // #20049
+    it('should throw a reasonable message when an invalid import is given',
+       inject([CompileMetadataResolver], (resolver: CompileMetadataResolver) => {
+         @NgModule({imports: [{ngModule: true as any}]})
+         class InvalidModule {
+         }
+
+         expect(() => { resolver.getNgModuleMetadata(InvalidModule); })
+             .toThrowError(
+                 `Unexpected value '[object Object]' imported by the module 'InvalidModule'. Please add a @NgModule annotation.`);
        }));
   });
 

@@ -9,13 +9,19 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
   'en-AU',
   [
     ['am', 'pm'],
     ,
   ],
-  [['am', 'pm'], ['AM', 'PM'], ['am', 'pm']],
+  ,
   [
     ['Su.', 'M.', 'Tu.', 'W.', 'Th.', 'F.', 'Sa.'],
     ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
@@ -39,12 +45,37 @@ export default [
     ,
     '{1} \'at\' {0}',
   ],
-  ['.', ',', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Australian Dollar',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['.', ',', ';', '%', '+', '-', 'e', '×', '‰', '∞', 'NaN', '.'],
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '$', 'Australian Dollar', {
+    'AUD': ['$'],
+    'BDT': [, 'Tk'],
+    'BOB': [, '$b'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'CUP': [, '₱'],
+    'EGP': [, '£'],
+    'EUR': [, '€'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'ISK': [, 'Kr'],
+    'JPY': [, '¥'],
+    'KRW': [, '₩'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'PYG': [, 'Gs'],
+    'SCR': ['Rs'],
+    'SEK': [, 'Kr'],
+    'TWD': [, '$'],
+    'USD': [, '$'],
+    'UYU': [, '$U'],
+    'VND': [, '₫'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': ['CFP']
+  },
+  plural
 ];

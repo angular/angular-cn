@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT, DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { ScrollSpyInfo, ScrollSpyService } from 'app/shared/scroll-spy.service';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 
 export interface TocItem {
@@ -18,10 +18,10 @@ export class TocService {
   activeItemIndex = new ReplaySubject<number | null>(1);
   private scrollSpyInfo: ScrollSpyInfo | null;
 
-  constructor(
-      @Inject(DOCUMENT) private document: any,
+  constructor(@Inject(DOCUMENT) private document: any,
               private domSanitizer: DomSanitizer,
-      private scrollSpyService: ScrollSpyService) { }
+              private scrollSpyService: ScrollSpyService) {
+  }
 
   genToc(docElement?: Element, docId = '') {
     this.resetScrollSpyInfo();
@@ -37,7 +37,7 @@ export class TocService {
       content: this.extractHeadingSafeHtml(heading),
       href: `${docId}#${this.getId(heading, idMap)}`,
       level: heading.tagName.toLowerCase(),
-      title: heading.textContent.trim(),
+      title: (heading.textContent || '').trim(),
     }));
 
     this.tocList.next(tocList);
@@ -75,7 +75,10 @@ export class TocService {
 
   private isOriginalText(heading: HTMLHeadingElement): boolean {
     if (heading && heading.hasAttribute('translation-origin')) {
-      const prevNode = heading.previousElementSibling;
+      let prevNode = heading.previousElementSibling;
+      if (prevNode && prevNode.tagName === 'AIO-TOC') {
+        prevNode = prevNode.previousElementSibling;
+      }
       if (prevNode && prevNode.hasAttribute('translation-result')) {
         return true;
       }
@@ -99,7 +102,7 @@ export class TocService {
     if (id) {
       addToMap(id);
     } else {
-      id = h.textContent.trim().toLowerCase().replace(/\W+/g, '-');
+      id = (h.textContent || '').trim().toLowerCase().replace(/\W+/g, '-');
       id = addToMap(id);
       h.id = id;
     }
@@ -107,7 +110,9 @@ export class TocService {
 
     // Map guards against duplicate id creation.
     function addToMap(key: string) {
-      const count = idMap[key] = idMap[key] ? idMap[key] + 1 : 1;
+      const oldCount = idMap.get(key) || 0;
+      const count = oldCount + 1;
+      idMap.set(key, count);
       return count === 1 ? key : `${key}-${count}`;
     }
   }

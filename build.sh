@@ -206,7 +206,7 @@ minify() {
     base_file=$( basename "${file}" )
     if [[ "${base_file}" =~ $regex && "${base_file##*.}" != "map" ]]; then
       local out_file=$(dirname "${file}")/${BASH_REMATCH[1]}.min.js
-      $UGLIFYJS -c --screw-ie8 --comments -o ${out_file} --source-map ${out_file}.map --source-map-include-sources ${file}
+      $UGLIFYJS -c --screw-ie8 --comments -o ${out_file} --source-map ${out_file}.map --prefix relative --source-map-include-sources ${file}
     fi
   done
 }
@@ -416,9 +416,13 @@ if [[ ${BUILD_TOOLS} == true || ${BUILD_ALL} == true ]]; then
 
   mkdir -p ./dist/packages-dist
   rsync -a packages/bazel/ ./dist/packages-dist/bazel
+  echo "workspace(name=\"angular\")" > ./dist/packages-dist/bazel/WORKSPACE
   # Remove BEGIN-INTERNAL...END-INTERAL blocks
   # https://stackoverflow.com/questions/24175271/how-can-i-match-multi-line-patterns-in-the-command-line-with-perl-style-regex
   perl -0777 -n -i -e "s/(?m)^.*BEGIN-INTERNAL[\w\W]*END-INTERNAL.*\n//g; print" $(grep -ril BEGIN-INTERNAL dist/packages-dist/bazel) < /dev/null 2> /dev/null
+  # Re-host //packages/bazel/ which is just // in the public distro
+  perl -0777 -n -i -e "s#//packages/bazel/#//#g; print" $(grep -ril packages/bazel dist/packages-dist/bazel) < /dev/null 2> /dev/null
+  perl -0777 -n -i -e "s#angular/packages/bazel/#angular/#g; print" $(grep -ril packages/bazel dist/packages-dist/bazel) < /dev/null 2> /dev/null
   updateVersionReferences dist/packages-dist/bazel
 fi
 
@@ -476,7 +480,7 @@ do
 
       if [[ ${PACKAGE} == "common" ]]; then
         echo "======      Copy i18n locale data"
-        rsync -a --exclude=*.d.ts --exclude=*.metadata.json ${OUT_DIR}/locales/ ${NPM_DIR}/locales
+        rsync -a ${OUT_DIR}/locales/ ${NPM_DIR}/locales
       fi
     else
       echo "======        Copy ${PACKAGE} node tool"

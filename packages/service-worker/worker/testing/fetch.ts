@@ -11,12 +11,24 @@ export class MockBody implements Body {
 
   constructor(public _body: string|null) {}
 
-  async arrayBuffer(): Promise<ArrayBuffer> { throw 'Not implemented'; }
+  async arrayBuffer(): Promise<ArrayBuffer> {
+    this.markBodyUsed();
+    if (this._body !== null) {
+      const buffer = new ArrayBuffer(this._body.length);
+      const access = new Uint8Array(buffer);
+      for (let i = 0; i < this._body.length; i++) {
+        access[i] = this._body.charCodeAt(i);
+      }
+      return buffer;
+    } else {
+      throw new Error('No body');
+    }
+  }
 
   async blob(): Promise<Blob> { throw 'Not implemented'; }
 
   async json(): Promise<any> {
-    this.bodyUsed = true;
+    this.markBodyUsed();
     if (this._body !== null) {
       return JSON.parse(this._body);
     } else {
@@ -25,7 +37,7 @@ export class MockBody implements Body {
   }
 
   async text(): Promise<string> {
-    this.bodyUsed = true;
+    this.markBodyUsed();
     if (this._body !== null) {
       return this._body;
     } else {
@@ -34,13 +46,25 @@ export class MockBody implements Body {
   }
 
   async formData(): Promise<FormData> { throw 'Not implemented'; }
+
+  private markBodyUsed(): void {
+    if (this.bodyUsed === true) {
+      throw new Error('Cannot reuse body without cloning.');
+    }
+    this.bodyUsed = true;
+  }
 }
 
 export class MockHeaders implements Headers {
   map = new Map<string, string>();
+
+  [Symbol.iterator]() { return this.map[Symbol.iterator](); }
+
   append(name: string, value: string): void { this.map.set(name, value); }
 
   delete (name: string): void { this.map.delete(name); }
+
+  entries() { return this.map.entries(); }
 
   forEach(callback: Function): void { this.map.forEach(callback as any); }
 
@@ -48,7 +72,11 @@ export class MockHeaders implements Headers {
 
   has(name: string): boolean { return this.map.has(name); }
 
+  keys() { return this.map.keys(); }
+
   set(name: string, value: string): void { this.map.set(name, value); }
+
+  values() { return this.map.values(); }
 }
 
 export class MockRequest extends MockBody implements Request {
@@ -64,7 +92,7 @@ export class MockRequest extends MockBody implements Request {
   readonly referrer: string = '';
   readonly referrerPolicy: ReferrerPolicy = 'no-referrer';
   readonly type: RequestType = '';
-  readonly url: string;
+  url: string;
 
   constructor(input: string|Request, init: RequestInit = {}) {
     super(init !== undefined ? init.body || null : null);
@@ -72,17 +100,19 @@ export class MockRequest extends MockBody implements Request {
       throw 'Not implemented';
     }
     this.url = input;
-    if (init.headers !== undefined) {
-      if (init.headers instanceof MockHeaders) {
-        this.headers = init.headers;
+    const headers = init.headers as{[key: string]: string};
+    if (headers !== undefined) {
+      if (headers instanceof MockHeaders) {
+        this.headers = headers;
       } else {
-        Object.keys(init.headers).forEach(header => {
-          this.headers.set(header, init.headers[header]);
-        });
+        Object.keys(headers).forEach(header => { this.headers.set(header, headers[header]); });
       }
     }
     if (init.mode !== undefined) {
       this.mode = init.mode;
+    }
+    if (init.credentials !== undefined) {
+      this.credentials = init.credentials;
     }
   }
 
@@ -90,7 +120,9 @@ export class MockRequest extends MockBody implements Request {
     if (this.bodyUsed) {
       throw 'Body already consumed';
     }
-    return new MockRequest(this.url, {body: this._body});
+    return new MockRequest(
+        this.url,
+        {body: this._body, mode: this.mode, credentials: this.credentials, headers: this.headers});
   }
 }
 
@@ -102,19 +134,30 @@ export class MockResponse extends MockBody implements Response {
   readonly type: ResponseType = 'basic';
   readonly url: string = '';
   readonly body: ReadableStream|null = null;
+  readonly redirected: boolean = false;
 
-  constructor(body?: any, init: ResponseInit = {}) {
+  constructor(
+      body?: any,
+      init: ResponseInit&{type?: ResponseType, redirected?: boolean, url?: string} = {}) {
     super(typeof body === 'string' ? body : null);
     this.status = (init.status !== undefined) ? init.status : 200;
     this.statusText = init.statusText || 'OK';
-    if (init.headers !== undefined) {
-      if (init.headers instanceof MockHeaders) {
-        this.headers = init.headers;
+    const headers = init.headers as{[key: string]: string};
+    if (headers !== undefined) {
+      if (headers instanceof MockHeaders) {
+        this.headers = headers;
       } else {
-        Object.keys(init.headers).forEach(header => {
-          this.headers.set(header, init.headers[header]);
-        });
+        Object.keys(headers).forEach(header => { this.headers.set(header, headers[header]); });
       }
+    }
+    if (init.type !== undefined) {
+      this.type = init.type;
+    }
+    if (init.redirected !== undefined) {
+      this.redirected = init.redirected;
+    }
+    if (init.url !== undefined) {
+      this.url = init.url;
     }
   }
 

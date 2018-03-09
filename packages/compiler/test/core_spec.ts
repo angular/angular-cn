@@ -9,7 +9,7 @@
 import {core as compilerCore} from '@angular/compiler';
 import * as core from '@angular/core';
 
-export function main() {
+{
   describe('compiler core', () => {
     it('Attribute should be equal', () => {
       typeExtends<compilerCore.Attribute, core.Attribute>();
@@ -147,6 +147,10 @@ export function main() {
       expect(compilerCore.DepFlags.SkipSelf).toBe(core.ɵDepFlags.SkipSelf);
       expect(compilerCore.DepFlags.Optional).toBe(core.ɵDepFlags.Optional);
       expect(compilerCore.DepFlags.Value).toBe(core.ɵDepFlags.Value);
+
+      expect(compilerCore.InjectFlags.Default).toBe(core.InjectFlags.Default);
+      expect(compilerCore.InjectFlags.SkipSelf).toBe(core.InjectFlags.SkipSelf);
+      expect(compilerCore.InjectFlags.Self).toBe(core.InjectFlags.Self);
 
       expect(compilerCore.ArgumentType.Inline).toBe(core.ɵArgumentType.Inline);
       expect(compilerCore.ArgumentType.Dynamic).toBe(core.ɵArgumentType.Dynamic);

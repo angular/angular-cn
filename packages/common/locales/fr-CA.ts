@@ -9,6 +9,12 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n));
+  if (i === 0 || i === 1) return 1;
+  return 5;
+}
+
 export default [
   'fr-CA',
   [
@@ -16,8 +22,8 @@ export default [
     ['a.m.', 'p.m.'],
   ],
   [
-    ['AM', 'PM'],
     ['a.m.', 'p.m.'],
+    ,
   ],
   [
     ['D', 'L', 'M', 'M', 'J', 'V', 'S'], ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
@@ -38,18 +44,48 @@ export default [
   ],
   , [['av. J.-C.', 'ap. J.-C.'], , ['avant Jésus-Christ', 'après Jésus-Christ']], 0, [6, 0],
   ['yy-MM-dd', 'd MMM y', 'd MMMM y', 'EEEE d MMMM y'],
-  ['HH \'h\' mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
+  [
+    'HH \'h\' mm', 'HH \'h\' mm \'min\' ss \'s\'', 'HH \'h\' mm \'min\' ss \'s\' z',
+    'HH \'h\' mm \'min\' ss \'s\' zzzz'
+  ],
   [
     '{1} {0}',
     ,
     '{1} \'à\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n));
-        if (i === 0 || i === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], '$', 'dollar canadien', {
+    'AUD': ['$ AU', '$'],
+    'BEF': ['FB'],
+    'BYN': [, 'Br'],
+    'CAD': ['$'],
+    'CYP': ['£CY'],
+    'EGP': [, '£E'],
+    'FRF': ['F'],
+    'GEL': [],
+    'HKD': ['$ HK', '$'],
+    'IEP': ['£IE'],
+    'ILP': ['£IL'],
+    'ILS': [, '₪'],
+    'INR': [, '₹'],
+    'ITL': ['₤IT'],
+    'KRW': [, '₩'],
+    'LBP': [, '£L'],
+    'MTP': ['£MT'],
+    'MXN': [, '$'],
+    'NZD': ['$ NZ', '$'],
+    'RHD': ['$RH'],
+    'RON': [, 'L'],
+    'RWF': [, 'FR'],
+    'SGD': ['$ SG', '$'],
+    'TWD': [, 'NT$'],
+    'USD': ['$ US', '$'],
+    'VND': [, '₫'],
+    'WST': ['WS$'],
+    'XAF': [],
+    'XCD': [, '$'],
+    'XOF': [],
+    'XPF': []
+  },
+  plural
 ];

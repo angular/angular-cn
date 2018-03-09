@@ -13,7 +13,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { LocationService } from 'app/shared/location.service';
-import { ApiItem, ApiSection, ApiService } from './api.service';
+import { ApiSection, ApiService } from './api.service';
 
 import { Option } from 'app/shared/select/select.component';
 
@@ -42,16 +42,16 @@ export class ApiListComponent implements OnInit {
 
   // API types
   types: Option[] = [
-    { value: 'all', title: '全部' },
-    { value: 'directive', title: '指令' },
-    { value: 'pipe', title: '管道'},
-    { value: 'decorator', title: '装饰器' },
-    { value: 'class', title: '类' },
-    { value: 'interface', title: '接口' },
-    { value: 'function', title: '函数' },
-    { value: 'enum', title: '枚举' },
-    { value: 'type-alias', title: '类型别名' },
-    { value: 'const', title: '常量'}
+    { value: 'all', title: 'All' },
+    { value: 'class', title: 'Class' },
+    { value: 'const', title: 'Const'},
+    { value: 'decorator', title: 'Decorator' },
+    { value: 'directive', title: 'Directive' },
+    { value: 'enum', title: 'Enum' },
+    { value: 'function', title: 'Function' },
+    { value: 'interface', title: 'Interface' },
+    { value: 'pipe', title: 'Pipe'},
+    { value: 'type-alias', title: 'Type Alias' }
   ];
 
   statuses: Option[] = [

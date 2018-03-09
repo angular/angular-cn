@@ -33,6 +33,7 @@ export class JitReflector implements CompileReflector {
   parameters(typeOrFunc: /*Type*/ any): any[][] {
     return this.reflectionCapabilities.parameters(typeOrFunc);
   }
+  tryAnnotations(typeOrFunc: /*Type*/ any): any[] { return this.annotations(typeOrFunc); }
   annotations(typeOrFunc: /*Type*/ any): any[] {
     return this.reflectionCapabilities.annotations(typeOrFunc);
   }
@@ -42,6 +43,7 @@ export class JitReflector implements CompileReflector {
   hasLifecycleHook(type: any, lcProperty: string): boolean {
     return this.reflectionCapabilities.hasLifecycleHook(type, lcProperty);
   }
+  guards(type: any): {[key: string]: any} { return this.reflectionCapabilities.guards(type); }
   resolveExternalReference(ref: ExternalReference): any {
     return builtinExternalReferences.get(ref) || ref.runtime;
   }

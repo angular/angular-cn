@@ -21,7 +21,9 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
   .processor(require('./processors/extractDecoratedClasses'))
   .processor(require('./processors/matchUpDirectiveDecorators'))
   .processor(require('./processors/addMetadataAliases'))
+  .processor(require('./processors/computeApiBreadCrumbs'))
   .processor(require('./processors/filterContainedDocs'))
+  .processor(require('./processors/processClassLikeMembers'))
   .processor(require('./processors/markBarredODocsAsPrivate'))
   .processor(require('./processors/filterPrivateDocs'))
   .processor(require('./processors/computeSearchTitle'))
@@ -38,6 +40,8 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
     readTypeScriptModules.basePath = API_SOURCE_PATH;
     readTypeScriptModules.ignoreExportsMatching = [/^[_ɵ]|^VERSION$/];
     readTypeScriptModules.hidePrivateMembers = true;
+
+    // NOTE: This list shold be in sync with tools/gulp-tasks/public-api.js
     readTypeScriptModules.sourceFiles = [
       'animations/index.ts',
       'animations/browser/index.ts',
@@ -63,6 +67,7 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
       'router/index.ts',
       'router/testing/index.ts',
       'router/upgrade/index.ts',
+      'service-worker/index.ts',
       'upgrade/index.ts',
       'upgrade/static/index.ts',
     ];
@@ -83,15 +88,6 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
     // Load up all the tag definitions in the tag-defs folder
     parseTagsProcessor.tagDefinitions =
         parseTagsProcessor.tagDefinitions.concat(getInjectables(requireFolder(__dirname, './tag-defs')));
-
-    // We actually don't want to parse param docs in this package as we are getting the data out using TS
-    // TODO: rewire the param docs to the params extracted from TS
-    parseTagsProcessor.tagDefinitions.forEach(function(tagDef) {
-      if (tagDef.name === 'param') {
-        tagDef.docProperty = 'paramData';
-        tagDef.transforms = [];
-      }
-    });
   })
 
 

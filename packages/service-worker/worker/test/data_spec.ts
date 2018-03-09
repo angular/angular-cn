@@ -114,7 +114,7 @@ function asyncWrap(fn: () => Promise<void>): (done: DoneFn) => void {
   return (done: DoneFn) => { fn().then(() => done(), err => done.fail(err)); };
 }
 
-export function main() {
+(function() {
   // Skip environments that don't support the minimum APIs needed to run the SW tests.
   if (!SwTestHarness.envIsSupported()) {
     return;
@@ -135,6 +135,12 @@ export function main() {
     });
 
     describe('in performance mode', () => {
+      async_it('names the caches correctly', async() => {
+        expect(await makeRequest(scope, '/api/test')).toEqual('version 1');
+        const keys = await scope.caches.keys();
+        expect(keys.every(key => key.startsWith('ngsw:'))).toEqual(true);
+      });
+
       async_it('caches a basic request', async() => {
         expect(await makeRequest(scope, '/api/test')).toEqual('version 1');
         server.assertSawRequestFor('/api/test');
@@ -236,7 +242,7 @@ export function main() {
       });
     });
   });
-}
+})();
 
 async function makeRequest(scope: SwTestHarness, url: string, clientId?: string):
     Promise<string|null> {
