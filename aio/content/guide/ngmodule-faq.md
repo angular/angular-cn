@@ -246,7 +246,7 @@ are able to reference in their templates. These are your _public_ classes.
 If you don't export a declarable class, it stays _private_, visible only to other components
 declared in this NgModule.
 
-导出那些*其它模块*希望在自己的模板中引用的[可声明类](guide/ngmodule-faq#q-declarable)。这些也是你的*公开*类。
+导出那些*其它模块*希望在自己的模板中引用的[可声明类](guide/ngmodule-faq#q-declarable)。这些也是你的*公共*类。
 如果你不导出某个类，它就是*私有的*，只对当前模块中声明的其它组件可见。
 
 You _can_ export any declarable class&mdash;components, directives, and pipes&mdash;whether

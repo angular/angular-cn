@@ -3040,7 +3040,7 @@ because events stream *out* of that property and toward the handler in a templat
 
 Sometimes the public name of an input/output property should be different from the internal name.
 
-有时需要让输入/输出属性的公开名字不同于内部名字。
+有时需要让输入/输出属性的公共名字不同于内部名字。
 
 This is frequently the case with [attribute directives](guide/attribute-directives).
 Directive consumers expect to bind to the name of the directive.
@@ -3068,7 +3068,7 @@ while using a different name internally.
 In the example immediately above, you are actually binding *through the* `myClick` *alias* to
 the directive's own `clicks` property.
 
-幸运的是，可以使用约定俗成的公开名字，同时在内部使用不同的名字。
+幸运的是，可以使用约定俗成的公共名字，同时在内部使用不同的名字。
 在上面例子中，实际上是把`myClick`这个别名指向了指令自己的`clicks`属性。
 
 You can specify the alias for the property name by passing it into the input/output decorator like this:
@@ -3086,7 +3086,7 @@ You write a colon-delimited (`:`) string with
 the directive property name on the *left* and the public alias on the *right*:
 
 也可在`inputs`和`outputs`数组中为属性指定别名。
-可以写一个冒号 (`:`) 分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公开的别名。
+可以写一个冒号 (`:`) 分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公共别名。
 
 <code-example path="template-syntax/src/app/click.directive.ts" region="output-myClick2" title="src/app/click.directive.ts" linenums="false">
 

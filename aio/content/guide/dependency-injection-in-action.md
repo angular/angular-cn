@@ -1150,7 +1150,7 @@ Obtaining a component reference is a bit tricky in Angular.
 Although an Angular application is a tree of components,
 there is no public API for inspecting and traversing that tree.
 
-在Angular里，获取一个组件的引用比较复杂。虽然Angular应用程序是一个组件树，但它没有公开的API来在该树中巡查和穿梭。
+在Angular里，获取一个组件的引用比较复杂。虽然Angular应用程序是一个组件树，但它没有公共API来在该树中巡查和穿梭。
 
 There is an API for acquiring a child reference.
 Check out `Query`, `QueryList`, `ViewChildren`, and `ContentChildren`
@@ -1162,7 +1162,7 @@ There is no public API for acquiring a parent reference.
 But because every component instance is added to an injector's container,
 you can use Angular dependency injection to reach a parent component.
 
-但没有公开的API来获取父组件的引用。但是因为每个组件的实例都被加到了依赖注入器的容器中，可以使用Angular依赖注入来找到父组件。
+但没有公共API来获取父组件的引用。但是因为每个组件的实例都被加到了依赖注入器的容器中，可以使用Angular依赖注入来找到父组件。
 
 This section describes some techniques for doing that.
 

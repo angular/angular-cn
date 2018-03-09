@@ -615,13 +615,13 @@ Angular 将会在创建 `MessagesComponent` 的实例时 把 `MessageService` �
 
 The `messageService` property **must be public** because you're about to bind to it in the template.
 
-这个 `messageService` 属性必须是公开的，因为你将会在模板中绑定到它。
+这个 `messageService` 属性必须是公共属性，因为你将会在模板中绑定到它。
 
 <div class="alert is-important">
 
 Angular only binds to _public_ component properties.
 
-Angular 只会绑定到组件的*公开*属性。
+Angular 只会绑定到组件的*公共*属性。
 
 </div>
 

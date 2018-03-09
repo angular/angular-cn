@@ -218,7 +218,7 @@ The following table summarizes the `@NgModule` metadata properties.
       A module can list another module among its `exports`, in which case
       all of that module's public components, directives, and pipes are exported.
 
-      一个模块可以把另一个模块加入自己的`exports`列表中，这时，另一个模块的所有公开组件、指令和管道都会被导出。
+      一个模块可以把另一个模块加入自己的`exports`列表中，这时，另一个模块的所有公共组件、指令和管道都会被导出。
 
       [Re-export](guide/ngmodule-faq#q-reexport) makes module transitivity explicit.
       If Module 'A' re-exports `CommonModule` and Module 'B' imports Module 'A',
