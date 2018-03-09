@@ -1,5 +1,5 @@
 {
-  "maxLength": 100,
+  "maxLength": 120,
   "types": [
     "build",
     "ci",
@@ -8,6 +8,7 @@
     "fix",
     "perf",
     "refactor",
+    "release",
     "style",
     "test"
   ],
@@ -22,6 +23,7 @@
     "core",
     "forms",
     "http",
+    "ivy",
     "language-service",
     "platform-browser",
     "platform-browser-dynamic",

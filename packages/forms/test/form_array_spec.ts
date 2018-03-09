@@ -9,10 +9,10 @@
 import {fakeAsync, tick} from '@angular/core/testing';
 import {AsyncTestCompleter, beforeEach, describe, inject, it} from '@angular/core/testing/src/testing_internal';
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {Validators} from '@angular/forms/src/validators';
 import {of } from 'rxjs/observable/of';
-import {Validators} from '../src/validators';
 
-export function main() {
+(function() {
   function asyncValidator(expected: string, timeouts = {}) {
     return (c: AbstractControl) => {
       let resolve: (result: any) => void = undefined !;
@@ -622,6 +622,36 @@ export function main() {
         expect(c.pending).toEqual(true);
         expect(a.pending).toEqual(false);
       });
+
+      describe('status change events', () => {
+        let logger: string[];
+
+        beforeEach(() => {
+          logger = [];
+          a.statusChanges.subscribe((status) => logger.push(status));
+        });
+
+        it('should emit event after marking control as pending', () => {
+          c.markAsPending();
+          expect(logger).toEqual(['PENDING']);
+        });
+
+        it('should not emit event from parent when onlySelf is true', () => {
+          c.markAsPending({onlySelf: true});
+          expect(logger).toEqual([]);
+        });
+
+        it('should not emit event when emitEvent = false', () => {
+          c.markAsPending({emitEvent: false});
+          expect(logger).toEqual([]);
+        });
+
+        it('should emit event when parent is markedAsPending', () => {
+          a.markAsPending();
+          expect(logger).toEqual(['PENDING']);
+        });
+      });
+
     });
 
     describe('valueChanges', () => {
@@ -1053,6 +1083,28 @@ export function main() {
           expect(logger).toEqual(['control', 'array', 'form']);
         });
 
+        it('should not emit value change events when emitEvent = false', () => {
+          c.valueChanges.subscribe(() => logger.push('control'));
+          a.valueChanges.subscribe(() => logger.push('array'));
+          form.valueChanges.subscribe(() => logger.push('form'));
+
+          a.disable({emitEvent: false});
+          expect(logger).toEqual([]);
+          a.enable({emitEvent: false});
+          expect(logger).toEqual([]);
+        });
+
+        it('should not emit status change events when emitEvent = false', () => {
+          c.statusChanges.subscribe(() => logger.push('control'));
+          a.statusChanges.subscribe(() => logger.push('array'));
+          form.statusChanges.subscribe(() => logger.push('form'));
+
+          a.disable({emitEvent: false});
+          expect(logger).toEqual([]);
+          a.enable({emitEvent: false});
+          expect(logger).toEqual([]);
+        });
+
       });
 
       describe('setControl()', () => {
@@ -1100,4 +1152,4 @@ export function main() {
 
     });
   });
-}
+})();

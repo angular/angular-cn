@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'ee-TG',
   [
@@ -26,11 +31,11 @@ export default [
     ['d', 'd', 't', 'a', 'd', 'm', 's', 'd', 'a', 'k', 'a', 'd'],
     ['dzv', 'dzd', 'ted', 'afɔ', 'dam', 'mas', 'sia', 'dea', 'any', 'kel', 'ade', 'dzm'],
     [
-      'dzove', 'dzodze', 'tedoxe', 'afɔfĩe', 'dama', 'masa', 'siamlɔm', 'deasiamime', 'anyɔnyɔ',
-      'kele', 'adeɛmekpɔxe', 'dzome'
+      'dzove', 'dzodze', 'tedoxe', 'afɔfĩe', 'dama', 'masa', 'siamlɔm', 'deasiamime',
+      'anyɔnyɔ', 'kele', 'adeɛmekpɔxe', 'dzome'
     ]
   ],
-  , [['hY', 'Yŋ'], , ['Hafi Yesu Va Do ŋgɔ', 'Yesu Ŋɔli']], 1, [6, 0],
+  , [['HYV', 'Yŋ'], , ['Hafi Yesu Va', 'Yesu ŋɔli']], 1, [6, 0],
   ['M/d/yy', 'MMM d \'lia\', y', 'MMMM d \'lia\' y', 'EEEE, MMMM d \'lia\' y'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
@@ -39,10 +44,12 @@ export default [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'mnn', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'CFA', 'ɣetoɖofe afrikaga CFA franc BCEAO',
-  function(n: number):
-      number {
-        if (n === 1) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], 'CFA', 'ɣetoɖofe afrikaga CFA franc BCEAO', {
+    'AUD': ['AU$', '$'],
+    'GHS': ['GH₵'],
+    'JPY': ['JP¥', '¥'],
+    'THB': ['฿'],
+    'USD': ['US$', '$']
+  },
+  plural
 ];

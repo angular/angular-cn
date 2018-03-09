@@ -693,13 +693,13 @@ export interface Component extends Directive {
    * - text nodes are left as-is inside HTML tags where whitespaces are significant (ex. `<pre>`,
    *   `<textarea>`).
    *
-   * Described transformations can (potentially) influence DOM nodes layout so the
-   * `preserveWhitespaces` option is `true` be default (no whitespace removal).
-   * In Angular 5 you need to opt-in for whitespace removal (but we might revisit the default
-   * setting in Angular 6 or later). If you want to change the default setting for all components
-   * in your application you can use the `preserveWhitespaces` option of the AOT compiler.
+   * Described transformations may (potentially) influence DOM nodes layout. However, the impact
+   * should so be minimal. That's why starting from Angular 6, the
+   * `preserveWhitespaces` option is `false` by default (whitespace removal).
+   * If you want to change the default setting for all components in your application you can use
+   * the `preserveWhitespaces` option of the AOT compiler.
    *
-   * Even if you decide to opt-in for whitespace removal there are ways of preserving whitespaces
+   * Even with the default behavior of whitespace removal, there are ways of preserving whitespaces
    * in certain fragments of a template. You can either exclude entire DOM sub-tree by using the
    * `ngPreserveWhitespaces` attribute, ex.:
    *
@@ -783,12 +783,35 @@ export interface PipeDecorator {
  * @stable
  */
 export interface Pipe {
+  /**
+   * Name of the pipe.
+   *
+   * The pipe name is used in template bindings. For example if a pipe is named
+   * `myPipe` then it would be used in the template binding expression like
+   * so:  `{{ exp | myPipe }}`.
+   */
   name: string;
+
+  /**
+   * If Pipe is pure (its output depends only on its input.)
+   *
+   * Normally pipe's `transform` method is only invoked when the inputs to pipe`s
+   * `transform` method change. If the pipe has internal state (it's result are
+   * dependant on state other than its arguments) than set `pure` to `false` so
+   * that the pipe is invoked on each change-detection even if the arguments to the
+   * pipe do not change.
+   */
   pure?: boolean;
 }
 
 /**
  * Pipe decorator and metadata.
+ *
+ * Use the `@Pipe` annotation to declare that a given class is a pipe. A pipe
+ * class must also implement {@link PipeTransform} interface.
+ *
+ * To use the pipe include a reference to the pipe class in
+ * {@link NgModule#declarations}.
  *
  * @stable
  * @Annotation

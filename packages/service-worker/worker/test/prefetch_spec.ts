@@ -29,7 +29,7 @@ const db = new CacheDatabase(scope, scope);
 
 
 
-export function main() {
+(function() {
   // Skip environments that don't support the minimum APIs needed to run the SW tests.
   if (!SwTestHarness.envIsSupported()) {
     return;
@@ -38,7 +38,9 @@ export function main() {
     let group: PrefetchAssetGroup;
     let idle: IdleScheduler;
     beforeEach(() => {
-      idle = new IdleScheduler(null !, 3000);
+      idle = new IdleScheduler(null !, 3000, {
+        log: (v, ctx = '') => console.error(v, ctx),
+      });
       group = new PrefetchAssetGroup(
           scope, scope, idle, manifest.assetGroups ![0], tmpHashTable(manifest), db, 'test');
     });
@@ -84,7 +86,7 @@ export function main() {
       expect(err.message).toContain('Hash mismatch');
     });
   });
-}
+})();
 
 function errorFrom(promise: Promise<any>): Promise<any> {
   return promise.catch(err => err);

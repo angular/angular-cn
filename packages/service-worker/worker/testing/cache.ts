@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {MockResponse} from './fetch';
+import {MockRequest, MockResponse} from './fetch';
 
 export interface DehydratedResponse {
   body: string|null;
@@ -25,11 +25,11 @@ export type DehydratedCacheStorage = {
 export class MockCacheStorage implements CacheStorage {
   private caches = new Map<string, MockCache>();
 
-  constructor(hydrateFrom?: string) {
+  constructor(private origin: string, hydrateFrom?: string) {
     if (hydrateFrom !== undefined) {
       const hydrated = JSON.parse(hydrateFrom) as DehydratedCacheStorage;
       Object.keys(hydrated).forEach(
-          name => { this.caches.set(name, new MockCache(hydrated[name])); });
+          name => { this.caches.set(name, new MockCache(this.origin, hydrated[name])); });
     }
   }
 
@@ -39,9 +39,9 @@ export class MockCacheStorage implements CacheStorage {
 
   async open(name: string): Promise<Cache> {
     if (!this.caches.has(name)) {
-      this.caches.set(name, new MockCache());
+      this.caches.set(name, new MockCache(this.origin));
     }
-    return this.caches.get(name) !;
+    return this.caches.get(name) as any;
   }
 
   async match(req: Request): Promise<Response|undefined> {
@@ -74,10 +74,10 @@ export class MockCacheStorage implements CacheStorage {
   }
 }
 
-export class MockCache implements Cache {
+export class MockCache {
   private cache = new Map<string, Response>();
 
-  constructor(hydrated?: DehydratedCache) {
+  constructor(private origin: string, hydrated?: DehydratedCache) {
     if (hydrated !== undefined) {
       Object.keys(hydrated).forEach(url => {
         const resp = hydrated[url];
@@ -110,7 +110,10 @@ export class MockCache implements Cache {
   }
 
   async match(request: RequestInfo, options?: CacheQueryOptions): Promise<Response> {
-    const url = (typeof request === 'string' ? request : request.url);
+    let url = (typeof request === 'string' ? request : request.url);
+    if (url.startsWith(this.origin)) {
+      url = '/' + url.substr(this.origin.length);
+    }
     // TODO: cleanup typings. Typescript doesn't know this can resolve to undefined.
     let res = this.cache.get(url);
     if (res !== undefined) {
@@ -118,7 +121,6 @@ export class MockCache implements Cache {
     }
     return res !;
   }
-
 
   async matchAll(request?: Request|string, options?: CacheQueryOptions): Promise<Response[]> {
     if (request === undefined) {
@@ -135,13 +137,18 @@ export class MockCache implements Cache {
   async put(request: RequestInfo, response: Response): Promise<void> {
     const url = (typeof request === 'string' ? request : request.url);
     this.cache.set(url, response.clone());
+
+    // Even though the body above is cloned, consume it here because the
+    // real cache consumes the body.
+    await response.text();
+
     return;
   }
 
   dehydrate(): DehydratedCache {
     const dehydrated: DehydratedCache = {};
     Array.from(this.cache.keys()).forEach(url => {
-      const resp = this.cache.get(url) !as MockResponse;
+      const resp = this.cache.get(url) as MockResponse;
       const dehydratedResp = {
         body: resp._body,
         status: resp.status,

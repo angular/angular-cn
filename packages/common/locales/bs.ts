@@ -9,6 +9,18 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
+      f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
+  if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return 1;
+  if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
+          !(i % 100 >= 12 && i % 100 <= 14) ||
+      f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
+          !(f % 100 >= 12 && f % 100 <= 14))
+    return 3;
+  return 5;
+}
+
 export default [
   'bs',
   [
@@ -35,7 +47,7 @@ export default [
     ]
   ],
   , [['p. n. e.', 'n. e.'], , ['prije nove ere', 'nove ere']], 1, [6, 0],
-  ['d.M.yy.', 'd. MMM. y.', 'd. MMMM y.', 'EEEE, d. MMMM y.'],
+  ['d.M.yy.', 'd. MMM y.', 'd. MMMM y.', 'EEEE, d. MMMM y.'],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss z', 'HH:mm:ss zzzz'],
   [
     '{1} {0}',
@@ -43,18 +55,25 @@ export default [
     '{1} \'u\' {0}',
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'KM', 'Bosanskohercegovačka konvertibilna marka',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length,
-            f = parseInt(n.toString().replace(/^[^.]*\.?/, ''), 10) || 0;
-        if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11))
-          return 1;
-        if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 &&
-                !(i % 100 >= 12 && i % 100 <= 14) ||
-            f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 &&
-                !(f % 100 >= 12 && f % 100 <= 14))
-          return 3;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '#,##0.00 ¤', '#E0'], 'KM',
+  'Bosanskohercegovačka konvertibilna marka', {
+    'AUD': [, '$'],
+    'BAM': ['KM'],
+    'BRL': [, 'R$'],
+    'CAD': [, '$'],
+    'CNY': [, '¥'],
+    'GBP': [, '£'],
+    'HKD': [, '$'],
+    'HRK': ['kn'],
+    'ILS': [, '₪'],
+    'MXN': [, '$'],
+    'NZD': [, '$'],
+    'RSD': ['din.'],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'USD': [, '$'],
+    'XCD': [, '$'],
+    'XPF': []
+  },
+  plural
 ];

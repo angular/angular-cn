@@ -1,0 +1,19 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module")
+
+ng_module(
+    name = "testing",
+    srcs = glob(
+        [
+            "*.ts",
+            "src/**/*.ts",
+        ],
+    ),
+    module_name = "@angular/common/http/testing",
+    deps = [
+        "//packages/common/http",
+        "//packages/core",
+        "@rxjs",
+    ],
+)

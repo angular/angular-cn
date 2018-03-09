@@ -41,14 +41,15 @@ export class CodeExampleComponent implements OnInit {
     const element: HTMLElement = this.elementRef.nativeElement;
 
     this.language = element.getAttribute('language') || '';
-    this.linenums = element.getAttribute('linenums');
+    this.linenums = element.getAttribute('linenums') || '';
     this.path = element.getAttribute('path') || '';
     this.region = element.getAttribute('region') || '';
     this.title = element.getAttribute('title') || '';
     // Now remove the title attribute to prevent unwanted tooltip popups when hovering over the code.
     element.removeAttribute('title');
 
-    this.isAvoid = this.path.indexOf('.avoid.') !== -1;
+    const avoid = getBoolFromAttribute(element, 'avoid');
+    this.isAvoid = avoid || this.path.indexOf('.avoid.') !== -1;
     this.hideCopy = this.isAvoid || getBoolFromAttribute(element, ['hidecopy', 'hide-copy']);
 
     this.classes = {

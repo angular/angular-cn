@@ -1,0 +1,41 @@
+{
+  "cli-hello-world": {
+    "master": {
+      "uncompressed": {
+        "inline": 1447,
+        "main": 155112,
+        "polyfills": 59179
+      }
+    }
+  },
+  "hello_world__closure": {
+    "master": {
+      "uncompressed": {
+        "bundle": 105779
+      }
+    }
+  },
+  "hello_world__render3__closure": {
+    "master": {
+      "uncompressed": {
+        "bundle": 8153
+      }
+    }
+  },
+  "hello_world__render3__rollup": {
+    "master": {
+      "uncompressed": {
+        "bundle": 10129
+      }
+    }
+  },
+  "hello_world__render3__cli": {
+    "master": {
+      "uncompressed": {
+        "inline": 1447,
+        "main": 40513,
+        "polyfills": 61085
+      }
+    }
+  }
+}

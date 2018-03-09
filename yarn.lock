@@ -2,15 +2,9 @@
 # yarn lockfile v1
 
 
-"@bazel/typescript@0.2.x":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.2.2.tgz#0a0d09924508c946de32e6acdb2b5cc1ee32c506"
-  dependencies:
-    "@types/node" "7.0.18"
-    "@types/source-map" "^0.5.1"
-    protobufjs "5.0.0"
-    tsickle "0.24.x"
-    typescript "2.4.x"
+"@bazel/ibazel@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.1.1.tgz#f970c08b4e4efb0ab17e04ade3cc610554f33bed"
 
 "@google-cloud/common@^0.13.0":
   version "0.13.5"
@@ -97,10 +91,22 @@
   dependencies:
     "@types/node" "*"
 
+"@types/events@*":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
+
 "@types/fs-extra@4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-4.0.2.tgz#7b9b1bbf85962cbe029b5a83c9b530d7c75af3ba"
   dependencies:
+    "@types/node" "*"
+
+"@types/glob@*":
+  version "5.0.35"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.35.tgz#1ae151c802cece940443b5ac246925c85189f32a"
+  dependencies:
+    "@types/events" "*"
+    "@types/minimatch" "*"
     "@types/node" "*"
 
 "@types/hammerjs@2.0.35":
@@ -111,6 +117,10 @@
   version "2.2.22-alpha"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.2.22-alpha.tgz#eecaee43fe42ef6b5cfefad1bcc370c433f485bf"
 
+"@types/minimatch@*":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+
 "@types/node@*":
   version "8.0.28"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
@@ -118,10 +128,6 @@
 "@types/node@6.0.88", "@types/node@^6.0.46":
   version "6.0.88"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
-
-"@types/node@7.0.18":
-  version "7.0.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.18.tgz#cd67f27d3dc0cfb746f0bdd5e086c4c5d55be173"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -134,6 +140,13 @@
 "@types/selenium-webdriver@^2.53.35", "@types/selenium-webdriver@~2.53.39":
   version "2.53.42"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
+
+"@types/shelljs@^0.7.8":
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.7.8.tgz#4b4d6ee7926e58d7bca448a50ba442fd9f6715bd"
+  dependencies:
+    "@types/glob" "*"
+    "@types/node" "*"
 
 "@types/source-map@^0.5.1":
   version "0.5.1"
@@ -237,17 +250,21 @@ amdetective@0.0.2:
   dependencies:
     esprima "~1.2.2"
 
-angular-animate@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.5.0.tgz#0e31f31fa7ab2ddf5ea5787e476548644d62fb93"
+"angular-1.5@npm:angular@1.5":
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.11.tgz#8c5ba7386f15965c9acf3429f6881553aada30d6"
 
-angular-mocks@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.5.0.tgz#81b3e4b21098d7c545c6f0a0a97f897b26879dd9"
+"angular-mocks-1.5@npm:angular-mocks@1.5":
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.5.11.tgz#a0e1dd0ea55fd77ee7a757d75536c5e964c86f81"
 
-angular@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.0.tgz#d96ee97ab6df6cfd0915accbee484d098adb74ec"
+"angular-mocks@npm:angular-mocks@1.6":
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.6.9.tgz#4fed8c8293a5080e0919a7ff0dcf0f704864b7ba"
+
+"angular@npm:angular@1.6":
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.9.tgz#bc812932e18909038412d594a5990f4bb66c0619"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -1042,9 +1059,9 @@ cldr-data-downloader@0.3.2:
     request "~2.74.0"
     request-progress "0.3.1"
 
-cldr@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/cldr/-/cldr-4.5.0.tgz#938ab343c074d1bdaf6c1dd0c31c8bce1abe6ba4"
+cldr@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/cldr/-/cldr-4.7.0.tgz#504aeda150a0e3d8c2302d44602c254afd576b67"
   dependencies:
     memoizeasync "1.0.0"
     passerror "1.1.1"
@@ -1954,9 +1971,9 @@ domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
-domino@1.0.29:
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/domino/-/domino-1.0.29.tgz#de8aa1f6f98e3c5538feb7a61fa69c1eabbace06"
+domino@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/domino/-/domino-2.0.1.tgz#9e1d63215d0fe8dcb8202bff07effa1a216db504"
 
 dot-prop@^3.0.0:
   version "3.0.0"
@@ -2985,7 +3002,7 @@ glob@^4.3.1:
     minimatch "^2.0.1"
     once "^1.3.0"
 
-glob@^5.0.10, glob@^5.0.14, glob@^5.0.15, glob@~5.0.0:
+glob@^5.0.14, glob@^5.0.15, glob@~5.0.0:
   version "5.0.15"
   resolved "https://registry.yarnpkg.com/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
   dependencies:
@@ -5521,15 +5538,6 @@ proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
 
-protobufjs@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-5.0.0.tgz#4223063233ea96ac063ca2b554035204db524fa1"
-  dependencies:
-    ascli "~1"
-    bytebuffer "~5"
-    glob "^5.0.10"
-    yargs "^3.10.0"
-
 protobufjs@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-5.0.2.tgz#59748d7dcf03d2db22c13da9feb024e16ab80c91"
@@ -6194,11 +6202,11 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
-rxjs@5.x:
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.3.tgz#0758cddee6033d68e0fd53676f0f3596ce3d483f"
+rxjs@5.5.5:
+  version "5.5.5"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.5.tgz#e164f11d38eaf29f56f08c3447f74ff02dd84e97"
   dependencies:
-    symbol-observable "^1.0.1"
+    symbol-observable "1.0.1"
 
 safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
@@ -6411,6 +6419,14 @@ shell-quote@1.6.1:
     array-map "~0.0.0"
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
+
+shelljs@^0.7.8:
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.8.tgz#decbcf874b0d1e5fb72e14b164a9683048e9acb3"
+  dependencies:
+    glob "^7.0.0"
+    interpret "^1.0.0"
+    rechoir "^0.6.2"
 
 sigmund@~1.0.0:
   version "1.0.1"
@@ -6823,9 +6839,9 @@ supports-color@^3.1.0:
   dependencies:
     has-flag "^1.0.0"
 
-symbol-observable@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
+symbol-observable@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
 
 systemjs@0.18.10:
   version "0.18.10"
@@ -7094,9 +7110,9 @@ ts-api-guardian@0.2.2:
     minimist "^1.2.0"
     typescript "2.0.10"
 
-tsickle@0.24.x:
-  version "0.24.1"
-  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.24.1.tgz#039343b205bf517a333b0703978892f80a7d848e"
+tsickle@0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.26.0.tgz#40b30a2dd6abcb33b182e37596674bd1cfe4039c"
   dependencies:
     minimist "^1.2.0"
     mkdirp "^0.5.1"
@@ -7106,6 +7122,10 @@ tsickle@0.24.x:
 tslib@^1.0.0, tslib@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
+
+tslib@^1.8.1:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
 
 tslint-eslint-rules@4.1.1:
   version "4.1.1"
@@ -7147,6 +7167,12 @@ tslint@~5.1.0:
 tsscmp@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
+
+tsutils@2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.20.0.tgz#303394064bc80be8ee04e10b8609ae852e9312d3"
+  dependencies:
+    tslib "^1.8.1"
 
 tsutils@^1.4.0:
   version "1.9.1"
@@ -7191,9 +7217,9 @@ typescript@2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.10.tgz#ccdd4ed86fd5550a407101a0814012e1b3fac3dd"
 
-typescript@2.4.2, typescript@2.4.x:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+typescript@2.6.x:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
 uglify-js@1.2.6, uglify-js@~1.2.5:
   version "1.2.6"
@@ -7878,10 +7904,6 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
-
-yarn@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.0.2.tgz#d1b8f4b6d3b0684e86f63a072ac630995b8b7b0a"
 
 yeast@0.1.2:
   version "0.1.2"

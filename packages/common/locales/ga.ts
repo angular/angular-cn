@@ -9,17 +9,30 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  if (n === 2) return 2;
+  if (n === Math.floor(n) && n >= 3 && n <= 6) return 3;
+  if (n === Math.floor(n) && n >= 7 && n <= 10) return 4;
+  return 5;
+}
+
 export default [
   'ga',
   [
     ['a', 'p'],
+    ['r.n.', 'i.n.'],
+  ],
+  [
+    ['a', 'p'],
     ['a.m.', 'p.m.'],
   ],
-  ,
   [
-    ['D', 'L', 'M', 'C', 'D', 'A', 'S'], ['Domh', 'Luan', 'Máirt', 'Céad', 'Déar', 'Aoine', 'Sath'],
+    ['D', 'L', 'M', 'C', 'D', 'A', 'S'],
+    ['Domh', 'Luan', 'Máirt', 'Céad', 'Déar', 'Aoine', 'Sath'],
     [
-      'Dé Domhnaigh', 'Dé Luain', 'Dé Máirt', 'Dé Céadaoin', 'Déardaoin', 'Dé hAoine', 'Dé Sathairn'
+      'Dé Domhnaigh', 'Dé Luain', 'Dé Máirt', 'Dé Céadaoin', 'Déardaoin', 'Dé hAoine',
+      'Dé Sathairn'
     ],
     ['Do', 'Lu', 'Má', 'Cé', 'Dé', 'Ao', 'Sa']
   ],
@@ -44,13 +57,6 @@ export default [
     ,
   ],
   ['.', ',', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        if (n === Math.floor(n) && n >= 3 && n <= 6) return 3;
-        if (n === Math.floor(n) && n >= 7 && n <= 10) return 4;
-        return 5;
-      }
+  ['#,##0.###', '#,##0%', '¤#,##0.00', '#E0'], '€', 'Euro', {'THB': ['฿'], 'TWD': ['NT$']},
+  plural
 ];

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -eu -o pipefail
 
@@ -7,7 +7,6 @@ readonly parentDir=$(dirname $thisDir)
 
 # Track payload size functions
 source ../scripts/ci/payload-size.sh
-source ${thisDir}/_payload-limits.sh
 
-trackPayloadSize "aio" "dist/*.bundle.js" true true
+trackPayloadSize "aio" "dist/*.js" true true "${thisDir}/_payload-limits.json"
 

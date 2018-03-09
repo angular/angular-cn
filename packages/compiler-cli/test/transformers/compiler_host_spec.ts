@@ -41,16 +41,18 @@ describe('NgCompilerHost', () => {
       basePath: '/tmp',
       moduleResolution: ts.ModuleResolutionKind.NodeJs,
     },
+    rootNames = ['/tmp/index.ts'],
     ngHost = createNgHost({files}),
     librarySummaries = [],
   }: {
     files?: Directory,
     options?: CompilerOptions,
+    rootNames?: string[],
     ngHost?: CompilerHost,
     librarySummaries?: LibrarySummary[]
   } = {}) {
     return new TsCompilerAotCompilerTypeCheckHostAdapter(
-        ['/tmp/index.ts'], options, ngHost, new MetadataCollector(), codeGenerator,
+        rootNames, options, ngHost, new MetadataCollector(), codeGenerator,
         new Map(librarySummaries.map(entry => [entry.fileName, entry] as[string, LibrarySummary])));
   }
 
@@ -87,6 +89,14 @@ describe('NgCompilerHost', () => {
       expect(host.fileNameToModuleName('/tmp/src/a/child.ts', '/tmp/src/index.ts'))
           .toBe('./a/child');
     });
+
+    it('should use a relative import when accessing generated files, even if crossing packages',
+       () => {
+         expect(host.fileNameToModuleName(
+                    '/tmp/node_modules/mod2/b.ngfactory.d.ts',
+                    '/tmp/node_modules/mod1/a.ngfactory.d.ts'))
+             .toBe('../mod2/b.ngfactory');
+       });
 
     it('should support multiple rootDirs when accessing a source file form a source file', () => {
       const hostWithMultipleRoots = createHost({
@@ -142,6 +152,15 @@ describe('NgCompilerHost', () => {
       ngHost.moduleNameToFileName = () => 'someResult';
       const host = createHost({ngHost});
       expect(host.moduleNameToFileName('a', 'b')).toBe('someResult');
+    });
+
+    it('should work well with windows paths', () => {
+      const host = createHost({
+        rootNames: ['\\tmp\\index.ts'],
+        options: {basePath: '\\tmp'},
+        files: {'tmp': {'node_modules': {'@core': {'index.d.ts': dummyModule}}}}
+      });
+      expect(host.moduleNameToFileName('@core/index')).toBe('/tmp/node_modules/@core/index.d.ts');
     });
   });
 
@@ -241,10 +260,10 @@ describe('NgCompilerHost', () => {
     it('should clear old generated references if the original host cached them', () => {
       codeGenerator.findGeneratedFileNames.and.returnValue(['/tmp/src/index.ngfactory.ts']);
 
-      const ngHost = createNgHost();
       const sfText = `
           /// <reference path="main.ts"/>
       `;
+      const ngHost = createNgHost({files: {'tmp': {'src': {'index.ts': sfText}}}});
       const sf = ts.createSourceFile('/tmp/src/index.ts', sfText, ts.ScriptTarget.Latest);
       ngHost.getSourceFile = () => sf;
 
@@ -265,6 +284,22 @@ describe('NgCompilerHost', () => {
       host2.getSourceFile('/tmp/src/index.ts', ts.ScriptTarget.Latest);
       expect(sf.referencedFiles.length).toBe(1);
       expect(sf.referencedFiles[0].fileName).toBe('main.ts');
+    });
+
+    it('should generate for tsx files', () => {
+      codeGenerator.findGeneratedFileNames.and.returnValue(['/tmp/src/index.ngfactory.ts']);
+      codeGenerator.generateFile.and.returnValue(aGeneratedFile);
+      const host = createHost({files: {'tmp': {'src': {'index.tsx': ``}}}});
+
+      const genSf = host.getSourceFile('/tmp/src/index.ngfactory.ts', ts.ScriptTarget.Latest);
+      expect(genSf.text).toBe(aGeneratedFileText);
+
+      const sf = host.getSourceFile('/tmp/src/index.tsx', ts.ScriptTarget.Latest);
+      expect(sf.referencedFiles[0].fileName).toBe('/tmp/src/index.ngfactory.ts');
+
+      // the codegen should have been cached
+      expect(codeGenerator.generateFile).toHaveBeenCalledTimes(1);
+      expect(codeGenerator.findGeneratedFileNames).toHaveBeenCalledTimes(1);
     });
   });
 

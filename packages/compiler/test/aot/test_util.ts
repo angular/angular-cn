@@ -172,7 +172,7 @@ export class EmittingCompilerHost implements ts.CompilerHost {
 
   writeFile: ts.WriteFileCallback =
       (fileName: string, data: string, writeByteOrderMark: boolean,
-       onError?: (message: string) => void, sourceFiles?: ts.SourceFile[]) => {
+       onError?: (message: string) => void, sourceFiles?: ReadonlyArray<ts.SourceFile>) => {
         this.addWrittenFile(fileName, data);
         if (this.options.emitMetadata && sourceFiles && sourceFiles.length && DTS.test(fileName)) {
           const metadataFilePath = fileName.replace(DTS, '.metadata.json');
@@ -386,6 +386,8 @@ export class MockAotCompilerHost implements AotCompilerHost {
     return resolved ? resolved.resolvedFileName : null;
   }
 
+  getOutputName(filePath: string) { return filePath; }
+
   resourceNameToFileName(resourceName: string, containingFile: string) {
     // Note: we convert package paths into relative paths to be compatible with the the
     // previous implementation of UrlResolver.
@@ -430,7 +432,7 @@ export class MockMetadataBundlerHost implements MetadataBundlerHost {
 
   getMetadataFor(moduleName: string): ModuleMetadata|undefined {
     const source = this.host.getSourceFile(moduleName + '.ts', ts.ScriptTarget.Latest);
-    return this.collector.getMetadata(source);
+    return source && this.collector.getMetadata(source);
   }
 }
 
@@ -529,6 +531,7 @@ const minCoreIndex = `
   export * from './src/change_detection';
   export * from './src/metadata';
   export * from './src/di/metadata';
+  export * from './src/di/injectable';
   export * from './src/di/injector';
   export * from './src/di/injection_token';
   export * from './src/linker';
@@ -536,16 +539,25 @@ const minCoreIndex = `
   export * from './src/codegen_private_exports';
 `;
 
-export function setup(options: {compileAngular: boolean, compileAnimations: boolean} = {
-  compileAngular: true,
-  compileAnimations: true,
-}) {
+export function setup(
+    options: {compileAngular: boolean, compileAnimations: boolean, compileCommon?: boolean} = {
+      compileAngular: true,
+      compileAnimations: true,
+      compileCommon: false,
+    }) {
   let angularFiles = new Map<string, string>();
 
   beforeAll(() => {
     if (options.compileAngular) {
       const emittingHost = new EmittingCompilerHost([], {emitMetadata: true});
       emittingHost.addScript('@angular/core/index.ts', minCoreIndex);
+      const emittingProgram = ts.createProgram(emittingHost.scripts, settings, emittingHost);
+      emittingProgram.emit();
+      emittingHost.writtenAngularFiles(angularFiles);
+    }
+    if (options.compileCommon) {
+      const emittingHost =
+          new EmittingCompilerHost(['@angular/common/index.ts'], {emitMetadata: true});
       const emittingProgram = ts.createProgram(emittingHost.scripts, settings, emittingHost);
       emittingProgram.emit();
       emittingHost.writtenAngularFiles(angularFiles);
@@ -603,11 +615,15 @@ export function expectNoDiagnostics(program: ts.Program) {
     return '';
   }
 
-  function expectNoDiagnostics(diagnostics: ts.Diagnostic[]) {
+  function expectNoDiagnostics(diagnostics: ReadonlyArray<ts.Diagnostic>) {
     if (diagnostics && diagnostics.length) {
       throw new Error(
           'Errors from TypeScript:\n' +
-          diagnostics.map(d => `${fileInfo(d)}${d.messageText}${lineInfo(d)}`).join(' \n'));
+          diagnostics
+              .map(
+                  d =>
+                      `${fileInfo(d)}${ts.flattenDiagnosticMessageText(d.messageText, '\n')}${lineInfo(d)}`)
+              .join(' \n'));
     }
   }
   expectNoDiagnostics(program.getOptionsDiagnostics());
@@ -652,7 +668,7 @@ export function compile(
   const tsSettings = {...settings, ...tsOptions};
   const program = ts.createProgram(host.scriptNames.slice(0), tsSettings, host);
   preCompile(program);
-  const {compiler, reflector} = createAotCompiler(aotHost, options);
+  const {compiler, reflector} = createAotCompiler(aotHost, options, (err) => { throw err; });
   const analyzedModules =
       compiler.analyzeModulesSync(program.getSourceFiles().map(sf => sf.fileName));
   const genFiles = compiler.emitAllImpls(analyzedModules);

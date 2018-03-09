@@ -9,13 +9,21 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'eu',
+  [
+    ['g', 'a'],
+    ['AM', 'PM'],
+  ],
   [
     ['AM', 'PM'],
     ,
   ],
-  ,
   [
     ['I', 'A', 'A', 'A', 'O', 'O', 'L'], ['ig.', 'al.', 'ar.', 'az.', 'og.', 'or.', 'lr.'],
     ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'],
@@ -47,17 +55,18 @@ export default [
     ]
   ],
   [['K.a.', 'K.o.'], , ['K.a.', 'Kristo ondoren']], 1, [6, 0],
-  ['yy/M/d', 'y MMM d', 'y(\'e\')\'ko\' MMMM d', 'y(\'e\')\'ko\' MMMM d, EEEE'],
+  [
+    'yy/M/d', 'y MMM d', 'y(\'e\')\'ko\' MMMM\'ren\' d(\'a\')',
+    'y(\'e\')\'ko\' MMMM\'ren\' d(\'a\'), EEEE'
+  ],
   ['HH:mm', 'HH:mm:ss', 'HH:mm:ss (z)', 'HH:mm:ss (zzzz)'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '% #,##0', '#,##0.00 ¤', '#E0'], '€', 'euroa', function(n: number):
-                                                                   number {
-                                                                     if (n === 1) return 1;
-                                                                     return 5;
-                                                                   }
+  [',', '.', ';', '%', '+', '−', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '% #,##0', '#,##0.00 ¤', '#E0'], '€', 'euroa',
+  {'ESP': ['₧'], 'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$'], 'USD': ['US$', '$']},
+  plural
 ];

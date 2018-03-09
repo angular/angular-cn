@@ -8,7 +8,7 @@
 
 export {ALLOW_MULTIPLE_PLATFORMS as ɵALLOW_MULTIPLE_PLATFORMS} from './application_ref';
 export {APP_ID_RANDOM_PROVIDER as ɵAPP_ID_RANDOM_PROVIDER} from './application_tokens';
-export {ValueUnwrapper as ɵValueUnwrapper, devModeEqual as ɵdevModeEqual} from './change_detection/change_detection_util';
+export {devModeEqual as ɵdevModeEqual} from './change_detection/change_detection_util';
 export {isListLikeIterable as ɵisListLikeIterable} from './change_detection/change_detection_util';
 export {ChangeDetectorStatus as ɵChangeDetectorStatus, isDefaultChangeDetectionStrategy as ɵisDefaultChangeDetectionStrategy} from './change_detection/constants';
 export {Console as ɵConsole} from './console';
@@ -20,5 +20,5 @@ export {DirectRenderer as ɵDirectRenderer, RenderDebugInfo as ɵRenderDebugInfo
 export {global as ɵglobal, looseIdentical as ɵlooseIdentical, stringify as ɵstringify} from './util';
 export {makeDecorator as ɵmakeDecorator} from './util/decorators';
 export {isObservable as ɵisObservable, isPromise as ɵisPromise} from './util/lang';
-export {clearProviderOverrides as ɵclearProviderOverrides, overrideProvider as ɵoverrideProvider} from './view/index';
+export {clearOverrides as ɵclearOverrides, overrideComponentView as ɵoverrideComponentView, overrideProvider as ɵoverrideProvider} from './view/index';
 export {NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR as ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR} from './view/provider';

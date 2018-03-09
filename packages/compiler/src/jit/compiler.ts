@@ -9,6 +9,7 @@
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompileNgModuleMetadata, CompilePipeSummary, CompileProviderMetadata, CompileStylesheetMetadata, CompileTypeSummary, ProviderMeta, ProxyClass, identifierName, ngModuleJitUrl, sharedStylesheetJitUrl, templateJitUrl, templateSourceUrl} from '../compile_metadata';
 import {CompileReflector} from '../compile_reflector';
 import {CompilerConfig} from '../config';
+import {ConstantPool} from '../constant_pool';
 import {Type} from '../core';
 import {CompileMetadataResolver} from '../metadata_resolver';
 import {NgModuleCompiler} from '../ng_module_compiler';
@@ -42,6 +43,7 @@ export class JitCompiler {
   private _compiledDirectiveWrapperCache = new Map<Type, Type>();
   private _compiledNgModuleCache = new Map<Type, object>();
   private _sharedStylesheetCount = 0;
+  private _addedAotSummaries = new Set<() => any[]>();
 
   constructor(
       private _metadataResolver: CompileMetadataResolver, private _templateParser: TemplateParser,
@@ -74,10 +76,25 @@ export class JitCompiler {
 
   loadAotSummaries(summaries: () => any[]) {
     this.clearCache();
-    flattenSummaries(summaries).forEach((summary) => {
-      this._summaryResolver.addSummary(
-          {symbol: summary.type.reference, metadata: null, type: summary});
-    });
+    this._addAotSummaries(summaries);
+  }
+
+  private _addAotSummaries(fn: () => any[]) {
+    if (this._addedAotSummaries.has(fn)) {
+      return;
+    }
+    this._addedAotSummaries.add(fn);
+    const summaries = fn();
+    for (let i = 0; i < summaries.length; i++) {
+      const entry = summaries[i];
+      if (typeof entry === 'function') {
+        this._addAotSummaries(entry);
+      } else {
+        const summary = entry as CompileTypeSummary;
+        this._summaryResolver.addSummary(
+            {symbol: summary.type.reference, metadata: null, type: summary});
+      }
+    }
   }
 
   hasAotSummary(ref: Type) { return !!this._summaryResolver.resolveSummary(ref); }
@@ -200,6 +217,7 @@ export class JitCompiler {
   }
 
   clearCache(): void {
+    // Note: don't clear the _addedAotSummaries, as they don't change!
     this._metadataResolver.clearCache();
     this._compiledTemplateCache.clear();
     this._compiledHostTemplateCache.clear();
@@ -335,19 +353,8 @@ function assertComponent(meta: CompileDirectiveMetadata) {
   }
 }
 
-function flattenSummaries(fn: () => any[], out: CompileTypeSummary[] = []): CompileTypeSummary[] {
-  fn().forEach((entry) => {
-    if (typeof entry === 'function') {
-      flattenSummaries(entry, out);
-    } else {
-      out.push(entry);
-    }
-  });
-  return out;
-}
-
 function createOutputContext(): OutputContext {
   const importExpr = (symbol: any) =>
       ir.importExpr({name: identifierName(symbol), moduleName: null, runtime: symbol});
-  return {statements: [], genFilePath: '', importExpr};
+  return {statements: [], genFilePath: '', importExpr, constantPool: new ConstantPool()};
 }

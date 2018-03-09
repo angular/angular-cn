@@ -74,11 +74,11 @@ export class AppVersion implements UpdateSource {
     });
 
     // Process each `DataGroup` declared in the manifest.
-    this.dataGroups =
-        (manifest.dataGroups || [])
-            .map(
-                config => new DataGroup(
-                    this.scope, this.adapter, config, this.database, `${config.version}:data`));
+    this.dataGroups = (manifest.dataGroups || [])
+                          .map(
+                              config => new DataGroup(
+                                  this.scope, this.adapter, config, this.database,
+                                  `ngsw:${config.version}:data`));
   }
 
   /**
@@ -88,13 +88,13 @@ export class AppVersion implements UpdateSource {
    */
   async initializeFully(updateFrom?: UpdateSource): Promise<void> {
     try {
-      // Fully initialize each asset group, in series. Starts with an empty Promise, and waits for
-      // the previous
-      // groups to have been initialized before initializing the next one in turn.
+      // Fully initialize each asset group, in series. Starts with an empty Promise,
+      // and waits for the previous groups to have been initialized before initializing
+      // the next one in turn.
       await this.assetGroups.reduce<Promise<void>>(async(previous, group) => {
-        // Wait for the previous groups to complete initialization. If there is a failure, this will
-        // throw, and
-        // each subsequent group will throw, until the whole sequence fails.
+        // Wait for the previous groups to complete initialization. If there is a
+        // failure, this will throw, and each subsequent group will throw, until the
+        // whole sequence fails.
         await previous;
 
         // Initialize this group.
@@ -124,7 +124,7 @@ export class AppVersion implements UpdateSource {
 
       // No response has been found yet. Maybe this group will have one.
       return group.handleFetch(req, context);
-    }, Promise.resolve(null));
+    }, Promise.resolve<Response|null>(null));
 
     // The result of the above is the asset response, if there is any, or null otherwise. Return the
     // asset
@@ -142,7 +142,7 @@ export class AppVersion implements UpdateSource {
       }
 
       return group.handleFetch(req, context);
-    }, Promise.resolve(null));
+    }, Promise.resolve<Response|null>(null));
 
     // If the data caching group returned a response, go with it.
     if (data !== null) {
@@ -151,7 +151,8 @@ export class AppVersion implements UpdateSource {
 
     // Next, check if this is a navigation request for a route. Detect circular
     // navigations by checking if the request URL is the same as the index URL.
-    if (isNavigationRequest(req, this.adapter) && req.url !== this.manifest.index) {
+    if (isNavigationRequest(req, this.scope.registration.scope, this.adapter) &&
+        req.url !== this.manifest.index) {
       // This was a navigation request. Re-enter `handleFetch` with a request for
       // the URL.
       return this.handleFetch(this.adapter.newRequest(this.manifest.index), context);

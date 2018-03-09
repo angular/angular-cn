@@ -6,11 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import resolve from 'rollup-plugin-node-resolve';
-import sourcemaps from 'rollup-plugin-sourcemaps';
+const resolve = require('rollup-plugin-node-resolve');
+const sourcemaps = require('rollup-plugin-sourcemaps');
 
 const globals = {
   '@angular/core': 'ng.core',
+  '@angular/common': 'ng.common',
 
   'rxjs/BehaviorSubject': 'Rx',
   'rxjs/ConnectableObservable': 'Rx',
@@ -21,6 +22,7 @@ const globals = {
   'rxjs/observable/defer': 'Rx.Observable',
   'rxjs/observable/fromEvent': 'Rx.Observable',
   'rxjs/observable/merge': 'Rx.Observable',
+  'rxjs/observable/never': 'Rx.Observable',
   'rxjs/observable/of': 'Rx.Observable',
   'rxjs/observable/throw': 'Rx.Observable',
 
@@ -34,7 +36,7 @@ const globals = {
   'rxjs/operator/toPromise': 'Rx.Observable.prototype',
 };
 
-export default {
+module.exports = {
   entry: '../../dist/packages-dist/service-worker/esm5/service-worker.js',
   dest: '../../dist/packages-dist/service-worker/bundles/service-worker.umd.js',
   format: 'umd',

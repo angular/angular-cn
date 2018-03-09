@@ -2,8 +2,6 @@
 
 # 变更记录
 
-
-
 The Angular documentation is a living document with continuous improvements.
 This log calls attention to recent significant changes.
 
@@ -16,6 +14,7 @@ This log calls attention to recent significant changes.
 ## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
 ## 移除了所有的moduleId引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)
+
 We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.
 This plugin dynamically converts "component-relative" paths in templateUrl and styleUrls to "absolute paths" for you.
 
@@ -80,23 +79,23 @@ Notably:
 
 * `app/main.ts` moved to `src/main.ts`.
 
-    把`app/main.ts`移到`src/main.ts`。
+   把`app/main.ts`移到`src/main.ts`。
 
 * `app/` moved to `src/app/`.
-    
-    把`app/`移到`src/app/`。
-    
+
+   把`app/`移到`src/app/`。
+
 * `index.html`, `styles.css` and `tsconfig.json` moved inside `src/`.
 
-    把`index.html`、`styles.css`和`tsconfig.json`移到`src/`中。
+   把`index.html`、`styles.css`和`tsconfig.json`移到`src/`中。
 
 * `systemjs.config.js` now imports `main.js` instead of `app`.
 
-    `systemjs.config.js`现在要导入`main.js`而不是`app`。
+   `systemjs.config.js`现在要导入`main.js`而不是`app`。
 
 * Added `lite-server` configuration (`bs-config.json`) to serve `src/`.
 
-    新增了一个`lite-server`配置(`bs-config.json`)以便在`src/`下启动开发服务器。
+   新增了一个`lite-server`配置(`bs-config.json`)以便在`src/`下启动开发服务器。
 
 ## NEW: Reactive Forms guide (2017-01-31)
 
@@ -130,26 +129,31 @@ It includes important advice on optimizing for production.
 
 [Hierarchical Dependency Injection](guide/hierarchical-dependency-injection) guide is significantly revised.
 Closes issue #3086.
-Revised samples are clearer and cover all topics discussed
+Revised samples are clearer and cover all topics discussed.
 
 [多级依赖注入](guide/hierarchical-dependency-injection)做了显著修改。关闭了issue #3086。修改过的范例更加清晰，而且涵盖了讨论到的全部主题。
 
 ## Miscellaneous (2017-01-05)
 
-## 杂项 (2017-01-05)* [Setup](guide/setup) guide: 
-added (optional) instructions on how to remove _non-essential_ files. [环境搭建](guide/setup)指南:
-    添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
+## 杂项 (2017-01-05)
+
+* [Setup](guide/setup) guide:
+added (optional) instructions on how to remove _non-essential_ files.
+
+   [环境搭建](guide/setup)指南:
+  添加了（可选的）步骤说明，告诉你如何移除*非核心*文件。
+
 * No longer consolidate RxJS operator imports in `rxjs-extensions` file; each file should import what it needs.
-    
-    不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
+
+   不再在`rxjs-extensions`文件中统一导入RxJS的操作符，每个文件应该各自导入它自己所需的。
 
 * All samples prepend template/style URLs with `./` as a best practice.
 
-    所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
+   所有范例都在模板/样式的URL之前添加`./`前缀 …… 而且你在实际开发中也应该这么做。
 
 * [Style Guide](guide/styleguide): copy edits and revised rules.
 
-    [风格指南](guide/styleguide)：复制了编辑过的和修改过的规则。
+   [风格指南](guide/styleguide)：复制了编辑过的和修改过的规则。
 
 ## Router: more detail (2016-12-21)
 
@@ -174,16 +178,16 @@ HTTP guide.
 ## 测试：添加了组件测试的plunker范例 (2016-12-02)
 
 Added two plunkers that each test _one simple component_ so you can write a component test plunker of your own: <live-example name="setup" plnkr="quickstart-specs">one</live-example> for the QuickStart seed's `AppComponent` and <live-example name="testing" plnkr="banner-specs">another</live-example> for the Testing guide's `BannerComponent`.
-Linked to these plunkers in [Testing](guide/testing#live-examples) and [Setup anatomy](guide/setup-systemjs-anatomy) guides.
+Linked to these plunkers in "Testing" and "Setup anatomy" guides.
 
 添加了两个plunker例子，每个都测试一个简单的组件，以便你可以自己在plunker中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的`AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的`BannerComponent`。
-并在[测试](guide/testing#live-examples)和[环境设置剖析](guide/setup-systemjs-anatomy)中链接到它们。
+并在“测试”和“环境设置剖析”中链接到它们。
 
 ## Internationalization: pluralization and _select_ (2016-11-30)
 
-## 国际化：单复数和`select` (2016-11-30)  
+## 国际化：单复数和`select` (2016-11-30)
 
-The [Internationalization (i18n)](guide/i18n) guide explains how to handle pluralization and 
+The [Internationalization (i18n)](guide/i18n) guide explains how to handle pluralization and
 translation of alternative texts with `select`.
 The sample demonstrates these features too.
 
@@ -196,12 +200,12 @@ The sample demonstrates these features too.
 
 * `karma.config` + `karma-test-shim` can handle multiple spec source paths;
 see quickstart issue: [angular/quickstart#294](https://github.com/angular/quickstart/issues/294).
-  
-    `karma.config` + `karma-test-shim`可以处理多个测试源文件路径了，参见[angular/quickstart#294](https://github.com/angular/quickstart/issues/294)。
+
+   `karma.config` + `karma-test-shim`可以处理多个测试源文件路径了，参见[angular/quickstart#294](https://github.com/angular/quickstart/issues/294)。
 
 * Displays Jasmine Runner output in the karma-launched browser.
 
-    在启动了karma的浏览器中显示Jasmine的输出。
+   在启动了karma的浏览器中显示Jasmine的输出。
 
 ## QuickStart Rewrite (2016-11-18)
 
@@ -220,15 +224,15 @@ You are no longer asked to copy-and-paste code into setup files that were not ex
 
 ## Sync with Angular v.2.2.0 (2016-11-14)
 
-## 与Angular v.2.2.0同步(2016-11-14)  
+## 与Angular v.2.2.0同步(2016-11-14)
 
-Docs and code samples updated and tested with Angular v.2.2.0 .
+Docs and code samples updated and tested with Angular v.2.2.0.
 
 使用Angular v.2.2.0更新和测试所有文档和代码例子。
 
 ## UPDATE: NgUpgrade Guide for the AOT friendly _upgrade/static_ module (2016-11-14)
 
-## 更新：用于AoT的_upgrade/static_模块NgUpgrade指南 (2016-11-14)  
+## 更新：用于AoT的_upgrade/static_模块NgUpgrade指南 (2016-11-14)
 
 The updated [NgUpgrade Guide](guide/upgrade) guide covers the
 new AOT friendly `upgrade/static` module
@@ -242,23 +246,26 @@ The documentation for the version prior to v.2.2.0 has been removed.
 
 ## ES6  described in "TypeScript to JavaScript" (2016-11-14)
 
-## 在“从TypeScript到JavaScript”增加ES6的描述 (2016-11-14)  
+## 在“从TypeScript到JavaScript”增加ES6的描述 (2016-11-14)
 
-The updated TypeScript to JavaScript guide (removed August 2017, PR #18694)
-explains how to write apps in ES6/7
-
-更新了“[从TypeScript到JavaScript](guide/ts-to-js)”烹饪宝典，解释如何使用ES6/7编写应用
-
+The updated TypeScript to JavaScript guide explains how to write apps in ES6/7
 by translating the common idioms in the TypeScript documentation examples
 (and elsewhere on the web) to ES6/7 and ES5.
 
+更新了“从TypeScript到JavaScript”，以解释如何使用ES6/7编写应用。
 将TypeScript文档示例中（以及网站其它地方）的习惯用法翻译成ES6/7和ES5。
+
+This was [removed in August 2017](https://github.com/angular/angular/pull/18694) but can still be
+viewed in the [v2 documentation](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html).
+
+本章已经 [于2017年8月移除](https://github.com/angular/angular/pull/18694)，
+不过仍然可以在[第二版的文档中](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html)看到。
 
 ## Sync with Angular v.2.1.1 (2016-10-21)
 
-## 与Angular v.2.1.1 同步(2016-10-21)  
+## 与Angular v.2.1.1 同步(2016-10-21)
 
-Docs and code samples updated and tested with Angular v.2.1.1. 
+Docs and code samples updated and tested with Angular v.2.1.1.
 
 使用Angular v.2.1.1更新和测试所有文档和代码例子。
 
@@ -317,9 +324,9 @@ New `:enter` and `:leave` aliases make animation more natural.
 
 ## Sync with Angular v.2.1.0 (2016-10-12)
 
-## 与Angular v.2.1.0同步(2016-10-12)  
+## 与Angular v.2.1.0同步(2016-10-12)
 
-Docs and code samples updated and tested with Angular v.2.1.0 .
+Docs and code samples updated and tested with Angular v.2.1.0.
 
 使用Angular v.2.1.0更新和测试所有文档和代码例子。
 
@@ -337,9 +344,9 @@ followed by the more advanced considerations of compiling and bundling the Tour 
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
 
-## 与Angular v.2.0.2同步 (2016-10-6)  
+## 与Angular v.2.0.2同步 (2016-10-6)
 
-Docs and code samples updated and tested with Angular v.2.0.2 .
+Docs and code samples updated and tested with Angular v.2.0.2.
 
 使用Angular v.2.0.2更新和测试所有文档和代码例子。
 
@@ -354,15 +361,11 @@ The _Routing Module_ replaces the previous _routing object_ involving the `Modul
 [Routing and Navigation](guide/router)现在在**路由模块**中设置路由配置。
 **路由模块**替换之前的**路由对象**，使用了`ModuleWithProviders`。
 
-[Routing and Navigation](guide/router)
-
-[路由与导航](guide/router)
-
 All guided samples with routing use the _Routing Module_ and prose content has been updated,
 most conspicuously in the
-[NgModule](guide/ngmodule) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
+[NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodule)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular模块（NgModule）](guide/ngmodules)章和[Angular模块常见问题](guide/ngmodule-faq)烹饪书。
 
 ## New "Internationalization" guide (2016-09-30)
 
@@ -396,12 +399,11 @@ The new "angular-in-memory-web-api" has new features.
 ## “风格指南”中添加了_NgModules_(2016-09-27)
 
 [StyleGuide](guide/styleguide) explains recommended conventions for NgModules.
-
-[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。
 Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.
 
+[StyleGuide](guide/styleguide)解释了我们为Angular模块（NgModule）而推荐的约定。
 现在，封装桶不再那么重要，风格指南已经移除了它们。
 它们仍然很有价值，但是它们与Angular风格无关。
 我们同时对**不推荐使用`@Component.host`属性**的规则有所放宽。
@@ -428,5 +430,6 @@ modules with SystemJS as the samples currently do.
 
 The [Lifecycle Hooks](guide/lifecycle-hooks) guide is shorter, simpler, and
 draws more attention to the order in which Angular calls the hooks.
+
 
 [生命周期钩子](guide/lifecycle-hooks)章现在更加简短，并且对强调了Angular是以什么顺序来调用钩子方法的。

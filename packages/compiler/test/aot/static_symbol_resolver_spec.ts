@@ -196,6 +196,25 @@ describe('StaticSymbolResolver', () => {
           .toBe(symbolCache.get('/test3.d.ts', 'b'));
     });
 
+    it('should ignore summaries for inputAs if requested', () => {
+      init(
+          {
+            '/test.ts': `
+        export {a} from './test2';
+      `
+          },
+          [], [{
+            symbol: symbolCache.get('/test2.d.ts', 'a'),
+            importAs: symbolCache.get('/test3.d.ts', 'b')
+          }]);
+
+      symbolResolver.getSymbolsOf('/test.ts');
+
+      expect(
+          symbolResolver.getImportAs(symbolCache.get('/test2.d.ts', 'a'), /* useSummaries */ false))
+          .toBeUndefined();
+    });
+
     it('should calculate importAs for symbols with members based on importAs for symbols without',
        () => {
          init(
@@ -234,15 +253,25 @@ describe('StaticSymbolResolver', () => {
     });
     expect(symbolResolver.resolveSymbol(symbolCache.get('/test.ts', 'a')).metadata)
         .toEqual(symbolCache.get('/test2.ts', 'b'));
-    expect(symbolResolver.resolveSymbol(symbolCache.get('/test.ts', 'x')).metadata).toEqual([
-      symbolCache.get('/test2.ts', 'y')
-    ]);
+    expect(symbolResolver.resolveSymbol(symbolCache.get('/test.ts', 'x')).metadata).toEqual([{
+      __symbolic: 'resolved',
+      symbol: symbolCache.get('/test2.ts', 'y'),
+      line: 3,
+      character: 24,
+      fileName: '/test.ts'
+    }]);
     expect(symbolResolver.resolveSymbol(symbolCache.get('/test.ts', 'simpleFn')).metadata).toEqual({
       __symbolic: 'function',
       parameters: ['fnArg'],
       value: [
-        symbolCache.get('/test.ts', 'a'), symbolCache.get('/test2.ts', 'y'),
-        Object({__symbolic: 'reference', name: 'fnArg'})
+        symbolCache.get('/test.ts', 'a'), {
+          __symbolic: 'resolved',
+          symbol: symbolCache.get('/test2.ts', 'y'),
+          line: 6,
+          character: 21,
+          fileName: '/test.ts'
+        },
+        {__symbolic: 'reference', name: 'fnArg'}
       ]
     });
   });
@@ -465,11 +494,9 @@ export class MockStaticSymbolResolverHost implements StaticSymbolResolverHost {
     return '/tmp/' + modulePath + '.d.ts';
   }
 
-  fileNameToModuleName(filePath: string, containingFile: string) {
-    return filePath.replace(/(\.ts|\.d\.ts|\.js|\.jsx|\.tsx)$/, '');
-  }
-
   getMetadataFor(moduleId: string): any { return this._getMetadataFor(moduleId); }
+
+  getOutputName(filePath: string): string { return filePath; }
 
   private _getMetadataFor(filePath: string): any {
     if (this.data[filePath] && filePath.match(TS_EXT)) {

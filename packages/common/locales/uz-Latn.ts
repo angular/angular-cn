@@ -9,6 +9,11 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  if (n === 1) return 1;
+  return 5;
+}
+
 export default [
   'uz-Latn',
   [
@@ -46,11 +51,7 @@ export default [
     ,
     ,
   ],
-  [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'haqiqiy son emas', ':'],
-  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'soʻm', 'O‘zbekiston so‘mi', function(n: number):
-                                                                                 number {
-                                                                                   if (n === 1)
-                                                                                     return 1;
-                                                                                   return 5;
-                                                                                 }
+  [',', ' ', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'son emas', ':'],
+  ['#,##0.###', '#,##0%', '#,##0.00 ¤', '#E0'], 'soʻm', 'O‘zbekiston so‘mi',
+  {'JPY': ['JP¥', '¥'], 'USD': ['US$', '$'], 'UZS': ['soʻm']}, plural
 ];

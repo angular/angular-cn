@@ -9,6 +9,12 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
   'ur-IN',
   [
@@ -28,8 +34,8 @@ export default [
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     [
-      'جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر',
-      'دسمبر'
+      'جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی',
+      'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'
     ],
   ],
   ,
@@ -37,19 +43,14 @@ export default [
     ['قبل مسیح', 'عیسوی'],
     ,
   ],
-  0, [0, 0], ['d/M/yy', 'y MMM d', 'd MMMM، y', 'EEEE، d MMMM، y'],
+  0, [0, 0], ['d/M/yy', 'MMM d, y', 'MMMM d, y', 'EEEE, MMMM d, y'],
   ['h:mm a', 'h:mm:ss a', 'h:mm:ss a z', 'h:mm:ss a zzzz'],
   [
     '{1} {0}',
     ,
     ,
   ],
-  ['.', ',', ';', '%', '‎+', '‎-', 'E', '×', '‰', '∞', 'NaN', ':'],
-  ['#,##0.###', '#,##,##0%', '¤ #,##,##0.00', '#E0'], '₹', 'بھارتی روپیہ',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['.', ',', ';', '%', '\u200e+', '\u200e-', 'E', '×', '‰', '∞', 'NaN', ':'],
+  ['#,##0.###', '#,##0%', '¤ #,##0.00', '#E0'], '₹', 'بھارتی روپیہ',
+  {'JPY': ['JP¥', '¥'], 'THB': ['฿'], 'TWD': ['NT$']}, plural
 ];

@@ -6,16 +6,24 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {GeneratedFile, ParseSourceSpan} from '@angular/compiler';
+import {GeneratedFile, ParseSourceSpan, Position} from '@angular/compiler';
 import * as ts from 'typescript';
 
 export const DEFAULT_ERROR_CODE = 100;
 export const UNKNOWN_ERROR_CODE = 500;
 export const SOURCE = 'angular' as 'angular';
 
+export interface DiagnosticMessageChain {
+  messageText: string;
+  position?: Position;
+  next?: DiagnosticMessageChain;
+}
+
 export interface Diagnostic {
   messageText: string;
   span?: ParseSourceSpan;
+  position?: Position;
+  chain?: DiagnosticMessageChain;
   category: ts.DiagnosticCategory;
   code: number;
   source: 'angular';
@@ -30,6 +38,8 @@ export function isNgDiagnostic(diagnostic: any): diagnostic is Diagnostic {
 }
 
 export interface CompilerOptions extends ts.CompilerOptions {
+  // NOTE: These comments and aio/content/guides/aot-compiler.md should be kept in sync.
+
   // Write statistics about compilation (e.g. total time, ...)
   // Note: this is the --diagnostics command line option from TS (which is @internal
   // on ts.CompilerOptions interface).
@@ -49,7 +59,7 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // Produce an error if the metadata written for a class would produce an error if used.
   strictMetadataEmit?: boolean;
 
-  // Don't produce .ngfactory.ts or .ngstyle.ts files
+  // Don't produce .ngfactory.js or .ngstyle.js files
   skipTemplateCodegen?: boolean;
 
   // Always report errors when the type of a parameter supplied whose injection type cannot
@@ -122,6 +132,9 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // position.
   disableExpressionLowering?: boolean;
 
+  // Disable TypeScript Version Check.
+  disableTypeScriptVersionCheck?: boolean;
+
   // Locale of the application
   i18nOutLocale?: string;
   // Export format (xlf, xlf2 or xmb)
@@ -138,8 +151,8 @@ export interface CompilerOptions extends ts.CompilerOptions {
   // How to handle missing messages
   i18nInMissingTranslations?: 'error'|'warning'|'ignore';
 
-  // Whether to remove blank text nodes from compiled templates. It is `true` by default
-  // in Angular 5 and will be re-visited in Angular 6.
+  // Whether to remove blank text nodes from compiled templates. It is `false` by default starting
+  // from Angular 6.
   preserveWhitespaces?: boolean;
 
   /** generate all possible generated files  */
@@ -150,6 +163,20 @@ export interface CompilerOptions extends ts.CompilerOptions {
    * in JIT mode. This is off by default.
    */
   enableSummariesForJit?: boolean;
+
+  /**
+   * Tells the compiler to generate definitions using the Render3 style code generation.
+   * This option defaults to `false`.
+   *
+   * Not all features are supported with this option enabled. It is only supported
+   * for experimentation and testing of Render3 style code generation.
+   *
+   * @experimental
+   */
+  enableIvy?: boolean;
+
+  /** @internal */
+  collectAllErrors?: boolean;
 }
 
 export interface CompilerHost extends ts.CompilerHost {
@@ -189,6 +216,13 @@ export interface CompilerHost extends ts.CompilerHost {
    * cause a diagnostics diagnostic error or an exception to be thrown.
    */
   readResource?(fileName: string): Promise<string>|string;
+  /**
+   * Produce an AMD module name for the source file. Used in Bazel.
+   *
+   * An AMD module can have an arbitrary name, so that it is require'd by name
+   * rather than by path. See http://requirejs.org/docs/whyamd.html#namedmodules
+   */
+  amdModuleName?(sf: ts.SourceFile): string|undefined;
 }
 
 export enum EmitFlags {
@@ -229,6 +263,12 @@ export interface LibrarySummary {
   sourceFile?: ts.SourceFile;
 }
 
+export interface LazyRoute {
+  route: string;
+  module: {name: string, filePath: string};
+  referencedModule: {name: string, filePath: string};
+}
+
 export interface Program {
   /**
    * Retrieve the TypeScript program used to produce semantic diagnostics and emit the sources.
@@ -242,12 +282,12 @@ export interface Program {
    * faster than calling `getTsProgram().getOptionsDiagnostics()` since it does not need to
    * collect Angular structural information to produce the errors.
    */
-  getTsOptionDiagnostics(cancellationToken?: ts.CancellationToken): ts.Diagnostic[];
+  getTsOptionDiagnostics(cancellationToken?: ts.CancellationToken): ReadonlyArray<ts.Diagnostic>;
 
   /**
    * Retrieve options diagnostics for the Angular options used to create the program.
    */
-  getNgOptionDiagnostics(cancellationToken?: ts.CancellationToken): Diagnostic[];
+  getNgOptionDiagnostics(cancellationToken?: ts.CancellationToken): ReadonlyArray<Diagnostic>;
 
   /**
    * Retrieve the syntax diagnostics from TypeScript. This is faster than calling
@@ -255,7 +295,7 @@ export interface Program {
    * information to produce the errors.
    */
   getTsSyntacticDiagnostics(sourceFile?: ts.SourceFile, cancellationToken?: ts.CancellationToken):
-      ts.Diagnostic[];
+      ReadonlyArray<ts.Diagnostic>;
 
   /**
    * Retrieve the diagnostics for the structure of an Angular application is correctly formed.
@@ -268,14 +308,14 @@ export interface Program {
    *
    * Angular structural information is required to produce these diagnostics.
    */
-  getNgStructuralDiagnostics(cancellationToken?: ts.CancellationToken): Diagnostic[];
+  getNgStructuralDiagnostics(cancellationToken?: ts.CancellationToken): ReadonlyArray<Diagnostic>;
 
   /**
    * Retrieve the semantic diagnostics from TypeScript. This is equivilent to calling
    * `getTsProgram().getSemanticDiagnostics()` directly and is included for completeness.
    */
   getTsSemanticDiagnostics(sourceFile?: ts.SourceFile, cancellationToken?: ts.CancellationToken):
-      ts.Diagnostic[];
+      ReadonlyArray<ts.Diagnostic>;
 
   /**
    * Retrieve the Angular semantic diagnostics.
@@ -283,7 +323,7 @@ export interface Program {
    * Angular structural information is required to produce these diagnostics.
    */
   getNgSemanticDiagnostics(fileName?: string, cancellationToken?: ts.CancellationToken):
-      Diagnostic[];
+      ReadonlyArray<Diagnostic>;
 
   /**
    * Load Angular structural information asynchronously. If this method is not called then the
@@ -292,6 +332,14 @@ export interface Program {
    * will produce a diagnostic error message or, `getTsProgram()` or `emit` to throw.
    */
   loadNgStructureAsync(): Promise<void>;
+
+  /**
+   * Returns the lazy routes in the program.
+   * @param entryRoute A reference to an NgModule like `someModule#name`. If given,
+   *              will recursively analyze routes starting from this symbol only.
+   *              Otherwise will list all routes for all NgModules in the program/
+   */
+  listLazyRoutes(entryRoute?: string): LazyRoute[];
 
   /**
    * Emit the files requested by emitFlags implied by the program.
@@ -318,4 +366,9 @@ export interface Program {
    * @internal
    */
   getEmittedGeneratedFiles(): Map<string, GeneratedFile>;
+
+  /**
+   * @internal
+   */
+  getEmittedSourceFiles(): Map<string, ts.SourceFile>;
 }

@@ -9,13 +9,22 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
+  if (i === 1 && v === 0) return 1;
+  return 5;
+}
+
 export default [
   'de-AT',
   [
     ['vm.', 'nm.'],
+    ['AM', 'PM'],
+  ],
+  [
+    ['vm.', 'nm.'],
     ['vorm.', 'nachm.'],
   ],
-  ,
   [
     ['S', 'M', 'D', 'M', 'D', 'F', 'S'], ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
     ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -28,18 +37,21 @@ export default [
   ],
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-    ['Jän.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'],
     [
-      'Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-      'November', 'Dezember'
+      'Jän.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.',
+      'Dez.'
+    ],
+    [
+      'Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September',
+      'Oktober', 'November', 'Dezember'
     ]
   ],
   [
     ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
     ['Jän', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     [
-      'Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-      'November', 'Dezember'
+      'Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September',
+      'Oktober', 'November', 'Dezember'
     ]
   ],
   [
@@ -54,11 +66,22 @@ export default [
     '{1} \'um\' {0}',
   ],
   [',', ' ', ';', '%', '+', '-', 'E', '·', '‰', '∞', 'NaN', ':', '.'],
-  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], '€', 'Euro',
-  function(n: number):
-      number {
-        let i = Math.floor(Math.abs(n)), v = n.toString().replace(/^[^.]*\.?/, '').length;
-        if (i === 1 && v === 0) return 1;
-        return 5;
-      }
+  ['#,##0.###', '#,##0 %', '¤ #,##0.00', '#E0'], '€', 'Euro', {
+    'ATS': ['öS'],
+    'AUD': ['AU$', '$'],
+    'BGM': ['BGK'],
+    'BGO': ['BGJ'],
+    'CUC': [, 'Cub$'],
+    'DEM': ['DM'],
+    'FKP': [, 'Fl£'],
+    'GNF': [, 'F.G.'],
+    'KMF': [, 'FC'],
+    'RON': [, 'L'],
+    'RWF': [, 'F.Rw'],
+    'SYP': [],
+    'THB': ['฿'],
+    'TWD': ['NT$'],
+    'ZMW': [, 'K']
+  },
+  plural
 ];

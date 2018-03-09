@@ -9,6 +9,10 @@
 // THIS CODE IS GENERATED - DO NOT MODIFY
 // See angular/tools/gulp-tasks/cldr/extract.js
 
+function plural(n: number): number {
+  return 5;
+}
+
 export default [
   'rn',
   [
@@ -45,5 +49,5 @@ export default [
   ],
   [',', '.', ';', '%', '+', '-', 'E', '×', '‰', '∞', 'NaN', ':'],
   ['#,##0.###', '#,##0 %', '#,##0.00¤', '#E0'], 'FBu', 'Ifaranga ry’Uburundi',
-  function(n: number): number { return 5;}
+  {'BIF': ['FBu'], 'JPY': ['JP¥', '¥'], 'USD': ['US$', '$']}, plural
 ];

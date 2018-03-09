@@ -3,7 +3,7 @@ import { Injector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { ResourceService } from './resource.service';
-import { Category, SubCategory, Resource } from './resource.model';
+import { Category } from './resource.model';
 
 describe('ResourceService', () => {
 
@@ -43,7 +43,7 @@ describe('ResourceService', () => {
 
     it('categories observable should complete', () => {
       let completed = false;
-      resourceService.categories.subscribe(null, null, () => completed = true);
+      resourceService.categories.subscribe(undefined, undefined, () => completed = true);
       expect(true).toBe(true, 'observable completed');
     });
 
