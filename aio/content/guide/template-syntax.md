@@ -1782,13 +1782,13 @@ To listen for changes to the value, the code binds to the input box's `input` ev
 When the user makes changes, the `input` event is raised, and the binding executes
 the statement within a context that includes the DOM event object, `$event`.
 
-上面的代码在把输入框的`value`属性绑定到`firstName`属性。
+上面的代码在把输入框的`value`属性绑定到`name`属性。
 要监听对值的修改，代码绑定到输入框的`input`事件。
 当用户造成更改时，`input`事件被触发，并在包含了 DOM 事件对象 (`$event`) 的上下文中执行这条语句。
 
 To update the `name` property, the changed text is retrieved by following the path `$event.target.value`.
 
-要更新`firstName`属性，就要通过路径`$event.target.value`来获取更改后的值。
+要更新`name`属性，就要通过路径`$event.target.value`来获取更改后的值。
 
 If the event belongs to a directive (recall that components are directives),
 `$event` has whatever shape the directive decides to produce.
@@ -2344,8 +2344,8 @@ where you'll learn:
 * to use [`<ng-container>`](guide/structural-directives#ngcontainer "<ng-container>")
 to group elements when there is no suitable host element for the directive.
 
-   当没有合适的宿主元素防止指令时，可用`<ng-container>`](structural-directives.html#ngcontainer "<ng-container>对元素进行分组。
-
+  当没有合适的宿主元素放置指令时，可用[`<ng-container>`](guide/structural-directives#ngcontainer "<ng-container>")对元素进行分组。
+  
 * how to write your own structural directive.
 
    如何写自己的结构型指令。
@@ -2418,7 +2418,7 @@ You can control the visibility of an element with a
 
 Hiding an element is quite different from removing an element with `NgIf`.
 
-但隐藏子树和用`NgIf`排除子树是截然不同的。
+但隐藏子树和用`NgIf`移除子树是截然不同的。
 
 When you hide an element, that element and all of its descendents remain in the DOM.
 All components for those elements stay in memory and
@@ -3208,7 +3208,7 @@ That is reasonable behavior. At least the app doesn't crash.
 Suppose the template expression involves a property path, as in this next example
 that displays the `name` of a null hero.
 
-假设模板表达式涉及属性路径，在下例中，显示一个空 (null) 英雄的`firstName`。
+假设模板表达式涉及属性路径，在下例中，显示一个空 (null) 英雄的`name`。
 
 <code-example language="html">
 
