@@ -341,7 +341,7 @@ so it's generalized to meet their different needs.
 Instead of handling the error directly, it returns an _error handler_ function to `catchError` that it 
 has configured with both the name of the operation that failed and a safe return value.
 
-它不再直接处理这些错误，而是返回给 `catchError` 返回一个*错误处理*函数。我们还要用操作名和出错时要返回的安全值来对这个错误处理函数进行配置。
+它不再直接处理这些错误，而是返回给 `catchError` 返回一个*错误处理*函数。还要用操作名和出错时要返回的安全值来对这个错误处理函数进行配置。
 
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
@@ -522,7 +522,7 @@ the heading:
 In response to a click event, call the component's click handler and then
 clear the input field so that it's ready for another name.
 
-当点击事件触发时，我们调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。
+当点击事件触发时，调用组件的点击处理器，然后清空这个输入框，以便用来输入另一个名字。
 
 <code-example path="toh-pt6/src/app/heroes/heroes.component.ts" region="add" title="src/app/heroes/heroes.component.ts (add)"></code-example>
 
@@ -686,7 +686,7 @@ Your goal is to issue only as many requests as necessary.
 
 Start by adding a `searchHeroes` method to the `HeroService`.
 
-我们先把 `searchHeroes` 方法添加到 `HeroService` 中。
+先把 `searchHeroes` 方法添加到 `HeroService` 中。
 
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
@@ -947,7 +947,7 @@ If you enter characters that match any existing hero names, you'll see something
 
 Your app should look like this <live-example></live-example>.
 
-我们的应用现在变成了这样：<live-example></live-example>。
+你的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page (all in the `src/app/` folder).
 
@@ -1043,31 +1043,31 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 
 You're at the end of your journey, and you've accomplished a lot.
 
-旅程即将结束，不过我们已经收获颇丰。
+旅程即将结束，不过你已经收获颇丰。
 
 * You added the necessary dependencies to use HTTP in the app.
 
-  我们添加了在应用程序中使用 HTTP 的必备依赖。
+  你添加了在应用程序中使用 HTTP 的必备依赖。
 
 * You refactored `HeroService` to load heroes from a web API.
 
-  我们重构了`HeroService`，以通过 web API 来加载英雄数据。
+  你重构了`HeroService`，以通过 web API 来加载英雄数据。
 
 * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
 
-  我们扩展了`HeroService`来支持 `post()`、`put()` 和 `delete()` 方法。
+  你扩展了`HeroService`来支持 `post()`、`put()` 和 `delete()` 方法。
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 
-  我们更新了组件，以允许用户添加、编辑和删除英雄。
+  你更新了组件，以允许用户添加、编辑和删除英雄。
 
 * You configured an in-memory web API.
 
-  我们配置了一个内存 Web API。
+  你配置了一个内存 Web API。
 
 * You learned how to use Observables.
 
-  我们学会了如何使用“可观察对象”。
+  你学会了如何使用“可观察对象”。
 
 This concludes the "Tour of Heroes" tutorial.
 You're ready to learn more about Angular development in the fundamentals section,

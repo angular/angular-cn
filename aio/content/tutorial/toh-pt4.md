@@ -211,7 +211,7 @@ Open the `HeroesComponent` class file.
 Delete the `HEROES` import as you won't need that anymore.
 Import the `HeroService` instead.
 
-删除 `HEROES` 导入，我们以后不会再用它了。
+删除 `HEROES` 导入，你以后不会再用它了。
 转而导入 `HeroService`。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" title="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">

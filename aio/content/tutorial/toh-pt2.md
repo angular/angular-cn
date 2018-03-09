@@ -215,7 +215,7 @@ and update the hero detail.
 
 Add a click event binding to the `<li>` like this:
 
-我们再往`<li>`元素上插入一句点击事件的绑定代码：
+再往`<li>`元素上插入一句点击事件的绑定代码：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" title="heroes.component.html (template excerpt)" linenums="false">
 
@@ -414,7 +414,7 @@ The finished `<li>` looks like this:
 
 Your app should look like this <live-example></live-example>. 
 
-我们的应用现在变成了这样：<live-example></live-example>。
+本应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 

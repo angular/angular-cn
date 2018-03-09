@@ -750,7 +750,7 @@ The browser refreshes and the app crashes with a compiler error.
 Add it now.
 
 刷新浏览器，应用挂了。出现一个编译错误，因为 `HeroService` 没有一个名叫 `getHero()` 的方法。
-我们这就添加它。
+这就添加它。
 
 ### Add *HeroService.getHero()*
 
@@ -851,7 +851,7 @@ from heroes list to the mini detail to the hero details and back to the heroes a
 
 You've met all of the navigational requirements that propelled this page.
 
-我们已经满足了在本章开头设定的所有导航需求。
+你已经满足了在本章开头设定的所有导航需求。
 
 ## Final code review
 

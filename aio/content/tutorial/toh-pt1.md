@@ -7,7 +7,7 @@ Next you will create a new component to display hero information
 and place that component in the application shell.
 
 应用程序现在有了基本的标题。
-接下来我们要创建一个新的组件来显示英雄信息并且把这个组件放到应用程序的外壳里去。
+接下来你要创建一个新的组件来显示英雄信息并且把这个组件放到应用程序的外壳里去。
 
 ## Create the heroes component
 
@@ -265,7 +265,7 @@ Here it binds the `hero.name` property to the HTML textbox so that data can flow
 
 Notice that the app stopped working when you added `[(ngModel)]`.
 
-注意，当我们加上 `[(ngModel)]` 之后这个应用无法工作了。
+注意，当你加上 `[(ngModel)]` 之后这个应用无法工作了。
 
 To see the error, open the browser development tools and look in the console
 for a message like

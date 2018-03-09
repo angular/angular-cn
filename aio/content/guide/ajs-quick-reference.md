@@ -129,7 +129,7 @@ The following table lists some of the key AngularJS template features with their
 
       This example filters the `title` property to uppercase.
 
-      在这个例子中，我们把`title`属性过滤成了大写形式。
+      这个例子中把`title`属性过滤成了大写形式。
 
     </td>
 
@@ -188,7 +188,7 @@ The following table lists some of the key AngularJS template features with their
 
       Angular has true template input variables that are explicitly defined using the `let` keyword.
 
-      在Angular中，我们有了真正的模板输入变量，它需要使用`let`关键字进行明确定义。
+      Angular 有了真正的模板输入变量，它需要使用`let`关键字进行明确定义。
 
       For more information, see the [ngFor micro-syntax](guide/template-syntax#microsyntax)
       section of the [Template Syntax](guide/template-syntax) page.
@@ -282,7 +282,7 @@ AngularJS 为模板提供了七十多个内置指令。
       and the application's root component (`AppComponent`) in `app.module.ts`.
 
       Angular 没有引导指令。
-      我们总是通过显式调用一个`bootstrap`函数，并传入应用模块的名字(`AppComponent`)来启动应用。
+      总是要通过显式调用一个`bootstrap`函数，并传入应用模块的名字(`AppComponent`)来启动应用。
 
     </td>
 

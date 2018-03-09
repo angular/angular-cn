@@ -5,7 +5,7 @@
 The _Tour of Heroes_ tutorial covers the fundamentals of Angular.  
 In this tutorial you will build an app that helps a staffing agency manage its stable of heroes.
 
-**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，我们将构建一个应用，来帮助招聘机构来管理一群英雄。
+**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，你将构建一个应用，来帮助招聘机构来管理一群英雄。
 
 This basic app has many of the features you'd expect to find in a data-driven application.
 It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
@@ -15,7 +15,7 @@ It acquires and displays a list of heroes, edits a selected hero's detail, and n
 
 By the end of the tutorial you will be able to do the following:
 
-在本教程的最后，我们将完成下列工作：
+在本教程的最后，你将完成下列工作：
 
 * Use built-in Angular directives to show and hide elements and display lists of hero data.
 
@@ -56,7 +56,7 @@ By the end of the tutorial you will be able to do the following:
 You'll learn enough Angular to get started and gain confidence that
 Angular can do whatever you need it to do. 
 
-完成本教程后，我们将学到足够的 Angular 知识，并确信 Angular 确实能提供我们所需的支持。
+你将学到足够的 Angular 知识，并确信 Angular 确实能提供你所需的支持。
 
 After completing all tutorial steps, the final app will look like this <live-example name="toh-pt6"></live-example>.
 
@@ -64,12 +64,12 @@ After completing all tutorial steps, the final app will look like this <live-exa
 
 ## What you'll build
 
-## 我们要构建出什么
+## 你要构建出什么
 
 Here's a visual idea of where this tutorial leads, beginning with the "Dashboard"
 view and the most heroic heroes:
 
-下面是本教程关于界面的构想：开始是“Dashboard（仪表盘）”视图，来展示我们最勇敢的英雄。
+下面是本教程关于界面的构想：开始是“Dashboard（仪表盘）”视图，来展示最勇敢的英雄。
 
 <figure>
   <img src='generated/images/guide/toh/heroes-dashboard-1.png' alt="Output of heroes dashboard">
@@ -79,12 +79,12 @@ You can click the two links above the dashboard ("Dashboard" and "Heroes")
 to navigate between this Dashboard view and a Heroes view.
 
 仪表盘顶部中有两个链接：“Dashboard（仪表盘）”和“Heroes（英雄列表）”。
-  我们将点击它们在“仪表盘”和“英雄列表”视图之间导航。
+  你将点击它们在“仪表盘”和“英雄列表”视图之间导航。
 
 If you click the dashboard hero "Magneta," the router opens a "Hero Details" view
 where you can change the hero's name.
 
-当我们点击仪表盘上名叫“Magneta”的英雄时，路由将把我们带到这个英雄的详情页，在这里，我们可以修改英雄的名字。
+当你点击仪表盘上名叫“Magneta”的英雄时，路由会打开英雄详情页，在这里，你可以修改英雄的名字。
 
 <figure>
   <img src='generated/images/guide/toh/hero-details-1.png' alt="Details of hero in app">
@@ -95,8 +95,8 @@ Links at the top take you to either of the main views.
 If you click "Heroes," the app displays the "Heroes" master list view.
 
 点击“Back（后退）”按钮将返回到“Dashboard（仪表盘）”。
-顶部的链接可以把我们带到任何一个主视图。
-如果我们点击“Heroes（英雄列表）”链接，应用将把我们带到“英雄”主列表视图。
+顶部的链接可以把你带到任何一个主视图。
+如果你点击“Heroes（英雄列表）”链接，应用将把你带到“英雄”主列表视图。
 
 <figure>
   <img src='generated/images/guide/toh/heroes-list-2.png' alt="Output of heroes list app">
@@ -104,16 +104,16 @@ If you click "Heroes," the app displays the "Heroes" master list view.
 
 When you click a different hero name, the read-only mini detail beneath the list reflects the new choice.
 
-当我们点击另一位英雄时，一个只读的“微型详情视图”会显示在列表下方，以体现我们的选择。
+当你点击另一位英雄时，一个只读的“微型详情视图”会显示在列表下方，以体现你的选择。
 
 You can click the "View Details" button to drill into the
 editable details of the selected hero.
 
-我们可以点击“View Details（查看详情）”按钮进入所选英雄的编辑视图。
+你可以点击“View Details（查看详情）”按钮进入所选英雄的编辑视图。
 
 The following diagram captures all of the navigation options.
 
-下面这张图汇总了我们所有可能的导航路径。
+下面这张图汇总了所有可能的导航路径。
 
 <figure>
   <img src='generated/images/guide/toh/nav-diagram.png' alt="View navigations">
@@ -121,7 +121,7 @@ The following diagram captures all of the navigation options.
 
 Here's the app in action:
 
-下图演示了我们应用中的所有操作。
+下图演示了本应用中的动图。
 
 <figure>
   <img src='generated/images/guide/toh/toh-anim.gif' alt="Tour of Heroes in Action">
