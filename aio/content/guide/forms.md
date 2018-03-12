@@ -425,13 +425,9 @@ Bootstrap gives the form a little style.
 
 <div class="callout is-important">
 
-  <header>
+  <header>Angular forms don't require a style library</header>
 
-    Angular forms don't require a style library
-
-    Angular 表单不需要任何样式库
-
-  </header>
+  <header>Angular 表单不需要任何样式库</header>
 
   Angular makes no use of the `container`, `form-group`, `form-control`, and `btn` classes or
   the styles of any external library. Angular apps can use any CSS library or none at all.
@@ -560,7 +556,7 @@ The variable `heroForm` is now a reference to the `NgForm` directive that govern
 
   ### The _NgForm_ directive
 
-  ### `NgForm`指令
+  ### *NgForm* 指令
 
   What `NgForm` directive?
   You didn't add an [NgForm](api/forms/NgForm) directive.
