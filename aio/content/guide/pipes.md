@@ -326,6 +326,8 @@ Angular通过*变更检测*过程来查找绑定值的更改，并在每一次Ja
 
 Angular picks a simpler, faster change detection algorithm when you use a pipe.
 
+当使用管道时，Angular 会选用一种更简单、更快速的变更检测算法。
+
 <h3 class="no-toc">No pipe</h3>
 
 <h3 class="no-toc">无管道</h3>

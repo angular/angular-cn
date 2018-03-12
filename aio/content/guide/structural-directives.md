@@ -977,5 +977,4 @@ You learned
 
 * to write a [custom structural directive](guide/structural-directives#unless), `UnlessDirective`.
 
-
    写了一个[自定义结构型指令](guide/structural-directives#unless) —— `UnlessDirective`。
