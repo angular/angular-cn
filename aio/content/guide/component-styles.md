@@ -316,6 +316,8 @@ They are _not inherited_ by any components nested within the template nor by any
 
 The CLI creates an empty styles file for you by default and references that file in the component's generated `styleUrls`.
 
+CLI 会默认为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
+
 <code-example language="sh" class="code-shell">
 
 ng generate component hero-app
@@ -352,7 +354,11 @@ You can also write `<link>` tags into the component's HTML template.
 The link tag's `href` URL must be relative to the
 _**application root**_, not relative to the component file.
 
+link 标签的 `href` URL 必须是相对于***本应用的根路径***的，而不是相对于这个组件文件的。
+
 When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
+
+当使用 CLI 进行构建时，要确保这个链接到的样式表文件被复制到了服务器上。参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-asset-configuration)。
 
 </div>
 
@@ -377,16 +383,28 @@ In this case, the URL is relative to the CSS file into which you're importing.
 
 ### External and global style files
 
+### 外部以及全局样式文件
+
 When building with the CLI, you must configure the `.angular-cli.json` to include _all external assets_, including external style files.
+
+当使用 CLI 进行构建时，你必须配置 `.angular-cli.json` 文件，使其包含*所有外部资源*（包括外部的样式表文件）。
 
 Register **global** style files in the `styles` section which, by default, is pre-configured with the global `styles.css` file.
 
+在它的 `styles` 区注册这些**全局**样式文件，默认情况下，它会有一个预先配置的全局 `styles.css` 文件。
+
 See the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-global-styles) to learn more.
+
+要了解更多，参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-global-styles)。
 
 ### Non-CSS style files
 
+### 非 CSS 样式文件
+
 If you're building with the CLI,
 you can write style files in [sass](http://sass-lang.com/), [less](http://lesscss.org/), or [stylus](http://stylus-lang.com/) and specify those files in the `@Component.styleUrls` metadata with the appropriate extensions (`.scss`, `.less`, `.styl`) as in the following example:
+
+如果使用 CLI 进行构建，那么你可以用 [sass](http://sass-lang.com/)、[less](http://lesscss.org/) 或 [stylus](http://stylus-lang.com/) 来编写样式，并使用相应的扩展名（`.scss`、`.less`、`.styl`）把它们指定到 `@Component.styleUrls` 元数据中。例子如下：
 
 <code-example>
 
@@ -401,14 +419,22 @@ you can write style files in [sass](http://sass-lang.com/), [less](http://lesscs
 
 The CLI build process runs the pertinent CSS preprocessor.
 
+CLI 的构建过程会运行相关的预处理器。
+
 When generating a component file with `ng generate component`, the CLI emits an empty CSS styles file (`.css`) by default.
 You can configure the CLI to default to your preferred CSS preprocessor
 as explained in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
 "CSS Preprocessor integration").
 
+当使用 `ng generate component` 命令生成组件文件时，CLI 会默认生成一个空白的 CSS 样式文件（`.css`）。
+你可以配置 CLI，让它默认使用你喜欢的 CSS 预处理器，参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
+                                 "CSS Preprocessor integration") 中的解释。
+
 <div class="alert is-important">
 
 Style strings added to the `@Component.styles` array _must be written in CSS_ because the CLI cannot apply a preprocessor to inline styles.
+
+添加到 `@Component.styles` 数组中的字符串*必须写成 CSS*，因为 CLI 没法对这些内联的样式使用任何 CSS 预处理器。
 
 </div>
 

@@ -2488,7 +2488,7 @@ So you flatten the `Observable` with the `switchMap` operator instead.
 The `switchMap` operator also cancels previous in-flight requests. If the user re-navigates to this route
 with a new `id` while the `HeroService` is still retrieving the old `id`, `switchMap` discards that old request and returns the hero for the new `id`.
 
-`switchMap`操作符也会取消以前未完成的在途请求。如果用户使用心得`id`再次导航到该路由，而`HeroService`仍在接受老`id`对应的英雄，那么`switchMap`就会抛弃老的请求，并返回这个新`id`的英雄信息。
+`switchMap`操作符也会取消以前未完成的在途请求。如果用户使用新的`id`再次导航到该路由，而`HeroService`仍在接受老`id`对应的英雄，那么`switchMap`就会抛弃老的请求，并返回这个新`id`的英雄信息。
 
 The observable `Subscription` will be handled by the `AsyncPipe` and the component's `hero` property will be (re)set with the retrieved hero.
 
@@ -4432,14 +4432,14 @@ The same rule applies for feature modules loaded [asynchronously](#asynchronous-
 
 ### _CanActivateChild_: guarding child routes
 
-### `CanAcitvateChild`：保护子路由
+### `CanActivateChild`：保护子路由
 
 You can also protect child routes with the `CanActivateChild` guard.
 The `CanActivateChild` guard is similar to the `CanActivate` guard.
 The key difference is that it runs _before_  any child route is activated.
 
 我们还可以使用`CanActivateChild`守卫来保护子路由。
-`CanActivateChild`守卫和`CanAcitvate`守卫很像。
+`CanActivateChild`守卫和`CanActivate`守卫很像。
 它们的区别在于，`CanActivateChild`会在*任何子路由*被激活之前运行。
 
 You protected the admin feature module from unauthorized access.
@@ -4459,8 +4459,8 @@ The `canActivateChild()` method can return an `Observable<boolean>` or `Promise<
 async checks and a `boolean` for sync checks.
 This one returns a `boolean`:
 
-接下来，实现`CanAcitvateChild`方法，它所接收的参数与`CanAcitvate`方法一样：一个`ActivatedRouteSnapshot`和一个`RouterStateSnapshot`。
-`CanAcitvateChild`方法可以返回`Observable<boolean>`或`Promise<boolean>`来支持异步检查，或`boolean`来支持同步检查。
+接下来，实现`CanActivateChild`方法，它所接收的参数与`CanActivate`方法一样：一个`ActivatedRouteSnapshot`和一个`RouterStateSnapshot`。
+`CanActivateChild`方法可以返回`Observable<boolean>`或`Promise<boolean>`来支持异步检查，或`boolean`来支持同步检查。
 这里返回的是`boolean`：
 
 <code-example path="router/src/app/auth-guard.service.3.ts" linenums="false" title="src/app/auth-guard.service.ts (excerpt)" region="can-activate-child">
@@ -5059,7 +5059,7 @@ You're already protecting the `AdminModule` with a `CanActivate` guard that prev
 accessing the admin feature area.
 It redirects to the  login page if the user is not authorized.
 
-我们已经使用`CanAcitvate`保护`AdminModule`了，它会阻止未授权用户访问管理特性区。如果用户未登录，它就会跳转到登录页。
+我们已经使用`CanActivate`保护`AdminModule`了，它会阻止未授权用户访问管理特性区。如果用户未登录，它就会跳转到登录页。
 
 But the router is still loading the `AdminModule` even if the user can't visit any of its components.
 Ideally, you'd only load the `AdminModule` if the user is logged in.

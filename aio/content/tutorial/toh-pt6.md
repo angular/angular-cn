@@ -88,7 +88,7 @@ If you're _coding along_ with this tutorial, stay here and add the *In-memory We
 
 Install the *In-memory Web API* package from _npm_
 
-从 `npm` 中安装这个*内存 Web API* 包
+从 `npm` 中安装这个*内存 Web API* 包（译注：请使用 0.5+ 的版本，不要使用 0.4-）
 
 <code-example language="sh" class="code-shell">
 

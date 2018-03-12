@@ -8,7 +8,7 @@ An **Attribute** directive changes the appearance or behavior of a DOM element.
 
 Try the <live-example title="Attribute Directive example"></live-example>.
 
-你可以到这里试试：<live-example title="Attribute Directive example"></live-example>。
+你可以到这里试试：<live-example title="属性型指令范例"></live-example>。
 
 {@a directive-overview}
 
@@ -174,7 +174,11 @@ the element to which you applied `appHighlight`.
 `ElementRef` grants direct access to the host DOM element
 through its `nativeElement` property.
 
+`ElementRef` 通过其 `nativeElement` 属性给你了直接访问宿主 DOM 元素的能力。
+
 This first implementation sets the background color of the host element to yellow.
+
+这里的第一个实现把宿主元素的背景色设置为了黄色。
 
 {@a apply-directive}
 
@@ -263,10 +267,13 @@ There are at least three problems with _that_ approach:
 
 The handlers delegate to a helper method that sets the color on the host DOM element, `el`.
 
+这些处理器委托了一个辅助方法来为DOM元素（`el`）设置颜色。
+
 The helper method, `highlight`, was extracted from the constructor.
 The revised constructor simply declares the injected `el: ElementRef`.
 
-这些处理器委托给了一个辅助方法，它用于为DOM元素设置颜色，`el`就是你在构造器中声明和初始化过的。
+这个辅助方法（`highlight`）被从构造函数中提取了出来。
+修改后的构造函数只负责声明要注入的元素 `el: ElementRef`。
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (constructor)" region="ctor"></code-example>
 
@@ -289,7 +296,7 @@ the mouse hovers over the `p` and disappears as it moves out.
 
 ## Pass values into the directive with an _@Input_ data binding
 
-## 使用数据绑定向指令传递值
+## 使用 `@Input` 数据绑定向指令传递值
 
 Currently the highlight color is hard-coded _within_ the directive. That's inflexible.
 In this section, you give the developer the power to set the highlight color while applying the directive.
@@ -617,13 +624,12 @@ Now apply that reasoning to the following example:
   The template and its component trust each other.
   The `color` property doesn't require the `@Input` decorator.
 
-   `color`属性位于右侧的绑定表达式中，它属于模板所在的组件。
+  `color`属性位于右侧的绑定表达式中，它属于模板所在的组件。
     该模板和组件相互信任。因此`color`不需要`@Input`装饰器。
 
 * The `appHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
   not a property of the template's component. There are trust issues.
   Therefore, the directive property must carry the `@Input` decorator.
 
-
-   `appHighlight`属性位于左侧，它引用了`HighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
+  `appHighlight`属性位于左侧，它引用了`HighlightDirective`中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
 所以，该属性必须带`@Input`装饰器。

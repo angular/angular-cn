@@ -264,5 +264,4 @@ Here are two sample components and the `AdComponent` interface for reference:
 
 See the <live-example name="dynamic-component-loader"></live-example>.
 
-
-参见<live-example name="cb-dynamic-component-loader"></live-example>。
+参见<live-example name="dynamic-component-loader"></live-example>。

@@ -788,38 +788,38 @@ For example, when the browser renders `<input type="text" value="Bob">`, it crea
 corresponding DOM node with a `value` property *initialized* to "Bob".
 
 例如，当浏览器渲染`<input type="text" value="Bob">`时，它将创建相应 DOM 节点，
-其`value` property 被*初始化为* “Bob”。
+它的 `value` 这个 property 被*初始化为* “Bob”。
 
 When the user enters "Sally" into the input box, the DOM element `value` *property* becomes "Sally".
 But the HTML `value` *attribute* remains unchanged as you discover if you ask the input element
 about that attribute: `input.getAttribute('value')` returns "Bob".
 
-当用户在输入框中输入 “Sally” 时，DOM 元素的`value` *property* 变成了 “Sally”。
-但是这个 HTML `value` *attribute* 保持不变。如果我们读取 input 元素的 attribute，就会发现确实没变：
+当用户在输入框中输入 “Sally” 时，DOM 元素的 `value` 这个 *property* 变成了 “Sally”。
+但是该 HTML 的 `value` 这个 *attribute* 保持不变。如果我们读取 input 元素的 attribute，就会发现确实没变：
 `input.getAttribute('value') // 返回 "Bob"`。
 
 The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
 
-HTML attribute `value`指定了*初始*值；DOM `value` property 是*当前*值。
+HTML 的 `value` 这个 attribute 指定了*初始*值；DOM 的 `value` 这个 property 是*当前*值。
 
 The `disabled` attribute is another peculiar example. A button's `disabled` *property* is
 `false` by default so the button is enabled.
 When you add the `disabled` *attribute*, its presence alone initializes the  button's `disabled` *property* to `true`
 so the button is disabled.
 
-`disabled` attribute 是另一个古怪的例子。按钮的`disabled` *property* 是`false`，因为默认情况下按钮是可用的。
-当我们添加`disabled` *attribute* 时，只要它出现了按钮的`disabled` *property* 就初始化为`true`，于是按钮就被禁用了。
+`disabled` 这个 attribute 是另一种特例。按钮的`disabled` 这个 *property* 是`false`，因为默认情况下按钮是可用的。
+当我们添加`disabled` 这个 *attribute* 时，只要它出现了按钮的`disabled` 这个 *property* 就初始化为`true`，于是按钮就被禁用了。
 
 Adding and removing the `disabled` *attribute* disables and enables the button. The value of the *attribute* is irrelevant,
 which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
 
-添加或删除`disabled` *attribute*会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
+添加或删除`disabled` 这个 *attribute*会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
 `<button disabled="false">仍被禁用</button>`这种写法来启用按钮。
 
 Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
 The value of the *property* matters.
 
-设置按钮的`disabled` *property*（如，通过 Angular 绑定）可以禁用或启用这个按钮。
+设置按钮的`disabled` 这个 *property*（如，通过 Angular 绑定）可以禁用或启用这个按钮。
 这就是 *property* 的价值。
 
 **The HTML attribute and the DOM property are not the same thing, even when they have the same name.**
@@ -1511,8 +1511,6 @@ Here's how the table renders:
 
           One-Two
 
-          1-2列
-
       </td>
 
   </tr>
@@ -1523,15 +1521,11 @@ Here's how the table renders:
 
           Five
 
-          五列
-
       </td>
 
 <td>
 
     Six
-
-    六列
 
 </td>
 
@@ -2920,26 +2914,43 @@ The `iconUrl` and `onSave` are members of the `AppComponent` class.
 They are _not_ decorated with `@Input()` or `@Output`.
 Angular does not object.
 
+`iconUrl` 和 `onSave` 是 `AppComponent` 类的成员。但它们并没有带 `@Input()` 或 `@Output()` 装饰器。
+Angular 不在乎。
+
 **You can always bind to a public property of a component in its own template.**
 It doesn't have to be an _Input_ or _Output_ property
+
+**你总是可以在组件自己的模板中绑定到组件的公共属性，**而不用管它们是否输入（Input）属性或输出（Output）属性。
 
 A component's class and template are closely coupled.
 They are both parts of the same thing.
 Together they _are_ the component.
 Exchanges between a component class and its template are internal implementation details.
 
+这是因为组件类和模板是紧耦合的，它们是同一个东西的两个部分，合起来构成组件。
+组件类及其模板之间的交互属于实现细节。
+
 ### Binding to a different component
+
+### 绑定到其它组件
 
 You can also bind to a property of a _different_ component.
 In such bindings, the _other_ component's property is to the _left_ of the (`=`).
 
+你也可以绑定到*其它*组件的属性。
+这种绑定形式下，*其它*组件的属性位于等号（`=`）的*左侧*。
+
 In the following example, the `AppComponent` template binds `AppComponent` class members to properties of the `HeroDetailComponent` whose selector is `'app-hero-detail'`.
+
+下面的例子中，`AppComponent` 的模板把 `AppComponent` 类的成员绑定到了 `HeroDetailComponent`（选择器为`'app-hero-detail'`） 的属性上。
 
 <code-example path="template-syntax/src/app/app.component.html" region="io-2" title="src/app/app.component.html" linenums="false">
 
 </code-example>
 
 The Angular compiler _may_ reject these bindings with errors like this one:
+
+Angular 的编译器*可能*会对这些绑定报错，就像这样：
 
 <code-example language="sh" class="code-shell">
 
@@ -2951,41 +2962,70 @@ Can't bind to 'hero' since it isn't a known property of 'app-hero-detail'
 You know that `HeroDetailComponent` has `hero` and `deleteRequest` properties.
 But the Angular compiler refuses to recognize them.
 
+你自己知道 `HeroDetailComponent` 有两个属性 `hero` 和 `detectRequest`，但 Angular 编译器并不知道。
+
 **The Angular compiler won't bind to properties of a different component
 unless they are Input or Output properties**.
 
+**Angular 编译器不会绑定到其它组件的属性上  —— 除非这些属性是输入或输出属性。**
+
 There's a good reason for this rule.
+
+这条规则是有充分理由的。
 
 It's OK for a component to bind to its _own_ properties.
 The component author is in complete control of those bindings.
+
+组件绑定到它*自己*的属性当然没问题。
+该组件的作者对这些绑定有完全的控制权。
 
 But other components shouldn't have that kind of unrestricted access.
 You'd have a hard time supporting your component if anyone could bind to any of its properties.
 Outside components should only be able to bind to the component's public binding API.
 
+但是，其它组件不应该进行这种毫无限制的访问。
+如果任何人都可以绑定到你的组件的任何属性上，那么这个组件就很难维护。
+所以，外部组件应该只能绑定到组件的公共（允许绑定） API 上。
+
 Angular asks you to be _explicit_ about that API.
 It's up to _you_ to decide which properties are available for binding by
 external components.
 
+Angular 要求你*显式声明*那些 API。
+它让*你*可以自己决定哪些属性是可以被外部组件绑定的。
+
 #### TypeScript _public_ doesn't matter
+
+#### TypeScript 的 `public` 是没用的
 
 You can't use the TypeScript _public_ and _private_ access modifiers to
 shape the component's public binding API.
+
+你不能用 TypeScript 的 `public` 和 `private` 访问控制符来标明组件的公共 API。
 
 <div class="alert is-important">
 
 All data bound properties must be TypeScript _public_ properties.
 Angular never binds to a TypeScript _private_ property.
 
+所有数据绑定属性必须是 TypeScript 的公共属性，Angular 永远不会绑定到 TypeScript 中的私有属性。
+
 </div>
 
 Angular requires some other way to identify properties that _outside_ components are allowed to bind to.
 That _other way_ is the `@Input()` and `@Output()` decorators.
 
+因此，Angular 需要一些其它方式来标记出那些允许被*外部*组件绑定到的属性。
+这种*其它方式*，就是 `@Input()` 和 `@Output()` 装饰器。
+
 ### Declaring Input and Output properties
+
+### 声明输入与输出属性
 
 In the sample for this guide, the bindings to `HeroDetailComponent` do not fail
 because the data bound properties are annotated with `@Input()` and `@Output()` decorators.
+
+在本章的例子中，绑定到 `HeroDetailComponent` 不会失败，这是因为这些要进行数据绑定的属性都带有 `@Input()` 和 `@Output()` 装饰器。 
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" region="input-output-1" title="src/app/hero-detail.component.ts" linenums="false">
 
@@ -3356,9 +3396,13 @@ You'll need this template operator when you turn on strict null checks. It's opt
 
 ## The `$any` type cast function (`$any( <expression> )`) 
 
+## 类型转换函数 `$any` （$any( <表达式> )）
+
 Sometimes a binding expression will be reported as a type error and it is not possible or difficult
 to fully specify the type. To silence the error, you can use the `$any` cast function to cast
 the expression to [the `any` type](http://www.typescriptlang.org/docs/handbook/basic-types.html#any).
+
+有时候，绑定表达式可能会报类型错误，并且它不能或很难指定类型。要消除这种报错，你可以使用 `$any` 转换函数来把表达式转换成 [`any` 类型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)。
 
 <code-example path="template-syntax/src/app/app.component.html" region="any-type-cast-function-1" title="src/app/app.component.html" linenums="false">
 
@@ -3368,14 +3412,20 @@ In this example, when the Angular compiler turns your template into TypeScript c
 it prevents TypeScript from reporting that `marker` is not a member of the `Hero`
 interface.
 
+在这个例子中，当 Angular 编译器把模板转换成 TypeScript 代码时，`$any` 表达式可以防止 TypeScript 编译器报错说 `marker` 不是 `Hero` 接口的成员。
+
 The `$any` cast function can be used in conjunction with `this` to allow access to undeclared members of
 the component.
+
+`$any` 转换函数可以和 `this` 联合使用，以便访问组件中未声明过的成员。
 
 <code-example path="template-syntax/src/app/app.component.html" region="any-type-cast-function-2" title="src/app/app.component.html" linenums="false">
 
 </code-example>
 
 The `$any` cast function can be used anywhere in a binding expression where a method call is valid.
+
+`$any` 转换函数可以在绑定表达式中任何可以进行方法调用的地方使用。
 
 ## Summary
 

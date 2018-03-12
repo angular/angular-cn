@@ -41,7 +41,7 @@ in which two or more components share information.
 
 **See the <live-example name="component-interaction"></live-example>**.
 
-**参见<live-example name="cb-component-interaction"></live-example>**。
+**参见<live-example name="component-interaction"></live-example>**。
 
 {@a parent-to-child}
 
