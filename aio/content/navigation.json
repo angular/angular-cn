@@ -298,8 +298,8 @@
           "children": [
             {
               "url": "guide/dependency-injection-pattern",
-              "title": "The Dependency Injection pattern",
-              "tooltip": "Learn about the dependency injection pattern behind the Angular DI system."
+              "title": "依赖注入模式",
+              "tooltip": "学习 Angular 依赖注入系统背后的依赖注入模式"
             },
             {
               "url": "guide/dependency-injection",

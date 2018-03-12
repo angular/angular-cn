@@ -1,15 +1,26 @@
 # The Dependency Injection pattern
 
+# 依赖注入（Dependency injection）模式
+
 **Dependency injection** is an important application design pattern.
 It's used so widely that almost everyone just calls it _DI_.
+
+**依赖注入**是一个很重要的设计模式。
+它使用得非常广泛，以至于几乎每个人都把它简称为 *DI* 。
 
 Angular has its own dependency injection framework, and
 you really can't build an Angular application without it.
 
+Angular 有自己的依赖注入框架，离开它，你几乎没办法构建出 Angular 应用。
+
 This page covers what DI is and why it's useful.
+
+本页会告诉你 DI 是什么，以及为什么它很有用。
 
 When you've learned the general pattern, you're ready to turn to
 the [Angular Dependency Injection](guide/dependency-injection) guide to see how it works in an Angular app.
+
+当你学会了这种通用的模式之后，就可以转到 [Angular 依赖注入](guide/dependency-injection) 中去看看它在 Angular 应用中的工作原理了。
 
 {@a why-di }
 
@@ -29,6 +40,10 @@ Imagine writing the following code:
 The `Car` class creates everything it needs inside its constructor.
 What's the problem?
 The problem is that the `Car` class is brittle, inflexible, and hard to test.
+
+`Car` 类在自己的构造函数中创建了它所需的一切。
+这样做有什么问题？
+问题在于 `Car` 类是脆弱、不灵活以及难于测试的。
 
 This `Car` needs an engine and tires. Instead of asking for them,
 the `Car` constructor instantiates its own copies from
@@ -100,9 +115,9 @@ How can you make `Car` more robust, flexible, and testable?
 
 {@a ctor-injection}
 
-答案非常简单。把`Car`的构造函数改造成使用 DI 的版本：
-
 That's super easy. Change the `Car` constructor to a version with DI:
+
+答案非常简单。把`Car`的构造函数改造成使用 DI 的版本：
 
 <code-tabs>
 
@@ -257,3 +272,5 @@ This is what a **dependency injection framework** is all about.
 
 Now that you know what dependency injection is and appreciate its benefits,
 turn to the [Angular Dependency Injection](guide/dependency-injection) guide to see how it is implemented in Angular.
+
+现在，你知道什么是依赖注入以及它有什么优点了吧？那就请到 [Angular 依赖注入](guide/dependency-injection) 中去看看它在 Angular 中是如何实现的。
