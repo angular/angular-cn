@@ -1,19 +1,33 @@
 # Angular Dependency Injection
 
+# Angular 依赖注入
+
 **Dependency Injection (DI)** is a way to create objects that depend upon other objects.
 A Dependency Injection system supplies the dependent objects (called the _dependencies_)
 when it creates an instance of an object.
 
+**依赖注入（DI）**是用来创建对象及其依赖的其它对象的一种方式。
+当依赖注入系统创建某个对象实例时，会负责提供该对象所依赖的对象（称为该对象的*依赖*）。
+
 The [Dependency Injection pattern](guide/dependency-injection-pattern) page describes this general approach.
 _The guide you're reading now_ explains how Angular's own Dependency Injection system works.
 
+[依赖注入模式](guide/dependency-injection-pattern)中讲解了这种通用的方法。
+*在这里*
+
 ## DI by example
+
+## DI 的例子
 
 You'll learn Angular Dependency Injection through a discussion of the sample app that accompanies this guide.
 Run the <live-example></live-example> anytime.
 
+在这篇指南中，你将会通过对一个范例应用的讨论来学习 Angular 的依赖注入技术。
+
 Start by reviewing this simplified version of the _heroes_ feature
 from the [The Tour of Heroes](tutorial/).
+
+我们先从[《英雄指南》](tutorial/)中*英雄*特性区的一个简化版本开始。
 
 <code-tabs>
 
@@ -36,8 +50,13 @@ The `HeroesComponent` is the top-level heroes component.
 It's only purpose is to display the `HeroListComponent`
 which displays a list of hero names.
 
+`HeroesComponent` 是位于顶级的组件。
+它唯一的用途是显示 `HeroListComponent`，它显示一个英雄名字的列表。
+
 This version of the `HeroListComponent` gets its `heroes` from the `HEROES` array, an in-memory collection
 defined in a separate `mock-heroes` file.
+
+这个版本的 `HeroListComponent` 从 `HEROES` 数组（定义在 `mock-heroes` 文件中的内存数组）中获取 `heroes`。
 
 <code-example title="src/app/heroes/hero-list.component.ts (class)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts"
 region="class">
@@ -49,12 +68,21 @@ As soon as you try to test this component or get heroes from a remote server,
 you'll have to change the implementation of `HerosListComponent` and
 replace every other use of the `HEROES` mock data.
 
+在开发的早期阶段，这就够用了，不过还很不理想。
+当要测试这个组件或者要从远端服务器获取英雄数据时，你就不得不去修改 `HeroesListComponent` 的实现，并要替换所有使用了 `HEROES` 模拟数据的地方。
+
 It's better to hide these details inside a _service_ class, 
 [defined in its own file](#one-class-per-file).
 
+最好隐藏服务类的这些内部实现细节，那就先[把它定义在自己的文件中](#one-class-per-file)。
+
 ## Create an injectable _HeroService_
 
+## 创建一个可注入的 `HeroService`
+
 The [**Angular CLI**](https://cli.angular.io/) can generate a new `HeroService` class in the `src/app/heroes` folder with this command.
+
+[**Angular CLI**](https://cli.angular.io/) 可以使用下列命令在 `src/app/heroes` 目录下新建一个 `HeroService` 类。
 
 <code-example language="sh" class="code-shell">
 
@@ -64,6 +92,8 @@ ng generate service heroes/hero
 
 That command creates the following `HeroService` skeleton.
 
+这条命令会创建如下的 `HeroService` 骨架代码：
+
 <code-example path="dependency-injection/src/app/heroes/hero.service.0.ts" title="src/app/heroes/hero.service.ts (CLI-generated)">
 
 </code-example>
@@ -71,6 +101,9 @@ That command creates the following `HeroService` skeleton.
 Assume for now that the [`@Injectable` decorator](#injectable) is an essential ingredient in every Angular service definition.
 The rest of the class has been rewritten to expose a `getHeroes` method 
 that returns the same mock data as before.
+
+目前先把 [`@Injectable` 装饰器](#injectable)当做定义每个 Angular 服务时的必备部分。
+把该类的其它部分改写为暴露一个返回和以前一样的 mock 数据的 `getHeroes` 方法。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.1.ts" title="src/app/heroes/hero.service.ts">
 
@@ -80,8 +113,13 @@ Of course, this isn't a real data service.
 If the app were actually getting data from a remote server, 
 the `getHeroes` method signature would have to be asynchronous.
 
+当然，这还不是真正的数据服务。
+如果该应用真的从远端服务器获取数据，那么 `getHeroes` 的方法签名就应该是异步形式的。
+
 That's a defect we can safely ignore in this guide where our focus is on
 _injecting the service_ into the `HeroList` component.
+
+在这一章我们可以忽略这个问题，因为这里的焦点在于*把服务注入*到 `HeroListComponent` 组件中。
 
 {@a injector-config}
 
@@ -89,21 +127,35 @@ _injecting the service_ into the `HeroList` component.
 
 ## Register a service provider
 
+## 注册服务提供商
+
 A _service_ is just a class in Angular until you register it with an Angular dependency injector.
 
+在你把 Angular 中的*服务*注册进依赖注入器（injector）之前，它只是一个普通的类。
+
 An Angular injector is responsible for creating service instances and injecting them into classes like the `HeroListComponent`.
+
+Angular 的依赖注入器负责创建服务的实例，并把它们注入到像 `HeroListComponent` 这样的类中。
 
 You rarely create an Angular injector yourself.
 Angular creates injectors for you as it executes the app,
 starting with the _root injector_ that it creates during the [bootstrap process](guide/bootstrapping).
 
+你很少需要自己创建 Angular 的依赖注入器。
+当 Angular 运行本应用时，它会为你创建这些注入器，首先会在[引导过程](guide/bootstrapping)中创建一个*根注入器*。
+
 You do have to register _providers_ with an injector 
 before the injector can create that service.
+
+但在注入器能创建服务之前，你得先往注入器中注入这个服务的*提供商*。
 
 **Providers** tell the injector _how to create the service_.
 Without a provider, the injector would not know
 that it is responsible for injecting the service
 nor be able to create the service.
+
+**提供商**会告诉注入器*如何创建该服务*。
+如果没有提供商，注入器既不知道它该负责创建该服务，也不知道如何创建该服务。
 
 <div class="l-sub-section">
 
@@ -111,12 +163,20 @@ You'll learn much more about _providers_ [below](#providers).
 For now it is sufficient to know that they create services
 and must be registered with an injector.
 
+你可以在[稍后的部分](#providers)学到更多关于*提供商*的知识。
+不过目前，只要知道它们用于创建服务，以及它们必须用注入器进行注册就行了。
+
 </div>
 
 You can register a provider with any Angular decorator that supports the  **`providers` array property**.
 
+你可以使用 Angular 中那些支持 `providers` 数组属性的装饰器来注册提供商。
+
 Many Angular decorators accept metadata with a `providers` property.
 The two most important examples are `@Component` and `@NgModule`.
+
+很多 Angular 的装饰器都支持带有 `providers` 属性的元数据。
+最重要的两个例子是 `@Component` 和 `@NgModule`。
 
 {@a register-providers-component}
 
@@ -136,7 +196,11 @@ Here's a revised `HeroesComponent` that registers the `HeroService` in its `prov
 
 ### _@NgModule_ providers
 
+### `@NgModule` 中的 `providers`
+
 In the following excerpt, the root `AppModule` registers two providers in its `providers` array.
+
+在下面的代码片段中，根模块 `AppModule` 在自己的 `providers` 数组中注册了两个提供商。
 
 <code-example path="dependency-injection/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers">
 
@@ -145,12 +209,19 @@ In the following excerpt, the root `AppModule` registers two providers in its `p
 The first entry registers the `UserService` class (_not shown_) under the `UserService` _injection token_.
 The second registers a value (`HERO_DI_CONFIG`) under the `APP_CONFIG` _injection token_.
 
+第一条使用 `UserService` 这个*注入令牌（injection token）*注册了 `UserService` 类（代码中未显示）。
+第二条使用 `APP_CONFIG` 这个注入令牌注册了一个值（`HERO_DI_CONFIG`）。
+
 Thanks to these registrations, Angular can inject the `UserService` or the `HERO_DI_CONFIG` value
 into any class that it creates.
+
+得益于这些注册语句，Angular 现在可以向它创建的任何类中注册 `UserService` 或 `HERO_DI_CONFIG` 值了。
 
 <div class="l-sub-section">
 
 You'll learn about _injection tokens_ and _provider_ syntax [below](#providers).
+
+[稍后](#providers)你就会学到关于*注入令牌*和服务提供商语法的知识。
 
 </div>
 
@@ -158,16 +229,27 @@ You'll learn about _injection tokens_ and _provider_ syntax [below](#providers).
 
 ### _@NgModule_ or _@Component_?
 
+### _@NgModule_ 还是 _@Component_?
+
 Should you register a service with an Angular module or with a component?
 The two choices lead to differences in service _scope_ and service _lifetime_.
+
+你该使用 Angular 的模块还是组件来注册服务呢？
+这两个选择的差别在于服务的*范围*和*生命周期*。
 
 **Angular module providers** (`@NgModule.providers`) are registered with the application's root injector.
 Angular can inject the corresponding services in any class it creates.
 Once created, a service instance lives for the life of the app and Angular injects this one service instance in every class that needs it.
 
+**Angular 模块中的 `providers`**（`@NgModule.providers`）是注册在应用的根注入器下的。
+因此，Angular 可以往它所创建的任何类中注入相应的服务。 
+一旦创建，服务的实例就会存在于该应用的全部生存期中，Angular 会把这一个服务实例注入到需求它的每个类中。
+
 You're likely to inject the `UserService` in many places throughout the app
 and will want to inject the same service instance every time.
 Providing the `UserService` with an Angular module is a good choice.
+
+如果你想要把这个 `UserService` 注入到应用中的很多地方，并且期望每次注入的都是同一个服务实例，那么在 Angular 的模块中提供 `UserService` 就是不错的选择。
 
 <div class="l-sub-section">
 
@@ -176,39 +258,64 @@ _unless the module is_ [lazy loaded](guide/lazy-loading-ngmodules).
 In this sample, all modules are _eagerly loaded_ when the application starts,
 so all module providers are registered with the app's root injector.
 
+严格来说，Angular 模块中的服务提供商会注册到根注入器上，但是，[惰性加载](guide/lazy-loading-ngmodules)的模块是例外。
+在这个例子中，所有模块都是在应用启动时*立即加载*的，因此模块上的所有服务提供商都注册到了应用的根注入器上。
+
 </div><br>
 
 <hr>
 
 **A component's providers** (`@Component.providers`) are registered with each component instance's own injector.
 
+**组件的提供商**（`@Component.providers`）会注册到每个组件实例自己的注入器上。
+
 Angular can only inject the corresponding services in that component instance or one of its descendant component instances.
 Angular cannot inject the same service instance anywhere else.
+
+因此 Angular 只能在该组件及其各级子组件的实例上注入这个服务实例，而不能在其它地方注入这个服务实例。
 
 Note that a component-provided service may have a limited lifetime. Each new instance of the component gets its own instance of the service
 and, when the component instance is destroyed, so is that service instance.
 
+注意，由组件提供的服务，也同样具有有限的生命周期。组件的每个实例都会有它自己的服务实例，并且，当组件实例被销毁的时候，服务的实例也同样会被销毁。
+
 In this sample app, the `HeroComponent` is created when the application starts
 and is never destroyed so the `HeroService` created for the `HeroComponent` also live for the life of the app.
 
-If you want to restrict `HeroService` access to the `HeroComponent` and its nested `HeroListComponent`,
+在这个范例应用中，`HeroComponent` 会在应用启动时创建，并且它从未销毁，因此，由 `HeroComponent` 创建的 `HeroService` 也同样会活在应用的整个生命周期中。
+
+If you want to restrict `HeroService` access to the `HeroesComponent` and its nested `HeroListComponent`,
 providing the `HeroService` in the `HeroComponent` may be a good choice.
+
+如果你要把 `HeroService` 的访问权限定在 `HeroesComponent` 及其嵌套的 `HeroListComponent` 中，那么在 `HeroesComponent` 中提供这个 `HeroService` 就是一个好选择。
 
 <div class="l-sub-section">
 
 The scope and lifetime of component-provided services is a consequence of [the way Angular creates component instances](#component-child-injectors). 
 
+由组件提供的服务，其范围和生命周期是 [Angular 如何创建组件实例](#component-child-injectors) 的必然结果。
+
 </div>
 
 ## Inject a service
 
+## 注入某个服务
+
 The `HeroListComponent` should get heroes from the `HeroService`.
+
+`HeroListComponent` 应该从 `HeroService` 中获取这些英雄数据。
 
 The component shouldn't create the `HeroService` with `new`.
 It should ask for the `HeroService` to be injected.
 
+该组件不应该使用 `new` 来创建 `HeroService`。
+它应该要求注入 `HeroService`。
+
 You can tell Angular to inject a dependency in the component's constructor by specifying a **constructor parameter with the dependency type**.
 Here's the `HeroListComponent` constructor, asking for the `HeroService` to be injected.
+
+你可以通过**在构造函数中添加一个带有该依赖类型的参数**来要求 Angular 把这个依赖注入到组件的构造函数中。
+下面是 `HeroListComponent` 的构造函数，它要求注入 `HeroService`。
 
 <code-example title="src/app/heroes/hero-list.component (constructor signature)" path="dependency-injection/src/app/heroes/hero-list.component.ts"
 region="ctor-signature">
@@ -217,6 +324,9 @@ region="ctor-signature">
 
 Of course, the `HeroListComponent` should do something with the injected `HeroService`.
 Here's the revised component, making use of the injected service, side-by-side with the previous version for comparison.
+
+当然，`HeroListComponent` 还应该使用注入的这个 `HeroService` 做点什么。
+下面输出修改过的组件，改用注入的服务，与前一个版本对比一下。
 
 <code-tabs>
 
@@ -234,34 +344,58 @@ But if you decided instead to provide the `HeroService` in the `AppModule`,
 the `HeroListComponent` wouldn't change at all.
 The _only thing that matters_ is that the `HeroService` is provided in some parent injector.
 
+注意，`HeroListComponent` 并不知道 `HeroService` 来自哪里。
+当然*你自己*知道它来自父组件 `HeroesComponent`。
+但是如果你决定改在 `AppModule` 中提供 `HeroService`，`HeroListComponent` 不用做任何修改。
+它*唯一需要关心的事情*是 `HeroService` 是由某个父注入器提供的。
+
 {@a singleton-services}
 
 ## Singleton services
 
+## 单例服务
+
 Services are singletons _within the scope of an injector_.
 There is at most one instance of a service in a given injector.
+
+服务*在每个注入器的范围内*是单例的。
+在任何一个注入器中，最多只会有同一个服务的一个实例。
 
 There is only one root injector and the `UserService` is registered with that injector.
 Therefore, there can be just one `UserService` instance in the entire app
 and every class that injects `UserService` get this service instance.
+
+这里只有一个根注入器，而 `UserService` 就是在该注入器中注册的。
+所以，在整个应用中只能有一个 `UserService` 实例，每个要求注入 `UserService` 的类都会得到这个服务实例。
 
 However, Angular DI is a 
 [hierarchical injection system](guide/hierarchical-dependency-injection), 
 which means that nested injectors can create their own service instances.
 Angular creates nested injectors all the time.
 
+不过，Angular DI 是一个 [多级注入系统](guide/hierarchical-dependency-injection)，这意味着各级注入器都可以创建它们自己的服务实例。
+Angular 总会创建多级注入器。
+
 {@a component-child-injectors}
 
 ## Component child injectors
 
+## 组件的子注入器
+
 For example, when Angular creates a new instance of a component that has `@Component.providers`,
 it also creates a new _child injector_ for that instance.
+
+例如，当 Angular 创建一个带有 `@Component.providers` 的组件实例时，也会同时为这个实例创建一个新的*子注入器*。
 
 Component injectors are independent of each other and
 each of them creates its own instances of the component-provided services.
 
+组件注入器是彼此独立的，每一个都会为这些组件提供的服务创建单独的实例。
+
 When Angular destroys one of these component instance, it also destroys the
 component's injector and that injector's service instances. 
+
+当 Angular 销毁任何一个组件实例时，也会同时销毁组件的注入器以及该注入器中的那些服务实例。
 
 Thanks to [injector inheritance](guide/hierarchical-dependency-injection),
 you can still inject application-wide services into these components.
@@ -269,9 +403,15 @@ A component's injector is a child of its parent component's injector,
 and a descendent of its parent's parent's injector, and so on all the way back to the application's _root_ injector.
 Angular can inject a service provided by any injector in that lineage.
 
+在[注入器继承机制](guide/hierarchical-dependency-injection)的帮助下，你仍然可以把全应用级的服务注入到这些组件中。
+组件的注入器也是其父组件的注入器的子注入器，这同样适用于其父组件的父组件的注入器，以此类推，最终会回到应用的*根*注入器。
+Angular 可以注入由这个注入器谱系提供的任何一个注入器。
+
 For example, Angular could inject a `HeroListComponent`
 with both the `HeroService` provided in `HeroComponent`
 and the `UserService` provided in `AppModule`.
+
+比如，Angular 可以把由 `HeroComponent` 提供的 `HeroService` 和由 `AppModule` 提供的 `UserService` 注入到 `HeroService` 中。
 
 {@a testing-the-component}
 
@@ -321,6 +461,8 @@ adding a constructor that takes a `Logger` parameter.
 
 Here is the revised `HeroService` that injects the `Logger`, side-by-side with the previous service for comparison.
 
+下面是修改后的 `HeroService`，它注入了 `Logger`，对比前后这两个版本：
+
 <code-tabs>
 
   <code-pane title="src/app/heroes/hero.service (v2)" path="dependency-injection/src/app/heroes/hero.service.2.ts">
@@ -341,7 +483,11 @@ The `getHeroes()` method logs a message when asked to fetch heroes.
 
 #### The dependent _Logger_ service
 
+#### 被依赖的 `Logger` 服务
+
 The sample app's `Logger` service is quite simple:
+
+这个范例应用的 `Logger` 服务非常简单：
 
 <code-example path="dependency-injection/src/app/logger.service.ts" title="src/app/logger.service.ts">
 
@@ -351,6 +497,8 @@ If the app didn't provide this `Logger`,
 Angular would throw an exception when it looked for a `Logger` to inject
 into the `HeroService`.
 
+如果该应用没有提供这个 `Logger` 服务，当 Angular 试图把 `Logger` 注入到 `HeroService` 中时，就会抛出一个异常。
+
 <code-example language="sh" class="code-shell">
 
   ERROR Error: No provider for Logger!
@@ -359,6 +507,8 @@ into the `HeroService`.
 
 Because a singleton logger service is useful everywhere,
 it's provided in the root `AppModule`.
+
+因为 `Logger` 服务的单例应该随处可用，所以要在根模块 `AppModule` 中提供它。
 
 <code-example path="dependency-injection/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers-2">
 
@@ -371,11 +521,17 @@ it's provided in the root `AppModule`.
 The **[@Injectable()](api/core/Injectable)** decorator identifies a service class 
 that _might_ require injected dependencies.
 
+**[@Injectable()](api/core/Injectable)** 装饰器表示*可能*需要往这个服务类中注入其它依赖。
+
 The `HeroService` must be annotated with `@Injectable()` because it requires an injected `Logger`.
+
+`HeroService` 必须带有 `@Injectable()` 装饰器，因为它需要把 `Logger` 注入进来。
 
 <div class="alert is-important">
 
 Always write `@Injectable()` with parentheses, not just `@Injectable`.
+
+写 `@Injectable()` 时必须带括号，不能只写 `@Injectable`。
 
 </div>
 
@@ -383,31 +539,49 @@ When Angular creates a class whose constructor has parameters,
 it looks for type and injection metadata about those parameters
 so that it can inject the right service.
 
+当 Angular 要创建一个构造函数中带参数的类时，会先查找这些参数的类型，以便根据这些参数的元数据注入正确的服务。
+
 If Angular can't find that parameter information, it throws an error.
+
+如果不能找到该参数的信息，Angular 就会报错。
 
 Angular can only find the parameter information _if the class has a decorator of some kind_.
 While _any_ decorator will do,
 the `@Injectable()` decorator is the standard decorator for service classes.
 
+Angular 只能在*带有某种装饰器的类*上查找参数信息。*任何*装饰器都可以，而 `@Injectable()` 装饰器是各种服务类的标准装饰器。
+
 <div class="l-sub-section">
 
 The decorator requirement is imposed by TypeScript.
+
+之所以必须有装饰器，是因为 TypeScript 强制要求的。
 
 TypeScript normally discards parameter type information when it _transpiles_ the code to JavaScript.
 It preserves this information if the class has a decorator
 and the `emitDecoratorMetadata` compiler option is set `true` 
 in TypeScript's `tsconfig.json` configuration file, .
 
+当把 TypeScript 转译成 JavaScript 时，通常会丢弃参数的类型信息。
+但当该类带有装饰器并且当 `tsconfig.json` 配置文件中的 `emitDecoratorMetadata` 编译选项为 `true` 时，它就会保留这些信息。
+
 The CLI configures `tsconfig.json` with `emitDecoratorMetadata: true`
 It's your job to put `@Injectable()` on your service classes.
+
+CLI 生成的 `tsconfig.json` 中已经有 `emitDecoratorMetadata: true` 选项了，你只要把 `@Injectable()` 加到你的服务类上就可以了。
 
 </div>
 
 The `Logger` service is annotated with `@Injectable()` decorator too, 
 although it has no constructor and no dependencies.
 
+`Logger` 服务也带有 `@Injectable()` 装饰器，不过它没有构造器，也没有依赖。
+
 In fact, _every_ Angular service class in this app is annotated with the `@Injectable()` decorator, whether or not it has a constructor and dependencies.
 `@Injectable()` is a required coding style for services.
+
+该应用中的*每个* Angular 服务类不管有没有构造器和依赖，都带有 `@Injectable()` 装饰器。
+事实上，`@Injectable()` 是风格指南中对服务类的要求。
 
 {@a providers}
 
@@ -428,9 +602,15 @@ You must register a service *provider* with an injector, or it won't know how to
 
 The next few sections explain the many ways you can specify a provider.
 
+在下面的几节中会解释指定提供商的多种方式。
+
 Almost all of the accompanying code snippets are extracts from the sample app's `providers.component.ts` file.
 
+几乎所有的代码片段都是从范例应用的 `providers.component.ts` 文件中提取出来的。
+
 ### The class as its own provider
+
+### 把类作为它自己的提供商
 
 There are many ways to *provide* something that looks and behaves like a `Logger`.
 The `Logger` class itself is an obvious and natural provider.
@@ -467,6 +647,8 @@ What matters is that the injector has a provider to go to when it needs a `Logge
 ### *provide* 对象字面量
 
 Here's the class-provider syntax again.
+
+下面是类提供商的另一种语法。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 
