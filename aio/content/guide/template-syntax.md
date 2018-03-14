@@ -836,13 +836,9 @@ This fact bears repeating:
 
 <div class="callout is-helpful">
 
-<header>
+<header>A world without attributes</header>
 
-  A world without attributes
-
-  没有 attribute 的世界
-
-</header>
+<header>没有 attribute 的世界</header>
 
 In the world of Angular, the only role of attributes is to initialize element and directive state.
 When you write a data binding, you're dealing exclusively with properties and events of the target object.
@@ -1891,13 +1887,9 @@ Angular 为此提供一种特殊的_双向数据绑定_语法：**`[(x)]`**。
 
 <div class="callout is-important">
 
-<header>
+<header>[( )] = banana in a box</header>
 
-  [( )] = banana in a box
-
-  [( )] = 盒子里的香蕉
-
-</header>
+<header>[( )] = 盒子里的香蕉</header>
 
 Visualize a *banana in a box* to remember that the parentheses go _inside_ the brackets.
 

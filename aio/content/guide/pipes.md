@@ -270,13 +270,9 @@ Note the following:
 
 <div class="callout is-helpful">
 
-<header>
+<header>Remember the declarations array</header>
 
-  Remember the declarations array
-
-  别忘了`declarations`数组
-
-</header>
+<header>别忘了`declarations`数组</header>
 
 You must register custom pipes.
 If you don't, Angular reports an error.
@@ -686,13 +682,9 @@ It displays the same hero data in JSON format by chaining through to the built-i
 
 <div class="callout is-helpful">
 
-<header>
+<header>Debugging with the json pipe</header>
 
-  Debugging with the json pipe
-
-  借助json管道进行调试
-
-</header>
+<header>借助json管道进行调试</header>
 
 The [JsonPipe](api/common/JsonPipe)
 provides an easy way to diagnosis a mysteriously failing data binding or

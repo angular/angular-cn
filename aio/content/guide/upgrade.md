@@ -868,13 +868,9 @@ components. The expressions themselves are still regular AngularJS expressions.
 
 <div class="callout is-important">
 
-<header>
+<header>Use kebab-case for downgraded component attributes</header>
 
-  Use kebab-case for downgraded component attributes
-
-  在降级过的组件属性中使用中线命名法
-
-</header>
+<header>在降级过的组件属性中使用中线命名法</header>
 
 There's one notable exception to the rule of using Angular attribute syntax
 for downgraded components. It has to do with input or output names that consist

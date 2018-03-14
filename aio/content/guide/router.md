@@ -838,6 +838,8 @@ Here are the key `Router` terms and their meanings:
       a route. Clicking an element with a <code>routerLink</code> directive
       that is bound to a <i>string</i> or a <i>link parameters array</i> triggers a navigation.
 
+      这个指令把可点击的 HTML 元素绑定到某个路由。点击带有 <code>routerLink</code> 指令（绑定到<i>字符串</i>或<i>链接参数数组</i>）的元素时就会触发一次导航。
+
     </td>
 
   </tr>
@@ -1040,7 +1042,7 @@ The application has three main feature areas:
 
 Try it by clicking on this <live-example title="Hero Employment Agency Live Example">live example link</live-example>.
 
-点击<live-example title="Hero Employment Agency Live Example"></live-example>试用一下。
+点击<live-example title="英雄职介中心的在线例子"></live-example>试用一下。
 
 Once the app warms up, you'll see a row of navigation buttons
 and the *Heroes* view with its list of heroes.
@@ -1203,13 +1205,9 @@ set the `href` value in **`index.html`** *exactly* as shown here.
 
 <div class="callout is-important">
 
-<header>
+<header>Live example note</header>
 
-  Live example note
-
-  在线例子说明
-
-</header>
+<header>在线例子说明</header>
 
 A live coding environment like Stackblitz sets the application base address dynamically so you can't specify a fixed address.
 That's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.
@@ -1965,7 +1963,7 @@ This example recreates the heroes feature in the "Services" episode of the
 and you'll be copying much of the code
 from the <live-example name="toh-pt4" title="Tour of Heroes: Services example code"></live-example>.
 
-这个例子重写了[《英雄指南》](tutorial/toh-pt4 "Tour of Heroes: Services")的“服务”部分的英雄列表特性，我们可以从<live-example name="toh-pt4" title="Tour of Heroes: Services example code"></live-example>中赋值大部分代码过来。
+这个例子重写了[《英雄指南》](tutorial/toh-pt4 "Tour of Heroes: Services")的“服务”部分的英雄列表特性，我们可以从<live-example name="toh-pt4" title="英雄指南：各个服务的范例代码"></live-example>中赋值大部分代码过来。
 
 Here's how the user will experience this version of the app:
 
@@ -2018,7 +2016,7 @@ Follow these steps:
 * Copy into it the contents of the `app.component.ts` from
   the <live-example name="toh-pt4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example>.
 
-   把<live-example name="toh-pt4" title="Tour of Heroes: Services example code">教程中的“服务”部分</live-example>的代码复制到`app.component.ts`中。
+   把<live-example name="toh-pt4" title="《英雄指南》：各个服务的范例代码"></live-example>复制到`app.component.ts`中。
 
 * Make a few minor but necessary changes:
 
@@ -2477,7 +2475,11 @@ pull the hero `id` from the parameters and retrieve the hero to display.
 The `paramMap` processing is a bit tricky. When the map changes, you `get()`
 the `id` parameter from the changed parameters.
 
+`paramMap` 的处理过程有点稍复杂。当这个 map 的值变化时，你可以从变化之后的参数中 `get()` 到其 `id` 参数。
+
 Then you tell the `HeroService` to fetch the hero with that `id` and return the result of the `HeroService` request.
+
+然后，让 `HeroService` 去获取一个具有此 `id` 的英雄，并返回这个 `HeroService` 请求的结果。
 
 You might think to use the RxJS `map` operator.
 But the `HeroService` returns an `Observable<Hero>`.
@@ -2495,8 +2497,6 @@ The observable `Subscription` will be handled by the `AsyncPipe` and the compone
 这个可观察对象的`Subscription`（订阅）将会由`AsyncPipe`处理，并且组件的`hero`属性将会设置为刚刚接收到的这个英雄。
 
 #### _ParamMap_ API
-
-#### _ParamMap_ 参数 API
 
 The `ParamMap` API is inspired by the [URLSearchParams interface](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams). It provides methods
 to handle parameter access for both route parameters (`paramMap`) and query parameters (`queryParamMap`).
@@ -4055,6 +4055,8 @@ router will wait for the observable to resolve to `true` or `false`.
 
 The router supports multiple guard interfaces:
 
+路由器可以支持多种守卫接口：
+
 * [`CanActivate`](api/router/CanActivate) to mediate navigation *to* a route.
 
    用[`CanActivate`](api/router/CanActivate)来处理导航*到*某路由的情况。
@@ -4899,6 +4901,8 @@ and fragment to the next route.
 
 The `queryParamsHandling` feature also provides a `merge` option, which will preserve and combine the current query parameters with any provided query parameters
 when navigating.
+
+`queryParamsHandling` 特性还提供了 `merge` 选项，它将会在导航时保留当前的查询参数，并与其它查询参数合并。
 
 </div>
 

@@ -80,13 +80,9 @@ and how to [write your own](guide/structural-directives#unless) structural direc
 
 <div class="callout is-helpful">
 
-<header>
+<header>Directive spelling</header>
 
-  Directive spelling
-
-  指令的拼写形式
-
-</header>
+<header>指令的拼写形式</header>
 
 Throughout this guide, you'll see a directive spelled in both _UpperCamelCase_ and _lowerCamelCase_.
 Already you've seen `NgIf` and `ngIf`.
