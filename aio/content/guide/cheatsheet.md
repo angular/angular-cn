@@ -11,6 +11,8 @@
 
     Bootstrapping
 
+    引导/启动
+
 </th>
 
 <th>
@@ -338,6 +340,9 @@ is available to <code>declarations</code> of this module.</p>
     <p>The <code>*</code> symbol turns the current element into an embedded template. Equivalent to:
 <code>&lt;ng-template [myUnless]="myExpression"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/ng-template&gt;</code></p>
 
+    <p>这个 <code>*</code> 符号会把当前元素转换成一个内嵌的模板。它等价于：
+<code>&lt;ng-template [myUnless]="myExpression"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/ng-template&gt;</code></p>
+
 </td>
 
 </tr><tr>
@@ -414,6 +419,8 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     Built-in directives
+
+    内置指令
 
 </th>
 
@@ -505,6 +512,8 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Allows you to assign styles to an HTML element using CSS. You can use CSS directly, as in the first example, or you can call a method from the component.</p>
 
+    <p>允许你使用 CSS 为 HTML 元素指定样式。你可以像第一个例子那样直接使用 CSS，也可以调用组件中的方法。</p>
+
 </td>
 
 </tr>
@@ -517,6 +526,8 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     Forms
+
+    表单
 
 </th>
 
@@ -556,6 +567,8 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     Class decorators
+
+    类装饰器
 
 </th>
 
@@ -631,6 +644,9 @@ is available to <code>declarations</code> of this module.</p>
 
 </p>
 
+
+    <p>声明某个类具有一些依赖。当依赖注入器要创建这个类的实例时，应该把这些依赖注入到它的构造函数中。</p>
+
 </td>
 
 </tr>
@@ -643,6 +659,8 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     Directive configuration
+
+    指令配置项
 
 </th>
 
@@ -704,14 +722,17 @@ is available to <code>declarations</code> of this module.</p>
 
     Component configuration
 
+    组件配置项
+
 </th>
 
 <th>
 
-    <p>
-
-<code>@Component</code> extends <code>@Directive</code>,
+    <p><code>@Component</code> extends <code>@Directive</code>,
 so the <code>@Directive</code> configuration applies to components as well</p>
+
+<p><code>@Component</code> 继承自 <code>@Directive</code>，
+因此，<code>@Directive</code> 的这些配置项也同样适用于组件。</p>
 
 </th>
 
@@ -791,6 +812,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     Class field decorators for directives and components
+
+    给指令和组件使用的类属性配置项
 
 </th>
 
@@ -943,6 +966,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     Directive and component change detection and lifecycle hooks
+
+    指令与组件的变更检测与生命周期钩子
 
 </th>
 
@@ -1113,6 +1138,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     Dependency injection configuration
 
+    依赖注入配置项
+
 </th>
 
 <th>
@@ -1179,6 +1206,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     Routing and navigation
+
+    路由与导航
 
 </th>
 
