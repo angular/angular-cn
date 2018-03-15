@@ -1798,11 +1798,15 @@ It is rarely worth the effort to change them at the risk of breaking existing co
 
 **Consider** using a class instead of an interface for services and declarables (components, directives, and pipes).
 
+**考虑**在服务和可声明对象（组件、指令和管道）中用类代替接口。
+
 </div>
 
 <div class="s-rule consider">
 
 **Consider** using an interface for data models.
+
+**考虑**用接口作为数据模型。
 
 </div>
 
@@ -1835,7 +1839,7 @@ discourage the `I` prefix.
 
 **Why?** An interface-class can be a provider lookup token in Angular dependency injection.
 
-**为何？**在 Angular 依赖注入系统中，接口类可以作为服务提供商的查找令牌。
+**为何？**在 Angular 依赖注入系统中，接口类（译注：指写成类的形式，但是只当做接口使用）可以作为服务提供商的查找令牌。
 
 </div>
 
@@ -3635,6 +3639,9 @@ Developers place components on the page as they would native HTML elements and w
 <div class="l-sub-section">
 
 There are a few cases where you give a component an attribute, such as when you want to augment a built-in element. For example, [Material Design](https://material.angular.io/components/button/overview) uses this technique with `<button mat-button>`. However, you wouldn't use this technique on a custom element.
+
+少数情况下，你要为组件使用属性选择器，比如你要加强某个内置元素时。
+比如，[Material Design 组件库](https://material.angular.io/components/button/overview)就会对 `<button mat-button>` 使用这项技术。不过，你不应该在自定义组件上使用这项技术。
 
 </div>
 
