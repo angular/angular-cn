@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { kernelText, lookup } from './translate';
+import { lookup } from './translate';
+import { kernelText } from './utils';
 
 
 describe('根据字典进行翻译', () => {

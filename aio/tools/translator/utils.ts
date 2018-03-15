@@ -1,5 +1,6 @@
 import { DictEntry } from './dict-entry';
 import { isTranslation } from './extractor';
+import * as _ from 'lodash';
 
 export function translationHasNotCodeExample(entry: DictEntry): boolean {
   return entry.translation.indexOf('<code-example') === -1;
@@ -51,7 +52,7 @@ export function isHead(line: string): boolean {
 
 export function normalizeLines(text: string): string {
   text = '\n' + text + '\n';
-  // 列表、标题等自带换行含义的markdown
+  // 为列表、标题等自带换行含义的markdown多加一个空行
   const blockElementPattern = /(?=\n *(\d+\.|-|\*) )\n/g;
   text = text.replace(blockElementPattern, '\n\n');
   const hxPattern = /(\n *#+ .*)(?=\n)/g;
@@ -119,4 +120,31 @@ export function repeat(indent: number): string {
     result = result + ' ';
   }
   return result;
+}
+
+// 目前还不能正常工作
+export function fuzzyTest(text1: string, text2: string): boolean {
+  const tokens1 = tokenize(text1);
+  const tokens2 = tokenize(text2);
+  const sameTokens = _.intersection(tokens1, tokens2);
+  const maxTokens = Math.max(tokens1.length, tokens2.length);
+  return sameTokens.length > 5 && sameTokens.length / maxTokens >= 0.8;
+}
+
+export function exactlyTest(text1: string, text2: string): boolean {
+  return kernelText(text1) === kernelText(text2);
+}
+
+export function kernelText(text: string): string {
+  return text
+    .replace(/[\s\n]+/g, '')
+    .replace(/\.$/g, '')
+    .toUpperCase()
+    .trim();
+}
+
+export function tokenize(text: string): string[] {
+  return text.split(/\W/)
+    .map(token => token.trim())
+    .filter(token => !!token);
 }

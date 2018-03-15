@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { normalizeLines } from './utils';
+import { fuzzyTest, normalizeLines, tokenize } from './utils';
 
 describe(' 工具函数', () => {
   it('把“1. ”列表处理成空行分隔的格式，以便处理', function () {
@@ -338,4 +338,16 @@ a <b> c
 `);
   });
 
+  it('拆分', function () {
+    expect(tokenize('abc def,abc.')).eql(['abc', 'def', 'abc']);
+  });
+
+  it('模糊匹配', function () {
+    expect(fuzzyTest(`a b c d e`, `a b c d e`)).is.false;
+    expect(fuzzyTest(`a b c d e f g`, `a b c d e`)).is.false;
+    expect(fuzzyTest(`Make that easy by encapsulating the _click-triggering_ process in a helper such as the \`click\` function below:`,
+      `Make that consistent and easy by encapsulating the _click-triggering_ process 
+in a helper such as the \`click()\` function below:
+`)).is.true;
+  });
 });

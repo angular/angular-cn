@@ -3,22 +3,17 @@ import * as _ from 'lodash';
 import { DictEntry } from './dict-entry';
 import { dirs } from './dirs';
 import { listMarkdownFiles } from './extractor';
-import { indentOf, normalizeLines, repeat } from './utils';
+import { exactlyTest, indentOf, normalizeLines, repeat } from './utils';
+
+// TODO: 改用 markdown 解析器实现
 
 export const dict = require('./dict-latest.json') as DictEntry[];
 
 export function lookup(english: string, filename: RegExp = /.*/): DictEntry[] {
   const entries = dict
     .filter(entry => filename.test(entry.sourceFile))
-    .filter(entry => kernelText(entry.original) === kernelText(english));
+    .filter(entry => exactlyTest(entry.original, english));
   return _.uniqBy(entries, 'translation');
-}
-
-export function kernelText(text: string): string {
-  return text
-    .replace(/[\s\n]+/g, '')
-    .replace(/\.$/g, '')
-    .trim();
 }
 
 export function translate(content: string): string[] {
