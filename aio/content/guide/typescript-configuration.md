@@ -217,6 +217,10 @@ QuickStart doesn't require these typings but many of the samples do.
 {@a target}
 
 ### *target*
+### *编译目标（target）*
 
 By default, the target is `es5`, you can configure the target to `es6` if you only want to deploy the application to
 es6 compatible browser. But if you configure the target to `es6` in some old browser such as `IE`, `Syntax Error` will be thrown.
+
+默认情况下，编译目标是 `es5`，如果你只想发布到兼容 es6 的浏览器中，也可以把它配置为 `es6`。
+不过，如果配置为 `es6`，那么一些老的浏览器（如 `IE` ）中就会抛出 `Syntax Error` 错误。

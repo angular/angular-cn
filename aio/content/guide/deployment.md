@@ -76,7 +76,12 @@ Although deploying directly from the development environment works,
 you can generate an optimized build with additional CLI command line flags,
 starting with `--prod`.
 
+虽然也可以直接用开发环境的设置进行部署，不过你也可以使用 CLI 命令的其它标志生成一个优化过的构建成果。
+先来看 `--prod`。
+
 ### Build with _--prod_
+
+### 使用 `--prod` 构建。
 
 <code-example language="none" class="code-shell">
 
@@ -85,6 +90,8 @@ starting with `--prod`.
 </code-example>
 
 The `--prod` _meta-flag_ engages the following optimization features.
+
+`--prod` *元标志*包括下列优化特性。
 
 * [Ahead-of-Time (AOT) Compilation](guide/aot-compiler): pre-compiles Angular component templates.
 
@@ -116,6 +123,8 @@ The remaining [copy deployment steps](#copy-files) are the same as before.
 
 You may further reduce bundle sizes by adding the `build-optimizer` flag.
 
+你还可以添加 `build-optimizer` 标志来进一步缩减打包体积。
+
 <code-example language="none" class="code-shell">
 
   ng build --prod --build-optimizer
@@ -124,6 +133,8 @@ You may further reduce bundle sizes by adding the `build-optimizer` flag.
 
 See the [CLI Documentation](https://github.com/angular/angular-cli/wiki/build) 
 for details about available build options and what they do.
+
+参见 [CLI 文档](https://github.com/angular/angular-cli/wiki/build)，来了解可用的构建选项及其用途的详细信息。
 
 {@a enable-prod-mode}
 
@@ -148,6 +159,9 @@ Switching to _production mode_ can make it run faster by disabling development s
 
 Building for production (or appending the `--environment=prod` flag) enables _production mode_
 Look at the CLI-generated `main.ts` to see how this works.
+
+为生产环境构建（或添加 `--environment=prod` 标志）可以启用*生产模式*。
+查看 CLI 自动生成的 `main.ts` 文件来了解它的工作原理。
 
 {@a lazy-loading}
 
@@ -196,9 +210,13 @@ The CLI runs the
 [Angular Ahead-of-Time Webpack Plugin](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)
 which automatically recognizes lazy loaded `NgModules` and creates separate bundles for them.
 
+CLI 会运行 [Angular  AOT 编译 Webpack 插件](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)，它会自动识别出那些需要惰性加载的 `NgModule`，并为它们创建单独的文件包。
+
 {@a measure}
 
 ### Measure performance
+
+### 性能测量
 
 You can make better decisions about what to optimize and how when you have a clear and accurate understanding of
 what's making the application slow.
@@ -215,8 +233,8 @@ The
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
 Chrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.
 
-<a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
-  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。
+<p><a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
+  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。</p>
 
 The [WebPageTest](https://www.webpagetest.org/) tool is another good choice
 that can also help verify that your deployment was successful.
@@ -227,10 +245,16 @@ that can also help verify that your deployment was successful.
 
 ### Inspect the bundles
 
+### 深入探查文件包（bundle）
+
 The <a href="https://github.com/danvk/source-map-explorer/blob/master/README.md">source-map-explorer</a>
 tool is a great way to inspect the generated JavaScript bundles after a production build.
 
+<a href="https://github.com/danvk/source-map-explorer/blob/master/README.md">source-map-explorer</a> 是在生产环境构建中深入探查所生成的文件包的好工具。
+
 Install `source-map-explorer`:
+
+安装 `source-map-explorer`：
 
 <code-example language="none" class="code-shell">
 
@@ -240,6 +264,8 @@ Install `source-map-explorer`:
 
 Build your app for production _including the source maps_
 
+构建*带源码映射*的生产版本
+
 <code-example language="none" class="code-shell">
 
   ng build --prod --sourcemaps
@@ -247,6 +273,8 @@ Build your app for production _including the source maps_
 </code-example>
 
 List the generated bundles in the `dist/` folder.
+
+列出 `dist/` 文件夹中生成的文件包。
 
 <code-example language="none" class="code-shell">
 
@@ -257,6 +285,9 @@ List the generated bundles in the `dist/` folder.
 Run the explorer to generate a graphical representation of one of the bundles.
 The following example displays the graph for the _main_ bundle.
 
+运行这个源码映射浏览器，以生成文件包之一的图形化表示。
+下面的例子中就是 `main` 这个文件包的图形。
+
 <code-example language="none" class="code-shell">
 
   node_modules/.bin/source-map-explorer dist/main.*.bundle.js
@@ -266,7 +297,11 @@ The following example displays the graph for the _main_ bundle.
 The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
 showing exactly which classes are included in the bundle.
 
+`source-map-explorer` 分析了文件包生成的源码映射信息，并画出了所有这些依赖的地图，准确的展示了这个包中包含了哪些类。
+
 Here's the output for the _main_ bundle of the QuickStart.
+
+下面是《快速起步》一章生成的 `main` 文件包的输出。
 
 <figure>
   <img src="generated/images/guide/cli-quickstart/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">
@@ -275,6 +310,8 @@ Here's the output for the _main_ bundle of the QuickStart.
 {@a base-tag}
 
 ## The `base` tag
+
+## `base` 标签
 
 The HTML [_&lt;base href="..."/&gt;_](/guide/router)
 specifies a base path for resolving relative URLs to assets such as images, scripts, and style sheets.
@@ -309,33 +346,58 @@ the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the se
 When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.
 
+当没有配置 `base` 标签时，加载应用就会失败，浏览器的控制台中会为这些缺失的文件显示一些 `404 - Not Found` 错误。
+看看浏览器*试图*从哪里找这些文件，然后调整出合适的 base 标签。
+
 ## _build_ vs. _serve_
+
+## *构建*与*服务*
 
 You'll probably prefer `ng build` for deployments.
 
+你会更喜欢用 `ng build` 进行部署。
+
 The **ng build** command is intended for building the app and deploying the build artifacts elsewhere.
 The **ng serve** command is intended for fast, local, iterative development.
+
+**ng build** 命令的设计意图是构建该应用，并且把构建成果部署到别处。
+而**ng serve** 命令的设计意图是快速进行本地的迭代式开发。
 
 Both `ng build` and `ng serve` **clear the output folder** before they build the project.
 The `ng build` command writes generated build artifacts to the output folder.
 The `ng serve` command does not.
 It serves build artifacts from memory instead for a faster development experience.
 
+在开始构建项目之前，`ng build` 和 `ng serve` **都会清空输出文件夹**。
+`ng build` 命令会把生成的构建成果写入输出文件夹中，但 `ng serve` 命令并不会如此。
+它会用内存中的构建成果提供服务，以获得更快速的开发体验。
+
 <div class="l-sub-section">
 
 The output folder is  `dist/` by default.
 To output to a different folder, change the `outDir` in `.angular-cli.json`.
 
+默认的输出文件夹是 `dist/`。
+要输出到其它文件夹中，请修改 `.angular-cli.json` 中的 `outDir`。
+
 </div>
 
 The `ng serve` command builds, watches, and serves the application from a local CLI development server.
+
+`ng serve` 命令会构建、监听并使用本地的 CLI 开发服务器作为服务器。
 
 The `ng build` command generates output files just once and does not serve them.
 The `ng build --watch` command will regenerate output files when source files change.
 This `--watch` flag is useful if you're building during development and 
 are automatically re-deploying changes to another server.
 
+`ng build` 命令只会生成一次这些输出文件，而不会用它们提供服务。
+`ng build --watch` 命令会在源码变化的时候重新生成输出文件。
+当你在开发期间需要不断构建并自动把修改后的版本发布到另一台服务器的时候，这个 `--watch` 标志会很有用。
+
 See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) for more details and options.
+
+参见 [CLI 中的 `build` 主题](https://github.com/angular/angular-cli/wiki/build)以了解详情以及其它选项。
 
 <hr>
 
