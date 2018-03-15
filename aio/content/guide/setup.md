@@ -435,7 +435,14 @@ For real development, we strongly recommend [developing locally](guide/setup#dev
 
 ## Appendix: develop locally with IE
 
+## 附录：使用 IE 进行本地开发
+
 If you develop angular locally with `ng serve`, there will be `websocket` connection being setup automatically between browser and local dev server, so when your code change, browser can automatically refresh.
+
+如果你使用 `ng serve` 进行本地开发，就会在浏览器和本地开发服务器之间自动建立一个 `WebSocket` 连接，因此，当你的代码变化时，浏览器也会自动刷新。
 
 In windows, by default one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
 So if IE was refreshed manunally or automatically by `ng serve`, sometimes, the websocket will not close properly, when websocket connections exceed limitations, `SecurityError` will be thrown, this error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
+
+在 Windows 中，默认情况下一个应用只能有六个 WebSocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 中的 WebSocket 设置部分</a>。
+所以，如果 IE 手动刷新或被 `ng serve` 触发了自动刷新，有时候 WebSocket 可能无法正常关闭，当 WebSocket 的连接数超限时，就会抛出 `SecurityError` 异常。请放心，这个异常对 Angular 应用没什么影响，你重启一下 IE 就能消除这个错误，或者修改 Windows 注册表来修改这个上限。

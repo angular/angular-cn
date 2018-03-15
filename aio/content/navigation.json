@@ -360,8 +360,8 @@
           "tooltip": "Angular 应用开发中的安全技术。"
         },
         {
-          "title": "环境设置与部署",
-          "tooltip": "环境设置与部署",
+          "title": "环境准备与部署",
+          "tooltip": "环境准备与部署",
           "children": [
             {
               "url": "guide/setup",
