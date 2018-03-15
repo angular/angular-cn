@@ -71,7 +71,7 @@ the QuickStart repo update instructions</a>.
 
 我们已经把所有范例改成了使用项目根目录下的`src/`文件夹。
 也就是把以前的`app/`文件夹移到了`src/`文件夹下面。
-要了解如何对你的现有工程进行这种迁移，请参阅<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="把范例中的应用迁移到src文件夹">QuickStart中的迁移指南</a>。
+要了解如何对你的现有项目进行这种迁移，请参阅<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="把范例中的应用迁移到src文件夹">QuickStart中的迁移指南</a>。
 
 Notably:
 

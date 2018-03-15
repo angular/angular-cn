@@ -224,7 +224,7 @@ This file incorporates the mandatory and many of the optional polyfills as JavaS
 
 The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.
 
-**强制性** 腻子脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
+**强制性** 腻子脚本（如`zone.js`）的npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
 
 But if you need an optional polyfill, you'll have to install its npm package.
 For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):

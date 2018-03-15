@@ -190,12 +190,12 @@ Next, in your user preferences (`Cmd+,` or `Ctrl+,`), add:
 
 ## Installing in your project
 
-## 安装到工程中
+## 安装到项目中
 
 You can also install Angular Language Service in your project with the 
 following `npm` command:
 
-我们还可以使用下列`npm`命令来把 Angular 语言服务安装到工程中：
+我们还可以使用下列`npm`命令来把 Angular 语言服务安装到项目中：
 
 ```sh
 
@@ -206,7 +206,7 @@ npm install --save-dev @angular/language-service
 Additionally, add the following to the `"compilerOptions"` section of 
 your project's `tsconfig.json`.
 
-另外，还要在工程的`tsconfig.json`中添加下列`"compilerOptions"`区域：
+另外，还要在项目的`tsconfig.json`中添加下列`"compilerOptions"`区域：
 
 ```json
 
@@ -235,7 +235,7 @@ what module the template is part of, the scope you're in, and the component sele
 context, it can then determine what the children can be.
 
 当使用带有语言服务的编辑器时，就会有一个编辑器进程，它会启动一个独立的语言服务进程/服务，它们通过[RPC](https://en.wikipedia.org/wiki/Remote_procedure_call)彼此交谈。
-当我们在编辑器中输入的时候，它把这些信息发送到另一个进程中，以便追踪工程的状态。
+当我们在编辑器中输入的时候，它把这些信息发送到另一个进程中，以便追踪项目的状态。
 当我们在模板中触发一个自动完成列表时，编辑器进程就会先把这个模板解析成 HTML AST，或者叫[抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。然后，Angular 编译器就会解释模板所属的模块以及模板选择器。然后它找出我们的光标目前正在模板 AST 的什么位置。一旦它确定了情境，就可以决定其子节点可以是什么了。
 
 It's a little more involved if you are in an interpolation. If you have an interpolation of `{{data.---}}` inside a `div` and need the completion list after `data.---`, the compiler can't use the HTML AST to find the answer. The HTML AST can only tell the compiler that there is some text with the characters "`{{data.---}}`". That's when the template parser produces an expression AST, which resides within the template AST. The Angular Language Services then looks at `data.---` within its context and asks the TypeScript Language Service what the members of data are. TypeScript then returns the list of possibilities.
