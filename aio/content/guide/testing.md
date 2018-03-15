@@ -342,7 +342,7 @@ The test consumes that spy in the same way it did earlier.
 Most test suites in this guide call `beforeEach()` to set the preconditions for each `it()` test
 and rely on the `TestBed` to create classes and inject services.
 
-本指南中的大多数的测试套件都会调用 `beforeEach()` 来为每个 `it()` 测试设置前置条件，并依赖 `TestBed` 来创建类和注入服务。
+本指南中的大多数的测试套件都会调用 `beforeEach()` 来为每个 `it()` 测试准备前置条件，并依赖 `TestBed` 来创建类和注入服务。
 
 There's another school of testing that never calls `beforeEach()` and
 and prefers to create classes explicitly rather than use the `TestBed`.
@@ -720,7 +720,7 @@ It also generates an initial test file for the component, `banner-external.compo
 
 #### Reduce the setup
 
-#### 缩减设置代码
+#### 缩减准备代码
 
 Only the last three lines of this file actually test the component
 and all they do is assert that Angular can create the component.
@@ -839,7 +839,7 @@ Rather than duplicate the `TestBed` configuration for each test,
 you refactor to pull the setup into a Jasmine `beforeEach()` and some supporting variables:
 
 随着该组件的成长，你将会添加更多测试。
-除了为每个测试都复制一份 `TestBed` 测试之外，你还可以把它们重构成 Jasmine 的 `beforeEach()` 中的设置语句以及一些支持性变量：
+除了为每个测试都复制一份 `TestBed` 测试之外，你还可以把它们重构成 Jasmine 的 `beforeEach()` 中的准备语句以及一些支持性变量：
 
 <code-example 
   path="testing/src/app/banner/banner-initial.component.spec.ts"
@@ -1449,7 +1449,7 @@ a clone of the provided `userServiceStub`.
 
 #### Final setup and tests
 
-#### 最终的设置及测试代码
+#### 最终的准备及测试代码
 
 Here's the complete `beforeEach()`, using `TestBed.get()`:
 
@@ -1555,7 +1555,7 @@ They should emulate such calls. The setup in this `app/twain/twain.component.spe
 
 当测试组件时，只应该关心服务的公共 API。
 通常来说，测试不应该自己向远端服务器发起调用。
-它们应该对这些调用进行仿真。`app/twain/twain.component.spec.ts` 中的设置代码展示了实现方式之一：
+它们应该对这些调用进行仿真。`app/twain/twain.component.spec.ts` 中的准备代码展示了实现方式之一：
 
 <code-example 
   path="testing/src/app/twain/twain.component.spec.ts" 
@@ -2146,7 +2146,7 @@ The `DashboardHeroComponent` is embedded in the `DashboardComponent` template li
 The `DashboardHeroComponent` appears in an `*ngFor` repeater, which sets each component's `hero` input property
 to the looping value and listens for the component's `selected` event.
 
-`DashboardHeroComponent`在`*ngFor`循环中出现，设置每个组件的`hero`input属性到迭代的值，并监听组件的`selected`事件。
+`DashboardHeroComponent`在`*ngFor`循环中出现，把每个组件的 `hero` input 属性设置为迭代的值，并监听组件的`selected`事件。
 
 Here's the component's full definition:
 
@@ -2216,7 +2216,7 @@ so, try the second and third options.
 
 Here's the meat of the spec file setup.
 
-下面是 spec 文件的设置语句中的重点部分。
+下面是 spec 文件的准备语句中的重点部分。
 
 <code-example 
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" 
@@ -2430,7 +2430,7 @@ a constructor that injects multiple services,
 and it starts interacting with those services right away.
 
 固然，你也可以测试真实的 `DashboardComponent`。
-但要想这么做需要做很多设置工作，特别是它的模板中使用了某些特性，如 `*ngFor`、
+但要想这么做需要做很多准备工作，特别是它的模板中使用了某些特性，如 `*ngFor`、
 其它组件、布局 HTML、附加绑定、注入了多个服务的构造函数、如何用正确的方式与那些服务交互等。
 
 Imagine the effort to disable these distractions, just to prove a point 
@@ -2466,7 +2466,7 @@ Later, the tests will be able to easily check `selectedHero` to verify that the
 
 The setup for the _test-host_ tests is similar to the setup for the stand-alone tests:
 
-这个*测试宿主*中的设置代码和独立测试中的设置过程类似：
+这个*测试宿主*中的准备代码和独立测试中的准备过程类似：
 
 <code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-setup" title="app/dashboard/dashboard-hero.component.spec.ts (test host setup)" linenums="false"></code-example>
 
@@ -2738,7 +2738,7 @@ When the `id` cannot be found, the component should re-route to the `HeroListCom
 
 The test suite setup provided the same router spy [described above](#routing-component) which spies on the router without actually navigating.
 
-测试套件的设置代码提供了一个和[前面](#routing-component)一样的路由器间谍，它会充当路由器的角色，而不用发起实际的导航。
+测试套件的准备代码提供了一个和[前面](#routing-component)一样的路由器间谍，它会充当路由器的角色，而不用发起实际的导航。
 
 This test expects the component to try to navigate to the `HeroListComponent`.
 
@@ -2831,7 +2831,7 @@ That's too much effort just to answer a few simple questions about links.
 This section describes two techniques for minimizing the setup.
 Use them, alone or in combination, to stay focused on the testing the primary component.
 
-本节会讲减少此类设置工作的两项技术。
+本节会讲减少此类准备工作的两项技术。
 单独使用或组合使用它们，可以让这些测试聚焦于要测试的主要组件上。
 
 {@a stub-component}
@@ -2950,7 +2950,7 @@ need to interact with them in some way.
 In practice you will combine the two techniques in the same setup,
 as seen in this example.
 
-在实践中，你可以在设置代码中组合使用这两种技术，例子如下：
+在实践中，你可以在准备代码中组合使用这两种技术，例子如下：
 
 <code-example 
   path="testing/src/app/app.component.spec.ts" 
@@ -2978,7 +2978,7 @@ and directives of the `RouterModule`.
 It requires challenging setup to mock and use in tests.
 
 真实的 `RouterLinkDirective` 太复杂了，而且与 `RouterModule` 中的其它组件和指令有着千丝万缕的联系。
-要在设置阶段 Mock 它以及在测试中使用它具有一定的挑战性。
+要在准备阶段 Mock 它以及在测试中使用它具有一定的挑战性。
 
 The `RouterLinkDirectiveStub` in this sample code replaces the real directive
 with an alternative version designed to validate the kind of anchor tag wiring
@@ -3340,7 +3340,7 @@ Error: ViewDestroyedError: Attempt to use a destroyed view
 
 A typical approach is to divide the setup logic into two separate `beforeEach()` functions:
 
-典型的做法是把设置逻辑拆成两个独立的 `beforeEach()` 函数：
+典型的做法是把准备逻辑拆成两个独立的 `beforeEach()` 函数：
 
 1. An async `beforeEach()` that compiles the components
 
@@ -3348,7 +3348,7 @@ A typical approach is to divide the setup logic into two separate `beforeEach()`
 
 1. A synchronous `beforeEach()` that performs the remaining setup.
 
-   同步的 `beforeEach()` 负责执行其余的设置代码。
+   同步的 `beforeEach()` 负责执行其余的准备代码。
 
 To follow this pattern, import the `async()` helper with the other testing symbols.
 
@@ -3377,7 +3377,7 @@ Write the first async `beforeEach` like this.
 
 The `async()` helper function takes a parameterless function with the body of the setup.
 
-`async()` 辅助函数接受一个无参函数，其内容是设置代码。
+`async()` 辅助函数接受一个无参函数，其内容是准备代码。
 
 The `TestBed.configureTestingModule()` method returns the `TestBed` class so you can chain
 calls to other `TestBed` static methods such as `compileComponents()`.
@@ -3424,7 +3424,7 @@ before calling `TestBed.createComponent()`.
 The second, synchronous `beforeEach()` contains the remaining setup steps, 
 which include creating the component and querying for elements to inspect.
 
-第二个同步 `beforeEach()` 的例子包含剩下的设置步骤，
+第二个同步 `beforeEach()` 的例子包含剩下的准备步骤，
 包括创建组件和查询那些要检查的元素。
 
 <code-example 
@@ -3440,7 +3440,7 @@ You can count on the test runner to wait for the first asynchronous `beforeEach`
 
 #### Consolidated setup
 
-#### 整理过的设置代码
+#### 整理过的准备代码
 
 You can consolidate the two `beforeEach()` functions into a single, async `beforeEach()`.
 
@@ -3451,7 +3451,7 @@ synchronous setup tasks _after_ compilation by moving the synchronous code
 into a `then(...)` callback.
 
 `compileComponents()` 方法返回一个承诺，所以你可以通过把同步代码移到 `then(...)` 回调中，
-以便在编译完成*之后* 执行那些同步设置任务。
+以便在编译完成*之后* 执行那些同步准备任务。
 
 <code-example 
   path="testing/src/app/banner/banner-external.component.spec.ts" 
@@ -3483,7 +3483,7 @@ The tests in this guide only call `compileComponents` when necessary.
 
 ### Setup with module imports
 
-### 设置模块的 `imports`
+### 准备模块的 `imports`
 
 Earlier component tests configured the testing module with a few `declarations` like this:
 
@@ -3681,7 +3681,7 @@ What if `HeroDetailService` makes its own server requests?
 The `TestBed.overrideComponent` method can replace the component's `providers` with easy-to-manage _test doubles_
 as seen in the following setup variation:
 
-`TestBed.overrideComponent`方法可以将组件的`providers`替换为容易管理的**测试替身**，参见下面的设置变化：
+`TestBed.overrideComponent`方法可以将组件的`providers`替换为容易管理的**测试替身**，参见下面的变体准备代码：
 
 <code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-override" title="app/hero/hero-detail.component.spec.ts (Override setup)" linenums="false"></code-example>
 
@@ -4055,7 +4055,7 @@ Here's a summary of the stand-alone functions, in order of likely utility:
       Runs the body of a test (`it`) or setup (`beforeEach`) function within a special _async test zone_.
       See [discussion above](#async).
 
-      在一个特殊的* async 测试区域*中运行测试（`it`）的函数体或设置函数（`beforeEach`）。
+      在一个特殊的* async 测试区域*中运行测试（`it`）的函数体或准备函数（`beforeEach`）。
       参见[前面的讨论](#async)。
 
     </td>
@@ -4548,7 +4548,7 @@ Here are the most important static methods, in order of likely utility.
       You may call this method _exactly once_. If you must change
       this default in the middle of your test run, call `resetTestEnvironment` first.
 
-      这个方法只能被调用**一次**。如果确实需要在测试程序运行期间变换这个默认设置，那么先调用`resetTestEnvironment`。
+      这个方法只能被调用**一次**。如果确实需要在测试程序运行期间改变这个默认设置，那么先调用`resetTestEnvironment`。
 
       Specify the Angular compiler factory, a `PlatformRef`, and a default Angular testing module.
       Alternatives for non-browser platforms are available in the general form
@@ -5342,7 +5342,7 @@ The component DOM tests describe in this guide often require extensive setup and
 advanced techniques where as the [class-only test](#component-class-testing)
 were comparatively simple.
 
-本指南中讲的组件 DOM 测试通常需要大量的准备工作以及高级技巧，不像[只用类的测试](#component-class-testing)那样简单。
+本指南中讲的组件 DOM 测试通常需要大量的准备工作以及高级技巧，不像[只针对类的测试](#component-class-testing)那样简单。
 
 Why not defer DOM integration tests to end-to-end (E2E) testing?
 
