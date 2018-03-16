@@ -368,7 +368,7 @@
             "desc": "Angular UI libraries derived from Element UI.",
             "rev": true,
             "title": "Element Angular",
-            "url": "https://github.com/eleme/element-angular"
+            "url": "https://github.com/ElemeFE/element-angular"
           },
           "essentialjs2": {
             "desc": "Essential JS 2 for Angular is a collection modern TypeScript based true Angular Components. It has support for Ahead Of Time (AOT) compilation and Tree-Shaking. All the components are developed from the ground up to be lightweight, responsive, modular and touch friendly.",
