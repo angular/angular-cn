@@ -217,6 +217,7 @@ QuickStart doesn't require these typings but many of the samples do.
 {@a target}
 
 ### *target*
+
 ### *编译目标（target）*
 
 By default, the target is `es5`, you can configure the target to `es6` if you only want to deploy the application to

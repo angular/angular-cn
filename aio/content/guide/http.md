@@ -873,7 +873,7 @@ for each `HttpClient` method call.
 
 To implement an interceptor, declare a class that implements the `intercept()` method of the `HttpInterceptor` interface.
 
-要实现拦截器，就要实现一个实现了 `HttpInterceptor` 接口中的 `intercept()` 方法的类。 
+要实现拦截器，就要实现一个实现了 `HttpInterceptor` 接口中的 `intercept()` 方法的类。
 
 Here is a do-nothing _noop_ interceptor that simply passes the request through without touching it:
  

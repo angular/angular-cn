@@ -173,7 +173,7 @@ configure it with the `routes` in one step by calling
 
 ## Add _RouterOutlet_
 
-## 添加路由出口 （_RouterOutlet_） 
+## 添加路由出口 （_RouterOutlet_）
 
 Open the `AppComponent` template replace the `<app-heroes>` element with a `<router-outlet>` element.
 
@@ -204,7 +204,7 @@ because `AppModule` imports `AppRoutingModule` which exported `RouterModule`.
 
 #### Try it
 
-#### 试试
+#### 试试看
 
 You should still be running with this CLI command.
 
@@ -791,7 +791,7 @@ without having to change the `HeroDetailComponent` that calls it.
 
 #### Try it
 
-#### 试试
+#### 试试看
 
 The browser refreshes and the app is working again.
 You can click a hero in the dashboard or in the heroes list and navigate to that hero's detail view.

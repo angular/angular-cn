@@ -2046,8 +2046,6 @@ This section is an introduction to the most commonly used attribute directives:
 
 ### NgClass
 
-### NgClass 指令
-
 You typically control how elements appear
 by adding and removing CSS classes dynamically.
 You can bind to the `ngClass` to add or remove several classes simultaneously.
@@ -2104,8 +2102,6 @@ It's up to you to call `setCurrentClasses()`, both initially and when the depend
 {@a ngStyle}
 
 ### NgStyle
-
-### NgStyle 指令
 
 You can set inline styles dynamically, based on the state of the component.
 With `NgStyle` you can set many inline styles simultaneously.
@@ -2362,8 +2358,6 @@ _This_ section is an introduction to the common structural directives:
 
 ### NgIf
 
-### NgIf 指令
-
 You can add or remove an element from the DOM by applying an `NgIf` directive to
 that element (called the _host element_).
 Bind the directive to a condition expression like `isActive` in this example.
@@ -2467,8 +2461,6 @@ described below.
 {@a ngFor}
 
 ### NgForOf
-
-### NgFor 指令
 
 `NgForOf` is a _repeater_ directive &mdash; a way to present a list of items.
 You define a block of HTML that defines how a single item should be displayed.
@@ -3017,7 +3009,7 @@ That _other way_ is the `@Input()` and `@Output()` decorators.
 In the sample for this guide, the bindings to `HeroDetailComponent` do not fail
 because the data bound properties are annotated with `@Input()` and `@Output()` decorators.
 
-在本章的例子中，绑定到 `HeroDetailComponent` 不会失败，这是因为这些要进行数据绑定的属性都带有 `@Input()` 和 `@Output()` 装饰器。 
+在本章的例子中，绑定到 `HeroDetailComponent` 不会失败，这是因为这些要进行数据绑定的属性都带有 `@Input()` 和 `@Output()` 装饰器。
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" region="input-output-1" title="src/app/hero-detail.component.ts" linenums="false">
 

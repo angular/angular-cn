@@ -4,7 +4,11 @@ Importing `ServiceWorkerModule` into your `AppModule` doesn't just register the 
 
 #### Prerequisites
 
+#### 前提条件
+
 A basic understanding of the following:
+
+对下列知识有基本的了解：
 
 * [Getting Started with Service Workers](guide/service-worker-getting-started).
 

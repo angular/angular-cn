@@ -7,7 +7,7 @@
 ## 安装 Angular CLI 命令行工具
 
  Install the [Angular CLI](https://github.com/angular/angular-cli), if you haven't already done so.
- 
+
  如果还没有安装 [Angular CLI](https://github.com/angular/angular-cli)，请执行：
 
 <code-example language="sh" class="code-shell">
@@ -100,11 +100,11 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 
 1. `app.component.html`&mdash; the component template, written in HTML.
 
-   `app.component.html`&mdash; 组件的模板，这是用 HTML 写的。 
+   `app.component.html`&mdash; 组件的模板，这是用 HTML 写的。
 
 1. `app.component.css`&mdash; the component's private CSS styles.
 
-   `app.component.ts`&mdash; 组件的私有 CSS 样式。 
+   `app.component.ts`&mdash; 组件的私有 CSS 样式。
 
 Open the component class file (`app.component.ts`) and change the value of the `title` property to 'Tour of Heroes'.
 
@@ -198,6 +198,6 @@ Here are the code files discussed on this page.
 
   你学会了使用 Angular 组件来显示数据。
 
-* You used the double curly braces of interpolation to display the app title.
+* You used the double curly braces of interpolation to display the app title. 
 
   你使用双花括号插值表达式显示了应用标题。

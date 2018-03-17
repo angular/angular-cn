@@ -4,7 +4,11 @@ This page is a reference for deploying and supporting production apps that use t
 
 #### Prerequisites
 
+#### 前提条件
+
 A basic understanding of the following:
+
+对下列知识有基本的了解：
 
 * [Service Worker Communication](guide/service-worker-communications).
 

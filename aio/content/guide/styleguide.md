@@ -676,6 +676,8 @@ and reference assets of different types.
 
 <a href="#toc">Back to top</a>
 
+<a href="#toc">回到顶部</a>
+
 {@a 02-04}
 
 ### Service names
@@ -1060,6 +1062,8 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 </code-example>
 
 <a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
 
 {@a 02-09}
 
@@ -1915,6 +1919,8 @@ discourage the `I` prefix.
 
 <a href="#toc">Back to top</a>
 
+<a href="#toc">回到顶部</a>
+
 {@a 03-06}
 
 ### Import line spacing
@@ -2003,6 +2009,8 @@ Use the naming conventions for files in this guide.
 
 <a href="#toc">Back to top</a>
 
+<a href="#toc">回到顶部</a>
+
 {@a 04-01}
 
 ### _LIFT_
@@ -2078,6 +2086,8 @@ A descriptive folder structure makes a world of difference to you and the people
 </div>
 
 <a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
 
 {@a 04-03}
 
@@ -2197,6 +2207,8 @@ Use a flatter structure until there is an obvious value to creating a new folder
 </div>
 
 <a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
 
 {@a 04-05}
 
@@ -3904,6 +3916,8 @@ and the directive name doesn't describe the property.
 
 <a href="#toc">Back to top</a>
 
+<a href="#toc">回到顶部</a>
+
 {@a 05-14}
 
 ### Member sequence
@@ -4085,6 +4099,8 @@ helps instantly identify which members of the component serve which purpose.
 
 <a href="#toc">Back to top</a>
 
+<a href="#toc">回到顶部</a>
+
 {@a 05-17}
 
 ### Put presentation logic in the component class
@@ -4178,6 +4194,8 @@ helps instantly identify which members of the component serve which purpose.
 </code-example>
 
 <a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
 
 {@a 06-03}
 

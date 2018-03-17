@@ -3151,7 +3151,7 @@
   },
   {
     "original": "The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.",
-    "translation": "**强制性** 腻子脚本（如`zone.js`）的npm 包在创建工程时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。",
+    "translation": "**强制性** 腻子脚本（如`zone.js`）的npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/browser-support.md"
   },
   {
@@ -3396,7 +3396,7 @@
   },
   {
     "original": "All samples now have a `src/` folder at the project root.\nThe former `app/` folder moves under `src/`.\nRead about moving your existing project to this structure in\n<a href=\"https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo\" target=\"Migrating samples/quickstart app to the src folder\">\nthe QuickStart repo update instructions</a>.",
-    "translation": "我们已经把所有范例改成了使用项目根目录下的`src/`文件夹。\n也就是把以前的`app/`文件夹移到了`src/`文件夹下面。\n要了解如何对你的现有工程进行这种迁移，请参阅<a href=\"https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo\" target=\"_blank\" target=\"把范例中的应用迁移到src文件夹\">QuickStart中的迁移指南</a>。",
+    "translation": "我们已经把所有范例改成了使用项目根目录下的`src/`文件夹。\n也就是把以前的`app/`文件夹移到了`src/`文件夹下面。\n要了解如何对你的现有项目进行这种迁移，请参阅<a href=\"https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo\" target=\"_blank\" target=\"把范例中的应用迁移到src文件夹\">QuickStart中的迁移指南</a>。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/change-log.md"
   },
   {
@@ -7185,6 +7185,21 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
+    "original": "Although deploying directly from the development environment works, \nyou can generate an optimized build with additional CLI command line flags,\nstarting with `--prod`.",
+    "translation": "虽然也可以直接用开发环境的设置进行部署，不过你也可以使用 CLI 命令的其它标志生成一个优化过的构建成果。\n先来看 `--prod`。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "### Build with _--prod_",
+    "translation": "### 使用 `--prod` 构建。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The `--prod` _meta-flag_ engages the following optimization features.",
+    "translation": "`--prod` *元标志*包括下列优化特性。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
     "original": "* [Ahead-of-Time (AOT) Compilation](guide/aot-compiler): pre-compiles Angular component templates.",
     "translation": "[预(AOT)编译](guide/aot-compiler)：预编译 Angular 组件的模板。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
@@ -7220,6 +7235,16 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
+    "original": "You may further reduce bundle sizes by adding the `build-optimizer` flag.",
+    "translation": "你还可以添加 `build-optimizer` 标志来进一步缩减打包体积。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "See the [CLI Documentation](https://github.com/angular/angular-cli/wiki/build) \nfor details about available build options and what they do.",
+    "translation": "参见 [CLI 文档](https://github.com/angular/angular-cli/wiki/build)，来了解可用的构建选项及其用途的详细信息。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
     "original": "### Enable production mode",
     "translation": "### 启用生产模式",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
@@ -7232,6 +7257,11 @@
   {
     "original": "Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.",
     "translation": "切换到生产模式可以通过禁用开发环境下特有的检查（比如双重变更检测周期）来让应用运行得更快。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Building for production (or appending the `--environment=prod` flag) enables _production mode_\nLook at the CLI-generated `main.ts` to see how this works.",
+    "translation": "为生产环境构建（或添加 `--environment=prod` 标志）可以启用*生产模式*。\n查看 CLI 自动生成的 `main.ts` 文件来了解它的工作原理。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
@@ -7265,18 +7295,73 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
+    "original": "The CLI runs the\n[Angular Ahead-of-Time Webpack Plugin](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)\nwhich automatically recognizes lazy loaded `NgModules` and creates separate bundles for them.",
+    "translation": "CLI 会运行 [Angular  AOT 编译 Webpack 插件](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)，它会自动识别出那些需要惰性加载的 `NgModule`，并为它们创建单独的文件包。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "### Measure performance",
+    "translation": "### 性能测量",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
     "original": "You can make better decisions about what to optimize and how when you have a clear and accurate understanding of\nwhat's making the application slow.\nThe cause may not be what you think it is.\nYou can waste a lot of time and money optimizing something that has no tangible benefit or even makes the app slower.\nYou should measure the app's actual behavior when running in the environments that are important to you.",
     "translation": "如果我们能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。\n真正的原因可能并不是你所想的那样。\n我们可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。\n我们应该在那些最重要的环境中实际运行，来度量应用的实际行为。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
     "original": "The\n<a href=\"https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing\" title=\"Chrome DevTools Network Performance\">\nChrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.",
-    "translation": "<a href=\"https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing\" target=\"_blank\" title=\"Chrome DevTools Network Performance\">\n  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。",
+    "translation": "<p><a href=\"https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing\" target=\"_blank\" title=\"Chrome DevTools Network Performance\">\n  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。</p>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
     "original": "The [WebPageTest](https://www.webpagetest.org/) tool is another good choice\nthat can also help verify that your deployment was successful.",
     "translation": "[WebPageTest](https://www.webpagetest.org/)工具是另一个不错的选择，它能帮你验证你的部署是否成功了。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "### Inspect the bundles",
+    "translation": "### 深入探查文件包（bundle）",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The <a href=\"https://github.com/danvk/source-map-explorer/blob/master/README.md\">source-map-explorer</a>\ntool is a great way to inspect the generated JavaScript bundles after a production build.",
+    "translation": "<a href=\"https://github.com/danvk/source-map-explorer/blob/master/README.md\">source-map-explorer</a> 是在生产环境构建中深入探查所生成的文件包的好工具。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Install `source-map-explorer`:",
+    "translation": "安装 `source-map-explorer`：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Build your app for production _including the source maps_",
+    "translation": "构建*带源码映射*的生产版本",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "List the generated bundles in the `dist/` folder.",
+    "translation": "列出 `dist/` 文件夹中生成的文件包。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Run the explorer to generate a graphical representation of one of the bundles.\nThe following example displays the graph for the _main_ bundle.",
+    "translation": "运行这个源码映射浏览器，以生成文件包之一的图形化表示。\n下面的例子中就是 `main` 这个文件包的图形。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,\nshowing exactly which classes are included in the bundle.",
+    "translation": "`source-map-explorer` 分析了文件包生成的源码映射信息，并画出了所有这些依赖的地图，准确的展示了这个包中包含了哪些类。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Here's the output for the _main_ bundle of the QuickStart.",
+    "translation": "下面是《快速起步》一章生成的 `main` 文件包的输出。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "## The `base` tag",
+    "translation": "## `base` 标签",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
@@ -7297,6 +7382,51 @@
   {
     "original": "But on the shared or production server, you might serve the app from a subfolder.\nFor example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,\nthe subfolder is `my/app/` and you should add `<base href=\"/my/app/\">` to the server version of the `index.html`.",
     "translation": "但是在共享服务器或生产服务器上，我们可能得从子目录下启动服务器。\n比如，当加载本应用的URL是`http://www.mysite.com/my/app/`时，子目录就是`my/app/`，而我们就要在服务器版的`index.html`中添加`<base href=\"/my/app/\">`。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors\nfor the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.",
+    "translation": "当没有配置 `base` 标签时，加载应用就会失败，浏览器的控制台中会为这些缺失的文件显示一些 `404 - Not Found` 错误。\n看看浏览器*试图*从哪里找这些文件，然后调整出合适的 base 标签。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "## _build_ vs. _serve_",
+    "translation": "## *构建*与*服务*",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "You'll probably prefer `ng build` for deployments.",
+    "translation": "你会更喜欢用 `ng build` 进行部署。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The **ng build** command is intended for building the app and deploying the build artifacts elsewhere.\nThe **ng serve** command is intended for fast, local, iterative development.",
+    "translation": "**ng build** 命令的设计意图是构建该应用，并且把构建成果部署到别处。\n而**ng serve** 命令的设计意图是快速进行本地的迭代式开发。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "Both `ng build` and `ng serve` **clear the output folder** before they build the project.\nThe `ng build` command writes generated build artifacts to the output folder.\nThe `ng serve` command does not.\nIt serves build artifacts from memory instead for a faster development experience.",
+    "translation": "在开始构建项目之前，`ng build` 和 `ng serve` **都会清空输出文件夹**。\n`ng build` 命令会把生成的构建成果写入输出文件夹中，但 `ng serve` 命令并不会如此。\n它会用内存中的构建成果提供服务，以获得更快速的开发体验。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The output folder is  `dist/` by default.\nTo output to a different folder, change the `outDir` in `.angular-cli.json`.",
+    "translation": "默认的输出文件夹是 `dist/`。\n要输出到其它文件夹中，请修改 `.angular-cli.json` 中的 `outDir`。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The `ng serve` command builds, watches, and serves the application from a local CLI development server.",
+    "translation": "`ng serve` 命令会构建、监听并使用本地的 CLI 开发服务器作为服务器。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "The `ng build` command generates output files just once and does not serve them.\nThe `ng build --watch` command will regenerate output files when source files change.\nThis `--watch` flag is useful if you're building during development and \nare automatically re-deploying changes to another server.",
+    "translation": "`ng build` 命令只会生成一次这些输出文件，而不会用它们提供服务。\n`ng build --watch` 命令会在源码变化的时候重新生成输出文件。\n当你在开发期间需要不断构建并自动把修改后的版本发布到另一台服务器的时候，这个 `--watch` 标志会很有用。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
+  },
+  {
+    "original": "See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) for more details and options.",
+    "translation": "参见 [CLI 中的 `build` 主题](https://github.com/angular/angular-cli/wiki/build)以了解详情以及其它选项。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/deployment.md"
   },
   {
@@ -8193,6 +8323,21 @@
     "original": "A basic understanding of the following concepts:",
     "translation": "对下列概念有基本的理解：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/entry-components.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/feature-modules.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/feature-modules.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/feature-modules.md"
   },
   {
     "original": "# Form Validation",
@@ -9410,8 +9555,18 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/forms.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/frequent-ngmodules.md"
+  },
+  {
     "original": "<code>RouterModule</code>",
     "translation": "<code>RouterModule</code>（路由器模块）",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/frequent-ngmodules.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/frequent-ngmodules.md"
   },
   {
@@ -12486,17 +12641,17 @@
   },
   {
     "original": "## Installing in your project",
-    "translation": "## 安装到工程中",
+    "translation": "## 安装到项目中",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/language-service.md"
   },
   {
     "original": "You can also install Angular Language Service in your project with the \nfollowing `npm` command:",
-    "translation": "我们还可以使用下列`npm`命令来把 Angular 语言服务安装到工程中：",
+    "translation": "我们还可以使用下列`npm`命令来把 Angular 语言服务安装到项目中：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/language-service.md"
   },
   {
     "original": "Additionally, add the following to the `\"compilerOptions\"` section of \nyour project's `tsconfig.json`.",
-    "translation": "另外，还要在工程的`tsconfig.json`中添加下列`\"compilerOptions\"`区域：",
+    "translation": "另外，还要在项目的`tsconfig.json`中添加下列`\"compilerOptions\"`区域：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/language-service.md"
   },
   {
@@ -12511,7 +12666,7 @@
   },
   {
     "original": "When you use an editor with a language service, there's an \neditor process which starts a separate language process/service \nto which it speaks through an [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call). \nAny time you type inside of the editor, it sends information to the other process to \ntrack the state of your project. When you trigger a completion list within a template, the editor process first parses the template into an HTML AST, or [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree). Then the Angular compiler interprets \nwhat module the template is part of, the scope you're in, and the component selector. Then it figures out where in the template AST your cursor is. When it determines the \ncontext, it can then determine what the children can be.",
-    "translation": "当使用带有语言服务的编辑器时，就会有一个编辑器进程，它会启动一个独立的语言服务进程/服务，它们通过[RPC](https://en.wikipedia.org/wiki/Remote_procedure_call)彼此交谈。\n当我们在编辑器中输入的时候，它把这些信息发送到另一个进程中，以便追踪工程的状态。\n当我们在模板中触发一个自动完成列表时，编辑器进程就会先把这个模板解析成 HTML AST，或者叫[抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。然后，Angular 编译器就会解释模板所属的模块以及模板选择器。然后它找出我们的光标目前正在模板 AST 的什么位置。一旦它确定了情境，就可以决定其子节点可以是什么了。",
+    "translation": "当使用带有语言服务的编辑器时，就会有一个编辑器进程，它会启动一个独立的语言服务进程/服务，它们通过[RPC](https://en.wikipedia.org/wiki/Remote_procedure_call)彼此交谈。\n当我们在编辑器中输入的时候，它把这些信息发送到另一个进程中，以便追踪项目的状态。\n当我们在模板中触发一个自动完成列表时，编辑器进程就会先把这个模板解析成 HTML AST，或者叫[抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。然后，Angular 编译器就会解释模板所属的模块以及模板选择器。然后它找出我们的光标目前正在模板 AST 的什么位置。一旦它确定了情境，就可以决定其子节点可以是什么了。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/language-service.md"
   },
   {
@@ -12533,6 +12688,21 @@
     "original": "For more information, see [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language \nService from [ng-conf](https://www.ng-conf.org/) 2017.",
     "translation": "要了解更多信息，参见 [ng-conf](https://www.ng-conf.org/) 2017 中 [Chuck Jazdzewski的演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 中讲解的 Angular 语言服务。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/language-service.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/lazy-loading-ngmodules.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/lazy-loading-ngmodules.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/lazy-loading-ngmodules.md"
   },
   {
     "original": "# Lifecycle Hooks",
@@ -13200,8 +13370,18 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/lifecycle-hooks.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/module-types.md"
+  },
+  {
     "original": "A basic understanding of the following concepts:",
     "translation": "对下列概念有基本的理解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/module-types.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/module-types.md"
   },
   {
@@ -13375,8 +13555,18 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/module-types.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-api.md"
+  },
+  {
     "original": "A basic understanding of the following concepts:",
     "translation": "对下列概念有基本的理解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-api.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-api.md"
   },
   {
@@ -14345,6 +14535,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-faq.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-vs-jsmodule.md"
+  },
+  {
     "original": "* An NgModule bounds [declarable classes](guide/ngmodule-faq#q-declarable) only.\nDeclarables are the only classes that matter to the [Angular compiler](guide/ngmodule-faq#q-angular-compiler).",
     "translation": "Angular模块只绑定了[_可声明的类_](guide/ngmodule-faq#q-declarable)，这些可声明的类只是供[Angular编译器](guide/ngmodule-faq#q-angular-compiler)用的。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodule-vs-jsmodule.md"
@@ -14360,8 +14555,18 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodules.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodules.md"
+  },
+  {
     "original": "A basic understanding of the following concepts:",
     "translation": "对下列概念有基本的理解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodules.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodules.md"
   },
   {
@@ -21140,6 +21345,46 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/security.md"
   },
   {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-communications.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-communications.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-config.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-config.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-devops.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-devops.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-getting-started.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/service-worker-getting-started.md"
+  },
+  {
     "original": "# Set the Document Title",
     "translation": "# 设置文档标题",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/set-document-title.md"
@@ -21628,6 +21873,21 @@
     "original": "In windows, by default one application can only have 6 websocket connections, <a href=\"https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn\" title=\"MSDN WebSocket settings\">MSDN WebSocket Settings</a>.\nSo if IE was refreshed manunally or automatically by `ng serve`, sometimes, the websocket will not close properly, when websocket connections exceed limitations, `SecurityError` will be thrown, this error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.",
     "translation": "在 Windows 中，默认情况下一个应用只能有六个 WebSocket 连接，参见 <a href=\"https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn\" title=\"MSDN WebSocket settings\">MSDN 中的 WebSocket 设置部分</a>。\n所以，如果 IE 手动刷新或被 `ng serve` 触发了自动刷新，有时候 WebSocket 可能无法正常关闭，当 WebSocket 的连接数超限时，就会抛出 `SecurityError` 异常。请放心，这个异常对 Angular 应用没什么影响，你重启一下 IE 就能消除这个错误，或者修改 Windows 注册表来修改这个上限。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/setup.md"
+  },
+  {
+    "original": "#### Prerequisites",
+    "translation": "#### 前提条件",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/sharing-ngmodules.md"
+  },
+  {
+    "original": "A basic understanding of the following:",
+    "translation": "对下列知识有基本的了解：",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/sharing-ngmodules.md"
+  },
+  {
+    "original": "* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).",
+    "translation": "[JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/sharing-ngmodules.md"
   },
   {
     "original": "Note the following:",
@@ -22695,6 +22955,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
     "original": "### Service names",
     "translation": "### 服务名",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -22887,6 +23152,11 @@
   {
     "original": "**Why?** Directives are easily identified.",
     "translation": "**为何？**指令更加容易被识别。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
@@ -23285,6 +23555,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
     "original": "### Import line spacing",
     "translation": "### 导入语句中的空行",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -23345,6 +23620,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
     "original": "#### Style 04-01",
     "translation": "#### 风格 04-01",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -23387,6 +23667,11 @@
   {
     "original": "**Why?** To work efficiently you must be able to find files quickly,\nespecially when you do not know (or do not remember) the file _names_.\nKeeping related files near each other in an intuitive location saves time.\nA descriptive folder structure makes a world of difference to you and the people who come after you.",
     "translation": "**为何？**\n要想高效的工作，就必须能迅速找到文件，特别是当不知道（或不记得）文件*名*时。\n把相关的文件一起放在一个直观的位置可以节省时间。\n富有描述性的目录结构会让你和后面的维护者眼前一亮。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
@@ -23467,6 +23752,11 @@
   {
     "original": "Base your decision on your comfort level.\nUse a flatter structure until there is an obvious value to creating a new folder.",
     "translation": "还是根据你自己的舒适度而定吧。\n除非创建新文件夹能有显著的价值，否则尽量使用扁平结构。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
@@ -24165,6 +24455,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
     "original": "### Member sequence",
     "translation": "### 成员顺序",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -24270,6 +24565,11 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
     "original": "### Put presentation logic in the component class",
     "translation": "### 把表现层逻辑放到组件类里",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
@@ -24327,6 +24627,11 @@
   {
     "original": "**Why?** An element may have more than one attribute directive applied.",
     "translation": "**为何？**一个元素可以使用多个属性型指令。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
+  },
+  {
+    "original": "<a href=\"#toc\">Back to top</a>",
+    "translation": "<a href=\"#toc\">回到顶部</a>",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/styleguide.md"
   },
   {
@@ -26005,11 +26310,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "### NgClass",
-    "translation": "### NgClass 指令",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
-  },
-  {
     "original": "You typically control how elements appear\nby adding and removing CSS classes dynamically.\nYou can bind to the `ngClass` to add or remove several classes simultaneously.",
     "translation": "我们经常用动态添加或删除 CSS 类的方式来控制元素如何显示。\n通过绑定到`NgClass`，可以同时添加或移除多个类。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
@@ -26042,11 +26342,6 @@
   {
     "original": "It's up to you to call `setCurrentClasses()`, both initially and when the dependent properties change.",
     "translation": "你既可以在初始化时调用`setCurrentClassess()`，也可以在所依赖的属性变化时调用。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
-  },
-  {
-    "original": "### NgStyle",
-    "translation": "### NgStyle 指令",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
@@ -26240,11 +26535,6 @@
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
-    "original": "### NgIf",
-    "translation": "### NgIf 指令",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
-  },
-  {
     "original": "You can add or remove an element from the DOM by applying an `NgIf` directive to\nthat element (called the _host element_).\nBind the directive to a condition expression like `isActive` in this example.",
     "translation": "通过把`NgIf`指令应用到元素上（称为*宿主元素*），我们可以往DOM中添加或从DOM中移除这个元素。\n在下面的例子中，该指令绑定到了类似于`isActive`这样的条件表达式。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
@@ -26307,11 +26597,6 @@
   {
     "original": "See also the\n[_safe navigation operator_](guide/template-syntax#safe-navigation-operator \"Safe navigation operator (?.)\")\ndescribed below.",
     "translation": "参见稍后的[_安全导航操作符_](guide/template-syntax#safe-navigation-operator \"Safe naviation operator (?.)\")部分。",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
-  },
-  {
-    "original": "### NgForOf",
-    "translation": "### NgFor 指令",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/template-syntax.md"
   },
   {
@@ -30587,6 +30872,16 @@
   {
     "original": "QuickStart doesn't require these typings but many of the samples do.",
     "translation": "“快速上手”本身不需要这些类型定义，但是文档中的很多例子都需要。",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/typescript-configuration.md"
+  },
+  {
+    "original": "### *target*",
+    "translation": "### *编译目标（target）*",
+    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/typescript-configuration.md"
+  },
+  {
+    "original": "By default, the target is `es5`, you can configure the target to `es6` if you only want to deploy the application to\nes6 compatible browser. But if you configure the target to `es6` in some old browser such as `IE`, `Syntax Error` will be thrown.",
+    "translation": "默认情况下，编译目标是 `es5`，如果你只想发布到兼容 es6 的浏览器中，也可以把它配置为 `es6`。\n不过，如果配置为 `es6`，那么一些老的浏览器（如 `IE` ）中就会抛出 `Syntax Error` 错误。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/typescript-configuration.md"
   },
   {
@@ -35901,7 +36196,7 @@
   },
   {
     "original": "#### Try it",
-    "translation": "#### 试试",
+    "translation": "#### 试试看",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/tutorial/toh-pt5.md"
   },
   {
@@ -36351,7 +36646,7 @@
   },
   {
     "original": "#### Try it",
-    "translation": "#### 试试",
+    "translation": "#### 试试看",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/tutorial/toh-pt5.md"
   },
   {
@@ -36458,11 +36753,6 @@
     "original": "* You shared the `HeroService` among multiple components.",
     "translation": "在多个组件之间共享了`HeroService`服务。",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/tutorial/toh-pt5.md"
-  },
-  {
-    "original": "# HTTP",
-    "translation": "# HTTP 服务",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/tutorial/toh-pt6.md"
   },
   {
     "original": "In this tutorial, you'll add the following data persistence features with help from\nAngular's `HttpClient`.",

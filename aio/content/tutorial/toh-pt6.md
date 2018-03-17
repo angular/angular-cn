@@ -1,7 +1,5 @@
 # HTTP
 
-# HTTP 服务
-
 In this tutorial, you'll add the following data persistence features with help from
 Angular's `HttpClient`.
 
@@ -611,7 +609,7 @@ anticipating that the `HeroService` will succeed on the server.
 There's really nothing for the component to do with the `Observable` returned by
 `heroService.delete()`. **It must subscribe anyway**.
 
-组件与 `heroService.delete()` 返回的 `Observable` 还完全没有关联。**必须订阅它**。 
+组件与 `heroService.delete()` 返回的 `Observable` 还完全没有关联。**必须订阅它**。
 
 <div class="alert is-important">
 
@@ -910,7 +908,7 @@ It cancels and discards previous search observables, returning only the latest s
 
   `switchMap()` preserves the original request order while returning only the observable from the most recent HTTP method call.
   Results from prior calls are canceled and discarded.
-  
+
   `switchMap()` 会记住原始的请求顺序，只会返回最近一次 HTTP 方法调用的结果。
   以前的那些请求都会被取消和舍弃。
 

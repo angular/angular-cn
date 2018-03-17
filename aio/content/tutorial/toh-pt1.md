@@ -74,7 +74,7 @@ The `ngOnInit` is a [lifecycle hook](guide/lifecycle-hooks#oninit)
 Angular calls `ngOnInit` shortly after creating a component.
 It's a good place to put initialization logic.
 
-`ngOnInit` 是一个[生命周期钩子](guide/lifecycle-hooks#oninit)，Angular 在创建完组件后很快就会调用 `ngOnInit`。这里是放置初始化逻辑的好地方。 
+`ngOnInit` 是一个[生命周期钩子](guide/lifecycle-hooks#oninit)，Angular 在创建完组件后很快就会调用 `ngOnInit`。这里是放置初始化逻辑的好地方。
 
 Always `export` the component class so you can `import` it elsewhere ... like in the `AppModule`.
 

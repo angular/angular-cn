@@ -2734,7 +2734,7 @@ Rely on your intuition for now.
 
 When the `id` cannot be found, the component should re-route to the `HeroListComponent`.
 
-当找不到 `id` 的时候，组件应该重新路由到 `HeroListComponent`。 
+当找不到 `id` 的时候，组件应该重新路由到 `HeroListComponent`。
 
 The test suite setup provided the same router spy [described above](#routing-component) which spies on the router without actually navigating.
 
@@ -2963,7 +2963,7 @@ The Angular compiler creates the `BannerComponentStub` for the `<app-banner>` el
 and applies the `RouterLinkStubDirective` to the anchors with the `routerLink` attribute,
 but it ignores the `<app-welcome>` and `<router-outlet>` tags.
 
-Angular 编译器会为 `<app-banner>` 元素创建 `BannerComponentStub`，并把 `RouterLinkStubDirective` 应用到带有 `routerLink` 属性的链接上，不过它会忽略 `<app-welcome>` 和 `<router-outlet>` 标签。 
+Angular 编译器会为 `<app-banner>` 元素创建 `BannerComponentStub`，并把 `RouterLinkStubDirective` 应用到带有 `routerLink` 属性的链接上，不过它会忽略 `<app-welcome>` 和 `<router-outlet>` 标签。
 
 <hr>
 
@@ -3052,7 +3052,7 @@ Three points of special interest:
 
 1. Each `DebugElement` exposes a dependency injector with the
  specific instance of the directive attached to that element.
- 
+
    每个 `DebugElement` 都会导出该元素中的一个依赖注入器，其中带有指定的指令实例。
 
 The `AppComponent` links to validate are as follows:
@@ -4505,7 +4505,7 @@ Here are the most important static methods, in order of likely utility.
       `inject` 函数通常都能胜任这项工作，但是如果它没法提供该服务时就会抛出一个异常。
 
       What if the service is optional?
-      
+
       如果该服务是可选的呢？
 
       The `TestBed.get()` method takes an optional second parameter,

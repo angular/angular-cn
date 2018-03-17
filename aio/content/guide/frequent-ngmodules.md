@@ -2,6 +2,8 @@
 
 #### Prerequisites
 
+#### 前提条件
+
 A basic understanding of [Bootstrapping](guide/bootstrapping).
 
 <hr>
@@ -237,3 +239,5 @@ You may also be interested in the following:
 * [NgModules](guide/ngmodules).
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
+
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).
