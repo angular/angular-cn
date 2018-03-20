@@ -191,32 +191,32 @@
           ]
         },
         {
-          "title": "Observables & RxJS",
-          "tooltip": "Observables & RxJS",
+          "title": "Observable 与 RxJS",
+          "tooltip": "Observable 与 RxJS",
           "children": [
             {
               "url": "guide/observables",
-              "title": "Observables",
+              "title": "可观察对象(Observable)",
               "tooltip": ""
             },
             {
               "url": "guide/rx-library",
-              "title": "The RxJS Library",
+              "title": "RxJS 库",
               "tooltip": ""
             },
             {
               "url": "guide/observables-in-angular",
-              "title": "Observables in Angular",
+              "title": "Angular 中的可观察对象",
               "tooltip": ""
             },
             {
               "url": "guide/practical-observable-usage",
-              "title": "Practical Usage",
+              "title": "用法实战",
               "tooltip": ""
             },
             {
               "url": "guide/comparing-observables",
-              "title": "Compare to Other Techniques",
+              "title": "与其它技术的比较",
               "tooltip": ""
             }
           ]
