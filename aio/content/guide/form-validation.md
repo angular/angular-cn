@@ -77,7 +77,7 @@ There are messages for `required`, `minlength`, and `forbiddenName`.
 
 #### Why check _dirty_ and _touched_?
 
-#### 为何检查**dirty**和**touched**？
+#### 为何检查 **dirty** 和 **touched**？
 
 You may not want your application to display errors before the user has a chance to edit the form.
 The checks for `dirty` and `touched` prevent errors from showing until the user 

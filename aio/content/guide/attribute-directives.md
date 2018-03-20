@@ -137,7 +137,7 @@ they don't conflict with standard HTML attributes.
 This also reduces the risk of colliding with third-party directive names.
 The CLI added the `app` prefix for you.
 
-尽管*highlight* 是一个比 *myHighlight* 更简洁的名字，而且它确实也能工作。
+尽管 *highlight* 是一个比 *myHighlight* 更简洁的名字，而且它确实也能工作。
 但是最佳实践是在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。
 它同时减少了与第三方指令名字发生冲突的危险。
 

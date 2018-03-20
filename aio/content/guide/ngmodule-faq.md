@@ -24,7 +24,7 @@ This page answers the questions many developers ask about NgModule design and im
 
 ## What classes should I add to the `declarations` array?
 
-## 我应该把哪些类加到*declarations*中？
+## 我应该把哪些类加到 *declarations* 中？
 
 Add [declarable](guide/bootstrapping#the-declarations-array) classes&mdash;components, directives, and pipes&mdash;to a `declarations` list.
 
@@ -90,7 +90,7 @@ strings, numbers, functions, entity models, configurations, business logic, and 
 
 ## Why list the same component in multiple `NgModule` properties?
 
-## 为什么要把同一个组件声明在不同的*NgModule*属性中？
+## 为什么要把同一个组件声明在不同的 *NgModule* 属性中？
 
 `AppComponent` is often listed in both `declarations` and `bootstrap`.
 You might see the same component listed in `declarations`, `exports`, and `entryComponents`.
@@ -178,7 +178,7 @@ Import only [BrowserModule](guide/ngmodule-faq#q-browser-vs-common-module) in th
 
 ## Should I import `BrowserModule` or `CommonModule`?
 
-## 我应该导入*BrowserModule*还是*CommonModule*？
+## 我应该导入 *BrowserModule* 还是 *CommonModule*？
 
 The root application module, `AppModule`, of almost every browser application
 should import `BrowserModule` from `@angular/platform-browser`.

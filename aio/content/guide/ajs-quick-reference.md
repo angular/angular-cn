@@ -7,7 +7,7 @@
 _Angular_ is the name for the Angular of today and tomorrow.
 _AngularJS_ is the name for all v1.x versions of Angular.
 
-*Angular*这个名字专指现在和未来的 Angular 版本，而*AngularJS*专指 Angular 的所有 v1.x 版本。
+*Angular* 这个名字专指现在和未来的 Angular 版本，而 *AngularJS* 专指 Angular 的所有 v1.x 版本。
 
 This guide helps you transition from AngularJS to Angular
 by mapping AngularJS syntax to the equivalent Angular syntax.
@@ -492,7 +492,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In Angular, you use property binding; there is no built-in *hide* directive.
       For more information, see [ng-show](guide/ajs-quick-reference#ng-show).
 
-      在 Angular 中，并没有一个内置的*hide*指令，可以改用属性绑定。
+      在 Angular 中，并没有一个内置的 *hide* 指令，可以改用属性绑定。
       参见[ng-show](guide/ajs-quick-reference#ng-show)了解更多。
 
     </td>
@@ -544,7 +544,7 @@ AngularJS 为模板提供了七十多个内置指令。
       Angular uses property binding; there is no built-in *href* directive.
       Place the element's `href` property in square brackets and set it to a quoted template expression.
 
-      在 Angular 中，并没有内置的*href*指令，改用属性绑定。
+      在 Angular 中，并没有内置的 *href* 指令，改用属性绑定。
       我们把元素的 `href` 属性放在方括号中，并把它设成一个引号中的模板表达式。
 
       For more information see the [Property binding](guide/template-syntax#property-binding)
@@ -748,7 +748,7 @@ AngularJS 为模板提供了七十多个内置指令。
       Angular uses property binding; there is no built-in *show* directive.
       For hiding and showing elements, bind to the HTML `hidden` property.
 
-      在 Angular 中，并没有内置的*show*指令，可以改用属性绑定。
+      在 Angular 中，并没有内置的 *show* 指令，可以改用属性绑定。
       要隐藏或显示一个元素，绑定到它的 `hidden` 属性就可以了。
 
       To conditionally display an element, place the element's `hidden` property in square brackets and
@@ -800,7 +800,7 @@ AngularJS 为模板提供了七十多个内置指令。
       Angular uses property binding; there is no built-in *src* directive.
       Place the `src` property in square brackets and set it to a quoted template expression.
 
-      在 Angular 中，并没有一个内置的*src*指令，可以使用属性绑定。
+      在 Angular 中，并没有一个内置的 *src* 指令，可以使用属性绑定。
       把 `src` 属性放到方括号中，并且把它设为一个引号中的绑定表达式。
 
       For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)

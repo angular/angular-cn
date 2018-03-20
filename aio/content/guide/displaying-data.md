@@ -200,7 +200,7 @@ This app uses more terse "variable assignment" style simply for brevity.
 
 ## Showing an array property with ***ngFor**
 
-## 使用***ngFor***显示数组属性
+## 使用 ***ngFor*** 显示数组属性
 
 To display a list of heroes, begin by adding an array of hero names to the component and redefine `myHero` to be the first name in the array.
 

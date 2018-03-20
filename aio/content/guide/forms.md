@@ -1183,7 +1183,7 @@ that clears the `submitted` flag.
 
 When you click the *Edit* button, this block disappears and the editable form reappears.
 
-当点*Edit*按钮时，这个只读块消失了，可编辑的表单重新出现了。
+当点 *Edit* 按钮时，这个只读块消失了，可编辑的表单重新出现了。
 
 ## Summary
 
@@ -1224,7 +1224,7 @@ framework features to provide support for data modification, validation, and mor
 
 * Controlling the *Submit* button's enabled state by binding to `NgForm` validity.
 
-   通过绑定到 `NgForm` 的有效性状态，控制*Submit*按钮的禁用状态。
+   通过绑定到 `NgForm` 的有效性状态，控制 *Submit* 按钮的禁用状态。
 
 * Custom CSS classes that provide visual feedback to users about invalid controls.
 

@@ -461,7 +461,7 @@ them within a parent `FormGroup`.
 This is simple to do. To add a `FormGroup`, add it to the imports section
 of `hero-detail.component.ts`:
 
-通常，如果有多个*FormControl*，我们会希望把它们注册进一个父 `FormGroup` 中。这很容易。只要把它加入 `hero-detail.component.ts` 的 `import` 区就可以了。
+通常，如果有多个 *FormControl*，我们会希望把它们注册进一个父 `FormGroup` 中。这很容易。只要把它加入 `hero-detail.component.ts` 的 `import` 区就可以了。
 
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail-2.component.ts" region="imports" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
 
@@ -524,7 +524,7 @@ not Angular.
 Like the `form-control` class, it _styles_ the form
 but in no way impacts its logic.
 
-请无视*CSS*类 `form-group`，它属于<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>而不是 Angular。
+请无视 *CSS* 类 `form-group`，它属于<a href="http://getbootstrap.com/" target="_blank" title="Bootstrap CSS">Bootstrap CSS library</a>而不是 Angular。
 就像 `form-control` 类一样，它只是为表单添加样式，而对表单逻辑毫无影响。
 
 </div>
@@ -565,7 +565,7 @@ Piping it through the `JsonPipe` renders the model as JSON in the browser:
 The initial `name` property value is the empty string.
 Type into the _name_ input box and watch the keystokes appear in the JSON.
 
-最初的 `name` 属性是个空字符串，在*name*输入框中输入之后，可以看到这些按键出现在了 JSON 中。
+最初的 `name` 属性是个空字符串，在 *name* 输入框中输入之后，可以看到这些按键出现在了 JSON 中。
 
 Great! You have the basics of a form.
 
@@ -759,7 +759,7 @@ They are the Angular directives that bind the HTML controls to the
 Angular `FormGroup` and `FormControl` properties in the component class.
 
 *注意*：不用管这些脚本中提到的 `form-group`、`form-control`、`center-block` 和 `checkbox` 等。
-它们是来自*Bootstrap*的 CSS 类，Angular 本身不会管它们。
+它们是来自 *Bootstrap* 的 CSS 类，Angular 本身不会管它们。
 注意 `formGroupName` 和 `formControlName` 属性。
 他们是 Angular 指令，用于把相应的 HTML 控件绑定到组件中的 `FormGroup` 和 `FormControl` 类型的属性上。
 
@@ -1755,7 +1755,7 @@ The `prepareSaveHero` method makes copies of the form model's `secretLairs` obje
 
 The user cancels changes and reverts the form to the original state by pressing the _Revert_ button.
 
-用户可以撤销修改，并通过点击*Revert*按钮来把表单恢复到原始状态。
+用户可以撤销修改，并通过点击 *Revert* 按钮来把表单恢复到原始状态。
 
 Reverting is easy. Simply re-execute the `ngOnChanges` method that built the _form model_ from the original, unchanged `hero` _data model_.
 

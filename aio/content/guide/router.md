@@ -198,7 +198,7 @@ The wildcard route comes last because it matches _every URL_ and should be selec
 
 If you need to see what events are happening during the navigation lifecycle, there is the **enableTracing** option as part of the router's default configuration. This outputs each router event that took place during each navigation lifecycle to the browser console. This should only be used for _debugging_ purposes. You set the `enableTracing: true` option in the object passed as the second argument to the `RouterModule.forRoot()` method.
 
-如果我们想要看到在导航的生命周期中发生过哪些事件，可以使用路由器默认配置中的**enableTracing**选项。它会把每个导航生命周期中的事件输出到浏览器的控制台。
+如果我们想要看到在导航的生命周期中发生过哪些事件，可以使用路由器默认配置中的 **enableTracing** 选项。它会把每个导航生命周期中的事件输出到浏览器的控制台。
 这应该只用于*调试*。我们只需要把 `enableTracing: true` 选项作为第二个参数传给 `RouterModule.forRoot()` 方法就可以了。
 
 {@a basics-router-outlet}
@@ -259,7 +259,7 @@ The router adds the `active` CSS class to the element when the associated *Route
 You can add this directive to the anchor or to its parent element.
 
 每个 `a` 标签上的**`RouterLinkActive`**指令可以帮用户在外观上区分出当前选中的“活动”路由。
-当与它关联的*RouterLink*被激活时，路由器会把 CSS 类 `active` 添加到这个元素上。
+当与它关联的 *RouterLink* 被激活时，路由器会把 CSS 类 `active` 添加到这个元素上。
 我们可以把该指令添加到 `a` 元素或它的父元素上。
 
 {@a basics-router-state}
@@ -969,7 +969,7 @@ Along the way, it highlights design decisions and describes key features of the 
 
 * Navigating to a component (*Heroes* link to "Heroes List").
 
-   导航到组件（*Heroes*链接到“英雄列表”组件）。
+   导航到组件（*Heroes* 链接到“英雄列表”组件）。
 
 * Including a route parameter (passing the Hero `id` while routing to the "Hero Detail").
 
@@ -1317,7 +1317,7 @@ Providing the `RouterModule` in the `AppModule` makes the Router available every
 
 ### The *AppComponent* shell
 
-### *AppComponent*外壳组件
+### *AppComponent* 外壳组件
 
 The root `AppComponent` is the application shell. It has a title, a navigation bar with two links,
 and a *router outlet* where the router swaps views on and off the page. Here's what you get:
@@ -2426,7 +2426,7 @@ Don't analyze the URL. Let the router do it.
 The router extracts the route parameter (`id:15`) from the URL and supplies it to
 the `HeroDetailComponent` via the `ActivatedRoute` service.
 
-路由器从 URL 中解析出路由参数（`id:15`），并通过**ActivatedRoute**服务来把它提供给 `HeroDetailComponent` 组件。
+路由器从 URL 中解析出路由参数（`id:15`），并通过 **ActivatedRoute** 服务来把它提供给 `HeroDetailComponent` 组件。
 
 </div>
 
@@ -2910,7 +2910,7 @@ as this one can.
 
 ### Route parameters in the *ActivatedRoute* service
 
-### *ActivatedRoute*服务中的路由参数
+### *ActivatedRoute* 服务中的路由参数
 
 The list of heroes is unchanged. No hero row is highlighted.
 
@@ -3902,7 +3902,7 @@ The interesting part of the URL follows the `...`:
 
 Click the _Heroes_ link and look at the URL again.
 
-点击*Heroes*链接，并再次查看 URL：
+点击 *Heroes* 链接，并再次查看 URL：
 
 <code-example>
 
@@ -3973,7 +3973,7 @@ this one includes an object with an `outlets` property.
 The `outlets` property value is another object with outlet names for keys.
 The only named outlet is `'popup'`.
 
-就像在 `AppComponent` 中绑定到的*Contact* `RouterLink` 一样，它也包含了一个带 `outlets` 属性的对象。
+就像在 `AppComponent` 中绑定到的 *Contact* `RouterLink` 一样，它也包含了一个带 `outlets` 属性的对象。
 `outlets` 属性的值是另一个对象，该对象用一些出口名称作为属性名。
 唯一的命名出口是 `'popup'`。
 
@@ -4244,8 +4244,8 @@ property but it's not using a `component`.
 You haven't made a mistake in the configuration.
 You've defined a _component-less_ route.
 
-来看 `AdminComponent` 下的子路由，我们有一个带**path**和**children**的子路由，
-但它没有使用**component**。这并不是配置中的失误，而是在使用**无组件**路由。
+来看 `AdminComponent` 下的子路由，我们有一个带 **path** 和 **children** 的子路由，
+但它没有使用 **component**。这并不是配置中的失误，而是在使用**无组件**路由。
 
 The goal is to group the `Crisis Center` management routes under the `admin` path.
 You don't need a component to do it.
@@ -4323,7 +4323,7 @@ The admin feature is now protected by the guard, albeit protected poorly.
 
 #### Teach *AuthGuard* to authenticate
 
-#### 教*AuthGuard*进行认证
+#### 教 *AuthGuard* 进行认证
 
 Make the `AuthGuard` at least pretend to authenticate.
 
@@ -4386,7 +4386,7 @@ This secondary navigation automatically cancels the current navigation; `checkLo
 
 #### Add the *LoginComponent*
 
-#### 添加*LoginComponent*
+#### 添加 *LoginComponent*
 
 You need a `LoginComponent` for the user to log in to the app. After logging in, you'll redirect
 to the stored URL if available, or use the default URL.
@@ -4544,7 +4544,7 @@ Instead, the app updates the entity when the user presses the *Save* button and
 discards the changes when the user presses the *Cancel* button.
 
 用户在 `CrisisDetailComponent` 中更新危机信息。
-与 `HeroDetailComponent` 不同，用户的改动不会立即更新危机的实体对象。当用户按下了*Save*按钮时，我们就更新这个实体对象；如果按了*Cancel*按钮，那就放弃这些更改。
+与 `HeroDetailComponent` 不同，用户的改动不会立即更新危机的实体对象。当用户按下了 *Save* 按钮时，我们就更新这个实体对象；如果按了 *Cancel* 按钮，那就放弃这些更改。
 
 Both buttons navigate back to the crisis list after save or cancel.
 
@@ -4939,7 +4939,7 @@ authentication tokens or session ids.
 The `query params` and `fragment` can also be preserved using a `RouterLink` with
 the `queryParamsHandling` and `preserveFragment` bindings respectively.
 
-“查询参数”和“片段”也可以分别用 `RouterLink` 中的**preserveQueryParams**和**preserveFragment**保存。
+“查询参数”和“片段”也可以分别用 `RouterLink` 中的 **preserveQueryParams** 和 **preserveFragment** 保存。
 
 </div>
 
@@ -5038,7 +5038,7 @@ the module and routes are available immediately for subsequent requests.
 Angular provides a built-in module loader that supports SystemJS to load modules asynchronously. If you were
 using another bundling tool, such as Webpack, you would use the Webpack mechanism for asynchronously loading modules.
 
-Angular 提供一个内置模块加载器，支持**`SystemJS`**来异步加载模块。如果我们使用其它捆绑工具比如**Webpack**，则使用 Webpack 的机制来异步加载模块。
+Angular 提供一个内置模块加载器，支持**`SystemJS`**来异步加载模块。如果我们使用其它捆绑工具比如 **Webpack**，则使用 Webpack 的机制来异步加载模块。
 
 </div>
 
@@ -5681,7 +5681,7 @@ any legal sequence of route paths, (required) router parameters, and (optional) 
 
 ### Appendix: *LocationStrategy* and browser URL styles
 
-### 附录：*LocationStrategy*以及浏览器 URL 样式
+### 附录：*LocationStrategy* 以及浏览器 URL 样式
 
 When the router navigates to a new component view, it updates the browser's location and history
 with a URL for that view.

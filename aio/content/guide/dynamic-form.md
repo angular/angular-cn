@@ -184,7 +184,7 @@ The `ngSwitch` determines which type of question to display.
 In both components  you're relying on Angular's **formGroup** to connect the template HTML to the
 underlying control objects, populated from the question model with display and validation rules.
 
-在这两个组件中，我们依赖 Angular 的**formGroup**来把模板 HTML 和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
+在这两个组件中，我们依赖 Angular 的 **formGroup** 来把模板 HTML 和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
 
 `formControlName` and `formGroup` are directives defined in
 `ReactiveFormsModule`. The templates can access these directives

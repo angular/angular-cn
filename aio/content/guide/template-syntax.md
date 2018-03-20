@@ -429,7 +429,7 @@ The *statement context* is typically the component instance.
 The *deleteHero* in `(click)="deleteHero()"` is a method of the data-bound component.
 
 典型的*语句上下文*就是当前组件的实例。
-`(click)="deleteHero()"` 中的*deleteHero*就是这个数据绑定组件上的一个方法。
+`(click)="deleteHero()"` 中的 *deleteHero* 就是这个数据绑定组件上的一个方法。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" title="src/app/app.component.html" linenums="false">
 
@@ -813,7 +813,7 @@ so the button is disabled.
 Adding and removing the `disabled` *attribute* disables and enables the button. The value of the *attribute* is irrelevant,
 which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
 
-添加或删除 `disabled` 这个 *attribute*会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
+添加或删除 `disabled` 这个 *attribute* 会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
 `<button disabled="false">仍被禁用</button>` 这种写法来启用按钮。
 
 Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
@@ -2779,7 +2779,7 @@ The `NgForm` directive does that.
 
 大多数情况下，Angular 会把模板引用变量的值设置为声明它的那个元素。
 在上一个例子中，`phone` 引用的是表示*电话号码*的 `<input>` 框。
-"拨号"按钮的点击事件处理器把这个*input*值传给了组件的 `callPhone` 方法。
+"拨号"按钮的点击事件处理器把这个 *input* 值传给了组件的 `callPhone` 方法。
 不过，指令也可以修改这种行为，让这个值引用到别处，比如它自身。
 `NgForm` 指令就是这么做的。
 

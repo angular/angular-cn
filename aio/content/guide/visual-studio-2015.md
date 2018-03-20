@@ -92,7 +92,7 @@ Configure Visual Studio to use the global external web tools instead of the tool
 
   * Open the **Options** dialog with `Tools` | `Options`.
 
-     到 `Tools` | `Options` 打开**Options**对话框
+     到 `Tools` | `Options` 打开 **Options** 对话框
 
   * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
 
@@ -210,7 +210,7 @@ Include the files in the Visual Studio project as follows:
 
   * src/app folder (answer *No*  if asked to search for TypeScript Typings)
 
-     src/app 目录（如果询问是否要搜索 TypeScript 类型，回答*No*）
+     src/app 目录（如果询问是否要搜索 TypeScript 类型，回答 *No*）
 
   * src/styles.css
 
@@ -382,7 +382,7 @@ match the base href in `index.html`.
 
 Build and launch the app with debugger by clicking the **Run** button or by pressing `F5`.
 
-点击**Run**按钮或者按 `F5` 键，用调试器构建和启动应用。
+点击 **Run** 按钮或者按 `F5` 键，用调试器构建和启动应用。
 
 <div class="l-sub-section">
 

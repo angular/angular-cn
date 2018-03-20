@@ -232,7 +232,7 @@ Your pipe has one such parameter: the `exponent`.
 
 ## The *PipeTransform* interface
 
-## *PipeTransform*接口
+## *PipeTransform* 接口
 
 The `transform` method is essential to a pipe.
 The `PipeTransform` *interface* defines that method and guides both tooling and the compiler.
@@ -745,7 +745,7 @@ Try writing a custom pipe and perhaps contributing it to the community.
 
 ## Appendix: No *FilterPipe* or *OrderByPipe*
 
-## 附录：没有*FilterPipe*或者*OrderByPipe*
+## 附录：没有 *FilterPipe* 或者 *OrderByPipe*
 
 Angular doesn't provide pipes for filtering or sorting lists.
 Developers familiar with AngularJS know these as `filter` and `orderBy`.

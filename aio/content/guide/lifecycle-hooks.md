@@ -568,7 +568,7 @@ The next examples focus on hook details.
 
 ## Spying *OnInit* and *OnDestroy*
 
-## 窥探*OnInit*和*OnDestroy*
+## 窥探 *OnInit* 和 *OnDestroy*
 
 Go undercover with these two spy hooks to discover when an element is initialized or destroyed.
 
@@ -634,7 +634,7 @@ The *Reset* button clears the `heroes` list.
 Angular removes all hero `<div>` elements from the DOM and destroys their spy directives at the same time.
 The spy's `ngOnDestroy()` method reports its last moments.
 
-*Reset*按钮清除了这个 `heroes` 列表。
+*Reset* 按钮清除了这个 `heroes` 列表。
 Angular 从 DOM 中移除了所有英雄的 div，并且同时销毁了附加在这些 div 上的侦探指令。
 侦探的 `ngOnDestroy()` 方法汇报了它自己的临终时刻。
 
@@ -781,7 +781,7 @@ The log entries appear as the string value of the *power* property changes.
 But the `ngOnChanges` does not catch changes to `hero.name`
 That's surprising at first.
 
-当*power*属性的字符串值变化时，相应的日志就出现了。
+当 *power* 属性的字符串值变化时，相应的日志就出现了。
 但是 `ngOnChanges` 并没有捕捉到 `hero.name` 的变化。
 这是第一个意外。
 
@@ -815,7 +815,7 @@ Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch
 
 The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoCheck()` hook:
 
-*DoCheck*范例通过下面的 `ngDoCheck()` 实现扩展了*OnChanges*范例：
+*DoCheck* 范例通过下面的 `ngDoCheck()` 实现扩展了 *OnChanges* 范例：
 
 <code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" title="DoCheckComponent (ngDoCheck)" linenums="false"></code-example>
 
@@ -859,7 +859,7 @@ Clearly our implementation must be very lightweight or the user experience suffe
 The *AfterView* sample explores the `AfterViewInit()` and `AfterViewChecked()` hooks that Angular calls
 *after* it creates a component's child views.
 
-*AfterView*例子展示了 `AfterViewInit()` 和 `AfterViewChecked()` 钩子，Angular 会在每次创建了组件的子视图后调用它们。
+*AfterView* 例子展示了 `AfterViewInit()` 和 `AfterViewChecked()` 钩子，Angular 会在每次创建了组件的子视图后调用它们。
 
 Here's a child view that displays a hero's name in an `<input>`:
 
@@ -912,7 +912,7 @@ for one turn of the browser's JavaScript cycle and that's just long enough.
 
 Here's *AfterView* in action:
 
-这里是*AfterView*的操作演示：
+这里是 *AfterView* 的操作演示：
 
 <figure>
   <img src='generated/images/guide/lifecycle-hooks/after-view-anim.gif' alt="AfterView">
@@ -933,7 +933,7 @@ Write lean hook methods to avoid performance problems.
 The *AfterContent* sample explores the `AfterContentInit()` and `AfterContentChecked()` hooks that Angular calls
 *after* Angular projects external content into the component.
 
-*AfterContent*例子展示了 `AfterContentInit()` 和 `AfterContentChecked()` 钩子，Angular 会在外来内容被投影到组件中*之后*调用它们。
+*AfterContent* 例子展示了 `AfterContentInit()` 和 `AfterContentChecked()` 钩子，Angular 会在外来内容被投影到组件中*之后*调用它们。
 
 {@a content-projection}
 
@@ -950,7 +950,7 @@ into the component's template in a designated spot.
 
   AngularJS developers know this technique as *transclusion*.
 
-  AngularJS 的开发者大概知道一项叫做*transclusion*的技术，对，这就是它的马甲。
+  AngularJS 的开发者大概知道一项叫做 *transclusion* 的技术，对，这就是它的马甲。
 
 </div>
 
@@ -1013,23 +1013,23 @@ In this case, the projected content is the `<my-child>` from the parent.
 *AfterContent* hooks are similar to the *AfterView* hooks.
 The key difference is in the child component.
 
-*AfterContent*钩子和*AfterView*相似。关键的不同点是子组件的类型不同。
+*AfterContent* 钩子和 *AfterView* 相似。关键的不同点是子组件的类型不同。
 
 * The *AfterView* hooks concern `ViewChildren`, the child components whose element tags
 appear *within* the component's template.
 
-   *AfterView*钩子所关心的是 `ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
+   *AfterView* 钩子所关心的是 `ViewChildren`，这些子组件的元素标签会出现在该组件的模板*里面*。
 
 * The *AfterContent* hooks concern `ContentChildren`, the child components that Angular
 projected into the component.
 
-   *AfterContent*钩子所关心的是 `ContentChildren`，这些子组件被 Angular 投影进该组件中。
+   *AfterContent* 钩子所关心的是 `ContentChildren`，这些子组件被 Angular 投影进该组件中。
 
 The following *AfterContent* hooks take action based on changing values in a *content child*,
 which can only be reached by querying for them via the property decorated with
 [@ContentChild](api/core/ContentChild).
 
-下列*AfterContent*钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
+下列 *AfterContent* 钩子基于*子级内容*中值的变化而采取相应的行动，这里我们只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
 
 <code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false"></code-example>
 
@@ -1037,7 +1037,7 @@ which can only be reached by querying for them via the property decorated with
 
 ### No unidirectional flow worries with _AfterContent_
 
-### 使用**AfterContent**时，无需担心单向数据流规则
+### 使用 **AfterContent** 时，无需担心单向数据流规则
 
 This component's `doSomething()` method update's the component's data-bound `comment` property immediately.
 There's no [need to wait](guide/lifecycle-hooks#wait-a-tick).
@@ -1050,6 +1050,6 @@ Angular completes composition of the projected content *before* finishing the co
 There is a small window between the `AfterContent...` and `AfterView...` hooks to modify the host view.
 
 
-回忆一下，Angular 在每次调用*AfterView*钩子之前也会同时调用*AfterContent*。
+回忆一下，Angular 在每次调用 *AfterView* 钩子之前也会同时调用 *AfterContent*。
 Angular 在完成当前组件的视图合成之前，就已经完成了被投影内容的合成。
 所以我们仍然有机会去修改那个视图。

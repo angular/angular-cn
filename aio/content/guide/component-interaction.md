@@ -255,7 +255,7 @@ and the method processes it:
 
 Test that clicking the *Agree* and *Disagree* buttons update the appropriate counters:
 
-测试确保点击*Agree*和*Disagree*按钮时，计数器被正确更新。
+测试确保点击 *Agree* 和 *Disagree* 按钮时，计数器被正确更新。
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e/app.e2e-spec.ts">
 
@@ -331,7 +331,7 @@ Test that the seconds displayed in the parent template
 match the seconds displayed in the child's status message.
 Test also that clicking the *Stop* button pauses the countdown timer:
 
-测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击*Stop*按钮来停止倒计时：
+测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击 *Stop* 按钮来停止倒计时：
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e/app.e2e-spec.ts">
 
@@ -361,7 +361,7 @@ must read or write child component values or must call child component methods.
 When the parent component *class* requires that kind of access,
 ***inject*** the child component into the parent as a *ViewChild*.
 
-当父组件*类*需要这种访问时，可以把子组件作为*ViewChild*，***注入***到父组件里面。
+当父组件*类*需要这种访问时，可以把子组件作为 *ViewChild*，***注入***到父组件里面。
 
 The following example illustrates this technique with the same
 [Countdown Timer](guide/component-interaction#countdown-timer-example) example.
@@ -376,7 +376,7 @@ The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-
 The switch from the *local variable* to the *ViewChild* technique
 is solely for the purpose of demonstration.
 
-由*本地变量*切换到*ViewChild*技术的唯一目的就是做示范。
+由*本地变量*切换到 *ViewChild* 技术的唯一目的就是做示范。
 
 </div>
 
@@ -504,7 +504,7 @@ The *History* log demonstrates that messages travel in both directions between
 the parent `MissionControlComponent` and the `AstronautComponent` children,
 facilitated by the service:
 
-*History*日志证明了：在父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 之间，信息通过该服务实现了双向传递。
+*History* 日志证明了：在父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 之间，信息通过该服务实现了双向传递。
 
 <figure>
   <img src="generated/images/guide/component-interaction/bidirectional-service.gif" alt="bidirectional-service">
@@ -517,7 +517,7 @@ facilitated by the service:
 Tests click buttons of both the parent `MissionControlComponent` and the `AstronautComponent` children
 and verify that the history meets expectations:
 
-测试确保点击父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 两个的组件的按钮时，*History*日志和预期的一样。
+测试确保点击父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 两个的组件的按钮时，*History* 日志和预期的一样。
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/app.e2e-spec.ts">
 

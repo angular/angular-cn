@@ -76,7 +76,7 @@ The `package.json` includes two sets of packages,
 The *dependencies* are essential to *running* the application.
 The *devDependencies* are only necessary to *develop* the application.
 
-**dependencies**是**运行**应用的基础，而**devDependencies**只有在**开发**应用时才会用到。
+**dependencies** 是**运行**应用的基础，而 **devDependencies** 只有在**开发**应用时才会用到。
 
 {@a dependencies}
 

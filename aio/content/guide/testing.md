@@ -4730,7 +4730,7 @@ Here are the most important properties for testers, in order of likely utility.
 The _fixture_ methods cause Angular to perform certain tasks on the component tree.
 Call these method to trigger Angular behavior in response to simulated user action.
 
-**fixture**方法使 Angular 对组件树执行某些任务。
+**fixture** 方法使 Angular 对组件树执行某些任务。
 在触发 Angular 行为来模拟的用户行为时，调用这些方法。
 
 Here are the most useful methods for testers.
@@ -4810,7 +4810,7 @@ Here are the most useful methods for testers.
       When your test code modifies component property values directly,
       you probably still have to call `fixture.detectChanges` to trigger data binding updates.
 
-      当自动检测打开时，测试 fixture 监听**zone**事件，并调用 `detectChanges`。
+      当自动检测打开时，测试 fixture 监听 **zone** 事件，并调用 `detectChanges`。
       当你的测试代码直接修改了组件属性值时，你还是要调用 `fixture.detectChanges` 来触发数据绑定更新。
 
       The default is `false`. Testers who prefer fine control over test behavior

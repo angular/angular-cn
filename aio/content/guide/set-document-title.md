@@ -98,7 +98,7 @@ Here's the complete solution:
 
 ## Why provide the `Title` service in `bootstrap`
 
-## 为什么要在*bootstrap*里面提供这个*Title*服务
+## 为什么要在 *bootstrap* 里面提供这个 *Title* 服务
 
 Generally you want to provide application-wide services in the root application component, `AppComponent`.
 

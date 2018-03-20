@@ -18,7 +18,7 @@ and for loading that code from a server into a browser.
 It's an excellent alternative to the *SystemJS* approach used elsewhere in the documentation.
 This guide offers a taste of Webpack and explains how to use it with Angular applications.
 
-它是我们在文档中到处使用的*SystemJS*的一个优秀替代品。这篇指南会带我们尝尝 Webpack 的滋味，并解释如何在 Angular 程序中使用它。
+它是我们在文档中到处使用的 *SystemJS* 的一个优秀替代品。这篇指南会带我们尝尝 Webpack 的滋味，并解释如何在 Angular 程序中使用它。
 
 {@a top}
 
@@ -393,7 +393,7 @@ Webpack，包括它的插件以及加载器，也是以 npm 包的形式安装�
 
 Open a terminal window and install the npm packages.
 
-打开命令行窗口并安装这些*npm*包
+打开命令行窗口并安装这些 *npm* 包
 
 <code-example language="sh" class="code-shell">
 
@@ -467,7 +467,7 @@ Gather the common configuration in a file called `webpack.common.js`.
 
 Webpack is a NodeJS-based tool that reads configuration from a JavaScript commonjs module file.
 
-Webpack 是基于 NodeJS 的一个工具，它能够从一个*commonjs*规范的 JavaScript 模块文件里读取配置。
+Webpack 是基于 NodeJS 的一个工具，它能够从一个 *commonjs* 规范的 JavaScript 模块文件里读取配置。
 
 The configuration imports dependencies with `require` statements
 and exports several objects as properties of a `module.exports` object.
@@ -498,7 +498,7 @@ and exports several objects as properties of a `module.exports` object.
 
 The first export is the `entry` object:
 
-如上所述，第一个导出的对象是*entries*：
+如上所述，第一个导出的对象是 *entries*：
 
 <code-example path="webpack/config/webpack.common.js" region="entries" title="config/webpack.common.js" linenums="false">
 
@@ -800,7 +800,7 @@ There are additional plugins:
 
 Thanks to the `DefinePlugin` and the `ENV` variable defined at top, you can enable Angular production mode like this:
 
-感谢*DefinePlugin*和顶部定义的 `ENV` 变量，我们就可以像这样启用 Angular 的产品模式了：
+感谢 *DefinePlugin* 和顶部定义的 `ENV` 变量，我们就可以像这样启用 Angular 的产品模式了：
 
 <code-example path="webpack/src/main.ts" region="enable-prod" title="src/main.ts" linenums="false">
 

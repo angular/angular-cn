@@ -11,7 +11,7 @@ TypeScript 是 Angular 应用开发中使用的主语言。
 Browsers can't execute TypeScript directly. Typescript must be "transpiled" into JavaScript using the *tsc* compiler,
 which requires some configuration.
 
-浏览器不能直接执行 TypeScript。它得先用*tsc*编译器转译(transpile)成 JavaScript，而且编译器需要进行一些配置。
+浏览器不能直接执行 TypeScript。它得先用 *tsc* 编译器转译(transpile)成 JavaScript，而且编译器需要进行一些配置。
 
 This page covers some aspects of TypeScript configuration and the TypeScript environment
 that are important to Angular developers, including details about the following files:
@@ -61,7 +61,7 @@ This file contains options and flags that are essential for Angular applications
 
 ### *noImplicitAny* and *suppressImplicitAnyIndexErrors*
 
-### *noImplicitAny*与*suppressImplicitAnyIndexErrors*
+### *noImplicitAny* 与 *suppressImplicitAnyIndexErrors*
 
 TypeScript developers disagree about whether the `noImplicitAny` flag should be `true` or `false`.
 There is no correct answer and you can change the flag later.
@@ -208,7 +208,7 @@ QuickStart identifies two *typings*, or `d.ts`, files:
 * [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *nodejs* environment;
 you can view an example in the [webpack](guide/webpack) page.
 
-   [node](https://www.npmjs.com/package/@types/node)是为了在*nodejs*环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
+   [node](https://www.npmjs.com/package/@types/node)是为了在 *nodejs* 环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
 
 QuickStart doesn't require these typings but many of the samples do.
 

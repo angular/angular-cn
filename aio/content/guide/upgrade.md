@@ -5,7 +5,7 @@
 _Angular_ is the name for the Angular of today and tomorrow.
 _AngularJS_ is the name for all v1.x versions of Angular.
 
-*Angular*这个名字专指现在和未来的 Angular 版本，而*AngularJS*专指 Angular 的所有 v1.x 版本。
+*Angular* 这个名字专指现在和未来的 Angular 版本，而 *AngularJS* 专指 Angular 的所有 v1.x 版本。
 
 AngularJS apps are great.
 Always consider the business case before moving to Angular.
@@ -622,7 +622,7 @@ scope (or controller) when they change.
 
 ### Using UpgradeModule with Angular _NgModules_
 
-### 通过 Angular 的*NgModule*来使用 UpgradeModule
+### 通过 Angular 的 *NgModule* 来使用 UpgradeModule
 
 Both AngularJS and Angular have their own concept of modules
 to help organize an application into cohesive blocks of functionality.
@@ -2035,7 +2035,7 @@ and add a mapping for the `@angular/upgrade/static` package.
 
 ### Creating the _AppModule_
 
-### 创建*AppModule*
+### 创建 *AppModule*
 
 Now create the root `NgModule` class called `AppModule`.
 There is already a file named `app.module.ts` that holds the AngularJS module.
@@ -2114,7 +2114,7 @@ exciting! You're not running any actual Angular components yet. That's next.
 
 #### Why declare _angular_ as _angular.IAngularStatic_?
 
-#### 为何要声明*angular*为*angular.IAngularStatic*？
+#### 为何要声明 *angular* 为*angular.IAngularStatic*？
 
 `@types/angular` is declared as a UMD module, and due to the way
 <a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#support-for-umd-module-definitions">UMD typings</a>
@@ -2515,7 +2515,7 @@ You should now also remove the phone detail component &lt;script&gt; tag from `i
 
 #### Add the _CheckmarkPipe_
 
-#### 添加*CheckmarkPipe*
+#### 添加 *CheckmarkPipe*
 
 The AngularJS directive had a `checkmark` _filter_.
 Turn that into an Angular **pipe**.
@@ -3045,7 +3045,7 @@ an AngularJS app anymore, but instead it should find *Angular apps* from
 the page.
 
 当引导方式从 `UpgradeModule` 切换到纯 Angular 的时，AngularJS 就从页面中完全消失了。
-此时，我们需要告诉 Protractor，它不用再找 AngularJS 应用了，而是从页面中查找*Angular*应用。
+此时，我们需要告诉 Protractor，它不用再找 AngularJS 应用了，而是从页面中查找 *Angular* 应用。
 于是在 `protractor-conf.js` 中做下列修改：
 
 Replace the `ng12Hybrid` previously added with the following in `protractor-conf.js`:

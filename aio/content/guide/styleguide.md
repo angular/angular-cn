@@ -1025,7 +1025,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** use a custom prefix for the selector of directives (e.g, the prefix `toh` from **T**our **o**f **H**eroes).
 
-**坚持**为指令的选择器添加自定义前缀（例如前缀 `toh` 来自**T**our **o**f **H**eroes）。
+**坚持**为指令的选择器添加自定义前缀（例如前缀 `toh` 来自 **T**our **o**f **H**eroes）。
 
 </div>
 

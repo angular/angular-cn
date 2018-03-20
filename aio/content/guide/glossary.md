@@ -990,7 +990,7 @@ For more information, see the [Routing & Navigation](guide/router) page.
 A way to group related *npm* packages.
 Read more at the [npm-scope](https://docs.npmjs.com/misc/scope) page.
 
-对相关的*npm*包进行分组的一种方式，参阅[npm-scope](https://docs.npmjs.com/misc/scope)。
+对相关的 *npm* 包进行分组的一种方式，参阅[npm-scope](https://docs.npmjs.com/misc/scope)。
 
 NgModules are delivered within *scoped packages* such as `@angular/core`,
 `@angular/common`, `@angular/platform-browser-dynamic`, `@angular/http`, and `@angular/router`.

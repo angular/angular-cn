@@ -656,7 +656,7 @@ The code behind it gives you plenty to think about.
 
 #### The *provide* object literal
 
-#### *provide*对象
+#### *provide* 对象
 
 The `provide` object literal takes a *token* and a *definition object*.
 The *token* is usually a class but [it doesn't have to be](guide/dependency-injection-in-action#tokens).
@@ -911,7 +911,7 @@ for the full source code.
 
 ## Provider token alternatives: the *class-interface* and *InjectionToken*
 
-## 备选提供商令牌：*类-接口*和*InjectionToken*
+## 备选提供商令牌：*类-接口*和 *InjectionToken*
 
 Angular dependency injection is easiest when the provider *token* is a class
 that is also the type of the returned dependency object, or what you usually call the *service*.
@@ -977,7 +977,7 @@ Such a narrowing interface helps decouple the concrete class from its consumers.
 
 #### Why *MinimalLogger* is a class and not a TypeScript interface
 
-#### 为什么*MinimalLogger*是一个类而不是一个 TypeScript 接口
+#### 为什么 *MinimalLogger* 是一个类而不是一个 TypeScript 接口
 
 You can't use an interface as a provider token because
 interfaces are not JavaScript objects.
@@ -1033,7 +1033,7 @@ The `InjectionToken` has these characteristics.
 You encountered them twice in the *Hero of the Month* example,
 in the *title* value provider and in the *runnersUp* factory provider.
 
-`InjectionToken` 具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是*title*的值，一个是*runnersUp* 工厂提供商。
+`InjectionToken` 具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是 *title* 的值，一个是 *runnersUp* 工厂提供商。
 
 <code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="provide-injection-token" title="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
 
@@ -1191,7 +1191,7 @@ In the following example, the parent `AlexComponent` has several children includ
 *Cathy* reports whether or not she has access to *Alex*
 after injecting an `AlexComponent` into her constructor:
 
-在注入*AlexComponent` 进来后，*Cathy*报告它是否对*Alex*有访问权：
+在注入*AlexComponent` 进来后，*Cathy* 报告它是否对 *Alex* 有访问权：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" title="parent-finder.component.ts (CathyComponent)" linenums="false">
 
@@ -1286,7 +1286,7 @@ The parent must cooperate by providing an *alias* to itself in the name of a *cl
 Recall that Angular always adds a component instance to its own injector;
 that's why you could inject *Alex* into *Cathy* [earlier](guide/dependency-injection-in-action#known-parent).
 
-请记住 Angular 总是从它自己的注入器添加一个组件实例；这就是为什么在[之前](guide/dependency-injection-in-action#known-parent)可以*Alex*注入到*Carol*。
+请记住 Angular 总是从它自己的注入器添加一个组件实例；这就是为什么在[之前](guide/dependency-injection-in-action#known-parent)可以 *Alex* 注入到 *Carol*。
 
 Write an [*alias provider*](guide/dependency-injection-in-action#useexisting)&mdash;a `provide` object literal with a `useExisting`
 definition&mdash;that creates an *alternative* way to inject the same component instance
@@ -1309,7 +1309,7 @@ The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the c
 *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter,
 the same way you've done it before:
 
-*Carol*，*Alex*的第三个子组件，把父级注入到了自己的 `parent` 参数，和之前做的一样：
+*Carol*，*Alex* 的第三个子组件，把父级注入到了自己的 `parent` 参数，和之前做的一样：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" title="parent-finder.component.ts (CarolComponent class)" linenums="false">
 
@@ -1317,7 +1317,7 @@ the same way you've done it before:
 
 Here's *Alex* and family in action:
 
-下面是*Alex*和其家庭的运行结果：
+下面是 *Alex* 和其家庭的运行结果：
 
 <figure>
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
@@ -1332,17 +1332,17 @@ Here's *Alex* and family in action:
 Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*.
 Both *Alice* and *Barry* implement the `Parent` *class-interface*.
 
-想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。*Alice*和*Barry*都实现了这个 `Parent`*类-接口*。
+想象组件树中的一个分支为：*Alice* -> *Barry* -> *Carol*。*Alice* 和 *Barry* 都实现了这个 `Parent`*类-接口*。
 
 *Barry* is the problem. He needs to reach his parent, *Alice*, and also be a parent to *Carol*.
 That means he must both *inject* the `Parent` *class-interface* to get *Alice* and
 *provide* a `Parent` to satisfy *Carol*.
 
-*Barry*是个问题。它需要访问它的父组件*Alice*，但同时它也是*Carol*的父组件。这个意味着它必须同时*注入*`Parent`*类-接口*来获取*Alice*，和*提供*一个 `Parent` 来满足*Carol*。
+*Barry* 是个问题。它需要访问它的父组件 *Alice*，但同时它也是 *Carol* 的父组件。这个意味着它必须同时*注入*`Parent`*类-接口*来获取 *Alice*，和*提供*一个 `Parent` 来满足 *Carol*。
 
 Here's *Barry*:
 
-下面是*Barry*的代码：
+下面是 *Barry* 的代码：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" title="parent-finder.component.ts (BarryComponent)" linenums="false">
 
@@ -1351,12 +1351,12 @@ Here's *Barry*:
 *Barry*'s `providers` array looks just like [*Alex*'s](guide/dependency-injection-in-action#alex-providers).
 If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](guide/dependency-injection-in-action#provideparent).
 
-*Barry*的 `providers` 数组看起来很像[*Alex*的那个](guide/dependency-injection-in-action#alex-providers).
+*Barry* 的 `providers` 数组看起来很像[*Alex* 的那个](guide/dependency-injection-in-action#alex-providers).
 如果准备一直像这样编写[*别名提供商*](guide/dependency-injection-in-action#useexisting)的话，我们应该建立一个[帮助函数](guide/dependency-injection-in-action#provideparent)。
 
 For now, focus on *Barry*'s constructor:
 
-眼下，请注意*Barry*的构造函数：
+眼下，请注意 *Barry* 的构造函数：
 
 <code-tabs>
 
@@ -1372,7 +1372,7 @@ For now, focus on *Barry*'s constructor:
 
 It's identical to *Carol*'s constructor except for the additional `@SkipSelf` decorator.
 
-除额外添加了一个的 `@SkipSelf` 外，它和*Carol*的构造函数一样。
+除额外添加了一个的 `@SkipSelf` 外，它和 *Carol* 的构造函数一样。
 
 `@SkipSelf` is essential for two reasons:
 
@@ -1393,7 +1393,7 @@ which *is* what parent means.
 
 Here's *Alice*, *Barry* and family in action:
 
-这里是*Alice*，*Barry*和该家庭的操作演示：
+这里是 *Alice*，*Barry* 和该家庭的操作演示：
 
 <figure>
   <img src="generated/images/guide/dependency-injection-in-action/alice.png" alt="Alice in action">
@@ -1403,7 +1403,7 @@ Here's *Alice*, *Barry* and family in action:
 
 ### The *Parent* class-interface
 
-### *Parent*类-接口
+### *Parent* 类-接口
 
 You [learned earlier](guide/dependency-injection-in-action#class-interface) that a *class-interface* is an abstract class used as an interface rather than as a base class.
 
