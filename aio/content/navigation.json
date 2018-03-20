@@ -227,63 +227,63 @@
           "tooltip": "在应用的根模块（AppModule）中告诉 Angular 如何构造并引导引用。"
         },
         {
-          "title": "NgModules",
-          "tooltip": "NgModules.",
+          "title": "Angular 模块",
+          "tooltip": "Angular 中的模块",
           "children": [
             {
               "url": "guide/ngmodules",
-              "title": "NgModules Introduction",
-              "tooltip": "Use NgModules to make your apps efficient."
+              "title": "NgModule 简介",
+              "tooltip": "使用 NgModule 让你的应用更高效"
             },
             {
               "url": "guide/ngmodule-vs-jsmodule",
-              "title": "JS Modules vs NgModules",
-              "tooltip": "Differentiate between JavaScript modules and NgModules."
+              "title": "JS 模块 vs NgModule",
+              "tooltip": "JavaScript 模块和 NgModule 之间的差异"
             },
             {
               "url": "guide/frequent-ngmodules",
-              "title": "Frequently Used NgModules",
-              "tooltip": "Introduction to the most frequently used NgModules."
+              "title": "常用模块",
+              "tooltip": "介绍最常用的 Angular 模块"
             },
             {
               "url": "guide/module-types",
-              "title": "Types of Feature Modules",
-              "tooltip": "Description of the different types of feature modules."
+              "title": "特性模块的分类",
+              "tooltip": "介绍特性模块的几种类型"
             },
             {
               "url": "guide/entry-components",
-              "title": "Entry Components",
-              "tooltip": "All about entry components in Angular."
+              "title": "入口组件",
+              "tooltip": "关于 Angular 中入口组件的一切"
             },
             {
               "url": "guide/feature-modules",
-              "title": "Feature Modules",
-              "tooltip": "Create feature modules to organize your code."
+              "title": "特性模块",
+              "tooltip": "创建特性模块，以组织你的代码"
             },
             {
               "url": "guide/providers",
-              "title": "Providers",
-              "tooltip": "Providers and NgModules."
+              "title": "服务提供商",
+              "tooltip": "服务提供商与 Angular 模块"
             },
             {
               "url": "guide/singleton-services",
-              "title": "Singleton Services",
-              "tooltip": "Creating singleton services."
+              "title": "单例应用",
+              "tooltip": "创建单例应用"
             },
             {
               "url": "guide/lazy-loading-ngmodules",
-              "title": "Lazy Loading Feature Modules",
-              "tooltip": "Lazy load modules to speed up your apps."
+              "title": "惰性加载的特性模块",
+              "tooltip": "惰性加载模块，以提高应用的性能"
             },
             {
               "url": "guide/sharing-ngmodules",
-              "title": "Sharing NgModules",
-              "tooltip": "Share NgModules to streamline your apps."
+              "title": "共享 Angular 模块",
+              "tooltip": "共享 Angular 模块让你的应用现代化。"
             },
             {
               "url": "guide/ngmodule-api",
               "title": "NgModule API",
-              "tooltip": "Understand the details of NgModules."
+              "tooltip": "理解 NgModule 的那些细节。"
             },
             {
               "url": "guide/ngmodule-faq",
