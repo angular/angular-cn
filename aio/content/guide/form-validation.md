@@ -29,19 +29,19 @@ To add validation to a template-driven form, you add the same validation attribu
 would with [native HTML form validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation). 
 Angular uses directives to match these attributes with validator functions in the framework.
 
-为了往模板驱动表单中添加验证机制，我们要添加一些验证属性，就像[原生的HTML表单验证器](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)。
+为了往模板驱动表单中添加验证机制，我们要添加一些验证属性，就像[原生的 HTML 表单验证器](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)。
 Angular 会用指令来匹配这些具有验证功能的指令。
 
 Every time the value of a form control changes, Angular runs validation and generates 
 either a list of validation errors, which results in an INVALID status, or null, which results in a VALID status.
 
-每当表单控件中的值发生变化时，Angular 就会进行验证，并生成一个验证错误的列表（对应着INVALID状态）或者null（对应着VALID状态）。
+每当表单控件中的值发生变化时，Angular 就会进行验证，并生成一个验证错误的列表（对应着 INVALID 状态）或者 null（对应着 VALID 状态）。
 
 You can then inspect the control's state by exporting `ngModel` to a local template variable.
 The following example exports `NgModel` into a variable called `name`:
 
-我们可以通过把`ngModel`导出成局部模板变量来查看该控件的状态。
-比如下面这个例子就把`NgModel`导出成了一个名叫`name`的变量：
+我们可以通过把 `ngModel` 导出成局部模板变量来查看该控件的状态。
+比如下面这个例子就把 `NgModel` 导出成了一个名叫 `name` 的变量：
 
 <code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-with-error-msg" title="template/hero-form-template.component.html (name)" linenums="false">
 
@@ -55,23 +55,23 @@ Note the following:
 also carries a custom validator directive, `forbiddenName`. For more 
 information, see [Custom validators](guide/form-validation#custom-validators) section.
 
-   `<input>`元素带有一些HTML验证属性：`required` 和 `minlength`。它还带有一个自定义的验证器指令`forbiddenName`。要了解更多信息，参见[自定义验证器](guide/form-validation#custom-validators)一节。
+   `<input>` 元素带有一些 HTML 验证属性：`required` 和 `minlength`。它还带有一个自定义的验证器指令 `forbiddenName`。要了解更多信息，参见[自定义验证器](guide/form-validation#custom-validators)一节。
 
 * `#name="ngModel"` exports `NgModel` into a local variable called `name`. `NgModel` mirrors many of the properties of its underlying 
 `FormControl` instance, so you can use this in the template to check for control states such as `valid` and `dirty`. For a full list of control properties, see the [AbstractControl](api/forms/AbstractControl) 
 API reference.
 
-   `#name="ngModel"`把`NgModel`导出成了一个名叫`name`的局部变量。`NgModel`把自己控制的`FormControl`实例的属性映射出去，让我们能在模板中检查控件的状态，比如`valid`和`dirty`。要了解完整的控件属性，参见 API 参考手册中的[AbstractControl](api/forms/AbstractControl)。
+   `#name="ngModel"` 把 `NgModel` 导出成了一个名叫 `name` 的局部变量。`NgModel` 把自己控制的 `FormControl` 实例的属性映射出去，让我们能在模板中检查控件的状态，比如 `valid` 和 `dirty`。要了解完整的控件属性，参见 API 参考手册中的[AbstractControl](api/forms/AbstractControl)。
 
 * The `*ngIf` on the `<div>` element reveals a set of nested message `divs`
 but only if the `name` is invalid and the control is either `dirty` or `touched`.
 
-   `<div>`元素的`*ngIf`揭露了一套嵌套消息`divs`，但是只在有“name”错误和控制器为`dirty`或者`touched`。
+   `<div>` 元素的 `*ngIf` 揭露了一套嵌套消息 `divs`，但是只在有“name”错误和控制器为 `dirty` 或者 `touched`。
 
 * Each nested `<div>` can present a custom message for one of the possible validation errors.
 There are messages for `required`, `minlength`, and `forbiddenName`.
 
-   每个嵌套的`<div>`为其中一个可能出现的验证错误显示一条自定义消息。比如 `required`、`minlength`和 `forbiddenName`。
+   每个嵌套的 `<div>` 为其中一个可能出现的验证错误显示一条自定义消息。比如 `required`、`minlength` 和 `forbiddenName`。
 
 <div class="l-sub-section">
 
@@ -85,7 +85,7 @@ does one of two things: changes the value,
 turning the control dirty; or blurs the form control element, setting the control to touched.
 
 我们肯定不希望应用在用户还没有编辑过表单的时候就给他们显示错误提示。
-对`dirty`和`touched`的检查可以避免这种问题。改变控件的值会改变控件的`dirty`（脏）状态，而当控件失去焦点时，就会改变控件的`touched`（碰过）状态。
+对 `dirty` 和 `touched` 的检查可以避免这种问题。改变控件的值会改变控件的 `dirty`（脏）状态，而当控件失去焦点时，就会改变控件的 `touched`（碰过）状态。
 
 </div>
 
@@ -107,13 +107,13 @@ There are two types of validator functions: sync validators and async validators
 
 * **Sync validators**: functions that take a control instance and immediately return either a set of validation errors or `null`. You can pass these in as the second argument when you instantiate a `FormControl`.
 
-   **同步验证器**函数接受一个控件实例，然后返回一组验证错误或`null`。我们可以在实例化一个`FormControl`时把它作为构造函数的第二个参数传进去。
+   **同步验证器**函数接受一个控件实例，然后返回一组验证错误或 `null`。我们可以在实例化一个 `FormControl` 时把它作为构造函数的第二个参数传进去。
 
 * **Async validators**: functions that take a control instance and return a Promise 
 or Observable that later emits a set of validation errors or `null`. You can 
 pass these in as the third argument when you instantiate a `FormControl`. 
 
-   **异步验证器**函数接受一个控件实例，并返回一个承诺（Promise）或可观察对象（Observable），它们稍后会发出一组验证错误或者`null`。我们可以在实例化一个`FormControl`时把它作为构造函数的第三个参数传进去。
+   **异步验证器**函数接受一个控件实例，并返回一个承诺（Promise）或可观察对象（Observable），它们稍后会发出一组验证错误或者 `null`。我们可以在实例化一个 `FormControl` 时把它作为构造函数的第三个参数传进去。
 
 Note: for performance reasons, Angular only runs async validators if all sync validators pass. Each must complete before errors are set.
 
@@ -130,7 +130,7 @@ Angular's built-in validators.
 
 The same built-in validators that are available as attributes in template-driven forms, such as `required` and `minlength`, are all available to use as functions from the `Validators` class. For a full list of built-in validators, see the [Validators](api/forms/Validators) API reference.
 
-模板驱动表单中可用的那些属性型验证器（如`required`、`minlength`等）对应于`Validators`类中的同名函数。要想查看内置验证器的全列表，参见 API 参考手册中的[验证器](api/forms/Validators)部分。
+模板驱动表单中可用的那些属性型验证器（如 `required`、`minlength` 等）对应于 `Validators` 类中的同名函数。要想查看内置验证器的全列表，参见 API 参考手册中的[验证器](api/forms/Validators)部分。
 
 To update the hero form to be a reactive form, you can use some of the same 
 built-in validators&mdash;this time, in function form. See below:
@@ -149,7 +149,7 @@ Note that:
 
 * The name control sets up two built-in validators&mdash;`Validators.required` and `Validators.minLength(4)`&mdash;and one custom validator, `forbiddenNameValidator`. For more details see the [Custom validators](guide/form-validation#custom-validators) section in this guide.
 
-   `name`控件设置了两个内置验证器：`Validators.required` 和 `Validators.minLength(4)`。要了解更多信息，参见本章的[自定义验证器](guide/form-validation#custom-validators)一节。
+   `name` 控件设置了两个内置验证器：`Validators.required` 和 `Validators.minLength(4)`。要了解更多信息，参见本章的[自定义验证器](guide/form-validation#custom-validators)一节。
 
 * As these validators are all sync validators, you pass them in as the second argument. 
 
@@ -162,11 +162,11 @@ Note that:
 * This example adds a few getter methods. In a reactive form, you can always access any form control through the `get` method on its parent group, but sometimes it's useful to define getters as shorthands 
 for the template.
 
-   这个例子添加了一些getter方法。在响应式表单中，我们通常会通过它所属的控件组（FormGroup）的`get`方法来访问表单控件，但有时候为模板定义一些getter作为简短形式。
+   这个例子添加了一些 getter 方法。在响应式表单中，我们通常会通过它所属的控件组（FormGroup）的 `get` 方法来访问表单控件，但有时候为模板定义一些 getter 作为简短形式。
 
 If you look at the template for the name input again, it is fairly similar to the template-driven example. 
 
-如果我们到模板中找到name输入框，就会发现它和模板驱动的例子很相似。
+如果我们到模板中找到 name 输入框，就会发现它和模板驱动的例子很相似。
 
 <code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="name-with-error-msg" title="reactive/hero-form-reactive.component.html (name with error msg)" linenums="false">
 
@@ -179,12 +179,12 @@ Key takeaways:
  * The form no longer exports any directives, and instead uses the `name` getter defined in 
  the component class.
 
-    该表单不再导出任何指令，而是使用组件类中定义的`name`读取器。
+    该表单不再导出任何指令，而是使用组件类中定义的 `name` 读取器。
 
  * The `required` attribute is still present. While it's not necessary for validation purposes, 
  you may want to keep it in your template for CSS styling or accessibility reasons.
 
-    `required`属性仍然存在，虽然验证不再需要它，但我们仍然在模板中保留它，以支持 CSS 样式或可访问性。
+    `required` 属性仍然存在，虽然验证不再需要它，但我们仍然在模板中保留它，以支持 CSS 样式或可访问性。
 
 ## Custom validators
 
@@ -198,7 +198,7 @@ Consider the `forbiddenNameValidator` function from previous
 [examples](guide/form-validation#reactive-component-class) in 
 this guide. Here's what the definition of that function looks like:
 
-考虑前面的[例子](guide/form-validation#reactive-component-class)中的`forbiddenNameValidator`函数。该函数的定义看起来是这样的：
+考虑前面的[例子](guide/form-validation#reactive-component-class)中的 `forbiddenNameValidator` 函数。该函数的定义看起来是这样的：
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="custom-validator" title="shared/forbidden-name.directive.ts (forbiddenNameValidator)" linenums="false">
 
@@ -221,8 +221,8 @@ null if the control value is valid _or_ a validation error object.
 The validation error object typically has a property whose name is the validation key, `'forbiddenName'`,
 and whose value is an arbitrary dictionary of values that you could insert into an error message, `{name}`.
 
-`forbiddenNameValidator`工厂函数返回配置好的验证器函数。
-该函数接受一个Angular控制器对象，并在控制器值有效时返回null，或无效时返回验证错误对象。
+`forbiddenNameValidator` 工厂函数返回配置好的验证器函数。
+该函数接受一个 Angular 控制器对象，并在控制器值有效时返回 null，或无效时返回验证错误对象。
 验证错误对象通常有一个名为验证秘钥（`forbiddenName`）的属性。其值为一个任意词典，我们可以用来插入错误信息（`{name}`）。
 
 Custom async validators are similar to sync validators, but they must instead return a Promise or Observable
@@ -251,16 +251,16 @@ to the `FormControl`.
 In template-driven forms, you don't have direct access to the `FormControl` instance, so you can't pass the 
 validator in like you can for reactive forms. Instead, you need to add a directive to the template.
 
-在模板驱动表单中，我们不用直接访问`FormControl`实例。所以我们不能像响应式表单中那样把验证器传进去，而应该在模板中添加一个指令。
+在模板驱动表单中，我们不用直接访问 `FormControl` 实例。所以我们不能像响应式表单中那样把验证器传进去，而应该在模板中添加一个指令。
 
 The corresponding `ForbiddenValidatorDirective` serves as a wrapper around the `forbiddenNameValidator`.
 
-`ForbiddenValidatorDirective`指令相当于`forbiddenNameValidator`的包装器。
+`ForbiddenValidatorDirective` 指令相当于 `forbiddenNameValidator` 的包装器。
 
 Angular recognizes the directive's role in the validation process because the directive registers itself
 with the `NG_VALIDATORS` provider, a provider with an extensible collection of validators.
 
-Angular在验证流程中的识别出指令的作用，是因为指令把自己注册到了`NG_VALIDATORS`提供商中，该提供商拥有一组可扩展的验证器。
+Angular 在验证流程中的识别出指令的作用，是因为指令把自己注册到了 `NG_VALIDATORS` 提供商中，该提供商拥有一组可扩展的验证器。
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive-providers" title="shared/forbidden-name.directive.ts (providers)" linenums="false">
 
@@ -270,7 +270,7 @@ The directive class then implements the `Validator` interface, so that it can ea
 with Angular forms. Here is the rest of the directive to help you get an idea of how it all 
 comes together:
 
-然后该指令类实现了`Validator`接口，以便它能简单的与 Angular 表单集成在一起。这个指令的其余部分有助于你理解它们是如何协作的：
+然后该指令类实现了 `Validator` 接口，以便它能简单的与 Angular 表单集成在一起。这个指令的其余部分有助于你理解它们是如何协作的：
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive" title="shared/forbidden-name.directive.ts (directive)">
 
@@ -278,7 +278,7 @@ comes together:
 
 Once the `ForbiddenValidatorDirective` is ready, you can simply add its selector, `appForbiddenName`, to any input element to activate it. For example:
 
-一旦 `ForbiddenValidatorDirective` 写好了，我们只要把`forbiddenName`选择器添加到输入框上就可以激活这个验证器了。比如：
+一旦 `ForbiddenValidatorDirective` 写好了，我们只要把 `forbiddenName` 选择器添加到输入框上就可以激活这个验证器了。比如：
 
 <code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-input" title="template/hero-form-template.component.html (forbidden-name-input)" linenums="false">
 
@@ -293,7 +293,7 @@ its `forbiddenName` property bound to “bob". If you were to replace
 `useExisting` with `useClass`, then you’d be registering a new class instance, one that
 doesn’t have a `forbiddenName`.
 
-你可能注意到了自定义验证器指令是用`useExisting`而不是`useClass`来实例化的。注册的验证器必须是这个 `ForbiddenValidatorDirective` 实例本身，也就是表单中 `forbiddenName` 属性被绑定到了"bob"的那个。如果用`useClass`来代替`useExisting`，就会注册一个新的类实例，而它是没有`forbiddenName`的。
+你可能注意到了自定义验证器指令是用 `useExisting` 而不是 `useClass` 来实例化的。注册的验证器必须是这个 `ForbiddenValidatorDirective` 实例本身，也就是表单中 `forbiddenName` 属性被绑定到了"bob"的那个。如果用 `useClass` 来代替 `useExisting`，就会注册一个新的类实例，而它是没有 `forbiddenName` 的。
 
 </div>
 

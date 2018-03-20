@@ -86,7 +86,7 @@ The `hero` property
 annotated with the `@Input()` decorator,
 because the _external_ `HeroesComponent` [will bind to it](#heroes-component-template) like this.
 
-`hero` 属性[必须是一个带有`@Input()`装饰器的输入属性](guide/template-syntax#inputs-outputs "Input and Output properties")，因为*外部的* `HeroesComponent` 组件[将会绑定到它](#heroes-component-template)。就像这样：
+`hero` 属性[必须是一个带有 `@Input()` 装饰器的输入属性](guide/template-syntax#inputs-outputs "Input and Output properties")，因为*外部的* `HeroesComponent` 组件[将会绑定到它](#heroes-component-template)。就像这样：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding">
 

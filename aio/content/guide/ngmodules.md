@@ -1,6 +1,6 @@
 # NgModules
 
-# Angular模块 (NgModule)
+# Angular 模块 (NgModule)
 
 #### Prerequisites
 

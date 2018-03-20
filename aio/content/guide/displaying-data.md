@@ -41,7 +41,7 @@ is to bind the property name through interpolation.
 With interpolation, you put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
 
 要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
-要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如`{{myHero}}`。
+要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
 
 Follow the [quickstart](guide/quickstart) instructions for creating a new project
 named <code>displaying-data</code>.
@@ -55,7 +55,7 @@ Delete the <code>app.component.html</code> file. It is not needed for this examp
 Then modify the <code>app.component.ts</code> file by
 changing the template and the body of the component.
 
-然后，到`app.component.ts`文件中修改组件的模板和代码。
+然后，到 `app.component.ts` 文件中修改组件的模板和代码。
 
 When you're done, it should look like this:
 
@@ -67,7 +67,7 @@ When you're done, it should look like this:
 
 You added two properties to the formerly empty component: `title` and `myHero`.
 
-再把两个属性`title`和`myHero`添加到之前空白的组件中。
+再把两个属性 `title` 和 `myHero` 添加到之前空白的组件中。
 
 The template displays the two component properties using double curly brace
 interpolation:
@@ -95,7 +95,7 @@ Angular automatically pulls the value of the `title` and `myHero` properties fro
 inserts those values into the browser. Angular updates the display
 when these properties change.
 
-Angular 自动从组件中提取`title`和`myHero`属性的值，并且把这些值插入浏览器中。当这些属性发生变化时，Angular 就会自动刷新显示。
+Angular 自动从组件中提取 `title` 和 `myHero` 属性的值，并且把这些值插入浏览器中。当这些属性发生变化时，Angular 就会自动刷新显示。
 
 <div class="l-sub-section">
 
@@ -109,13 +109,13 @@ the view, such as a keystroke, a timer completion, or a response to an HTTP requ
 Notice that you don't call **new** to create an instance of the `AppComponent` class.
 Angular is creating an instance for you. How?
 
-注意，我们没有调用 **new** 来创建`AppComponent`类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
+注意，我们没有调用 **new** 来创建 `AppComponent` 类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
 
 The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
 That element is a placeholder in the body of your `index.html` file:
 
-注意`@Component`装饰器中指定的 CSS 选择器`selector`，它指定了一个叫`my-app`的元素。
-该元素是`index.html`的`body`里的占位符。
+注意 `@Component` 装饰器中指定的 CSS 选择器 `selector`，它指定了一个叫 `my-app` 的元素。
+该元素是 `index.html` 的 `body` 里的占位符。
 
 <code-example path="displaying-data/src/index.html" linenums="false" title="src/index.html (body)" region="body">
 
@@ -125,8 +125,8 @@ When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angu
 in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
 inside the `<app-root>` tag.
 
-当我们通过`main.ts`中的`AppComponent`类启动时，Angular 在`index.html`中查找一个`<app-root>`元素，
-然后实例化一个`AppComponent`，并将其渲染到`<app-root>`标签中。
+当我们通过 `main.ts` 中的 `AppComponent` 类启动时，Angular 在 `index.html` 中查找一个 `<app-root>` 元素，
+然后实例化一个 `AppComponent`，并将其渲染到 `<app-root>` 标签中。
 
 Now run the app. It should display the title and hero name:
 
@@ -150,8 +150,8 @@ the template in a separate HTML file and link to it in
 the component metadata using the `@Component` decorator's `templateUrl` property.
 
 你可以在两种地方存放组件模板。
-你可以使用`template`属性把它定义为*内联*的，或者把模板定义在一个独立的 HTML 文件中，
-再通过`@Component`装饰器中的`templateUrl`属性，
+你可以使用 `template` 属性把它定义为*内联*的，或者把模板定义在一个独立的 HTML 文件中，
+再通过 `@Component` 装饰器中的 `templateUrl` 属性，
 在组件元数据中把它链接到组件。
 
 The choice between inline and separate HTML is a matter of taste,
@@ -204,7 +204,7 @@ This app uses more terse "variable assignment" style simply for brevity.
 
 To display a list of heroes, begin by adding an array of hero names to the component and redefine `myHero` to be the first name in the array.
 
-要显示一个英雄列表，先向组件中添加一个英雄名字数组，然后把`myHero`重定义为数组中的第一个名字。
+要显示一个英雄列表，先向组件中添加一个英雄名字数组，然后把 `myHero` 重定义为数组中的第一个名字。
 
 <code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (class)" region="class">
 
@@ -213,7 +213,7 @@ To display a list of heroes, begin by adding an array of hero names to the compo
 Now use the Angular `ngFor` directive in the template to display
 each item in the `heroes` list.
 
-接着，在模板中使用 Angular 的`ngFor`指令来显示`heroes`列表中的每一项。
+接着，在模板中使用 Angular 的 `ngFor` 指令来显示 `heroes` 列表中的每一项。
 
 <code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
 
@@ -223,8 +223,8 @@ This UI uses the HTML unordered list with `<ul>` and `<li>` tags. The `*ngFor`
 in the `<li>` element is the Angular "repeater" directive.
 It marks that `<li>` element (and its children) as the "repeater template":
 
-这个界面使用了由`<ul>`和`<li>`标签组成的无序列表。`<li>`元素里的`*ngFor`是 Angular 的“迭代”指令。
-它将`<li>`元素及其子级标记为“迭代模板”：
+这个界面使用了由 `<ul>` 和 `<li>` 标签组成的无序列表。`<li>` 元素里的 `*ngFor` 是 Angular 的“迭代”指令。
+它将 `<li>` 元素及其子级标记为“迭代模板”：
 
 <code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (li)" region="li">
 
@@ -235,7 +235,7 @@ It marks that `<li>` element (and its children) as the "repeater template":
 Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
 For more information, see the [Template Syntax](guide/template-syntax#ngFor) page.
 
-不要忘记`*ngFor`中的前导星号 (\*)。它是语法中不可或缺的一部分。
+不要忘记 `*ngFor` 中的前导星号 (\*)。它是语法中不可或缺的一部分。
 更多信息，见[模板语法](guide/template-syntax#ngFor)。
 
 </div>
@@ -245,7 +245,7 @@ it is an example of a template input variable. Read
 more about template input variables in the [microsyntax](guide/template-syntax#microsyntax) section of
 the [Template Syntax](guide/template-syntax) page.
 
-注意看`ngFor`双引号表达式中的`hero`，它是一个模板输入变量。
+注意看 `ngFor` 双引号表达式中的 `hero`，它是一个模板输入变量。
 更多模板输入变量的信息，见[模板语法](guide/template-syntax)中的
 [微语法 (microsyntax)](guide/template-syntax#microsyntax)。
 
@@ -253,16 +253,16 @@ Angular duplicates the `<li>` for each item in the list, setting the `hero` vari
 to the item (the hero) in the current iteration. Angular uses that variable as the
 context for the interpolation in the double curly braces.
 
-Angular 为列表中的每个条目复制一个`<li>`元素，在每个迭代中，把`hero`变量设置为当前条目（英雄）。
-Angular 把`hero`变量作为双花括号插值表达式的上下文。
+Angular 为列表中的每个条目复制一个 `<li>` 元素，在每个迭代中，把 `hero` 变量设置为当前条目（英雄）。
+Angular 把 `hero` 变量作为双花括号插值表达式的上下文。
 
 <div class="l-sub-section">
 
 In this case, `ngFor` is displaying an array, but `ngFor` can
 repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) object.
 
-本例中，`ngFor`用于显示一个“数组”，
-但`ngFor`可以为任何[可迭代的 (iterable) ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
+本例中，`ngFor` 用于显示一个“数组”，
+但 `ngFor` 可以为任何[可迭代的 (iterable) ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)对象重复渲染条目。
 
 </div>
 
@@ -292,7 +292,7 @@ In real applications, most bindings are to more specialized objects.
 To convert this binding to use specialized objects, turn the array
 of hero names into an array of `Hero` objects. For that you'll need a `Hero` class:
 
-要将此绑定转换成使用对象，需要把这个英雄名字数组变成`Hero`对象数组。但首先得有一个`Hero`类。
+要将此绑定转换成使用对象，需要把这个英雄名字数组变成 `Hero` 对象数组。但首先得有一个 `Hero` 类。
 
 <code-example language="sh" class="code-shell">
 
@@ -310,7 +310,7 @@ With the following code:
 
 You've defined a class with a constructor and two properties: `id` and `name`.
 
-你定义了一个类，具有一个构造函数和两个属性：`id`和`name`。
+你定义了一个类，具有一个构造函数和两个属性：`id` 和 `name`。
 
 It might not look like the class has properties, but it does.
 The declaration of the constructor parameters takes advantage of a TypeScript shortcut.
@@ -339,7 +339,7 @@ That brief syntax does a lot:
 
 * Initializes that property with the corresponding argument when creating an instance of the class.
 
-   当我们`new`出该类的一个实例时，把该属性初始化为相应的参数值。
+   当我们 `new` 出该类的一个实例时，把该属性初始化为相应的参数值。
 
 ### Using the Hero class
 
@@ -348,7 +348,7 @@ That brief syntax does a lot:
 After importing the `Hero` class, the `AppComponent.heroes` property can return a _typed_ array
 of `Hero` objects:
 
-导入了`Hero`类之后，组件的`heroes`属性就可以返回一个*类型化的*`Hero`对象数组了。
+导入了 `Hero` 类之后，组件的 `heroes` 属性就可以返回一个*类型化的*`Hero` 对象数组了。
 
 <code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (heroes)" region="heroes">
 
@@ -359,8 +359,8 @@ At the moment it displays the hero's `id` and `name`.
 Fix that to display only the hero's `name` property.
 
 接着，更新一下模板。
-现在它显示的是英雄的`id`和`name`。
-要修复它，只显示英雄的`name`属性就行了。
+现在它显示的是英雄的 `id` 和 `name`。
+要修复它，只显示英雄的 `name` 属性就行了。
 
 <code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
 
@@ -387,7 +387,7 @@ Let's change the example to display a message if there are more than three heroe
 The Angular `ngIf` directive inserts or removes an element based on a _truthy/falsy_ condition.
 To see it in action, add the following paragraph at the bottom of the template:
 
-Angular 的`ngIf`指令会根据一个布尔条件来显示或移除一个元素。
+Angular 的 `ngIf` 指令会根据一个布尔条件来显示或移除一个元素。
 来看看实际效果，把下列语句加到模板的底部：
 
 <code-example path="displaying-data/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (message)" region="message">
@@ -399,8 +399,8 @@ Angular 的`ngIf`指令会根据一个布尔条件来显示或移除一个元素
 Don't forget the leading asterisk (\*) in `*ngIf`. It is an essential part of the syntax.
 Read more about `ngIf` and `*` in the [ngIf section](guide/template-syntax#ngIf) of the [Template Syntax](guide/template-syntax) page.
 
-不要忘了`*ngIf`中的前导星号 (\*)。它是本语法中不可或缺的一部分。
-更多`ngIf`和`* `的内容，见[模板语法](guide/template-syntax)中的[ngIf](guide/template-syntax#ngIf)。
+不要忘了 `*ngIf` 中的前导星号 (\*)。它是本语法中不可或缺的一部分。
+更多 `ngIf` 和 `* ` 的内容，见[模板语法](guide/template-syntax)中的[ngIf](guide/template-syntax#ngIf)。
 
 </div>
 
@@ -412,7 +412,7 @@ paragraph, so no message appears. For more information,
 see the [template expressions](guide/template-syntax#template-expressions) section of the
 [Template Syntax](guide/template-syntax) page.
 
-双引号中的模板表达式`*ngIf="heros.length > 3"`，外观和行为很象 TypeScript 。
+双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript 。
 当组件中的英雄列表有三个以上的条目时，Angular 把这个段落添加到 DOM 中，于是消息显示了出来。
 更多信息，见[模板语法](guide/template-syntax)中的[模板表达式](guide/template-syntax#template-expressions)。
 
@@ -431,7 +431,7 @@ Go back into <code>app.component.ts"</code> and delete or comment out one of the
 The browser should refresh automatically and the message should disappear.
 
 试一下。因为这个数组中有四个条目，所以消息应该显示出来。
-回到`app.component.ts`，从英雄数组中删除或注释掉一个元素。
+回到 `app.component.ts`，从英雄数组中删除或注释掉一个元素。
 浏览器应该自动刷新，消息应该会消失。
 
 ## Summary

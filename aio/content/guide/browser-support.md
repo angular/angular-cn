@@ -224,7 +224,7 @@ This file incorporates the mandatory and many of the optional polyfills as JavaS
 
 The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.
 
-**强制性** 腻子脚本（如`zone.js`）的npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
+**强制性** 腻子脚本（如 `zone.js`）的 npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
 
 But if you need an optional polyfill, you'll have to install its npm package.
 For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
@@ -465,7 +465,7 @@ Here are the features which may require additional polyfills:
       <p>If AnimationBuilder is used then the polyfill will enable scrubbing
       support for IE/Edge and Safari (Chrome and Firefox support this natively).</p>
 
-      <p>如果使用了AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
+      <p>如果使用了 AnimationBuilder，那么腻子脚本将为 IE/Edge 和 Safari 启用擦除（scrubbing）支持（Chrome 和 Firefox 原生支持此特性）</p>
 
     </td>
 
@@ -477,7 +477,7 @@ Here are the features which may require additional polyfills:
 
     If you use the following deprecated i18n pipes:
 
-    如果你使用下列已废弃的i18n管道：
+    如果你使用下列已废弃的 i18n 管道：
 
      [date](api/common/DeprecatedDatePipe), 
 

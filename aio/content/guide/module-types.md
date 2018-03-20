@@ -108,7 +108,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      They might be imported by the root `AppModule` of a small application that lacks routing.
 
-     对于缺少路由的小型应用，它们可能只会被根模块`AppModule`导入一次。
+     对于缺少路由的小型应用，它们可能只会被根模块 `AppModule` 导入一次。
 
    </td>
 
@@ -312,7 +312,7 @@ The following table summarizes the key characteristics of each feature module gr
 
      Declarations
 
-     声明`declarations`
+     声明 `declarations`
 
    </th>
 
@@ -320,7 +320,7 @@ The following table summarizes the key characteristics of each feature module gr
 
      Providers
 
-     提供商`providers`
+     提供商 `providers`
 
    </th>
 

@@ -139,7 +139,7 @@ You must _provide_ the `HeroService` in the _dependency injection system_
 before Angular can _inject_ it into the `HeroesComponent`, 
 as you will do [below](#inject).
 
-在要求 Angular 把`HeroService` 注入到 `HeroesComponent` 之前，你必须先把这个服务*提供给依赖注入系统*。[稍后](#inject)你就要这么做。
+在要求 Angular 把 `HeroService` 注入到 `HeroesComponent` 之前，你必须先把这个服务*提供给依赖注入系统*。[稍后](#inject)你就要这么做。
 
 There are several ways to provide the `HeroService`: 
 in the `HeroesComponent`, in the `AppComponent`, in the `AppModule`.
@@ -654,7 +654,7 @@ This template binds directly to the component's `messageService`.
 * An Angular [event binding](guide/template-syntax#event-binding) binds the button's click event
 to `MessageService.clear()`.
 
-  Angular 的[事件绑定](guide/template-syntax#event-binding)把按钮的`click`事件绑定到了`MessageService.clear()`。
+  Angular 的[事件绑定](guide/template-syntax#event-binding)把按钮的 `click` 事件绑定到了 `MessageService.clear()`。
 
 The messages will look better when you add the private CSS styles to `messages.component.css`
 as listed in one of the ["final code review"](#final-code-review) tabs below.

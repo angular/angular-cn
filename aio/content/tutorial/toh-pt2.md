@@ -215,7 +215,7 @@ and update the hero detail.
 
 Add a click event binding to the `<li>` like this:
 
-再往`<li>`元素上插入一句点击事件的绑定代码：
+再往 `<li>` 元素上插入一句点击事件的绑定代码：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" title="heroes.component.html (template excerpt)" linenums="false">
 
@@ -307,7 +307,7 @@ When the app starts, the `selectedHero` is `undefined` _by design_.
 
 Binding expressions in the template that refer to properties of `selectedHero` &mdash; expressions like `{{selectedHero.name}}` &mdash; _must fail_ because there is no selected hero.
 
-但模板中的绑定表达式引用了 `selectedHero` 的属性（表达式为`{{selectedHero.name}}`），这必然会失败，因为你还没选过英雄呢。
+但模板中的绑定表达式引用了 `selectedHero` 的属性（表达式为 `{{selectedHero.name}}`），这必然会失败，因为你还没选过英雄呢。
 
 #### The fix
 
@@ -320,7 +320,7 @@ The component should only display the selected hero details if the `selectedHero
 Wrap the hero detail HTML in a `<div>`.
 Add Angular's `*ngIf` directive to the `<div>` and set it to `selectedHero`.
 
-把显示英雄详情的 HTML 包裹在一个`<div>`中。
+把显示英雄详情的 HTML 包裹在一个 `<div>` 中。
 并且为这个 div 添加 Angular 的 `*ngIf` 指令，把它的值设置为 `selectedHero`。
 
 <div class="alert is-important">

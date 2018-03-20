@@ -76,7 +76,7 @@ If you do, this page can help you understand their purpose.
       and the <live-example name="setup" stackblitz="quickstart-specs">unit test</live-example>
       as _live examples_.
 
-      在live example中试试<live-example name="setup">范例程序</live-example>和<live-example name="setup" stackblitz="quickstart-specs">单元测试</live-example>
+      在 live example 中试试<live-example name="setup">范例程序</live-example>和<live-example name="setup" stackblitz="quickstart-specs">单元测试</live-example>
 
     </td>
 
@@ -203,11 +203,11 @@ If you do, this page can help you understand their purpose.
 
       应用的宿主页面。
       它以特定的顺序加载一些基本脚本。
-      然后它启动应用，将根`AppComponent`放置到自定义`<my-app>`标签里。
+      然后它启动应用，将根 `AppComponent` 放置到自定义 `<my-app>` 标签里。
 
       The same `index.html` satisfies all documentation application samples.
 
-      同一个 `index.html`满足所有文档应用例子。
+      同一个 `index.html` 满足所有文档应用例子。
 
     </td>
 
@@ -226,7 +226,7 @@ If you do, this page can help you understand their purpose.
       Configuration for the <a href="https://karma-runner.github.io/1.0/index.html" title="Karma unit test runner">karma</a>
       test runner described in the [Testing](guide/testing) guide.
 
-      在[测试](guide/testing)指南中提到的 <a href="https://karma-runner.github.io/1.0/index.html" target="_blank" title="Karma测试运行器">karma</a> 测试运行器的配置。
+      在[测试](guide/testing)指南中提到的 <a href="https://karma-runner.github.io/1.0/index.html" target="_blank" title="Karma 测试运行器">karma</a> 测试运行器的配置。
 
     </td>
 
@@ -245,7 +245,7 @@ If you do, this page can help you understand their purpose.
       Script to run <a href="https://karma-runner.github.io/1.0/index.html" title="Karma unit test runner">karma</a>
       with SystemJS as described in the [Testing](guide/testing) guide.
 
-      在[测试](guide/testing)指南中提到的 <a href="https://karma-runner.github.io/1.0/index.html" target="_blank" title="Karma测试运行器">karma</a> 测试运行器的脚本。
+      在[测试](guide/testing)指南中提到的 <a href="https://karma-runner.github.io/1.0/index.html" target="_blank" title="Karma 测试运行器">karma</a> 测试运行器的脚本。
 
     </td>
 
@@ -267,9 +267,9 @@ If you do, this page can help you understand their purpose.
       [_Deleting non-essential files_](guide/setup#non-essential "Setup: Deleting non-essential files") section.
       *Do this only in the beginning to avoid accidentally deleting your own tests and git setup!*
 
-      这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和git维护文件。
+      这个列表中的文件在清理时可以删除，它是原始的“快速上手”种子工程中的测试和 git 维护文件。
       步骤参见可选的[删除非必要文件](guide/setup#non-essential "Setup: Deleting non-essential files")部分。
-      *只在最初做这件事，以免不小心删除了你自己的测试文件和git配置！*
+      *只在最初做这件事，以免不小心删除了你自己的测试文件和 git 配置！*
 
     </td>
 
@@ -305,14 +305,14 @@ If you do, this page can help you understand their purpose.
 
       Identifies `npm `package dependencies for the project.
 
-      为项目指定`npm`依赖包。
+      为项目指定 `npm` 依赖包。
 
       Contains command scripts for running the application,
       running tests, and more. Enter `npm run` for a listing.
       <a href="https://github.com/angular/quickstart/blob/master/README.md#npm-scripts"
          title="npm scripts for Angular documentation samples">Read more</a> about them.
 
-      包含了一些命令脚本，用来运行应用、运行测试与其他。输入`npm run`来查看命令列表。
+      包含了一些命令脚本，用来运行应用、运行测试与其他。输入 `npm run` 来查看命令列表。
       到<a href="https://github.com/angular/quickstart/blob/master/README.md#npm-scripts" 
          target="_blank" title="Angular 文档例子的 npm 脚本">这里</a>阅读更多关于它们的说明。
 
@@ -372,7 +372,7 @@ If you do, this page can help you understand their purpose.
 
       Global styles for the application. Initialized with an `<h1>` style for the QuickStart demo.
 
-      应用的全局样式。初始化后，有个为《快速上手》演示准备的`<h1>`样式。
+      应用的全局样式。初始化后，有个为《快速上手》演示准备的 `<h1>` 样式。
 
     </td>
 
@@ -391,7 +391,7 @@ If you do, this page can help you understand their purpose.
       Tells the **SystemJS** module loader where to find modules
       referenced in JavaScript `import` statements. For example:
 
-      为 **SystemJS** 模块加载器指定去哪儿查找在 JavaScript 的`import`语句中引用的模块。例如：
+      为 **SystemJS** 模块加载器指定去哪儿查找在 JavaScript 的 `import` 语句中引用的模块。例如：
 
       <code-example language="ts">
 
@@ -422,7 +422,7 @@ If you do, this page can help you understand their purpose.
       without changing the original `system.config.js`.
 
       可选的额外 SystemJS 配置。
-      是添加 SystemJS 映射的途径，例如在无需修改原始`systemjs.config.js`的情况下为应用映射*封装桶*。
+      是添加 SystemJS 映射的途径，例如在无需修改原始 `systemjs.config.js` 的情况下为应用映射*封装桶*。
 
     </td>
 
@@ -460,7 +460,7 @@ If you do, this page can help you understand their purpose.
       The `npm` installed TypeScript linter inspects your TypeScript code
       and complains when you violate one of its rules.
 
-      利用`npm`安装的 TypeScript 语法检查器 (linter) 检测 TypeScript 代码并在你违反它的规则时提示你。
+      利用 `npm` 安装的 TypeScript 语法检查器 (linter) 检测 TypeScript 代码并在你违反它的规则时提示你。
 
       This file defines linting rules favored by the
       [Angular style guide](guide/styleguide) and by the authors of the documentation.

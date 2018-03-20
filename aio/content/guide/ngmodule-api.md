@@ -50,7 +50,7 @@ into three categories:
 
 The following table summarizes the `@NgModule` metadata properties.
 
-下面是`@NgModule`元数据中属性的汇总表：
+下面是 `@NgModule` 元数据中属性的汇总表：
 
 <table>
 
@@ -222,7 +222,7 @@ The following table summarizes the `@NgModule` metadata properties.
       A module can list another module among its `exports`, in which case
       all of that module's public components, directives, and pipes are exported.
 
-      一个模块可以把另一个模块加入自己的`exports`列表中，这时，另一个模块的所有公共组件、指令和管道都会被导出。
+      一个模块可以把另一个模块加入自己的 `exports` 列表中，这时，另一个模块的所有公共组件、指令和管道都会被导出。
 
       [Re-export](guide/ngmodule-faq#q-reexport) makes module transitivity explicit.
       If Module 'A' re-exports `CommonModule` and Module 'B' imports Module 'A',
@@ -251,7 +251,7 @@ The following table summarizes the `@NgModule` metadata properties.
       Angular can launch with multiple bootstrap components,
       each with its own location in the host web page.
 
-      Angular也可以引导多个引导组件，它们每一个都在宿主页面中有自己的位置。
+      Angular 也可以引导多个引导组件，它们每一个都在宿主页面中有自己的位置。
 
       A bootstrap component is automatically added to `entryComponents`.
 

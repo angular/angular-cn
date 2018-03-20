@@ -120,7 +120,7 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 
 Lastly, call it within the `imports` list of the `AppModule`.
 
-最后，我们在`AppModule`的`imports`*列表*中调用它。
+最后，我们在 `AppModule` 的 `imports`*列表*中调用它。
 
 <code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" title="src/app/app.module.ts (imports)" linenums="false">
 
@@ -162,8 +162,8 @@ The injector returns `null`, the `parentModule` parameter is null,
 and the constructor concludes uneventfully.
 
 默认情况下，当注入器找不到想找的提供商时，会抛出一个错误。
-但`@Optional`装饰器表示找不到该服务也无所谓。
-于是注入器会返回`null`，`parentModule`参数也就被赋成了空值，而构造函数没有任何异常。
+但 `@Optional` 装饰器表示找不到该服务也无所谓。
+于是注入器会返回 `null`，`parentModule` 参数也就被赋成了空值，而构造函数没有任何异常。
 
 It's a different story if you improperly import `CoreModule` into a lazy-loaded module such as `CustomersModule`.
 
@@ -174,9 +174,9 @@ Of course it finds the instance imported by the root `AppModule`.
 Now `parentModule` exists and the constructor throws the error.
 
 Angular 创建一个惰性加载模块，它具有自己的注入器，它是根注入器的*子注入器*。
-`@SkipSelf`让 Angular 在其父注入器中查找`CoreModule`，这次，它的父注入器却是根注入器了（而上次父注入器是空）。
-当然，这次它找到了由根模块`AppModule`导入的实例。
-该构造函数检测到存在`parentModule`，于是抛出一个错误。
+`@SkipSelf` 让 Angular 在其父注入器中查找 `CoreModule`，这次，它的父注入器却是根注入器了（而上次父注入器是空）。
+当然，这次它找到了由根模块 `AppModule` 导入的实例。
+该构造函数检测到存在 `parentModule`，于是抛出一个错误。
 
 Here are the two files in their entirety for reference:
 

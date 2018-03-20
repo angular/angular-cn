@@ -34,7 +34,7 @@ in the <live-example title="Template Syntax Live Code"></live-example>.
 
 ## HTML in templates
 
-## 模板中的HTML
+## 模板中的 HTML
 
 HTML is the language of the Angular template.
 Almost all HTML syntax is valid template syntax.
@@ -43,15 +43,15 @@ it is forbidden, eliminating the risk of script injection attacks.
 In practice, `<script>` is ignored and a warning appears in the browser console.
 See the [Security](guide/security) page for details.
 
-HTML 是 Angular 模板的语言。几乎所有的HTML语法都是有效的模板语法。
-但值得注意的例外是`<script>`元素，它被禁用了，以阻止脚本注入攻击的风险。（实际上，`<script>`只是被忽略了。）
+HTML 是 Angular 模板的语言。几乎所有的 HTML 语法都是有效的模板语法。
+但值得注意的例外是 `<script>` 元素，它被禁用了，以阻止脚本注入攻击的风险。（实际上，`<script>` 只是被忽略了。）
 参见[安全](guide/security)页了解详情。
 
 Some legal HTML doesn't make much sense in a template.
 The `<html>`, `<body>`, and `<base>` elements have no useful role.
 Pretty much everything else is fair game.
 
-有些合法的 HTML 被用在模板中是没有意义的。`<html>`、`<body>`和`<base>`元素这个舞台上中并没有扮演有用的角色。剩下的所有元素基本上就都一样用了。
+有些合法的 HTML 被用在模板中是没有意义的。`<html>`、`<body>` 和 `<base>` 元素这个舞台上中并没有扮演有用的角色。剩下的所有元素基本上就都一样用了。
 
 You can extend the HTML vocabulary of your templates with components and directives that appear as new elements and attributes.
 In the following sections, you'll learn how to get and set DOM (Document Object Model) values dynamically through data binding.
@@ -72,7 +72,7 @@ Begin with the first form of data binding&mdash;interpolation&mdash;to see how m
 
 You met the double-curly braces of interpolation, `{{` and `}}`, early in your Angular education.
 
-在以前的 Angular 教程中，我们遇到过由双花括号括起来的插值表达式，`{{`和`}}`。
+在以前的 Angular 教程中，我们遇到过由双花括号括起来的插值表达式，`{{` 和 `}}`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="first-interpolation" title="src/app/app.component.html" linenums="false">
 
@@ -91,7 +91,7 @@ string value of the corresponding component property. In the example above, Angu
 and "fills in the blanks", first displaying a bold application title and then a heroic image.
 
 在括号之间的“素材”，通常是组件属性的名字。Angular 会用组件中相应属性的字符串值，替换这个名字。
-  上例中，Angular 计算`title`和`heroImageUrl`属性的值，并把它们填在空白处。
+  上例中，Angular 计算 `title` 和 `heroImageUrl` 属性的值，并把它们填在空白处。
   首先显示粗体的应用标题，然后显示英雄的图片。
 
 More generally, the text between the braces is a **template expression** that Angular first **evaluates**
@@ -106,7 +106,7 @@ and then **converts to a string**. The following interpolation illustrates the p
 
 The expression can invoke methods of the host component such as `getVal()`, seen here:
 
-这个表达式可以调用宿主组件的方法，就像下面用的`getVal()`：
+这个表达式可以调用宿主组件的方法，就像下面用的 `getVal()`：
 
 <code-example path="template-syntax/src/app/app.component.html" region="sum-2" title="src/app/app.component.html" linenums="false">
 
@@ -150,8 +150,8 @@ The interpolation braces in `{{1 + 1}}` surround the template expression `1 + 1`
 In the [property binding](guide/template-syntax#property-binding) section below,
 a template expression appears in quotes to the right of the&nbsp;`=` symbol as in `[property]="expression"`.
 
-`{{1 + 1}}`中所包含的模板表达式是`1 + 1`。
-  在[属性绑定](guide/template-syntax#property-binding)中会再次看到模板表达式，它出现在`=`右侧的引号中，就像这样：`[property]="expression"`。
+`{{1 + 1}}` 中所包含的模板表达式是 `1 + 1`。
+  在[属性绑定](guide/template-syntax#property-binding)中会再次看到模板表达式，它出现在 `=` 右侧的引号中，就像这样：`[property]="expression"`。
 
 You write these template expressions in a language that looks like JavaScript.
 Many JavaScript expressions are legal template expressions, but not all.
@@ -170,27 +170,27 @@ JavaScript 中那些具有或可能引发副作用的表达式是被禁止的，
 
 * <code>new</code>
 
-   `new`运算符
+   `new` 运算符
 
 * chaining expressions with <code>;</code> or <code>,</code>
 
-   使用`;`或`,`的链式表达式
+   使用 `;` 或 `,` 的链式表达式
 
 * increment and decrement operators (`++` and `--`)
 
-   自增或自减操作符 (`++`和`--`)
+   自增或自减操作符 (`++` 和 `--`)
 
 Other notable differences from JavaScript syntax include:
 
-和 JavaScript语 法的其它显著不同包括：
+和 JavaScript 语 法的其它显著不同包括：
 
 * no support for the bitwise operators `|` and `&`
 
-   不支持位运算`|`和`&`
+   不支持位运算 `|` 和 `&`
 
 * new [template expression operators](guide/template-syntax#expression-operators), such as `|`, `?.` and `!`.
 
-   具有新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如`|`、`?.`和`!`。
+   具有新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如 `|`、`?.` 和 `!`。
 
 {@a expression-context}
 
@@ -203,7 +203,7 @@ In the following snippets, the `title`  within double-curly braces and the
 `isUnchanged` in quotes refer to properties of the `AppComponent`.
 
 典型的*表达式上下文*就是这个**组件实例**，它是各种绑定值的来源。
-在下面的代码片段中，双花括号中的`title`和引号中的`isUnchanged`所引用的都是`AppComponent`中的属性。
+在下面的代码片段中，双花括号中的 `title` 和引号中的 `isUnchanged` 所引用的都是 `AppComponent` 中的属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-expression" title="src/app/app.component.html" linenums="false">
 
@@ -234,15 +234,15 @@ property and the `*ngFor` defines a `hero` template variable.
 The `hero` in `{{hero.name}}`
 refers to the template input variable, not the component's property.
 
-上一个例子中就体现了这种命名冲突。组件具有一个名叫`hero`的属性，而`*ngFor`声明了一个也叫`hero`的模板变量。
-在`{{hero.name}}`表达式中的`hero`实际引用的是模板变量，而不是组件的属性。
+上一个例子中就体现了这种命名冲突。组件具有一个名叫 `hero` 的属性，而 `*ngFor` 声明了一个也叫 `hero` 的模板变量。
+在 `{{hero.name}}` 表达式中的 `hero` 实际引用的是模板变量，而不是组件的属性。
 
 Template expressions cannot refer to anything in
 the global namespace (except `undefined`). They can't refer to `window` or `document`. They
 can't call `console.log` or `Math.max`. They are restricted to referencing
 members of the expression context.
 
-模板表达式不能引用全局命名空间中的任何东西，比如`window`或`document`。它们也不能调用`console.log`或`Math.max`。
+模板表达式不能引用全局命名空间中的任何东西，比如 `window` 或 `document`。它们也不能调用 `console.log` 或 `Math.max`。
 它们只能引用表达式上下文中的成员。
 
 {@a no-side-effects}
@@ -349,7 +349,7 @@ it returns the same object *reference* when called twice in a row.
 
 在单独的一次事件循环中，被依赖的值不应该改变。
   如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
-  如果幂等的表达式返回一个对象（包括`Date`或`Array`），连续调用它两次，也应该返回同一个对象的*引用*。
+  如果幂等的表达式返回一个对象（包括 `Date` 或 `Array`），连续调用它两次，也应该返回同一个对象的*引用*。
 
 <hr/>
 
@@ -365,7 +365,7 @@ You'll see template statements in the [event binding](guide/template-syntax#even
 appearing in quotes to the right of the `=`&nbsp;symbol as in `(event)="statement"`.
 
 模板**语句**用来响应由绑定目标（如 HTML 元素、组件或指令）触发的**事件**。
-模板语句将在[事件绑定](guide/template-syntax#event-binding)一节看到，它出现在`=`号右侧的引号中，就像这样：`(event)="statement"`。
+模板语句将在[事件绑定](guide/template-syntax#event-binding)一节看到，它出现在 `=` 号右侧的引号中，就像这样：`(event)="statement"`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" title="src/app/app.component.html" linenums="false">
 
@@ -390,7 +390,7 @@ specifically supports both basic assignment (`=`) and chaining expressions
 (with <code>;</code> or <code>,</code>).
 
 和模板表达式一样，模板*语句*使用的语言也像 JavaScript。
-  模板语句解析器和模板表达式解析器有所不同，特别之处在于它支持基本赋值 (`=`) 和表达式链 (`;`和`,`)。
+  模板语句解析器和模板表达式解析器有所不同，特别之处在于它支持基本赋值 (`=`) 和表达式链 (`;` 和 `,`)。
 
 However, certain JavaScript syntax is not allowed:
 
@@ -398,19 +398,19 @@ However, certain JavaScript syntax is not allowed:
 
 * <code>new</code>
 
-   `new`运算符
+   `new` 运算符
 
 * increment and decrement operators, `++` and `--`
 
-   自增和自减运算符：`++`和`--`
+   自增和自减运算符：`++` 和 `--`
 
 * operator assignment, such as `+=` and `-=`
 
-   操作并赋值，例如`+=`和`-=`
+   操作并赋值，例如 `+=` 和 `-=`
 
 * the bitwise operators `|` and `&`
 
-   位操作符`|`和`&`
+   位操作符 `|` 和 `&`
 
 * the [template expression operators](guide/template-syntax#expression-operators)
 
@@ -429,7 +429,7 @@ The *statement context* is typically the component instance.
 The *deleteHero* in `(click)="deleteHero()"` is a method of the data-bound component.
 
 典型的*语句上下文*就是当前组件的实例。
-`(click)="deleteHero()"`中的*deleteHero*就是这个数据绑定组件上的一个方法。
+`(click)="deleteHero()"` 中的*deleteHero*就是这个数据绑定组件上的一个方法。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-component-statement" title="src/app/app.component.html" linenums="false">
 
@@ -442,7 +442,7 @@ and a [template reference variable](guide/template-syntax#ref-vars) (`#heroForm`
 are passed to an event handling method of the component.
 
 语句上下文可以引用模板自身上下文中的属性。
-在下面的例子中，就把模板的`$event`对象、[模板输入变量](guide/template-syntax#template-input-variable) (`let hero`)和[模板引用变量](guide/template-syntax#ref-vars) (`#heroForm`)传给了组件中的一个事件处理器方法。
+在下面的例子中，就把模板的 `$event` 对象、[模板输入变量](guide/template-syntax#template-input-variable) (`let hero`)和[模板引用变量](guide/template-syntax#ref-vars) (`#heroForm`)传给了组件中的一个事件处理器方法。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-var-statement" title="src/app/app.component.html" linenums="false">
 
@@ -452,13 +452,13 @@ Template context names take precedence over component context names.
 In `deleteHero(hero)` above, the `hero` is the template input variable,
 not the component's `hero` property.
 
-模板上下文中的变量名的优先级高于组件上下文中的变量名。在上面的`deleteHero(hero)`中，`hero`是一个模板输入变量，而不是组件中的`hero`属性。
+模板上下文中的变量名的优先级高于组件上下文中的变量名。在上面的 `deleteHero(hero)` 中，`hero` 是一个模板输入变量，而不是组件中的 `hero` 属性。
 
 Template statements cannot refer to anything in the global namespace. They
 can't refer to `window` or `document`.
 They can't call `console.log` or `Math.max`.
 
-模板语句不能引用全局命名空间的任何东西。比如不能引用`window` 或 `document`，也不能调用`console.log`或`Math.max`。
+模板语句不能引用全局命名空间的任何东西。比如不能引用 `window` 或 `document`，也不能调用 `console.log` 或 `Math.max`。
 
 ### Statement guidelines
 
@@ -720,7 +720,7 @@ and drop them into templates as if they were native HTML elements.
 
 That's HTML Plus.
 
-这就是HTML+。
+这就是 HTML+。
 
 Then you learn about data binding. The first binding you meet might look like this:
 
@@ -734,8 +734,8 @@ You'll get to that peculiar bracket notation in a moment. Looking beyond it,
 your intuition suggests that you're binding to the button's `disabled` attribute and setting
 it to the current value of the component's `isUnchanged` property.
 
-过会儿再认识那个怪异的方括号记法。直觉告诉我们，我们正在绑定按钮的`disabled` attribute。
-  并把它设置为组件的`isUnchanged`属性的当前值。
+过会儿再认识那个怪异的方括号记法。直觉告诉我们，我们正在绑定按钮的 `disabled` attribute。
+  并把它设置为组件的 `isUnchanged` 属性的当前值。
 
 Your intuition is incorrect! Your everyday HTML mental model is misleading.
 In fact, once you start data binding, you are no longer working with HTML *attributes*. You aren't setting attributes.
@@ -761,19 +761,19 @@ The distinction between an HTML attribute and a DOM property is crucial to under
 
 * A few HTML attributes have 1:1 mapping to properties. `id` is one example.
 
-   少量 HTML attribute 和 property 之间有着 1:1 的映射，如`id`。
+   少量 HTML attribute 和 property 之间有着 1:1 的映射，如 `id`。
 
 * Some HTML attributes don't have corresponding properties. `colspan` is one example.
 
-   有些 HTML attribute 没有对应的 property，如`colspan`。
+   有些 HTML attribute 没有对应的 property，如 `colspan`。
 
 * Some DOM properties don't have corresponding attributes. `textContent` is one example.
 
-   有些 DOM property 没有对应的 attribute，如`textContent`。
+   有些 DOM property 没有对应的 attribute，如 `textContent`。
 
 * Many HTML attributes appear to map to properties ... but not in the way you might think!
 
-   大量 HTML attribute看起来映射到了property…… 但却不像我们想的那样！
+   大量 HTML attribute 看起来映射到了 property…… 但却不像我们想的那样！
 
 That last category is confusing until you grasp this general rule:
 
@@ -787,7 +787,7 @@ Property values can change; attribute values can't.**
 For example, when the browser renders `<input type="text" value="Bob">`, it creates a
 corresponding DOM node with a `value` property *initialized* to "Bob".
 
-例如，当浏览器渲染`<input type="text" value="Bob">`时，它将创建相应 DOM 节点，
+例如，当浏览器渲染 `<input type="text" value="Bob">` 时，它将创建相应 DOM 节点，
 它的 `value` 这个 property 被*初始化为* “Bob”。
 
 When the user enters "Sally" into the input box, the DOM element `value` *property* becomes "Sally".
@@ -807,19 +807,19 @@ The `disabled` attribute is another peculiar example. A button's `disabled` *pro
 When you add the `disabled` *attribute*, its presence alone initializes the  button's `disabled` *property* to `true`
 so the button is disabled.
 
-`disabled` 这个 attribute 是另一种特例。按钮的`disabled` 这个 *property* 是`false`，因为默认情况下按钮是可用的。
-当我们添加`disabled` 这个 *attribute* 时，只要它出现了按钮的`disabled` 这个 *property* 就初始化为`true`，于是按钮就被禁用了。
+`disabled` 这个 attribute 是另一种特例。按钮的 `disabled` 这个 *property* 是 `false`，因为默认情况下按钮是可用的。
+当我们添加 `disabled` 这个 *attribute* 时，只要它出现了按钮的 `disabled` 这个 *property* 就初始化为 `true`，于是按钮就被禁用了。
 
 Adding and removing the `disabled` *attribute* disables and enables the button. The value of the *attribute* is irrelevant,
 which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
 
-添加或删除`disabled` 这个 *attribute*会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
-`<button disabled="false">仍被禁用</button>`这种写法来启用按钮。
+添加或删除 `disabled` 这个 *attribute*会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
+`<button disabled="false">仍被禁用</button>` 这种写法来启用按钮。
 
 Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
 The value of the *property* matters.
 
-设置按钮的`disabled` 这个 *property*（如，通过 Angular 绑定）可以禁用或启用这个按钮。
+设置按钮的 `disabled` 这个 *property*（如，通过 Angular 绑定）可以禁用或启用这个按钮。
 这就是 *property* 的价值。
 
 **The HTML attribute and the DOM property are not the same thing, even when they have the same name.**
@@ -1101,7 +1101,7 @@ The most common property binding sets an element property to a component propert
 binding the `src` property of an image element to a component's `heroImageUrl` property:
 
 最常用的属性绑定是把元素属性设置为组件属性的值。
-下面这个例子中，image 元素的`src`属性会被绑定到组件的`heroImageUrl`属性上：
+下面这个例子中，image 元素的 `src` 属性会被绑定到组件的 `heroImageUrl` 属性上：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-1" title="src/app/app.component.html" linenums="false">
 
@@ -1109,7 +1109,7 @@ binding the `src` property of an image element to a component's `heroImageUrl` p
 
 Another example is disabling a button when the component says that it `isUnchanged`:
 
-另一个例子是当组件说它`isUnchanged`（未改变）时禁用按钮：
+另一个例子是当组件说它 `isUnchanged`（未改变）时禁用按钮：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-2" title="src/app/app.component.html" linenums="false">
 
@@ -1176,7 +1176,7 @@ See the API reference for
 An element property between enclosing square brackets identifies the target property.
 The target property in the following code is the image element's `src` property.
 
-包裹在方括号中的元素属性名标记着目标属性。下列代码中的目标属性是 image 元素的`src`属性。
+包裹在方括号中的元素属性名标记着目标属性。下列代码中的目标属性是 image 元素的 `src` 属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-1" title="src/app/app.component.html" linenums="false">
 
@@ -1184,7 +1184,7 @@ The target property in the following code is the image element's `src` property.
 
 Some people prefer the `bind-` prefix alternative, known as the *canonical form*:
 
-有些人喜欢用`bind-`前缀的可选形式，并称之为*规范形式*：
+有些人喜欢用 `bind-` 前缀的可选形式，并称之为*规范形式*：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-5" title="src/app/app.component.html" linenums="false">
 
@@ -1194,7 +1194,7 @@ The target name is always the name of a property, even when it appears to be the
 You see `src` and may think it's the name of an attribute. No. It's the name of an image element property.
 
 目标的名字总是 property 的名字。即使它看起来和别的名字一样。
-看到`src`时，可能会把它当做 attribute。不！它不是！它是 image 元素的 property 名。
+看到 `src` 时，可能会把它当做 attribute。不！它不是！它是 image 元素的 property 名。
 
 Element properties may be the more common targets,
 but Angular looks first to see if the name is a property of a known directive,
@@ -1213,7 +1213,7 @@ one of the property names listed in the directive's `inputs` array or a property
 Such inputs map to the directive's own properties.
 
 严格来说，Angular 正在匹配指令的[输入属性](guide/template-syntax#inputs-outputs)的名字。
-这个名字是指令的`inputs`数组中所列的名字，或者是带有`@Input()`装饰器的属性。
+这个名字是指令的 `inputs` 数组中所列的名字，或者是带有 `@Input()` 装饰器的属性。
 这些输入属性被映射为指令自己的属性。
 
 </div>
@@ -1243,8 +1243,8 @@ If `getFoo()` changes something and you happen to be binding to that something, 
 Angular may or may not display the changed value. Angular may detect the change and throw a warning error.
 In general, stick to data properties and to methods that return values and do no more.
 
-表达式中可以调用像`getFoo()`这样的方法。只有我们知道`getFoo()`干了什么。
-如果`getFoo()`改变了某个东西，恰好又绑定到个这个东西，我们就可能把自己坑了。
+表达式中可以调用像 `getFoo()` 这样的方法。只有我们知道 `getFoo()` 干了什么。
+如果 `getFoo()` 改变了某个东西，恰好又绑定到个这个东西，我们就可能把自己坑了。
 Angular 可能显示也可能不显示变化后的值。Angular 还可能检测到变化，并抛出警告型错误。
 一般建议是，只绑定数据属性和那些只返回值而不做其它事情的方法。
 
@@ -1264,7 +1264,7 @@ Return an object if the target property expects an object.
 
 The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what you're sending in the property binding:
 
-`HeroDetail`组件的`hero`属性想要一个`Hero`对象，那就在属性绑定中精确地给它一个`Hero`对象：
+`HeroDetail` 组件的 `hero` 属性想要一个 `Hero` 对象，那就在属性绑定中精确地给它一个 `Hero` 对象：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-4" title="src/app/app.component.html" linenums="false">
 
@@ -1319,7 +1319,7 @@ The following example initializes the `prefix` property of the `HeroDetailCompon
 not a template expression. Angular sets it and forgets about it.
 
 我们经常这样在标准 HTML 中用这种方式初始化 attribute，这种方式也可以用在初始化指令和组件的属性。
-下面这个例子把`HeroDetailComponent`的`prefix`属性初始化为固定的字符串，而不是模板表达式。Angular 设置它，然后忘记它。
+下面这个例子把 `HeroDetailComponent` 的 `prefix` 属性初始化为固定的字符串，而不是模板表达式。Angular 设置它，然后忘记它。
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-7" title="src/app/app.component.html" linenums="false">
 
@@ -1327,7 +1327,7 @@ not a template expression. Angular sets it and forgets about it.
 
 The `[hero]` binding, on the other hand, remains a live binding to the component's `currentHero` property.
 
-作为对比，`[hero]`绑定是组件的`currentHero`属性的活绑定，它会一直随着更新。
+作为对比，`[hero]` 绑定是组件的 `currentHero` 属性的活绑定，它会一直随着更新。
 
 {@a property-binding-or-interpolation}
 
@@ -1471,7 +1471,7 @@ As the message says, the `<td>` element does not have a `colspan` property.
 It has the "colspan" *attribute*, but
 interpolation and property binding can set only *properties*, not attributes.
 
-正如提示中所说，`<td>`元素没有`colspan`属性。
+正如提示中所说，`<td>` 元素没有 `colspan` 属性。
   但是插值表达式和属性绑定只能设置*属性*，不能设置 attribute。
 
 You need attribute bindings to create and bind to such attributes.
@@ -1489,7 +1489,7 @@ attribute 绑定的语法与属性绑定类似。
 
 Bind `[attr.colspan]` to a calculated value:
 
-这里把`[attr.colspan]`绑定到一个计算值：
+这里把 `[attr.colspan]` 绑定到一个计算值：
 
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-colspan" title="src/app/app.component.html" linenums="false">
 
@@ -1532,7 +1532,7 @@ Here's how the table renders:
 One of the primary use cases for attribute binding
 is to set ARIA attributes, as in this example:
 
-attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指可访问性，用于给残障人士访问互联网提供便利），
+attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA 指可访问性，用于给残障人士访问互联网提供便利），
 就像这个例子中一样：
 
 <code-example path="template-syntax/src/app/app.component.html" region="attrib-binding-aria" title="src/app/app.component.html" linenums="false">
@@ -1548,7 +1548,7 @@ attribute 绑定的主要用例之一是设置 ARIA attribute（译注：ARIA指
 You can add and remove CSS class names from an element's `class` attribute with
 a **class binding**.
 
-借助 **CSS 类绑定**，可以从元素的`class` attribute 上添加和移除 CSS 类名。
+借助 **CSS 类绑定**，可以从元素的 `class` attribute 上添加和移除 CSS 类名。
 
 Class binding syntax resembles property binding.
 Instead of an element property between brackets, start with the prefix `class`,
@@ -1592,7 +1592,7 @@ It removes the class when the expression is falsy.
 While this is a fine way to toggle a single class name,
 the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when managing multiple class names at the same time.
 
-虽然这是切换单一类名的好办法，但我们通常更喜欢使用 [NgClass指令](guide/template-syntax#ngClass) 来同时管理多个类名。
+虽然这是切换单一类名的好办法，但我们通常更喜欢使用 [NgClass 指令](guide/template-syntax#ngClass) 来同时管理多个类名。
 
 </div>
 
@@ -1632,7 +1632,7 @@ The following example conditionally sets the font size in  “em” and “%” 
 While this is a fine way to set a single style,
 the [NgStyle directive](guide/template-syntax#ngStyle) is generally preferred when setting several inline styles at the same time.
 
-虽然这是设置单一样式的好办法，但我们通常更喜欢使用 [NgStyle指令](guide/template-syntax#ngStyle) 来同时设置多个内联样式。
+虽然这是设置单一样式的好办法，但我们通常更喜欢使用 [NgStyle 指令](guide/template-syntax#ngStyle) 来同时设置多个内联样式。
 
 </div>
 
@@ -1643,7 +1643,7 @@ Note that a _style property_ name can be written in either
 [camelCase](guide/glossary#camelcase), such as `fontSize`.
 
 注意，_样式属性_命名方法可以用[中线命名法](guide/glossary#dash-case)，像上面的一样
-    也可以用[驼峰式命名法](guide/glossary#camelcase)，如`fontSize`。
+    也可以用[驼峰式命名法](guide/glossary#camelcase)，如 `fontSize`。
 
 </div>
 
@@ -1680,7 +1680,7 @@ The following event binding listens for the button's click events, calling
 the component's `onSave()` method whenever a click occurs:
 
 事件绑定语法由等号左侧带圆括号的**目标事件**和右侧引号中的[模板语句](guide/template-syntax#template-statements)组成。
-下面事件绑定监听按钮的点击事件。每当点击发生时，都会调用组件的`onSave()`方法。
+下面事件绑定监听按钮的点击事件。每当点击发生时，都会调用组件的 `onSave()` 方法。
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" title="src/app/app.component.html" linenums="false">
 
@@ -1693,7 +1693,7 @@ the component's `onSave()` method whenever a click occurs:
 A **name between parentheses** &mdash; for example, `(click)` &mdash;
 identifies the target event. In the following example, the target is the button's click event.
 
-**圆括号中的名称** —— 比如`(click)` —— 标记出目标事件。在下面例子中，目标是按钮的 click 事件。
+**圆括号中的名称** —— 比如 `(click)` —— 标记出目标事件。在下面例子中，目标是按钮的 click 事件。
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" title="src/app/app.component.html" linenums="false">
 
@@ -1701,7 +1701,7 @@ identifies the target event. In the following example, the target is the button'
 
 Some people prefer the `on-` prefix alternative, known as the **canonical form**:
 
-有些人更喜欢带`on-`前缀的备选形式，称之为**规范形式**：
+有些人更喜欢带 `on-` 前缀的备选形式，称之为**规范形式**：
 
 <code-example path="template-syntax/src/app/app.component.html" region="event-binding-2" title="src/app/app.component.html" linenums="false">
 
@@ -1721,7 +1721,7 @@ of a known directive, as it does in the following example:
 The `myClick` directive is further described in the section
 on [aliasing input/output properties](guide/template-syntax#aliasing-io).
 
-更多关于该`myClick`指令的解释，见[给输入/输出属性起别名](guide/template-syntax#aliasing-io)。
+更多关于该 `myClick` 指令的解释，见[给输入/输出属性起别名](guide/template-syntax#aliasing-io)。
 
 </div>
 
@@ -1749,7 +1749,7 @@ into a model.
 The binding conveys information about the event, including data values, through
 an **event object named `$event`**.
 
-绑定会通过**名叫`$event`的事件对象**传递关于此事件的信息（包括数据值）。
+绑定会通过**名叫 `$event` 的事件对象**传递关于此事件的信息（包括数据值）。
 
 The shape of the event object is determined by the target event.
 If the target event is a native DOM element event, then `$event` is a
@@ -1757,7 +1757,7 @@ If the target event is a native DOM element event, then `$event` is a
 with properties such as `target` and `target.value`.
 
 事件对象的形态取决于目标事件。如果目标事件是原生 DOM 元素事件，
-`$event`就是 [DOM事件对象](https://developer.mozilla.org/en-US/docs/Web/Events)，它有像`target`和`target.value`这样的属性。
+`$event` 就是 [DOM 事件对象](https://developer.mozilla.org/en-US/docs/Web/Events)，它有像 `target` 和 `target.value` 这样的属性。
 
 Consider this example:
 
@@ -1772,18 +1772,18 @@ To listen for changes to the value, the code binds to the input box's `input` ev
 When the user makes changes, the `input` event is raised, and the binding executes
 the statement within a context that includes the DOM event object, `$event`.
 
-上面的代码在把输入框的`value`属性绑定到`firstName`属性。
-要监听对值的修改，代码绑定到输入框的`input`事件。
-当用户造成更改时，`input`事件被触发，并在包含了 DOM 事件对象 (`$event`) 的上下文中执行这条语句。
+上面的代码在把输入框的 `value` 属性绑定到 `firstName` 属性。
+要监听对值的修改，代码绑定到输入框的 `input` 事件。
+当用户造成更改时，`input` 事件被触发，并在包含了 DOM 事件对象 (`$event`) 的上下文中执行这条语句。
 
 To update the `name` property, the changed text is retrieved by following the path `$event.target.value`.
 
-要更新`firstName`属性，就要通过路径`$event.target.value`来获取更改后的值。
+要更新 `firstName` 属性，就要通过路径 `$event.target.value` 来获取更改后的值。
 
 If the event belongs to a directive (recall that components are directives),
 `$event` has whatever shape the directive decides to produce.
 
-如果事件属于指令（回想一下，组件是指令的一种），那么`$event`具体是什么由指令决定。
+如果事件属于指令（回想一下，组件是指令的一种），那么 `$event` 具体是什么由指令决定。
 
 {@a eventemitter}
 
@@ -1799,21 +1799,21 @@ The directive calls `EventEmitter.emit(payload)` to fire an event, passing in a 
 Parent directives listen for the event by binding to this property and accessing the payload through the `$event` object.
 
 通常，指令使用 Angular [EventEmitter](api/core/EventEmitter) 来触发自定义事件。
-指令创建一个`EventEmitter`实例，并且把它作为属性暴露出来。
-指令调用`EventEmitter.emit(payload)`来触发事件，可以传入任何东西作为消息载荷。
-父指令通过绑定到这个属性来监听事件，并通过`$event`对象来访问载荷。
+指令创建一个 `EventEmitter` 实例，并且把它作为属性暴露出来。
+指令调用 `EventEmitter.emit(payload)` 来触发事件，可以传入任何东西作为消息载荷。
+父指令通过绑定到这个属性来监听事件，并通过 `$event` 对象来访问载荷。
 
 Consider a `HeroDetailComponent` that presents hero information and responds to user actions.
 Although the `HeroDetailComponent` has a delete button it doesn't know how to delete the hero itself.
 The best it can do is raise an event reporting the user's delete request.
 
-假设`HeroDetailComponent`用于显示英雄的信息，并响应用户的动作。
-虽然`HeroDetailComponent`包含删除按钮，但它自己并不知道该如何删除这个英雄。
+假设 `HeroDetailComponent` 用于显示英雄的信息，并响应用户的动作。
+虽然 `HeroDetailComponent` 包含删除按钮，但它自己并不知道该如何删除这个英雄。
 最好的做法是触发事件来报告“删除用户”的请求。
 
 Here are the pertinent excerpts from that `HeroDetailComponent`:
 
-下面的代码节选自`HeroDetailComponent`：
+下面的代码节选自 `HeroDetailComponent`：
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" linenums="false" title="src/app/hero-detail.component.ts (template)" region="template-1">
 
@@ -1827,12 +1827,12 @@ The component defines a `deleteRequest` property that returns an `EventEmitter`.
 When the user clicks *delete*, the component invokes the `delete()` method,
 telling the `EventEmitter` to emit a `Hero` object.
 
-组件定义了`deleteRequest`属性，它是`EventEmitter`实例。
-当用户点击*删除*时，组件会调用`delete()`方法，让`EventEmitter`发出一个`Hero`对象。
+组件定义了 `deleteRequest` 属性，它是 `EventEmitter` 实例。
+当用户点击*删除*时，组件会调用 `delete()` 方法，让 `EventEmitter` 发出一个 `Hero` 对象。
 
 Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
 
-现在，假设有个宿主的父组件，它绑定了`HeroDetailComponent`的`deleteRequest`事件。
+现在，假设有个宿主的父组件，它绑定了 `HeroDetailComponent` 的 `deleteRequest` 事件。
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component">
 
@@ -1841,8 +1841,8 @@ Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s
 When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
 passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
 
-当`deleteRequest`事件触发时，Angular 调用父组件的`deleteHero`方法，
-在`$event`变量中传入*要删除的英雄*（来自`HeroDetail`）。
+当 `deleteRequest` 事件触发时，Angular 调用父组件的 `deleteHero` 方法，
+在 `$event` 变量中传入*要删除的英雄*（来自 `HeroDetail`）。
 
 ### Template statements have side effects
 
@@ -1851,7 +1851,7 @@ passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
 The `deleteHero` method has a side effect: it deletes a hero.
 Template statement side effects are not just OK, but expected.
 
-`deleteHero`方法有副作用：它删除了一个英雄。
+`deleteHero` 方法有副作用：它删除了一个英雄。
 模板语句的副作用不仅没问题，反而正是所期望的。
 
 Deleting the hero updates the model, perhaps triggering other changes
@@ -1883,7 +1883,7 @@ The `[(x)]` syntax combines the brackets
 of _property binding_, `[x]`, with the parentheses of _event binding_, `(x)`.
 
 Angular 为此提供一种特殊的_双向数据绑定_语法：**`[(x)]`**。
-`[(x)]`语法结合了_属性绑定_的方括号`[x]`和_事件绑定_的圆括号`(x)`。
+`[(x)]` 语法结合了_属性绑定_的方括号 `[x]` 和_事件绑定_的圆括号 `(x)`。
 
 <div class="callout is-important">
 
@@ -1902,8 +1902,8 @@ and a corresponding event named `xChange`.
 Here's a `SizerComponent` that fits the pattern.
 It has a `size` value property and a companion `sizeChange` event:
 
-当一个元素拥有可以设置的属性`x`和对应的事件`xChange`时，解释`[(x)]`语法就容易多了。
-下面的`SizerComponent`符合这个模式。它有`size`属性和伴随的`sizeChange`事件：
+当一个元素拥有可以设置的属性 `x` 和对应的事件 `xChange` 时，解释 `[(x)]` 语法就容易多了。
+下面的 `SizerComponent` 符合这个模式。它有 `size` 属性和伴随的 `sizeChange` 事件：
 
 <code-example path="template-syntax/src/app/sizer.component.ts" title="src/app/sizer.component.ts">
 
@@ -1913,13 +1913,13 @@ The initial `size` is an input value from a property binding.
 Clicking the buttons increases or decreases the `size`, within min/max values constraints,
 and then raises (_emits_) the `sizeChange` event with the adjusted size.
 
-`size`的初始值是一个输入值，来自属性绑定。（译注：注意`size`前面的`@Input`）
-点击按钮，在最小/最大值范围限制内增加或者减少`size`。
-然后用调整后的`size`触发`sizeChange`事件。
+`size` 的初始值是一个输入值，来自属性绑定。（译注：注意 `size` 前面的 `@Input`）
+点击按钮，在最小/最大值范围限制内增加或者减少 `size`。
+然后用调整后的 `size` 触发 `sizeChange` 事件。
 
 Here's an example in which the `AppComponent.fontSizePx` is two-way bound to the `SizerComponent`:
 
-下面的例子中，`AppComponent.fontSize`被双向绑定到`SizerComponent`：
+下面的例子中，`AppComponent.fontSize` 被双向绑定到 `SizerComponent`：
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (two-way-1)" region="two-way-1">
 
@@ -1930,15 +1930,15 @@ Clicking the buttons updates the `AppComponent.fontSizePx` via the two-way bindi
 The revised `AppComponent.fontSizePx` value flows through to the _style_ binding,
 making the displayed text bigger or smaller.
 
-`SizerComponent.size`初始值是`AppComponent.fontSizePx`。
-点击按钮时，通过双向绑定更新`AppComponent.fontSizePx`。
-被修改的`AppComponent.fontSizePx`通过_样式_绑定，改变文本的显示大小。
+`SizerComponent.size` 初始值是 `AppComponent.fontSizePx`。
+点击按钮时，通过双向绑定更新 `AppComponent.fontSizePx`。
+被修改的 `AppComponent.fontSizePx` 通过_样式_绑定，改变文本的显示大小。
 
 The two-way binding syntax is really just syntactic sugar for a _property_ binding and an _event_ binding.
 Angular _desugars_ the `SizerComponent` binding into this:
 
 双向绑定语法实际上是_属性_绑定和_事件绑定_的语法糖。
-Angular将`SizerComponent`的绑定分解成这样：
+Angular 将 `SizerComponent` 的绑定分解成这样：
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (two-way-2)" region="two-way-2">
 
@@ -1947,8 +1947,8 @@ Angular将`SizerComponent`的绑定分解成这样：
 The `$event` variable contains the payload of the `SizerComponent.sizeChange` event.
 Angular assigns the `$event` value to the `AppComponent.fontSizePx` when the user clicks the buttons.
 
-`$event`变量包含了`SizerComponent.sizeChange`事件的荷载。
-当用户点击按钮时，Angular 将`$event`赋值给`AppComponent.fontSizePx`。
+`$event` 变量包含了 `SizerComponent.sizeChange` 事件的荷载。
+当用户点击按钮时，Angular 将 `$event` 赋值给 `AppComponent.fontSizePx`。
 
 Clearly the two-way binding syntax is a great convenience compared to separate property and event bindings.
 
@@ -1957,8 +1957,8 @@ Clearly the two-way binding syntax is a great convenience compared to separate p
 It would be convenient to use two-way binding with HTML form elements like `<input>` and `<select>`.
 However, no native HTML element follows the `x` value and `xChange` event pattern.
 
-我们希望能在像`<input>`和`<select>`这样的 HTML 元素上使用双向数据绑定。
-可惜，原生 HTML 元素不遵循`x`值和`xChange`事件的模式。
+我们希望能在像 `<input>` 和 `<select>` 这样的 HTML 元素上使用双向数据绑定。
+可惜，原生 HTML 元素不遵循 `x` 值和 `xChange` 事件的模式。
 
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
 
@@ -2016,8 +2016,8 @@ Attribute directives listen to and modify the behavior of
 other HTML elements, attributes, properties, and components.
 They are usually applied to elements as if they were HTML attributes, hence the name.
 
-属性型指令会监听和修改其它HTML元素或组件的行为、元素属性（Attribute）、DOM属性（Property）。
-它们通常会作为HTML属性的名称而应用在元素上。
+属性型指令会监听和修改其它 HTML 元素或组件的行为、元素属性（Attribute）、DOM 属性（Property）。
+它们通常会作为 HTML 属性的名称而应用在元素上。
 
 Many details are covered in the [_Attribute Directives_](guide/attribute-directives) guide.
 Many NgModules such as the [`RouterModule`](guide/router "Routing and Navigation")
@@ -2025,20 +2025,20 @@ and the [`FormsModule`](guide/forms "Forms") define their own attribute directiv
 This section is an introduction to the most commonly used attribute directives:
 
 更多的细节参见[_属性型指令_](guide/attribute-directives)一章。
-很多Angular模块，比如[`RouterModule`](guide/router "Routing and Navigation")和[`FormsModule`](guide/forms "Forms")都定义了自己的属性型指令。
+很多 Angular 模块，比如[`RouterModule`](guide/router "Routing and Navigation")和[`FormsModule`](guide/forms "Forms")都定义了自己的属性型指令。
 本节将会介绍几个最常用的属性型指令：
 
 * [`NgClass`](guide/template-syntax#ngClass) - add and remove a set of CSS classes
 
-   [`NgClass`](guide/template-syntax#ngClass) - 添加或移除一组CSS类
+   [`NgClass`](guide/template-syntax#ngClass) - 添加或移除一组 CSS 类
 
 * [`NgStyle`](guide/template-syntax#ngStyle) - add and remove a set of HTML styles
 
-   [`NgStyle`](guide/template-syntax#ngStyle) - 添加或移除一组CSS样式
+   [`NgStyle`](guide/template-syntax#ngStyle) - 添加或移除一组 CSS 样式
 
 * [`NgModel`](guide/template-syntax#ngModel) - two-way data binding to an HTML form element
 
-   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到HTML表单元素
+   [`NgModel`](guide/template-syntax#ngModel) - 双向绑定到 HTML 表单元素
 
 <hr/>
 
@@ -2051,7 +2051,7 @@ by adding and removing CSS classes dynamically.
 You can bind to the `ngClass` to add or remove several classes simultaneously.
 
 我们经常用动态添加或删除 CSS 类的方式来控制元素如何显示。
-通过绑定到`NgClass`，可以同时添加或移除多个类。
+通过绑定到 `NgClass`，可以同时添加或移除多个类。
 
 A [class binding](guide/template-syntax#class-binding) is a good way to add or remove a *single* class.
 
@@ -2063,19 +2063,19 @@ A [class binding](guide/template-syntax#class-binding) is a good way to add or r
 
 To add or remove *many* CSS classes at the same time, the `NgClass` directive may be the better choice.
 
-当想要同时添加或移除*多个* CSS 类时，`NgClass`指令可能是更好的选择。
+当想要同时添加或移除*多个* CSS 类时，`NgClass` 指令可能是更好的选择。
 
 Try binding `ngClass` to a key:value control object.
 Each key of the object is a CSS class name; its value is `true` if the class should be added,
 `false` if it should be removed.
 
-试试把`ngClass`绑定到一个 key:value 形式的控制对象。这个对象中的每个 key 都是一个 CSS 类名，如果它的 value 是`true`，这个类就会被加上，否则就会被移除。
+试试把 `ngClass` 绑定到一个 key:value 形式的控制对象。这个对象中的每个 key 都是一个 CSS 类名，如果它的 value 是 `true`，这个类就会被加上，否则就会被移除。
 
 Consider a `setCurrentClasses` component method that sets a component property,
 `currentClasses` with an object that adds or removes three classes based on the
 `true`/`false` state of three other component properties:
 
-组件方法`setCurrentClasses`可以把组件的属性`currentClasses`设置为一个对象，它将会根据三个其它组件的状态为`true`或`false`而添加或移除三个类。
+组件方法 `setCurrentClasses` 可以把组件的属性 `currentClasses` 设置为一个对象，它将会根据三个其它组件的状态为 `true` 或 `false` 而添加或移除三个类。
 
 <code-example path="template-syntax/src/app/app.component.ts" region="setClasses" title="src/app/app.component.ts" linenums="false">
 
@@ -2083,7 +2083,7 @@ Consider a `setCurrentClasses` component method that sets a component property,
 
 Adding an `ngClass` property binding to `currentClasses` sets the element's classes accordingly:
 
-把`NgClass`属性绑定到`currentClasses`，根据它来设置此元素的CSS类：
+把 `NgClass` 属性绑定到 `currentClasses`，根据它来设置此元素的 CSS 类：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgClass-1" title="src/app/app.component.html" linenums="false">
 
@@ -2093,7 +2093,7 @@ Adding an `ngClass` property binding to `currentClasses` sets the element's clas
 
 It's up to you to call `setCurrentClasses()`, both initially and when the dependent properties change.
 
-你既可以在初始化时调用`setCurrentClassess()`，也可以在所依赖的属性变化时调用。
+你既可以在初始化时调用 `setCurrentClassess()`，也可以在所依赖的属性变化时调用。
 
 </div>
 
@@ -2107,7 +2107,7 @@ You can set inline styles dynamically, based on the state of the component.
 With `NgStyle` you can set many inline styles simultaneously.
 
 我们可以根据组件的状态动态设置内联样式。
-`NgStyle`绑定可以同时设置多个内联样式。
+`NgStyle` 绑定可以同时设置多个内联样式。
 
 A [style binding](guide/template-syntax#style-binding) is an easy way to set a *single* style value.
 
@@ -2119,18 +2119,18 @@ A [style binding](guide/template-syntax#style-binding) is an easy way to set a *
 
 To set *many* inline styles at the same time, the `NgStyle` directive may be the better choice.
 
-如果要同时设置*多个*内联样式，`NgStyle`指令可能是更好的选择。
+如果要同时设置*多个*内联样式，`NgStyle` 指令可能是更好的选择。
 
 Try binding `ngStyle` to a key:value control object.
 Each key of the object is a style name; its value is whatever is appropriate for that style.
 
-`NgStyle`需要绑定到一个 key:value 控制对象。
+`NgStyle` 需要绑定到一个 key:value 控制对象。
   对象的每个 key 是样式名，它的 value 是能用于这个样式的任何值。
 
 Consider a `setCurrentStyles` component method that sets a component property, `currentStyles`
 with an object that defines three styles, based on the state of three other component properties:
 
-来看看组件的`setCurrentStyles`方法，它会根据另外三个属性的状态把组件的`currentStyles`属性设置为一个定义了三个样式的对象：
+来看看组件的 `setCurrentStyles` 方法，它会根据另外三个属性的状态把组件的 `currentStyles` 属性设置为一个定义了三个样式的对象：
 
 <code-example path="template-syntax/src/app/app.component.ts" region="setStyles" title="src/app/app.component.ts" linenums="false">
 
@@ -2138,7 +2138,7 @@ with an object that defines three styles, based on the state of three other comp
 
 Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:
 
-把`NgStyle`属性绑定到`currentStyles`，以据此设置此元素的样式：
+把 `NgStyle` 属性绑定到 `currentStyles`，以据此设置此元素的样式：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgStyle-2" title="src/app/app.component.html" linenums="false">
 
@@ -2148,7 +2148,7 @@ Adding an `ngStyle` property binding to `currentStyles` sets the element's style
 
 It's up to you to call `setCurrentStyles()`, both initially and when the dependent properties change.
 
-你既可以在初始化时调用`setCurrentStyles()`，也可以在所依赖的属性变化时调用。
+你既可以在初始化时调用 `setCurrentStyles()`，也可以在所依赖的属性变化时调用。
 
 </div>
 
@@ -2167,7 +2167,7 @@ update that property when the user makes changes.
 
 Two-way data binding with the `NgModel` directive makes that easy. Here's an example:
 
-使用`NgModel`指令进行双向数据绑定可以简化这种工作。例子如下：
+使用 `NgModel` 指令进行双向数据绑定可以简化这种工作。例子如下：
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (NgModel-1)" region="NgModel-1">
 
@@ -2182,12 +2182,12 @@ you must import the `FormsModule` and add it to the NgModule's `imports` list.
 Learn more about the `FormsModule` and `ngModel` in the
 [Forms](guide/forms#ngModel) guide.
 
-在使用`ngModel`指令进行双向数据绑定之前，我们必须导入`FormsModule`并把它添加到Angular模块的`imports`列表中。
-要了解`FormsModule`和`ngModel`的更多知识，参见[表单](guide/forms#ngModel)一章。
+在使用 `ngModel` 指令进行双向数据绑定之前，我们必须导入 `FormsModule` 并把它添加到 Angular 模块的 `imports` 列表中。
+要了解 `FormsModule` 和 `ngModel` 的更多知识，参见[表单](guide/forms#ngModel)一章。
 
 Here's how to import the `FormsModule` to make `[(ngModel)]` available.
 
-导入`FormsModule`并让`[(ngModel)]`可用的代码如下：
+导入 `FormsModule` 并让 `[(ngModel)]` 可用的代码如下：
 
 <code-example path="template-syntax/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (FormsModule import)">
 
@@ -2201,7 +2201,7 @@ Looking back at the `name` binding, note that
 you could have achieved the same result with separate bindings to
 the `<input>` element's  `value` property and `input` event.
 
-回头看看`name`绑定，注意，你可以通过分别绑定到`<input>`元素的`value`属性和`input`事件来达到同样的效果。
+回头看看 `name` 绑定，注意，你可以通过分别绑定到 `<input>` 元素的 `value` 属性和 `input` 事件来达到同样的效果。
 
 <code-example path="template-syntax/src/app/app.component.html" region="without-NgModel" title="src/app/app.component.html" linenums="false">
 
@@ -2216,7 +2216,7 @@ Who wants to look that up each time?
 
 That `ngModel` directive hides these onerous details behind its own  `ngModel` input and `ngModelChange` output properties.
 
-`ngModel`指令通过自己的输入属性`ngModel`和输出属性`ngModelChange`隐藏了那些细节。
+`ngModel` 指令通过自己的输入属性 `ngModel` 和输出属性 `ngModelChange` 隐藏了那些细节。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-3" title="src/app/app.component.html" linenums="false">
 
@@ -2227,7 +2227,7 @@ That `ngModel` directive hides these onerous details behind its own  `ngModel` i
 The `ngModel` data property sets the element's value property and the `ngModelChange` event property
 listens for changes to the element's value.
 
-`ngModel`输入属性会设置该元素的值，并通过`ngModelChange`的输出属性来监听元素值的变化。
+`ngModel` 输入属性会设置该元素的值，并通过 `ngModelChange` 的输出属性来监听元素值的变化。
 
 The details are specific to each kind of element and therefore the `NgModel` directive only works for an element
 supported by a [ControlValueAccessor](api/forms/ControlValueAccessor)
@@ -2236,36 +2236,36 @@ The `<input>` box is one of those elements.
 Angular provides *value accessors* for all of the basic HTML form elements and the
 [_Forms_](guide/forms) guide shows how to bind to them.
 
-各种元素都有很多特有的处理细节，因此`NgModel`指令只支持实现了[ControlValueAccessor](api/forms/ControlValueAccessor)的元素，
+各种元素都有很多特有的处理细节，因此 `NgModel` 指令只支持实现了[ControlValueAccessor](api/forms/ControlValueAccessor)的元素，
 它们能让元素适配本协议。
-`<input>`输入框正是其中之一。
-Angular为所有的基础HTML表单都提供了*值访问器（Value accessor）*，[*表单*](guide/forms)一章展示了如何绑定它们。
+`<input>` 输入框正是其中之一。
+Angular 为所有的基础 HTML 表单都提供了*值访问器（Value accessor）*，[*表单*](guide/forms)一章展示了如何绑定它们。
 
 You can't apply `[(ngModel)]` to a non-form native element or a third-party custom component
 until you write a suitable *value accessor*,
 a technique that is beyond the scope of this guide.
 
-我们不能把`[(ngModel)]`用到非表单类的原生元素或第三方自定义组件上，除非写一个合适的*值访问器*，这种技巧超出了本章的范围。
+我们不能把 `[(ngModel)]` 用到非表单类的原生元素或第三方自定义组件上，除非写一个合适的*值访问器*，这种技巧超出了本章的范围。
 
 You don't need a _value accessor_ for an Angular component that you write because you
 can name the value and event properties
 to suit Angular's basic [two-way binding syntax](guide/template-syntax#two-way) and skip `NgModel` altogether.
 The [`sizer` shown above](guide/template-syntax#two-way) is an example of this technique.
 
-我们自己写的Angular组件不需要*值访问器*，因为我们可以让值和事件的属性名适应Angular基本的[双向绑定语法](guide/template-syntax#two-way)，而不使用`NgModel`。
-[前面看过的`sizer`](guide/template-syntax#two-way)就是使用这种技巧的例子。
+我们自己写的 Angular 组件不需要*值访问器*，因为我们可以让值和事件的属性名适应 Angular 基本的[双向绑定语法](guide/template-syntax#two-way)，而不使用 `NgModel`。
+[前面看过的 `sizer`](guide/template-syntax#two-way)就是使用这种技巧的例子。
 
 </div>
 
 Separate `ngModel` bindings is an improvement over binding to the element's native properties. You can do better.
 
-使用独立的`ngModel`绑定优于绑定到该元素的原生属性，那样我们可以做得更好。
+使用独立的 `ngModel` 绑定优于绑定到该元素的原生属性，那样我们可以做得更好。
 
 You shouldn't have to mention the data property twice. Angular should be able to capture
 the component's data property and set it
 with a single declaration, which it can with the `[(ngModel)]` syntax:
 
-我们不用被迫两次引用这个数据属性，Angular可以捕获该元素的数据属性，并且通过一个简单的声明来设置它，这样它就可以使用`[(ngModel)]`语法了。
+我们不用被迫两次引用这个数据属性，Angular 可以捕获该元素的数据属性，并且通过一个简单的声明来设置它，这样它就可以使用 `[(ngModel)]` 语法了。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-1" title="src/app/app.component.html" linenums="false">
 
@@ -2273,12 +2273,12 @@ with a single declaration, which it can with the `[(ngModel)]` syntax:
 
 Is `[(ngModel)]` all you need? Is there ever a reason to fall back to its expanded form?
 
-`[(ngModel)]`就是你需要的一切吗？有没有什么理由回退到它的展开形式？
+`[(ngModel)]` 就是你需要的一切吗？有没有什么理由回退到它的展开形式？
 
 The `[(ngModel)]` syntax can only _set_ a data-bound property.
 If you need to do something more or something different, you can write the expanded form.
 
-`[(ngModel)]`语法只能*设置*数据绑定属性。
+`[(ngModel)]` 语法只能*设置*数据绑定属性。
 如果要做更多或者做点不一样的事，也可以写它的展开形式。
 
 The following contrived example forces the input value to uppercase:
@@ -2309,8 +2309,8 @@ Structural directives are responsible for HTML layout.
 They shape or reshape the DOM's _structure_, typically by adding, removing, and manipulating
 the host elements to which they are attached.
 
-结构型指令的职责是HTML布局。
-它们塑造或重塑DOM的*结构*，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。
+结构型指令的职责是 HTML 布局。
+它们塑造或重塑 DOM 的*结构*，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。
 
 The deep details of structural directives are covered in the
 [_Structural Directives_](guide/structural-directives) guide
@@ -2342,7 +2342,7 @@ _This_ section is an introduction to the common structural directives:
 
 * [`NgIf`](guide/template-syntax#ngIf) - conditionally add or remove an element from the DOM
 
-   [`NgIf`](guide/template-syntax#ngIf) - 根据条件把一个元素添加到DOM中或从DOM移除
+   [`NgIf`](guide/template-syntax#ngIf) - 根据条件把一个元素添加到 DOM 中或从 DOM 移除
 
 * [`NgSwitch`](guide/template-syntax#ngSwitch) - a set of directives that switch among alternative views
 
@@ -2362,8 +2362,8 @@ You can add or remove an element from the DOM by applying an `NgIf` directive to
 that element (called the _host element_).
 Bind the directive to a condition expression like `isActive` in this example.
 
-通过把`NgIf`指令应用到元素上（称为*宿主元素*），我们可以往DOM中添加或从DOM中移除这个元素。
-在下面的例子中，该指令绑定到了类似于`isActive`这样的条件表达式。
+通过把 `NgIf` 指令应用到元素上（称为*宿主元素*），我们可以往 DOM 中添加或从 DOM 中移除这个元素。
+在下面的例子中，该指令绑定到了类似于 `isActive` 这样的条件表达式。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-1" title="src/app/app.component.html" linenums="false">
 
@@ -2373,7 +2373,7 @@ Bind the directive to a condition expression like `isActive` in this example.
 
 Don't forget the asterisk (`*`) in front of `ngIf`.
 
-别忘了`ngIf`前面的星号(`*`)。
+别忘了 `ngIf` 前面的星号(`*`)。
 
 </div>
 
@@ -2381,7 +2381,7 @@ When the `isActive` expression returns a truthy value, `NgIf` adds the `HeroDeta
 When the expression is falsy, `NgIf` removes the `HeroDetailComponent`
 from the DOM, destroying that component and all of its sub-components.
 
-当`isActive`表达式返回真值时，`NgIf`把`HeroDetailComponent`添加到DOM中；为假时，`NgIf`会从DOM中移除`HeroDetailComponent`，并销毁该组件及其所有子组件。
+当 `isActive` 表达式返回真值时，`NgIf` 把 `HeroDetailComponent` 添加到 DOM 中；为假时，`NgIf` 会从 DOM 中移除 `HeroDetailComponent`，并销毁该组件及其所有子组件。
 
 #### Show/hide is not the same thing
 
@@ -2398,7 +2398,7 @@ You can control the visibility of an element with a
 
 Hiding an element is quite different from removing an element with `NgIf`.
 
-但隐藏子树和用`NgIf`排除子树是截然不同的。
+但隐藏子树和用 `NgIf` 排除子树是截然不同的。
 
 When you hide an element, that element and all of its descendents remain in the DOM.
 All components for those elements stay in memory and
@@ -2415,13 +2415,13 @@ When `NgIf` is `false`, Angular removes the element and its descendents from the
 It destroys their components, potentially freeing up substantial resources,
 resulting in a more responsive user experience.
 
-当`NgIf`为`false`时，Angular 从 DOM 中物理地移除了这个元素子树。
+当 `NgIf` 为 `false` 时，Angular 从 DOM 中物理地移除了这个元素子树。
 它销毁了子树中的组件及其状态，也潜在释放了可观的资源，最终让用户体验到更好的性能。
 
 The show/hide technique is fine for a few elements with few children.
 You should be wary when hiding large component trees; `NgIf` may be the safer choice.
 
-显示/隐藏的技术对于只有少量子元素的元素是很好用的，但要当心别试图隐藏大型组件树。相比之下，`NgIf`则是个更安全的选择。
+显示/隐藏的技术对于只有少量子元素的元素是很好用的，但要当心别试图隐藏大型组件树。相比之下，`NgIf` 则是个更安全的选择。
 
 #### Guard against null
 
@@ -2431,16 +2431,16 @@ The `ngIf` directive is often used to guard against null.
 Show/hide is useless as a guard.
 Angular will throw an error if a nested expression tries to access a property of `null`.
 
-`ngIf`指令通常会用来防范空指针错误。
-而显示/隐藏的方式是无法防范的，当一个表达式尝试访问空值的属性时，Angular就会抛出一个异常。
+`ngIf` 指令通常会用来防范空指针错误。
+而显示/隐藏的方式是无法防范的，当一个表达式尝试访问空值的属性时，Angular 就会抛出一个异常。
 
 Here we see `NgIf` guarding two `<div>`s.
 The `currentHero` name will appear only when there is a `currentHero`.
 The `nullHero` will never be displayed.
 
-这里我们用`NgIf`来保护了两个`<div>`防范空指针错误。
-`currentHero`的名字只有当存在`currentHero`时才会显示出来。
-而`nullHero`永远不会显示。
+这里我们用 `NgIf` 来保护了两个 `<div>` 防范空指针错误。
+`currentHero` 的名字只有当存在 `currentHero` 时才会显示出来。
+而 `nullHero` 永远不会显示。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-2" title="src/app/app.component.html" linenums="false">
 
@@ -2466,13 +2466,13 @@ described below.
 You define a block of HTML that defines how a single item should be displayed.
 You tell Angular to use that block as a template for rendering each item in the list.
 
-`NgFor`是一个_重复器_指令 —— 自定义数据显示的一种方式。
+`NgFor` 是一个_重复器_指令 —— 自定义数据显示的一种方式。
 我们的目标是展示一个由多个条目组成的列表。首先定义了一个 HTML 块，它规定了单个条目应该如何显示。
 再告诉 Angular 把这个块当做模板，渲染列表中的每个条目。
 
 Here is an example of `NgForOf` applied to a simple `<div>`:
 
-下例中，`NgFor`应用在一个简单的`<div>`上：
+下例中，`NgFor` 应用在一个简单的 `<div>` 上：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1" title="src/app/app.component.html" linenums="false">
 
@@ -2480,7 +2480,7 @@ Here is an example of `NgForOf` applied to a simple `<div>`:
 
 You can also apply an `NgForOf` to a component element, as in this example:
 
-也可以把`NgFor`应用在一个组件元素上，就下例这样：
+也可以把 `NgFor` 应用在一个组件元素上，就下例这样：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-2" title="src/app/app.component.html" linenums="false">
 
@@ -2490,13 +2490,13 @@ You can also apply an `NgForOf` to a component element, as in this example:
 
 Don't forget the asterisk (`*`) in front of `ngFor`.
 
-不要忘了`ngFor`前面的星号 (`*`)。
+不要忘了 `ngFor` 前面的星号 (`*`)。
 
 </div>
 
 The text assigned to `*ngFor` is the instruction that guides the repeater process.
 
-赋值给`*ngFor`的文本是用于指导重复器如何工作的指令。
+赋值给 `*ngFor` 的文本是用于指导重复器如何工作的指令。
 
 {@a microsyntax}
 
@@ -2508,19 +2508,19 @@ The string assigned to `*ngFor` is not a [template expression](guide/template-sy
 It's a *microsyntax* &mdash; a little language of its own that Angular interprets.
 The string `"let hero of heroes"` means:
 
-赋值给`*ngFor`的字符串不是[模板表达式](guide/template-syntax#template-expressions)。
-它是一个*微语法* —— 由 Angular 自己解释的小型语言。在这个例子中，字符串`"let hero of heroes"`的含义是：
+赋值给 `*ngFor` 的字符串不是[模板表达式](guide/template-syntax#template-expressions)。
+它是一个*微语法* —— 由 Angular 自己解释的小型语言。在这个例子中，字符串 `"let hero of heroes"` 的含义是：
 
 > *Take each hero in the `heroes` array, store it in the local `hero` looping variable, and
 make it available to the templated HTML for each iteration.*
 
-> *取出`heroes`数组中的每个英雄，把它存入局部变量`hero`中，并在每次迭代时对模板 HTML 可用*
+> *取出 `heroes` 数组中的每个英雄，把它存入局部变量 `hero` 中，并在每次迭代时对模板 HTML 可用*
 
 Angular translates this instruction into a `<ng-template>` around the host element,
 then uses this template repeatedly to create a new set of elements and bindings for each `hero`
 in the list.
 
-Angular 把这个指令翻译成了一个`<ng-template>`包裹的宿主元素，然后使用这个模板重复创建出一组新元素，并且绑定到列表中的每一个`hero`。
+Angular 把这个指令翻译成了一个 `<ng-template>` 包裹的宿主元素，然后使用这个模板重复创建出一组新元素，并且绑定到列表中的每一个 `hero`。
 
 Learn about the _microsyntax_ in the [_Structural Directives_](guide/structural-directives#microsyntax) guide.
 
@@ -2538,16 +2538,16 @@ The `let` keyword before `hero` creates a _template input variable_ called `hero
 The `NgForOf` directive iterates over the `heroes` array returned by the parent component's `heroes` property
 and sets `hero` to the current item from the array during each iteration.
 
-`hero`前的`let`关键字创建了一个名叫`hero`的*模板输入变量*。
-`ngFor`指令在由父组件的`heroes`属性返回的`heroes`数组上迭代，每次迭代都从数组中把当前元素赋值给`hero`变量。
+`hero` 前的 `let` 关键字创建了一个名叫 `hero` 的*模板输入变量*。
+`ngFor` 指令在由父组件的 `heroes` 属性返回的 `heroes` 数组上迭代，每次迭代都从数组中把当前元素赋值给 `hero` 变量。
 
 You reference the `hero` input variable within the `NgForOf` host element
 (and within its descendants) to access the hero's properties.
 Here it is referenced first in an interpolation
 and then passed in a binding to the `hero` property of the `<hero-detail>` component.
 
-我们可以在`ngFor`的宿主元素（及其子元素）中引用模板输入变量`hero`，从而访问该英雄的属性。
-这里它首先在一个插值表达式中被引用到，然后通过一个绑定把它传给了`<hero-detail>`组件的`hero`属性。
+我们可以在 `ngFor` 的宿主元素（及其子元素）中引用模板输入变量 `hero`，从而访问该英雄的属性。
+这里它首先在一个插值表达式中被引用到，然后通过一个绑定把它传给了 `<hero-detail>` 组件的 `hero` 属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1-2" title="src/app/app.component.html" linenums="false">
 
@@ -2560,17 +2560,17 @@ Learn more about _template input variables_ in the
 
 #### *ngFor with _index_
 
-#### 带索引的`*ngFor`
+#### 带索引的 `*ngFor`
 
 The `index` property of the `NgForOf` directive context returns the zero-based index of the item in each iteration.
 You can capture the `index` in a template input variable and use it in the template.
 
-`NgFor`指令上下文中的`index`属性返回一个从零开始的索引，表示当前条目在迭代中的顺序。
-我们可以通过模板输入变量捕获这个`index`值，并把它用在模板中。
+`NgFor` 指令上下文中的 `index` 属性返回一个从零开始的索引，表示当前条目在迭代中的顺序。
+我们可以通过模板输入变量捕获这个 `index` 值，并把它用在模板中。
 
 The next example captures the `index` in a variable named `i` and displays it with the hero name like this.
 
-下面这个例子把`index`捕获到了`i`变量中，并且把它显示在英雄名字的前面。
+下面这个例子把 `index` 捕获到了 `i` 变量中，并且把它显示在英雄名字的前面。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-3" title="src/app/app.component.html" linenums="false">
 
@@ -2581,7 +2581,7 @@ The next example captures the `index` in a variable named `i` and displays it wi
 `NgFor` is implemented by the `NgForOf` directive. Read more about the other `NgForOf` context values such as `last`, `even`,
 and `odd` in the [NgForOf API reference](api/common/NgForOf).
 
-要学习更多的*类似 index* 的值，例如`last`、`even`和`odd`，请参阅 [NgFor API 参考](api/common/NgForOf)。
+要学习更多的*类似 index* 的值，例如 `last`、`even` 和 `odd`，请参阅 [NgFor API 参考](api/common/NgForOf)。
 
 </div>
 
@@ -2589,12 +2589,12 @@ and `odd` in the [NgForOf API reference](api/common/NgForOf).
 
 #### *ngFor with _trackBy_
 
-#### 带`trackBy`的`*ngFor`
+#### 带 `trackBy` 的 `*ngFor`
 
 The `NgForOf` directive may perform poorly, especially with large lists.
 A small change to one item, an item removed, or an item added can trigger a cascade of DOM manipulations.
 
-`ngFor`指令有时候会性能较差，特别是在大型列表中。
+`ngFor` 指令有时候会性能较差，特别是在大型列表中。
 对一个条目的一丁点改动、移除或添加，都会导致级联的 DOM 操作。
 
 For example, re-querying the server could reset the list with all new hero objects.
@@ -2607,7 +2607,7 @@ Most, if not all, are previously displayed heroes.
 But Angular sees only a fresh list of new object references.
 It has no choice but to tear down the old DOM elements and insert all new DOM elements.
 
-他们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*我们*知道这一点，是因为每个英雄的`id`没有变化。
+他们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*我们*知道这一点，是因为每个英雄的 `id` 没有变化。
   但在 Angular 看来，它只是一个由新的对象引用构成的新列表，
   它没有选择，只能清理旧列表、舍弃那些 DOM 元素，并且用新的 DOM 元素来重建一个新列表。
 
@@ -2615,9 +2615,9 @@ Angular can avoid this churn with `trackBy`.
 Add a method to the component that returns the value `NgForOf` _should_ track.
 In this case, that value is the hero's `id`.
 
-如果给它指定一个`trackBy`，Angular 就可以避免这种折腾。
-  我们往组件中添加一个方法，它会返回`NgFor`*应该*追踪的值。
-  在这里，这个值就是英雄的`id`。
+如果给它指定一个 `trackBy`，Angular 就可以避免这种折腾。
+  我们往组件中添加一个方法，它会返回 `NgFor`*应该*追踪的值。
+  在这里，这个值就是英雄的 `id`。
 
 <code-example path="template-syntax/src/app/app.component.ts" region="trackByHeroes" title="src/app/app.component.ts" linenums="false">
 
@@ -2625,7 +2625,7 @@ In this case, that value is the hero's `id`.
 
 In the microsyntax expression, set `trackBy` to this method.
 
-在微语法中，把`trackBy`设置为该方法。
+在微语法中，把 `trackBy` 设置为该方法。
 
 <code-example path="template-syntax/src/app/app.component.html" region="trackBy" title="src/app/app.component.html" linenums="false">
 
@@ -2635,17 +2635,17 @@ Here is an illustration of the _trackBy_ effect.
 "Reset heroes" creates new heroes with the same `hero.id`s.
 "Change ids" creates new heroes with new `hero.id`s.
 
-这里展示了`trackBy`的效果。
-"Reset heroes"会创建一个具有相同`hero.id`的新英雄。
-"Change ids"则会创建一个具有新`hero.id`的新英雄。
+这里展示了 `trackBy` 的效果。
+"Reset heroes"会创建一个具有相同 `hero.id` 的新英雄。
+"Change ids"则会创建一个具有新 `hero.id` 的新英雄。
 
 * With no `trackBy`, both buttons trigger complete DOM element replacement.
 
-   如果没有`trackBy`，这些按钮都会触发完全的DOM元素替换。
+   如果没有 `trackBy`，这些按钮都会触发完全的 DOM 元素替换。
 
 * With `trackBy`, only changing the `id` triggers element replacement.
 
-   有了`trackBy`，则只有修改了`id`的按钮才会触发元素替换。
+   有了 `trackBy`，则只有修改了 `id` 的按钮才会触发元素替换。
 
 <figure>
   <img src="generated/images/guide/template-syntax/ng-for-track-by-anim.gif" alt="trackBy">
@@ -2657,20 +2657,20 @@ Here is an illustration of the _trackBy_ effect.
 
 ### The _NgSwitch_ directives
 
-### `NgSwitch`指令
+### `NgSwitch` 指令
 
 *NgSwitch* is like the JavaScript `switch` statement.
 It can display _one_ element from among several possible elements, based on a _switch condition_.
 Angular puts only the *selected* element into the DOM.
 
-`NgSwitch`指令类似于JavaScript的`switch`语句。
-它可以从多个可能的元素中根据*switch条件*来显示某一个。
-Angular只会把*选中的*元素放进DOM中。
+`NgSwitch` 指令类似于 JavaScript 的 `switch` 语句。
+它可以从多个可能的元素中根据*switch 条件*来显示某一个。
+Angular 只会把*选中的*元素放进 DOM 中。
 
 *NgSwitch* is actually a set of three, cooperating directives:
 `NgSwitch`, `NgSwitchCase`, and `NgSwitchDefault` as seen in this example.
 
-`NgSwitch`实际上包括三个相互协作的指令：`NgSwitch`、`NgSwitchCase` 和 `NgSwitchDefault`，例子如下：
+`NgSwitch` 实际上包括三个相互协作的指令：`NgSwitch`、`NgSwitchCase` 和 `NgSwitchDefault`，例子如下：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch" title="src/app/app.component.html" linenums="false">
 
@@ -2683,31 +2683,31 @@ Angular只会把*选中的*元素放进DOM中。
 `NgSwitch` is the controller directive. Bind it to an expression that returns the *switch value*.
 The `emotion` value in this example is a string, but the switch value can be of any type.
 
-`NgSwitch`是主控指令，要把它绑定到一个返回*候选值*的表达式。
-本例子中的`emotion`是个字符串，但实际上这个候选值可以是任意类型。
+`NgSwitch` 是主控指令，要把它绑定到一个返回*候选值*的表达式。
+本例子中的 `emotion` 是个字符串，但实际上这个候选值可以是任意类型。
 
 **Bind to `[ngSwitch]`**. You'll get an error if you try to set `*ngSwitch` because
 `NgSwitch` is an *attribute* directive, not a *structural* directive.
 It changes the behavior of its companion directives.
 It doesn't touch the DOM directly.
 
-**绑定到`[ngSwitch]`**。如果试图用`*ngSwitch`的形式使用它就会报错，这是因为`NgSwitch`是一个*属性型*指令，而不是*结构型指令*。
-它要修改的是所在元素的行为，而不会直接接触DOM结构。
+**绑定到 `[ngSwitch]`**。如果试图用 `*ngSwitch` 的形式使用它就会报错，这是因为 `NgSwitch` 是一个*属性型*指令，而不是*结构型指令*。
+它要修改的是所在元素的行为，而不会直接接触 DOM 结构。
 
 **Bind to `*ngSwitchCase` and `*ngSwitchDefault`**.
 The `NgSwitchCase` and `NgSwitchDefault` directives are _structural_ directives
 because they add or remove elements from the DOM.
 
-**绑定到`*ngSwitchCase`和`*ngSwitchDefault`**
-`NgSwitchCase` 和 `NgSwitchDefault` 指令都是*结构型指令*，因为它们会从DOM中添加或移除元素。
+**绑定到 `*ngSwitchCase` 和 `*ngSwitchDefault`**
+`NgSwitchCase` 和 `NgSwitchDefault` 指令都是*结构型指令*，因为它们会从 DOM 中添加或移除元素。
 
 * `NgSwitchCase` adds its element to the DOM when its bound value equals the switch value.
 
-   `NgSwitchCase`会在它绑定到的值等于候选值时，把它所在的元素加入到DOM中。
+   `NgSwitchCase` 会在它绑定到的值等于候选值时，把它所在的元素加入到 DOM 中。
 
 * `NgSwitchDefault` adds its element to the DOM when there is no selected `NgSwitchCase`.
 
-   `NgSwitchDefault`会在没有任何一个`NgSwitchCase`被选中时把它所在的元素加入DOM中。
+   `NgSwitchDefault` 会在没有任何一个 `NgSwitchCase` 被选中时把它所在的元素加入 DOM 中。
 
 The switch directives are particularly useful for adding and removing *component elements*.
 This example switches among four "emotional hero" components defined in the `hero-switch.components.ts` file.
@@ -2715,14 +2715,14 @@ Each component has a `hero` [input property](guide/template-syntax#inputs-output
 which is bound to the `currentHero` of the parent component.
 
 这组指令在要添加或移除*组件元素*时会非常有用。
-这个例子会在`hero-switch.components.ts`中定义的四个“感人英雄”组件之间选择。
-每个组件都有一个[输入属性](guide/template-syntax#inputs-outputs "Input property")`hero`，它绑定到父组件的`currentHero`上。
+这个例子会在 `hero-switch.components.ts` 中定义的四个“感人英雄”组件之间选择。
+每个组件都有一个[输入属性](guide/template-syntax#inputs-outputs "Input property")`hero`，它绑定到父组件的 `currentHero` 上。
 
 Switch directives work as well with native elements and web components too.
 For example, you could replace the `<confused-hero>` switch case with the following.
 
 这组指令在原生元素和<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>上都可以正常工作。
-比如，你可以把`<confused-hero>`分支改成这样：
+比如，你可以把 `<confused-hero>` 分支改成这样：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgSwitch-div" title="src/app/app.component.html" linenums="false">
 
@@ -2744,13 +2744,13 @@ A **template reference variable** is often a reference to a DOM element within a
 It can also be a reference to an Angular component or directive or a
 <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" title="MDN: Web Components">web component</a>.
 
-**模板引用变量**通常用来引用模板中的某个DOM元素，它还可以引用Angular组件或指令或<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>。
+**模板引用变量**通常用来引用模板中的某个 DOM 元素，它还可以引用 Angular 组件或指令或<a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components" target="_blank" title="MDN: Web Components">Web Component</a>。
 
 Use the hash symbol (#) to declare a reference variable.
 The `#phone` declares a `phone` variable on an `<input>` element.
 
 使用井号 (#) 来声明引用变量。
-`#phone`的意思就是声明一个名叫`phone`的变量来引用`<input>`元素。
+`#phone` 的意思就是声明一个名叫 `phone` 的变量来引用 `<input>` 元素。
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-var" title="src/app/app.component.html" linenums="false">
 
@@ -2761,7 +2761,7 @@ The `phone` variable declared on this `<input>` is
 consumed in a `<button>` on the other side of the template
 
 我们可以在模板中的任何地方引用模板引用变量。
-比如声明在`<input>`上的`phone`变量就是在模板另一侧的`<button>`上使用的。
+比如声明在 `<input>` 上的 `phone` 变量就是在模板另一侧的 `<button>` 上使用的。
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-phone" title="src/app/app.component.html" linenums="false">
 
@@ -2777,11 +2777,11 @@ The phone button click handler passes the _input_ value to the component's `call
 But a directive can change that behavior and set the value to something else, such as itself.
 The `NgForm` directive does that.
 
-大多数情况下，Angular会把模板引用变量的值设置为声明它的那个元素。
-在上一个例子中，`phone`引用的是表示*电话号码*的`<input>`框。
-"拨号"按钮的点击事件处理器把这个*input*值传给了组件的`callPhone`方法。
+大多数情况下，Angular 会把模板引用变量的值设置为声明它的那个元素。
+在上一个例子中，`phone` 引用的是表示*电话号码*的 `<input>` 框。
+"拨号"按钮的点击事件处理器把这个*input*值传给了组件的 `callPhone` 方法。
 不过，指令也可以修改这种行为，让这个值引用到别处，比如它自身。
-`NgForm`指令就是这么做的。
+`NgForm` 指令就是这么做的。
 
 The following is a *simplified* version of the form example in the [Forms](guide/forms) guide.
 
@@ -2795,16 +2795,16 @@ A template reference variable, `heroForm`, appears three times in this example, 
 by a large amount of HTML.
 What is the value of `heroForm`?
 
-模板引用变量`heroForm`在这个例子中出现了三次，中间隔着一大堆HTML。
-`heroForm`的值是什么？
+模板引用变量 `heroForm` 在这个例子中出现了三次，中间隔着一大堆 HTML。
+`heroForm` 的值是什么？
 
 If Angular hadn't taken it over when you imported the `FormsModule`,
 it would be the [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement).
 The `heroForm` is actually a reference to an Angular [NgForm](api/forms/NgForm "API: NgForm")
 directive with the ability to track the value and validity of every control in the form.
 
-如果你没有导入过`FormsModule`，Angular就不会控制这个表单，那么它就是一个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)实例。
-这里的`heroForm`实际上是一个Angular [NgForm](api/forms/NgForm "API: NgForm") 指令的引用，
+如果你没有导入过 `FormsModule`，Angular 就不会控制这个表单，那么它就是一个[HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)实例。
+这里的 `heroForm` 实际上是一个 Angular [NgForm](api/forms/NgForm "API: NgForm") 指令的引用，
 因此具备了跟踪表单中的每个控件的值和有效性的能力。
 
 The native `<form>` element doesn't have a `form` property.
@@ -2812,8 +2812,8 @@ But the `NgForm` directive does, which explains how you can disable the submit b
 if the `heroForm.form.valid` is invalid and pass the entire form control tree
 to the parent component's `onSubmit` method.
 
-原生的`<form>`元素没有`form`属性，但`NgForm`指令有。这就解释了为何当`heroForm.form.valid`是无效时我们可以禁用提交按钮，
-并能把整个表单控件树传给父组件的`onSubmit`方法。
+原生的 `<form>` 元素没有 `form` 属性，但 `NgForm` 指令有。这就解释了为何当 `heroForm.form.valid` 是无效时我们可以禁用提交按钮，
+并能把整个表单控件树传给父组件的 `onSubmit` 方法。
 
 <h3 class="no-toc">Template reference variable warning notes</h3>
 
@@ -2836,8 +2836,8 @@ The runtime value will be unpredictable.
 You can use the `ref-` prefix alternative to `#`.
 This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 
-我们也可以用`ref-`前缀代替`#`。
-下面的例子中就用把`fax`变量声明成了`ref-fax`而不是`#fax`。
+我们也可以用 `ref-` 前缀代替 `#`。
+下面的例子中就用把 `fax` 变量声明成了 `ref-fax` 而不是 `#fax`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
 
@@ -2888,7 +2888,7 @@ because this topic is mostly a concern for component authors.
 You are usually binding a template to its _own component class_.
 In such binding expressions, the component's property or method is to the _right_ of the (`=`).
 
-在下面的例子中，`iconUrl`和`onSave`是组件的成员，它们在`=`右侧引号语法中被引用了。
+在下面的例子中，`iconUrl` 和 `onSave` 是组件的成员，它们在 `=` 右侧引号语法中被引用了。
 
 <code-example path="template-syntax/src/app/app.component.html" region="io-1" title="src/app/app.component.html" linenums="false">
 
@@ -2926,7 +2926,7 @@ In such bindings, the _other_ component's property is to the _left_ of the (`=`)
 
 In the following example, the `AppComponent` template binds `AppComponent` class members to properties of the `HeroDetailComponent` whose selector is `'app-hero-detail'`.
 
-下面的例子中，`AppComponent` 的模板把 `AppComponent` 类的成员绑定到了 `HeroDetailComponent`（选择器为`'app-hero-detail'`） 的属性上。
+下面的例子中，`AppComponent` 的模板把 `AppComponent` 类的成员绑定到了 `HeroDetailComponent`（选择器为 `'app-hero-detail'`） 的属性上。
 
 <code-example path="template-syntax/src/app/app.component.html" region="io-2" title="src/app/app.component.html" linenums="false">
 
@@ -3020,7 +3020,7 @@ because the data bound properties are annotated with `@Input()` and `@Output()` 
 Alternatively, you can identify members in the `inputs` and `outputs` arrays
 of the directive metadata, as in this example:
 
-另外，还可以在指令元数据的`inputs`或`outputs`数组中标记出这些成员。比如这个例子：
+另外，还可以在指令元数据的 `inputs` 或 `outputs` 数组中标记出这些成员。比如这个例子：
 
 <code-example path="template-syntax/src/app/hero-detail.component.ts" region="input-output-2" title="src/app/hero-detail.component.ts" linenums="false">
 
@@ -3036,7 +3036,7 @@ of the directive metadata, as in this example:
 *Output* properties expose event producers, such as `EventEmitter` objects.
 
 *输入*属性通常接收数据值。
-*输出*属性暴露事件生产者，如`EventEmitter`对象。
+*输出*属性暴露事件生产者，如 `EventEmitter` 对象。
 
 The terms _input_ and _output_ reflect the perspective of the target directive.
 
@@ -3049,13 +3049,13 @@ _输入_和_输出_这两个词是从目标指令的角度来说的。
 `HeroDetailComponent.hero` is an **input** property from the perspective of `HeroDetailComponent`
 because data flows *into* that property from a template binding expression.
 
-从`HeroDetailComponent`角度来看，`HeroDetailComponent.hero`是个**输入**属性，
+从 `HeroDetailComponent` 角度来看，`HeroDetailComponent.hero` 是个**输入**属性，
 因为数据流从模板绑定表达式流*入*那个属性。
 
 `HeroDetailComponent.deleteRequest` is an **output** property from the perspective of `HeroDetailComponent`
 because events stream *out* of that property and toward the handler in a template binding statement.
 
-从`HeroDetailComponent`角度来看，`HeroDetailComponent.deleteRequest`是个**输出**属性，
+从 `HeroDetailComponent` 角度来看，`HeroDetailComponent.deleteRequest` 是个**输出**属性，
 因为事件从那个属性流*出*，流向模板绑定语句中的处理器。
 
 <h3 id='aliasing-io'>Aliasing input/output properties</h3>
@@ -3072,8 +3072,8 @@ For example, when you apply a directive with a `myClick` selector to a `<div>` t
 you expect to bind to an event property that is also called `myClick`.
 
 这是使用 [attribute 指令](guide/attribute-directives)时的常见情况。
-指令的使用者期望绑定到指令名。例如，在`<div>`上用`myClick`选择器应用指令时，
-希望绑定的事件属性也叫`myClick`。
+指令的使用者期望绑定到指令名。例如，在 `<div>` 上用 `myClick` 选择器应用指令时，
+希望绑定的事件属性也叫 `myClick`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="myClick" title="src/app/app.component.html" linenums="false">
 
@@ -3085,7 +3085,7 @@ The `myClick` directive name is not a good name for a property that emits click 
 
 然而，在指令类中，直接用指令名作为自己的属性名通常都不是好的选择。
 指令名很少能描述这个属性是干嘛的。
-`myClick`这个指令名对于用来发出 click 消息的属性就算不上一个好名字。
+`myClick` 这个指令名对于用来发出 click 消息的属性就算不上一个好名字。
 
 Fortunately, you can have a public name for the property that meets conventional expectations,
 while using a different name internally.
@@ -3093,11 +3093,11 @@ In the example immediately above, you are actually binding *through the* `myClic
 the directive's own `clicks` property.
 
 幸运的是，可以使用约定俗成的公共名字，同时在内部使用不同的名字。
-在上面例子中，实际上是把`myClick`这个别名指向了指令自己的`clicks`属性。
+在上面例子中，实际上是把 `myClick` 这个别名指向了指令自己的 `clicks` 属性。
 
 You can specify the alias for the property name by passing it into the input/output decorator like this:
 
-把别名传进@Input/@Output装饰器，就可以为属性指定别名，就像这样：
+把别名传进@Input/@Output 装饰器，就可以为属性指定别名，就像这样：
 
 <code-example path="template-syntax/src/app/click.directive.ts" region="output-myClick" title="src/app/click.directive.ts" linenums="false">
 
@@ -3109,7 +3109,7 @@ You can also alias property names in the `inputs` and `outputs` arrays.
 You write a colon-delimited (`:`) string with
 the directive property name on the *left* and the public alias on the *right*:
 
-也可在`inputs`和`outputs`数组中为属性指定别名。
+也可在 `inputs` 和 `outputs` 数组中为属性指定别名。
 可以写一个冒号 (`:`) 分隔的字符串，*左侧*是指令中的属性名，*右侧*则是公共别名。
 
 <code-example path="template-syntax/src/app/click.directive.ts" region="output-myClick2" title="src/app/click.directive.ts" linenums="false">
@@ -3177,7 +3177,7 @@ And you can also [apply parameters](guide/pipes#parameterizing-a-pipe) to a pipe
 
 The `json` pipe is particularly helpful for debugging bindings:
 
-`json`管道对调试绑定特别有用：
+`json` 管道对调试绑定特别有用：
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (pipes-json)" region="pipes-json">
 
@@ -3209,7 +3209,7 @@ guard against null and undefined values in property paths.
 Here it is, protecting against a view render failure if the `currentHero` is null.
 
 Angular 的**安全导航操作符 (`?.`) **是一种流畅而便利的方式，用来保护出现在属性路径中 null 和 undefined 值。
-下例中，当`currentHero`为空时，保护视图渲染器，让它免于失败。
+下例中，当 `currentHero` 为空时，保护视图渲染器，让它免于失败。
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-2" title="src/app/app.component.html" linenums="false">
 
@@ -3217,7 +3217,7 @@ Angular 的**安全导航操作符 (`?.`) **是一种流畅而便利的方式，
 
 What happens when the following data bound `title` property is null?
 
-如果下列数据绑定中`title`属性为空，会发生什么？
+如果下列数据绑定中 `title` 属性为空，会发生什么？
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-1" title="src/app/app.component.html" linenums="false">
 
@@ -3232,7 +3232,7 @@ That is reasonable behavior. At least the app doesn't crash.
 Suppose the template expression involves a property path, as in this next example
 that displays the `name` of a null hero.
 
-假设模板表达式涉及属性路径，在下例中，显示一个空 (null) 英雄的`firstName`。
+假设模板表达式涉及属性路径，在下例中，显示一个空 (null) 英雄的 `firstName`。
 
 <code-example language="html">
 
@@ -3259,7 +3259,7 @@ If it must never be null and yet it is null,
 that's a programming error that should be caught and fixed.
 Throwing an exception is the right thing to do.
 
-如果确信`hero`属性永远不可能为空，可以声称这是合理的行为。
+如果确信 `hero` 属性永远不可能为空，可以声称这是合理的行为。
 如果它必须不能为空，但它仍然是空值，实际上是制造了一个编程错误，它应该被捕获和修复。
 这种情况应该抛出异常。
 
@@ -3271,11 +3271,11 @@ especially when the data are null now and will arrive eventually.
 While waiting for data, the view should render without complaint, and
 the null property path should display as blank just as the `title` property does.
 
-当等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像上面`title`属性那样。
+当等待数据的时候，视图渲染器不应该抱怨，而应该把这个空属性路径显示为空白，就像上面 `title` 属性那样。
 
 Unfortunately, the app crashes when the `currentHero` is null.
 
-不幸的是，当`currentHero`为空的时候，应用崩溃了。
+不幸的是，当 `currentHero` 为空的时候，应用崩溃了。
 
 You could code around that problem with [*ngIf](guide/template-syntax#ngIf).
 
@@ -3288,7 +3288,7 @@ You could code around that problem with [*ngIf](guide/template-syntax#ngIf).
 You could try to chain parts of the property path with `&&`, knowing that the expression bails out
 when it encounters the first null.
 
-或者可以尝试通过`&&`来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
+或者可以尝试通过 `&&` 来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-5" title="src/app/app.component.html" linenums="false">
 
@@ -3298,7 +3298,7 @@ These approaches have merit but can be cumbersome, especially if the property pa
 Imagine guarding against a null somewhere in a long property path such as `a.b.c.d`.
 
 这些方法都有价值，但是会显得笨重，特别是当这个属性路径非常长的时候。
-想象一下在一个很长的属性路径（如`a.b.c.d`）中对空值提供保护。
+想象一下在一个很长的属性路径（如 `a.b.c.d`）中对空值提供保护。
 
 The Angular safe navigation operator (`?.`) is a more fluent and convenient way to guard against nulls in property paths.
 The expression bails out when it hits the first null value.
@@ -3314,7 +3314,7 @@ Angular 安全导航操作符 (`?.`) 是在属性路径中保护空值的更加�
 
 It works perfectly with long property paths such as `a?.b?.c?.d`.
 
-在像`a?.b?.c?.d`这样的长属性路径中，它工作得很完美。<a href="#top-of-page">back to top</a>
+在像 `a?.b?.c?.d` 这样的长属性路径中，它工作得很完美。<a href="#top-of-page">back to top</a>
 
 <hr/>
 
@@ -3326,18 +3326,18 @@ It works perfectly with long property paths such as `a?.b?.c?.d`.
 
 As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is _unintentionally_ null or undefined.
 
-在 TypeScript 2.0 中，我们可以使用`--strictNullChecks`标志强制开启[严格空值检查](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript")。TypeScript就会确保不存在意料之外的null或undefined。
+在 TypeScript 2.0 中，我们可以使用 `--strictNullChecks` 标志强制开启[严格空值检查](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript")。TypeScript 就会确保不存在意料之外的 null 或 undefined。
 
 In this mode, typed variables disallow null and undefined by default. The type checker throws an error if you leave a variable unassigned or try to assign null or undefined to a variable whose type disallows null and undefined.
 
-在这种模式下，有类型的变量默认是不允许null或undefined值的，如果有未赋值的变量，或者试图把null或undefined赋值给不允许为空的变量，类型检查器就会抛出一个错误。
+在这种模式下，有类型的变量默认是不允许 null 或 undefined 值的，如果有未赋值的变量，或者试图把 null 或 undefined 赋值给不允许为空的变量，类型检查器就会抛出一个错误。
 
 The type checker also throws an error if it can't determine whether a variable will be null or undefined at runtime.
 You may know that can't happen but the type checker doesn't know.
 You tell the type checker that it can't happen by applying the post-fix
 [_non-null assertion operator (!)_](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
 
-如果类型检查器在运行期间无法确定一个变量是null或undefined，那么它也会抛出一个错误。
+如果类型检查器在运行期间无法确定一个变量是 null 或 undefined，那么它也会抛出一个错误。
 我们自己可能知道它不会为空，但类型检查器不知道。
 所以我们要告诉类型检查器，它不会为空，这时就要用到[*非空断言操作符*](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator")。
 
@@ -3348,7 +3348,7 @@ The _Angular_ **non-null assertion operator (`!`)** serves the same purpose in a
 For example, after you use [*ngIf](guide/template-syntax#ngIf) to check that `hero` is defined, you can assert that
 `hero` properties are also defined.
 
-例如，在用[*ngIf](guide/template-syntax#ngIf)来检查过`hero`是已定义的之后，就可以断言`hero`属性一定是已定义的。
+例如，在用[*ngIf](guide/template-syntax#ngIf)来检查过 `hero` 是已定义的之后，就可以断言 `hero` 属性一定是已定义的。
 
 <code-example path="template-syntax/src/app/app.component.html" region="non-null-assertion-1" title="src/app/app.component.html" linenums="false">
 
@@ -3357,13 +3357,13 @@ For example, after you use [*ngIf](guide/template-syntax#ngIf) to check that `he
 When the Angular compiler turns your template into TypeScript code,
 it prevents TypeScript from reporting that `hero.name` might be null or undefined.
 
-在 Angular 编译器把你的模板转换成 TypeScript 代码时，这个操作符会防止 TypeScript 报告 "`hero.name`可能为null或undefined"的错误。
+在 Angular 编译器把你的模板转换成 TypeScript 代码时，这个操作符会防止 TypeScript 报告 "`hero.name` 可能为 null 或 undefined"的错误。
 
 Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?.)"),
 the **non-null assertion operator** does not guard against null or undefined.
 Rather it tells the TypeScript type checker to suspend strict null checks for a specific property expression.
 
-与[_安全导航操作符_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")不同的是，**非空断言操作符**不会防止出现null或undefined。
+与[_安全导航操作符_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")不同的是，**非空断言操作符**不会防止出现 null 或 undefined。
 它只是告诉 TypeScript 的类型检查器对特定的属性表达式，不做 "严格空值检测"。
 
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.

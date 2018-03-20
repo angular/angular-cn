@@ -72,7 +72,7 @@ For example, `hero.component.ts` and `hero.component.html`.
 
 The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 
-本指南将会使用像`hero.component.ts|html|css|spec`的简写来表示上面描述的多个文件，目的是保持本指南的简洁性，增加描述文件结构时的可读性。
+本指南将会使用像 `hero.component.ts|html|css|spec` 的简写来表示上面描述的多个文件，目的是保持本指南的简洁性，增加描述文件结构时的可读性。
 
 {@a single-responsibility}
 
@@ -146,7 +146,7 @@ The following *negative* example defines the `AppComponent`, bootstraps the app,
 defines the `Hero` model object, and loads heroes from the server all in the same file.
 *Don't do this*.
 
-下面的*负面*例子定义了`AppComponent`，它来引导应用程序，定义了`Hero`模型对象，并从服务器加载了英雄 ... 所有都在同一个文件。 *不要这么做*。
+下面的*负面*例子定义了 `AppComponent`，它来引导应用程序，定义了 `Hero` 模型对象，并从服务器加载了英雄 ... 所有都在同一个文件。 *不要这么做*。
 
 <code-example path="styleguide/src/01-01/app/heroes/hero.component.avoid.ts" title="app/heroes/hero.component.ts">
 
@@ -297,7 +297,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Do** follow a pattern that describes the symbol's feature then its type. The recommended pattern is `feature.type.ts`.
 
-**坚持**遵循同一个模式来描述符号的特性和类型。推荐的模式为`feature.type.ts`。
+**坚持**遵循同一个模式来描述符号的特性和类型。推荐的模式为 `feature.type.ts`。
 
 </div>
 
@@ -323,7 +323,7 @@ Naming conventions are hugely important to maintainability and readability. This
 **Why?** Names of folders and files should clearly convey their intent. For example, `app/heroes/hero-list.component.ts` may contain a component that manages a list of heroes.
 
 **为何？**目录名和文件名应该清楚的传递它们的意图。
-例如，`app/heroes/hero-list.component.ts`包含了一个用来管理英雄列表的组件。
+例如，`app/heroes/hero-list.component.ts` 包含了一个用来管理英雄列表的组件。
 
 </div>
 
@@ -361,7 +361,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Do** use consistent type names for all components following a pattern that describes the component's feature then its type. A recommended pattern is `feature.type.ts`.
 
-**坚持**遵循先描述组件特性，再描述它的类型的模式，对所有组件使用一致的类型命名规则。推荐的模式为`feature.type.ts`。
+**坚持**遵循先描述组件特性，再描述它的类型的模式，对所有组件使用一致的类型命名规则。推荐的模式为 `feature.type.ts`。
 
 </div>
 
@@ -370,7 +370,7 @@ Naming conventions are hugely important to maintainability and readability. This
 **Do** use conventional type names including `.service`, `.component`, `.pipe`, `.module`, and `.directive`.
 Invent additional type names if you must but take care not to create too many.
 
-**坚持**使用惯用的后缀来描述类型，包括`*.service`、`*.component`、`*.pipe`、`.module`、`.directive`。
+**坚持**使用惯用的后缀来描述类型，包括 `*.service`、`*.component`、`*.pipe`、`.module`、`.directive`。
 必要时可以创建更多类型名，但必须注意，不要创建太多。
 
 </div>
@@ -396,8 +396,8 @@ Invent additional type names if you must but take care not to create too many.
 **Why?** Unabbreviated type names such as `.service` are descriptive and unambiguous.
 Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
-**为何？** 像`.service`这样的没有简写过的类型名字，描述清楚，毫不含糊。
-像`.srv`, `.svc`, 和 `.serv`这样的简写可能令人困惑。
+**为何？** 像 `.service` 这样的没有简写过的类型名字，描述清楚，毫不含糊。
+像 `.srv`, `.svc`, 和 `.serv` 这样的简写可能令人困惑。
 
 </div>
 
@@ -443,7 +443,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 **Do** match the name of the symbol to the name of the file.
 
-**坚持**在符号名后面追加约定的类型后缀（例如`Component`、`Directive`、`Module`、`Pipe`、`Service`）。
+**坚持**在符号名后面追加约定的类型后缀（例如 `Component`、`Directive`、`Module`、`Pipe`、`Service`）。
 
 </div>
 
@@ -452,7 +452,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 **Do** append the symbol name with the conventional suffix (such as `Component`,
 `Directive`, `Module`, `Pipe`, or `Service`) for a thing of that type.
 
-**坚持**在符号名后面追加约定的类型后缀（例如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
+**坚持**在符号名后面追加约定的类型后缀（例如 `.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
 
 </div>
 
@@ -461,7 +461,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 **Do** give the filename the conventional suffix (such as `.component.ts`, `.directive.ts`,
 `.module.ts`, `.pipe.ts`, or `.service.ts`) for a file of that type.
 
-**坚持**在文件名后面追加约定的类型后缀（例如`.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
+**坚持**在文件名后面追加约定的类型后缀（例如 `.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
 
 </div>
 
@@ -702,8 +702,8 @@ and reference assets of different types.
 For example, something that gets data or heroes
 should be called a `DataService` or a `HeroService`.
 
-**坚持**为服务的类名加上`Service`后缀。
-例如，获取数据或英雄列表的服务应该命名为`DataService`或`HeroService`。
+**坚持**为服务的类名加上 `Service` 后缀。
+例如，获取数据或英雄列表的服务应该命名为 `DataService` 或 `HeroService`。
 
 A few terms are unambiguously services. They typically
 indicate agency by ending in "-er". You may prefer to name
@@ -711,7 +711,7 @@ a service that logs messages `Logger` rather than `LoggerService`.
 Decide if this exception is agreeable in your project.
 As always, strive for consistency.
 
-有些词汇显然就是服务，比如那些以“-er”后缀结尾的。比如把记日志的服务命名为`Logger`就比`LoggerService`更好些。需要在你的项目中决定这种特例是否可以接受。
+有些词汇显然就是服务，比如那些以“-er”后缀结尾的。比如把记日志的服务命名为 `Logger` 就比 `LoggerService` 更好些。需要在你的项目中决定这种特例是否可以接受。
 但无论如何，都要尽量保持一致。
 
 </div>
@@ -728,7 +728,7 @@ As always, strive for consistency.
 
 **Why?** Clear service names such as `Logger` do not require a suffix.
 
-**为何？**像`Logger`这样的清楚的服务名不需要后缀。
+**为何？**像 `Logger` 这样的清楚的服务名不需要后缀。
 
 </div>
 
@@ -736,7 +736,7 @@ As always, strive for consistency.
 
 **Why?** Service names such as `Credit` are nouns and require a suffix and should be named with a suffix when it is not obvious if it is a service or something else.
 
-**为何？**像`Credit`这样的，服务名是名词，需要一个后缀。当不能明显分辨它是服务还是其它东西时，应该添加后缀。
+**为何？**像 `Credit` 这样的，服务名是名词，需要一个后缀。当不能明显分辨它是服务还是其它东西时，应该添加后缀。
 
 </div>
 
@@ -853,7 +853,7 @@ As always, strive for consistency.
 
 **Do** put bootstrapping and platform logic for the app in a file named `main.ts`.
 
-**坚持**把应用的引导程序和平台相关的逻辑放到名为`main.ts`的文件里。
+**坚持**把应用的引导程序和平台相关的逻辑放到名为 `main.ts` 的文件里。
 
 </div>
 
@@ -869,7 +869,7 @@ As always, strive for consistency.
 
 **Avoid** putting app logic in `main.ts`. Instead, consider placing it in a component or service.
 
-**避免**把应用逻辑放在`main.ts`中，而应放在组件或服务里。
+**避免**把应用逻辑放在 `main.ts` 中，而应放在组件或服务里。
 
 </div>
 
@@ -949,7 +949,7 @@ As always, strive for consistency.
 
 **Do** use a hyphenated, lowercase element selector value (e.g. `admin-users`).
 
-**坚持**使用带连字符的小写元素选择器值（例如`admin-users`）。
+**坚持**使用带连字符的小写元素选择器值（例如 `admin-users`）。
 
 </div>
 
@@ -959,7 +959,7 @@ As always, strive for consistency.
 For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
 
 **坚持**为组件选择器添加自定义前缀。
-例如，`toh`前缀表示 **T**our **o**f **H**eroes（英雄指南），而前缀`admin表示管理特性区。
+例如，`toh` 前缀表示 **T**our **o**f **H**eroes（英雄指南），而前缀 `admin 表示管理特性区。
 
 </div>
 
@@ -1025,7 +1025,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** use a custom prefix for the selector of directives (e.g, the prefix `toh` from **T**our **o**f **H**eroes).
 
-**坚持**为指令的选择器添加自定义前缀（例如前缀`toh`来自**T**our **o**f **H**eroes）。
+**坚持**为指令的选择器添加自定义前缀（例如前缀 `toh` 来自**T**our **o**f **H**eroes）。
 
 </div>
 
@@ -1191,7 +1191,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** name test specification files with a suffix of `.spec`.
 
-**坚持**测试规格文件名添加`.spec`后缀。
+**坚持**测试规格文件名添加 `.spec` 后缀。
 
 </div>
 
@@ -1325,7 +1325,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** name end-to-end test specification files after the feature they test with a suffix of `.e2e-spec`.
 
-**坚持**端到端测试规格文件和它们所测试的特性同名，添加`.e2e-spec`后缀。
+**坚持**端到端测试规格文件和它们所测试的特性同名，添加 `.e2e-spec` 后缀。
 
 </div>
 
@@ -1415,7 +1415,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** append the symbol name with the suffix `Module`.
 
-**坚持**为符号名添加`Module`后缀
+**坚持**为符号名添加 `Module` 后缀
 
 </div>
 
@@ -1423,7 +1423,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** give the file name the `.module.ts` extension.
 
-**坚持**为文件名添加`.module.ts`扩展名。
+**坚持**为文件名添加 `.module.ts` 扩展名。
 
 </div>
 
@@ -1463,7 +1463,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** suffix a _RoutingModule_ class name with `RoutingModule`.
 
-**坚持**为 *RoutingModule* 类名添加`RoutingModule`后缀。
+**坚持**为 *RoutingModule* 类名添加 `RoutingModule` 后缀。
 
 </div>
 
@@ -1471,7 +1471,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Do** end the filename of a _RoutingModule_ with `-routing.module.ts`.
 
-**坚持**为 *RoutingModule* 的文件名添加`-routing.module.ts`后缀。
+**坚持**为 *RoutingModule* 的文件名添加 `-routing.module.ts` 后缀。
 
 </div>
 
@@ -1480,7 +1480,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 **Why?** A `RoutingModule` is a module dedicated exclusively to configuring the Angular router.
 A consistent class and file name convention make these modules easy to spot and verify.
 
-**为何？**`RoutingModule`是一种专门用来配置 Angular 路由器的模块。
+**为何？**`RoutingModule` 是一种专门用来配置 Angular 路由器的模块。
 “类名和文件名保持一致”的约定使这些模块易于发现和验证。
 
 </div>
@@ -1695,7 +1695,7 @@ By convention, upper camel case indicates a constructable asset.
 
 **Do** declare variables with `const` if their values should not change during the application lifetime.
 
-**坚持**用`const`声明变量，除非它们的值在应用的生命周期内会发生变化。
+**坚持**用 `const` 声明变量，除非它们的值在应用的生命周期内会发生变化。
 
 </div>
 
@@ -1740,7 +1740,7 @@ an era before the modern IDEs that quickly reveal the `const` declaration.
 TypeScript prevents accidental reassignment.
 
 **为何？** 把常量命名为大写蛇形命名法的传统源于现代 IDE 出现之前，
-以便阅读时可以快速发现那些`const`定义。
+以便阅读时可以快速发现那些 `const` 定义。
 TypeScript 本身就能够防止意外赋值。
 
 </div>
@@ -1749,7 +1749,7 @@ TypeScript 本身就能够防止意外赋值。
 
 **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
 
-**坚持**容许_现存的_`const`常量沿用大写蛇形命名法。
+**坚持**容许_现存的_`const` 常量沿用大写蛇形命名法。
 
 </div>
 
@@ -1794,7 +1794,7 @@ It is rarely worth the effort to change them at the risk of breaking existing co
 
 **Consider** naming an interface without an `I` prefix.
 
-**考虑**不要在接口名字前面加`I`前缀。
+**考虑**不要在接口名字前面加 `I` 前缀。
 
 </div>
 
@@ -1835,7 +1835,7 @@ discourage the `I` prefix.
 
 **Why?** A class can act as an interface (use `implements` instead of `extends`).
 
-**为何？**类可以作为接口使用（只是用`implements`代替`extends`而已）。
+**为何？**类可以作为接口使用（只是用 `implements` 代替 `extends` 而已）。
 
 </div>
 
@@ -1994,7 +1994,7 @@ Have a near-term view of implementation and a long-term vision. Start small but 
 All of the app's code goes in a folder named `src`.
 All feature areas are in their own folder, with their own NgModule.
 
-所有应用程序的源代码都放到名叫`src`的目录里。
+所有应用程序的源代码都放到名叫 `src` 的目录里。
 所有特性区都在自己的文件夹中，带有它们自己的 Angular 模块。
 
 All content is one asset per file. Each component, service, and pipe is in its own file.
@@ -2003,7 +2003,7 @@ You didn't write them and you don't want them cluttering `src`.
 Use the naming conventions for files in this guide.
 
 所有内容都遵循每个文件一个特性的原则。每个组件、服务和管道都在自己的文件里。
-所有第三方程序包保存到其它目录里，而不是`src`目录。
+所有第三方程序包保存到其它目录里，而不是 `src` 目录。
 你不会修改它们，所以不希望它们弄乱我们的应用程序。
 使用本指南介绍的文件命名约定。
 
@@ -2026,7 +2026,7 @@ Use the naming conventions for files in this guide.
 keep the **F**lattest structure you can, and
 **T**ry to be DRY.
 
-**坚持**组织应用的结构，达到这些目的：快速定位 (`L`ocate) 代码、一眼识别 (`I`dentify) 代码、 尽量保持扁平结构 (`F`lattest) 和尝试 (`T`ry) 遵循DRY (Do Not Repeat Yourself, 不重复自己) 原则。
+**坚持**组织应用的结构，达到这些目的：快速定位 (`L`ocate) 代码、一眼识别 (`I`dentify) 代码、 尽量保持扁平结构 (`F`lattest) 和尝试 (`T`ry) 遵循 DRY (Do Not Repeat Yourself, 不重复自己) 原则。
 
 </div>
 
@@ -2044,7 +2044,7 @@ keep the **F**lattest structure you can, and
 To confirm your intuition about a particular structure, ask:
 _can I quickly open and start work in all of the related files for this feature_?
 
-**为何？**LIFT提供了一致的结构，它具有扩展性强、模块化的特性。因为容易快速锁定代码，提高了开发者的效率。
+**为何？**LIFT 提供了一致的结构，它具有扩展性强、模块化的特性。因为容易快速锁定代码，提高了开发者的效率。
 另外，检查应用结构是否合理的方法是问问自己：我们能快速打开与此特性有关的所有文件并开始工作吗？
 
 </div>
@@ -2061,7 +2061,7 @@ _can I quickly open and start work in all of the related files for this feature_
 
 #### Style 04-02
 
-####  风格04-02
+####  风格 04-02
 
 <div class="s-rule do">
 
@@ -2178,7 +2178,7 @@ in a single file than as multiple files. Be wary of this loophole.
 
 **Consider** configuring the IDE to hide distracting, irrelevant files such as generated `.js` and `.js.map` files.
 
-**考虑**配置 IDE，以隐藏无关的文件，例如生成出来的`.js`文件和`.js.map`文件等。
+**考虑**配置 IDE，以隐藏无关的文件，例如生成出来的 `.js` 文件和 `.js.map` 文件等。
 
 </div>
 
@@ -2246,7 +2246,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 **为何？**虽然 DRY 很重要，但如果要以牺牲 LIFT 的其它原则为代价，那就不值得了。
 这也就是为什么它被称为 *T-DRY*。
-例如，把组件命名为`hero-view.component.html`是多余的，因为带有`.html`扩展名的文件显然就是一个视图 (view)。
+例如，把组件命名为 `hero-view.component.html` 是多余的，因为带有 `.html` 扩展名的文件显然就是一个视图 (view)。
 但如果它不那么显著，或不符合常规，就把它写出来。
 
 </div>
@@ -2285,7 +2285,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 **Do** put all of the app's code in a folder named `src`.
 
-**坚持**把所有源代码都放到名为`src`的目录里。
+**坚持**把所有源代码都放到名为 `src` 的目录里。
 
 </div>
 
@@ -2293,7 +2293,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 **Consider** creating a folder for a component when it has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
 
-**坚持**如果组件具有多个伴隨文件 (`.ts`、`.html`、`.css`和`.spec`)，就为它创建一个文件夹。
+**坚持**如果组件具有多个伴隨文件 (`.ts`、`.html`、`.css` 和 `.spec`)，就为它创建一个文件夹。
 
 </div>
 
@@ -2748,7 +2748,7 @@ and more difficult in a flat structure.
 **Do** create an NgModule in the app's root folder,
 for example, in `/src/app`.
 
-**坚持**在应用的根目录创建一个 Angular 模块（例如`/src/app`）。
+**坚持**在应用的根目录创建一个 Angular 模块（例如 `/src/app`）。
 
 </div>
 
@@ -2764,7 +2764,7 @@ for example, in `/src/app`.
 
 **Consider** naming the root module `app.module.ts`.
 
-**考虑**把根模块命名为`app.module.ts`。
+**考虑**把根模块命名为 `app.module.ts`。
 
 </div>
 
@@ -2808,7 +2808,7 @@ for example, a `Heroes` feature.
 **Do** place the feature module in the same named folder as the feature area;
 for example, in `app/heroes`.
 
-**坚持**把特性模块放在与特性区同名的目录中（例如`app/heroes`）。
+**坚持**把特性模块放在与特性区同名的目录中（例如 `app/heroes`）。
 
 </div>
 
@@ -2817,7 +2817,7 @@ for example, in `app/heroes`.
 **Do** name the feature module file reflecting the name of the feature area
 and folder; for example, `app/heroes/heroes.module.ts`.
 
-**坚持**特性模块的文件名应该能反映出特性区的名字和目录（例如`app/heroes/heroes.module.ts`）。
+**坚持**特性模块的文件名应该能反映出特性区的名字和目录（例如 `app/heroes/heroes.module.ts`）。
 
 </div>
 
@@ -2826,7 +2826,7 @@ and folder; for example, `app/heroes/heroes.module.ts`.
 **Do** name the feature module symbol reflecting the name of the feature
 area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `HeroesModule`.
 
-**坚持**特性模块的符号名应该能反映出特性区、目录和文件名（例如在`app/heroes/heroes.module.ts`中定义`HeroesModule`）。
+**坚持**特性模块的符号名应该能反映出特性区、目录和文件名（例如在 `app/heroes/heroes.module.ts` 中定义 `HeroesModule`）。
 
 </div>
 
@@ -2897,7 +2897,7 @@ area, folder, and file; for example, `app/heroes/heroes.module.ts` defines `Hero
 **Do** create a feature module named `SharedModule` in a `shared` folder;
 for example, `app/shared/shared.module.ts` defines `SharedModule`.
 
-**坚持**在`shared`目录中创建名叫`SharedModule`的特性模块（例如在`app/shared/shared.module.ts`中定义`SharedModule`）。
+**坚持**在 `shared` 目录中创建名叫 `SharedModule` 的特性模块（例如在 `app/shared/shared.module.ts` 中定义 `SharedModule`）。
 
 </div>
 
@@ -2915,7 +2915,7 @@ items will be re-used and referenced by the components declared in other feature
 **Consider** using the name SharedModule when the contents of a shared
 module are referenced across the entire application.
 
-**考虑**把可能在整个应用中到处引用的模块命名为SharedModule
+**考虑**把可能在整个应用中到处引用的模块命名为 SharedModule
 
 </div>
 
@@ -2934,7 +2934,7 @@ in a particular feature module.
 **Do** import all modules required by the assets in the `SharedModule`;
 for example, `CommonModule` and `FormsModule`.
 
-**坚持**在`SharedModule`中导入所有模块都需要的资产（例如`CommonModule`和`FormsModule`）。
+**坚持**在 `SharedModule` 中导入所有模块都需要的资产（例如 `CommonModule` 和 `FormsModule`）。
 
 </div>
 
@@ -2944,7 +2944,7 @@ for example, `CommonModule` and `FormsModule`.
 that may need features from another common module; for example,
 `ngFor` in `CommonModule`.
 
-**为何？** `SharedModule`中包含的组件、指令和管道可能需要来自其它公共模块的特性（例如来自`CommonModule`中的`ngFor`指令）。
+**为何？** `SharedModule` 中包含的组件、指令和管道可能需要来自其它公共模块的特性（例如来自 `CommonModule` 中的 `ngFor` 指令）。
 
 </div>
 
@@ -2952,7 +2952,7 @@ that may need features from another common module; for example,
 
 **Do** declare all components, directives, and pipes in the `SharedModule`.
 
-**坚持**在`SharedModule`中声明所有组件、指令和管道。
+**坚持**在 `SharedModule` 中声明所有组件、指令和管道。
 
 </div>
 
@@ -2960,7 +2960,7 @@ that may need features from another common module; for example,
 
 **Do** export all symbols from the `SharedModule` that other feature modules need to use.
 
-**坚持**从`SharedModule`中导出其它特性模块所需的全部符号。
+**坚持**从 `SharedModule` 中导出其它特性模块所需的全部符号。
 
 </div>
 
@@ -2968,7 +2968,7 @@ that may need features from another common module; for example,
 
 **Why?** `SharedModule` exists to make commonly used components, directives and pipes available for use in the templates of components in many other modules.
 
-**为何？** `SharedModule`的存在，能让常用的组件、指令和管道在很多其它模块的组件模板中都自动可用。
+**为何？** `SharedModule` 的存在，能让常用的组件、指令和管道在很多其它模块的组件模板中都自动可用。
 
 </div>
 
@@ -2976,7 +2976,7 @@ that may need features from another common module; for example,
 
 **Avoid** specifying app-wide singleton providers in a `SharedModule`. Intentional singletons are OK. Take care.
 
-**避免**在`SharedModule`中指定应用级的单例服务提供商。如果是刻意要得到多个服务单例也行，不过还是要小心。
+**避免**在 `SharedModule` 中指定应用级的单例服务提供商。如果是刻意要得到多个服务单例也行，不过还是要小心。
 
 </div>
 
@@ -2994,7 +2994,7 @@ that may need features from another common module; for example,
 Yet there is a real danger of that happening if the `SharedModule` provides a service.
 
 **为何？**对于单例服务，你不希望每个模块都有自己的实例。
-而如果`SharedModule`提供了一个服务，那就有可能发生这种情况。
+而如果 `SharedModule` 提供了一个服务，那就有可能发生这种情况。
 
 </div>
 
@@ -3132,7 +3132,7 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 #### Style 04-11
 
-#### 风格04-11
+#### 风格 04-11
 
 <div class="s-rule consider">
 
@@ -3149,7 +3149,7 @@ to simplify the apparent structure of a feature module.
 Importing `CoreModule` into the root `AppModule` reduces its complexity
 and emphasizes its role as orchestrator of the application as a whole.
 
-**坚持**把那些“只用一次”的类收集到`CoreModule`中，并对外隐藏它们的实现细节。简化的`AppModule`会导入`CoreModule`，并且把它作为整个应用的总指挥。
+**坚持**把那些“只用一次”的类收集到 `CoreModule` 中，并对外隐藏它们的实现细节。简化的 `AppModule` 会导入 `CoreModule`，并且把它作为整个应用的总指挥。
 
 </div>
 
@@ -3157,7 +3157,7 @@ and emphasizes its role as orchestrator of the application as a whole.
 
 **Do** create a feature module named `CoreModule` in a `core` folder (e.g. `app/core/core.module.ts` defines `CoreModule`).
 
-**坚持**在`core`目录下创建一个名叫`CoreModule`的特性模块（例如在`app/core/core.module.ts`中定义`CoreModule`）。
+**坚持**在 `core` 目录下创建一个名叫 `CoreModule` 的特性模块（例如在 `app/core/core.module.ts` 中定义 `CoreModule`）。
 
 </div>
 
@@ -3165,7 +3165,7 @@ and emphasizes its role as orchestrator of the application as a whole.
 
 **Do** put a singleton service whose instance will be shared throughout the application in the `CoreModule` (e.g. `ExceptionService` and `LoggerService`).
 
-**坚持**把要共享给整个应用的单例服务放进`CoreModule`中（例如`ExceptionService`和`LoggerService`）。
+**坚持**把要共享给整个应用的单例服务放进 `CoreModule` 中（例如 `ExceptionService` 和 `LoggerService`）。
 
 </div>
 
@@ -3173,7 +3173,7 @@ and emphasizes its role as orchestrator of the application as a whole.
 
 **Do** import all modules required by the assets in the `CoreModule` (e.g. `CommonModule` and `FormsModule`).
 
-**坚持**导入`CoreModule`中的资产所需要的全部模块（例如`CommonModule`和`FormsModule`）。
+**坚持**导入 `CoreModule` 中的资产所需要的全部模块（例如 `CommonModule` 和 `FormsModule`）。
 
 </div>
 
@@ -3181,7 +3181,7 @@ and emphasizes its role as orchestrator of the application as a whole.
 
 **Why?** `CoreModule` provides one or more singleton services. Angular registers the providers with the app root injector, making a singleton instance of each service available to any component that needs them, whether that component is eagerly or lazily loaded.
 
-**为何？** `CoreModule`提供了一个或多个单例服务。Angular使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过主动加载还是惰性加载的方式加载的。
+**为何？** `CoreModule` 提供了一个或多个单例服务。Angular 使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过主动加载还是惰性加载的方式加载的。
 
 </div>
 
@@ -3189,7 +3189,7 @@ and emphasizes its role as orchestrator of the application as a whole.
 
 **Why?** `CoreModule` will contain singleton services. When a lazy loaded module imports these, it will get a new instance and not the intended app-wide singleton.
 
-**为何？**`CoreModule`将包含一些单例服务。而如果是由惰性加载模块来导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
+**为何？**`CoreModule` 将包含一些单例服务。而如果是由惰性加载模块来导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
 
 </div>
 
@@ -3198,8 +3198,8 @@ and emphasizes its role as orchestrator of the application as a whole.
 **Do** gather application-wide, single use components in the `CoreModule`.
 Import it once (in the `AppModule`) when the app starts and never import it anywhere else. (e.g. `NavComponent` and `SpinnerComponent`).
 
-**坚持**把应用级、只用一次的组件收集到`CoreModule`中。
-只在应用启动时从`AppModule`中导入它一次，以后再也不要导入它（例如`NavComponent`和`SpinnerComponent`）。
+**坚持**把应用级、只用一次的组件收集到 `CoreModule` 中。
+只在应用启动时从 `AppModule` 中导入它一次，以后再也不要导入它（例如 `NavComponent` 和 `SpinnerComponent`）。
 
 </div>
 
@@ -3209,7 +3209,7 @@ Import it once (in the `AppModule`) when the app starts and never import it anyw
 They are not imported elsewhere so they're not shared in that sense.
 Yet they're too big and messy to leave loose in the root folder.
 
-**为何？**真实世界中的应用会有很多只用一次的组件（例如加载动画、消息浮层、模态框等），它们只会在`AppComponent`的模板中出现。
+**为何？**真实世界中的应用会有很多只用一次的组件（例如加载动画、消息浮层、模态框等），它们只会在 `AppComponent` 的模板中出现。
 不会在其它地方导入它们，所以没有共享的价值。
 然而它们又太大了，放在根目录中就会显得乱七八糟的。
 
@@ -3219,7 +3219,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Avoid** importing the `CoreModule` anywhere except in the `AppModule`.
 
-**避免**在`AppModule`之外的任何地方导入`CoreModule`。
+**避免**在 `AppModule` 之外的任何地方导入 `CoreModule`。
 
 </div>
 
@@ -3227,7 +3227,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Why?** A lazily loaded feature module that directly imports the `CoreModule` will make its own copy of services and likely have undesirable results.
 
-**为何？**如果惰性加载的特性模块直接导入`CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
+**为何？**如果惰性加载的特性模块直接导入 `CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
 
 </div>
 
@@ -3235,7 +3235,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Why?** An eagerly loaded feature module already has access to the `AppModule`'s injector, and thus the `CoreModule`'s services.
 
-**为何？**主动加载的特性模块已经准备好了访问`AppModule`的注入器，因此也能取得`CoreModule`中的服务。
+**为何？**主动加载的特性模块已经准备好了访问 `AppModule` 的注入器，因此也能取得 `CoreModule` 中的服务。
 
 </div>
 
@@ -3243,7 +3243,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Do** export all symbols from the `CoreModule` that the `AppModule` will import and make available for other feature modules to use.
 
-**坚持**从`CoreModule`中导出`AppModule`需导入的所有符号，使它们在所有特性模块中可用。
+**坚持**从 `CoreModule` 中导出 `AppModule` 需导入的所有符号，使它们在所有特性模块中可用。
 
 </div>
 
@@ -3251,7 +3251,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Why?** `CoreModule` exists to make commonly used singleton services available for use in the many other modules.
 
-**为何？**`CoreModule`的存在就让常用的单例服务在所有其它模块中可用。
+**为何？**`CoreModule` 的存在就让常用的单例服务在所有其它模块中可用。
 
 </div>
 
@@ -3263,7 +3263,7 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 **为何？**你希望整个应用都使用这个单例服务。
 你不希望每个模块都有这个单例服务的单独的实例。
-然而，如果`CoreModule`中提供了一个服务，就可能偶尔导致这种后果。
+然而，如果 `CoreModule` 中提供了一个服务，就可能偶尔导致这种后果。
 
 </div>
 
@@ -3430,10 +3430,10 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 `AppModule` delegates to imported modules rather than doing work.
 `AppModule` is focused on its main task, orchestrating the app as a whole.
 
-`AppModule`变得更小了，因为很多应用根部的类都被移到了其它模块中。
-`AppModule`变得稳定了，因为你将会往其它模块中添加特性组件和服务提供商，而不是这个`AppModule`。
-`AppModule`把工作委托给了导入的模块，而不是亲力亲为。
-`AppModule`聚焦在它自己的主要任务上：作为整个应用的总指挥。
+`AppModule` 变得更小了，因为很多应用根部的类都被移到了其它模块中。
+`AppModule` 变得稳定了，因为你将会往其它模块中添加特性组件和服务提供商，而不是这个 `AppModule`。
+`AppModule` 把工作委托给了导入的模块，而不是亲力亲为。
+`AppModule` 聚焦在它自己的主要任务上：作为整个应用的总指挥。
 
 </div>
 
@@ -3445,7 +3445,7 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 ### Prevent re-import of the core module
 
-### 防止多次导入`CoreModule`
+### 防止多次导入 `CoreModule`
 
 #### Style 04-12
 
@@ -3453,13 +3453,13 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 Only the root `AppModule` should import the `CoreModule`.
 
-应该只有`AppModule`才允许导入`CoreModule`。
+应该只有 `AppModule` 才允许导入 `CoreModule`。
 
 <div class="s-rule do">
 
 **Do** guard against reimporting of `CoreModule` and fail fast by adding guard logic.
 
-**坚持**防范多次导入`CoreModule`，并通过添加守卫逻辑来尽快失败。
+**坚持**防范多次导入 `CoreModule`，并通过添加守卫逻辑来尽快失败。
 
 </div>
 
@@ -3467,7 +3467,7 @@ Only the root `AppModule` should import the `CoreModule`.
 
 **Why?** Guards against reimporting of the `CoreModule`.
 
-**为何？**守卫可以阻止对`CoreModule`的多次导入。
+**为何？**守卫可以阻止对 `CoreModule` 的多次导入。
 
 </div>
 
@@ -3573,7 +3573,7 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 #### Style 05-02
 
-#### 风格05-02
+#### 风格 05-02
 
 <div class="s-rule do">
 
@@ -3636,7 +3636,7 @@ They display content.
 Developers place components on the page as they would native HTML elements and web components.
 
 **为何？**组件有很多包含 HTML 以及可选 Angular 模板语法的模板。
-它们显示内容。开发人员会把组件像原生HTML元素和WebComponents一样放进页面中。
+它们显示内容。开发人员会把组件像原生 HTML 元素和 WebComponents 一样放进页面中。
 
 </div>
 
@@ -3703,7 +3703,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 **Do** name the template file `[component-name].component.html`, where [component-name] is the component name.
 
-**坚持**把模板文件命名为`[component-name].component.html`，其中，[component-name] 是组件名。
+**坚持**把模板文件命名为 `[component-name].component.html`，其中，[component-name] 是组件名。
 
 </div>
 
@@ -3711,7 +3711,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 **Do** name the style file `[component-name].component.css`, where [component-name] is the component name.
 
-**坚持**把样式文件命名为`[component-name].component.css`，其中，[component-name] 是组件名。
+**坚持**把样式文件命名为 `[component-name].component.css`，其中，[component-name] 是组件名。
 
 </div>
 
@@ -3719,7 +3719,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 **Do** specify _component-relative_ URLs, prefixed with `./`.
 
-**坚持**指定*相对于模块的* URL ，给它加上`./`前缀。
+**坚持**指定*相对于模块的* URL ，给它加上 `./` 前缀。
 
 </div>
 
@@ -3738,7 +3738,7 @@ The Angular TypeScript Language Service (forthcoming) promises to overcome this 
 in those editors that support it; it won't help with CSS styles.
 
 **为何？**在多数编辑器中，编写内联的模板和样式表时都无法使用语法提示和代码片段功能。
-Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在编写HTML模板时克服这一缺陷，但对CSS样式没有帮助。
+Angular 的 TypeScript 语言服务（即将到来）可以帮助那些编辑器在编写 HTML 模板时克服这一缺陷，但对 CSS 样式没有帮助。
 
 </div>
 
@@ -3746,7 +3746,7 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 
 **Why?** A _component relative_ URL requires no change when you move the component files, as long as the files stay together.
 
-**为何？**当你移动组件文件时，相对于组件的URL不需要修改，因为这些文件始终会在一起。
+**为何？**当你移动组件文件时，相对于组件的 URL 不需要修改，因为这些文件始终会在一起。
 
 </div>
 
@@ -3754,7 +3754,7 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 
 **Why?** The `./` prefix is standard syntax for relative URLs; don't depend on Angular's current ability to do without that prefix.
 
-**为何？**`./`前缀是相对URL的标准语法，不必依赖Angular的特殊处理，如果没有前缀则不行。
+**为何？**`./` 前缀是相对 URL 的标准语法，不必依赖 Angular 的特殊处理，如果没有前缀则不行。
 
 </div>
 
@@ -3797,7 +3797,7 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 **Do** use the `@Input()` and `@Output()` class decorators instead of the `inputs` and `outputs` properties of the
 `@Directive` and `@Component` metadata:
 
-**坚持** 使用`@Input()`和`@Output()`，而非`@Directive`和`@Component`装饰器的`inputs`和`outputs`属性:
+**坚持** 使用 `@Input()` 和 `@Output()`，而非 `@Directive` 和 `@Component` 装饰器的 `inputs` 和 `outputs` 属性:
 
 </div>
 
@@ -3805,7 +3805,7 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 
 **Consider** placing `@Input()` or `@Output()` on the same line as the property it decorates.
 
-**坚持**把`@Input()`或者`@Output()`放到所装饰的属性的同一行。
+**坚持**把 `@Input()` 或者 `@Output()` 放到所装饰的属性的同一行。
 
 </div>
 
@@ -3822,7 +3822,7 @@ Angular的TypeScript语言服务（即将到来）可以帮助那些编辑器在
 **Why?** If you ever need to rename the property or event name associated with
 `@Input` or `@Output`, you can modify it in a single place.
 
-**为何？** 如果需要重命名与`@Input`或者`@Output`关联的属性或事件名，你可以在一个位置修改。
+**为何？** 如果需要重命名与 `@Input` 或者 `@Output` 关联的属性或事件名，你可以在一个位置修改。
 
 </div>
 
@@ -4049,7 +4049,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Do** name events without the prefix `on`.
 
-**坚持**命名事件时，不要带前缀`on`。
+**坚持**命名事件时，不要带前缀 `on`。
 
 </div>
 
@@ -4057,7 +4057,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Do** name event handler methods with the prefix `on` followed by the event name.
 
-**坚持**把事件处理器方法命名为`on`前缀之后紧跟着事件名。
+**坚持**把事件处理器方法命名为 `on` 前缀之后紧跟着事件名。
 
 </div>
 
@@ -4073,7 +4073,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Why?** Angular allows for an [alternative syntax](guide/template-syntax#binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
 
-**为何？**Angular 允许[另一种备选语法](guide/template-syntax#binding-syntax) `on-*`。如果事件的名字本身带有前缀`on`，那么绑定的表达式可能是`on-onEvent`。
+**为何？**Angular 允许[另一种备选语法](guide/template-syntax#binding-syntax) `on-*`。如果事件的名字本身带有前缀 `on`，那么绑定的表达式可能是 `on-onEvent`。
 
 </div>
 
@@ -4212,7 +4212,7 @@ helps instantly identify which members of the component serve which purpose.
 **Consider** preferring the `@HostListener` and `@HostBinding` to the
 `host` property of the `@Directive` and `@Component` decorators.
 
-**考虑**优先使用`@HostListener`和`@HostBinding`，而不是`@Directive`和`@Component`装饰器的`host`属性。
+**考虑**优先使用 `@HostListener` 和 `@HostBinding`，而不是 `@Directive` 和 `@Component` 装饰器的 `host` 属性。
 
 </div>
 
@@ -4231,8 +4231,8 @@ can be modified only in a single place&mdash;in the directive's class.
 If you use the `host` metadata property, you must modify both the property/method declaration in the 
 directive's class and the metadata in the decorator associated with the directive.
 
-**为何？**对于关联到`@HostBinding`的属性或关联到`@HostListener`的方法，要修改时，只需在指令类中的一个地方修改。
-如果使用元数据属性`host`，你就得在组件类中修改属性声明的同时修改相关的元数据。
+**为何？**对于关联到 `@HostBinding` 的属性或关联到 `@HostListener` 的方法，要修改时，只需在指令类中的一个地方修改。
+如果使用元数据属性 `host`，你就得在组件类中修改属性声明的同时修改相关的元数据。
 
 </div>
 
@@ -4242,13 +4242,13 @@ directive's class and the metadata in the decorator associated with the directiv
 
 Compare with the less preferred `host` metadata alternative.
 
-与不推荐的方式（`host`元数据）比较一下。
+与不推荐的方式（`host` 元数据）比较一下。
 
 <div class="s-why-last">
 
 **Why?** The `host` metadata is only one term to remember and doesn't require extra ES imports.
 
-**为何？**`host`元数据只是一个便于记忆的名字而已，并不需要额外的 ES 导入。
+**为何？**`host` 元数据只是一个便于记忆的名字而已，并不需要额外的 ES 导入。
 
 </div>
 
@@ -4433,7 +4433,7 @@ that instance is shared and available to all child components of that top level 
 
 **Do** use the `@Injectable()` class decorator instead of the `@Inject` parameter decorator when using types as tokens for the dependencies of a service.
 
-**坚持**当使用类型作为令牌来注入服务的依赖时，使用`@Injectable()`类装饰器，而非`@Inject()`参数装饰器。
+**坚持**当使用类型作为令牌来注入服务的依赖时，使用 `@Injectable()` 类装饰器，而非 `@Inject()` 参数装饰器。
 
 </div>
 
@@ -4450,7 +4450,7 @@ dependencies based on the declared types of that service's constructor parameter
 
 **Why?** When a service accepts only dependencies associated with type tokens, the `@Injectable()` syntax is much less verbose compared to using `@Inject()` on each individual constructor parameter.
 
-**为何？**当服务只接受类型令牌相关的依赖时，比起在每个构造函数参数上使用`@Inject()`，`@Injectable()`的语法简洁多了。
+**为何？**当服务只接受类型令牌相关的依赖时，比起在每个构造函数参数上使用 `@Inject()`，`@Injectable()` 的语法简洁多了。
 
 </div>
 

@@ -19,7 +19,7 @@ maintained [on github](https://github.com/angular/quickstart "Install the github
 
 Make sure you have [node and npm installed](guide/setup#install-prerequisites "What if you don't have node and npm?").
 
-确定你已经安装了 [node和npm](guide/setup#install-prerequisites "如果你没有node和npm？")。
+确定你已经安装了 [node 和 npm](guide/setup#install-prerequisites "如果你没有 node 和 npm？")。
 
 {@a clone}
 
@@ -44,7 +44,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 `npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
-在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
+在*Bash for Windows*中 `npm start` 可能会失败，因为到 2017-01 为止它还不支持访问网络上的服务器。
 
 </div>
 
@@ -72,7 +72,7 @@ and unzip it into your project folder. Then perform the remaining steps with the
 
 `npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
-在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
+在*Bash for Windows*中 `npm start` 可能会失败，因为到 2017-01 为止它还不支持访问网络上的服务器。
 
 </div>
 
@@ -86,13 +86,13 @@ You can quickly delete the _non-essential_ files that concern testing and QuickS
 (***including all git-related artifacts*** such as the `.git` folder and `.gitignore`!).
 
 你可以快速删除一些涉及到测试和维护快速开始版本库的 *非必需* 文件
-（***包括所有git相关的文件***如 `.git` 文件夹和 `.gitignore`！）。
+（***包括所有 git 相关的文件***如 `.git` 文件夹和 `.gitignore`！）。
 
 <div class="alert is-important">
 
 Do this only in the beginning to avoid accidentally deleting your own tests and git setup!
 
-请只在开始时执行此删除操作，以防你自己的测试和git文件被意外删除！
+请只在开始时执行此删除操作，以防你自己的测试和 git 文件被意外删除！
 
 </div>
 
@@ -206,19 +206,19 @@ Each file has a distinct purpose and evolves independently as the application gr
 Files outside `src/` concern building, deploying, and testing your app.
 They include configuration files and external dependencies.
 
-`src/` 目录之外的文件为构建、部署和测试app相关的文件，他们只包括配置文件和外部依赖。
+`src/` 目录之外的文件为构建、部署和测试 app 相关的文件，他们只包括配置文件和外部依赖。
 
 Files inside `src/` "belong" to your app.
 Add new Typescript, HTML and CSS files inside the `src/` directory, most of them inside `src/app`,
 unless told to do otherwise.
 
-`src/` 目录下的文件才“属于”你的app。
-除非明确指出，否则教程中添加的 TypeScript，HTML和CSS文件都在`src/`目录下，
-大多数在`src/app`目录中。
+`src/` 目录下的文件才“属于”你的 app。
+除非明确指出，否则教程中添加的 TypeScript，HTML 和 CSS 文件都在 `src/` 目录下，
+大多数在 `src/app` 目录中。
 
 The following are all in `src/`
 
-`src/`目录文件详情如下：
+`src/` 目录文件详情如下：
 
 <style>
   td, th {vertical-align: top}
@@ -268,7 +268,7 @@ The following are all in `src/`
       It is the **root** component of what will become a tree of nested components
       as the application evolves.
 
-      定义与《快速上手》游乐场同样的`AppComponent`。
+      定义与《快速上手》游乐场同样的 `AppComponent`。
       它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。
 
     </td>
@@ -289,8 +289,8 @@ The following are all in `src/`
       Right now it declares only the `AppComponent`.
       Soon there will be more components to declare.
 
-      定义`AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
-      目前，它只声明了`AppComponent`。
+      定义 `AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
+      目前，它只声明了 `AppComponent`。
       不久，它将声明更多组件。
 
     </td>
@@ -362,7 +362,7 @@ Get them now</a> if they're not already installed on your machine.
 by running the commands `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-在终端/控制器窗口运行命令`node -v`和`npm -v`，来**确认你运行的 node 是`v4.x.x`或更高，npm 为`3.x.x`或更高。**
+在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v4.x.x` 或更高，npm 为 `3.x.x` 或更高。**
 老版本会产生错误。
 
 We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
@@ -393,8 +393,8 @@ It creates the equivalent of `app.module.ts` and `main.ts` internally _for the p
 so the reader can discover Angular without distraction.
 The other samples are based on the QuickStart seed.
 
-[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
-它在内部创建了只为*游乐场*而准备的等价`app.module.ts`和`main.ts`。
+[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了 `AppComponent` 文件。
+它在内部创建了只为*游乐场*而准备的等价 `app.module.ts` 和 `main.ts`。
 所以读者可以在零干扰的情况下探索 Angular。
 其他例子是基于 《快速上手》种子的。
 

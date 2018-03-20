@@ -553,7 +553,7 @@ At this point, all application routes are in place.
 
 ### _DashboardComponent_ hero links
 
-### `DashboardComponent`中的英雄链接
+### `DashboardComponent` 中的英雄链接
 
 The `DashboardComponent` hero links do nothing at the moment.
 
@@ -996,4 +996,4 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You shared the `HeroService` among multiple components.
 
-  在多个组件之间共享了`HeroService`服务。
+  在多个组件之间共享了 `HeroService` 服务。

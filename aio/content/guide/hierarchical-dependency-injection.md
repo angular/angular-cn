@@ -60,9 +60,9 @@ The `HeroesListComponent` holds and manages multiple instances of the `HeroTaxRe
 The following diagram represents the state of the this guide's three-level component tree when there are three instances of `HeroTaxReturnComponent`
 open simultaneously.
 
-考虑《英雄指南》应用的一个简单变种。它的顶层是`AppComponent`组件，它有一些子组件。
-`HeroesListComponent`组件保存和管理着`HeroTaxReturnComponent`的多个实例。
-下图展示了当`HeroesCardComponent`的三个 `HeroTaxReturnComponent` 实例同时展开时的三级组件树状态。
+考虑《英雄指南》应用的一个简单变种。它的顶层是 `AppComponent` 组件，它有一些子组件。
+`HeroesListComponent` 组件保存和管理着 `HeroTaxReturnComponent` 的多个实例。
+下图展示了当 `HeroesCardComponent` 的三个 `HeroTaxReturnComponent` 实例同时展开时的三级组件树状态。
 
 <figure>
   <img src="generated/images/guide/dependency-injection/component-hierarchy.png" alt="injector tree">
@@ -118,8 +118,8 @@ It effectively "reconfigures" and "shadows" a provider at a higher level in the 
 If you only specify providers at the top level (typically the root `AppModule`), the tree of injectors appears to be flat.
 All requests bubble up to the root <code>NgModule</code> injector that you configured with the `bootstrapModule` method.
 
-如果我们只在顶级（通常是根模块`AppModule`），这三个注入器看起来将是“平面”的。
-所有的申请都会冒泡到根<code>NgModule</code>进行处理，也就是我们在`bootstrapModule`方法中配置的那个。
+如果我们只在顶级（通常是根模块 `AppModule`），这三个注入器看起来将是“平面”的。
+所有的申请都会冒泡到根<code>NgModule</code>进行处理，也就是我们在 `bootstrapModule` 方法中配置的那个。
 
 ## Component injectors
 
@@ -140,22 +140,22 @@ Architectural reasons may lead you to restrict access to a service to the applic
 The guide sample includes a `VillainsListComponent` that displays a list of villains.
 It gets those villains from a `VillainsService`.
 
-本章的范例中包括一个`VillainsListComponent`，它显示一个反派的列表。
+本章的范例中包括一个 `VillainsListComponent`，它显示一个反派的列表。
 
 While you _could_ provide `VillainsService` in the root `AppModule` (that's where you'll find the `HeroesService`),
 that would make the `VillainsService` available everywhere in the application, including the _Hero_ workflows.
 
-虽然我们也可以在根模块`AppModule`中提供`VillainsService`（就像`HeroesService`那样），不过那样一来就会导致在整个应用中到处都能访问到`VillainsService`，包括在*英雄*工作流中。
+虽然我们也可以在根模块 `AppModule` 中提供 `VillainsService`（就像 `HeroesService` 那样），不过那样一来就会导致在整个应用中到处都能访问到 `VillainsService`，包括在*英雄*工作流中。
 
 If you later modified the `VillainsService`, you could break something in a hero component somewhere.
 That's not supposed to happen but providing the service in the root `AppModule` creates that risk.
 
-如果我们以后修改了`VillainsService`，那就可能会破坏英雄组件中的某些部分。
-这可不妙，但是在根模块`AppModule`中提供这个服务可能会导致这种风险。
+如果我们以后修改了 `VillainsService`，那就可能会破坏英雄组件中的某些部分。
+这可不妙，但是在根模块 `AppModule` 中提供这个服务可能会导致这种风险。
 
 Instead, provide the `VillainsService` in the `providers` metadata of the `VillainsListComponent` like this:
 
-我们可以换一种方案：在`VillainsListComponent`元数据的`providers`中提供`VillainsService`，就像这样：
+我们可以换一种方案：在 `VillainsListComponent` 元数据的 `providers` 中提供 `VillainsService`，就像这样：
 
 <code-example path="hierarchical-dependency-injection/src/app/villains-list.component.ts" linenums="false" title="src/app/villains-list.component.ts (metadata)" region="metadata">
 
@@ -165,7 +165,7 @@ By providing `VillainsService` in the `VillainsListComponent` metadata and nowhe
 the service becomes available only in the `VillainsListComponent` and its sub-component tree.
 It's still a singleton, but it's a singleton that exist solely in the _villain_ domain.
 
-在`VillainsListComponent`的元数据中而不是其它地方提供`VillainsService`服务，该服务就会只在`VillainsListComponent`及其子组件树中可用。
+在 `VillainsListComponent` 的元数据中而不是其它地方提供 `VillainsService` 服务，该服务就会只在 `VillainsListComponent` 及其子组件树中可用。
 它仍然是单例，但是这个单例只存在于*反派（villain）*这个领域中。
 
 Now you know that a hero component can't access it. You've reduced your exposure to error.
@@ -187,7 +187,7 @@ This guide demonstrates that scenario with an example in the Tour of Heroes them
 Imagine an outer `HeroListComponent` that displays a list of super heroes.
 
 本章要示范的场景仍然是基于《英雄指南》的。
-想象一个外层的`HeroListComponent`，它显示一个超级英雄的列表。
+想象一个外层的 `HeroListComponent`，它显示一个超级英雄的列表。
 
 To open a hero's tax return, the preparer clicks on a hero name, which opens a component for editing that return.
 Each selected hero tax return opens in its own component and multiple returns can be open at the same time.
@@ -220,7 +220,7 @@ That would be a pretty easy task for a simple hero tax return.
 In the real world, with a rich tax return data model, the change management would be tricky.
 You might delegate that management to a helper service, as this example does.
 
-实现方式之一就是让`HeroTaxReturnComponent`有逻辑来管理和还原那些更改。
+实现方式之一就是让 `HeroTaxReturnComponent` 有逻辑来管理和还原那些更改。
 这对于简单的报税单来说是很容易的。
 不过，在现实世界中，报税单的数据模型非常复杂，对这些修改的管理可能不得不投机取巧。
 于是我们可以把这种管理任务委托给一个辅助服务，就像这个例子中所做的。
@@ -229,9 +229,9 @@ Here is the `HeroTaxReturnService`.
 It caches a single `HeroTaxReturn`, tracks changes to that return, and can save or restore it.
 It also delegates to the application-wide singleton `HeroService`, which it gets by injection.
 
-这是一个报税单服务`HeroTaxReturnService`。
-它缓存了单条`HeroTaxReturn`，用于跟踪那个申报单的变更，并且可以保存或还原它。
-它还委托给了全应用级的单例服务`HeroService`，它是通过依赖注入机制取得的。
+这是一个报税单服务 `HeroTaxReturnService`。
+它缓存了单条 `HeroTaxReturn`，用于跟踪那个申报单的变更，并且可以保存或还原它。
+它还委托给了全应用级的单例服务 `HeroService`，它是通过依赖注入机制取得的。
 
 <code-example path="hierarchical-dependency-injection/src/app/hero-tax-return.service.ts" title="src/app/hero-tax-return.service.ts">
 
@@ -239,7 +239,7 @@ It also delegates to the application-wide singleton `HeroService`, which it gets
 
 Here is the `HeroTaxReturnComponent` that makes use of it.
 
-下面是正在使用它的`HeroTaxReturnComponent`组件。
+下面是正在使用它的 `HeroTaxReturnComponent` 组件。
 
 <code-example path="hierarchical-dependency-injection/src/app/hero-tax-return.component.ts" title="src/app/hero-tax-return.component.ts">
 
@@ -251,7 +251,7 @@ The getter always returns what that service says is the current state of the her
 The component also asks the service to save and restore this tax return.
 
 我们通过输入属性得到*要编辑的报税单*，我们把它实现成了读取器（getter）和设置器（setter）。
-设置器根据传进来的报税单初始化了组件自己的`HeroTaxReturnService`实例。
+设置器根据传进来的报税单初始化了组件自己的 `HeroTaxReturnService` 实例。
 读取器总是返回该服务所存英雄的当前状态。
 组件也会请求该服务来保存或还原这个报税单。
 
@@ -264,7 +264,7 @@ What a mess!
 
 Look closely at the metadata for the `HeroTaxReturnComponent`. Notice the `providers` property.
 
-但仔细看`HeroTaxReturnComponent`的元数据，注意`providers`属性。
+但仔细看 `HeroTaxReturnComponent` 的元数据，注意 `providers` 属性。
 
 <code-example path="hierarchical-dependency-injection/src/app/hero-tax-return.component.ts" linenums="false" title="src/app/hero-tax-return.component.ts (providers)" region="providers">
 
@@ -275,7 +275,7 @@ Recall that every component _instance_ has its own injector.
 Providing the service at the component level ensures that _every_ instance of the component gets its own, private instance of the service.
 No tax return overwriting. No mess.
 
-`HeroTaxReturnComponent`有它自己的`HeroTaxReturnService`提供商。
+`HeroTaxReturnComponent` 有它自己的 `HeroTaxReturnService` 提供商。
 回忆一下，每个组件的*实例*都有它自己的注入器。
 在组件级提供服务可以确保组件的*每个*实例都得到一个自己的、私有的服务实例。
 报税单不会再被意外覆盖，这下清楚了。
@@ -285,7 +285,7 @@ No tax return overwriting. No mess.
 The rest of the scenario code relies on other Angular features and techniques that you can learn about elsewhere in the documentation.
 You can review it and download it from the <live-example></live-example>.
 
-该场景代码中的其它部分依赖另一些Angular的特性和技术，我们将会在本文档的其它章节学到。
+该场景代码中的其它部分依赖另一些 Angular 的特性和技术，我们将会在本文档的其它章节学到。
 你可以到<live-example></live-example>查看代码和下载它。
 
 </div>
@@ -304,7 +304,7 @@ Suppose you configured the root injector (marked as A) with _generic_ providers 
 `CarService`, `EngineService` and `TiresService`.
 
 再次考虑[依赖注入](guide/dependency-injection)一章中车辆（Car）的例子。
-假设我们在根注入器（代号A）中配置了*通用的*提供商：`CarService`、`EngineService`和`TiresService`。
+假设我们在根注入器（代号 A）中配置了*通用的*提供商：`CarService`、`EngineService` 和 `TiresService`。
 
 You create a car component (A) that displays a car constructed from these three generic services.
 
@@ -313,11 +313,11 @@ You create a car component (A) that displays a car constructed from these three 
 Then you create a child component (B) that defines its own, _specialized_ providers for `CarService` and `EngineService`
 that have special capabilites suitable for whatever is going on in component (B).
 
-然后，我们创建一个子组件（B），它为`CarService`和`EngineService`定义了自己的*特殊的*提供商，它们具有更特殊的能力，适用于组件B的。
+然后，我们创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己的*特殊的*提供商，它们具有更特殊的能力，适用于组件 B 的。
 
 Component (B) is the parent of another component (C) that defines its own, even _more specialized_ provider for `CarService`.
 
-组件B是另一个组件C的父组件，而组件C又定义了自己的，*更特殊的*`CarService`提供商。
+组件 B 是另一个组件 C 的父组件，而组件 C 又定义了自己的，*更特殊的*`CarService` 提供商。
 
 <figure>
   <img src="generated/images/guide/dependency-injection/car-components.png" alt="car components">
@@ -325,13 +325,13 @@ Component (B) is the parent of another component (C) that defines its own, even 
 
 Behind the scenes, each component sets up its own injector with zero, one, or more providers defined for that component itself.
 
-在幕后，每个组件都有自己的注入器，这个注入器带有为组件本身准备的0个、1个或多个提供商。
+在幕后，每个组件都有自己的注入器，这个注入器带有为组件本身准备的 0 个、1 个或多个提供商。
 
 When you resolve an instance of `Car` at the deepest component (C),
 its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
 `Tires` resolved by the root injector (A).
 
-当我们在最深层的组件C解析`Car`的实例时，它使用注入器C解析生成了一个`Car`的实例，使用注入器B解析了`Engine`，而`Tires`则是由根注入器A解析的。
+当我们在最深层的组件 C 解析 `Car` 的实例时，它使用注入器 C 解析生成了一个 `Car` 的实例，使用注入器 B 解析了 `Engine`，而 `Tires` 则是由根注入器 A 解析的。
 
 <figure>
   <img src="generated/images/guide/dependency-injection/injector-tree.png" alt="car injector tree">
@@ -342,6 +342,6 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 The code for this _cars_ scenario is in the `car.components.ts` and `car.services.ts` files of the sample
 which you can review and download from the <live-example></live-example>.
 
-*车辆*场景下的代码位于`car.components.ts`和`car.services.ts`文件中，这个例子你可以在<live-example></live-example>查看和下载。
+*车辆*场景下的代码位于 `car.components.ts` 和 `car.services.ts` 文件中，这个例子你可以在<live-example></live-example>查看和下载。
 
 </div>

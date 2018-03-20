@@ -82,7 +82,7 @@ The `@NgModule` decorator identifies `AppModule` as an `NgModule` class.
 * **_bootstrap_**&mdash;the _root_ component that Angular creates and inserts
 into the `index.html` host web page.
 
-   **_bootstrap_** —— *根*组件，Angular 创建它并插入`index.html`宿主页面。
+   **_bootstrap_** —— *根*组件，Angular 创建它并插入 `index.html` 宿主页面。
 
 The default CLI application only has one component, `AppComponent`, so it
 is in both the `declarations` and the `bootstrap` arrays.
@@ -279,7 +279,7 @@ root module's `bootstrap` array.
 
 ## More about Angular Modules
 
-## 关于Angular模块的更多知识
+## 关于 Angular 模块的更多知识
 
 For more on NgModules you're likely to see frequently in apps,
 see [Frequently Used Modules](#).

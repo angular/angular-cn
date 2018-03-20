@@ -75,7 +75,7 @@ using [types](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScr
 and using [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") for metadata.
 
 本文档假设你已经熟悉了 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript") 和来自 [最新标准](https://babeljs.io/learn-es2015/ "Latest JavaScript standards") 的一些知识，比如  [类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") 和 [模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules")。
-下列代码范例都是用最新版本的JavaScript写的，利用 [类型](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") 实现依赖注入，并使用[装饰器](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators")来提供元数据。
+下列代码范例都是用最新版本的 JavaScript 写的，利用 [类型](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") 实现依赖注入，并使用[装饰器](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators")来提供元数据。
 
 ## Feedback
 

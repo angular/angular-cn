@@ -49,8 +49,8 @@ This `Car` needs an engine and tires. Instead of asking for them,
 the `Car` constructor instantiates its own copies from
 the very specific classes `Engine` and `Tires`.
 
-`Car`类需要一个引擎 (engine) 和一些轮胎 (tire)，它没有去请求现成的实例，
-而是在构造函数中用具体的`Engine`和`Tires`类实例化出自己的副本。
+`Car` 类需要一个引擎 (engine) 和一些轮胎 (tire)，它没有去请求现成的实例，
+而是在构造函数中用具体的 `Engine` 和 `Tires` 类实例化出自己的副本。
 
 What if the `Engine` class evolves and its constructor requires a parameter?
 That would break the `Car` class and it would stay broken until you rewrote it along the lines of
@@ -61,18 +61,18 @@ But you'll *have* to start caring because
 when the definition of `Engine` changes, the `Car` class must change.
 That makes `Car` brittle.
 
-如果`Engine`类升级了，它的构造函数要求传入一个参数，这该怎么办？
-这个`Car`类就被破坏了，在把创建引擎的代码重写为`this.engine = new Engine(theNewParameter)`之前，它都是坏的。
-当第一次写`Car`类时，我们不关心`Engine`构造函数的参数，现在也不想关心。
-但是，当`Engine`类的定义发生变化时，就不得不在乎了，`Car`类也不得不跟着改变。
-这就会让`Car`类过于脆弱。
+如果 `Engine` 类升级了，它的构造函数要求传入一个参数，这该怎么办？
+这个 `Car` 类就被破坏了，在把创建引擎的代码重写为 `this.engine = new Engine(theNewParameter)` 之前，它都是坏的。
+当第一次写 `Car` 类时，我们不关心 `Engine` 构造函数的参数，现在也不想关心。
+但是，当 `Engine` 类的定义发生变化时，就不得不在乎了，`Car` 类也不得不跟着改变。
+这就会让 `Car` 类过于脆弱。
 
 What if you want to put a different brand of tires on your `Car`? Too bad.
 You're locked into whatever brand the `Tires` class creates. That makes the
 `Car` class inflexible.
 
-如果想在`Car`上使用不同品牌的轮胎会怎样？太糟了。
-我们被锁定在`Tires`类创建时使用的那个品牌上。这让`Car`类缺乏弹性。
+如果想在 `Car` 上使用不同品牌的轮胎会怎样？太糟了。
+我们被锁定在 `Tires` 类创建时使用的那个品牌上。这让 `Car` 类缺乏弹性。
 
 Right now each new car gets its own `engine`. It can't share an `engine` with other cars.
 While that makes sense for an automobile engine,
@@ -90,17 +90,17 @@ What does `Engine` depend upon? What does that dependency depend on?
 Will a new instance of `Engine` make an asynchronous call to the server?
 You certainly don't want that going on during tests.
 
-当给`Car`类写测试的时候，我们就会受制于它背后的那些依赖。
-能在测试环境中成功创建新的`Engine`吗？
-`Engine`自己又依赖什么？那些依赖本身又依赖什么？
-`Engine`的新实例会发起到服务器的异步调用吗？
+当给 `Car` 类写测试的时候，我们就会受制于它背后的那些依赖。
+能在测试环境中成功创建新的 `Engine` 吗？
+`Engine` 自己又依赖什么？那些依赖本身又依赖什么？
+`Engine` 的新实例会发起到服务器的异步调用吗？
 我们当然不想在测试期间这么一层层追下去。
 
 What if the `Car` should flash a warning signal when tire pressure is low?
 How do you confirm that it actually does flash a warning
 if you can't swap in low-pressure tires during the test?
 
-如果`Car`应该在轮胎气压低的时候闪动警示灯该怎么办？
+如果 `Car` 应该在轮胎气压低的时候闪动警示灯该怎么办？
 如果没法在测试期间换上一个低气压的轮胎，那该如何确认它能正确的闪警示灯？
 
 You have no control over the car's hidden dependencies.
@@ -111,13 +111,13 @@ When you can't control the dependencies, a class becomes difficult to test.
 
 How can you make `Car` more robust, flexible, and testable?
 
-该如何让`Car`更强壮、有弹性以及可测试？
+该如何让 `Car` 更强壮、有弹性以及可测试？
 
 {@a ctor-injection}
 
 That's super easy. Change the `Car` constructor to a version with DI:
 
-答案非常简单。把`Car`的构造函数改造成使用 DI 的版本：
+答案非常简单。把 `Car` 的构造函数改造成使用 DI 的版本：
 
 <code-tabs>
 
@@ -135,7 +135,7 @@ The `Car` class no longer creates an `engine` or `tires`.
 It just consumes them.
 
 发生了什么？我们把依赖的定义移到了构造函数中。
-  `Car`类不再创建引擎`engine`或者轮胎`tires`。
+  `Car` 类不再创建引擎 `engine` 或者轮胎 `tires`。
   它仅仅“消费”它们。
 
 <div class="l-sub-section">
@@ -161,19 +161,19 @@ decoupled from the `Car` class.
 You can pass in any kind of `engine` or `tires` you like, as long as they
 conform to the general API requirements of an `engine` or `tires`.
 
-酷！引擎和轮胎这两个依赖的定义与`Car`类本身解耦了。
+酷！引擎和轮胎这两个依赖的定义与 `Car` 类本身解耦了。
 只要喜欢，可以传入任何类型的引擎或轮胎，只要它们能满足引擎或轮胎的通用 API 需求。
 
 Now, if someone extends the `Engine` class, that is not `Car`'s problem.
 
-这样一来，如果有人扩展了`Engine`类，那就不再是`Car`类的烦恼了。
+这样一来，如果有人扩展了 `Engine` 类，那就不再是 `Car` 类的烦恼了。
 
 <div class="l-sub-section">
 
 The _consumer_ of `Car` has the problem. The consumer must update the car creation code to
 something like this:
 
-`Car`的_消费者_也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
+`Car` 的_消费者_也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-param" linenums="false">
 
@@ -182,7 +182,7 @@ something like this:
 The critical point is this: the `Car` class did not have to change.
 You'll take care of the consumer's problem shortly.
 
-这里的要点是：`Car`本身不必变化。下面就来解决消费者的问题。
+这里的要点是：`Car` 本身不必变化。下面就来解决消费者的问题。
 
 </div>
 
@@ -191,7 +191,7 @@ of its dependencies.
 You can pass mocks to the constructor that do exactly what you want them to do
 during each test:
 
-`Car`类非常容易测试，因为现在我们对它的依赖有了完全的控制权。
+`Car` 类非常容易测试，因为现在我们对它的依赖有了完全的控制权。
   在每个测试期间，我们可以往构造函数中传入 mock 对象，做想让它们做的事：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-mocks" linenums="false">
@@ -214,8 +214,8 @@ The `Car` class shed its problems at the consumer's expense.
 You need something that takes care of assembling these parts.
 
 酷！但是，可怜的消费者怎么办？
-  那些希望得到一个`Car`的人们现在必须创建所有这三部分了：`Car`、`Engine`和`Tires`。
-  `Car`类把它的快乐建立在了消费者的痛苦之上。
+  那些希望得到一个 `Car` 的人们现在必须创建所有这三部分了：`Car`、`Engine` 和 `Tires`。
+  `Car` 类把它的快乐建立在了消费者的痛苦之上。
   需要某种机制为我们把这三个部分装配好。
 
 You _could_ write a giant class to do that:
@@ -250,7 +250,7 @@ You register some classes with this injector, and it figures out how to create t
 
 When you need a `Car`, you simply ask the injector to get it for you and you're good to go.
 
-当需要一个`Car`时，就简单的找注入器取车就可以了。
+当需要一个 `Car` 时，就简单的找注入器取车就可以了。
 
 <code-example path="dependency-injection/src/app/car/car-injector.ts" region="injector-call" title="src/app/car/car-injector.ts" linenums="false">
 
@@ -261,10 +261,10 @@ The consumer knows nothing about creating a `Car`.
 You don't have a gigantic factory class to maintain.
 Both `Car` and consumer simply ask for what they need and the injector delivers.
 
-皆大欢喜。`Car`不需要知道如何创建`Engine`和`Tires`。
-消费者不需要知道如何创建`Car`。
+皆大欢喜。`Car` 不需要知道如何创建 `Engine` 和 `Tires`。
+消费者不需要知道如何创建 `Car`。
 开发人员不需要维护巨大的工厂类。
-`Car`和消费者只要简单地请求想要什么，注入器就会交付它们。
+`Car` 和消费者只要简单地请求想要什么，注入器就会交付它们。
 
 This is what a **dependency injection framework** is all about.
 

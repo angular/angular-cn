@@ -8,8 +8,8 @@ The `HttpClient` in `@angular/common/http` offers a simplified client HTTP API f
 that rests on the `XMLHttpRequest` interface exposed by browsers.
 Additional benefits of `HttpClient` include testability features, typed request and response objects, request and response interception, `Observable` apis, and streamlined error handling.
 
-`@angular/common/http`中的`HttpClient`类为 Angular 应用程序提供了一个简化的 API 来实现 HTTP 客户端功能。它基于浏览器提供的`XMLHttpRequest`接口。
-`HttpClient`带来的其它优点包括：可测试性、强类型的请求和响应对象、发起请求与接收响应时的拦截器支持，以及更好的、基于可观察（Observable）对象的 API 以及流式错误处理机制。
+`@angular/common/http` 中的 `HttpClient` 类为 Angular 应用程序提供了一个简化的 API 来实现 HTTP 客户端功能。它基于浏览器提供的 `XMLHttpRequest` 接口。
+`HttpClient` 带来的其它优点包括：可测试性、强类型的请求和响应对象、发起请求与接收响应时的拦截器支持，以及更好的、基于可观察（Observable）对象的 API 以及流式错误处理机制。
 
 You can run the <live-example></live-example> that accompanies this guide.
 
@@ -206,7 +206,7 @@ The response body doesn't return all the data you may need. Sometimes servers re
 
 Tell `HttpClient` that you want the full response with the `observe` option:
 
-要这样做，我们就要通过`observe`选项来告诉`HttpClient`，你想要完整的响应信息，而不是只有响应体：
+要这样做，我们就要通过 `observe` 选项来告诉 `HttpClient`，你想要完整的响应信息，而不是只有响应体：
 
 <code-example 
   path="http/src/app/config/config.service.ts"
@@ -240,7 +240,7 @@ As you can see, the response object has a `body` property of the correct type.
 
 What happens if the request fails on the server, or if a poor network connection prevents it from even reaching the server? `HttpClient` will return an _error_ object instead of a successful response.
 
-如果这个请求导致了服务器错误怎么办？甚至，在烂网络下请求都没到服务器该怎么办？`HttpClient`就会返回一个错误（error）而不再是成功的响应。
+如果这个请求导致了服务器错误怎么办？甚至，在烂网络下请求都没到服务器该怎么办？`HttpClient` 就会返回一个错误（error）而不再是成功的响应。
 
 You _could_ handle in the component by adding a second callback to the `.subscribe()`:
 
@@ -269,15 +269,15 @@ But displaying the raw error object returned by `HttpClient` is far from the bes
 Detecting that an error occurred is one thing.
 Interpreting that error and composing a user-friendly response is a bit more involved.
 
-检测错误的发生是第一步，不过如果知道具体发生了什么错误才会更有用。上面例子中传给回调函数的`err`参数的类型是`HttpErrorResponse`，它包含了这个错误中一些很有用的信息。
+检测错误的发生是第一步，不过如果知道具体发生了什么错误才会更有用。上面例子中传给回调函数的 `err` 参数的类型是 `HttpErrorResponse`，它包含了这个错误中一些很有用的信息。
 
 Two types of errors can occur. The server backend might reject the request, returning an HTTP response with a status code such as 404 or 500. These are error _responses_.
 
-可能发生的错误分为两种。如果后端返回了一个失败的返回码（如404、500等），它会返回一个错误响应体。
+可能发生的错误分为两种。如果后端返回了一个失败的返回码（如 404、500 等），它会返回一个错误响应体。
 
 Or something could go wrong on the client-side such as a network error that prevents the request from completing successfully or an exception thrown in an RxJS operator. These errors produce JavaScript `ErrorEvent` objects.
 
-或者，如果在客户端这边出了错误（比如在RxJS操作符 (operator) 中抛出的异常或某些阻碍完成这个请求的网络错误），就会抛出一个`Error`类型的异常。
+或者，如果在客户端这边出了错误（比如在 RxJS 操作符 (operator) 中抛出的异常或某些阻碍完成这个请求的网络错误），就会抛出一个 `Error` 类型的异常。
 
 The `HttpClient` captures both kinds of errors in its `HttpErrorResponse` and you can inspect that response to figure out what really happened.
 
@@ -361,7 +361,7 @@ in a _functional, reactive style_.
 Many Angular APIs, including `HttpClient`, produce and consume RxJS `Observables`. 
 
 [RxJS](http://reactivex.io/rxjs/) 是一个库，用于把异步调用和基于回调的代码组合成*函数式（functional）的*、*响应式（reactive）的*风格。
-很多 Angular API，包括 `HttpClient`都会生成和消费 RxJS 的 `Observable`。
+很多 Angular API，包括 `HttpClient` 都会生成和消费 RxJS 的 `Observable`。
 
 RxJS itself is out-of-scope for this guide. You will find many learning resources on the web.
 While you can get by with a minimum of RxJS knowledge, you'll want to grow your RxJS skills over time in order to use `HttpClient` effectively.
@@ -424,7 +424,7 @@ A `download()` method in the `DownloaderComponent` initiates the request by subs
 
 In addition to fetching data from the server, `HttpClient` supports mutating requests, that is, sending data to the server with other HTTP methods such as PUT, POST, and DELETE.
 
-除了从服务器获取数据之外，`HttpClient` 还支持修改型的请求，也就是说，通过`PUT`、`POST`、`DELETE` 这样的 HTTP 方法把数据发送到服务器。
+除了从服务器获取数据之外，`HttpClient` 还支持修改型的请求，也就是说，通过 `PUT`、`POST`、`DELETE` 这样的 HTTP 方法把数据发送到服务器。
 
 The sample app for this guide includes a simplified version of the "Tour of Heroes" example
 that fetches heroes and enables users to add, delete, and update them.
@@ -649,7 +649,7 @@ The following `HeroService` example is just like the POST example.
 For the reasons [explained above](#always-subscribe), the caller (`HeroesComponent.update()` in this case) must `subscribe()` to the observable returned from the `HttpClient.put()`
 in order to initiate the request.
 
-因为[前面解释过的](#always-subscribe)原因，调用者（这里是`HeroesComponent.update()`）必须 `subscribe()` 由 `HttpClient.put()` 返回的可观察对象，以发起这个调用。
+因为[前面解释过的](#always-subscribe)原因，调用者（这里是 `HeroesComponent.update()`）必须 `subscribe()` 由 `HttpClient.put()` 返回的可观察对象，以发起这个调用。
 
 ## Advanced usage
 
@@ -927,7 +927,7 @@ Most interceptors call `next.handle()` so that the request flows through to the 
 An interceptor _could_ skip calling `next.handle()`, short-circuit the chain, and [return its own `Observable`](#caching) with an artificial server response. 
 
 大多数的拦截器都会调用 `next.handle()`，以便这个请求流能走到下一个拦截器，并最终传给后端处理器。
-拦截器也*可以*不调用 `next.handle()`，使这个链路短路，并返回一个带有人工构造出来的服务器响应的 [自己的`Observable`](#caching)。
+拦截器也*可以*不调用 `next.handle()`，使这个链路短路，并返回一个带有人工构造出来的服务器响应的 [自己的 `Observable`](#caching)。
 
 This is a common middleware pattern found in frameworks such as Express.js.
 
@@ -1198,7 +1198,7 @@ An interceptor that alters headers can be used for a number of different operati
 
 * Caching behavior; for example, `If-Modified-Since`
 
-  控制缓存行为。比如`If-Modified-Since`
+  控制缓存行为。比如 `If-Modified-Since`
 
 * XSRF protection
 
@@ -1459,18 +1459,18 @@ by returning an observable of simulated events.
 
 [Cross-Site Request Forgery (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is an attack technique by which the attacker can trick an authenticated user into unknowingly executing actions on your website. `HttpClient` supports a [common mechanism](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token) used to prevent XSRF attacks. When performing HTTP requests, an interceptor reads a token from a cookie, by default `XSRF-TOKEN`, and sets it as an HTTP header, `X-XSRF-TOKEN`. Since only code that runs on your domain could read the cookie, the backend can be certain that the HTTP request came from your client application and not an attacker.
 
-[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient`支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从cookie中读取 XSRF 令牌（默认名字为`XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在我们自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自我们的客户端应用，而不是攻击者。
+[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在我们自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自我们的客户端应用，而不是攻击者。
 
 By default, an interceptor sends this cookie on all mutating requests (POST, etc.)
 to relative URLs but not on GET/HEAD requests or
 on requests with an absolute URL.
 
-默认情况下，拦截器会在所有的修改型请求中（比如POST等）把这个 cookie 发送给使用相对URL的请求。但不会在 GET/HEAD 请求中发送，也不会发送给使用绝对 URL 的请求。
+默认情况下，拦截器会在所有的修改型请求中（比如 POST 等）把这个 cookie 发送给使用相对 URL 的请求。但不会在 GET/HEAD 请求中发送，也不会发送给使用绝对 URL 的请求。
 
 To take advantage of this, your server needs to set a token in a JavaScript readable session cookie called `XSRF-TOKEN` on either the page load or the first GET request. On subsequent requests the server can verify that the cookie matches the `X-XSRF-TOKEN` HTTP header, and therefore be sure that only code running on your domain could have sent the request. The token must be unique for each user and must be verifiable by the server; this prevents the client from making up its own tokens. Set the token to a digest of your site's authentication
 cookie with a salt for added security.
 
-要获得这种优点，我们的服务器需要在页面加载或首个 GET 请求中把一个名叫`XSRF-TOKEN`的令牌写入可被 JavaScript 读到的会话 cookie 中。
+要获得这种优点，我们的服务器需要在页面加载或首个 GET 请求中把一个名叫 `XSRF-TOKEN` 的令牌写入可被 JavaScript 读到的会话 cookie 中。
 而在后续的请求中，服务器可以验证这个 cookie 是否与 HTTP 头 `X-XSRF-TOKEN` 的值一致，以确保只有运行在我们自己域名下的代码才能发起这个请求。这个令牌必须对每个用户都是唯一的，并且必须能被服务器验证，因此不能由客户端自己生成令牌。把这个令牌设置为你的站点认证信息并且加了盐（salt）的摘要，以提升安全性。
 
 In order to prevent collisions in environments where multiple Angular apps share the same domain or subdomain, give each application a unique cookie name.
@@ -1484,7 +1484,7 @@ Your backend service must be configured to set the cookie for your page, and to 
 the header is present on all eligible requests. 
 If not, Angular's default protection will be ineffective.
 
-*注意，`HttpClient`支持的只是 XSRF 防护方案的客户端这一半。* 我们的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
+*注意，`HttpClient` 支持的只是 XSRF 防护方案的客户端这一半。* 我们的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
 
 </div>
 
@@ -1559,7 +1559,7 @@ To begin testing calls to `HttpClient`,
 import the `HttpClientTestingModule` and the mocking controller, `HttpTestingController`,
 along with the other symbols your tests require.
 
-要开始测试那些通过`HttpClient`发起的请求，就要导入`HttpClientTestingModule`模块，并把它加到你的`TestBed` 设置里去，代码如下：
+要开始测试那些通过 `HttpClient` 发起的请求，就要导入 `HttpClientTestingModule` 模块，并把它加到你的 `TestBed` 设置里去，代码如下：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
@@ -1606,7 +1606,7 @@ Now you can write a test that expects a GET Request to occur and provides a mock
 
 The last step, verifying that no requests remain outstanding, is common enough for you to move it into an `afterEach()` step:
 
-最后一步，验证没有发起过预期之外的请求，足够通用，因此我们可以把它移到`afterEach()`中：
+最后一步，验证没有发起过预期之外的请求，足够通用，因此我们可以把它移到 `afterEach()` 中：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
@@ -1646,7 +1646,7 @@ It takes the same arguments but returns an array of matching requests.
 Once returned, these requests are removed from future matching and 
 you are responsible for flushing and verifying them.
 
-如果我们需要在测试中对重复的请求进行响应，可以使用`match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，我们要自己验证和刷新（flush）它。
+如果我们需要在测试中对重复的请求进行响应，可以使用 `match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，我们要自己验证和刷新（flush）它。
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"

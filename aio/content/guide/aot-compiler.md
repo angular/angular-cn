@@ -12,7 +12,7 @@ This guide explains how to build with the AOT compiler using different compiler 
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
 
-  观看编译器作者Tobias Bosch在AngularConnect 2016大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular编译器</a>的演讲。
+  观看编译器作者 Tobias Bosch 在 AngularConnect 2016 大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular 编译器</a>的演讲。
 
 </div>
 
@@ -66,7 +66,7 @@ See the [CLI documentation](https://github.com/angular/angular-cli/wiki) for det
 
 ## Why compile with AOT?
 
-## 为什么需要AOT编译？
+## 为什么需要 AOT 编译？
 
 *Faster rendering*
 
@@ -75,7 +75,7 @@ See the [CLI documentation](https://github.com/angular/angular-cli/wiki) for det
 With AOT, the browser downloads a pre-compiled version of the application.
 The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
 
-使用AOT，浏览器下载预编译版本的应用程序。
+使用 AOT，浏览器下载预编译版本的应用程序。
 浏览器直接加载运行代码，所以它可以立即渲染该应用，而不用等应用完成首次编译。
 
 *Fewer asynchronous requests*
@@ -85,18 +85,18 @@ The browser loads executable code so it can render the application immediately, 
 The compiler _inlines_ external HTML templates and CSS style sheets within the application JavaScript,
 eliminating separate ajax requests for those source files.
 
-编译器把外部HTML模板和CSS样式表内联到了该应用的JavaScript中。
-消除了用来下载那些源文件的Ajax请求。
+编译器把外部 HTML 模板和 CSS 样式表内联到了该应用的 JavaScript 中。
+消除了用来下载那些源文件的 Ajax 请求。
 
 *Smaller Angular framework download size*
 
-**需要下载的Angular框架体积更小**
+**需要下载的 Angular 框架体积更小**
 
 There's no need to download the Angular compiler if the app is already compiled.
 The compiler is roughly half of Angular itself, so omitting it dramatically reduces the application payload.
 
-如果应用已经编译过了，自然不需要再下载Angular编译器了。
-该编译器差不多占了Angular自身体积的一半儿，所以，省略它可以显著减小应用的体积。
+如果应用已经编译过了，自然不需要再下载 Angular 编译器了。
+该编译器差不多占了 Angular 自身体积的一半儿，所以，省略它可以显著减小应用的体积。
 
 *Detect template errors earlier*
 
@@ -105,7 +105,7 @@ The compiler is roughly half of Angular itself, so omitting it dramatically redu
 The AOT compiler detects and reports template binding errors during the build step
 before users can see them.
 
-AOT编译器在构建过程中检测和报告模板绑定错误，避免用户遇到这些错误。
+AOT 编译器在构建过程中检测和报告模板绑定错误，避免用户遇到这些错误。
 
 *Better security*
 
@@ -115,8 +115,8 @@ AOT compiles HTML templates and components into JavaScript files long before the
 With no templates to read and no risky client-side HTML or JavaScript evaluation,
 there are fewer opportunities for injection attacks.
 
-AOT编译远在HTML模版和组件被服务到客户端之前，将它们编译到JavaScript文件。
-没有模版可以阅读，没有高风险客户端HTML或JavaScript可利用，所以注入攻击的机会较少。
+AOT 编译远在 HTML 模版和组件被服务到客户端之前，将它们编译到 JavaScript 文件。
+没有模版可以阅读，没有高风险客户端 HTML 或 JavaScript 可利用，所以注入攻击的机会较少。
 
 {@a compiler-options}
 
@@ -370,11 +370,11 @@ The next sections elaborate on these points.
 
 It helps to think of the AOT compiler as having two phases: a code analysis phase in which it simply records a representation of the source; and a code generation phase in which the compiler's `StaticReflector` handles the interpretation as well as places restrictions on what it interprets.
 
-我们可以把 AOT 编译器看做两个阶段：在代码分析阶段，它只记录源代码，而在代码生成阶段，编译器的`StaticReflector`会解释这些结果，并为这些结果加上限制。
+我们可以把 AOT 编译器看做两个阶段：在代码分析阶段，它只记录源代码，而在代码生成阶段，编译器的 `StaticReflector` 会解释这些结果，并为这些结果加上限制。
 
 ## Phase 1: analysis
 
-## 阶段1：分析
+## 阶段 1：分析
 
 The TypeScript compiler does some of the analytic work of the first phase. It emits the `.d.ts` _type definition files_ with type information that the AOT compiler needs to generate application code.
 
@@ -382,11 +382,11 @@ TypeScript 编译器会做一些初步的分析工作，它会生成**类型定�
 
 At the same time, the AOT **_collector_** analyzes the metadata recorded in the Angular decorators and outputs metadata information in **`.metadata.json`** files, one per `.d.ts` file.
 
-同时，AOT **收集器（collector）** 会记录 Angular 装饰器中的元数据，并把它们输出到**`.metadata.json`**文件中，和每个`.d.ts`文件相对应。
+同时，AOT **收集器（collector）** 会记录 Angular 装饰器中的元数据，并把它们输出到**`.metadata.json`**文件中，和每个 `.d.ts` 文件相对应。
 
 You can think of `.metadata.json` as a diagram of the overall structure of a decorator's metadata, represented as an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
-我们可以把`.metadata.json`文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
+我们可以把 `.metadata.json` 文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
 
 <div class="l-sub-section">
 
@@ -430,13 +430,13 @@ Parentheses                        | `(a + b)`
 If an expression uses unsupported syntax, the _collector_ writes an error node to the `.metadata.json` file. The compiler later reports the error if it needs that
 piece of metadata to generate the application code.
 
-如果表达式使用了不支持的语法，**收集器**就会往`.metadata.json`文件中写入一个错误节点。稍后，如果编译器用到元数据中的这部分内容来生成应用代码，它就会报告这个错误。
+如果表达式使用了不支持的语法，**收集器**就会往 `.metadata.json` 文件中写入一个错误节点。稍后，如果编译器用到元数据中的这部分内容来生成应用代码，它就会报告这个错误。
 
 <div class="l-sub-section">
 
  If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in `tsconfig`.
 
- 如果你希望`ngc`立即汇报这些语法错误，而不要生成带有错误信息的`.metadata.json`文件，可以到`tsconfig`中设置 `strictMetadataEmit` 选项。
+ 如果你希望 `ngc` 立即汇报这些语法错误，而不要生成带有错误信息的 `.metadata.json` 文件，可以到 `tsconfig` 中设置 `strictMetadataEmit` 选项。
 
 ```
 

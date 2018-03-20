@@ -154,7 +154,7 @@ Refactor the component's `hero` property to be of type `Hero`.
 Initialize it with an `id` of `1` and the name `Windstorm`.
 
 把组件的 `hero` 属性的类型重构为 `Hero`。
-然后以`1`为 `id`、以 “Windstorm” 为名字初始化它。
+然后以 `1` 为 `id`、以 “Windstorm” 为名字初始化它。
 
 The revised `HeroesComponent` class file should look like this:
 
@@ -225,19 +225,19 @@ Angular 发布了一些内置管道，而且你还可以创建自己的管道。
 
 Users should be able to edit the hero name in an `<input>` textbox.
 
-用户应该能在一个`<input>`输入框中编辑英雄的名字。
+用户应该能在一个 `<input>` 输入框中编辑英雄的名字。
 
 The textbox should both _display_ the hero's `name` property
 and _update_ that property as the user types.
 That means data flow from the component class _out to the screen_ and
 from the screen _back to the class_.
 
-当用户输入时，这个输入框应该能同时*显示*和*修改*英雄的`name`属性。
+当用户输入时，这个输入框应该能同时*显示*和*修改*英雄的 `name` 属性。
 也就是说，数据流从组件类**流出到屏幕**，并且从屏幕**流回到组件类**。
 
 To automate that data flow, setup a two-way data binding between the `<input>` form element and the `hero.name` property.
 
-要想让这种数据流动自动化，就要在表单元素`<input>`和组件的`hero.name`属性之间建立双向数据绑定。
+要想让这种数据流动自动化，就要在表单元素 `<input>` 和组件的 `hero.name` 属性之间建立双向数据绑定。
 
 ### Two-way binding
 
@@ -285,7 +285,7 @@ Although `ngModel` is a valid Angular directive, it isn't available by default.
 
 It belongs to the optional `FormsModule` and you must _opt-in_ to using it.
 
-它属于一个可选模块`FormsModule`，你必须自行添加此模块才能使用该指令。
+它属于一个可选模块 `FormsModule`，你必须自行添加此模块才能使用该指令。
 
 ## _AppModule_
 
@@ -336,7 +336,7 @@ region="ng-imports">
 
 When the browser refreshes, the app should work again. You can edit the hero's name and see the changes reflected immediately in the `<h2>` above the textbox.
 
-刷新浏览器，应用又能正常工作了。你可以编辑英雄的名字，并且会看到这个改动立刻体现在这个输入框上方的`<h2>`中。
+刷新浏览器，应用又能正常工作了。你可以编辑英雄的名字，并且会看到这个改动立刻体现在这个输入框上方的 `<h2>` 中。
 
 ### Declare _HeroesComponent_ 
 

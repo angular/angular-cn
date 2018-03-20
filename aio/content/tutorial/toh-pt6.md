@@ -58,7 +58,7 @@ After installing the module, the app will make requests to and receive responses
 without knowing that the *In-memory Web API* is intercepting those requests,
 applying them to an in-memory data store, and returning simulated responses.
 
-安装完这个模块之后，应用将会通过 `HttpClient` 来发起请求和接收响应，而不用在乎实际上是这个内存 Web API在拦截这些请求、操作一个内存数据库，并且给出仿真的响应。
+安装完这个模块之后，应用将会通过 `HttpClient` 来发起请求和接收响应，而不用在乎实际上是这个内存 Web API 在拦截这些请求、操作一个内存数据库，并且给出仿真的响应。
 
 This facility is a great convenience for the tutorial.
 You won't have to set up a server to learn about `HttpClient`.
@@ -321,7 +321,7 @@ give it a `catchError()` operator.
 The `catchError()` operator intercepts an **`Observable` that failed**.
 It passes the error an _error handler_ that can do what it wants with the error.
 
-`catchError()` 操作符会拦截**失败的`Observable`**。
+`catchError()` 操作符会拦截**失败的 `Observable`**。
 它把错误对象传给*错误处理器*，*错误处理器*会处理这个错误。
 
 The following `handleError()` method reports the error and then returns an
@@ -386,7 +386,7 @@ Here is the final version of `getHeroes` with the `tap` that logs the operation.
 
 ### Get hero by id
 
-### 通过id获取英雄
+### 通过 id 获取英雄
 
 Most web APIs support a _get by id_ request in the form `api/hero/:id` 
 (such as `api/hero/11`).
@@ -434,7 +434,7 @@ the server.
 At the end of the hero detail template, add a save button with a `click` event
 binding that invokes a new component method named `save()`.
 
-在英雄详情模板的底部添加一个保存按钮，它绑定了一个`click`事件，事件绑定会调用组件中一个名叫`save()`的新方法：
+在英雄详情模板的底部添加一个保存按钮，它绑定了一个 `click` 事件，事件绑定会调用组件中一个名叫 `save()` 的新方法：
 
 <code-example path="toh-pt6/src/app/hero-detail/hero-detail.component.html" region="save" title="src/app/hero-detail/hero-detail.component.html (save)"></code-example>
 
@@ -453,7 +453,7 @@ The overall structure of the `updateHero()` method is similar to that of
 `getHeroes()`, but it uses `http.put()` to persist the changed hero
 on the server.
 
-`updateHero()` 的总体结构和`getHeroes()` 很相似，但它会使用 `http.put()` 来把修改后的英雄保存到服务器上。
+`updateHero()` 的总体结构和 `getHeroes()` 很相似，但它会使用 `http.put()` 来把修改后的英雄保存到服务器上。
 
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
@@ -762,7 +762,7 @@ as listed in the [final code review](#herosearchcomponent) below.
 As the user types in the search box, a *keyup* event binding calls the component's `search()`
 method with the new search box value.
 
-当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的`search()`方法，并传入新的搜索框的值。
+当用户在搜索框中输入时，一个 *keyup* 事件绑定会调用该组件的 `search()` 方法，并传入新的搜索框的值。
 
 {@a asyncpipe}
 
@@ -1049,11 +1049,11 @@ You're at the end of your journey, and you've accomplished a lot.
 
 * You refactored `HeroService` to load heroes from a web API.
 
-  你重构了`HeroService`，以通过 web API 来加载英雄数据。
+  你重构了 `HeroService`，以通过 web API 来加载英雄数据。
 
 * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
 
-  你扩展了`HeroService`来支持 `post()`、`put()` 和 `delete()` 方法。
+  你扩展了 `HeroService` 来支持 `post()`、`put()` 和 `delete()` 方法。
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 

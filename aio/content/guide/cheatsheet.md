@@ -226,7 +226,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Binds the presence of the CSS class <code>extra-sparkle</code> on the element to the truthiness of the expression <code>isDelightful</code>.</p>
 
-    <p>根据<code>isDelightful</code>表达式的结果是否为真，决定CSS类<code>extra-sparkle</code>是否出现在当前元素上。</p>
+    <p>根据<code>isDelightful</code>表达式的结果是否为真，决定 CSS 类<code>extra-sparkle</code>是否出现在当前元素上。</p>
 
 </td>
 
@@ -242,7 +242,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Binds style property <code>width</code> to the result of expression <code>mySize</code> in pixels. Units are optional.</p>
 
-    <p>把CSS样式属性<code>width</code>的px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>
+    <p>把 CSS 样式属性<code>width</code>的 px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>
 
 </td>
 
@@ -258,7 +258,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Calls method <code>readRainbow</code> when a click event is triggered on this button element (or its children) and passes in the event object.</p>
 
-    <p>当这个按钮元素（及其子元素）上的click事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>
+    <p>当这个按钮元素（及其子元素）上的 click 事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>
 
 </td>
 
@@ -462,7 +462,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>
 
-    <p>把li元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。</p>
+    <p>把 li 元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。</p>
 
 </td>
 

@@ -27,11 +27,11 @@ in which two or more components share information.
 
 * [Intercept input property changes with `ngOnChanges()`](guide/component-interaction#parent-to-child-on-changes)
 
-   [使用`ngOnChanges()`拦截输入属性的变化](guide/component-interaction#parent-to-child-on-changes)
+   [使用 `ngOnChanges()` 拦截输入属性的变化](guide/component-interaction#parent-to-child-on-changes)
 
 * [Parent calls an `@ViewChild()`](guide/component-interaction#parent-to-view-child)
 
-   [在父组件中调用`@ViewChild()`](guide/component-interaction#parent-to-view-child)
+   [在父组件中调用 `@ViewChild()`](guide/component-interaction#parent-to-view-child)
 
 * [Parent and children communicate via a service](guide/component-interaction#bidirectional-service)
 
@@ -52,7 +52,7 @@ in which two or more components share information.
 `HeroChildComponent` has two ***input properties***,
 typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs).
 
-`HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input装饰器](guide/template-syntax#inputs-outputs)。
+`HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input 装饰器](guide/template-syntax#inputs-outputs)。
 
 <code-example path="component-interaction/src/app/hero-child.component.ts" title="component-interaction/src/app/hero-child.component.ts">
 
@@ -60,13 +60,13 @@ typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs
 
 The second `@Input` aliases the child component property name `masterName` as `'master'`.
 
-第二个`@Input`为子组件的属性名`masterName`指定一个别名`master`(译者注：不推荐为起别名，请参见风格指南).
+第二个 `@Input` 为子组件的属性名 `masterName` 指定一个别名 `master`(译者注：不推荐为起别名，请参见风格指南).
 
 The `HeroParentComponent` nests the child `HeroChildComponent` inside an `*ngFor` repeater,
 binding its `master` string property to the child's `master` alias,
 and each iteration's `hero` instance to the child's `hero` property.
 
-父组件`HeroParentComponent`把子组件的`HeroChildComponent`放到`*ngFor`循环器中，把自己的`master`字符串属性绑定到子组件的`master`别名上，并把每个循环的`hero`实例绑定到子组件的`hero`属性。
+父组件 `HeroParentComponent` 把子组件的 `HeroChildComponent` 放到 `*ngFor` 循环器中，把自己的 `master` 字符串属性绑定到子组件的 `master` 别名上，并把每个循环的 `hero` 实例绑定到子组件的 `hero` 属性。
 
 <code-example path="component-interaction/src/app/hero-parent.component.ts" title="component-interaction/src/app/hero-parent.component.ts">
 
@@ -100,16 +100,16 @@ E2E test that all children were instantiated and displayed as expected:
 
 ## Intercept input property changes with a setter
 
-## 通过setter截听输入属性值的变化
+## 通过 setter 截听输入属性值的变化
 
 Use an input property setter to intercept and act upon a value from the parent.
 
-使用一个输入属性的setter，以拦截父组件中值的变化，并采取行动。
+使用一个输入属性的 setter，以拦截父组件中值的变化，并采取行动。
 
 The setter of the `name` input property in the child `NameChildComponent`
 trims the whitespace from a name and replaces an empty value with default text.
 
-子组件`NameChildComponent`的输入属性`name`上的这个setter，会trim掉名字里的空格，并把空值替换成默认字符串。
+子组件 `NameChildComponent` 的输入属性 `name` 上的这个 setter，会 trim 掉名字里的空格，并把空值替换成默认字符串。
 
 <code-example path="component-interaction/src/app/name-child.component.ts" title="component-interaction/src/app/name-child.component.ts">
 
@@ -117,7 +117,7 @@ trims the whitespace from a name and replaces an empty value with default text.
 
 Here's the `NameParentComponent` demonstrating name variations including a name with all spaces:
 
-下面的`NameParentComponent`展示了各种名字的处理方式，包括一个全是空格的名字。
+下面的 `NameParentComponent` 展示了各种名字的处理方式，包括一个全是空格的名字。
 
 <code-example path="component-interaction/src/app/name-parent.component.ts" title="component-interaction/src/app/name-parent.component.ts">
 
@@ -133,7 +133,7 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 
 E2E tests of input property setter with empty and non-empty names:
 
-端到端测试：输入属性的setter，分别使用空名字和非空名字。
+端到端测试：输入属性的 setter，分别使用空名字和非空名字。
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e/app.e2e-spec.ts">
 
@@ -151,23 +151,23 @@ E2E tests of input property setter with empty and non-empty names:
 
 Detect and act upon changes to input property values with the `ngOnChanges()` method of the `OnChanges` lifecycle hook interface.
 
-使用`OnChanges`生命周期钩子接口的`ngOnChanges()`方法来监测输入属性值的变化并做出回应。
+使用 `OnChanges` 生命周期钩子接口的 `ngOnChanges()` 方法来监测输入属性值的变化并做出回应。
 
 <div class="l-sub-section">
 
 You may prefer this approach to the property setter when watching multiple, interacting input properties.
 
-当需要监视多个、交互式输入属性的时候，本方法比用属性的setter更合适。
+当需要监视多个、交互式输入属性的时候，本方法比用属性的 setter 更合适。
 
 Learn about `ngOnChanges()` in the [LifeCycle Hooks](guide/lifecycle-hooks) chapter.
 
-学习关于`ngOnChanges()`的更多知识，参见[生命周期钩子](guide/lifecycle-hooks)一章。
+学习关于 `ngOnChanges()` 的更多知识，参见[生命周期钩子](guide/lifecycle-hooks)一章。
 
 </div>
 
 This `VersionChildComponent` detects changes to the `major` and `minor` input properties and composes a log message reporting these changes:
 
-这个`VersionChildComponent`会监测输入属性`major`和`minor`的变化，并把这些变化编写成日志以报告这些变化。
+这个 `VersionChildComponent` 会监测输入属性 `major` 和 `minor` 的变化，并把这些变化编写成日志以报告这些变化。
 
 <code-example path="component-interaction/src/app/version-child.component.ts" title="component-interaction/src/app/version-child.component.ts">
 
@@ -175,7 +175,7 @@ This `VersionChildComponent` detects changes to the `major` and `minor` input pr
 
 The `VersionParentComponent` supplies the `minor` and `major` values and binds buttons to methods that change them.
 
-`VersionParentComponent`提供`minor`和`major`值，把修改它们值的方法绑定到按钮上。
+`VersionParentComponent` 提供 `minor` 和 `major` 值，把修改它们值的方法绑定到按钮上。
 
 <code-example path="component-interaction/src/app/version-parent.component.ts" title="component-interaction/src/app/version-parent.component.ts">
 
@@ -196,7 +196,7 @@ Here's the output of a button-pushing sequence:
 Test that ***both*** input properties are set initially and that button clicks trigger
 the expected `ngOnChanges` calls and values:
 
-测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges`应该被调用，属性的值也符合预期。
+测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges` 应该被调用，属性的值也符合预期。
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e/app.e2e-spec.ts">
 
@@ -215,13 +215,13 @@ the expected `ngOnChanges` calls and values:
 The child component exposes an `EventEmitter` property with which it `emits` events when something happens.
 The parent binds to that event property and reacts to those events.
 
-子组件暴露一个`EventEmitter`属性，当事件发生时，子组件利用该属性`emits`(向上弹射)事件。父组件绑定到这个事件属性，并在事件发生时作出回应。
+子组件暴露一个 `EventEmitter` 属性，当事件发生时，子组件利用该属性 `emits`(向上弹射)事件。父组件绑定到这个事件属性，并在事件发生时作出回应。
 
 The child's `EventEmitter` property is an ***output property***,
   typically adorned with an [@Output decoration](guide/template-syntax#inputs-outputs)
   as seen in this `VoterComponent`:
 
-子组件的`EventEmitter`属性是一个**输出属性**，通常带有[@Output装饰器](guide/template-syntax#inputs-outputs)，就像在`VoterComponent`中看到的。
+子组件的 `EventEmitter` 属性是一个**输出属性**，通常带有[@Output 装饰器](guide/template-syntax#inputs-outputs)，就像在 `VoterComponent` 中看到的。
 
 <code-example path="component-interaction/src/app/voter.component.ts" title="component-interaction/src/app/voter.component.ts">
 
@@ -229,12 +229,12 @@ The child's `EventEmitter` property is an ***output property***,
 
 Clicking a button triggers emission of a `true` or `false`, the boolean *payload*.
 
-点击按钮会触发`true`或`false`(布尔型*有效载荷*)的事件。
+点击按钮会触发 `true` 或 `false`(布尔型*有效载荷*)的事件。
 
 The parent `VoteTakerComponent` binds an event handler called `onVoted()` that responds to the child event
 payload `$event` and updates a counter.
 
-父组件`VoteTakerComponent`绑定了一个事件处理器(`onVoted()`)，用来响应子组件的事件(`$event`)并更新一个计数器。
+父组件 `VoteTakerComponent` 绑定了一个事件处理器(`onVoted()`)，用来响应子组件的事件(`$event`)并更新一个计数器。
 
 <code-example path="component-interaction/src/app/votetaker.component.ts" title="component-interaction/src/app/votetaker.component.ts">
 
@@ -243,7 +243,7 @@ payload `$event` and updates a counter.
 The framework passes the event argument&mdash;represented by `$event`&mdash;to the handler method,
 and the method processes it:
 
-框架(Angular)把事件参数(用`$event`表示)传给事件处理方法，这个方法会处理：
+框架(Angular)把事件参数(用 `$event` 表示)传给事件处理方法，这个方法会处理：
 
 <figure>
   <img src="generated/images/guide/component-interaction/child-to-parent.gif" alt="Child-to-parent">
@@ -283,7 +283,7 @@ The following is a child `CountdownTimerComponent` that repeatedly counts down t
 It has `start` and `stop` methods that control the clock and it displays a
 countdown status message in its own template.
 
-子组件`CountdownTimerComponent`进行倒计时，归零时发射一个导弹。`start`和`stop`方法负责控制时钟并在模板里显示倒计时的状态信息。
+子组件 `CountdownTimerComponent` 进行倒计时，归零时发射一个导弹。`start` 和 `stop` 方法负责控制时钟并在模板里显示倒计时的状态信息。
 
 <code-example path="component-interaction/src/app/countdown-timer.component.ts" title="component-interaction/src/app/countdown-timer.component.ts">
 
@@ -291,7 +291,7 @@ countdown status message in its own template.
 
 The `CountdownLocalVarParentComponent` that hosts the timer component is as follows:
 
-让我们来看看计时器组件的宿主组件`CountdownLocalVarParentComponent`。
+让我们来看看计时器组件的宿主组件 `CountdownLocalVarParentComponent`。
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" title="component-interaction/src/app/countdown-parent.component.ts">
 
@@ -300,7 +300,7 @@ The `CountdownLocalVarParentComponent` that hosts the timer component is as foll
 The parent component cannot data bind to the child's
 `start` and `stop` methods nor to its `seconds` property.
 
-父组件不能通过数据绑定使用子组件的`start`和`stop`方法，也不能访问子组件的`seconds`属性。
+父组件不能通过数据绑定使用子组件的 `start` 和 `stop` 方法，也不能访问子组件的 `seconds` 属性。
 
 You can place a local variable, `#timer`, on the tag `<countdown-timer>` representing the child component.
 That gives you a reference to the child component and the ability to access
@@ -311,7 +311,7 @@ That gives you a reference to the child component and the ability to access
 This example wires parent buttons to the child's `start` and `stop` and
 uses interpolation to display the child's `seconds` property.
 
-在这个例子中，我们把父组件的按钮绑定到子组件的`start`和`stop`方法，并用插值表达式来显示子组件的`seconds`属性。
+在这个例子中，我们把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
 
 Here we see the parent and child working together.
 
@@ -382,7 +382,7 @@ is solely for the purpose of demonstration.
 
 Here is the parent, `CountdownViewChildParentComponent`:
 
-下面是父组件`CountdownViewChildParentComponent`:
+下面是父组件 `CountdownViewChildParentComponent`:
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="vc" title="component-interaction/src/app/countdown-parent.component.ts">
 
@@ -394,18 +394,18 @@ It takes a bit more work to get the child view into the parent component *class*
 
 First, you have to import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
 
-首先，你要使用`ViewChild`装饰器导入这个引用，并挂上`AfterViewInit`生命周期钩子。
+首先，你要使用 `ViewChild` 装饰器导入这个引用，并挂上 `AfterViewInit` 生命周期钩子。
 
 Next, inject the child `CountdownTimerComponent` into the private `timerComponent` property
 via the `@ViewChild` property decoration.
 
-接着，通过`@ViewChild`属性装饰器，将子组件`CountdownTimerComponent`注入到私有属性`timerComponent`里面。
+接着，通过 `@ViewChild` 属性装饰器，将子组件 `CountdownTimerComponent` 注入到私有属性 `timerComponent` 里面。
 
 The `#timer` local variable is gone from the component metadata.
 Instead, bind the buttons to the parent component's own `start` and `stop` methods and
 present the ticking seconds in an interpolation around the parent component's `seconds` method.
 
-组件元数据里就不再需要`#timer`本地变量了。而是把按钮绑定到父组件自己的`start`和`stop`方法，使用父组件的`seconds`方法的插值表达式来展示秒数变化。
+组件元数据里就不再需要 `#timer` 本地变量了。而是把按钮绑定到父组件自己的 `start` 和 `stop` 方法，使用父组件的 `seconds` 方法的插值表达式来展示秒数变化。
 
 These methods access the injected timer component directly.
 
@@ -415,19 +415,19 @@ The `ngAfterViewInit()` lifecycle hook is an important wrinkle.
 The timer component isn't available until *after* Angular displays the parent view.
 So it displays `0` seconds initially.
 
-`ngAfterViewInit()`生命周期钩子是非常重要的一步。被注入的计时器组件只有在Angular显示了父组件视图之后才能访问，所以我们先把秒数显示为0.
+`ngAfterViewInit()` 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以我们先把秒数显示为 0.
 
 Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late*
 to update the parent view's display of the countdown seconds.
 Angular's unidirectional data flow rule prevents updating the parent view's
 in the same cycle. The app has to *wait one turn* before it can display the seconds.
 
-然后Angular会调用`ngAfterViewInit`生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮*。
+然后 Angular 会调用 `ngAfterViewInit` 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮*。
 
 Use `setTimeout()` to wait one tick and then revise the `seconds()` method so
 that it takes future values from the timer component.
 
-使用`setTimeout()`来等下一轮，然后改写`seconds()`方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
+使用 `setTimeout()` 来等下一轮，然后改写 `seconds()` 方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。
 
 <h3 class="no-toc">Test it</h3>
 
@@ -459,7 +459,7 @@ Components outside this component subtree have no access to the service or their
 
 This `MissionService` connects the `MissionControlComponent` to multiple `AstronautComponent` children.
 
-这个`MissionService`把`MissionControlComponent`和多个`AstronautComponent`子组件连接起来。
+这个 `MissionService` 把 `MissionControlComponent` 和多个 `AstronautComponent` 子组件连接起来。
 
 <code-example path="component-interaction/src/app/mission.service.ts" title="component-interaction/src/app/mission.service.ts">
 
@@ -468,7 +468,7 @@ This `MissionService` connects the `MissionControlComponent` to multiple `Astron
 The `MissionControlComponent` both provides the instance of the service that it shares with its children
 (through the `providers` metadata array) and injects that instance into itself through its constructor:
 
-`MissionControlComponent`提供服务的实例，并将其共享给它的子组件(通过`providers`元数据数组)，子组件可以通过构造函数将该实例注入到自身。
+`MissionControlComponent` 提供服务的实例，并将其共享给它的子组件(通过 `providers` 元数据数组)，子组件可以通过构造函数将该实例注入到自身。
 
 <code-example path="component-interaction/src/app/missioncontrol.component.ts" title="component-interaction/src/app/missioncontrol.component.ts">
 
@@ -477,7 +477,7 @@ The `MissionControlComponent` both provides the instance of the service that it 
 The `AstronautComponent` also injects the service in its constructor.
 Each `AstronautComponent` is a child of the `MissionControlComponent` and therefore receives its parent's service instance:
 
-`AstronautComponent`也通过自己的构造函数注入该服务。由于每个`AstronautComponent`都是`MissionControlComponent`的子组件，所以它们获取到的也是父组件的这个服务实例。
+`AstronautComponent` 也通过自己的构造函数注入该服务。由于每个 `AstronautComponent` 都是 `MissionControlComponent` 的子组件，所以它们获取到的也是父组件的这个服务实例。
 
 <code-example path="component-interaction/src/app/astronaut.component.ts" title="component-interaction/src/app/astronaut.component.ts">
 
@@ -490,13 +490,13 @@ This is a memory-leak guard step. There is no actual risk in this app because th
 lifetime of a `AstronautComponent` is the same as the lifetime of the app itself.
 That *would not* always be true in a more complex application.
 
-注意，这个例子保存了`subscription`变量，并在`AstronautComponent`被销毁时调用`unsubscribe()`退订。
-这是一个用于防止内存泄漏的保护措施。实际上，在这个应用程序中并没有这个风险，因为`AstronautComponent`的生命期和应用程序的生命期一样长。但在更复杂的应用程序环境中就不一定了。
+注意，这个例子保存了 `subscription` 变量，并在 `AstronautComponent` 被销毁时调用 `unsubscribe()` 退订。
+这是一个用于防止内存泄漏的保护措施。实际上，在这个应用程序中并没有这个风险，因为 `AstronautComponent` 的生命期和应用程序的生命期一样长。但在更复杂的应用程序环境中就不一定了。
 
 You don't add this guard to the `MissionControlComponent` because, as the parent,
 it controls the lifetime of the `MissionService`.
 
-不需要在`MissionControlComponent`中添加这个保护措施，因为它作为父组件，控制着`MissionService`的生命期。
+不需要在 `MissionControlComponent` 中添加这个保护措施，因为它作为父组件，控制着 `MissionService` 的生命期。
 
 </div>
 
@@ -504,7 +504,7 @@ The *History* log demonstrates that messages travel in both directions between
 the parent `MissionControlComponent` and the `AstronautComponent` children,
 facilitated by the service:
 
-*History*日志证明了：在父组件`MissionControlComponent`和子组件`AstronautComponent`之间，信息通过该服务实现了双向传递。
+*History*日志证明了：在父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 之间，信息通过该服务实现了双向传递。
 
 <figure>
   <img src="generated/images/guide/component-interaction/bidirectional-service.gif" alt="bidirectional-service">
@@ -517,7 +517,7 @@ facilitated by the service:
 Tests click buttons of both the parent `MissionControlComponent` and the `AstronautComponent` children
 and verify that the history meets expectations:
 
-测试确保点击父组件`MissionControlComponent`和子组件`AstronautComponent`两个的组件的按钮时，*History*日志和预期的一样。
+测试确保点击父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 两个的组件的按钮时，*History*日志和预期的一样。
 
 <code-example path="component-interaction/e2e/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/app.e2e-spec.ts">
 

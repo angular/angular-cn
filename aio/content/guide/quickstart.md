@@ -18,12 +18,12 @@ application in TypeScript, using the Angular CLI
 while adhering to the [Style Guide](guide/styleguide) recommendations that
 benefit _every_ Angular project.
 
-在这一章CLI快速起步中，我们的目标是构建并运行一个超级简单的Angular应用。我们会使用Angular-CLI来让每个Angular应用从[风格指南](guide/styleguide)中获益。
+在这一章 CLI 快速起步中，我们的目标是构建并运行一个超级简单的 Angular 应用。我们会使用 Angular-CLI 来让每个 Angular 应用从[风格指南](guide/styleguide)中获益。
 
 By the end of the chapter, you'll have a basic understanding of development with the CLI
 and a foundation for both these documentation samples and for real world applications.
 
-在本章的末尾，我们会通过CLI对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
+在本章的末尾，我们会通过 CLI 对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
 And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">download the example.</a>
 
@@ -31,7 +31,7 @@ And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" targ
 
 <h2 id='devenv'>Step 1. Set up the Development Environment</h2>
 
-<h2 id='devenv'>步骤1. 设置开发环境</h2>
+<h2 id='devenv'>步骤 1. 设置开发环境</h2>
 
 You need to set up your development environment before you can do anything.
 
@@ -40,7 +40,7 @@ You need to set up your development environment before you can do anything.
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
 
-如果你的电脑里没有Node.js®和npm，请安装**[它们](https://nodejs.org/en/download/)**。
+如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 
 <div class="l-sub-section">
 
@@ -66,7 +66,7 @@ Then **install the [Angular CLI](https://github.com/angular/angular-cli)** globa
 
 <h2 id='create-proj'>Step 2. Create a new project</h2>
 
-<h2 id='create-proj'>步骤2. 创建新项目</h2>
+<h2 id='create-proj'>步骤 2. 创建新项目</h2>
 
 Open a terminal window.
 
@@ -88,13 +88,13 @@ Patience, please.
 It takes time to set up a new project; most of it is spent installing npm packages.
 
 请耐心等待。
-创建新项目需要花费很多时间，大多数时候都是在安装那些npm包。
+创建新项目需要花费很多时间，大多数时候都是在安装那些 npm 包。
 
 </div>
 
 <h2 id='serve'>Step 3: Serve the application</h2>
 
-<h2 id='serve'>步骤3. 启动开发服务器</h2>
+<h2 id='serve'>步骤 3. 启动开发服务器</h2>
 
 Go to the project directory and launch the server.
 
@@ -110,12 +110,12 @@ Go to the project directory and launch the server.
 The `ng serve` command launches the server, watches your files,
 and rebuilds the app as you make changes to those files.
 
-`ng serve`命令会启动开发服务器，监听文件变化，并在修改这些文件时重新构建此应用。
+`ng serve` 命令会启动开发服务器，监听文件变化，并在修改这些文件时重新构建此应用。
 
 Using the `--open` (or just `-o`) option will automatically open your browser
 on `http://localhost:4200/`.
 
-使用`--open`（或`-o`）参数可以自动打开浏览器并访问`http://localhost:4200/`。
+使用 `--open`（或 `-o`）参数可以自动打开浏览器并访问 `http://localhost:4200/`。
 
 Your app greets you with a message:
 
@@ -127,19 +127,19 @@ Your app greets you with a message:
 
 <h2 id='first-component'>Step 4: Edit your first Angular component</h2>
 
-<h2 id='first-component'>步骤4. 编辑我们的第一个Angular组件</h2>
+<h2 id='first-component'>步骤 4. 编辑我们的第一个 Angular 组件</h2>
 
 The CLI created the first Angular component for you.
 This is the _root component_ and it is named `app-root`.
 You can find it in `./src/app/app.component.ts`.
 
-这个CLI为我们创建了第一个Angular组件。
-它就是名叫`app-root`的*根组件*。
-你可以在`./src/app/app.component.ts`目录下找到它。
+这个 CLI 为我们创建了第一个 Angular 组件。
+它就是名叫 `app-root` 的*根组件*。
+你可以在 `./src/app/app.component.ts` 目录下找到它。
 
 Open the component file and change the `title` property from _Welcome to app!!_ to _Welcome to My First Angular App!!_:
 
-打开这个组件文件，并且把`title`属性从 _Welcome to app!!_ 改为 _Welcome to My First Angular App!!_ ：
+打开这个组件文件，并且把 `title` 属性从 _Welcome to app!!_ 改为 _Welcome to My First Angular App!!_ ：
 
 <code-example path="cli-quickstart/src/app/app.component.ts" region="title" title="src/app/app.component.ts" linenums="false"></code-example>
 
@@ -172,7 +172,7 @@ That's about all you'd expect to do in a "Hello, World" app.
 You're ready to take the [Tour of Heroes Tutorial](tutorial) and build
 a small application that demonstrates the great things you can build with Angular.
 
-现在，你可以开始[英雄指南](tutorial)教程，通过构建一个小型应用来学习如何用Angular构建各种大型应用了。
+现在，你可以开始[英雄指南](tutorial)教程，通过构建一个小型应用来学习如何用 Angular 构建各种大型应用了。
 
 Or you can stick around a bit longer to learn about the files in your brand new project.
 
@@ -184,7 +184,7 @@ Or you can stick around a bit longer to learn about the files in your brand new 
 
 An Angular CLI project is the foundation for both quick experiments and enterprise solutions.
 
-Angular CLI项目是做快速试验和开发企业解决方案的基础。
+Angular CLI 项目是做快速试验和开发企业解决方案的基础。
 
 The first file you should check out is `README.md`.
 It has some basic information on how to use CLI commands.
@@ -192,8 +192,8 @@ Whenever you want to know more about how Angular CLI works make sure to visit
 [the Angular CLI repository](https://github.com/angular/angular-cli) and
 [Wiki](https://github.com/angular/angular-cli/wiki).
 
-你首先要看的文件是`README.md`。
-它提供了一些如何使用CLI命令的基础信息。
+你首先要看的文件是 `README.md`。
+它提供了一些如何使用 CLI 命令的基础信息。
 如果你想了解 Angular CLI 的工作原理，请访问 [Angular CLI 的仓库](https://github.com/angular/angular-cli)及其 
   [Wiki](https://github.com/angular/angular-cli/wiki)。
 
@@ -203,14 +203,14 @@ Some of the generated files might be unfamiliar to you.
 
 ### The `src` folder
 
-### `src`文件夹
+### `src` 文件夹
 
 Your app lives in the `src` folder.
 All Angular components, templates, styles, images, and anything else your app needs go here.
 Any files outside of this folder are meant to support building your app.
 
-你的应用代码位于`src`文件夹中。
-所有的Angular组件、模板、样式、图片以及你的应用所需的任何东西都在那里。
+你的应用代码位于 `src` 文件夹中。
+所有的 Angular 组件、模板、样式、图片以及你的应用所需的任何东西都在那里。
 这个文件夹之外的文件都是为构建应用提供支持用的。
 
 <div class='filetree'>
@@ -317,7 +317,7 @@ Any files outside of this folder are meant to support building your app.
       It is the **root** component of what will become a tree of nested components
       as the application evolves.
 
-      使用HTML模板、CSS样式和单元测试定义`AppComponent`组件。
+      使用 HTML 模板、CSS 样式和单元测试定义 `AppComponent` 组件。
       它是**根**组件，随着应用的成长它会成为一棵组件树的根节点。
 
     </td>
@@ -338,8 +338,8 @@ Any files outside of this folder are meant to support building your app.
       Right now it declares only the `AppComponent`.
       Soon there will be more components to declare.
 
-      定义`AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
-      目前，它只声明了`AppComponent`。
+      定义 `AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
+      目前，它只声明了 `AppComponent`。
       不久，它将声明更多组件。
 
     </td>
@@ -385,9 +385,9 @@ Any files outside of this folder are meant to support building your app.
 
       这个文件夹中包括为各个目标环境准备的文件，它们导出了一些应用中要用到的配置变量。
       这些文件会在构建应用时被替换。
-      比如你可能在产品环境中使用不同的API端点地址，或使用不同的统计Token参数。
+      比如你可能在产品环境中使用不同的 API 端点地址，或使用不同的统计 Token 参数。
       甚至使用一些模拟服务。
-      所有这些，CLI都替你考虑到了。
+      所有这些，CLI 都替你考虑到了。
 
     </td>
 
@@ -428,9 +428,9 @@ Any files outside of this folder are meant to support building your app.
       The CLI automatically adds all `js` and `css` files when building your app so you
       never need to add any `<script>` or `<link>` tags here manually.
 
-      这是别人访问你的网站是看到的主页面的HTML文件。
+      这是别人访问你的网站是看到的主页面的 HTML 文件。
       大多数情况下你都不用编辑它。
-      在构建应用时，CLI会自动把所有`js`和`css`文件添加进去，所以你不必在这里手动添加任何 `<script>` 或 `<link>` 标签。
+      在构建应用时，CLI 会自动把所有 `js` 和 `css` 文件添加进去，所以你不必在这里手动添加任何 `<script>` 或 `<link>` 标签。
 
     </td>
 
@@ -453,8 +453,8 @@ Any files outside of this folder are meant to support building your app.
       without changing any code by appending the`--aot` flag to the `ng build` and `ng serve` commands.
 
       这是应用的主要入口点。
-      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块`AppModule`，使其运行在浏览器中。
-      你还可以使用[AOT compiler](guide/glossary#ahead-of-time-aot-compilation)编译器，而不用修改任何代码 —— 只要给`ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
+      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块 `AppModule`，使其运行在浏览器中。
+      你还可以使用[AOT compiler](guide/glossary#ahead-of-time-aot-compilation)编译器，而不用修改任何代码 —— 只要给 `ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
 
     </td>
 
@@ -475,9 +475,9 @@ Any files outside of this folder are meant to support building your app.
       You should be pretty safe with `core-js` and `zone.js`, but be sure to check out
       the [Browser Support guide](guide/browser-support) for more information.
 
-      不同的浏览器对Web标准的支持程度也不同。
+      不同的浏览器对 Web 标准的支持程度也不同。
       腻子脚本（polyfill）能帮我们把这些不同点进行标准化。
-      你只要使用`core-js` 和 `zone.js`通常就够了，不过你也可以查看[浏览器支持指南](guide/browser-support)以了解更多信息。
+      你只要使用 `core-js` 和 `zone.js` 通常就够了，不过你也可以查看[浏览器支持指南](guide/browser-support)以了解更多信息。
 
     </td>
 
@@ -538,7 +538,7 @@ Any files outside of this folder are meant to support building your app.
       TypeScript compiler configuration for the Angular app (`tsconfig.app.json`)
       and for the unit tests (`tsconfig.spec.json`).
 
-      TypeScript编译器的配置文件。`tsconfig.app.json`是为Angular应用准备的，而`tsconfig.spec.json`是为单元测试准备的。
+      TypeScript 编译器的配置文件。`tsconfig.app.json` 是为 Angular 应用准备的，而 `tsconfig.spec.json` 是为单元测试准备的。
 
     </td>
 
@@ -554,8 +554,8 @@ The `src/` folder is just one of the items inside the project's root folder.
 Other files help you build, test, maintain, document, and deploy the app.
 These files go in the root folder next to `src/`.
 
-`src/`文件夹是项目的根文件夹之一。
-其它文件是用来帮助你构建、测试、维护、文档化和发布应用的。它们放在根目录下，和`src/`平级。
+`src/` 文件夹是项目的根文件夹之一。
+其它文件是用来帮助你构建、测试、维护、文档化和发布应用的。它们放在根目录下，和 `src/` 平级。
 
 <div class='filetree'>
 
@@ -646,9 +646,9 @@ These files go in the root folder next to `src/`.
       just so happens to test your main app.
       That's also why they have their own `tsconfig.e2e.json`.
 
-      在`e2e/`下是端到端（end-to-end）测试。
-      它们不在`src/`下，是因为端到端测试实际上和应用是相互独立的，它只适用于测试你的应用而已。
-      这也就是为什么它会拥有自己的`tsconfig.json`。
+      在 `e2e/` 下是端到端（end-to-end）测试。
+      它们不在 `src/` 下，是因为端到端测试实际上和应用是相互独立的，它只适用于测试你的应用而已。
+      这也就是为什么它会拥有自己的 `tsconfig.json`。
 
     </td>
 
@@ -667,7 +667,7 @@ These files go in the root folder next to `src/`.
       `Node.js` creates this folder and puts all third party modules listed in
       `package.json` inside of it.
 
-      `Node.js`创建了这个文件夹，并且把`package.json`中列举的所有第三方模块都放在其中。
+      `Node.js` 创建了这个文件夹，并且把 `package.json` 中列举的所有第三方模块都放在其中。
 
     </td>
 
@@ -688,7 +688,7 @@ These files go in the root folder next to `src/`.
       when your project is built.
       Check out the official documentation if you want to know more.
 
-      Angular CLI的配置文件。
+      Angular CLI 的配置文件。
       在这个文件中，我们可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
       要了解更多，请参阅它的官方文档。
 
@@ -712,7 +712,7 @@ These files go in the root folder next to `src/`.
       See http://editorconfig.org for more information.
 
       给你的编辑器看的一个简单配置文件，它用来确保参与你项目的每个人都具有基本的编辑器配置。
-      大多数的编辑器都支持`.editorconfig`文件，详情参见 http://editorconfig.org 。
+      大多数的编辑器都支持 `.editorconfig` 文件，详情参见 http://editorconfig.org 。
 
     </td>
 
@@ -730,7 +730,7 @@ These files go in the root folder next to `src/`.
 
       Git configuration to make sure autogenerated files are not commited to source control.
 
-      一个Git的配置文件，用来确保某些自动生成的文件不会被提交到源码控制系统中。
+      一个 Git 的配置文件，用来确保某些自动生成的文件不会被提交到源码控制系统中。
 
     </td>
 
@@ -749,7 +749,7 @@ These files go in the root folder next to `src/`.
       Unit test configuration for the [Karma test runner](https://karma-runner.github.io),
       used when running `ng test`.
 
-      给[Karma](https://karma-runner.github.io)的单元测试配置，当运行`ng test`时会用到它。
+      给[Karma](https://karma-runner.github.io)的单元测试配置，当运行 `ng test` 时会用到它。
 
     </td>
 
@@ -768,7 +768,7 @@ These files go in the root folder next to `src/`.
       `npm` configuration listing the third party packages your project uses.
       You can also add your own [custom scripts](https://docs.npmjs.com/misc/scripts) here.
 
-      `npm`配置文件，其中列出了项目使用到的第三方依赖包。
+      `npm` 配置文件，其中列出了项目使用到的第三方依赖包。
       你还可以在这里添加自己的[自定义脚本](https://docs.npmjs.com/misc/scripts)。
 
     </td>
@@ -788,7 +788,7 @@ These files go in the root folder next to `src/`.
       End-to-end test configuration for [Protractor](http://www.protractortest.org/),
       used when running `ng e2e`.
 
-      给[Protractor](http://www.protractortest.org/)使用的端到端测试配置文件，当运行`ng e2e`的时候会用到它。
+      给[Protractor](http://www.protractortest.org/)使用的端到端测试配置文件，当运行 `ng e2e` 的时候会用到它。
 
     </td>
 
@@ -808,7 +808,7 @@ These files go in the root folder next to `src/`.
       Make sure to enhance it with project documentation so that anyone
       checking out the repo can build your app!
 
-      项目的基础文档，预先写入了CLI命令的信息。
+      项目的基础文档，预先写入了 CLI 命令的信息。
       别忘了用项目文档改进它，以便每个查看此仓库的人都能据此构建出你的应用。
 
     </td>
@@ -827,7 +827,7 @@ These files go in the root folder next to `src/`.
 
       TypeScript compiler configuration for your IDE to pick up and give you helpful tooling.
 
-      TypeScript编译器的配置，你的IDE会借助它来给你提供更好的帮助。
+      TypeScript 编译器的配置，你的 IDE 会借助它来给你提供更好的帮助。
 
     </td>
 
@@ -847,8 +847,8 @@ These files go in the root folder next to `src/`.
       [Codelyzer](http://codelyzer.com/), used when running `ng lint`.
       Linting helps keep your code style consistent.
 
-      给[TSLint](https://palantir.github.io/tslint/)和[Codelyzer](http://codelyzer.com/)用的配置信息，当运行`ng lint`时会用到。
-      Lint功能可以帮你保持代码风格的统一。
+      给[TSLint](https://palantir.github.io/tslint/)和[Codelyzer](http://codelyzer.com/)用的配置信息，当运行 `ng lint` 时会用到。
+      Lint 功能可以帮你保持代码风格的统一。
 
     </td>
 
@@ -866,7 +866,7 @@ If you're new to Angular, continue with the
 [tutorial](tutorial "Tour of Heroes tutorial").
 You can skip the "Setup" step since you're already using the Angular CLI setup.
 
-如果你刚刚开始使用Angular，我们建议你遵循这个[教程](tutorial "《英雄指南》教程")。
+如果你刚刚开始使用 Angular，我们建议你遵循这个[教程](tutorial "《英雄指南》教程")。
 你可以跳过“环境设置”一章，因为你已经在使用 Angular-CLI 设置好环境了。
 
 </div>

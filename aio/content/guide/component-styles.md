@@ -37,8 +37,8 @@ One way to do this is to set the `styles` property in the component metadata.
 The `styles` property takes an array of strings that contain CSS code.
 Usually you give it one string, as in the following example:
 
-实现方式之一，是在组件的元数据中设置`styles`属性。
-`styles`属性可以接受一个包含 CSS 代码的字符串数组。
+实现方式之一，是在组件的元数据中设置 `styles` 属性。
+`styles` 属性可以接受一个包含 CSS 代码的字符串数组。
 通常我们只给它一个字符串就行了，如同下例：
 
 <code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts" linenums="false">
@@ -113,7 +113,7 @@ The following sections describe these selectors.
 Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
 targeting elements *inside* the component's template).
 
-使用`:host`伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
+使用 `:host` 伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="host" title="src/app/hero-details.component.css" linenums="false">
 
@@ -129,11 +129,11 @@ component's own template. The host element is in a parent component's template.
 Use the *function form* to apply host styles conditionally by
 including another selector inside parentheses after `:host`.
 
-要把宿主样式作为条件，就要像*函数*一样把其它选择器放在`:host`后面的括号中。
+要把宿主样式作为条件，就要像*函数*一样把其它选择器放在 `:host` 后面的括号中。
 
 The next example targets the host element again, but only when it also has the `active` CSS class.
 
-在下一个例子中，我们又一次把宿主元素作为目标，但是只有当它同时带有`active` CSS 类的时候才会生效。
+在下一个例子中，我们又一次把宿主元素作为目标，但是只有当它同时带有 `active` CSS 类的时候才会生效。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" title="src/app/hero-details.component.css" linenums="false">
 
@@ -148,19 +148,19 @@ For example, a CSS theme class could be applied to the document `<body>` element
 you want to change how your component looks based on that.
 
 有时候，基于某些来自组件视图*外部*的条件应用样式是很有用的。
-例如，在文档的`<body>`元素上可能有一个用于表示样式主题 (theme) 的 CSS 类，而我们应当基于它来决定组件的样式。
+例如，在文档的 `<body>` 元素上可能有一个用于表示样式主题 (theme) 的 CSS 类，而我们应当基于它来决定组件的样式。
 
 Use the `:host-context()` pseudo-class selector, which works just like the function
 form of `:host()`. The `:host-context()` selector looks for a CSS class in any ancestor of the component host element,
 up to the document root. The `:host-context()` selector is useful when combined with another selector.
 
-这时可以使用`:host-context()`伪类选择器。它也以类似`:host()`形式使用。它在当前组件宿主元素的*祖先节点*中查找 CSS 类，
+这时可以使用 `:host-context()` 伪类选择器。它也以类似 `:host()` 形式使用。它在当前组件宿主元素的*祖先节点*中查找 CSS 类，
 直到文档的根节点为止。在与其它选择器组合使用时，它非常有用。
 
 The following example applies a `background-color` style to all `<h2>` elements *inside* the component, only
 if some ancestor element has the CSS class `theme-light`.
 
-在下面的例子中，只有当某个祖先元素有 CSS 类`theme-light`时，我们才会把`background-color`样式应用到组件*内部*的所有`<h2>`元素中。
+在下面的例子中，只有当某个祖先元素有 CSS 类 `theme-light` 时，我们才会把 `background-color` 样式应用到组件*内部*的所有 `<h2>` 元素中。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" title="src/app/hero-details.component.css" linenums="false">
 
@@ -168,7 +168,7 @@ if some ancestor element has the CSS class `theme-light`.
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
 
-### 已废弃 `/deep/`、`>>>`和`::ng-deep`
+### 已废弃 `/deep/`、`>>>` 和 `::ng-deep`
 
 Component styles normally apply only to the HTML in the component's own template.
 
@@ -179,12 +179,12 @@ component tree into all the child component views.
 The `/deep/` combinator works to any depth of nested components, and it applies to both the view
 children and content children of the component.
 
-我们可以使用`/deep/`选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
+我们可以使用 `/deep/` 选择器，来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
 
 The following example targets all `<h3>` elements, from the host element down
 through this component to all of its child elements in the DOM.
 
-在这个例子中，我们以所有的`<h3>`元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
+在这个例子中，我们以所有的 `<h3>` 元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="deep" title="src/app/hero-details.component.css" linenums="false">
 
@@ -192,7 +192,7 @@ through this component to all of its child elements in the DOM.
 
 The `/deep/` combinator also has the aliases `>>>`, and `::ng-deep`.
 
-`/deep/` 组合器还有两个别名：`>>>`和`::ng-deep`。
+`/deep/` 组合器还有两个别名：`>>>` 和 `::ng-deep`。
 
 <div class="alert is-important">
 
@@ -200,7 +200,7 @@ Use `/deep/`, `>>>` and `::ng-deep` only with *emulated* view encapsulation.
 Emulated is the default and most commonly used view encapsulation. For more information, see the
 [Controlling view encapsulation](guide/component-styles#view-encapsulation) section.
 
-`/deep/`和`>>>`选择器只能被用在**仿真 (emulated) **模式下。
+`/deep/` 和 `>>>` 选择器只能被用在**仿真 (emulated) **模式下。
 这种方式是默认值，也是用得最多的方式。
 更多信息，见[控制视图封装模式](guide/component-styles#view-encapsulation)一节。
 
@@ -212,9 +212,9 @@ The shadow-piercing descendant combinator is deprecated and [support is being re
 As such we plan to drop support in Angular (for all 3 of `/deep/`, `>>>` and `::ng-deep`).
 Until then `::ng-deep` should be preferred for a broader compatibility with the tools.
 
-CSS标准中用于 "刺穿Shadow DOM" 的组合器已经被废弃，并将[这个特性从主流浏览器和工具中移除](https://www.chromestatus.com/features/6750456638341120)。
-因此，我们也将在 Angular 中移除对它们的支持（包括`/deep/`、`>>>` 和 `::ng-deep`）。
-目前，建议先统一使用`::ng-deep`，以便兼容将来的工具。
+CSS 标准中用于 "刺穿 Shadow DOM" 的组合器已经被废弃，并将[这个特性从主流浏览器和工具中移除](https://www.chromestatus.com/features/6750456638341120)。
+因此，我们也将在 Angular 中移除对它们的支持（包括 `/deep/`、`>>>` 和 `::ng-deep`）。
+目前，建议先统一使用 `::ng-deep`，以便兼容将来的工具。
 
 </div>
 
@@ -230,7 +230,7 @@ There are several ways to add styles to a component:
 
 * By setting `styles` or `styleUrls` metadata.
 
-   设置`styles`或`styleUrls`元数据
+   设置 `styles` 或 `styleUrls` 元数据
 
 * Inline in the template HTML.
 
@@ -250,7 +250,7 @@ The scoping rules outlined earlier apply to each of these loading patterns.
 
 You can add a `styles` array property to the `@Component` decorator.
 
-我们可以给`@Component`装饰器添加一个`styles`数组型属性。
+我们可以给 `@Component` 装饰器添加一个 `styles` 数组型属性。
 
 Each string in the array defines some CSS for this component.
 
@@ -331,7 +331,7 @@ ng generate component hero-app
 You can embed CSS styles directly into the HTML template by putting them
 inside `<style>` tags.
 
-我们也可以在组件的 HTML 模板中嵌入`<style>`标签。
+我们也可以在组件的 HTML 模板中嵌入 `<style>` 标签。
 
 <code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" title="src/app/hero-controls.component.ts">
 
@@ -339,11 +339,11 @@ inside `<style>` tags.
 
 ### Template link tags
 
-### 模板中的link标签
+### 模板中的 link 标签
 
 You can also write `<link>` tags into the component's HTML template.
 
-我们也可以在组件的 HTML 模板中写`<link>`标签。
+我们也可以在组件的 HTML 模板中写 `<link>` 标签。
 
 <code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" title="src/app/hero-team.component.ts">
 
@@ -370,7 +370,7 @@ You can also import CSS files into the CSS files using the standard CSS `@import
 For details, see [`@import`](https://developer.mozilla.org/en/docs/Web/CSS/@import)
 on the [MDN](https://developer.mozilla.org) site.
 
-我们还可以利用标准的 CSS [`@import`规则](https://developer.mozilla.org/en/docs/Web/CSS/@import)来把其它
+我们还可以利用标准的 CSS [`@import` 规则](https://developer.mozilla.org/en/docs/Web/CSS/@import)来把其它
   CSS 文件导入到我们的 CSS 文件中。
 
 In this case, the URL is relative to the CSS file into which you're importing.
@@ -462,14 +462,14 @@ Choose from the following modes:
   to attach a shadow DOM to the component's host element, and then puts the component
   view inside that shadow DOM. The component's styles are included within the shadow DOM.
 
-   `Native`模式使用浏览器原生的 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
+   `Native` 模式使用浏览器原生的 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
   实现来为组件的宿主元素附加一个 Shadow DOM。组件的样式被包裹在这个 Shadow DOM 中。(译注：不进不出，没有样式能进来，组件样式出不去。)
 
 * `Emulated` view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing
   (and renaming) the CSS code to effectively scope the CSS to the component's view.
   For details, see [Appendix 1](guide/component-styles#inspect-generated-css).
 
-   `Emulated`模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。
+   `Emulated` 模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。
   更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)
 
 * `None` means that Angular does no view encapsulation.
@@ -477,13 +477,13 @@ Choose from the following modes:
   The scoping rules, isolations, and protections discussed earlier don't apply.
   This is essentially the same as pasting the component's styles into the HTML.
 
-   `None`意味着 Angular 不使用视图封装。
+   `None` 意味着 Angular 不使用视图封装。
   Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。
   从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)
 
 To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
 
-通过组件元数据中的`encapsulation`属性来设置组件封装模式：
+通过组件元数据中的 `encapsulation` 属性来设置组件封装模式：
 
 <code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" title="src/app/quest-summary.component.ts" linenums="false">
 
@@ -533,20 +533,20 @@ There are two kinds of generated attributes:
 * An element that would be a shadow DOM host in native encapsulation has a
   generated `_nghost` attribute. This is typically the case for component host elements.
 
-   一个元素在原生封装方式下可能是 Shadow DOM 的宿主，在这里被自动添加上一个`_nghost`属性。
+   一个元素在原生封装方式下可能是 Shadow DOM 的宿主，在这里被自动添加上一个 `_nghost` 属性。
   这是组件宿主元素的典型情况。
 
 * An element within a component's view has a `_ngcontent` attribute
 that identifies to which host's emulated shadow DOM this element belongs.
 
-   组件视图中的每一个元素，都有一个`_ngcontent`属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
+   组件视图中的每一个元素，都有一个 `_ngcontent` 属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
 
 The exact values of these attributes aren't important. They are automatically
 generated and you never refer to them in application code. But they are targeted
 by the generated component styles, which are in the `<head>` section of the DOM:
 
 这些属性的具体值并不重要。它们是自动生成的，并且我们永远不会在程序代码中直接引用到它们。
-但它们会作为生成的组件样式的目标，就像我们在 DOM 的`<head>`区所看到的：
+但它们会作为生成的组件样式的目标，就像我们在 DOM 的 `<head>` 区所看到的：
 
 <code-example format="">
 
@@ -567,5 +567,5 @@ with `_nghost` or `_ngcontent` attribute selectors.
 These extra selectors enable the scoping rules described in this page.
 
 
-这些就是我们写的那些样式被处理后的结果，于是每个选择器都被增加了`_nghost`或`_ngcontent`属性选择器。
+这些就是我们写的那些样式被处理后的结果，于是每个选择器都被增加了 `_nghost` 或 `_ngcontent` 属性选择器。
 在这些附加选择器的帮助下，我们实现了本指南中所描述的这些作用域规则。

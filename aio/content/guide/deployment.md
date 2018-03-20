@@ -4,7 +4,7 @@
 
 This page describes techniques for deploying your Angular application to a remote server.
 
-本章会描述在远程服务器上部署Angular应用的工具与技术。
+本章会描述在远程服务器上部署 Angular 应用的工具与技术。
 
 {@a dev-deploy}
 
@@ -30,11 +30,11 @@ For the simplest deployment, build for development and copy the output directory
 
 2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
 
-   把输出目录（默认为`dist/`）下的*每个文件*都复制到到服务器上的某个目录下。
+   把输出目录（默认为 `dist/`）下的*每个文件*都复制到到服务器上的某个目录下。
 
 3. If you copy the files into a server _sub-folder_, append the build flag, `--base-href` and set the `<base href>` appropriately.<br><br>
 
-   如果要把文件部署到服务器上的*某个子路径*下，构建时还要添加`--base-href`（基地址）标识，并设置合适的`<base href>`。<br><br>
+   如果要把文件部署到服务器上的*某个子路径*下，构建时还要添加 `--base-href`（基地址）标识，并设置合适的 `<base href>`。<br><br>
 
   For example, if the `index.html` is on the server at `/my/app/index.html`, set the _base href_  to
   `<base href="/my/app/">` like this.
@@ -145,7 +145,7 @@ for details about available build options and what they do.
 Angular apps run in development mode by default, as you can see by the following message on the browser
 console:
 
-Angular应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：
+Angular 应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：
 
 <code-example format="nocode">
 
@@ -179,7 +179,7 @@ Configure the Angular Router to defer loading of all other modules (and their as
 or by [_lazy loading_](guide/router#asynchronous-routing "Lazy loading")
 them on demand.
 
-配置Angular路由器可以延迟加载所有其它模块（以及与它们相关的代码），无论是[等应用启动](guide/router#preloading  "Preloading")，
+配置 Angular 路由器可以延迟加载所有其它模块（以及与它们相关的代码），无论是[等应用启动](guide/router#preloading  "Preloading")，
 还是在需要时才[惰性加载](guide/router#asynchronous-routing "Lazy loading")。
 
 #### Don't eagerly import something from a lazy loaded module
@@ -193,7 +193,7 @@ in a file that's eagerly loaded when the app starts, a file such as the root `Ap
 If you do that, the module will be loaded immediately.
 
 这是一种常犯的错误。
-我们本打算惰性加载一个模块，但可能无意中在根模块`AppModule`文件中使用一个JavaScript的`import`语句导入了它。
+我们本打算惰性加载一个模块，但可能无意中在根模块 `AppModule` 文件中使用一个 JavaScript 的 `import` 语句导入了它。
 这样一来，该模块就被立即加载了。
 
 The bundling configuration must take lazy loading into consideration.
@@ -202,7 +202,7 @@ Bundlers don't know about the router configuration and won't create separate bun
 You have to create these bundles manually.
 
 关于打包（bundle）方式的配置必须考虑到惰性加载问题。
-因为惰性加载模块不能在JavaScript中导入（就像刚才说明的），打包器应该默认排除它们。
+因为惰性加载模块不能在 JavaScript 中导入（就像刚才说明的），打包器应该默认排除它们。
 打包器不知道路由器的配置，并且不会为延迟加载模块创建单独的包。
 我们不得不手动创建这些包。
 
@@ -234,7 +234,7 @@ The
 Chrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.
 
 <p><a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" target="_blank" title="Chrome DevTools Network Performance">
-  Chrome开发工具的网络性能页</a>是开始学习度量性能的好地方。</p>
+  Chrome 开发工具的网络性能页</a>是开始学习度量性能的好地方。</p>
 
 The [WebPageTest](https://www.webpagetest.org/) tool is another good choice
 that can also help verify that your deployment was successful.
@@ -319,9 +319,9 @@ For example, given the `<base href="/my/app/">`, the browser resolves a URL such
 into a server request for `my/app/some/place/foo.jpg`.
 During navigation, the Angular router uses the _base href_ as the base path to component, template, and module files.
 
-HTML中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
-比如，指定`<base href="/my/app/">`时，浏览器就会把`some/place/foo.jpg`这样的URL解析成到`my/app/some/place/foo.jpg`的服务端请求。
-在浏览期间，Angular路由器会使用*base href*作为组件、模板和模块文件的基地址。
+HTML 中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
+比如，指定 `<base href="/my/app/">` 时，浏览器就会把 `some/place/foo.jpg` 这样的 URL 解析成到 `my/app/some/place/foo.jpg` 的服务端请求。
+在浏览期间，Angular 路由器会使用*base href*作为组件、模板和模块文件的基地址。
 
 <div class="l-sub-section">
 
@@ -334,14 +334,14 @@ See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") al
 In development, you typically start the server in the folder that holds `index.html`.
 That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
 
-在开发期间，我们通常会在`index.html`所在的目录中启动服务器。这个目录就是根目录，因为`/`就是本应用的根，所以我们要在`index.html`的顶部添加`<base href="/">`。
+在开发期间，我们通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以我们要在 `index.html` 的顶部添加 `<base href="/">`。
 
 But on the shared or production server, you might serve the app from a subfolder.
 For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,
 the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the server version of the `index.html`.
 
 但是在共享服务器或生产服务器上，我们可能得从子目录下启动服务器。
-比如，当加载本应用的URL是`http://www.mysite.com/my/app/`时，子目录就是`my/app/`，而我们就要在服务器版的`index.html`中添加`<base href="/my/app/">`。
+比如，当加载本应用的 URL 是 `http://www.mysite.com/my/app/` 时，子目录就是 `my/app/`，而我们就要在服务器版的 `index.html` 中添加 `<base href="/my/app/">`。
 
 When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.
@@ -415,19 +415,19 @@ This section covers changes you may have make to the server or to files deployed
 
 ### Routed apps must fallback to `index.html`
 
-### 带路由的应用必须以`index.html`作为后备页面
+### 带路由的应用必须以 `index.html` 作为后备页面
 
 Angular apps are perfect candidates for serving with a simple static HTML server.
 You don't need a server-side engine to dynamically compose application pages because
 Angular does that on the client-side.
 
-Angular应用很适合用简单的静态HTML服务器提供服务。
-我们不需要服务端引擎来动态合成应用页面，因为Angular会在客户端完成这件事。
+Angular 应用很适合用简单的静态 HTML 服务器提供服务。
+我们不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
 
 If the app uses the Angular router, you must configure the server
 to return the application's host page (`index.html`) when asked for a file that it does not have.
 
-如果该应用使用Angular路由器，我们就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
+如果该应用使用 Angular 路由器，我们就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
 
 {@a deep-link}
 
@@ -437,14 +437,14 @@ For example, `http://www.mysite.com/heroes/42` is a _deep link_ to the hero deta
 that displays the hero with `id: 42`.
 
 带路由的应用应该支持“深链接”。
-所谓*深链接*就是指一个URL，它用于指定到应用内某个组件的路径。
-比如，`http://www.mysite.com/heroes/42`就是一个到英雄详情页面的*深链接*，用于显示`id: 42`的英雄。
+所谓*深链接*就是指一个 URL，它用于指定到应用内某个组件的路径。
+比如，`http://www.mysite.com/heroes/42` 就是一个到英雄详情页面的*深链接*，用于显示 `id: 42` 的英雄。
 
 There is no issue when the user navigates to that URL from within a running client.
 The Angular router interprets the URL and routes to that page and hero.
 
-当用户从运行中的客户端应用导航到这个URL时，这没问题。
-Angular路由器会拦截这个URL，并且把它路由到正确的页面。
+当用户从运行中的客户端应用导航到这个 URL 时，这没问题。
+Angular 路由器会拦截这个 URL，并且把它路由到正确的页面。
 
 But clicking a link in an email, entering it in the browser address bar,
 or merely refreshing the browser while on the hero detail page &mdash;
@@ -452,14 +452,14 @@ all of these actions are handled by the browser itself, _outside_ the running ap
 The browser makes a direct request to the server for that URL, bypassing the router.
 
 但是，当从邮件中点击链接或在浏览器地址栏中输入它或仅仅在英雄详情页刷新下浏览器时，所有这些操作都是由浏览器本身处理的，在应用的控制范围之外。
-浏览器会直接向服务器请求那个URL，路由器没机会插手。
+浏览器会直接向服务器请求那个 URL，路由器没机会插手。
 
 A static server routinely returns `index.html` when it receives a request for `http://www.mysite.com/`.
 But it rejects `http://www.mysite.com/heroes/42` and returns a `404 - Not Found` error *unless* it is
 configured to return `index.html` instead.
 
-静态服务器会在收到对`http://www.mysite.com/`的请求时返回`index.html`，但是会拒绝对`http://www.mysite.com/heroes/42`的请求，
-并返回一个`404 - Not Found`错误，除非，我们把它配置成转而返回`index.html`。
+静态服务器会在收到对 `http://www.mysite.com/` 的请求时返回 `index.html`，但是会拒绝对 `http://www.mysite.com/heroes/42` 的请求，
+并返回一个 `404 - Not Found` 错误，除非，我们把它配置成转而返回 `index.html`。
 
 #### Fallback configuration examples
 
@@ -480,12 +480,12 @@ The list is by no means exhaustive, but should provide you with a good starting 
 * [Lite-Server](https://github.com/johnpapa/lite-server): the default dev server installed with the
 [Quickstart repo](https://github.com/angular/quickstart) is pre-configured to fallback to `index.html`.
 
-   [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到`index.html`。
+   [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到 `index.html`。
 
 * [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server):  setup the
 `historyApiFallback` entry in the dev server options as follows:
 
-   [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了`historyApiFallback`，代码如下：
+   [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了 `historyApiFallback`，代码如下：
 
   <code-example>
 
@@ -504,7 +504,7 @@ The list is by no means exhaustive, but should provide you with a good starting 
 [rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
   (https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/):
 
-   [Apache](https://httpd.apache.org/)：在`.htaccess`文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
+   [Apache](https://httpd.apache.org/)：在 `.htaccess` 文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
 代码如下（[出处](https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/)）：
 
   <code-example format=".">
@@ -524,7 +524,7 @@ The list is by no means exhaustive, but should provide you with a good starting 
 [Front Controller Pattern Web Apps](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps),
 modified to serve `index.html`:
 
-   [NGinx](http://nginx.org/)：使用`try_files`指向`index.html`，详细描述见[Web应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
+   [NGinx](http://nginx.org/)：使用 `try_files` 指向 `index.html`，详细描述见[Web 应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
 
   <code-example format=".">
 
@@ -535,7 +535,7 @@ modified to serve `index.html`:
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
 [here](http://stackoverflow.com/a/26152011/2116927):
 
-   [IIS](https://www.iis.net/)：往`web.config`中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
+   [IIS](https://www.iis.net/)：往 `web.config` 中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
 
   <code-example format='.'>
 
@@ -566,15 +566,15 @@ It's also a good idea to
 and to
 [create a `.nojekyll` file](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)
 
-   [GitHub页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github的页面服务，但可以添加一个404页，只要把`index.html`复制到`404.html`就可以了。
-  它仍然会给出一个404响应，但是浏览器将会正确处理该页，并正常加载该应用。
-  使用[在主分支的`docs/`下启动服务](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
-  并[创建一个`.nojekyll`文件](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)也是一个好办法。
+   [GitHub 页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github 的页面服务，但可以添加一个 404 页，只要把 `index.html` 复制到 `404.html` 就可以了。
+  它仍然会给出一个 404 响应，但是浏览器将会正确处理该页，并正常加载该应用。
+  使用[在主分支的 `docs/` 下启动服务](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
+  并[创建一个 `.nojekyll` 文件](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)也是一个好办法。
 
 * [Firebase hosting](https://firebase.google.com/docs/hosting/): add a
 [rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).
 
-   [Firebase主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
+   [Firebase 主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
 
   <code-example format=".">
 
@@ -597,7 +597,7 @@ Angular developers may encounter a
 to a server other than the application's own host server.
 Browsers forbid such requests unless the server permits them explicitly.
 
-Angular开发者在向与该应用的宿主服务器不同域的服务器发起请求时，可能会遇到一种<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" title="Cross-origin resource sharing"><i>跨域资源共享（CORS）</i></a>错误。
+Angular 开发者在向与该应用的宿主服务器不同域的服务器发起请求时，可能会遇到一种<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" title="Cross-origin resource sharing"><i>跨域资源共享（CORS）</i></a>错误。
 浏览器会阻止该请求，除非得到那台服务器的明确许可。
 
 There isn't anything the client application can do about these errors.
@@ -608,4 +608,4 @@ Read about how to enable CORS for specific servers at
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。
-要了解如何对特定的服务器开启CORS，参见<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>。
+要了解如何对特定的服务器开启 CORS，参见<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>。
