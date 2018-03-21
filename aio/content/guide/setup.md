@@ -314,7 +314,7 @@ The following are all in `src/`
       it's the only viable choice for a sample running in a _live-coding_ environment like Stackblitz.
       You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.
 
-      使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping "启动应用")并运行应用。
+      使[即时 (JIT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping "启动应用")并运行应用。
       对于大多数项目的开发，这都是合理的选择。而且它是在像 Stackblitz 这样的*在线编程*环境中运行例子的唯一选择。
       你将在本文档中学习其他编译和开发选择。
 

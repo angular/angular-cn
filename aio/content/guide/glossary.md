@@ -25,7 +25,7 @@ unexpected definitions.
 
 ## Ahead-of-time (AOT) compilation
 
-## 预 (ahead-of-time, AoT) 编译
+## 预 (ahead-of-time, AOT) 编译
 
 You can compile Angular applications at build time.
 By compiling your application using the compiler-cli, `ngc`, you can bootstrap directly to a module factory, meaning you don't need to include the Angular compiler in your JavaScript bundle.
@@ -627,7 +627,7 @@ Read more about [interpolation](guide/template-syntax#interpolation) in the
 
 ## Just-in-time (JIT) compilation
 
-## 即时 (just-in-time, JiT) 编译
+## 即时 (just-in-time, JIT) 编译
 
 A bootstrapping method of compiling components and modules in the browser
 and launching the application dynamically. Just-in-time mode is a good choice during development.

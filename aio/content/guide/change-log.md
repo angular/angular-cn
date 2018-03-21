@@ -232,7 +232,7 @@ Docs and code samples updated and tested with Angular v.2.2.0.
 
 ## UPDATE: NgUpgrade Guide for the AOT friendly _upgrade/static_ module (2016-11-14)
 
-## 更新：用于 AoT 的_upgrade/static_模块 NgUpgrade 指南 (2016-11-14)
+## 更新：用于 AOT 的_upgrade/static_模块 NgUpgrade 指南 (2016-11-14)
 
 The updated [NgUpgrade Guide](guide/upgrade) guide covers the
 new AOT friendly `upgrade/static` module
@@ -240,7 +240,7 @@ released in v.2.2.0, which is the recommended
 facility for migrating from AngularJS to Angular.
 The documentation for the version prior to v.2.2.0 has been removed.
 
-更新的[NgUpgrade 指南](guide/upgrade)涵盖在 v.2.2.0 发布的 AoT`upgrade/static` 模块，
+更新的[NgUpgrade 指南](guide/upgrade)涵盖在 v.2.2.0 发布的 AOT`upgrade/static` 模块，
 是从 AngularJS 升级至 Angular 的推荐工具。
 删除早于 v.2.2.0 版本的文档。
 
@@ -332,14 +332,14 @@ Docs and code samples updated and tested with Angular v.2.1.0.
 
 ## NEW "Ahead of time (AOT) Compilation" guide (2016-10-11)
 
-## 添加了新的“预编译(AoT)"烹饪书(2016-10-11)
+## 添加了新的“预编译(AOT)"烹饪书(2016-10-11)
 
 The NEW [Ahead of time (AOT) Compilation](guide/aot-compiler) guide
 explains what AOT compilation is and why you'd want it.
 It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
-全新[预编译(AoT)](guide/aot-compiler)烹饪书介绍了什么是 AoT 编译和为何你需要它。
+全新[预编译(AOT)](guide/aot-compiler)烹饪书介绍了什么是 AOT 编译和为何你需要它。
 它以**快速上手**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
@@ -422,7 +422,7 @@ Added the `moduleId: module.id` property-and-value to their `@Component` metadat
 This change is a requirement for compilation with AOT compiler when the app loads
 modules with SystemJS as the samples currently do.
 
-当应用像例子当前使用的方法一样 - 使用 SystemJS 加载模块时，本更新是 AoT 编译器的前提条件。
+当应用像例子当前使用的方法一样 - 使用 SystemJS 加载模块时，本更新是 AOT 编译器的前提条件。
 
 ## "Lifecycle Hooks" guide simplified (2016-09-24)
 
