@@ -684,8 +684,12 @@ When an eagerly loaded module provides a service, for example a `UserService`, t
 imports another module that provides the same `UserService`, Angular registers one of
 them in the root app injector (see [What if I import the same module twice?](guide/ngmodule-faq#q-reimport)).
 
+当立即加载的模块提供了服务时，比如 `UserService`，该服务是在全应用级可用的。如果根模块提供了 `UserService`，并导入了另一个也提供了同一个 `UserService` 的模块，Angular 就会把它们中的一个注册进应用的根注入器中（参见[如果两次导入了同一个模块会怎样？](guide/ngmodule-faq#q-reimport)）。
+
 Then, when some component injects `UserService`, Angular finds it in the app root injector,
 and delivers the app-wide singleton service. No problem.
+
+然后，当某些组件注入 `UserService` 时，Angular 就会发现它已经在应用的根注入器中了，并交付这个全应用级的单例服务。这样不会出现问题。
 
 ### The lazy loaded scenario
 
@@ -1021,12 +1025,22 @@ in one folder, that the contents of that folder would be a feature module that y
 your `SearchModule`. It would contain all of the components, routing, and templates that
 would make up the search functionality.
 
+特性模块是你围绕特定的应用业务领域创建的模块，比如用户工作流、小工具集等。它们包含指定的特性，并为你的应用提供支持，比如路由、服务、窗口部件等。
+要对你的应用中可能会有哪些特性模块有个概念，考虑如果你要把与特定功能（比如搜索）有关的文件放进一个目录下，该目录的内容就可能是一个名叫 `SearchModule` 的特性模块。
+它将会包含构成搜索功能的全部组件、路由和模板。
+
 For more information, see [Feature Modules](guide/feature-modules) and
 [Module Types](guide/module-types)
 
+要了解更多，参见[特性模块](guide/feature-modules)和[模块的分类](guide/module-types)。
+
 ## What's the difference between NgModules and JavaScript Modules?
 
+## 在 NgModule 和 JavaScript 模块之间有什么不同？
+
 In an Angular app, NgModules and JavaScript modules work together.
+
+在 Angular 应用中，NgModule 会和 JavaScript 的模块一起工作。
 
 In modern JavaScript, every file is a module
 (see the [Modules](http://exploringjs.com/es6/ch_modules.html) page of the Exploring ES6 website).
