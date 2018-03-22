@@ -170,7 +170,7 @@ Open the `AppModule` class, import the `HeroService`, and add it to the `@NgModu
 The `providers` array tells Angular to create a single, shared instance of `HeroService`
 and inject into any class that asks for it.
 
-`providers` 数组会告诉 Angular 创建 `HeroService` 的单一、共享的实例，并且把它注入到如何请求注入它的类中。
+`providers` 数组会告诉 Angular 创建 `HeroService` 的单一、共享的实例，并且把它注入到任何请求注入它的类中。
 
 The `HeroService` is now ready to plug into the `HeroesComponent`.
 
