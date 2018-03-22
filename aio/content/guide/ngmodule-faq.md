@@ -16,7 +16,7 @@ A basic understanding of the following concepts:
 
 NgModules help organize an application into cohesive blocks of functionality.
 
-NgModules 可以帮我们把应用组织成一些紧密相关的代码块。
+NgModules 可以帮你把应用组织成一些紧密相关的代码块。
 
 This page answers the questions many developers ask about NgModule design and implementation.
 
@@ -95,13 +95,13 @@ strings, numbers, functions, entity models, configurations, business logic, and 
 `AppComponent` is often listed in both `declarations` and `bootstrap`.
 You might see the same component listed in `declarations`, `exports`, and `entryComponents`.
 
-我们经常看到 `AppComponent` 被同时列在 `declarations` 和 `bootstrap` 中。
-  我们还可能看到 `HeroComponent` 被同时列在 `declarations`、`exports` 和 `entryComponent` 中。
+`AppComponent` 经常被同时列在 `declarations` 和 `bootstrap` 中。
+另外你还可能看到 `HeroComponent` 被同时列在 `declarations`、`exports` 和 `entryComponent` 中。
 
 While that seems redundant, these properties have different functions.
 Membership in one list doesn't imply membership in another list.
 
-这*看起来*是多余的，不过这些函数具有不同的功能，我们无法从它出现在一个列表中推断出它也应该在另一个列表中。
+这*看起来*是多余的，不过这些函数具有不同的功能，从它出现在一个列表中无法推断出它也应该在另一个列表中。
 
 * `AppComponent` could be declared in this module but not bootstrapped.
 
@@ -113,7 +113,7 @@ Membership in one list doesn't imply membership in another list.
 
 * A component could be imported from another app module (so you can't declare it) and re-exported by this module.
 
-   `HeroComponent` 可能是从另一个应用模块中导入的（所以我们没法声明它）并且被当前模块重新导出。
+   `HeroComponent` 可能是从另一个应用模块中导入的（所以你没法声明它）并且被当前模块重新导出。
 
 * A component could be exported for inclusion in an external component's template
 as well as dynamically loaded in a pop-up dialog.
@@ -353,7 +353,7 @@ You add that result to the `imports` list of the root `AppModule`.
 `RouterModule.forRoot()` 就是一个很好的例子。
 应用把一个 `Routes` 对象传给 `RouterModule.forRoot()`，为的就是使用路由配置全应用级的 `Router` 服务。
 `RouterModule.forRoot()` 返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
-我们把这个结果添加到根模块 `AppModule` 的 `imports` 列表中。
+你把这个结果添加到根模块 `AppModule` 的 `imports` 列表中。
 
 Only call and import a `.forRoot()` result in the root application module, `AppModule`.
 Importing it in any other module, particularly in a lazy-loaded module,
@@ -397,7 +397,7 @@ When you import an NgModule,
 Angular adds the module's service providers (the contents of its `providers` list)
 to the application root injector.
 
-当我们导入一个模块时，Angular 就会把该模块的服务提供商（也就是它的 `providers` 列表中的内容）加入该应用的*根注入器*中。
+当你导入一个模块时，Angular 就会把该模块的服务提供商（也就是它的 `providers` 列表中的内容）加入该应用的*根注入器*中。
 
 This makes the provider visible to every class in the application that knows the provider's lookup token, or knows its name.
 
@@ -490,7 +490,7 @@ The `AppModule` always wins.
 
 ## How do I restrict service scope to a module?
 
-## 我们应该如何把服务的范围限制到模块中？
+## 我应该如何把服务的范围限制到模块中？
 
 When a module is loaded at application launch,
 its `@NgModule.providers` have *application-wide scope*;
@@ -659,7 +659,7 @@ the service with the component.
 Then each new instance of the component gets its own cached service instance.
 The changes that editor makes in its service don't touch the instances elsewhere in the application.
 
-例如，如果英雄编辑组件需要自己私有的缓存英雄服务实例，那么我们应该把 `HeroService` 注册进 `HeroEditorComponent` 中。
+例如，如果英雄编辑组件需要自己私有的缓存英雄服务实例，那就应该把 `HeroService` 注册进 `HeroEditorComponent` 中。
 这样，每个新的 `HeroEditorComponent` 的实例都会得到一份自己的缓存服务实例。
 编辑器的改动只会作用于它自己的服务，而不会影响到应用中其它地方的英雄实例。
 
@@ -716,7 +716,7 @@ than the app-wide singleton version that Angular injected in one of the eagerly 
 
 This scenario causes your app to create a new instance every time, instead of using the singleton.
 
-这个场景导致我们的应用每次都创建一个新的服务实例，而不是使用单例的服务。
+这个场景导致你的应用每次都创建一个新的服务实例，而不是使用单例的服务。
 
 <!--KW--What does this cause? I wasn't able to get the suggestion of this to work from
 the current FAQ:
@@ -793,7 +793,7 @@ To prevent this issue, write a constructor that attempts to inject the module or
 from the root app injector. If the injection succeeds, the class has been loaded a second time.
 You can throw an error or take other remedial action.
 
-为了防范这种风险，我们可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，我们就可以抛出一个错误，或者采取其它挽救措施。
+为了防范这种风险，可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，我们就可以抛出一个错误，或者采取其它挽救措施。
 
 Certain NgModules, such as `BrowserModule`, implement such a guard.
 Here is a custom constructor for an NgModule called `CoreModule`.
@@ -922,15 +922,15 @@ For more information, see [Entry Components](guide/entry-components).
 The reason is _tree shaking_. For production apps you want to load the smallest, fastest code possible. The code should contain only the classes that you actually need.
 It should exclude a component that's never used, whether or not that component is declared.
 
-原因在于*摇树优化*。对于产品化应用，我们希望加载尽可能小而快的代码。
+原因在于*摇树优化*。对于产品化应用，你会希望加载尽可能小而快的代码。
 代码中应该仅仅包括那些实际用到的类。
-它应该排除那些我们从未用过的组件，无论该组件是否被声明过。
+它应该排除那些从未用过的组件，无论该组件是否被声明过。
 
 In fact, many libraries declare and export components you'll never use.
 If you don't reference them, the tree shaker drops these components from the final code package.
 
-事实上，大多数库中声明和导出的组件我们都用不到。
-如果我们从未引用它们，那么*摇树优化器*就会从最终的代码包中把这些组件砍掉。
+事实上，大多数库中声明和导出的组件你都用不到。
+如果你从未引用它们，那么*摇树优化器*就会从最终的代码包中把这些组件砍掉。
 
 If the [Angular compiler](guide/ngmodule-faq#q-angular-compiler) generated code for every declared component, it would defeat the purpose of the tree shaker.
 
@@ -938,7 +938,7 @@ If the [Angular compiler](guide/ngmodule-faq#q-angular-compiler) generated code 
 
 Instead, the compiler adopts a recursive strategy that generates code only for the components you use.
 
-所以，编译器转而采用一种递归策略，它只为我们用到的那些组件生成代码。
+所以，编译器转而采用一种递归策略，它只为你用到的那些组件生成代码。
 
 The compiler starts with the entry components,
 then it generates code for the declared components it [finds](guide/ngmodule-faq#q-template-reference) in an entry component's template,
@@ -1047,7 +1047,7 @@ In modern JavaScript, every file is a module
 Within each file you write an `export` statement to make parts of the module public.
 
 在现代 JavaScript 中，每个文件都是模块（参见[模块](http://exploringjs.com/es6/ch_modules.html)）。
-在每个文件中，我们写一个 `export` 语句将模块的一部分公开。
+在每个文件中，你要写一个 `export` 语句将模块的一部分公开。
 
 An Angular NgModule is a class with the `@NgModule` decorator&mdash;JavaScript modules
 don't have to have the `@NgModule` decorator. Angular's `NgModule` has `imports` and `exports` and they serve a similar purpose.
@@ -1058,8 +1058,8 @@ Angular 的 `NgModule` 有自己的 `imports` 和 `exports` 来达到类似的�
 You _import_ other NgModules so you can use their exported classes in component templates.
 You _export_ this NgModule's classes so they can be imported and used by components of _other_ NgModules.
 
-我们可以*导入*其它 Angular 模块，以便在当前模块的组件模板中使用它们导出的类。
-我们可以*导出*当前 Angular 模块中的类，以便其它模块可以导入它们，并用在自己的组件模板中。
+你可以*导入*其它 Angular 模块，以便在当前模块的组件模板中使用它们导出的类。
+你可以*导出*当前 Angular 模块中的类，以便其它模块可以导入它们，并用在自己的组件模板中。
 
 For more information, see [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
@@ -1102,13 +1102,13 @@ Angular 只查询两种组件、指令或管道：1）那些在当前模块中�
 The Angular compiler converts the application code you write into highly performant JavaScript code.
 The `@NgModule` metadata plays an important role in guiding the compilation process.
 
-*Angular 编译器*会把我们所写的应用代码转换成高性能的 JavaScript 代码。
+*Angular 编译器*会把你所编写的应用代码转换成高性能的 JavaScript 代码。
 在编译过程中，`@NgModule` 的元数据扮演了很重要的角色。
 
 The code you write isn't immediately executable. For example, components have templates that contain custom elements, attribute directives, Angular binding declarations,
 and some peculiar syntax that clearly isn't native HTML.
 
-我们写的代码是无法直接执行的。
+你写的代码是无法直接执行的。
 比如**组件**。
 组件有一个模板，其中包含了自定义元素、属性型指令、Angular 绑定声明和一些显然不属于原生 HTML 的古怪语法。
 

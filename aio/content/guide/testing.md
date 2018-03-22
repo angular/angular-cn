@@ -747,7 +747,7 @@ For now, you can radically reduce this test file to a more manageable size:
 In this example, the metadata object passed to `TestBed.configureTestingModule` 
 simply declares `BannerComponent`, the component to test.
 
-在这个例子中，传给 `TestBed.configureTestingModule` 的元数据对象中只声明了 `BannerComponent` —— 我们要测试的组件。
+在这个例子中，传给 `TestBed.configureTestingModule` 的元数据对象中只声明了 `BannerComponent` —— 待测试的组件。
 
 <code-example 
   path="testing/src/app/banner/banner-initial.component.spec.ts"
@@ -2206,7 +2206,7 @@ The immediate goal is to test the `DashboardHeroComponent`, not the `DashboardCo
 so, try the second and third options.
 
 当前的任务是测试 `DashboardHeroComponent` 组件，而非 `DashbaordComponent`，所以无需做不必要的努力。
-让我们尝试第二和第三种方案。
+那就试试第二和第三种方案。
 
 {@a dashboard-standalone}
 
@@ -3676,7 +3676,7 @@ that intercepts server requests and fakes their responses.
 What if you aren't so lucky. What if faking the `HeroService` is hard?
 What if `HeroDetailService` makes its own server requests?
 
-如果我们没有这么幸运怎么办？如果伪造 `HeroService` 很难怎么办？如果 `HeroDetailService` 自己发出服务器请求怎么办？
+如果你没有这么幸运怎么办？如果伪造 `HeroService` 很难怎么办？如果 `HeroDetailService` 自己发出服务器请求怎么办？
 
 The `TestBed.overrideComponent` method can replace the component's `providers` with easy-to-manage _test doubles_
 as seen in the following setup variation:
@@ -3752,7 +3752,7 @@ It neither injects nor delegates to the lower level `HeroService`
 so there's no need to provide a test double for that.
 
 `HeroDetailServiceSpy` 是实际 `HeroDetailService` 服务的桩版本，它伪造了该服务的所有必要特性。
-但它既不需要注入也不会委托给低层的 `HeroService` 服务，因此我们不用为 `HeroService` 提供测试替身。
+但它既不需要注入也不会委托给低层的 `HeroService` 服务，因此不用为 `HeroService` 提供测试替身。
 
 The related `HeroDetailComponent` tests will assert that methods of the `HeroDetailService`
 were called by spying on the service methods.
@@ -3887,7 +3887,7 @@ in `By.css('h2:not([highlight])')` helps find `<h2>` elements that _do not_ have
 * `DebugElement.styles` affords access to element styles even in the absence of a real browser, thanks to the `DebugElement` abstraction.
 But feel free to exploit the `nativeElement` when that seems easier or more clear than the abstraction.
 
-   `DebugElement.styles` 让我们不借助真实的浏览器也可以访问元素的样式，感谢 `DebugElement` 提供的这层抽象！
+   `DebugElement.styles` 甚至不用借助真实的浏览器也可以访问元素的样式，感谢 `DebugElement` 提供的这层抽象！
   但是如果直接使用 `nativeElement` 会比这层抽象更简单、更清晰，也可以放心大胆的使用它。
 
 * Angular adds a directive to the injector of the element to which it is applied.
@@ -3898,7 +3898,7 @@ and its `defaultColor`.
 
 * `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
 
-   `DebugElement.properties` 让我们可以访问由指令设置的自定义属性。
+   `DebugElement.properties` 让你可以访问由指令设置的自定义属性。
 
 <hr>
 
@@ -5285,7 +5285,7 @@ Angular 的 `By` 类为常用条件方法提供了三个静态方法：
 It's a good idea to put unit test spec files in the same folder
 as the application source code files that they test:
 
-我们推荐将单元测试的 spec 配置文件放到与应用程序源代码文件所在的同一个文件夹中，因为：
+将单元测试的 spec 配置文件放到与应用程序源代码文件所在的同一个文件夹中是个好主意，因为：
 
 * Such tests are easy to find.
 

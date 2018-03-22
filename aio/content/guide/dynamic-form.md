@@ -21,7 +21,7 @@ It's a primitive start.
 It might evolve to support a much richer variety of questions, more graceful rendering, and superior user experience.
 All such greatness has humble beginnings.
 
-在此烹饪宝典中，我们会展示如何利用 `formGroup` 来动态渲染一个简单的表单，包括各种控件类型和验证规则。
+本文会展示如何利用 `formGroup` 来动态渲染一个简单的表单，包括各种控件类型和验证规则。
 这个起点很简陋，但可以在这个基础上添加丰富多彩的问卷问题、更优美的渲染以及更卓越的用户体验。
 
 The example in this cookbook is a dynamic form to build an
@@ -29,7 +29,7 @@ online application experience for heroes seeking employment.
 The agency is constantly tinkering with the application process.
 You can create the forms on the fly *without changing the application code*.
 
-在本例中，我们使用动态表单，为正在找工作的英雄们创建一个在线申请表。英雄管理局会不断修改申请流程，我们要在*不修改应用代码*的情况下，动态创建这些表单。
+这个例子要为正在找工作的英雄们创建一个在线申请表的动态表单。英雄管理局会不断修改申请流程，你要在*不修改应用代码*的情况下，动态创建这些表单。
 
 {@a toc}
 
@@ -45,7 +45,7 @@ See the <live-example name="dynamic-form"></live-example>.
 
 Start by creating an `NgModule` called `AppModule`.
 
-让我们从创建一个名叫 `AppModule` 的 `NgModule` 开始。
+从创建一个名叫 `AppModule` 的 `NgModule` 开始。
 
 This cookbook uses [reactive forms](guide/reactive-forms).
 
@@ -55,11 +55,11 @@ Reactive forms belongs to a different `NgModule` called `ReactiveFormsModule`,
 so in order to access any reactive forms directives, you have to import
 `ReactiveFormsModule` from the `@angular/forms` library.
 
-响应式表单属于另外一个叫做 `ReactiveFormsModule` 的 `NgModule`，所以，为了使用响应式表单类的指令，我们得从 `@angular/forms` 库中引入 `ReactiveFormsModule` 模块。
+响应式表单属于另外一个叫做 `ReactiveFormsModule` 的 `NgModule`，所以，为了使用响应式表单类的指令，你得从 `@angular/forms` 库中引入 `ReactiveFormsModule` 模块。
 
 Bootstrap the `AppModule` in `main.ts`.
 
-我们在 `main.ts` 中启动 `AppModule`。
+在 `main.ts` 中启动 `AppModule`。
 
 <code-tabs>
 
@@ -87,7 +87,7 @@ The _question_ is the most fundamental object in the model.
 
 The following `QuestionBase` is a fundamental question class.
 
-下面是我们建立的最基础的问卷问题基类，名叫 `QuestionBase`。
+下面的 `QuestionBase` 是最基础的问卷问题基类。
 
 <code-example path="dynamic-form/src/app/question-base.ts" title="src/app/question-base.ts">
 
@@ -98,7 +98,7 @@ that represent textbox and dropdown questions.
 The idea is that the form will be bound to specific question types and render the
 appropriate controls dynamically.
 
-在这个基础上，我们派生出两个新类 `TextboxQuestion` 和 `DropdownQuestion`，分别代表文本框和下拉框。这么做的初衷是，表单能动态绑定到特定的问卷问题类型，并动态渲染出合适的控件。
+在这个基础上，你派生出两个新类 `TextboxQuestion` 和 `DropdownQuestion`，分别代表文本框和下拉框。这么做的初衷是，表单能动态绑定到特定的问卷问题类型，并动态渲染出合适的控件。
 
 `TextboxQuestion` supports multiple HTML5 types such as text, email, and url
 via the `type` property.
@@ -121,8 +121,8 @@ Next is `QuestionControlService`, a simple service for transforming the question
 In a nutshell, the form group consumes the metadata from the question model and
 allows you to specify default values and validation rules.
 
-接下来，我们定义了 `QuestionControlService`，一个可以把问卷问题转换为 `FormGroup` 的服务。
-简而言之，这个 `FormGroup` 使用问卷模型的元数据，并允许我们设置默认值和验证规则。
+接下来定义了 `QuestionControlService`，一个可以把问卷问题转换为 `FormGroup` 的服务。
+简而言之，这个 `FormGroup` 使用问卷模型的元数据，并允许你指定默认值和验证规则。
 
 <code-example path="dynamic-form/src/app/question-control.service.ts" title="src/app/question-control.service.ts" linenums="false">
 
@@ -137,7 +137,7 @@ allows you to specify default values and validation rules.
 Now that you have defined the complete model you are ready
 to create components to represent the dynamic form.
 
-现在我们已经有一个定义好的完整模型了，接着就可以开始创建一个展现动态表单的组件。
+现在你已经有一个定义好的完整模型了，接着就可以开始创建一个展现动态表单的组件。
 
 `DynamicFormComponent` is the entry point and the main container for the form.
 
@@ -184,13 +184,13 @@ The `ngSwitch` determines which type of question to display.
 In both components  you're relying on Angular's **formGroup** to connect the template HTML to the
 underlying control objects, populated from the question model with display and validation rules.
 
-在这两个组件中，我们依赖 Angular 的 **formGroup** 来把模板 HTML 和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
+在这两个组件中，你依赖 Angular 的 **formGroup** 来把模板 HTML 和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
 
 `formControlName` and `formGroup` are directives defined in
 `ReactiveFormsModule`. The templates can access these directives
 directly since you imported `ReactiveFormsModule` from `AppModule`.
 
-`formControlName` 和 `formGroup` 是在 `ReactiveFormsModule` 中定义的指令。我们之所以能在模板中使用它们，是因为我们往 `AppModule` 中导入了 `ReactiveFormsModule`。
+`formControlName` 和 `formGroup` 是在 `ReactiveFormsModule` 中定义的指令。这个模板之所以能使用它们，是因为你曾从 `AppModule` 中导入了 `ReactiveFormsModule`。
 
 {@a questionnaire-data}
 
@@ -205,14 +205,14 @@ directly since you imported `ReactiveFormsModule` from `AppModule`.
  The set of questions you've defined for the job application is returned from the `QuestionService`.
  In a real app you'd retrieve these questions from storage.
 
- `QuestionService` 会返回为工作申请表定义的那组问题列表。在真实的应用程序环境中，我们会从数据库里获得这些问题列表。
+ `QuestionService` 会返回为工作申请表定义的那组问题列表。在真实的应用程序环境中，你会从数据库里获得这些问题列表。
 
  The key point is that you control the hero job application questions
  entirely through the objects returned from `QuestionService`.
  Questionnaire maintenance is a simple matter of adding, updating,
  and removing objects from the `questions` array.
 
- 关键是，我们完全根据 `QuestionService` 返回的对象来控制英雄的工作申请表。
+ 关键是，你完全根据 `QuestionService` 返回的对象来控制英雄的工作申请表。
  要维护这份问卷，只要非常简单的添加、更新和删除 `questions` 数组中的对象就可以了。
 
 <code-example path="dynamic-form/src/app/question.service.ts" title="src/app/question.service.ts">
@@ -237,7 +237,7 @@ Although in this example you're modelling a job application for heroes, there ar
 no references to any specific hero question
 outside the objects returned by `QuestionService`.
 
-在这个例子中，虽然我们是在为英雄的工作申请表建模，但是除了 `QuestionService` 返回的那些对象外，没有其它任何地方是与英雄有关的。
+在这个例子中，虽然你是在为英雄的工作申请表建模，但是除了 `QuestionService` 返回的那些对象外，没有其它任何地方是与英雄有关的。
 
 This is very important since it allows you to repurpose the components for any type of survey
 as long as it's compatible with the *question* object model.

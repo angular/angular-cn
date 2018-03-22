@@ -169,7 +169,7 @@ You use the `ElementRef`in the directive's constructor
 to [inject](guide/dependency-injection) a reference to the host DOM element, 
 the element to which you applied `appHighlight`.
 
-我们可以在指令的构造函数中注入 `ElementRef`，来引用宿主 DOM 元素，
+你可以在指令的构造函数中注入 `ElementRef`，来引用宿主 DOM 元素，
 
 `ElementRef` grants direct access to the host DOM element
 through its `nativeElement` property.
@@ -188,7 +188,7 @@ This first implementation sets the background color of the host element to yello
 
 To use the new `HighlightDirective`, add a paragraph (`<p>`) element to the template of the root `AppComponent` and apply the directive as an attribute.
 
-运行应用，就会看到我们的指令确实高亮了段落中的文本。
+要想使用这个新的 `HighlightDirective`，就往根组件 `AppComponent` 的模板中添加一个 `<p>` 元素，并把该指令作为一个属性使用。
 
 <code-example path="attribute-directives/src/app/app.component.1.html" title="src/app/app.component.html" region="applied"></code-example>
 
@@ -209,7 +209,7 @@ which sets the `<p>` element's background style to yellow.
 
 总结：Angular 在**宿主**元素 `<p>` 上发现了一个 `appHighlight` 属性。
 然后它创建了一个 `HighlightDirective` 类的实例，并把所在元素的引用注入到了指令的构造函数中。
-在构造函数中，我们把 `<p>` 元素的背景设置为了黄色。
+在构造函数中，该指令把 `<p>` 元素的背景设置为了黄色。
 
 {@a respond-to-user}
 
@@ -227,7 +227,7 @@ and respond by setting or clearing the highlight color.
 
 Begin by adding `HostListener` to the list of imported symbols.
 
-先把 `HostListener` 加进导入列表中，同时再添加 `Input` 符号，因为我们很快就要用到它。
+先把 `HostListener` 加进导入列表中。
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
@@ -302,11 +302,11 @@ Currently the highlight color is hard-coded _within_ the directive. That's infle
 In this section, you give the developer the power to set the highlight color while applying the directive.
 
 高亮的颜色目前是硬编码在指令中的，这不够灵活。
-我们应该让指令的使用者可以指定要用哪种颜色进行高亮。
+在这一节中，你应该让指令的使用者可以指定要用哪种颜色进行高亮。
 
 Begin by adding `Input` to the list of symbols imported from `@angular/core`.
 
-我们先从 `@angular/core` 中导入 `Input`。
+先从 `@angular/core` 中导入 `Input`。
 
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" linenums="false" title="src/app/highlight.directive.ts (imports)" region="imports"></code-example>
 
@@ -352,7 +352,7 @@ Let it control the highlight color with a property binding.
 
 That's good, but it would be nice to _simultaneously_ apply the directive and set the color _in the same attribute_ like this.
 
-很不错，但还可以更好。我们可以在应用该指令时在同一个属性中设置颜色，就像这样：
+很不错，但如果可以在应用该指令时在*同一个属性*中设置颜色就更好了，就像这样：
 
 <code-example path="attribute-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (color)" region="color"></code-example>
 
@@ -362,12 +362,12 @@ You're re-using the directive's attribute selector (`[appHighlight]`) to do both
 That's a crisp, compact syntax.
 
 `[appHighlight]` 属性同时做了两件事：把这个高亮指令应用到了 `<p>` 元素上，并且通过属性绑定设置了该指令的高亮颜色。
-我们复用了该指令的属性选择器 `[appHighlight]` 来同时完成它们。
+你复用了该指令的属性选择器 `[appHighlight]` 来同时完成它们。
 这是清爽、简约的语法。
 
 You'll have to rename the directive's `highlightColor` property to `appHighlight` because that's now the color property binding name.
 
-我们还要把该指令的 `highlightColor` 改名为 `myHighlight`，因为它是颜色属性目前的绑定名。
+你还要把该指令的 `highlightColor` 改名为 `myHighlight`，因为它是颜色属性目前的绑定名。
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (renamed to match directive selector)" region="color-2"></code-example>
 
@@ -383,7 +383,7 @@ This is disagreeable. The word, `appHighlight`, is a terrible property name and 
 
 Fortunately you can name the directive property whatever you want _and_ **_alias it_** for binding purposes.
 
-幸运的是，我们可以随意命名该指令的属性，并且**给它指定一个用于绑定的别名**。
+幸运的是，你可以随意命名该指令的属性，并且**给它指定一个用于绑定的别名**。
 
 Restore the original property name and specify the selector as the alias in the argument to `@Input`.
 
@@ -394,7 +394,7 @@ Restore the original property name and specify the selector as the alias in the 
 _Inside_ the directive the property is known as `highlightColor`.
 _Outside_ the directive, where you bind to it, it's known as `appHighlight`.
 
-在指令内部，该属性叫 `highlightColor`，在外部，当我们绑定到它时，它叫 `appHighlight`。
+在指令内部，该属性叫 `highlightColor`，在外部，你绑定到它地方，它叫 `appHighlight`。
 
 You get the best of both worlds: the property name you want and the binding syntax you want:
 
@@ -405,7 +405,7 @@ You get the best of both worlds: the property name you want and the binding synt
 Now that you're binding via the alias to the `highlightColor`, modify the `onMouseEnter()` method to use that property.
 If someone neglects to bind to `appHighlightColor`, highlight the host element in red:
 
-现在，我们绑定到了 `highlightColor` 属性，并修改 `onMouseEnter()` 方法来使用它。
+现在，你通过别名绑定到了 `highlightColor` 属性，并修改 `onMouseEnter()` 方法来使用它。
 如果有人忘了绑定到 `appHighlightColor`，那就用红色进行高亮。
 
 <code-example path="attribute-directives/src/app/highlight.directive.3.ts" linenums="false" title="src/app/highlight.directive.ts (mouse enter)" region="mouse-enter"></code-example>
@@ -425,7 +425,7 @@ In this section, you'll turn `AppComponent` into a harness that
 lets you pick the highlight color with a radio button and bind your color choice to the directive.
 
 凭空想象该指令如何工作可不容易。
-在本节，我们将把 `AppComponent` 改成一个测试程序，它让你可以通过单选按钮来选取高亮颜色，并且把你选取的颜色绑定到指令中。
+在本节，你将把 `AppComponent` 改成一个测试程序，它让你可以通过单选按钮来选取高亮颜色，并且把你选取的颜色绑定到指令中。
 
 Update <code>app.component.html</code> as follows:
 
@@ -461,7 +461,7 @@ At the moment, the default color&mdash;the color that prevails until
 the user picks a highlight color&mdash;is hard-coded as "red".
 Let the template developer set the default color.
 
-目前，默认颜色（它在用户选取了高亮颜色之前一直有效）被硬编码为红色。我们要让模板的开发者也可以设置默认颜色。
+目前，默认颜色（它在用户选取了高亮颜色之前一直有效）被硬编码为红色。应该允许模板的开发者设置默认颜色。
 
 Add a second **input** property to `HighlightDirective` called `defaultColor`:
 
@@ -492,7 +492,7 @@ and fall back to "violet" as the default color.
 Angular knows that the `defaultColor` binding belongs to the `HighlightDirective`
 because you made it _public_ with the `@Input` decorator.
 
-Angular 之所以知道 `defaultColor` 绑定属于 `HighlightDirective`，是因为我们已经通过 `@Input` 装饰器把它设置成了*公共*属性。
+Angular 之所以知道 `defaultColor` 绑定属于 `HighlightDirective`，是因为你已经通过 `@Input` 装饰器把它设置成了*公共*属性。
 
 Here's how the harness should work when you're done coding.
 
@@ -554,7 +554,7 @@ You can also experience and download the <live-example title="Attribute Directiv
 In this demo, the `highlightColor` property is an ***input*** property of
 the `HighlightDirective`. You've seen it applied without an alias:
 
-在这个例子中 `hightlightColor` 是 `HighlightDirective` 的一个***输入型***属性。我们见过它没有用别名时的代码：
+在这个例子中 `hightlightColor` 是 `HighlightDirective` 的一个***输入型***属性。你见过它没有用别名时的代码：
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" title="src/app/highlight.directive.ts (color)" region="color"></code-example>
 
@@ -574,7 +574,7 @@ Without  `@Input`, Angular refuses to bind to the property.
 You've bound template HTML to component properties before and never used `@Input`.
 What's different?
 
-但我们以前也曾经把模板 HTML 绑定到组件的属性，而且从来没有用过 `@Input`。
+但你以前也曾经把模板 HTML 绑定到组件的属性，而且从来没有用过 `@Input`。
 差异何在？
 
 The difference is a matter of trust.

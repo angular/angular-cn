@@ -1,5 +1,7 @@
 # The Ahead-of-Time (AOT) Compiler
 
+# 预先（AOT）编译
+
 The Angular Ahead-of-Time (AOT) compiler converts your Angular HTML and TypeScript code into efficient JavaScript code during the build phase _before_ the browser downloads and runs that code.
 
 Angular 的“预先（AOT）编译器”会在构建期间把 Angular 应用的 HTML 和 TypeScript 代码编译成高效的 JavaScript 代码，之后浏览器就可以下载并快速运行这些代码。
@@ -26,13 +28,24 @@ An Angular application consists largely of components and their HTML templates.
 Before the browser can render the application,
 the components and templates must be converted to executable JavaScript by an _Angular compiler_.
 
+Angular 应用由大量组件及其 HTML 模板组成。
+在浏览器渲染应用之前，组件和模板必须由 *Angular 编译器*转换成可执行的 JavaScript 代码。
+
 Angular offers two ways to compile your application:
+
+Angular 提供了两种方式来编译你的应用：
 
 1. **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime
 
+   **即时（JIT）编译**，它会在浏览器中运行时编译你的应用
+
 1. **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
 
+   **预先（AOT）编译**，它会在构建时编译你的应用。
+
 JIT compilation is the default when you run the _build-only_ or the _build-and-serve-locally_ CLI commands:
+
+当你运行 *`build`* 或 *`serve`* 这两个 CLI 命令时 JIT 编译是默认选项：
 
 <code-example language="sh" class="code-shell">
 
@@ -45,6 +58,8 @@ JIT compilation is the default when you run the _build-only_ or the _build-and-s
 
 For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-and-serve-locally_ CLI commands:
 
+要进行 AOT 编译只要给这两个 CLI 命令添加 `--aot` 标志就行了：
+
 <code-example language="sh" class="code-shell">
 
   ng build --aot
@@ -55,6 +70,8 @@ For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-
 <div class="l-sub-section">
 
 The `--prod` meta-flag compiles with AOT by default.
+
+`--prod` 标志也会默认使用 AOT 编译。
 
 See the [CLI documentation](https://github.com/angular/angular-cli/wiki) for details, especially the [`build` topic](https://github.com/angular/angular-cli/wiki/build).
 
@@ -122,8 +139,13 @@ AOT 编译远在 HTML 模版和组件被服务到客户端之前，将它们编�
 
 ## Angular Compiler Options
 
+## Angular 编译器选项
+
 You can control your app compilation by providing template compiler options in the `tsconfig.json` file along with the options supplied to the TypeScript compiler. The template compiler options are specified as members of
 `"angularCompilerOptions"` object as shown below:
+
+你可以通过在 `tsconfig.json` 文件中随 TypeScript 编译选项一起提供模板编译选项来控制应用的编译方式。
+这些模板编译选项都是作为 `"angularCompilerOptions"` 对象的成员指定的，代码如下：
 
 ```json
 
@@ -146,24 +168,41 @@ You can control your app compilation by providing template compiler options in t
 This option tells the compiler not to produce `.metadata.json` files.
 The option is `false` by default.
 
-`.metadata.json` files contain infomration needed by the template compiler from a `.ts`
+这个选项告诉编译器不要生成 `.metadata.json` 文件，它默认是 `false`。
+
+`.metadata.json` files contain information needed by the template compiler from a `.ts`
 file that is not included in the `.d.ts` file produced by the TypeScript compiler. This information contains,
 for example, the content of annotations (such as a component's template) which TypeScript
 emits to the `.js` file but not to the `.d.ts` file.
+
+`.metadata.json` 文件中包含模板编译器所需的信息，这些信息来自于 `.ts` 文件中，但是没有包含在由 TypeScript 编译器生成的 `.d.ts` 文件中。
+比如，这个信息包括 TypeScript 发出的注解内容（如组件的模板），TypeScript 把它生成到了 `.js` 文件中，但是没有生成到 `.d.ts` 文件中。
 
 This option should be set to `true` if using TypeScript's `--outFile` option, as the metadata files
 are not valid for this style of TypeScript output. It is not recommeded to use `--outFile` with
 Angular. Use a bundler, such as [webpack](https://webpack.js.org/), instead.
 
+如果使用了 TypeScript 的 `--outFile` 选项，那就要同时设置这个选项。因为在 TypeScript 的这种输出方式下，metadata 文件是无效的。
+Angular 中不建议使用 `--outFile`，请改用 [webpack](https://webpack.js.org/) 之类的打包器代替。
+
 This option can also be set to `true` when using factory summaries as the factory summaries
 include a copy of the information that is in the `.metadata.json` file.
+
+当使用工厂汇总器（factory summary）时，这个选项也要设置为 `true`，因为工厂汇总器在自己的 `.metadata.json` 中也包含了这些信息的一个副本。
 
 ### *strictMetadataEmit*
 
 This option tells the template compiler to report an error to the `.metadata.json`
 file if `"skipMetadataEmit"` is `false` . This option is `false` by default. This should only be used when `"skipMetadataEmit"` is `false` and `"skipTemplateCodeGen"` is `true`.
 
+这个选项告诉模板编译器如果 `"skipMetadataEmit"` 为 `false`，那就把错误信息汇报到 `.metadata.json` 中。
+只有当 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodeGen"` 为 `true` 时才应该使用这个选项。
+
 It is intended to validate the `.metadata.json` files emitted for bundling with an `npm` package. The validation is overly strict and can emit errors for metadata that would never produce an error when used by the template compiler. You can choose to suppress the error emitted by this option for an exported symbol by including `@dynamic` in the comment documenting the symbol.
+
+它的设计意图是要验证为打包 `npm` 而生成的 `.metadata.json` 文件。
+这种验证非常严格，因此在使用模板编译器时可能会对那些铁定不会出错的元数据文件报告一些错误。
+你可以用 `@dynamic` 在注释中指定一些符号，来禁止对它们报告错误。
 
 It is valid for `.metadata.json` files to contain errors. The template compiler reports these errors
 if the metadata is used to determine the contents of an annotation. The metadata
@@ -310,8 +349,8 @@ Angular 的元数据会告诉 Angular 如何创建应用中类的实例以及如
 You specify the metadata with **decorators** such as `@Component()` and `@Input()`.
 You also specify metadata implicitly in the constructor declarations of these decorated classes.
 
-我们通过**装饰器**来指定元数据，比如 `@Component()` 和 `@Input()`。
-我们还可以在这些带装饰器的类的构造函数中隐式指定元数据。
+你通过**装饰器**来指定元数据，比如 `@Component()` 和 `@Input()`。
+你还可以在这些带装饰器的类的构造函数中隐式指定元数据。
 
 In the following example, the `@Component()` metadata object and the class constructor tell Angular how to create and display an instance of `TypicalComponent`.
 
@@ -330,7 +369,7 @@ export class TypicalComponent {
 
 ```
 
-The Angular compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
+The Anglar compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
 When it needs to create a `TypicalComponent` instance, Angular calls the factory, which produces a new visual element, bound to a new instance of the component class with its injected dependency.
 
 Angular 编译器只提取**一次**元数据，并且为 `TypicalComponent` 生成一个**工厂**。
@@ -342,7 +381,7 @@ Angular 编译器只提取**一次**元数据，并且为 `TypicalComponent` 生
 
 You write metadata in a _subset_ of TypeScript that must conform to the following general constraints:
 
-我们只能使用 TypeScript 的一个**子集**书写元数据，它必须满足下列限制：
+你只能使用 TypeScript 的一个**子集**书写元数据，它必须满足下列限制：
 
 1. Limit [expression syntax](#expression-syntax) to the supported subset of JavaScript.
 
@@ -362,7 +401,7 @@ You write metadata in a _subset_ of TypeScript that must conform to the followin
 
 The next sections elaborate on these points.
 
-我们将在下一节详细解释这些问题。
+下一节将会详细解释这些问题。
 
 ## How AOT works
 
@@ -370,7 +409,7 @@ The next sections elaborate on these points.
 
 It helps to think of the AOT compiler as having two phases: a code analysis phase in which it simply records a representation of the source; and a code generation phase in which the compiler's `StaticReflector` handles the interpretation as well as places restrictions on what it interprets.
 
-我们可以把 AOT 编译器看做两个阶段：在代码分析阶段，它只记录源代码，而在代码生成阶段，编译器的 `StaticReflector` 会解释这些结果，并为这些结果加上限制。
+可以把 AOT 编译器看做两个阶段：在代码分析阶段，它只记录源代码，而在代码生成阶段，编译器的 `StaticReflector` 会解释这些结果，并为这些结果加上限制。
 
 ## Phase 1: analysis
 
@@ -386,7 +425,7 @@ At the same time, the AOT **_collector_** analyzes the metadata recorded in the 
 
 You can think of `.metadata.json` as a diagram of the overall structure of a decorator's metadata, represented as an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
-我们可以把 `.metadata.json` 文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
+你可以把 `.metadata.json` 文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
 
 <div class="l-sub-section">
 
@@ -407,25 +446,25 @@ Define metadata objects with the following limited syntax:
 这个**收集器**只能理解 JavaScript 的一个子集。
 请使用下列受限语法定义元数据对象：
 
-Syntax                             | Example
------------------------------------|-----------------------------------
-Literal object                     | `{cherry: true, apple: true, mincemeat: false}`
-Literal array                      | `['cherries', 'flour', 'sugar']`
-Spread in literal array            | `['apples', 'flour', ...the_rest]`
-Calls                              | `bake(ingredients)`
-New                                | `new Oven()`
-Property access                    | `pie.slice`
-Array index                        | `ingredients[0]`
-Identifier reference               | `Component`
-A template string                  | <code>&#96;pie is ${multiplier} times better than cake&#96;</code>
-Literal string                     | `'pi'`
-Literal number                     | `3.14153265`
-Literal boolean                    | `true`
-Literal null                       | `null`
-Supported prefix operator          | `!cake`
-Supported Binary operator          | `a + b`
-Conditional operator               | `a ? b : c`
-Parentheses                        | `(a + b)`
+<t>Syntax</t><t>语法</t> | <t>Example</t><t>范例</t>
+<t>-----------------------------------</t><t></t> |-----------------------------------
+<t>Literal object</t><t>对象字面量</t> | `{cherry: true, apple: true, mincemeat: false}`
+<t>Literal array</t><t>数组字面量</t> | `['cherries', 'flour', 'sugar']`
+<t>Spread in literal array</t><t>字面量数组展开</t> | `['apples', 'flour', ...the_rest]`
+<t>Calls</t><t>调用</t> | `bake(ingredients)`
+<t>New</t><t>创建对象</t> | `new Oven()`
+<t>Property access</t><t>属性访问</t> | `pie.slice`
+<t>Array index</t><t>数组索引</t> | `ingredients[0]`
+<t>Identifier reference</t><t>标识符引用</t> | `Component`
+<t>A template string</t><t>模板字符串</t> | <code>&#96;pie is ${multiplier} times better than cake&#96;</code>
+<t>Literal string</t><t>字符串字面量</t> | `'pi'`
+<t>Literal number</t><t>数字字面量</t> | `3.14153265`
+<t>Literal boolean</t><t>逻辑字面量</t> | `true`
+<t>Literal null</t><t>空字面量</t> | `null`
+<t>Supported prefix operator</t><t>受支持的前缀操作符</t> | `!cake`
+<t>Supported Binary operator</t><t>受支持的二元操作符</t> | `a + b`
+<t>Conditional operator</t><t>条件操作符</t> | `a ? b : c`
+<t>Parentheses</t><t>括号</t> | `(a + b)`
 
 If an expression uses unsupported syntax, the _collector_ writes an error node to the `.metadata.json` file. The compiler later reports the error if it needs that
 piece of metadata to generate the application code.

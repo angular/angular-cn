@@ -51,7 +51,7 @@ For the simplest deployment, build for development and copy the output directory
   If you copy to the server's root directory, omit this step and leave the `<base href>` alone.<br><br>
   Learn more about the role of `<base href>` [below](guide/deployment#base-tag).
 
-  我们会看到在生成的 `dist/index.html` 中 `<base href>` 已经被设置好了。<br><br>
+  你会看到在生成的 `dist/index.html` 中 `<base href>` 已经被设置好了。<br><br>
   如果复制到服务器的根目录下，就省略这个步骤，并且让 `<base href>` 保持原样。<br><br> 
   要了解 `<base href>` 的作用，参见 [下面](guide/deployment#base-tag) 的内容。
 
@@ -172,7 +172,7 @@ Look at the CLI-generated `main.ts` to see how this works.
 You can dramatically reduce launch time by only loading the application modules that
 absolutely must be present when the app starts.
 
-通过只加载应用启动时必须展示的那些应用模块，我们可以显著缩减启动时间。
+通过只加载应用启动时必须展示的那些应用模块，你可以显著缩减启动时间。
 
 Configure the Angular Router to defer loading of all other modules (and their associated code), either by
 [waiting until the app has launched](guide/router#preloading  "Preloading")
@@ -193,7 +193,7 @@ in a file that's eagerly loaded when the app starts, a file such as the root `Ap
 If you do that, the module will be loaded immediately.
 
 这是一种常犯的错误。
-我们本打算惰性加载一个模块，但可能无意中在根模块 `AppModule` 文件中使用一个 JavaScript 的 `import` 语句导入了它。
+你本打算惰性加载一个模块，但可能无意中在根模块 `AppModule` 文件中使用一个 JavaScript 的 `import` 语句导入了它。
 这样一来，该模块就被立即加载了。
 
 The bundling configuration must take lazy loading into consideration.
@@ -204,7 +204,7 @@ You have to create these bundles manually.
 关于打包（bundle）方式的配置必须考虑到惰性加载问题。
 因为惰性加载模块不能在 JavaScript 中导入（就像刚才说明的），打包器应该默认排除它们。
 打包器不知道路由器的配置，并且不会为延迟加载模块创建单独的包。
-我们不得不手动创建这些包。
+你不得不手动创建这些包。
 
 The CLI runs the
 [Angular Ahead-of-Time Webpack Plugin](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)
@@ -224,10 +224,10 @@ The cause may not be what you think it is.
 You can waste a lot of time and money optimizing something that has no tangible benefit or even makes the app slower.
 You should measure the app's actual behavior when running in the environments that are important to you.
 
-如果我们能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。
+如果你能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。
 真正的原因可能并不是你所想的那样。
-我们可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。
-我们应该在那些最重要的环境中实际运行，来度量应用的实际行为。
+你可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。
+你应该在那些最重要的环境中实际运行，来度量应用的实际行为。
 
 The
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
@@ -334,14 +334,14 @@ See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") al
 In development, you typically start the server in the folder that holds `index.html`.
 That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
 
-在开发期间，我们通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以我们要在 `index.html` 的顶部添加 `<base href="/">`。
+在开发期间，你通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以我们要在 `index.html` 的顶部添加 `<base href="/">`。
 
 But on the shared or production server, you might serve the app from a subfolder.
 For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,
 the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the server version of the `index.html`.
 
-但是在共享服务器或生产服务器上，我们可能得从子目录下启动服务器。
-比如，当加载本应用的 URL 是 `http://www.mysite.com/my/app/` 时，子目录就是 `my/app/`，而我们就要在服务器版的 `index.html` 中添加 `<base href="/my/app/">`。
+但是在共享服务器或生产服务器上，你可能得从子目录下启动服务器。
+比如，当加载本应用的 URL 是 `http://www.mysite.com/my/app/` 时，子目录就是 `my/app/`，而你就要在服务器版的 `index.html` 中添加 `<base href="/my/app/">`。
 
 When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.
@@ -409,7 +409,7 @@ See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) f
 
 This section covers changes you may have make to the server or to files deployed to the server.
 
-这一节涵盖了我们对服务器或准备部署到服务器的文件要做的那些修改。
+这一节涵盖了你可能对服务器或准备部署到服务器的文件要做的那些修改。
 
 {@a fallback}
 
@@ -422,12 +422,12 @@ You don't need a server-side engine to dynamically compose application pages bec
 Angular does that on the client-side.
 
 Angular 应用很适合用简单的静态 HTML 服务器提供服务。
-我们不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
+你不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
 
 If the app uses the Angular router, you must configure the server
 to return the application's host page (`index.html`) when asked for a file that it does not have.
 
-如果该应用使用 Angular 路由器，我们就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
+如果该应用使用 Angular 路由器，你就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
 
 {@a deep-link}
 
@@ -459,7 +459,7 @@ But it rejects `http://www.mysite.com/heroes/42` and returns a `404 - Not Found`
 configured to return `index.html` instead.
 
 静态服务器会在收到对 `http://www.mysite.com/` 的请求时返回 `index.html`，但是会拒绝对 `http://www.mysite.com/heroes/42` 的请求，
-并返回一个 `404 - Not Found` 错误，除非，我们把它配置成转而返回 `index.html`。
+并返回一个 `404 - Not Found` 错误，除非，它被配置成了返回 `index.html`。
 
 #### Fallback configuration examples
 
@@ -566,7 +566,7 @@ It's also a good idea to
 and to
 [create a `.nojekyll` file](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)
 
-   [GitHub 页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github 的页面服务，但可以添加一个 404 页，只要把 `index.html` 复制到 `404.html` 就可以了。
+   [GitHub 页面服务](https://pages.github.com/)：你没办法[直接配置](https://github.com/isaacs/github/issues/408) Github 的页面服务，但可以添加一个 404 页，只要把 `index.html` 复制到 `404.html` 就可以了。
   它仍然会给出一个 404 响应，但是浏览器将会正确处理该页，并正常加载该应用。
   使用[在主分支的 `docs/` 下启动服务](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
   并[创建一个 `.nojekyll` 文件](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)也是一个好办法。

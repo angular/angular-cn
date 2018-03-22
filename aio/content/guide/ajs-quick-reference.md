@@ -78,7 +78,7 @@ The following table lists some of the key AngularJS template features with their
       the binding is prefixed with the controller alias (`vm` or `$ctrl`) because you
       have to be specific about the source of the binding.
 
-      当使用 `controller as` 语法时，该绑定需要用控制器的别名(`vm`)为前缀，这是因为我们不得不通过它来指定绑定源。
+      当使用 `controller as` 语法时，该绑定需要用控制器的别名(`vm`)为前缀，这是因为你不得不通过它来指定绑定源。
 
     </td>
 
@@ -145,7 +145,7 @@ The following table lists some of the key AngularJS template features with their
       Many (but not all) of the built-in filters from AngularJS are
       built-in pipes in Angular.
 
-      在 Angular 中，我们使用相似的语法 —— 用管道字符(|)来过滤输出，但是现在直接把它叫做**管道**了。
+      在 Angular 中，你使用类似的语法 —— 用管道字符(|)来过滤输出，但是现在直接把它叫做**管道**了。
       很多(但不是所有)AngularJS 中的内置过滤器也成了 Angular 中的内置管道。
 
       For more information, see [Filters/pipes](guide/ajs-quick-reference#filters-pipes) below.
@@ -545,7 +545,7 @@ AngularJS 为模板提供了七十多个内置指令。
       Place the element's `href` property in square brackets and set it to a quoted template expression.
 
       在 Angular 中，并没有内置的 *href* 指令，改用属性绑定。
-      我们把元素的 `href` 属性放在方括号中，并把它设成一个引号中的模板表达式。
+      把元素的 `href` 属性放在方括号中，并把它设成一个引号中的模板表达式。
 
       For more information see the [Property binding](guide/template-syntax#property-binding)
       section of the [Template Syntax](guide/template-syntax) page.
@@ -646,7 +646,7 @@ AngularJS 为模板提供了七十多个内置指令。
       and event binding (from the view to the component), thereby providing two-way binding.
 
       在 Angular 中，**双向绑定**使用[()]标记出来，它被形象的比作“盒子中的香蕉”。
-      这种语法是一个简写形式，用来同时定义一个属性绑定(从组件到视图)和一个事件绑定(从视图到组件)，因此，我们得到了双向绑定。
+      这种语法是一个简写形式，用来同时定义一个属性绑定(从组件到视图)和一个事件绑定(从视图到组件)，就成了双向绑定。
 
       For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to
       form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel)
@@ -928,11 +928,11 @@ AngularJS 为模板提供了七十多个内置指令。
       If that method returns `true`, the app selects `*ngSwitchCase="true"` and displays: "Excellent choice!"
       If that methods returns `false`, the app selects `*ngSwitchCase="false"` and displays: "No movie, sorry!"
 
-      在这个例子中，如果 `favoriteHero` 没有设置，则 `ngSwitch` 的值是 `null`，我们会看到
-      `*ngSwitchDefault` 中的段落“Please enter ...”。
-      如果 `favoriteHero` 被设置了，它就会通过调用一个组件方法来检查电影英雄。
-      如果该方法返回 `true`，我们就会看到“Excellent choice!”。
-      如果该方法返回 `false`，我们就会看到“No movie, sorry!”。
+      在这个例子中，如果 `favoriteHero` 没有设置，则 `ngSwitch` 的值是 `null`，
+      `*ngSwitchDefault` 中会显示 “Please enter ...”。
+      如果设置了 `favoriteHero`，应用就会通过调用一个组件方法来检查电影英雄。
+      如果该方法返回 `true`，就会显示 “Excellent choice!”。
+      如果该方法返回 `false`，就会显示 “No movie, sorry!”。
 
       The (*) before `ngSwitchCase` and `ngSwitchDefault` is required in this example.
 
@@ -1276,13 +1276,13 @@ AngularJS 中的很多内置过滤器在 Angular 中都有对应的管道。
 
 In both AngularJS and Angular, modules help you organize your application into cohesive blocks of functionality.
 
-无论在 AngularJS 还是 Angular 中，我们都要借助“模块”来把应用拆分成一些紧密相关的功能块。
+无论在 AngularJS 还是 Angular 中，你都要借助“模块”来把应用拆分成一些紧密相关的功能块。
 
 In AngularJS, you write the code that provides the model and the methods for the view in a **controller**.
 In Angular, you build a **component**.
 
-在 AngularJS 中，我们在**控制器**中写代码，来为视图提供模型和方法。
-在 Angular 中，我们创建**组件**。
+在 AngularJS 中，你要在**控制器**中写代码，来为视图提供模型和方法。
+在 Angular 中，你要创建**组件**。
 
 Because much AngularJS code is in JavaScript, JavaScript code is shown in the AngularJS column.
 The Angular code is shown using TypeScript.
@@ -1345,7 +1345,7 @@ The Angular code is shown using TypeScript.
       This is a nonissue in Angular because ES 2015 modules
       handle the namespacing for you.
 
-      在 Angular 中我们不用担心这个问题，因为使用 ES 2015 的模块，模块会替我们处理命名空间问题。
+      在 Angular 中不用担心这个问题，因为使用 ES 2015 的模块，模块会替你处理命名空间问题。
 
       For more information on modules, see the [Modules](guide/architecture#modules) section of the
       [Architecture Overview](guide/architecture).
@@ -1445,7 +1445,7 @@ The Angular code is shown using TypeScript.
       The `@Component` decorator declares that the class is a component and provides metadata about
       that component such as its selector (or tag) and its template.
 
-      在 Angular 中，我们往组件类上添加了一个装饰器，以提供任何需要的元数据。
+      Angular 会往组件类上添加了一个装饰器，以提供所需的任何元数据。
       `@Component` 装饰器把该类声明为组件，并提供了关于该组件的元数据，比如它的选择器(或标签)和模板。
 
       This is how you associate a template with logic, which is defined in the component class.
@@ -1478,7 +1478,7 @@ The Angular code is shown using TypeScript.
 
       In AngularJS, you write the code for the model and methods in a controller function.
 
-      在 Angular1 中，我们在控制器函数中写模型和方法的代码。
+      在 Angular1 中，你在控制器函数中编写模型和方法的代码。
 
     </td>
 
@@ -1492,7 +1492,7 @@ The Angular code is shown using TypeScript.
 
       In Angular, you create a component class.
 
-      在 Angular 中，我们写组件类。
+      在 Angular 中，你要创建组件类。
 
       NOTE: If you are using TypeScript with AngularJS, you must use the `export` keyword to export the component class.
 
@@ -1526,13 +1526,13 @@ The Angular code is shown using TypeScript.
       In AngularJS, you pass in any dependencies as controller function arguments.
       This example injects a `MovieService`.
 
-      在 AngularJS 中，我们把所有依赖都作为控制器函数的参数。
-      在这个例子中，我们注入了一个 `MovieService`。
+      在 AngularJS 中，你把所有依赖都作为控制器函数的参数。
+      这个例子注入了一个 `MovieService`。
 
       To guard against minification problems, tell Angular explicitly
       that it should inject an instance of the `MovieService` in the first parameter.
 
-      我们还通过在第一个参数明确告诉 Angular 它应该注入一个 `MovieService` 的实例，以防止在最小化时出现问题。
+      为了防止在最小化时出现问题，第一个参数明确告诉 Angular 它应该注入一个 `MovieService` 的实例。
 
     </td>
 
@@ -1548,8 +1548,8 @@ The Angular code is shown using TypeScript.
       This example injects a `MovieService`.
       The first parameter's TypeScript type tells Angular what to inject, even after minification.
 
-      在 Angular 中，我们把依赖作为组件构造函数的参数传入。
-      在这个例子中，我们注入了一个 `MovieService`。
+      在 Angular 中，你要把依赖作为组件构造函数的参数传入。
+      这个例子注入了一个 `MovieService`。
       即使在最小化之后，第一个参数的 TypeScript 类型也会告诉 Angular 它该注入什么。
 
       For more information, see the [Dependency injection](guide/architecture#dependency-injection)
@@ -1576,10 +1576,10 @@ merge, which can cause unexpected results.
 In Angular, you can still define style sheets for your entire application. But now you can
 also encapsulate a style sheet within a specific component.
 
-样式表美化我们的应用程序。
-在 AngularJS 中，我们为整个应用程序指定样式表。
-当应用程序成长一段时间之后，应用程序中很多部分的样式会被合并，导致无法预计的后果。
-在 Angular 中，我们仍然会为整个应用程序定义样式，不过现在也可以把样式表封装在特定的组件中。
+样式表让你的应用程序看起来更漂亮。
+在 AngularJS 中，你要为整个应用程序指定样式表。
+随着应用程序的不断成长，为各个部分指定的样式会被合并，导致无法预计的后果。
+在 Angular 中，你仍然要为整个应用程序定义样式，不过现在也可以把样式表封装在特定的组件中。
 
 <table width="100%">
 
@@ -1624,7 +1624,7 @@ also encapsulate a style sheet within a specific component.
       AngularJS, uses a `link` tag in the head section of the `index.html` file
       to define the styles for the application.
 
-      在 AngularJS 中，我们在 `index.html` 的 `head` 区使用 `link` 标签来为应用程序定义样式。
+      AngularJS 在 `index.html` 的 `head` 区使用 `link` 标签来为应用程序定义样式。
 
     </td>
 
@@ -1639,7 +1639,7 @@ also encapsulate a style sheet within a specific component.
       With the Angular CLI, you can configure your global styles in the `.angular-cli.json` file.
       You can rename the extension to `.scss` to use sass.
 
-      使用 Angular CLI，我们可以在 `.angular-cli.json` 文件中配置全局样式。
+      使用 Angular CLI，你可以在 `.angular-cli.json` 文件中配置全局样式。
       也可以把扩展名改为 `.scss` 来使用 sass。
 
       ### StyleUrls
@@ -1647,14 +1647,14 @@ also encapsulate a style sheet within a specific component.
       In Angular, you can use the `styles` or `styleUrls` property of the `@Component` metadata to define
       a style sheet for a particular component.
 
-      在 Angular 中，我们可以在 `@Component` 的元数据中使用 `styles` 或 `styleUrls` 属性来为一个特定的组件定义样式表。
+      在 Angular 中，你可以在 `@Component` 的元数据中使用 `styles` 或 `styleUrls` 属性来为一个特定的组件定义样式表。
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.ts" region="style-url" linenums="false"></code-example>
 
       This allows you to set appropriate styles for individual components that won’t leak into
       other parts of the application.
 
-      这让我们可以为各个组件设置合适的样式，而不用担心它被泄漏到程序中的其它部分。
+      这让你可以为各个组件设置合适的样式，而不用担心它被泄漏到程序中的其它部分。
 
     </td>
 

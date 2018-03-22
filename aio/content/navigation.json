@@ -390,7 +390,7 @@
             },
             {
               "url": "guide/aot-compiler",
-              "title": "预（AOT）编译",
+              "title": "预先（AOT）编译",
               "tooltip": "学习如何使用 AOT 预编译器。"
             },
             {

@@ -7,7 +7,7 @@ user interfaces transition smoothly between states with engaging animations
 that call attention where it's needed. Well-designed animations can make a UI not only
 more fun but also easier to use.
 
-动画是现代 Web 应用设计中一个很重要的方面。我们希望用户界面能在不同的状态之间更平滑的转场。如果需要，还可以用适当的动画来吸引注意力。
+动画是现代 Web 应用设计中一个很重要的方面。好的用户界面要能在不同的状态之间更平滑的转场。如果需要，还可以用适当的动画来吸引注意力。
 设计良好的动画不但会让 UI 更有趣，还会让它更容易使用。
 
 ## Overview
@@ -19,7 +19,7 @@ performance found in pure CSS animations. You can also tightly integrate your
 animation logic with the rest of your application code, for ease of control.
 
 Angular 的动画系统赋予了制作各种动画效果的能力，以构建出与原生 CSS 动画性能相同的动画。
-我们也获得了额外的让动画逻辑与其它应用代码紧紧集成在一起的能力，这让动画可以被更容易的触发与控制。
+你还获得了额外的让动画逻辑与其它应用代码紧紧集成在一起的能力，这让动画可以被更容易的触发与控制。
 
 <div class="alert is-helpful">
 
@@ -90,7 +90,7 @@ The buttons trigger changes to the list that all of the example components see a
 You can build a simple animation that transitions an element between two states
 driven by a model attribute.
 
-我们来构建一个简单的动画，它会让一个元素用模型驱动的方式在两个状态之间转场。
+你可以构建一个简单的动画，它会让一个元素用模型驱动的方式在两个状态之间转场。
 
 Animations can be defined inside `@Component` metadata. 
 
@@ -112,14 +112,14 @@ hero is active, the element appears in a slightly larger size and lighter color.
 In this example, you are defining animation styles (color and transform) inline in the
 animation metadata.
 
-在这个例子中，我们在元数据中用内联的方式定义了动画样式(`color` 和 `transform`)。在即将到来的一个 Angular 版本中，还将支持从组件的 CSS 样式表中提取样式。
+在这个例子中，你在元数据中用内联的方式定义了动画样式(`color` 和 `transform`)。在即将到来的一个 Angular 版本中，还将支持从组件的 CSS 样式表中提取样式。
 
 </div>
 
 Now, using the `[@triggerName]` syntax, attach the animation that you just defined to
 one or more elements in the component's template.
 
-我们刚刚定义了一个动画，但它还没有被用到任何地方。要想使用它，可以在模板中用 `[@triggerName]` 语法来把它附加到一个或多个元素上。
+现在，使用 `[@triggerName]` 语法来把刚刚定义的动画附加到组件模板中一个或多个元素上。
 
 <code-example path="animations/src/app/hero-list-basic.component.ts" region="template" title="hero-list-basic.component.ts (excerpt)" linenums="false"></code-example>
 
@@ -127,8 +127,8 @@ Here, the animation trigger applies to every element repeated by an `ngFor`. Eac
 the repeated elements animates independently. The value of the
 attribute is bound to the expression `hero.state` and is always either `active` or `inactive`.
 
-这里，我们把该动画触发器添加到了由 `ngFor` 重复出来的每一个元素上。每个重复出来的元素都有独立的动画效果。
-然后把 `@triggerName` 属性(Attribute)的值设置成表达式 `hero.state`。这个值应该或者是 `inactive` 或者是 `active`，因为我们刚刚为它们俩定义过动画状态。
+这里，动画触发器被添加到了由 `ngFor` 重复出来的每一个元素上。每个重复出来的元素都有独立的动画效果。
+然后把 `@triggerName` 属性(Attribute)的值设置成表达式 `hero.state`。这个值应该是 `inactive` 或 `active` 之一。
 
 With this setup, an animated transition appears whenever a hero object changes state.
 Here's the full component implementation:
@@ -152,12 +152,12 @@ hero objects. The source of the state can be a simple object attribute, as it wa
 or it can be a value computed in a method. The important thing is that you can read it into the
 component's template.
 
-动画状态是一个由程序代码中定义的字符串值。在上面的例子中，基于英雄对象的逻辑状态,我们使用了 `'active'` 和 `'inactive'` 这两种状态。
-状态的来源可以是像本例中这样简单的对象属性，也可以是由方法计算出来的值。重点是，我们得能从组件模板中读取它。
+动画状态是一个由程序代码中定义的字符串值。在上面的例子中，`'active'` 和 `'inactive'` 是基于英雄对象的逻辑状态的。
+状态的来源可以是像本例中这样简单的对象属性，也可以是由方法计算出来的值。重点是，你要能从组件模板中读取它。
 
 You can define *styles* for each animation state:
 
-我们可以为每个动画状态定义了*一组样式*：
+你可以为每个动画状态定义了*一组样式*：
 
 <code-example path="animations/src/app/hero-list-basic.component.ts" region="states" title="src/app/hero-list-basic.component.ts" linenums="false"></code-example>
 
@@ -310,7 +310,7 @@ using the hero state as the animation state. This lets you configure
 different transitions for entering and leaving based on what the state of the hero
 is:
 
-通过把英雄的状态用作动画的状态，还能把该动画跟以前的转场动画组合成一个复合动画。这让我们能根据该英雄的当前状态为其配置不同的进场与离场动画：
+通过把英雄的状态用作动画的状态，还能把该动画跟以前的转场动画组合成一个复合动画。这让你能根据该英雄的当前状态为其配置不同的进场与离场动画：
 
 * Inactive hero enter: `void => inactive`
 
@@ -381,7 +381,7 @@ For example, elements often have widths and heights that
 depend on their content and the screen size. These properties are often tricky
 to animate with CSS.
 
-有时候，我们想在动画中使用的尺寸类样式，它的值在开始运行之前都是不可知的。比如，元素的宽度和高度往往依赖于它们的内容和屏幕的尺寸。处理这些属性对 CSS 动画而言通常是相当棘手的。
+有时候，你在开始运行之前都无法知道某个样式属性的值。比如，元素的宽度和高度往往依赖于它们的内容和屏幕的尺寸。处理这些属性对 CSS 动画而言通常是相当棘手的。
 
 In these cases, you can use a special `*` property value so that the value of the
 property is computed at runtime and then plugged into the animation.
@@ -494,7 +494,7 @@ which marks the beginning of the animation, and one, which marks the end.
 This example adds some "bounce" to the enter and leave animations with
 keyframes:
 
-在这个例子中，我们使用关键帧来为进场和离场动画添加一些“反弹效果”：
+这个例子使用关键帧来为进场和离场动画添加一些“反弹效果”：
 
 <code-example path="animations/src/app/hero-list-multistep.component.ts" region="animationdef" title="hero-list-multistep.component.ts (excerpt)" linenums="false"></code-example>
 
@@ -519,19 +519,19 @@ offsets receive offsets `0`, `0.5`, and `1`.
 You've seen how to animate multiple style properties at the same time:
 just put all of them into the same `style()` definition.
 
-我们已经知道该如何在同一时间段进行多个样式的动画了：只要把它们都放进同一个 `style()` 定义中就行了！
+你已经知道该如何在同一时间段进行多个样式的动画了：只要把它们都放进同一个 `style()` 定义中就行了！
 
 But you may also want to configure different *timings* for animations that happen
 in parallel. For example, you may want to animate two CSS properties but use a
 different easing function for each one.
 
-但我们也可能会希望为同时发生的几个动画配置不同的*时间线*。比如，同时对两个 CSS 属性做动画，但又得为它们定义不同的缓动函数。
+但你也可能会希望为同时发生的几个动画配置不同的*时间线*。比如，同时对两个 CSS 属性做动画，但又得为它们定义不同的缓动函数。
 
 For this you can use animation *groups*. In this example, using groups both on
 enter and leave allows for two different timing configurations. Both
 are applied to the same element in parallel, but run independently of each other:
 
-这种情况下就可以用动画*组*来解决了。在这个例子中，我们同时在进场和离场时使用了组，以便能让它们使用两种不同的时间线配置。
+这种情况下就可以用动画*组*来解决了。在这个例子中，同时在进场和离场时使用了组，以便能让它们使用两种不同的时间线配置。
 它们被同时应用到同一个元素上，但又彼此独立运行：
 
 <code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" title="hero-list-groups.component.ts (excerpt)" linenums="false"></code-example>
@@ -551,7 +551,7 @@ A callback is fired when an animation is started and also when it is done.
 In the keyframes example, you have a `trigger` called `@flyInOut`. You can hook
 those callbacks like this:
 
-对于例子中的这个关键帧，我们有一个叫做 `@flyInOut` 的 `trigger`。在那里我们可以挂钩到那些回调，比如：
+对于例子中的这个关键帧，你有一个叫做 `@flyInOut` 的 `trigger`。在那里你可以挂钩到那些回调，比如：
 
 <code-example path="animations/src/app/hero-list-multistep.component.ts" region="template" title="hero-list-multistep.component.ts (excerpt)" linenums="false"></code-example>
 

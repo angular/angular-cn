@@ -27,7 +27,7 @@ Run the <live-example></live-example> anytime.
 Start by reviewing this simplified version of the _heroes_ feature
 from the [The Tour of Heroes](tutorial/).
 
-我们先从[《英雄指南》](tutorial/)中*英雄*特性区的一个简化版本开始。
+先从[《英雄指南》](tutorial/)中*英雄*特性区的一个简化版本开始。
 
 <code-tabs>
 
@@ -119,7 +119,7 @@ the `getHeroes` method signature would have to be asynchronous.
 That's a defect we can safely ignore in this guide where our focus is on
 _injecting the service_ into the `HeroList` component.
 
-在这一章我们可以忽略这个问题，因为这里的焦点在于*把服务注入*到 `HeroListComponent` 组件中。
+我们可以放心地忽略这个问题，因为这里的焦点在于*把服务注入*到 `HeroListComponent` 组件中。
 
 {@a injector-config}
 
@@ -457,7 +457,7 @@ You'd apply the same *constructor injection* pattern,
 adding a constructor that takes a `Logger` parameter.
 
 如果它也有依赖，该怎么办呢？例如，它需要通过日志服务来汇报自己的活动。
-我们同样用*构造函数注入*模式，来添加一个带有 `Logger` 参数的构造函数。
+你同样用*构造函数注入*模式，来添加一个带有 `Logger` 参数的构造函数。
 
 Here is the revised `HeroService` that injects the `Logger`, side-by-side with the previous service for comparison.
 
@@ -687,7 +687,7 @@ Occasionally you'll ask a different class to provide the service.
 The following code tells the injector
 to return a `BetterLogger` when something asks for the `Logger`.
 
-某些时候，我们会请求一个不同的类来提供服务。
+某些时候，你会请求一个不同的类来提供服务。
 下列代码告诉注入器，当有人请求 `Logger` 时，返回 `BetterLogger`。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-4" >
@@ -732,12 +732,12 @@ you can't update the old component to use it.
 
 假设某个旧组件依赖一个 `OldLogger` 类。
 `OldLogger` 和 `NewLogger` 具有相同的接口，但是由于某些原因，
-我们不能升级这个旧组件并使用它。
+你不能升级这个旧组件并使用它。
 
 When the *old* component logs a message with `OldLogger`,
 you'd like the singleton instance of `NewLogger` to handle it instead.
 
-当*旧*组件想使用 `OldLogger` 记录消息时，我们希望改用 `NewLogger` 的单例对象来记录。
+当*旧*组件想使用 `OldLogger` 记录消息时，你希望改用 `NewLogger` 的单例对象来记录。
 
 The dependency injector should inject that singleton instance
 when a component asks for either the new or the old logger.
@@ -749,7 +749,7 @@ The `OldLogger` should be an alias for `NewLogger`.
 You certainly do not want two different `NewLogger` instances in your app.
 Unfortunately, that's what you get if you try to alias `OldLogger` to `NewLogger` with `useClass`.
 
-我们当然不会希望应用中有两个不同的 `NewLogger` 实例。
+你当然不会希望应用中有两个不同的 `NewLogger` 实例。
 不幸的是，如果尝试通过 `useClass` 来把 `OldLogger` 作为 `NewLogger` 的别名，就会导致这样的后果。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6a"  linenums="false">
@@ -803,7 +803,7 @@ Sometimes you need to create the dependent value dynamically,
 based on information you won't have until the last possible moment.
 Maybe the information changes repeatedly in the course of the browser session.
 
-有时，我们需要动态创建这个依赖值，因为它所需要的信息直到最后一刻才能确定。
+有时，你需要动态创建这个依赖值，因为它所需要的信息直到最后一刻才能确定。
 也许这个信息会在浏览器的会话中不停地变化。
 
 Suppose also that the injectable service has no independent access to the source of this information.
@@ -849,8 +849,8 @@ Instead, the `HeroService` constructor takes a boolean flag to control display o
 You can inject the `Logger`, but you can't inject the  boolean `isAuthorized`.
 You'll have to take over the creation of new instances of this `HeroService` with a factory provider.
 
-我们可以注入 `Logger`，但是不能注入逻辑型的 `isAuthorized`。
-我们不得不通过通过工厂提供商创建这个 `HeroService` 的新实例。
+你可以注入 `Logger`，但是不能注入逻辑型的 `isAuthorized`。
+你不得不通过通过工厂提供商创建这个 `HeroService` 的新实例。
 
 A factory provider needs a factory function:
 
@@ -894,7 +894,7 @@ Notice that you captured the factory provider in an exported variable, `heroServ
 This extra step makes the factory provider reusable.
 You can register the `HeroService` with this variable wherever you need it.
 
-注意，我们在一个导出的变量中捕获了这个工厂提供商：`heroServiceProvider`。
+注意，你在一个导出的变量中捕获了这个工厂提供商：`heroServiceProvider`。
 这个额外的步骤让工厂提供商可被复用。
 无论哪里需要，都可以使用这个变量注册 `HeroService`。
 
@@ -946,7 +946,7 @@ When you define a constructor parameter with the `HeroService` class type,
 Angular knows to inject the
 service associated with that `HeroService` class token:
 
-编写需要基于类的依赖注入的构造函数对我们来说是很幸运的。
+编写需要基于类的依赖注入的构造函数对你来说是很幸运的。
 只要定义一个 `HeroService` 类型的构造函数参数，
 Angular 就会知道把跟 `HeroService` 类令牌关联的服务注入进来：
 
@@ -984,14 +984,14 @@ They can be object literals such as this one:
 What if you'd like to make this configuration object available for injection?
 You know you can register an object with a [value provider](guide/dependency-injection#value-provider).
 
-我们想让这个配置对象在注入时可用，而且知道可以使用[值提供商](guide/dependency-injection#value-provider)来注册一个对象。
+如果想让这个配置对象在注入时可用该怎么办？你知道你可以用[值提供商](guide/dependency-injection#value-provider)来注册一个对象。
 
 But what should you use as the token?
 You don't have a class to serve as a token.
 There is no `AppConfig` class.
 
 但是，这种情况下用什么作令牌呢？
-我们没办法找一个类来当作令牌，因为没有 `Config` 类。
+你没办法找一个类来当作令牌，因为没有 `Config` 类。
 
 <div class="l-sub-section">
 
@@ -1121,8 +1121,8 @@ You can register various kinds of providers,
 and you know how to ask for an injected object (such as a service) by
 adding a parameter to a constructor.
 
-本章，我们学习了 Angular 依赖注入的基础知识。
-我们可以注册很多种类的提供商，知道如何通过添加构造函数的参数来请求一个注入对象（例如一个服务）。
+本章，你学习了 Angular 依赖注入的基础知识。
+你可以注册很多种类的提供商，知道如何通过添加构造函数的参数来请求一个注入对象（例如一个服务）。
 
 Angular dependency injection is more capable than this guide has described.
 You can learn more about its advanced features, beginning with its support for
@@ -1142,7 +1142,7 @@ Developers rarely work directly with an injector, but
 here's an `InjectorComponent` that does.
 
 这里的 `InjectorComponent` 直接使用了注入器，
-但我们很少直接使用它。
+但开发者很少直接使用它。
 
 <code-example path="dependency-injection/src/app/injector.component.ts" region="injector" title="src/app/injector.component.ts">
 
@@ -1190,7 +1190,7 @@ You're forced to spelunk the implementation to discover what it does.
 它难以解释、理解和测试。
 仅通过阅读构造函数，没法知道这个类需要什么或者它将做什么。
 它可以从任何祖先组件中获得服务，而不仅仅是它自己。
-会迫使我们深入它的实现，才可能明白它都做了啥。
+会迫使你深入它的实现，才可能明白它都做了啥。
 
 Framework developers may take this approach when they
 must acquire services generically and dynamically.
@@ -1217,7 +1217,7 @@ the `HeroesComponent` in the same file,
 If you define the component before the service,
 you'll get a runtime null reference error.
 
-如果我们蔑视这个建议，并且 —— 比如说 —— 把 `HeroService` 和 `HeroesComponent` 组合在同一个文件里，
+如果你把 `HeroService` 和 `HeroesComponent` 组合在同一个文件里，
   **就得把组件定义放在最后面！**
   如果把组件定义在了服务的前面，
   在运行时抛出空指针错误。

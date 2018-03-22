@@ -18,12 +18,12 @@ application in TypeScript, using the Angular CLI
 while adhering to the [Style Guide](guide/styleguide) recommendations that
 benefit _every_ Angular project.
 
-在这一章 CLI 快速起步中，我们的目标是构建并运行一个超级简单的 Angular 应用。我们会使用 Angular-CLI 来让每个 Angular 应用从[风格指南](guide/styleguide)中获益。
+本章的目标是构建并运行一个超级简单的 TypeScript Angular 应用。使用 Angular CLI 来让*每个* Angular 应用从[风格指南](guide/styleguide)的那些建议中获益。
 
 By the end of the chapter, you'll have a basic understanding of development with the CLI
 and a foundation for both these documentation samples and for real world applications.
 
-在本章的末尾，我们会通过 CLI 对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
+在本章的末尾，你会通过 CLI 对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
 And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">download the example.</a>
 
@@ -35,7 +35,7 @@ And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" targ
 
 You need to set up your development environment before you can do anything.
 
-在开始工作之前，我们必须设置好开发环境。
+在开始工作之前，你必须设置好开发环境。
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
@@ -127,13 +127,13 @@ Your app greets you with a message:
 
 <h2 id='first-component'>Step 4: Edit your first Angular component</h2>
 
-<h2 id='first-component'>步骤 4. 编辑我们的第一个 Angular 组件</h2>
+<h2 id='first-component'>步骤 4. 编辑你的第一个 Angular 组件</h2>
 
 The CLI created the first Angular component for you.
 This is the _root component_ and it is named `app-root`.
 You can find it in `./src/app/app.component.ts`.
 
-这个 CLI 为我们创建了第一个 Angular 组件。
+这个 CLI 为你创建了第一个 Angular 组件。
 它就是名叫 `app-root` 的*根组件*。
 你可以在 `./src/app/app.component.ts` 目录下找到它。
 
@@ -145,7 +145,7 @@ Open the component file and change the `title` property from _Welcome to app!!_ 
 
 The browser reloads automatically with the revised title. That's nice, but it could look better.
 
-浏览器会自动刷新，而我们会看到修改之后的标题。不错，不过它还可以更好看一点。
+浏览器会自动刷新，并具有修改之后的标题。不错，不过它还可以更好看一点。
 
 Open `src/app/app.component.css` and give the component some style.
 
@@ -167,7 +167,7 @@ Looking good!
 
 That's about all you'd expect to do in a "Hello, World" app.
 
-如你所愿，我们完成了这个“Hello, World”应用。
+这就是你期待这个 “Hello, World” 应用要做的。
 
 You're ready to take the [Tour of Heroes Tutorial](tutorial) and build
 a small application that demonstrates the great things you can build with Angular.
@@ -199,7 +199,7 @@ Whenever you want to know more about how Angular CLI works make sure to visit
 
 Some of the generated files might be unfamiliar to you.
 
-有些生成的文件你可能觉得陌生。接下来我们就讲讲它们。
+有些生成的文件你可能觉得陌生。
 
 ### The `src` folder
 
@@ -476,7 +476,7 @@ Any files outside of this folder are meant to support building your app.
       the [Browser Support guide](guide/browser-support) for more information.
 
       不同的浏览器对 Web 标准的支持程度也不同。
-      腻子脚本（polyfill）能帮我们把这些不同点进行标准化。
+      腻子脚本（polyfill）能把这些不同点进行标准化。
       你只要使用 `core-js` 和 `zone.js` 通常就够了，不过你也可以查看[浏览器支持指南](guide/browser-support)以了解更多信息。
 
     </td>
@@ -689,7 +689,7 @@ These files go in the root folder next to `src/`.
       Check out the official documentation if you want to know more.
 
       Angular CLI 的配置文件。
-      在这个文件中，我们可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
+      在这个文件中，你可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
       要了解更多，请参阅它的官方文档。
 
     </td>
@@ -866,7 +866,7 @@ If you're new to Angular, continue with the
 [tutorial](tutorial "Tour of Heroes tutorial").
 You can skip the "Setup" step since you're already using the Angular CLI setup.
 
-如果你刚刚开始使用 Angular，我们建议你遵循这个[教程](tutorial "《英雄指南》教程")。
-你可以跳过“环境设置”一章，因为你已经在使用 Angular-CLI 设置好环境了。
+如果你刚刚开始使用 Angular，请继续这个[教程](tutorial "《英雄指南》教程")。
+你可以跳过“环境设置”一章，因为你已经在使用 Angular CLI 设置好环境了。
 
 </div>

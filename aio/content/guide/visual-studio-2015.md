@@ -145,7 +145,7 @@ You can find out more about TypeScript 2.2 support in Visual studio **[here](htt
 At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
 restart it to make sure everything is clean.
 
-至此，Visual Studio 准备好了。重新启动 Visual Stuido，这样我们可以有一个崭新的开始。
+至此，Visual Studio 已经准备好了。重新启动 Visual Studio，这样就可以有一个崭新的开始了。
 
 <h2 id='download'>Step 1: Download the QuickStart files</h2>
 
@@ -275,7 +275,7 @@ Most Visual Studio developers like to press the F5 key and see the IIS server co
 To use the IIS server with the QuickStart app, you must make the following three changes. 
 
 大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
-要在这个《快速上手》应用中使用 IIS 服务器，我们要做下列修改：
+要在这个《快速上手》应用中使用 IIS 服务器，你要做下列修改：
 
 1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
 
@@ -296,7 +296,7 @@ change the npm `path` to `/node_modules/` with a slash.
 After these changes, `npm start` no longer works.
 You must choose to configure _either_ for F5 with IIS _or_ for  `npm start` with the lite-server.
 
-做完这些修改之后，`npm start` 不再工作了。我们必须选择配置为 IIS + F5，还是 `npm start` + lite-server。
+做完这些修改之后，`npm start` 不再工作了。你必须选择配置为 IIS + F5，还是 `npm start` + lite-server。
 
 </div>
 
@@ -315,21 +315,21 @@ Everything seems fine while you move about _within_ the app.
 But you'll see the problem right away if you refresh the browser
 or paste a link to an app page (called a "deep link") into the browser address bar.
 
-当我们在应用*内部*移动时，看起来一切正常。但是如果刷新浏览器，或者在地址栏中输入一个到具体页面的地址（也就是"深链接"）时，问题就来了。
+当你在应用*内部*移动时，看起来一切正常。但是如果刷新浏览器，或者在地址栏中输入一个到具体页面的地址（也就是"深链接"）时，问题就来了。
 
 You'll most likely get a *404 - Page Not Found* response from the server
 for any address other than `/` or `/index.html`.
 
-我们很可能从服务器得到得到*404 - 页面不存在* —— 只有 `/` 或 `/index.html` 例外。
+你很可能从服务器得到得到*404 - 页面不存在* —— 只有 `/` 或 `/index.html` 例外。
 
 You have to configure the server to return `index.html` for requests to these "unknown" pages.
 The `lite-server` development server does out-of-the-box.
 If you've switched over to F5 and IIS, you have to configure IIS to do it.
 This section walks through the steps to adapt the QuickStart application.
 
-我们就要配置服务器，为那些"未知"的页面返回 `index.html`。
-`lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，我们就要自己来配置 IIS 实现它了。
-接下来我们就看看对快速起步应用做配置的步骤。
+你就要配置服务器，为那些"未知"的页面返回 `index.html`。
+`lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，你就要自己来配置 IIS 实现它了。
+接下来看看对快速起步应用做配置的步骤。
 
 #### Configure IIS rewrite rules
 
@@ -371,7 +371,7 @@ rewrite rules near the bottom of the `web.config`:
 The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
 you want some requests to get through, such as web API requests. 
 
-匹配 url `<match url=".*" />` 语句将会重写每一个请求。如果需要直接放行某些请求，比如一些 Web API 请求，我们就必须调整它才行。
+匹配 url `<match url=".*" />` 语句将会重写每一个请求。如果需要直接放行某些请求，比如一些 Web API 请求，你就必须调整它才行。
 
 The URL in `<action type="Rewrite" url="/src/"/>` should 
 match the base href in `index.html`.

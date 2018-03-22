@@ -19,7 +19,7 @@ An observable can deliver multiple values of any type&mdash;literals, messages, 
 
 Because of these advantages, observables are used extensively within Angular, and are recommended for app development as well.
 
-由于这些优点，可观察对象在 Angular 中得到广泛使用，我们也同样建议应用开发者好好使用它。
+由于这些优点，可观察对象在 Angular 中得到广泛使用，也同样建议应用开发者好好使用它。
 
 ## Basic usage and terms
 
@@ -151,7 +151,7 @@ A typical observable creates a new, independent execution for each subscribed ob
 
 Sometimes, instead of starting an independent execution for each subscriber, you want each subscription to get the same values&mdash;even if values have already started emitting. This might be the case with something like an observable of clicks on the document object.
 
-有时候，我们不想对每一个订阅者都独立执行一次，你可能会希望每次订阅都得到同一批值 —— 即使是那些你已经发送过的。这在某些情况下有用，比如用来发送 `document` 上的点击事件的可观察对象。
+有时候，不应该对每一个订阅者都独立执行一次，你可能会希望每次订阅都得到同一批值 —— 即使是那些你已经发送过的。这在某些情况下有用，比如用来发送 `document` 上的点击事件的可观察对象。
 
 *Multicasting* is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
 

@@ -291,7 +291,7 @@ countdown status message in its own template.
 
 The `CountdownLocalVarParentComponent` that hosts the timer component is as follows:
 
-让我们来看看计时器组件的宿主组件 `CountdownLocalVarParentComponent`。
+计时器组件的宿主组件 `CountdownLocalVarParentComponent` 如下：
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" title="component-interaction/src/app/countdown-parent.component.ts">
 
@@ -311,7 +311,7 @@ That gives you a reference to the child component and the ability to access
 This example wires parent buttons to the child's `start` and `stop` and
 uses interpolation to display the child's `seconds` property.
 
-在这个例子中，我们把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
+这个例子把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
 
 Here we see the parent and child working together.
 
@@ -369,7 +369,7 @@ Neither its appearance nor its behavior will change.
 The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-example) is the same as well.
 
 下面的例子用与[倒计时](guide/component-interaction#countdown-timer-example)相同的范例来解释这种技术。
-我们没有改变它的外观或行为。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
+它的外观或行为没有变化。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
 
 <div class="l-sub-section">
 
@@ -415,14 +415,14 @@ The `ngAfterViewInit()` lifecycle hook is an important wrinkle.
 The timer component isn't available until *after* Angular displays the parent view.
 So it displays `0` seconds initially.
 
-`ngAfterViewInit()` 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以我们先把秒数显示为 0.
+`ngAfterViewInit()` 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以它先把秒数显示为 0.
 
 Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late*
 to update the parent view's display of the countdown seconds.
 Angular's unidirectional data flow rule prevents updating the parent view's
 in the same cycle. The app has to *wait one turn* before it can display the seconds.
 
-然后 Angular 会调用 `ngAfterViewInit` 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮*。
+然后 Angular 会调用 `ngAfterViewInit` 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。应用在显示秒数之前会被迫*再等一轮*。
 
 Use `setTimeout()` to wait one tick and then revise the `seconds()` method so
 that it takes future values from the timer component.

@@ -15,7 +15,7 @@ You write Angular applications by composing HTML *templates* with Angularized ma
 writing *component* classes to manage those templates, adding application logic in *services*,
 and boxing components and services in *modules*.
 
-我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML *模板*，
+你是这样编写 Angular 应用的：用 Angular 扩展语法编写 HTML *模板*，
 用*组件*类管理这些模板，用*服务*添加应用逻辑，
 用*模块*打包发布组件与服务。
 
@@ -23,13 +23,13 @@ Then you launch the app by *bootstrapping* the _root module_.
 Angular takes over, presenting your application content in a browser and
 responding to user interactions according to the instructions you've provided.
 
-然后，我们通过*引导*_根模块_来启动该应用。
+然后，你通过*引导**根模块*来启动该应用。
 Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。
 
 Of course, there is more to it than this.
 You'll learn the details in the pages that follow. For now, focus on the big picture.
 
-当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。
+当然，这只是冰山一角。后面你还会学到更多的细节。不过，目前还是先关注全景图吧。
 
 <figure>
   <img src="generated/images/guide/architecture/overview2.png" alt="overview">
@@ -135,7 +135,7 @@ Here's a simple root module:
 Launch an application by _bootstrapping_ its root module.
 During development you're likely to bootstrap the `AppModule` in a `main.ts` file like this one.
 
-我们通过_引导_根模块来启动应用。
+通过*引导*根模块来启动应用。
 在开发期间，你通常在一个 `main.ts` 文件中引导 `AppModule`，就像这样：
 
 <code-example path="architecture/src/main.ts" title="src/main.ts" linenums="false"></code-example>
@@ -176,7 +176,7 @@ JavaScript 中，每个_文件_是一个模块，文件中定义的所有对象�
 
 These are two different and _complementary_ module systems. Use them both to write your apps.
 
-这两个模块化系统是互补的，我们在写程序时都会用到。
+这两个模块化系统是不同但*互补*的，我们在写程序时都会用到。
 
 ### Angular libraries
 
@@ -243,7 +243,7 @@ Hang in there. The confusion yields to clarity with time and experience.
 
 A _component_ controls a patch of screen called a *view*.
 
-_组件_负责控制屏幕上的一小块区域，我们称之为*视图*。
+_组件_负责控制屏幕上的一小块区域叫做*视图*。
 
 For example, the following views are controlled by components:
 
@@ -264,7 +264,7 @@ For example, the following views are controlled by components:
 You define a component's application logic&mdash;what it does to support the view&mdash;inside a class.
 The class interacts with the view through an API of properties and methods.
 
-我们在类中定义组件的应用逻辑，为视图提供支持。
+你在类中定义组件的应用逻辑，为视图提供支持。
 组件通过一些由属性和方法组成的 API 与视图交互。
 
 {@a component-code}
@@ -295,7 +295,7 @@ Your app can take action at each moment in this lifecycle through optional [life
 You define a component's view with its companion **template**. A template is a form of HTML
 that tells Angular how to render the component.
 
-我们通过组件的自带的**模板**来定义组件视图。模板以 HTML 形式存在，告诉 Angular 如何渲染组件。
+你通过组件的自带的**模板**来定义组件视图。模板以 HTML 形式存在，告诉 Angular 如何渲染组件。
 
 A template looks like regular HTML, except for a few differences. Here is a
 template for our `HeroListComponent`:
@@ -351,7 +351,7 @@ There is no evidence of a framework, no "Angular" in it at all.
 
 In fact, `HeroListComponent` really is *just a class*. It's not a component until you *tell Angular about it*.
 
-实际上，`HeroListComponent` 真的*只是一个类*。直到我们*告诉 Angular* 它是一个组件。
+实际上，`HeroListComponent` 真的*只是一个类*。直到你*告诉 Angular* 它是一个组件。
 
 To tell Angular that `HeroListComponent` is a component, attach **metadata** to the class.
 
@@ -360,7 +360,7 @@ To tell Angular that `HeroListComponent` is a component, attach **metadata** to 
 In TypeScript, you attach metadata by using a **decorator**.
 Here's some metadata for `HeroListComponent`:
 
-在 TypeScript 中，我们用**装饰器 (decorator) **来附加元数据。
+在 TypeScript 中，你要用**装饰器 (decorator) **来附加元数据。
 下面就是 `HeroListComponent` 的一些元数据。
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (metadata)" region="metadata"></code-example>
@@ -431,7 +431,7 @@ Without a framework, you would be responsible for pushing data values into the H
 into actions and value updates. Writing such push/pull logic by hand is tedious, error-prone, and a nightmare to
 read as any experienced jQuery programmer can attest.
 
-如果没有框架，我们就得自己把数据值推送到 HTML 控件中，并把用户的反馈转换成动作和值更新。
+如果没有框架，你就得自己把数据值推送到 HTML 控件中，并把用户的反馈转换成动作和值更新。
 如果手工写代码来实现这些推/拉逻辑，肯定会枯燥乏味、容易出错，读起来简直是噩梦 —— 写过 jQuery 的程序员大概都对此深有体会。
 
 <img src="generated/images/guide/architecture/databinding.png" alt="Data Binding" class="left">
@@ -441,7 +441,7 @@ a mechanism for coordinating parts of a template with parts of a component.
 Add binding markup to the template HTML to tell Angular how to connect both sides.
 
 Angular 支持**数据绑定**，一种让模板的各部分与组件的各部分相互合作的机制。
-我们往模板 HTML 中添加绑定标记，来告诉 Angular 如何把二者联系起来。
+往模板 HTML 中添加绑定标记，来告诉 Angular 如何把二者联系起来。
 
 As the diagram shows, there are four forms of data binding syntax. Each form has a direction &mdash; to the DOM, from the DOM, or in both directions.
 
@@ -529,7 +529,7 @@ a `@Component` decorator is actually a `@Directive` decorator extended with temp
   While **a component is technically a directive**,
   components are so distinctive and central to Angular applications that this architectural overview separates components from directives.
 
-  虽然**严格来说组件就是一个指令**，但是组件非常独特，并在 Angular 中位于中心地位，所以在架构概览中，我们把组件从指令中独立了出来。
+  虽然**严格来说组件就是一个指令**，但是组件非常独特，并在 Angular 中位于中心地位，所以在架构概览中把组件从指令中独立了出来。
 
 </div>
 
@@ -588,7 +588,7 @@ Angular 还有少量指令，它们或者修改结构布局（例如 [ngSwitch](
 Of course, you can also write your own directives. Components such as
 `HeroListComponent` are one kind of custom directive.
 
-当然，我们也能编写自己的指令。像 `HeroListComponent` 这样的组件就是一种自定义指令。
+当然，你也能编写自己的指令。像 `HeroListComponent` 这样的组件就是一种自定义指令。
 
 <!-- PENDING: link to where to learn more about other kinds! -->
 
@@ -682,13 +682,13 @@ It delegates everything nontrivial to services.
 Angular doesn't *enforce* these principles.
 It won't complain if you write a "kitchen sink" component with 3000 lines.
 
-Angular 不会*强制要求*我们遵循这些原则。
-即使我们花 3000 行代码写了一个“厨房洗碗槽”组件，它也不会抱怨什么。
+Angular 不会*强行保障*这些原则。
+即使你花 3000 行代码写了一个“厨房洗碗槽”组件，它也不会抱怨什么。
 
 Angular does help you *follow* these principles by making it easy to factor your
 application logic into services and make those services available to components through *dependency injection*.
 
-Angular 帮助我们*遵循*这些原则 —— 它让我们能轻易地把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
+Angular 帮助你*遵循*这些原则 —— 它让我们能轻易地把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
 
 <hr/>
 
@@ -747,12 +747,12 @@ If the injector doesn't have a `HeroService`, how does it know how to make one?
 In brief, you must have previously registered a **provider** of the `HeroService` with the injector.
 A provider is something that can create or return a service, typically the service class itself.
 
-简单点说，我们必须先用注入器（injector）为 `HeroService` 注册一个**提供商（provider）**。
+简单点说，你必须先用注入器（injector）为 `HeroService` 注册一个**提供商（provider）**。
 提供商用来创建或返回服务，通常就是这个服务类本身（相当于 `new HeroService()`）。
 
 You can register providers in modules or in components.
 
-我们可以在模块中或组件中注册提供商。
+你可以在模块中或组件中注册提供商。
 
 In general, add providers to the [root module](guide/architecture#modules) so that
 the same instance of a service is available everywhere.
@@ -814,7 +814,7 @@ Points to remember about dependency injection:
 
 You've learned the basics about the eight main building blocks of an Angular application:
 
-我们学到的这些只是关于 Angular 应用程序的八个主要构造块的基础知识：
+你学到的这些只是关于 Angular 应用程序的八个主要构造块的基础知识：
 
 * [Modules](guide/architecture#modules)
 
@@ -853,7 +853,7 @@ and it's more than enough to get going.
 But it doesn't include everything you need to know.
 
 这是 Angular 应用程序中所有其它东西的基础，要使用 Angular，以这些作为开端就绰绰有余了。
-但它仍然没有包含我们需要知道的全部。
+但它仍然没有包含你需要知道的一切。
 
 Here is a brief, alphabetical list of other important Angular features and services.
 Most of them are covered in this documentation (or soon will be).

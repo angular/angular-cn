@@ -23,7 +23,7 @@ This page is a comprehensive technical reference to the Angular template languag
 It explains basic principles of the template language and describes most of the syntax that you'll encounter elsewhere in the documentation.
 
 这是一篇关于 Angular 模板语言的技术大全。
-它解释了模板语言的基本原理，并描述了我们将在文档中其它地方遇到的大部分语法。
+它解释了模板语言的基本原理，并描述了你将在文档中其它地方遇到的大部分语法。
 
 Many code snippets illustrate the points and concepts, all of them available
 in the <live-example title="Template Syntax Live Code"></live-example>.
@@ -60,7 +60,7 @@ In the following sections, you'll learn how to get and set DOM (Document Object 
 
 Begin with the first form of data binding&mdash;interpolation&mdash;to see how much richer template HTML can be.
 
-我们首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
+首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
 
 <hr/>
 
@@ -72,7 +72,7 @@ Begin with the first form of data binding&mdash;interpolation&mdash;to see how m
 
 You met the double-curly braces of interpolation, `{{` and `}}`, early in your Angular education.
 
-在以前的 Angular 教程中，我们遇到过由双花括号括起来的插值表达式，`{{` 和 `}}`。
+在以前的 Angular 教程中，你遇到过由双花括号括起来的插值表达式，`{{` 和 `}}`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="first-interpolation" title="src/app/app.component.html" linenums="false">
 
@@ -123,8 +123,8 @@ It's convenient to think so, and you rarely suffer for this mistake.
 Though this is not exactly true. Interpolation is a special syntax that Angular converts into a
 [property binding](guide/template-syntax#property-binding), as is explained [below](guide/template-syntax#property-binding-or-interpolation).
 
-表面上看，我们在元素标签之间插入了结果和对标签的属性进行了赋值。
-这样思考起来很方便，并且这个误解很少给我们带来麻烦。
+表面上看，你在元素标签之间插入了结果和对标签的属性进行了赋值。
+这样思考起来很方便，并且这个误解很少给你带来麻烦。
 但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation)将会解释这一点。
 
 But first, let's take a closer look at template expressions and statements.
@@ -227,7 +227,7 @@ the template variable name takes precedence, followed by a name in the directive
 and, lastly, the component's member names.
 
 表达式中的上下文变量是由*模板变量*、指令的*上下文变量*（如果有）和组件的*成员*叠加而成的。
-如果我们要引用的变量名存在于一个以上的命名空间中，那么，模板变量是最优先的，其次是指令的上下文变量，最后是组件的成员。
+如果你要引用的变量名存在于一个以上的命名空间中，那么，模板变量是最优先的，其次是指令的上下文变量，最后是组件的成员。
 
 The previous example presents such a name collision. The component has a `hero`
 property and the `*ngFor` defines a `hero` template variable.
@@ -303,7 +303,7 @@ Angular executes template expressions after every change detection cycle.
 Change detection cycles are triggered by many asynchronous activities such as
 promise resolutions, http results, timer events, keypresses and mouse moves.
 
-Angular 执行模板表达式比我们想象的频繁。
+Angular 会在每个变更检测周期后执行模板表达式。
 它们可能在每一次按键或鼠标移动后被调用。
 
 Expressions should finish quickly or the user experience may drag, especially on slower devices.
@@ -376,7 +376,7 @@ That's the whole point of an event.
 It's how you update application state from user action.
 
 模板语句*有副作用*。
-这是事件处理的关键。因为我们要根据用户的输入更新应用状态。
+这是事件处理的关键。因为你要根据用户的输入更新应用状态。
 
 Responding to events is the other side of Angular's "unidirectional data flow".
 You're free to change anything, anywhere, during this turn of the event loop.
@@ -490,16 +490,16 @@ the application is easier to write, read, and maintain if you turn these chores 
 You simply declare bindings between binding sources and target HTML elements and let the framework do the work.
 
 数据绑定是一种机制，用来协调用户所见和应用数据。
-  虽然我们能往 HTML 推送值或者从 HTML 拉取值，
-  但如果把这些琐事交给数据绑定框架处理，
-  应用会更容易编写、阅读和维护。
-  只要简单地在绑定源和目标 HTML 元素之间声明绑定，框架就会完成这项工作。
+虽然你能往 HTML 推送值或者从 HTML 拉取值，
+但如果把这些琐事交给数据绑定框架处理，
+应用会更容易编写、阅读和维护。
+只要简单地在绑定源和目标 HTML 元素之间声明绑定，框架就会完成这项工作。
 
 Angular provides many kinds of data binding.
 This guide covers most of them, after a high-level view of Angular data binding and its syntax.
 
 Angular 提供了各种各样的数据绑定，本章将逐一讨论。
-不过我们要先从高层视角来看看 Angular 数据绑定及其语法。
+先从高层视角来看看 Angular 数据绑定及其语法。
 
 Binding types can be grouped into three categories distinguished by the direction of data flow:
 from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _view-to-source-to-view_:
@@ -676,7 +676,7 @@ The target name is the name of a _property_. It may look like the name of an _at
 To appreciate the difference, you must develop a new way to think about template HTML.
 
 这个目标名就是*属性（Property）*的名字。它可能看起来像是*元素属性（Attribute）*的名字，但它不是。
-要理解它们的不同点，我们必须尝试用另一种方式来审视模板中的 HTML。
+要理解它们的不同点，你必须尝试用另一种方式来审视模板中的 HTML。
 
 ### A new mental model
 
@@ -685,20 +685,20 @@ To appreciate the difference, you must develop a new way to think about template
 With all the power of data binding and the ability to extend the HTML vocabulary
 with custom markup, it is tempting to think of template HTML as *HTML Plus*.
 
-数据绑定的威力和允许用自定义标记扩展 HTML 词汇的能力，容易误导我们把模板 HTML 当成 *HTML+*。
+数据绑定的威力和允许用自定义标记扩展 HTML 词汇的能力，会让你把模板 HTML 当成 *HTML+*。
 
 It really *is* HTML Plus.
 But it's also significantly different than the HTML you're used to.
 It requires a new mental model.
 
 它其实*就是* HTML+。
-但它也跟我们熟悉的 HTML 有着显著的不同。
-我们需要一种新的思维模型。
+但它也跟你曾使用的 HTML 有着显著的不同。
+这里需要一种新的思维模型。
 
 In the normal course of HTML development, you create a visual structure with HTML elements, and
 you modify those elements by setting element attributes with string constants.
 
-在正常的 HTML 开发过程中，我们使用 HTML 元素创建视觉结构，
+在正常的 HTML 开发过程中，你使用 HTML 元素来创建视觉结构，
 通过把字符串常量设置到元素的 attribute 来修改那些元素。
 
 <code-example path="template-syntax/src/app/app.component.html" region="img+button" title="src/app/app.component.html" linenums="false">
@@ -707,7 +707,7 @@ you modify those elements by setting element attributes with string constants.
 
 You still create a structure and initialize attribute values this way in Angular templates.
 
-在 Angular 模板中，我们仍使用同样的方式来创建结构和初始化 attribute 值。
+在 Angular 模板中，你仍使用同样的方式创建结构和初始化 attribute 值。
 
 Then you learn to create new elements with components that encapsulate HTML
 and drop them into templates as if they were native HTML elements.
@@ -724,7 +724,7 @@ That's HTML Plus.
 
 Then you learn about data binding. The first binding you meet might look like this:
 
-现在开始学习数据绑定。我们碰到的第一种数据绑定是这样的：
+现在开始学习数据绑定。你碰到的第一种数据绑定是这样的：
 
 <code-example path="template-syntax/src/app/app.component.html" region="disabled-button-1" title="src/app/app.component.html" linenums="false">
 
@@ -734,14 +734,14 @@ You'll get to that peculiar bracket notation in a moment. Looking beyond it,
 your intuition suggests that you're binding to the button's `disabled` attribute and setting
 it to the current value of the component's `isUnchanged` property.
 
-过会儿再认识那个怪异的方括号记法。直觉告诉我们，我们正在绑定按钮的 `disabled` attribute。
+过会儿再认识那个怪异的方括号记法。直觉告诉你，你正在绑定按钮的 `disabled` attribute。
   并把它设置为组件的 `isUnchanged` 属性的当前值。
 
 Your intuition is incorrect! Your everyday HTML mental model is misleading.
 In fact, once you start data binding, you are no longer working with HTML *attributes*. You aren't setting attributes.
 You are setting the *properties* of DOM elements, components, and directives.
 
-但我们的直觉是错的！日常的 HTML 思维模式在误导我们。
+但你的直觉是错的！日常的 HTML 思维模式在误导着你。
 实际上，一旦开始数据绑定，就不再跟 HTML attribute 打交道了。
 这里不是设置 attribute，而是设置 DOM 元素、组件和指令的 property。
 
@@ -773,11 +773,11 @@ The distinction between an HTML attribute and a DOM property is crucial to under
 
 * Many HTML attributes appear to map to properties ... but not in the way you might think!
 
-   大量 HTML attribute 看起来映射到了 property…… 但却不像我们想的那样！
+   大量 HTML attribute 看起来映射到了 property…… 但却不像你想的那样！
 
 That last category is confusing until you grasp this general rule:
 
-最后一类尤其让人困惑…… 除非我们能理解这个普遍原则：
+最后一类尤其让人困惑…… 除非你能理解这个普遍原则：
 
 **Attributes *initialize* DOM properties and then they are done.
 Property values can change; attribute values can't.**
@@ -795,7 +795,7 @@ But the HTML `value` *attribute* remains unchanged as you discover if you ask th
 about that attribute: `input.getAttribute('value')` returns "Bob".
 
 当用户在输入框中输入 “Sally” 时，DOM 元素的 `value` 这个 *property* 变成了 “Sally”。
-但是该 HTML 的 `value` 这个 *attribute* 保持不变。如果我们读取 input 元素的 attribute，就会发现确实没变：
+但是该 HTML 的 `value` 这个 *attribute* 保持不变。如果你读取 input 元素的 attribute，就会发现确实没变：
 `input.getAttribute('value') // 返回 "Bob"`。
 
 The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
@@ -808,12 +808,12 @@ When you add the `disabled` *attribute*, its presence alone initializes the  but
 so the button is disabled.
 
 `disabled` 这个 attribute 是另一种特例。按钮的 `disabled` 这个 *property* 是 `false`，因为默认情况下按钮是可用的。
-当我们添加 `disabled` 这个 *attribute* 时，只要它出现了按钮的 `disabled` 这个 *property* 就初始化为 `true`，于是按钮就被禁用了。
+当你添加 `disabled` 这个 *attribute* 时，只要它出现了按钮的 `disabled` 这个 *property* 就初始化为 `true`，于是按钮就被禁用了。
 
 Adding and removing the `disabled` *attribute* disables and enables the button. The value of the *attribute* is irrelevant,
 which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
 
-添加或删除 `disabled` 这个 *attribute* 会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是我们为什么没法通过
+添加或删除 `disabled` 这个 *attribute* 会禁用或启用这个按钮。但 *attribute* 的值无关紧要，这就是你为什么没法通过
 `<button disabled="false">仍被禁用</button>` 这种写法来启用按钮。
 
 Setting the button's `disabled` *property*  (say, with an Angular binding) disables or enables the button.
@@ -1082,7 +1082,7 @@ The following table summarizes:
 
 With this broad view in mind, you're ready to look at binding types in detail.
 
-放开眼界，我们来看看每种绑定类型的具体情况。
+放开眼界，来看看每种绑定类型的具体情况。
 
 <hr/>
 
@@ -1236,15 +1236,15 @@ You can't assign a value to anything in a property binding expression nor use th
 Of course, the expression might invoke a property or method that has side effects.
 Angular has no way of knowing that or stopping you.
 
-当然，表达式可能会调用具有副作用的属性或方法。但 Angular 没法知道这一点，也没法阻止我们。
+当然，表达式可能会调用具有副作用的属性或方法。但 Angular 没法知道这一点，也没法阻止你。
 
 The expression could call something like `getFoo()`. Only you know what `getFoo()` does.
 If `getFoo()` changes something and you happen to be binding to that something, you risk an unpleasant experience.
 Angular may or may not display the changed value. Angular may detect the change and throw a warning error.
 In general, stick to data properties and to methods that return values and do no more.
 
-表达式中可以调用像 `getFoo()` 这样的方法。只有我们知道 `getFoo()` 干了什么。
-如果 `getFoo()` 改变了某个东西，恰好又绑定到个这个东西，我们就可能把自己坑了。
+表达式中可以调用像 `getFoo()` 这样的方法。只有你知道 `getFoo()` 干了什么。
+如果 `getFoo()` 改变了某个东西，恰好又绑定到个这个东西，你就可能把自己坑了。
 Angular 可能显示也可能不显示变化后的值。Angular 还可能检测到变化，并抛出警告型错误。
 一般建议是，只绑定数据属性和那些只返回值而不做其它事情的方法。
 
@@ -1318,7 +1318,7 @@ just as well for directive and component property initialization.
 The following example initializes the `prefix` property of the `HeroDetailComponent` to a fixed string,
 not a template expression. Angular sets it and forgets about it.
 
-我们经常这样在标准 HTML 中用这种方式初始化 attribute，这种方式也可以用在初始化指令和组件的属性。
+你经常这样在标准 HTML 中用这种方式初始化 attribute，这种方式也可以用在初始化指令和组件的属性。
 下面这个例子把 `HeroDetailComponent` 的 `prefix` 属性初始化为固定的字符串，而不是模板表达式。Angular 设置它，然后忘记它。
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-7" title="src/app/app.component.html" linenums="false">
@@ -1338,7 +1338,7 @@ The `[hero]` binding, on the other hand, remains a live binding to the component
 You often have a choice between interpolation and property binding.
 The following binding pairs do the same thing:
 
-我们通常得在插值表达式和属性绑定之间做出选择。
+你通常得在插值表达式和属性绑定之间做出选择。
 下列这几对绑定做的事情完全相同：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-vs-interpolation" title="src/app/app.component.html" linenums="false">
@@ -1356,7 +1356,7 @@ You suggest establishing coding style rules and choosing the form that
 both conforms to the rules and feels most natural for the task at hand.
 
 当要渲染的数据类型是字符串时，没有技术上的理由证明哪种形式更好。
-我们倾向于可读性，所以倾向于插值表达式。
+你倾向于可读性，所以倾向于插值表达式。
 建议建立代码风格规则，选择一种形式，
 这样，既遵循了规则，又能让手头的任务做起来更自然。
 
@@ -1448,7 +1448,7 @@ There are no property targets to bind to.
 
 This fact becomes painfully obvious when you write something like this.
 
-如果想写出类似下面这样的东西，现状会令我们痛苦：
+如果想写出类似下面这样的东西，就会暴露出痛点了：
 
 <code-example language="html">
 
@@ -1476,7 +1476,7 @@ interpolation and property binding can set only *properties*, not attributes.
 
 You need attribute bindings to create and bind to such attributes.
 
-我们需要 attribute 绑定来创建和绑定到这样的 attribute。
+你需要 attribute 绑定来创建和绑定到这样的 attribute。
 
 Attribute binding syntax resembles property binding.
 Instead of an element property between brackets, start with the prefix **`attr`**,
@@ -1592,7 +1592,7 @@ It removes the class when the expression is falsy.
 While this is a fine way to toggle a single class name,
 the [NgClass directive](guide/template-syntax#ngClass) is usually preferred when managing multiple class names at the same time.
 
-虽然这是切换单一类名的好办法，但我们通常更喜欢使用 [NgClass 指令](guide/template-syntax#ngClass) 来同时管理多个类名。
+虽然这是切换单一类名的好办法，但人们通常更喜欢使用 [NgClass 指令](guide/template-syntax#ngClass) 来同时管理多个类名。
 
 </div>
 
@@ -1632,7 +1632,7 @@ The following example conditionally sets the font size in  “em” and “%” 
 While this is a fine way to set a single style,
 the [NgStyle directive](guide/template-syntax#ngStyle) is generally preferred when setting several inline styles at the same time.
 
-虽然这是设置单一样式的好办法，但我们通常更喜欢使用 [NgStyle 指令](guide/template-syntax#ngStyle) 来同时设置多个内联样式。
+虽然这是设置单一样式的好办法，但人们通常更喜欢使用 [NgStyle 指令](guide/template-syntax#ngStyle) 来同时设置多个内联样式。
 
 </div>
 
@@ -1871,7 +1871,7 @@ These changes percolate through the system and are ultimately displayed in this 
 
 You often want to both display a data property and update that property when the user makes changes.
 
-我们经常需要显示数据属性，并在用户作出更改时更新该属性。
+你经常需要显示数据属性，并在用户作出更改时更新该属性。
 
 On the element side that takes a combination of setting a specific element property
 and listening for an element change event.
@@ -1957,7 +1957,7 @@ Clearly the two-way binding syntax is a great convenience compared to separate p
 It would be convenient to use two-way binding with HTML form elements like `<input>` and `<select>`.
 However, no native HTML element follows the `x` value and `xChange` event pattern.
 
-我们希望能在像 `<input>` 和 `<select>` 这样的 HTML 元素上使用双向数据绑定。
+如果能在像 `<input>` 和 `<select>` 这样的 HTML 元素上使用双向数据绑定就更好了。
 可惜，原生 HTML 元素不遵循 `x` 值和 `xChange` 事件的模式。
 
 Fortunately, the Angular [_NgModel_](guide/template-syntax#ngModel) directive is a bridge that enables two-way binding to form elements.
@@ -1995,9 +1995,9 @@ You still benefit from directives that simplify complex tasks.
 Angular still ships with built-in directives; just not as many.
 You'll write your own directives, just not as many.
 
-我们仍然可以从简化复杂任务的指令中获益。
+你仍然可以从简化复杂任务的指令中获益。
 Angular 发布时仍然带有内置指令，只是没那么多了。
-我们仍会写自己的指令，只是没那么多了。
+你仍会写自己的指令，只是没那么多了。
 
 This segment reviews some of the most frequently used built-in directives,
 classified as either [_attribute_ directives](guide/template-syntax#attribute-directives) or [_structural_ directives](guide/template-syntax#structural-directives).
@@ -2050,7 +2050,7 @@ You typically control how elements appear
 by adding and removing CSS classes dynamically.
 You can bind to the `ngClass` to add or remove several classes simultaneously.
 
-我们经常用动态添加或删除 CSS 类的方式来控制元素如何显示。
+你经常用动态添加或删除 CSS 类的方式来控制元素如何显示。
 通过绑定到 `NgClass`，可以同时添加或移除多个类。
 
 A [class binding](guide/template-syntax#class-binding) is a good way to add or remove a *single* class.
@@ -2106,7 +2106,7 @@ It's up to you to call `setCurrentClasses()`, both initially and when the depend
 You can set inline styles dynamically, based on the state of the component.
 With `NgStyle` you can set many inline styles simultaneously.
 
-我们可以根据组件的状态动态设置内联样式。
+你可以根据组件的状态动态设置内联样式。
 `NgStyle` 绑定可以同时设置多个内联样式。
 
 A [style binding](guide/template-syntax#style-binding) is an easy way to set a *single* style value.
@@ -2163,7 +2163,7 @@ It's up to you to call `setCurrentStyles()`, both initially and when the depende
 When developing data entry forms, you often both display a data property and
 update that property when the user makes changes.
 
-当开发数据输入表单时，我们通常都要既显示数据属性又根据用户的更改去修改那个属性。
+当开发数据输入表单时，你通常都要既显示数据属性又根据用户的更改去修改那个属性。
 
 Two-way data binding with the `NgModel` directive makes that easy. Here's an example:
 
@@ -2182,7 +2182,7 @@ you must import the `FormsModule` and add it to the NgModule's `imports` list.
 Learn more about the `FormsModule` and `ngModel` in the
 [Forms](guide/forms#ngModel) guide.
 
-在使用 `ngModel` 指令进行双向数据绑定之前，我们必须导入 `FormsModule` 并把它添加到 Angular 模块的 `imports` 列表中。
+在使用 `ngModel` 指令进行双向数据绑定之前，你必须导入 `FormsModule` 并把它添加到 Angular 模块的 `imports` 列表中。
 要了解 `FormsModule` 和 `ngModel` 的更多知识，参见[表单](guide/forms#ngModel)一章。
 
 Here's how to import the `FormsModule` to make `[(ngModel)]` available.
@@ -2245,27 +2245,27 @@ You can't apply `[(ngModel)]` to a non-form native element or a third-party cust
 until you write a suitable *value accessor*,
 a technique that is beyond the scope of this guide.
 
-我们不能把 `[(ngModel)]` 用到非表单类的原生元素或第三方自定义组件上，除非写一个合适的*值访问器*，这种技巧超出了本章的范围。
+你不能把 `[(ngModel)]` 用到非表单类的原生元素或第三方自定义组件上，除非写一个合适的*值访问器*，这种技巧超出了本章的范围。
 
 You don't need a _value accessor_ for an Angular component that you write because you
 can name the value and event properties
 to suit Angular's basic [two-way binding syntax](guide/template-syntax#two-way) and skip `NgModel` altogether.
 The [`sizer` shown above](guide/template-syntax#two-way) is an example of this technique.
 
-我们自己写的 Angular 组件不需要*值访问器*，因为我们可以让值和事件的属性名适应 Angular 基本的[双向绑定语法](guide/template-syntax#two-way)，而不使用 `NgModel`。
+你自己写的 Angular 组件不需要*值访问器*，因为你可以让值和事件的属性名适应 Angular 基本的[双向绑定语法](guide/template-syntax#two-way)，而不使用 `NgModel`。
 [前面看过的 `sizer`](guide/template-syntax#two-way)就是使用这种技巧的例子。
 
 </div>
 
 Separate `ngModel` bindings is an improvement over binding to the element's native properties. You can do better.
 
-使用独立的 `ngModel` 绑定优于绑定到该元素的原生属性，那样我们可以做得更好。
+使用独立的 `ngModel` 绑定优于绑定到该元素的原生属性，你可以做得更好。
 
 You shouldn't have to mention the data property twice. Angular should be able to capture
 the component's data property and set it
 with a single declaration, which it can with the `[(ngModel)]` syntax:
 
-我们不用被迫两次引用这个数据属性，Angular 可以捕获该元素的数据属性，并且通过一个简单的声明来设置它，这样它就可以使用 `[(ngModel)]` 语法了。
+你不用被迫两次引用这个数据属性，Angular 可以捕获该元素的数据属性，并且通过一个简单的声明来设置它，这样它就可以使用 `[(ngModel)]` 语法了。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgModel-1" title="src/app/app.component.html" linenums="false">
 
@@ -2316,7 +2316,7 @@ The deep details of structural directives are covered in the
 [_Structural Directives_](guide/structural-directives) guide
 where you'll learn:
 
-关于结构型指令的详情参见[*结构型指令*](guide/structural-directives)一章，在那里我们将学到：
+关于结构型指令的详情参见[*结构型指令*](guide/structural-directives)一章，在那里你将学到：
 
 * why you
 [_prefix the directive name with an asterisk_ (\*)](guide/structural-directives#asterisk "The * in *ngIf").
@@ -2334,7 +2334,7 @@ to group elements when there is no suitable host element for the directive.
 
 * that you can only apply [one structural directive](guide/structural-directives#one-per-element "one per host element") to an element.
 
-   我们只能往一个元素上应用[一个结构型指令](guide/structural-directives#one-per-element "one per host element")。
+   你只能往一个元素上应用[一个结构型指令](guide/structural-directives#one-per-element "one per host element")。
 
 _This_ section is an introduction to the common structural directives:
 
@@ -2362,7 +2362,7 @@ You can add or remove an element from the DOM by applying an `NgIf` directive to
 that element (called the _host element_).
 Bind the directive to a condition expression like `isActive` in this example.
 
-通过把 `NgIf` 指令应用到元素上（称为*宿主元素*），我们可以往 DOM 中添加或从 DOM 中移除这个元素。
+通过把 `NgIf` 指令应用到元素上（称为*宿主元素*），你可以往 DOM 中添加或从 DOM 中移除这个元素。
 在下面的例子中，该指令绑定到了类似于 `isActive` 这样的条件表达式。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-1" title="src/app/app.component.html" linenums="false">
@@ -2390,7 +2390,7 @@ from the DOM, destroying that component and all of its sub-components.
 You can control the visibility of an element with a
 [class](guide/template-syntax#class-binding) or [style](guide/template-syntax#style-binding) binding:
 
-我们也可以通过[类绑定](guide/template-syntax#class-binding)或[样式绑定](guide/template-syntax#style-binding)来显示或隐藏一个元素。
+你也可以通过[类绑定](guide/template-syntax#class-binding)或[样式绑定](guide/template-syntax#style-binding)来显示或隐藏一个元素。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgIf-3" title="src/app/app.component.html" linenums="false">
 
@@ -2467,7 +2467,7 @@ You define a block of HTML that defines how a single item should be displayed.
 You tell Angular to use that block as a template for rendering each item in the list.
 
 `NgFor` 是一个_重复器_指令 —— 自定义数据显示的一种方式。
-我们的目标是展示一个由多个条目组成的列表。首先定义了一个 HTML 块，它规定了单个条目应该如何显示。
+你的目标是展示一个由多个条目组成的列表。首先定义了一个 HTML 块，它规定了单个条目应该如何显示。
 再告诉 Angular 把这个块当做模板，渲染列表中的每个条目。
 
 Here is an example of `NgForOf` applied to a simple `<div>`:
@@ -2546,7 +2546,7 @@ You reference the `hero` input variable within the `NgForOf` host element
 Here it is referenced first in an interpolation
 and then passed in a binding to the `hero` property of the `<hero-detail>` component.
 
-我们可以在 `ngFor` 的宿主元素（及其子元素）中引用模板输入变量 `hero`，从而访问该英雄的属性。
+你可以在 `ngFor` 的宿主元素（及其子元素）中引用模板输入变量 `hero`，从而访问该英雄的属性。
 这里它首先在一个插值表达式中被引用到，然后通过一个绑定把它传给了 `<hero-detail>` 组件的 `hero` 属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1-2" title="src/app/app.component.html" linenums="false">
@@ -2566,7 +2566,7 @@ The `index` property of the `NgForOf` directive context returns the zero-based i
 You can capture the `index` in a template input variable and use it in the template.
 
 `NgFor` 指令上下文中的 `index` 属性返回一个从零开始的索引，表示当前条目在迭代中的顺序。
-我们可以通过模板输入变量捕获这个 `index` 值，并把它用在模板中。
+你可以通过模板输入变量捕获这个 `index` 值，并把它用在模板中。
 
 The next example captures the `index` in a variable named `i` and displays it with the hero name like this.
 
@@ -2599,15 +2599,14 @@ A small change to one item, an item removed, or an item added can trigger a casc
 
 For example, re-querying the server could reset the list with all new hero objects.
 
-例如，我们可以通过重新从服务器查询来刷新英雄列表。
-  刷新后的列表可能包含很多（如果不是全部的话）以前显示过的英雄。
+例如，重新从服务器查询可以刷新包括所有新英雄在内的英雄列表。
 
 Most, if not all, are previously displayed heroes.
 *You* know this because the `id` of each hero hasn't changed.
 But Angular sees only a fresh list of new object references.
 It has no choice but to tear down the old DOM elements and insert all new DOM elements.
 
-他们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*我们*知道这一点，是因为每个英雄的 `id` 没有变化。
+他们中的绝大多数（如果不是所有的话）都是以前显示过的英雄。*你*知道这一点，是因为每个英雄的 `id` 没有变化。
   但在 Angular 看来，它只是一个由新的对象引用构成的新列表，
   它没有选择，只能清理旧列表、舍弃那些 DOM 元素，并且用新的 DOM 元素来重建一个新列表。
 
@@ -2616,8 +2615,8 @@ Add a method to the component that returns the value `NgForOf` _should_ track.
 In this case, that value is the hero's `id`.
 
 如果给它指定一个 `trackBy`，Angular 就可以避免这种折腾。
-  我们往组件中添加一个方法，它会返回 `NgFor`*应该*追踪的值。
-  在这里，这个值就是英雄的 `id`。
+往组件中添加一个方法，它会返回 `NgFor`*应该*追踪的值。
+在这里，这个值就是英雄的 `id`。
 
 <code-example path="template-syntax/src/app/app.component.ts" region="trackByHeroes" title="src/app/app.component.ts" linenums="false">
 
@@ -2760,7 +2759,7 @@ You can refer to a template reference variable _anywhere_ in the template.
 The `phone` variable declared on this `<input>` is
 consumed in a `<button>` on the other side of the template
 
-我们可以在模板中的任何地方引用模板引用变量。
+你可以在模板中的任何地方引用模板引用变量。
 比如声明在 `<input>` 上的 `phone` 变量就是在模板另一侧的 `<button>` 上使用的。
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-phone" title="src/app/app.component.html" linenums="false">
@@ -2812,7 +2811,7 @@ But the `NgForm` directive does, which explains how you can disable the submit b
 if the `heroForm.form.valid` is invalid and pass the entire form control tree
 to the parent component's `onSubmit` method.
 
-原生的 `<form>` 元素没有 `form` 属性，但 `NgForm` 指令有。这就解释了为何当 `heroForm.form.valid` 是无效时我们可以禁用提交按钮，
+原生的 `<form>` 元素没有 `form` 属性，但 `NgForm` 指令有。这就解释了为何当 `heroForm.form.valid` 是无效时你可以禁用提交按钮，
 并能把整个表单控件树传给父组件的 `onSubmit` 方法。
 
 <h3 class="no-toc">Template reference variable warning notes</h3>
@@ -2836,7 +2835,7 @@ The runtime value will be unpredictable.
 You can use the `ref-` prefix alternative to `#`.
 This example declares the `fax` variable as `ref-fax` instead of `#fax`.
 
-我们也可以用 `ref-` 前缀代替 `#`。
+你也可以用 `ref-` 前缀代替 `#`。
 下面的例子中就用把 `fax` 变量声明成了 `ref-fax` 而不是 `#fax`。
 
 <code-example path="template-syntax/src/app/app.component.html" region="ref-fax" title="src/app/app.component.html" linenums="false">
@@ -2866,7 +2865,7 @@ Values flow _out_ of the component as events bound with an [event binding](#even
 
 You can only bind to _another_ component or directive through its _Input_ and _Output_ properties.
 
-我们只能通过它的**输入**和**输出**属性将其绑定到**其它**组件。
+你只能通过它的**输入**和**输出**属性将其绑定到**其它**组件。
 
 <div class="alert is-important">
 
@@ -3266,7 +3265,7 @@ Throwing an exception is the right thing to do.
 On the other hand, null values in the property path may be OK from time to time,
 especially when the data are null now and will arrive eventually.
 
-另一方面，属性路径中的空值可能会时常发生，特别是当我们知道数据最终会出现。
+另一方面，属性路径中的空值可能会时常发生，特别是数据目前为空但最终会出现。
 
 While waiting for data, the view should render without complaint, and
 the null property path should display as blank just as the `title` property does.
@@ -3326,7 +3325,7 @@ It works perfectly with long property paths such as `a?.b?.c?.d`.
 
 As of Typescript 2.0, you can enforce [strict null checking](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript") with the `--strictNullChecks` flag. TypeScript then ensures that no variable is _unintentionally_ null or undefined.
 
-在 TypeScript 2.0 中，我们可以使用 `--strictNullChecks` 标志强制开启[严格空值检查](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript")。TypeScript 就会确保不存在意料之外的 null 或 undefined。
+在 TypeScript 2.0 中，你可以使用 `--strictNullChecks` 标志强制开启[严格空值检查](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html "Strict null checking in TypeScript")。TypeScript 就会确保不存在意料之外的 null 或 undefined。
 
 In this mode, typed variables disallow null and undefined by default. The type checker throws an error if you leave a variable unassigned or try to assign null or undefined to a variable whose type disallows null and undefined.
 
@@ -3338,8 +3337,8 @@ You tell the type checker that it can't happen by applying the post-fix
 [_non-null assertion operator (!)_](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator").
 
 如果类型检查器在运行期间无法确定一个变量是 null 或 undefined，那么它也会抛出一个错误。
-我们自己可能知道它不会为空，但类型检查器不知道。
-所以我们要告诉类型检查器，它不会为空，这时就要用到[*非空断言操作符*](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator")。
+你自己可能知道它不会为空，但类型检查器不知道。
+所以你要告诉类型检查器，它不会为空，这时就要用到[*非空断言操作符*](http://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator "Non-null assertion operator")。
 
 The _Angular_ **non-null assertion operator (`!`)** serves the same purpose in an Angular template.
 
@@ -3368,7 +3367,7 @@ Rather it tells the TypeScript type checker to suspend strict null checks for a 
 
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.
 
-如果我们打开了严格控制检测，那就要用到这个模板操作符，而其它情况下则是可选的。
+如果你打开了严格控制检测，那就要用到这个模板操作符，而其它情况下则是可选的。
 
 <a href="#top-of-page">back to top</a>
 
@@ -3419,4 +3418,4 @@ You've completed this survey of template syntax.
 Now it's time to put that knowledge to work on your own components and directives.
 
 
-我们完成了模板语法的概述。现在，该把如何写组件和指令的知识投入到实际工作当中了。
+你完成了模板语法的概述。现在，该把如何写组件和指令的知识投入到实际工作当中了。

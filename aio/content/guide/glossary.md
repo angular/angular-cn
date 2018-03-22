@@ -193,7 +193,7 @@ camelCase is also known as *lower camel case* to distinguish it from *upper came
 In Angular documentation, "camelCase" always means *lower camel case*.
 
 这种形式也叫做**小写驼峰式命名法 (lower camel case)**，以区分于**大写驼峰式命名法**，也称 [Pascal 命名法 (PascalCase)](guide/glossary#pascalcase)。
-在文档中提到“驼峰式命名法 (camelCase) ”的时候，我们所指的都是小驼峰命名法。
+Angular 文档中提到“驼峰式命名法 (camelCase) ”的时候，所指的都是小驼峰命名法。
 
 ## CLI
 
@@ -263,7 +263,7 @@ Data binding is an alternative to manually pushing application data values into 
 event listeners, pulling changed values from the screen, and
 updating application data values.
 
-在数据绑定机制下，我们只要声明一下 HTML 部件和数据源之间的关系，把细节交给框架去处理。
+在数据绑定机制下，你只要声明一下 HTML 部件和数据源之间的关系，把细节交给框架去处理。
 而以前的手动操作过程是：将数据推送到 HTML 页面中、添加事件监听器、从屏幕获取变化后的数据，并更新应用中的值。
 
 Angular has a rich data-binding framework with a variety of data-binding
@@ -382,14 +382,14 @@ that "B" is a dependency of "A."
 
 这些部件通常会依赖其它部件。一个 Angular [组件 (component)](guide/glossary#component)
 可能依赖一个服务部件来获取数据或执行运算。
-如果部件 “A” 要靠另一个部件 “B” 才能工作，我们称 “A” 依赖 “B” ，“B” 是 “A” 的依赖。
+如果部件 “A” 要靠另一个部件 “B” 才能工作，你就会说 “A” 依赖 “B” ，“B” 是 “A” 的依赖。
 
 You can ask a "dependency injection system" to create "A"
 for us and handle all the dependencies.
 If "A" needs "B" and "B" needs "C," the system resolves that chain of dependencies
 and returns a fully prepared instance of "A."
 
-可以要求“依赖注入系统”为我们创建 “A” 并处理所有依赖。如果 “A” 需要 “B” ，“B” 需要 “C ”，
+你可以要求“依赖注入系统”创建 “A” 并处理所有依赖。如果 “A” 需要 “B” ，“B” 需要 “C ”，
 系统将解析这个依赖链，返回一个完全准备好的 “A” 实例。
 
 Angular provides and relies upon its own sophisticated
@@ -410,7 +410,7 @@ methods accept a class name (`Foo`) or a string ("foo") and Angular converts it
 to a token. When you write `injector.get(Foo)`, the injector returns
 the value associated with the token for the `Foo` class, typically an instance of `Foo` itself.
 
-令牌是一个 Angular 中的类型 (`InjectionToken`)。我们很少直接处理令牌。
+令牌是一个 Angular 中的类型 (`InjectionToken`)。你很少直接处理令牌。
 绝大多数方法都接受类名 (`Foo`) 或字符串 ("foo")， Angular 会把这些类名称和字符串转换成令牌。
 当调用 `injector.get(Foo)` 时，注入器返回用 `Foo` 类生成的令牌所对应的依赖值，该依赖值通常是 `Foo` 类的实例。
 
@@ -441,7 +441,7 @@ Angular registers some of its own providers with every injector.
 You can register your own providers.
 
 Angular 会为每个注册器注册很多内置提供商。
-    我们也可以注册自己的提供商。
+你也可以注册自己的提供商。
 
 Read more in the [Dependency Injection](guide/dependency-injection) page.
 
@@ -465,7 +465,7 @@ A directive is usually associated with an HTML element or attribute.
 This element or attribute is often referred to as the directive itself.
 
 指令几乎总与 HTML 元素或属性 (attribute) 相关。
-我们通常把这些关联到的 HTML 元素或者属性 (attribute) 当做指令本身。
+通常把这些关联到的 HTML 元素或者属性 (attribute) 当做指令本身。
 
 When Angular finds a directive in an HTML template,
 it creates the matching directive class instance
@@ -744,7 +744,7 @@ Angular 应用程序是模块化的。
 
 In general, you assemble an application from many modules, both the ones you write and the ones you acquire from others.
 
-一般来说，我们用模块来组装应用程序，这些模块包含自己编写的模块和从其它地方获取的模块。
+一般来说，你用模块来组装应用程序，这些模块包含自己编写的模块和从其它地方获取的模块。
 
 A module *exports* something of value in that code, typically one thing such as a class;
 a module that needs that class *imports* it.
@@ -804,7 +804,7 @@ Observables help you manage asynchronous data, such as data coming from a backen
 Observables are used within Angular itself, including Angular's event system and its HTTP client service.
 
 一个 `Observable` 是一个数组，其中的元素随着时间的流逝异步地到达。
-`Observable` 帮助我们管理异步数据，例如来自后台服务的数据。
+`Observable` 帮助你管理异步数据，例如来自后台服务的数据。
 Angular 自身使用了 `Observable`，包括 Angular 的事件系统和它的 http 客户端服务。
 
 To use observables, Angular uses a third-party library called Reactive Extensions (RxJS).
@@ -869,7 +869,7 @@ Angular 管道是一个函数，用于把输入值转换成输出值以供[视�
 You can also write your own custom pipes.
 Read more in the page on [pipes](guide/pipes).
 
-我们还可以写自己的自定义管道。
+你还可以写自己的自定义管道。
 更多信息，见[管道](guide/pipes)。
 
 ## Provider
@@ -1027,8 +1027,8 @@ independent from any specific view,
 provide shared data or logic across components, or encapsulate external interactions.
 
 服务是一个具有特定功能的类。
-    我们经常创建服务来实现不依赖任何特定视图的特征，
-    在组件之间提供共享数据或逻辑，或者封装外部的交互。
+你经常创建服务来实现不依赖任何特定视图的特征，
+在组件之间提供共享数据或逻辑，或者封装外部的交互。
 
 Applications often require services such as a data service or a logging service.
 
@@ -1192,7 +1192,7 @@ convenient to refer to a component as a view.
 
 Angular 在一个或多个[指令 (directive)](guide/glossary#directive) 的控制下渲染视图，
 尤其是[组件 (component)](guide/glossary#component) 指令及其[模板 (template)](guide/glossary#template)。
-组件扮演着非常重要的角色，我们甚至经常会为了方便, 直接用视图作为组件的代名词。
+组件扮演着非常重要的角色，以至于习惯上会把组件视为一种视图。
 
 Views often contain other views. Any view might be loaded and unloaded
 dynamically as the user navigates through the application, typically

@@ -35,7 +35,7 @@ that are important to Angular developers, including details about the following 
 Typically, you add a TypeScript configuration file called `tsconfig.json` to your project to
 guide the compiler as it generates JavaScript files.
 
-我们通常会往项目中加入一个 TypeScript 配置文件(`tsconfig.json`)，来指导编译器如何生成 JavaScript 文件。
+你通常会往项目中加入一个 TypeScript 配置文件(`tsconfig.json`)，来指导编译器如何生成 JavaScript 文件。
 
 <div class="l-sub-section">
 
@@ -49,7 +49,7 @@ For details about `tsconfig.json`, see the official
 
 The [Setup](guide/setup) guide uses the following `tsconfig.json`:
 
-我们在[搭建本地开发环境](guide/setup)中创建过如下的 `tsconfig.json`：
+在[搭建本地开发环境](guide/setup)中创建过如下的 `tsconfig.json`：
 
 <code-example path="quickstart/src/tsconfig.1.json" title="tsconfig.json" linenums="false"></code-example>
 
@@ -68,8 +68,8 @@ There is no correct answer and you can change the flag later.
 But your choice now can make a difference in larger projects, so it merits discussion.
 
 TypeScript 开发者们在 `noImplicitAny` 标志应该是 `true` 还是 `false` 上存在分歧。
-这没有标准答案，我们以后还可以修改这个标志。
-但是我们的选择会在大项目中产生显著差异，所以它值得讨论一番。
+这没有标准答案，你以后还可以修改这个标志。
+但是你的选择会在大项目中产生显著差异，所以它值得讨论一番。
 
 When the `noImplicitAny` flag is `false` (the default), and if
 the compiler cannot infer the variable type based on how it's used,
@@ -97,9 +97,9 @@ When the `noImplicitAny` flag is `true`, you may get *implicit index errors* as 
 Most developers feel that *this particular error* is more annoying than helpful.
 You can suppress them with the following additional flag:
 
-如果我们把 `noImplicitAny` 标志设置为了 `true`，我们可能会得到*隐式索引错*。
+如果把 `noImplicitAny` 标志设置为了 `true`，你可能会得到*隐式索引错*。
 大多数程序员可能觉得*这种错误*是个烦恼而不是助力。
-我们可以使用另一个标志来禁止它们。
+你可以使用另一个标志来禁止它们。
 
 <code-example format=".">
 
@@ -128,8 +128,8 @@ When the compiler doesn't recognize something, it throws an error.
 
 Use [TypeScript type definition files](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)&mdash;`d.ts files`&mdash;to tell the compiler about the libraries you load.
 
-我们可以使用[TypeScript 类型定义文件](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)
-—— `.d.ts` 文件 —— 来告诉编译器要加载的库的类型定义。
+可以使用[TypeScript 类型定义文件](https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html)
+—— `.d.ts` 文件 —— 来告诉编译器你要加载的库的类型定义。
 
 TypeScript-aware editors leverage these same definition files to display type information about library features.
 
@@ -145,7 +145,7 @@ The `node_modules/@angular/core/` folder of any Angular application contains sev
 **You need do nothing to get *typings* files for library packages that include `d.ts` files.
 Angular packages include them already.**
 
-**我们不需要为那些包含了 `d.ts` 文件的库获取*类型定义*文件 —— Angular 的所有包都是如此。**
+**你不需要为那些包含了 `d.ts` 文件的库获取*类型定义*文件 —— Angular 的所有包都是如此。**
 
 ### lib.d.ts
 
@@ -163,7 +163,7 @@ like `Promise` if the target is `es6`.
 Since the QuickStart is targeting `es5`, you can override the
 list of declaration files to be included:
 
-因为《快速上手》的目标为 `es5`，所以我们可以重写声明文件列表来包含：
+因为《快速上手》的目标为 `es5`，所以你可以重写声明文件列表来包含：
 
 <code-example format=".">
 
@@ -173,7 +173,7 @@ list of declaration files to be included:
 
 Thanks to that, you have all the `es6` typings even when targeting `es5`.
 
-得益于这项设置，即使编译目标设置为 `es5`，我们也能获得所有的 `es6` 类型信息。
+得益于这项设置，即使编译目标设置为 `es5`，你也能获得所有的 `es6` 类型信息。
 
 ### Installable typings files
 
@@ -190,16 +190,16 @@ You can install these typings via `npm` using the
 [`@types/*` scoped package](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
 and Typescript, starting at 2.0, automatically recognizes them.
 
-我们还可以通过 `npm` 来使用[`@types/*` 范围化包](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)来安装这些类型信息，
+你还可以通过 `npm` 来使用[`@types/*` 范围化包](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)来安装这些类型信息，
 而 TypeScript 自从 2.0 开始，可以自动识别它们。
 
 For instance, to install typings for `jasmine` you could do `npm install @types/jasmine --save-dev`.
 
-比如，要安装 `jasmine` 的类型信息，我们可以执行 `npm install @types/jasmine --save-dev`。
+比如，要安装 `jasmine` 的类型信息，你可以执行 `npm install @types/jasmine --save-dev`。
 
 QuickStart identifies two *typings*, or `d.ts`, files:
 
-我们在“快速上手”中指定过两个*类型定义*文件（`d.ts`）：
+在“快速上手”中曾指定过两个*类型定义*文件（`d.ts`）：
 
 * [jasmine](http://jasmine.github.io/) typings for the Jasmine test framework.
 

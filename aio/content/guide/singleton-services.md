@@ -111,7 +111,7 @@ If a module provides both providers and declarations (components, directives, pi
 
 To make this more concrete, consider the `RouterModule` as an example. `RouterModule` needs to provide the `Router` service, as well as the `RouterOutlet` directive. `RouterModule` has to be imported by the root application module so that the application has a `Router` and the application has at least one `RouterOutlet`. It also must be imported by the individual route components so that they can place `RouterOutlet` directives into their template for sub-routes.
 
-我们以 `RouterModule` 为例来具体说说。`RouterModule` 要提供 `Router` 服务，还要提供 `RouterOutlet` 指令。
+以 `RouterModule` 为例具体说说。`RouterModule` 要提供 `Router` 服务，还要提供 `RouterOutlet` 指令。
 `RouterModule` 要由根应用模块导入，以便该应用拥有一个路由器，而且它还需要至少一个 `RouterOutlet`。
 `RouterModule` 还必须由各个独立的路由组件导入，让它们能在自己的模板中使用 `RouterOutlet` 指令来支持其子路由。
 
@@ -187,7 +187,7 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 
 Lastly, call it within the `imports` list of the `AppModule`.
 
-最后，我们在 `AppModule` 的 `imports`*列表*中调用它。
+最后，在 `AppModule` 的 `imports`*列表*中调用它。
 
 <code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" title="src/app/app.module.ts (imports)" linenums="false">
 

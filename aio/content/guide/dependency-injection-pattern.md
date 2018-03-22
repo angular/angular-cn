@@ -63,7 +63,7 @@ That makes `Car` brittle.
 
 如果 `Engine` 类升级了，它的构造函数要求传入一个参数，这该怎么办？
 这个 `Car` 类就被破坏了，在把创建引擎的代码重写为 `this.engine = new Engine(theNewParameter)` 之前，它都是坏的。
-当第一次写 `Car` 类时，我们不关心 `Engine` 构造函数的参数，现在也不想关心。
+当第一次写 `Car` 类时，你不关心 `Engine` 构造函数的参数，现在也不想关心。
 但是，当 `Engine` 类的定义发生变化时，就不得不在乎了，`Car` 类也不得不跟着改变。
 这就会让 `Car` 类过于脆弱。
 
@@ -72,7 +72,7 @@ You're locked into whatever brand the `Tires` class creates. That makes the
 `Car` class inflexible.
 
 如果想在 `Car` 上使用不同品牌的轮胎会怎样？太糟了。
-我们被锁定在 `Tires` 类创建时使用的那个品牌上。这让 `Car` 类缺乏弹性。
+你被锁定在 `Tires` 类创建时使用的那个品牌上。这让 `Car` 类缺乏弹性。
 
 Right now each new car gets its own `engine`. It can't share an `engine` with other cars.
 While that makes sense for an automobile engine,
@@ -82,7 +82,7 @@ to share services that have been created previously for other consumers.
 
 现在，每辆车都有它自己的引擎。它不能和其它车辆共享引擎。
 虽然这对于汽车来说还算可以理解，但是设想一下那些应该被共享的依赖，比如用来联系厂家服务中心的车载无线电。
-我们的车缺乏必要的弹性，无法共享当初给其它消费者创建的车载无线电。
+这种车缺乏必要的弹性，无法共享当初给其它消费者创建的车载无线电。
 
 When you write tests for `Car` you're at the mercy of its hidden dependencies.
 Is it even possible to create a new `Engine` in a test environment?
@@ -94,7 +94,7 @@ You certainly don't want that going on during tests.
 能在测试环境中成功创建新的 `Engine` 吗？
 `Engine` 自己又依赖什么？那些依赖本身又依赖什么？
 `Engine` 的新实例会发起到服务器的异步调用吗？
-我们当然不想在测试期间这么一层层追下去。
+你当然不想在测试期间这么一层层追下去。
 
 What if the `Car` should flash a warning signal when tire pressure is low?
 How do you confirm that it actually does flash a warning
@@ -106,7 +106,7 @@ if you can't swap in low-pressure tires during the test?
 You have no control over the car's hidden dependencies.
 When you can't control the dependencies, a class becomes difficult to test.
 
-我们没法控制这辆车背后隐藏的依赖。
+你没法控制这辆车背后隐藏的依赖。
 当不能控制依赖时，类就会变得难以测试。
 
 How can you make `Car` more robust, flexible, and testable?
@@ -134,7 +134,7 @@ now in the constructor.
 The `Car` class no longer creates an `engine` or `tires`.
 It just consumes them.
 
-发生了什么？我们把依赖的定义移到了构造函数中。
+发生了什么？现在依赖的定义移到了构造函数中。
   `Car` 类不再创建引擎 `engine` 或者轮胎 `tires`。
   它仅仅“消费”它们。
 
@@ -191,8 +191,8 @@ of its dependencies.
 You can pass mocks to the constructor that do exactly what you want them to do
 during each test:
 
-`Car` 类非常容易测试，因为现在我们对它的依赖有了完全的控制权。
-  在每个测试期间，我们可以往构造函数中传入 mock 对象，做想让它们做的事：
+`Car` 类非常容易测试，因为现在你对它的依赖有了完全的控制权。
+  在每个测试期间，你可以往构造函数中传入 mock 对象，做想让它们做的事：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-mocks" linenums="false">
 
@@ -216,7 +216,7 @@ You need something that takes care of assembling these parts.
 酷！但是，可怜的消费者怎么办？
   那些希望得到一个 `Car` 的人们现在必须创建所有这三部分了：`Car`、`Engine` 和 `Tires`。
   `Car` 类把它的快乐建立在了消费者的痛苦之上。
-  需要某种机制为我们把这三个部分装配好。
+  需要某种机制为你把这三个部分装配好。
 
 You _could_ write a giant class to do that:
 

@@ -38,7 +38,7 @@ Consider using [nvm](https://github.com/creationix/nvm) for managing multiple
 versions of node and npm. You may need [nvm](https://github.com/creationix/nvm) if
 you already have projects running on your machine that use other versions of node and npm.
 
-我们建议使用[nvm](https://github.com/creationix/nvm)来管理 node 和 npm 的多个版本。如果你机器上已经有某些项目运行了 node 和 npm 的其它版本，你就会需要[nvm](https://github.com/creationix/nvm)了。
+建议使用[nvm](https://github.com/creationix/nvm)来管理 node 和 npm 的多个版本。如果你机器上已经有某些项目运行了 node 和 npm 的其它版本，你就会需要[nvm](https://github.com/creationix/nvm)了。
 
 </div>
 
@@ -58,7 +58,7 @@ CLI 的 `ng new` 命令会给项目创建一个默认的 `package.json` 文件�
 You will add packages to `package.json` as your application evolves.
 You may even remove some.
 
-随着应用的成长，我们还会往 `package.json` 中添加更多包，甚至可能会移除一些。
+随着应用的成长，你还会往 `package.json` 中添加更多包，甚至可能会移除一些。
 
 This guide focuses on the most important packages in the starter set.
 
@@ -197,11 +197,11 @@ which polyfills missing features for several popular browser.
 
 The packages listed in the *devDependencies* section of the `package.json` help you develop the application on your local machine.
 
-`package.json` 的 *devDependencies* 区列出的这些包可以帮助我们在本机开发应用。
+`package.json` 的 *devDependencies* 区列出的这些包可以帮助你在本机开发应用。
 
 You don't deploy them with the production application although there is no harm in doing so.
 
-我们不必在生产环境的应用中部署它们，当然，就算部署了也没什么坏处。
+你不必在生产环境的应用中部署它们，当然，就算部署了也没什么坏处。
 
 **[@angular/cli](https://github.com/angular/angular-cli/)**: The Angular CLI tools.
 
@@ -268,7 +268,7 @@ You can remove packages that you don't need but how can you be sure that you won
 As a practical matter, it's better to install a package you don't need than worry about it.
 Extra packages and package files on your local development machine are harmless.
 
-我们可以移除这些不需要的包，不过我们怎么知道哪些是不需要的呢？
+你可以移除这些不需要的包，不过我们怎么知道哪些是不需要的呢？
 实际上，安装不需要的包好过担心缺少某个包。
 在你本机开发环境下存在无用的包和文件并没有害处。
 

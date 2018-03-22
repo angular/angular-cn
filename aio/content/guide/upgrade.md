@@ -27,7 +27,7 @@ tools. That means in addition to making the upgrade easier,
 you will also improve the existing AngularJS applications.
 
 有些应用可能比其它的升级起来简单，还有一些方法能让把这项工作变得更简单。
-即使在正式开始升级过程之前，我们可以准备 AngularJS 的程序，让它向 Angular 看齐。
+即使在正式开始升级过程之前，可以提前准备 AngularJS 的程序，让它向 Angular 看齐。
 这些准备步骤几乎都是关于如何让代码更加松耦合、更有可维护性，以及用现代开发工具提高速度的。
 这意味着，这种准备工作不仅能让最终的升级变得更简单，而且还能提升 AngularJS 程序的质量。
 

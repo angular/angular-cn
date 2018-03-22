@@ -202,11 +202,11 @@ easier and safer to consume:
 
 The response body doesn't return all the data you may need. Sometimes servers return special headers or status codes to indicate certain conditions that are important to the application workflow. 
 
-响应体可能并不包含我们需要的全部信息。有时候服务器会返回一个特殊的响应头或状态码，以标记出特定的条件，因此读取它们可能是必要的。
+响应体可能并不包含你需要的全部信息。有时候服务器会返回一个特殊的响应头或状态码，以标记出特定的条件，因此读取它们可能是必要的。
 
 Tell `HttpClient` that you want the full response with the `observe` option:
 
-要这样做，我们就要通过 `observe` 选项来告诉 `HttpClient`，你想要完整的响应信息，而不是只有响应体：
+要这样做，你就要通过 `observe` 选项来告诉 `HttpClient`，你想要完整的响应信息，而不是只有响应体：
 
 <code-example 
   path="http/src/app/config/config.service.ts"
@@ -1459,7 +1459,7 @@ by returning an observable of simulated events.
 
 [Cross-Site Request Forgery (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is an attack technique by which the attacker can trick an authenticated user into unknowingly executing actions on your website. `HttpClient` supports a [common mechanism](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token) used to prevent XSRF attacks. When performing HTTP requests, an interceptor reads a token from a cookie, by default `XSRF-TOKEN`, and sets it as an HTTP header, `X-XSRF-TOKEN`. Since only code that runs on your domain could read the cookie, the backend can be certain that the HTTP request came from your client application and not an attacker.
 
-[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在我们自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自我们的客户端应用，而不是攻击者。
+[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在你自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自我们的客户端应用，而不是攻击者。
 
 By default, an interceptor sends this cookie on all mutating requests (POST, etc.)
 to relative URLs but not on GET/HEAD requests or
@@ -1470,8 +1470,8 @@ on requests with an absolute URL.
 To take advantage of this, your server needs to set a token in a JavaScript readable session cookie called `XSRF-TOKEN` on either the page load or the first GET request. On subsequent requests the server can verify that the cookie matches the `X-XSRF-TOKEN` HTTP header, and therefore be sure that only code running on your domain could have sent the request. The token must be unique for each user and must be verifiable by the server; this prevents the client from making up its own tokens. Set the token to a digest of your site's authentication
 cookie with a salt for added security.
 
-要获得这种优点，我们的服务器需要在页面加载或首个 GET 请求中把一个名叫 `XSRF-TOKEN` 的令牌写入可被 JavaScript 读到的会话 cookie 中。
-而在后续的请求中，服务器可以验证这个 cookie 是否与 HTTP 头 `X-XSRF-TOKEN` 的值一致，以确保只有运行在我们自己域名下的代码才能发起这个请求。这个令牌必须对每个用户都是唯一的，并且必须能被服务器验证，因此不能由客户端自己生成令牌。把这个令牌设置为你的站点认证信息并且加了盐（salt）的摘要，以提升安全性。
+要获得这种优点，你的服务器需要在页面加载或首个 GET 请求中把一个名叫 `XSRF-TOKEN` 的令牌写入可被 JavaScript 读到的会话 cookie 中。
+而在后续的请求中，服务器可以验证这个 cookie 是否与 HTTP 头 `X-XSRF-TOKEN` 的值一致，以确保只有运行在你自己域名下的代码才能发起这个请求。这个令牌必须对每个用户都是唯一的，并且必须能被服务器验证，因此不能由客户端自己生成令牌。把这个令牌设置为你的站点认证信息并且加了盐（salt）的摘要，以提升安全性。
 
 In order to prevent collisions in environments where multiple Angular apps share the same domain or subdomain, give each application a unique cookie name.
 
@@ -1484,7 +1484,7 @@ Your backend service must be configured to set the cookie for your page, and to 
 the header is present on all eligible requests. 
 If not, Angular's default protection will be ineffective.
 
-*注意，`HttpClient` 支持的只是 XSRF 防护方案的客户端这一半。* 我们的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
+*注意，`HttpClient` 支持的只是 XSRF 防护方案的客户端这一半。* 你的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
 
 </div>
 
@@ -1495,7 +1495,7 @@ If not, Angular's default protection will be ineffective.
 If your backend service uses different names for the XSRF token cookie or header, 
 use `HttpClientXsrfModule.withOptions()` to override the defaults.
 
-如果我们的后端服务中对 XSRF 令牌的 cookie 或 头使用了不一样的名字，就要使用 `HttpClientXsrfModule.withConfig()` 来覆盖掉默认值。
+如果你的后端服务中对 XSRF 令牌的 cookie 或 头使用了不一样的名字，就要使用 `HttpClientXsrfModule.withConfig()` 来覆盖掉默认值。
 
 <code-example 
   path="http/src/app/app.module.ts"
@@ -1513,7 +1513,7 @@ so your tests can simulate interaction with a remote server.
 The `@angular/common/http/testing` library makes 
 setting up such mocking straightforward.
 
-如同所有的外部依赖一样，HTTP 后端也需要在良好的测试实践中被 Mock 掉。`@angular/common/http` 提供了一个测试库 `@angular/common/http/testing`，它让我们可以直截了当的进行这种 Mock 。
+如同所有的外部依赖一样，HTTP 后端也需要在良好的测试实践中被 Mock 掉。`@angular/common/http` 提供了一个测试库 `@angular/common/http/testing`，它让你可以直截了当的进行这种 Mock 。
 
 ### Mocking philosophy
 
@@ -1606,7 +1606,7 @@ Now you can write a test that expects a GET Request to occur and provides a mock
 
 The last step, verifying that no requests remain outstanding, is common enough for you to move it into an `afterEach()` step:
 
-最后一步，验证没有发起过预期之外的请求，足够通用，因此我们可以把它移到 `afterEach()` 中：
+最后一步，验证没有发起过预期之外的请求，足够通用，因此你可以把它移到 `afterEach()` 中：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
@@ -1646,7 +1646,7 @@ It takes the same arguments but returns an array of matching requests.
 Once returned, these requests are removed from future matching and 
 you are responsible for flushing and verifying them.
 
-如果我们需要在测试中对重复的请求进行响应，可以使用 `match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，我们要自己验证和刷新（flush）它。
+如果你需要在测试中对重复的请求进行响应，可以使用 `match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，我们要自己验证和刷新（flush）它。
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"

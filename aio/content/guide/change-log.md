@@ -5,7 +5,7 @@
 The Angular documentation is a living document with continuous improvements.
 This log calls attention to recent significant changes.
 
-我们将持续不断的更新和改进 Angular 文档。本日志记录了近期最重要的变更。
+Angular 的文档将持续不断的更新和改进。本日志记录了近期最重要的变更。
 
 ## Updated to Angular 4.0. Documentation for Angular 2.x can be found at [v2.angular.io](https://v2.angular.io).
 
@@ -61,7 +61,7 @@ It helps clearly separate app code from setup and configuration files.
 
 所有的文档范例都已经向 Angular CLI 的默认文件夹结构看齐了。
 这是把范例迁移到 Angular CLI 过程中的一步。
-不过也不仅是为了迁移，它确实能帮我们把应用代码从环境代码和配置代码中分离出来。
+不过也不仅是为了迁移，它还能把应用代码从环境准备代码和配置代码中清晰地分离出来。
 
 All samples now have a `src/` folder at the project root.
 The former `app/` folder moves under `src/`.
@@ -69,7 +69,7 @@ Read about moving your existing project to this structure in
 <a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="Migrating samples/quickstart app to the src folder">
 the QuickStart repo update instructions</a>.
 
-我们已经把所有范例改成了使用项目根目录下的 `src/` 文件夹。
+所有的范例都改成了使用项目根目录下的 `src/` 文件夹。
 也就是把以前的 `app/` 文件夹移到了 `src/` 文件夹下面。
 要了解如何对你的现有项目进行这种迁移，请参阅<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="把范例中的应用迁移到 src 文件夹">QuickStart 中的迁移指南</a>。
 
@@ -403,10 +403,10 @@ Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.
 
-[StyleGuide](guide/styleguide)解释了我们为 Angular 模块（NgModule）而推荐的约定。
+[StyleGuide](guide/styleguide)解释了 Angular 模块（NgModule）推荐的约定。
 现在，封装桶不再那么重要，风格指南已经移除了它们。
 它们仍然很有价值，但是它们与 Angular 风格无关。
-我们同时对**不推荐使用 `@Component.host` 属性**的规则有所放宽。
+同时，**不推荐使用 `@Component.host` 属性**的规则也有所放宽。
 
 ## _moduleId: module.id_ everywhere (2016-09-25)
 
@@ -417,7 +417,7 @@ have been converted to _module-relative_ URLs.
 Added the `moduleId: module.id` property-and-value to their `@Component` metadata.
 
 在所有使用 `templateUrl` 或者 `styleUrls` 来获取模板或样式的例子组件都被转换为**相对模块**的 URL。
-我们添加了 `moduleId: module.id` 到它们的 `@Component` 元数据。
+把 `moduleId: module.id` 添加到了它们的 `@Component` 元数据。
 
 This change is a requirement for compilation with AOT compiler when the app loads
 modules with SystemJS as the samples currently do.

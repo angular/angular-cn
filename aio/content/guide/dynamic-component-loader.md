@@ -36,7 +36,7 @@ to use a template with a static component structure.
 Instead, you need a way to load a new component without a fixed
 reference to the component in the ad banner's template.
 
-我们需要一种新的组件加载方式，它不需要在广告条组件的模板中引用固定的组件。
+你需要一种新的组件加载方式，它不需要在广告条组件的模板中引用固定的组件。
 
 Angular comes with its own API for loading components dynamically.
 
@@ -71,7 +71,7 @@ In the `@Directive` decorator, notice the selector name, `ad-host`;
 that's what you use to apply the directive to the element.
 The next section shows you how.
 
-在 `@Directive` 装饰器中，要注意选择器的名称：`ad-host`，它就是我们将应用到元素上的指令。下一节我们会展示如何做。
+在 `@Directive` 装饰器中，要注意选择器的名称：`ad-host`，它就是你将应用到元素上的指令。下一节会展示该如何做。
 
 {@a loading-components}
 
@@ -84,7 +84,7 @@ To keep things simple in this example, the HTML is in the `@Component`
 decorator's `template` property as a template string.
 
 广告条的大部分实现代码都在 `ad-banner.component.ts` 中。
-为了让这个例子简单点，我们把 HTML 直接放在了 `@Component` 装饰器的 `template` 属性中。
+为了让这个例子简单点，HTML 被直接放在了 `@Component` 装饰器的 `template` 属性中。
 
 The `<ng-template>` element is where you apply the directive you just made.
 To apply the `AdDirective`, recall the selector from `ad.directive.ts`,
@@ -126,7 +126,7 @@ component.`AdService` returns the actual ads making up the ad campaign.
 Passing an array of components to `AdBannerComponent` allows for a
 dynamic list of ads without static elements in the template.
 
-给 `AdBannerComponent` 传入一个组件数组可以让我们在模板中放入一个广告的动态列表，而不用写死在模板中。
+给 `AdBannerComponent` 传入一个组件数组可以在模板中放入一个广告的动态列表，而不用写死在模板中。
 
 With its `getAds()` method, `AdBannerComponent` cycles through the array of `AdItems`
 and loads a new component every 3 seconds by calling `loadComponent()`.
@@ -141,7 +141,7 @@ The `loadComponent()` method is doing a lot of the heavy lifting here.
 Take it step by step. First, it picks an ad.
 
 这里的 `loadComponent()` 方法很重要。
-我们来一步步看看。首先，它选取了一个广告。
+来一步步看看。首先，它选取了一个广告。
 
 <div class="l-sub-section">
 
@@ -175,18 +175,18 @@ exists on this specific instance of the component. How do you know it's
 this specific instance? Because it's referring to `adHost` and `adHost` is the
 directive you set up earlier to tell Angular where to insert dynamic components.
 
-接下来，我们要把 `viewContainerRef` 指向这个组件的现有实例。但我们怎么才能找到这个实例呢？
-很简单，因为它指向了 `adHost`，而这个 `adHost` 就是我们以前设置过的指令，用来告诉 Angular 该把动态组件插入到什么位置。
+接下来，你要把 `viewContainerRef` 指向这个组件的现有实例。但我们怎么才能找到这个实例呢？
+很简单，因为它指向了 `adHost`，而这个 `adHost` 就是你以前设置过的指令，用来告诉 Angular 该把动态组件插入到什么位置。
 
 As you may recall, `AdDirective` injects `ViewContainerRef` into its constructor.
 This is how the directive accesses the element that you want to use to host the dynamic component.
 
 回忆一下，`AdDirective` 曾在它的构造函数中注入了一个 `ViewContainerRef`。
-因此这个指令可以访问到这个被我们用作动态组件宿主的元素。
+因此这个指令可以访问到这个你打算用作动态组件宿主的元素。
 
 To add the component to the template, you call `createComponent()` on `ViewContainerRef`.
 
-要把这个组件添加到模板中，我们可以调用 `ViewContainerRef` 的 `createComponent()`。
+要把这个组件添加到模板中，你可以调用 `ViewContainerRef` 的 `createComponent()`。
 
 The `createComponent()` method returns a reference to the loaded component.
 Use that reference to interact with the component by assigning to its properties or calling its methods.
@@ -226,7 +226,7 @@ add dynamically loaded components to the `NgModule`'s `entryComponents` array:
 In the ad banner, all components implement a common `AdComponent` interface to
 standardize the API for passing data to the components.
 
-在广告条中，所有组件都实现了一个公共接口 `AdComponent`，它定义了一个标准化的 API，让我们把数据传给组件。
+在广告条中，所有组件都实现了一个公共接口 `AdComponent`，它定义了一个标准化的 API，来把数据传给组件。
 
 Here are two sample components and the `AdComponent` interface for reference:
 

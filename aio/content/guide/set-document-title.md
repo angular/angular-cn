@@ -7,7 +7,7 @@
 Your app should be able to make the browser title bar say whatever you want it to say.
 This cookbook explains how to do it.
 
-应用程序应该能让浏览器标题栏显示我们想让它显示的内容。本*烹饪宝典*解释怎么做。
+应用程序应该能让浏览器标题栏显示你想让它显示的内容。本*烹饪宝典*解释怎么做。
 
 See the <live-example name="set-document-title"></live-example>.
 
@@ -31,7 +31,7 @@ Sorry but that won't work.
 The root component of the application is an element contained within the `<body>` tag.
 The HTML `<title>` is in the document `<head>`, outside the body, making it inaccessible to Angular data binding.
 
-抱歉，这样不行。我们应用程序的根组件是一个包含在 `<body>` 标签里的元素。该 HTML 的 `<title>` 在文档的 `<head>` 元素里，在 `<body>` 之外，Angular 的数据绑定无法访问到它。
+抱歉，这样不行。应用程序的根组件是一个包含在 `<body>` 标签里的元素。该 HTML 的 `<title>` 在文档的 `<head>` 元素里，在 `<body>` 之外，Angular 的数据绑定无法访问到它。
 
 You could grab the browser `document` object and set the title manually.
 That's dirty and undermines your chances of running the app outside of a browser someday.
@@ -72,13 +72,13 @@ for getting and setting the current HTML document title:
 
 You can inject the `Title` service into the root `AppComponent` and expose a bindable `setTitle` method that calls it:
 
-我们来把 `Title` 服务注入到根组件 `AppComponent`，并暴露出可供绑定的 `setTitle` 方法让别人来调用该服务：
+你可以把 `Title` 服务注入到根组件 `AppComponent`，并暴露出可供绑定的 `setTitle` 方法让别人来调用该服务：
 
 <code-example path="set-document-title/src/app/app.component.ts" region="class" title="src/app/app.component.ts (class)" linenums="false"></code-example>
 
 Bind that method to three anchor tags and voilà!
 
-我们把这个方法绑定到三个 A 标签，瞧瞧！
+把这个方法绑定到三个 A 标签，瞧瞧！
 
 <figure>
   <img src="generated/images/guide/set-document-title/set-title-anim.gif" alt="Set title">
@@ -102,12 +102,12 @@ Here's the complete solution:
 
 Generally you want to provide application-wide services in the root application component, `AppComponent`.
 
-我们通常会推荐在应用程序的根组件 `AppComponent` 中提供应用程序级的服务。
+你通常会在应用程序的根组件 `AppComponent` 中提供应用程序级的服务。
 
 This cookbook recommends registering the title service during bootstrapping,
 a location you reserve for configuring the runtime Angular environment.
 
-但这里，我们推荐在引导过程中注册这个 Title 服务，这个位置是为设置 Angular 运行环境而保留的。
+但这里，要在引导过程中注册这个 Title 服务，这个位置是为你设置 Angular 运行环境而保留的。
 
 That's exactly what you're doing.
 The `Title` service is part of the Angular *browser platform*.
@@ -117,4 +117,4 @@ the concept of a "document title" for that specific platform.
 Ideally, the application itself neither knows nor cares about the runtime environment.
 
 
-我们的做法正是如此。这里的 `Title` 服务是 Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的 `Title` 服务。
+你的做法正是如此。这里的 `Title` 服务是 Angular*浏览器平台*的一部分。如果在其它平台上引导应用程序，就得提供另一个专为那个平台准备的 `Title` 服务。

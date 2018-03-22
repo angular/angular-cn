@@ -49,7 +49,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 
 **Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakeable red header.
 
-**避免**标志着我们决不应该做的事。需要*避免*的代码范例会有明显的红色标题。
+**避免**标志着你决不应该做的事。需要*避免*的代码范例会有明显的红色标题。
 
 </div>
 
@@ -305,7 +305,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. Consistency across a company provides tremendous efficiency.
 
-**为何？**命名约定提供了一致的方式来查找内容，让我们一眼就能锁定。
+**为何？**命名约定提供了一致的方式来查找内容，让你一眼就能找到。
 项目的一致性是至关重要的。团队内的一致性也很重要。整个公司的一致性会提供惊人的效率。
 
 </div>
@@ -314,7 +314,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Why?** The naming conventions should simply help find desired code faster and make it easier to understand.
 
-**为何？**命名约定帮助我们更快得找到不在手头的代码，更容易理解它。
+**为何？**命名约定帮助你更快得找到想找的代码，也更容易理解它。
 
 </div>
 
@@ -1712,7 +1712,7 @@ By convention, upper camel case indicates a constructable asset.
 **Why?** TypeScript helps enforce that intent by requiring immediate initialization and by
 preventing subsequent re-assignment.
 
-**为何？** TypeScript 会要求在声明时立即初始化，并阻止再次赋值，以确保达成我们的意图。
+**为何？** TypeScript 会要求在声明时立即初始化，并阻止再次赋值，以帮助确保你的设计意图。
 
 </div>
 
@@ -2004,7 +2004,7 @@ Use the naming conventions for files in this guide.
 
 所有内容都遵循每个文件一个特性的原则。每个组件、服务和管道都在自己的文件里。
 所有第三方程序包保存到其它目录里，而不是 `src` 目录。
-你不会修改它们，所以不希望它们弄乱我们的应用程序。
+你不会修改它们，所以不希望它们弄乱你的应用程序。
 使用本指南介绍的文件命名约定。
 
 <a href="#toc">Back to top</a>
@@ -2045,7 +2045,7 @@ To confirm your intuition about a particular structure, ask:
 _can I quickly open and start work in all of the related files for this feature_?
 
 **为何？**LIFT 提供了一致的结构，它具有扩展性强、模块化的特性。因为容易快速锁定代码，提高了开发者的效率。
-另外，检查应用结构是否合理的方法是问问自己：我们能快速打开与此特性有关的所有文件并开始工作吗？
+另外，检查应用结构是否合理的方法是问问自己：我能快速打开与此特性有关的所有文件并开始工作吗？
 
 </div>
 

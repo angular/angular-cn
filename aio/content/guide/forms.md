@@ -6,7 +6,7 @@ Forms are the mainstay of business applications.
 You use forms to log in, submit a help request, place an order, book a flight,
 schedule a meeting, and perform countless other data-entry tasks.
 
-表单是商业应用的支柱，我们用它来执行登录、求助、下单、预订机票、安排会议，以及不计其数的其它数据录入任务。
+表单是商业应用的支柱，你用它来执行登录、求助、下单、预订机票、安排会议，以及不计其数的其它数据录入任务。
 
 In developing a form, it's important to create a data-entry experience that guides the
 user efficiently and effectively through the workflow.
@@ -17,7 +17,7 @@ Developing forms requires design skills (which are out of scope for this page), 
 *two-way data binding, change tracking, validation, and error handling*,
 which you'll learn about on this page.
 
-开发表单需要设计能力（那超出了本章的范围），而框架支持*双向数据绑定、变更检测、验证和错误处理*，而本章我们会接触到它们。
+开发表单需要设计能力（那超出了本章的范围），而框架支持*双向数据绑定、变更检测、验证和错误处理*，而本章你将会学到它们。
 
 This page shows you how to build a simple form from scratch. Along the way you'll learn how to:
 
@@ -82,11 +82,11 @@ conditionally enable or disable specific controls, trigger built-in visual feedb
 Angular makes the process easy by handling many of the repetitive, boilerplate tasks you'd
 otherwise wrestle with yourself.
 
-它用起来很简单，这是因为 Angular 处理了大多数重复、单调的任务，这让我们可以不必亲自操刀、身陷其中。
+它用起来很简单，这是因为 Angular 处理了大多数重复、单调的任务，这让你可以不必亲自操刀、身陷其中。
 
 You'll learn to build a template-driven form that looks like this:
 
-我们将学习构建如下的“模板驱动”表单：
+你将学习构建如下的“模板驱动”表单：
 
 <figure>
   <img src="generated/images/guide/forms/hero-form-1.png" alt="Clean Form">
@@ -124,7 +124,7 @@ Note that the *Submit* button is disabled, and the "required" bar to the left of
 
 You'll build this form in small steps:
 
-我们将一点点构建出此表单：
+你将一点点构建出此表单：
 
 1. Create the `Hero` model class.
 
@@ -272,7 +272,7 @@ Understanding this component requires only the Angular concepts covered in previ
 
 * The code imports the Angular core library and the `Hero` model you just created.
 
-   这段代码导入了 Angular 核心库以及我们刚刚创建的 `Hero` 模型。
+   这段代码导入了 Angular 核心库以及你刚刚创建的 `Hero` 模型。
 
 * The `@Component` selector value of "hero-form" means you can drop this form in a parent template with a `<hero-form>` tag.
 
@@ -292,12 +292,12 @@ or perhaps expose these properties as inputs and outputs
 [Template Syntax](guide/template-syntax) page) for binding to a
 parent component. This is not a concern now and these future changes won't affect the form.
 
-接下来，我们可以注入一个数据服务，以获取或保存真实的数据，或者把这些属性暴露为输入属性和输出属性（参见[Template Syntax](guide/template-syntax)中的[输入和输出属性](guide/template-syntax#inputs-outputs)）来绑定到一个父组件。这不是现在需要关心的问题，未来的更改不会影响到这个表单。
+接下来，你可以注入一个数据服务，以获取或保存真实的数据，或者把这些属性暴露为输入属性和输出属性（参见[Template Syntax](guide/template-syntax)中的[输入和输出属性](guide/template-syntax#inputs-outputs)）来绑定到一个父组件。这不是现在需要关心的问题，未来的更改不会影响到这个表单。
 
 * You added a `diagnostic` property to return a JSON representation of the model.
 It'll help you see what you're doing during development; you've left yourself a cleanup note to discard it later.
 
-   我们添加一个 `diagnostic` 属性，以返回这个模型的 JSON 形式。在开发过程中，它用于调试，最后清理时会丢弃它。
+   你添加一个 `diagnostic` 属性，以返回这个模型的 JSON 形式。在开发过程中，它用于调试，最后清理时会丢弃它。
 
 ## Revise *app.module.ts*
 
@@ -405,7 +405,7 @@ You added a *Submit* button at the bottom with some classes on it for styling.
 
 *You're not using Angular yet*. There are no bindings or extra directives, just layout.
 
-**我们还没有真正用到 Angular**。没有绑定，没有额外的指令，只有布局。
+**你还没有真正用到 Angular**。没有绑定，没有额外的指令，只有布局。
 
 <div class="l-sub-section">
 
@@ -420,8 +420,8 @@ The `container`, `form-group`, `form-control`, and `btn` classes
 come from [Twitter Bootstrap](http://getbootstrap.com/css/). These classes are purely cosmetic.
 Bootstrap gives the form a little style.
 
-`container`、`form-group`、`form-control` 和 `btn` 类来自 [Twitter Bootstrap](http://getbootstrap.com/css/)。纯粹是装饰。
-我们使用 Bootstrap 来美化表单。嘿，一点样式都没有的表单算个啥！
+`container`、`form-group`、`form-control` 和 `btn` 类来自 [Twitter Bootstrap](http://getbootstrap.com/css/)。这些类纯粹是装饰品。
+Bootstrap 为这个表单提供了一些样式。
 
 <div class="callout is-important">
 
@@ -439,7 +439,7 @@ Bootstrap gives the form a little style.
 
 To add the stylesheet, open `styles.css` and add the following import line at the top:
 
-我们来添加样式表。打开 `index.html`，并把下列链接添加到 `<head>` 中：
+要添加样式表，就打开 `index.html`，并把下列链接添加到 `<head>` 中：
 
 <code-example path="forms/src/styles.1.css" linenums="false" title="src/styles.css">
 
@@ -452,7 +452,7 @@ To add the stylesheet, open `styles.css` and add the following import line at th
 The hero must choose one superpower from a fixed list of agency-approved powers.
 You maintain that list internally (in `HeroFormComponent`).
 
-我们的英雄必须从认证过的固定列表中选择一项超能力。
+英雄必须从认证过的固定列表中选择一项超能力。
   这个列表位于 `HeroFormComponent` 中。
 
 You'll add a `select` to the
@@ -460,7 +460,7 @@ form and bind the options to the `powers` list using `ngFor`,
 a technique seen previously in the [Displaying Data](guide/displaying-data) page.
 
 在表单中添加 `select`，用 `ngFor` 把 `powers` 列表绑定到列表选项。
-我们在之前的[显示数据](guide/displaying-data)一章中见过 `ngFor`。
+之前的[显示数据](guide/displaying-data)一章中见过 `ngFor`。
 
 Add the following HTML *immediately below* the *Alter Ego* group:
 
@@ -528,7 +528,7 @@ Find the `<input>` tag for *Name* and update it like this:
   You left yourself a note to throw it away when you're done.
 
   在 input 标签后添加用于诊断的插值表达式，以看清正在发生什么事。
-给自己留个备注，提醒我们完成后移除它。
+给自己留个备注，提醒你完成后移除它。
 
 </div>
 
@@ -540,7 +540,7 @@ You need one more addition to display the data. Declare
 a template variable for the form. Update the `<form>` tag with
 `#heroForm="ngForm"` as follows:
 
-我们需要更多的工作来显示数据。在表单中声明一个模板变量。往 `<form>` 标签中加入 `#heroForm="ngForm"`，代码如下：
+你需要更多的工作来显示数据。在表单中声明一个模板变量。往 `<form>` 标签中加入 `#heroForm="ngForm"`，代码如下：
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="template-variable">
 
@@ -562,7 +562,7 @@ The variable `heroForm` is now a reference to the `NgForm` directive that govern
   You didn't add an [NgForm](api/forms/NgForm) directive.
 
   什么是 `NgForm` 指令？
-但我们明明没有添加过[NgForm](api/forms/NgForm)指令啊！
+但你明明没有添加过[NgForm](api/forms/NgForm)指令啊！
 
   Angular did. Angular automatically creates and attaches an `NgForm` directive to the `<form>` tag.
 
@@ -682,7 +682,7 @@ confirms that all of your changes are reflected in the model.
 Using `ngModel` in a form gives you more than just two-way data binding. It also tells
 you if the user touched the control, if the value changed, or if the value became invalid.
 
-在表单中使用 `ngModel` 可以获得比仅使用双向数据绑定更多的控制权。它还会告诉我们很多信息：用户碰过此控件吗？它的值变化了吗？数据变得无效了吗？
+在表单中使用 `ngModel` 可以获得比仅使用双向数据绑定更多的控制权。它还会告诉你很多信息：用户碰过此控件吗？它的值变化了吗？数据变得无效了吗？
 
 The *NgModel* directive doesn't just track state; it updates the control with special Angular CSS classes that reflect the state.
 You can leverage those class names to change the appearance of the control.
@@ -836,7 +836,7 @@ The actions and effects are as follows:
 
 You should see the following transitions and class names:
 
-我们会看到下列转换及其类名：
+你会看到下列转换及其类名：
 
 <figure>
   <img src="generated/images/guide/forms/ng-control-class-changes.png" alt="Control state transitions">
@@ -846,7 +846,7 @@ The `ng-valid`/`ng-invalid` pair is the most interesting, because you want to se
 strong visual signal when the values are invalid. You also want to mark required fields.
 To create such visual feedback, add definitions for the `ng-*` CSS classes.
 
-(`ng-valid` | `ng-invalid`)这一对是我们最感兴趣的。当数据变得无效时，我们希望发出强力的视觉信号，
+(`ng-valid` | `ng-invalid`)这一对是你最感兴趣的。当数据变得无效时，我们希望发出强力的视觉信号，
 还想要标记出必填字段。可以通过加入自定义 CSS 来提供视觉反馈。
 
 *Delete* the `#spy` template reference variable and the `TODO` as they have served their purpose.
@@ -891,7 +891,7 @@ You can improve the form. The _Name_ input box is required and clearing it turns
 That says something is wrong but the user doesn't know *what* is wrong or what to do about it.
 Leverage the control's state to reveal a helpful message.
 
-我们能做的更好。“Name” 输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但我们不知道错在哪里，或者如何纠正。
+你还能做的更好。“Name” 输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但我们不知道错在哪里，或者如何纠正。
   可以借助 `ng-invalid` 类来给出有用的提示。
 
 When the user deletes the name, the form should look like this:
@@ -916,7 +916,7 @@ To achieve this effect, extend the `<input>` tag with the following:
 
 Here's an example of an error message added to the _name_ input box:
 
-这个例子中我们把一条错误信息添加到了_name_输入框中：
+下面这个例子中把一条错误信息添加到了`name`输入框中：
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (excerpt)" region="name-with-error-msg">
 
@@ -944,7 +944,7 @@ Here you created a variable called `name` and gave it the value "ngModel".
 You control visibility of the name error message by binding properties of the `name`
 control to the message `<div>` element's `hidden` property.
 
-我们把 `div` 元素的 `hidden` 属性绑定到 `name` 控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。
+你把 `div` 元素的 `hidden` 属性绑定到 `name` 控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (hidden-error-msg)" region="hidden-error-msg">
 
@@ -963,7 +963,7 @@ you'll see the error message immediately, before you've done anything.
 
 这种用户体验取决于开发人员的选择。有些人会希望任何时候都显示这条消息。
 如果忽略了 `pristine` 状态，就会只在值有效时隐藏此消息。
-如果往这个组件中传入全新（空）的英雄，或者无效的英雄，将立刻看到错误信息 —— 虽然我们还啥都没做。
+如果往这个组件中传入全新（空）的英雄，或者无效的英雄，将立刻看到错误信息 —— 虽然你还啥都没做。
 
 Some developers want the message to display only when the user makes an invalid change.
 Hiding the message while the control is "pristine" achieves that goal.
@@ -989,7 +989,7 @@ power to valid values.
 Now you'll add a new hero in this form.
 Place a *New Hero* button at the bottom of the form and bind its click event to a `newHero` component method.
 
-我们希望在这个表单中添加新的英雄。
+现在，你要在这个表单中添加新的英雄。
   在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到 `newHero` 组件。
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" title="src/app/hero-form/hero-form.component.html (New Hero button)">
@@ -1016,20 +1016,20 @@ You don't want error messages when you create a new (empty) hero.
 Why are you getting one now?
 
 输入名字，再次点击 *New Hero* 按钮。
-这次，出现了错误信息！为什么？我们不希望显示新（空）的英雄时，出现错误信息。
+这次，出现了错误信息！为什么？你不希望显示新（空）的英雄时，出现错误信息。
 
 Inspecting the element in the browser tools reveals that the *name* input box is _no longer pristine_.
 The form remembers that you entered a name before clicking *New Hero*.
 Replacing the hero object *did not restore the pristine state* of the form controls.
 
 使用浏览器工具审查这个元素就会发现，这个 *name* 输入框并不是全新的。
-表单记得我们在点击 *New Hero* 前输入的名字。
+表单记得你在点击 *New Hero* 前输入的名字。
 更换了英雄对象*并不会重置控件的“全新”状态*。
 
 You have to clear all of the flags imperatively, which you can do
 by calling the form's `reset()` method after calling the `newHero()` method.
 
-我们必须清除所有标记，在调用 `newHero()` 方法后调用表单的 `reset()` 方法即可。
+你必须清除所有标记，在调用 `newHero()` 方法后调用表单的 `reset()` 方法即可。
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-form-reset" title="src/app/hero-form/hero-form.component.html (Reset the form)">
 
@@ -1066,14 +1066,14 @@ You'd already defined a template reference variable,
 `#heroForm`, and initialized it with the value "ngForm".
 Now, use that variable to access the form with the Submit button.
 
-我们已经定义了一个模板引用变量 `#heroForm`，并且把赋值为“ngForm”。
+你已经定义了一个模板引用变量 `#heroForm`，并且把赋值为“ngForm”。
 现在，就可以在“Submit”按钮中访问这个表单了。
 
 You'll bind the form's overall validity via
 the `heroForm` variable to the button's `disabled` property
 using an event binding. Here's the code:
 
-我们要把表单的总体有效性通过 `heroForm` 变量绑定到此按钮的 `disabled` 属性上，代码如下：
+你要把表单的总体有效性通过 `heroForm` 变量绑定到此按钮的 `disabled` 属性上，代码如下：
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" title="src/app/hero-form/hero-form.component.html (submit-button)" region="submit-button">
 
@@ -1088,7 +1088,7 @@ Now if you delete the Name, you violate the "required" rule, which
 is duly noted in the error message.
 The *Submit* button is also disabled.
 
-现在，如果我们删除*姓名*，就会违反“必填姓名”规则，就会像以前那样显示出错误信息。同时，Submit 按钮也被禁用了。
+现在，如果你删除*姓名*，就会违反“必填姓名”规则，就会像以前那样显示出错误信息。同时，Submit 按钮也被禁用了。
 
 Not impressed?  Think about it for a moment. What would you have to do to
 wire the button's enable/disabled state to the form's validity without Angular's help?
@@ -1123,7 +1123,7 @@ Submitting the form isn't terribly dramatic at the moment.
   binding skills.
   If you aren't interested, skip to this page's conclusion.
 
-  对演示来说，这个收场很平淡的。老实说，即使让它更出彩，也无法教给我们任何关于表单的新知识。
+  对演示来说，这个收场很平淡的。老实说，即使让它更出彩，也无法教给你任何关于表单的新知识。
 但这是练习新学到的绑定技能的好机会。
 如果你不感兴趣，可以跳到本章的总结部分。
 
@@ -1149,7 +1149,7 @@ The main form is visible from the start because the
 as this fragment from the `HeroFormComponent` shows:
 
 主表单从一开始就是可见的，因为 `submitted` 属性是 false，直到提交了这个表单。
-来自 `HeroFormComponent` 的代码片段告诉了我们这一点：
+来自 `HeroFormComponent` 的代码片段证实了这一点：
 
 <code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" title="src/app/hero-form/hero-form.component.ts (submitted)" region="submitted">
 

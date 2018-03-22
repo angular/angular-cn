@@ -109,7 +109,7 @@ the view, such as a keystroke, a timer completion, or a response to an HTTP requ
 Notice that you don't call **new** to create an instance of the `AppComponent` class.
 Angular is creating an instance for you. How?
 
-注意，我们没有调用 **new** 来创建 `AppComponent` 类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
+注意，你没有调用 **new** 来创建 `AppComponent` 类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
 
 The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
 That element is a placeholder in the body of your `index.html` file:
@@ -125,7 +125,7 @@ When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angu
 in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
 inside the `<app-root>` tag.
 
-当我们通过 `main.ts` 中的 `AppComponent` 类启动时，Angular 在 `index.html` 中查找一个 `<app-root>` 元素，
+当你通过 `main.ts` 中的 `AppComponent` 类启动时，Angular 在 `index.html` 中查找一个 `<app-root>` 元素，
 然后实例化一个 `AppComponent`，并将其渲染到 `<app-root>` 标签中。
 
 Now run the app. It should display the title and hero name:
@@ -170,7 +170,7 @@ In either style, the template data bindings have the same access to the componen
 
   By default, the Angular CLI generates components with a template file. You can override that with:
 
-  默认情况下，Angular CLI 生成组件时会带有模板文件，我们可以通过参数覆盖它：
+  默认情况下，Angular CLI 生成组件时会带有模板文件，你可以通过参数覆盖它：
 
   <code-example hideCopy language="sh" class="code-shell">
 
@@ -339,7 +339,7 @@ That brief syntax does a lot:
 
 * Initializes that property with the corresponding argument when creating an instance of the class.
 
-   当我们 `new` 出该类的一个实例时，把该属性初始化为相应的参数值。
+   当创建该类的一个实例时，把该属性初始化为相应的参数值。
 
 ### Using the Hero class
 
@@ -452,7 +452,7 @@ Now you know how to use:
 
 * A TypeScript class to shape the **model data** for your component and display properties of that model.
 
-   用一个 TypeScript 类来为我们的组件描述**模型数据**并显示模型的属性。
+   用一个 TypeScript 类来为你的组件描述**模型数据**并显示模型的属性。
 
 * **ngIf** to conditionally display a chunk of HTML based on a boolean expression.
 

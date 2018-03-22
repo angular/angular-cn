@@ -74,7 +74,7 @@ your website. The attack isn't limited to `<script>` tags&mdash;many elements an
 DOM allow code execution, for example, `<img onerror="...">` and `<a href="javascript:...">`. If
 attacker-controlled data enters the DOM, expect security vulnerabilities.
 
-为了防范 XSS 攻击，我们必须阻止恶意代码进入 DOM。比如，如果某个攻击者能骗我们把 `<script>` 标签插入到 DOM，就可以在我们的网站上运行任何代码。
+为了防范 XSS 攻击，你必须阻止恶意代码进入 DOM。比如，如果某个攻击者能骗你把 `<script>` 标签插入到 DOM，就可以在你的网站上运行任何代码。
 除了 `<script>`，攻击者还可以使用很多 DOM 元素和属性来执行代码，比如 `<img onerror="...">`、`<a href="javascript:...">`。
 如果攻击者所控制的数据混进了 DOM，就会导致安全漏洞。
 
@@ -279,7 +279,7 @@ Normally, Angular automatically sanitizes the URL, disables the dangerous code, 
 in development mode, logs this action to the console. To prevent
 this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` call:
 
-通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，我们可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
+通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
 
 <code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-url)" region="trust-url">
 
@@ -296,9 +296,9 @@ context, because an untrusted source can, for example, smuggle in file downloads
 could execute. So call a method on the controller to construct a trusted video URL, which causes
 Angular to allow binding into `<iframe src>`:
 
-如果需要把用户输入转换为一个可信任的值，我们可以很方便的在控制器方法中处理。下面的模板允许用户输入一个 YouTube 视频的 ID，
+如果需要把用户输入转换为一个可信任的值，可以在控制器方法中处理。下面的模板允许用户输入一个 YouTube 视频的 ID，
   然后把相应的视频加载到 `<iframe>` 中。`<iframe src>` 是一个“资源 URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
-  所以我们要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
+  所以要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
 
 <code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (iframe)" region="iframe">
 
