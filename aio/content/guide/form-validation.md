@@ -10,7 +10,7 @@ This page shows how to validate user input in the UI and display useful validati
 using both reactive and template-driven forms. It assumes some basic knowledge of the two 
 forms modules.
 
-在本烹饪书中，你展示在界面中如何验证用户输入，并显示有用的验证信息，先使用模板驱动表单方式，再使用响应式表单方式。
+本文展示了如何在界面中如何验证用户输入，并显示有用的验证信息，先使用模板驱动表单方式，再使用响应式表单方式。
 
 <div class="l-sub-section">
 

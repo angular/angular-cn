@@ -218,7 +218,7 @@ For information about dynamically constructing forms in a safe way, see the
 
 离线模板编译器阻止了一整套被称为“模板注入”的漏洞，并能显著增强应用程序的性能。尽量在产品发布时使用离线模板编译器，
 而不要动态生成模板（比如在代码中拼接字符串生成模板）。由于 Angular 会信任模板本身的代码，所以，动态生成的模板 —— 特别是包含用户数据的模板 —— 会绕过 Angular 自带的保护机制。
-要了解如何用安全的方式动态创建表单，请参见[动态表单烹饪宝典](guide/dynamic-form)一章。
+要了解如何用安全的方式动态创建表单，请参见[动态表单](guide/dynamic-form)一章。
 
 ### Server-side XSS protection
 

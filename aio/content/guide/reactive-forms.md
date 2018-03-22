@@ -308,7 +308,7 @@ In real apps, most form controls have both.
 This guide touches only briefly on `Validators`. For an in-depth look at them,
 read the [Form Validation](guide/form-validation) guide.
 
-本章中只会接触 `Validators` 中的一点点，要想更深入的了解它们，请阅读烹饪宝典中的[表单验证](guide/form-validation)一章。
+本章中只会接触 `Validators` 中的一点点，要想更深入的了解它们，请阅读[表单验证](guide/form-validation)一章。
 
 </div>
 

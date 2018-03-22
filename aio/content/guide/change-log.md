@@ -13,7 +13,7 @@ Angular 的文档将持续不断的更新和改进。本日志记录了近期最
 
 ## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
-## 移除了所有的 moduleId 引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)
+## 移除了所有的 moduleId 引用。移除了“组件相对路径” 的指南。(2017-03-13)
 
 We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.
 This plugin dynamically converts "component-relative" paths in templateUrl and styleUrls to "absolute paths" for you.
@@ -332,14 +332,14 @@ Docs and code samples updated and tested with Angular v.2.1.0.
 
 ## NEW "Ahead of time (AOT) Compilation" guide (2016-10-11)
 
-## 添加了新的“预编译(AOT)"烹饪书(2016-10-11)
+## 添加了新的“预编译(AOT)" 指南(2016-10-11)
 
 The NEW [Ahead of time (AOT) Compilation](guide/aot-compiler) guide
 explains what AOT compilation is and why you'd want it.
 It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
-全新[预编译(AOT)](guide/aot-compiler)烹饪书介绍了什么是 AOT 编译和为何你需要它。
+全新[预编译(AOT)](guide/aot-compiler)指南介绍了什么是 AOT 编译和为何你需要它。
 它以**快速上手**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
@@ -365,16 +365,16 @@ All guided samples with routing use the _Routing Module_ and prose content has b
 most conspicuously in the
 [NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular 模块（NgModule）](guide/ngmodules)章和[Angular 模块常见问题](guide/ngmodule-faq)烹饪书。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular 模块（NgModule）](guide/ngmodules)章和[Angular 模块常见问题](guide/ngmodule-faq)指南。
 
 ## New "Internationalization" guide (2016-09-30)
 
-## 全新“国际化”烹饪书(2016-09-30)
+## 全新“国际化”指南(2016-09-30)
 
 Added a new [Internationalization (i18n)](guide/i18n) guide that shows how
 to use Angular "i18n" facilities to translate template text into multiple languages.
 
-添加了新的[国际化(i18n)](guide/i18n)烹饪书，展示了如何使用 Angular 的“i18n”工具来讲模板文本翻译到多种语言。
+添加了新的[国际化(i18n)](guide/i18n)指南，展示了如何使用 Angular 的“i18n”工具来讲模板文本翻译到多种语言。
 
 ## "angular-in-memory-web-api" package rename (2016-09-27)
 
