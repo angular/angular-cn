@@ -13,7 +13,7 @@ a tool for bundling application source code in convenient _chunks_
 and for loading that code from a server into a browser.
 
 [**Webpack**](https://webpack.github.io/)是一个广受欢迎的模块打包器，
-这个工具用来把程序源码打包到一些方便易用的_块_中，以便把这些代码从服务器加载到浏览器中。
+这个工具用来把程序源码打包到一些方便易用的*块*中，以便把这些代码从服务器加载到浏览器中。
 
 It's an excellent alternative to the *SystemJS* approach used elsewhere in the documentation.
 This guide offers a taste of Webpack and explains how to use it with Angular applications.
@@ -126,14 +126,14 @@ should be served to the client in a response to a single file request.
 A bundle can include JavaScript, CSS styles, HTML, and almost any other kind of file.
 
 Webpack 是一个强力的模块打包器。
-所谓_包(bundle)_就是一个 JavaScript 文件，它把一堆_资源(assets)_合并在一起，以便它们可以在同一个文件请求中发回给客户端。
+所谓*包(bundle)*就是一个 JavaScript 文件，它把一堆*资源(assets)*合并在一起，以便它们可以在同一个文件请求中发回给客户端。
 包中可以包含 JavaScript、CSS 样式、HTML 以及很多其它类型的文件。
 
 Webpack roams over your application source code,
 looking for `import` statements, building a dependency graph, and emitting one or more _bundles_.
 With plugins and rules, Webpack can preprocess and minify different non-JavaScript files such as TypeScript, SASS, and LESS files.
 
-Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建出依赖图谱，并产出一个(或多个)_包_。
+Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建出依赖图谱，并产出一个(或多个)*包*。
 通过插件和规则，Webpack 可以对各种非 JavaScript 文件进行预处理和最小化(Minify)，比如 TypeScript、SASS 和 LESS 文件等。
 
 You determine what Webpack does and how it does it with a JavaScript configuration file, `webpack.config.js`.
@@ -168,11 +168,11 @@ It sees that you're importing `@angular/core` so it adds that to its dependency 
 It opens the `@angular/core` file and follows _its_ network of `import` statements until it has built the complete dependency graph from `main.ts` down.
 
 这里，Webpack 看到你正在导入 `@angular/core`，于是就这个文件加入到它的依赖列表里，为(有可能)把该文件打进包中做准备。
-它打开 `@angular/core` 并追踪由_该文件的_`import` 语句构成的网络，直到构建出从 `main.ts` 往下的整个依赖图谱。
+它打开 `@angular/core` 并追踪由*该文件的*`import` 语句构成的网络，直到构建出从 `main.ts` 往下的整个依赖图谱。
 
 Then it **outputs** these files to the `app.js` _bundle file_ designated in configuration:
 
-然后它把这些文件**输出**到当前配置所指定的_包文件_`app.js` 中：
+然后它把这些文件**输出**到当前配置所指定的*包文件*`app.js` 中：
 
 <code-example name="webpack.config.js (single output)" language="javascript">
 
@@ -620,7 +620,7 @@ Multiple loaders can be chained using the array notation.
 
 #### _plugins_
 
-#### _插件_
+#### *插件*
 
 Finally, create instances of three plugins:
 
@@ -654,7 +654,7 @@ The `CommonsChunkPlugin` identifies the hierarchy among three _chunks_: `app` ->
 Where Webpack finds that `app` has shared dependencies with `vendor`, it removes them from `app`.
 It would remove `polyfills` from `vendor` if they shared dependencies, which they don't.
 
-`CommonsChunkPlugin` 标记出了三个_块_之间的等级体系：`app` -> `vendor` -> `polyfills`。
+`CommonsChunkPlugin` 标记出了三个*块*之间的等级体系：`app` -> `vendor` -> `polyfills`。
 当 Webpack 发现 `app` 与 `vendor` 有共享依赖时，就把它们从 `app` 中移除。
 在 `vendor` 和 `polyfills` 之间有共享依赖时也同样如此(虽然它们没啥可共享的)。
 
@@ -671,7 +671,7 @@ You _could_ insert them into the `index.html` _manually_. That would be tedious 
 Webpack can inject those scripts and links for you with the `HtmlWebpackPlugin`.
 
 Webpack 生成了一些 js 和 css 文件。
-虽然你_可以手动_把它们插入到 `index.html` 中，但那样既枯燥又容易出错。
+虽然你*可以手动*把它们插入到 `index.html` 中，但那样既枯燥又容易出错。
 Webpack 可以通过 `HtmlWebpackPlugin` 自动为你注入那些 `script` 和 `link` 标签。
 
 {@a environment-configuration}
@@ -869,10 +869,10 @@ You tell Webpack to find and load the test files (the files ending in `.spec.ts`
 Each spec file imports all&mdash;and only&mdash;the application source code that it tests.
 Webpack loads just _those_ specific application files and ignores the other files that you aren't testing.
 
-注意，你_并没有_明确加载这些应用代码。
+注意，你*并没有*明确加载这些应用代码。
 只是告诉 Webpack 查找并加载这些测试文件(文件名以 `.spec.ts` 结尾)。
 每个规约(spec)文件都导入了所有(也只有)它测试所需的应用源码。
-Webpack 只加载_那些_特定的应用文件，而忽略所有其它你不会测试到的。
+Webpack 只加载*那些*特定的应用文件，而忽略所有其它你不会测试到的。
 
 Grab the app code at the end of this guide and try:
 
@@ -1008,7 +1008,7 @@ for a small Angular application.
 
 _You could always do more_. Search the web for expert advice and expand your Webpack knowledge.
 
-_但你还能做得更多_。搜索互联网来获得专家的建议，并扩展你对 Webpack 的认识。
+*但你还能做得更多*。搜索互联网来获得专家的建议，并扩展你对 Webpack 的认识。
 
 [Back to top](guide/webpack#top)
 

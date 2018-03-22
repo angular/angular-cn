@@ -1749,7 +1749,7 @@ TypeScript 本身就能够防止意外赋值。
 
 **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
 
-**坚持**容许_现存的_`const` 常量沿用大写蛇形命名法。
+**坚持**容许*现存的*`const` 常量沿用大写蛇形命名法。
 
 </div>
 

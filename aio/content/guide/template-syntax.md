@@ -1642,7 +1642,7 @@ Note that a _style property_ name can be written in either
 [dash-case](guide/glossary#dash-case), as shown above, or
 [camelCase](guide/glossary#camelcase), such as `fontSize`.
 
-注意，_样式属性_命名方法可以用[中线命名法](guide/glossary#dash-case)，像上面的一样
+注意，*样式属性*命名方法可以用[中线命名法](guide/glossary#dash-case)，像上面的一样
     也可以用[驼峰式命名法](guide/glossary#camelcase)，如 `fontSize`。
 
 </div>
@@ -1882,8 +1882,8 @@ Angular offers a special _two-way data binding_ syntax for this purpose, **`[(x)
 The `[(x)]` syntax combines the brackets
 of _property binding_, `[x]`, with the parentheses of _event binding_, `(x)`.
 
-Angular 为此提供一种特殊的_双向数据绑定_语法：**`[(x)]`**。
-`[(x)]` 语法结合了_属性绑定_的方括号 `[x]` 和_事件绑定_的圆括号 `(x)`。
+Angular 为此提供一种特殊的*双向数据绑定*语法：**`[(x)]`**。
+`[(x)]` 语法结合了*属性绑定*的方括号 `[x]` 和*事件绑定*的圆括号 `(x)`。
 
 <div class="callout is-important">
 
@@ -1932,12 +1932,12 @@ making the displayed text bigger or smaller.
 
 `SizerComponent.size` 初始值是 `AppComponent.fontSizePx`。
 点击按钮时，通过双向绑定更新 `AppComponent.fontSizePx`。
-被修改的 `AppComponent.fontSizePx` 通过_样式_绑定，改变文本的显示大小。
+被修改的 `AppComponent.fontSizePx` 通过*样式*绑定，改变文本的显示大小。
 
 The two-way binding syntax is really just syntactic sugar for a _property_ binding and an _event_ binding.
 Angular _desugars_ the `SizerComponent` binding into this:
 
-双向绑定语法实际上是_属性_绑定和_事件绑定_的语法糖。
+双向绑定语法实际上是*属性*绑定和*事件绑定*的语法糖。
 Angular 将 `SizerComponent` 的绑定分解成这样：
 
 <code-example path="template-syntax/src/app/app.component.html" linenums="false" title="src/app/app.component.html (two-way-2)" region="two-way-2">
@@ -2024,7 +2024,7 @@ Many NgModules such as the [`RouterModule`](guide/router "Routing and Navigation
 and the [`FormsModule`](guide/forms "Forms") define their own attribute directives.
 This section is an introduction to the most commonly used attribute directives:
 
-更多的细节参见[_属性型指令_](guide/attribute-directives)一章。
+更多的细节参见[*属性型指令*](guide/attribute-directives)一章。
 很多 Angular 模块，比如[`RouterModule`](guide/router "Routing and Navigation")和[`FormsModule`](guide/forms "Forms")都定义了自己的属性型指令。
 本节将会介绍几个最常用的属性型指令：
 
@@ -2452,7 +2452,7 @@ See also the
 [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?.)")
 described below.
 
-参见稍后的[_安全导航操作符_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")部分。
+参见稍后的[*安全导航操作符*](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")部分。
 
 </div>
 
@@ -2466,7 +2466,7 @@ described below.
 You define a block of HTML that defines how a single item should be displayed.
 You tell Angular to use that block as a template for rendering each item in the list.
 
-`NgFor` 是一个_重复器_指令 —— 自定义数据显示的一种方式。
+`NgFor` 是一个*重复器*指令 —— 自定义数据显示的一种方式。
 你的目标是展示一个由多个条目组成的列表。首先定义了一个 HTML 块，它规定了单个条目应该如何显示。
 再告诉 Angular 把这个块当做模板，渲染列表中的每个条目。
 
@@ -2524,7 +2524,7 @@ Angular 把这个指令翻译成了一个 `<ng-template>` 包裹的宿主元素�
 
 Learn about the _microsyntax_ in the [_Structural Directives_](guide/structural-directives#microsyntax) guide.
 
-要了解*微语法*的更多知识，参见[_结构型指令_](guide/structural-directives#microsyntax)一章。
+要了解*微语法*的更多知识，参见[*结构型指令*](guide/structural-directives#microsyntax)一章。
 
 {@a template-input-variable}
 
@@ -3039,7 +3039,7 @@ of the directive metadata, as in this example:
 
 The terms _input_ and _output_ reflect the perspective of the target directive.
 
-_输入_和_输出_这两个词是从目标指令的角度来说的。
+*输入*和*输出*这两个词是从目标指令的角度来说的。
 
 <figure>
   <img src="generated/images/guide/template-syntax/input-output.png" alt="Inputs and outputs">
@@ -3129,7 +3129,7 @@ The template expression language employs a subset of JavaScript syntax supplemen
 for specific scenarios. The next sections cover two of these operators: _pipe_ and _safe navigation operator_.
 
 模板表达式语言使用了 JavaScript 语法的子集，并补充了几个用于特定场景的特殊操作符。
-  下面介绍其中的两个：_管道_和_安全导航操作符_。
+  下面介绍其中的两个：*管道*和*安全导航操作符*。
 
 {@a pipe}
 
@@ -3362,7 +3362,7 @@ Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-op
 the **non-null assertion operator** does not guard against null or undefined.
 Rather it tells the TypeScript type checker to suspend strict null checks for a specific property expression.
 
-与[_安全导航操作符_](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")不同的是，**非空断言操作符**不会防止出现 null 或 undefined。
+与[*安全导航操作符*](guide/template-syntax#safe-navigation-operator "Safe naviation operator (?.)")不同的是，**非空断言操作符**不会防止出现 null 或 undefined。
 它只是告诉 TypeScript 的类型检查器对特定的属性表达式，不做 "严格空值检测"。
 
 You'll need this template operator when you turn on strict null checks. It's optional otherwise.

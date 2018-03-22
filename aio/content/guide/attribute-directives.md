@@ -320,7 +320,7 @@ Add a `highlightColor` property to the directive class like this:
 
 ### Binding to an _@Input_ property
 
-### 绑定到_@Input_属性
+### 绑定到 *@Input* 属性
 
 Notice the `@Input` decorator. It adds metadata to the class that makes the directive's `highlightColor` property available for binding.
 
@@ -379,7 +379,7 @@ This is disagreeable. The word, `appHighlight`, is a terrible property name and 
 
 ### Bind to an _@Input_ alias
 
-### 绑定到_@Input_别名
+### 绑定到 *@Input* 别名
 
 Fortunately you can name the directive property whatever you want _and_ **_alias it_** for binding purposes.
 

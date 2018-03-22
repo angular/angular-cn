@@ -2503,7 +2503,7 @@ There are several notable changes here:
 
 Add `PhoneDetailComponent` component to the `NgModule` _declarations_ and _entryComponents_:
 
-把 `PhoneDetailComponent` 组件添加到 `NgModule` 的_declarations_和_entryComponents_中：
+把 `PhoneDetailComponent` 组件添加到 `NgModule` 的 *declarations* 和 *entryComponents* 中：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="phonedetail" title="app.module.ts">
 

@@ -176,7 +176,7 @@ Technically, the `@Injectable()`decorator is only required for a service class t
 The `LoggerService` doesn't depend on anything. The logger would work if you omitted `@Injectable()`
 and the generated code would be slightly smaller.
 
-严格来说，这个 `@Injectable()` 装饰器只在一个服务类有_自己的依赖_的时候，才是_不可缺少_的。
+严格来说，这个 `@Injectable()` 装饰器只在一个服务类有*自己的依赖*的时候，才是*不可缺少*的。
 `LoggerService` 不依赖任何东西，所以该日志服务在没有 `@Injectable()` 的时候应该也能工作，生成的代码也更少一些。
 
 But the service would break the moment you gave it a dependency and you'd have to go back
@@ -607,7 +607,7 @@ You have to register your _own_ application providers manually,
 usually in the `providers` array of the `Component` or `Directive` metadata:
 
 新建的注入器中没有提供商。
-Angular 会使用一些自带的提供商来初始化这些注入器。你必须自行注册属于_自己_的提供商，通常用 ` 组件 ` 或者 ` 指令 ` 元数据中的 `providers` 数组进行注册。
+Angular 会使用一些自带的提供商来初始化这些注入器。你必须自行注册属于*自己*的提供商，通常用 ` 组件 ` 或者 ` 指令 ` 元数据中的 `providers` 数组进行注册。
 
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="providers" title="src/app/app.component.ts (providers)">
 
@@ -758,7 +758,7 @@ The second provider substitutes the `DateLoggerService` for the `LoggerService`.
 The `LoggerService` is already registered at the `AppComponent` level.
 When _this component_ requests the `LoggerService`, it receives the `DateLoggerService` instead.
 
-第二个提供商使用 `DateLoggerService` 来满足 `LoggerService`。该 `LoggerService` 在 `AppComponent` 级别已经被注册。当_这个组件_要求 `LoggerService` 的时候，它得到的却是 `DateLoggerService` 服务。
+第二个提供商使用 `DateLoggerService` 来满足 `LoggerService`。该 `LoggerService` 在 `AppComponent` 级别已经被注册。当*这个组件*要求 `LoggerService` 的时候，它得到的却是 `DateLoggerService` 服务。
 
 <div class="l-sub-section">
 
@@ -796,7 +796,7 @@ creating ***two ways to access the same service object***.
 Narrowing an API through an aliasing interface is _one_ important use case for this technique.
 The following example shows aliasing for that purpose.
 
-通过使用别名接口来把一个 API 变窄，是_一个_很重要的该技巧的使用例子。下面的例子中使用别名就是为了这个目的。
+通过使用别名接口来把一个 API 变窄，是*一个*很重要的该技巧的使用例子。下面的例子中使用别名就是为了这个目的。
 
 Imagine that the `LoggerService` had a large API, much larger than the actual three methods and a property.
 You might want to shrink that API surface to just the members you actually need.

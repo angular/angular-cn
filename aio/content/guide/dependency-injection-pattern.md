@@ -173,7 +173,7 @@ Now, if someone extends the `Engine` class, that is not `Car`'s problem.
 The _consumer_ of `Car` has the problem. The consumer must update the car creation code to
 something like this:
 
-`Car` 的_消费者_也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
+`Car` 的*消费者*也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-param" linenums="false">
 
@@ -245,7 +245,7 @@ Imagine the framework had something called an _injector_.
 You register some classes with this injector, and it figures out how to create them.
 
 到了依赖注入框架一展身手的时候了！
-想象框架中有一个叫做_注入器 (injector)_ 的东西。
+想象框架中有一个叫做*注入器 (injector)* 的东西。
 用这个注入器注册一些类，它会弄明白如何创建它们。
 
 When you need a `Car`, you simply ask the injector to get it for you and you're good to go.

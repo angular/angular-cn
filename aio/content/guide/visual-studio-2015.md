@@ -41,7 +41,7 @@ then consider the _experimental_
 Note that the resulting code does not map to the docs. Adjust accordingly.   
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见_预览版_<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
+    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
     注意，最终代码与本文不对应，请适当调节。
 
 </div>

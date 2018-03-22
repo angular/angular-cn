@@ -64,7 +64,7 @@ For example, you can use the `ngClass` directive to add and remove CSS class nam
 
 Learn about them in the [_Attribute Directives_](guide/attribute-directives) guide.
 
-要了解更多信息，请参见[_属性型指令_](guide/attribute-directives)页。
+要了解更多信息，请参见[*属性型指令*](guide/attribute-directives)页。
 
 {@a B}
 

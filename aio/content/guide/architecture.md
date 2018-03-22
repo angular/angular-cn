@@ -51,7 +51,7 @@ You'll learn the details in the pages that follow. For now, focus on the big pic
 
 Angular apps are modular and Angular has its own modularity system called _NgModules_.
 
-Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 _Angular 模块_或 _NgModules_。
+Angular 应用是模块化的，并且 Angular 有自己的模块系统，它被称为 *Angular 模块*或 *NgModules*。
 
 NgModules are a big deal.
 This page introduces modules; the [NgModules](guide/ngmodules) pages 
@@ -64,17 +64,17 @@ NgModules 很重要。这里只是简单介绍，在 [NgModules](guide/ngmodules
 Every Angular app has at least one NgModule class, [the _root module_](guide/bootstrapping "Bootstrapping"),
 conventionally named `AppModule`.
 
-每个 Angular 应用至少有一个模块（[_根模块_](guide/bootstrapping "引导启动")），习惯上命名为 `AppModule`。
+每个 Angular 应用至少有一个模块（[*根模块*](guide/bootstrapping "引导启动")），习惯上命名为 `AppModule`。
 
 While the _root module_ may be the only module in a small application, most apps have many more
 _feature modules_, each a cohesive block of code dedicated to an application domain,
 a workflow, or a closely related set of capabilities.
 
-_根模块_在一些小型应用中可能是唯一的模块，大多数应用会有很多_特性模块_，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。
+*根模块*在一些小型应用中可能是唯一的模块，大多数应用会有很多*特性模块*，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。
 
 An NgModule, whether a _root_ or _feature_, is a class with an `@NgModule` decorator.
 
-Angular 模块（无论是_根模块_还是_特性模块_）都是一个带有 `@NgModule` 装饰器的类。
+Angular 模块（无论是*根模块*还是*特性模块*）都是一个带有 `@NgModule` 装饰器的类。
 
 <div class="l-sub-section">
 
@@ -98,7 +98,7 @@ The most important properties are:
 * `declarations` - the _view classes_ that belong to this module.
 Angular has three kinds of view classes: [components](guide/architecture#components), [directives](guide/architecture#directives), and [pipes](guide/pipes).
 
-   `declarations` - 声明本模块中拥有的_视图类_。Angular 有三种视图类：[组件](guide/architecture#components)、[指令](guide/architecture#directives)和[管道](guide/pipes)。
+   `declarations` - 声明本模块中拥有的*视图类*。Angular 有三种视图类：[组件](guide/architecture#components)、[指令](guide/architecture#directives)和[管道](guide/pipes)。
 
 * `exports` - the subset of declarations that should be visible and usable in the component [templates](guide/architecture#templates) of other modules.
 
@@ -106,7 +106,7 @@ Angular has three kinds of view classes: [components](guide/architecture#compone
 
 * `imports` - other modules whose exported classes are needed by component templates declared in _this_ module.
 
-   `imports` - _本_模块声明的组件模板需要的类所在的其它模块。
+   `imports` - *本*模块声明的组件模板需要的类所在的其它模块。
 
 * `providers` - creators of [services](guide/architecture#services) that this module contributes to
 the global collection of services; they become accessible in all parts of the app.
@@ -116,7 +116,7 @@ the global collection of services; they become accessible in all parts of the ap
 * `bootstrap` - the main application view, called the _root component_,
 that hosts all other app views. Only the _root module_ should set this `bootstrap` property.
 
-   `bootstrap` - 指定应用的主视图（称为_根组件_），它是所有其它视图的宿主。只有_根模块_才能设置 `bootstrap` 属性。
+   `bootstrap` - 指定应用的主视图（称为*根组件*），它是所有其它视图的宿主。只有*根模块*才能设置 `bootstrap` 属性。
 
 Here's a simple root module:
 
@@ -128,7 +128,7 @@ Here's a simple root module:
 
   The `export` of `AppComponent` is just to show how to use the `exports` array to export a component; it isn't actually necessary in this example. A root module has no reason to _export_ anything because other components don't need to _import_ the root module.
 
-  `AppComponent` 的 `export` 语句只是用于演示如何导出的，它在这个例子中并不是必须的。根模块不需要_导出_任何东西，因为其它组件不需要导入根模块。
+  `AppComponent` 的 `export` 语句只是用于演示如何导出的，它在这个例子中并不是必须的。根模块不需要*导出*任何东西，因为其它组件不需要导入根模块。
 
 </div>
 
@@ -158,7 +158,7 @@ In JavaScript each _file_ is a module and all objects defined in the file belong
 The module declares some objects to be public by marking them with the `export` key word.
 Other JavaScript modules use *import statements* to access public objects from other modules.
 
-JavaScript 中，每个_文件_是一个模块，文件中定义的所有对象都从属于那个模块。
+JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象都从属于那个模块。
 通过 `export` 关键字，模块可以把它的某些对象声明为公共的。
 其它 JavaScript 模块可以使用*import 语句*来访问这些公共对象。
 
@@ -206,7 +206,7 @@ For example, import Angular's `Component` decorator from the `@angular/core` lib
 
 You also import NgModules from Angular _libraries_ using JavaScript import statements:
 
-还可以使用 JavaScript 的导入语句从 Angular _库_中导入 Angular _模块_：
+还可以使用 JavaScript 的导入语句从 Angular *库*中导入 Angular *模块*：
 
 <code-example path="architecture/src/app/mini-app.ts" region="import-browser-module" linenums="false"></code-example>
 
@@ -243,7 +243,7 @@ Hang in there. The confusion yields to clarity with time and experience.
 
 A _component_ controls a patch of screen called a *view*.
 
-_组件_负责控制屏幕上的一小块区域叫做*视图*。
+*组件*负责控制屏幕上的一小块区域叫做*视图*。
 
 For example, the following views are controlled by components:
 
@@ -535,7 +535,7 @@ a `@Component` decorator is actually a `@Directive` decorator extended with temp
 
 Two *other* kinds of directives exist: _structural_ and _attribute_ directives.
 
-还有两种*其它*类型的指令：_结构型_指令和_属性 (attribute) 型_指令。
+还有两种*其它*类型的指令：*结构型*指令和*属性 (attribute) 型*指令。
 
 They tend to appear within an element tag as attributes do,
 sometimes by name but more often as the target of an assignment or a binding.
@@ -676,7 +676,7 @@ and the application logic (which often includes some notion of a _model_).
 A good component presents properties and methods for data binding.
 It delegates everything nontrivial to services.
 
-组件的任务就是提供用户体验，仅此而已。它介于视图（由模板渲染）和应用逻辑（通常包括_模型_的某些概念）之间。
+组件的任务就是提供用户体验，仅此而已。它介于视图（由模板渲染）和应用逻辑（通常包括*模型*的某些概念）之间。
 设计良好的组件为数据绑定提供属性和方法，把其它琐事都委托给服务。
 
 Angular doesn't *enforce* these principles.

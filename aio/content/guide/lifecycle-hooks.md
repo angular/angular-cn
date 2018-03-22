@@ -692,7 +692,7 @@ Remember also that a directive's data-bound input properties are not set until _
 That's a problem if you need to initialize the directive based on those properties.
 They'll have been set when `ngOnInit()` runs.
 
-另外还要记住，在指令的_构造函数完成之前_，那些被绑定的输入属性还都没有值。
+另外还要记住，在指令的*构造函数完成之前*，那些被绑定的输入属性还都没有值。
 如果你需要基于这些属性的值来初始化这个指令，这种情况就会出问题。
 而当 `ngOnInit()` 执行的时候，这些属性都已经被正确的赋值过了。
 
@@ -837,7 +837,7 @@ change detection cycle no matter where the change occurred.
 It's called over twenty times in this example before the user can do anything.
 
 虽然 `ngDoCheck()` 钩子可以可以监测到英雄的 `name` 什么时候发生了变化。但其开销很恐怖。
-这个 `ngDoCheck` 钩子被非常频繁的调用 —— 在_每次_变更检测周期之后，发生了变化的每个地方都会调它。
+这个 `ngDoCheck` 钩子被非常频繁的调用 —— 在*每次*变更检测周期之后，发生了变化的每个地方都会调它。
 在这个例子中，用户还没有做任何操作之前，它就被调用了超过二十次。
 
 Most of these initial checks are triggered by Angular's first rendering of *unrelated data elsewhere on the page*.

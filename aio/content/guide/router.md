@@ -2637,7 +2637,7 @@ You need a way to detect when the route parameters change from _within the same 
 The observable `paramMap` property handles that beautifully.
 
 不幸的是，`ngOnInit` 对每个实例只调用一次。
-  你需要一种方式来检测_在同一个实例中_路由参数什么时候发生了变化。
+  你需要一种方式来检测*在同一个实例中*路由参数什么时候发生了变化。
   而 `params` 属性这个可观察对象（Observable）干净漂亮的处理了这种情况。
 
 <div class="l-sub-section">
@@ -2705,7 +2705,7 @@ Stick with the observable `paramMap` approach if there's even a chance that the 
 could re-use the component.
 This sample stays with the observable `paramMap` strategy just in case.
 
-**记住：**，用这种技巧，你只得到了这些参数的_初始_值。
+**记住：**，用这种技巧，你只得到了这些参数的*初始*值。
 如果有可能连续多次导航到此组件，那么就该用 `paramMap` 可观察对象的方式。
 这个例子中仍然使用了 `paramMap` 的可观察对象策略。
 
@@ -4374,7 +4374,7 @@ If the user is logged in, it returns true and the navigation continues.
 The `ActivatedRouteSnapshot` contains the _future_ route that will be activated and the `RouterStateSnapshot`
 contains the _future_ `RouterState` of the application, should you pass through the guard check.
 
-这个 `ActivatedRouteSnapshot` 包含了_即将_被激活的路由，而 `RouterStateSnapshot` 包含了该应用_即将_到达的状态。
+这个 `ActivatedRouteSnapshot` 包含了*即将*被激活的路由，而 `RouterStateSnapshot` 包含了该应用*即将*到达的状态。
 你应该通过守卫进行检查。
 
 If the user is not logged in, you store the attempted URL the user came from using the `RouterStateSnapshot.url` and

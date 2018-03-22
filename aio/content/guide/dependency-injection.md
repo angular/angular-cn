@@ -658,7 +658,7 @@ This is actually a shorthand expression for a provider registration
 using a _provider_ object literal with two properties:
 
 这其实是用于注册提供商的简写表达式。
-  使用的是一个带有两个属性的_提供商_对象字面量：
+  使用的是一个带有两个属性的*提供商*对象字面量：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-3" >
 

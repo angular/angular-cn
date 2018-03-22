@@ -7,7 +7,7 @@ protections against common web-application vulnerabilities and attacks such as c
 scripting attacks. It doesn't cover application-level security, such as authentication (_Who is
 this user?_) and authorization (_What can this user do?_).
 
-Web 应用程序的安全涉及到很多方面。针对常见的漏洞和攻击，比如跨站脚本攻击，Angular 提供了一些内置的保护措施。本章将讨论这些内置保护措施，但不会涉及应用级安全，比如用户认证（_这个用户是谁？_）和授权(_这个用户能做什么？_)。
+Web 应用程序的安全涉及到很多方面。针对常见的漏洞和攻击，比如跨站脚本攻击，Angular 提供了一些内置的保护措施。本章将讨论这些内置保护措施，但不会涉及应用级安全，比如用户认证（*这个用户是谁？*）和授权(*这个用户能做什么？*)。
 
 For more information about the attacks and mitigations described below, see [OWASP Guide Project](https://www.owasp.org/index.php/Category:OWASP_Guide_Project).
 
@@ -53,7 +53,7 @@ community and make a pull request.
 * **Avoid Angular APIs marked in the documentation as “_Security Risk_.”**
 For more information, see the [Trusting safe values](guide/security#bypass-security-apis) section of this page.
 
-   **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的 Angular API。** 
+   **避免使用本文档中带“[*安全风险*](guide/security#bypass-security-apis)”标记的 Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
 <h2 id='xss'>Preventing cross-site scripting (XSS)</h2>
@@ -367,7 +367,7 @@ This technique is effective because all browsers implement the _same origin poli
 on which cookies are set can read the cookies from that site and set custom headers on requests to that site.
 That means only your application can read this cookie token and set the custom header. The malicious code on `evil.com` can't.
 
-这个技术之所以有效，是因为所有浏览器都实现了_同源策略_。只有设置 cookie 的网站的代码可以访问该站的 cookie，并为该站的请求设置自定义页头。
+这个技术之所以有效，是因为所有浏览器都实现了*同源策略*。只有设置 cookie 的网站的代码可以访问该站的 cookie，并为该站的请求设置自定义页头。
   这就是说，只有你的应用程序可以获取这个 cookie 令牌和设置自定义页头。`evil.com` 的恶意代码不能。
 
 Angular's `HttpClient` has built-in support for the client-side half of this technique. Read about it more in the [HttpClient guide](/guide/http).

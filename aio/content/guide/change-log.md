@@ -232,7 +232,7 @@ Docs and code samples updated and tested with Angular v.2.2.0.
 
 ## UPDATE: NgUpgrade Guide for the AOT friendly _upgrade/static_ module (2016-11-14)
 
-## 更新：用于 AOT 的_upgrade/static_模块 NgUpgrade 指南 (2016-11-14)
+## 更新：用于 AOT 的 *upgrade/static* 模块 NgUpgrade 指南 (2016-11-14)
 
 The updated [NgUpgrade Guide](guide/upgrade) guide covers the
 new AOT friendly `upgrade/static` module
@@ -271,7 +271,7 @@ Docs and code samples updated and tested with Angular v.2.1.1.
 
 ## npm _@types_ packages replace _typings_ (2016-10-20)
 
-## 使用 npm 的_@types_包替换_typings_ (2016-10-20)
+## 使用 npm 的_@types*包替换*typings_ (2016-10-20)
 
 Documentation samples now get TypeScript type information for 3rd party libraries
 from npm `@types` packages rather than with the _typings_ tooling.
@@ -311,12 +311,12 @@ in the `in-memory-web-api` repo.
 
 ## "Router" _preload_ syntax and _:enter_/_:leave_ animations (2016-10-19)
 
-## "路由器"_预加载_语法和_:enter_/_:leave_动画(2016-10-19)
+## "路由器"*预加载*语法和 *:enter*/*:leave* 动画(2016-10-19)
 
 The router can lazily _preload_ modules _after_ the app starts and
 _before_ the user navigates to them for improved perceived performance.
 
-路由器可以在应用启动_之后_和用户导航到惰性加载模块_之前_，预先加载惰性模块，以增强性能。
+路由器可以在应用启动*之后*和用户导航到惰性加载模块*之前*，预先加载惰性模块，以增强性能。
 
 New `:enter` and `:leave` aliases make animation more natural.
 
