@@ -449,8 +449,8 @@
         },
         {
           "url": "guide/universal",
-          "title": "Server-side Rendering",
-          "tooltip": "Render HTML server-side with Angular Universal."
+          "title": " 服务端渲染",
+          "tooltip": "使用 Angular Universal 在服务端渲染 HTML。"
         },
         {
           "url": "guide/visual-studio-2015",
