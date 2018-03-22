@@ -98,7 +98,7 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 
 1. `app.component.css`&mdash; the component's private CSS styles.
 
-   `app.component.ts`&mdash; 组件的私有 CSS 样式。
+   `app.component.css`&mdash; 组件的私有 CSS 样式。
 
 Open the component class file (`app.component.ts`) and change the value of the `title` property to 'Tour of Heroes'.
 
