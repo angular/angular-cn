@@ -401,33 +401,33 @@
           ]
         },
         {
-          "title": "Service Workers",
-          "tooltip": "Angular service workers: Controlling caching of application resources.",
+          "title": "Service Worker",
+          "tooltip": "Angular 的 Service Worker：控制应用的资源缓存。",
           "children": [
             {
               "url": "guide/service-worker-intro",
-              "title": "Introduction",
-              "tooltip": "Angular's implementation of service workers improves user experience with slow or unreliable network connectivity."
+              "title": "简介",
+              "tooltip": "Angular 对 Service Worker 的实现提升了慢速或不稳定的网络连接下的用户体验。"
             },
             {
               "url": "guide/service-worker-getting-started",
-              "title": "Getting Started",
-              "tooltip": "Enabling the service worker in a CLI project and observing behavior in the browser."
+              "title": "快速起步",
+              "tooltip": "在 CLI 项目中启用 Service Worker，并在浏览器中查看效果。"
             },
             {
               "url": "guide/service-worker-communications",
-              "title": "Service Worker Communication",
-              "tooltip": "Services that enable you to interact with an Angular service worker."
+              "title": "与 Service Worker 通讯",
+              "tooltip": "那些能让你和 Angular 的 Service Worker 通讯的服务类。"
             },
             {
               "url": "guide/service-worker-devops",
-              "title": "Service Worker in Production",
-              "tooltip": "Running applications with service workers, managing application update, debugging, and killing applications."
+              "title": "产品环境下的 Service Worker",
+              "tooltip": "使用 Service Worker 运行应用、管理应用更新、调试以及杀掉正在运行的应用。"
             },
             {
               "url": "guide/service-worker-config",
-              "title": "Service Worker Configuration",
-              "tooltip": "Configuring service worker caching behavior."
+              "title": "Service Worker 的配置",
+              "tooltip": "配置 Service Worker 的缓存行为。"
             }
           ]
         },
