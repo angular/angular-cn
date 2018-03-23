@@ -677,7 +677,7 @@ In the previous code sample, the second `fetch` pipe binding demonstrates more p
 It displays the same hero data in JSON format by chaining through to the built-in `JsonPipe`.
 
 第二个绑定除了用到 `FetchPipe` 之外还链接了更多管道。
-它把获取数据的结果同时显示在第一个绑定和第二个绑定中。第二个绑定中，我们通过链接到一个内置管道 `JsonPipe` 把它转成了 JSON 格式。
+它通过串联上内置管道 `JsonPipe` 来把英雄数据显示成了 JSON 格式。
 
 <div class="callout is-helpful">
 

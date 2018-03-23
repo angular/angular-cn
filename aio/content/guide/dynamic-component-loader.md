@@ -175,7 +175,7 @@ exists on this specific instance of the component. How do you know it's
 this specific instance? Because it's referring to `adHost` and `adHost` is the
 directive you set up earlier to tell Angular where to insert dynamic components.
 
-接下来，你要把 `viewContainerRef` 指向这个组件的现有实例。但我们怎么才能找到这个实例呢？
+接下来，你要把 `viewContainerRef` 指向这个组件的现有实例。但你怎么才能找到这个实例呢？
 很简单，因为它指向了 `adHost`，而这个 `adHost` 就是你以前设置过的指令，用来告诉 Angular 该把动态组件插入到什么位置。
 
 As you may recall, `AdDirective` injects `ViewContainerRef` into its constructor.

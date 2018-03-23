@@ -227,7 +227,7 @@ Before applying a structural directive, you might want to pause for a moment
 to consider the consequences of adding and removing elements and of creating and destroying components.
 
 **同样的考量也适用于每一个结构型指令，无论是内置的还是自定义的。**
-  你应该提醒自己以及我们指令的使用者，来仔细考虑添加元素、移除元素以及创建和销毁组件的后果。
+  你应该提醒自己慎重考虑添加元素、移除元素以及创建和销毁组件的后果。
 
 {@a asterisk}
 

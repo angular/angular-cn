@@ -30,7 +30,7 @@ For every Angular component you write, you may define not only an HTML template,
 but also the CSS styles that go with that template,
 specifying any selectors, rules, and media queries that you need.
 
-对你编写的每个 Angular 组件来说，除了定义 HTML 模板之外，我们还要定义用于模板的 CSS 样式、
+对你编写的每个 Angular 组件来说，除了定义 HTML 模板之外，还要定义用于模板的 CSS 样式、
 指定任意的选择器、规则和媒体查询。
 
 One way to do this is to set the `styles` property in the component metadata.

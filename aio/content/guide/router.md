@@ -1165,7 +1165,7 @@ for navigation. Thanks to `pushState`, you can make in-app URL paths look the wa
 look, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.
 
 路由器使用浏览器的<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" target="_blank" title="HTML5 browser history push-state">history.pushState</a>进行导航。
-感谢 `pushState`！有了它，你就能按所期望的样子来显示应用内部的 URL 路径，比如：`localhost:3000/crisis-center`。虽然我们使用的全部是客户端合成的视图，但应用内部的这些 URL 看起来和来自服务器的没有什么不同。
+感谢 `pushState`！有了它，你就能按所期望的样子来显示应用内部的 URL 路径，比如：`localhost:3000/crisis-center`。虽然你使用的全部是客户端合成的视图，但应用内部的这些 URL 看起来和来自服务器的没有什么不同。
 
 Modern HTML5 browsers were the first to support `pushState` which is why many people refer to these URLs as
 "HTML5 style" URLs.
@@ -1981,7 +1981,7 @@ While you could continue to add files to the `src/app/` folder,
 that is unrealistic and ultimately not maintainable.
 Most developers prefer to put each feature area in its own folder.
 
-虽然我们也可以把文件都放在 `src/app/` 目录下，但那样是不现实的，而且很难维护。
+虽然你也可以把文件都放在 `src/app/` 目录下，但那样是不现实的，而且很难维护。
 大部分开发人员更喜欢把每个特性区都放在它自己的目录下。
 
 You are about to break up the app into different *feature modules*, each with its own concerns.
@@ -2166,7 +2166,7 @@ In the `AppRoutingModule`, you used the static **`RouterModule.forRoot`** method
 In a feature module you use the static **`forChild`** method.
 
 这里有少量但是关键的不同点。
-在 `AppRoutingModule` 中，你使用了静态的 `RouterModule.`**`forRoot`**方法来注册我们的路由和全应用级服务提供商。
+在 `AppRoutingModule` 中，你使用了静态的 `RouterModule.`**`forRoot`**方法来注册路由和全应用级服务提供商。
 在特性模块中，你要改用**`forChild`**静态方法。
 
 <div class="l-sub-section">
@@ -4108,7 +4108,7 @@ You could permit access only to authenticated users or to users with a specific 
 You might block or limit access until the user's account is activated.
 
 应用程序通常会根据访问者来决定是否授予某个特性区的访问权。
-我们可以只对已认证过的用户或具有特定角色的用户授予访问权，还可以阻止或限制用户访问权，直到用户账户激活为止。
+你可以只对已认证过的用户或具有特定角色的用户授予访问权，还可以阻止或限制用户访问权，直到用户账户激活为止。
 
 The `CanActivate` guard is the tool to manage these navigation business rules.
 
@@ -4247,7 +4247,7 @@ property but it's not using a `component`.
 You haven't made a mistake in the configuration.
 You've defined a _component-less_ route.
 
-来看 `AdminComponent` 下的子路由，我们有一个带 **path** 和 **children** 的子路由，
+来看 `AdminComponent` 下的子路由，这里有一个带 **path** 和 **children** 的子路由，
 但它没有使用 **component**。这并不是配置中的失误，而是在使用**无组件**路由。
 
 The goal is to group the `Crisis Center` management routes under the `admin` path.
@@ -4511,7 +4511,7 @@ If the user cancels, you'll stay put and allow more changes.
 If the user approves, the app can save.
 
 最好能暂停，并让用户决定该怎么做。
-如果用户选择了取消，我们就留下来，并允许更多改动。
+如果用户选择了取消，你就留下来，并允许更多改动。
 如果用户选择了确认，那就进行保存。
 
 You still might delay navigation until the save succeeds.
@@ -5501,7 +5501,7 @@ So instead, you'll update the empty path route in `app-routing.module.ts` to red
 
 Since `RouterLink`s aren't tied to route configuration, you'll need to update the associated router links so they remain active when the new route is active. You'll update the `app.component.ts` template for the `/heroes` routerLink.
 
-由于 `RouterLink` 指令没有关联到路由配置，所以你需要修改相关的路由链接，以便在新的路由激活时，它们也能保持激活状态。我们要修改 `app.component.ts` 模板中的 `/heroes` 路由链接。
+由于 `RouterLink` 指令没有关联到路由配置，所以你需要修改相关的路由链接，以便在新的路由激活时，它们也能保持激活状态。你要修改 `app.component.ts` 模板中的 `/heroes` 路由链接。
 
 <code-example path="router/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (superheroes active routerLink)">
 

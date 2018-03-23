@@ -1379,7 +1379,7 @@ bring that application to the brave new world of Angular.
 
 在本节和下节中，你将看一个完整的例子，它使用 `upgrade` 模块准备和升级了一个应用程序。
 该应用就是来自[原 AngularJS 教程](https://docs.angularjs.org/tutorial)中的[Angular PhoneCat](https://github.com/angular/angular-phonecat)。
-那是我们当初开始 Angular 探险之旅的起点。
+那是我们很多人当初开始 Angular 探险之旅的地方。
 现在，你会看到如何把该应用带入 Angular 的美丽新世界。
 
 During the process you'll learn how to apply the steps outlined in the

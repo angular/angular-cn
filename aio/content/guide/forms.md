@@ -846,7 +846,7 @@ The `ng-valid`/`ng-invalid` pair is the most interesting, because you want to se
 strong visual signal when the values are invalid. You also want to mark required fields.
 To create such visual feedback, add definitions for the `ng-*` CSS classes.
 
-(`ng-valid` | `ng-invalid`)这一对是你最感兴趣的。当数据变得无效时，我们希望发出强力的视觉信号，
+(`ng-valid` | `ng-invalid`)这一对是最有趣的部分，因为当数据变得无效时，你希望发出强力的视觉信号，
 还想要标记出必填字段。可以通过加入自定义 CSS 来提供视觉反馈。
 
 *Delete* the `#spy` template reference variable and the `TODO` as they have served their purpose.
@@ -891,7 +891,7 @@ You can improve the form. The _Name_ input box is required and clearing it turns
 That says something is wrong but the user doesn't know *what* is wrong or what to do about it.
 Leverage the control's state to reveal a helpful message.
 
-你还能做的更好。“Name” 输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但我们不知道错在哪里，或者如何纠正。
+你还能做的更好。“Name” 输入框是必填的，清空它会让左侧的条变红。这表示*某些东西*是错的，但用户不知道错在哪里，或者如何纠正。
   可以借助 `ng-invalid` 类来给出有用的提示。
 
 When the user deletes the name, the form should look like this:

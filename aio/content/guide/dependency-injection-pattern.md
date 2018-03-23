@@ -90,7 +90,7 @@ What does `Engine` depend upon? What does that dependency depend on?
 Will a new instance of `Engine` make an asynchronous call to the server?
 You certainly don't want that going on during tests.
 
-当给 `Car` 类写测试的时候，我们就会受制于它背后的那些依赖。
+当给 `Car` 类写测试的时候，你就会受制于它背后的那些依赖。
 能在测试环境中成功创建新的 `Engine` 吗？
 `Engine` 自己又依赖什么？那些依赖本身又依赖什么？
 `Engine` 的新实例会发起到服务器的异步调用吗？

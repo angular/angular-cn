@@ -1355,7 +1355,7 @@ Then return here to learn about _form array_ properties.
 So far, you've seen `FormControls` and `FormGroups`.
 A `FormGroup` is a named object whose property values are `FormControls` and other `FormGroups`.
 
-以前，我们见过了 `FormControl` 和 `FormGroup`。
+以前，你已见过 `FormControl` 和 `FormGroup`。
 `FormGroup` 是一个命名对象，它的属性值是 `FormControl` 和其它的 `FormGroup`。
 
 Sometimes you need to present an arbitrary number of controls or groups.

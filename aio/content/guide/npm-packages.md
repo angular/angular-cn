@@ -268,7 +268,7 @@ You can remove packages that you don't need but how can you be sure that you won
 As a practical matter, it's better to install a package you don't need than worry about it.
 Extra packages and package files on your local development machine are harmless.
 
-你可以移除这些不需要的包，不过我们怎么知道哪些是不需要的呢？
+你可以移除这些不需要的包，不过你怎么知道哪些是不需要的呢？
 实际上，安装不需要的包好过担心缺少某个包。
 在你本机开发环境下存在无用的包和文件并没有害处。
 

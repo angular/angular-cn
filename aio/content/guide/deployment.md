@@ -334,7 +334,7 @@ See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") al
 In development, you typically start the server in the folder that holds `index.html`.
 That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
 
-在开发期间，你通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以我们要在 `index.html` 的顶部添加 `<base href="/">`。
+在开发期间，你通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以你要在 `index.html` 的顶部添加 `<base href="/">`。
 
 But on the shared or production server, you might serve the app from a subfolder.
 For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,

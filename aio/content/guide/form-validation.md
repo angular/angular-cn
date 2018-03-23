@@ -251,7 +251,7 @@ to the `FormControl`.
 In template-driven forms, you don't have direct access to the `FormControl` instance, so you can't pass the 
 validator in like you can for reactive forms. Instead, you need to add a directive to the template.
 
-在模板驱动表单中，你不用直接访问 `FormControl` 实例。所以我们不能像响应式表单中那样把验证器传进去，而应该在模板中添加一个指令。
+在模板驱动表单中，你不用直接访问 `FormControl` 实例。所以不能像响应式表单中那样把验证器传进去，而应该在模板中添加一个指令。
 
 The corresponding `ForbiddenValidatorDirective` serves as a wrapper around the `forbiddenNameValidator`.
 

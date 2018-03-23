@@ -24,7 +24,7 @@ Angular takes over, presenting your application content in a browser and
 responding to user interactions according to the instructions you've provided.
 
 然后，你通过*引导**根模块*来启动该应用。
-Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。
+Angular 在浏览器中接管、展现应用的内容，并根据你提供的操作指令响应用户的交互。
 
 Of course, there is more to it than this.
 You'll learn the details in the pages that follow. For now, focus on the big picture.
@@ -176,7 +176,7 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 
 These are two different and _complementary_ module systems. Use them both to write your apps.
 
-这两个模块化系统是不同但*互补*的，我们在写程序时都会用到。
+这两个模块化系统是不同但*互补*的，你在写程序时都会用到。
 
 ### Angular libraries
 
@@ -688,7 +688,7 @@ Angular 不会*强行保障*这些原则。
 Angular does help you *follow* these principles by making it easy to factor your
 application logic into services and make those services available to components through *dependency injection*.
 
-Angular 帮助你*遵循*这些原则 —— 它让我们能轻易地把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
+Angular 帮助你*遵循*这些原则 —— 它让你能轻易地把应用逻辑拆分到服务，并通过*依赖注入*来在组件中使用这些服务。
 
 <hr/>
 

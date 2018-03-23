@@ -109,7 +109,7 @@ the view, such as a keystroke, a timer completion, or a response to an HTTP requ
 Notice that you don't call **new** to create an instance of the `AppComponent` class.
 Angular is creating an instance for you. How?
 
-注意，你没有调用 **new** 来创建 `AppComponent` 类的实例，是 Angular 替我们创建了它。那么它是如何创建的呢？
+注意，你没有调用 **new** 来创建 `AppComponent` 类的实例，是 Angular 替你创建了它。那么它是如何创建的呢？
 
 The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
 That element is a placeholder in the body of your `index.html` file:
@@ -382,7 +382,7 @@ Sometimes an app needs to display a view or a portion of a view only under speci
 
 Let's change the example to display a message if there are more than three heroes.
 
-让我们来修改这个例子，如果多于三位英雄，显示一条消息。
+来改一下这个例子，如果多于三位英雄，显示一条消息。
 
 The Angular `ngIf` directive inserts or removes an element based on a _truthy/falsy_ condition.
 To see it in action, add the following paragraph at the bottom of the template:

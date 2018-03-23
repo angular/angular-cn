@@ -793,7 +793,7 @@ To prevent this issue, write a constructor that attempts to inject the module or
 from the root app injector. If the injection succeeds, the class has been loaded a second time.
 You can throw an error or take other remedial action.
 
-为了防范这种风险，可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，我们就可以抛出一个错误，或者采取其它挽救措施。
+为了防范这种风险，可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，你就可以抛出一个错误，或者采取其它挽救措施。
 
 Certain NgModules, such as `BrowserModule`, implement such a guard.
 Here is a custom constructor for an NgModule called `CoreModule`.

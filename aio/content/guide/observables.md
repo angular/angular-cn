@@ -163,7 +163,7 @@ When creating an observable you should determine how you want that observable to
 
 Let’s look at an example that counts from 1 to 3, with a one-second delay after each number emitted.
 
-我们来看一个从 1 到 3 进行计数的例子，它每发出一个数字就会等待 1 秒。
+来看一个从 1 到 3 进行计数的例子，它每发出一个数字就会等待 1 秒。
 
 <code-example path="observables/src/multicasting.ts" region="delay_sequence" title="Create a delayed sequence"></code-example>
 

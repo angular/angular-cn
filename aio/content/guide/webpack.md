@@ -852,7 +852,7 @@ Reconfigure [Karma](https://karma-runner.github.io/1.0/index.html) to use Webpac
 You don't precompile the TypeScript; Webpack transpiles the Typescript files on the fly, in memory, and feeds the emitted JS directly to Karma.
 There are no temporary files on disk.
 
-你不用预编译 TypeScript，Webpack 随时在内存中转译我们的 TypeScript 文件，并且把产出的 JS 直接反馈给 Karma。
+你不用预编译 TypeScript，Webpack 会随时在内存中转译这些 TypeScript 文件，并且把产出的 JS 直接反馈给 Karma。
 硬盘上没有任何临时文件。
 
 The `karma-test-shim` tells Karma what files to pre-load and
