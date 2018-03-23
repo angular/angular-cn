@@ -173,7 +173,7 @@ Now, if someone extends the `Engine` class, that is not `Car`'s problem.
 The _consumer_ of `Car` has the problem. The consumer must update the car creation code to
 something like this:
 
-`Car` 的*消费者*也有这个问题。消费者必须更新创建这辆车的代码，就像这样：
+`Car` 的*消费者*也有这个问题。消费者必须修改创建这辆车的代码，就像这样：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-param" linenums="false">
 

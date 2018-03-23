@@ -1057,7 +1057,7 @@ You're at the end of your journey, and you've accomplished a lot.
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 
-  你更新了组件，以允许用户添加、编辑和删除英雄。
+  你修改了组件，以允许用户添加、编辑和删除英雄。
 
 * You configured an in-memory web API.
 

@@ -2979,7 +2979,7 @@ Update the template with a [class binding](guide/template-syntax#class-binding).
 The binding adds the `selected` CSS class when the comparison returns `true` and removes it when `false`.
 Look for it within the repeated `<li>` tag as shown here:
 
-用[CSS 类绑定](guide/template-syntax#class-binding)更新模板，把它绑定到 `isSelected` 方法上。
+用 [CSS 类绑定](guide/template-syntax#class-binding)更新模板，把它绑定到 `isSelected` 方法上。
 如果该方法返回 `true`，此绑定就会添加 CSS 类 `selected`，否则就移除它。
 在 `<li>` 标记中找到它，就像这样：
 
@@ -4920,7 +4920,7 @@ when navigating.
 Since you'll be navigating to the *Admin Dashboard* route after logging in, you'll update it to handle the
 query parameters and fragment.
 
-由于要在登录后导航到*危机管理*特征区的路由，所以你还得更新它，来处理这些全局查询参数和片段。
+由于要在登录后导航到*危机管理*特征区的路由，所以你还得修改它，来处理这些全局查询参数和片段。
 
 <code-example path="router/src/app/admin/admin-dashboard.component.2.ts" linenums="false" title="src/app/admin/admin-dashboard.component.ts (v2)">
 

@@ -877,7 +877,7 @@ that you add to the project as a sibling to `index.html`:
 
 Update the `<head>` of `index.html` to include this style sheet:
 
-更新 `index.html` 中的 `<head>`，以包含这个样式表：
+修改 `index.html` 中的 `<head>`，以包含这个样式表：
 
 <code-example path="forms/src/index.html" linenums="false" title="src/index.html (styles)" region="styles">
 

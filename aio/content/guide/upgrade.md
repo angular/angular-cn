@@ -2044,7 +2044,7 @@ The file contents remain:
 
 现在，创建一个名叫 `AppModule` 的根 `NgModule` 类。
 这里已经有了一个名叫 `app.module.ts` 的文件，其中存放着 AngularJS 的模块。
-把它改名为 `app.module.ng1.ts`，同时也要在 `index.html` 中更新对应的脚本名。
+把它改名为 `app.module.ng1.ts`，同时也要在 `index.html` 中修改对应的脚本名。
 文件的内容保留：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ajs.ts" title="app.module.ajs.ts">

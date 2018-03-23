@@ -358,7 +358,7 @@ Next, update the template.
 At the moment it displays the hero's `id` and `name`.
 Fix that to display only the hero's `name` property.
 
-接着，更新一下模板。
+接着，修改模板。
 现在它显示的是英雄的 `id` 和 `name`。
 要修复它，只显示英雄的 `name` 属性就行了。
 

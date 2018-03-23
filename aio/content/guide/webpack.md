@@ -772,7 +772,7 @@ Webpack generates file names with cache-busting hash.
 Thanks to the `HtmlWebpackPlugin`, you don't have to update the `index.html` file when the hash changes.
 
 Webpack 生成的文件名中带有“缓存无效哈希(cache-busting hash)”。
-感谢 `HtmlWebpackPlugin` 插件，当这些哈希值变化时，你就不用去更新 `index.html` 了。
+感谢 `HtmlWebpackPlugin` 插件，当这些哈希值变化时，你就不用去修改 `index.html` 了。
 
 There are additional plugins:
 
