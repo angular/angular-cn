@@ -15911,7 +15911,7 @@
   },
   {
     "original": "Routed",
-    "translation": "带路由的",
+    "translation": "路由",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/module-types.md"
   },
   {
@@ -17641,7 +17641,7 @@
   },
   {
     "original": "You may also be interested in the following:",
-    "translation": "你可能还会对下列内容感兴趣：",
+    "translation": "你可能还对下列内容感兴趣：",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/ngmodules.md"
   },
   {
@@ -19267,11 +19267,6 @@
   {
     "original": "File",
     "translation": "文件",
-    "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/quickstart.md"
-  },
-  {
-    "original": "Purpose",
-    "translation": "目的",
     "sourceFile": "/Users/twer/private/GDE/angular-cn/aio/content/guide/quickstart.md"
   },
   {

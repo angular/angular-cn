@@ -142,33 +142,33 @@ The following code snippets illustrate how the same kind of operation is defined
 
 <table>
 
-  <th>
+  <tr>
 
-    <td>
+    <th>
 
         Operation
-        
+
         操作
 
-    </td>
+    </th>
 
-    <td>
+    <th>
 
         Observable
 
         可观察对象
 
-    </td>
+    </th>
 
-    <td>
+    <th>
 
         Promise
 
         承诺
 
-    </td>
+    </th>
 
-  </th>
+  </tr>
 
   <tr>
 
@@ -296,25 +296,25 @@ Here are some code samples that illustrate how the same kind of operation is def
 
 <table>
 
-  <th>
+  <tr>
 
-    <td>
+    <th>
 
         Observable
 
         可观察对象
 
-    </td>
+    </th>
 
-    <td>
+    <th>
 
         Events API
 
         事件 API
 
-    </td>
+    </th>
 
-  </th>
+  </tr>
 
   <tr>
 
@@ -432,25 +432,25 @@ An observable produces values over time. An array is created as a static set of 
 
 <table>
 
-  <th>
+  <tr>
 
-    <td>
+    <th>
 
         Observable
 
         可观察对象
 
-    </td>
+    </th>
 
-    <td>
+    <th>
 
         Array
 
         数组
 
-    </td>
+    </th>
 
-  </th>
+  </tr>
 
   <tr>
 

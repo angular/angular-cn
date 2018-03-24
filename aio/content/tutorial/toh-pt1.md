@@ -413,27 +413,27 @@ Your app should look like this <live-example></live-example>. Here are the code 
 
 * You used the CLI to create a second `HeroesComponent`.
 
-  你使用 CLI 创建了第二个组件 `HeroesComponent`。
+   你使用 CLI 创建了第二个组件 `HeroesComponent`。
 
 * You displayed the `HeroesComponent` by adding it to the `AppComponent` shell. 
 
-  你把 `HeroesComponent` 添加到了壳组件 `AppComponent` 中，以便显示它。
+   你把 `HeroesComponent` 添加到了壳组件 `AppComponent` 中，以便显示它。
 
 * You applied the `UppercasePipe` to format the name.
 
-  你使用 `UppercasePipe` 来格式化英雄的名字。
+   你使用 `UppercasePipe` 来格式化英雄的名字。
 
 * You used two-way data binding with the `ngModel` directive.
 
-  你用 `ngModel` 指令实现了双向数据绑定。
+   你用 `ngModel` 指令实现了双向数据绑定。
 
 * You learned about the `AppModule`.
 
-  你知道了 `AppModule`。
+   你知道了 `AppModule`。
 
 * You imported the `FormsModule` in the `AppModule` so that Angular would recognize and apply the `ngModel` directive. 
 
-  你把 `FormsModule` 导入了 `AppModule`，以便 Angular 能识别并应用 `ngModel` 指令。
+   你把 `FormsModule` 导入了 `AppModule`，以便 Angular 能识别并应用 `ngModel` 指令。
 
 * You learned the importance of declaring components in the `AppModule`
 and appreciated that the CLI declared it for you.

@@ -16,7 +16,7 @@ A basic understanding of the following:
 
 * [Getting Started with Service Workers](guide/service-worker-getting-started).
 
-  [Service Worker 快速起步](guide/service-worker-getting-started).
+   [Service Worker 快速起步](guide/service-worker-getting-started).
 
 <hr />
 
@@ -34,19 +34,19 @@ The `SwUpdate` service supports four separate operations:
 
 * Getting notified of *available* updates. These are new versions of the app to be loaded if the page is refreshed.
 
-  获取出现*可用*更新的通知。如果要刷新页面，这些就是可加载的新版本。
+   获取出现*可用*更新的通知。如果要刷新页面，这些就是可加载的新版本。
 
 * Getting notified of update *activation*. This is when the service worker starts serving a new version of the app immediately.
 
-  获取更新*被激活*的通知。这时候 Service Worker 就可以立即使用这些新版本提供服务了。
+   获取更新*被激活*的通知。这时候 Service Worker 就可以立即使用这些新版本提供服务了。
 
 * Asking the service worker to check the server for new updates.
 
-  要求 Service Worker 向服务器查询是否有新版本。
+   要求 Service Worker 向服务器查询是否有新版本。
 
 * Asking the service worker to activate the latest version of the app for the current tab.
 
-  要求 Service Worker 为当前页面激活该应用的最新版本。
+   要求 Service Worker 为当前页面激活该应用的最新版本。
 
 ### Available and activated updates
 
@@ -97,7 +97,7 @@ Doing this could break lazy-loading into currently running apps, especially if t
 
 ## More on Angular service workers
 
-## 关于 Angular Service Worker 的更多知识
+## 关于 Angular Service Worker 的更多信息
 
 You may also be interested in the following:
 

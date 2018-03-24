@@ -137,9 +137,9 @@ You can find it in `./src/app/app.component.ts`.
 它就是名叫 `app-root` 的*根组件*。
 你可以在 `./src/app/app.component.ts` 目录下找到它。
 
-Open the component file and change the `title` property from _Welcome to app!!_ to _Welcome to My First Angular App!!_:
+Open the component file and change the `title` property from `'app'` to `'My First Angular App!'`.
 
-打开这个组件文件，并且把 `title` 属性从 _Welcome to app!!_ 改为 _Welcome to My First Angular App!!_ ：
+打开这个组件文件，并且把 `title` 属性从 `'app'` 改为 `'My First Angular App!'`：
 
 <code-example path="cli-quickstart/src/app/app.component.ts" region="title" title="src/app/app.component.ts" linenums="false"></code-example>
 

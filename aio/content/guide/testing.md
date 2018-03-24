@@ -1243,6 +1243,38 @@ There is no harm in calling `detectChanges()` more often than is strictly necess
 
 <hr>
 
+{@a dispatch-event}
+
+#### Change an input value with _dispatchEvent()_
+
+#### 使用 `dispatchEvent()` 修改输入值
+
+To simulate user input, you can find the input element and set its `value` property.
+
+要想模拟用户输入，你就要找到 `<input>` 元素并设置它的 `value` 属性。
+
+You will call `fixture.detectChanges()` to trigger Angular's change detection.
+But there is an essential, intermediate step.
+
+你要调用 `fixture.detectChanges()` 来触发 Angular 的变更检测。
+但那只是一个基本的中间步骤。
+
+Angular doesn't know that you set the input element's `value` property.
+It won't read that property until you raise the element's `input` event by calling `dispatchEvent()`. 
+_Then_ you call `detectChanges()`.
+
+Angular 不知道你设置了这个 `<input>` 元素的 `value` 属性。
+在你通过调用 `dispatchEvent()` 触发了该输入框的 `input` 事件之前，它不能读到那个值。
+*调用完之后*你再调用 `detectChanges()`。
+
+The following example demonstrates the proper sequence.
+
+下面的例子演示了这个调用顺序。
+
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="title-case-pipe" title="app/hero/hero-detail.component.spec.ts (pipe test)"></code-example>
+
+<hr>
+
 ### Component with external files
 
 ### 带有外部文件的组件
@@ -2672,15 +2704,15 @@ You'll take a different approach with `ActivatedRoute` because
 * `paramMap` returns an `Observable` that can emit more than one value 
 during a test.
 
-  在测试期间，`paramMap` 会返回一个能发出多个值的 `Observable`。
+   在测试期间，`paramMap` 会返回一个能发出多个值的 `Observable`。
 
 * You need the router helper function, `convertToParamMap()`, to create a `ParamMap`.
 
-  你需要路由器的辅助函数 `convertToParamMap()` 来创建 `ParamMap`。
+   你需要路由器的辅助函数 `convertToParamMap()` 来创建 `ParamMap`。
 
 * Other _routed components_ tests need a test double for `ActivatedRoute`.
 
-  针对*路由目标组件*的其它测试需要一个 `ActivatedRoute` 的测试替身。
+   针对*路由目标组件*的其它测试需要一个 `ActivatedRoute` 的测试替身。
 
 These differences argue for a re-usable stub class.
 
@@ -3171,23 +3203,23 @@ Tests that exercise the component need ...
 
 * to wait until a hero arrives before elements appear in the DOM.
 
-  等获取到英雄之后才能让元素出现在 DOM 中。
+   等获取到英雄之后才能让元素出现在 DOM 中。
 
 * a reference to the title text. 
 
-  一个对标题文本的引用。
+   一个对标题文本的引用。
 
 * a reference to the name input box to inspect and set it.
 
-  一个对 name 输入框的引用，以便对它进行探查和修改。
+   一个对 name 输入框的引用，以便对它进行探查和修改。
 
 * references to the two buttons so they can click them.
 
-  引用两个按钮，以便点击它们。
+   引用两个按钮，以便点击它们。
 
 * spies for some of the component and router methods.
 
-  为组件和路由器的方法安插间谍。
+   为组件和路由器的方法安插间谍。
 
 Even a small form such as this one can produce a mess of tortured conditional setup and CSS element selection.
 

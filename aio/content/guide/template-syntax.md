@@ -552,7 +552,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
     <td>
 
       One-way<br>from data source<br>to view target
-      
+
       单向<br>从数据源<br>到视图
 
     </td>

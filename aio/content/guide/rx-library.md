@@ -12,23 +12,23 @@ RxJS 提供了一种对 `Observable` 类型的实现，直到 `Observable` 成�
 
 * Converting existing code for async operations into observables
 
-  把现有的异步代码转换成可观察对象
+   把现有的异步代码转换成可观察对象
 
 * Iterating through the values in a stream
 
-  迭代流中的各个值
+   迭代流中的各个值
 
 * Mapping values to different types
 
-  把这些值映射成其它类型
+   把这些值映射成其它类型
 
 * Filtering streams
 
-  对流进行过滤
+   对流进行过滤
 
 * Composing multiple streams
 
-  组合多个流
+   组合多个流
 
 ## Observable creation functions
 

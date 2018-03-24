@@ -47,23 +47,23 @@ Angular 的 Service Worker 的行为遵循下列设计目标：
 
 * Caching an application is like installing a native application. The application is cached as one unit, and all files update together.
 
-  像安装原生应用一样缓存应用。该应用作为整体被缓存，它的所有文件作为整体进行更新。
+   像安装原生应用一样缓存应用。该应用作为整体被缓存，它的所有文件作为整体进行更新。
 
 * A running application continues to run with the same version of all files. It does not suddenly start receiving cached files from a newer version, which are likely incompatible.
 
-  正在运行的应用使用所有文件的同一版本继续运行。不要突然开始接收来自新版本的、可能不兼容的缓存文件。
+   正在运行的应用使用所有文件的同一版本继续运行。不要突然开始接收来自新版本的、可能不兼容的缓存文件。
 
 * When users refresh the application, they see the latest fully cached version. New tabs load the latest cached code.
 
-  当用户刷新本应用时，他们会看到最新的被完全缓存的版本。新的页标签中会加载最新的缓存代码。
+   当用户刷新本应用时，他们会看到最新的被完全缓存的版本。新的页标签中会加载最新的缓存代码。
 
 * Updates happen in the background, relatively quickly after changes are published. The previous version of the application is served until an update is installed and ready.
 
-  在更改发布之后，相对较快的在后台进行更新。在一次完整的更新完成之前，仍然使用应用的上一个版本。
+   在更改发布之后，相对较快的在后台进行更新。在一次完整的更新完成之前，仍然使用应用的上一个版本。
 
 * The service worker conserves bandwidth when possible. Resources are only downloaded if they've changed.
 
-  只要有可能，Service Worker 就会尽量节省带宽。它只会下载那些发生了变化的资源。
+   只要有可能，Service Worker 就会尽量节省带宽。它只会下载那些发生了变化的资源。
 
 To support these behaviors, the Angular service worker loads a *manifest* file from the server. The manifest describes the resources to cache and includes hashes of every file's contents. When an update to the application is deployed, the contents of the manifest change, informing the service worker that a new version of the application should be downloaded and cached. This manifest is generated from a user-provided configuration file called `ngsw-config.json`, by using a build tool such as the Angular CLI.
 
@@ -88,11 +88,11 @@ To use Angular service workers, you must have the following Angular and CLI vers
 
 * Angular 5.0.0 or later.
 
-  Angular 5.0.0 或更高。
+   Angular 5.0.0 或更高。
 
 * Angular CLI 1.6.0 or later.
 
-  Angular CLI 1.6.0 或更高。
+   Angular CLI 1.6.0 或更高。
 
 Your application must run in a web browser that supports service workers. Currently, the latest versions of Chrome and Firefox are supported. To learn about other browsers that are service worker ready, see the [Can I Use](http://caniuse.com/#feat=serviceworkers) page.
 
@@ -122,7 +122,7 @@ The remainder of this Angular documentation specifically addresses the Angular i
 
 You may also be interested in the following:
 
-你可能还对下列内容感兴趣：
+你可能还会对下列内容感兴趣：
 
 * [Getting Started with service workers](guide/service-worker-getting-started).
 

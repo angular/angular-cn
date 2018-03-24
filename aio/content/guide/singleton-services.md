@@ -8,11 +8,11 @@
 
 * A basic understanding of [Bootstrapping](guide/bootstrapping).
 
-  对[引导](guide/bootstrapping)有基本的了解。
+   对[引导](guide/bootstrapping)有基本的了解。
 
 * Familiarity with [Providers](guide/providers).
 
-  熟悉[服务提供商](guide/providers)。
+   熟悉[服务提供商](guide/providers)。
 
 For a sample app using the app-wide singleton service that this page describes, see the
 <live-example name="ngmodules"></live-example> showcasing all the documented features of NgModules.
@@ -141,11 +141,11 @@ a simple object with the following properties:
 
 * `ngModule`: in this example, the `CoreModule` class.
 
-  `ngModule`： 在这个例子中就是 `CoreModule` 类
+   `ngModule`： 在这个例子中就是 `CoreModule` 类
 
 * `providers`: the configured providers.
 
-  `providers` - 配置好的服务提供商
+   `providers` - 配置好的服务提供商
 
 In the <live-example name="ngmodules">live example</live-example>
 the root `AppModule` imports the `CoreModule` and adds the
@@ -163,7 +163,7 @@ of imported modules.
 Import `CoreModule` and use its `forRoot()` method one time, in `AppModule`, because it registers services and you only want to register those services one time in your app. If you were to register them more than once, you could end up with multiple instances of the service and a runtime error.
 
 应该只在 `AppModule` 中导入 `CoreModule` 并只使用一次 `forRoot()` 方法，因为该方法中会注册服务，而你希望那些服务在该应用中只注册一次。
-如果你多次注册它们，就可能会得到该服务的多个实例，并导致运行时错误。 
+如果你多次注册它们，就可能会得到该服务的多个实例，并导致运行时错误。
 
 You can also add a `forRoot()` method in the `CoreModule` that configures
 the core `UserService`.
@@ -294,11 +294,11 @@ You may also be interested in:
 
 * [Sharing Modules](guide/sharing-ngmodules), which elaborates on the concepts covered on this page.
 
-  [共享模块](guide/sharing-ngmodules)解释了本页中涉及的这些概念。
+   [共享模块](guide/sharing-ngmodules)解释了本页中涉及的这些概念。
 
 * [Lazy Loading Modules](guide/lazy-loading-ngmodules).
 
-  [惰性加载模块](guide/lazy-loading-ngmodules)。
+   [惰性加载模块](guide/lazy-loading-ngmodules).
 
 * [NgModule FAQ](guide/ngmodule-faq).
 

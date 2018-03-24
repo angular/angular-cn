@@ -12,11 +12,11 @@ A basic understanding of the following concepts:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导启动](guide/bootstrapping)。
+   [引导启动](guide/bootstrapping)。
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 <hr>
 
@@ -83,19 +83,19 @@ NgModule 的元数据会做这些：
 
 * Declares which components, directives, and pipes belong to the module.
 
-  声明某些组件、指令和管道属于这个模块。
+   声明某些组件、指令和管道属于这个模块。
 
 * Makes some of those components, directives, and pipes public so that other module's component templates can use them.
 
-  公开其中的部分组件、指令和管道，以便其它模块中的组件模板中可以使用它们。
+   公开其中的部分组件、指令和管道，以便其它模块中的组件模板中可以使用它们。
 
 * Imports other modules with the components, directives, and pipes that components in the current module need.
 
-  导入其它带有组件、指令和管道的模块，这些模块中的元件都是本模块所需的。
+   导入其它带有组件、指令和管道的模块，这些模块中的元件都是本模块所需的。
 
 * Provides services that the other application components can use.
 
-  提供一些供应用中的其它组件使用的服务。
+   提供一些供应用中的其它组件使用的服务。
 
 Every Angular app has at least one module, the root module.
 You [bootstrap](guide/bootstrapping) that module to launch the application.
@@ -141,15 +141,15 @@ You may also be interested in the following:
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules)
+   [特性模块](guide/feature-modules)
 
 * [Entry Components](guide/entry-components).
 
-  [入口组件](guide/entry-components)
+   [入口组件](guide/entry-components)
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers).
+   [提供商](guide/providers)。
 
 * [Types of NgModules](guide/module-types).
 

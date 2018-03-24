@@ -8,11 +8,11 @@
 
 * A basic understanding of [Bootstrapping](guide/bootstrapping).
 
-  对[引导](guide/bootstrapping)有基本的了解。
+   对[引导](guide/bootstrapping)有基本的了解。
 
 * Familiarity with [Frequently Used Modules](guide/frequent-ngmodules).
 
-  熟悉[常用模块](guide/frequent-ngmodules).
+   熟悉[常用模块](guide/frequent-ngmodules).
 
 For the final sample app using the provider that this page describes,
 see the <live-example></live-example>.
@@ -136,11 +136,11 @@ You may also be interested in:
 
 * [Singleton Services](guide/singleton-services), which elaborates on the concepts covered on this page.
 
-  [单例服务](guide/singleton-services)详细解释了本页包含的那些概念。
+   [单例服务](guide/singleton-services)详细解释了本页包含的那些概念。
 
 * [Lazy Loading Modules](guide/lazy-loading-ngmodules).
 
-  [惰性加载模块](guide/lazy-loading-ngmodules)。
+   [惰性加载模块](guide/lazy-loading-ngmodules).
 
 * [NgModule FAQ](guide/ngmodule-faq).
 

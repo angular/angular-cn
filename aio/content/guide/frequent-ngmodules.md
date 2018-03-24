@@ -279,11 +279,11 @@ You may also be interested in the following:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping).
+   [引导启动](guide/bootstrapping)。
 
 * [NgModules](guide/ngmodules).
 
-  [Angular 模块](guide/ngmodules).
+   [Angular 模块](guide/ngmodules).
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 

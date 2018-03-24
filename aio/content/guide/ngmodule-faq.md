@@ -12,6 +12,8 @@ A basic understanding of the following concepts:
 
 * [NgModules](guide/ngmodules).
 
+   [Angular 模块](guide/ngmodules).
+
 <hr />
 
 NgModules help organize an application into cohesive blocks of functionality.

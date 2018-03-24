@@ -12,15 +12,15 @@ A basic understanding of the following concepts:
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules)。
+   [特性模块](guide/feature-modules)
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 * [Frequently Used Modules](guide/frequent-ngmodules).
 
-  [常用模块](guide/frequent-ngmodules)。
+   [常用模块](guide/frequent-ngmodules)。
 
 <hr>
 
@@ -31,23 +31,23 @@ tend to fall into the following groups:
 
 * Domain feature modules.
 
-  领域特性模块。
+   领域特性模块。
 
 * Routed feature modules.
 
-  带路由的特性模块。
+   带路由的特性模块。
 
 * Routing modules.
 
-  路由模块。
+   路由模块。
 
 * Service feature modules.
 
-  服务特性模块
+   服务特性模块
 
 * Widget feature modules.
 
-  可视部件特性模块。
+   可视部件特性模块。
 
 While the following guidelines describe the use of each type and their
 typical characteristics, in real world apps, you may see hybrids.
@@ -122,7 +122,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
        Routed
 
-       带路由的
+       路由
 
    </td>
 
@@ -206,7 +206,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
          路由模块应该与其伴随模块同名，但是加上“Routing”后缀。比如，<code>foo.module.ts</code> 中的 <code>FooModule</code> 就有一个位于 <code>foo-routing.module.ts</code> 文件中的 <code>FooRoutingModule</code> 路由模块。
          如果其伴随模块是根模块 `AppModule`，`AppRoutingModule` 就要使用 `RouterModule.forRoot(routes)` 来把路由器配置添加到它的 `imports` 中。
-         所有其它路由模块都是子模块，要使用 `RouterModule.forChild(routes)`。 
+         所有其它路由模块都是子模块，要使用 `RouterModule.forChild(routes)`。
 
      </li>
 
@@ -570,11 +570,11 @@ The following table summarizes the key characteristics of each feature module gr
 
 You may also be interested in the following:
 
-你可能还对下列内容感兴趣：
+你可能还会对下列内容感兴趣：
 
 * [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
 
-  [使用 Angular 路由器惰性加载模块](guide/lazy-loading-ngmodules)。
+   [使用 Angular 路由器惰性加载模块](guide/lazy-loading-ngmodules)。
 
 * [Providers](guide/providers).
 

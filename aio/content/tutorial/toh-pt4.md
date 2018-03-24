@@ -455,19 +455,19 @@ In this section you will
 
 * add a `MessagesComponent` that displays app messages at the bottom of the screen.
 
-  添加一个 `MessagesComponent`，它在屏幕的底部显示应用中的消息。
+   添加一个 `MessagesComponent`，它在屏幕的底部显示应用中的消息。
 
 * create an injectable, app-wide `MessageService` for sending messages to be displayed
 
-  创建一个可注入的、全应用级别的 `MessageService`，用于发送要显示的消息。
+   创建一个可注入的、全应用级别的 `MessageService`，用于发送要显示的消息。
 
 * inject `MessageService` into the `HeroService`
 
-  把 `MessageService` 注入到 `HeroService` 中。
+   把 `MessageService` 注入到 `HeroService` 中。
 
 * display a message when `HeroService` fetches heroes successfully.
 
-  当 `HeroService` 成功获取了英雄数据时显示一条消息。
+   当 `HeroService` 成功获取了英雄数据时显示一条消息。
 
 ### Create _MessagesComponent_
 
@@ -645,16 +645,16 @@ This template binds directly to the component's `messageService`.
 
 * The `*ngIf` only displays the messages area if there are messages to show.
 
-  `*ngIf` 只有当在有消息时才会显示消息区。
+   `*ngIf` 只有当在有消息时才会显示消息区。
 
 * An `*ngFor` presents the list of messages in repeated `<div>` elements.
 
-  `*ngFor` 用来在一系列 `<div>` 元素中展示消息列表。
+   `*ngFor` 用来在一系列 `<div>` 元素中展示消息列表。
 
 * An Angular [event binding](guide/template-syntax#event-binding) binds the button's click event
 to `MessageService.clear()`.
 
-  Angular 的[事件绑定](guide/template-syntax#event-binding)把按钮的 `click` 事件绑定到了 `MessageService.clear()`。
+   Angular 的[事件绑定](guide/template-syntax#event-binding)把按钮的 `click` 事件绑定到了 `MessageService.clear()`。
 
 The messages will look better when you add the private CSS styles to `messages.component.css`
 as listed in one of the ["final code review"](#final-code-review) tabs below.
@@ -721,35 +721,35 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You refactored data access to the `HeroService` class.
 
-  你把数据访问逻辑重构到了 `HeroService` 类中。
+   你把数据访问逻辑重构到了 `HeroService` 类中。
 
 * You _provided_ the `HeroService` in the root `AppModule` so that it can be injected anywhere.
 
-  你在根模块 `AppModule` 中提供了 `HeroService` 服务，以便在别处可以注入它。
+   你在根模块 `AppModule` 中提供了 `HeroService` 服务，以便在别处可以注入它。
 
 * You used [Angular Dependency Injection](guide/dependency-injection) to inject it into a component.
 
-  你使用 [Angular 依赖注入](guide/dependency-injection)机制把它注入到了组件中。
+   你使用 [Angular 依赖注入](guide/dependency-injection)机制把它注入到了组件中。
 
 * You gave the `HeroService` _get data_ method an asynchronous signature.
 
-  你给 `HeroService` 中获取数据的方法提供了一个异步的函数签名。
+   你给 `HeroService` 中获取数据的方法提供了一个异步的函数签名。
 
 * You discovered `Observable` and the RxJS _Observable_ library.
 
-  你发现了 `Observable` 以及 RxJS 库。
+   你发现了 `Observable` 以及 RxJS 库。
 
 * You used RxJS `of()` to return an _Observable_ of mock heroes (`Observable<Hero[]>`).
 
-  你使用 RxJS 的 `of()` 方法返回了一个模拟英雄数据的*可观察对象* (`Observable<Hero[]>`)。
+   你使用 RxJS 的 `of()` 方法返回了一个模拟英雄数据的*可观察对象* (`Observable<Hero[]>`)。
 
 * The component's `ngOnInit` lifecycle hook calls the `HeroService` method, not the constructor.
 
-  在组件的 `ngOnInit` 生命周期钩子中调用 `HeroService` 方法，而不是构造函数中。
+   在组件的 `ngOnInit` 生命周期钩子中调用 `HeroService` 方法，而不是构造函数中。
 
 * You created a `MessageService` for loosely-coupled communication between classes.
 
-  你创建了一个 `MessageService`，以便在类之间实现松耦合通讯。
+   你创建了一个 `MessageService`，以便在类之间实现松耦合通讯。
 
 * The `HeroService` injected into a component is created with another injected service,
  `MessageService`.

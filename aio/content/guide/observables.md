@@ -79,11 +79,11 @@ An `Observable` instance begins publishing values only when someone subscribes t
 
   * `Observable.of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
 
-    `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
+     `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
 
   * `Observable.from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
 
-    `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
+     `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
     该方法通常用于把一个数组转换成一个（发送多个值的）可观察对象。
 
 </div>

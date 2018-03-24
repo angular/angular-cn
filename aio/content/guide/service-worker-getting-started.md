@@ -12,7 +12,7 @@ A basic understanding of the following:
 
 * [Introduction to Angular service workers](guide/service-worker-intro).
 
-  [Angular Service Worker 简介](guide/service-worker-intro).
+   [Angular Service Worker 简介](guide/service-worker-intro).
 
 <hr />
 
@@ -272,11 +272,11 @@ Notice that all of the files the browser needs to render this application are ca
 
 * Build artifacts (JS and CSS bundles).
 
-  构建结果（JS 和 CSS 包）。
+   构建结果（JS 和 CSS 包）。
 
 * Anything under `assets`.
 
-  `assets` 下的所有文件。
+   `assets` 下的所有文件。
 
 ### Making changes to your application
 
@@ -363,7 +363,7 @@ Service Worker *在后台*安装好了这个更新后的版本，下次加载或
 
 ## More on Angular service workers
 
-## 关于 Angular Service Worker 的更多知识
+## 关于 Angular Service Worker 的更多信息
 
 You may also be interested in the following:
 

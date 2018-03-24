@@ -153,12 +153,12 @@ The `loadComponent()` method chooses an ad using some math.
 
 `loadComponent()` 方法使用某种算法选择了一个广告。
 
-First, it sets the `currentAddIndex` by taking whatever it
+First, it sets the `currentAdIndex` by taking whatever it
 currently is plus one, dividing that by the length of the `AdItem` array, and
-using the _remainder_ as the new `currentAddIndex` value. Then, it uses that
+using the _remainder_ as the new `currentAdIndex` value. Then, it uses that
 value to select an `adItem` from the array.
 
-（译注：循环选取算法）首先，它把 `currentAddIndex` 递增一，然后用它除以 `AdItem` 数组长度的*余数*作为新的 `currentAddIndex` 的值，
+（译注：循环选取算法）首先，它把 `currentAdIndex` 递增一，然后用它除以 `AdItem` 数组长度的*余数*作为新的 `currentAdIndex` 的值，
 最后用这个值来从数组中选取一个 `adItem`。
 
 </div>

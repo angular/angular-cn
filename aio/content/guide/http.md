@@ -877,7 +877,7 @@ To implement an interceptor, declare a class that implements the `intercept()` m
 
 Here is a do-nothing _noop_ interceptor that simply passes the request through without touching it:
  
- 这里是一个什么也不做的*空白*拦截器，它只会不做任何修改的传递这个请求。
+这里是一个什么也不做的*空白*拦截器，它只会不做任何修改的传递这个请求。
  
 <code-example 
   path="http/src/app/http-interceptors/noop-interceptor.ts"
@@ -1194,15 +1194,15 @@ An interceptor that alters headers can be used for a number of different operati
 
 * Authentication/authorization
 
-  认证 / 授权
+   认证 / 授权
 
 * Caching behavior; for example, `If-Modified-Since`
 
-  控制缓存行为。比如 `If-Modified-Since`
+   控制缓存行为。比如 `If-Modified-Since`
 
 * XSRF protection
 
-  XSRF 防护
+   XSRF 防护
 
 #### Logging
 

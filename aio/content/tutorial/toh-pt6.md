@@ -7,15 +7,15 @@ Angular's `HttpClient`.
 
 * The `HeroService` gets hero data with HTTP requests.
 
-  `HeroService` 通过 HTTP 请求获取英雄数据。
+   `HeroService` 通过 HTTP 请求获取英雄数据。
 
 * Users can add, edit, and delete heroes and save these changes over HTTP.
 
-  用户可以添加、编辑和删除英雄，并通过 HTTP 来保存这些更改。
+   用户可以添加、编辑和删除英雄，并通过 HTTP 来保存这些更改。
 
 * Users can search for heroes by name.
 
-  用户可以根据名字搜索英雄。
+   用户可以根据名字搜索英雄。
 
 When you're done with this page, the app should look like this <live-example></live-example>.
 
@@ -35,15 +35,15 @@ To make `HttpClient` available everywhere in the app,
 
 * open the root `AppModule`, 
 
-  打开根模块 `AppModule`，
+   打开根模块 `AppModule`，
 
 * import the `HttpClientModule` symbol from `@angular/common/http`,
 
-  从 `@angular/common/http` 中导入 `HttpClientModule` 符号，
+   从 `@angular/common/http` 中导入 `HttpClientModule` 符号，
 
 * add it to the `@NgModule.imports` array.
 
-  把它加入 `@NgModule.imports` 数组。
+   把它加入 `@NgModule.imports` 数组。
 
 ## Simulate a data server
 
@@ -403,16 +403,16 @@ There are three significant differences from  `getHeroes()`.
 
 * it constructs a request URL with the desired hero's id.
 
-  它使用想获取的英雄的 id 构建了一个请求 URL。
+   它使用想获取的英雄的 id 构建了一个请求 URL。
 
 * the server should respond with a single hero rather than an array of heroes.
 
-  服务器应该使用单个英雄作为回应，而不是一个英雄数组。
+   服务器应该使用单个英雄作为回应，而不是一个英雄数组。
 
 * therefore, `getHero` returns an `Observable<Hero>` ("_an observable of Hero objects_")
  rather than an observable of hero _arrays_ .
 
-  所以，`getHero` 会返回 `Observable<Hero>`（“一个可观察的*单个英雄对象*”），而不是一个可观察的英雄对象*数组*。
+   所以，`getHero` 会返回 `Observable<Hero>`（“一个可观察的*单个英雄对象*”），而不是一个可观察的英雄对象*数组*。
 
 ## Update heroes
 
@@ -468,15 +468,15 @@ The `HttpClient.put()` method takes three parameters
 
 * the URL
 
-  URL 地址
+   URL 地址
 
 * the data to update (the modified hero in this case)
 
-  要修改的数据（这里就是修改后的英雄）
+   要修改的数据（这里就是修改后的英雄）
 
 * options
 
-  选项
+   选项
 
 The URL is unchanged. The heroes web API knows which hero to update by looking at the hero's `id`.
 
@@ -554,12 +554,12 @@ Add the following `addHero()` method to the `HeroService` class.
 
 * it calls `HttpClient.post()` instead of `put()`.
 
-  它调用 `HttpClient.post()` 而不是 `put()`。
+   它调用 `HttpClient.post()` 而不是 `put()`。
 
 * it expects the server to generates an id for the new hero, 
 which it returns in the `Observable<Hero>` to the caller.
 
-  它期待服务器为这个新的英雄生成一个 id，然后把它通过 `Observable<Hero>` 返回给调用者。
+   它期待服务器为这个新的英雄生成一个 id，然后把它通过 `Observable<Hero>` 返回给调用者。
 
 Refresh the browser and add some heroes.
 
@@ -643,19 +643,19 @@ Note that
 
 * it calls `HttpClient.delete`.
 
-  它调用了 `HttpClient.delete`。
+   它调用了 `HttpClient.delete`。
 
 * the URL is the heroes resource URL plus the `id` of the hero to delete
 
-  URL 就是英雄的资源 URL 加上要删除的英雄的 `id`。
+   URL 就是英雄的资源 URL 加上要删除的英雄的 `id`。
 
 * you don't send data as you did with `put` and `post`.
 
-  你不用像 `put` 和 `post` 中那样发送任何数据。
+   你不用像 `put` 和 `post` 中那样发送任何数据。
 
 * you still send the `httpOptions`.
 
-  你仍要发送 `httpOptions`。
+   你仍要发送 `httpOptions`。
 
 Refresh the browser and try the new delete functionality.
 
@@ -882,17 +882,17 @@ Here's the code.
 * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
 before passing along the latest string. You'll never make requests more frequently than 300ms.
 
-  在传出最终字符串之前，`debounceTime(300)` 将会等待，直到新增字符串的事件暂停了 300 毫秒。
+   在传出最终字符串之前，`debounceTime(300)` 将会等待，直到新增字符串的事件暂停了 300 毫秒。
   你实际发起请求的间隔永远不会小于 300ms。
 
 * `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
 
-  `distinctUntilChanged` 会确保只在过滤条件变化时才发送请求。
+   `distinctUntilChanged` 会确保只在过滤条件变化时才发送请求。
 
 * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
 It cancels and discards previous search observables, returning only the latest search service observable.
 
-  `switchMap()` 会为每个从 `debounce` 和 `distinctUntilChanged` 中通过的搜索词调用搜索服务。
+   `switchMap()` 会为每个从 `debounce` 和 `distinctUntilChanged` 中通过的搜索词调用搜索服务。
   它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
 <div class="l-sub-section">
@@ -1045,27 +1045,27 @@ You're at the end of your journey, and you've accomplished a lot.
 
 * You added the necessary dependencies to use HTTP in the app.
 
-  你添加了在应用程序中使用 HTTP 的必备依赖。
+   你添加了在应用程序中使用 HTTP 的必备依赖。
 
 * You refactored `HeroService` to load heroes from a web API.
 
-  你重构了 `HeroService`，以通过 web API 来加载英雄数据。
+   你重构了 `HeroService`，以通过 web API 来加载英雄数据。
 
 * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
 
-  你扩展了 `HeroService` 来支持 `post()`、`put()` 和 `delete()` 方法。
+   你扩展了 `HeroService` 来支持 `post()`、`put()` 和 `delete()` 方法。
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 
-  你修改了组件，以允许用户添加、编辑和删除英雄。
+   你修改了组件，以允许用户添加、编辑和删除英雄。
 
 * You configured an in-memory web API.
 
-  你配置了一个内存 Web API。
+   你配置了一个内存 Web API。
 
 * You learned how to use Observables.
 
-  你学会了如何使用“可观察对象”。
+   你学会了如何使用“可观察对象”。
 
 This concludes the "Tour of Heroes" tutorial.
 You're ready to learn more about Angular development in the fundamentals section,

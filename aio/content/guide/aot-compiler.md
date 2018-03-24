@@ -333,7 +333,7 @@ JavaScript with [JsDoc](http://usejsdoc.org/) comments needed by the
 ### *annotationsAs*
 
 Use this option to modify how the Angular specific annotations are emitted to improve tree-shaking. Non-Angular
-annotations and decorators are unnaffected. Default is `static fields`.
+annotations and decorators are unaffected. Default is `static fields`.
 
 使用这个选项来修改生成 Angular 特有注解的方式，以提升摇树优化（tree-shaking）的效果。它对 Angular 自身之外的注解和装饰器无效。
 默认值是 `static fields`。
@@ -348,16 +348,6 @@ annotations and decorators are unnaffected. Default is `static fields`.
 This tells the compiler to print extra information while compiling templates.
 
 它告诉编译器在编译模板时打印额外的信息。
-
-### *enableLegacyTemplate*
-
-The use of `<template>` element was deprecated starting in Angular 4.0 in favor of using
-`<ng-template>` to avoid colliding with the DOM's element of the same name. Setting this option to
-`true` enables the use of the deprecated `<template>` element . This option
-is `false` by default. This option might be required by some third-party Angular libraries.
-
-从 Angular 4.0 开始，`<template>` 元素已经被废弃了，要改用 `<ng-template>` 以避免和同名 DOM 元素的冲突。把该选项设置为 `true` 将会允许使用已废弃的 `<template>` 元素。
-该选项默认为 `false`。某些第三方 Angular 库可能会需要该选项。
 
 ### *disableExpressionLowering*
 
@@ -444,7 +434,7 @@ export class TypicalComponent {
 
 ```
 
-The Anglar compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
+The Angular compiler extracts the metadata _once_ and generates a _factory_ for `TypicalComponent`.
 When it needs to create a `TypicalComponent` instance, Angular calls the factory, which produces a new visual element, bound to a new instance of the component class with its injected dependency.
 
 Angular 编译器只提取**一次**元数据，并且为 `TypicalComponent` 生成一个**工厂**。
@@ -1706,7 +1696,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
 {@a binding-expresion-validation}
 
   ## Phase 3: binding expression validation
-  
+
   ## 阶段 3：验证绑定表达式
 
   In the validation phase, the Angular template compiler uses the TypeScript compiler to validate the
@@ -1775,7 +1765,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   比如，如果指定了 `strictTypeChecks`，就会像上面的错误信息一样报告 ```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'``` 错误。
 
   ### Type narrowing
-  
+
   ### 类型窄化
 
   The expression used in an `ngIf` directive is used to narrow type unions in the Angular
@@ -1804,7 +1794,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   使用 `*ngIf` 能让 TypeScript 编译器推断出这个绑定表达式中使用的 `person` 永远不会是 `undefined`。
 
   #### Custom `ngIf` like directives
-  
+
   #### 类似于的 `ngIf` 的自定义指令
 
   Directives that behave like `*ngIf` can declare that they want the same treatment by including
@@ -1826,7 +1816,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   它声明了 `NgIf` 指令的 `ngIf` 属性应该在用到它的模板中看做一个守卫，以表明只有当 `ngIf` 这个输入属性为 `true` 时，才应该生成那个模板。
 
   ### Non-null type assertion operator
-  
+
   ### 非空类型断言操作符
 
   Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator)
@@ -1891,7 +1881,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   ```
 
   ### Disabling type checking using `$any()`
-  
+
   ### 使用 `$any()` 禁用类型检查
 
   Disable checking of a binding expression by surrounding the expression

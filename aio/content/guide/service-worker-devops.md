@@ -17,7 +17,7 @@ A basic understanding of the following:
 
 * [Service Worker Communication](guide/service-worker-communications).
 
-  [与 Service Worker 通讯](guide/service-worker-communications).
+   [与 Service Worker 通讯](guide/service-worker-communications).
 
 <hr />
 
@@ -135,15 +135,15 @@ Hash mismatches can occur for a variety of reasons:
 
 * Caching layers in between the origin server and the end user could serve stale content.
 
-  在源服务器和最终用户之间缓存图层可能会提供陈旧的内容。
+   在源服务器和最终用户之间缓存图层可能会提供陈旧的内容。
 
 * A non-atomic deployment could result in the Angular service worker having visibility of partially updated content.
 
-  非原子化的部署可能会导致 Angular Service Worker 看到部分更新后的内容。
+   非原子化的部署可能会导致 Angular Service Worker 看到部分更新后的内容。
 
 * Errors during the build process could result in updated resources without `ngsw.json` being updated. The reverse could also happen resulting in an updated `ngsw.json` without updated resources.
 
-  构建过程中的错误可能会导致更新了资源，却没有更新 `ngsw.json`。
+   构建过程中的错误可能会导致更新了资源，却没有更新 `ngsw.json`。
   反之，也可能发生没有更新资源，却更新了 `ngsw.json` 的情况。
 
 #### Unhashed content
@@ -217,11 +217,11 @@ Angular Service Worker 为什么可能会更改运行中的应用的版本有几
 
 * The current version becomes invalid due to a failed hash.
 
-  由于哈希验证失败，当前版本变成了无效的。
+   由于哈希验证失败，当前版本变成了无效的。
 
 * An unrelated error causes the service worker to enter safe mode; that is, temporary deactivation.
 
-  某个无关的错误导致 Service Worker 进入了安全模式，或者说，它被暂时禁用了。
+   某个无关的错误导致 Service Worker 进入了安全模式，或者说，它被暂时禁用了。
 
 The Angular service worker is aware of which versions are in 
 use at any given moment and it cleans up versions when 
@@ -237,11 +237,11 @@ of a running app are normal events:
 
 * The page is reloaded/refreshed.
 
-  页面被重新加载/刷新。
+   页面被重新加载/刷新。
 
 * The page requests an update be immediately activated via the `SwUpdate` service.
 
-  该页面通过 `SwUpdate` 服务请求立即激活这个更新。
+   该页面通过 `SwUpdate` 服务请求立即激活这个更新。
 
 ### Service worker updates
 
@@ -345,7 +345,7 @@ clean copy of the latest known version of the app. Older cached
 versions are safe to use, so existing tabs continue to run from 
 cache, but new loads of the app will be served from the network.
 
-  `EXISTING_CLIENTS_ONLY`：这个 Service Worker 没有该应用的最新已知版本的干净副本。
+   `EXISTING_CLIENTS_ONLY`：这个 Service Worker 没有该应用的最新已知版本的干净副本。
   较旧的缓存版本可以被安全的使用，所以现有的选项卡将继续使用较旧的版本运行本应用，
   但新的应用将从网络上加载。
 
@@ -354,7 +354,7 @@ using cached data. Either an unexpected error occurred or all
 cached versions are invalid. All traffic will be served from the 
 network, running as little service worker code as possible.
 
-  `SAFE_MODE`：Service Worker 不能保证使用缓存数据的安全性。
+   `SAFE_MODE`：Service Worker 不能保证使用缓存数据的安全性。
   发生了意外错误或所有缓存版本都无效。
   这时所有的流量都将从网络提供，尽量少运行 Service Worker 中的代码。
 
@@ -481,13 +481,13 @@ Chrome 等浏览器提供了能与 Service Worker 交互的开发者工具。
 in the background and never restarts. This can cause behavior with Dev
 Tools open to differ from behavior a user might experience.
 
-  使用开发人员工具时，Service Worker 将继续在后台运行，并且不会重新启动。
+   使用开发人员工具时，Service Worker 将继续在后台运行，并且不会重新启动。
   这可能会导致开着 Dev Tools 时的行为与用户实际遇到的行为不一样。
 
 * If you look in the Cache Storage viewer, the cache is frequently 
 out of date. Right click the Cache Storage title and refresh the caches.
 
-  如果你查看缓存存储器的查看器，缓存就会经常过期。右键单击缓存存储器的标题并刷新缓存。
+   如果你查看缓存存储器的查看器，缓存就会经常过期。右键单击缓存存储器的标题并刷新缓存。
 
 Stopping and starting the service worker in the Service Worker 
 pane triggers a check for updates.
@@ -553,7 +553,7 @@ the past on your site.
 
 ## More on Angular service workers
 
-## 关于 Angular Service Worker 的更多知识
+## 关于 Angular Service Worker 的更多信息
 
 You may also be interested in the following:
 

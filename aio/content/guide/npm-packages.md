@@ -80,7 +80,7 @@ The *devDependencies* are only necessary to *develop* the application.
 
 {@a dependencies}
 
-## *dependencies*
+## *Dependencies*
 
 The `dependencies` section of `package.json` contains:
 
@@ -193,7 +193,7 @@ which polyfills missing features for several popular browser.
 
 {@a dev-dependencies}
 
-## *devDependencies*
+## *DevDependencies*
 
 The packages listed in the *devDependencies* section of the `package.json` help you develop the application on your local machine.
 

@@ -731,8 +731,8 @@ is available to <code>declarations</code> of this module.</p>
     <p><code>@Component</code> extends <code>@Directive</code>,
 so the <code>@Directive</code> configuration applies to components as well</p>
 
-<p><code>@Component</code> 继承自 <code>@Directive</code>，
-因此，<code>@Directive</code> 的这些配置项也同样适用于组件。</p>
+    <p><code>@Component</code> 继承自 <code>@Directive</code>，
+    因此，<code>@Directive</code> 的这些配置项也同样适用于组件。</p>
 
 </th>
 

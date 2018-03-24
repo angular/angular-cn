@@ -10,11 +10,11 @@ A basic understanding of the following concepts:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping)。
+   [引导启动](guide/bootstrapping)。
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 <hr />
 
@@ -32,15 +32,15 @@ into three categories:
 
 * **Static:** Compiler configuration which tells the compiler about directive selectors and where in templates the directives should be applied through selector matching. This is configured via the `declarations` array.
 
-  **静态的：**编译器配置，用于告诉编译器指令的选择器并通过选择器匹配的方式决定要把该指令应用到模板中的什么位置。它是通过 `declarations` 数组来配置的。
+   **静态的：**编译器配置，用于告诉编译器指令的选择器并通过选择器匹配的方式决定要把该指令应用到模板中的什么位置。它是通过 `declarations` 数组来配置的。
 
 * **Runtime:** Injector configuration via the `providers` array.
 
-  **运行时：**通过 `providers` 数组提供给注入器的配置。
+   **运行时：**通过 `providers` 数组提供给注入器的配置。
 
 * **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
 
-  **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并彼此可用。
+   **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并彼此可用。
 
 ```typescript
 
@@ -309,7 +309,7 @@ The following table summarizes the `@NgModule` metadata properties.
     <td>
 
       A list of components that are automatically bootstrapped.
-      
+
       要自动启动的组件列表。
 
       Usually there's only one component in this list, the _root component_ of the application.
@@ -340,7 +340,7 @@ The following table summarizes the `@NgModule` metadata properties.
     <td>
 
       A list of components that can be dynamically loaded into the view.
-      
+
       那些可以动态加载进视图的组件列表。
 
       By default, an Angular app always has at least one entry component, the root component, `AppComponent`. Its purpose is to serve as a point of entry into the app, that is, you bootstrap it to launch the app.
@@ -394,15 +394,15 @@ You may also be interested in the following:
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules)。
+   [特性模块](guide/feature-modules)
 
 * [Entry Components](guide/entry-components).
 
-  [入口组件](guide/entry-components)。
+   [入口组件](guide/entry-components)
 
 * [Providers](guide/providers).
 
-  [提供商](guide/providers)。
+   [提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 

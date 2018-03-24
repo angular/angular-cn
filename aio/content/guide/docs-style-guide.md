@@ -1039,11 +1039,7 @@ Callouts (like alerts) are meant to draw attention to important points. Use a ca
 
 <div class="callout is-critical">
 
-<header>
-
-A critical point
-
-</header>
+<header>A critical point</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1051,11 +1047,7 @@ A critical point
 
 <div class="callout is-important">
 
-<header>
-
-An important point
-
-</header>
+<header>An important point</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1063,11 +1055,7 @@ An important point
 
 <div class="callout is-helpful">
 
-<header>
-
-A helpful point
-
-</header>
+<header>A helpful point</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 
@@ -1079,11 +1067,7 @@ Here is the markup for the first of these callouts.
 
 <div class="callout is-critical">
 
-<header>
-
-A critical point
-
-</header>
+<header>A critical point</header>
 
 **Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast, Schlitz crucifix
 

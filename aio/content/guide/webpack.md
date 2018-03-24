@@ -423,11 +423,9 @@ Polyfills 最好跟应用代码和 vendor 代码区分开来单独打包。在 `
 
 <div class="callout is-critical">
 
-<header>
+<header>Loading polyfills</header>
 
-  Loading polyfills
-
-</header>
+<header>加载腻子脚本</header>
 
 Load `zone.js` early within `polyfills.ts`, immediately after the other ES6 and metadata shims.
 

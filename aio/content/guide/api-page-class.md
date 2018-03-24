@@ -5,9 +5,7 @@
 </div>
 
 <header class="api-header">
-
     <h1><label class="api-status-label experimental">experimental</label><label class="api-type-label class">class</label>Class Name</h1>
-
 </header>
 
 <div class="page-actions">

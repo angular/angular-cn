@@ -247,11 +247,11 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You created a separate, reusable `HeroDetailComponent`.
 
-  你创建了一个独立的、可复用的 `HeroDetailComponent` 组件。
+   你创建了一个独立的、可复用的 `HeroDetailComponent` 组件。
 
 * You used a [property binding](guide/template-syntax#property-binding) to give the parent `HeroesComponent` control over the child `HeroDetailComponent`.
 
-  你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
+   你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
 
 * You used the [`@Input` decorator](guide/template-syntax#inputs-outputs) 
 to make the `hero` property available for binding

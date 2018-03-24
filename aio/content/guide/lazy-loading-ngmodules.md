@@ -12,23 +12,23 @@ A basic understanding of the following:
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules).
+   [特性模块](guide/feature-modules)
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 * [Frequently Used Modules](guide/frequent-ngmodules).
 
-  [常用模块](guide/frequent-ngmodules).
+   [常用模块](guide/frequent-ngmodules)。
 
 * [Types of Feature Modules](guide/module-types).
 
-  [特性模块的分类](guide/module-types).
+   [特性模块的分类](guide/module-types)。
 
 * [Routing and Navigation](guide/router).
 
-  [路由与导航](guide/router).
+   [路由与导航](guide/router)。
 
 For the final sample app with two lazy loaded modules that this page describes, see the
 <live-example></live-example>.
@@ -355,15 +355,15 @@ CLI 还会把 `RouterModule.forChild(routes)` 添加到各个特性模块中。�
 
 You may also be interested in the following:
 
-你可能对下列内容感兴趣：
+你可能还会对下列内容感兴趣：
 
 * [Routing and Navigation](guide/router).
 
-  [路由与导航](guide/router)。
+   [路由与导航](guide/router)。
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers)。
+   [提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 

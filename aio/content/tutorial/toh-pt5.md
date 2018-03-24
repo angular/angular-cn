@@ -32,9 +32,9 @@ When you’re done, users will be able to navigate the app like this:
 
 </figure>
 
-## Add the _AppRoutingModule_
+## Add the `AppRoutingModule`
 
-## 添加 _AppRoutingModule_
+## 添加 `AppRoutingModule`
 
 An Angular best practice is to load and configure the router in a separate, top-level module
 that is dedicated to routing and imported by the root `AppModule`.
@@ -235,9 +235,9 @@ You should see the familiar heroes master/detail view.
 
 {@a routerlink}
 
-## Add a navigation link (_routerLink_)
+## Add a navigation link (`routerLink`)
 
-## 添加路由链接 (*routerLink*)
+## 添加路由链接 (`routerLink`)
 
 Users shouldn't have to paste a route URL into the address bar. 
 They should be able to click a link to navigate.
@@ -336,15 +336,15 @@ The  _template_ presents a grid of hero name links.
 
 * The `*ngFor` repeater creates as many links as are in the component's `heroes` array.
 
-  `*ngFor` 复写器为组件的 `heroes` 数组中的每个条目创建了一个链接。
+   `*ngFor` 复写器为组件的 `heroes` 数组中的每个条目创建了一个链接。
 
 * The links are styled as colored blocks by the `dashboard.component.css`.
 
-  这些链接被 `dashboard.component.css` 中的样式格式化成了一些色块。
+   这些链接被 `dashboard.component.css` 中的样式格式化成了一些色块。
 
 * The links don't go anywhere yet but [they will shortly](#hero-details).
 
-  这些链接还没有指向任何地方，但[很快就会了](#hero-details)。
+   这些链接还没有指向任何地方，但[很快就会了](#hero-details)。
 
 The _class_ is similar to the `HeroesComponent` class.
 
@@ -352,15 +352,15 @@ The _class_ is similar to the `HeroesComponent` class.
 
 * It defines a `heroes` array property.
 
-  它定义了一个 `heroes` 数组属性。
+   它定义了一个 `heroes` 数组属性。
 
 * The constructor expects Angular to inject the `HeroService` into a private `heroService` property.
 
-  它的构造函数希望 Angular 把 `HeroService` 注入到私有的 `heroService` 属性中。
+   它的构造函数希望 Angular 把 `HeroService` 注入到私有的 `heroService` 属性中。
 
 * The `ngOnInit()` lifecycle hook calls `getHeroes`.
 
-  在 `ngOnInit()` 生命周期钩子中调用 `getHeroes`。
+   在 `ngOnInit()` 生命周期钩子中调用 `getHeroes`。
 
 This `getHeroes` reduces the number of heroes displayed to four
 (2nd, 3rd, 4th, and 5th).
@@ -485,7 +485,7 @@ and liberate it from the `HeroesComponent`.
 
 在这一节，你将能导航到 `HeroDetailComponent`，并把它从 `HeroesComponent` 中解放出来。
 
-### Delete _hero details_ from _HeroesComponent_
+### Delete _hero details_ from `HeroesComponent`
 
 ### 从 `HeroesComponent` 中删除*英雄详情*
 
@@ -551,7 +551,7 @@ At this point, all application routes are in place.
 
 </code-example>
 
-### _DashboardComponent_ hero links
+### `DashboardComponent` hero links
 
 ### `DashboardComponent` 中的英雄链接
 
@@ -580,7 +580,7 @@ to insert the current interation's `hero.id` into each
 
 {@a heroes-component-links}
 
-### _HeroesComponent_ hero links
+### `HeroesComponent` hero links
 
 ### `HeroesComponent` 中的英雄链接
 
@@ -661,15 +661,15 @@ The `HeroDetailComponent` needs a new way to obtain the _hero-to-display_.
 
 * Get the route that created it, 
 
-  获取创建本组件的路由，
+   获取创建本组件的路由，
 
 * Extract the `id` from the route
 
-  从这个路由中提取出 `id`
+   从这个路由中提取出 `id`
 
 * Acquire the hero with that `id` from the server via the `HeroService`
 
-  通过 `HeroService` 从服务器上获取具有这个 `id` 的英雄数据。
+   通过 `HeroService` 从服务器上获取具有这个 `id` 的英雄数据。
 
 Add the following imports:
 
@@ -752,9 +752,9 @@ Add it now.
 刷新浏览器，应用挂了。出现一个编译错误，因为 `HeroService` 没有一个名叫 `getHero()` 的方法。
 这就添加它。
 
-### Add *HeroService.getHero()*
+### Add `HeroService.getHero()`
 
-### 添加 *HeroService.getHero()*
+### 添加 `HeroService.getHero()`
 
 Open `HeroService` and add this `getHero()` method
 
@@ -865,9 +865,9 @@ Here are the code files discussed on this page and your app should look like thi
 
 {@a appmodule}
 
-#### _AppRoutingModule_ and _AppModule_
+#### _AppRoutingModule_, _AppModule_, and _HeroService_
 
-#### _AppRoutingModule_ 与 _AppModule_
+#### `AppRoutingModule`、`AppModule` 和 `HeroService`
 
 <code-tabs>
 
@@ -878,6 +878,10 @@ Here are the code files discussed on this page and your app should look like thi
   <code-pane 
     title="src/app/app.module.ts" 
     path="toh-pt5/src/app/app.module.ts">
+  </code-pane>
+  <code-pane 
+    title="src/app/hero.service.ts" 
+    path="toh-pt5/src/app/hero.service.ts">
   </code-pane>
 
 </code-tabs>
@@ -968,31 +972,31 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You added the Angular router to navigate among different components.
 
-  添加了 Angular *路由器*在各个不同组件之间导航。
+   添加了 Angular *路由器*在各个不同组件之间导航。
 
 * You turned the `AppComponent` into a navigation shell with `<a>` links and a `<router-outlet>`.
 
-  你使用一些 `<a>` 链接和一个 `<router-outlet>` 把 `AppComponent` 转换成了一个导航用的壳组件。
+   你使用一些 `<a>` 链接和一个 `<router-outlet>` 把 `AppComponent` 转换成了一个导航用的壳组件。
 
 * You configured the router in an `AppRoutingModule` 
 
-  你在 `AppRoutingModule` 中配置了路由器。
+   你在 `AppRoutingModule` 中配置了路由器。
 
 * You defined simple routes, a redirect route, and a parameterized route.
 
-  你定义了一些简单路由、一个重定向路由和一个参数化路由。
+   你定义了一些简单路由、一个重定向路由和一个参数化路由。
 
 * You used the `routerLink` directive in anchor elements.
 
-  你在 `<a>` 元素中使用了 `routerLink` 指令。
+   你在 `<a>` 元素中使用了 `routerLink` 指令。
 
 * You refactored a tightly-coupled master/detail view into a routed detail view.
 
-  你把一个紧耦合的主从视图重构成了带路由的详情视图。
+   你把一个紧耦合的主从视图重构成了带路由的详情视图。
 
 * You used router link parameters to navigate to the detail view of a user-selected hero.
 
-  你使用路由链接参数来导航到所选英雄的详情视图。
+   你使用路由链接参数来导航到所选英雄的详情视图。
 
 * You shared the `HeroService` among multiple components.
 

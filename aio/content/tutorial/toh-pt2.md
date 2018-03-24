@@ -69,19 +69,19 @@ Open the `HeroesComponent` template file and make the following changes:
 
 * Add an `<h2>` at the top, 
 
-  在顶部添加 `<h2>`，
+   在顶部添加 `<h2>`，
 
 * Below it add an HTML unordered list (`<ul>`)
 
-  然后添加表示无序列表的 HTML 元素（`<ul>`）
+   然后添加表示无序列表的 HTML 元素（`<ul>`）
 
 * Insert an `<li>` within the `<ul>` that displays properties of a `hero`.
 
-  在 `<ul>` 中插入一个 `<li>` 元素，以显示单个 `hero` 的属性。
+   在 `<ul>` 中插入一个 `<li>` 元素，以显示单个 `hero` 的属性。
 
 * Sprinkle some CSS classes for styling (you'll add the CSS styles shortly).
 
-  点缀上一些 CSS 类（稍后你还会添加更多 CSS 样式）。
+   点缀上一些 CSS 类（稍后你还会添加更多 CSS 样式）。
 
 Make it look like this:
 
@@ -111,15 +111,15 @@ In this example
 
 * `<li>` is the host element
 
-  `<li>` 就是 `*ngFor` 的宿主元素
+   `<li>` 就是 `*ngFor` 的宿主元素
 
 * `heroes` is the list from the `HeroesComponent` class.
 
-  `heroes` 就是来自 `HeroesComponent` 类的列表。
+   `heroes` 就是来自 `HeroesComponent` 类的列表。
 
 * `hero` holds the current hero object for each iteration through the list. 
 
-  当依次遍历这个列表时，`hero` 会为每个迭代保存当前的英雄对象。
+   当依次遍历这个列表时，`hero` 会为每个迭代保存当前的英雄对象。
 
 <div class="alert is-important">
 
@@ -414,7 +414,7 @@ The finished `<li>` looks like this:
 
 Your app should look like this <live-example></live-example>. 
 
-本应用现在变成了这样：<live-example></live-example>。
+你的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 
@@ -439,19 +439,19 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 
 * The Tour of Heroes app displays a list of heroes in a Master/Detail view.
 
-  英雄指南应用在一个主从视图中显示了英雄列表。
+   英雄指南应用在一个主从视图中显示了英雄列表。
 
 * The user can select a hero and see that hero's details.
 
-  用户可以选择一个英雄，并查看该英雄的详情。
+   用户可以选择一个英雄，并查看该英雄的详情。
 
 * You used `*ngFor` to display a list.
 
-  你使用 `*ngFor` 显示了一个列表。
+   你使用 `*ngFor` 显示了一个列表。
 
 * You used `*ngIf` to conditionally include or exclude a block of HTML.
 
-  你使用 `*ngIf` 来根据条件包含或排除了一段 HTML。
+   你使用 `*ngIf` 来根据条件包含或排除了一段 HTML。
 
 * You can toggle a CSS style class with a `class` binding.
 

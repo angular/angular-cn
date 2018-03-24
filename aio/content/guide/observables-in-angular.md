@@ -8,15 +8,15 @@ Angular 使用可观察对象作为处理各种常用异步操作的接口。比
 
 * The `EventEmitter` class extends `Observable`.
 
-  `EventEmitter` 类派生自 `Observable`。
+   `EventEmitter` 类派生自 `Observable`。
 
 * The HTTP module uses observables to handle AJAX requests and responses.
 
-  HTTP 模块使用可观察对象来处理 AJAX 请求和响应。
+   HTTP 模块使用可观察对象来处理 AJAX 请求和响应。
 
 * The Router and Forms modules use observables to listen for and respond to user-input events.
 
-  路由器和表单模块使用可观察对象来监听对用户输入事件的响应。
+   路由器和表单模块使用可观察对象来监听对用户输入事件的响应。
 
 ## Event emitter
 
@@ -46,19 +46,19 @@ Angular 的 `HttpClient` 从 HTTP 方法调用中返回了可观察对象。例�
 
 * Observables do not mutate the server response (as can occur through chained `.then()` calls on promises). Instead, you can use a series of operators to transform values as needed.
 
-  可观察对象不会修改服务器的响应（和在承诺上串联起来的 `.then()` 调用一样）。反之，你可以使用一系列操作符来按需转换这些值。
+   可观察对象不会修改服务器的响应（和在承诺上串联起来的 `.then()` 调用一样）。反之，你可以使用一系列操作符来按需转换这些值。
 
 * HTTP requests are cancellable through the `unsubscribe()` method.
 
-  HTTP 请求是可以通过 `unsubscribe()` 方法来取消的。
+   HTTP 请求是可以通过 `unsubscribe()` 方法来取消的。
 
 * Requests can be configured to get progress event updates.
 
-  请求可以进行配置，以获取进度事件的变化。
+   请求可以进行配置，以获取进度事件的变化。
 
 * Failed requests can be retried easily.
 
-  失败的请求很容易重试。
+   失败的请求很容易重试。
 
 ## Async pipe
 

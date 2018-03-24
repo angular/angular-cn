@@ -192,11 +192,11 @@ Here are the code files discussed on this page.
 
 * You created the initial application structure using the Angular CLI.
 
-  你使用 Angular CLI 创建了初始的应用结构。
+   你使用 Angular CLI 创建了初始的应用结构。
 
 * You learned that Angular components display data.
 
-  你学会了使用 Angular 组件来显示数据。
+   你学会了使用 Angular 组件来显示数据。
 
 * You used the double curly braces of interpolation to display the app title. 
 
