@@ -41,7 +41,7 @@ then consider the _experimental_
 Note that the resulting code does not map to the docs. Adjust accordingly.   
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
+    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。 
     注意，最终代码与本文不对应，请适当调节。
 
 </div>
@@ -101,7 +101,7 @@ Configure Visual Studio to use the global external web tools instead of the tool
   * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
     use the external tools (such as npm) found in the global path before using its own version of the external tools.
 
-     * 在右侧，将 `$(PATH)` 移动到 `$(DevEnvDir`)上面。这样，Visual Stuio 就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如 npm）。
+     在右侧，将 `$(PATH)` 移动到 `$(DevEnvDir`)上面。这样，Visual Stuio 就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如 npm）。
 
   * Click OK to close the dialog.
 

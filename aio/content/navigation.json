@@ -426,7 +426,7 @@
             },
             {
               "url": "guide/service-worker-config",
-              "title": "Service Worker 的配置",
+              "title": "Service Worker 配置",
               "tooltip": "配置 Service Worker 的缓存行为。"
             }
           ]
