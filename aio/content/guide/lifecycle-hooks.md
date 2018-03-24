@@ -266,7 +266,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
 ## Interfaces are optional (technically)
 
-## 接口是可选的(严格来说)
+## 接口是可选的（严格来说）
 
 The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
 The JavaScript language doesn't have interfaces.
@@ -311,7 +311,7 @@ control over how these libraries are used.
 
 ## Lifecycle examples
 
-## 生命周期练习
+## 生命周期范例
 
 The <live-example></live-example>
 demonstrates the lifecycle hooks in action through a series of exercises
