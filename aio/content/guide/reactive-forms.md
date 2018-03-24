@@ -1345,7 +1345,13 @@ The remaining `HeroListComponent` and `HeroService` implementation details are b
 However, the techniques involved are covered elsewhere in the documentation, including the _Tour of Heroes_
 [here](tutorial/toh-pt3 "ToH: Multiple Components") and [here](tutorial/toh-pt4 "ToH: Services").
 
+`HeroListComponent` 和 `HeroService` 的其它实现细节超出了本教程的范围。
+不过，它所涉及的技术包含在文档的其它部分，包括《英雄指南》的 [这里](tutorial/toh-pt3 "ToH: Multiple Components") 和 [这里](tutorial/toh-pt4 "ToH: Services")。
+
 To use the `HeroService`, import it into `AppModule` and add it to the `providers` array. To use the `HeroListComponent`, import it, declare it, and export it:
+
+要使用 `HeroService`，就要把它导入到 `AppModule` 中，并添加到 `providers` 数组里。
+要使用 `HeroListComponent`，就要导入它、声明它并导出它：
 
 <code-example path="reactive-forms/src/app/app.module.ts" region="hero-service-list" title="app.module.ts (excerpts)" linenums="false">
 
@@ -1353,11 +1359,15 @@ To use the `HeroService`, import it into `AppModule` and add it to the `provider
 
 Next, update the `HeroListComponent` template with the following:
 
+接下来，把 `HeroListComponent` 的模板升级为：
+
 <code-example path="reactive-forms/src/app/hero-list/hero-list.component.html" title="hero-list.component.html" linenums="false">
 
 </code-example>
 
 These changes need to be reflected in the `AppComponent` template. Replace the contents of `app.component.html` with updated markup to use the `HeroListComponent`, instead of the `HeroDetailComponent`:
+
+这些修改需要反映到 `AppComponent` 模板中。把 `app.component.html` 替换为如下内容，以便把 `HeroDetailComponent` 替换为 `HeroListComponent`：
 
 <code-example path="reactive-forms/src/app/app.component.html" title="app.component.html" linenums="false">
 
@@ -1366,19 +1376,31 @@ These changes need to be reflected in the `AppComponent` template. Replace the c
 Finally, add an `@Input()` property to the `HeroDetailComponent`
 so `HeroDetailComponent` can receive the data from `HeroListComponent`. Remember to add the `Input` symbol to the `@angular/core `  `import` statement in the list of JavaScript imports too.
 
+最后，为 `HeroDetailComponent` 添加一个 `@Input()` 属性，让它能从 `HeroListComponent` 中接收数据。
+别忘了也要把来自 `@angular/core` 的 `Input` 符号 `import` 进来。
+
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="hero" title="hero-detail.component.ts (excerpt)" linenums="false">
 
 </code-example>
 
 Now you should be able to click on a button for a hero and a form renders.
 
+你先，你就可以点击一个按钮并渲染一个表单了。
+
 ## When to set form model values (`ngOnChanges`)
 
+## 何时设置表单模型的值（`ngOnChanges`）
+
 When to set form model values depends upon when the component gets the data model values.
+
+何时设置表单模型的值取决于组件何时获得数据模型的值。
 
 The `HeroListComponent` displays hero names to the user.
 When the user clicks on a hero, the `HeroListComponent` passes the selected hero into the `HeroDetailComponent`
 by binding to its `hero` `@Input()` property.
+
+`HeroListComponent` 会给用户显示英雄的名字。
+当用户点击某个英雄时，`HeroListComponent` 会通过绑定到 `hero` 这个输入属性，把选中的英雄传给 `HeroDetailComponent`。
 
 <code-example path="reactive-forms/src/app/hero-list/hero-list.component.1.html" title="hero-list.component.html (simplified)" linenums="false">
 
@@ -1389,15 +1411,24 @@ every time the user selects a new hero.
 You can call `setValue()` using the [ngOnChanges](guide/lifecycle-hooks#onchanges)
 lifecycle hook, which Angular calls whenever the `@Input()` `hero` property changes.
 
+这种方式下，每当用户选择一个新英雄时，`HeroDetailComponent` 的 `hero` 值就会发生变化。
+你可以通过 [ngOnChanges](guide/lifecycle-hooks#onchanges) 生命周期钩子来调用 `setValue()`。只要 `hero` 这个输入属性发生了变化，Angular 就会调用这个钩子。
+
 ### Reset the form
 
+### 重置表单
+
 First, import the `OnChanges` symbol in `hero-detail.component.ts`.
+
+首先，在 `hero-detail.component.ts` 中导入 `OnChanges` 符号。
 
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail-6.component.ts" region="import-input" title="src/app/hero-detail/hero-detail.component.ts (core imports)" linenums="false">
 
 </code-example>
 
 Next, let Angular know that the `HeroDetailComponent` implements `OnChanges`:
+
+接着，让 Angular 知道 `HeroDetailComponent` 实现了 `OnChanges`：
 
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail.component.ts" region="onchanges-implementation" title="src/app/hero-detail/hero-detail.component.ts (excerpt)" linenums="false">
 
@@ -1414,11 +1445,17 @@ Add the `ngOnChanges` method to the class as follows:
 Notice that it calls `rebuildForm()`, which is a method where you
 can set the values. You can name `rebuildForm()` anything that makes sense to you. It isn't built into Angular, but is a method you create to effectively leverage the `ngOnChanges` lifecycle hook.
 
+注意，它调用了 `rebuildForm()`，该函数是一个方法，在这里你可以对值进行设置。
+你可以把 `rebuildForm()` 命名为任何对你有意义的名字。
+它不是 Angular 内置的，而是你自己创建的方法，用以更有效的利用 `ngOnChanges` 钩子。
+
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail-7.component.ts" region="rebuildForm" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
 
 </code-example>
 
 The `rebuildForm()` method does two things; resets the hero's name and the address.
+
+`rebuildForm()` 方法会做两件事：重置英雄的名字和地址。
 
 {@a form-array}
 
@@ -1894,6 +1931,8 @@ Users now can save or revert changes.
 现在，用户可以保存或放弃修改了。
 
 Try the <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz"></live-example>.
+
+试试 <live-example stackblitz="final" title="Reactive Forms (final) in Stackblitz"></live-example>.
 
 {@a source-code}
 
