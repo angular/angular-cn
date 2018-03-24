@@ -305,17 +305,13 @@ But there are times when an inline snippet is the better choice.
 For terminal input and output, put the content between `<code-example>` tags, set the CSS class to `code-shell`, and set the language attribute to `sh` as in this example.
 
 <code-example language="sh" class="code-shell">
-
   npm start
-
 </code-example>
 
 ```html
 
 <code-example language="sh" class="code-shell">
-
   npm start
-
 </code-example>
 
 ```
@@ -365,7 +361,6 @@ Here's the brief markup that produced that lengthy snippet:
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   title="src/app/app.module.ts">
-
 </code-example>
 
 ```
@@ -398,7 +393,6 @@ The preferred way to un-ignore a file is to update the `content/examples/.gitign
 
   !my-guide/src/something.js
   !my-guide/more-javascript*.js
-
 </code-example>
 
 </div>
@@ -430,7 +424,6 @@ Often you want to focus on a fragment of code within a sample code file. In this
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   region="class">
-
 </code-example>
 
 First you surround that fragment in the source file with a named _docregion_ as described [below](#source-code-markup).
@@ -441,7 +434,6 @@ Then you reference that _docregion_ in the `region` attribute of the `<code-exam
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
   region="class">
-
 </code-example>
 
 ```
@@ -472,13 +464,11 @@ Here's the markup for an "avoid" example in the
   path="styleguide/src/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts"
   region="example"
   title="app/heroes/hero-button/hero-button.component.ts">
-
 </code-example>
 
 ```
 
 <code-example path="styleguide/src/05-03/app/heroes/shared/hero-button/hero-button.component.avoid.ts" region="example" title="app/heroes/hero-button/hero-button.component.ts">
-
 </code-example>
 
 {@a code-tabs}
@@ -503,7 +493,6 @@ The next example displays multiple code tabs, each with its own title.
 It demonstrates control over display of line numbers at both the `<code-tabs>` and `<code-pane>` levels.
 
 <code-tabs linenums="false">
-
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
@@ -522,7 +511,6 @@ It demonstrates control over display of line numbers at both the `<code-tabs>` a
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
   </code-pane>
-
 </code-tabs>
 
 Here's the markup for that example.
@@ -533,7 +521,6 @@ The `linenums` attribute in the second pane restores line numbering for _itself 
 ```html
 
 <code-tabs linenums="false">
-
   <code-pane
     title="app.component.html"
     path="docs-style-guide/src/app/app.component.html">
@@ -552,7 +539,6 @@ The `linenums` attribute in the second pane restores line numbering for _itself 
     title="package.json (scripts)"
     path="docs-style-guide/package.1.json">
   </code-pane>
-
 </code-tabs>
 
 ```
@@ -685,7 +671,6 @@ Examine the `src/app/app.component.ts` file which defines two nested _#docregion
 The inner, `class-skeleton` region appears twice, once to capture the code that opens the class definition and once to capture the code that closes the class definition.
 
 <code-example linenums="false">
-
 // #docplaster
 ...
 // #docregion class, class-skeleton
@@ -701,13 +686,11 @@ export class AppComponent {
 // #docregion class-skeleton
 }
 // #enddocregion class, class-skeleton
-
 </code-example>
 
 Here's are the two corresponding code snippets displayed side-by-side.
 
 <code-tabs>
-
   <code-pane
     title="app.component.ts (class)"
     path="docs-style-guide/src/app/app.component.ts"
@@ -718,7 +701,6 @@ Here's are the two corresponding code snippets displayed side-by-side.
     path="docs-style-guide/src/app/app.component.ts"
     region="class-skeleton">
   </code-pane>
-
 </code-tabs>
 
 Some observations:
@@ -953,7 +935,6 @@ For these reasons, it is often wise to add a custom anchor explicitly, just abov
 text to which it applies, using the special `{@a name}` syntax like this.
 
 <code-example  language="html">
-
   &#123;@a ugly-anchors&#125;
 
   #### Ugly, long section header anchors
@@ -1244,7 +1225,6 @@ Use HTML tables to present tabular data.
 </style>
 
 <table>
-
   <tr>
 
     <th>
@@ -1266,7 +1246,6 @@ Use HTML tables to present tabular data.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1290,7 +1269,6 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1316,7 +1294,6 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1340,7 +1317,6 @@ Use HTML tables to present tabular data.
     </td>
 
   </tr>
-
 </table>
 
 Here is the markup for this table.
@@ -1352,7 +1328,6 @@ Here is the markup for this table.
 </style>
 
 <table>
-
   <tr>
 
     <th>
@@ -1374,7 +1349,6 @@ Here is the markup for this table.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1398,7 +1372,6 @@ Here is the markup for this table.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1424,7 +1397,6 @@ Here is the markup for this table.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -1448,7 +1420,6 @@ Here is the markup for this table.
     </td>
 
   </tr>
-
 </table>
 
 ```

@@ -355,7 +355,7 @@ CLI 还会把 `RouterModule.forChild(routes)` 添加到各个特性模块中。�
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Routing and Navigation](guide/router).
 
@@ -363,8 +363,8 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [提供商](guide/providers)。
+   [服务提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 
-  [特性模块的分类](guide/module-types)。
+   [特性模块的分类](guide/module-types)。

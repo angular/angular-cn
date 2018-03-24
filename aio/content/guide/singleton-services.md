@@ -44,7 +44,6 @@ a way of providing services from a designated NgModule.
 下面的范例模块习惯上叫做 `CoreModule`。`@NgModule` 用来创建结构良好的基础设施，让你能够在一个指定的模块中提供服务。
 
 <code-example path="ngmodules/src/app/core/core.module.ts" region="user-service" title="src/app/core/core.module.ts" linenums="false">
-
 </code-example>
 
 Here, `CoreModule` provides the `UserService`, and because `AppModule`
@@ -269,7 +268,6 @@ Here are the two files in their entirety for reference:
 以下这两个文件仅供参考：
 
 <code-tabs linenums="false">
-
  <code-pane
    title="app.module.ts"
    path="ngmodules/src/app/app.module.ts">
@@ -279,7 +277,6 @@ Here are the two files in their entirety for reference:
    region="whole-core-module"
    path="ngmodules/src/app/core/core.module.ts">
  </code-pane>
-
 </code-tabs>
 
 <hr>
@@ -298,8 +295,8 @@ You may also be interested in:
 
 * [Lazy Loading Modules](guide/lazy-loading-ngmodules).
 
-   [惰性加载模块](guide/lazy-loading-ngmodules).
+   [惰性加载模块](guide/lazy-loading-ngmodules)。
 
 * [NgModule FAQ](guide/ngmodule-faq).
 
-  [NgModule 常见问题](guide/ngmodule-faq)。
+   [NgModule 常见问题](guide/ngmodule-faq)。

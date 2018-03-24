@@ -21,52 +21,48 @@ Observables are often compared to promises. Here are some key differences:
 
 * Observables are declarative; computation does not start until subscription. Promises execute immediately on creation. This makes observables useful for defining recipes that can be run whenever you need the result.
 
-  可观察对象是声明式的，在被订阅之前，它不会开始执行。承诺是在创建时就立即执行的。这让可观察对象可用于定义那些应该按需执行的菜谱。
+   可观察对象是声明式的，在被订阅之前，它不会开始执行。承诺是在创建时就立即执行的。这让可观察对象可用于定义那些应该按需执行的菜谱。
 
 * Observables provide many values. Promises provide one. This makes observables useful for getting multiple values over time.
 
-  可观察对象能提供多个值。承诺只提供一个。这让可观察对象可用于随着时间的推移获取多个值。
+   可观察对象能提供多个值。承诺只提供一个。这让可观察对象可用于随着时间的推移获取多个值。
 
 * Observables differentiate between chaining and subscription. Promises only have `.then()` clauses. This makes observables useful for creating complex transformation recipes to be used by other part of the system, without causing the work to be executed.
 
-  可观察对象会区分串联处理和订阅语句。承诺只有 `.then()` 语句。这让可观察对象可用于创建供系统的其它部分使用而不希望立即执行的复杂菜谱。
+   可观察对象会区分串联处理和订阅语句。承诺只有 `.then()` 语句。这让可观察对象可用于创建供系统的其它部分使用而不希望立即执行的复杂菜谱。
 
 * Observables `subscribe()` is responsible for handling errors. Promises push errors to the child promises. This makes observables useful for centralized and predictable error handling.
 
-  可观察对象的 `subscribe()` 会负责处理错误。承诺会把错误推送给它的子承诺。这让可观察对象可用于进行集中式、可预测的错误处理。
+   可观察对象的 `subscribe()` 会负责处理错误。承诺会把错误推送给它的子承诺。这让可观察对象可用于进行集中式、可预测的错误处理。
 
 ### Creation and subscription
 
 ### 创建与订阅
 
-* Observables are not executed until a consumer subscribes. The `subscribe()` executes the defined behavior once, and it can be called again. Each subscription has its own computation. Resubscription causes recomputation of values.
+* Observables are not executed until a consumer subcribes. The `subscribe()` executes the defined behavior once, and it can be called again. Each subscription has its own computation. Resubscription causes recomputation of values.
 
-  在有消费者订阅之前，可观察对象不会执行。`subscribe()` 会执行一次定义好的行为，并且可以再次调用它。每次订阅都是单独计算的。重新订阅会导致重新计算这些值。
+   在有消费者订阅之前，可观察对象不会执行。`subscribe()` 会执行一次定义好的行为，并且可以再次调用它。每次订阅都是单独计算的。重新订阅会导致重新计算这些值。
 
 <code-example hideCopy>
-
 // declare a publishing operation
 new Observable((observer) => { subscriber_fn });
 // initiate execution
 observable.subscribe(() => {
       // observer handles notifications
     });
-
 </code-example>
 
 * Promises execute immediately, and just once. The computation of the result is initiated when the promise is created. There is no way to restart work. All `then` clauses (subscriptions) share the same computation.
 
-  承诺会立即执行，并且只执行一次。当承诺创建时，会立即计算出结果。没有办法重新做一次。所有的 `then` 语句（订阅）都会共享同一次计算。
+   承诺会立即执行，并且只执行一次。当承诺创建时，会立即计算出结果。没有办法重新做一次。所有的 `then` 语句（订阅）都会共享同一次计算。
 
 <code-example hideCopy>
-
 // initiate execution
 new Promise((resolve, reject) => { executer_fn });
 // handle return value
 promise.then((value) => {
       // handle result here
     });
-
 </code-example>
 
 ### Chaining
@@ -75,13 +71,13 @@ promise.then((value) => {
 
 * Observables differentiate between transformation function such as a map and subscription. Only subscription activates the subscriber function to start computing the values.
 
-  可观察对象会区分各种转换函数，比如映射和订阅。只有订阅才会激活订阅者函数，以开始计算那些值。
+   可观察对象会区分各种转换函数，比如映射和订阅。只有订阅才会激活订阅者函数，以开始计算那些值。
 
 <code-example hideCopy>observable.map((v) => 2*v);</code-example>
 
 * Promises do not differentiate between the last `.then` clauses (equivalent to subscription) and intermediate `.then` clauses (equivalent to map).
 
-  承诺并不区分最后的 `.then()` 语句（等价于订阅）和中间的 `.then()` 语句（等价于映射）。
+   承诺并不区分最后的 `.then()` 语句（等价于订阅）和中间的 `.then()` 语句（等价于映射）。
 
 <code-example hideCopy>promise.then((v) => 2*v);</code-example>
 
@@ -91,18 +87,16 @@ promise.then((value) => {
 
 * Observable subscriptions are cancellable. Unsubscribing removes the listener from receiving further values, and notifies the subscriber function to cancel work.
 
-  可观察对象的订阅是可取消的。取消订阅会移除监听器，使其不再接受将来的值，并通知订阅者函数取消正在进行的工作。
+   可观察对象的订阅是可取消的。取消订阅会移除监听器，使其不再接受将来的值，并通知订阅者函数取消正在进行的工作。
 
 <code-example hideCopy>
-
 const sub = obs.subscribe(...);
 sub.unsubscribe();
-
 </code-example>
 
 * Promises are not cancellable.
 
-  承诺是不可取消的。
+   承诺是不可取消的。
 
 ### Error handling
 
@@ -110,26 +104,22 @@ sub.unsubscribe();
 
 * Observable execution errors are delivered to the subscriber's error handler, and the subscriber automatically unsubscribes from the observable.
 
-  可观察对象的错误处理是交给订阅者的错误处理器的，并且该订阅者会自动取消对这个可观察对象的订阅。
+   可观察对象的错误处理是交给订阅者的错误处理器的，并且该订阅者会自动取消对这个可观察对象的订阅。
 
 <code-example hideCopy>
-
 obs.subscribe(() => {
   throw Error('my error');
 });
-
 </code-example>
 
 * Promises push errors to the child promises.
 
-  承诺会把错误推给其子承诺。
+   承诺会把错误推给其子承诺。
 
 <code-example hideCopy>
-
 promise.then(() => {
       throw Error('my error');
 });
-
 </code-example>
 
 ### Cheat sheet
@@ -141,7 +131,6 @@ The following code snippets illustrate how the same kind of operation is defined
 下列代码片段揭示了同样的操作要如何分别使用可观察对象和承诺进行实现。
 
 <table>
-
   <tr>
 
     <th>
@@ -169,7 +158,6 @@ The following code snippets illustrate how the same kind of operation is defined
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -197,7 +185,6 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -221,7 +208,6 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -249,7 +235,6 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -275,7 +260,6 @@ The following code snippets illustrate how the same kind of operation is defined
     </td>
 
   </tr>
-
 </table>
 
 ## Observables compared to events API
@@ -295,8 +279,11 @@ Here are some code samples that illustrate how the same kind of operation is def
 下列代码片段揭示了同样的操作要如何分别使用可观察对象和事件 API 进行实现。
 
 <table>
-
   <tr>
+
+    <th>
+
+    </th>
 
     <th>
 
@@ -315,7 +302,6 @@ Here are some code samples that illustrate how the same kind of operation is def
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -353,7 +339,6 @@ button.removeEventListener(‘click’, handler);
    </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -381,7 +366,6 @@ button.removeEventListener(‘click’, handler);
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -395,9 +379,9 @@ button.removeEventListener(‘click’, handler);
     <td>
 
         Listen for keystrokes, but provide a stream representing the value in the input.
-        
+
         监听按键，提供一个流来表示这些输入的值。
-        
+
 <pre>fromEvent(inputEl, 'keydown').pipe(
   map(e => e.target.value)
 );</pre>
@@ -407,7 +391,7 @@ button.removeEventListener(‘click’, handler);
     <td>
 
         Does not support configuration.
-        
+
         不支持配置。
 
 <pre>element.addEventListener(eventName, (event) => {
@@ -418,7 +402,6 @@ button.removeEventListener(‘click’, handler);
     </td>
 
   </tr>
-
 </table>
 
 ## Observables compared to arrays
@@ -431,8 +414,11 @@ An observable produces values over time. An array is created as a static set of 
 在下列例子中，➞ 符号表示异步传递值。
 
 <table>
-
   <tr>
+
+    <th>
+
+    </th>
 
     <th>
 
@@ -451,7 +437,6 @@ An observable produces values over time. An array is created as a static set of 
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -465,6 +450,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs: ➞1➞2➞3➞5➞7</pre>
+
       <pre>obsB: ➞'a'➞'b'➞'c'</pre>
 
     </td>
@@ -472,12 +458,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr: [1, 2, 3, 5, 7]</pre>
+
       <pre>arrB: ['a', 'b', 'c']</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -489,6 +475,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.concat(obsB)</pre>
+
       <pre>➞1➞2➞3➞5➞7➞'a'➞'b'➞'c'</pre>
 
     </td>
@@ -496,12 +483,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.concat(arrB)</pre>
+
       <pre>[1,2,3,5,7,'a','b','c']</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -513,6 +500,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.filter((v) => v>3)</pre>
+
       <pre>➞5➞7</pre>
 
     </td>
@@ -520,12 +508,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.filter((v) => v>3)</pre>
+
       <pre>[5, 7]</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -537,6 +525,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.find((v) => v>3)</pre>
+
       <pre>➞5</pre>
 
     </td>
@@ -544,12 +533,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.find((v) => v>10)</pre>
+
       <pre>5</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -561,6 +550,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.findIndex((v) => v>3)</pre>
+
       <pre>➞3</pre>
 
     </td>
@@ -568,12 +558,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.findIndex((v) => v>3)</pre>
+
       <pre>3</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -609,7 +599,6 @@ An observable produces values over time. An array is created as a static set of 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -621,6 +610,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.map((v) => -v)</pre>
+
       <pre>➞-1➞-2➞-3➞-5➞-7</pre>
 
     </td>
@@ -628,12 +618,12 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.map((v) => -v)</pre>
+
       <pre>[-1, -2, -3, -5, -7]</pre>
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -645,6 +635,7 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>obs.scan((s,v)=> s+v, 0)</pre>
+
       <pre>➞1➞3➞6➞11➞18</pre>
 
     </td>
@@ -652,10 +643,10 @@ An observable produces values over time. An array is created as a static set of 
     <td>
 
       <pre>arr.reduce((s,v) => s+v, 0)</pre>
+
       <pre>18</pre>
 
     </td>
 
   </tr>
-
 </table>

@@ -34,7 +34,6 @@ Imagine writing the following code:
 要理解为什么依赖注入这么重要，不妨先考虑不使用它的一个例子。想象下列代码：
 
 <code-example path="dependency-injection/src/app/car/car-no-di.ts" region="car" title="src/app/car/car.ts (without DI)">
-
 </code-example>
 
 The `Car` class creates everything it needs inside its constructor.
@@ -152,7 +151,6 @@ Now you can create a car by passing the engine and tires to the constructor.
 现在，通过往构造函数中传入引擎和轮胎来创建一辆车。
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation" linenums="false">
-
 </code-example>
 
 How cool is that?
@@ -195,7 +193,6 @@ during each test:
   在每个测试期间，你可以往构造函数中传入 mock 对象，做想让它们做的事：
 
 <code-example path="dependency-injection/src/app/car/car-creations.ts" region="car-ctor-instantiation-with-mocks" linenums="false">
-
 </code-example>
 
 **You just learned what dependency injection is**.
@@ -223,7 +220,6 @@ You _could_ write a giant class to do that:
 可以写一个巨型类来做这件事：
 
 <code-example path="dependency-injection/src/app/car/car-factory.ts" title="src/app/car/car-factory.ts">
-
 </code-example>
 
 It's not so bad now with only three creation methods.
@@ -253,7 +249,6 @@ When you need a `Car`, you simply ask the injector to get it for you and you're 
 当需要一个 `Car` 时，就简单的找注入器取车就可以了。
 
 <code-example path="dependency-injection/src/app/car/car-injector.ts" region="injector-call" title="src/app/car/car-injector.ts" linenums="false">
-
 </code-example>
 
 Everyone wins. The `Car` knows nothing about creating an `Engine` or `Tires`.

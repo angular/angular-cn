@@ -52,9 +52,7 @@ Using the Angular CLI, create a service called `hero`.
 使用 Angular CLI 创建一个名叫 `hero` 的服务。
 
 <code-example language="sh" class="code-shell">
-
   ng generate service hero
-
 </code-example>
 
 The command generates skeleton `HeroService` class in `src/app/hero.service.ts`
@@ -65,7 +63,6 @@ The `HeroService` class should look like the below.
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="new"
  title="src/app/hero.service.ts (new service)" linenums="false">
-
 </code-example>
 
 ### _@Injectable()_ services
@@ -118,7 +115,6 @@ Import the `Hero` and `HEROES`.
 导入 `Hero` 和 `HEROES`。
 
 <code-example path="toh-pt4/src/app/hero.service.ts" region="import-heroes">
-
 </code-example>
 
 Add a `getHeroes` method to return the _mock heroes_.
@@ -126,7 +122,6 @@ Add a `getHeroes` method to return the _mock heroes_.
 添加一个 `getHeroes` 方法，让它返回*模拟的英雄列表*。
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="getHeroes">
-
 </code-example>
 
 {@a provide}
@@ -158,9 +153,7 @@ by appending `--module=app`.
 这是一个常用的选择，因此你可以通过 `--module=app` 选项让 CLI 自动把它提供给 `AppModule`。
 
 <code-example language="sh" class="code-shell">
-
   ng generate service hero --module=app
-
 </code-example>
 
 Since you did not, you'll have to provide it yourself.
@@ -172,7 +165,6 @@ Open the `AppModule` class, import the `HeroService`, and add it to the `@NgModu
 打开 `AppModule` 类，导入 `HeroService`，并把它加入 `@NgModule.providers` 数组中。
 
 <code-example path="toh-pt4/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers-heroservice">
-
 </code-example>
 
 The `providers` array tells Angular to create a single, shared instance of `HeroService`
@@ -215,7 +207,6 @@ Import the `HeroService` instead.
 转而导入 `HeroService`。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" title="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
-
 </code-example>
 
 Replace the definition of the `heroes` property with a simple declaration.
@@ -223,7 +214,6 @@ Replace the definition of the `heroes` property with a simple declaration.
 把 `heroes` 属性的定义改为一句简单的声明。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="heroes">
-
 </code-example>
 
 {@a inject}
@@ -237,7 +227,6 @@ Add a private `heroService` parameter of type `HeroService` to the constructor.
 往构造函数中添加一个私有的 `heroService`，其类型为 `HeroService`。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="ctor">
-
 </code-example>
 
 The parameter simultaneously defines a private `heroService` property and identifies it as a `HeroService` injection site.
@@ -258,7 +247,6 @@ Create a function to retrieve the heroes from the service.
 创建一个函数，以从服务中获取这些英雄数据。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
-
 </code-example>
 
 {@a oninit}
@@ -285,7 +273,6 @@ let Angular call `ngOnInit` at an appropriate time _after_ constructing a `Heroe
 你应该改为在 [*ngOnInit 生命周期钩子*](guide/lifecycle-hooks)中调用 `getHeroes()`，并且等 Angular 构造出 `HeroesComponent` 的实例之后，找个恰当的时机调用 `ngOnInit`。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="ng-on-init">
-
 </code-example>
 
 ### See it run
@@ -311,7 +298,6 @@ as if heroes could be fetched synchronously.
 而 `HeroesComponent` 也同样假设能同步取到 `getHeroes()` 的结果。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="get-heroes">
-
 </code-example>
 
 This will not work in a real app.
@@ -365,7 +351,6 @@ Open the `HeroService` file and import the `Observable` and `of` symbols from Rx
 
 <code-example path="toh-pt4/src/app/hero.service.ts" 
 title="src/app/hero.service.ts (Observable imports)" region="import-observable">
-
 </code-example>
 
 Replace the `getHeroes` method with this one.
@@ -478,9 +463,7 @@ Use the CLI to create the `MessagesComponent`.
 使用 CLI 创建 `MessagesComponent`。
 
 <code-example language="sh" class="code-shell">
-
   ng generate component messages
-
 </code-example>
 
 The CLI creates the component files in the `src/app/messages` folder and declare `MessagesComponent` in `AppModule`.
@@ -494,7 +477,6 @@ Modify the `AppComponent` template to display the generated `MessagesComponent`
 <code-example
   title = "/src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
-
 </code-example>
 
 You should see the default paragraph from `MessagesComponent` at the bottom of the page.
@@ -512,9 +494,7 @@ The `--module=app` option tells the CLI to  [_provide_ this service](#provide) i
 `--module=app` 选项告诉 CLI 在 `AppModule` 中[提供这个服务](#provide)。
 
 <code-example language="sh" class="code-shell">
-
   ng generate service message --module=app
-
 </code-example>
 
 Open `MessageService` and replace its contents with the following.
@@ -524,7 +504,6 @@ Open `MessageService` and replace its contents with the following.
 <code-example
   title = "/src/app/message.service.ts"
   path="toh-pt4/src/app/message.service.ts">
-
 </code-example>
 
 The service exposes its cache of `messages` and two methods: one to `add()` a message to the cache and another to `clear()` the cache.
@@ -544,7 +523,6 @@ Re-open the `HeroService` and import the `MessageService`.
 <code-example
   title = "/src/app/hero.service.ts (import MessageService)"
   path="toh-pt4/src/app/hero.service.ts" region="import-message-service">
-
 </code-example>
 
 Modify the constructor with a parameter that declares a private `messageService` property.
@@ -556,7 +534,6 @@ Angular 将会在创建 `HeroService` 时把 `MessageService` 的单例注入到
 
 <code-example
   path="toh-pt4/src/app/hero.service.ts" region="ctor">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -578,7 +555,6 @@ Modify the `getHeroes` method to send a message when the heroes are fetched.
 修改 `getHeroes` 方法，在获取到英雄数组时发送一条消息。
 
 <code-example path="toh-pt4/src/app/hero.service.ts" region="getHeroes">
-
 </code-example>
 
 ### Display the message from `HeroService`
@@ -598,19 +574,17 @@ Open `MessagesComponent` and import the `MessageService`.
 <code-example
   title = "/src/app/messages/messages.component.ts (import MessageService)"
   path="toh-pt4/src/app/messages/messages.component.ts" region="import-message-service">
-
 </code-example>
 
 Modify the constructor with a parameter that declares a **public** `messageService` property.
 Angular will inject the singleton `MessageService` into that property 
-when it creates the `MessagesComponent`.
+when it creates the `HeroService`.
 
 修改构造函数，添加一个 **public** 的 `messageService` 属性。
 Angular 将会在创建 `MessagesComponent` 的实例时 把 `MessageService` 的实例注入到这个属性中。
 
 <code-example
   path="toh-pt4/src/app/messages/messages.component.ts" region="ctor">
-
 </code-example>
 
 The `messageService` property **must be public** because you're about to bind to it in the template.
@@ -636,7 +610,6 @@ Replace the CLI-generated `MessagesComponent` template with the following.
 <code-example
   title = "src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
-
 </code-example>
 
 This template binds directly to the component's `messageService`.
@@ -754,4 +727,4 @@ Here are the code files discussed on this page and your app should look like thi
 * The `HeroService` injected into a component is created with another injected service,
  `MessageService`.
 
-  `HeroService` 连同注入到它的服务 `MessageService` 一起，注入到了组件中。
+   `HeroService` 连同注入到它的服务 `MessageService` 一起，注入到了组件中。

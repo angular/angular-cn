@@ -115,7 +115,6 @@ typical characteristics, in real world apps, you may see hybrids.
    </td>
 
  </tr>
-
  <tr>
 
    <td>
@@ -299,7 +298,6 @@ The following table summarizes the key characteristics of each feature module gr
 下表中汇总了各种特性模块类型的关键特征。
 
 <table>
-
  <tr>
 
    <th style="vertical-align: top">
@@ -559,7 +557,6 @@ The following table summarizes the key characteristics of each feature module gr
    </td>
 
  </tr>
-
 </table>
 
 <hr />
@@ -570,7 +567,7 @@ The following table summarizes the key characteristics of each feature module gr
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
 
@@ -578,4 +575,4 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers)。
+   [服务提供商](guide/providers)。

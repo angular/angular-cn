@@ -140,7 +140,6 @@ built-in validators&mdash;this time, in function form. See below:
 {@a reactive-component-class}
 
 <code-example path="form-validation/src/app/reactive/hero-form-reactive.component.ts" region="form-group" title="reactive/hero-form-reactive.component.ts (validator functions)" linenums="false">
-
 </code-example>
 
 Note that:
@@ -169,7 +168,6 @@ If you look at the template for the name input again, it is fairly similar to th
 如果你到模板中找到 name 输入框，就会发现它和模板驱动的例子很相似。
 
 <code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="name-with-error-msg" title="reactive/hero-form-reactive.component.html (name with error msg)" linenums="false">
-
 </code-example>
 
 Key takeaways:
@@ -201,7 +199,6 @@ this guide. Here's what the definition of that function looks like:
 考虑前面的[例子](guide/form-validation#reactive-component-class)中的 `forbiddenNameValidator` 函数。该函数的定义看起来是这样的：
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="custom-validator" title="shared/forbidden-name.directive.ts (forbiddenNameValidator)" linenums="false">
-
 </code-example>
 
 The function is actually a factory that takes a regular expression to detect a _specific_ forbidden name and returns a validator function.
@@ -241,7 +238,6 @@ to the `FormControl`.
 在响应式表单组件中，添加自定义验证器相当简单。你所要做的一切就是直接把这个函数传给 `FormControl` 。
 
 <code-example path="form-validation/src/app/reactive/hero-form-reactive.component.ts" region="custom-validator" title="reactive/hero-form-reactive.component.ts (validator functions)" linenums="false">
-
 </code-example>
 
 ### Adding to template-driven forms
@@ -263,7 +259,6 @@ with the `NG_VALIDATORS` provider, a provider with an extensible collection of v
 Angular 在验证流程中的识别出指令的作用，是因为指令把自己注册到了 `NG_VALIDATORS` 提供商中，该提供商拥有一组可扩展的验证器。
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive-providers" title="shared/forbidden-name.directive.ts (providers)" linenums="false">
-
 </code-example>
 
 The directive class then implements the `Validator` interface, so that it can easily integrate 
@@ -273,7 +268,6 @@ comes together:
 然后该指令类实现了 `Validator` 接口，以便它能简单的与 Angular 表单集成在一起。这个指令的其余部分有助于你理解它们是如何协作的：
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive" title="shared/forbidden-name.directive.ts (directive)">
-
 </code-example>
 
 Once the `ForbiddenValidatorDirective` is ready, you can simply add its selector, `appForbiddenName`, to any input element to activate it. For example:
@@ -329,6 +323,5 @@ set the color of each form control's border.
 </code-example>
 
 **You can run the <live-example></live-example> to see the complete reactive and template-driven example code.**
-
 
 **你可以运行<live-example></live-example>来查看完整的响应式和模板驱动表单的代码。**

@@ -83,9 +83,7 @@ Create the directive class file in a terminal window with this CLI command.
 在命令行窗口下用 CLI 命令创建指令类文件。
 
 <code-example language="sh" class="code-shell">
-
 ng generate directive highlight
-
 </code-example>
 
 The CLI creates `src/app/highlight.directive.ts`, a corresponding test file (`.../spec.ts`, and _declares_ the directive class in the root `AppModule`.
@@ -197,9 +195,7 @@ Now run the application to see the `HighlightDirective` in action.
 运行这个应用以查看 `HighlightDirective` 的实际效果。
 
 <code-example language="sh" class="code-shell">
-
 ng serve
-
 </code-example>
 
 To summarize, Angular found the `appHighlight` attribute on the **host** `<p>` element.
@@ -531,14 +527,12 @@ The final source code follows:
 最终的源码如下：
 
 <code-tabs>
-
   <code-pane title="app/app.component.ts" path="attribute-directives/src/app/app.component.ts"></code-pane>
   <code-pane title="app/app.component.html" path="attribute-directives/src/app/app.component.html"></code-pane>
   <code-pane title="app/highlight.directive.ts" path="attribute-directives/src/app/highlight.directive.ts"></code-pane>
   <code-pane title="app/app.module.ts" path="attribute-directives/src/app/app.module.ts"></code-pane>
   <code-pane title="main.ts" path="attribute-directives/src/main.ts"></code-pane>
   <code-pane title="index.html" path="attribute-directives/src/index.html"></code-pane>
-
 </code-tabs>
 
 You can also experience and download the <live-example title="Attribute Directive example"></live-example>.
@@ -624,12 +618,12 @@ Now apply that reasoning to the following example:
   The template and its component trust each other.
   The `color` property doesn't require the `@Input` decorator.
 
-  `color` 属性位于右侧的绑定表达式中，它属于模板所在的组件。
+   `color` 属性位于右侧的绑定表达式中，它属于模板所在的组件。
     该模板和组件相互信任。因此 `color` 不需要 `@Input` 装饰器。
 
 * The `appHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
   not a property of the template's component. There are trust issues.
   Therefore, the directive property must carry the `@Input` decorator.
 
-  `appHighlight` 属性位于左侧，它引用了 `HighlightDirective` 中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
+   `appHighlight` 属性位于左侧，它引用了 `HighlightDirective` 中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
 所以，该属性必须带 `@Input` 装饰器。

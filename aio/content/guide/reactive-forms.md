@@ -427,7 +427,7 @@ This guide uses four fundamental classes to build a reactive form:
 `FormControl`, `FormGroup`, and `FormArray`.
 It provides their common behaviors and properties.
 
-   [`AbstractControl`](api/forms/AbstractControl "API Reference: FormControl")是这三个具体表单类的抽象基类。
+      [`AbstractControl`](api/forms/AbstractControl "API Reference: FormControl")是这三个具体表单类的抽象基类。
   并为它们提供了一些共同的行为和属性。
 
     </td>
@@ -1155,7 +1155,6 @@ There are two significant differences between these models:
 which is covered in the section on [`FormArray`](guide/reactive-forms#form-array "Form arrays") below.
 
    `Hero` 有一个住址数组。这个表单模型只表示了一个住址，稍后的 [`FormArray`] (guide/reactive-forms#form-array "Form arrays")则可以表示多个。
-
 
 Keeping the two models close in shape facilitates copying the data model properties
 to the form model with the `patchValue()` and `setValue()` methods in the next section.

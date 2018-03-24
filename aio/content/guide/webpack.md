@@ -175,7 +175,6 @@ Then it **outputs** these files to the `app.js` _bundle file_ designated in conf
 然后它把这些文件**输出**到当前配置所指定的*包文件*`app.js` 中：
 
 <code-example name="webpack.config.js (single output)" language="javascript">
-
   output: {
     filename: 'app.js'
   }
@@ -204,7 +203,6 @@ Change the configuration so that it has two entry points, `main.ts` and `vendor.
 所以要修改配置，以获得两个入口点：`main.ts` 和 `vendor.ts`：
 
 <code-example language="javascript">
-
   entry: {
     app: 'src/app.ts',
     vendor: 'src/vendor.ts'
@@ -257,7 +255,6 @@ Webpack 可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS
 再为 TypeScript 和 CSS 文件配置如下加载器。
 
 <code-example language="javascript">
-
   rules: [
     {
       test: /\.ts$/,
@@ -277,7 +274,6 @@ it applies the `test` RegEx patterns.
 当 Webpack 遇到如下所示的 `import` 语句时，它就会调用正则表达式的 `test` 方法。
 
 <code-example language="typescript">
-
   import { AppComponent } from './app.component.ts';
 
   import 'uiframework/dist/uiframework.css';
@@ -316,7 +312,6 @@ Webpack 有一条构建流水线，它被划分成多个经过精心定义的阶
 可以把插件(比如 `uglify` 代码最小化插件)挂到流水线上：
 
 <code-example language="javascript">
-
   plugins: [
     new webpack.optimize.UglifyJsPlugin()
   ]
@@ -342,7 +337,6 @@ Create a new project folder.
 创建一个新的项目文件夹。
 
 <code-example language="sh" class="code-shell">
-
   mkdir angular-webpack
   cd    angular-webpack
 
@@ -396,7 +390,6 @@ Open a terminal window and install the npm packages.
 打开命令行窗口并安装这些 *npm* 包
 
 <code-example language="sh" class="code-shell">
-
   npm install
 
 </code-example>
@@ -530,7 +523,6 @@ You could write `import` statements with explicit extensions like this example:
 如果你的应用程序只须 `import` 几十个 JavaScript 或 TypeScript 文件，而不是几百个，你可以在 `import` 语句里完整写上扩展名，如：
 
 <code-example language="typescript">
-
   import { AppComponent } from './app.component.ts';
 
 </code-example>
@@ -737,7 +729,6 @@ Grab the app code at the end of this guide and try:
 抓取本指南底部的应用代码，并试一试：
 
 <code-example language="sh" class="code-shell">
-
   npm start
 
 </code-example>
@@ -746,11 +737,11 @@ Grab the app code at the end of this guide and try:
 
 ### Production configuration
 
-### 产品环境配置
+### 生产环境配置
 
 Configuration of a *production* build resembles *development* configuration with a few key changes.
 
-*产品环境*下的配置和*开发环境*下的配置很相似……除了一些关键的改动。
+*生产环境*下的配置和*开发环境*下的配置很相似……除了一些关键的改动。
 
 <code-example path="webpack/config/webpack.prod.js" title="config/webpack.prod.js" linenums="false">
 
@@ -764,7 +755,7 @@ You won't deploy the artifacts needed only in development.
 
 Put the production output bundle files in the `dist` folder.
 
-把产品环境的输出包放在 `dist` 目录下。
+把生产环境的输出包放在 `dist` 目录下。
 
 Webpack generates file names with cache-busting hash.
 Thanks to the `HtmlWebpackPlugin`, you don't have to update the `index.html` file when the hash changes.
@@ -809,7 +800,6 @@ Grab the app code at the end of this guide and try:
 抓取本指南底部的应用代码，并试一试：
 
 <code-example language="sh" class="code-shell">
-
   npm run build
 
 </code-example>
@@ -826,7 +816,7 @@ You probably don't need to load and process the application-wide styles files fo
 you'll use the `null` loader for those CSS files.
 
 你并不需要使用很多配置项来运行单元测试。
-也不需要在开发环境和产品环境下引入的那些加载器和插件。
+也不需要在开发环境和生产环境下引入的那些加载器和插件。
 如果有可能拖慢执行速度，甚至都不需要在单元测试中加载和处理应用全局样式文件，所以你用一个 `null` 加载器来处理所有 CSS。
 
 You could merge the test configuration into the `webpack.common` configuration and override the parts you don't want or need.
@@ -877,7 +867,6 @@ Grab the app code at the end of this guide and try:
 抓取本指南底部的应用代码，并试一试：
 
 <code-example language="sh" class="code-shell">
-
   npm test
 
 </code-example>
@@ -1002,13 +991,12 @@ if the `CommonsChunkPlugin` hadn't detected the overlap and removed them from `a
 You've learned just enough Webpack to configurate development, test and production builds
 for a small Angular application.
 
-你学到了刚好够用来在开发、测试、产品环境下构建一个小型 Angular 应用的 Webpack 配置知识。
+你学到了刚好够用来在开发、测试、生产环境下构建一个小型 Angular 应用的 Webpack 配置知识。
 
 _You could always do more_. Search the web for expert advice and expand your Webpack knowledge.
 
 *但你还能做得更多*。搜索互联网来获得专家的建议，并扩展你对 Webpack 的认识。
 
 [Back to top](guide/webpack#top)
-
 
 [回到顶部](guide/webpack#top)

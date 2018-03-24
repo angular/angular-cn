@@ -173,9 +173,7 @@ In either style, the template data bindings have the same access to the componen
   默认情况下，Angular CLI 生成组件时会带有模板文件，你可以通过参数覆盖它：
 
   <code-example hideCopy language="sh" class="code-shell">
-
     ng generate component hero -it
-
   </code-example>
 
 </div>
@@ -295,9 +293,7 @@ of hero names into an array of `Hero` objects. For that you'll need a `Hero` cla
 要将此绑定转换成使用对象，需要把这个英雄名字数组变成 `Hero` 对象数组。但首先得有一个 `Hero` 类。
 
 <code-example language="sh" class="code-shell">
-
   ng generate class hero
-
 </code-example>
 
 With the following code:

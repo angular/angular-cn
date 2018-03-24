@@ -52,11 +52,11 @@ A handler for receiving observable notifications implements the `Observer` inter
 
 用于接收可观察对象通知的处理器要实现 `Observer` 接口。这个对象定义了一些回调函数来处理可观察对象可能会发来的三种通知：
 
-| <p>Notification type</p><p>通知类型</p> | <p>Description</p><p>说明</p> |
+| <t>Notification type</t><t>通知类型</t> | <t>Description</t><t>说明</t> |
 |:---------|:-------------------------------------------|
-| `next`  | <p>Required. A handler for each delivered value. Called zero or more times after execution starts.</p><p>必要。用来处理每个送达值。在开始执行后可能执行零次或多次。</p>|
-| `error` | <p>Optional. A handler for an error notification. An error halts execution of the observable instance.</p><p> 可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 </p>|
-| `complete` | <p>Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.</p><p> 可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 </p>|
+| `next`  | <t>Required. A handler for each delivered value. Called zero or more times after execution starts.</t><t>必要。用来处理每个送达值。在开始执行后可能执行零次或多次。</t>|
+| `error` | <t>Optional. A handler for an error notification. An error halts execution of the observable instance.</t><t> 可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 </t>|
+| `complete` | <t>Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.</t><t> 可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 </t>|
 
 An observer object can define any combination of these handlers. If you don't supply a handler for a notification type, the observer ignores notifications of that type.
 
@@ -107,7 +107,7 @@ In either case, a `next` handler is required. The `error` and `complete` handler
 
 无论哪种情况，`next` 处理器都是必要的，而 `error` 和 `complete` 处理器是可选的。
 
-Note that a `next()` function could receive, for instance, message strings, or event objects, numeric values, or structures, depending on context. As a general term, we refer to data published by an observable as a *stream*. Any type of value can be represented with an observable, and the values are published as a stream.
+Note that a `next()` function could receive, for instance, message strings, or event objects, numeric values, or stuctures, depending on context. As a general term, we refer to data published by an observable as a *stream*. Any type of value can be represented with an observable, and the values are published as a stream.
 
 注意，`next()` 函数可以接受消息字符串、事件对象、数字值或各种结构，具体类型取决于上下文。
 为了更通用一点，我们把由可观察对象发布出来的数据统称为*流*。任何类型的值都可以表示为可观察对象，而这些值会被发布为一个流。
@@ -196,12 +196,10 @@ Because observables produce values asynchronously, try/catch will not effectivel
 由于可观察对象会异步生成值，所以用 `try/catch` 是无法捕获错误的。你应该在观察者中指定一个 `error` 回调来处理错误。发生错误时还会导致可观察对象清理现有的订阅，并且停止生成值。可观察对象可以生成值（调用 `next` 回调），也可以调用 `complete` 或 `error` 回调来主动结束。
 
 <code-example>
-
 myObservable.subscribe({
   next(num) { console.log('Next num: ' + num)},
   error(err) { console.log('Received an errror: ' + err)}
 });
-
 </code-example>
 
 Error handling (and specifically recovering from an error) is covered in more detail in a later section.

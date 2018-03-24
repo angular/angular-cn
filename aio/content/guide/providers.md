@@ -12,7 +12,7 @@
 
 * Familiarity with [Frequently Used Modules](guide/frequent-ngmodules).
 
-   熟悉[常用模块](guide/frequent-ngmodules).
+   熟悉[常用模块](guide/frequent-ngmodules)。
 
 For the final sample app using the provider that this page describes,
 see the <live-example></live-example>.
@@ -45,7 +45,6 @@ of the file and adding it to the `providers` array:
 这将会创建一个名叫 `UserService` 的服务。你现在要让该服务在你的应用注入器中可用，就要修改 `app.module.ts` 文件。先在文件的顶部导入它，然后把它加入 `providers` 数组中：
 
 <code-example path="providers/src/app/app.module.ts" title="src/app/app.module.ts" linenums="false">
-
 </code-example>
 
 ## Provider scope
@@ -101,7 +100,6 @@ the same module can’t access it.)
 在组件中提供服务，会限定该服务只能在该组件中有效（同一模块中的其它组件不能访问它）。
 
 <code-example path="providers/src/app/app.component.ts" region="component-providers" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
 
 ## Providing services in modules vs. components
@@ -132,7 +130,7 @@ Register a provider with a component when you must limit a service instance to a
 
 You may also be interested in:
 
-你可能还对下列内容感兴趣：
+你还可能对下列内容感兴趣：
 
 * [Singleton Services](guide/singleton-services), which elaborates on the concepts covered on this page.
 
@@ -140,8 +138,8 @@ You may also be interested in:
 
 * [Lazy Loading Modules](guide/lazy-loading-ngmodules).
 
-   [惰性加载模块](guide/lazy-loading-ngmodules).
+   [惰性加载模块](guide/lazy-loading-ngmodules)。
 
 * [NgModule FAQ](guide/ngmodule-faq).
 
-  [NgModule 常见问题](guide/ngmodule-faq)。
+   [NgModule 常见问题](guide/ngmodule-faq)。

@@ -30,7 +30,6 @@ from the [The Tour of Heroes](tutorial/).
 先从[《英雄指南》](tutorial/)中*英雄*特性区的一个简化版本开始。
 
 <code-tabs>
-
   <code-pane title="src/app/heroes/heroes.component.ts" path="dependency-injection/src/app/heroes/heroes.component.1.ts"
   region="v1">
   </code-pane>
@@ -60,7 +59,6 @@ defined in a separate `mock-heroes` file.
 
 <code-example title="src/app/heroes/hero-list.component.ts (class)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts"
 region="class">
-
 </code-example>
 
 That may suffice in the early stages of development, but it's far from ideal.
@@ -85,9 +83,7 @@ The [**Angular CLI**](https://cli.angular.io/) can generate a new `HeroService` 
 [**Angular CLI**](https://cli.angular.io/) 可以使用下列命令在 `src/app/heroes` 目录下新建一个 `HeroService` 类。
 
 <code-example language="sh" class="code-shell">
-
 ng generate service heroes/hero
-
 </code-example>
 
 That command creates the following `HeroService` skeleton.
@@ -95,7 +91,6 @@ That command creates the following `HeroService` skeleton.
 这条命令会创建如下的 `HeroService` 骨架代码：
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.0.ts" title="src/app/heroes/hero.service.ts (CLI-generated)">
-
 </code-example>
 
 Assume for now that the [`@Injectable` decorator](#injectable) is an essential ingredient in every Angular service definition.
@@ -106,7 +101,6 @@ that returns the same mock data as before.
 把该类的其它部分改写为暴露一个返回和以前一样的 mock 数据的 `getHeroes` 方法。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.1.ts" title="src/app/heroes/hero.service.ts">
-
 </code-example>
 
 Of course, this isn't a real data service.
@@ -189,7 +183,6 @@ Here's a revised `HeroesComponent` that registers the `HeroService` in its `prov
 下面是修改过的 `HerosComponent`，把 `HeroService` 注册到了它的 `providers` 数组中。
 
 <code-example path="dependency-injection/src/app/heroes/heroes.component.1.ts" title="src/app/heroes/heroes.component.ts" linenums="false">
-
 </code-example>
 
 {@a register-providers-ngmodule}
@@ -203,7 +196,6 @@ In the following excerpt, the root `AppModule` registers two providers in its `p
 在下面的代码片段中，根模块 `AppModule` 在自己的 `providers` 数组中注册了两个提供商。
 
 <code-example path="dependency-injection/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers">
-
 </code-example>
 
 The first entry registers the `UserService` class (_not shown_) under the `UserService` _injection token_.
@@ -284,7 +276,7 @@ and is never destroyed so the `HeroService` created for the `HeroComponent` also
 
 在这个范例应用中，`HeroComponent` 会在应用启动时创建，并且它从未销毁，因此，由 `HeroComponent` 创建的 `HeroService` 也同样会活在应用的整个生命周期中。
 
-If you want to restrict `HeroService` access to the `HeroesComponent` and its nested `HeroListComponent`,
+If you want to restrict `HeroService` access to the `HeroComponent` and its nested `HeroListComponent`,
 providing the `HeroService` in the `HeroComponent` may be a good choice.
 
 如果你要把 `HeroService` 的访问权限定在 `HeroesComponent` 及其嵌套的 `HeroListComponent` 中，那么在 `HeroesComponent` 中提供这个 `HeroService` 就是一个好选择。
@@ -319,7 +311,6 @@ Here's the `HeroListComponent` constructor, asking for the `HeroService` to be i
 
 <code-example title="src/app/heroes/hero-list.component (constructor signature)" path="dependency-injection/src/app/heroes/hero-list.component.ts"
 region="ctor-signature">
-
 </code-example>
 
 Of course, the `HeroListComponent` should do something with the injected `HeroService`.
@@ -329,13 +320,11 @@ Here's the revised component, making use of the injected service, side-by-side w
 下面输出修改过的组件，改用注入的服务，与前一个版本对比一下。
 
 <code-tabs>
-
   <code-pane title="hero-list.component (with DI)" path="dependency-injection/src/app/heroes/hero-list.component.2.ts">
   </code-pane>
 
   <code-pane title="hero-list.component (without DI)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts">
   </code-pane>
-
 </code-tabs>
 
 Notice that the `HeroListComponent` doesn't know where the `HeroService` comes from.
@@ -431,7 +420,6 @@ under test:
 例如，新建的 `HeroListComponent` 实例使用一个模拟 (mock) 服务，以便可以在测试中操纵它：
 
 <code-example path="dependency-injection/src/app/test.component.ts" region="spec" title="src/app/test.component.ts" linenums="false">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -490,7 +478,6 @@ The sample app's `Logger` service is quite simple:
 这个范例应用的 `Logger` 服务非常简单：
 
 <code-example path="dependency-injection/src/app/logger.service.ts" title="src/app/logger.service.ts">
-
 </code-example>
 
 If the app didn't provide this `Logger`,
@@ -500,9 +487,7 @@ into the `HeroService`.
 如果该应用没有提供这个 `Logger` 服务，当 Angular 试图把 `Logger` 注入到 `HeroService` 中时，就会抛出一个异常。
 
 <code-example language="sh" class="code-shell">
-
   ERROR Error: No provider for Logger!
-
 </code-example>
 
 Because a singleton logger service is useful everywhere,
@@ -511,7 +496,6 @@ it's provided in the root `AppModule`.
 因为 `Logger` 服务的单例应该随处可用，所以要在根模块 `AppModule` 中提供它。
 
 <code-example path="dependency-injection/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (providers)" region="providers-2">
-
 </code-example>
 
 {@a injectable}
@@ -619,7 +603,6 @@ The `Logger` class itself is an obvious and natural provider.
   `Logger` 类本身是一个显而易见而且自然而然的提供商。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
-
 </code-example>
 
 But it's not the only way.
@@ -651,7 +634,6 @@ Here's the class-provider syntax again.
 下面是类提供商的另一种语法。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
-
 </code-example>
 
 This is actually a shorthand expression for a provider registration
@@ -661,7 +643,6 @@ using a _provider_ object literal with two properties:
   使用的是一个带有两个属性的*提供商*对象字面量：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-3" >
-
 </code-example>
 
 The `provide` property holds the [token](guide/dependency-injection#token) that serves as the key for both locating a dependency value
@@ -691,7 +672,6 @@ to return a `BetterLogger` when something asks for the `Logger`.
 下列代码告诉注入器，当有人请求 `Logger` 时，返回 `BetterLogger`。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-4" >
-
 </code-example>
 
 {@a class-provider-dependencies}
@@ -709,7 +689,6 @@ which is also injected at the application level.
 `UserService` 通常也会在应用级注入。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="EvenBetterLogger"  linenums="false">
-
 </code-example>
 
 Configure it like `BetterLogger`.
@@ -717,7 +696,6 @@ Configure it like `BetterLogger`.
 就像之前在 `BetterLogger` 中那样配置它。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"  linenums="false">
-
 </code-example>
 
 {@a aliased-class-providers}
@@ -753,7 +731,6 @@ Unfortunately, that's what you get if you try to alias `OldLogger` to `NewLogger
 不幸的是，如果尝试通过 `useClass` 来把 `OldLogger` 作为 `NewLogger` 的别名，就会导致这样的后果。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6a"  linenums="false">
-
 </code-example>
 
 The solution: alias with the `useExisting` option.
@@ -761,7 +738,6 @@ The solution: alias with the `useExisting` option.
 解决方案：使用 `useExisting` 选项指定别名。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6b" linenums="false">
-
 </code-example>
 
 {@a value-provider}
@@ -775,7 +751,6 @@ Sometimes it's easier to provide a ready-made object rather than ask the injecto
 有时，提供一个预先做好的对象会比请求注入器从类中创建它更容易。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="silent-logger"  linenums="false">
-
 </code-example>
 
 Then you register a provider with the `useValue` option,
@@ -784,7 +759,6 @@ which makes this object play the logger role.
 于是可以通过 `useValue` 选项来注册提供商，它会让这个对象直接扮演 logger 的角色。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-7" linenums="false">
-
 </code-example>
 
 See more `useValue` examples in the
@@ -843,7 +817,6 @@ Instead, the `HeroService` constructor takes a boolean flag to control display o
 让 `HeroService` 的构造函数带上一个布尔型的标志，来控制是否显示隐藏的英雄。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.ts" region="internals" title="src/app/heroes/hero.service.ts (excerpt)" linenums="false">
-
 </code-example>
 
 You can inject the `Logger`, but you can't inject the  boolean `isAuthorized`.
@@ -857,7 +830,6 @@ A factory provider needs a factory function:
 工厂提供商需要一个工厂方法：
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="factory" title="src/app/heroes/hero.service.provider.ts (excerpt)" linenums="false">
-
 </code-example>
 
 Although the `HeroService` has no access to the `UserService`, the factory function does.
@@ -870,7 +842,6 @@ and let the injector pass them along to the factory function:
 同时把 `Logger` 和 `UserService` 注入到工厂提供商中，并且让注入器把它们传给工厂方法：
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" title="src/app/heroes/hero.service.provider.ts (excerpt)" linenums="false">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -938,7 +909,6 @@ Here you get a `HeroService` directly from the injector by supplying the `HeroSe
 在下面的代码中，`HeroService` 类型作为令牌，直接从注入器中获取 `HeroService` 实例：
 
 <code-example path="dependency-injection/src/app/injector.component.ts" region="get-hero-service" title="src/app/injector.component.ts" linenums="false">
-
 </code-example>
 
 You have similar good fortune when you write a constructor that requires an injected class-based dependency.
@@ -951,7 +921,6 @@ service associated with that `HeroService` class token:
 Angular 就会知道把跟 `HeroService` 类令牌关联的服务注入进来：
 
 <code-example path="dependency-injection/src/app/heroes/hero-list.component.ts" region="ctor-signature" title="src/app/heroes/hero-list.component.ts">
-
 </code-example>
 
 This is especially convenient when you consider that most dependency values are provided by classes.
@@ -978,7 +947,6 @@ They can be object literals such as this one:
   但是这些配置对象不总是类的实例，它们可能是对象，如下面这个：
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="config" title="src/app/app.config.ts (excerpt)" linenums="false">
-
 </code-example>
 
 What if you'd like to make this configuration object available for injection?
@@ -1005,11 +973,9 @@ Unfortunately, you cannot use a TypeScript interface as a token:
 `HERO_DI_CONFIG` 常量有一个接口：`AppConfig`。不幸的是，不能把 TypeScript 接口用作令牌：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9-interface"  linenums="false">
-
 </code-example>
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="provider-9-ctor-interface"  linenums="false">
-
 </code-example>
 
 That seems strange if you're used to dependency injection in strongly typed languages, where
@@ -1042,7 +1008,6 @@ The definition of such a token looks like this:
 定义方式是这样的：
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="token" title="src/app/app.config.ts" linenums="false">
-
 </code-example>
 
 The type parameter, while optional, conveys the dependency's type to developers and tooling.
@@ -1056,7 +1021,6 @@ Register the dependency provider using the `InjectionToken` object:
 使用这个 `InjectionToken` 对象注册依赖的提供商：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"  linenums="false">
-
 </code-example>
 
 Now you can inject the configuration object into any constructor that needs it, with
@@ -1065,7 +1029,6 @@ the help of an `@Inject` decorator:
 现在，在 `@Inject` 装饰器的帮助下，这个配置对象可以注入到任何需要它的构造函数中：
 
 <code-example path="dependency-injection/src/app/app.component.2.ts" region="ctor" title="src/app/app.component.ts" linenums="false">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -1098,11 +1061,9 @@ constructor argument with `@Optional()`:
 可以把构造函数的参数标记为 `@Optional()`，告诉 Angular 该依赖是可选的：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="import-optional">
-
 </code-example>
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="provider-10-ctor" linenums="false">
-
 </code-example>
 
 When using `@Optional()`, your code must be prepared for a null value. If you
@@ -1145,7 +1106,6 @@ here's an `InjectorComponent` that does.
 但开发者很少直接使用它。
 
 <code-example path="dependency-injection/src/app/injector.component.ts" region="injector" title="src/app/injector.component.ts">
-
 </code-example>
 
 An `Injector` is itself an injectable service.

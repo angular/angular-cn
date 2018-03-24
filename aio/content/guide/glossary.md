@@ -83,7 +83,6 @@ For example, imagine three ES2015 modules in a `heroes` folder:
 例如，设想在 `heroes` 目录下有三个 ES2015 模块：
 
 <code-example>
-
   // heroes/hero.component.ts
   export class HeroComponent {}
 
@@ -92,7 +91,6 @@ For example, imagine three ES2015 modules in a `heroes` folder:
 
   // heroes/hero.service.ts
   export class HeroService {}
-
 </code-example>
 
 Without a barrel, a consumer needs three import statements:
@@ -100,11 +98,9 @@ Without a barrel, a consumer needs three import statements:
 如果没有封装桶，消费者需要三条导入语句：
 
 <code-example>
-
   import { HeroComponent } from '../heroes/hero.component.ts';
   import { Hero }          from '../heroes/hero.model.ts';
   import { HeroService }   from '../heroes/hero.service.ts';
-
 </code-example>
 
 You can add a barrel to the `heroes` folder (called `index`, by convention) that exports all of these items:
@@ -112,11 +108,9 @@ You can add a barrel to the `heroes` folder (called `index`, by convention) that
 在 `heroes` 目录下添加一个封装桶（按约定叫做 `index`），它导出所有这三项：
 
 <code-example>
-
   export * from './hero.model.ts';   // re-export all of its exports
   export * from './hero.service.ts'; // re-export all of its exports
   export { HeroComponent } from './hero.component.ts'; // re-export the named thing
-
 </code-example>
 
 Now a consumer can import what it needs from the barrel.
@@ -124,9 +118,7 @@ Now a consumer can import what it needs from the barrel.
 现在，消费者就就可以从这个封装桶中导入它需要的东西了。
 
 <code-example>
-
   import { Hero, HeroService } from '../heroes'; // index is implied
-
 </code-example>
 
 The Angular [scoped packages](guide/glossary#scoped-package) each have a barrel named `index`.
@@ -615,7 +607,6 @@ or displayed between element tags, as in this example.
 在被赋值给元素属性或者显示在元素标签中之前，这些文本可能会先与周边的文本合并，参见下面的例子。
 
 <code-example language="html" escape="html">
-
   <label>My current hero is {{hero.name}}</label>
 
 </code-example>
@@ -870,7 +861,6 @@ Angular 管道是一个函数，用于把输入值转换成输出值以供[视�
 下面这个例子中，用内置的 `currency` 管道把数字值显示为本地货币格式。
 
 <code-example language="html" escape="html">
-
   <label>Price: </label>{{product.price | currency}}
 
 </code-example>
@@ -1250,6 +1240,5 @@ Angular 会在一个 Zone 区域中运行应用程序，在这个区域中，它
 
 Learn more about zones in this
 [Brian Ford video](https://www.youtube.com/watch?v=3IqtmUscE_U).
-
 
 更多信息，见 [Brian Ford 的视频](https://www.youtube.com/watch?v=3IqtmUscE_U)。

@@ -12,7 +12,7 @@ A basic understanding of the following:
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 <hr />
 
@@ -69,15 +69,15 @@ The `@NgModule` decorator identifies `AppModule` as an `NgModule` class.
 
 * **_declarations_**&mdash;this application's lone component.
 
-  **_declarations_** —— 该应用所拥有的组件。
+   **_declarations_** —— 该应用所拥有的组件。
 
 * **_imports_**&mdash;import `BrowserModule` to have browser specific services such as DOM rendering, sanitization, and location.
 
-  **_imports_** —— 导入 `BrowserModule` 以获取浏览器特有的服务，比如 DOM 渲染、无害化处理和位置（location）。
+   **_imports_** —— 导入 `BrowserModule` 以获取浏览器特有的服务，比如 DOM 渲染、无害化处理和位置（location）。
 
 * **_providers_**&mdash;the service providers.
 
-  **_providers_** —— 各种服务提供商。
+   **_providers_** —— 各种服务提供商。
 
 * **_bootstrap_**&mdash;the _root_ component that Angular creates and inserts
 into the `index.html` host web page.
@@ -176,7 +176,6 @@ The following example, named `ItemDirective` is the default directive structure 
 下面的例子中，`item.directive.ts` 中的 `ItemDirective` 是 CLI 自动生成的默认指令结构。
 
 <code-example path="bootstrapping/src/app/item.directive.ts" region="directive" title="src/app/item.directive.ts" linenums="false">
-
 </code-example>
 
 The key point here is that you have to export it so you can import it elsewhere. Next, import it
@@ -185,7 +184,6 @@ into the NgModule, in this example `app.module.ts`, with a JavaScript import sta
 重点在于你要先在这里导出它才能在别处导入它。接下来，使用 JavaScript 的 `import` 语句把它导入到 NgModule 中（这里是 `app.module.ts`）。
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="directive-import" title="src/app/app.module.ts" linenums="false">
-
 </code-example>
 
 And in the same file, add it to the `@NgModule` `declarations` array:
@@ -193,7 +191,6 @@ And in the same file, add it to the `@NgModule` `declarations` array:
 同样在这个文件中，把它添加到 `@NgModule` 的 `declarations` 数组中：
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="declarations" title="src/app/app.module.ts" linenums="false">
-
 </code-example>
 
 Now you could use your `ItemDirective` in a component. This example uses `AppModule`, but you'd do it the same way for a feature module. For more about directives, see [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives). You'd also use the same technique for [pipes](guide/pipes) and components.

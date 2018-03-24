@@ -18,13 +18,11 @@
 <th>
 
     <p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -42,7 +40,6 @@
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -57,13 +54,11 @@
 <th>
 
     <p><code>import { NgModule } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -162,7 +157,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -181,7 +175,6 @@ is available to <code>declarations</code> of this module.</p>
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -410,7 +403,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -427,13 +419,11 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     <p><code>import { CommonModule } from '@angular/common';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -499,7 +489,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 <tr>
 
 <td>
@@ -517,7 +506,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -534,13 +522,11 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     <p><code>import { FormsModule } from '@angular/forms';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -558,7 +544,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -575,13 +560,11 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     <p><code>import { Directive, ... } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -641,16 +624,13 @@ is available to <code>declarations</code> of this module.</p>
 <td>
 
     <p>Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.
-
 </p>
-
 
     <p>声明某个类具有一些依赖。当依赖注入器要创建这个类的实例时，应该把这些依赖注入到它的构造函数中。</p>
 
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -667,13 +647,11 @@ is available to <code>declarations</code> of this module.</p>
 <th>
 
     <p><code>@Directive({ property1: value1, ... })</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -712,7 +690,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -728,7 +705,8 @@ is available to <code>declarations</code> of this module.</p>
 
 <th>
 
-    <p><code>@Component</code> extends <code>@Directive</code>,
+    <p>
+<code>@Component</code> extends <code>@Directive</code>,
 so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p><code>@Component</code> 继承自 <code>@Directive</code>，
@@ -737,7 +715,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -803,7 +780,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -820,13 +796,11 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     <p><code>import { Input, ... } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -957,7 +931,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -974,15 +947,13 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     <p>(implemented as class methods)
-
 </p>
 
-<p>由类的方法实现。</p>
+    <p>由类的方法实现。</p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1128,7 +1099,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -1147,7 +1117,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1197,7 +1166,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -1214,13 +1182,11 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 <th>
 
     <p><code>import { Routes, RouterModule, ... } from '@angular/router';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1366,7 +1332,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 </div>

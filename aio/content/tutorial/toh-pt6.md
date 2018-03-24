@@ -89,9 +89,7 @@ Install the *In-memory Web API* package from _npm_
 从 `npm` 中安装这个*内存 Web API* 包（译注：请使用 0.5+ 的版本，不要使用 0.4-）
 
 <code-example language="sh" class="code-shell">
-
   npm install angular-in-memory-web-api --save
-
 </code-example>
 
 Import the `InMemoryWebApiModule` and the `InMemoryDataService` class, 
@@ -103,7 +101,6 @@ which you will create in a moment.
   path="toh-pt6/src/app/app.module.ts" 
   region="import-in-mem-stuff" 
   title="src/app/app.module.ts (In-memory Web API imports)">
-
 </code-example>
 
 Add the `InMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
@@ -116,7 +113,6 @@ _after importing the `HttpClient`_,
 <code-example   
   path="toh-pt6/src/app/app.module.ts" 
   region="in-mem-web-api-imports">
-
 </code-example>
 
 The `forRoot()` configuration method takes an `InMemoryDataService` class
@@ -157,7 +153,6 @@ Import some HTTP symbols that you'll need:
   path="toh-pt6/src/app/hero.service.ts" 
   region="import-httpclient" 
   title="src/app/hero.service.ts (import HTTP symbols)">
-
 </code-example>
 
 Inject `HttpClient` into the constructor in a private property called `http`.
@@ -167,7 +162,6 @@ Inject `HttpClient` into the constructor in a private property called `http`.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="ctor" >
-
 </code-example>
 
 Keep injecting the `MessageService`. You'll call it so frequently that
@@ -178,7 +172,6 @@ you'll wrap it in private `log` method.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="log" >
-
 </code-example>
 
 Define the `heroesUrl` with the address of the heroes resource on the server.
@@ -188,7 +181,6 @@ Define the `heroesUrl` with the address of the heroes resource on the server.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="heroesUrl" >
-
 </code-example>
 
 ### Get heroes with _HttpClient_
@@ -205,7 +197,6 @@ as an `Observable<Hero[]>`.
   path="toh-pt4/src/app/hero.service.ts" 
   region="getHeroes-1" 
   title="src/app/hero.service.ts (getHeroes with RxJs 'of()')">
-
 </code-example>
 
 Convert that method to use `HttpClient`
@@ -215,7 +206,6 @@ Convert that method to use `HttpClient`
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes-1">
-
 </code-example>
 
 Refresh the browser. The hero data should successfully load from the
@@ -304,7 +294,6 @@ Import the `catchError` symbol from `rxjs/operators`, along with some other oper
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="import-rxjs-operators">
-
 </code-example>
 
 Now extend the observable result with the `.pipe()` method and
@@ -315,7 +304,6 @@ give it a `catchError()` operator.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes-2" >
-
 </code-example>
 
 The `catchError()` operator intercepts an **`Observable` that failed**.
@@ -344,7 +332,6 @@ has configured with both the name of the operation that failed and a safe return
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="handleError">
-
 </code-example>
 
 After reporting the error to console, the handler constructs
@@ -381,7 +368,6 @@ Here is the final version of `getHeroes` with the `tap` that logs the operation.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes" >
-
 </code-example>
 
 ### Get hero by id
@@ -459,7 +445,6 @@ on the server.
   path="toh-pt6/src/app/hero.service.ts" 
   region="updateHero" 
   title="src/app/hero.service.ts (update)">
-
 </code-example>
 
 The `HttpClient.put()` method takes three parameters
@@ -491,7 +476,6 @@ That header is in the `httpOptions` constant defined in the `HeroService`.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="http-options">
-
 </code-example>
 
 Refresh the browser, change a hero name, save your change,
@@ -690,7 +674,6 @@ Start by adding a `searchHeroes` method to the `HeroService`.
   path="toh-pt6/src/app/hero.service.ts" 
   region="searchHeroes"
   title="src/app/hero.service.ts">
-
 </code-example>
 
 The method returns immediately with an empty array if there is no search term.
@@ -713,7 +696,6 @@ Add the hero search element, `<app-hero-search>`, to the bottom of the `Dashboar
 
 <code-example 
   path="toh-pt6/src/app/dashboard/dashboard.component.html" title="src/app/dashboard/dashboard.component.html" linenums="false">
-
 </code-example>
 
 This template looks a lot like the `*ngFor` repeater in the `HeroesComponent` template.
@@ -739,9 +721,7 @@ Create a `HeroSearchComponent` with the CLI.
 使用 CLI 创建一个 `HeroSearchComponent`。
 
 <code-example language="sh" class="code-shell">
-
   ng generate component hero-search
-
 </code-example>
 
 The CLI generates the three `HeroSearchComponent` and adds the component to the `AppModule' declarations
@@ -811,7 +791,6 @@ Notice the declaration of `heroes$` as an `Observable`
 <code-example 
   path="toh-pt6/src/app/hero-search/hero-search.component.ts" 
   region="heroes-stream">
-
 </code-example>
 
 You'll set it in [`ngOnInit()`](#search-pipe). 
@@ -876,7 +855,6 @@ Here's the code.
 <code-example 
   path="toh-pt6/src/app/hero-search/hero-search.component.ts" 
   region="search">
-
 </code-example>
 
 * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
@@ -960,7 +938,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroService_, _InMemoryDataService_, _AppModule_
 
 <code-tabs>
-
   <code-pane 
     title="hero.service.ts" 
     path="toh-pt6/src/app/hero.service.ts">
@@ -973,7 +950,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="app.module.ts" 
     path="toh-pt6/src/app/app.module.ts">
   </code-pane>
-
 </code-tabs>
 
 {@a heroescomponent}
@@ -981,7 +957,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroesComponent_
 
 <code-tabs>
-
   <code-pane 
     title="heroes/heroes.component.html" 
     path="toh-pt6/src/app/heroes/heroes.component.html">
@@ -994,7 +969,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="heroes/heroes.component.css" 
     path="toh-pt6/src/app/heroes/heroes.component.css">
   </code-pane>
-
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -1002,7 +976,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroDetailComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-detail/hero-detail.component.html"
     path="toh-pt6/src/app/hero-detail/hero-detail.component.html">
@@ -1011,7 +984,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-detail/hero-detail.component.ts" 
     path="toh-pt6/src/app/hero-detail/hero-detail.component.ts">
   </code-pane>
-
 </code-tabs>
 
 {@a herosearchcomponent}
@@ -1019,7 +991,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroSearchComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-search/hero-search.component.html"
     path="toh-pt6/src/app/hero-search/hero-search.component.html">
@@ -1032,7 +1003,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-search/hero-search.component.css"
     path="toh-pt6/src/app/hero-search/hero-search.component.css">
   </code-pane>
-
 </code-tabs>
 
 ## Summary

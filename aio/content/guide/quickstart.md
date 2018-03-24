@@ -59,7 +59,6 @@ Then **install the [Angular CLI](https://github.com/angular/angular-cli)** globa
 然后全局安装 **[Angular CLI](https://github.com/angular/angular-cli)** 。
 
 <code-example language="sh" class="code-shell">
-
   npm install -g @angular/cli
 
 </code-example>
@@ -77,7 +76,6 @@ Generate a new project and skeleton application by running the following command
 运行下列命令来生成一个新项目以及应用的骨架代码：
 
 <code-example language="sh" class="code-shell">
-
   ng new my-app
 
 </code-example>
@@ -101,10 +99,8 @@ Go to the project directory and launch the server.
 进入项目目录，并启动服务器。
 
 <code-example language="sh" class="code-shell">
-
   cd my-app
   ng serve --open
-
 </code-example>
 
 The `ng serve` command launches the server, watches your files,
@@ -282,7 +278,6 @@ Any files outside of this folder are meant to support building your app.
   </col>
   <col width="80%">
   </col>
-
   <tr>
 
     <th>
@@ -302,7 +297,6 @@ Any files outside of this folder are meant to support building your app.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -323,7 +317,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -345,7 +338,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -364,7 +356,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -385,14 +376,13 @@ Any files outside of this folder are meant to support building your app.
 
       这个文件夹中包括为各个目标环境准备的文件，它们导出了一些应用中要用到的配置变量。
       这些文件会在构建应用时被替换。
-      比如你可能在产品环境中使用不同的 API 端点地址，或使用不同的统计 Token 参数。
+      比如你可能在生产环境中使用不同的 API 端点地址，或使用不同的统计 Token 参数。
       甚至使用一些模拟服务。
       所有这些，CLI 都替你考虑到了。
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -412,7 +402,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -435,7 +424,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -459,7 +447,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -482,7 +469,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -503,7 +489,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -524,7 +509,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -543,7 +527,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
 </table>
 
 ### The root folder
@@ -610,7 +593,6 @@ These files go in the root folder next to `src/`.
   </col>
   <col width="80%">
   </col>
-
   <tr>
 
     <th>
@@ -625,12 +607,11 @@ These files go in the root folder next to `src/`.
 
       Purpose
 
-      目的
+      用途
 
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -653,7 +634,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -672,7 +652,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -695,7 +674,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -717,7 +695,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -735,7 +712,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -754,7 +730,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -774,7 +749,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -793,7 +767,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -814,7 +787,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -832,7 +804,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -853,7 +824,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
 </table>
 
 <div class="l-sub-section">

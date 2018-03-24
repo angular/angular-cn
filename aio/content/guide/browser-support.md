@@ -81,7 +81,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr> 
 
     <td>
@@ -97,9 +96,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
-
    <tr> 
 
     <td>
@@ -115,7 +112,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
 
     <td>
@@ -133,7 +129,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -151,7 +146,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr> 
-
   <tr>
 
     <td>
@@ -239,7 +233,6 @@ For example, [if you need the web animations polyfill](http://caniuse.com/#feat=
   # it isn't a strict requirement of Angular anymore (more below)
 
   npm install --save web-animations-js
-
 </code-example>
 
 Then open the `polyfills.ts` file and un-comment the corresponding `import` statement as in the following example:
@@ -247,7 +240,6 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
 
 <code-example title="src/polyfills.ts">
-
   /**
 
   * Required to support Web Animations `@angular/platform-browser/animations`.
@@ -255,7 +247,6 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
   * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
   **/
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
-
 </code-example>
 
 If you can't find the polyfill you want in `polyfills.ts`,
@@ -799,7 +790,6 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
 如果你不使用 CLI，就要直接把腻子脚本添加到宿主页（`index.html`）中，就像这样：
 
 <code-example title="src/index.html">
-
   &lt;!-- pre-zone polyfills -->
   &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
   &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>
@@ -828,5 +818,4 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
   &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
 
   &lt;!-- application polyfills -->
-
 </code-example>

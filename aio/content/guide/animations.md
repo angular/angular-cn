@@ -291,10 +291,8 @@ These two common animations have their own aliases:
 这两个常见的动画有自己的别名：
 
 <code-example language="typescript">
-
   transition(':enter', [ ... ]); // void => *
   transition(':leave', [ ... ]); // * => void
-
 </code-example>
 
 </div>
@@ -561,6 +559,5 @@ The callbacks receive an `AnimationEvent` that contains useful properties such a
 这些回调接收一个 `AnimationTransitionEvent` 参数，它包含一些有用的属性，例如 `fromState`，`toState` 和 `totalTime`。
 
 Those callbacks will fire whether or not an animation is picked up.
-
 
 无论动画是否实际执行过，那些回调都会触发。

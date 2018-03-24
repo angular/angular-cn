@@ -14,7 +14,7 @@ A basic understanding of the following:
 
 * [Service Worker in Production](guide/service-worker-devops).
 
-   [产品环境下的 Service Worker](guide/service-worker-devops).
+   [生产环境下的 Service Worker](guide/service-worker-devops)。
 
 <hr />
 
@@ -313,5 +313,4 @@ Angular Service Worker 可以使用两种缓存策略之一来获取数据资源
 
 * `freshness` optimizes for currency of data, preferentially fetching requested data from the network. Only if the network times out, according to `timeout`, does the request fall back to the cache. This is useful for resources that change frequently; for example, account balances.
 
-  `freshness` 为数据的即时性而优化，优先从网络获取请求的数据。只有当网络超时时，请求才会根据 `timeout` 的设置回退到缓存中。这对于那些频繁变化的资源很有用，例如账户余额。
-  
+   `freshness` 为数据的即时性而优化，优先从网络获取请求的数据。只有当网络超时时，请求才会根据 `timeout` 的设置回退到缓存中。这对于那些频繁变化的资源很有用，例如账户余额。

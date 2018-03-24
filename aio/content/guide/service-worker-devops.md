@@ -1,11 +1,11 @@
 # Service worker in production
 
-# 产品环境下的 Service Worker
+# 生产环境下的 Service Worker
 
 This page is a reference for deploying and supporting production apps that use the Angular service worker. It explains how the Angular service worker fits into the larger production environment, the service worker's behavior under various conditions, and available recourses and fail-safes.
 
-本页讲的是如何使用 Angular Service Worker 发布和支持产品环境下的应用。
-它解释了 Angular Service Worker 如何满足大规模产品环境的需求、Service Worker 在多种条件下有哪些行为以及有哪些可用的资源和故障保护机制。
+本页讲的是如何使用 Angular Service Worker 发布和支持生产环境下的应用。
+它解释了 Angular Service Worker 如何满足大规模生产环境的需求、Service Worker 在多种条件下有哪些行为以及有哪些可用的资源和故障保护机制。
 
 #### Prerequisites
 
@@ -557,8 +557,8 @@ the past on your site.
 
 You may also be interested in the following:
 
-你可能对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Service Worker Configuration](guide/service-worker-config).
 
-  [Service Worker 配置](guide/service-worker-config).
+   [Service Worker 配置](guide/service-worker-config)。

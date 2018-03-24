@@ -121,7 +121,6 @@ The CLI generates the following basic app module when creating a new app.
 CLI 在创建新应用时会生成下列基本的应用模块。
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="whole-ngmodule" title="src/app/app.module.ts" linenums="false">
-
 </code-example>
 
 At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). This page builds on [Bootstrapping](guide/bootstrapping), which covers the structure of an NgModule in detail. If you need more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
@@ -137,7 +136,7 @@ At the top are the import statements. The next section is where you configure th
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Feature Modules](guide/feature-modules).
 
@@ -149,8 +148,8 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [提供商](guide/providers)。
+   [服务提供商](guide/providers)。
 
 * [Types of NgModules](guide/module-types).
 
-  [NgModule 的分类](guide/module-types).
+   [NgModule 的分类](guide/module-types).

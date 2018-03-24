@@ -803,7 +803,6 @@ Here is a custom constructor for an NgModule called `CoreModule`.
 某些 Angular 模块（例如 `BrowserModule`）就实现了一个像 Angular 模块那一章的 `CoreModule` 构造函数那样的守卫。
 
 <code-example path="ngmodule-faq/src/app/core/core.module.ts" region="ctor" title="src/app/core/core.module.ts (Constructor)" linenums="false">
-
 </code-example>
 
 <hr/>
@@ -1132,6 +1131,5 @@ the Angular compiler incorporates them into compiled component code too.
 
 `@NgModule` metadata tells the Angular compiler what components to compile for this module and
 how to link this module with other modules.
-
 
 `@NgModule` 元数据告诉*Angular 编译器*要为当前模块编译哪些组件，以及如何把当前模块和其它模块链接起来。

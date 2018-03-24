@@ -723,7 +723,6 @@ It's more like the curly braces in a JavaScript `if`-block:
 它不是一个指令、组件、类或接口，更像是 JavaScript 中 `if` 块中的花括号。
 
 <code-example language="javascript">
-
   if (someCondition) {
     statement1;
     statement2;

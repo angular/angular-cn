@@ -122,8 +122,8 @@ The remainder of this Angular documentation specifically addresses the Angular i
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Getting Started with service workers](guide/service-worker-getting-started).
 
-  [Service Worker 快速起步](guide/service-worker-getting-started).
+   [Service Worker 快速起步](guide/service-worker-getting-started)。

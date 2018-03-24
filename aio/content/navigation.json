@@ -421,7 +421,7 @@
             },
             {
               "url": "guide/service-worker-devops",
-              "title": "产品环境下的 Service Worker",
+              "title": "生产环境下的 Service Worker",
               "tooltip": "使用 Service Worker 运行应用、管理应用更新、调试以及杀掉正在运行的应用。"
             },
             {

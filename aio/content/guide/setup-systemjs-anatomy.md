@@ -394,9 +394,7 @@ If you do, this page can help you understand their purpose.
       为 **SystemJS** 模块加载器指定去哪儿查找在 JavaScript 的 `import` 语句中引用的模块。例如：
 
       <code-example language="ts">
-
         import { Component } from '@angular/core;
-
       </code-example>
 
       Don't touch this file unless you are fully versed in SystemJS configuration.

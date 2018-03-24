@@ -1,48 +1,40 @@
 import { expect } from 'chai';
-import { fuzzyTest, normalizeLines, tokenize } from './utils';
+import { fuzzyTest, hasInlineText, kernelText, normalizeLines, tokenize } from './utils';
 
 describe(' 工具函数', () => {
   it('把“1. ”列表处理成空行分隔的格式，以便处理', function () {
     const lines = normalizeLines(`1. abc
 11. def
 `);
-    expect(lines).eql(`
-1. abc
+    expect(lines).eql(`1. abc
 
-11. def
-`);
+11. def`);
   });
 
   it('把“- ”列表处理成空行分隔的格式，以便处理', function () {
     const lines = normalizeLines(`- abc
 - def
 `);
-    expect(lines).eql(`
-- abc
+    expect(lines).eql(`- abc
 
-- def
-`);
+- def`);
   });
 
   it('把“* ”列表处理成空行分隔的格式，以便处理', function () {
     const lines = normalizeLines(`* abc
 * def
 `);
-    expect(lines).eql(`
-* abc
+    expect(lines).eql(`* abc
 
-* def
-`);
+* def`);
   });
 
   it('把“# ”标题处理成空行分隔的格式，以便处理', function () {
     const lines = normalizeLines(`\n# abc
 def`);
-    expect(lines).eql(`
-# abc
+    expect(lines).eql(`# abc
 
-def
-`);
+def`);
   });
 
   it('拆解单行的成对 tag', function () {
@@ -51,13 +43,11 @@ def
     <div class="abc">DEF</div>
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <div class="abc">DEF</div>
 
-    b
-`);
+    b`);
   });
 
   it('拆解单行的自封闭 tag', function () {
@@ -66,13 +56,11 @@ def
     <hr/>
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <hr/>
 
-    b
-`);
+    b`);
   });
   it('拆解单行的 h\\d 标签', function () {
     const lines = normalizeLines(`
@@ -80,13 +68,11 @@ def
     <h3 id="abc">line</h3>
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <h3 id="abc">line</h3>
 
-    b
-`);
+    b`);
   });
 
   it('把多行 hn 处理成单行', function () {
@@ -95,9 +81,7 @@ def
       abc
     </h3>
 `);
-    expect(lines).eql(`
-    <h3 id="nav">abc</h3>
-`);
+    expect(lines).eql(`<h3 id="nav">abc</h3>`);
   });
 
   it('拆解单行的 th 标签', function () {
@@ -106,8 +90,7 @@ def
     <th>line</th>
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <th>
 
@@ -115,8 +98,7 @@ def
 
     </th>
 
-    b
-`);
+    b`);
   });
 
   it('拆解单行注释', function () {
@@ -125,13 +107,11 @@ def
     <!-- no -->
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <!-- no -->
 
-    b
-`);
+    b`);
   });
 
   it('拆解多行注释', function () {
@@ -141,14 +121,12 @@ def
     abc -->
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <!-- no
     abc -->
 
-    b
-`);
+    b`);
   });
 
   it('拆解单行br', function () {
@@ -157,41 +135,83 @@ def
     <br class="clear">
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     <br class="clear">
 
-    b
-`);
+    b`);
   });
 
   it('拆解 code-example', function () {
     const lines = normalizeLines(`
-<code-example language="sh" class="code-shell">
+abc
+<code-example
+language="sh" class="code-shell">
 ng generate directive highlight
-
+</code-example>
+def
 `);
-    expect(lines).eql(`
-<code-example language="sh" class="code-shell">
+    expect(lines).eql(`abc
 
+<code-example
+language="sh" class="code-shell">
 ng generate directive highlight
-`);
+</code-example>
+
+def`);
   });
 
+  it('不拆解引用的 code-example', function () {
+    const lines = normalizeLines(`
+abc
+
+> <code-example > abc </code-example>
+
+def
+`);
+    expect(lines).eql(`abc
+
+> <code-example > abc </code-example>
+
+def`);
+  });
+
+  it('为单行的 li 和 ul 前后添加空行', function () {
+    const lines = normalizeLines(`
+    a
+    <li>
+    b
+    </li>
+    c
+    <ul>
+
+</ul>
+    `);
+    expect(normalizeLines(lines)).eql(`a
+
+    <li>
+
+    b
+
+    </li>
+
+    c
+
+    <ul>
+
+</ul>`);
+  });
   it('拆解 @a 标记', function () {
     const lines = normalizeLines(`
     a
     {@a test}
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     {@a test}
 
-    b
-`);
+    b`);
   });
 
   it('拆解多行代码', function () {
@@ -202,8 +222,7 @@ ng generate directive highlight
     \`\`\`
     b
 `);
-    expect(lines).eql(`
-    a
+    expect(lines).eql(`a
 
     \`\`\`
 
@@ -211,43 +230,29 @@ ng generate directive highlight
 
     \`\`\`
 
-    b
-`);
+    b`);
   });
 
-  it('拆解多行的成对 tag', function () {
+  it('把多行的 p 元素合并成单行', function () {
     const lines = normalizeLines(`
     <p>
         a
     </p>
-
     <p>
     一
 </p>
 
 `);
-    expect(lines).eq(`
-    <p>
+    expect(lines).eq(`<p>a</p>
 
-        a
-
-    </p>
-
-    <p>
-
-    一
-
-</p>
-`);
+    <p>一</p>`);
   });
 
   it('不要拆解 header', function () {
     const lines = normalizeLines(`
   <header>Angular forms don't require a style library</header>
 `);
-    expect(lines).eq(`
-  <header>Angular forms don't require a style library</header>
-`);
+    expect(lines).eq(`<header>Angular forms don't require a style library</header>`);
   });
 
   it('拆解独行的 th/td', function () {
@@ -255,20 +260,29 @@ ng generate directive highlight
   <td>
     abc
   </td>
-`)).eql(`
-  <td>
+`)).eql(`<td>
 
     abc
 
-  </td>
-`);
+  </td>`);
+  });
+
+  it('拆解 pre', function () {
+    expect(normalizeLines(`
+    ABC
+    <pre>def</pre>
+    ghi
+`)).eql(`ABC
+
+    <pre>def</pre>
+
+    ghi`);
   });
 
   it('拆解任意位置的 <tr>', function () {
     expect(normalizeLines(`
   <tr><td>abc</td></tr>
-`)).eql(`
-  <tr>
+`)).eql(`<tr>
 
       <td>
 
@@ -276,8 +290,7 @@ ng generate directive highlight
 
       </td>
 
-  </tr>
-`);
+  </tr>`);
   });
   it('拆解独行的 li', function () {
     expect(normalizeLines(`
@@ -287,8 +300,7 @@ ng generate directive highlight
 <li><a href="#">c</a></li>
 </ul>
 
-`)).eql(`
-<ul>
+`)).eql(`<ul>
 
 <li>
 
@@ -308,16 +320,13 @@ ng generate directive highlight
 
 </li>
 
-</ul>
-`);
+</ul>`);
   });
   it('不要拆解行内的 html tag', function () {
     expect(normalizeLines(`
 a <b> c
 
-`)).eql(`
-a <b> c
-`);
+`)).eql(`a <b> c`);
   });
   it('把连续的三行及以上空行简化为两个空行', function () {
     const lines = normalizeLines(`
@@ -325,15 +334,21 @@ a <b> c
 
 
  b`);
-    expect(lines).eql(`
-  a  
+    expect(lines).eql(`a  
 
- b
-`);
+ b`);
   });
 
   it('拆分', function () {
     expect(tokenize('abc def,abc.')).eql(['abc', 'def', 'abc']);
+  });
+
+  it('抽取核心字符', function () {
+    expect(kernelText(' # Forms   ABC. ')).eql('#FORMSABC');
+  });
+
+  it('删除非核心字符', function () {
+    expect(kernelText('Abc-132-@#!abc')).eql('ABC132#ABC');
   });
 
   it('模糊匹配', function () {
@@ -343,5 +358,13 @@ a <b> c
       `Make that consistent and easy by encapsulating the _click-triggering_ process 
 in a helper such as the \`click()\` function below:
 `)).is.true;
+  });
+
+  it('检测是否表格', function () {
+    expect(hasInlineText(`
+abc | def
+----|---
+gh  | ij
+`)).eql(true);
   });
 });

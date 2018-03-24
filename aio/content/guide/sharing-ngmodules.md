@@ -28,7 +28,7 @@ A basic understanding of the following:
 
 * [Lazy loading modules](guide/lazy-loading-ngmodules).
 
-   [惰性加载模块](guide/lazy-loading-ngmodules).
+   [惰性加载模块](guide/lazy-loading-ngmodules)。
 
 <!--* Components (#TBD) We don’t have a page just on the concept of components, but I think one would be helpful for beginners.-->
 
@@ -123,12 +123,12 @@ To read about sharing services, see [Providers](guide/providers).
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Providers](guide/providers).
 
-   [提供商](guide/providers)。
+   [服务提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 
-  [特性模块的分类](guide/module-types).
+   [特性模块的分类](guide/module-types)。

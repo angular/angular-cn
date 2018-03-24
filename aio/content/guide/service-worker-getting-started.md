@@ -120,7 +120,7 @@ At the top of the root module, `src/app/app.module.ts`, import `ServiceWorkerMod
 
 Add `ServiceWorkerModule` to the `@NgModule` `imports` array. Use the `register()` helper to take care of registering the service worker, taking care to disable the service worker when not running in production mode.
 
-把 `ServiceWorkerModule` 添加到 `@NgModule` 的 `imports` 数组中。使用 `register()` 来帮助管理 Service Worker 的注册并在非产品环境下运行时禁用 Service Worker。
+把 `ServiceWorkerModule` 添加到 `@NgModule` 的 `imports` 数组中。使用 `register()` 来帮助管理 Service Worker 的注册并在非生产环境下运行时禁用 Service Worker。
 
 <code-example path="service-worker-getting-started/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts" region="sw-module"> </code-example>
 
@@ -367,8 +367,8 @@ Service Worker *在后台*安装好了这个更新后的版本，下次加载或
 
 You may also be interested in the following:
 
-你可能对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Communicating with service workers](guide/service-worker-communications).
 
-  [与 Service Worker 通讯](guide/service-worker-communications).
+   [与 Service Worker 通讯](guide/service-worker-communications)。

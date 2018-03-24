@@ -525,5 +525,4 @@ and verify that the history meets expectations:
 
 [Back to top](guide/component-interaction#top)
 
-
 [回到顶部](guide/component-interaction#top)

@@ -214,7 +214,6 @@ _after_ a `RouterOutlet` that you've placed in the host view's HTML.
 有了这份配置，当本应用在浏览器中的 URL 变为 `/heroes` 时，路由器就会匹配到 `path` 为 `heroes` 的 `Route`，并在宿主视图中的*`RouterOutlet`*之后显示 `HeroListComponent` 组件。
 
 <code-example language="html">
-
   &lt;router-outlet>&lt;/router-outlet>
   &lt;!-- Routed views go here -->
 
@@ -294,7 +293,6 @@ It has a great deal of useful information including:
 它有一大堆有用的信息，包括：
 
 <table>
-
   <tr>
 
     <th>
@@ -496,7 +494,6 @@ It has a great deal of useful information including:
     </td>
 
   </tr>
-
 </table>
 
 <div class="l-sub-section">
@@ -525,7 +522,6 @@ During each navigation, the `Router` emits navigation events through the `Router
 在每次导航中，`Router` 都会通过 `Router.events` 属性发布一些导航事件。这些事件的范围涵盖了从开始导航到结束导航之间的很多时间点。下表中列出了全部导航事件：
 
 <table>
-
   <tr>
 
     <th>
@@ -674,7 +670,6 @@ During each navigation, the `Router` emits navigation events through the `Router
     </td>
 
   </tr>
-
 </table>
 
 These events are logged to the console when the `enableTracing` option is enabled also. Since the events are provided as an `Observable`, you can `filter()` for events of interest and `subscribe()` to them to make decisions based on the sequence of events in the navigation process.
@@ -747,8 +742,6 @@ Here are the key `Router` terms and their meanings:
     <td>
 
       <code>RouterModule</code>
-
-      <code>RouterModule</code>（路由器模块）
 
     </td>
 
@@ -1218,7 +1211,6 @@ That's why the example code replaces the `<base href...>` with a script that wri
 这就是为什么范例代码中要用一个脚本动态写入 `<base>` 标签，而不是直接写 `<base href...>`。
 
 <code-example language="html">
-
   &lt;script>document.write('&lt;base href="' + document.location + '" />');&lt;/script>
 
 </code-example>
@@ -1344,7 +1336,7 @@ The corresponding component template looks like this:
 
 ### *RouterOutlet*
 
-### *RouterOutlet* 指令
+### 路由出口
 
 The `RouterOutlet` is a directive from the router library that marks
 the spot in the template where the router should display the views for that outlet.
@@ -1525,9 +1517,7 @@ When the application launches, the initial URL in the browser bar is something l
 应用启动时，浏览器地址栏中的初始 URL 是这样的：
 
 <code-example>
-
   localhost:3000
-
 </code-example>
 
 That doesn't match any of the concrete configured routes which means
@@ -1560,7 +1550,6 @@ It's just above the wildcard route in the following excerpt showing the complete
 在下方的代码片段中，它出现在通配符路由的紧上方，展示了这个里程碑的完整 `appRoutes`。
 
 <code-example path="router/src/app/app-routing.module.1.ts" linenums="false" title="src/app/app-routing.module.ts (appRoutes)" region="appRoutes">
-
 </code-example>
 
 A redirect route requires a `pathMatch` property to tell the router how to match a URL to the path of a route.
@@ -2361,7 +2350,6 @@ you expect a hero id to appear in the browser URL like this:
 如果要告诉路由器导航到详情组件，并让它显示“Magneta”，你会期望这个英雄的 `id` 像这样显示在浏览器的 URL 中：
 
 <code-example format="nocode">
-
   localhost:3000/hero/15
 
 </code-example>
@@ -2505,7 +2493,6 @@ to handle parameter access for both route parameters (`paramMap`) and query para
 `ParamMap` API 是参照[URLSearchParams 接口](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)来设计的。它提供了一些方法来处理对路由参数（`paramMap`）和查询参数(`queryParamMap`)中的参数访问。
 
 <table>
-
   <tr>
 
     <th>
@@ -2597,7 +2584,6 @@ to handle parameter access for both route parameters (`paramMap`) and query para
     </td>
 
   </tr>
-
 </table>
 
 {@a reuse}
@@ -2745,7 +2731,6 @@ as you do when navigating to the `HeroDetailComponent` in order to view the hero
 如果想导航到 `HeroDetailComponent` 以对 id 为 15 的英雄进行查看并编辑，就要在路由的 URL 中使用[*路由参数*](guide/router#route-parameters)来指定*必要*参数值。
 
 <code-example format="nocode">
-
   localhost:3000/hero/15
 
 </code-example>
@@ -2866,7 +2851,6 @@ It should look something like this, depending on where you run it:
 它应该是这样的，不过也取决于你在哪里运行它：
 
 <code-example language="bash">
-
   localhost:3000/heroes;id=15;foo=foo
 
 </code-example>
@@ -3413,7 +3397,6 @@ Add the following `crisis-center.component.ts` to the `crisis-center` folder:
 往 `crisis-center` 目录下添加下列 `crisis-center.component.ts` 文件：
 
 <code-example path="router/src/app/crisis-center/crisis-center.component.ts" linenums="false" title="src/app/crisis-center/crisis-center.component.ts">
-
 </code-example>
 
 The `CrisisCenterComponent` has the following in common with the `AppComponent`:
@@ -3455,7 +3438,6 @@ As a host page for the "Crisis Center" feature, add the following `crisis-center
 把下面这个 `crisis-center-home.component.ts` 添加到 `crisis-center` 目录下，作为 "危机中心" 特性区的宿主页面。
 
 <code-example path="router/src/app/crisis-center/crisis-center-home.component.ts" linenums="false" title="src/app/crisis-center/crisis-center-home.component.ts" >
-
 </code-example>
 
 Create a `crisis-center-routing.module.ts` file as you did the `heroes-routing.module.ts` file.
@@ -3465,7 +3447,6 @@ This time, you define **child routes** *within* the parent `crisis-center` route
 但这次，你要把**子路由**定义在父路由 `crisis-center` 中。
 
 <code-example path="router/src/app/crisis-center/crisis-center-routing.module.1.ts" linenums="false" title="src/app/crisis-center/crisis-center-routing.module.ts (Routes)" region="routes">
-
 </code-example>
 
 Notice that the parent `crisis-center` route has a `children` property
@@ -3529,7 +3510,6 @@ The absolute URL for the latter example, including the `localhost` origin, is
 本例子中包含站点部分的绝对 URL，就是：
 
 <code-example>
-
   localhost:3000/crisis-center/2
 
 </code-example>
@@ -3882,7 +3862,6 @@ you should see something like the following URL in the browser address bar.
 导航到*危机中心*并点击“Contact”，你将会在浏览器的地址栏看到如下 URL：
 
 <code-example>
-
   http://.../crisis-center(popup:compose)
 
 </code-example>
@@ -3908,9 +3887,7 @@ Click the _Heroes_ link and look at the URL again.
 点击 *Heroes* 链接，并再次查看 URL：
 
 <code-example>
-
   http://.../heroes(popup:compose)
-
 </code-example>
 
 The primary navigation part has changed; the secondary route is the same.
@@ -5723,7 +5700,6 @@ Here's the *Crisis Center* URL in this "HTML5 pushState" style:
 下面是*危机中心*的 URL 在“HTML 5 pushState”风格下的样子：
 
 <code-example format="nocode">
-
   localhost:3002/crisis-center/
 
 </code-example>
@@ -5736,7 +5712,6 @@ URLs with hashes.  Here's a "hash URL" that routes to the *Crisis Center*.
 老旧的浏览器在当前地址的 URL 变化时总会往服务器发送页面请求……唯一的例外规则是：当这些变化位于“#”（被称为“hash”）后面时不会发送。通过把应用内的路由 URL 拼接在 `#` 之后，路由器可以获得这条“例外规则”带来的优点。下面是到*危机中心*路由的“hash URL”：
 
 <code-example format="nocode">
-
   localhost:3002/src/#/crisis-center/
 
 </code-example>

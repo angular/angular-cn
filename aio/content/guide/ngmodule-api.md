@@ -139,7 +139,9 @@ The following table summarizes the `@NgModule` metadata properties.
             </li>
 
           </ul>
+
         </li>
+
       </ol>
 
       Components, directives, and pipes must belong to _exactly_ one module.
@@ -402,8 +404,8 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [提供商](guide/providers)。
+   [服务提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 
-  [特性模块的分类](guide/module-types)。
+   [特性模块的分类](guide/module-types)。

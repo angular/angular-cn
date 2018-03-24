@@ -48,10 +48,8 @@ JIT compilation is the default when you run the _build-only_ or the _build-and-s
 当你运行 *`build`* 或 *`serve`* 这两个 CLI 命令时 JIT 编译是默认选项：
 
 <code-example language="sh" class="code-shell">
-
   ng build
   ng serve
-
 </code-example>
 
 {@a compile}
@@ -61,10 +59,8 @@ For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-
 要进行 AOT 编译只要给这两个 CLI 命令添加 `--aot` 标志就行了：
 
 <code-example language="sh" class="code-shell">
-
   ng build --aot
   ng serve --aot
-
 </code-example>
 
 <div class="l-sub-section">
@@ -170,7 +166,7 @@ The option is `false` by default.
 
 这个选项告诉编译器不要生成 `.metadata.json` 文件，它默认是 `false`。
 
-`.metadata.json` files contain information needed by the template compiler from a `.ts`
+`.metadata.json` files contain infomration needed by the template compiler from a `.ts`
 file that is not included in the `.d.ts` file produced by the TypeScript compiler. This information contains,
 for example, the content of annotations (such as a component's template) which TypeScript
 emits to the `.js` file but not to the `.d.ts` file.
@@ -195,7 +191,6 @@ include a copy of the information that is in the `.metadata.json` file.
 This option tells the template compiler to report an error to the `.metadata.json`
 file if `"skipMetadataEmit"` is `false` . This option is `false` by default. This should only be used when `"skipMetadataEmit"` is `false` and `"skipTemplateCodeGen"` is `true`.
 
-<!-- 这里整节都不太确定 -->
 这个选项告诉模板编译器如果 `"skipMetadataEmit"` 为 `false`，那就把错误信息汇报到 `.metadata.json` 中。
 只有当 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodeGen"` 为 `true` 时才应该使用这个选项。
 
@@ -383,21 +378,21 @@ rules.
 这是供 `bazel` 构建规则使用的选项，它用于简化 `bazel` 规则跟踪文件依赖的方式。
 除了 `bazel` 规则之外不建议使用该选项。
 
-### *enableIvy*
+  ### *enableIvy*
 
-Tells the compiler to generate definitions using the Render3 style code generation. This option defaults to `false`.
+  Tells the compiler to generate definitions using the Render3 style code generation. This option defaults to `false`.
 
-告诉编译器使用 Render3 风格的代码生成器来来生成各种定义。
+  告诉编译器使用 Render3 风格的代码生成器来来生成各种定义。
 该选项默认为 `false`。
 
-Not all features are supported with this option enabled. It is only supported
-for experimentation and testing of Render3 style code generation.
+  Not all features are supported with this option enabled. It is only supported
+  for experimentation and testing of Render3 style code generation.
 
-当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。
+  当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。
 
-*Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
+  *Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
 
-*注意*：不建议使用该选项，因为它在使用 Render2 的代码生成器时还缺少一些特性。
+  *注意*：不建议使用该选项，因为它在使用 Render2 的代码生成器时还缺少一些特性。
 
 ## Angular Metadata and AOT
 
@@ -828,7 +823,7 @@ The compiler only supports metadata for these Angular decorators.
 
 编译器只支持下列 Angular 装饰器的元数据。
 
-<t>Decorator<t><t>装饰器</t>         | <t>Module</t><t>所在模块</t>
+<t>Decorator</t><t>装饰器</t>         | <t>Module</t><t>所在模块</t>
 ------------------|--------------
 `Attribute`       | `@angular/core`
 `Component`       | `@angular/core`
@@ -982,18 +977,18 @@ The following are metadata errors you may encounter, with explanations and sugge
 
 你可能遇到一些元数据错误，下面是对它们的解释和纠正建议。
 
-[Expression form not supported <t>【不支持此表达式格式】</t>](#expression-form-not-supported)<br>
-[Reference to a local (non-exported) symbol<t>【引用了局部（未导出的）符号】</t>](#reference-to-a-local-symbol)<br>
-[Only initialized variables and constants<t>【只允许初始化过的变量和常量】</t>](#only-initialized-variables)<br>
-[Reference to a non-exported class<t>【引用了未导出的类】</t>](#reference-to-a-non-exported-class)<br>
-[Reference to a non-exported function<t>【引用了未导出的函数】</t>](#reference-to-a-non-exported-function)<br>
-[Function calls are not supported<t>【不支持函数调用】</t>](#function-calls-not-supported)<br>
-[Destructured variable or constant not supported<t>【不支持解构变量或常量】</t>](#destructured-variable-not-supported)<br>
-[Could not resolve type<t>【不能解析此类型】</t>](#could-not-resolve-type)<br>
-[Name expected<t>【期待是名字】</t>](#name-expected)<br>
-[Unsupported enum member name<t>【不支持的枚举成员名】</t>](#unsupported-enum-member-name)<br>
-[Tagged template expressions are not supported<t>【不支持带标签函数的模板表达式】</t>](#tagged-template-expressions-not-supported)<br>
-[Symbol reference expected<t>【期待是符号引用】</t>](#symbol-reference-expected)<br>
+[<t>Expression form not supported</t><t>【不支持此表达式格式】</t>](#expression-form-not-supported)<br>
+[<t>Reference to a local (non-exported) symbol</t><t>【引用了局部（未导出的）符号】</t>](#reference-to-a-local-symbol)<br>
+[<t>Only initialized variables and constants</t><t>【只允许初始化过的变量和常量】</t>](#only-initialized-variables)<br>
+[<t>Reference to a non-exported class</t><t>【引用了未导出的类】</t>](#reference-to-a-non-exported-class)<br>
+[<t>Reference to a non-exported function</t><t>【引用了未导出的函数】</t>](#reference-to-a-non-exported-function)<br>
+[<t>Function calls are not supported</t><t>【不支持函数调用】</t>](#function-calls-not-supported)<br>
+[<t>Destructured variable or constant not supported</t><t>【不支持解构变量或常量】</t>](#destructured-variable-not-supported)<br>
+[<t>Could not resolve type</t><t>【不能解析此类型】</t>](#could-not-resolve-type)<br>
+[<t>Name expected</t><t>【期待是名字】</t>](#name-expected)<br>
+[<t>Unsupported enum member name</t><t>【不支持的枚举成员名】</t>](#unsupported-enum-member-name)<br>
+[<t>Tagged template expressions are not supported</t><t>【不支持带标签函数的模板表达式】</t>](#tagged-template-expressions-not-supported)<br>
+[<t>Symbol reference expected</t><t>【期待是符号引用】</t>](#symbol-reference-expected)<br>
 
 <hr>
 
@@ -1383,7 +1378,6 @@ To correct this error, export a function from the module and refer to the functi
 要改正这个问题，就要从模块中导出这个函数，并改成在服务提供商的 `useFactory` 中引用该函数。
 
 <code-example linenums="false">
-
 // CORRECTED
 import { calculateValue } from './utilities';
 
@@ -1399,7 +1393,6 @@ export function someValueFactory() {
     { provide: SomeValue, useFactory: someValueFactory }
   ]
   ...
-
 </code-example>
 
 <hr>
@@ -1425,7 +1418,6 @@ For example, you cannot write something like this:
 比如，你不能这么写：
 
 <code-example linenums="false">
-
 // ERROR
 import { configuration } from './configuration';
 
@@ -1437,7 +1429,6 @@ const {foo, bar} = configuration;
     {provide: Bar, useValue: bar},
   ]
   ...
-
 </code-example>
 
 To correct this error, refer to non-destructured values.
@@ -1445,7 +1436,6 @@ To correct this error, refer to non-destructured values.
 要纠正这个错误，就要引用非解构方式的变量。
 
 <code-example linenums="false">
-
 // CORRECTED
 import { configuration } from './configuration';
   ...
@@ -1454,7 +1444,6 @@ import { configuration } from './configuration';
     {provide: Bar, useValue: configuration.bar},
   ]
   ...
-
 </code-example>
 
 <hr>
@@ -1528,7 +1517,6 @@ Here's an illustrative example.
 下面的例子说明了这一点。
 
 <code-example linenums="false">
-
 // CORRECTED
 import { Inject } from '@angular/core';
 
@@ -1544,7 +1532,6 @@ export function _window() { return window; }
 export class MyComponent {
   constructor (@Inject(WINDOW) private win: Window) { ... }
 }
-
 </code-example>
 
 The `Window` type in the constructor is no longer a problem for the compiler because it
@@ -1557,7 +1544,6 @@ Angular does something similar with the `DOCUMENT` token so you can inject the b
 Angular 也用 `DOCUMENT` 令牌做了类似的事情，所以你也可以注入浏览器的 `document` 对象（或它的一个抽象层，取决于该应用运行在哪个平台）。
 
 <code-example linenums="false">
-
 import { Inject }   from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -1565,7 +1551,6 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class MyComponent {
   constructor (@Inject(DOCUMENT) private doc: Document) { ... }
 }
-
 </code-example>
 
 <hr>
@@ -1613,7 +1598,6 @@ The compiler can understand simple enum values but not complex values such as th
 编译器可以理解简单的枚举值，但不能理解复杂的，比如从那些计算属性中派生出来的。
 
 <code-example linenums="false">
-
 // ERROR
 enum Colors {
   Red = 1,
@@ -1628,7 +1612,6 @@ enum Colors {
     { provide: StrongColor, useValue: Colors.Blue }  // bad
   ]
   ...
-
 </code-example>
 
 Avoid referring to enums with complicated initializers or computed properties.
@@ -1915,28 +1898,28 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
 
 * What the AOT compiler does and why it is important.
 
-  什么是 AOT 编译器，以及它为什么如此重要。
+   什么是 AOT 编译器，以及它为什么如此重要。
 
 * Why metadata must be written in a subset of JavaScript.
 
-  为何元数据必须使用 JavaScript 的一个子集来书写。
+   为何元数据必须使用 JavaScript 的一个子集来书写。
 
 * What that subset is.
 
-  这个子集是什么。
+   这个子集是什么。
 
 * Other restrictions on metadata definition.
 
-  定义元数据时的其它限制。
+   定义元数据时的其它限制。
 
 * Macro-functions and macro-static methods.
 
-  宏函数和静态宏函数。
+   宏函数和静态宏函数。
 
 * Compiler errors related to metadata.
 
-  与元数据有关的编译器错误。
+   与元数据有关的编译器错误。
 
 * Validation of binding expressions
 
-  验证绑定表达式。
+   验证绑定表达式。

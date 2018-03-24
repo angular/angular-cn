@@ -20,7 +20,7 @@ This page describes how to load and apply these component styles.
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-你可以运行<live-example></live-example>来在 Stackblitz 中试用并下载本页的代码。
+你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 ## Using component styles
 
@@ -42,7 +42,6 @@ Usually you give it one string, as in the following example:
 通常你只给它一个字符串就行了，如同下例：
 
 <code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts" linenums="false">
-
 </code-example>
 
 ## Style scope
@@ -116,7 +115,6 @@ targeting elements *inside* the component's template).
 使用 `:host` 伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="host" title="src/app/hero-details.component.css" linenums="false">
-
 </code-example>
 
 The `:host` selector is the only way to target the host element. You can't reach
@@ -136,7 +134,6 @@ The next example targets the host element again, but only when it also has the `
 下一个例子再次把宿主元素作为目标，但是只有当它同时带有 `active` CSS 类的时候才会生效。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" title="src/app/hero-details.component.css" linenums="false">
-
 </code-example>
 
 ### :host-context
@@ -163,7 +160,6 @@ if some ancestor element has the CSS class `theme-light`.
 在下面的例子中，只有当某个祖先元素有 CSS 类 `theme-light` 时，才会把 `background-color` 样式应用到组件*内部*的所有 `<h2>` 元素中。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" title="src/app/hero-details.component.css" linenums="false">
-
 </code-example>
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
@@ -257,7 +253,6 @@ Each string in the array defines some CSS for this component.
 这个数组中的每一个字符串（通常也只有一个）定义一份 CSS。
 
 <code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts (CSS inline)">
-
 </code-example>
 
 <div class="alert is-critical">
@@ -275,9 +270,7 @@ The CLI defines an empty `styles` array when you create the component with the `
 当使用 `--inline-styles` 标识创建组件时，CLI 就会定义一个空的 `styles` 数组
 
 <code-example language="sh" class="code-shell">
-
 ng generate component hero-app --inline-style
-
 </code-example>
 
 ### Style files in component metadata
@@ -290,10 +283,8 @@ to a component's `@Component` decorator:
 你可以通过把外部 CSS 文件添加到 `@Component` 的 `styleUrls` 属性中来加载外部样式。
 
 <code-tabs>
-
   <code-pane title="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
   <code-pane title="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.css"></code-pane>
-
 </code-tabs>
 
 <div class="alert is-critical">
@@ -319,9 +310,7 @@ The CLI creates an empty styles file for you by default and references that file
 CLI 会默认为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
 
 <code-example language="sh" class="code-shell">
-
 ng generate component hero-app
-
 </code-example>
 
 ### Template inline styles
@@ -334,7 +323,6 @@ inside `<style>` tags.
 你也可以在组件的 HTML 模板中嵌入 `<style>` 标签。
 
 <code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" title="src/app/hero-controls.component.ts">
-
 </code-example>
 
 ### Template link tags
@@ -346,7 +334,6 @@ You can also write `<link>` tags into the component's HTML template.
 你也可以在组件的 HTML 模板中写 `<link>` 标签。
 
 <code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" title="src/app/hero-team.component.ts">
-
 </code-example>
 
 <div class="alert is-critical">
@@ -378,7 +365,6 @@ In this case, the URL is relative to the CSS file into which you're importing.
 在*这种*情况下，URL 是相对于你正在导入的 CSS 文件的。
 
 <code-example path="component-styles/src/app/hero-details.component.css" region="import" title="src/app/hero-details.component.css (excerpt)">
-
 </code-example>
 
 ### External and global style files
@@ -407,14 +393,12 @@ you can write style files in [sass](http://sass-lang.com/), [less](http://lesscs
 如果使用 CLI 进行构建，那么你可以用 [sass](http://sass-lang.com/)、[less](http://lesscss.org/) 或 [stylus](http://stylus-lang.com/) 来编写样式，并使用相应的扩展名（`.scss`、`.less`、`.styl`）把它们指定到 `@Component.styleUrls` 元数据中。例子如下：
 
 <code-example>
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 ...
-
 </code-example>
 
 The CLI build process runs the pertinent CSS preprocessor.
@@ -486,7 +470,6 @@ To set the components encapsulation mode, use the `encapsulation` property in th
 通过组件元数据中的 `encapsulation` 属性来设置组件封装模式：
 
 <code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" title="src/app/quest-summary.component.ts" linenums="false">
-
 </code-example>
 
 `Native` view encapsulation only works on browsers that have native support
@@ -516,7 +499,6 @@ attached to it:
 在启用了仿真模式的 Angular 应用的 DOM 树中，每个 DOM 元素都被加上了一些额外的属性。
 
 <code-example format="">
-
   &lt;hero-details _nghost-pmm-5>
     &lt;h2 _ngcontent-pmm-5>Mister Fantastic&lt;/h2>
     &lt;hero-team _ngcontent-pmm-5 _nghost-pmm-6>
@@ -549,7 +531,6 @@ by the generated component styles, which are in the `<head>` section of the DOM:
 但它们会作为生成的组件样式的目标，就像 DOM 的 `<head>` 中一样：
 
 <code-example format="">
-
   [_nghost-pmm-5] {
     display: block;
     border: 1px solid black;
@@ -559,13 +540,11 @@ by the generated component styles, which are in the `<head>` section of the DOM:
     background-color: white;
     border: 1px solid #777;
   }
-
 </code-example>
 
 These styles are post-processed so that each selector is augmented
 with `_nghost` or `_ngcontent` attribute selectors.
 These extra selectors enable the scoping rules described in this page.
-
 
 这些就是那些样式被处理后的结果，每个选择器都被增加了 `_nghost` 或 `_ngcontent` 属性选择器。
 这些额外的选择器实现了本文所描述的这些作用域规则。

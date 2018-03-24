@@ -1,4 +1,4 @@
-# Architecture Overview
+# Architecture overview
 
 # 架构概览
 
@@ -121,6 +121,8 @@ To define navigation rules, you associate *navigation paths* with your component
 <hr/>
 
 ## What's next
+
+## 接下来呢？
 
 You've learned the basics about the main building blocks of an Angular application. The following diagram shows how these basic pieces are related.
 

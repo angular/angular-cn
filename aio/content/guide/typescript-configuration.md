@@ -102,7 +102,6 @@ You can suppress them with the following additional flag:
 你可以使用另一个标志来禁止它们。
 
 <code-example format=".">
-
   "suppressImplicitAnyIndexErrors":true
 
 </code-example>
@@ -166,7 +165,6 @@ list of declaration files to be included:
 因为《快速上手》的目标为 `es5`，所以你可以重写声明文件列表来包含：
 
 <code-example format=".">
-
   "lib": ["es2015", "dom"]
 
 </code-example>

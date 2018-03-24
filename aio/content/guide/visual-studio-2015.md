@@ -222,7 +222,7 @@ Include the files in the Visual Studio project as follows:
 
 <h2 id='restore'>Step 4: Restore the required packages</h2>
 
-<h2 id='restore'> 第四步: 恢复需要的包 </h2>
+<h2 id='restore'>第四步: 恢复需要的包 </h2>
 
 Restore the packages required for an Angular application as follows:
 
@@ -348,7 +348,6 @@ rewrite rules near the bottom of the `web.config`:
 通过把下列重写规则添加到 `web.config` 的底部，就可以告诉 Visual Studio 如何处理到应用页面的请求。
 
 <code-example format='.'>
-
   &lt;system.webServer&gt;
     &lt;rewrite&gt;
       &lt;rules&gt;
@@ -397,7 +396,6 @@ The default browser opens and displays the QuickStart sample application.
 默认浏览器打开并显示《快速上手》例子应用。
 
 Try editing any of the project files. Save and refresh the browser to
-see the changes. 
-
+see the changes.
 
 尝试编辑任何项目文件，*保存*并刷新浏览器来查看效果。

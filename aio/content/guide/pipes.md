@@ -32,7 +32,7 @@ Introducing Angular pipes, a way to write display-value transformations that you
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-运行<live-example></live-example>来试用本页的代码。
+你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 ## Using pipes
 
@@ -249,7 +249,6 @@ Now you need a component to demonstrate the pipe.
 现在，你需要一个组件来演示这个管道。
 
 <code-example path="pipes/src/app/power-booster.component.ts" title="src/app/power-booster.component.ts" linenums="false">
-
 </code-example>
 
 <figure>
@@ -780,10 +779,8 @@ The list might be sorted by hero `name` and `planet` of origin properties in the
 虽然不是很明显，但代码最小化方面也存在风险。想象一个用于英雄列表的排序管道。该列表可能根据英雄原始属性中的 `name` 和 `planet` 进行排序，就像这样：
 
 <code-example language="html">
-
   &lt;!-- NOT REAL CODE! -->
   &lt;div *ngFor="let hero of heroes | orderBy:'name,planet'">&lt;/div>
-
 </code-example>
 
 You identify the sort fields by text strings, expecting the pipe to reference a property value by indexing
@@ -816,6 +813,5 @@ Angular 开发组和一些有经验的 Angular 开发者强烈建议你：把你
 
 If these performance and minification considerations don't apply to you, you can always create your own such pipes
 (similar to the [FlyingHeroesPipe](guide/pipes#impure-flying-heroes)) or find them in the community.
-
 
 如果你不需要顾虑这些性能和最小化问题，也可以创建自己的管道来实现这些功能(参考[FlyingHeroesPipe](guide/pipes#impure-flying-heroes)中的写法)或到社区中去找找。

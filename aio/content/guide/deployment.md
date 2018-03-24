@@ -23,9 +23,7 @@ For the simplest deployment, build for development and copy the output directory
    使用开发环境进行构建
 
   <code-example language="none" class="code-shell">
-
     ng build
-
   </code-example>
 
 2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
@@ -42,9 +40,7 @@ For the simplest deployment, build for development and copy the output directory
   比如，如果 `index.html` 位于服务器上的 `/my/app/index.html` 路径下，就要把 *base href* 设置为 `<base href="/my/app/">`，就像这样：
 
   <code-example language="none" class="code-shell">
-
     ng build --base-href=/my/app/
-
   </code-example>
 
   You'll see that the `<base href>` is set properly in the generated `dist/index.html`.<br><br>
@@ -84,9 +80,7 @@ starting with `--prod`.
 ### 使用 `--prod` 构建。
 
 <code-example language="none" class="code-shell">
-
   ng build --prod
-
 </code-example>
 
 The `--prod` _meta-flag_ engages the following optimization features.
@@ -126,9 +120,7 @@ You may further reduce bundle sizes by adding the `build-optimizer` flag.
 你还可以添加 `build-optimizer` 标志来进一步缩减打包体积。
 
 <code-example language="none" class="code-shell">
-
   ng build --prod --build-optimizer
-
 </code-example>
 
 See the [CLI Documentation](https://github.com/angular/angular-cli/wiki/build) 
@@ -148,9 +140,7 @@ console:
 Angular 应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：
 
 <code-example format="nocode">
-
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
-
 </code-example>
 
 Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
@@ -257,9 +247,7 @@ Install `source-map-explorer`:
 安装 `source-map-explorer`：
 
 <code-example language="none" class="code-shell">
-
   npm install source-map-explorer --save-dev
-
 </code-example>
 
 Build your app for production _including the source maps_
@@ -267,9 +255,7 @@ Build your app for production _including the source maps_
 构建*带源码映射*的生产版本
 
 <code-example language="none" class="code-shell">
-
   ng build --prod --sourcemaps
-
 </code-example>
 
 List the generated bundles in the `dist/` folder.
@@ -277,9 +263,7 @@ List the generated bundles in the `dist/` folder.
 列出 `dist/` 文件夹中生成的文件包。
 
 <code-example language="none" class="code-shell">
-
   ls dist/*.bundle.js
-
 </code-example>
 
 Run the explorer to generate a graphical representation of one of the bundles.
@@ -289,9 +273,7 @@ The following example displays the graph for the _main_ bundle.
 下面的例子中就是 `main` 这个文件包的图形。
 
 <code-example language="none" class="code-shell">
-
   node_modules/.bin/source-map-explorer dist/main.*.bundle.js
-
 </code-example>
 
 The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
@@ -488,12 +470,10 @@ The list is by no means exhaustive, but should provide you with a good starting 
    [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了 `historyApiFallback`，代码如下：
 
   <code-example>
-
     historyApiFallback: {
       disableDotRule: true,
       htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
     }
-
   </code-example>
 
 #### Production servers
@@ -508,7 +488,6 @@ The list is by no means exhaustive, but should provide you with a good starting 
 代码如下（[出处](https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/)）：
 
   <code-example format=".">
-
     RewriteEngine On
     &#35 If an existing asset or directory is requested go to it as it is
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
@@ -517,7 +496,6 @@ The list is by no means exhaustive, but should provide you with a good starting 
 
     &#35 If the requested resource doesn't exist, use index.html
     RewriteRule ^ /index.html
-
   </code-example>
 
 * [NGinx](http://nginx.org/): use `try_files`, as described in
@@ -527,9 +505,7 @@ modified to serve `index.html`:
    [NGinx](http://nginx.org/)：使用 `try_files` 指向 `index.html`，详细描述见[Web 应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
 
   <code-example format=".">
-
     try_files $uri $uri/ /index.html;
-
   </code-example>
 
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
@@ -538,7 +514,6 @@ modified to serve `index.html`:
    [IIS](https://www.iis.net/)：往 `web.config` 中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
 
   <code-example format='.'>
-
     &lt;system.webServer&gt;
       &lt;rewrite&gt;
         &lt;rules&gt;
@@ -577,7 +552,6 @@ and to
    [Firebase 主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
 
   <code-example format=".">
-
     "rewrites": [ {
       "source": "**",
       "destination": "/index.html"
@@ -604,7 +578,6 @@ There isn't anything the client application can do about these errors.
 The server must be configured to accept the application's requests.
 Read about how to enable CORS for specific servers at
 <a href="http://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
-
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。

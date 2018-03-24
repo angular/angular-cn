@@ -431,5 +431,4 @@ modules with SystemJS as the samples currently do.
 The [Lifecycle Hooks](guide/lifecycle-hooks) guide is shorter, simpler, and
 draws more attention to the order in which Angular calls the hooks.
 
-
 [生命周期钩子](guide/lifecycle-hooks)章现在更加简短，并且对强调了 Angular 是以什么顺序来调用钩子方法的。

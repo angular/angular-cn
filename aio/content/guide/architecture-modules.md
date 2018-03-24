@@ -10,6 +10,8 @@ While a small application might have only one NgModule, most apps have many more
 
 ## NgModule metadata
 
+## `@NgModule` 元数据
+
 An NgModule is defined as a class decorated with `@NgModule`. The `@NgModule` decorator is a function that takes a single metadata object, whose properties describe the module. The most important properties are as follows.
 
 * `declarations`&mdash;The [components](guide/architecture-components), _directives_, and _pipes_ that belong to this NgModule.

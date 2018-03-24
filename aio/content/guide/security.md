@@ -15,7 +15,7 @@ For more information about the attacks and mitigations described below, see [OWA
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-运行<live-example></live-example>来试用本页的代码。
+你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 <h2 id='report-issues'>Reporting vulnerabilities</h2>
 
@@ -425,7 +425,6 @@ Angular applications must follow the same security principles as regular web app
 must be audited as such. Angular-specific APIs that should be audited in a security review,
 such as the [_bypassSecurityTrust_](guide/security#bypass-security-apis) methods, are marked in the documentation
 as security sensitive.
-
 
 Angular 应用应该遵循和常规 Web 应用一样的安全原则并按照这些原则进行审计。Angular 中某些应该在安全评审中被审计的 API（
 比如[_bypassSecurityTrust_](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。

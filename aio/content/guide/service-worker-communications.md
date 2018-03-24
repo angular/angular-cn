@@ -16,7 +16,7 @@ A basic understanding of the following:
 
 * [Getting Started with Service Workers](guide/service-worker-getting-started).
 
-   [Service Worker 快速起步](guide/service-worker-getting-started).
+   [Service Worker 快速起步](guide/service-worker-getting-started)。
 
 <hr />
 
@@ -101,8 +101,8 @@ Doing this could break lazy-loading into currently running apps, especially if t
 
 You may also be interested in the following:
 
-你可能对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Service Worker in Production](guide/service-worker-devops).
 
-  [产品环境下的 Service Worker](guide/service-worker-devops).
+   [生产环境下的 Service Worker](guide/service-worker-devops)。

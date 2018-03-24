@@ -126,4 +126,4 @@ For more information on NgModules, see:
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers).
+   [服务提供商](guide/providers)。

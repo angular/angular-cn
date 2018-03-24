@@ -4,9 +4,7 @@
 
 </div>
 
-<header class="api-header">
-    <h1><label class="api-status-label experimental">experimental</label><label class="api-type-label class">class</label>Class Name</h1>
-</header>
+<header class="api-header"><h1><label class="api-status-label experimental">experimental</label><label class="api-type-label class">class</label>Class Name</h1></header>
 
 <div class="page-actions">
 
@@ -84,13 +82,13 @@
             </li>
 
         </ul>
+
     </section>
     <section>
 
         <h2>Constructor</h2>
 
         <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
-
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -103,7 +101,6 @@
 
         <table class="is-full-width list-table">
         <thead>
-
         <tr>
 
         <th>
@@ -131,10 +128,8 @@
         </th>
 
         </tr>
-
         </thead>
         <tbody>
-
         <tr>
 
         <td>
@@ -156,7 +151,6 @@
         </td>
 
         </tr>
-
         <tr>
 
         <td>
@@ -180,7 +174,6 @@
         </td>
 
         </tr>
-
         <tr>
 
         <td>
@@ -204,7 +197,6 @@
         </td>
 
         </tr>
-
         </tbody>
     </table>
     </section>
@@ -214,7 +206,6 @@
 
         <table class="is-full-width item-table">
         <thead>
-
         <tr>
 
         <th>
@@ -224,10 +215,8 @@
         </th>
 
         </tr>
-
         </thead>
         <tbody>
-
         <tr>
 
         <td>
@@ -241,12 +230,10 @@
         </td>
 
         </tr>
-
         </tbody>
     </table>
     <table class="is-full-width api-method item-table">
         <thead>
-
         <tr>
 
         <th>
@@ -256,10 +243,8 @@
         </th>
 
         </tr>
-
         </thead>
         <tbody>
-
         <tr>
 
         <td>
@@ -271,11 +256,10 @@
             <h5>Declaration</h5>
 
             <code-example language="ts" hidecopy="true" ng-version="5.2.0">
-
                 <aio-code class="simple-code"><pre class="prettyprint lang-ts">
                     <code class="animated fadeIn"><span class="kwd">class</span><span class="pln"> </span><a href="api/animations/AnimationBuilder" class="code-anchor"><span class="typ">AnimationBuilder</span></a><span class="pln"> </span><span class="pun">{</span><span class="pln"></span><a class="code-anchor" href="api/animations/AnimationBuilder#build"><span class="pln">build</span><span class="pun">(</span><span class="pln">animation</span><span class="pun">:</span><span class="pln"> </span><span class="typ">AnimationMetadata</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="typ">AnimationMetadata</span><span class="pun">[]):</span><span class="pln"> </span><span class="typ">AnimationFactory</span></a><span class="pln"></span><span class="pun">}</span></code></pre>
-                </aio-code>
 
+                </aio-code>
             </code-example>
 
             <h6>Parameters</h6>
@@ -296,13 +280,10 @@
 
                 <table class="is-full-width">
                 <tbody>
-
                 <tr>
-
                 <td>
 
                     <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
-
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -318,13 +299,11 @@
                 </td>
 
                 </tr>
-
                 <tr>
 
                 <td>
 
                     <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
-
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">
@@ -340,7 +319,6 @@
                 </td>
 
                 </tr>
-
                 </tbody>
             </table>
 
@@ -351,9 +329,7 @@
             <p>Bacon ipsum dolor amet pork belly capicola sirloin venison alcatra ground round ham hock jowl turkey picanha bresaola pancetta brisket chicken fatback. Burgdoggen kevin salami jowl shoulder jerky leberkas meatball. Ham hock picanha burgdoggen pork belly rump bacon cupim. Bacon kielbasa sirloin shank strip steak ground round. Bresaola cow salami meatloaf pork chop leberkas flank turducken biltong meatball chuck pork tri-tip chicken. Ribeye corned beef shoulder, meatloaf strip steak jerky porchetta capicola alcatra ham.</p>
 
         </td>
-
         </tr>
-
         </tbody>
     </table>
     </section>
@@ -364,7 +340,6 @@
         <p>Intro description text about what the example is and how it can be used.</p>
 
             <code-example hidecopy="true" class="no-box api-heading" ng-version="5.2.0">
-
         <aio-code class="simple-code"><pre class="prettyprint lang-">   
         <code class="animated fadeIn"><span class="kwd">constructor</span><span class="pun">(</span><span class="pln">element</span><span class="pun">:</span><span class="pln"> any</span><span class="pun">,</span><span class="pln"> keyframes</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
         </span><span class="pun">[</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">]:</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> number</span><span class="pun">;</span><span class="pln">

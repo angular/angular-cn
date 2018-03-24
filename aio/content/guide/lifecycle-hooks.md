@@ -62,7 +62,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 <table width="100%">
   <col width="20%"></col>
   <col width="80%"></col>
-
   <tr>
 
     <th>
@@ -82,7 +81,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </th>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -106,7 +104,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -129,7 +126,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -151,7 +147,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -173,7 +168,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -195,7 +189,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -217,7 +210,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -239,7 +231,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -263,7 +254,6 @@ calls the lifecycle hook methods in the following sequence at specific moments:
     </td>
 
   </tr>
-
 </table>
 
 {@a interface-optional}
@@ -335,7 +325,6 @@ Here's a brief description of each exercise:
 <table width="100%">
   <col width="20%"></col>
   <col width="80%"></col>
-
   <tr>
 
     <th>
@@ -355,7 +344,6 @@ Here's a brief description of each exercise:
     </th>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -374,7 +362,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -399,7 +386,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -420,7 +406,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -440,7 +425,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -460,7 +444,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -481,7 +464,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
   <tr style='vertical-align:top'>
 
     <td>
@@ -510,7 +492,6 @@ Here's a brief description of each exercise:
     </td>
 
   </tr>
-
 </table>
 
 The remainder of this page discusses selected exercises in further detail.

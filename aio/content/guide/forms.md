@@ -49,7 +49,7 @@ This page shows you how to build a simple form from scratch. Along the way you'l
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-运行<live-example></live-example>来试用本页的代码。
+你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 {@a template-driven}
 

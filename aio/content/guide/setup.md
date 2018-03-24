@@ -32,7 +32,6 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 运行下列命令来执行*克隆并启动*步骤。
 
 <code-example language="sh" class="code-shell">
-
   git clone https://github.com/angular/quickstart.git quickstart
   cd quickstart
   npm install
@@ -61,7 +60,6 @@ and unzip it into your project folder. Then perform the remaining steps with the
 并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。
 
 <code-example language="sh" class="code-shell">
-
   cd quickstart
   npm install
   npm start
@@ -103,7 +101,6 @@ Open a terminal window in the project folder and enter the following commands fo
 ### OS/X (bash)
 
 <code-example language="sh" class="code-shell">
-
   xargs rm -rf &lt; non-essential-files.osx.txt
   rm src/app/*.spec*.ts
   rm non-essential-files.osx.txt
@@ -113,7 +110,6 @@ Open a terminal window in the project folder and enter the following commands fo
 ### Windows
 
 <code-example language="sh" class="code-shell">
-
   for /f %i in (non-essential-files.txt) do del %i /F /S /Q
   rd .git /s /q
   rd e2e /s /q
