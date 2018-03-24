@@ -1598,6 +1598,8 @@ provider: [{ provide: Foo, useValue: { 0: 'test' } }]
 
 Change the name of the property to something non-numeric.
 
+把该属性的名字改为非数字类型。
+
 ```
 
 // CORRECTED

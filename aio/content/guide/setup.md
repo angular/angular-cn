@@ -352,11 +352,9 @@ Node.js 和 npm 对使用 Angular 和其他平台进行现代网络开发是至�
 Node 驱动客户端开发和构建工具。
 *npm* 包管理器本身是 *node* 应用，用于安装 JavaScript 库。
 
-<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
-Get them now</a> if they're not already installed on your machine.
+<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">Get them now</a> if they're not already installed on your machine.
 
-如果你的电脑没有安装它们，<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">
-立刻安装它们</a>。
+如果你的电脑没有安装它们，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">现在安装</a>。
 
 **Verify that you are running node `v4.x.x` or higher and npm `3.x.x` or higher**
 by running the commands `node -v` and `npm -v` in a terminal/console window.

@@ -69,11 +69,15 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
         Hook
 
+        钩子
+
     </th>
 
     <th>
 
         Purpose and Timing
+
+        用途及时机
 
     </th>
 

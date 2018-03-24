@@ -401,6 +401,8 @@ It has a great deal of useful information including:
 
     An `Observable` of the URL [fragment](#fragment) available to all routes.
 
+    一个适用于所有路由的 URL 的 [fragment（片段）](#fragment)的 `Observable`。
+
     </td>
 
   </tr>
@@ -2371,11 +2373,9 @@ pattern and go to the same "Magneta" detail view.
 
 <div class="callout is-helpful">
 
-<header>
+<header>Route parameter: Required or optional?</header>
 
-  Route parameter: Required or optional?
-
-</header>
+<header>路由参数：必须的还是可选的？</header>
 
 Embedding the route parameter token, `:id`,
 in the route definition path is a good choice for this scenario

@@ -892,15 +892,14 @@ by implementing the lifecycle hook interfaces.
 
 > [**Pipes**](guide/pipes): Use pipes in your templates to improve the user experience by transforming values for display. Consider this `currency` pipe expression:
 >
-> > `price | currency:'USD':true`
->
-> It displays a price of 42.33 as `$42.33`.
-
 > [**管道**](guide/pipes)：在模板中使用管道转换成用于显示的值，以增强用户体验。例如，`currency` 管道表达式：
 >
 > > `price | currency:'USD':true`
 >
+> It displays a price of 42.33 as `$42.33`.
+>
 > 它把价格“42.33”显示为 `$42.33`。
+>
 
 > [**Router**](guide/router): Navigate from page to page within the client
   application and never leave the browser.

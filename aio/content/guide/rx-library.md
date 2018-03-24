@@ -97,14 +97,14 @@ RxJS 提供了很多操作符（超过 150 个），不过只有少数是常用�
 
 </div>
 
-| 类别 | 操作 |
-| :------------| :----------|
-| 创建 |  `from`, `fromPromise`,`fromEvent`, `of` |
-| 组合 | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip` |
-| 过滤 | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil` |
-| 转换 | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap` |
-| 工具 | `tap` |
-| 多播 | `share` |
+| <t>Area</t><t>类别</t> | <t>Operators</t><t>操作</t>  |
+| :------------ | :---------- |
+| <t>Creation</t><t>创建</t> | `from`, `fromPromise`,`fromEvent`, `of`  |
+| <t>Combination</t><t>组合</t> | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
+| <t>Filtering</t><t>过滤</t> | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil`  |
+| <t>Transformation</t><t>转换</t> | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap`  |
+| <t>Utility</t><t>工具</t> | `tap`  |
+| <t>Multicasting</t><t>多播</t> | `share`  |
 
 ## Error handling
 

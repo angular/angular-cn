@@ -2150,6 +2150,8 @@ to the looping value and listens for the component's `selected` event.
 
 Here's the component's full definition:
 
+下面是该组件的完整定义：
+
 {@a dashboard-hero-component}
 
 <code-example 
@@ -2199,6 +2201,8 @@ The router seems particularly challenging.
 <div class="l-sub-section">
 
 The [discussion below](#routing-component) covers testing components that require the router.
+
+[稍后的讨论](#routing-component)涵盖了那些需要路由器的测试组件。
 
 </div>
 
@@ -4579,7 +4583,7 @@ Here are the most important static methods, in order of likely utility.
 
   </tr>
 
-</table
+</table>
 
 A few of the `TestBed` instance methods are not covered by static `TestBed` _class_ methods.
 These are rarely needed.

@@ -323,6 +323,8 @@ These are the polyfills required to run an Angular application on each supported
 
       [ES7/reflect](guide/browser-support#core-es7-reflect) (JIT only)
 
+      [ES7/reflect](guide/browser-support#core-es7-reflect) (仅 JIT)
+
     </td>
 
   </tr>

@@ -1269,6 +1269,8 @@ compilation can pick it up.
 
 You can then inject it in Angular using its class as a type annotation:
 
+然后你就可以使用它的类作为类型注解将其在 Angular 中进行注入了：
+
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" title="hero-detail.component.ts">
 
 </code-example>

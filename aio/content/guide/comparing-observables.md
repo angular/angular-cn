@@ -270,6 +270,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
         Implied by promise resolution.
 
+        承诺被解析时隐式完成。
+
     </td>
 
   </tr>
@@ -393,6 +395,9 @@ button.removeEventListener(‘click’, handler);
     <td>
 
         Listen for keystrokes, but provide a stream representing the value in the input.
+        
+        监听按键，提供一个流来表示这些输入的值。
+        
 <pre>fromEvent(inputEl, 'keydown').pipe(
   map(e => e.target.value)
 );</pre>
@@ -402,6 +407,9 @@ button.removeEventListener(‘click’, handler);
     <td>
 
         Does not support configuration.
+        
+        不支持配置。
+
 <pre>element.addEventListener(eventName, (event) => {
   // Cannot change the passed Event into another
   // value before it gets to the handler

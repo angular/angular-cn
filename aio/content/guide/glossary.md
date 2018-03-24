@@ -199,7 +199,11 @@ Angular 文档中提到“驼峰式命名法 (camelCase) ”的时候，所指�
 
 The Angular CLI is a `command line interface` tool that can create a project, add files, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
 
+Angular CLI 是个命令行接口（Command Line Interface）工具，它可以创建项目、添加文件以及执行各种正在进行的开发任务，比如测试、打包和部署。
+
 Learn more in the [Getting Started](guide/quickstart) guide.
+
+要了解更多，参见[快速起步](guide/quickstart)。
 
 {@a component}
 
@@ -782,16 +786,21 @@ You rarely access Angular feature modules directly. You usually import them from
 
 ## NgModule
 
-## 可观察对象 (observable)
-
 Helps you organize an application into cohesive blocks of functionality.
 An NgModule identifies the components, directives, and pipes that the application uses along with the list of external NgModules that the application needs, such as `FormsModule`.
+
+帮助你把应用组织成多个内聚的功能块。
+NgModule 表示应用的组件、指令和管道以及所用到的外部模块的列表，比如 `FormsModule`。
 
 Every Angular application has an application root-module class. By convention, the class is
 called `AppModule` and resides in a file named `app.module.ts`.
 
+每个 Angular 应用都有一个应用级根模块类。这类通常叫做 `AppModule`，并且位于一个名叫 `app.module.ts` 的文件中。
+
 For details and examples, see [NgModules](guide/ngmodules) and the 
 related files in that section.
+
+要获得详情和范例，参见 [NgModule](guide/ngmodules) 及其相关文件。
 
 {@a O}
 

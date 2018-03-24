@@ -115,8 +115,9 @@ The following table summarizes the `@NgModule` metadata properties.
         </li>
 
         <li>
+
           The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
-          
+
           该模板在 NgModule 环境中编译 —— 模板的组件是在该 NgModule 内部声明的，它会使用如下规则来确定这组选择器：
 
           <ul>

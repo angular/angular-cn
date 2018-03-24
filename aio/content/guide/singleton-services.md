@@ -1,5 +1,7 @@
 # Singleton services
 
+# 单例应用
+
 #### Prerequisites:
 
 #### 前提条件：
