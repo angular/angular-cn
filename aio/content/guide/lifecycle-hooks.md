@@ -266,7 +266,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
 ## Interfaces are optional (technically)
 
-## 接口是可选的(理论上)？
+## 接口是可选的(严格来说)
 
 The interfaces are optional for JavaScript and Typescript developers from a purely technical perspective.
 The JavaScript language doesn't have interfaces.
