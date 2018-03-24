@@ -217,42 +217,36 @@ ng generate directive highlight
 
   it('拆解多行的成对 tag', function () {
     const lines = normalizeLines(`
-  <header>
-      Angular forms don't require a style library
-  </header>
+    <p>
+        a
+    </p>
+
+    <p>
+    一
+</p>
+
 `);
     expect(lines).eq(`
-  <header>
+    <p>
 
-      Angular forms don't require a style library
+        a
 
-  </header>
+    </p>
+
+    <p>
+
+    一
+
+</p>
 `);
   });
 
-  it('拆解多行的成对 tag', function () {
+  it('不要拆解 header', function () {
     const lines = normalizeLines(`
-    <p>
-        a
-    </p>
-
-    <p>
-    一
-</p>
-
+  <header>Angular forms don't require a style library</header>
 `);
     expect(lines).eq(`
-    <p>
-
-        a
-
-    </p>
-
-    <p>
-
-    一
-
-</p>
+  <header>Angular forms don't require a style library</header>
 `);
   });
 
