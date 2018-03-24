@@ -337,6 +337,8 @@ Here's a brief description of each exercise:
     <th>
 
         Component
+        
+        组件
 
     </th>
 
