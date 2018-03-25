@@ -68,7 +68,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 Some code examples display a file that has one or more similarly named companion files.
 For example, `hero.component.ts` and `hero.component.html`.
 
-在一些代码例子中，有的文件有一个或多个相似名字的伴随文件。（例如 hero.component.ts 和 hero.component.html）。
+在一些代码例子中，有的文件有一个或多个相似名字的配套文件。（例如 hero.component.ts 和 hero.component.html）。
 
 The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 

@@ -1830,7 +1830,7 @@ Here's a `SizerComponent` that fits the pattern.
 It has a `size` value property and a companion `sizeChange` event:
 
 当一个元素拥有可以设置的属性 `x` 和对应的事件 `xChange` 时，解释 `[(x)]` 语法就容易多了。
-下面的 `SizerComponent` 符合这个模式。它有 `size` 属性和伴随的 `sizeChange` 事件：
+下面的 `SizerComponent` 符合这个模式。它有 `size` 属性和配套的 `sizeChange` 事件：
 
 <code-example path="template-syntax/src/app/sizer.component.ts" title="src/app/sizer.component.ts">
 </code-example>

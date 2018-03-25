@@ -167,7 +167,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      A routing module provides routing configuration for another module and separates routing concerns from its companion module.
 
-     路由模块为其它模块提供路由配置，并且把路由这个关注点从它的伴随模块中分离出来。
+     路由模块为其它模块提供路由配置，并且把路由这个关注点从它的配套模块中分离出来。
 
      A routing module typically does the following:
 
@@ -203,8 +203,8 @@ typical characteristics, in real world apps, you may see hybrids.
 
          The name of the routing module should parallel the name of its companion module, using the suffix "Routing". For example, <code>FooModule</code> in <code>foo.module.ts</code> has a routing module named <code>FooRoutingModule</code> in <code>foo-routing.module.ts</code>. If the companion module is the root <code>AppModule</code>, the <code>AppRoutingModule</code> adds router configuration to its imports with <code>RouterModule.forRoot(routes)</code>. All other routing modules are children that import <code>RouterModule.forChild(routes)</code>.
 
-         路由模块应该与其伴随模块同名，但是加上“Routing”后缀。比如，<code>foo.module.ts</code> 中的 <code>FooModule</code> 就有一个位于 <code>foo-routing.module.ts</code> 文件中的 <code>FooRoutingModule</code> 路由模块。
-         如果其伴随模块是根模块 `AppModule`，`AppRoutingModule` 就要使用 `RouterModule.forRoot(routes)` 来把路由器配置添加到它的 `imports` 中。
+         路由模块应该与其配套模块同名，但是加上“Routing”后缀。比如，<code>foo.module.ts</code> 中的 <code>FooModule</code> 就有一个位于 <code>foo-routing.module.ts</code> 文件中的 <code>FooRoutingModule</code> 路由模块。
+         如果其配套模块是根模块 `AppModule`，`AppRoutingModule` 就要使用 `RouterModule.forRoot(routes)` 来把路由器配置添加到它的 `imports` 中。
          所有其它路由模块都是子模块，要使用 `RouterModule.forChild(routes)`。
 
      </li>
@@ -213,7 +213,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
          A routing module re-exports the <code>RouterModule</code> as a convenience so that components of the companion module have access to router directives such as <code>RouterLink</code> and <code>RouterOutlet</code>.
 
-         按照惯例，路由模块会重新导出这个 <code>RouterModule</code>，以便伴随模块中的组件可以访问路由器指令，比如 `RouterLink` 和 `RouterOutlet`。
+         按照惯例，路由模块会重新导出这个 <code>RouterModule</code>，以便其配套模块中的组件可以访问路由器指令，比如 `RouterLink` 和 `RouterOutlet`。
 
      </li>
 
@@ -229,7 +229,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      A routing module should only be imported by its companion module.
 
-     路由模块应该只被它的伴随模块导入。
+     路由模块只应该被它的配套模块导入。
 
    </td>
 
