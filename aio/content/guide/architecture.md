@@ -287,6 +287,6 @@ Each of these subjects is introduced in more detail in the following pages.
 When you are familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps](guide/architecture-next-steps).
 
 当你熟悉了这些基础构造块之后，就可以在本文档中进一步查看它们的详情了。
-要学习能帮你构建和发布应用的更多工具和技术，参见[下一步](guide/architecture-next-steps)。
+要学习能帮你构建和发布应用的更多工具和技巧，参见[后续步骤](guide/architecture-next-steps)。
 
 </div>
