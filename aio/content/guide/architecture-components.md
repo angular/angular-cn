@@ -232,7 +232,7 @@ Data binding plays an important role in communication between a template and its
 
  To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe):
 
- 要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](https://angular.io/guide/template-syntax#pipe)。
+ 要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](https://angular.cn/guide/template-syntax#pipe)。
 
  `{{interpolated_value | pipe_name}}`
 

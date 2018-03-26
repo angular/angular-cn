@@ -368,7 +368,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       That leaves only components bootstrapped using one of the imperative techniques, such as [`ViewComponentRef.createComponent()`](https://angular.io/api/core/ViewContainerRef#createComponent) as undiscoverable.
 
-      而那些使用不易察觉的[`ViewComponentRef.createComponent()`](https://angular.io/api/core/ViewContainerRef#createComponent)的方式进行命令式引导的组件仍然需要添加。
+      而那些使用不易察觉的[`ViewComponentRef.createComponent()`](https://angular.cn/api/core/ViewContainerRef#createComponent)的方式进行命令式引导的组件仍然需要添加。
 
       Dynamic component loading is not common in most apps beyond the router. If you need to dynamically load components, you must add these components to the `entryComponents` list yourself.
 

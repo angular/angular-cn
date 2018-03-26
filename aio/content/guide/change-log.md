@@ -9,7 +9,7 @@ Angular 的文档将持续不断的更新和改进。本日志记录了近期最
 
 ## Updated to Angular 4.0. Documentation for Angular 2.x can be found at [v2.angular.io](https://v2.angular.io).
 
-## 更新到 Angular 4.0 。Angular 2.x 的文档在 [v2.angular.io](https://v2.angular.io) 。
+## 更新到 Angular 4.0 。Angular 2.x 的文档在 [v2.angular.cn](https://v2.angular.io) 。
 
 ## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
@@ -259,7 +259,7 @@ This was [removed in August 2017](https://github.com/angular/angular/pull/18694)
 viewed in the [v2 documentation](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html).
 
 本章已经 [于 2017 年 8 月移除](https://github.com/angular/angular/pull/18694)，
-不过仍然可以在[第二版的文档中](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html)看到。
+不过仍然可以在[第二版的文档中](https://v2.angular.cn/docs/ts/latest/cookbook/ts-to-js.html)看到。
 
 ## Sync with Angular v.2.1.1 (2016-10-21)
 

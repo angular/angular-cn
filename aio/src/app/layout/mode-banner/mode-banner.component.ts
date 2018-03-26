@@ -6,7 +6,7 @@ import { VersionInfo } from 'app/navigation/navigation.service';
   template: `
   <div *ngIf="mode == 'archive'" class="mode-banner">
     This is the <strong>archived documentation for Angular v{{version?.major}}.</strong>
-    Please visit <a href="https://angular.io/">angular.io</a> to see documentation for the current version of Angular.
+    Please visit <a href="https://angular.cn/">angular.io</a> to see documentation for the current version of Angular.
   </div>
   `
 })

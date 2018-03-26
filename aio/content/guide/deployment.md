@@ -301,7 +301,7 @@ For example, given the `<base href="/my/app/">`, the browser resolves a URL such
 into a server request for `my/app/some/place/foo.jpg`.
 During navigation, the Angular router uses the _base href_ as the base path to component, template, and module files.
 
-HTML 中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
+HTML 中的[_&lt;base href="..."/&gt;_](/guide/router)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
 比如，指定 `<base href="/my/app/">` 时，浏览器就会把 `some/place/foo.jpg` 这样的 URL 解析成到 `my/app/some/place/foo.jpg` 的服务端请求。
 在浏览期间，Angular 路由器会使用*base href*作为组件、模板和模块文件的基地址。
 
