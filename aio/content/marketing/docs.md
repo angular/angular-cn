@@ -7,56 +7,31 @@ Angular is a platform that makes it easy to build applications with the web. Ang
 Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。
 
 <div class="card-container">
-
   <a href="generated/live-examples/toh-pt1/stackblitz.html" target="_blank" class="docs-card"
     title="Experience Angular in a live coding environment">
-
       <section>Get a Glimpse of Angular</section>
-
       <section>Angular 走马观花</section>
-
       <p>A quick look at an Angular "hello world" application.</p>
-
       <p>快速体验 Angular 的 "hello world" 应用。</p>
-
       <p class="card-footer">Angular in Action</p>
-
       <p class="card-footer">体验 Angular</p>
-
   </a>
-
   <a href="guide/quickstart" class="docs-card" title="Angular Quickstart">
-
       <section>Get Going with Angular</section>
-
       <section>开始使用 Angular</section>
-
       <p>Get going on your own environment with the Quickstart.</p>
-
       <p>跟随"快速上手"构建你的开发环境</p>
-
       <p class="card-footer">Quickstart</p>
-
       <p class="card-footer">快速上手</p>
-
   </a>
-
   <a href="guide/architecture" class="docs-card" title="Angular Architecture">
-
       <section>Fundamentals</section>
-
       <section>基本原理</section>
-
       <p>Learn Angular application fundamentals, starting with an architecture overview.</p>
-
       <p>学习 Angular 应用的基本原理。<br/>从架构概览开始。</p>
-
       <p class="card-footer">Architecture</p>
-
       <p class="card-footer">架构</p>
-
   </a>
-
 </div>
 
 ## Assumptions
