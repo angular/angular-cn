@@ -1262,7 +1262,7 @@ values and doesn't throw helpful errors.
 
 ## Create the `HeroListComponent` and `HeroService`
 
-### 创建 `HeroListComponent` 和 `HeroService`
+## 创建 `HeroListComponent` 和 `HeroService`
 
 To demonstrate further reactive forms techniques, it is helpful to add more functionality to the example by adding a `HeroListComponent` and a `HeroService`.
 
