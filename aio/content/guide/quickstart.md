@@ -23,7 +23,7 @@ benefit _every_ Angular project.
 By the end of the chapter, you'll have a basic understanding of development with the CLI
 and a foundation for both these documentation samples and for real world applications.
 
-在本章的末尾，你会通过 CLI 对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
+在本章的末尾，你会对用 CLI 进行开发有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
 And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">download the example.</a>
 
