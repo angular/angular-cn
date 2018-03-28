@@ -92,6 +92,9 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - HNUHell（来自 Github）
 - SkyStardust（来自 Github）
 - Eve（来自 Github）
+- zeed-w-beez（来自 Github）
+- ChristinaLy（来自 Github）
+- luguokong（来自 Github）
 - 另外还有一些做好事不留名的活雷锋
 
 想让你的名字也出现在这里吗？请提供[反馈、纠错](https://github.com/angular/angular-cn/issues)。
