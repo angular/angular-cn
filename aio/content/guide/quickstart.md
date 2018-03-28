@@ -441,8 +441,8 @@ Any files outside of this folder are meant to support building your app.
       without changing any code by appending the`--aot` flag to the `ng build` and `ng serve` commands.
 
       这是应用的主要入口点。
-      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块 `AppModule`，使其运行在浏览器中。
-      你还可以使用[AOT compiler](guide/glossary#ahead-of-time-aot-compilation)编译器，而不用修改任何代码 —— 只要给 `ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
+      使用[JIT 编译器](guide/glossary#jit)编译本应用，并启动应用的根模块 `AppModule`，使其运行在浏览器中。
+      你还可以使用[AOT 编译器](guide/glossary#ahead-of-time-aot-compilation)，而不用修改任何代码 —— 只要给 `ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
 
     </td>
 
