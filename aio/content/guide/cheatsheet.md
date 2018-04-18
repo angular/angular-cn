@@ -11,18 +11,18 @@
 
     Bootstrapping
 
+    引导/启动
+
 </th>
 
 <th>
 
     <p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -40,7 +40,6 @@
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -55,13 +54,11 @@
 <th>
 
     <p><code>import { NgModule } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -160,7 +157,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -179,7 +175,6 @@ is available to <code>declarations</code> of this module.</p>
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -224,7 +219,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Binds the presence of the CSS class <code>extra-sparkle</code> on the element to the truthiness of the expression <code>isDelightful</code>.</p>
 
-    <p>根据<code>isDelightful</code>表达式的结果是否为真，决定CSS类<code>extra-sparkle</code>是否出现在当前元素上。</p>
+    <p>根据<code>isDelightful</code>表达式的结果是否为真，决定 CSS 类<code>extra-sparkle</code>是否出现在当前元素上。</p>
 
 </td>
 
@@ -240,7 +235,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Binds style property <code>width</code> to the result of expression <code>mySize</code> in pixels. Units are optional.</p>
 
-    <p>把CSS样式属性<code>width</code>的px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>
+    <p>把 CSS 样式属性<code>width</code>的 px（像素）值绑定到表达式<code>mySize</code>的结果。单位是可选的。</p>
 
 </td>
 
@@ -256,7 +251,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Calls method <code>readRainbow</code> when a click event is triggered on this button element (or its children) and passes in the event object.</p>
 
-    <p>当这个按钮元素（及其子元素）上的click事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>
+    <p>当这个按钮元素（及其子元素）上的 click 事件触发时，调用方法<code>readRainbow</code>，并把这个事件对象作为参数传进去。</p>
 
 </td>
 
@@ -338,6 +333,9 @@ is available to <code>declarations</code> of this module.</p>
     <p>The <code>*</code> symbol turns the current element into an embedded template. Equivalent to:
 <code>&lt;ng-template [myUnless]="myExpression"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/ng-template&gt;</code></p>
 
+    <p>这个 <code>*</code> 符号会把当前元素转换成一个内嵌的模板。它等价于：
+<code>&lt;ng-template [myUnless]="myExpression"&gt;&lt;p&gt;...&lt;/p&gt;&lt;/ng-template&gt;</code></p>
+
 </td>
 
 </tr><tr>
@@ -405,7 +403,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -415,18 +412,18 @@ is available to <code>declarations</code> of this module.</p>
 
     Built-in directives
 
+    内置指令
+
 </th>
 
 <th>
 
     <p><code>import { CommonModule } from '@angular/common';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -455,7 +452,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>
 
-    <p>把li元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。</p>
+    <p>把 li 元素及其内容变成一个模板，并使用这个模板为列表中的每一个条目实例化一个视图。</p>
 
 </td>
 
@@ -492,7 +489,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 <tr>
 
 <td>
@@ -505,10 +501,11 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Allows you to assign styles to an HTML element using CSS. You can use CSS directly, as in the first example, or you can call a method from the component.</p>
 
+    <p>允许你使用 CSS 为 HTML 元素指定样式。你可以像第一个例子那样直接使用 CSS，也可以调用组件中的方法。</p>
+
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -518,18 +515,18 @@ is available to <code>declarations</code> of this module.</p>
 
     Forms
 
+    表单
+
 </th>
 
 <th>
 
     <p><code>import { FormsModule } from '@angular/forms';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -547,7 +544,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -557,18 +553,18 @@ is available to <code>declarations</code> of this module.</p>
 
     Class decorators
 
+    类装饰器
+
 </th>
 
 <th>
 
     <p><code>import { Directive, ... } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -628,13 +624,13 @@ is available to <code>declarations</code> of this module.</p>
 <td>
 
     <p>Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.
-
 </p>
+
+    <p>声明某个类具有一些依赖。当依赖注入器要创建这个类的实例时，应该把这些依赖注入到它的构造函数中。</p>
 
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -644,18 +640,18 @@ is available to <code>declarations</code> of this module.</p>
 
     Directive configuration
 
+    指令配置项
+
 </th>
 
 <th>
 
     <p><code>@Directive({ property1: value1, ... })</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -694,7 +690,6 @@ is available to <code>declarations</code> of this module.</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -704,19 +699,22 @@ is available to <code>declarations</code> of this module.</p>
 
     Component configuration
 
+    组件配置项
+
 </th>
 
 <th>
 
     <p>
-
 <code>@Component</code> extends <code>@Directive</code>,
 so the <code>@Directive</code> configuration applies to components as well</p>
+
+    <p><code>@Component</code> 继承自 <code>@Directive</code>，
+    因此，<code>@Directive</code> 的这些配置项也同样适用于组件。</p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -782,7 +780,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -792,18 +789,18 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     Class field decorators for directives and components
 
+    给指令和组件使用的类属性配置项
+
 </th>
 
 <th>
 
     <p><code>import { Input, ... } from '@angular/core';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -934,7 +931,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -944,20 +940,20 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     Directive and component change detection and lifecycle hooks
 
+    指令与组件的变更检测与生命周期钩子
+
 </th>
 
 <th>
 
     <p>(implemented as class methods)
-
 </p>
 
-<p>由类的方法实现。</p>
+    <p>由类的方法实现。</p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1103,7 +1099,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -1113,6 +1108,8 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     Dependency injection configuration
 
+    依赖注入配置项
+
 </th>
 
 <th>
@@ -1120,7 +1117,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1170,7 +1166,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 <table class="is-full-width is-fixed-layout">
@@ -1180,18 +1175,18 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     Routing and navigation
 
+    路由与导航
+
 </th>
 
 <th>
 
     <p><code>import { Routes, RouterModule, ... } from '@angular/router';</code>
-
 </p>
 
 </th>
 
 </tr>
-
 <tr>
 
 <td>
@@ -1337,7 +1332,6 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 </td>
 
 </tr>
-
 </tbody></table>
 
 </div>

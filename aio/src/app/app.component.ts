@@ -150,7 +150,7 @@ export class AppComponent implements OnInit {
         // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
         const computedVersions: NavigationNode[] = [
           { title: 'next', url: 'https://next.angular.io' },
-          { title: 'stable', url: 'https://angular.io' },
+          { title: 'stable', url: 'https://angular.cn' },
         ];
         if (this.deployment.mode === 'archive') {
           computedVersions.push({ title: `v${versionInfo.major}` });

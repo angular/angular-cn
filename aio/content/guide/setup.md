@@ -19,7 +19,7 @@ maintained [on github](https://github.com/angular/quickstart "Install the github
 
 Make sure you have [node and npm installed](guide/setup#install-prerequisites "What if you don't have node and npm?").
 
-确定你已经安装了 [node和npm](guide/setup#install-prerequisites "如果你没有node和npm？")。
+确定你已经安装了 [node 和 npm](guide/setup#install-prerequisites "如果你没有 node 和 npm？")。
 
 {@a clone}
 
@@ -32,7 +32,6 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 运行下列命令来执行*克隆并启动*步骤。
 
 <code-example language="sh" class="code-shell">
-
   git clone https://github.com/angular/quickstart.git quickstart
   cd quickstart
   npm install
@@ -44,7 +43,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 `npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
-在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
+在*Bash for Windows*中 `npm start` 可能会失败，因为到 2017-01 为止它还不支持访问网络上的服务器。
 
 </div>
 
@@ -61,7 +60,6 @@ and unzip it into your project folder. Then perform the remaining steps with the
 并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。
 
 <code-example language="sh" class="code-shell">
-
   cd quickstart
   npm install
   npm start
@@ -72,7 +70,7 @@ and unzip it into your project folder. Then perform the remaining steps with the
 
 `npm start` fails in _Bash for Windows_ in versions earlier than the Creator's Update (April 2017).
 
-在*Bash for Windows*中`npm start`可能会失败，因为到2017-01为止它还不支持访问网络上的服务器。
+在*Bash for Windows*中 `npm start` 可能会失败，因为到 2017-01 为止它还不支持访问网络上的服务器。
 
 </div>
 
@@ -86,13 +84,13 @@ You can quickly delete the _non-essential_ files that concern testing and QuickS
 (***including all git-related artifacts*** such as the `.git` folder and `.gitignore`!).
 
 你可以快速删除一些涉及到测试和维护快速开始版本库的 *非必需* 文件
-（***包括所有git相关的文件***如 `.git` 文件夹和 `.gitignore`！）。
+（***包括所有 git 相关的文件***如 `.git` 文件夹和 `.gitignore`！）。
 
 <div class="alert is-important">
 
 Do this only in the beginning to avoid accidentally deleting your own tests and git setup!
 
-请只在开始时执行此删除操作，以防你自己的测试和git文件被意外删除！
+请只在开始时执行此删除操作，以防你自己的测试和 git 文件被意外删除！
 
 </div>
 
@@ -103,7 +101,6 @@ Open a terminal window in the project folder and enter the following commands fo
 ### OS/X (bash)
 
 <code-example language="sh" class="code-shell">
-
   xargs rm -rf &lt; non-essential-files.osx.txt
   rm src/app/*.spec*.ts
   rm non-essential-files.osx.txt
@@ -113,7 +110,6 @@ Open a terminal window in the project folder and enter the following commands fo
 ### Windows
 
 <code-example language="sh" class="code-shell">
-
   for /f %i in (non-essential-files.txt) do del %i /F /S /Q
   rd .git /s /q
   rd e2e /s /q
@@ -206,19 +202,19 @@ Each file has a distinct purpose and evolves independently as the application gr
 Files outside `src/` concern building, deploying, and testing your app.
 They include configuration files and external dependencies.
 
-`src/` 目录之外的文件为构建、部署和测试app相关的文件，他们只包括配置文件和外部依赖。
+`src/` 目录之外的文件为构建、部署和测试 app 相关的文件，他们只包括配置文件和外部依赖。
 
 Files inside `src/` "belong" to your app.
 Add new Typescript, HTML and CSS files inside the `src/` directory, most of them inside `src/app`,
 unless told to do otherwise.
 
-`src/` 目录下的文件才“属于”你的app。
-除非明确指出，否则教程中添加的 TypeScript，HTML和CSS文件都在`src/`目录下，
-大多数在`src/app`目录中。
+`src/` 目录下的文件才“属于”你的 app。
+除非明确指出，否则教程中添加的 TypeScript，HTML 和 CSS 文件都在 `src/` 目录下，
+大多数在 `src/app` 目录中。
 
 The following are all in `src/`
 
-`src/`目录文件详情如下：
+`src/` 目录文件详情如下：
 
 <style>
   td, th {vertical-align: top}
@@ -268,7 +264,7 @@ The following are all in `src/`
       It is the **root** component of what will become a tree of nested components
       as the application evolves.
 
-      定义与《快速上手》游乐场同样的`AppComponent`。
+      定义与《快速上手》游乐场同样的 `AppComponent`。
       它是**根**组件，随着应用的演变，它将变成一颗嵌套组件树。
 
     </td>
@@ -289,8 +285,8 @@ The following are all in `src/`
       Right now it declares only the `AppComponent`.
       Soon there will be more components to declare.
 
-      定义`AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
-      目前，它只声明了`AppComponent`。
+      定义 `AppModule`，[根模块](guide/bootstrapping "AppModule: 根模块")为 Angular 描述如何组装应用。
+      目前，它只声明了 `AppComponent`。
       不久，它将声明更多组件。
 
     </td>
@@ -314,7 +310,7 @@ The following are all in `src/`
       it's the only viable choice for a sample running in a _live-coding_ environment like Stackblitz.
       You'll learn about alternative compiling and [deployment](guide/deployment) options later in the documentation.
 
-      使[即时 (JiT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping "启动应用")并运行应用。
+      使[即时 (JIT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping "启动应用")并运行应用。
       对于大多数项目的开发，这都是合理的选择。而且它是在像 Stackblitz 这样的*在线编程*环境中运行例子的唯一选择。
       你将在本文档中学习其他编译和开发选择。
 
@@ -352,17 +348,15 @@ Node.js 和 npm 对使用 Angular 和其他平台进行现代网络开发是至�
 Node 驱动客户端开发和构建工具。
 *npm* 包管理器本身是 *node* 应用，用于安装 JavaScript 库。
 
-<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">
-Get them now</a> if they're not already installed on your machine.
+<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">Get them now</a> if they're not already installed on your machine.
 
-如果你的电脑没有安装它们，<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">
-立刻安装它们</a>。
+如果你的电脑没有安装它们，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">现在安装</a>。
 
 **Verify that you are running node `v4.x.x` or higher and npm `3.x.x` or higher**
 by running the commands `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-在终端/控制器窗口运行命令`node -v`和`npm -v`，来**确认你运行的 node 是`v4.x.x`或更高，npm 为`3.x.x`或更高。**
+在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v4.x.x` 或更高，npm 为 `3.x.x` 或更高。**
 老版本会产生错误。
 
 We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
@@ -393,8 +387,8 @@ It creates the equivalent of `app.module.ts` and `main.ts` internally _for the p
 so the reader can discover Angular without distraction.
 The other samples are based on the QuickStart seed.
 
-[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了`AppComponent`文件。
-它在内部创建了只为*游乐场*而准备的等价`app.module.ts`和`main.ts`。
+[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了 `AppComponent` 文件。
+它在内部创建了只为*游乐场*而准备的等价 `app.module.ts` 和 `main.ts`。
 所以读者可以在零干扰的情况下探索 Angular。
 其他例子是基于 《快速上手》种子的。
 
@@ -435,7 +429,14 @@ For real development, we strongly recommend [developing locally](guide/setup#dev
 
 ## Appendix: develop locally with IE
 
+## 附录：使用 IE 进行本地开发
+
 If you develop angular locally with `ng serve`, there will be `websocket` connection being setup automatically between browser and local dev server, so when your code change, browser can automatically refresh.
+
+如果你使用 `ng serve` 进行本地开发，就会在浏览器和本地开发服务器之间自动建立一个 `WebSocket` 连接，因此，当你的代码变化时，浏览器也会自动刷新。
 
 In windows, by default one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
 So if IE was refreshed manunally or automatically by `ng serve`, sometimes, the websocket will not close properly, when websocket connections exceed limitations, `SecurityError` will be thrown, this error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
+
+在 Windows 中，默认情况下一个应用只能有六个 WebSocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 中的 WebSocket 设置部分</a>。
+所以，如果 IE 手动刷新或被 `ng serve` 触发了自动刷新，有时候 WebSocket 可能无法正常关闭，当 WebSocket 的连接数超限时，就会抛出 `SecurityError` 异常。请放心，这个异常对 Angular 应用没什么影响，你重启一下 IE 就能消除这个错误，或者修改 Windows 注册表来修改这个上限。

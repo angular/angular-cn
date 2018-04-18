@@ -18,9 +18,7 @@ Using the Angular CLI, generate a new component named `heroes`.
 使用 Angular CLI 创建一个名为 `heroes` 的新组件。
 
 <code-example language="sh" class="code-shell">
-
   ng generate component heroes
-
 </code-example>
 
 The CLI creates a new folder, `src/app/heroes/` and generates
@@ -35,7 +33,6 @@ The `HeroesComponent` class file is as follows:
 <code-example 
   path="toh-pt1/src/app/heroes/heroes.component.ts" region="v1" 
   title="app/heroes/heroes.component.ts (initial version)" linenums="false">
-
 </code-example>
 
 You always import the `Component` symbol from the Angular core library
@@ -74,7 +71,7 @@ The `ngOnInit` is a [lifecycle hook](guide/lifecycle-hooks#oninit)
 Angular calls `ngOnInit` shortly after creating a component.
 It's a good place to put initialization logic.
 
-`ngOnInit` 是一个[生命周期钩子](guide/lifecycle-hooks#oninit)，Angular 在创建完组件后很快就会调用 `ngOnInit`。这里是放置初始化逻辑的好地方。 
+`ngOnInit` 是一个[生命周期钩子](guide/lifecycle-hooks#oninit)，Angular 在创建完组件后很快就会调用 `ngOnInit`。这里是放置初始化逻辑的好地方。
 
 Always `export` the component class so you can `import` it elsewhere ... like in the `AppModule`.
 
@@ -89,7 +86,6 @@ Add a `hero` property to the `HeroesComponent` for a hero named "Windstorm."
 往 `HeroesComponent` 中添加一个 `hero` 属性，用来表示一个名叫 “Windstorm” 的英雄。
 
 <code-example path="toh-pt1/src/app/heroes/heroes.component.ts" region="add-hero" title="heroes.component.ts (hero property)" linenums="false">
-
 </code-example>
 
 ### Show the hero
@@ -103,7 +99,6 @@ replace it with a data binding to the new `hero` property.
 打开模板文件 `heroes.component.html`。删除 Angular CLI 自动生成的默认内容，改为到 `hero` 属性的数据绑定。
 
 <code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" title="heroes.component.html" region="show-hero-1" linenums="false">
-
 </code-example>
 
 ## Show the _HeroesComponent_ view
@@ -121,7 +116,6 @@ So add an `<app-heroes>` element to the `AppComponent` template file, just below
 所以，只要把 `<app-heroes>` 元素添加到 `AppComponent` 的模板文件中就可以了，就放在标题下方。
 
 <code-example path="toh-pt1/src/app/app.component.html" title="src/app/app.component.html" linenums="false">
-
 </code-example>
 
 Assuming that the CLI `ng serve` command is still running,
@@ -143,7 +137,6 @@ Give it `id` and `name` properties.
 在 `src/app` 文件夹中为 `Hero` 类创建一个文件，并添加 `id` 和 `name` 属性。
 
 <code-example path="toh-pt1/src/app/hero.ts"  title="src/app/hero.ts" linenums="false">
-
 </code-example>
 
 Return to the `HeroesComponent` class and import the `Hero` class.
@@ -154,7 +147,7 @@ Refactor the component's `hero` property to be of type `Hero`.
 Initialize it with an `id` of `1` and the name `Windstorm`.
 
 把组件的 `hero` 属性的类型重构为 `Hero`。
-然后以`1`为 `id`、以 “Windstorm” 为名字初始化它。
+然后以 `1` 为 `id`、以 “Windstorm” 为名字初始化它。
 
 The revised `HeroesComponent` class file should look like this:
 
@@ -162,7 +155,6 @@ The revised `HeroesComponent` class file should look like this:
 
 <code-example path="toh-pt1/src/app/heroes/heroes.component.ts" linenums="false"
   title= "src/app/heroes/heroes.component.ts">
-
 </code-example>
 
 The page no longer displays properly because you changed the hero from a string to an object.
@@ -182,7 +174,6 @@ and show both `id` and `name` in a details layout like this:
   path="toh-pt1/src/app/heroes/heroes.component.1.html"
   region="show-hero-2" 
   title="heroes.component.html (HeroesComponent's template)" linenums="false">
-
 </code-example>
 
 The browser refreshes and display's the hero's information.
@@ -200,7 +191,6 @@ Modify the `hero.name` binding like this.
 <code-example
   path="toh-pt1/src/app/heroes/heroes.component.html"
   region="pipe">
-
 </code-example>
 
 The browser refreshes and now the hero's name is displayed in capital letters.
@@ -225,19 +215,19 @@ Angular 发布了一些内置管道，而且你还可以创建自己的管道。
 
 Users should be able to edit the hero name in an `<input>` textbox.
 
-用户应该能在一个`<input>`输入框中编辑英雄的名字。
+用户应该能在一个 `<input>` 输入框中编辑英雄的名字。
 
 The textbox should both _display_ the hero's `name` property
 and _update_ that property as the user types.
 That means data flow from the component class _out to the screen_ and
 from the screen _back to the class_.
 
-当用户输入时，这个输入框应该能同时*显示*和*修改*英雄的`name`属性。
+当用户输入时，这个输入框应该能同时*显示*和*修改*英雄的 `name` 属性。
 也就是说，数据流从组件类**流出到屏幕**，并且从屏幕**流回到组件类**。
 
 To automate that data flow, setup a two-way data binding between the `<input>` form element and the `hero.name` property.
 
-要想让这种数据流动自动化，就要在表单元素`<input>`和组件的`hero.name`属性之间建立双向数据绑定。
+要想让这种数据流动自动化，就要在表单元素 `<input>` 和组件的 `hero.name` 属性之间建立双向数据绑定。
 
 ### Two-way binding
 
@@ -273,10 +263,8 @@ for a message like
 打开浏览器的开发工具，就会在控制台中看到如下信息：
 
 <code-example language="sh" class="code-shell">
-
 Template parse errors:
 Can't bind to 'ngModel' since it isn't a known property of 'input'.
-
 </code-example>
 
 Although `ngModel` is a valid Angular directive, it isn't available by default. 
@@ -285,7 +273,7 @@ Although `ngModel` is a valid Angular directive, it isn't available by default.
 
 It belongs to the optional `FormsModule` and you must _opt-in_ to using it.
 
-它属于一个可选模块`FormsModule`，你必须自行添加此模块才能使用该指令。
+它属于一个可选模块 `FormsModule`，你必须自行添加此模块才能使用该指令。
 
 ## _AppModule_
 
@@ -322,7 +310,6 @@ Open `AppModule` (`app.module.ts`) and import the `FormsModule` symbol from the 
 
 <code-example path="toh-pt1/src/app/app.module.ts" title="app.module.ts (FormsModule symbol import)"
  region="formsmodule-js-import">
-
 </code-example>
 
 Then add `FormsModule` to the `@NgModule` metadata's `imports` array, which contains a list of external modules that the app needs.
@@ -331,12 +318,11 @@ Then add `FormsModule` to the `@NgModule` metadata's `imports` array, which cont
 
 <code-example path="toh-pt1/src/app/app.module.ts" title="app.module.ts ( @NgModule imports)"
 region="ng-imports">
-
 </code-example>
 
 When the browser refreshes, the app should work again. You can edit the hero's name and see the changes reflected immediately in the `<h2>` above the textbox.
 
-刷新浏览器，应用又能正常工作了。你可以编辑英雄的名字，并且会看到这个改动立刻体现在这个输入框上方的`<h2>`中。
+刷新浏览器，应用又能正常工作了。你可以编辑英雄的名字，并且会看到这个改动立刻体现在这个输入框上方的 `<h2>` 中。
 
 ### Declare _HeroesComponent_ 
 
@@ -360,7 +346,6 @@ Open `src/app/app.module.ts` and find `HeroesComponent` imported near the top.
 打开 `src/app/app.module.ts` 你就会发现 `HeroesComponent` 已经在顶部导入过了。
 
 <code-example path="toh-pt1/src/app/app.module.ts" region="heroes-import" >
-
 </code-example>
 
 The `HeroesComponent` is declared in the `@NgModule.declarations` array.
@@ -368,7 +353,6 @@ The `HeroesComponent` is declared in the `@NgModule.declarations` array.
 `HeroesComponent` 也已经声明在了 `@NgModule.declarations` 数组中。
 
 <code-example path="toh-pt1/src/app/app.module.ts" region="declarations">
-
 </code-example>
 
 Note that `AppModule`  declares both application components, `AppComponent` and `HeroesComponent`.
@@ -413,29 +397,29 @@ Your app should look like this <live-example></live-example>. Here are the code 
 
 * You used the CLI to create a second `HeroesComponent`.
 
-  你使用 CLI 创建了第二个组件 `HeroesComponent`。
+   你使用 CLI 创建了第二个组件 `HeroesComponent`。
 
 * You displayed the `HeroesComponent` by adding it to the `AppComponent` shell. 
 
-  你把 `HeroesComponent` 添加到了壳组件 `AppComponent` 中，以便显示它。
+   你把 `HeroesComponent` 添加到了壳组件 `AppComponent` 中，以便显示它。
 
 * You applied the `UppercasePipe` to format the name.
 
-  你使用 `UppercasePipe` 来格式化英雄的名字。
+   你使用 `UppercasePipe` 来格式化英雄的名字。
 
 * You used two-way data binding with the `ngModel` directive.
 
-  你用 `ngModel` 指令实现了双向数据绑定。
+   你用 `ngModel` 指令实现了双向数据绑定。
 
 * You learned about the `AppModule`.
 
-  你知道了 `AppModule`。
+   你知道了 `AppModule`。
 
 * You imported the `FormsModule` in the `AppModule` so that Angular would recognize and apply the `ngModel` directive. 
 
-  你把 `FormsModule` 导入了 `AppModule`，以便 Angular 能识别并应用 `ngModel` 指令。
+   你把 `FormsModule` 导入了 `AppModule`，以便 Angular 能识别并应用 `ngModel` 指令。
 
 * You learned the importance of declaring components in the `AppModule`
 and appreciated that the CLI declared it for you.
 
-  你知道了把组件声明到 `AppModule` 是很重要的，并认识到 CLI 会自动帮你声明它。
+   你知道了把组件声明到 `AppModule` 是很重要的，并认识到 CLI 会自动帮你声明它。
