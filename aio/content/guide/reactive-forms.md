@@ -399,7 +399,7 @@ This guide uses four fundamental classes to build a reactive form:
 
       Class
 
-      CSS 类
+      类
 
     </th>
 
