@@ -44,12 +44,12 @@ if they are not already on your machine.
 
 <div class="l-sub-section">
 
-**Verify that you are running at least node `6.9.x` and npm `3.x.x`**
+**Verify that you are running at least Node.js version `8.x` or greater and npm version `5.x`**
 by running `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors, but newer versions are fine.
 
 请先在终端/控制台窗口中运行命令 `node -v` 和 `npm -v`，
-**来验证一下你正在运行 node `6.9.x` 和 npm `3.x.x` 以上的版本。**
+**来验证一下你正在运行 node `8.x` 和 npm `5.x` 以上的版本。**
 更老的版本可能会出现错误，更新的版本则没问题。
 
 </div>
@@ -71,22 +71,30 @@ Open a terminal window.
 
 打开终端窗口。
 
-Generate a new project and skeleton application by running the following commands:
+Generate a new project and default app by running the following command:
 
-运行下列命令来生成一个新项目以及应用的骨架代码：
+运行下列命令来生成一个新项目以及默认应用的代码：
 
 <code-example language="sh" class="code-shell">
   ng new my-app
 
 </code-example>
 
+The Angular CLI installs the necessary npm packages, creates the project files, and populates the project with a simple default app. This can take some time.
+
+Angular CLI 安装必要的 npm 包，创建项目文件并用一个简单的默认应用填充项目。这可能需要一些时间。
+
 <div class="l-sub-section">
 
-Patience, please.
-It takes time to set up a new project; most of it is spent installing npm packages.
+You can add pre-packaged functionality to a new project by using the `ng add` command.
+The `ng add` command transforms a project by applying the schematics in the specified package. For more information, see the [Angular CLI documentation](https://github.com/angular/angular-cli/wiki/add).
 
-请耐心等待。
-创建新项目需要花费很多时间，大多数时候都是在安装那些 npm 包。
+你可以使用 `ng add` 命令将预先打包好的功能添加到新项目中。
+`ng add` 命令通过在指定的包中应用图表来转换项目。有关更多信息，请参阅[Angular CLI文档](https://github.com/angular/angular-cli/wiki/add)。
+
+Angular Material provides schematics for typical app layouts. See the [Angular Material documentation](https://material.angular.io/guides) for details.
+
+Angular Material 提供典型的应用布局示例，有关详细信息请参阅[Angular Material 文档](https://material.angular.io/guides)。
 
 </div>
 
@@ -249,9 +257,13 @@ Any files outside of this folder are meant to support building your app.
 
     </div>
 
+    <div class="file">browserslist</div>
+
     <div class="file">favicon.ico</div>
 
     <div class="file">index.html</div>
+
+    <div class="file">karma.conf.js</div>
 
     <div class="file">main.ts</div>
 
@@ -264,6 +276,8 @@ Any files outside of this folder are meant to support building your app.
     <div class="file">tsconfig.app.json</div>
 
     <div class="file">tsconfig.spec.json</div>
+
+    <div class="file">tslint.json</div>
 
   </div>
 
@@ -387,6 +401,23 @@ Any files outside of this folder are meant to support building your app.
 
     <td>
 
+      `browserslist`
+
+    </td>
+
+    <td>
+
+      A configuration file to share [target browsers](https://github.com/browserslist/browserslist) between different front-end tools.
+
+      用于在不同前端工具之间共享[目标浏览器](https://github.com/browserslist/browserslist)的配置文件。
+
+    </td>
+
+  </tr>
+  <tr>
+
+    <td>
+
       `favicon.ico`
 
     </td>
@@ -420,6 +451,23 @@ Any files outside of this folder are meant to support building your app.
       这是别人访问你的网站是看到的主页面的 HTML 文件。
       大多数情况下你都不用编辑它。
       在构建应用时，CLI 会自动把所有 `js` 和 `css` 文件添加进去，所以你不必在这里手动添加任何 `<script>` 或 `<link>` 标签。
+
+    </td>
+
+  </tr>
+  <tr>
+
+    <td>
+
+      `karma.conf.js`
+
+    </td>
+
+    <td>
+
+      Unit test configuration for the [Karma test runner](https://karma-runner.github.io/2.0/index.html), used when running ng test.
+
+      运行 ng 测试时使用的 [Karma 测试运行器](https://karma-runner.github.io/2.0/index.html)的单元测试配置。
 
     </td>
 
@@ -527,6 +575,24 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+  <tr>
+
+    <td>
+
+      `tslint.json`
+
+    </td>
+
+    <td>
+
+      Additional Linting configuration for [TSLint](https://palantir.github.io/tslint/) together with [Codelyzer](http://codelyzer.com/), used when running `ng lint`. Linting helps keep your code style consistent.
+
+      给[TSLint](https://palantir.github.io/tslint/)和[Codelyzer](http://codelyzer.com/)用的配置信息，当运行 `ng lint` 时会用到。
+      Lint 功能可以帮你保持代码风格的统一。
+
+    </td>
+
+  </tr>
 </table>
 
 ### The root folder
@@ -550,11 +616,19 @@ These files go in the root folder next to `src/`.
 
     <div class='children'>
 
-      <div class="file">app.e2e-spec.ts</div>
+      <div class="file">src</div>
 
-      <div class="file">app.po.ts</div>
+      <div class='children'>
+
+        <div class="file">app.e2e-spec.ts</div>
+
+        <div class="file">app.po.ts</div>
+
+      </div>
 
       <div class="file">tsconfig.e2e.json</div>
+
+      <div class="file">protractor.conf.js</div>
 
     </div>
 
@@ -562,17 +636,19 @@ These files go in the root folder next to `src/`.
 
     <div class="file">src/...</div>
 
-    <div class="file">.angular-cli.json</div>
+    <div class='children'>
+
+      <div class="file">karma.conf.js</div>
+
+    </div>
 
     <div class="file">.editorconfig</div>
 
     <div class="file">.gitignore</div>
 
-    <div class="file">karma.conf.js</div>
+    <div class="file">angular.json</div>
 
     <div class="file">package.json</div>
-
-    <div class="file">protractor.conf.js</div>
 
     <div class="file">README.md</div>
 
@@ -656,28 +732,6 @@ These files go in the root folder next to `src/`.
 
     <td>
 
-      `.angular-cli.json`
-
-    </td>
-
-    <td>
-
-      Configuration for Angular CLI.
-      In this file you can set several defaults and also configure what files are included
-      when your project is built.
-      Check out the official documentation if you want to know more.
-
-      Angular CLI 的配置文件。
-      在这个文件中，你可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
-      要了解更多，请参阅它的官方文档。
-
-    </td>
-
-  </tr>
-  <tr>
-
-    <td>
-
       `.editorconfig`
 
     </td>
@@ -716,16 +770,20 @@ These files go in the root folder next to `src/`.
 
     <td>
 
-      `karma.conf.js`
+      `angular.json`
 
     </td>
 
     <td>
 
-      Unit test configuration for the [Karma test runner](https://karma-runner.github.io),
-      used when running `ng test`.
+      Configuration for Angular CLI.
+      In this file you can set several defaults and also configure what files are included
+      when your project is built.
+      Check out the official documentation if you want to know more.
 
-      给[Karma](https://karma-runner.github.io)的单元测试配置，当运行 `ng test` 时会用到它。
+      Angular CLI 的配置文件。
+      在这个文件中，你可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
+      要了解更多，请参阅它的官方文档。
 
     </td>
 
