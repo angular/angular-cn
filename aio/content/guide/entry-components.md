@@ -18,7 +18,7 @@ A basic understanding of the following concepts:
 
 An entry component is any component that Angular loads imperatively, (which means you’re not referencing it in the template), by type. You specify an entry component by bootstrapping it in an NgModule, or including it in a routing definition.
 
-从分类上说，入口组件是 Angular 命令式加载的（也就是说你没有在模板中引用过它）任意组件，
+从分类上说，入口组件是 Angular 必须加载的（也就是说你没有在模板中引用过它）任意组件，
 你可以通过在 NgModule 中引导它，或者把它包含在路由定义中来指定入口组件。
 
 <div class="alert is-helpful">
