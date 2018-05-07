@@ -1,6 +1,6 @@
-# AngularJS to Angular Quick Reference
+# AngularJS to Angular Concepts: Quick Reference
 
-# 从 AngularJS 到 Angular 快速参考
+# 关于AngularJS 与 Angular 概念的快速参考
 
 {@a top}
 
@@ -1576,10 +1576,10 @@ also encapsulate a style sheet within a specific component.
 
       <code-example hideCopy path="ajs-quick-reference/.angular-cli.1.json" region="styles" linenums="false"></code-example>
 
-      With the Angular CLI, you can configure your global styles in the `.angular-cli.json` file.
+      With the Angular CLI, you can configure your global styles in the `angular.json` file.
       You can rename the extension to `.scss` to use sass.
 
-      使用 Angular CLI，你可以在 `.angular-cli.json` 文件中配置全局样式。
+      使用 Angular CLI，你可以在 `angular.json` 文件中配置全局样式。
       也可以把扩展名改为 `.scss` 来使用 sass。
 
       ### StyleUrls

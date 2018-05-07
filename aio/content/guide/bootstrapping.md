@@ -279,6 +279,6 @@ root module's `bootstrap` array.
 ## 关于 Angular 模块的更多知识
 
 For more on NgModules you're likely to see frequently in apps,
-see [Frequently Used Modules](#).
+see [Frequently Used Modules](guide/frequent-ngmodules).
 
-要进一步了解常见的 NgModules 知识，参见 [关于模块的常见问题](#)。
+要进一步了解常见的 NgModules 知识，参见 [关于模块的常见问题](guide/frequent-ngmodules)。

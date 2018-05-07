@@ -16,12 +16,12 @@ NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是
 
 * Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data. Every app has at least a root component.
 
-  组件定义*视图*。视图是一组可见的屏幕元素，Angular 可以根据你的程序逻辑和数据来选择和修改它们。
+   组件定义*视图*。视图是一组可见的屏幕元素，Angular 可以根据你的程序逻辑和数据来选择和修改它们。
   每个应用都至少有一个根组件。
 
 * Components use *services*, which provide specific functionality not directly related to views. Service providers can be *injected* into components as *dependencies*, making your code modular, reusable, and efficient.
 
-  组件使用*服务*。服务会提供那些与视图不直接相关的功能。服务提供商可以作为*依赖*被*注入*到组件中，
+   组件使用*服务*。服务会提供那些与视图不直接相关的功能。服务提供商可以作为*依赖*被*注入*到组件中，
   这能让你的代码更加模块化、可复用，而且高效。
 
 Both components and services are simply classes, with *decorators* that mark their type and provide metadata that tells Angular how to use them.
@@ -30,12 +30,12 @@ Both components and services are simply classes, with *decorators* that mark the
 
 * The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
 
-  组件类的元数据将组件类和一个用来定义视图的*模板*关联起来。
+   组件类的元数据将组件类和一个用来定义视图的*模板*关联起来。
   模板把普通的 HTML 和*指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在呈现 HTML 之前先修改这些 HTML。
 
 * The metadata for a service class provides the information Angular needs to make it available to components through *Dependency Injection (DI)*.
 
-  服务的元数据提供了一些信息，Angular 要用这些信息来让组件可以通过*依赖注入（DI）*使用该服务。
+   服务的元数据提供了一些信息，Angular 要用这些信息来让组件可以通过*依赖注入（DI）*使用该服务。
 
 An app's components typically define many views, arranged hierarchically. Angular provides the `Router` service to help you define navigation paths among views. The router provides sophisticated in-browser navigational capabilities.
 
@@ -95,7 +95,7 @@ The `@Component` decorator identifies the class immediately below it as a compon
    装饰器是一些用于修饰 JavaScript 类的函数。Angular 定义了许多装饰器，这些装饰器会把一些特定种类的元数据附加到类上，以便 Angular 了解这些这些类的含义以及该如何使用它们。
 
    <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0">Learn more about decorators on the web.</a>
-   
+
    <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0">到网上学习关于装饰器的更多知识。</a>
 
 </div>
@@ -112,11 +112,11 @@ Template *directives* provide program logic, and *binding markup* connects your 
 
 * *Event binding* lets your app respond to user input in the target environment by updating your application data.
 
-  *事件绑定*让你的应用可以通过更新应用的数据来响应目标环境下的用户输入。
+   *事件绑定*让你的应用可以通过更新应用的数据来响应目标环境下的用户输入。
 
 * *Property binding* lets you interpolate values that are computed from your application data into the HTML.
 
-  *属性绑定*让你将从应用数据中计算出来的值插入到 HTML 中。
+   *属性绑定*让你将从应用数据中计算出来的值插入到 HTML 中。
 
 Before a view is displayed, Angular evaluates the directives and resolves the binding syntax in the template to modify the HTML elements and the DOM, according to your program data and logic. Angular supports *two-way data binding*, meaning that changes in the DOM, such as user choices, can also be reflected back into your program data.
 
@@ -131,7 +131,7 @@ Angular 为一些通用的转换提供了预定义管道，你还可以定义自
 <div class="l-sub-section">
 
   For a more detailed discussion of these concepts, see [Introduction to components](guide/architecture-components).
-  
+
   要了解对这些概念的深入讨论，参见[组件介绍](guide/architecture-components)。
 
 </div>
@@ -154,7 +154,7 @@ For data or logic that is not associated with a specific view, and that you want
 <div class="l-sub-section">
 
   For a more detailed discusssion, see [Introduction to services and DI](guide/architecture-services).
-  
+
   更深入的讨论，参见[服务和 DI 简介](guide/architecture-services)。
 
 </div>
@@ -204,7 +204,7 @@ To define navigation rules, you associate *navigation paths* with your component
  <div class="l-sub-section">
 
    For a more detailed discussion, see [Routing and navigation](guide/router).
-   
+
    更深入的讨论，参见[路由与导航](guide/router)。
 
  </div>
@@ -226,19 +226,19 @@ You've learned the basics about the main building blocks of an Angular applicati
 
 * Together, a component and template define an Angular view.
 
-  组件和模板共同定义了 Angular 的视图。
+   组件和模板共同定义了 Angular 的视图。
 
   * A decorator on a component class adds the metadata, including a pointer to the associated template.
 
-    组件类上的装饰器为其添加了元数据，其中包括指向相关模板的指针。
+     组件类上的装饰器为其添加了元数据，其中包括指向相关模板的指针。
 
   * Directives and binding markup in a component's template modify views based on program data and logic.
 
-    组件模板中的指令和绑定标记会根据程序数据和程序逻辑修改这些视图。
+     组件模板中的指令和绑定标记会根据程序数据和程序逻辑修改这些视图。
 
 * The dependency injector provides services to a component, such as the router service that lets you define navigation among views.
 
-  依赖注入器会为组件提供一些服务，比如路由器服务就能让你定义如何在视图之间导航。
+   依赖注入器会为组件提供一些服务，比如路由器服务就能让你定义如何在视图之间导航。
 
 Each of these subjects is introduced in more detail in the following pages.
 
@@ -246,40 +246,40 @@ Each of these subjects is introduced in more detail in the following pages.
 
 * [Modules](guide/architecture-modules)
 
-  [模块](guide/architecture-modules)
+   [模块](guide/architecture-modules)
 
 * [Components](guide/architecture-components)
 
-  [组件](guide/architecture-components)
+   [组件](guide/architecture-components)
 
   * [Templates](guide/architecture-components#templates-and-views)
 
-    [模板](guide/architecture-components#templates-and-views)
+     [模板](guide/architecture-components#templates-and-views)
 
   * [Metadata](guide/architecture-components#component-metadata)
 
-    [元数据](guide/architecture-components#component-metadata)
+     [元数据](guide/architecture-components#component-metadata)
 
   * [Data binding](guide/architecture-components#data-binding)
 
-    [绑定](guide/architecture-components#data-binding)
+     [绑定](guide/architecture-components#data-binding)
 
   * [Directives](guide/architecture-components#directives)
 
-    [指令](guide/architecture-components#directives)
+     [指令](guide/architecture-components#directives)
 
   * [Pipes](guide/architecture-components#pipes)
 
-    [管道](guide/architecture-components#pipes)
+     [管道](guide/architecture-components#pipes)
 
 * [Services and dependency injection](guide/architecture-services)
 
-  [服务于依赖注入](guide/architecture-services)
+   [服务于依赖注入](guide/architecture-services)
 
 <div class="l-sub-section">
 
    Note that the code referenced on these pages is available as a <live-example></live-example>.
-   
+
    注意，这些页面中的代码都在<live-example></live-example>中。
 
 </div>

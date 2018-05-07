@@ -371,9 +371,9 @@ In this case, the URL is relative to the CSS file into which you're importing.
 
 ### 外部以及全局样式文件
 
-When building with the CLI, you must configure the `.angular-cli.json` to include _all external assets_, including external style files.
+When building with the CLI, you must configure the `angular.json` to include _all external assets_, including external style files.
 
-当使用 CLI 进行构建时，你必须配置 `.angular-cli.json` 文件，使其包含*所有外部资源*（包括外部的样式表文件）。
+当使用 CLI 进行构建时，你必须配置 `angular.json` 文件，使其包含*所有外部资源*（包括外部的样式表文件）。
 
 Register **global** style files in the `styles` section which, by default, is pre-configured with the global `styles.css` file.
 

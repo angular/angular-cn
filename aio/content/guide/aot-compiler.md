@@ -166,7 +166,7 @@ The option is `false` by default.
 
 这个选项告诉编译器不要生成 `.metadata.json` 文件，它默认是 `false`。
 
-`.metadata.json` files contain infomration needed by the template compiler from a `.ts`
+`.metadata.json` files contain information needed by the template compiler from a `.ts`
 file that is not included in the `.d.ts` file produced by the TypeScript compiler. This information contains,
 for example, the content of annotations (such as a component's template) which TypeScript
 emits to the `.js` file but not to the `.d.ts` file.
@@ -189,10 +189,10 @@ include a copy of the information that is in the `.metadata.json` file.
 ### *strictMetadataEmit*
 
 This option tells the template compiler to report an error to the `.metadata.json`
-file if `"skipMetadataEmit"` is `false` . This option is `false` by default. This should only be used when `"skipMetadataEmit"` is `false` and `"skipTemplateCodeGen"` is `true`.
+file if `"skipMetadataEmit"` is `false` . This option is `false` by default. This should only be used when `"skipMetadataEmit"` is `false` and `"skipTemplateCodegen"` is `true`.
 
 这个选项告诉模板编译器如果 `"skipMetadataEmit"` 为 `false`，那就把错误信息汇报到 `.metadata.json` 中。
-只有当 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodeGen"` 为 `true` 时才应该使用这个选项。
+只有当 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodegen"` 为 `true` 时才应该使用这个选项。
 
 It is intended to validate the `.metadata.json` files emitted for bundling with an `npm` package. The validation is overly strict and can emit errors for metadata that would never produce an error when used by the template compiler. You can choose to suppress the error emitted by this option for an exported symbol by including `@dynamic` in the comment documenting the symbol.
 
@@ -303,10 +303,10 @@ This option should be set to `false` when using factory summaries.
 
 ### *fullTemplateTypeCheck*
 
-This option tells the compiler to enable the [binding expression validation](#binding-expresion-validation)
+This option tells the compiler to enable the [binding expression validation](#binding-expression-validation)
 phase of the template compiler which uses TypeScript to validate binding expressions.
 
-该选项告诉编译器要为模板编译器启用[绑定表达式验证](#binding-expresion-validation)阶段，它会使用 TypeScript 来验证绑定表达式。
+该选项告诉编译器要为模板编译器启用[绑定表达式验证](#binding-expression-validation)阶段，它会使用 TypeScript 来验证绑定表达式。
 
 This option is `false` by default.
 
@@ -608,7 +608,7 @@ export function serverFactory() {
 
 ```
 
-Beginning in version 5, the compiler automatically performs this rewritting while emitting the `.js` file.
+Beginning in version 5, the compiler automatically performs this rewriting while emitting the `.js` file.
 
 从 Angular v5 开始，编译器会在生成 `.js` 文件时自动执行这种改写。
 
@@ -996,7 +996,7 @@ The following are metadata errors you may encounter, with explanations and sugge
 
 <h3 class="no-toc">不支持这种表达式格式</h3>
 
-The compiler encountered an expression it didn't understand while evalutating Angular metadata.
+The compiler encountered an expression it didn't understand while evaluating Angular metadata.
 
 编译器在对 Angular 元数据求值时遇到了一个它不能理解的表达式。
 
@@ -1457,7 +1457,7 @@ The compiler encountered a type and can't determine which module exports that ty
 编译器遇到了某个类型，但是不知道它是由哪个模块导出的。
 
 This can happen if you refer to an ambient type.
-For example, the `Window` type is an ambiant type declared in the global `.d.ts` file.
+For example, the `Window` type is an ambient type declared in the global `.d.ts` file.
 
 这通常会发生在你引用环境类型时。
 比如，`Window` 类型就是在全局 `.d.ts` 文件中声明的环境类型。
@@ -1477,7 +1477,7 @@ export class MyComponent {
 
 ```
 
-TypeScript understands ambiant types so you don't import them.
+TypeScript understands ambient types so you don't import them.
 The Angular compiler does not understand a type that you neglect to export or import.
 
 TypeScript 能理解这些环境类型，所以你不用导入它们。
@@ -1491,12 +1491,12 @@ Do not refer to ambient types in metadata expressions.
 
 不要在元数据表达式中引用环境类型。
 
-If you must inject an instance of an ambiant type,
+If you must inject an instance of an ambient type,
 you can finesse the problem in four steps:
 
 如果你必须注入某个环境类型的实例，可以用以下四步来巧妙解决这个问题：
 
-1. Create an injection token for an instance of the ambiant type.
+1. Create an injection token for an instance of the ambient type.
 
    为环境类型的实例创建一个注入令牌。
 
@@ -1676,14 +1676,14 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
 
 -->
 
-{@a binding-expresion-validation}
+{@a binding-expression-validation}
 
   ## Phase 3: binding expression validation
 
   ## 阶段 3：验证绑定表达式
 
   In the validation phase, the Angular template compiler uses the TypeScript compiler to validate the
-  binding expressions in templates. Enable this phase explicity by adding the compiler
+  binding expressions in templates. Enable this phase explicitly by adding the compiler
   option `"fullTemplateTypeCheck"` in the `"angularCompilerOptions"` of the project's `tsconfig.json` (see
   [Angular Compiler Options](#compiler-options)).
 
@@ -1726,7 +1726,7 @@ Chuck: After reviewing your PR comment I'm still at a loss. See [comment there](
   generated by the template compiler that holds contents of the `MyComponent` class template.
   Compiler never writes this file to disk. The line and column numbers are relative to the template string
   in the `@Component` annotation of the class, `MyComponent` in this case. If a component uses
-  `templateUrl` instead of `template`, the errors are reported in the HTML file refereneced by the
+  `templateUrl` instead of `template`, the errors are reported in the HTML file referenced by the
   `templateUrl` instead of a synthetic file.
 
   错误信息中汇报的文件名 `my.component.ts.MyComponent.html` 是一个由模板编译器生成出的虚拟文件，

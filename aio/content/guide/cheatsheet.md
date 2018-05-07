@@ -1060,9 +1060,9 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
 <td>
 
-    <p>Called after <code>ngAfterContentInit</code> when the component's view has been initialized. Applies to components only.</p>
+    <p>Called after <code>ngAfterContentInit</code> when the component's views and child views / the view that a directive is in has been initialized.</p>
 
-    <p>当<code>ngAfterContentInit</code>完毕，并且组件的视图已经初始化完毕时调用。只适用于组件。</p>
+    <p>当<code>ngAfterContentInit</code>完毕，并且组件的视图及其子视图或指令所属的视图已经初始化完毕时调用。
 
 </td>
 
@@ -1076,9 +1076,9 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
 <td>
 
-    <p>Called after every check of the component's view. Applies to components only.</p>
+    <p>Called after every check of the component's views and child views / the view that a directive is in.</p>
 
-    <p>当组件视图每次执行变更检测时调用。只适用于组件。</p>
+    <p>当组件的视图及其子视图或指令所属的视图每次执行变更检测时调用。</p>
 
 </td>
 

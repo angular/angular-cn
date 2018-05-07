@@ -45,7 +45,7 @@ Angular creates, updates, and destroys components as the user moves through the 
 
 <img src="generated/images/guide/architecture/metadata.png" alt="Metadata" class="left">
 
-The `@Component` decorator identifies the class immediately below it as a component class, and specifies its metadata. In the example code below, you can see that `HeroListComponent` is just a class, with no special Angular notation or syntax at all. It's not a component until mark it as one with the `@Component` decorator.
+The `@Component` decorator identifies the class immediately below it as a component class, and specifies its metadata. In the example code below, you can see that `HeroListComponent` is just a class, with no special Angular notation or syntax at all. It's not a component until you mark it as one with the `@Component` decorator.
 
 `@Component` 装饰器会指出紧随其后的那个类是个组件类，并为其指定元数据。
 在下面的范例代码中，你可以看到 `HeroListComponent` 只是一个普通类，完全没有 Angular 特有的标记或语法。
@@ -74,19 +74,19 @@ In addition to containing or pointing to the template, the `@Component` metadata
 * `selector`: A CSS selector that tells Angular to create and insert an instance of this component wherever it finds the corresponding tag in template HTML. For example, if an app's  HTML contains `<app-hero-list></app-hero-list>`, then
 Angular inserts an instance of the `HeroListComponent` view between those tags.
 
-  `selector`：是一个 CSS 选择器，它会告诉 Angular，一旦在模板 HTML 中找到了这个选择器对应的标签，就创建并插入该组件的一个实例。
+   `selector`：是一个 CSS 选择器，它会告诉 Angular，一旦在模板 HTML 中找到了这个选择器对应的标签，就创建并插入该组件的一个实例。
   比如，如果应用的 HTML 中包含 `<app-hero-list></app-hero-list>`，Angular 就会在这些标签中插入一个 `HeroListComponent` 实例的视图。
 
 * `templateUrl`: The module-relative address of this component's HTML template. Alternatively, you can provide the HTML template inline, as the value of the `template` property. This template defines the component's _host view_.
 
-  `templateUrl`：该组件的 HTML 模板文件相对于这个组件文件的地址。
+   `templateUrl`：该组件的 HTML 模板文件相对于这个组件文件的地址。
   另外，你还可以用 `template` 属性的值来提供内联的 HTML 模板。
   这个模板定义了该组件的*宿主视图*。
 
 * `providers`: An array of **dependency injection providers** for services that the component requires. In the example, this tells Angular that the component's constructor requires a `HeroService` instance
 in order to get the list of heroes to display.
 
-  `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular，该组件的构造函数需要一个 `HeroService` 实例，以获取要显示的英雄列表。
+   `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular，该组件的构造函数需要一个 `HeroService` 实例，以获取要显示的英雄列表。
 
 <hr/>
 
@@ -134,15 +134,15 @@ This template uses typical HTML elements like `<h2>` and  `<p>`, and also includ
 
 * The  `*ngFor` directive tells Angular to iterate over a list.
 
-  `*ngFor` 指令告诉 Angular 在一个列表上进行迭代。
+   `*ngFor` 指令告诉 Angular 在一个列表上进行迭代。
 
 * The `{{hero.name}}`, `(click)`, and `[hero]` bind program data to and from the DOM, responding to user input. See more about [data binding](#data-binding) below.
 
-  `{{hero.name}}`、`(click)` 和 `[hero]` 把程序数据绑定到及绑定回 DOM，以响应用户的输入。更多内容参见稍后的[数据绑定](#data-binding)部分。
+   `{{hero.name}}`、`(click)` 和 `[hero]` 把程序数据绑定到及绑定回 DOM，以响应用户的输入。更多内容参见稍后的[数据绑定](#data-binding)部分。
 
 * The `<app-hero-detail>` tag in the example is an element that represents a new component, `HeroDetailComponent`.  The `HeroDetailComponent`  (code not shown) is a child component of the `HeroListComponent` that defines the Hero-detail view. Notice how custom components like this mix seamlessly with native HTML in the same layouts.
 
-  模板中的 `<app-hero-detail>` 标签是一个代表新组件 `HeroDetailComponent` 的元素。
+   模板中的 `<app-hero-detail>` 标签是一个代表新组件 `HeroDetailComponent` 的元素。
   `HeroDetailComponent`（代码略）是 `HeroListComponent` 的一个子组件，它定义了英雄详情视图。
   注意观察像这样的自定义组件是如何与原生 HTML 元素无缝的混合在一起的。
 
@@ -155,7 +155,7 @@ Without a framework, you would be responsible for pushing data values into the H
 如果没有框架，你就要自己负责把数据值推送到 HTML 控件中，并把来自用户的响应转换成动作和对值的更新。
 手动写这种数据推拉逻辑会很枯燥、容易出错，难以阅读 —— 用过 jQuery 的程序员一定深有体会。
 
-Angular supports *two-way data binding*, a mechanism for coordinating parts of a template with parts of a component. Add binding markup to the template HTML to tell Angular how to connect both sides. 
+Angular supports *two-way data binding*, a mechanism for coordinating parts of a template with parts of a component. Add binding markup to the template HTML to tell Angular how to connect both sides.
 
 Angular 支持*双向数据绑定*，这是一种对模板中的各个部件与组件中的各个部件进行协调的机制。
 往模板 HTML 中添加绑定标记可以告诉 Angular 该如何连接它们。
@@ -186,7 +186,7 @@ the parent `HeroListComponent` to the `hero` property of the child `HeroDetailCo
 
 * The `(click)` [*event binding*](guide/user-input#binding-to-user-input-events) calls the component's `selectHero` method when the user clicks a hero's name.
 
-  当用户点击某个英雄的名字时，`(click)` [*事件绑定*](guide/user-input#binding-to-user-input-events)会调用组件的 `selectHero` 方法。
+   当用户点击某个英雄的名字时，`(click)` [*事件绑定*](guide/user-input#binding-to-user-input-events)会调用组件的 `selectHero` 方法。
 
 **Two-way data binding** is an important fourth form that combines property and event binding in a single notation. Here's an example from the `HeroDetailComponent` template that uses two-way data binding with the `ngModel` directive:
 
@@ -292,11 +292,11 @@ Structural directives alter layout by adding, removing, and replacing elements i
 
   * [`*ngFor`](guide/displaying-data#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
 
-    [`*ngFor`](guide/displaying-data#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个 `<li>` 渲染出一个 `<li>`。
+     [`*ngFor`](guide/displaying-data#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个 `<li>` 渲染出一个 `<li>`。
 
   * [`*ngIf`](guide/displaying-data#ngIf) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
 
-    [`*ngIf`](guide/displaying-data#ngIf) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
+     [`*ngIf`](guide/displaying-data#ngIf) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
 
 #### Attribute directives
 

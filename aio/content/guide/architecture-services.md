@@ -16,13 +16,13 @@ Angular 把组件和服务区分开，以提高模块性和复用性。
 
 * By separating a component's view-related functionality from other kinds of processing, you can make your component classes lean and efficient. Ideally, a component's job is to enable the user experience and nothing more.  It should present properties and methods for data binding, in order to mediate between the view (rendered by the template) and the application logic (which often includes some notion of a _model_).
 
-  通过把组件中和视图有关的功能与其他类型的处理分离开，你可以让组件类更加精简、高效。
+   通过把组件中和视图有关的功能与其他类型的处理分离开，你可以让组件类更加精简、高效。
   理想情况下，组件的工作只管用户体验，而不用顾及其它。
   它应该提供用于数据绑定的属性和方法，以便作为视图（由模板渲染）和应用逻辑（通常包含一些模型的概念）的中介者。
 
 * A component should not need to define things like how to fetch data from the server, validate user input, or log directly to the console. Instead, it can delegate such tasks to services. By defining that kind of processing task in an injectable service class, you make it available to any component. You can also make your app more adaptable by injecting different providers of the same kind of service, as appropriate in different circumstances.
 
-  组件不应该定义任何诸如从服务器获取数据、验证用户输入或直接往控制台中写日志等工作。
+   组件不应该定义任何诸如从服务器获取数据、验证用户输入或直接往控制台中写日志等工作。
   而要把这些任务委托给各种服务。通过把各种处理任务定义到可注入的服务类中，你可以让它可以被任何组件使用。
   通过在不同的环境中注入同一种服务的不同提供商，你还可以让你的应用更具适应性。
 
@@ -74,15 +74,15 @@ Similarly, use the `@Injectable` decorator to indicate that a component or other
 
 * The *injector* is the main mechanism. You don't have to create an Angular injector. Angular creates an application-wide injector for you during the bootstrap process.
 
-  *注入器*是主要的机制。你不用自己创建 Angular 注入器。Angular 会在启动过程中为你创建全应用级注入器。
+   *注入器*是主要的机制。你不用自己创建 Angular 注入器。Angular 会在启动过程中为你创建全应用级注入器。
 
 * The injector maintains a *container* of dependency instances that it has already created, and reuses them if possible.
 
-  该注入器维护一个包含它已创建的依赖实例的*容器*，并尽可能复用它们。
+   该注入器维护一个包含它已创建的依赖实例的*容器*，并尽可能复用它们。
 
 * A *provider* is a recipe for creating a dependency. For a service, this is typically the service class itself. For any dependency you need in your app, you must register a provider with the app's injector, so that the injector can use it to create new instances.
 
-  *提供商*是一个创建依赖的菜谱。对于服务来说，它通常就是这个服务类本身。你在应用中要用到的任何类都必须使用该应用的注入器注册一个提供商，以便注入器可以使用它来创建新实例。
+   *提供商*是一个创建依赖的菜谱。对于服务来说，它通常就是这个服务类本身。你在应用中要用到的任何类都必须使用该应用的注入器注册一个提供商，以便注入器可以使用它来创建新实例。
 
 When Angular creates a new instance of a component class, it determines which services or other dependencies that component needs by looking at the types of its constructor parameters. For example, the constructor of `HeroListComponent` needs a `HeroService`:
 
@@ -117,14 +117,14 @@ You must register at least one *provider* of any service you are going to use. Y
 
 * When you add providers to the [root module](guide/architecture-modules), the same instance of a service is available to all components in your app.
 
-  当你往[根模块](guide/architecture-modules)中添加服务提供商时，服务的同一个实例会服务于你应用中的所有组件。
+   当你往[根模块](guide/architecture-modules)中添加服务提供商时，服务的同一个实例会服务于你应用中的所有组件。
 
 <code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers"></code-example>
 
 * When you register a provider at the component level, you get a new instance of the
 service with each new instance of that component. At the component level, register a service provider in the `providers` property of the `@Component` metadata:
 
-  当你在组件级注册提供商时，你会为该组件的每一个新实例提供该服务的一个新实例。
+   当你在组件级注册提供商时，你会为该组件的每一个新实例提供该服务的一个新实例。
   要在组件级注册，就要在 `@Component` 元数据的 `providers` 属性中注册服务提供商。
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (component providers)" region="providers"></code-example>
