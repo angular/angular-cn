@@ -950,11 +950,11 @@ the `AfterContentComponent`'s parent. Here's the parent's template:
 
 <code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" title="AfterContentParentComponent (template excerpt)" linenums="false"></code-example>
 
-Notice that the `<my-child>` tag is tucked between the `<after-content>` tags.
+Notice that the `<app-child>` tag is tucked between the `<after-content>` tags.
 Never put content between a component's element tags *unless you intend to project that content
 into the component*.
 
-注意，`<my-child>` 标签被包含在 `<after-content>` 标签中。
+注意，`<app-child>` 标签被包含在 `<after-content>` 标签中。
 永远不要在组件标签的内部放任何内容 —— *除非你想把这些内容投影进这个组件中*。
 
 Now look at the component's template:
@@ -965,11 +965,11 @@ Now look at the component's template:
 
 The `<ng-content>` tag is a *placeholder* for the external content.
 It tells Angular where to insert that content.
-In this case, the projected content is the `<my-child>` from the parent.
+In this case, the projected content is the `<app-child>` from the parent.
 
 `<ng-content>` 标签是外来内容的*占位符*。
 它告诉 Angular 在哪里插入这些外来内容。
-在这里，被投影进去的内容就是来自父组件的 `<my-child>` 标签。
+在这里，被投影进去的内容就是来自父组件的 `<app-child>` 标签。
 
 <figure>
   <img src='generated/images/guide/lifecycle-hooks/projected-child-view.png' alt="Projected Content">

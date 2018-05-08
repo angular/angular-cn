@@ -343,16 +343,14 @@ Its only purpose is to add http service providers to the application as a whole.
 
 ## *forRoot()*方法是什么？
 
-The `forRoot()` static method is a convention that makes it easy for developers to configure the module's providers.
+The `forRoot()` static method is a convention that makes it easy for developers to configure services and providers that are intended to be singletons. A good example of `forRoot()` is the `RouterModule.forRoot()` method.
 
-静态方法 `forRoot()` 是一个约定，它可以让开发人员更轻松的配置模块的提供商。
+静态方法 `forRoot()` 是一个约定，它可以让开发人员更轻松的配置模块的想要单例使用的服务及其提供商。`RouterModule.forRoot()` 就是一个很好的例子。
 
-The `RouterModule.forRoot()` method is a good example.
 Apps pass a `Routes` object to `RouterModule.forRoot()` in order to configure the app-wide `Router` service with routes.
 `RouterModule.forRoot()` returns a [ModuleWithProviders](api/core/ModuleWithProviders).
 You add that result to the `imports` list of the root `AppModule`.
 
-`RouterModule.forRoot()` 就是一个很好的例子。
 应用把一个 `Routes` 对象传给 `RouterModule.forRoot()`，为的就是使用路由配置全应用级的 `Router` 服务。
 `RouterModule.forRoot()` 返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
 你把这个结果添加到根模块 `AppModule` 的 `imports` 列表中。
@@ -365,6 +363,11 @@ For more information, see [Singleton Services](guide/singleton-services).
 只能在应用的根模块 `AppModule` 中调用并导入 `.forRoot()` 的结果。
 在其它模块中导入它，特别是惰性加载模块中，是违反设计目标的并会导致一个运行时错误。
 要了解更多，参见[单例服务](guide/singleton-services)。
+
+For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which 
+makes the service automatically available to the whole application and thus singleton by default.
+
+对于服务来说，除了可以使用 `forRoot()`外，更好的方式是在该服务的 `@Injectable()` 装饰器中指定 `providedIn: 'root'`，它让该服务自动在全应用级可用，这样它也就默认是单例的。
 
 `RouterModule` also offers a `forChild` static method for configuring the routes of lazy-loaded modules.
 
@@ -583,9 +586,14 @@ Define child routes and let the router load module components into that outlet.
 
 ## 我应该把全应用级提供商添加到根模块 `AppModule` 中还是根组件 `AppComponent` 中？
 
-Register application-wide providers in the root `AppModule`, not in the `AppComponent`.
+ Define application-wide providers by specifying `providedIn: 'root'` on its `@Injectable()` decorator (in the case of services) or at `InjectionToken` construction (in the case where tokens are provided). Providers that are created this way automatically are made available to the entire application and don't need to be listed in any module.
 
-在根模块 `AppModule` 中注册全应用级提供商，而不是 `AppComponent` 中。
+通过在服务的 `@Injectable()` 装饰器中（例如服务）指定 `providedIn: 'root'` 来定义全应用级提供商，或者 `InjectionToken` 的构造器（例如提供令牌的地方），都可以定义全应用级提供商。
+通过这种方式创建的服务提供商会自动在整个应用中可用，而不用把它列在任何模块中。
+
+If a provider cannot be configured in this way (perhaps because it has no sensible default value), then register application-wide providers in the root `AppModule`, not in the `AppComponent`.
+
+如果某个提供商不能用这种方式配置（可能因为它没有有意义的默认值），那就在根模块 `AppModule` 中注册这些全应用级服务，而不是在 `AppComponent` 中。
 
 Lazy-loaded modules and their components can inject `AppModule` services;
 they can't inject `AppComponent` services.
@@ -644,10 +652,15 @@ This means that lazy-loaded modules can't reach them.
 
 ## 我应该把其它提供商注册到模块中还是组件中？
 
-In general, prefer registering feature-specific providers in modules (`@NgModule.providers`)
-to registering in components (`@Component.providers`).
+Providers should be configured using `@Injectable` syntax. If possible, they should be provided in the application root (`providedIn: 'root'`). Services that are configured this way are lazily loaded if they are only used from a lazily loaded context.
 
-通常，优先把模块中具体特性的提供商注册到模块中（`@NgModule.providers`），而不是组件中（`@Component.providers`）。
+提供商应该使用 `@Injectable` 语法进行配置。只要可能，就应该把它们在应用的根注入器中提供（`providedIn: 'root'`）。
+如果它们只被惰性加载的上下文中使用，那么这种方式配置的服务就是惰性加载的。
+
+If it's the consumer's decision whether a provider is available application-wide or not, 
+then register providers in modules (`@NgModule.providers`) instead of registering in components (`@Component.providers`).
+
+如果要由消费方来决定是否把它作为全应用级提供商，那么就要在模块中（`@NgModule.providers`）注册提供商，而不是组件中（`@Component.providers`）。
 
 Register a provider with a component when you _must_ limit the scope of a service instance
 to that component and its component tree.
