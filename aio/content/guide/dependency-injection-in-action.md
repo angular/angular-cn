@@ -20,25 +20,25 @@ of the code in this cookbook.
 
 ## 应用程序全局依赖
 
-Register providers for dependencies used throughout the application in the root application component, `AppComponent`.
+Register providers for dependencies used throughout the application 
+in the `@Injectable()` decorator of the service itself. 
 
-在应用程序根组件 `AppComponent` 中注册那些被应用程序全局使用的依赖提供商。
+在服务本身的 `@Injectable()` 装饰器中注册那些将被应用程序全局使用的依赖提供商。
 
-The following example shows importing and registering
-the `LoggerService`, `UserContext`, and the `UserService`
-in the `@Component` metadata `providers` array.
-
-在下面的例子中，通过 `@Component` 元数据的 `providers` 数组导入和注册了几个服务(`LoggerService`, `UserContext` 和 `UserService`)。
-
-<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="import-services" title="src/app/app.component.ts (excerpt)" linenums="false">
-
+<code-example path="dependency-injection/src/app/heroes/hero.service.3.ts" title="src/app/heroes/hero.service.3.ts" linenums="false">
 </code-example>
 
-All of these services are implemented as classes.
-Service classes can act as their own providers which is why listing them in the `providers` array
+`providedIn` here tells Angular that the root injector is responsible for creating an instance of the `HeroService`.
+Services that are provided this way are automatically made available to the entire 
+application and don't need to be listed in any module.
+
+这里的 `providedIn` 告诉 Angular，要由根注入器负责创建 `HeroService` 的实例。
+所有用这种方式提供的服务，都会自动在整个应用中可用，而不必把它们显式列在任何模块中。
+
+Service classes can act as their own providers which is why defining them in the `@Injectable` decorator
 is all the registration you need.
 
-所有这些服务都是用类实现的。服务类能充当自己的提供商，这就是为什么只要把它们列在 `providers` 数组里就算注册成功了。
+这些服务类可以充当自己的提供商，因此你只要把它们定义在 `@Injectable` 装饰器中就算注册成功了。
 
 <div class="l-sub-section">
 
@@ -58,34 +58,28 @@ Angular can inject them into the constructor of *any* component or service, *any
 
 现在你已经注册了这些服务，这样 Angular 就能在应用程序的*任何地方*，把它们注入到*任何*组件和服务的构造函数里。
 
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" title="src/app/hero-bios.component.ts (component constructor injection)" linenums="false">
-
-</code-example>
-
-<code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="ctor" title="src/app/user-context.service.ts (service constructor injection)" linenums="false">
-
-</code-example>
-
 {@a external-module-configuration}
 
 ## External module configuration
 
 ## 外部模块配置
 
-Generally, register providers in the `NgModule` rather than in the root application component.
+If a provider cannot be configured in the `@Injectable` decorator of the service, then register application-wide providers in the root `AppModule`, not in the `AppComponent`. Generally, register providers in the `NgModule` rather than in the root application component.
 
-通常会在 `NgModule` 中注册提供商，而不是在应用程序根组件中。
+如果某个提供商不是在服务的 `@Injectable` 装饰器中配置的，那么就要在根模块 `AppModule` 中把它注册为全应用级的提供商，而不是在 `AppComponent` 中。
+一般来说，要在 `NgModule` 中注册提供商，而不是在应用程序根组件中。
 
-Do this when you expect the service to be injectable everywhere,
-or you are configuring another application global service _before the application starts_.
+Do this when users should explicitly opt-in to use a service, or the service should be 
+provided in a lazily-loaded context, 
+or when you are configuring another application global service _before the application starts_.
 
-如果你希望这个服务在应用中到处都可以被注入，或者必须在应用**启动前**注册一个全局服务，那就这么做。
+下列情况下会用到这种方法：1. 当用户应该明确选择所用的服务时。2. 当你要在惰性加载的上下文中提供该服务时。3. 当你要在应用启动之前配置应用中的另一个全局服务时。
 
-Here is an example of the second case, where the component router configuration includes a non-default
+Here is an example of the case where the component router configuration includes a non-default
 [location strategy](guide/router#location-strategy) by listing its provider
 in the `providers` list of the `AppModule`.
 
-下面的例子是第二种情况，它为组件路由器配置了一个非默认的[地址策略（location strategy）](guide/router#location-strategy)，并把它加入到 `AppModule` 的 `providers` 数组中。
+下面的例子就属于这些情况，它为组件路由器配置了一个非默认的[地址策略（location strategy）](guide/router#location-strategy)，并把它加入到 `AppModule` 的 `providers` 数组中。
 
 <code-example path="dependency-injection-in-action/src/app/app.module.ts" region="providers" title="src/app/app.module.ts (providers)" linenums="false">
 
@@ -168,44 +162,9 @@ Notice the `@Injectable()`decorator on the `UserContextService` class.
 
 </code-example>
 
-That decorator makes it possible for Angular to identify the types of its two dependencies, `LoggerService` and `UserService`.
+The `@Injectable` decorator indicates that the Angular DI system is used to create one or more instances of `UserContextService`.
 
-该装饰器让 Angular 有能力识别这两个依赖 `LoggerService` 和 `UserService` 的类型。
-
-Technically, the `@Injectable()`decorator is only required for a service class that has _its own dependencies_.
-The `LoggerService` doesn't depend on anything. The logger would work if you omitted `@Injectable()`
-and the generated code would be slightly smaller.
-
-严格来说，这个 `@Injectable()` 装饰器只在一个服务类有*自己的依赖*的时候，才是*不可缺少*的。
-`LoggerService` 不依赖任何东西，所以该日志服务在没有 `@Injectable()` 的时候应该也能工作，生成的代码也更少一些。
-
-But the service would break the moment you gave it a dependency and you'd have to go back
-and add `@Injectable()` to fix it. Add `@Injectable()` from the start for the sake
-of consistency and to avoid future pain.
-
-但是在给它添加依赖的那一瞬间，该服务就会停止工作，要想修复它，就必须要添加 `@Injectable()`。
-为了保持一致性和防止将来的麻烦，推荐从一开始就加上 `@Injectable()`。
-
-<div class="alert is-helpful">
-
-Although this site recommends applying `@Injectable()` to all service classes, don't feel bound by it.
-Some developers prefer to add it only where needed and that's a reasonable policy too.
-
-虽然推荐在所有服务中使用 `@Injectable()`，但你也不需要一定要这么做。一些开发者就更喜欢在真正需要的地方才添加，这也是一个合理的策略。
-
-</div>
-
-<div class="l-sub-section">
-
-The `AppComponent` class had two dependencies as well but no `@Injectable()`.
-It didn't need `@Injectable()` because that component class has the `@Component` decorator.
-In Angular with TypeScript, a *single* decorator&mdash;*any* decorator&mdash;is sufficient to identify dependency types.
-
-`AppComponent` 类有两个依赖，但它没有 `@Injectable()`。
-它不需要 `@Injectable()`，这是因为组件类有 `@Component` 装饰器。
-在用 TypeScript 的 Angular 应用里，有一个*单独的*装饰器 &mdash; *任何*装饰器 &mdash; 来标识依赖的类型就够了。
-
-</div>
+`@Injectable` 装饰器会向 Angular DI 系统指明应该为 `UserContextService` 创建一个实例还是多个实例。
 
 {@a service-scope}
 
@@ -604,10 +563,10 @@ If the search is futile, the injector throws an error&mdash;unless the request w
 A new injector has no providers.
 Angular initializes the injectors it creates with some providers it cares about.
 You have to register your _own_ application providers manually,
-usually in the `providers` array of the `Component` or `Directive` metadata:
+usually in the `@Injectable` decorator of the service, `providers` array of the `NgModule` or `Directive` metadata:
 
 新建的注入器中没有提供商。
-Angular 会使用一些自带的提供商来初始化这些注入器。你必须自行注册属于*自己*的提供商，通常用 ` 组件 ` 或者 ` 指令 ` 元数据中的 `providers` 数组进行注册。
+Angular 会使用一些自带的提供商来初始化这些注入器。你必须自行注册属于*自己*的提供商，通常会在该服务的 `@Injectable` 装饰器中，或在 `NgModule` 或 `Directive` 元数据的 `providers` 数组中进行注册。
 
 <code-example path="dependency-injection-in-action/src/app/app.component.ts" region="providers" title="src/app/app.component.ts (providers)">
 
@@ -619,10 +578,16 @@ Angular 会使用一些自带的提供商来初始化这些注入器。你必须
 
 ### 定义提供商
 
-The simple class provider is the most typical by far.
-You mention the class in the `providers` array and you're done.
+The simple way of defining providers in the `@Injectable` decorator of the class is recommended.
 
-简单的类提供商是最典型的例子。只要在 `providers` 数值里面提到该类就可以了。
+建议直接在服务类的 `@Injectable` 装饰器中定义服务提供商。
+
+<code-example path="dependency-injection/src/app/heroes/hero.service.0.ts" title="src/app/heroes/hero.service.0.ts" linenums="false">
+</code-example>
+
+Another alternative is to mention the class in the providers array of the `@NgModule` and you're done.
+
+备选方案是在 `@NgModule` 的 `providers` 数组中引用下这个类就可以了。
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="class-provider" title="src/app/hero-bios.component.ts (class provider)" linenums="false">
 
