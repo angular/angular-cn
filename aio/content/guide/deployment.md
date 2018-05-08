@@ -357,10 +357,10 @@ It serves build artifacts from memory instead for a faster development experienc
 <div class="l-sub-section">
 
 The output folder is  `dist/` by default.
-To output to a different folder, change the `outDir` in `.angular-cli.json`.
+To output to a different folder, change the `outputPath` in `angular.json`.
 
 默认的输出文件夹是 `dist/`。
-要输出到其它文件夹中，请修改 `.angular-cli.json` 中的 `outDir`。
+要输出到其它文件夹中，请修改 `angular.json` 中的 `outputPath`。
 
 </div>
 
