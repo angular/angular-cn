@@ -446,10 +446,10 @@ to every `HttpClient` save method.
 ### 发起一个 POST 请求
 
 Apps often POST data to a server. They POST when submitting a form. 
-In the following example, the `HeroService` posts when adding a hero to the database.
+In the following example, the `HeroesService` posts when adding a hero to the database.
 
 应用经常把数据 `POST` 到服务器。它们会在提交表单时进行 `POST`。
-下面这个例子中，`HeroService` 在把英雄添加到数据库中时，就会使用 `POST`。
+下面这个例子中，`HeroesService` 在把英雄添加到数据库中时，就会使用 `POST`。
 
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
@@ -476,10 +476,8 @@ It takes two more parameters:
    `httpOptions` - 这个例子中，该方法的选项[指定了所需的请求头](#adding-headers)。
 
 Of course it catches errors in much the same manner [described above](#error-details).
-It also _taps_ the returned observable in order to log the successful POST.
 
 当然，它捕获错误的方式很像[前面描述的](#error-details)操作方式。
-它还*窃听*了可观察对象的返回值，以记录成功的 `POST`。
 
 The `HeroesComponent` initiates the actual POST operation by subscribing to 
 the `Observable` returned by this service method.
@@ -523,26 +521,17 @@ the `Observable` returned by this service method.
   title="app/heroes/heroes.component.ts (deleteHero)" linenums="false">
 </code-example>
 
+The component isn't expecting a result from the delete operation, so it subscribes without a callback. Even though you are not using the result, you still have to subscribe. Calling the `subscribe()` method _executes_ the observable, which is what initiates the DELETE request. 
+
+该组件不会等待删除操作的结果，所以它的 subscribe （订阅）中没有回调函数。不过就算你不关心结果，也仍然要订阅它。调用 `subscribe()` 方法会**执行**这个可观察对象，这时才会真的发起 DELETE 请求。 
+
 <div class="alert is-important">
 
-You must call _subscribe()_ or nothing happens!
+You must call _subscribe()_ or nothing happens. Just calling `HeroesService.deleteHero()` **does not initiate the DELETE request.**
 
-你必须调用 `subscribe()`，否则什么都不会发生。
+你必须调用 `subscribe()`，否则什么都不会发生。仅仅调用 `HeroesService.deleteHero()` 是**不会发起 DELETE 请求的。**
 
 </div>
-
-The component isn't expecting a result from the delete operation and
-subscribes without a callback.
-The bare `.subscribe()` _seems_ pointless.
-
-该组件不关心删除操作返回的结果，订阅时也没有回调函数。
-单纯的 `.subscribe()` 方法看似毫无意义。
-
-In fact, it is essential.
-Merely calling `HeroService.deleteHero()` **does not initiate the DELETE request.**
-
-但实际上，它是必备的。
-否则调用 `HeroService.deleteHero()` 时**不会发起 DELETE 请求**。
 
 <code-example 
   path="http/src/app/heroes/heroes.component.ts"
@@ -551,9 +540,9 @@ Merely calling `HeroService.deleteHero()` **does not initiate the DELETE request
 
 {@a always-subscribe}
 
-### Always _subscribe_!
+**Always _subscribe_!**
 
-### 别忘了*订阅*！
+**别忘了*订阅*！**
 
 An `HttpClient` method does not begin its HTTP request until you call `subscribe()` on the observable returned by that method. This is true for _all_ `HttpClient` _methods_.
 
@@ -569,8 +558,7 @@ The [`AsyncPipe`](api/common/AsyncPipe) subscribes (and unsubscribes) for you au
 
 All observables returned from `HttpClient` methods are _cold_ by design.
 Execution of the HTTP request is _deferred_, allowing you to extend the
-observable with additional operations such as  `tap` and `catchError`
- before anything actually happens.
+observable with additional operations such as  `tap` and `catchError` before anything actually happens.
 
 `HttpClient` 的所有方法返回的可观察对象都设计为*冷的*。
 HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行什么之前，先对这个可观察对象进行扩展。
@@ -610,10 +598,10 @@ req.subscribe();
 ### 发起 PUT 请求
 
 An app will send a PUT request to completely replace a resource with updated data.
-The following `HeroService` example is just like the POST example.
+The following `HeroesService` example is just like the POST example.
 
 应用可以发送 PUT 请求，来使用修改后的数据完全替换掉一个资源。
-下面的 `HeroService` 例子和 POST 的例子很像。
+下面的 `HeroesService` 例子和 POST 的例子很像。
 
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
@@ -630,9 +618,10 @@ in order to initiate the request.
 
 ## 高级用法
 
-The above sections detail how to use the basic HTTP functionality in `@angular/common/http`, but sometimes you need to do more than make simple requests and get data back.
+We have discussed the basic HTTP functionality in `@angular/common/http`, but sometimes you need to do more than make simple requests and get data back.
 
-上面这个小节中详细讲解了如何使用 `@angular/common/http` 中提供的基本 HTTP 功能，但有时候除了单纯发起请求和取回数据之外，你还要再做点别的。
+我们已经讨论了 `@angular/common/http` 的基本 HTTP 功能，但有时候除了单纯发起请求和取回数据之外，你还要再做点别的。
+
 
 ### Configuring the request
 
@@ -643,11 +632,11 @@ passed as the last argument to the `HttpClient` method.
 
 待发送请求的其它方面可以通过传给 `HttpClient` 方法最后一个参数中的配置对象进行配置。
 
-You [saw earlier](#adding-headers) that the `HeroService` sets the default headers by
+You [saw earlier](#adding-headers) that the `HeroesService` sets the default headers by
 passing an options object (`httpOptions`) to its save methods.
 You can do more.
 
-[以前你曾在](#adding-headers) `HeroService` 中通过在其保存方法中传入配置对象 `httpOptions` 设置过默认头。
+[以前你曾在](#adding-headers) `HeroesService` 中通过在其保存方法中传入配置对象 `httpOptions` 设置过默认头。
 你还可以做更多。
 
 #### Update headers
@@ -690,7 +679,9 @@ Here is a `searchHeroes` method that queries for heroes whose names contain the 
   region="searchHeroes" linenums="false">
 </code-example>
 
-If there is a search term, the code constructs an options object with an HTML URL encoded search parameter. If the term were "foo", the GET request URL would be `api/heroes/?name=foo`.
+If there is a search term, the code constructs an options object with an HTML URL-encoded search parameter. If the term were "foo", the GET request URL would be `api/heroes/?name=foo`.
+
+如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
 
 如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
 
@@ -707,7 +698,7 @@ The sample includes an _npm package search_ feature.
 这个例子还包含了*搜索 npm 包*的特性。
 
 When the user enters a name in a search-box, the `PackageSearchComponent` sends
-a search request for a package with that name to the NPM web api.
+a search request for a package with that name to the NPM web API.
 
 当用户在搜索框中输入名字时，`PackageSearchComponent` 就会把一个根据名字搜索包的请求发送给 NPM 的 web api。
 
@@ -740,12 +731,12 @@ That's easy to implement with RxJS operators, as shown in this excerpt.
 </code-example>
 
 The `searchText$` is the sequence of search-box values coming from the user.
-It's defined as an RxJS `Subject`, which means it is an `Observable`
+It's defined as an RxJS `Subject`, which means it is a multicasting `Observable`
 that can also produce values for itself by calling `next(value)`,
 as happens in the `search()` method.
 
 `searchText$` 是一个序列，包含用户输入到搜索框中的所有值。
-它定义成了 RxJS 的 `Subject` 对象，这表示它是一个 `Observable`，同时还可以自行调用 `next(value)` 来产生值。
+它定义成了 RxJS 的 `Subject` 对象，这表示它是一个多播 `Observable`，同时还可以自行调用 `next(value)` 来产生值。
 `search()` 方法中就是这么做的。
 
 Rather than forward every `searchText` value directly to the injected `PackageSearchService`,
@@ -1295,10 +1286,10 @@ But an interceptor can change this to an _observable_ that emits more than once.
 但是拦截器也可以把这个修改成发出多个值的*可观察对象*。
 
 A revised version of the `CachingInterceptor` optionally returns an _observable_ that
-immediately emits the cached response, sends the request to the npm web api anyway,
+immediately emits the cached response, sends the request to the NPM web API anyway,
 and emits again later with the updated search results.
 
-修改后的 `CachingInterceptor` 版本可以返回一个立即发出缓存的响应，然后仍然把请求发送到 npm 的 Web API，然后再把修改过的搜索结果重新发出一次。
+修改后的 `CachingInterceptor` 版本可以返回一个立即发出缓存的响应，然后仍然把请求发送到 NPM 的 Web API，然后再把修改过的搜索结果重新发出一次。
 
 <code-example 
   path="http/src/app/http-interceptors/caching-interceptor.ts"
@@ -1612,12 +1603,22 @@ You should test the app's defenses against HTTP requests that fail.
 
 你还要测试应用对于 HTTP 请求失败时的防护。
 
-Call `request.error()` with an `ErrorEvent` instead of `request.flush()`, as in this example.
+Call `request.flush()` with an error message, as seen in the following example.
 
-那就调用 `request.error()`，并给它传入一个 `ErrorEvent`，而不是 `request.flush()`。例子如下：
+调用 `request.flush()` 并传入一个错误信息，如下所示：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
   region="404" 
+  linenums="false">
+</code-example>
+
+Alternatively, you can call `request.error()` with an `ErrorEvent`.
+
+另外，你还可以使用 `ErrorEvent` 来调用 `request.error()`.
+
+<code-example
+  path="http/src/testing/http-client.spec.ts"
+  region="network-error"
   linenums="false">
 </code-example>

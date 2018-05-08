@@ -311,7 +311,7 @@ You create a car component (A) that displays a car constructed from these three 
 你创建了一个车辆组件（A），它显示一个从另外三个通用服务构造出的车辆。
 
 Then you create a child component (B) that defines its own, _specialized_ providers for `CarService` and `EngineService`
-that have special capabilites suitable for whatever is going on in component (B).
+that have special capabilities suitable for whatever is going on in component (B).
 
 然后，你创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己的*特殊的*提供商，它们具有更特殊的能力，适用于组件 B 的。
 
