@@ -57,11 +57,11 @@ if they are not already on your machine.
 
 <div class="l-sub-section">
 
-**Verify that you are running node version `4.6.x` or greater, and npm `3.x.x` or greater**
+**Verify that you are running Node.js version `8.x` or greater, and npm `5.x` or greater**
 by running `node -v` and `npm -v` in a terminal window.
 Older versions produce errors.
 
-在终端或者控制台中运行 `node -v` 和 `npm -v`，**请确认你的 Node 版本为 `4.6.x` 或更高，npm 的版本为 `3.x.x` 或更高**。老版本会引起错误。
+在终端或者控制台中运行 `node -v` 和 `npm -v`，**请确认你的 Node.js 版本为 `8.x` 或更高，npm 的版本为 `5.x` 或更高**。老版本会引起错误。
 
 </div>
 
