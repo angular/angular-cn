@@ -1,6 +1,6 @@
-# Upgrading from AngularJS
+# Upgrading from AngularJS to Angular
 
-# 从 AngularJS 升级
+# 从 AngularJS 升级到 Angular
 
 _Angular_ is the name for the Angular of today and tomorrow.
 _AngularJS_ is the name for all v1.x versions of Angular.
@@ -2141,7 +2141,7 @@ and the other loads the details of a specified phone:
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="fullclass" title="app/core/phone/phone.service.ts">
 </code-example>
 
-The methods now return Observables of type `PhoneData` and `PhoneData[]`. This is
+The methods now return observables of type `PhoneData` and `PhoneData[]`. This is
 a type you don't have yet. Add a simple interface for it:
 
 该方法现在返回一个 `Phone` 类型或 `Phone[]` 类型的可观察对象(Observable)。
@@ -2204,7 +2204,7 @@ it's really an instance of the `Phone` class and you annotate its type according
 
 Now there are two AngularJS components using an Angular service!
 The components don't need to be aware of this, though the fact that the
-service returns Observables and not Promises is a bit of a giveaway.
+service returns observables and not promises is a bit of a giveaway.
 In any case, what you've achieved is a migration of a service to Angular
 without having to yet migrate the components that use it.
 
@@ -2214,7 +2214,7 @@ without having to yet migrate the components that use it.
 <div class="alert is-helpful">
 
 You could use the `toPromise` method of `Observable` to turn those
-Observables into Promises in the service. In many cases that reduce
+observables into promises in the service. In many cases that reduce
 the number of changes to the component controllers.
 
 你也能使用 `Observable` 的 `toPromise` 方法来在服务中把这些可观察对象转变成承诺，以进一步减小组件控制器中需要修改的代码量。
