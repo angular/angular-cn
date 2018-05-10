@@ -1,5 +1,3 @@
-{@a glob}
-
 # Service worker configuration
 
 # Service Worker 配置
@@ -18,9 +16,9 @@ A basic understanding of the following:
 
 <hr />
 
-The `src/ngsw-config.json` configuration file specifies which files and data URLs the Angular 
-service worker should cache and how it should update the cached files and data. The 
-CLI processes the configuration file during `ng build --prod`. Manually, you can process 
+The `src/ngsw-config.json` configuration file specifies which files and data URLs the Angular
+service worker should cache and how it should update the cached files and data. The
+CLI processes the configuration file during `ng build --prod`. Manually, you can process
 it with the `ngsw-config` tool:
 
 配置文件 `src/ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。
@@ -38,17 +36,19 @@ The configuration file uses the JSON format. All file paths must begin with `/`,
 该配置文件使用 JSON 格式。
 所有文件路径都必须以 `/` 开头，也就是部署目录 —— 在 CLI 项目中的它通常是 `dist`。
 
-Patterns use a limited glob format:
+{@a glob-patterns}
 
-它的模式使用受限的 glob 格式：
+Unless otherwise noted, patterns use a limited glob format:
+
+如无特别说明，这些模式都使用受限的 glob 格式：
 
 * `**` matches 0 or more path segments.
 
    `**` 匹配 0 到多段路径。
 
-* `*` matches exactly one path segment or filename segment.
+* `*` matches 0 or more characters excluding `/`.
 
-   `*` 只匹配一段路径或文件名。
+  `*` 匹配 0 个或更多个除 `/` 之外的字符。
 
 * The `!` prefix marks the pattern as being negative, meaning that only files that don't match the pattern will be included.
 
@@ -70,7 +70,7 @@ Example patterns:
 
    `!/**/*.map` 排除了所有源码映射文件。
 
-Each section of the configuration file is described below. 
+Each section of the configuration file is described below.
 
 下面讲讲配置文件中的每一节。
 
@@ -82,6 +82,8 @@ The `SwUpdate` service includes that data in the update notifications. Many apps
 本节允许你传递用来描述这个特定应用版本的任何数据。
 `SwUpdate` 服务会在更新通知中包含这些数据。
 许多应用会使用本节来提供 UI 弹窗时要显示的附加信息，以通知用户有可用的更新。
+
+{@a index-file}
 
 ## `index`
 
@@ -167,7 +169,7 @@ For resources already in the cache, the `updateMode` determines the caching beha
 对于已经存在于缓存中的资源，`updateMode` 会决定在发现了新版本应用后的缓存行为。
 自上一版本以来更改过的所有组中资源都会根据 `updateMode` 进行更新。
 
-* `prefetch` tells the service worker to download and cache the changed resources immediately. 
+* `prefetch` tells the service worker to download and cache the changed resources immediately.
 
    `prefetch` 会告诉 Service Worker 立即下载并缓存更新过的资源。
 
@@ -191,11 +193,13 @@ This section describes the resources to cache, broken up into three groups.
    `versionedFiles` 和 `files` 相似，但是它用来对工件进行构建，这些工件已经在文件名中包含了一个散列，用于让其缓存失效。
   如果 Angular Service Worker 能假定这些文件在文件名不变时其内容也不会变，那它就可以从某些方面优化这种操作。
 
-* `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.
+* `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
+  _(Negative glob patterns are not supported.)_
 
    `urls` 包括要在运行时进行匹配的 URL 和 URL 模式。
   这些资源不是直接获取的，也没有内容散列，但它们会根据 HTTP 标头进行缓存。
-  这对于像 Google Fonts 服务这样的 CDN 非常有用。
+  这对于像 Google Fonts 服务这样的 CDN 非常有用。<br>
+  **（不支持 glob 的逆模式）**
 
 ## `dataGroups`
 
@@ -232,9 +236,11 @@ Similar to `assetGroups`, every data group has a `name` which uniquely identifie
 
 ### `urls`
 
-A list of URL patterns. URLs that match these patterns will be cached according to this data group's policy.
+A list of URL patterns. URLs that match these patterns will be cached according to this data group's policy.<br>
+  _(Negative glob patterns are not supported.)_
 
-一个 URL 模式的列表。匹配这些模式的 URL 将会根据该数据组的策略进行缓存。
+一个 URL 模式的列表。匹配这些模式的 URL 将会根据该数据组的策略进行缓存。<br>
+  **（不支持 glob 中的逆模式）**
 
 ### `version`
 
@@ -243,7 +249,7 @@ Occasionally APIs change formats in a way that is not backward-compatible. A new
 API 有时可能会以不向后兼容的方式更改格式。
 新版本的应用可能与旧的 API 格式不兼容，因此也就与该 API 中目前已缓存的资源不兼容。
 
-`version` provides a mechanism to indicate that the resources being cached have been updated in a backwards-incompatible way, and that the old cache entries&mdash;those from previous versions&mdash;should be discarded. 
+`version` provides a mechanism to indicate that the resources being cached have been updated in a backwards-incompatible way, and that the old cache entries&mdash;those from previous versions&mdash;should be discarded.
 
 `version` 提供了一种机制，用于指出这些被缓存的资源已经通过不向后兼容的方式进行了更新，并且旧的缓存条目（即来自以前版本的缓存条目）应该被丢弃。
 
@@ -314,3 +320,73 @@ Angular Service Worker 可以使用两种缓存策略之一来获取数据资源
 * `freshness` optimizes for currency of data, preferentially fetching requested data from the network. Only if the network times out, according to `timeout`, does the request fall back to the cache. This is useful for resources that change frequently; for example, account balances.
 
    `freshness` 为数据的即时性而优化，优先从网络获取请求的数据。只有当网络超时时，请求才会根据 `timeout` 的设置回退到缓存中。这对于那些频繁变化的资源很有用，例如账户余额。
+
+## `navigationUrls`
+
+This optional section enables you to specify a custom list of URLs that will be redirected to the index file.
+
+这个可选节让你可以指定一个自定义的 URL 列表，它们都会被重定向到索引文件。
+
+### Handling navigation requests
+
+### 处理导航请求
+
+The ServiceWorker will redirect navigation requests that don't match any `asset` or `data` group to the specified [index file](#index-file). A request is considered to be a navigation request if:
+
+对于没有匹配上任何 `asset` 或 `data` 组的导航请求，ServiceWorker 会把它们重定向到指定的[索引文件](#index-file)。下列请求将会视为导航请求：
+
+1. Its [mode](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode) is `navigation`.
+
+   它的[模式](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode)是 `navigation`。
+
+2. It accepts a `text/html` response (as determined by the value of the `Accept` header).
+
+   它接受 `text/html` 响应（根据 `Accept` 头的值决定）。
+
+3. Its URL matches certain criteria (see below).
+
+   它的 URL 符合特定的条件（稍后讲）。
+
+By default, these criteria are:
+
+默认情况下，这些条件是：
+
+1. The URL must not contain a file extension (i.e. a `.`) in the last path segment.
+
+   URL 的最后一段路径中不能包含文件扩展名（比如 `.`）。
+
+2. The URL must not contain `__`.
+
+   URL 中不能包含 `__`。
+
+### Matching navigation request URLs
+
+### 匹配导航请求的 URL
+
+While these default criteria are fine in most cases, it is sometimes desirable to configure different rules. For example, you may want to ignore specific routes (that are not part of the Angular app) and pass them through to the server.
+
+虽然这些默认条件在大多数情况下都挺好用，不过有时还是要配置一些不同的规则。比如，你可能希望忽略一些特定的路由（它们可能不是 Angular 应用的一部分），而是把它们透传给服务器。
+
+This field contains an array of URLs and [glob-like](#glob-patterns) URL patterns that will be matched at runtime. It can contain both negative patterns (i.e. patterns starting with `!`) and non-negative patterns and URLs.
+
+该字段包含一个将要在运行期间匹配的 URL 和 [类似 glob 的](#glob-patterns) URL模式。
+它既可以包含正向模式也可以包含反向模式（比如用 `!` 开头的模式）。
+
+Only requests whose URLs match _any_ of the non-negative URLs/patterns and _none_ of the negative ones will be considered navigation requests. The URL query will be ignored when matching.
+
+只有那些能匹配**任意**正向 URL 或 URL 模式并且**不匹配任何一个**反向模式的 URL 才会视为导航请求。当匹配时，这些 URL 查询将会被忽略。
+
+If the field is omitted, it defaults to:
+
+如果省略了该字段，它的默认值是：
+
+```ts
+
+[
+  '/**',           // Include all URLs.
+  '!/**/*.*',      // Exclude URLs to files.
+  '!/**/*__*',     // Exclude URLs containing `__` in the last segment.
+  '!/**/*__*/**',  // Exclude URLs containing `__` in any other segment.
+]
+
+```
