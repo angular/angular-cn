@@ -107,7 +107,7 @@ In either case, a `next` handler is required. The `error` and `complete` handler
 
 无论哪种情况，`next` 处理器都是必要的，而 `error` 和 `complete` 处理器是可选的。
 
-Note that a `next()` function could receive, for instance, message strings, or event objects, numeric values, or stuctures, depending on context. As a general term, we refer to data published by an observable as a *stream*. Any type of value can be represented with an observable, and the values are published as a stream.
+Note that a `next()` function could receive, for instance, message strings, or event objects, numeric values, or structures, depending on context. As a general term, we refer to data published by an observable as a *stream*. Any type of value can be represented with an observable, and the values are published as a stream.
 
 注意，`next()` 函数可以接受消息字符串、事件对象、数字值或各种结构，具体类型取决于上下文。
 为了更通用一点，我们把由可观察对象发布出来的数据统称为*流*。任何类型的值都可以表示为可观察对象，而这些值会被发布为一个流。
