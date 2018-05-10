@@ -502,11 +502,11 @@ Two older properties are still available. They are less capable than their repla
 
 有两个旧式属性仍然是有效的，但它们不如其替代品那样强力，建议不再用它们，它们还将在未来的 Angular 版本中废弃。
 
-**`params`** &mdash; An `Observable` that contains the required and [optional parameters](#optional-route-parameters) specific to the route. Use `paramMap` instead.
+**`params`**&mdash;An `Observable` that contains the required and [optional parameters](#optional-route-parameters) specific to the route. Use `paramMap` instead.
 
 **`params`** —— 一个 `Observable` 对象，其中包含当前路由的必要参数和[可选参数](#optional-route-parameters)。请改用 `paramMap`。
 
-**`queryParams`** &mdash; An `Observable` that contains the [query parameters](#query-parameters) available to all routes.
+**`queryParams`**&mdash;An `Observable` that contains the [query parameters](#query-parameters) available to all routes.
 Use `queryParamMap` instead.
 
 **`queryParams`** —— 一个 `Observable` 对象，其中包含对所有路由都有效的[查询参数](#query-parameters)。请改用 `queryParamMap`。
@@ -2304,8 +2304,7 @@ They are distributed across two modules, `AppRoutingModule` and `HeroesRoutingMo
 Each routing module augments the route configuration _in the order of import_.
 If you list `AppRoutingModule` first, the wildcard route will be registered
 _before_ the hero routes.
-The wildcard route &mdash; which matches _every_ URL &mdash;
-will intercept the attempt to navigate to a hero route.
+The wildcard route&mdash;which matches _every_ URL&mdash;will intercept the attempt to navigate to a hero route.
 
 每个路由模块都会根据*导入的顺序*把自己的路由配置追加进去。
 如果你先列出了 `AppRoutingModule`，那么通配符路由就会被注册在“英雄管理”路由*之前*。
@@ -2863,7 +2862,7 @@ The path for the "Heroes" route doesn't have an `:id` token.
 
 The optional route parameters are not separated by "?" and "&" as they would be in the URL query string.
 They are **separated by semicolons ";"**
-This is *matrix URL* notation &mdash; something you may not have seen before.
+This is *matrix URL* notation&mdash;something you may not have seen before.
 
 可选的路由参数没有使用“？”和“&”符号分隔，因为它们将用在 URL 查询字符串中。
 它们是**用“;”分隔的**。
@@ -4321,7 +4320,7 @@ Here's a demo `AuthService`:
 Although it doesn't actually log in, it has what you need for this discussion.
 It has an `isLoggedIn` flag to tell you whether the user is authenticated.
 Its `login` method simulates an API call to an external service by returning an
-Observable that resolves successfully after a short pause.
+observable that resolves successfully after a short pause.
 The `redirectUrl` property will store the attempted URL so you can navigate to it after authenticating.
 
 虽然它不会真的进行登录，但足够让你进行这个讨论了。
@@ -4725,17 +4724,14 @@ That method could return a `Promise`, an `Observable`, or a synchronous return v
 注入 `CrisisService` 和 `Router`，并实现 `resolve()` 方法。
 该方法可以返回一个 `Promise`、一个 `Observable` 来支持异步方式，或者直接返回一个值来支持同步方式。
 
-The `CrisisService.getCrisis` method returns an Observable.
-Return that observable to prevent the route from loading until the data is fetched.
-The `Router` guards require an Observable to `complete`, meaning it has emitted all
+The `CrisisService.getCrisis` method returns an observable, in order to prevent the route from loading until the data is fetched.
+The `Router` guards require an observable to `complete`, meaning it has emitted all
 of its values. You use the `take` operator with an argument of `1` to ensure that the
-Observable completes after retrieving the first value from the Observable returned by the
-`getCrisis` method.
-If it doesn't return a valid `Crisis`, navigate the user back to the `CrisisListComponent`,
+observable completes after retrieving the first value from the observable returned by the
+`getCrisis` method. If it doesn't return a valid `Crisis`, navigate the user back to the `CrisisListComponent`,
 canceling the previous in-flight navigation to the `CrisisDetailComponent`.
 
-`CrisisService.getCrisis` 方法返回了一个 `Promise`。
-返回 `Promise` 可以阻止路由被加载，直到数据获取完毕。
+`CrisisService.getCrisis` 方法返回了一个可观察对象，这是为了防止在数据获取完毕前加载路由。
 如果它没有返回一个有效的 `Crisis`，就把用户导航回 `CrisisListComponent`，并取消以前到 `CrisisDetailComponent` 尚未完成的导航。
 
 Import this resolver in the `crisis-center-routing.module.ts`
@@ -4780,8 +4776,8 @@ That's the router's job. Write this class and let the router take it from there.
 
    要依赖路由器调用此守卫。不必关心用户用哪种方式导航离开，这是路由器的工作。你只要写出这个类，等路由器从那里取出它就可以了。
 
-1. The Observable provided to the Router _must_ complete.
-If the Observable does not complete, the navigation will not continue.
+1. The observable provided to the Router _must_ complete.
+If the observable does not complete, the navigation will not continue.
 
    由路由器提供的 Observable *必须* 完成（complete），否则导航不会继续。
 
@@ -5343,7 +5339,7 @@ The router calls the `preload` method with two arguments:
 
    一个加载器（loader）函数，它能异步加载带路由的模块。
 
-An implementation of `preload`must return an `Observable`.
+An implementation of `preload` must return an `Observable`.
 If the route should preload, it returns the observable returned by calling the loader function.
 If the route should _not_ preload, it returns an `Observable` of `null`.
 
