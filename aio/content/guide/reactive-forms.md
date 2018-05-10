@@ -1336,10 +1336,9 @@ A refresh button clears the hero list and the current selected hero before refet
 
 "刷新"按钮会清除英雄列表和当前选中的英雄，然后重新获取英雄列表。
 
-Notice that `hero-list.component.ts` imports `Observable` and `finally` while `hero.service.ts` imports `Observable`, `of`,
-and `delay` from `rxjs`.
+Notice that `hero-list.component.ts` imports `Observable` and the `finalize` operator, while `hero.service.ts` imports `Observable`, `of`, and the `delay` operator from `rxjs`.
 
-注意，`hero-list.component.ts` 从 `rxjs` 中导入了 `Observable` 和 `finally`，而 `hero.service.ts` 导入了 `Observable`、`of` 和 `delay`。
+注意，`hero-list.component.ts` 从 `rxjs` 中导入了 `Observable` 和 `finalize`，而 `hero.service.ts` 导入了 `Observable`、`of` 和 `delay` 操作符。
 
 The remaining `HeroListComponent` and `HeroService` implementation details are beyond the scope of this tutorial.
 However, the techniques involved are covered elsewhere in the documentation, including the _Tour of Heroes_
@@ -1535,9 +1534,9 @@ Replace the address `FormGroup` definition with a `secretLairs`  `FormArray` def
 
 </code-example>
 
-In `hero-detail.component.html` change `formArrayName="address"` to `formArrayName="secretLairs"`.
+In `hero-detail.component.html` change `formGroupName="address"` to `formArrayName="secretLairs"`.
 
-在 `hero-detail.component.html` 中 把 `formArrayName="address"` 改为 `formArrayName="secretLairs"`。
+在 `hero-detail.component.html` 中 把 `formGroupName="address"` 改为 `formArrayName="secretLairs"`。
 
 <code-example path="reactive-forms/src/app/hero-detail/hero-detail-8.component.html" region="form-array-name" title="src/app/hero-detail/hero-detail.component.ts" linenums="false">
 
