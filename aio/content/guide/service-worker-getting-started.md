@@ -2,6 +2,10 @@
 
 # Service Worker 快速起步
 
+This document explains how to enable Angular service worker support in your CLI projects. It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching. 
+
+本文档解释了如何在 CLI 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
+
 #### Prerequisites
 
 #### 前提条件
@@ -14,147 +18,66 @@ A basic understanding of the following:
 
    [Angular Service Worker 简介](guide/service-worker-intro).
 
+* Angular v6, including Angular CLI v6.
+
+   Angular v6，也包括 Angular CLI v6。
+
 <hr />
 
-Beginning in Angular 5.0.0, you can easily enable Angular service worker support in any CLI project. This document explains how to enable Angular service worker support in new and existing projects. It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching.  
+## Adding a service worker to your project
 
-从 Angular 5.0.0 开始，你就可以轻松为任何 CLI 项目启用 Angular Service Worker 的支持了。
-这个文档解释了你要如何在新项目和现有项目中启用 Angular Service Worker 的支持。
-然后使用一个简单的例子为你展示 Service Worker 实战，以演示加载和基本的缓存功能。
+## 为你的项目添加 Service Worker
 
-## Adding a service worker to a new application
+To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your app to use service workers by adding the `service-worker` package along 
+with setting up the necessary support files.
 
-## 为新项目添加 Service Worker
-
-If you're generating a new CLI project, you can use the CLI to set up the Angular service worker as part of creating the project. To do so, add the `--service-worker` flag to the `ng new`  command:
-
-如果你正在生成一个新的 CLI 项目，可以 使用 CLI 在创建项目时就准备好 Angular Service Worker。
-只要在 `ng new` 命令中添加 `--service-worker` 标志就可以了：
+要让你的项目支持 Angular Service Worker，可以使用 CLI 命令 `ng add @angular/pwa`。它会添加 `service-worker` 包，并建立必要的支持文件，小心翼翼地配置你的应用，以便使用 Service Worker。
 
 ```sh
 
-ng new my-project --service-worker 
+ng add  @angular/pwa --project *project-name* 
 
 ```
 
-The `--service-worker` flag takes care of configuring your app to 
-use service workers by adding the `service-worker` package along 
-with setting up the necessary files to support service workers. 
-For information on the details, see the following section 
-which covers the process in detail as it shows you how to add a 
-service worker manually to an existing app.
+The above command completes the following actions:
 
-`--service-worker` 标志会通过添加 `service-worker` 包及其它必须的文件，来帮你配置好 Service Worker。
-这个过程的细节和向现有项目中手动添加 Service Worker 的支持是一样的。要了解详情，参见下面的部分。
+上述命令完成了如下步骤：
 
-## Adding a service worker to an existing app
+1. Adds the `@angular/service-worker` package to your project. 
 
-## 向现有工程中添加 Service Worker
+   把 @angular/service-worker 添加到你的项目中。
 
-To add a service worker to an existing app:
-
-要把 Service Worker 添加到现有应用中，就要：
-
-1. Add the service worker package.
-
-   添加 Service Worker 包。
-
-2. Enable service worker build support in the CLI.
+2. Enables service worker build support in the CLI.
 
    在 CLI 中启用 Service Worker 的构建支持。
 
-3. Import and register the service worker.
+3. Imports and registers the service worker in the app module.
 
-   导入并注册这个 Service Worker。
+   在应用模块中导入并注册 Service Worker。
 
-4. Create the service worker configuration file, which specifies the caching behaviors and other settings. 
+4. Updates the `index.html` file:
 
-   创建 Service Worker 的配置文件，它指定了缓存行为和其它设置。
+   修改 `index.html` 文件：
 
-5. Build the project.
+    * Includes a link to add the `manifest.json` file.
 
-   构建该项目。
+       包含要添加到 `manifest.json` 文件中的链接。
 
-### Step 1: Add the service worker package
+    * Adds meta tags for `theme-color`.
+    
+       为 `theme-color` 添加 meta 标签。
 
-### 步骤 1：添加 Service Worker 包
+5. Installs icon files to support the installed Progressive Web App (PWA).
 
-Add the package `@angular/service-worker`, using the yarn utility as shown here:
+   创建图标文件，以支持安装渐进式应用（PWA）。
 
-添加 `@angular/service-worker` 包，使用 yarn 工具时的用法如下：
+6. Creates the service worker configuration file called [`ngsw-config.json`](/guide/service-worker-config), which specifies the caching behaviors and other settings. 
 
-```sh
+   创建一个名叫 [`ngsw-config.json`](/guide/service-worker-config) 的 Service Worker 配置文件，它会用来指定缓存的行为以及其它设定。
 
-yarn add @angular/service-worker
+ Now, build the project: 
 
-```
-
-### Step 2: Enable service worker build support in the CLI
-
-### 步骤 2：在 CLI 中启用 Service Worker 的构建支持
-
-To enable the Angular service worker, the CLI must generate an Angular service worker manifest at build time. To cause the CLI to generate the manifest for an existing project, set the `serviceWorker` flag to `true` in the project's `.angular-cli.json` file as shown here:
-
-要启用 Angular Service Worker，CLI 必须在构建时生成一个 Angular Service Worker 的 `manifest` 文件。
-要让 CLI 为现有项目生成 `manifest`，就要在该项目的 `.angular-cli.json` 文件中 `serviceWorker` 标识设置为 `true`。命令如下：
-
-```sh
-
-ng set apps.0.serviceWorker=true
-
-```
-
-### Step 3: Import and register the service worker
-
-### 步骤 3：导入并注册 Service Worker
-
-To import and register the Angular service worker:
-
-要导入并注册 Angular Service Worker 就要：
-
-At the top of the root module, `src/app/app.module.ts`, import `ServiceWorkerModule` and `environment`.
-
-在根模块 `src/app/app.module.ts` 的顶部导入 `ServiceWorkerModule` 和 `environment`。
-
-<code-example path="service-worker-getting-started/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts" region="sw-import"> </code-example>
-
-Add `ServiceWorkerModule` to the `@NgModule` `imports` array. Use the `register()` helper to take care of registering the service worker, taking care to disable the service worker when not running in production mode.
-
-把 `ServiceWorkerModule` 添加到 `@NgModule` 的 `imports` 数组中。使用 `register()` 来帮助管理 Service Worker 的注册并在非生产环境下运行时禁用 Service Worker。
-
-<code-example path="service-worker-getting-started/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts" region="sw-module"> </code-example>
-
-The file `ngsw-worker.js` is the name of the prebuilt service worker script, which the CLI copies into `dist/` to deploy along with your server.
-
-`ngsw-worker.js` 文件是内置的 Service Worker 脚本的名字，CLI 会把它复制到 `dist/` 目录下，让它随你的服务器一起发布。
-
-### Step 4: Create the configuration file, `ngsw-config.json`
-
-### 步骤 4：创建配置文件 `ngsw-config.json`
-
-The Angular CLI needs a service worker configuration file, called `ngsw-config.json`. The configuration file controls how the service worker caches files and data 
-resources.
-
-Angular CLI 需要一个名叫 `ngsw-config.json` 的 Service Worker 配置文件。
-这个配置文件会控制 Service Worker 如何缓存各个文件和数据资源。
-
-You can begin with the boilerplate version from the CLI, which configures sensible defaults for most applications.
-
-你可以从 CLI 创建的样板项目开始，它已经配置好了适合大多数应用的默认选项。
-
-Alternately, save the following as `src/ngsw-config.json`:
-
-另外，你也可以把下列内容保存为 `src/ngsw-config.json`：
-
-<code-example path="service-worker-getting-started/src/ngsw-config.json" linenums="false" title="src/ngsw-config.json"> </code-example>
-
-### Step 5: Build the project
-
-### 步骤 5：构建本项目
-
-Finally, build the project: 
-
-最后，构建本项目：
+现在，构建本项目：
 
 ```sh
 
@@ -179,7 +102,7 @@ using an example application.
 
 ### 用 `http-server` 启动开发服务器
 
-Because `ng serve` does not work with service workers, you must use a seperate HTTP server to test your project locally. You can use any HTTP server. The example below uses the [http-server](https://www.npmjs.com/package/http-server) package from npm. To reduce the possibility of conflicts, test on a dedicated port.
+Because `ng serve` does not work with service workers, you must use a separate HTTP server to test your project locally. You can use any HTTP server. The example below uses the [http-server](https://www.npmjs.com/package/http-server) package from npm. To reduce the possibility of conflicts, test on a dedicated port.
 
 由于 `ng serve` 对 Service Worker 无效，所以必须用一个独立的 HTTP 服务器在本地测试你的项目。
 你可以使用任何 HTTP 服务器。下面这个例子使用来自 npm 中的 [http-server](https://www.npmjs.com/package/http-server) 包。

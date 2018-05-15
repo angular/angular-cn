@@ -30,9 +30,9 @@ Meanwhile, the browser downloads the full client version and switches to it auto
 <div class="l-sub-section">
 
 [Download the finished sample code](generated/zips/universal/universal.zip),
-which runs in a [node express](https://expressjs.com/) server.
+which runs in a [Node.js® Express](https://expressjs.com/) server.
 
-你可以[下载最终的范例代码](generated/zips/universal/universal.zip)，并将其运行在一个 [node express](https://expressjs.com/) 服务器中。
+你可以[下载最终的范例代码](generated/zips/universal/universal.zip)，并将其运行在一个 [Node.js® Express](https://expressjs.com/) 服务器中。
 
 </div>
 
@@ -227,10 +227,10 @@ You'll add more files to support building and serving with Universal.
 
 In this example, the Angular CLI compiles and bundles the Universal version of the app with the
 [AOT (Ahead-of-Time) compiler](guide/aot-compiler).
-A node/express web server turns client requests into the HTML pages rendered by Universal.
+A Node.js® Express web server turns client requests into the HTML pages rendered by Universal.
 
 在这个例子中，Angular CLI 会使用 [AOT (预先) 编译器](guide/aot-compiler)对该应用的 Universal 版本进行编译和打包。
-Node 的 Express Web 服务器会把客户端请求转换成由 Universal 渲染出的页面。
+Node.js® 的 Express Web 服务器会把客户端请求转换成由 Universal 渲染出的页面。
 
 You will create:
 
@@ -774,9 +774,9 @@ First add the _build_ and _serve_ commands to the `scripts` section of the `pack
 <code-example format="." language="ts">
 "scripts": {
     ...
-    "build:universal": "npm run build:client-and-server-bundles && npm run webpack:server",
-    "serve:universal": "node dist/server.js",
-    "build:client-and-server-bundles": "ng build --prod && ng build --prod --app 1 --output-hashing=false",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+    "serve:ssr": "node dist/server",
+    "build:client-and-server-bundles": "ng build --prod && ng run angular.io-example:server",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     ...
 }
@@ -793,7 +793,7 @@ From the command prompt, type
 在命令行提示中输入
 
 <code-example format="." language="bash">
-npm run build:universal
+npm run build:ssr
 </code-example>
 
 The Angular CLI compiles and bundles the universal app into two different folders, `browser` and `server`.
@@ -813,7 +813,7 @@ After building the application, start the server.
 构建完应用之后，启动服务器。
 
 <code-example format="." language="bash">
-npm run serve:universal
+npm run serve:ssr
 </code-example>
 
 The console window should say

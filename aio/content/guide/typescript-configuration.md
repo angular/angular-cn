@@ -203,10 +203,10 @@ QuickStart identifies two *typings*, or `d.ts`, files:
 
    [jasmine](http://jasmine.github.io/)是 Jasmine 测试框架的类型定义
 
-* [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *nodejs* environment;
+* [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *Node.js®* environment;
 you can view an example in the [webpack](guide/webpack) page.
 
-   [node](https://www.npmjs.com/package/@types/node)是为了在 *nodejs* 环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
+   [node](https://www.npmjs.com/package/@types/node)是为了在 *Node.js®* 环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
 
 QuickStart doesn't require these typings but many of the samples do.
 

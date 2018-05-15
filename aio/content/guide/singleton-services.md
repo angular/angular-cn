@@ -25,67 +25,23 @@ For a sample app using the app-wide singleton service that this page describes, 
 
 ## 提供单例服务
 
-An injector created from a module definition will have services which are singletons with respect to
-that injector. To control the lifetime of services, one controls the creation and destruction of
-injectors. For example, a route will have an associated module. When the route is activated, an
-injector is created from that module as a child of the current injector. When you navigate away from
-the route, the injector is destroyed. This means that services declared in a route module will have
-a lifetime equal to that of the route. Similarly, services provided in an application module will
-have the same lifetime of the application, hence singleton.
+There are two ways to make a service a singleton in Angular:
 
-那些在定义模块时创建的注入器将会拥有一些服务，这些服务对于该注入器来说都是单例的。要控制这些服务的生命周期，其实就是控制注入器的创建和销毁。
-比如，路由定义中就可以有一个关联模块。当激活该路由时，就会给那个模块创建一个新注入器，并将其作为当前注入器的子注入器。当离开该路由时，这个新注入器也就被销毁了。
-这也意味着在这个模块中声明的那些服务也随之销毁了，它们的生命周期与该路由完全相同。
-类似的，在应用模块中提供的那些服务的生命周期也等同于该应用，因此是单例的。
+在 Angular 中有两种方式来生成单例服务：
 
-The following example module is called, as a convention, `CoreModule`. This use of `@NgModule` creates organizational infrastructure and gives you
-a way of providing services from a designated NgModule.
+* Declare that the service should be provided in the application root.
 
-下面的范例模块习惯上叫做 `CoreModule`。`@NgModule` 用来创建结构良好的基础设施，让你能够在一个指定的模块中提供服务。
+  声明该服务应该在应用的根上提供。
 
-<code-example path="ngmodules/src/app/core/core.module.ts" region="user-service" title="src/app/core/core.module.ts" linenums="false">
-</code-example>
+* Include the service in the `AppModule` or in a module that is only imported by the `AppModule`.
 
-Here, `CoreModule` provides the `UserService`, and because `AppModule`
-imports `CoreModule`, any services that `CoreModule` provides are available
-throughout the app, because it is a root of the injector tree. It will also be a singleton because the injector lifetime of the `AppModule` is for the duration of the application.
+  把该服务包含在 `AppModule` 或某个只会被 `AppModule` 导入的模块中。
 
-这里的 `CoreModule` 提供了 `UserService`，并且由于 `AppModule` 导入了 `CoreModule`，所以 `CoreModule` 中提供的任何服务也能在整个应用中使用，因为它是注入器树的根节点。
-它还是单例的，因为在该应用运行期间，该注入器的生命周期等同于 `AppModule` 的。
+Beginning with Angular 6.0, the preferred way to create a singleton services is to specify on the service that it should be provided in the application root. This is done by setting `providedIn` to `root` on the service's `@Injectable` decorator:
 
-Angular registers the `UserService` provider with the app root
-injector, making a singleton instance of the `UserService`
-available to any component that needs it,
-whether that component is eagerly or lazily loaded.
+从 Angular 6.0 开始，创建单例服务的首选方式是在那个服务类上指定它应该在应用的根上提供。只要在该服务的 `@Injectable` 装饰器上把 `providedIn` 设置为 `root` 就可以了：
 
-Angular 使用应用的根注入器注册了 `UserService` 提供商，可以让任何需要它的组件（无论它是立即加载的还是惰性加载的）都能使用 `UserService` 的单例。
-
-The root `AppModule` could register the `UserService` directly,
-but as the app grows, it could have other services and
-components like spinners, modals, and so on. To
-keep your app organized, consider using a module such as `CoreModule`.
-This technique simplifies the root `AppModule` in its
-capacity as orchestrator of the application as a whole.
-
-根模块 `AppModule` 当然也可以直接注册 `UserService`，不过随着应用的成长，可能还会出现其它的服务和组件，比如 列表框、模态框等等。
-要想保持你应用的良好结构，就要考虑使用诸如 `CoreModule` 这样的模块。
-这种方式简化了根模块 `AppModule`，让它只需要扮演整个应用的总指挥，而不必事必躬亲。
-
-Now you can inject such services into components as needed. In terms of
-Angular NgModules, you only need to define the services in one `@NgModule`.
-See [JS Modules vs. NgModules](guide/ngmodule-vs-jsmodule) for
-more information on how to differentiate between the two.
-
-现在，你可以把这些服务注入到需要它们的各个组件中了。
-从 Angular 模块的角度来说，你只需要把这些服务定义在一个 `@NgModule` 中。
-要想深入了解两者的区别，参见 [JS 模块 vs. NgModule](guide/ngmodule-vs-jsmodule)。
-
-As a general rule, import modules with providers _exactly once_,
-preferably in the application's _root module_.
-That's also usually the best place to configure, wrap, and override them.
-
-作为一个通用的规则，应该*只导入一次*带提供商的模块，最好在应用的*根模块*中。
-那里也是配置、包装和改写这些服务的最佳位置。
+<code-example path="providers/src/app/user.service.0.ts"  title="src/app/user.service.0.ts" linenums="false"> </code-example>
 
 For more detailed information on services, see the [Services](tutorial/toh-pt4) chapter of the
 [Tour of Heroes tutorial](tutorial).

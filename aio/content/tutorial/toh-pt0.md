@@ -30,6 +30,22 @@ The Angular CLI generated a new project with a default application and supportin
 
 这样 Angular CLI 就创建了一个带默认应用及其支持文件的新项目。
 
+<div class="l-sub-section">
+
+You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
+For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
+
+你可以使用 `ng add` 命令往新项目中添加一些预先打包好的功能。
+`ng add` 命令会通过应用来自特定 NPM 包中的图纸（schematic）来转换此项目。
+要了解更多，参见 [Angular CLI 文档](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation")。
+
+Angular Material provides schematics for typical app layouts. 
+See the [Angular Material documentation](https://material.angular.io/guides "Angular Material documentation") for details.
+
+比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.io/guides "Angular Material documentation")。
+
+</div>
+
 ## Serve the application
 
 ## 启动应用服务器

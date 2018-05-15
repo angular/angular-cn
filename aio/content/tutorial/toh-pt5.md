@@ -550,7 +550,7 @@ fix the dashboard hero links to navigate via the _parameterized_ dashboard route
 </code-example>
 
 You're using Angular [interpolation binding](guide/template-syntax#interpolation) within the `*ngFor` repeater 
-to insert the current interation's `hero.id` into each 
+to insert the current iteration's `hero.id` into each 
 [`routerLink`](#routerlink).
 
 你正在 `*ngFor` 复写器中使用 Angular 的[插值表达式](guide/template-syntax#interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。

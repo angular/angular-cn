@@ -65,12 +65,13 @@ Angular 的 Service Worker 的行为遵循下列设计目标：
 
    只要有可能，Service Worker 就会尽量节省带宽。它只会下载那些发生了变化的资源。
 
-To support these behaviors, the Angular service worker loads a *manifest* file from the server. The manifest describes the resources to cache and includes hashes of every file's contents. When an update to the application is deployed, the contents of the manifest change, informing the service worker that a new version of the application should be downloaded and cached. This manifest is generated from a user-provided configuration file called `ngsw-config.json`, by using a build tool such as the Angular CLI.
+To support these behaviors, the Angular service worker loads a *manifest* file from the server. The manifest describes the resources to cache and includes hashes of every file's contents. When an update to the application is deployed, the contents of the manifest change, informing the service worker that a new version of the application should be downloaded and cached. This manifest is generated from a CLI-generated configuration file called `ngsw-config.json`.
 
 要支持这些行为，Angular 的 Service Worker 会从服务器上下载一个 `manifest` 文件。
 这个 `manifest` 文件描述要缓存的资源，并包含每个文件内容的哈希值。
 当发布了应用的一个新版本时，`manifest` 的内容就会改变，通知 Service Worker 应该下载并缓存应用的一个新版本了。
-这个 manifest 是从用户使用 Angular CLI 等构建工具提供的一个名叫 `ngsw-config.json` 的文件中生成的。
+这个 manifest 是从 CLI 生成的一个名叫 `ngsw-config.json` 的文件中生成的。
+
 
 Installing the Angular service worker is as simple as including an `NgModule`. In addition to registering the Angular service worker with the browser, this also makes a few services available for injection which interact with the service worker and can be used to control it. For example, an application can ask to be notified when a new update becomes available, or an application can ask the service worker to check the server for available updates.
 
@@ -81,18 +82,6 @@ Installing the Angular service worker is as simple as including an `NgModule`. I
 ## Prerequisites
 
 ## 前提条件
-
-To use Angular service workers, you must have the following Angular and CLI versions:
-
-要想使用 Angular Service Worker，你要使用下列 Angular 和 CLI 版本：
-
-* Angular 5.0.0 or later.
-
-   Angular 5.0.0 或更高。
-
-* Angular CLI 1.6.0 or later.
-
-   Angular CLI 1.6.0 或更高。
 
 Your application must run in a web browser that supports service workers. Currently, the latest versions of Chrome and Firefox are supported. To learn about other browsers that are service worker ready, see the [Can I Use](http://caniuse.com/#feat=serviceworkers) page.
 

@@ -4328,9 +4328,9 @@ Compare with the less preferred `host` metadata alternative.
 
 <div class="s-rule do">
 
-**Do** provide services to the Angular injector at the top-most component where they will be shared.
+**Do** provide a service with the app root injector in the `@Injectable` decorator of the service.
 
-**坚持**将服务提供到共享范围内的顶级组件的 Angular 注入器。
+**坚持**在服务的 `@Injectable` 装饰器上指定通过应用的根注入器提供服务。
 
 </div>
 
@@ -4344,18 +4344,17 @@ Compare with the less preferred `host` metadata alternative.
 
 <div class="s-why">
 
-**Why?** When providing the service to a top level component,
-that instance is shared and available to all child components of that top level component.
+**Why?** When you provide the service to a root injector, that instance of the service is shared and available in every class that needs the service. This is ideal when a service is sharing methods or state.
 
-**为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。
+**为何？**当你在根注入器上提供该服务时，该服务实例在每个需要该服务的类中是共享的。当服务要共享方法或状态时，这是最理想的选择。
 
 </div>
 
 <div class="s-why">
 
-**Why?** This is ideal when a service is sharing methods or state.
+**Why?** When you register a service in the `@Injectable` decorator of the service, optimization tools such as those used by the CLI's production builds can perform tree shaking and remove services that aren't used by your app.
 
-**为何？**服务是共享方法或状态的理想载体。
+**为何？**当你在服务的 `@Injectable` 中注册服务时，CLI 生产环境构建时使用的优化工具可以进行摇树优化，从而移除那些你的应用中从未用过的服务。
 
 </div>
 
@@ -4367,17 +4366,7 @@ that instance is shared and available to all child components of that top level 
 
 </div>
 
-<code-tabs>
-
-  <code-pane title="app/app.component.ts" path="styleguide/src/07-03/app/app.component.ts">
-
-  </code-pane>
-
-  <code-pane title="app/heroes/hero-list/hero-list.component.ts" path="styleguide/src/07-03/app/heroes/hero-list/hero-list.component.ts">
-
-  </code-pane>
-
-</code-tabs>
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts" title="src/app/treeshaking/service.ts" linenums="false"> </code-example> 
 
 <a href="#toc">Back to top</a>
 

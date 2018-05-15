@@ -97,16 +97,16 @@ The CLI takes care of Jasmine and karma configuration for you.
 
 CLI 会为你生成 Jasmine 和 Karma 的配置文件。
 
-You can fine-tune many options by editing the `karma.conf.js` file in the project root folder and
-the `test.ts` file in the `src/` folder.
+You can fine-tune many options by editing the `karma.conf.js` and
+the `test.ts` files in the `src/` folder.
 
-不过你也可以通过编辑项目根目录下的 `karma.conf.js` 文件以及 `src/` 目录下的 `test.ts` 文件来微调很多选项。
+不过你也可以通过编辑 `src/` 目录下的 `karma.conf.js` 和 `test.ts` 文件来微调很多选项。
 
 The `karma.conf.js` file is a partial karma configuration file.
-The CLI constructs the full runtime configuration in memory,based on application structure specified in the `.angular-cli.json` file, supplemented by `karma.conf.js`.
+The CLI constructs the full runtime configuration in memory,based on application structure specified in the `angular.json` file, supplemented by `karma.conf.js`.
 
 `karma.conf.js` 文件是 karma 配置文件的一部分。
-CLI 会基于 `.angular-cli.json` 文件中指定的项目结构和 `karma.conf.js` 文件，来在内存中构建出完整的运行时配置。
+CLI 会基于 `angular.json` 文件中指定的项目结构和 `karma.conf.js` 文件，来在内存中构建出完整的运行时配置。
 
 Search the web for more details about Jasmine and karma configuration.
 
@@ -419,21 +419,19 @@ test any service with a dependency.
 
 <div class="alert is-important">
 
-The `HeroService` methods return _Observables_.
-_Subscribe_ to the method observable to (a) cause it to execute and (b)
+The `HeroService` methods return `Observables`. You must
+_subscribe_ to an observable to (a) cause it to execute and (b)
 assert that the method succeeds or fails.
 
-`HttpService` 中的方法会返回*可观察对象*。*订阅*这些方法返回的可观察对象会让它开始执行，并且断言这些方法是成功了还是失败了。
+`HttpService` 中的方法会返回 `Observables`。*订阅*这些方法返回的可观察对象会让它开始执行，并且断言这些方法是成功了还是失败了。
 
-The `subscribe()` method takes a success and fail callback.
-Make sure you provide _both_ callbacks so that you capture errors.
-
-`subscribe()` 方法接受一个成功回调和一个失败回调。
-你要确保同时提供了这两个回调，以便捕获错误。
-
+The `subscribe()` method takes a success (`next`) and fail (`error`) callback.
+Make sure you provide _both_ callbacks so that you capture errors. 
 Neglecting to do so produces an asynchronous uncaught observable error that
 the test runner will likely attribute to a completely different test.
 
+`subscribe()` 方法接受一个成功回调 (`next`) 和一个失败 (`error`) 回调。
+你要确保同时提供了这两个回调，以便捕获错误。
 如果忽略这些异步调用中未捕获的错误，测试运行器可能会得出截然不同的测试结论。
 
 </div>
@@ -1555,9 +1553,9 @@ Focus on the spy.
   region="spy">
 </code-example>
 
-The spy is designed such that any call to `getQuote` receives an Observable with a test quote.
+The spy is designed such that any call to `getQuote` receives an observable with a test quote.
 Unlike the real `getQuote()` method, this spy bypasses the server
-and returns a synchronous Observable whose value is available immediately.
+and returns a synchronous observable whose value is available immediately.
 
 这个间谍的设计是：任何对 `getQuote` 的调用都会收到一个包含测试引文的可观察对象。
 和真正的 `getQuote()` 方法不同，这个间谍跳过了服务器，直接返回了一个能立即解析出值的同步型可观察对象。
@@ -1701,20 +1699,21 @@ This helper's observable emits the `data` value in the next turn of the JavaScri
 
 这个辅助函数的可观察对象会在 JavaScript 引擎的下一个工作周期中发出 `data` 的值。
 
-[RxJS `defer()`](http://reactivex.io/documentation/operators/defer.html) returns an observable.
+The [RxJS `defer()` operator](http://reactivex.io/documentation/operators/defer.html) returns an observable.
 It takes a factory function that returns either a promise or an observable.
 When something subscribes to _defer_'s observable,
 it adds the subscriber to a new observable created with that factory. 
 
-[RxJS `defer()`](http://reactivex.io/documentation/operators/defer.html) （延期）返回一个可观察对象。
+[RxJS 的 `defer()` （延期）操作符](http://reactivex.io/documentation/operators/defer.html) 会返回一个可观察对象。
 它获取一个工厂函数，这个工厂函数或者返回 Promise 或者返回 Observable。
 当有人订阅了这个 `defer` 的可观察对象时，它就会把这个订阅者添加到由那个工厂函数创建的新的可观察对象中。
 
-RxJS `defer()` transform the `Promise.resolve()` into a new observable that, 
-like `HttpClient`, emits once and completes.
-Subscribers will be unsubscribed after they receive the data value.
 
-RxJS `defer()` 会把 `Promise.resolve()` 转换成一个新的可观察对象，然后像 `HttpClient` 那样的发出一个值，然后结束。
+The `defer()` operator transforms the `Promise.resolve()` into a new observable that, 
+like `HttpClient`, emits once and completes.
+Subscribers are unsubscribed after they receive the data value.
+
+`defer()` 操作符会把 `Promise.resolve()` 转换成一个新的可观察对象，然后像 `HttpClient` 那样的发出一个值，然后结束。
 订阅者将会在接收到这个数据值之后自动被取消订阅。
 
 There's a similar helper for producing an async error.
@@ -2578,13 +2577,11 @@ Here's the `HeroDetailComponent` constructor:
 <code-example path="testing/src/app/hero/hero-detail.component.ts" region="ctor" title="app/hero/hero-detail.component.ts (constructor)" linenums="false"></code-example>
 
 The `HeroDetail` component needs the `id` parameter so it can fetch 
-the corresponding hero via the `HeroDetailService`.
+the corresponding hero via the `HeroDetailService`. 
+The component has to get the `id` from the `ActivatedRoute.paramMap` property
+which is an `Observable`.
 
 `HeroDetailComponent` 组件需要一个 `id` 参数，以便通过 `HeroDetailService` 获取相应的英雄。
-
-The component has to get the `id` from the `ActivatedRoute.paramMap` property
-which is an _Observable_.
-
 该组件只能从 `ActivatedRoute.paramMap` 属性中获取这个 `id`，这个属性是一个 `Observable`。
 
 It can't just reference the `id` property of the `ActivatedRoute.paramMap`.
@@ -3627,9 +3624,10 @@ Focus on the `overrideComponent` method.
 <code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-component-method" title="app/hero/hero-detail.component.spec.ts (overrideComponent)" linenums="false"></code-example>
 
 It takes two arguments: the component type to override (`HeroDetailComponent`) and an override metadata object.
-The [overide metadata object](#metadata-override-object) is a generic defined as follows:
+The [override metadata object](#metadata-override-object) is a generic defined as follows:
 
-它接受两个参数：要改写的组件类（`HeroDetailComponent`），以及用于改写的元数据对象：
+它接受两个参数：要改写的组件类型（`HeroDetailComponent`），以及用于改写的元数据对象。
+[用于改写的元数据对象](#metadata-override-object)是一个泛型，其定义如下：
 
 <code-example format="." language="javascript">
   type MetadataOverride<T> = {

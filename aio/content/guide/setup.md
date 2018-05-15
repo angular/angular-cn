@@ -17,9 +17,9 @@ maintained [on github](https://github.com/angular/quickstart "Install the github
 
 利用 [github 上](https://github.com/angular/quickstart "安装 github 《快速上手》库")的**《快速上手》种子**在你的电脑上搭建一个新项目是很快很容易的。
 
-Make sure you have [node and npm installed](guide/setup#install-prerequisites "What if you don't have node and npm?").
+Make sure you have [Node.js® and npm installed](guide/setup#install-prerequisites "What if you don't have Node.js and npm?").
 
-确定你已经安装了 [node 和 npm](guide/setup#install-prerequisites "如果你没有 node 和 npm？")。
+确定你已经安装了 [Node.js® 和 npm](guide/setup#install-prerequisites "如果你没有 Node.js 和 npm？")。
 
 {@a clone}
 
@@ -336,35 +336,33 @@ If you're new to Angular, we recommend you follow the [tutorial](tutorial "Tour 
 
 {@a install-prerequisites}
 
-## Appendix: node and npm
+## Appendix: Node.js and npm
 
 ## 附录：node 与 npm
 
-Node.js and npm are essential to modern web development with Angular and other platforms.
-Node powers client development and build tools.
-The _npm_ package manager, itself a _node_ application, installs JavaScript libraries.
+[Node.js](https://nodejs.org/en/) and the [npm](https://www.npmjs.com/) package manager are essential to modern web development with Angular and other platforms.
+Node.js powers client development and build tools.
+The _npm_ package manager, which is itself a _Node.js_ application, installs JavaScript libraries.
 
-Node.js 和 npm 对使用 Angular 和其他平台进行现代网络开发是至关重要的。
-Node 驱动客户端开发和构建工具。
-*npm* 包管理器本身是 *node* 应用，用于安装 JavaScript 库。
+[Node.js](https://nodejs.org/en/) 和 [npm](https://www.npmjs.com/) 包管理器对使用 Angular 和其他平台进行现代网络开发是至关重要的。
+Node.js 用来支持客户端开发和构建工具。*npm* 包管理器本身就是一个 *Node.js* 应用，用于安装 JavaScript 库。
 
 <a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="Installing Node.js and updating npm">Get them now</a> if they're not already installed on your machine.
 
 如果你的电脑没有安装它们，请<a href="https://docs.npmjs.com/getting-started/installing-node" target="_blank" title="安装 Node.js 和更新 npm">现在安装</a>。
 
-**Verify that you are running node `v4.x.x` or higher and npm `3.x.x` or higher**
+**Verify that you are running Node.js `v8.x` or higher and npm `5.x` or higher**
 by running the commands `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v4.x.x` 或更高，npm 为 `3.x.x` 或更高。**
+在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 Node.js 是 `v8.x` 或更高，npm 为 `5.x` 或更高。**
 老版本会产生错误。
 
-We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of node and npm.
-You may need [nvm](https://github.com/creationix/nvm) if you already have projects running on your machine that
-use other versions of node and npm.
+We recommend [nvm](https://github.com/creationix/nvm) for managing multiple versions of Node.js and npm.
+You may need [nvm](https://github.com/creationix/nvm) if you already have projects running on your machine that use other versions of Node.js and npm.
 
-我们推荐使用 [nvm](https://github.com/creationix/nvm) 来管理多版本 node 和 npm。
-    如果你的电脑上已经有使用其他版本 node 和 npm 的项目，你可能需要 nvm。
+我们推荐使用 [nvm](https://github.com/creationix/nvm) 来管理多版本 Node.js 和 npm。
+    如果你的电脑上已经有使用其他版本 Node.js 和 npm 的项目，你可能需要 nvm。
 
 {@a why-locally}
 

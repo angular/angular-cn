@@ -92,10 +92,10 @@ Install the *In-memory Web API* package from _npm_
   npm install angular-in-memory-web-api --save
 </code-example>
 
-Import the `InMemoryWebApiModule` and the `InMemoryDataService` class, 
+Import the `HttpClientInMemoryWebApiModule` and the `InMemoryDataService` class, 
 which you will create in a moment.
 
-导入 `InMemoryWebApiModule` 和 `InMemoryDataService` 类（你很快就要创建它）。
+导入 `HttpClientInMemoryWebApiModule` 和 `InMemoryDataService` 类（你很快就要创建它）。
 
 <code-example 
   path="toh-pt6/src/app/app.module.ts" 
@@ -103,11 +103,11 @@ which you will create in a moment.
   title="src/app/app.module.ts (In-memory Web API imports)">
 </code-example>
 
-Add the `InMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
+Add the `HttpClientInMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
 _after importing the `HttpClient`_,
 &mdash;while configuring it with the `InMemoryDataService`.
 
-把 `InMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClient` 之后），
+把 `HttpClientInMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClient` 之后），
 然后使用 `InMemoryDataService` 来配置它。
 
 <code-example   
@@ -231,8 +231,8 @@ You make a request, it returns a single response.
 
 HTTP 是一个请求/响应式协议。你发起请求，它返回单个的响应。
 
-In general, an `Observable` _can_ return multiple values over time.
-An `Observable` from `HttpClient` always emits a single value and then completes, never to emit again.
+In general, an observable _can_ return multiple values over time.
+An observable from `HttpClient` always emits a single value and then completes, never to emit again.
 
 通常，`Observable` *可以*在一段时间内返回多个值。
 但来自 `HttpClient` 的 `Observable` 总是发出一个值，然后结束，再也不会发出其它值。
@@ -843,8 +843,8 @@ taxing server resources and burning through the cellular network data plan.
 
 如果每当用户击键后就直接调用 `searchHeroes()` 将导致创建海量的 HTTP 请求，浪费服务器资源并消耗大量网络流量。
 
-Instead, the `ngOnInit()` method pipes the `searchTerms` _observable_  through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
-ultimately returning an _observable_ of timely hero search results (each a `Hero[]`).
+Instead, the `ngOnInit()` method pipes the `searchTerms` observable through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
+ultimately returning an observable of timely hero search results (each a `Hero[]`).
 
 应该怎么做呢？`ngOnInit()` 往 `searchTerms` 这个可观察对象的处理管道中加入了一系列 RxJS 操作符，用以缩减对 `searchHeroes()` 的调用次数，并最终返回一个可及时给出英雄搜索结果的可观察对象（每次都是 `Hero[]` ）。
 
@@ -863,9 +863,9 @@ before passing along the latest string. You'll never make requests more frequent
    在传出最终字符串之前，`debounceTime(300)` 将会等待，直到新增字符串的事件暂停了 300 毫秒。
   你实际发起请求的间隔永远不会小于 300ms。
 
-* `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
+* `distinctUntilChanged()` ensures that a request is sent only if the filter text changed.
 
-   `distinctUntilChanged` 会确保只在过滤条件变化时才发送请求。
+   `distinctUntilChanged()` 会确保只在过滤条件变化时才发送请求。
 
 * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
 It cancels and discards previous search observables, returning only the latest search service observable.
@@ -1033,7 +1033,7 @@ You're at the end of your journey, and you've accomplished a lot.
 
    你配置了一个内存 Web API。
 
-* You learned how to use Observables.
+* You learned how to use observables.
 
    你学会了如何使用“可观察对象”。
 

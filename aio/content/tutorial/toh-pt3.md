@@ -12,12 +12,12 @@ You'll want to split up large components into smaller sub-components, each focus
 把所有特性都放在同一个组件中，将会使应用“长大”后变得不可维护。
 你要把大型组件拆分成小一点的子组件，每个子组件都要集中精力处理某个特定的任务或工作流。
 
-In this page, you'll take the first step in that direction by moving the hero details into a separate, reusable `HeroDetailsComponent`.
+In this page, you'll take the first step in that direction by moving the hero details into a separate, reusable `HeroDetailComponent`.
 
 本页面中，你将迈出第一步 —— 把英雄详情移入一个独立的、可复用的 `HeroDetailComponent`。
 
 The `HeroesComponent` will only present the list of heroes.
-The `HeroDetailsComponent` will present details of a selected hero.
+The `HeroDetailComponent` will present details of a selected hero.
 
 `HeroesComponent` 将仅仅用来表示英雄列表。
 `HeroDetailComponent` 将用来表示所选英雄的详情。
