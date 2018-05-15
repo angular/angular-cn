@@ -70,13 +70,14 @@ def _esm5_outputs_aspect(target, ctx):
       ],
   )
 
-  ctx.action(
+  ctx.actions.run(
       progress_message = "Compiling TypeScript (ES5 with ES Modules) %s" % target.label,
       inputs = target.typescript.replay_params.inputs + [tsconfig],
       outputs = outputs,
       arguments = [tsconfig.path],
       executable = target.typescript.replay_params.compiler,
       execution_requirements = {
+          # TODO(alexeagle): enable worker mode for these compilations
           "supports-workers": "0",
       },
   )
@@ -113,7 +114,7 @@ esm5_outputs_aspect = aspect(
         # For some reason, having the compiler output as an input to the action above
         # is not sufficient.
         "_tsc_wrapped": attr.label(
-            default = Label("@build_bazel_rules_typescript//internal/tsc_wrapped:tsc_wrapped_bin"),
+            default = Label("@build_bazel_rules_typescript//internal:tsc_wrapped_bin"),
             executable = True,
             cfg = "host",
         ),
@@ -125,3 +126,45 @@ esm5_outputs_aspect = aspect(
         ),
     },
 )
+
+def esm5_root_dir(ctx):
+  return ctx.label.name + ".esm5"
+
+def flatten_esm5(ctx):
+  """Merge together the .esm5 folders from the dependencies.
+
+  Two different dependencies A and B may have outputs like
+  `bazel-bin/path/to/A.esm5/path/to/lib.js`
+  `bazel-bin/path/to/B.esm5/path/to/main.js`
+
+  In order to run rollup on this app, in case main.js contains `import from './lib'`
+  they need to be together in the same root directory, so if we depend on both A and B
+  we need the outputs to be
+  `bazel-bin/path/to/my_rule.esm5/path/to/lib.js`
+  `bazel-bin/path/to/my_rule.esm5/path/to/main.js`
+
+  Args:
+    ctx: the skylark rule execution context
+
+  Returns:
+    list of flattened files
+  """
+  esm5_sources = []
+  result = []
+  for dep in ctx.attr.deps:
+    if ESM5Info in dep:
+      transitive_output = dep[ESM5Info].transitive_output
+      esm5_sources.extend(transitive_output.values())
+  for f in depset(transitive = esm5_sources).to_list():
+    path = f.short_path[f.short_path.find(".esm5") + len(".esm5"):]
+    if (path.startswith("../")):
+      path = "external/" + path[3:]
+    rerooted_file = ctx.actions.declare_file("/".join([esm5_root_dir(ctx), path]))
+    result.append(rerooted_file)
+    # print("copy", f.short_path, "to", rerooted_file.short_path)
+    ctx.actions.expand_template(
+        output = rerooted_file,
+        template = f,
+        substitutions = {},
+    )
+  return result

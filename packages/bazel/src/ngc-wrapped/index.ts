@@ -7,7 +7,7 @@
  */
 
 import * as ng from '@angular/compiler-cli';
-import {BazelOptions, CachedFileLoader, CompilerHost, FileCache, FileLoader, UncachedFileLoader, constructManifest, debug, fixUmdModuleDeclarations, parseTsconfig, runAsWorker, runWorkerLoop} from '@bazel/typescript';
+import {BazelOptions, CachedFileLoader, CompilerHost, FileCache, FileLoader, UncachedFileLoader, constructManifest, debug, fixUmdModuleDeclarations, parseTsconfig, resolveNormalizedPath, runAsWorker, runWorkerLoop} from '@bazel/typescript';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as tsickle from 'tsickle';
@@ -77,7 +77,7 @@ export function relativeToRootDirs(filePath: string, rootDirs: string[]): string
   if (!filePath) return filePath;
   // NB: the rootDirs should have been sorted longest-first
   for (const dir of rootDirs || []) {
-    const rel = path.relative(dir, filePath);
+    const rel = path.posix.relative(dir, filePath);
     if (rel.indexOf('.') != 0) return rel;
   }
   return filePath;
@@ -95,12 +95,19 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
 }): {diagnostics: ng.Diagnostics, program: ng.Program} {
   let fileLoader: FileLoader;
 
+  if (bazelOpts.maxCacheSizeMb !== undefined) {
+    const maxCacheSizeBytes = bazelOpts.maxCacheSizeMb * (1 << 20);
+    fileCache.setMaxCacheSize(maxCacheSizeBytes);
+  } else {
+    fileCache.resetMaxCacheSize();
+  }
+
   if (inputs) {
     fileLoader = new CachedFileLoader(fileCache, allowNonHermeticReads);
     // Resolve the inputs to absolute paths to match TypeScript internals
     const resolvedInputs: {[path: string]: string} = {};
     for (const key of Object.keys(inputs)) {
-      resolvedInputs[path.resolve(key)] = inputs[key];
+      resolvedInputs[resolveNormalizedPath(key)] = inputs[key];
     }
     fileCache.updateCache(resolvedInputs);
   } else {
@@ -126,7 +133,7 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
   tsHost.writeFile =
       (fileName: string, content: string, writeByteOrderMark: boolean,
        onError?: (message: string) => void, sourceFiles?: ts.SourceFile[]) => {
-        const relative = relativeToRootDirs(fileName, [compilerOpts.rootDir]);
+        const relative = relativeToRootDirs(fileName.replace(/\\/g, '/'), [compilerOpts.rootDir]);
         const expectedIdx = writtenExpectedOuts.findIndex(o => o === relative);
         if (expectedIdx >= 0) {
           writtenExpectedOuts.splice(expectedIdx, 1);
@@ -165,6 +172,8 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
   const bazelHost = new CompilerHost(
       files, compilerOpts, bazelOpts, tsHost, fileLoader, allowNonHermeticReads,
       generatedFileModuleResolver);
+  // Prevent tsickle adding any types at all if we don't want closure compiler annotations.
+  bazelHost.transformTypesToClosure = compilerOpts.annotateForClosureCompiler;
   const origBazelHostFileExist = bazelHost.fileExists;
   bazelHost.fileExists = (fileName: string) => {
     if (NGC_ASSETS.test(fileName)) {
@@ -173,8 +182,18 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
     return origBazelHostFileExist.call(bazelHost, fileName);
   };
   const origBazelHostShouldNameModule = bazelHost.shouldNameModule.bind(bazelHost);
-  bazelHost.shouldNameModule = (fileName: string) =>
-      origBazelHostShouldNameModule(fileName) || NGC_GEN_FILES.test(fileName);
+  bazelHost.shouldNameModule = (fileName: string) => {
+    // The bundle index file is synthesized in bundle_index_host so it's not in the
+    // compilationTargetSrc.
+    // However we still want to give it an AMD module name for devmode.
+    // We can't easily tell which file is the synthetic one, so we build up the path we expect
+    // it to have
+    // and compare against that.
+    if (fileName ===
+        path.join(compilerOpts.baseUrl, bazelOpts.package, compilerOpts.flatModuleOutFile + '.ts'))
+      return true;
+    return origBazelHostShouldNameModule(fileName) || NGC_GEN_FILES.test(fileName);
+  };
 
   const ngHost = ng.createCompilerHost({options: compilerOpts, tsHost: bazelHost});
 
@@ -189,7 +208,7 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
     }
     return bazelOpts.workspaceName + '/' + result;
   };
-  ngHost.toSummaryFileName = (fileName: string, referringSrcFileName: string) => path.join(
+  ngHost.toSummaryFileName = (fileName: string, referringSrcFileName: string) => path.posix.join(
       bazelOpts.workspaceName,
       relativeToRootDirs(fileName, compilerOpts.rootDirs).replace(EXT, ''));
   if (allDepsCompiledWithBazel) {
@@ -199,7 +218,7 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
     // as that has a different implementation of fromSummaryFileName / toSummaryFileName
     ngHost.fromSummaryFileName = (fileName: string, referringLibFileName: string) => {
       const workspaceRelative = fileName.split('/').splice(1).join('/');
-      return path.resolve(bazelBin, workspaceRelative) + '.d.ts';
+      return resolveNormalizedPath(bazelBin, workspaceRelative) + '.d.ts';
     };
   }
   // Patch a property on the ngHost that allows the resourceNameToModuleName function to
@@ -231,8 +250,12 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
     gatherDiagnostics = (program) =>
         gatherDiagnosticsForInputsOnly(compilerOpts, bazelOpts, program);
   }
-  const {diagnostics, emitResult, program} = ng.performCompilation(
-      {rootNames: files, options: compilerOpts, host: ngHost, emitCallback, gatherDiagnostics});
+  const {diagnostics, emitResult, program} = ng.performCompilation({
+    rootNames: files,
+    options: compilerOpts,
+    host: ngHost, emitCallback,
+    mergeEmitResultsCallback: tsickle.mergeEmitResults, gatherDiagnostics
+  });
   const tsickleEmitResult = emitResult as tsickle.EmitResult;
   let externs = '/** @externs */\n';
   if (!diagnostics.length) {
@@ -243,6 +266,16 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
       const manifest = constructManifest(tsickleEmitResult.modulesManifest, bazelHost);
       fs.writeFileSync(bazelOpts.manifest, manifest);
     }
+  }
+
+  // If compilation fails unexpectedly, performCompilation returns no program.
+  // Make sure not to crash but report the diagnostics.
+  if (!program) return {program, diagnostics};
+
+  if (!bazelOpts.nodeModulesPrefix) {
+    // If there is no node modules, then metadata.json should be emitted since
+    // there is no other way to obtain the information
+    generateMetadataJson(program.getTsProgram(), files, compilerOpts.rootDirs, bazelBin, tsHost);
   }
 
   if (bazelOpts.tsickleExternsPath) {
@@ -257,6 +290,31 @@ export function compile({allowNonHermeticReads, allDepsCompiledWithBazel = true,
   }
 
   return {program, diagnostics};
+}
+
+/**
+ * Generate metadata.json for the specified `files`. By default, metadata.json
+ * is only generated by the compiler if --flatModuleOutFile is specified. But
+ * if compiled under blaze, we want the metadata to be generated for each
+ * Angular component.
+ */
+function generateMetadataJson(
+    program: ts.Program, files: string[], rootDirs: string[], bazelBin: string,
+    tsHost: ts.CompilerHost) {
+  const collector = new ng.MetadataCollector();
+  for (const file of files) {
+    const sourceFile = program.getSourceFile(file);
+    if (sourceFile) {
+      const metadata = collector.getMetadata(sourceFile);
+      if (metadata) {
+        const relative = relativeToRootDirs(file, rootDirs);
+        const shortPath = relative.replace(EXT, '.metadata.json');
+        const outFile = resolveNormalizedPath(bazelBin, shortPath);
+        const data = JSON.stringify(metadata);
+        tsHost.writeFile(outFile, data, false, undefined, []);
+      }
+    }
+  }
 }
 
 function isCompilationTarget(bazelOpts: BazelOptions, sf: ts.SourceFile): boolean {

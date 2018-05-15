@@ -29,17 +29,22 @@ module.exports = function(config) {
 
       'node_modules/core-js/client/core.js',
       'node_modules/zone.js/dist/zone.js',
-      'node_modules/zone.js/dist/long-stack-trace-zone.js',
-      'node_modules/zone.js/dist/proxy.js',
-      'node_modules/zone.js/dist/sync-test.js',
-      'node_modules/zone.js/dist/jasmine-patch.js',
-      'node_modules/zone.js/dist/async-test.js',
-      'node_modules/zone.js/dist/fake-async-test.js',
+      'node_modules/zone.js/dist/zone-testing.js',
+      'node_modules/zone.js/dist/task-tracking.js',
 
       // Including systemjs because it defines `__eval`, which produces correct stack traces.
       'test-events.js',
       'shims_for_IE.js',
       'node_modules/systemjs/dist/system.src.js',
+
+      // Serve polyfills necessary for testing the `elements` package.
+      {
+        pattern: 'node_modules/@webcomponents/custom-elements/**/*.js',
+        included: false,
+        watched: false
+      },
+      {pattern: 'node_modules/mutation-observer/index.js', included: false, watched: false},
+
       {pattern: 'node_modules/rxjs/**', included: false, watched: false, served: true},
       'node_modules/reflect-metadata/Reflect.js',
       'tools/build/file2modulename.js',
@@ -60,9 +65,12 @@ module.exports = function(config) {
       'dist/all/@angular/**/*node_only_spec.js',
       'dist/all/@angular/benchpress/**',
       'dist/all/@angular/compiler-cli/**',
+      'dist/all/@angular/compiler-cli/src/ngtsc/**',
+      'dist/all/@angular/compiler-cli/test/ngtsc/**',
       'dist/all/@angular/compiler/test/aot/**',
       'dist/all/@angular/compiler/test/render3/**',
       'dist/all/@angular/core/test/bundling/**',
+      'dist/all/@angular/elements/schematics/**',
       'dist/all/@angular/examples/**/e2e_test/*',
       'dist/all/@angular/language-service/**',
       'dist/all/@angular/router/test/**',

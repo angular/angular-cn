@@ -1,5 +1,6 @@
-import { InjectionToken, Inject, Injectable } from '@angular/core';
-import { of } from 'rxjs/observable/of';
+import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { of } from 'rxjs';
 import { MatIconRegistry } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -35,8 +36,9 @@ interface SvgIconMap {
 export class CustomIconRegistry extends MatIconRegistry {
   private preloadedSvgElements: SvgIconMap = {};
 
-  constructor(http: HttpClient, sanitizer: DomSanitizer, @Inject(SVG_ICONS) svgIcons: SvgIconInfo[]) {
-    super(http, sanitizer);
+  constructor(http: HttpClient, sanitizer: DomSanitizer, @Optional() @Inject(DOCUMENT) document,
+              @Inject(SVG_ICONS) svgIcons: SvgIconInfo[]) {
+    super(http, sanitizer, document);
     this.loadSvgElements(svgIcons);
   }
 

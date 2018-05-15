@@ -3,40 +3,79 @@
     "name": "CLEAN_PROMISE"
   },
   {
-    "name": "EMPTY$1"
+    "name": "EMPTY$2"
   },
   {
-    "name": "NO_CHANGE"
+    "name": "EMPTY_RENDERER_TYPE_ID"
   },
   {
-    "name": "Symbol$1"
+    "name": "HelloWorld"
   },
   {
-    "name": "__global$1"
+    "name": "INeedToExistEvenThoughIAmNotNeeded"
   },
   {
-    "name": "__self$1"
+    "name": "NG_HOST_SYMBOL"
   },
   {
-    "name": "__window$1"
+    "name": "NG_PROJECT_AS_ATTR_NAME"
+  },
+  {
+    "name": "ROOT_DIRECTIVE_INDICES"
+  },
+  {
+    "name": "UNDEFINED_RENDERER_TYPE_ID"
   },
   {
     "name": "_renderCompCount"
   },
   {
-    "name": "_root"
+    "name": "appendChild"
+  },
+  {
+    "name": "baseDirectiveCreate"
+  },
+  {
+    "name": "callHooks"
   },
   {
     "name": "canInsertNativeNode"
   },
   {
+    "name": "checkNoChangesMode"
+  },
+  {
+    "name": "componentRefresh"
+  },
+  {
     "name": "createLNode"
+  },
+  {
+    "name": "createLNodeObject"
   },
   {
     "name": "createLView"
   },
   {
+    "name": "createTNode"
+  },
+  {
+    "name": "createTView"
+  },
+  {
+    "name": "createTextNode"
+  },
+  {
     "name": "currentView"
+  },
+  {
+    "name": "defineComponent"
+  },
+  {
+    "name": "defineInjector"
+  },
+  {
+    "name": "detectChangesInternal"
   },
   {
     "name": "domRendererFactory3"
@@ -48,16 +87,34 @@
     "name": "executeHooks"
   },
   {
-    "name": "findFirstRNode"
+    "name": "executeInitAndContentHooks"
+  },
+  {
+    "name": "executeInitHooks"
+  },
+  {
+    "name": "extractDirectiveDef"
+  },
+  {
+    "name": "extractPipeDef"
+  },
+  {
+    "name": "firstTemplatePass"
   },
   {
     "name": "getDirectiveInstance"
   },
   {
-    "name": "getNextLNodeWithProjection"
+    "name": "getOrCreateTView"
   },
   {
-    "name": "getNextOrParentSiblingNode"
+    "name": "getRenderFlags"
+  },
+  {
+    "name": "hostElement"
+  },
+  {
+    "name": "initChangeDetectorIfExisting"
   },
   {
     "name": "invertObject"
@@ -72,18 +129,39 @@
     "name": "locateHostElement"
   },
   {
-    "name": "noop$2"
+    "name": "refreshChildComponents"
   },
   {
     "name": "refreshDynamicChildren"
   },
   {
-    "name": "renderComponentOrTemplate"
+    "name": "refreshView"
+  },
+  {
+    "name": "renderComponent"
   },
   {
     "name": "renderEmbeddedTemplate"
   },
   {
+    "name": "resetApplicationState"
+  },
+  {
+    "name": "resolveRendererType2"
+  },
+  {
+    "name": "setHostBindings"
+  },
+  {
+    "name": "setUpAttributes"
+  },
+  {
     "name": "stringify$1"
+  },
+  {
+    "name": "text"
+  },
+  {
+    "name": "viewAttached"
   }
 ]

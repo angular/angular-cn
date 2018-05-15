@@ -28,13 +28,15 @@ const STAR_SELECTOR = '.ng-star-inserted';
 const EMPTY_PLAYER_ARRAY: TransitionAnimationPlayer[] = [];
 const NULL_REMOVAL_STATE: ElementAnimationState = {
   namespaceId: '',
-  setForRemoval: null,
+  setForRemoval: false,
+  setForMove: false,
   hasAnimation: false,
   removedBeforeQueried: false
 };
 const NULL_REMOVED_QUERIED_STATE: ElementAnimationState = {
   namespaceId: '',
-  setForRemoval: null,
+  setForMove: false,
+  setForRemoval: false,
   hasAnimation: false,
   removedBeforeQueried: true
 };
@@ -58,7 +60,8 @@ export interface QueueInstruction {
 export const REMOVAL_FLAG = '__ng_removed';
 
 export interface ElementAnimationState {
-  setForRemoval: any;
+  setForRemoval: boolean;
+  setForMove: boolean;
   hasAnimation: boolean;
   namespaceId: string;
   removedBeforeQueried: boolean;
@@ -248,7 +251,8 @@ export class AnimationTransitionNamespace {
       }
     });
 
-    let transition = trigger.matchTransition(fromState.value, toState.value);
+    let transition =
+        trigger.matchTransition(fromState.value, toState.value, element, toState.params);
     let isFallbackTransition = false;
     if (!transition) {
       if (!defaultToFallback) return;
@@ -402,7 +406,7 @@ export class AnimationTransitionNamespace {
 
       // when this `if statement` does not continue forward it means that
       // a previous animation query has selected the current element and
-      // is animating it. In this situation want to continue fowards and
+      // is animating it. In this situation want to continue forwards and
       // allow the element to be queued up for animation later.
       if (currentPlayers && currentPlayers.length) {
         containsPotentialParentTransition = true;
@@ -659,13 +663,27 @@ export class TransitionAnimationEngine {
     const details = element[REMOVAL_FLAG] as ElementAnimationState;
     if (details && details.setForRemoval) {
       details.setForRemoval = false;
+      details.setForMove = true;
+      const index = this.collectedLeaveElements.indexOf(element);
+      if (index >= 0) {
+        this.collectedLeaveElements.splice(index, 1);
+      }
     }
 
     // in the event that the namespaceId is blank then the caller
     // code does not contain any animation code in it, but it is
     // just being called so that the node is marked as being inserted
     if (namespaceId) {
-      this._fetchNamespace(namespaceId).insertNode(element, parent);
+      const ns = this._fetchNamespace(namespaceId);
+      // This if-statement is a workaround for router issue #21947.
+      // The router sometimes hits a race condition where while a route
+      // is being instantiated a new navigation arrives, triggering leave
+      // animation of DOM that has not been fully initialized, until this
+      // is resolved, we need to handle the scenario when DOM is not in a
+      // consistent state during the animation.
+      if (ns) {
+        ns.insertNode(element, parent);
+      }
     }
 
     // only *directives and host elements are inserted before
@@ -936,9 +954,18 @@ export class TransitionAnimationEngine {
       const ns = this._namespaceList[i];
       ns.drainQueuedTransitions(microtaskId).forEach(entry => {
         const player = entry.player;
+        const element = entry.element;
         allPlayers.push(player);
 
-        const element = entry.element;
+        if (this.collectedEnterElements.length) {
+          const details = element[REMOVAL_FLAG] as ElementAnimationState;
+          // move animations are currently not supported...
+          if (details && details.setForMove) {
+            player.destroy();
+            return;
+          }
+        }
+
         if (!bodyNode || !this.driver.containsElement(bodyNode, element)) {
           player.destroy();
           return;

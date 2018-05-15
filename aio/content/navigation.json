@@ -135,7 +135,7 @@
             {
               "url": "guide/architecture",
               "title": "架构概览",
-              "tooltip": "Angular 应用的基本构造块。"
+              "tooltip": "Angular 应用的基本构造块"
             },
             {
               "url": "guide/architecture-modules",
@@ -160,8 +160,8 @@
           ]
         },
         {
-          "title": "模板与数据绑定",
-          "tooltip": "模板与数据绑定",
+          "title": "组件与模板",
+          "tooltip": "使用数据绑定构建动态视图",
           "children": [
             {
               "url": "guide/displaying-data",
@@ -187,6 +187,11 @@
               "url": "guide/component-styles",
               "title": "组件样式",
               "tooltip": "添加专属于某个组件的样式"
+            },
+            {
+              "url": "guide/elements",
+              "title": "Angular Elements",
+              "tooltip": "Convert components to Custom Elements."
             },
             {
               "url": "guide/dynamic-component-loader",
@@ -498,18 +503,35 @@
         },
 
         {
-          "title": "升级",
-          "tooltip": "渐进式的把 AngularJS 应用升级到 Angular。",
+          "title": "保持最新",
+          "tooltip": "Angular 的发布实践，更新计划以及与更新有关的资源。",
+          "children": [
+            {
+              "url": "guide/updating",
+              "title": "更新你的项目",
+              "tooltip": "关于如何把 Angular 应用升级到最新版的信息。"
+            },
+            {
+              "url": "guide/releases",
+              "title": "Angular 的版本发布",
+              "tooltip": "Angular 的版本、发布、支持与弃用策略。"
+            }
+          ]
+        },
+
+        {
+          "title": "从 AngularJS 升级",
+          "tooltip": "把 AngularJS 应用增量式的升级到 Angular。",
           "children": [
             {
               "url": "guide/upgrade",
-              "title": "从 AngularJS 升级",
-              "tooltip": "渐进式的把 AngularJS 应用升级到 Angular。"
+              "title": "升级步骤",
+              "tooltip": "把 AngularJS 应用增量式的升级到 Angular。"
             },
             {
               "url": "guide/ajs-quick-reference",
-              "title": "升级速查表",
-              "tooltip": "学习如何把 AngularJS 的概念和技术映射到 Angular 。"
+              "title": "AngularJS 与 Angular 的概念对照",
+              "tooltip": "学习如何把 AngularJS 的概念映射到 Angular 中。"
             }
           ]
         },
@@ -636,6 +658,10 @@
         {
           "title": "English Version",
           "url": "https://angular.io/"
+        },
+        {
+          "title": "日本語版",
+          "url": "https://angular.jp/"
         }
       ]
     }

@@ -114,6 +114,7 @@ export function getParseErrors(error: Error): ParseError[] {
   return (error as any)[ERROR_PARSE_ERRORS] || [];
 }
 
+// Escape characters that have a special meaning in Regular Expressions
 export function escapeRegExp(s: string): string {
   return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
 }
@@ -183,6 +184,8 @@ export function stringify(token: any): string {
     return `${token.name}`;
   }
 
+  // WARNING: do not try to `JSON.stringify(token)` here
+  // see https://github.com/angular/angular/issues/23440
   const res = token.toString();
 
   if (res == null) {

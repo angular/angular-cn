@@ -6,13 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {createComponentRef, detectChanges, getHostElement, getRenderedText, markDirty, renderComponent, whenRendered} from './component';
+import {LifecycleHooksFeature, createComponentRef, getHostElement, getRenderedText, renderComponent, whenRendered} from './component';
 import {NgOnChangesFeature, PublicFeature, defineComponent, defineDirective, definePipe} from './definition';
-import {InjectFlags} from './di';
-import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveDefFlags, DirectiveType} from './interfaces/definition';
+import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveDefFlags, DirectiveType, PipeDef} from './interfaces/definition';
 
-export {InjectFlags, QUERY_READ_CONTAINER_REF, QUERY_READ_ELEMENT_REF, QUERY_READ_FROM_NODE, QUERY_READ_TEMPLATE_REF, inject, injectElementRef, injectTemplateRef, injectViewContainerRef} from './di';
-export {CssSelector} from './interfaces/projection';
+export {QUERY_READ_CONTAINER_REF, QUERY_READ_ELEMENT_REF, QUERY_READ_FROM_NODE, QUERY_READ_TEMPLATE_REF, directiveInject, injectAttribute, injectChangeDetectorRef, injectElementRef, injectTemplateRef, injectViewContainerRef} from './di';
+export {RenderFlags} from './interfaces/definition';
+export {CssSelectorList} from './interfaces/projection';
+
 
 
 // Naming scheme:
@@ -39,22 +40,23 @@ export {
   interpolation8 as i8,
   interpolationV as iV,
 
-  directiveRefresh as r,
-
   container as C,
   containerRefreshStart as cR,
   containerRefreshEnd as cr,
 
   elementAttribute as a,
   elementClass as k,
+  elementClassNamed as kn,
   elementEnd as e,
   elementProperty as p,
   elementStart as E,
   elementStyle as s,
+  elementStyleNamed as sn,
 
   listener as L,
   store as st,
   load as ld,
+  loadDirective as d,
 
   projection as P,
   projectionDef as pD,
@@ -64,6 +66,9 @@ export {
 
   embeddedViewStart as V,
   embeddedViewEnd as v,
+  detectChanges,
+  markDirty,
+  tick,
 } from './instructions';
 
 export {
@@ -106,14 +111,14 @@ export {
   DirectiveType,
   NgOnChangesFeature,
   PublicFeature,
+  PipeDef,
+  LifecycleHooksFeature,
   defineComponent,
   defineDirective,
   definePipe,
-  detectChanges,
   createComponentRef,
   getHostElement,
   getRenderedText,
-  markDirty,
   renderComponent,
   whenRendered,
 };
