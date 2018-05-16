@@ -1053,7 +1053,7 @@ that wraps the _title_ property interpolation binding.
 You update the `beforeEach` to find that element with a standard HTML `querySelector`
 and assign it to the `h1` variable.
 
-你要修改 `beforeEach` 来使用标准的 HTML `querySelector` 来找到钙元素，并把它赋值给 `h1` 变量。
+你要修改 `beforeEach` 来使用标准的 HTML `querySelector` 来找到该元素，并把它赋值给 `h1` 变量。
 
 <code-example 
   path="testing/src/app/banner/banner.component.spec.ts" 

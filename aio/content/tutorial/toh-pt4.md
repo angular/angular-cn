@@ -371,8 +371,8 @@ In the [HTTP tutorial](tutorial/toh-pt6), you'll call `HttpClient.get<Hero[]>()`
 The `HeroService.getHeroes` method used to return a `Hero[]`.
 Now it returns an `Observable<Hero[]>`.
 
-`HeroService.getHeroes` 方法用于返回一个 `Hero[]`，
-目前它返回的是 `Observable<Hero[]>`。
+`HeroService.getHeroes` 方法之前返回一个 `Hero[]`，
+现在它返回的是 `Observable<Hero[]>`。
 
 You'll have to adjust to that difference in `HeroesComponent`.
 
