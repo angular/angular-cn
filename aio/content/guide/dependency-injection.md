@@ -97,7 +97,7 @@ The `@Injectable` decorator is an essential ingredient in every Angular service 
 The rest of the class has been rewritten to expose a `getHeroes` method 
 that returns the same mock data as before.
 
-[`@Injectable` 装饰器](#injectable)是定义每个 Angular 服务时的必备部分。
+`@Injectable` 装饰器是定义每个 Angular 服务时的必备部分。
 把该类的其它部分改写为暴露一个返回和以前一样的 mock 数据的 `getHeroes` 方法。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.3.ts" title="src/app/heroes/hero.service.3.ts">

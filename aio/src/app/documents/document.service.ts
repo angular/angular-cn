@@ -5,6 +5,8 @@ import { AsyncSubject, Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { DocumentContents } from './document-contents';
+import { Logger } from '../shared/logger.service';
+import { LocationService } from '../shared/location.service';
 
 export { DocumentContents } from './document-contents';
 

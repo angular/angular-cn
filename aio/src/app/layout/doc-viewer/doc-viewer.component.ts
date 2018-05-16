@@ -1,11 +1,10 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { HostListener } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { Observable, of, timer } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 
-import { DocumentContents, FILE_NOT_FOUND_ID, FETCHING_ERROR_ID } from 'app/documents/document.service';
+import { DocumentContents, FETCHING_ERROR_ID, FILE_NOT_FOUND_ID } from 'app/documents/document.service';
 import { Logger } from 'app/shared/logger.service';
 import { TocService } from 'app/shared/toc.service';
 import { ElementsLoader } from 'app/custom-elements/elements-loader';
@@ -79,10 +78,10 @@ export class DocViewerComponent implements OnDestroy {
     }
 
     this.docContents$
-        .pipe(switchMap(newDoc => this.render(newDoc)),
+      .pipe(switchMap(newDoc => this.render(newDoc)),
         takeUntil(this.onDestroy$),
-        )
-        .subscribe();
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -133,23 +132,23 @@ export class DocViewerComponent implements OnDestroy {
     this.setNoIndex(doc.id === FILE_NOT_FOUND_ID || doc.id === FETCHING_ERROR_ID);
 
     return this.void$.pipe(
-        // Security: `doc.contents` is always authored by the documentation team
-        //           and is considered to be safe.
-        tap(() => this.nextViewContainer.innerHTML = doc.contents || ''),
-        tap(() => swapOriginAndResult(this.nextViewContainer))
-      .do(() =>addTitleAndToc = this.prepareTitleAndToc(this.nextViewContainer, doc.id)),
-        switchMap(() => this.elementsLoader.loadContainingCustomElements(this.nextViewContainer)),
-        tap(() => this.docReady.emit())
-        ,
-        switchMap(() => this.swapViews(addTitleAndToc)),
-        tap(() => this.docRendered.emit()),
-        catchError(err => {
-          const errorMessage = (err instanceof Error) ? err.stack : err;
-          this.logger.error(new Error(`[DocViewer] Error preparing document '${doc.id}': ${errorMessage}`));
-          this.nextViewContainer.innerHTML = '';
-          this.setNoIndex(true);
-          return this.void$;
-        }),
+      // Security: `doc.contents` is always authored by the documentation team
+      //           and is considered to be safe.
+      tap(() => this.nextViewContainer.innerHTML = doc.contents || ''),
+      tap(() => swapOriginAndResult(this.nextViewContainer)),
+      tap(() => addTitleAndToc = this.prepareTitleAndToc(this.nextViewContainer, doc.id)),
+      switchMap(() => this.elementsLoader.loadContainingCustomElements(this.nextViewContainer)),
+      tap(() => this.docReady.emit())
+      ,
+      switchMap(() => this.swapViews(addTitleAndToc)),
+      tap(() => this.docRendered.emit()),
+      catchError(err => {
+        const errorMessage = (err instanceof Error) ? err.stack : err;
+        this.logger.error(new Error(`[DocViewer] Error preparing document '${doc.id}': ${errorMessage}`));
+        this.nextViewContainer.innerHTML = '';
+        this.setNoIndex(true);
+        return this.void$;
+      }),
     );
   }
 
@@ -174,7 +173,8 @@ export class DocViewerComponent implements OnDestroy {
    * entering animation has been completed. This is useful for work that needs to be done as soon as
    * the element has been attached to the DOM.
    */
-  protected swapViews(onInsertedCb = () => {}): Observable<void> {
+  protected swapViews(onInsertedCb = () => {
+  }): Observable<void> {
     const raf$ = new Observable<void>(subscriber => {
       const rafId = requestAnimationFrame(() => {
         subscriber.next();
@@ -192,26 +192,27 @@ export class DocViewerComponent implements OnDestroy {
       return 1000 * seconds;
     };
     const animateProp =
-        (elem: HTMLElement, prop: keyof CSSStyleDeclaration, from: string, to: string, duration = 200) => {
-          const animationsDisabled = !DocViewerComponent.animationsEnabled
-                                     || this.hostElement.classList.contains(NO_ANIMATIONS);
-          if (prop === 'length' || prop === 'parentRule') {
-            // We cannot animate length or parentRule properties because they are readonly
-            return this.void$;
-          }
-          elem.style.transition = '';
-          return animationsDisabled
-              ? this.void$.pipe(tap(() => elem.style[prop] = to))
-              : this.void$.pipe(
-                    // In order to ensure that the `from` value will be applied immediately (i.e.
-                    // without transition) and that the `to` value will be affected by the
-                    // `transition` style, we need to ensure an animation frame has passed between
-                    // setting each style.
-                    switchMap(() => raf$), tap(() => elem.style[prop] = from),
-                    switchMap(() => raf$), tap(() => elem.style.transition = `all ${duration}ms ease-in-out`),
-                    switchMap(() => raf$), tap(() => (elem.style as any)[prop] = to),
-                    switchMap(() => timer(getActualDuration(elem))),switchMap(() => this.void$),
-        );};
+      (elem: HTMLElement, prop: keyof CSSStyleDeclaration, from: string, to: string, duration = 200) => {
+        const animationsDisabled = !DocViewerComponent.animationsEnabled
+          || this.hostElement.classList.contains(NO_ANIMATIONS);
+        if (prop === 'length' || prop === 'parentRule') {
+          // We cannot animate length or parentRule properties because they are readonly
+          return this.void$;
+        }
+        elem.style.transition = '';
+        return animationsDisabled
+          ? this.void$.pipe(tap(() => elem.style[prop] = to))
+          : this.void$.pipe(
+            // In order to ensure that the `from` value will be applied immediately (i.e.
+            // without transition) and that the `to` value will be affected by the
+            // `transition` style, we need to ensure an animation frame has passed between
+            // setting each style.
+            switchMap(() => raf$), tap(() => elem.style[prop] = from),
+            switchMap(() => raf$), tap(() => elem.style.transition = `all ${duration}ms ease-in-out`),
+            switchMap(() => raf$), tap(() => (elem.style as any)[prop] = to),
+            switchMap(() => timer(getActualDuration(elem))), switchMap(() => this.void$),
+          );
+      };
 
     const animateLeave = (elem: HTMLElement) => animateProp(elem, 'opacity', '1', '0.1');
     const animateEnter = (elem: HTMLElement) => animateProp(elem, 'opacity', '0.1', '1');
@@ -220,26 +221,26 @@ export class DocViewerComponent implements OnDestroy {
 
     if (this.currViewContainer.parentElement) {
       done$ = done$.pipe(
-          // Remove the current view from the viewer.
-          switchMap(() => animateLeave(this.currViewContainer)),
-          tap(() => this.currViewContainer.parentElement!.removeChild(this.currViewContainer)),
-          tap(() => this.docRemoved.emit()),
+        // Remove the current view from the viewer.
+        switchMap(() => animateLeave(this.currViewContainer)),
+        tap(() => this.currViewContainer.parentElement!.removeChild(this.currViewContainer)),
+        tap(() => this.docRemoved.emit()),
       );
     }
 
     return done$.pipe(
-        // Insert the next view into the viewer.
-        tap(() => this.hostElement.appendChild(this.nextViewContainer)),
-        tap(() => onInsertedCb()),
-        tap(() => this.docInserted.emit()),
-        switchMap(() => animateEnter(this.nextViewContainer)),
-        // Update the view references and clean up unused nodes.
-        tap(() => {
-          const prevViewContainer = this.currViewContainer;
-          this.currViewContainer = this.nextViewContainer;
-          this.nextViewContainer = prevViewContainer;
-          this.nextViewContainer.innerHTML = '';  // Empty to release memory.
-        }),
+      // Insert the next view into the viewer.
+      tap(() => this.hostElement.appendChild(this.nextViewContainer)),
+      tap(() => onInsertedCb()),
+      tap(() => this.docInserted.emit()),
+      switchMap(() => animateEnter(this.nextViewContainer)),
+      // Update the view references and clean up unused nodes.
+      tap(() => {
+        const prevViewContainer = this.currViewContainer;
+        this.currViewContainer = this.nextViewContainer;
+        this.nextViewContainer = prevViewContainer;
+        this.nextViewContainer.innerHTML = '';  // Empty to release memory.
+      }),
     );
   }
 
