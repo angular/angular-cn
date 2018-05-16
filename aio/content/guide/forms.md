@@ -1093,7 +1093,7 @@ The *Submit* button is also disabled.
 Not impressed?  Think about it for a moment. What would you have to do to
 wire the button's enable/disabled state to the form's validity without Angular's help?
 
-没感动吗？再想一会儿。如果没有 Angular `NgForm` 的帮助，又该怎么让按钮的禁用/启用状态和表单的有效性关联起来呢？
+没感觉吗？再想一会儿。如果没有 Angular `NgForm` 的帮助，又该怎么让按钮的禁用/启用状态和表单的有效性关联起来呢？
 
 For you, it was as simple as this:
 
