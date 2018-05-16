@@ -147,7 +147,7 @@ Add an `<app-hero-detail>` element near the bottom of the `HeroesComponent` temp
 
 Bind the `HeroesComponent.selectedHero` to the element's `hero` property like this.
 
-把 `HeroesComponent.selectedHero` 绑定到钙元素的 `hero` 属性，就像这样：
+把 `HeroesComponent.selectedHero` 绑定到该元素的 `hero` 属性，就像这样：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding" title="heroes.component.html (HeroDetail binding)">
 
