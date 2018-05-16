@@ -25,7 +25,6 @@
       "title": "关于中文版"
     }
   ],
-
   "TopBarNarrow": [
     {
       "title": "关于 Angular",
@@ -49,7 +48,6 @@
       ]
     }
   ],
-
   "SideNav": [
     {
       "url": "docs",
@@ -57,26 +55,22 @@
       "tooltip": "Angular 开发文档",
       "hidden": true
     },
-
     {
       "url": "guide/docs-style-guide",
       "title": "文档风格指南",
       "tooltip": "给文档作者的风格指南",
       "hidden": true
     },
-
     {
       "url": "guide/webpack",
       "title": "Webpack: 简介",
       "hidden": true
     },
-
     {
       "url": "guide/quickstart",
       "title": "快速上手",
       "tooltip": "Angular 破冰"
     },
-
     {
       "title": "教程",
       "tooltip": "此《英雄指南》教程会带你用 TypeScript 一步步创建一个 Angular 应用。",
@@ -123,7 +117,6 @@
         }
       ]
     },
-
     {
       "title": "核心知识",
       "tooltip": "学习 Angular 的核心知识",
@@ -190,8 +183,8 @@
             },
             {
               "url": "guide/elements",
-              "title": "Angular Elements",
-              "tooltip": "Convert components to Custom Elements."
+              "title": "Angular 自定义元素",
+              "tooltip": "把组件转换成自定义元素。"
             },
             {
               "url": "guide/dynamic-component-loader",
@@ -282,7 +275,6 @@
             }
           ]
         },
-
         {
           "url": "guide/bootstrapping",
           "title": "引导启动",
@@ -352,8 +344,8 @@
               "title": "NgModule 常见问题",
               "tooltip": "回答关于 NgModules 的常见问题。"
             }
-        ]},
-
+          ]
+        },
         {
           "title": "依赖注入",
           "tooltip": "依赖注入：创建并注入各种服务。",
@@ -380,7 +372,6 @@
             }
           ]
         },
-
         {
           "url": "guide/http",
           "title": "HttpClient",
@@ -401,13 +392,12 @@
           "title": "速查表",
           "tooltip": "关于 Angular 常用编码技术的快速指南。"
         }
-    ]},
-
+      ]
+    },
     {
       "title": "其它技术",
       "tooltip": "把 Angular 用到你的实际工作中的一些技巧",
       "children": [
-
         {
           "url": "guide/i18n",
           "title": "国际化 (i18n)",
@@ -447,7 +437,6 @@
               "title": "npm 包",
               "tooltip": "建议的 npm 包，以及如何指定包的依赖。"
             },
-
             {
               "url": "guide/typescript-configuration",
               "title": "TypeScript 配置",
@@ -501,7 +490,6 @@
             }
           ]
         },
-
         {
           "title": "保持最新",
           "tooltip": "Angular 的发布实践，更新计划以及与更新有关的资源。",
@@ -518,7 +506,6 @@
             }
           ]
         },
-
         {
           "title": "从 AngularJS 升级",
           "tooltip": "把 AngularJS 应用增量式的升级到 Angular。",
@@ -557,7 +544,6 @@
         }
       ]
     },
-
     {
       "title": "API 参考手册",
       "tooltip": "关于 Angular 中类和值的详细信息。",
@@ -570,7 +556,6 @@
       "hidden": true
     }
   ],
-
   "Footer": [
     {
       "title": "资源",
@@ -666,11 +651,18 @@
       ]
     }
   ],
-
   "docVersions": [
-    { "title": "v4 (LTS)", "url": "https://v4.angular.io" },
-    { "title": "v2", "url": "https://v2.angular.cn" },
-    { "title": "AngularDart", "url": "https://webdev.dartlang.org/angular" }
-
+    {
+      "title": "v4 (LTS)",
+      "url": "https://v4.angular.io"
+    },
+    {
+      "title": "v2",
+      "url": "https://v2.angular.cn"
+    },
+    {
+      "title": "AngularDart",
+      "url": "https://webdev.dartlang.org/angular"
+    }
   ]
 }
