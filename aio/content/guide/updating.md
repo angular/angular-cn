@@ -13,7 +13,7 @@ This document contains information and resources to help you keep your Angular a
 For information about our versioning policy and practices&mdash;including 
 support and deprecation practices, as well as the release schedule&mdash;see [Angular versioning and releases](guide/releases "Angular versioning and releases"). 
 
-要了解我们的版本策略和实践（包括支持的和反对的实践，以及发布计划），请参见 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
+要了解我们的版本策略和实践（包括支持或废弃某些特性时的做法，以及发布计划），请参见 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
 
 <div class="l-sub-section">
 
