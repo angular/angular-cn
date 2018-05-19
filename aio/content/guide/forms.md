@@ -439,7 +439,7 @@ Bootstrap 为这个表单提供了一些样式。
 
 To add the stylesheet, open `styles.css` and add the following import line at the top:
 
-要添加样式表，就打开 `index.html`，并把下列链接添加到 `<head>` 中：
+要添加样式表，就打开 `styles.css`，并把下列代码添加到顶部：
 
 <code-example path="forms/src/styles.1.css" linenums="false" title="src/styles.css">
 

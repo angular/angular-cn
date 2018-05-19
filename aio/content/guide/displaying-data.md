@@ -10,7 +10,7 @@ In this page, you'll create a component with a list of heroes.
 You'll display the list of hero names and
 conditionally show a message below the list.
 
-本章中，你将创建一个英雄列表组件。
+本章中，你将创建一个带英雄列表的组件。
 你将显示英雄名字的列表，并根据条件在列表下方显示一条消息。
 
 The final UI looks like this:

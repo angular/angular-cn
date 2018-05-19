@@ -1344,7 +1344,7 @@ Sometimes applications transfer large amounts of data and those transfers can ta
 File uploads are a typical example. 
 Give the users a better experience by providing feedback on the progress of such transfers.
 
-有事，应用会传输大量数据，并且这些传输可能会花费很长时间。
+有时，应用会传输大量数据，并且这些传输可能会花费很长时间。
 典型的例子是文件上传。
 可以通过在传输过程中提供进度反馈，来提升用户体验。
 

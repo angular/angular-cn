@@ -365,7 +365,7 @@ Replace that import with this one:
 Angular adds the `appId` value (which can be _any_ string) to the style-names of the server-rendered pages,
 so that they can be identified and removed when the client app starts.
 
-Angular 会把 `appId` 值（它可以是*任何*字符串）添加到服务端渲染页面的样式名中，以便它们在客户端应用启动时可以被找到并移除。
+Angular 会把 `appId` 值（它可以是*任何*字符串）添加到服务端渲染页面的样式名中，以便在客户端应用启动时可以找到并移除它们。
 
 You can get runtime information about the current platform and the `appId` by injection.
 

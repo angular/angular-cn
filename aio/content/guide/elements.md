@@ -41,11 +41,11 @@ Custom elements bootstrap themselves - they start automatically when they are ad
 
 - <b>Content-rich applications</b>
 
-   <b>内容丰富的应用</b>
+   <b>富内容应用</b>
 
   If you have a content-rich app, such as the Angular app that presents this documentation, custom elements let you give your content providers sophisticated Angular functionality without requiring knowledge of Angular. For example, an Angular guide like this one is added directly to the DOM by the Angular navigation tools, but can include special elements like `<code-snippet>` that perform complex operations. All you need to tell your content provider is the syntax of your custom element. They don't need to know anything about Angular, or anything about your component's data structures or implementation.
 
-   如果你有一个内容丰富的应用（比如用来展示本文档的），自定义元素可以为你的内容提供方赋予复杂的 Angular 功能，而不用要求他了解 Angular 的知识。比如，像本文档一样的 Angular 指南是使用 Angular 导航工具直接添加到 DOM 中的，但是其中可以包含特殊的元素，比如 `<code-snippet>`，它可以执行复杂的操作。
+   如果你有一个富内容应用（比如正在展示本文档的这个），自定义元素可以为你的内容提供方赋予复杂的 Angular 功能，而不用要求他了解 Angular 的知识。比如，像本文档一样的 Angular 指南是使用 Angular 导航工具直接添加到 DOM 中的，但是其中可以包含特殊的元素，比如 `<code-snippet>`，它可以执行复杂的操作。
    你所要告诉你的内容提供方的一切，就是这个自定义元素的语法。他们不需要了解关于 Angular 的任何知识，也不需要了解你的组件的数据结构或实现。
 
 ### How it works
@@ -284,7 +284,7 @@ Previously, when you wanted to add a component to an app at runtime, you had to 
 
 Using an Angular custom element makes the process much simpler and more transparent, by providing all of the infrastructure and framework automatically&mdash;all you have to do is define the kind of event handling you want. (You do still have to exclude the component from compilation, if you are not going to use it in your app.)
 
-可以用 Angular 自定义组件会让这个过程更简单、更透明。只要自动提供所有基础设施和框架即可，你所要做的一切就是定义所需的各种事件处理逻辑。（如果你不准备在应用中直接用它，那就还要把该组件从编译中排除出去。）
+用 Angular 自定义组件会让这个过程更简单、更透明。只要自动提供所有基础设施和框架即可，你所要做的一切就是定义所需的各种事件处理逻辑。（如果你不准备在应用中直接用它，还要把该组件从编译中排除出去。）
 
 The Popup Service example app defines a component that you can either load dynamically or convert to a custom element. 
 
