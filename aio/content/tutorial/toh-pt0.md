@@ -11,9 +11,7 @@
  如果还没有安装 [Angular CLI](https://github.com/angular/angular-cli)，请执行：
 
 <code-example language="sh" class="code-shell">
-
   npm install -g @angular/cli
-
 </code-example>  
 
 ## Create a new application
@@ -25,14 +23,28 @@ Create a new project named `angular-tour-of-heroes` with this CLI command.
 使用 CLI 命令创建一个名叫 `angular-tour-of-heroes` 的新项目。
 
 <code-example language="sh" class="code-shell">
-
   ng new angular-tour-of-heroes
-
 </code-example> 
 
 The Angular CLI generated a new project with a default application and supporting files. 
 
 这样 Angular CLI 就创建了一个带默认应用及其支持文件的新项目。
+
+<div class="l-sub-section">
+
+You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
+For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
+
+你可以使用 `ng add` 命令往新项目中添加一些预先打包好的功能。
+`ng add` 命令会通过应用来自特定 NPM 包中的图纸（schematic）来转换此项目。
+要了解更多，参见 [Angular CLI 文档](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation")。
+
+Angular Material provides schematics for typical app layouts. 
+See the [Angular Material documentation](https://material.angular.io/guides "Angular Material documentation") for details.
+
+比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.io/guides "Angular Material documentation")。
+
+</div>
 
 ## Serve the application
 
@@ -43,10 +55,8 @@ Go to the project directory and launch the application.
 进入项目目录，并启动这个应用。
 
 <code-example language="sh" class="code-shell">
-
   cd angular-tour-of-heroes
   ng serve --open
-
 </code-example>
 
 <div class="l-sub-section">
@@ -111,7 +121,6 @@ Open the component class file (`app.component.ts`) and change the value of the `
 打开组件的类文件 (`app.component.ts`)，并把 `title` 属性的值修改为 'Tour of Heroes' （英雄指南）。
 
 <code-example path="toh-pt0/src/app/app.component.ts" region="set-title" title="app.component.ts (class title property)" linenums="false">
-
 </code-example>
 
 Open the component template file (`app.component.html`) and
@@ -122,7 +131,6 @@ Replace it with the following line of HTML.
 
 <code-example path="toh-pt0/src/app/app.component.html" 
   title="app.component.html (template)" linenums="false">
-
 </code-example>
 
 The double curly braces are Angular's *interpolation binding* syntax. 
@@ -155,7 +163,6 @@ Here's an excerpt from the `styles.css` for the _Tour of Heroes_ sample app.
 下面是这个*英雄指南*范例应用中 `styles.css` 文件的片段。
 
 <code-example path="toh-pt0/src/styles.1.css" title="src/styles.css (excerpt)">
-
 </code-example>
 
 ## Final code review
@@ -183,7 +190,6 @@ Here are the code files discussed on this page.
     title="src/styles.css (excerpt)" 
     path="toh-pt0/src/styles.1.css">
   </code-pane>
-
 </code-tabs>
 
 ## Summary
@@ -192,12 +198,12 @@ Here are the code files discussed on this page.
 
 * You created the initial application structure using the Angular CLI.
 
-  你使用 Angular CLI 创建了初始的应用结构。
+   你使用 Angular CLI 创建了初始的应用结构。
 
 * You learned that Angular components display data.
 
-  你学会了使用 Angular 组件来显示数据。
+   你学会了使用 Angular 组件来显示数据。
 
-* You used the double curly braces of interpolation to display the app title. 
+* You used the double curly braces of interpolation to display the app title.
 
-  你使用双花括号插值表达式显示了应用标题。
+   你使用双花括号插值表达式显示了应用标题。

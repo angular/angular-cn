@@ -15,7 +15,46 @@ export class EventHandlerVars { static event = o.variable('$event'); }
 export interface LocalResolver { getLocal(name: string): o.Expression|null; }
 
 export class ConvertActionBindingResult {
-  constructor(public stmts: o.Statement[], public allowDefault: o.ReadVarExpr) {}
+  /**
+   * Store statements which are render3 compatible.
+   */
+  render3Stmts: o.Statement[];
+  constructor(
+      /**
+       * Render2 compatible statements,
+       */
+      public stmts: o.Statement[],
+      /**
+       * Variable name used with render2 compatible statements.
+       */
+      public allowDefault: o.ReadVarExpr) {
+    /**
+     * This is bit of a hack. It converts statements which render2 expects to statements which are
+     * expected by render3.
+     *
+     * Example: `<div click="doSomething($event)">` will generate:
+     *
+     * Render3:
+     * ```
+     * const pd_b:any = ((<any>ctx.doSomething($event)) !== false);
+     * return pd_b;
+     * ```
+     *
+     * but render2 expects:
+     * ```
+     * return ctx.doSomething($event);
+     * ```
+     */
+    // TODO(misko): remove this hack once we no longer support ViewEngine.
+    this.render3Stmts = stmts.map((statement: o.Statement) => {
+      if (statement instanceof o.DeclareVarStmt && statement.name == allowDefault.name &&
+          statement.value instanceof o.BinaryOperatorExpr) {
+        const lhs = statement.value.lhs as o.CastExpr;
+        return new o.ReturnStatement(lhs.value);
+      }
+      return statement;
+    });
+  }
 }
 
 export type InterpolationFunction = (args: o.Expression[]) => o.Expression;
@@ -97,7 +136,7 @@ export enum BindingForm {
   General,
 
   // Try to generate a simple binding (no temporaries or statements)
-  // otherise generate a general binding
+  // otherwise generate a general binding
   TrySimple,
 }
 
@@ -341,7 +380,7 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
   }
 
   visitLiteralPrimitive(ast: cdAst.LiteralPrimitive, mode: _Mode): any {
-    // For literal values of null, undefined, true, or false allow type inteference
+    // For literal values of null, undefined, true, or false allow type interference
     // to infer the type.
     const type =
         ast.value === null || ast.value === undefined || ast.value === true || ast.value === true ?
@@ -648,7 +687,7 @@ function convertStmtIntoExpression(stmt: o.Statement): o.Expression|null {
   return null;
 }
 
-class BuiltinFunctionCall extends cdAst.FunctionCall {
+export class BuiltinFunctionCall extends cdAst.FunctionCall {
   constructor(span: cdAst.ParseSpan, public args: cdAst.AST[], public converter: BuiltinConverter) {
     super(span, null, args);
   }

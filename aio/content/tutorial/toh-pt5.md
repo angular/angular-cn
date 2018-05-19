@@ -32,9 +32,9 @@ When you’re done, users will be able to navigate the app like this:
 
 </figure>
 
-## Add the _AppRoutingModule_
+## Add the `AppRoutingModule`
 
-## 添加 _AppRoutingModule_
+## 添加 `AppRoutingModule`
 
 An Angular best practice is to load and configure the router in a separate, top-level module
 that is dedicated to routing and imported by the root `AppModule`.
@@ -50,9 +50,7 @@ Use the CLI to generate it.
 使用 CLI 生成它。
 
 <code-example language="sh" class="code-shell">
-
   ng generate module app-routing --flat --module=app
-
 </code-example>
 
 <div class="l-sub-section">
@@ -71,7 +69,6 @@ The generated file looks like this:
 
 <code-example path="toh-pt5/src/app/app-routing.module.0.ts" 
   title="src/app/app-routing.module.ts (generated)">
-
 </code-example>
 
 You generally don't declare components in a routing module so you can delete the
@@ -98,7 +95,6 @@ in the `AppModule` components that will need them.
 <code-example path="toh-pt5/src/app/app-routing.module.ts" 
   region="v1"
   title="src/app/app-routing.module.ts (v1)">
-
 </code-example>
 
 ### Add routes
@@ -134,7 +130,6 @@ Then define an array of routes with a single `route` to that component.
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" 
   region="heroes-route">
-
 </code-example>
 
 Once you've finished setting up, the router will match that URL to `path: 'heroes'` 
@@ -157,7 +152,6 @@ configure it with the `routes` in one step by calling
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" 
   region="ngmodule-imports">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -182,7 +176,6 @@ Open the `AppComponent` template replace the `<app-heroes>` element with a `<rou
 <code-example path="toh-pt5/src/app/app.component.html" 
   region="outlet"
   title="src/app/app.component.html (router-outlet)">
-
 </code-example>
 
 You removed `<app-heroes>` because you will only display the `HeroesComponent` when the user navigates to it.
@@ -211,9 +204,7 @@ You should still be running with this CLI command.
 你的 CLI 命令应该仍在运行吧。
 
 <code-example language="sh" class="code-shell">
-
   ng serve
-
 </code-example>
 
 The browser should refresh and display the app title but not the list of heroes.
@@ -235,9 +226,9 @@ You should see the familiar heroes master/detail view.
 
 {@a routerlink}
 
-## Add a navigation link (_routerLink_)
+## Add a navigation link (`routerLink`)
 
-## 添加路由链接 (*routerLink*)
+## 添加路由链接 (`routerLink`)
 
 Users shouldn't have to paste a route URL into the address bar. 
 They should be able to click a link to navigate.
@@ -255,7 +246,6 @@ The revised `AppComponent` template looks like this:
   path="toh-pt5/src/app/app.component.html" 
   region="heroes"
   title="src/app/app.component.html (heroes RouterLink)">
-
 </code-example>
 
 A [`routerLink` attribute](#routerlink) is set to `"/heroes"`,
@@ -301,9 +291,7 @@ Add a `DashboardComponent` using the CLI:
 使用 CLI 添加一个 `DashboardComponent`：
 
 <code-example language="sh" class="code-shell">
-
   ng generate component dashboard
-
 </code-example>
 
 The CLI generates the files for the `DashboardComponent` and declares it in `AppModule`.
@@ -315,7 +303,6 @@ Replace the default file content in these three files as follows and then return
 把这三个文件中的内容改成这样，并回来做一个随堂讨论：
 
 <code-tabs>
-
   <code-pane 
     title="src/app/dashboard/dashboard.component.html" path="toh-pt5/src/app/dashboard/dashboard.component.1.html">
   </code-pane>
@@ -327,7 +314,6 @@ Replace the default file content in these three files as follows and then return
   <code-pane 
     title="src/app/dashboard/dashboard.component.css" path="toh-pt5/src/app/dashboard/dashboard.component.css">
   </code-pane>
-
 </code-tabs>
 
 The  _template_ presents a grid of hero name links.
@@ -336,15 +322,15 @@ The  _template_ presents a grid of hero name links.
 
 * The `*ngFor` repeater creates as many links as are in the component's `heroes` array.
 
-  `*ngFor` 复写器为组件的 `heroes` 数组中的每个条目创建了一个链接。
+   `*ngFor` 复写器为组件的 `heroes` 数组中的每个条目创建了一个链接。
 
 * The links are styled as colored blocks by the `dashboard.component.css`.
 
-  这些链接被 `dashboard.component.css` 中的样式格式化成了一些色块。
+   这些链接被 `dashboard.component.css` 中的样式格式化成了一些色块。
 
 * The links don't go anywhere yet but [they will shortly](#hero-details).
 
-  这些链接还没有指向任何地方，但[很快就会了](#hero-details)。
+   这些链接还没有指向任何地方，但[很快就会了](#hero-details)。
 
 The _class_ is similar to the `HeroesComponent` class.
 
@@ -352,15 +338,15 @@ The _class_ is similar to the `HeroesComponent` class.
 
 * It defines a `heroes` array property.
 
-  它定义了一个 `heroes` 数组属性。
+   它定义了一个 `heroes` 数组属性。
 
 * The constructor expects Angular to inject the `HeroService` into a private `heroService` property.
 
-  它的构造函数希望 Angular 把 `HeroService` 注入到私有的 `heroService` 属性中。
+   它的构造函数希望 Angular 把 `HeroService` 注入到私有的 `heroService` 属性中。
 
 * The `ngOnInit()` lifecycle hook calls `getHeroes`.
 
-  在 `ngOnInit()` 生命周期钩子中调用 `getHeroes`。
+   在 `ngOnInit()` 生命周期钩子中调用 `getHeroes`。
 
 This `getHeroes` reduces the number of heroes displayed to four
 (2nd, 3rd, 4th, and 5th).
@@ -368,7 +354,6 @@ This `getHeroes` reduces the number of heroes displayed to four
 这个 `getHeroes` 函数把要显示的英雄的数量缩减为四个（第二、第三、第四、第五）。
 
 <code-example path="toh-pt5/src/app/dashboard/dashboard.component.ts" region="getHeroes">
-
 </code-example>
 
 ### Add the dashboard route
@@ -387,7 +372,6 @@ Import the `DashboardComponent` in the `AppRoutingModule`.
   path="toh-pt5/src/app/app-routing.module.ts" 
   region="import-dashboard" 
   title="src/app/app-routing.module.ts (import DashboardComponent)">
-
 </code-example>
 
 Add a route to the `AppRoutingModule.routes` array that matches a path to the `DashboardComponent`.
@@ -397,7 +381,6 @@ Add a route to the `AppRoutingModule.routes` array that matches a path to the `D
 <code-example 
   path="toh-pt5/src/app/app-routing.module.ts" 
   region="dashboard-route">
-
 </code-example>
 
 ### Add a default route
@@ -418,7 +401,6 @@ route to the `AppRoutingModule.Routes` array.
 要让应用自动导航到这个仪表盘，请把下列路由添加到 `AppRoutingModule.Routes` 数组中。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" region="redirect-route">
-
 </code-example>
 
 This route redirects a URL that fully matches the empty path to the route whose path is `'/dashboard'`.
@@ -445,7 +427,6 @@ Add a dashboard navigation link to the `AppComponent` shell template, just above
 把仪表盘的导航链接添加到壳组件 `AppComponent` 的模板中，就放在 *Heroes* 链接的前面。
 
 <code-example path="toh-pt5/src/app/app.component.html" title="src/app/app.component.html">
-
 </code-example>
 
 After the browser refreshes you can navigate freely between the two views by clicking the links.
@@ -485,7 +466,7 @@ and liberate it from the `HeroesComponent`.
 
 在这一节，你将能导航到 `HeroDetailComponent`，并把它从 `HeroesComponent` 中解放出来。
 
-### Delete _hero details_ from _HeroesComponent_
+### Delete _hero details_ from `HeroesComponent`
 
 ### 从 `HeroesComponent` 中删除*英雄详情*
 
@@ -523,7 +504,6 @@ Open `AppRoutingModule` and import `HeroDetailComponent`.
   path="toh-pt5/src/app/app-routing.module.ts" 
   region="import-herodetail" 
   title="src/app/app-routing.module.ts (import HeroDetailComponent)">
-
 </code-example>
 
 Then add a _parameterized_ route to the `AppRoutingModule.routes` array that matches the path pattern to the _hero detail_ view.
@@ -533,7 +513,6 @@ Then add a _parameterized_ route to the `AppRoutingModule.routes` array that mat
 <code-example 
   path="toh-pt5/src/app/app-routing.module.ts" 
   region="detail-route">
-
 </code-example>
 
 The colon (:) in the `path` indicates that `:id` is a placeholder for a specific hero `id`.
@@ -548,10 +527,9 @@ At this point, all application routes are in place.
   path="toh-pt5/src/app/app-routing.module.ts" 
   region="routes" 
   title="src/app/app-routing.module.ts (all routes)">
-
 </code-example>
 
-### _DashboardComponent_ hero links
+### `DashboardComponent` hero links
 
 ### `DashboardComponent` 中的英雄链接
 
@@ -569,18 +547,17 @@ fix the dashboard hero links to navigate via the _parameterized_ dashboard route
   path="toh-pt5/src/app/dashboard/dashboard.component.html" 
   region="click" 
   title="src/app/dashboard/dashboard.component.html (hero links)">
-
 </code-example>
 
 You're using Angular [interpolation binding](guide/template-syntax#interpolation) within the `*ngFor` repeater 
-to insert the current interation's `hero.id` into each 
+to insert the current iteration's `hero.id` into each 
 [`routerLink`](#routerlink).
 
 你正在 `*ngFor` 复写器中使用 Angular 的[插值表达式](guide/template-syntax#interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。
 
 {@a heroes-component-links}
 
-### _HeroesComponent_ hero links
+### `HeroesComponent` hero links
 
 ### `HeroesComponent` 中的英雄链接
 
@@ -593,7 +570,6 @@ are bound to the component's `onSelect()` method.
   path="toh-pt4/src/app/heroes/heroes.component.html" 
   region="list" 
   title="src/app/heroes/heroes.component.html (list with onSelect)">
-
 </code-example>
 
 Strip the `<li>` back to just its `*ngFor`,
@@ -608,7 +584,6 @@ is the same as in the dashboard template
   path="toh-pt5/src/app/heroes/heroes.component.html" 
   region="list" 
   title="src/app/heroes/heroes.component.html (list with links)">
-
 </code-example>
 
 You'll have to fix the private stylesheet (`heroes.component.css`) to make
@@ -637,7 +612,6 @@ Here's the class after pruning away the dead code.
   path="toh-pt5/src/app/heroes/heroes.component.ts"
   region="class" 
   title="src/app/heroes/heroes.component.ts (cleaned up)" linenums="false">
-
 </code-example>
 
 ## Routable *HeroDetailComponent*
@@ -661,15 +635,15 @@ The `HeroDetailComponent` needs a new way to obtain the _hero-to-display_.
 
 * Get the route that created it, 
 
-  获取创建本组件的路由，
+   获取创建本组件的路由，
 
 * Extract the `id` from the route
 
-  从这个路由中提取出 `id`
+   从这个路由中提取出 `id`
 
 * Acquire the hero with that `id` from the server via the `HeroService`
 
-  通过 `HeroService` 从服务器上获取具有这个 `id` 的英雄数据。
+   通过 `HeroService` 从服务器上获取具有这个 `id` 的英雄数据。
 
 Add the following imports:
 
@@ -679,7 +653,6 @@ Add the following imports:
   path="toh-pt5/src/app/hero-detail/hero-detail.component.ts" 
   region="added-imports" 
   title="src/app/hero-detail/hero-detail.component.ts">
-
 </code-example>
 
 {@a hero-detail-ctor}
@@ -691,7 +664,6 @@ into the constructor, saving their values in private fields:
 
 <code-example 
   path="toh-pt5/src/app/hero-detail/hero-detail.component.ts" region="ctor">
-
 </code-example>
 
 The [`ActivatedRoute`](api/router/ActivatedRoute) holds information about the route to this instance of the `HeroDetailComponent`.
@@ -725,7 +697,6 @@ call `getHero()` and define it as follows.
 
 <code-example 
   path="toh-pt5/src/app/hero-detail/hero-detail.component.ts" region="ngOnInit">
-
 </code-example>
 
 The `route.snapshot` is a static image of the route information shortly after the component was created.
@@ -752,9 +723,9 @@ Add it now.
 刷新浏览器，应用挂了。出现一个编译错误，因为 `HeroService` 没有一个名叫 `getHero()` 的方法。
 这就添加它。
 
-### Add *HeroService.getHero()*
+### Add `HeroService.getHero()`
 
-### 添加 *HeroService.getHero()*
+### 添加 `HeroService.getHero()`
 
 Open `HeroService` and add this `getHero()` method
 
@@ -764,7 +735,6 @@ Open `HeroService` and add this `getHero()` method
   path="toh-pt5/src/app/hero.service.ts" 
   region="getHero" 
   title="src/app/hero.service.ts (getHero)">
-
 </code-example>
 
 <div class="alert is-important">
@@ -829,7 +799,6 @@ to the component's `goBack()` method.
   path="toh-pt5/src/app/hero-detail/hero-detail.component.html" 
   region="back-button"
   title="src/app/hero-detail/hero-detail.component.html (back button)">
-
 </code-example>
 
 Add a `goBack()` _method_ to the component class that navigates backward one step 
@@ -865,12 +834,11 @@ Here are the code files discussed on this page and your app should look like thi
 
 {@a appmodule}
 
-#### _AppRoutingModule_ and _AppModule_
+#### _AppRoutingModule_, _AppModule_, and _HeroService_
 
-#### _AppRoutingModule_ 与 _AppModule_
+#### `AppRoutingModule`、`AppModule` 和 `HeroService`
 
 <code-tabs>
-
   <code-pane 
     title="src/app/app-routing.module.ts" 
     path="toh-pt5/src/app/app-routing.module.ts">
@@ -879,7 +847,10 @@ Here are the code files discussed on this page and your app should look like thi
     title="src/app/app.module.ts" 
     path="toh-pt5/src/app/app.module.ts">
   </code-pane>
-
+  <code-pane 
+    title="src/app/hero.service.ts" 
+    path="toh-pt5/src/app/hero.service.ts">
+  </code-pane>
 </code-tabs>
 
 {@a appcomponent}
@@ -887,7 +858,6 @@ Here are the code files discussed on this page and your app should look like thi
 #### _AppComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/app.component.html"
     path="toh-pt5/src/app/app.component.html">
@@ -897,7 +867,6 @@ Here are the code files discussed on this page and your app should look like thi
     title="src/app/app.component.css"
     path="toh-pt5/src/app/app.component.css">
   </code-pane>
-
 </code-tabs>
 
 {@a dashboardcomponent}
@@ -905,7 +874,6 @@ Here are the code files discussed on this page and your app should look like thi
 #### _DashboardComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/dashboard/dashboard.component.html" path="toh-pt5/src/app/dashboard/dashboard.component.html">
   </code-pane>
@@ -917,7 +885,6 @@ Here are the code files discussed on this page and your app should look like thi
   <code-pane 
     title="src/app/dashboard/dashboard.component.css" path="toh-pt5/src/app/dashboard/dashboard.component.css">
   </code-pane>
-
 </code-tabs>
 
 {@a heroescomponent}
@@ -925,7 +892,6 @@ Here are the code files discussed on this page and your app should look like thi
 #### _HeroesComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/heroes/heroes.component.html" path="toh-pt5/src/app/heroes/heroes.component.html">
   </code-pane>
@@ -939,7 +905,6 @@ Here are the code files discussed on this page and your app should look like thi
     title="src/app/heroes/heroes.component.css" 
     path="toh-pt5/src/app/heroes/heroes.component.css">
   </code-pane>
-
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -947,7 +912,6 @@ Here are the code files discussed on this page and your app should look like thi
 #### _HeroDetailComponent_
 
 <code-tabs>
-
   <code-pane 
     title="src/app/hero-detail/hero-detail.component.html" path="toh-pt5/src/app/hero-detail/hero-detail.component.html">
   </code-pane>
@@ -959,7 +923,6 @@ Here are the code files discussed on this page and your app should look like thi
   <code-pane 
     title="src/app/hero-detail/hero-detail.component.css" path="toh-pt5/src/app/hero-detail/hero-detail.component.css">
   </code-pane>
-
 </code-tabs>
 
 ## Summary
@@ -968,32 +931,32 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You added the Angular router to navigate among different components.
 
-  添加了 Angular *路由器*在各个不同组件之间导航。
+   添加了 Angular *路由器*在各个不同组件之间导航。
 
 * You turned the `AppComponent` into a navigation shell with `<a>` links and a `<router-outlet>`.
 
-  你使用一些 `<a>` 链接和一个 `<router-outlet>` 把 `AppComponent` 转换成了一个导航用的壳组件。
+   你使用一些 `<a>` 链接和一个 `<router-outlet>` 把 `AppComponent` 转换成了一个导航用的壳组件。
 
 * You configured the router in an `AppRoutingModule` 
 
-  你在 `AppRoutingModule` 中配置了路由器。
+   你在 `AppRoutingModule` 中配置了路由器。
 
 * You defined simple routes, a redirect route, and a parameterized route.
 
-  你定义了一些简单路由、一个重定向路由和一个参数化路由。
+   你定义了一些简单路由、一个重定向路由和一个参数化路由。
 
 * You used the `routerLink` directive in anchor elements.
 
-  你在 `<a>` 元素中使用了 `routerLink` 指令。
+   你在 `<a>` 元素中使用了 `routerLink` 指令。
 
 * You refactored a tightly-coupled master/detail view into a routed detail view.
 
-  你把一个紧耦合的主从视图重构成了带路由的详情视图。
+   你把一个紧耦合的主从视图重构成了带路由的详情视图。
 
 * You used router link parameters to navigate to the detail view of a user-selected hero.
 
-  你使用路由链接参数来导航到所选英雄的详情视图。
+   你使用路由链接参数来导航到所选英雄的详情视图。
 
 * You shared the `HeroService` among multiple components.
 
-  在多个组件之间共享了 `HeroService` 服务。
+   在多个组件之间共享了 `HeroService` 服务。

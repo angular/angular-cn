@@ -30,9 +30,9 @@ Meanwhile, the browser downloads the full client version and switches to it auto
 <div class="l-sub-section">
 
 [Download the finished sample code](generated/zips/universal/universal.zip),
-which runs in a [node express](https://expressjs.com/) server.
+which runs in a [Node.js® Express](https://expressjs.com/) server.
 
-你可以[下载最终的范例代码](generated/zips/universal/universal.zip)，并将其运行在一个 [node express](https://expressjs.com/) 服务器中。
+你可以[下载最终的范例代码](generated/zips/universal/universal.zip)，并将其运行在一个 [Node.js® Express](https://expressjs.com/) 服务器中。
 
 </div>
 
@@ -227,10 +227,10 @@ You'll add more files to support building and serving with Universal.
 
 In this example, the Angular CLI compiles and bundles the Universal version of the app with the
 [AOT (Ahead-of-Time) compiler](guide/aot-compiler).
-A node/express web server turns client requests into the HTML pages rendered by Universal.
+A Node.js® Express web server turns client requests into the HTML pages rendered by Universal.
 
 在这个例子中，Angular CLI 会使用 [AOT (预先) 编译器](guide/aot-compiler)对该应用的 Universal 版本进行编译和打包。
-Node 的 Express Web 服务器会把客户端请求转换成由 Universal 渲染出的页面。
+Node.js® 的 Express Web 服务器会把客户端请求转换成由 Universal 渲染出的页面。
 
 You will create:
 
@@ -238,30 +238,29 @@ You will create:
 
  * a server-side app module, `app.server.module.ts`
 
-   一个服务端的 app 模块 `app.server.module.ts`
+    一个服务端的 app 模块 `app.server.module.ts`
 
  * an entry point for the server-side, `main.server.ts`
 
-   一个服务端的入口点 `main.server.ts`
+    一个服务端的入口点 `main.server.ts`
 
  * an express web server to handle requests, `server.ts`
 
-   一个用于处理请求的 express Web 服务器
+    一个用于处理请求的 express Web 服务器
 
  * a TypeScript config file, `tsconfig.server.json`
 
-   一个 TypeScript 配置文件 `tsconfig.server.json`
+    一个 TypeScript 配置文件 `tsconfig.server.json`
 
  * a Webpack config file for the server, `webpack.server.config.js`
 
-   一个供服务器使用的 Webpack 配置文件 `webpack.server.config.js`
+    一个供服务器使用的 Webpack 配置文件 `webpack.server.config.js`
 
 When you're done, the folder structure will look like this:
 
 当做完这些后，文件夹的结构是这样的：
 
 <code-example format="." language="none" linenums="false">
-
 src/
   index.html                 <t><i>app web page</i></t><t>应用的宿主页</t>
   main.ts                    <t><i>bootstrapper for client app</i></t><t>客户端应用的引导程序</t>
@@ -276,7 +275,6 @@ server.ts                    <t><i>* express web server</i></t><t>* Express 的�
 tsconfig.json                <t><i>TypeScript client configuration</i></t><t>TypeScript 的客户端配置</t>
 package.json                 <t><i>npm configuration</i></t><t>npm 配置</t>
 webpack.server.config.js     <t><i>* Webpack server configuration</i></t><t>* Webpack 的服务端配置</t>
-
 </code-example>
 
 The files marked with `*` are new and not in the original tutorial sample.
@@ -306,29 +304,27 @@ To get started, install these packages.
 在开始之前，要安装下列包。
 
  * `@angular/platform-server` - Universal server-side components.
- 
-   `@angular/platform-server` - Universal 的服务端元件。
+
+    `@angular/platform-server` - Universal 的服务端元件。
 
  * `@nguniversal/module-map-ngfactory-loader` - For handling lazy-loading in the context of a server-render.
 
-   `@nguniversal/module-map-ngfactory-loader` - 用于处理服务端渲染环境下的惰性加载。
+    `@nguniversal/module-map-ngfactory-loader` - 用于处理服务端渲染环境下的惰性加载。
 
  * `@nguniversal/express-engine` - An express engine for Universal applications.
 
-   `@nguniversal/express-engine` - Universal 应用的 Express 引擎。
+    `@nguniversal/express-engine` - Universal 应用的 Express 引擎。
 
  * `ts-loader` - To transpile the server application
 
-   `ts-loader` - 用于对服务端应用进行转译。
+    `ts-loader` - 用于对服务端应用进行转译。
 
 Install them with the following commands:
 
 使用下列命令安装它们：
 
 <code-example format="." language="bash">
-
 npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader @nguniversal/express-engine
-
 </code-example>
 
 {@a transition}
@@ -364,7 +360,6 @@ Replace that import with this one:
 把该导入改成这样:
 
 <code-example path="universal/src/app/app.module.ts" region="browsermodule" title="src/app/app.module.ts (withServerTransition)">
-
 </code-example>
 
 Angular adds the `appId` value (which can be _any_ string) to the style-names of the server-rendered pages,
@@ -377,7 +372,6 @@ You can get runtime information about the current platform and the `appId` by in
 你可以通过依赖注入取得关于当前平台和 `appId` 的运行时信息。
 
 <code-example path="universal/src/app/app.module.ts" region="platform-detection" title="src/app/app.module.ts (platform detection)">
-
 </code-example>
 
 {@a http-urls}
@@ -386,16 +380,16 @@ You can get runtime information about the current platform and the `appId` by in
 
 #### 在 HTTP 中使用绝对地址
 
-The tutorial's `HeroService` and `HeroSearchService` delegate to the Angular `Http` module to fetch application data.
+The tutorial's `HeroService` and `HeroSearchService` delegate to the Angular `HttpClient` module to fetch application data.
 These services send requests to _relative_ URLs such as `api/heroes`.
 
-教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `Http` 模块来获取应用数据。
+教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
 那些服务都把请求发送到了*相对* URL，比如 `api/heroes`。
 
-In a Universal app, `Http` URLs must be _absolute_ (e.g., `https://my-server.com/api/heroes`)
+In a Universal app, HTTP URLs must be _absolute_, for example, `https://my-server.com/api/heroes` 
 even when the Universal web server is capable of handling those requests.
 
-在 Universal 应用中，`Http` 的 URL 必须是*绝对地址*（比如 `https://my-server.com/api/heroes`），
+在 Universal 应用中，HTTP 的 URL 必须是*绝对地址*（比如 `https://my-server.com/api/heroes`），
 只有这样，Universal 的 Web 服务器才能处理那些请求。
 
 You'll have to change the services to make requests with absolute URLs when running on the server
@@ -410,10 +404,9 @@ inject it into the service, and prepend the origin to the request URL.
 
 Start by changing the `HeroService` constructor to take a second `origin` parameter that is optionally injected via the `APP_BASE_HREF` token.
 
-先为 `HeroService` 的构造函数添加第二个 `origin` 参数，它是可选的，并通过 `APP_BASE_HREF` 令牌进行注入。 
+先为 `HeroService` 的构造函数添加第二个 `origin` 参数，它是可选的，并通过 `APP_BASE_HREF` 令牌进行注入。
 
 <code-example path="universal/src/app/hero.service.ts" region="ctor" title="src/app/hero.service.ts (constructor with optional origin)">
-
 </code-example>
 
 Note how the constructor prepends the origin (if it exists) to the `heroesUrl`.
@@ -460,7 +453,6 @@ Create an `app.server.module.ts` file in the `src/app/` directory with the follo
 在 `src/app/` 目录下创建 `app.server.module.ts` 文件，代码如下：
 
 <code-example path="universal/src/app/app.server.module.ts" title="src/app/app.server.module.ts">
-
 </code-example>
 
 Notice that it imports first the client app's `AppModule`, the Angular Universal's `ServerModule` and the `ModuleMapLoaderModule`.
@@ -512,7 +504,6 @@ Create a `server.ts` file in the root directory and add the following code:
 在根目录下创建 `server.ts` 文件，并添加下列代码：
 
 <code-example path="universal/server.ts" title="server.ts">
-
 </code-example>
 
 <div class="alert is-critical">
@@ -537,7 +528,6 @@ The important bit in this file is the `ngExpressEngine` function:
 这个文件中最重要的部分是 `ngExpressEngine` 函数：
 
 <code-example path="universal/server.ts" title="server.ts" region="ngExpressEngine">
-
 </code-example>
 
 The `ngExpressEngine` is a wrapper around the universal's `renderModuleFactory` function that turns a client's requests into server-rendered HTML pages.
@@ -638,10 +628,9 @@ Express 服务器是一系列中间件构成的管道，它会挨个对 URL 请�
 
 You configure the Express server pipeline with calls to `app.get()` like this one for data requests.
 
-你通过通过调用 `app.get()` 来配置 Express 服务器的管道，就像下面这个数据请求一样： 
+你通过通过调用 `app.get()` 来配置 Express 服务器的管道，就像下面这个数据请求一样：
 
 <code-example path="universal/server.ts" title="server.ts (data URL)" region="data-request" linenums="false">
-
 </code-example>
 
 <div class="l-sub-section">
@@ -688,7 +677,6 @@ The following code filters for request URLs with no extensions and treats them a
 下列代码会过滤出不带扩展名的 URL，并把它们当做导航请求进行处理。
 
 <code-example path="universal/server.ts" title="server.ts (navigation)" region="navigation-request" linenums="false">
-
 </code-example>
 
 #### Serve static files safely
@@ -710,7 +698,6 @@ The following express code routes all remaining requests to `/dist`; it returns 
 下列 Express 代码会把剩下的所有请求都路由到 `/dist` 目录下，如果文件未找到，就会返回 `404 - NOT FOUND`。
 
 <code-example path="universal/server.ts" title="server.ts (static files)" region="static" linenums="false">
-
 </code-example>
 
 {@a universal-configuration}
@@ -734,24 +721,23 @@ Create a `tsconfig.server.json` file in the project root directory to configure 
 在项目的根目录下创建一个 `tsconfig.server.json` 文件来配置 TypeScript 和这个 Universal 应用的 AOT 编译选项。
 
 <code-example path="universal/src/tsconfig.server.json" title="src/tsconfig.server.json">
-
 </code-example>
 
 This config extends from the root's `tsconfig.json` file. Certain settings are noteworthy for their differences.
 
 这个配置扩展了根目录下的 `tsconfig.json` 文件，注意它们在某些设置上的差异。
 
-* The `module` property must be **commonjs** which can be require()'d into our server application.
+* The `module` property must be **commonjs** which can be required into our server application.
 
-  `module` 属性必须是 **commonjs**，这样它才能被 `require()` 进你的服务端应用。
+   `module` 属性必须是 **commonjs**，这样它才能被 `require()` 进你的服务端应用。
 
 * The `angularCompilerOptions` section guides the AOT compiler:
 
-  `angularCompilerOptions` 部分有一些面向 AOT 编译器的选项：
+   `angularCompilerOptions` 部分有一些面向 AOT 编译器的选项：
 
   * `entryModule` - the root module of the server application, expressed as `path/to/file#ClassName`.
 
-    `entryModule` - 服务端应用的根模块，其格式为 `path/to/file#ClassName`。
+     `entryModule` - 服务端应用的根模块，其格式为 `path/to/file#ClassName`。
 
 ### Universal Webpack configuration
 
@@ -767,7 +753,6 @@ Create a `webpack.server.config.js` file in the project root directory with the 
 在项目的根目录下创建一个 `webpack.server.config.js` 文件，代码如下：
 
 <code-example path="universal/webpack.server.config.js" title="webpack.server.config.js">
-
 </code-example>
 
 **Webpack configuration** is a rich topic beyond the scope of this guide.
@@ -787,16 +772,14 @@ First add the _build_ and _serve_ commands to the `scripts` section of the `pack
 首先把 `build` 和 `serve` 命令添加到 `package.json` 的 `scripts` 区：
 
 <code-example format="." language="ts">
-
 "scripts": {
     ...
-    "build:universal": "npm run build:client-and-server-bundles && npm run webpack:server",
-    "serve:universal": "node dist/server.js",
-    "build:client-and-server-bundles": "ng build --prod && ng build --prod --app 1 --output-hashing=false",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+    "serve:ssr": "node dist/server",
+    "build:client-and-server-bundles": "ng build --prod && ng run angular.io-example:server",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     ...
 }
-
 </code-example>
 
 {@a build}
@@ -810,9 +793,7 @@ From the command prompt, type
 在命令行提示中输入
 
 <code-example format="." language="bash">
-
-npm run build:universal
-
+npm run build:ssr
 </code-example>
 
 The Angular CLI compiles and bundles the universal app into two different folders, `browser` and `server`.
@@ -832,9 +813,7 @@ After building the application, start the server.
 构建完应用之后，启动服务器。
 
 <code-example format="." language="bash">
-
-npm run serve:universal
-
+npm run serve:ssr
 </code-example>
 
 The console window should say
@@ -842,9 +821,7 @@ The console window should say
 在控制台窗口中应该看到
 
 <code-example format="." language="bash">
-
 Node server listening on http://localhost:4000
-
 </code-example>
 
 ## Universal in action
@@ -871,19 +848,19 @@ But clicks, mouse-moves, and keyboard entries are inert.
 
 * Clicking a hero on the Heroes page does nothing.
 
-  点击英雄列表页中的英雄没反应。
+   点击英雄列表页中的英雄没反应。
 
 * You can't add or delete a hero.
 
-  你也不能添加或删除英雄。
+   你也不能添加或删除英雄。
 
 * The search box on the Dashboard page is ignored.
 
-  仪表盘页面上的搜索框不理你。
+   仪表盘页面上的搜索框不理你。
 
 * The _back_ and _save_ buttons on the Details page don't work.
 
-  详情页中的 *Back* 和 *Save* 按钮也没反应。
+   详情页中的 *Back* 和 *Save* 按钮也没反应。
 
 User events other than `routerLink` clicks aren't supported.
 The user must wait for the full client app to arrive.
@@ -934,15 +911,15 @@ It also explained some of the key reasons for doing so.
 
  - Facilitate web crawlers (SEO)
 
-   帮助网络爬虫（SEO）
+    帮助网络爬虫（SEO）
 
  - Support low-bandwidth or low-power devices
 
-   支持低带宽或低功耗设备
+    支持低带宽或低功耗设备
 
  - Fast first page load
 
-   快速加载首屏
+    快速加载首屏
 
 Angular Universal can greatly improve the perceived startup performance of your app.
 The slower the network, the more advantageous it becomes to have Universal display the first page to the user.

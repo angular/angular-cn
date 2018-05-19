@@ -23,9 +23,7 @@ For the simplest deployment, build for development and copy the output directory
    使用开发环境进行构建
 
   <code-example language="none" class="code-shell">
-
     ng build
-
   </code-example>
 
 2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
@@ -42,16 +40,14 @@ For the simplest deployment, build for development and copy the output directory
   比如，如果 `index.html` 位于服务器上的 `/my/app/index.html` 路径下，就要把 *base href* 设置为 `<base href="/my/app/">`，就像这样：
 
   <code-example language="none" class="code-shell">
-
     ng build --base-href=/my/app/
-
   </code-example>
 
   You'll see that the `<base href>` is set properly in the generated `dist/index.html`.<br><br>
   If you copy to the server's root directory, omit this step and leave the `<base href>` alone.<br><br>
   Learn more about the role of `<base href>` [below](guide/deployment#base-tag).
 
-  我们会看到在生成的 `dist/index.html` 中 `<base href>` 已经被设置好了。<br><br>
+  你会看到在生成的 `dist/index.html` 中 `<base href>` 已经被设置好了。<br><br>
   如果复制到服务器的根目录下，就省略这个步骤，并且让 `<base href>` 保持原样。<br><br> 
   要了解 `<base href>` 的作用，参见 [下面](guide/deployment#base-tag) 的内容。
 
@@ -84,9 +80,7 @@ starting with `--prod`.
 ### 使用 `--prod` 构建。
 
 <code-example language="none" class="code-shell">
-
   ng build --prod
-
 </code-example>
 
 The `--prod` _meta-flag_ engages the following optimization features.
@@ -126,9 +120,7 @@ You may further reduce bundle sizes by adding the `build-optimizer` flag.
 你还可以添加 `build-optimizer` 标志来进一步缩减打包体积。
 
 <code-example language="none" class="code-shell">
-
   ng build --prod --build-optimizer
-
 </code-example>
 
 See the [CLI Documentation](https://github.com/angular/angular-cli/wiki/build) 
@@ -148,9 +140,7 @@ console:
 Angular 应用默认运行在开发模式下，正如在浏览器控制台中看到的如下信息：
 
 <code-example format="nocode">
-
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
-
 </code-example>
 
 Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
@@ -172,7 +162,7 @@ Look at the CLI-generated `main.ts` to see how this works.
 You can dramatically reduce launch time by only loading the application modules that
 absolutely must be present when the app starts.
 
-通过只加载应用启动时必须展示的那些应用模块，我们可以显著缩减启动时间。
+通过只加载应用启动时必须展示的那些应用模块，你可以显著缩减启动时间。
 
 Configure the Angular Router to defer loading of all other modules (and their associated code), either by
 [waiting until the app has launched](guide/router#preloading  "Preloading")
@@ -193,7 +183,7 @@ in a file that's eagerly loaded when the app starts, a file such as the root `Ap
 If you do that, the module will be loaded immediately.
 
 这是一种常犯的错误。
-我们本打算惰性加载一个模块，但可能无意中在根模块 `AppModule` 文件中使用一个 JavaScript 的 `import` 语句导入了它。
+你本打算惰性加载一个模块，但可能无意中在根模块 `AppModule` 文件中使用一个 JavaScript 的 `import` 语句导入了它。
 这样一来，该模块就被立即加载了。
 
 The bundling configuration must take lazy loading into consideration.
@@ -204,7 +194,7 @@ You have to create these bundles manually.
 关于打包（bundle）方式的配置必须考虑到惰性加载问题。
 因为惰性加载模块不能在 JavaScript 中导入（就像刚才说明的），打包器应该默认排除它们。
 打包器不知道路由器的配置，并且不会为延迟加载模块创建单独的包。
-我们不得不手动创建这些包。
+你不得不手动创建这些包。
 
 The CLI runs the
 [Angular Ahead-of-Time Webpack Plugin](https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack)
@@ -224,10 +214,10 @@ The cause may not be what you think it is.
 You can waste a lot of time and money optimizing something that has no tangible benefit or even makes the app slower.
 You should measure the app's actual behavior when running in the environments that are important to you.
 
-如果我们能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。
+如果你能对“是什么导致了应用变慢”的问题有一个清晰、准确的理解，那就可以对优化什么、如何优化做出更好地决策了。
 真正的原因可能并不是你所想的那样。
-我们可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。
-我们应该在那些最重要的环境中实际运行，来度量应用的实际行为。
+你可能花费大量的时间和金钱去优化一些东西，但它却无法产生可感知的效果甚至让应用变得更慢。
+你应该在那些最重要的环境中实际运行，来度量应用的实际行为。
 
 The
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
@@ -257,9 +247,7 @@ Install `source-map-explorer`:
 安装 `source-map-explorer`：
 
 <code-example language="none" class="code-shell">
-
   npm install source-map-explorer --save-dev
-
 </code-example>
 
 Build your app for production _including the source maps_
@@ -267,9 +255,7 @@ Build your app for production _including the source maps_
 构建*带源码映射*的生产版本
 
 <code-example language="none" class="code-shell">
-
   ng build --prod --sourcemaps
-
 </code-example>
 
 List the generated bundles in the `dist/` folder.
@@ -277,9 +263,7 @@ List the generated bundles in the `dist/` folder.
 列出 `dist/` 文件夹中生成的文件包。
 
 <code-example language="none" class="code-shell">
-
   ls dist/*.bundle.js
-
 </code-example>
 
 Run the explorer to generate a graphical representation of one of the bundles.
@@ -289,9 +273,7 @@ The following example displays the graph for the _main_ bundle.
 下面的例子中就是 `main` 这个文件包的图形。
 
 <code-example language="none" class="code-shell">
-
   node_modules/.bin/source-map-explorer dist/main.*.bundle.js
-
 </code-example>
 
 The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
@@ -319,7 +301,7 @@ For example, given the `<base href="/my/app/">`, the browser resolves a URL such
 into a server request for `my/app/some/place/foo.jpg`.
 During navigation, the Angular router uses the _base href_ as the base path to component, template, and module files.
 
-HTML 中的[_&lt;base href="..."/&gt;_](https://angular.io/docs/ts/latest/guide/router.html#!)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
+HTML 中的[_&lt;base href="..."/&gt;_](/guide/router)用于指定一个解析相对路径的基地址，如图片、脚本和样式表。
 比如，指定 `<base href="/my/app/">` 时，浏览器就会把 `some/place/foo.jpg` 这样的 URL 解析成到 `my/app/some/place/foo.jpg` 的服务端请求。
 在浏览期间，Angular 路由器会使用*base href*作为组件、模板和模块文件的基地址。
 
@@ -334,14 +316,14 @@ See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") al
 In development, you typically start the server in the folder that holds `index.html`.
 That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
 
-在开发期间，我们通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以我们要在 `index.html` 的顶部添加 `<base href="/">`。
+在开发期间，你通常会在 `index.html` 所在的目录中启动服务器。这个目录就是根目录，因为 `/` 就是本应用的根，所以你要在 `index.html` 的顶部添加 `<base href="/">`。
 
 But on the shared or production server, you might serve the app from a subfolder.
 For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,
 the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the server version of the `index.html`.
 
-但是在共享服务器或生产服务器上，我们可能得从子目录下启动服务器。
-比如，当加载本应用的 URL 是 `http://www.mysite.com/my/app/` 时，子目录就是 `my/app/`，而我们就要在服务器版的 `index.html` 中添加 `<base href="/my/app/">`。
+但是在共享服务器或生产服务器上，你可能得从子目录下启动服务器。
+比如，当加载本应用的 URL 是 `http://www.mysite.com/my/app/` 时，子目录就是 `my/app/`，而你就要在服务器版的 `index.html` 中添加 `<base href="/my/app/">`。
 
 When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.
@@ -375,10 +357,10 @@ It serves build artifacts from memory instead for a faster development experienc
 <div class="l-sub-section">
 
 The output folder is  `dist/` by default.
-To output to a different folder, change the `outDir` in `.angular-cli.json`.
+To output to a different folder, change the `outputPath` in `angular.json`.
 
 默认的输出文件夹是 `dist/`。
-要输出到其它文件夹中，请修改 `.angular-cli.json` 中的 `outDir`。
+要输出到其它文件夹中，请修改 `angular.json` 中的 `outputPath`。
 
 </div>
 
@@ -409,7 +391,7 @@ See the [CLI `build` topic](https://github.com/angular/angular-cli/wiki/build) f
 
 This section covers changes you may have make to the server or to files deployed to the server.
 
-这一节涵盖了我们对服务器或准备部署到服务器的文件要做的那些修改。
+这一节涵盖了你可能对服务器或准备部署到服务器的文件要做的那些修改。
 
 {@a fallback}
 
@@ -422,12 +404,12 @@ You don't need a server-side engine to dynamically compose application pages bec
 Angular does that on the client-side.
 
 Angular 应用很适合用简单的静态 HTML 服务器提供服务。
-我们不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
+你不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
 
 If the app uses the Angular router, you must configure the server
 to return the application's host page (`index.html`) when asked for a file that it does not have.
 
-如果该应用使用 Angular 路由器，我们就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
+如果该应用使用 Angular 路由器，你就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
 
 {@a deep-link}
 
@@ -459,7 +441,7 @@ But it rejects `http://www.mysite.com/heroes/42` and returns a `404 - Not Found`
 configured to return `index.html` instead.
 
 静态服务器会在收到对 `http://www.mysite.com/` 的请求时返回 `index.html`，但是会拒绝对 `http://www.mysite.com/heroes/42` 的请求，
-并返回一个 `404 - Not Found` 错误，除非，我们把它配置成转而返回 `index.html`。
+并返回一个 `404 - Not Found` 错误，除非，它被配置成了返回 `index.html`。
 
 #### Fallback configuration examples
 
@@ -488,12 +470,10 @@ The list is by no means exhaustive, but should provide you with a good starting 
    [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了 `historyApiFallback`，代码如下：
 
   <code-example>
-
     historyApiFallback: {
       disableDotRule: true,
       htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
     }
-
   </code-example>
 
 #### Production servers
@@ -508,7 +488,6 @@ The list is by no means exhaustive, but should provide you with a good starting 
 代码如下（[出处](https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/)）：
 
   <code-example format=".">
-
     RewriteEngine On
     &#35 If an existing asset or directory is requested go to it as it is
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
@@ -517,7 +496,6 @@ The list is by no means exhaustive, but should provide you with a good starting 
 
     &#35 If the requested resource doesn't exist, use index.html
     RewriteRule ^ /index.html
-
   </code-example>
 
 * [NGinx](http://nginx.org/): use `try_files`, as described in
@@ -527,9 +505,7 @@ modified to serve `index.html`:
    [NGinx](http://nginx.org/)：使用 `try_files` 指向 `index.html`，详细描述见[Web 应用的前端控制器模式](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps)。
 
   <code-example format=".">
-
     try_files $uri $uri/ /index.html;
-
   </code-example>
 
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
@@ -538,7 +514,6 @@ modified to serve `index.html`:
    [IIS](https://www.iis.net/)：往 `web.config` 中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
 
   <code-example format='.'>
-
     &lt;system.webServer&gt;
       &lt;rewrite&gt;
         &lt;rules&gt;
@@ -566,7 +541,7 @@ It's also a good idea to
 and to
 [create a `.nojekyll` file](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)
 
-   [GitHub 页面服务](https://pages.github.com/)：我们没办法[直接配置](https://github.com/isaacs/github/issues/408) Github 的页面服务，但可以添加一个 404 页，只要把 `index.html` 复制到 `404.html` 就可以了。
+   [GitHub 页面服务](https://pages.github.com/)：你没办法[直接配置](https://github.com/isaacs/github/issues/408) Github 的页面服务，但可以添加一个 404 页，只要把 `index.html` 复制到 `404.html` 就可以了。
   它仍然会给出一个 404 响应，但是浏览器将会正确处理该页，并正常加载该应用。
   使用[在主分支的 `docs/` 下启动服务](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
   并[创建一个 `.nojekyll` 文件](https://www.bennadel.com/blog/3181-including-node-modules-and-vendors-folders-in-your-github-pages-site.htm)也是一个好办法。
@@ -577,7 +552,6 @@ and to
    [Firebase 主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
 
   <code-example format=".">
-
     "rewrites": [ {
       "source": "**",
       "destination": "/index.html"
@@ -604,7 +578,6 @@ There isn't anything the client application can do about these errors.
 The server must be configured to accept the application's requests.
 Read about how to enable CORS for specific servers at
 <a href="http://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
-
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。

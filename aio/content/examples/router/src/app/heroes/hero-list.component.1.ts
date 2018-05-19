@@ -1,9 +1,9 @@
 // #docplaster
 // #docregion
-// TODO SOMEDAY: Feature Componetized like HeroCenter
+// TODO: Feature Componetized like HeroCenter
 import { Component, OnInit }   from '@angular/core';
 import { Router }              from '@angular/router';
-import { Observable }          from 'rxjs/Observable';
+import { Observable }          from 'rxjs';
 
 import { Hero, HeroService }   from './hero.service';
 

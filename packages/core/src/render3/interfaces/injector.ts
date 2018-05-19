@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Injector} from '../../di/injector';
+import {ChangeDetectorRef} from '../../change_detection/change_detector_ref';
 import {ElementRef} from '../../linker/element_ref';
 import {TemplateRef} from '../../linker/template_ref';
 import {ViewContainerRef} from '../../linker/view_container_ref';
@@ -34,9 +34,13 @@ export interface LInjector {
    * array at this level unless it's probable the directive is in it.
    *
    * - bf0: Check directive IDs 0-31  (IDs are % 128)
-   * - bf1: Check directive IDs 33-63
+   * - bf1: Check directive IDs 32-63
    * - bf2: Check directive IDs 64-95
    * - bf3: Check directive IDs 96-127
+   * - bf4: Check directive IDs 128-159
+   * - bf5: Check directive IDs 160 - 191
+   * - bf6: Check directive IDs 192 - 223
+   * - bf7: Check directive IDs 224 - 255
    *
    * See: https://en.wikipedia.org/wiki/Bloom_filter for more about bloom filters.
    */
@@ -44,9 +48,13 @@ export interface LInjector {
   bf1: number;
   bf2: number;
   bf3: number;
+  bf4: number;
+  bf5: number;
+  bf6: number;
+  bf7: number;
 
   /**
-   * cbf0 - cbf3 properties determine whether a directive is available through a
+   * cbf0 - cbf7 properties determine whether a directive is available through a
    * parent injector. They refer to the merged values of parent bloom filters. This
    * allows us to skip looking up the chain unless it's probable that directive exists
    * up the chain.
@@ -55,7 +63,10 @@ export interface LInjector {
   cbf1: number;
   cbf2: number;
   cbf3: number;
-  injector: Injector|null;
+  cbf4: number;
+  cbf5: number;
+  cbf6: number;
+  cbf7: number;
 
   /** Stores the TemplateRef so subsequent injections of the TemplateRef get the same instance. */
   templateRef: TemplateRef<any>|null;
@@ -66,6 +77,12 @@ export interface LInjector {
 
   /** Stores the ElementRef so subsequent injections of the ElementRef get the same instance. */
   elementRef: ElementRef|null;
+
+  /**
+   * Stores the ChangeDetectorRef so subsequent injections of the ChangeDetectorRef get the
+   * same instance.
+   */
+  changeDetectorRef: ChangeDetectorRef|null;
 }
 
 // Note: This hack is necessary so we don't erroneously get a circular dependency

@@ -7,15 +7,15 @@ Angular's `HttpClient`.
 
 * The `HeroService` gets hero data with HTTP requests.
 
-  `HeroService` 通过 HTTP 请求获取英雄数据。
+   `HeroService` 通过 HTTP 请求获取英雄数据。
 
 * Users can add, edit, and delete heroes and save these changes over HTTP.
 
-  用户可以添加、编辑和删除英雄，并通过 HTTP 来保存这些更改。
+   用户可以添加、编辑和删除英雄，并通过 HTTP 来保存这些更改。
 
 * Users can search for heroes by name.
 
-  用户可以根据名字搜索英雄。
+   用户可以根据名字搜索英雄。
 
 When you're done with this page, the app should look like this <live-example></live-example>.
 
@@ -35,15 +35,15 @@ To make `HttpClient` available everywhere in the app,
 
 * open the root `AppModule`, 
 
-  打开根模块 `AppModule`，
+   打开根模块 `AppModule`，
 
 * import the `HttpClientModule` symbol from `@angular/common/http`,
 
-  从 `@angular/common/http` 中导入 `HttpClientModule` 符号，
+   从 `@angular/common/http` 中导入 `HttpClientModule` 符号，
 
 * add it to the `@NgModule.imports` array.
 
-  把它加入 `@NgModule.imports` 数组。
+   把它加入 `@NgModule.imports` 数组。
 
 ## Simulate a data server
 
@@ -89,34 +89,30 @@ Install the *In-memory Web API* package from _npm_
 从 `npm` 中安装这个*内存 Web API* 包（译注：请使用 0.5+ 的版本，不要使用 0.4-与0.6+）
 
 <code-example language="sh" class="code-shell">
-
   npm install angular-in-memory-web-api --save
-
 </code-example>
 
-Import the `InMemoryWebApiModule` and the `InMemoryDataService` class, 
+Import the `HttpClientInMemoryWebApiModule` and the `InMemoryDataService` class, 
 which you will create in a moment.
 
-导入 `InMemoryWebApiModule` 和 `InMemoryDataService` 类（你很快就要创建它）。
+导入 `HttpClientInMemoryWebApiModule` 和 `InMemoryDataService` 类（你很快就要创建它）。
 
 <code-example 
   path="toh-pt6/src/app/app.module.ts" 
   region="import-in-mem-stuff" 
   title="src/app/app.module.ts (In-memory Web API imports)">
-
 </code-example>
 
-Add the `InMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
+Add the `HttpClientInMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
 _after importing the `HttpClient`_,
 &mdash;while configuring it with the `InMemoryDataService`.
 
-把 `InMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClient` 之后），
+把 `HttpClientInMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClient` 之后），
 然后使用 `InMemoryDataService` 来配置它。
 
 <code-example   
   path="toh-pt6/src/app/app.module.ts" 
   region="in-mem-web-api-imports">
-
 </code-example>
 
 The `forRoot()` configuration method takes an `InMemoryDataService` class
@@ -157,7 +153,6 @@ Import some HTTP symbols that you'll need:
   path="toh-pt6/src/app/hero.service.ts" 
   region="import-httpclient" 
   title="src/app/hero.service.ts (import HTTP symbols)">
-
 </code-example>
 
 Inject `HttpClient` into the constructor in a private property called `http`.
@@ -167,7 +162,6 @@ Inject `HttpClient` into the constructor in a private property called `http`.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="ctor" >
-
 </code-example>
 
 Keep injecting the `MessageService`. You'll call it so frequently that
@@ -178,7 +172,6 @@ you'll wrap it in private `log` method.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="log" >
-
 </code-example>
 
 Define the `heroesUrl` with the address of the heroes resource on the server.
@@ -188,7 +181,6 @@ Define the `heroesUrl` with the address of the heroes resource on the server.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="heroesUrl" >
-
 </code-example>
 
 ### Get heroes with _HttpClient_
@@ -205,7 +197,6 @@ as an `Observable<Hero[]>`.
   path="toh-pt4/src/app/hero.service.ts" 
   region="getHeroes-1" 
   title="src/app/hero.service.ts (getHeroes with RxJs 'of()')">
-
 </code-example>
 
 Convert that method to use `HttpClient`
@@ -215,7 +206,6 @@ Convert that method to use `HttpClient`
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes-1">
-
 </code-example>
 
 Refresh the browser. The hero data should successfully load from the
@@ -241,8 +231,8 @@ You make a request, it returns a single response.
 
 HTTP 是一个请求/响应式协议。你发起请求，它返回单个的响应。
 
-In general, an `Observable` _can_ return multiple values over time.
-An `Observable` from `HttpClient` always emits a single value and then completes, never to emit again.
+In general, an observable _can_ return multiple values over time.
+An observable from `HttpClient` always emits a single value and then completes, never to emit again.
 
 通常，`Observable` *可以*在一段时间内返回多个值。
 但来自 `HttpClient` 的 `Observable` 总是发出一个值，然后结束，再也不会发出其它值。
@@ -304,7 +294,6 @@ Import the `catchError` symbol from `rxjs/operators`, along with some other oper
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="import-rxjs-operators">
-
 </code-example>
 
 Now extend the observable result with the `.pipe()` method and
@@ -315,7 +304,6 @@ give it a `catchError()` operator.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes-2" >
-
 </code-example>
 
 The `catchError()` operator intercepts an **`Observable` that failed**.
@@ -344,7 +332,6 @@ has configured with both the name of the operation that failed and a safe return
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="handleError">
-
 </code-example>
 
 After reporting the error to console, the handler constructs
@@ -381,7 +368,6 @@ Here is the final version of `getHeroes` with the `tap` that logs the operation.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="getHeroes" >
-
 </code-example>
 
 ### Get hero by id
@@ -403,16 +389,16 @@ There are three significant differences from  `getHeroes()`.
 
 * it constructs a request URL with the desired hero's id.
 
-  它使用想获取的英雄的 id 构建了一个请求 URL。
+   它使用想获取的英雄的 id 构建了一个请求 URL。
 
 * the server should respond with a single hero rather than an array of heroes.
 
-  服务器应该使用单个英雄作为回应，而不是一个英雄数组。
+   服务器应该使用单个英雄作为回应，而不是一个英雄数组。
 
 * therefore, `getHero` returns an `Observable<Hero>` ("_an observable of Hero objects_")
  rather than an observable of hero _arrays_ .
 
-  所以，`getHero` 会返回 `Observable<Hero>`（“一个可观察的*单个英雄对象*”），而不是一个可观察的英雄对象*数组*。
+   所以，`getHero` 会返回 `Observable<Hero>`（“一个可观察的*单个英雄对象*”），而不是一个可观察的英雄对象*数组*。
 
 ## Update heroes
 
@@ -459,7 +445,6 @@ on the server.
   path="toh-pt6/src/app/hero.service.ts" 
   region="updateHero" 
   title="src/app/hero.service.ts (update)">
-
 </code-example>
 
 The `HttpClient.put()` method takes three parameters
@@ -468,15 +453,15 @@ The `HttpClient.put()` method takes three parameters
 
 * the URL
 
-  URL 地址
+   URL 地址
 
 * the data to update (the modified hero in this case)
 
-  要修改的数据（这里就是修改后的英雄）
+   要修改的数据（这里就是修改后的英雄）
 
 * options
 
-  选项
+   选项
 
 The URL is unchanged. The heroes web API knows which hero to update by looking at the hero's `id`.
 
@@ -491,7 +476,6 @@ That header is in the `httpOptions` constant defined in the `HeroService`.
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
   region="http-options">
-
 </code-example>
 
 Refresh the browser, change a hero name, save your change,
@@ -554,12 +538,12 @@ Add the following `addHero()` method to the `HeroService` class.
 
 * it calls `HttpClient.post()` instead of `put()`.
 
-  它调用 `HttpClient.post()` 而不是 `put()`。
+   它调用 `HttpClient.post()` 而不是 `put()`。
 
 * it expects the server to generates an id for the new hero, 
 which it returns in the `Observable<Hero>` to the caller.
 
-  它期待服务器为这个新的英雄生成一个 id，然后把它通过 `Observable<Hero>` 返回给调用者。
+   它期待服务器为这个新的英雄生成一个 id，然后把它通过 `Observable<Hero>` 返回给调用者。
 
 Refresh the browser and add some heroes.
 
@@ -643,19 +627,19 @@ Note that
 
 * it calls `HttpClient.delete`.
 
-  它调用了 `HttpClient.delete`。
+   它调用了 `HttpClient.delete`。
 
 * the URL is the heroes resource URL plus the `id` of the hero to delete
 
-  URL 就是英雄的资源 URL 加上要删除的英雄的 `id`。
+   URL 就是英雄的资源 URL 加上要删除的英雄的 `id`。
 
 * you don't send data as you did with `put` and `post`.
 
-  你不用像 `put` 和 `post` 中那样发送任何数据。
+   你不用像 `put` 和 `post` 中那样发送任何数据。
 
 * you still send the `httpOptions`.
 
-  你仍要发送 `httpOptions`。
+   你仍要发送 `httpOptions`。
 
 Refresh the browser and try the new delete functionality.
 
@@ -690,7 +674,6 @@ Start by adding a `searchHeroes` method to the `HeroService`.
   path="toh-pt6/src/app/hero.service.ts" 
   region="searchHeroes"
   title="src/app/hero.service.ts">
-
 </code-example>
 
 The method returns immediately with an empty array if there is no search term.
@@ -713,7 +696,6 @@ Add the hero search element, `<app-hero-search>`, to the bottom of the `Dashboar
 
 <code-example 
   path="toh-pt6/src/app/dashboard/dashboard.component.html" title="src/app/dashboard/dashboard.component.html" linenums="false">
-
 </code-example>
 
 This template looks a lot like the `*ngFor` repeater in the `HeroesComponent` template.
@@ -739,9 +721,7 @@ Create a `HeroSearchComponent` with the CLI.
 使用 CLI 创建一个 `HeroSearchComponent`。
 
 <code-example language="sh" class="code-shell">
-
   ng generate component hero-search
-
 </code-example>
 
 The CLI generates the three `HeroSearchComponent` and adds the component to the `AppModule' declarations
@@ -811,7 +791,6 @@ Notice the declaration of `heroes$` as an `Observable`
 <code-example 
   path="toh-pt6/src/app/hero-search/hero-search.component.ts" 
   region="heroes-stream">
-
 </code-example>
 
 You'll set it in [`ngOnInit()`](#search-pipe). 
@@ -864,8 +843,8 @@ taxing server resources and burning through the cellular network data plan.
 
 如果每当用户击键后就直接调用 `searchHeroes()` 将导致创建海量的 HTTP 请求，浪费服务器资源并消耗大量网络流量。
 
-Instead, the `ngOnInit()` method pipes the `searchTerms` _observable_  through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
-ultimately returning an _observable_ of timely hero search results (each a `Hero[]`).
+Instead, the `ngOnInit()` method pipes the `searchTerms` observable through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
+ultimately returning an observable of timely hero search results (each a `Hero[]`).
 
 应该怎么做呢？`ngOnInit()` 往 `searchTerms` 这个可观察对象的处理管道中加入了一系列 RxJS 操作符，用以缩减对 `searchHeroes()` 的调用次数，并最终返回一个可及时给出英雄搜索结果的可观察对象（每次都是 `Hero[]` ）。
 
@@ -876,23 +855,22 @@ Here's the code.
 <code-example 
   path="toh-pt6/src/app/hero-search/hero-search.component.ts" 
   region="search">
-
 </code-example>
 
 * `debounceTime(300)` waits until the flow of new string events pauses for 300 milliseconds
 before passing along the latest string. You'll never make requests more frequently than 300ms.
 
-  在传出最终字符串之前，`debounceTime(300)` 将会等待，直到新增字符串的事件暂停了 300 毫秒。
+   在传出最终字符串之前，`debounceTime(300)` 将会等待，直到新增字符串的事件暂停了 300 毫秒。
   你实际发起请求的间隔永远不会小于 300ms。
 
-* `distinctUntilChanged` ensures that a request is sent only if the filter text changed.
+* `distinctUntilChanged()` ensures that a request is sent only if the filter text changed.
 
-  `distinctUntilChanged` 会确保只在过滤条件变化时才发送请求。
+   `distinctUntilChanged()` 会确保只在过滤条件变化时才发送请求。
 
 * `switchMap()` calls the search service for each search term that makes it through `debounce` and `distinctUntilChanged`.
 It cancels and discards previous search observables, returning only the latest search service observable.
 
-  `switchMap()` 会为每个从 `debounce` 和 `distinctUntilChanged` 中通过的搜索词调用搜索服务。
+   `switchMap()` 会为每个从 `debounce` 和 `distinctUntilChanged` 中通过的搜索词调用搜索服务。
   它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
 <div class="l-sub-section">
@@ -960,7 +938,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroService_, _InMemoryDataService_, _AppModule_
 
 <code-tabs>
-
   <code-pane 
     title="hero.service.ts" 
     path="toh-pt6/src/app/hero.service.ts">
@@ -973,7 +950,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="app.module.ts" 
     path="toh-pt6/src/app/app.module.ts">
   </code-pane>
-
 </code-tabs>
 
 {@a heroescomponent}
@@ -981,7 +957,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroesComponent_
 
 <code-tabs>
-
   <code-pane 
     title="heroes/heroes.component.html" 
     path="toh-pt6/src/app/heroes/heroes.component.html">
@@ -994,7 +969,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="heroes/heroes.component.css" 
     path="toh-pt6/src/app/heroes/heroes.component.css">
   </code-pane>
-
 </code-tabs>
 
 {@a herodetailcomponent}
@@ -1002,7 +976,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroDetailComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-detail/hero-detail.component.html"
     path="toh-pt6/src/app/hero-detail/hero-detail.component.html">
@@ -1011,7 +984,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-detail/hero-detail.component.ts" 
     path="toh-pt6/src/app/hero-detail/hero-detail.component.ts">
   </code-pane>
-
 </code-tabs>
 
 {@a herosearchcomponent}
@@ -1019,7 +991,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
 #### _HeroSearchComponent_
 
 <code-tabs>
-
   <code-pane 
     title="hero-search/hero-search.component.html"
     path="toh-pt6/src/app/hero-search/hero-search.component.html">
@@ -1032,7 +1003,6 @@ Here are the code files discussed on this page (all in the `src/app/` folder).
     title="hero-search/hero-search.component.css"
     path="toh-pt6/src/app/hero-search/hero-search.component.css">
   </code-pane>
-
 </code-tabs>
 
 ## Summary
@@ -1045,27 +1015,27 @@ You're at the end of your journey, and you've accomplished a lot.
 
 * You added the necessary dependencies to use HTTP in the app.
 
-  你添加了在应用程序中使用 HTTP 的必备依赖。
+   你添加了在应用程序中使用 HTTP 的必备依赖。
 
 * You refactored `HeroService` to load heroes from a web API.
 
-  你重构了 `HeroService`，以通过 web API 来加载英雄数据。
+   你重构了 `HeroService`，以通过 web API 来加载英雄数据。
 
 * You extended `HeroService` to support `post()`, `put()`, and `delete()` methods.
 
-  你扩展了 `HeroService` 来支持 `post()`、`put()` 和 `delete()` 方法。
+   你扩展了 `HeroService` 来支持 `post()`、`put()` 和 `delete()` 方法。
 
 * You updated the components to allow adding, editing, and deleting of heroes.
 
-  你更新了组件，以允许用户添加、编辑和删除英雄。
+   你修改了组件，以允许用户添加、编辑和删除英雄。
 
 * You configured an in-memory web API.
 
-  你配置了一个内存 Web API。
+   你配置了一个内存 Web API。
 
-* You learned how to use Observables.
+* You learned how to use observables.
 
-  你学会了如何使用“可观察对象”。
+   你学会了如何使用“可观察对象”。
 
 This concludes the "Tour of Heroes" tutorial.
 You're ready to learn more about Angular development in the fundamentals section,

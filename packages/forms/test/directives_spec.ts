@@ -55,6 +55,12 @@ function asyncValidator(expected: any, timeout = 0) {
         it('should throw when given an empty array',
            () => { expect(() => selectValueAccessor(dir, [])).toThrowError(); });
 
+        it('should throw when accessor is not provided as array', () => {
+          expect(() => selectValueAccessor(dir, {} as any[]))
+              .toThrowError(
+                  `Value accessor was not provided as an array for form control with unspecified name attribute`);
+        });
+
         it('should return the default value accessor when no other provided',
            () => { expect(selectValueAccessor(dir, [defaultAccessor])).toEqual(defaultAccessor); });
 
@@ -137,7 +143,7 @@ function asyncValidator(expected: any, timeout = 0) {
         form.form = formModel;
 
         loginControlDir = new FormControlName(
-            form, [Validators.required], [asyncValidator('expected')], [defaultAccessor]);
+            form, [Validators.required], [asyncValidator('expected')], [defaultAccessor], null);
         loginControlDir.name = 'login';
         loginControlDir.valueAccessor = new DummyControlValueAccessor();
       });
@@ -168,7 +174,7 @@ function asyncValidator(expected: any, timeout = 0) {
 
       describe('addControl', () => {
         it('should throw when no control found', () => {
-          const dir = new FormControlName(form, null !, null !, [defaultAccessor]);
+          const dir = new FormControlName(form, null !, null !, [defaultAccessor], null);
           dir.name = 'invalidName';
 
           expect(() => form.addControl(dir))
@@ -176,7 +182,7 @@ function asyncValidator(expected: any, timeout = 0) {
         });
 
         it('should throw for a named control when no value accessor', () => {
-          const dir = new FormControlName(form, null !, null !, null !);
+          const dir = new FormControlName(form, null !, null !, null !, null);
           dir.name = 'login';
 
           expect(() => form.addControl(dir))
@@ -185,7 +191,7 @@ function asyncValidator(expected: any, timeout = 0) {
 
         it('should throw when no value accessor with path', () => {
           const group = new FormGroupName(form, null !, null !);
-          const dir = new FormControlName(group, null !, null !, null !);
+          const dir = new FormControlName(group, null !, null !, null !, null);
           group.name = 'passwords';
           dir.name = 'password';
 
@@ -496,7 +502,7 @@ function asyncValidator(expected: any, timeout = 0) {
       };
 
       beforeEach(() => {
-        controlDir = new FormControlDirective([Validators.required], [], [defaultAccessor]);
+        controlDir = new FormControlDirective([Validators.required], [], [defaultAccessor], null);
         controlDir.valueAccessor = new DummyControlValueAccessor();
 
         control = new FormControl(null);
@@ -648,7 +654,7 @@ function asyncValidator(expected: any, timeout = 0) {
 
         const parent = new FormGroupDirective([], []);
         parent.form = new FormGroup({'name': formModel});
-        controlNameDir = new FormControlName(parent, [], [], [defaultAccessor]);
+        controlNameDir = new FormControlName(parent, [], [], [defaultAccessor], null);
         controlNameDir.name = 'name';
         (controlNameDir as{control: FormControl}).control = formModel;
       });

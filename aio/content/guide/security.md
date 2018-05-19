@@ -7,7 +7,7 @@ protections against common web-application vulnerabilities and attacks such as c
 scripting attacks. It doesn't cover application-level security, such as authentication (_Who is
 this user?_) and authorization (_What can this user do?_).
 
-Web 应用程序的安全涉及到很多方面。针对常见的漏洞和攻击，比如跨站脚本攻击，Angular 提供了一些内置的保护措施。本章将讨论这些内置保护措施，但不会涉及应用级安全，比如用户认证（_这个用户是谁？_）和授权(_这个用户能做什么？_)。
+Web 应用程序的安全涉及到很多方面。针对常见的漏洞和攻击，比如跨站脚本攻击，Angular 提供了一些内置的保护措施。本章将讨论这些内置保护措施，但不会涉及应用级安全，比如用户认证（*这个用户是谁？*）和授权(*这个用户能做什么？*)。
 
 For more information about the attacks and mitigations described below, see [OWASP Guide Project](https://www.owasp.org/index.php/Category:OWASP_Guide_Project).
 
@@ -15,7 +15,7 @@ For more information about the attacks and mitigations described below, see [OWA
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
-运行<live-example></live-example>来试用本页的代码。
+你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 <h2 id='report-issues'>Reporting vulnerabilities</h2>
 
@@ -53,7 +53,7 @@ community and make a pull request.
 * **Avoid Angular APIs marked in the documentation as “_Security Risk_.”**
 For more information, see the [Trusting safe values](guide/security#bypass-security-apis) section of this page.
 
-   **避免使用本文档中带“[_安全风险_](guide/security#bypass-security-apis)”标记的 Angular API。** 
+   **避免使用本文档中带“[*安全风险*](guide/security#bypass-security-apis)”标记的 Angular API。** 
   要了解更多信息，请参阅本章的[信任那些安全的值](guide/security#bypass-security-apis)部分。
 
 <h2 id='xss'>Preventing cross-site scripting (XSS)</h2>
@@ -74,7 +74,7 @@ your website. The attack isn't limited to `<script>` tags&mdash;many elements an
 DOM allow code execution, for example, `<img onerror="...">` and `<a href="javascript:...">`. If
 attacker-controlled data enters the DOM, expect security vulnerabilities.
 
-为了防范 XSS 攻击，我们必须阻止恶意代码进入 DOM。比如，如果某个攻击者能骗我们把 `<script>` 标签插入到 DOM，就可以在我们的网站上运行任何代码。
+为了防范 XSS 攻击，你必须阻止恶意代码进入 DOM。比如，如果某个攻击者能骗你把 `<script>` 标签插入到 DOM，就可以在你的网站上运行任何代码。
 除了 `<script>`，攻击者还可以使用很多 DOM 元素和属性来执行代码，比如 `<img onerror="...">`、`<a href="javascript:...">`。
 如果攻击者所控制的数据混进了 DOM，就会导致安全漏洞。
 
@@ -218,7 +218,7 @@ For information about dynamically constructing forms in a safe way, see the
 
 离线模板编译器阻止了一整套被称为“模板注入”的漏洞，并能显著增强应用程序的性能。尽量在产品发布时使用离线模板编译器，
 而不要动态生成模板（比如在代码中拼接字符串生成模板）。由于 Angular 会信任模板本身的代码，所以，动态生成的模板 —— 特别是包含用户数据的模板 —— 会绕过 Angular 自带的保护机制。
-要了解如何用安全的方式动态创建表单，请参见[动态表单烹饪宝典](guide/dynamic-form)一章。
+要了解如何用安全的方式动态创建表单，请参见[动态表单](guide/dynamic-form)一章。
 
 ### Server-side XSS protection
 
@@ -279,7 +279,7 @@ Normally, Angular automatically sanitizes the URL, disables the dangerous code, 
 in development mode, logs this action to the console. To prevent
 this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` call:
 
-通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，我们可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
+通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
 
 <code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-url)" region="trust-url">
 
@@ -296,9 +296,9 @@ context, because an untrusted source can, for example, smuggle in file downloads
 could execute. So call a method on the controller to construct a trusted video URL, which causes
 Angular to allow binding into `<iframe src>`:
 
-如果需要把用户输入转换为一个可信任的值，我们可以很方便的在控制器方法中处理。下面的模板允许用户输入一个 YouTube 视频的 ID，
+如果需要把用户输入转换为一个可信任的值，可以在控制器方法中处理。下面的模板允许用户输入一个 YouTube 视频的 ID，
   然后把相应的视频加载到 `<iframe>` 中。`<iframe src>` 是一个“资源 URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
-  所以我们要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
+  所以要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
 
 <code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (iframe)" region="iframe">
 
@@ -367,7 +367,7 @@ This technique is effective because all browsers implement the _same origin poli
 on which cookies are set can read the cookies from that site and set custom headers on requests to that site.
 That means only your application can read this cookie token and set the custom header. The malicious code on `evil.com` can't.
 
-这个技术之所以有效，是因为所有浏览器都实现了_同源策略_。只有设置 cookie 的网站的代码可以访问该站的 cookie，并为该站的请求设置自定义页头。
+这个技术之所以有效，是因为所有浏览器都实现了*同源策略*。只有设置 cookie 的网站的代码可以访问该站的 cookie，并为该站的请求设置自定义页头。
   这就是说，只有你的应用程序可以获取这个 cookie 令牌和设置自定义页头。`evil.com` 的恶意代码不能。
 
 Angular's `HttpClient` has built-in support for the client-side half of this technique. Read about it more in the [HttpClient guide](/guide/http).
@@ -425,7 +425,6 @@ Angular applications must follow the same security principles as regular web app
 must be audited as such. Angular-specific APIs that should be audited in a security review,
 such as the [_bypassSecurityTrust_](guide/security#bypass-security-apis) methods, are marked in the documentation
 as security sensitive.
-
 
 Angular 应用应该遵循和常规 Web 应用一样的安全原则并按照这些原则进行审计。Angular 中某些应该在安全评审中被审计的 API（
 比如[_bypassSecurityTrust_](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。

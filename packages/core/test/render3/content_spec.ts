@@ -6,9 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {detectChanges} from '../../src/render3/index';
-import {container, containerRefreshEnd, containerRefreshStart, directiveRefresh, elementEnd, elementStart, embeddedViewEnd, embeddedViewStart, load, projection, projectionDef, text} from '../../src/render3/instructions';
+import {SelectorFlags} from '@angular/core/src/render3/interfaces/projection';
 
+import {detectChanges} from '../../src/render3/index';
+import {container, containerRefreshEnd, containerRefreshStart, elementEnd, elementStart, embeddedViewEnd, embeddedViewStart, load, loadDirective, projection, projectionDef, text} from '../../src/render3/instructions';
+import {RenderFlags} from '../../src/render3/interfaces/definition';
 import {createComponent, renderComponent, toHtml} from './render_util';
 
 describe('content projection', () => {
@@ -17,8 +19,8 @@ describe('content projection', () => {
     /**
      * <div><ng-content></ng-content></div>
      */
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
@@ -29,72 +31,67 @@ describe('content projection', () => {
     /**
      * <child>content</child>
      */
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
-        { text(2, 'content'); }
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
+        { text(1, 'content'); }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child><div>content</div></child>');
   });
 
   it('should project content when root.', () => {
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         projection(1, 0);
       }
     });
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
-        { text(2, 'content'); }
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
+        { text(1, 'content'); }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child>content</child>');
   });
 
   it('should re-project content when root.', () => {
-    const GrandChild = createComponent('grand-child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const GrandChild = createComponent('grand-child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
         elementEnd();
       }
     });
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
-        elementStart(1, GrandChild);
-        { projection(3, 0); }
+        elementStart(1, 'grand-child');
+        { projection(2, 0); }
         elementEnd();
-        GrandChild.ngComponentDef.h(2, 1);
-        directiveRefresh(2, 1);
       }
-    });
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
+    }, [GrandChild]);
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          elementStart(2, 'b');
-          text(3, 'Hello');
+          elementStart(1, 'b');
+          text(2, 'Hello');
           elementEnd();
-          text(4, 'World!');
+          text(3, 'World!');
         }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent))
         .toEqual('<child><grand-child><div><b>Hello</b>World!</div></grand-child></child>');
@@ -103,8 +100,8 @@ describe('content projection', () => {
   it('should project components', () => {
 
     /** <div><ng-content></ng-content></div> */
-    const Child = createComponent('child', (ctx: any, cm: boolean) => {
-      if (cm) {
+    const Child = createComponent('child', (rf: RenderFlags, ctx: any) => {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
@@ -112,8 +109,8 @@ describe('content projection', () => {
       }
     });
 
-    const ProjectedComp = createComponent('projected-comp', (ctx: any, cm: boolean) => {
-      if (cm) {
+    const ProjectedComp = createComponent('projected-comp', (rf: RenderFlags, ctx: any) => {
+      if (rf & RenderFlags.Create) {
         text(0, 'content');
       }
     });
@@ -123,57 +120,56 @@ describe('content projection', () => {
      *   <projected-comp></projected-comp>
      * </child>
      */
-    const Parent = createComponent('parent', (ctx: any, cm: boolean) => {
-      if (cm) {
-        elementStart(0, Child);
+    const Parent = createComponent('parent', (rf: RenderFlags, ctx: any) => {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          elementStart(2, ProjectedComp);
+          elementStart(1, 'projected-comp');
           elementEnd();
         }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      ProjectedComp.ngComponentDef.h(3, 2);
-      directiveRefresh(3, 2);
-      directiveRefresh(1, 0);
-    });
+    }, [Child, ProjectedComp]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent))
         .toEqual('<child><div><projected-comp>content</projected-comp></div></child>');
   });
 
   it('should project content with container.', () => {
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
         elementEnd();
       }
     });
-    const Parent = createComponent('parent', function(ctx: {value: any}, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: {value: any}) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          text(2, '(');
-          container(3);
-          text(4, ')');
+          text(1, '(');
+          container(2);
+          text(3, ')');
         }
         elementEnd();
       }
-      containerRefreshStart(3);
-      {
-        if (ctx.value) {
-          if (embeddedViewStart(0)) {
-            text(0, 'content');
+      if (rf & RenderFlags.Update) {
+        containerRefreshStart(2);
+        {
+          if (ctx.value) {
+            let rf0 = embeddedViewStart(0);
+            if (rf0 & RenderFlags.Create) {
+              text(0, 'content');
+            }
+            embeddedViewEnd();
           }
-          embeddedViewEnd();
         }
+        containerRefreshEnd();
       }
-      containerRefreshEnd();
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child><div>()</div></child>');
     parent.value = true;
@@ -185,31 +181,33 @@ describe('content projection', () => {
   });
 
   it('should project content with container into root', () => {
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         projection(1, 0);
       }
     });
-    const Parent = createComponent('parent', function(ctx: {value: any}, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
-        { container(2); }
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: {value: any}) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
+        { container(1); }
         elementEnd();
       }
-      containerRefreshStart(2);
-      {
-        if (ctx.value) {
-          if (embeddedViewStart(0)) {
-            text(0, 'content');
+      if (rf & RenderFlags.Update) {
+        containerRefreshStart(1);
+        {
+          if (ctx.value) {
+            let rf0 = embeddedViewStart(0);
+            if (rf0 & RenderFlags.Create) {
+              text(0, 'content');
+            }
+            embeddedViewEnd();
           }
-          embeddedViewEnd();
         }
+        containerRefreshEnd();
       }
-      containerRefreshEnd();
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child></child>');
 
@@ -223,42 +221,44 @@ describe('content projection', () => {
   });
 
   it('should project content with container and if-else.', () => {
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
         elementEnd();
       }
     });
-    const Parent = createComponent('parent', function(ctx: {value: any}, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: {value: any}) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          text(2, '(');
-          container(3);
-          text(4, ')');
+          text(1, '(');
+          container(2);
+          text(3, ')');
         }
         elementEnd();
       }
-      containerRefreshStart(3);
-      {
-        if (ctx.value) {
-          if (embeddedViewStart(0)) {
-            text(0, 'content');
+      if (rf & RenderFlags.Update) {
+        containerRefreshStart(2);
+        {
+          if (ctx.value) {
+            let rf0 = embeddedViewStart(0);
+            if (rf0 & RenderFlags.Create) {
+              text(0, 'content');
+            }
+            embeddedViewEnd();
+          } else {
+            if (embeddedViewStart(1)) {
+              text(0, 'else');
+            }
+            embeddedViewEnd();
           }
-          embeddedViewEnd();
-        } else {
-          if (embeddedViewStart(1)) {
-            text(0, 'else');
-          }
-          embeddedViewEnd();
         }
+        containerRefreshEnd();
       }
-      containerRefreshEnd();
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child><div>(else)</div></child>');
     parent.value = true;
@@ -281,42 +281,44 @@ describe('content projection', () => {
      *  % }
      * </div>
      */
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { container(2); }
         elementEnd();
       }
-      containerRefreshStart(2);
-      {
-        if (!ctx.skipContent) {
-          if (embeddedViewStart(0)) {
-            elementStart(0, 'span');
-            projection(1, 0);
-            elementEnd();
+      if (rf & RenderFlags.Update) {
+        containerRefreshStart(2);
+        {
+          if (!ctx.skipContent) {
+            let rf0 = embeddedViewStart(0);
+            if (rf0 & RenderFlags.Create) {
+              elementStart(0, 'span');
+              projection(1, 0);
+              elementEnd();
+            }
+            embeddedViewEnd();
           }
-          embeddedViewEnd();
         }
+        containerRefreshEnd();
       }
-      containerRefreshEnd();
     });
 
     /**
      * <child>content</child>
      */
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          childCmptInstance = load(1);
-          text(2, 'content');
+          childCmptInstance = loadDirective(0);
+          text(1, 'content');
         }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child><div><span>content</span></div></child>');
 
@@ -336,40 +338,42 @@ describe('content projection', () => {
         *  % }
         * </div>
         */
-       const Child = createComponent('child', function(ctx: any, cm: boolean) {
-         if (cm) {
+       const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+         if (rf & RenderFlags.Create) {
            projectionDef(0);
            elementStart(1, 'div');
            { container(2); }
            elementEnd();
          }
-         containerRefreshStart(2);
-         {
-           if (!ctx.skipContent) {
-             if (embeddedViewStart(0)) {
-               projection(0, 0);
+         if (rf & RenderFlags.Update) {
+           containerRefreshStart(2);
+           {
+             if (!ctx.skipContent) {
+               let rf0 = embeddedViewStart(0);
+               if (rf0 & RenderFlags.Create) {
+                 projection(0, 0);
+               }
+               embeddedViewEnd();
              }
-             embeddedViewEnd();
            }
+           containerRefreshEnd();
          }
-         containerRefreshEnd();
        });
 
        /**
         * <child>content</child>
         */
-       const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-         if (cm) {
-           elementStart(0, Child);
+       const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+         if (rf & RenderFlags.Create) {
+           elementStart(0, 'child');
            {
-             childCmptInstance = load(1);
-             text(2, 'content');
+             childCmptInstance = loadDirective(0);
+             text(1, 'content');
            }
            elementEnd();
          }
-         Child.ngComponentDef.h(1, 0);
-         directiveRefresh(1, 0);
-       });
+       }, [Child]);
+
        const parent = renderComponent(Parent);
        expect(toHtml(parent)).toEqual('<child><div>content</div></child>');
 
@@ -389,42 +393,44 @@ describe('content projection', () => {
         *  % }
         * </div>
         */
-       const Child = createComponent('child', function(ctx: any, cm: boolean) {
-         if (cm) {
+       const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+         if (rf & RenderFlags.Create) {
            projectionDef(0);
            elementStart(1, 'div');
            { container(2); }
            elementEnd();
          }
-         containerRefreshStart(2);
-         {
-           if (!ctx.skipContent) {
-             if (embeddedViewStart(0)) {
-               text(0, 'before-');
-               projection(1, 0);
-               text(2, '-after');
+         if (rf & RenderFlags.Update) {
+           containerRefreshStart(2);
+           {
+             if (!ctx.skipContent) {
+               let rf0 = embeddedViewStart(0);
+               if (rf0 & RenderFlags.Create) {
+                 text(0, 'before-');
+                 projection(1, 0);
+                 text(2, '-after');
+               }
+               embeddedViewEnd();
              }
-             embeddedViewEnd();
            }
+           containerRefreshEnd();
          }
-         containerRefreshEnd();
        });
 
        /**
         * <child>content</child>
         */
-       const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-         if (cm) {
-           elementStart(0, Child);
+       const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+         if (rf & RenderFlags.Create) {
+           elementStart(0, 'child');
            {
-             childCmptInstance = load(1);
-             text(2, 'content');
+             childCmptInstance = loadDirective(0);
+             text(1, 'content');
            }
            elementEnd();
          }
-         Child.ngComponentDef.h(1, 0);
-         directiveRefresh(1, 0);
-       });
+       }, [Child]);
+
        const parent = renderComponent(Parent);
        expect(toHtml(parent)).toEqual('<child><div>before-content-after</div></child>');
 
@@ -438,8 +444,8 @@ describe('content projection', () => {
      * <div><ng-content></ng-content></div>
      * <span><ng-content></ng-content></span>
      */
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         elementStart(1, 'div');
         { projection(2, 0); }
@@ -453,15 +459,14 @@ describe('content projection', () => {
     /**
      * <child>content</child>
      */
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
-        { text(2, 'content'); }
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
+        { text(1, 'content'); }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child><div></div><span>content</span></child>');
   });
@@ -485,41 +490,43 @@ describe('content projection', () => {
      *  % }
      *  </div>
      */
-    const Child = createComponent('child', function(ctx: any, cm: boolean) {
-      if (cm) {
+    const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
         projectionDef(0);
         projection(1, 0);
         elementStart(2, 'div');
         { container(3); }
         elementEnd();
       }
-      containerRefreshStart(3);
-      {
-        if (ctx.show) {
-          if (embeddedViewStart(0)) {
-            projection(0, 0);
+      if (rf & RenderFlags.Update) {
+        containerRefreshStart(3);
+        {
+          if (ctx.show) {
+            let rf0 = embeddedViewStart(0);
+            if (rf0 & RenderFlags.Create) {
+              projection(0, 0);
+            }
+            embeddedViewEnd();
           }
-          embeddedViewEnd();
         }
+        containerRefreshEnd();
       }
-      containerRefreshEnd();
     });
 
     /**
      * <child>content</child>
      */
-    const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-      if (cm) {
-        elementStart(0, Child);
+    const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+      if (rf & RenderFlags.Create) {
+        elementStart(0, 'child');
         {
-          childCmptInstance = load(1);
-          text(2, 'content');
+          childCmptInstance = loadDirective(0);
+          text(1, 'content');
         }
         elementEnd();
       }
-      Child.ngComponentDef.h(1, 0);
-      directiveRefresh(1, 0);
-    });
+    }, [Child]);
+
     const parent = renderComponent(Parent);
     expect(toHtml(parent)).toEqual('<child>content<div></div></child>');
 
@@ -535,10 +542,11 @@ describe('content projection', () => {
        *  <div id="first"><ng-content select="span[title=toFirst]"></ng-content></div>
        *  <div id="second"><ng-content select="span[title=toSecond]"></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
           projectionDef(
-              0, [[[['span', 'title', 'toFirst'], null]], [[['span', 'title', 'toSecond'], null]]]);
+              0, [[['span', 'title', 'toFirst']], [['span', 'title', 'toSecond']]],
+              ['span[title=toFirst]', 'span[title=toSecond]']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0, 1); }
           elementEnd();
@@ -554,22 +562,20 @@ describe('content projection', () => {
        *  <span title="toSecond">2</span>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span', ['title', 'toFirst']);
-            { text(3, '1'); }
+            elementStart(1, 'span', ['title', 'toFirst']);
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span', ['title', 'toSecond']);
-            { text(5, '2'); }
+            elementStart(3, 'span', ['title', 'toSecond']);
+            { text(4, '2'); }
             elementEnd();
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -582,10 +588,15 @@ describe('content projection', () => {
        *  <div id="first"><ng-content select="span.toFirst"></ng-content></div>
        *  <div id="second"><ng-content select="span.toSecond"></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
           projectionDef(
-              0, [[[['span', 'class', 'toFirst'], null]], [[['span', 'class', 'toSecond'], null]]]);
+              0,
+              [
+                [['span', SelectorFlags.CLASS, 'toFirst']],
+                [['span', SelectorFlags.CLASS, 'toSecond']]
+              ],
+              ['span.toFirst', 'span.toSecond']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0, 1); }
           elementEnd();
@@ -601,22 +612,20 @@ describe('content projection', () => {
        *  <span class="toSecond">2</span>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span', ['class', 'toFirst']);
-            { text(3, '1'); }
+            elementStart(1, 'span', ['class', 'toFirst']);
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span', ['class', 'toSecond']);
-            { text(5, '2'); }
+            elementStart(3, 'span', ['class', 'toSecond']);
+            { text(4, '2'); }
             elementEnd();
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -629,10 +638,15 @@ describe('content projection', () => {
        *  <div id="first"><ng-content select="span.toFirst"></ng-content></div>
        *  <div id="second"><ng-content select="span.toSecond"></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
           projectionDef(
-              0, [[[['span', 'class', 'toFirst'], null]], [[['span', 'class', 'toSecond'], null]]]);
+              0,
+              [
+                [['span', SelectorFlags.CLASS, 'toFirst']],
+                [['span', SelectorFlags.CLASS, 'toSecond']]
+              ],
+              ['span.toFirst', 'span.toSecond']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0, 1); }
           elementEnd();
@@ -648,22 +662,20 @@ describe('content projection', () => {
        *  <span class="toSecond noise">2</span>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span', ['class', 'other toFirst']);
-            { text(3, '1'); }
+            elementStart(1, 'span', ['class', 'other toFirst']);
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span', ['class', 'toSecond noise']);
-            { text(5, '2'); }
+            elementStart(3, 'span', ['class', 'toSecond noise']);
+            { text(4, '2'); }
             elementEnd();
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -676,9 +688,11 @@ describe('content projection', () => {
        *  <div id="first"><ng-content select="span"></ng-content></div>
        *  <div id="second"><ng-content select="span.toSecond"></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['span'], null]], [[['span', 'class', 'toSecond'], null]]]);
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(
+              0, [[['span']], [['span', SelectorFlags.CLASS, 'toSecond']]],
+              ['span', 'span.toSecond']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0, 1); }
           elementEnd();
@@ -694,22 +708,20 @@ describe('content projection', () => {
        *  <span class="toSecond">2</span>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span', ['class', 'toFirst']);
-            { text(3, '1'); }
+            elementStart(1, 'span', ['class', 'toFirst']);
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span', ['class', 'toSecond']);
-            { text(5, '2'); }
+            elementStart(3, 'span', ['class', 'toSecond']);
+            { text(4, '2'); }
             elementEnd();
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -722,9 +734,9 @@ describe('content projection', () => {
        *  <div id="first"><ng-content select="span.toFirst"></ng-content></div>
        *  <div id="second"><ng-content></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['span', 'class', 'toFirst'], null]]]);
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0, [[['span', SelectorFlags.CLASS, 'toFirst']]], ['span.toFirst']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0, 1); }
           elementEnd();
@@ -740,23 +752,21 @@ describe('content projection', () => {
        *  <span class="toSecond noise">2</span>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span', ['class', 'toFirst']);
-            { text(3, '1'); }
+            elementStart(1, 'span', ['class', 'toFirst']);
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span');
-            { text(5, 'remaining'); }
+            elementStart(3, 'span');
+            { text(4, 'remaining'); }
             elementEnd();
-            text(6, 'more remaining');
+            text(5, 'more remaining');
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -769,9 +779,9 @@ describe('content projection', () => {
        *  <div id="first"><ng-content></ng-content></div>
        *  <div id="second"><ng-content select="span.toSecond"></ng-content></div>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['span', 'class', 'toSecond'], null]]]);
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0, [[['span', SelectorFlags.CLASS, 'toSecond']]], ['span.toSecond']);
           elementStart(1, 'div', ['id', 'first']);
           { projection(2, 0); }
           elementEnd();
@@ -788,23 +798,21 @@ describe('content projection', () => {
        *  remaining
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span');
-            { text(3, '1'); }
+            elementStart(1, 'span');
+            { text(2, '1'); }
             elementEnd();
-            elementStart(4, 'span', ['class', 'toSecond']);
-            { text(5, '2'); }
+            elementStart(3, 'span', ['class', 'toSecond']);
+            { text(4, '2'); }
             elementEnd();
-            text(6, 'remaining');
+            text(5, 'remaining');
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -823,9 +831,9 @@ describe('content projection', () => {
        *  <hr>
        *  <ng-content></ng-content>
        */
-      const GrandChild = createComponent('grand-child', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['span'], null]]]);
+      const GrandChild = createComponent('grand-child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0, [[['span']]], ['span']);
           projection(1, 0, 1);
           elementStart(2, 'hr');
           elementEnd();
@@ -839,21 +847,19 @@ describe('content projection', () => {
        *    <span>in child template</span>
        *  </grand-child>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
           projectionDef(0);
-          elementStart(1, GrandChild);
+          elementStart(1, 'grand-child');
           {
-            projection(3, 0);
-            elementStart(4, 'span');
-            { text(5, 'in child template'); }
+            projection(2, 0);
+            elementStart(3, 'span');
+            { text(4, 'in child template'); }
             elementEnd();
           }
           elementEnd();
-          GrandChild.ngComponentDef.h(2, 1);
-          directiveRefresh(2, 1);
         }
-      });
+      }, [GrandChild]);
 
       /**
        * <child>
@@ -862,19 +868,17 @@ describe('content projection', () => {
        *  </div>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
           {
-            elementStart(2, 'span');
-            { text(3, 'parent content'); }
+            elementStart(1, 'span');
+            { text(2, 'parent content'); }
             elementEnd();
           }
           elementEnd();
         }
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
 
       const parent = renderComponent(Parent);
       expect(toHtml(parent))
@@ -889,9 +893,11 @@ describe('content projection', () => {
        * <hr>
        * <ng-content select="[card-content]"></ng-content>
        */
-      const Card = createComponent('card', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['', 'card-title', ''], null]], [[['', 'card-content', ''], null]]]);
+      const Card = createComponent('card', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(
+              0, [[['', 'card-title', '']], [['', 'card-content', '']]],
+              ['[card-title]', '[card-content]']);
           projection(1, 0, 1);
           elementStart(2, 'hr');
           elementEnd();
@@ -905,41 +911,133 @@ describe('content projection', () => {
        *  <ng-content card-content></ng-content>
        * </card>
        */
-      const CardWithTitle = createComponent('card-with-title', function(ctx: any, cm: boolean) {
-        if (cm) {
+      const CardWithTitle = createComponent('card-with-title', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
           projectionDef(0);
-          elementStart(1, Card);
+          elementStart(1, 'card');
           {
-            elementStart(3, 'h1', ['card-title', '']);
-            { text(4, 'Title'); }
+            elementStart(2, 'h1', ['card-title', '']);
+            { text(3, 'Title'); }
             elementEnd();
-            projection(5, 0, 0, ['card-content', '']);
+            projection(4, 0, 0, ['card-content', '']);
           }
           elementEnd();
-          Card.ngComponentDef.h(2, 1);
-          directiveRefresh(2, 1);
         }
-      });
+      }, [Card]);
 
       /**
        * <card-with-title>
        *  content
        * </card-with-title>
        */
-      const App = createComponent('app', function(ctx: any, cm: boolean) {
-        if (cm) {
-          elementStart(0, CardWithTitle);
-          { text(2, 'content'); }
+      const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'card-with-title');
+          { text(1, 'content'); }
           elementEnd();
         }
-        CardWithTitle.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [CardWithTitle]);
 
       const app = renderComponent(App);
       expect(toHtml(app))
           .toEqual(
               '<card-with-title><card><h1 card-title="">Title</h1><hr>content</card></card-with-title>');
+    });
+
+
+    it('should support ngProjectAs on elements (including <ng-content>)', () => {
+
+      /**
+       * <ng-content select="[card-title]"></ng-content>
+       * <hr>
+       * <ng-content select="[card-content]"></ng-content>
+       */
+      const Card = createComponent('card', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(
+              0, [[['', 'card-title', '']], [['', 'card-content', '']]],
+              ['[card-title]', '[card-content]']);
+          projection(1, 0, 1);
+          elementStart(2, 'hr');
+          elementEnd();
+          projection(3, 0, 2);
+        }
+      });
+
+      /**
+       * <card>
+       *  <h1 ngProjectAs="[card-title]>Title</h1>
+       *  <ng-content ngProjectAs="[card-content]"></ng-content>
+       * </card>
+       */
+      const CardWithTitle = createComponent('card-with-title', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0);
+          elementStart(1, 'card');
+          {
+            elementStart(2, 'h1', ['ngProjectAs', '[card-title]']);
+            { text(3, 'Title'); }
+            elementEnd();
+            projection(4, 0, 0, ['ngProjectAs', '[card-content]']);
+          }
+          elementEnd();
+        }
+      }, [Card]);
+
+      /**
+       * <card-with-title>
+       *  content
+       * </card-with-title>
+       */
+      const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'card-with-title');
+          { text(1, 'content'); }
+          elementEnd();
+        }
+      }, [CardWithTitle]);
+
+      const app = renderComponent(App);
+      expect(toHtml(app))
+          .toEqual('<card-with-title><card><h1>Title</h1><hr>content</card></card-with-title>');
+
+    });
+
+    it('should not match selectors against node having ngProjectAs attribute', function() {
+
+      /**
+       *  <ng-content select="div"></ng-content>
+       */
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0, [[['div']]], ['div']);
+          projection(1, 0, 1);
+        }
+      });
+
+      /**
+       * <child>
+       *  <div ngProjectAs="span">should not project</div>
+       *  <div>should project</div>
+       * </child>
+       */
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
+          {
+            elementStart(1, 'div', ['ngProjectAs', 'span']);
+            { text(2, 'should not project'); }
+            elementEnd();
+            elementStart(3, 'div');
+            { text(4, 'should project'); }
+            elementEnd();
+          }
+          elementEnd();
+        }
+      }, [Child]);
+
+      const parent = renderComponent(Parent);
+      expect(toHtml(parent)).toEqual('<child><div>should project</div></child>');
     });
 
     it('should match selectors against projected containers', () => {
@@ -949,9 +1047,9 @@ describe('content projection', () => {
        *  <ng-content select="div"></ng-content>
        * </span>
        */
-      const Child = createComponent('child', function(ctx: any, cm: boolean) {
-        if (cm) {
-          projectionDef(0, [[[['div'], null]]]);
+      const Child = createComponent('child', function(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          projectionDef(0, [[['div']]], ['div']);
           elementStart(1, 'span');
           { projection(2, 0, 1); }
           elementEnd();
@@ -963,27 +1061,28 @@ describe('content projection', () => {
        *   <div *ngIf="true">content</div>
        * </child>
        */
-      const Parent = createComponent('parent', function(ctx: {value: any}, cm: boolean) {
-        if (cm) {
-          elementStart(0, Child);
-          { container(2, undefined, undefined, 'div'); }
+      const Parent = createComponent('parent', function(rf: RenderFlags, ctx: {value: any}) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'child');
+          { container(1, undefined, 'div'); }
           elementEnd();
         }
-        containerRefreshStart(2);
-        {
-          if (true) {
-            if (embeddedViewStart(0)) {
-              elementStart(0, 'div');
-              { text(1, 'content'); }
-              elementEnd();
+        if (rf & RenderFlags.Update) {
+          containerRefreshStart(1);
+          {
+            if (true) {
+              let rf0 = embeddedViewStart(0);
+              if (rf0 & RenderFlags.Create) {
+                elementStart(0, 'div');
+                { text(1, 'content'); }
+                elementEnd();
+              }
+              embeddedViewEnd();
             }
-            embeddedViewEnd();
           }
+          containerRefreshEnd();
         }
-        containerRefreshEnd();
-        Child.ngComponentDef.h(1, 0);
-        directiveRefresh(1, 0);
-      });
+      }, [Child]);
       const parent = renderComponent(Parent);
       expect(toHtml(parent)).toEqual('<child><span><div>content</div></span></child>');
     });

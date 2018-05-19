@@ -1,8 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { asap } from 'rxjs/scheduler/asap';
+import { asapScheduler as asap, BehaviorSubject } from 'rxjs';
 
 import { ScrollService } from 'app/shared/scroll.service';
 import { TocComponent } from './toc.component';
@@ -246,12 +245,10 @@ describe('TocComponent', () => {
 
   describe('when in side panel (not embedded)', () => {
     let fixture: ComponentFixture<HostNotEmbeddedTocComponent>;
-    let scrollToTopSpy: jasmine.Spy;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(HostNotEmbeddedTocComponent);
 
-      scrollToTopSpy = TestBed.get(ScrollService).scrollToTop;
       tocComponentDe = fixture.debugElement.children[0];
       tocComponent = tocComponentDe.componentInstance;
       tocService = TestBed.get(TocService);
@@ -369,13 +366,18 @@ describe('TocComponent', () => {
         let parentScrollTop: number;
 
         beforeEach(() => {
+          const hostElem = fixture.nativeElement;
           const firstItem = page.listItems[0].nativeElement;
-          const offsetParent = firstItem.offsetParent;
 
-          offsetParent.style.maxHeight = `${offsetParent.clientHeight - firstItem.clientHeight}px`;
-          Object.defineProperty(offsetParent, 'scrollTop', {
+          Object.assign(hostElem.style, {
+            display: 'block',
+            maxHeight: `${hostElem.clientHeight - firstItem.clientHeight}px`,
+            overflow: 'auto',
+            position: 'relative',
+          });
+          Object.defineProperty(hostElem, 'scrollTop', {
             get: () => parentScrollTop,
-            set: v => parentScrollTop = v
+            set: v => parentScrollTop = v,
           });
 
           parentScrollTop = 0;
@@ -464,7 +466,7 @@ class TestTocService {
   activeItemIndex = new BehaviorSubject<number | null>(null);
   setActiveIndex(index: number|null) {
     this.activeItemIndex.next(index);
-    if (asap.scheduled) {
+    if (asap.scheduled !== undefined) {
       asap.flush();
     }
   }

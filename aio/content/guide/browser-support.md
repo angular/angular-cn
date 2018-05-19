@@ -81,7 +81,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr> 
 
     <td>
@@ -97,9 +96,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
-
    <tr> 
 
     <td>
@@ -115,7 +112,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
  <tr>
 
     <td>
@@ -133,7 +129,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -151,7 +146,6 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
   </tr> 
-
   <tr>
 
     <td>
@@ -194,7 +188,7 @@ Angular 构建于 Web 平台的最新标准之上。
 You compensate by loading polyfill scripts ("polyfills") for the browsers that you must support.
 The [table below](#polyfill-libs) identifies most of the polyfills you might need.
 
-我们可以通过加载腻子脚本("polyfills")来为想要支持的浏览器弥补这些特性。
+你可以通过加载腻子脚本("polyfills")来为想要支持的浏览器弥补这些特性。
 [下表](#polyfill-libs) 列出了可能用到的大多数腻子脚本。
 
 <div class="alert is-important">
@@ -224,7 +218,7 @@ This file incorporates the mandatory and many of the optional polyfills as JavaS
 
 The npm packages for the _mandatory_ polyfills (such as `zone.js`) were installed automatically for you when you created your project and their corresponding `import` statements are ready to go. You probably won't touch these.
 
-**强制性** 腻子脚本（如 `zone.js`）的 npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。我们一般不用动它们。
+**强制性** 腻子脚本（如 `zone.js`）的 npm 包在创建项目时就已经自动安装了，相应的 `import` 语句也都加好了。你一般不用动它们。
 
 But if you need an optional polyfill, you'll have to install its npm package.
 For example, [if you need the web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
@@ -239,7 +233,6 @@ For example, [if you need the web animations polyfill](http://caniuse.com/#feat=
   # it isn't a strict requirement of Angular anymore (more below)
 
   npm install --save web-animations-js
-
 </code-example>
 
 Then open the `polyfills.ts` file and un-comment the corresponding `import` statement as in the following example:
@@ -247,7 +240,6 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
 
 <code-example title="src/polyfills.ts">
-
   /**
 
   * Required to support Web Animations `@angular/platform-browser/animations`.
@@ -255,7 +247,6 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
   * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
   **/
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
-
 </code-example>
 
 If you can't find the polyfill you want in `polyfills.ts`,
@@ -322,6 +313,8 @@ These are the polyfills required to run an Angular application on each supported
     <td>
 
       [ES7/reflect](guide/browser-support#core-es7-reflect) (JIT only)
+
+      [ES7/reflect](guide/browser-support#core-es7-reflect) (仅 JIT)
 
     </td>
 
@@ -414,8 +407,8 @@ Here are the features which may require additional polyfills:
 
       [JIT compilation](guide/aot-compiler).
 
-      [JIT 编译](guide/aot-compiler) 
-      
+      [JIT 编译](guide/aot-compiler)。
+
       Required to reflect for metadata.
 
       需要 reflect 来提供元数据。
@@ -797,7 +790,6 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
 如果你不使用 CLI，就要直接把腻子脚本添加到宿主页（`index.html`）中，就像这样：
 
 <code-example title="src/index.html">
-
   &lt;!-- pre-zone polyfills -->
   &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
   &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>
@@ -826,5 +818,4 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
   &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
 
   &lt;!-- application polyfills -->
-
 </code-example>

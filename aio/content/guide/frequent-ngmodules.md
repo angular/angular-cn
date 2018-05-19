@@ -8,7 +8,7 @@
 
 A basic understanding of [Bootstrapping](guide/bootstrapping).
 
-对[引导](guide/bootstrapping)有基本的理解。
+对[引导](guide/bootstrapping)有基本的了解。
 
 <hr>
 
@@ -279,12 +279,12 @@ You may also be interested in the following:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping).
+   [引导启动](guide/bootstrapping)。
 
 * [NgModules](guide/ngmodules).
 
-  [Angular 模块](guide/ngmodules).
+   [Angular 模块](guide/ngmodules).
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule).
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。

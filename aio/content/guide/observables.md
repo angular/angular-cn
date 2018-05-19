@@ -19,7 +19,7 @@ An observable can deliver multiple values of any type&mdash;literals, messages, 
 
 Because of these advantages, observables are used extensively within Angular, and are recommended for app development as well.
 
-由于这些优点，可观察对象在 Angular 中得到广泛使用，我们也同样建议应用开发者好好使用它。
+由于这些优点，可观察对象在 Angular 中得到广泛使用，也同样建议应用开发者好好使用它。
 
 ## Basic usage and terms
 
@@ -52,11 +52,11 @@ A handler for receiving observable notifications implements the `Observer` inter
 
 用于接收可观察对象通知的处理器要实现 `Observer` 接口。这个对象定义了一些回调函数来处理可观察对象可能会发来的三种通知：
 
-| <p>Notification type</p><p>通知类型</p> | <p>Description</p><p>说明</p> |
+| <t>Notification type</t><t>通知类型</t> | <t>Description</t><t>说明</t> |
 |:---------|:-------------------------------------------|
-| `next`  | <p>Required. A handler for each delivered value. Called zero or more times after execution starts.</p><p>必要。用来处理每个送达值。在开始执行后可能执行零次或多次。</p>|
-| `error` | <p>Optional. A handler for an error notification. An error halts execution of the observable instance.</p><p> 可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 </p>|
-| `complete` | <p>Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.</p><p> 可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 </p>|
+| `next`  | <t>Required. A handler for each delivered value. Called zero or more times after execution starts.</t><t>必要。用来处理每个送达值。在开始执行后可能执行零次或多次。</t>|
+| `error` | <t>Optional. A handler for an error notification. An error halts execution of the observable instance.</t><t> 可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 </t>|
+| `complete` | <t>Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.</t><t> 可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 </t>|
 
 An observer object can define any combination of these handlers. If you don't supply a handler for a notification type, the observer ignores notifications of that type.
 
@@ -79,11 +79,11 @@ An `Observable` instance begins publishing values only when someone subscribes t
 
   * `Observable.of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
 
-    `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
+     `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
 
   * `Observable.from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
 
-    `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
+     `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
     该方法通常用于把一个数组转换成一个（发送多个值的）可观察对象。
 
 </div>
@@ -151,7 +151,7 @@ A typical observable creates a new, independent execution for each subscribed ob
 
 Sometimes, instead of starting an independent execution for each subscriber, you want each subscription to get the same values&mdash;even if values have already started emitting. This might be the case with something like an observable of clicks on the document object.
 
-有时候，我们不想对每一个订阅者都独立执行一次，你可能会希望每次订阅都得到同一批值 —— 即使是那些你已经发送过的。这在某些情况下有用，比如用来发送 `document` 上的点击事件的可观察对象。
+有时候，不应该对每一个订阅者都独立执行一次，你可能会希望每次订阅都得到同一批值 —— 即使是那些你已经发送过的。这在某些情况下有用，比如用来发送 `document` 上的点击事件的可观察对象。
 
 *Multicasting* is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
 
@@ -163,7 +163,7 @@ When creating an observable you should determine how you want that observable to
 
 Let’s look at an example that counts from 1 to 3, with a one-second delay after each number emitted.
 
-我们来看一个从 1 到 3 进行计数的例子，它每发出一个数字就会等待 1 秒。
+来看一个从 1 到 3 进行计数的例子，它每发出一个数字就会等待 1 秒。
 
 <code-example path="observables/src/multicasting.ts" region="delay_sequence" title="Create a delayed sequence"></code-example>
 
@@ -196,12 +196,10 @@ Because observables produce values asynchronously, try/catch will not effectivel
 由于可观察对象会异步生成值，所以用 `try/catch` 是无法捕获错误的。你应该在观察者中指定一个 `error` 回调来处理错误。发生错误时还会导致可观察对象清理现有的订阅，并且停止生成值。可观察对象可以生成值（调用 `next` 回调），也可以调用 `complete` 或 `error` 回调来主动结束。
 
 <code-example>
-
 myObservable.subscribe({
   next(num) { console.log('Next num: ' + num)},
   error(err) { console.log('Received an errror: ' + err)}
 });
-
 </code-example>
 
 Error handling (and specifically recovering from an error) is covered in more detail in a later section.

@@ -39,7 +39,7 @@ function _throwError() {
  * Each `@NgModule` provides an own `Compiler` to its injector,
  * that will use the directives/pipes of the ng module for compilation
  * of components.
- * @stable
+ *
  */
 @Injectable()
 export class Compiler {
@@ -90,9 +90,6 @@ export type CompilerOptions = {
   defaultEncapsulation?: ViewEncapsulation,
   providers?: StaticProvider[],
   missingTranslation?: MissingTranslationStrategy,
-  // Whether to support the `<template>` tag and the `template` attribute to define angular
-  // templates. They have been deprecated in 4.x, `<ng-template>` should be used instead.
-  enableLegacyTemplate?: boolean,
   preserveWhitespaces?: boolean,
 };
 

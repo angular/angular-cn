@@ -10,11 +10,11 @@ A basic understanding of the following concepts:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping)。
+   [引导启动](guide/bootstrapping)。
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 <hr />
 
@@ -32,15 +32,15 @@ into three categories:
 
 * **Static:** Compiler configuration which tells the compiler about directive selectors and where in templates the directives should be applied through selector matching. This is configured via the `declarations` array.
 
-  **静态的：**编译器配置，用于告诉编译器指令的选择器并通过选择器匹配的方式决定要把该指令应用到模板中的什么位置。它是通过 `declarations` 数组来配置的。
+   **静态的：**编译器配置，用于告诉编译器指令的选择器并通过选择器匹配的方式决定要把该指令应用到模板中的什么位置。它是通过 `declarations` 数组来配置的。
 
 * **Runtime:** Injector configuration via the `providers` array.
 
-  **运行时：**通过 `providers` 数组提供给注入器的配置。
+   **运行时：**通过 `providers` 数组提供给注入器的配置。
 
 * **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
 
-  **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并彼此可用。
+   **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并彼此可用。
 
 ```typescript
 
@@ -115,8 +115,9 @@ The following table summarizes the `@NgModule` metadata properties.
         </li>
 
         <li>
+
           The template is compiled within the context of an NgModule&mdash;the NgModule within which the template's component is declared&mdash;which determines the set of selectors using the following rules:
-          
+
           该模板在 NgModule 环境中编译 —— 模板的组件是在该 NgModule 内部声明的，它会使用如下规则来确定这组选择器：
 
           <ul>
@@ -138,7 +139,9 @@ The following table summarizes the `@NgModule` metadata properties.
             </li>
 
           </ul>
+
         </li>
+
       </ol>
 
       Components, directives, and pipes must belong to _exactly_ one module.
@@ -308,7 +311,7 @@ The following table summarizes the `@NgModule` metadata properties.
     <td>
 
       A list of components that are automatically bootstrapped.
-      
+
       要自动启动的组件列表。
 
       Usually there's only one component in this list, the _root component_ of the application.
@@ -339,7 +342,7 @@ The following table summarizes the `@NgModule` metadata properties.
     <td>
 
       A list of components that can be dynamically loaded into the view.
-      
+
       那些可以动态加载进视图的组件列表。
 
       By default, an Angular app always has at least one entry component, the root component, `AppComponent`. Its purpose is to serve as a point of entry into the app, that is, you bootstrap it to launch the app.
@@ -365,7 +368,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       That leaves only components bootstrapped using one of the imperative techniques, such as [`ViewComponentRef.createComponent()`](https://angular.io/api/core/ViewContainerRef#createComponent) as undiscoverable.
 
-      而那些使用不易察觉的[`ViewComponentRef.createComponent()`](https://angular.io/api/core/ViewContainerRef#createComponent)的方式进行命令式引导的组件仍然需要添加。
+      而那些使用不易察觉的[`ViewComponentRef.createComponent()`](https://angular.cn/api/core/ViewContainerRef#createComponent)的方式进行命令式引导的组件仍然需要添加。
 
       Dynamic component loading is not common in most apps beyond the router. If you need to dynamically load components, you must add these components to the `entryComponents` list yourself.
 
@@ -393,16 +396,16 @@ You may also be interested in the following:
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules)。
+   [特性模块](guide/feature-modules)
 
 * [Entry Components](guide/entry-components).
 
-  [入口组件](guide/entry-components)。
+   [入口组件](guide/entry-components)
 
 * [Providers](guide/providers).
 
-  [提供商](guide/providers)。
+   [服务提供商](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 
-  [特性模块的分类](guide/module-types)。
+   [特性模块的分类](guide/module-types)。

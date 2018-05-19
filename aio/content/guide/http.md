@@ -45,7 +45,6 @@ Most apps do so in the root `AppModule`.
   path="http/src/app/app.module.ts"
   region="sketch"
   title="app/app.module.ts (excerpt)" linenums="false">
-
 </code-example>
 
 Having imported `HttpClientModule` into the `AppModule`, you can inject the `HttpClient`
@@ -57,7 +56,6 @@ into an application class as shown in the following `ConfigService` example.
   path="http/src/app/config/config.service.ts"
   region="proto"
   title="app/config/config.service.ts (excerpt)" linenums="false">
-
 </code-example>
 
 ## Getting JSON data
@@ -74,7 +72,6 @@ that specifies resource URLs.
 <code-example 
   path="http/src/assets/config.json"
   title="assets/config.json" linenums="false">
-
 </code-example>
 
 The `ConfigService` fetches this file with a `get()` method on `HttpClient`.
@@ -85,7 +82,6 @@ The `ConfigService` fetches this file with a `get()` method on `HttpClient`.
   path="http/src/app/config/config.service.ts"
   region="getConfig_1"
   title="app/config/config.service.ts (getConfig v.1)" linenums="false">
-
 </code-example>
 
 A component, such as `ConfigComponent`, injects the `ConfigService` and calls
@@ -97,7 +93,6 @@ the `getConfig` service method.
   path="http/src/app/config/config.component.ts"
   region="v1"
   title="app/config/config.component.ts (showConfig v.1)" linenums="false">
-
 </code-example>
 
 Because the service method returns an `Observable` of configuration data,
@@ -148,7 +143,6 @@ The subscribe callback above requires bracket notation to extract the data value
 <code-example 
   path="http/src/app/config/config.component.ts"
   region="v1_callback" linenums="false">
-
 </code-example>
 
 You can't write `data.heroesUrl` because TypeScript correctly complains that the `data` object from the service does not have a `heroesUrl` property. 
@@ -170,7 +164,6 @@ First, define an interface with the correct shape:
 <code-example 
   path="http/src/app/config/config.service.ts"
   region="config-interface" linenums="false">
-
 </code-example>
 
 Then, specify that interface as the `HttpClient.get()` call's type parameter in the service:
@@ -181,7 +174,6 @@ Then, specify that interface as the `HttpClient.get()` call's type parameter in 
   path="http/src/app/config/config.service.ts"
   region="getConfig_2" 
   title="app/config/config.service.ts (getConfig v.2)" linenums="false">
-
 </code-example>
 
 The callback in the updated component method receives a typed data object, which is
@@ -193,7 +185,6 @@ easier and safer to consume:
   path="http/src/app/config/config.component.ts"
   region="v2"
   title="app/config/config.component.ts (showConfig v.2)" linenums="false">
-
 </code-example>
 
 ### Reading the full response
@@ -202,16 +193,15 @@ easier and safer to consume:
 
 The response body doesn't return all the data you may need. Sometimes servers return special headers or status codes to indicate certain conditions that are important to the application workflow. 
 
-响应体可能并不包含我们需要的全部信息。有时候服务器会返回一个特殊的响应头或状态码，以标记出特定的条件，因此读取它们可能是必要的。
+响应体可能并不包含你需要的全部信息。有时候服务器会返回一个特殊的响应头或状态码，以标记出特定的条件，因此读取它们可能是必要的。
 
 Tell `HttpClient` that you want the full response with the `observe` option:
 
-要这样做，我们就要通过 `observe` 选项来告诉 `HttpClient`，你想要完整的响应信息，而不是只有响应体：
+要这样做，你就要通过 `observe` 选项来告诉 `HttpClient`，你想要完整的响应信息，而不是只有响应体：
 
 <code-example 
   path="http/src/app/config/config.service.ts"
   region="getConfigResponse" linenums="false">
-
 </code-example>
 
 Now `HttpClient.get()` returns an `Observable` of typed `HttpResponse` rather than just the JSON data.
@@ -227,7 +217,6 @@ The component's `showConfigResponse()` method displays the response headers as w
   region="showConfigResponse" 
   title="app/config/config.component.ts (showConfigResponse)"
   linenums="false">
-
 </code-example>
 
 As you can see, the response object has a `body` property of the correct type.
@@ -251,7 +240,6 @@ You _could_ handle in the component by adding a second callback to the `.subscri
   region="v3" 
   title="app/config/config.component.ts (showConfig v.3 with error handling)"
   linenums="false">
-
 </code-example>
 
 It's certainly a good idea to give the user some kind of feedback when data access fails.
@@ -296,7 +284,6 @@ You might first devise an error handler like this one:
   path="http/src/app/config/config.service.ts"
   region="handleError" 
   title="app/config/config.service.ts (handleError)" linenums="false">
-
 </code-example>
 
 Notice that this handler returns an RxJS [`ErrorObservable`](#rxjs) with a user-friendly error message.
@@ -315,7 +302,6 @@ and _pipe them through_ to the error handler.
   path="http/src/app/config/config.service.ts"
   region="getConfig_3" 
   title="app/config/config.service.ts (getConfig v.3 with error handler)" linenums="false">
-
 </code-example>
 
 ### `retry()`
@@ -341,7 +327,6 @@ _Pipe_ it onto the `HttpClient` method result just before the error handler.
   path="http/src/app/config/config.service.ts"
   region="getConfig" 
   title="app/config/config.service.ts (getConfig with retry)" linenums="false">
-
 </code-example>
 
 {@a rxjs}
@@ -377,7 +362,6 @@ If you're following along with these code snippets, note that you must import th
   path="http/src/app/config/config.service.ts"
   region="rxjs-imports" 
   title="app/config/config.service.ts (RxJS imports)" linenums="false">
-
 </code-example>
 
 ## Requesting non-JSON data
@@ -396,7 +380,6 @@ as an `Observable<string>`.
   path="http/src/app/downloader/downloader.service.ts"
   region="getTextFile" 
   title="app/downloader/downloader.service.ts (getTextFile)" linenums="false">
-
 </code-example>
 
 `HttpClient.get()` returns a string rather than the default JSON because of the `responseType` option.
@@ -415,7 +398,6 @@ A `download()` method in the `DownloaderComponent` initiates the request by subs
   path="http/src/app/downloader/downloader.component.ts"
   region="download" 
   title="app/downloader/downloader.component.ts (download)" linenums="false">
-
 </code-example>
 
 ## Sending data to the server
@@ -457,7 +439,6 @@ to every `HttpClient` save method.
   path="http/src/app/heroes/heroes.service.ts"
   region="http-options" 
   title="app/heroes/heroes.service.ts (httpOptions)" linenums="false">
-
 </code-example>
 
 ### Making a POST request
@@ -465,16 +446,15 @@ to every `HttpClient` save method.
 ### 发起一个 POST 请求
 
 Apps often POST data to a server. They POST when submitting a form. 
-In the following example, the `HeroService` posts when adding a hero to the database.
+In the following example, the `HeroesService` posts when adding a hero to the database.
 
 应用经常把数据 `POST` 到服务器。它们会在提交表单时进行 `POST`。
-下面这个例子中，`HeroService` 在把英雄添加到数据库中时，就会使用 `POST`。
+下面这个例子中，`HeroesService` 在把英雄添加到数据库中时，就会使用 `POST`。
 
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
   region="addHero" 
   title="app/heroes/heroes.service.ts (addHero)" linenums="false">
-
 </code-example>
 
 The `HttpClient.post()` method is similar to `get()` in that it has a type parameter
@@ -496,10 +476,8 @@ It takes two more parameters:
    `httpOptions` - 这个例子中，该方法的选项[指定了所需的请求头](#adding-headers)。
 
 Of course it catches errors in much the same manner [described above](#error-details).
-It also _taps_ the returned observable in order to log the successful POST.
 
 当然，它捕获错误的方式很像[前面描述的](#error-details)操作方式。
-它还*窃听*了可观察对象的返回值，以记录成功的 `POST`。
 
 The `HeroesComponent` initiates the actual POST operation by subscribing to 
 the `Observable` returned by this service method.
@@ -510,7 +488,6 @@ the `Observable` returned by this service method.
   path="http/src/app/heroes/heroes.component.ts"
   region="add-hero-subscribe" 
   title="app/heroes/heroes.component.ts (addHero)" linenums="false">
-
 </code-example>
 
 When the server responds successfully with the newly added hero, the component adds
@@ -531,7 +508,6 @@ in the request URL.
   path="http/src/app/heroes/heroes.service.ts"
   region="deleteHero" 
   title="app/heroes/heroes.service.ts (deleteHero)" linenums="false">
-
 </code-example>
 
 The `HeroesComponent` initiates the actual DELETE operation by subscribing to 
@@ -543,41 +519,30 @@ the `Observable` returned by this service method.
   path="http/src/app/heroes/heroes.component.ts"
   region="delete-hero-subscribe" 
   title="app/heroes/heroes.component.ts (deleteHero)" linenums="false">
-
 </code-example>
+
+The component isn't expecting a result from the delete operation, so it subscribes without a callback. Even though you are not using the result, you still have to subscribe. Calling the `subscribe()` method _executes_ the observable, which is what initiates the DELETE request. 
+
+该组件不会等待删除操作的结果，所以它的 subscribe （订阅）中没有回调函数。不过就算你不关心结果，也仍然要订阅它。调用 `subscribe()` 方法会**执行**这个可观察对象，这时才会真的发起 DELETE 请求。 
 
 <div class="alert is-important">
 
-You must call _subscribe()_ or nothing happens!
+You must call _subscribe()_ or nothing happens. Just calling `HeroesService.deleteHero()` **does not initiate the DELETE request.**
 
-你必须调用 `subscribe()`，否则什么都不会发生。
+你必须调用 `subscribe()`，否则什么都不会发生。仅仅调用 `HeroesService.deleteHero()` 是**不会发起 DELETE 请求的。**
 
 </div>
-
-The component isn't expecting a result from the delete operation and
-subscribes without a callback.
-The bare `.subscribe()` _seems_ pointless.
-
-该组件不关心删除操作返回的结果，订阅时也没有回调函数。
-单纯的 `.subscribe()` 方法看似毫无意义。
-
-In fact, it is essential.
-Merely calling `HeroService.deleteHero()` **does not initiate the DELETE request.**
-
-但实际上，它是必备的。
-否则调用 `HeroService.deleteHero()` 时**不会发起 DELETE 请求**。
 
 <code-example 
   path="http/src/app/heroes/heroes.component.ts"
   region="delete-hero-no-subscribe" linenums="false">
-
 </code-example>
 
 {@a always-subscribe}
 
-### Always _subscribe_!
+**Always _subscribe_!**
 
-### 别忘了*订阅*！
+**别忘了*订阅*！**
 
 An `HttpClient` method does not begin its HTTP request until you call `subscribe()` on the observable returned by that method. This is true for _all_ `HttpClient` _methods_.
 
@@ -593,8 +558,7 @@ The [`AsyncPipe`](api/common/AsyncPipe) subscribes (and unsubscribes) for you au
 
 All observables returned from `HttpClient` methods are _cold_ by design.
 Execution of the HTTP request is _deferred_, allowing you to extend the
-observable with additional operations such as  `tap` and `catchError`
- before anything actually happens.
+observable with additional operations such as  `tap` and `catchError` before anything actually happens.
 
 `HttpClient` 的所有方法返回的可观察对象都设计为*冷的*。
 HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行什么之前，先对这个可观察对象进行扩展。
@@ -634,16 +598,15 @@ req.subscribe();
 ### 发起 PUT 请求
 
 An app will send a PUT request to completely replace a resource with updated data.
-The following `HeroService` example is just like the POST example.
+The following `HeroesService` example is just like the POST example.
 
 应用可以发送 PUT 请求，来使用修改后的数据完全替换掉一个资源。
-下面的 `HeroService` 例子和 POST 的例子很像。
+下面的 `HeroesService` 例子和 POST 的例子很像。
 
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
   region="updateHero" 
   title="app/heroes/heroes.service.ts (updateHero)" linenums="false">
-
 </code-example>
 
 For the reasons [explained above](#always-subscribe), the caller (`HeroesComponent.update()` in this case) must `subscribe()` to the observable returned from the `HttpClient.put()`
@@ -655,9 +618,10 @@ in order to initiate the request.
 
 ## 高级用法
 
-The above sections detail how to use the basic HTTP functionality in `@angular/common/http`, but sometimes you need to do more than make simple requests and get data back.
+We have discussed the basic HTTP functionality in `@angular/common/http`, but sometimes you need to do more than make simple requests and get data back.
 
-上面这个小节中详细讲解了如何使用 `@angular/common/http` 中提供的基本 HTTP 功能，但有时候除了单纯发起请求和取回数据之外，你还要再做点别的。
+我们已经讨论了 `@angular/common/http` 的基本 HTTP 功能，但有时候除了单纯发起请求和取回数据之外，你还要再做点别的。
+
 
 ### Configuring the request
 
@@ -668,11 +632,11 @@ passed as the last argument to the `HttpClient` method.
 
 待发送请求的其它方面可以通过传给 `HttpClient` 方法最后一个参数中的配置对象进行配置。
 
-You [saw earlier](#adding-headers) that the `HeroService` sets the default headers by
+You [saw earlier](#adding-headers) that the `HeroesService` sets the default headers by
 passing an options object (`httpOptions`) to its save methods.
 You can do more.
 
-[以前你曾在](#adding-headers) `HeroService` 中通过在其保存方法中传入配置对象 `httpOptions` 设置过默认头。
+[以前你曾在](#adding-headers) `HeroesService` 中通过在其保存方法中传入配置对象 `httpOptions` 设置过默认头。
 你还可以做更多。
 
 #### Update headers
@@ -698,7 +662,6 @@ before making the next request.
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
   region="update-headers" linenums="false">
-
 </code-example>
 
 #### URL Parameters
@@ -714,14 +677,15 @@ Here is a `searchHeroes` method that queries for heroes whose names contain the 
 <code-example 
   path="http/src/app/heroes/heroes.service.ts"
   region="searchHeroes" linenums="false">
-
 </code-example>
 
-If there is a search term, the code constructs an options object with an HTML URL encoded search parameter. If the term were "foo", the GET request URL would be `api/heroes/?name=foo`.
+If there is a search term, the code constructs an options object with an HTML URL-encoded search parameter. If the term were "foo", the GET request URL would be `api/heroes/?name=foo`.
 
 如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
 
-The `HttpParams` are immutable so you'll have to use the `set()` method to update the options.
+如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
+
+The `HttpParms` are immutable so you'll have to use the `set()` method to update the options.
 
 `HttpParams` 是不可变的，所以你也要使用 `set()` 方法来修改这些选项。
 
@@ -734,7 +698,7 @@ The sample includes an _npm package search_ feature.
 这个例子还包含了*搜索 npm 包*的特性。
 
 When the user enters a name in a search-box, the `PackageSearchComponent` sends
-a search request for a package with that name to the NPM web api.
+a search request for a package with that name to the NPM web API.
 
 当用户在搜索框中输入名字时，`PackageSearchComponent` 就会把一个根据名字搜索包的请求发送给 NPM 的 web api。
 
@@ -746,7 +710,6 @@ Here's a pertinent excerpt from the template:
   path="http/src/app/package-search/package-search.component.html"
   region="search" 
   title="app/package-search/package-search.component.html (search)">
-
 </code-example>
 
 The `(keyup)` event binding sends every keystroke to the component's `search()` method.
@@ -765,16 +728,15 @@ That's easy to implement with RxJS operators, as shown in this excerpt.
   path="http/src/app/package-search/package-search.component.ts"
   region="debounce" 
   title="app/package-search/package-search.component.ts (excerpt))">
-
 </code-example>
 
 The `searchText$` is the sequence of search-box values coming from the user.
-It's defined as an RxJS `Subject`, which means it is an `Observable`
+It's defined as an RxJS `Subject`, which means it is a multicasting `Observable`
 that can also produce values for itself by calling `next(value)`,
 as happens in the `search()` method.
 
 `searchText$` 是一个序列，包含用户输入到搜索框中的所有值。
-它定义成了 RxJS 的 `Subject` 对象，这表示它是一个 `Observable`，同时还可以自行调用 `next(value)` 来产生值。
+它定义成了 RxJS 的 `Subject` 对象，这表示它是一个多播 `Observable`，同时还可以自行调用 `next(value)` 来产生值。
 `search()` 方法中就是这么做的。
 
 Rather than forward every `searchText` value directly to the injected `PackageSearchService`,
@@ -875,15 +837,14 @@ To implement an interceptor, declare a class that implements the `intercept()` m
 
 要实现拦截器，就要实现一个实现了 `HttpInterceptor` 接口中的 `intercept()` 方法的类。
 
-Here is a do-nothing _noop_ interceptor that simply passes the request through without touching it:
- 
+ Here is a do-nothing _noop_ interceptor that simply passes the request through without touching it:
+
  这里是一个什么也不做的*空白*拦截器，它只会不做任何修改的传递这个请求。
- 
+
 <code-example 
   path="http/src/app/http-interceptors/noop-interceptor.ts"
   title="app/http-interceptors/noop-interceptor.ts"
   linenums="false">
-
 </code-example>
 
 The `intercept` method transforms a request into an `Observable` that eventually returns the HTTP response. 
@@ -963,7 +924,6 @@ write the `NoopInterceptor` provider like this:
 <code-example 
   path="http/src/app/http-interceptors/index.ts"
   region="noop-provider" linenums="false">
-
 </code-example>
 
 Note the `multi: true` option. 
@@ -990,7 +950,6 @@ Consider creating a "barrel" file that gathers all the interceptor providers int
   path="http/src/app/http-interceptors/index.ts"
   region="interceptor-providers"
   title="app/http-interceptors/index.ts" linenums="false">
-
 </code-example>
 
 Then import and add it to the `AppModule` _providers array_ like this:
@@ -1001,7 +960,6 @@ Then import and add it to the `AppModule` _providers array_ like this:
   path="http/src/app/app.module.ts"
   region="interceptor-providers"
   title="app/app.module.ts (interceptor providers)" linenums="false">
-
 </code-example>
 
 As you create new interceptors, add them to the `httpInterceptorProviders` array and
@@ -1100,7 +1058,6 @@ You can clone and modify the request in a single step as in this example.
   path="http/src/app/http-interceptors/ensure-https-interceptor.ts"
   region="excerpt" 
   title="app/http-interceptors/ensure-https-interceptor.ts (excerpt)" linenums="false">
-
 </code-example>
 
 The `clone()` method's hash argument allows you to mutate specific properties of the request while copying the others.
@@ -1131,7 +1088,6 @@ If you must mutate the request body, copy it first, change the copy,
   path="http/src/app/http-interceptors/trim-name-interceptor.ts"
   region="excerpt" 
   title="app/http-interceptors/trim-name-interceptor.ts (excerpt)" linenums="false">
-
 </code-example>
 
 ##### Clearing the request body
@@ -1174,7 +1130,6 @@ adds an authorization header with that token to every outgoing request:
 <code-example 
   path="http/src/app/http-interceptors/auth-interceptor.ts"
   title="app/http-interceptors/auth-interceptor.ts">
-
 </code-example>
 
 The practice of cloning a request to set new headers is so common that 
@@ -1185,7 +1140,6 @@ there's a `setHeaders` shortcut for it:
 <code-example 
   path="http/src/app/http-interceptors/auth-interceptor.ts"
   region="set-header-shortcut">
-
 </code-example>
 
 An interceptor that alters headers can be used for a number of different operations, including:
@@ -1194,15 +1148,15 @@ An interceptor that alters headers can be used for a number of different operati
 
 * Authentication/authorization
 
-  认证 / 授权
+   认证 / 授权
 
 * Caching behavior; for example, `If-Modified-Since`
 
-  控制缓存行为。比如 `If-Modified-Since`
+   控制缓存行为。比如 `If-Modified-Since`
 
 * XSRF protection
 
-  XSRF 防护
+   XSRF 防护
 
 #### Logging
 
@@ -1223,7 +1177,6 @@ with the injected `MessageService`.
   path="http/src/app/http-interceptors/logging-interceptor.ts"
   region="excerpt" 
   title="app/http-interceptors/logging-interceptor.ts)">
-
 </code-example>
 
 The RxJS `tap` operator captures whether the request succeed or failed.
@@ -1259,7 +1212,6 @@ The `CachingInterceptor` demonstrates this approach.
   path="http/src/app/http-interceptors/caching-interceptor.ts"
   region="v1" 
   title="app/http-interceptors/caching-interceptor.ts)" linenums="false">
-
 </code-example>
 
 The `isCachable()` function determines if the request is cachable.
@@ -1287,7 +1239,6 @@ If a cachable request is not in cache, the code calls `sendRequest`.
 <code-example 
   path="http/src/app/http-interceptors/caching-interceptor.ts"
   region="send-request">
-
 </code-example>
 
 The `sendRequest` function creates a [request clone](#immutability) without headers
@@ -1335,15 +1286,14 @@ But an interceptor can change this to an _observable_ that emits more than once.
 但是拦截器也可以把这个修改成发出多个值的*可观察对象*。
 
 A revised version of the `CachingInterceptor` optionally returns an _observable_ that
-immediately emits the cached response, sends the request to the npm web api anyway,
+immediately emits the cached response, sends the request to the NPM web API anyway,
 and emits again later with the updated search results.
 
-修改后的 `CachingInterceptor` 版本可以返回一个立即发出缓存的响应，然后仍然把请求发送到 npm 的 Web API，然后再把修改过的搜索结果重新发出一次。
+修改后的 `CachingInterceptor` 版本可以返回一个立即发出缓存的响应，然后仍然把请求发送到 NPM 的 Web API，然后再把修改过的搜索结果重新发出一次。
 
 <code-example 
   path="http/src/app/http-interceptors/caching-interceptor.ts"
   region="intercept-refresh">
-
 </code-example>
 
 The _cache-then-refresh_ option is triggered by the presence of a **custom `x-refresh` header**.
@@ -1407,7 +1357,6 @@ with the `reportProgress` option set true to enable tracking of progress events.
   path="http/src/app/uploader/uploader.service.ts"
   region="upload-request" 
   title="app/uploader/uploader.service.ts (upload request)">
-
 </code-example>
 
 <div class="alert is-important">
@@ -1427,7 +1376,6 @@ returns an `Observable` of `HttpEvents`, the same events processed by intercepto
   path="http/src/app/uploader/uploader.service.ts"
   region="upload-body" 
   title="app/uploader/uploader.service.ts (upload body)" linenums="false">
-
 </code-example>
 
 The `getEventMessage` method interprets each type of `HttpEvent` in the event stream.
@@ -1438,7 +1386,6 @@ The `getEventMessage` method interprets each type of `HttpEvent` in the event st
   path="http/src/app/uploader/uploader.service.ts"
   region="getEventMessage" 
   title="app/uploader/uploader.service.ts (getEventMessage)" linenums="false">
-
 </code-example>
 
 <div class="alert is-helpful">
@@ -1459,7 +1406,7 @@ by returning an observable of simulated events.
 
 [Cross-Site Request Forgery (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is an attack technique by which the attacker can trick an authenticated user into unknowingly executing actions on your website. `HttpClient` supports a [common mechanism](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token) used to prevent XSRF attacks. When performing HTTP requests, an interceptor reads a token from a cookie, by default `XSRF-TOKEN`, and sets it as an HTTP header, `X-XSRF-TOKEN`. Since only code that runs on your domain could read the cookie, the backend can be certain that the HTTP request came from your client application and not an attacker.
 
-[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在我们自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自我们的客户端应用，而不是攻击者。
+[跨站请求伪造 (XSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在你自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自你的客户端应用，而不是攻击者。
 
 By default, an interceptor sends this cookie on all mutating requests (POST, etc.)
 to relative URLs but not on GET/HEAD requests or
@@ -1470,8 +1417,8 @@ on requests with an absolute URL.
 To take advantage of this, your server needs to set a token in a JavaScript readable session cookie called `XSRF-TOKEN` on either the page load or the first GET request. On subsequent requests the server can verify that the cookie matches the `X-XSRF-TOKEN` HTTP header, and therefore be sure that only code running on your domain could have sent the request. The token must be unique for each user and must be verifiable by the server; this prevents the client from making up its own tokens. Set the token to a digest of your site's authentication
 cookie with a salt for added security.
 
-要获得这种优点，我们的服务器需要在页面加载或首个 GET 请求中把一个名叫 `XSRF-TOKEN` 的令牌写入可被 JavaScript 读到的会话 cookie 中。
-而在后续的请求中，服务器可以验证这个 cookie 是否与 HTTP 头 `X-XSRF-TOKEN` 的值一致，以确保只有运行在我们自己域名下的代码才能发起这个请求。这个令牌必须对每个用户都是唯一的，并且必须能被服务器验证，因此不能由客户端自己生成令牌。把这个令牌设置为你的站点认证信息并且加了盐（salt）的摘要，以提升安全性。
+要获得这种优点，你的服务器需要在页面加载或首个 GET 请求中把一个名叫 `XSRF-TOKEN` 的令牌写入可被 JavaScript 读到的会话 cookie 中。
+而在后续的请求中，服务器可以验证这个 cookie 是否与 HTTP 头 `X-XSRF-TOKEN` 的值一致，以确保只有运行在你自己域名下的代码才能发起这个请求。这个令牌必须对每个用户都是唯一的，并且必须能被服务器验证，因此不能由客户端自己生成令牌。把这个令牌设置为你的站点认证信息并且加了盐（salt）的摘要，以提升安全性。
 
 In order to prevent collisions in environments where multiple Angular apps share the same domain or subdomain, give each application a unique cookie name.
 
@@ -1484,7 +1431,7 @@ Your backend service must be configured to set the cookie for your page, and to 
 the header is present on all eligible requests. 
 If not, Angular's default protection will be ineffective.
 
-*注意，`HttpClient` 支持的只是 XSRF 防护方案的客户端这一半。* 我们的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
+*注意，`HttpClient` 支持的只是 XSRF 防护方案的客户端这一半。* 你的后端服务必须配置为给页面设置 cookie ，并且要验证请求头，以确保全都是合法的请求。否则，Angular 默认的这种防护措施就会失效。
 
 </div>
 
@@ -1495,13 +1442,12 @@ If not, Angular's default protection will be ineffective.
 If your backend service uses different names for the XSRF token cookie or header, 
 use `HttpClientXsrfModule.withOptions()` to override the defaults.
 
-如果我们的后端服务中对 XSRF 令牌的 cookie 或 头使用了不一样的名字，就要使用 `HttpClientXsrfModule.withConfig()` 来覆盖掉默认值。
+如果你的后端服务中对 XSRF 令牌的 cookie 或 头使用了不一样的名字，就要使用 `HttpClientXsrfModule.withConfig()` 来覆盖掉默认值。
 
 <code-example 
   path="http/src/app/app.module.ts"
   region="xsrf" 
   linenums="false">
-
 </code-example>
 
 ## Testing HTTP requests
@@ -1513,7 +1459,7 @@ so your tests can simulate interaction with a remote server.
 The `@angular/common/http/testing` library makes 
 setting up such mocking straightforward.
 
-如同所有的外部依赖一样，HTTP 后端也需要在良好的测试实践中被 Mock 掉。`@angular/common/http` 提供了一个测试库 `@angular/common/http/testing`，它让我们可以直截了当的进行这种 Mock 。
+如同所有的外部依赖一样，HTTP 后端也需要在良好的测试实践中被 Mock 掉。`@angular/common/http` 提供了一个测试库 `@angular/common/http/testing`，它让你可以直截了当的进行这种 Mock 。
 
 ### Mocking philosophy
 
@@ -1565,7 +1511,6 @@ along with the other symbols your tests require.
   path="http/src/testing/http-client.spec.ts"
   region="imports" 
   title="app/testing/http-client.spec.ts (imports)" linenums="false">
-
 </code-example>
 
 Then add the `HttpClientTestingModule` to the `TestBed` and continue with
@@ -1577,7 +1522,6 @@ the setup of the _service-under-test_.
   path="http/src/testing/http-client.spec.ts"
   region="setup" 
   title="app/testing/http-client.spec.ts(setup)" linenums="false">
-
 </code-example>
 
 Now requests made in the course of your tests will hit the testing backend instead of the normal backend.
@@ -1601,18 +1545,16 @@ Now you can write a test that expects a GET Request to occur and provides a mock
   path="http/src/testing/http-client.spec.ts"
   region="get-test" 
   title="app/testing/http-client.spec.ts(httpClient.get)" linenums="false">
-
 </code-example>
 
 The last step, verifying that no requests remain outstanding, is common enough for you to move it into an `afterEach()` step:
 
-最后一步，验证没有发起过预期之外的请求，足够通用，因此我们可以把它移到 `afterEach()` 中：
+最后一步，验证没有发起过预期之外的请求，足够通用，因此你可以把它移到 `afterEach()` 中：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
   region="afterEach" 
   linenums="false">
-
 </code-example>
 
 #### Custom request expectations
@@ -1629,7 +1571,6 @@ For example, you could look for an outgoing request that has an authorization he
   path="http/src/testing/http-client.spec.ts"
   region="predicate" 
   linenums="false">
-
 </code-example>
 
 As with the previous `expectOne()`, 
@@ -1646,13 +1587,12 @@ It takes the same arguments but returns an array of matching requests.
 Once returned, these requests are removed from future matching and 
 you are responsible for flushing and verifying them.
 
-如果我们需要在测试中对重复的请求进行响应，可以使用 `match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，我们要自己验证和刷新（flush）它。
+如果你需要在测试中对重复的请求进行响应，可以使用 `match()` API 来代替 `expectOne()`，它的参数不变，但会返回一个与这些请求相匹配的数组。一旦返回，这些请求就会从将来要匹配的列表中移除，你要自己验证和刷新（flush）它。
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
   region="multi-request" 
   linenums="false">
-
 </code-example>
 
 ### Testing for errors
@@ -1663,13 +1603,22 @@ You should test the app's defenses against HTTP requests that fail.
 
 你还要测试应用对于 HTTP 请求失败时的防护。
 
-Call `request.error()` with an `ErrorEvent` instead of `request.flush()`, as in this example.
+Call `request.flush()` with an error message, as seen in the following example.
 
-那就调用 `request.error()`，并给它传入一个 `ErrorEvent`，而不是 `request.flush()`。例子如下：
+调用 `request.flush()` 并传入一个错误信息，如下所示：
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
   region="404" 
   linenums="false">
+</code-example>
 
+Alternatively, you can call `request.error()` with an `ErrorEvent`.
+
+另外，你还可以使用 `ErrorEvent` 来调用 `request.error()`.
+
+<code-example
+  path="http/src/testing/http-client.spec.ts"
+  region="network-error"
+  linenums="false">
 </code-example>

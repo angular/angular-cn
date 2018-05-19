@@ -12,7 +12,7 @@ A basic understanding of the following concepts:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping)。
+   [引导启动](guide/bootstrapping)。
 
 <hr />
 
@@ -35,11 +35,11 @@ There are two main kinds of entry components:
 
 * The bootstrapped root component.
 
-  引导用的根组件。
+   引导用的根组件。
 
 * A component you specify in a route definition.
 
-  在路由定义中指定的组件。
+   在路由定义中指定的组件。
 
 ## A bootstrapped entry component
 
@@ -172,16 +172,16 @@ You may also be interested in the following:
 
 * [Types of NgModules](guide/module-types)
 
-  [Angular 模块的分类](guide/module-types)
+   [NgModule 的分类](guide/module-types).
 
 * [Lazy Loading Modules with the Angular Router](guide/lazy-loading-ngmodules).
 
-  [使用 Angular 路由器实现惰性加载模块](guide/lazy-loading-ngmodules).
+   [使用 Angular 路由器惰性加载模块](guide/lazy-loading-ngmodules)。
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers).
+   [服务提供商](guide/providers)。
 
 * [NgModules FAQ](guide/ngmodule-faq).
 
-  [NgModule 常见问题](guide/ngmodule-faq).
+   [NgModule 常见问题](guide/ngmodule-faq).

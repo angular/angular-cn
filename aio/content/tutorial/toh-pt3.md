@@ -31,9 +31,7 @@ Use the Angular CLI to generate a new component named `hero-detail`.
 使用 Angular CLI 生成一个名叫 `hero-detail` 的新组件。
 
 <code-example language="sh" class="code-shell">
-
   ng generate component hero-detail
-
 </code-example>
 
 The command scaffolds the `HeroDetailComponent` files and declares the component in `AppModule`.
@@ -78,7 +76,6 @@ Open the `HeroDetailComponent` class file and import the `Hero` symbol.
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" 
 region="import-hero" title="src/app/hero-detail/hero-detail.component.ts (import Hero)">
-
 </code-example>
 
 The `hero` property 
@@ -89,7 +86,6 @@ because the _external_ `HeroesComponent` [will bind to it](#heroes-component-tem
 `hero` 属性[必须是一个带有 `@Input()` 装饰器的输入属性](guide/template-syntax#inputs-outputs "Input and Output properties")，因为*外部的* `HeroesComponent` 组件[将会绑定到它](#heroes-component-template)。就像这样：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding">
-
 </code-example>
 
 Amend the `@angular/core` import statement to include the `Input` symbol.
@@ -97,7 +93,6 @@ Amend the `@angular/core` import statement to include the `Input` symbol.
 修改 `@angular/core` 的导入语句，导入 `Input` 符号。
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" title="src/app/hero-detail/hero-detail.component.ts (import Input)" linenums="false">
-
 </code-example>
 
 Add a `hero` property, preceded by the `@Input()` decorator.
@@ -105,7 +100,6 @@ Add a `hero` property, preceded by the `@Input()` decorator.
 添加一个带有 `@Input()` 装饰器的 `hero` 属性。
 
 <code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="input-hero"  linenums="false">
-
 </code-example>
 
 That's the only change you should make to the `HeroDetailComponent` class.
@@ -181,7 +175,6 @@ The revised `HeroesComponent` template should look like this:
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html"
   title="heroes.component.html" linenums="false">
-
 </code-example>
 
 The browser refreshes and the app starts working again as it did before.
@@ -247,15 +240,14 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You created a separate, reusable `HeroDetailComponent`.
 
-  你创建了一个独立的、可复用的 `HeroDetailComponent` 组件。
+   你创建了一个独立的、可复用的 `HeroDetailComponent` 组件。
 
 * You used a [property binding](guide/template-syntax#property-binding) to give the parent `HeroesComponent` control over the child `HeroDetailComponent`.
 
-  你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
+   你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
 
 * You used the [`@Input` decorator](guide/template-syntax#inputs-outputs) 
 to make the `hero` property available for binding
 by the external `HeroesComponent`.
 
-  你用 [`@Input` 装饰器](guide/template-syntax#inputs-outputs)来让 `hero` 属性可以在外部的 `HeroesComponent` 中绑定。
-  
+   你用 [`@Input` 装饰器](guide/template-syntax#inputs-outputs)来让 `hero` 属性可以在外部的 `HeroesComponent` 中绑定。

@@ -25,6 +25,29 @@
       "title": "关于中文版"
     }
   ],
+  "TopBarNarrow": [
+    {
+      "title": "关于 Angular",
+      "children": [
+        {
+          "url": "features",
+          "title": "特性"
+        },
+        {
+          "url": "resources",
+          "title": "资源"
+        },
+        {
+          "url": "events",
+          "title": "会议"
+        },
+        {
+          "url": "https://blog.angular.io/",
+          "title": "博客"
+        }
+      ]
+    }
+  ],
   "SideNav": [
     {
       "url": "docs",
@@ -99,13 +122,39 @@
       "tooltip": "学习 Angular 的核心知识",
       "children": [
         {
-          "url": "guide/architecture",
           "title": "架构",
-          "tooltip": "Angular 应用的基本构造块"
+          "tooltip": "Angular 应用的基本构造块。",
+          "children": [
+            {
+              "url": "guide/architecture",
+              "title": "架构概览",
+              "tooltip": "Angular 应用的基本构造块"
+            },
+            {
+              "url": "guide/architecture-modules",
+              "title": "模块（NgModule）简介",
+              "tooltip": "关于模块。"
+            },
+            {
+              "url": "guide/architecture-components",
+              "title": "组件简介",
+              "tooltip": "关于组件、模板和视图。"
+            },
+            {
+              "url": "guide/architecture-services",
+              "title": "服务与 DI 简介",
+              "tooltip": "关于服务与依赖注入。"
+            },
+            {
+              "url": "guide/architecture-next-steps",
+              "title": "后续步骤",
+              "tooltip": "学完基础知识之后……"
+            }
+          ]
         },
         {
-          "title": "模板与数据绑定",
-          "tooltip": "模板与数据绑定",
+          "title": "组件与模板",
+          "tooltip": "使用数据绑定构建动态视图",
           "children": [
             {
               "url": "guide/displaying-data",
@@ -131,6 +180,11 @@
               "url": "guide/component-styles",
               "title": "组件样式",
               "tooltip": "添加专属于某个组件的样式"
+            },
+            {
+              "url": "guide/elements",
+              "title": "Angular 自定义元素",
+              "tooltip": "把组件转换成自定义元素。"
             },
             {
               "url": "guide/dynamic-component-loader",
@@ -390,7 +444,7 @@
             },
             {
               "url": "guide/aot-compiler",
-              "title": "预（AOT）编译",
+              "title": "预先（AOT）编译",
               "tooltip": "学习如何使用 AOT 预编译器。"
             },
             {
@@ -401,49 +455,70 @@
           ]
         },
         {
-          "title": "Service Workers",
-          "tooltip": "Angular service workers: Controlling caching of application resources.",
+          "url": "guide/custom-elements",
+          "title": "自定义元素",
+          "tooltip": "把 Angular 组件用作自定义元素。"
+        },
+        {
+          "title": "Service Worker",
+          "tooltip": "Angular 的 Service Worker：控制应用的资源缓存。",
           "children": [
             {
               "url": "guide/service-worker-intro",
-              "title": "Introduction",
-              "tooltip": "Angular's implementation of service workers improves user experience with slow or unreliable network connectivity."
+              "title": "简介",
+              "tooltip": "Angular 对 Service Worker 的实现提升了慢速或不稳定的网络连接下的用户体验。"
             },
             {
               "url": "guide/service-worker-getting-started",
-              "title": "Getting Started",
-              "tooltip": "Enabling the service worker in a CLI project and observing behavior in the browser."
+              "title": "快速起步",
+              "tooltip": "在 CLI 项目中启用 Service Worker，并在浏览器中查看效果。"
             },
             {
               "url": "guide/service-worker-communications",
-              "title": "Service Worker Communication",
-              "tooltip": "Services that enable you to interact with an Angular service worker."
+              "title": "与 Service Worker 通讯",
+              "tooltip": "那些能让你和 Angular 的 Service Worker 通讯的服务类。"
             },
             {
               "url": "guide/service-worker-devops",
-              "title": "Service Worker in Production",
-              "tooltip": "Running applications with service workers, managing application update, debugging, and killing applications."
+              "title": "生产环境下的 Service Worker",
+              "tooltip": "使用 Service Worker 运行应用、管理应用更新、调试以及杀掉正在运行的应用。"
             },
             {
               "url": "guide/service-worker-config",
-              "title": "Service Worker Configuration",
-              "tooltip": "Configuring service worker caching behavior."
+              "title": "Service Worker 配置",
+              "tooltip": "配置 Service Worker 的缓存行为。"
             }
           ]
         },
         {
-          "title": "升级",
-          "tooltip": "渐进式的把 AngularJS 应用升级到 Angular。",
+          "title": "保持最新",
+          "tooltip": "Angular 的发布实践，更新计划以及与更新有关的资源。",
+          "children": [
+            {
+              "url": "guide/updating",
+              "title": "更新你的项目",
+              "tooltip": "关于如何把 Angular 应用升级到最新版的信息。"
+            },
+            {
+              "url": "guide/releases",
+              "title": "Angular 的版本发布",
+              "tooltip": "Angular 的版本、发布、支持与弃用策略。"
+            }
+          ]
+        },
+        {
+          "title": "从 AngularJS 升级",
+          "tooltip": "把 AngularJS 应用增量式的升级到 Angular。",
           "children": [
             {
               "url": "guide/upgrade",
-              "title": "从 AngularJS 升级",
-              "tooltip": "渐进式的把 AngularJS 应用升级到 Angular。"
+              "title": "升级步骤",
+              "tooltip": "把 AngularJS 应用增量式的升级到 Angular。"
             },
             {
               "url": "guide/ajs-quick-reference",
-              "title": "升级速查表",
-              "tooltip": "学习如何把 AngularJS 的概念和技术映射到 Angular 。"
+              "title": "AngularJS 与 Angular 的概念对照",
+              "tooltip": "学习如何把 AngularJS 的概念映射到 Angular 中。"
             }
           ]
         },
@@ -568,6 +643,10 @@
         {
           "title": "English Version",
           "url": "https://angular.io/"
+        },
+        {
+          "title": "日本語版",
+          "url": "https://angular.jp/"
         }
       ]
     }

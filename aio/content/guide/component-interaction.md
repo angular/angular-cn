@@ -88,7 +88,7 @@ E2E test that all children were instantiated and displayed as expected:
 
 端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -135,7 +135,7 @@ E2E tests of input property setter with empty and non-empty names:
 
 端到端测试：输入属性的 setter，分别使用空名字和非空名字。
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -198,7 +198,7 @@ the expected `ngOnChanges` calls and values:
 
 测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges` 应该被调用，属性的值也符合预期。
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -257,7 +257,7 @@ Test that clicking the *Agree* and *Disagree* buttons update the appropriate cou
 
 测试确保点击 *Agree* 和 *Disagree* 按钮时，计数器被正确更新。
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -291,7 +291,7 @@ countdown status message in its own template.
 
 The `CountdownLocalVarParentComponent` that hosts the timer component is as follows:
 
-让我们来看看计时器组件的宿主组件 `CountdownLocalVarParentComponent`。
+计时器组件的宿主组件 `CountdownLocalVarParentComponent` 如下：
 
 <code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" title="component-interaction/src/app/countdown-parent.component.ts">
 
@@ -311,7 +311,7 @@ That gives you a reference to the child component and the ability to access
 This example wires parent buttons to the child's `start` and `stop` and
 uses interpolation to display the child's `seconds` property.
 
-在这个例子中，我们把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
+这个例子把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
 
 Here we see the parent and child working together.
 
@@ -333,7 +333,7 @@ Test also that clicking the *Stop* button pauses the countdown timer:
 
 测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击 *Stop* 按钮来停止倒计时：
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -369,7 +369,7 @@ Neither its appearance nor its behavior will change.
 The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-example) is the same as well.
 
 下面的例子用与[倒计时](guide/component-interaction#countdown-timer-example)相同的范例来解释这种技术。
-我们没有改变它的外观或行为。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
+它的外观或行为没有变化。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
 
 <div class="l-sub-section">
 
@@ -415,14 +415,14 @@ The `ngAfterViewInit()` lifecycle hook is an important wrinkle.
 The timer component isn't available until *after* Angular displays the parent view.
 So it displays `0` seconds initially.
 
-`ngAfterViewInit()` 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以我们先把秒数显示为 0.
+`ngAfterViewInit()` 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以它先把秒数显示为 0.
 
 Then Angular calls the `ngAfterViewInit` lifecycle hook at which time it is *too late*
 to update the parent view's display of the countdown seconds.
 Angular's unidirectional data flow rule prevents updating the parent view's
 in the same cycle. The app has to *wait one turn* before it can display the seconds.
 
-然后 Angular 会调用 `ngAfterViewInit` 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。我们在显示秒数之前会被迫*再等一轮*。
+然后 Angular 会调用 `ngAfterViewInit` 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。应用在显示秒数之前会被迫*再等一轮*。
 
 Use `setTimeout()` to wait one tick and then revise the `seconds()` method so
 that it takes future values from the timer component.
@@ -519,11 +519,10 @@ and verify that the history meets expectations:
 
 测试确保点击父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 两个的组件的按钮时，*History* 日志和预期的一样。
 
-<code-example path="component-interaction/e2e/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
 [Back to top](guide/component-interaction#top)
-
 
 [回到顶部](guide/component-interaction#top)

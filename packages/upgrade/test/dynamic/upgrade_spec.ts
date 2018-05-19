@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ChangeDetectorRef, Component, EventEmitter, Input, NO_ERRORS_SCHEMA, NgModule, NgModuleFactory, NgZone, OnChanges, SimpleChange, SimpleChanges, Testability, destroyPlatform, forwardRef} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, NO_ERRORS_SCHEMA, NgModule, NgModuleFactory, NgZone, OnChanges, OnDestroy, Output, SimpleChange, SimpleChanges, Testability, destroyPlatform, forwardRef} from '@angular/core';
 import {async, fakeAsync, flushMicrotasks, tick} from '@angular/core/testing';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import * as angular from '@angular/upgrade/src/common/angular1';
 import {UpgradeAdapter, UpgradeAdapterRef} from '@angular/upgrade/src/dynamic/upgrade_adapter';
-import {$digest, html, multiTrim, withEachNg1Version} from './test_helpers';
+import {$apply, $digest, html, multiTrim, withEachNg1Version} from './test_helpers';
 
 declare global {
   export var inject: Function;
@@ -434,6 +434,55 @@ withEachNg1Version(() => {
 
          }));
 
+      it('should support two-way binding and event listener', async(() => {
+           const adapter: UpgradeAdapter = new UpgradeAdapter(forwardRef(() => Ng2Module));
+           const listenerSpy = jasmine.createSpy('$rootScope.listener');
+           const ng1Module = angular.module('ng1', []).run(($rootScope: angular.IScope) => {
+             $rootScope['value'] = 'world';
+             $rootScope['listener'] = listenerSpy;
+           });
+
+           @Component({selector: 'ng2', template: `model: {{model}};`})
+           class Ng2Component implements OnChanges {
+             ngOnChangesCount = 0;
+             @Input() model = '?';
+             @Output() modelChange = new EventEmitter();
+
+             ngOnChanges(changes: SimpleChanges) {
+               switch (this.ngOnChangesCount++) {
+                 case 0:
+                   expect(changes.model.currentValue).toBe('world');
+                   this.modelChange.emit('newC');
+                   break;
+                 case 1:
+                   expect(changes.model.currentValue).toBe('newC');
+                   break;
+                 default:
+                   throw new Error('Called too many times! ' + JSON.stringify(changes));
+               }
+             }
+           }
+
+           ng1Module.directive('ng2', adapter.downgradeNg2Component(Ng2Component));
+
+           @NgModule({declarations: [Ng2Component], imports: [BrowserModule]})
+           class Ng2Module {
+             ngDoBootstrap() {}
+           }
+
+           const element = html(`
+           <div>
+             <ng2 [(model)]="value" (model-change)="listener($event)"></ng2>
+             | value: {{value}}
+           </div>
+         `);
+           adapter.bootstrap(element, ['ng1']).ready((ref) => {
+             expect(multiTrim(element.textContent)).toEqual('model: newC; | value: newC');
+             expect(listenerSpy).toHaveBeenCalledWith('newC');
+             ref.dispose();
+           });
+         }));
+
       it('should initialize inputs in time for `ngOnChanges`', async(() => {
            const adapter: UpgradeAdapter = new UpgradeAdapter(forwardRef(() => Ng2Module));
 
@@ -579,6 +628,49 @@ withEachNg1Version(() => {
            const element = html('<ng1></ng1>');
            adapter.bootstrap(element, ['ng1']).ready((ref) => {
              onDestroyed.subscribe(() => { ref.dispose(); });
+           });
+         }));
+
+      it('should properly run cleanup with multiple levels of nesting', async(() => {
+           const adapter: UpgradeAdapter = new UpgradeAdapter(forwardRef(() => Ng2Module));
+           let destroyed = false;
+
+           @Component(
+               {selector: 'ng2-outer', template: '<div *ngIf="!destroyIt"><ng1></ng1></div>'})
+           class Ng2OuterComponent {
+             @Input() destroyIt = false;
+           }
+
+           @Component({selector: 'ng2-inner', template: 'test'})
+           class Ng2InnerComponent implements OnDestroy {
+             ngOnDestroy() { destroyed = true; }
+           }
+
+           @NgModule({
+             imports: [BrowserModule],
+             declarations:
+                 [Ng2InnerComponent, Ng2OuterComponent, adapter.upgradeNg1Component('ng1')],
+             schemas: [NO_ERRORS_SCHEMA],
+           })
+           class Ng2Module {
+           }
+
+           const ng1Module =
+               angular.module('ng1', [])
+                   .directive('ng1', () => ({template: '<ng2-inner></ng2-inner>'}))
+                   .directive('ng2Inner', adapter.downgradeNg2Component(Ng2InnerComponent))
+                   .directive('ng2Outer', adapter.downgradeNg2Component(Ng2OuterComponent));
+
+           const element = html('<ng2-outer [destroy-it]="destroyIt"></ng2-outer>');
+
+           adapter.bootstrap(element, [ng1Module.name]).ready(ref => {
+             expect(element.textContent).toBe('test');
+             expect(destroyed).toBe(false);
+
+             $apply(ref, 'destroyIt = true');
+
+             expect(element.textContent).toBe('');
+             expect(destroyed).toBe(true);
            });
          }));
 
@@ -2815,6 +2907,29 @@ withEachNg1Version(() => {
              bootstrapResumed = true;
              (<any>window).angular.resumeBootstrap();
            }, 100);
+         }));
+
+      it('should propagate return value of resumeBootstrap', fakeAsync(() => {
+           @NgModule({imports: [BrowserModule]})
+           class MyNg2Module {
+           }
+
+           const adapter: UpgradeAdapter = new UpgradeAdapter(MyNg2Module);
+           const ng1Module = angular.module('ng1', []);
+           let a1Injector: angular.IInjectorService|undefined;
+           ng1Module.run([
+             '$injector', function($injector: angular.IInjectorService) { a1Injector = $injector; }
+           ]);
+
+           const element = html('<div></div>');
+           window.name = 'NG_DEFER_BOOTSTRAP!' + window.name;
+
+           adapter.bootstrap(element, [ng1Module.name]).ready((ref) => { ref.dispose(); });
+
+           tick(100);
+
+           const value = (<any>window).angular.resumeBootstrap();
+           expect(value).toBe(a1Injector);
          }));
 
       it('should wait for ng2 testability', async(() => {

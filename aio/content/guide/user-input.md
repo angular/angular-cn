@@ -125,9 +125,7 @@ Here's what the UI displays:
 用户界面将显示：
 
 <code-example>
-
   a | ab | abc | ab | a | |
-
 </code-example>
 
 <figure>
@@ -142,7 +140,6 @@ for `event.target.value` in which case the same user input would produce:
 或者，你可以用 `event.key` 替代 `event.target.value`，积累各个按键本身，这样同样的用户输入可以产生：
 
 <code-example>
-
   a | b | c | backspace | backspace | backspace |
 
 </code-example>
@@ -427,7 +424,6 @@ Two-way data binding is a more elegant and compact way to move
 values between data entry fields and model properties.
 The next page, `Forms`, explains how to write
 two-way bindings with `NgModel`.
-
 
 这些技术对小规模演示很实用，但是在处理大量用户输入时，很容易变得累赘和笨拙。
 要在数据录入字段和模型属性之间传递数据，双向数据绑定是更加优雅和简洁的方式。

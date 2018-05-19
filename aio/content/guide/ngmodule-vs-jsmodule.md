@@ -57,7 +57,7 @@ NgModule 是一些带有 `@NgModule` 装饰器的类。`@NgModule` 装饰器的 
 
 The `AppModule` generated from the Angular CLI demonstrates both kinds of modules in action:
 
-Angular CLI 生成的 `AppModule` 实际演示了这两种模块： 
+Angular CLI 生成的 `AppModule` 实际演示了这两种模块：
 
 ```typescript
 
@@ -89,22 +89,22 @@ NgModule 类与 JavaScript 模块有下列关键性的不同：
 * An NgModule bounds [declarable classes](guide/ngmodule-faq#q-declarable) only.
 Declarables are the only classes that matter to the [Angular compiler](guide/ngmodule-faq#q-angular-compiler).
 
-   Angular 模块只绑定了[_可声明的类_](guide/ngmodule-faq#q-declarable)，这些可声明的类只是供[Angular 编译器](guide/ngmodule-faq#q-angular-compiler)用的。
+   Angular 模块只绑定了[*可声明的类*](guide/ngmodule-faq#q-declarable)，这些可声明的类只是供[Angular 编译器](guide/ngmodule-faq#q-angular-compiler)用的。
 
 * Instead of defining all member classes in one giant file as in a JavaScript module,
 you list the module's classes in the `@NgModule.declarations` list.
 
-  与 JavaScript 类把它所有的成员类都放在一个巨型文件中不同，你要把该模块的类列在它的 `@NgModule.declarations` 列表中。
+   与 JavaScript 类把它所有的成员类都放在一个巨型文件中不同，你要把该模块的类列在它的 `@NgModule.declarations` 列表中。
 
 * An NgModule can only export the [declarable classes](guide/ngmodule-faq#q-declarable)
 it owns or imports from other modules. It doesn't declare or export any other kind of class.
 
-   Angular 模块只能导出[_可声明的类_](guide/ngmodule-faq#q-declarable)。这可能是它自己拥有的也可能是从其它模块中导入的。它不会声明或导出任何其它类型的类。
+   Angular 模块只能导出[*可声明的类*](guide/ngmodule-faq#q-declarable)。这可能是它自己拥有的也可能是从其它模块中导入的。它不会声明或导出任何其它类型的类。
 
 * Unlike JavaScript modules, an NgModule can extend the _entire_ application with services
 by adding providers to the `@NgModule.providers` list.
 
-  与 JavaScript 模块不同，NgModule 可以通过把服务提供商加到 `@NgModule.providers` 列表中，来用服务扩展*整个*应用。
+   与 JavaScript 模块不同，NgModule 可以通过把服务提供商加到 `@NgModule.providers` 列表中，来用服务扩展*整个*应用。
 
 <hr />
 
@@ -118,12 +118,12 @@ For more information on NgModules, see:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导](guide/bootstrapping).
+   [引导启动](guide/bootstrapping)。
 
 * [Frequently used modules](guide/frequent-ngmodules).
 
-  [常用模块](guide/frequent-ngmodules).
+   [常用模块](guide/frequent-ngmodules)。
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers).
+   [服务提供商](guide/providers)。

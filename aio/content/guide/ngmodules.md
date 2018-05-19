@@ -12,11 +12,11 @@ A basic understanding of the following concepts:
 
 * [Bootstrapping](guide/bootstrapping).
 
-  [引导启动](guide/bootstrapping)。
+   [引导启动](guide/bootstrapping)。
 
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-  [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
+   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
 
 <hr>
 
@@ -83,19 +83,19 @@ NgModule 的元数据会做这些：
 
 * Declares which components, directives, and pipes belong to the module.
 
-  声明某些组件、指令和管道属于这个模块。
+   声明某些组件、指令和管道属于这个模块。
 
 * Makes some of those components, directives, and pipes public so that other module's component templates can use them.
 
-  公开其中的部分组件、指令和管道，以便其它模块中的组件模板中可以使用它们。
+   公开其中的部分组件、指令和管道，以便其它模块中的组件模板中可以使用它们。
 
 * Imports other modules with the components, directives, and pipes that components in the current module need.
 
-  导入其它带有组件、指令和管道的模块，这些模块中的元件都是本模块所需的。
+   导入其它带有组件、指令和管道的模块，这些模块中的元件都是本模块所需的。
 
 * Provides services that the other application components can use.
 
-  提供一些供应用中的其它组件使用的服务。
+   提供一些供应用中的其它组件使用的服务。
 
 Every Angular app has at least one module, the root module.
 You [bootstrap](guide/bootstrapping) that module to launch the application.
@@ -121,7 +121,6 @@ The CLI generates the following basic app module when creating a new app.
 CLI 在创建新应用时会生成下列基本的应用模块。
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="whole-ngmodule" title="src/app/app.module.ts" linenums="false">
-
 </code-example>
 
 At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). This page builds on [Bootstrapping](guide/bootstrapping), which covers the structure of an NgModule in detail. If you need more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
@@ -137,20 +136,20 @@ At the top are the import statements. The next section is where you configure th
 
 You may also be interested in the following:
 
-你可能还会对下列内容感兴趣：
+你可能还对下列内容感兴趣：
 
 * [Feature Modules](guide/feature-modules).
 
-  [特性模块](guide/feature-modules)
+   [特性模块](guide/feature-modules)
 
 * [Entry Components](guide/entry-components).
 
-  [入口组件](guide/entry-components)
+   [入口组件](guide/entry-components)
 
 * [Providers](guide/providers).
 
-  [服务提供商](guide/providers).
+   [服务提供商](guide/providers)。
 
 * [Types of NgModules](guide/module-types).
 
-  [NgModule 的分类](guide/module-types).
+   [NgModule 的分类](guide/module-types).

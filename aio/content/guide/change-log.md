@@ -5,15 +5,15 @@
 The Angular documentation is a living document with continuous improvements.
 This log calls attention to recent significant changes.
 
-我们将持续不断的更新和改进 Angular 文档。本日志记录了近期最重要的变更。
+Angular 的文档将持续不断的更新和改进。本日志记录了近期最重要的变更。
 
 ## Updated to Angular 4.0. Documentation for Angular 2.x can be found at [v2.angular.io](https://v2.angular.io).
 
-## 更新到 Angular 4.0 。Angular 2.x 的文档在 [v2.angular.io](https://v2.angular.io) 。
+## 更新到 Angular 4.0 。Angular 2.x 的文档在 [v2.angular.cn](https://v2.angular.io) 。
 
 ## All mention of moduleId removed. "Component relative paths" guide deleted (2017-03-13)
 
-## 移除了所有的 moduleId 引用。移除了“组件相对路径” 的烹饪书。(2017-03-13)
+## 移除了所有的 moduleId 引用。移除了“组件相对路径” 的指南。(2017-03-13)
 
 We added a new SystemJS plugin (systemjs-angular-loader.js) to our recommended SystemJS configuration.
 This plugin dynamically converts "component-relative" paths in templateUrl and styleUrls to "absolute paths" for you.
@@ -61,7 +61,7 @@ It helps clearly separate app code from setup and configuration files.
 
 所有的文档范例都已经向 Angular CLI 的默认文件夹结构看齐了。
 这是把范例迁移到 Angular CLI 过程中的一步。
-不过也不仅是为了迁移，它确实能帮我们把应用代码从环境代码和配置代码中分离出来。
+不过也不仅是为了迁移，它还能把应用代码从环境准备代码和配置代码中清晰地分离出来。
 
 All samples now have a `src/` folder at the project root.
 The former `app/` folder moves under `src/`.
@@ -69,7 +69,7 @@ Read about moving your existing project to this structure in
 <a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="Migrating samples/quickstart app to the src folder">
 the QuickStart repo update instructions</a>.
 
-我们已经把所有范例改成了使用项目根目录下的 `src/` 文件夹。
+所有的范例都改成了使用项目根目录下的 `src/` 文件夹。
 也就是把以前的 `app/` 文件夹移到了 `src/` 文件夹下面。
 要了解如何对你的现有项目进行这种迁移，请参阅<a href="https://github.com/angular/quickstart#updating-to-a-newer-version-of-the-quickstart-repo" target="_blank" target="把范例中的应用迁移到 src 文件夹">QuickStart 中的迁移指南</a>。
 
@@ -232,7 +232,7 @@ Docs and code samples updated and tested with Angular v.2.2.0.
 
 ## UPDATE: NgUpgrade Guide for the AOT friendly _upgrade/static_ module (2016-11-14)
 
-## 更新：用于 AOT 的_upgrade/static_模块 NgUpgrade 指南 (2016-11-14)
+## 更新：用于 AOT 的 *upgrade/static* 模块 NgUpgrade 指南 (2016-11-14)
 
 The updated [NgUpgrade Guide](guide/upgrade) guide covers the
 new AOT friendly `upgrade/static` module
@@ -259,7 +259,7 @@ This was [removed in August 2017](https://github.com/angular/angular/pull/18694)
 viewed in the [v2 documentation](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html).
 
 本章已经 [于 2017 年 8 月移除](https://github.com/angular/angular/pull/18694)，
-不过仍然可以在[第二版的文档中](https://v2.angular.io/docs/ts/latest/cookbook/ts-to-js.html)看到。
+不过仍然可以在[第二版的文档中](https://v2.angular.cn/docs/ts/latest/cookbook/ts-to-js.html)看到。
 
 ## Sync with Angular v.2.1.1 (2016-10-21)
 
@@ -271,7 +271,7 @@ Docs and code samples updated and tested with Angular v.2.1.1.
 
 ## npm _@types_ packages replace _typings_ (2016-10-20)
 
-## 使用 npm 的_@types_包替换_typings_ (2016-10-20)
+## 使用 npm 的_@types*包替换*typings_ (2016-10-20)
 
 Documentation samples now get TypeScript type information for 3rd party libraries
 from npm `@types` packages rather than with the _typings_ tooling.
@@ -311,12 +311,12 @@ in the `in-memory-web-api` repo.
 
 ## "Router" _preload_ syntax and _:enter_/_:leave_ animations (2016-10-19)
 
-## "路由器"_预加载_语法和_:enter_/_:leave_动画(2016-10-19)
+## "路由器"*预加载*语法和 *:enter*/*:leave* 动画(2016-10-19)
 
 The router can lazily _preload_ modules _after_ the app starts and
 _before_ the user navigates to them for improved perceived performance.
 
-路由器可以在应用启动_之后_和用户导航到惰性加载模块_之前_，预先加载惰性模块，以增强性能。
+路由器可以在应用启动*之后*和用户导航到惰性加载模块*之前*，预先加载惰性模块，以增强性能。
 
 New `:enter` and `:leave` aliases make animation more natural.
 
@@ -332,14 +332,14 @@ Docs and code samples updated and tested with Angular v.2.1.0.
 
 ## NEW "Ahead of time (AOT) Compilation" guide (2016-10-11)
 
-## 添加了新的“预编译(AOT)"烹饪书(2016-10-11)
+## 添加了新的“预编译(AOT)" 指南(2016-10-11)
 
 The NEW [Ahead of time (AOT) Compilation](guide/aot-compiler) guide
 explains what AOT compilation is and why you'd want it.
 It demonstrates the basics with a QuickStart app
 followed by the more advanced considerations of compiling and bundling the Tour of Heroes.
 
-全新[预编译(AOT)](guide/aot-compiler)烹饪书介绍了什么是 AOT 编译和为何你需要它。
+全新[预编译(AOT)](guide/aot-compiler)指南介绍了什么是 AOT 编译和为何你需要它。
 它以**快速上手**应用程序开始讲解，接着介绍了编译和构建**英雄指南**的更高级的注意事项。
 
 ## Sync with Angular v.2.0.2 (2016-10-6)
@@ -365,16 +365,16 @@ All guided samples with routing use the _Routing Module_ and prose content has b
 most conspicuously in the
 [NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular 模块（NgModule）](guide/ngmodules)章和[Angular 模块常见问题](guide/ngmodule-faq)烹饪书。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular 模块（NgModule）](guide/ngmodules)章和[Angular 模块常见问题](guide/ngmodule-faq)指南。
 
 ## New "Internationalization" guide (2016-09-30)
 
-## 全新“国际化”烹饪书(2016-09-30)
+## 全新“国际化”指南(2016-09-30)
 
 Added a new [Internationalization (i18n)](guide/i18n) guide that shows how
 to use Angular "i18n" facilities to translate template text into multiple languages.
 
-添加了新的[国际化(i18n)](guide/i18n)烹饪书，展示了如何使用 Angular 的“i18n”工具来讲模板文本翻译到多种语言。
+添加了新的[国际化(i18n)](guide/i18n)指南，展示了如何使用 Angular 的“i18n”工具来讲模板文本翻译到多种语言。
 
 ## "angular-in-memory-web-api" package rename (2016-09-27)
 
@@ -403,10 +403,10 @@ Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.
 
-[StyleGuide](guide/styleguide)解释了我们为 Angular 模块（NgModule）而推荐的约定。
+[StyleGuide](guide/styleguide)解释了 Angular 模块（NgModule）推荐的约定。
 现在，封装桶不再那么重要，风格指南已经移除了它们。
 它们仍然很有价值，但是它们与 Angular 风格无关。
-我们同时对**不推荐使用 `@Component.host` 属性**的规则有所放宽。
+同时，**不推荐使用 `@Component.host` 属性**的规则也有所放宽。
 
 ## _moduleId: module.id_ everywhere (2016-09-25)
 
@@ -417,7 +417,7 @@ have been converted to _module-relative_ URLs.
 Added the `moduleId: module.id` property-and-value to their `@Component` metadata.
 
 在所有使用 `templateUrl` 或者 `styleUrls` 来获取模板或样式的例子组件都被转换为**相对模块**的 URL。
-我们添加了 `moduleId: module.id` 到它们的 `@Component` 元数据。
+把 `moduleId: module.id` 添加到了它们的 `@Component` 元数据。
 
 This change is a requirement for compilation with AOT compiler when the app loads
 modules with SystemJS as the samples currently do.
@@ -430,6 +430,5 @@ modules with SystemJS as the samples currently do.
 
 The [Lifecycle Hooks](guide/lifecycle-hooks) guide is shorter, simpler, and
 draws more attention to the order in which Angular calls the hooks.
-
 
 [生命周期钩子](guide/lifecycle-hooks)章现在更加简短，并且对强调了 Angular 是以什么顺序来调用钩子方法的。

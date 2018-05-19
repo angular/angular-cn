@@ -1,3 +1,9 @@
+.find-missing-translations {
+  [translation-result], code-tabs, code-example, img, code, pre, .filetree {
+    display: none;
+  }
+}
+
 [translation-result] + [translation-origin=off] {
   display: none;
 }

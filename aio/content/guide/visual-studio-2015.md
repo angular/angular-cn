@@ -41,7 +41,7 @@ then consider the _experimental_
 Note that the resulting code does not map to the docs. Adjust accordingly.   
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见_预览版_<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular template for Visual Studio 2015</a>。 
+    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。 
     注意，最终代码与本文不对应，请适当调节。
 
 </div>
@@ -57,11 +57,11 @@ if they are not already on your machine.
 
 <div class="l-sub-section">
 
-**Verify that you are running node version `4.6.x` or greater, and npm `3.x.x` or greater**
+**Verify that you are running Node.js version `8.x` or greater, and npm `5.x` or greater**
 by running `node -v` and `npm -v` in a terminal window.
 Older versions produce errors.
 
-在终端或者控制台中运行 `node -v` 和 `npm -v`，**请确认你的 Node 版本为 `4.6.x` 或更高，npm 的版本为 `3.x.x` 或更高**。老版本会引起错误。
+在终端或者控制台中运行 `node -v` 和 `npm -v`，**请确认你的 Node.js 版本为 `8.x` 或更高，npm 的版本为 `5.x` 或更高**。老版本会引起错误。
 
 </div>
 
@@ -101,7 +101,7 @@ Configure Visual Studio to use the global external web tools instead of the tool
   * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
     use the external tools (such as npm) found in the global path before using its own version of the external tools.
 
-     * 在右侧，将 `$(PATH)` 移动到 `$(DevEnvDir`)上面。这样，Visual Stuio 就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如 npm）。
+     在右侧，将 `$(PATH)` 移动到 `$(DevEnvDir`)上面。这样，Visual Stuio 就会在使用自带的外部工具时，优先使用全局路径中的外部工具（比如 npm）。
 
   * Click OK to close the dialog.
 
@@ -145,7 +145,7 @@ You can find out more about TypeScript 2.2 support in Visual studio **[here](htt
 At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
 restart it to make sure everything is clean.
 
-至此，Visual Studio 准备好了。重新启动 Visual Stuido，这样我们可以有一个崭新的开始。
+至此，Visual Studio 已经准备好了。重新启动 Visual Studio，这样就可以有一个崭新的开始了。
 
 <h2 id='download'>Step 1: Download the QuickStart files</h2>
 
@@ -222,7 +222,7 @@ Include the files in the Visual Studio project as follows:
 
 <h2 id='restore'>Step 4: Restore the required packages</h2>
 
-<h2 id='restore'> 第四步: 恢复需要的包 </h2>
+<h2 id='restore'>第四步: 恢复需要的包 </h2>
 
 Restore the packages required for an Angular application as follows:
 
@@ -275,7 +275,7 @@ Most Visual Studio developers like to press the F5 key and see the IIS server co
 To use the IIS server with the QuickStart app, you must make the following three changes. 
 
 大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
-要在这个《快速上手》应用中使用 IIS 服务器，我们要做下列修改：
+要在这个《快速上手》应用中使用 IIS 服务器，你要做下列修改：
 
 1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
 
@@ -296,7 +296,7 @@ change the npm `path` to `/node_modules/` with a slash.
 After these changes, `npm start` no longer works.
 You must choose to configure _either_ for F5 with IIS _or_ for  `npm start` with the lite-server.
 
-做完这些修改之后，`npm start` 不再工作了。我们必须选择配置为 IIS + F5，还是 `npm start` + lite-server。
+做完这些修改之后，`npm start` 不再工作了。你必须选择配置为 IIS + F5，还是 `npm start` + lite-server。
 
 </div>
 
@@ -315,21 +315,21 @@ Everything seems fine while you move about _within_ the app.
 But you'll see the problem right away if you refresh the browser
 or paste a link to an app page (called a "deep link") into the browser address bar.
 
-当我们在应用*内部*移动时，看起来一切正常。但是如果刷新浏览器，或者在地址栏中输入一个到具体页面的地址（也就是"深链接"）时，问题就来了。
+当你在应用*内部*移动时，看起来一切正常。但是如果刷新浏览器，或者在地址栏中输入一个到具体页面的地址（也就是"深链接"）时，问题就来了。
 
 You'll most likely get a *404 - Page Not Found* response from the server
 for any address other than `/` or `/index.html`.
 
-我们很可能从服务器得到得到*404 - 页面不存在* —— 只有 `/` 或 `/index.html` 例外。
+你很可能从服务器得到得到*404 - 页面不存在* —— 只有 `/` 或 `/index.html` 例外。
 
 You have to configure the server to return `index.html` for requests to these "unknown" pages.
 The `lite-server` development server does out-of-the-box.
 If you've switched over to F5 and IIS, you have to configure IIS to do it.
 This section walks through the steps to adapt the QuickStart application.
 
-我们就要配置服务器，为那些"未知"的页面返回 `index.html`。
-`lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，我们就要自己来配置 IIS 实现它了。
-接下来我们就看看对快速起步应用做配置的步骤。
+你就要配置服务器，为那些"未知"的页面返回 `index.html`。
+`lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，你就要自己来配置 IIS 实现它了。
+接下来看看对快速起步应用做配置的步骤。
 
 #### Configure IIS rewrite rules
 
@@ -348,7 +348,6 @@ rewrite rules near the bottom of the `web.config`:
 通过把下列重写规则添加到 `web.config` 的底部，就可以告诉 Visual Studio 如何处理到应用页面的请求。
 
 <code-example format='.'>
-
   &lt;system.webServer&gt;
     &lt;rewrite&gt;
       &lt;rules&gt;
@@ -371,7 +370,7 @@ rewrite rules near the bottom of the `web.config`:
 The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
 you want some requests to get through, such as web API requests. 
 
-匹配 url `<match url=".*" />` 语句将会重写每一个请求。如果需要直接放行某些请求，比如一些 Web API 请求，我们就必须调整它才行。
+匹配 url `<match url=".*" />` 语句将会重写每一个请求。如果需要直接放行某些请求，比如一些 Web API 请求，你就必须调整它才行。
 
 The URL in `<action type="Rewrite" url="/src/"/>` should 
 match the base href in `index.html`.
@@ -397,7 +396,6 @@ The default browser opens and displays the QuickStart sample application.
 默认浏览器打开并显示《快速上手》例子应用。
 
 Try editing any of the project files. Save and refresh the browser to
-see the changes. 
-
+see the changes.
 
 尝试编辑任何项目文件，*保存*并刷新浏览器来查看效果。

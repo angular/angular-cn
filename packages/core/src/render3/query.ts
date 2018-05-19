@@ -8,7 +8,7 @@
 
 // We are temporarily importing the existing viewEngine_from core so we can be sure we are
 // correctly implementing its interfaces for backwards compatibility.
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {EventEmitter} from '../event_emitter';
 import {QueryList as viewEngine_QueryList} from '../linker/query_list';
@@ -20,7 +20,7 @@ import {ReadFromInjectorFn, getOrCreateNodeInjectorForNode} from './di';
 import {assertPreviousIsParent, getCurrentQueries, store} from './instructions';
 import {DirectiveDef, unusedValueExportToPlacateAjd as unused1} from './interfaces/definition';
 import {LInjector, unusedValueExportToPlacateAjd as unused2} from './interfaces/injector';
-import {LContainerNode, LElementNode, LNode, LNodeFlags, TNode, unusedValueExportToPlacateAjd as unused3} from './interfaces/node';
+import {LContainerNode, LElementNode, LNode, TNode, TNodeFlags, unusedValueExportToPlacateAjd as unused3} from './interfaces/node';
 import {LQueries, QueryReadType, unusedValueExportToPlacateAjd as unused4} from './interfaces/query';
 import {flatten} from './util';
 
@@ -193,14 +193,15 @@ function getIdxOfMatchingSelector(tNode: TNode, selector: string): number|null {
  * @param type Type of a directive to look for.
  * @returns Index of a found directive or null when none found.
  */
-function geIdxOfMatchingDirective(node: LNode, type: Type<any>): number|null {
-  const tData = node.view.tView.data;
-  const flags = node.flags;
-  for (let i = flags >> LNodeFlags.INDX_SHIFT,
-           ii = i + ((flags & LNodeFlags.SIZE_MASK) >> LNodeFlags.SIZE_SHIFT);
-       i < ii; i++) {
-    const def = tData[i] as DirectiveDef<any>;
-    if (def.diPublic && def.type === type) {
+function getIdxOfMatchingDirective(node: LNode, type: Type<any>): number|null {
+  const defs = node.view.tView.directives !;
+  const flags = node.tNode !.flags;
+  const count = flags & TNodeFlags.DirectiveCountMask;
+  const start = flags >> TNodeFlags.DirectiveStartingIndexShift;
+  const end = start + count;
+  for (let i = start; i < end; i++) {
+    const def = defs[i] as DirectiveDef<any>;
+    if (def.type === type && def.diPublic) {
       return i;
     }
   }
@@ -213,9 +214,9 @@ function readFromNodeInjector(
   if (read instanceof ReadFromInjectorFn) {
     return read.read(nodeInjector, node, directiveIdx);
   } else {
-    const matchingIdx = geIdxOfMatchingDirective(node, read as Type<any>);
+    const matchingIdx = getIdxOfMatchingDirective(node, read as Type<any>);
     if (matchingIdx !== null) {
-      return node.view.data[matchingIdx];
+      return node.view.directives ![matchingIdx];
     }
   }
   return null;
@@ -227,7 +228,7 @@ function add(query: LQuery<any>| null, node: LNode) {
     const predicate = query.predicate;
     const type = predicate.type;
     if (type) {
-      const directiveIdx = geIdxOfMatchingDirective(node, type);
+      const directiveIdx = getIdxOfMatchingDirective(node, type);
       if (directiveIdx !== null) {
         // a node is matching a predicate - determine what to read
         // if read token and / or strategy is not specified, use type as read token

@@ -5,7 +5,7 @@
 The _Tour of Heroes_ tutorial covers the fundamentals of Angular.  
 In this tutorial you will build an app that helps a staffing agency manage its stable of heroes.
 
-**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，你将构建一个应用，来帮助招聘机构来管理一群英雄。
+**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
 
 This basic app has many of the features you'd expect to find in a data-driven application.
 It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
@@ -19,7 +19,7 @@ By the end of the tutorial you will be able to do the following:
 
 * Use built-in Angular directives to show and hide elements and display lists of hero data.
 
-   使用内置指令来显示 / 隐藏元素，并且显示英雄数据的列表。
+   使用内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
 
 * Create Angular components to display hero details and show an array of heroes.
 

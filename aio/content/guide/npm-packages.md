@@ -6,9 +6,9 @@
 
  [**Angular CLI**](https://cli.angular.io/)、Angular 应用程序以及 Angular 本身都依赖于很多第三方包(包括 Angular 自己)提供的特性和功能。这些都是 [**npm**](https://docs.npmjs.com/) 包。
 
-You can download and install these npm packages with the [**npm client**](https://docs.npmjs.com/cli/install), which runs as a node.js application.
+You can download and install these npm packages with the [**npm client**](https://docs.npmjs.com/cli/install), which runs as a Node.js® application.
 
-你可以使用 [**npm**](https://docs.npmjs.com/cli/install) 来安装这些 npm 包，npm 命令也是一个 node.js 应用。
+你可以使用 [**npm**](https://docs.npmjs.com/cli/install) 来安装这些 npm 包，npm 命令也是一个 Node.js® 应用。
 
 The [**yarn client**](https://yarnpkg.com/en/) is a popular alternative for downloading and installing npm packages.
 The Angular CLI uses `yarn` by default to install npm packages when you create a new project.
@@ -27,24 +27,24 @@ if they're not already installed on your machine.
 
 如果你的电脑上还没有装过，请 [立即获取它们](https://docs.npmjs.com/getting-started/installing-node "Installing Node.js and updating npm")！
 
-**Verify that you are running node `v4.x.x` or higher and npm `3.x.x` or higher**
+**Verify that you are running Node.js `v8.x` or higher and npm `5.x` or higher**
 by running the commands `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
-在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v4.x.x` 或更高，npm 为 `3.x.x` 或更高。**
+在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v8.x` 或更高，npm 为 `5.x` 或更高。**
 老版本会产生错误。
 
 Consider using [nvm](https://github.com/creationix/nvm) for managing multiple
-versions of node and npm. You may need [nvm](https://github.com/creationix/nvm) if
-you already have projects running on your machine that use other versions of node and npm.
+versions of Node.js and npm. You may need [nvm](https://github.com/creationix/nvm) if
+you already have projects running on your machine that use other versions of Node.js and npm.
 
-我们建议使用[nvm](https://github.com/creationix/nvm)来管理 node 和 npm 的多个版本。如果你机器上已经有某些项目运行了 node 和 npm 的其它版本，你就会需要[nvm](https://github.com/creationix/nvm)了。
+建议使用[nvm](https://github.com/creationix/nvm)来管理 node 和 npm 的多个版本。如果你机器上已经有某些项目运行了 Node.js 和 npm 的其它版本，你就会需要[nvm](https://github.com/creationix/nvm)了。
 
 </div>
 
 ## _package.json_
 
-Both `npm` and `yarn` install packages identified in a [**package.json**](https://docs.npmjs.com/files/package.json) file.
+Both `npm` and `yarn` install packages that are identified in a [**package.json**](https://docs.npmjs.com/files/package.json) file.
 
 无论是 `npm` 还是 `yarn`，所安装的包都记录在 [**package.json**](https://docs.npmjs.com/files/package.json) 文件中。
 
@@ -58,7 +58,7 @@ CLI 的 `ng new` 命令会给项目创建一个默认的 `package.json` 文件�
 You will add packages to `package.json` as your application evolves.
 You may even remove some.
 
-随着应用的成长，我们还会往 `package.json` 中添加更多包，甚至可能会移除一些。
+随着应用的成长，你还会往 `package.json` 中添加更多包，甚至可能会移除一些。
 
 This guide focuses on the most important packages in the starter set.
 
@@ -197,11 +197,11 @@ which polyfills missing features for several popular browser.
 
 The packages listed in the *devDependencies* section of the `package.json` help you develop the application on your local machine.
 
-`package.json` 的 *devDependencies* 区列出的这些包可以帮助我们在本机开发应用。
+`package.json` 的 *devDependencies* 区列出的这些包可以帮助你在本机开发应用。
 
 You don't deploy them with the production application although there is no harm in doing so.
 
-我们不必在生产环境的应用中部署它们，当然，就算部署了也没什么坏处。
+你不必在生产环境的应用中部署它们，当然，就算部署了也没什么坏处。
 
 **[@angular/cli](https://github.com/angular/angular-cli/)**: The Angular CLI tools.
 
@@ -216,9 +216,9 @@ For example, see the [Angular language service extension for VS Code](https://ma
 
 **[@angular/language-service](https://github.com/angular/angular-cli/)**：Angular 的语言服务会分析组件模板，并且提供类型信息和错误信息，那些支持 TypeScript 的编辑机器可以使用它们来提升开发体验。比如这个：[VS Code 的 Angular 语言服务扩展包](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template)
 
-**@types/... **: TypeScript definition files for 3rd party libraries such as Jasmine and node.
+**@types/... **: TypeScript definition files for 3rd party libraries such as Jasmine and Node.js.
 
-**@types/... **：第三方库（比如 Jasmine 和 node）的 TypeScript 类型定义文件。
+**@types/... **：第三方库（比如 Jasmine 和 Node.js）的 TypeScript 类型定义文件。
 
 **[codelyzer](https://www.npmjs.com/package/codelyzer)**: A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).
 
@@ -237,9 +237,9 @@ Built on top of [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDri
 
 **[protractor](https://www.npmjs.com/package/protractor)**：适用于 Angular 应用的端到端（e2e）框架。基于 [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) 构建。
 
-**[ts-node](https://www.npmjs.com/package/ts-node)**: TypeScript execution environment and REPL for node.
+**[ts-node](https://www.npmjs.com/package/ts-node)**: TypeScript execution environment and REPL for Node.js.
 
-**[ts-node](https://www.npmjs.com/package/ts-node)**：TypeScript 的运行环境以及在 node 环境下用的 REPL。
+**[ts-node](https://www.npmjs.com/package/ts-node)**：TypeScript 的运行环境以及在 Node.js 环境下用的 REPL。
 
 **[tslint](https://www.npmjs.com/package/tslint)**: a static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.
 
@@ -268,7 +268,7 @@ You can remove packages that you don't need but how can you be sure that you won
 As a practical matter, it's better to install a package you don't need than worry about it.
 Extra packages and package files on your local development machine are harmless.
 
-我们可以移除这些不需要的包，不过我们怎么知道哪些是不需要的呢？
+你可以移除这些不需要的包，不过你怎么知道哪些是不需要的呢？
 实际上，安装不需要的包好过担心缺少某个包。
 在你本机开发环境下存在无用的包和文件并没有害处。
 
@@ -279,6 +279,5 @@ The browser downloads this bundle, not the original package files.
 浏览器要下载的是这个包，而不是原始的包文件。
 
 See the [Deployment](guide/deployment) to learn more.
-
 
 参见[部署](guide/deployment)一章了解详情。

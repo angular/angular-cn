@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {LContainer, TContainer} from './container';
+import {LContainer} from './container';
 import {LInjector} from './injector';
 import {LProjection} from './projection';
 import {LQueries} from './query';
@@ -16,29 +16,29 @@ import {LView, TData, TView} from './view';
 
 
 /**
- * LNodeFlags corresponds to the LNode.flags property. It contains information
- * on how to map a particular set of bits in LNode.flags to the node type, directive
- * count, or directive starting index.
- *
- * For example, if you wanted to check the type of a certain node, you would mask
- * node.flags with TYPE_MASK and compare it to the value for a certain node type. e.g:
- *
- *```ts
- * if ((node.flags & LNodeFlags.TYPE_MASK) === LNodeFlags.Element) {...}
- *```
+ * LNodeType corresponds to the LNode.type property. It contains information
+ * on how to map a particular set of bits in LNode.flags to the node type.
  */
-export const enum LNodeFlags {
+export const enum LNodeType {
   Container = 0b00,
   Projection = 0b01,
   View = 0b10,
   Element = 0b11,
   ViewOrElement = 0b10,
-  SIZE_SKIP = 0b100,
-  SIZE_SHIFT = 2,
-  INDX_SHIFT = 12,
-  TYPE_MASK = 0b00000000000000000000000000000011,
-  SIZE_MASK = 0b00000000000000000000111111111100,
-  INDX_MASK = 0b11111111111111111111000000000000
+}
+
+/**
+ * Corresponds to the TNode.flags property.
+ */
+export const enum TNodeFlags {
+  /** The number of directives on this node is encoded on the least significant bits */
+  DirectiveCountMask = 0b00000000000000000000111111111111,
+
+  /** Then this bit is set when the node is a component */
+  isComponent = 0b1000000000000,
+
+  /** The index of the first directive on this node is encoded on the most significant bits  */
+  DirectiveStartingIndexShift = 13,
 }
 
 /**
@@ -58,17 +58,8 @@ export const enum LNodeFlags {
  * instructions.
  */
 export interface LNode {
-  /**
-   * This number stores three values using its bits:
-   *
-   * - the type of the node (first 2 bits)
-   * - the number of directives on that node (next 10 bits)
-   * - the starting index of the node's directives in the directives array (last 20 bits).
-   *
-   * The latter two values are necessary so DI can effectively search the directives associated
-   * with a node without searching the whole directives array.
-   */
-  flags: LNodeFlags;
+  /** The type of the node (see LNodeFlags) */
+  type: LNodeType;
 
   /**
    * The associated DOM node. Storing this allows us to:
@@ -134,6 +125,11 @@ export interface LNode {
    * data about this node.
    */
   tNode: TNode|null;
+
+  /**
+   * A pointer to a LContainerNode created by directives requesting ViewContainerRef
+   */
+  dynamicLContainerNode: LContainerNode|null;
 }
 
 
@@ -162,6 +158,7 @@ export interface LTextNode extends LNode {
   /** LTextNodes can be inside LElementNodes or inside LViewNodes. */
   readonly parent: LElementNode|LViewNode;
   readonly data: null;
+  dynamicLContainerNode: null;
 }
 
 /** Abstract node which contains root nodes of a view. */
@@ -173,6 +170,7 @@ export interface LViewNode extends LNode {
   /**  LViewNodes can only be added to LContainerNodes. */
   readonly parent: LContainerNode|null;
   readonly data: LView;
+  dynamicLContainerNode: null;
 }
 
 /** Abstract node container which contains other views. */
@@ -203,6 +201,7 @@ export interface LProjectionNode extends LNode {
 
   /** Projections can be added to elements or views. */
   readonly parent: LElementNode|LViewNode;
+  dynamicLContainerNode: null;
 }
 
 /**
@@ -217,6 +216,17 @@ export interface LProjectionNode extends LNode {
  * see: https://en.wikipedia.org/wiki/Flyweight_pattern for more on the Flyweight pattern
  */
 export interface TNode {
+  /**
+   * This number stores two values using its bits:
+   *
+   * - the number of directives on that node (first 12 bits)
+   * - the starting index of the node's directives in the directives array (last 20 bits).
+   *
+   * These two values are necessary so DI can effectively search the directives associated
+   * with a node without searching the whole directives array.
+   */
+  flags: TNodeFlags;
+
   /** The tag name associated with this node. */
   tagName: string|null;
 
@@ -273,21 +283,33 @@ export interface TNode {
   outputs: PropertyAliases|null|undefined;
 
   /**
-   * The static data equivalent of LNode.data.
+   * The TView or TViews attached to this node.
    *
-   * If this TNode corresponds to an LContainerNode, the container will
-   * need to store separate static data for each of its views (TContainer).
+   * If this TNode corresponds to an LContainerNode with inline views, the container will
+   * need to store separate static data for each of its view blocks (TView[]). Otherwise,
+   * nodes in inline views with the same index as nodes in their parent views will overwrite
+   * each other, as they are in the same template.
    *
-   * If this TNode corresponds to an LElementNode, data will be null.
+   * Each index in this array corresponds to the static data for a certain
+   * view. So if you had V(0) and V(1) in a container, you might have:
+   *
+   * [
+   *   [{tagName: 'div', attrs: ...}, null],     // V(0) TView
+   *   [{tagName: 'button', attrs ...}, null]    // V(1) TView
+   *
+   * If this TNode corresponds to an LContainerNode with a template (e.g. structural
+   * directive), the template's TView will be stored here.
+   *
+   * If this TNode corresponds to an LElementNode, tViews will be null .
    */
-  data: TContainer|null;
+  tViews: TView|TView[]|null;
 }
 
 /** Static data for an LElementNode  */
-export interface TElementNode extends TNode { data: null; }
+export interface TElementNode extends TNode { tViews: null; }
 
 /** Static data for an LContainerNode */
-export interface TContainerNode extends TNode { data: TContainer; }
+export interface TContainerNode extends TNode { tViews: TView|TView[]|null; }
 
 /**
  * This mapping is necessary so we can set input properties and output listeners

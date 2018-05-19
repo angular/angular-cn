@@ -13,7 +13,7 @@ const SHARED_PATH = path.join(__dirname, '/shared');
 const EXAMPLES_PATH = path.join(AIO_PATH, './content/examples/');
 const PROTRACTOR_CONFIG_FILENAME = path.join(__dirname, './shared/protractor.config.js');
 const SJS_SPEC_FILENAME = 'e2e-spec.ts';
-const CLI_SPEC_FILENAME = 'e2e/app.e2e-spec.ts';
+const CLI_SPEC_FILENAME = 'e2e/src/app.e2e-spec.ts';
 const EXAMPLE_CONFIG_FILENAME = 'example-config.json';
 const IGNORED_EXAMPLES = [ // temporary ignores
   'quickstart',
@@ -147,7 +147,7 @@ function runProtractorSystemJS(prepPromise, appDir, appRunSpawnInfo, outputFile)
       let transpileError = false;
 
       // Start protractor.
-
+      console.log(`\n\n=========== Running aio example tests for: ${appDir}`);
       const spawnInfo = spawnExt('yarn', ['protractor',
         PROTRACTOR_CONFIG_FILENAME,
         `--specs=${specFilename}`,
@@ -199,9 +199,10 @@ function runProtractorAoT(appDir, outputFile) {
 // All protractor output is appended to the outputFile.
 // CLI version
 function runE2eTestsCLI(appDir, outputFile) {
+  console.log(`\n\n=========== Running aio example tests for: ${appDir}`);
   // `--preserve-symlinks` is needed due the symlinked `node_modules/` in each example.
   // `--no-webdriver-update` is needed to preserve the ChromeDriver version already installed.
-  const args = ['e2e', '--preserve-symlinks', '--no-webdriver-update'];
+  const args = ['e2e', '--no-webdriver-update'];
   const e2eSpawn = spawnExt('yarn', args, { cwd: appDir });
   return e2eSpawn.promise.then(
     function () {

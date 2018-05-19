@@ -6,11 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
-import {Subscription} from 'rxjs/Subscription';
-import {merge} from 'rxjs/observable/merge';
-import {share} from 'rxjs/operator/share';
+import {Observable, Observer, Subscription, merge} from 'rxjs';
+import {share} from 'rxjs/operators';
 
 import {ErrorHandler} from '../src/error_handler';
 import {scheduleMicroTask, stringify} from '../src/util';
@@ -44,7 +41,7 @@ export const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken<boolean>('AllowMultip
  * does not result in additional changes to any bindings (also known as
  * unidirectional data flow).
  *
- * @stable
+ *
  */
 export function enableProdMode(): void {
   if (_runModeLocked) {
@@ -163,7 +160,7 @@ export function getPlatform(): PlatformRef|null {
 /**
  * Provides additional options to the bootstraping process.
  *
- * @stable
+ *
  */
 export interface BootstrapOptions {
   /**
@@ -184,7 +181,7 @@ export interface BootstrapOptions {
  * A page's platform is initialized implicitly when a platform is created via a platform factory
  * (e.g. {@link platformBrowser}), or explicitly by calling the {@link createPlatform} function.
  *
- * @stable
+ *
  */
 @Injectable()
 export class PlatformRef {
@@ -265,7 +262,7 @@ export class PlatformRef {
    *
    * let moduleRef = platformBrowser().bootstrapModule(MyModule);
    * ```
-   * @stable
+   *
    */
   bootstrapModule<M>(
       moduleType: Type<M>, compilerOptions: (CompilerOptions&BootstrapOptions)|
@@ -362,7 +359,7 @@ function optionsReducer<T extends Object>(dst: any, objs: T | T[]): T {
 /**
  * A reference to an Angular application running on a page.
  *
- * @stable
+ *
  */
 @Injectable()
 export class ApplicationRef {
@@ -445,7 +442,7 @@ export class ApplicationRef {
     });
 
     (this as{isStable: Observable<boolean>}).isStable =
-        merge(isCurrentlyStable, share.call(isStable));
+        merge(isCurrentlyStable, isStable.pipe(share()));
   }
 
   /**

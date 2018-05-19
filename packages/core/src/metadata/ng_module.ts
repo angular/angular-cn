@@ -6,14 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Provider} from '../di';
+import {InjectorDef, InjectorType, defineInjector} from '../di/defs';
+import {convertInjectableProviderToFactory} from '../di/injectable';
+import {Provider} from '../di/provider';
 import {Type} from '../type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
+
 
 /**
  * A wrapper around a module that also includes the providers.
  *
- * @stable
+ *
  */
 export interface ModuleWithProviders {
   ngModule: Type<any>;
@@ -33,7 +36,7 @@ export interface SchemaMetadata { name: string; }
  * - any properties on elements with a `-` in their name which is the common rule for custom
  * elements.
  *
- * @stable
+ *
  */
 export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
   name: 'custom-elements'
@@ -52,7 +55,7 @@ export const NO_ERRORS_SCHEMA: SchemaMetadata = {
 /**
  * Type of the NgModule decorator / constructor function.
  *
- * @stable
+ *
  */
 export interface NgModuleDecorator {
   /**
@@ -65,7 +68,7 @@ export interface NgModuleDecorator {
 /**
  * Type of the NgModule metadata.
  *
- * @stable
+ *
  */
 export interface NgModule {
   /**
@@ -187,8 +190,20 @@ export interface NgModule {
 /**
  * NgModule decorator and metadata.
  *
- * @stable
+ *
  * @Annotation
  */
-export const NgModule: NgModuleDecorator =
-    makeDecorator('NgModule', (ngModule: NgModule) => ngModule);
+export const NgModule: NgModuleDecorator = makeDecorator(
+    'NgModule', (ngModule: NgModule) => ngModule, undefined, undefined,
+    (moduleType: InjectorType<any>, metadata: NgModule) => {
+      let imports = (metadata && metadata.imports) || [];
+      if (metadata && metadata.exports) {
+        imports = [...imports, metadata.exports];
+      }
+
+      moduleType.ngInjectorDef = defineInjector({
+        factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
+        providers: metadata && metadata.providers,
+        imports: imports,
+      });
+    });

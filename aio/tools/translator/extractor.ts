@@ -1,8 +1,9 @@
 import * as globby from 'globby';
 import { DictEntry } from './dict-entry';
 import {
+  extractOriginalContent,
   isNotCnPages,
-  isOnlyBeginTag,
+  isOnlyBeginTag, hasInlineText, kernelText,
   normalizeLines,
   originalIsNotChinese,
   originalIsNotCodeExampleTag,
@@ -29,7 +30,14 @@ export function gatherTranslations(text: string): DictEntry[] {
   const result = [];
   for (let i = 1; i < lines.length; ++i) {
     const translation = purifyText(lines[i]);
-    if (isTranslation(translation)) {
+    if (hasInlineText(translation)) {
+      const originalContent = extractOriginalContent(translation);
+      result.push({
+        key: kernelText(originalContent),
+        original: originalContent,
+        translation
+      });
+    } else if (isTranslation(translation)) {
       const original = purifyText(lines[i - 1]);
       // 对于包裹在 html tag 中的翻译文本进行特殊处理
       if (isOnlyBeginTag(original)) {
@@ -38,18 +46,18 @@ export function gatherTranslations(text: string): DictEntry[] {
         const thisEndTag = lines[i + 1].trim();
         if (original === prevBeginTag && prevEndTag === thisEndTag) {
           result.push({
+            key: kernelText(lines[i - 3]),
             original: lines[i - 3],
             translation: lines[i],
           });
         }
       } else {
-        result.push({original, translation});
+        result.push({key: kernelText(original), original, translation});
       }
     }
   }
   return result
     .filter(isNotCnPages)
-    .filter(translationHasNotCodeExample)
     .filter(originalIsNotChinese)
     .filter(originalIsNotSpecialDivTag)
     .filter(originalIsNotCodeExampleTag)
@@ -84,6 +92,7 @@ export function purifyText(text): string {
 
 export function purifyEntry(entry: DictEntry): DictEntry {
   return {
+    key: entry.key,
     original: purifyText(entry.original),
     translation: purifyText(entry.translation),
   };

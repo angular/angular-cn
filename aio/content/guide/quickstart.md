@@ -18,12 +18,12 @@ application in TypeScript, using the Angular CLI
 while adhering to the [Style Guide](guide/styleguide) recommendations that
 benefit _every_ Angular project.
 
-在这一章 CLI 快速起步中，我们的目标是构建并运行一个超级简单的 Angular 应用。我们会使用 Angular-CLI 来让每个 Angular 应用从[风格指南](guide/styleguide)中获益。
+本章的目标是构建并运行一个超级简单的 TypeScript Angular 应用。使用 Angular CLI 来让*每个* Angular 应用从[风格指南](guide/styleguide)的那些建议中获益。
 
 By the end of the chapter, you'll have a basic understanding of development with the CLI
 and a foundation for both these documentation samples and for real world applications.
 
-在本章的末尾，我们会通过 CLI 对开发过程有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
+在本章的末尾，你会对用 CLI 进行开发有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
 And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blank">download the example.</a>
 
@@ -35,7 +35,7 @@ And you can also <a href="generated/zips/cli-quickstart/cli-quickstart.zip" targ
 
 You need to set up your development environment before you can do anything.
 
-在开始工作之前，我们必须设置好开发环境。
+在开始工作之前，你必须设置好开发环境。
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
@@ -44,22 +44,21 @@ if they are not already on your machine.
 
 <div class="l-sub-section">
 
-**Verify that you are running at least node `6.9.x` and npm `3.x.x`**
+**Verify that you are running at least Node.js version `8.x` or greater and npm version `5.x` or greater**
 by running `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors, but newer versions are fine.
 
 请先在终端/控制台窗口中运行命令 `node -v` 和 `npm -v`，
-**来验证一下你正在运行 node `6.9.x` 和 npm `3.x.x` 以上的版本。**
+**来验证一下你正在运行 node `8.x` 和 npm `5.x` 以上的版本。**
 更老的版本可能会出现错误，更新的版本则没问题。
 
 </div>
 
-Then **install the [Angular CLI](https://github.com/angular/angular-cli)** globally.
+Then install the [Angular CLI](https://github.com/angular/angular-cli) globally.
 
-然后全局安装 **[Angular CLI](https://github.com/angular/angular-cli)** 。
+然后全局安装 [Angular CLI](https://github.com/angular/angular-cli)。
 
 <code-example language="sh" class="code-shell">
-
   npm install -g @angular/cli
 
 </code-example>
@@ -72,23 +71,32 @@ Open a terminal window.
 
 打开终端窗口。
 
-Generate a new project and skeleton application by running the following commands:
+Generate a new project and default app by running the following command:
 
-运行下列命令来生成一个新项目以及应用的骨架代码：
+运行下列命令来生成一个新项目以及默认的应用代码：
 
 <code-example language="sh" class="code-shell">
-
   ng new my-app
 
 </code-example>
 
+The Angular CLI installs the necessary npm packages, creates the project files, and populates the project with a simple default app. This can take some time.
+
+Angular CLI 会安装必要的 NPM 包、创建项目文件，并在该项目中生成一个简单的默认应用。这可能要花一点时间。
+
 <div class="l-sub-section">
 
-Patience, please.
-It takes time to set up a new project; most of it is spent installing npm packages.
+You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
+For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
 
-请耐心等待。
-创建新项目需要花费很多时间，大多数时候都是在安装那些 npm 包。
+你可以使用 `ng add` 命令往新项目中添加一些预先打包好的功能。
+`ng add` 命令会通过应用来自特定 NPM 包中的图纸（schematic）来转换此项目。
+要了解更多，参见 [Angular CLI 文档](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation")。
+
+Angular Material provides schematics for typical app layouts. 
+See the [Angular Material documentation](https://material.angular.io/guides "Angular Material documentation") for details.
+
+比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.io/guides "Angular Material documentation")。
 
 </div>
 
@@ -101,10 +109,8 @@ Go to the project directory and launch the server.
 进入项目目录，并启动服务器。
 
 <code-example language="sh" class="code-shell">
-
   cd my-app
   ng serve --open
-
 </code-example>
 
 The `ng serve` command launches the server, watches your files,
@@ -127,25 +133,25 @@ Your app greets you with a message:
 
 <h2 id='first-component'>Step 4: Edit your first Angular component</h2>
 
-<h2 id='first-component'>步骤 4. 编辑我们的第一个 Angular 组件</h2>
+<h2 id='first-component'>步骤 4. 编辑你的第一个 Angular 组件</h2>
 
 The CLI created the first Angular component for you.
 This is the _root component_ and it is named `app-root`.
 You can find it in `./src/app/app.component.ts`.
 
-这个 CLI 为我们创建了第一个 Angular 组件。
+这个 CLI 为你创建了第一个 Angular 组件。
 它就是名叫 `app-root` 的*根组件*。
 你可以在 `./src/app/app.component.ts` 目录下找到它。
 
-Open the component file and change the `title` property from _Welcome to app!!_ to _Welcome to My First Angular App!!_:
+Open the component file and change the `title` property from `'app'` to `'My First Angular App!'`.
 
-打开这个组件文件，并且把 `title` 属性从 _Welcome to app!!_ 改为 _Welcome to My First Angular App!!_ ：
+打开这个组件文件，并且把 `title` 属性从 `'app'` 改为 `'My First Angular App!'`：
 
 <code-example path="cli-quickstart/src/app/app.component.ts" region="title" title="src/app/app.component.ts" linenums="false"></code-example>
 
 The browser reloads automatically with the revised title. That's nice, but it could look better.
 
-浏览器会自动刷新，而我们会看到修改之后的标题。不错，不过它还可以更好看一点。
+浏览器会自动刷新，并具有修改之后的标题。不错，不过它还可以更好看一点。
 
 Open `src/app/app.component.css` and give the component some style.
 
@@ -167,7 +173,7 @@ Looking good!
 
 That's about all you'd expect to do in a "Hello, World" app.
 
-如你所愿，我们完成了这个“Hello, World”应用。
+这就是你期待这个 “Hello, World” 应用要做的。
 
 You're ready to take the [Tour of Heroes Tutorial](tutorial) and build
 a small application that demonstrates the great things you can build with Angular.
@@ -199,7 +205,7 @@ Whenever you want to know more about how Angular CLI works make sure to visit
 
 Some of the generated files might be unfamiliar to you.
 
-有些生成的文件你可能觉得陌生。接下来我们就讲讲它们。
+有些生成的文件你可能觉得陌生。
 
 ### The `src` folder
 
@@ -253,9 +259,13 @@ Any files outside of this folder are meant to support building your app.
 
     </div>
 
+    <div class="file">browserslist</div>
+
     <div class="file">favicon.ico</div>
 
     <div class="file">index.html</div>
+
+    <div class="file">karma.conf.js</div>
 
     <div class="file">main.ts</div>
 
@@ -268,6 +278,8 @@ Any files outside of this folder are meant to support building your app.
     <div class="file">tsconfig.app.json</div>
 
     <div class="file">tsconfig.spec.json</div>
+
+    <div class="file">tslint.json</div>
 
   </div>
 
@@ -282,7 +294,6 @@ Any files outside of this folder are meant to support building your app.
   </col>
   <col width="80%">
   </col>
-
   <tr>
 
     <th>
@@ -302,7 +313,6 @@ Any files outside of this folder are meant to support building your app.
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -323,7 +333,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -345,7 +354,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -364,7 +372,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -385,14 +392,30 @@ Any files outside of this folder are meant to support building your app.
 
       这个文件夹中包括为各个目标环境准备的文件，它们导出了一些应用中要用到的配置变量。
       这些文件会在构建应用时被替换。
-      比如你可能在产品环境中使用不同的 API 端点地址，或使用不同的统计 Token 参数。
+      比如你可能在生产环境中使用不同的 API 端点地址，或使用不同的统计 Token 参数。
       甚至使用一些模拟服务。
       所有这些，CLI 都替你考虑到了。
 
     </td>
 
   </tr>
+  <tr>
 
+    <td>
+
+      `browserslist`
+
+    </td>
+
+    <td>
+
+      A configuration file to share [target browsers](https://github.com/browserslist/browserslist) between different front-end tools.
+
+      一个配置文件，用来在不同的前端工具之间共享[目标浏览器](https://github.com/browserslist/browserslist)。
+
+    </td>
+
+  </tr>  
   <tr>
 
     <td>
@@ -412,7 +435,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -435,7 +457,24 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+  <tr>
 
+    <td>
+
+      `karma.conf.js`
+
+    </td>
+
+    <td>
+
+      Unit test configuration for the [Karma test runner](https://karma-runner.github.io),
+      used when running `ng test`.
+
+      给[Karma](https://karma-runner.github.io)的单元测试配置，当运行 `ng test` 时会用到它。
+
+    </td>
+
+  </tr>  
   <tr>
 
     <td>
@@ -453,13 +492,12 @@ Any files outside of this folder are meant to support building your app.
       without changing any code by appending the`--aot` flag to the `ng build` and `ng serve` commands.
 
       这是应用的主要入口点。
-      使用[JIT compiler](guide/glossary#jit)编译器编译本应用，并启动应用的根模块 `AppModule`，使其运行在浏览器中。
-      你还可以使用[AOT compiler](guide/glossary#ahead-of-time-aot-compilation)编译器，而不用修改任何代码 —— 只要给 `ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
+      使用[JIT 编译器](guide/glossary#jit)编译本应用，并启动应用的根模块 `AppModule`，使其运行在浏览器中。
+      你还可以使用[AOT 编译器](guide/glossary#ahead-of-time-aot-compilation)，而不用修改任何代码 —— 只要给 `ng build` 或 `ng serve` 传入 `--aot` 参数就可以了。
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -476,13 +514,12 @@ Any files outside of this folder are meant to support building your app.
       the [Browser Support guide](guide/browser-support) for more information.
 
       不同的浏览器对 Web 标准的支持程度也不同。
-      腻子脚本（polyfill）能帮我们把这些不同点进行标准化。
+      腻子脚本（polyfill）能把这些不同点进行标准化。
       你只要使用 `core-js` 和 `zone.js` 通常就够了，不过你也可以查看[浏览器支持指南](guide/browser-support)以了解更多信息。
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -503,7 +540,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -524,7 +560,6 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -543,7 +578,26 @@ Any files outside of this folder are meant to support building your app.
     </td>
 
   </tr>
+  <tr>
 
+    <td>
+
+      `tslint.json`
+
+    </td>
+
+    <td>
+
+      Additional Linting configuration for [TSLint](https://palantir.github.io/tslint/) together with
+      [Codelyzer](http://codelyzer.com/), used when running `ng lint`.
+      Linting helps keep your code style consistent.
+
+      额外的 Linting 配置。当运行 `ng lint` 时，它会供带有 [Codelyzer](http://codelyzer.com/) 的 [TSLint](https://palantir.github.io/tslint/) 使用。
+      Linting 可以帮你们保持代码风格的一致性。
+
+    </td>
+
+  </tr>  
 </table>
 
 ### The root folder
@@ -567,11 +621,19 @@ These files go in the root folder next to `src/`.
 
     <div class='children'>
 
-      <div class="file">app.e2e-spec.ts</div>
+      <div class="file">src</div>
 
-      <div class="file">app.po.ts</div>
+      <div class='children'>
+
+        <div class="file">app.e2e-spec.ts</div>
+
+        <div class="file">app.po.ts</div>
+
+      </div>      
 
       <div class="file">tsconfig.e2e.json</div>
+
+      <div class="file">protractor.conf.js</div>
 
     </div>
 
@@ -579,17 +641,19 @@ These files go in the root folder next to `src/`.
 
     <div class="file">src/...</div>
 
-    <div class="file">.angular-cli.json</div>
+    <div class='children'>
+
+      <div class="file">karma.conf.js</div>
+
+    </div>    
 
     <div class="file">.editorconfig</div>
 
     <div class="file">.gitignore</div>
 
-    <div class="file">karma.conf.js</div>
+    <div class="file">angular.json</div>
 
     <div class="file">package.json</div>
-
-    <div class="file">protractor.conf.js</div>
 
     <div class="file">README.md</div>
 
@@ -610,7 +674,6 @@ These files go in the root folder next to `src/`.
   </col>
   <col width="80%">
   </col>
-
   <tr>
 
     <th>
@@ -625,12 +688,11 @@ These files go in the root folder next to `src/`.
 
       Purpose
 
-      目的
+      用途
 
     </th>
 
   </tr>
-
   <tr>
 
     <td>
@@ -653,7 +715,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -672,30 +733,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
-  <tr>
-
-    <td>
-
-      `.angular-cli.json`
-
-    </td>
-
-    <td>
-
-      Configuration for Angular CLI.
-      In this file you can set several defaults and also configure what files are included
-      when your project is built.
-      Check out the official documentation if you want to know more.
-
-      Angular CLI 的配置文件。
-      在这个文件中，我们可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
-      要了解更多，请参阅它的官方文档。
-
-    </td>
-
-  </tr>
-
   <tr>
 
     <td>
@@ -717,7 +754,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -728,33 +764,35 @@ These files go in the root folder next to `src/`.
 
     <td>
 
-      Git configuration to make sure autogenerated files are not commited to source control.
+      Git configuration to make sure autogenerated files are not committed to source control.
 
       一个 Git 的配置文件，用来确保某些自动生成的文件不会被提交到源码控制系统中。
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
 
-      `karma.conf.js`
+      `angular.json`
 
     </td>
 
     <td>
 
-      Unit test configuration for the [Karma test runner](https://karma-runner.github.io),
-      used when running `ng test`.
+      Configuration for Angular CLI.
+      In this file you can set several defaults and also configure what files are included
+      when your project is built.
+      Check out the official documentation if you want to know more.
 
-      给[Karma](https://karma-runner.github.io)的单元测试配置，当运行 `ng test` 时会用到它。
+      Angular CLI 的配置文件。
+      在这个文件中，你可以设置一系列默认值，还可以配置项目编译时要包含的那些文件。
+      要了解更多，请参阅它的官方文档。
 
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -774,7 +812,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -793,7 +830,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -814,7 +850,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -832,7 +867,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
   <tr>
 
     <td>
@@ -853,7 +887,6 @@ These files go in the root folder next to `src/`.
     </td>
 
   </tr>
-
 </table>
 
 <div class="l-sub-section">
@@ -866,7 +899,7 @@ If you're new to Angular, continue with the
 [tutorial](tutorial "Tour of Heroes tutorial").
 You can skip the "Setup" step since you're already using the Angular CLI setup.
 
-如果你刚刚开始使用 Angular，我们建议你遵循这个[教程](tutorial "《英雄指南》教程")。
-你可以跳过“环境设置”一章，因为你已经在使用 Angular-CLI 设置好环境了。
+如果你刚刚开始使用 Angular，请继续这个[教程](tutorial "《英雄指南》教程")。
+你可以跳过“环境设置”一章，因为你已经在使用 Angular CLI 设置好环境了。
 
 </div>

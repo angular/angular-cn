@@ -49,7 +49,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 
 **Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakeable red header.
 
-**避免**标志着我们决不应该做的事。需要*避免*的代码范例会有明显的红色标题。
+**避免**标志着你决不应该做的事。需要*避免*的代码范例会有明显的红色标题。
 
 </div>
 
@@ -68,7 +68,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 Some code examples display a file that has one or more similarly named companion files.
 For example, `hero.component.ts` and `hero.component.html`.
 
-在一些代码例子中，有的文件有一个或多个相似名字的伴随文件。（例如 hero.component.ts 和 hero.component.html）。
+在一些代码例子中，有的文件有一个或多个相似名字的配套文件。（例如 hero.component.ts 和 hero.component.html）。
 
 The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 
@@ -305,7 +305,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Why?** Naming conventions help provide a consistent way to find content at a glance. Consistency within the project is vital. Consistency with a team is important. Consistency across a company provides tremendous efficiency.
 
-**为何？**命名约定提供了一致的方式来查找内容，让我们一眼就能锁定。
+**为何？**命名约定提供了一致的方式来查找内容，让你一眼就能找到。
 项目的一致性是至关重要的。团队内的一致性也很重要。整个公司的一致性会提供惊人的效率。
 
 </div>
@@ -314,7 +314,7 @@ Naming conventions are hugely important to maintainability and readability. This
 
 **Why?** The naming conventions should simply help find desired code faster and make it easier to understand.
 
-**为何？**命名约定帮助我们更快得找到不在手头的代码，更容易理解它。
+**为何？**命名约定帮助你更快得找到想找的代码，也更容易理解它。
 
 </div>
 
@@ -509,10 +509,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Component({ ... })
         export class AppComponent { }
-
       </code-example>
 
     </td>
@@ -530,10 +528,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Component({ ... })
         export class HeroesComponent { }
-
       </code-example>
 
     </td>
@@ -551,10 +547,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Component({ ... })
         export class HeroListComponent { }
-
       </code-example>
 
     </td>
@@ -572,10 +566,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Component({ ... })
         export class HeroDetailComponent { }
-
       </code-example>
 
     </td>
@@ -593,10 +585,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Directive({ ... })
         export class ValidationDirective { }
-
       </code-example>
 
     </td>
@@ -614,10 +604,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class AppModule
-
       </code-example>
 
     </td>
@@ -635,10 +623,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Pipe({ name: 'initCaps' })
         export class InitCapsPipe implements PipeTransform { }
-
       </code-example>
 
     </td>
@@ -656,10 +642,8 @@ and reference assets of different types.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Injectable()
         export class UserProfileService { }
-
       </code-example>
 
     </td>
@@ -775,10 +759,8 @@ As always, strive for consistency.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Injectable()
         export class HeroDataService { }
-
       </code-example>
 
     </td>
@@ -796,10 +778,8 @@ As always, strive for consistency.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Injectable()
         export class CreditService { }
-
       </code-example>
 
     </td>
@@ -817,10 +797,8 @@ As always, strive for consistency.
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Injectable()
         export class Logger { }
-
       </code-example>
 
     </td>
@@ -1126,10 +1104,8 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Pipe({ name: 'ellipsis' })
         export class EllipsisPipe implements PipeTransform { }
-
       </code-example>
 
     </td>
@@ -1147,10 +1123,8 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
     <td>
 
       <code-example hideCopy class="no-box">
-
         @Pipe({ name: 'initCaps' })
         export class InitCapsPipe implements PipeTransform { }
-
       </code-example>
 
     </td>
@@ -1520,10 +1494,8 @@ A consistent class and file name convention make these modules easy to spot and 
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class AppModule { }
-
       </code-example>
 
     </td>
@@ -1541,10 +1513,8 @@ A consistent class and file name convention make these modules easy to spot and 
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class HeroesModule { }
-
       </code-example>
 
     </td>
@@ -1562,10 +1532,8 @@ A consistent class and file name convention make these modules easy to spot and 
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class VillainsModule { }
-
       </code-example>
 
     </td>
@@ -1583,10 +1551,8 @@ A consistent class and file name convention make these modules easy to spot and 
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class AppRoutingModule { }
-
       </code-example>
 
     </td>
@@ -1604,10 +1570,8 @@ A consistent class and file name convention make these modules easy to spot and 
     <td>
 
       <code-example hideCopy class="no-box">
-
         @NgModule({ ... })
         export class HeroesRoutingModule { }
-
       </code-example>
 
     </td>
@@ -1712,7 +1676,7 @@ By convention, upper camel case indicates a constructable asset.
 **Why?** TypeScript helps enforce that intent by requiring immediate initialization and by
 preventing subsequent re-assignment.
 
-**为何？** TypeScript 会要求在声明时立即初始化，并阻止再次赋值，以确保达成我们的意图。
+**为何？** TypeScript 会要求在声明时立即初始化，并阻止再次赋值，以帮助确保你的设计意图。
 
 </div>
 
@@ -1749,7 +1713,7 @@ TypeScript 本身就能够防止意外赋值。
 
 **Do** tolerate _existing_ `const` variables that are spelled in UPPER_SNAKE_CASE.
 
-**坚持**容许_现存的_`const` 常量沿用大写蛇形命名法。
+**坚持**容许*现存的*`const` 常量沿用大写蛇形命名法。
 
 </div>
 
@@ -2004,7 +1968,7 @@ Use the naming conventions for files in this guide.
 
 所有内容都遵循每个文件一个特性的原则。每个组件、服务和管道都在自己的文件里。
 所有第三方程序包保存到其它目录里，而不是 `src` 目录。
-你不会修改它们，所以不希望它们弄乱我们的应用程序。
+你不会修改它们，所以不希望它们弄乱你的应用程序。
 使用本指南介绍的文件命名约定。
 
 <a href="#toc">Back to top</a>
@@ -2045,7 +2009,7 @@ To confirm your intuition about a particular structure, ask:
 _can I quickly open and start work in all of the related files for this feature_?
 
 **为何？**LIFT 提供了一致的结构，它具有扩展性强、模块化的特性。因为容易快速锁定代码，提高了开发者的效率。
-另外，检查应用结构是否合理的方法是问问自己：我们能快速打开与此特性有关的所有文件并开始工作吗？
+另外，检查应用结构是否合理的方法是问问自己：我能快速打开与此特性有关的所有文件并开始工作吗？
 
 </div>
 
@@ -4364,9 +4328,9 @@ Compare with the less preferred `host` metadata alternative.
 
 <div class="s-rule do">
 
-**Do** provide services to the Angular injector at the top-most component where they will be shared.
+**Do** provide a service with the app root injector in the `@Injectable` decorator of the service.
 
-**坚持**将服务提供到共享范围内的顶级组件的 Angular 注入器。
+**坚持**在服务的 `@Injectable` 装饰器上指定通过应用的根注入器提供服务。
 
 </div>
 
@@ -4380,18 +4344,17 @@ Compare with the less preferred `host` metadata alternative.
 
 <div class="s-why">
 
-**Why?** When providing the service to a top level component,
-that instance is shared and available to all child components of that top level component.
+**Why?** When you provide the service to a root injector, that instance of the service is shared and available in every class that needs the service. This is ideal when a service is sharing methods or state.
 
-**为何？**在顶层组件提供服务时，该服务实例在所有子组件中可见并共享。
+**为何？**当你在根注入器上提供该服务时，该服务实例在每个需要该服务的类中是共享的。当服务要共享方法或状态时，这是最理想的选择。
 
 </div>
 
 <div class="s-why">
 
-**Why?** This is ideal when a service is sharing methods or state.
+**Why?** When you register a service in the `@Injectable` decorator of the service, optimization tools such as those used by the CLI's production builds can perform tree shaking and remove services that aren't used by your app.
 
-**为何？**服务是共享方法或状态的理想载体。
+**为何？**当你在服务的 `@Injectable` 中注册服务时，CLI 生产环境构建时使用的优化工具可以进行摇树优化，从而移除那些你的应用中从未用过的服务。
 
 </div>
 
@@ -4403,17 +4366,7 @@ that instance is shared and available to all child components of that top level 
 
 </div>
 
-<code-tabs>
-
-  <code-pane title="app/app.component.ts" path="styleguide/src/07-03/app/app.component.ts">
-
-  </code-pane>
-
-  <code-pane title="app/heroes/hero-list/hero-list.component.ts" path="styleguide/src/07-03/app/heroes/hero-list/hero-list.component.ts">
-
-  </code-pane>
-
-</code-tabs>
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts" title="src/app/treeshaking/service.ts" linenums="false"> </code-example> 
 
 <a href="#toc">Back to top</a>
 
@@ -4666,6 +4619,5 @@ Useful tools and tips for Angular.
 </div>
 
 <a href="#toc">Back to top</a>
-
 
 <a href="#toc">回到顶部</a>

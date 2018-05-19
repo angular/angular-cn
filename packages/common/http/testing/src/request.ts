@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {HttpErrorResponse, HttpEvent, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observer} from 'rxjs/Observer';
+import {HttpErrorResponse, HttpEvent, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observer} from 'rxjs';
 
 /**
  * A mock requests that was received and is ready to be answered.
@@ -15,7 +15,7 @@ import {Observer} from 'rxjs/Observer';
  * This interface allows access to the underlying `HttpRequest`, and allows
  * responding with `HttpEvent`s or `HttpErrorResponse`s.
  *
- * @stable
+ *
  */
 export class TestRequest {
   /**

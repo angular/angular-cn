@@ -202,7 +202,7 @@
             "url": "https://github.com/angular/universal"
           },
           "c1": {
-            "desc": "Lightweight development only node server",
+            "desc": "Lightweight development only Node.js® server",
             "logo": "",
             "rev": true,
             "title": "Lite-server",
@@ -553,7 +553,7 @@
             "logo": "",
             "rev": true,
             "title": "Egghead.io",
-            "url": "https://egghead.io/technologies/angular2"
+            "url": "https://egghead.io/browse/frameworks/angular"
           },
           "ab5": {
             "desc": "Build Web Apps with Angular - recorded video content",
@@ -585,6 +585,12 @@
             "rev": true,
             "title": "Learn Angular (francais)",
             "url": "http://www.learn-angular.fr/"
+          },
+          "upgrading-ajs": {
+            "desc": "The world's most comprehensive, step-by-step course on using best practices and avoiding pitfalls while migrating from AngularJS to Angular.",
+            "rev": true,
+            "title": "Upgrading AngularJS",
+            "url": "https://www.upgradingangularjs.com"
           },
           "toddmotto-ultimateangular": {
             "desc": "Online courses providing in-depth coverage of the Angular ecosystem, AngularJS, Angular and TypeScript, with functional code samples and a full-featured seed environment. Get a deep understanding of Angular and TypeScript from foundation to functional application, then move on to advanced topics with Todd Motto and collaborators.",

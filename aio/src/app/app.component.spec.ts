@@ -6,17 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { MatProgressBar, MatSidenav } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { timer } from 'rxjs/observable/timer';
-import 'rxjs/add/operator/mapTo';
+import { timer } from 'rxjs';
+import { first, mapTo } from 'rxjs/operators';
 
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { DocumentService } from 'app/documents/document.service';
 import { DocViewerComponent } from 'app/layout/doc-viewer/doc-viewer.component';
 import { Deployment } from 'app/shared/deployment.service';
-import { EmbedComponentsService } from 'app/embed-components/embed-components.service';
 import { GaService } from 'app/shared/ga.service';
 import { LocationService } from 'app/shared/location.service';
 import { Logger } from 'app/shared/logger.service';
@@ -67,13 +64,13 @@ describe('AppComponent', () => {
     const de = fixture.debugElement;
     const docViewerDe = de.query(By.css('aio-doc-viewer'));
 
-    documentService = de.injector.get(DocumentService) as DocumentService;
+    documentService = de.injector.get<DocumentService>(DocumentService);
     docViewer = docViewerDe.nativeElement;
     docViewerComponent = docViewerDe.componentInstance;
     hamburger = de.query(By.css('.hamburger')).nativeElement;
-    locationService = de.injector.get(LocationService) as any;
+    locationService = de.injector.get<any>(LocationService);
     sidenav = de.query(By.directive(MatSidenav)).componentInstance;
-    tocService = de.injector.get(TocService);
+    tocService = de.injector.get<TocService>(TocService);
 
     return waitForDoc && awaitDocRendered();
   };
@@ -466,7 +463,7 @@ describe('AppComponent', () => {
       let scrollToTopSpy: jasmine.Spy;
 
       beforeEach(() => {
-        scrollService = fixture.debugElement.injector.get(ScrollService);
+        scrollService = fixture.debugElement.injector.get<ScrollService>(ScrollService);
         scrollSpy = spyOn(scrollService, 'scroll');
         scrollToTopSpy = spyOn(scrollService, 'scrollToTop');
       });
@@ -1117,20 +1114,23 @@ describe('AppComponent', () => {
         checkHostClass('sidenav', 'open');
 
         sidenav.close();
-        await waitForEmit(sidenav.onClose);
+        await waitForSidenavOpenedChange();
         fixture.detectChanges();
         checkHostClass('sidenav', 'closed');
 
         sidenav.open();
-        await waitForEmit(sidenav.onOpen);
+        await waitForSidenavOpenedChange();
         fixture.detectChanges();
         checkHostClass('sidenav', 'open');
 
-        function waitForEmit(emitter: Observable<void>): Promise<void> {
-          return new Promise(resolve => {
-            emitter.subscribe(resolve);
-            fixture.detectChanges();
-          });
+        async function waitForSidenavOpenedChange() {
+          const promise = new Promise(resolve => sidenav.openedChange.pipe(first()).subscribe(resolve));
+
+          await Promise.resolve();  // Wait for `MatSidenav.openedChange.emit()` to be called.
+          jasmine.clock().tick(0);  // Notify `MatSidenav.openedChange` observers.
+                                    // (It is an async `EventEmitter`, thus uses `setTimeout()`.)
+
+          await promise;
         }
       });
 
@@ -1280,7 +1280,6 @@ function createTestingModule(initialUrl: string, mode: string = 'stable') {
     imports: [ AppModule ],
     providers: [
       { provide: APP_BASE_HREF, useValue: '/' },
-      { provide: EmbedComponentsService, useClass: TestEmbedComponentsService },
       { provide: GaService, useClass: TestGaService },
       { provide: HttpClient, useClass: TestHttpClient },
       { provide: LocationService, useFactory: () => mockLocationService },
@@ -1293,10 +1292,6 @@ function createTestingModule(initialUrl: string, mode: string = 'stable') {
       }},
     ]
   });
-}
-
-class TestEmbedComponentsService {
-  embedInto = jasmine.createSpy('embedInto').and.returnValue(of([]));
 }
 
 class TestGaService {
@@ -1379,6 +1374,6 @@ class TestHttpClient {
     }
 
     // Preserve async nature of `HttpClient`.
-    return timer(1).mapTo(data);
+    return timer(1).pipe(mapTo(data));
   }
 }

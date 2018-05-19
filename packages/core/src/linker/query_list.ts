@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {EventEmitter} from '../event_emitter';
 import {getSymbolIterator} from '../util';
@@ -34,7 +34,7 @@ import {getSymbolIterator} from '../util';
  *   @ViewChildren(Item) items:QueryList<Item>;
  * }
  * ```
- * @stable
+ *
  */
 export class QueryList<T>/* implements Iterable<T> */ {
   public readonly dirty = true;
