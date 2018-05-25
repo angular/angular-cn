@@ -5,7 +5,7 @@
 The _Tour of Heroes_ tutorial covers the fundamentals of Angular.  
 In this tutorial you will build an app that helps a staffing agency manage its stable of heroes.
 
-**英雄指南**教程涵盖了 Angular 的核心原理。在本教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
+**英雄指南**教程涵盖了 Angular 的基本知识。在本教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
 
 This basic app has many of the features you'd expect to find in a data-driven application.
 It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
