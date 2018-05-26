@@ -28,7 +28,7 @@ Transforming a component to a custom element makes all of the required Angular i
 
 Custom elements bootstrap themselves - they start automatically when they are added to the DOM, and are automatically destroyed when removed from the DOM. Once a custom element is added to the DOM for any page, it looks and behaves like any other HTML element, and does not require any special knowledge of Angular terms or usage conventions.  
 
-自定义元素会自举启动 —— 它们在添加到 DOM 中时就会自动启动自己，并在从 DOM 中移除时自动销毁自己。一旦自定义元素添加到了任何页面的 DOM 中，它的外观和行为就和其它的 HTML 元素一样了，不需要对 Angular 的术语或使用约定有任何特殊的了解。
+自定义元素会自举启动 —— 它们在添加到 DOM 中时就会自行启动自己，并在从 DOM 中移除时自行销毁自己。一旦自定义元素添加到了任何页面的 DOM 中，它的外观和行为就和其它的 HTML 元素一样了，不需要对 Angular 的术语或使用约定有任何特殊的了解。
 
 - <b>Easy dynamic content in an Angular app</b>
 
@@ -37,7 +37,7 @@ Custom elements bootstrap themselves - they start automatically when they are ad
   Transforming a component to a custom element provides an easy path to creating dynamic HTML content in your Angular app. HTML content that you add directly to the DOM in an Angular app is normally displayed without Angular processing, unless you define a _dynamic component_, adding your own code to connect the HTML tag to your app data, and participate in change detection. With a custom element, all of that wiring is taken care of automatically.
 
   把组件转换成自定义元素为你在 Angular 应用中创建动态 HTML 内容提供了一种简单的方式。
-  在 Angular 应用中，你直接添加到 DOM 中的 HTML 内容是不会经过 Angular 处理的，除非你使用*动态组件*来借助自己的代码把 HTML 标签与你的应用数据关联起来并参与变更检测。而使用自定义组件，所有这些装配工作都会自动进行。
+  在 Angular 应用中，你直接添加到 DOM 中的 HTML 内容是不会经过 Angular 处理的，除非你使用*动态组件*来借助自己的代码把 HTML 标签与你的应用数据关联起来并参与变更检测。而使用自定义组件，所有这些装配工作都是自动的。
 
 - <b>Content-rich applications</b>
 
@@ -45,8 +45,8 @@ Custom elements bootstrap themselves - they start automatically when they are ad
 
   If you have a content-rich app, such as the Angular app that presents this documentation, custom elements let you give your content providers sophisticated Angular functionality without requiring knowledge of Angular. For example, an Angular guide like this one is added directly to the DOM by the Angular navigation tools, but can include special elements like `<code-snippet>` that perform complex operations. All you need to tell your content provider is the syntax of your custom element. They don't need to know anything about Angular, or anything about your component's data structures or implementation.
 
-   如果你有一个富内容应用（比如正在展示本文档的这个），自定义元素可以为你的内容提供方赋予复杂的 Angular 功能，而不用要求他了解 Angular 的知识。比如，像本文档一样的 Angular 指南是使用 Angular 导航工具直接添加到 DOM 中的，但是其中可以包含特殊的元素，比如 `<code-snippet>`，它可以执行复杂的操作。
-   你所要告诉你的内容提供方的一切，就是这个自定义元素的语法。他们不需要了解关于 Angular 的任何知识，也不需要了解你的组件的数据结构或实现。
+   如果你有一个富内容应用（比如正在展示本文档的这个），自定义元素能让你的内容提供者使用复杂的 Angular 功能，而不要求他了解 Angular 的知识。比如，像本文档这样的 Angular 指南是使用 Angular 导航工具直接添加到 DOM 中的，但是其中可以包含特殊的元素，比如 `<code-snippet>`，它可以执行复杂的操作。
+   你所要告诉你的内容提供者的一切，就是这个自定义元素的语法。他们不需要了解关于 Angular 的任何知识，也不需要了解你的组件的数据结构或实现。
 
 ### How it works
 
@@ -55,7 +55,7 @@ Custom elements bootstrap themselves - they start automatically when they are ad
 Use the `createCustomElement()` function to convert a component into a class that can be registered with the browser as a custom element. 
 After you register your configured class with the browser's custom-element registry, you can use the new element just like a built-in HTML element in content that you add directly into the DOM: 
 
-使用 `createCustomElement()` 函数来把组件转换成一个可注册为浏览器中自定义元素的类。
+使用 `createCustomElement()` 函数来把组件转换成一个可注册成浏览器中自定义元素的类。
 注册完这个配置好的类之后，你就可以在内容中像内置 HTML 元素一样使用这个新元素了，比如直接把它加到 DOM 中：
 
 ```
@@ -83,7 +83,7 @@ When your custom element is placed on a page, the browser creates an instance of
     For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=vHI5C-9vH-E).
 
     我们正在使用的这些自定义元素也可以被用在使用其它框架构建的 Web 应用中。
-    Angular 框架的一个最小化的、自包含的版本，会作为服务注册组件，以支持变更检测和数据绑定功能。
+    Angular 框架的一个最小化的、自包含的版本，会注入成一个服务，以支持变更检测和数据绑定功能。
     要了解更多，参见这个[视频演讲](https://www.youtube.com/watch?v=vHI5C-9vH-E)。
 
 </div>
@@ -97,7 +97,7 @@ together with its dependencies, to a custom element. The function collects the c
 observable properties, along with the Angular functionality the browser needs to 
 create and destroy instances, and to detect and respond to changes. 
 
-Angular 提供了 `createCustomElement()` 函数来支持把 Angular 组件及其依赖转换成自定义元素。该函数会收集该组件的 `Observable` 型属性，提供浏览器创建和销毁实例时所需的 Angular 功能，还会对变更进行检测并做出响应。
+Angular 提供了 `createCustomElement()` 函数，以支持把 Angular 组件及其依赖转换成自定义元素。该函数会收集该组件的 `Observable` 型属性，提供浏览器创建和销毁实例时所需的 Angular 功能，还会对变更进行检测并做出响应。
 
 The conversion process implements the `NgElementConstructor` interface, and creates a 
 constructor class that is configured to produce a self-bootstrapping instance of your component. 
@@ -123,19 +123,19 @@ When the browser encounters the tag for the registered element, it uses the cons
 
 A custom element _hosts_ an Angular component, providing a bridge between the data and logic defined in the component and standard DOM APIs. Component properties and logic maps directly into HTML attributes and the browser's event system.
 
-*寄宿*着 Angular 组件的自定义元素在组件中定义的数据及逻辑和标准的 DOM API 之间建立了一座桥梁。组件的属性和逻辑会直接映射到 HTML 属性和浏览器的事件系统中。
+*寄宿*着 Angular 组件的自定义元素在组件中定义的"数据及逻辑"和标准的 DOM API 之间建立了一座桥梁。组件的属性和逻辑会直接映射到 HTML 属性和浏览器的事件系统中。
 
 - The creation API parses the component looking for input properties, and defines corresponding attributes for the custom element. It transforms the property names to make them compatible with custom elements, which do not recognize case distinctions. The resulting attribute names use dash-separated lowercase. For example, for a component with `@Input('myInputProp') inputProp`, the corresponding custom element defines an attribute `my-input-prop`.
 
-   用于创建的 API 会解析该组件，以查找输入属性（Property），并在这个自定义元素上定义响应的属性（Attribute）。
+   用于创建的 API 会解析该组件，以查找输入属性（Property），并在这个自定义元素上定义相应的属性（Attribute）。
    它把属性名转换成与自定义元素兼容的形式（自定义元素不区分大小写），生成的属性名会使用中线分隔的小写形式。
    比如，对于带有 `@Input('myInputProp') inputProp` 的组件，其对应的自定义元素会带有一个 `my-input-prop` 属性。
 
 - Component outputs are dispatched as HTML [Custom Events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent), with the name of the custom event matching the output name. For example, for a component with `@Output() valueChanged = new EventEmitter()`, the corresponding custom element will dispatch events with the name "valueChanged", and the emitted data will be stored on the event’s `detail` property. If you provide an alias, that value is used; for example, `@Output('myClick') clicks = new EventEmitter<string>();` results in dispatch events with the name "myClick".
 
    组件的输出属性会用 HTML [自定义事件](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)的形式进行分发，自定义事件的名字就是这个输出属性的名字。
-   比如，对于带有 `@Output() valueChanged = new EventEmitter()` 属性的组件，其相应的自定义元素将会分发名为 "valueChanged" 的事件，事件中所携带的数据存储在该事件对象的 `detail` 属性中。
-   如果你提供了别名，那就会用这个别名。比如，`@Output('myClick') clicks = new EventEmitter<string>();` 会导致分发名为 "myClick" 事件。
+   比如，对于带有 `@Output() valueChanged = new EventEmitter()` 属性的组件，其相应的自定义元素将会分发名叫 "valueChanged" 的事件，事件中所携带的数据存储在该事件对象的 `detail` 属性中。
+   如果你提供了别名，就改用这个别名。比如，`@Output('myClick') clicks = new EventEmitter<string>();` 会导致分发名为 "myClick" 事件。
 
 For more information, see Web Component documentation for [Creating custom events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events#Creating_custom_events).
 
@@ -280,11 +280,11 @@ Use the [Angular CLI](https://cli.angular.io/) to automatically set up your proj
 
 Previously, when you wanted to add a component to an app at runtime, you had to define a _dynamic component_. The app module would have to list your dynamic component under `entryComponents`, so that the app wouldn't expect it to be present at startup, and then you would have to load it, attach it to an element in the DOM, and wire up all of the dependencies, change detection, and event handling, as described in [Dynamic Component Loader](guide/dynamic-component-loader).
 
-以前，如果你要在运行期间把一个组件添加到应用中，就不得不定义*动态组件*。应用模块不得不把你的动态组件添加到 `entryComponents` 列表中，以便应用在启动时能找到它，然后你还要加载它、把它附加到 DOM 中的元素上，并且装配所有的依赖、变更检测和事件处理，详见[动态组件加载器](guide/dynamic-component-loader)。
+以前，如果你要在运行期间把一个组件添加到应用中，就不得不定义*动态组件*。你还要把动态组件添加到模块的 `entryComponents` 列表中，以便应用在启动时能找到它，然后还要加载它、把它附加到 DOM 中的元素上，并且装配所有的依赖、变更检测和事件处理，详见[动态组件加载器](guide/dynamic-component-loader)。
 
 Using an Angular custom element makes the process much simpler and more transparent, by providing all of the infrastructure and framework automatically&mdash;all you have to do is define the kind of event handling you want. (You do still have to exclude the component from compilation, if you are not going to use it in your app.)
 
-用 Angular 自定义组件会让这个过程更简单、更透明。只要自动提供所有基础设施和框架即可，你所要做的一切就是定义所需的各种事件处理逻辑。（如果你不准备在应用中直接用它，还要把该组件从编译中排除出去。）
+用 Angular 自定义组件会让这个过程更简单、更透明。它会自动提供所有基础设施和框架，而你要做的就是定义所需的各种事件处理逻辑。（如果你不准备在应用中直接用它，还要把该组件在编译时排除出去。）
 
 The Popup Service example app defines a component that you can either load dynamically or convert to a custom element. 
 
