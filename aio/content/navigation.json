@@ -455,11 +455,6 @@
           ]
         },
         {
-          "url": "guide/custom-elements",
-          "title": "自定义元素",
-          "tooltip": "把 Angular 组件用作自定义元素。"
-        },
-        {
           "title": "Service Worker",
           "tooltip": "Angular 的 Service Worker：控制应用的资源缓存。",
           "children": [
