@@ -694,7 +694,7 @@ It also generates an initial test file for the component, `banner-external.compo
 
 #### Reduce the setup
 
-#### 缩减准备代码
+#### 缩减环境准备代码
 
 Only the last three lines of this file actually test the component
 and all they do is assert that Angular can create the component.
@@ -708,7 +708,7 @@ The rest of the file is boilerplate setup code anticipating more advanced tests 
 You'll learn about these advanced test features below.
 For now, you can radically reduce this test file to a more manageable size:
 
-稍后你讲学到这些高级的测试特性。
+稍后你将学到这些高级的测试特性。
 不过目前，你可以先把这些测试文件缩减成更加可控的大小，以便理解：
 
 <code-example 

@@ -13,15 +13,15 @@ This style guide presents preferred conventions and, as importantly, explains wh
 
 ## Style vocabulary
 
-## 风格词汇
+## 风格指南的用词
 
 Each guideline describes either a good or bad practice, and all have a consistent presentation.
 
-每个指导原则都会描述好的或者坏的做法，所有指导原则风格一致。
+每个指导原则都会描述好的或者坏的做法，所有指导原则都用同样的风格描述。
 
 The wording of each guideline indicates how strong the recommendation is.
 
-指导原则中使用的词汇表明推荐的程度。
+指导原则中使用的词汇用来表明推荐的程度。
 
 <div class="s-rule do">
 
@@ -31,7 +31,7 @@ Guidelines that literally should always be followed are extremely rare.
 On the other hand, you need a really unusual case for breaking a *Do* guideline.
 
 **坚持**意味着总是应该遵循的约定。
-说*"总是"*可能显得有点绝对，应该*"总是"*遵循的指导原则非常少，但是，只有遇到非常不寻常的情况才能打破*坚持*的原则。
+说*"总是"*可能显得有点绝对，应该*"总是"*遵循的指导原则非常少，不过，只有遇到极不寻常的情况才能打破*坚持*的原则。
 
 </div>
 
@@ -41,7 +41,7 @@ On the other hand, you need a really unusual case for breaking a *Do* guideline.
 If you fully understand the meaning behind the guideline and have a good reason to deviate, then do so. Please strive to be consistent.
 
 **考虑**标志着通常应该遵循的指导原则。
-如果你能完全理解指导原则背后的含义，并且很好的理由背离它，那就可以改变它。但是请保持一致。
+如果你能完全理解指导原则背后的含义，并且很好的理由背离它，就可以改变它。但是请保持一致。
 
 </div>
 
@@ -49,7 +49,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 
 **Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakeable red header.
 
-**避免**标志着你决不应该做的事。需要*避免*的代码范例会有明显的红色标题。
+**避免**标志着你绝对不应该做的事。需要*避免*的代码范例会有明显的红色标题。
 
 </div>
 
@@ -2257,7 +2257,7 @@ But if something is not obvious or departs from a convention, then spell it out.
 
 **Consider** creating a folder for a component when it has multiple accompanying files (`.ts`, `.html`, `.css` and `.spec`).
 
-**坚持**如果组件具有多个伴隨文件 (`.ts`、`.html`、`.css` 和 `.spec`)，就为它创建一个文件夹。
+**坚持**如果组件具有多个伴生文件 (`.ts`、`.html`、`.css` 和 `.spec`)，就为它创建一个文件夹。
 
 </div>
 
