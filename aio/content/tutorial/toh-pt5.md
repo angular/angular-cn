@@ -180,7 +180,7 @@ Open the `AppComponent` template replace the `<app-heroes>` element with a `<rou
 
 You removed `<app-heroes>` because you will only display the `HeroesComponent` when the user navigates to it.
 
-之所以移除 `<app-heroes>` 是因为当用户进行导航时，你不再仅仅显示 `HeroesComponent`。
+之所以移除 `<app-heroes>`，是因为只有当用户导航到这里时，才需要显示 `HeroesComponent`。
 
 The `<router-outlet>` tells the router where to display routed views.
 
