@@ -306,7 +306,7 @@ The `HeroService` must wait for the server to respond,
 `getHeroes()` cannot return immediately with hero data,
 and the browser will not block while the service waits.
 
-`HeroService` 必须等服务器给出相应，
+`HeroService` 必须等服务器给出响应，
 而 `getHeroes()` 不能立即返回英雄数据，
 浏览器也不会在该服务等待期间停止响应。
 
