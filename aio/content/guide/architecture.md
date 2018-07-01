@@ -71,7 +71,7 @@ Organizing your code into distinct functional modules helps in managing developm
 
   For a more detailed discussion, see [Introduction to modules](guide/architecture-modules).
 
-  更深入的套路，参见[模块简介](guide/architecture-modules)。
+  更深入的讨论，参见[模块简介](guide/architecture-modules)。
 
 </div>
 
