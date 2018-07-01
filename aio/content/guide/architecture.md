@@ -140,7 +140,7 @@ Angular 为一些通用的转换提供了预定义管道，你还可以定义自
 
 ## Services and dependency injection
 
-## 服务于依赖注入
+## 服务与依赖注入
 
 For data or logic that is not associated with a specific view, and that you want to share across components, you create a *service* class. A service class definition is immediately preceded by the `@Injectable` decorator. The decorator provides the metadata that allows your service to be *injected* into client components as a dependency.
 
