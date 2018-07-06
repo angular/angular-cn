@@ -828,7 +828,7 @@ Here is a custom constructor for an NgModule called `CoreModule`.
 
 An entry component is any component that Angular loads _imperatively_ by type.
 
-Angular 根据其类型*不可避免地*加载的组件是*入口组件*，
+Angular 根据组件类型*命令式*加载的组件是*入口组件*.
 
 A component loaded _declaratively_ via its selector is _not_ an entry component.
 
