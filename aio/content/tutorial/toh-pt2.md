@@ -229,7 +229,7 @@ Angular calls it with the `hero` object displayed in the clicked `<li>`,
 the same `hero` defined previously in the `*ngFor` expression.
 
 `onSelect()` 是 `HeroesComponent` 上的一个方法，你很快就要写它。
-Angular 会把所点击的 `<li>` 上的 `hero` 对象传给它，这个 `hero` 也就是以前在 `*ngFor` 表达式中定义的那个。
+Angular 会把所点击的 `<li>` 上的 `hero` 对象传给它，这个 `hero` 也就是前面在 `*ngFor` 表达式中定义的那个。
 
 ### Add the click event handler
 
