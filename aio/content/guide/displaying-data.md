@@ -114,8 +114,8 @@ Angular is creating an instance for you. How?
 The CSS `selector` in the `@Component` decorator specifies an element named `<app-root>`.
 That element is a placeholder in the body of your `index.html` file:
 
-注意 `@Component` 装饰器中指定的 CSS 选择器 `selector`，它指定了一个叫 `my-app` 的元素。
-该元素是 `index.html` 的 `body` 里的占位符。
+注意 `@Component` 装饰器中指定的 CSS 选择器 `selector`，它指定了一个叫 `<app-root>` 的元素。
+该元素是 `index.html` 文件里的一个占位符。
 
 <code-example path="displaying-data/src/index.html" linenums="false" title="src/index.html (body)" region="body">
 
