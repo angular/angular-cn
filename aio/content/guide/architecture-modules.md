@@ -153,7 +153,7 @@ Angular 自带了一组 JavaScript 模块，你可以把它们看成库模块。
 
 For example, import Angular's `Component` decorator from the `@angular/core` library like this:
 
-例如，象下面这样，从 `@angular/core` 库中导入 `Component` 装饰器：
+例如，像下面这样，从 `@angular/core` 库中导入 `Component` 装饰器：
 
 <code-example path="architecture/src/app/app.component.ts" region="import" linenums="false"></code-example>
 
