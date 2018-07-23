@@ -8,24 +8,24 @@ This guide describes **Angular Universal**, a technology that runs your Angular 
 
 A normal Angular application executes in the _browser_, rendering pages in the DOM in response to user actions.
 
-标准的 Angular 应用会执行在*浏览器*中，它会在 DOM 中渲染页面，以响应用户的操作。
+标准的 Angular 应用会运行在*浏览器*中，它会在 DOM 中渲染页面，以响应用户的操作。
 
 **Angular Universal** generates _static_ application pages on the _server_
 through a process called **server-side rendering (SSR)**.
 
-而**Angular Universal** 会在*服务端*通过一个被称为**服务端渲染（server-side rendering - SSR）的过程**生成*静态*的应用页面。
+而**Angular Universal** 会在*服务端*通过一个名叫**服务端渲染（server-side rendering - SSR）的过程**生成*静态*的应用页面。
 
 It can generate and serve those pages in response to requests from browsers.
 It can also pre-generate pages as HTML files that you serve later.
 
 它可以生成这些页面，并在浏览器请求时直接用它们给出响应。
-它也可以把页面预先生成为 HTML 文件，然后把它们作为静态文件供服务器使用。
+也可以把页面预先生成为 HTML 文件，然后把它们作为静态文件供服务器使用。
 
 This guide describes a Universal sample application that launches quickly as a server-rendered page.
 Meanwhile, the browser downloads the full client version and switches to it automatically after the code loads.
 
-本指南讲的是一个 Universal 的范例应用，它启动得像服务端渲染好的页面那样快。
-稍后，浏览器就会下载完整的客户端版本，并在代码加载完之后自动切换到它。
+本指南讲的是一个 Universal 的范例应用，它启动得和在服务端渲染好的页面一样快。
+稍后，浏览器就会下载完整的客户端版本，并在代码加载完之后自动切换过去。
 
 <div class="l-sub-section">
 
@@ -83,7 +83,7 @@ Angular Universal 可以为你生成应用的静态版本，它易搜索、可�
 Enabling web crawlers is often referred to as
 [Search Engine Optimization (SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf).
 
-启用网络爬虫通常被称为[搜索引擎优化 (SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)。
+启用对网络爬虫的支持通常也称作[搜索引擎优化 (SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)。
 
 {@a no-javascript}
 
@@ -97,7 +97,7 @@ This version, however limited, may be the only practical alternative for
 people who otherwise would not be able to use the app at all.
 
 有些设备不支持 JavaScript 或 JavaScript 执行得很差，导致用户体验不可接受。
-对于这些情况，你可能会需要该应用的服务端渲染、无 JavaScript 的版本。
+对于这些情况，你可能会需要该应用的服务端渲染的、无 JavaScript 的版本。
 虽然有一些限制，不过这个版本可能是那些完全没办法使用该应用的人的唯一选择。
 
 {@a startup-performance}
@@ -113,8 +113,8 @@ Displaying the first page quickly can be critical for user engagement.
 [53% of mobile site visits are abandoned](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) if pages take longer than 3 seconds to load.
 Your app may have to launch faster to engage these users before they decide to do something else.
 
-如果页面加载超过了三秒中，那么 [53% 的移动网站会被放弃](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)。
-你的应用需要启动的更快一点，以便在用户决定做别的事情之前吸引他们的注意力。
+如果页面加载超过了三秒钟，那么 [53% 的移动网站会被放弃](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)。
+你的应用要启动得更快一点，以便在用户决定做别的事情之前吸引他们的注意力。
 
 With Angular Universal, you can generate landing pages for the app that look like the complete app.
 The pages are pure HTML, and can display even if JavaScript is disabled.
@@ -131,7 +131,7 @@ and gets the full interactive experience after the full app loads.
 
 在实践中，你可能要使用一个着陆页的静态版本来保持用户的注意力。
 同时，你也会在幕后加载完整的 Angular 应用，就像[稍后解释的那样](#transition)。
-用户会认为着陆页几乎是立即出现的，而当完整的应用加载完之后，又可以获得完全的交互体验。
+用户会觉得着陆页几乎是立即出现的，而当完整的应用加载完之后，又可以获得完整的交互体验。
 
 {@a how-does-it-work}
 
