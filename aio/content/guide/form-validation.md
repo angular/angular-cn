@@ -328,17 +328,27 @@ set the color of each form control's border.
 
 This section shows how to perform cross field validation. It assumes some basic knowledge of creating custom validators.
 
+本节将展示如何进行跨字段验证。这里假设你已经有了创建自定义验证器所需的基础知识。
+
 <div class="alert is-helpful">
 
 If you haven't created custom validators before, start by reviewing the [custom validators section](guide/form-validation#custom-validators).
+
+如果你以前没有创建过自定义验证器，请先阅读[自定义验证器](guide/form-validation#custom-validators)一节。
 
 </div>
 
 In the following section, we will make sure that our heroes do not reveal their true identities by filling out the Hero Form. We will do that by validating that the hero names and alter egos do not match. 
 
+在下一节中中，我们要确保英雄们不能通过填写表单来暴露他们的真实身份。要做到这一点，我们就要验证英雄的名字和他的第二人格（alterEgo）是否匹配。
+
 ### Adding to reactive forms
 
+### 添加到响应式表单
+
 The form has the following structure:
+
+表单具有下列结构：
 
 ```javascript
 const heroForm = new FormGroup({
@@ -350,7 +360,11 @@ const heroForm = new FormGroup({
 
 Notice that the name and alterEgo are sibling controls. To evaluate both controls in a single custom validator, we should perform the validation in a common ancestor control: the `FormGroup`. That way, we can query the `FormGroup` for the child controls which will allow us to compare their values.
 
+注意，name 和 alterEgo 是兄弟控件。要想在单个的自定义验证器中计算这两个控件，我们就得在它们共同的祖先控件（`FormGroup`）中进行验证。这样，我们就可以查询 `FormGroup` 的子控件，从而让我们能够比较它们的值。
+
 To add a validator to the `FormGroup`, pass the new validator in as the second argument on creation.
+
+要想给 `FormGroup` 添加验证器，就要在创建时把一个新的验证器传给它的第二个参数。
 
 ```javascript
 const heroForm = new FormGroup({
@@ -362,44 +376,90 @@ const heroForm = new FormGroup({
 
 The validator code is as follows:
 
+验证器的代码如下：
+
 <code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-validator" title="shared/identity-revealed.directive.ts" linenums="false">
 </code-example>
 
 The identity validator implements the `ValidatorFn` interface. It takes an Angular control object as an argument and returns either null if the form is valid, or `ValidationErrors` otherwise.
 
+这个身份验证器实现了 `ValidatorFn` 接口。它接收一个 Angular 表单控件对象作为参数，当表单有效时，它返回一个 null，否则返回 `ValidationErrors` 对象。
+
 First we retrieve the child controls by calling the `FormGroup`'s [get](api/forms/AbstractControl#get) method. Then we simply compare the values of the `name` and `alterEgo` controls. 
+
+我们先通过调用 `FormGroup` 的 [get](api/forms/AbstractControl#get) 方法来获取子控件。然后，简单地比较一下 `name` 和 `alterEgo` 控件的值。
 
 If the values do not match, the hero's identity remains secret, and we can safely return null. Otherwise, the hero's identity is revealed and we must mark the form as invalid by returning an error object.
 
+如果这两个值不一样，那么英雄的身份就应该继续保密，我们可以安全的返回 null。否则就说明英雄的身份已经暴露了，我们必须通过返回一个错误对象来把这个表单标记为无效的。
+
 Next, to provide better user experience, we show an appropriate error message when the form is invalid.
+
+接下来，为了提供更好的用户体验，当表单无效时，我们还要显示一个恰当的错误信息。
+
 <code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="cross-validation-error-message" title="reactive/hero-form-template.component.html" linenums="false">
 </code-example>
 
 Note that we check if:
+
+注意，我们需要检查：
+
 - the `FormGroup` has the cross validation error returned by the `identityRevealed` validator, 
+
+   `FormGroup` 应该有一个由 `identityRevealed` 验证器返回的交叉验证错误对象。
+
 - the user is yet to [interact](guide/form-validation#why-check-dirty-and-touched) with the form.
 
+   用户已经和表单进行过[交互](guide/form-validation#why-check-dirty-and-touched)。
+
 ### Adding to template driven forms
+
+### 添加到模板驱动表单中
+
 First we must create a directive that will wrap the validator function. We provide it as the validator using the `NG_VALIDATORS` token. If you are not sure why, or you do not fully understand the syntax, revisit the previous [section](guide/form-validation#adding-to-template-driven-forms).
+
+首先，我们必须创建一个指令，它会包装这个验证器函数。我们使用 `NG_VALIDATORS` 令牌来把它作为验证器提供出来。如果你还不清楚为什么要这么做或者不能完全理解这种语法，请重新访问前面的[小节](guide/form-validation#adding-to-template-driven-forms)。
 
 <code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-directive" title="shared/identity-revealed.directive.ts" linenums="false">
 </code-example>
 
 Next, we have to add the directive to the html template. Since the validator must be registered at the highest level in the form, we put the directive on the `form` tag.
+
+接下来，我们要把该指令添加到 HTML 模板中。由于验证器必须注册在表单的最高层，所以我们要把该指令放在 `form` 标签上。
+
 <code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-register-validator" title="template/hero-form-template.component.html" linenums="false">
 </code-example>
 
 To provide better user experience, we show an appropriate error message when the form is invalid.
+
+为了提供更好的用户体验，当表单无效时，我们要显示一个恰当的错误信息。
+
 <code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-error-message" title="template/hero-form-template.component.html" linenums="false">
 </code-example>
 
 Note that we check if:
+
+注意，我们需要检查：
+
 - the form has the cross validation error returned by the `identityRevealed` validator, 
+
+   该表单具有一个由 `identityRevealed` 验证器提供的交叉验证错误对象。
+
 - the user is yet to [interact](guide/form-validation#why-check-dirty-and-touched) with the form.
 
+   用户已经和表单进行过[交互](guide/form-validation#why-check-dirty-and-touched)。
+
 This completes the cross validation example. We managed to:
+
+这样就完成了这个交叉验证的例子。我们的做法是：
+
 - validate the form based on the values of two sibling controls, 
+
+   基于两个相邻控件的值来验证表单
+
 - show a descriptive error message after the user interacted with the form and the validation failed.
+
+   当用户与表单交互过并且验证失败时，才显示一个描述性的错误信息。
 
 **You can run the <live-example></live-example> to see the complete reactive and template-driven example code.**
 
