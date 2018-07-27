@@ -206,7 +206,7 @@ QuickStart identifies two *typings*, or `d.ts`, files:
 * [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *Node.js®* environment;
 
 
-   [node](https://www.npmjs.com/package/@types/node)是为了在 *Node.js®* 环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
+   [node](https://www.npmjs.com/package/@types/node)是为了在 *Node.js®* 环境中引用对象的代码提供的类型定义。
 
 QuickStart doesn't require these typings but many of the samples do.
 
