@@ -4,7 +4,7 @@
 本文档的两位译者汪志成和叶志敏是多年的好友。这次利用业余时间联手翻译，就是因为看好 Angular 的前景，希望帮助大家在这项技术上能跟国外同步前进。
 
 ### 汪志成（雪狼）
-《AngularJS 深度剖析与最佳实践》的作者之一，ThoughtWorks 高级咨询师，现任 GDE（ Google 开发者专家）。崇尚“简单、专业、分享”。他从 1998 年开始做商业软件开发，拥有超过 19 年的从业经验，至今仍热衷于编程。
+《AngularJS 深度剖析与最佳实践》的作者之一，ThoughtWorks 高级咨询师，现任 GDE（ Google 开发者专家）。崇尚“简单、专业、分享”。他从 1998 年开始做商业软件开发，拥有超过 20 年的从业经验，至今仍热衷于编程。
 
 虽然一直在做编程工作，不过他最热衷的却是国学，特别是儒学与诗词。孟子曰：“得天下英才而教育之，三乐也”，愿践行之。
 
@@ -95,6 +95,16 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - zeed-w-beez（来自 Github）
 - ChristinaLy（来自 Github）
 - luguokong（来自 Github）
+- liuz430524（来自 Github）
+- likang（来自 Github）
+- kchanlee（来自 Github）
+- hidoos（来自 Github）
+- chrisy17（来自 Github）
+- fattypiggy（来自 Github）
+- NAIVEddd（来自 Github）
+- ppjjzz（来自 Github）
+- jerrystarry（来自 Github）
+- Eve-1995（来自 Github）
 - 另外还有一些做好事不留名的活雷锋
 
 想让你的名字也出现在这里吗？请提供[反馈、纠错](https://github.com/angular/angular-cn/issues)。

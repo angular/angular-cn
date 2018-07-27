@@ -263,7 +263,7 @@ It certainly shouldn't call a function that makes HTTP requests to a remote serv
 Instead, call `getHeroes()` inside the [*ngOnInit lifecycle hook*](guide/lifecycle-hooks) and
 let Angular call `ngOnInit` at an appropriate time _after_ constructing a `HeroesComponent` instance.
 
-你应该改为在 [*ngOnInit 生命周期钩子*](guide/lifecycle-hooks)中调用 `getHeroes()`，并且等 Angular 构造出 `HeroesComponent` 的实例之后，找个恰当的时机调用 `ngOnInit`。
+而是选择在 ngOnInit 生命周期钩子中调用 getHeroes()，之后交由 Angular 处理，它会在构造出 HeroesComponent 的实例之后的某个合适的时机调用 ngOnInit。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" region="ng-on-init">
 </code-example>
