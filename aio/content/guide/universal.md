@@ -27,7 +27,7 @@ Meanwhile, the browser downloads the full client version and switches to it auto
 本指南讲的是一个 Universal 的范例应用，它启动得和在服务端渲染好的页面一样快。
 稍后，浏览器就会下载完整的客户端版本，并在代码加载完之后自动切换过去。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 [Download the finished sample code](generated/zips/universal/universal.zip),
 which runs in a [Node.js® Express](https://expressjs.com/) server.
@@ -329,7 +329,7 @@ npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-lo
 
 {@a transition}
 
-### Modify the client app
+## Modify the client app
 
 ### 修改客户端应用
 
@@ -349,9 +349,11 @@ You must make a few changes to your application code to support both server-side
 
 你要对应用代码做少量修改，以支持服务端渲染，并无缝转换成客户端应用。
 
-#### The root `AppModule`
+{@a root-app-module}
 
-#### 根模块 `AppModule`
+### The root `AppModule`
+
+### 根模块 `AppModule`
 
 Open file `src/app/app.module.ts` and find the `BrowserModule` import in the `NgModule` metadata.
 Replace that import with this one:
@@ -374,9 +376,29 @@ You can get runtime information about the current platform and the `appId` by in
 <code-example path="universal/src/app/app.module.ts" region="platform-detection" title="src/app/app.module.ts (platform detection)">
 </code-example>
 
+{@a cli-output}
+
+### Build Destination
+
+A Universal app is distributed in two parts: the server-side code that serves up the initial application, and the client-side code that's loaded in dynamically.
+
+The Angular CLI outputs the client-side code in the `dist` directory by default, so you modify the `outputPath` for the __build__ target in the `angular.json` to keep the client-side build outputs separate from the server-side code. The client-side build output will be served by the Express server.
+
+```
+...
+"build": {
+  "builder": "@angular-devkit/build-angular:browser",
+  "options": {
+    "outputPath": "dist/browser",
+    ...
+  }
+}
+...
+```
+
 {@a http-urls}
 
-#### Absolute HTTP URLs
+### Absolute HTTP URLs
 
 #### 在 HTTP 中使用绝对地址
 
@@ -386,7 +408,7 @@ These services send requests to _relative_ URLs such as `api/heroes`.
 教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
 那些服务都把请求发送到了*相对* URL，比如 `api/heroes`。
 
-In a Universal app, HTTP URLs must be _absolute_, for example, `https://my-server.com/api/heroes` 
+In a Universal app, HTTP URLs must be _absolute_, for example, `https://my-server.com/api/heroes`
 even when the Universal web server is capable of handling those requests.
 
 在 Universal 应用中，HTTP 的 URL 必须是*绝对地址*（比如 `https://my-server.com/api/heroes`），
@@ -397,7 +419,7 @@ and with relative URLs when running in the browser.
 
 你还要修改这些需要发起请求的服务，当它运行在服务端时使用绝对地址，运行在浏览器中时用相对地址。
 
-One solution is to provide the server's runtime origin under the Angular [`APP_BASE_REF` token](api/common/APP_BASE_HREF),
+One solution is to provide the server's runtime origin under the Angular [`APP_BASE_HREF` token](api/common/APP_BASE_HREF),
 inject it into the service, and prepend the origin to the request URL.
 
 解决方案之一是通过 Angular 的 [`APP_BASE_REF` 令牌](api/common/APP_BASE_HREF)来提供服务器的源地址（origin），把它注入到服务中，并把这个源地址添加到所请求的 URL 之前。
@@ -417,7 +439,7 @@ You don't provide `APP_BASE_HREF` in the browser version, so the `heroesUrl` rem
 
 在浏览器版本中，你不用提供 `APP_BASE_HREF`，因此 `heroesUrl` 仍然是相对的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You can ignore `APP_BASE_HREF` in the browser if you've specified `<base href="/">` in the `index.html`
 to satisfy the router's need for a base address, as the tutorial sample does.
@@ -467,6 +489,27 @@ This is also the place to register providers that are specific to running your a
 
 这里还可以注册那些在 Universal 环境下运行应用时特有的服务提供商。
 
+{@a app-server-entry-point}
+
+### App server entry point
+
+### 应用服务器的入口点
+
+The `Angular CLI` uses the `AppServerModule` to build the server-side bundle.
+
+Angular CLI 使用 `AppServerModule` 来构建服务端发布包。
+
+Create a `main.server.ts` file in the `src/` directory that exports the `AppServerModule`:
+
+在 `src/` 目录下创建一个 `main.server.ts` 文件，并导出 `AppServerModule`：
+
+<code-example path="universal/src/main.server.ts" title="src/main.server.ts">
+</code-example>
+
+The `main.server.ts` will be referenced later to add a `server` target to the `Angular CLI` configuration.
+
+稍后，这个 `main.server.ts` 文件将会被引用，以便往 Angular CLI 的配置中添加一个名为 `server` 的目标（target）。
+
 {@a web-server}
 
 ### Universal web server
@@ -489,7 +532,7 @@ The sample web server for _this_ guide is based on the popular [Express](https:/
 
 本文中的范例 Web 服务器基于常见的 [Express](https://expressjs.com/) 框架。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   _Any_ web server technology can serve a Universal app as long as it can call Universal's `renderModuleFactory`.
   The principles and decision points discussed below apply to any web server technology that you chose.
@@ -567,7 +610,7 @@ which then forwards it to the client in the HTTP response.
 接下来你的引擎要决定拿这个页面做点什么。
 *现在这个引擎*的回调函数中，把渲染好的页面返回给了 [Web 服务器](#web-server)，然后服务器通过 HTTP 响应把它转发给了客户端。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   This wrappers are very useful to hide the complexity of the `renderModuleFactory`. There are more wrappers for different backend technologies
   at the [Universal repository](https://github.com/angular/universal).
@@ -633,7 +676,7 @@ You configure the Express server pipeline with calls to `app.get()` like this on
 <code-example path="universal/server.ts" title="server.ts (data URL)" region="data-request" linenums="false">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This sample server doesn't handle data requests.
 
@@ -739,6 +782,8 @@ This config extends from the root's `tsconfig.json` file. Certain settings are n
 
      `entryModule` - 服务端应用的根模块，其格式为 `path/to/file#ClassName`。
 
+{@a universal-webpack-configuration}
+
 ### Universal Webpack configuration
 
 ### Universal 的 Webpack 配置
@@ -759,19 +804,54 @@ Create a `webpack.server.config.js` file in the project root directory with the 
 
 **Webpack** 配置超出了本文的讨论范围。
 
+{@a universal-cli-configuration}
+
+### Angular CLI configuration
+
+### Angular CLI 配置
+
+The CLI provides builders for different types of __targets__. Commonly known targets such as `build` and `serve` already exist in the `angular.json` configuration. To target a server-side build, add a `server` target to the `architect` configuration object.
+
+CLI 提供了针对不同**目标**的构建器。常见的目标，如 `build` 和 `serve` 都已经存在于 `angular.json` 的配置中了。要指定一个服务端渲染的构建，请在 `architect` 配置对象中添加一个 `server` 目标。
+
+* The `outputPath` tells where the resulting build will be created.
+
+   `outputPath` 表明要把构建结果放到哪里。
+
+* The `main` provides the main entry point to the previously created `main.server.ts`
+
+   `main` 提供了主入口点，指向前面创建的 `main.server.ts`。
+
+* The `tsConfig` uses the `tsconfig.server.json` as configuration for the TypeScript and AOT compilation.
+
+   `tsConfig` 表明要用 `tsconfig.server.json` 作为供 TypeScript 和 AOT 编译器使用的配置。
+
+```
+"architect": {
+  ...
+  "server": {
+    "builder": "@angular-devkit/build-angular:server",
+    "options": {
+      "outputPath": "dist/server",
+      "main": "src/main.server.ts",
+      "tsConfig": "src/tsconfig.server.json"
+    }
+  }
+  ...
+}
+```
+
 ## Build and run with universal
 
 ## 使用 Universal 构建和运行
 
-Now that you've created the TypeScript and Webpack config files, you can build and run the Universal application.
+Now that you've created the TypeScript and Webpack config files and configured the Angular CLI, you can build and run the Universal application.
 
 现在，你已经创建了 TypeScript 和 Webpack 的配置文件，你可以构建并运行这个 Universal 应用了。
 
 First add the _build_ and _serve_ commands to the `scripts` section of the `package.json`:
 
-首先把 `build` 和 `serve` 命令添加到 `package.json` 的 `scripts` 区：
-
-<code-example format="." language="ts">
+```
 "scripts": {
     ...
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
@@ -780,7 +860,7 @@ First add the _build_ and _serve_ commands to the `scripts` section of the `pack
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     ...
 }
-</code-example>
+```
 
 {@a build}
 

@@ -257,7 +257,7 @@ The _Tour of Heroes_ data API returns the hero data as an array.
 JSON 数据的具体形态是由服务器的数据 API 决定的。
 *英雄指南*的数据 API 会把英雄数据作为一个数组进行返回。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Other APIs may bury the data that you want within an object.
 You might have to dig that data out by processing the `Observable` result
@@ -873,7 +873,7 @@ It cancels and discards previous search observables, returning only the latest s
    `switchMap()` 会为每个从 `debounce` 和 `distinctUntilChanged` 中通过的搜索词调用搜索服务。
   它会取消并丢弃以前的搜索可观察对象，只保留最近的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   With the [switchMap operator](http://www.learnrxjs.io/operators/transformation/switchmap.html),
   every qualifying key event can trigger an `HttpClient.get()` method call.

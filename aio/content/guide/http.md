@@ -685,7 +685,7 @@ If there is a search term, the code constructs an options object with an HTML UR
 
 如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
 
-The `HttpParms` are immutable so you'll have to use the `set()` method to update the options.
+The `HttpParams` are immutable so you'll have to use the `set()` method to update the options.
 
 `HttpParams` 是不可变的，所以你也要使用 `set()` 方法来修改这些选项。
 
@@ -767,7 +767,7 @@ A search value reaches the service only if it's a new value and the user has sto
 
 这样，只有当用户停止了输入且搜索值和以前不一样的时候，搜索值才会传给服务。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `withRefresh` option is explained [below](#cache-refresh).
 
@@ -796,7 +796,7 @@ server returns them out of order.
 
    它会按照原始的请求顺序返回这些服务的响应，而不用关心服务器实际上是以乱序返回的它们。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 If you think you'll reuse this debouncing logic,
 consider moving it to a utility function or into the `PackageSearchService` itself.
@@ -967,7 +967,7 @@ you won't have to revisit the `AppModule`.
 
 当你再创建新的拦截器时，就同样把它们添加到 `httpInterceptorProviders` 数组中，而不用再修改 `AppModule`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 There are many more interceptors in the complete sample code.
 
@@ -1300,7 +1300,7 @@ The _cache-then-refresh_ option is triggered by the presence of a **custom `x-re
 
 这种*缓存并刷新*的选项是由**自定义的 `x-refresh` 头**触发的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 A checkbox on the `PackageSearchComponent` toggles a `withRefresh` flag,
 which is one of the arguments to `PackageSearchService.search()`.
@@ -1609,7 +1609,7 @@ Call `request.flush()` with an error message, as seen in the following example.
 
 <code-example 
   path="http/src/testing/http-client.spec.ts"
-  region="404" 
+  region="404"
   linenums="false">
 </code-example>
 

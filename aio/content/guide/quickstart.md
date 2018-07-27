@@ -42,7 +42,7 @@ if they are not already on your machine.
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **Verify that you are running at least Node.js version `8.x` or greater and npm version `5.x` or greater**
 by running `node -v` and `npm -v` in a terminal/console window.
@@ -84,7 +84,7 @@ The Angular CLI installs the necessary npm packages, creates the project files, 
 
 Angular CLI 会安装必要的 NPM 包、创建项目文件，并在该项目中生成一个简单的默认应用。这可能要花一点时间。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
 For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
@@ -889,7 +889,7 @@ These files go in the root folder next to `src/`.
   </tr>
 </table>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 ### Next Step
 

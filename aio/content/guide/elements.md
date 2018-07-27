@@ -2,7 +2,7 @@
 
 # Angular 元素（Elements）概览
 
-Angular Elements are Angular components packaged as custom elements, a web standard for defining new html elements in a framework-agnostic way.
+_Angular elements_ are Angular components packaged as _custom elements_, a web standard for defining new HTML elements in a framework-agnostic way.
 
 Angular 元素就是打包成自定义元素的 Angular 组件。所谓自定义元素就是一套与具体框架无关的用于定义新 HTML 元素的 Web 标准。
 
@@ -18,7 +18,16 @@ The `@angular/elements` package exports a `createCustomElement()` API that provi
 
 `@angular/elements` 包导出了一个 `createCustomElement()` API，它在 Angular 组件接口与变更检测功能和内置 DOM API 之间建立了一个桥梁。
 
-Transforming a component to a custom element makes all of the required Angular infrastructure available to the browser. Creating a custom element is simple and straightforward, and automatically connects your component-defined view with change detection and data binding, mapping Angular functionality to the corresponding native HTML equivalents. 
+Transforming a component to a custom element makes all of the required Angular infrastructure available to the browser. 
+Creating a custom element is simple and straightforward, and automatically connects your component-defined view with change detection and data binding, mapping Angular functionality to the corresponding native HTML equivalents. 
+
+<div class="alert is-helpful">
+
+    We are working on custom elements that can be used by web apps built on other frameworks. 
+    A minimal, self-contained version of the Angular framework will be injected as a service to support the component's change-detection and data-binding functionality. 
+    For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s).
+
+</div>
 
 把组件转换成自定义元素会让所需的 Angular 基础设施也可用在浏览器中。创建自定义元素非常简单直接，它会自动把你的组件视图对接到变更检测和数据绑定机制，会把 Angular 的功能映射到原生 HTML 中的等价物。
 
@@ -75,18 +84,6 @@ When your custom element is placed on a page, the browser creates an instance of
 </figure>
 
 <hr class="clear">
-
-<div class="l-sub-section">
-
-    We are working on custom elements that can be used by web apps built on other frameworks. 
-    A minimal, self-contained version of the Angular framework will be injected as a service to support the component's change-detection and data-binding functionality. 
-    For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=vHI5C-9vH-E).
-
-    我们正在使用的这些自定义元素也可以被用在使用其它框架构建的 Web 应用中。
-    Angular 框架的一个最小化的、自包含的版本，会注入成一个服务，以支持变更检测和数据绑定功能。
-    要了解更多，参见这个[视频演讲](https://www.youtube.com/watch?v=vHI5C-9vH-E)。
-
-</div>
 
 ## Transforming components to custom elements
 

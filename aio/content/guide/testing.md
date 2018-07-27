@@ -335,8 +335,7 @@ and rely on the `TestBed` to create classes and inject services.
 
 本指南中的大多数的测试套件都会调用 `beforeEach()` 来为每个 `it()` 测试准备前置条件，并依赖 `TestBed` 来创建类和注入服务。
 
-There's another school of testing that never calls `beforeEach()` and
-and prefers to create classes explicitly rather than use the `TestBed`.
+There's another school of testing that never calls `beforeEach()` and prefers to create classes explicitly rather than use the `TestBed`.
 
 另一些测试教程中也可能让你不要调用 `beforeEach()`，并且更倾向于显式创建类，而不要借助 `TestBed`。
 
@@ -544,7 +543,7 @@ listens for an event raised through the _selected_ `@Output` property.
 
 它呈现在父组件的模板中，那里把一个英雄绑定到了 `@Input` 属性上，并且通过 `@Output` 属性监听*选中英雄*时的事件。
 
-You can test that the class code works without creating the the `DashboardHeroComponent`
+You can test that the class code works without creating the `DashboardHeroComponent`
 or its parent component.
 
 你可以测试 `DashboardHeroComponent` 类，而不用完整创建它或其父组件。
@@ -612,7 +611,7 @@ But a component is more than just its class.
 A component interacts with the DOM and with other components.
 The _class-only_ tests can tell you about class behavior.
 They cannot tell you if the component is going to render properly,
-respond to user input and gestures, or integrate with its parent and and child components.
+respond to user input and gestures, or integrate with its parent and child components.
 
 但组件不仅是这个类。
 组件还要和 DOM 以及其它组件进行交互。
@@ -727,7 +726,7 @@ simply declares `BannerComponent`, the component to test.
   region="configureTestingModule">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 There's no need to declare or import anything else.
 The default test module is pre-configured with 
@@ -1399,7 +1398,7 @@ so it is safe to call `TestBed.get()` as follows:
   title="TestBed injector">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 For a use case in which `TestBed.get()` does not work,
 see the section [_Override a component's providers_](#component-override), which
@@ -1448,7 +1447,7 @@ The first is a sanity test; it confirms that the stubbed `UserService` is called
 
 第一个测试程序是合法测试程序，它确认这个被模拟的 `UserService` 是否被调用和工作正常。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The second parameter to the Jasmine matcher (e.g., `'expected name'`) is an optional failure label.
 If the expectation fails, Jasmine displays appends this label to the expectation failure message.
@@ -2158,7 +2157,7 @@ The router seems particularly challenging.
 你必须使用测试替身替换它们两个，似乎过于复杂了。
 路由器尤其具有挑战性。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The [discussion below](#routing-component) covers testing components that require the router.
 
@@ -2286,7 +2285,7 @@ care about the event object.
 
 测试程序假设（在这里应该这样)运行时间的事件处理器（组件的 `click()` 方法）不关心事件对象。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Other handlers are less forgiving. For example, the `RouterLink`
 directive expects an object with a `button` property
@@ -2593,7 +2592,7 @@ for the `id` to change during its lifetime.
 
 <code-example path="testing/src/app/hero/hero-detail.component.ts" region="ng-on-init" title="app/hero/hero-detail.component.ts (ngOnInit)" linenums="false"></code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The [Router](guide/router#route-parameters) guide covers `ActivatedRoute.paramMap` in more detail.
 
@@ -2670,7 +2669,7 @@ Here's a test demonstrating the component's behavior when the observed `id` refe
 
 <code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-good-id" title="app/hero/hero-detail.component.spec.ts (existing id)" linenums="false"></code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `createComponent()` method and `page` object are discussed [below](#page-object).
 Rely on your intuition for now.
@@ -2951,7 +2950,7 @@ set the expected route definition.
 点击这个链接应该触发 `onClick()` 方法，其中会设置该桩指令中的警示器属性 `navigatedTo`。
 测试中检查 `navigatedTo` 以确认点击该链接确实如预期的那样根据路由定义设置了该属性。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Whether the router is configured properly to navigate with that route definition is a
 question for a separate set of tests.
@@ -3014,7 +3013,7 @@ as expected:
 
 <code-example path="testing/src/app/app.component.spec.ts" region="tests" title="app/app.component.spec.ts (selected tests)" linenums="false"></code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The "click" test _in this example_ is misleading.
 It tests the `RouterLinkDirectiveStub` rather than the _component_.
@@ -3466,7 +3465,7 @@ One approach is to configure the testing module from the individual pieces as in
   title="app/hero/hero-detail.component.spec.ts (FormsModule setup)" linenums="false">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Notice that the `beforeEach()` is asynchronous and calls `TestBed.compileComponents`
 because the `HeroDetailComponent` has an external template and css file.
@@ -3574,7 +3573,7 @@ Angular has been creating new instances of the real `HeroDetailService` all alon
 
 Angular 始终都在创建真实 `HeroDetailService` 的实例。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 These tests could fail or timeout if the `HeroDetailService` made its own XHR calls to a remote server.
 There might not be a remote server to call.
@@ -3631,9 +3630,9 @@ The [override metadata object](#metadata-override-object) is a generic defined a
 
 <code-example format="." language="javascript">
   type MetadataOverride<T> = {
-    add?: T;
-    remove?: T;
-    set?: T;
+    add?: Partial<T>;
+    remove?: Partial<T>;
+    set?: Partial<T>;
   };
 </code-example>
 
@@ -3773,7 +3772,7 @@ A better solution is to create an artificial test component that demonstrates al
   <img src='generated/images/guide/testing/highlight-directive-spec.png' alt="HighlightDirective spec in action">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `<input>` case binds the `HighlightDirective` to the name of a color value in the input box.
 The initial value is the word "cyan" which should be the background color of the input box.
@@ -4015,7 +4014,7 @@ Here's a summary of the stand-alone functions, in order of likely utility:
 
       通过在* fakeAsync 测试区域*中刷新定时器和微任务（micro-task）队列来仿真时间的流逝以及异步活动的完成。
 
-      <div class="l-sub-section">
+      <div class="alert is-helpful">
 
       The curious, dedicated reader might enjoy this lengthy blog post,
       ["_Tasks, microtasks, queues and schedules_"](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/).
@@ -4196,9 +4195,9 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 
 <code-example format="." language="javascript">
   type MetadataOverride<T> = {
-    add?: T;
-    remove?: T;
-    set?: T;
+    add?: Partial<T>;
+    remove?: Partial<T>;
+    set?: Partial<T>;
   };
 </code-example>
 
@@ -4986,7 +4985,7 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
 
       `DebugElement` 的直接子元素。可以通过继续深入 `children` 来遍历这棵树。
 
-      <div class="l-sub-section">
+      <div class="alert is-helpful">
 
       `DebugElement` also has `childNodes`, a list of `DebugNode` objects.
       `DebugElement` derives from `DebugNode` objects and there are often
@@ -5243,15 +5242,15 @@ next to their corresponding helper files.
 
 #### 为什么不依赖 E2E 测试来保障 DOM 集成后的正确性？
 
-The component DOM tests describe in this guide often require extensive setup and 
-advanced techniques where as the [class-only test](#component-class-testing)
-were comparatively simple.
+The component DOM tests described in this guide often require extensive setup and 
+advanced techniques whereas the [unit tests](#component-class-testing)
+are comparatively simple.
 
 本指南中讲的组件 DOM 测试通常需要大量的准备工作以及高级技巧，不像[只针对类的测试](#component-class-testing)那样简单。
 
-Why not defer DOM integration tests to end-to-end (E2E) testing?
+#### Why not defer DOM integration tests to end-to-end (E2E) testing?
 
-为什么不等到端到端（E2E）测试阶段再对 DOM 进行集成测试呢？
+#### 为什么不等到端到端（E2E）测试阶段再对 DOM 进行集成测试呢？
 
 E2E tests are great for high-level validation of the entire system.
 But they can't give you the comprehensive test coverage that you'd expect from unit tests.

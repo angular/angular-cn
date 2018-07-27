@@ -96,7 +96,7 @@ DOM event object in the `$event` variable which this code passes as a parameter 
 </code-example>
 
 The properties of an `$event` object vary depending on the type of DOM event. For example,
-a mouse event includes different information than a input box editing event.
+a mouse event includes different information than an input box editing event.
 
 `$event` 对象的属性取决于 DOM 事件的类型。例如，鼠标事件与输入框编辑事件包含了不同的信息。
 
@@ -132,7 +132,7 @@ Here's what the UI displays:
   <img src='generated/images/guide/user-input/keyup1-anim.gif' alt="key up 1">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Alternatively, you could accumulate the individual keys themselves by substituting `event.key`
 for `event.target.value` in which case the same user input would produce:
@@ -238,7 +238,7 @@ Type something in the input box, and watch the display update with each keystrok
   <img src='generated/images/guide/user-input/keyup-loop-back-anim.gif' alt="loop back">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **This won't work at all unless you bind to an event**.
 

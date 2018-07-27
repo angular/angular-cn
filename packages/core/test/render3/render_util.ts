@@ -11,11 +11,12 @@ import {stringifyElement} from '@angular/platform-browser/testing/src/browser_ut
 import {Injector} from '../../src/di/injector';
 import {CreateComponentOptions} from '../../src/render3/component';
 import {extractDirectiveDef, extractPipeDef} from '../../src/render3/definition';
-import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveType, PublicFeature, RenderFlags, defineComponent, defineDirective, renderComponent as _renderComponent, tick} from '../../src/render3/index';
+import {ComponentTemplate, ComponentType, DirectiveDefInternal, DirectiveType, PublicFeature, RenderFlags, defineComponent, defineDirective, renderComponent as _renderComponent, tick} from '../../src/render3/index';
 import {NG_HOST_SYMBOL, renderTemplate} from '../../src/render3/instructions';
-import {DirectiveDefList, DirectiveDefListOrFactory, DirectiveTypesOrFactory, PipeDef, PipeDefList, PipeDefListOrFactory, PipeTypesOrFactory} from '../../src/render3/interfaces/definition';
+import {DirectiveDefList, DirectiveDefListOrFactory, DirectiveTypesOrFactory, PipeDefInternal, PipeDefList, PipeDefListOrFactory, PipeTypesOrFactory} from '../../src/render3/interfaces/definition';
 import {LElementNode} from '../../src/render3/interfaces/node';
 import {RElement, RText, Renderer3, RendererFactory3, domRendererFactory3} from '../../src/render3/interfaces/renderer';
+import {Sanitizer} from '../../src/sanitization/security';
 import {Type} from '../../src/type';
 
 import {getRendererFactory2} from './imported_renderer2';
@@ -31,11 +32,7 @@ export abstract class BaseFixture {
   /**
    * Current state of rendered HTML.
    */
-  get html(): string {
-    return (this.hostElement as any as Element)
-        .innerHTML.replace(/ style=""/g, '')
-        .replace(/ class=""/g, '');
-  }
+  get html(): string { return toHtml(this.hostElement as any as Element); }
 }
 
 function noop() {}
@@ -51,19 +48,25 @@ export class TemplateFixture extends BaseFixture {
   hostNode: LElementNode;
   private _directiveDefs: DirectiveDefList|null;
   private _pipeDefs: PipeDefList|null;
+  private _sanitizer: Sanitizer|null;
+  private _rendererFactory: RendererFactory3;
+
   /**
    *
    * @param createBlock Instructions which go into the creation block:
-   *          `if (creationMode) { __here__ }`.
-   * @param updateBlock Optional instructions which go after the creation block:
-   *          `if (creationMode) { ... } __here__`.
+   *          `if (rf & RenderFlags.Create) { __here__ }`.
+   * @param updateBlock Optional instructions which go into the update block:
+   *          `if (rf & RenderFlags.Update) { __here__ }`.
    */
   constructor(
       private createBlock: () => void, private updateBlock: () => void = noop,
-      directives?: DirectiveTypesOrFactory|null, pipes?: PipeTypesOrFactory|null) {
+      directives?: DirectiveTypesOrFactory|null, pipes?: PipeTypesOrFactory|null,
+      sanitizer?: Sanitizer|null, rendererFactory?: RendererFactory3) {
     super();
     this._directiveDefs = toDefs(directives, extractDirectiveDef);
     this._pipeDefs = toDefs(pipes, extractPipeDef);
+    this._sanitizer = sanitizer || null;
+    this._rendererFactory = rendererFactory || domRendererFactory3;
     this.hostNode = renderTemplate(this.hostElement, (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
         this.createBlock();
@@ -71,7 +74,7 @@ export class TemplateFixture extends BaseFixture {
       if (rf & RenderFlags.Update) {
         this.updateBlock();
       }
-    }, null !, domRendererFactory3, null, this._directiveDefs, this._pipeDefs);
+    }, null !, this._rendererFactory, null, this._directiveDefs, this._pipeDefs, sanitizer);
   }
 
   /**
@@ -81,8 +84,8 @@ export class TemplateFixture extends BaseFixture {
    */
   update(updateBlock?: () => void): void {
     renderTemplate(
-        this.hostNode.native, updateBlock || this.updateBlock, null !, domRendererFactory3,
-        this.hostNode, this._directiveDefs, this._pipeDefs);
+        this.hostNode.native, updateBlock || this.updateBlock, null !, this._rendererFactory,
+        this.hostNode, this._directiveDefs, this._pipeDefs, this._sanitizer);
   }
 }
 
@@ -94,7 +97,9 @@ export class ComponentFixture<T> extends BaseFixture {
   component: T;
   requestAnimationFrame: {(fn: () => void): void; flush(): void; queue: (() => void)[];};
 
-  constructor(private componentType: ComponentType<T>, opts: {injector?: Injector} = {}) {
+  constructor(
+      private componentType: ComponentType<T>,
+      opts: {injector?: Injector, sanitizer?: Sanitizer, rendererFactory?: RendererFactory3} = {}) {
     super();
     this.requestAnimationFrame = function(fn: () => void) {
       requestAnimationFrame.queue.push(fn);
@@ -106,9 +111,13 @@ export class ComponentFixture<T> extends BaseFixture {
       }
     };
 
-    this.component = _renderComponent(
-        componentType,
-        {host: this.hostElement, scheduler: this.requestAnimationFrame, injector: opts.injector});
+    this.component = _renderComponent(componentType, {
+      host: this.hostElement,
+      scheduler: this.requestAnimationFrame,
+      injector: opts.injector,
+      sanitizer: opts.sanitizer,
+      rendererFactory: opts.rendererFactory || domRendererFactory3
+    });
   }
 
   update(): void {
@@ -122,7 +131,7 @@ export class ComponentFixture<T> extends BaseFixture {
 // Fixtures above are preferred way of testing Components and Templates
 ///////////////////////////////////////////////////////////////////////////////////
 
-export const document = ((global || window) as any).document;
+export const document = ((typeof global == 'object' && global || window) as any).document;
 export let containerEl: HTMLElement = null !;
 let host: LElementNode|null;
 const isRenderer2 =
@@ -171,13 +180,13 @@ export function renderToHtml(
 
 function toDefs(
     types: DirectiveTypesOrFactory | undefined | null,
-    mapFn: (type: Type<any>) => DirectiveDef<any>): DirectiveDefList|null;
+    mapFn: (type: Type<any>) => DirectiveDefInternal<any>): DirectiveDefList|null;
 function toDefs(
     types: PipeTypesOrFactory | undefined | null,
-    mapFn: (type: Type<any>) => PipeDef<any>): PipeDefList|null;
+    mapFn: (type: Type<any>) => PipeDefInternal<any>): PipeDefList|null;
 function toDefs(
     types: PipeTypesOrFactory | DirectiveTypesOrFactory | undefined | null,
-    mapFn: (type: Type<any>) => PipeDef<any>| DirectiveDef<any>): any {
+    mapFn: (type: Type<any>) => PipeDefInternal<any>| DirectiveDefInternal<any>): any {
   if (!types) return null;
   if (typeof types == 'function') {
     types = types();
@@ -195,6 +204,7 @@ export function renderComponent<T>(type: ComponentType<T>, opts?: CreateComponen
     rendererFactory: opts && opts.rendererFactory || testRendererFactory,
     host: containerEl,
     scheduler: requestAnimationFrame,
+    sanitizer: opts ? opts.sanitizer : undefined,
     hostFeatures: opts && opts.hostFeatures
   });
 }
@@ -209,15 +219,17 @@ export function toHtml<T>(componentOrElement: T | RElement): string {
   } else {
     return stringifyElement(componentOrElement)
         .replace(/^<div host="">/, '')
+        .replace(/^<div fixture="mark">/, '')
         .replace(/<\/div>$/, '')
         .replace(' style=""', '')
-        .replace(/<!--[\w]*-->/g, '');
+        .replace(/<!--container-->/g, '');
   }
 }
 
 export function createComponent(
     name: string, template: ComponentTemplate<any>, directives: DirectiveTypesOrFactory = [],
-    pipes: PipeTypesOrFactory = []): ComponentType<any> {
+    pipes: PipeTypesOrFactory = [],
+    viewQuery: ComponentTemplate<any>| null = null): ComponentType<any> {
   return class Component {
     value: any;
     static ngComponentDef = defineComponent({
@@ -225,6 +237,7 @@ export function createComponent(
       selectors: [[name]],
       factory: () => new Component,
       template: template,
+      viewQuery: viewQuery,
       features: [PublicFeature],
       directives: directives,
       pipes: pipes

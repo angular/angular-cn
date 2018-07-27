@@ -20,12 +20,13 @@ A _component_ controls a patch of screen called a *view*. For example, individua
 
    英雄编辑器。
 
-You define a component's application logic&mdash;what it does to support the view&mdash;inside a class. The class interacts with the view through an API of properties and methods.
+You define a component's application logic&mdash;what it does to support the view&mdash;inside a class.
+The class interacts with the view through an API of properties and methods.
 
 你在类中定义组件的应用逻辑，为视图提供支持。
 组件通过一些由属性和方法组成的 API 与视图交互。
 
-For example, the `HeroListComponent` has a `heroes` property that returns an array of heroes that it acquires from a service. `HeroListComponent` also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list.
+For example, the `HeroListComponent` has a `heroes` property that holds an array of heroes. It also has a `selectHero()` method that sets a `selectedHero` property when the user clicks to choose a hero from that list. The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor. The service is provided to the component through the dependency injection system.
 
 比如，`HeroListComponent` 有一个 `heroes` 属性，它会返回一个从服务中取到的英雄数组。
 `HeroListComponent` 还有一个 `selectHero()` 方法，当用户从列表中选择一个英雄时，它会设置 `selectedHero` 属性的值。
@@ -83,8 +84,7 @@ Angular inserts an instance of the `HeroListComponent` view between those tags.
   另外，你还可以用 `template` 属性的值来提供内联的 HTML 模板。
   这个模板定义了该组件的*宿主视图*。
 
-* `providers`: An array of **dependency injection providers** for services that the component requires. In the example, this tells Angular that the component's constructor requires a `HeroService` instance
-in order to get the list of heroes to display.
+* `providers`: An array of **dependency injection providers** for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.  
 
    `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular，该组件的构造函数需要一个 `HeroService` 实例，以获取要显示的英雄列表。
 

@@ -290,7 +290,7 @@ Other critical metadata is in [`@NgModule`](guide/ngmodules) decorators.
 有些元数据位于 `@Component` 装饰器中，你会把它加到组件类上。
 另一些关键性的元数据位于 [`@NgModule`](guide/ngmodules) 装饰器中。
 
-The most important `@NgModule`decorator annotates the top-level **AppModule** class.
+The most important `@NgModule` decorator annotates the top-level **AppModule** class.
 
 最重要的 `@NgModule` 装饰器位于顶级类 **AppModule** 上。
 

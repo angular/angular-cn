@@ -50,6 +50,10 @@ Unless otherwise noted, patterns use a limited glob format:
 
   `*` 匹配 0 个或更多个除 `/` 之外的字符。
 
+* `?` matches exactly one character excluding `/`.
+
+  `?` 匹配除 `/` 之外的一个字符。
+
 * The `!` prefix marks the pattern as being negative, meaning that only files that don't match the pattern will be included.
 
    `!` 前缀表示该模式是反的，也就是说只包含与该模式不匹配的文件。
@@ -132,6 +136,7 @@ interface AssetGroup {
   updateMode?: 'prefetch' | 'lazy';
   resources: {
     files?: string[];
+    /** @deprecated As of v6 `versionedFiles` and `files` options have the same behavior. Use `files` instead. */
     versionedFiles?: string[];
     urls?: string[];
   };
@@ -188,13 +193,13 @@ This section describes the resources to cache, broken up into three groups.
 
    `files` 列出了与 `dist` 目录中的文件相匹配的模式。它们可以是单个文件也可以是能匹配多个文件的类似 glob 的模式。
 
-* `versionedFiles` is like `files` but should be used for build artifacts that already include a hash in the filename, which is used for cache busting. The Angular service worker can optimize some aspects of its operation if it can assume file contents are immutable.
+* `versionedFiles` has been deprecated. As of v6 `versionedFiles` and `files` options have the same behavior. Use `files` instead.
 
    `versionedFiles` 和 `files` 相似，但是它用来对工件进行构建，这些工件已经在文件名中包含了一个散列，用于让其缓存失效。
   如果 Angular Service Worker 能假定这些文件在文件名不变时其内容也不会变，那它就可以从某些方面优化这种操作。
 
 * `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
-  _(Negative glob patterns are not supported.)_
+  _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
 
    `urls` 包括要在运行时进行匹配的 URL 和 URL 模式。
   这些资源不是直接获取的，也没有内容散列，但它们会根据 HTTP 标头进行缓存。
@@ -237,7 +242,7 @@ Similar to `assetGroups`, every data group has a `name` which uniquely identifie
 ### `urls`
 
 A list of URL patterns. URLs that match these patterns will be cached according to this data group's policy.<br>
-  _(Negative glob patterns are not supported.)_
+  _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
 
 一个 URL 模式的列表。匹配这些模式的 URL 将会根据该数据组的策略进行缓存。<br>
   **（不支持 glob 中的逆模式）**

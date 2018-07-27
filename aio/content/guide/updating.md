@@ -15,7 +15,7 @@ support and deprecation practices, as well as the release schedule&mdash;see [An
 
 要了解我们的版本策略和实践（包括支持或废弃某些特性时的做法，以及发布计划），请参见 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
 

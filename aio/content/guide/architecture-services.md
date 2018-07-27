@@ -111,15 +111,37 @@ The process of `HeroService` injection looks something like this:
 
 ### 提供服务
 
-You must register at least one *provider* of any service you are going to use. You can register providers in modules or in components.
+You must register at least one *provider* of any service you are going to use. A service can register providers itself, making it available everywhere, or you can register providers with specific modules or components. You register providers in the metadata of the service (in the `@Injectable` decorator), or in the `@NgModule` or `@Component` metadata 
 
-对于要用到的任何服务，你必须至少注册一个*提供商*。你可以在模块中或者组件中注册这些提供商。
+对于要用到的任何服务，你必须至少注册一个*提供商*。服务可以注册自己的提供商，这样可以让自己到处可用。或者，你也可以为特定的模块或组件注册提供商。要注册提供商，就要在服务的 `@Injectable` 装饰器中提供它的元数据，或者在`@NgModule` 或 `@Component` 的元数据中。
 
-* When you add providers to the [root module](guide/architecture-modules), the same instance of a service is available to all components in your app.
+* By default, the Angular CLI command `ng generate service` registers a provider with the root injector for your service by including provider metadata in the `@Injectable` decorator. The tutorial uses this method to register the provider of  HeroService class definition:
 
-   当你往[根模块](guide/architecture-modules)中添加服务提供商时，服务的同一个实例会服务于你应用中的所有组件。
+   默认情况下，Angular CLI 的 `ng generate service` 命令会在 `@Injectable` 装饰器中提供元数据，把它注册到根注入器中。本教程就用这种方法注册了 HeroService 的提供商：
 
-<code-example path="architecture/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (module providers)" region="providers"></code-example>
+``` 
+@Injectable({
+  providedIn: 'root',
+})
+``` 
+
+ When you provide the service at the root level, Angular creates a single, shared instance of HeroService and injects into any class that asks for it. Registering the provider in the `@Injectable` metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all. 
+ 
+ 当你在根一级提供服务时，Angular 会为 HeroService 创建一个单一的共享实例，并且把它注入到任何想要它的类中。这种在 `@Injectable` 元数据中注册提供商的方式还让 Angular 能够通过移除那些从未被用过的服务来优化大小。
+
+* When you register a provider with a [specific NgModule](guide/architecture-modules), the same instance of a service is available to all components in that NgModule. To register at this level, use the `providers` property of the `@NgModule` decorator:
+
+   当你使用[特定的 NgModule](guide/architecture-modules) 注册提供商时，该服务的同一个实例将会对该 NgModule 中的所有组件可用。要想在这一层注册，请用 `@NgModule` 装饰器中的 `providers` 属性：
+
+``` 
+@NgModule({
+  providers: [
+   BackendService,
+   Logger
+ ],
+ ...
+})
+``` 
 
 * When you register a provider at the component level, you get a new instance of the
 service with each new instance of that component. At the component level, register a service provider in the `providers` property of the `@Component` metadata:

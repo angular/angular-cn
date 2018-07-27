@@ -21,7 +21,7 @@ The final UI looks like this:
   <img src="generated/images/guide/displaying-data/final.png" alt="Final UI">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The <live-example></live-example> demonstrates all of the syntax and code
 snippets described in this page.
@@ -78,7 +78,7 @@ interpolation:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The template is a multi-line string within ECMAScript 2015 backticks (<code>\`</code>).
 The backtick (<code>\`</code>)&mdash;which is *not* the same character as a single
@@ -97,7 +97,7 @@ when these properties change.
 
 Angular 自动从组件中提取 `title` 和 `myHero` 属性的值，并且把这些值插入浏览器中。当这些属性发生变化时，Angular 就会自动刷新显示。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 More precisely, the redisplay occurs after some kind of asynchronous event related to
 the view, such as a keystroke, a timer completion, or a response to an HTTP request.
@@ -254,7 +254,7 @@ context for the interpolation in the double curly braces.
 Angular 为列表中的每个条目复制一个 `<li>` 元素，在每个迭代中，把 `hero` 变量设置为当前条目（英雄）。
 Angular 把 `hero` 变量作为双花括号插值表达式的上下文。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 In this case, `ngFor` is displaying an array, but `ngFor` can
 repeat items for any [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) object.

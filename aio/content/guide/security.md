@@ -177,14 +177,23 @@ Angular 认为这些值是不安全的，并自动进行无害化处理。它会
   <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
 </figure>
 
-### Avoid direct use of the DOM APIs
+
+
+### Direct use of the DOM APIsand explicit sanitization calls
 
 ### 避免直接使用 DOM API
 
 The built-in browser DOM APIs don't automatically protect you from security vulnerabilities.
 For example, `document`, the node available through `ElementRef`, and many third-party APIs
-contain unsafe methods. Avoid directly interacting with the DOM and instead use Angular
-templates where possible.
+contain unsafe methods. In the same way, if you interact with other libraries that manipulate
+the DOM, you likely won't have the same automatic sanitization as with Angular interpolations.
+Avoid directly interacting with the DOM and instead use Angular templates where possible.
+
+For cases where this is unavoidable, use the built-in Angular sanitization functions.
+Sanitize untrusted values with the [DomSanitizer.sanitize](api/platform-browser/DomSanitizer#sanitize)
+method and the appropriate `SecurityContext`. That function also accepts values that were
+marked as trusted using the `bypassSecurityTrust`... functions, and will not sanitize them,
+as [described below](#bypass-security-apis).
 
 浏览器内置的 DOM API 不会自动针对安全漏洞进行防护。比如，`document`（它可以通过 `ElementRef` 访问）以及其它第三方 API 都可能包含不安全的方法。
 要避免直接与 DOM 交互，只要可能，就尽量使用 Angular 模板。

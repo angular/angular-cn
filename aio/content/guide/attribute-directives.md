@@ -90,7 +90,7 @@ The CLI creates `src/app/highlight.directive.ts`, a corresponding test file (`..
 
 CLI 会创建 `src/app/highlight.directive.ts` 及相应的测试文件（`.../spec.ts`），并且在根模块 `AppModule` 中声明这个指令类。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 _Directives_ must be declared in [Angular Modules](guide/ngmodules) in the same manner as _components_.
 
@@ -123,7 +123,7 @@ The _attribute selector_ pattern explains the name of this kind of directive.
 
 正因如此，这类指令被称为 **属性选择器** 。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 #### Why not "highlight"?
 
@@ -163,7 +163,7 @@ The `import` statement specifies an additional `ElementRef` symbol from the Angu
 
 `import` 语句还从 Angular 的 `core` 库中导入了一个 `ElementRef` 符号。
 
-You use the `ElementRef`in the directive's constructor
+You use the `ElementRef` in the directive's constructor
 to [inject](guide/dependency-injection) a reference to the host DOM element, 
 the element to which you applied `appHighlight`.
 
@@ -239,7 +239,7 @@ element that hosts an attribute directive, the `<p>` in this case.
 
 `@HostListener` 装饰器引用属性型指令的宿主元素，在这个例子中就是 `<p>`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Of course you could reach into the DOM with standard JavaScript and attach event listeners manually.
 There are at least three problems with _that_ approach:

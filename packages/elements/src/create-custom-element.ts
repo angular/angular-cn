@@ -43,7 +43,8 @@ export abstract class NgElement extends HTMLElement {
   /**
    * The strategy that controls how a component is transformed in a custom element.
    */
-  protected ngElementStrategy: NgElementStrategy;
+  // TODO(issue/24571): remove '!'.
+  protected ngElementStrategy !: NgElementStrategy;
   /**
    * A subscription to change, connect, and disconnect events in the custom element.
    */
@@ -131,20 +132,35 @@ export function createCustomElement<P>(
   const attributeToPropertyInputs = getDefaultAttributeToPropertyInputs(inputs);
 
   class NgElementImpl extends NgElement {
-    static readonly observedAttributes = Object.keys(attributeToPropertyInputs);
+    // Work around a bug in closure typed optimizations(b/79557487) where it is not honoring static
+    // field externs. So using quoted access to explicitly prevent renaming.
+    static readonly['observedAttributes'] = Object.keys(attributeToPropertyInputs);
 
     constructor(injector?: Injector) {
       super();
+
+      // Note that some polyfills (e.g. document-register-element) do not call the constructor.
+      // Do not assume this strategy has been created.
+      // TODO(andrewseguin): Add e2e tests that cover cases where the constructor isn't called. For
+      // now this is tested using a Google internal test suite.
       this.ngElementStrategy = strategyFactory.create(injector || config.injector);
     }
 
     attributeChangedCallback(
         attrName: string, oldValue: string|null, newValue: string, namespace?: string): void {
+      if (!this.ngElementStrategy) {
+        this.ngElementStrategy = strategyFactory.create(config.injector);
+      }
+
       const propName = attributeToPropertyInputs[attrName] !;
       this.ngElementStrategy.setInputValue(propName, newValue);
     }
 
     connectedCallback(): void {
+      if (!this.ngElementStrategy) {
+        this.ngElementStrategy = strategyFactory.create(config.injector);
+      }
+
       this.ngElementStrategy.connect(this);
 
       // Listen for events from the strategy and dispatch them as custom events
@@ -155,7 +171,9 @@ export function createCustomElement<P>(
     }
 
     disconnectedCallback(): void {
-      this.ngElementStrategy.disconnect();
+      if (this.ngElementStrategy) {
+        this.ngElementStrategy.disconnect();
+      }
 
       if (this.ngElementEventsSubscription) {
         this.ngElementEventsSubscription.unsubscribe();

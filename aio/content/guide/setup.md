@@ -320,7 +320,7 @@ The following are all in `src/`
 
 </table>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 ### Next Step
 

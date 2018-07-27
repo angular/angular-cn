@@ -103,7 +103,7 @@ you apply the directive to an element in the HTML template.
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 There are two other kinds of Angular directives, described extensively elsewhere:
 (1)&nbsp;components and (2)&nbsp;attribute directives.
@@ -504,7 +504,7 @@ The `NgSwitchDefault` displays its host element when no sibling `NgSwitchCase` m
 `NgSwitchCase` 会在它的值匹配上选项值的时候显示它的宿主元素。
 `NgSwitchDefault` 则会当没有兄弟 `NgSwitchCase` 匹配上时显示它的宿主元素。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The element to which you apply a directive is its _host_ element.
 The `<happy-hero>` is the host element for the happy `*ngSwitchCase`.
@@ -844,7 +844,7 @@ That means the directive needs an `appUnless` property, decorated with `@Input`
 该指令的使用者会把一个 true/false 条件绑定到 `[appUnless]` 属性上。
 也就是说，该指令需要一个带有 `@Input` 的 `appUnless` 属性。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outputs) guide.
 

@@ -113,12 +113,11 @@ Angular 应用需要不止一个模块，它们都为根模块服务。
 
    <td>
 
-       When you build template driven forms (includes <code>NgModel</code>)
+       When you want to build template driven forms (includes <code>NgModel</code>)
 
        当要构建模板驱动表单时（它包含 <code>NgModel</code> ）
 
    </td>
-
  </tr>
 
  <tr>
@@ -137,36 +136,17 @@ Angular 应用需要不止一个模块，它们都为根模块服务。
 
    <td>
 
-       When building reactive forms
+       When you want to build reactive forms
 
        当要构建响应式表单时
 
    </td>
-
  </tr>
 
  <tr>
-
-   <td>
-
-       <code>RouterModule</code>
-
-   </td>
-
-   <td>
-
-       <code>@angular/router</code>
-
-   </td>
-
-   <td>
-
-       For Routing and when you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>
-
-       要使用路由功能，并且你要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时
-
-   </td>
-
+   <td><code>RouterModule</code></td>
+   <td><code>@angular/router</code></td>
+   <td>When you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>要使用路由功能，并且你要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时</td>
  </tr>
 
  <tr>
@@ -185,12 +165,11 @@ Angular 应用需要不止一个模块，它们都为根模块服务。
 
    <td>
 
-       When you to talk to a server
+       When you want to talk to a server
 
        当你要和服务器对话时
 
    </td>
-
  </tr>
 
 </table>

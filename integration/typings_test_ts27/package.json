@@ -1,6 +1,6 @@
 {
   "name": "angular-integration",
-  "description": "Assert that users with TypeScript 2.6 can type-check an Angular application",
+  "description": "Assert that users with TypeScript 2.7 can type-check an Angular application",
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
@@ -9,6 +9,7 @@
     "@angular/compiler": "file:../../dist/packages-dist/compiler",
     "@angular/compiler-cli": "file:../../dist/packages-dist/compiler-cli",
     "@angular/core": "file:../../dist/packages-dist/core",
+    "@angular/elements": "file:../../dist/packages-dist/elements",
     "@angular/forms": "file:../../dist/packages-dist/forms",
     "@angular/http": "file:../../dist/packages-dist/http",
     "@angular/platform-browser": "file:../../dist/packages-dist/platform-browser",

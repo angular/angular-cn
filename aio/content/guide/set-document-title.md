@@ -36,7 +36,7 @@ That's dirty and undermines your chances of running the app outside of a browser
 
 可以从浏览器获得 `document` 对象，并且手动设置标题。但是这样看起来很脏，而且将无法在浏览器之外运行应用程序。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Running your app outside a browser means that you can take advantage of server-side
   pre-rendering for near-instant first app render times and for SEO.  It means you could run from

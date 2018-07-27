@@ -40,7 +40,7 @@ is all the registration you need.
 
 这些服务类可以充当自己的提供商，因此你只要把它们定义在 `@Injectable` 装饰器中就算注册成功了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 A *provider* is something that can create or deliver a service.
 Angular creates a service instance from a class provider by using `new`.
@@ -221,7 +221,7 @@ That would result in a *different* instance of the service, living in a *differe
 
 也可以在应用程序别处的*不同的*组件里提供 `HeroService`。这样就会导致在*不同*注入器中存在该服务的*不同*实例。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Examples of such scoped `HeroService` singletons appear throughout the accompanying sample code,
 including the `HeroBiosComponent`, `HeroOfTheMonthComponent`, and `HeroesBaseComponent`.
@@ -549,7 +549,7 @@ A *provider* is a recipe for delivering a service associated with a *token*.
 如果它没有，也能在***提供商***的帮助下新建一个。
 *提供商*就是一个用于交付服务的配方，它被关联到一个令牌。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 If the injector doesn't have a provider for the requested *token*, it delegates the request
 to its parent injector, where the process repeats until there are no more injectors.
@@ -725,7 +725,7 @@ When _this component_ requests the `LoggerService`, it receives the `DateLoggerS
 
 第二个提供商使用 `DateLoggerService` 来满足 `LoggerService`。该 `LoggerService` 在 `AppComponent` 级别已经被注册。当*这个组件*要求 `LoggerService` 的时候，它得到的却是 `DateLoggerService` 服务。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This component and its tree of child components receive the `DateLoggerService` instance.
 Components outside the tree continue to receive the original `LoggerService` instance.
@@ -794,7 +794,7 @@ Behind the scenes, Angular actually sets the `logger` parameter to the full serv
 实际上，Angular 确实想把 `logger` 参数设置为注入器里 `LoggerService` 的完整版本。只是在之前的提供商注册里使用了 `useClass`，
 所以该完整版本被 `DateLoggerService` 取代了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The following image, which displays the logging date, confirms the point:
 
@@ -862,7 +862,7 @@ and Angular injects it into the `runnersUp` parameter of the `HeroOfTheMonthComp
 
 一些内部工作后，这个函数返回名字字符串，Angular 将其注入到 `HeroOfTheMonthComponent` 组件的 `runnersUp` 参数里。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The function retrieves candidate heroes from the `HeroService`,
 takes `2` of them to be the runners-up, and returns their concatenated names.
@@ -939,7 +939,7 @@ Such a narrowing interface helps decouple the concrete class from its consumers.
 
 ***类-接口***应该*只*定义允许它的消费者调用的成员。窄的接口有助于解耦该类的具体实现和它的消费者。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 #### Why *MinimalLogger* is a class and not a TypeScript interface
 
@@ -1051,7 +1051,7 @@ and displays them in the order they arrive from the database.
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 ***Keep constructors simple.*** They should do little more than initialize variables.
 This rule makes the component safe to construct under test without fear that it will do something dramatic like talk to the server.
@@ -1194,7 +1194,7 @@ whose API your `NewsComponent` understands.
 
 该应用程序可能有多于一打的金融工具组件。如果幸运，它们可能会从同一个基类派生，其 API 是 `NewsComponent` 组件所能理解的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Looking for components that implement an interface would be better.
 That's not possible because TypeScript interfaces disappear
@@ -1409,7 +1409,7 @@ its class signature doesn't mention `Parent`:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `AlexComponent` *should* implement `Parent` as a matter of proper style.
 It doesn't in this example *only* to demonstrate that the code will compile and run without the interface

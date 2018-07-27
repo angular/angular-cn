@@ -164,7 +164,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
 </table>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request,
 using <a href="https://saucelabs.com/">SauceLabs</a> and
@@ -262,7 +262,7 @@ add it yourself, following the same pattern:
 
    在 `polyfills.ts` 中 `import` 这个文件
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Non-CLI users should follow the instructions [below](#non-cli).
 

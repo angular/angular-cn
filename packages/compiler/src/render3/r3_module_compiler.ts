@@ -13,23 +13,107 @@ import {mapLiteral} from '../output/map_util';
 import * as o from '../output/output_ast';
 import {OutputContext} from '../util';
 
+import {R3DependencyMetadata, compileFactoryFunction} from './r3_factory';
 import {Identifiers as R3} from './r3_identifiers';
+import {R3Reference, convertMetaToOutput, mapToMapExpression} from './util';
 
-function convertMetaToOutput(meta: any, ctx: OutputContext): o.Expression {
-  if (Array.isArray(meta)) {
-    return o.literalArr(meta.map(entry => convertMetaToOutput(entry, ctx)));
-  }
-  if (meta instanceof StaticSymbol) {
-    return ctx.importExpr(meta);
-  }
-  if (meta == null) {
-    return o.literal(meta);
-  }
-
-  throw new Error(`Internal error: Unsupported or unknown metadata: ${meta}`);
+export interface R3NgModuleDef {
+  expression: o.Expression;
+  type: o.Type;
+  additionalStatements: o.Statement[];
 }
 
-export function compileNgModule(
+/**
+ * Metadata required by the module compiler to generate a `ngModuleDef` for a type.
+ */
+export interface R3NgModuleMetadata {
+  /**
+   * An expression representing the module type being compiled.
+   */
+  type: o.Expression;
+
+  /**
+   * An array of expressions representing the bootstrap components specified by the module.
+   */
+  bootstrap: o.Expression[];
+
+  /**
+   * An array of expressions representing the directives and pipes declared by the module.
+   */
+  declarations: R3Reference[];
+
+  /**
+   * An array of expressions representing the imports of the module.
+   */
+  imports: R3Reference[];
+
+  /**
+   * An array of expressions representing the exports of the module.
+   */
+  exports: R3Reference[];
+
+  /**
+   * Whether to emit the selector scope values (declarations, imports, exports) inline into the
+   * module definition, or to generate additional statements which patch them on. Inline emission
+   * does not allow components to be tree-shaken, but is useful for JIT mode.
+   */
+  emitInline: boolean;
+}
+
+/**
+ * Construct an `R3NgModuleDef` for the given `R3NgModuleMetadata`.
+ */
+export function compileNgModule(meta: R3NgModuleMetadata): R3NgModuleDef {
+  const {type: moduleType, bootstrap, declarations, imports, exports} = meta;
+  const expression = o.importExpr(R3.defineNgModule).callFn([mapToMapExpression({
+    type: moduleType,
+    bootstrap: o.literalArr(bootstrap),
+    declarations: o.literalArr(declarations.map(ref => ref.value)),
+    imports: o.literalArr(imports.map(ref => ref.value)),
+    exports: o.literalArr(exports.map(ref => ref.value)),
+  })]);
+
+  const type = new o.ExpressionType(o.importExpr(R3.NgModuleDef, [
+    new o.ExpressionType(moduleType), tupleTypeOf(declarations), tupleTypeOf(imports),
+    tupleTypeOf(exports)
+  ]));
+
+  const additionalStatements: o.Statement[] = [];
+  return {expression, type, additionalStatements};
+}
+
+export interface R3InjectorDef {
+  expression: o.Expression;
+  type: o.Type;
+}
+
+export interface R3InjectorMetadata {
+  name: string;
+  type: o.Expression;
+  deps: R3DependencyMetadata[];
+  providers: o.Expression;
+  imports: o.Expression;
+}
+
+export function compileInjector(meta: R3InjectorMetadata): R3InjectorDef {
+  const expression = o.importExpr(R3.defineInjector).callFn([mapToMapExpression({
+    factory: compileFactoryFunction({
+      name: meta.name,
+      fnOrClass: meta.type,
+      deps: meta.deps,
+      useNew: true,
+      injectFn: R3.inject,
+    }),
+    providers: meta.providers,
+    imports: meta.imports,
+  })]);
+  const type =
+      new o.ExpressionType(o.importExpr(R3.InjectorDef, [new o.ExpressionType(meta.type)]));
+  return {expression, type};
+}
+
+// TODO(alxhub): integrate this with `compileNgModule`. Currently the two are separate operations.
+export function compileNgModuleFromRender2(
     ctx: OutputContext, ngModule: CompileShallowModuleMetadata,
     injectableCompiler: InjectableCompiler): void {
   const className = identifierName(ngModule.type) !;
@@ -57,4 +141,14 @@ export function compileNgModule(
       /* getters */[],
       /* constructorMethod */ new o.ClassMethod(null, [], []),
       /* methods */[]));
+}
+
+function accessExportScope(module: o.Expression): o.Expression {
+  const selectorScope = new o.ReadPropExpr(module, 'ngModuleDef');
+  return new o.ReadPropExpr(selectorScope, 'exported');
+}
+
+function tupleTypeOf(exp: R3Reference[]): o.Type {
+  const types = exp.map(ref => o.typeofExpr(ref.type));
+  return exp.length > 0 ? o.expressionType(o.literalArr(types)) : o.NONE_TYPE;
 }

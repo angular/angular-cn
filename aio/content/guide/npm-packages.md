@@ -16,7 +16,7 @@ The Angular CLI uses `yarn` by default to install npm packages when you create a
 [**yarn**](https://yarnpkg.com/en/) 是另一个下载和安装 npm 包的工具。
 当创建新项目时，Angular CLI 默认使用 `yarn` 来安装 npm 包。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Node.js and npm are essential to Angular development.
 

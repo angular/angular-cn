@@ -10,7 +10,7 @@ This guide explains how to build with the AOT compiler using different compiler 
 
 本章描述了如何使用 AOT 编译器，以及如何书写能被 AOT 编译的 Angular 元数据。
 
-<div class="l-sub-section">
+<div class="alert is-helpful>
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular Compiler</a> at AngularConnect 2016.
 
@@ -63,7 +63,7 @@ For AOT compilation, append the `--aot` flags to the _build-only_ or the _build-
   ng serve --aot
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `--prod` meta-flag compiles with AOT by default.
 
@@ -158,6 +158,9 @@ You can control your app compilation by providing template compiler options in t
 }
 
 ```
+### *enableResourceInlining*
+This options tell the compiler to replace the `templateUrl` and `styleUrls` property in all `@Component` decorators with inlined contents in `template` and `styles` properties.
+When enabled, the `.js` output of ngc will have no lazy-loaded `templateUrl` or `styleUrls`.
 
 ### *skipMetadataEmit*
 
@@ -373,24 +376,18 @@ Tells the compiler to generate all the possible generated files even if they are
 how `bazel` rules track file dependencies. It is not recommended to use this option outside of the `bazel`
 rules.
 
-告诉编译器生成所有可能生成的文件 —— 即使是空文件。
+  告诉编译器生成所有可能生成的文件 —— 即使是空文件。
 该选项默认为 `false`。
 这是供 `bazel` 构建规则使用的选项，它用于简化 `bazel` 规则跟踪文件依赖的方式。
-除了 `bazel` 规则之外不建议使用该选项。
+除了 `bazel` 规则之外不建议使用该选项。### *enableIvy*
 
-  ### *enableIvy*
-
-  Tells the compiler to generate definitions using the Render3 style code generation. This option defaults to `false`.
+Tells the compiler to generate definitions using the Render3 style code generation. This option defaults to `false`.
 
   告诉编译器使用 Render3 风格的代码生成器来来生成各种定义。
-该选项默认为 `false`。
-
-  Not all features are supported with this option enabled. It is only supported
+该选项默认为 `false`。Not all features are supported with this option enabled. It is only supported
   for experimentation and testing of Render3 style code generation.
 
-  当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。
-
-  *Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
+  当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。*Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
 
   *注意*：不建议使用该选项，因为它在使用 Render2 的代码生成器时还缺少一些特性。
 
@@ -487,7 +484,7 @@ You can think of `.metadata.json` as a diagram of the overall structure of a dec
 
 你可以把 `.metadata.json` 文件看做一个包括全部装饰器的元数据的全景图，就像[抽象语法树 (AST) ](https://en.wikipedia.org/wiki/Abstract_syntax_tree)一样。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Angular's [schema.ts](https://github.com/angular/angular/blob/master/packages/compiler-cli/src/metadata/schema.ts)
 describes the JSON format as a collection of TypeScript interfaces.
@@ -533,7 +530,7 @@ piece of metadata to generate the application code.
 
 如果表达式使用了不支持的语法，**收集器**就会往 `.metadata.json` 文件中写入一个错误节点。稍后，如果编译器用到元数据中的这部分内容来生成应用代码，它就会报告这个错误。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
  If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in `tsconfig`.
 

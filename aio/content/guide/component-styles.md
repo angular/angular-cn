@@ -265,7 +265,7 @@ They are _not inherited_ by any components nested within the template nor by any
 
 </div>
 
-The CLI defines an empty `styles` array when you create the component with the `--inline-styles` flag.
+The CLI defines an empty `styles` array when you create the component with the `--inline-style` flag.
 
 当使用 `--inline-styles` 标识创建组件时，CLI 就会定义一个空的 `styles` 数组
 
@@ -297,9 +297,9 @@ They are _not inherited_ by any components nested within the template nor by any
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
-  You can specify more than one styles file or even a combination of `style` and `styleUrls`.
+  You can specify more than one styles file or even a combination of `styles` and `styleUrls`.
 
   你可以指定多个样式文件，甚至可以组合使用 `style` 和 `styleUrls` 方式。
 
@@ -338,14 +338,13 @@ You can also write `<link>` tags into the component's HTML template.
 
 <div class="alert is-critical">
 
-The link tag's `href` URL must be relative to the
-_**application root**_, not relative to the component file.
-
-link 标签的 `href` URL 必须是相对于***本应用的根路径***的，而不是相对于这个组件文件的。
-
 When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
 
 当使用 CLI 进行构建时，要确保这个链接到的样式表文件被复制到了服务器上。参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-asset-configuration)。
+
+Once included, the CLI will include the stylesheet, whether the link tag's href URL is relative to the application root or the component file.
+
+只要引用过，CLI 就会计入这个样式表，无论这个 link 标签的 href 指向的 URL 是相对于应用根目录的还是相对于组件文件的。
 
 </div>
 
@@ -440,14 +439,17 @@ Choose from the following modes:
 通过在组件的元数据上设置*视图封装模式*，你可以分别控制*每个组件*的封装模式。
 可选的封装模式一共有如下几种：
 
-* `Native` view encapsulation uses the browser's native shadow DOM implementation (see
+* `ShadowDom` view encapsulation uses the browser's native shadow DOM implementation (see
   [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
   on the [MDN](https://developer.mozilla.org) site)
   to attach a shadow DOM to the component's host element, and then puts the component
   view inside that shadow DOM. The component's styles are included within the shadow DOM.
+  
+   `ShadowDom` 模式使用浏览器原生的 Shadow DOM 实现（参见 [MDN](https://developer.mozilla.org) 上的 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)）来为组件的宿主元素附加一个 Shadow DOM。组件的视图被附加到这个 Shadow DOM 中，组件的样式也被包含在这个 Shadow DOM 中。(译注：不进不出，没有样式能进来，组件样式出不去。)
 
-   `Native` 模式使用浏览器原生的 [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM)
-  实现来为组件的宿主元素附加一个 Shadow DOM。组件的样式被包裹在这个 Shadow DOM 中。(译注：不进不出，没有样式能进来，组件样式出不去。)
+* `Native` view encapsulation uses a now deprecated version of the browser's native shadow DOM implementation - [learn about the changes](https://hayato.io/2016/shadowdomv1/).
+
+   `Native` 视图包装模式使用浏览器原生 Shadow DOM 的一个废弃实现 —— [参见变化详情](https://hayato.io/2016/shadowdomv1/)。
 
 * `Emulated` view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing
   (and renaming) the CSS code to effectively scope the CSS to the component's view.
@@ -472,8 +474,8 @@ To set the components encapsulation mode, use the `encapsulation` property in th
 <code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" title="src/app/quest-summary.component.ts" linenums="false">
 </code-example>
 
-`Native` view encapsulation only works on browsers that have native support
-for shadow DOM (see [Shadow DOM v0](http://caniuse.com/#feat=shadowdom) on the
+`ShadowDom` view encapsulation only works on browsers that have native support
+for shadow DOM (see [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1) on the
 [Can I use](http://caniuse.com) site). The support is still limited,
 which is why `Emulated` view encapsulation is the default mode and recommended
 in most cases.

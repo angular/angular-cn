@@ -61,11 +61,7 @@
       "tooltip": "给文档作者的风格指南",
       "hidden": true
     },
-    {
-      "url": "guide/webpack",
-      "title": "Webpack: 简介",
-      "hidden": true
-    },
+
     {
       "url": "guide/quickstart",
       "title": "快速上手",
@@ -511,6 +507,11 @@
               "tooltip": "把 AngularJS 应用增量式的升级到 Angular。"
             },
             {
+              "url": "guide/upgrade-performance",
+              "title": "Upgrading for Performance",
+              "tooltip": "Upgrade from AngularJS to Angular in a more flexible way."
+            },
+            {
               "url": "guide/ajs-quick-reference",
               "title": "AngularJS 与 Angular 的概念对照",
               "tooltip": "学习如何把 AngularJS 的概念映射到 Angular 中。"
@@ -647,17 +648,12 @@
     }
   ],
   "docVersions": [
-    {
-      "title": "v4 (LTS)",
-      "url": "https://v4.angular.io"
+    { "title": "v5", "url": "https://v5.angular.io" },
+    { "title": "v4 ", "url": "https://v4.angular.io"
+    },
+    { "title": "v2", "url": "https://v2.angular.cn"
     },
     {
-      "title": "v2",
-      "url": "https://v2.angular.cn"
-    },
-    {
-      "title": "AngularDart",
-      "url": "https://webdev.dartlang.org/angular"
-    }
+     "title": "AngularDart", "url": "https://webdev.dartlang.org/angular" }
   ]
 }

@@ -18,7 +18,7 @@ See [Updating your projects](guide/updating "Updating your projects") for inform
 
 参见[更新你的项目](guide/updating "Updating your projects")，以了解如何把你的应用和库更新到 Angular 的最新版本。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The practices described in this document apply to Angular 2.0 and later. If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
 
@@ -108,7 +108,7 @@ This cadence of releases gives you access to new beta features as soon as they a
 
 ## 发布计划
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Disclaimer: The dates are offered as general guidance and may be adjusted by us when necessary to ensure delivery of a high-quality platform. 
 
@@ -130,28 +130,70 @@ The following table contains our current target release dates for the next two m
 兼容性说明：向后兼容性承诺的主要目标是确保在核心框架和核心工具中的变化不会破坏现有组件和应用的生态系统，并且不要给 Angular 应用和组件的开发者带来额外的升级/迁移负担。
 
 {@a lts}
+{@a support}
+## Support policy
 
-## Long-term support
+## 支持策略
 
-## 长期支持
+All of our major releases are supported for 18 months. 
 
-All of our releases are supported actively for about 6 months (until the next major release), and then they are supported through long-term support (LTS) for another 12 months.
+所有主版本的支持周期都是 18 个月。
 
-我们所有的主版本都会提供大约 6 个月的活跃支持（直到下一个主版本发布），之后再额外提供 12 个月的长期支持（LTS）。
+* 6 months of active support, during which regularly-scheduled updates and patches are released, as described above in [Release frequency](#frequency "Release frequency").
 
-During the LTS period, only critical fixes and security patches will be merged and released.
+   6 个月的活跃支持，在此期间我们会定期发布更新和补丁，正如前面的[发布频率](#frequency "Release frequency")中所说的。
 
-在 LTS 期间，只会合并及发布那些至关重要的 BUG 修复和安全补丁。
+* 12 months of long-term support(LTS). During the LTS period, only critical fixes and security patches will be released.
 
-The LTS state of one major version starts on the day of the next major release. LTS status ends approximately one year later, when we release another major version. 
+   12 个月的长期支持（LTS）。在 LTS 期间，只会发布关键性修复和安全补丁。
 
-每个主版本的 LTS 状态都从下一个主版本发布之日起算。LTS 状态大约会在一年后的另一个主版本发布时结束。
+The following table provides the support status and key dates for Angular version 4.0.0 and higher.
 
- <t>Version</t><t>版本</t>     | <t>LTS Start Date</t><t>LTS 起始日期</t> | <t>LTS End Date</t><t>LTS 结束日期</t>
- ----------- | -------------- | ------------
- ^4.0.0      | <t>October 2017</t><t>2017-10</t> | <t>October 2018</t><t>2018-10</t>
- ^5.0.0      | <t>April 2018</t><t>2018-04</t> | <t>April 2019</t><t>2019-04</t>
- ^6.0.0      | <t>October 2018</t><t>2018-10</t> | <t>October 2019</t><t>2019-10</t>
+下表中提供了 Angular 4.0.0 以上的支持状态和一些关键时间点。
+
+<style>
+
+    td, th {vertical-align: top}
+
+</style>
+
+<table>
+
+    <tr>
+        <th><t>Version</t><t>版本</t></th>
+        <th><t>Status</t><t>状态</t></th>
+        <th><t>Release Date</t><t>发布日期</t></th>
+        <th><t>LTS Start Date</t><t>LTS 起始日期</t></th>
+        <th><t>LTS End Date</t><t>LTS 结束日期</t></th>
+    </tr>
+
+    <tr>
+        <td>^4.0.0</td>
+        <td>LTS</td>
+        <td><t>March 23, 2017</t><t>2017-03-23</t></td>
+        <td><t>September 23, 2017</t><t>2017-09-23</t></td>
+        <td><t>September 23, 2018</t><t>2018-09-23</t></td>
+    </tr>
+
+    <tr>
+        <td>^5.0.0</td>
+        <td>LTS</td>
+        <td><t>November 1, 2017</t><t>2017-11-01</t></td>
+        <td><t>May 1, 2018</t><t>2018-05-01</t></td>
+        <td><t>May 1, 2019</t><t>2019-05-01</t></td>
+    </tr>
+
+    <tr>
+        <td>^6.0.0</td>
+        <td>Active</td>
+        <td><t>May 3, 2018</t><t>2018-05-03</t></td>
+        <td><t>November 3, 2018</t><t>2018-11-03</t></td>
+        <td><t>November 3, 2019</t><t>2019-11-03</t></td>
+    </tr>
+
+</table>
+
+
 
 {@a deprecation}
 
@@ -179,7 +221,7 @@ To help ensure that you have sufficient time and a clear path to update, this is
 
 为了保证你能有充足的时间和清晰的路径进行升级，我们制定了如下弃用策略：
 
-* When announce deprecated features in the [change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
+* We announce deprecated features in the [change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
 
    当在[变更记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")中宣布了准备弃用的特性时。
 
@@ -219,14 +261,10 @@ Any changes to the public API surface will be done using the versioning, support
 
 ## Angular 实验室（Labs）
 
-Angular Labs is an initiative to cultivate new features and iterate on them quickly. Angular Labs provides a safe place for exploration and experimentation by the Angular team. 
+Angular Labs is an initiative to cultivate new features and iterate on them quickly. Angular Labs provides a safe place for exploration and experimentation by the Angular team.
 
 Angular 实验室是一项旨在试验新特性并快速迭代它们的尝试。Angular 实验室为 Angular 团队提供了一个探索和试验的安全场所。
 
-Angular Labs projects are are not ready for production use, and no commitment is made to bring them to production. The policies and practices that are described in this document do not apply to Angular Labs projects. 
+Angular Labs projects are not ready for production use, and no commitment is made to bring them to production. The policies and practices that are described in this document do not apply to Angular Labs projects.
 
 Angular 实验室项目尚未准备好供产品环境使用，并且没有任何会把它们带入到产品环境的承诺。本文档中描述的这些策略和实践都不适用于 Angular 实验室中的项目。
-
-Angular Labs projects typically are in separate branches in the Angular repo, clearly separated from the main Angular codebase.
-
-典型的 Angular 实验室项目都位于 Angular 仓库的独立分支中，会从 Angular 主代码库中明确分离出来。

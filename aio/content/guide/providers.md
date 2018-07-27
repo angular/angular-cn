@@ -63,7 +63,7 @@ When you add a service provider to the root application injector, it’s availab
 当你把服务提供商添加到应用的根注入器中时，它就在整个应用程序中可用了。
 另外，这些服务提供商也同样对整个应用中的类是可用的 —— 只要它们有供查找用的服务令牌。
 
-You should always provide your service in the root injector unless there is a case where you want the service to be available only if the consumer imports a particular `@NgModule)`.
+You should always provide your service in the root injector unless there is a case where you want the service to be available only if the consumer imports a particular `@NgModule`.
 
 你应该始终在根注入器中提供这些服务 —— 除非你希望该服务只有在消费方要导入特定的 `@NgModule` 时才生效。
 

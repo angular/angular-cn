@@ -107,7 +107,7 @@ Angular 的路由器是一个可选的服务，它用来呈现指定的 URL 所�
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You'll learn about more options in the [details below](#browser-url-styles).
 
@@ -496,7 +496,7 @@ It has a great deal of useful information including:
   </tr>
 </table>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Two older properties are still available. They are less capable than their replacements, discouraged, and may be deprecated in a future Angular version.
 
@@ -1167,7 +1167,7 @@ Modern HTML5 browsers were the first to support `pushState` which is why many pe
 
 现代 HTML 5 浏览器是最早支持 `pushState` 的，这也就是很多人喜欢把这种 URL 称作“HTML 5 风格的”URL 的原因。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 HTML5 style navigation is the router default.
 In the [LocationStrategy and browser URL styles](#browser-url-styles) Appendix,
@@ -1291,7 +1291,7 @@ Once the application is bootstrapped, the `Router` performs the initial navigati
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Adding the configured `RouterModule` to the `AppModule` is sufficient for simple route configurations.
 As the application grows, you'll want to refactor the routing configuration into a separate file
@@ -1344,7 +1344,7 @@ the spot in the template where the router should display the views for that outl
 `RouterOutlet` 是一个来自路由库的组件。
 路由器会在 `<router-outlet>` 标签中显示视图。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The router adds the `<router-outlet>` element to the DOM
 and subsequently inserts the navigated view element
@@ -1379,7 +1379,7 @@ takes a single value bound to the `[fragment]` input binding.
 你还可以通过提供查询字符串参数为 `RouterLink` 提供更多情境信息，或提供一个 URL 片段（Fragment 或 hash）来跳转到本页面中的其它区域。
 查询字符串可以由 `[queryParams]` 绑定来提供，它需要一个对象型参数（如 `{ name: 'value' }`），而 URL 片段需要一个绑定到 `[fragment]` 的单一值。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Learn about the how you can also use the _link parameters array_ in the [appendix below](#link-parameters-array).
 
@@ -1457,7 +1457,7 @@ A wildcard route can navigate to a custom "404 Not Found" component or [redirect
 当路由器匹配不上以前定义的那些路由时，它就会选择*这个*路由。
 通配符路由可以导航到自定义的“404 Not Found”组件，也可以[重定向](guide/router#redirect)到一个现有路由。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The router selects the route with a [_first match wins_](#example-config) strategy.
 Wildcard routes are the least specific routes in the route configuration.
@@ -1560,7 +1560,7 @@ so set the `pathMatch` value to `'full'`.
 重定向路由需要一个 `pathMatch` 属性，来告诉路由器如何用 URL 去匹配路由的路径，否则路由器就会报错。
 在本应用中，路由器应该只有在*完整的 URL*等于 `''` 时才选择 `HeroListComponent` 组件，因此要把 `pathMatch` 设置为 `'full'`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`.
 In this example, the redirect is in a top level route so the *remaining* URL and the *entire* URL are the same thing.
@@ -1872,7 +1872,7 @@ then replacing `RouterModule.forRoot` in the `imports` array with the `AppRoutin
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Later in this guide you will create [multiple routing modules](#hero-routing-module) and discover that
 you must import those routing modules [in the correct order](#routing-module-order).
@@ -2125,7 +2125,7 @@ using the same techniques you learned while creating the `AppRoutingModule`.
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Put the routing module file in the same folder as its companion module file.
 Here both `heroes-routing.module.ts` and `heroes.module.ts` are in the same `src/app/heroes` folder.
@@ -2160,7 +2160,7 @@ In a feature module you use the static **`forChild`** method.
 在 `AppRoutingModule` 中，你使用了静态的 `RouterModule.`**`forRoot`**方法来注册路由和全应用级服务提供商。
 在特性模块中，你要改用**`forChild`**静态方法。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Only call `RouterModule.forRoot` in the root `AppRoutingModule`
 (or the `AppModule` if that's where you register top level application routes).
@@ -2310,7 +2310,7 @@ The wildcard route&mdash;which matches _every_ URL&mdash;will intercept the atte
 如果你先列出了 `AppRoutingModule`，那么通配符路由就会被注册在“英雄管理”路由*之前*。
 通配符路由（它匹配*任意*URL）将会拦截住每一个到“英雄管理”路由的导航，因此事实上屏蔽了所有“英雄管理”路由。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Reverse the routing modules and see for yourself that
 a click of the heroes link results in "Page not found".
@@ -2401,7 +2401,7 @@ The router composes the destination URL from the array like this:
 路由器从该数组中组合出了目标 URL：
 `localhost:3000/hero/15`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 How does the target `HeroDetailComponent` learn about that `id`?
 Don't analyze the URL. Let the router do it.
@@ -2625,7 +2625,7 @@ The observable `paramMap` property handles that beautifully.
   你需要一种方式来检测*在同一个实例中*路由参数什么时候发生了变化。
   而 `params` 属性这个可观察对象（Observable）干净漂亮的处理了这种情况。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 When subscribing to an observable in a component, you almost always arrange to unsubscribe when the component is destroyed.
 
@@ -2683,7 +2683,7 @@ It's much simpler to write and read:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **Remember:** you only get the _initial_ value of the parameter map with this technique.
 Stick with the observable `paramMap` approach if there's even a chance that the router
@@ -2868,7 +2868,7 @@ This is *matrix URL* notation&mdash;something you may not have seen before.
 它们是**用“;”分隔的**。
 这是*矩阵 URL*标记法 —— 你以前可能从未见过。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 *Matrix URL* notation is an idea first introduced
 in a [1996 proposal](http://www.w3.org/DesignIssues/MatrixURIs.html) by the founder of the web, Tim Berners-Lee.
@@ -2900,7 +2900,7 @@ The list of heroes is unchanged. No hero row is highlighted.
 
 英雄列表仍没有改变，没有哪个英雄列被加亮显示。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The <live-example></live-example> *does* highlight the selected
 row because it demonstrates the final state of the application which includes the steps you're *about* to cover.
@@ -3072,7 +3072,7 @@ The `HeroDetailComponent` will ease in from the left when routed to and will sli
 
 当进入该路由时，`HeroDetailComponent` 将会从左侧缓动进入屏幕，而离开路由时，将会向下划出。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Applying route animations to individual components works for a simple demo, but in a real life app,
 it is better to animate routes based on _route paths_.
@@ -3582,7 +3582,7 @@ Here's an example:
 
 例子如下：
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The router supports directory-like syntax in a _link parameters list_ to help guide route name lookup:
 
@@ -3616,7 +3616,7 @@ The router then calculates the target URL based on the active route's location.
 在*链接参数数组*中，添加一个带有 `relativeTo` 属性的对象，并把它设置为当前的 `ActivatedRoute`。
 这样路由器就会基于当前激活路由的位置来计算出目标 URL。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **Always** specify the complete _absolute_ path when calling router's `navigateByUrl` method.
 
@@ -3824,7 +3824,7 @@ You are in effect saying, _when the user clicks this link, display the component
 
 意思是，当用户点击此链接时，在路由出口 `popup` 中显示与 `compose` 路由相关联的组件。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This `outlets` object within an outer object was completely unnecessary
 when there was only one route and one _unnamed_ outlet to think about.
@@ -4011,7 +4011,7 @@ A guard's return value controls the router's behavior:
 
    如果它返回 `false`，导航过程会终止，且用户会留在原地。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation.
 
@@ -4188,7 +4188,7 @@ feature module, a dashboard route and two unfinished components to manage crises
 
 </code-tabs>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Since the admin dashboard `RouterLink` is an empty path route in the `AdminComponent`, it
 is considered a match to any route within the admin feature area.
@@ -4398,7 +4398,7 @@ Import and add the `LoginRoutingModule` to the `AppModule` imports as well.
 
 </code-tabs>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Guards and the service providers they require _must_ be provided at the module-level. This allows
 the Router access to retrieve these services from the `Injector` during the navigation process.
@@ -4550,7 +4550,7 @@ answer*.
 
 都不行。应用应该弹出一个确认对话框来要求用户明确做出选择，该对话框会*用异步的方式等用户做出选择*。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You could wait for the user's answer with synchronous, blocking code.
 The app will be more responsive&mdash;and can do other work&mdash;by
@@ -4881,7 +4881,7 @@ and fragment to the next route.
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `queryParamsHandling` feature also provides a `merge` option, which will preserve and combine the current query parameters with any provided query parameters
 when navigating.
@@ -4919,7 +4919,7 @@ authentication tokens or session ids.
 
 你可以用这些持久化信息来携带需要为每个页面都提供的信息，如认证令牌或会话的 ID 等。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `query params` and `fragment` can also be preserved using a `RouterLink` with
 the `queryParamsHandling` and `preserveFragment` bindings respectively.
@@ -4958,7 +4958,7 @@ Lazy loading has multiple benefits.
 
    你可以持续扩充惰性加载特性区的功能，而不用增加初始加载的包体积。
 
-You're already made part way there.
+You're already part of the way there.
 By organizing the application into modules&mdash;`AppModule`,
 `HeroesModule`, `AdminModule` and `CrisisCenterModule`&mdash;you
 have natural candidates for lazy loading.
@@ -5019,7 +5019,7 @@ the module and routes are available immediately for subsequent requests.
 
 惰性加载和重新配置工作只会发生一次，也就是在该路由*首次*被请求时。在后续的请求中，该模块和路由都是立即可用的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Angular provides a built-in module loader that supports SystemJS to load modules asynchronously. If you were
 using another bundling tool, such as Webpack, you would use the Webpack mechanism for asynchronously loading modules.
@@ -5442,7 +5442,7 @@ You'll notice two different types of redirects. The first change is from  `/hero
 注意，这里有两种类型的重定向。第一种是不带参数的从 `/heroes` 重定向到 `/superheroes`。这是一种非常直观的重定向。第二种是从 `/hero/:id` 重定向到 `/superhero/:id`，它还要包含一个 `:id` 路由参数。
 路由器重定向时使用强大的模式匹配功能，这样，路由器就会检查 URL，并且把 `path` 中带的路由参数替换成相应的目标形式。以前，你导航到形如 `/hero/15` 的 URL 时，带了一个路由参数 `id`，它的值是 `15`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `Router` also supports [query parameters](#query-parameters) and the [fragment](#fragment) when using redirects.
 
@@ -5731,7 +5731,7 @@ You can switch to the `HashLocationStrategy` with an override during the bootstr
 `RouterModule.forRoot` 函数把 `LocationStrategy` 设置成了 `PathLocationStrategy`，使其成为了默认策略。
 你可以在启动过程中改写（override）它，来切换到 `HashLocationStrategy` 风格 —— 如果你更喜欢这种。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Learn about providers and the bootstrap process in the
 [Dependency Injection guide](guide/dependency-injection#bootstrap).

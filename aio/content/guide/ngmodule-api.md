@@ -24,8 +24,8 @@ A basic understanding of the following concepts:
 
 At a high level, NgModules are a way to organize Angular apps
 and they accomplish this through the metadata in the `@NgModule`
-decorator. The metadata falls
-into three categories:
+decorator.
+The metadata falls into three categories:
 
 宏观来讲，NgModule 是组织 Angular 应用的一种方式，它们通过 `@NgModule` 装饰器中的元数据来实现这一点。
 这些元数据可以分成三类：
@@ -145,14 +145,12 @@ The following table summarizes the `@NgModule` metadata properties.
       </ol>
 
       Components, directives, and pipes must belong to _exactly_ one module.
-      The compiler emits an error if you try to declare the same class in more than one module.
+      The compiler emits an error if you try to declare the same class in more than one module. Be careful not to re-declare a class that is imported
+      directly or indirectly from another module.
 
       组件、指令和管道*只能*属于一个模块。
       如果尝试把同一个类声明在多个模块中，编译器就会报告一个错误。
-
-      Don't re-declare a class imported from another module.
-
-      不要重复声明从其它模块中导入的类。
+      小心，不要重复声明从其它模块中直接或间接导入的类。
 
     </td>
 
@@ -199,7 +197,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       其它外部模块中的组件也会使用它们自己的注入器提供的服务实例。
 
-      For more information on injector hierarchy and scoping, see [Providers](guide/providers).
+      For more information on injector hierarchy and scoping, see [Providers](guide/providers) and the [DI Guide](guide/dependency-injection).
 
       要深入了解关于多级注入器及其作用域，参见[服务提供商](guide/providers)。
 

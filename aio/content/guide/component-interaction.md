@@ -153,7 +153,7 @@ Detect and act upon changes to input property values with the `ngOnChanges()` me
 
 使用 `OnChanges` 生命周期钩子接口的 `ngOnChanges()` 方法来监测输入属性值的变化并做出回应。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You may prefer this approach to the property setter when watching multiple, interacting input properties.
 
@@ -371,7 +371,7 @@ The child [CountdownTimerComponent](guide/component-interaction#countdown-timer-
 下面的例子用与[倒计时](guide/component-interaction#countdown-timer-example)相同的范例来解释这种技术。
 它的外观或行为没有变化。子组件[CountdownTimerComponent](guide/component-interaction#countdown-timer-example)也和原来一样。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The switch from the *local variable* to the *ViewChild* technique
 is solely for the purpose of demonstration.
@@ -483,7 +483,7 @@ Each `AstronautComponent` is a child of the `MissionControlComponent` and theref
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Notice that this example captures the `subscription` and `unsubscribe()` when the `AstronautComponent` is destroyed.
 This is a memory-leak guard step. There is no actual risk in this app because the

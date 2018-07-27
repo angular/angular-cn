@@ -67,7 +67,7 @@ Organizing your code into distinct functional modules helps in managing developm
 把你的代码组织成一些清晰的功能模块，可以帮助管理复杂应用的开发工作并实现可复用性设计。
 另外，这项技术还能让你获得*惰性加载*（也就是按需加载模块）的优点，以尽可能减小启动时需要加载的代码体积。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   For a more detailed discussion, see [Introduction to modules](guide/architecture-modules).
 
@@ -88,7 +88,7 @@ The `@Component` decorator identifies the class immediately below it as a compon
 
 `@Component` 装饰器表明紧随它的那个类是一个组件，并提供模板和该组件专属的元数据。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
    Decorators are functions that modify JavaScript classes. Angular defines a number of such decorators that attach specific kinds of metadata to classes, so that it knows what those classes mean and how they should work.
 
@@ -128,7 +128,7 @@ Your templates can also use *pipes* to improve the user experience by transformi
 你的模板也可以用*管道*转换要显示的值以增强用户体验。比如，可以使用管道来显示适合用户所在地区的日期和货币格式。
 Angular 为一些通用的转换提供了预定义管道，你还可以定义自己的管道。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   For a more detailed discussion of these concepts, see [Introduction to components](guide/architecture-components).
 
@@ -151,7 +151,7 @@ For data or logic that is not associated with a specific view, and that you want
 
  *依赖注入*（或 DI）让你可以保持组件类的精简和高效。有了 DI，组件就不用从服务器获取数据、验证用户输入或直接把日志写到控制台，而是会把这些任务委托给服务。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   For a more detailed discusssion, see [Introduction to services and DI](guide/architecture-services).
 
@@ -201,7 +201,7 @@ To define navigation rules, you associate *navigation paths* with your component
 路径（path）使用类似 URL 的语法来和程序数据整合在一起，就像模板语法会把你的视图和程序数据整合起来一样。
 然后你就可以用程序逻辑来决定要显示或隐藏哪些视图，以根据你制定的访问规则对用户的输入做出响应。
 
- <div class="l-sub-section">
+ <div class="alert is-helpful">
 
    For a more detailed discussion, see [Routing and navigation](guide/router).
 
@@ -276,7 +276,7 @@ Each of these subjects is introduced in more detail in the following pages.
 
    [服务于依赖注入](guide/architecture-services)
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
    Note that the code referenced on these pages is available as a <live-example></live-example>.
 

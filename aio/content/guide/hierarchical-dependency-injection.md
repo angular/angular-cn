@@ -41,7 +41,7 @@ The tree of components parallels the tree of injectors.
 一个 Angular 应用是一个组件树。每个组件实例都有自己的注入器！
 组件的树与注入器的树平行。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The component's injector may be a _proxy_ for an ancestor injector higher in the component tree.
 That's an implementation detail that improves efficiency.
@@ -84,7 +84,7 @@ If it runs out of ancestors, Angular throws an error.
 这个申请继续往上冒泡 —— 直到找到了一个能处理此申请的注入器或者超出了组件树中的祖先位置为止。
 如果超出了组件树中的祖先还未找到，Angular 就会抛出一个错误。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You can cap the bubbling. An intermediate component can declare that it is the "host" component.
 The hunt for providers will climb no higher than the injector for that host component.
@@ -280,7 +280,7 @@ No tax return overwriting. No mess.
 在组件级提供服务可以确保组件的*每个*实例都得到一个自己的、私有的服务实例。
 报税单不会再被意外覆盖，这下清楚了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The rest of the scenario code relies on other Angular features and techniques that you can learn about elsewhere in the documentation.
 You can review it and download it from the <live-example></live-example>.
@@ -337,7 +337,7 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
   <img src="generated/images/guide/dependency-injection/injector-tree.png" alt="car injector tree">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The code for this _cars_ scenario is in the `car.components.ts` and `car.services.ts` files of the sample
 which you can review and download from the <live-example></live-example>.

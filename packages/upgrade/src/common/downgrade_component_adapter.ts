@@ -11,7 +11,7 @@ import {ApplicationRef, ChangeDetectorRef, ComponentFactory, ComponentRef, Event
 import * as angular from './angular1';
 import {PropertyBinding} from './component_info';
 import {$SCOPE} from './constants';
-import {getAttributesAsArray, getComponentName, hookupNgModel, strictEquals} from './util';
+import {getComponentName, hookupNgModel, strictEquals} from './util';
 
 const INITIAL_VALUE = {
   __UNINITIALIZED__: true
@@ -22,10 +22,13 @@ export class DowngradeComponentAdapter {
   private inputChangeCount: number = 0;
   private inputChanges: SimpleChanges = {};
   private componentScope: angular.IScope;
-  private componentRef: ComponentRef<any>;
+  // TODO(issue/24571): remove '!'.
+  private componentRef !: ComponentRef<any>;
   private component: any;
-  private changeDetector: ChangeDetectorRef;
-  private viewChangeDetector: ChangeDetectorRef;
+  // TODO(issue/24571): remove '!'.
+  private changeDetector !: ChangeDetectorRef;
+  // TODO(issue/24571): remove '!'.
+  private viewChangeDetector !: ChangeDetectorRef;
 
   constructor(
       private element: angular.IAugmentedJQuery, private attrs: angular.IAttributes,

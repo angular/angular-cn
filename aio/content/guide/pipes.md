@@ -8,7 +8,7 @@ Getting data could be as simple as creating a local variable or as complex as st
 每个应用开始的时候差不多都是一些简单任务：获取数据、转换它们，然后把它们显示给用户。
 获取数据可能简单到创建一个局部变量就行，也可能复杂到从 WebSocket 中获取数据流。
 
-Once data arrive, you could push their raw `toString` values directly to the view,
+Once data arrives, you could push their raw `toString` values directly to the view,
 but that rarely makes for a good user experience.
 For example, in most use cases, users prefer to see a date in a simple format like
 <samp>April 15, 1988</samp> rather than the raw string format
@@ -75,7 +75,7 @@ They are all available for use in any template.
 Angular 内置了一些管道，比如 `DatePipe`、`UpperCasePipe`、`LowerCasePipe`、`CurrencyPipe` 和 `PercentPipe`。
 它们全都可以直接用在任何模板中。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Read more about these and many other built-in pipes in the [pipes topics](api?type=pipe) of the
 [API Reference](api); filter for entries that include the word "pipe".
@@ -149,7 +149,7 @@ As you click the button, the displayed date alternates between
   <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)
 API Reference page.
@@ -228,7 +228,7 @@ Your pipe has one such parameter: the `exponent`.
    这个 `@Pipe` 装饰器允许你定义管道的名字，这个名字会被用在模板表达式中。它必须是一个有效的 JavaScript 标识符。
     比如，你这个管道的名字是 `exponentialStrength`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 ## The *PipeTransform* interface
 
@@ -495,7 +495,7 @@ When you can't, you *can* use the impure pipe.
 因此，如果要和变更检测策略打交道，就会更喜欢用纯管道。
 如果不能，你就*可以*转回到非纯管道。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Or you might not use a pipe at all.
 It may be better to pursue the pipe's purpose with a property of the component,

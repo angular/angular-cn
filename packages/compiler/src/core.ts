@@ -75,7 +75,8 @@ export interface Component extends Directive {
 export enum ViewEncapsulation {
   Emulated = 0,
   Native = 1,
-  None = 2
+  None = 2,
+  ShadowDom = 3
 }
 
 export enum ChangeDetectionStrategy {
@@ -360,4 +361,25 @@ function parserSelectorToR3Selector(selector: CssSelector): R3CssSelector {
 export function parseSelectorToR3Selector(selector: string): R3CssSelectorList {
   const selectors = CssSelector.parse(selector);
   return selectors.map(parserSelectorToR3Selector);
+}
+
+// Pasted from render3/interfaces/definition since it cannot be referenced directly
+/**
+ * Flags passed into template functions to determine which blocks (i.e. creation, update)
+ * should be executed.
+ *
+ * Typically, a template runs both the creation block and the update block on initialization and
+ * subsequent runs only execute the update block. However, dynamically created views require that
+ * the creation block be executed separately from the update block (for backwards compat).
+ */
+export const enum RenderFlags {
+  /* Whether to run the creation block (e.g. create elements and directives) */
+  Create = 0b01,
+
+  /* Whether to run the update block (e.g. refresh bindings) */
+  Update = 0b10
+}
+
+export const enum InitialStylingFlags {
+  VALUES_MODE = 0b1,
 }

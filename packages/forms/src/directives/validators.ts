@@ -79,8 +79,10 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
   host: {'[attr.required]': 'required ? "" : null'}
 })
 export class RequiredValidator implements Validator {
-  private _required: boolean;
-  private _onChange: () => void;
+  // TODO(issue/24571): remove '!'.
+  private _required !: boolean;
+  // TODO(issue/24571): remove '!'.
+  private _onChange !: () => void;
 
   @Input()
   get required(): boolean|string { return this._required; }
@@ -150,8 +152,10 @@ export const EMAIL_VALIDATOR: any = {
   providers: [EMAIL_VALIDATOR]
 })
 export class EmailValidator implements Validator {
-  private _enabled: boolean;
-  private _onChange: () => void;
+  // TODO(issue/24571): remove '!'.
+  private _enabled !: boolean;
+  // TODO(issue/24571): remove '!'.
+  private _onChange !: () => void;
 
   @Input()
   set email(value: boolean|string) {
@@ -166,14 +170,8 @@ export class EmailValidator implements Validator {
   registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
 }
 
-/**
- *
- */
 export interface ValidatorFn { (c: AbstractControl): ValidationErrors|null; }
 
-/**
- *
- */
 export interface AsyncValidatorFn {
   (c: AbstractControl): Promise<ValidationErrors|null>|Observable<ValidationErrors|null>;
 }
@@ -204,10 +202,13 @@ export const MIN_LENGTH_VALIDATOR: any = {
 })
 export class MinLengthValidator implements Validator,
     OnChanges {
-  private _validator: ValidatorFn;
-  private _onChange: () => void;
+  // TODO(issue/24571): remove '!'.
+  private _validator !: ValidatorFn;
+  // TODO(issue/24571): remove '!'.
+  private _onChange !: () => void;
 
-  @Input() minlength: string;
+  // TODO(issue/24571): remove '!'.
+  @Input() minlength !: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('minlength' in changes) {
@@ -241,9 +242,8 @@ export const MAX_LENGTH_VALIDATOR: any = {
 };
 
 /**
- * A directive which installs the `MaxLengthValidator` for any `formControlName,
- * `formControl`,
- * or control with `ngModel` that also has a `maxlength` attribute.
+ * A directive which installs the `MaxLengthValidator` for any `formControlName`,
+ * `formControl`, or control with `ngModel` that also has a `maxlength` attribute.
  *
  *
  */
@@ -254,10 +254,13 @@ export const MAX_LENGTH_VALIDATOR: any = {
 })
 export class MaxLengthValidator implements Validator,
     OnChanges {
-  private _validator: ValidatorFn;
-  private _onChange: () => void;
+  // TODO(issue/24571): remove '!'.
+  private _validator !: ValidatorFn;
+  // TODO(issue/24571): remove '!'.
+  private _onChange !: () => void;
 
-  @Input() maxlength: string;
+  // TODO(issue/24571): remove '!'.
+  @Input() maxlength !: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('maxlength' in changes) {
@@ -305,10 +308,13 @@ export const PATTERN_VALIDATOR: any = {
 })
 export class PatternValidator implements Validator,
     OnChanges {
-  private _validator: ValidatorFn;
-  private _onChange: () => void;
+  // TODO(issue/24571): remove '!'.
+  private _validator !: ValidatorFn;
+  // TODO(issue/24571): remove '!'.
+  private _onChange !: () => void;
 
-  @Input() pattern: string|RegExp;
+  // TODO(issue/24571): remove '!'.
+  @Input() pattern !: string | RegExp;
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('pattern' in changes) {

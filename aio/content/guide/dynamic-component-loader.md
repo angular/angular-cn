@@ -143,7 +143,7 @@ Take it step by step. First, it picks an ad.
 这里的 `loadComponent()` 方法很重要。
 来一步步看看。首先，它选取了一个广告。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **How _loadComponent()_ chooses an ad**
 

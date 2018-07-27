@@ -154,7 +154,7 @@ Registering the provider in the `@Injectable` metadata also allows Angular to op
 当你在顶层提供该服务时，Angular 就会为 `HeroService` 创建一个单一的、共享的实例，并把它注入到任何想要它的类上。
 在 `@Injectable` 元数据中注册该提供商，还能让 Angular 可以通过移除那些完全没有用过的服务，来进行优化。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 If you need to, you can register providers at different levels: 
 in the `HeroesComponent`, in the `AppComponent`, in the `AppModule`. 
@@ -356,7 +356,7 @@ Replace the `getHeroes` method with this one.
 
 `of(HEROES)` 会返回一个  `Observable<Hero[]>`，它会发出单个值，这个值就是这些模拟英雄的数组。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 In the [HTTP tutorial](tutorial/toh-pt6), you'll call `HttpClient.get<Hero[]>()` which also returns an `Observable<Hero[]>` that emits  _a single value_, an array of heroes from the body of the HTTP response.
 
@@ -527,7 +527,7 @@ Angular 将会在创建 `HeroService` 时把 `MessageService` 的单例注入到
   path="toh-pt4/src/app/hero.service.ts" region="ctor">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This is a typical "*service-in-service*" scenario:
 you inject the `MessageService` into the `HeroService` which is injected into the `HeroesComponent`.

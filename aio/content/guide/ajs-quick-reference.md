@@ -1122,7 +1122,7 @@ AngularJS 中的很多内置过滤器在 Angular 中都有对应的管道。
       ### lowercase
 
       <code-example hideCopy>
-        &lt;div>{{movie.title | lowercase}}&lt;/div>
+        &lt;td>{{movie.title | lowercase}}&lt;/td>
       </code-example>
 
       Converts the string to lowercase.

@@ -54,7 +54,7 @@ Here's a simple root NgModule definition:
 
 <code-example path="architecture/src/app/mini-app.ts" region="module" title="src/app/app.module.ts" linenums="false"></code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   The `export` of `AppComponent` is just to show how to export; it isn't actually necessary in this example. A root NgModule has no reason to _export_ anything because other modules don't need to _import_ the root NgModule.
 
@@ -101,8 +101,7 @@ When you create a component, it is associated directly with a single view, calle
 这些组件可以位于相同的 NgModule 中，也可以从其它 NgModule 中导入。
 树中的视图可以嵌套到任意深度。
 
-<div class="l-sub-section">
-
+<div class="alert is-helpful">
     The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data. 
 
     视图的这种层次结构是 Angular 在 DOM 和应用数据中检测与响应变更时的关键因素。
@@ -130,8 +129,7 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 
 <code-example path="architecture/src/app/app.module.ts" region="export" linenums="false"></code-example>
 
-<div class="l-sub-section">
-
+<div class="alert is-helpful">
   <a href="http://exploringjs.com/es6/ch_modules.html">Learn more about the JavaScript module system on the web.</a>
 
   <a href="http://exploringjs.com/es6/ch_modules.html">学习更多关于 JavaScript 模块的知识。</a>
@@ -157,7 +155,8 @@ For example, import Angular's `Component` decorator from the `@angular/core` lib
 
 <code-example path="architecture/src/app/app.component.ts" region="import" linenums="false"></code-example>
 
-You also import NgModules from Angular _libraries_ using JavaScript import statements:
+You also import NgModules from Angular _libraries_ using JavaScript import statements. 
+For example, the following code imports the `BrowserModule` NgModule from the `platform-browser` library:
 
 还可以使用 JavaScript 的导入语句从 Angular *库*中导入 Angular *模块*：
 
@@ -174,7 +173,7 @@ In this way you're using both the Angular and JavaScript module systems _togethe
 通过这种方式，你可以*同时*使用 Angular 和 JavaScript 的这两种模块系统。
 虽然这两种模块系统容易混淆（它们共享了同样的词汇 `import` 和`export`），不过只要多用用你就会熟悉它们各自的语境了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Learn more from the [NgModules](guide/ngmodules) page.
 

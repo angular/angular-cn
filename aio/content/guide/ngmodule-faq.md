@@ -133,7 +133,7 @@ or haven't imported the NgModule to which "x" belongs.
 
 这个错误通常意味着你或者忘了声明指令“x”，或者你没有导入“x”所属的模块。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Perhaps you declared "x" in an application sub-module but forgot to export it.
 The "x" class isn't visible to other modules until you add it to the `exports` list.
@@ -384,8 +384,6 @@ Follow this convention when you write similar modules with configurable service 
 Angular 并不识别这些名字，但是 Angular 的开发人员可以。
 当你写类似的需要可配置的服务提供商时，请遵循这个约定。
 
-<!--KW--I don't understand how Angular doesn't understand these methods...-->
-
 <hr/>
 
 ## Why is a service provided in a feature module visible everywhere?
@@ -404,17 +402,15 @@ to the application root injector.
 
 当你导入一个模块时，Angular 就会把该模块的服务提供商（也就是它的 `providers` 列表中的内容）加入该应用的*根注入器*中。
 
-This makes the provider visible to every class in the application that knows the provider's lookup token, or knows its name.
+This makes the provider visible to every class in the application that knows the provider's lookup token, or name.
 
 这会让该提供商对应用中所有知道该提供商令牌（token）的类都可见。
 
-This is by design.
 Extensibility through NgModule imports is a primary goal of the NgModule system.
 Merging NgModule providers into the application injector
 makes it easy for a module library to enrich the entire application with new services.
 By adding the `HttpClientModule` once, every application component can make HTTP requests.
 
-Angular 就是如此设计的。
 通过模块导入来实现可扩展性是 Angular 模块系统的主要设计目标。
 把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
 只要添加一次 `HttpClientModule`，那么应用中的每个组件就都可以发起 Http 请求了。
@@ -427,6 +423,10 @@ not just the classes declared in the `HeroModule`.
 
 不过，如果你期望模块的服务只对那个特性模块内部声明的组件可见，那么这可能会带来一些不受欢迎的意外。
 如果 `HeroModule` 提供了一个 `HeroService`，并且根模块 `AppModule` 导入了 `HeroModule`，那么任何知道 `HeroService`*类型*的类都可能注入该服务，而不仅是在 `HeroModule` 中声明的那些类。
+
+To limit access to a service, consider lazy loading the NgModule that provides that service. See [How do I restrict service scope to a module?](guide/ngmodule-faq#service-scope) for more information.
+
+要限制对某个服务的访问，可以考虑惰性加载提供该服务的 NgModule。参见[我要如何把服务的范围限定为某个模块？](guide/ngmodule-faq#service-scope)。
 
 <hr/>
 
@@ -492,6 +492,8 @@ The `AppModule` always wins.
 由根 `AppModule` 提供的服务相对于所导入模块中提供的服务有优先权。换句话说：`AppModule` 总会获胜。
 
 <hr/>
+
+{@a service-scope}
 
 ## How do I restrict service scope to a module?
 
@@ -577,6 +579,10 @@ Define child routes and let the router load module components into that outlet.
 
 你可以把这些子组件都嵌在顶级组件的模板中。或者，给顶级组件一个 `<router-outlet>`，让它作为路由的宿主。
 定义子路由，并让路由器把模块中的组件加载进该路由出口（outlet）中。
+
+Though you can limit access to a service by providing it in a lazy loaded module or providing it in a component, providing services in a component can lead to multiple instances of those services. Thus, the lazy loading is preferable.
+
+虽然通过在惰性加载模块中或组件中提供某个服务来限制它的访问都是可行的方式，但在组件中提供服务可能导致这些服务出现多个实例。因此，应该优先使用惰性加载的方式。
 
 <hr/>
 

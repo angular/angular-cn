@@ -530,7 +530,7 @@ The sequence of log messages follows the prescribed hook calling order:
 `OnChanges`、`OnInit`、`DoCheck`&nbsp;(3x)、`AfterContentInit`、`AfterContentChecked`&nbsp;(3x)、
 `AfterViewInit`、`AfterViewChecked`&nbsp;(3x)和 `OnDestroy`
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   The constructor isn't an Angular hook *per se*.
   The log confirms that input properties (the `name` property in this case) have no assigned values at construction.
@@ -566,7 +566,7 @@ The heroes will never know they're being watched.
 
 指令是一种完美的渗透方式，这些英雄们永远不会知道该指令的存在。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Kidding aside, pay attention to two key points:
 
@@ -651,7 +651,7 @@ Experienced developers agree that components should be cheap and safe to constru
 
 有经验的开发者会认同组件的构建应该很便宜和安全。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Misko Hevery, Angular team lead,
   [explains why](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)
@@ -683,7 +683,7 @@ They'll have been set when `ngOnInit()` runs.
 如果你需要基于这些属性的值来初始化这个指令，这种情况就会出问题。
 而当 `ngOnInit()` 执行的时候，这些属性都已经被正确的赋值过了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   The `ngOnChanges()` method is your first opportunity to access those properties.
   Angular calls `ngOnChanges()` before `ngOnInit()` and many times after that.
@@ -792,7 +792,7 @@ Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch
 
 使用 `DoCheck` 钩子来检测那些 Angular 自身无法捕获的变更并采取行动。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Use this method to detect a change that Angular overlooked.
 
@@ -933,7 +933,7 @@ into the component's template in a designated spot.
 
 *内容投影*是从组件外部导入 HTML 内容，并把它插入在组件模板中指定位置上的一种途径。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   AngularJS developers know this technique as *transclusion*.
 
@@ -975,7 +975,7 @@ In this case, the projected content is the `<app-child>` from the parent.
   <img src='generated/images/guide/lifecycle-hooks/projected-child-view.png' alt="Projected Content">
 </figure>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   The telltale signs of *content projection* are twofold:
 

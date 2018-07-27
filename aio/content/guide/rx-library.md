@@ -84,13 +84,12 @@ The `pipe()` function is also a method on the RxJS `Observable`, so you use this
 
 ### 常用操作符
 
-RxJS provides many operators (over 150 of them), but only a handful are used frequently. Here is a list of common operators; for usage examples, see  [RxJS 5 Operators By Example](https://github.com/btroncone/learn-rxjs/blob/master/operators/complete.md) in RxJS documentation.
+RxJS provides many operators, but only a handful are used frequently. For a list of operators and usage samples, visit the [RxJS API Documentation](https://rxjs-dev.firebaseapp.com/api).
 
 RxJS 提供了很多操作符（超过 150 个），不过只有少数是常用的。
 下面是一个常用操作符的列表，要查看用法范例，参见 RxJS 文档中的 [RxJS 5 操作符范例](https://github.com/btroncone/learn-rxjs/blob/master/operators/complete.md)。
 
-<div class="l-sub-section">
-
+<div class="alert is-helpful">
   Note that, for Angular apps, we prefer combining operators with pipes, rather than chaining. Chaining is used in many RxJS examples.
 
   注意，对于 Angular 应用来说，我们提倡使用管道来组合操作符，而不是使用链式写法。链式写法仍然在很多 RxJS 中使用着。
@@ -142,7 +141,7 @@ The following converts the previous example to retry the request before catching
 
 <code-example path="rx-library/src/retry-on-error.ts" title="retry operator"></code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
    Do not retry **authentication** requests, since these should only be initiated by user action. We don't want to lock out user accounts with repeated login requests that the user has not initiated.
 

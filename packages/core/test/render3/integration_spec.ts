@@ -9,8 +9,11 @@
 import {RenderFlags} from '@angular/core/src/render3';
 
 import {defineComponent, defineDirective} from '../../src/render3/index';
-import {NO_CHANGE, bind, container, containerRefreshEnd, containerRefreshStart, elementAttribute, elementClassNamed, elementEnd, elementProperty, elementStart, elementStyleNamed, embeddedViewEnd, embeddedViewStart, interpolation1, interpolation2, interpolation3, interpolation4, interpolation5, interpolation6, interpolation7, interpolation8, interpolationV, load, loadDirective, projection, projectionDef, text, textBinding} from '../../src/render3/instructions';
-import {LViewFlags} from '../../src/render3/interfaces/view';
+import {NO_CHANGE, bind, container, containerRefreshEnd, containerRefreshStart, elementAttribute, elementClassProp, elementEnd, elementProperty, elementStart, elementStyleProp, elementStyling, elementStylingApply, embeddedViewEnd, embeddedViewStart, interpolation1, interpolation2, interpolation3, interpolation4, interpolation5, interpolation6, interpolation7, interpolation8, interpolationV, load, loadDirective, projection, projectionDef, text, textBinding} from '../../src/render3/instructions';
+import {InitialStylingFlags} from '../../src/render3/interfaces/definition';
+import {HEADER_OFFSET} from '../../src/render3/interfaces/view';
+import {sanitizeUrl} from '../../src/sanitization/sanitization';
+import {Sanitizer, SecurityContext} from '../../src/sanitization/security';
 
 import {ComponentFixture, containerEl, renderToHtml} from './render_util';
 
@@ -30,7 +33,7 @@ describe('render3 integration test', () => {
       }
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
-        tNode: 1,
+        tNode: 3,  // 1 for div, 1 for text, 1 for host element
         tView: 1,
         rendererCreateElement: 1,
       });
@@ -66,6 +69,12 @@ describe('render3 integration test', () => {
 
       expect(renderToHtml(Template, 'benoit')).toEqual('benoit');
       expect(renderToHtml(Template, undefined)).toEqual('');
+      expect(ngDevMode).toHaveProperties({
+        firstTemplatePass: 0,
+        tNode: 2,
+        tView: 1,
+        rendererSetText: 2,
+      });
     });
 
     it('should render "null" as "" when used with `bind()`', () => {
@@ -80,6 +89,12 @@ describe('render3 integration test', () => {
 
       expect(renderToHtml(Template, 'benoit')).toEqual('benoit');
       expect(renderToHtml(Template, null)).toEqual('');
+      expect(ngDevMode).toHaveProperties({
+        firstTemplatePass: 0,
+        tNode: 2,
+        tView: 1,
+        rendererSetText: 2,
+      });
     });
 
     it('should support creation-time values in text nodes', () => {
@@ -93,6 +108,12 @@ describe('render3 integration test', () => {
       }
       expect(renderToHtml(Template, 'once')).toEqual('once');
       expect(renderToHtml(Template, 'twice')).toEqual('once');
+      expect(ngDevMode).toHaveProperties({
+        firstTemplatePass: 0,
+        tNode: 2,
+        tView: 1,
+        rendererSetText: 1,
+      });
     });
 
   });
@@ -355,7 +376,8 @@ describe('render3 integration test', () => {
        * % }
        */
       class MyComp {
-        condition: boolean;
+        // TODO(issue/24571): remove '!'.
+        condition !: boolean;
         static ngComponentDef = defineComponent({
           type: MyComp,
           selectors: [['comp']],
@@ -471,27 +493,29 @@ describe('render3 integration test', () => {
     }
 
     class ChildComponent {
-      beforeTree: Tree;
-      afterTree: Tree;
+      // TODO(issue/24571): remove '!'.
+      beforeTree !: Tree;
+      // TODO(issue/24571): remove '!'.
+      afterTree !: Tree;
       static ngComponentDef = defineComponent({
         selectors: [['child']],
         type: ChildComponent,
         template: function ChildComponentTemplate(
             rf: RenderFlags, ctx: {beforeTree: Tree, afterTree: Tree}) {
           if (rf & RenderFlags.Create) {
-            projectionDef(0);
-            container(1);
-            projection(2, 0);
-            container(3);
+            projectionDef();
+            container(0);
+            projection(1);
+            container(2);
           }
-          containerRefreshStart(1);
+          containerRefreshStart(0);
           {
             const rf0 = embeddedViewStart(0);
             { showTree(rf0, {tree: ctx.beforeTree}); }
             embeddedViewEnd();
           }
           containerRefreshEnd();
-          containerRefreshStart(3);
+          containerRefreshStart(2);
           {
             const rf0 = embeddedViewStart(0);
             { showTree(rf0, {tree: ctx.afterTree}); }
@@ -724,10 +748,12 @@ describe('render3 integration test', () => {
         function Template(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
             elementStart(0, 'span');
+            elementStyling(null, ['border-color']);
             elementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementStyleNamed(0, 'border-color', bind(ctx));
+            elementStyleProp(0, 0, ctx);
+            elementStylingApply(0);
           }
         }
 
@@ -741,10 +767,12 @@ describe('render3 integration test', () => {
         function Template(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
             elementStart(0, 'span');
+            elementStyling(null, ['font-size']);
             elementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementStyleNamed(0, 'font-size', bind(ctx), 'px');
+            elementStyleProp(0, 0, ctx, 'px');
+            elementStylingApply(0);
           }
         }
 
@@ -760,10 +788,12 @@ describe('render3 integration test', () => {
         function Template(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
             elementStart(0, 'span');
+            elementStyling(['active']);
             elementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementClassNamed(0, 'active', bind(ctx));
+            elementClassProp(0, 0, ctx);
+            elementStylingApply(0);
           }
         }
 
@@ -782,11 +812,14 @@ describe('render3 integration test', () => {
       it('should work correctly with existing static classes', () => {
         function Template(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span', ['class', 'existing']);
+            elementStart(0, 'span');
+            elementStyling(
+                ['existing', 'active', InitialStylingFlags.VALUES_MODE, 'existing', true]);
             elementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementClassNamed(0, 'active', bind(ctx));
+            elementClassProp(0, 1, ctx);
+            elementStylingApply(0);
           }
         }
 
@@ -829,8 +862,8 @@ describe('render3 integration test', () => {
       renderToHtml(Template, {condition: true});
 
       const oldTemplateData = (Template as any).ngPrivateData;
-      const oldContainerData = (oldTemplateData as any).data[0];
-      const oldElementData = oldContainerData.tViews[0][0];
+      const oldContainerData = (oldTemplateData as any).data[HEADER_OFFSET];
+      const oldElementData = oldContainerData.tViews[0][HEADER_OFFSET];
       expect(oldContainerData).not.toBeNull();
       expect(oldElementData).not.toBeNull();
 
@@ -838,8 +871,8 @@ describe('render3 integration test', () => {
       renderToHtml(Template, {condition: true});
 
       const newTemplateData = (Template as any).ngPrivateData;
-      const newContainerData = (oldTemplateData as any).data[0];
-      const newElementData = oldContainerData.tViews[0][0];
+      const newContainerData = (oldTemplateData as any).data[HEADER_OFFSET];
+      const newElementData = oldContainerData.tViews[0][HEADER_OFFSET];
       expect(newTemplateData === oldTemplateData).toBe(true);
       expect(newContainerData === oldContainerData).toBe(true);
       expect(newElementData === oldElementData).toBe(true);
@@ -847,4 +880,65 @@ describe('render3 integration test', () => {
 
   });
 
+  describe('sanitization', () => {
+    it('should sanitize data using the provided sanitization interface', () => {
+      class SanitizationComp {
+        static ngComponentDef = defineComponent({
+          type: SanitizationComp,
+          selectors: [['sanitize-this']],
+          factory: () => new SanitizationComp(),
+          template: (rf: RenderFlags, ctx: SanitizationComp) => {
+            if (rf & RenderFlags.Create) {
+              elementStart(0, 'a');
+              elementEnd();
+            }
+            if (rf & RenderFlags.Update) {
+              elementProperty(0, 'href', bind(ctx.href), sanitizeUrl);
+            }
+          }
+        });
+
+        private href = '';
+
+        updateLink(href: any) { this.href = href; }
+      }
+
+      const sanitizer = new LocalSanitizer((value) => { return 'http://bar'; });
+
+      const fixture = new ComponentFixture(SanitizationComp, {sanitizer});
+      fixture.component.updateLink('http://foo');
+      fixture.update();
+
+      const element = fixture.hostElement.querySelector('a') !;
+      expect(element.getAttribute('href')).toEqual('http://bar');
+
+      fixture.component.updateLink(sanitizer.bypassSecurityTrustUrl('http://foo'));
+      fixture.update();
+
+      expect(element.getAttribute('href')).toEqual('http://foo');
+    });
+  });
 });
+
+class LocalSanitizedValue {
+  constructor(public value: any) {}
+  toString() { return this.value; }
+}
+
+class LocalSanitizer implements Sanitizer {
+  constructor(private _interceptor: (value: string|null|any) => string) {}
+
+  sanitize(context: SecurityContext, value: LocalSanitizedValue|string|null): string|null {
+    if (value instanceof LocalSanitizedValue) {
+      return value.toString();
+    }
+    return this._interceptor(value);
+  }
+
+  bypassSecurityTrustHtml(value: string) {}
+  bypassSecurityTrustStyle(value: string) {}
+  bypassSecurityTrustScript(value: string) {}
+  bypassSecurityTrustResourceUrl(value: string) {}
+
+  bypassSecurityTrustUrl(value: string) { return new LocalSanitizedValue(value); }
+}

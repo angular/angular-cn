@@ -37,7 +37,7 @@ guide the compiler as it generates JavaScript files.
 
 你通常会往项目中加入一个 TypeScript 配置文件(`tsconfig.json`)，来指导编译器如何生成 JavaScript 文件。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 For details about `tsconfig.json`, see the official
 [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
@@ -204,7 +204,7 @@ QuickStart identifies two *typings*, or `d.ts`, files:
    [jasmine](http://jasmine.github.io/)是 Jasmine 测试框架的类型定义
 
 * [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *Node.js®* environment;
-you can view an example in the [webpack](guide/webpack) page.
+
 
    [node](https://www.npmjs.com/package/@types/node)是为了在 *Node.js®* 环境中引用对象的代码提供的类型定义。在[webpack](guide/webpack)页面可以看到例子。
 

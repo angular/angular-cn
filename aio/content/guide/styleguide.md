@@ -875,39 +875,57 @@ As always, strive for consistency.
 
 <a href="#toc">回到顶部</a>
 
-{@a 02-06}
+{@a 05-02}
 
-### Directive selectors
+### Component selectors
 
 ### 指令选择器
 
-#### Style 02-06
+#### Style 05-02
 
 #### 风格 02-06
 
 <div class="s-rule do">
 
-**Do** Use lower camel case for naming the selectors of directives.
 
-**坚持**使用小驼峰命名法来命名指令的选择器。
 
-</div>
+**Do** use _dashed-case_ or _kebab-case_ for naming the element selectors of components.
 
-<div class="s-why">
-
-**Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
-
-**为何？**保持指令中定义的属性名与绑定的视图 HTML 属性名字一致。
+**坚持**使用*中线命名法（dashed-case）*或叫*烤串命名法（kebab-case）*来命名组件的元素选择器。
 
 </div>
 
 <div class="s-why-last">
 
-**Why?** The Angular HTML parser is case sensitive and recognizes lower camel case.
+**Why?** Keeps the element names consistent with the specification for [Custom Elements](https://www.w3.org/TR/custom-elements/).
 
 **为何？**Angular HTML 解析器是大小写敏感的，它识别小写驼峰写法。
 
 </div>
+
+
+
+<code-example path="styleguide/src/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts" region="example" title="app/heroes/shared/hero-button/hero-button.component.ts">
+
+</code-example>
+
+
+
+
+
+<code-tabs>
+
+  <code-pane title="app/heroes/shared/hero-button/hero-button.component.ts" path="styleguide/src/05-02/app/heroes/shared/hero-button/hero-button.component.ts" region="example">
+
+  </code-pane>
+
+  <code-pane title="app/app.component.html" path="styleguide/src/05-02/app/app.component.html">
+
+  </code-pane>
+
+</code-tabs>
+
+
 
 <a href="#toc">Back to top</a>
 
@@ -915,7 +933,7 @@ As always, strive for consistency.
 
 {@a 02-07}
 
-### Custom prefix for components
+### Component custom prefix
 
 ### 为组件添加自定义前缀
 
@@ -989,9 +1007,64 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </code-example>
 
+
+
+<a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
+
+{@a 02-06}
+
+### Directive selectors
+
+### 指令选择器
+
+#### Style 02-06
+
+#### 风格 02-06
+
+
+<div class="s-rule do">
+
+
+
+**Do** Use lower camel case for naming the selectors of directives.
+
+**坚持**使用小驼峰形式命名指令的选择器。
+
+</div>
+
+
+
+<div class="s-why">
+
+
+
+**Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
+
+**为何？**可以让指令中的属性名与视图中绑定的属性名保持一致。
+
+</div>
+
+
+
+<div class="s-why-last">
+
+
+
+**Why?** The Angular HTML parser is case sensitive and recognizes lower camel case.
+
+**为何？** Angular 的 HTML 解析器是大小写敏感的，可以识别小驼峰形式。
+
+</div>
+
+<a href="#toc">Back to top</a>
+
+<a href="#toc">回到顶部</a>
+
 {@a 02-08}
 
-### Custom prefix for directives
+### Directive custom prefix
 
 ### 为指令添加自定义前缀
 
@@ -2097,7 +2170,7 @@ Longer file names are far better than _short-but-obscure_ abbreviated names.
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 It may be advantageous to deviate from the _one-thing-per-file_ rule when
 you have a set of small, closely-related features that are better discovered and understood
@@ -2591,7 +2664,7 @@ Here is a compliant folder and file structure:
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 While components in dedicated folders are widely preferred,
 another option for small apps is to keep components flat (not in a dedicated folder).
@@ -2885,9 +2958,9 @@ module are referenced across the entire application.
 
 <div class="s-rule avoid">
 
-**Avoid** providing services in shared modules. Services are usually
+**Consider** _not_ providing services in shared modules. Services are usually
 singletons that are provided once for the entire application or
-in a particular feature module.
+in a particular feature module. There are exceptions, however. For example, in the sample code that follows, notice that the `SharedModule` provides `FilterTextService`. This is acceptable here because the service is stateless;that is, the consumers of the service aren't impacted by new instances.
 
 **避免** 在共享模块中提供服务。服务通常是单例的，应该在整个应用或一个特定的特性模块中只有一份。
 
@@ -3387,7 +3460,7 @@ Yet there is a real danger of that happening accidentally if the `CoreModule` pr
 
 </code-tabs>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 `AppModule` is a little smaller because many app/root classes have moved to other modules.
 `AppModule` is stable because you will add future components and providers to other modules, not this one.
@@ -3527,54 +3600,6 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 ## Components
 
-## 组件
-
-{@a 05-02}
-
-### Component selector names
-
-### 组件选择器命名
-
-#### Style 05-02
-
-#### 风格 05-02
-
-<div class="s-rule do">
-
-**Do** use _dashed-case_ or _kebab-case_ for naming the element selectors of components.
-
-**坚持**使用*中线 (dashed) 命名法*或*烤串 (kebab) 命名法*来命名组件中的元素选择器。
-
-</div>
-
-<div class="s-why-last">
-
-**Why?** Keeps the element names consistent with the specification for [Custom Elements](https://www.w3.org/TR/custom-elements/).
-
-**为何？**保持元素命名与[自定义元素](https://www.w3.org/TR/custom-elements/)命名规范一致。
-
-</div>
-
-<code-example path="styleguide/src/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts" region="example" title="app/heroes/shared/hero-button/hero-button.component.ts">
-
-</code-example>
-
-<code-tabs>
-
-  <code-pane title="app/heroes/shared/hero-button/hero-button.component.ts" path="styleguide/src/05-02/app/heroes/shared/hero-button/hero-button.component.ts" region="example">
-
-  </code-pane>
-
-  <code-pane title="app/app.component.html" path="styleguide/src/05-02/app/app.component.html">
-
-  </code-pane>
-
-</code-tabs>
-
-<a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
-
 {@a 05-03}
 
 ### Components as elements
@@ -3612,7 +3637,7 @@ Developers place components on the page as they would native HTML elements and w
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 There are a few cases where you give a component an attribute, such as when you want to augment a built-in element. For example, [Material Design](https://material.angular.io/components/button/overview) uses this technique with `<button mat-button>`. However, you wouldn't use this technique on a custom element.
 

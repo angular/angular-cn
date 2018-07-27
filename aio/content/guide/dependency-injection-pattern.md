@@ -137,7 +137,7 @@ It just consumes them.
   `Car` 类不再创建引擎 `engine` 或者轮胎 `tires`。
   它仅仅“消费”它们。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This example leverages TypeScript's constructor syntax for declaring
 parameters and properties simultaneously.
@@ -166,7 +166,7 @@ Now, if someone extends the `Engine` class, that is not `Car`'s problem.
 
 这样一来，如果有人扩展了 `Engine` 类，那就不再是 `Car` 类的烦恼了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The _consumer_ of `Car` has the problem. The consumer must update the car creation code to
 something like this:

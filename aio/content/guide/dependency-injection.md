@@ -46,7 +46,7 @@ from the [The Tour of Heroes](tutorial/).
 </code-tabs>
 
 The `HeroesComponent` is the top-level heroes component.
-It's only purpose is to display the `HeroListComponent`
+Its only purpose is to display the `HeroListComponent`
 which displays a list of hero names.
 
 `HeroesComponent` 是位于顶级的组件。
@@ -150,7 +150,7 @@ nor be able to create the service.
 **提供商**会告诉注入器*如何创建该服务*。
 如果没有提供商，注入器既不知道它该负责创建该服务，也不知道如何创建该服务。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You'll learn much more about _providers_ [below](#providers).
 For now, it is sufficient to know that they configure where and how services are created.
@@ -219,7 +219,7 @@ into any class that it creates.
 
 借助这些注册语句，Angular 现在可以向它创建的任何类中注册 `UserService` 或 `HERO_DI_CONFIG` 值了。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You'll learn about _injection tokens_ and _provider_ syntax [below](#providers).
 
@@ -275,7 +275,7 @@ Providing the `UserService` with an Angular module is a good choice if an `@Inje
 你可能想要把这个 `UserService` 注入到应用中的很多地方，并期望每次注入的都是同一个服务实例。
 这时候如果不能用 `@Injectable`，那么就可以在 Angular 的模块中提供 `UserService`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 To be precise, Angular module providers are registered with the root injector
 _unless the module is_ [lazy loaded](guide/lazy-loading-ngmodules).
@@ -313,7 +313,7 @@ providing the `HeroService` in the `HeroComponent` may be a good choice.
 
 如果你要把 `HeroService` 的访问权限定在 `HeroesComponent` 及其嵌套的 `HeroListComponent` 中，那么在 `HeroesComponent` 中提供这个 `HeroService` 就是一个好选择。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The scope and lifetime of component-provided services is a consequence of [the way Angular creates component instances](#component-child-injectors). 
 
@@ -594,7 +594,7 @@ and let the injector pass them along to the factory function:
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" title="src/app/heroes/hero.service.provider.ts (excerpt)" linenums="false">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `useFactory` field tells Angular that the provider is a factory function
 whose implementation is the `heroServiceFactory`.
@@ -701,7 +701,7 @@ The service can be instantiated by configuring a factory function as shown below
 
 <code-example path="dependency-injection/src/app/tree-shaking/service.0.ts"  title="src/app/tree-shaking/service.0.ts" linenums="false"> </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 To override tree-shakable providers, register the provider using the `providers: []` array syntax of any Angular decorator that supports it.
 
@@ -846,7 +846,7 @@ under test:
 <code-example path="dependency-injection/src/app/test.component.ts" region="spec" title="src/app/test.component.ts" linenums="false">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Learn more in the [Testing](guide/testing) guide.
 
@@ -996,7 +996,7 @@ There is no `AppConfig` class.
 但是，这种情况下用什么作令牌呢？
 你没办法找一个类来当作令牌，因为没有 `Config` 类。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 ### TypeScript interfaces aren't valid tokens
 
@@ -1153,7 +1153,7 @@ is not found. Angular can't find the service if it's not registered with this or
 调用 `get()` 时，还可以使用第二个参数，一旦获取的服务没有在当前或任何祖先注入器中注册过，
 就把它作为返回值。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The technique is an example of the
 [service locator pattern](https://en.wikipedia.org/wiki/Service_locator_pattern).
@@ -1204,7 +1204,7 @@ you'll get a runtime null reference error.
   如果把组件定义在了服务的前面，
   在运行时抛出空指针错误。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You actually can define the component first with the help of the `forwardRef()` method as explained
 in this [blog post](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).

@@ -13,7 +13,7 @@ Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**
 
 本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，用 Angular 实现“快速上手”所需的步骤。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
 the QuickStart application itself.
@@ -33,7 +33,7 @@ Visual Studio 2015, follow these steps:
 
 要用 Visual Studio 2015 在**ASP.NET 4.x 项目**中设置**《快速上手》**文件，请遵循如下步骤：
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
 then consider the _experimental_
@@ -55,7 +55,7 @@ if they are not already on your machine.
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 **Verify that you are running Node.js version `8.x` or greater, and npm `5.x` or greater**
 by running `node -v` and `npm -v` in a terminal window.
@@ -180,7 +180,7 @@ Create the ASP.NET 4.x project in the usual way as follows:
 
    选择自己喜欢的 ASP.NET 4.5.2 模板，点击 OK。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 This cookbook uses the `Empty` template with no added folders, 
 no authentication, and no hosting. Pick the template and options appropriate for your project.
@@ -365,7 +365,7 @@ rewrite rules near the bottom of the `web.config`:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
 you want some requests to get through, such as web API requests. 
@@ -383,7 +383,7 @@ Build and launch the app with debugger by clicking the **Run** button or by pres
 
 点击 **Run** 按钮或者按 `F5` 键，用调试器构建和启动应用。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 It's faster to run without the debugger by pressing `Ctrl-F5`.
 

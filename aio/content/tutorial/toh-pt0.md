@@ -30,7 +30,7 @@ The Angular CLI generated a new project with a default application and supportin
 
 这样 Angular CLI 就创建了一个带默认应用及其支持文件的新项目。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
 For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
@@ -59,7 +59,7 @@ Go to the project directory and launch the application.
   ng serve --open
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The `ng serve` command builds the app, starts the development server,
 watches the source files, and rebuilds the app as you make changes to those files.

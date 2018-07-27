@@ -29,7 +29,7 @@ following products on your development machine:
 * [Java Development Kit](http://www.oracle.com/technetwork/es/java/javase/downloads/index.html) which is used
   to execute the selenium standalone server for e2e testing.
 
-* (Optional for now) [Bazel](https://bazel.build/), please follow instructions in [Bazel.md]
+* (Optional for now) [Bazel](https://bazel.build/), please follow instructions in [BAZEL.md](https://github.com/angular/angular/blob/master/docs/BAZEL.md)
 
 ## Getting the Sources
 
@@ -121,6 +121,16 @@ You can automatically format your code by running:
 
 ``` shell
 $ gulp format
+```
+
+There is a handy [clang-format extension](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
+for Visual Studio Code. Use the following settings to format your code when you save a file:
+
+```json
+{
+    "editor.formatOnSave": true,
+    "clang-format.executable": "${workspaceRoot}/node_modules/.bin/clang-format"
+}
 ```
 
 ## Linting/verifying your source code

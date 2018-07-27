@@ -71,7 +71,7 @@ An `Observable` instance begins publishing values only when someone subscribes t
 只有当有人订阅 `Observable` 的实例时，它才会开始发布值。
 订阅时要先调用该实例的 `subscribe()` 方法，并把一个观察者对象传给它，用来接收通知。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
    In order to show how subscribing works, we need to create a new observable. There is a  constructor that you use to create new instances, but for illustration, we can use some static methods on the `Observable` class that create simple observables of frequently used types:
 
@@ -179,8 +179,7 @@ Notice that if you subscribe twice, there will be two separate streams, each emi
 
 <code-example path="observables/src/multicasting.ts" region="multicast_sequence" title="Create a multicast subscriber"></code-example>
 
-<div class="l-sub-section">
-
+<div class="alert is-helpful">
    Multicasting observables take a bit more setup, but they can be useful for certain applications. Later we will look at tools that simplify the process of multicasting, allowing you to take any observable and make it multicasting.
 
    虽然支持多播的可观察对象需要做更多的准备工作，但对某些应用来说，这非常有用。稍后我们会介绍一些简化多播的工具，它们让你能接收任何可观察对象，并把它变成支持多播的。

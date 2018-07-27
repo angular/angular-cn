@@ -62,7 +62,7 @@ the form-specific directives and techniques described in this page.
 
 通常，使用 Angular [模板语法](guide/template-syntax)编写模板，结合本章所描述的表单专用指令和技术来构建表单。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   You can also use a reactive (or model-driven) approach to build forms.
   However, this page focuses on template-driven forms.
@@ -114,7 +114,7 @@ Note that the *Submit* button is disabled, and the "required" bar to the left of
 
 注意，提交按钮被禁用了，而且输入控件左侧的“必填”条从绿色变为了红色。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   You can customize the colors and location of the "required" bar with standard CSS.
 
@@ -274,10 +274,10 @@ Understanding this component requires only the Angular concepts covered in previ
 
    这段代码导入了 Angular 核心库以及你刚刚创建的 `Hero` 模型。
 
-* The `@Component` selector value of "hero-form" means you can drop this form in a parent template with a `<hero-form>` tag.
+* The `@Component` selector value of "app-hero-form" means you can drop this form in a parent
+template with a `<app-hero-form>` tag.
 
    `@Component` 选择器“hero-form”表示可以用 `<hero-form>` 标签把这个表单放进父模板。
-
 * The `templateUrl` property points to a separate file for the template HTML.
 
    `moduleId: module.id` 属性设置了基地址，用于从相对模块路径加载 `templateUrl`。
@@ -321,7 +321,7 @@ Update it with the following:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   There are two changes:
 
@@ -364,7 +364,7 @@ Replace the contents of its template with the following:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   There are only two changes.
   The `template` is simply the new element tag identified by the component's `selector` property.
@@ -407,7 +407,7 @@ You added a *Submit* button at the bottom with some classes on it for styling.
 
 **你还没有真正用到 Angular**。没有绑定，没有额外的指令，只有布局。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   In template driven forms, if you've imported `FormsModule`, you don't have to do anything
   to the `<form>` tag in order to make use of `FormsModule`. Continue on to see how this works.
@@ -521,7 +521,7 @@ Find the `<input>` tag for *Name* and update it like this:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   You added a diagnostic interpolation after the input tag
   so you can see what you're doing.
@@ -550,7 +550,7 @@ The variable `heroForm` is now a reference to the `NgForm` directive that govern
 
 `heroForm` 变量是一个到 `NgForm` 指令的引用，它代表该表单的整体。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   {@a ngForm}
 
@@ -597,7 +597,7 @@ back again.
 
 诊断信息可以证明，数据确实从输入框流动到模型，再反向流动回来。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   That's *two-way data binding*.
   For more information, see
@@ -616,7 +616,7 @@ Defining a `name` attribute is a requirement when using `[(ngModel)]` in combina
 使用任何唯一的值都可以，但使用具有描述性的名字会更有帮助。
 当在表单中使用 `[(ngModel)]` 时，必须要定义 `name` 属性。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Internally, Angular creates `FormControl` instances and
   registers them with an `NgForm` directive that Angular attached to the `<form>` tag.
@@ -645,7 +645,7 @@ After revision, the core of the form should look like this:
 
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   * Each input element has an `id` property that is used by the `label` element's `for` attribute
   to match the label to its input control.
@@ -928,7 +928,7 @@ Here you created a variable called `name` and gave it the value "ngModel".
 模板引用变量可以访问模板中输入框的 Angular 控件。
 这里，创建了名叫 `name` 的变量，并且赋值为 "ngModel"。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   Why "ngModel"?
   A directive's [exportAs](api/core/Directive) property
@@ -1115,7 +1115,7 @@ Submitting the form isn't terribly dramatic at the moment.
 
 提交表单还是不够激动人心。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
   An unsurprising observation for a demo. To be honest,
   jazzing it up won't teach you anything new about forms.

@@ -38,7 +38,7 @@ uncomment the `web-animations-js` polyfill from the `polyfills.ts` file generate
 
 </div>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The examples in this page are available as a <live-example></live-example>.
 
@@ -284,7 +284,7 @@ and leaves to the right.
 注意，在这个例子中，这些样式在转场定义中被直接应用到了 `void` 状态，但并没有一个单独的 `state(void)` 定义。
 这么做是因为希望在进场与离场时使用不一样的转换效果：元素从左侧进场，从右侧离开。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 These two common animations have their own aliases:
 

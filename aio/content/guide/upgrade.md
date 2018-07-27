@@ -2,8 +2,8 @@
 
 # 从 AngularJS 升级到 Angular
 
-_Angular_ is the name for the Angular of today and tomorrow.
-_AngularJS_ is the name for all v1.x versions of Angular.
+_Angular_ is the name for the Angular of today and tomorrow.<br />
+_AngularJS_ is the name for all 1.x versions of Angular.
 
 *Angular* 这个名字专指现在和未来的 Angular 版本，而 *AngularJS* 专指 Angular 的所有 v1.x 版本。
 
@@ -338,11 +338,11 @@ transition period.
 
 ### 升级模块工作原理
 
-The primary tool provided by ngUpgrade is called the `UpgradeModule`.
+One of the primary tools provided by ngUpgrade is called the `UpgradeModule`.
 This is a module that contains utilities for bootstrapping and managing hybrid
 applications that support both Angular and AngularJS code.
 
-`upgrade` 模块提供的主要工具叫做 `UpgradeModule`。这是一个服务，它可以启动并管理一个能同时支持 Angular 和 AngularJS 的混合式应用。
+`ngUpgrade` 提供的主要工具之一被称为 `UpgradeModule`。这是一个服务，它可以启动并管理一个能同时支持 Angular 和 AngularJS 的混合式应用。
 
 When you use ngUpgrade, what you're really doing is *running both AngularJS and
 Angular at the same time*. All Angular code is running in the Angular
@@ -431,7 +431,7 @@ frameworks in how it actually works.
 </table>
 
 Even accounting for these differences you can still have dependency injection
-interoperability. The `UpgradeModule` resolves the differences and makes
+interoperability. `upgrade/static` resolves the differences and makes
 everything work seamlessly:
 
 就算有这么多不同点，也并不妨碍你在依赖注入时进行互操作。`UpgradeModule` 解决了这些差异，并让它们无缝的对接：
@@ -639,7 +639,7 @@ bootstrapping the AngularJS module.
 这意味着你至少需要 AngularJS 和 Angular 各提供一个模块。
 当你使用 AngularJS 的模块进行引导时，就得把 Angular 的模块传给 `UpgradeModule`。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 For more information, see [NgModules](guide/ngmodules).
 
@@ -725,7 +725,7 @@ The `upgrade.bootstrap` method takes the exact same arguments as [angular.bootst
 在 `AppModule` 的构造函数中，使用依赖注入技术获取了一个 `UpgradeModule` 实例，并用它在 `AppModule.ngDoBootstrap` 方法中启动 AngularJS 应用。
 `upgrade.bootstrap` 方法接受和 [angular.bootstrap](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 完全相同的参数。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 Note that you do not add a `bootstrap` declaration to the `@NgModule` decorator, since
 AngularJS will own the root template of the application.
@@ -792,7 +792,7 @@ NgModule.
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="ngmodule" title="app.module.ts">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 All Angular components, directives and pipes must be declared in an NgModule.
 
@@ -899,7 +899,7 @@ So, you can write an Angular component and then use it from AngularJS
 code. This is useful when you start to migrate from lower-level
 components and work your way up. But in some cases it is more convenient
 to do things in the opposite order: To start with higher-level components
-and work your way down. This too can be done using the `UpgradeModule`.
+and work your way down. This too can be done using the `upgrade/static`.
 You can *upgrade* AngularJS component directives and then use them from
 Angular.
 
@@ -1114,7 +1114,7 @@ and then provide the input and output using Angular template syntax:
 When you are using a downgraded Angular component from an AngularJS
 template, the need may arise to *transclude* some content into it. This
 is also possible. While there is no such thing as transclusion in Angular,
-there is a very similar concept called *content projection*. The `UpgradeModule`
+there is a very similar concept called *content projection*. `upgrade/static`
 is able to make these two features interoperate.
 
 如果你在 AngularJS 模板中使用降级后的 Angular 组件时，可能会需要把模板中的一些内容投影进那个组件。
@@ -1776,7 +1776,7 @@ can verify you're calling their APIs with the correct kinds of arguments.
 <code-example path="upgrade-phonecat-1-typescript/app/app.config.ts" title="app/app.config.ts">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The [AngularJS 1.x type definitions](https://www.npmjs.com/package/@types/angular)
 you installed are not officially maintained by the Angular team,
@@ -2039,7 +2039,7 @@ exciting! You're not running any actual Angular components yet. That's next.
 
 现在，你同时运行着 AngularJS 和 Angular。漂亮！不过你还没有运行什么实际的 Angular 组件，这就是接下来要做的。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 #### Why declare _angular_ as _angular.IAngularStatic_?
 
@@ -2614,7 +2614,7 @@ and let that directive construct the appropriate URL to the `PhoneDetailComponen
 <code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.template.html" region="list" title="app/phone-list/phone-list.template.html (list with links)" linenums="false">
 </code-example>
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 See the [Routing](guide/router) page for details.
 

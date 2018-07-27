@@ -255,7 +255,7 @@ Build your app for production _including the source maps_
 构建*带源码映射*的生产版本
 
 <code-example language="none" class="code-shell">
-  ng build --prod --sourcemaps
+  ng build --prod --source-map
 </code-example>
 
 List the generated bundles in the `dist/` folder.
@@ -305,7 +305,7 @@ HTML 中的[_&lt;base href="..."/&gt;_](/guide/router)用于指定一个解析�
 比如，指定 `<base href="/my/app/">` 时，浏览器就会把 `some/place/foo.jpg` 这样的 URL 解析成到 `my/app/some/place/foo.jpg` 的服务端请求。
 在浏览期间，Angular 路由器会使用*base href*作为组件、模板和模块文件的基地址。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") alternative.
 
@@ -354,7 +354,7 @@ It serves build artifacts from memory instead for a faster development experienc
 `ng build` 命令会把生成的构建成果写入输出文件夹中，但 `ng serve` 命令并不会如此。
 它会用内存中的构建成果提供服务，以获得更快速的开发体验。
 
-<div class="l-sub-section">
+<div class="alert is-helpful">
 
 The output folder is  `dist/` by default.
 To output to a different folder, change the `outputPath` in `angular.json`.
