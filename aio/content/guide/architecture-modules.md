@@ -158,7 +158,8 @@ For example, import Angular's `Component` decorator from the `@angular/core` lib
 You also import NgModules from Angular _libraries_ using JavaScript import statements. 
 For example, the following code imports the `BrowserModule` NgModule from the `platform-browser` library:
 
-还可以使用 JavaScript 的导入语句从 Angular *库*中导入 Angular *模块*：
+还可以使用 JavaScript 的导入语句从 Angular *库*中导入 Angular *模块*。
+比如，下列代码从 `platform-browser` 库中导入了 `BrowserModule` 这个 NgModule。
 
 <code-example path="architecture/src/app/mini-app.ts" region="import-browser-module" linenums="false"></code-example>
 

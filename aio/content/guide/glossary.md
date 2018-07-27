@@ -216,12 +216,12 @@ The [Angular CLI](https://cli.angular.io/) is a command-line tool for managing t
 
 A class with the `@Component` [decorator](guide/glossary#decorator) that associates it with a companion [template](guide/glossary#template). Together, the component and template define a [view](guide/glossary#view).
 
-一个带有 `@Component` [装饰器](guide/glossary#decorator)的类，用来为它关联一个与之相伴的[模板](guide/glossary#template)。
+一个带有 `@Component` [装饰器](guide/glossary#decorator)的类，和它的伴生[模板](guide/glossary#template)关联在一起。组件及其模板共同定义了一个[视图](guide/glossary#view)。
 
 A component is a special type of [directive](guide/glossary#directive).
 The `@Component` decorator extends the `@Directive` decorator with template-oriented features. 
 
-组件是[指令](guide/glossary#directive)的一种特例，它表示一个[视图](guide/glossary#view)。`@Component` 装饰器扩展了 `@Directive` 装饰器，增加了一些与模板有关的特性。
+组件是[指令](guide/glossary#directive)的一种特例。`@Component` 装饰器扩展了 `@Directive` 装饰器，增加了一些与模板有关的特性。
 
 An Angular component class is responsible for exposing data and handling most of the view's display and user-interaction logic through [data binding](guide/glossary#data-binding).
 
@@ -381,7 +381,7 @@ A design pattern and mechanism for creating and delivering parts of an applicati
 In Angular, dependencies are typically services, but can also be values, such as strings or functions.
 An [injector](guide/glossary#injector) for an app (created automatically during bootstrap) instantiates dependencies when needed, using a configured [provider](guide/glossary#provider) of the service or value.
 
-在 Angular 中，依赖通常是服务，但是也可以是值，比如字符串或函数。应用的[注入器](guide/glossary#injector)（它是在启动期间自动创建的）会使用该服务或值的已注册[提供商](guide/glossary#provider)来按需创建这些依赖。各个不同的提供商可以为同一个服务提供不同的实现。
+在 Angular 中，依赖通常是服务，但是也可以是值，比如字符串或函数。应用的[注入器](guide/glossary#injector)（它是在启动期间自动创建的）会使用该服务或值的配置好的[提供商](guide/glossary#provider)来按需实例化这些依赖。各个不同的提供商可以为同一个服务提供不同的实现。
 
 Learn more in the [Dependency Injection](guide/dependency-injection) guide.
 
@@ -548,16 +548,25 @@ using a configured [provider](guide/glossary#provider).
 Injectors are created for NgModules automatically as part of the bootstrap process
 and are inherited through the component hierarchy.
 
+Angular [依赖注入系统](guide/glossary#dependency-injection)中可以在缓存中根据名字查找依赖，也可以通过配置过的[提供商](guide/glossary#provider)来创建依赖。
+启动过程中会自动为每个模块创建一个注入器，并被组件树继承。
+
+
 * An injector provides a singleton instance of a dependency, and can inject this same instance in multiple components.
+
+   注入器会提供依赖的一个单例，并把这个单例对象注入到多个组件中。
 
 * A hierarchy of injectors at the NgModule and component level can provide different instances of a dependency to their own components and child components.
 
+   模块和组件级别的注入器树可以为它们拥有的组件及其子组件提供同一个依赖的不同实例。
+
 * You can configure injectors with different providers that can provide different implementations of the same dependency.
+
+   你可以为同一个依赖使用不同的提供商来配置这些注入器，这些提供商可以为依赖提供不同的实现。
 
 Learn more about the injector hierarchy in the [Dependency Injection guide](guide/hierarchical-dependency-injection).
 
-Angular [依赖注入系统](guide/glossary#dependency-injection)中可以在缓存中根据名字查找依赖，也可以通过已注册的[提供商](guide/glossary#provider)来创建依赖。
-启动过程中会自动为每个模块创建一个注入器，并被组件树继承。
+要了解关于多级注入器的更多知识，参见[依赖注入](guide/hierarchical-dependency-injection)一章。
 
 ## Input
 
@@ -789,7 +798,7 @@ Angular 使用一个名叫[响应式扩展 (RxJS)](http://reactivex.io/rxjs/)的
 
 To learn more, see the [Observables](guide/observables) guide.
 
-要了解更多，参见[可观察对象](guide/glossary#observable)。
+要了解更多，参见[可观察对象](guide/observables)。
 
 {@a observer}
 
@@ -986,7 +995,7 @@ A way to group related npm packages.
 NgModules are delivered within *scoped packages* whose names begin with the Angular *scope name* `@angular`. For example, `@angular/core`, `@angular/common`, `@angular/forms`, and `@angular/router`.
 
 一种把相关的 NPM 包分组到一起的方式。
-Angular 的 NgModule 都是在一些以 `@angular` 为范围名的*范围化包*中发布的。比如 `@angular/core`、`@angular/common`、`@angular/http` 和 `@angular/router`。
+Angular 的 NgModule 都是在一些以 `@angular` 为范围名的*范围化包*中发布的。比如 `@angular/core`、`@angular/common`、`@angular/forms` 和 `@angular/router`。
 
 Import a scoped package in the same way that you import a normal package. 
 

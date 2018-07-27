@@ -4,7 +4,7 @@
 
 _Angular elements_ are Angular components packaged as _custom elements_, a web standard for defining new HTML elements in a framework-agnostic way.
 
-Angular 元素就是打包成自定义元素的 Angular 组件。所谓自定义元素就是一套与具体框架无关的用于定义新 HTML 元素的 Web 标准。
+*Angular 元素*就是打包成*自定义元素*的 Angular 组件。所谓自定义元素就是一套与具体框架无关的用于定义新 HTML 元素的 Web 标准。
 
 [Custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) are a Web Platform feature currently supported by Chrome, Opera, and Safari, and available in other browsers through polyfills (see [Browser Support](#browser-support)).
 A custom element extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code. 
@@ -21,12 +21,19 @@ The `@angular/elements` package exports a `createCustomElement()` API that provi
 Transforming a component to a custom element makes all of the required Angular infrastructure available to the browser. 
 Creating a custom element is simple and straightforward, and automatically connects your component-defined view with change detection and data binding, mapping Angular functionality to the corresponding native HTML equivalents. 
 
+把组件转换成自定义元素可以让所有所需的 Angular 基础设施都在浏览器中可用。
+创建自定义元素的方式简单直接，并且会自动把你组件定义的视图连同变更检测与数据绑定等 Anuglar 的功能映射为相应的原生 HTML 等价物。
+
 <div class="alert is-helpful">
 
     We are working on custom elements that can be used by web apps built on other frameworks. 
     A minimal, self-contained version of the Angular framework will be injected as a service to support the component's change-detection and data-binding functionality. 
     For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s).
 
+    我们正在持续开发自定义元素功能，让它们可以用在由其它框架所构建的 Web 应用中。
+    Angular 框架的一个小型的、自包含的版本将会作为服务注入进去，以提供组件的变更检测和数据绑定功能。
+    要了解这个开发方向的更多内容，参见[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
+    
 </div>
 
 把组件转换成自定义元素会让所需的 Angular 基础设施也可用在浏览器中。创建自定义元素非常简单直接，它会自动把你的组件视图对接到变更检测和数据绑定机制，会把 Angular 的功能映射到原生 HTML 中的等价物。

@@ -480,8 +480,8 @@ for shadow DOM (see [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1) on th
 which is why `Emulated` view encapsulation is the default mode and recommended
 in most cases.
 
-原生(`Native`)模式只适用于[有原生 Shadow DOM 支持的浏览器](http://caniuse.com/#feat=shadowdom)。
-因此仍然受到很多限制，这就是为什么仿真 (`Emulated`) 模式是默认选项，并建议将其用于大多数情况。
+`ShadowDom` 模式只适用于提供了原生 Shadow DOM 支持的浏览器（参见 [Can I use](http://caniuse.com/) 上的 [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1) 部分）。
+它仍然受到很多限制，这就是为什么仿真 (`Emulated`) 模式是默认选项，并建议将其用于大多数情况。
 
 {@a inspect-generated-css}
 

@@ -2962,7 +2962,8 @@ module are referenced across the entire application.
 singletons that are provided once for the entire application or
 in a particular feature module. There are exceptions, however. For example, in the sample code that follows, notice that the `SharedModule` provides `FilterTextService`. This is acceptable here because the service is stateless;that is, the consumers of the service aren't impacted by new instances.
 
-**避免** 在共享模块中提供服务。服务通常是单例的，应该在整个应用或一个特定的特性模块中只有一份。
+**考虑** *不要*在共享模块中提供服务。服务通常是单例的，应该在整个应用或一个特定的特性模块中只有一份。
+不过也有例外，比如，在下面的范例代码中，注意 `SharedModule` 提供了 `FilterTextService`。这里可以这么做，因为该服务是无状态的，也就是说，该服务的消费者不会受到这些新实例的影响。
 
 </div>
 

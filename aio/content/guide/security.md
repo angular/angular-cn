@@ -179,7 +179,7 @@ Angular 认为这些值是不安全的，并自动进行无害化处理。它会
 
 
 
-### Direct use of the DOM APIsand explicit sanitization calls
+### Direct use of the DOM APIs and explicit sanitization calls
 
 ### 避免直接使用 DOM API
 

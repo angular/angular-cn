@@ -5,7 +5,7 @@
 _Angular_ is the name for the Angular of today and tomorrow.<br />
 _AngularJS_ is the name for all 1.x versions of Angular.
 
-*Angular* 这个名字专指现在和未来的 Angular 版本，而 *AngularJS* 专指 Angular 的所有 v1.x 版本。
+*Angular* 这个名字专指现在和未来的 Angular 版本，而 *AngularJS* 专指 Angular 的所有 1.x 版本。
 
 AngularJS apps are great.
 Always consider the business case before moving to Angular.

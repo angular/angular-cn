@@ -683,8 +683,6 @@ If there is a search term, the code constructs an options object with an HTML UR
 
 如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
 
-如果有搜索词，这段代码就会构造一个包含进行过 URL 编码的搜索词的选项对象。如果这个搜索词是“foo”，这个 GET 请求的 URL 就会是 `api/heroes/?name=foo`。
-
 The `HttpParams` are immutable so you'll have to use the `set()` method to update the options.
 
 `HttpParams` 是不可变的，所以你也要使用 `set()` 方法来修改这些选项。

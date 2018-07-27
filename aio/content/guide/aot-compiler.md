@@ -159,8 +159,12 @@ You can control your app compilation by providing template compiler options in t
 
 ```
 ### *enableResourceInlining*
+
 This options tell the compiler to replace the `templateUrl` and `styleUrls` property in all `@Component` decorators with inlined contents in `template` and `styles` properties.
 When enabled, the `.js` output of ngc will have no lazy-loaded `templateUrl` or `styleUrls`.
+
+这个选项告诉编译器把所有 `@Component` 装饰器中的 `templateUrl` 和 `styleUrls` 属性内联成 `template` 和 `styles` 属性。
+当启用时，ngc 的 `.js` 输出中将不会有惰性加载的 `templateUrl` 和 `styleUrls`。
 
 ### *skipMetadataEmit*
 
@@ -376,20 +380,26 @@ Tells the compiler to generate all the possible generated files even if they are
 how `bazel` rules track file dependencies. It is not recommended to use this option outside of the `bazel`
 rules.
 
-  告诉编译器生成所有可能生成的文件 —— 即使是空文件。
+告诉编译器生成所有可能生成的文件 —— 即使是空文件。
 该选项默认为 `false`。
 这是供 `bazel` 构建规则使用的选项，它用于简化 `bazel` 规则跟踪文件依赖的方式。
-除了 `bazel` 规则之外不建议使用该选项。### *enableIvy*
+除了 `bazel` 规则之外不建议使用该选项。
+
+### *enableIvy*
 
 Tells the compiler to generate definitions using the Render3 style code generation. This option defaults to `false`.
 
-  告诉编译器使用 Render3 风格的代码生成器来来生成各种定义。
-该选项默认为 `false`。Not all features are supported with this option enabled. It is only supported
+告诉编译器使用 Render3 风格的代码生成器来来生成各种定义。
+该选项默认为 `false`。
+
+Not all features are supported with this option enabled. It is only supported
   for experimentation and testing of Render3 style code generation.
 
-  当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。*Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
+当开启该选项时，有些特性不受支持。它仅仅用来为试验和测试 Render3 风格的代码生成提供支持。
 
-  *注意*：不建议使用该选项，因为它在使用 Render2 的代码生成器时还缺少一些特性。
+*Note*: Is it not recommended to use this option as it is not yet feature complete with the Render2 code generation.
+
+*注意*：不建议使用该选项，因为它在使用 Render2 的代码生成器时还缺少一些特性。
 
 ## Angular Metadata and AOT
 

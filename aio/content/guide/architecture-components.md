@@ -30,6 +30,7 @@ For example, the `HeroListComponent` has a `heroes` property that holds an array
 
 比如，`HeroListComponent` 有一个 `heroes` 属性，它会返回一个从服务中取到的英雄数组。
 `HeroListComponent` 还有一个 `selectHero()` 方法，当用户从列表中选择一个英雄时，它会设置 `selectedHero` 属性的值。
+该组件会从服务获取英雄列表，它是一个 TypeScript 的构造器[参数型属性](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties)。本服务通过依赖注入系统提供给该组件。
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (class)" region="class"></code-example>
 
@@ -86,7 +87,7 @@ Angular inserts an instance of the `HeroListComponent` view between those tags.
 
 * `providers`: An array of **dependency injection providers** for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.  
 
-   `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular，该组件的构造函数需要一个 `HeroService` 实例，以获取要显示的英雄列表。
+   `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
 
 <hr/>
 

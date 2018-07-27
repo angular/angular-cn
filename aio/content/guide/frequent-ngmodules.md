@@ -146,7 +146,12 @@ Angular 应用需要不止一个模块，它们都为根模块服务。
  <tr>
    <td><code>RouterModule</code></td>
    <td><code>@angular/router</code></td>
-   <td>When you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>要使用路由功能，并且你要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时</td>
+   <td>
+   When you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>
+   
+   要使用路由功能，并且你要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时
+   
+   </td>
  </tr>
 
  <tr>

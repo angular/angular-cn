@@ -422,7 +422,7 @@ and with relative URLs when running in the browser.
 One solution is to provide the server's runtime origin under the Angular [`APP_BASE_HREF` token](api/common/APP_BASE_HREF),
 inject it into the service, and prepend the origin to the request URL.
 
-解决方案之一是通过 Angular 的 [`APP_BASE_REF` 令牌](api/common/APP_BASE_HREF)来提供服务器的源地址（origin），把它注入到服务中，并把这个源地址添加到所请求的 URL 之前。
+解决方案之一是通过 Angular 的 [`APP_BASE_HREF` 令牌](api/common/APP_BASE_HREF)来提供服务器的源地址（origin），把它注入到服务中，并把这个源地址添加到所请求的 URL 之前。
 
 Start by changing the `HeroService` constructor to take a second `origin` parameter that is optionally injected via the `APP_BASE_HREF` token.
 
@@ -847,7 +847,7 @@ CLI 提供了针对不同**目标**的构建器。常见的目标，如 `build` 
 
 Now that you've created the TypeScript and Webpack config files and configured the Angular CLI, you can build and run the Universal application.
 
-现在，你已经创建了 TypeScript 和 Webpack 的配置文件，你可以构建并运行这个 Universal 应用了。
+现在，你已经创建了 TypeScript 和 Webpack 的配置文件并配置好了 Angular CLI，可以构建并运行这个 Universal 应用了。
 
 First add the _build_ and _serve_ commands to the `scripts` section of the `package.json`:
 
