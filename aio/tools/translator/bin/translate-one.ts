@@ -3,5 +3,5 @@
 import { dirs } from '../dirs';
 import { translateFile } from '../translate';
 
-const filename = 'guide/aot-compiler.md';
-translateFile(__dirname + '/../../../../../content-en/' + filename, dirs.content + filename);
+const filename = 'guide/reactive-forms.md';
+translateFile(__dirname + '/../../../../../angular/aio/content/' + filename, dirs.content + filename);

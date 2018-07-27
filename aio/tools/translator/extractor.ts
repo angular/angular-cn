@@ -10,7 +10,6 @@ import {
   originalIsNotOnlyBeginTag,
   originalIsNotPureCloseTag,
   originalIsNotSpecialDivTag,
-  translationHasNotCodeExample,
 } from './utils';
 
 export function splitAndTrim(text = ''): string[] {
@@ -27,7 +26,7 @@ export function isTranslation(text) {
 export function gatherTranslations(text: string): DictEntry[] {
   const lines = splitAndTrim(normalizeLines(text));
 
-  const result = [];
+  const result: any[] = [];
   for (let i = 1; i < lines.length; ++i) {
     const translation = purifyText(lines[i]);
     if (hasInlineText(translation)) {

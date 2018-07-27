@@ -35,15 +35,15 @@ export function isNotImg(entry: DictEntry): boolean {
 }
 
 export function isNotCheatSheet(entry: DictEntry): boolean {
-  return !/cheatsheet.md$/.test(entry.sourceFile);
+  return !/cheatsheet.md$/.test(entry.sourceFile!!);
 }
 
 export function isNotMarketingDocs(entry: DictEntry): boolean {
-  return !/marketing\/docs.md$/.test(entry.sourceFile);
+  return !/marketing\/docs.md$/.test(entry.sourceFile!!);
 }
 
 export function isNotCnPages(entry: DictEntry): boolean {
-  return !/cn\/.*?.md$/.test(entry.sourceFile);
+  return !/cn\/.*?.md$/.test(entry.sourceFile!!);
 }
 
 export function isHead(line: string): boolean {
@@ -166,7 +166,7 @@ export function fuzzyTest(text1: string, text2: string): boolean {
 }
 
 export function exactlyTest(key: string, text: string): boolean {
-  return key && key === text;
+  return !!key && key === text;
 }
 
 export function kernelText(text: string): string {
