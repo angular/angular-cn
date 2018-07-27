@@ -7,7 +7,7 @@
 Your app should be able to make the browser title bar say whatever you want it to say.
 This cookbook explains how to do it.
 
-应用程序应该能让浏览器标题栏显示你想让它显示的内容。本*烹饪宝典*解释怎么做。
+应用程序应该能让浏览器标题栏显示你想让它显示的内容。本文会解释怎么做。
 
 See the <live-example name="set-document-title"></live-example>.
 

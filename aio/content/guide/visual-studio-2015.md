@@ -11,14 +11,14 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 This cookbook describes the steps required to set up and use the
 Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**.
 
-本烹饪宝典介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，用 Angular 实现“快速上手”所需的步骤。
+本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，用 Angular 实现“快速上手”所需的步骤。
 
 <div class="l-sub-section">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
 the QuickStart application itself.
 
-本烹饪宝典中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。
+本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。
 
 </div>
 
@@ -185,7 +185,7 @@ Create the ASP.NET 4.x project in the usual way as follows:
 This cookbook uses the `Empty` template with no added folders, 
 no authentication, and no hosting. Pick the template and options appropriate for your project.
 
-本烹饪宝典选择了 `Empty` 模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
+本文选择了 `Empty` 模板，它没有添加过任何目录，没有身份验证，没有服务器托管。为你的项目选择合适的模板和选项。
 
 </div>
 

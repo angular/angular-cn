@@ -7,7 +7,7 @@
 This cookbook contains recipes for common component communication scenarios
 in which two or more components share information.
 
-本烹饪宝典包含了常见的组件通讯场景，也就是让两个或多个组件之间共享信息的方法。
+本文包含了常见的组件通讯场景，也就是让两个或多个组件之间共享信息的方法。
 
 {@a toc}
 
