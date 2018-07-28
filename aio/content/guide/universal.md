@@ -468,7 +468,7 @@ The app server module class (conventionally named `AppServerModule`) is an Angul
 `AppServerModule` also tells Angular how to bootstrap your application when running as a Universal app.
 
 服务端应用模块（习惯上叫作 `AppServerModule`）是一个 Angular 模块，它包装了应用的根模块 `AppModule`，以便 Universal 可以在你的应用和服务器之间进行协调。
-`AppServerModule` 还会告诉 Angular 再把你的应用以 Universal 方式运行时，该如何引导它。
+`AppServerModule` 还会告诉 Angular 在把你的应用以 Universal 方式运行时，该如何引导它。
 
 Create an `app.server.module.ts` file in the `src/app/` directory with the following `AppServerModule` code:
 
