@@ -40,8 +40,8 @@ On the other hand, you need a really unusual case for breaking a *Do* guideline.
 **Consider** guidelines should generally be followed.
 If you fully understand the meaning behind the guideline and have a good reason to deviate, then do so. Please strive to be consistent.
 
-**考虑**标志着通常应该遵循的指导原则。
-如果你能完全理解指导原则背后的含义，并且很好的理由背离它，就可以改变它。但是请保持一致。
+**考虑**表示通常应该遵循的指导原则。
+如果你能完全理解指导原则背后的含义，并且有很好的理由违反它，那就改吧。但是请保持一致。
 
 </div>
 
@@ -49,7 +49,7 @@ If you fully understand the meaning behind the guideline and have a good reason 
 
 **Avoid** indicates something you should almost never do. Code examples to *avoid* have an unmistakeable red header.
 
-**避免**标志着你绝对不应该做的事。需要*避免*的代码范例会有明显的红色标题。
+**避免**表示你绝对不应该做的事。需要*避免*的代码范例会有明显的红色标题。
 
 </div>
 
