@@ -175,7 +175,7 @@ The `OnKey` method more clearly expresses what it expects from the template and 
 
 `$event` 的类型现在是 `KeyboardEvent`。
 不是所有的元素都有 `value` 属性，所以它将 `target` 转换为输入元素。
-`OnKey` 方法更加清晰的表达了它期望从模板得到什么，以及它是如何解析事件的。
+`OnKey` 方法更加清晰地表达了它期望从模板得到什么，以及它是如何解析事件的。
 
 ### Passing _$event_ is a dubious practice
 
