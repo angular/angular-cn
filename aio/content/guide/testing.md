@@ -5197,7 +5197,7 @@ as the application source code files that they test:
 
 * You see at a glance if a part of your application lacks tests.
 
-   你可以一眼看出应用程序的那些部分缺乏测试程序。
+   你可以一眼看出应用程序的哪些部分缺乏测试程序。
 
 * Nearby tests can reveal how a part works in context.
 
