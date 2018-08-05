@@ -76,7 +76,7 @@ You can lay out the controls creatively, bind them to data, specify validation r
 conditionally enable or disable specific controls, trigger built-in visual feedback, and much more.
 
 利用 Angular 模板，可以构建几乎所有表单 &mdash; 登录表单、联系人表单…… 以及任何的商务表单。
-  可以创造性的摆放各种控件、把它们绑定到数据、指定校验规则、显示校验错误、有条件的禁用或
+  可以创造性地摆放各种控件、把它们绑定到数据、指定校验规则、显示校验错误、有条件的禁用或
   启用特定的控件、触发内置的视觉反馈等等，不胜枚举。
 
 Angular makes the process easy by handling many of the repetitive, boilerplate tasks you'd
