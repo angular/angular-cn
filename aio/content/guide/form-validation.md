@@ -340,7 +340,7 @@ If you haven't created custom validators before, start by reviewing the [custom 
 
 In the following section, we will make sure that our heroes do not reveal their true identities by filling out the Hero Form. We will do that by validating that the hero names and alter egos do not match. 
 
-在下一节中中，我们要确保英雄们不能通过填写表单来暴露他们的真实身份。要做到这一点，我们就要验证英雄的名字和他的第二人格（alterEgo）是否匹配。
+在下一节中，我们要确保英雄们不能通过填写表单来暴露他们的真实身份。要做到这一点，我们就要验证英雄的名字和他的第二人格（alterEgo）是否匹配。
 
 ### Adding to reactive forms
 
