@@ -6,6 +6,6 @@
 {% block overview %}{% include "includes/interface-overview.html" %}{% endblock %}
 {% block details %}
   {% include "includes/description.html" %}
-  {$ memberHelper.renderProperties(doc.properties, 'instance-properties', 'instance-property', 'Properties') $}
-  {$ memberHelper.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', 'Methods') $}
+  {$ memberHelper.renderProperties(doc.properties, 'instance-properties', 'instance-property', '属性') $}
+  {$ memberHelper.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', '方法') $}
 {% endblock %}

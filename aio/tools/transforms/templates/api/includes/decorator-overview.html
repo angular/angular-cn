@@ -3,7 +3,7 @@
 {% macro renderOptionsTable(doc) %}
 <table class="is-full-width list-table option-overview">
   <thead>
-    <tr><th>Option</th><th>Description</th></tr>
+    <tr><th>选项</th><th>说明</th></tr>
   </thead>
   <tbody>
   {%- for option in doc.members %}
@@ -20,7 +20,7 @@
 </table>
 
 {% for ancestor in doc.extendsClauses %}{% if ancestor.doc %}
-<h3 class="no-toc">Inherited from <a class="code-anchor" href="{$ ancestor.doc.path $}">{$ ancestor.doc.name $}</a> decorator</h3>
+<h3 class="no-toc">继承自 <a class="code-anchor" href="{$ ancestor.doc.path $}">{$ ancestor.doc.name $}</a> 装饰器</h3>
 {$ renderOptionsTable(ancestor.doc) $}
 {% endif %}{% endfor %}
 {% endmacro %}
@@ -28,6 +28,6 @@
 {% if doc.members.length %}
 <section class="decorator-overview">
   {$ renderOptionsTable(doc) $}
-  {$ descendants.renderDescendants(doc, 'decorator', 'Subclasses') $}
+  {$ descendants.renderDescendants(doc, 'decorator', '子类') $}
 </section>
 {% endif %}

@@ -5,8 +5,8 @@
 {% block overview %}{% include "includes/directive-overview.html" %}{% endblock %}
 {% block additional -%}
   {% include "includes/selectors.html" %}
-  {$ directiveHelper.renderBindings(doc.inputs, 'inputs', 'input', 'Inputs') $}
-  {$ directiveHelper.renderBindings(doc.outputs, 'outputs', 'output', 'Outputs') $}
+  {$ directiveHelper.renderBindings(doc.inputs, 'inputs', 'input', '输入参数') $}
+  {$ directiveHelper.renderBindings(doc.outputs, 'outputs', 'output', '输出参数') $}
   {% include "includes/export-as.html" %}
 {% endblock %}
 

@@ -4,7 +4,7 @@
   <h2>{$ title $}</h2>
   {% for binding in bindings %}
   <div class="{$ cssItemClass $}">
-    <code>{$ binding.bindingName $}</code>&nbsp;bound to&nbsp;<code>{$ binding.memberDoc.containerDoc.name $}.{$ binding.propertyName $}</code>
+    <code>{$ binding.bindingName $}</code>&nbsp;绑定到&nbsp;<code>{$ binding.memberDoc.containerDoc.name $}.{$ binding.propertyName $}</code>
     {#{$ binding.memberDoc.description | trimBlankLines | marked $}#}
   </div>
   {% endfor %}

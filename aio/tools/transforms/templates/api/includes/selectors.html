@@ -1,6 +1,6 @@
 {%- if doc.selector %}
 <section class="selectors">
-  <h2>Selectors</h2>
+  <h2 id="selectors">选择器</h2>
   <code-example hideCopy="true" class="no-box api-heading selector">
   {%- for selector in doc.selector.split(',') %}
   {$ selector $}{% endfor %}

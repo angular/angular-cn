@@ -5,5 +5,5 @@
 {% if doc.isAbstract %}abstract {% endif%}{$ doc.docType $} {$ doc.name $}{$ doc.typeParams | escape $}{$ memberHelper.renderHeritage(doc) $} {{$ memberHelper.renderMembers(doc) $}
 }
 </code-example>
-{$ descendants.renderDescendants(doc, 'class', 'Subclasses') $}
+{$ descendants.renderDescendants(doc, 'class', '子类') $}
 </section>

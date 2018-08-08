@@ -1,9 +1,9 @@
 {% import "api/lib/githubLinks.html" as github -%}
 {% import "api/lib/memberHelpers.html" as members -%}
-{% macro goToCode(doc) %}<a href="{$ github.githubViewHref(doc, versionInfo) $}" class="go-to-code" title="Go to source code"><i class="material-icons" aria-hidden="true" role="img">code</i></a>{% endmacro %}
+{% macro goToCode(doc) %}<a href="{$ github.githubViewHref(doc, versionInfo) $}" class="go-to-code" title="转到源码"><i class="material-icons" aria-hidden="true" role="img">code</i></a>{% endmacro %}
 {% macro label(test, class, text) %}{% if test %}<label class="{$ class $}">{$ text $}</label>{% endif %}{% endmacro %}
 {% macro renderLabels(doc) -%}
-  {$ label(doc.notYetDocumented, 'no-doc', 'UNDOCUMENTED') $}
+  {$ label(doc.notYetDocumented, 'no-doc', '尚无文档') $}
   {%- for tag in doc.tags.tags %}{$ label(tag.tagDef.deprecated, 'deprecated', '@' + tag.tagDef.name + ' deprecated') $}{% endfor %}
 {% endmacro %}
 {% macro renderMember(member) -%}
@@ -79,7 +79,7 @@
 <body>
 
 
-<h1>Documentation Status Report</h1>
+<h1 id="documentation-status-report">文档状态报告</h1>
 
 {% for module in doc.modules %}
 <details>

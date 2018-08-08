@@ -11,11 +11,11 @@
     {%- endfor %} }}</code-example>
 
   {% if doc.valueParam.type %}
-  <h2>Input value</h2>
+  <h2 id="input-value">输入值</h2>
   {$ params.renderParameters([doc.valueParam], 'pipe-parameters', 'pipe-parameter', true) $}
   {% endif %}
   {% if doc.pipeParams.length %}
-  <h2>Parameters</h2>
+  <h2 id="parameters">参数</h2>
   {$ params.renderParameters(doc.pipeParams, 'pipe-parameters', 'pipe-parameter', true) $}
   {% endif %}
 </section>

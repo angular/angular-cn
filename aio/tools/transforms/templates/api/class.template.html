@@ -9,15 +9,15 @@
 {% block details %}
   {% block additional %}{% endblock %}
   {% include "includes/description.html" %}
-  {$ memberHelpers.renderProperties(doc.staticProperties, 'static-properties', 'static-property', 'Static properties') $}
-  {$ memberHelpers.renderMethodDetails(versionInfo, doc.staticMethods, 'static-methods', 'static-method', 'Static methods') $}
+  {$ memberHelpers.renderProperties(doc.staticProperties, 'static-properties', 'static-property', '静态属性') $}
+  {$ memberHelpers.renderMethodDetails(versionInfo, doc.staticMethods, 'static-methods', 'static-method', '静态方法') $}
   {% if doc.constructorDoc %}
-  <h2>Constructor</h2>
+  <h2 id="constructor">构造函数</h2>
   {$ memberHelpers.renderMethodDetail(versionInfo, doc.constructorDoc, 'constructor') $}{% endif %}
 
-  {$ memberHelpers.renderProperties(doc.properties, 'instance-properties', 'instance-property', 'Properties') $}
+  {$ memberHelpers.renderProperties(doc.properties, 'instance-properties', 'instance-property', '属性') $}
 
-  {$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', 'Methods') $}
+  {$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', '方法') $}
 
   {% block annotations %}{% include "includes/annotations.html" %}{% endblock %}
 {% endblock %}
