@@ -213,7 +213,7 @@ directly since you imported `ReactiveFormsModule` from `AppModule`.
  and removing objects from the `questions` array.
 
  关键是，你完全根据 `QuestionService` 返回的对象来控制英雄的工作申请表。
- 要维护这份问卷，只要非常简单的添加、修改和删除 `questions` 数组中的对象就可以了。
+ 要维护这份问卷，只要非常简单地添加、修改和删除 `questions` 数组中的对象就可以了。
 
 <code-example path="dynamic-form/src/app/question.service.ts" title="src/app/question.service.ts">
 
