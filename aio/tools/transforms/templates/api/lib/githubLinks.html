@@ -13,7 +13,7 @@ https://github.com/{$ versionInfo.gitRepoInfo.owner $}/{$ versionInfo.gitRepoInf
 
 {% macro githubLinks(doc, versionInfo) -%}
 <div class="github-links">
-  <a href="{$ githubEditHref(doc, versionInfo) $}" aria-label="建议编辑" title="建议编辑"><i class="material-icons" aria-hidden="true" role="img">mode_edit</i></a>
+  <a href="{$ githubEditHref(doc, versionInfo) $}" aria-label="建议修改" title="建议修改"><i class="material-icons" aria-hidden="true" role="img">mode_edit</i></a>
   <a href="{$ githubViewHref(doc, versionInfo) $}" aria-label="查看源码" title="查看源码"><i class="material-icons" aria-hidden="true" role="img">code</i></a>
 </div>
 {%- endmacro -%}
