@@ -13,7 +13,7 @@ The [Dependency Injection pattern](guide/dependency-injection-pattern) page desc
 _The guide you're reading now_ explains how Angular's own Dependency Injection system works.
 
 [依赖注入模式](guide/dependency-injection-pattern)中讲解了这种通用的方法。
-*在这里*
+*这里*解释的是 Angular 依赖注入系统本身的工作原理。
 
 ## DI by example
 
