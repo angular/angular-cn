@@ -10,6 +10,8 @@ cp -r dist/* ../../ng-docs.github.io
 cd ../../ng-docs.github.io
 cp index.html 404.html
 echo v6.angular.live > CNAME
+echo angular.cn >> CNAME
+echo www.angular.cn >> CNAME
 git add .
 git commit -am "publish"
 
