@@ -1199,10 +1199,10 @@ the `HeroesComponent` in the same file,
 If you define the component before the service,
 you'll get a runtime null reference error.
 
-如果你把 `HeroService` 和 `HeroesComponent` 组合在同一个文件里，
+如果你要把 `HeroService` 和 `HeroesComponent` 组合在同一个文件里，
   **就得把组件定义放在最后面！**
   如果把组件定义在了服务的前面，
-  在运行时抛出空指针错误。
+  在运行时它就会抛出空指针错误。
 
 <div class="alert is-helpful">
 
