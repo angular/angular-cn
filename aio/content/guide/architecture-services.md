@@ -23,7 +23,7 @@ Angular 把组件和服务区分开，以提高模块性和复用性。
 * A component should not need to define things like how to fetch data from the server, validate user input, or log directly to the console. Instead, it can delegate such tasks to services. By defining that kind of processing task in an injectable service class, you make it available to any component. You can also make your app more adaptable by injecting different providers of the same kind of service, as appropriate in different circumstances.
 
    组件不应该定义任何诸如从服务器获取数据、验证用户输入或直接往控制台中写日志等工作。
-  而要把这些任务委托给各种服务。通过把各种处理任务定义到可注入的服务类中，你可以让它可以被任何组件使用。
+  而要把这些任务委托给各种服务。通过把各种处理任务定义到可注入的服务类中，你可以让它被任何组件使用。
   通过在不同的环境中注入同一种服务的不同提供商，你还可以让你的应用更具适应性。
 
 Angular doesn't *enforce* these principles. Angular does help you *follow* these principles by making it easy to factor your

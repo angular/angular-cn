@@ -1633,7 +1633,7 @@ You've learned how to do the following:
 
 * Set the router to compose HTML5 browser URLs.
 
-   设置路由器，使其合成 HTML5 模式的浏览器 URL。
+   设置路由器，使其合成 HTML5 模式的浏览器 URL
 
 * handle invalid routes with a `wildcard` route.
 
@@ -2623,7 +2623,7 @@ The observable `paramMap` property handles that beautifully.
 
 不幸的是，`ngOnInit` 对每个实例只调用一次。
   你需要一种方式来检测*在同一个实例中*路由参数什么时候发生了变化。
-  而 `params` 属性这个可观察对象（Observable）干净漂亮的处理了这种情况。
+  而 `params` 属性这个可观察对象（Observable）干净漂亮地处理了这种情况。
 
 <div class="alert is-helpful">
 
@@ -4938,7 +4938,7 @@ As you've worked through the milestones, the application has naturally gotten la
 As you continue to build out feature areas, the overall application size will continue to grow.
 At some point you'll reach a tipping point where the application takes long time to load.
 
-完成上面的里程碑后，应用程序很自然的长大了。在继续构建特征区的过程中，应用的尺寸将会变得更大。在某一个时间点，你将达到一个顶点，应用将会需要过多的时间来加载。
+完成上面的里程碑后，应用程序很自然地长大了。在继续构建特征区的过程中，应用的尺寸将会变得更大。在某一个时间点，你将达到一个顶点，应用将会需要过多的时间来加载。
 
 How do you combat this problem?  With asynchronous routing, which loads feature modules _lazily_, on request.
 Lazy loading has multiple benefits.
