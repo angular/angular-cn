@@ -1191,7 +1191,7 @@ Having multiple classes in the same file is confusing and best avoided.
 Developers expect one class per file. Keep them happy.
 
 在同一个文件中有多个类容易造成混淆，最好避免。
-开发人员期望每个文件只放一个类。这会让它们开心点。
+开发人员期望每个文件只放一个类。这会让他们开心点。
 
 If you combine the `HeroService` class with
 the `HeroesComponent` in the same file,
