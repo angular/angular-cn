@@ -306,7 +306,7 @@ The `HeroService` must wait for the server to respond,
 `getHeroes()` cannot return immediately with hero data,
 and the browser will not block while the service waits.
 
-`HeroService` 必须等服务器给出相应，
+`HeroService` 必须等服务器给出响应，
 而 `getHeroes()` 不能立即返回英雄数据，
 浏览器也不会在该服务等待期间停止响应。
 
@@ -609,7 +609,7 @@ This template binds directly to the component's `messageService`.
 
 * The `*ngIf` only displays the messages area if there are messages to show.
 
-   `*ngIf` 只有当在有消息时才会显示消息区。
+   `*ngIf` 只有在有消息时才会显示消息区。
 
 * An `*ngFor` presents the list of messages in repeated `<div>` elements.
 
