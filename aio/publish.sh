@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+. ~/.nvm/nvm.sh
+
+nvm use 8
+
 set -x
 
 cd `dirname $0`
