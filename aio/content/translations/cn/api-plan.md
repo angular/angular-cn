@@ -100,3 +100,20 @@ http/RequestOptionsArgs | 551 | 0.17
 animations/animation | 549 | 0.17
 common/NgSwitchCase | 521 | 0.16
 core/testing/async | 518 | 0.16
+
+## 翻译方式
+
+找到源码，并且把对应的 tsdoc 内容翻译了。
+
+注意：tsdoc 中的第一行是标题行，编译时和其它内容不在一起，所以，tsdoc 注释中的第一行必须使用
+
+```
+english
+<p>中文</p>
+
+```
+的形式进行翻译，后面的描述行则无所谓，可以按照以前的空行分隔的方式进行翻译。
+
+## 翻译内容
+
+优先翻译函数主形态（如在 `common/http/src/client.ts` 中它通常都是重载形式中的最后一个），先不必翻译各个重载形态，否则工作量太大。
