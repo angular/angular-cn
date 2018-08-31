@@ -12,7 +12,7 @@ module.exports = function splitDescription() {
       docs.forEach(doc => {
         if (this.docTypes.indexOf(doc.docType) !== -1 && doc.description !== undefined) {
           const description = doc.description.trim();
-          const endOfParagraph = description.search(/\n\s*\n/);
+          const endOfParagraph = description.search(/\n\s*\n+(?!.*[\u4e00-\u9fa5])/); // 从第一个非汉字行开始拆分
           if (endOfParagraph === -1) {
             doc.shortDescription = description;
             doc.description = '';

@@ -26,7 +26,8 @@ export class NgForOfContext<T> {
  * The `NgForOf` directive instantiates a template once per item from an iterable. The context
  * for each instantiated template inherits from the outer context with the given loop variable
  * set to the current item from the iterable.
- * <p>`NgForOf` 指令会为可迭代对象中的每一个条目实例化一个模板。实例化时的上下文环境来自其外部环境，它以当前正在迭代的条目作为循环变量。</p>
+ *
+ * `NgForOf` 指令会为可迭代对象中的每一个条目实例化一个模板。实例化时的上下文环境来自其外部环境，它以当前正在迭代的条目作为循环变量。
  *
  * ### Local Variables
  *

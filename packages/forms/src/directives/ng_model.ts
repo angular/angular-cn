@@ -29,7 +29,8 @@ export const formControlBinding: any = {
 /**
  * `ngModel` forces an additional change detection run when its inputs change:
  * E.g.:
- * <p>当输入发生变化时，`ngModel` 会强制运行额外的变更检测，比如：</p>
+ *
+ * 当输入发生变化时，`ngModel` 会强制运行额外的变更检测，比如：
  * ```
  * <div>{{myModel.valid}}</div>
  * <input [(ngModel)]="myValue" #myModel="ngModel">
@@ -64,7 +65,8 @@ const resolvedPromise = Promise.resolve(null);
  *
  * Creates a `FormControl` instance from a domain model and binds it
  * to a form control element.
- * <p>根据领域对象创建一个 `FormControl` 实例，并把它绑定到一个表单控件元素上。</p>
+ *
+ * 根据领域对象创建一个 `FormControl` 实例，并把它绑定到一个表单控件元素上。
  *
  * The `FormControl` instance will track the value, user interaction, and
  * validation status of the control and keep the view synced with the model. If used
@@ -171,7 +173,8 @@ export class NgModel extends NgControl implements OnChanges,
 
   /**
    * Options object for this `ngModel` instance. You can configure the following properties:
-   * <p>当前 `ngModel` 实例的配置对象。你可以配置下列属性：</p>
+   *
+   * 当前 `ngModel` 实例的配置对象。你可以配置下列属性：
    *
    * **name**: An alternative to setting the name attribute on the form control element.
    * Sometimes, especially with custom form components, the name attribute might be used
