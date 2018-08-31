@@ -654,6 +654,8 @@ export interface Component extends Directive {
    * Defines the set of injectable objects that are visible to its view DOM children.
    * See [example](#injecting-a-class-with-a-view-provider).
    *
+   * 定义一组可注入对象，它们在视图的各个子节点中可用。参见[例子](#injecting-a-class-with-a-view-provider)。
+   *
    */
   viewProviders?: Provider[];
 
