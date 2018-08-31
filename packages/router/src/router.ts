@@ -34,13 +34,17 @@ import {TreeNode, nodeChildrenAsMap} from './utils/tree';
  *
  * Represents the extra options used during navigation.
  *
- *
+ * 表示在导航时用到的额外选项。
  */
 export interface NavigationExtras {
   /**
    * Enables relative navigation from the current ActivatedRoute.
    *
+   * 允许从当前激活的路由进行相对导航。
+   *
    * Configuration:
+   *
+   * 配置：
    *
    * ```
    * [{
@@ -58,6 +62,8 @@ export interface NavigationExtras {
    *
    * Navigate to list route from child route:
    *
+   * 从 `child` 路由导航到 `list` 路由：
+   *
    * ```
    *  @Component({...})
    *  class ChildComponent {
@@ -74,6 +80,8 @@ export interface NavigationExtras {
   /**
    * Sets query parameters to the URL.
    *
+   * 设置 URL 的查询参数。
+   *
    * ```
    * // Navigate to /results?page=1
    * this.router.navigate(['/results'], { queryParams: { page: 1 } });
@@ -83,6 +91,8 @@ export interface NavigationExtras {
 
   /**
    * Sets the hash fragment for the URL.
+   *
+   * 设置 URL 的哈希片段（`#`）。
    *
    * ```
    * // Navigate to /results#top
@@ -94,7 +104,11 @@ export interface NavigationExtras {
   /**
    * Preserves the query parameters for the next navigation.
    *
+   * 在后续导航时保留查询（`?`）参数。
+   *
    * deprecated, use `queryParamsHandling` instead
+   *
+   * 已废弃，请用 `queryParamsHandling` 代替
    *
    * ```
    * // Preserve query params from /results?page=1 to /view?page=1
@@ -108,6 +122,8 @@ export interface NavigationExtras {
   /**
    *  config strategy to handle the query parameters for the next navigation.
    *
+   *  配置后续导航时对查询（`?`）参数的处理策略。
+   *
    * ```
    * // from /results?page=1 to /view?page=1&page=2
    * this.router.navigate(['/view'], { queryParams: { page: 2 },  queryParamsHandling: "merge" });
@@ -116,6 +132,8 @@ export interface NavigationExtras {
   queryParamsHandling?: QueryParamsHandling|null;
   /**
    * Preserves the fragment for the next navigation
+   *
+   * 在后续导航时保留`#`片段
    *
    * ```
    * // Preserve fragment from /results#top to /view#top
@@ -126,6 +144,8 @@ export interface NavigationExtras {
   /**
    * Navigates without pushing a new state into history.
    *
+   * 导航时不要把新状态记入历史
+   *
    * ```
    * // Navigate silently to /view
    * this.router.navigate(['/view'], { skipLocationChange: true });
@@ -134,6 +154,8 @@ export interface NavigationExtras {
   skipLocationChange?: boolean;
   /**
    * Navigates while replacing the current state in history.
+   *
+   * 导航时不要把当前状态记入历史
    *
    * ```
    * // Navigate to /view
@@ -148,10 +170,14 @@ export interface NavigationExtras {
  *
  * Error handler that is invoked when a navigation errors.
  *
+ * 错误处理器会在导航出错时调用。
+ *
  * If the handler returns a value, the navigation promise will be resolved with this value.
  * If the handler throws an exception, the navigation promise will be rejected with
  * the exception.
  *
+ * 如果该处理器返回一个值，那么本次导航返回的 Promise 就会使用这个值进行解析（resolve）。
+ * 如果该处理器抛出异常，那么本次导航返回的 Promise 就会使用这个异常进行拒绝（reject）。
  *
  */
 export type ErrorHandler = (error: any) => any;
@@ -208,7 +234,11 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
  *
  * Provides the navigation and url manipulation capabilities.
  *
+ * 提供导航和操纵 URL 的能力。
+ *
  * See `Routes` for more details and examples.
+ *
+ * 查看 `Routes` 以了解详情和范例。
  *
  * @ngModule RouterModule
  *
@@ -231,7 +261,11 @@ export class Router {
   /**
    * Error handler that is invoked when a navigation errors.
    *
+   * 当导航发生错误时要调用的错误处理器。
+   *
    * See `ErrorHandler` for more information.
+   *
+   * 欲知详情，参见 `ErrorHandler`。
    */
   errorHandler: ErrorHandler = defaultErrorHandler;
 
@@ -239,6 +273,9 @@ export class Router {
    * Malformed uri error handler is invoked when `Router.parseUrl(url)` throws an
    * error due to containing an invalid character. The most common case would be a `%` sign
    * that's not encoded and is not part of a percent encoded sequence.
+   *
+   * uri 格式无效错误的处理器，在 `Router.parseUrl(url)` 由于 `url` 包含无效字符而报错时调用。
+   * 最常见的情况可能是 `%` 本身既没有被编码，又不是正常 `%` 编码序列的一部分。
    */
   malformedUriErrorHandler:
       (error: URIError, urlSerializer: UrlSerializer,
@@ -246,6 +283,8 @@ export class Router {
 
   /**
    * Indicates if at least one navigation happened.
+   *
+   * 表示是否发生过至少一次导航。
    */
   navigated: boolean = false;
   private lastSuccessfulId: number = -1;
@@ -262,6 +301,8 @@ export class Router {
 
   /**
    * Extracts and merges URLs. Used for AngularJS to Angular migrations.
+   *
+   * 提取并合并 URL。在 AngularJS 向 Angular 迁移时会用到。
    */
   urlHandlingStrategy: UrlHandlingStrategy = new DefaultUrlHandlingStrategy();
 
@@ -272,6 +313,10 @@ export class Router {
    * By default, the router will ignore this navigation. However, this prevents features such
    * as a "refresh" button. Use this option to configure the behavior when navigating to the
    * current URL. Default is 'ignore'.
+   *
+   * 定义当路由器收到一个导航到当前 URL 的请求时应该怎么做。
+   * 默认情况下，路由器将会忽略这次导航。但这样会阻止类似于 "刷新" 按钮的特性。
+   * 使用该选项可以配置导航到当前 URL 时的行为。默认值为 'ignore'。
    */
   onSameUrlNavigation: 'reload'|'ignore' = 'ignore';
 
@@ -279,9 +324,17 @@ export class Router {
    * Defines how the router merges params, data and resolved data from parent to child
    * routes. Available options are:
    *
+   * 定义路由器如何从父路由向子路由合并参数、数据。可用选项为：
+   *
    * - `'emptyOnly'`, the default, only inherits parent params for path-less or component-less
    *   routes.
+   *
+   *   `'emptyOnly'`，默认值，只从无路径或无组件的路由继承父级参数。
+   *
    * - `'always'`, enables unconditional inheritance of parent params.
+   *
+   *   `'always'`，允许无条件地继承父级参数。
+   *
    */
   paramsInheritanceStrategy: 'emptyOnly'|'always' = 'emptyOnly';
 
@@ -292,18 +345,31 @@ export class Router {
    * URL early so if navigation fails, you can show an error message with the URL that failed.
    * Available options are:
    *
+   * 定义路由器要何时更新浏览器的 URL。默认行为是在每次成功的导航之后更新。
+   * 不过，有些应用会更愿意在导航开始时就更新。最常见的情况是尽早更新 URL，这样当导航失败时，你就可以在出错的 URL 上显示一条错误信息了。
+   * 可用的选项包括：
+   *
    * - `'deferred'`, the default, updates the browser URL after navigation has finished.
+   *
+   *   `'deferred'`，默认值，在导航完毕后更新浏览器 URL。
+   *
    * - `'eager'`, updates browser URL at the beginning of navigation.
+   *
+   *   `'eager'`，在导航开始时更新浏览器的 URL。
    */
   urlUpdateStrategy: 'deferred'|'eager' = 'deferred';
 
   /**
    * See {@link RouterModule} for more information.
+   *
+   * 欲知详情，参见 {@link RouterModule}。
    */
   relativeLinkResolution: 'legacy'|'corrected' = 'legacy';
 
   /**
    * Creates the router service.
+   *
+   * 创建路由器服务。
    */
   // TODO: vsavkin make internal after the final is out.
   constructor(
@@ -337,6 +403,8 @@ export class Router {
 
   /**
    * Sets up the location change listener and performs the initial navigation.
+   *
+   * 设置位置变化监听器，并执行首次导航。
    */
   initialNavigation(): void {
     this.setUpLocationChangeListener();
@@ -347,6 +415,8 @@ export class Router {
 
   /**
    * Sets up the location change listener.
+   *
+   * 设置位置变化监听器。
    */
   setUpLocationChangeListener(): void {
     // Don't need to use Zone.wrap any more, because zone.js
@@ -365,7 +435,10 @@ export class Router {
     }
   }
 
-  /** The current url */
+  /** The current url
+   *
+   * 当前 URL
+   */
   get url(): string { return this.serializeUrl(this.currentUrlTree); }
 
   /** @internal */
@@ -374,7 +447,11 @@ export class Router {
   /**
    * Resets the configuration used for navigation and generating links.
    *
+   * 重置供导航和生成链接使用的配置项。
+   *
    * ### Usage
+   *
+   * ### 用法
    *
    * ```
    * router.resetConfig([
@@ -395,7 +472,10 @@ export class Router {
   /** @docsNotRequired */
   ngOnDestroy(): void { this.dispose(); }
 
-  /** Disposes of the router */
+  /** Disposes of the router
+   *
+   * 销毁路由器
+   */
   dispose(): void {
     if (this.locationSubscription) {
       this.locationSubscription.unsubscribe();
@@ -406,10 +486,17 @@ export class Router {
   /**
    * Applies an array of commands to the current url tree and creates a new url tree.
    *
+   * 把一个命令数组应用于当前的 URL 树，并创建一个新的 URL 树。
+   *
    * When given an activate route, applies the given commands starting from the route.
    * When not given a route, applies the given command starting from the root.
    *
+   * 如果指定了激活路由，就以该路由为起点应用这些命令。
+   * 如果没有指定激活路由，就以根路由为起点应用这些命令。
+   *
    * ### Usage
+   *
+   * ### 用法
    *
    * ```
    * // create /team/33/user/11
@@ -476,12 +563,27 @@ export class Router {
   /**
    * Navigate based on the provided url. This navigation is always absolute.
    *
+   * 基于所提供的 url 进行导航。这种导航永远使用绝对路径。
+   *
    * Returns a promise that:
+   *
+   * 返回一个 Promise：
+   *
    * - resolves to 'true' when navigation succeeds,
+   *
+   *   当导航成功时解析为 `'true'`，
+   *
    * - resolves to 'false' when navigation fails,
+   *
+   *   当导航失败时解析为 `'false'`，
+   *
    * - is rejected when an error happens.
    *
+   *   当出错时拒绝（reject）。
+   *
    * ### Usage
+   *
+   * ### 用法
    *
    * ```
    * router.navigateByUrl("/team/33/user/11");
@@ -492,6 +594,8 @@ export class Router {
    *
    * In opposite to `navigate`, `navigateByUrl` takes a whole URL
    * and does not apply any delta to the current one.
+   *
+   * 与 `navigate` 不同，`navigateByUrl` 只接收完整的 URL，而不会管当前 URL。
    */
   navigateByUrl(url: string|UrlTree, extras: NavigationExtras = {skipLocationChange: false}):
       Promise<boolean> {
@@ -505,12 +609,28 @@ export class Router {
    * Navigate based on the provided array of commands and a starting point.
    * If no starting route is provided, the navigation is absolute.
    *
+   * 基于所提供的命令数组和起点路由进行导航。
+   * 如果没有指定起点路由，则从根路由开始进行绝对导航。
+   *
    * Returns a promise that:
+   *
+   * 返回一个 Promise：
+   *
    * - resolves to 'true' when navigation succeeds,
+   *
+   *   当导航成功时解析为 `'true'`，
+   *
    * - resolves to 'false' when navigation fails,
+   *
+   *   当导航失败时解析为 `'false'`，
+   *
    * - is rejected when an error happens.
    *
+   *   当出错时拒绝（reject）。
+   *
    * ### Usage
+   *
+   * ### 用法
    *
    * ```
    * router.navigate(['team', 33, 'user', 11], {relativeTo: route});
@@ -528,10 +648,16 @@ export class Router {
     return this.navigateByUrl(this.createUrlTree(commands, extras), extras);
   }
 
-  /** Serializes a `UrlTree` into a string */
+  /** Serializes a `UrlTree` into a string
+   *
+   * 把 `UrlTree` 序列化为字符串
+   */
   serializeUrl(url: UrlTree): string { return this.urlSerializer.serialize(url); }
 
-  /** Parses a string into a `UrlTree` */
+  /** Parses a string into a `UrlTree`
+   *
+   * 把字符串解析为 `UrlTree`
+   */
   parseUrl(url: string): UrlTree {
     let urlTree: UrlTree;
     try {
@@ -542,7 +668,10 @@ export class Router {
     return urlTree;
   }
 
-  /** Returns whether the url is activated */
+  /** Returns whether the url is activated
+   *
+   * 返回指定的 `url` 是否处于激活状态
+   */
   isActive(url: string|UrlTree, exact: boolean): boolean {
     if (url instanceof UrlTree) {
       return containsTree(this.currentUrlTree, url, exact);
@@ -789,6 +918,8 @@ export class Router {
   /**
    * Performs the logic of activating routes. This is a synchronous process by default. While this
    * is a private method, it could be overridden to make activation asynchronous.
+   *
+   * 执行激活路由的逻辑。默认情况下这是一个同步过程。虽然这是一个私有方法，但仍然可以覆盖它，以进行异步激活。
    */
   private activateRoutes(
       state: Observable<false|
