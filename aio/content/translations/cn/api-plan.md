@@ -13,7 +13,7 @@
 [x] |router/Router | 4,049 | 1.26
 [ ] |animations/animate | 3,817 | 1.19
 [x] |common/NgClass | 3,715 | 1.15
-[ ] |common/DatePipe | 3,576 | 1.11
+[x] |common/DatePipe | 3,576 | 1.11
 [ ] |forms/FormsModule | 3,381 | 1.05
 [x] |core/Input | 3,354 | 1.04
 [x] |core/EventEmitter | 3,202 | 0.99
