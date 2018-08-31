@@ -28,12 +28,24 @@ import {Directive, DoCheck, ElementRef, Input, IterableChanges, IterableDiffer, 
  *
  * Adds and removes CSS classes on an HTML element.
  *
+ * 从 HTML 元素上添加和移除 CSS 类。
+ *
  * The CSS classes are updated as follows, depending on the type of the expression evaluation:
+ *
+ * CSS 类会根据表达式求值结果进行更新，更新逻辑取决于结果的类型：
+ *
  * - `string` - the CSS classes listed in the string (space delimited) are added,
+ *
+ *   `string` - 会把列在字符串中的 CSS 类（空格分隔）添加进来，
+ *
  * - `Array` - the CSS classes declared as Array elements are added,
+ *
+ *   `Array` - 会把数组中的各个元素作为 CSS 类添加进来，
+ *
  * - `Object` - keys are CSS classes that get added when the expression given in the value
  *              evaluates to a truthy value, otherwise they are removed.
  *
+ *   `Object` - 每个 key 都是要处理的 CSS 类，当表达式求值为真的时候则添加，为假则移除。
  *
  */
 @Directive({selector: '[ngClass]'})
