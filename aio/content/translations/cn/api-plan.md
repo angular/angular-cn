@@ -17,7 +17,7 @@
 [ ] |forms/FormsModule | 3,381 | 1.05
 [x] |core/Input | 3,354 | 1.04
 [x] |core/EventEmitter | 3,202 | 0.99
-[ ] |core/Injectable | 3,177 | 0.99
+[x] |core/Injectable | 3,177 | 0.99
 [ ] |forms/FormGroup | 3,096 | 0.96
 [ ] |forms/FormControl | 3,034 | 0.94
 [ ] |router/ActivatedRoute | 2,993 | 0.93

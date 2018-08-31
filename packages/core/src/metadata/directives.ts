@@ -17,7 +17,7 @@ import {ViewEncapsulation} from './view';
 /**
  * Type of the Directive decorator / constructor function.
  *
- * 指令装饰器、构造函数的类型。
+ * 指令装饰器的类型和构造函数。
  */
 export interface DirectiveDecorator {
   /**
@@ -908,7 +908,7 @@ export const Component: ComponentDecorator = makeDecorator(
 /**
  * Type of the Pipe decorator / constructor function.
  *
- * Pipe 装饰器、构造函数的类型
+ * Pipe 装饰器的类型和构造函数。
  */
 export interface PipeDecorator {
   /**
@@ -1073,7 +1073,7 @@ export const Input: InputDecorator =
 /**
  * Type of the Output decorator / constructor function.
  *
- * `Output` 装饰器、构造函数的类型。
+ * `Output` 装饰器的类型和构造函数。
  */
 export interface OutputDecorator {
   /**
@@ -1120,7 +1120,7 @@ export const Output: OutputDecorator =
 /**
  * Type of the HostBinding decorator / constructor function.
  *
- * HostBinding 装饰器、构造函数的类型。
+ * HostBinding 装饰器的类型和构造函数。
  *
  */
 export interface HostBindingDecorator {
@@ -1180,7 +1180,7 @@ export const HostBinding: HostBindingDecorator =
 /**
  * Type of the HostListener decorator / constructor function.
  *
- * HostListener 装饰器、构造函数的类型
+ * HostListener 装饰器的类型和构造函数。
  */
 export interface HostListenerDecorator {
   (eventName: string, args?: string[]): any;

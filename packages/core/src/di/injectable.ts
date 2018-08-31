@@ -23,6 +23,8 @@ const USE_VALUE = getClosureSafeProperty<ValueProvider>(
 /**
  * Injectable providers used in `@Injectable` decorator.
  *
+ * `@Injectable` 装饰器中使用的可注入对象提供商。
+ *
  * @experimental
  */
 export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
@@ -30,20 +32,30 @@ export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
 
 /**
  * Type of the Injectable decorator / constructor function.
+ *
+ * Injectable 装饰器的类型和构造函数
  */
 export interface InjectableDecorator {
   /**
    * A marker metadata that marks a class as available to `Injector` for creation.
    *
+   * 标记性元数据，表示一个类可以由 `Injector` 进行创建。
+   *
    * For more details, see the ["Dependency Injection Guide"](guide/dependency-injection).
+   *
+   * 欲知详情，参见["依赖注入"](guide/dependency-injection)。
    *
    * @usageNotes
    * ### Example
+   *
+   * ### 范例
    *
    * {@example core/di/ts/metadata_spec.ts region='Injectable'}
    *
    * `Injector` will throw an error when trying to instantiate a class that
    * does not have `@Injectable` marker, as shown in the example below.
+   *
+   * `Injector`在试图实例化一个不带 `@Injectable` 标记的类时，就会抛出一个错误，如下面的例子所示。
    *
    * {@example core/di/ts/metadata_spec.ts region='InjectableThrows'}
    *
@@ -56,6 +68,8 @@ export interface InjectableDecorator {
 
 /**
  * Type of the Injectable metadata.
+ *
+ * Injectable 元数据的类型。
  *
  * @experimental
  */
@@ -101,6 +115,8 @@ export function convertInjectableProviderToFactory(
 
 /**
  * Supports @Injectable() in JIT mode for Render2.
+ *
+ * 在 JIT 模式下为 Render2 提供 `@Injectable()` 支持。
  */
 function preR3InjectableCompile(
     injectableType: InjectableType<any>,
@@ -116,6 +132,8 @@ function preR3InjectableCompile(
 /**
 * Injectable decorator and metadata.
 *
+* Injectable 的装饰器和元数据。
+*
 * @Annotation
 */
 export const Injectable: InjectableDecorator = makeDecorator(
@@ -125,6 +143,8 @@ export const Injectable: InjectableDecorator = makeDecorator(
 
 /**
  * Type representing injectable service.
+ *
+ * 表示可注入服务的类型。
  *
  * @experimental
  */
