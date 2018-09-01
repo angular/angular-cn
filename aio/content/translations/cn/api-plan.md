@@ -23,7 +23,7 @@
 [x] |router/ActivatedRoute | 2,993 | 0.93
 [x] |forms/AbstractControl | 2,930 | 0.91
 [x] |router/RouterLink | 2,929 | 0.91
-[ ] |core/ViewChild | 2,870 | 0.89
+[x] |core/ViewChild | 2,870 | 0.89
 [x] |core/Directive | 2,767 | 0.86
 [x] |router/Routes | 2,331 | 0.72
 [ ] |router/RouterModule | 2,227 | 0.69

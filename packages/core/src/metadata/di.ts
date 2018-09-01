@@ -304,6 +304,8 @@ export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
 /**
  * Type of the ViewChild decorator / constructor function.
  *
+ * ViewChild 的装饰器类型和构造函数
+ *
  * @see `ViewChild`.
  */
 export interface ViewChildDecorator {
@@ -314,20 +316,37 @@ export interface ViewChildDecorator {
    * in the view DOM. If the view DOM changes, and a new child matches the selector,
    * the property is updated.
    *
+   * 属性装饰器，用于配置一个视图查询。
+   * 变更检测器会在视图的 DOM 中查找能匹配上该选择器的第一个元素或指令。
+   * 如果视图的 DOM 发生了变化，出现了匹配该选择器的新的子节点，该属性就会被更新。
+   *
    * View queries are set before the `ngAfterViewInit` callback is called.
+   *
+   * 在调用 `NgAfterViewInit` 回调函数之前就会设置这些视图查询。
    *
    * **Metadata Properties**:
    *
+   * **元数据属性**：
+   *
    * * **selector** - the directive type or the name used for querying.
+   *
+   *   **selector** - 用于查询的指令类型或名字。
+   *
    * * **read** - read a different token from the queried elements.
+   *
+   *   **read** - 从查询到的元素中读取另一个令牌。
    *
    * @usageNotes
    *
    * ### Example
    *
+   * ### 例子
+   *
    * {@example core/di/ts/viewChild/view_child_howto.ts region='HowTo'}
    *
    * ### Example
+   *
+   * ### 例子
    *
    * {@example core/di/ts/viewChild/view_child_example.ts region='Component'}
    *
@@ -339,11 +358,15 @@ export interface ViewChildDecorator {
 
 /**
  * Type of the ViewChild metadata.
+ *
+ * ViewChild 元数据的类型。
  */
 export type ViewChild = Query;
 
 /**
  * ViewChild decorator and metadata.
+ *
+ * ViewChild 装饰器和元数据。
  *
  * @Annotation
  */
