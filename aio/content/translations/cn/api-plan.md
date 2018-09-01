@@ -14,13 +14,13 @@
 [ ] |animations/animate | 3,817 | 1.19
 [x] |common/NgClass | 3,715 | 1.15
 [x] |common/DatePipe | 3,576 | 1.11
-[ ] |forms/FormsModule | 3,381 | 1.05
+[x] |forms/FormsModule | 3,381 | 1.05
 [x] |core/Input | 3,354 | 1.04
 [x] |core/EventEmitter | 3,202 | 0.99
 [x] |core/Injectable | 3,177 | 0.99
 [x] |forms/FormGroup | 3,096 | 0.96
 [x] |forms/FormControl | 3,034 | 0.94
-[ ] |router/ActivatedRoute | 2,993 | 0.93
+[x] |router/ActivatedRoute | 2,993 | 0.93
 [ ] |forms/AbstractControl | 2,930 | 0.91
 [ ] |router/RouterLink | 2,929 | 0.91
 [ ] |core/ViewChild | 2,870 | 0.89
@@ -69,8 +69,8 @@
 [x] |core/HostBinding | 732 | 0.23
 [x] |core/ContentChild | 719 | 0.22
 [x] |core/ViewChildren | 717 | 0.22
-[ ] |common/http/HttpResponse | 714 | 0.22
-[ ] |router/ActivatedRouteSnapshot | 700 | 0.22
+[x] |common/http/HttpResponse | 714 | 0.22
+[x] |router/ActivatedRouteSnapshot | 700 | 0.22
 [ ] |common/http | 683 | 0.21
 [ ] |core/ChangeDetectorRef | 670 | 0.21
 [ ] |router/NavigationStart | 663 | 0.21
