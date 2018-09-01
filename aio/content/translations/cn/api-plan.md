@@ -26,7 +26,7 @@
 [x] |core/ViewChild | 2,870 | 0.89
 [x] |core/Directive | 2,767 | 0.86
 [x] |router/Routes | 2,331 | 0.72
-[ ] |router/RouterModule | 2,227 | 0.69
+[x] |router/RouterModule | 2,227 | 0.69
 [x] |router/Route | 2,223 | 0.69
 [ ] |common/http/HttpClientModule | 2,167 | 0.67
 [ ] |core/ElementRef | 2,163 | 0.67
