@@ -21,8 +21,8 @@
 [x] |forms/FormGroup | 3,096 | 0.96
 [x] |forms/FormControl | 3,034 | 0.94
 [x] |router/ActivatedRoute | 2,993 | 0.93
-[ ] |forms/AbstractControl | 2,930 | 0.91
-[ ] |router/RouterLink | 2,929 | 0.91
+[x] |forms/AbstractControl | 2,930 | 0.91
+[x] |router/RouterLink | 2,929 | 0.91
 [ ] |core/ViewChild | 2,870 | 0.89
 [x] |core/Directive | 2,767 | 0.86
 [ ] |router/Routes | 2,331 | 0.72
