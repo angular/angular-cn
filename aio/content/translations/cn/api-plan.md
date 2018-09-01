@@ -18,8 +18,8 @@
 [x] |core/Input | 3,354 | 1.04
 [x] |core/EventEmitter | 3,202 | 0.99
 [x] |core/Injectable | 3,177 | 0.99
-[ ] |forms/FormGroup | 3,096 | 0.96
-[ ] |forms/FormControl | 3,034 | 0.94
+[x] |forms/FormGroup | 3,096 | 0.96
+[x] |forms/FormControl | 3,034 | 0.94
 [ ] |router/ActivatedRoute | 2,993 | 0.93
 [ ] |forms/AbstractControl | 2,930 | 0.91
 [ ] |router/RouterLink | 2,929 | 0.91
@@ -63,7 +63,7 @@
 [ ] |common/SlicePipe | 799 | 0.25
 [ ] |router/Event | 796 | 0.25
 [ ] |common/JsonPipe | 793 | 0.25
-[ ] |forms/FormArray | 792 | 0.25
+[x] |forms/FormArray | 792 | 0.25
 [ ] |common/CommonModule | 787 | 0.24
 [ ] |router/NavigationExtras | 776 | 0.24
 [x] |core/HostBinding | 732 | 0.23

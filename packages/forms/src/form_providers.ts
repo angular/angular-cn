@@ -17,6 +17,8 @@ import {FormBuilder} from './form_builder';
 /**
  * The ng module for forms.
  *
+ * 模板驱动表单的 NgModule。
+ *
  */
 @NgModule({
   declarations: TEMPLATE_DRIVEN_DIRECTIVES,
@@ -28,6 +30,8 @@ export class FormsModule {
 
 /**
  * The ng module for reactive forms.
+ *
+ * 响应式表单的 NgModule。
  *
  */
 @NgModule({
