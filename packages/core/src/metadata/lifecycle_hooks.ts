@@ -51,12 +51,19 @@ export interface OnChanges {
  * all data-bound properties of a directive.
  * Define an `ngOnInit()` method to handle any additional initialization tasks.
  *
+ * 一个生命周期钩子，它会在 Angular 初始化完了该指令的所有数据绑定属性之后调用。
+ * 定义 `ngOnInit()` 方法可以处理所有附加的初始化任务。
+ *
  * @see `AfterContentInit`
  * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ *
+ * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
  * The following snippet shows how a component can implement this interface to
  * define its own initialization method.
+ *
+ * 下列片段展示了组件要如何实现此接口，以定义它自己的初始化方法。
  *
  * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='OnInit'}
  *
@@ -69,6 +76,9 @@ export interface OnInit {
    * data-bound properties for the first time,
    * and before any of the view or content children have been checked.
    * It is invoked only once when the directive is instantiated.
+   *
+   * 它的调用时机在默认的变更检测器首次检查完该指令的所有数据绑定属性之后，任何子视图或投影内容检查完之前。
+   * 它会且只会在指令初始化时调用一次。
    */
   ngOnInit(): void;
 }
