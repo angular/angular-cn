@@ -18,6 +18,8 @@ import {PRIMARY_OUTLET} from '../shared';
  *
  * Acts as a placeholder that Angular dynamically fills based on the current router state.
  *
+ * 一个占位符，Angular 会根据当前的路由器状态动态填充它。
+ *
  * ```
  * <router-outlet></router-outlet>
  * <router-outlet name='left'></router-outlet>
@@ -26,6 +28,8 @@ import {PRIMARY_OUTLET} from '../shared';
  *
  * A router outlet will emit an activate event any time a new component is being instantiated,
  * and a deactivate event when it is being destroyed.
+ *
+ * 每当新组件实例化之后，路由出口就会发出一个激活事件；在销毁时则发出取消激活的事件。
  *
  * ```
  * <router-outlet
@@ -93,6 +97,8 @@ export class RouterOutlet implements OnDestroy, OnInit {
 
   /**
    * Called when the `RouteReuseStrategy` instructs to detach the subtree
+   *
+   * 受 `RouteReuseStrategy` 的指示，从子树中分离开时调用
    */
   detach(): ComponentRef<any> {
     if (!this.activated) throw new Error('Outlet is not activated');
@@ -105,6 +111,8 @@ export class RouterOutlet implements OnDestroy, OnInit {
 
   /**
    * Called when the `RouteReuseStrategy` instructs to re-attach a previously detached subtree
+   *
+   * `RouteReuseStrategy` 的指示，把以前分离的子树重新附加回来时调用
    */
   attach(ref: ComponentRef<any>, activatedRoute: ActivatedRoute) {
     this.activated = ref;
