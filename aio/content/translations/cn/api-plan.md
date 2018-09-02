@@ -31,7 +31,7 @@
 [x]  | common/http/HttpClientModule  | 0.67
 [x]  | core/ElementRef  | 0.67
 [x]  | core/OnInit  | 0.66
-[ ]  | common/UpperCasePipe  | 0.65
+[x]  | common/UpperCasePipe  | 0.65
 [ ]  | common/NgStyle  | 0.60
 [ ]  | router/RouterOutlet  | 0.59
 [ ]  | forms/Validators  | 0.59

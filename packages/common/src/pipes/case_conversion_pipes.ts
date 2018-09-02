@@ -12,12 +12,16 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 /**
  * Transforms text to all lower case.
  *
+ * 把文本转换成全小写形式。
+ *
  * @see `UpperCasePipe`
  * @see `TitleCasePipe`
  * @usageNotes
  *
  * The following example defines a view that allows the user to enter
  * text, and then uses the pipe to convert the input text to all lower case.
+ *
+ * 下面的例子定义了一个视图，允许用户输入文本，然后就会用该管道把输入的文本转换成全小写形式。
  *
  * <code-example path="common/pipes/ts/lowerupper_pipe.ts" region='LowerUpperPipe'></code-example>
  *
@@ -27,6 +31,8 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 export class LowerCasePipe implements PipeTransform {
   /**
    * @param value The string to transform to lower case.
+   *
+   * 要转换成小写形式的字符串。
    */
   transform(value: string): string {
     if (!value) return value;
@@ -55,11 +61,17 @@ const unicodeWordMatch =
  * rest of the word to lower case.
  * Words are delimited by any whitespace character, such as a space, tab, or line-feed character.
  *
+ * 把文本转换成标题形式。
+ * 把每个单词的第一个字母转成大写形式，并把单词的其余部分转成小写形式。
+ * 单词之间用任意空白字符进行分隔，比如空格、Tab 或换行符。
+ *
  * @see `LowerCasePipe`
  * @see `UpperCasePipe`
  *
  * @usageNotes
  * The following example shows the result of transforming various strings into title case.
+ *
+ * 下面的例子示范了如何把多种字符串转成标题形式。
  *
  * <code-example path="common/pipes/ts/titlecase_pipe.ts" region='TitleCasePipe'></code-example>
  *
@@ -69,6 +81,8 @@ const unicodeWordMatch =
 export class TitleCasePipe implements PipeTransform {
   /**
    * @param value The string to transform to title case.
+   *
+   * 要转换成标题形式的字符串。
    */
   transform(value: string): string {
     if (!value) return value;
@@ -83,6 +97,9 @@ export class TitleCasePipe implements PipeTransform {
 
 /**
  * Transforms text to all upper case.
+ *
+ * 把文本转换成全大写形式。
+ *
  * @see `LowerCasePipe`
  * @see `TitleCasePipe`
  */
@@ -90,6 +107,8 @@ export class TitleCasePipe implements PipeTransform {
 export class UpperCasePipe implements PipeTransform {
   /**
    * @param value The string to transform to upper case.
+   *
+   * 要转换成大写的字符串。
    */
   transform(value: string): string {
     if (!value) return value;
