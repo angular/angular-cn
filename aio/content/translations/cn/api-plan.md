@@ -37,7 +37,7 @@
 [x]  | forms/Validators  | 0.59
 [x]  | common/http/HttpHeaders  | 0.56
 [x]  | core/Pipe  | 0.52
-[ ]  | common/NgSwitch  | 0.52
+[x]  | common/NgSwitch  | 0.52
 [ ]  | forms/NgForm  | 0.50
 [ ]  | core/Renderer2  | 0.49
 [x]  | core/HostListener  | 0.47
@@ -98,7 +98,7 @@
 [ ]  | forms/ValidatorFn  | 0.17
 [ ]  | http/RequestOptionsArgs  | 0.17
 [ ]  | animations/animation  | 0.17
-[ ]  | common/NgSwitchCase  | 0.16
+[x]  | common/NgSwitchCase  | 0.16
 [ ]  | core/testing/async  | 0.16
 
 ## 翻译方式

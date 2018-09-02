@@ -54,23 +54,40 @@ export class SwitchView {
  *
  * Adds / removes DOM sub-trees when the nest match expressions matches the switch expression.
  *
+ * 根据内嵌的 match（匹配）表达式（`match_express_*`）与 switch（多路开关）表达式（`switch_expression`）的匹配结果，添加 / 删除 DOM 子树。
+ *
  * `NgSwitch` stamps out nested views when their match expression value matches the value of the
  * switch expression.
  *
+ * 当 `match` 表达式的值与 `switch` 表达式的值匹配时 `NgSwitch` 就会将其内嵌的视图 "印" 出来。
+ *
  * In other words:
+ *
+ * 换句话说：
+ *
  * - you define a container element (where you place the directive with a switch expression on the
  * `[ngSwitch]="..."` attribute)
+ *
+ *   你定义了一个容器元素（也就是你通过 `[ngSwitch]="..."` 属性来放置 `switch` 表达式的那个元素。
+ *
  * - you define inner views inside the `NgSwitch` and place a `*ngSwitchCase` attribute on the view
  * root elements.
  *
+ *   你在 `NgSwitch` 中定义了内嵌视图，并把 `*ngSwitchCase` 属性放在了视图的根元素上。
+ *
  * Elements within `NgSwitch` but outside of a `NgSwitchCase` or `NgSwitchDefault` directives will
  * be preserved at the location.
+ *
+ * `NgSwitch` 中位于 `NgSwitchCase` 或 `NgSwitchDefault` 指令之外的那些元素会保留在原地。
  *
  * The `ngSwitchCase` directive informs the parent `NgSwitch` of which view to display when the
  * expression is evaluated.
  * When no matching expression is found on a `ngSwitchCase` view, the `ngSwitchDefault` view is
  * stamped out.
  *
+ *
+ * 在表达式求值完成之后，`ngSwitchCase` 指令会告诉付指令 `NgSwitch` 要显示哪个视图。
+ * 如果 `ngSwitchCase` 中没有找到匹配的表达式，就会显示 `ngSwitchDefault` 视图。
  *
  */
 @Directive({selector: '[ngSwitch]'})
@@ -141,14 +158,20 @@ export class NgSwitch {
  * given expression evaluate to respectively the same/different value as the switch
  * expression.
  *
+ * 如果指定的表达式的计算结果和 `switch` 表达式相同，就会在父指令 {@link NgSwitch} 中创建一个视图；如果不同，则移除。
+ *
  * Insert the sub-tree when the expression evaluates to the same value as the enclosing switch
  * expression.
  *
+ * 当表达式求值的结果与 `switch` 表达式相同，则插入该子树。
+ *
  * If multiple match expressions match the switch expression value, all of them are displayed.
+ *
+ * 如果多个 `match` 表达式都与 `switch` 表达式的结果相匹配，就全都显示它们。
  *
  * See {@link NgSwitch} for more details and example.
  *
- *
+ * 参见 {@link NgSwitch} 了解详情并查看例子。
  */
 @Directive({selector: '[ngSwitchCase]'})
 export class NgSwitchCase implements DoCheck {
@@ -182,11 +205,16 @@ export class NgSwitchCase implements DoCheck {
  * Creates a view that is added to the parent {@link NgSwitch} when no case expressions
  * match the switch expression.
  *
+ * 当没有任何 `case` 表达式匹配 `switch` 表达式的结果时，就会在父指令 {@link NgSwitch} 中创建一个视图。
+ *
  * Insert the sub-tree when no case expressions evaluate to the same value as the enclosing switch
  * expression.
  *
+ * 当没有任何一个 `case` 表达式与 `switch` 表达式的求值结果相同时，则插入该子树。
+ *
  * See {@link NgSwitch} for more details and example.
  *
+ * 参见 {@link NgSwitch} 了解详情并查看例子。
  *
  */
 @Directive({selector: '[ngSwitchDefault]'})
