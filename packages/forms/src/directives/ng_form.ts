@@ -31,8 +31,12 @@ const resolvedPromise = Promise.resolve(null);
  * Creates a top-level `FormGroup` instance and binds it to a form
  * to track aggregate form value and validation status.
  *
+ * 创建一个顶级的 `FormGroup` 实例，并把它绑定到一个表单，以跟踪表单的聚合值及其验证状态。
+ *
  * As soon as you import the `FormsModule`, this directive becomes active by default on
  * all `<form>` tags.  You don't need to add a special selector.
+ *
+ * 只要你导入了 `FormsModule`，该指令就会默认在所有 `<form>` 标签上生效。你不需要再添加任何特殊的选择器。
  *
  * You can export the directive into a local template variable using `ngForm` as the key
  * (ex: `#myForm="ngForm"`). This is optional, but useful.  Many properties from the underlying
@@ -40,13 +44,21 @@ const resolvedPromise = Promise.resolve(null);
  * will give you access to the aggregate value and validity status of the form, as well as
  * user interaction properties like `dirty` and `touched`.
  *
+ * 你可以以 `ngForm` 作为 key 把该指令导出到一个局部模板变量（如 `#myForm="ngForm"`）。这是可选的，但很有用。
+ * 来自本指令背后的 `FormGroup` 实例的很多属性，都被复制到了指令自身，所以拿到一个对该指令的引用就可以让你访问此表单的聚合值和验证状态，
+ * 还有那些用户交互类的属性，比如 `dirty` 和 `touched`。
+ *
  * To register child controls with the form, you'll want to use `NgModel` with a
  * `name` attribute.  You can also use `NgModelGroup` if you'd like to create
  * sub-groups within the form.
  *
+ * 如果要通过表单注册子控件，你还要使用一个带有 `name` 属性的 `NgModel`。你还可以使用 `NgModelGroup` 在表单中创建子组。
+ *
  * You can listen to the directive's `ngSubmit` event to be notified when the user has
  * triggered a form submission. The `ngSubmit` event will be emitted with the original form
  * submission event.
+ *
+ * 你可以监听该指令的 `ngSubmit` 事件，以便当用户触发了一次表单提交时得到通知。发出 `ngSubmit` 事件时，会携带原始的 DOM 表单提交事件。
  *
  * In template driven forms, all `<form>` tags are automatically tagged as `NgForm`.
  * If you want to import the `FormsModule` but skip its usage in some forms,
@@ -54,6 +66,11 @@ const resolvedPromise = Promise.resolve(null);
  * tags won't create an `NgForm` directive. In reactive forms, using `ngNoForm` is
  * unnecessary because the `<form>` tags are inert. In that case, you would
  * refrain from using the `formGroup` directive.
+ *
+ * 在模板驱动表单中，所有 `<form>` 标签都会自动应用上 `NgForm` 指令。
+ * 如果你只想导入 `FormsModule` 而不想把它应用于某些表单中，比如，要想使用 HTML5 验证，你可以添加 `ngNoForm` 属性，
+ * 这样标签就不会在 `<form>` 上创建 `NgForm` 指令了。
+ * 在响应式表单中，则不需要用 `ngNoForm`，因为 `NgForm` 指令不会自动应用到 `<form>` 标签上，你只要别主动添加 `formGroup` 指令就可以了。
  *
  * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
@@ -82,9 +99,14 @@ export class NgForm extends ControlContainer implements Form,
   /**
    * Options for the `NgForm` instance. Accepts the following properties:
    *
+   * `NgForm` 实例的选项。接受下列属性：
+   *
    * **updateOn**: Serves as the default `updateOn` value for all child `NgModels` below it
    * (unless a child has explicitly set its own value for this in `ngModelOptions`).
    * Potential values: `'change'` | `'blur'` | `'submit'`
+   *
+   * **updateOn**：为所有子级的 `NgModel` 设置 `updateOn` 的默认值（除非子 `NgModel` 通过 `ngModelOptions` 显式指定了这个值）。
+   * 可能的值有：`'change'` | `'blur'` | `'submit'`
    *
    * ```html
    * <form [ngFormOptions]="{updateOn: 'blur'}">

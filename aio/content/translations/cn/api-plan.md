@@ -38,7 +38,7 @@
 [x]  | common/http/HttpHeaders  | 0.56
 [x]  | core/Pipe  | 0.52
 [x]  | common/NgSwitch  | 0.52
-[ ]  | forms/NgForm  | 0.50
+[x]  | forms/NgForm  | 0.50
 [ ]  | core/Renderer2  | 0.49
 [x]  | core/HostListener  | 0.47
 [ ]  | common/AsyncPipe  | 0.45
