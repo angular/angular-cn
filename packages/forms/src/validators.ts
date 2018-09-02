@@ -21,14 +21,20 @@ function isEmptyInputValue(value: any): boolean {
  * @description
  * An `InjectionToken` for registering additional synchronous validators used with `AbstractControl`s.
  *
+ * 一个 `InjectionToken`，用于注册额外的同步验证器，供 `AbstractControl` 使用。
+ *
  * @see `NG_ASYNC_VALIDATORS`
  * 
  * @usageNotes
  * 
  * ### Providing a custom validator
+ *
+ * ### 提供自定义验证器
  * 
  * The following example registers a custom validator directive. Adding the validator to the 
  * existing collection of validators requires the `multi: true` option.
+ *
+ * 下面的例子注册了一个自定义验证器指令。要把该验证器添加到现存的验证器集合中，需要使用 `multi: true` 选项。
  *
  * ```typescript
  * @Directive({
@@ -49,6 +55,8 @@ export const NG_VALIDATORS = new InjectionToken<Array<Validator|Function>>('NgVa
  * @description
  * An `InjectionToken` for registering additional asynchronous validators used with `AbstractControl`s.
  *
+ * 一个 `InjectionToken`，用于注册额外的异步验证器，供 `AbstractControl` 使用。
+ *
  * @see `NG_VALIDATORS`
  * 
  */
@@ -62,11 +70,16 @@ const EMAIL_REGEXP =
  * @description
  * Provides a set of built-in validators that can be used by form controls.
  *
+ * 提供一组内置验证器，可用于各种表单控件。
+ *
  * A validator is a function that processes a `FormControl` or collection of
  * controls and returns an error map or null. A null map means that validation has passed.
- * 
+ *
+ * 验证器就是一个函数，它可以处理单个 `FormControl` 好一组控件，并返回一个错误映射表（map）或 null。null 表示验证已通过了。
+ *
  * @see [Form Validation](/guide/form-validation)
  *
+ * [表单验证](/guide/form-validation)
  */
 export class Validators {
   /**
@@ -74,9 +87,14 @@ export class Validators {
    * Validator that requires the control's value to be greater than or equal to the provided number.
    * The validator exists only as a function and not as a directive.
    *
+   * 此验证器要求控件的值大于或等于指定的数字。
+   * 它只有函数形式，没有指令形式。
+   *
    * @usageNotes
    *
    * ### Validate against a minimum of 3
+   *
+   * ### 验证至少为 3
    *
    * ```typescript
    * const control = new FormControl(2, Validators.min(3));
@@ -87,6 +105,7 @@ export class Validators {
    * @returns A validator function that returns an error map with the
    * `min` property if the validation check fails, otherwise `null`.
    *
+   * 如果验证失败，则此验证器函数返回一个带有 `min` 属性的映射表（map），否则为 `null`。
    */
   static min(min: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -105,9 +124,14 @@ export class Validators {
    * Validator that requires the control's value to be less than or equal to the provided number.
    * The validator exists only as a function and not as a directive.
    *
+   * 此验证器要求控件的值小于等于指定的数字。
+   * 它只有函数形式，没有指令形式。
+   *
    * @usageNotes
    *
    * ### Validate against a maximum of 15
+   *
+   * ### 验证最大为 15
    *
    * ```typescript
    * const control = new FormControl(16, Validators.max(15));
@@ -117,6 +141,8 @@ export class Validators {
    *
    * @returns A validator function that returns an error map with the
    * `max` property if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `max` 属性的映射表（map），否则为 `null`。
    *
    */
   static max(max: number): ValidatorFn {
@@ -135,9 +161,13 @@ export class Validators {
    * @description
    * Validator that requires the control have a non-empty value.
    *
+   * 此验证器要求控件具有非空值。
+   *
    * @usageNotes
    *
    * ### Validate that the field is non-empty
+   *
+   * ### 验证该字段不是空的
    *
    * ```typescript
    * const control = new FormControl('', Validators.required);
@@ -148,6 +178,7 @@ export class Validators {
    * @returns An error map with the `required` property
    * if the validation check fails, otherwise `null`.
    *
+   * 如果验证失败，则此验证器函数返回一个带有 `required` 属性的映射表（map），否则为 `null`。
    */
   static required(control: AbstractControl): ValidationErrors|null {
     return isEmptyInputValue(control.value) ? {'required': true} : null;
@@ -158,9 +189,13 @@ export class Validators {
    * Validator that requires the control's value be true. This validator is commonly
    * used for required checkboxes.
    *
+   * 此验证器要求控件的值为真。它通常用来验证检查框。
+   *
    * @usageNotes
    *
    * ### Validate that the field value is true
+   *
+   * ### 验证字段值为真
    *
    * ```typescript
    * const control = new FormControl('', Validators.requiredTrue);
@@ -170,6 +205,8 @@ export class Validators {
    *
    * @returns An error map that contains the `required` property
    * set to `true` if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `required` 属性、值为 `true` 的映射表（map），否则为 `null`。
    */
   static requiredTrue(control: AbstractControl): ValidationErrors|null {
     return control.value === true ? null : {'required': true};
@@ -179,9 +216,13 @@ export class Validators {
    * @description
    * Validator that requires the control's value pass an email validation test.
    *
+   * 此验证器要求控件的值能通过 email 格式验证。
+   *
    * @usageNotes
    *
    * ### Validate that the field matches a valid email pattern
+   *
+   * ### 验证该字段匹配有效的 email 格式。
    *
    * ```typescript
    * const control = new FormControl('bad@', Validators.email);
@@ -191,6 +232,8 @@ export class Validators {
    *
    * @returns An error map with the `email` property
    * if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `email` 属性的映射表（map），否则为 `null`。
    *
    */
   static email(control: AbstractControl): ValidationErrors|null {
@@ -206,9 +249,13 @@ export class Validators {
    * to the provided minimum length. This validator is also provided by default if you use the
    * the HTML5 `minlength` attribute.
    *
+   * 此验证器要求控件值的长度大于等于所指定的最小长度。当使用 HTML5 的 `minlength` 属性时，此验证器也会生效。
+   *
    * @usageNotes
    *
    * ### Validate that the field has a minimum of 3 characters
+   *
+   * ### 验证该字段至少有 3 个字符
    *
    * ```typescript
    * const control = new FormControl('ng', Validators.minLength(3));
@@ -222,6 +269,9 @@ export class Validators {
    *
    * @returns A validator function that returns an error map with the
    * `minlength` if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `minlength` 属性的映射表（map），否则为 `null`。
+   *
    */
   static minLength(minLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -241,9 +291,13 @@ export class Validators {
    * to the provided maximum length. This validator is also provided by default if you use the
    * the HTML5 `maxlength` attribute.
    *
+   * 此验证器要求控件值的长度小于等于所指定的最大长度。当使用 HTML5 的 `maxlength` 属性时，此验证器也会生效。
+   *
    * @usageNotes
    *
    * ### Validate that the field has maximum of 5 characters
+   *
+   * ### 验证该字段最多具有 5 个字符
    *
    * ```typescript
    * const control = new FormControl('Angular', Validators.maxLength(5));
@@ -257,6 +311,8 @@ export class Validators {
    *
    * @returns A validator function that returns an error map with the
    * `maxlength` property if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `maxlength` 属性的映射表（map），否则为 `null`。
    */
   static maxLength(maxLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -273,9 +329,13 @@ export class Validators {
    * provided
    * by default if you use the HTML5 `pattern` attribute.
    *
+   * 此验证器要求控件的值匹配某个正则表达式。当使用 HTML5 的 `pattern` 属性时，它也会生效。
+   *
    * @usageNotes
    *
    * ### Validate that the field only contains letters or spaces
+   *
+   * ### 验证该字段只包含字母或空格
    *
    * ```typescript
    * const control = new FormControl('1', Validators.pattern('[a-zA-Z ]*'));
@@ -289,6 +349,9 @@ export class Validators {
    *
    * @returns A validator function that returns an error map with the
    * `pattern` property if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回一个带有 `pattern` 属性的映射表（map），否则为 `null`。
+   *
    */
   static pattern(pattern: string|RegExp): ValidatorFn {
     if (!pattern) return Validators.nullValidator;
@@ -321,6 +384,8 @@ export class Validators {
   /**
    * @description
    * Validator that performs no operation.
+   *
+   * 此验证器什么也不做。
    */
   static nullValidator(c: AbstractControl): ValidationErrors|null { return null; }
 
@@ -329,8 +394,13 @@ export class Validators {
    * Compose multiple validators into a single function that returns the union
    * of the individual error maps for the provided control.
    *
+   * 把多个验证器合并成一个函数，它会返回指定控件的各个错误映射表的并集。
+   *
    * @returns A validator function that returns an error map with the
    * merged error maps of the validators if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回各个验证器所返回错误对象的一个并集，否则为 `null`。
+   *
    */
   static compose(validators: null): null;
   static compose(validators: (ValidatorFn|null|undefined)[]): ValidatorFn|null;
@@ -349,8 +419,12 @@ export class Validators {
    * Compose multiple async validators into a single function that returns the union
    * of the individual error objects for the provided control.
    *
+   * 把多个异步验证器合并成一个函数，它会返回指定控件的各个错误映射表的并集。
+   *
    * @returns A validator function that returns an error map with the
    * merged error objects of the async validators if the validation check fails, otherwise `null`.
+   *
+   * 如果验证失败，则此验证器函数返回各异步验证器所返回错误对象的一个并集，否则为 `null`。
   */
   static composeAsync(validators: (AsyncValidatorFn|null)[]): AsyncValidatorFn|null {
     if (!validators) return null;

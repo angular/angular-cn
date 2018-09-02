@@ -34,7 +34,7 @@
 [x]  | common/UpperCasePipe  | 0.65
 [x]  | common/NgStyle  | 0.60
 [x]  | router/RouterOutlet  | 0.59
-[ ]  | forms/Validators  | 0.59
+[x]  | forms/Validators  | 0.59
 [ ]  | common/http/HttpHeaders  | 0.56
 [x]  | core/Pipe  | 0.52
 [ ]  | common/NgSwitch  | 0.52
