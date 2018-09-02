@@ -29,7 +29,7 @@
 [x] |router/RouterModule | 2,227 | 0.69
 [x] |router/Route | 2,223 | 0.69
 [x] |common/http/HttpClientModule | 2,167 | 0.67
-[ ] |core/ElementRef | 2,163 | 0.67
+[x] |core/ElementRef | 2,163 | 0.67
 [ ] |core/OnInit | 2,136 | 0.66
 [ ] |common/UpperCasePipe | 2,078 | 0.65
 [ ] |common/NgStyle | 1,935 | 0.60
