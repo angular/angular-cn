@@ -41,7 +41,7 @@
 [x]  | forms/NgForm  | 0.50
 [ ]  | core/Renderer2  | 0.49
 [x]  | core/HostListener  | 0.47
-[ ]  | common/AsyncPipe  | 0.45
+[x]  | common/AsyncPipe  | 0.45
 [ ]  | core/ViewContainerRef  | 0.42
 [ ]  | common/NgTemplateOutlet  | 0.42
 [ ]  | common/Location  | 0.41
