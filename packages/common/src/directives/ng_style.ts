@@ -24,10 +24,19 @@ import {Directive, DoCheck, ElementRef, Input, KeyValueChanges, KeyValueDiffer, 
  *
  * Update an HTML element styles.
  *
+ * 修改 HTML 元素的样式。
+ *
  * The styles are updated according to the value of the expression evaluation:
+ *
+ * 这些样式会根据表达式的求值结果进行更新：
+ *
  * - keys are style names with an optional `.<unit>` suffix (ie 'top.px', 'font-style.em'),
+ *
+ *   key 是样式名，可以带一个可选的 `.<unit>` 后缀（比如 'top.px', 'font-style.em'），
+ *
  * - values are the values assigned to those properties (expressed in the given unit).
  *
+ *   value 是一些与这些属性相关的值（以指定的单位表示）。
  *
  */
 @Directive({selector: '[ngStyle]'})
