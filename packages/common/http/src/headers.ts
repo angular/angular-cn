@@ -15,10 +15,14 @@ interface Update {
 /**
  * Immutable set of Http headers, with lazy parsing.
  *
+ * Http 头的不可变集合，惰性解析。
+ *
  */
 export class HttpHeaders {
   /**
    * Internal map of lowercase header names to values.
+   *
+   * 一个内部映射表，key 是头名称的小写形式，value 是其值。
    */
   // TODO(issue/24571): remove '!'.
   private headers !: Map<string, string[]>;
@@ -27,17 +31,23 @@ export class HttpHeaders {
   /**
    * Internal map of lowercased header names to the normalized
    * form of the name (the form seen first).
+   *
+   * 一个内部映射表，key 是头名称的小写形式，值是该名称的标准化形式（即首先看到的形式）。
    */
   private normalizedNames: Map<string, string> = new Map();
 
   /**
    * Complete the lazy initialization of this object (needed before reading).
+   *
+   * 完成该对象的惰性初始化（在读取之前需要）。
    */
   // TODO(issue/24571): remove '!'.
   private lazyInit !: HttpHeaders | Function | null;
 
   /**
    * Queued updates to be materialized the next initialization.
+   *
+   * 一个队列，用于存储下次初始化时要执行的更新。
    */
   private lazyUpdate: Update[]|null = null;
 
@@ -82,6 +92,8 @@ export class HttpHeaders {
 
   /**
    * Checks for existence of header by given name.
+   *
+   * 检查是否存在指定名称的头。
    */
   has(name: string): boolean {
     this.init();
@@ -91,6 +103,8 @@ export class HttpHeaders {
 
   /**
    * Returns first header that matches given name.
+   *
+   * 返回匹配指定名称的第一个头的值。
    */
   get(name: string): string|null {
     this.init();
@@ -101,6 +115,8 @@ export class HttpHeaders {
 
   /**
    * Returns the names of the headers
+   *
+   * 返回头中所有的名称。
    */
   keys(): string[] {
     this.init();
@@ -110,6 +126,8 @@ export class HttpHeaders {
 
   /**
    * Returns list of header values for a given name.
+   *
+   * 返回头中具有指定名称的值的列表。
    */
   getAll(name: string): string[]|null {
     this.init();
