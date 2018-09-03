@@ -42,7 +42,7 @@
 [ ]  | core/Renderer2  | 0.49
 [x]  | core/HostListener  | 0.47
 [x]  | common/AsyncPipe  | 0.45
-[ ]  | core/ViewContainerRef  | 0.42
+[x]  | core/ViewContainerRef  | 0.42
 [ ]  | common/NgTemplateOutlet  | 0.42
 [ ]  | common/Location  | 0.41
 [ ]  | platform-browser/BrowserModule  | 0.40
