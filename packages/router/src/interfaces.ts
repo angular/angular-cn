@@ -17,6 +17,8 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
  *
  * Interface that a class can implement to be a guard deciding if a route can be activated.
  *
+ * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否激活。
+ *
  * ```
  * class UserToken {}
  * class Permissions {
@@ -54,6 +56,8 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
  *
  * You can alternatively provide a function with the `canActivate` signature:
  *
+ * 你还可以转而实现一个带有 `canActivate` 签名的函数：
+ *
  * ```
  * @NgModule({
  *   imports: [
@@ -86,6 +90,8 @@ export interface CanActivate {
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a child route can be activated.
+ *
+ * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否激活。
  *
  * ```
  * class UserToken {}
@@ -129,6 +135,8 @@ export interface CanActivate {
  *
  * You can alternatively provide a function with the `canActivateChild` signature:
  *
+ * 你还可以转而提供一个具有 `canActivateChild` 签名的函数：
+ *
  * ```
  * @NgModule({
  *   imports: [
@@ -166,6 +174,8 @@ export interface CanActivateChild {
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a route can be deactivated.
+ *
+ * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否停用。
  *
  * ```
  * class UserToken {}
@@ -206,6 +216,8 @@ export interface CanActivateChild {
  *
  * You can alternatively provide a function with the `canDeactivate` signature:
  *
+ * 你还可以转而提供具有 `canDeactivate` 签名的函数：
+ *
  * ```
  * @NgModule({
  *   imports: [
@@ -240,6 +252,8 @@ export interface CanDeactivate<T> {
  * @description
  *
  * Interface that class can implement to be a data provider.
+ *
+ * 一个接口，某些类可以实现它以扮演一个数据提供者。
  *
  * ```
  * class Backend {
@@ -279,6 +293,8 @@ export interface CanDeactivate<T> {
  *
  * You can alternatively provide a function with the `resolve` signature:
  *
+ * 你还可以转而提供一个具有 `resolve` 签名的函数：
+ *
  * ```
  * @NgModule({
  *   imports: [
@@ -312,6 +328,8 @@ export interface Resolve<T> {
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a children can be loaded.
+ *
+ * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否加载。
  *
  * ```
  * class UserToken {}
@@ -347,6 +365,8 @@ export interface Resolve<T> {
  * ```
  *
  * You can alternatively provide a function with the `canLoad` signature:
+ *
+ * 你还可以转而提供一个具有 `canLoad` 签名的函数：
  *
  * ```
  * @NgModule({

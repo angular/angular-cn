@@ -57,7 +57,7 @@
 [x]  | core/Output  | 0.33
 [x]  | common/http/HttpInterceptor  | 0.30
 [x]  | common/http/HttpRequest  | 0.29
-[ ]  | router/CanActivate  | 0.27
+[x]  | router/CanActivate  | 0.27
 [ ]  | router  | 0.26
 [ ]  | animations/style  | 0.25
 [ ]  | common/SlicePipe  | 0.25
