@@ -51,7 +51,7 @@
 [x]  | router/RouterLinkActive  | 0.38
 [x]  | core/TemplateRef  | 0.38
 [x]  | forms/FormBuilder  | 0.37
-[ ]  | common/http/HttpParams  | 0.35
+[x]  | common/http/HttpParams  | 0.35
 [ ]  | core/OnChanges  | 0.35
 [ ]  | forms/FormControlName  | 0.34
 [x]  | core/Output  | 0.33

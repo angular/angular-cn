@@ -9,8 +9,11 @@
 /**
  * A codec for encoding and decoding parameters in URLs.
  *
+ * 一个用来在 URL 中编码和解码参数的编解码器。
+ *
  * Used by `HttpParams`.
  *
+ * 由 `HttpParams` 使用。
  *
  **/
 export interface HttpParameterCodec {
@@ -25,6 +28,7 @@ export interface HttpParameterCodec {
  * A `HttpParameterCodec` that uses `encodeURIComponent` and `decodeURIComponent` to
  * serialize and parse URL parameter keys and values.
  *
+ * 一个 `HttpParameterCodec`，它使用 `encodeURIComponent` 和 `decodeURIComponent` 来序列化和解析 URL 参数的 key 和 value。
  *
  */
 export class HttpUrlEncodingCodec implements HttpParameterCodec {
@@ -73,18 +77,29 @@ interface Update {
   op: 'a'|'d'|'s';
 }
 
-/** Options used to construct an `HttpParams` instance. */
+/** Options used to construct an `HttpParams` instance.
+ *
+ * 用于构造 `HttpParams` 实例的选项。
+ */
 export interface HttpParamsOptions {
   /**
    * String representation of the HTTP params in URL-query-string format. Mutually exclusive with
    * `fromObject`.
+   *
+   * HTTP 参数的 URL 查询字符串格式表示法。与 `fromObject` 互斥。
    */
   fromString?: string;
 
-  /** Object map of the HTTP params. Mutally exclusive with `fromString`. */
+  /** Object map of the HTTP params. Mutally exclusive with `fromString`.
+   *
+   * HTTP 参数的对象映射表。与 `fromString` 互斥。
+   */
   fromObject?: {[param: string]: string | string[]};
 
-  /** Encoding codec used to parse and serialize the params. */
+  /** Encoding codec used to parse and serialize the params.
+   *
+   * 用来解析和序列化参数的编解码器。
+   */
   encoder?: HttpParameterCodec;
 }
 
@@ -92,8 +107,11 @@ export interface HttpParamsOptions {
  * An HTTP request/response body that represents serialized parameters,
  * per the MIME type `application/x-www-form-urlencoded`.
  *
+ * HTTP 请求/响应体，用来表示序列化参数，它们的 MIME 类型都是 `application/x-www-form-urlencoded`。
+ *
  * This class is immutable - all mutation operations return a new instance.
  *
+ * 这个类是不可变的 - 每个修改类的操作都会返回一个新实例。
  *
  */
 export class HttpParams {
@@ -122,6 +140,8 @@ export class HttpParams {
 
   /**
    * Check whether the body has one or more values for the given parameter name.
+   *
+   * 检查 `body` 中是否存在一个或多个具有指定参数名的值。
    */
   has(param: string): boolean {
     this.init();
@@ -130,6 +150,8 @@ export class HttpParams {
 
   /**
    * Get the first value for the given parameter name, or `null` if it's not present.
+   *
+   * 获取给定参数名对应的第一个值，如果没有则返回 `null`。
    */
   get(param: string): string|null {
     this.init();
@@ -139,6 +161,8 @@ export class HttpParams {
 
   /**
    * Get all values for the given parameter name, or `null` if it's not present.
+   *
+   * 获取给定参数名对应的所有值，如果没有则返回 `null`。
    */
   getAll(param: string): string[]|null {
     this.init();
@@ -147,6 +171,8 @@ export class HttpParams {
 
   /**
    * Get all the parameter names for this body.
+   *
+   * 获取此 `body` 的所有参数名。
    */
   keys(): string[] {
     this.init();
@@ -155,11 +181,15 @@ export class HttpParams {
 
   /**
    * Construct a new body with an appended value for the given parameter name.
+   *
+   * 构造一个新的 `body`，添加一个具有给定参数名的值。
    */
   append(param: string, value: string): HttpParams { return this.clone({param, value, op: 'a'}); }
 
   /**
    * Construct a new body with a new value for the given parameter name.
+   *
+   * 构造一个新的 `body`，具有一个给定参数名的新值。
    */
   set(param: string, value: string): HttpParams { return this.clone({param, value, op: 's'}); }
 
@@ -167,12 +197,16 @@ export class HttpParams {
    * Construct a new body with either the given value for the given parameter
    * removed, if a value is given, or all values for the given parameter removed
    * if not.
+   *
+   * 构造一个新的 `body`，如果指定了 `value`，则移除具有指定 `value` 和指定 `param` 的条目；如果没有指定 `value`，则移除指定 `param` 对应的所有值。
    */
   delete (param: string, value?: string): HttpParams { return this.clone({param, value, op: 'd'}); }
 
   /**
    * Serialize the body to an encoded string, where key-value pairs (separated by `=`) are
    * separated by `&`s.
+   *
+   * 把该 `body` 序列化为一个编码过的字符串，其中的 key-value 对（用 `=` 分隔）会以 `&` 分隔。
    */
   toString(): string {
     this.init();
