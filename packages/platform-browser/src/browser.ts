@@ -37,6 +37,11 @@ export const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[] = [
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ *
+ * 替换内置的净化（sanitization）提供商以消除应用的 XSS 风险。
+ * 攻击者所控制的数据如果没经过净化就直接引入，则会让你的应用暴露于 XSS 风险之下。
+ * 欲知详情，参见[安全](http://g.co/ng/security)。
+ *
  * @experimental
  */
 export const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[] = [
@@ -94,6 +99,7 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
 /**
  * The ng module for the browser.
  *
+ * 供浏览器使用的 NgModule。
  *
  */
 @NgModule({providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule]})
@@ -109,6 +115,9 @@ export class BrowserModule {
    * Configures a browser-based application to transition from a server-rendered app, if
    * one is present on the page. The specified parameters must include an application id,
    * which must match between the client and server applications.
+   *
+   * 配置基于浏览器的应用，使其可以从当前页面上的服务端渲染（SSR）应用过渡而来。
+   * 指定的参数必须包含一个应用 id，在客户端应用和服务端应用之间它必须一致。
    *
    * @experimental
    */

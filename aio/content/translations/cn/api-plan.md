@@ -45,7 +45,7 @@
 [x]  | core/ViewContainerRef  | 0.42
 [x]  | common/NgTemplateOutlet  | 0.42
 [x]  | common/Location  | 0.41
-[ ]  | platform-browser/BrowserModule  | 0.40
+[x]  | platform-browser/BrowserModule  | 0.40
 [ ]  | common/DecimalPipe  | 0.40
 [ ]  | common/CurrencyPipe  | 0.39
 [ ]  | router/RouterLinkActive  | 0.38
