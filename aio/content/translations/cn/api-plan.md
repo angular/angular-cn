@@ -49,7 +49,7 @@
 [x]  | common/DecimalPipe  | 0.40
 [x]  | common/CurrencyPipe  | 0.39
 [x]  | router/RouterLinkActive  | 0.38
-[ ]  | core/TemplateRef  | 0.38
+[x]  | core/TemplateRef  | 0.38
 [ ]  | forms/FormBuilder  | 0.37
 [ ]  | common/http/HttpParams  | 0.35
 [ ]  | core/OnChanges  | 0.35
