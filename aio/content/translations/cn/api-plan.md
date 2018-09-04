@@ -85,10 +85,10 @@
 [x]  | router/LoadChildren  | 0.18
 [x]  | router/ParamMap  | 0.18
 [ ]  | animations/trigger  | 0.18
-[ ]  | router/RouterLinkWithHref  | 0.18
-[ ]  | core/AfterViewInit  | 0.18
-[ ]  | forms/ReactiveFormsModule  | 0.18
-[ ]  | common/http/HTTP_INTERCEPTORS  | 0.18
+[x]  | router/RouterLinkWithHref  | 0.18
+[x]  | core/AfterViewInit  | 0.18
+[x]  | forms/ReactiveFormsModule  | 0.18
+[x]  | common/http/HTTP_INTERCEPTORS  | 0.18
 [ ]  | platform-browser/DomSanitizer  | 0.18
 [ ]  | core/PipeTransform  | 0.18
 [ ]  | core/SimpleChange  | 0.18
