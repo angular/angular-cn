@@ -18,7 +18,7 @@ import {COMMON_PIPES} from './pipes/index';
 /**
  * The module that includes all the basic Angular directives like {@link NgIf}, {@link NgForOf}, ...
  *
- *
+ * 该模块包含了所有基本的 Angular 指令，如 {@link NgIf}、{@link NgForOf} 等……
  */
 @NgModule({
   declarations: [COMMON_DIRECTIVES, COMMON_PIPES],
@@ -33,7 +33,11 @@ export class CommonModule {
 /**
  * A module that contains the deprecated i18n pipes.
  *
+ * 该模块包含了已废弃的 i18n 管道。
+ *
  * @deprecated from v5
+ *
+ * 从 Angular v5 开始
  */
 @NgModule({
   declarations: [COMMON_DEPRECATED_I18N_PIPES],

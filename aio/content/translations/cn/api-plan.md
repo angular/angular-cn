@@ -64,7 +64,7 @@
 [ ]  | router/Event  | 0.25
 [x]  | common/JsonPipe  | 0.25
 [x]  | forms/FormArray  | 0.25
-[ ]  | common/CommonModule  | 0.24
+[x]  | common/CommonModule  | 0.24
 [ ]  | router/NavigationExtras  | 0.24
 [x]  | core/HostBinding  | 0.23
 [x]  | core/ContentChild  | 0.22
