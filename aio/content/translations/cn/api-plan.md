@@ -75,7 +75,7 @@
 [x]  | core/ChangeDetectorRef  | 0.21
 [x]  | router/NavigationStart  | 0.21
 [x]  | common/formatDate  | 0.21
-[ ]  | core/ComponentFactoryResolver  | 0.20
+[x]  | core/ComponentFactoryResolver  | 0.20
 [ ]  | forms/Form  | 0.20
 [ ]  | common/http/HttpErrorResponse  | 0.20
 [ ]  | core/QueryList  | 0.19
