@@ -78,7 +78,7 @@
 [x]  | core/ComponentFactoryResolver  | 0.20
 [x]  | forms/Form  | 0.20
 [x]  | common/http/HttpErrorResponse  | 0.20
-[ ]  | core/QueryList  | 0.19
+[x]  | core/QueryList  | 0.19
 [ ]  | forms  | 0.19
 [ ]  | animations/state  | 0.19
 [ ]  | common  | 0.19
