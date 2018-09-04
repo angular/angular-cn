@@ -73,8 +73,8 @@
 [x]  | router/ActivatedRouteSnapshot  | 0.22
 [x]  | common/http  | 0.21
 [x]  | core/ChangeDetectorRef  | 0.21
-[ ]  | router/NavigationStart  | 0.21
-[ ]  | common/formatDate  | 0.21
+[x]  | router/NavigationStart  | 0.21
+[x]  | common/formatDate  | 0.21
 [ ]  | core/ComponentFactoryResolver  | 0.20
 [ ]  | forms/Form  | 0.20
 [ ]  | common/http/HttpErrorResponse  | 0.20

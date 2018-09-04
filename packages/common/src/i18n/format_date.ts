@@ -46,17 +46,36 @@ enum TranslationType {
  *
  * Formats a date according to locale rules.
  *
+ * 基于区域规则格式化日期。
+ *
  * Where:
+ *
+ * 这里的：
+ *
  * - `value` is a Date, a number (milliseconds since UTC epoch) or an ISO string
  *   (https://www.w3.org/TR/NOTE-datetime).
+ *
+ *   `value` 是一个日期、数字（从 UTC 时代以来的毫秒数）或 ISO 字符串 (https://www.w3.org/TR/NOTE-datetime)。
+ *
  * - `format` indicates which date/time components to include. See {@link DatePipe} for more
  *   details.
+ *
+ *   `format` 表示要包含的日期/时间部件。欲知详情，参见 {@link DatePipe}。
+ *
  * - `locale` is a `string` defining the locale to use.
+ *
+ *   `locale` 是一个 `string`，用来定义要使用的区域。
+ *
  * - `timezone` to be used for formatting. It understands UTC/GMT and the continental US time zone
  *   abbreviations, but for general use, use a time zone offset (e.g. `'+0430'`).
  *   If not specified, host system settings are used.
  *
+ *   `timezone` 用在格式化中。它能理解 UTC/GMT 和美国大陆时区缩写，但对于一般用途则使用时区偏移（比如 `'+0430'`）。
+ *   如果没有指定，则使用宿主系统中的设定。
+ *
  * See {@link DatePipe} for more details.
+ *
+ * 欲知详情，参见 {@link DatePipe}。
  */
 export function formatDate(
     value: string | number | Date, format: string, locale: string, timezone?: string): string {
@@ -200,6 +219,9 @@ function formatFractionalSeconds(milliseconds: number, digits: number): string {
 
 /**
  * Returns a date formatter that transforms a date into its locale digit representation
+ *
+ * 返回一个日期格式化器，它负责把日期转换成它的本地数字表示法
+ *
  */
 function dateGetter(
     name: DateType, size: number, offset: number = 0, trim = false,
@@ -248,6 +270,9 @@ function getDatePart(part: DateType, date: Date): number {
 
 /**
  * Returns a date formatter that transforms a date into its locale string representation
+ *
+ * 返回一个日期格式化器，它负责把日期转换成它的本地字符串表示法
+ *
  */
 function dateStrGetter(
     name: TranslationType, width: TranslationWidth, form: FormStyle = FormStyle.Format,
@@ -259,6 +284,8 @@ function dateStrGetter(
 
 /**
  * Returns the locale translation of a date for a given form, type and width
+ *
+ * 返回一个日期的指定格式、类型和宽度的本地化格式
  */
 function getDateTranslation(
     date: Date, locale: string, name: TranslationType, width: TranslationWidth, form: FormStyle,
@@ -314,6 +341,10 @@ function getDateTranslation(
  * Returns a date formatter that transforms a date and an offset into a timezone with ISO8601 or
  * GMT format depending on the width (eg: short = +0430, short:GMT = GMT+4, long = GMT+04:30,
  * extended = +04:30)
+ *
+ * 返回一个日期格式化器，它会根据宽度把日期和偏移转换成 ISO8601 或 GMT 格式的时区
+ * （如 short = +0430, short:GMT = GMT+4, long = GMT+04:30,
+ * extended = +04:30 ）。
  */
 function timeZoneGetter(width: ZoneWidth): DateFormatter {
   return function(date: Date, locale: string, offset: number) {
@@ -640,14 +671,29 @@ function convertTimezoneToLocal(date: Date, timezone: string, reverse: boolean):
 /**
  * Converts a value to date.
  *
+ * 把值转换为日期。
+ *
  * Supported input formats:
+ *
+ * 支持的输入格式：
+ *
  * - `Date`
  * - number: timestamp
+ *
+ *   数字：时间戳
+ *
  * - string: numeric (e.g. "1234"), ISO and date strings in a format supported by
  *   [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
  *   Note: ISO strings without time return a date without timeoffset.
  *
+ *   字符串：数字（如 "1234"）、ISO 格式和 [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse)
+ *   所支持的日期字符串格式。
+ *   注意：不带时间的 ISO 字符串会返回一个没有时区偏移量的日期。
+ *
  * Throws if unable to convert to a date.
+ *
+ * 如果不能转换成日期，则抛出异常。
+ *
  */
 export function toDate(value: string | number | Date): Date {
   if (isDate(value)) {
@@ -696,6 +742,9 @@ export function toDate(value: string | number | Date): Date {
 /**
  * Converts a date in ISO8601 to a Date.
  * Used instead of `Date.parse` because of browser discrepancies.
+ *
+ * 把 ISO8601 格式的字符串转换成 `Date` 对象。
+ * 由于浏览器的差异而不能使用 `Date.parse`。
  */
 export function isoStringToDate(match: RegExpMatchArray): Date {
   const date = new Date(0);
