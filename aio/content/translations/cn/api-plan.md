@@ -46,8 +46,8 @@
 [x]  | common/NgTemplateOutlet  | 0.42
 [x]  | common/Location  | 0.41
 [x]  | platform-browser/BrowserModule  | 0.40
-[ ]  | common/DecimalPipe  | 0.40
-[ ]  | common/CurrencyPipe  | 0.39
+[x]  | common/DecimalPipe  | 0.40
+[x]  | common/CurrencyPipe  | 0.39
 [ ]  | router/RouterLinkActive  | 0.38
 [ ]  | core/TemplateRef  | 0.38
 [ ]  | forms/FormBuilder  | 0.37
