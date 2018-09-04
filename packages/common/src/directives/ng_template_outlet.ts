@@ -20,13 +20,22 @@ import {Directive, EmbeddedViewRef, Input, OnChanges, SimpleChange, SimpleChange
  *
  * Inserts an embedded view from a prepared `TemplateRef`.
  *
+ * 根据一个提前备好的 `TemplateRef` 插入一个内嵌视图。
+ *
  * You can attach a context object to the `EmbeddedViewRef` by setting `[ngTemplateOutletContext]`.
  * `[ngTemplateOutletContext]` should be an object, the object's keys will be available for binding
  * by the local template `let` declarations.
  *
+ * 你可以通过设置 `[ngTemplateOutletContext]` 来给 `EmbeddedViewRef` 附加一个上下文对象。
+ * `[ngTemplateOutletContext]` 是一个对象，该对象的 key 可在模板中使用 `let` 语句进行绑定。
+ *
  * Note: using the key `$implicit` in the context object will set its value as default.
  *
+ * 注意：在上下文对象中使用 `$implicit` 这个 key 会把对应的值设置为默认值。
+ *
  * ## Example
+ *
+ * ## 例子
  *
  * {@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
  *
@@ -66,13 +75,24 @@ export class NgTemplateOutlet implements OnChanges {
 
   /**
    * We need to re-create existing embedded view if:
+   *
+   * 在下列情况下，我们要重新创建现存的内嵌视图：
+   *
    * - templateRef has changed
+   *
+   *   templateRef 变化了
+   *
    * - context has changes
+   *
+   *   context 发生了变化
    *
    * We mark context object as changed when the corresponding object
    * shape changes (new properties are added or existing properties are removed).
    * In other words we consider context with the same properties as "the same" even
    * if object reference changes (see https://github.com/angular/angular/issues/13407).
+   *
+   * 当相应的对象的形态（而不是值）发生变化时，我们就会把上下文对象标记为已更改（添加了新的属性或移除了现有属性）。
+   * 换句话说，即使对象的引用发生了变化，我们也会把具有相同属性的上下文对象视作 "相同的"（参见 <https://github.com/angular/angular/issues/13407>）。
    */
   private _shouldRecreateView(changes: SimpleChanges): boolean {
     const ctxChange = changes['ngTemplateOutletContext'];

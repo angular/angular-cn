@@ -43,7 +43,7 @@
 [x]  | core/HostListener  | 0.47
 [x]  | common/AsyncPipe  | 0.45
 [x]  | core/ViewContainerRef  | 0.42
-[ ]  | common/NgTemplateOutlet  | 0.42
+[x]  | common/NgTemplateOutlet  | 0.42
 [ ]  | common/Location  | 0.41
 [ ]  | platform-browser/BrowserModule  | 0.40
 [ ]  | common/DecimalPipe  | 0.40
