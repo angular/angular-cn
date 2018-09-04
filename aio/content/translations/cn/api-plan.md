@@ -56,7 +56,7 @@
 [x]  | forms/FormControlName  | 0.34
 [x]  | core/Output  | 0.33
 [x]  | common/http/HttpInterceptor  | 0.30
-[ ]  | common/http/HttpRequest  | 0.29
+[x]  | common/http/HttpRequest  | 0.29
 [ ]  | router/CanActivate  | 0.27
 [ ]  | router  | 0.26
 [ ]  | animations/style  | 0.25
