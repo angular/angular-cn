@@ -82,8 +82,8 @@
 [ ]  | forms  | 0.19
 [ ]  | animations/state  | 0.19
 [ ]  | common  | 0.19
-[ ]  | router/LoadChildren  | 0.18
-[ ]  | router/ParamMap  | 0.18
+[x]  | router/LoadChildren  | 0.18
+[x]  | router/ParamMap  | 0.18
 [ ]  | animations/trigger  | 0.18
 [ ]  | router/RouterLinkWithHref  | 0.18
 [ ]  | core/AfterViewInit  | 0.18
