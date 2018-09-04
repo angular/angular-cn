@@ -65,13 +65,13 @@
 [x]  | common/JsonPipe  | 0.25
 [x]  | forms/FormArray  | 0.25
 [x]  | common/CommonModule  | 0.24
-[ ]  | router/NavigationExtras  | 0.24
+[x]  | router/NavigationExtras  | 0.24
 [x]  | core/HostBinding  | 0.23
 [x]  | core/ContentChild  | 0.22
 [x]  | core/ViewChildren  | 0.22
 [x]  | common/http/HttpResponse  | 0.22
 [x]  | router/ActivatedRouteSnapshot  | 0.22
-[ ]  | common/http  | 0.21
+[x]  | common/http  | 0.21
 [ ]  | core/ChangeDetectorRef  | 0.21
 [ ]  | router/NavigationStart  | 0.21
 [ ]  | common/formatDate  | 0.21
