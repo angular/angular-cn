@@ -62,7 +62,7 @@
 [ ]  | animations/style  | 0.25
 [x]  | common/SlicePipe  | 0.25
 [ ]  | router/Event  | 0.25
-[ ]  | common/JsonPipe  | 0.25
+[x]  | common/JsonPipe  | 0.25
 [x]  | forms/FormArray  | 0.25
 [ ]  | common/CommonModule  | 0.24
 [ ]  | router/NavigationExtras  | 0.24
