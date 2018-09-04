@@ -21,10 +21,16 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *
  * Lets you add a CSS class to an element when the link's route becomes active.
  *
+ * 当此链接指向的路由激活时，往宿主元素上添加一个 CSS 类。
+ *
  * This directive lets you add a CSS class to an element when the link's route
  * becomes active.
  *
+ * 当此链接指向的路由激活时，该指令就会往宿主元素上添加一个 CSS 类。
+ *
  * Consider the following example:
+ *
+ * 考虑下面的例子：
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
@@ -33,7 +39,12 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * When the url is either '/user' or '/user/bob', the active-link class will
  * be added to the `a` tag. If the url changes, the class will be removed.
  *
+ * 当浏览器的当前 url 是 '/user' 或 '/user/bob' 时，就会往 `a` 标签上添加 `active-link` 类；
+ * 如果 url 发生了变化，则移除它。
+ *
  * You can set more than one class, as follows:
+ *
+ * 你可以设置一个或多个类，例如：
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive="class1 class2">Bob</a>
@@ -43,6 +54,8 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * You can configure RouterLinkActive by passing `exact: true`. This will add the classes
  * only when the url matches the link exactly.
  *
+ * 你可以通过传入 `exact: true` 来配置 RouterLinkActive。这样，只有当 url 和此链接精确匹配时才会添加这些类。
+ *
  * ```
  * <a routerLink="/user/bob" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
  * true}">Bob</a>
@@ -50,6 +63,9 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *
  * You can assign the RouterLinkActive instance to a template variable and directly check
  * the `isActive` status.
+ *
+ * 你可以把 `RouterLinkActive` 的实例赋给一个模板变量，以直接检查 `isActive` 的状态。
+ *
  * ```
  * <a routerLink="/user/bob" routerLinkActive #rla="routerLinkActive">
  *   Bob {{ rla.isActive ? '(already open)' : ''}}
@@ -58,8 +74,10 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *
  * Finally, you can apply the RouterLinkActive directive to an ancestor of a RouterLink.
  *
+ * 最后，你还可以把 `RouterLinkActive` 指令用在 `RouterLink` 的各级祖先节点上。
+ *
  * ```
- * <div routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+ * <div routerLinkActive="active-link">
  *   <a routerLink="/user/jim">Jim</a>
  *   <a routerLink="/user/bob">Bob</a>
  * </div>
@@ -67,6 +85,8 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *
  * This will set the active-link class on the div tag if the url is either '/user/jim' or
  * '/user/bob'.
+ *
+ * 这样，无论当前 url 是 '/user/jim' 还是 '/user/bob'，都会往 `div` 标签上添加一个 `active-link` 类。
  *
  * @ngModule RouterModule
  *
