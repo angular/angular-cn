@@ -60,7 +60,7 @@
 [x]  | router/CanActivate  | 0.27
 [x]  | router  | 0.26
 [ ]  | animations/style  | 0.25
-[ ]  | common/SlicePipe  | 0.25
+[x]  | common/SlicePipe  | 0.25
 [ ]  | router/Event  | 0.25
 [ ]  | common/JsonPipe  | 0.25
 [x]  | forms/FormArray  | 0.25
