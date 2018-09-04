@@ -53,7 +53,7 @@
 [x]  | forms/FormBuilder  | 0.37
 [x]  | common/http/HttpParams  | 0.35
 [x]  | core/OnChanges  | 0.35
-[ ]  | forms/FormControlName  | 0.34
+[x]  | forms/FormControlName  | 0.34
 [x]  | core/Output  | 0.33
 [ ]  | common/http/HttpInterceptor  | 0.30
 [ ]  | common/http/HttpRequest  | 0.29
