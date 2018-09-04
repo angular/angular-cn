@@ -24,19 +24,37 @@ export interface PopStateEvent {
  *
  * A service that applications can use to interact with a browser's URL.
  *
+ * 一个服务，应用可以用它来与浏览器的 URL 互动。
+ *
  * Depending on which {@link LocationStrategy} is used, `Location` will either persist
  * to the URL's path or the URL's hash segment.
+ *
+ * 这取决于使用了哪个 {@link LocationStrategy}，`Location` 可能会使用 URL 的路径进行持久化，也可能使用 URL 的哈希片段（`#`）进行持久化。
  *
  * Note: it's better to use {@link Router#navigate} service to trigger route changes. Use
  * `Location` only if you need to interact with or create normalized URLs outside of
  * routing.
  *
+ * 注意：最好使用 {@link Router#navigate} 服务来触发路由变更。只有当你要在路由体系之外创建规范化 URL 或与之交互时才会用到 `Location`。
+ *
  * `Location` is responsible for normalizing the URL against the application's base href.
  * A normalized URL is absolute from the URL host, includes the application's base href, and has no
  * trailing slash:
+ *
+ * `Location` 负责基于应用的基地址（base href）对 URL 进行标准化。
+ * 所谓标准化的 URL 就是一个从主机（host）开始算的绝对地址，包括应用的基地址，但不包括结尾的斜杠：
+ *
  * - `/my/app/user/123` is normalized
+ *
+ *   `/my/app/user/123` 是标准化的
+ *
  * - `my/app/user/123` **is not** normalized
+ *
+ *   `my/app/user/123` 不是标准化的
+ *
  * - `/my/app/user/123/` **is not** normalized
+ *
+ *   `/my/app/user/123/` 不是标准化的
  *
  * ### Example
  * {@example common/location/ts/path_location_component.ts region='LocationComponent'}
@@ -67,6 +85,8 @@ export class Location {
 
   /**
    * Returns the normalized URL path.
+   *
+   * 返回标准化之后的 URL 路径
    */
   // TODO: vsavkin. Remove the boolean flag and always include hash once the deprecated router is
   // removed.
@@ -76,6 +96,8 @@ export class Location {
 
   /**
    * Normalizes the given path and compares to the current normalized path.
+   *
+   * 对指定的路径进行标准化，并和当前的标准化路径进行比较。
    */
   isCurrentPathEqualTo(path: string, query: string = ''): boolean {
     return this.path() == this.normalize(path + Location.normalizeQueryParams(query));
@@ -84,6 +106,8 @@ export class Location {
   /**
    * Given a string representing a URL, returns the normalized URL path without leading or
    * trailing slashes.
+   *
+   * 给出一个字符串形式的 URL，返回一个标准化的 URL 路径，但不包括首尾的斜杠。
    */
   normalize(url: string): string {
     return Location.stripTrailingSlash(_stripBaseHref(this._baseHref, _stripIndexHtml(url)));
@@ -94,6 +118,11 @@ export class Location {
    * If the given URL doesn't begin with a leading slash (`'/'`), this method adds one
    * before normalizing. This method will also add a hash if `HashLocationStrategy` is
    * used, or the `APP_BASE_HREF` if the `PathLocationStrategy` is in use.
+   *
+   * 给出一个字符串形式的 URL，返回一个平台相关的外部 URL 路径。
+   * 如果鬼畜的 URL 不使用前导斜杠（`'/'`）开头的，那么该方法就会在标准化之前先添加一个。
+   * 如果正在使用 `HashLocationStrategy` 策略，则该方法还会添加一个 `#` 符号；如果正在使用 `PathLocationStrategy` 策略，则添加 `APP_BASE_HREF`。
+   *
    */
   prepareExternalUrl(url: string): string {
     if (url && url[0] !== '/') {
@@ -106,6 +135,8 @@ export class Location {
   /**
    * Changes the browsers URL to the normalized version of the given URL, and pushes a
    * new item onto the platform's history.
+   *
+   * 把浏览器的 URL 修改为指定 URL 的标准化版本，并往所属平台（如浏览器）的历史堆栈中追加一个新条目。
    */
   go(path: string, query: string = '', state: any = null): void {
     this._platformStrategy.pushState(state, '', path, query);
@@ -114,6 +145,8 @@ export class Location {
   /**
    * Changes the browsers URL to the normalized version of the given URL, and replaces
    * the top item on the platform's history stack.
+   *
+   * 把浏览器的 URL 修改为指定 URL 的标准化版本，并替换所属平台（如浏览器）的历史堆栈的顶部条目。
    */
   replaceState(path: string, query: string = '', state: any = null): void {
     this._platformStrategy.replaceState(state, '', path, query);
@@ -121,16 +154,22 @@ export class Location {
 
   /**
    * Navigates forward in the platform's history.
+   *
+   * 在所属平台（如浏览器）的历史堆栈中前进一步。
    */
   forward(): void { this._platformStrategy.forward(); }
 
   /**
    * Navigates back in the platform's history.
+   *
+   * 在所属平台（如浏览器）的历史堆栈中后退一步。
    */
   back(): void { this._platformStrategy.back(); }
 
   /**
    * Subscribe to the platform's `popState` events.
+   *
+   * 订阅所属平台（如浏览器）的 `popState` 事件。
    */
   subscribe(
       onNext: (value: PopStateEvent) => void, onThrow?: ((exception: any) => void)|null,
@@ -141,6 +180,8 @@ export class Location {
   /**
    * Given a string of url parameters, prepend with '?' if needed, otherwise return parameters as
    * is.
+   *
+   * 给定 URL 参数字符串，如果需要则增加 '?' 前缀，否则原样返回。
    */
   public static normalizeQueryParams(params: string): string {
     return params && params[0] !== '?' ? '?' + params : params;
@@ -148,6 +189,8 @@ export class Location {
 
   /**
    * Given 2 parts of a url, join them with a slash if needed.
+   *
+   * 给定 url 的两个部分，把它们连接（join）在一起，如有必要则添加一个斜杠。
    */
   public static joinWithSlash(start: string, end: string): string {
     if (start.length == 0) {
@@ -176,6 +219,9 @@ export class Location {
    * If url has a trailing slash, remove it, otherwise return url as is. This
    * method looks for the first occurrence of either #, ?, or the end of the
    * line as `/` characters after any of these should not be replaced.
+   *
+   * 如果 url 具有结尾斜杠，则移除它，否则原样返回。
+   * 该方法会查找第一个 `#`、`?` 之前的结尾 `/` 字符，之后的则不管。如果 url 中没有 `#`、`?`，则替换行尾的。
    */
   public static stripTrailingSlash(url: string): string {
     const match = url.match(/#|\?|$/);
