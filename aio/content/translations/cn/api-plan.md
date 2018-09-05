@@ -94,8 +94,8 @@
 [x]  | core/SimpleChange  | 0.18
 [x]  | core/SimpleChanges  | 0.18
 [x]  | forms/NgSelectOption  | 0.17
-[ ]  | common/PercentPipe  | 0.17
-[ ]  | forms/ValidatorFn  | 0.17
+[x]  | common/PercentPipe  | 0.17
+[x]  | forms/ValidatorFn  | 0.17
 [ ]  | http/RequestOptionsArgs  | 0.17
 [ ]  | animations/animation  | 0.17
 [x]  | common/NgSwitchCase  | 0.16

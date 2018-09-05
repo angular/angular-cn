@@ -21,7 +21,11 @@ export type ValidationErrors = {
 /**
  * An interface that can be implemented by classes that can act as validators.
  *
+ * 一个接口，实现了它的类可以扮演验证器的角色。
+ *
  * ## Usage
+ *
+ * ## 用法
  *
  * ```typescript
  * @Directive({
@@ -64,7 +68,11 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
  * A Directive that adds the `required` validator to any controls marked with the
  * `required` attribute, via the `NG_VALIDATORS` binding.
  *
+ * 该指令会借助 `NG_VALIDATORS` 绑定把 `required` 验证器添加到任何带 `required` 属性的控件上。
+ *
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * <input name="fullName" ngModel required>
@@ -104,7 +112,11 @@ export class RequiredValidator implements Validator {
  * A Directive that adds the `required` validator to checkbox controls marked with the
  * `required` attribute, via the `NG_VALIDATORS` binding.
  *
+ * 该指令会借助 `NG_VALIDATORS` 绑定把 `required` 验证器添加到任何带有 `required` 属性的检查框控件上。
+ *
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * <input type="checkbox" name="active" ngModel required>
@@ -126,6 +138,8 @@ export class CheckboxRequiredValidator extends RequiredValidator {
 
 /**
  * Provider which adds `EmailValidator` to `NG_VALIDATORS`.
+ *
+ * 该提供商用于把 `EmailValidator` 添加到 `NG_VALIDATORS` 中。
  */
 export const EMAIL_VALIDATOR: any = {
   provide: NG_VALIDATORS,
@@ -137,7 +151,11 @@ export const EMAIL_VALIDATOR: any = {
  * A Directive that adds the `email` validator to controls marked with the
  * `email` attribute, via the `NG_VALIDATORS` binding.
  *
+ * 该指令会借助 `NG_VALIDATORS` 绑定把 `email` 验证器添加到任何带有 `email` 属性的控件上。
+ *
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * <input type="email" name="email" ngModel email>
@@ -179,7 +197,11 @@ export interface AsyncValidatorFn {
 /**
  * Provider which adds `MinLengthValidator` to `NG_VALIDATORS`.
  *
+ * 该提供商用于把 `MinLengthValidator` 添加到 `NG_VALIDATORS` 中。
+ *
  * ## Example:
+ *
+ * ## 例子
  *
  * {@example common/forms/ts/validators/validators.ts region='min'}
  */
@@ -194,6 +216,8 @@ export const MIN_LENGTH_VALIDATOR: any = {
  * `formControl`, or control with `ngModel` that also has a `minlength` attribute.
  *
  *
+ * 该指令会把 `MinLengthValidator` 验证器安装到任何具有 `minlength` 属性的 `formControlName`、
+ * `formControl` 或带 `ngModel` 的控件上。
  */
 @Directive({
   selector: '[minlength][formControlName],[minlength][formControl],[minlength][ngModel]',
@@ -231,7 +255,11 @@ export class MinLengthValidator implements Validator,
 /**
  * Provider which adds `MaxLengthValidator` to `NG_VALIDATORS`.
  *
+ * 该提供商用于把 `MaxLengthValidator` 添加到 `NG_VALIDATORS` 中。
+ *
  * ## Example:
+ *
+ * ## 例子：
  *
  * {@example common/forms/ts/validators/validators.ts region='max'}
  */
@@ -246,6 +274,8 @@ export const MAX_LENGTH_VALIDATOR: any = {
  * `formControl`, or control with `ngModel` that also has a `maxlength` attribute.
  *
  *
+ * 该指令会把 `MaxLengthValidator` 验证器安装到任何具有 `minlength` 属性的 `formControlName`、
+ * `formControl` 或带 `ngModel` 的控件上。
  */
 @Directive({
   selector: '[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]',
@@ -294,7 +324,13 @@ export const PATTERN_VALIDATOR: any = {
  * as the regex to validate Control value against.  Follows pattern attribute
  * semantics; i.e. regex must match entire Control value.
  *
+ * 该指令会借助 `NG_VALIDATORS` 绑定来把 `pattern` 验证器添加到任何带有 `pattern` 属性的控件上。
+ * 它会使用该属性的值作为正则表达式来验证控件的值。
+ * 它会遵循 `pattern` 属性的语义，也就是说，该正则表达式必须匹配整个控件值。
+ * 
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * <input [name]="fullName" pattern="[a-zA-Z ]*" ngModel>
