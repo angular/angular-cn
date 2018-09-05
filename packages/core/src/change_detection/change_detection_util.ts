@@ -28,10 +28,16 @@ export function devModeEqual(a: any, b: any): boolean {
  * Indicates that the result of a {@link Pipe} transformation has changed even though the
  * reference has not changed.
  *
+ * 表示 {@link Pipe} 转换的值已经变化了 —— 即使其引用并没有变。
+ *
  * Wrapped values are unwrapped automatically during the change detection, and the unwrapped value
  * is stored.
  *
+ * 包装过的值会在变更检测期间自动解包，并保存解包过的值。
+ *
  * Example:
+ *
+ * 例子：
  *
  * ```
  * if (this._latestValue === this._latestReturnedValue) {
@@ -44,33 +50,47 @@ export function devModeEqual(a: any, b: any): boolean {
  *
  */
 export class WrappedValue {
-  /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected */
+  /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected
+   *
+   * @deprecated 从 5.3 将会变成受保护的属性，请用 `unwrap()` 代替
+   */
   wrapped: any;
 
   constructor(value: any) { this.wrapped = value; }
 
-  /** Creates a wrapped value. */
+  /** Creates a wrapped value.
+   *
+   * 创建一个包装过的值。
+   */
   static wrap(value: any): WrappedValue { return new WrappedValue(value); }
 
   /**
    * Returns the underlying value of a wrapped value.
    * Returns the given `value` when it is not wrapped.
+   *
+   * 如果值（`value`）是包装过的，则返回它幕后的值；否则直接返回它本身。
    **/
   static unwrap(value: any): any { return WrappedValue.isWrapped(value) ? value.wrapped : value; }
 
-  /** Returns true if `value` is a wrapped value. */
+  /** Returns true if `value` is a wrapped value.
+   *
+   * 如果 `value` 是包装过的值，则返回 `true`。
+   */
   static isWrapped(value: any): value is WrappedValue { return value instanceof WrappedValue; }
 }
 
 /**
  * Represents a basic change from a previous to a new value.
  *
+ * 表示从旧值到新值的一次变更。
  */
 export class SimpleChange {
   constructor(public previousValue: any, public currentValue: any, public firstChange: boolean) {}
 
   /**
    * Check whether the new value is the first value assigned.
+   *
+   * 检查该新值是否从首次赋值得来的。
    */
   isFirstChange(): boolean { return this.firstChange; }
 }
