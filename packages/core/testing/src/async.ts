@@ -13,7 +13,12 @@ import {asyncFallback} from './async_fallback';
  * complete when all asynchronous calls within this zone are done. Can be used
  * to wrap an {@link inject} call.
  *
+ * 把一个测试函数包装进一个异步测试区域（Zone）。当该区域中的所有异步调用都已完成时，该测试将会自动完成。
+ * 可用于包装 {@link inject} 调用。
+ *
  * Example:
+ *
+ * 例子：
  *
  * ```
  * it('...', async(inject([AClass], (object) => {

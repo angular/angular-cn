@@ -96,10 +96,9 @@
 [x]  | forms/NgSelectOption  | 0.17
 [x]  | common/PercentPipe  | 0.17
 [x]  | forms/ValidatorFn  | 0.17
-[ ]  | http/RequestOptionsArgs  | 0.17
 [ ]  | animations/animation  | 0.17
 [x]  | common/NgSwitchCase  | 0.16
-[ ]  | core/testing/async  | 0.16
+[x]  | core/testing/async  | 0.16
 
 ## 翻译方式
 
