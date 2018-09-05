@@ -93,7 +93,7 @@
 [x]  | core/PipeTransform  | 0.18
 [x]  | core/SimpleChange  | 0.18
 [x]  | core/SimpleChanges  | 0.18
-[ ]  | forms/NgSelectOption  | 0.17
+[x]  | forms/NgSelectOption  | 0.17
 [ ]  | common/PercentPipe  | 0.17
 [ ]  | forms/ValidatorFn  | 0.17
 [ ]  | http/RequestOptionsArgs  | 0.17
