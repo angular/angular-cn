@@ -90,7 +90,7 @@
 [x]  | forms/ReactiveFormsModule  | 0.18
 [x]  | common/http/HTTP_INTERCEPTORS  | 0.18
 [x]  | platform-browser/DomSanitizer  | 0.18
-[ ]  | core/PipeTransform  | 0.18
+[x]  | core/PipeTransform  | 0.18
 [ ]  | core/SimpleChange  | 0.18
 [ ]  | core/SimpleChanges  | 0.18
 [ ]  | forms/NgSelectOption  | 0.17
