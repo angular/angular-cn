@@ -39,7 +39,7 @@
 [x]  | core/Pipe  | 0.52
 [x]  | common/NgSwitch  | 0.52
 [x]  | forms/NgForm  | 0.50
-[ ]  | core/Renderer2  | 0.49
+[x]  | core/Renderer2  | 0.49
 [x]  | core/HostListener  | 0.47
 [x]  | common/AsyncPipe  | 0.45
 [x]  | core/ViewContainerRef  | 0.42
