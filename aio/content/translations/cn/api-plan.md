@@ -11,7 +11,7 @@
 [x]  | common/NgIf  | 1.53
 [x]  | core/NgModule  | 1.27
 [x]  | router/Router  | 1.26
-[ ]  | animations/animate  | 1.19
+[x]  | animations/animate  | 1.19
 [x]  | common/NgClass  | 1.15
 [x]  | common/DatePipe  | 1.11
 [x]  | forms/FormsModule  | 1.05
@@ -59,7 +59,7 @@
 [x]  | common/http/HttpRequest  | 0.29
 [x]  | router/CanActivate  | 0.27
 [x]  | router  | 0.26
-[ ]  | animations/style  | 0.25
+[x]  | animations/style  | 0.25
 [x]  | common/SlicePipe  | 0.25
 [x]  | router/Event  | 0.25
 [x]  | common/JsonPipe  | 0.25
@@ -80,11 +80,11 @@
 [x]  | common/http/HttpErrorResponse  | 0.20
 [x]  | core/QueryList  | 0.19
 [ ]  | forms  | 0.19
-[ ]  | animations/state  | 0.19
+[x]  | animations/state  | 0.19
 [ ]  | common  | 0.19
 [x]  | router/LoadChildren  | 0.18
 [x]  | router/ParamMap  | 0.18
-[ ]  | animations/trigger  | 0.18
+[x]  | animations/trigger  | 0.18
 [x]  | router/RouterLinkWithHref  | 0.18
 [x]  | core/AfterViewInit  | 0.18
 [x]  | forms/ReactiveFormsModule  | 0.18
@@ -96,7 +96,7 @@
 [x]  | forms/NgSelectOption  | 0.17
 [x]  | common/PercentPipe  | 0.17
 [x]  | forms/ValidatorFn  | 0.17
-[ ]  | animations/animation  | 0.17
+[x]  | animations/animation  | 0.17
 [x]  | common/NgSwitchCase  | 0.16
 [x]  | core/testing/async  | 0.16
 
