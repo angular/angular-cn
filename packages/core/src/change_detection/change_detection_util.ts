@@ -52,7 +52,7 @@ export function devModeEqual(a: any, b: any): boolean {
 export class WrappedValue {
   /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected
    *
-   * @deprecated 从 5.3 将会变成受保护的属性，请用 `unwrap()` 代替
+   * 从 5.3 之后将会变成受保护的属性，请用 `unwrap()` 代替
    */
   wrapped: any;
 
