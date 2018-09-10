@@ -23,7 +23,7 @@
 我们以购物为例来看看日常生活中的承诺。
 
 1. 你去电商平台下单，并付款
-1. 平台会给你一个订单号，这个订单号本质上是一个回执，代表商家做出了“我将给你发货”的承诺
+1. 平台会给你一个订单号，这个订单号本质上是一个回执，代表商家做出了“稍后我将给你发货”的承诺
 1. 商家发货给你，在这个过程中你不用等待（异步）
 1. 过一段时间，快递到了
 1. 你签收（回调函数被调用）商品（回调参数）
@@ -74,7 +74,7 @@ Observable 就像个传送带。这个传送带不断运行，围绕这个传送
 
 工业上，流水线是人类管理经验的结晶，它所做的事情是什么呢？本质上就是把每个处理都局部化，以减小复杂度（降低对工人素质的要求）。而这，正是软件行业所求之不得的。响应式，就是编程领域的流水线。
 
-那么函数式呢？函数式最显著的特征就是没有副作用，而这恰好是对流水线上每个工序的要求。显然，如果某个工序的操作会导致整个生产线平移 10 米，那么用不了多久这个生产线就要被海水淹了，这样的生产线毫无价值。
+那么函数式呢？函数式最显著的特征就是没有副作用，而这恰好是对流水线上每个工序的要求。显然，如果某个工序的操作会导致整个生产线平移 10 米，那么用不了多久这个生产线就要掉到海里了，这样的生产线毫无价值。
 
 因此，响应式和函数式几乎是注定要在一起的。
 
@@ -90,15 +90,15 @@ ReactiveX 本身其实并不难，难的是 FRP 编程范式以及对操作符�
 
 为了帮助开发者更容易地理解 ReactiveX 的工作原理，ReactiveX 开发组还设计了一种很形象的图，那就是宝石图。这货长这样（英文注释不必细看，接下来我会简单解释下）：
 
-![宝石图](.rxjs-quickstart_images/marble-diagram.png)
+![宝石图](rxjs-quickstart_images/marble-diagram.png)
 
 中间的带箭头的线就像传送带，用来表示数据序列，这个数据序列被称为“流”。上方的流叫做输入流，下方的流叫做输出流。输入流可能有多个，但是输出流只会有一个（不过，流中的每个数据项也可以是别的流）。
 
 数据序列上的每个圆圈表示一个数据项，圆圈的位置表示数据出现的先后顺序，但是一般不会表示精确的时间比例，比如在一毫秒内接连出现的两个数据之间仍然会有较大的距离。只有少数涉及到时间的操作，其宝石图才会表现出精确的时间比例。
 
-圆圈的最后，通常会有一条竖线或者一个叉号。竖线表示这个流正常终止了，也就是说不会再有更多的数据提供出来了。而叉号表示这个流抛出错误导致异常中止了。还有一种流，既没有竖线也没有叉号，这种叫做无尽流，比如一个由所有自然数组成的流就不会主动终止。但是要注意，无尽流仍然是可以处理的，因为需要多少项，是由消费者决定的。你可以把这个“智能”传送带理解为由下一个工位“叫号”的，没“叫号”下一项数据就不会过来。
+圆圈的最后，通常会有一条竖线或者一个叉号。竖线表示这个流正常终止了，也就是说不会再有更多的数据提供出来了。而叉号表示这个流抛出错误导致异常中止了。还有一种流，既没有竖线也没有叉号，这种叫做无尽流，比如一个由所有自然数组成的流就不会主动终止。但是要注意，无尽流仍然是可以处理的，因为需要多少项是由消费者决定的。你可以把这个“智能”传送带理解为由下一个工位“叫号”的，没“叫号”下一项数据就不会过来。
 
-中间的方框表示一个操作，也就是 operator —— 一个函数，比如这个图中的操作就是把输入流中的条目乘以十后放入输出流中。
+中间的大方框表示一个操作，也就是 operator —— 一个函数，比如这个图中的操作就是把输入流中的条目乘以十后放入输出流中。
 
 看懂了宝石图，就能很形象的理解各种操作符了。
 
@@ -114,7 +114,7 @@ ReactiveX 本身其实并不难，难的是 FRP 编程范式以及对操作符�
 of(1,2,3).pipe(
   filter(item=>item % 2 === 1),
   map(item=>item * 3),
-).subscribe(item=> console.log(value))
+).subscribe(item=> console.log(item))
 ```
 
 它会输出：
@@ -132,25 +132,25 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 ### 简单创建器
 
-广义上，创建器也是操作符的一种。要启动生产线，我们得先提供原料。本质上，这个提供者就是一组函数，当流水线需要拿新的原料时，就会调用它。
+广义上，创建器也是操作符的一种，不过这里我们把它单独拿出来讲。要启动生产线，我们得先提供原料。本质上，这个提供者就是一组函数，当流水线需要拿新的原料时，就会调用它。
 
 你当然可以自己实现这个提供者，但通常是不用的。RxJS 提供了很多预定义的创建器，而且将来可能还会增加新的。不过，那些眼花缭乱的创建器完全没必要全记住，只要记住少数几个就够了，其它的有时间慢慢看。
 
 #### of - 单一值转为流
 
-![creator-of](.rxjs-quickstart_images/creator-of.png)
+![creator-of](rxjs-quickstart_images/creator-of.png)
 
 它接收任意多个参数，参数可以是任意类型，然后它会把这些参数逐个放入流中。
 
 #### from - 数组转为流
 
-![creator-from](.rxjs-quickstart_images/creator-from.png)
+![creator-from](rxjs-quickstart_images/creator-from.png)
 
 它接受一个数组型参数，数组中可以有任意数据，然后把数组的每个元素逐个放入流中。
 
 #### range - 范围转为流
 
-![creator-range](.rxjs-quickstart_images/creator-range.png)
+![creator-range](rxjs-quickstart_images/creator-range.png)
 
 它接受两个数字型参数，一个起点，一个终点，然后按 1 递增，把中间的每个数字（含边界值）放入流中。
 
@@ -164,7 +164,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### defer - 惰性创建流
 
-![creator-defer](.rxjs-quickstart_images/creator-defer.png)
+![creator-defer](rxjs-quickstart_images/creator-defer.png)
 
 它的参数是一个用来生产流的工厂函数。也就是说，当消费方需要流（注意不是需要流中的值）的时候，就会调用这个函数，创建一个流，并从这个流中进行消费（取数据）。
 
@@ -172,7 +172,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### timer - 定时器流
 
-![creator-timer](.rxjs-quickstart_images/creator-timer.png)
+![creator-timer](rxjs-quickstart_images/creator-timer.png)
 
 它有两个数字型的参数，第一个是首次等待时间，第二个是重复间隔时间。从图上可以看出，它实际上是个无尽流 —— 没有终止线。因此它会按照预定的规则往流中不断重复发出数据。
 
@@ -180,7 +180,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### interval - 定时器流
 
-![creator-interval](.rxjs-quickstart_images/creator-interval.png)
+![creator-interval](rxjs-quickstart_images/creator-interval.png)
 
 它和 timer 唯一的差别是它只接受一个参数。事实上，它就是一个语法糖，相当于 `timer(1000, 1000)`，也就是说初始等待时间和间隔时间是一样的。
 
@@ -202,7 +202,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### merge - 并联
 
-![creator-merge](.rxjs-quickstart_images/creator-merge.png)
+![creator-merge](rxjs-quickstart_images/creator-merge.png)
 
 从图上我们可以看到两个流中的内容被合并到了一个流中。只要任何一个流中出现了值就会立刻被输出，哪怕其中一个流是完全空的也不影响结果 —— 等同于原始流。
 
@@ -212,7 +212,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### concat - 串联
 
-![creator-concat](.rxjs-quickstart_images/creator-concat.png)
+![creator-concat](rxjs-quickstart_images/creator-concat.png)
 
 从图中我们可以看到两个流中的内容被按照顺序放进了输出流中。前面的流尚未结束时（注意竖线），后面的流就会一直等待。
 
@@ -222,7 +222,7 @@ Observable 对象的 subscribe 方法表示消费者要订阅这个流，当流�
 
 #### zip - 拉链
 
-![creator-zip](.rxjs-quickstart_images/creator-zip.png)
+![creator-zip](rxjs-quickstart_images/creator-zip.png)
 
 zip 的直译就是拉链，事实上，有些压缩软件的图标就是一个带拉链的钥匙包。拉链的特点是两边各有一个“齿”，两者会啮合在一起。这里的 zip 操作也是如此。
 
@@ -240,7 +240,7 @@ RxJS 有很多操作符，事实上比创建器还要多一些，但是我们并
 
 #### retry - 失败时重试
 
-![operator-retry](.rxjs-quickstart_images/operator-retry.png)
+![operator-retry](rxjs-quickstart_images/operator-retry.png)
 
 有些错误是可以通过重试进行恢复的，比如临时性的网络丢包。甚至一些流程的设计还会故意借助重试机制，比如当你发起请求时，如果后端发现你没有登录过，就会给你一个 401 错误，然后你可以完成登录并重新开始整个流程。
 
@@ -250,7 +250,7 @@ retry 操作符就是负责在失败时自动发起重试的，它可以接受�
 
 #### repeat - 成功时重试
 
-![operator-repeat](.rxjs-quickstart_images/operator-repeat.png)
+![operator-repeat](rxjs-quickstart_images/operator-repeat.png)
 
 除了重复的条件之外，repeat 的行为几乎和 retry 一模一样。
 
@@ -258,7 +258,7 @@ repeat 很少会单独用，一般会组合上 delay 操作，以提供暂停时
 
 #### delay - 延迟
 
-![operator-delay](.rxjs-quickstart_images/operator-delay.png)
+![operator-delay](rxjs-quickstart_images/operator-delay.png)
 
 这才是真正的 setTimeout 的等价操作。它接受一个毫秒数（图中是 20 毫秒），每当它从输入流中读取一个数据之后，会先等待 20 毫秒，然后再放到输出流中。
 
@@ -266,7 +266,7 @@ repeat 很少会单独用，一般会组合上 delay 操作，以提供暂停时
 
 #### toArray - 收集为数组
 
-![operator-toArray](.rxjs-quickstart_images/operator-to-array.png)
+![operator-toArray](rxjs-quickstart_images/operator-to-array.png)
 
 事实上，你几乎可以把它看做是 from 的逆运算。
 from 把数组打散了逐个放进流中，而 toArray 恰好相反，把流中的内容收集到一个数组中 —— 直到这个流结束。
@@ -275,7 +275,7 @@ from 把数组打散了逐个放进流中，而 toArray 恰好相反，把流中
 
 #### debounceTime - 防抖
 
-![operator-debounceTime](.rxjs-quickstart_images/operator-debounce-time.png)
+![operator-debounceTime](rxjs-quickstart_images/operator-debounce-time.png)
 
 在 underscore/lodash 中这是常用函数。
 所谓防抖其实就是“等它平静下来”。比如预输入（type ahead）功能，当用户正在快速打字的时候，你没必要立刻去查服务器，否则可能直接让服务器挂了，而应该等用户稍作停顿（平静下来）时再发起查询。
@@ -284,7 +284,7 @@ debounceTime 就是这样，你传入一个最小平静时间，在这个时间�
 
 #### switchMap - 切换成另一个流
 
-![operator-switchMap](.rxjs-quickstart_images/operator-switchMap.png)
+![operator-switchMap](rxjs-quickstart_images/operator-switchMap.png)
 
 这可能是相对较难理解的一个 operator。
 
@@ -306,7 +306,7 @@ switchMap 就是用来解决这个问题的。它在回调函数中接受从输�
 
 它接受一个 Observable 型参数作为条件流，一旦这个条件流中出现任意数据，则进行 xxx 操作。
 
-如 `retryWhen(notifier$)`，其中的 `notifier$` 就是一个条件流。当输入流出现异常时，就会开始等待 `notifier$` 流中出现数据，一旦出现了任何数据，就会开始执行重试逻辑。
+如 `retryWhen(notifier$)`，其中的 `notifier$` 就是一个条件流。当输入流出现异常时，就会开始等待 `notifier$` 流中出现数据，一旦出现了任何数据（不管是什么值），就会开始执行重试逻辑。
 
 #### xxxCount - 拿到 n 个数据项时 xxx
 
@@ -338,7 +338,7 @@ subscribe 之后，你的回调函数就被别人引用了，因此如果不撤�
 
 因此，必须找到某个时机撤销对这个回调函数的引用。但其实不一定需要那么麻烦。解除对回调函数的引用有两种时机，一种是这个流完成（complete，包括正常结束和异常结束）了，一种是订阅方主动取消。当流完成时，会自动解除全部订阅回调，而所有的有限流都是会自动完成的。只有无尽流才需要特别处理，也就是订阅方要主动取消订阅。
 
-当调用 `Observable` 的 `subscribe` 方法时，会返回一个 `Subscription` 类型的引用，它实际上是一个订阅凭证。把它保存下来，等恰当的时机调用它的 `unsubscribe` 方法就可以取消订阅了。比如在 Angular 中，如果你订阅了无尽流，那么就需要把订阅凭证保存在私有变量里，并且在 ngOnDestroy 回调中调用它的 `unsubscribe` 方法。
+当调用 `Observable` 的 `subscribe` 方法时，会返回一个 `Subscription` 类型的引用，它实际上是一个订阅凭证。把它保存下来，等恰当的时机调用它的 `unsubscribe` 方法就可以取消订阅了。比如在 Angular 中，如果你订阅了无尽流，那么就需要把订阅凭证保存在私有变量里，并且在 `ngOnDestroy` 回调中调用它的 `unsubscribe` 方法。
 
 #### 类型检查
 
@@ -350,6 +350,6 @@ subscribe 之后，你的回调函数就被别人引用了，因此如果不撤�
 
 ## 寄语 - 实践出真知
 
-ReactiveX 大家族看似庞大，实则简单 —— 如果你已经有了 Java 8+ / Kotlin / underscore或lodash 等函数式基础知识时，新东西就很少了。而当你用过 Rx 大家族中的任何一个成员时，RxJS 对你几乎是免费的，反之也一样。
+ReactiveX 大家族看似庞大，实则简单 —— 如果你已经有了 Java 8+ / Kotlin / underscore 或 lodash 等函数式基础知识时，新东西就很少了。而当你用过 Rx 大家族中的任何一个成员时，RxJS 对你几乎是免费的，反之也一样。
 
 唯一的问题，就是找机会实践，并体会 FRP 风格的独特之处，获得那些超乎具体技术之上的真知灼见。
