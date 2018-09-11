@@ -1,7 +1,8 @@
 <div *ngIf="!node.children">
   <a href="{{node.url}}" [ngClass]="classes" title="{{node.tooltip}}"
-    class="vertical-menu-item">
+    class="vertical-menu-item" style="position: relative" [target]="isExternalUrl(node.url)?'_blank':'_self'">
     {{node.title}}
+    <mat-icon *ngIf="isExternalUrl(node.url)">open_in_new</mat-icon>
   </a>
 </div>
 

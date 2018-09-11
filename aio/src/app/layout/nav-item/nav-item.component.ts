@@ -47,4 +47,8 @@ export class NavItemComponent implements OnChanges {
     this.isExpanded = !this.isExpanded;
     this.setClasses();
   }
+
+  isExternalUrl(url: string): boolean {
+    return /^https?:/.test(url);
+  }
 }
