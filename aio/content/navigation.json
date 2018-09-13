@@ -551,9 +551,14 @@
       "url": "https://github.com/ng-docs/ng-docs.github.io/issues"
     },
     {
-      "title": "Material 组件库",
+      "title": "官方 Material 组件库",
       "tooltip": "Angular Material 组件库的中文文档",
       "url": "https://material.angular.cn"
+    },
+    {
+      "title": "ng-zorro 组件库",
+      "tooltip": "Ant Design 的 Angular 实现，服务于企业级后台产品。",
+      "url": "https://ng.ant.design/"
     },
     {
       "url": "guide/change-log",
