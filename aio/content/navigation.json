@@ -546,6 +546,11 @@
       "url": "api"
     },
     {
+      "title": "-",
+      "tooltip": "分割线",
+      "divider": true
+    },
+    {
       "title": "互助问答",
       "tooltip": "github 上的中文互助问答区",
       "url": "https://github.com/ng-docs/ng-docs.github.io/issues"
