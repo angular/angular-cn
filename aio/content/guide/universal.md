@@ -380,9 +380,16 @@ You can get runtime information about the current platform and the `appId` by in
 
 ### Build Destination
 
+### 构建目标
+
 A Universal app is distributed in two parts: the server-side code that serves up the initial application, and the client-side code that's loaded in dynamically.
 
+Universal 应用分为两个部分：提供初始应用的服务端代码，以及动态加载的客户端代码。
+
 The Angular CLI outputs the client-side code in the `dist` directory by default, so you modify the `outputPath` for the __build__ target in the `angular.json` to keep the client-side build outputs separate from the server-side code. The client-side build output will be served by the Express server.
+
+Angular CLI 默认会输出 `dist` 目录中的客户端代码，因此你要修改 `angular.json` 中**构建目标**的 `outputPath`，来把客户端的构建目标和服务端的分开。
+客户端构建的输出将会用 Express 提供服务。
 
 ```
 ...
@@ -850,6 +857,8 @@ Now that you've created the TypeScript and Webpack config files and configured t
 现在，你已经创建了 TypeScript 和 Webpack 的配置文件并配置好了 Angular CLI，可以构建并运行这个 Universal 应用了。
 
 First add the _build_ and _serve_ commands to the `scripts` section of the `package.json`:
+
+首先在 `package.json` 的 `scripts` 区添加 `build` 和 `serve` 命令：
 
 ```
 "scripts": {
