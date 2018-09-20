@@ -88,6 +88,7 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "jasmine": "^2.6.0",
+    "mkdirp": "^0.5.1",
     "ng-pwa-tools": "^0.0.10",
     "rxjs": "6.0.0-uncanny-rc.7",
     "rxjs-compat": "6.0.0-uncanny-rc.7",

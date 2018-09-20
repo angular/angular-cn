@@ -9,6 +9,7 @@ set -x
 cd `dirname $0`
 
 yarn build
+ts-node ./tools/translator/bin/ssr.ts
 cp -r dist/* ../../ng-docs.github.io/
 cd ../../ng-docs.github.io
 
