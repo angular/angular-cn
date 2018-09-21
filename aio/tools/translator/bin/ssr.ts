@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
 import * as path from 'path';
 
-function buildSsrPages(): void {
+function buildInnerPages(): void {
   const navigation = fs.readFileSync('./content/navigation.json', 'utf-8');
   const indexTemplate = fs.readFileSync('./dist/index.html', 'utf-8');
   const aioShellTemplate = fs.readFileSync(__dirname + '/../assets/aio-shell-template.html');
@@ -22,4 +22,12 @@ function buildSsrPages(): void {
     });
 }
 
-buildSsrPages();
+function buildIndexPage(): void {
+  const indexTemplate = fs.readFileSync('./dist/index.html', 'utf-8');
+  const aioShellIndex = fs.readFileSync(__dirname + '/../assets/aio-shell-index.html');
+  const content = indexTemplate.replace('<aio-shell></aio-shell>', `<aio-shell>${aioShellIndex}</aio-shell>`);
+  fs.writeFileSync(`./dist/index.html`, content, 'utf-8');
+}
+
+buildInnerPages();
+buildIndexPage();
