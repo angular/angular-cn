@@ -57,7 +57,7 @@ Many third-party libraries are available as NgModules such as
 <a href="https://github.com/angular/angularfire2">AngularFire2</a>.
 
 Angular 自己的库都是 NgModule，比如 `FormsModule`、`HttpClientModule` 和 `RouterModule`。
-很多第三方库也是 NgModule，比如 <a href="https://material.angular.io/">Material Design</a>、
+很多第三方库也是 NgModule，比如 <a href="https://material.angular.cn/">Material Design</a>、
 <a href="http://ionicframework.com/">Ionic</a> 和
 <a href="https://github.com/angular/angularfire2">AngularFire2</a>。
 

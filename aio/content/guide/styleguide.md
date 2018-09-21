@@ -3643,7 +3643,7 @@ Developers place components on the page as they would native HTML elements and w
 There are a few cases where you give a component an attribute, such as when you want to augment a built-in element. For example, [Material Design](https://material.angular.io/components/button/overview) uses this technique with `<button mat-button>`. However, you wouldn't use this technique on a custom element.
 
 少数情况下，你要为组件使用属性选择器，比如你要加强某个内置元素时。
-比如，[Material Design 组件库](https://material.angular.io/components/button/overview)就会对 `<button mat-button>` 使用这项技术。不过，你不应该在自定义组件上使用这项技术。
+比如，[Material Design 组件库](https://material.angular.cn/components/button/overview)就会对 `<button mat-button>` 使用这项技术。不过，你不应该在自定义组件上使用这项技术。
 
 </div>
 

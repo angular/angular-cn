@@ -42,7 +42,7 @@ For more information, see the [Angular CLI documentation.](https://github.com/an
 Angular Material provides schematics for typical app layouts. 
 See the [Angular Material documentation](https://material.angular.io/guides "Angular Material documentation") for details.
 
-比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.io/guides "Angular Material documentation")。
+比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.cn/guides "Angular Material documentation")。
 
 </div>
 
