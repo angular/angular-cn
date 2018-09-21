@@ -11,10 +11,12 @@ function buildSsrPages(): void {
     .map((entry) => entry.replace(/^"url": "(.*?)".*$/, '$1'))
     .filter(url => url.slice(0, 4) !== 'http')
     .forEach(url => {
-      const generated: { title: string, content: string } = JSON.parse(fs.readFileSync(`./dist/generated/docs/${url}.json`, 'utf-8'));
+      const generated: { title: string, contents: string } = JSON.parse(fs.readFileSync(`./dist/generated/docs/${url}.json`, 'utf-8'));
+
+      const content = generated.contents.replace(/href="(?!http)(.{2,}?)"/gi, 'href="/$1"');
       const pageContent = pageTemplate
         .replace('<title>Angular Docs</title>', `<title>${generated.title} - Angular 官方文档</title>`)
-        .replace('<aio-page-content-placeholder></aio-page-content-placeholder>', generated.content);
+        .replace('<aio-page-content-placeholder></aio-page-content-placeholder>', content);
       mkdirp.sync(path.dirname(`./dist/${url}`));
       fs.writeFileSync(`./dist/${url}.html`, pageContent, 'utf-8');
     });
