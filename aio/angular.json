@@ -35,7 +35,7 @@
               "src/app/search/search-worker.js",
               "src/favicon.ico",
               "src/pwa-manifest.json",
-              "src/google385281288605d160.html",
+              "src/google44a5c950a9a9b940.html",
               {
                 "glob": "custom-elements.min.js",
                 "input": "node_modules/@webcomponents/custom-elements",
@@ -125,7 +125,7 @@
               "src/app/search/search-worker.js",
               "src/favicon.ico",
               "src/pwa-manifest.json",
-              "src/google385281288605d160.html",
+              "src/google44a5c950a9a9b940.html",
               {
                 "glob": "custom-elements.min.js",
                 "input": "node_modules/@webcomponents/custom-elements",
