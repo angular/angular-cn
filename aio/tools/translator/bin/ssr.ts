@@ -9,6 +9,11 @@ const indexTemplate = fs.readFileSync('./dist/index.html', 'utf-8');
 const aioShellTemplate = fs.readFileSync(__dirname + '/../assets/aio-shell-template.html');
 const pageTemplate = indexTemplate.replace(rootElementPattern, `${aioShellTemplate}`);
 
+function purge(text: string): string {
+  return text.replace(/<!--\s*-->/g, '')
+    .replace(/<!-- links (to|from) this doc[\s\S]*?-->/g, '');
+}
+
 function composePage(url) {
   const { title, contents } = JSON.parse(fs.readFileSync(`./dist/generated/docs/${url}.json`, 'utf-8'));
 
@@ -20,7 +25,7 @@ function composePage(url) {
     .replace('<title>Angular Docs</title>', `<title>${title} - Angular 官方文档</title>`)
     .replace('<aio-page-content-placeholder></aio-page-content-placeholder>', ssrContent);
   mkdirp.sync(path.dirname(`./dist/${url}`));
-  fs.writeFileSync(`./dist/${url}.html`, pageContent, 'utf-8');
+  fs.writeFileSync(`./dist/${url}.html`, purge(pageContent), 'utf-8');
 }
 
 function buildGuidePages(): void {
@@ -40,14 +45,14 @@ function buildApiPages(): void {
   const apiListContent = fs.readFileSync('./dist/api.html', 'utf-8')
     .replace(rootElementPattern, `<aio-shell><h3>API List</h3>${links}</aio-shell>`);
 
-  fs.writeFileSync(`./dist/api.html`, apiListContent, 'utf-8');
+  fs.writeFileSync(`./dist/api.html`, purge(apiListContent), 'utf-8');
 }
 
 function buildIndexPage(): void {
   const indexTemplate = fs.readFileSync('./dist/index.html', 'utf-8');
   const aioShellIndex = fs.readFileSync(__dirname + '/../assets/aio-shell-index.html');
   const content = indexTemplate.replace(rootElementPattern, `${aioShellIndex}`);
-  fs.writeFileSync(`./dist/index.html`, content, 'utf-8');
+  fs.writeFileSync(`./dist/index.html`, purge(content), 'utf-8');
 }
 
 buildGuidePages();
