@@ -19,8 +19,7 @@ cd ../../ng-docs.github.io
 cp index.html 404.html
 git add .
 git commit --allow-empty -am "${commitMessage}"
-git tag "${commitSha}"
 
-git push --tags
+git push
 
 cd -
