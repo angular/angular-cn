@@ -6,6 +6,9 @@ nvm use 8
 
 set -x
 
+commitSha=$(git rev-parse --short HEAD)
+commitMessage=$(git log --oneline -n 1)
+
 cd `dirname $0`
 
 yarn build
@@ -15,8 +18,9 @@ cd ../../ng-docs.github.io
 
 cp index.html 404.html
 git add .
-git commit -am "publish"
+git commit --allow-empty -am "${commitMessage}"
+git tag "${commitSha}"
 
-git push
+git push --tags
 
 cd -
