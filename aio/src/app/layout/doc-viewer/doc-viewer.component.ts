@@ -156,12 +156,6 @@ export class DocViewerComponent implements OnDestroy {
    * Tell search engine crawlers whether to index this page
    */
   private setNoIndex(val: boolean) {
-    if (val) {
-
-      this.metaService.addTag({ name: 'robots', content: 'noindex' });
-    } else {
-      this.metaService.removeTag('name="robots"');
-    }
   }
 
   /**
