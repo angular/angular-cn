@@ -2038,7 +2038,7 @@ Follow these steps:
 
 * Create a (pre-routing) `heroes.module.ts` in the heroes folder that looks like this:
 
-   在 `heroes` 子目录下（不带路由）的 `heroes.module.ts` 文件，内容如下：
+   在 `heroes` 子目录下创建一个不带路由的 `heroes.module.ts` 文件，内容如下：
 
 <code-example path="router/src/app/heroes/heroes.module.ts" region="v1" title="src/app/heroes/heroes.module.ts (pre-routing)">
 
@@ -2046,7 +2046,7 @@ Follow these steps:
 
 When you're done, you'll have these *hero management* files:
 
-安排完这些，你就有了四个*英雄管理*特性区的文件：
+做完这些，你就有了四个*英雄管理*特性区的文件：
 
 <div class='filetree'>
 
