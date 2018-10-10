@@ -117,7 +117,7 @@ It's the brackets (`[]`) that make it an attribute selector.
 Angular locates each element in the template that has an attribute named `appHighlight` and applies the logic of this directive to that element.
 
 这里的方括号(`[]`)表示它的属性型选择器。
-Angular 会在模板中定位每个名叫 `appHighlight` 的元素，并且为这些元素加上本指令的逻辑。
+Angular 会在模板中定位每个拥有名叫 `appHighlight` 属性的元素，并且为这些元素加上本指令的逻辑。
 
 The _attribute selector_ pattern explains the name of this kind of directive.
 
