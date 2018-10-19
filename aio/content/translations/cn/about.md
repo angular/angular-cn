@@ -105,6 +105,8 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - ppjjzz（来自 Github）
 - jerrystarry（来自 Github）
 - Eve-1995（来自 Github）
+- q86002618（来自 Github）
+- y4code（来自 Github）
 - 另外还有一些做好事不留名的活雷锋
 
 想让你的名字也出现在这里吗？请提供[反馈、纠错](https://github.com/angular/angular-cn/issues)。
