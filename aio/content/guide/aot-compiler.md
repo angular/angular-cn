@@ -1128,7 +1128,7 @@ Adding `export` doesn't work when the compiler needs the _actual value_
 in order to generate code.
 For example, it doesn't work for the `template` property.
 
-当编译器需要知道*真正的值*已生成代码时，添加 `export` 的方式就是无效的。比如这里的 `template` 属性。
+当编译器需要知道*真正的值*以生成代码时，添加 `export` 的方式就是无效的。比如这里的 `template` 属性。
 
 ```
 

@@ -2,6 +2,12 @@
 
 # 动态组件加载器
 
+<div class="alert is-warning">
+
+译注：本页讲的是一个用于显示广告的范例，而部分广告拦截器插件，比如 Chrome 的 AdGuard，可能会破坏其工作逻辑，因此，请在本页关闭那些插件。
+
+</div>
+
 Component templates are not always fixed. An application may need to load new components at runtime.
 
 组件的模板不会永远是固定的。应用可能会需要在运行期间加载一些新的组件。
