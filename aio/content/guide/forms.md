@@ -991,7 +991,7 @@ Now you'll add a new hero in this form.
 Place a *New Hero* button at the bottom of the form and bind its click event to a `newHero` component method.
 
 现在，你要在这个表单中添加新的英雄。
-  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到 `newHero` 组件。
+  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到组件上的 `newHero` 方法。
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" title="src/app/hero-form/hero-form.component.html (New Hero button)">
 
