@@ -281,11 +281,11 @@ template with a `<app-hero-form>` tag.
 
 * The `templateUrl` property points to a separate file for the template HTML.
 
-   `moduleId: module.id` 属性设置了基地址，用于从相对模块路径加载 `templateUrl`。
+   `templateUrl` 属性指向一个独立的 HTML 模板文件。
 
 * You defined dummy data for `model` and `powers`, as befits a demo.
 
-   `templateUrl` 属性指向一个独立的 HTML 模板文件。
+   你定义了一些用来演示的，关于 `model` 和 `powers` 的模拟数据。
 
 Down the road, you can inject a data service to get and save real data
 or perhaps expose these properties as inputs and outputs
