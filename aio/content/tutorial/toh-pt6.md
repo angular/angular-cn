@@ -184,7 +184,8 @@ Define the `heroesUrl` of the form `:base/:collectionName` with the address of t
  Here `base` is the resource to which requests are made,
  and `collectionName` is the heroes data object in the `in-memory-data-service.ts`.
 
-把服务器上英雄数据资源的访问地址定义为 `heroesURL`。
+把服务器上英雄数据资源的访问地址 `heroesURL` 定义为 `:base/:collectionName` 的形式。
+这里的 `base` 是要请求的资源，而 `collectionName` 是 `in-memory-data-service.ts` 中的英雄数据对象。
 
 <code-example 
   path="toh-pt6/src/app/hero.service.ts" 
@@ -330,7 +331,7 @@ innocuous result so that the application keeps working.
 The following `handleError()` will be shared by many `HeroService` methods
 so it's generalized to meet their different needs.
 
-下面这个 `errorHandler()` 将会在很多 `HeroService` 的方法之间共享，所以要把它通用化，以支持这些彼此不同的需求。
+下面这个 `handleError()` 将会在很多 `HeroService` 的方法之间共享，所以要把它通用化，以支持这些彼此不同的需求。
 
 Instead of handling the error directly, it returns an _error handler_ function to `catchError` that it 
 has configured with both the name of the operation that failed and a safe return value.
@@ -350,7 +351,7 @@ a user friendly message and returns a safe value to the app so it can keep worki
 Because each service method returns a different kind of `Observable` result,
 `handleError()` takes a type parameter so it can return the safe value as the type that the app expects.
 
-因为每个服务方法都会返回不同类型的 `Observable` 结果，因此 `errorHandler()` 也需要一个类型参数，以便它返回一个此类型的安全值，正如应用所期望的那样。
+因为每个服务方法都会返回不同类型的 `Observable` 结果，因此 `handleError()` 也需要一个类型参数，以便它返回一个此类型的安全值，正如应用所期望的那样。
 
 ### Tap into the _Observable_
 
@@ -384,12 +385,14 @@ Here is the final version of `getHeroes` with the `tap` that logs the operation.
 
 Most web APIs support a _get by id_ request in the form `:baseURL/:id`.
 
+大多数的 Web API 都支持以 `:baseURL/:id` 的形式根据 id 进行获取。
+
 Here, the _base URL_ is the `heroesURL` defined in the [Heroes and HTTP](http://localhost:4800/tutorial/toh-pt6#heroes-and-http) section (`api/heroes`) and _id_ is
 the number of the hero that you want to retrieve. For example, `api/heroes/11`.
 Add a `HeroService.getHero()` method to make that request:
 
-大多数 web API 都可以通过 `api/hero/:id` 的形式（比如 `api/hero/:id` ）支持*根据 id 获取单个对象*。
-添加一个 `HeroService.getHero()` 方法来发起请求：
+这里的 `baseURL` 就是在 [英雄列表与 HTTP](http://localhost:4800/tutorial/toh-pt6#heroes-and-http) 部分定义过的 `heroesURL`（`api/heroes`）。而 `id` 则是你要获取的英雄的编号，比如，`api/heroes/11`。
+添加一个 `HeroService.getHero()` 方法，以发起该请求：
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="getHero" header="src/app/hero.service.ts"></code-example>
 

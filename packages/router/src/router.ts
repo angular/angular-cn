@@ -910,7 +910,9 @@ export class Router {
    * in the second parameter (the `NavigationExtras`) that would change the
    * provided URL.
    *
-   * 与 `navigate` 不同，`navigateByUrl` 只接收完整的 URL，而不会管当前 URL。
+   * 由于 `navigateByUrl()` 要求必须用绝对地址作为第一个参数，所以它不会在当前 URL 上做增量修改，
+   * 并且会忽略第二个参数 `NavigationExtras` 中所有可能会更改 URL 的属性。
+   *
    */
   navigateByUrl(url: string|UrlTree, extras: NavigationExtras = {skipLocationChange: false}):
       Promise<boolean> {
@@ -964,6 +966,8 @@ export class Router {
    * The first parameter of `navigate()` is a delta to be applied to the current URL
    * or the one provided in the `relativeTo` property of the second parameter (the
    * `NavigationExtras`).
+   *
+   * `navigate()` 的第一个参数是相对于当前 URL 或第二参数 `NavigationExtras` 中 `relativeTo` 属性所指定的 URL 的增量修改。
    */
   navigate(commands: any[], extras: NavigationExtras = {skipLocationChange: false}):
       Promise<boolean> {

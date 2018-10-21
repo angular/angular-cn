@@ -80,11 +80,11 @@ In order to show how subscribing works, we need to create a new observable. Ther
 
   * `of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
 
-     `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
+     `of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
 
   * `from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
 
-     `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
+     `from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
     该方法通常用于把一个数组转换成一个（发送多个值的）可观察对象。
 
 </div>
@@ -125,7 +125,7 @@ Use the `Observable` constructor to create an observable stream of any type. The
 
 For example, to create an observable equivalent to the `of(1, 2, 3)` above, you could do something like this:
 
-比如，要创建一个与前面的 `Observable.of(1, 2, 3)` 等价的可观察对象，你可以这样做：
+比如，要创建一个与前面的 `of(1, 2, 3)` 等价的可观察对象，你可以这样做：
 
 <code-example path="observables/src/creating.ts" region="subscriber" header="Create observable with constructor"></code-example>
 

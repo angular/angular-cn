@@ -132,7 +132,7 @@ Typically you don’t interact with the compiler directly; rather, you use it in
 
 **@angular/http**: Angular's old, deprecated, HTTP client.
 
-**@angular/http**：Angular 的老的、很快就会废弃的 HTTP 客户端库。
+**@angular/http**：Angular 的老的、已废弃的 HTTP 客户端库。
 
 **@angular/platform-browser**: Everything DOM and browser related, especially
 the pieces that help render into the DOM.
@@ -140,7 +140,7 @@ This package also includes the `bootstrapModuleFactory()` method
 for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
 
 **@angular/platform-browser**：与 DOM 和浏览器相关的每样东西，特别是帮助往 DOM 中渲染的那部分。
-这个包还包含 bootstrapStatic 方法，用来引导那些在产品构建时要用 [AOT](guide/aot-compiler) 进行编译的应用程序。
+这个包还包含 `bootstrapModuleFactory()` 方法，用来引导那些在产品构建时要用 [AOT](guide/aot-compiler) 进行编译的应用程序。
 
 **@angular/platform-browser-dynamic**: Includes [Providers](api/core/Provider)
 and methods to compile and run the app on the client 

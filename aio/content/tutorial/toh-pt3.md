@@ -36,19 +36,35 @@ Use the Angular CLI to generate a new component named `hero-detail`.
 
 The command scaffolds the following:
 
+这个命令会做这些事：
+
 * Creates a directory `src/app/hero-detail`.
+
+  创建目录 `src/app/hero-detail`。
 
 Inside that directory four files are generated:
 
+在这个目录中会生成四个文件：
+
 * A CSS file for the component styles.
+
+  作为组件样式的 CSS 文件。
+
 * An HTML file for the component template.
+
+  作为组件模板的 HTML 文件。
+
 * A TypeScript file with a component class named `HeroDetailComponent`.
+
+  存放组件类 `HeroDetailComponent` 的 TypeScript 文件。
+
 * A test file for the `HeroDetailComponent` class.
+
+  `HeroDetailComponent` 类的测试文件。
 
 The command also adds the `HeroDetailComponent` as a declaration in the `@NgModule` decorator of the `src/app/app.module.ts` file.
 
-
-该命令会生成 `HeroDetailComponent` 文件的脚手架，并把它声明在 `AppModule` 中。
+该命令还会把 `HeroDetailComponent` 添加到 `src/app/app.module.ts` 文件中 `@NgModule` 的 `declarations` 列表中。
 
 ### Write the template
 

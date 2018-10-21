@@ -20,16 +20,16 @@ Try the <live-example title="Reactive Forms in Stackblitz">Reactive Forms live-e
 
 Reactive forms use an explicit and immutable approach to managing the state of a form at a given point in time. Each change to the form state returns a new state, which maintains the integrity of the model between changes. Reactive forms are built around observable streams, where form inputs and values are provided as streams of input values, which can be accessed synchronously. 
 
-响应式表单使用显式的、不可变的方式，管理表单在特定的时间点上的状态。对表单状态的每一次变更都会返回一个新的状态，这样可以在变化时维护模型的整体性。响应式表单是围绕 Observable 的流构建的，表单的输入和值都是通过这些输入值组成的流来提供的，同时，也赋予你对数据进行同步访问的能力。这种方式允许你的模板利用这些表单的“状态变更流”，而不必依赖它们。
+响应式表单使用显式的、不可变的方式，管理表单在特定的时间点上的状态。对表单状态的每一次变更都会返回一个新的状态，这样可以在变化时维护模型的整体性。响应式表单是围绕 Observable 的流构建的，表单的输入和值都是通过这些输入值组成的流来提供的，它可以同步访问。
 
 Reactive forms also provide a straightforward path to testing because you are assured that your data is consistent and predictable when requested. Any consumers of the streams have access to manipulate that data safely.
 
-响应式表单还让你能更简单的进行测试，因为在请求的那一刻你可以确信这些数据是一致的、可预料的。模板之外的消费方也可以访问同样的流，它们可以安全地操纵这些数据。
+响应式表单还提供了一种更直白的测试路径，因为在请求时你可以确信这些数据是一致的、可预料的。这个流的任何一个消费者都可以安全地操纵这些数据。
 
 Reactive forms differ from template-driven forms in distinct ways. Reactive forms provide more predictability with synchronous access to the data model, immutability with observable operators, and change tracking through observable streams. If you prefer direct access to modify data in your template, template-driven forms are less explicit because they rely on directives embedded in the template, along with mutable data to track changes asynchronously. See the [Forms Overview](guide/forms-overview) for detailed comparisons between the two paradigms.
 
 响应式表单与模板驱动的表单有着显著的不同点。响应式表单通过对数据模型的同步访问提供了更多的可预测性，使用 Observable 的操作符提供了不可变性，并且通过 Observable 流提供了变化追踪功能。
-如果你更喜欢在模板中直接访问数据，那么模板驱动的表单会显得更明确，因为它们依赖嵌入到模板中的指令，并借助可变数据来异步跟踪变化。参见[附录](#appendix)来了解这两种范式之间的详细比较。
+如果你更喜欢在模板中直接访问数据，那么模板驱动的表单会显得更明确，因为它们依赖嵌入到模板中的指令，并借助可变数据来异步跟踪变化。参见[表单概览](guide/forms-overview)来了解这两种范式之间的详细比较。
 
 ## Getting started
 
@@ -37,7 +37,7 @@ Reactive forms differ from template-driven forms in distinct ways. Reactive form
 
 This section describes how to add a single form control. In the example, the user enters their name into an input field, captures that input value, and displays the current value of the form control element.
 
-本节描述了添加单个表单控件的一些关键步骤。这里的例子允许用户在输入框中输入自己的名字，捕获输入的值，并把表单控件元素的当前值显示出来。
+本节描述了如何添加单个表单控件。这里的例子允许用户在输入框中输入自己的名字，捕获输入的值，并把表单控件元素的当前值显示出来。
 
 ### Step 1: Registering the reactive forms module
 
@@ -53,7 +53,7 @@ To use reactive forms, import `ReactiveFormsModule` from the `@angular/forms` pa
 
 ### Step 2: Generating and importing a new form control 
 
-### 步骤 2 - 导入并创建一个新的表单控件
+### 步骤 2 - 生成并导入一个新的表单控件
 
 Generate a component for the control.
 
@@ -67,7 +67,7 @@ Generate a component for the control.
 
 The `FormControl` class is the basic building block when using reactive forms. To register a single form control, import the `FormControl` class into your component and create a new instance of the form control to save as a class property.
 
-当使用响应式表单时，`FormControl` 是最基本的构造块。要注册单个的表单控件，请在组件中导入 `FormControl` 类，并创建一个 `FormControl` 的新实例，把它保存在类的某个属性中。
+当使用响应式表单时，`FormControl` 类是最基本的构造块。要注册单个的表单控件，请在组件中导入 `FormControl` 类，并创建一个 `FormControl` 的新实例，把它保存在类的某个属性中。
 
 <code-example path="reactive-forms/src/app/name-editor/name-editor.component.ts" region="create-control" header="src/app/name-editor/name-editor.component.ts">
 
@@ -75,7 +75,7 @@ The `FormControl` class is the basic building block when using reactive forms. T
 
 Use the constructor of `FormControl` to set its initial value, which in this case is an empty string. By creating these controls in your component class, you get immediate access to listen for, update, and validate the state of the form input. 
 
-`FormControl` 的构造函数可以设置初始值，这个例子中它是空字符串。通过在你的组件类中创建这些控件，你可以直接对表单控件的状态进行监听、修改和校验。
+可以用 `FormControl` 的构造函数设置初始值，这个例子中它是空字符串。通过在你的组件类中创建这些控件，你可以直接对表单控件的状态进行监听、修改和校验。
 
 ### Step 3: Registering the control in the template
 
@@ -107,7 +107,7 @@ Using the template binding syntax, the form control is now registered to the `na
 
 The form control assigned to `name` is displayed when the component is added to a template. 
 
-一旦把该组件添加到模板中，指派给 `name` 的 `FormControl` 就会显示出来。
+把该组件添加到模板时，将显示指派给 `name` 的表单控件。
 
 <code-example path="reactive-forms/src/app/app.component.1.html" region="app-name-editor" linenums="false" header="src/app/app.component.html (name editor)">
 
@@ -124,7 +124,7 @@ The form control assigned to `name` is displayed when the component is added to 
 Reactive forms give you access to the form control state and value at a point in time. You can manipulate 
 the current state and value through the component class or the component template. The following examples display the value of the form control instance and change it.
 
-响应式表单让你可以访问表单控件此刻的状态和值。你可以通过组件类或组件模板来操纵其当前状态和值。下面的例子会显示及修改 `FormConrol` 的值。
+响应式表单让你可以访问表单控件此刻的状态和值。你可以通过组件类或组件模板来操纵其当前状态和值。下面的例子会显示及修改 `FormConrol` 实例的值。
 
 {@a display-value}
 
@@ -211,7 +211,7 @@ The form model is the source of truth for the control, so when you click the but
 
 Just as a form control instance gives you control over a single input field, a form group instance tracks the form state of a group of form control instances (for example, a form). Each control in a form group instance is tracked by name when creating the form group. The following example shows how to manage multiple form control instances in a single group.
 
-正如 `FormControl` 的实例能让你控制单个输入框所对应的控件，`FormGroup` 可以跟踪一组 `FormControl` 实例（比如一个表单）的表单状态。当创建 `FormGroup` 时，其中的每个控件都会根据其名字进行跟踪。下列例子展示了如何管理单个控件组中的多个 `FormControl` 实例。
+就像 `FormControl` 的实例能让你控制单个输入框所对应的控件一样，`FormGroup` 的实例也能跟踪一组 `FormControl` 实例（比如一个表单）的表单状态。当创建 `FormGroup` 时，其中的每个控件都会根据其名字进行跟踪。下列例子展示了如何管理单个控件组中的多个 `FormControl` 实例。
 
 Generate a `ProfileEditor` component and import the `FormGroup` and `FormControl` classes from the `@angular/forms` package.
 
@@ -229,7 +229,7 @@ Generate a `ProfileEditor` component and import the `FormGroup` and `FormControl
 
 ### Step 1: Creating a FormGroup instance
 
-### 步骤 1 - 创建 `FormGroup`
+### 步骤 1 - 创建 `FormGroup` 实例
 
 Create a property in the component class named `profileForm` and set the property to a new form group instance. To initialize the form group, provide the constructor with an object of named keys mapped to their control.
 
@@ -292,7 +292,7 @@ The `onSubmit()` method in the `ProfileEditor` component captures the current va
 
 The `submit` event is emitted by the `form` tag using the native DOM event. You trigger the event by clicking a button with `submit` type. This allows the user to press the **Enter** key to submit the completed form. 
 
-`form` 标签所发出的 `submit` 事件是原生 DOM 事件，通过点击类型为 `submit` 的按钮可以触发本事件。这还让用户可以在填写完表单之后使用回车键来触发提交。
+`form` 标签所发出的 `submit` 事件是原生 DOM 事件，通过点击类型为 `submit` 的按钮可以触发本事件。这还让用户可以用回车键来提交填完的表单。
 
 Use a `button` element to add a button to the bottom of the form to trigger the form submission.
 
@@ -344,7 +344,7 @@ When building complex forms, managing the different areas of information is easi
 
 An address is a good example of information that can be grouped together. Form groups can accept both form control and form group instances as children. This makes composing complex form models easier to maintain and logically group together. To create a nested group in `profileForm`, add a nested `address` element to the form group instance.
 
-“地址”就是可以把信息进行分组的绝佳范例。`FormGroup` 可以同时接纳 `FormControl` 和 `FormGroup` 作为子控件。这使得那些比较复杂的表单模型可以更易于维护、更有逻辑性。要想在 `profileForm` 中创建一个嵌套的分组，请添加一个内嵌的名叫 `address` 的 `FormGroup`。
+“地址”就是可以把信息进行分组的绝佳范例。`FormGroup` 可以同时接纳 `FormControl` 和 `FormGroup` 作为子控件。这使得那些比较复杂的表单模型可以更易于维护、更有逻辑性。要想在 `profileForm` 中创建一个嵌套的分组，请添加一个内嵌的名叫 `address` 的元素指向这个 `FormGroup` 实例。
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.ts" region="nested-formgroup" linenums="false" header="src/app/profile-editor/profile-editor.component.ts (nested form group)">
 
@@ -392,7 +392,7 @@ The `ProfileEditor` form is displayed as one group, but the model is broken down
 
 When updating the value for a form group instance that contains multiple controls, you may only want to update parts of the model. This section covers how to update specific parts of a form control data model.
 
-当修改包含多个控件的 `FormGroup` 的值时，你可能只希望更新模型中的一部分，而不是完全替换掉。这一节会讲解该如何更新 `AbstractControl` 模型中的一部分。
+当修改包含多个 `FormGroup` 实例的值时，你可能只希望更新模型中的一部分，而不是完全替换掉。这一节会讲解该如何更新 `AbstractControl` 模型中的一部分。
 
 ### Patching the model value
 
@@ -465,7 +465,7 @@ Import the `FormBuilder` class from the `@angular/forms` package.
 
 The `FormBuilder` service is an injectable provider that is provided with the reactive forms module. Inject this dependency by adding it to the component constructor.
 
-FormBuilder 是一个可注入的服务，它是由 `ReactiveFormModule` 提供的。只要把它添加到组件的构造函数中就可以注入这个依赖。
+`FormBuilder` 是一个可注入的服务提供商，它是由 `ReactiveFormModule` 提供的。只要把它添加到组件的构造函数中就可以注入这个依赖。
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.2.ts" region="inject-form-builder" header="src/app/profile-editor/profile-editor.component.ts (constructor)">
 
@@ -501,7 +501,7 @@ In the example above, you use the `group()` method with the same object to defin
 
 Compare using the form builder to creating the instances manually.
 
-这两种方式达成了相同的效果。
+比较一下用表单构建器和手动创建实例这两种方式。
 
 <code-tabs>
 
@@ -702,7 +702,7 @@ The `*ngFor` directive iterates over each form control instance provided by the 
 
 Each time a new alias instance is added, the new form array instance is provided its control based on the index. This allows you to track each individual control when calculating the status and value of the root control.
 
-每当新的 `alias` 加进来时，`FormArray` 就会基于这个索引号提供它的控件。这将允许你在每次计算根控件的状态和值时跟踪每个控件。
+每当新的 `alias` 加进来时，`FormArray` 的实例就会基于这个索引号提供它的控件。这将允许你在每次计算根控件的状态和值时跟踪每个控件。
 
 #### Adding an alias
 
@@ -910,7 +910,7 @@ Listed below are the base classes and services used to create and manage form co
 
       Syncs `FormControl` in an existing `FormGroup` instance to a form control element by name.
 
-      把一个现有 `FormGroup` 中的 `FormControl` 根据名字绑定到表单控件元素。
+      把一个现有 `FormGroup` 中的 `FormControl` 实例根据名字绑定到表单控件元素。
 
     </td>
 
@@ -928,7 +928,7 @@ Listed below are the base classes and services used to create and manage form co
 
       Syncs an existing `FormGroup` instance to a DOM element.
 
-      把一个现有的 `FormGroup` 绑定到 DOM 元素。
+      把一个现有的 `FormGroup` 实例绑定到 DOM 元素。
 
     </td>
 
@@ -946,7 +946,7 @@ Listed below are the base classes and services used to create and manage form co
 
       Syncs a nested `FormGroup` instance to a DOM element.
 
-      把一个内嵌的 `FormGroup` 绑定到一个 DOM 元素。
+      把一个内嵌的 `FormGroup` 实例绑定到一个 DOM 元素。
 
     </td>
 
@@ -964,7 +964,7 @@ Listed below are the base classes and services used to create and manage form co
 
       Syncs a nested `FormArray` instance to a DOM element.
 
-      把一个内嵌的 `FormArray` 绑定到一个 DOM 元素。
+      把一个内嵌的 `FormArray` 实例绑定到一个 DOM 元素。
 
     </td>
 

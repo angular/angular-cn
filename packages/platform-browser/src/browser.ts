@@ -100,7 +100,8 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
  *
- * 供浏览器使用的 NgModule。
+ * 导出所有 Angular 应用都需要的基础设施。默认包含在用 CLI 的 `new` 命令创建的所有 Angular 应用中。
+ * 它二次导出了 `CommonModule` 和 `ApplicationModule`，以便它们的导出物和提供商能用于所有应用中。
  *
  */
 @NgModule({providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule]})
@@ -116,12 +117,17 @@ export class BrowserModule {
    * Configures a browser-based app to transition from a server-rendered app, if
    * one is present on the page.
    *
-   * @param params An object containing an identifier for the app to transition.
-   * The ID must match between the client and server versions of the app.
-   * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-   *
    * 配置基于浏览器的应用，使其可以从当前页面上的服务端渲染（SSR）应用过渡而来。
    * 指定的参数必须包含一个应用 id，在客户端应用和服务端应用之间它必须一致。
+   *
+   * @param params An object containing an identifier for the app to transition.
+   * The ID must match between the client and server versions of the app.
+   *
+   * 包含要迁移的应用 id 的对象。在应用的客户端版本和服务端版本中这个 ID 必须匹配。
+   *
+   * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
+   *
+   * 重新配置过的 `BrowserModule`，可供导入到应用的根模块 `AppModule` 中。
    *
    * @experimental
    */

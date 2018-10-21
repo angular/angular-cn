@@ -32,7 +32,7 @@ A provider is an instruction to the DI system on how to obtain a value for a dep
 
 If you already have an app that was created with the [Angular CLI](cli), you can create a service using the [`ng generate`](cli/generate) CLI command in the root project directory. Replace _User_ with the name of your service.
 
-如果你是用 CLI 创建的应用，那么可以使用下列 CLI 命令在项目根目录下创建一个服务。把其中的 `User` 替换成你的服务名。
+如果你是用 [Angular CLI](cli) 创建的应用，那么可以使用下列 CLI 的 [`ng generate`](cli/generate) 命令在项目根目录下创建一个服务。把其中的 `User` 替换成你的服务名。
 
 ```sh
 
@@ -168,7 +168,8 @@ You may also be interested in:
 
 * [Tree-shakable Providers](guide/dependency-injection-providers#tree-shakable-providers).
 
-   [可摇树优化的服务提供商](guide/dependency-injection#tree-shakable-providers)。
+   [可摇树优化的服务提供商](guide/dependency-injection-providers#tree-shakable-providers)。
+   
 * [NgModule FAQ](guide/ngmodule-faq).
 
    [NgModule 常见问题](guide/ngmodule-faq)。

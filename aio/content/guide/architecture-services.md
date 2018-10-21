@@ -11,7 +11,7 @@ By separating a component's view-related functionality from other kinds of proce
 you can make your component classes lean and efficient.
 
 Angular 把组件和服务区分开，以提高模块性和复用性。
-   通过把组件中和视图有关的功能与其他类型的处理分离开，你可以让组件类更加精简、高效。
+通过把组件中和视图有关的功能与其他类型的处理分离开，你可以让组件类更加精简、高效。
 
 Ideally, a component's job is to enable the user experience and nothing more.
 A component should present properties and methods for data binding,
@@ -19,7 +19,7 @@ in order to mediate between the view (rendered by the template)
 and the application logic (which often includes some notion of a *model*).
 
 理想情况下，组件的工作只管用户体验，而不用顾及其它。
-它应该提供用于数据绑定的属性和方法，以便作为视图（由模板渲染）和应用逻辑（通常包含一些模型的概念）的中介者。
+它应该提供用于数据绑定的属性和方法，以便作为视图（由模板渲染）和应用逻辑（通常包含一些*模型*的概念）的中介者。
 
 A component can delegate certain tasks to services, such as fetching data from the server,
 validating user input, or logging directly to the console. 
@@ -62,25 +62,22 @@ Services can depend on other services. For example, here's a `HeroService` that 
 DI is wired into the Angular framework and used everywhere to provide new components with the services or other things they need.
 Components consume services; that is, you can *inject* a service into a component, giving the component access to that service class. 
 
+DI 被融入 Angular 框架中，用于在任何地方给新建的组件提供服务或所需的其它东西。
 组件是服务的消费者，也就是说，你可以把一个服务*注入*到组件中，让组件类得以访问该服务类。
 
 To define a class as a service in Angular, use the `@Injectable()` decorator to provide the metadata that allows Angular to inject it into a component as a *dependency*.  
 Similarly, use the `@Injectable()` decorator to indicate that a component or other class (such as another service, a pipe, or an NgModule) *has* a dependency. 
 
-在 Angular 中，要把一个类定义为服务，就要用 `@Injectable` 装饰器来提供元数据，以便让 Angular 可以把它作为*依赖*注入到组件中。
-同样，也要使用 `@Injectable` 装饰器来表明一个组件或其它类（比如另一个服务、管道或 NgModule）*拥有*一个依赖。
-依赖并不必然是服务，它也可能是函数或值等等。
+在 Angular 中，要把一个类定义为服务，就要用 `@Injectable()` 装饰器来提供元数据，以便让 Angular 可以把它作为*依赖*注入到组件中。
+同样，也要使用 `@Injectable()` 装饰器来表明一个组件或其它类（比如另一个服务、管道或 NgModule）*拥有*一个依赖。
 
 * The *injector* is the main mechanism. Angular creates an application-wide injector for you during the bootstrap process, and additional injectors as needed. You don't have to create injectors.
 
-  *注入器*是主要的机制。你不用自己创建 Angular 注入器。Angular 会在启动过程中为你创建全应用级注入器。
+  *注入器*是主要的机制。你不用自己创建 Angular 注入器。Angular 会在启动过程中为你创建全应用级注入器以及所需的其它注入器。你不用自己创建注入器。
 
 * An injector creates dependencies, and maintains a *container* of dependency instances that it reuses if possible.
 
   该注入器会创建依赖、维护一个*容器*来管理这些依赖，并尽可能复用它们。
-
-同样，也要使用 `@Injectable` 装饰器来表明一个组件或其它类（比如另一个服务、管道或 NgModule）*拥有*一个依赖。
-依赖并不必然是服务，它也可能是函数或值等等。
 
 * A *provider* is an object that tell an injector how to obtain or create a dependency.
 
@@ -134,11 +131,11 @@ or you can register providers with specific modules or components.
 You register providers in the metadata of the service (in the `@Injectable()` decorator),
 or in the `@NgModule()` or `@Component()` metadata 
 
-对于要用到的任何服务，你必须至少注册一个*提供商*。服务可以注册自己的提供商，这样可以让自己到处可用。或者，你也可以为特定的模块或组件注册提供商。要注册提供商，就要在服务的 `@Injectable` 装饰器中提供它的元数据，或者在`@NgModule` 或 `@Component` 的元数据中。
+对于要用到的任何服务，你必须至少注册一个*提供商*。服务可以在自己的元数据中把自己注册为提供商，这样可以让自己随处可用。或者，你也可以为特定的模块或组件注册提供商。要注册提供商，就要在服务的 `@Injectable()` 装饰器中提供它的元数据，或者在`@NgModule()` 或 `@Component()` 的元数据中。
 
 * By default, the Angular CLI command [`ng generate service`](cli/generate) registers a provider with the root injector for your service by including provider metadata in the `@Injectable()` decorator. The tutorial uses this method to register the provider of  HeroService class definition.
 
-  默认情况下，Angular CLI 的 `ng generate service` 命令会在 `@Injectable` 装饰器中提供元数据，把它注册到根注入器中。本教程就用这种方法注册了 HeroService 的提供商：
+  默认情况下，Angular CLI 的 [`ng generate service`](cli/generate) 命令会在 `@Injectable()` 装饰器中提供元数据来把它注册到根注入器中。本教程就用这种方法注册了 HeroService 的提供商：
 
 ``` 
 @Injectable({
@@ -155,7 +152,7 @@ or in the `@NgModule()` or `@Component()` metadata
 
 * When you register a provider with a [specific NgModule](guide/architecture-modules), the same instance of a service is available to all components in that NgModule. To register at this level, use the `providers` property of the `@NgModule()` decorator,
 
-   当你使用[特定的 NgModule](guide/architecture-modules) 注册提供商时，该服务的同一个实例将会对该 NgModule 中的所有组件可用。要想在这一层注册，请用 `@NgModule` 装饰器中的 `providers` 属性：
+   当你使用[特定的 NgModule](guide/architecture-modules) 注册提供商时，该服务的同一个实例将会对该 NgModule 中的所有组件可用。要想在这一层注册，请用 `@NgModule()` 装饰器中的 `providers` 属性：
 
 ``` 
 @NgModule({
@@ -172,7 +169,7 @@ service with each new instance of that component.
 At the component level, register a service provider in the `providers` property of the `@Component()` metadata.
 
    当你在组件级注册提供商时，你会为该组件的每一个新实例提供该服务的一个新实例。
-  要在组件级注册，就要在 `@Component` 元数据的 `providers` 属性中注册服务提供商。
+  要在组件级注册，就要在 `@Component()` 元数据的 `providers` 属性中注册服务提供商。
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" header="src/app/hero-list.component.ts (component providers)" region="providers"></code-example>
 

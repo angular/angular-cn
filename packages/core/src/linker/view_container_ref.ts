@@ -19,7 +19,7 @@ import {EmbeddedViewRef, ViewRef} from './view_ref';
 /**
  * Represents a container where one or more views can be attached to a component.
  *
- * 代表一个容器，可以在里面附加一个或多个视图。
+ * 表示可以将一个或多个视图附着到组件中的容器。
  *
  * Can contain *host views* (created by instantiating a
  * component with the `createComponent()` method), and *embedded views*
@@ -34,9 +34,6 @@ import {EmbeddedViewRef, ViewRef} from './view_ref';
  *
  * @see `ComponentRef`
  * @see `EmbeddedViewRef`
- *
- * 要想访问元素的 `ViewContainerRef`，你可以放一个 {@link Directive}，并把该元素的 `ViewContainerRef` 注入进去，
- * 也可以通过 {@link ViewChild} 查询来取到它。
  *
  */
 export abstract class ViewContainerRef {
@@ -64,6 +61,8 @@ export abstract class ViewContainerRef {
 
   /**
    * The [dependency injector](guide/glossary#injector) for this view container.
+   *
+   * 该视图容器的[依赖注入器](guide/glossary#injector)。
    */
   abstract get injector(): Injector;
 
@@ -79,10 +78,16 @@ export abstract class ViewContainerRef {
 
   /**
    * Retrieves a view from this container.
+   *
+   * 从该容器中获取一个视图
+   *
    * @param index The 0-based index of the view to retrieve.
+   *
+   * 所要获取视图的从 0 开始的索引。
+   *
    * @returns The `ViewRef` instance, or null if the index is out of range.
    *
-   * 返回本容器中指定序号的视图的 {@link ViewRef}。
+   * `ViewRef` 实例，如果索引超出范围则为 0。
    */
   abstract get(index: number): ViewRef|null;
 

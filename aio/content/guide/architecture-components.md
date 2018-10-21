@@ -61,15 +61,15 @@ In addition to containing or pointing to the template, the `@Component` metadata
 
 除了包含或指向模板之外，`@Component` 的元数据还会配置要如何在 HTML 中引用该组件，以及该组件需要哪些服务等等。
 
- Here's an example of basic metadata for `HeroListComponent`.
+Here's an example of basic metadata for `HeroListComponent`.
 
- 下面的例子中就是 `HeroListComponent` 的基础元数据：
+下面的例子中就是 `HeroListComponent` 的基础元数据：
 
 <code-example path="architecture/src/app/hero-list.component.ts" linenums="false" header="src/app/hero-list.component.ts (metadata)" region="metadata"></code-example>
 
 This example shows some of the most useful `@Component` configuration options:
 
- 这个例子展示了一些最常用的 `@Component` 配置选项：
+这个例子展示了一些最常用的 `@Component` 配置选项：
 
 * `selector`: A CSS selector that tells Angular to create and insert an instance of this component wherever it finds the corresponding tag in template HTML. For example, if an app's  HTML contains `<app-hero-list></app-hero-list>`, then
 Angular inserts an instance of the `HeroListComponent` view between those tags.
@@ -85,7 +85,7 @@ Angular inserts an instance of the `HeroListComponent` view between those tags.
 
 * `providers`: An array of [providers](guide/glossary#provider) for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.  
 
-   `providers` 是当前组件所需的**依赖注入提供商**的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
+   `providers`：当前组件所需的服务[提供商](guide/glossary#provider)的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
 
 ## Templates and views
 
@@ -142,7 +142,7 @@ This template uses typical HTML elements like `<h2>` and  `<p>`, and also includ
 Notice how custom components like this mix seamlessly with native HTML in the same layouts.
 
    模板中的 `<app-hero-detail>` 标签是一个代表新组件 `HeroDetailComponent` 的元素。
-  `HeroDetailComponent`（代码略）是 `HeroListComponent` 的一个子组件，它定义了英雄详情视图。
+  `HeroDetailComponent`（代码略）定义了 `HeroListComponent` 的英雄详情子视图。
   注意观察像这样的自定义组件是如何与原生 HTML 元素无缝的混合在一起的。
 
 ### Data binding
@@ -222,16 +222,16 @@ Data binding plays an important role in communication between a template and its
 
 ### 管道
 
- Angular pipes let you declare display-value transformations in your template HTML. A class with the `@Pipe` decorator defines a function that transforms input values to output values for display in a view.
+Angular pipes let you declare display-value transformations in your template HTML. A class with the `@Pipe` decorator defines a function that transforms input values to output values for display in a view.
 
 Angular 的管道可以让你在模板中声明显示值的转换逻辑。
  带有 `@Pipe` 装饰器的类中会定义一个转换函数，用来把输入值转换成供视图显示用的输出值。
 
- Angular defines various pipes, such as the [date](https://angular.io/api/common/DatePipe) pipe and [currency](https://angular.io/api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](https://angular.io/api?type=pipe). You can also define new pipes.
+Angular defines various pipes, such as the [date](https://angular.io/api/common/DatePipe) pipe and [currency](https://angular.io/api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](https://angular.io/api?type=pipe). You can also define new pipes.
 
 Angular 自带了很多管道，比如 [date](https://angular.cn/api/common/DatePipe) 管道和 [currency](https://angular.cno/api/common/CurrencyPipe) 管道，完整的列表参见 [Pipes API 列表](https://angular.cn/api?type=pipe)。你也可以自己定义一些新管道。
 
- To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe).
+To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe).
 
 要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](https://angular.cn/guide/template-syntax#pipe)。
 
@@ -266,14 +266,14 @@ You can chain pipes, sending the output of one pipe function to be transformed b
 Angular templates are *dynamic*. When Angular renders them, it transforms the DOM according to the instructions given by *directives*. A directive is a class with a `@Directive()` decorator.
 
 Angular 的模板是*动态的*。当 Angular 渲染它们的时候，会根据*指令*给出的指示对 DOM 进行转换。
-指令就是一个带有 `@Directive` 装饰器的类。
+指令就是一个带有 `@Directive()` 装饰器的类。
 
 A component is technically a directive.
 However, components are so distinctive and central to Angular applications that Angular
 defines the `@Component()` decorator, which extends the `@Directive()` decorator with 
 template-oriented features.
 
-组件从技术角度上说就是一个指令，但是由于组件对 Angular 应用来说非常独特、非常重要，因此 Angular 专门定义了 `@Component` 装饰器，它使用一些面向模板的特性扩展了 `@Directive` 装饰器。
+组件从技术角度上说就是一个指令，但是由于组件对 Angular 应用来说非常独特、非常重要，因此 Angular 专门定义了 `@Component()` 装饰器，它使用一些面向模板的特性扩展了 `@Directive()` 装饰器。
 
 In addition to components, there are two other kinds of directives:  *structural* and *attribute*. 
 Angular defines a number of directives of both kinds, and you can define your own using the  `@Directive()` decorator.
@@ -283,7 +283,7 @@ Angular 本身定义了一系列这两种类型的指令，你也可以使用 `@
 
 Just as for components, the metadata for a directive associates the decorated class with a `selector` element that you use to insert it into HTML. In templates, directives typically appear within an element tag as attributes, either by name or as the target of an assignment or a binding.
 
-像组件一样，指令的元数据把指令类和一个 `selector` 关联起来，`selector` 用来把该指令插入到 HTML 中。
+像组件一样，指令的元数据把它所装饰的指令类和一个 `selector` 关联起来，`selector` 用来把该指令插入到 HTML 中。
 在模板中，指令通常作为属性出现在元素标签上，可能仅仅作为名字出现，也可能作为赋值目标或绑定目标出现。
 
 #### Structural directives
@@ -293,7 +293,7 @@ Just as for components, the metadata for a directive associates the decorated cl
 *Structural directives* alter layout by adding, removing, and replacing elements in the DOM. 
 The example template uses two built-in structural directives to add application logic to how the view is rendered.
 
-结构型指令通过添加、移除或替换 DOM 元素来修改布局。
+*结构型指令*通过添加、移除或替换 DOM 元素来修改布局。
 这个范例模板使用了两个内置的结构型指令来为要渲染的视图添加程序逻辑：
 
 <code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>

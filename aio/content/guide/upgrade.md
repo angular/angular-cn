@@ -1203,7 +1203,7 @@ code. For example, you might have a service called `HeroesService` in AngularJS:
 You can upgrade the service using a Angular [factory provider](guide/dependency-injection-providers#factory-providers)
 that requests the service from the AngularJS `$injector`.
 
-你可以 Angular 的[工厂提供商（factory provider）](guide/dependency-injection#factory-providers)升级该服务，
+你可以 Angular 的[工厂提供商](guide/dependency-injection-providers#factory-providers)升级该服务，
 它从 AngularJS 的 `$injector` 请求服务。Angular 依赖的名称由你确定：
 
 Many developers prefer to declare the factory provider in a separate `ajs-upgraded-providers.ts` file
@@ -1223,6 +1223,9 @@ compilation can pick it up.
 It is common in AngularJS apps to choose a service name for the token, for example "heroes",
 and append the "Service" suffix to create the class name.
 
+**注意：**这个工厂中的字符串 'heroes' 指向的是 AngularJS 的 `HeroesService`。
+AngularJS 应用中通常使用服务名作为令牌，比如 'heroes'，并为其追加 'Service' 后缀来创建其类名。
+
 </div>
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/ajs-upgraded-providers.ts" header="ajs-upgraded-providers.ts">
@@ -1230,12 +1233,14 @@ and append the "Service" suffix to create the class name.
 
 You can then provide the service to Angular by adding it to the `@NgModule`:
 
+然后，你就可以把这个服务添加到 `@NgModule` 中来把它暴露给 Angular：
+
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/app.module.ts" region="register" header="app.module.ts">
 </code-example>
 
 Then use the service inside your component by injecting it in the component constructor using its class as a type annotation:
 
-然后你就可以使用它的类作为类型注解将其在 Angular 中进行注入了：
+然后你就可以用它的类作为类型注解把它在 Angular 中进行注入了：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
@@ -2038,7 +2043,7 @@ Finally, bootstrap the `AppModule` in `app/main.ts`.
 This file has been configured as the application entrypoint in `systemjs.config.js`,
 so it is already being loaded by the browser.
 
-最后，在 `src/main.ts` 中引导这个 `AppModule`。该文件在 `systemjs.config.js` 中被配置为了应用的入口，所以它已经被加载进了浏览器中。
+最后，在 `app/main.ts` 中引导这个 `AppModule`。该文件在 `systemjs.config.js` 中被配置为了应用的入口，所以它已经被加载进了浏览器中。
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main.ts" region="bootstrap" header="app/main.ts">
 </code-example>

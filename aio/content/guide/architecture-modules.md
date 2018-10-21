@@ -22,7 +22,7 @@ While a small application might have only one NgModule, most apps have many more
 
 An NgModule is defined by a class decorated with `@NgModule()`. The `@NgModule()` decorator is a function that takes a single metadata object, whose properties describe the module. The most important properties are as follows.
 
-NgModule 是一个带有 `@NgModule` 装饰器的类。`@NgModule` 装饰器是一个函数，它接受一个元数据对象，该对象的属性用来描述这个模块。其中最重要的属性如下。
+NgModule 是一个带有 `@NgModule()` 装饰器的类。`@NgModule()` 装饰器是一个函数，它接受一个元数据对象，该对象的属性用来描述这个模块。其中最重要的属性如下。
 
 * `declarations`: The [components](guide/architecture-components), *directives*, and *pipes* that belong to this NgModule.
 
@@ -55,7 +55,7 @@ Here's a simple root NgModule definition.
 
    The `export` property of `AppComponent` is included here for illustration; it isn't actually necessary in this example. A root NgModule has no reason to *export* anything because other modules don't need to *import* the root NgModule.
 
-  把 `AppComponent` 放到 `exports` 中只是为了演示导出的语法，这在本例子中实际上是没必要的。
+   把 `AppComponent` 放到 `exports` 中是为了演示导出的语法，这在本例子中实际上是没必要的。
   根模块没有任何理由*导出*任何东西，因为其它模块永远不需要*导入*根模块。
 
 </div>
@@ -99,9 +99,10 @@ When you create a component, it's associated directly with a single view, called
 树中的视图可以嵌套到任意深度。
 
 <div class="alert is-helpful">
-    **Note:** The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data. 
+  **Note:** The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data. 
 
-    视图的这种层次结构是 Angular 在 DOM 和应用数据中检测与响应变更时的关键因素。
+  **注意：** 视图的这种层次结构是 Angular 在 DOM 和应用数据中检测与响应变更时的关键因素。
+
 </div>
 
 ## NgModules and JavaScript modules
@@ -140,7 +141,7 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 
 Angular loads as a collection of JavaScript modules. You can think of them as library modules. Each Angular library name begins with the `@angular` prefix. Install them with the `npm` package manager and import parts of them with JavaScript `import` statements.
 
-Angular 自带了一组 JavaScript 模块，你可以把它们看成库模块。每个 Angular 库的名称都带有 `@angular` 前缀。
+Angular 会作为一组 JavaScript 模块进行加载，你可以把它们看成库模块。每个 Angular 库的名称都带有 `@angular` 前缀。
 使用 `npm` 包管理器安装它们，并使用 JavaScript 的 `import` 语句导入其中的各个部分。
 
 <br class="clear">

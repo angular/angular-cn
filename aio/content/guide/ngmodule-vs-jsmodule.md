@@ -57,7 +57,7 @@ NgModule 是一些带有 `@NgModule` 装饰器的类。`@NgModule` 装饰器的 
 
 The `AppModule` generated from the [Angular CLI](cli) demonstrates both kinds of modules in action:
 
-Angular CLI 生成的 `AppModule` 实际演示了这两种模块：
+[Angular CLI](cli) 生成的 `AppModule` 实际演示了这两种模块：
 
 ```typescript
 

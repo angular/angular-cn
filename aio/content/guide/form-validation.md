@@ -153,6 +153,7 @@ Note that:
 * As these validators are all sync validators, you pass them in as the second argument. 
 
    由于这些验证器都是同步验证器，因此你要把它们作为第二个参数传进去。
+
 * Support multiple validators by passing the functions in as an array.
 
    可以通过把这些函数放进一个数组后传进去，可以支持多重验证器。
@@ -324,6 +325,7 @@ set the color of each form control's border.
 ## Cross field validation 
 
 ## 跨字段交叉验证
+
 This section shows how to perform cross field validation. It assumes some basic knowledge of creating custom validators.
 
 本节将展示如何进行跨字段验证。这里假设你已经有了创建自定义验证器所需的基础知识。
@@ -405,6 +407,7 @@ Note that we check if:
 - the `FormGroup` has the cross validation error returned by the `identityRevealed` validator, 
 
    `FormGroup` 应该有一个由 `identityRevealed` 验证器返回的交叉验证错误对象。
+
 - the user is yet to [interact](guide/form-validation#why-check-dirty-and-touched) with the form.
 
    用户已经和表单进行过[交互](guide/form-validation#why-check-dirty-and-touched)。
@@ -441,6 +444,7 @@ Note that we check if:
 - the form has the cross validation error returned by the `identityRevealed` validator, 
 
    该表单具有一个由 `identityRevealed` 验证器提供的交叉验证错误对象。
+
 - the user is yet to [interact](guide/form-validation#why-check-dirty-and-touched) with the form.
 
    用户已经和表单进行过[交互](guide/form-validation#why-check-dirty-and-touched)。
@@ -452,6 +456,7 @@ This completes the cross validation example. We managed to:
 - validate the form based on the values of two sibling controls, 
 
    基于两个相邻控件的值来验证表单
+
 - show a descriptive error message after the user interacted with the form and the validation failed.
 
    当用户与表单交互过并且验证失败时，才显示一个描述性的错误信息。
@@ -462,19 +467,39 @@ This completes the cross validation example. We managed to:
 
 This section shows how to create asynchronous validators. It assumes some basic knowledge of creating [custom validators](guide/form-validation#custom-validators).
 
+本节展示如何创建异步验证器。这里假设你已经具有了一些创建[自定义验证器](guide/form-validation#custom-validators)的基础知识。
+
 ### The Basics
+
+### 基础
+
 Just like synchronous validators have the `ValidatorFn` and `Validator` interfaces, asynchronous validators have their own counterparts: `AsyncValidatorFn` and `AsyncValidator`.
+
+就像同步验证器有 `ValidatorFn` 和 `Validator` 接口一样，异步验证器也有自己的对应物：`AsyncValidatorFn` 和 `AsyncValidator`。
 
 They are very similar with the only difference being:
 
+它们非常像，但是有下列不同：
+
 * They must return a Promise or an Observable,
+
+  它们必须返回承诺（Promise）或可观察对象（Observable），
+
 * The observable returned must be finite, meaning it must complete at some point. To convert an infinite observable into a finite one, pipe the observable through a filtering operator such as `first`, `last`, `take`, or `takeUntil`.
+
+  返回的可观察对象必须是有限的，也就是说，它必须在某个时间点结束（complete）。要把无尽的可观察对象转换成有限的，可以使用 `first`、`last`、`take` 或 `takeUntil` 等过滤型管道对其进行处理。
 
 It is important to note that the asynchronous validation happens after the synchronous validation, and is performed only if the synchronous validation is successful. This check allows forms to avoid potentially expensive async validation processes such as an HTTP request if more basic validation methods fail.
 
+注意！异步验证总是会在同步验证之后执行，并且只有当同步验证成功了之后才会执行。如果更基本的验证方法已经失败了，那么这能让表单避免进行可能会很昂贵的异步验证过程，比如 HTTP 请求。
+
 After asynchronous validation begins, the form control enters a `pending` state. You can inspect the control's `pending` property and use it to give visual feedback about the ongoing validation.
 
+在异步验证器开始之后，表单控件会进入 `pending` 状态。你可以监视该控件的 `pending` 属性，利用它来给用户一些视觉反馈，表明正在进行验证。
+
 A common UI pattern is to show a spinner while the async validation is being performed. The following example presents how to achieve this with template-driven forms:
+
+常见的 UI 处理模式是在执行异步验证时显示一个旋转指示标（spinner）。下面的例子展示了在模板驱动表单中该怎么做：
 
 ```html
 <input [(ngModel)}="name" #model="ngModel" appSomeAsyncValidator>
@@ -482,15 +507,27 @@ A common UI pattern is to show a spinner while the async validation is being per
 ```
 
 ### Implementing Custom Async Validator
+
+### 实现自定义异步验证器
+
 In the following section, validation is performed asynchronously to ensure that our heroes pick an alter ego that is not already taken. New heroes are constantly enlisting and old heroes are leaving the service. That means that we do not have the list of available alter egos ahead of time.
+
+在下一节中，会异步执行一个验证，以确保英雄选取了一个还没有人选过的第二人格。新的英雄不断招募，而老的英雄不断离开。这意味着我们没法提前拿到一个可用的第二人格列表。
 
 To validate the potential alter ego, we need to consult a central database of all currently enlisted heroes. The process is asynchronous, so we need a special validator for that.
 
+要验证潜在的第二人格，我们需要咨询一个存有全部已招募英雄的中央数据库。而这个过程是异步的，我们需要一个特殊的验证器。
+
 Let's start by creating the validator class.
+
+我们先创建一个验证器类。
 
 <code-example path="form-validation/src/app/shared/alter-ego.directive.ts" region="async-validator" linenums="false"></code-example>
 
 As you can see, the `UniqueAlterEgoValidator` class implements the `AsyncValidator` interface. In the constructor, we inject the `HeroesService` that has the following interface:
+
+如你所见，`UniqueAlterEgoValidator` 类实现了 `AsyncValidator` 接口。在其构造函数中，我们注入了一个 
+`HeroesService`，其接口如下：
 
 ```typescript
 interface HeroesService {
@@ -500,27 +537,49 @@ interface HeroesService {
 
 In a real world application, the `HeroesService` is responsible for making an HTTP request to the hero database to check if the alter ego is available. From the validator's point of view, the actual implementation of the service is not important, so we can just code against the `HeroesService` interface.
 
+在真实的应用中，`HeroesService` 负责向英雄数据库发起一个 HTTP 请求，以检查该第二人格是否可用。
+从该验证器的视角看，此服务的具体实现无关紧要，所以我们仅仅针对 `HeroesService` 接口来写实现代码。
+
 As the validation begins, the `UniqueAlterEgoValidator` delegates to the `HeroesService` `isAlterEgoTaken()` method with the current control value. At this point the control is marked as `pending` and remains in this state until the observable chain returned from the `validate()` method completes.
+
+当验证开始的时候，`UniqueAlterEgoValidator` 把任务委托给 `HeroesService` 的 `isAlterEgoTaken()` 方法，并传入当前控件的值。这时候，该控件会被标记为 `pending` 状态，直到 `validate()` 方法所返回的可观察对象完成（complete）了。
 
 The `isAlterEgoTaken()` method dispatches an HTTP request that checks if the alter ego is available, and returns `Observable<boolean>` as the result. We pipe the response through the `map` operator and transform it into a validation result. As always, we return `null` if the form is valid, and `ValidationErrors` if it is not. We make sure to handle any potential errors with the `catchError` operator.
 
+`isAlterEgoTaken()` 方法会发出一个 HTTP 请求，以检查该第二人格是否可用，并返回一个 `Observable<boolean>` 型结果。我们通过 `map` 操作符把响应对象串起来，并把它转换成一个有效性结果。
+与往常一样，如果表单有效则返回 `null`，否则返回 `ValidationErrors`。我们还是用 `catchError` 操作符来确保对任何潜在错误都进行了处理。
+
 Here we decided that `isAlterEgoTaken()` error is treated as a successful validation, because failure to make a validation request does not necessarily mean that the alter ego is invalid. You could handle the error differently and return the `ValidationError` object instead.
+
+这里，我们决定将 `isAlterEgoTaken()` 中的错误视为成功验证，因为如果没能发起验证请求，未必代表这个第二人格是无效的。你也可以将其视为失败，并返回 `ValidationError` 对象。
 
 After some time passes, the observable chain completes and the async validation is done. The `pending` flag is set to `false`, and the form validity is updated.
 
+一段时间之后，可观察对象完成了，异步验证也就结束了。这时候 `pending` 标志就改成了 `false`，并且表单的有效性也更新了。
+
 ### Note on performance
+
+### 性能上的注意事项
 
 By default, all validators are run after every form value change. With synchronous validators, this will not likely have a noticeable impact on application performance. However, it's common for async validators to perform some kind of HTTP request to validate the control. Dispatching an HTTP request after every keystroke could put a strain on the backend API, and should be avoided if possible.
 
+默认情况下，每当表单值变化之后，都会执行所有验证器。对于同步验证器，没有什么会显著影响应用性能的地方。不过，异步验证器通常会执行某种 HTTP 请求来对控件进行验证。如果在每次按键之后都发出 HTTP 请求会给后端 API 带来沉重的负担，应该尽量避免。
+
 We can delay updating the form validity by changing the `updateOn` property from `change` (default) to `submit` or `blur`.
 
+我们可以把 `updateOn` 属性从 `change`（默认值）改成 `submit` 或 `blur` 来推迟表单验证的更新时机。
+
 With template-driven forms:
+
+对于模板驱动表单：
 
 ```html
 <input [(ngModel)]="name" [ngModelOptions]="{updateOn: 'blur'}">
 ```
 
 With reactive forms:
+
+对于响应式表单：
 
 ```typescript
 new FormControl('', {updateOn: 'blur'});

@@ -21,7 +21,8 @@ import {COMMON_PIPES} from './pipes/index';
  * Re-exported by `BrowserModule`, which is included automatically in the root
  * `AppModule` when you create a new app with the CLI `new` command.
  *
- * 该模块包含了所有基本的 Angular 指令，如 {@link NgIf}、{@link NgForOf} 等……
+ * 导出所有基本的 Angular 指令和管道，例如 `NgIf`、`NgForOf`、`DecimalPipe` 等。
+ * 它会由 `BrowserModule` 进行二次导出，当你使用 CLI 的 `new` 命令创建新应用时，`BrowserModule` 会自动包含在根模块 `AppModule` 中。
  *
  * * The `providers` options configure the NgModule's injector to provide
  * localization dependencies to members.

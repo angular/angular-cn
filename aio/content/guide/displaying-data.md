@@ -170,7 +170,7 @@ In either style, the template data bindings have the same access to the componen
 
   By default, the Angular CLI command [`ng generate component`](cli/generate) generates components with a template file. You can override that with:
 
-  默认情况下，Angular CLI 生成组件时会带有模板文件，你可以通过参数覆盖它：
+  默认情况下，Angular CLI 命令 [`ng generate component`](cli/generate) 在生成组件时会带有模板文件，你可以通过参数来覆盖它：
 
   <code-example hideCopy language="sh" class="code-shell">
     ng generate component hero -it

@@ -90,7 +90,7 @@ export function jsonpCallbackContext(): Object {
 /**
  * Configures XSRF protection support for outgoing requests.
  *
- * 一个NgModule，用于给外发请求添加 XSRF 保护。
+ * 配置 XSRF 保护，以支持外发请求。
  *
  * For a server that supports a cookie-based XSRF protection system,
  * use directly to configure XSRF protection with the correct
@@ -190,7 +190,7 @@ export class HttpClientXsrfModule {
    * Configures the [dependency injector](guide/glossary#injector) where it is imported
    * with supporting services for HTTP communications.
    *
-   * 该模块提供 `HttpClient` 自身，以及用来支持它的那些服务。
+   * 配置[依赖注入器](guide/glossary#injector)，其中导入了用于支持 HTTP通讯的服务。
    */
   providers: [
     HttpClient,

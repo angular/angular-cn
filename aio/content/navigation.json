@@ -164,8 +164,8 @@
             },
             {
               "url": "guide/user-input",
-              "title": "User Input",
-              "tooltip": "User input triggers DOM events. Angular listens to those events with event bindings that funnel updated values back into your app's components and models."
+              "title": "用户输入",
+              "tooltip": "用户输入会触发 DOM 事件。Angular 会通过事件绑定来监听那些事件，并把修改后的值传回应用的组件和模型中。"
             },
             {
               "url": "guide/lifecycle-hooks",
@@ -480,8 +480,8 @@
             },
             {
               "url": "guide/upgrade-performance",
-              "title": "Upgrading for Performance",
-              "tooltip": "Upgrade from AngularJS to Angular in a more flexible way."
+              "title": "提高升级效率",
+              "tooltip": "用更灵活的方式把 AngularJS 升级到 Angular"
             },
             {
               "url": "guide/ajs-quick-reference",
@@ -494,51 +494,51 @@
     },
 
     {
-      "title": "Setup & Deployment",
-      "tooltip": "Setup, build, testing, and deployment environment and tool information.",
+      "title": "环境搭建与部署",
+      "tooltip": "关于环境搭建、构建、测试、部署环境与工具的信息。",
       "children": [
 
         {
           "url": "guide/setup",
-          "title": "Setup for local development",
-          "tooltip": "Install the Angular QuickStart seed for faster, more efficient development on your machine.",
+          "title": "搭建本地开发环境",
+          "tooltip": "安装 Angular 快速起步种子工程，以便在你的电脑上更快、更高效的开发。",
           "hidden": true
         },
 
         {
           "url": "guide/file-structure",
-          "title": "Project File Structure",
-          "tooltip": "How your Angular workspace looks in your filesystem."
+          "title": "项目文件结构",
+          "tooltip": "Angular 工作空间在文件系统中是怎样的。"
         },
         {
           "url": "guide/npm-packages",
-          "title": "Packages",
-          "tooltip": "Explanation of npm packages installed into a project by default."
+          "title": "npm 包",
+          "tooltip": "会默认安装到项目中的 npm 包的说明。"
         },
         {
           "url": "guide/typescript-configuration",
-          "title": "TypeScript Configuration",
-          "tooltip": "TypeScript configuration for Angular developers."
+          "title": "TypeScript 配置",
+          "tooltip": "给 Angular 开发者的 TypeScript 配置。"
         },
         {
           "url": "guide/aot-compiler",
-          "title": "Ahead-of-Time Compilation",
-          "tooltip": "Learn why and how to use the Ahead-of-Time (AOT) compiler."
+          "title": "预先（AOT）编译",
+          "tooltip": "了解为何以及如何使用预先（AOT）编译器。"
         },
         {
           "url": "guide/build",
-          "title": "Building & Serving",
-          "tooltip": "Building and serving Angular apps."
+          "title": "构建与启动开发服务器",
+          "tooltip": "构建应用及为应用启动开发服务器。"
         },
         {
           "url": "guide/testing",
-          "title": "Testing",
-          "tooltip": "Techniques and practices for testing an Angular app."
+          "title": "测试",
+          "tooltip": "测试 Angular 应用的技巧与实践。"
         },
         {
           "url": "guide/deployment",
-          "title": "Deployment",
-          "tooltip": "Learn how to deploy your Angular app."
+          "title": "发布",
+          "tooltip": "了解如何部署 Angular 应用。"
         },
         {
           "url": "guide/browser-support",

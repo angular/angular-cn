@@ -30,13 +30,13 @@ The sample application and all tests in this guide are available for inspection 
 
 The Angular CLI downloads and install everything you need to test an Angular application with the [Jasmine test framework](https://jasmine.github.io/).
 
-Angular CLI 会下载并安装试用 [Jasmine 测试框架](http://jasmine.github.io/2.4/introduction.html) 测试 Angular 应用时所需的一切。
+Angular CLI 会下载并安装试用 [Jasmine 测试框架](https://jasmine.github.io/) 测试 Angular 应用时所需的一切。
 
 The project you create with the CLI is immediately ready to test.
 Just run the [`ng test`](cli/test) CLI command:
 
 你使用 CLI 创建的项目是可以立即用于测试的。
-运行下列 CLI 命令即可：
+运行 CLI 命令 [`ng test`](cli/test) 即可：
 
 <code-example language="sh" class="code-shell">
   ng test
@@ -45,7 +45,7 @@ Just run the [`ng test`](cli/test) CLI command:
 The `ng test` command builds the app in _watch mode_,
 and launches the [karma test runner](https://karma-runner.github.io).
 
-`ng test` 命令在*监视模式*下构建应用，并启动 [karma 测试运行器](https://karma-runner.github.io/1.0/index.html)。
+`ng test` 命令在*监视模式*下构建应用，并启动 [karma 测试运行器](https://karma-runner.github.io)。
 
 The console output looks a bit like this:
 

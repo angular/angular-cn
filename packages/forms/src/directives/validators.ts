@@ -27,16 +27,18 @@ export type ValidationErrors = {
  * @description
  * An interface implemented by classes that perform synchronous validation.
  *
- * @usageNotes
- *
  * 一个接口，实现了它的类可以扮演验证器的角色。
  *
+ * @usageNotes
+ *
  * ### Provide a custom validator
+ *
+ * ### 提供一个自定义的验证器
  *
  * The following example implements the `Validator` interface to create a
  * validator directive with a custom error key.
  *
- * ## 用法
+ * 下面的例子实现了 `Validator` 接口，以便用一个自定义的错误键来创建验证器指令。
  *
  * ```typescript
  * @Directive({

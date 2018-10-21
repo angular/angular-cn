@@ -1,38 +1,78 @@
 # The Application Shell
 
+# 应用的外壳
+
 You begin by creating an initial application using the Angular CLI. Throughout this tutorial, you’ll modify and extend that starter application to create the Tour of Heroes app.
+
+首先，使用 Angular CLI 来创建最初的应用程序。
+在本教程中，你将修改并扩展这个入门级的应用程序，以创建出《英雄指南》应用。
 
 In this part of the tutorial, you'll do the following:
 
+在教程的这个部分，你要做下列工作：
+
 1. Set up your environment.
+
+   设置开发环境。
+
 2. Create a new workspace and initial app project.
+
+   创建新的工作空间，并初始化应用项目。
+
 3. Serve the application.
+
+   启动开发服务器。
+
 4. Make changes to the application.
 
+   修改此应用。
 
 ## Set up your environment
 
+## 设置开发环境
+
 To set up your development environment, follow these instructions in [Getting Started](guide/quickstart):
 
+要想设置开发环境，请按照[快速上手](guide/quickstart) 中的说明进行操作：
+
 * [Prerequisites](guide/quickstart#prerequisites)
+
+  [先决条件](guide/quickstart#prerequisites)
+
 * [Install the Angular CLI](guide/quickstart#install-cli)
+
+  [安装 Angular CLI](guide/quickstart#install-cli)
 
 <div class="alert is-helpful">
 
 **Note:**: You do not need to complete the entire Getting Started. After you complete the above two sections of Getting Started, your environment is set up. Continue below to create the Tour of Heroes workspace and an initial app project.
+
+**注意：**你不用做完整个快速上手。只要完成了上面这两个部分，你的环境就已经设置好了。然后继续下面的步骤来创建一个《英雄指南》的工作空间和一个初始应用项目。
+
 </div>
 
 
 ## Create a new workspace and an initial application
 
+## 创建新的工作空间和一个初始应用
+
 You develop apps in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests. For this tutorial, you will create a new workspace.
+
+Angular 的[工作空间](guide/glossary#workspace)就是你开发应用所在的上下文环境。一个工作空间包含一个或多个[项目](guide/glossary#project)所需的文件。
+每个项目都是一组由应用、库或端到端（e2e）测试组成的文件集合。
+在本教程中，你将创建一个新的工作空间。
 
 To create a new workspace and an initial app project:
 
+要想创建一个新的工作空间和一个初始应用项目，需要：
+
   1. Ensure that you are not already in an Angular workspace folder. For example, if you have previously created the Getting Started workspace, change to the parent of that folder.
+  
+     确保你现在没有位于 Angular 工作区的文件夹中。例如，如果你之前已经创建过 "快速上手" 工作空间，请回到其父目录中。
+  
   2. Run the CLI command `ng new` and provide the name `angular-tour-of-heroes`, as shown here:
 
-  使用 CLI 命令创建一个名叫 `angular-tour-of-heroes` 的新项目。
+     运行 CLI 命令 `ng new`，空间名请使用 `angular-tour-of-heroes`，如下所示： 
 
 <code-example language="sh" class="code-shell">
   ng new angular-tour-of-heroes
@@ -40,16 +80,35 @@ To create a new workspace and an initial app project:
 
   3. The `ng new` command prompts you for information about features to include in the initial app project. Accept the defaults by pressing the Enter or Return key.
 
+     `ng new` 命令会提示你输入要在初始应用项目中包含哪些特性，请按 Enter 或 Return 键接受其默认值。
+
 The Angular CLI installs the necessary Angular `npm` packages and other dependencies. This can take a few minutes.
+
+Angular CLI 会安装必要的 Angular `npm` 包和其它依赖项。这可能需要几分钟。
 
 It also creates the following workspace and starter project files:
 
+它还会创建下列工作空间和初始项目的文件：
+
   * A new workspace, with a root folder named `angular-tour-of-heroes`.
+  
+    新的工作空间，其根目录名叫 `angular-tour-of-heroes`。
+  
   * An initial skeleton app project, also called `angular-tour-of-heroes` (in the `src` subfolder).
+  
+    一个最初的骨架应用项目，同样叫做 `angular-tour-of-heroes`（位于 `src` 子目录下）。
+  
   * An end-to-end test project (in the e2e subfolder).
+  
+    一个端到端测试项目（位于 e2e 子目录下）。
+  
   * Related configuration files.
+  
+    相关的配置文件。
 
 The initial app project contains a simple Welcome app, ready to run.
+
+初始应用项目是一个简单的 "欢迎" 应用，随时可以运行它。
 
 ## Serve the application
 
@@ -57,7 +116,7 @@ The initial app project contains a simple Welcome app, ready to run.
 
 Go to the workspace directory and launch the application.
 
-进入项目目录，并启动这个应用。
+进入工作空间目录，并启动这个应用。
 
 <code-example language="sh" class="code-shell">
   cd angular-tour-of-heroes
@@ -103,7 +162,7 @@ They display data on the screen, listen for user input, and take action based on
 
 Open the project in your favorite editor or IDE and navigate to the `src/app` folder to make some changes to the starter app.
 
-用你最喜欢的编辑器或 IDE 打开这个项目，并访问 `src/app` 目录。
+用你最喜欢的编辑器或 IDE 打开这个项目，并访问 `src/app` 目录，来对这个起始应用做一些修改。
 
 You'll find the implementation of the shell `AppComponent` distributed over three files:
 
@@ -112,6 +171,7 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 1. `app.component.ts`&mdash; the component class code, written in TypeScript. 
 
    `app.component.ts`&mdash; 组件的类代码，这是用 TypeScript 写的。
+
 1. `app.component.html`&mdash; the component template, written in HTML.
 
    `app.component.html`&mdash; 组件的模板，这是用 HTML 写的。
@@ -156,7 +216,7 @@ The browser refreshes and displays the new application title.
 
 ### Add application styles
 
-## 添加应用样式
+### 添加应用样式
 
 Most apps strive for a consistent look across the application.
 The CLI generated an empty `styles.css` for this purpose.

@@ -27,7 +27,7 @@ NgModule 用于描述应用的各个部分如何组织在一起。
 
 If you use the [Angular CLI](cli) to generate an app, the default `AppModule` is as follows:
 
-如果你使用 CLI 来生成一个应用，其默认的 `AppModule` 是这样的：
+如果你使用 [Angular CLI](cli) 来生成一个应用，其默认的 `AppModule` 是这样的：
 
 ```typescript
 
@@ -87,7 +87,7 @@ into the `index.html` host web page.
 The default application created by the Angular CLI only has one component, `AppComponent`, so it
 is in both the `declarations` and the `bootstrap` arrays.
 
-默认的 CLI 应用只有一个组件 `AppComponent`，所以它会同时出现在 `declarations` 和 `bootstrap` 数组中。
+CLI 创建的默认应用只有一个组件 `AppComponent`，所以它会同时出现在 `declarations` 和 `bootstrap` 数组中。
 
 {@a declarations}
 
@@ -223,7 +223,7 @@ A component template can reference another component, directive,
 or pipe when the referenced class is declared in this module or
 the class was imported from another module.
 
-列表中的模块导出了本模块中的各个组件模板中所引用的各个组件、指令或管道。在这个例子中，当前组件是 `AppComponent`，它引用了导出自 `BrowserModule`、`FormsModule` 或 `HttpModule` 的组件、指令或管道。
+列表中的模块导出了本模块中的各个组件模板中所引用的各个组件、指令或管道。在这个例子中，当前组件是 `AppComponent`，它引用了导出自 `BrowserModule`、`FormsModule` 或 `HttpClientModule` 的组件、指令或管道。
 总之，组件的模板中可以引用在当前模块中声明的或从其它模块中导入的组件、指令、管道。
 
 {@a bootstrap-array}

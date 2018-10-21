@@ -60,7 +60,7 @@ const _observableStrategy = new ObservableStrategy();
  *
  * ### Examples
  *
- * ## 例子
+ * ### 例子
  *
  * This example binds a `Promise` to the view. Clicking the `Resolve` button resolves the
  * promise.

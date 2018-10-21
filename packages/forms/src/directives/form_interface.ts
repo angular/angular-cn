@@ -54,9 +54,11 @@ export interface Form {
    * @description
    * The control directive from which to get the `FormControl`.
    *
+   * 根据表单控件指令找到相应的 `FormControl`。
+   *
    * @param dir: The control directive.
    *
-   * 查找与指定的 `NgControl` 相关的 `FormControl`。
+   * 表单控件指令。
    */
   getControl(dir: NgControl): FormControl;
 

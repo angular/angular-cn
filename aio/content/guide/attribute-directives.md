@@ -80,7 +80,7 @@ when the user hovers over that element. You can apply it like this:
 
 Create the directive class file in a terminal window with the CLI command [`ng generate directive`](cli/generate).
 
-在命令行窗口下用 CLI 命令创建指令类文件。
+在命令行窗口下用 CLI 命令 [`ng generate directive`](cli/generate) 创建指令类文件。
 
 <code-example language="sh" class="code-shell">
 ng generate directive highlight

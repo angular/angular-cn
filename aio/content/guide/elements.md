@@ -291,7 +291,7 @@ Using an Angular custom element makes the process much simpler and more transpar
 
 The Popup Service example app (shown below) defines a component that you can either load dynamically or convert to a custom element.
 
-这个弹窗服务的范例应用定义了一个组件，你可以动态加载它也可以把它转换成自定义组件。
+这个弹窗服务的范例应用（见后面）定义了一个组件，你可以动态加载它也可以把它转换成自定义组件。
 
 - `popup.component.ts`  defines a simple pop-up element that displays an input message, with some animation and styling. 
 

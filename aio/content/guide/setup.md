@@ -128,7 +128,7 @@ Consequently, there are _many more files_ in the project folder on your machine,
 most of which you can [learn about later](guide/file-structure).
 
 **《快速上手》种子** 包含了与《快速上手》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
-所以你的电脑里的项目目录里面有*更多文件*，参见[搭建剖析](guide/setup-systemjs-anatomy "Setup Anatomy")。
+所以你的电脑里的项目目录里面有*更多文件*，其中的大部分你都会[在稍后学到](guide/file-structure)。
 
 {@a app-files}
 

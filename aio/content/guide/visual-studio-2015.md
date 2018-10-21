@@ -11,7 +11,7 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 This cookbook describes the steps required to set up and use the
 Angular [Getting Started](guide/quickstart) files in Visual Studio 2015 within an ASP.NET 4.x project.
 
-本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，用 Angular 实现“快速上手”所需的步骤。
+本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，实现 Angular “[快速上手](guide/quickstart)”所需的步骤。
 
 <div class="alert is-helpful">
 
@@ -119,15 +119,15 @@ Visual Studio 将优先在当前的工作区查找外部工具，如果没有找
 While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 3.1, 
 which you need to develop Angular applications.
 
-Visual Studio Update 3 自带 TypeScript 支持，但是它的 TypeScript 版本开发 Angular 应用需要的不是 2.2。
+Visual Studio Update 3 自带 TypeScript 支持，但它的 TypeScript 版本不是开发 Angular 应用所需的 3.1。
 
 To install TypeScript 3.1:
 
-要安装 TypeScript 2.2：
+要安装 TypeScript 3.1：
 
  * Download and install [TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593),
 
-    下载并安装 **[TypeScript 2.2 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
+    下载并安装 **[TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
 
  * OR install it with npm: `npm install -g typescript@3.1`.
 
@@ -135,7 +135,7 @@ To install TypeScript 3.1:
 
 You can find out more about TypeScript 3.1 support in Visual Studio **[here](https://blogs.msdn.microsoft.com/typescript/announcing-typescript-3-1/)**.
 
-你可以在**[这儿](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 2.2 的支持。
+你可以在**[这里](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 3.1 的支持。
 
 At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
 restart it to make sure everything is clean.
@@ -145,6 +145,7 @@ restart it to make sure everything is clean.
 <h2 id='download'>Step 1: Download the Angular Getting Started app</h2>
 
 <h2 id='download'>第一步: 现在“快速上手”文件</h2>
+
 Go to the final code review in [Getting Started](guide/quickstart) and download the solution app project. These files contain a starter Angular app.
 
 从 GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的 zip 文件，解压它。

@@ -37,8 +37,7 @@ Here are some key features.
 * [Service Workers](guide/service-worker-intro): Use a service worker to reduce dependency on the network
 significantly improving the user experience.
 
-  [Service Worker](guide/service-worker-intro)：Service Worker 是一个运行在浏览器中并为应用管理缓存的脚本。
-Service Worker 的功能类似于网络代理。它们会拦截发出的 HTTP 请求，如果存在已缓存的响应，则直接返回它。通过使用 Service Worker 来减轻对网络的依赖，你可以显著提升用户体验。
+  [Service Worker](guide/service-worker-intro)：借助 Service Worker 来减轻对网络的依赖，你可以显著提升用户体验。
 
 ## Domain-specific libraries
 
@@ -84,11 +83,11 @@ without deep knowledge of animation techniques or CSS.
 
 * [Workspace and File Structure](guide/file-structure): Understand the structure of Angular workspace and project folders. 
 
-  [搭建本地开发环境](guide/setup)：学习如何搭建用来开发《快速起步》的新项目。
+  [工作空间与文件结构](guide/file-structure)：理解 Angular 工作空间与项目文件夹的结构。
 
 * [npm Packages](guide/npm-packages): The Angular Framework, Angular CLI, and components used by Angular applications are packaged as [npm](https://docs.npmjs.com/) packages and distributed via the npm registry. The Angular CLI creates a default `package.json` file, which specifies a starter set of packages that work well together and jointly support many common application scenarios.
 
-  [安装](guide/npm-packages)：[Angular CLI](https://cli.angular.io/) 应用和 Angular 本身依赖于一些由库提供的特性和功能，这些库都是以 [npm](https://docs.npmjs.com/) 包的形式发布的。
+  [npm 包](guide/npm-packages)：Angular 框架、CLI 和应用中使用的组件都是用 [npm](https://docs.npmjs.com/) 打包的，并通过 npm 注册服务器进行发布。Angular CLI 会创建一个默认的 `package.json` 文件，它会指定一组初始的包，它们可以一起使用，共同支持很多常见的应用场景。
 
 * [TypeScript configuration](guide/typescript-configuration): TypeScript is the primary language for Angular application development.
 
@@ -100,7 +99,7 @@ without deep knowledge of animation techniques or CSS.
 
 * [Building and Serving](guide/build): Learn to define different build and proxy server configurations for your project, such as development, staging, and production.
 
-  [浏览器支持](guide/browser-support)：学习如何让你的应用能和各种浏览器兼容。
+  [构建与启动开发服务器](guide/build)：学习为项目定义不同的构建和代理服务器设置的配置方式，比如开发、预生产和生产。
 
 * [Deployment](guide/deployment): Learn techniques for deploying your Angular application to a remote server.
 

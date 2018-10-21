@@ -45,7 +45,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * produces the following:
  *
- *  * 生成下列内容：
+ * 生成下列内容：
  *
  * ```html
  * <li>b</li>
@@ -54,7 +54,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * ### String Examples
  *
- * ## 字符串范例
+ * ### 字符串范例
  *
  * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
  *

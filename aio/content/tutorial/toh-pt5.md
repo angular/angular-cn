@@ -350,7 +350,7 @@ The _class_ is similar to the `HeroesComponent` class.
 
 This `getHeroes` returns the sliced list of heroes at positions 1 and 5, returning only four of the Top Heroes (2nd, 3rd, 4th, and 5th).
 
-这个 `getHeroes` 函数把要显示的英雄的数量缩减为四个（第二、第三、第四、第五）。
+这个 `getHeroes` 函数会截取第 2 到 第 5 位英雄，也就是说只返回四个顶级英雄（第二，第三，第四和第五）。
 
 <code-example path="toh-pt5/src/app/dashboard/dashboard.component.ts" region="getHeroes">
 </code-example>

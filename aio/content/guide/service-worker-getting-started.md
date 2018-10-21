@@ -102,10 +102,7 @@ To serve the directory containing your web files with `http-server`, run the fol
 要想使用 `http-server` 服务器，进入包含这些 web 文件的目录，并启动开发服务器：
 
 ```sh
-
-
-http-server -p 8080
--c-1 dist/<project-name>
+http-server -p 8080 -c-1 dist/<project-name>
 ```
 
 ### Initial load
@@ -228,11 +225,8 @@ next step is understanding how updates work.
    再次构建并运行此服务器：
 
 ```sh
-
 ng build --prod
-
-http-server -p 8080
--c-1 dist/<project-name>
+http-server -p 8080 -c-1 dist/<project-name>
 ```
 
 ### Updating your application in the browser

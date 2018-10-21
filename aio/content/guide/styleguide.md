@@ -4380,7 +4380,7 @@ Compare with the less preferred `host` metadata alternative.
 
 **Why?** When you register a service in the `@Injectable` decorator of the service, optimization tools such as those used by the [Angular CLI's](cli) production builds can perform tree shaking and remove services that aren't used by your app.
 
-**为何？**当你在服务的 `@Injectable` 中注册服务时，CLI 生产环境构建时使用的优化工具可以进行摇树优化，从而移除那些你的应用中从未用过的服务。
+**为何？**当你在服务的 `@Injectable` 中注册服务时，[Angular CLI](cli) 生产环境构建时使用的优化工具可以进行摇树优化，从而移除那些你的应用中从未用过的服务。
 
 </div>
 

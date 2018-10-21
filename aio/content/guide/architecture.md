@@ -6,7 +6,7 @@ Angular is a platform and framework for building client applications in HTML and
 Angular is written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
 
 Angular 是一个用 HTML 和 TypeScript 构建客户端应用的平台与框架。
-Angular 本身使用 TypeScript 写成的。它将核心功能和可选功能作为一组 TypeScript 库进行实现，你可以把它们导入你的应用中。
+Angular 本身就是用 TypeScript 写成的。它将核心功能和可选功能作为一组 TypeScript 库进行实现，你可以把它们导入你的应用中。
 
 The basic building blocks of an Angular application are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
 
@@ -86,7 +86,7 @@ Every Angular application has at least one component, the *root component* that 
 
 The `@Component()` decorator identifies the class immediately below it as a component, and provides the template and related component-specific metadata.
 
-`@Component` 装饰器表明紧随它的那个类是一个组件，并提供模板和该组件专属的元数据。
+`@Component()` 装饰器表明紧随它的那个类是一个组件，并提供模板和该组件专属的元数据。
 
 <div class="alert is-helpful">
 
@@ -110,6 +110,7 @@ There are two types of data binding:
 
 模板会把 HTML 和 Angular 的标记（markup）组合起来，这些标记可以在 HTML 元素显示出来之前修改它们。
 模板中的*指令*会提供程序逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
+有两种类型的数据绑定：
 
 * *Event binding* lets your app respond to user input in the target environment by updating your application data.
 
@@ -148,7 +149,7 @@ Angular 为一些通用的转换提供了预定义管道，你还可以定义自
 For data or logic that isn't associated with a specific view, and that you want to share across components, you create a *service* class. A service class definition is immediately preceded by the `@Injectable()` decorator. The decorator provides the metadata that allows your service to be *injected* into client components as a dependency.
 
 对于与特定视图无关并希望跨组件共享的数据或逻辑，可以创建*服务*类。
-服务类的定义通常紧跟在 “@Injectable” 装饰器之后。该装饰器提供的元数据可以让你的服务作为依赖*被注入到*客户组件中。
+服务类的定义通常紧跟在 “@Injectable()” 装饰器之后。该装饰器提供的元数据可以让你的服务作为依赖*被注入到*客户组件中。
 
  *Dependency injection* (DI) lets you keep your component classes lean and efficient. They don't fetch data from the server, validate user input, or log directly to the console; they delegate such tasks to services.
 
@@ -291,5 +292,5 @@ Each of these subjects is introduced in more detail in the following pages.
 When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
 
 当你熟悉了这些基础构造块之后，就可以在本文档中进一步查看它们的详情了。
-要学习能帮你构建和发布应用的更多工具和技巧，参见[后续步骤](guide/architecture-next-steps)。
+要学习能帮你构建和发布应用的更多工具和技巧，参见[后续步骤：工具与技巧](guide/architecture-next-steps)。
 </div>

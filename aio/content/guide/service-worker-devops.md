@@ -113,7 +113,7 @@ an app created with the [Angular CLI](cli), this is everything in the `dist` dir
 the user's `src/ngsw-config.json` configuration.
 
 为了确保资源的整体性，Angular Service Worker 会验证所有带哈希的资源的哈希值。
-通常，对于 CLI 应用程序，用户的 `src/ngsw-config.json` 配置文件中会涵盖 `dist` 目录下的所有内容。
+通常，对于 [Angular CLI](cli) 应用程序，用户的 `src/ngsw-config.json` 配置文件中会涵盖 `dist` 目录下的所有内容。
 
 If a particular file fails validation, the Angular service worker
 attempts to re-fetch the content using a "cache-busting" URL

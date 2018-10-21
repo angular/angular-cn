@@ -68,7 +68,7 @@ module using the CLI by entering the following command in the
 root project directory. Replace `CustomerDashboard` with the
 name of your module. You can omit the "Module" suffix from the name because the CLI appends it:
 
-如果你已经有了 CLI 生成的应用，可以在项目的根目录下输入下面的命令来创建特性模块。把这里的 `CustomerDashboard` 替换成你的模块名。你可以从名字中省略掉“Module”后缀，因为 CLI 会自动追加上它：
+如果你已经有了 [Angular CLI](cli) 生成的应用，可以在项目的根目录下输入下面的命令来创建特性模块。把这里的 `CustomerDashboard` 替换成你的模块名。你可以从名字中省略掉“Module”后缀，因为 CLI 会自动追加上它：
 
 ```sh
 

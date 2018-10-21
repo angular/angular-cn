@@ -430,7 +430,7 @@ export interface ExtraOptions {
    * When navigating forward, the scroll position will be set to [0, 0], or to the anchor
    * if one is provided.
    *
-   * 当启用时，路由器会在向前导航时保存滚动位置，导航回来（popstate）时则恢复所保存的位置。当向前导航时，滚动位置会设置为 [0, 0]，如果指定了锚点，则跳转到那个锚点。
+   * 当启用时，路由器会在导航时保存和恢复滚动位置。当向前导航时，滚动位置会设置为 [0, 0]，如果指定了锚点，则跳转到那个锚点。
    *
    * You can implement custom scroll restoration behavior as follows.
    *

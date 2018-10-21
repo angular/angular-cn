@@ -63,8 +63,17 @@ export abstract class TemplateRef<C> {
 
   /**
    * Creates a view object and attaches it to the view container of the parent view.
+   *
+   * 创建一个视图对象，并把它附着到父视图的视图容器上。
+   *
    * @param context The context for the new view, inherited from the anchor element.
+   *
+   * 这个新视图的上下文环境，继承自所附着的元素。
+   *
    * @returns The new view object.
+   *
+   * 这个新的视图对象。
+   *
    */
   abstract createEmbeddedView(context: C): EmbeddedViewRef<C>;
 

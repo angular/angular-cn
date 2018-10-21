@@ -59,6 +59,8 @@ You can run the <live-example></live-example> in Stackblitz and download the cod
 
 ## Template-driven forms
 
+## 模板驱动表单
+
 You can build forms by writing templates in the Angular [template syntax](guide/template-syntax) with
 the form-specific directives and techniques described in this page.
 
@@ -197,7 +199,7 @@ and one optional field (`alterEgo`).
 
 Using the Angular CLI command [`ng generate class`](cli/generate), generate a new class named `Hero`:
 
-使用 Angular CLI 生成一个名叫 `Hero` 的新类：
+使用 Angular CLI 命令 [`ng generate class`](cli/generate) 生成一个名叫 `Hero` 的新类：
 
 <code-example language="sh" class="code-shell">
 
@@ -247,7 +249,7 @@ Angular 表单分为两部分：基于 HTML 的*模板*和组件*类*，用来�
 
 Using the Angular CLI command [`ng generate component`](cli/generate), generate a new component named `HeroForm`:
 
-使用 Angular CLI 生成一个名叫 `HeroForm` 的新组件：
+使用 Angular CLI 命令 [`ng generate class`](cli/generate) 生成一个名叫 `HeroForm` 的新组件：
 
 <code-example language="sh" class="code-shell">
 
